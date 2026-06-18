@@ -1,115 +1,105 @@
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E867F39C632
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 08:31:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706863B19AC;
+	Thu, 18 Jun 2026 08:34:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781771498; cv=none; b=BCYBTZpOBRQSMQoozS4+FLB5mSd+hFJPWztf2t4uGV1+FX+m6oSdP/jFTSf4UQRE2Zvq+9+G6eDyZt5BwWjdf7/rQwuQy0xa2yqoo789ObfFEa9Xhqlqv9xbTS2cSskiOiSHw33qwSfpvkPXfpLxc8QjJt3bGUcZuuFAhzBYrv0=
+	t=1781771654; cv=none; b=WhTEXLifHoJ/7RsEZl304CX0ydt3ITab3E46JVtgbS2VWIaodbd8ZI/Qm2Ks11fpNamZJbSvwiAZD+FCqSQnwbCcHRrYl4nOW75aMAWK1m/jInFg+oeCiUqJRqmpHoOHmW7KmlJYsg/zSA1vs+E5eZN1R6r40R1nnSVred0KRjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781771498; c=relaxed/simple;
-	bh=oalKWUa0RrnEC25wlR5N/jW4SHL3BFzsA4VTUanc7aM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pJ5E0dU5/T7N5o0r31D6YFdtgNedlTtZqz5ysdn3b+4e3jSzVK6Agp9NTygsUo7FPQj3Jt29Vrl6EGBg6waGqxYBE+Vl7i2MpaJfHkZKqnsheW2q0a9sAzMspI79zTeAssaFtdi9oqLGUedk4PsjReFPAzW6JWj1rA/8XDLf8Bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=pB6O8XuO; arc=none smtp.client-ip=35.89.44.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1781771654; c=relaxed/simple;
+	bh=jezyeuQMv93oGNybyWc8x5xshbJ7G+UGosXMEBGPnNA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LkM9KFyEOPBlRsNLRLCnvluvkSEQcD0EVS3tkzode10d9Oy10KBBJTS2wqagYsA9hDZlITVkDFoXAYaAwfMVA8UHPPA2EKFW1GdQsWwHxo651tk31M4MV5nQQq59iRWxf6EUJWXwY72JNepl0zm1QDP8+zonbe70rVKbFWGiAl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YM57K2za; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="pB6O8XuO"
-Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
-	by cmsmtp with ESMTPS
-	id a3v9w928tlPo5a89vwIrZb; Thu, 18 Jun 2026 08:31:35 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id a89uwnOQimZHDa89vwr5j5; Thu, 18 Jun 2026 08:31:35 +0000
-X-Authority-Analysis: v=2.4 cv=M6lNKzws c=1 sm=1 tr=0 ts=6a33ace7
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=wT+KmmCCwuZUgF8W5NZ74FwdWIuqzrhlRPoAInl9W2o=; b=pB6O8XuOto748lKdzeRJ0hDV/5
-	lTRUmV5bvdHaSLPzKLvABjySckUIpPsskNcIJhdS9oS26wYQS3uuV88hKuBQMrA2NHLgwRZKmcXY8
-	o64DA54K983XPYKxaLHoXZ/7eGRcg///SuNMJb5dKw8Erxr4akaLUuAaerjWQr4i2pIYkiZ94JQS7
-	d+koGXfAJ/HEx1AgAiFkCFKuqT7lJiZotDPRLxwZyKvbtBwD5KPrKmzuol1Gd3gq/VuUC87C+3DeB
-	iiv7UGWZDu0pEXOU+tmszr95dalMWdFuDK5Ru0tKdibsYRaJCApR18IGwhNHxddfuTZvFKUroN+Lu
-	v/bQ1wjw==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:49442 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.2)
-	(envelope-from <re@w6rz.net>)
-	id 1wa89u-00000002gH8-0JCj;
-	Thu, 18 Jun 2026 02:31:34 -0600
-Message-ID: <5d46ac0a-7728-4959-aac4-1feafc5e4735@w6rz.net>
-Date: Thu, 18 Jun 2026 01:31:32 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YM57K2za"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D96471F000E9;
+	Thu, 18 Jun 2026 08:34:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781771651;
+	bh=SB6+ZWqOYOVD8J6Bm8SL4mIshI5oOydkw8DYdXdWOWI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YM57K2za+CC6RytagmjmCqXnGQc+SkdnKMBuOZwnO2NqsfRcfFEpbGzEn72iCkPg7
+	 Adu28iwlNOIklDbu/PZI1NjZFE2MY/VVPalsuFkVouPiL9IY8E7E0rGoOGeHei/Rnp
+	 YA0W3poKHIA6DCrOmWDA37W/6mQ6Di08BvfNXJuagpMB9PVY0I2cIR9kKo0trJy20Z
+	 2eHZLmiFXByxMoz2YPVv4mXkjmjCA35cnnAvKV8gxesoW/n2n1njTLodZfUhP9hZ96
+	 uFJm7n0ajHBoYrRdjyJ3qv/dH65lDSVgOM16OoKUwWqjw2BVqsN/vSjy1h8PEK4v0m
+	 /I3p8zP71uT4g==
+Date: Thu, 18 Jun 2026 11:34:05 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Linus Torvalds <torvalds@linuxfoundation.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+	Oleg Nesterov <oleg@redhat.com>, Peter Xu <peterx@redhat.com>,
+	vova tokarev <vladimirelitokarev@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] userfaultfd: prevent registration of special VMAs
+Message-ID: <ajOtfdGgFQYL-T6f@kernel.org>
+References: <20260617194059.2529406-1-rppt@kernel.org>
+ <5a993689-f730-406d-8515-8bb6025cc851@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/410] 5.15.210-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260617080316.111043001@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260617080316.111043001@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wa89u-00000002gH8-0JCj
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:49442
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 99
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfAkcPAJpLFeAfdvyoo+1OBzEvHP87tchvHIk00i4dLQ2OIHv+iqyKyJ6Lm1Z5iefWCxRR4S6Elu2iCz97Y2YWGuoLjNMk0CfU/NPtGNojpM/UNj6HQAG
- la4GhN7ixlrVPwJ2nlbxzRzl/1UPOj1J0wcQcfBbyiHPogHTVh8CdDNGBmAYGHRrNU4bsfod9FXn7Q==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5a993689-f730-406d-8515-8bb6025cc851@kernel.org>
 
-On 6/17/26 01:03, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.210 release.
-> There are 410 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 19 Jun 2026 08:02:26 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.210-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+On Thu, Jun 18, 2026 at 10:19:17AM +0200, David Hildenbrand (Arm) wrote:
+> On 6/17/26 21:40, Mike Rapoport wrote:
+> > From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+> > 
+> > Vova Tokarev says:
+> > 
+> >   userfaultfd allows registration on shadow stack VMAs.  With userfaultfd
+> >   access, you can register on the shadow stack, discard a page ... and
+> >   inject a page with chosen return addresses via UFFDIO_COPY.
+> > 
+> > Update vma_can_userfault() to reject VM_SHADOW_STACK.
+> > 
+> > While on it, also reject VM_IO, VM_MIXEDMAP and VM_PFNMAP so that if a
+> > driver would implement vm_uffd_ops, it wouldn't be possible to register
+> > special VMAs with userfaultfd.
+> > 
+> > Reported-by: vova tokarev <vladimirelitokarev@gmail.com>
+> > Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
+> > Cc: <stable@vger.kernel.org>
+> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > ---
+> >  mm/userfaultfd.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> > index 246af12bf801..b8d2d87ce8d7 100644
+> > --- a/mm/userfaultfd.c
+> > +++ b/mm/userfaultfd.c
+> > @@ -2111,7 +2111,8 @@ static bool vma_can_userfault(struct vm_area_struct *vma, vm_flags_t vm_flags,
+> >  {
+> >  	const struct vm_uffd_ops *ops = vma_uffd_ops(vma);
+> >  
+> > -	if (vma->vm_flags & VM_DROPPABLE)
+> > +	if (vma->vm_flags & (VM_DROPPABLE | VM_IO | VM_MIXEDMAP | VM_PFNMAP |
+> > +			     VM_SHADOW_STACK))
+> 
+> I'm sure you considered VM_SPECIAL, which additionally includes VM_DONTEXPAND.
+> 
+> Would that be better, or what was the reason to allow VM_DONTEXPAND?
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+By itself VM_DONTEXPAND won't matter, as uffd can't resize a VMA.
+But thinking more about it, it's better to make vma_can_userfault() more
+restrictive and just use VM_SPECIAL.
+ 
+> -- 
+> Cheers,
+> 
+> David
 
-Tested-by: Ron Economos <re@w6rz.net>
-
+-- 
+Sincerely yours,
+Mike.
