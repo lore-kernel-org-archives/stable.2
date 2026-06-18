@@ -1,99 +1,130 @@
-Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C9E2E7380
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 18:58:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272C43D75D7;
+	Thu, 18 Jun 2026 18:58:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781809086; cv=none; b=nMRjfN+okvokU6JznnZKcd4cBxCcXu7XwOTcutQWqZ9leu+BH2or1Ei+iKa8o1LszJ8h6ODvxlOB9AY3S87l4DuzkKP2rIJFdBNHNxlSiza4lPl4h18u3Ht0MocDfsh6too98e5HTLt8qPERbVUlV5fVcJF+fL8oX8x7zNKTaWo=
+	t=1781809111; cv=none; b=aMxtF3oZmnvO7eYKGZtD1bS/hbMlRbUt5m8TFrgxwXqdKJzbLz6jHCxUjYJfVA1C8vu71BJLQiKcsLUDvjPmsOlaONl2uZCOF9hJW2mWwHMwYrfNRGxDM4BdVLGMXQsJCSqSTLxa2UivXSiBi8VkAjvF5JXqsRQPnhNAfUyVNjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781809086; c=relaxed/simple;
-	bh=PD6CHh12XmvOzKqEhPnlPddPvwTRfUqT40UI+Wz7KZU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kz24TTxououAImZF/reIA3vdDDPzAxXq4mKjkF/kyKHo8rZmMlwoM9/Ll+5SJZUdTG2HClN9vFFxhEEImgZtgBZfXi5WZ/gmTpRWR5Y3UVh+uDf/sAecIAUqpou5EMTpJNfHMsJOdMQX9XZWxgm5A9Vr5w6KReQuFHyMN14sYMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lNzC74sl; arc=none smtp.client-ip=91.218.175.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1781809111; c=relaxed/simple;
+	bh=WXCCPqxvfl6oxsasf1KzwUKCxNz5rxUrKGph8eCpvqw=;
+	h=Date:To:From:Subject:Message-Id; b=VPH8fAkUybB5nExbrPCKucK9A485jvrGtp9Q3Z7sRO8DsIc1TNX7DKIMFIL8Z2vMliA4S2ByuXLn8ClTfEiFJEvP5IaABFR1PyfE9pGGp1zkTlFs0zinHatC3tf+VgAb74qOHyhf2VUpnjn9qDW09iFpVyQMKiUlEOY0tYiiCLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=KG1+k6AP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lNzC74sl"
-Date: Thu, 18 Jun 2026 20:57:56 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1781809081;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ccRwH1M9+EU8H0Zn/3IoMPQP/R82XHic9JmeEjLVWNs=;
-	b=lNzC74slItOJob95QVJFnMjXkZVw079r7zo+HtHEUoBGMFNu3qGyeWDFeC9Ko3JHGMcw+d
-	OlKXj2G1TRswuGsSFEoDq2kDElQD1kLIH+wp0nwkmc+AulZhYozRgV9zXvK+mFMpcPHM1p
-	R3odZB//Mnqlw0CbJN7clptVx4NN3cQ=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Chao Fan <fanc.fnst@cn.fujitsu.com>, stable@vger.kernel.org,
-	Borislav Petkov <bp@suse.de>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] x86/boot: Reject truncated acpi_rsdp= values
-Message-ID: <ajQ_tNrz5hkS1MmB@linux.dev>
-References: <20260617130417.36651-4-thorsten.blum@linux.dev>
- <20260618045400.GCajN56AKctO0qB-sF@fat_crate.local>
- <ajQI0mJwobsGHj6F@linux.dev>
- <20260618163856.GAajQfIDh0s31VINiS@fat_crate.local>
- <ajQx7dBWRuRFuKwE@linux.dev>
- <20260618180412.GBajQzHB3Rj0SrS1Eo@fat_crate.local>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="KG1+k6AP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D0F91F000E9;
+	Thu, 18 Jun 2026 18:58:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1781809109;
+	bh=Zp5yQzbkPORtILFUCqfrNAGU7etrAWh2Cy5K5XQI6FU=;
+	h=Date:To:From:Subject;
+	b=KG1+k6APPrban5Duc0eiOTYuCppVjuTJyswQzbZsOzhTkkg25Kxf2UU5Q5ktfQf/n
+	 NSiGRvnYluKsDKt5EEqLnBN2I84KbtGQM6MAjV74dVZLvnuFgAAFyRr5UX81kEZgv8
+	 KoX12u2iwu0tfvG6afx2t0qzZYx9uHvwC5v0ACdo=
+Date: Thu, 18 Jun 2026 11:58:29 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-damon-sysfs-schemes-fix-dir-put-orders-in-access_pattern_add_dirs.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260618185829.7D0F91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260618180412.GBajQzHB3Rj0SrS1Eo@fat_crate.local>
-X-Migadu-Flow: FLOW_OUT
 
-On Thu, Jun 18, 2026 at 11:04:12AM -0700, Borislav Petkov wrote:
-> On Thu, Jun 18, 2026 at 07:59:09PM +0200, Thorsten Blum wrote:
-> > On Thu, Jun 18, 2026 at 09:38:56AM -0700, Borislav Petkov wrote:
-> > > On Thu, Jun 18, 2026 at 05:03:46PM +0200, Thorsten Blum wrote:
-> > > > get_cmdline_acpi_rsdp() can truncate it into a different, parseable
-> > > > address and use that instead.
-> > > 
-> > > How?
-> > 
-> > The buffer has 19 bytes to hold the "0x" prefix, 16 hex digits, and the
-> > NUL terminator.
-> > 
-> > cmdline_find_option() copies only bufsize - 1 bytes, but returns the
-> > full argument length. So for example:
-> > 
-> > 	acpi_rsdp=0x0123456789abcdefx
-> > 
-> > gets copied as:
-> > 
-> > 	0x0123456789abcdef
-> > 
-> > which boot_kstrtoul() parses successfully. The user supplied an invalid
-> > value, but we silently use the truncated prefix as the RSDP address.
-> 
-> My question stands:
-> 
-> "Or are we protecting people from shooting themselves in foot now too?"
-> 
-> Especially users who should know what they're doing...
-> 
-> IOW, how far are we going to "protect" here?
 
-Only far enough to avoid using a value the user didn't actually enter.
+The patch titled
+     Subject: mm/damon/sysfs-schemes: fix dir put orders in access_pattern_add_dirs()
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-damon-sysfs-schemes-fix-dir-put-orders-in-access_pattern_add_dirs.patch
 
-A user can still shoot themselves in the foot by using a syntactically
-valid but wrong address. The check only rejects an overlong acpi_rsdp=
-value after cmdline_find_option() reports that it didn't fit in the
-buffer.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-sysfs-schemes-fix-dir-put-orders-in-access_pattern_add_dirs.patch
 
-We already reject values that boot_kstrtoul() fails to parse; this is
-the same idea: the copied string is incomplete and shouldn't be parsed.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Thanks,
-Thorsten
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: SeongJae Park <sj@kernel.org>
+Subject: mm/damon/sysfs-schemes: fix dir put orders in access_pattern_add_dirs()
+Date: Wed, 17 Jun 2026 17:56:47 -0700
+
+Patch series "mm/damon/sysfs-schemes: fix wrong directories put orders in
+error paths".
+
+Error paths of damon_sysfs_access_pattern_add_dirs() and
+damon_sysfs_scheme_add_dirs() functions put references to directories in
+wrong orders.  As a result, uninitialized memory dereference and/or
+memory leak can happen.  Fix those.
+
+
+This patch (of 2):
+
+In access_pattern_add_dirs(), error handling path puts references starting
+from setup failed directories.  If the failure happpened from the initial
+allication in the setup functions, uninitialized memory dereference
+happen.  The allocation failures will not commonly happen, but the
+consequence is quite bad.  Fix the wrong reference put orders.
+
+The issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260618005650.83868-2-sj@kernel.org
+Link: https://lore.kernel.org/20260617060005.86852-1-sj@kernel.org [1]
+Fixes: 7e84b1f8212a ("mm/damon/sysfs: support DAMON-based Operation Schemes")
+Signed-off-by: SeongJae Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 5.18.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/damon/sysfs-schemes.c |    9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+--- a/mm/damon/sysfs-schemes.c~mm-damon-sysfs-schemes-fix-dir-put-orders-in-access_pattern_add_dirs
++++ a/mm/damon/sysfs-schemes.c
+@@ -1767,22 +1767,19 @@ static int damon_sysfs_access_pattern_ad
+ 	err = damon_sysfs_access_pattern_add_range_dir(access_pattern,
+ 			&access_pattern->sz, "sz");
+ 	if (err)
+-		goto put_sz_out;
++		return err;
+ 
+ 	err = damon_sysfs_access_pattern_add_range_dir(access_pattern,
+ 			&access_pattern->nr_accesses, "nr_accesses");
+ 	if (err)
+-		goto put_nr_accesses_sz_out;
++		goto put_sz_out;
+ 
+ 	err = damon_sysfs_access_pattern_add_range_dir(access_pattern,
+ 			&access_pattern->age, "age");
+ 	if (err)
+-		goto put_age_nr_accesses_sz_out;
++		goto put_nr_accesses_sz_out;
+ 	return 0;
+ 
+-put_age_nr_accesses_sz_out:
+-	kobject_put(&access_pattern->age->kobj);
+-	access_pattern->age = NULL;
+ put_nr_accesses_sz_out:
+ 	kobject_put(&access_pattern->nr_accesses->kobj);
+ 	access_pattern->nr_accesses = NULL;
+_
+
+Patches currently in -mm which might be from sj@kernel.org are
+
+mm-damon-sysfs-schemes-fix-dir-put-orders-in-access_pattern_add_dirs.patch
+mm-damon-sysfs-schemes-put-stats-for-scheme_add_dirs-internal-error.patch
+mm-damon-core-always-put-unsuccessfully-committed-target-pids.patch
+
