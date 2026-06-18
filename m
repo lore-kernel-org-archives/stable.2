@@ -1,236 +1,315 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp-8faa.mail.infomaniak.ch (smtp-8faa.mail.infomaniak.ch [83.166.143.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4CB33F582;
-	Thu, 18 Jun 2026 16:02:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781798580; cv=fail; b=X6Oj9yrFnYrKwrl7UXrE3y/sUixVkBe2fiH3xOBYEEjkjhgt/Si2MCkzv4Q6Jh3S2uVO5Kom6o6bkLV6ZZYOofwSPpskV/l3Q4i0s+ebKj4V2ovE0Yc2lhPW34xHq4mE428oCp5npJ4LXQSgLzb+Iu36bzUtni3skViP0cPxvDs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781798580; c=relaxed/simple;
-	bh=K9s9DV+cDRYbypQ4/nIGKnLxdU8bY3684hH6li2X9Fw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=FEimbKdlcK9MFng7MEWzxtivstL5Zntl8G63SRETZ7riZgvlov8A364HU2XlbAmRk2Y3z40CZ89Y/M2CRR6qCJZ9XQMpv3oi0oA7mVgZSYAyNCO3Mt0Qh3moUIIhoToD3kkWfnKc4yC/YYrCtMuhDsMD+ScputmXh6HGbOSl4CE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PRAg/bPf; arc=fail smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C18F33F37A
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 16:03:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781798597; cv=none; b=JRqysMwcWrkrMtIZa8gnvW8cEyE0vAcN7CBOK6bCUDXYHMJeknEgOEXR3RncZPBzYY22rP4j7Ju3cxFd74m/ZljGI5HOmBLW1UCagcu7YOlZvK+e4UYRpyEoPaLWGLTxIbdZDr1BnecNhjMQqJQfzZLzLzsLAkUWfKCasvrXqCw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781798597; c=relaxed/simple;
+	bh=eqas2mXkgbO1aHhP2Cfjdf8hQgnkrjngdvU2L2nnFwY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Zp9aXTtE8UVXnpF0RjmtOg5GMkvzXKwvb8tWfJWZk6pUWZ/bYOhh4Z81MfahLhtaf6CtKbLyFk3aJFc7z1jQ1+LqN/sikyMG07F40NgWoGfW2HcEkVIH+9sBUvqTP4zajlAJ4vNMMSlM/z1866UqFzZnlT/wqInOtbTGgUdH8JE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net; spf=pass smtp.mailfrom=0leil.net; dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b=YagjMM7n; arc=none smtp.client-ip=83.166.143.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PRAg/bPf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781798578; x=1813334578;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=K9s9DV+cDRYbypQ4/nIGKnLxdU8bY3684hH6li2X9Fw=;
-  b=PRAg/bPf1o7hdrKpom07VaM7C3Tdt7tfdiZ2JduQRkkaFLB2wqQ2Pq/u
-   cWJpx4nQqijH73gCPpG0OzkQKIz7rhN/uikjNd/aGkvIT9v9uRSrWqT5x
-   eVcwoISZ4Volj6k+utE1RIX7XUYYuG7E/759p7JVgMQAxEphdphVFNmik
-   SvNOmFu0k9rNlc+4jghDaeiXc9ZPlj+wZFUlkS8YViLJZXuNpAGgSiiaH
-   W4sMTiVpr4/fhtKhoafzPA13iOkozg/5kTIC47UjyV0CUKe3TT52VGhgi
-   K2hSBZUUNJU0Ui4BZ3YplPWtdUVC4g5P3un3frFx0W3CmvohAIHslrLeb
-   g==;
-X-CSE-ConnectionGUID: M+Q37qcBStmFUo/sf7dCig==
-X-CSE-MsgGUID: 4fvhNuxTSQSyar1w90TGew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11821"; a="70154966"
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="70154966"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 09:02:57 -0700
-X-CSE-ConnectionGUID: sK6m6rSgS/+MUw+YR8MvSA==
-X-CSE-MsgGUID: gD8YvRSTStqIXw2gNVJ0Gg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="272477996"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 09:02:57 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 18 Jun 2026 09:02:56 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Thu, 18 Jun 2026 09:02:56 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.58) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 18 Jun 2026 09:02:55 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tqQs2/ddmkgwfgXDA0i51bDTVFyd5Q41g7PyG4+BhR4MERpzm5qfhXMe7fU1HB1gwolZWIvgr5H8J690t1T+n2tbQdIRHTUhBBXGRsJK/1Zu1zEOTEi1RMC3cNnmpBjFclghB72Uvbjfxsmkvb+F8aYym8DHCFQTNoskU4eWKlvaLIpdFSl2vGn58RIT5238xJcZlCsFFLewqCdURBLnGyW1oD5riQjHIPHKOCZ1YQvqDhNaQgxXJg2xK9G2jKRdErQbN5f6kILGBYBlx4La9ylhl3br5mm+QGA45/K4p85q1pv27g53IprPHJ+fa8Y8cB4BEibdjonGpagUztgBZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VTyQsOqAXmnK1eOhWxkFrYDOaTddTrc9DQI5dEeSPLI=;
- b=yMXFubvIhKlTeRcqsB4c7E82II+Ba+96Ije4sbPV/ZEApZSake70c45KcXCufpdfE2vwZVZYGtUjncnHDARd43bFaVROuuHtcAcSRXP5vRp6iRp0qRqaZvEnmV4MTPtYnJajfp8UlOJ9yfYQ5TkrC3ysghHH0Nw/ALFjFTK/2wUudr0Dj9n0Mn2LxRUwXIqeok1QWOxuXIY5wwRk6jeubgScljL3O1aUKvnMKHLYJzg8yhcff8eJEaCfi8aK/bCB8h0xSQGzm082HUI7qh0K5NUVb0vh2Dttgtpydpl3gcZ05DX6ttXHrImPeSo2BXBBJtcJJDUAJJYNoZgApdbhbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
- by IA3PR11MB9273.namprd11.prod.outlook.com (2603:10b6:208:573::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Thu, 18 Jun
- 2026 16:02:52 +0000
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0139.011; Thu, 18 Jun 2026
- 16:02:52 +0000
-From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
-To: Doruk Tan Ozturk <doruk@0sec.ai>, "Nguyen, Anthony L"
-	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
-	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>
-CC: "michal.swiatkowski@linux.intel.com" <michal.swiatkowski@linux.intel.com>,
-	"Drewek, Wojciech" <wojciech.drewek@intel.com>,
-	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, "horms@kernel.org"
-	<horms@kernel.org>
-Subject: RE: [Intel-wired-lan] [PATCH net v2] ice: eswitch: fix use-after-free
- of metadata_dst in repr release
-Thread-Topic: [Intel-wired-lan] [PATCH net v2] ice: eswitch: fix
- use-after-free of metadata_dst in repr release
-Thread-Index: AQHc/zHSZDpWL9qtBECxAr4mx0WoLbZEeWJw
-Date: Thu, 18 Jun 2026 16:02:52 +0000
-Message-ID: <IA3PR11MB8986C4C227BFA15D0055EF15E5E32@IA3PR11MB8986.namprd11.prod.outlook.com>
-References: <20260618145003.47471-1-doruk@0sec.ai>
-In-Reply-To: <20260618145003.47471-1-doruk@0sec.ai>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|IA3PR11MB9273:EE_
-x-ms-office365-filtering-correlation-id: f512f562-d6fb-4603-11f9-08decd530d94
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|38070700021|22082099003|18002099003|921020|11063799006|56012099006;
-x-microsoft-antispam-message-info: 1sweMjTRWsDznaQUiW0exsZpysIA7qoPxce9zj+UbPhZjvkjqjkwJ0wfODIWqrG7/exw0O8cOFyqT5N7nqxPI7oP446zUBmE1wNhGMZMyPwH/47O0RZOQbheZL2yiBTzAJ9d412jC4E0B7xQTyIiQEWtY79NwsEG9WW4hzcvIvIsSF4YqzjbAi5gZn9pzN75S3PE2Goxj7aEL2QXtJ0GN4dQsWdkPdXFFhBKmNfLtjX6pos9J7DzfDRKIdf3EvXhqIrX9PGpCU54KKIeacSkhyr9e5hxqBH4mH+o/wY07+ca9Tvo1ndIreevQrtQ2XXcKC/loUeo5ktoObYG3HZK+v7I22ne8pHDNj4Hk/nZfGbusr/eU2dFdVugraBWeLb6QMnRGWcosfwzwAAVjRcfv3Idjtyc1nla7iFBnCd7VOpWZTVkGVbP7sekfTjMzCLE0xVd7BW4zlLQBCAPrNvQWiOcFI675fDh/GPoxV4YOMSgInLWA3eMU2prC248R3U6JbKmRPKWK4psS0uwIlD1/+B523IgeXVgsJ3TZ7JBk6eQpYim2sYLTKR660QyIuXMNPEqA5zuyeeMXFOTHfRp5Iyc9o8MsYfTm5y/A/j13oVuEbp9URCC8l5OWul8GegQDThzrbQ+0MxgxsIVLmiBZAktYaKmCjkMfq/cdM5OzxsxRyZrziW63bFaH9SHSrUkwI1BUCzkmpe8QOJcrmGyHgly9RID5jN4Wn/hlNJvErLJ0JmwddIJffHQDzaMDBCYQm/vMSLKvD3ZQ7kBjgqgjg==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(38070700021)(22082099003)(18002099003)(921020)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wsx9LrBMhVinhEePriCmnu0vIZeYF4m8YxcL0+SI+SNolkoluWDnpvdxo0E+?=
- =?us-ascii?Q?GZGnu2+ri9B6snHaZYQQtz4bupX7aBmxiZ4zLyA0ht7OX9P43AOkyNuv6ZgE?=
- =?us-ascii?Q?re04868TLHHPyb3tLCyepmeoHPXbwW2A2S+3pZCObwIpvvfTUXYyrk+iOtvS?=
- =?us-ascii?Q?BMX5XpvkgX7psy6ZBdkiGGiLH9XT6HkuBDhNt76uC6y5wu73Vl2gFYG63/Ue?=
- =?us-ascii?Q?xg9AOk+XPHYaRLVlBLdo0Qi7b/2VMsBf+swjS8JrEzjQ4xfeKaTO79GhFpHT?=
- =?us-ascii?Q?gyZtbcjR+RbEhr9rmnIq0pWM8GWEb9D2zaFGlQdRFE7L2C9el3T9TItVogBo?=
- =?us-ascii?Q?yyZw49taP0a4SsiEwOFffZqann8H3UqkeNyJQmXmUIe8ohLRy4UABM9QYsLB?=
- =?us-ascii?Q?586n0UzsD6lOEXy8WBcQyf+fpqtjRLX4lbMQPX6VL1qGRbKo0vUZ/v88vnpd?=
- =?us-ascii?Q?/73Mtf9+QWgZp+V7OIxiPCh6qhn5XIrftDa0Eug6WCx6hevb8nXXSsylMKe/?=
- =?us-ascii?Q?4uSLF+pOIcnQrSGhMT4f0NwQNBTnag3IZhfNNPaYnk5xv1cNcT5nEOdQjXQi?=
- =?us-ascii?Q?goNsDDvN2xbHaSjPUfplFWZeonx7j/hatFelA/bF88aHDtLjXdjuNaIKZy7y?=
- =?us-ascii?Q?eO3WMZye+xMwvz7tKJvEd6k+X+G4iT6g5eVTNrl53lws3DmafPRR9ULbEMmJ?=
- =?us-ascii?Q?83hId+t++GnWPrrPE50lXt8szmL7wt+gd/ZtSHd4olLs3s9guZ84riV16LFq?=
- =?us-ascii?Q?EjEy3EzNp5ot/s8uJuCEQzuUonXU4zncvil/4FVvEBxmEk5lNgUtUQfc2yYi?=
- =?us-ascii?Q?3xJolt/MbBs/eIYKDs1w3U+DGZFTEC07WCRY6wC61ch9bZwpSao7rBWKLyjC?=
- =?us-ascii?Q?lBL1tHEA3Fn4wyzsA7OOJ2d5rLw7N3+qPuhr7oDFSubROnzvPCvCSD6X1R/v?=
- =?us-ascii?Q?gnuGRlFPEHQYPp80o2vCiFtXgSPiwnwhStQ38qqHa4sC9L5kKjsgdIbb1QWR?=
- =?us-ascii?Q?X4cG2ZT54oUEdjgoyC2n8/7FkVw+UmeI6IuEeu98EysJzKNbkqe3EIV7Iv3h?=
- =?us-ascii?Q?VJp8xLCaT8ioNEZyM6WqsK+0aUmNu1ekMjM1mLgTfgrbCMiYl2APfD4QPcjk?=
- =?us-ascii?Q?m0lRPD2MSD1y4nnu7c7FLIT86WXT46jNe1RwqQ3GGgGtxtg1pSCdiDiFkzuN?=
- =?us-ascii?Q?wQHByi1fPoxuStxLVaSIzVzeVD5YkJkcC7zZZb37pV3DuvtoJNuTNMj8y+oO?=
- =?us-ascii?Q?QpIMNJxllHKiumQYRjhBqEondk3eyWiHkuUEp1/ozQNScHVdH3zncjGFxHVa?=
- =?us-ascii?Q?Ef6wU2hnum4GitRMYaTSDOmbjBzi3E/kyTOVCAReanPioKH86jNdDXZMWwin?=
- =?us-ascii?Q?9D5zoxE2TNUcNuOS6AX8dMOisifUXol9Me95cyK54/mI9zUHN5jVfgR7BzGS?=
- =?us-ascii?Q?tZqQmEptJwMA0C7y1PqH5qIBGnxk6qpHxGxzi+5YOIMzyPQaxkss1kmTZJRk?=
- =?us-ascii?Q?bCDmQXReoF7XbZEUbpKHMk4MnM5677l+x/4FPjgU2ZFnMCCeXT65hja4syhn?=
- =?us-ascii?Q?e40hVS7NOSGJqG6PNWLP3dQdIWX7UeZExpP00dg/hlAN6++8VRCYfoSonb9o?=
- =?us-ascii?Q?BpSiy/0FwsZHvKD3JNYQNXzBHvf7/8mLNYxh/tvDeRvHucYOvI5iR0uasu+d?=
- =?us-ascii?Q?2cc/ghhYYnYTt1x09T4KS2m8vrA5kWKFMrF60KUtw9dTIlcn1D5ZUAsjx91l?=
- =?us-ascii?Q?+jQlIXrnQ2OGewQ7tpQcLv0gwXMnPqo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b="YagjMM7n"
+Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gh59W6B1JzWmb;
+	Thu, 18 Jun 2026 18:03:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
+	s=20231125; t=1781798591;
+	bh=WFWr/eRu56LbwkIihFliOGU03+8mIpPHxBpsnuv42Mc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=YagjMM7nX31btQfPZj7IutRgA5Jq4zezCURaUIwlXqaYOXVhGs/YzJWbo5dsvgXnW
+	 +pchwAvOnHIYVMBcAsjXTmVUtRI30P/X7kQE5tLKFpbskOIUZDedYlA3GfKEJKeIvU
+	 covdEJBDSbU08yDtL228WzGG7wqMnTIYRfz1T+/MQmZSnHuT7X1BdD26IDZwTOGfJY
+	 0JOsYdGE3Funo5HYipxqpfxx3/rEgvHN3YgE0I3AvdxmueqzOE0DYMdtGl2PH8RKWb
+	 zUyVs4WhsXPsm1qhnmHgidLIHLxDFr4jgoTe3kh+Ju683fcLzxm7ZVlD0SQZ/BZ+NU
+	 308GOaXTmMznQ==
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4gh59V6j3Hz7GT;
+	Thu, 18 Jun 2026 18:03:10 +0200 (CEST)
+From: Quentin Schulz <foss+kernel@0leil.net>
+Date: Thu, 18 Jun 2026 18:02:53 +0200
+Subject: [PATCH 6.12.y 3/3] gpio: Fix resource leaks on errors in
+ gpiochip_add_data_with_key()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: fzLRB1ABIEFVgFY/rAYbA3sujWzG2RLH+/PZJApedJZ23GL283w14XqGi6l+ETUhHljSo4k1b6W3D8oQE4OrNm2kNV6/RlCqJHK0e3jQ5jAFbqY+eqKj1uee4UCWn7fPlT2GUzki76Vla/Pvt16HJWA88zbvj2M49BEejRKDptGl3aE+5HpebPwXVDXiBHruhp8vwQM+7DYaS2GOn914LiJ3kz+QKckOG75BsPQfrap5mmHoA4xa4ty7pE2tsX0Uf0/s/GWQtBoIsuqBQ/yQJCUQ7C+OBbW3a8TG2y3uVpIQZ6RXxRRsAcheFmxXy5KZnOzpeQpthCB/Ke/HTkJayQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f512f562-d6fb-4603-11f9-08decd530d94
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2026 16:02:52.6923
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FTHmn9W9qz0EZCnL4eXeCiT8FAzG6QIKDA1/BjCQzPHtcT2Pt5Cml44YVrYiFgYPwF0Pq6BFH9qpvRaDJbn5DVH5NowlZuF5fU38S36Au/0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB9273
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260618-6-12-cve-2026-31732-v1-3-7ca0d0b906b0@cherry.de>
+References: <20260618-6-12-cve-2026-31732-v1-0-7ca0d0b906b0@cherry.de>
+In-Reply-To: <20260618-6-12-cve-2026-31732-v1-0-7ca0d0b906b0@cherry.de>
+To: Linus Walleij <linus.walleij@linaro.org>, 
+ Bartosz Golaszewski <brgl@bgdev.pl>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, 
+ Quentin Schulz <quentin.schulz@cherry.de>, 
+ Tzung-Bi Shih <tzungbi@kernel.org>, stable@vger.kernel.org, 
+ Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-47773
+X-Infomaniak-Routing: alpha
 
+From: Tzung-Bi Shih <tzungbi@kernel.org>
 
+[ Upstream commit 16fdabe143fce2cbf89139677728e17e21b46c28 ]
 
-> -----Original Message-----
-> From: Intel-wired-lan <intel-wired-lan-bounces@osuosl.org> On Behalf
-> Of Doruk Tan Ozturk
-> Sent: Thursday, June 18, 2026 4:50 PM
-> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel,
-> Przemyslaw <przemyslaw.kitszel@intel.com>; andrew+netdev@lunn.ch;
-> davem@davemloft.net; edumazet@google.com; kuba@kernel.org;
-> pabeni@redhat.com
-> Cc: michal.swiatkowski@linux.intel.com; Drewek, Wojciech
-> <wojciech.drewek@intel.com>; intel-wired-lan@lists.osuosl.org;
-> netdev@vger.kernel.org; linux-kernel@vger.kernel.org;
-> stable@vger.kernel.org; horms@kernel.org
-> Subject: [Intel-wired-lan] [PATCH net v2] ice: eswitch: fix use-after-
-> free of metadata_dst in repr release
->=20
-> ice_eswitch_release_repr() frees the port representor metadata_dst via
-> metadata_dst_free(), which directly kfree()s the object and ignores
-> the dst_entry refcount. The eswitch slow-path TX routine
-> ice_eswitch_port_start_xmit() takes a reference on this dst with
-> dst_hold() and attaches it to the skb via skb_dst_set(). If such an
-> skb is still in flight (e.g. queued in a qdisc) when the representor
-> is torn down, the metadata_dst is freed while the skb still points at
-> it. When the skb is later freed, dst_release() operates on already-
-> freed memory.
->=20
-> Replace metadata_dst_free() with dst_release() so the metadata_dst is
-> freed only after the last reference is dropped. The dst subsystem
-> frees metadata_dst objects from dst_destroy() once the refcount
-> reaches zero (DST_METADATA is set by metadata_dst_alloc()).
->=20
-> Same class of bug and fix as commit c32b26aaa2f9 ("netfilter:
-> nft_tunnel: fix use-after-free on object destroy").
->=20
-> Fixes: 1a1c40df2e80 ("ice: set and release switchdev environment")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-> Reviewed-by: Simon Horman <horms@kernel.org>
-> ---
-> v2:
->  - Correct the Fixes: tag to 1a1c40df2e80 ("ice: set and release
->    switchdev environment"); the previously cited fff292b47ac1 only
-> moved
->    the affected code rather than introducing the unbalanced free, and
-> the
->    bug dates back to when switchdev support was added (Simon Horman).
->  - Add Simon Horman's Reviewed-by. No functional change.
->=20
->  drivers/net/ethernet/intel/ice/ice_eswitch.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/net/ethernet/intel/ice/ice_eswitch.c
-> b/drivers/net/ethernet/intel/ice/ice_eswitch.c
-> index 2e4f0969035f..41b30a7ca4a9 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_eswitch.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_eswitch.c
-> @@ -95,7 +95,7 @@ ice_eswitch_release_repr(struct ice_pf *pf, struct
-> ice_repr *repr)
->  		return;
->=20
->  	ice_vsi_update_security(vsi, ice_vsi_ctx_set_antispoof);
-> -	metadata_dst_free(repr->dst);
-> +	dst_release(&repr->dst->dst);
->  	repr->dst =3D NULL;
->  	ice_fltr_add_mac_and_broadcast(vsi, repr->parent_mac,
->  				       ICE_FWD_TO_VSI);
-> --
-> 2.43.0
+Since commit aab5c6f20023 ("gpio: set device type for GPIO chips"),
+`gdev->dev.release` is unset.  As a result, the reference count to
+`gdev->dev` isn't dropped on the error handling paths.
 
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Drop the reference on errors.
+
+Also reorder the instructions to make the error handling simpler.
+Now gpiochip_add_data_with_key() roughly looks like:
+
+   >>> Some memory allocation.  Go to ERR ZONE 1 on errors.
+   >>> device_initialize().
+
+   gpiodev_release() takes over the responsibility for freeing the
+   resources of `gdev->dev`.  The subsequent error handling paths
+   shouldn't go through ERR ZONE 1 again which leads to double free.
+
+   >>> Some initialization mainly on `gdev`.
+   >>> The rest of initialization.  Go to ERR ZONE 2 on errors.
+   >>> Chip registration success and exit.
+
+   >>> ERR ZONE 2.  gpio_device_put() and exit.
+   >>> ERR ZONE 1.
+
+Cc: stable@vger.kernel.org
+Fixes: aab5c6f20023 ("gpio: set device type for GPIO chips")
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+Link: https://patch.msgid.link/20260205092840.2574840-1-tzungbi@kernel.org
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+[missing commit fcc8b637c542 ("gpiolib: switch the line state notifier
+ to atomic"), commit dcb73cbaaeb3 ("gpio: cdev: use raw notifier for
+ line state events") and commit d4f335b410dd ("gpiolib: rename GPIO chip
+ printk macros") in 6.12.y.
+ s/gpiochip_err/chip_err/ as well as replaced
+ rwlock_init+RAW_INIT_NOTIFIER_HEAD with BLOCKING_INIT_NOTIFIER_HEAD
+ based on missing commits, following same logic as in 16fdabe143fc.]
+Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+---
+ drivers/gpio/gpiolib.c | 121 ++++++++++++++++++++++++-------------------------
+ 1 file changed, 58 insertions(+), 63 deletions(-)
+
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index 97a32e6f901fc..878f9ab4a0982 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -785,13 +785,15 @@ static const struct device_type gpio_dev_type = {
+ #define gcdev_unregister(gdev)		device_del(&(gdev)->dev)
+ #endif
+ 
++/*
++ * An initial reference count has been held in gpiochip_add_data_with_key().
++ * The caller should drop the reference via gpio_device_put() on errors.
++ */
+ static int gpiochip_setup_dev(struct gpio_device *gdev)
+ {
+ 	struct fwnode_handle *fwnode = dev_fwnode(&gdev->dev);
+ 	int ret;
+ 
+-	device_initialize(&gdev->dev);
+-
+ 	/*
+ 	 * If fwnode doesn't belong to another device, it's safe to clear its
+ 	 * initialized flag.
+@@ -859,9 +861,11 @@ static void gpiochip_setup_devs(void)
+ 	list_for_each_entry_srcu(gdev, &gpio_devices, list,
+ 				 srcu_read_lock_held(&gpio_devices_srcu)) {
+ 		ret = gpiochip_setup_dev(gdev);
+-		if (ret)
++		if (ret) {
++			gpio_device_put(gdev);
+ 			dev_err(&gdev->dev,
+ 				"Failed to initialize gpio device (%d)\n", ret);
++		}
+ 	}
+ }
+ 
+@@ -941,33 +945,64 @@ int gpiochip_add_data_with_key(struct gpio_chip *gc, void *data,
+ 	int base = 0;
+ 	int ret;
+ 
+-	/*
+-	 * First: allocate and populate the internal stat container, and
+-	 * set up the struct device.
+-	 */
+ 	gdev = kzalloc(sizeof(*gdev), GFP_KERNEL);
+ 	if (!gdev)
+ 		return -ENOMEM;
+-
+-	gdev->dev.type = &gpio_dev_type;
+-	gdev->dev.bus = &gpio_bus_type;
+-	gdev->dev.parent = gc->parent;
+-	rcu_assign_pointer(gdev->chip, gc);
+-
+ 	gc->gpiodev = gdev;
+ 	gpiochip_set_data(gc, data);
+ 
+-	device_set_node(&gdev->dev, gpiochip_choose_fwnode(gc));
+-
+ 	ret = ida_alloc(&gpio_ida, GFP_KERNEL);
+ 	if (ret < 0)
+ 		goto err_free_gdev;
+ 	gdev->id = ret;
+ 
+-	ret = dev_set_name(&gdev->dev, GPIOCHIP_NAME "%d", gdev->id);
++	ret = init_srcu_struct(&gdev->srcu);
+ 	if (ret)
+ 		goto err_free_ida;
++	rcu_assign_pointer(gdev->chip, gc);
+ 
++	ret = init_srcu_struct(&gdev->desc_srcu);
++	if (ret)
++		goto err_cleanup_gdev_srcu;
++
++	ret = dev_set_name(&gdev->dev, GPIOCHIP_NAME "%d", gdev->id);
++	if (ret)
++		goto err_cleanup_desc_srcu;
++
++	device_initialize(&gdev->dev);
++	/*
++	 * After this point any allocated resources to `gdev` will be
++	 * free():ed by gpiodev_release().  If you add new resources
++	 * then make sure they get free():ed there.
++	 */
++	gdev->dev.type = &gpio_dev_type;
++	gdev->dev.bus = &gpio_bus_type;
++	gdev->dev.parent = gc->parent;
++	device_set_node(&gdev->dev, gpiochip_choose_fwnode(gc));
++
++	ret = gpiochip_get_ngpios(gc, &gdev->dev);
++	if (ret)
++		goto err_put_device;
++	gdev->ngpio = gc->ngpio;
++
++	gdev->descs = kcalloc(gc->ngpio, sizeof(*gdev->descs), GFP_KERNEL);
++	if (!gdev->descs) {
++		ret = -ENOMEM;
++		goto err_put_device;
++	}
++
++	gdev->label = kstrdup_const(gc->label ?: "unknown", GFP_KERNEL);
++	if (!gdev->label) {
++		ret = -ENOMEM;
++		goto err_put_device;
++	}
++
++	gdev->can_sleep = gc->can_sleep;
++	BLOCKING_INIT_NOTIFIER_HEAD(&gdev->line_state_notifier);
++	BLOCKING_INIT_NOTIFIER_HEAD(&gdev->device_notifier);
++#ifdef CONFIG_PINCTRL
++	INIT_LIST_HEAD(&gdev->pin_ranges);
++#endif
+ 	if (gc->parent && gc->parent->driver)
+ 		gdev->owner = gc->parent->driver->owner;
+ 	else if (gc->owner)
+@@ -976,36 +1011,6 @@ int gpiochip_add_data_with_key(struct gpio_chip *gc, void *data,
+ 	else
+ 		gdev->owner = THIS_MODULE;
+ 
+-	ret = gpiochip_get_ngpios(gc, &gdev->dev);
+-	if (ret)
+-		goto err_free_dev_name;
+-
+-	gdev->descs = kcalloc(gc->ngpio, sizeof(*gdev->descs), GFP_KERNEL);
+-	if (!gdev->descs) {
+-		ret = -ENOMEM;
+-		goto err_free_dev_name;
+-	}
+-
+-	gdev->label = kstrdup_const(gc->label ?: "unknown", GFP_KERNEL);
+-	if (!gdev->label) {
+-		ret = -ENOMEM;
+-		goto err_free_descs;
+-	}
+-
+-	gdev->ngpio = gc->ngpio;
+-	gdev->can_sleep = gc->can_sleep;
+-
+-	BLOCKING_INIT_NOTIFIER_HEAD(&gdev->line_state_notifier);
+-	BLOCKING_INIT_NOTIFIER_HEAD(&gdev->device_notifier);
+-
+-	ret = init_srcu_struct(&gdev->srcu);
+-	if (ret)
+-		goto err_free_label;
+-
+-	ret = init_srcu_struct(&gdev->desc_srcu);
+-	if (ret)
+-		goto err_cleanup_gdev_srcu;
+-
+ 	scoped_guard(mutex, &gpio_devices_lock) {
+ 		/*
+ 		 * TODO: this allocates a Linux GPIO number base in the global
+@@ -1020,7 +1025,7 @@ int gpiochip_add_data_with_key(struct gpio_chip *gc, void *data,
+ 			if (base < 0) {
+ 				ret = base;
+ 				base = 0;
+-				goto err_cleanup_desc_srcu;
++				goto err_put_device;
+ 			}
+ 
+ 			/*
+@@ -1040,14 +1045,10 @@ int gpiochip_add_data_with_key(struct gpio_chip *gc, void *data,
+ 		ret = gpiodev_add_to_list_unlocked(gdev);
+ 		if (ret) {
+ 			chip_err(gc, "GPIO integer space overlap, cannot add chip\n");
+-			goto err_cleanup_desc_srcu;
++			goto err_put_device;
+ 		}
+ 	}
+ 
+-#ifdef CONFIG_PINCTRL
+-	INIT_LIST_HEAD(&gdev->pin_ranges);
+-#endif
+-
+ 	if (gc->names)
+ 		gpiochip_set_desc_names(gc);
+ 
+@@ -1128,25 +1129,19 @@ int gpiochip_add_data_with_key(struct gpio_chip *gc, void *data,
+ 	scoped_guard(mutex, &gpio_devices_lock)
+ 		list_del_rcu(&gdev->list);
+ 	synchronize_srcu(&gpio_devices_srcu);
+-	if (gdev->dev.release) {
+-		/* release() has been registered by gpiochip_setup_dev() */
+-		gpio_device_put(gdev);
+-		goto err_print_message;
+-	}
++err_put_device:
++	gpio_device_put(gdev);
++	goto err_print_message;
++
+ err_cleanup_desc_srcu:
+ 	cleanup_srcu_struct(&gdev->desc_srcu);
+ err_cleanup_gdev_srcu:
+ 	cleanup_srcu_struct(&gdev->srcu);
+-err_free_label:
+-	kfree_const(gdev->label);
+-err_free_descs:
+-	kfree(gdev->descs);
+-err_free_dev_name:
+-	kfree(dev_name(&gdev->dev));
+ err_free_ida:
+ 	ida_free(&gpio_ida, gdev->id);
+ err_free_gdev:
+ 	kfree(gdev);
++
+ err_print_message:
+ 	/* failures here can mean systems won't boot... */
+ 	if (ret != -EPROBE_DEFER) {
+
+-- 
+2.54.0
+
