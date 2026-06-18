@@ -1,44 +1,104 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DE61B4156;
-	Thu, 18 Jun 2026 14:07:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579143B2FC2
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 14:13:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781791656; cv=none; b=Ut9Ci0m56cdTvmaJTl/bos82gjfYZNmz3FmEu9rFU7pX7Hg9pxQo0YS5IPEsHVY/OEvJXyZIgS8UuWQLvC5cy36K9M1QMLhXwJI2Y9kfKxyo8zM2DSKg+mAX6eKcFcny/4v+XzCKd+ugLgc/5OC989zLU+bsQekGqKtNY+JMlPc=
+	t=1781792025; cv=none; b=Ol47+d9TnGghte0iYX5UrZlpPKvfPjzHWm+GOgd4UQLTlKG6YgNv4jTqI+zESouoZ88/N7fP7wMS2TKautaOD82l8F5k+X3ulCSgTIzL6u0ahpmpiurdSIzJZn2wTmwZvqKt3LxO4mvsFWzrbGfYdnfc+uU0peXi+0kxmBrz2jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781791656; c=relaxed/simple;
-	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KRawJlJFXwt1grWdTce9+51HRNf/7dKZoTLPk3b7SFc0Ncd7rN6OAfUDuJqK1fS4YLTJ2JiPRh22CAhaOkmN8fT5ukVciHlYESH3duX137laDrmgcsKMjXTt4jmrdhJ+h22rRv+BHHf8VzqgWt1eAOJOuQOIxuw6zObH+n3Mk14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 557B668BEB; Thu, 18 Jun 2026 16:07:31 +0200 (CEST)
-Date: Thu, 18 Jun 2026 16:07:31 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Connor Williamson <connordw@amazon.com>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	yukuai3@huawei.com, hch@lst.de, jack@suse.cz,
-	nh-open-source@amazon.com
-Subject: Re: [PATCH] block: remove redundant GD_NEED_PART_SCAN in
- add_disk_final()
-Message-ID: <20260618140731.GA3395@lst.de>
-References: <20260615130715.53693-1-connordw@amazon.com>
+	s=arc-20240116; t=1781792025; c=relaxed/simple;
+	bh=DwZgQ33ZS7bqms5nbl0ue8JaNS+VOe3nrHPr9k+PPVo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tgnoaE2UJrfnv8B6OePJrFjlF9M8Y7k+nqv+mKVX8piuk4hapYvyyc4/05k7tl3VeoSUKP6joW+jfgtFRGdLRtt/hk0D8bOtrKHirkLJVNpvcxH+CAm1wrdLZ/blSoYDnIboFTw0mo4aOcR6XJUduqkVvO07wohJavGLjl8nIUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IvSWdDCv; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IvSWdDCv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7941B1F000E9;
+	Thu, 18 Jun 2026 14:13:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781792024;
+	bh=aehrTraPV6Mblmer2c6D81tWkH6Ag1jZINaxqlPSDEo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IvSWdDCvgObqFrSP1DKVA87o6VKg4Jdy7+Nr1RDt0oyNt4Cgaq1B7vO9Lkh3x8Jc4
+	 mWrYJeEielajx/Q5UIomUrukP5UQNSFslFrd5yc8A60K4cJcKMUTgYFkJXm9Gcibxx
+	 Ev3JJ5CvRcZI7TqwplPV98cXhkS+HH7zl4Ovjwk+8Yioiz/ALdb1Ui3x91yAL0ndl7
+	 gpja+bR+gNILln145O+V340tQDCVNpFweTfOJa/DWCAbGfotj3S8grRnN5g3INGO+L
+	 pHjwliCAgWpwV8lgQubP/i3sbWjab5tGUdeRyiao5bhXQoDMXcsMHGp8fWnvG7sH/G
+	 8ZgboPHlmxqZg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Helen Koike <koike@igalia.com>,
+	syzbot+b8ca586b9fc235f0c0df@syzkaller.appspotmail.com,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] debugobjects: Do not fill_pool() if pi_blocked_on
+Date: Thu, 18 Jun 2026 10:13:40 -0400
+Message-ID: <20260618141340.734280-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061611-defective-unbundle-fbc8@gregkh>
+References: <2026061611-defective-unbundle-fbc8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260615130715.53693-1-connordw@amazon.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
 
-Looks good:
+From: Helen Koike <koike@igalia.com>
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+[ Upstream commit 5f41161059fd0f1bbf18c90f3180e38cc45a14eb ]
+
+On RT enabled kernels, fill_pool() ends up calling rtlock_lock(), which
+asserts if current::pi_blocked_on is set, because a task can obviously only
+block on one lock as otherwise the priority inheritenace chain gets
+corrupted.
+
+Prevent this by expanding the conditional to take current::pi_blocked_on
+into account.
+
+Fixes: 4bedcc28469a ("debugobjects: Make them PREEMPT_RT aware")
+Reported-by: syzbot+b8ca586b9fc235f0c0df@syzkaller.appspotmail.com
+Signed-off-by: Helen Koike <koike@igalia.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://patch.msgid.link/20260511215359.3351259-1-koike@igalia.com
+Closes: https://syzkaller.appspot.com/bug?extid=b8ca586b9fc235f0c0df
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ lib/debugobjects.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/lib/debugobjects.c b/lib/debugobjects.c
+index 8c3b483a8fb44a..f9d53a0af4238f 100644
+--- a/lib/debugobjects.c
++++ b/lib/debugobjects.c
+@@ -597,13 +597,23 @@ static struct debug_obj *lookup_object_or_alloc(void *addr, struct debug_bucket
+ 	return NULL;
+ }
+ 
++static inline bool debug_objects_is_pi_blocked_on(void)
++{
++#ifdef CONFIG_RT_MUTEXES
++	return current->pi_blocked_on != NULL;
++#else
++	return false;
++#endif
++}
++
+ static void debug_objects_fill_pool(void)
+ {
+ 	/*
+ 	 * On RT enabled kernels the pool refill must happen in preemptible
+-	 * context:
++	 * context and not enqueued on an rt_mutex:
+ 	 */
+-	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || preemptible())
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT) ||
++	    (preemptible() && !debug_objects_is_pi_blocked_on()))
+ 		fill_pool();
+ }
+ 
+-- 
+2.53.0
 
