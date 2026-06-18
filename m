@@ -1,80 +1,87 @@
 Received: from mx0a-00206402.pphosted.com (mx0a-00206402.pphosted.com [148.163.148.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4F428C037
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730D22EBBA4
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:15:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.148.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781813754; cv=none; b=K0LIre376/ztW/3SxyF7VAMg9p1xfPoW+OyuH9A1oLAcpp6iUH5lc3buaO+Vo23+DrFwT9ofUAziqXHOFJr6ceW3pzvpPvyOOuGwJ5QJhtmlN3KrmIxq/FpfGj5r7d+zdw7cgS2w9g+OMQ7dxFn/rg3+jYt59IDVeDB5XeUtcGU=
+	t=1781813756; cv=none; b=bSgwtATouvO6SS64XwpJsT7RPQSXUETI4cZCcu+dK2REJKIEqB/SVu/JyfZOEqBXgprh5QWH1HukrcbwWS7/srUgZp9Z0Ks/T3JDWHwbYdEYizZFaTVJdEMNie2MulBQL2UPEre/rPhPBXj34tbTUS0OlcfgfSBDmxI+8kQZrOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781813754; c=relaxed/simple;
-	bh=ODlJQjSR9sWkeTUDz3e/n3OU4llQhnVtEP96uZtTQzA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZTwXmy6bAW4uV1YUtUANoJfD01Lyx+is6Izg9v8q9IQt3m9NtdjpLAcI0f5MjG4p7S/cJRBAaeNnzohfaB0hJ0DdP9EiruQZWcgLAFGrDA0FMHHgylPHrEO2leGCl7VhPODeNW8H91C4SzBfseI4IMCrqGesLstTAf/Rx6BkLXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=oYx/b724; arc=none smtp.client-ip=148.163.148.77
+	s=arc-20240116; t=1781813756; c=relaxed/simple;
+	bh=hElwnz7lrZdtWymnpSIX3nQIXwfTG2UpZWkoBqSetEs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CEed4Wl3UpIrourFeJXACed6zGHnj2SrLAotxLZXFRBGdLsVuXBYdf8euBvILAp0uABNhd/TjTFZ4Vj9Op69G1dKs6XRKNcR/ujefV06VQAW+jpf6SvTrDubJZ9SsvN4ErRmBOgS5xpCh0NsQH7+WJt7spSeMGADX+oAjy3ZNnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=rtePrsmT; arc=none smtp.client-ip=148.163.148.77
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="oYx/b724"
+	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="rtePrsmT"
 Received: from pps.filterd (m0354652.ppops.net [127.0.0.1])
-	by mx0a-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IJiT7q3008102;
-	Thu, 18 Jun 2026 20:15:46 GMT
+	by mx0a-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IJiJPO3007934;
+	Thu, 18 Jun 2026 20:15:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
 	 h=cc:content-transfer-encoding:content-type:date:from
-	:message-id:mime-version:subject:to; s=default; bh=m9LV7vn+MVpwS
-	PAkn51YE07dplchoiEyjajMPf1U+48=; b=oYx/b724FiYG1I0ilMZL1CAM4zqDA
-	sRO/WYpDEfyHYzXMZOkwanzS4fSwyOAQTcRsZwEAhty/jruncPIwj9sTWeDqRSYv
-	pdTVUZFcvL/cYnOTOkqvCW9wfEuPI5INIi++Qw7vWAerx8EjizV4B7PTT7FpVlDp
-	zq7JlftwR0iWc13H+kvJhpIQqtzOYWX+XWZ09ivSHdvFSN9/oEQkcEvNpB/zcjbB
-	BQOfmFy4TdEaIdOABJRMemXxAvTZv84dPo3b9BBgbweZWYfgwpHcmavxwHSDz4wH
-	3qPXidf14rWO5xWV2aUeL+h6FOn+wkEoFYfo9Dsfw/wdV8iJv0uSydAYA==
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	default; bh=WpFtY/SEeE/IDAcsB87kMt5Fa/BJpedsd1tNJiXTXe4=; b=rteP
+	rsmTXvwFL381qX1vpPxNz1kcHwUR1uKt7D8sAzi0JPStAYZ+OGZ5xVJNqj6+Y1tO
+	cGiQJTQrqcjoggmMKjPCNdN/Mabsnyhck1IhHEZYQ1CGh64W2T9A9LXam04hsUve
+	go9QnFQssHlqb5K2qsIiv+9B+3p5Lm6ZEDbok/BRHtCjVFiWfZKrNGoWHDhXGy8i
+	d4yLZnLXeqDlElHbv69dxW/O+jOIHh2hXsPGV0itIDD8j+aW1ycSCucphzOmHlsT
+	zZ+EI788d2G3MnRJ0IbxKYWYj/X+S3jC6xvKq3+Nfl+7N4+ALC3E7/t5Z8ELxRgS
+	s5IS1LAAlGfhjvRcxA==
 Received: from mail.crowdstrike.com (dragosx.crowdstrike.com [208.42.231.60] (may be forged))
-	by mx0a-00206402.pphosted.com (PPS) with ESMTPS id 4evq3k84g5-1
+	by mx0a-00206402.pphosted.com (PPS) with ESMTPS id 4evq3k84gb-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 18 Jun 2026 20:15:46 +0000 (GMT)
+	Thu, 18 Jun 2026 20:15:48 +0000 (GMT)
 Received: from LL-DJCZ134.crowdstrike.sys (10.100.11.122) by
  04WPEXCH006.crowdstrike.sys (10.100.11.70) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 18 Jun 2026 20:15:44 +0000
+ 15.2.2562.43; Thu, 18 Jun 2026 20:15:47 +0000
 From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 To: <stable@vger.kernel.org>
 CC: <gregkh@linuxfoundation.org>, <sashal@kernel.org>, <rostedt@goodmis.org>,
         <vmalik@redhat.com>, <jmarchan@redhat.com>,
         <martin.kelly@crowdstrike.com>, <justin.deschamp@crowdstrike.com>,
         <linux-open-source@crowdstrike.com>
-Subject: [PATCH 6.12.y 00/27] ftrace/sorttable: Fix ftrace symbol table corruption with CONFIG_X86_KERNEL_IBT=y
-Date: Thu, 18 Jun 2026 16:15:14 -0400
-Message-ID: <cover.1781809906.git.andrey.grodzovsky@crowdstrike.com>
+Subject: [PATCH 6.12.y 02/27] scripts/sorttable: Remove unused write functions
+Date: Thu, 18 Jun 2026 16:15:16 -0400
+Message-ID: <b4b7893593e70929d097a18d2838814bee99b631.1781809915.git.andrey.grodzovsky@crowdstrike.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1781809906.git.andrey.grodzovsky@crowdstrike.com>
+References: <cover.1781809906.git.andrey.grodzovsky@crowdstrike.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-ClientProxiedBy: 04WPEXCH006.crowdstrike.sys (10.100.11.70) To
  04WPEXCH006.crowdstrike.sys (10.100.11.70)
-X-Proofpoint-ORIG-GUID: iAxQb8phpPq5aJXk1eKpRVxHjddRZXNE
-X-Proofpoint-GUID: iAxQb8phpPq5aJXk1eKpRVxHjddRZXNE
-X-Authority-Analysis: v=2.4 cv=QrVuG1yd c=1 sm=1 tr=0 ts=6a3451f2 cx=c_pps
+X-Proofpoint-ORIG-GUID: 1vs6zNTBL_GoZuAAFOe-XPD2L0SMVQCr
+X-Proofpoint-GUID: 1vs6zNTBL_GoZuAAFOe-XPD2L0SMVQCr
+X-Authority-Analysis: v=2.4 cv=QrVuG1yd c=1 sm=1 tr=0 ts=6a3451f4 cx=c_pps
  a=1d8vc5iZWYKGYgMGCdbIRA==:117 a=1d8vc5iZWYKGYgMGCdbIRA==:17
- a=EjBHVkixTFsA:10 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=T2KQ53IYiC3MXPrxx8bB:22 a=2KvRFfd_T_-xjmS8C1aD:22
- a=VwQbUJbxAAAA:8 a=meVymXHHAAAA:8 a=pGLkceISAAAA:8 a=p0WdMEafAAAA:8
- a=FKHNVGkEP0QFufyHOfwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=2JgSa4NbpEOStq-L5dxp:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4NSBTYWx0ZWRfXyEynmFZB49mp
- 8boZCcKsb/xYMBB+6A1nkBrjhICqmYf92llu0GPoaSWM5TxNli8k/9KljaagNFNkWv2O/9VgCgJ
- H13ARubriSU8+LsJsy/vv9BD0o+sqCdK1ivFla3o4mwcVRVp53bD6g7YQfcXzKtZiZhrx3UwYdT
- 6irpfRJ9QvRww7JSzPuLCBYPIIPIg/CbxZITqmr1P+MfYEAf6pemwd36id3RrUFWX2HPo/Vicf9
- G61M4kovA3w3+BA1JuapDODHsFMLjti6gIlATMiL6YoS/bkqOfGc5Ft3RWA/ne1U+lNDZja5dgg
- 7peLeHPjNQOPbqiU86J6qv9+cEwvPw5OFniGoWPSzrUCOaEbibJL9jsgpQ6y1rx6ddASBG5VnPu
- wcys8UCZ/owyfclBpEh8GdOGDBoqGF559wHLK2YnYZkcohPmamM9S99bLZeXdhaJO21rKdqTG5x
- QASXPZP6Ug19qo7ZNIA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4NSBTYWx0ZWRfX8VGJgwoinGAm
- BHL1ETnlfsPwIwxW7gR0TtE7HThwS3ISsJ3HnvRETx4C5LZ4tv4bHJoQAH84SPbt1fCMByusyR/
- dAhrRWobBGdwKhCotreSttXkdVa0zSlB6i8lZv/nz4Qtuc4uAMtA
+ a=EjBHVkixTFsA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=T2KQ53IYiC3MXPrxx8bB:22 a=2KvRFfd_T_-xjmS8C1aD:22 a=VwQbUJbxAAAA:8
+ a=meVymXHHAAAA:8 a=7CQSdrXTAAAA:8 a=7d_E57ReAAAA:8 a=Z4Rwk6OoAAAA:8
+ a=JfrnYn6hAAAA:8 a=cpyHj8QvAAAA:8 a=i0EeH86SAAAA:8 a=pl6vuDidAAAA:8
+ a=1UX6Do5GAAAA:8 a=20KFwNOVAAAA:8 a=j0sIkgseXk1JgBeDF2wA:9
+ a=2JgSa4NbpEOStq-L5dxp:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=jhqOcbufqs7Y1TYCrUUU:22
+ a=HkZW87K1Qel5hWWM3VKY:22 a=1CNFftbPRP8L7MoqJWF3:22 a=BPjOrAZP5zzvMhA9psHf:22
+ a=Et2XPkok5AAZYJIKzHr1:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4NSBTYWx0ZWRfX7h9J8BUaYEt6
+ rnqMljcOMcs5DC0vGp87M4T73YDAe/ijnC+IFTGELYwaUDhvus1sxzoPrDA1rQrAh1cx2l7Pdjc
+ Gbpid27+IL6VzVzIVsn4xL7buwODZd0LGE+kkNKe0Q0A+U6x9jDrMast5Cy9Vx9YTTHe703Ri2j
+ 18m1JhT2n+Hl0lAWhXEZKR7AwfLsNwDKdrXy6YlMl0oAk5CNEit6yILyDC62eZ1xguYZI026wHb
+ P4WlALr/TJ1hjdSa10IRbsdmi8bbcE8mF8+Ypuy3Xb9pcFIPn2MecfJi22eycxJ2vKdod5rq8DA
+ XP58STGdMfRRRHe6wTgHfXVowV0FR+nFoT9RO97vWjemUWr7KctgwOJfWYO72crLeZujzLOGRKb
+ QIApbFhsBkLbRiP8OSSp1HrSO8LV4Puavvk0OUgMMpnzEK1IXH00JQWphG3I5TejHDv+vRDfzsF
+ AQKTOW8lJ5p01cLYGyg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4NSBTYWx0ZWRfXw3dsiqLh1+sT
+ I5sy4nxXBGlypAhrutzvYohl4myv8nmDjfUM2/qu4Km4eWmbrRR/cuPNcCIx+SD9NjP19/ZarpQ
+ +Avw3unZBQE6JBkrrtQ4imLVP9JUd6UOZfyZ7L56HnUH6SQewEKK
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11821
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -84,83 +91,98 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
  definitions=main-2606180185
 
-This series backports the upstream fix for ftrace symbol table
-corruption on kernels with CONFIG_X86_KERNEL_IBT=y. Weak overridden
-functions corrupt the ftrace symbol table at boot, causing
-non-deterministic hook attachment failures across all ftrace consumers
-— most visibly fentry/trampoline-based hooks, but affecting any code
-that relies on ftrace symbol lookups.
+From: Steven Rostedt <rostedt@goodmis.org>
 
-The fix was merged to mainline in Linux 6.15 via:
-  https://lore.kernel.org/all/20250218195918.255228630@goodmis.org/
+[ Upstream commit 4f48a28b37d594dab38092514a42ae9f4b781553 ]
 
-The original backport request and bug description sent to stable:
-  https://lore.kernel.org/stable/CAOu3gNibeo3ov09CYpmzuqewB0EOsajB3hPU9pQmb_zoAUraHg@mail.gmail.com/
+The code of sorttable.h was copied from the recordmcount.h  which defined
+various write functions for different sizes (2, 4, 8 byte lengths). But
+sorttable only uses the 4 byte writes. Remove the extra versions as they
+are not used.
 
-Red Hat independently backported this same set of patches to their
-RHEL 10 kernel (6.12). Their work is at:
-  https://gitlab.com/redhat/centos-stream/src/kernel/centos-stream-10/-/merge_requests/2689
+Cc: bpf <bpf@vger.kernel.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Masahiro Yamada <masahiroy@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>
+Cc: Nicolas Schier <nicolas@fjasle.eu>
+Cc: Zheng Yejian <zhengyejian1@huawei.com>
+Cc: Martin  Kelly <martin.kelly@crowdstrike.com>
+Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
+Cc: Josh Poimboeuf <jpoimboe@redhat.com>
+Link: https://lore.kernel.org/20250105162344.314385504@goodmis.org
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
+---
+ scripts/sorttable.c | 26 --------------------------
+ 1 file changed, 26 deletions(-)
 
-The 27 patches are organized in four groups:
-  - Patches 01-14: sorttable.c rewrite (prereq, merged 6.14)
-  - Patch  15:     function pointer struct cleanup (prereq, merged 6.14)
-  - Patches 16-21: the core IBT fix series (merged 6.15)
-  - Patches 22-27: post-merge correctness fixes for arm64 and s390
-
-All patches applied cleanly to 6.12.y (at 6.12.93). Tested on x86_64
-with CONFIG_X86_KERNEL_IBT=y:
-
-  grep __ftrace_invalid_address___ \
-    /sys/kernel/tracing/available_filter_functions | wc -l
-  Before: 589   After: 0
-
-ftrace kernel selftests (tools/testing/selftests/ftrace):
-  135 passed, 0 failed, 0 regressions introduced.
-
-Guenter Roeck (1):
-  ftrace: Do not over-allocate ftrace memory
-
-Steven Rostedt (25):
-  scripts/sorttable: Remove unused macro defines
-  scripts/sorttable: Remove unused write functions
-  scripts/sorttable: Remove unneeded Elf_Rel
-  scripts/sorttable: Have the ORC code use the _r() functions to read
-  scripts/sorttable: Make compare_extable() into two functions
-  scripts/sorttable: Convert Elf_Ehdr to union
-  scripts/sorttable: Replace Elf_Shdr Macro with a union
-  scripts/sorttable: Convert Elf_Sym MACRO over to a union
-  scripts/sorttable: Add helper functions for Elf_Ehdr
-  scripts/sorttable: Add helper functions for Elf_Shdr
-  scripts/sorttable: Add helper functions for Elf_Sym
-  scripts/sorttable: Use uint64_t for mcount sorting
-  scripts/sorttable: Move code from sorttable.h into sorttable.c
-  scripts/sorttable: Get start/stop_mcount_loc from ELF file directly
-  scripts/sorttable: Use a structure of function pointers for elf
-    helpers
-  arm64: scripts/sorttable: Implement sorting mcount_loc at boot for
-    arm64
-  scripts/sorttable: Have mcount rela sort use direct values
-  scripts/sorttable: Always use an array for the mcount_loc sorting
-  scripts/sorttable: Zero out weak functions in mcount_loc table
-  ftrace: Update the mcount_loc check of skipped entries
-  ftrace: Have ftrace pages output reflect freed pages
-  ftrace: Test mcount_loc addr before calling ftrace_call_addr()
-  ftrace: Check against is_kernel_text() instead of kaslr_offset()
-  scripts/sorttable: Use normal sort if theres no relocs in the mcount
-    section
-  scripts/sorttable: Allow matches to functions before function entry
-
-Vasily Gorbik (1):
-  scripts/sorttable: Fix endianness handling in build-time mcount sort
-
- arch/arm64/Kconfig      |    1 +
- kernel/trace/ftrace.c   |   68 ++-
- scripts/link-vmlinux.sh |    4 +-
- scripts/sorttable.c     | 1119 +++++++++++++++++++++++++++++++++++++--
- scripts/sorttable.h     |  500 -----------------
- 5 files changed, 1133 insertions(+), 559 deletions(-)
- delete mode 100644 scripts/sorttable.h
-
+diff --git a/scripts/sorttable.c b/scripts/sorttable.c
+index 83cdb843d..4dcdbf7a5 100644
+--- a/scripts/sorttable.c
++++ b/scripts/sorttable.c
+@@ -68,8 +68,6 @@ static uint32_t (*r)(const uint32_t *);
+ static uint16_t (*r2)(const uint16_t *);
+ static uint64_t (*r8)(const uint64_t *);
+ static void (*w)(uint32_t, uint32_t *);
+-static void (*w2)(uint16_t, uint16_t *);
+-static void (*w8)(uint64_t, uint64_t *);
+ typedef void (*table_sort_t)(char *, int);
+ 
+ /*
+@@ -146,31 +144,11 @@ static void wbe(uint32_t val, uint32_t *x)
+ 	put_unaligned_be32(val, x);
+ }
+ 
+-static void w2be(uint16_t val, uint16_t *x)
+-{
+-	put_unaligned_be16(val, x);
+-}
+-
+-static void w8be(uint64_t val, uint64_t *x)
+-{
+-	put_unaligned_be64(val, x);
+-}
+-
+ static void wle(uint32_t val, uint32_t *x)
+ {
+ 	put_unaligned_le32(val, x);
+ }
+ 
+-static void w2le(uint16_t val, uint16_t *x)
+-{
+-	put_unaligned_le16(val, x);
+-}
+-
+-static void w8le(uint64_t val, uint64_t *x)
+-{
+-	put_unaligned_le64(val, x);
+-}
+-
+ /*
+  * Move reserved section indices SHN_LORESERVE..SHN_HIRESERVE out of
+  * the way to -256..-1, to avoid conflicting with real section
+@@ -277,16 +255,12 @@ static int do_file(char const *const fname, void *addr)
+ 		r2	= r2le;
+ 		r8	= r8le;
+ 		w	= wle;
+-		w2	= w2le;
+-		w8	= w8le;
+ 		break;
+ 	case ELFDATA2MSB:
+ 		r	= rbe;
+ 		r2	= r2be;
+ 		r8	= r8be;
+ 		w	= wbe;
+-		w2	= w2be;
+-		w8	= w8be;
+ 		break;
+ 	default:
+ 		fprintf(stderr, "unrecognized ELF data encoding %d: %s\n",
 -- 
 2.34.1
 
