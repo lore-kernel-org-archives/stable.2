@@ -1,106 +1,115 @@
-Received: from air.basealt.ru (air.basealt.ru [193.43.8.18])
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4475E3D9DC5;
-	Thu, 18 Jun 2026 08:14:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.43.8.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD602D322E
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 08:16:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781770484; cv=none; b=INa/d2jk+TnmkqHC1Jg//X8p6Z1BWhgODB9eaRf0hByWLekNGnK84/FLCzZJv9Lu6Qkso48ckHNuXBVzmNtwvPGkEkpZkdKSEc5tiIV5cac009KX5rYohTNykDajPxO4mjFlWBOC5h30ROimtPxi06uJYnJ1JS5UmPZVqpGzB2o=
+	t=1781770571; cv=none; b=T1Dso1MdiAjhzP2qPtcmbsqWbBpkuxPl9V/NmXwRaSWdUD2B1FihzSvjkTI94b4NmpeH5I8kmdxNj4W8iLFpV+bedB/otr3ErzYWNdutGsKHi8J8x0bIueJFs3QZoqyrNZmppEd3Qz8GMl95zgaT0ldScuclTzZoFefGItORnig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781770484; c=relaxed/simple;
-	bh=dirUu80z2rRakz164VfpSgvejFjaPGsxq/0YklLVnuE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lv93L+5Ok9UrxoXBGxRlu+CD85NLBOczOkuFZ7tg5V/oUqGpugTkj+pbrL69P5In/r9njV38YZnHNuWTLc15QFQzJ1d0jU4+nqIg8oXJicl+jeOYEOfs65/unGDpBYDAW47WEK6WwWT8H0FYjD/MyEq78KN4MeI1440dTC54btM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org; spf=pass smtp.mailfrom=altlinux.org; arc=none smtp.client-ip=193.43.8.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altlinux.org
-Received: from ajratkogda.malta.altlinux.ru (obninsk.basealt.ru [217.15.195.17])
-	(Authenticated sender: ajratma)
-	by air.basealt.ru (Postfix) with ESMTPSA id 0C667233B2;
-	Thu, 18 Jun 2026 11:14:36 +0300 (MSK)
-From: Ajrat Makhmutov <rauty@altlinux.org>
-To: stable@vger.kernel.org
-Cc: sashal@kernel.org,
-	nbd@nbd.name,
-	linux-wireless@vger.kernel.org,
-	Sean Wang <sean.wang@mediatek.com>,
-	Quan Zhou <quan.zhou@mediatek.com>,
-	Ajrat Makhmutov <rauty@altlinux.org>
-Subject: [PATCH 6.12.y v3 3/3] wifi: mt76: mt7921: fix potential deadlock in mt7921_roc_abort_sync
-Date: Thu, 18 Jun 2026 11:14:13 +0300
-Message-ID: <20260618081413.17812-4-rauty@altlinux.org>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260618081413.17812-1-rauty@altlinux.org>
-References: <20260617130826.1667503-1-rauty@altlinux.org>
- <20260618081413.17812-1-rauty@altlinux.org>
+	s=arc-20240116; t=1781770571; c=relaxed/simple;
+	bh=GHyigE0ZkY04GYxhoukj/4BiAheCQrN5JrNPTNOZ5yk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cY7NGfxZksfw0BDGvoM0vfsrk07PAM4uNb2yDVgcqedcfM0fiU2o/C6KZJdS47l00emm4nxGZ5UMRtyy1DrxxQPmhPKcL/bS/7nukRLsfCXde7UjJz/sKuPIUhOAqFxYt62CMKPFAavOyiIibonxCpMKyKobz86OzLgXp+JJMRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=AXMerhEo; arc=none smtp.client-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="AXMerhEo"
+Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
+	by cmsmtp with ESMTPS
+	id ZvUbwZWJUgwLna7uywaSKw; Thu, 18 Jun 2026 08:16:08 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id a7uxwq3sHnDcja7uxwlYKG; Thu, 18 Jun 2026 08:16:08 +0000
+X-Authority-Analysis: v=2.4 cv=BLizrEQG c=1 sm=1 tr=0 ts=6a33a948
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=9GQXaQUDpQhx98mIA28A:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=a4QcjtBR1JHGc73gmaVGmlGEB3kKn1lLJ3Vy063lEAo=; b=AXMerhEoUuFGV630d3Xp/jaGzu
+	L2CGLJ4Gz9fliZL7KAKXhy2YbCdDtmWknSq4NFGoYWWG3wwTmFDCYg53M8/YbmCJ/9m69gdcSvGj2
+	eM145cuEUL4XovMlmryJFTS/LnV4z3Vr4F/x89/x96cro/I7934+KZMyTDUqrDISJX2J72PKCfEqs
+	3946pbYHTw9eTN2w4qwkgJnekyi//4bD2dXHL4OCdDc/0z9cVJ4Lz9DEMv/AeZe1zWDPwuVrLUizD
+	UXlui2G44IcoqRNzDc3l8//D3I6updUWUWoQdqWHArFyu4Xtuyj7cbGZCOm/2MTqlRy+vQbdrk1c1
+	oWMul8tQ==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:48134 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.2)
+	(envelope-from <re@w6rz.net>)
+	id 1wa7ux-00000002YBw-0lge;
+	Thu, 18 Jun 2026 02:16:07 -0600
+Message-ID: <0de8fd53-895c-4496-b084-efe5bd4ccfda@w6rz.net>
+Date: Thu, 18 Jun 2026 01:16:05 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 000/452] 6.6.143-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260616145117.796205997@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260616145117.796205997@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1wa7ux-00000002YBw-0lge
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:48134
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 59
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfGJU48mS0t9s0O/q+eakLbcbbOlFbbjzeUqshJ3CRY/rzpHtg2zjmlksng+oJxbC2zwpIAfyG0PEbTSEDB0Sn0KUc6uVBuJNPpLy8dsq+o/lrffHZeCn
+ 0nDbSf1LwZ30HWtmtCU/VQx4Q91WTUiFfK+pti9dHeo4dVzL/h+Srj65IyvsENu2yjxKAuxHIplY1w==
 
-From: Sean Wang <sean.wang@mediatek.com>
+On 6/16/26 07:53, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.143 release.
+> There are 452 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.143-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-commit d5059e52fd8bc624ec4255c9fa01a266513d126b upstream.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-roc_abort_sync() can deadlock with roc_work(). roc_work() holds
-dev->mt76.mutex, while cancel_work_sync() waits for roc_work()
-to finish. If the caller already owns the same mutex, both
-sides block and no progress is possible.
-
-This deadlock can occur during station removal when
-mt76_sta_state() -> mt76_sta_remove() -> mt7921_mac_sta_remove() ->
-mt7921_roc_abort_sync() invokes cancel_work_sync() while
-roc_work() is still running and holding dev->mt76.mutex.
-
-This avoids the mutex deadlock and preserves exactly-once
-work ownership.
-
-Fixes: 352d966126e6 ("wifi: mt76: mt7921: fix a potential association failure upon resuming")
-Co-developed-by: Quan Zhou <quan.zhou@mediatek.com>
-Signed-off-by: Quan Zhou <quan.zhou@mediatek.com>
-Signed-off-by: Sean Wang <sean.wang@mediatek.com>
-Link: https://patch.msgid.link/20260126180013.8167-1-sean.wang@kernel.org
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
-[Ajrat: keep del_timer_sync() instead of timer_delete_sync() -- the
- timer API rename is not present in 6.12.y. ]
-Signed-off-by: Ajrat Makhmutov <rauty@altlinux.org>
----
-v2: drop redundant "cherry picked from" trailer; tag the 6.12.y
-    adaptation note as [Ajrat] and add backporter Signed-off-by. No code change.
-v3: add cover letter with upstream/stable references; mark target 6.12.y.
-
- drivers/net/wireless/mediatek/mt76/mt7921/main.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/main.c b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
-index f2fffca868b51..99561094640f1 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7921/main.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
-@@ -365,12 +365,15 @@ void mt7921_roc_abort_sync(struct mt792x_dev *dev)
- {
- 	struct mt792x_phy *phy = &dev->phy;
- 
-+	if (!test_and_clear_bit(MT76_STATE_ROC, &phy->mt76->state))
-+		return;
-+
- 	del_timer_sync(&phy->roc_timer);
--	cancel_work_sync(&phy->roc_work);
--	if (test_and_clear_bit(MT76_STATE_ROC, &phy->mt76->state))
--		ieee80211_iterate_interfaces(mt76_hw(dev),
--					     IEEE80211_IFACE_ITER_RESUME_ALL,
--					     mt7921_roc_iter, (void *)phy);
-+	cancel_work(&phy->roc_work);
-+
-+	ieee80211_iterate_interfaces(mt76_hw(dev),
-+				     IEEE80211_IFACE_ITER_RESUME_ALL,
-+				     mt7921_roc_iter, (void *)phy);
- }
- EXPORT_SYMBOL_GPL(mt7921_roc_abort_sync);
- 
--- 
-2.50.1
+Tested-by: Ron Economos <re@w6rz.net>
 
