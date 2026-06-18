@@ -1,36 +1,37 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82373BE632
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 07:54:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5603BE632
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 07:54:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781769255; cv=none; b=huTzlKFEAA8KuMVb/RsJAZWPdMPtKQF4kRxkDXVWACs9QWgbYMyq0SnqWhQIKZPNsWFvMZIn5+fh7NnqlLzzScu5TBHkbPbfUjp4bCjAglDgTHPxiJGu0hZ9oQSjnY86KMlLU46Nih67n6LrHB0DB3qC0mJ7BiYzL2i3ji1hZzg=
+	t=1781769295; cv=none; b=ni5PCfi0x/C58TgDStwHOrx376YkVNt/Uq2SGk8vPdznEJdKVZuufqMNr8SigacWtkPwANbqbF2kB9zygKm7zblRa6rUb26Bby5R3g4tvndtWTjBWcDrZjmVDMmwzrb4ilRVRj9NnGPiIp3cJttEse0K6ZLOWZkuezC1gbtX2zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781769255; c=relaxed/simple;
-	bh=6F2y4ZlnikioPGfFgow1EAUbDVX1Vi20GywbO9xZg78=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=rW4pvPAidw06bJYibTxu4dnM2tWZ4eCkjBAgQeDN36wDhCeFLWHaPJAoC56GNqLWNtBX3+x8ki9ZkLkJFuUjdJwlygiDgA9jcyh0G4RLZW+h5f8+0tLt5WgmSsIBftH4S0zNhIlBICnQR0q0J/+cZ1Fbq62TzHQw933LX9rz220=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=IFfq906A; arc=none smtp.client-ip=54.207.19.206
+	s=arc-20240116; t=1781769295; c=relaxed/simple;
+	bh=2PiZn9SRQDeperRfDJVT6Knomjm6hgdo4VmiUanSiOY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=BybOYCdVLSF1O3eXalwIfWEhPCRqWEZdAFfAzS5xqdRXTUmFHxTbQyJfdyapTPAXfI0ETr/XBfAPn5TSB2eG7+MTALynerkdEDBg/K60xC8itaQlY9S/6iZGTeIs0O6zeXaw29wSyg4eGx8OdCESrjd/Sb2v5+eg5+Hi2daIT2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=eweDyfXi; arc=none smtp.client-ip=54.204.34.129
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="IFfq906A"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="eweDyfXi"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1781769238;
-	bh=ixWQbR4S6QArwZ5JRb4bfQjRjzBfXulvNFGHfy9xabE=;
+	s=onoh2408; t=1781769265;
+	bh=WPMa62+ZEbyp3pnV8JluZueKwkcDo0WT7AM20gDCKFI=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=IFfq906A+pdTO+Rs90zm8avfaPms1+QP2WSlUy8SaoFHLsis3slH4HezVjY0SCzLS
-	 L/fW5/OiMibCjSjDJE84CPPHekvf71A6C+yaOy/DIH/oY2lJenOZYmZlsuvLem+/SC
-	 l7UpL46Cs8UUgvw2BY4v1v/HNgXz3ii+0trjJoVI=
-X-QQ-mid: esmtpgz14t1781769232t02de522d
-X-QQ-Originating-IP: HJex80uI03DNawBJvCM4DRvZd71fzObs217Ybdljol4=
+	b=eweDyfXiHX4C/MuwE/H6kztsDVA2kTfW3oLYRnDMlXjL7VX3iWaWHN8TygAIMkmOu
+	 E4vMBqxzyMUJyqljnhCj1IsKVKvi/UtPQuWR1sles6pWyxXNAYMfRXkjUGpUdo9q22
+	 cWWlBXiWGdUuCuH6fnZZHxS0nSSkKPLQ+fw8DcPg=
+X-QQ-mid: esmtpgz14t1781769244t2f5646ce
+X-QQ-Originating-IP: AAH2ecRszZcVnWK6++s7kMBT1+rR0/gSD5JMGBHe89Q=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 18 Jun 2026 15:53:50 +0800 (CST)
+	id ; Thu, 18 Jun 2026 15:53:55 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 12883385946568431589
-EX-QQ-RecipientCnt: 14
+X-BIZMAIL-ID: 5244681131725819264
+EX-QQ-RecipientCnt: 17
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org,
 	gregkh@linuxfoundation.org,
@@ -45,68 +46,89 @@ Cc: stable@vger.kernel.org,
 	rollkingzzc@gmail.com,
 	toke@redhat.com,
 	victor@mojatatu.com,
-	yimingqian591@gmail.com
-Subject: [PATCH 5.10.y v2 0/9] net/sched: fix pedit partial COW leading to page cache corruption
-Date: Thu, 18 Jun 2026 15:53:34 +0800
-Message-Id: <20260618075342.1599593-1-guanwentao@uniontech.com>
+	yimingqian591@gmail.com,
+	Pedro Tammela <pctammela@mojatatu.com>,
+	Simon Horman <simon.horman@corigine.com>,
+	"David S . Miller" <davem@davemloft.net>
+Subject: [PATCH 5.10.y v2 1/9] net/sched: act_pedit: use NLA_POLICY for parsing 'ex' keys
+Date: Thu, 18 Jun 2026 15:53:36 +0800
+Message-Id: <20260618075342.1599593-2-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260618075342.1599593-1-guanwentao@uniontech.com>
+References: <20260618075342.1599593-1-guanwentao@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NGfP4g+rgS8GRrY/kxHeIVjTW9Wo5a9kdwmAQEg+Yb1OMoKo8poAFpUx
-	7Ue56oX9jakMsOBrPur/XvAfjIN1cMFUJYdWBIcEp+pq4dcpgbUhxZMSprK9NlmPB5QToVi
-	9kSGJJvQk/7RDIHIYAIAiAff7ZP4SLpCP/8CjURTJdXIEZ6pMaYiENnWbOwetlJ+Rf0RNvb
-	rPMMj4GH9qaoIU+4MQJTYUCf08yTP7zzWwwCRGxlSrFj6h7/VvJXE4oN0LVnHgoxO+5hS58
-	x0jZ04os9mdlSA+bSSPdXQFgGHehd6qjD29g5roMAtN8hbF3QWXdTB321BqDrVtchtFYS6Y
-	LkGwlNMrMALrSgVBVeK+HqSoIF65JFxizkl4Y0Sk2kekPbrxX+YpmQq5/lS2Qp33GGp4gyp
-	75fZ8cJru23IfpMvEu0Mh/ypQOxzndySBB2Uuk7Jz6Zhf+AzpSZKdliXmgKoAqILhw5BdY+
-	LW4pyQiZmO0teZTAO+s/3d6hykWCudJdGSGqRpEvNjmANy5aga/AJjleLpTB+Fq0BnO3R9f
-	+WMXQJ7tJmbEkhwZqGPuTAfFVCQ6LngF/9D0HLNT8HIHqgdgWB6sSGXA7nuM697FHZ/+dhN
-	izvKHVuGvYuLmQV1AP0t4kROgQvvBmL1hOKCY+avaEjmsQwf4FumcvKrqjWp31kPY6CF9vQ
-	2CYrntd9MaH1Y7ojd3qRNrh9dFQ6ZxqpdvkaI/wXGiaonC/eqJ2AF7v5Il2kWcYmghp2Wnk
-	WysA3/EPqGSLAoIhR3jBWbD2BSQjg4y7T2NcxS8QplclqU2hUcEUzEdNFvKmvIHvmkGV3L+
-	IZ8yu3et0ytovHnRUqi9rZB8r9i3JF68hBySQajzdMAlKlm645XeRomRyIX42RWbztlq6+D
-	vKVct4C0eg4gaMrYDdU5BrHEG7hZIl2/8KIYA4Ou+Pskx45SEemGv1l7fZisPaRM4hi3sKP
-	sqaxJ/hrASS4hgKPA4g1tgbBQtPIfKoYsSK6DprWYHCbYGThC/ghxDUZYxfvl/S0Bh+RSOV
-	wkEZfZj3rbifExRzOqB4KkmzVU+j9Wq2SXGnt4HhfvA/PKadHm7c5IjUZwZbo9JaO/eCDXB
-	kO7cs1LD9b3FsJCm1MIsUMo8uuSimIifwKurgnXNN2JpYi4mBME/e8=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-XMAILINFO: NdRGVRqcYnE4u+G299llEh0U8E0Jv2hv97Gs2GVRxnOy3wkJrbzCbOfi
+	zny5NlAa595DvnH64CqYFMP+3tnXXTNSG2xfuQlp49mOJdt0BNFyTx+SbS50pL1MlyvMSc5
+	DX3lSlu4XOgcpXpp9OQV7B9g+Lcgmpn9xSfJW74ChXuFx28ar7E7DzRZxW1MBXie/SF1hoo
+	IxsDyIdndUQmgVWSHESsnuWqI/UUsqOY1607V32/E+twmXZXrDf/FQsHExVku2aZPjAleKk
+	X+C9OcumYHS42avbKc+uxbtCmgnjj0mjS74cE97RHo5xEHF6RELL/IlOhdEFg2JuvIvh6JT
+	wX6Pwa3pUE9dqai+rgSiOVDItX+9NyzqlK6pfKAYH8igPB0IStIYubjLuIXf/Tx1uOWagIj
+	jdCmnKjuja16/ojqfEEfJHPld3SIxMyTIeALeTB1cxYA84y2VehL7ry9aJp94MxwjcDJGPE
+	3AnsBvlX1aUIlVPMY9GosJTECkRf0lNe01TgcuMyek4Nh/yEju+2Kgzc7Q9J+X1uqF/Ysqw
+	VSqFNEkgOi3gXZNXEUFvCW056c6TxseYj8Cb0blCUq+tLZBoN9q7zc1T1nQBMCFYG7/s9m/
+	//XELHBvjK8yUCDP4WRneSwbwud3A2FhAw2Ck+Pm0BPzwc0TJ6HVdi1ygj7XaNmwxXRfqJ/
+	nQ0/7aP7x+LvDG8r/7Haz9l0RwBsFAZwiFmwbPnu5tdPjQDbrCDFmHbgPJ6aJKlXFHS1InQ
+	+ThR5XC5zxbf3IA9JJpuyw9QUUoB/UAhQNN6nGCMf0K0blxLPDUpEM+CNUmqN/q5wLTMQOt
+	WOB9xkpoaSWCqZbRqEHEI1TkHXqi0r9MoFQtrbN0FD9FJFnHtjBz4UgWKY863H0YysSyrAQ
+	3p26CRNr37uE7B7B/lISQk1rrbxMc3R/adsJzka9edjLJlzLCiAQOcAiGiC0+oqnfXrfxZX
+	Jaga1lZcuWlc+q/IqU+217SfiGEaLCNVEFQ609jGKbW4bicFNIxFzT501RiWTeyILeu+cHD
+	BjSp/QMpqHiLWOCDt53vGMa/HrzaJKtMGQFJPPGEiHG3e6cAX1bcn4xqFcWYonHGwWiNf+a
+	A==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
 X-QQ-RECHKSPAM: 0
 
-Fixes CVE-2026-46331: net/sched: fix pedit partial COW leading to page cache corruption
+From: Pedro Tammela <pctammela@mojatatu.com>
 
-Link: https://lore.kernel.org/all/2026061625-CVE-2026-46331-47be@gregkh/
+[ Upstream commit 5036034572b79daa6d6600338e8e8229e2a44b09 ]
 
-changelog v2:
-    Add ("net/sched: act_pedit: Parse L3 Header for L4 offset") commit.
-v1 Link: https://lore.kernel.org/stable/20260618043539.1557035-1-guanwentao@uniontech.com/T/#ma9ef6d260833405f60ae88a1686e967b1416d80c
+Transform two checks in the 'ex' key parsing into netlink policies
+removing extra if checks.
 
-Max Tottenham (1):
-  net/sched: act_pedit: Parse L3 Header for L4 offset
+Signed-off-by: Pedro Tammela <pctammela@mojatatu.com>
+Reviewed-by: Simon Horman <simon.horman@corigine.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+---
+ net/sched/act_pedit.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-Pedro Tammela (7):
-  net/sched: act_pedit: use NLA_POLICY for parsing 'ex' keys
-  net/sched: transition act_pedit to rcu and percpu stats
-  net/sched: simplify tcf_pedit_act
-  net/sched: act_pedit: remove extra check for key type
-  net/sched: act_pedit: check static offsets a priori
-  net/sched: act_pedit: rate limit datapath messages
-  net/sched: act_pedit: free pedit keys on bail from offset check
-
-Rajat Gupta (1):
-  net/sched: fix pedit partial COW leading to page cache corruption
-
- include/net/tc_act/tc_pedit.h |  80 ++++++--
- net/sched/act_pedit.c         | 360 +++++++++++++++++++---------------
- 2 files changed, 272 insertions(+), 168 deletions(-)
-
+diff --git a/net/sched/act_pedit.c b/net/sched/act_pedit.c
+index a44101b2f4419..510a3b5b8c0c1 100644
+--- a/net/sched/act_pedit.c
++++ b/net/sched/act_pedit.c
+@@ -31,8 +31,9 @@ static const struct nla_policy pedit_policy[TCA_PEDIT_MAX + 1] = {
+ };
+ 
+ static const struct nla_policy pedit_key_ex_policy[TCA_PEDIT_KEY_EX_MAX + 1] = {
+-	[TCA_PEDIT_KEY_EX_HTYPE]  = { .type = NLA_U16 },
+-	[TCA_PEDIT_KEY_EX_CMD]	  = { .type = NLA_U16 },
++	[TCA_PEDIT_KEY_EX_HTYPE] =
++		NLA_POLICY_MAX(NLA_U16, TCA_PEDIT_HDR_TYPE_MAX),
++	[TCA_PEDIT_KEY_EX_CMD] = NLA_POLICY_MAX(NLA_U16, TCA_PEDIT_CMD_MAX),
+ };
+ 
+ static struct tcf_pedit_key_ex *tcf_pedit_keys_ex_parse(struct nlattr *nla,
+@@ -82,12 +83,6 @@ static struct tcf_pedit_key_ex *tcf_pedit_keys_ex_parse(struct nlattr *nla,
+ 		k->htype = nla_get_u16(tb[TCA_PEDIT_KEY_EX_HTYPE]);
+ 		k->cmd = nla_get_u16(tb[TCA_PEDIT_KEY_EX_CMD]);
+ 
+-		if (k->htype > TCA_PEDIT_HDR_TYPE_MAX ||
+-		    k->cmd > TCA_PEDIT_CMD_MAX) {
+-			err = -EINVAL;
+-			goto err_out;
+-		}
+-
+ 		k++;
+ 	}
+ 
 -- 
 2.30.2
 
