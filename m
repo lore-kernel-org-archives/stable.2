@@ -1,99 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2E23370EC;
-	Thu, 18 Jun 2026 06:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5846634FF78;
+	Thu, 18 Jun 2026 06:41:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781764833; cv=none; b=j3fNKePMD8UUuqdIr21U/C1mCYWzu8TMjvDS/902Ba8n+naq537DjONaHyQ39xKKDExu268300jwOLtWjyuKIpP8wHf4v8Cv/EZ5iP671k3qiWWl4l1UTpYTW7YtJXp/MpmvxRvfyPROQpl0/0OantxO3b2stlQ+8kmCKvaptbE=
+	t=1781764903; cv=none; b=TJV7e9O9BldzHE6RHEXL19eYxhw2vnmwYAIATZYCS5aWuOlMxs/L/R6pj7EFPTEavC2UxL6Po94/vnR7AX0Ujpv1+fpAF4TsxbP8YVfeGTEGrV0/4+yydDRAy0T81JygnqSW5QK8HiRKC/Ob4gcD6wY6C2YAVvtV0SG4m+ez4Wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781764833; c=relaxed/simple;
-	bh=BumMsBSMG1s9RkeZoB5IVq+5GgZbpDM82QYWrngLh0g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FHkOEVGPCqgt19kJQ599+WxZVDc+odhKvM6xfIHJSNNHmTStypJjp2GbQoOIOhtrTXBig2DHs2FNfnDUG3WeFwCPQUtN/JAi7HX++tti0KZiNfgLN13Zli84z5ZVgAW061ot3bIvre+oA70i4Bvp2c7s1R25t5KRJDuudMMSTrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cRMD+n+T; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781764903; c=relaxed/simple;
+	bh=31Eeq/d+zoGG7PIX4maJaW5PyAmcLBVUkPNF9YVL6V8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hdVJXuFffc5f8V4jAtfay1cOKm2BcEqE+rkb/tRDve3927ymdwxOmOfhGHVMGkPuLM0rTQVl/1e5ROeawN3TErqge3EPBWdcaPqlm2RAWW/YCujdEEpaVOyMrdB0NvBlGObZQRWuBjGbet9sEQ940a2XQldvnfq4IcckeLfP+e0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=dhqenNOJ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=hrMAQpCn; arc=none smtp.client-ip=103.168.172.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cRMD+n+T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781764832; x=1813300832;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=BumMsBSMG1s9RkeZoB5IVq+5GgZbpDM82QYWrngLh0g=;
-  b=cRMD+n+TCBUEYZGcTEXskT9XwGj7BzP/QGvzIfSBJDw2JXwD8w/UZz5V
-   QsyNlqaGc2FLSySliPVk1riCoRUJK9FrYq30otMHCI81Em5eTzD9MfXvN
-   KilhV3751rR0aug9+aSaKSDQDF4IAcv7WL/0pYhxsmTB1aIaS5X1J6MpY
-   Cu/5Om3LM9rtaA/1d/9jJx570tN0R31WANv8NV+3rxob3HLPkQ4KGHb7f
-   pbvheLKkBqkgAOxsahR63TuLrEG5SUbZuiKm7JyOrqlyCokqEmNwUkeAA
-   X4KhVKv97X5cr3by+kIJQNnk9fgx1Fk7mfV8YvCD6wxyJaXl8lQJzrW7f
-   g==;
-X-CSE-ConnectionGUID: dM3Uw8fZSpyfQyhq7Ght1A==
-X-CSE-MsgGUID: nXTOOMkoQNCKJMH7yjPclw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="86504824"
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="86504824"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 23:40:32 -0700
-X-CSE-ConnectionGUID: MB7qguYtRgqQyZ9s2rpayA==
-X-CSE-MsgGUID: ZleeRUKyTEOdeByrUeHoZw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="248371127"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.10])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 23:40:28 -0700
-Date: Thu, 18 Jun 2026 09:40:25 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Jan Kiszka <jan.kiszka@siemens.com>, linux-gpio@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] gpio: sch: use raw_spinlock_t in the irq startup path
-Message-ID: <ajOS2UR9pw_pUBxr@ashevche-desk.local>
-References: <20260617154035.1199948-1-runyu.xiao@seu.edu.cn>
- <20260617154035.1199948-2-runyu.xiao@seu.edu.cn>
- <20260618062839.4o1ewdEn@linutronix.de>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="dhqenNOJ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="hrMAQpCn"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 573BD140008C;
+	Thu, 18 Jun 2026 02:41:39 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-02.internal (MEProxy); Thu, 18 Jun 2026 02:41:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1781764899;
+	 x=1781851299; bh=qh0UhrZdUGSW+V4IXOhrzuQwkfklboAeynjwycY55hI=; b=
+	dhqenNOJCO8fMvRWY4ghC1LMH+uF8dO5THidXy4pUrCgVEPuIT68PGnl6OveXmNI
+	W+qu2Bxp0GlwsaOYqjMMzwiam78f0FeZ7LRxxluP36pyGX0/I64lBixYpelBfJM1
+	iTt90abKQE8PMsZ4O7hYwYlUxrrPOFqHdEW/1d1oEJgbVhijxnU8HBziUUZYRo/q
+	A6gx2mHRvDEca3hyvrQPlxr9726Gy14iIeiTI72urHJWCnl5qDSL40+zVcUYvgV1
+	7OEEcHf78vV9F0h1eq0/w8zCH967pjgXCqBDMxNeYv8LR+C303AvheVVc00uUlfD
+	ic7pUf7a6IUvPnGoVkBDaQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781764899; x=
+	1781851299; bh=qh0UhrZdUGSW+V4IXOhrzuQwkfklboAeynjwycY55hI=; b=h
+	rMAQpCne3mIGEsydU0ynpSKQ29JJ/kSw5KDiPWR+3ISdHvGJyC+GDZE0n4jOcKPf
+	8CzaDmqgD3iz/ThbAhGjstbEgfOAvmf1JkRAlm37/KYrprmIMFeJFxeaX+VAjctT
+	ttwI3NpPywg7dIJvc8ZEn7nGq7La9MnJf7Nhz7ntjmBxkth9ebiwDdJ7hxa9cSO3
+	krF6RFLCcsIjcaPEdi14vC0TT4p+mpBvk43LIAF90jhAQN5KCsl9+khrpJA1kv1w
+	EUq88RECwh4nm7nUxZywNs4VtZ2RHlXc37iOOqKuOaMf8n8SOt773WpwLc2+fLys
+	QOFg1cr+mdW2hEdHAb/iQ==
+X-ME-Sender: <xms:IpMzapUNmY4CQqHNwskIomRCCoZy29ccMYSOHCg-puvZAvzQ1jyc8g>
+    <xme:IpMzanSNzv1DBnzwZDx4h1vSD6OtklfMEXamwsPkhcpEa1zoerXgIL7akkjoVz9iB
+    Muf9MX8TossP9uwsf3mzTcp0vzmEeH3dD19cH5tu13-VccyKUDvp6M>
+X-ME-Received: <xmr:IpMzanJca_YmTHxNk4DQj4eswRSDrueWAIJZFngCt9EM6fbyx_Y5Pnxm0AsMtByhFhUDKZJkuweberyIOby2LcWg4G1XXHA4>
+X-ME-Proxy-Cause: dmFkZTFFpRbhVo/d1+Jw5wBo7Xme1b9KjSnuZhTvpq4Pdk+DD/1DZ3m1/X0J17Z8XAeNjA
+    KfJvqT82W+sFp4jZBjST7SF1dlEBFHsKM2Ext2dSnjsibvaX3xTcWPnLiw6Q1RwHZQjQbg
+    d8WvlRkg3kGbtj7fRSr9uAkzfwMb/Ht0kM1L+7prZiO9y5pU0bw13PBX22Qz6xoghn89sK
+    SW7ujA/+zO9ix6rIGBmwIA/pz4feItr1FGSpMhQ+sUD0AOs36sy85H92gX7TVZTwGL42Xl
+    oMBIF6Kkaam060fl47P3cPEfr5rHBNbl2VjtuD6ekpr3cxfku4ClosivVchwr8Aahw8TTD
+    LooQp9MFSACOhWYTXVRfTzmwWlUhA+JzWsE6HjPWCPO2o0yRU0E9VGRukgNS2kIjSu5yVP
+    fDmTM49Z/zORgMc5Ctnmg1N/flpB+wrNXOH4FaAwuQ7lURKevdSJVZeNMRnHZJOH0Yo1IN
+    eWSDMXR0IqECQLVjz1e8XPlXbPBqcxjly5kGzuWegNUTOpUU/7TImT4YES1orlTJ4cRLg0
+    tkxi2hCgtDuK5eZWfFOXatM3/Z5ZRjaQHzStH1qY6ZhyCwvvytKZbNR2lToiHodnkaNkem
+    tBcmtTBHFM4hknVEVH+ma0HOqomkN/pTH6JIkFJlN3db39k9UCEUdCnj3ndw
+X-ME-Proxy: <xmx:IpMzao2BSPFrfc8WDknrpNwE0S9wpVMKDkbgOfIzpTRuXLp68LL2Vw>
+    <xmx:IpMzaqJtm1T2IQr-aVkrHkz5xbSGDwkfJv_XWJr0_9KZNLTLejM9xw>
+    <xmx:IpMzaolbz0Eijcvs9JTAMmvpK4itEvwYnjm9sfe94M8Pc35VfT3XtA>
+    <xmx:IpMzaoPD4UtXnkZApvhLUfBhP29J9h9bQC8S3mIkNot4QY2QN8beVA>
+    <xmx:I5MzagMp1E3BWI-6-txPWrIYRD0DcRMF1B7dLGqEes-Di5h78GotYjGR>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 18 Jun 2026 02:41:35 -0400 (EDT)
+Message-ID: <6913f381-2a31-4ff5-8409-a5725bf5a650@pobox.com>
+Date: Wed, 17 Jun 2026 23:41:34 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260618062839.4o1ewdEn@linutronix.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 5.15 000/410] 5.15.210-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260617080316.111043001@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260617080316.111043001@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 18, 2026 at 08:28:39AM +0200, Sebastian Andrzej Siewior wrote:
-> On 2026-06-17 23:40:34 [+0800], Runyu Xiao wrote:
-> > sch_irq_unmask() enables the GPIO IRQ and then updates the controller
-> > state through sch_irq_mask_unmask(), which takes sch->lock with
-> > spin_lock_irqsave().  The callback can be reached from irq_startup()
-> > while setting up a requested IRQ.  That path is not sleepable, but on
-> > PREEMPT_RT a regular spinlock_t becomes a sleeping lock.
-> …
-> > Fixes: 7a81638485c1 ("gpio: sch: Add edge event support")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+On 6/17/26 1:03 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.15.210 release.
+> There are 410 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Responses should be made by Fri, 19 Jun 2026 08:02:26 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.210-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-There is already a v2.
+Tested on a 2017 13" Apple MacBook Air. Working well, no regressions
+observed.
+
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+-Barry K. Nathan  <barryn@pobox.com>
