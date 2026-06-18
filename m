@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1DA33FBB76;
-	Thu, 18 Jun 2026 15:15:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC693FC5A9;
+	Thu, 18 Jun 2026 15:15:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781795731; cv=none; b=iBPSGOilxMtvX00E4m5Z/5dZRBUQKHzpb41D5rL+pBe3uUNPk37dYah8dzr21uQDXVWotX95s5MunxHwHzc9ug9IkJ8Jx0aVQitVG/PPj+kULTHXJr8cE0d3sUskvu84AS72HF6w/IBRL6Uc01HJ+5E9eljcaOz2f5m1SEPrfxU=
+	t=1781795734; cv=none; b=ulofHye1h6ELCIRQiaY84rEKsuoB27EFPayMM+l06E5joQVe42FPt6Y4aDuVjAkdI/aih7qgY9rIlyoNex/EmmPS75rH1rtncgPD2dJbL9x9QQqqbELC0u9eBn9LneSLg/MK1jmkelrzIaoEWCxGKTkUUDdGzscEFXxWbwqcq5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781795731; c=relaxed/simple;
-	bh=HWdAP7bN8wgLM9Uk9w1J0MsTcc9ctSj3NsL8gL3RJmM=;
+	s=arc-20240116; t=1781795734; c=relaxed/simple;
+	bh=ZEnagPMbJ+SZ9NxkHl15NRRU4mAP7XqbFmOd7PdujSw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZZocpNmGkuj70KawF60QZHDqoTrduxLaliFkzOXKJpOCWsXmwGtB0oO++9IX2+N7m/8fxyXGgRcMyFsqSBLtiHbTk/RQuaxlb7ZamKtziUL7dIuAu1SR8Stj1l94YiPbXT/6Rb2luNAj0sIyhEU5zeV09FosomZA348mrdocoYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c4otBAAd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=q69736yMYLRk2B5lqyBoPmiUyjhc8MThagTk7owdJ6bhCOqcPdazpv4UXylI0Z6sMtS485sP1S/4dkDr0z/dV/zDz9krbwGh6Pu0b54/lBJ9bF+7tfogWkGad87zvbvWPoZZ/qZzWU02rRPyy7vQYc/y+5tlF3GgIlYuP8gily0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o3YCEZTr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c4otBAAd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940931F000E9;
-	Thu, 18 Jun 2026 15:15:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o3YCEZTr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 684921F000E9;
+	Thu, 18 Jun 2026 15:15:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781795730;
-	bh=f+ZFI7Qgbe7xnOZyetZ4L3vI22eJ2l2ckq5hmR8a2XY=;
+	s=k20260515; t=1781795732;
+	bh=Ot9STQ1g/9bWHz2PjKibHQ71PZQcqWhCbB69SWOFmKg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c4otBAAdK7g3o77FEZQlZkjkONMzdQBJ0R4LsRPs5AkdB02wLhURfZ5fgv/dnc1eW
-	 x7EtoweTcNqhD8+CSvHCtoKjG06LMUpEU/sMWCBNiThl/khQFDDxnamTr2pbeGL6Na
-	 u14I1gBO1NVF5qzQ5SVCCdRULpcy/o1xKdvuLG5e7MsJQv3LbGBjInCHNIgPOQenbQ
-	 KhCLsKOe/KUMaBEfTu3BFjCxi1nmosMs/FD4xSVEcOCkvC5kKCj6yWaz5QhLzePkE9
-	 t7HRJH/vG4FA3T7JSX7bq6rso8OyVWf6DKuJY7ytEGZHa3AePC67Ma5zeGjIYBXC+w
-	 6MQCZ6V9CAJxA==
+	b=o3YCEZTrO+wyO3PqS/j1/Gt2GLsXLY9FxL6xZbWT1uGZLwZjqayIGag//weJb512F
+	 RJNNCcmISu+dza9sGmQCswEbLB+3tcbT4/ySZehAtBUwVpeCePuB60lVcXd+0LIjIv
+	 I5PwxR5LoA1sjjb1NIT+u2ZnUV8DOSHS+UhkGhmgzivxt5XdRgy7yUt7koLZ2A1Zrp
+	 m/huCaE4WBwCYlNePgvJJTBKVPTV36UzLUwDaHgVD6FBxCkQ0tMOg/sMlF/1fXfrQn
+	 7lvWn778TGS8/RyF1rs4COUeOXrdWp7krVcbg6DYx57zNoLNr0sDcRerYOo4s01bB+
+	 khYE9UPlNjLrw==
 From: SeongJae Park <sj@kernel.org>
 To: 
 Cc: SeongJae Park <sj@kernel.org>,
-	"# 5 . 18 . x" <stable@vger.kernel.org>,
+	"# 6 . 2 . x" <stable@vger.kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH v1.2 02/11] mm/damon/sysfs: kobject_del() region and target (error) dirs
-Date: Thu, 18 Jun 2026 08:15:06 -0700
-Message-ID: <20260618151517.5366-3-sj@kernel.org>
+Subject: [RFC PATCH v1.2 04/11] mm/damon/sysfs-schemes: kobject_del() scheme region dirs
+Date: Thu, 18 Jun 2026 08:15:08 -0700
+Message-ID: <20260618151517.5366-5-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260618151517.5366-1-sj@kernel.org>
 References: <20260618151517.5366-1-sj@kernel.org>
@@ -50,48 +50,32 @@ Content-Transfer-Encoding: 8bit
 
 On CONFIG_DEBUG_KOBJECT_RELEASE enabled kernel, lack of kobject_del()
 could cause directories creation failures due to the name conflicts. Fix
-those issues for the normal creation path of region directories and the
-error path of target directories, by adding kobject_del() calls.
+those issues for scheme region directories by adding kobject_del()
+calls.
 
-Fixes: 2031b14ea757 ("mm/damon/sysfs: support the physical address space monitoring")
-Cc: <stable@vger.kernel.org> # 5.18.x
+This issue was discovered [1] by Sashiko, though its analysis was
+partially incorrect.
+
+[1] https://lore.kernel.org/20260517205828.6204-1-sj@kernel.org
+
+Fixes: 9277d0367ba1 ("mm/damon/sysfs-schemes: implement scheme region directory")
+Cc: <stable@vger.kernel.org> # 6.2.x
 Signed-off-by: SeongJae Park <sj@kernel.org>
 ---
- mm/damon/sysfs.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ mm/damon/sysfs-schemes.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index dba1c67fc188f..3c349f0fe80f0 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -107,8 +107,10 @@ static void damon_sysfs_regions_rm_dirs(struct damon_sysfs_regions *regions)
- 	struct damon_sysfs_region **regions_arr = regions->regions_arr;
- 	int i;
- 
--	for (i = 0; i < regions->nr; i++)
-+	for (i = 0; i < regions->nr; i++) {
-+		kobject_del(&regions_arr[i]->kobj);
- 		kobject_put(&regions_arr[i]->kobj);
-+	}
- 	regions->nr = 0;
- 	kfree(regions_arr);
- 	regions->regions_arr = NULL;
-@@ -372,13 +374,15 @@ static int damon_sysfs_targets_add_dirs(struct damon_sysfs_targets *targets,
- 
- 		err = damon_sysfs_target_add_dirs(target);
- 		if (err)
--			goto out;
-+			goto del_out;
- 
- 		targets_arr[i] = target;
- 		targets->nr++;
+diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
+index 13f5fae01800b..36a35ad0983eb 100644
+--- a/mm/damon/sysfs-schemes.c
++++ b/mm/damon/sysfs-schemes.c
+@@ -334,6 +334,7 @@ static void damon_sysfs_scheme_regions_rm_dirs(
+ 	list_for_each_entry_safe(r, next, &regions->regions_list, list) {
+ 		damos_sysfs_region_rm_dirs(r);
+ 		list_del(&r->list);
++		kobject_del(&r->kobj);
+ 		kobject_put(&r->kobj);
+ 		regions->nr_regions--;
  	}
- 	return 0;
- 
-+del_out:
-+	kobject_del(&target->kobj);
- out:
- 	damon_sysfs_targets_rm_dirs(targets);
- 	kobject_put(&target->kobj);
 -- 
 2.47.3
