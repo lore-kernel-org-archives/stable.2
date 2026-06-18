@@ -1,40 +1,43 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 78EE5280A56
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 15:14:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E772D9EE4;
+	Thu, 18 Jun 2026 15:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781795680; cv=none; b=eoT5A2jXKvVTNa48Ff5QJjTfqKIlRJDL9uyI1vtSKsdVNglAoP64gwBk9gKiiLXhiVgzb2q5ipcxdOk7gKQ4NBmiQ3oyAYCXmhZ6zoM2GKsFKSFWCXDCTcj8JznHrUMCoOwjr5zkR4SowEL6vdJW5xuUkEqiVTJGRuLVShUlMw0=
+	t=1781795729; cv=none; b=KyvHG16SEBBZZL3kZS7ZT8Z6vmHFm+efoMg90kZ3Ugi6OAuKpbuoz/SgvZJEwqzo5Ij0qsdQ0j4IciNvkPg+21YEuGSHJdtq+nDM2nqBSAmZJN8XnbusOjQo70XgSzlpKV6FwTdtA2sFxY+0XI4+UiwsHenJW9UfYaaEXIui9Sg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781795680; c=relaxed/simple;
-	bh=ttDqJFmjnJ1rc+am3kSwMSQRKHzzncUR5oFAcD9O8pA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=otHxDzmBdCOxJdvBOeZE7cOW8sxVaUAgs7AzgDG0CQlD3EmgI8JdkrrhaPNZI7GurgQRS+xqA7RhJPHFss2EWYzaxO2fCWif7hQgl8KgY+vZ8p1fUi0aUqc4Gpfd+MlAJTEEMl4PyIrRu3LKwTlt28bgoPSKFl39hkQsv5yAGHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=R3oi46UX; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1781795729; c=relaxed/simple;
+	bh=lcUnEqhWTXGgFsnJ2GHSPjx/+5r2ez9z5eZ3Sg9Kwo0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HKgxPsQAGVhBIBmDKuZmHAjeGynqNuzn0HtGN84wLNM6nT3hibswl1oD+EkukVkDI/mhwjIYdXDHrc49qEOatSlmP/MyukJwVEBsTGFOdj7XZVkq8u+N2Hu5drESyO6DdFgNrjkn+p7m63ODszWds194IxMieyZO7dw0S5oBsm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I+ABRFxj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="R3oi46UX"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9BE972BF2;
-	Thu, 18 Jun 2026 08:14:32 -0700 (PDT)
-Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 64AE93F62B;
-	Thu, 18 Jun 2026 08:14:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781795677; bh=ttDqJFmjnJ1rc+am3kSwMSQRKHzzncUR5oFAcD9O8pA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=R3oi46UXenkUiwqygbrdlzc2UCfhqTcer8zo5XJKQDaq/XfXFNjtsjoOV6M76qD/7
-	 TNvljm5EN0LcXt6qC7pu/Xo8Pv7OV+znN1LP3l1lNGgnJfYxhWSMWEp2sIbQ2/hOPj
-	 kZH+gGpJrT9osn7Md09gUC5CD2AtWi7ltN7bQLB8=
-From: Mark Rutland <mark.rutland@arm.com>
-To: stable@vger.kernel.org
-Cc: catalin.marinas@arm.com,
-	mark.rutland@arm.com,
-	mathias@mongodb.com,
-	peterz@infradead.org
-Subject: [PATCH 7.0] arm64/entry: Fix arm64-specific rseq brokenness
-Date: Thu, 18 Jun 2026 16:14:26 +0100
-Message-Id: <20260618151426.308099-1-mark.rutland@arm.com>
-X-Mailer: git-send-email 2.30.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I+ABRFxj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56C251F000E9;
+	Thu, 18 Jun 2026 15:15:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781795728;
+	bh=TV4CqNhL96y47BkvUr+Vh2gUi09twBlCDxYoSxWN5Fg=;
+	h=From:To:Cc:Subject:Date;
+	b=I+ABRFxjLtSSQZOvjMDFRYRmy2ivQODBZl39LW7V/1yKoNLOB3it9SlE4vXHN4oJ/
+	 vbia9Gyo7xHYxafNmddewCNvUkLxEpK7EdIE3jRuhwmoqaYLmBgMP1wQ8ieh9bsGiu
+	 vUH1rf1hQulzRnCX4cKqyDkwLm5ak7kDWsTnOci5/XCbJPSFvjCIzwJ+CH9mlaLRWl
+	 FMuHDMswaSBc6suPqFG7+5q4ghJ5fidoyMPf41IFPCdEEg3fiUR19/G1/xFyWpVVY0
+	 TnlUm3dp/YLuGhMcB4WniAlN3frykeJ7KxXa6kR0odhumq3JhZ8JDnFOrvQo707L7U
+	 F56wIoGDM76ng==
+From: SeongJae Park <sj@kernel.org>
+To: 
+Cc: SeongJae Park <sj@kernel.org>,
+	"# 5 . 18 . x" <stable@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH v1.2 00/11] mm/damon/sysfs: kobject_del() directories that users can create/remove
+Date: Thu, 18 Jun 2026 08:15:04 -0700
+Message-ID: <20260618151517.5366-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,219 +46,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 411c1cf430392c905e39f12bc305dd994da0b426 upstream.
+DAMON sysfs interface allows users to create and remove arbitrary number
+of directories on sysfs, using a few files having 'nr_' prefix.  For
+example, 'nr_kdamonds'.  When the user writes a number 'N' to the files,
+directories having name starting from '0' to 'N - 1' are created in the
+same directory.  The pre-existing number-named directories are removed
+before creating the new directories.
 
-Mathias Stearn reports that since v6.19, there are two big issues
-affecting rseq:
+For the removal of the existing directories, DAMON sysfs interface use
+only kobject_put().  Because DAMON sysfs interface is the only kernel
+component that manages the directories, there is no problem in normal
+situations.  However, if CONFIG_DEBUG_KOBJECT_RELEASE is enabled, the
+removal of dirs are delayed.  Let's suppose a user writes a non-zero
+number to the 'nr_*' files while there are pre-existing number-named
+directories, on the config enabled kernel.  DAMON sysfs interface
+decreases the reference counts of the existing directories and
+immediately creates new directories.  Because the removal of the sysfs
+directories is delayed, it shows some pre-existing directories of the
+same names when it tries to create the new directories, and fails.
 
-(1) On arm64 specifically, rseq critical sections aren't aborted when
-    they should be.
+For example, the issue can be triggered like below:
 
-(2) The 'cpu_id_start' field is no longer written by the kernel in all
-    cases it used to be, including some cases where TCMalloc depends on
-    the kernel clobbering the field.
+    # grep DEBUG_KOBJECT_RELEASE /boot/config-$(uname -r)
+    CONFIG_DEBUG_KOBJECT_RELEASE=y
+    # ls
+    nr_kdamonds
+    # echo 1 > nr_kdamonds
+    # echo 1 > nr_kdamonds
+    bash: echo: write error: File exists
+    # dmesg
+    [...]
+    [  300.880458] kobject: kobject_add_internal failed for 0 with -EEXIST, don't try to register things with the same name in the same directory.
+    [...]
 
-This patch fixes issue #1. This patch DOES NOT fix issue #2, which will
-need to be addressed by other patches.
+Some of the error handling paths of the directories also lack the
+kobject_del() call.  If the user uses nr_* file right after the errors,
+similar issues can happen.
 
-The arm64-specific brokenness is a result of commits:
+This doesn't cause catastrophic issues like kernel panics or memory
+corruptions.  Users can work around by removing all directories first
+(write 0 to the nr_* files) and then create new directories after
+confirming the old directories are gone.  But, this is definitely a bug
+that causes a bad user experience.
 
-  2fc0e4b4126c ("rseq: Record interrupt from user space")
-  39a167560a61 ("rseq: Optimize event setting")
+Fix the issues by calling kobject_del() before creating new directories.
 
-The first commit failed to add a call to rseq_note_user_irq_entry() on
-arm64. Thus arm64 never sets rseq_event::user_irq to record that it may
-be necessary to abort an active rseq critical section upon return to
-userspace. On its own, this commit had no functional impact as the value
-of rseq_event::user_irq was not consumed.
+Patches Sequence
+================
 
-The second commit relied upon rseq_event::user_irq to determine whether
-or not to bother to perform rseq work when returning to userspace. As
-rseq_event::user_irq wasn't set on arm64, this work would be skipped,
-and consequently an active rseq critical section would not be aborted.
+There are a number of bugs of this class that are introduced by eleven
+different commits.  The fixes are grouped and ordered for the
+introducing commits.
 
-Fix this by giving arm64 syscall-specific entry/exit paths, and
-performing the relevant logic in syscall and non-syscall paths,
-including calling rseq_note_user_irq_entry() for non-syscall entry.
+Changes from RFC v1.1
+- RFC v1.1: https://lore.kernel.org/20260617144807.91441-1-sj@kernel.org
+- Add error path fix for damon_sysfs_schemes_add_dirs().
+- Rebase to latest mm-new.
+Changes from RFC v1
+- RFC v1: https://lore.kernel.org/20260616150844.88305-1-sj@kernel.org
+- Add error path fixes.
 
-Currently arm64 cannot use syscall_enter_from_user_mode(),
-syscall_exit_to_user_mode(), and irqentry_exit_to_user_mode(), due to
-ordering constraints with exception masking, and risk of ABI breakage
-for syscall tracing/audit/etc. For the moment the entry/exit logic is
-left as arm64-specific, directly using enter_from_user_mode() and
-exit_to_user_mode(), but mirroring the generic code.
+SeongJae Park (11):
+  mm/damon/sysfs: kobject_del() target (normal), context and kdamond
+    dirs
+  mm/damon/sysfs: kobject_del() region and target (error) dirs
+  mm/damon/sysfs-schemes: kobject_del() scheme dirs
+  mm/damon/sysfs-schemes: kobject_del() scheme region dirs
+  mm/damon/sysfs-schemes: kobject_del() scheme filter dirs
+  mm/damon/sysfs-schemes: kobject_del() scheme quota goal dirs
+  mm/damon/sysfs-schemes: kobject_del() scheme action destination dirs
+  mm/damon/sysfs: kobject_del() probe dirs
+  mm/damon/sysfs: kobject_del() probe filter dirs
+  mm/damon/sysfs: kobject_del() probe dirs in probes_addd_dir error path
+  mm/damon/sysfs-schemes: kobject_del() region for populate_region error
 
-I intend to follow up with refactoring/cleanup, as we did for kernel
-mode entry paths in commit:
+ mm/damon/sysfs-schemes.c | 22 +++++++++++++++++-----
+ mm/damon/sysfs.c         | 25 ++++++++++++++++++++-----
+ 2 files changed, 37 insertions(+), 10 deletions(-)
 
-  041aa7a85390 ("entry: Split preemption from irqentry_exit_to_kernel_mode()")
 
-... which will allow arm64 to use the GENERIC_IRQ_ENTRY functions directly.
-
-Fixes: 39a167560a61 ("rseq: Optimize event setting")
-Reported-by: Mathias Stearn <mathias@mongodb.com>
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
-Link: https://lore.kernel.org/regressions/CAHnCjA25b+nO2n5CeifknSKHssJpPrjnf+dtr7UgzRw4Zgu=oA@mail.gmail.com/
-Link: https://patch.msgid.link/20260508142023.3268622-1-mark.rutland@arm.com
-[Mark: fix conflicts in entry-common.c & irq-entry-common.h]
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
----
- arch/arm64/kernel/entry-common.c | 29 ++++++++++++++++++++++-------
- include/linux/irq-entry-common.h |  8 --------
- include/linux/rseq_entry.h       | 19 -------------------
- 3 files changed, 22 insertions(+), 34 deletions(-)
-
-The other rseq fixes made it into v7.1 and were all backported to v7.0.y
-as of v7.0.10. We forgot to CC stable, so this patch was missed.
-
-This isn't needed for earlier stable trees.
-
-Mark.
-
-diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-index 3625797e9ee8f..e3614cedaf23e 100644
---- a/arch/arm64/kernel/entry-common.c
-+++ b/arch/arm64/kernel/entry-common.c
-@@ -58,6 +58,12 @@ static void noinstr exit_to_kernel_mode(struct pt_regs *regs,
- 	irqentry_exit(regs, state);
- }
- 
-+static __always_inline void arm64_syscall_enter_from_user_mode(struct pt_regs *regs)
-+{
-+	enter_from_user_mode(regs);
-+	mte_disable_tco_entry(current);
-+}
-+
- /*
-  * Handle IRQ/context state management when entering from user mode.
-  * Before this function is called it is not safe to call regular kernel code,
-@@ -66,19 +72,28 @@ static void noinstr exit_to_kernel_mode(struct pt_regs *regs,
- static __always_inline void arm64_enter_from_user_mode(struct pt_regs *regs)
- {
- 	enter_from_user_mode(regs);
-+	rseq_note_user_irq_entry();
- 	mte_disable_tco_entry(current);
- }
- 
-+static __always_inline void arm64_syscall_exit_to_user_mode(struct pt_regs *regs)
-+{
-+	local_irq_disable();
-+	syscall_exit_to_user_mode_prepare(regs);
-+	local_daif_mask();
-+	mte_check_tfsr_exit();
-+	exit_to_user_mode();
-+}
-+
- /*
-  * Handle IRQ/context state management when exiting to user mode.
-  * After this function returns it is not safe to call regular kernel code,
-  * instrumentable code, or any code which may trigger an exception.
-  */
--
- static __always_inline void arm64_exit_to_user_mode(struct pt_regs *regs)
- {
- 	local_irq_disable();
--	exit_to_user_mode_prepare_legacy(regs);
-+	irqentry_exit_to_user_mode_prepare(regs);
- 	local_daif_mask();
- 	mte_check_tfsr_exit();
- 	exit_to_user_mode();
-@@ -86,7 +101,7 @@ static __always_inline void arm64_exit_to_user_mode(struct pt_regs *regs)
- 
- asmlinkage void noinstr asm_exit_to_user_mode(struct pt_regs *regs)
- {
--	arm64_exit_to_user_mode(regs);
-+	arm64_syscall_exit_to_user_mode(regs);
- }
- 
- /*
-@@ -717,12 +732,12 @@ static void noinstr el0_brk64(struct pt_regs *regs, unsigned long esr)
- 
- static void noinstr el0_svc(struct pt_regs *regs)
- {
--	arm64_enter_from_user_mode(regs);
-+	arm64_syscall_enter_from_user_mode(regs);
- 	cortex_a76_erratum_1463225_svc_handler();
- 	fpsimd_syscall_enter();
- 	local_daif_restore(DAIF_PROCCTX);
- 	do_el0_svc(regs);
--	arm64_exit_to_user_mode(regs);
-+	arm64_syscall_exit_to_user_mode(regs);
- 	fpsimd_syscall_exit();
- }
- 
-@@ -869,11 +884,11 @@ static void noinstr el0_cp15(struct pt_regs *regs, unsigned long esr)
- 
- static void noinstr el0_svc_compat(struct pt_regs *regs)
- {
--	arm64_enter_from_user_mode(regs);
-+	arm64_syscall_enter_from_user_mode(regs);
- 	cortex_a76_erratum_1463225_svc_handler();
- 	local_daif_restore(DAIF_PROCCTX);
- 	do_el0_svc_compat(regs);
--	arm64_exit_to_user_mode(regs);
-+	arm64_syscall_exit_to_user_mode(regs);
- }
- 
- static void noinstr el0_bkpt32(struct pt_regs *regs, unsigned long esr)
-diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
-index d26d1b1bcbfb9..6519b4a30dc1d 100644
---- a/include/linux/irq-entry-common.h
-+++ b/include/linux/irq-entry-common.h
-@@ -236,14 +236,6 @@ static __always_inline void __exit_to_user_mode_validate(void)
- 	lockdep_sys_exit();
- }
- 
--/* Temporary workaround to keep ARM64 alive */
--static __always_inline void exit_to_user_mode_prepare_legacy(struct pt_regs *regs)
--{
--	__exit_to_user_mode_prepare(regs);
--	rseq_exit_to_user_mode_legacy();
--	__exit_to_user_mode_validate();
--}
--
- /**
-  * syscall_exit_to_user_mode_prepare - call exit_to_user_mode_loop() if required
-  * @regs:	Pointer to pt_regs on entry stack
-diff --git a/include/linux/rseq_entry.h b/include/linux/rseq_entry.h
-index 413a3543fbe8e..5577cf3cce992 100644
---- a/include/linux/rseq_entry.h
-+++ b/include/linux/rseq_entry.h
-@@ -739,24 +739,6 @@ static __always_inline void rseq_irqentry_exit_to_user_mode(void)
- 	ev->events = 0;
- }
- 
--/* Required to keep ARM64 working */
--static __always_inline void rseq_exit_to_user_mode_legacy(void)
--{
--	struct rseq_event *ev = &current->rseq.event;
--
--	rseq_stat_inc(rseq_stats.exit);
--
--	if (static_branch_unlikely(&rseq_debug_enabled))
--		WARN_ON_ONCE(ev->sched_switch);
--
--	/*
--	 * Ensure that event (especially user_irq) is cleared when the
--	 * interrupt did not result in a schedule and therefore the
--	 * rseq processing did not clear it.
--	 */
--	ev->events = 0;
--}
--
- void __rseq_debug_syscall_return(struct pt_regs *regs);
- 
- static __always_inline void rseq_debug_syscall_return(struct pt_regs *regs)
-@@ -772,7 +754,6 @@ static inline bool rseq_exit_to_user_mode_restart(struct pt_regs *regs, unsigned
- }
- static inline void rseq_syscall_exit_to_user_mode(void) { }
- static inline void rseq_irqentry_exit_to_user_mode(void) { }
--static inline void rseq_exit_to_user_mode_legacy(void) { }
- static inline void rseq_debug_syscall_return(struct pt_regs *regs) { }
- static inline bool rseq_grant_slice_extension(bool work_pending) { return false; }
- #endif /* !CONFIG_RSEQ */
+base-commit: 30941f0c4e32b31d4dcf2956491c5a3ac9c5beb4
 -- 
-2.30.2
-
+2.47.3
