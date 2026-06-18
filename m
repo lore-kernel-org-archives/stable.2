@@ -1,154 +1,114 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1FB3909BF;
-	Thu, 18 Jun 2026 11:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA85232BF5C
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 12:07:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781783598; cv=none; b=P6JoXcHJyRYLKJLbhe0QG6lbd/xILnrwjVX9q14MoxHFT+EM8jTp+8BavDn712V84+08Z7rrzhWmkte+AI1V56/x2itYUldPQ1fYPd5DJ7wJ+VNSGSr1N6cqI3Scjm+sSAdn6aCuHVRVtDdbckUKHf6avHwRSSjkiluw6UoPIqI=
+	t=1781784449; cv=none; b=t27td1ZP9mvGclBYtIQoPwBwn2FLeoeKVYIG/Q2amV/N2PubfFv57F0Oo09tiTJ4+OB/lqMOsXm4NvW0WOGVFSN6DIb6LenwEzJ2QfMfPD8zDS6lZs0McPi62JHbEG2P535sA7Cg6wltMVaQHlQeag6ZmmAk5yqlgtODfm2Ajac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781783598; c=relaxed/simple;
-	bh=TTGKxlEH4k6Iz/XH79izOYS2k7Sh5F8kwl4iFg7yhxw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j/uDbLW+IA2DaQK0me1I0HbpDJA4T6MUAKKUYOue/28KOajcaIa2IVySyPsU/GKLPlkCbr/3iiuRwfgNYHnVh9w5q1z32Cl16PbruKkgVQ8YVGteq0XVQLNIsPEi0jvTkRyJREhmcAttq156aqeOCAXu5mOyW2twu9t4faZC08g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JJ4wqDW9; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1781784449; c=relaxed/simple;
+	bh=rvUJtS+4F0/HkiQYZkn4KPT8KMj4ZyTWCGc1dug5DVM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sqvJFRexrX4K5glludWFtWL1EJriAzzjrZyh2jDtxsUo1a7w9t9Q+DOvTLbs7BPCfDuzxsK0hiCSPOJUT+2YeYckMdid+8JbEr4H9+ZeYrft5Y8DAT1qpKxgTCK8CJ9yuXgh2dfv+T53JDFn3obdMLN+Bg2oi0ZoxccOhRpOrEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FdRkwK9C; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JJ4wqDW9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781783597; x=1813319597;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=TTGKxlEH4k6Iz/XH79izOYS2k7Sh5F8kwl4iFg7yhxw=;
-  b=JJ4wqDW9UkkdPsJVOz4Qpbb6YucF0RpBV4H+bdmK72rjLOWo+6Ky2UK6
-   7pteH7urny3v9DyNS43BzhEMjGBLFniqKkMLmj80A1LrUtDukKYxtJqe7
-   82ZybQ1u5H76DRXQxVigfxr+OGgDYbGaevGDZUA5iHa9rds2pY0rnJJuf
-   DY4jEvYRv6ztVXaoPxadGdAjlkQdzZSiZr5CQZJHe0PrmfT1RBykeV31e
-   hKKLZTB9ZZ2gaPIOmp9cea8N2z3xjZhYc6V4+qQ1IwEtzwU6VdBtAtJnf
-   WmiSkgk+MrvDP4H/wVBD+WsVjREfSwVGaz9kNBHGXpXBO40CcEFVuF8BR
-   w==;
-X-CSE-ConnectionGUID: tiFRLf2lRc6dlFj6us3mlg==
-X-CSE-MsgGUID: GtGyZiIIRaaFi27Eq9wl8Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="81724115"
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="81724115"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 04:53:16 -0700
-X-CSE-ConnectionGUID: weUvlHunQDeCMKvggxUFdA==
-X-CSE-MsgGUID: gW53k6qSRL+HSccgwwubQA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="241971105"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.24])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 04:53:15 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id E2E36121C36;
-	Thu, 18 Jun 2026 14:53:13 +0300 (EEST)
-Date: Thu, 18 Jun 2026 14:53:13 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] media: i2c: vd56g3: clean up subdev state on probe
- failure
-Message-ID: <ajPcKcJfbIdPKI8-@kekkonen.localdomain>
-References: <20260424165238.31333-1-mhun512@gmail.com>
- <c9c20bce-a1bb-4932-bfa0-c87f7156ff82@foss.st.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FdRkwK9C"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490c1915793so6682725e9.2
+        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 05:07:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781784447; x=1782389247; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=uAFu3iieP1epU57dc1h0pgsCpphj+R9P3j26Urr6Nvk=;
+        b=FdRkwK9CWg+IcwCXunKeexBh+9wT/hagtNvz0B5dvEjvxFqiGM0iEF3Mdw6ypcbXsg
+         647gidMAmKVwJ4QyRqRZ5H7Jk4Ky4nsGfwI2eZTlofsxClH5+AhuBTEdb3jUXxFoxsfr
+         Cnqsm5jhWb9gDe4PHFMn5eFCwludvBhZpoZgybzEP88lpihzNUvg/DYqtlHGWsOioGwj
+         KjjWwEl3z9ExQavewagH7pt5XGC6CFsFgkrYyHxY7/tz5IW1enMMyOmGKaHL34y5TXOO
+         O2N4wKfNw5Zo/tKT2bpQ7yz8RUCU4YJw0v3zUHmdjpR/l148ysQVgB1WoXZoA3/EWGBj
+         ujFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781784447; x=1782389247;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=uAFu3iieP1epU57dc1h0pgsCpphj+R9P3j26Urr6Nvk=;
+        b=DSrnm1PEo9hc8f6tbNnNDvjKgMB0H+8zXixYMcVmsONH7CWGfdwpuODOCppDyvgVAS
+         q29yAQSI6VOlYs/xIdH6Oo6I7HkRovsyxGYzCE/n1RxdAbbm+fqmMFOzPWMeMTSzb2TO
+         zUn+pv1NCBFKqrBfxVDvzto41zCRyxApvUn9fVRFg5y0xiu2/35gkFYoWq7Wfg1TYN51
+         mnVzr4IPlJDi47VRD1Ng2i2MVVmB3JPnMSN7qU9ysXDBeUAuSqAAafsdJuDck31f5tW1
+         EXwidv6pf5rgQPQdO7a4yxCcHcnKIPxYooC7iFiYmHDkE+gLXyjZLnj5ZzMalLOkdU1U
+         9LyA==
+X-Forwarded-Encrypted: i=1; AFNElJ/USpdcoR9DRqv7ATl59W+c5iaiy4iPrrCEnlU4IY8ZUaH8ElSkmM0yJVDdnHnFo1PNE4O8x8A=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeJTtQ+8YPPXnVSY3iY9QYK6Hq0sjDO602REJtgfXemE4VAf74
+	MW9lTMenu+MNilAUZkKXA3gnxXWICxHOzJQB9VTYT2vTXgCa+4uU0/sv
+X-Gm-Gg: AfdE7cn0M9pxPXgF0Ml9J2sFmhNJXtEuAZzfu5q/gRBdWvbrb6/qrv+cTPrl+K/6/oF
+	R7/Ts3sj3/mvlLa7BjgoM8SCyHJuzu3AoqYLbzlPCeJzxKQADsgW3OY5ILMogRNO7tmPvI7PDAS
+	GkQ/zo52yCZ0HGNuJt3zLpOLxBY78uxrTtfWFaCO7HN34NHwPjAPDHQ07ouz/6xSXNQfydZ+W55
+	Gg440MnQ6Jdad9FUBMaOP6MORQe06NFpYnvFdpvG3YRt3NbmfHG7RgUeGu88ZsNAS0dpJ0I6ipR
+	2D7OGqcyotjBBputZtfRKPmP+3cJsQmFDvCmVNwNjC/vWlYPBgZQwlTZv85Niu8r2JD5c/Qiy4z
+	A/xoTuYIjoCcPnoZupgX+SYecSxHjmy8eZo/miKE/AgCo0ELh036+qe3/ACcPyquLsI/O4zK6ee
+	BnlX7KtL3VE6SgQoXnRcenhDwaPE9dkA==
+X-Received: by 2002:a05:600c:c178:b0:490:4b89:535d with SMTP id 5b1f17b1804b1-49234100907mr131154445e9.1.1781784446971;
+        Thu, 18 Jun 2026 05:07:26 -0700 (PDT)
+Received: from [192.168.1.21] ([41.140.50.249])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa47d1csm243843195e9.4.2026.06.18.05.07.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Jun 2026 05:07:25 -0700 (PDT)
+Message-ID: <93a18d21-cc98-4dae-9433-a6a68d88d0ee@gmail.com>
+Date: Thu, 18 Jun 2026 13:07:23 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <c9c20bce-a1bb-4932-bfa0-c87f7156ff82@foss.st.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/325] 6.18.36-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260616145057.827196531@linuxfoundation.org>
+Content-Language: en-US
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260616145057.827196531@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Benjamin,
 
-On Tue, Jun 16, 2026 at 02:49:54PM +0200, Benjamin Mugnier wrote:
-> Hi,
-> 
-> Thank you for your patch, and apologies for the delay.
-> 
-> Le 24/04/2026 à 18:52, Myeonghun Pak a écrit :
-> > vd56g3_subdev_init() calls v4l2_subdev_init_finalize(), which allocates
-> > the subdev active state and requires v4l2_subdev_cleanup() to release it.
-> > 
-> > If vd56g3_update_controls() fails after finalize succeeds, the probe error
-> > path currently skips v4l2_subdev_cleanup() and returns an error. The driver
-> > .remove() callback is not called after a failed probe, so the active state
-> > is leaked.
-> > 
-> > Route this error through a subdev cleanup label before freeing the control
-> > handler and media entity.
-> > 
-> > Fixes: 87aa97fc3157 ("media: i2c: Add driver for ST VD56G3 camera sensor")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> > ---
-> > Changes in v2:
-> > - Use a lowercase subject summary.
-> 
-> Please keep the first character uppercase, just like other commits on
-> this module.
-> 
-> > 
-> >  drivers/media/i2c/vd56g3.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
-> > index 157acea9e2..43f792288a 100644
-> > --- a/drivers/media/i2c/vd56g3.c
-> > +++ b/drivers/media/i2c/vd56g3.c
-> > @@ -1427,11 +1427,14 @@ static int vd56g3_subdev_init(struct vd56g3 *sensor)
-> >  	v4l2_subdev_unlock_state(state);
-> >  	if (ret) {
-> >  		dev_err(sensor->dev, "Controls update failed: %d\n", ret);
-> > -		goto err_ctrls;
-> > +		goto err_subdev;
-> >  	}
-> >  
-> >  	return 0;
-> >  
-> > +err_subdev:
-> > +	v4l2_subdev_cleanup(&sensor->sd);
-> 
-> v4l2_subdev_cleanup() is already performed in the caller (i.e.
-> vd56g3_probe()), but as you noticed it is not called from this path. I'd
-> rather have the return value route correctly through
-> v4l2_subdev_cleanup() in  vd56g3_probe(), allowing to keep a unique call
-> to v4l2_subdev_cleanup() instead.
 
-Is it?
+On 6/16/2026 7:56 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.36 release.
+> There are 325 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.36-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-If vd56g3_update_controls() in vd56g3_subdev_init() fails, it'll jump to
-err_power_off in vd56g3_probe() which does PM related cleanup only.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENEIRC:
 
-> 
-> This patch looks like is LLM generated and sparks my curiosity. If so
-> you must disclaim it using an Assisted-by tag [1]. Sorry if I’m mistaken.
-> 
-> [1] https://docs.kernel.org/process/coding-assistants.html
-> 
-> > +
-> >  err_ctrls:
-> >  	v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
-> >  
-> 
-> -- 
-> Regards,
-> Benjamin
-> 
-
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-Kind regards,
+Florian
 
-Sakari Ailus
