@@ -1,166 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB6E28D8DA;
-	Thu, 18 Jun 2026 19:40:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781811609; cv=none; b=ujRDc+JqMCGJ7rmYeRDvT9eR2NmU/9JGj0RA316ptCO9A2fRT7tps9pycfhOS/PoVu3TqkDMUeFxl5xBCLEyzoSuD4TstB5iYmV+fFzAhyNcGA9L6sGbHLlrTLgCK9YiKjzw8LFag3Fho3q5df38Nj5SarqdMbEGeGIIIfV+CFE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781811609; c=relaxed/simple;
-	bh=FmoXqA5LOBKUgctaZXzL4RumfuwPXIN4XJyzEfsWuho=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZXFr7CYnGKSoWDX636ksaoOUhTXFnJl6kpjsVq44dRiyV2hNQvbXLTyKd07YN3muW/YjDqpq+ueTb+WhMTvdURI1OsOadve4wxA9y1CklLZ7JhputLyMK8tQ31zX8/CgECKYe48u00VTOU2yzCzoX1v95KD41HL5owvT+nr/dlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=efiGhOff; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B313314DE
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 19:50:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781812252; cv=pass; b=OHkLbx3eny37GsogxVHUQm8jy/VSxmgmMQ/jDiHz+zibbCPZEaWvFnThnRj5qmEHVuIs5WZSFc8JJ2CkKjMD+chM/WfuDGiSeHrT7c3NZ0K5uO5aN4p9AA+BHXGVA/qKUx9NYT8kuN5b3Lo8xLxyEMYazjMfLOpkPupdKh5h7/0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781812252; c=relaxed/simple;
+	bh=P9K6WR14chQp/Ykaia/hOnkHUL4bXVc8ij7gFNX9Z9E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B6Z07AvwkSP7oIWOzBxO28TUNdcwe53XwmTWPAMUTDftjeNd0gG31Tsoo807EfKJUcUlrek/+Lzz23HKsBnTuwe+6j7x9BaGIkGNrnCpckvGQHfVazOB41SkaR9U2xa1bJdUuv5Pi4rdSmBlK42fo63ZxRiJ2snyuYvVmhQdWt0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NLxsnCT+; arc=pass smtp.client-ip=209.85.167.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="efiGhOff"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989E31F000E9;
-	Thu, 18 Jun 2026 19:40:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781811608;
-	bh=UzLTD0LraVmy0o5iyS49odOxFiNfs8wnUQiTnlIyr2Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=efiGhOffLuRTIPipF3vRAqw+0L7VjFMvHCC/dgo/x50DMT+LBxOYfoZUkTSTednjt
-	 xy/QGJJPGxEaOl6VZl215vd3kP31J60TqDW5/qF/fvCQ54Dh5AEiEyFEv0k46eOxRK
-	 8C8jwt+gDTmG+Q8rTU4WWu91zNsJmx1n15ErvbJ+lmNXxE56UNBp24VwPdKih8fLIa
-	 zuvVIOj1ZBl2BwfymaPOcnCJwKPzdtT0eiEmHW/SHQNJgoouZkifZ3QsZqQFKEgKhg
-	 tUChKhOCOT3bZ3DfIAuO5OVxAW0X5GiLNcT8AiFWu/lpaglL6+jHtWpDhYWTU/gOMV
-	 +0k5Gw9IJRmxA==
-From: Danilo Krummrich <dakr@kernel.org>
-To: lossin@kernel.org,
-	gary@garyguo.net,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	bjorn3_gh@protonmail.com,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	lyude@redhat.com,
-	deborah.brouwer@collabora.com
-Cc: rust-for-linux@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	Danilo Krummrich <dakr@kernel.org>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 2/2] rust: revocable: fix race between concurrent revokers
-Date: Thu, 18 Jun 2026 21:32:59 +0200
-Message-ID: <20260618193951.601239-3-dakr@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260618193951.601239-1-dakr@kernel.org>
-References: <20260618193951.601239-1-dakr@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NLxsnCT+"
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-488b3fd8d0dso588815b6e.1
+        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 12:50:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781812250; cv=none;
+        d=google.com; s=arc-20240605;
+        b=gnjGbSuvJAU7mrF36dJGne7G4qphTX+UszLtdSEVtTi6iGU/I3JI2nSWirL8H9HBUy
+         4BgcKOPEGCftHK6OduUqWj7kt7wQXhmKLccYOTCkSmCs5qIDCAo+VsREMUsJzoO5DDy+
+         n4RY/i4xk964cYM+wtaK3iToz265j0LA6z+OQO0zFB1x9xUY7HSVQAP1c1/oX13XFsmm
+         EAbq/PDIRxQn9zCYStkQ7lNHNo6jvmK6AiaA0STjz9gp0WwJ+7zZzGPqgnP0wh6vUj5d
+         Zb3u5RHeiD9GOVpFEq2o9b6JQlwOekJPh0V5zhn0atZ4FFPWVbSDf0zC3hgBlsiWPm0T
+         f3Hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=m8uk5CE0hl2VcGC6A9L2aPBCej9W50w25Jg10wWbW2o=;
+        fh=W1TPaP6BOWsQfjatMKYXGmX2DuXbSVHiarRVogwR8Ko=;
+        b=QW58UXOpBmUSJZlyUSXdJ3qQb1SIiYTMt5CdzqpcMLqRZF0ucR+zSzjFkvNUR7XHwZ
+         HK7+X/s1lsnVtjNJ0NAjW0VwNNHtztccgbuUwCwwfK7E2uXbHIGuwv4lOzUBAtktEFgT
+         Oj+nc5Zu0pkwa9O/T/j0G7CI1V7DXT0rpq8Bg5UVGE5mj3yDcJZJMqEMiYOYF84XHotH
+         J7nqwJOZio8GHEsRgqavZQmuvm2/bWPOMnzjvZn07IXn10byo+B83DpVRIqlkUT4oLMs
+         LVk3pooBXuBOn0OviKQKL8S+OH8vNVJzGph6nkarFkwEQkw0hS32Xq4p0CMl8z0/XOLw
+         ySBw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781812250; x=1782417050; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=m8uk5CE0hl2VcGC6A9L2aPBCej9W50w25Jg10wWbW2o=;
+        b=NLxsnCT+owKQf9pE1V+vntJwbRp9CQfRJMlTzKZ3tvOg/tbdIQKyvWgHsFPUeyrkN9
+         QFBgeahcF1Wv3EGhN1PXruIg7YeKNamWDPEIeeGpUWERVc+0/pr6c14kY9aP7iS5kbpe
+         QXk/+NuA9xknKbne7OgnUNaTpllJ0wAOAOLn0J1Za2upAKy417PbyOUQexSyMD2SszHE
+         rMExqjNx4oF+KsmhSqHVuJ9zZvfQ2dsuZb3+Fz3m4+MlBa/wEmtN5cmYbsIS1lQabDp1
+         oJNqYu1LZYwTAeJJ/WLGKf+ilxH9HqDC5Y/4/3TA+89WS1FYzL53dD+X/YLXrv1At8nr
+         fl8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781812250; x=1782417050;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=m8uk5CE0hl2VcGC6A9L2aPBCej9W50w25Jg10wWbW2o=;
+        b=Pp0reN/EHBzCpFW37Z3XmVJGWkxrm1VDExpUMifHO2wp6tVqPRthAE2lhEkaCIDTC8
+         Uow6UfWCIj5wsh8j71iabHIpuMjM3Z52O+zQw/1wwoqmZ0UqWMj0dnqQwaRkJVtcILtB
+         MG7zKgh0DqPfispxp43vy1DMpcmn5DfVoJVTfPYjnQQSz4Kd331P9gxrmBShvtNpnovS
+         93vpaK+oUFO9fPBa61pE4Ae86fXE/OaMBFFnrqnUZ8X5unuLB5C+5HLeyaPV5bDFfi9X
+         Y+RYgV9/tIilSdCtEnd5wH+ERtcBmQLg22FrYW9q+NJa73Z1EfKp2Ur+/sXIEHkvW7+X
+         ab3w==
+X-Forwarded-Encrypted: i=1; AFNElJ/hvkSnmOfCI2vkmmBU8oHQz+nA4u8BI/0ZNsxR9eFVXakKr39lubNcvHiRt2WKKbIrR3/K1qU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxNVNCd812C4KdixuUCSwP7+LTRwtASdOTuP3mJI9N+2hShGejk
+	RKhJHul2aGLm1HiZsBd5Se0Ah1TcVWmz+RdYadF3R2btPbqgP/Zr+U0zvrlxy1CxWEgLEjIKhIt
+	10dzhy8m/M2MHJVZgBNfR+WVOfE4jjV4=
+X-Gm-Gg: AfdE7cmnq//368YHsnJl58aw3UDl1Tk+fCXsdh/ocfMFWv5wXK9XP5+IXNOw/NZ6lyd
+	cmwkO/cumOdx4eAhd22um8QNWhnKz7lxooXITCdFZyRR3EU2Op5Kq0Nf2OIXrYq/tGIQSzzM5XM
+	b4J9oaKqlz1p03XW8Qbdhk2ZSpGOnW7fIJ6OIJRUdFjmCrhJ+Ee+0YeNYhYihmfDiNMA0mASw3/
+	iFDxa+sKtIHGlYTk3aVTuw1LWJsTYyG/Y9xQXaQg53Ee+gC64UGyJuKf7ypq0l9Kh97yz7BeuWv
+	R8MejkH89i6h00DdDWJdYsSVyuo=
+X-Received: by 2002:a05:6809:184:10b0:489:6f90:2f2d with SMTP id
+ 5614622812f47-4896f9030c5mr155901b6e.20.1781812249493; Thu, 18 Jun 2026
+ 12:50:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260610215649.98274-1-devnexen@gmail.com> <5663f0e9-cde5-4943-9e77-267cd92f8742@ideasonboard.com>
+In-Reply-To: <5663f0e9-cde5-4943-9e77-267cd92f8742@ideasonboard.com>
+From: David CARLIER <devnexen@gmail.com>
+Date: Thu, 18 Jun 2026 20:50:38 +0100
+X-Gm-Features: AVVi8Cc0IYNE825PggY2ZAv2H0gQHi_P04Y0cM-7LkS7GzGPut8mV1A8QGwa_sg
+Message-ID: <CA+XhMqwEJxtqBxTAF4XSJxkXW_FGYgEzU1E89bydVvJofnnLRg@mail.gmail.com>
+Subject: Re: [PATCH] media: mali-c55: Fix scaler factor overflow for large
+ crop sizes
+To: Dan Scally <dan.scally@ideasonboard.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-There is a potential race condition when two paths try to revoke a
-Revocable concurrently.
+Hi Dan,
 
-It can happen with e.g. Devres, where the driver core's
-devres_release_all() calls Revocable::revoke() via the devres callback,
-while Devres::drop() calls revoke_nosync() on another CPU.
+On Thu, 18 Jun 2026 at 20:35, Dan Scally <dan.scally@ideasonboard.com> wrote:
+>
+> Hi David, sorry this one slipped through the cracks
+>
+> On 10/06/2026 22:56, David Carlier wrote:
+> > The horizontal and vertical scaling factors multiply the crop dimensions
+> > by MALI_C55_RSZ_SCALER_FACTOR, a Q4.20 factor of (1 << 20). Both operands
+> > are 32-bit, so the multiplication wraps before the result is stored in
+> > the u64 scale variables. For any crop dimension of 4096 or more (the
+> > maximum is 8192) the value overflows; an 8192 to 4096 downscale yields a
+> > TINC of zero, so the scaler never advances and the output is corrupted.
+> >
+> > Cast the crop dimensions to u64 before the multiplication.
+> >
+> > Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: David Carlier <devnexen@gmail.com>
+> > ---
+> >   drivers/media/platform/arm/mali-c55/mali-c55-resizer.c | 4 ++--
+> >   1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-resizer.c b/drivers/media/platform/arm/mali-c55/mali-c55-resizer.c
+> > index c4f46651d..0713e7d43 100644
+> > --- a/drivers/media/platform/arm/mali-c55/mali-c55-resizer.c
+> > +++ b/drivers/media/platform/arm/mali-c55/mali-c55-resizer.c
+> > @@ -422,8 +422,8 @@ static int mali_c55_rsz_program_resizer(struct mali_c55_resizer *rsz,
+> >       mali_c55_resizer_program_coefficients(rsz);
+> >
+> >       /* Program the V/H scaling factor in Q4.20 format. */
+> > -     h_scale = crop->width * MALI_C55_RSZ_SCALER_FACTOR;
+> > -     v_scale = crop->height * MALI_C55_RSZ_SCALER_FACTOR;
+> > +     h_scale = (u64)crop->width * MALI_C55_RSZ_SCALER_FACTOR;
+> > +     v_scale = (u64)crop->height * MALI_C55_RSZ_SCALER_FACTOR;
+>
+> Might be nicer to define the macro with ULL instead of a cast, what do you think?
 
-The revoker that does not claim the is_available swap returns
-immediately, but the revoker that did may still be executing
-drop_in_place() on the inner data. This can cause a use-after-free when
-the other revoker's caller proceeds to drop adjacent resources that
-drop_in_place() still references (e.g., Devres<DmaMappedSgt> racing with
-SGTable freeing the backing sg_table and pages).
-
-Fix this by adding a Completion to Revocable. The revoker that claims
-the swap signals the Completion after drop_in_place() finishes, and any
-concurrent revoker waits for it before returning. This ensures the
-wrapped object is fully torn down before either path continues.
-
-If needed, a revoke_no_wait() variant that does not wait for concurrent
-revocations to complete can be added in the future.
-
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/dri-devel/20260612202841.2577C1F000E9@smtp.kernel.org/
-Suggested-by: Gary Guo <gary@garyguo.net>
-Fixes: 05aa6fb1c21d ("rust: scatterlist: Add abstraction for sg_table")
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- rust/kernel/revocable.rs | 23 ++++++++++++++++++++---
- 1 file changed, 20 insertions(+), 3 deletions(-)
-
-diff --git a/rust/kernel/revocable.rs b/rust/kernel/revocable.rs
-index 0f4ae673256d..6d9d6ecccba1 100644
---- a/rust/kernel/revocable.rs
-+++ b/rust/kernel/revocable.rs
-@@ -7,7 +7,15 @@
- 
- use pin_init::Wrapper;
- 
--use crate::{bindings, prelude::*, sync::rcu, types::Opaque};
-+use crate::{
-+    bindings,
-+    prelude::*,
-+    sync::{
-+        rcu,
-+        Completion, //
-+    },
-+    types::Opaque,
-+};
- use core::{
-     marker::PhantomData,
-     ops::Deref,
-@@ -67,6 +75,8 @@
- pub struct Revocable<T> {
-     is_available: AtomicBool,
-     #[pin]
-+    revocation: Completion,
-+    #[pin]
-     data: Opaque<T>,
- }
- 
-@@ -85,6 +95,7 @@ impl<T> Revocable<T> {
-     pub fn new<E>(data: impl PinInit<T, E>) -> impl PinInit<Self, E> {
-         try_pin_init!(Self {
-             is_available: AtomicBool::new(true),
-+            revocation <- Completion::new().map_err(|e| match e {}),
-             data <- Opaque::pin_init(data),
-         }? E)
-     }
-@@ -168,6 +179,10 @@ unsafe fn revoke_internal<const SYNC: bool>(&self) -> bool {
-             // SAFETY: We know `self.data` is valid because only one CPU can succeed the
-             // `compare_exchange` above that takes `is_available` from `true` to `false`.
-             unsafe { drop_in_place(self.data.get()) };
-+
-+            self.revocation.complete_all();
-+        } else {
-+            self.revocation.wait_for_completion();
-         }
- 
-         revoke
-@@ -179,7 +194,8 @@ unsafe fn revoke_internal<const SYNC: bool>(&self) -> bool {
-     /// expecting that there are no concurrent users of the object.
-     ///
-     /// Returns `true` if `&self` has been revoked with this call, `false` if it was revoked
--    /// already.
-+    /// already. In the latter case, this function waits for the concurrent revocation to complete
-+    /// before returning.
-     ///
-     /// # Safety
-     ///
-@@ -200,7 +216,8 @@ pub unsafe fn revoke_nosync(&self) -> bool {
-     /// function waits for the concurrent access to complete before dropping the wrapped object.
-     ///
-     /// Returns `true` if `&self` has been revoked with this call, `false` if it was revoked
--    /// already.
-+    /// already. In the latter case, this function waits for the concurrent revocation to complete
-+    /// before returning, ensuring the wrapped object has been fully dropped.
-     pub fn revoke(&self) -> bool {
-         // SAFETY: By passing `true` we ask `revoke_internal` to wait for the grace period to
-         // finish.
--- 
-2.54.0
-
+even better, using BIT_ULL here ;) cheers.
+>
+> Thanks
+> Dan
+>
+> >
+> >       do_div(h_scale, scale->width);
+> >       do_div(v_scale, scale->height);
+>
