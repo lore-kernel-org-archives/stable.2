@@ -1,103 +1,139 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B2738E5EF;
-	Thu, 18 Jun 2026 08:18:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B48938654F;
+	Thu, 18 Jun 2026 08:19:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781770726; cv=none; b=l4LehJfiFjsoTFPrFhvLIs2/5a8YLUFdGzAX3GmoYVPFP5aClY7gvXH15+hC43142f3kKtrgOBPAZhdfvL9dUjIsmH9X9fEUnoh/81P5thJiTgIRbYtaXkcUYz2a+9OUmQJJYJZjk+wRi6Ob5+l2RAjdOFJ61RArCU2hAy9DmTU=
+	t=1781770765; cv=none; b=P7leeajcdAmMilIUDsShg6cjUOzElePHiZ66pEaO5yOGvx/5AFMdm8jfVKDa72V/7NLvPWqFi3Qlr+zBy+UmmTo9d7oRPw8rQ4n6z8KcUEgrLNOOCuLUyED1UBs6aq0TlPCtbsDonjk8yNRdD6pVnmP0sbR17DBXKWVJj3mYkrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781770726; c=relaxed/simple;
-	bh=QWZAgUG33sDVoOYvsZHlVsv36qxjPW2xLkggJ9D40hM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n+vYC9FOSp7vD6oZMDJCAPJ2rDdd7CkJZT5O5BiGNq6kroLWLo9XVFgCQEqorlWskGZ16gFmfF/GN+yJPHUhjI/IRdC1MkUTiAc1gRCoUAkwlGz/S6sXFduiflqNkT0z5iClKWW2peDGxdNQ8vjqJCLTSRfoKykhMO+RyfBgYuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=bgpoXraC; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=+PAOCBZ6; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1781770765; c=relaxed/simple;
+	bh=rXGd6XbK8o1F3hkDMu2Kr9ZKehK7T0kMEhmAFhYAelQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z3FyyAQBlFwxapV/J58K/2h2m+FM8L+09BQT57u/Qqys8e9YxF2Jw505kW2tNW7UAucwQ9tS9MXCRbGwAkCX5Kpd5i1pDLP2r+WCSsqFRvwj7dtRom3dLwszWpNEgTKeOxMx9lP5jkptfhOZRWyjVPIankQTgmu8kLdzODnhszs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoKv/x5q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="bgpoXraC";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="+PAOCBZ6"
-Date: Thu, 18 Jun 2026 10:18:41 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1781770722;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=esNCyoPGjThitgO/ONZd6FII4CTw4WW+HhHMD7dROhE=;
-	b=bgpoXraCqEcTq/A1VHEfomvk7NjTwbH52o92fLD0lTRIqkRAEopghmZJIgYaX0rO7SRcfP
-	7N5y3xITSWfAigN+yUpqrRZltUGQ1uXFo0VCAE4MpRuwjpuFNGqbNhpqqT05W1YdAzdTz1
-	Z3px8lS1RoJE4mx/3/KQMc5YyJEVhtJ56cu6g6FErAW6i6ob53ydVsGq/0obmxAJ9WcxCk
-	m+7RjQ3eKdovQ6vN299Awepf22cjql56wSwGk+KLZBoShc/lAPryI8WLmwPtDbebw8J8Tl
-	uf8lUIg3Nffr1bn9h+yDo69xFLqd/O05CynGpM42SCnQP9XqN9v2fXMHqC2E/w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1781770722;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=esNCyoPGjThitgO/ONZd6FII4CTw4WW+HhHMD7dROhE=;
-	b=+PAOCBZ6krTyj3cKO28sUF+z9qnobDQbrowNq7D7oCQD31FisaxSCZhWTNTc4azTwf3SM6
-	LVas/zdYRlOgSpDg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Jan Kiszka <jan.kiszka@siemens.com>, linux-gpio@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] gpio: sch: use raw_spinlock_t in the irq startup path
-Message-ID: <20260618081841.QBWh0eV5@linutronix.de>
-References: <20260617154035.1199948-1-runyu.xiao@seu.edu.cn>
- <20260617154035.1199948-2-runyu.xiao@seu.edu.cn>
- <20260618062839.4o1ewdEn@linutronix.de>
- <ajOS2UR9pw_pUBxr@ashevche-desk.local>
- <ajOTLrrUCBxsy5jf@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoKv/x5q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6BF1F00A3A;
+	Thu, 18 Jun 2026 08:19:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781770761;
+	bh=gqhDjzcGQdhdiLmBswp+dNP5/7Fhe1q9r4L1hH6XVBs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HoKv/x5qawc4vbnWhIlfsU7cwH1p9bEM3g1xxvwHyOcekWMM/TBDs2xjtjxO99qiI
+	 9XBRk3tp2HG7UyUOpbx1jiUYhdqJA7RYrTFlJ09mHzzKR/Ag6odb2C0uy663SPNkT3
+	 +qZOXaLc3qAyKz8fi5DDoWnODwDu/8usmSOuxx/F3P2knL07OdHDVGtt1GPxaoctyZ
+	 1O16iHdbqq3s+37Vb9e6xTiKVRQ6pg7YYqD4l7tKV6nc1n+f3+NK3lT9MCW1xTtNLK
+	 FmmK95zIZHxwJ5oZpHVWiJSsxUNqRcy0wGGuGFRrVjKN2n1XBLR6nMsL4tt6muqDT4
+	 pbwv1MmHKoQtg==
+Message-ID: <5a993689-f730-406d-8515-8bb6025cc851@kernel.org>
+Date: Thu, 18 Jun 2026 10:19:17 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <ajOTLrrUCBxsy5jf@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] userfaultfd: prevent registration of special VMAs
+To: Mike Rapoport <rppt@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Linus Torvalds <torvalds@linuxfoundation.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Oleg Nesterov <oleg@redhat.com>, Peter Xu <peterx@redhat.com>,
+ vova tokarev <vladimirelitokarev@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, stable@vger.kernel.org
+References: <20260617194059.2529406-1-rppt@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260617194059.2529406-1-rppt@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-06-18 09:41:50 [+0300], Andy Shevchenko wrote:
-> On Thu, Jun 18, 2026 at 09:40:31AM +0300, Andy Shevchenko wrote:
-> > On Thu, Jun 18, 2026 at 08:28:39AM +0200, Sebastian Andrzej Siewior wro=
-te:
-> > > On 2026-06-17 23:40:34 [+0800], Runyu Xiao wrote:
-> > > > sch_irq_unmask() enables the GPIO IRQ and then updates the controll=
-er
-> > > > state through sch_irq_mask_unmask(), which takes sch->lock with
-> > > > spin_lock_irqsave().  The callback can be reached from irq_startup()
-> > > > while setting up a requested IRQ.  That path is not sleepable, but =
-on
-> > > > PREEMPT_RT a regular spinlock_t becomes a sleeping lock.
-> =E2=80=A6
-> > > > Fixes: 7a81638485c1 ("gpio: sch: Add edge event support")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> > >=20
-> > > Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> >=20
-> > There is already a v2.
->=20
-> Or not... I might have been confused with other patch that got two versio=
-ns
-> in a row.
+On 6/17/26 21:40, Mike Rapoport wrote:
+> From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+> 
+> Vova Tokarev says:
+> 
+>   userfaultfd allows registration on shadow stack VMAs.  With userfaultfd
+>   access, you can register on the shadow stack, discard a page ... and
+>   inject a page with chosen return addresses via UFFDIO_COPY.
+> 
+> Update vma_can_userfault() to reject VM_SHADOW_STACK.
+> 
+> While on it, also reject VM_IO, VM_MIXEDMAP and VM_PFNMAP so that if a
+> driver would implement vm_uffd_ops, it wouldn't be possible to register
+> special VMAs with userfaultfd.
+> 
+> Reported-by: vova tokarev <vladimirelitokarev@gmail.com>
+> Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> ---
+>  mm/userfaultfd.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index 246af12bf801..b8d2d87ce8d7 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -2111,7 +2111,8 @@ static bool vma_can_userfault(struct vm_area_struct *vma, vm_flags_t vm_flags,
+>  {
+>  	const struct vm_uffd_ops *ops = vma_uffd_ops(vma);
+>  
+> -	if (vma->vm_flags & VM_DROPPABLE)
+> +	if (vma->vm_flags & (VM_DROPPABLE | VM_IO | VM_MIXEDMAP | VM_PFNMAP |
+> +			     VM_SHADOW_STACK))
 
-I am catching up so I wouldn't be surprised ;) And it is entirely
-possible that sashiko came up with the pre-existing condition worth
-fixing ;)
+I'm sure you considered VM_SPECIAL, which additionally includes VM_DONTEXPAND.
 
-Sebastian
+Would that be better, or what was the reason to allow VM_DONTEXPAND?
+
+-- 
+Cheers,
+
+David
