@@ -1,50 +1,50 @@
-Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
+Received: from mx0a-00206402.pphosted.com (mx0a-00206402.pphosted.com [148.163.148.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD433491E1
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:39:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.152.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D47F17A30A
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:39:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.148.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781815181; cv=none; b=thp9Shz/FxforRxCgsKZpoXjO6cZsLidma22UnBAFykQlYxZQ7L2sBuWVCUNpRkY0xegU94EG5+7Eu9sAXT1p2lcorP9FJHujAvnuLn1vC7GQdWJH2w0CBHmlNimNZoGYA1gGs6Rnq4FGl2pmiA8RGFITC+yJlBcXtygqDCyqdk=
+	t=1781815183; cv=none; b=g/AzF3xJiEkgSCRovWc+993M0v+0+qEUGIuu38GtTQop3zLnkirnwRE2N+hvvur0Bh90VMg3rdiLl+Tfr9AtRL90nMuaH9IXiXwuxzaeZmWnxXluaDcLUw9yDY0MhO2e1bwj8edXFxxf4pf9249vpdi90jjsHownJzSHoWH9I8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781815181; c=relaxed/simple;
-	bh=lEsbjC0J9dHL5n1EoS5T7TFFGziI+mS2bnITscXTQrI=;
+	s=arc-20240116; t=1781815183; c=relaxed/simple;
+	bh=M9LBS/ykrSXaem3QI/ctUlIxV93Y9cVlTJizburNYaE=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r2q8yt+WUZMFwOaF3dOIsOL0trFLhjaIS1ph5e2qidN1a7BxtY8HPeGLi4XHbzklBD1F1hutZY5H9Gx9yPEwPconHjNLp1EMCgW65o9FV2QM67BjpTb8fLl3H/gXlrFx8Ra5NLkl/yHCqDVNJfl9rL3aCgbqDip8Bf3WyNiy0fA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=teaA/h/k; arc=none smtp.client-ip=148.163.152.16
+	 MIME-Version:Content-Type; b=XqsMuuMxh0Mh3KUlWdhU4kf1yw44yCA6/0g+Pt4zALWnADT2JnReGxyZDBS7E0A/kGck8azuZVcCW0GZeQXdrw6MAMjULBte4DsLm/w0HzMK/IxrWcA7ZgfzFvySXUQCHzNeUMeV1MceHBzo4963ji4OjB/zgNzurmgMkL9I8G0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=DM4/sCA4; arc=none smtp.client-ip=148.163.148.77
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="teaA/h/k"
-Received: from pps.filterd (m0354653.ppops.net [127.0.0.1])
-	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IIsfnv3939470;
-	Thu, 18 Jun 2026 20:39:35 GMT
+	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="DM4/sCA4"
+Received: from pps.filterd (m0354651.ppops.net [127.0.0.1])
+	by mx0a-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IJiE424006057;
+	Thu, 18 Jun 2026 20:39:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
 	 h=cc:content-transfer-encoding:content-type:date:from
 	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	default; bh=S1b4JvSHFIWhsGkOHdal6dQzUUBjc9/aT8pJ7olnbPc=; b=teaA
-	/h/ktMqjth7y9sT8fE/DJ2NylKL+hn6yo/0tgEvvpSWy3m2IB0YE+tOsT3F1Zhzj
-	57558seliSVJqDu28lMKuCUPh+e0WwNJErP2iZdedYHcX+g6UFGDYgRZd0BS1uRg
-	2kWoznkJvD1NfXZniOodDbA0KKDfUf9wjUX4YiF232fAtVsW2S97y3bJWGq0I0kf
-	3mnE+MJ904TOmcaE5ZOL+tUobFaQNFhjHoSy6xRf/7B/+nRMOCIsxfKEAh/J30+D
-	ZKAq4JjveNP+lATnJMr4mECX1QTjvLEiJqG4jDB2aD/qtOt5K7nS1dVciYfFNhKu
-	kPy+BhOjgJXlSENYJw==
+	default; bh=DmO9GzfxigGJbMOIimnlbWahga9E82v7iGfH0q2ftsc=; b=DM4/
+	sCA4WgOrDQTTzIC4My4R9Xt/SMvbtK3kzWK9/lta1ofh0E/TmxWaBMheP2+D+GJW
+	1uzqDUkp93GJgqYG+RWLVqlYrHwOOXQQUyJk0KzVsq+bDHgmgDsOlADkkmE1yt2O
+	8DdaZ6XuZCm2IQ1NEHeOkr/CfyqSl5Ti0lffkb4s3o+MCFMKOd6KrH594bYRU0JY
+	aIMd4xYaQdzBkC1kwKcuBb0z/EuHKBKD/f1YkWUYrtMTR4ylhOORbheODnU4z4Qp
+	1ddnmSvUMwZa15QYuEvgqqrdz74EgK/RXLxloxeH/0OUPz/jAnEHrFYF+ys+WQr1
+	9+HgtAOxsT4sRp9rsw==
 Received: from mail.crowdstrike.com (dragosx.crowdstrike.com [208.42.231.60] (may be forged))
-	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4ev5c6v1c4-1
+	by mx0a-00206402.pphosted.com (PPS) with ESMTPS id 4evq3jg806-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 18 Jun 2026 20:39:34 +0000 (GMT)
+	Thu, 18 Jun 2026 20:39:36 +0000 (GMT)
 Received: from LL-DJCZ134.crowdstrike.sys (10.100.11.122) by
  04WPEXCH006.crowdstrike.sys (10.100.11.70) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 18 Jun 2026 20:39:33 +0000
+ 15.2.2562.43; Thu, 18 Jun 2026 20:39:34 +0000
 From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 To: <stable@vger.kernel.org>
 CC: <gregkh@linuxfoundation.org>, <sashal@kernel.org>, <rostedt@goodmis.org>,
         <vmalik@redhat.com>, <jmarchan@redhat.com>,
         <martin.kelly@crowdstrike.com>
-Subject: [PATCH 6.6.y 21/27] ftrace: Have ftrace pages output reflect freed pages
-Date: Thu, 18 Jun 2026 16:38:59 -0400
-Message-ID: <05b8a27b8714dc88569d22f4b5faf538b1159b14.1781814151.git.andrey.grodzovsky@crowdstrike.com>
+Subject: [PATCH 6.6.y 22/27] ftrace: Do not over-allocate ftrace memory
+Date: Thu, 18 Jun 2026 16:39:00 -0400
+Message-ID: <8903a4475ee0044f3c5c7236db3abdd0171e3897.1781814154.git.andrey.grodzovsky@crowdstrike.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1781814083.git.andrey.grodzovsky@crowdstrike.com>
 References: <cover.1781814083.git.andrey.grodzovsky@crowdstrike.com>
@@ -58,143 +58,190 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: 04WPEXCH006.crowdstrike.sys (10.100.11.70) To
  04WPEXCH006.crowdstrike.sys (10.100.11.70)
-X-Authority-Analysis: v=2.4 cv=Eez4hvmC c=1 sm=1 tr=0 ts=6a345786 cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX9thDrFr6+jMK
+ Y6HwDJJc3NHN5McpPP6PQeFzAHtoH6m3QddkDT3/D1Z+46DMvcuN5e+CuvWMgkMh/ds7KQgkLlA
+ wG8hCfDzGXjPnpLIDWMywwjCsMr9izmGjTaNxu5Hjpvks3AsNxTG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX1v/kmWf5YBl8
+ CqV3+VViygI6S2PEkGQIaS3wgaR5lrKV+Xy87CovUIo05d/cOZQuSobVOKqXtn0SgUHkxxF3t9g
+ ALIwTfg3TgyjJ8bGhKJQxteKX1UhVLuPy/3U4TqP/UwiJQCjaLW0edcFhxylxUAVWnhxnPupx57
+ 9T1yBC/it9MQIvcGVhfcbIo2gEApz9Deua7Dufzpt7O3JRb+buYdx/x9rj3rp4oxMBOEQYCfbUw
+ VubQlHneJ6tBbAsOJYBxvhE58YwcCKCLIaFo5KXdh4yLBAcly2uSj1Hmohk9XWUftxCP24ihKm4
+ aG5uM9NnvkKPR2ceNctnsacNrz6KyslLcvzeNIHB3A0bkHlgpcmuN6b2w2Ry8ywG6SW7Oa1i6YX
+ fKW9dfgPBgVBEagNIXavfL9kpAtYx6BOTKT195VLg0KTCZfElQMf4c1Te0JgbkK1s3q4HKQn8lq
+ OJmtj7ODts+3bv+bC1A==
+X-Proofpoint-ORIG-GUID: YMcCvcgI0fJb_DYnVKyanvJvfmTWm2v_
+X-Proofpoint-GUID: YMcCvcgI0fJb_DYnVKyanvJvfmTWm2v_
+X-Authority-Analysis: v=2.4 cv=AvLeGu9P c=1 sm=1 tr=0 ts=6a345788 cx=c_pps
  a=1d8vc5iZWYKGYgMGCdbIRA==:117 a=1d8vc5iZWYKGYgMGCdbIRA==:17
  a=EjBHVkixTFsA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=T2KQ53IYiC3MXPrxx8bB:22 a=GCXdLZfFv8EKBZhKOxZ5:22 a=VwQbUJbxAAAA:8
- a=meVymXHHAAAA:8 a=7CQSdrXTAAAA:8 a=7d_E57ReAAAA:8 a=Z4Rwk6OoAAAA:8
- a=JfrnYn6hAAAA:8 a=cpyHj8QvAAAA:8 a=i0EeH86SAAAA:8 a=pl6vuDidAAAA:8
- a=1UX6Do5GAAAA:8 a=20KFwNOVAAAA:8 a=VnNF1IyMAAAA:8 a=XgXTSPbbcnNvTgzPI4UA:9
- a=2JgSa4NbpEOStq-L5dxp:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=jhqOcbufqs7Y1TYCrUUU:22
- a=HkZW87K1Qel5hWWM3VKY:22 a=1CNFftbPRP8L7MoqJWF3:22 a=BPjOrAZP5zzvMhA9psHf:22
- a=Et2XPkok5AAZYJIKzHr1:22
-X-Proofpoint-GUID: kMYxNbcGe8w3xELpx_EniDGZsiExwYHu
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX12gFE+mg4NB/
- b4CvSB8J7fnGElmsARQhsJ3tLZPevWZqdLwskze/iwcaLITBQFMdqSWZvOiqclKCTFulY+uVvNs
- 4oSF4GOZbD2U09ENHZEuk1LDBoF8UM3hiPkIBC2oK+sTCQ7JBXak
-X-Proofpoint-ORIG-GUID: kMYxNbcGe8w3xELpx_EniDGZsiExwYHu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX4L9V5jFNzWTq
- ok1pCNGHJjLiPUqfEoLAEZb9FQU4CY4AxmPmeuu1Wfqg70xS6dZr1pLAWWaYMHy74WRc21SXocE
- ZJtav71lgQwXtK/BILZjujSf6oYryhKJR4y2lJxV3CZ8/WQAqWn7GYEWQftvqgdyKO0+zSwsR6J
- NLiI6hJwohLC+TCey0hbKghf3lWWodNovtcfzWQB5Ma3uMCQlS9FwcxA+ZuTj7mfDpa7BpKv+cI
- nFXgfRwk99LNVnABAEu2lLEnDKBGZS6wBx0UIgTC65fr2Y8kavjapVufXg6C7O8k5wenhjoqo7t
- 3OcI07Rq4nk9v/T+wMyAqgik22sOYEYZTaz4S1kfRDGvZiYm3qh1fhEq3/QH2h9L2pSXZArnYYW
- XoPJE3UQzMVPHEA7lnMxqEyrMjECxYzL9IOQ3XHpoxv21t4QWvYd/aw6OGCNakU6SrVlZA3SyFG
- 77sWHoFyGpBguZfUBAA==
+ a=T2KQ53IYiC3MXPrxx8bB:22 a=b3B37AjAgz0HnGB3MuNd:22 a=bC-a23v3AAAA:8
+ a=_jlGtV7tAAAA:8 a=VwQbUJbxAAAA:8 a=meVymXHHAAAA:8 a=pl6vuDidAAAA:8
+ a=QdOJ7KTZQxLTXGuSCPAA:9 a=FO4_E8m0qiDe52t0p3_H:22 a=nlm17XC03S6CtCLSeiRr:22
+ a=2JgSa4NbpEOStq-L5dxp:22
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11821
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0 spamscore=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 adultscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606180189
+ priorityscore=1501 adultscore=0 suspectscore=0 spamscore=0 clxscore=1015
+ malwarescore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180189
 
-From: Steven Rostedt <rostedt@goodmis.org>
+From: Guenter Roeck <linux@roeck-us.net>
 
-[ Upstream commit 264143c4e54412095f4b615e65bf736fc3c60af0 ]
+[ Upstream commit be55257fab181b93af38f8c4b1b3cb453a78d742 ]
 
-The amount of memory that ftrace uses to save the descriptors to manage
-the functions it can trace is shown at output. But if there are a lot of
-functions that are skipped because they were weak or the architecture
-added holes into the tables, then the extra pages that were allocated are
-freed. But these freed pages are not reflected in the numbers shown, and
-they can even be inconsistent with what is reported:
+The pg_remaining calculation in ftrace_process_locs() assumes that
+ENTRIES_PER_PAGE multiplied by 2^order equals the actual capacity of the
+allocated page group. However, ENTRIES_PER_PAGE is PAGE_SIZE / ENTRY_SIZE
+(integer division). When PAGE_SIZE is not a multiple of ENTRY_SIZE (e.g.
+4096 / 24 = 170 with remainder 16), high-order allocations (like 256 pages)
+have significantly more capacity than 256 * 170. This leads to pg_remaining
+being underestimated, which in turn makes skip (derived from skipped -
+pg_remaining) larger than expected, causing the WARN(skip != remaining)
+to trigger.
 
- ftrace: allocating 57482 entries in 225 pages
- ftrace: allocated 224 pages with 3 groups
+Extra allocated pages for ftrace: 2 with 654 skipped
+WARNING: CPU: 0 PID: 0 at kernel/trace/ftrace.c:7295 ftrace_process_locs+0x5bf/0x5e0
 
-The above shows the number of original entries that are in the mcount_loc
-section and the pages needed to save them (225), but the second output
-reflects the number of pages that were actually used. The two should be
-consistent as:
+A similar problem in ftrace_allocate_records() can result in allocating
+too many pages. This can trigger the second warning in
+ftrace_process_locs().
 
- ftrace: allocating 56739 entries in 224 pages
- ftrace: allocated 224 pages with 3 groups
+Extra allocated pages for ftrace
+WARNING: CPU: 0 PID: 0 at kernel/trace/ftrace.c:7276 ftrace_process_locs+0x548/0x580
 
-The above also shows the accurate number of entires that were actually
-stored and does not include the entries that were removed.
+Use the actual capacity of a page group to determine the number of pages
+to allocate. Have ftrace_allocate_pages() return the number of allocated
+pages to avoid having to calculate it. Use the actual page group capacity
+when validating the number of unused pages due to skipped entries.
+Drop the definition of ENTRIES_PER_PAGE since it is no longer used.
 
-Cc: bpf <bpf@vger.kernel.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Masahiro Yamada <masahiroy@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>
-Cc: Nicolas Schier <nicolas@fjasle.eu>
-Cc: Zheng Yejian <zhengyejian1@huawei.com>
-Cc: Martin  Kelly <martin.kelly@crowdstrike.com>
-Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
-Cc: Josh Poimboeuf <jpoimboe@redhat.com>
-Cc: Heiko Carstens <hca@linux.ibm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Vasily Gorbik <gor@linux.ibm.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-Link: https://lore.kernel.org/20250218200023.221100846@goodmis.org
+Cc: stable@vger.kernel.org
+Fixes: 4a3efc6baff93 ("ftrace: Update the mcount_loc check of skipped entries")
+Link: https://patch.msgid.link/20260113152243.3557219-1-linux@roeck-us.net
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 ---
- kernel/trace/ftrace.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ kernel/trace/ftrace.c | 29 +++++++++++++++--------------
+ 1 file changed, 15 insertions(+), 14 deletions(-)
 
 diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index ed045c296..477f7b848 100644
+index 477f7b848..c8ae58c41 100644
 --- a/kernel/trace/ftrace.c
 +++ b/kernel/trace/ftrace.c
-@@ -6527,6 +6527,7 @@ static int ftrace_process_locs(struct module *mod,
- 	unsigned long addr;
- 	unsigned long kaslr;
- 	unsigned long flags = 0; /* Shut up gcc */
-+	unsigned long pages;
- 	int ret = -ENOMEM;
+@@ -1117,7 +1117,6 @@ struct ftrace_page {
+ };
  
- 	count = end - start;
-@@ -6534,6 +6535,8 @@ static int ftrace_process_locs(struct module *mod,
+ #define ENTRY_SIZE sizeof(struct dyn_ftrace)
+-#define ENTRIES_PER_PAGE (PAGE_SIZE / ENTRY_SIZE)
+ 
+ static struct ftrace_page	*ftrace_pages_start;
+ static struct ftrace_page	*ftrace_pages;
+@@ -3245,7 +3244,8 @@ static int ftrace_update_code(struct module *mod, struct ftrace_page *new_pgs)
+ 	return 0;
+ }
+ 
+-static int ftrace_allocate_records(struct ftrace_page *pg, int count)
++static int ftrace_allocate_records(struct ftrace_page *pg, int count,
++				   unsigned long *num_pages)
+ {
+ 	int order;
+ 	int pages;
+@@ -3255,7 +3255,7 @@ static int ftrace_allocate_records(struct ftrace_page *pg, int count)
+ 		return -EINVAL;
+ 
+ 	/* We want to fill as much as possible, with no empty pages */
+-	pages = DIV_ROUND_UP(count, ENTRIES_PER_PAGE);
++	pages = DIV_ROUND_UP(count * ENTRY_SIZE, PAGE_SIZE);
+ 	order = fls(pages) - 1;
+ 
+  again:
+@@ -3270,6 +3270,7 @@ static int ftrace_allocate_records(struct ftrace_page *pg, int count)
+ 	}
+ 
+ 	ftrace_number_of_pages += 1 << order;
++	*num_pages += 1 << order;
+ 	ftrace_number_of_groups++;
+ 
+ 	cnt = (PAGE_SIZE << order) / ENTRY_SIZE;
+@@ -3298,12 +3299,14 @@ static void ftrace_free_pages(struct ftrace_page *pages)
+ }
+ 
+ static struct ftrace_page *
+-ftrace_allocate_pages(unsigned long num_to_init)
++ftrace_allocate_pages(unsigned long num_to_init, unsigned long *num_pages)
+ {
+ 	struct ftrace_page *start_pg;
+ 	struct ftrace_page *pg;
+ 	int cnt;
+ 
++	*num_pages = 0;
++
+ 	if (!num_to_init)
+ 		return NULL;
+ 
+@@ -3317,7 +3320,7 @@ ftrace_allocate_pages(unsigned long num_to_init)
+ 	 * waste as little space as possible.
+ 	 */
+ 	for (;;) {
+-		cnt = ftrace_allocate_records(pg, num_to_init);
++		cnt = ftrace_allocate_records(pg, num_to_init, num_pages);
+ 		if (cnt < 0)
+ 			goto free_pages;
+ 
+@@ -6535,8 +6538,6 @@ static int ftrace_process_locs(struct module *mod,
  	if (!count)
  		return 0;
  
-+	pages = DIV_ROUND_UP(count, ENTRIES_PER_PAGE);
-+
+-	pages = DIV_ROUND_UP(count, ENTRIES_PER_PAGE);
+-
  	/*
  	 * Sorting mcount in vmlinux at build time depend on
  	 * CONFIG_BUILDTIME_MCOUNT_SORT, while mcount loc in
-@@ -6645,6 +6648,8 @@ static int ftrace_process_locs(struct module *mod,
- 			for (pg = pg_unuse; pg; pg = pg->next)
+@@ -6549,7 +6550,7 @@ static int ftrace_process_locs(struct module *mod,
+ 		test_is_sorted(start, count);
+ 	}
+ 
+-	start_pg = ftrace_allocate_pages(count);
++	start_pg = ftrace_allocate_pages(count, &pages);
+ 	if (!start_pg)
+ 		return -ENOMEM;
+ 
+@@ -6636,27 +6637,27 @@ static int ftrace_process_locs(struct module *mod,
+ 	/* We should have used all pages unless we skipped some */
+ 	if (pg_unuse) {
+ 		unsigned long pg_remaining, remaining = 0;
+-		unsigned long skip;
++		long skip;
+ 
+ 		/* Count the number of entries unused and compare it to skipped. */
+-		pg_remaining = (ENTRIES_PER_PAGE << pg->order) - pg->index;
++		pg_remaining = (PAGE_SIZE << pg->order) / ENTRY_SIZE - pg->index;
+ 
+ 		if (!WARN(skipped < pg_remaining, "Extra allocated pages for ftrace")) {
+ 
+ 			skip = skipped - pg_remaining;
+ 
+-			for (pg = pg_unuse; pg; pg = pg->next)
++			for (pg = pg_unuse; pg && skip > 0; pg = pg->next) {
  				remaining += 1 << pg->order;
++				skip -= (PAGE_SIZE << pg->order) / ENTRY_SIZE;
++			}
  
-+			pages -= remaining;
-+
- 			skip = DIV_ROUND_UP(skip, ENTRIES_PER_PAGE);
+ 			pages -= remaining;
  
- 			/*
-@@ -6658,6 +6663,13 @@ static int ftrace_process_locs(struct module *mod,
- 		synchronize_rcu();
- 		ftrace_free_pages(pg_unuse);
- 	}
-+
-+	if (!mod) {
-+		count -= skipped;
-+		pr_info("ftrace: allocating %ld entries in %ld pages\n",
-+			count, pages);
-+	}
-+
- 	return ret;
- }
- 
-@@ -7315,9 +7327,6 @@ void __init ftrace_init(void)
- 		goto failed;
- 	}
- 
--	pr_info("ftrace: allocating %ld entries in %ld pages\n",
--		count, DIV_ROUND_UP(count, ENTRIES_PER_PAGE));
+-			skip = DIV_ROUND_UP(skip, ENTRIES_PER_PAGE);
 -
- 	ret = ftrace_process_locs(NULL,
- 				  __start_mcount_loc,
- 				  __stop_mcount_loc);
+ 			/*
+ 			 * Check to see if the number of pages remaining would
+ 			 * just fit the number of entries skipped.
+ 			 */
+-			WARN(skip != remaining, "Extra allocated pages for ftrace: %lu with %lu skipped",
++			WARN(pg || skip > 0, "Extra allocated pages for ftrace: %lu with %lu skipped",
+ 			     remaining, skipped);
+ 		}
+ 		/* Need to synchronize with ftrace_location_range() */
 -- 
 2.34.1
 
