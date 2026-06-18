@@ -1,82 +1,60 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6AB3E9588
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 12:19:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45A637AA65
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 12:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781785149; cv=none; b=kzjehqXRGXvihvHLcVjc70ghWJ+FCClys3/rKCUt2cQTySheShY08U4ILxM3Iv+tTO6wMZi7/onXDHvY/ORF2yh60M+EHAwcx9lfUp0qKnGgdA71lLkj52Gr2OAqqXhNhfXUz3u2MzM62q/1KisQAOwCg0jPEQC/+d9VzQ4Xue4=
+	t=1781785911; cv=none; b=imBhinwRtcR7l6zNjTHChEzfQYG/o9tEhMYoaEM8BuMJp6e6cOiMgl/sO77abNCQ2PO9Bt3eWVf9k22bsrzZTpqgDpHdzQjSjNQo1pgwjux1yC4iYariYH5phcTWX5GzO0WIQxvR7w5LfCyVQwPa+sJ9t/2aJE8jOCb9uS4jvG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781785149; c=relaxed/simple;
-	bh=1h85HEiwu5SrvP6LXSFmCX8HYJCZmpF9jCx93UjL+R4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CQGKMxmQyqkc+YOe/Kgc3ImcDuRFzzL4KSbgYZfCm76Q0OgF9q1Xig/ZvYXjGN/Lb34QPfzfaub2HkCw+eqBCbEGFVAj5OkIeLBi5C12ACtPgV64ilTJ8GPjqA1g06pLCJWzyzo7YMdSOJwMdyhnvUy7HQiZ9oYB9Wyb6tZBNmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z8Mri2I0; arc=none smtp.client-ip=209.85.167.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z8Mri2I0"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aa6792e7b8so989845e87.1
-        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 05:19:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781785145; x=1782389945; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=UqmSWHmzTjiXv/ea7OlEQSmT2M86q0mo+1Enkd+tLH4=;
-        b=Z8Mri2I03uhCf8ZQU9bkmM3N7GPUTMl+4ZjPcsDsqcCmbkD7GJ5iQfCLQ0uxyOGklx
-         nBDEYg0NEV/V6LOs2lO21+S1RQr2Pv799svKwZvOPke+3yjE0pATWAW6w2u8sLQ8V2yt
-         Av/YJO7vXd30SByDTBmEtEoT8g9bEd7TmHgzBrVDLZwujwPBGYsbfDnmoLUxOqy1YPAV
-         xxOoIkDZy/H/unUv97wFzSRKOpaG8Yyt3yB03HJZivotuBiZlKYJYFxW891/VudVxd2P
-         O+SJCTAg6nVu7bUcGagB99IEzkNC18TDp0kUP6vTiPSVC+tGa8s9+VVzdRuf51KklwHv
-         qDag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781785145; x=1782389945;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UqmSWHmzTjiXv/ea7OlEQSmT2M86q0mo+1Enkd+tLH4=;
-        b=b1jjYD0OUwK7c4SXzc6GTL7a5smRFxoxTtSnUbMP9jqBNOYGNpcm8fcM0vDV7DHEzl
-         5Zf0QVhEEti04BdTH2XzI/hbBq/58EB2hm6c396QV4DmNPst+g1AqShF7lJUjJl4J+jP
-         PrJSpBSHJ+dHOiwq+2xpHlm4B4BXsmetTgbHq5+D8CX4kGiu8RXF65Lbh4LgwcynViEw
-         HPVH8ReQljUWtrn5W9aOotrg1zpjEOR/zk4j4Z2kSl++Frnq7fqR5nO2bseCFK8IRqpj
-         42JAZWTbU7V63yIHQPM9E+wydQg3L7ZKLRfgcTq2SIZx5HU3XMvBbpBm2H32tcwNf8GG
-         6FhA==
-X-Gm-Message-State: AOJu0YzraduQDmyRzoBuCa12d2bZkhB6gtx34PnhzalvIgXgXiunSRcy
-	7w5xCUSuJ3ZPj2AIVmIluAxLXIacNupaWegBjT7ovJA4PWRYASge4AlEY2D9n4jCtr0=
-X-Gm-Gg: AfdE7ckMvc5KMaseFX0whvA+Nj/MbTyE43uuUZnwSkAF0n6SCUo9P7xb0L6e9IK5Tdl
-	pOYMHJDn1e74fBpdEyp7uQqj4Q872t9YgfGK4qp9iDNRo3tEJyv3ek+A6FI/rLGyk0mKMGqdaal
-	Xrmm9faxnWsiOwLrY8ZxLiH77zWK3W3bqFxcu57dobmgjirVif/pzsSUmqNnpdTH95gZU9EbcGZ
-	atkLixsJ6IIAb+JVWmD8N+GeiEdBXYl1p0ckpcioZSHpBnu8ch2VSsO5RMYsSU2l8+qsManNMrD
-	no0wC3Uy8Aure3pTcMB5KWa50OzqLPIJb04iZ8zHJgKvPoF63vyS05phXlXPmcvxANrho0kERU0
-	G4Aw25B07e6nROqoOUjGS+o6oVdKfZVP7CACvbXYLbcFcKNqjl3Sk/sfyVIVZI/WUQ7vGZGKLH8
-	vGLIiOVsZVn2c4wMnxq3Qp3qi5AAo7hg==
-X-Received: by 2002:a05:6512:3509:b0:5ad:3035:fa47 with SMTP id 2adb3069b0e04-5ad4dadd259mr879893e87.53.1781785144944;
-        Thu, 18 Jun 2026 05:19:04 -0700 (PDT)
-Received: from grower.astralinux.ru ([81.9.21.4])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad4eb57734sm657424e87.34.2026.06.18.05.19.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Jun 2026 05:19:04 -0700 (PDT)
-From: Alexander Martyniuk <alexevgmart@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alexander Martyniuk <alexevgmart@gmail.com>,
-	Eric Van Hensbergen <ericvh@gmail.com>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Tomas Bortoli <tomasbortoli@gmail.com>,
-	v9fs-developer@lists.sourceforge.net,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	v9fs@lists.linux.dev,
-	lvc-project@linuxtesting.org,
-	Hangyu Hua <hbh25y@gmail.com>
-Subject: [PATCH 5.10] net: 9p: fix refcount leak in p9_read_work() error handling
-Date: Thu, 18 Jun 2026 15:19:21 +0000
-Message-ID: <20260618151940.76321-1-alexevgmart@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1781785911; c=relaxed/simple;
+	bh=mDZcyD6Qym7NLV78zpK4l6Yxyrba1PoSuj/nb7H/FI8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sdx951OVnz49I4fqv+OfSyBZ+9WMm1aaFsV48Vkw/58tNalpcK+v/YYgWVloFc8mTWvHcXafciVHYnqfnFy2ru51N/5DeN2D+Y7TI38+k3pMNKOdxJaPZl27zX26QB7S9aEeZFA1aWoI52KEntwLSMWiHdliz8rGxQtfsjUkbM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 566626D354;
+	Thu, 18 Jun 2026 12:31:48 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E2822779AB;
+	Thu, 18 Jun 2026 12:31:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id cLQENjPlM2rTJQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 18 Jun 2026 12:31:47 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: shiyongbang@huawei.com,
+	tiantao6@hisilicon.com,
+	kong.kongxinwei@hisilicon.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	sashiko-reviews@lists.linux.dev,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rongrong Zou <zourongrong@gmail.com>,
+	Sean Paul <seanpaul@chromium.org>,
+	Xinliang Liu <xinliang.liu@linaro.org>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Baihan Li <libaihan@huawei.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/6] drm/hibmc: Use drm_atomic_helper_check_plane_state()
+Date: Thu, 18 Jun 2026 14:28:39 +0200
+Message-ID: <20260618123142.92298-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260618123142.92298-1-tzimmermann@suse.de>
+References: <20260618123142.92298-1-tzimmermann@suse.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,38 +62,125 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Queue-Id: 566626D354
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 
-From: Hangyu Hua <hbh25y@gmail.com>
+Call drm_atomic_helper_check_plane_state() from the primary plane's
+atomic-check helper and replace the custom implementation.
 
-commit 4ac7573e1f9333073fa8d303acc941c9b7ab7f61 upstream.
+All plane's implementations of atomic_check should call the shared
+_check_plane_state() helper first. It adjusts the plane state for
+correct positioning, rotation and scaling of the plane. Do this
+even if the plane's CRTC has been disabled by setting the parameter
+can_update_disabled. The original code returned early in this case,
+but it's safe to so and cleaner to have all plane state initialized.
 
-p9_req_put need to be called when m->rreq->rc.sdata is NULL to avoid
-temporary refcount leak.
+As we don't set can_position, drm_atomic_helper_check_plane_state()'s
+visibility check tests if the plane covers all of the CRTC. This is
+a small change from the original code, which tested if the plane is
+exactly the size of the CRTC. With the new test, the plane still has
+to cover all of the CRTC, but can be larger than the CRTC's size. A
+later patch can fully implement this feature in hibmc.
 
-Link: https://lkml.kernel.org/r/20220712104438.30800-1-hbh25y@gmail.com
-Fixes: 728356dedeff ("9p: Add refcount to p9_req_t")
-Signed-off-by: Hangyu Hua <hbh25y@gmail.com>
-[Dominique: commit wording adjustments, p9_req_put argument fixes for rebase]
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
-[Alexander: this branch doesn't contain 8b11ff098af4 ("9p: Add client parameter
- to p9_req_put()"), therefore the parameter is removed from the added line]
-Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
+If the plane is disabled, the helper clears the visibility flag in the
+plane state. On errors or if the plane is not visible, the atomic-check
+helper can return early. Implement all this in hibmc and drop the custom
+code that does some of it.
+
+v2:
+- extend the commit description (Yongbang)
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
+Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
+Cc: Rongrong Zou <zourongrong@gmail.com>
+Cc: Sean Paul <seanpaul@chromium.org>
+Cc: Xinliang Liu <xinliang.liu@linaro.org>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Baihan Li <libaihan@huawei.com>
+Cc: Yongbang Shi <shiyongbang@huawei.com>
+Cc: <stable@vger.kernel.org> # v4.10+
 ---
-Backport fix for CVE-2022-50114
- net/9p/trans_fd.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 46 ++++++-------------
+ 1 file changed, 14 insertions(+), 32 deletions(-)
 
-diff --git a/net/9p/trans_fd.c b/net/9p/trans_fd.c
-index 40d458c438df..bd6a54e6f427 100644
---- a/net/9p/trans_fd.c
-+++ b/net/9p/trans_fd.c
-@@ -346,6 +346,7 @@ static void p9_read_work(struct work_struct *work)
- 			p9_debug(P9_DEBUG_ERROR,
- 				 "No recv fcall for tag %d (req %p), disconnecting!\n",
- 				 m->rc.tag, m->rreq);
-+			p9_req_put(m->rreq);
- 			m->rreq = NULL;
- 			err = -EIO;
- 			goto error;
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+index 3066dc9ebc64..7c0b88c774b5 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+@@ -72,46 +72,28 @@ static int hibmc_get_best_clock_idx(const struct drm_display_mode *mode)
+ static int hibmc_plane_atomic_check(struct drm_plane *plane,
+ 				    struct drm_atomic_commit *state)
+ {
+-	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+-										 plane);
+-	struct drm_framebuffer *fb = new_plane_state->fb;
+-	struct drm_crtc *crtc = new_plane_state->crtc;
+-	struct drm_crtc_state *crtc_state;
+-	u32 src_w = new_plane_state->src_w >> 16;
+-	u32 src_h = new_plane_state->src_h >> 16;
+-
+-	if (!crtc || !fb)
+-		return 0;
++	struct drm_plane_state *new_plane_state =
++		drm_atomic_get_new_plane_state(state, plane);
++	struct drm_crtc_state *new_crtc_state = NULL;
++	int ret;
+ 
+-	crtc_state = drm_atomic_get_crtc_state(state, crtc);
+-	if (IS_ERR(crtc_state))
+-		return PTR_ERR(crtc_state);
++	if (new_plane_state->crtc)
++		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
+ 
+-	if (src_w != new_plane_state->crtc_w || src_h != new_plane_state->crtc_h) {
+-		drm_dbg_atomic(plane->dev, "scale not support\n");
+-		return -EINVAL;
+-	}
+-
+-	if (new_plane_state->crtc_x < 0 || new_plane_state->crtc_y < 0) {
+-		drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is invalid\n");
+-		return -EINVAL;
+-	}
+-
+-	if (!crtc_state->enable)
++	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
++						  DRM_PLANE_NO_SCALING,
++						  DRM_PLANE_NO_SCALING,
++						  false, true);
++	if (ret)
++		return ret;
++	else if (!new_plane_state->visible)
+ 		return 0;
+ 
+-	if (new_plane_state->crtc_x + new_plane_state->crtc_w >
+-	    crtc_state->adjusted_mode.hdisplay ||
+-	    new_plane_state->crtc_y + new_plane_state->crtc_h >
+-	    crtc_state->adjusted_mode.vdisplay) {
+-		drm_dbg_atomic(plane->dev, "visible portion of plane is invalid\n");
+-		return -EINVAL;
+-	}
+-
+ 	if (new_plane_state->fb->pitches[0] % 128 != 0) {
+ 		drm_dbg_atomic(plane->dev, "wrong stride with 128-byte aligned\n");
+ 		return -EINVAL;
+ 	}
++
+ 	return 0;
+ }
+ 
 -- 
-2.47.3
+2.54.0
+
