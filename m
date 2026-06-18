@@ -1,122 +1,115 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3783D669C
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 07:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B50D3BFE20
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 07:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781768972; cv=none; b=Gh6PLPIWDdVGc4mOFs4B0l0yuqOwJYhaRY9MB1E+6odXnJ01cEOvQIJvNXkzrdr7UP64KOxAwIAD0uiKgzVw5pNRHjlPqlX7dLAiL41Sqzh+hTh4UMy35RAxmMpiBUCs8ksFC/7XH3/7vZ5fdLk4sin/3zY0W7SCe9nVH8X6mHs=
+	t=1781769048; cv=none; b=OptU0Pt+KTZ3s8UOsbNf9eUKTbPGMNHBS/eqvSlz1aIYLCA61usJEHx/ucNbknleOZV7TmzontAB7qABkq6LrttH+n/YZaMt81yuEv6RVb2ED4vD4Oe9d7EYu1UfyiU3H9wVzyP6PSU3rwHiZQ8qj+DviaC6WJtNXzenkgQONt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781768972; c=relaxed/simple;
-	bh=zD16fMf0ZMJoNAbDkUkjkvBtlSpglsJNvNSt8JU7lxs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ARmYtRzSN7BUg+oQpIqHyXz4IUM/m4DtripGmNsT1g2Ab67NflxGZa+2Vo39rQDRlAG1lIHTYGX47WYrZBDk7nugCRgiuYn2eYzDWg24m7I31DfDU+OddCdx0DnkyROO+tBvDPEQT9I0RYtksEVfIT7DBfHTuSdzBlXBKUjfeHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i40fXJYc; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1781769048; c=relaxed/simple;
+	bh=rn+zy/e/ZeAC44w/v/H7qg6arj7K1GkOCEd7mlpFdvI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rb0cejjOEz87FAplQEwR7RXtvg1kI7QV4oevWIz5BOOYgpZwLWwGxyaXFKLl9LMFq4tCRmybEB6eZ3QYi5QDxQNNxpX5QKHD5/i+b041zECMmbsrRpDbeIpibOKJSW98AY2vqO/jqtLTyqpOQj2sT05Tw3eWJQ5ExRjoasZkjII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=OgYu+9Q+; arc=none smtp.client-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i40fXJYc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781768969;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FfHVYwJjeckBljNNeVdi/xVk7ybji0LvQllDM/zHzBw=;
-	b=i40fXJYcwCsmqgA3OVlNd0otyxwDyFvAkwZee33aCDaiwB3Ez2wiW41PrQHEm5I47myzP0
-	WS0wdcDOzlyrGR4IbpkowIwlY397O6HeXqBtn7cMYp3fZC7XAHbO900h9hFnxpEcalbQtw
-	2vgbOW/5c2sO79zmPFxIi0aE7HBYM6o=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-190-GwN2JcrROYW-jJgfoeTfMQ-1; Thu,
- 18 Jun 2026 03:49:26 -0400
-X-MC-Unique: GwN2JcrROYW-jJgfoeTfMQ-1
-X-Mimecast-MFC-AGG-ID: GwN2JcrROYW-jJgfoeTfMQ_1781768965
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 28EB61956044;
-	Thu, 18 Jun 2026 07:49:24 +0000 (UTC)
-Received: from warthog.procyon.org.com (unknown [10.44.50.44])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4A9F0180058D;
-	Thu, 18 Jun 2026 07:49:20 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	linux-afs@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Matvey Kovalev <matvey.kovalev@ispras.ru>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 03/17] afs: fix NULL pointer dereference in afs_get_tree()
-Date: Thu, 18 Jun 2026 08:48:46 +0100
-Message-ID: <20260618074903.2374756-4-dhowells@redhat.com>
-In-Reply-To: <20260618074903.2374756-1-dhowells@redhat.com>
-References: <20260618074903.2374756-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="OgYu+9Q+"
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
+	by cmsmtp with ESMTPS
+	id ZuYVw7IIKlPo5a7UtwIcbM; Thu, 18 Jun 2026 07:49:11 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id a7UswCVkPnfJUa7UswJoG0; Thu, 18 Jun 2026 07:49:10 +0000
+X-Authority-Analysis: v=2.4 cv=KajSsRYD c=1 sm=1 tr=0 ts=6a33a2f7
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=m2aUGJL5Bn_ZWkTGInQA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=wovJ2Y92WH+qRJQhXKzR+9Q1ewYt5crlA4w5uU81weY=; b=OgYu+9Q+fAPtjBv/JLnJ9Nubt3
+	lg298Wc9jGWnKNNHCGwvjrfIYdW0Ue9jaPAEsvAEvrDvb/ipkwg/hkJyLdC9I7r/f/I538OyXUo1P
+	YwRdQ+CTdqJrpEwPJ46WWadwHhMkwHwfOwfhr77UdJKSk6xsj6C3pRKi/FBunHuJNY4pJuZQZuMsM
+	DDTpNACo2LBAvjIv9hPkvFBK4NFfSdKkxp4E1wClVTzjyxSHEDdmd0D9tR9aUomABWS7otWqPXPUn
+	iFa2Y+Y3R0S5z6ecFo+Rzv4btQRehEVdw6+0/vEH3sHxQfizsxE8/69G0aOUnLFXeXiU5oWG7CPxv
+	BcUUtg4w==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:58930 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.2)
+	(envelope-from <re@w6rz.net>)
+	id 1wa7Ur-00000002GGG-23f6;
+	Thu, 18 Jun 2026 01:49:09 -0600
+Message-ID: <4ed1320d-2e9b-402f-8684-d798a7d41e45@w6rz.net>
+Date: Thu, 18 Jun 2026 00:49:07 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 0/8] 7.1.1-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260616145523.335696673@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260616145523.335696673@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1wa7Ur-00000002GGG-23f6
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:58930
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfOFBZ4HMJ39SbTJL0X8A6OFViah69mtfXdisk5Oeu+5xEIRVCayS69lsr7ebz2r4kqLrCf9YSW0sfF9nEFbV0tWiJTqAHvbM12ibN7xpBtoFZSO35kMI
+ cTwdH54Cllsju6zNAceN1JzE1FVmW8JbqQ9T7sCff/3RvS2ULHIyQASYfc19Li8XmlYfOiGxYuohBA==
 
-From: Matvey Kovalev <matvey.kovalev@ispras.ru>
+On 6/16/26 07:58, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.1 release.
+> There are 8 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Thu, 18 Jun 2026 14:55:16 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.1-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-afs_alloc_sbi() uses kzalloc for memory allocation. And, if
-ctx->dyn_root is not null, as->cell and as->volume are null.
-In trace_afs_get_tree() they are dereferenced.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-KASAN error message:
-
-KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-CPU: 2 PID: 18478 Comm: syz-executor.7 Not tainted 5.10.246-syzkaller #0
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.12.0-1
-04/01/2014
-RIP: 0010:perf_trace_afs_get_tree+0x1d9/0x550
-include/trace/events/afs.h:1365
-
-Call Trace:
-trace_afs_get_tree include/trace/events/afs.h:1365 [inline]
-afs_get_tree+0x922/0x1350 fs/afs/super.c:599
-vfs_get_tree+0x8e/0x300 fs/super.c:1572
-do_new_mount fs/namespace.c:3011 [inline]
-path_mount+0x14a5/0x2220 fs/namespace.c:3341
-do_mount fs/namespace.c:3354 [inline]
-__do_sys_mount fs/namespace.c:3562 [inline]
-__se_sys_mount fs/namespace.c:3539 [inline]
-__x64_sys_mount+0x283/0x300 fs/namespace.c:3539
- do_syscall_64+0x33/0x50 arch/x86/entry/common.c:46
-entry_SYSCALL_64_after_hwframe+0x67/0xd1
-
-Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
-
-Fixes: 80548b03991f5 ("afs: Add more tracepoints")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matvey Kovalev <matvey.kovalev@ispras.ru>
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: linux-afs@lists.infradead.org
----
- fs/afs/super.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/afs/super.c b/fs/afs/super.c
-index 942f3e9800d7..dec091e569c4 100644
---- a/fs/afs/super.c
-+++ b/fs/afs/super.c
-@@ -587,7 +587,8 @@ static int afs_get_tree(struct fs_context *fc)
- 	}
- 
- 	fc->root = dget(sb->s_root);
--	trace_afs_get_tree(as->cell, as->volume);
-+	if (!ctx->dyn_root)
-+		trace_afs_get_tree(as->cell, as->volume);
- 	_leave(" = 0 [%p]", sb);
- 	return 0;
- 
+Tested-by: Ron Economos <re@w6rz.net>
 
