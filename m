@@ -1,63 +1,32 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568713C5DD4;
-	Thu, 18 Jun 2026 10:23:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FC93750CB;
+	Thu, 18 Jun 2026 10:26:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781778214; cv=none; b=ogHRwg9xf1Ll2iULRunPKuS4xWw0Pol/jc6HLrgZcAxixUqEO/pPQMBJW+AETdhGoA5gvgimIHgiWgJMWeI0ceNNciy+NMtkgrDXZfFfV+Ci1EgLGazHb4s8oW6shz7aYWPq8+nWNE4KvLG7U3hAky3Orv7iWhsRVsbhs+HmYSI=
+	t=1781778394; cv=none; b=DjbnPaLNKlEYodWIcAH3xQ9sMWBuHDv9Ufh/Igd6PTz4hvhTK4T2f8zIdkBzyCfKi+I6f3U3QzvoUvbx7aD+e+ZJpTY5Qx8dICXH4ZLtAcbcYzaqsikY23SFQ85KzwyCIJ+eRfBCOWefRZn0OkzYPdC7xrgN8JtXxbZD2HgpSKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781778214; c=relaxed/simple;
-	bh=/5xlT4UPANLHWLwtUNkZonoJrCOL+q5aqrVw4zGGdDQ=;
+	s=arc-20240116; t=1781778394; c=relaxed/simple;
+	bh=QAXjP5J/sFCMInq4Fej3S6aSdguM9eBOQ61FbMRR4s0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X9cyh10aA/wCg4hz5WgHJC1txjKk717hSbCFv+0bctnN8QuX5rnOY3BmwGzNd7pQxqVflIhlQ8xDzT249OVac7otOkx9MuiLLV90v0rI6t/RcmL0oiY/VdFrZu1qB7O1PzIJcKL0FcYKKCpkAy+G8POd/DMxyh9rg/gH8GNoomU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=McT9Gq9J; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="McT9Gq9J"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781778205; x=1813314205;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/5xlT4UPANLHWLwtUNkZonoJrCOL+q5aqrVw4zGGdDQ=;
-  b=McT9Gq9J2gBRmF2mF381PjQwqByTGS/v/I1tLI8vKOuvqBV2gB48teRq
-   00yR+RleWo+8AyGV8a6+E5FhkoLU+64DGJs5J8p7AUFC5exLUwd/3iwEI
-   9MGRiuMDGvmxnFL5gDaU2PfCYubKDwp/tYvrb3zw1+r/+l+nnZ5N+h+B9
-   NjdyEIMdHtnGoHijvv0zl2RNwDWttDrs2lhqDvEVd4Ekxsd9V97cqn237
-   Prd/qJSVmmL32hlFbDU2QZPg4DM16gCX6nLEI9QbHGQ7Pyi7P+/xEBrLs
-   1gH3wunF8DS2AP0ZHfDcPF9gBGFbvVrw/WvrF9XPAs8eQHKUxT6Knroyj
-   Q==;
-X-CSE-ConnectionGUID: fIe6ghr9T82CJ8Mf7ShWdg==
-X-CSE-MsgGUID: bO10jSlsQoy0q4MlMu9QvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="70126179"
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="70126179"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 03:23:23 -0700
-X-CSE-ConnectionGUID: qktiaX03RSe2frDZIQqsdQ==
-X-CSE-MsgGUID: RIQa1sPlSCOSPSwNz523kg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="245396666"
-Received: from igk-lkp-server01.igk.intel.com (HELO 892db79562d4) ([10.211.93.152])
-  by fmviesa007.fm.intel.com with ESMTP; 18 Jun 2026 03:23:20 -0700
-Received: from kbuild by 892db79562d4 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wa9u2-000000005Vd-314y;
-	Thu, 18 Jun 2026 10:23:18 +0000
-Date: Thu, 18 Jun 2026 12:22:51 +0200
-From: kernel test robot <lkp@intel.com>
-To: Keith Busch <kbusch@meta.com>, linux-block@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qi3rra8sMgRoV2FRVnCxVO8noOsAP+6Z46ClQ0mogT+mhsFW4UZtnLlD1bHuO4+1rD+d6gYJ+J6JkqavOJN6ugMr0OpF9WymYQCCteM3+hkEV+EnoRXh8tabF3E+ocCZ7Rr6z/v+8BV2k6yFd3YL/B/CSfBbFvpZkf4YiWslJnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 8508A68C7B; Thu, 18 Jun 2026 12:26:27 +0200 (CEST)
+Date: Thu, 18 Jun 2026 12:26:27 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Keith Busch <kbusch@meta.com>
+Cc: linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	dm-devel@lists.linux.dev, hch@lst.de, axboe@kernel.dk,
 	brauner@kernel.org, djwong@kernel.org, viro@zeniv.linux.org.uk,
 	Keith Busch <kbusch@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/1] block: validate user space vectors during extraction
-Message-ID: <202606181254.ohF2ZO9K-lkp@intel.com>
-References: <20260617233235.1016063-2-kbusch@meta.com>
+Subject: Re: [PATCH 1/1] block: validate user space vectors during
+ extraction
+Message-ID: <20260618102627.GA23200@lst.de>
+References: <20260617233235.1016063-1-kbusch@meta.com> <20260617233235.1016063-2-kbusch@meta.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,35 +36,62 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20260617233235.1016063-2-kbusch@meta.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-Hi Keith,
+On Wed, Jun 17, 2026 at 04:32:35PM -0700, Keith Busch wrote:
+> @@ -1242,7 +1242,7 @@ static int bio_iov_iter_align_down(struct bio *bio, struct iov_iter *iter,
+>   * is returned only if 0 pages could be pinned.
+>   */
+>  int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+> -			   unsigned len_align_mask)
+> +			   unsigned len_align_mask, unsigned vec_align_mask)
 
-kernel test robot noticed the following build warnings:
+vec_align_mask needs to be documented in the kernel doc.  And I find
+the vec_align_mask name a bit confusing.  This is all about the physical
+address (really the dma address, but the page aligned offset map 1:1),
+so maybe phys_align_mask or dma_align_mask might be better names?
 
-[auto build test WARNING on axboe/for-next]
-[also build test WARNING on brauner-vfs/vfs.all akpm-mm/mm-nonmm-unstable linus/master v7.1 next-20260616]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Also wouldn't it be more natural to pass the start alignment requirement
+before the length alignment paramter?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Keith-Busch/block-validate-user-space-vectors-during-extraction/20260618-073522
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git for-next
-patch link:    https://lore.kernel.org/r/20260617233235.1016063-2-kbusch%40meta.com
-patch subject: [PATCH 1/1] block: validate user space vectors during extraction
-config: x86_64-kexec (https://download.01.org/0day-ci/archive/20260618/202606181254.ohF2ZO9K-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260618/202606181254.ohF2ZO9K-lkp@intel.com/reproduce)
+> @@ -1251,6 +1251,11 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+>  
+>  	if (iov_iter_is_bvec(iter)) {
+>  		bio_iov_bvec_set(bio, iter);
+> +
+> +		if (mp_bvec_iter_offset(bio->bi_io_vec, bio->bi_iter) &
+> +							vec_align_mask)
+> +			return -EINVAL;
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202606181254.ohF2ZO9K-lkp@intel.com/
+Can you add a comment here?  Especially as the bvec iter doesn't actually
+require all individual bvecs to be aligned and I'm not entirely sure this
+handles all case - writing down the rules might help a bit with that.
 
-All warnings (new ones prefixed by >>):
+>  		ret = iov_iter_extract_bvecs(iter, bio->bi_io_vec,
+>  				BIO_MAX_SIZE - bio->bi_iter.bi_size,
+> -				&bio->bi_vcnt, bio->bi_max_vecs, flags);
+> +				&bio->bi_vcnt, bio->bi_max_vecs,
+> +				vec_align_mask, flags);
+>  		if (ret <= 0) {
+> +			if (ret == -EINVAL) {
+> +				bio_release_pages(bio, false);
+> +				bio_clear_flag(bio, BIO_PAGE_PINNED);
+> +				bio->bi_iter.bi_size = 0;
+> +				bio->bi_vcnt = 0;
+> +				return ret;
+> +			}
 
->> Warning: block/bio.c:1245 function parameter 'vec_align_mask' not described in 'bio_iov_iter_get_pages'
->> Warning: block/bio.c:1245 function parameter 'vec_align_mask' not described in 'bio_iov_iter_get_pages'
+Do we need all this cleanups beyoned the bio_release_pages()?  Most
+callers just free the bio, so should not care about it, and the error
+handling in __blkdev_direct_IO that calls bio_endio looks buggy for
+other reasons..
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> + * @align_mask:	reject with -EINVAL if the source address or length is not
+> + *		aligned to this mask
+
+Maybe use the same paramater name as on the bio side here?
+
+And not for this patch, but this makes me wonder if we should handle the
+len alignment in iov_iter_extract_bvecs as well, as that should simplify
+it quite a bit.
+
