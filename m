@@ -1,50 +1,50 @@
-Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
+Received: from mx0a-00206402.pphosted.com (mx0a-00206402.pphosted.com [148.163.148.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EFD617A30A
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:39:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.152.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A7E330E82C
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:39:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.148.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781815175; cv=none; b=okkKaDw3tc+0ZWy0fs7ktQk6+mILmxejpqchCbHVImvEoTJYtSGeYCdu1zcJ9aaepDrmn1/v0NOx3BIGW8YKQpQZzgwYf1L99SX//bVvWFW2efh9gCgQ6bUvKTMIXyD6XX6c8BQmxXAuOq+QOOq0JqevMk/3XbfWjbAQdb8L1x4=
+	t=1781815176; cv=none; b=qpaZUA4vNGGq2GsstNuFxq4H0vraV8cn51c7/XZzo089zPfzwHvnPbEh9DcE8xSyqmtiEKcgF9Tc3/CgMpPu9g+/jHxnNba9ANSAmCXeUQ6hNIDZVJAOSUzOJm2d9efl4PJCKaj+YSBFEeYxeojrBH5+oTZYnZ4bKhMW9yg+qlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781815175; c=relaxed/simple;
-	bh=yc0ZGNoKRffLiz3rUH10B4XQwuuw8TO/mt5enIYLxRA=;
+	s=arc-20240116; t=1781815176; c=relaxed/simple;
+	bh=E6BeMurtrzKA27t6UVf4wK4vphIqoWMGrwvbGO9Lj1k=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JK2lX+14sZgcM+Ko8fK159W2x+65KyD+dJpShi1piHYtqzZPipBQS9cecNxs4hnga2I232FXv/vzswHN0+duD2Dh20p9kvmQ/cMh7SQqo4Y9FgOlQzE5diIR0P2UW8O6HM+9T4APXGVe9iD7bGAr5p0dGNYWjkmQpRheX9dH914=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=ZA3UcMq9; arc=none smtp.client-ip=148.163.152.16
+	 MIME-Version:Content-Type; b=WMTMrQ6Styu+eG0Vvy/Bz7SVJex0FA9wjzGGMRm1RWZxZuYLJJ+9C8wcTWWljpgoz8x5mQzhEdxNrbVeKuUYfGiiV2JbCA1JHFpcd+pu4dvZimgPiMS9XksZlIjEu+p7Y+ao1CwzSJ8FgWvC5PkkssvwjN83hHZYWWEund/dams=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=ZwMCuGbm; arc=none smtp.client-ip=148.163.148.77
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="ZA3UcMq9"
-Received: from pps.filterd (m0354655.ppops.net [127.0.0.1])
-	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IIsk9A3950969;
-	Thu, 18 Jun 2026 20:39:29 GMT
+	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="ZwMCuGbm"
+Received: from pps.filterd (m0354651.ppops.net [127.0.0.1])
+	by mx0a-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IJiCHW4006048;
+	Thu, 18 Jun 2026 20:39:30 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
 	 h=cc:content-transfer-encoding:content-type:date:from
 	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	default; bh=y7lsv63WbQOet+GlfKpnuJHcifDInTG15dXa08i+XLA=; b=ZA3U
-	cMq9gbn8T3jup0vhWaSKLZi5vnBnMvKt/K18MLb+jtKmAH6LnIcv5b22pscSfU5A
-	x7BvXXYGD6zJGYiC9jVJtgPWbPBRMaHKRg1bntlMqgBZ+zyvY0/xAVdTTuKEQSU9
-	PeLuEiQLqTpYBS4kWPHSGvReYOliz43HLm3y/C8BmejDEV7AIFPnAcUoC6qhGXOd
-	+dpE1hJWDPUuWeF2r3fbXRNDXzeepjIDWdTa/h8GqzlxiaavrxZ03+i8IOyRYfv6
-	aZ5++FfzHp9MDOcZM4BtLICAIaz+DEDJSN3FF0uB7JW++XKzlG0kK/pb0LwQnXLl
-	6l58YT73lqdyAtXC4A==
+	default; bh=aOqpmm9Bqw5tTRw8fA0kgErhnonC8Nk6pBWYTNjt2JY=; b=ZwMC
+	uGbm5jT4VoVjANVQg877icmN0LVGCK+gNO3hsR7HtDAjtrCLAWEqQ7SQKJaggC3T
+	03ryaV+HaRCX+fsfXBD3UjEgvGKYQaurZJ4Biz09PM6vPW/0ht9g+Jp9m54v6Y9l
+	2T+OdGN8IRYd2xAbdRAKC+LzSQLK80a31dkCdhLzTcT7HkclDnr2QE9cQ0WcIYIe
+	dtU7TS8VkKXBHU8VYyACyax6TtNvY1+2Sg8Y8b3lViqBgF/CZ/kIuFqv7pBdpv8S
+	N2ZARVs8Bo1Lk16+nYko/T9TveHYG4Ne924oVCq3i1n6BnMSIJuhKWlaJAKPJbsF
+	DoiimsuSL9shmshdrA==
 Received: from mail.crowdstrike.com (dragosx.crowdstrike.com [208.42.231.60] (may be forged))
-	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4evd10au0k-1
+	by mx0a-00206402.pphosted.com (PPS) with ESMTPS id 4evq3jg7yh-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 18 Jun 2026 20:39:28 +0000 (GMT)
+	Thu, 18 Jun 2026 20:39:29 +0000 (GMT)
 Received: from LL-DJCZ134.crowdstrike.sys (10.100.11.122) by
  04WPEXCH006.crowdstrike.sys (10.100.11.70) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 18 Jun 2026 20:39:27 +0000
+ 15.2.2562.43; Thu, 18 Jun 2026 20:39:28 +0000
 From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 To: <stable@vger.kernel.org>
 CC: <gregkh@linuxfoundation.org>, <sashal@kernel.org>, <rostedt@goodmis.org>,
         <vmalik@redhat.com>, <jmarchan@redhat.com>,
         <martin.kelly@crowdstrike.com>
-Subject: [PATCH 6.6.y 16/27] arm64: scripts/sorttable: Implement sorting mcount_loc at boot for arm64
-Date: Thu, 18 Jun 2026 16:38:54 -0400
-Message-ID: <34c0fa5cbf88c107dab3e707f39fdddb29153cb3.1781814134.git.andrey.grodzovsky@crowdstrike.com>
+Subject: [PATCH 6.6.y 17/27] scripts/sorttable: Have mcount rela sort use direct values
+Date: Thu, 18 Jun 2026 16:38:55 -0400
+Message-ID: <b28d8bc583e483febb99a1436a58a4470798a1df.1781814138.git.andrey.grodzovsky@crowdstrike.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1781814083.git.andrey.grodzovsky@crowdstrike.com>
 References: <cover.1781814083.git.andrey.grodzovsky@crowdstrike.com>
@@ -58,58 +58,52 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: 04WPEXCH006.crowdstrike.sys (10.100.11.70) To
  04WPEXCH006.crowdstrike.sys (10.100.11.70)
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX8R3iNfQt1W+r
- bb85u4jJH5a3ZNELcEhNj71Z+c2/YIn7CGuKwmPeo7ryYEQ4hlGM6GkZliDxM/Tfi67YF85dxbW
- eFzxzJbL+mPfoo3LnGyd5P/DLvkkFZLz6XxnMmIe9sOqi25MZa5z6ZLfyG1sRVsZntFdlQZw1iH
- y13hhpQ7UeiwhvHYdUX2DPVKo3Kr3/QCJNaj78Qtvf2XwfE2i4+SDSqLvFVB2lCuuDdnTby1sWV
- 9HcsEDSn+p5VAtF3vTYn9kQ33e6AerjHomuLPUBb5siJfd/xIRoX4DDyS/YdWxRyg7E8QmK4lo5
- u9ZsVq3pLs0POLalu3WhO5PpY57LJDz4BWqpgosDmBKKH16H3EOKNTBgIfT3kX9qCNnEVbkRcc1
- DkC2ENmwIqpZBylXdHGg0Gw3fgonqiS6Xnfvd6WGqVd3LlhBcuMWU4W524eRuKn76GfEDjMuSgb
- kUfsg08QOQlQL//V/yg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfXwd5KV9fFq1vy
- 6We0vmpxeZhCBCOtcWvwTF2UNv1m2XaMM+298cL7maVhf5fK7c+BXmxZgSFsEpb+3M1XmHTD4dj
- DoBpiMmIYWAk0S/YXXPZts12Pt5nnOZyrLhZtECJiBJMXPxqOTj4
-X-Proofpoint-ORIG-GUID: rq2RoU_okAleVRriXGgmagLQoSeONbwJ
-X-Proofpoint-GUID: rq2RoU_okAleVRriXGgmagLQoSeONbwJ
-X-Authority-Analysis: v=2.4 cv=L7UtheT8 c=1 sm=1 tr=0 ts=6a345780 cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX+hpvF13ldioM
+ 5HgLQfo1KbN4x4hgzbgWRtLeQEm+oc1get01W1DtzAYhxNnyWKxurxHtgf4sdEJmb2iLJ8u2c6j
+ Vmm7m/F9jEwh4fP0WPgGEvoq2T/2mqJbKiV8Zw1ZyhOYBsORC9kN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX7WHIXV9Zx6AF
+ fIEDi9jmGRH3I78nPd/nS2ODZwd0W6K3BVEAZ8vXtTmBAym91OYJGKwnagRqsSSXUSRDZ/5ND2M
+ 7a2QLyeAnDk4bC3OeAu0tM0lN1rc5z54NzPxsv/VyXCJBDXqcp1+kwfjhYi26iYkeTJ6n+FaCDX
+ CiR5MhGZ6/Qjgea8lDU7JTycbETk8uhGF+scark2GZX8dspwOOO+mR2xbbGJkDaHulennPEhQUD
+ UiEpFU0mfgjYSXsoW66rEkLyYfMpSuM9cM1A/O3qXu2Rr6EFajCIu7X1accYdedYu7mAOT+4Lk/
+ 73HpqERXnX9dVQ0tIb9iCtNRPr45KiCTXFqSViveKsSfALVUKwxAwmxbCzMiE4yFfvJMj2694yh
+ dDMUZxUFkPA7QCuYsAT6yvQOgNpGiXAYrW+g++F6Xjg2KXu9Oq0DkiAHRbru8DveTBTICPFwJ1E
+ FUWs4DTIBWpnaJN0LDA==
+X-Proofpoint-ORIG-GUID: ErZKM6BKTmMEyL_DcimDvSgDbQVAdzet
+X-Proofpoint-GUID: ErZKM6BKTmMEyL_DcimDvSgDbQVAdzet
+X-Authority-Analysis: v=2.4 cv=AvLeGu9P c=1 sm=1 tr=0 ts=6a345781 cx=c_pps
  a=1d8vc5iZWYKGYgMGCdbIRA==:117 a=1d8vc5iZWYKGYgMGCdbIRA==:17
  a=EjBHVkixTFsA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=T2KQ53IYiC3MXPrxx8bB:22 a=vDKVRhTs-M86Ea50iKLw:22 a=VwQbUJbxAAAA:8
+ a=T2KQ53IYiC3MXPrxx8bB:22 a=b3B37AjAgz0HnGB3MuNd:22 a=VwQbUJbxAAAA:8
  a=meVymXHHAAAA:8 a=7CQSdrXTAAAA:8 a=7d_E57ReAAAA:8 a=Z4Rwk6OoAAAA:8
  a=JfrnYn6hAAAA:8 a=cpyHj8QvAAAA:8 a=i0EeH86SAAAA:8 a=pl6vuDidAAAA:8
- a=1UX6Do5GAAAA:8 a=20KFwNOVAAAA:8 a=VnNF1IyMAAAA:8 a=zO_4OnNRGU9hkkdKmrEA:9
+ a=1UX6Do5GAAAA:8 a=20KFwNOVAAAA:8 a=VnNF1IyMAAAA:8 a=UWjLTQXr3SkU-CwT73AA:9
  a=2JgSa4NbpEOStq-L5dxp:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=jhqOcbufqs7Y1TYCrUUU:22
  a=HkZW87K1Qel5hWWM3VKY:22 a=1CNFftbPRP8L7MoqJWF3:22 a=BPjOrAZP5zzvMhA9psHf:22
  a=Et2XPkok5AAZYJIKzHr1:22
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11821
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 adultscore=0 suspectscore=0 spamscore=0 clxscore=1015
+ malwarescore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180189
 
 From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit b3d09d06e052e1d754645acea4e4d1e96f81c934 ]
+[ Upstream commit a0265659322540d656727b9e132edfb6f06b6c1a ]
 
-The mcount_loc section holds the addresses of the functions that get
-patched by ftrace when enabling function callbacks. It can contain tens of
-thousands of entries. These addresses must be sorted. If they are not
-sorted at compile time, they are sorted at boot. Sorting at boot does take
-some time and does have a small impact on boot performance.
+The mcount_loc sorting for when the values are stored in the Elf_Rela
+entries uses the compare_extable() function to do the compares in the
+qsort(). That function does handle byte swapping if the machine being
+compiled for is a different endian than the host machine. But the
+sort_relocs() function sorts an array that pulled in the values from the
+Elf_Rela section and has already done the swapping.
 
-x86 and arm32 have the addresses in the mcount_loc section of the ELF
-file. But for arm64, the section just contains zeros. The .rela.dyn
-Elf_Rela section holds the addresses and they get patched at boot during
-the relocation phase.
-
-In order to sort these addresses, the Elf_Rela needs to be updated instead
-of the location in the binary that holds the mcount_loc section. Have the
-sorttable code, allocate an array to hold the functions, load the
-addresses from the Elf_Rela entries, sort them, then put them back in
-order into the Elf_rela entries so that they will be sorted at boot up
-without having to sort them during boot up.
+Create two new compare functions that will sort the direct values. One
+will sort 32 bit values and the other will sort the 64 bit value. One of
+these will be assigned to a compare_values function pointer and that will
+be used for sorting the Elf_Rela mcount values.
 
 Cc: bpf <bpf@vger.kernel.org>
 Cc: Masami Hiramatsu <mhiramat@kernel.org>
@@ -126,327 +120,68 @@ Cc: Martin  Kelly <martin.kelly@crowdstrike.com>
 Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
 Cc: Josh Poimboeuf <jpoimboe@redhat.com>
 Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
 Cc: Will Deacon <will@kernel.org>
 Cc: Vasily Gorbik <gor@linux.ibm.com>
 Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-Link: https://lore.kernel.org/20250218200022.373319428@goodmis.org
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+Link: https://lore.kernel.org/20250218200022.538888594@goodmis.org
 Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 ---
- arch/arm64/Kconfig  |   1 +
- scripts/sorttable.c | 185 +++++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 183 insertions(+), 3 deletions(-)
+ scripts/sorttable.c | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 1be9f1f6b..b3fe5b9b9 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -202,6 +202,7 @@ config ARM64
- 		if DYNAMIC_FTRACE_WITH_ARGS
- 	select HAVE_SAMPLE_FTRACE_DIRECT
- 	select HAVE_SAMPLE_FTRACE_DIRECT_MULTI
-+	select HAVE_BUILDTIME_MCOUNT_SORT
- 	select HAVE_EFFICIENT_UNALIGNED_ACCESS
- 	select HAVE_FAST_GUP
- 	select HAVE_FTRACE_MCOUNT_RECORD
 diff --git a/scripts/sorttable.c b/scripts/sorttable.c
-index 9f41575af..4a34c2751 100644
+index 4a34c2751..f62a91d8a 100644
 --- a/scripts/sorttable.c
 +++ b/scripts/sorttable.c
-@@ -28,6 +28,7 @@
- #include <fcntl.h>
- #include <stdio.h>
- #include <stdlib.h>
-+#include <stdbool.h>
- #include <string.h>
- #include <unistd.h>
- #include <errno.h>
-@@ -79,10 +80,16 @@ typedef union {
- 	Elf64_Sym	e64;
- } Elf_Sym;
- 
-+typedef union {
-+	Elf32_Rela	e32;
-+	Elf64_Rela	e64;
-+} Elf_Rela;
-+
- static uint32_t (*r)(const uint32_t *);
- static uint16_t (*r2)(const uint16_t *);
- static uint64_t (*r8)(const uint64_t *);
- static void (*w)(uint32_t, uint32_t *);
-+static void (*w8)(uint64_t, uint64_t *);
- typedef void (*table_sort_t)(char *, int);
- 
- static struct elf_funcs {
-@@ -102,6 +109,10 @@ static struct elf_funcs {
- 	uint32_t (*sym_name)(Elf_Sym *sym);
- 	uint64_t (*sym_value)(Elf_Sym *sym);
- 	uint16_t (*sym_shndx)(Elf_Sym *sym);
-+	uint64_t (*rela_offset)(Elf_Rela *rela);
-+	uint64_t (*rela_info)(Elf_Rela *rela);
-+	uint64_t (*rela_addend)(Elf_Rela *rela);
-+	void (*rela_write_addend)(Elf_Rela *rela, uint64_t val);
- } e;
- 
- static uint64_t ehdr64_shoff(Elf_Ehdr *ehdr)
-@@ -262,6 +273,38 @@ SYM_ADDR(value)
- SYM_WORD(name)
- SYM_HALF(shndx)
- 
-+#define __maybe_unused			__attribute__((__unused__))
-+
-+#define RELA_ADDR(fn_name)					\
-+static uint64_t rela64_##fn_name(Elf_Rela *rela)		\
-+{								\
-+	return r8((uint64_t *)&rela->e64.r_##fn_name);		\
-+}								\
-+								\
-+static uint64_t rela32_##fn_name(Elf_Rela *rela)		\
-+{								\
-+	return r((uint32_t *)&rela->e32.r_##fn_name);		\
-+}								\
-+								\
-+static uint64_t __maybe_unused rela_##fn_name(Elf_Rela *rela)	\
-+{								\
-+	return e.rela_##fn_name(rela);				\
-+}
-+
-+RELA_ADDR(offset)
-+RELA_ADDR(info)
-+RELA_ADDR(addend)
-+
-+static void rela64_write_addend(Elf_Rela *rela, uint64_t val)
-+{
-+	w8(val, (uint64_t *)&rela->e64.r_addend);
-+}
-+
-+static void rela32_write_addend(Elf_Rela *rela, uint64_t val)
-+{
-+	w(val, (uint32_t *)&rela->e32.r_addend);
-+}
-+
- /*
-  * Get the whole file as a programming convenience in order to avoid
-  * malloc+lseek+read+free of many pieces.  If successful, then mmap
-@@ -341,6 +384,16 @@ static void wle(uint32_t val, uint32_t *x)
- 	put_unaligned_le32(val, x);
- }
- 
-+static void w8be(uint64_t val, uint64_t *x)
-+{
-+	put_unaligned_be64(val, x);
-+}
-+
-+static void w8le(uint64_t val, uint64_t *x)
-+{
-+	put_unaligned_le64(val, x);
-+}
-+
- /*
-  * Move reserved section indices SHN_LORESERVE..SHN_HIRESERVE out of
-  * the way to -256..-1, to avoid conflicting with real section
-@@ -398,13 +451,12 @@ static inline void *get_index(void *start, int entsize, int index)
- static int extable_ent_size;
- static int long_size;
- 
-+#define ERRSTR_MAXSZ	256
- 
- #ifdef UNWINDER_ORC_ENABLED
- /* ORC unwinder only support X86_64 */
- #include <asm/orc_types.h>
- 
--#define ERRSTR_MAXSZ	256
--
- static char g_err[ERRSTR_MAXSZ];
- static int *g_orc_ip_table;
- static struct orc_entry *g_orc_table;
-@@ -499,7 +551,19 @@ static void *sort_orctable(void *arg)
- #endif
+@@ -552,6 +552,28 @@ static void *sort_orctable(void *arg)
  
  #ifdef MCOUNT_SORT_ENABLED
-+
-+/* Only used for sorting mcount table */
-+static void rela_write_addend(Elf_Rela *rela, uint64_t val)
+ 
++static int compare_values_64(const void *a, const void *b)
 +{
-+	e.rela_write_addend(rela, val);
++	uint64_t av = *(uint64_t *)a;
++	uint64_t bv = *(uint64_t *)b;
++
++	if (av < bv)
++		return -1;
++	return av > bv;
 +}
 +
- static pthread_t mcount_sort_thread;
-+static bool sort_reloc;
-+
-+static long rela_type;
-+
-+static char m_err[ERRSTR_MAXSZ];
- 
- struct elf_mcount_loc {
- 	Elf_Ehdr *ehdr;
-@@ -508,6 +572,103 @@ struct elf_mcount_loc {
- 	uint64_t stop_mcount_loc;
- };
- 
-+/* Sort the relocations not the address itself */
-+static void *sort_relocs(Elf_Ehdr *ehdr, uint64_t start_loc, uint64_t size)
++static int compare_values_32(const void *a, const void *b)
 +{
-+	Elf_Shdr *shdr_start;
-+	Elf_Rela *rel;
-+	unsigned int shnum;
-+	unsigned int count;
-+	int shentsize;
-+	void *vals;
-+	void *ptr;
++	uint32_t av = *(uint32_t *)a;
++	uint32_t bv = *(uint32_t *)b;
 +
-+	shdr_start = (Elf_Shdr *)((char *)ehdr + ehdr_shoff(ehdr));
-+	shentsize = ehdr_shentsize(ehdr);
-+
-+	vals = malloc(long_size * size);
-+	if (!vals) {
-+		snprintf(m_err, ERRSTR_MAXSZ, "Failed to allocate sort array");
-+		pthread_exit(m_err);
-+		return NULL;
-+	}
-+
-+	ptr = vals;
-+
-+	shnum = ehdr_shnum(ehdr);
-+	if (shnum == SHN_UNDEF)
-+		shnum = shdr_size(shdr_start);
-+
-+	for (int i = 0; i < shnum; i++) {
-+		Elf_Shdr *shdr = get_index(shdr_start, shentsize, i);
-+		void *end;
-+
-+		if (shdr_type(shdr) != SHT_RELA)
-+			continue;
-+
-+		rel = (void *)ehdr + shdr_offset(shdr);
-+		end = (void *)rel + shdr_size(shdr);
-+
-+		for (; (void *)rel < end; rel = (void *)rel + shdr_entsize(shdr)) {
-+			uint64_t offset = rela_offset(rel);
-+
-+			if (offset >= start_loc && offset < start_loc + size) {
-+				if (ptr + long_size > vals + size) {
-+					free(vals);
-+					snprintf(m_err, ERRSTR_MAXSZ,
-+						 "Too many relocations");
-+					pthread_exit(m_err);
-+					return NULL;
-+				}
-+
-+				/* Make sure this has the correct type */
-+				if (rela_info(rel) != rela_type) {
-+					free(vals);
-+					snprintf(m_err, ERRSTR_MAXSZ,
-+						"rela has type %lx but expected %lx\n",
-+						(long)rela_info(rel), rela_type);
-+					pthread_exit(m_err);
-+					return NULL;
-+				}
-+
-+				if (long_size == 4)
-+					*(uint32_t *)ptr = rela_addend(rel);
-+				else
-+					*(uint64_t *)ptr = rela_addend(rel);
-+				ptr += long_size;
-+			}
-+		}
-+	}
-+	count = ptr - vals;
-+	qsort(vals, count / long_size, long_size, compare_extable);
-+
-+	ptr = vals;
-+	for (int i = 0; i < shnum; i++) {
-+		Elf_Shdr *shdr = get_index(shdr_start, shentsize, i);
-+		void *end;
-+
-+		if (shdr_type(shdr) != SHT_RELA)
-+			continue;
-+
-+		rel = (void *)ehdr + shdr_offset(shdr);
-+		end = (void *)rel + shdr_size(shdr);
-+
-+		for (; (void *)rel < end; rel = (void *)rel + shdr_entsize(shdr)) {
-+			uint64_t offset = rela_offset(rel);
-+
-+			if (offset >= start_loc && offset < start_loc + size) {
-+				if (long_size == 4)
-+					rela_write_addend(rel, *(uint32_t *)ptr);
-+				else
-+					rela_write_addend(rel, *(uint64_t *)ptr);
-+				ptr += long_size;
-+			}
-+		}
-+	}
-+	free(vals);
-+	return NULL;
++	if (av < bv)
++		return -1;
++	return av > bv;
 +}
 +
- /* Sort the addresses stored between __start_mcount_loc to __stop_mcount_loc in vmlinux */
- static void *sort_mcount_loc(void *arg)
++static int (*compare_values)(const void *a, const void *b);
++
+ /* Only used for sorting mcount table */
+ static void rela_write_addend(Elf_Rela *rela, uint64_t val)
  {
-@@ -517,6 +678,9 @@ static void *sort_mcount_loc(void *arg)
- 	uint64_t count = emloc->stop_mcount_loc - emloc->start_mcount_loc;
- 	unsigned char *start_loc = (void *)emloc->ehdr + offset;
+@@ -583,6 +605,8 @@ static void *sort_relocs(Elf_Ehdr *ehdr, uint64_t start_loc, uint64_t size)
+ 	void *vals;
+ 	void *ptr;
  
-+	if (sort_reloc)
-+		return sort_relocs(emloc->ehdr, emloc->start_mcount_loc, count);
++	compare_values = long_size == 4 ? compare_values_32 : compare_values_64;
 +
- 	qsort(start_loc, count/long_size, long_size, compare_extable);
- 	return NULL;
- }
-@@ -866,12 +1030,14 @@ static int do_file(char const *const fname, void *addr)
- 		r2	= r2le;
- 		r8	= r8le;
- 		w	= wle;
-+		w8	= w8le;
- 		break;
- 	case ELFDATA2MSB:
- 		r	= rbe;
- 		r2	= r2be;
- 		r8	= r8be;
- 		w	= wbe;
-+		w8	= w8be;
- 		break;
- 	default:
- 		fprintf(stderr, "unrecognized ELF data encoding %d: %s\n",
-@@ -887,8 +1053,13 @@ static int do_file(char const *const fname, void *addr)
+ 	shdr_start = (Elf_Shdr *)((char *)ehdr + ehdr_shoff(ehdr));
+ 	shentsize = ehdr_shentsize(ehdr);
+ 
+@@ -640,7 +664,7 @@ static void *sort_relocs(Elf_Ehdr *ehdr, uint64_t start_loc, uint64_t size)
+ 		}
  	}
+ 	count = ptr - vals;
+-	qsort(vals, count / long_size, long_size, compare_extable);
++	qsort(vals, count / long_size, long_size, compare_values);
  
- 	switch (r2(&ehdr->e32.e_machine)) {
--	case EM_386:
- 	case EM_AARCH64:
-+#ifdef MCOUNT_SORT_ENABLED
-+		sort_reloc = true;
-+		rela_type = 0x403;
-+#endif
-+		/* fallthrough */
-+	case EM_386:
- 	case EM_LOONGARCH:
- 	case EM_RISCV:
- 	case EM_S390:
-@@ -932,6 +1103,10 @@ static int do_file(char const *const fname, void *addr)
- 			.sym_name		= sym32_name,
- 			.sym_value		= sym32_value,
- 			.sym_shndx		= sym32_shndx,
-+			.rela_offset		= rela32_offset,
-+			.rela_info		= rela32_info,
-+			.rela_addend		= rela32_addend,
-+			.rela_write_addend	= rela32_write_addend,
- 		};
- 
- 		e = efuncs;
-@@ -965,6 +1140,10 @@ static int do_file(char const *const fname, void *addr)
- 			.sym_name		= sym64_name,
- 			.sym_value		= sym64_value,
- 			.sym_shndx		= sym64_shndx,
-+			.rela_offset		= rela64_offset,
-+			.rela_info		= rela64_info,
-+			.rela_addend		= rela64_addend,
-+			.rela_write_addend	= rela64_write_addend,
- 		};
- 
- 		e = efuncs;
+ 	ptr = vals;
+ 	for (int i = 0; i < shnum; i++) {
 -- 
 2.34.1
 
