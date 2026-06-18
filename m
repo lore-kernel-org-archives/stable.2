@@ -1,168 +1,102 @@
-Received: from smtp-42af.mail.infomaniak.ch (smtp-42af.mail.infomaniak.ch [84.16.66.175])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDAD2D63E5
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 09:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71A43DB629;
+	Thu, 18 Jun 2026 09:35:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781775130; cv=none; b=tXa64kjdTKAOxcWNphOIqBktE6CkcPYK8L1fXWHT2qLv/pc5aZbe1pjGr80OrFyZ2xlv7prFl7oWLOzonRYHOP/g3RhMgsVyi3U2gxdRCFWNT31gZL+Sxrsw9CqZ0fldBbXUfCkeYEcv09YhTmSPr7nSHlJtd7H20JTCunFHCLA=
+	t=1781775314; cv=none; b=tNgLPX9ua/0ztgBJFnjO7VabpMan07EgyngbiVMDETLanfUhd56mGUvMKLouZHOqhnFgdxe5k9xLnDwD9DBngB7DIFYpGVfwd8A01xz2n/HDskLTKLluap2sgWlvUoM0N2tr3lAK8p6m0BsjzdCmLQYx7Pz+cGSys5zm8bFSPNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781775130; c=relaxed/simple;
-	bh=yXhezKjx+yVwcCW5dSV5+wzQdX4affVXyHHOblT291E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RF9Z82saiIpPwZ9MxYEFKoxlP43n0BGxbOJFjjr2YBiZ2jHUI39SazN1VJN4lHtB/kp3P2Bub+3wYl+p5uBDM4R4YlS9Vckf3m2/HzdMKdfXHrHW6XfmRuo20H5yjo95hhJggld4IH2sDUVq9b42XfjftuSg1WRS3R7od7Xz/6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pschenker.ch; spf=pass smtp.mailfrom=pschenker.ch; dkim=pass (1024-bit key) header.d=pschenker.ch header.i=@pschenker.ch header.b=aTgDDw5t; arc=none smtp.client-ip=84.16.66.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pschenker.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pschenker.ch
+	s=arc-20240116; t=1781775314; c=relaxed/simple;
+	bh=zJ7sNs1B62D4n270G/YGpBK00wf5ZQUjvww5dvPiLUM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FDlteH/IyW++JyXX4QZ5I8u0GTHS8DCpwfm4B9UNfJ69rlUsW3vY6mAB3opMAMg4ek1S5owNpmz5MmYY7DCK0ukSCKD796iq0lPY2nMkbwO7wHOMhNk/3rodka6McYF/vYeQM+XT71JwM0mgvcioRQj9QrCjBIPnY+kJC9avO00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cJVdV6Se; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pschenker.ch header.i=@pschenker.ch header.b="aTgDDw5t"
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4ggwV80nyDzdD0;
-	Thu, 18 Jun 2026 11:32:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pschenker.ch;
-	s=20220412; t=1781775119;
-	bh=afIfWS9qjU1M1kfgfbvSOJ4Gjss3OoSIyUxQqbcy0ow=;
-	h=From:To:Cc:Subject:Date:From;
-	b=aTgDDw5t6//RH1AMUvqKnMBCgHayW51WWLTsIFV27dLlz5s20wlA026e+sHPu6k2C
-	 xMjGfOd5tkglpaL8awoGelbOdoQHNZhgc+hY3YzJ0RSzseiw6uZuC2998i62pbGzrB
-	 f0QE/i0qSt6N4AAzKJwjPKYVcNQY//BUMhOyvIMw=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4ggwV662lLzjQb;
-	Thu, 18 Jun 2026 11:31:58 +0200 (CEST)
-From: Philippe Schenker <dev@pschenker.ch>
-To: netdev@vger.kernel.org
-Cc: Philippe Schenker <philippe.schenker@impulsing.ch>,
-	Simon Horman <horms@kernel.org>,
-	danishanwar@ti.com,
-	rogerq@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	stable@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	David Carlier <devnexen@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Kevin Hao <haokexin@gmail.com>,
-	Meghana Malladi <m-malladi@ti.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2] net: ethernet: ti: icssg: guard PA stat lookups
-Date: Thu, 18 Jun 2026 11:30:24 +0200
-Message-ID: <20260618093037.3448858-1-dev@pschenker.ch>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cJVdV6Se"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA151F000E9;
+	Thu, 18 Jun 2026 09:35:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781775312;
+	bh=svnJRlqC7nBj8+wumxi3S0D0nQwN9ygt9ENMd/YHoEc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cJVdV6SelfsuOc/iIjycuLFBI9QO16gDia1DU906oY9Ep28XwzavtBGwP1CKqO1tm
+	 X/upK8GZWfXwOPQUNWjgYujhlCU/dKGy/emkNdqHKJ0XMZ7PaXR8sJYNhXj9hqI9D/
+	 ZyME1MMPXDUgQ8NnAOe03iLKG9Cg+zhJI10/3snoUD1RmCI9lTpG5pnGS0aoxchhMa
+	 IcyGmH8Y+MAoYLste+BY/2DzAg9b/lcDp9hdeiGXuJzGG7MwKqT6aoQcIl8VtBUKkE
+	 IxY3sKC+z9AJbANQ4BbLx+Jwf24TU9dGs5cKEe3C3t7IVI88dzcgT4YAnu8JbX48AK
+	 PBGH1kAftespA==
+Date: Thu, 18 Jun 2026 12:35:04 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Linus Torvalds <torvalds@linuxfoundation.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+	Oleg Nesterov <oleg@redhat.com>, Peter Xu <peterx@redhat.com>,
+	vova tokarev <vladimirelitokarev@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] userfaultfd: prevent registration of special VMAs
+Message-ID: <ajO7yI541hphWRb8@kernel.org>
+References: <20260617194059.2529406-1-rppt@kernel.org>
+ <5a993689-f730-406d-8515-8bb6025cc851@kernel.org>
+ <ajOtfdGgFQYL-T6f@kernel.org>
+ <ajOvwGs5xhnfBu-k@kernel.org>
+ <41ef0dce-e973-4947-b5e3-150fdb07f1a6@kernel.org>
+ <ajO4sLq2UBciSgOn@kernel.org>
+ <dd2ae577-9b7d-4e40-81d0-fa9fcd7e0767@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dd2ae577-9b7d-4e40-81d0-fa9fcd7e0767@kernel.org>
 
-From: Philippe Schenker <philippe.schenker@impulsing.ch>
+On Thu, Jun 18, 2026 at 11:25:31AM +0200, David Hildenbrand (Arm) wrote:
+> On 6/18/26 11:21, Mike Rapoport wrote:
+> > On Thu, Jun 18, 2026 at 10:47:19AM +0200, David Hildenbrand (Arm) wrote:
+> >> On 6/18/26 10:43, Mike Rapoport wrote:
+> >>>
+> >>> Ah, hugetlb sets VM_DONTEXPAND, so it must me excluded to allow uffd with
+> >>> hugetlb.
+> >>
+> >> It would probably be cleaner to just allow hugetlb, and then check for
+> >> VM_SPECIAL if not hugetlb.
+> > 
+> > Cleaner in what sense?
+> > Will be uglier for sure, just take a look at vma_can_userfault().
+> 
+> I was thinking of this:
+> 
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index 180bad42fc79..8a6803618a91 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -2029,7 +2029,10 @@ bool vma_can_userfault(struct vm_area_struct *vma,
+> vm_flags_t vm_flags,
+>  {
+>         const struct vm_uffd_ops *ops = vma_uffd_ops(vma);
+> 
+> -       if (vma->vm_flags & VM_DROPPABLE)
+> +       if (vma->vm_flags & (VM_DROPPABLE | VM_SHADOW_STACK))
+> +               return false;
+> +
+> +       if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
+>                 return false;
 
-icssg_ndo_get_stats64() unconditionally calls emac_get_stat_by_name()
-with FW PA stat names regardless of whether the PA stats block is
-present on the hardware.  emac_get_stat_by_name() already guards the
-PA stats lookup with `if (emac->prueth->pa_stats)`; when that pointer
-is NULL the lookup falls through to netdev_err() and returns -EINVAL.
-Because ndo_get_stats64 is polled regularly by the networking stack
-this produces thousands of log entries of the form:
+In a way that's an extra check for hugetlb, but it will work.
+Will respin.
 
-  icssg-prueth icssg1-eth end0: Invalid stats FW_RX_ERROR
+>         vm_flags &= __VM_UFFD_FLAGS;
+> 
+> -- 
+> Cheers,
+> David
 
-A secondary consequence is that the int(-EINVAL) return value is
-implicitly widened to a near-ULLONG_MAX unsigned value when accumulated
-into the __u64 fields of rtnl_link_stats64, silently corrupting the
-rx_errors, rx_dropped and tx_dropped counters reported by `ip -s link`.
-
-Every other PA-aware code path in the driver is already guarded with
-the same `if (emac->prueth->pa_stats)` check.  Apply the same guard
-here.
-
-Fixes: 0d15a26b247d ("net: ti: icssg-prueth: Add ICSSG FW Stats")
-Signed-off-by: Philippe Schenker <philippe.schenker@impulsing.ch>
-Reviewed-by: Simon Horman <horms@kernel.org>
-
-Cc: danishanwar@ti.com
-Cc: rogerq@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: stable@vger.kernel.org
-
----
-
-Changes in v2:
-- Removed newline between Fixes tag and Signed-off-by
-- Use return in if statement to guard so we get rid
-  of the 80 char warnings.
-- Added Simon's Reviewed-by. Thanks!
-
- drivers/net/ethernet/ti/icssg/icssg_common.c | 49 +++++++++++---------
- 1 file changed, 28 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/net/ethernet/ti/icssg/icssg_common.c b/drivers/net/ethernet/ti/icssg/icssg_common.c
-index a28a608f9bf4..d9af6419e032 100644
---- a/drivers/net/ethernet/ti/icssg/icssg_common.c
-+++ b/drivers/net/ethernet/ti/icssg/icssg_common.c
-@@ -1628,28 +1628,35 @@ void icssg_ndo_get_stats64(struct net_device *ndev,
- 	stats->rx_over_errors = emac_get_stat_by_name(emac, "rx_over_errors");
- 	stats->multicast      = emac_get_stat_by_name(emac, "rx_multicast_frames");
- 
--	stats->rx_errors  = ndev->stats.rx_errors +
--			    emac_get_stat_by_name(emac, "FW_RX_ERROR") +
--			    emac_get_stat_by_name(emac, "FW_RX_EOF_SHORT_FRMERR") +
--			    emac_get_stat_by_name(emac, "FW_RX_B0_DROP_EARLY_EOF") +
--			    emac_get_stat_by_name(emac, "FW_RX_EXP_FRAG_Q_DROP") +
--			    emac_get_stat_by_name(emac, "FW_RX_FIFO_OVERRUN");
--	stats->rx_dropped = ndev->stats.rx_dropped +
--			    emac_get_stat_by_name(emac, "FW_DROPPED_PKT") +
--			    emac_get_stat_by_name(emac, "FW_INF_PORT_DISABLED") +
--			    emac_get_stat_by_name(emac, "FW_INF_SAV") +
--			    emac_get_stat_by_name(emac, "FW_INF_SA_DL") +
--			    emac_get_stat_by_name(emac, "FW_INF_PORT_BLOCKED") +
--			    emac_get_stat_by_name(emac, "FW_INF_DROP_TAGGED") +
--			    emac_get_stat_by_name(emac, "FW_INF_DROP_PRIOTAGGED") +
--			    emac_get_stat_by_name(emac, "FW_INF_DROP_NOTAG") +
--			    emac_get_stat_by_name(emac, "FW_INF_DROP_NOTMEMBER");
-+	stats->rx_errors  = ndev->stats.rx_errors;
-+	stats->rx_dropped = ndev->stats.rx_dropped;
- 	stats->tx_errors  = ndev->stats.tx_errors;
--	stats->tx_dropped = ndev->stats.tx_dropped +
--			    emac_get_stat_by_name(emac, "FW_RTU_PKT_DROP") +
--			    emac_get_stat_by_name(emac, "FW_TX_DROPPED_PACKET") +
--			    emac_get_stat_by_name(emac, "FW_TX_TS_DROPPED_PACKET") +
--			    emac_get_stat_by_name(emac, "FW_TX_JUMBO_FRM_CUTOFF");
-+	stats->tx_dropped = ndev->stats.tx_dropped;
-+
-+	if (!emac->prueth->pa_stats)
-+		return;
-+
-+	stats->rx_errors  +=
-+			emac_get_stat_by_name(emac, "FW_RX_ERROR") +
-+			emac_get_stat_by_name(emac, "FW_RX_EOF_SHORT_FRMERR") +
-+			emac_get_stat_by_name(emac, "FW_RX_B0_DROP_EARLY_EOF") +
-+			emac_get_stat_by_name(emac, "FW_RX_EXP_FRAG_Q_DROP") +
-+			emac_get_stat_by_name(emac, "FW_RX_FIFO_OVERRUN");
-+	stats->rx_dropped +=
-+			emac_get_stat_by_name(emac, "FW_DROPPED_PKT") +
-+			emac_get_stat_by_name(emac, "FW_INF_PORT_DISABLED") +
-+			emac_get_stat_by_name(emac, "FW_INF_SAV") +
-+			emac_get_stat_by_name(emac, "FW_INF_SA_DL") +
-+			emac_get_stat_by_name(emac, "FW_INF_PORT_BLOCKED") +
-+			emac_get_stat_by_name(emac, "FW_INF_DROP_TAGGED") +
-+			emac_get_stat_by_name(emac, "FW_INF_DROP_PRIOTAGGED") +
-+			emac_get_stat_by_name(emac, "FW_INF_DROP_NOTAG") +
-+			emac_get_stat_by_name(emac, "FW_INF_DROP_NOTMEMBER");
-+	stats->tx_dropped +=
-+			emac_get_stat_by_name(emac, "FW_RTU_PKT_DROP") +
-+			emac_get_stat_by_name(emac, "FW_TX_DROPPED_PACKET") +
-+			emac_get_stat_by_name(emac, "FW_TX_TS_DROPPED_PACKET") +
-+			emac_get_stat_by_name(emac, "FW_TX_JUMBO_FRM_CUTOFF");
- }
- EXPORT_SYMBOL_GPL(icssg_ndo_get_stats64);
- 
 -- 
-2.54.0
-
-base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
-branch: fix-icssg_common-pa-stats-errors__master-7-1
+Sincerely yours,
+Mike.
