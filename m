@@ -1,51 +1,51 @@
-Received: from mx0a-00206402.pphosted.com (mx0a-00206402.pphosted.com [148.163.148.77])
+Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8140A2FB969
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.148.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CE428C037
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:16:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.152.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781813769; cv=none; b=uqbTWn0N7MxvzsLadvbyHSc84NHHO36/3tSQY/RRX4LFkYEAI8HFr8lal7RqMS6/dF+jUBnviH9+XU9SUtQ1fzffVpfIVD+ThxFT12zPDWc0lWBm8HQIX8HCbqTotIe0NHNRV7XUc5lvgvV8cJzA+Ia3SMP6edHFiwWdCojwS+g=
+	t=1781813771; cv=none; b=gQo6hgJ3uRhVkv7CImT75wJ0UhbZnFFFpaxcirZkn/srp7koam21OvMRBQTXgm5KCZB+OXtBSjW+AqtO7OhYu65eCmnDRLV/ZcFC/ZPVqDcgCNF2CiFZkHWqO4aQ8/3a+buunH1t42QFtRlvhhQREjKNKANg6eGPmi9t13sjaA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781813769; c=relaxed/simple;
-	bh=RMQjqkexcsPtO3+Tf/mbkil+EzLtwjG9y0yxjQc8/l0=;
+	s=arc-20240116; t=1781813771; c=relaxed/simple;
+	bh=tYH++70qcyqhoLLUau+i8peKOboAvibeyJCodxSPh2A=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Jn4P4i8w3M3nOQ6rD0rf6gs4oTVJOCQO/YVmSP4FvVXzTBNJaV4NvM6fdIaSg+9TOivTQcsyDLTLb4MlXFjypnXmFmBrY+6iH7Wtuf/yCjperjKccoSpXclkgbWHcd3mNgioju1s6pUaOfqNLoLL7DYHMOJlCnVUizoqteM2WzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=I5DibsdU; arc=none smtp.client-ip=148.163.148.77
+	 MIME-Version:Content-Type; b=UfCTQFIlMao5GllfDj2LaYn2J+RcgkI1oQ6SFv0PiGkK6HVL6mlPX5KyzjC0r+xlRZZUXW59SMd1yAZn5H8DQIJNQ5IvYJiKEXrguX3EfqrAOr1TQgj9JtjtitmEDFE3da8ChO2aTZLI6XzwL1++fN9EwcK6mRkESdZRdat6fy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=VMUK6TVT; arc=none smtp.client-ip=148.163.152.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="I5DibsdU"
-Received: from pps.filterd (m0354650.ppops.net [127.0.0.1])
-	by mx0a-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IIsdOM3922608;
-	Thu, 18 Jun 2026 20:16:02 GMT
+	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="VMUK6TVT"
+Received: from pps.filterd (m0354654.ppops.net [127.0.0.1])
+	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IIscBo3987654;
+	Thu, 18 Jun 2026 20:16:04 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
 	 h=cc:content-transfer-encoding:content-type:date:from
 	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	default; bh=8BdIY2HwYIHd71YOYAr6/pXNZkvCjl+uaUybxClJYl8=; b=I5Di
-	bsdUy49LXrU98/IY0iyRfEtfo8/K9o9TY3wZgS89FTwM+aY7Di1AzbTnFr6jEmWA
-	un4ZrE3LA5gxCoyqLVrLaGy4DojL3DMEeMrb15ejvRgK3Kaf5IhCdavv6zOViJ30
-	xpIHhzdE2bJYOm+6CBmZE/uDqtXFKChcZtKRQmYsn2zJwjHbzKvvWhdrK8kFFNUg
-	zAYiWXGa+99KMvC1qG684NBhrV2FmipqZKMYJMF+Az4cwOS8rxYx61FGjc4DDQ16
-	gGDDl2Cb/BKVfH/KOc6xbhxl8+PPwsFMIOw2/seIUIIpoZltHZJb9uhkz6ilzY91
-	RPYJ8AEO3RhcvnI+gg==
+	default; bh=8uskbgdyTG8OI8p+JKIlnqPfN0N3sPtp/vMJUzwDulU=; b=VMUK
+	6TVTao8S4T9GJGz02XjlpQe1Qgde4V9+3h6xJ8kbgAwfhi/3R0+3bm3eAGVGDE7M
+	5DRfedZMsfWSDyGS8EgNgEFxqCBN3xCyBsCgoCX/DuOVWykYOnVbKqy5/Bb9+Iph
+	P3bXK6DiEp1y7i9ToKpwzX+1ZcPkdCjU8eeqfDzucutnmY7xH9vGLOiowuYt7XNz
+	y2hQxUw8gUNtCxUDexAhJyRU2GJ87xsZbfbqDbrFSU6IDeibXmJPv+aYZszQkoPG
+	FdiVMWnjeGTEl81o88LlsdRpDA/Z5GEmfwtxSbX4ttMoIUYQkDjSAWqxiTlwkR0H
+	GGNfyRe5IWhhjd+waw==
 Received: from mail.crowdstrike.com (dragosx.crowdstrike.com [208.42.231.60] (may be forged))
-	by mx0a-00206402.pphosted.com (PPS) with ESMTPS id 4ev4y0vc47-1
+	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4ev4w5uyue-2
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 18 Jun 2026 20:16:01 +0000 (GMT)
+	Thu, 18 Jun 2026 20:16:04 +0000 (GMT)
 Received: from LL-DJCZ134.crowdstrike.sys (10.100.11.122) by
  04WPEXCH006.crowdstrike.sys (10.100.11.70) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 18 Jun 2026 20:16:00 +0000
+ 15.2.2562.43; Thu, 18 Jun 2026 20:16:03 +0000
 From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 To: <stable@vger.kernel.org>
 CC: <gregkh@linuxfoundation.org>, <sashal@kernel.org>, <rostedt@goodmis.org>,
         <vmalik@redhat.com>, <jmarchan@redhat.com>,
         <martin.kelly@crowdstrike.com>, <justin.deschamp@crowdstrike.com>,
         <linux-open-source@crowdstrike.com>
-Subject: [PATCH 6.12.y 12/27] scripts/sorttable: Use uint64_t for mcount sorting
-Date: Thu, 18 Jun 2026 16:15:26 -0400
-Message-ID: <e6b5f67222359383911a6f5e6b28cd192cb6a18a.1781809947.git.andrey.grodzovsky@crowdstrike.com>
+Subject: [PATCH 6.12.y 14/27] scripts/sorttable: Get start/stop_mcount_loc from ELF file directly
+Date: Thu, 18 Jun 2026 16:15:28 -0400
+Message-ID: <1f651dfe741838b94ed8088cc3429b65768893ea.1781809952.git.andrey.grodzovsky@crowdstrike.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1781809906.git.andrey.grodzovsky@crowdstrike.com>
 References: <cover.1781809906.git.andrey.grodzovsky@crowdstrike.com>
@@ -59,50 +59,54 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: 04WPEXCH006.crowdstrike.sys (10.100.11.70) To
  04WPEXCH006.crowdstrike.sys (10.100.11.70)
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4NSBTYWx0ZWRfX6WOhECiTul4n
- Mzi2YQoYWzebR94HsVKmGt9yces+fuLuuyynEl0XALPq2gqMcd4I5lROgGO1X+mRIuVcnk6ZjuK
- saaHcQkwVNZVZGGojC8JrvACMiRzzP6mxljpDADX20NhzWB6Qhi3WBlcKT9cdeEgtWCXDmf7hmh
- AsnXu4qafloWfh24uQhQ2VnuISA44ff/4nIlVzD0Ls63x88UHUXMZAhu49ZB+GSaiN/6s40eWL6
- q42swFAJZyyaoblp0I5qP160KDBAgG3i/zTnnyXSBcpSt1QBTlYnotv+NYw/KgEQV/905XUPsdw
- L4gUoweb1wnxL3HFuiM/mh+hEhomase3wezM2r+IZRxPtkmk8GuG7KURYTEFjIq33Mf2M212MAK
- BhVBQseUapAl3//tQOPwl0661cB13f4qkqQJJNqjUBr6E+QTVq9lbWB1xjy/ZEq8kGbTi/Wuhly
- LrIS9q9THnwE9+KhtZg==
-X-Proofpoint-ORIG-GUID: of7SBnRoZCsjWvHOVpyPGzrBFCRAn8oD
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4NSBTYWx0ZWRfX/RJIDuZDAtA6
- 4vipUx+WgLsgMkCitYtgiMyXB2faf3Atpi0Zb83fPWDey8dnAAA2szXdol8cRlhOZU2p8IbAJXs
- r65iBMmeLK4t4zQNlZSWCA9rXfQtqWT3DQXudOtKsYBsIg51eXIe
-X-Authority-Analysis: v=2.4 cv=Ood/DS/t c=1 sm=1 tr=0 ts=6a345201 cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4NSBTYWx0ZWRfX6hB232LeUsdw
+ xnCQza+idbIJnbnBCfgcIWDIbd140Quo4Sa0wZHAXHR390GTHb4wj0Ih9R/6ScpNoVAjk9Tvrt7
+ +NkP89MWihTr8HEhfRdlE7J8VVllTA+vkvV9oXgGFEefq4aRq9V2OP8X7HViQguaSvGxHY2y3A+
+ C9bP50tady+fXuEQwjGYNRzo7C/SGWl9k/wP2EwHLiICKfsktQleldlqHlYOGXAlu1ZUKSaLzcW
+ 00aXd3m5AuL/GMfRz9LJJ5pD+eH4TL+M19mi1oiWc2N9oWi9iVp/h+3ZM6JMqVWeloxVIlzoy4C
+ DWw1iC7e5Wjp4pKp0+Qye6m8PWq6eUz35a1AOx9v3VkrmWHBBWUFxjzHsy9ORYbLK4kZMBpx0lO
+ 1foN/JwcZSgr/gFk5hbK5bUgn0q4iu3Qzd94RAU0qYcgHnHEGLhDWAIJUpx5JhDvkrQAZIxHZfW
+ aUsdtbOBJXLgByvqm5A==
+X-Authority-Analysis: v=2.4 cv=JtDBas4C c=1 sm=1 tr=0 ts=6a345204 cx=c_pps
  a=1d8vc5iZWYKGYgMGCdbIRA==:117 a=1d8vc5iZWYKGYgMGCdbIRA==:17
  a=EjBHVkixTFsA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=T2KQ53IYiC3MXPrxx8bB:22 a=t04HzT_fAfAF5W-3wVZy:22 a=VwQbUJbxAAAA:8
+ a=T2KQ53IYiC3MXPrxx8bB:22 a=R_n4Uisa8axJ7jemP0ek:22 a=VwQbUJbxAAAA:8
  a=meVymXHHAAAA:8 a=7CQSdrXTAAAA:8 a=7d_E57ReAAAA:8 a=Z4Rwk6OoAAAA:8
  a=JfrnYn6hAAAA:8 a=cpyHj8QvAAAA:8 a=i0EeH86SAAAA:8 a=pl6vuDidAAAA:8
- a=1UX6Do5GAAAA:8 a=20KFwNOVAAAA:8 a=XszpiVr7ZFtOaaUMZQsA:9
+ a=1UX6Do5GAAAA:8 a=20KFwNOVAAAA:8 a=ciD_ITnBGLx9hDmgngwA:9
  a=2JgSa4NbpEOStq-L5dxp:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=jhqOcbufqs7Y1TYCrUUU:22
  a=HkZW87K1Qel5hWWM3VKY:22 a=1CNFftbPRP8L7MoqJWF3:22 a=BPjOrAZP5zzvMhA9psHf:22
  a=Et2XPkok5AAZYJIKzHr1:22
-X-Proofpoint-GUID: of7SBnRoZCsjWvHOVpyPGzrBFCRAn8oD
+X-Proofpoint-ORIG-GUID: JvGlpd4oTN8i6wLFPM1AjsKiaM5MyFCL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4NSBTYWx0ZWRfX8pDqxL3ssCBy
+ yEw1Xjl57rwa4pJGQOPALGfREXWgHAk0hX/apb8oUxOuylmaxSzq7z5pHJCxs0z3GnBtvieoFg9
+ olsOwoA/iKB2tah/FNnMTK6QG2Nkk6DE5SDXRif0JyzzjLFZV8Lr
+X-Proofpoint-GUID: JvGlpd4oTN8i6wLFPM1AjsKiaM5MyFCL
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11821
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 impostorscore=0 suspectscore=0 clxscore=1015
- phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0 spamscore=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180185
 
 From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit 1b649e6ab8dc9188d82c64069493afe66ca0edad ]
+[ Upstream commit 4acda8edefa1ce66d3de845f1c12745721cd14c3 ]
 
-The mcount sorting defines uint_t to uint64_t on 64bit architectures and
-uint32_t on 32bit architectures. It can work with just using uint64_t as
-that will hold the values of both, and they are not used to point into the
-ELF file.
+The get_mcount_loc() does a cheesy trick to find the start_mcount_loc and
+stop_mcount_loc values. That trick is:
 
-sizeof(uint_t) is used for defining the size of the mcount_loc section.
-Instead of using a type, define long_size and use that instead. This will
-allow the header code to be moved into the C file as generic functions and
-not need to include sorttable.h twice, once for 64bit and once for 32bit.
+ file_start = popen(" grep start_mcount System.map | awk '{print $1}' ", "r");
+
+and
+
+ file_stop = popen(" grep stop_mcount System.map | awk '{print $1}' ", "r");
+
+Those values are stored in the Elf symbol table. Use that to capture those
+values. Using the symbol table is more efficient and more robust. The
+above could fail if another variable had "start_mcount" or "stop_mcount"
+as part of its name.
 
 Cc: bpf <bpf@vger.kernel.org>
 Cc: Masami Hiramatsu <mhiramat@kernel.org>
@@ -118,108 +122,159 @@ Cc: Zheng Yejian <zhengyejian1@huawei.com>
 Cc: Martin  Kelly <martin.kelly@crowdstrike.com>
 Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
 Cc: Josh Poimboeuf <jpoimboe@redhat.com>
-Link: https://lore.kernel.org/20250105162346.373528925@goodmis.org
+Link: https://lore.kernel.org/20250105162346.817157047@goodmis.org
 Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 ---
- scripts/sorttable.h | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ scripts/sorttable.c | 95 +++++++++++++++++++++------------------------
+ 1 file changed, 45 insertions(+), 50 deletions(-)
 
-diff --git a/scripts/sorttable.h b/scripts/sorttable.h
-index ef7e5161d..17a8541a1 100644
---- a/scripts/sorttable.h
-+++ b/scripts/sorttable.h
-@@ -23,7 +23,6 @@
- #undef sort_mcount_loc
- #undef elf_mcount_loc
- #undef do_sort
--#undef uint_t
- #undef ehdr_shoff
- #undef ehdr_shentsize
- #undef ehdr_shstrndx
-@@ -39,6 +38,7 @@
- #undef sym_name
- #undef sym_value
- #undef sym_shndx
-+#undef long_size
- 
- #ifdef SORTTABLE_64
- # define extable_ent_size	16
-@@ -47,7 +47,6 @@
- # define sort_mcount_loc	sort_mcount_loc_64
- # define elf_mcount_loc		elf_mcount_loc_64
- # define do_sort		do_sort_64
--# define uint_t			uint64_t
- # define ehdr_shoff		ehdr64_shoff
- # define ehdr_shentsize		ehdr64_shentsize
- # define ehdr_shstrndx		ehdr64_shstrndx
-@@ -63,6 +62,7 @@
- # define sym_name		sym64_name
- # define sym_value		sym64_value
- # define sym_shndx		sym64_shndx
-+# define long_size		8
- #else
- # define extable_ent_size	8
- # define compare_extable	compare_extable_32
-@@ -70,7 +70,6 @@
- # define sort_mcount_loc	sort_mcount_loc_32
- # define elf_mcount_loc		elf_mcount_loc_32
- # define do_sort		do_sort_32
--# define uint_t			uint32_t
- # define ehdr_shoff		ehdr32_shoff
- # define ehdr_shentsize		ehdr32_shentsize
- # define ehdr_shstrndx		ehdr32_shstrndx
-@@ -86,6 +85,7 @@
- # define sym_name		sym32_name
- # define sym_value		sym32_value
- # define sym_shndx		sym32_shndx
-+# define long_size		4
- #endif
- 
- #if defined(SORTTABLE_64) && defined(UNWINDER_ORC_ENABLED)
-@@ -193,25 +193,25 @@ pthread_t mcount_sort_thread;
- struct elf_mcount_loc {
- 	Elf_Ehdr *ehdr;
- 	Elf_Shdr *init_data_sec;
--	uint_t start_mcount_loc;
--	uint_t stop_mcount_loc;
-+	uint64_t start_mcount_loc;
-+	uint64_t stop_mcount_loc;
- };
- 
- /* Sort the addresses stored between __start_mcount_loc to __stop_mcount_loc in vmlinux */
- static void *sort_mcount_loc(void *arg)
- {
- 	struct elf_mcount_loc *emloc = (struct elf_mcount_loc *)arg;
--	uint_t offset = emloc->start_mcount_loc - shdr_addr(emloc->init_data_sec)
-+	uint64_t offset = emloc->start_mcount_loc - shdr_addr(emloc->init_data_sec)
- 					+ shdr_offset(emloc->init_data_sec);
--	uint_t count = emloc->stop_mcount_loc - emloc->start_mcount_loc;
-+	uint64_t count = emloc->stop_mcount_loc - emloc->start_mcount_loc;
- 	unsigned char *start_loc = (void *)emloc->ehdr + offset;
- 
--	qsort(start_loc, count/sizeof(uint_t), sizeof(uint_t), compare_extable);
-+	qsort(start_loc, count/long_size, long_size, compare_extable);
- 	return NULL;
+diff --git a/scripts/sorttable.c b/scripts/sorttable.c
+index ff9b60fc0..656c1e9b5 100644
+--- a/scripts/sorttable.c
++++ b/scripts/sorttable.c
+@@ -472,42 +472,41 @@ static void *sort_mcount_loc(void *arg)
  }
  
  /* Get the address of __start_mcount_loc and __stop_mcount_loc in System.map */
--static void get_mcount_loc(uint_t *_start, uint_t *_stop)
-+static void get_mcount_loc(uint64_t *_start, uint64_t *_stop)
+-static void get_mcount_loc(uint64_t *_start, uint64_t *_stop)
++static void get_mcount_loc(struct elf_mcount_loc *emloc, Elf_Shdr *symtab_sec,
++			   const char *strtab)
  {
- 	FILE *file_start, *file_stop;
- 	char start_buff[20];
-@@ -277,8 +277,8 @@ static int do_sort(Elf_Ehdr *ehdr,
+-	FILE *file_start, *file_stop;
+-	char start_buff[20];
+-	char stop_buff[20];
+-	int len = 0;
++	Elf_Sym *sym, *end_sym;
++	int symentsize = shdr_entsize(symtab_sec);
++	int found = 0;
++
++	sym = (void *)emloc->ehdr + shdr_offset(symtab_sec);
++	end_sym = (void *)sym + shdr_size(symtab_sec);
++
++	while (sym < end_sym) {
++		if (!strcmp(strtab + sym_name(sym), "__start_mcount_loc")) {
++			emloc->start_mcount_loc = sym_value(sym);
++			if (++found == 2)
++				break;
++		} else if (!strcmp(strtab + sym_name(sym), "__stop_mcount_loc")) {
++			emloc->stop_mcount_loc = sym_value(sym);
++			if (++found == 2)
++				break;
++		}
++		sym = (void *)sym + symentsize;
++	}
+ 
+-	file_start = popen(" grep start_mcount System.map | awk '{print $1}' ", "r");
+-	if (!file_start) {
++	if (!emloc->start_mcount_loc) {
+ 		fprintf(stderr, "get start_mcount_loc error!");
+ 		return;
+ 	}
+ 
+-	file_stop = popen(" grep stop_mcount System.map | awk '{print $1}' ", "r");
+-	if (!file_stop) {
++	if (!emloc->stop_mcount_loc) {
+ 		fprintf(stderr, "get stop_mcount_loc error!");
+-		pclose(file_start);
+ 		return;
+ 	}
+-
+-	while (fgets(start_buff, sizeof(start_buff), file_start) != NULL) {
+-		len = strlen(start_buff);
+-		start_buff[len - 1] = '\0';
+-	}
+-	*_start = strtoul(start_buff, NULL, 16);
+-
+-	while (fgets(stop_buff, sizeof(stop_buff), file_stop) != NULL) {
+-		len = strlen(stop_buff);
+-		stop_buff[len - 1] = '\0';
+-	}
+-	*_stop = strtoul(stop_buff, NULL, 16);
+-
+-	pclose(file_start);
+-	pclose(file_stop);
+ }
+ #endif
++
+ static int do_sort(Elf_Ehdr *ehdr,
+ 		   char const *const fname,
+ 		   table_sort_t custom_sort)
+@@ -538,8 +537,6 @@ static int do_sort(Elf_Ehdr *ehdr,
  	unsigned int shstrndx;
  #ifdef MCOUNT_SORT_ENABLED
  	struct elf_mcount_loc mstruct = {0};
--	uint_t _start_mcount_loc = 0;
--	uint_t _stop_mcount_loc = 0;
-+	uint64_t _start_mcount_loc = 0;
-+	uint64_t _stop_mcount_loc = 0;
+-	uint64_t _start_mcount_loc = 0;
+-	uint64_t _stop_mcount_loc = 0;
  #endif
- #if defined(SORTTABLE_64) && defined(UNWINDER_ORC_ENABLED)
+ #ifdef UNWINDER_ORC_ENABLED
  	unsigned int orc_ip_size = 0;
+@@ -577,13 +574,8 @@ static int do_sort(Elf_Ehdr *ehdr,
+ 
+ #ifdef MCOUNT_SORT_ENABLED
+ 		/* locate the .init.data section in vmlinux */
+-		if (!strcmp(secstrings + idx, ".init.data")) {
+-			get_mcount_loc(&_start_mcount_loc, &_stop_mcount_loc);
+-			mstruct.ehdr = ehdr;
++		if (!strcmp(secstrings + idx, ".init.data"))
+ 			mstruct.init_data_sec = shdr;
+-			mstruct.start_mcount_loc = _start_mcount_loc;
+-			mstruct.stop_mcount_loc = _stop_mcount_loc;
+-		}
+ #endif
+ 
+ #ifdef UNWINDER_ORC_ENABLED
+@@ -627,23 +619,6 @@ static int do_sort(Elf_Ehdr *ehdr,
+ 		goto out;
+ 	}
+ #endif
+-
+-#ifdef MCOUNT_SORT_ENABLED
+-	if (!mstruct.init_data_sec || !_start_mcount_loc || !_stop_mcount_loc) {
+-		fprintf(stderr,
+-			"incomplete mcount's sort in file: %s\n",
+-			fname);
+-		goto out;
+-	}
+-
+-	/* create thread to sort mcount_loc concurrently */
+-	if (pthread_create(&mcount_sort_thread, NULL, &sort_mcount_loc, &mstruct)) {
+-		fprintf(stderr,
+-			"pthread_create mcount_sort_thread failed '%s': %s\n",
+-			strerror(errno), fname);
+-		goto out;
+-	}
+-#endif
+ 	if (!extab_sec) {
+ 		fprintf(stderr,	"no __ex_table in file: %s\n", fname);
+ 		goto out;
+@@ -663,6 +638,26 @@ static int do_sort(Elf_Ehdr *ehdr,
+ 	strtab = (const char *)ehdr + shdr_offset(strtab_sec);
+ 	symtab = (const Elf_Sym *)((const char *)ehdr + shdr_offset(symtab_sec));
+ 
++#ifdef MCOUNT_SORT_ENABLED
++	mstruct.ehdr = ehdr;
++	get_mcount_loc(&mstruct, symtab_sec, strtab);
++
++	if (!mstruct.init_data_sec || !mstruct.start_mcount_loc || !mstruct.stop_mcount_loc) {
++		fprintf(stderr,
++			"incomplete mcount's sort in file: %s\n",
++			fname);
++		goto out;
++	}
++
++	/* create thread to sort mcount_loc concurrently */
++	if (pthread_create(&mcount_sort_thread, NULL, &sort_mcount_loc, &mstruct)) {
++		fprintf(stderr,
++			"pthread_create mcount_sort_thread failed '%s': %s\n",
++			strerror(errno), fname);
++		goto out;
++	}
++#endif
++
+ 	if (custom_sort) {
+ 		custom_sort(extab_image, shdr_size(extab_sec));
+ 	} else {
 -- 
 2.34.1
 
