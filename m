@@ -1,122 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7ECF2E7380;
-	Thu, 18 Jun 2026 18:58:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B531E2858
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 19:08:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781809112; cv=none; b=sMilpLgowBRPFRVZNgAsvwrmrgNdHX718t1QsAankf50FYvOL1WigjFJkxcc9BmI0oKYWeM7ACioSzq2xqOkUeuz97K/eIN2lE+rwbCEIbRHvT1GE1Y5rqrml3IDcFjAC0vfdW3kHm8YAZ3FlcQTVbuudyJ2f0zMtc5QC5wbP1g=
+	t=1781809705; cv=none; b=RNyoK6SipUb6QFAEmYfRfjZXFV/jxwWx/3eewjCkq0u1NNGfr8xIuThJsRDc0s1qs1z5E6+bgo2xnV26jQGubMr9LlRSLeKHXJr0EirLjdGAjpLz+virmUxOaQsrRrULFIs3XAUfS0kPPFxpKSUGRNKRszmCtxNSWy4Dq802klk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781809112; c=relaxed/simple;
-	bh=fwaUZzNMvaZc2BPbZsPy9GK/Y+EIKakI6c48Ze86IEc=;
-	h=Date:To:From:Subject:Message-Id; b=VK/2Bjfk5HiqblbnVrDqgbAu7GOfmixd84iq4sFkDqNxmcLIZBFWuu1ee/t4+/ahvkpQyxYAb1vn0YeMLHJVWR2ugHSSFjYlkJudJTQVxrKekW9UUfxu0AfkMX1waktJsvIn/q2R0+kbVtTg+1KNVuVwPEy+YQsGTZ79zn4Io50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ndh2oNXb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781809705; c=relaxed/simple;
+	bh=uWwOFvwEc45Hrb3GxEXn1zAZJItEeuuxA+gHvapbv40=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PqvcG6Bhu4qX8PN+keF+0gvc0fD7zP1nPFm3ClEstKh/pQv9D3wjs4AMMPnPbUSs2GKd2SszCJZVbR/LnVOt9wt542Lp/P0/MCvNytweoCj4XtU+jd5EMXOQScHn3H6Hd6EVlfAMXrT9ztlrMkuRzXfKHmJvye0m6H20/OBL+G4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wl+1BwnS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ndh2oNXb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 978911F00A3A;
-	Thu, 18 Jun 2026 18:58:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1781809110;
-	bh=XmZqcRfe6Zcbmv4JeSN5ep1uMN8ny2VjQolVW7Zqd/Y=;
-	h=Date:To:From:Subject;
-	b=ndh2oNXb9RJeTIJ3iwd7r/RJdzoMV/97KXlMplTonz5cq9OtYNFtwpG/awXl8Ykwg
-	 DMYL4a+2ZCDtrSdEaEils3gWbfYAH5QZrSRl/li+S/uOgSNwE3L8/HQzlxhGkUjEea
-	 fSD+aBxP0OnimAwh4UbrK3oYQU77B5KFmASgQQOk=
-Date: Thu, 18 Jun 2026 11:58:30 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-sysfs-schemes-put-stats-for-scheme_add_dirs-internal-error.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260618185830.978911F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wl+1BwnS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CB341F000E9;
+	Thu, 18 Jun 2026 19:08:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781809703;
+	bh=yb0UAf/yqEzSFlgCt9l1ukkfO49DR5r46K8a0+iuXc8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Wl+1BwnSaF0e1zPO6Hjz4pqyhMobWPmZX/O1DE6yfrOmyuQCwsjZeKTxP6nFWh/zj
+	 zEBbfGD79ACdQi5pWitRwY8yua37p0KlzWlIpqDnaFqCgdGFMLJJaCLfLuiAna0kq4
+	 UMDE8u57nleVTTyGFUq+CR7vKvICdBmGHNKIKmgXp/zf2AOmLZrlRBLIfK6vIg5SYy
+	 ulsMP/bha+qtM986outmHJ230gXBzJrP89mEcdS8VBdCTmDM1RDeVq0KLl77qO7Ecx
+	 3UX0Pdprha1vI6hiwiw01pO+obEA3z/WjuDWY9rViresaaQnyy3T5Lfi5guaVj1OYe
+	 pH6KJ7vb3VOCw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Helen Koike <koike@igalia.com>,
+	syzbot+b8ca586b9fc235f0c0df@syzkaller.appspotmail.com,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] debugobjects: Do not fill_pool() if pi_blocked_on
+Date: Thu, 18 Jun 2026 15:08:21 -0400
+Message-ID: <20260618190821.985317-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061612-grievance-elm-4367@gregkh>
+References: <2026061612-grievance-elm-4367@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Helen Koike <koike@igalia.com>
 
-The patch titled
-     Subject: mm/damon/sysfs-schemes: put stats for scheme_add_dirs() internal error
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-damon-sysfs-schemes-put-stats-for-scheme_add_dirs-internal-error.patch
+[ Upstream commit 5f41161059fd0f1bbf18c90f3180e38cc45a14eb ]
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-sysfs-schemes-put-stats-for-scheme_add_dirs-internal-error.patch
+On RT enabled kernels, fill_pool() ends up calling rtlock_lock(), which
+asserts if current::pi_blocked_on is set, because a task can obviously only
+block on one lock as otherwise the priority inheritenace chain gets
+corrupted.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Prevent this by expanding the conditional to take current::pi_blocked_on
+into account.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: SeongJae Park <sj@kernel.org>
-Subject: mm/damon/sysfs-schemes: put stats for scheme_add_dirs() internal error
-Date: Wed, 17 Jun 2026 17:56:48 -0700
-
-damon_sysfs_scheme_add_dirs() setup the tried_regions directory after the
-stats directory setup is completed.  When the tried_regions directory
-setup is failed, the setup function ensures the reference for the tried
-regions directory is released.  Hence the error path should put references
-on setup succeeded directory objects, starting from the stats directory. 
-However, the error path is putting the tried_regions directory instead of
-the stats directory.
-
-As a direct result, the stats directory object is leaked.  Worse yet, if
-the tried_regions directory setup failed from the initial allocation, the
-scheme->tried_regions field remains uninitialized.  The following
-kobject_put(&scheme->tried_regions->kobj) call in the error path will
-dereference the uninitialized memory.  The setup failures should not be
-common.  But once it happens, the consequence is quite bad.
-
-Fix this issue by correctly putting the stats directory instead of the
-tried_regions directory.
-
-The issue was discovered [1] by Sashiko.
-
-Link: https://lore.kernel.org/20260618005650.83868-3-sj@kernel.org
-Link: https://lore.kernel.org/20260617005223.96813-1-sj@kernel.org [1]
-Fixes: 5181b75f438d ("mm/damon/sysfs-schemes: implement schemes/tried_regions directory")
-Signed-off-by: SeongJae Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 6.2.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 4bedcc28469a ("debugobjects: Make them PREEMPT_RT aware")
+Reported-by: syzbot+b8ca586b9fc235f0c0df@syzkaller.appspotmail.com
+Signed-off-by: Helen Koike <koike@igalia.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://patch.msgid.link/20260511215359.3351259-1-koike@igalia.com
+Closes: https://syzkaller.appspot.com/bug?extid=b8ca586b9fc235f0c0df
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ lib/debugobjects.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
- mm/damon/sysfs-schemes.c |    8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
---- a/mm/damon/sysfs-schemes.c~mm-damon-sysfs-schemes-put-stats-for-scheme_add_dirs-internal-error
-+++ a/mm/damon/sysfs-schemes.c
-@@ -2283,12 +2283,12 @@ static int damon_sysfs_scheme_add_dirs(s
- 		goto put_filters_watermarks_quotas_access_pattern_out;
- 	err = damon_sysfs_scheme_set_tried_regions(scheme);
- 	if (err)
--		goto put_tried_regions_out;
-+		goto put_stats_out;
- 	return 0;
+diff --git a/lib/debugobjects.c b/lib/debugobjects.c
+index 49fc61c08ee34e..17ece4d67d929e 100644
+--- a/lib/debugobjects.c
++++ b/lib/debugobjects.c
+@@ -600,13 +600,23 @@ static struct debug_obj *lookup_object_or_alloc(void *addr, struct debug_bucket
+ 	return NULL;
+ }
  
--put_tried_regions_out:
--	kobject_put(&scheme->tried_regions->kobj);
--	scheme->tried_regions = NULL;
-+put_stats_out:
-+	kobject_put(&scheme->stats->kobj);
-+	scheme->stats = NULL;
- put_filters_watermarks_quotas_access_pattern_out:
- 	kobject_put(&scheme->ops_filters->kobj);
- 	scheme->ops_filters = NULL;
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-mm-damon-sysfs-schemes-fix-dir-put-orders-in-access_pattern_add_dirs.patch
-mm-damon-sysfs-schemes-put-stats-for-scheme_add_dirs-internal-error.patch
-mm-damon-core-always-put-unsuccessfully-committed-target-pids.patch
++static inline bool debug_objects_is_pi_blocked_on(void)
++{
++#ifdef CONFIG_RT_MUTEXES
++	return current->pi_blocked_on != NULL;
++#else
++	return false;
++#endif
++}
++
+ static void debug_objects_fill_pool(void)
+ {
+ 	/*
+ 	 * On RT enabled kernels the pool refill must happen in preemptible
+-	 * context:
++	 * context and not enqueued on an rt_mutex:
+ 	 */
+-	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || preemptible())
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT) ||
++	    (preemptible() && !debug_objects_is_pi_blocked_on()))
+ 		fill_pool();
+ }
+ 
+-- 
+2.53.0
 
