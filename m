@@ -1,37 +1,37 @@
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4070A3D7D86
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 07:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662603ACEF8
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 07:55:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781769334; cv=none; b=HqIq80Cveb/BuS7ky8ZpFg4xD9hTMIOa+TI438o2QhIsIpiFjNc11n38NcaPuLOC1L1xjPRtqEXmW9evG7wENTs9HOiLI/LFoIv4bO1RTCn70MKjR7UeTLHE+Xb6a7T3woAx5/Uzc3ONmEO7xObn+8Bp0xfPQfofipU0l8AL5+g=
+	t=1781769346; cv=none; b=QkaiA3UoUuF/b0SOKu9hlbe99GcfMvOovuEpcLVhkz+S09LDBtI/V00Nf1wWxdm6QBWw4U7p46eyPyFEIWSiNbR+tD0iuJCRCAn/l2feCo/Yo9a7Ad9QiJAQW6ucdRWqWhBZSoRqAH2Ua1wu+0IILUDd5A8ZUopIgdtB59zvGF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781769334; c=relaxed/simple;
-	bh=O/QYmmGM1Y8xuVRFrimdKn1X2zOedWIbB+b6DMfTK8k=;
+	s=arc-20240116; t=1781769346; c=relaxed/simple;
+	bh=BFWl428ntXrBei0RiqNWDXaOv2FBLg5fAlaE5qTw+/Q=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Ut2cMFSNTQYttPoiuHKCYECwuLx4J0TP5N64Fi49BwhGt7Bz/zEwLknLYxOa2mW6LLheucjS4u23C9u7lubtzjDI6oAg+tlNs0MHyJPJfLQoBiDH3GpIxsBLgK+H5H29fqv/IJdXpErletrWKWBW8RepZVp8RJBt6PGM/6gdr30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=XmFzArxU; arc=none smtp.client-ip=54.243.244.52
+	 MIME-Version; b=ufeBcJ8S0/3PljtovOG+ZglyFCBSWyexvFlNIAszBWaAk6zn6eMJD7avpm/gxLtMvSYxDk4PCa5ln/M0OC7OJZW1G+0/RBLFrrZ7Y7JPjzbkFd/GnI6fwRl2jKDtqE8TMWhpeQA5vtJmc/k70xb09Jgfh5kUjG8E9ZwIFZ3+ulQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=RPI4axgo; arc=none smtp.client-ip=54.204.34.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="XmFzArxU"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="RPI4axgo"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1781769303;
-	bh=5DxKKwjTeK/x72VejuOqwFnLkIznmy4QERL6IPhU3JM=;
+	s=onoh2408; t=1781769313;
+	bh=P6RfweEM2bvOof007i1Gznpl5Sy/fqGKjvLvj1mLQgE=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=XmFzArxUdeRgtUVlnC5V0pAXTWv0IzjOle+RTkgbbXrjUylhngVN8FZy+1Zc/xEX8
-	 7ZRVdSBRJhgruTDpTqE2o7L3Xtad1TohKX1GOpIOstUd2OeMbwWF7/zy3J/6fNADLG
-	 949d5IxVH8QTqlUqawWyxW39NqRwW6NOK4ipMlMg=
-X-QQ-mid: esmtpgz14t1781769284td3313f67
-X-QQ-Originating-IP: cHM2vo5MAn/Bb1tIc5w/RkTktPO/ilz9p57EbjpHsTw=
+	b=RPI4axgo5/SwSCRkEdoCNPek+KWoe1AdCxe+IA6lnhQPfcE4/+lQwZeKlkTDjcPpG
+	 QprHYLMXFSHw4036GROUNGvNIn17eOOpu6zZ76oGYxPEdphQXY+q646wJ6BiHz4LLp
+	 ZIQ0fUjEU4f2MolDgmd8iBYR5fMphfuIC2wCW/M8=
+X-QQ-mid: esmtpgz14t1781769293t24b0ed7d
+X-QQ-Originating-IP: Ytf8qtNquFKOFjQMK0B1jilA+zzZjq5VNYxZplWFaZ8=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 18 Jun 2026 15:54:39 +0800 (CST)
+	id ; Thu, 18 Jun 2026 15:54:47 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 896573733499436259
-EX-QQ-RecipientCnt: 17
+X-BIZMAIL-ID: 14279584568306015866
+EX-QQ-RecipientCnt: 19
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org,
 	gregkh@linuxfoundation.org,
@@ -47,12 +47,14 @@ Cc: stable@vger.kernel.org,
 	toke@redhat.com,
 	victor@mojatatu.com,
 	yimingqian591@gmail.com,
+	Max Tottenham <mtottenh@akamai.com>,
+	Josh Hunt <johunt@akamai.com>,
+	kernel test robot <lkp@intel.com>,
 	Pedro Tammela <pctammela@mojatatu.com>,
-	Simon Horman <simon.horman@corigine.com>,
 	"David S . Miller" <davem@davemloft.net>
-Subject: [PATCH 5.10.y v2 6/9] net/sched: act_pedit: rate limit datapath messages
-Date: Thu, 18 Jun 2026 15:53:46 +0800
-Message-Id: <20260618075342.1599593-7-guanwentao@uniontech.com>
+Subject: [PATCH 5.10.y v2 7/9] net/sched: act_pedit: Parse L3 Header for L4 offset
+Date: Thu, 18 Jun 2026 15:53:48 +0800
+Message-Id: <20260618075342.1599593-8-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260618075342.1599593-1-guanwentao@uniontech.com>
 References: <20260618075342.1599593-1-guanwentao@uniontech.com>
@@ -65,87 +67,159 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NcVcyjPwlkeJVT0iYaq4xvy2FWKP7nmbm31aFvyrjjHOZjKJDjVhb1s2
-	hae4SJrZC8VqZvvHth0M8B/VEygCydYj/z9AkJkBh0WVxPCKDIH3mWOR7SpB6o4YmazKP0G
-	2S/Br3CUltaUTlUDLooYKac6bsZB4G93yMro5s3CFjjggFj/WGyviJQjrHSeTKuO6AbxWQk
-	s2llMsnQZhZzz451HMUmZMHX71Cc+2GTlc6KKrnGmQE4Y1+HXX+ab2saYti+FDgdRvDIlDo
-	4C/d8TheKuuDSuouX8C+gyma2fS2l/A8K8drARJxwgCOcaZe4kfkrOhUt/DRVw6p7/+CUko
-	xdkiEEyUUJQBbCVIzJfgB58bf874eeLTYeaKs6oC9F+8DJ0EcCMqJYtq0Tz9F54VFFqqtpv
-	J+qhhDzES8SY2TKI5X12ep+H2L/565WXqthr23jUXaa1aj5GL0bvo+9wpW1Ff1fQL0VCMxV
-	KDimZnAvJdlF3tQKFF+PXtzAby2fk3ZuEh2FdtsYdXrTjAY0zDnLs+Q8QjbniuUXiUI2ZIX
-	YQ9zkdr8nGuW8vtzdVUR/JDv/Q30ScO28oBp9lLZFP+lcQIBYZNz0t2+jDBEzakROpJzs5j
-	+zgLPQ9HNeP38lMdxTuf/aeNq1kX90Eg/LCbe/Y/jcPTyHoST7CSi9ytxKAL0WC0lvNcNgb
-	sjNXRX5VKGZ2GAyg6JyJDuclFzWD15+ztUHqRwYS5x97zPIMQN8glLu1acwbkK+cDBJ5OR1
-	pKdkd105uNm4obxUti8G5pIvM21mNnXuh0r4A/FAaq/SHgCZWau6uWhe55ivEgWL23ic0MR
-	WBmhk9375jFGUAlHJ01/Zb+ICAc3MD9JSyaN2i8B+ucOXa61mGM8pVFvhmEy4CX2h26a8xV
-	MrBPk3MZFEdcfVB6Ei0AJeLZc9elK1ha3fpCZT9MnoYarAvQiK7M8Th0nh9OQrJM5SHpWnc
-	aDpPZ8gwSa4domdm16VXhLxt0z52MJBh0kEeO3EhweIxaMMs/oKbKhOefCcgdcQ3JZVj/SH
-	TnUEYjgk5Y2H5Y4SA/3futKsULODINiCB6VAArvDoXMTJj/o67HwQlcEE+qG5tY7jKRDGJJ
-	aLDj4oJ+pVgF3+Tsejr8INo617kAvt745uyRlCMZGTKFVXOvIz3KhQoRdrJ2UXWZFnPJLfx
-	5mfqITt1R6rlkyXlcLWyQTIpNkWWxlLvvJ9oTQPuZ6WZTxQ=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-XMAILINFO: OSwb8t2Gu9Ge0iHiTLCovm3Ymt10gXE/nE4PieU1N3jamY22jxpPhk/b
+	QPChBA9OURLWcpUMtwqmZNMxidY6GUrOLzZRl3UjnSjJ9iy4axasz6VdK4Qr2nj6LDxBvlc
+	h7nSAY99tAnDhlxVAxY6Ps8FignL6fslUflN5jNcCGFf7lHgLNjUZk6XylCfLVWYoO3v89Z
+	OU6A84K5Agw8ZG3ZahASVcAbJM8/0W/COxTH5/wBui4BnYfYAeBL/SyJpc1K3PXuMmh2YmL
+	RW13rO14SZMgpM5upBUIqoTBkrjblwIQTbBWPwyKdMolkZQMOlowzFAzDpaUjqdA8QKzdue
+	LLW0KvywUcWFxFXe9oMUF21veR70NsLBZh2gVR6WB72wLOq+X0Oh7QAtXs9ygEYC7EzpHm3
+	OTyIDbTj7jDG0l8fNsV34FZwq7K5mrCnwKMIr9LjYmT/huuSNj5tdvAT/iweq3v0uYKY8Gm
+	eVL14s4jBB1tRIy5w04YKMnqqYFlAmjLNdG544ap12zreN3hyAdEgQ6clw+owZEC0kLOYVJ
+	DISN/pav3/PzlbXQE3f4e9fbC0BWc16RsJyZaWTSdRgfmc07sWJLjTMPEEWAsC+1D3HbBGm
+	NaMyPC/Qgac4MwA8mRXxn7GXpTW+3Al6I7F+3+bKlf2JUwAkbxfqyVRVBTF5MWGKZlECftO
+	VwqsB9xtYrWz7Pgi8YKZCSMhssVtjwK/KPwcotM46XIdSOP1i6HHYqCaJ6hQZev3Wzq6jDe
+	UNpX4oWwRsa+q4VoYk5mMaY9Mr6RPBTB9bqyJwkpp/Xvc0BQpXojwJOf5HSM79b8R7kDzA1
+	nXqAJPtnoKbuIdth583hOKliSR4XFfjP1YR3z4Tjj7xaMEuhhH5ye9/KPhE3ma5UrDGJqbu
+	1ZlaExF3FjKrcL1gnFrmVQUxylA/61luey8kVYjs531dyXpkrZ2ELrWCtogDtEErQCLzh/x
+	xGP/c8pybC4/Por94a6r3Q8MeEt/gLHfGyL2kvSUBhj8ZoVDierdVkTxW6IIIkNVXKBK7U0
+	ArTxvlzEo9qfAgGgIzxG4X02I1EADpMHEmOrX2HjlubLcKr0EbejfzGxVdUCX0EGzg8rCpO
+	fi4UHpLA+V6UV3da+qGpK9ZycQWfemNiw==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
 X-QQ-RECHKSPAM: 0
 
-From: Pedro Tammela <pctammela@mojatatu.com>
+From: Max Tottenham <mtottenh@akamai.com>
 
-[ Upstream commit e3c9673e2f6e1b3aa4bb87c570336e10f364c28a ]
+[ Upstream commit 6c02568fd1ae53099b4ab86365c5be1ff15f586b ]
 
-Unbounded info messages in the pedit datapath can flood the printk
-ring buffer quite easily depending on the action created.
-As these messages are informational, usually printing some, not all,
-is enough to bring attention to the real issue.
+Instead of relying on skb->transport_header being set correctly, opt
+instead to parse the L3 header length out of the L3 headers for both
+IPv4/IPv6 when the Extended Layer Op for tcp/udp is used. This fixes a
+bug if GRO is disabled, when GRO is disabled skb->transport_header is
+set by __netif_receive_skb_core() to point to the L3 header, it's later
+fixed by the upper protocol layers, but act_pedit will receive the SKB
+before the fixups are completed. The existing behavior causes the
+following to edit the L3 header if GRO is disabled instead of the UDP
+header:
 
-Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Reviewed-by: Simon Horman <simon.horman@corigine.com>
-Signed-off-by: Pedro Tammela <pctammela@mojatatu.com>
+    tc filter add dev eth0 ingress protocol ip flower ip_proto udp \
+ dst_ip 192.168.1.3 action pedit ex munge udp set dport 18053
+
+Also re-introduce a rate-limited warning if we were unable to extract
+the header offset when using the 'ex' interface.
+
+Fixes: 71d0ed7079df ("net/act_pedit: Support using offset relative to
+the conventional network headers")
+Signed-off-by: Max Tottenham <mtottenh@akamai.com>
+Reviewed-by: Josh Hunt <johunt@akamai.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202305261541.N165u9TZ-lkp@intel.com/
+Reviewed-by: Pedro Tammela <pctammela@mojatatu.com>
 Signed-off-by: David S. Miller <davem@davemloft.net>
+(cherry picked from commit 6c02568fd1ae53099b4ab86365c5be1ff15f586b)
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- net/sched/act_pedit.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ net/sched/act_pedit.c | 48 ++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 43 insertions(+), 5 deletions(-)
 
 diff --git a/net/sched/act_pedit.c b/net/sched/act_pedit.c
-index 95ae885ecba16..ecad6fc39dc3d 100644
+index ecad6fc39dc3d..df31b2b7b4225 100644
 --- a/net/sched/act_pedit.c
 +++ b/net/sched/act_pedit.c
-@@ -383,8 +383,8 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
+@@ -13,7 +13,10 @@
+ #include <linux/rtnetlink.h>
+ #include <linux/module.h>
+ #include <linux/init.h>
++#include <linux/ip.h>
++#include <linux/ipv6.h>
+ #include <linux/slab.h>
++#include <net/ipv6.h>
+ #include <net/netlink.h>
+ #include <net/pkt_sched.h>
+ #include <linux/tc_act/tc_pedit.h>
+@@ -313,28 +316,58 @@ static bool offset_valid(struct sk_buff *skb, int offset)
+ 	return true;
+ }
+ 
+-static void pedit_skb_hdr_offset(struct sk_buff *skb,
++static int pedit_l4_skb_offset(struct sk_buff *skb, int *hoffset, const int header_type)
++{
++	const int noff = skb_network_offset(skb);
++	int ret = -EINVAL;
++	struct iphdr _iph;
++
++	switch (skb->protocol) {
++	case htons(ETH_P_IP): {
++		const struct iphdr *iph = skb_header_pointer(skb, noff, sizeof(_iph), &_iph);
++
++		if (!iph)
++			goto out;
++		*hoffset = noff + iph->ihl * 4;
++		ret = 0;
++		break;
++	}
++	case htons(ETH_P_IPV6):
++		ret = ipv6_find_hdr(skb, hoffset, header_type, NULL, NULL) == header_type ? 0 : -EINVAL;
++		break;
++	}
++out:
++	return ret;
++}
++
++static int pedit_skb_hdr_offset(struct sk_buff *skb,
+ 				 enum pedit_header_type htype, int *hoffset)
+ {
++	int ret = -EINVAL;
+ 	/* 'htype' is validated in the netlink parsing */
+ 	switch (htype) {
+ 	case TCA_PEDIT_KEY_EX_HDR_TYPE_ETH:
+-		if (skb_mac_header_was_set(skb))
++		if (skb_mac_header_was_set(skb)) {
+ 			*hoffset = skb_mac_offset(skb);
++			ret = 0;
++		}
+ 		break;
+ 	case TCA_PEDIT_KEY_EX_HDR_TYPE_NETWORK:
+ 	case TCA_PEDIT_KEY_EX_HDR_TYPE_IP4:
+ 	case TCA_PEDIT_KEY_EX_HDR_TYPE_IP6:
+ 		*hoffset = skb_network_offset(skb);
++		ret = 0;
+ 		break;
+ 	case TCA_PEDIT_KEY_EX_HDR_TYPE_TCP:
++		ret = pedit_l4_skb_offset(skb, hoffset, IPPROTO_TCP);
++		break;
+ 	case TCA_PEDIT_KEY_EX_HDR_TYPE_UDP:
+-		if (skb_transport_header_was_set(skb))
+-			*hoffset = skb_transport_offset(skb);
++		ret = pedit_l4_skb_offset(skb, hoffset, IPPROTO_UDP);
+ 		break;
+ 	default:
+ 		break;
+ 	}
++	return ret;
+ }
+ 
+ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
+@@ -369,6 +402,7 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
+ 		int hoffset = 0;
+ 		u32 *ptr, hdata;
+ 		u32 val;
++		int rc;
+ 
+ 		if (tkey_ex) {
+ 			htype = tkey_ex->htype;
+@@ -377,7 +411,11 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
+ 			tkey_ex++;
+ 		}
+ 
+-		pedit_skb_hdr_offset(skb, htype, &hoffset);
++		rc = pedit_skb_hdr_offset(skb, htype, &hoffset);
++		if (rc) {
++			pr_info_ratelimited("tc action pedit unable to extract header offset for header type (0x%x)\n", htype);
++			goto bad;
++		}
+ 
+ 		if (tkey->offmask) {
  			u8 *d, _d;
- 
- 			if (!offset_valid(skb, hoffset + tkey->at)) {
--				pr_info("tc action pedit 'at' offset %d out of bounds\n",
--					hoffset + tkey->at);
-+				pr_info_ratelimited("tc action pedit 'at' offset %d out of bounds\n",
-+						    hoffset + tkey->at);
- 				goto bad;
- 			}
- 			d = skb_header_pointer(skb, hoffset + tkey->at,
-@@ -394,14 +394,13 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
- 
- 			offset += (*d & tkey->offmask) >> tkey->shift;
- 			if (offset % 4) {
--				pr_info("tc action pedit offset must be on 32 bit boundaries\n");
-+				pr_info_ratelimited("tc action pedit offset must be on 32 bit boundaries\n");
- 				goto bad;
- 			}
- 		}
- 
- 		if (!offset_valid(skb, hoffset + offset)) {
--			pr_info("tc action pedit offset %d out of bounds\n",
--				hoffset + offset);
-+			pr_info_ratelimited("tc action pedit offset %d out of bounds\n", hoffset + offset);
- 			goto bad;
- 		}
- 
-@@ -418,8 +417,7 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
- 			val = (*ptr + tkey->val) & ~tkey->mask;
- 			break;
- 		default:
--			pr_info("tc action pedit bad command (%d)\n",
--				cmd);
-+			pr_info_ratelimited("tc action pedit bad command (%d)\n", cmd);
- 			goto bad;
- 		}
- 
 -- 
 2.30.2
 
