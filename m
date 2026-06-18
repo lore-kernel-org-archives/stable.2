@@ -1,50 +1,50 @@
-Received: from mx0a-00206402.pphosted.com (mx0a-00206402.pphosted.com [148.163.148.77])
+Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A47A30E82C
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:39:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.148.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B0917A30A
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:39:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.152.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781815184; cv=none; b=GBeXbyxMJXomiOS2btrpufUauTjeAYnfL0rMq6+SwuOuQHLBugV/ElT9jCQm+SxsxR6sJPR28kPxguMytO6h7NH8fVMsqre8eZAg4pGou8AgWv+p2TfEbm8sBzf4Ckt+b87d92X5NeVxlu1DRWFGqYfv8u99T8OK2EuVMUQP5fs=
+	t=1781815186; cv=none; b=ClNbbiT1G5WXJ3MgWy8eT80ku4UNblh/8iSE5Pt5BhlBZ2JPNAzRDo9XZfLZ6IgNtVGDUTEuZStvUcxLDqaRLDeBxNgbkEUZ0Bd31u91rZyY+3GEV56vF7QVWWqn/OOHsKViA139JhqQS9qzxrGNjbqWt1HOtCfIeeb8H+Fd0GM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781815184; c=relaxed/simple;
-	bh=elIj3RIUnSTQj9kfsJAAbgG8W0omgcZ2LffJpdNElCY=;
+	s=arc-20240116; t=1781815186; c=relaxed/simple;
+	bh=kfnqe/Q3n5Ao6z/QZ0jgr+jJyQOiivIWFH4FIdLoY6w=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TAhOPt0iS5XAX9c2ql0Ep2Qo0+ILFG2aDEhP0sX64WYEOSy5JUgHdxQzl5hyuaiIiepQlhEZfqHduXR/Tbgbk8dnVLXHOqOEnTrY3ZYqRdGeGaApZg8kpwAtmini3cML6rArlxauKTz9Z8DohvWPP5Lh7stdirTBJsioZhYes9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=h/2Xv2q6; arc=none smtp.client-ip=148.163.148.77
+	 MIME-Version:Content-Type; b=cwFE1QYlJotinaMmqCWo9BrLuZA7e1rh3ca0guvliobdu+iENF+FZxrA320iqlrLRXneM88F/wbCHp3tgZW+nRA868/5di7wIfqNXI9ikD0sHvLOhgf6N+mz+indQv1yjO10cCTQg094zxDtzgR73YRCjNh3IqlhrLoCgiICYvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=cF6NCUaC; arc=none smtp.client-ip=148.163.152.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="h/2Xv2q6"
-Received: from pps.filterd (m0354651.ppops.net [127.0.0.1])
-	by mx0a-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IJiE454006057;
-	Thu, 18 Jun 2026 20:39:38 GMT
+	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="cF6NCUaC"
+Received: from pps.filterd (m0354653.ppops.net [127.0.0.1])
+	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IIsfnx3939470;
+	Thu, 18 Jun 2026 20:39:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
 	 h=cc:content-transfer-encoding:content-type:date:from
 	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	default; bh=3z1My5duZQ88RrAhHdQac+7iPo99PFXt1Fa/Fh/glBU=; b=h/2X
-	v2q65/x0UESoMckRh0uwPobdfv7lmjXGIBqpauUCWDDRObug5x5dHFqww0+gWVJb
-	PqqI/I9kxeyRFESOMXcCKK0eicpFqKZ+Y/UiOmBw4+Nan7Vocv7goJRtD+nRYlal
-	eN8QuHUj2VYo1X/MviVk+5bF4uJ3BbglEqeT0nJAEhttTBP+b2PfXc1YKJ0O/kqC
-	zSvoYFXTl9/GR0fWRrETKdZf8u49/Uww05pBQKM6ExzmctTYcy38gM/jRO/WArC0
-	wowNJ6ZVMfpe+pZu4EE4fDGcbmOp5sREmlwCtkJ/PlaYB9B3LR9DmX3YFD3oDiYn
-	U6DG9pP9wAI8SzJ6DQ==
+	default; bh=WSNXWlACFA4qdSGtwx0yCKg9+/GfhpAcD7LSpktqnLE=; b=cF6N
+	CUaCr4uodAPZ8eo6iDvGomG80WBrDopNFd03ULYyISWFNeSGNjhayRFSQ2zVv3uH
+	vJTL5yuKLtxTh2iR9kJEX7CPzhskYBVp9L8VOK2/3l5fjn45piOVdL220CUQ5PMa
+	mh6Y2hQUp77hgsCCR660psLj5pRbYUgYOKev6KPWW0/OovhlFpToH76ZvORM+mfu
+	IRWsloZ1eJsYQVeYoBWlNxgzUZgx5Keuqn/GksyOwNI1XJ+aybSHiof4+QWC86Vr
+	xW8DLSugh5f+7dfewsZNwBLK7UMuTXwYd26NZ39Z8Ux1kgWUDTQuwwUySlrl1mHq
+	fFe02lpwzEuC4bql3Q==
 Received: from mail.crowdstrike.com (dragosx.crowdstrike.com [208.42.231.60] (may be forged))
-	by mx0a-00206402.pphosted.com (PPS) with ESMTPS id 4evq3jg806-3
+	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4ev5c6v1ch-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 18 Jun 2026 20:39:38 +0000 (GMT)
+	Thu, 18 Jun 2026 20:39:39 +0000 (GMT)
 Received: from LL-DJCZ134.crowdstrike.sys (10.100.11.122) by
  04WPEXCH006.crowdstrike.sys (10.100.11.70) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 18 Jun 2026 20:39:37 +0000
+ 15.2.2562.43; Thu, 18 Jun 2026 20:39:38 +0000
 From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 To: <stable@vger.kernel.org>
 CC: <gregkh@linuxfoundation.org>, <sashal@kernel.org>, <rostedt@goodmis.org>,
         <vmalik@redhat.com>, <jmarchan@redhat.com>,
         <martin.kelly@crowdstrike.com>
-Subject: [PATCH 6.6.y 24/27] ftrace: Check against is_kernel_text() instead of kaslr_offset()
-Date: Thu, 18 Jun 2026 16:39:02 -0400
-Message-ID: <de31f6ef301f7a995eb440efbb1c7f716b4e2aa6.1781814159.git.andrey.grodzovsky@crowdstrike.com>
+Subject: [PATCH 6.6.y 25/27] scripts/sorttable: Use normal sort if theres no relocs in the mcount section
+Date: Thu, 18 Jun 2026 16:39:03 -0400
+Message-ID: <5daea8fc47fe65aa9f94a6e7934be6b635df9c6a.1781814162.git.andrey.grodzovsky@crowdstrike.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1781814083.git.andrey.grodzovsky@crowdstrike.com>
 References: <cover.1781814083.git.andrey.grodzovsky@crowdstrike.com>
@@ -58,45 +58,51 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: 04WPEXCH006.crowdstrike.sys (10.100.11.70) To
  04WPEXCH006.crowdstrike.sys (10.100.11.70)
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX3DCGTaDGkk+b
- LRKc25SG/X95fObNFCIqJ7w7jw6Uh054WUGZYp8dnBETtCkyTNigohsD2GQtqzRLIqlHxlh/faX
- 9IZXLuEceJ3llouizKV5Rh4Gcrm2+7o+lUkGb7+f7P/2RqQ5Fl8e
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX+lhR6ffRAFvQ
- j2QJoBQBhOmS5FhDsm0Z2YDrO9g3+O5BppqWcDfUCldvhY3u41meijU0OBDHGHg1f7sshv/DojP
- xQ0oLUS6gRltWbYsO5iLe7qLxmaIx3Iyu8Uq3hu8chfXDnX5A/3FI7URM4pNdaR3124fg+Wwqqx
- 1nKNCEAOqsbGzGyrb6Kux3iaTbjO+OhlIXYNRZt5VDCVbKjJEtSHCB/JtAAsvIfVb7ykd5vtW6P
- ok2PzkDGQf0ckjNB1Fm5AmqqhOF8wYK24xB1vmKZh9DB76CJxEZ7af8dreWTXwtF0usL838f9MC
- 2R5K5kbSmpIEUM8ZNHMSBug+LSBQyU84p9wQKbFIye7o5fVFe/bDMoEvFH7v3k1gZqj9DPtwh23
- SJLxq/mc3RQA0kriKrLXTQ0cbMKAvA0O0VSYwKSPwHlIEUJLwt15K7xCder19BIawcnfwxE8fW8
- s5vMoevTzm6wUGHhCQQ==
-X-Proofpoint-ORIG-GUID: lTGkvxKx6tIH05UecROgsv_h15CAL14O
-X-Proofpoint-GUID: lTGkvxKx6tIH05UecROgsv_h15CAL14O
-X-Authority-Analysis: v=2.4 cv=AvLeGu9P c=1 sm=1 tr=0 ts=6a34578a cx=c_pps
+X-Authority-Analysis: v=2.4 cv=Eez4hvmC c=1 sm=1 tr=0 ts=6a34578b cx=c_pps
  a=1d8vc5iZWYKGYgMGCdbIRA==:117 a=1d8vc5iZWYKGYgMGCdbIRA==:17
  a=EjBHVkixTFsA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=T2KQ53IYiC3MXPrxx8bB:22 a=b3B37AjAgz0HnGB3MuNd:22 a=VwQbUJbxAAAA:8
- a=meVymXHHAAAA:8 a=qNABUOcEAAAA:8 a=7CQSdrXTAAAA:8 a=7d_E57ReAAAA:8
- a=Z4Rwk6OoAAAA:8 a=pl6vuDidAAAA:8 a=VTywKIyS1kG60bcvyasA:9
- a=2JgSa4NbpEOStq-L5dxp:22 a=Ytm653ucTKQjCvbzLygB:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+ a=T2KQ53IYiC3MXPrxx8bB:22 a=GCXdLZfFv8EKBZhKOxZ5:22 a=VwQbUJbxAAAA:8
+ a=meVymXHHAAAA:8 a=ZLGELXoPAAAA:8 a=7CQSdrXTAAAA:8 a=7d_E57ReAAAA:8
+ a=Z4Rwk6OoAAAA:8 a=pl6vuDidAAAA:8 a=QEzrOnKiztfUOB_tiXIA:9
+ a=2JgSa4NbpEOStq-L5dxp:22 a=CFiPc5v16LZhaT-MVE1c:22 a=a-qgeE7W1pNrGK8U0ZQC:22
  a=jhqOcbufqs7Y1TYCrUUU:22 a=HkZW87K1Qel5hWWM3VKY:22
+X-Proofpoint-GUID: 7mHXtDj8TO42e80eOBiKCwuT0IsWo2Yl
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX8aslkm91tiRh
+ RbVroKjHlV8+WhfSpbaVRekkFoB2Yqh9OSLx1I3cWf9WgR5tCi3wJbMjP7c+dy2j0JBHUkpZiy0
+ ldwPwpNKJjWH1oYMio/c9G5TcvrX2EwE26I/1zcZY6tb52bQrbsO
+X-Proofpoint-ORIG-GUID: 7mHXtDj8TO42e80eOBiKCwuT0IsWo2Yl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX18H60jb5fCu5
+ p9VF++0VwXAGtY+7fmVzc9Dd+woUpbozO6zHGL/Oc59X8Gnch7YKVuvdqTMQxuhpvUpJT7Snq1N
+ jY5ezrxKkJUOin77TaSOWuuH0E1pipdpVXex9Rk3Hg1I1Wj5RUnw83YgRqgnbAXr13oH1oZmLVz
+ UDJmsDyiDVjz3nRP/wIvvd7GmyEmZDuFzM16lHe9i8yAUku7mJH8eGGss31q9lA5OQZFJhKHlbZ
+ I3R82hQ5RhmbgZrFcSwfHyAX8l2V9fxDTp0JIS2EHM5z44Q+dEe19l5XOwApFNEuVEdVofqmft4
+ nk2qjqzHOM5xUfpSAII6L7s/592+fIHsJ8FX6gBjOBwyFiLz+LEnUJLzZYmM0eJL5t+hF6hWyF9
+ wNrM4q6ciphNUwZ/vvWoz1uRuskNNxKn2oEapHqaDrXAHGckT4FhJEeDZJUp/xzuYDv7c/10Gut
+ DMRyXNLQhaun6UzaHzg==
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11821
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 suspectscore=0 spamscore=0 clxscore=1015
- malwarescore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180189
+ phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606180189
 
 From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit da0f622b344be769ed61e7c1caf95cd0cdb47964 ]
+[ Upstream commit 46514b3c2c17c67cefe84b0c1a59e0aaf6093131 ]
 
-As kaslr_offset() is architecture dependent and also may not be defined by
-all architectures, when zeroing out unused weak functions, do not check
-against kaslr_offset(), but instead check if the address is within the
-kernel text sections. If KASLR added a shift to the zeroed out function,
-it would still not be located in the kernel text. This is a more robust
-way to test if the text is valid or not.
+When ARM 64 is compiled with gcc, the mcount_loc section will be filled
+with zeros and the addresses will be located in the Elf_Rela sections. To
+sort the mcount_loc section, the addresses from the Elf_Rela need to be
+placed into an array and that is sorted.
+
+But when ARM 64 is compiled with clang, it does it the same way as other
+architectures and leaves the addresses as is in the mcount_loc section.
+
+To handle both cases, ARM 64 will first try to sort the Elf_Rela section,
+and if it doesn't find any functions, it will then fall back to the
+sorting of the addresses in the mcount_loc section itself.
 
 Cc: Masami Hiramatsu <mhiramat@kernel.org>
 Cc: Mark Rutland <mark.rutland@arm.com>
@@ -105,62 +111,39 @@ Cc: Andrew Morton <akpm@linux-foundation.org>
 Cc: Masahiro Yamada <masahiroy@kernel.org>
 Cc: Catalin Marinas <catalin.marinas@arm.com>
 Cc: Will Deacon <will@kernel.org>
-Cc: "Arnd Bergmann" <arnd@arndb.de>
-Link: https://lore.kernel.org/20250225182054.471759017@goodmis.org
-Fixes: ef378c3b8233 ("scripts/sorttable: Zero out weak functions in mcount_loc table")
-Reported-by: Nathan Chancellor <nathan@kernel.org>
-Reported-by: Mark Brown <broonie@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>
+Link: https://lore.kernel.org/20250225182054.648398403@goodmis.org
+Fixes: b3d09d06e052 ("arm64: scripts/sorttable: Implement sorting mcount_loc at boot for arm64")
+Reported-by: "Arnd Bergmann" <arnd@arndb.de>
 Tested-by: Nathan Chancellor <nathan@kernel.org>
-Closes: https://lore.kernel.org/all/20250224180805.GA1536711@ax162/
-Closes: https://lore.kernel.org/all/5225b07b-a9b2-4558-9d5f-aa60b19f6317@sirena.org.uk/
+Closes: https://lore.kernel.org/all/893cd8f1-8585-4d25-bf0f-4197bf872465@app.fastmail.com/
 Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 ---
- kernel/trace/ftrace.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ scripts/sorttable.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index 6635455cd..07a4cbb7f 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -6528,7 +6528,6 @@ static int ftrace_process_locs(struct module *mod,
- 	unsigned long count;
- 	unsigned long *p;
- 	unsigned long addr;
--	unsigned long kaslr;
- 	unsigned long flags = 0; /* Shut up gcc */
- 	unsigned long pages;
- 	int ret = -ENOMEM;
-@@ -6578,9 +6577,6 @@ static int ftrace_process_locs(struct module *mod,
- 		ftrace_pages->next = start_pg;
+diff --git a/scripts/sorttable.c b/scripts/sorttable.c
+index 23c7e0e6c..07ad8116b 100644
+--- a/scripts/sorttable.c
++++ b/scripts/sorttable.c
+@@ -827,9 +827,14 @@ static void *sort_mcount_loc(void *arg)
+ 		pthread_exit(m_err);
  	}
  
--	/* For zeroed locations that were shifted for core kernel */
--	kaslr = !mod ? kaslr_offset() : 0;
--
- 	p = start;
- 	pg = start_pg;
- 	while (p < end) {
-@@ -6594,7 +6590,18 @@ static int ftrace_process_locs(struct module *mod,
- 		 * object files to satisfy alignments.
- 		 * Skip any NULL pointers.
- 		 */
--		if (!addr || addr == kaslr) {
-+		if (!addr) {
-+			skipped++;
-+			continue;
+-	if (sort_reloc)
++	if (sort_reloc) {
+ 		count = fill_relocs(vals, size, ehdr, emloc->start_mcount_loc);
+-	else
++		/* gcc may use relocs to save the addresses, but clang does not. */
++		if (!count) {
++			count = fill_addrs(vals, size, start_loc);
++			sort_reloc = 0;
 +		}
-+
-+		/*
-+		 * If this is core kernel, make sure the address is in core
-+		 * or inittext, as weak functions get zeroed and KASLR can
-+		 * move them to something other than zero. It just will not
-+		 * move it to an area where kernel text is.
-+		 */
-+		if (!mod && !(is_kernel_text(addr) || is_kernel_inittext(addr))) {
- 			skipped++;
- 			continue;
- 		}
++	} else
+ 		count = fill_addrs(vals, size, start_loc);
+ 
+ 	if (count < 0) {
 -- 
 2.34.1
 
