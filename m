@@ -1,114 +1,101 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6FF3B2FED
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 11:04:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C49E3B2FED;
+	Thu, 18 Jun 2026 11:05:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781780693; cv=none; b=JqL5Kc1F2duN0a/pWV3IxmPZYGb5j9gVok32ktiBK3OS13G/1akHyeCVhEH4c/UcL73TvW668hg5IMg5nUuqvq6mCKs3X4Fk7zHtrW/eoHxXL0XQitUDOOK04bJ4hMU1sxOV1YZFcOu3VeDCC60Djd3gOn1eG+oYXU2LKhB0SuE=
+	t=1781780754; cv=none; b=nnH15z3w2wGLn+5kWVz5TlBQSp9kZdeo+hIAskszY38MtZQE9jjYD4mfbmpP634bUiXfo6+cd2DXHQ8TLQKyqW30YGeFbk2lmOgkt4GuX8srbZWScrqj1dEjFMJFawXon6Y2dMPqeoIcgacIGR/V3AdZuWRm86Ptd1FqTtlv10Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781780693; c=relaxed/simple;
-	bh=8zFYWjXdYiGvx0RH9yT9mZEvjJjd6Rtna/2LMh1peKA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=chfsMHwBWLPmUqL7wj8ytHG3ZNBZj39tOyTpbILGBx5GSoc9Fks8hfjSWU3NJNcgfiHsY6/+lG4FlPOynWL9uz+qUjqahIGye8FPXGBcCsuywC6pcgaPhgRZiL2F52MkAaa67r5XsnHDLG7IM8JJq9nZ7PyHzwkitzZDHnRqwRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G0Ss1vCo; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781780754; c=relaxed/simple;
+	bh=6wXnEDck6P59SvTHVD9C7VlKsJ5sdP/VHcUX+2+6JY8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=axY2MOwOK23FvzF4ingDPFVaXq2gB7o1lkFTkgAxHCM7kNxUu56g2aJTAs7iz+7oXp1dg6tBiCE9YiZQO13Y4ZW3ClsEFGwvaa9C5VENLYLJces8CLUD87P6DigllVvliNdLnM3K2ZI3s//4E66MN4GpeHb0PWSPIZvqW2txlrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=aJg/Ih3P; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G0Ss1vCo"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490ac357c55so7051335e9.1
-        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 04:04:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781780690; x=1782385490; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=khbR9A+QxbHPJVF0qK+zhaccvVI4avoOke9tLCAjmL8=;
-        b=G0Ss1vCoRQFjanpA9L/5RhvTaxJZk9H3biiYOJtyhEVElxyzkAvLcTblQgZkUcx81v
-         Ejung7hxdUcSfyjaVzRywoXocuw3U2NyJdcpLmmvfNvp1MCYAugcBgj9g5l3RfNxB/yr
-         9xh4Mhx/xwdMiskTJUWFSpV/oaPTIJKUEqH3oKLGm7jwcU4Jm2WMLwL+Yj9d4MHoa/jd
-         aIGV3FX8VESoPqYirsSyl/4KvIN+OaeMlFg1EkDz3nyx39NTn7toJwkgRm6pB9NPALtO
-         0vUs3dl/uozzHXr1bcGpLqThx+S2R1e1ylPZRy3lpSHF0MFyg2m6+Rx56EwdotfHp/CQ
-         +kPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781780690; x=1782385490;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=khbR9A+QxbHPJVF0qK+zhaccvVI4avoOke9tLCAjmL8=;
-        b=rpnDUfzz1OT9loQYxoSiB5laWmz7Zq9ozw8MUYe9AVjqfwagEwd6Z983I+lKHNL4lE
-         8yfnMmWYxlrBWLI6P7fxmbpvKRYdytFZ8PPYrFf2z5dM2cnvyvFFbkX70yO4u/q3h7s8
-         g/+meRiTN/fdV3F49ynfaSmVhe3o/FTrntxkB4AsOY+tC8Hh0APDqDnw4g+CvCm4YqvW
-         Wu6EreC4TPUZzwTwx9Vz3oBJK00bv4ueVLxZBbi0k3s8N7d8fPCPJrJnQFSHERZunAnt
-         XL3EiD60+BIy1i2qSeRhroGkdxPztsVHKeBk/occ3SLFUAxyqBqQWa8CYoXLyuF868R/
-         uQ7g==
-X-Forwarded-Encrypted: i=1; AFNElJ+P1BkyJfD2FQ9jqPDoCNQKpXs/5Cm7JpZbTxkWbIMo6dPUPuSNbLpVsSXYu09AbScGyclXklc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEURKVKhDU58VYhepUTw2NYbwYZSFkMLoZzr7zmRkdk8yiY8Vb
-	5F9kz9h7a4lZdgtq7feJm4FwYPeZOK9QfbtwJeEPL6ttphwjWGj1j0Ic
-X-Gm-Gg: AfdE7cn83MBsLWNzpS8g4IEEbFTnGd2jsli4j0SOYXPrfSkcQm4h0R39dp776u/Df12
-	Ch1unoXV7SNxK7JWWhAFb4FyTknHaaDqrns+9xjxvPYkq0WzFBksMDY158/o4EwyIgNeTjMcZ6W
-	fGGioA6aht2zVuuV0JXZO3KRVs7lpyqyLmSe4EFPoEtPtV1nHJt7vuD7rgQYIgNiUIQYiB7fmBX
-	mNCBshE2/80NvXWFoDmQUmp51riDwI9CZ6cvC/gXk/twONMW67Tnk1ff0pl1xxMOTtF5LOOt0Vx
-	h7a9B1rJr1Lc0DGCvRHG4InUTF2+0vOh9JeG2BkPiwKUSMW/LRA/HPPrY2vXQbF+BWWo742BvM2
-	muRKilGxqD0lSA5rmg5UHQ97o5rPKm/+7k2FsmJNk+Qw306t6WX8RQmZ9QTvH/iHTsFmbXdbnjg
-	iWcStDAaDAflPOl/YKVBK6m0J0+Xuswg==
-X-Received: by 2002:a05:600c:c04b:20b0:490:a298:acf7 with SMTP id 5b1f17b1804b1-492333ca341mr115712445e9.17.1781780689705;
-        Thu, 18 Jun 2026 04:04:49 -0700 (PDT)
-Received: from [192.168.1.21] ([41.140.50.249])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f309sm57289428f8f.14.2026.06.18.04.04.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Jun 2026 04:04:31 -0700 (PDT)
-Message-ID: <d4980037-ceba-4bc5-9aba-79432d6d6ae4@gmail.com>
-Date: Thu, 18 Jun 2026 12:04:25 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="aJg/Ih3P"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Gg
+	0v4mNICq66S4WjgqT9Dzd0uw6VSyp4kHXR3khbLzk=; b=aJg/Ih3Pa18N/nWZAx
+	0s0iTZ8+bJH/bXNherApom2TT970bn8Mc/2T5lUn6Puhq7whiEWqvwEx20gc3tH3
+	YyBF7i5aEVIOH7yTb98JbgSPaIHW0V/zNmeQZsegbeX66vXYqkTG+hml+sWmlr5U
+	Hk4LrbgMy0kUlVj+kcLVVqaHo=
+Received: from ubuntu.. (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3t77P0DNqfkKHEA--.18129S4;
+	Thu, 18 Jun 2026 19:04:53 +0800 (CST)
+From: Ma Ke <make_ruc2021@163.com>
+To: jani.nikula@linux.intel.com,
+	rodrigo.vivi@intel.com,
+	joonas.lahtinen@linux.intel.com,
+	tursulin@ursulin.net,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	hansg@kernel.org,
+	matthew.d.roper@intel.com,
+	vivek.kasireddy@intel.com
+Cc: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	Ma Ke <make_ruc2021@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/i915/dsi: fix i2c adapter reference leak in i2c_adapter_lookup()
+Date: Thu, 18 Jun 2026 19:04:46 +0800
+Message-ID: <20260618110446.518501-1-make_ruc2021@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10 000/342] 5.10.259-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260616145048.348037099@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260616145048.348037099@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3t77P0DNqfkKHEA--.18129S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WF4Dtr1xJw15Gw13Jw13Arb_yoW8Gry7pr
+	ZrWF4UCrWYqF9aqay7AF1UuFW7uayIy34rKFZ7Cw13u3Wkuw18JryFyrW0gFyDWa9rXa1D
+	tFnrJ3yUKFyjyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pES_MPUUUUU=
+X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC9RXQ22oz0NWmMQAA3g
 
+i2c_adapter_lookup() acquires a reference on the i2c adapter through
+i2c_acpi_find_adapter_by_handle() but not releases it.  Each
+invocation of this ACPI resource callback leaks one device reference,
+potentially leading to resource exhaustion over repeated driver
+load/unload cycles.
 
+Calling path: i2c_acpi_find_adapter_by_handle() -> bus_find_device()
+-> get_device.
 
-On 6/16/2026 7:54 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.10.259 release.
-> There are 342 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.259-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Found by code review.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENEIRC:
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
+Cc: stable@vger.kernel.org
+Fixes: 8cbf89db2941 ("drm/i915/dsi: Parse the I2C element from the VBT MIPI sequence block (v3)")
+---
+Changes in v2:
+- Changed email to trigger CI, no code change.
+---
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+index fe12041e913c..2097c5d17cb7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+@@ -460,8 +460,10 @@ static int i2c_adapter_lookup(struct acpi_resource *ares, void *data)
+ 		return 1;
+ 
+ 	adapter = i2c_acpi_find_adapter_by_handle(adapter_handle);
+-	if (adapter)
++	if (adapter) {
+ 		intel_dsi->i2c_bus_num = adapter->nr;
++		put_device(&adapter->dev);
++	}
+ 
+ 	return 1;
+ }
 -- 
-Florian
+2.43.0
 
