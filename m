@@ -1,86 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65077265CBE;
-	Thu, 18 Jun 2026 11:20:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFC73B42E5
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 11:23:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781781633; cv=none; b=eKe5sJ7Z7c0rcozyMqFJmwGnPRY4CH7Om8J/RkUaj235uDrtRlkHIjpqJvEOvV8eWXuaKcS3oCVoNQEEIlyYen8JhgaKSRsewgXZLmBny5ghDy0my98LgGIjTyPO0wBFwZfTfvTAWdBUqHuJ5hJv+9h29/fX/VcLruimO4N1G5s=
+	t=1781781821; cv=none; b=GIsUa9PolZqGsF4pHjRrGNisvyAbSe8Li2a4hUXp71FiYAAkE9BcfF1ALh5dtRfeFY4mCASCZbLYLaNkgcDh5e6R4S9RjRKU/LEgup2KUqbIvhCzlP/iS3nlPfkBh7mvwGr48EtdxB+SF8k5DhVJUPQS+Km/K5Su/Bi6aOiv/DI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781781633; c=relaxed/simple;
-	bh=ks50TxYMSxMRM8wUKloTgHvkJJQEjLkZU/WUoJiK+e4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ly6ELv/MS1vj9TwMrRvVYXHnNqwrOz9g5B+n4wSrTsu4Lxo3BmcFQJim7ojmstRZ0cFSy3UXb68e8JshQXlhPMZOv/qRuDSSxWdN1S88hFTQ9+XL5sPwsh+GHR9iusrCK/BjuFImbw+hCoYnWGNxkAcrQhe686eVxANLeNoXiGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZxP/qbiJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781781821; c=relaxed/simple;
+	bh=Kdo03FWGHsloa+ebkfj+J1rIruukAmQI1i7Xhe1d7c0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jDiUaczJX2mrvNRVgEjbJ/v9ScizI9QsNbM8ijg8WpcQgl7qrkH0k6gdsRu+lh5rJkYhUygzVI4N65oCLf1t4N+czEwIf8BBr+y07lVjXPEEYh0HEzvak5X9+npZUU0aHOVvXAca0SoQm5SGfOffxzrUw9kgAmGdCUmqdITt0PI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d3/iiNJ4; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZxP/qbiJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF4F41F000E9;
-	Thu, 18 Jun 2026 11:20:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781781632;
-	bh=EWSIIP37qnPXUzIkLqgyKX32fF2/um37o8Gqq2SO02I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZxP/qbiJ7+fdZaZrifStdxn7r0b78WZfAQRmctJZdDbiWhrJ4/aTxvpbDQJ0q+QQM
-	 fcPK6aobDbZTRb/6M94zg+PlgFCjwtOpn95I5AkdqwiBQ+R5yHbbkD32EDr1Dkt+ZH
-	 TvseuMXmWwt6HH4ElkGVytwfgFRt7Th/xXsxS5sM=
-Date: Thu, 18 Jun 2026 13:20:45 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	Nikolay Borisov <nik.borisov@suse.com>,
-	Ben Hutchings <benh@debian.org>,
-	Vegard Nossum <vegard.nossum@oracle.com>
-Subject: Re: [PATCH 5.15 411/411] x86/CPU/AMD: Move the Zen3 BTC_NO detection
- to the Zen3 init function
-Message-ID: <2026061822-alike-goal-6765@gregkh>
-References: <20260616145100.376842714@linuxfoundation.org>
- <20260616145122.972422457@linuxfoundation.org>
- <a323b095-78fe-4c6a-9804-221dc37be3fc@oracle.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d3/iiNJ4"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4923139e940so4439675e9.3
+        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 04:23:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781781818; x=1782386618; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=MDy9b/yhQPJBeTVG+UJTnPxaGac0NnatlIVMD6aa6mo=;
+        b=d3/iiNJ4nJknZ6uSDNSh93tsVM4rwNGor1Uc/JFQ8Wx4XiAet0ufel5RWeu891VOKC
+         ZVxR7BMUWcG7eF3z73Lo6KHj447xkR9Muy1digDFkZF9j4s+5+APpJClbFvaLMySpim5
+         YJOoyvW+wvazy2/4AMRwPgVWvQM586uGFIAi0VkM8IS7KNefQj6Ik4QYXgSwcLRFAonM
+         POjNlwoZcbgEhjZ3rDHKlloA3PcribfxHqrCOHHNJG+fSAlCrqzi14Ue/Hd+2lBWr6PO
+         kWI7W5SgivMWF77lp5s5D3FRpdQZG3W8lsT5NCIuEJhvrFuQWBpjQqtNwB2dA41EY/9H
+         cKSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781781818; x=1782386618;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MDy9b/yhQPJBeTVG+UJTnPxaGac0NnatlIVMD6aa6mo=;
+        b=Tv0cqLYkIDHTamJHCPCv3YGs6wNhtJ5jmuz8Oal0lFbVYK2E1Ao8K2/ORtGFEEzHJ9
+         GtjiWr+RiLMuXndY3qq+zprGIxyjYD4mDqc6Isa5ERvxnx9PJU0xq4lOpyAbvnuur1iF
+         ipI5BSb87f8i/Lm24yQ15POV3eURsLwO4E1FQojOwPX1xhA5FswK8NF+skZiXsQ0eLbl
+         k4e/Vw2T5ab0SX+2bHnH8be7rXqSXlIHIvk1H6BnAUgaO07k1Pv/YfuKerkN7qOq0v8W
+         v/vaDju+dvH3XCHAAJjBh5v0iXZlUlyQWb4LQmZhi0Ye2Zzww0FSu0dsrnalQjrsUzvg
+         UiZg==
+X-Forwarded-Encrypted: i=1; AFNElJ9T6vuRBrQHNNI/lYhBXFwoTo07zWTh/i3PcnpymvxyWzr5tDad8HNUE72CaRAH2TFN6REf6r8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyCR7MogfZbr+1Cxu/PIxgGKmFFiN+tLlWheth7xhjeEOJA/v0k
+	9PTBpaRJEZ07//HGRoK7MxcKFlfqVnbKQwZ68SMU4so5kqF7ymyEJ22W
+X-Gm-Gg: AfdE7cknymgDpVHHEMfvxqiN2hY78efz/McYq1ZJJjBJ7UCgQU3ehnz1CwE/co3vU0M
+	qglfjqsM7tXsIhdisVsUrPK8I8x5YVK8ZDPdyzXnWYlkYPC5ycWlVIuztd4P02PhNVnTRrifwCB
+	8byp9cczpBAi8to9g8XoVnGTTB9DB+JEU/QAh7OAM6zmB9YE/m3YhjVpCDqxG2cE8nqQ459FAKm
+	t0RDyKfbyL/UClZW7n0A97KrQ2gC4L3KMNXXprYJvdpTAsu6DgKuCypykBnk2LTTHY/cvNNVZCo
+	gjmWWmcFqEjLbdiE99h1jFtOPJJqJt+EePwn+4LpyTv4w2PpuDVW5fYI8OvL4i8sKeRxNE0mm0q
+	xB31ySFfm5JPl8LlDmLYxHBoDZLpnQegdPwAbYLQdg8QYAz6VScqtotg97xAM747JIozsCrtWIY
+	GhKNbY7pfn+EbIU1bBtGZE8oK3e1zAGQ==
+X-Received: by 2002:a05:600c:528c:b0:492:39b6:5a30 with SMTP id 5b1f17b1804b1-49239b65ab3mr38563545e9.35.1781781817973;
+        Thu, 18 Jun 2026 04:23:37 -0700 (PDT)
+Received: from [192.168.1.21] ([41.140.50.249])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49230a4601esm262106005e9.1.2026.06.18.04.23.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Jun 2026 04:23:37 -0700 (PDT)
+Message-ID: <05fac223-92f8-4c1d-8699-43b105214b9a@gmail.com>
+Date: Thu, 18 Jun 2026 12:23:34 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a323b095-78fe-4c6a-9804-221dc37be3fc@oracle.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 000/522] 6.1.176-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260616145125.307082728@linuxfoundation.org>
+Content-Language: en-US
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260616145125.307082728@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 18, 2026 at 04:42:11PM +0530, Harshit Mogalapalli wrote:
-> Hi Greg,
-> 
-> 
-> On 16/06/26 20:30, Greg Kroah-Hartman wrote:
-> > 5.15-stable review patch.  If anyone has any objections, please let me know.
-> > 
-> > ------------------
-> > 
-> > From: Borislav Petkov (AMD) <bp@alien8.de>
-> > 
-> > commit affc66cb96f865b3763a8e18add52e133d864f04 upstream.
-> > 
-> > No functional changes.
-> > 
-> > Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-> > Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
-> > Link: http://lore.kernel.org/r/20231120104152.13740-4-bp@alien8.de
-> > Stable-dep-of: 7c81ad8e8bc2 ("x86/CPU/AMD: Rename init_amd_zn() to init_amd_zen_common()")
-> > [bwh: Adjusted to apply after backports of the above commit which actually
-> >   depended on this]
-> > Signed-off-by: Ben Hutchings <benh@debian.org>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> 
-> 
-> I am a bit confused with this, this is a stable-dep-of something that is not
-> being pulled in ? Asin, 411 is the last patch of this series, hence the
-> confusion.
-> 
-> Can you please help me understand this.
 
-That commit is already in a previous release, so this is needed to make
-that commit work properly :)
 
-hope this helps,
+On 6/16/2026 7:52 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.176 release.
+> There are 522 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.176-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-greg k-h
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENEIRC:
+
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
+
