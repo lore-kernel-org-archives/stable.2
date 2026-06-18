@@ -1,52 +1,66 @@
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31AC131E833
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 08:22:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFBF931E833
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 08:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781770963; cv=none; b=oPZ5l6F6xBMnNQPZ1jIh486M6rd4bAyYYbWmoLSeXUQ7Wiqg3oKwxlvLWKBNAWPG9U7wAfJAuxQ2lQR4d+Kzhkmp03AD9WM7a/OTELkRPbLLA8r/Oq/yvQ5s5wR6ADHdDozgJwliYTLdRysPDYGnm/iQDDr+zjCpc7aWHdoPIDU=
+	t=1781771156; cv=none; b=pxxsZPTG7ztzMglNU458XYNlZ0OVuzUCR2BhK0+61xU8llh4g27aqupzyOlyYmVR7alF6FTO53GHHEna2DeuQ+R8FWiAurkqhvM5umayEB1is5Y+q5RD56naWtewHkRxRCYfMhlQw9k+ixW5UoiSjQUqKYxNPDMJ0AeHQnObOqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781770963; c=relaxed/simple;
-	bh=0l6PL2+j0UYTsoEPQmorp4yUwegpL9NEbxh6Tz+Jljg=;
+	s=arc-20240116; t=1781771156; c=relaxed/simple;
+	bh=wdR1rT3MAyiu3Ea1dt4T0QwSz8nrbGqxl69q9c/1IZY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=icBaoihV/0JfTPjZfU73/TxRtF034+dk7P9hMelCYB7e5JiLoh3Rea+zOKRBRW/gft7CeE4unnht+s3icY32RQcfQVQYPyVAFU2dHts9s4h7b0eEh7SSgRyBw4QevnSfwXbPytoIa/shu/mXTZSSsLYqmn9axdO3yeixCL3JlxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=zFjTlgkF; arc=none smtp.client-ip=44.202.169.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	 In-Reply-To:Content-Type; b=iKlng3uNwVJomdDEi6k/siDnmWGO+W466MfXOUGn/6WQCQso1y00qmNflJwn+lQPcSjg43zEE4+9SglnmYkUDIzkWKlWkD5hUm93z3mJX6Zzli9kBjvqmtepMLIQMexIdEDWr+/vQ5R5fANyEcwuHIUsEaol/7jKLpmjjt59YK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com; spf=pass smtp.mailfrom=6wind.com; dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b=Aptl3T9b; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="zFjTlgkF"
-Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
-	by cmsmtp with ESMTPS
-	id ZyInw8eMLKSRRa81Jw4QmS; Thu, 18 Jun 2026 08:22:41 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id a81IwONTs3HCDa81IwJfrK; Thu, 18 Jun 2026 08:22:41 +0000
-X-Authority-Analysis: v=2.4 cv=TOdFS0la c=1 sm=1 tr=0 ts=6a33aad1
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=9GQXaQUDpQhx98mIA28A:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=sF0te89c/L30WqI9HCaU1VG9I/eL25o3xPRxasN8C3g=; b=zFjTlgkFtxiwub6y682cziPeih
-	GvxMise6/+hoRltJniD/MKYRnz6dQNFLCJIDeFnZ0CIoal4HpBN8esAiwKSxrHenrqmWqZbzqVf2w
-	xeRlFVGzhggE2gU6dQo86EYC5JVwSbmcq001ZarbxmxcDvESzZK3/D5KuXYpZvjc9QMWl4BzG8ZPn
-	hHE1pQ4blulS4BCyA/KP9YmaPrKg8IXKuA0LTb3AbAt4nnuJ/X89HKDnNYnn10CF/5dpNhGANjrqx
-	XB185AursIbThqozJshVOCtUu+yY3L3khvKhKqNAWan23DSa5jxSoNzKkx9kOjQs/CtrWa/yx7iHu
-	GUkd2IhQ==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:57208 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.2)
-	(envelope-from <re@w6rz.net>)
-	id 1wa81I-00000002a3z-0aII;
-	Thu, 18 Jun 2026 02:22:40 -0600
-Message-ID: <28d73da2-7472-4ff2-9d36-3e3860d42d55@w6rz.net>
-Date: Thu, 18 Jun 2026 01:22:38 -0700
+	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b="Aptl3T9b"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490a7629453so740355e9.0
+        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 01:25:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=6wind.com; s=google; t=1781771152; x=1782375952; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:content-language
+         :from:references:cc:to:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=OWAZjUn2QY8Ah9cygHd5UGQrkIY9ghZ+KP/7AwdG/lU=;
+        b=Aptl3T9bTFoOuu83CfuTSnmeOPXffRrcGWQMEQQ1Yz6fqi9Rp5H/ovYsK/jvl+shEB
+         nMVF11BD1oQMUG2OW/OBkS1NiTcOLuX4XuIi4ZkXnvMzOUfSZ5J1/A4n1VZp1C7UavMG
+         H6zlmMxlWjwWJDZt6OouqYp+DghIH4RrHgrT63p3RorA6K0TPX9bw17T/KcDG599NVs3
+         eD+KZfHXQ4FtF5ml9FaR7BbywPWesoa9juoEF+PTZIUZoEsWJYGHK/c2dzsnJpnUOdBC
+         S+CgYYqlDAxdpOzFyarpuuXx1nnG/IidkWMQqAQ1jIULKbxmRDTKNmEUdl7fyH8lgdGS
+         n0GQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781771152; x=1782375952;
+        h=content-transfer-encoding:in-reply-to:organization:content-language
+         :from:references:cc:to:subject:reply-to:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OWAZjUn2QY8Ah9cygHd5UGQrkIY9ghZ+KP/7AwdG/lU=;
+        b=f3vYElt22PrwVlBpSOr6uC9jMGz62j5Z9wyFOJMZSRztSXCtkbt02P/yWc8youwfij
+         Xvz8KXkQwZ841iQ/bzbg/JT/JvEeS1SnAVrOI4tUhQJSByw515eoF0GEqAPsyynUum3U
+         JRJ3Rjl/JUxc8hca3Xtns8eIPYPrUo6TX0kcJhfQTN+PbpsiGdLzXQ6+KBnZrnqv3Mn5
+         9j6GKxqTr9cH85XiF5fYUfYnnzEjaJr0s6/moa5DGpji0x9ScgYi5FEaiCY7EINhGpYn
+         SD05g34unzmlBAYE+tE6i1DRwaFi5vKLUfJUdbdpoLUFyw0JX2Yyn8Xa2Ta3ORdy2zLj
+         r5tg==
+X-Forwarded-Encrypted: i=1; AFNElJ+yFflz9zj1EEiQDiej1P0ZY2KpriZp/VidkTAuzgaGXAHWtLc6AQPxt7AiCqmfRgV73E/EArs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+GxnpuuiPuwQnsE94/Ca2fxLxHyziGr9iERtmXD0VbOfLePCJ
+	/nqLEOYbCHTaXDeOneqON4UCuyH5+XHSALi4cZTI5LhyM4+1bMCJu/Kq21eV+EpOE0Y=
+X-Gm-Gg: Acq92OFs+kQVaHdZIZFe5Tppao2EetL4HR1BUIoh1ETZiUZgA/EorHzCDPyopnKm2BU
+	NRzuOhnHAYuQNLOyz7I73NCUeB0c34fKWPh6vagjrR392GPC4zr29Yi2csrQOlabxyQudGBm0Gl
+	bYKFhhpSOwsVx8ZVjF2gHmBDdvh8UZdD4WgQXD62cEl0MeB9IoMX9l6ktRjSl+JKprijjxFxLDy
+	g803ARS6vx8yzSCpKUZJa/nMNCpuLHvXKdR5iiUC71m9MIvj/w8W3i6EwhwIvyL626nLxwww0rD
+	5gU/YGb4Ml67r8g2FV8A7Y9dRMp5Y58zXVxIUdAvtJESDiZKqaNmVW8erZzd6c3hz9ZjdSMLtNS
+	luuSEPG5gl+rz1EkpL8VRmdRYbpL/qrG4yWn1giy2sZ7lDEDHJy8n4wqy3rnkZ0MQ8oLGPZBxsQ
+	A4qBjlePXVpweY06DrSwq1uH+RPLMw0nXt7qPtqQgC9Lf7X0iC31XSe6Z55VzdEIPl8g==
+X-Received: by 2002:a05:600c:4fd4:b0:490:e190:38f8 with SMTP id 5b1f17b1804b1-49238261a6fmr19061935e9.5.1781771152048;
+        Thu, 18 Jun 2026 01:25:52 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922f9cd140sm210641635e9.0.2026.06.18.01.25.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Jun 2026 01:25:51 -0700 (PDT)
+Message-ID: <a744f766-8b70-46c5-8548-0259c373aadd@6wind.com>
+Date: Thu, 18 Jun 2026 10:25:50 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,62 +68,39 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 000/522] 6.1.176-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260616145125.307082728@linuxfoundation.org>
+Reply-To: nicolas.dichtel@6wind.com
+Subject: Re: [PATCH net] net: sit: require CAP_NET_ADMIN in the device netns
+ for changelink
+To: Maoyi Xie <maoyixie.tju@gmail.com>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Xiao Liang <shaw.leon@gmail.com>, Kees Cook <kees@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260618070817.3378283-1-maoyixie.tju@gmail.com>
+From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
 Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260616145125.307082728@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wa81I-00000002a3z-0aII
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:57208
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 79
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfAT7LSJeXkqeHwkrLvPiqFVupvZCo6NgImS+2hgjaJN6FcM8OZs0x6rHtGFYP9CMzATFfLKYH4hYocuyu5iJMdOYrto9KTI21kgiIu4Zu38F11Ojkxu8
- UJU106WaREdIy7SIlViyNcI0MG0qXWBxBVL+pdpb7HKQCBaKOIqpeYi/SkfYUNWqSsV/fje8akpevA==
+Organization: 6WIND
+In-Reply-To: <20260618070817.3378283-1-maoyixie.tju@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 6/16/26 07:52, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.176 release.
-> There are 522 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.176-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+Le 18/06/2026 à 09:08, Maoyi Xie a écrit :
+> ipip6_changelink() operates on at most two netns, dev_net(dev) and the
+> tunnel link netns t->net. They differ once the device is created in or
+> moved to a netns other than the one the request runs in. The rtnl
+> changelink path checks CAP_NET_ADMIN only against dev_net(dev), so a
+> caller privileged there but not in t->net can rewrite a tunnel that
+> lives in t->net.
+> 
+> Gate ipip6_changelink() on rtnl_dev_link_net_capable() at its top,
+> before any attribute is parsed. sit was the one tunnel type not covered
+> by the recent series that added this check to the other changelink()
+> handlers.
+> 
+> Fixes: 5e6700b3bf98 ("sit: add support of x-netns")
+> Link: https://lore.kernel.org/netdev/20260612085941.3158249-1-maoyixie.tju@gmail.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
-
-Tested-by: Ron Economos <re@w6rz.net>
-
+Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
