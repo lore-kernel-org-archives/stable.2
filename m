@@ -1,62 +1,91 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C35053D6CAA;
-	Thu, 18 Jun 2026 13:43:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2573ECBFB
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 13:43:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781790232; cv=none; b=hmg8xMOtNmq2Ep51uIIaARSLtOoijk+0r3ORAvHpaQldv4hNx47cvroBu7oBJRzAlA5h6vkJhs+cIQZmEoUXRJHjw5NUgyXiEWfsHEZg1OrUtsOo4fDb2+t9imu2ICIM4btMNSgx5TZ84PYZJFR9vd3DKx7r/MKvm7U96N3rV8Y=
+	t=1781790241; cv=none; b=FjQ3syc4MgptMx/JnKnm0waNnuS38nfTo1T1Ck+8/ASc+rFjl1fg5iC7XkldAOD/xxE+tstldK8z6S1cEdc/tPgi0NTRcyZJT3kop8C1CtZflLHiHghgLdfSYaYTpyxQwC+nGNQPqesOjmjB7RJTdK/O1M00VkbjJ43uSvrUo8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781790232; c=relaxed/simple;
-	bh=XKUehf4X8nwF3CflU///ls6TmM0Kev/2DLg5AaWT2N4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rG4yZ7f+Bczef3snwqHXEUi9U9PDYNp8Bc0v27Fx61PYgxNqJvsOfYd4+MWM0wMm3Unq03gUaueHN9R2Tr+ZgMQ3zoGh5I9YJVcgjJlALMMrJowJ0vzm9o+Ip4U8W5b+ka3506cFIbsxZ/dNMjTHurjY2+jWlK301heWgsiyU1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 033C668BEB; Thu, 18 Jun 2026 15:43:46 +0200 (CEST)
-Date: Thu, 18 Jun 2026 15:43:46 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Keith Busch <kbusch@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>, Keith Busch <kbusch@meta.com>,
-	linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	dm-devel@lists.linux.dev, axboe@kernel.dk, brauner@kernel.org,
-	djwong@kernel.org, viro@zeniv.linux.org.uk, stable@vger.kernel.org
-Subject: Re: [PATCH 1/1] block: validate user space vectors during
- extraction
-Message-ID: <20260618134346.GA2752@lst.de>
-References: <20260617233235.1016063-1-kbusch@meta.com> <20260617233235.1016063-2-kbusch@meta.com> <20260618102627.GA23200@lst.de> <ajPv7yOoYsR5O6kf@kbusch-mbp>
+	s=arc-20240116; t=1781790241; c=relaxed/simple;
+	bh=nT7rf3DS1fmIVOm9ahfIEAeU4EzqZHo7ZuzJq87AbGk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e7sMbC6x3ioDjD0ZwlEb8gc0+G6zpdycna9GPcokrdb67bE3CR09MclNRiW4NdbMj8WJDUIXRH9lGGGygukQ3gC4SK9b1IXcDcReocLJ9bdvr6bF/gCzS2YBymciS/Y0BDUhgu+/NEeGx41iHUjg63/Ol8uaQwch8Unz1rJPsV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fz6rGNsS; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fz6rGNsS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D28DB1F000E9;
+	Thu, 18 Jun 2026 13:43:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781790239;
+	bh=zOb5LhSt3BtCHsEASMGRQm0MH9anAZxtYIHx/0/L+hI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fz6rGNsSZxoMFG+NDfgLbOLbwJATnFJ0mKDzlV4lxOv6uXe0cX3iEJ15jpPV+r4fh
+	 n0R5pG0brUlTTqEyocOHOcg9fjadio2NohAtu6cRa6ju1IKEX5ojzoOTL8nbM5S5Ae
+	 hze3qrv9kZd9GD7Vsna5NveELyp54Eaqn0PDOYXqScN/PVsTlJ9KRHYALk59PP1KPc
+	 QmQKYI4WzlVbD0gVkRBzmWP1P3u3Jc6uKfesFvJpjnGisSNf/0H3s8o/AjjaCCIWvd
+	 QQSvT6/nD7JjK7q0dCoeO4ZsF7rPfO9NP2phkQuATV+N/FCnde5P/IKevgs8r0A45v
+	 O228gN87j6rMQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] debugobjects: Allow to refill the pool before SYSTEM_SCHEDULING
+Date: Thu, 18 Jun 2026 09:43:56 -0400
+Message-ID: <20260618134357.720470-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061610-amber-humiliate-b27a@gregkh>
+References: <2026061610-amber-humiliate-b27a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ajPv7yOoYsR5O6kf@kbusch-mbp>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 18, 2026 at 07:17:35AM -0600, Keith Busch wrote:
-> > >  	if (iov_iter_is_bvec(iter)) {
-> > >  		bio_iov_bvec_set(bio, iter);
-> > > +
-> > > +		if (mp_bvec_iter_offset(bio->bi_io_vec, bio->bi_iter) &
-> > > +							vec_align_mask)
-> > > +			return -EINVAL;
-> > 
-> > Can you add a comment here?  Especially as the bvec iter doesn't actually
-> > require all individual bvecs to be aligned and I'm not entirely sure this
-> > handles all case - writing down the rules might help a bit with that.
-> 
-> The rationale is that the only iter_bvec users come from io_uring
-> registered buffers, which are virtually contiguous.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-There's plenty of iov_iter_bdev users, and even without poking deep I
-know that two directly passed on bvecs from block-layer generated bios to
-the underlying file system's direct I/O code: loop and zloop.
+[ Upstream commit 06e0ae988f6e3499785c407429953ade19c1096b ]
 
-So we need rules on what can be passed, and preferably some way to
-enforce that at least for debug builds.
+The pool of free objects is refilled on several occasions such as object
+initialisation. On PREEMPT_RT refilling is limited to preemptible
+sections due to sleeping locks used by the memory allocator. The system
+boots with disabled interrupts so the pool can not be refilled.
+
+If too many objects are initialized and the pool gets empty then
+debugobjects disables itself.
+
+Refiling can also happen early in the boot with disabled interrupts as
+long as the scheduler is not operational. If the scheduler can not
+preempt a task then a sleeping lock can not be contended.
+
+Allow to additionally refill the pool if the scheduler is not
+operational.
+
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Link: https://patch.msgid.link/20251127153652.291697-2-bigeasy@linutronix.de
+Stable-dep-of: 5f41161059fd ("debugobjects: Do not fill_pool() if pi_blocked_on")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ lib/debugobjects.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/debugobjects.c b/lib/debugobjects.c
+index 9d401355d560d2..970b310a2ac44a 100644
+--- a/lib/debugobjects.c
++++ b/lib/debugobjects.c
+@@ -605,7 +605,7 @@ static void debug_objects_fill_pool(void)
+ 	 * raw_spinlock_t are basically the same type and this lock-type
+ 	 * inversion works just fine.
+ 	 */
+-	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || preemptible()) {
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || preemptible() || system_state < SYSTEM_SCHEDULING) {
+ 		/*
+ 		 * Annotate away the spinlock_t inside raw_spinlock_t warning
+ 		 * by temporarily raising the wait-type to WAIT_SLEEP, matching
+-- 
+2.53.0
 
