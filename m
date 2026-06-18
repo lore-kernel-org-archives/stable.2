@@ -1,168 +1,115 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B933D7D61
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 07:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0583D9DB0
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 08:02:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781769356; cv=none; b=b3negSYqEFyvFA8VzXmP3tAtWRWOmquja4NSqjldx18MGkj+ES75z8HIyqUTTTXYEyQwbavc1bJoHsAIsookdvGPpMBkEv/bgO2CPmHbwtGqTD89RrUdbThKzMn09TvxGactJKxtU6+ZymylTb9DOrQsrv7ovejWE7DpHkT6z58=
+	t=1781769757; cv=none; b=SVbbDP1Tp1+JnhBFpM7CCou3+djZW60KeDWmPyhvjQWMlBXM6x0JIgx16L8V1TE+4Eex/h2oV7IB+IpI7zpC7pLH9oqbh4P6CuQaIB7d2L5o3C9PSngfDHnYJWXX2W1s/5ZNehNQu3S1HrswbZWitbFDluCmmC+Rn/EolQg+JYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781769356; c=relaxed/simple;
-	bh=6s9vHquvyrsTuoLIwzkNynuU8aGAJv+Ye4HARWfy2qc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=gHIKfvzpMX7UnawDbIUZD8OueYxlISoDPFDhbnNxLVSZyMCyDRRTwmefkpkKUrG9caPppNhPJor7M040fi93+lD4Qau3pjb+l+jatkvK1v2qNsqPDlXa9RgPQDb5OkpXwvHjFmiyBcyHD0Rf2gk9ReA/dKuo4LT2wDyZZRg82w0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=LF21c/WG; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1781769757; c=relaxed/simple;
+	bh=TvFE4tGHf2RZ6ILic0wX5yx04G98MgXtRv2R8lhd14Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IJnuiQzJFVRsYre+CUFKTFxpyL93Y3uqQyi4AgWfPx4UUNy4fSTV6GKNMmiULNi+xw1lE2vbQjV/6YqrrBYrqfHRWsFvYDpFN0p0g/mKcNlOIPKWF5o3WoaqBHi1Eois3JXMC1pOHRNffDjxoPbQWorINoaojSG1f+0BudNi6Z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=0XbmN58u; arc=none smtp.client-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="LF21c/WG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1781769329;
-	bh=tctqlVWawdsuxnP4bC5T4IOw+WFZXrYBfMPLs5KGnwI=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=LF21c/WGMPdPmId6q8Oeh40oIHElbkdra3V83JdtWmFhFbQLZmoIIB/fFPVhI0nPT
-	 eggBlYEAyDMQBwlSynK6O+GtV9LrBQks8odbitiBc9JOOWe6niAmv108hg5aPTYW1u
-	 43HLZsq4+wNW9J7HB7pIx3IOHl+OKTO1iG3Q1d7U=
-X-QQ-mid: esmtpgz14t1781769323t7de58de5
-X-QQ-Originating-IP: G0Y92piYEjNztn+bBfime/5bcbO/bLrFAZDCJyjxHts=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 18 Jun 2026 15:55:06 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 818916248080913179
-EX-QQ-RecipientCnt: 18
-From: Wentao Guan <guanwentao@uniontech.com>
-To: sashal@kernel.org,
-	gregkh@linuxfoundation.org,
-	guanwentao@uniontech.com
-Cc: stable@vger.kernel.org,
-	2045gemini@gmail.com,
-	dcaratti@redhat.com,
-	jhs@mojatatu.com,
-	keenanat2000@gmail.com,
-	kuba@kernel.org,
-	rajat.gupta@oss.qualcomm.com,
-	rollkingzzc@gmail.com,
-	toke@redhat.com,
-	victor@mojatatu.com,
-	yimingqian591@gmail.com,
-	Pedro Tammela <pctammela@mojatatu.com>,
-	Ido Schimmel <idosch@idosch.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 5.10.y v2 9/9] net/sched: act_pedit: free pedit keys on bail from offset check
-Date: Thu, 18 Jun 2026 15:53:52 +0800
-Message-Id: <20260618075342.1599593-10-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260618075342.1599593-1-guanwentao@uniontech.com>
-References: <20260618075342.1599593-1-guanwentao@uniontech.com>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="0XbmN58u"
+Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
+	by cmsmtp with ESMTPS
+	id a3xmw9t7yKSRRa7hlw4JfO; Thu, 18 Jun 2026 08:02:29 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id a7hkwtz6r9e09a7hlwjVIT; Thu, 18 Jun 2026 08:02:29 +0000
+X-Authority-Analysis: v=2.4 cv=SY/3duRu c=1 sm=1 tr=0 ts=6a33a615
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=9GQXaQUDpQhx98mIA28A:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=xMNwgo/lkKMJCS8Mt489WM0G0veblTtY9Wz5haT6LLs=; b=0XbmN58uYyG/+k888i8TudVon0
+	9QrGzOlskpKLF3pd8kOZ8KJKMbAGVqp1CJXt/IbQdwowhLgrZRB14dAek4aBssS4XV1oE47/iOl6z
+	u1URdIScXHGmbUU/8z2FCc8stuZe7NKKQQakRIo+RzZBbNfbYRlquDpuTUqyC4SwRWZn+MU/fPFd+
+	uW0bE/xZTkjGvIqslirVESVphUXQhXeYiS9hftLxm/18E7iaLCNDHhrS7yVk02b6KRae2UBUzLXG4
+	WnDSbwkqBZTCBnV5kjgre6ECeJ0U4hbbaEQ3clKrijjjhy8Nm5FG7yD2xhikLT1Flnh41D3P1yF04
+	RQ1R1h2w==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:46348 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.2)
+	(envelope-from <re@w6rz.net>)
+	id 1wa7hk-00000002PRd-1QTl;
+	Thu, 18 Jun 2026 02:02:28 -0600
+Message-ID: <afe43ba2-1fd4-4a77-a589-5a4886615dda@w6rz.net>
+Date: Thu, 18 Jun 2026 01:02:26 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MILA/v8A9aHmnZZOexDepKnesFB3qsURjMOYokgwFG1mEotczaTqR4QH
-	NMzhqxWleMvTn2/aTVbwmzGJKQuNk3riaJFOgTcwyzeF41BLgojAuGV6E4E82cUIreWzvW/
-	0quse3b2u2RuitKfOrNmSaPaieq2rTP/NBdJJ+7B5rocixrDtq4VHhPxnyg9H8VdYs3pIlz
-	Hpl9FWtREnkMSarXV0Na7I0Et9XPSCGhE909sYk+9shkmquw9WfsorXJjh6T4VEtQNu/8t7
-	0iVcboyJ/dGhJeiQ18GWGsQr6dJyzRX00Q4DK39bqQXMHOQ59f9bUt8P3Ao3fF959L9zCxL
-	L1MjonYsfFrifOKpjli/D5rLcDSgPB/uLSfA72fe5lIMzDbM+7wI7edRxpybnZbRZqyxGTS
-	kKDTZy4tPPqa+iSf32IAmUDipPYfOnH92pLFXrH0UFbvJY/W5dlz9zKe9auDa/kbdL2o44U
-	0wyHZUVn0n7jUFmhqF+h+2JtSUiXyQGYeesmB0/asYF2oveZ3HKmdVjNVhXbczrC/o65St/
-	dLxox87IoHnpV8he0lEHK8gxIErj4zmYxNYklvN/9DnZPf13BhB3p0FWKwA3w+DKF9zvKUp
-	ktN9YQeCLW84IgYSG30Oo5a/1XJJ4FB54mSGylP3SRbZLuLwdrdUB/FJn0yiANZbsM7qO0V
-	UnyYa2dIwh46ddMBhxwiUHL5QvlPM0sPloySBKoXTW4x7nEMq28wiLhP5UgJHqI0MyuxHd9
-	uLV31LYXVzvoSr/qlDRVS25d19hHas000WXIpiF3b0cnpgZbezwpzadR+cmq7zxDB2efDgc
-	dd5DJK3Yd3W61jujVT2yYt6yH4kOMjxGXx79O4xIGRIa0+xMLDSkI++zyRhxPINVk8L+tFV
-	qa0b7F6KRq4uM0dqT8xyRppJLp5Jr5nWYus404kw/kecKV4AoYoRNU6DtUYj17vWduOm3XK
-	D7DYNZLSoOmztkh92MQuxEEItKSyMEXwYBs37TxR1B1SIGec3/DjFtDUICQyxJ455U02FYT
-	TeHaAxpM8eK9lYJszalfuN8FyMbG/gLHfud+lArhp6v0vHcMvsxjyYPyRhq5xskXZPtp9H5
-	m6z1QBgh4dnGDo/j9nW2ItpMFHm1i6bEfa7pGv+tm9OrePPAqGTGyXTGV4AmoBqZnLtLJE2
-	q3bMwKSJ/NheANQnrBDdnHgiH5A7heYXpenvKGnFHq90VkmAuyyZwCOv4A==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/325] 6.18.36-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260616145057.827196531@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260616145057.827196531@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1wa7hk-00000002PRd-1QTl
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:46348
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfPdStjuEvsYMMoqM7yDhkHsKLzjR06Pv4dLw4C6Rqf1YBJXVleqWVUC9ZtdDYzI+ttgRACFjxLBITHWBmEbEXnYJWt3olUsvV0jaFM4nz9/SDIdS1meq
+ gxOzqtHLZ4keESSz3gVrmFrT30FeNrW5bwfnOZK+lfsHI1f24S9pOi/Z5apUx2Kb5qnmwqremVZXow==
 
-From: Pedro Tammela <pctammela@mojatatu.com>
+On 6/16/26 07:56, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.36 release.
+> There are 325 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.36-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-[ Upstream commit 1b483d9f5805c7e3d628d4995e97f4311fcb82eb ]
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Ido Schimmel reports a memleak on a syzkaller instance:
-   BUG: memory leak
-   unreferenced object 0xffff88803d45e400 (size 1024):
-     comm "syz-executor292", pid 563, jiffies 4295025223 (age 51.781s)
-     hex dump (first 32 bytes):
-       28 bd 70 00 fb db df 25 02 00 14 1f ff 02 00 02  (.p....%........
-       00 32 00 00 1f 00 00 00 ac 14 14 3e 08 00 07 00  .2.........>....
-     backtrace:
-       [<ffffffff81bd0f2c>] kmemleak_alloc_recursive include/linux/kmemleak.h:42 [inline]
-       [<ffffffff81bd0f2c>] slab_post_alloc_hook mm/slab.h:772 [inline]
-       [<ffffffff81bd0f2c>] slab_alloc_node mm/slub.c:3452 [inline]
-       [<ffffffff81bd0f2c>] __kmem_cache_alloc_node+0x25c/0x320 mm/slub.c:3491
-       [<ffffffff81a865d9>] __do_kmalloc_node mm/slab_common.c:966 [inline]
-       [<ffffffff81a865d9>] __kmalloc+0x59/0x1a0 mm/slab_common.c:980
-       [<ffffffff83aa85c3>] kmalloc include/linux/slab.h:584 [inline]
-       [<ffffffff83aa85c3>] tcf_pedit_init+0x793/0x1ae0 net/sched/act_pedit.c:245
-       [<ffffffff83a90623>] tcf_action_init_1+0x453/0x6e0 net/sched/act_api.c:1394
-       [<ffffffff83a90e58>] tcf_action_init+0x5a8/0x950 net/sched/act_api.c:1459
-       [<ffffffff83a96258>] tcf_action_add+0x118/0x4e0 net/sched/act_api.c:1985
-       [<ffffffff83a96997>] tc_ctl_action+0x377/0x490 net/sched/act_api.c:2044
-       [<ffffffff83920a8d>] rtnetlink_rcv_msg+0x46d/0xd70 net/core/rtnetlink.c:6395
-       [<ffffffff83b24305>] netlink_rcv_skb+0x185/0x490 net/netlink/af_netlink.c:2575
-       [<ffffffff83901806>] rtnetlink_rcv+0x26/0x30 net/core/rtnetlink.c:6413
-       [<ffffffff83b21cae>] netlink_unicast_kernel net/netlink/af_netlink.c:1339 [inline]
-       [<ffffffff83b21cae>] netlink_unicast+0x5be/0x8a0 net/netlink/af_netlink.c:1365
-       [<ffffffff83b2293f>] netlink_sendmsg+0x9af/0xed0 net/netlink/af_netlink.c:1942
-       [<ffffffff8380c39f>] sock_sendmsg_nosec net/socket.c:724 [inline]
-       [<ffffffff8380c39f>] sock_sendmsg net/socket.c:747 [inline]
-       [<ffffffff8380c39f>] ____sys_sendmsg+0x3ef/0xaa0 net/socket.c:2503
-       [<ffffffff838156d2>] ___sys_sendmsg+0x122/0x1c0 net/socket.c:2557
-       [<ffffffff8381594f>] __sys_sendmsg+0x11f/0x200 net/socket.c:2586
-       [<ffffffff83815ab0>] __do_sys_sendmsg net/socket.c:2595 [inline]
-       [<ffffffff83815ab0>] __se_sys_sendmsg net/socket.c:2593 [inline]
-       [<ffffffff83815ab0>] __x64_sys_sendmsg+0x80/0xc0 net/socket.c:2593
-
-The recently added static offset check missed a free to the key buffer when
-bailing out on error.
-
-Fixes: e1201bc781c2 ("net/sched: act_pedit: check static offsets a priori")
-Reported-by: Ido Schimmel <idosch@idosch.org>
-Signed-off-by: Pedro Tammela <pctammela@mojatatu.com>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Tested-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://lore.kernel.org/r/20230425144725.669262-1-pctammela@mojatatu.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
- net/sched/act_pedit.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/net/sched/act_pedit.c b/net/sched/act_pedit.c
-index 35fa94ba0edf8..0601deea04d72 100644
---- a/net/sched/act_pedit.c
-+++ b/net/sched/act_pedit.c
-@@ -250,7 +250,7 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
- 		if (!offmask && cur % 4) {
- 			NL_SET_ERR_MSG_MOD(extack, "Offsets must be on 32bit boundaries");
- 			ret = -EINVAL;
--			goto put_chain;
-+			goto out_free_keys;
- 		}
- 
- 		/* sanitize the shift value for any later use */
-@@ -275,6 +275,8 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
- 
- 	return ret;
- 
-+out_free_keys:
-+	kfree(nparms->tcfp_keys);
- put_chain:
- 	if (goto_ch)
- 		tcf_chain_put_by_act(goto_ch);
--- 
-2.30.2
+Tested-by: Ron Economos <re@w6rz.net>
 
