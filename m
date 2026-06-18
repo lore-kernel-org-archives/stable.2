@@ -1,114 +1,247 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44F73F0ABC
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 11:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6F935B631;
+	Thu, 18 Jun 2026 11:15:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781781278; cv=none; b=QbZQ0Crt/S3mQvSxnrUCWmUJ1uSH4b/L3OWHYEICog/He5OG6eNtapm0p6biotpovmmcCzJw3XrT4saMfZNXoOTskmJe6PB5CheayWJ4TE41RBDG8Iz8Ps9xnW0uQrvoD1UujlaB5RRThT4ZCe3o1mON8aXTX55H6xSLOH658xc=
+	t=1781781360; cv=none; b=fFW9SaqSiEGHan5l1YKj79oOEl5C89iz9PEyApf9xIOBawGyfonLX8z6q0fhpTLyZeAqbYnTGhCplt0PVAnGFfMl+0mwMpYSf6ROsT/wbg5x+110ZYcWA55cJ7sSMghN/S5Ijv9n2dT3UpwP9ButUxzYkJXYkyx+JnOWULUu5OQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781781278; c=relaxed/simple;
-	bh=0xisGoATiu0CNcq48G/i11ypGmwcHZBkKbRPSzbckeY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SFV1H6si5opwysutFW7TFVGljET+cAnFAarMYFbeUUbTcbqV83PNd97DqxFqzFITmQUddbnMGIkVRXWAjXG61W1Yi5vmOSSMbB2DqH9NDoBaA54mT3lu5Q0AOVmm2xjuujd9Jc9miDZ+iGjKJScC8cKHaoJoglz4oR7Hrab3hqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cdHOPrIW; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781781360; c=relaxed/simple;
+	bh=4Q6ZnwgQHwqg5bbKw3hGLIWY2Dv5wDy8lbefD8ZiA9Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kyuO9phQ+hu/b+zI1lTrJMHqaBckFRCZ/jcTyIgergBqw3B+piEOOr6HyuH5OKOgEa/khUXFVkQFFi4sfjrE+FTXcDIn64l8+L2jyjPYCyg3ZBtpwnGwyRRG0S42shd0acXPU5M9gE+8neFsZYwREd3XB5WVr6IMkGRtERPPw/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=kvmpbuce; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rRCrU/dt; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cdHOPrIW"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-45ef779c1c2so647230f8f.1
-        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 04:14:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781781275; x=1782386075; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rXeyrG62+aF39kKcXSYXLiE3a7D4Ivb39fzeBzQrUlo=;
-        b=cdHOPrIW7CkLt0cUKuey9H/eSPmzExKvmf8bfwDMDDm6ARotg5bmPLWChAVHVZAGFV
-         5N2T/zWFhAePYrIbd8CyyxCvJ5iZqjsLnlXzgl2wdP2A1gZWn0QmOrKfOrY6lBKTuVSM
-         KZXorcp/nf2nT+OjcLGYMbYN9Xet6BtumWoDEB9fSWsnjR2oWTnlL+JUpcLEtoQttzHR
-         pMdvSfhkbaz9rAoO282zRWyhOseNICcHlfq6c/IB+vBrI7y4f5+UZWqRigRnrFuv5fGk
-         3BfC7BMUgFS6Ihc5yehg8J7SijDFXG/kC1zt3LcSC6dV9laZZEhHv05tfeYPM0SYXWp1
-         Or/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781781275; x=1782386075;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rXeyrG62+aF39kKcXSYXLiE3a7D4Ivb39fzeBzQrUlo=;
-        b=ce8ZbWfKy7ZA2UWCFmAkEBzQj3vWycckXXw+1WZeUDQO3pN77O2dfptyGE4793ujZ0
-         O5AShdMgxO30gt4DIg+Bp0jJhBVYjd3prZCH5oktcvkGtW2cOFhe4VM/dC3eMiuEaPZ9
-         UGMIuvsL2rrvs9YeXjO36mMoFu9adDG28yZM0A3bp/Y5Tp6vNiKUkk4k4tpZjuCX9PA+
-         2PymaRb5ZROyPYdj0c2bGNjVjPmYQajzAhjpk2C/RqFbmWuCGXPLtRYjZUZ7+HWJ9qjM
-         9vMddycY+wUhSxkKtYdka08YJ7gmRf/qW5QugYPZpKYBgT15x92Cr/kJpPrWhz96E+Si
-         6hJw==
-X-Forwarded-Encrypted: i=1; AFNElJ/OHfyO4c1eQP3is0yIMH1hnvnLM2hlUelyDAqzQ4UpJ7T4m+WxQR4EZephHuhKlbi8FioX8to=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyAN5Zjd7M8JokoQc288DrEqhjwIQDzr9HZRT9Hfhwz/XxA006L
-	q9kyet3+uddwV9iiHq4J5oPOgJa8C8VgWCnahFXVaUD/aAYEXvtPMbUJ
-X-Gm-Gg: AfdE7clKpPRsEqIwchlBhDYAi5OmRTF8MD0+9Y4ZejtYskfKJ777KtsvdHrd6W/EQkZ
-	xsDaQrkD5j0qXIJb7sCSAtay3ANWmkonkYleB3OUYXqq2sJhDXItJwFiRpJ2RmqOUQifnhfknGO
-	N/472yziFoZoYWYQuU8DRlpdCJJVyfSNNCwECzm7h5itpYV9UejhRu2LS63VUof7kzrFasNbreN
-	hgq2sS9+wRztId0DkNXbyOKR9bWhTXhQZlggbCgBWjMhGJ7CKRKGDPtPikNvLs1MILPurGvdNZO
-	SCN929sMzRQ5u+UASjfNszXMEio9qMKI1gq9M8qceaLStZt0Qu3VfvhlFiAXsOg4/3YPTz2lFxE
-	TWCZzliXUcd9PnjGbhO9gUUald84otxdgXq/RzYOGCXF4O3FkoJJT3Mvc36nCMZaUPY8hqkcDJu
-	h5uTjyKvsc69VmmkBVJ9pPIYB/B/8Rnw==
-X-Received: by 2002:a05:600c:1c24:b0:490:c2a3:1782 with SMTP id 5b1f17b1804b1-492333f8042mr133951675e9.35.1781781274936;
-        Thu, 18 Jun 2026 04:14:34 -0700 (PDT)
-Received: from [192.168.1.21] ([41.140.50.249])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923a1d2d9esm35375345e9.1.2026.06.18.04.14.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Jun 2026 04:14:33 -0700 (PDT)
-Message-ID: <60f91bcd-49a7-4c9e-8488-45608184b20f@gmail.com>
-Date: Thu, 18 Jun 2026 12:14:27 +0100
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="kvmpbuce";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rRCrU/dt"
+Date: Thu, 18 Jun 2026 13:15:54 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1781781356;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SJE+7NCV8kzvv1UOWk66G8/P9oEaUNRk4KpBY1gLjDk=;
+	b=kvmpbuce0dLd1Ocvnfp2fxiXEVLOYCdxGQhjYri4DnBBXgDeAL3z9X1bXvhbgdbDTAXt2H
+	Ehs/9DO/WsR1GzEjcw/XQAD4wdT4C7tyAQYG6vTdePje1oT/bYHNZdL1lV8DBy6ugejsCz
+	8VAL43wwMH1epA627izyKSthKQO0fjEy+qtPv65nRKVQPK3ix1Wo7O4Gds654D0Iditkoo
+	qwipMnco5ZCePHhKtezCWWN4hQaU2O1o0MttYs3K7A2eXuaMRSOwFwSN8T9Q1YZVJ0xCsm
+	DxWJclgZwMe+DPPHxqFWc95I47i+Dy2pQeUAOdmZGRtlimMxIZdFggyruMqWnQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1781781356;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SJE+7NCV8kzvv1UOWk66G8/P9oEaUNRk4KpBY1gLjDk=;
+	b=rRCrU/dtIx/rfIVmHIoUMY0R6lEnmjzmptJNMeng/g0IB4W7EY4n118Wa+naFibn9rrSCZ
+	f6z76fHA67NktuDg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Jakub Kicinski <kuba@kernel.org>, Petr Mladek <pmladek@suse.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Vlad Poenaru <vlad.wing@gmail.com>,
+	Thomas Gleixner <tglx@kernel.org>, netdev@vger.kernel.org,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Breno Leitao <leitao@debian.org>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Frederic Weisbecker <frederic@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>
+Subject: Re: [PATCH net] netpoll: run NAPI poll in softirq context to avoid
+ rq->lock self-deadlock
+Message-ID: <20260618111554.2n0pP_O9@linutronix.de>
+References: <20260610183621.3915271-1-vlad.wing@gmail.com>
+ <20260611191114.5bc43a59@kernel.org>
+ <20260616103529.Yh9Dxsjp@linutronix.de>
+ <20260616170257.GH49951@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/410] 5.15.210-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260617080316.111043001@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260617080316.111043001@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260616170257.GH49951@noisy.programming.kicks-ass.net>
 
-
-
-On 6/17/2026 1:03 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.210 release.
-> There are 410 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 2026-06-16 19:02:57 [+0200], Peter Zijlstra wrote:
+> On Tue, Jun 16, 2026 at 12:35:29PM +0200, Sebastian Andrzej Siewior wrote:
 > 
-> Responses should be made by Fri, 19 Jun 2026 08:02:26 +0000.
-> Anything received after that time might be too late.
+> > So this is not an issue since commit 7eab73b18630e ("netconsole: convert
+> > to NBCON console infrastructure"). Because from here now on writes are
+> > deferred to the nbcon thread. So this purely about -stable in this case.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.210-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
+> Hmm, I thought netconsole had some reserved skbs and could to writes
+> 'atomic' like? That said, it was 2.6 era the last time I looked at
+> netconsole.
+
+Let's look at 8250 for a second in this scenario.
+serial8250_console_write() -> uart_port_lock_irqsave(). The uart lock is
+a spinlock_t. lockdep does not complain because printk annotates it as
+with RT we have NBCONs mandatory and don't use this path.
+serial8250_console_write() -> serial8250_modem_status() does a
+wake_up_interruptible(). Even if not here, it is used under the port
+lock so eventually lockdep will see it and complain about rq lock vs
+port lock ordering.
+
+> > Now. The scheduler usually does printk_deferred() because of the rq lock
+> > so it does not deadlock for various reasons. It is kind of a pity that
+> > the various WARN macros don't do that.
 > 
-> thanks,
+> People have tried, last time was here:
 > 
-> greg k-h
+>   https://lkml.kernel.org/r/20260611074344.GG48970@noisy.programming.kicks-ass.net
+> 
+> and I hate deferred with a passion. It means you'll never see the
+> message when you wreck the machine.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENEIRC:
+Oh, I do hate them, too. Maybe not as much because I spread my hate
+evenly across the code. I did *miss* output on RT because the box
+crashed before sending output so hate is here.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+> > We could add printk_deferred_enter/exit() to all the rq_lock() variants.
+> > I think PeterZ loves this the most. And Greg will appreciate it too
+> > while backporting because of all the context changes.
+> 
+> No, not going to happen, ever, sorry. Instead printk should delete
+> console sem and have printk() itself be atomic safe.
 
+That was not meant serious but as a possibility.
+
+> As stated, printk deferred is an abomination and needs to die a horrible
+> painful death.
+> 
+> As described here:
+> 
+>   https://lkml.kernel.org/r/20260611191922.GK187714@noisy.programming.kicks-ass.net
+> 
+> "So printk should:
+> 
+>  - stick msg in buffer (lockless)
+>  - print to atomic consoles (lockless)
+>  - use irq_work to wake console kthreads (lockless)
+>  - each kthread then tries to flush buffer to its own non-atomic console
+>    in non-atomic context."
+
+So we do this with nbcon afaik and this is the plan forward. The 8250 is
+stuck behind broken flow control that John works tirelessly on fixing
+before the 8250 can move over to the nbcon land. And some point it might
+be possible to force-thread legacy consoles as we do it on RT or remove
+them due to no users.
+
+However until then and for stable I do suggest the following:
+
+diff --git a/include/asm-generic/bug.h b/include/asm-generic/bug.h
+index 09e8eccee8ed9..9cba16474cb6e 100644
+--- a/include/asm-generic/bug.h
++++ b/include/asm-generic/bug.h
+@@ -115,6 +115,17 @@ extern __printf(1, 2) void __warn_printk(const char *fmt, ...);
+ })
+ #endif
+ 
++#define WARN_ON_DEFERRED(condition) ({						\
++	int __ret_warn_on = !!(condition);				\
++	if (unlikely(__ret_warn_on)) {					\
++		printk_deferred_enter();				\
++		__WARN_FLAGS(#condition,				\
++			     BUGFLAG_TAINT(TAINT_WARN));		\
++		printk_deferred_exit();					\
++	}								\
++	unlikely(__ret_warn_on);					\
++})
++
+ #ifndef WARN_ON_ONCE
+ #define WARN_ON_ONCE(condition) ({					\
+ 	int __ret_warn_on = !!(condition);				\
+@@ -125,6 +136,18 @@ extern __printf(1, 2) void __warn_printk(const char *fmt, ...);
+ 	unlikely(__ret_warn_on);					\
+ })
+ #endif
++
++#define WARN_ON_ONCE_DEFERRED(condition) ({				\
++	int __ret_warn_on = !!(condition);				\
++	if (unlikely(__ret_warn_on)) {					\
++		printk_deferred_enter();				\
++		__WARN_FLAGS(#condition,				\
++			     BUGFLAG_ONCE |				\
++			     BUGFLAG_TAINT(TAINT_WARN));		\
++		printk_deferred_exit();				\
++	}								\
++	unlikely(__ret_warn_on);					\
++})
+ #endif /* __WARN_FLAGS */
+ 
+ #if defined(__WARN_FLAGS) && !defined(__WARN_printf)
+@@ -159,6 +182,18 @@ extern __printf(1, 2) void __warn_printk(const char *fmt, ...);
+ })
+ #endif
+ 
++#ifndef WARN_ON_DEFERRED
++#define WARN_ON_DEFERRED(condition) ({					\
++	int __ret_warn_on = !!(condition);				\
++	if (unlikely(__ret_warn_on)) {					\
++		printk_deferred_enter()					\
++		__WARN();						\
++		printk_deferred_exit()					\
++	}								\
++	unlikely(__ret_warn_on);					\
++})
++#endif
++
+ #ifndef WARN
+ #define WARN(condition, format...) ({					\
+ 	int __ret_warn_on = !!(condition);				\
+@@ -180,6 +215,11 @@ extern __printf(1, 2) void __warn_printk(const char *fmt, ...);
+ 	DO_ONCE_LITE_IF(condition, WARN_ON, 1)
+ #endif
+ 
++#ifndef WARN_ON_ONCE_DEFERRED
++#define WARN_ON_ONCE_DEFERRED(condition)				\
++	DO_ONCE_LITE_IF(condition, WARN_ON_DEFERRED, 1)
++#endif
++
+ #ifndef WARN_ONCE
+ #define WARN_ONCE(condition, format...)				\
+ 	DO_ONCE_LITE_IF(condition, WARN, 1, format)
+@@ -215,7 +255,9 @@ extern __printf(1, 2) void __warn_printk(const char *fmt, ...);
+ })
+ #endif
+ 
++#define WARN_ON_DEFERRED(condition) WARN_ON(condition)
+ #define WARN_ON_ONCE(condition) WARN_ON(condition)
++#define WARN_ON_ONCE_DEFERRED(condition) WARN_ON(condition)
+ #define WARN_ONCE(condition, format...) WARN(condition, format)
+ #define WARN_TAINT(condition, taint, format...) WARN(condition, format)
+ #define WARN_TAINT_ONCE(condition, taint, format...) WARN(condition, format)
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 3ebec186f9823..439379e6a83de 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -5814,7 +5814,7 @@ static void put_prev_entity(struct cfs_rq *cfs_rq, struct sched_entity *prev)
+ 		/* in !on_rq case, update occurred at dequeue */
+ 		update_load_avg(cfs_rq, prev, 0);
+ 	}
+-	WARN_ON_ONCE(cfs_rq->curr != prev);
++	WARN_ON_ONCE_DEFERRED(cfs_rq->curr != prev);
+ 	cfs_rq->curr = NULL;
+ }
+ 
+
+This plus this other occurrences in sched under rq lock.
+
+If I replace the above WARN_ON_ONCE with
+  WARN_ON_ONCE(system_state >= SYSTEM_RUNNING);
+
+then my box fails to boot. Which means the warning seems harmful as of
+today. The disgusting _DEFERERED workaround gets the box to boot until
+we are in nbcon land.
+
+Sebastian
