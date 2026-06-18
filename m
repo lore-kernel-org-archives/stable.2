@@ -1,60 +1,81 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034AF2EBBB7;
-	Thu, 18 Jun 2026 14:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64933BFAD0
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 14:50:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781794182; cv=none; b=FeEjgA7bIJTLn3BKGtdYVOTNWM1IXf9NHqf9M5zc2M3oPeERUIC6JjNFnrEHw3RBYP6eMces6thlUAtOQZ0a81scje+Y8uO9SquChao8PrcBoAw101l4RVWh6IrQ96MFq9AZs29889bLWsLXiaVzuO6eN1Xgtiv/vH9aIybIFuM=
+	t=1781794210; cv=none; b=BYZpULZvy2ZovVLrnI4NU0QCsGm1IWH5zppX3UtxCupt7Xx4fJ6WqoL+RA8SH5bxPshXmhgU1j8sK+fQcf0nZOlUhp7Fz/Tyt+WxPt6CxBUT8PoqyJ3Ttxl9MnG4N7sUXy45mdDbenaNCo+wr64/LHZw1cEfwdWlJffCltGPuLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781794182; c=relaxed/simple;
-	bh=QgJNHeiYaIukuDIx//YrXzaH2VMJ/SoiFdexdcjQz4E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o2mPB4BzLeG08q4YDBIjpwrQzTxSYzbgOODIB04VI4mmVz7JYb4/R1XlEXUgt6GJM8aPowqaC4hWW6LTU2rNB8Cu3eqvixwml97864GNSnyG61R1oJ2LoUIDrcgzVL1Qz4z+vC4nrKr6n6XcGWs95yyikBlGv7FX48/vpNAddkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V7V0X977; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1781794210; c=relaxed/simple;
+	bh=ebfiHxJXCBorfmGp3WjFdqGfKJbX3u6ZqUXNuY7295I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h33MJc2snfZQdejDlFR6IkLgzgTN4+NmujFjmT9JS5ILcFuRlKI7qd7sr8PVvoVFtzlCPr/F5pgG4vMW1x/RwDf6M+rc9mzQe6qtdO6uQYtwNxQGvT1NhQ/ZoB2DyuuWHTUQ4i4lQR7G/noq9eNh8MUadxXu7xjQN3qfbtOoXX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=OWe3wKCp; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V7V0X977"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781794181; x=1813330181;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=QgJNHeiYaIukuDIx//YrXzaH2VMJ/SoiFdexdcjQz4E=;
-  b=V7V0X977FNsBCXlC/LuM0AsM1XTjlvRUrvl84T3V95EuzMgZSjYpXJMi
-   3Gfo8fMufgkioLfk+socVo9waoRNLUDKBUzWqSs6nYzxfIC3ipCBB4uJE
-   4+Q8r+hho70obqJmh1NW9xOb/zZuz55WEROSJJgpu2lZRRCLPBc5Py2W0
-   JMRaaQ5HAOLmjLEcv7y5OR2A1RfHKNEU7mdhRxTpGawRoPV5D68AWfmpo
-   n2VK9UZti+L2A0Te9sT5kwNjOqp+FN3ZooNtp0gExjocDHtNCUclmdmv0
-   d+6ljFvidGEQusGXuOns1nF46EoIFGdGjRVxhgJg58NDVver4MfPNT+Wt
-   Q==;
-X-CSE-ConnectionGUID: Pmsi02WKQyeQTYM/Jf7ZSw==
-X-CSE-MsgGUID: 3J62mtAHTdqC+Fa1PhLlsA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="93230413"
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="93230413"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 07:49:41 -0700
-X-CSE-ConnectionGUID: O0H2Jj3KS2uYJbxsyqpGMA==
-X-CSE-MsgGUID: XvnTkluPSKedUtCcZnpClA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="248449729"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa007.jf.intel.com with ESMTP; 18 Jun 2026 07:49:39 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id F350498; Thu, 18 Jun 2026 16:49:37 +0200 (CEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v1 1/1] i2c: mpc: Fix timeout calculations
-Date: Thu, 18 Jun 2026 16:49:34 +0200
-Message-ID: <20260618144934.3249950-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="OWe3wKCp"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-464192ab2e1so537290f8f.0
+        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 07:50:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0sec.ai; s=google; t=1781794206; x=1782399006; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=FGgWyECjMo0A+7T5xX6MZZ8UBQzM1ZYjMx5fmvyGYBI=;
+        b=OWe3wKCpatSlqAJ0W4mfntjH8iNWNZGerCIVxVNBwcq3/U9JgJ2m3yFpLQ5LuLdjND
+         xWrZjRN1+qrQhoUP61bExW1pJox9IjKseH/HgNbVyigGjyM1GQAPHK/QNPBbPjHijAcp
+         0YRmG2ZTAC0NMUf/qqV3zuQFbf+mkMtSHMZoOHDFUi3u9hwDvKkGZ8Ri+sW9VI0+SX1U
+         QKByRdO+B1GyOzIiGww8Y//Zc5KDFyk6uphFfLFeFjfhZG/Is1U0diZ8ETYG2mQSo0tY
+         LCcIh7LVAeOFOYsVzQkZFRD2mNsKz2C3jz00bdodGoOC+Ni4nEyySfhQU66P35nr9Jvx
+         FFvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781794206; x=1782399006;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FGgWyECjMo0A+7T5xX6MZZ8UBQzM1ZYjMx5fmvyGYBI=;
+        b=L8KQoG1wwGi2Gk4bj7zlzoUylNc4en/5fIg5/GP7HLZ59Hec8LsyOXjQcnyRDEWz23
+         5qy8QbpZnnHGMd7uyTx7Xh913fJUGPONGggs2iQi3JRRCv09UWYmKed2bPHUqelgLxMA
+         iLER8syJ0FPsbunLpG+jD/+PhrQweCqKSOWYvq1brjM3hr3bDNC2e66/eN28MRonqRtL
+         Bkj3Mo5iV+2oD6XIM+kbV86/gXkeeLztzQDalLOunIa6Tvvxw80EiEmltCKwbWvNWoft
+         929E8PEfGjEMdzWPkws8mjWoqVbECtWhbqur5i6GlGtJ+ul/Crvi89yYXGZIjTnb28pb
+         H+MA==
+X-Forwarded-Encrypted: i=1; AFNElJ/y5y4h52gn7rtLH6gIZzed0xJUsZQR8jQTawY9yOwumudyPGWzhAjrJlv8USlOaE6agrO12Zk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxcWXkl0NrVfTWGM+v+aAKJmjyD5dmLi6XncN3a5XWiVcd7tXi9
+	dUYM+p0iOSszuyf+aI/zY5MjU2NdGe80OFg4/h92d18lSpF/PEJnIYhA60s7EiOBtO2j
+X-Gm-Gg: AfdE7cliNc05ZitArFD0OpF4phmrw/DlaKmX/DNyR6/olpLS9gZRSyHrTD7gitYrwtr
+	TYE5vHJ1uOFebYBWiV1qw1NUSNMiNi98yM71uDfEDBD7LG6ZGWKhYXFMqlKhASiVkX8HiQZ6JnQ
+	3ZTN0/SKURYiJ7s+7PAqS5GUHEIoVcnckdg+EYbnwYKYNq6wKkBT0JQkDrI1mjV9Nj74yecjTs+
+	ENdKczycujmZy/Zmpdptc02JJItEnQsBAAtIVy/EVEVkEBzS7TXoQ57qrTnqeYVgx0hCc1u2yrE
+	83HmIibE9hs/ufvcrRSVk4Lrp1OeNMMa2euAQN9SSwbBtdksrL2GjOtuF/5N4O1V9rMX+iNpxkw
+	HLqM/d4Tv4Ru9OaPd47T9pbcUMTVRXr5UUajK/rKbGxNmVXNIA/nzU8Yq40Gsk60YENyoqgULaa
+	88Bgv+KSn+GE3fzK7OkbjJv7ws7wt4HX1ayfCcqshkgJJO0S0fNV5DnwMmLsnQeNMdADfvMJBQI
+	uReKyUNO5IU5HLT8z+JGzqYPf1cYC9NmaU=
+X-Received: by 2002:a5d:5f87:0:b0:45d:3cb0:5ab1 with SMTP id ffacd0b85a97d-463ad9ade76mr6300952f8f.38.1781794205917;
+        Thu, 18 Jun 2026 07:50:05 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.209])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2e592csm66701717f8f.36.2026.06.18.07.50.04
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 18 Jun 2026 07:50:05 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: michal.swiatkowski@linux.intel.com,
+	wojciech.drewek@intel.com,
+	intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	horms@kernel.org
+Subject: [PATCH net v2] ice: eswitch: fix use-after-free of metadata_dst in repr release
+Date: Thu, 18 Jun 2026 16:50:03 +0200
+Message-ID: <20260618145003.47471-1-doruk@0sec.ai>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,43 +84,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ON the first glance the harmless cleanup of the driver does nothing bad.
-However, as the operator precedence list states the '*' (multiplication)
-and '/' division operators have order 5 with left-to-right associativity
-the *= has order 17 and associativity right-to-left. It wouldn't not be
-a problem to replace
+ice_eswitch_release_repr() frees the port representor metadata_dst via
+metadata_dst_free(), which directly kfree()s the object and ignores the
+dst_entry refcount. The eswitch slow-path TX routine
+ice_eswitch_port_start_xmit() takes a reference on this dst with
+dst_hold() and attaches it to the skb via skb_dst_set(). If such an skb
+is still in flight (e.g. queued in a qdisc) when the representor is torn
+down, the metadata_dst is freed while the skb still points at it. When
+the skb is later freed, dst_release() operates on already-freed memory.
 
-	foo = foo * HZ / 1000000;
+Replace metadata_dst_free() with dst_release() so the metadata_dst is
+freed only after the last reference is dropped. The dst subsystem frees
+metadata_dst objects from dst_destroy() once the refcount reaches zero
+(DST_METADATA is set by metadata_dst_alloc()).
 
-with
+Same class of bug and fix as commit c32b26aaa2f9 ("netfilter:
+nft_tunnel: fix use-after-free on object destroy").
 
-	foo *= HZ / 1000000;
-
-if HZ constant is in Hertz. The problem is that in the Linux kernel HZ is
-defined in jiffy units, which is order of magnitude smaller than a million.
-That's why operator precedence has a crucial role here. Fix the regression
-by reverting pre-optimized calculations.
-
-Fixes: be40a3ae719f ("i2c: mpc: Use of_property_read_u32 instead of of_get_property")
+Fixes: 1a1c40df2e80 ("ice: set and release switchdev environment")
 Cc: stable@vger.kernel.org
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Reviewed-by: Simon Horman <horms@kernel.org>
 ---
- drivers/i2c/busses/i2c-mpc.c | 2 +-
+v2:
+ - Correct the Fixes: tag to 1a1c40df2e80 ("ice: set and release
+   switchdev environment"); the previously cited fff292b47ac1 only moved
+   the affected code rather than introducing the unbalanced free, and the
+   bug dates back to when switchdev support was added (Simon Horman).
+ - Add Simon Horman's Reviewed-by. No functional change.
+
+ drivers/net/ethernet/intel/ice/ice_eswitch.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/i2c/busses/i2c-mpc.c b/drivers/i2c/busses/i2c-mpc.c
-index 28c5c5c1fb7a..a21fa45bd64c 100644
---- a/drivers/i2c/busses/i2c-mpc.c
-+++ b/drivers/i2c/busses/i2c-mpc.c
-@@ -844,7 +844,7 @@ static int fsl_i2c_probe(struct platform_device *op)
- 					      "fsl,timeout", &mpc_ops.timeout);
- 
- 	if (!result) {
--		mpc_ops.timeout *= HZ / 1000000;
-+		mpc_ops.timeout = mpc_ops.timeout * HZ / 1000000;
- 		if (mpc_ops.timeout < 5)
- 			mpc_ops.timeout = 5;
- 	} else {
--- 
-2.50.1
+diff --git a/drivers/net/ethernet/intel/ice/ice_eswitch.c b/drivers/net/ethernet/intel/ice/ice_eswitch.c
+index 2e4f0969035f..41b30a7ca4a9 100644
+--- a/drivers/net/ethernet/intel/ice/ice_eswitch.c
++++ b/drivers/net/ethernet/intel/ice/ice_eswitch.c
+@@ -95,7 +95,7 @@ ice_eswitch_release_repr(struct ice_pf *pf, struct ice_repr *repr)
+ 		return;
 
+ 	ice_vsi_update_security(vsi, ice_vsi_ctx_set_antispoof);
+-	metadata_dst_free(repr->dst);
++	dst_release(&repr->dst->dst);
+ 	repr->dst = NULL;
+ 	ice_fltr_add_mac_and_broadcast(vsi, repr->parent_mac,
+ 				       ICE_FWD_TO_VSI);
+--
+2.43.0
