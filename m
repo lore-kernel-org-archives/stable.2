@@ -1,37 +1,37 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEA92D0C7B
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 04:36:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2584E2F7F06
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 04:36:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781757411; cv=none; b=Cqje1t/TplmBnRxxBd2ZPpD1oEzEr+AteM9fKeGYjr/OcW43Yik2cxYFHDRNqdeBv57wpOLnA68YnYipYgmNITTEyrjXOF2xEwRqb1kbvAktZ9VKgWkYRluGmvIwhh1XmtdbQwgWikRgjA/GMbMMIPXdM7z+YEEr5TgmDaANHZc=
+	t=1781757418; cv=none; b=azVaZ+mgve7ayCum5O/pA0JB82D3VEOzGezfr6CQ0YsS3/G3/3B3GQOibIqq4tiIle8AZjRrZjZrVK1hicJUlvGHxl0N6zSx0aE+PvUwcWDKqI0LEe4RYWwrpKZsnxLRwlJYvKZ6WmQsy5bYFjx/dt97oRmgR1conGsG8PPGDL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781757411; c=relaxed/simple;
-	bh=wdf+rXznXZNDTv5ZJFXbXqpt33joiwj9yqIBa4R0G1U=;
+	s=arc-20240116; t=1781757418; c=relaxed/simple;
+	bh=EYnu0xzCrVXt/wre/Qt81uWli/pNSNuKw4qF45U+4H4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qHcnmzjRL6SLU8E/5+nhXX7WktcVEWLJRL1do6r3C1aOmgv+WaZdznZSWsW+IjFpJEACJmkg6X2IZa46v6gVDQ16OI5TujeoFOqhWZZYnqBqD04QOpJ/eWjqMFHknGyhacRXBB9PeoFQqAwfLpWoNgtANBy/COn9fwfu6ryldYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Bf46RUE/; arc=none smtp.client-ip=54.92.39.34
+	 MIME-Version; b=pM/gSG11dST36w8W+Y4cnPLTlq7yLTgngcrwaI95HfKLte+K2KZhzQi6IwY+S+MWHGnxfUX+S7p+VSK9p2bk1Fda1PCTYNse2uxdwy4bj2gDB7GPw4Uu5KWfpcrT8ADSDxyvVok4JCVHfB4IvQJ1g3KE9PLK9LhdnQBlYNJruRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=WZm7+X09; arc=none smtp.client-ip=54.207.19.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Bf46RUE/"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="WZm7+X09"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1781757395;
-	bh=MnefkohG4c0xDrVpUWDXL5gvGrSQKUWA+hcyK6JHJT8=;
+	s=onoh2408; t=1781757382;
+	bh=YcyzU/a09dhsc/WTc9eeoW4OxUBYi9lxkRjBL6yCMpw=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=Bf46RUE/EILPQ4IHQ9zG/wYmNcRym6ZoWwRJInYlYnUG4F+LRyOK/DnK+qWZA+dEG
-	 btghycRXcZM2T4devfeHJg8KqzNVIuAIjurjFuf7nixUi4kaG/QoOgz6V4vvfdE5eY
-	 q/2UFhttmosQ1UfY+0Vp2pA8TEwZmyTA8JkQ5ilM=
-X-QQ-mid: zesmtpsz6t1781757390t268869b1
-X-QQ-Originating-IP: dSRwpbLmnS1Ik2Bd1Fp9FLzPNsuOICo+oeA5sAk181g=
+	b=WZm7+X09UzOj2X+Lyx41ZieSyweaO3B6D/7WkIZIhdmm61x+Q+AV7jXE8/RuL7OOM
+	 DXroXDrTnAKM5+9epMHt55Ibn8vlKuwyfEG58y67SE+zdaqVFH1BjxgseL5giT+wXA
+	 GGmUIvsNoVSWl4HYtNZkuWUtaEuSjLeb/9z4+6+U=
+X-QQ-mid: zesmtpsz6t1781757363t4d697998
+X-QQ-Originating-IP: uOUjjAA4iLe+mplZOG3C8pZaWni1zANMLr7SaAYToSg=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 18 Jun 2026 12:36:28 +0800 (CST)
+	id ; Thu, 18 Jun 2026 12:35:54 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 1755222019539035511
-EX-QQ-RecipientCnt: 14
+X-BIZMAIL-ID: 1071775823135304684
+EX-QQ-RecipientCnt: 17
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org,
 	gregkh@linuxfoundation.org,
@@ -46,10 +46,13 @@ Cc: stable@vger.kernel.org,
 	rollkingzzc@gmail.com,
 	toke@redhat.com,
 	victor@mojatatu.com,
-	yimingqian591@gmail.com
-Subject: [PATCH 5.10.y 7/8] net/sched: fix pedit partial COW leading to page cache corruption
-Date: Thu, 18 Jun 2026 12:35:39 +0800
-Message-Id: <20260618043539.1557035-8-guanwentao@uniontech.com>
+	yimingqian591@gmail.com,
+	Pedro Tammela <pctammela@mojatatu.com>,
+	Simon Horman <simon.horman@corigine.com>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH 5.10.y 2/8] net/sched: transition act_pedit to rcu and percpu stats
+Date: Thu, 18 Jun 2026 12:35:34 +0800
+Message-Id: <20260618043539.1557035-3-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260618043539.1557035-1-guanwentao@uniontech.com>
 References: <20260618043539.1557035-1-guanwentao@uniontech.com>
@@ -59,254 +62,461 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OCe9AHS8pZALL+Kfoe4sPy0YUkjaAGOmbMELKikKlk+qvOuHY47js6I4
-	82ew68wbCX4ZLQuSOmwgTHiXyuZFrVIXyveyusgoBUjnXWC09/5FtjRKGBj8WwoJVbPEZNp
-	kQIVBXR81FdCLcanUvM8I8lDENjVYQmxJsAK5pu3JrFHC1SPLQtiQQUgOFn+sbF3qNBoXNN
-	q+msoBDZ1nvNupLpKO7WZUsBfn9Pcq6g6HzVWQwvQqXBAvG3XENBe4iXJapJLgnO2j5603j
-	qFBraofFuh13ozh9qQD2BIrh7+neVkwD2zm32Tuvs2B4Xs3yz9G+qJtByAEeiXmsHtGwfpH
-	zg4tzVFS/kpW+1Yi1BFYMdWj/vRh3f6ZBARyZIbIHCmG0SLQBFHOI4KPoViHhItOiamPLQX
-	buOMxaoAdPTnvweSorMgDCbA2lAv4hTd3rMJoOHLJfyaBax36C/JQ/GP4FQz6mQS3ybzgGV
-	vo2lSCSrEiLU4NHol8JpHJYHC+PrzBiOGlKTjhVcancwDEqZ+6wXNs16iRcE7x+2Z0iRGVJ
-	2ixTH8p8WDWwYUbJ/n0mlK7cCd53EU6ndIClEtLU+JOxrNFmWHSRzDwB1gkdH3YZwzLKFuy
-	XSudfSTIqT/bW3ukodkuKrJD8hFcZuGRjv+Vb/jGQH0oiAzDj8gJIsdV3k2Kb65X3pINTiD
-	0HEcMJ2ec+djam96ps2CDUqjuZfJggq9aWsdp2BDm1XXiEGCOy8TxdtusgG/ctaq4KS0sXR
-	LPx33MFkISrDvZ5EHGVX3DnJ/QMlpltceIiIRFmODbC76a0OMTTF9Pvn9Agb+avDxtc7HTM
-	Dy6RwyBNhbK6WowTmzymPnkqP7EKl+jA+G/se55SF/gseTxLuPMZIN56J5eFmarb3+1TYxE
-	bpXwRtspxnLxvF1/6fOE0GeChdlrdalNKgVE/bo5XT6ccHsX9se1EJLDSVWY1FuWj92ICcd
-	fKPV5J0nPQNzjHXcfhbCLEoPIMFc1RPYZ3FKNxZGg/3d/XlI+5dTAGXON09Sa7e2ztCObK2
-	fOgZOzJhH+bZ7ZjsjJys1Lrr6/xy3RUAzTvwNBy22eE5tExGcNljsAI/irO+ny/inXg18Iq
-	M9u4Vg503xQe5jaB7ytiu38Xta6WaZnjhEBq0H4yAcf5PI1zGDDm+dd0ob7bwo7E2UYR4DI
-	4LOMqWzCjKBMJu2Z03P+7H69wc9+4ieDtR2xpYiEdBqRDWI=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-XMAILINFO: M3ziZXKDk+iOqeEUYBzwnSOpyZo3uDVYTufUbyC5YbWkaMBF7e7LPVjx
+	ug67nakSKS/Fey7yKiocjk3Agg5mD+ar6FYPuBJYmjhEzwz4K/RJNynHyWrTEOCR92xOHJ8
+	ITU0fX6vmblNVxUzTMQA5c34zt/heTUnte0xmqPdIHKOqay6eglr2wWW3BBJFJvZ4eMikaj
+	AIMypI+lvxSt5bQFeZdT/dDiHw9kIBwrlc7xWf8rwj0boctP+lGgPpsydZErQQjUeM45SPM
+	uPOIwTREr6TcdG88FrZBe6CqVEa2dnLlJwyiO7+c0HmVuXsSk36kM9E1kayNCeeDGuOYVdu
+	o+DnbL151JtyW5Sf1JIyN9gum6GJUrpxBi8BmaFLdakVvdpC49tVxZP/L2lhnA0sxLKGmGA
+	7NvIJLqwsrdZHXQDWIiSMbHR/ieL8kNOkaequMhLL2qsnUPIVr80j+NFbIaKhaxpaKxsfO4
+	23Yw8LLUyDfGiERJgtELHMTusJHthBHSwtbyXbpJNT3yR18Ub0zOL3PDzIno7f6o2zo/l5d
+	XyYBTx0LLiNSpc1ZaPXYawsa+86Ldd0ryld7+VqADCJ1YUJCg26QMwwe5vaMNir1RBdcs0g
+	YauenYBi1aRoUzHZOeh8W3iZVx3LWVrtlaa4dKFYoosDkCa/loKxgerE7SS4PQs+VQjQK5o
+	vsO0ev3NLuSrCO2bFOA+ww/y02SwL8P5X6+1S3ZR6iXtVkCbehF6KhBiznBrzkCEvySkwNt
+	2DkMKJmvq0oRL13vtY2A/if9K3kVYhMrfOBJLfyDSv8XkFeM6Fs9K5syWi/vUa7ba0JeFCX
+	/7LFaYTNpe+MkKYDsbhNcbQcDlY70nX3H33qbUswjtEO+0LVOViFUjwpqih9GALazX35F6o
+	3fCvCCozrSnJPZsrMkifmn6AMknN8nT/78ytTCZaYpHOMHckKNgZgHhw94QGWOUfh8U1tPd
+	pAf0tj6ra47j/0wupQEJVTAafg+FXEw8ej539uyonBhufNW+5jbf4G5pHCmt0eymnvUEf2H
+	o6VbEgPnSCJecoffVnDrJk6WHq+SeGVZymGBZJa2BSunJ4n7rSl10NlgfO7uATinKVjPfgo
+	Q==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
 X-QQ-RECHKSPAM: 0
 
-From: Rajat Gupta <rajat.gupta@oss.qualcomm.com>
+From: Pedro Tammela <pctammela@mojatatu.com>
 
-[ Upstream commit 899ee91156e57784090c5565e4f31bd7dbffbc5a ]
+[ Upstream commit 52cf89f78c01bf39973f3e70d366921d70faff7a ]
 
-tcf_pedit_act() computes the COW range for skb_ensure_writable()
-once before the key loop using tcfp_off_max_hint, but the hint does
-not account for the runtime header offset added by typed keys. This
-can leave part of the write region un-COW'd.
+The software pedit action didn't get the same love as some of the
+other actions and it's still using spinlocks and shared stats in the
+datapath.
+Transition the action to rcu and percpu stats as this improves the
+action's performance dramatically on multiple cpu deployments.
 
-Fix by moving skb_ensure_writable() inside the per-key loop where
-the actual write offset is known, and add overflow checking on the
-offset arithmetic. For negative offsets (e.g. Ethernet header edits
-at ingress), use skb_cow() to COW the headroom instead. Guard
-offset_valid() against INT_MIN, where negation is undefined.
-
-Fixes: 8b796475fd78 ("net/sched: act_pedit: really ensure the skb is writable")
-Reported-by: Yiming Qian <yimingqian591@gmail.com>
-Reported-by: Keenan Dong <keenanat2000@gmail.com>
-Reported-by: Han Guidong <2045gemini@gmail.com>
-Reported-by: Zhang Cen <rollkingzzc@gmail.com>
-Reviewed-by: Han Guidong <2045gemini@gmail.com>
-Tested-by: Han Guidong <2045gemini@gmail.com>
-Reviewed-by: Davide Caratti <dcaratti@redhat.com>
-Tested-by: Davide Caratti <dcaratti@redhat.com>
-Reviewed-by: Toke Høiland-Jørgensen <toke@redhat.com>
-Tested-by: Toke Høiland-Jørgensen <toke@redhat.com>
-Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-Tested-by: Victor Nogueira <victor@mojatatu.com>
-Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Signed-off-by: Rajat Gupta <rajat.gupta@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260531123221.48732-1-jhs@mojatatu.com
-[rename include file from linux/unaligned.h to asm/unaligned.h]
+Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Signed-off-by: Pedro Tammela <pctammela@mojatatu.com>
+Reviewed-by: Simon Horman <simon.horman@corigine.com>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Stable-dep-of: e9e42292ea76 ("net/sched: act_pedit: fix action bind logic")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 Conflicts:
-	include/net/tc_act/tc_pedit.h
 	net/sched/act_pedit.c
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
-(cherry picked from commit 44e1ecb811c3e0823a20854735cb9b2a4e71978c)
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- include/net/tc_act/tc_pedit.h |  1 -
- net/sched/act_pedit.c         | 77 +++++++++++++++++++----------------
- 2 files changed, 41 insertions(+), 37 deletions(-)
+ include/net/tc_act/tc_pedit.h |  81 +++++++++++++++----
+ net/sched/act_pedit.c         | 148 ++++++++++++++++++++--------------
+ 2 files changed, 153 insertions(+), 76 deletions(-)
 
 diff --git a/include/net/tc_act/tc_pedit.h b/include/net/tc_act/tc_pedit.h
-index 83fe399317818..a26d4cd3b8d6f 100644
+index 3e02709a1df65..83fe399317818 100644
 --- a/include/net/tc_act/tc_pedit.h
 +++ b/include/net/tc_act/tc_pedit.h
-@@ -14,7 +14,6 @@ struct tcf_pedit_key_ex {
- struct tcf_pedit_parms {
+@@ -4,22 +4,29 @@
+ 
+ #include <net/act_api.h>
+ #include <linux/tc_act/tc_pedit.h>
++#include <linux/types.h>
+ 
+ struct tcf_pedit_key_ex {
+ 	enum pedit_header_type htype;
+ 	enum pedit_cmd cmd;
+ };
+ 
+-struct tcf_pedit {
+-	struct tc_action	common;
+-	unsigned char		tcfp_nkeys;
+-	unsigned char		tcfp_flags;
+-	u32			tcfp_off_max_hint;
++struct tcf_pedit_parms {
  	struct tc_pedit_key	*tcfp_keys;
  	struct tcf_pedit_key_ex	*tcfp_keys_ex;
--	u32 tcfp_off_max_hint;
- 	unsigned char tcfp_nkeys;
- 	unsigned char tcfp_flags;
- 	struct rcu_head rcu;
++	u32 tcfp_off_max_hint;
++	unsigned char tcfp_nkeys;
++	unsigned char tcfp_flags;
++	struct rcu_head rcu;
++};
++
++struct tcf_pedit {
++	struct tc_action common;
++	struct tcf_pedit_parms __rcu *parms;
+ };
+ 
+ #define to_pedit(a) ((struct tcf_pedit *)a)
++#define to_pedit_parms(a) (rcu_dereference(to_pedit(a)->parms))
+ 
+ static inline bool is_tcf_pedit(const struct tc_action *a)
+ {
+@@ -32,37 +39,81 @@ static inline bool is_tcf_pedit(const struct tc_action *a)
+ 
+ static inline int tcf_pedit_nkeys(const struct tc_action *a)
+ {
+-	return to_pedit(a)->tcfp_nkeys;
++	struct tcf_pedit_parms *parms;
++	int nkeys;
++
++	rcu_read_lock();
++	parms = to_pedit_parms(a);
++	nkeys = parms->tcfp_nkeys;
++	rcu_read_unlock();
++
++	return nkeys;
+ }
+ 
+ static inline u32 tcf_pedit_htype(const struct tc_action *a, int index)
+ {
+-	if (to_pedit(a)->tcfp_keys_ex)
+-		return to_pedit(a)->tcfp_keys_ex[index].htype;
++	u32 htype = TCA_PEDIT_KEY_EX_HDR_TYPE_NETWORK;
++	struct tcf_pedit_parms *parms;
++
++	rcu_read_lock();
++	parms = to_pedit_parms(a);
++	if (parms->tcfp_keys_ex)
++		htype = parms->tcfp_keys_ex[index].htype;
++	rcu_read_unlock();
+ 
+-	return TCA_PEDIT_KEY_EX_HDR_TYPE_NETWORK;
++	return htype;
+ }
+ 
+ static inline u32 tcf_pedit_cmd(const struct tc_action *a, int index)
+ {
+-	if (to_pedit(a)->tcfp_keys_ex)
+-		return to_pedit(a)->tcfp_keys_ex[index].cmd;
++	struct tcf_pedit_parms *parms;
++	u32 cmd = __PEDIT_CMD_MAX;
+ 
+-	return __PEDIT_CMD_MAX;
++	rcu_read_lock();
++	parms = to_pedit_parms(a);
++	if (parms->tcfp_keys_ex)
++		cmd = parms->tcfp_keys_ex[index].cmd;
++	rcu_read_unlock();
++
++	return cmd;
+ }
+ 
+ static inline u32 tcf_pedit_mask(const struct tc_action *a, int index)
+ {
+-	return to_pedit(a)->tcfp_keys[index].mask;
++	struct tcf_pedit_parms *parms;
++	u32 mask;
++
++	rcu_read_lock();
++	parms = to_pedit_parms(a);
++	mask = parms->tcfp_keys[index].mask;
++	rcu_read_unlock();
++
++	return mask;
+ }
+ 
+ static inline u32 tcf_pedit_val(const struct tc_action *a, int index)
+ {
+-	return to_pedit(a)->tcfp_keys[index].val;
++	struct tcf_pedit_parms *parms;
++	u32 val;
++
++	rcu_read_lock();
++	parms = to_pedit_parms(a);
++	val = parms->tcfp_keys[index].val;
++	rcu_read_unlock();
++
++	return val;
+ }
+ 
+ static inline u32 tcf_pedit_offset(const struct tc_action *a, int index)
+ {
+-	return to_pedit(a)->tcfp_keys[index].off;
++	struct tcf_pedit_parms *parms;
++	u32 off;
++
++	rcu_read_lock();
++	parms = to_pedit_parms(a);
++	off = parms->tcfp_keys[index].off;
++	rcu_read_unlock();
++
++	return off;
+ }
+ #endif /* __NET_TC_PED_H */
 diff --git a/net/sched/act_pedit.c b/net/sched/act_pedit.c
-index ecad6fc39dc3d..250f4ffa48371 100644
+index 510a3b5b8c0c1..0fbffebfbdc9d 100644
 --- a/net/sched/act_pedit.c
 +++ b/net/sched/act_pedit.c
-@@ -14,6 +14,8 @@
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/slab.h>
-+#include <linux/overflow.h>
-+#include <asm/unaligned.h>
- #include <net/netlink.h>
- #include <net/pkt_sched.h>
- #include <linux/tc_act/tc_pedit.h>
-@@ -226,7 +228,6 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
+@@ -130,6 +130,17 @@ static int tcf_pedit_key_ex_dump(struct sk_buff *skb,
+ 	return -EINVAL;
+ }
+ 
++static void tcf_pedit_cleanup_rcu(struct rcu_head *head)
++{
++	struct tcf_pedit_parms *parms =
++		container_of(head, struct tcf_pedit_parms, rcu);
++
++	kfree(parms->tcfp_keys_ex);
++	kfree(parms->tcfp_keys);
++
++	kfree(parms);
++}
++
+ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
+ 			  struct nlattr *est, struct tc_action **a,
+ 			  int ovr, int bind, bool rtnl_held,
+@@ -137,10 +148,9 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
+ 			  struct netlink_ext_ack *extack)
+ {
+ 	struct tc_action_net *tn = net_generic(net, pedit_net_id);
+-	struct nlattr *tb[TCA_PEDIT_MAX + 1];
+ 	struct tcf_chain *goto_ch = NULL;
+-	struct tc_pedit_key *keys = NULL;
+-	struct tcf_pedit_key_ex *keys_ex;
++	struct tcf_pedit_parms *oparms, *nparms;
++	struct nlattr *tb[TCA_PEDIT_MAX + 1];
+ 	struct tc_pedit *parm;
+ 	struct nlattr *pattr;
+ 	struct tcf_pedit *p;
+@@ -177,18 +187,25 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
+ 		return -EINVAL;
+ 	}
+ 
+-	keys_ex = tcf_pedit_keys_ex_parse(tb[TCA_PEDIT_KEYS_EX], parm->nkeys);
+-	if (IS_ERR(keys_ex))
+-		return PTR_ERR(keys_ex);
++	nparms = kzalloc(sizeof(*nparms), GFP_KERNEL);
++	if (!nparms)
++		return -ENOMEM;
++
++	nparms->tcfp_keys_ex =
++		tcf_pedit_keys_ex_parse(tb[TCA_PEDIT_KEYS_EX], parm->nkeys);
++	if (IS_ERR(nparms->tcfp_keys_ex)) {
++		ret = PTR_ERR(nparms->tcfp_keys_ex);
++		goto out_free;
++	}
+ 
+ 	index = parm->index;
+ 	err = tcf_idr_check_alloc(tn, &index, a, bind);
+ 	if (!err) {
+-		ret = tcf_idr_create(tn, index, est, a,
+-				     &act_pedit_ops, bind, false, flags);
++		ret = tcf_idr_create_from_flags(tn, index, est, a,
++						&act_pedit_ops, bind, flags);
+ 		if (ret) {
+ 			tcf_idr_cleanup(tn, index);
+-			goto out_free;
++			goto out_free_ex;
+ 		}
+ 		ret = ACT_P_CREATED;
+ 	} else if (err > 0) {
+@@ -200,7 +217,7 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
+ 		}
+ 	} else {
+ 		ret = err;
+-		goto out_free;
++		goto out_free_ex;
+ 	}
+ 
+ 	err = tcf_action_check_ctrlact(parm->action, tp, &goto_ch, extack);
+@@ -208,48 +225,50 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
+ 		ret = err;
  		goto out_release;
  	}
+-	p = to_pedit(*a);
+-	spin_lock_bh(&p->tcf_lock);
  
--	nparms->tcfp_off_max_hint = 0;
- 	nparms->tcfp_flags = parm->flags;
- 	nparms->tcfp_nkeys = parm->nkeys;
+-	if (ret == ACT_P_CREATED ||
+-	    (p->tcfp_nkeys && p->tcfp_nkeys != parm->nkeys)) {
+-		keys = kmalloc(ksize, GFP_ATOMIC);
+-		if (!keys) {
+-			spin_unlock_bh(&p->tcf_lock);
+-			ret = -ENOMEM;
+-			goto put_chain;
+-		}
+-		kfree(p->tcfp_keys);
+-		p->tcfp_keys = keys;
+-		p->tcfp_nkeys = parm->nkeys;
++	nparms->tcfp_off_max_hint = 0;
++	nparms->tcfp_flags = parm->flags;
++	nparms->tcfp_nkeys = parm->nkeys;
++
++	nparms->tcfp_keys = kmalloc(ksize, GFP_KERNEL);
++	if (!nparms->tcfp_keys) {
++		ret = -ENOMEM;
++		goto put_chain;
+ 	}
+-	memcpy(p->tcfp_keys, parm->keys, ksize);
+-	p->tcfp_off_max_hint = 0;
+-	for (i = 0; i < p->tcfp_nkeys; ++i) {
+-		u32 cur = p->tcfp_keys[i].off;
++
++	memcpy(nparms->tcfp_keys, parm->keys, ksize);
++
++	for (i = 0; i < nparms->tcfp_nkeys; ++i) {
++		u32 cur = nparms->tcfp_keys[i].off;
  
-@@ -254,14 +255,6 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
- 						   BITS_PER_TYPE(int) - 1,
- 						   nparms->tcfp_keys[i].shift);
+ 		/* sanitize the shift value for any later use */
+-		p->tcfp_keys[i].shift = min_t(size_t, BITS_PER_TYPE(int) - 1,
+-					      p->tcfp_keys[i].shift);
++		nparms->tcfp_keys[i].shift = min_t(size_t,
++						   BITS_PER_TYPE(int) - 1,
++						   nparms->tcfp_keys[i].shift);
  
--		/* The AT option can read a single byte, we can bound the actual
--		 * value with uchar max.
--		 */
--		cur += (0xff & offmask) >> nparms->tcfp_keys[i].shift;
--
--		/* Each key touches 4 bytes starting from the computed offset */
--		nparms->tcfp_off_max_hint =
--			max(nparms->tcfp_off_max_hint, cur + 4);
+ 		/* The AT option can read a single byte, we can bound the actual
+ 		 * value with uchar max.
+ 		 */
+-		cur += (0xff & p->tcfp_keys[i].offmask) >> p->tcfp_keys[i].shift;
++		cur += (0xff & nparms->tcfp_keys[i].offmask) >> nparms->tcfp_keys[i].shift;
+ 
+ 		/* Each key touches 4 bytes starting from the computed offset */
+-		p->tcfp_off_max_hint = max(p->tcfp_off_max_hint, cur + 4);
++		nparms->tcfp_off_max_hint =
++			max(nparms->tcfp_off_max_hint, cur + 4);
  	}
  
- 	p = to_pedit(*a);
-@@ -302,15 +295,12 @@ static void tcf_pedit_cleanup(struct tc_action *a)
- 		call_rcu(&parms->rcu, tcf_pedit_cleanup_rcu);
- }
+-	p->tcfp_flags = parm->flags;
++	p = to_pedit(*a);
++
++	spin_lock_bh(&p->tcf_lock);
+ 	goto_ch = tcf_action_set_ctrlact(*a, parm->action, goto_ch);
++	oparms = rcu_replace_pointer(p->parms, nparms, 1);
++	spin_unlock_bh(&p->tcf_lock);
  
--static bool offset_valid(struct sk_buff *skb, int offset)
-+static bool offset_valid(struct sk_buff *skb, int offset, int len)
- {
--	if (offset > 0 && offset > skb->len)
--		return false;
+-	kfree(p->tcfp_keys_ex);
+-	p->tcfp_keys_ex = keys_ex;
++	if (oparms)
++		call_rcu(&oparms->rcu, tcf_pedit_cleanup_rcu);
+ 
+-	spin_unlock_bh(&p->tcf_lock);
+ 	if (goto_ch)
+ 		tcf_chain_put_by_act(goto_ch);
++
+ 	return ret;
+ 
+ put_chain:
+@@ -257,19 +276,22 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
+ 		tcf_chain_put_by_act(goto_ch);
+ out_release:
+ 	tcf_idr_release(*a, bind);
++out_free_ex:
++	kfree(nparms->tcfp_keys_ex);
+ out_free:
+-	kfree(keys_ex);
++	kfree(nparms);
+ 	return ret;
 -
--	if  (offset < 0 && -offset > skb_headroom(skb))
-+	if (offset < -(int)skb_headroom(skb))
- 		return false;
- 
--	return true;
-+	return offset <= (int)skb->len - len;
  }
  
- static void pedit_skb_hdr_offset(struct sk_buff *skb,
-@@ -346,18 +336,10 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
- 	struct tcf_pedit_key_ex *tkey_ex;
- 	struct tcf_pedit_parms *parms;
- 	struct tc_pedit_key *tkey;
--	u32 max_offset;
+ static void tcf_pedit_cleanup(struct tc_action *a)
+ {
+ 	struct tcf_pedit *p = to_pedit(a);
+-	struct tc_pedit_key *keys = p->tcfp_keys;
++	struct tcf_pedit_parms *parms;
+ 
+-	kfree(keys);
+-	kfree(p->tcfp_keys_ex);
++	parms = rcu_dereference_protected(p->parms, 1);
++
++	if (parms)
++		call_rcu(&parms->rcu, tcf_pedit_cleanup_rcu);
+ }
+ 
+ static bool offset_valid(struct sk_buff *skb, int offset)
+@@ -320,28 +342,30 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
+ 			 struct tcf_result *res)
+ {
+ 	struct tcf_pedit *p = to_pedit(a);
++	struct tcf_pedit_parms *parms;
+ 	u32 max_offset;
  	int i;
  
- 	parms = rcu_dereference_bh(p->parms);
+-	spin_lock(&p->tcf_lock);
++	parms = rcu_dereference_bh(p->parms);
  
--	max_offset = (skb_transport_header_was_set(skb) ?
--		      skb_transport_offset(skb) :
--		      skb_network_offset(skb)) +
--		     parms->tcfp_off_max_hint;
--	if (skb_ensure_writable(skb, min(skb->len, max_offset)))
--		goto done;
--
+ 	max_offset = (skb_transport_header_was_set(skb) ?
+ 		      skb_transport_offset(skb) :
+ 		      skb_network_offset(skb)) +
+-		     p->tcfp_off_max_hint;
++		     parms->tcfp_off_max_hint;
+ 	if (skb_ensure_writable(skb, min(skb->len, max_offset)))
+-		goto unlock;
++		goto done;
+ 
  	tcf_lastuse_update(&p->tcf_tm);
- 	tcf_action_update_bstats(&p->common, skb);
++	tcf_action_update_bstats(&p->common, skb);
  
-@@ -365,10 +347,11 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
- 	tkey_ex = parms->tcfp_keys_ex;
+-	if (p->tcfp_nkeys > 0) {
+-		struct tc_pedit_key *tkey = p->tcfp_keys;
+-		struct tcf_pedit_key_ex *tkey_ex = p->tcfp_keys_ex;
++	if (parms->tcfp_nkeys > 0) {
++		struct tc_pedit_key *tkey = parms->tcfp_keys;
++		struct tcf_pedit_key_ex *tkey_ex = parms->tcfp_keys_ex;
+ 		enum pedit_header_type htype =
+ 			TCA_PEDIT_KEY_EX_HDR_TYPE_NETWORK;
+ 		enum pedit_cmd cmd = TCA_PEDIT_KEY_EX_CMD_SET;
  
- 	for (i = parms->tcfp_nkeys; i > 0; i--, tkey++) {
-+		int write_offset, write_len;
- 		int offset = tkey->off;
- 		int hoffset = 0;
--		u32 *ptr, hdata;
--		u32 val;
-+		u32 cur_val, val;
-+		u32 *ptr;
- 
- 		if (tkey_ex) {
- 			htype = tkey_ex->htype;
-@@ -381,13 +364,15 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
- 
- 		if (tkey->offmask) {
- 			u8 *d, _d;
-+			int at_offset;
- 
--			if (!offset_valid(skb, hoffset + tkey->at)) {
-+			if (check_add_overflow(hoffset, (int)tkey->at, &at_offset) ||
-+			    !offset_valid(skb, at_offset, sizeof(_d))) {
- 				pr_info_ratelimited("tc action pedit 'at' offset %d out of bounds\n",
- 						    hoffset + tkey->at);
- 				goto bad;
- 			}
--			d = skb_header_pointer(skb, hoffset + tkey->at,
-+			d = skb_header_pointer(skb, at_offset,
- 					       sizeof(_d), &_d);
- 			if (!d)
- 				goto bad;
-@@ -399,31 +384,51 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
- 			}
- 		}
- 
--		if (!offset_valid(skb, hoffset + offset)) {
--			pr_info_ratelimited("tc action pedit offset %d out of bounds\n", hoffset + offset);
-+		if (check_add_overflow(hoffset, offset, &write_offset)) {
-+			pr_info_ratelimited("tc action pedit offset overflow\n");
- 			goto bad;
- 		}
- 
--		ptr = skb_header_pointer(skb, hoffset + offset,
--					 sizeof(hdata), &hdata);
--		if (!ptr)
-+		if (!offset_valid(skb, write_offset, sizeof(*ptr))) {
-+			pr_info_ratelimited("tc action pedit offset %d out of bounds\n",
-+					    write_offset);
- 			goto bad;
-+		}
-+
-+		if (write_offset < 0) {
-+			if (skb_cow(skb, -write_offset))
-+				goto bad;
-+			if (write_offset + (int)sizeof(*ptr) > 0) {
-+				if (skb_ensure_writable(skb,
-+							min_t(int, skb->len,
-+							      write_offset + (int)sizeof(*ptr))))
-+					goto bad;
-+			}
-+		} else {
-+			if (check_add_overflow(write_offset, (int)sizeof(*ptr),
-+					       &write_len))
-+				goto bad;
-+			if (skb_ensure_writable(skb, min_t(int, skb->len,
-+							   write_len)))
-+				goto bad;
-+		}
-+
-+		ptr = (u32 *)(skb->data + write_offset);
-+		cur_val = get_unaligned(ptr);
- 		/* just do it, baby */
- 		switch (cmd) {
- 		case TCA_PEDIT_KEY_EX_CMD_SET:
- 			val = tkey->val;
- 			break;
- 		case TCA_PEDIT_KEY_EX_CMD_ADD:
--			val = (*ptr + tkey->val) & ~tkey->mask;
-+			val = (cur_val + tkey->val) & ~tkey->mask;
- 			break;
- 		default:
- 			pr_info_ratelimited("tc action pedit bad command (%d)\n", cmd);
- 			goto bad;
- 		}
- 
--		*ptr = ((*ptr & tkey->mask) ^ val);
--		if (ptr == &hdata)
--			skb_store_bits(skb, hoffset + offset, ptr, 4);
-+		put_unaligned((cur_val & tkey->mask) ^ val, ptr);
+-		for (i = p->tcfp_nkeys; i > 0; i--, tkey++) {
++		for (i = parms->tcfp_nkeys; i > 0; i--, tkey++) {
+ 			u32 *ptr, hdata;
+ 			int offset = tkey->off;
+ 			int hoffset;
+@@ -417,11 +441,10 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
  	}
  
- 	goto done;
+ bad:
++	spin_lock(&p->tcf_lock);
+ 	p->tcf_qstats.overlimits++;
+-done:
+-	bstats_update(&p->tcf_bstats, skb);
+-unlock:
+ 	spin_unlock(&p->tcf_lock);
++done:
+ 	return p->tcf_action;
+ }
+ 
+@@ -440,30 +463,33 @@ static int tcf_pedit_dump(struct sk_buff *skb, struct tc_action *a,
+ {
+ 	unsigned char *b = skb_tail_pointer(skb);
+ 	struct tcf_pedit *p = to_pedit(a);
++	struct tcf_pedit_parms *parms;
+ 	struct tc_pedit *opt;
+ 	struct tcf_t t;
+ 	int s;
+ 
+-	s = struct_size(opt, keys, p->tcfp_nkeys);
++	spin_lock_bh(&p->tcf_lock);
++	parms = rcu_dereference_protected(p->parms, 1);
++	s = struct_size(opt, keys, parms->tcfp_nkeys);
+ 
+-	/* netlink spinlocks held above us - must use ATOMIC */
+ 	opt = kzalloc(s, GFP_ATOMIC);
+-	if (unlikely(!opt))
++	if (unlikely(!opt)) {
++		spin_unlock_bh(&p->tcf_lock);
+ 		return -ENOBUFS;
++	}
+ 
+-	spin_lock_bh(&p->tcf_lock);
+-	memcpy(opt->keys, p->tcfp_keys, flex_array_size(opt, keys, p->tcfp_nkeys));
++	memcpy(opt->keys, parms->tcfp_keys,
++	       flex_array_size(opt, keys, parms->tcfp_nkeys));
+ 	opt->index = p->tcf_index;
+-	opt->nkeys = p->tcfp_nkeys;
+-	opt->flags = p->tcfp_flags;
++	opt->nkeys = parms->tcfp_nkeys;
++	opt->flags = parms->tcfp_flags;
+ 	opt->action = p->tcf_action;
+ 	opt->refcnt = refcount_read(&p->tcf_refcnt) - ref;
+ 	opt->bindcnt = atomic_read(&p->tcf_bindcnt) - bind;
+ 
+-	if (p->tcfp_keys_ex) {
+-		if (tcf_pedit_key_ex_dump(skb,
+-					  p->tcfp_keys_ex,
+-					  p->tcfp_nkeys))
++	if (parms->tcfp_keys_ex) {
++		if (tcf_pedit_key_ex_dump(skb, parms->tcfp_keys_ex,
++					  parms->tcfp_nkeys))
+ 			goto nla_put_failure;
+ 
+ 		if (nla_put(skb, TCA_PEDIT_PARMS_EX, s, opt))
 -- 
 2.30.2
 
