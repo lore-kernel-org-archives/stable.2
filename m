@@ -1,50 +1,50 @@
-Received: from mx0a-00206402.pphosted.com (mx0a-00206402.pphosted.com [148.163.148.77])
+Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891CF30E82C
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:39:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.148.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBA334CFC2
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.152.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781815165; cv=none; b=B3YO6i5oCAEBhkcQFfqa6b+EriilhV7iPz4aLP0MilSU7cRngKawIA1vj0RGgnHxlPSUduwvacLFGJs/d/tTLqB174E0Y65DsFe2EKqs2EGGHi21QVZrJUFV4QAE2tMTRtZCiRdcqf4d0KkDF1fwnQlLuZd3olewaiRMA5ywt/Q=
+	t=1781815167; cv=none; b=cBKPWzrez6184p3rRtsWBpr3Dsom/lW4s9aXnu56/z3d0LVabqBq6soad6n9LF0AzuXLFFFYcQGXd976eCyIe2BZS8TsJYqT608Zx81PhVgm+IteAvohl+IiPBL0IeVl0pxR5XjKc6DP4qk8OjHJ+y75gEUR2dJxM6ZjZFNglpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781815165; c=relaxed/simple;
-	bh=8jHi/OaIGmqbqXRJVaAp2h5gDMcWECSTRRKDY5DkFGY=;
+	s=arc-20240116; t=1781815167; c=relaxed/simple;
+	bh=9YRaZPg/RT0KJ/umPJEyKcWwN4z3l4MX9DpuDNQcp0Q=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ab9nfG+Ax/vDM4N6VsLH82Z36khc8Ceo09Q2eQ9DNc0sX1wMU+nQYqAAO8XaKNImWy05R51EmNbKjd43mwb6ui6CkoR+0Mx6493aMZ3GAH2H9bLAjZb7SL7Rx1SI41CsZHHArfgfv/uCgzRdLNjfh1DMN77P9puRelGWAcyLWuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=C7pbHzps; arc=none smtp.client-ip=148.163.148.77
+	 MIME-Version:Content-Type; b=bkWKAyEcPxMl0olaiekO3CATVmKjDNOpHElkELm/GwetYM1uJBqA63fwH9R1rPexsxJZzGLFx2mhXIXTMGPU2W6FAGD+1GaHlsppsYEerA8Xgf/+fD1BjGoCb2yr6tGmMDzdDDki2LPmoVsnguyqp2NT95NMuAv1ZY6VeISfJIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=iKWEQmYb; arc=none smtp.client-ip=148.163.152.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="C7pbHzps"
-Received: from pps.filterd (m0354650.ppops.net [127.0.0.1])
-	by mx0a-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IIsdVC3922608;
-	Thu, 18 Jun 2026 20:39:18 GMT
+	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="iKWEQmYb"
+Received: from pps.filterd (m0354655.ppops.net [127.0.0.1])
+	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IIss923951797;
+	Thu, 18 Jun 2026 20:39:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
 	 h=cc:content-transfer-encoding:content-type:date:from
 	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	default; bh=aq4utDUzSlvDBrPwUcy0/2DoVzzHFCdWMXWXlKshz7o=; b=C7pb
-	HzpsqbYKYrpcxXswwS+Ka/y3/QdW1XWVk7b0M0Ajzt4cdo8+MmKbhOspbzwLaX96
-	/kuKLM6P4F49mkgUhNujXmcCbzFj4NyjD/c+WLtjNJ1BKQnUyKObXSXkrckzbn86
-	N5blaw3MrhCtGOLIUbghn3U36A6OfUEixi0Gwjo3WgqvfOJauz3OMCgzDS7BI5Ws
-	jdPG45vOE6Hdh7YBG+m5BktOhxe3Uu/l7xdOFCTneSwLe2q96cSoByTd2biVryiC
-	Cogs4DchEU9vka3nvEQP+cQr5JjKMxivOLbNKlrxRFZciDVZj16kA5kXO0ydc3Xv
-	la1+iTC1B2FUMi4h0A==
+	default; bh=kHynh8esAMosiuI7pTOVvcVMH6dMo7xaRNPvfeVj9Qk=; b=iKWE
+	QmYbtD9pY1VZIBjEKWfP2GlKbtY3VWsCrNktqloJHs7Ju1jcT7vtGHAW109Dpb8P
+	0Jin/pv58pZiYP1oCq1/wgji4/Brd0Hb6ovGsIYhv2zQunBSutbj6S5mse91awX0
+	nF32sw3Mc1MMkaUZLhxV/uftUR5aiRcndJHz3oWKo8mzULMXrms0jft3uYETG2CV
+	m6j3ws/Z/WF0W6kgYidpm16pb84JLoH3ATD3Bf9Je1BvgicnwhPmLTT6hoDERLwy
+	tLzCBc3LcuHE4ubUCmnicuQ5hFTP55jibibORXG6UeVVmgSORi73KdktyI33YWI3
+	X81do4U2z7ZCj99FWw==
 Received: from mail.crowdstrike.com (dragosx.crowdstrike.com [208.42.231.60] (may be forged))
-	by mx0a-00206402.pphosted.com (PPS) with ESMTPS id 4ev4y0vfp0-1
+	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4evd10atyx-2
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 18 Jun 2026 20:39:17 +0000 (GMT)
+	Thu, 18 Jun 2026 20:39:19 +0000 (GMT)
 Received: from LL-DJCZ134.crowdstrike.sys (10.100.11.122) by
  04WPEXCH006.crowdstrike.sys (10.100.11.70) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 18 Jun 2026 20:39:16 +0000
+ 15.2.2562.43; Thu, 18 Jun 2026 20:39:18 +0000
 From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 To: <stable@vger.kernel.org>
 CC: <gregkh@linuxfoundation.org>, <sashal@kernel.org>, <rostedt@goodmis.org>,
         <vmalik@redhat.com>, <jmarchan@redhat.com>,
         <martin.kelly@crowdstrike.com>
-Subject: [PATCH 6.6.y 07/27] scripts/sorttable: Replace Elf_Shdr Macro with a union
-Date: Thu, 18 Jun 2026 16:38:45 -0400
-Message-ID: <52839599d3d153450ee462499e049f0fdaf867c2.1781814106.git.andrey.grodzovsky@crowdstrike.com>
+Subject: [PATCH 6.6.y 09/27] scripts/sorttable: Add helper functions for Elf_Ehdr
+Date: Thu, 18 Jun 2026 16:38:47 -0400
+Message-ID: <629ff1458625033b72bdb9e4e976c91da8b23f92.1781814113.git.andrey.grodzovsky@crowdstrike.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1781814083.git.andrey.grodzovsky@crowdstrike.com>
 References: <cover.1781814083.git.andrey.grodzovsky@crowdstrike.com>
@@ -58,50 +58,50 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: 04WPEXCH006.crowdstrike.sys (10.100.11.70) To
  04WPEXCH006.crowdstrike.sys (10.100.11.70)
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX8TLEQInMmXgJ
- skDu99eUS3HNTaiPV1X68vliLt3/CNbfwf09LIMDBy/sUkNPavNvrep9dk/rUHZcEvCU81tRtAi
- 5PJo+/+caKmCZufM6Z0eOtXLGZbQfKREWpoxop6CZ3xsgqgn1aL8lTw7kuuQ4K54w2zMwL9FgYH
- 88IVMy3HM6tQYmYkaoLXiGTw7nvaglh2XUTYBrspqTQsFDhIUGBc0dLhv9lhTzTmE8i9/joDa+y
- EKwQWQuj3dUR7YyER4pzfh49Eyld0EflY0SlDsnLlC9Y8OLiS91V1pqGfqUTkyHIBy0I8Kf3nvu
- Ckog2ops2CXXjaJmTPT4ES3yj8ZHFnjfqiqn3VWY+G9Ro0FlGQiPLpiTRVNkyUNEFin8ZLqt2f9
- Q9Zex+4wib+UCRBeo+nxHFzMdcJJQMOe6zmvfbCZu0hZTAP5AkohOvHwMT9FmENulSxHu7J/jf2
- V6wwv+LwCmYUHASYT9A==
-X-Proofpoint-ORIG-GUID: R8G4eGb7LpjGFDD63Bj2xqQwJ02XTvwx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX2kxluYZRnRlM
- NglFcP3cxfPTeXNxx1TSF0k6q5Pdt6p5+A8HG/BrGvt0+wW6YW0bKOfIY+Vrlwh8xgQA3OT9qhG
- kmo0sho6Yu+lzHKX/GVfODtkUuoMvUzpN/7cjSmAyZW6a012sWv+
-X-Authority-Analysis: v=2.4 cv=Ood/DS/t c=1 sm=1 tr=0 ts=6a345775 cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX4Wz19nC2jcGA
+ p/wwvfXS4VfAKyPdPgXomM2d511pyEeFvMi4uFW8HiMNbJ54FY5v5RMnRh9pVVTic4uCsLrvej+
+ 7tXe9DQmr8x7wLLqpY+9o7N9USqd3kROffK6zkCg6E75we22/2wnLKcf0nNFLjgkIlOa2QZ2NVm
+ iZoVY23DNj2WhlBj07BxkdvwnRw/jHTZEe42RsOqSsddH+rCkBzUsuze42lpa8XfD9AZRPPVM7h
+ LRamFE3Ri9t7dkU/QDtuo+fm1Ht1GA5cup99teTBwayB1bvAuxQ9EljCfz5ZurwPdWlMeqqlFH+
+ 2CcfQg/MFFE62ImCFgR5LYdLR5WTKC7YFf2LM7ko73Us53NRhoxQsIcD2LdKuXHBefFyA+skX0P
+ E1vuX8qiw+wZNuMvCm7/YNLQBvVIPEFycCSaF/GGx1ZxPkrUxwam15Av3b+sCMVrvLm9I5n28zc
+ cdPgUlUbPTpJw25yDGA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfXyWLS1/Xqo/CS
+ sVZ7WdcoRJ3QO4YAx94GqLrWIp86D4uxHVztJ4E9ut+1vHjbp1qyvVPUOMNkScFx/dH4+NjIryP
+ R/N4zm76KpKOOif9g5BOYpBNZPgWtdO3MldAApR+f5F1Ci0MYDx9
+X-Proofpoint-ORIG-GUID: TBRhRwD-XBmZrIXp0o4Qsl_SHxe6rjDe
+X-Proofpoint-GUID: TBRhRwD-XBmZrIXp0o4Qsl_SHxe6rjDe
+X-Authority-Analysis: v=2.4 cv=L7UtheT8 c=1 sm=1 tr=0 ts=6a345777 cx=c_pps
  a=1d8vc5iZWYKGYgMGCdbIRA==:117 a=1d8vc5iZWYKGYgMGCdbIRA==:17
  a=EjBHVkixTFsA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=T2KQ53IYiC3MXPrxx8bB:22 a=t04HzT_fAfAF5W-3wVZy:22 a=VwQbUJbxAAAA:8
+ a=T2KQ53IYiC3MXPrxx8bB:22 a=vDKVRhTs-M86Ea50iKLw:22 a=VwQbUJbxAAAA:8
  a=meVymXHHAAAA:8 a=7CQSdrXTAAAA:8 a=7d_E57ReAAAA:8 a=Z4Rwk6OoAAAA:8
  a=JfrnYn6hAAAA:8 a=cpyHj8QvAAAA:8 a=i0EeH86SAAAA:8 a=pl6vuDidAAAA:8
- a=1UX6Do5GAAAA:8 a=20KFwNOVAAAA:8 a=6vICrReggJXa14mXokMA:9
+ a=1UX6Do5GAAAA:8 a=20KFwNOVAAAA:8 a=9MykWdAsJqosYfMT8vUA:9
  a=2JgSa4NbpEOStq-L5dxp:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=jhqOcbufqs7Y1TYCrUUU:22
  a=HkZW87K1Qel5hWWM3VKY:22 a=1CNFftbPRP8L7MoqJWF3:22 a=BPjOrAZP5zzvMhA9psHf:22
  a=Et2XPkok5AAZYJIKzHr1:22
-X-Proofpoint-GUID: R8G4eGb7LpjGFDD63Bj2xqQwJ02XTvwx
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11821
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 impostorscore=0 suspectscore=0 clxscore=1015
- phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0 spamscore=0
+ impostorscore=0 phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180189
 
 From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit 545f6cf8f4c9a268e0bab2637f1d279679befdbf ]
+[ Upstream commit 1dfb59a228dde59ad7d99b2fa2104e90004995c7 ]
 
 In order to remove the double #include of sorttable.h for 64 and 32 bit
-to create duplicate functions for both, replace the Elf_Shdr macro with a
-union that defines both Elf64_Shdr and Elf32_Shdr, with field e64 for the
-64bit version, and e32 for the 32bit version.
+to create duplicate functions, add helper functions for Elf_Ehdr.  This
+will create a function pointer for each helper that will get assigned to
+the appropriate function to handle either the 64bit or 32bit version.
 
-It can then use the macro etype to get the proper value.
-
-This will eventually be replaced with just single functions that can
-handle both 32bit and 64bit ELF parsing.
+This also moves the _r()/r() wrappers for the Elf_Ehdr references that
+handle endian and size differences between the different architectures,
+into the helper function and out of the open code which is more error
+prone.
 
 Cc: bpf <bpf@vger.kernel.org>
 Cc: Masami Hiramatsu <mhiramat@kernel.org>
@@ -117,226 +117,108 @@ Cc: Zheng Yejian <zhengyejian1@huawei.com>
 Cc: Martin  Kelly <martin.kelly@crowdstrike.com>
 Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
 Cc: Josh Poimboeuf <jpoimboe@redhat.com>
-Link: https://lore.kernel.org/20250105162345.339462681@goodmis.org
+Link: https://lore.kernel.org/20250105162345.736369526@goodmis.org
 Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 ---
- scripts/sorttable.c | 10 ++++++
- scripts/sorttable.h | 74 +++++++++++++++++++++++++--------------------
- 2 files changed, 51 insertions(+), 33 deletions(-)
+ scripts/sorttable.c | 25 +++++++++++++++++++++++++
+ scripts/sorttable.h | 20 ++++++++++++++++----
+ 2 files changed, 41 insertions(+), 4 deletions(-)
 
 diff --git a/scripts/sorttable.c b/scripts/sorttable.c
-index 67cbbfc82..94497b8ab 100644
+index 57792cf2a..5dfa734ef 100644
 --- a/scripts/sorttable.c
 +++ b/scripts/sorttable.c
-@@ -69,6 +69,11 @@ typedef union {
- 	Elf64_Ehdr	e64;
- } Elf_Ehdr;
+@@ -85,6 +85,31 @@ static uint64_t (*r8)(const uint64_t *);
+ static void (*w)(uint32_t, uint32_t *);
+ typedef void (*table_sort_t)(char *, int);
  
-+typedef union {
-+	Elf32_Shdr	e32;
-+	Elf64_Shdr	e64;
-+} Elf_Shdr;
-+
- static uint32_t (*r)(const uint32_t *);
- static uint16_t (*r2)(const uint16_t *);
- static uint64_t (*r8)(const uint64_t *);
-@@ -198,6 +203,11 @@ static int compare_extable_64(const void *a, const void *b)
- 	return av > bv;
- }
- 
-+static inline void *get_index(void *start, int entsize, int index)
++static uint64_t ehdr64_shoff(Elf_Ehdr *ehdr)
 +{
-+	return start + (entsize * index);
++	return r8(&ehdr->e64.e_shoff);
 +}
 +
- /* 32 bit and 64 bit are very similar */
- #include "sorttable.h"
- #define SORTTABLE_64
++static uint64_t ehdr32_shoff(Elf_Ehdr *ehdr)
++{
++	return r(&ehdr->e32.e_shoff);
++}
++
++#define EHDR_HALF(fn_name)				\
++static uint16_t ehdr64_##fn_name(Elf_Ehdr *ehdr)	\
++{							\
++	return r2(&ehdr->e64.e_##fn_name);		\
++}							\
++							\
++static uint16_t ehdr32_##fn_name(Elf_Ehdr *ehdr)	\
++{							\
++	return r2(&ehdr->e32.e_##fn_name);		\
++}
++
++EHDR_HALF(shentsize)
++EHDR_HALF(shstrndx)
++EHDR_HALF(shnum)
++
+ /*
+  * Get the whole file as a programming convenience in order to avoid
+  * malloc+lseek+read+free of many pieces.  If successful, then mmap
 diff --git a/scripts/sorttable.h b/scripts/sorttable.h
-index be8b52949..3daf37bb6 100644
+index cd4429c8a..97278c973 100644
 --- a/scripts/sorttable.h
 +++ b/scripts/sorttable.h
-@@ -23,7 +23,6 @@
- #undef sort_mcount_loc
- #undef elf_mcount_loc
- #undef do_sort
--#undef Elf_Shdr
- #undef Elf_Sym
- #undef ELF_ST_TYPE
+@@ -27,6 +27,10 @@
  #undef uint_t
-@@ -37,7 +36,6 @@
- # define sort_mcount_loc	sort_mcount_loc_64
- # define elf_mcount_loc		elf_mcount_loc_64
- # define do_sort		do_sort_64
--# define Elf_Shdr		Elf64_Shdr
- # define Elf_Sym		Elf64_Sym
- # define ELF_ST_TYPE		ELF64_ST_TYPE
- # define uint_t			uint64_t
-@@ -50,7 +48,6 @@
- # define sort_mcount_loc	sort_mcount_loc_32
- # define elf_mcount_loc		elf_mcount_loc_32
- # define do_sort		do_sort_32
--# define Elf_Shdr		Elf32_Shdr
- # define Elf_Sym		Elf32_Sym
- # define ELF_ST_TYPE		ELF32_ST_TYPE
- # define uint_t			uint32_t
-@@ -171,8 +168,8 @@ struct elf_mcount_loc {
- static void *sort_mcount_loc(void *arg)
- {
- 	struct elf_mcount_loc *emloc = (struct elf_mcount_loc *)arg;
--	uint_t offset = emloc->start_mcount_loc - _r(&(emloc->init_data_sec)->sh_addr)
--					+ _r(&(emloc->init_data_sec)->sh_offset);
-+	uint_t offset = emloc->start_mcount_loc - _r(&(emloc->init_data_sec)->etype.sh_addr)
-+					+ _r(&(emloc->init_data_sec)->etype.sh_offset);
- 	uint_t count = emloc->stop_mcount_loc - emloc->start_mcount_loc;
- 	unsigned char *start_loc = (void *)emloc->ehdr + offset;
+ #undef _r
+ #undef etype
++#undef ehdr_shoff
++#undef ehdr_shentsize
++#undef ehdr_shstrndx
++#undef ehdr_shnum
  
-@@ -222,10 +219,11 @@ static int do_sort(Elf_Ehdr *ehdr,
- 		   table_sort_t custom_sort)
- {
- 	int rc = -1;
--	Elf_Shdr *s, *shdr = (Elf_Shdr *)((char *)ehdr + _r(&ehdr->etype.e_shoff));
-+	Elf_Shdr *shdr_start;
- 	Elf_Shdr *strtab_sec = NULL;
- 	Elf_Shdr *symtab_sec = NULL;
- 	Elf_Shdr *extab_sec = NULL;
-+	Elf_Shdr *string_sec;
- 	Elf_Sym *sym;
- 	const Elf_Sym *symtab;
- 	Elf32_Word *symtab_shndx = NULL;
-@@ -235,7 +233,10 @@ static int do_sort(Elf_Ehdr *ehdr,
- 	const char *secstrings;
- 	const char *strtab;
- 	char *extab_image;
-+	int sort_need_index;
-+	int shentsize;
- 	int idx;
-+	int i;
- 	unsigned int shnum;
- 	unsigned int shstrndx;
- #ifdef MCOUNT_SORT_ENABLED
-@@ -249,34 +250,40 @@ static int do_sort(Elf_Ehdr *ehdr,
+ #ifdef SORTTABLE_64
+ # define extable_ent_size	16
+@@ -39,6 +43,10 @@
+ # define uint_t			uint64_t
+ # define _r			r8
+ # define etype			e64
++# define ehdr_shoff		ehdr64_shoff
++# define ehdr_shentsize		ehdr64_shentsize
++# define ehdr_shstrndx		ehdr64_shstrndx
++# define ehdr_shnum		ehdr64_shnum
+ #else
+ # define extable_ent_size	8
+ # define compare_extable	compare_extable_32
+@@ -50,6 +58,10 @@
+ # define uint_t			uint32_t
+ # define _r			r
+ # define etype			e32
++# define ehdr_shoff		ehdr32_shoff
++# define ehdr_shentsize		ehdr32_shentsize
++# define ehdr_shstrndx		ehdr32_shstrndx
++# define ehdr_shnum		ehdr32_shnum
+ #endif
+ 
+ #if defined(SORTTABLE_64) && defined(UNWINDER_ORC_ENABLED)
+@@ -250,16 +262,16 @@ static int do_sort(Elf_Ehdr *ehdr,
  	unsigned int orc_num_entries = 0;
  #endif
  
-+	shdr_start = (Elf_Shdr *)((char *)ehdr + _r(&ehdr->etype.e_shoff));
-+	shentsize = r2(&ehdr->etype.e_shentsize);
-+
- 	shstrndx = r2(&ehdr->etype.e_shstrndx);
+-	shdr_start = (Elf_Shdr *)((char *)ehdr + _r(&ehdr->etype.e_shoff));
+-	shentsize = r2(&ehdr->etype.e_shentsize);
++	shdr_start = (Elf_Shdr *)((char *)ehdr + ehdr_shoff(ehdr));
++	shentsize = ehdr_shentsize(ehdr);
+ 
+-	shstrndx = r2(&ehdr->etype.e_shstrndx);
++	shstrndx = ehdr_shstrndx(ehdr);
  	if (shstrndx == SHN_XINDEX)
--		shstrndx = r(&shdr[0].sh_link);
--	secstrings = (const char *)ehdr + _r(&shdr[shstrndx].sh_offset);
-+		shstrndx = r(&shdr_start->etype.sh_link);
-+	string_sec = get_index(shdr_start, shentsize, shstrndx);
-+	secstrings = (const char *)ehdr + _r(&string_sec->etype.sh_offset);
+ 		shstrndx = r(&shdr_start->etype.sh_link);
+ 	string_sec = get_index(shdr_start, shentsize, shstrndx);
+ 	secstrings = (const char *)ehdr + _r(&string_sec->etype.sh_offset);
  
- 	shnum = r2(&ehdr->etype.e_shnum);
+-	shnum = r2(&ehdr->etype.e_shnum);
++	shnum = ehdr_shnum(ehdr);
  	if (shnum == SHN_UNDEF)
--		shnum = _r(&shdr[0].sh_size);
-+		shnum = _r(&shdr_start->etype.sh_size);
-+
-+	for (i = 0; i < shnum; i++) {
-+		Elf_Shdr *shdr = get_index(shdr_start, shentsize, i);
+ 		shnum = _r(&shdr_start->etype.sh_size);
  
--	for (s = shdr; s < shdr + shnum; s++) {
--		idx = r(&s->sh_name);
-+		idx = r(&shdr->etype.sh_name);
- 		if (!strcmp(secstrings + idx, "__ex_table"))
--			extab_sec = s;
-+			extab_sec = shdr;
- 		if (!strcmp(secstrings + idx, ".symtab"))
--			symtab_sec = s;
-+			symtab_sec = shdr;
- 		if (!strcmp(secstrings + idx, ".strtab"))
--			strtab_sec = s;
-+			strtab_sec = shdr;
- 
--		if (r(&s->sh_type) == SHT_SYMTAB_SHNDX)
-+		if (r(&shdr->etype.sh_type) == SHT_SYMTAB_SHNDX)
- 			symtab_shndx = (Elf32_Word *)((const char *)ehdr +
--						      _r(&s->sh_offset));
-+						      _r(&shdr->etype.sh_offset));
- 
- #ifdef MCOUNT_SORT_ENABLED
- 		/* locate the .init.data section in vmlinux */
- 		if (!strcmp(secstrings + idx, ".init.data")) {
- 			get_mcount_loc(&_start_mcount_loc, &_stop_mcount_loc);
- 			mstruct.ehdr = ehdr;
--			mstruct.init_data_sec = s;
-+			mstruct.init_data_sec = shdr;
- 			mstruct.start_mcount_loc = _start_mcount_loc;
- 			mstruct.stop_mcount_loc = _stop_mcount_loc;
- 		}
-@@ -285,14 +292,14 @@ static int do_sort(Elf_Ehdr *ehdr,
- #if defined(SORTTABLE_64) && defined(UNWINDER_ORC_ENABLED)
- 		/* locate the ORC unwind tables */
- 		if (!strcmp(secstrings + idx, ".orc_unwind_ip")) {
--			orc_ip_size = _r(&s->sh_size);
-+			orc_ip_size = _r(&shdr->etype.sh_size);
- 			g_orc_ip_table = (int *)((void *)ehdr +
--						   _r(&s->sh_offset));
-+						   _r(&shdr->etype.sh_offset));
- 		}
- 		if (!strcmp(secstrings + idx, ".orc_unwind")) {
--			orc_size = _r(&s->sh_size);
-+			orc_size = _r(&shdr->etype.sh_size);
- 			g_orc_table = (struct orc_entry *)((void *)ehdr +
--							     _r(&s->sh_offset));
-+							     _r(&shdr->etype.sh_offset));
- 		}
- #endif
- 	} /* for loop */
-@@ -355,22 +362,22 @@ static int do_sort(Elf_Ehdr *ehdr,
- 		goto out;
- 	}
- 
--	extab_image = (void *)ehdr + _r(&extab_sec->sh_offset);
--	strtab = (const char *)ehdr + _r(&strtab_sec->sh_offset);
-+	extab_image = (void *)ehdr + _r(&extab_sec->etype.sh_offset);
-+	strtab = (const char *)ehdr + _r(&strtab_sec->etype.sh_offset);
- 	symtab = (const Elf_Sym *)((const char *)ehdr +
--						  _r(&symtab_sec->sh_offset));
-+						  _r(&symtab_sec->etype.sh_offset));
- 
- 	if (custom_sort) {
--		custom_sort(extab_image, _r(&extab_sec->sh_size));
-+		custom_sort(extab_image, _r(&extab_sec->etype.sh_size));
- 	} else {
--		int num_entries = _r(&extab_sec->sh_size) / extable_ent_size;
-+		int num_entries = _r(&extab_sec->etype.sh_size) / extable_ent_size;
- 		qsort(extab_image, num_entries,
- 		      extable_ent_size, compare_extable);
- 	}
- 
- 	/* find the flag main_extable_sort_needed */
--	for (sym = (void *)ehdr + _r(&symtab_sec->sh_offset);
--	     sym < sym + _r(&symtab_sec->sh_size) / sizeof(Elf_Sym);
-+	for (sym = (void *)ehdr + _r(&symtab_sec->etype.sh_offset);
-+	     sym < sym + _r(&symtab_sec->etype.sh_size) / sizeof(Elf_Sym);
- 	     sym++) {
- 		if (ELF_ST_TYPE(sym->st_info) != STT_OBJECT)
- 			continue;
-@@ -388,13 +395,14 @@ static int do_sort(Elf_Ehdr *ehdr,
- 		goto out;
- 	}
- 
--	sort_needed_sec = &shdr[get_secindex(r2(&sym->st_shndx),
--					     sort_needed_sym - symtab,
--					     symtab_shndx)];
-+	sort_need_index = get_secindex(r2(&sym->st_shndx),
-+				       sort_needed_sym - symtab,
-+				       symtab_shndx);
-+	sort_needed_sec = get_index(shdr_start, shentsize, sort_need_index);
- 	sort_needed_loc = (void *)ehdr +
--		_r(&sort_needed_sec->sh_offset) +
-+		_r(&sort_needed_sec->etype.sh_offset) +
- 		_r(&sort_needed_sym->st_value) -
--		_r(&sort_needed_sec->sh_addr);
-+		_r(&sort_needed_sec->etype.sh_addr);
- 
- 	/* extable has been sorted, clear the flag */
- 	w(0, sort_needed_loc);
 -- 
 2.34.1
 
