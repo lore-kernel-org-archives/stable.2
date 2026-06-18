@@ -1,159 +1,172 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1FE33ADB9
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 03:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781752432; cv=none; b=MEjpk25E+wa+HGmh1E1gOkDXfnjz0pwhr4MasQxymUhPA9JRFFZy2MMd0w2DyUszXMr7n9kHaEDLHBVRChj9+Th/IOd/q20qBq1tlCnBGa9UPBTTe3SjW/4T969t6xNC74TGtjdfUF2Q+Yg96WoO78QbZ/mHwTjQEE/qqFMFR/Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781752432; c=relaxed/simple;
-	bh=JwBOcBdWdp4MtjK9v/FpDU0GijvfRmuQHNiAVXIB3k0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hzXfgkTQUDq5aHzfPrVG0CXkJoFnm9qymsXeG4Q7MC9+gB6mRM0hNy8z9+KQBpapnJCHpoDl88FgB8xKhwbF2Pb+POp2Au+FUJEikzITf+S55KxZ10NL2NH11/98oqeM+41eNg0oaHLMrDJqu781I6f4dCjX5fl/yaEERgfWjE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=catQTvd9; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D840435E1D9
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 03:39:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781753947; cv=pass; b=hPsHenwHCOKX79DJ/0KWyn+L1UIBOJ0aMKHI6bd+e743omWx0rFaZZoMOtIQEgWeCtTRfONFY6xtlJWJP3aIJsGBs7Ioz1KJ9JLqqDPbZteJeU9MM1ES6x1wdFg3W1nPcL0hH19NB/ZsDNMl25ayX0DMTCO7ECqlOFRUq3jQvnE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781753947; c=relaxed/simple;
+	bh=tECTmax46r8pOZwIj9tnn9W17stC2dPd293+J8mrZn8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PLQyLwyP07T//BHp8xoSEu7EgHbWgUxJHo8rsfDelzoXpY2alZiiCTlQA8CkL+xtKVg9MAH+JmrUVNakK33QgbCqiDUx5WNxMNxR8MzaB3b+ch6CY66uD1jcNX9ZijFik7N/9VfQTcqIRsXiMuB418XkfSH52oBVoCaA7kJNmZg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lGRy8jaW; arc=pass smtp.client-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="catQTvd9"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84540eb70b2so73519b3a.2
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 20:13:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lGRy8jaW"
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5aa5e0d57e5so364620e87.1
+        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 20:39:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781753944; cv=none;
+        d=google.com; s=arc-20240605;
+        b=E1fH5qvWSysbP31sT/oQiYfkio7KI79Q3d39UAXAuRdhN9buODZeHBwqe+wRVUmrdY
+         w6ee+JWwV5lrkE019G8IoPMUunfdDsMXZF2Kvx4TwVjltO+34oalQCfRvZqta4CKpwzf
+         3rPCCAPkiJZ2NevCkHxLJeVDs7kMfEmPOPdkx+TF/qAyFihgENrROmcOrLXrGrdaev25
+         p/zNFpuiBGes0XN1NydORkrzd+4PEi8Q5Hcx72eOWgp1sLc0ZRgQGVwmFsoERNmLovQ7
+         94C/lAohTJkP9+dAZegGBLl6JdC4IgW0HOthbY7J6oKYeUIqFfyIRE1dBpmme+uiI4T8
+         Czkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/4mOw+yDAuFvZjmWaPS16AJUikWnWazx6iUEAOgniKk=;
+        fh=Q9UgxcntFDWuTom4ud5zWUuW77zm5qPLjkTweIkF7OQ=;
+        b=HNpvebzox1W9DM3rFZbZJ6SyCqCaQ/7M3ogVBsrEleHU8IrVlOlFHS/bMdVOLBGKxp
+         MqQGAbMJuR5gkl50+XVx9yX7c/WuWHcsAmZo7awy2Uf0xfbaBbKLraJFhEirrczb7cWk
+         1oq7hG7p4vrUheu42TsRJTcojROrcX52LhcP61cIdWTmZN8XaqwOt5eOsbYS5Oed50e3
+         YpboFDTLx7fe8wTWBZbG3i4tVohIWlY68gi84ChaQ0VzHZWpqSDQk2jUhjK8zqhLVqyP
+         QZCyMloZrneBQfLC4Rhs1hsfrCESDHV0MysZGkMwiMTGrBIkO5zrRT3+IDlWSTTGLARM
+         w//g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1781752431; x=1782357231; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781753944; x=1782358744; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WUiLNGPqh5xoaR1mbDbB7mwDPFmDNybYuGD8IeVqIGM=;
-        b=catQTvd926o6KecgwBNrEESVAEunx71GvHEVHs3hPK5oga38+ljzwGk7mDbJHHOF6q
-         qGCbLIVjw8yh6FY9iqQxYjD4ukKf5RzgIZn/38E+QksYsc6c/xyL4RESG/VoVEW5Glu1
-         WJQEfBDl4Lo85Um2BGxcCE0edAHZacWzUJK4E=
+        bh=/4mOw+yDAuFvZjmWaPS16AJUikWnWazx6iUEAOgniKk=;
+        b=lGRy8jaW+KtDsyWZviyNy9sHQVDPvEGOuEBUhwLrMehLAql1XW+37uD8/RYutcMDQ6
+         sOgeJ4SWalfulOPrajKx4U5za9MOQWrhhwgzUwgprmH5oFTA8pAstRqd4hApOQwhL7s1
+         wyCQse/U+AypSW3tP4FH7/zRffMYMknRIiOnd6urnFpS6g8HkGaWCcsCBGAla6dyYQot
+         a3aXnxAM4Xl6pxcsm3wJwqJZiNrpvgsubJzpNPYF10Q1jkVOs23NifKjngC5sMIxEHVp
+         aJAAyZZWYtoaDaBCGEwBJm/G6Ql0ponOE2VjcUjCHWK87iIlx+tgfKgtLd9MVsGJ550q
+         BSuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781752431; x=1782357231;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20251104; t=1781753944; x=1782358744;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=WUiLNGPqh5xoaR1mbDbB7mwDPFmDNybYuGD8IeVqIGM=;
-        b=BiZV1v1KNwN5geumXkWC1Hlic8gKGTZPiCEraadLqfK4omK/IoH8FJm85cBga+6D6d
-         mEVTLpPRurVjBpr5vuiJSnlczNfjtFnz9Mr3D6TsYSArO4CqOP2zZ0cOu07HOdxBXMwd
-         pAxi0T4SRfb59R4N2bCLKXvX5ArQ6AQBQ/S32Mwcf8PMG3oekvob0qxYj7WAafWb1TCE
-         qc03c5ACEqGKuexigCziaf5Gfx/YOGeFO8MUd2HPnHYh2qIFTrhfirHrcieP9cEWfj0g
-         gg9+PKb5XITfdGfpb1eKm0a3yWPEbufQoutnB2u+9cC977XASx9d6dDjsQ4PORMgDXbi
-         CnjA==
-X-Forwarded-Encrypted: i=1; AFNElJ8yY6R2NTRdrxnVvEle5JTEjZQBIVD4F6rbSMxgUNMgyp5mnp4tulsZ733F7m2r/kp3/305M5M=@vger.kernel.org
-X-Gm-Message-State: AOJu0YweK2z52cOb30ulOQgBFH/gc9aGE+Wq8jmpv6bTVbW40lZTQTKg
-	50EhSH5bun5e9omN3eN0+PI5hTsGtCf99CXzh1mT9sbvmi9tImkLZjc5JJi5B3odRg==
-X-Gm-Gg: AfdE7cmgj5nKsZoBL5JzdbVGQ0bsKRiA5ohL/T5+PplQ6mS5hN9F2NfyNm+7v6AlbIH
-	MA0E54kR+RcN7oeAYxPUzGQ14jmVU2/CdgLqhsRNR6BvWN5Umm29NzRY8DDrq1cAQzJ66hc9RrX
-	PfXHdUJkW8e/+ll68eKcoO48uZRBKFTuKBTv/DnfISDH6MSYZvjOXcegoZpflBievv6YZ2IzefG
-	jfAqSEzg3jzTIdweLVSt66kQ9LWdVuzOFSXlybz0GQPiU/YvJPup02B3jpZ8FhvqNXf9Lbual6m
-	upGm4/chp9HTIJH7m7kBG7ehTgVWJR8MCAN4ZglivTvM3xY6CMZc1kaQVzE0ohShyvYXAWKV//T
-	dj6RnFT8vWsHjMe1kLRbsbAynZpx/ng8EmUPeFO5tdiWSKD96ti7p61j27BQH+BTP7bo2BfNuvF
-	sY+s0Wa2V5OwhGG6Qn11EHlz0/9jxUro/OujExqPBxTBANUvixkkl/1ticLVKir5PZfrqqM02fO
-	HM=
-X-Received: by 2002:a05:6a00:10cf:b0:842:708f:39be with SMTP id d2e1a72fcca58-84541991b98mr590884b3a.5.1781752431077;
-        Wed, 17 Jun 2026 20:13:51 -0700 (PDT)
-Received: from tigerii.tok.corp.google.com ([2a00:79e0:2031:6:20ef:efdb:f2c9:836f])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434b046911sm17548232b3a.53.2026.06.17.20.13.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 20:13:50 -0700 (PDT)
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Sean Wang <sean.wang@mediatek.com>
-Cc: Tomasz Figa <tfiga@chromium.org>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 2/2] Bluetooth: btmtksdio: call cancel_work_sync() out of host lock scope
-Date: Thu, 18 Jun 2026 12:13:22 +0900
-Message-ID: <20260618031338.1011410-3-senozhatsky@chromium.org>
-X-Mailer: git-send-email 2.54.0.1189.g8c84645362-goog
-In-Reply-To: <20260618031338.1011410-1-senozhatsky@chromium.org>
-References: <20260618031338.1011410-1-senozhatsky@chromium.org>
+        bh=/4mOw+yDAuFvZjmWaPS16AJUikWnWazx6iUEAOgniKk=;
+        b=jTx+1lOebJRsfgLYXfgnPN9Y1RnCnpVlodLzrnjeMIfJ7bu8exV3pQjx4tsTB8orYB
+         lxr+lv3/rbhVUNsPw9+JDYNOzCQqETKb3SCCw8GLuj+LHGxjpzvLQXiIP9iMqUDUwuGl
+         ihYFc2e9BQ4Pu7hGJtPww7Mxniao8+PhQ5V0CnCSQyT+V7ce9sKeQlFu6HIF1m6hQt9f
+         8qfSKBcNF21V0JW/T8ZAXRegwyvragl1RpJ4DVOjHk6Ps0PuMFqTfqTzy0VEQukkN88j
+         b3CGTbMlNaDMYs0Dl+ZB94tSIlJNj7tSLAFIyUyIDRITuN+9vDf9yuvtQSR/ougf0mXJ
+         g71A==
+X-Forwarded-Encrypted: i=1; AFNElJ+uNb/mP0J65STsSrhMsl3tS7rMeV7/i6LvzunbGGipw6I1t9+4MYxjF1RZBiZV6nd96fyvhWM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJwOoHq2Uddsdf2ik6fA75G5DqiXi9HTJgOmcw6dkGsCHRxQ+Z
+	q+oW7whhUwmFFqSSWRC24AtMBPpBww2TNzgzTl0ZRdzIn5Ra/hfNKjU52vXWBF6dzIGQi8XIOWZ
+	PezYzeXUYL1L8SxsqtAiTaRo1nyXIy4lwlSLA545izQ==
+X-Gm-Gg: AfdE7cmV4gWMXiusPKkEKRmpHKd6A0Ny2ut8NttVWlEGZFkeFownsPu8G6Rae6rREiN
+	pnwB7GPs/m6o9GYNbmpLu9z/9S9jsSYKzO2JEifewZaKf6Cb17iknuU1jDBQrJ/Rk/6PdhVuk7v
+	NkYTYWm3SdXLEDGlaUwA6B2ZM3D/RJyG/6TQLzV5EYSFF1yoPd7hvT2LZLIMhX0aFlDPWXkgDPP
+	VVgy7LbaSau1QQVhr0dhsUooX6udvcOUuuZhPcY/7C5CaeGLtG9pPC/SuJwMLS8ZE/50mcuLg==
+X-Received: by 2002:ac2:51ca:0:b0:5aa:719c:a21c with SMTP id
+ 2adb3069b0e04-5ad47db1520mr1680794e87.20.1781753943777; Wed, 17 Jun 2026
+ 20:39:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260616135637.1439319-1-qiwenjie@xiaomi.com> <ajLi3nLqyS31Y6J4@google.com>
+In-Reply-To: <ajLi3nLqyS31Y6J4@google.com>
+From: Wenjie Qi <qwjhust@gmail.com>
+Date: Thu, 18 Jun 2026 11:38:52 +0800
+X-Gm-Features: AVVi8CcgdoCv5inzD3awJAiF2PsHp7vdlxGgu4pq57dsMZoNd6hxUCzgTuyajF0
+Message-ID: <CAGFpFsRfSsBjuhGmXC8_NohcPFEAZncWKFnmbazo5EhrNqCM-A@mail.gmail.com>
+Subject: Re: [f2fs-dev] [PATCH v5] f2fs: use post-decrement count for cp_wait wakeup
+To: Jaegeuk Kim <jaegeuk@kernel.org>
+Cc: chao@kernel.org, geoo115@gmail.com, yangyongpeng@xiaomi.com, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net, qiwenjie@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-cancel_work_sync() should be called outside of host lock scope
-in order to avoid circular locking scenario:
+  The race is between dec_page_count() and the later get_pages() check:
+  another CP-data writeback can be submitted after the counter reaches zero
+  but before get_pages() observes it, so the zero transition may miss the
+  cp_wait wakeup.
 
-CPU0                            CPU1
-                                close()/reset()
-                                  sdio_claim_host()
-txrx_work
-  sdio_claim_host() // sleeps
-                                  cancel_work_sync() // sleeps
+  v6 also adds dec_page_count_return() and uses it instead of accessing
+  nr_pages directly.  The wakeup logic is unchanged from v5.
 
-In addition, when txrx_work() runs concurrently with close()/reset()
-it better not to re-enable interrupts by testing for BTMTKSDIO_FUNC_ENABLED
-and not BTMTKSDIO_HW_RESET_ACTIVE before C_INT_EN_SET write.  However,
-btmtksdio_close() clears the BTMTKSDIO_FUNC_ENABLED too late (after
-cancel_work_sync() call).  Move BTMTKSDIO_FUNC_ENABLED bit-clear earlier
-so that txrx_work can see concurrent close().
+https://lore.kernel.org/linux-f2fs-devel/20260618031008.2447279-1-qiwenjie@=
+xiaomi.com/T/#u
 
-Fixes: 26270bc189ea4 ("Bluetooth: btmtksdio: move interrupt service to work")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
----
- drivers/bluetooth/btmtksdio.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/bluetooth/btmtksdio.c b/drivers/bluetooth/btmtksdio.c
-index d8c8d2857527..207d04cc2282 100644
---- a/drivers/bluetooth/btmtksdio.c
-+++ b/drivers/bluetooth/btmtksdio.c
-@@ -625,7 +625,9 @@ static void btmtksdio_txrx_work(struct work_struct *work)
- 	} while (int_status && time_is_after_jiffies(txrx_timeout));
- 
- 	/* Enable interrupt */
--	if (bdev->func->irq_handler)
-+	if (bdev->func->irq_handler &&
-+	    test_bit(BTMTKSDIO_FUNC_ENABLED, &bdev->tx_state) &&
-+	    !test_bit(BTMTKSDIO_HW_RESET_ACTIVE, &bdev->tx_state))
- 		sdio_writel(bdev->func, C_INT_EN_SET, MTK_REG_CHLPCR, NULL);
- 
- 	sdio_release_host(bdev->func);
-@@ -741,6 +743,8 @@ static int btmtksdio_close(struct hci_dev *hdev)
- 	if (!test_bit(BTMTKSDIO_FUNC_ENABLED, &bdev->tx_state))
- 		return 0;
- 
-+	clear_bit(BTMTKSDIO_FUNC_ENABLED, &bdev->tx_state);
-+
- 	sdio_claim_host(bdev->func);
- 
- 	/* Disable interrupt */
-@@ -748,11 +752,12 @@ static int btmtksdio_close(struct hci_dev *hdev)
- 
- 	sdio_release_irq(bdev->func);
- 
-+	sdio_release_host(bdev->func);
- 	cancel_work_sync(&bdev->txrx_work);
-+	sdio_claim_host(bdev->func);
- 
- 	btmtksdio_fw_pmctrl(bdev);
- 
--	clear_bit(BTMTKSDIO_FUNC_ENABLED, &bdev->tx_state);
- 	sdio_disable_func(bdev->func);
- 
- 	sdio_release_host(bdev->func);
-@@ -1295,7 +1300,10 @@ static void btmtksdio_reset(struct hci_dev *hdev)
- 
- 	sdio_writel(bdev->func, C_INT_EN_CLR, MTK_REG_CHLPCR, NULL);
- 	skb_queue_purge(&bdev->txq);
-+
-+	sdio_release_host(bdev->func);
- 	cancel_work_sync(&bdev->txrx_work);
-+	sdio_claim_host(bdev->func);
- 
- 	gpiod_set_value_cansleep(bdev->reset, 1);
- 	msleep(100);
--- 
-2.54.0.1189.g8c84645362-goog
-
+On Thu, Jun 18, 2026 at 2:09=E2=80=AFAM Jaegeuk Kim <jaegeuk@kernel.org> wr=
+ote:
+>
+> On 06/16, Wenjie Qi wrote:
+> > f2fs_write_end_io() decrements the writeback page counter and then
+> > reads it again with get_pages() to decide whether the last
+> > F2FS_WB_CP_DATA completion should wake cp_wait.
+> >
+> > Use atomic_dec_return() for F2FS_WB_CP_DATA completions so the wakeup
+> > decision is made from the value produced by the decrement itself. Keep
+> > the existing dec_page_count() path for other writeback counters.
+>
+> Is there a race condition to do this? If so, can you describe? And, I thi=
+nk
+> we need a wrapper function instead of calling nr_pages directly.
+>
+> >
+> > Fixes: e234088758fc ("f2fs: avoid wait if IO end up when do_checkpoint =
+for better performance")
+> > Fixes: ce2739e482bc ("f2fs: fix to avoid UAF in f2fs_write_end_io()")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> > ---
+> >  fs/f2fs/data.c | 12 +++++++-----
+> >  1 file changed, 7 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> > index d83a21998ec2..58d23eb74ec2 100644
+> > --- a/fs/f2fs/data.c
+> > +++ b/fs/f2fs/data.c
+> > @@ -392,15 +392,17 @@ static void f2fs_write_end_io(struct bio *bio)
+> >               if (f2fs_in_warm_node_list(folio))
+> >                       f2fs_del_fsync_node_entry(sbi, folio);
+> >
+> > -             dec_page_count(sbi, type);
+> > -
+> >               /*
+> >                * we should access sbi before folio_end_writeback() to
+> >                * avoid racing w/ kill_f2fs_super()
+> >                */
+> > -             if (type =3D=3D F2FS_WB_CP_DATA && !get_pages(sbi, type) =
+&&
+> > -                             wq_has_sleeper(&sbi->cp_wait))
+> > -                     wake_up(&sbi->cp_wait);
+> > +             if (type =3D=3D F2FS_WB_CP_DATA) {
+> > +                     if (!atomic_dec_return(&sbi->nr_pages[type]) &&
+> > +                         wq_has_sleeper(&sbi->cp_wait))
+> > +                             wake_up(&sbi->cp_wait);
+> > +             } else {
+> > +                     dec_page_count(sbi, type);
+> > +             }
+> >
+> >               folio_clear_f2fs_gcing(folio);
+> >               folio_end_writeback(folio);
+> >
+> > base-commit: c0b65f6129c7fbb526e921dd60261650f1b2bef9
+> > --
+> > 2.43.0
+> >
+> >
+> >
+> > _______________________________________________
+> > Linux-f2fs-devel mailing list
+> > Linux-f2fs-devel@lists.sourceforge.net
+> > https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
