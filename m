@@ -1,84 +1,198 @@
-Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013018.outbound.protection.outlook.com [40.107.201.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1651AA1D2
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 12:43:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781786621; cv=none; b=RDwkKzdGgkR+Yfv/bZp4u4CfgYvbEDZokvSW7vL7ynvjDvgN6acVfBpAGVfx0TDinNVkdJhhKdodVIaZUFFKjK3QPYK0wwv7I09Hxkalpo11+AuPrb8BlE3bVZqMISgZtVEvWEHApT2LD6M5EeuGoeUzeWEpMyOLSZHbUuGduMo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781786621; c=relaxed/simple;
-	bh=0xOGb09rTuf9GPV/jBFAQS4RgTq69F7ydy3K5ixrwlU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cB9j7BZK04lN0I11l5bSUzGz7z8/FEfWnS9dtxpFuDkEE8bD7s7pyRvJtFxP6RlWpi5u256F/2OlssLTql4dSsfh4Qsk5CdElWQjWQv6scVOFbFfg643JNIEacq/j1CYKQhdwaOcPJNIyVslPYOT581t4/Bn6sSAeYpUsdVPq34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=b1n.io; spf=pass smtp.mailfrom=b1n.io; dkim=pass (2048-bit key) header.d=b1n.io header.i=@b1n.io header.b=RbabBeY2; arc=none smtp.client-ip=91.218.175.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=b1n.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=b1n.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949C538D017
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 12:48:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781786928; cv=fail; b=CfpY3sV0eGQcYApPQVsF1CoBehhV/B/3gOXLrCpITpXwfZgjM+SmCC69c5++/8Rzg6kacpnTfITxXR6yE+x6RtEHdskyjfZ539zkzyLMxGGD0C6PB4ag4XXLpnMfh4CTdfTrR+KLdeYD8/yDTMvlgkWxJR6xuxtZSB1dV80bk/A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781786928; c=relaxed/simple;
+	bh=qcKoQmhQEr3g/P/8KJ8XFho/w2quRdRUnziaTEnnYCQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TX0NVcd2FxnkuvMCToq+muwyAJaKZEOxGW0mj8wIg/+JPOnX4aly90nynlhP3uJbyB8p9wPox3QNTnt4GpAcNy3ELvEkaK1R0lT6uKFXpWUIr747M2V546IzEanNUSVnPfFK3STWdQgmrhNH5go73ThsBpczWZ6UTK/oIhttIb8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=KMoJLLIH; arc=fail smtp.client-ip=40.107.201.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=b1n.io header.i=@b1n.io header.b="RbabBeY2"
-Date: Thu, 18 Jun 2026 12:43:17 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=b1n.io; s=key1;
-	t=1781786607;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0xOGb09rTuf9GPV/jBFAQS4RgTq69F7ydy3K5ixrwlU=;
-	b=RbabBeY29BJbtGj5OwkpJedKIOYaDFFaGYzGpQK0f2k03ZQGocbG215y8oplEfd5lZQJBM
-	k8AYSdY1Bq8vAEx73lFgO+Fv397I0mtRS9VPlpjqAUYskIrz+bC3cb/AyLhtVHcZx8eKtv
-	hIvyLqI7uX//fNdlzmWNLy6PE0RAsMugzAHkPE1cql6ycNgU6nMhkC2lccODAYRjfgnw50
-	E4g+jICYXFws2Bw7ZFy2ho42d2PAfcKKZBgsYr9fwNofdAaGI8CaMgZqC9LA8+HJ31bG1d
-	dhdwMnQSvQH9iq0JEaPS3q0JiqQjDy2mwgE3YvJRmfyT0ke9U2539qVAC0WENA==
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Xingquan Liu <b1n@b1n.io>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	Victor Nogueira <victor@mojatatu.com>, stable@vger.kernel.org, 
-	"Chia-Yu Chang (Nokia)" <chia-yu.chang@nokia-bell-labs.com>
-Subject: Re: [PATCH] net/sched: dualpi2: fix GSO backlog accounting
-Message-ID: <ajPndLsHz1-d76qj@fedora>
-References: <20260616220303.31552-1-b1n@b1n.io>
- <CAM0EoM=o+kBQNND8ViMe8bZQmFAtATav+CFMmtp1udzu+tpTzA@mail.gmail.com>
- <CAM0EoMmXrZ5pUAkuVScgQjPFm3-dSC03mygDm3sAaFO=TQgvDw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="KMoJLLIH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rPUiWcYx26172xUxC3HJHA8ZkAQRQFPoDd5E9wzKUDrPAYihzQYplra6xbs3/kTxvY77GsgW75L4lrEgOyB9vAmn/Ml3Cpwmstlf1VD5JvKfSf547jKQyAANig8qw9GpZZH4aa8G6sKhI2vy3LII4LyHjKHGE3ari6RzynqIFIZu/KTw8xCM8mKQAOhw8K2D2idBHghFLn/YMa6v+gFdyk4OyZ32uu04lw+AGCk9V6+o5wFE96NR5WyskieB8vyCwpj+Ft4Z1Uy5w8AsS4/B11AlBaw3MZUeHNbsA+tqzzpDm8jwjYLTHW//RgwxuFooXF2z0BMAcnW6k5Xs3bSxUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=htx3joIIIkWmWt1xbrlHuV5szXDaHPexdKwo2ESHm/4=;
+ b=cTUm7LjFH3LycydHUoBH0Erkq6WUJFjpwI/SXRb5wwp/NrK8WL/pm2jcKzijGOEQtNjZtX6AT74k2zh8VUjFxU+er/KBgSlxg4zDtoHISTQzol7B+Jhrs/DbIKQXXbHZ09D7RKc3jlAkR6sm66azXhQi26SDGywf5g7TfJAa7PRBNIgNFoT0ni4vEgSVjNGrR0fvr9oPHdjxpdsIC0je3BBluKs1o3uk4TvgnQFq6YhpN/zYJbFZz/g6oCKsCJJxrVgpzrzJhCZRi3C8j9wlJRC5H2sVDxwYnXjKVVE1XshDd4m6QZSLU9mR2Mr64N/88ds6TbgZmLXmlIlo+QwdSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=htx3joIIIkWmWt1xbrlHuV5szXDaHPexdKwo2ESHm/4=;
+ b=KMoJLLIHEQGs1wZ/VGS/cB0EI/6IDNM9nPTVYEHp2vUd49IOTEQbnUGUgakF4y37K2BXpHAsrBsda/gOLw6x4o3t7E1l+ATRzbmwjbAAv5lglaJ41h/LQDb4HqgMSm1+D0UUINJap1JjOrPSyvDJEePKGCJd+trfiztc7MVcXd4=
+Received: from DS1PR05CA0006.namprd05.prod.outlook.com (2603:10b6:8:457::15)
+ by MN0PR12MB6343.namprd12.prod.outlook.com (2603:10b6:208:3c0::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.19; Thu, 18 Jun
+ 2026 12:48:42 +0000
+Received: from DS1PEPF00017091.namprd03.prod.outlook.com
+ (2603:10b6:8:457:cafe::2) by DS1PR05CA0006.outlook.office365.com
+ (2603:10b6:8:457::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.13 via Frontend Transport; Thu,
+ 18 Jun 2026 12:48:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF00017091.mail.protection.outlook.com (10.167.17.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Thu, 18 Jun 2026 12:48:42 +0000
+Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 18 Jun
+ 2026 07:48:39 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
+	<dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+	<intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
+	<Arunpravin.PaneerSelvam@amd.com>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
+	<timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH] gpu/buddy: bail out of try_harder when alignment cannot be honoured
+Date: Thu, 18 Jun 2026 18:17:55 +0530
+Message-ID: <20260618124755.2751205-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eb6zudvooesa7q7h"
-Content-Disposition: inline
-In-Reply-To: <CAM0EoMmXrZ5pUAkuVScgQjPFm3-dSC03mygDm3sAaFO=TQgvDw@mail.gmail.com>
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017091:EE_|MN0PR12MB6343:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29e92cc2-48c8-4327-72b5-08decd37ed79
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	CGaMCzYzD0FNze89BnvEqQv3A4+yOn71luNjz2NPJyYlxyfN0c5NV437IGCeN277q0FPmy/3S0Qt6caDxgXZmtgI8M0qbg9F8J7oDo81vuXLNL0+UzXnYAwgPjF0FhpAXt0wRQBTurE/NQf3LqMsQ/ktcUqFb2KGuZ9wpbGy8Y1JH4NwabzVxrUDYahxWXx3ibFsIjaVBYqsIYkDWcC5WINn3Hn2gtdfJCl7b5U+5AeP8A+qw9Wn8x24fY5Ocm4edwe1Hy9GjZEixvuymJcZ8lcAshtDuAq88v0Rx1yAgCwmosgLxI9n1yGZiuaW2f01WbfYK7jx5/AGoPrWZXNSdHxqndV1sc505TGXdwLIWIT6CD1oD0HJDKrbAJ3Dy+AW34AJlBQa7K36stNv+jN17ZTCjZ2/nB2GQn/meKz7aiUneNweo/DuGeRagNeJaSBabuwrU+6/J/W4HcHoROyJfn01LvPhOXsJ0tBab1voPM4z1iZaSIPL9l8aFMSsoeIZdiIVllQYRJbWQgblWOU5yDl9Z3LoAIlTNt4+c7XlVzrZzzxL4Vyic0uAQ1S9n1pozJEQdHGOIqAhpz+/NJF506s0vZ0euik6ETyPnccFhRFJmXcWcJ9hAwwqLZxUxnVNGe3kGtrJZ12tvEbOsUesyYEInfziOrfQav/KZ3qrppwufAe/wYrJsfa2+ZK8aRcTUL0OQyJBnl+EfLGSFjdpLZ56it7IHwE77Z3mZTyRqqs=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	tWIiSUhuYq8aMT5o5CFtTklS1ycRWyX6AMPSU5SK/ZPECGgtj4eRtmEF70oAXxUwS3SwFu2yl/JugkMKQqSipJ3E/lG6V8x6SMHNSFQNsa6kiIbwk1IpCBhcxk5mDXcHNXutdn61uv9a3rnUXxq8MUejA8pcYqLS8milOleGidykpIy9yShAqbXlb1gwo4hwSgYD+rYRa2ijLCz77D5g961ImWhXIn+KZgS5wZfMysCtWIv6ySV8rAWbSLhGc3ErfDja7c9r2bbGiH0zOEC9zGYdd0P0roebe8wYwDA+S4eRXxxi8RM7CEeqt6j1guNVDFChoxioBQiubbVkqdLOwnmnoRo9g7lJTUeio8acU+A3msP4b68eIdxTAUCdsi8xee273OCN+L/BhsLRboRSz0cdl2orepJwM+j22OrTodch6gMMH+qLIanHB15gVi7y
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 12:48:42.3795
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29e92cc2-48c8-4327-72b5-08decd37ed79
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017091.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6343
 
+The try_harder contiguous fallback could return a range whose start
+offset did not match the caller's min_block_size. Check each candidate
+against the requested alignment and reject the allocation when no
+candidate satisfies it, instead of handing back a misaligned range.
 
---eb6zudvooesa7q7h
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH] net/sched: dualpi2: fix GSO backlog accounting
-MIME-Version: 1.0
+Suggested-by: Christian König <christian.koenig@amd.com>
+Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Timur Kristóf <timur.kristof@gmail.com>
+Cc: John Olender <john.olender@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/buddy.c | 33 +++++++++++++++++++++------------
+ 1 file changed, 21 insertions(+), 12 deletions(-)
 
-On Wed, Jun 17, 2026 at 10:23:42AM -0400, Jamal Hadi Salim wrote:
-> Do you know how to create a tdc test that will recreate this? If not
-> either Victor or myself can help you create one.
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index dc81fe0301ce..28ed3250ac57 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -1127,13 +1127,11 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+ 	struct gpu_buddy_block *block;
+ 	unsigned int tree, order;
+ 	LIST_HEAD(blocks_lhs);
+-	unsigned long pages;
+ 	u64 modify_size;
+ 	int err;
+ 
+ 	modify_size = rounddown_pow_of_two(size);
+-	pages = modify_size >> ilog2(mm->chunk_size);
+-	order = fls(pages) - 1;
++	order = ilog2(modify_size) - ilog2(mm->chunk_size);
+ 	if (order == 0)
+ 		return -ENOSPC;
+ 
+@@ -1149,31 +1147,42 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+ 		while (iter) {
+ 			block = rbtree_get_free_block(iter);
+ 
+-			/* Allocate blocks traversing RHS */
+ 			rhs_offset = gpu_buddy_block_offset(block);
++
++			/* Allocate blocks traversing RHS */
+ 			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+ 						       &filled, blocks);
+-			if (!err || err != -ENOSPC)
++			if (err && err != -ENOSPC)
+ 				return err;
++			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
++				return 0;
++			if (!err)
++				goto next;
+ 
+-			lhs_size = max((size - filled), min_block_size);
+-			if (!IS_ALIGNED(lhs_size, min_block_size))
+-				lhs_size = round_up(lhs_size, min_block_size);
++			lhs_size = round_up(max((size - filled), min_block_size),
++					    min_block_size);
++
++			if (lhs_size > rhs_offset)
++				goto next;
+ 
+ 			/* Allocate blocks traversing LHS */
+-			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
++			lhs_offset = rhs_offset - lhs_size;
++
++			if (!IS_ALIGNED(lhs_offset, min_block_size))
++				goto next;
++
+ 			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
+ 						       NULL, &blocks_lhs);
+ 			if (!err) {
+ 				list_splice(&blocks_lhs, blocks);
+ 				return 0;
+-			} else if (err != -ENOSPC) {
++			}
++			if (err != -ENOSPC) {
+ 				gpu_buddy_free_list_internal(mm, blocks);
+ 				return err;
+ 			}
+-			/* Free blocks for the next iteration */
++next:
+ 			gpu_buddy_free_list_internal(mm, blocks);
+-
+ 			iter = rb_prev(iter);
+ 		}
+ 	}
 
-Okay, I will try to create a tdc test.
+base-commit: b9e2d5cdaab05c997be3a69d9b372d7676683e1b
+-- 
+2.34.1
 
---
-Xingquan Liu
-
---eb6zudvooesa7q7h
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iPcEABYKAJ8WIQRK8k7aQ0rr/Uwki+E2I1LDHPWnXgUCajPn4ygUgAAAAAAVAApw
-a2EtYWRkcmVzc0BnbnVwZy5vcmdiMW5AYjFuLmlvWBhodHRwczovL2tleXMub3Bl
-bnBncC5vcmcvdmtzL3YxL2J5LWZpbmdlcnByaW50LzMwQUYxQUMwNzMwODkzRURD
-MTQ5Qjc5NUIwMDc5QjEyRTZDOThFQTYACgkQNiNSwxz1p17bDgEAwV1mMS0uKtA8
-Z6fej+nWAlg2wf7S5/FFoCsDEoT55EgBAOMa2bgvVTtqFJwQSIZ+YxMIcA1vn+Rv
-o1FDHyabauYL
-=85ev
------END PGP SIGNATURE-----
-
---eb6zudvooesa7q7h--
