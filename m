@@ -1,145 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E02F3905E0;
-	Thu, 18 Jun 2026 13:26:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C35053D6CAA;
+	Thu, 18 Jun 2026 13:43:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781789210; cv=none; b=tPi3eTdMf0oFa6qd8LcAYJxypUQWbBOXXJ+30EUBlLW3kBrckasQuGrd7IQchJeaO3XKDNsk2CZhRComvxd8q+9VVgWqNnYF+inKlRo9RgafBOSCLDvhdEOJJSxIRnHmnBN3hG2f9/Mf9dTyaqYBExFufIcLw835YUgKG4VvAds=
+	t=1781790232; cv=none; b=hmg8xMOtNmq2Ep51uIIaARSLtOoijk+0r3ORAvHpaQldv4hNx47cvroBu7oBJRzAlA5h6vkJhs+cIQZmEoUXRJHjw5NUgyXiEWfsHEZg1OrUtsOo4fDb2+t9imu2ICIM4btMNSgx5TZ84PYZJFR9vd3DKx7r/MKvm7U96N3rV8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781789210; c=relaxed/simple;
-	bh=QLElcu9hzb0P9ZXwyhxlrodftHCw/3tjsGb+QSKtCgU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OkTb5D9RmDLAQXe3WCctNpUh8Nu7HeifXXfNnJP3CtBEvONOrzsGAi2fr9gRXlzDKxicUZcgbqqirNNDlTtojfWHAPmyXob70T6REBWRNn3RAgCqaHUOiYWFgzmI9jwYvXs84Mc3SHOy3mSjWazOnKIIDnvWBLEeXfp3GZAIfQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ePH305ta; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ePH305ta"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 866741F00ACA;
-	Thu, 18 Jun 2026 13:26:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781789208;
-	bh=oP8CklMUaboQLSuBeJTlR6jjiTi2cbJtmz4ndwNg7Hs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ePH305taClEHRX7/p9PObb/G1F17AsBqD1kbzlA8VsxNnxeR/tdpMunsl/VAi3g6c
-	 nCU3YpNI3iOaZZtZ7aVcwhVEyZu24FzADcHAc3LK6j0CKmHYLPyYIhrMdlUd5hfCZN
-	 ah+iD48ZN/VukYANVT49OjnF54g0koiUcAsbdRoz6dle+YDdBYAhEwJEW24Lw4LMGX
-	 9dFfgDwAgENyr8KGA14FItdKASNGvJshTz8VxG3YLMWr4Q6QFe8l+WgE0jq8vw4YAx
-	 23DaOJ+hCdCKO5DCnoeC9K134vJVVDdjOAyeeqcUdUatB5D3BBQloFA9FZcXD85H5Z
-	 cKQl69mYXkSIA==
-From: Simon Horman <horms@kernel.org>
-To: doruk@0sec.ai
-Cc: Simon Horman <horms@kernel.org>,
-	saeedm@nvidia.com,
-	leon@kernel.org,
-	tariqt@nvidia.com,
-	mbloch@nvidia.com,
-	sd@queasysnail.net,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	borisp@nvidia.com,
-	raeds@nvidia.com,
-	ehakim@nvidia.com,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net/mlx5e: macsec: fix use-after-free of metadata_dst on RX SC delete
-Date: Thu, 18 Jun 2026 14:18:58 +0100
-Message-ID: <20260618131857.894379-2-horms@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260617100558.83654-1-doruk@0sec.ai>
-References: <20260617100558.83654-1-doruk@0sec.ai>
+	s=arc-20240116; t=1781790232; c=relaxed/simple;
+	bh=XKUehf4X8nwF3CflU///ls6TmM0Kev/2DLg5AaWT2N4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rG4yZ7f+Bczef3snwqHXEUi9U9PDYNp8Bc0v27Fx61PYgxNqJvsOfYd4+MWM0wMm3Unq03gUaueHN9R2Tr+ZgMQ3zoGh5I9YJVcgjJlALMMrJowJ0vzm9o+Ip4U8W5b+ka3506cFIbsxZ/dNMjTHurjY2+jWlK301heWgsiyU1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 033C668BEB; Thu, 18 Jun 2026 15:43:46 +0200 (CEST)
+Date: Thu, 18 Jun 2026 15:43:46 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Keith Busch <kbusch@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Keith Busch <kbusch@meta.com>,
+	linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	dm-devel@lists.linux.dev, axboe@kernel.dk, brauner@kernel.org,
+	djwong@kernel.org, viro@zeniv.linux.org.uk, stable@vger.kernel.org
+Subject: Re: [PATCH 1/1] block: validate user space vectors during
+ extraction
+Message-ID: <20260618134346.GA2752@lst.de>
+References: <20260617233235.1016063-1-kbusch@meta.com> <20260617233235.1016063-2-kbusch@meta.com> <20260618102627.GA23200@lst.de> <ajPv7yOoYsR5O6kf@kbusch-mbp>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ajPv7yOoYsR5O6kf@kbusch-mbp>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://sashiko.dev
----
-net/mlx5e: macsec: fix use-after-free of metadata_dst on RX SC delete
+On Thu, Jun 18, 2026 at 07:17:35AM -0600, Keith Busch wrote:
+> > >  	if (iov_iter_is_bvec(iter)) {
+> > >  		bio_iov_bvec_set(bio, iter);
+> > > +
+> > > +		if (mp_bvec_iter_offset(bio->bi_io_vec, bio->bi_iter) &
+> > > +							vec_align_mask)
+> > > +			return -EINVAL;
+> > 
+> > Can you add a comment here?  Especially as the bvec iter doesn't actually
+> > require all individual bvecs to be aligned and I'm not entirely sure this
+> > handles all case - writing down the rules might help a bit with that.
+> 
+> The rationale is that the only iter_bvec users come from io_uring
+> registered buffers, which are virtually contiguous.
 
-This commit fixes a use-after-free in the MACsec RX datapath by replacing
-a synchronous metadata_dst_free() with dst_release() when an RX SC is
-deleted. It also updates the datapath to use dst_hold_safe() to avoid
-acquiring a reference to a dying destination entry.
+There's plenty of iov_iter_bdev users, and even without poking deep I
+know that two directly passed on bvecs from block-layer generated bios to
+the underlying file system's direct I/O code: loop and zloop.
 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-> @@ -829,7 +829,7 @@ static void macsec_del_rxsc_ctx(struct mlx5e_macsec *macsec, struct mlx5e_macsec
->  	 */
->  	list_del_rcu(&rx_sc->rx_sc_list_element);
->  	xa_erase(&macsec->sc_xarray, rx_sc->sc_xarray_element->fs_id);
-> -	metadata_dst_free(rx_sc->md_dst);
-> +	dst_release(&rx_sc->md_dst->dst);
->  	kfree(rx_sc->sc_xarray_element);
+So we need rules on what can be passed, and preferably some way to
+enforce that at least for debug builds.
 
-[Severity: Critical]
-This is a pre-existing issue, but is it safe to synchronously call kfree()
-on rx_sc->sc_xarray_element here?
-
-The RX datapath accesses the xarray under rcu_read_lock() in
-mlx5e_macsec_offload_handle_rx_skb(). If sc_xarray_element is fetched via
-xa_load() by a concurrent reader just before xa_erase() runs, won't this
-kfree() free the element while the reader is still accessing it, leading to
-a use-after-free?
-
->  	kfree_rcu_mightsleep(rx_sc);
->  }
-
-[ ... ]
-
-> @@ -1697,8 +1697,8 @@ void mlx5e_macsec_offload_handle_rx_skb(struct net_device *netdev,
->  	sc_xarray_element = xa_load(&macsec->sc_xarray, fs_id);
->  	rx_sc = sc_xarray_element->rx_sc;
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but does xa_load() return NULL
-if the fs_id has already been erased by xa_erase() in the deletion path?
-
-If packets matched by hardware before the rule was deleted are still
-lingering in the software RX queues, xa_load() might return NULL.
-Dereferencing sc_xarray_element->rx_sc immediately after could cause a
-NULL pointer dereference. Could we add a NULL check here before accessing
-sc_xarray_element?
-
-[Severity: Critical]
-This is also a pre-existing issue, but is rx_sc fully initialized when it
-becomes visible to RCU readers?
-
-In mlx5e_macsec_add_rxsc(), it appears sc_xarray_element is published to
-the xarray via xa_alloc() before rx_sc->md_dst is allocated and
-initialized:
-
-mlx5e_macsec_add_rxsc() {
-    ...
-    err = xa_alloc(&macsec->sc_xarray, &sc_xarray_element->fs_id, ...);
-    ...
-    rx_sc->md_dst = metadata_dst_alloc(0, METADATA_MACSEC, GFP_KERNEL);
-    ...
-}
-
-Since xa_alloc() assigns the lowest available index, the new fs_id could be
-recycled from a recently deleted SC. If a lingering packet with the old
-fs_id is processed by the datapath, it could find the newly published
-element and attempt to call dst_hold_safe(&rx_sc->md_dst->dst).
-
-Because rx_sc->md_dst is still NULL at that moment, could this cause a NULL
-pointer dereference?
-
->  	if (rx_sc) {
-> -		dst_hold(&rx_sc->md_dst->dst);
-> -		skb_dst_set(skb, &rx_sc->md_dst->dst);
-> +		if (dst_hold_safe(&rx_sc->md_dst->dst))
-> +			skb_dst_set(skb, &rx_sc->md_dst->dst);
->  	}
->  
->  	rcu_read_unlock();
