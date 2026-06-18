@@ -1,150 +1,184 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C552F99B8
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 06:05:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781762730; cv=pass; b=DZN2g5b00Vhlmd2yqOfVXUMYYajdvEKl2nF6TeL5lFvKsV9nsFdg90h9QfRnFITmNcL1ZY8fXFpjMjqFqQe+7tvhIc7N+eGQd6WBhol47KPQVPr15hH2l3HxiYXT+C621YHMvCAwZ9r8aaCJtxvhiwr9GaZNyUbBHKDfKZFy+kc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781762730; c=relaxed/simple;
-	bh=Tx9BTR94Ubwp8M3rnuGD9HRzcODmfxoI1z/NMtqxE7c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S4vkdabPWPzbd+UH6dQ6piLJ3M+KgwkkhzqYSccbo/ZjMjF+bVdF5bkvuTYD386Kbnhewzo4eiSdN4I+LEjnr0jCKldMpvnbx0TjiTSbRKvm9KqCXpTsqxqsUXDGT7GQdanblbqXIbDn9YeYS0bWOR81TGxS9qe/TPS0AYLN1FU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ndJYP+YI; arc=pass smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A57A32E141;
+	Thu, 18 Jun 2026 06:24:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781763893; cv=none; b=Tp3mgwUSsBacikv1FUOra0xehc3CGE8RnHlriFY72W2wCnH9Jm0zdslb/dGjut6AEHH0UrgzOrQI5AgoDFHSANvR7kk8XmCYg7LfY6pIu6B+TZVM5qe0gGdEx2k7dFr6OCxV/NXgHQBTvDJgvLvF7in9oQM/mGpUbaWLpR6mH3Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781763893; c=relaxed/simple;
+	bh=fU92GMEy94puy6aftgC8ArZCNvwPYf2OXVYqyMr3tXY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ohhbM4r1Sl+Zxx0D7FrzLAVdBRu37kvgDwCc5SlCWX0BmuZysmHhf/v8W8VSL+s4rxA0f2xEFX0VEVQXctt6417wlg00iEi88c+rWv16iiC6OXAayUIOxZ0V7pQvCw6Rv+UnSPpZGKWVDsaKvCa6MI1b8VFxlRofSasNIwdqtK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=M9ESVOjq; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ndJYP+YI"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-30bf854d5feso273444eec.0
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 23:05:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781762728; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ANEunQIWXBJlBAUL49ziDZOAApGVTRc/PE3yRwM8MbLNeegakega6KKiaE3++gBHAE
-         33RAsLl113wzoa0rdJ9MTiAxBVAmO3Y04kcV6+ti9lGAow84B/NiF6Dt700ryTzPYEP7
-         xS+YglPAtmtP5KMThDPog+m9vire+cfni4r+bPYo03OM8h+DG+TouC37aFjA9NHUBoXO
-         w6XR6a4I8GWUvh5J6MOJCF5HRPxJsdhQnqovyrhfYrYXuUYNbUxMapkpq5Y7pfB5Lhv2
-         RKGKazmFp4kYQF9ok872N42Xn2NhgZBd6FD4ikgWOitfl1+xOaDrLF52kivabAbQ41Zh
-         KDJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=aJOsNUD9iDpleZjGvR/ke/hr60F3TsVEaiWUdbuG6nk=;
-        fh=+PQVLTuuO+jSvX6v+OcWWVNQsrpvzrQ01D5Mb+sBGkc=;
-        b=JnsnWAmGQDkb0ypfA7B4XdIMnFMpBQcc4BuALnX7HVTErV/cJw/I1k05/5Rcd+VKqP
-         DyXDokW2E5UYfA9oC3Hk4fXZd8LDtyypAPLUoKymTGN0rkYFOdBCc6Eykcz2X1qa4xHl
-         cfLbO9kHMMyT8NCfoTyvqm5EEbbrHEqBeC+9+eXyUXDAt8wy3Ilg4w9B99g2ZBS/hKub
-         CJq3Aix/e4RD/SX1Ule60zbCCo3tJiAN0lPLPpq7sMoitbZPK5FbS0ATe5GcyydKgHdw
-         nD+eeQpN/P5aoZvOwbIE8Ooj+qdT4ROZ9ixHh9KfeilgmQa1RTeJ3DY9sz/ZcJ1meSZu
-         Awyw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781762728; x=1782367528; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aJOsNUD9iDpleZjGvR/ke/hr60F3TsVEaiWUdbuG6nk=;
-        b=ndJYP+YIx+8NElYhIhjMnf64X6S1oI+gPW5/Y3GY49U0+fcY+2P6KMsPDDeTsvUR3d
-         hGjK/UAy+C0i9mBLNMNmt4GZWYalxZBtFytX1aUC8s78ewdR5zXRb+sRp/N4noo9akkT
-         w+lpWUGocuSZH8nYWLRrQsxenvTBvEklf3azgV9iEmssrhPKJ+Aqg/veeuTcQY/oAL7N
-         zdfv7CVPMvTZAB2O7By2DIsjNAJPiaNRnkqV01DLzcmgk9eQ/MeN9138CqZrR1ZFdbt7
-         pSfC4Wz62qIec3Rel+ttDIfs7OlJEjwwkj7SNfsPwBurFBwF+Ad2Hd0SbCFSwpEj5He0
-         zcjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781762728; x=1782367528;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=aJOsNUD9iDpleZjGvR/ke/hr60F3TsVEaiWUdbuG6nk=;
-        b=LRhlnoIXNDGNvlzC88YwHbdv7GscV51y2a8VrZui9uYH/v9PyW/0F4U/eCeis1QELM
-         ZQY7M7K8RDkSDRNJNDz90an+Prv3vu942MGPR5Y10NO3gasUDYhBkgjEFnu4hozQMJZg
-         kyUjtB+ZlFISUSXnnroJFDW4Ec3J9SX/+4JK5LygqO7cj4hoyJc0ljWNdSQqqQy0nDij
-         85gtogRZHvxkkfZs4KZlpER2pkDHR1f0+Yc4mMnL4i4rwkTTQBcSjiLcHCs3t5CQE9eU
-         XH+75GwST9R83twe71a2rzRV7w/l/97LUncK24WFL3yXdkdn2rSQuWaTD+EWBU5eehgx
-         GlrQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+fqHoZ6c1bmv21d0yVhIGIQEQpp7VYw9AvQ3UPvn8mnQ8GGfo/T91DjhigSYC1/eAXoJiltqg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywj7qKNUY2DECdauK2gyLg/oJbXMC7To5DG+CK9XLK97JqCVXKZ
-	5+/Be++G7veNHtBZfze3a4GXyZUi9FKAS7a9rcyKfAu3UPa4FsSVL78WIgdNO78bXzttn888vno
-	W3V26DkVD16golEZEgSGrScuTm9oALr8=
-X-Gm-Gg: AfdE7cnO6szoopyiZFYjUH9kauVTO2Myv6SieZFr8m7d4bLOazhnxV/RvMRY738yats
-	77CydOJz12aNH89KV0wuHRzUs95ttZbMwN1CdZjIASv0MaFAYGpoLY8wnX4JwyqoRVC1A8uM8LV
-	1LJsj+Jn1wGM9trmkqCliS9t383G8WtstHj08Yg5kX9cTUH9VqFKZytC5i7FM17tEB6wLBxzOtR
-	RBxbCdMTSafcS9Kqxn8uC1+CFqi2igKqyCrfCH76VSIQL2COw/2WyBwDIS5sKU+J4Ip2QSsIfkQ
-	tAGQWtO9EDLQd42xZGP1IXTrGRuRlxf1zYeJbQp9A/4h26fJgXc65N695dcSyO/tuuKnnAZOhBB
-	XlYjwrS8AvYIbOLyJ5vabAWPLAUcm3lWMz6TrPRGY1OqlH9oVBcmifM3jneZ1m6B44h+y7dcLrG
-	wV9ylP18Oq
-X-Received: by 2002:a05:7301:100b:b0:304:886b:b07a with SMTP id
- 5a478bee46e88-30bf078f1f1mr1575257eec.14.1781762727979; Wed, 17 Jun 2026
- 23:05:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="M9ESVOjq"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65HHmDQp1082472;
+	Thu, 18 Jun 2026 06:24:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=w5iCOT
+	LeFlPziDmdzdpbGIsNU4Hrv3HjrGqIGTNX7SI=; b=M9ESVOjqAKXAp3JH2sJGzY
+	xNmBvmECtC8el80aqjyxbVVxKRLOV+1kDJ/aM+aRJX5e7XUuExI/9rYMofrd9sJ0
+	mAO1L1o17+MDNPL79gbSyU1M11twscVrsuyKWEPfSeTSjNNLg8RLYAVbvD6eEX6I
+	qGQ99kj8fMEajr6wgdG2fP7ZYkm5sILC1sld7h0jVqInpQ98BW60WgyF4o+e9xr0
+	HfQff2WwAbVbabdjeVJONb4ongP9dPma7xtPtNsOxgKYDVwtYQfMmhtJ6K1VX/rX
+	tsuFC3y2st+B4Qce64vAPL4BBEBoGvUo7OCI8Bl8VGwTtRfaGb8uXdaXaGyX+zLQ
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4eueqvxnxh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 18 Jun 2026 06:24:43 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65I64a7K019496;
+	Thu, 18 Jun 2026 06:24:42 GMT
+Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ev1722bjh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 18 Jun 2026 06:24:42 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
+	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65I6OflB7078428
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 18 Jun 2026 06:24:41 GMT
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7631A58059;
+	Thu, 18 Jun 2026 06:24:41 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1E99B58055;
+	Thu, 18 Jun 2026 06:24:35 +0000 (GMT)
+Received: from [9.123.3.51] (unknown [9.123.3.51])
+	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 18 Jun 2026 06:24:34 +0000 (GMT)
+Message-ID: <f7e36176-d00a-4471-94ed-d385e579b43d@linux.ibm.com>
+Date: Thu, 18 Jun 2026 11:54:33 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260616145109.744539446@linuxfoundation.org> <f33dcd2f-787d-4705-9272-394e1d560ae0@googlemail.com>
- <CADo9pHhAQHGsEB5i4R1GDeAqRubRb-oaUgMjTrk0y-Oc_8U5EA@mail.gmail.com>
-In-Reply-To: <CADo9pHhAQHGsEB5i4R1GDeAqRubRb-oaUgMjTrk0y-Oc_8U5EA@mail.gmail.com>
-From: Luna Jernberg <droidbittin@gmail.com>
-Date: Thu, 18 Jun 2026 08:05:14 +0200
-X-Gm-Features: AVVi8CfSbVlzNaaeCW0Sq4vNDheQukQjggWo9S4RjMX8OAuinKPoUeiP85GZR7E
-Message-ID: <CADo9pHg4gEE7zNU=goiNjANpLuO1CgZ6RvNLk8kdUyBaBNsDiA@mail.gmail.com>
-Subject: Re: [PATCH 7.0 000/378] 7.0.13-rc1 review
-To: Peter Schneider <pschneider1968@googlemail.com>, Luna Jernberg <droidbittin@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
-	patches@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	torvalds@linux-foundation.org, akpm@linux-foundation.org, linux@roeck-us.net, 
-	shuah@kernel.org, patches@kernelci.org, lkft-triage@lists.linaro.org, 
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, 
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org, 
-	sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/smc: avoid recursive sk_callback_lock in listen
+ data_ready
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+        "D. Wythe"
+ <alibuda@linux.alibaba.com>,
+        Dust Li <dust.li@linux.alibaba.com>,
+        Sidraya Jayagond <sidraya@linux.ibm.com>,
+        Wenjia Zhang
+ <wenjia@linux.ibm.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>
+Cc: Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
+        Simon Horman <horms@kernel.org>, Karsten Graul <kgraul@linux.ibm.com>,
+        linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        jianhao.xu@seu.edu.cn, stable@vger.kernel.org
+References: <20260617152855.1039151-1-runyu.xiao@seu.edu.cn>
+Content-Language: en-US
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+In-Reply-To: <20260617152855.1039151-1-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDA1NSBTYWx0ZWRfX2L2sHyTFkNXz
+ cgPpmSml3WVnfQWmx4c6t969+S8JCdEqIDVcEgwOebr71VkfV0LfLZtaA4P2qjPt6M7AuTHXzSA
+ kPIO9hQExNDjWjBe/Lb/nANpqlotuYg=
+X-Proofpoint-GUID: liwEqstN0ZKnBz11G2-EcQm106fEI4_N
+X-Authority-Analysis: v=2.4 cv=bMgm5v+Z c=1 sm=1 tr=0 ts=6a338f2c cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=PYtvbb3SF9k8UUea3okA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: t97zkeMdGAsHZSG3QM5SYZQEAHZ7Pggh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDA1NSBTYWx0ZWRfX6Q7swimiwksD
+ Yi62MZ4Zyv+WsZ8m+Il8ACg04+ric+8VjZ921Fc8JojWtRj1HSnQsFiapwHUxAvsGfoQo7UWw4J
+ YGhSwnzErLM4sYl0nrcDVn72SNMvVnSw13+FdPech3XrbV6Pz5gLFBJ+X62OtOdkTybOk9I6QxV
+ Tu5FIoepLKhw0HN7L/gLYBIelxOLd3/JUId5hv5GE3gcF14yLXC/zvXbE1kpW5neC8aWo3DN4Dd
+ Ca4+JsrYL5EIkJVkq8pSl//f9PicWzFaIwKGPlWQNUI89+tgl/ZCtpzd6jARb6sxab3As+l9ENw
+ hIO+g+jxSAVVMcOju7FoXWEJVM0knEVWn2hRExCjOUriTX/6lglSah3Pg84oH/KtePNmvvjeAWq
+ uLMc0xFSTZ5uIQwSpha14pv/T+gaNFuF7MD+vRsGne0cciNTs/dqYiktdQdAXXhhmcJSo43FC/s
+ 1scEi/JCS9KEBMy6ESA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-17_02,2026-06-17_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 impostorscore=0 malwarescore=0 adultscore=0 spamscore=0
+ bulkscore=0 priorityscore=1501 phishscore=0 clxscore=1011 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180055
 
-Tested on a *
 
 
-Den tors 18 juni 2026 kl 08:04 skrev Luna Jernberg <droidbittin@gmail.com>:
->
-> Work a Dell Micro 3050 with Intel(R) Core(TM) i5-6500T CPU @ 2.50GHz
-> and Arch Linux
->
-> Tested-by: Luna Jernberg <droidbittin@gmail.com>
->
-> Den ons 17 juni 2026 kl 21:13 skrev Peter Schneider
-> <pschneider1968@googlemail.com>:
-> >
-> > Am 16.06.2026 um 16:53 schrieb Greg Kroah-Hartman:
-> > > This is the start of the stable review cycle for the 7.0.13 release.
-> > > There are 378 patches in this series, all will be posted as a respons=
-e
-> > > to this one.  If anyone has any issues with these being applied, plea=
-se
-> > > let me know.
-> >
-> > Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 serve=
-r. No dmesg oddities or regressions found.
-> >
-> > Tested-by: Peter Schneider <pschneider1968@googlemail.com>
-> >
-> >
-> > Beste Gr=C3=BC=C3=9Fe,
-> > Peter Schneider
-> >
-> > --
-> > Climb the mountain not to plant your flag, but to embrace the challenge=
-,
-> > enjoy the air and behold the view. Climb it so you can see the world,
-> > not so the world can see you.                    -- David McCullough Jr=
-.
-> >
-> > OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-> > Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.a=
-sc
-> > https://keys.mailvelope.com/pks/lookup?op=3Dget&search=3Dpschneider1968=
-@googlemail.com
-> > https://keys.mailvelope.com/pks/lookup?op=3Dget&search=3Dpschneider1968=
-@gmail.com
-> >
+On 17/06/26 8:58 pm, Runyu Xiao wrote:
+> smc_listen() installs smc_clcsock_data_ready() as the underlying TCP
+> listen socket's sk_data_ready callback.  smc_clcsock_data_ready() then
+> immediately takes sk_callback_lock before looking up the SMC listener and
+> queuing smc_tcp_listen_work().
+> 
+> That is unsafe once the TCP listen socket is leaving TCP_LISTEN.  The TCP
+> close/flush path can run the installed sk_data_ready callback with
+> sk_callback_lock already held, so entering smc_clcsock_data_ready() again
+> tries to take the same rwlock recursively in the same thread.  The nvmet
+
+Could you provide me the exact call stack showing recursive lock? Also
+help me with the nvmet commit details.
+
+> TCP listener had to make the same state check before taking
+> sk_callback_lock for this reason.
+> 
+> This issue was found by our static analysis tool and then manually
+> reviewed against the current tree.
+> 
+> The grounded PoC kept the SMC listen callback installation path:
+> 
+>   smc_listen()
+>   smc_clcsock_replace_cb()
+>   sk_data_ready = smc_clcsock_data_ready()
+> 
+> It then modeled the close/flush carrier that invokes the installed
+> sk_data_ready callback while sk_callback_lock is already held.  Lockdep
+> reported the same-thread recursive acquisition:
+> 
+>   WARNING: possible recursive locking detected
+>   smc_clcsock_data_ready+0xa/0x4d [vuln_msv]
+>   smc_close_flush_work+0x1f/0x30 [vuln_msv]
+>   *** DEADLOCK ***
+> 
+> Return before taking sk_callback_lock when the underlying TCP socket is no
+> longer in TCP_LISTEN.  In that state there is no listen accept work to
+> queue for SMC, and avoiding the callback lock mirrors the fix used by the
+> TCP nvmet listener.
+> 
+> Fixes: 0558226cebee ("net/smc: Fix slab-out-of-bounds issue in fallback")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+>  net/smc/af_smc.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+> index 6421c2e1c84d..1af4e3c333ff 100644
+> --- a/net/smc/af_smc.c
+> +++ b/net/smc/af_smc.c
+> @@ -2631,6 +2631,9 @@ static void smc_clcsock_data_ready(struct sock *listen_clcsock)
+>  {
+>  	struct smc_sock *lsmc;
+>  
+> +	if (READ_ONCE(listen_clcsock->sk_state) != TCP_LISTEN)
+
+Is *TCP_LISTEN* check sufficient? What about *TCP_SYN_RECV* or
+*TCP_ESTABLISHED*?
+
+> +		return;
+> +
+>  	read_lock_bh(&listen_clcsock->sk_callback_lock);
+>  	lsmc = smc_clcsock_user_data(listen_clcsock);
+>  	if (!lsmc)
+
