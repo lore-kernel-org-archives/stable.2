@@ -1,184 +1,83 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A57A32E141;
-	Thu, 18 Jun 2026 06:24:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A34146A66;
+	Thu, 18 Jun 2026 06:28:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781763893; cv=none; b=Tp3mgwUSsBacikv1FUOra0xehc3CGE8RnHlriFY72W2wCnH9Jm0zdslb/dGjut6AEHH0UrgzOrQI5AgoDFHSANvR7kk8XmCYg7LfY6pIu6B+TZVM5qe0gGdEx2k7dFr6OCxV/NXgHQBTvDJgvLvF7in9oQM/mGpUbaWLpR6mH3Y=
+	t=1781764128; cv=none; b=AbF5Ju07qJ6QTDPQk47EWs3yS54HZ7exYhhfL0jAw5m2KR69UfRGb3SS5akV8+s8FNAKFW3oLonX0W7HOUjpbYl+WR6gbjMipDZzegKV8uDZbbPcFEkpA4XuaOIGgXHVCo1Yswpfbr65FgVkICd1hRu5/YJXxp+VSPzOWZoEyl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781763893; c=relaxed/simple;
-	bh=fU92GMEy94puy6aftgC8ArZCNvwPYf2OXVYqyMr3tXY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ohhbM4r1Sl+Zxx0D7FrzLAVdBRu37kvgDwCc5SlCWX0BmuZysmHhf/v8W8VSL+s4rxA0f2xEFX0VEVQXctt6417wlg00iEi88c+rWv16iiC6OXAayUIOxZ0V7pQvCw6Rv+UnSPpZGKWVDsaKvCa6MI1b8VFxlRofSasNIwdqtK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=M9ESVOjq; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1781764128; c=relaxed/simple;
+	bh=tbVx56po/SQzQgbuw5DtYXI3bcPs2gNfb+AJ4gh3QKc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QQc0fia9xhtgWTLQvde6LfhL1pJd1+bdQnxTEMpQN992DJgQdit6vRNpXY4jGHoLVDJjg9IzrJAAbozZILCA/EJljeIixro7RjnvQ11QygBARmkGiu7pWdo4bFIkxHgFVVOQsmvH1lasFGzzu3kRpMzcxMumnJ0zqYekOtxQq8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vKF/ztU2; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=aK40ZbtU; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="M9ESVOjq"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65HHmDQp1082472;
-	Thu, 18 Jun 2026 06:24:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=w5iCOT
-	LeFlPziDmdzdpbGIsNU4Hrv3HjrGqIGTNX7SI=; b=M9ESVOjqAKXAp3JH2sJGzY
-	xNmBvmECtC8el80aqjyxbVVxKRLOV+1kDJ/aM+aRJX5e7XUuExI/9rYMofrd9sJ0
-	mAO1L1o17+MDNPL79gbSyU1M11twscVrsuyKWEPfSeTSjNNLg8RLYAVbvD6eEX6I
-	qGQ99kj8fMEajr6wgdG2fP7ZYkm5sILC1sld7h0jVqInpQ98BW60WgyF4o+e9xr0
-	HfQff2WwAbVbabdjeVJONb4ongP9dPma7xtPtNsOxgKYDVwtYQfMmhtJ6K1VX/rX
-	tsuFC3y2st+B4Qce64vAPL4BBEBoGvUo7OCI8Bl8VGwTtRfaGb8uXdaXaGyX+zLQ
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4eueqvxnxh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 18 Jun 2026 06:24:43 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65I64a7K019496;
-	Thu, 18 Jun 2026 06:24:42 GMT
-Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ev1722bjh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 18 Jun 2026 06:24:42 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
-	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65I6OflB7078428
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 18 Jun 2026 06:24:41 GMT
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7631A58059;
-	Thu, 18 Jun 2026 06:24:41 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1E99B58055;
-	Thu, 18 Jun 2026 06:24:35 +0000 (GMT)
-Received: from [9.123.3.51] (unknown [9.123.3.51])
-	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 18 Jun 2026 06:24:34 +0000 (GMT)
-Message-ID: <f7e36176-d00a-4471-94ed-d385e579b43d@linux.ibm.com>
-Date: Thu, 18 Jun 2026 11:54:33 +0530
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vKF/ztU2";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="aK40ZbtU"
+Date: Thu, 18 Jun 2026 08:28:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1781764121;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gv8sddD3UuF5Rf7ec5dmwrPPLbEvcHt690OH4TXc8/0=;
+	b=vKF/ztU28iYem31/ZVUcGCAY9Xl4vQORViFV0dWnK27YmpDPZqmIdqjOhcReMDtSkfgOZs
+	fGku/+A2/mkS28fW8J4U1bjOBpKCm7i5Eu894EsgGXoizp2/5xby2JNOWZlsd6Q9KSyqhJ
+	bNlOtmtJ9SgtjCN32XzBdOUIyditaKyo+R4RQuixkFtU/A6NTUQYkjQNOiOBLqRQDFjSMC
+	oEx5Wguqs4AcvzI7OCeGozWk2TJ3Pw0WZfIUNmes76qEQf5/EW+RvQ7tUDjvqRQf7JO+2L
+	Jy8jWdu8IVCrQu+eQN4BAMz82zIki3ntnRteAh9coHNgBefHXEmK36TIt6+phQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1781764121;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gv8sddD3UuF5Rf7ec5dmwrPPLbEvcHt690OH4TXc8/0=;
+	b=aK40ZbtUmjb/BDqoc7oe877FraCcm3PCcXRR1fltxCCyLUsk2kswT7akesTxpBveo6L6TR
+	7gVwOU/7q4BFTdAg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Jan Kiszka <jan.kiszka@siemens.com>, linux-gpio@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+	jianhao.xu@seu.edu.cn, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] gpio: sch: use raw_spinlock_t in the irq startup path
+Message-ID: <20260618062839.4o1ewdEn@linutronix.de>
+References: <20260617154035.1199948-1-runyu.xiao@seu.edu.cn>
+ <20260617154035.1199948-2-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net/smc: avoid recursive sk_callback_lock in listen
- data_ready
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-        "D. Wythe"
- <alibuda@linux.alibaba.com>,
-        Dust Li <dust.li@linux.alibaba.com>,
-        Sidraya Jayagond <sidraya@linux.ibm.com>,
-        Wenjia Zhang
- <wenjia@linux.ibm.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>
-Cc: Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
-        Simon Horman <horms@kernel.org>, Karsten Graul <kgraul@linux.ibm.com>,
-        linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-References: <20260617152855.1039151-1-runyu.xiao@seu.edu.cn>
-Content-Language: en-US
-From: Mahanta Jambigi <mjambigi@linux.ibm.com>
-In-Reply-To: <20260617152855.1039151-1-runyu.xiao@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDA1NSBTYWx0ZWRfX2L2sHyTFkNXz
- cgPpmSml3WVnfQWmx4c6t969+S8JCdEqIDVcEgwOebr71VkfV0LfLZtaA4P2qjPt6M7AuTHXzSA
- kPIO9hQExNDjWjBe/Lb/nANpqlotuYg=
-X-Proofpoint-GUID: liwEqstN0ZKnBz11G2-EcQm106fEI4_N
-X-Authority-Analysis: v=2.4 cv=bMgm5v+Z c=1 sm=1 tr=0 ts=6a338f2c cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=PYtvbb3SF9k8UUea3okA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: t97zkeMdGAsHZSG3QM5SYZQEAHZ7Pggh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDA1NSBTYWx0ZWRfX6Q7swimiwksD
- Yi62MZ4Zyv+WsZ8m+Il8ACg04+ric+8VjZ921Fc8JojWtRj1HSnQsFiapwHUxAvsGfoQo7UWw4J
- YGhSwnzErLM4sYl0nrcDVn72SNMvVnSw13+FdPech3XrbV6Pz5gLFBJ+X62OtOdkTybOk9I6QxV
- Tu5FIoepLKhw0HN7L/gLYBIelxOLd3/JUId5hv5GE3gcF14yLXC/zvXbE1kpW5neC8aWo3DN4Dd
- Ca4+JsrYL5EIkJVkq8pSl//f9PicWzFaIwKGPlWQNUI89+tgl/ZCtpzd6jARb6sxab3As+l9ENw
- hIO+g+jxSAVVMcOju7FoXWEJVM0knEVWn2hRExCjOUriTX/6lglSah3Pg84oH/KtePNmvvjeAWq
- uLMc0xFSTZ5uIQwSpha14pv/T+gaNFuF7MD+vRsGne0cciNTs/dqYiktdQdAXXhhmcJSo43FC/s
- 1scEi/JCS9KEBMy6ESA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-17_02,2026-06-17_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 malwarescore=0 adultscore=0 spamscore=0
- bulkscore=0 priorityscore=1501 phishscore=0 clxscore=1011 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180055
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260617154035.1199948-2-runyu.xiao@seu.edu.cn>
 
-
-
-On 17/06/26 8:58 pm, Runyu Xiao wrote:
-> smc_listen() installs smc_clcsock_data_ready() as the underlying TCP
-> listen socket's sk_data_ready callback.  smc_clcsock_data_ready() then
-> immediately takes sk_callback_lock before looking up the SMC listener and
-> queuing smc_tcp_listen_work().
-> 
-> That is unsafe once the TCP listen socket is leaving TCP_LISTEN.  The TCP
-> close/flush path can run the installed sk_data_ready callback with
-> sk_callback_lock already held, so entering smc_clcsock_data_ready() again
-> tries to take the same rwlock recursively in the same thread.  The nvmet
-
-Could you provide me the exact call stack showing recursive lock? Also
-help me with the nvmet commit details.
-
-> TCP listener had to make the same state check before taking
-> sk_callback_lock for this reason.
-> 
-> This issue was found by our static analysis tool and then manually
-> reviewed against the current tree.
-> 
-> The grounded PoC kept the SMC listen callback installation path:
-> 
->   smc_listen()
->   smc_clcsock_replace_cb()
->   sk_data_ready = smc_clcsock_data_ready()
-> 
-> It then modeled the close/flush carrier that invokes the installed
-> sk_data_ready callback while sk_callback_lock is already held.  Lockdep
-> reported the same-thread recursive acquisition:
-> 
->   WARNING: possible recursive locking detected
->   smc_clcsock_data_ready+0xa/0x4d [vuln_msv]
->   smc_close_flush_work+0x1f/0x30 [vuln_msv]
->   *** DEADLOCK ***
-> 
-> Return before taking sk_callback_lock when the underlying TCP socket is no
-> longer in TCP_LISTEN.  In that state there is no listen accept work to
-> queue for SMC, and avoiding the callback lock mirrors the fix used by the
-> TCP nvmet listener.
-> 
-> Fixes: 0558226cebee ("net/smc: Fix slab-out-of-bounds issue in fallback")
+On 2026-06-17 23:40:34 [+0800], Runyu Xiao wrote:
+> sch_irq_unmask() enables the GPIO IRQ and then updates the controller
+> state through sch_irq_mask_unmask(), which takes sch->lock with
+> spin_lock_irqsave().  The callback can be reached from irq_startup()
+> while setting up a requested IRQ.  That path is not sleepable, but on
+> PREEMPT_RT a regular spinlock_t becomes a sleeping lock.
+=E2=80=A6
+> Fixes: 7a81638485c1 ("gpio: sch: Add edge event support")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  net/smc/af_smc.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-> index 6421c2e1c84d..1af4e3c333ff 100644
-> --- a/net/smc/af_smc.c
-> +++ b/net/smc/af_smc.c
-> @@ -2631,6 +2631,9 @@ static void smc_clcsock_data_ready(struct sock *listen_clcsock)
->  {
->  	struct smc_sock *lsmc;
->  
-> +	if (READ_ONCE(listen_clcsock->sk_state) != TCP_LISTEN)
 
-Is *TCP_LISTEN* check sufficient? What about *TCP_SYN_RECV* or
-*TCP_ESTABLISHED*?
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-> +		return;
-> +
->  	read_lock_bh(&listen_clcsock->sk_callback_lock);
->  	lsmc = smc_clcsock_user_data(listen_clcsock);
->  	if (!lsmc)
-
+Sebastian
