@@ -1,136 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7832D28314C
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 21:35:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7224325706
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 21:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781818529; cv=none; b=sB3RGeWR/nad38tvDPohAq9REYvh3kxPC/rgh68t04oCpkDNneI9drhFKhdLjFyn/QFEwTG54CSbhHKxp+XRbEcJ9VeN8nQLJWMB7Uef6MQsRuR7Zf50u3iKW6VbnJxiiVXVLWkNS3FOxIUkw38Wi5sBKszwSMgoF7rD2S2b/BM=
+	t=1781818971; cv=none; b=LMtKFYTihS+fdBxfimCGNJSfksOitTNTs/QCIqBeJBq6ZLK3jSR5QWcaIlSkNW6zeVNXTfK6EpM/gBtdYncsN+UVzm7txckJp6J8LXaokpn4oA8BS3bPrnDEqly+9QMHpevUnZ115ATLvhBKrbHxH0Wdm+1fJjQoAijsc022mlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781818529; c=relaxed/simple;
-	bh=BJTA1SJINh8QjjGqCnPxManFF1esMCyXGVVbEO/W0Ek=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=usYlSNOOWL17HBqix4IYI94S5GH54hjeiqQgXk6iOnHZaThweYNGzsh/CZmpsV3ThmlvBa5vxxgzIT+cEsKTWhr99zpllYl5p+3TDg6JypXr/z33LzjcefsvKPJLi6YLXfa/hCSOhSipuiWVz9wKWXlCLK2CeQHhZ8SX9MGirus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QB6aeWQA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781818971; c=relaxed/simple;
+	bh=0vL8OtmpIyLy51Fv9riLDUryAsugbB3gKKFEHjgNdjE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gdekuVQ9LH3tHMvRA29u1t6wHukm93Qz5yh8Z9RKoRhI9BrPc/vuC+QXzI0wDLzwkVnWLoYLv8A5Ys/HMLopEGeNhufDYK6K+4T07TnOfCgAa01z0MpdtOxXRP76JraQL3TFi6B+Zf/n+lrB7bnZFS4XDZjM1RlCSKJFJlB3fBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RGzzoStW; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QB6aeWQA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2C81F00A3D;
-	Thu, 18 Jun 2026 21:35:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781818528;
-	bh=zmSQ5/Kef24VChpTyiGbY9lG+wUNBMtY3H2EPqgOMec=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QB6aeWQAPBmTnJBPH1Zi2g95X5IV/uzTd0ffD8eVfQko25cCfp5Wllzzu0dv6kdKh
-	 x9VUQaSUT7juKJW4pqErLop98auM9bZ/j/yXUK3pGza4XzpkIorNGvpW5GKrULIdvw
-	 FgRF37Vsu5h9YXzMnMutt8PrE/pjoo9zsW7hSdMxfNM9chfmgKHmPq927Xcgp1Xuc3
-	 x2LU/daQp7ynKD4/GjvmzMal1dP5VZAEw8d6KGSaZMzXBvHfo1jOMRf3gBT5CQ3qBE
-	 7GcSDByIX73xhvMW3W3rkVHzBR9ZTaax0ftlOBtObS0r/W5aD5A+6r42+FtlfSRNii
-	 QlZIhDMBjo5nw==
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfauth.phl.internal (Postfix) with ESMTP id D66E9F40072;
-	Thu, 18 Jun 2026 17:35:26 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Thu, 18 Jun 2026 17:35:26 -0400
-X-ME-Sender: <xms:nmQ0asm41JR4g2SxSwTIneetUEwtePKAYOnEvPD7vCp2hll4hvHe-w>
-    <xme:nmQ0ajz62ScBlLC5kO8BWhXYGNrv89WWUNRgV8ZQjHWAhy4RE3DpDMr0YURunsSH4
-    WCrjI_o7BQePWjItGlYEfOfodNn6DBx_DQcwGsRXnbC_N1QTZG8LQ>
-X-ME-Received: <xmr:nmQ0ah19l5tNyWqmoklb8DNB5J36mN122nSSHsg9iWdwJA1NuaN4N4jjlfWzWdyjY92l01clR6qF0ADvLuujyztUu6124kdI>
-X-ME-Proxy-Cause: dmFkZTEtHF4oNSejv4x+CZMGJFwI1mcILDHxvbFxtmFlokkfkWG6eZOripul+SulmTdRna
-    SrKg0p02oqdK7Tbs4WrcVLhKd/1F9KXpfcjbCeFbqr9x5ulJV5P13uLxTTfMZZiGALIKEG
-    aXurplv31qP+6zDumS7dTogYcQ1dbnoUsef08ttgugpyOlfUJp4OAkYVakMJqHcUYZV1Eq
-    I4g4O6G4aKhKDcUW5rL92nsjtqp6p2BpnQYdQJXUtI5f2WszMVc080C5qE7a8EA9HOD02M
-    1iVc/sR7QujHoPZdPO3PxXWX5qnq3+LKxUjKCI0l1sXn9cRIfCLExqmlYhenRTj19yoOTq
-    IbCJQhUjhdeAQAx6wFUqu1DJWngNDnHQU3ZTMSu5RR+qYNdavaJcMJAJAHeJFTQuc5bDeb
-    Rzw6079uvFdqIfSZvv06HdHG2lwRSBYA6cT2PRmCJCHly/ITopVZhC/aLcxdgj5SHAEFb1
-    BqCMQNHLEL0qjrP2eu8F5p0zhM+5a1vr6wxG7xl4Ux+EDrGQpYLITIgdFoKrY9WYaU6ks6
-    GVenPVlA01mj8jjAJEu4Hh9d9x/rPlLqdjWNjWpvI6TRg8K4H6TcTbH7KD75xp6TklJpzl
-    o60GAEa1rKKNKaSEp7FBRB7o52wg9Ug4bAb+fLlWHF1uO6DYAeG+/2V7g0lQ
-X-ME-Proxy: <xmx:nmQ0avCwh-v-luvrB2ifmb_34CuMi1Fb9Y7rJhpDIUlV62PuYN0c5A>
-    <xmx:nmQ0am9I7SAGJts3dwX3XXVJOUGoaquoyeRoKclkB8nPwc6MwMm8iw>
-    <xmx:nmQ0al_JJWF0q0uaTLZnjCE68kLaShmKI7UrBZZrGvDM9pURmBv5ug>
-    <xmx:nmQ0au0L9W_Kl8FRyrt609Lk686ajDsK0iCDHueAlf_PSrYs3CR64g>
-    <xmx:nmQ0al_ZWtWW1c6mIR6g_fel5pVs2EJFM9A6iHbG4OxUlg5OZZDRS5rg>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 18 Jun 2026 17:35:26 -0400 (EDT)
-Date: Thu, 18 Jun 2026 14:35:25 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: lossin@kernel.org, gary@garyguo.net, ojeda@kernel.org,
-	bjorn3_gh@protonmail.com, a.hindborg@kernel.org,
-	aliceryhl@google.com, tmgross@umich.edu,
-	daniel.almeida@collabora.com, tamird@kernel.org,
-	acourbot@nvidia.com, work@onurozkan.dev, lyude@redhat.com,
-	deborah.brouwer@collabora.com, rust-for-linux@vger.kernel.org,
-	driver-core@lists.linux.dev, stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 2/2] rust: revocable: fix race between concurrent revokers
-Message-ID: <ajRknQIsXaHtDzzJ@MacBook-0RXW5>
-References: <20260618193951.601239-1-dakr@kernel.org>
- <20260618193951.601239-3-dakr@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RGzzoStW"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-bec450b950dso201819066b.2
+        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 14:42:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1781818968; x=1782423768; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=5p66b7ErYnujJAGTcgTXIBPkgQepiYPJRliMjdpdxZU=;
+        b=RGzzoStWu2dmRsTrIk5xaZ9/7EduSff/1L8EoR8RN9feJsXUUxaEYqGjo5X3ycTS6J
+         dH8A5aZijs0QzLJFCpBifbLMNZu0uP0eWK/bwOe76SlaT3DX4rwLvKi7kgpYcFVos/pH
+         tBXRWxnTiTziAb0d+N1YL+Khiko7E3v1YfBv4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781818968; x=1782423768;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5p66b7ErYnujJAGTcgTXIBPkgQepiYPJRliMjdpdxZU=;
+        b=jRVkK8DmgQXQu+hvf2qxA95KK/123+SJ/fmcg8Lvn5ITbbDvwyvAwZ6MZg9LhJA+/l
+         mawm/FAOBSZrtknjcQmGJQUiTghp5Al0iFDBqFRD4la2792QbSMT+LDEfOVSivk0KBfV
+         KKPXcpc1o5CXeSzmYLSQzW0H4YIaVi1W+nFZ8UAiuOjqPyrbLD2nXWb4dD3jTIOS3EL9
+         0uMdmyz4p1ViUyghevfMwWa6T1uzgiKanfhJTgnXeF6sOMnGgk/s4rCr54xMOmhVgq5W
+         4ftQPSBG9E7+0jZPly2NruTnJ5iySOh5c/W9gmhIS7cMmMyhDGDEjNpWkCqOekaOM3Y/
+         dS1A==
+X-Forwarded-Encrypted: i=1; AFNElJ/yUQzR/oYY50gCsfsbWka6M8UX19eNFT4e4PPvF2ayJMcn4559WUUSB8HbSKMcMij3+bg0C/4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyb9rHoUMlDGZR/QX4zsDGHepgzle+IqJsolwc2YAdHrreCVnK/
+	5h4R7iZZZJYre8bEb/T9a1Uo45gGGq3EMVz0ctsV9W3GdoN0Qhdp2VwToF8uTTPeewHbejJis0n
+	lkSmA4To=
+X-Gm-Gg: AfdE7ckXvACGDzhUN5sg3agEMbI5Bzmpw0pyd9o1Cmd2Y+Pgy73Bo78wCaLdyekcBg3
+	IZYwTGWLOPocH5JeO4nJnVDzOsIL2Jr9gvGOevBlDpFcnQ4ykIfCqY3jOiNhWKZ+uRxW3uQnf/g
+	ZA9MF0VEfUZuK+TQ/y3fI5wZgtSqHz7llFBdCgDJbGv2jRcFVWQt9cCMytG6kCFwkgiILJ9O7Je
+	pR+m8gtkb6fnYr3byiyvvxNrMDELdV41wUHky9Eat5FWwagQS/GSLje6MV+iTBPUBAUV98uXcqd
+	i9/jC1YVtAiAIcj4pYrGPNTxyC9bSVGKwegjDBtR/D9GPGyGWIz/W0GFz6LHlNC7NH4Cr+wHyfo
+	++wSx8A8S79Z6+PKROqz/01z3v4rF5ebmM5XWb3KfzypCqYdKmAK9cVwTAWVlhIZz54Rn3xic60
+	prWeoAZ1W/aJRr7ydnRak8qT4sISy1X2k/TeTjsBTXviIPpZanTpU2FS7G6BBL
+X-Received: by 2002:a17:907:d02:b0:bec:2ad0:cba5 with SMTP id a640c23a62f3a-c097cfb117emr39253666b.29.1781818968160;
+        Thu, 18 Jun 2026 14:42:48 -0700 (PDT)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com. [209.85.218.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0a844f53dcsm7898966b.8.2026.06.18.14.42.47
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Jun 2026 14:42:47 -0700 (PDT)
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-bec450b950dso201816266b.2
+        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 14:42:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8KZXvp2SGKPDHcX3bQlut8K6HSrmZDdcJBuexpVkaHUPHhXUG8RM+E1tfDVwQGCwG4T3z8MaQ=@vger.kernel.org
+X-Received: by 2002:a17:907:96a6:b0:bd4:8b66:c374 with SMTP id
+ a640c23a62f3a-c097af88bffmr48299266b.9.1781818967276; Thu, 18 Jun 2026
+ 14:42:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260618193951.601239-3-dakr@kernel.org>
+References: <20260618183442.BBCD71F000E9@smtp.kernel.org> <CAHk-=wiQ_10MRYYW+aRfLP4Ah9gDrShOvLESXtz+Q32-9M9Y9w@mail.gmail.com>
+ <9bbaa053-ea06-4b36-98ba-dc487a28964e@kernel.org>
+In-Reply-To: <9bbaa053-ea06-4b36-98ba-dc487a28964e@kernel.org>
+From: Linus Torvalds <torvalds@linuxfoundation.org>
+Date: Thu, 18 Jun 2026 14:42:30 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjWhvmy5xUcTMCJZats2cUJ5iGU4o5Kdt+OvRepu+MUeQ@mail.gmail.com>
+X-Gm-Features: AVVi8CfUDD-8OyBQi60IPQ8Cw_tmpKz1_FAb_-Rqt7HFrCB8V1vZaaUbe2FX8yM
+Message-ID: <CAHk-=wjWhvmy5xUcTMCJZats2cUJ5iGU4o5Kdt+OvRepu+MUeQ@mail.gmail.com>
+Subject: Re: + userfaultfd-prevent-registration-of-special-vmas.patch added to
+ mm-hotfixes-unstable branch
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, mm-commits@vger.kernel.org, 
+	vladimirelitokarev@gmail.com, viro@zeniv.linux.org.uk, stable@vger.kernel.org, 
+	peterx@redhat.com, oleg@redhat.com, jack@suse.cz, brauner@kernel.org, 
+	rppt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Jun 18, 2026 at 09:32:59PM +0200, Danilo Krummrich wrote:
-> There is a potential race condition when two paths try to revoke a
-> Revocable concurrently.
-> 
-> It can happen with e.g. Devres, where the driver core's
-> devres_release_all() calls Revocable::revoke() via the devres callback,
-> while Devres::drop() calls revoke_nosync() on another CPU.
-> 
-> The revoker that does not claim the is_available swap returns
-> immediately, but the revoker that did may still be executing
-> drop_in_place() on the inner data. This can cause a use-after-free when
-> the other revoker's caller proceeds to drop adjacent resources that
-> drop_in_place() still references (e.g., Devres<DmaMappedSgt> racing with
-> SGTable freeing the backing sg_table and pages).
-> 
-> Fix this by adding a Completion to Revocable. The revoker that claims
-> the swap signals the Completion after drop_in_place() finishes, and any
-> concurrent revoker waits for it before returning. This ensures the
-> wrapped object is fully torn down before either path continues.
-> 
+On Thu, 18 Jun 2026 at 14:07, David Hildenbrand (Arm) <david@kernel.org> wrote:
+>
+> Maybe we should rename and possibly split that up, like
+>
+>         VM_NO_MLOCK
+>         VM_NO_VMA_MERGE
 
-I'm not sure this issue is a Revocable issue or even Devres issue,
-because normally if you have a
+That sounds saner, indeed.
 
-struct Foo {
-    revoke: Revocable<T>
-    data: U
-}
+> And then have some generic "there are really special things mapped in here"
+>
+>         VM_HAS_SPECIAL_MAPPINGS
 
-and if `revoke` referenced `data`, then `T` will have a refcount on `U`
-(of course this requires `U` to be a `Arc` or `ARef`, not very
-effecient, but correct). And we won't have this issue because either
-revoker will be responsible for the finally drop.
+I think maybe we should stop using "bitmasks of VM_xyz bits" and start
+moving to a "helper inlines for vma testing".
 
-This issue happens particularly when we want to save the extra refcount
-(and indirect reference), and I think this is the issue that `Foo`
-should handle instead of `Revocable`. So maybe we should move the fix
-into `Devres` layer? Thoughts?
+That way we could make hugetlb not set DONTEXPAND at all, if we
+instead just introduce a
 
-(I'm still hoping there could be some lightweight usage of Revocable
-other than Devres, hence the ask.)
+   static inline bool vma_can_merge(const struct vm_area_struct *vma)
+   {
+        if (vma->vm_flags & VM_SPECIAL)
+                return false;
+        if (vma_is_hugetlb(vma))
+                return false;
+        return true;
+    }
 
-Regards,
-Boqun
+Ok, so that vma_is_hugetlb() thing doesn'ty exist - but we do have a
+VMA_HUGETLB_BIT to implement it. I wrote it that way mainly in an
+effort to make it all make sense logically.
 
-> If needed, a revoke_no_wait() variant that does not wait for concurrent
-> revocations to complete can be added in the future.
-> 
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/dri-devel/20260612202841.2577C1F000E9@smtp.kernel.org/
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Fixes: 05aa6fb1c21d ("rust: scatterlist: Add abstraction for sg_table")
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
-[...]
+And maybe we could get rid of VM_SPECIAL entirely at some point usign
+these kinds of helpers - by making "vma_can_merge()" and others that
+currently use VM_SPECIAL use the *actual* real bits explicitly and
+simply making each rule have simple and logical tests.
+
+And the reason we should pass in the vma - not just vm_flags - is that
+often things like "is the vma anonymous" is part of the decision of
+what can be done.
+
+I think this would make the code both more flexible _and_ more
+understandable if we had these kinds of helpers for different
+situations rather than have VM_SPECIAL kinds of flag combinations.
+
+But I'm just throwing this out as an idea. Maybe there are better ways
+to deal with this. The current code does seem rather annoying.
+
+                Linus
