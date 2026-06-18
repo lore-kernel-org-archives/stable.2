@@ -1,83 +1,125 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A34146A66;
-	Thu, 18 Jun 2026 06:28:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1DC29405;
+	Thu, 18 Jun 2026 06:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781764128; cv=none; b=AbF5Ju07qJ6QTDPQk47EWs3yS54HZ7exYhhfL0jAw5m2KR69UfRGb3SS5akV8+s8FNAKFW3oLonX0W7HOUjpbYl+WR6gbjMipDZzegKV8uDZbbPcFEkpA4XuaOIGgXHVCo1Yswpfbr65FgVkICd1hRu5/YJXxp+VSPzOWZoEyl0=
+	t=1781764224; cv=none; b=dtpUI0T46pjfHLANN63OMi3sxLzOFxSHA1QMYgt29YlrZC9Ca9xIC7jrTu5uy7PXD7eyggkNProwxdQGJeqfI1PwaAdas66Dv71dZmrIZCbEG+vXVoz1OevNXIBEAKoW/FDvpTm3UfVS6PjqOXBEwdm2k7rCXq3xNge9+PbJElw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781764128; c=relaxed/simple;
-	bh=tbVx56po/SQzQgbuw5DtYXI3bcPs2gNfb+AJ4gh3QKc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QQc0fia9xhtgWTLQvde6LfhL1pJd1+bdQnxTEMpQN992DJgQdit6vRNpXY4jGHoLVDJjg9IzrJAAbozZILCA/EJljeIixro7RjnvQ11QygBARmkGiu7pWdo4bFIkxHgFVVOQsmvH1lasFGzzu3kRpMzcxMumnJ0zqYekOtxQq8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vKF/ztU2; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=aK40ZbtU; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1781764224; c=relaxed/simple;
+	bh=2AXvxyAImZLWIbVapZ+mESkLjtssGF0r7mGVvapmQw0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oBS11QBCG2HdBRDCc6AZv3fnE3kIH6luMqA4CyLQReQ/hLcgPY55mf4WrTtedewz9Vb8NPMOsaTDFLXKJ/y/nsP/muxRUYrVq8MsDL8EaPRXSvYB4glv5+QBwS+yci7e4ZbPsGeFz81eirNJffCquClofrduait5Y7IQgFJRE2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WUCXSPv5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vKF/ztU2";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="aK40ZbtU"
-Date: Thu, 18 Jun 2026 08:28:39 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1781764121;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gv8sddD3UuF5Rf7ec5dmwrPPLbEvcHt690OH4TXc8/0=;
-	b=vKF/ztU28iYem31/ZVUcGCAY9Xl4vQORViFV0dWnK27YmpDPZqmIdqjOhcReMDtSkfgOZs
-	fGku/+A2/mkS28fW8J4U1bjOBpKCm7i5Eu894EsgGXoizp2/5xby2JNOWZlsd6Q9KSyqhJ
-	bNlOtmtJ9SgtjCN32XzBdOUIyditaKyo+R4RQuixkFtU/A6NTUQYkjQNOiOBLqRQDFjSMC
-	oEx5Wguqs4AcvzI7OCeGozWk2TJ3Pw0WZfIUNmes76qEQf5/EW+RvQ7tUDjvqRQf7JO+2L
-	Jy8jWdu8IVCrQu+eQN4BAMz82zIki3ntnRteAh9coHNgBefHXEmK36TIt6+phQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1781764121;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gv8sddD3UuF5Rf7ec5dmwrPPLbEvcHt690OH4TXc8/0=;
-	b=aK40ZbtUmjb/BDqoc7oe877FraCcm3PCcXRR1fltxCCyLUsk2kswT7akesTxpBveo6L6TR
-	7gVwOU/7q4BFTdAg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Linus Walleij <linus.walleij@linaro.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Jan Kiszka <jan.kiszka@siemens.com>, linux-gpio@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] gpio: sch: use raw_spinlock_t in the irq startup path
-Message-ID: <20260618062839.4o1ewdEn@linutronix.de>
-References: <20260617154035.1199948-1-runyu.xiao@seu.edu.cn>
- <20260617154035.1199948-2-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WUCXSPv5"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 67F2FC2BCB0;
+	Thu, 18 Jun 2026 06:30:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1781764224;
+	bh=2AXvxyAImZLWIbVapZ+mESkLjtssGF0r7mGVvapmQw0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=WUCXSPv5UeomtCGpLlYI8T3qjhW7qjNCJdnOjN22uCjxQcbGGVZh/B8CmwsczZ6o3
+	 1mtIy4fks5ksQblIOiWiSNfitF4FBjQWlvtfhQCrnlDdBKRxewhtXDQIT76sbnofkQ
+	 XjiX3qCFM0O8KoKFTyvuLcNU93hAVKZYcMJF91zLuUTusu+GTKqER6oxuRUVxcTSlP
+	 9IlMGhXYPm2Nlp3Dmng5+8mFDqMTyrsbpJf1QwIoFmsQd3czZFCMRShTAwON7yLgN+
+	 Lbyj2pDw6+XXf7ZcOnlb8NBrBCTS4jfvRPVYzIV6QjNIwPmRuxtSJvtEdD3fSHwC4T
+	 +B0BbYdhnMoDA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 488B2CD98ED;
+	Thu, 18 Jun 2026 06:30:24 +0000 (UTC)
+From: HAN Ruidong via B4 Relay <devnull+rdhan.smu.edu.sg@kernel.org>
+Date: Thu, 18 Jun 2026 14:30:17 +0800
+Subject: [PATCH] fbcon: Avoid OOB font access if console rotation fails
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260617154035.1199948-2-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260618-prep-base-v5-15-209-v1-1-cfcf596dca7a@smu.edu.sg>
+X-B4-Tracking: v=1; b=H4sIAHiQM2oC/yXMQQqDMBCF4avIrB1IUhONVyldaBx1urCSaUNBv
+ LtRlx+8928gFJkE2mKDSImFP0uGLgsIc7dMhDxkg1HGKacbXCOt2HdCmCxqi0Z5tN4NVR184x4
+ 15GfejPy/qs/Xbfn1bwrfMwX7fgDVFM0GdwAAAA==
+X-Change-ID: 20260618-prep-base-v5-15-209-596d47c98637
+To: Andrew Morton <akpm@osdl.org>, Antonino Daplas <adaplas@pol.net>, 
+ stable@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Helge Deller <deller@gmx.de>, HAN Ruidong <rdhan@smu.edu.sg>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1989; i=rdhan@smu.edu.sg;
+ h=from:subject:message-id;
+ bh=pCtdGjG+ab6vAzMlyNVdJgcjHkRUp/+84n9btP5SAHM=;
+ b=owGbwMvMwCG27fhf/yDP2WsYT6slMWQZT6g7of1/Y8mMJOa/t+R4pJPbfD78X7/VX4Gj9HhHv
+ eMCDcvtHaUsDGIcDLJiiiw5Nbps8Wedr5ze/qsHZg4rE8gQBi5OAZhIZyLD/2Q31iC5+8qZF8+7
+ WsVdqoh9pN8wW2Buv6dIsdUKmfaHHxgZTjWy+4b8/nKk7d0Fk6Z1YeImp9z3HLTb5RTucunk5wg
+ mFgA=
+X-Developer-Key: i=rdhan@smu.edu.sg; a=openpgp;
+ fpr=6C7C2D065FCD43D4CBB7FA8CB6C7FD4F52499BAC
+X-Endpoint-Received: by B4 Relay for rdhan@smu.edu.sg/default with
+ auth_id=829
+X-Original-From: HAN Ruidong <rdhan@smu.edu.sg>
+Reply-To: rdhan@smu.edu.sg
 
-On 2026-06-17 23:40:34 [+0800], Runyu Xiao wrote:
-> sch_irq_unmask() enables the GPIO IRQ and then updates the controller
-> state through sch_irq_mask_unmask(), which takes sch->lock with
-> spin_lock_irqsave().  The callback can be reached from irq_startup()
-> while setting up a requested IRQ.  That path is not sleepable, but on
-> PREEMPT_RT a regular spinlock_t becomes a sleeping lock.
-=E2=80=A6
-> Fixes: 7a81638485c1 ("gpio: sch: Add edge event support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: HAN Ruidong <rdhan@smu.edu.sg>
 
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+[ Upstream commit e4ef723d8975a2694cc90733a6b888a5e2841842 ]
 
-Sebastian
+Clear the font buffer if the reallocation during console rotation fails
+in fbcon_rotate_font(). The putcs implementations for the rotated buffer
+will return early in this case. See [1] for an example.
+
+Currently, fbcon_rotate_font() keeps the old buffer, which is too small
+for the rotated font. Printing to the rotated console with a high-enough
+character code will overflow the font buffer.
+
+v2:
+- fix typos in commit message
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+Cc: stable@vger.kernel.org # v2.6.15+
+Link: https://elixir.bootlin.com/linux/v6.19/source/drivers/video/fbdev/core/fbcon_ccw.c#L144 # [1]
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ renamed `par` to `ops` to match the v5.15 local pointer name ]
+Signed-off-by: HAN Ruidong <rdhan@smu.edu.sg>
+---
+ drivers/video/fbdev/core/fbcon_rotate.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
+index ec3c883400f7..4a06e71ae443 100644
+--- a/drivers/video/fbdev/core/fbcon_rotate.c
++++ b/drivers/video/fbdev/core/fbcon_rotate.c
+@@ -46,6 +46,10 @@ static int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 		info->fbops->fb_sync(info);
+ 
+ 	if (ops->fd_size < d_cellsize * len) {
++		kfree(ops->fontbuffer);
++		ops->fontbuffer = NULL;
++		ops->fd_size = 0;
++
+ 		dst = kmalloc_array(len, d_cellsize, GFP_KERNEL);
+ 
+ 		if (dst == NULL) {
+@@ -54,7 +58,6 @@ static int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 		}
+ 
+ 		ops->fd_size = d_cellsize * len;
+-		kfree(ops->fontbuffer);
+ 		ops->fontbuffer = dst;
+ 	}
+ 
+
+---
+base-commit: dc027a595035729e290c0adffae363a653acde7c
+change-id: 20260618-prep-base-v5-15-209-596d47c98637
+
+Best regards,
+--  
+HAN Ruidong <rdhan@smu.edu.sg>
+
+
