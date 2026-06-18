@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB521EE01A
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 02:30:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0272E7369
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 02:44:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781749814; cv=none; b=m1pUDdabHrFkHH4L5TefLroD0BleCyaxXWJEXRX+eRMZ0F5oZPNtB9Ley4x0NVlnI+x4ICOOEq75scwGBdYIrZzmx3QaZLf7FtODsDLa1AgkjUjY271E+2xBKpyCNDpkeRaVN8DgtXfQb1a68eeYUE+FN/eqKu0SitEXhMPyXG4=
+	t=1781750672; cv=none; b=nVpjCvxmm2FJ6VsSh+ALUEcPQFAiYZDcDi+0lmMy5n3+qwmczCfrbAQia+1tzvGQWpM1r7h754Yittnr72lLfA/L/1TZ47TFoBHdJLLAzZ8dzP35su6LnNmJ17gU8wisln/6oQD6K8cTEDKpkc4CoizvFvy2KkjVT5YokuTjcdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781749814; c=relaxed/simple;
-	bh=X72V4c8liBOYrYITbhx9Ym/xDAXPy3eMnzPJ/UoDObw=;
+	s=arc-20240116; t=1781750672; c=relaxed/simple;
+	bh=7bAObQLTyy9s44BGJlTbjZHHgxaspgxxncZP39Mxvzo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qVXUy9BDkwBYNXmoIiziFv4PTmpwWmzVlmLeAxWSEgPYtxA/k4KXGGLt3JymdoJBJyITOkRhkymDRkVkPlpk0A0iRNtZGUEL4NMhlz4ZjEyjx2RM59w4HKPvL+ElLkSvDqdcr6STesz1TTF5TwFgWninCh/+1DK273DTdt+eKTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/1SGRls; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YY6dJ19axm/CCR/X735GXvUT+qUxAtW+P/P9GD6uSbJVY3EgvBxcYN9mSmXUx0ES/MSgzZ3/+lpUV/z2JXifUL6Cr+oRs7cZ79U18VrhDPTKR1xk/MPiKaiBjIRimIhD0y7Rt+rmIFEMVy9n707BBq4vT4hWkOpb3ANwi7O4+Ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FDepir9H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/1SGRls"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EF641F00A3A;
-	Thu, 18 Jun 2026 02:30:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FDepir9H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4718F1F000E9;
+	Thu, 18 Jun 2026 02:44:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781749812;
-	bh=6ZN3iMNPq7qsjkn181CnaLPEJ/WJ30arxIZJEaV+c3c=;
+	s=k20260515; t=1781750670;
+	bh=3IxmB1Xk1B2KIfVQKqy6+bI1mB6UiqD/O5jn6rGkP4M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A/1SGRlsJ9d4y0oE8aYGKHNrOHdKASuXJ2pRojMvGtk452hpsZ+AnNGiahTEj+XiD
-	 5vF8SMkQ5R+TeHKg3rzBSNzZzSzzd4A8Tekk3zhswdRm89rClPB+DT5vdal4K9OjB0
-	 fGBkcradA/PvwU6pF0aEMTp/LFvIrIMuEuqJownW6VH1cBpV8zHEfco2PdRMZEj9z6
-	 OlV7m00cuQFDK6B6wflq/opGhQP3oTvpK2pc81VRrKWOx8WIVsK05JkWqhZNrOFyhw
-	 vq1fYvUVlXQDFN0bAUegUZcQ0KDFLJaHukrtWPZQzHGxzSkzyVzBgDOuadpzTePipI
-	 xRaV8cd4YXNJw==
+	b=FDepir9HLzqL+SxS7syq9uIvCZkloZViwbnZ4AZy1r+qHvw/MSBH5Dh/CZwINXlRr
+	 JieOqEp3ntl1jRoss+6h8lj8pDtAjEzY6OS7bobXsKMSwUQPoXog+6Z4yd/0z1TpaO
+	 UaZ00JuUwSN3L8nxtOUSQk2nOGqHQLrYOmgcyXRffWQKfGBqXsYjGFzhvZHqZTXnQM
+	 F1msStop9KF/9RE9rS2U0/fccVpr0B/9VUq18G+oANPX7wpIVcYcl9SQszu2mHBg8b
+	 IldwrU7bs0c12nbHYNnbN6NYhllgC4adBLe6zLhgWc+NkHv7vVgg4lbWVPhXqlSyyq
+	 nPgRBV6f6kNJg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
 	Srinivas Kandagatla <srini@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] slimbus: qcom-ngd-ctrl: Balance pm_runtime enablement for NGD
-Date: Wed, 17 Jun 2026 22:30:10 -0400
-Message-ID: <20260618023010.530701-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] slimbus: qcom-ngd-ctrl: Balance pm_runtime enablement for NGD
+Date: Wed, 17 Jun 2026 22:44:28 -0400
+Message-ID: <20260618024428.548061-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061527-mounting-espresso-4f50@gregkh>
-References: <2026061527-mounting-espresso-4f50@gregkh>
+In-Reply-To: <2026061529-policy-vagabond-c0af@gregkh>
+References: <2026061529-policy-vagabond-c0af@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,10 +65,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index 3fa245a472b2ee..1722d9fffd9892 100644
+index ed1eb491430bac..d23442d51feee2 100644
 --- a/drivers/slimbus/qcom-ngd-ctrl.c
 +++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1508,6 +1508,8 @@ static int qcom_slim_ngd_probe(struct platform_device *pdev)
+@@ -1491,6 +1491,8 @@ static int qcom_slim_ngd_probe(struct platform_device *pdev)
  	ret = qcom_slim_ngd_qmi_svc_event_init(ctrl);
  	if (ret) {
  		dev_err(&pdev->dev, "QMI service registration failed:%d", ret);
@@ -77,7 +77,7 @@ index 3fa245a472b2ee..1722d9fffd9892 100644
  		return ret;
  	}
  
-@@ -1618,6 +1620,7 @@ static int qcom_slim_ngd_remove(struct platform_device *pdev)
+@@ -1606,6 +1608,7 @@ static int qcom_slim_ngd_remove(struct platform_device *pdev)
  {
  	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
  
