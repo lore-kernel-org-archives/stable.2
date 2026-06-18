@@ -1,114 +1,156 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55F33B4EAD
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 11:46:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42B03DB960;
+	Thu, 18 Jun 2026 11:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.245.243.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781783214; cv=none; b=gCh7wDFt21HxESdLtIECq3edOut7NYVln0iAhtx+r9FENHbAmckfL+GhYXY60NAlZuyccT9T5zgY4OfbphasgDBxf6PnF34M6fPDAVGvACwEba/Inj7RpTj2iWxHGwEz3xW3PXq8+Ovpa9SmUJA9UPcYrAJH1bRFaeQdekl3xYQ=
+	t=1781783221; cv=none; b=Jbs18qWeooMJ82d17Umk9TMYV8dS6Yn9gMprMJ063viU+ZjY/N33Y7pe3qkSjAqQPxnGYMv9rSVojxvq0RR71xnBBwyl/JiJtLEhsSXetrEUtGJMLim0GxQ4ZSxL2kNZlfAegfCDbTSrkEZvT69YACyKf3TvXvfLfSkZyUTjHyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781783214; c=relaxed/simple;
-	bh=vQ+HAki6E8x9KEeaRuveOCb6/8L9j/jcZH16cNZ9uss=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hx1wJfWinb+Qlowm3ihc+vVtGnOt4rzDcAmKlTDleKuQ1yjOYL5FZ9eWcuGeMsp0x9Nt8LDSqoKfNwVuIR6e79mbGiN7SKjFoYMQO9AmyJlOIa0s4JyuxPPm1TBZqVFv7Ury0RYQhk4J5eWMFDkcdGnETyWfdnUxo1LdpQeqB/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=geEHwbQP; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781783221; c=relaxed/simple;
+	bh=JlHQpb3Akaav7Z1DtiBkWE/hvieT8Kz6OIdHLEk4zwI=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fULMDOq2b09ZtkhKSD3Aq2ztz+be9CJPWt0HC5f4kFq0mNQ0agCgG4catdXQ1xEK3x/aiA33vxatE2EGbJGrf8oBU1X/SaCLQaDvL+BMrBIiI1mgd/JQB4KMqmim3aGfEVwNpCiyrJH44i0iIic7z8rvd2Fap20Jo2+I7yg9UsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.at; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=tMU9azvM; arc=none smtp.client-ip=44.245.243.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="geEHwbQP"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-490afc47455so2979515e9.2
-        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 04:46:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="tMU9azvM"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781783211; x=1782388011; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=2RcPJ5vmiw5p2JNiLjYZxK1/VIU//IbyCjbXLw/2zm0=;
-        b=geEHwbQPKpRD41vdZVwcVbbHwhDp7823YWMJOpFsYqwcsWcbqWezVjOEKiY6qJ6eyr
-         iJUlz0JCdqXz5bsVM6gZnC5NjGR3hk+5FWHF2mJmTDebBFggwgJlspcDyHyjpN0aYke3
-         OoziilNcETj5t9vtb0BKPFaulOrlwnRFma/PUwX2IF0DVHDtYL2AMvYMgPiv84vPWuDx
-         y4cBKETT2uBhaZaEnDUiLvm2P0g/u2jIsZ4ONbsfTC++YvQ8H/v4MdgDn4P+0kIiQq23
-         cpm5bHtR9JKbqX//TeskksC7WOI/EkshrAKTcKfcqGPWZ3FjBB+Izlb0bQUuH8LLirQj
-         iT7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781783211; x=1782388011;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2RcPJ5vmiw5p2JNiLjYZxK1/VIU//IbyCjbXLw/2zm0=;
-        b=Qgz2nTs/NzxyS18PuCG3SHP2ZGhrcfGyCEhoeeFfGMj3qItppew12WL64KIY18VZqC
-         EN4uJn4AzFgblQGyUYNrvAWDj1ab+VHoj7GzgxePoxyjdMaiYMpqvqxlQEb3fE4ofiWe
-         UKKT+8BiWLUkOLTjrtGn+gGzJ4uWHm3J8z4ANRFeeMiBRmB7mSetQsE2XsfspLh8doCD
-         JIMa7SPTWJ+eeJCF1w1k5bcJqX+/ISdRqBa+UAuHtFp2JSBdOoFgq94E/wHPhDRWIizA
-         fU5HO9rUbOUqDBh/+0EgDzocGmky1/NrPdfImzd8ph7oNhhdAF0tAtfUv4X+8evKwrsk
-         COjA==
-X-Forwarded-Encrypted: i=1; AFNElJ+8eD4zY9+SiCOkWxRW7imclOj+vOw8g6FJCBABm0fLtJWlKa2NXGd/V7Vq2X8vDhVYSE8S1TE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx4PGzmHMSVf8nnQPT0cE9y+ilqgx6ti5fXyKSmW0aNvfF2qsEV
-	AmBxSjLIQSOrUolE3mSmHAIh47DOWc3J9XAJvv4mF8efW2g4GT9MMSll
-X-Gm-Gg: AfdE7ck+ILtqjXYotggyjA6pEyjrhDnYCX1ZXY+5QjhiNLlk5rLEe6ZX8N0nt/vnBYW
-	wesbKEHRyQv42364CoyTsaJMH6yvn3vs/ppK9VRIn20Sm9DbXtvhvKZNyOfXjXo27yo/SyNlkhr
-	DkFs8+8L2oPmMDSjUXIlIYN9Es2uKKUwn482M/ksoEF8kUDtyJKEO39FG0N8ftW7zuZqePdhuiI
-	iGq/0k4lFes8cX2Hh+zV9wH6YWvYwmHIyTw/A0jROp6t09EokDEOsgZM8zMF36YcfMhph0v9Ws7
-	fwClk11u7+iAGu6CkPuOJ43fxzAcyTE7x0i+LytxePjk9ZV7JHM+fZ3S3NHQs3fgT5QoBI/QtW+
-	4DdDS1/aePtp1sOMoXRZ6AhOqTtewZBKoE+TwBWoVLrZi4BDls4K/GkPuZcm6BPE4VRpl094fe0
-	HRNRbqCl6b0iti6oMNTLIYB7otXMISgg==
-X-Received: by 2002:a05:600c:4715:b0:490:b446:fb8 with SMTP id 5b1f17b1804b1-4923a97f870mr23146315e9.11.1781783210900;
-        Thu, 18 Jun 2026 04:46:50 -0700 (PDT)
-Received: from [192.168.1.21] ([41.140.50.249])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26392esm62440164f8f.3.2026.06.18.04.46.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Jun 2026 04:46:49 -0700 (PDT)
-Message-ID: <f9445527-daf3-42b3-81a1-8e0b01e275bf@gmail.com>
-Date: Thu, 18 Jun 2026 12:46:45 +0100
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1781783219; x=1813319219;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=taecWU3jnHxMf9ugrv3nPfNpQVzrtNwEuDwfkVyBLUY=;
+  b=tMU9azvMEdGufl/yCWnyHYXSJkOzBnYpAgLUPgA0c2pGk5zU2W1tyuRR
+   T7pPtVk33vDxCXfhrzxq7yHzLpszmKSHtj0B+mIRwmiIWOG6NQYpi0sY0
+   xBQksG+DmWzPPyXBDRUkSaaQu/01+D9ECTWq/iMPuy9kbWQx52kUac3Y5
+   TqGumEZyCmIfBwTD8UOoOjWeFe6m23UrlVUNaTHg+wwFjOQ2DmHxFZVDo
+   DBgX5AcdhqFc0my2XiuDR1gQJsx7U5ae9QS20XxJ71H2bVuFXJsUNo+QV
+   KSt/2DRTpYKJjQ1t8njenX5+X8tt3topEA7MiMV5XTzLohYRIBEDALJMl
+   w==;
+X-CSE-ConnectionGUID: c4GMWpK3RbqlBrK7ugd/cA==
+X-CSE-MsgGUID: QGsarvsbTPCQq9heOoEMKw==
+X-IronPort-AV: E=Sophos;i="6.24,211,1774310400"; 
+   d="scan'208";a="21522631"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 11:46:56 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:18253]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.4.192:2525] with esmtp (Farcaster)
+ id e9395c1f-d102-4c51-9d42-2f9d744b53c6; Thu, 18 Jun 2026 11:46:56 +0000 (UTC)
+X-Farcaster-Flow-ID: e9395c1f-d102-4c51-9d42-2f9d744b53c6
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Thu, 18 Jun 2026 11:46:56 +0000
+Received: from bcd0741a98fd.amazon.com (10.1.213.12) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Thu, 18 Jun 2026 11:46:54 +0000
+From: Michael Tautschnig <tautschn@amazon.com>
+To: <gregkh@linuxfoundation.org>
+CC: <linux-staging@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, Michael Tautschnig <tautschn@amazon.com>
+Subject: Re: [PATCH] staging: vme_user: fix heap OOB in buffer_from_user and buffer_to_user
+Date: Thu, 18 Jun 2026 13:46:24 +0200
+Message-ID: <20260618114624.71348-1-tautschn@amazon.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <2026061535-hardened-presuming-96b2@gregkh>
+References: <20260614195318.40397-1-tautschn@amazon.com> <2026061535-hardened-presuming-96b2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/261] 6.12.94-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260616145044.869532709@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260616145044.869532709@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+On Mon, Jun 15, 2026 at 04:27:38AM +0200, Greg Kroah-Hartman wrote:
+> Nice, but why did you not use get_maintainers.pl to determine who to
+> send this to?  You cut out the staging list?
+
+My fault -- v1 went only to you and stable@.  v2 is Cc'd to
+linux-staging@lists.linux.dev and linux-kernel@vger.kernel.org per
+scripts/get_maintainer.pl (VME is S: Orphan, so that's the full set).
+
+> > +	/* Clamp to the fixed kern_buf (size_buf): the VME window
+> > +	 * (image_size) may exceed PCI_BUF_SIZE, so *ppos + count can
+> > +	 * run past kern_buf otherwise.
+> > +	 */
+>
+> Not a network driver, so you can use normal coding style for comments.
+
+Fixed in v2 -- switched to the normal (non-networking) multi-line comment
+style.
+
+> > +	if (*ppos >= image[minor].size_buf)
+> > +		return 0;
+>
+> No error?
+[...]
+> Again, why not return an error?
+
+This is the end-of-buffer case, and returning 0 matches what the driver
+already does: vme_user_read()/vme_user_write() already "return 0" when
+*ppos > image_size - 1.  A 0-byte return at/after the end of the buffer
+is the normal read(2)/write(2) convention (EOF for read; for write it
+mirrors the driver's existing behaviour).  Returning an error here would
+make the SLAVE path diverge from both the existing *ppos check two lines
+up and the MASTER path, which seemed wrong for a Cc: stable fix.
+
+> > +	if (count > image[minor].size_buf - *ppos)
+> > +		count = image[minor].size_buf - *ppos;
+>
+> Why are you covering up for userspace errors, shouldn't this just fail?
+[...]
+> Same here, shouldn't this fail?
+
+The clamp mirrors behaviour that already exists in this driver rather
+than inventing new policy: vme_user_read()/vme_user_write() already clamp
+count to image_size - *ppos (a short transfer), and the MASTER-path
+resource_to_user()/resource_from_user() already clamp count to size_buf.
+A short transfer is standard read/write semantics -- userspace is
+expected to loop -- so the SLAVE path was simply missing the size_buf
+bound that MASTER already has; it clamped to the VME window (image_size,
+up to 4 GiB from the user-set slave.size) instead of the fixed 128 KiB
+kern_buf.  v2 keeps the established short-transfer contract and just
+fixes the bound.
+
+That said, you're the maintainer: if you'd rather an over-large request
+fail outright (e.g. -EFBIG / -ENOSPC) I'm happy to send that, but I'd do
+it as a separate, clearly-marked behaviour change rather than fold it
+into the stable fix.
+
+> And no chance for this to wrap again, right?
+
+No wrap in the added code: the caller already rejects *ppos < 0, and the
+early "if (*ppos >= size_buf) return 0;" means 0 <= *ppos < size_buf at
+the subtraction, so "size_buf - *ppos" is a positive u64 and the
+"count > size_buf - *ppos" comparison can't overflow.
+
+It also tightens a pre-existing wrap: the caller's
+"if (*ppos + count > image_size)" adds loff_t + size_t and can overflow
+for a huge count; the new "count > size_buf - *ppos" re-bounds count
+regardless, so the copy stays within kern_buf even if that earlier clamp
+is bypassed.
+
+v2 also adds Fixes: f00a86d98a1e ("Staging: vme: add VME userspace
+driver") and keeps the KASAN reproducer in the changelog.
+
+Thanks,
+Michael
 
 
-On 6/16/2026 7:57 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.94 release.
-> There are 261 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.94-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Amazon Development Center Austria GmbH
+Brueckenkopfgasse 1
+8020 Graz
+Oesterreich
+Sitz in Graz
+Firmenbuchnummer: FN 439453 f
+Firmenbuchgericht: Landesgericht fuer Zivilrechtssachen Graz
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENEIRC:
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
---
-Florian
 
