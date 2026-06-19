@@ -1,92 +1,117 @@
-Received: from smtp-8fa8.mail.infomaniak.ch (smtp-8fa8.mail.infomaniak.ch [83.166.143.168])
+Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776DA1548C
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 15:05:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE1620ED
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 15:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781881525; cv=none; b=FgI5HJ92spzrvWyqbMxWhI2fNcs0A+FoczOlsffVTGUMQKP8WbmA2gzkIWnFdE1TM+ClTjBkO70rVQi+KF/ODDcxQoxfc0TLvpod2LX9VsZ+tj92eVZkJUE6X5Ho97Z2ppKpfYSjOjRPHltnMfaJWpOVJ7fYw1qbx8PoX0tfKjk=
+	t=1781882151; cv=none; b=Di8YpWX0URmBVJfuDSEQaelvK7hyi/eKA2YePRs1TXDunGMP0cF6/BA3Hy3cq8363XU8/lkYrs+slM8VoOkACUtPc+C489n002EGdO+AsbWZNdaIoh8eMulLdunexEzElaT/3BqtXo97D21QHY+WxSPrkV6XT++qtBCp0m+iAO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781881525; c=relaxed/simple;
-	bh=qmeX7o2PSIdFaYetB3jwp9rcy8mSQ4DDIyvk55ce06g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=je60WZsZaxoFumbpBBxFiKGO/+Jo+qOHrI/QD9N8xPqcQPZhZc3Jus4zytxAl5EOcKOAxIW+cS/ZwXh7PVwMsRM37t1SQmq7aZVT71Kr1d+Q0DG3F4vgbURKAT7rL3J7LIcnSgTNuCEH2+spRQ5sNVeufMdICTTnLQpdoePb3og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net; spf=pass smtp.mailfrom=0leil.net; dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b=WgHAB/Bz; arc=none smtp.client-ip=83.166.143.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
+	s=arc-20240116; t=1781882151; c=relaxed/simple;
+	bh=TGYgwiTJHtJNlt/17k021rosdmJg6Kpva8siZ53rSS4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hVCqDBPu+2qhc/z0vI4leVZ/hLuzLBV9t6HcVdwl22tplasYPdGAX/tf3Tycapt9+hL5fbc7bkaOQeG2CH5kZWa14JO7xrBrvTFlt8Uza6vE2erfV6Se4oELaKkgG1phgdoDDYETJOcrzgvWtBwgE+9Nv66ySCh8p1o+eh414gU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=b1n.io; spf=pass smtp.mailfrom=b1n.io; dkim=pass (2048-bit key) header.d=b1n.io header.i=@b1n.io header.b=oWe0BT6L; arc=none smtp.client-ip=91.218.175.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=b1n.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=b1n.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b="WgHAB/Bz"
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4ghgjG01KKzB1W;
-	Fri, 19 Jun 2026 16:59:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
-	s=20231125; t=1781881153;
-	bh=I1fl3xZLGNmoO3Uzab7rNKlp5eIAP62khOZs741ziQw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=WgHAB/BzLl+CldA4F6N9/ETzgPc4ZvqMcQTfG1r1eC4QCGd/UwVKl7l8cVee9wo+T
-	 riJNCISiqHOxSKbf8Cnsac+rmuDaIYi2t845+vI/jxqvLHJ/FhzDQAjwfjf9uVF6d/
-	 FcHDXx8dbHE0U1sCgLNQg47QhFILkJG82+vIImdLE82A+OncrLOxH6OGix9CfuxZCi
-	 IYK+5Y3w+/eKQzJZUz8K7N+0q9dM+0ae/HifusOprtzULpZ20gIocu5Cr5ypO/iYx/
-	 JQe6yfYWG8sKBVn5Ub6XZxVS4++0FLG7aw7EHbuItwZlAyH6DIGvLOjRVHl46wJiqY
-	 zztcR2ZedTh5A==
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4ghgjD6YwPztCd;
-	Fri, 19 Jun 2026 16:59:12 +0200 (CEST)
-From: Quentin Schulz <foss+kernel@0leil.net>
-Date: Fri, 19 Jun 2026 16:58:41 +0200
-Subject: [PATCH 6.12.y 1/7] eventpoll: use hlist_is_singular_node() in
- __ep_remove()
+	dkim=pass (2048-bit key) header.d=b1n.io header.i=@b1n.io header.b="oWe0BT6L"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=b1n.io; s=key1;
+	t=1781882147;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=PwWF7KrEgnuENNQxPC3DbTo9dxOZ56k4AODfX6tSOv8=;
+	b=oWe0BT6LKfEp3HNDr0a0+gAFN8hTy9XeiHfsSLQcUELBdMJtLwZ1bbGlpAOXTXWP3nbRto
+	7AjIjNUL2WmS1waIXOxsteHZ7TfTGkTzx0hxauNasBgBpxj5ky98xsdyzw9+7t5Pwv+NXn
+	1RMheBWDJPUgt079/n/tmvYRHjddADaovTeIJ+UJNB4F9Zx2OpfznshY5A96Gh47dvN2qb
+	UbkBn2oO6rB1GZG9O30Ifv0nBWl61xmrWsq3LCHsOOmgdEZhNz+60V5nukgwYwFpkuv/8f
+	YSegefPrS3hBjIj0NjfR5HhZhMd8+hNhHO3qKwXC2jX2OPevlDJCSIWRRlrZcg==
+From: Xingquan Liu <b1n@b1n.io>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org,
+	Jiri Pirko <jiri@resnulli.us>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+	Xingquan Liu <b1n@b1n.io>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] net/sched: dualpi2: fix GSO backlog accounting
+Date: Fri, 19 Jun 2026 11:13:47 -0400
+Message-ID: <20260619151447.223640-1-b1n@b1n.io>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260619-6-12-cve-2026-46242-v1-1-e15a6de43c11@cherry.de>
-References: <20260619-6-12-cve-2026-46242-v1-0-e15a6de43c11@cherry.de>
-In-Reply-To: <20260619-6-12-cve-2026-46242-v1-0-e15a6de43c11@cherry.de>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Davidlohr Bueso <dave@stgolabs.net>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Soheil Hassas Yeganeh <soheil@google.com>, 
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Quentin Schulz <quentin.schulz@cherry.de>
-X-Mailer: b4 0.15-dev-47773
-X-Infomaniak-Routing: alpha
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-From: Christian Brauner <brauner@kernel.org>
+When DualPI2 splits a GSO skb into N segments, it propagates N
+additional packets to its parent before returning NET_XMIT_SUCCESS.
+The parent then accounts for the original skb once more, leaving its
+qlen one larger than the number of packets actually queued.
 
-[ Upstream commit 3d9fd0abc94d8cd430cc7cd7d37ce5e5aae2cd2b ]
+With QFQ as the parent, after all real packets are dequeued, QFQ still
+has a non-zero qlen while its in-service aggregate has no active
+classes. qfq_choose_next_agg() returns NULL and qfq_dequeue() passes
+the result to qfq_peek_skb(), causing a NULL pointer dereference.
 
-Replace the open-coded "epi is the only entry in file->f_ep" check
-with hlist_is_singular_node(). Same semantics, and the helper avoids
-the head-cacheline access in the common false case.
+Follow the same pattern used by tbf_segment() and taprio: count only
+successfully queued segments, propagate the difference between the
+original skb and those segments, and return NET_XMIT_SUCCESS whenever
+at least one segment was queued.
 
-Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-1-2470f9eec0f5@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Stable-dep-of: a6dc643c6931 ("eventpoll: fix ep_remove struct eventpoll / struct file UAF")
-Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+Fixes: 8f9516daedd6 ("sched: Add enqueue/dequeue of dualpi2 qdisc")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xingquan Liu <b1n@b1n.io>
 ---
- fs/eventpoll.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v3:
+- Move the UDP GSO sender into tdc_gso.py.
 
-diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index a860cb54658a3..8f9dc2f4891ff 100644
---- a/fs/eventpoll.c
-+++ b/fs/eventpoll.c
-@@ -827,7 +827,7 @@ static bool __ep_remove(struct eventpoll *ep, struct epitem *epi, bool force)
+v2:
+- Change patch commit message.
+- Add tdc test.
+
+ net/sched/sch_dualpi2.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/net/sched/sch_dualpi2.c b/net/sched/sch_dualpi2.c
+index d7c3254ef800..5434df6ca8ef 100644
+--- a/net/sched/sch_dualpi2.c
++++ b/net/sched/sch_dualpi2.c
+@@ -461,7 +461,7 @@ static int dualpi2_qdisc_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 		if (IS_ERR_OR_NULL(nskb))
+ 			return qdisc_drop(skb, sch, to_free);
  
- 	to_free = NULL;
- 	head = file->f_ep;
--	if (head->first == &epi->fllink && !epi->fllink.next) {
-+	if (hlist_is_singular_node(&epi->fllink, head)) {
- 		/* See eventpoll_release() for details. */
- 		WRITE_ONCE(file->f_ep, NULL);
- 		if (!is_file_epoll(file)) {
+-		cnt = 1;
++		cnt = 0;
+ 		byte_len = 0;
+ 		orig_len = qdisc_pkt_len(skb);
+ 		skb_list_walk_safe(nskb, nskb, next) {
+@@ -488,16 +488,15 @@ static int dualpi2_qdisc_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 				byte_len += nskb->len;
+ 			}
+ 		}
+-		if (cnt > 1) {
++		if (cnt > 0) {
+ 			/* The caller will add the original skb stats to its
+ 			 * backlog, compensate this if any nskb is enqueued.
+ 			 */
+-			--cnt;
+-			byte_len -= orig_len;
++			qdisc_tree_reduce_backlog(sch, 1 - cnt,
++						  orig_len - byte_len);
+ 		}
+-		qdisc_tree_reduce_backlog(sch, -cnt, -byte_len);
+ 		consume_skb(skb);
+-		return err;
++		return cnt > 0 ? NET_XMIT_SUCCESS : err;
+ 	}
+ 	return dualpi2_enqueue_skb(skb, sch, to_free);
+ }
 
+base-commit: 96e7f9122aae0ed000ee321f324b812a447906d9
 -- 
-2.54.0
+Xingquan Liu
 
