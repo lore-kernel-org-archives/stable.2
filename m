@@ -1,32 +1,34 @@
-Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
+Received: from out-179.mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE1620ED
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 15:15:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62EA02C029D
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 15:16:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781882151; cv=none; b=Di8YpWX0URmBVJfuDSEQaelvK7hyi/eKA2YePRs1TXDunGMP0cF6/BA3Hy3cq8363XU8/lkYrs+slM8VoOkACUtPc+C489n002EGdO+AsbWZNdaIoh8eMulLdunexEzElaT/3BqtXo97D21QHY+WxSPrkV6XT++qtBCp0m+iAO0=
+	t=1781882171; cv=none; b=htUy8Yv2UQepaeeC3GdyljalkUtsryWhIxOMSwpZR9rLXmBDXnhUbsXf3PvDvzEOymEx4NrwEu01Kq2q/SbP0IRLfF29NeWlTCnw7awPRpidMt8eWwlKFH+IyBbG5FOJUPzpNmHX6Uu+x+87OyHadd0S6akgEwixY6H0dJK0VMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781882151; c=relaxed/simple;
-	bh=TGYgwiTJHtJNlt/17k021rosdmJg6Kpva8siZ53rSS4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hVCqDBPu+2qhc/z0vI4leVZ/hLuzLBV9t6HcVdwl22tplasYPdGAX/tf3Tycapt9+hL5fbc7bkaOQeG2CH5kZWa14JO7xrBrvTFlt8Uza6vE2erfV6Se4oELaKkgG1phgdoDDYETJOcrzgvWtBwgE+9Nv66ySCh8p1o+eh414gU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=b1n.io; spf=pass smtp.mailfrom=b1n.io; dkim=pass (2048-bit key) header.d=b1n.io header.i=@b1n.io header.b=oWe0BT6L; arc=none smtp.client-ip=91.218.175.182
+	s=arc-20240116; t=1781882171; c=relaxed/simple;
+	bh=yrM5OO9S72ojRQbz4TpJns2tN37h8f8DLKFgCZmRv4E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NdA9gbp3ulrTcVDPr48id4MldotNRmSAPyLRlWRnww+Zx7bBGNpngjsLUO3JNFvfubvcQZ8Pg7T+Iy/ISXWXIYb1Xlw3rzVkdVx/Dl0FeXLGJYoZcaJs2Xmoean0U0pvWLGp1GpuIZ46YSok8BKKC7c62+yVxhY43hVUB4xkgJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=b1n.io; spf=pass smtp.mailfrom=b1n.io; dkim=pass (2048-bit key) header.d=b1n.io header.i=@b1n.io header.b=VtK7LiPn; arc=none smtp.client-ip=95.215.58.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=b1n.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=b1n.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=b1n.io header.i=@b1n.io header.b="oWe0BT6L"
+	dkim=pass (2048-bit key) header.d=b1n.io header.i=@b1n.io header.b="VtK7LiPn"
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=b1n.io; s=key1;
-	t=1781882147;
+	t=1781882167;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=PwWF7KrEgnuENNQxPC3DbTo9dxOZ56k4AODfX6tSOv8=;
-	b=oWe0BT6LKfEp3HNDr0a0+gAFN8hTy9XeiHfsSLQcUELBdMJtLwZ1bbGlpAOXTXWP3nbRto
-	7AjIjNUL2WmS1waIXOxsteHZ7TfTGkTzx0hxauNasBgBpxj5ky98xsdyzw9+7t5Pwv+NXn
-	1RMheBWDJPUgt079/n/tmvYRHjddADaovTeIJ+UJNB4F9Zx2OpfznshY5A96Gh47dvN2qb
-	UbkBn2oO6rB1GZG9O30Ifv0nBWl61xmrWsq3LCHsOOmgdEZhNz+60V5nukgwYwFpkuv/8f
-	YSegefPrS3hBjIj0NjfR5HhZhMd8+hNhHO3qKwXC2jX2OPevlDJCSIWRRlrZcg==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Wb88phcKJT+f+2SK9GFhsWNRHlWhBZE168HrCznh2ZA=;
+	b=VtK7LiPnKx0md0rLt001UVQY8qOvyS6MaFMjTbrfw6/bOGSES3sRnoCxSsC65uZdynPVkw
+	HjwPxKKGtqhr4BA6iJICnfcMtC2jbvgBeyj5wvj6lFuTlak110Xsxz4GtYcn564TFsdQyZ
+	kcBphUROXeC8fdvqZhsmP0MuySQePsnBLIj2QJoID69GILhwax026HnJDPOdmwNl0Cnl2n
+	3mEHblT4mu5JfZjeSxOqtZtK0dlVkwYK7sFEWrup5PmTd7uC5u8TXnkjqbtQjVAEa0Pkd9
+	wIIWuPxF0Xl+iImh+XFDpQ5ZPASu0W9Rd3r0lwTKna3F+XRHvPM+NKiskqvw8Q==
 From: Xingquan Liu <b1n@b1n.io>
 To: Jamal Hadi Salim <jhs@mojatatu.com>
 Cc: netdev@vger.kernel.org,
@@ -35,9 +37,11 @@ Cc: netdev@vger.kernel.org,
 	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
 	Xingquan Liu <b1n@b1n.io>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] net/sched: dualpi2: fix GSO backlog accounting
-Date: Fri, 19 Jun 2026 11:13:47 -0400
-Message-ID: <20260619151447.223640-1-b1n@b1n.io>
+Subject: [PATCH v3 2/2] selftests/tc-testing: Add DualPI2 GSO backlog accounting test
+Date: Fri, 19 Jun 2026 11:13:48 -0400
+Message-ID: <20260619151447.223640-2-b1n@b1n.io>
+In-Reply-To: <20260619151447.223640-1-b1n@b1n.io>
+References: <20260619151447.223640-1-b1n@b1n.io>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,71 +51,127 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
 
-When DualPI2 splits a GSO skb into N segments, it propagates N
-additional packets to its parent before returning NET_XMIT_SUCCESS.
-The parent then accounts for the original skb once more, leaving its
-qlen one larger than the number of packets actually queued.
+Add a regression test for DualPI2 GSO backlog accounting when it is
+used as a child qdisc of QFQ.
 
-With QFQ as the parent, after all real packets are dequeued, QFQ still
-has a non-zero qlen while its in-service aggregate has no active
-classes. qfq_choose_next_agg() returns NULL and qfq_dequeue() passes
-the result to qfq_peek_skb(), causing a NULL pointer dereference.
+The test sends one UDP GSO datagram through a QFQ class with DualPI2 as
+the leaf qdisc. DualPI2 splits the skb into two segments. After the
+traffic drains, both QFQ and DualPI2 must report zero backlog and zero
+qlen.
 
-Follow the same pattern used by tbf_segment() and taprio: count only
-successfully queued segments, propagate the difference between the
-original skb and those segments, and return NET_XMIT_SUCCESS whenever
-at least one segment was queued.
+On kernels with the broken accounting, QFQ can keep a stale non-zero
+qlen after all real packets have been dequeued.
 
-Fixes: 8f9516daedd6 ("sched: Add enqueue/dequeue of dualpi2 qdisc")
-Cc: stable@vger.kernel.org
 Signed-off-by: Xingquan Liu <b1n@b1n.io>
 ---
-v3:
-- Move the UDP GSO sender into tdc_gso.py.
+ .../tc-testing/tc-tests/qdiscs/dualpi2.json   | 44 +++++++++++++++++++
+ tools/testing/selftests/tc-testing/tdc_gso.py | 43 ++++++++++++++++++
+ 2 files changed, 87 insertions(+)
+ create mode 100755 tools/testing/selftests/tc-testing/tdc_gso.py
 
-v2:
-- Change patch commit message.
-- Add tdc test.
-
- net/sched/sch_dualpi2.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
-
-diff --git a/net/sched/sch_dualpi2.c b/net/sched/sch_dualpi2.c
-index d7c3254ef800..5434df6ca8ef 100644
---- a/net/sched/sch_dualpi2.c
-+++ b/net/sched/sch_dualpi2.c
-@@ -461,7 +461,7 @@ static int dualpi2_qdisc_enqueue(struct sk_buff *skb, struct Qdisc *sch,
- 		if (IS_ERR_OR_NULL(nskb))
- 			return qdisc_drop(skb, sch, to_free);
- 
--		cnt = 1;
-+		cnt = 0;
- 		byte_len = 0;
- 		orig_len = qdisc_pkt_len(skb);
- 		skb_list_walk_safe(nskb, nskb, next) {
-@@ -488,16 +488,15 @@ static int dualpi2_qdisc_enqueue(struct sk_buff *skb, struct Qdisc *sch,
- 				byte_len += nskb->len;
- 			}
- 		}
--		if (cnt > 1) {
-+		if (cnt > 0) {
- 			/* The caller will add the original skb stats to its
- 			 * backlog, compensate this if any nskb is enqueued.
- 			 */
--			--cnt;
--			byte_len -= orig_len;
-+			qdisc_tree_reduce_backlog(sch, 1 - cnt,
-+						  orig_len - byte_len);
- 		}
--		qdisc_tree_reduce_backlog(sch, -cnt, -byte_len);
- 		consume_skb(skb);
--		return err;
-+		return cnt > 0 ? NET_XMIT_SUCCESS : err;
- 	}
- 	return dualpi2_enqueue_skb(skb, sch, to_free);
- }
-
-base-commit: 96e7f9122aae0ed000ee321f324b812a447906d9
+diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/dualpi2.json b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/dualpi2.json
+index cd1f2ee8f354..ed6a900bb568 100644
+--- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/dualpi2.json
++++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/dualpi2.json
+@@ -250,5 +250,49 @@
+         "teardown": [
+             "$TC qdisc del dev $DUMMY handle 1: root"
+         ]
++    },
++    {
++        "id": "891f",
++        "name": "Verify DualPI2 GSO backlog accounting with QFQ parent",
++        "category": [
++            "qdisc",
++            "dualpi2",
++            "qfq",
++            "gso"
++        ],
++        "plugins": {
++            "requires": "nsPlugin"
++        },
++        "setup": [
++            "$IP link set dev $DUMMY up || true",
++            "$IP addr add 10.10.10.10/24 dev $DUMMY || true",
++            "$TC qdisc add dev $DUMMY root handle 1: qfq",
++            "$TC class add dev $DUMMY parent 1: classid 1:1 qfq weight 1 maxpkt 4096",
++            "$TC qdisc add dev $DUMMY parent 1:1 handle 2: dualpi2",
++            "$TC filter add dev $DUMMY parent 1: matchall classid 1:1"
++        ],
++        "cmdUnderTest": "./tdc_gso.py 10.10.10.10 10.10.10.1 9000 1200 2400",
++        "expExitCode": "0",
++        "verifyCmd": "$TC -j -s qdisc ls dev $DUMMY",
++        "matchJSON": [
++            {
++                "kind": "qfq",
++                "handle": "1:",
++                "packets": 2,
++                "backlog": 0,
++                "qlen": 0
++            },
++            {
++                "kind": "dualpi2",
++                "handle": "2:",
++                "packets": 2,
++                "backlog": 0,
++                "qlen": 0
++            }
++        ],
++        "teardown": [
++            "$TC qdisc del dev $DUMMY root",
++            "$IP addr del 10.10.10.10/24 dev $DUMMY || true"
++        ]
+     }
+ ]
+diff --git a/tools/testing/selftests/tc-testing/tdc_gso.py b/tools/testing/selftests/tc-testing/tdc_gso.py
+new file mode 100755
+index 000000000000..b66528ea4b68
+--- /dev/null
++++ b/tools/testing/selftests/tc-testing/tdc_gso.py
+@@ -0,0 +1,43 @@
++#!/usr/bin/env python3
++# SPDX-License-Identifier: GPL-2.0
++
++"""
++tdc_gso.py - send a UDP GSO datagram
++
++Copyright (C) 2026 Xingquan Liu <b1n@b1n.io>
++"""
++
++import argparse
++import socket
++import struct
++import sys
++
++UDP_MAX_SEGMENTS = 1 << 7
++
++
++parser = argparse.ArgumentParser(description="UDP GSO datagram sender")
++parser.add_argument("src", help="source IPv4 address")
++parser.add_argument("dst", help="destination IPv4 address")
++parser.add_argument("port", type=int, help="destination UDP port")
++parser.add_argument("gso_size", type=int, help="UDP GSO segment payload size")
++parser.add_argument("payload_len", type=int, help="total UDP payload length")
++args = parser.parse_args()
++
++if args.gso_size <= 0 or args.gso_size > 0xFFFF:
++    parser.error("gso_size must fit in an unsigned 16-bit integer")
++if args.payload_len <= args.gso_size:
++    parser.error("payload_len must be larger than gso_size")
++if args.payload_len > args.gso_size * UDP_MAX_SEGMENTS:
++    parser.error("payload_len exceeds UDP_MAX_SEGMENTS")
++
++SOL_UDP = getattr(socket, "SOL_UDP", socket.IPPROTO_UDP)
++UDP_SEGMENT = getattr(socket, "UDP_SEGMENT", 103)
++
++sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
++sock.bind((args.src, 0))
++
++payload = b"b" * args.payload_len
++cmsg = [(SOL_UDP, UDP_SEGMENT, struct.pack("=H", args.gso_size))]
++
++sent = sock.sendmsg([payload], cmsg, 0, (args.dst, args.port))
++sys.exit(sent != len(payload))
 -- 
 Xingquan Liu
 
