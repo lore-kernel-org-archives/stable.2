@@ -1,56 +1,39 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F8733B6F4;
-	Fri, 19 Jun 2026 03:02:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104BE3168E1;
+	Fri, 19 Jun 2026 03:42:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781838161; cv=none; b=ej79d1Aq4SeGmDdcLZ7orz18a4Lhk9IPzs7xpbqe0NsKXVT8qYunk6QanWQ8sVqvMIANor+4dbm4ayghgpgxiKOAp6+bogmU7v/wuvIW6+dw1O/JCX5dbVQV95xZ91yJnCBnTvtRsMqmNPOjfEI8THexcdusjDu6++Bncuo1pEE=
+	t=1781840548; cv=none; b=ZXVlNxSfze6LJzBcxEhgtdT7YvSG5oxxAyZ6dh/DRTATaSKlWxfYcPiM/27qcXRqOz92Pz5Az//gUVX8vxkw4LdVOrdldiaGCxAsBCwsUozvlz8XPrxq5ahEX00nfr52006D21uwbFtoClS/8kIJ1CF6aaPh1iR/QEZPxCfID6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781838161; c=relaxed/simple;
-	bh=r4bodF9U8oMEN04T0y18dysLerS4jks16bI6avdd++w=;
+	s=arc-20240116; t=1781840548; c=relaxed/simple;
+	bh=ubMbh8d9RyE2YQUZu4VcJxWYsgkVG7HyZrO7VuqhoRM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FkiXvyvBDqjQr27sK3o7+ah2tnfeW8KzOyoS4khzGQtgsIrGcL7vhbxthEBU1DywGUzjM8PTaE8CtJNFzzV/pZgP8dSzWKoBQYmgxglnt0tAbCQisW6CJIuH6JMmz1Ggd9IS7yr0pg5WB5Fh9nxPUTuFiwvvBcfzz+kTucoZ9Io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 4a0426106b8b11f1aa26b74ffac11d73-20260619
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:54b7c1a8-4e26-4de3-9828-59c9a56bcaa4,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:4c2eda3750725ae7bc323e2f32abb649,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|136|850|865|898,TC:nil,Content
-	:0|15|50,EDM:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,CO
-	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 4a0426106b8b11f1aa26b74ffac11d73-20260619
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 677852642; Fri, 19 Jun 2026 11:02:21 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	johan@kernel.org,
-	kishon@kernel.org,
-	rogerq@ti.com
-Cc: linux-phy@lists.infradead.org,
+	 MIME-Version; b=nrvZkR6/c/vI3HYkAn2drGBgY4/jUeDnHuTrECoGP/jPF1c6fvA8Fl8Hdiibk3itYnkDx7TDhQqbiZohsx7O64Q1bb9oUFI6iQs604tBfBUruBwROLkygVVcRbTasDyRLdbkVFeB9i5EhDan/6MmM2pIRXEjgNsJvLp8YajQCCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=TXpmPcpI; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="TXpmPcpI"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 42fd44ab5;
+	Fri, 19 Jun 2026 11:37:11 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: lee@kernel.org
+Cc: jpanis@baylibre.com,
+	bhargav.r@ltts.com,
+	mwalle@kernel.org,
 	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	Sashiko AI <sashiko@kernel.org>,
+	jianhao.xu@seu.edu.cn,
+	runyu.xiao@seu.edu.cn,
 	stable@vger.kernel.org
-Subject: [PATCH v6 4/4] phy: ti-pipe3: Fix clock leak in init error path
-Date: Fri, 19 Jun 2026 11:02:14 +0800
-Message-Id: <20260619030214.1779043-5-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260619030214.1779043-1-zenghongling@kylinos.cn>
-References: <20260619030214.1779043-1-zenghongling@kylinos.cn>
+Subject: [PATCH v2] mfd: tps6594: copy regmap IRQ chip descriptors per probe
+Date: Fri, 19 Jun 2026 11:37:08 +0800
+Message-Id: <20260619033708.2222124-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260611145632.2219430-1-runyu.xiao@seu.edu.cn>
+References: <20260611145632.2219430-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,71 +41,122 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9eddf43c3a03a1kunmea4832cbbc9e6
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQh9KVk8fSxkYQktDSUxITVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=TXpmPcpIAPnm3A0bOrxILY4zWz8GOy3roLCggSKxjGC6lvdpCKSU8WE98aDBXnL854R610GOuPzEM/X50FhuDyHa7QdALPuJbSTsacNrNMfyuY9hyhZx79G5syywkjSkOB06vodNxPJyesj2Q3H3Q/MZpkiCNeRIsbb7R5tZGkM=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=uzrubL7vsB/HgFBqP0sMyZYOtCJ2IjHI1Ko8F8XMkPo=;
+	h=date:mime-version:subject:message-id:from;
 
-When regmap_update_bits() fails in ti_pipe3_init() for PCIe mode,
-the function returns the error without calling ti_pipe3_disable_clocks().
-This leaves the clocks permanently enabled since the PHY framework won't
-invoke the .exit callback on init failure.
+tps6594_device_init() selects one of several shared static
+struct regmap_irq_chip templates and then writes the current probe's
+irq_drv_data and generated name into that shared descriptor before
+passing it to devm_regmap_add_irq_chip().
 
-Fix this by adding proper clock cleanup in the PCIe error path, consistent
-with how the DPLL program error path handles cleanup.
+On a running system this is reachable whenever another TPS6594,
+TPS65224, or TPS652G1 instance probes through the same descriptor
+family. regmap-irq keeps the raw chip pointer, so the later probe
+overwrites the earlier instance's callback context. A later IRQ can
+then run tps6594_handle_post_irq() with the wrong struct tps6594,
+name, chip_id, regmap, and CRC handling path.
 
-Fixes: 234738ea3390 ("phy: ti-pipe3: move clk initialization to a separate function")
-Reported-by: Sashiko AI <sashiko@kernel.org>
-Closes: https://lore.kernel.org/all/20260518023657.41852C2BCB0@smtp.kernel.org/
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+The issue was found on Linux v6.18.21 during manual auditing of drivers
+that reuse shared regmap_irq_chip descriptors while filling probe-local
+irq_drv_data and name fields before devm_regmap_add_irq_chip(), and was
+confirmed with a focused QEMU no-device validation harness. That test
+showed a later probe could overwrite the earlier registration's saved
+callback context through the shared chip descriptor, while per-probe
+descriptor copies preserved callback ownership for both registrations.
+
+Copy the selected descriptor with devm_kmemdup(), mutate only the
+copy, and pass that copy to devm_regmap_add_irq_chip(). Also mark the
+static descriptors const so probe-local state cannot be written back
+into shared templates again.
+
+Fixes: 325bec7157b3 ("mfd: tps6594: Add driver for TI TPS6594 PMIC")
+Fixes: 9d855b8144e6 ("mfd: tps6594-core: Add TI TPS65224 PMIC core")
+Fixes: 626bb0a45584 ("mfd: tps6594: Add TI TPS652G1 support")
 Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+v2:
+- Allocate the per-probe descriptor directly with devm_kmemdup()
+- Replace the stack copy and void * temporary with a typed chip pointer
 
----
-Change in v5:
-  -Add Fix ignored clock enable return value in init patch
----
-Change in v6:
- -Fix all clock leak paths comprehensively:
- -PCIe syscon update failure path
- -SATA DPLL lock check path
- -SATA errata path in ti_pipe3_exit()
----
- drivers/phy/ti/phy-ti-pipe3.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/mfd/tps6594-core.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
-index 9ec228c2a940..860058f31594 100644
---- a/drivers/phy/ti/phy-ti-pipe3.c
-+++ b/drivers/phy/ti/phy-ti-pipe3.c
-@@ -518,6 +518,8 @@ static int ti_pipe3_init(struct phy *x)
- 		val = 0x96 << OMAP_CTRL_PCIE_PCS_DELAY_COUNT_SHIFT;
- 		ret = regmap_update_bits(phy->pcs_syscon, phy->pcie_pcs_reg,
- 					 PCIE_PCS_MASK, val);
-+		if (ret)
-+			ti_pipe3_disable_clocks(phy);
- 		return ret;
+diff --git a/drivers/mfd/tps6594-core.c b/drivers/mfd/tps6594-core.c
+index 8b26c4127472..145142200045 100644
+--- a/drivers/mfd/tps6594-core.c
++++ b/drivers/mfd/tps6594-core.c
+@@ -531,7 +531,7 @@ static int tps6594_handle_post_irq(void *irq_drv_data)
+ 	return ret;
+ };
+ 
+-static struct regmap_irq_chip tps6594_irq_chip = {
++static const struct regmap_irq_chip tps6594_irq_chip = {
+ 	.ack_base = TPS6594_REG_INT_BUCK1_2,
+ 	.ack_invert = 1,
+ 	.clear_ack = 1,
+@@ -543,7 +543,7 @@ static struct regmap_irq_chip tps6594_irq_chip = {
+ 	.handle_post_irq = tps6594_handle_post_irq,
+ };
+ 
+-static struct regmap_irq_chip tps65224_irq_chip = {
++static const struct regmap_irq_chip tps65224_irq_chip = {
+ 	.ack_base = TPS6594_REG_INT_BUCK,
+ 	.ack_invert = 1,
+ 	.clear_ack = 1,
+@@ -555,7 +555,7 @@ static struct regmap_irq_chip tps65224_irq_chip = {
+ 	.handle_post_irq = tps6594_handle_post_irq,
+ };
+ 
+-static struct regmap_irq_chip tps652g1_irq_chip = {
++static const struct regmap_irq_chip tps652g1_irq_chip = {
+ 	.ack_base = TPS6594_REG_INT_BUCK,
+ 	.ack_invert = 1,
+ 	.clear_ack = 1,
+@@ -707,7 +707,10 @@ int tps6594_device_init(struct tps6594 *tps, bool enable_crc)
+ {
+ 	struct device *dev = tps->dev;
+ 	int ret;
+-	struct regmap_irq_chip *irq_chip;
++	const struct regmap_irq_chip *irq_chip;
++	struct regmap_irq_chip *chip;
++	const char *irq_chip_name;
+ 	unsigned int pwr_on, gpio3_cfg;
+ 	const struct mfd_cell *cells;
+ 	int n_cells;
+@@ -738,15 +740,20 @@ int tps6594_device_init(struct tps6594 *tps, bool enable_crc)
+ 		cells = tps6594_common_cells;
  	}
  
-@@ -531,8 +533,9 @@ static int ti_pipe3_init(struct phy *x)
+-	irq_chip->irq_drv_data = tps;
+-	irq_chip->name = devm_kasprintf(dev, GFP_KERNEL, "%s-%ld-0x%02x",
+-					dev->driver->name, tps->chip_id, tps->reg);
++	irq_chip_name = devm_kasprintf(dev, GFP_KERNEL, "%s-%ld-0x%02x",
++				       dev->driver->name, tps->chip_id, tps->reg);
++	if (!irq_chip_name)
++		return -ENOMEM;
  
- 	/* SATA has issues if re-programmed when locked */
- 	val = ti_pipe3_readl(phy->pll_ctrl_base, PLL_STATUS);
--	if ((val & PLL_LOCK) && phy->mode == PIPE3_MODE_SATA)
--		return ret;
-+	if ((val & PLL_LOCK) && phy->mode == PIPE3_MODE_SATA) {
-+		return 0;
-+	}
+-	if (!irq_chip->name)
++	chip = devm_kmemdup(dev, irq_chip, sizeof(*chip), GFP_KERNEL);
++	if (!chip)
+ 		return -ENOMEM;
  
- 	/* Program the DPLL */
- 	ret = ti_pipe3_dpll_program(phy);
-@@ -555,8 +558,10 @@ static int ti_pipe3_exit(struct phy *x)
- 	/* If dpll_reset_syscon is not present we wont power down SATA DPLL
- 	 * due to Errata i783
- 	 */
--	if (phy->mode == PIPE3_MODE_SATA && !phy->dpll_reset_syscon)
-+	if (phy->mode == PIPE3_MODE_SATA && !phy->dpll_reset_syscon) {
-+		ti_pipe3_disable_clocks(phy);
- 		return 0;
-+	}
++	chip->irq_drv_data = tps;
++	chip->name = irq_chip_name;
++
+ 	ret = devm_regmap_add_irq_chip(dev, tps->regmap, tps->irq, IRQF_SHARED | IRQF_ONESHOT,
+-				       0, irq_chip, &tps->irq_data);
++				       0, chip, &tps->irq_data);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to add regmap IRQ\n");
  
- 	/* PCIe doesn't have internal DPLL */
- 	if (phy->mode != PIPE3_MODE_PCIE) {
 -- 
-2.25.1
-
+2.34.1
