@@ -1,81 +1,119 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2889340A6C;
-	Fri, 19 Jun 2026 07:43:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537EF31D72E;
+	Fri, 19 Jun 2026 07:46:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781855008; cv=none; b=pps1gzGVbtBki1kAmDzebHvO3dvbmmSnLuWcESUfZE87OqV5hZYrL3dVjIgph5YL5G+ULRkzryZDoCM/YfcRngIlxFRmQ6fRJ/fmlF97df2yv2tAXrm/6MVLn3Ohwc+X5vh0BOFXzGKBeUDeyPxr0KJ/yrZXHtVyHKF7oH6g1QM=
+	t=1781855200; cv=none; b=mgY8JVwxOhOV7VYiC11Ue0nSm9opfwIfAZbynPYlDa+tFcOyelMeIIhXcdG5ibsFWoA0e8Xfy+bIkyAf2UuFOvCOhbu9ITIFjXbrF24PIB9PHC61X/mjpoh2EIDxwd0K2a//6VUv8vg+eEG7UDUsZaK0xUPlY3IpWbOKHBFgBDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781855008; c=relaxed/simple;
-	bh=iMrkouWV4Vkl5zyDFKwkEBcCpHxqGEkF4SfZCqIiz6c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B891EIYBWRxLb96ZqKGIJb/ujEplANYYqDZswCAl6GK7tBSW92mbpgGgm+KN7WAeowCEYGOi4uAu/ft2bg3v5EEf2edcsDtlrko6OcfgKWy3XCfUZDr+Q6G8QwGMTjlQxBzjLpr/jXqdmt/N3lChdpd3FUGEovU1fr28NAHZINg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=zSb2XjRC; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=7KO1kUXw; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1781855200; c=relaxed/simple;
+	bh=SwybE9etRyWULXr7u3d3jRRntm8RyRdrdLg4GDactR4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VnKgJ9toLZ9Mr4+5+8JrFZIaRNZ6O5g6anHTW3Oo6q/UseTvOa+ACHkElCKqQDq1bAAAKPXzq78IVOMY0O58CwHsNDm036q+iTx4ae39y+VhPtqyFZSs9RlScuJVdIL/JiK+3kZnwMeunWA2VI5xKNBxznmrIVpQExlpWzlWB9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=nBLPtfBJ; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zSb2XjRC";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="7KO1kUXw"
-Date: Fri, 19 Jun 2026 09:43:23 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1781855005;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iMrkouWV4Vkl5zyDFKwkEBcCpHxqGEkF4SfZCqIiz6c=;
-	b=zSb2XjRCgbH/Jvy1eAV3AaNMiMOMOq9MV/+YaZgDCddUMPYIYyC+2+qpKYhPp9Wjb4nY50
-	EbB3HkZIhMWa0/rXyfHjs8rySUW5Bx0NabApnV2t37hXdqFlBwrV47aN2kfTS1PdZcUHkh
-	4kMepEnFgTC2JCYvF2q/cqimoaHK5wmDutGQuBIchlKHlsV5c5Y2fZjJBSkfOBnmsP7bes
-	r5Uh8oXqynz7ckhCW0Dx+HABNhz2LCaGHHjO/Gx83eIX+mJTKpSvixKEGSi8xJluNElNBE
-	9nIYMAcrx613bo1pAcd6TkPNz2QZTtA4o4yxy/W9h8RF2bjR4MXI40w/bsL/NQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1781855005;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iMrkouWV4Vkl5zyDFKwkEBcCpHxqGEkF4SfZCqIiz6c=;
-	b=7KO1kUXwKqKRgLgQiQzVdKOoirGupUKLzI3yJv6pyDAwiJbgAaOXkJ4lmoSlpDdtTJZahB
-	3ugjQufabERtVNDQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Jonas Jelonek <jelonek.jonas@gmail.com>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org, Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="nBLPtfBJ"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4301623ac;
+	Fri, 19 Jun 2026 15:31:11 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Stanislaw Gruszka <stf_xl@wp.pl>
+Cc: Gertjan van Wingerde <gwingerde@gmail.com>,
+	"John W . Linville" <linville@tuxdriver.com>,
+	Ivo van Doorn <IvDoorn@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] MIPS: smp: report dying CPU to RCU in stop_this_cpu()
-Message-ID: <20260619074323.IIq-0qan@linutronix.de>
-References: <20260608093729.12111-1-jelonek.jonas@gmail.com>
+Subject: [PATCH wireless] wifi: rt2x00: avoid full teardown before work setup in probe
+Date: Fri, 19 Jun 2026 15:31:04 +0800
+Message-Id: <20260619073104.1809161-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260608093729.12111-1-jelonek.jonas@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9edeca774403a1kunmb402b5fdc3d79
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTxlDVkxOTR1DSE9OSkhPQ1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pOTE5VSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=nBLPtfBJ5nNpkTJE8GgYb3Hx1BSRHovA/k+6zDw3DTo8z4G3zmIncHT0876uDVE5uP9PKdIIWvpHrJxVeFXpRA1WuIlWrMYoJ89VUV2ZpSrot/VjJ3F7SHieZ8/USRj0PDMnhwmPSIfl5rlBLgvnlvsJqEfHTbTt/pcT+gvLCk4=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=E61SJuWNDiLWu79QDYcwv8gLBsDMmqgIXWvfr9Q/IZw=;
+	h=date:mime-version:subject:message-id:from;
 
-On 2026-06-08 09:37:29 [+0000], Jonas Jelonek wrote:
-> smp_send_stop() parks all secondary CPUs in stop_this_cpu(). The function
-> marks the CPU offline for the scheduler via set_cpu_online(false) but
-> never informs RCU, so RCU keeps expecting a quiescent state from CPUs
-> that are now spinning forever with interrupts disabled.
-=E2=80=A6
->=20
-> Fixes: 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single() o=
-n PREEMPT_RT")
-> CC: stable@vger.kernel.org
-> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+rt2x00lib_probe_dev() uses the full rt2x00lib_remove_dev() teardown for
+all probe failures. However, drv_data allocation and workqueue allocation
+can fail before intf_work, autowakeup_work and sleep_work have been
+initialized.
 
-Sorry for being late.
+Do not enter the full remove path until the probe has reached the point
+where those work items are set up. Return directly for drv_data allocation
+failure, and use a small early cleanup path for workqueue allocation
+failure.
 
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+This issue was found by our static analysis tool and then confirmed by
+manual review of rt2x00lib_probe_dev() and rt2x00lib_remove_dev(). The
+early probe exits should not call a common teardown path that assumes the
+later work setup has already completed.
 
-Sebastian
+A QEMU PoC forced alloc_ordered_workqueue() to fail before the work
+initializers are reached. The resulting fail path entered
+rt2x00lib_remove_dev(), and DEBUG_OBJECTS reported invalid work drains with
+rt2x00lib_probe_dev() and rt2x00lib_remove_dev() in the stack.
+
+Fixes: 1ebbc48520a0 ("rt2x00: Introduce concept of driver data in struct rt2x00_dev.")
+Fixes: 0439f5367c8d ("rt2x00: Move TX/RX work into dedicated workqueue")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/net/wireless/ralink/rt2x00/rt2x00dev.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
+index f8a6f9c968a1..847b64e586f6 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
+@@ -1382,7 +1382,7 @@ int rt2x00lib_probe_dev(struct rt2x00_dev *rt2x00dev)
+ 			                      GFP_KERNEL);
+ 		if (!rt2x00dev->drv_data) {
+ 			retval = -ENOMEM;
+-			goto exit;
++			return retval;
+ 		}
+ 	}
+ 
+@@ -1416,7 +1416,7 @@ int rt2x00lib_probe_dev(struct rt2x00_dev *rt2x00dev)
+ 	    alloc_ordered_workqueue("%s", 0, wiphy_name(rt2x00dev->hw->wiphy));
+ 	if (!rt2x00dev->workqueue) {
+ 		retval = -ENOMEM;
+-		goto exit;
++		goto exit_free_drv_data;
+ 	}
+ 
+ 	INIT_WORK(&rt2x00dev->intf_work, rt2x00lib_intf_scheduled);
+@@ -1488,6 +1488,14 @@ int rt2x00lib_probe_dev(struct rt2x00_dev *rt2x00dev)
+ exit:
+ 	rt2x00lib_remove_dev(rt2x00dev);
+ 
++	return retval;
++
++exit_free_drv_data:
++	clear_bit(DEVICE_STATE_PRESENT, &rt2x00dev->flags);
++
++	kfree(rt2x00dev->drv_data);
++	rt2x00dev->drv_data = NULL;
++
+ 	return retval;
+ }
+ EXPORT_SYMBOL_GPL(rt2x00lib_probe_dev);
+-- 
+2.34.1
+
