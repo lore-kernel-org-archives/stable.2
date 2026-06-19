@@ -1,214 +1,174 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011021.outbound.protection.outlook.com [52.101.70.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA7D2D8378;
-	Fri, 19 Jun 2026 08:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781859577; cv=fail; b=pPMjoLjChXxs81bSKnzzK2/UHsnmGMvUB3YcVQJXPoqFAvRNze5/NccPN3PxwrbOyRxfSgiHp24Uw9DnFvwjbYvIl09mHLElVELshWk8mfAcSFtDl15l7POIvaFo0WB7oFMDjHUeEIAYjIxOR6mgf3ppnTXu7BnX5osLOpicZIY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781859577; c=relaxed/simple;
-	bh=XpT/wHU7eGeMoBMzpY/esttXjifyrVBb2e9Sq3/xPmk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=d5e54Er+tCKQGhi3f5/zTHFdwm8iJ4LmqCn4R99ufCynXOnLgyCePOyM009HKQfyC44QuemSISPoqWdUV+G8OcNXUQwPwRXgt4O+yD5hiC1K9WZqKmRNvFmWeyVvFNNL2ifQoDfgzTJmWYzj/bOtgkWgzgRRmWscRlZPeXnyDmY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=PvWx2caz; arc=fail smtp.client-ip=52.101.70.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C4E31E834
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 09:03:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781859798; cv=none; b=OQLKLpncc97NPgtEdsaEPLTzEL/XJ6YPSLSglhPThbiw3Fu9Mr8I/G4OdCjv/ggljrI0EyRbf1uNu27/+MvrDh/QlNz8/tydcmRfNQO+QBSXALQA0Ut1FefNNibOKzcZF7+Cx26lviy4BdYiTYYyTDIvp8EYu6f8maA3ND4W/P4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781859798; c=relaxed/simple;
+	bh=ZDMKVKiJ99ZZuTo0IWaiei0vmrhN+tQnlsIgRBvy8hg=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=T/9a+FRqiItoZz80SfKqD07brzWEPjQnB/LJT28XDel2uSiV5VMJaxCKG+3Bpd6aSELTQGqWWzj0eThyLLYOf++WnLT9D2d0bVGf8NXYBiccOicRJQ6W7kFPWP08P5qDky+9caNpHXTYmBcd78AoA2xkizU6W7V7rVXzJdL/Bq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lfTcTxsn; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="PvWx2caz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bFS7Uj8p9qWNAz6XfAFFu7TB+bjYomS4imCZGK9Ac2tyWUlzTUiZO6VQhkS3F9qGQINnVRHf7lWzHu9Rzp+8xryWbi50lfaDbJMbLw+MkMcN0s664GrHs86v/Gd8V1Ya4PlTatb4cSqeLo/yhj9zDMSj5vszzaYaQYzWJBo/K81gqL/i88Q+x16iUGDsb+OJOVXvrRkNbry5ErD1r4HqfEhKlmb+jCKDilvI350yH53WY69d3+fKIw2BhfgwY0y9JeSWJgzSUqNNc/SimMOGNrKpuu00gYw885g83YYi23JKwtdGFsBHguhlzJq1h5FPimD+yLh1cVpqqLAoesNROQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6/qS9A2zDvCffBOiDKoEhMlmGi0iWtCKmOfeMrXQ+aQ=;
- b=w6MoBlAMPg0g/fWHNvU+xhxpZJv13/CtJOO31UkSZjZZuxnroLa05XvKUbJ3/VRkaOnBTpLZqY3Q1w0dxTiC7tt3XCuH10JzUOKxw/mXd24CbQd0L2Kt5kGeCV5WlPMP7R95ZGX2rD84/YxQlEGohW+8KKCwTlHRa6NUoocq4qeTyccNxxvITVXkBeqplP3VjWuYKAc5IHENBcOAATea+9G9EzjFjHW80E/y3b9ohn5ukb/N8o1hgMvB6MOKX4QMPLiRCEstlpdc/WpRyjY9Kl4Np4ujDJhy7EnjuZw0J+TLy7pF8oXKYEAJIS76jaaUOUHDpfBch3ZP3Fb+ORU3Jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6/qS9A2zDvCffBOiDKoEhMlmGi0iWtCKmOfeMrXQ+aQ=;
- b=PvWx2cazsQDpGDHsbG6dL7sg2AwrZJIDVyLSqt19G7GKIxAEjcTryBZ7WhnbbpLBQaHnKd1TFGjlEOH240/LWapL7+thTLIDuK6H1EM9xQg4WwQi+7nW6eO3acfItNwwtlyRV4sS8JyOzmJR8wkKEyaaXOAoVV2b+n/hzyeVJue/pTT8ixXBem3Ujcgueg+qanAKnUWzgTs4FHWvIcOgbBcW2BWJJyYT3OofofmbBIL0zjrag2DOsCOw70c3sbBz0xdqOEIV6j5KHHbLgqDuogiJ18lU4JnmNuj0eTlDaY+/is9g8qaXKIOcdRvR62d9RCWrlXZ6ccoDrRJM6OI+Og==
-Received: from DB9PR05CA0027.eurprd05.prod.outlook.com (2603:10a6:10:1da::32)
- by PA4PR10MB5610.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:263::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
- 2026 08:59:28 +0000
-Received: from DU6PEPF0000A7E3.eurprd02.prod.outlook.com
- (2603:10a6:10:1da:cafe::34) by DB9PR05CA0027.outlook.office365.com
- (2603:10a6:10:1da::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.11 via Frontend Transport; Fri,
- 19 Jun 2026 08:59:25 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU6PEPF0000A7E3.mail.protection.outlook.com (10.167.8.41) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 08:59:25 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 19 Jun
- 2026 11:03:29 +0200
-Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 19 Jun
- 2026 10:59:24 +0200
-Message-ID: <02b07f43-3c90-4e89-8747-7fd424d87dd1@foss.st.com>
-Date: Fri, 19 Jun 2026 10:59:24 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lfTcTxsn"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-842848fd613so1737584b3a.3
+        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 02:03:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781859796; x=1782464596; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=X6rYFKdT28w7xlw0jk+pEDYESMf9ldPJ9JkhM6PXa+g=;
+        b=lfTcTxsnAIGBxffLQBwtxh8cRnLByTGRDojzR58TMA96o+5updz2Cq4Kqr13kSw8j5
+         S10biHOxBqAtNjsiLl1kQSLxnpSXB5qOucUJgtsya1Hif4xr7TZ4Ot/zVskPOtuU3z+f
+         1Ny95RvVwNt0u+FJcWT+cD/tODttSTk3jV/mVaYzoWyHmSYNkGNyX6zrwkd4LJgEQsws
+         ZtzwIcZmRdFWyQGzNSYYVGRmV4vw1uOa2IlotScGoZJ9EBRPqhjiZQHbBa4y6RfUMsNQ
+         KoGRZVOCk0HbNsUIPLYvxEoHqtAtAaYn6NBLstCftkFCG8JrHQfQCbDPNvTKpHhcZgDQ
+         uqiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781859796; x=1782464596;
+        h=mime-version:content-transfer-encoding:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=X6rYFKdT28w7xlw0jk+pEDYESMf9ldPJ9JkhM6PXa+g=;
+        b=FK83y9HfgZC0Hs22dEMhOG0hStXc+ezN07wBGcno5f9oyuTmXMYVhKF2BOrCF7JpNC
+         ewk4UjIHiUEo6OCY9khTcrGi87lTqXk63x0gYDC13bKQ2xlxNKLujq3V4s2uh3GIGl1+
+         69hh9GW+aOUcVG+IUM+F2BouiPhJS/G4nFQoHK4kqzMuJvdeWqh3xMYuFF3VPk3x0Kae
+         U4YiypixVZ9BH5LTMBfkuS8I2bEUr/Sz7nmtjFoxCGipyvD6613nD+Dz+z9HUUiwoJjz
+         zzz3voff/cDoDKYRe4rQzuN8/ExxBw5jvDb2fBHgxAezyIJY6Ct5Z7xnpJxi0wfByGJy
+         aiEA==
+X-Forwarded-Encrypted: i=1; AFNElJ8jbnlvGMGRS70QCfaIF4O++rlUyJMBPI/iwLyUckscfq4lztqE3Z2+JRAZ/u7gF2t9Ui2rUsM=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx9u0qtYdxJAAacaIp36ee1176IAvDf8SJPqN7e47myOKFLtWBA
+	mxyY4PGMdAhBKgvhn6lhqSPLXQiW72DH0G/V9g5kPHlP65odqdbKZkCH
+X-Gm-Gg: AfdE7cl42/QNxbV8LnUIcG8qJTztgobWxX/pgNOfB2ksqu8vJT/hMl4Am6g1fAe5dYk
+	kKXMD+MEb+935Oho4LXG3M1NcZ49uuySRfhM3TDfa7S4E3gE27H8YWL25s/BRRzlTwPDeYgrhp3
+	mqv9m8RciJYBKxVTgq12l8bchaDjL0mWkn71Na5q7K89V1oJNwj8OqC/9T9WOlV5CpaHCnTGYm9
+	2pDdcdFsO7BpAYhRhpS3wJfosMYKPeqHfWefzrUw5Hp6nFV3q9biK5LEXeng6aes6AbgJvMjX2m
+	Wt91SY6T8W5oky+/jfom9Q1P8Dh8CUXUk8UrpmIJux3ED3pca/QLxq8KHCfLnFIFNFwzOVkt5pb
+	rEmGInvUwL6Q5rO9iC7SX54HGmEXc1Vb2YOIfGfqEY9ojAc+UK3i3REYG1IAb0Xod9xEBJo3yIF
+	c3cFQ/pctNT34WqH/f5lhJPA0jq24IJmgrilFytw==
+X-Received: by 2002:a05:6a00:12d6:b0:835:405a:7e6f with SMTP id d2e1a72fcca58-845507bca47mr3121373b3a.14.1781859795694;
+        Fri, 19 Jun 2026 02:03:15 -0700 (PDT)
+Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84553829240sm1984824b3a.44.2026.06.19.02.03.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Jun 2026 02:03:14 -0700 (PDT)
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+ Johannes Berg <johannes@sipsolutions.net>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject:
+ [PATCH net] net: wwan: iosm: bound device offsets in the MUX downlink decoder
+Date: Fri, 19 Jun 2026 17:03:10 +0800
+Message-ID: <178185979029.4044562.9993615975949055530@maoyixie.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: i2c: vd56g3: clean up subdev state on probe
- failure
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-CC: Myeonghun Pak <mhun512@gmail.com>, Sylvain Petinot
-	<sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20260424165238.31333-1-mhun512@gmail.com>
- <c9c20bce-a1bb-4932-bfa0-c87f7156ff82@foss.st.com>
- <ajPcKcJfbIdPKI8-@kekkonen.localdomain>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <ajPcKcJfbIdPKI8-@kekkonen.localdomain>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU6PEPF0000A7E3:EE_|PA4PR10MB5610:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8eb4c36d-95cf-42c6-e238-08decde10ffe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|13003099007|18002099003|22082099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	rgyYKgF7iSs/dlZ7ZDYddmjt4qXOe3UuBPVMFMDqH0JV1Rny0GqY5Z/U3JHTnZEBuBWmH82aZE74gKduiGRxWj7gU6Y7/hUIc//X6vyrKplfV511dDRIq3ac6UV1chJNCW8E3xZqEekh1ooUv/HLHZhnyqH4V4FINnjId4tk2MIqiOX0JfOCNsq7LVHBTGLeUDGWi575BINHzXD1UPJAjv5zippPmhMvI/iWZ2aLFyCMewVToj+GS06wOZbLbeHCrwJawjtKrqWubqfjFOLMi3zIpKNNiKaPl59v49cJQaPQTKNlTwZPU34XfyTTY4cY/QzcQoAysJVAQnlwguG9jDKduMvZHoSEZdjXW6Y/5PmFNXMltyi/afOmQHTvnO4nKygnxI3ziFpTqaktA3N06rV9qa9U7fR1CRsOVE8z9B3PGBOcHx+/DFZd+L4GXgLXO54/f3GdRW29c6a3ZhsyWRo7U9pTqd11ZIjrY09BgccMhcewzMMrptgo78KYDPJ5ho1smLfQ9ym8Zc1FAXMxR2WV/W/L97wSmoSnqVfBrObx5NTI/7VE3URjM9StAdF7JGaJoC53+iVCQG5CVC30Pu97i/+b5Cl9ZdvJlIG+IeP6XcfdrjKgldfko9WE6oFXMOrpZnysRpqAr0EN3QDlt6F6znIJl8xkTw9GlzNsUm/E9gJtJVLikWWV9VG9nfFBwRfAnvywD9cD5rEmPAEzig==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(13003099007)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	mG4u6ihd/e3SqwOEfl3gFn6GsLs7JVIFqpEQvwPiI9vEXtsX//1+7D64qBI2RRR+xE/p9lm4NRU9EcLL6bQ2IzxogntAeEcYET/OzKxaq2JvpD6ojl/0IeB7YLbd/2Gbp0NwB7NCHUMkIbGreROTn/8czqIMN2OhumZZsnTXkvd7JLJu7UyBStJY6MqIEfTVkolaCcEKibZT6OVbHj3e2Y9aiK1t8mEro+Bc/0jarsoiGoZOHIi9Lr8dOwOfGDFn1hFju0TYxQAGuJMNchsTYphzQyVUrAq/YWoTUPfyCQEJYj5QH0NoOFtSM6urAO7KlqPC5FHRKip0IZ8zYOMFvm1WZj+dDcbgSYqP8zF492fs7PLA9KVvTuFyDkCPHmXE4TgA6cnaM33T+9SeANxtlMu+XuyyDlQh8e91tuUZwFP8RD6Rt6RCo4LGHyul6gqa
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 08:59:25.1647
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8eb4c36d-95cf-42c6-e238-08decde10ffe
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU6PEPF0000A7E3.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR10MB5610
 
-Hi Sakari,
+mux_dl_adb_decode() walks a chain of aggregated datagram tables using
+offsets and lengths taken from the modem. first_table_index,
+next_table_index, table_length, datagram_index and datagram_length are
+all device supplied le values. Only first_table_index was checked, and
+only for being non zero. The decoder then formed adth = block +
+adth_index and read the table header and the datagram entries with no
+bound against the received skb. A modem that reports an index or a
+length past the downlink buffer makes the decoder read out of bounds.
 
-Le 18/06/2026 à 13:53, Sakari Ailus a écrit :
-> Hi Benjamin,
-> 
-> On Tue, Jun 16, 2026 at 02:49:54PM +0200, Benjamin Mugnier wrote:
->> Hi,
->>
->> Thank you for your patch, and apologies for the delay.
->>
->> Le 24/04/2026 à 18:52, Myeonghun Pak a écrit :
->>> vd56g3_subdev_init() calls v4l2_subdev_init_finalize(), which allocates
->>> the subdev active state and requires v4l2_subdev_cleanup() to release it.
->>>
->>> If vd56g3_update_controls() fails after finalize succeeds, the probe error
->>> path currently skips v4l2_subdev_cleanup() and returns an error. The driver
->>> .remove() callback is not called after a failed probe, so the active state
->>> is leaked.
->>>
->>> Route this error through a subdev cleanup label before freeing the control
->>> handler and media entity.
->>>
->>> Fixes: 87aa97fc3157 ("media: i2c: Add driver for ST VD56G3 camera sensor")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
->>> ---
->>> Changes in v2:
->>> - Use a lowercase subject summary.
->>
->> Please keep the first character uppercase, just like other commits on
->> this module.
->>
->>>
->>>  drivers/media/i2c/vd56g3.c | 5 ++++-
->>>  1 file changed, 4 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
->>> index 157acea9e2..43f792288a 100644
->>> --- a/drivers/media/i2c/vd56g3.c
->>> +++ b/drivers/media/i2c/vd56g3.c
->>> @@ -1427,11 +1427,14 @@ static int vd56g3_subdev_init(struct vd56g3 *sensor)
->>>  	v4l2_subdev_unlock_state(state);
->>>  	if (ret) {
->>>  		dev_err(sensor->dev, "Controls update failed: %d\n", ret);
->>> -		goto err_ctrls;
->>> +		goto err_subdev;
->>>  	}
->>>  
->>>  	return 0;
->>>  
->>> +err_subdev:
->>> +	v4l2_subdev_cleanup(&sensor->sd);
->>
->> v4l2_subdev_cleanup() is already performed in the caller (i.e.
->> vd56g3_probe()), but as you noticed it is not called from this path. I'd
->> rather have the return value route correctly through
->> v4l2_subdev_cleanup() in  vd56g3_probe(), allowing to keep a unique call
->> to v4l2_subdev_cleanup() instead.
-> 
-> Is it?
-> 
-> If vd56g3_update_controls() in vd56g3_subdev_init() fails, it'll jump to
-> err_power_off in vd56g3_probe() which does PM related cleanup only.
-> 
+The buffer is IPC_MEM_MAX_DL_MUX_LITE_BUF_SIZE and skb->len is at most
+that, so skb->len is the real limit, but none of these in band offsets
+were checked against it.
 
-Exactly, I realize my sentence was poorly written, but if I understand
-correctly we're on the same page. The problem being
-v4l2_subdev_cleanup() not being called in any path if
-vd56g3_update_controls() fails.
+Validate every device offset and length against skb->len before use.
+The block header must fit. Each table header, on entry and after every
+next_table_index, must lie inside the skb. The datagram table must fit.
+Each datagram index and length must stay inside the skb. The header
+padding must not exceed the datagram length so the receive length does
+not wrap.
 
-Now if vd56g3_update_controls() fails, instead of performing
-v4l2_subdev_cleanup() in vd56g3_subdev_init() as this patch does, I'd
-rather have it done in vd56g3_probe()'s jump back so we can keep it all
-at the same place, instead of having 2 v4l2_subdev_cleanup() in 2
-different places.
+This was reproduced under KASAN as a slab out of bounds read on a normal
+downlink receive once the iosm net device is up.
 
-Tell me if this is still unclear.
+Fixes: 1f52d7b62285 ("net: wwan: iosm: Enable M.2 7360 WWAN card support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+---
+ drivers/net/wwan/iosm/iosm_ipc_mux_codec.c | 23 ++++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
 
->>
->> This patch looks like is LLM generated and sparks my curiosity. If so
->> you must disclaim it using an Assisted-by tag [1]. Sorry if I’m mistaken.
->>
->> [1] https://docs.kernel.org/process/coding-assistants.html
->>
->>> +
->>>  err_ctrls:
->>>  	v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
->>>  
->>
->> -- 
->> Regards,
->> Benjamin
->>
-> 
-
+diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+index bff46f7ca59f..1c021bb0aa7a 100644
+--- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
++++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+@@ -557,15 +557,21 @@ static int mux_dl_process_dg(struct iosm_mux *ipc_mux, struct mux_adbh *adbh,
+ 				< sizeof(struct mux_adbh))
+ 			goto dg_error;
+ 
+-		/* Is the packet inside of the ADB */
++		/* Is the packet inside of the ADB and the received skb ? */
+ 		if (le32_to_cpu(dg->datagram_index) >=
+-					le32_to_cpu(adbh->block_length)) {
++					le32_to_cpu(adbh->block_length) ||
++		    le32_to_cpu(dg->datagram_index) >= skb->len ||
++		    le16_to_cpu(dg->datagram_length) >
++			    skb->len - le32_to_cpu(dg->datagram_index)) {
+ 			goto dg_error;
+ 		} else {
+ 			packet_offset =
+ 				le32_to_cpu(dg->datagram_index) +
+ 				dl_head_pad_len;
+ 			dg_len = le16_to_cpu(dg->datagram_length);
++			/* The header padding must not exceed the datagram. */
++			if (dl_head_pad_len >= dg_len)
++				goto dg_error;
+ 			/* Pass the packet to the netif layer. */
+ 			rc = ipc_mux_net_receive(ipc_mux, if_id, ipc_mux->wwan,
+ 						 packet_offset,
+@@ -595,6 +601,10 @@ static void mux_dl_adb_decode(struct iosm_mux *ipc_mux,
+ 	block = skb->data;
+ 	adbh = (struct mux_adbh *)block;
+ 
++	/* The block header itself must fit in the received skb. */
++	if (skb->len < sizeof(struct mux_adbh))
++		goto adb_decode_err;
++
+ 	/* Process the aggregated datagram tables. */
+ 	adth_index = le32_to_cpu(adbh->first_table_index);
+ 
+@@ -606,6 +616,11 @@ static void mux_dl_adb_decode(struct iosm_mux *ipc_mux,
+ 
+ 	/* Loop through mixed session tables. */
+ 	while (adth_index) {
++		/* The table header must lie within the received skb. */
++		if (adth_index < sizeof(struct mux_adbh) ||
++		    adth_index > skb->len - sizeof(struct mux_adth))
++			goto adb_decode_err;
++
+ 		/* Get the reference to the table header. */
+ 		adth = (struct mux_adth *)(block + adth_index);
+ 
+@@ -629,6 +644,10 @@ static void mux_dl_adb_decode(struct iosm_mux *ipc_mux,
+ 		if (le16_to_cpu(adth->table_length) < sizeof(struct mux_adth))
+ 			goto adb_decode_err;
+ 
++		/* The whole datagram table must fit in the received skb. */
++		if (le16_to_cpu(adth->table_length) > skb->len - adth_index)
++			goto adb_decode_err;
++
+ 		/* Calculate the number of datagrams. */
+ 		nr_of_dg = (le16_to_cpu(adth->table_length) -
+ 					sizeof(struct mux_adth)) /
 -- 
-Regards,
-Benjamin
+2.34.1
 
