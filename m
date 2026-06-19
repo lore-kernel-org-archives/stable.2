@@ -1,162 +1,133 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C10A378D89
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 15:37:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B403BB682;
+	Fri, 19 Jun 2026 16:07:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781883443; cv=none; b=BPQEC6ur1sXDzjpfpQvL4bdIzoQ7reWN2Ck+X04X3c3o/+jNdNfJKjB0JYkHT8Kd//qUOlRPNaDTU3iAYITx4yrQDcf48zNq5LHVbMVIXXe1hYBbL53R7cAl3cU8HnTyUWxtwwPyy31LUxRnFP7L4KrvN8OJIPsk4RXrKxaCCnM=
+	t=1781885262; cv=none; b=RPpZXFEG/sunr1v+mYhx5CjAE7wC39LZDaAjcARLbrqkl5gGG2Wvq8utdekver/ZwfWVftGvDjsiInSXteIGyyRp/XXwu8FELHMuo8Oo9i9J7LCOY63K4VSxySG3WT1oaXEAReF1jfYJkODR4Xowi7nn9TAPMVLupD9RRliZhuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781883443; c=relaxed/simple;
-	bh=Zs7e/+O4mz2zf91CtUdd5caxIJ1n7vj5Kj6VbFfzWvY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nFnch7EwIsXE97fqcpOSOBCguhx1oKm3uDfLVl9hbhnMyqtxcOWd5J57gf7jd9eKkPExf57SgjRAdvtLgCdMupPnVYFjEE+39+9TfHV3f3S2Ipo4eoP9ntD05OcEo7KHfJvPe8pY1ei1J93MzunLlVHPPkGibwkbqQMTRxIhmPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=wIA9tFqF; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1781885262; c=relaxed/simple;
+	bh=fE67BqjDyTheSgqd4EZb5JKPlSAJ3XTJgI08s/KrHZQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=c4Z6EFFpnyJJ6J/QDz9coebSmg0duKO5ijkIcP5gfEwgIo+7ZYAq5xF7z+FZLkaLtGC9QWQYzL3B9t7W0qaLvac020kloSK4b7Hmo4iPd1fcBGsGi/4lDb0u25/Pis7HmuLIpEGPt6ewRg4ZzYyQcDWBrmq/pMEIbCuIXOlIaEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krisman.be; spf=pass smtp.mailfrom=krisman.be; dkim=pass (2048-bit key) header.d=krisman.be header.i=@krisman.be header.b=iFvfCnfV; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krisman.be
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krisman.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="wIA9tFqF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
-	Subject:Cc:To:From:Reply-To:Content-Type:In-Reply-To:References;
-	bh=mW289Z+7jmnr8kVloQNZjJyZyeJzqp7Kag8AVGpjeEQ=; b=wIA9tFqFDPH7lnkFAtKyGL7ueI
-	Jh/22Y5Od/IY9FVOKUBSEg+tB+kq6YWfSO+NmICkhyX7J099GPL7hhGFGj5lFyiCcApm/ZBNr19r8
-	ofpA5FdFQyaEHGcaNcq6BcKsBOHtzIBFvxzUXqCHUeiBW0GU/EMKhHqXFAB/3edL9aSYhipxRMoUz
-	UGP8y5HXvu7O6ADZ1/gUFvb4MRU7VYJEvQaRbsk5qnmLlqYrGRzWcflBvRpb24ye4B/4llTm6LSsu
-	VBOzyx31pV+Okb6WtV3+L8acQcNr8EfziejXL0CMiXj8M7iAnS6j6z6lOoqYxC8EQmeQ8B6lhLW9Q
-	wZSFgigA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: stable@vger.kernel.org
-Cc: heiko@sntech.de,
-	quentin.schulz@cherry.de,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Willem de Bruijn <willemb@google.com>,
-	Jason Xing <kerneljasonxing@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Heiko Stuebner <heiko.stuebner@cherry.de>
-Subject: [PATCH 6.12.y] net: Drop the lock in skb_may_tx_timestamp()
-Date: Fri, 19 Jun 2026 17:20:12 +0200
-Message-ID: <20260619152012.2016837-1-heiko@sntech.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=krisman.be header.i=@krisman.be header.b="iFvfCnfV"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4ghjD66TF5z9tll;
+	Fri, 19 Jun 2026 18:07:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=krisman.be; s=MBO0001;
+	t=1781885255;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9yD4xHJw2ixlS54/w1wwmeUxIlbpa8OqFoDWj8fXiZY=;
+	b=iFvfCnfVzZyPln9esVpNbq5l7C+0oARS3Lvf8iWOzCduA+XDjoAKv6ubs39TTbv1XNUnJC
+	vHwsFy4eAjJ7eGfDeRKeiO6JaMG4xrOh2G2of6GTUYk8fUJkRlZVQX1Rswgrl4Q/2ykqGy
+	PSZTCPoJoNmjUJ/LNV396/zodn3QLAt1mPm2YKUuFBnDam9UMeQdrGRKC1D6vd8is+VShg
+	YhlSZOeLAR6hoVtWoJlzih55kcGxg5Gbxim6z+gZnvSKesO+vpZ8CyPNSvGgJ11M70ZBTk
+	4SREkuweUa1dE2Rc12DhDsBjwDQCnpsJukUt/BNQZrmQs1hKbppzDXTxpWxQQw==
+From: Gabriel Krisman Bertazi <gabriel@krisman.be>
+To: Cyber_black <Cyberblackk@proton.me>, "io-uring@vger.kernel.org"
+ <io-uring@vger.kernel.org>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "axboe@kernel.dk" <axboe@kernel.dk>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>, "gregkh@linuxfoundation.org"
+ <gregkh@linuxfoundation.org>
+Subject: Re: [BUG] io_uring: possible CQE32 overflow flush inconsistency in
+ __io_cqring_overflow_flush()
+In-Reply-To: <6oAi5ghNgkCrElyHzHJrE8l3g7Dg7Uc9PpeZmbGD93Xic5x5MI54B1pehHhjiGrb5VB0icQvFaemtH-Pvb8bJkivv6qxD_NZUEvwyFkk62k=@proton.me>
+References: <6oAi5ghNgkCrElyHzHJrE8l3g7Dg7Uc9PpeZmbGD93Xic5x5MI54B1pehHhjiGrb5VB0icQvFaemtH-Pvb8bJkivv6qxD_NZUEvwyFkk62k=@proton.me>
+Date: Fri, 19 Jun 2026 12:07:30 -0400
+Message-ID: <87ik7eqzst.fsf@mailhost.krisman.be>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cyber_black <Cyberblackk@proton.me> writes:
 
-[ Upstream commit 983512f3a87fd8dc4c94dfa6b596b6e57df5aad7 ]
+> On Fri, Jun 19, 2026 at 04:49:32AM +0000, Greg KH wrote:> Please turn thi=
+s into a real patch that you have gregkh@linuxfoundation.org to verify it
+>> resolves the issue so you get full credit for the fix.
+>
+> Hi Greg,
+>
+> Apologies for the previous mail's format. The patch compiles cleanly
+> on arm64. My current environment does not support io_uring (ENOSYS)
+> so I was unable to run the liburing suite, but the fix itself is
+> straightforward.
 
-skb_may_tx_timestamp() may acquire sock::sk_callback_lock. The lock must
-not be taken in IRQ context, only softirq is okay. A few drivers receive
-the timestamp via a dedicated interrupt and complete the TX timestamp
-from that handler. This will lead to a deadlock if the lock is already
-write-locked on the same CPU.
+What's the context, was this sent against stable?  The issue exists
+in mainline.
 
-Taking the lock can be avoided. The socket (pointed by the skb) will
-remain valid until the skb is released. The ->sk_socket and ->file
-member will be set to NULL once the user closes the socket which may
-happen before the timestamp arrives.
-If we happen to observe the pointer while the socket is closing but
-before the pointer is set to NULL then we may use it because both
-pointer (and the file's cred member) are RCU freed.
+> From 522b70bdd3ac64c64dd21842cb5901e59a1fb058 Mon Sep 17 00:00:00 2001
+> From: Eneshan Erdogan Karaca <cyberblackk@proton.me>
+> Date: Fri, 19 Jun 2026 07:59:58 +0000
+> Subject: [PATCH] io_uring: fix cqe_size/is_cqe32 inconsistency in overflow
+> =C2=A0flush
 
-Drop the lock. Use READ_ONCE() to obtain the individual pointer. Add a
-matching WRITE_ONCE() where the pointer are cleared.
+Ideally, send it as a patch to the list with [PATCH] so it doesn't vanish u=
+nder a [BUG]
+tag.
+>
+> When IORING_SETUP_CQE32 is set, Block A doubles cqe_size to handle
+> 32-byte CQEs. Block B then resets is_cqe32 to false so that
+> io_get_cqe_overflow() uses its own ctx flag check internally, but
+> fails to reset cqe_size. This leaves cqe_size=3D32 while a 16-byte
+> slot is allocated, causing memcpy() to write beyond the allocated
+> CQE slot.
 
-Link: https://lore.kernel.org/all/20260205145104.iWinkXHv@linutronix.de
-Fixes: b245be1f4db1a ("net-timestamp: no-payload only sysctl")
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260220183858.N4ERjFW6@linutronix.de
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[adapted sk_set_socket() in include/net/sock.h to fix the conflict  from
- not having commit 5d6b58c932ec ("net: lockless sock_i_ino()") and the
- additional previous changes required by it.
- It comes down to just now having the lines of
-    if (sock) {
-            WRITE_ONCE(sk->sk_uid, SOCK_INODE(sock)->i_uid);
-            WRITE_ONCE(sk->sk_ino, SOCK_INODE(sock)->i_ino);
-    }
- below the changed line.
- I've tested this on a device running an nfs-root and did some
- additional network stress-testing.]
-Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
----
- include/net/sock.h |  2 +-
- net/core/skbuff.c  | 23 ++++++++++++++++++-----
- net/socket.c       |  2 +-
- 3 files changed, 20 insertions(+), 7 deletions(-)
+How was this found?  Do you have a syzbot or a trigger?  The fix looks
+good but the patch appears corrupted, with a bunch of NBSP.
 
-diff --git a/include/net/sock.h b/include/net/sock.h
-index 0d77a87929f9..dffbaaa7fe49 100644
---- a/include/net/sock.h
-+++ b/include/net/sock.h
-@@ -2040,7 +2040,7 @@ static inline int sk_rx_queue_get(const struct sock *sk)
- 
- static inline void sk_set_socket(struct sock *sk, struct socket *sock)
- {
--	sk->sk_socket = sock;
-+	WRITE_ONCE(sk->sk_socket, sock);
- }
- 
- static inline wait_queue_head_t *sk_sleep(struct sock *sk)
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 4be699bd3a17..fede3aa3ddbc 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -5525,15 +5525,28 @@ static void __skb_complete_tx_timestamp(struct sk_buff *skb,
- 
- static bool skb_may_tx_timestamp(struct sock *sk, bool tsonly)
- {
--	bool ret;
-+	struct socket *sock;
-+	struct file *file;
-+	bool ret = false;
- 
- 	if (likely(READ_ONCE(sysctl_tstamp_allow_data) || tsonly))
- 		return true;
- 
--	read_lock_bh(&sk->sk_callback_lock);
--	ret = sk->sk_socket && sk->sk_socket->file &&
--	      file_ns_capable(sk->sk_socket->file, &init_user_ns, CAP_NET_RAW);
--	read_unlock_bh(&sk->sk_callback_lock);
-+	/* The sk pointer remains valid as long as the skb is. The sk_socket and
-+	 * file pointer may become NULL if the socket is closed. Both structures
-+	 * (including file->cred) are RCU freed which means they can be accessed
-+	 * within a RCU read section.
-+	 */
-+	rcu_read_lock();
-+	sock = READ_ONCE(sk->sk_socket);
-+	if (!sock)
-+		goto out;
-+	file = READ_ONCE(sock->file);
-+	if (!file)
-+		goto out;
-+	ret = file_ns_capable(file, &init_user_ns, CAP_NET_RAW);
-+out:
-+	rcu_read_unlock();
- 	return ret;
- }
- 
-diff --git a/net/socket.c b/net/socket.c
-index 5c5dd9f6605a..723bc3a1ba5c 100644
---- a/net/socket.c
-+++ b/net/socket.c
-@@ -652,7 +652,7 @@ static void __sock_release(struct socket *sock, struct inode *inode)
- 		iput(SOCK_INODE(sock));
- 		return;
- 	}
--	sock->file = NULL;
-+	WRITE_ONCE(sock->file, NULL);
- }
- 
- /**
--- 
-2.53.0
+>
+> Fix this by also resetting cqe_size when is_cqe32 is cleared.
+>
+> Signed-off-by: Eneshan Erdogan Karaca <cyberblackk@proton.me>
+> ---
+> =C2=A0io_uring/io_uring.c | 4 +++-
+> =C2=A01 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+> index 1ea2fca34a36..f9690291633a 100644
+> --- a/io_uring/io_uring.c
+> +++ b/io_uring/io_uring.c
+> @@ -543,8 +543,10 @@ static void __io_cqring_overflow_flush(struct io_rin=
+g_ctx *ctx, bool dying)
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 is_cqe32 =3D true;
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 cqe_size <<=3D 1;
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }
+> - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ctx->flags & IORIN=
+G_SETUP_CQE32)
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ctx->flags & IORIN=
+G_SETUP_CQE32) {
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 is_cqe32 =3D false;
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 cqe_size =3D sizeof(struct io_uring_cqe);
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!dying) {
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 if (!io_get_cqe_overflow(ctx, &cqe, true, is_cqe32))
+> --
+> 2.34.1
+>
+> Thanks,
+> Eneshan Erdogan Karaca
 
+--=20
+Gabriel Krisman Bertazi
