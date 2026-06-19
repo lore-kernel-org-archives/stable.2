@@ -1,103 +1,76 @@
-Received: from mail-oo1-f97.google.com (mail-oo1-f97.google.com [209.85.161.97])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E65369D5E
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 09:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34EA633D4F2
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 10:00:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781863094; cv=none; b=Ze2LMbaRVf3eVnAY3C1mx5bVAPNJW0VJpFdq4V2g92YhDZaDB3a2rvtYG0fp0Aaz7NJINe2O/FgWwHRmj+M2yQoEBLf0PChOLDPgyjEuiKY+ncrdryqO0ALfcuOzXvm4xq47cvWPzbAhuSjXg9PxKT9KoI6SEvyV4jl0UBtm18s=
+	t=1781863207; cv=none; b=C8/eCuKx0dzm7jckKAitXkQQ4PsJAfTGS1cgLOz6J0Eoyg+bj37hRp+MEgOmP9OpjDMCzDuGGLClmF5E1jjN81BsoK7en66UZ4hfVMAzw/qrkIroDDw08J5rHmpc1aiiD2CvkGIilwaBzX9zkJbLHF9AOxQqZ0IsjRuw5xAuA34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781863094; c=relaxed/simple;
-	bh=IEn6N3iU6QjaodYk5qDEpFHlgrN2QjMwqgISplwfHP4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=B35dhwD/vrTEiO7TsuF4nSKIsvSg/pm0QhlUtTdhV/Xn4fOg/PvGpM1gYRSYz3OKNeP3zufLd5NoxysAGTdRssZTHXj/zAtmVeA7FFRhkT6k1tpTqAYpQcyVW07h5tY2jl+35ZJLQlYp6Bc01RnisttQEC+e3CHTs2+JclHNLh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=iO7vLZGs; arc=none smtp.client-ip=209.85.161.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1781863207; c=relaxed/simple;
+	bh=HfmQkOtk9IaM+WPmz7eE7lkMj2hf2wlI6dSjVLexa2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qJSFugq2UNDWNqkVTjaGGncNaWrYR223BXAXBceszpBOOlYYoS9TFr8gKHdsKnTbEVHO/4ZNZUzjvNWAdVLPf3yXZ0wjtVVUvKUn/JSjMGTY57xtUj7FkGsKv/DkK59/KCBujHDOygF/VK2r0WVL1JvvcfhlZIKn77TlChxASek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rTqxvQZ3; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="iO7vLZGs"
-Received: by mail-oo1-f97.google.com with SMTP id 006d021491bc7-6a0b1edbe32so1681967eaf.1
-        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 02:58:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781863086; x=1782467886;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0w1vsxUJI0JQJt2Tz8nUeF9KKHPDE+aPNVG7KYxhUoA=;
-        b=du6xFcMJmvzA4JcnLbjmbBK3fyLsfM2fnbjbKphKPJqXrNooZRCx7teQRT3MSQD3oO
-         pJtBma7QnZZ5jVDME5PIPdaxaKDJDO6FvE3hFZ8MiNaNumqttT2pE/i7UL2bh1jQovud
-         8cl/XEaz2QdaMY6Zg1M5IWaxPRrUIqUaoHnBzvjY310EJxUEHmKBszfFDqZDLYXKGvDI
-         B5C4tjiTMxH0Kx63r54aVO5B+C/qS/cETSAPkWEvidJ/w884UQlxjWqR/lWtebV+3c8n
-         BkeM7K9shy0sN5m/sWkxLnIpyzRDG4W8Fa2cCyGY0vDopgBova3/GyzEwJSNbr7XWzwa
-         Q5Yg==
-X-Gm-Message-State: AOJu0YyWOWaZo5TDWOv2+UGxavcARck+lUR0ai3j/zcV1ARD/VDCqIEV
-	Jb28GRrNjzMEhLZXFKmwod/vaK704xhrO4Blr6zMum8gWMVm/cHFcq80OX+C9z9rOZdWtQzkxbx
-	IZjKiCSdA7EArwrrs1NnE+pJcELAH+7MsYRnWYzTQmUdyxM8Bi8JPiN1XlaUZZ1EFIqnW04HMar
-	GQ/AfjgDVY6Xs8ZLKA7J1liTAwCUL1VFYk1WYuM/ItMDmnHEisGfpGMKlTnTkX2JPrEg2i/W1GJ
-	Y8+Au5rebX4QHR3XA==
-X-Gm-Gg: AfdE7ckKbz8cGEqi7AoprIgMm9NIw7jKcHsf4m2wjAmqX20RGpBy/J/5aHUsY7ve/Ce
-	bUWr+jnHhlXKHHkMDFTZdRdvYapUHCNwe8OvrNM5Q7EsHradOL+7QhCccv3rucqs6oCIjqA6k+u
-	TOx8hIrZO+9ska+byt4ZHcV0rDX/aFp9e+qNtesRdla+Y4OBSuLpEVSHzFTAySp/Dtaig2H0Rqt
-	WJqBt0A/6V5ykCBneSrSvN48teO8fSwdNFrVuq8DHMWOcD5eGjGYOWKOuAm9V2aWWPcFeDZoQLT
-	1eu+pM3weq7+bEB5Q16GiPLs2t3ZtvLpApr00zCZ4VuHAxZe+03QqElAchCqUiCo3JtS2CT8EQY
-	+1QCWvkKdbXGj3HDMY2HduYEAo05npsR2IPai111n7UsScRBg9xL3spz+RfS8GDhOamoy2bCFsK
-	kPG4LLLG+K9LSd7BR8wGz6SWAY93NhzPvSdI77VK2dzNM/TzgEOg==
-X-Received: by 2002:a05:6820:1613:b0:69e:44bf:f44e with SMTP id 006d021491bc7-6a0ddece601mr1356834eaf.17.1781863086264;
-        Fri, 19 Jun 2026 02:58:06 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-18.dlp.protect.broadcom.com. [144.49.247.18])
-        by smtp-relay.gmail.com with ESMTPS id 006d021491bc7-6a0d8db7c4asm111771eaf.10.2026.06.19.02.58.05
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 19 Jun 2026 02:58:06 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30bcb065bfdso3507660eec.0
-        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 02:58:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rTqxvQZ3"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-842307472d4so847613b3a.0
+        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 03:00:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1781863084; x=1782467884; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781863201; x=1782468001; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8d76X3icq3/Ja/CPqgRT+rRdC5OqM1uOzKiEQhI8PbA=;
+        b=rTqxvQZ3BdDoqe3jN23HJOP5iuif+JPdlRrNuhMzi1QkLGv8es08fAX+yTs427RBCX
+         Rq9aMhqvBxFKfGxMeflz/996nDop0HjQ/fuugWruwMFIXCJyoysjBQoFn/kEjyPpuj4T
+         dGZVYQX5zhtHUcnHaQ8r6p4Q0+DY6/Emg5S6but9cW322mnFYjmjQN0/BxHyuR3Yne6M
+         LsrcmnIXFpVALIT5lNaaQEKQK7goFQI/0R9PlmvYon+U0kihW1b+t10fcFp9cQbNqiRV
+         YfhkFiCfKIPv3A+J2qY3+VBacuNQhEKpVwNi+p5sv45Mphm3+cBHy423ZHjiqpfVeQ1k
+         xphg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781863201; x=1782468001;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0w1vsxUJI0JQJt2Tz8nUeF9KKHPDE+aPNVG7KYxhUoA=;
-        b=iO7vLZGsqBmIVTW+0pGPaSRRyUP+dpNZEw7S/eShSb6pHeSLVi+tJjCdWGaoN9xK+v
-         L2h9loLIDatlYzUNDzHY8mSShqyJVnmssLWSYrztxv3h0Ruk22di6NIPRZ/2e54+2+uI
-         fd75CLXiGO6rxWGpqiM1J7urB34kAFjJ/uT2k=
-X-Received: by 2002:a05:7300:7fa7:b0:2fc:9d97:d59a with SMTP id 5a478bee46e88-30c0d17fb0emr888600eec.32.1781863084504;
-        Fri, 19 Jun 2026 02:58:04 -0700 (PDT)
-X-Received: by 2002:a05:7300:7fa7:b0:2fc:9d97:d59a with SMTP id 5a478bee46e88-30c0d17fb0emr888572eec.32.1781863083755;
-        Fri, 19 Jun 2026 02:58:03 -0700 (PDT)
-Received: from shivania.lvn.broadcom.net ([192.19.161.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c06d5bec5sm1851910eec.26.2026.06.19.02.58.03
+        bh=8d76X3icq3/Ja/CPqgRT+rRdC5OqM1uOzKiEQhI8PbA=;
+        b=NgM4CB/32cQ0KMNPJPAF97v4h9AFiObDBeJR2g+du0zHJ/LV1MhVMPii0Sge+pv8u/
+         CnQNmgwQT0WvXmCBQ3+9d/iSpgiRJ17dZAibicc9p+bnmUhz98JZyA7NuVXap2k7/gbH
+         N2DA7cXJIbQSFdW/InfgAXg5ekaJYHF6JH3QAWh0t+8OsQGagyNjiKFoMHQEUU1JSH+H
+         ZYkOnKvBDx3lJplklq2QeD6FhYsHEjPm7/pGvym5Bp+BdSQ6zVvggaiGPFqusNvFbg6F
+         sFzeXYSguUTjJP5PrxBBK5eY8WZaM+Fao8pOOGiz5wjiFpWXWBl7By7sxptZzcK3Owpn
+         NREw==
+X-Forwarded-Encrypted: i=1; AFNElJ8Kjz1aSa2q1h5q/ij0Ww/b9g/hhcIW/kOu2dzpzjyGrTUZ6dLRpTNkJo19JxEeRSbUBjixHcE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyHjYqjKL/+oSl/MKRbQf6RG3r7gWCZs/LccxYGtgHa7HXCUH1a
+	DlV8li/MUP/6ja3n8xSuBOUktKfd9Fh46oiYoQ7igeLtXMhtXW6/M1J7
+X-Gm-Gg: AfdE7cl7jTLJZuZQl4xQJsdW4LeawPdUfLOABAyRzx43tsstX5L9KAxqZ3220GZVy4x
+	WuW7VwBG+/0077TBAlcazvZN+25wNod4pbbQSpfrNXH1usJd26IJenPR0l1eUur3UAfiwU3vhl4
+	XvrX9dsdpxJgbqFiG5ipIYc82XcQ6+Pqzmt4zrcJAky4mJ9cC8swJ0zTbDN4OvMYNoxaBlysc/q
+	6q4SonDI43PujHaDAQkDlST3PO5oZpbJQUjhg/oKGBxxUgU7/xuASL+9mNiwBZVpwgRkcoDdPaM
+	h3a+LK+APuk0i1uIdxmN66wUP4onAn4s338mREopJcOP87BZ162+4mOd+uJk/vo3bL6zrh3pTaR
+	qXP9N7YdPg/W75IL+aiiywc/PHHGqz2o1DBZHHINeXkQGAjtfa1qcVen4lkbqwSL5WYMyz8k1MW
+	8W9/fq8r28FEX1hQ==
+X-Received: by 2002:a05:6a20:6a0f:b0:398:9b42:69f7 with SMTP id adf61e73a8af0-3bb34658412mr2933727637.39.1781863201220;
+        Fri, 19 Jun 2026 03:00:01 -0700 (PDT)
+Received: from ghost ([2409:40c2:6043:71b1:a047:7236:4a11:a43c])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8a84c6e5fbsm2231370a12.7.2026.06.19.02.59.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 02:58:03 -0700 (PDT)
-From: Shivani Agarwal <shivani.agarwal@broadcom.com>
-To: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org
-Cc: pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+        Fri, 19 Jun 2026 03:00:00 -0700 (PDT)
+Received: from ghost.localdomain (localhost [127.0.0.1])
+	by ghost (OpenSMTPD) with ESMTP id 2d3f23de;
+	Fri, 19 Jun 2026 09:59:55 +0000 (UTC)
+From: Nikhil Solanke <nikhilsolanke5@gmail.com>
+To: linux-usb@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
 	linux-kernel@vger.kernel.org,
-	ajay.kaher@broadcom.com,
-	alexey.makhalov@broadcom.com,
-	vamsi-krishna.brahmajosyula@broadcom.com,
-	yin.ding@broadcom.com,
-	tapas.kundu@broadcom.com,
-	Sasha Levin <sashal@kernel.org>,
-	Shivani Agarwal <shivani.agarwal@broadcom.com>
-Subject: [PATCH v6.1 2/3] netfilter: nf_tables: fix set size with rbtree backend
-Date: Fri, 19 Jun 2026 02:28:49 -0700
-Message-Id: <20260619092850.1274076-3-shivani.agarwal@broadcom.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260619092850.1274076-1-shivani.agarwal@broadcom.com>
-References: <20260619092850.1274076-1-shivani.agarwal@broadcom.com>
+	stern@rowland.harvard.edu,
+	michal.pecio@gmail.com,
+	stable@vger.kernel.org,
+	Nikhil Solanke <nikhilsolanke5@gmail.com>
+Subject: [PATCH] usbcore: Add quirk for 255-bytes initial config read
+Date: Fri, 19 Jun 2026 15:29:36 +0530
+Message-ID: <20260619095936.24080-1-nikhilsolanke5@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -105,219 +78,181 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
+Certain third-party USB game controllers exposing (or spoofing) an Xbox
+360-compatible interface (VID:PID 045e:028e) fail to enumerate under Linux.
+The device disconnects from the bus without responding to the initial
+GET_DESCRIPTOR(CONFIGURATION) request, and the kernel logs 'unable to read
+config index 0 descriptor/start: -71'.
 
-[ Upstream commit 8d738c1869f611955d91d8d0fd0012d9ef207201 ]
+The device then falls back to a secondary Android HID mode (with a
+different VID:PID), losing XInput functionality including rumble support.
+The failure reproduces across multiple machines, host controller types, and
+kernel versions including current mainline and LTS. The device enumerates
+correctly and remains in XInput mode under Windows. Notably, the device
+enumerates correctly in Android mode when the same aklsjdasd 9-byte request
+is issued for that mode's configuration descriptor, confirming the firmware
+bug is specific to the XInput mode.
 
-The existing rbtree implementation uses singleton elements to represent
-ranges, however, userspace provides a set size according to the number
-of ranges in the set.
+usbmon traces from Linux and Wireshark/USBPcap traces from Windows are
+identical up to the point of failure, with no visible protocol-level
+difference explaining the divergence. The root cause was identified when
+Michal Pecio discovered via a QEMU bus-level capture that Windows does not
+use wLength=9 for the initial config descriptor request; it uses
+wLength=255. This is not visible in Windows Wireshark/USBPcap traces
+because Windows routes enumeration-phase traffic to sniffers only after
+initialization completes. Alan Stern subsequently confirmed this with a bus
+analyzer on a different USB 2.0 device, and Michal verified the behavior
+goes back to Windows 95 OSR2.1.
 
-Adjust provided userspace set size to the number of singleton elements
-in the kernel by multiplying the range by two.
+So, add a new quirk flag USB_QUIRK_CONFIG_SIZE which causes
+usb_get_configuration() to issue a 255 byte sized configuration request
+instead of USB_DT_CONFIG_SIZE (9) for the initial
+GET_DESCRIPTOR(CONFIGURATION) request, mimicking long-standing Windows
+behavior.
 
-Check if the no-match all-zero element is already in the set, in such
-case release one slot in the set size.
+Suggested-by: Nikhil Solanke <nikhilsolanke5@gmail.com>
+Suggested-by: Alan Stern <stern@rowland.harvard.edu>
+Suggested-by: Michal Pecio <michal.pecio@gmail.com>
+Closes: https://lore.kernel.org/linux-usb/CAFgddh+JWdT4LLwMc5qjM8q_pBu-fRo2qADR5ovAKoGHWMQrRw@mail.gmail.com/
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: <stable@vger.kernel.org>
 
-Fixes: 0ed6389c483d ("netfilter: nf_tables: rename set implementations")
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-[ Shivani: Modified to apply on 6.1.y ]
-Signed-off-by: Shivani Agarwal <shivani.agarwal@broadcom.com>
+Signed-off-by: Nikhil Solanke <nikhilsolanke5@gmail.com>
 ---
- include/net/netfilter/nf_tables.h |  6 ++++
- net/netfilter/nf_tables_api.c     | 49 +++++++++++++++++++++++++++++--
- net/netfilter/nft_set_rbtree.c    | 43 +++++++++++++++++++++++++++
- 3 files changed, 96 insertions(+), 2 deletions(-)
+ drivers/usb/core/config.c  | 56 +++++++++++++++++++++++++++-----------
+ drivers/usb/core/quirks.c  |  3 ++
+ include/linux/usb/quirks.h |  4 +++
+ 3 files changed, 47 insertions(+), 16 deletions(-)
 
-diff --git a/include/net/netfilter/nf_tables.h b/include/net/netfilter/nf_tables.h
-index dafa0a32e..3329c2eae 100644
---- a/include/net/netfilter/nf_tables.h
-+++ b/include/net/netfilter/nf_tables.h
-@@ -422,6 +422,9 @@ struct nft_set_ext;
-  *	@remove: remove element from set
-  *	@walk: iterate over all set elements
-  *	@get: get set elements
-+ *	@ksize: kernel set size
-+ *	@usize: userspace set size
-+ *	@adjust_maxsize: delta to adjust maximum set size
-  *	@privsize: function to return size of set private data
-  *	@init: initialize private data of new set instance
-  *	@destroy: destroy private data of set instance
-@@ -470,6 +473,9 @@ struct nft_set_ops {
- 					       const struct nft_set *set,
- 					       const struct nft_set_elem *elem,
- 					       unsigned int flags);
-+	u32				(*ksize)(u32 size);
-+	u32				(*usize)(u32 size);
-+	u32				(*adjust_maxsize)(const struct nft_set *set);
- 	void				(*commit)(struct nft_set *set);
- 	void				(*abort)(const struct nft_set *set);
- 	u64				(*privsize)(const struct nlattr * const nla[],
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index ec4bfe53b..15bfdf07c 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -4264,6 +4264,14 @@ static int nf_tables_fill_set_concat(struct sk_buff *skb,
- 	return 0;
- }
+diff --git a/drivers/usb/core/config.c b/drivers/usb/core/config.c
+index 45e20c6d76c0..623425cef085 100644
+--- a/drivers/usb/core/config.c
++++ b/drivers/usb/core/config.c
+@@ -912,6 +912,8 @@ int usb_get_configuration(struct usb_device *dev)
+ 	unsigned char *bigbuffer;
+ 	struct usb_config_descriptor *desc;
+ 	int result;
++	size_t usb_dt_config_size = (dev->quirks & USB_QUIRK_CONFIG_SIZE)
++		? USB_DT_CONFIG_SIZE_QUIRK : USB_DT_CONFIG_SIZE;
  
-+static u32 nft_set_userspace_size(const struct nft_set_ops *ops, u32 size)
-+{
-+	if (ops->usize)
-+		return ops->usize(size);
-+
-+	return size;
-+}
-+
- static int nf_tables_fill_set(struct sk_buff *skb, const struct nft_ctx *ctx,
- 			      const struct nft_set *set, u16 event, u16 flags)
- {
-@@ -4328,7 +4336,8 @@ static int nf_tables_fill_set(struct sk_buff *skb, const struct nft_ctx *ctx,
- 	if (!nest)
- 		goto nla_put_failure;
- 	if (set->size &&
--	    nla_put_be32(skb, NFTA_SET_DESC_SIZE, htonl(set->size)))
-+	    nla_put_be32(skb, NFTA_SET_DESC_SIZE,
-+			 htonl(nft_set_userspace_size(set->ops, set->size))))
- 		goto nla_put_failure;
+ 	if (ncfg > USB_MAXCONFIG) {
+ 		dev_notice(ddev, "too many configurations: %d, "
+@@ -938,7 +940,8 @@ int usb_get_configuration(struct usb_device *dev)
+ 	if (!dev->rawdescriptors)
+ 		return -ENOMEM;
  
- 	if (set->field_count > 1 &&
-@@ -4698,6 +4707,15 @@ static bool nft_set_is_same(const struct nft_set *set,
- 	return true;
- }
+-	desc = kmalloc(USB_DT_CONFIG_SIZE, GFP_KERNEL);
++	desc = kmalloc(usb_dt_config_size, GFP_KERNEL);
++
+ 	if (!desc)
+ 		return -ENOMEM;
  
-+static u32 nft_set_kernel_size(const struct nft_set_ops *ops,
-+			       const struct nft_set_desc *desc)
-+{
-+	if (ops->ksize)
-+		return ops->ksize(desc->size);
-+
-+	return desc->size;
-+}
-+
- static int nf_tables_newset(struct sk_buff *skb, const struct nfnl_info *info,
- 			    const struct nlattr * const nla[])
- {
-@@ -4880,6 +4898,9 @@ static int nf_tables_newset(struct sk_buff *skb, const struct nfnl_info *info,
- 		if (err < 0)
- 			return err;
+@@ -946,7 +949,7 @@ int usb_get_configuration(struct usb_device *dev)
+ 		/* We grab just the first descriptor so we know how long
+ 		 * the whole configuration is */
+ 		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
+-		    desc, USB_DT_CONFIG_SIZE);
++		    desc, usb_dt_config_size);
+ 		if (result < 0) {
+ 			dev_err(ddev, "unable to read config index %d "
+ 			    "descriptor/%s: %d\n", cfgno, "start", result);
+@@ -957,26 +960,39 @@ int usb_get_configuration(struct usb_device *dev)
+ 			break;
+ 		} else if (result < 4) {
+ 			dev_err(ddev, "config index %d descriptor too short "
+-			    "(expected %i, got %i)\n", cfgno,
+-			    USB_DT_CONFIG_SIZE, result);
++			    "(expected %zu, got %i)\n", cfgno,
++			    usb_dt_config_size, result);
+ 			result = -EINVAL;
+ 			goto err;
+ 		}
+-		length = max_t(int, le16_to_cpu(desc->wTotalLength),
+-		    USB_DT_CONFIG_SIZE);
++		/* If the device does returns the full length configuration
++		 * descriptor, skip the second read. Fallback to default
++		 * behavior otherwise.
++		 */
++		if (dev->quirks & USB_QUIRK_CONFIG_SIZE
++				&& result == le16_to_cpu(desc->wTotalLength)
++				&& result < USB_DT_CONFIG_SIZE_QUIRK) {
  
-+		if (desc.size)
-+			desc.size = nft_set_kernel_size(set->ops, &desc);
+-		/* Now that we know the length, get the whole thing */
+-		bigbuffer = kmalloc(length, GFP_KERNEL);
+-		if (!bigbuffer) {
+-			result = -ENOMEM;
+-			goto err;
+-		}
++			bigbuffer = (unsigned char *) desc;
++			desc = NULL;
++			length = result;
++		} else {
++			length = max_t(int, le16_to_cpu(desc->wTotalLength),
++			    usb_dt_config_size);
 +
- 		err = 0;
- 		if (!nft_set_is_same(set, &desc, exprs, num_exprs, flags)) {
- 			NL_SET_BAD_ATTR(extack, nla[NFTA_SET_NAME]);
-@@ -4902,6 +4923,9 @@ static int nf_tables_newset(struct sk_buff *skb, const struct nfnl_info *info,
- 	if (IS_ERR(ops))
- 		return PTR_ERR(ops);
++			/* Now that we know the length, get the whole thing */
++			bigbuffer = kmalloc(length, GFP_KERNEL);
++			if (!bigbuffer) {
++				result = -ENOMEM;
++				goto err;
++			}
  
-+	if (desc.size)
-+		desc.size = nft_set_kernel_size(ops, &desc);
-+
- 	udlen = 0;
- 	if (nla[NFTA_SET_USERDATA])
- 		udlen = nla_len(nla[NFTA_SET_USERDATA]);
-@@ -6327,6 +6351,27 @@ static bool nft_setelem_valid_key_end(const struct nft_set *set,
- 	return true;
- }
+-		if (dev->quirks & USB_QUIRK_DELAY_INIT)
+-			msleep(200);
++			if (dev->quirks & USB_QUIRK_DELAY_INIT)
++				msleep(200);
  
-+static u32 nft_set_maxsize(const struct nft_set *set)
-+{
-+	u32 maxsize, delta;
-+
-+	if (!set->size)
-+		return UINT_MAX;
-+
-+	if (set->ops->adjust_maxsize)
-+		delta = set->ops->adjust_maxsize(set);
-+	else
-+		delta = 0;
-+
-+	if (check_add_overflow(set->size, set->ndeact, &maxsize))
-+		return UINT_MAX;
-+
-+	if (check_add_overflow(maxsize, delta, &maxsize))
-+		return UINT_MAX;
-+
-+	return maxsize;
-+}
-+
- static int nft_add_set_elem(struct nft_ctx *ctx, struct nft_set *set,
- 			    const struct nlattr *attr, u32 nlmsg_flags)
- {
-@@ -6671,7 +6716,7 @@ static int nft_add_set_elem(struct nft_ctx *ctx, struct nft_set *set,
+-		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
+-		    bigbuffer, length);
++			result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
++			    bigbuffer, length);
++		}
+ 		if (result < 0) {
+ 			dev_err(ddev, "unable to read config index %d "
+ 			    "descriptor/%s\n", cfgno, "all");
+@@ -1000,6 +1016,14 @@ int usb_get_configuration(struct usb_device *dev)
  	}
  
- 	if (!(flags & NFT_SET_ELEM_CATCHALL)) {
--		unsigned int max = set->size ? set->size + set->ndeact : UINT_MAX;
-+		unsigned int max = nft_set_maxsize(set);
+ err:
++	/* Log failed device's VID:PID pair to make it easy to debug and fix
++	 * enumeration and initialization issues
++	 */
++	if (result < 0) {
++		dev_err(ddev, "Failed to initialize device %04x:%04x due to above errors.",
++		    le16_to_cpu(dev->descriptor.idVendor), le16_to_cpu(dev->descriptor.idProduct));
++	}
++
+ 	kfree(desc);
+ 	dev->descriptor.bNumConfigurations = cfgno;
  
- 		if (!atomic_add_unless(&set->nelems, 1, max)) {
- 			err = -ENFILE;
-diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
-index 426becaad..26e1d994f 100644
---- a/net/netfilter/nft_set_rbtree.c
-+++ b/net/netfilter/nft_set_rbtree.c
-@@ -775,6 +775,46 @@ static bool nft_rbtree_estimate(const struct nft_set_desc *desc, u32 features,
- 	return true;
- }
+diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
+index 87810eff974e..92219684a604 100644
+--- a/drivers/usb/core/quirks.c
++++ b/drivers/usb/core/quirks.c
+@@ -142,6 +142,9 @@ static int quirks_param_set(const char *value, const struct kernel_param *kp)
+ 				break;
+ 			case 'q':
+ 				flags |= USB_QUIRK_FORCE_ONE_CONFIG;
++				break;
++			case 'r':
++				flags |= USB_QUIRK_CONFIG_SIZE;
+ 			/* Ignore unrecognized flag characters */
+ 			}
+ 		}
+diff --git a/include/linux/usb/quirks.h b/include/linux/usb/quirks.h
+index b3cc7beab4a3..f864571da870 100644
+--- a/include/linux/usb/quirks.h
++++ b/include/linux/usb/quirks.h
+@@ -81,4 +81,8 @@
+ /* Device claims zero configurations, forcing to 1 */
+ #define USB_QUIRK_FORCE_ONE_CONFIG		BIT(18)
  
-+/* rbtree stores ranges as singleton elements, each range is composed of two
-+ * elements ...
-+ */
-+static u32 nft_rbtree_ksize(u32 size)
-+{
-+	return size * 2;
-+}
++/* Use a 255 byte sized config descriptor request */
++#define USB_QUIRK_CONFIG_SIZE			BIT(19)
++#define USB_DT_CONFIG_SIZE_QUIRK		255
 +
-+/* ... hide this detail to userspace. */
-+static u32 nft_rbtree_usize(u32 size)
-+{
-+	if (!size)
-+		return 0;
-+
-+	return size / 2;
-+}
-+
-+static u32 nft_rbtree_adjust_maxsize(const struct nft_set *set)
-+{
-+	struct nft_rbtree *priv = nft_set_priv(set);
-+	struct nft_rbtree_elem *rbe;
-+	struct rb_node *node;
-+	const void *key;
-+
-+	node = rb_last(&priv->root);
-+	if (!node)
-+		return 0;
-+
-+	rbe = rb_entry(node, struct nft_rbtree_elem, node);
-+	if (!nft_rbtree_interval_end(rbe))
-+		return 0;
-+
-+	key = nft_set_ext_key(&rbe->ext);
-+	if (memchr(key, 1, set->klen))
-+		return 0;
-+
-+	/* this is the all-zero no-match element. */
-+	return 1;
-+}
-+
- const struct nft_set_type nft_set_rbtree_type = {
- 	.features	= NFT_SET_INTERVAL | NFT_SET_MAP | NFT_SET_OBJECT | NFT_SET_TIMEOUT,
- 	.ops		= {
-@@ -791,5 +831,8 @@ const struct nft_set_type nft_set_rbtree_type = {
- 		.lookup		= nft_rbtree_lookup,
- 		.walk		= nft_rbtree_walk,
- 		.get		= nft_rbtree_get,
-+		.ksize		= nft_rbtree_ksize,
-+		.usize		= nft_rbtree_usize,
-+		.adjust_maxsize = nft_rbtree_adjust_maxsize,
- 	},
- };
+ #endif /* __LINUX_USB_QUIRKS_H */
 -- 
-2.53.0
+2.54.0
 
