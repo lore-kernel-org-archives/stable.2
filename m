@@ -1,71 +1,69 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FF93BFAD5
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 20:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C62632D42B
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 20:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781900579; cv=none; b=GYcKZK92oNko1qvntcLyTP7Y/cWXvLj1EAEgkCBkWllJ9UrsP8spNBpzBnMKvjzJlVJxkGSqzV0C+kOvcQlmPaPygzyuH2qc4GFqson5NBrgMF7ZedjFYz9NxpcHE2SF9OPuXlhcTmtiakcPGzbJYvSsForp/+4RK6WCTnjhPtk=
+	t=1781900580; cv=none; b=cMXig3qbv2amjCwhqk+RYX+HzesyT/78l7ahtSEbxCH/yBs64ABsxo2Rsl4JzGo1T7lJ5RP/kPdvCWdhWoU1Isip7V9ErZRqR+75PSJonxm6SqeKARLet8coursKhADRRO3BKFAqH3IdK/RSgYsP+FZithfnGWH0EuaYHRPv/2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781900579; c=relaxed/simple;
-	bh=lqeXZvwKd2+gKyapbikEC8uszALCZyZ/DkHgKCMSiHY=;
+	s=arc-20240116; t=1781900580; c=relaxed/simple;
+	bh=KEHvri2C+4rwq4Wz41q+2TtCvRVzvXyvnlqX/inZMjo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=MQRvaehGlotT5Ix5dMzZdwrfpmrzK4Wy8h1fKVHTFMjfEHChL6M8JCwXxV28Win9BhohLMzKSzCmiKEavWwSNwp5X9YVI6QmSYf2smTX8qSsY1G0iqChiotd4f+DC2DE10aylmra2VMXc3Fas3FAcWFirHrlq9TF+2LU4bx3kWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MTQkcV79; arc=none smtp.client-ip=209.85.160.176
+	 MIME-Version; b=cGILCwHhQ+NGluoeXGyEib0KXE1Re8vEzAF97UDJcnad7d/3NduZCS104pGt6+ekZfTm08zdLggGXJJeBdr9MzQD/O6zYt0RJvgHkG9mY3qCtl3o514CvisizG+9A5BLLXL1iBE1u3B61mXV+44uqfmHzDaXg+X0tMSE5ftUpFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PdIuRNGk; arc=none smtp.client-ip=209.85.160.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MTQkcV79"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5175b6c4e19so23251971cf.0
-        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 13:22:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PdIuRNGk"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-51a019e9ea9so4694511cf.2
+        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 13:22:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781900576; x=1782505376; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781900578; x=1782505378; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/Rfwd7WJck9jEb6I6f8Juo4t1Gf+3WTqdnf32I0mINY=;
-        b=MTQkcV79MPjafs+hUDlIe9UC/vYURCvWiigC0I7+E/5ykjhQulQyRlpmmAP0s+DM0w
-         VtA8R8+zUlNUxWxrkfmllK47jJOYxKe4v+oQoKqstsdU8mhM6gbl8s4i0FWp/0wn96FX
-         8BiJ5i/dQ60bBzS8oOqXJl8V7UAgBOTsm3awECt2VQAT20SkWV2bpOGIpKF8SXldJnYp
-         KXtWSVatU55k5SMkeXhkj/otInbnN5klvhLNA7W0CrLlCvcsEJM+wkmc77IwGc7WQQpO
-         fpHqNoQfvYG3FxklLfNoEyPM8915TNxwYlks5I/yV/9B1uNR0umht0QuDj8tr9zjZCK5
-         h0Fw==
+        bh=vyiYsQofQELQbzMq1inRUoCbXJl9QmJD7EW7nh7MVlI=;
+        b=PdIuRNGkcQCaSFwNvB/JW56XrqfArYQ7dOw3LyJmakiEDScwSf7OFKvKQSCLHhZAGC
+         WF5JEWeY2jZop7gFk8+K1pbLpVFg27/dHhnQBw7XmM3ip5g40cBpzOa6hVOGfUsRvnH2
+         TxXfUnu9QEknsiyYGlXm2IFsrkpA6KQeM3DvylRPuTSUP7EfGsk3GY+BMivTqppVb6ET
+         nDQmDJ6/jt8YRg+eaKhyEKqV05HsiiSRmzVbC95udotZiKQlAJVQ0Q1ppdROTMo1uYKb
+         2mBTS9Wg4pwMHQaWj6veLDcfEyqAAwrfN/+4c/RQDkBQymQ+JgzIctb0TFh4lNzHYr2m
+         Nktw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781900576; x=1782505376;
+        d=1e100.net; s=20251104; t=1781900578; x=1782505378;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=/Rfwd7WJck9jEb6I6f8Juo4t1Gf+3WTqdnf32I0mINY=;
-        b=Uzkpt/CLY/o8xhavVy5XXd4/eUJsv29xAvmzqUiJkbfIQHIbVVl45UPwhuXMNJ33Jh
-         pNRWlAIKgb3GCouQEZZ2gA+y21on/4E5ZZ+y9lV31zesBEqP8tkNGPBD71J73Ue5YOk2
-         fS+TrtvWantO+uYC52rUiLY0la/fmZUPiPmbK4oSSYpBCw0TTuelKPnoVuVWuRjo7cS5
-         7W2+2LWXviDGM06SUNJhXTrf5qrDkIUFS8TUySyX06f7aJm832nGRhlVyajn7yHqD60M
-         PXbhoSaiqniYED828+nCr8hmeSMwt4tSJYbStGXEclxfctBnIUQKtdVQsZqvdoYSdEfG
-         5uaA==
-X-Gm-Message-State: AOJu0YxzDai059dR3xhUxuAwXstdNMp32c0H9r5aKTTWzdhAyvG1kQ5L
-	WDVE04u5YdTXpY+SIKa79lhSoypL1bTNMBxslgOi2wfIEznDkcdYkD7y5SScY/rOTZw=
-X-Gm-Gg: AfdE7cl9rjKbsKbsVx5R14uU4kLs/jfTIUgXCEKAngWO9e8L+LKEKjMshdyEjRoz+T3
-	SDT1ROBqJbrqxjPXOCZVrBvOJ8gO3B3qdwR2ebWtNVyxXD6iueGXPOIm+jwWkrEB13U/guOZ8Er
-	iQrCOGtF5SLg9C+wEBBhsEdme4paxzgwuJcwqMvOuDiLnNcEFBwIW5cFGIGDaCM9ncn5CA6lf8X
-	PO2ybPPQOb2yLicpSxN4+RXW8a90+FP8razi7tpNJlz8fFwh/GGdld/j+pDT9z4kT+aPlVL7Jey
-	/VrASGqHedIt0Nq/78FrLwUwXR3uSciGs1ObOtck3YiPRwnXUWsl7fDuFzR8rL9c+FcDXxYQ1eH
-	4uMWroBGLnEaT8pLkFx3dBlXQ3GGLl3E4iNhstzzuZ6b9RPm1IT39+aRrNRzlY89F0dOcJrfc+3
-	cbjuAe/QOpb2ftgCI=
-X-Received: by 2002:a05:622a:203:b0:517:87df:d8ec with SMTP id d75a77b69052e-519e491ba21mr72925311cf.9.1781900576352;
-        Fri, 19 Jun 2026 13:22:56 -0700 (PDT)
+        bh=vyiYsQofQELQbzMq1inRUoCbXJl9QmJD7EW7nh7MVlI=;
+        b=B+3sAGiSoBEKN5m8yAlJUp6+leoAI+zH5x1TblrrIemf+FnISe5MLtn9O6cxSIKMat
+         ErL0dOZIHFSkMIqguC7R0ggEJlBE146/bdcKK8nxUQIJPze1cdYAYaDmCjOZZjdjSgfN
+         Q1kqQtThOpmaK0aqRHEGBo4T08lP3LPb6f652ANW0YEkKxkP9bSe47Cs+qsSogAyho6k
+         SOinxiCbns65uwlmAilkiQ0rKUG6lcOCaE5EHQzjtX37I++L/1pFBabHSiCPe0KcW9gQ
+         OjfbhSmveUjfYMAqRFRW0/1G5gTKRPU2A+6X4SnzFS5Exumr4dMc4QBvcmHCZHxoavbD
+         JNGQ==
+X-Gm-Message-State: AOJu0YyJSgyCmd40yS3mF2gNgF6QAnuUKRWTnZT4TrBzqM4HcWWYLWaP
+	aojhBN4i6Ox88m6K+hF6spw2QbbuhZwbQuZZIDk45MgQXuTDuj3C8YTD
+X-Gm-Gg: AfdE7clSNdMak0y/+5I7AXrQeVLu5QNHAPrUcSi+tCSjnJAW9RIm0UKYXOjzMV7+AOw
+	en2CLzeaYBdql/u+Fth/HhOjWUN5qy7LRjvUPpkcS89fiIQYj9SfFGxGUdSResRtXtXYNF6BYcQ
+	sDnug8r1IwlHrEdC5pHuGGAZkT/BevFnKsvn5tTJCNh+NbkbcuNXlYKmIliYH5hPIqymGtgv2fR
+	Jtz1OQEWvD/bZ6NYq30MJCCukTEaCF6Kt/ggdjTHzaWsFR+vkTX6LnARXhm9g5fKeXthKZC99Qn
+	C94PiH50lK/NE5ei8c+Bhl8KLknkUdnxFU+UwyJmDi4peAUnr4eOWAos86T76/avWYp/rXd6WEI
+	glQBh8RaG6hgXXbougLFe0Vfvd5Q09oH1hvAVBgaMGOWxlaqKO/R5AKv81JiIWrWbVRbeOuiK5N
+	+JiiQKf+wvVGR4DxY=
+X-Received: by 2002:a05:622a:4d88:b0:51a:56d:1bec with SMTP id d75a77b69052e-51a06937de4mr19411811cf.32.1781900578158;
+        Fri, 19 Jun 2026 13:22:58 -0700 (PDT)
 Received: from TurinLinux.. ([37.19.212.13])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51a0984da98sm3921561cf.15.2026.06.19.13.22.55
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51a0984da98sm3921561cf.15.2026.06.19.13.22.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 13:22:55 -0700 (PDT)
+        Fri, 19 Jun 2026 13:22:57 -0700 (PDT)
 From: Nicholas Dudar <main.kalliope@gmail.com>
 To: main.kalliope@gmail.com
 Cc: stable@vger.kernel.org,
-	Maxim Levitsky <mlevitsk@redhat.com>,
-	Jim Mattson <jmattson@google.com>,
 	Sean Christopherson <seanjc@google.com>
-Subject: [PATCH 6.1.y 2/3] KVM: nVMX: Check for pending posted interrupts when looking for nested events
-Date: Fri, 19 Jun 2026 16:22:24 -0400
-Message-Id: <20260619202225.2749389-3-main.kalliope@gmail.com>
+Subject: [PATCH 6.1.y 3/3] KVM: nVMX: Fold requested virtual interrupt check into has_nested_events()
+Date: Fri, 19 Jun 2026 16:22:25 -0400
+Message-Id: <20260619202225.2749389-4-main.kalliope@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260619202225.2749389-1-main.kalliope@gmail.com>
 References: <20260619202225.2749389-1-main.kalliope@gmail.com>
@@ -79,80 +77,142 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-commit 27c4fa42b11af780d49ce704f7fa67b3c2544df4 upstream.
+commit 321ef62b0c5f6f57bb8500a2ca5986052675abbf upstream.
 
-Check for pending (and notified!) posted interrupts when checking if L2
-has a pending wake event, as fully posted/notified virtual interrupt is a
-valid wake event for HLT.
+Check for a Requested Virtual Interrupt, i.e. a virtual interrupt that is
+pending delivery, in vmx_has_nested_events() and drop the one-off
+kvm_x86_ops.guest_apic_has_interrupt() hook.
 
-Note that KVM must check vmx->nested.pi_pending to avoid prematurely
-waking L2, e.g. even if KVM sees a non-zero PID.PIR and PID.0N=1, the
-virtual interrupt won't actually be recognized until a notification IRQ is
-received by the vCPU or the vCPU does (nested) VM-Enter.
+In addition to dropping a superfluous hook, this fixes a bug where KVM
+would incorrectly treat virtual interrupts _for L2_ as always enabled due
+to kvm_arch_interrupt_allowed(), by way of vmx_interrupt_blocked(),
+treating IRQs as enabled if L2 is active and vmcs12 is configured to exit
+on IRQs, i.e. KVM would treat a virtual interrupt for L2 as a valid wake
+event based on L1's IRQ blocking status.
 
-Fixes: 26844fee6ade ("KVM: x86: never write to memory from kvm_vcpu_check_block()")
 Cc: stable@vger.kernel.org
-Cc: Maxim Levitsky <mlevitsk@redhat.com>
-Reported-by: Jim Mattson <jmattson@google.com>
-Closes: https://lore.kernel.org/all/20231207010302.2240506-1-jmattson@google.com
-Link: https://lore.kernel.org/r/20240607172609.3205077-5-seanjc@google.com
+Link: https://lore.kernel.org/r/20240607172609.3205077-6-seanjc@google.com
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-[ Nicholas Dudar: backport to 6.1.y. Prerequisite for the next patch, which
-  folds its check into the vmx_has_nested_events() body this patch builds.
-  Applies cleanly. The for_injection path still returns preemption_timer ||
-  mtf, as the previous 6.1.y body did. ]
+[ Nicholas Dudar: backport to 6.1.y. 6.1.y predates the vmx main.c /
+  x86_ops.h split, so drop .guest_apic_has_interrupt from vmx_x86_ops in
+  vmx.c rather than vt_x86_ops in main.c. The function is static in vmx.c, so
+  upstream's x86_ops.h prototype removal does not apply. 6.1.y keeps the
+  current hwapic_isr_update signature. ]
 Signed-off-by: Nicholas Dudar <main.kalliope@gmail.com>
 ---
- arch/x86/kvm/vmx/nested.c | 36 ++++++++++++++++++++++++++++++++++--
- 1 file changed, 34 insertions(+), 2 deletions(-)
+ arch/x86/include/asm/kvm-x86-ops.h |  1 -
+ arch/x86/include/asm/kvm_host.h    |  1 -
+ arch/x86/kvm/vmx/nested.c          |  4 ++++
+ arch/x86/kvm/vmx/vmx.c             | 21 ---------------------
+ arch/x86/kvm/x86.c                 | 10 +---------
+ 5 files changed, 5 insertions(+), 32 deletions(-)
 
+diff --git a/arch/x86/include/asm/kvm-x86-ops.h b/arch/x86/include/asm/kvm-x86-ops.h
+index c068565fe..1cfe83263 100644
+--- a/arch/x86/include/asm/kvm-x86-ops.h
++++ b/arch/x86/include/asm/kvm-x86-ops.h
+@@ -81,7 +81,6 @@ KVM_X86_OP(check_apicv_inhibit_reasons)
+ KVM_X86_OP(refresh_apicv_exec_ctrl)
+ KVM_X86_OP_OPTIONAL(hwapic_irr_update)
+ KVM_X86_OP_OPTIONAL(hwapic_isr_update)
+-KVM_X86_OP_OPTIONAL_RET0(guest_apic_has_interrupt)
+ KVM_X86_OP_OPTIONAL(load_eoi_exitmap)
+ KVM_X86_OP_OPTIONAL(set_virtual_apic_mode)
+ KVM_X86_OP_OPTIONAL(set_apic_access_page_addr)
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index fe5c0f86a..31395c434 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -1549,7 +1549,6 @@ struct kvm_x86_ops {
+ 	void (*refresh_apicv_exec_ctrl)(struct kvm_vcpu *vcpu);
+ 	void (*hwapic_irr_update)(struct kvm_vcpu *vcpu, int max_irr);
+ 	void (*hwapic_isr_update)(struct kvm_vcpu *vcpu, int isr);
+-	bool (*guest_apic_has_interrupt)(struct kvm_vcpu *vcpu);
+ 	void (*load_eoi_exitmap)(struct kvm_vcpu *vcpu, u64 *eoi_exit_bitmap);
+ 	void (*set_virtual_apic_mode)(struct kvm_vcpu *vcpu);
+ 	void (*set_apic_access_page_addr)(struct kvm_vcpu *vcpu);
 diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 7d8e18dbe..ad07e83d2 100644
+index ad07e83d2..f7a790a28 100644
 --- a/arch/x86/kvm/vmx/nested.c
 +++ b/arch/x86/kvm/vmx/nested.c
-@@ -3953,8 +3953,40 @@ static bool nested_vmx_preemption_timer_pending(struct kvm_vcpu *vcpu)
+@@ -3979,6 +3979,10 @@ static bool vmx_has_nested_events(struct kvm_vcpu *vcpu, bool for_injection)
  
- static bool vmx_has_nested_events(struct kvm_vcpu *vcpu, bool for_injection)
- {
--	return nested_vmx_preemption_timer_pending(vcpu) ||
--	       to_vmx(vcpu)->nested.mtf_pending;
-+	struct vcpu_vmx *vmx = to_vmx(vcpu);
-+	void *vapic = vmx->nested.virtual_apic_map.hva;
-+	int max_irr, vppr;
-+
-+	if (nested_vmx_preemption_timer_pending(vcpu) ||
-+	    vmx->nested.mtf_pending)
+ 	vppr = *((u32 *)(vapic + APIC_PROCPRI));
+ 
++	max_irr = vmx_get_rvi();
++	if ((max_irr & 0xf0) > (vppr & 0xf0))
 +		return true;
 +
-+	/*
-+	 * Virtual Interrupt Delivery doesn't require manual injection.  Either
-+	 * the interrupt is already in GUEST_RVI and will be recognized by CPU
-+	 * at VM-Entry, or there is a KVM_REQ_EVENT pending and KVM will move
-+	 * the interrupt from the PIR to RVI prior to entering the guest.
-+	 */
-+	if (for_injection)
-+		return false;
-+
-+	if (!nested_cpu_has_vid(get_vmcs12(vcpu)) ||
-+	    __vmx_interrupt_blocked(vcpu))
-+		return false;
-+
-+	if (!vapic)
-+		return false;
-+
-+	vppr = *((u32 *)(vapic + APIC_PROCPRI));
-+
-+	if (vmx->nested.pi_pending && vmx->nested.pi_desc &&
-+	    pi_test_on(vmx->nested.pi_desc)) {
-+		max_irr = pi_find_highest_vector(vmx->nested.pi_desc);
-+		if (max_irr > 0 && (max_irr & 0xf0) > (vppr & 0xf0))
-+			return true;
-+	}
-+
-+	return false;
+ 	if (vmx->nested.pi_pending && vmx->nested.pi_desc &&
+ 	    pi_test_on(vmx->nested.pi_desc)) {
+ 		max_irr = pi_find_highest_vector(vmx->nested.pi_desc);
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index e5d162e97..2e6454e4c 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -4063,26 +4063,6 @@ void pt_update_intercept_for_msr(struct kvm_vcpu *vcpu)
+ 	}
  }
  
- /*
+-static bool vmx_guest_apic_has_interrupt(struct kvm_vcpu *vcpu)
+-{
+-	struct vcpu_vmx *vmx = to_vmx(vcpu);
+-	void *vapic_page;
+-	u32 vppr;
+-	int rvi;
+-
+-	if (WARN_ON_ONCE(!is_guest_mode(vcpu)) ||
+-		!nested_cpu_has_vid(get_vmcs12(vcpu)) ||
+-		WARN_ON_ONCE(!vmx->nested.virtual_apic_map.gfn))
+-		return false;
+-
+-	rvi = vmx_get_rvi();
+-
+-	vapic_page = vmx->nested.virtual_apic_map.hva;
+-	vppr = *((u32 *)(vapic_page + APIC_PROCPRI));
+-
+-	return ((rvi & 0xf0) > (vppr & 0xf0));
+-}
+-
+ static void vmx_msr_filter_changed(struct kvm_vcpu *vcpu)
+ {
+ 	struct vcpu_vmx *vmx = to_vmx(vcpu);
+@@ -8266,7 +8246,6 @@ static struct kvm_x86_ops vmx_x86_ops __initdata = {
+ 	.check_apicv_inhibit_reasons = vmx_check_apicv_inhibit_reasons,
+ 	.hwapic_irr_update = vmx_hwapic_irr_update,
+ 	.hwapic_isr_update = vmx_hwapic_isr_update,
+-	.guest_apic_has_interrupt = vmx_guest_apic_has_interrupt,
+ 	.sync_pir_to_irr = vmx_sync_pir_to_irr,
+ 	.deliver_interrupt = vmx_deliver_interrupt,
+ 	.dy_apicv_has_pending_interrupt = pi_has_pending_interrupt,
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 10ef8a435..208a713d7 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -13046,12 +13046,6 @@ void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
+ 	kvm_page_track_flush_slot(kvm, slot);
+ }
+ 
+-static inline bool kvm_guest_apic_has_interrupt(struct kvm_vcpu *vcpu)
+-{
+-	return (is_guest_mode(vcpu) &&
+-		static_call(kvm_x86_guest_apic_has_interrupt)(vcpu));
+-}
+-
+ static inline bool kvm_vcpu_has_events(struct kvm_vcpu *vcpu)
+ {
+ 	if (!list_empty_careful(&vcpu->async_pf.done))
+@@ -13077,9 +13071,7 @@ static inline bool kvm_vcpu_has_events(struct kvm_vcpu *vcpu)
+ 	     static_call(kvm_x86_smi_allowed)(vcpu, false)))
+ 		return true;
+ 
+-	if (kvm_arch_interrupt_allowed(vcpu) &&
+-	    (kvm_cpu_has_interrupt(vcpu) ||
+-	    kvm_guest_apic_has_interrupt(vcpu)))
++	if (kvm_arch_interrupt_allowed(vcpu) && kvm_cpu_has_interrupt(vcpu))
+ 		return true;
+ 
+ 	if (kvm_hv_has_stimer_pending(vcpu))
 -- 
 2.34.1
 
