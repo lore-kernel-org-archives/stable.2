@@ -1,173 +1,183 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534A4368D71
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 09:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6946B367F59;
+	Fri, 19 Jun 2026 09:56:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781862845; cv=none; b=aX4r3h5Syvmr1agaCBwytHO3GK9gTjkw3qb0tHCOM+m/NmGEHkeMKX5RSanu+e95KOFOCkoP0iEWGqhY1ONSGAE/gQ9xlU1kWkz+aNUTrfGRwGSeVMpkGgRLq6SzUUSoXbIKMkeVHObO3ngW0DCZtnJ+v8tw73wwV7AURLHR+10=
+	t=1781862975; cv=none; b=dZDmjvwS1RBhUtu+xa4xk3JWVVjWaikfz7+jijPF8wmR5t/WrFHlzrUl87Hq9pZTQ6aR8ahDKdStlMy79kO4UpAnJNAewUiN10Hr1NVi/8xqlgJyFVK4QSc6kD7DRICJkywfZnNrq8B0kL9DKQmR2bgHHalOMI181hTqi0v5+RM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781862845; c=relaxed/simple;
-	bh=aGauklNPabtsO7LQIp29AL9IE+hawJEwI3Iyt1CmxkU=;
+	s=arc-20240116; t=1781862975; c=relaxed/simple;
+	bh=BsgJwnB/nbLfAI8hzpc9mDJsBxbzXIhnEPJJm0gtd8E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QMSTvA/0IqGNxwWIlPzMS/YF57F0gy0jvG0Rwo0y4htZQv9wbLI5pK/Bnk78syOqzGpa4SW+pcZJpuNIx1rCsWcvDbpsPKlfv6CDgcpeJjosINsCeOM7dwu1W0nAv4P/2kw9ELUwlCs4fRKJitb9Kf7pM8UoowmioKLCJip9Bqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=A3bXkiJs; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=HdSDfd9j4RSOGd7Z2a308qFwuneP8F/iKe4kwDkRJEYgvngmn0V3aVmLVY0YJtGFGrze5TVfztqVZFR5YsD5B2Ksc4FU8XWmDeHvktTRNYweFVQQWUFZnMZeHbZ1pdtnZ+ucEZqXeRJb4zF6vBhPGfnx1nUajSDq9mm0SF37lxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=d3pWA95V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="A3bXkiJs"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-46066e640easo1184630f8f.1
-        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 02:54:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781862840; x=1782467640; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=es6lhLq2EOm7yOBpWKOLsnIHgXPOu61O1PDmQl8gQmU=;
-        b=A3bXkiJsZvFlPgQQlnTMBCxmcRsMid8/k+Imw5Eq8zqVVC6tThSs4GQ+Xb+Ecprm8i
-         f387gbqIb9sutCUCYoZ6fXIp25C/3ezfkjiWFSvX6zDYxUjVYgKKb7ESyIw6qFkPpuYA
-         +7F1nkn7qH+LQaaMiAZt+8dG3QMs4VLa0+pnuiugm4LLPU5T9cavhZAM3od1xfSagaRN
-         kRAMrsM0+Rst436u06NiqGHiLJxGXU3VH4ZktoGeFOBG+qOmbkB02eTqixTHJRhW/+GF
-         QCnHihBvUYp6rN1LZlI6Mto0uWsYtELmEtqtIEjrwwMMYWOyrfN/x4yIGjoTWcjzFev9
-         2ULA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781862840; x=1782467640;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=es6lhLq2EOm7yOBpWKOLsnIHgXPOu61O1PDmQl8gQmU=;
-        b=dpZtkV4nD9B8EmHjA1y/U43pGptjKcGJpVfjCkNE/p3rn08jOMro3AHCB6IhtWHqYm
-         NkH/w4apeJZnsoZFseqcuihdpBUQD1bzCVu07GBFDSwKtMTznPLWE5E3N5abW6M0kwff
-         kchuuj7sC7AkaV+rThIrsqSJzYgnuCvGw2hAmqnzMz6BAAebtBDNaEF88jacFRL88YkO
-         /1XAfZeHsW/3+Mqc/f8dEpCPvR0eHn+/MSW6ri9cS6nmtVjsv9QSk1ZgAUk9evgt+cpq
-         kSKJJeBrWEIIXx7H06531zLVFJmwm00NXCfhrrFwsqew6x2YT8iQ5OXzcKLfDeBdYRxF
-         xi8A==
-X-Forwarded-Encrypted: i=1; AFNElJ+WU/jB4BZ8Hkq/WxsJGUo9ySq3YXPSPRjLIdoTxqMUE7V0n/jFEoYzoMu4/3hKzXdDV6GcHMg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxfqo9DaBuPvhbuDwsJ41tWJegGHmM9QitjZPetLCTpVzVsMGrY
-	83tZnc+9cpDnhpPXqdI5tNnZfmq5lybVSsA5I9bVsx+jpqV4LrlUWNNSSmldrExJVOI=
-X-Gm-Gg: AfdE7ck3FsAe30UHqJ3wOUZN2DTuoSb/81xO6TxPl68aSksitZF1bei8ZY5aHPZIXZe
-	VEyrs0YJcYGeXvh7qb/VCaDWyBul1lRvJlnvUU6FE4KN0oyUTuJ05LAvhVtcirQ2ksGsnS0Zc6+
-	JiHkcCSCdZ0LqC49hcBNfeFtFL6K5a44sLzZiWF5B0rUun9V/tjZTVbxxvWrpKfEc+4Do0WMxSP
-	ijsvGMxjp0fzGS8D3GhwvzpvOrvkKp+pVKZCTvkETWpubwOuPd3EUFEYNC3YeRPF6q2CTBuDN2q
-	NbmjxEuBWZX1tHGhRMzPvLGFz800006wPdR7KAA8LAggKmJPZCIqAwC1z80Ps/N17a7IU/K6WAY
-	FSJ90D0GIxgopKNdq5D3BTI3dpsJr4V6/gVkgiCGcdg5cHYi6jwM+HbosBqS0p43bJURU6zJIT1
-	tLRLaR9isBkqZy5Vg=
-X-Received: by 2002:adf:f751:0:b0:45e:d6b2:e6a5 with SMTP id ffacd0b85a97d-46509d58218mr4397934f8f.34.1781862839762;
-        Fri, 19 Jun 2026 02:53:59 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46508a04c15sm6766712f8f.3.2026.06.19.02.53.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 02:53:59 -0700 (PDT)
-Date: Fri, 19 Jun 2026 11:53:51 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Breno Leitao <leitao@debian.org>, Peter Zijlstra <peterz@infradead.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Vlad Poenaru <vlad.wing@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>, netdev@vger.kernel.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Frederic Weisbecker <frederic@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Subject: Re: [PATCH net] netpoll: run NAPI poll in softirq context to avoid
- rq->lock self-deadlock
-Message-ID: <ajURr1G-12EJ4u-d@pathway.suse.cz>
-References: <20260610183621.3915271-1-vlad.wing@gmail.com>
- <20260611191114.5bc43a59@kernel.org>
- <20260616103529.Yh9Dxsjp@linutronix.de>
- <20260616170257.GH49951@noisy.programming.kicks-ass.net>
- <20260616141719.67684bf0@kernel.org>
- <ajJ46o4fomfxY5CX@pathway.suse.cz>
- <20260617111958.GL49951@noisy.programming.kicks-ass.net>
- <ajKi4wtA8U1iZkMD@gmail.com>
- <87tsr1m6y5.fsf@jogness.linutronix.de>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="d3pWA95V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A56941F000E9;
+	Fri, 19 Jun 2026 09:56:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781862968;
+	bh=RRAkZrz2NnBTdnmCperiOhBRhKw8kYvJMOVjYv7LxLs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=d3pWA95VK739UMks0oDjLHDM1BwctwLXmJJfjdV1kO4NDdTFkpIVX2MBt6ZXN5D/X
+	 xTDq8qDKkcO3xghvYaWvmp1fjVahwLDxO9fEwRNuYv74rqgS1vZrtcYr0igRQUp7G6
+	 fhN1PBXlf+32ROBPpDS6M7bvxgyfdg1ULr9ohF/M=
+Date: Fri, 19 Jun 2026 11:54:56 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Duoming Zhou <duoming@zju.edu.cn>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Robert Garcia <rob_garcia@163.com>, Sasha Levin <sashal@kernel.org>,
+	Vegard Nossum <vegard.nossum@oracle.com>
+Subject: Re: [PATCH 5.15 045/411] wifi: brcmfmac: fix use-after-free when
+ rescheduling brcmf_btcoex_info work
+Message-ID: <2026061929-appendage-daughter-66d4@gregkh>
+References: <20260616145100.376842714@linuxfoundation.org>
+ <20260616145102.682627807@linuxfoundation.org>
+ <b24447af-a758-4ffa-95cf-4a5bcc4994d4@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <87tsr1m6y5.fsf@jogness.linutronix.de>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b24447af-a758-4ffa-95cf-4a5bcc4994d4@oracle.com>
 
-On Wed 2026-06-17 19:13:30, John Ogness wrote:
-> On 2026-06-17, Breno Leitao <leitao@debian.org> wrote:
-> > On Wed, Jun 17, 2026 at 01:19:58PM +0200, Peter Zijlstra wrote:
-> >> But anything using locking is not ->write_atomic() and should be driven
-> >> from a kthread, no?
-> >
-> > Good point. If that's the case, netconsole might not ever be able to drop
-> > CON_NBCON_ATOMIC_UNSAFE for any network-based console driver at all. 
+On Thu, Jun 18, 2026 at 11:48:35PM +0530, Harshit Mogalapalli wrote:
+> Hi Sasha and Greg,
 > 
-> It depends on what it needs to synchronize against. For example, the
-> UART consoles cannot write if the port lock is taken by another
-> context. And the port lock is the sole lock for writing to the UART. To
-> deal with this, we added wrappers [0] for acquiring/releasing the port
-> lock. The wrappers acquire the nbcon hardware after taking the port
-> lock.
->
-> The write_atomic() implementations for UART consoles do not take the
-> port lock. Only the nbcon hardware is acquired (which can be done from
-> any context). This automatically provides the synchronization based on
-> the port lock.
+> On 16/06/26 20:24, Greg Kroah-Hartman wrote:
+> > 5.15-stable review patch.  If anyone has any objections, please let me know.
+> > 
+> > ------------------
+> > 
+> > From: Duoming Zhou <duoming@zju.edu.cn>
+> > 
+> > [ Upstream commit 9cb83d4be0b9b697eae93d321e0da999f9cdfcfc ]
+> > 
+> > The brcmf_btcoex_detach() only shuts down the btcoex timer, if the
+> > flag timer_on is false. However, the brcmf_btcoex_timerfunc(), which
+> > runs as timer handler, sets timer_on to false. This creates critical
+> > race conditions:
+> > 
+> > 1.If brcmf_btcoex_detach() is called while brcmf_btcoex_timerfunc()
+> > is executing, it may observe timer_on as false and skip the call to
+> > timer_shutdown_sync().
+> > 
+> > 2.The brcmf_btcoex_timerfunc() may then reschedule the brcmf_btcoex_info
+> > worker after the cancel_work_sync() has been executed, resulting in
+> > use-after-free bugs.
+> > 
+> > The use-after-free bugs occur in two distinct scenarios, depending on
+> > the timing of when the brcmf_btcoex_info struct is freed relative to
+> > the execution of its worker thread.
+> > 
+> > Scenario 1: Freed before the worker is scheduled
+> > 
+> > The brcmf_btcoex_info is deallocated before the worker is scheduled.
+> > A race condition can occur when schedule_work(&bt_local->work) is
+> > called after the target memory has been freed. The sequence of events
+> > is detailed below:
+> > 
+> > CPU0                           | CPU1
+> > brcmf_btcoex_detach            | brcmf_btcoex_timerfunc
+> >                                 |   bt_local->timer_on = false;
+> >    if (cfg->btcoex->timer_on)   |
+> >      ...                        |
+> >    cancel_work_sync();          |
+> >    ...                          |
+> >    kfree(cfg->btcoex); // FREE  |
+> >                                 |   schedule_work(&bt_local->work); // USE
+> > 
+> > Scenario 2: Freed after the worker is scheduled
+> > 
+> > The brcmf_btcoex_info is freed after the worker has been scheduled
+> > but before or during its execution. In this case, statements within
+> > the brcmf_btcoex_handler() — such as the container_of macro and
+> > subsequent dereferences of the brcmf_btcoex_info object will cause
+> > a use-after-free access. The following timeline illustrates this
+> > scenario:
+> > 
+> > CPU0                            | CPU1
+> > brcmf_btcoex_detach             | brcmf_btcoex_timerfunc
+> >                                  |   bt_local->timer_on = false;
+> >    if (cfg->btcoex->timer_on)    |
+> >      ...                         |
+> >    cancel_work_sync();           |
+> >    ...                           |   schedule_work(); // Reschedule
+> >                                  |
+> >    kfree(cfg->btcoex); // FREE   |   brcmf_btcoex_handler() // Worker
+> >    /*                            |     btci = container_of(....); // USE
+> >     The kfree() above could      |     ...
+> >     also occur at any point      |     btci-> // USE
+> >     during the worker's execution|
+> >     */                           |
+> > 
+> > To resolve the race conditions, drop the conditional check and call
+> > timer_shutdown_sync() directly. It can deactivate the timer reliably,
+> > regardless of its current state. Once stopped, the timer_on state is
+> > then set to false.
+> > 
+> > Fixes: 61730d4dfffc ("brcmfmac: support critical protocol API for DHCP")
+> > Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+> > Signed-off-by: Duoming Zhou <duoming@zju.edu.cn>
+> > Link: https://patch.msgid.link/20250822050839.4413-1-duoming@zju.edu.cn
+> > Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+> > Signed-off-by: Robert Garcia <rob_garcia@163.com>
+> > Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > ---
+> >   drivers/net/wireless/broadcom/brcm80211/brcmfmac/btcoex.c | 6 ++----
+> >   1 file changed, 2 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/btcoex.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/btcoex.c
+> > index f9f18ff451ea7c..f46e4090021777 100644
+> > --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/btcoex.c
+> > +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/btcoex.c
+> > @@ -392,10 +392,8 @@ void brcmf_btcoex_detach(struct brcmf_cfg80211_info *cfg)
+> >   	if (!cfg->btcoex)
+> >   		return;
+> > -	if (cfg->btcoex->timer_on) {
+> > -		cfg->btcoex->timer_on = false;
+> > -		del_timer_sync(&cfg->btcoex->timer);
+> > -	}
+> > +	del_timer_sync(&cfg->btcoex->timer);
+> > +	cfg->btcoex->timer_on = false;
 > 
-> > As far as I can tell, there isn't a network driver today whose transmit
-> > path is completely lockless, so, even if we make netpoll lockless.
-> >
-> > It's unlikely any NIC will ever achieve this, given that NIC TX
-> > fundamentally relies on a shared DMA ring and doorbell register, which
-> > inherently cannot be made lockless.
-> >
-> > So, is it correct to state that CON_NBCON_ATOMIC_UNSAFE will be part of
-> > netconsole forever-ish?
+> I ran an AI assisted backport review over the 5.15.210 queue. I think this
+> 5.15.y backport doesn;t really try to do the same thing like upstream. Why
+> so ?
 > 
-> Is there some lock that can be taken to synchronize all writing of
-> packets to the network? If yes, the netconsole can use a similar
-> solution.
+> Upstream 9cb83d4be0b9 uses timer_shutdown_sync() before canceling the work
+> and freeing cfg->btcoex:
+> 
+>         timer_shutdown_sync(&cfg->btcoex->timer);
+>         cfg->btcoex->timer_on = false;
+>         cancel_work_sync(&cfg->btcoex->work);
+> 
+> The 5.15.y backport still uses del_timer_sync():
+> 
+>         del_timer_sync(&cfg->btcoex->timer);
+>         cfg->btcoex->timer_on = false;
+>         cancel_work_sync(&cfg->btcoex->work);
+> 
+> The timer code in this 5.15.y tree already documents that del_timer_sync()
+> cannot guarantee the timer is not rearmed by concurrent code, so the key
+> point is the difference between del_timer_sync() and timer_shutdown_sync().
+> 
+> I think 5.15.y should directly use timer_shutdown_sync(), as we don't have
+> commit: 292a089d78d3 ("treewide: Convert del_timer*() to timer_shutdown*()")
+> in 5.15.y, thoughts ?
 
-We need to be careful here. If more locks depend on the nbcon
-ownership than it might become a kind of big kernel lock.
+I think this is the best that can be done unless someone wants to
+backport that mess of a timer conversion.  And note, I think I've
+rejected that backport already :)
 
-It might suffer from lock contention.
+thanks,
 
-Another complication is that it is supposed to be a tail lock.
-
-Finally, it might create tricky lockdep dependencies. But nbcon
-context locking is not tracked by locked so it is not easy to be sure.
-
-More details:
-
-I always forget the details. But it seems that sleeping is allowed
-in the nbcon context, see cant_migrate() in nbcon_device_try_acquire().
-Which might break when someone tries to take it in atomic context.
-
-AFAIK, the motivation was to allow using the normal (sleeping)
-spin locks for serial console synchronization in RT. The nested nbcon
-context locking should not disable the preemption when called
-in NBCON_PRIO_NORMAL context.
-
-It would still allow to take the nbcon context in atomic context
-when called in NBCON_PRIO_EMERGENCY or _PANIC context because
-nbcon_context_try_acquire() is able to take over the ownership
-even from a sleeping NBCON_PRIO_NORMAL context.
-
-But we need to make sure that outer locks behave the same.
-In practice, they must be normal spin_locks. We could probably
-add some lockdep annotation to catch eventual problems.
-
-Sigh, I hope that I have got it right. I seem to be a bit lost
-this week.
-
-> [0] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/serial_core.h?h=v7.1#n715
-
-Best Regards,
-Petr
+greg k-h
