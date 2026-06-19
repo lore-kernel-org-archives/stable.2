@@ -1,80 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AF831A7E2;
-	Fri, 19 Jun 2026 01:20:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7331F938
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 01:32:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781832031; cv=none; b=YKhaA/QFt+dogJ+rxJHIWAbzahfqwfpAjB65s3ZfhXd6D/5+trXa6pTrEEAno54SCjjPz/CnludSiCEKW9nUQkFIx2xiqfggNu48yy5XD20ehUE6Khtt1qcUi1mUdBm+W1InrsVeUPcYw4j1/ls2KtunVp+XGJgzkNQ/HWDxYTI=
+	t=1781832737; cv=none; b=P2KlIARTuoz9cvlEKLXtvg8yiVAiuSJ29/Ag6ngMGl/g4v/meJQSTJstkRZPH/7bBzz+goWq0Vozwvx2d0dE2YWeWQ/UVXFtl14siH1EjvQrueaYESg/7hn+GFWAJwyJfpuVou4vlIuzCK5LDi7zJow+WIcan/coZtkeSbXCkLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781832031; c=relaxed/simple;
-	bh=TTJKMoYAuzoQ6ms+RJKrHG7+UltL4SCEIlIGwcXeQ2Q=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=GT6mrFRABbMzzeFNeGNH0XkRzKAzLgyTzva83dkdslFKPtr6BTc2cEA6virVQbqLxVEz3D+w1exMbu7RseEqf4+7vSRJ7hJfxHe13edfgU927vRCp0sag8KXh+McLgmUXkkSYryzxT7+1WxdduYpw9GDmRJQGmV+BK6VpjTy0wE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZQHdmCF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781832737; c=relaxed/simple;
+	bh=ZOBjPR5wT4rMhM30c/8jHxiVlE1wPBUkLSgw9fG/Zyw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Oesg4FasgkxboIui7gtyxP/UyuYPTWsZyCjjlD1cWmK0mcyBzJhlFYVy5eS7TjK9ATCINnEHQu6g/gPwb+r0zHhrypq4Kupuhb2IC+x+HSf0nos9D+NC9j1p6qMpdncxfGTPqV9uZrlOBuvAQo3Z0maSBl79Y6dJdQPCFhT6qSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rcpassos.me; spf=pass smtp.mailfrom=rcpassos.me; dkim=pass (2048-bit key) header.d=rcpassos.me header.i=@rcpassos.me header.b=eXFCRXrN; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=fSPL2SI4; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rcpassos.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rcpassos.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZQHdmCF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB3C41F000E9;
-	Fri, 19 Jun 2026 01:20:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781832030;
-	bh=U0LfVyHgXZFFi5lPDvfzmd2c1BqGyT+YI3QfoHzzyE8=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=TZQHdmCFDGqFyuKnYKagiIuKdXQr1SrwRX9ngdSyFqp+7/A2ds4uvIQtnRCwt/Rou
-	 TfsQTyOivts2WmeWtWSXvfVFGEF+0AOjmgwQl4QPL4NX72phXNYk8Z1wmX6gSd+cDo
-	 cP78ZzvEWo21ZnLg2HSuRW2pRFSGdlK9cd2VfxfDPUUoUgGsqdVX3kbKk5BTlFOrG2
-	 THPt5V+wDExOLdpVHDj7JlunMS9a/sMozOfLa+JxckI2++5jG3r/31qxFOAUin8nSr
-	 oZXTatw938SNDJ1VEdMlbFL6Cnh4wI0qH69kdjAzsG2oZxAbl7ZvYQ0G21G1xvzCsy
-	 o0Wh1ygkO0KfQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 569FC3A78A7C;
-	Fri, 19 Jun 2026 01:20:25 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=rcpassos.me header.i=@rcpassos.me header.b="eXFCRXrN";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="fSPL2SI4"
+Authentication-Results: purelymail.com; auth=pass
+DKIM-Signature: a=rsa-sha256; b=eXFCRXrNiJ7KTDusefbwy+k9nu3mDfdgkGwdO2dC4+uWHLhAvILzUyUZxrmh6BArnpLyOYfQpLASZtGN8pFafVCWU+iFZBzD3pMb0AJ/NfLcOWgzDxXhkffKdL78s5VN11xpFfcQrWYHQ0AW2gEFZTLRYmugyA5GsEbBb4WgyevqtaO1TrnaP+RmkcjWxVyr8BGeg8bDUYL4l8t13JzXePAce0/89+YOTQKFLDx/qkQE9iUglSWfk6VOGCqVAqYNS//Ucru+xZbpVTNqAW5GTZBT5kLBa61kyfHcly61t2R29RmlZxTyQWOYzJ6GzbW1JYv2Hle5ZEh0+aw00xD+sA==; s=purelymail1; d=rcpassos.me; v=1; bh=ZOBjPR5wT4rMhM30c/8jHxiVlE1wPBUkLSgw9fG/Zyw=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=fSPL2SI4VaoexEh7Wl0WolSFR7LN21jaXSkuZKFwiDAAmGNbyDTeWbVe8SifhbY1qNkmLsF7pXVds7pzyakeUP2lZuhdvFIhd/cCdsgiKSaRiVmMjH9G/yx2H6KGRdfrZIEhPCVYkSxU1dPG0M844tJ0KGKEklpqO5enjA+DA7qWKeNzjjAN2pqdT7l0Cu5yGb4YNqOhTaXXdNUzPPITSoGifODTaRIDK7xpwILxb68iGyLbcylrvY9fw0d1tg3iozp+DEMAkE9GqNeatqnEyhX5oMOO7eZFCaQLf+hb+wqpRv+OoI1HU14GjG3OfhUUnXK99xbrmB9Xnkdrmk7K0Q==; s=purelymail1; d=purelymail.com; v=1; bh=ZOBjPR5wT4rMhM30c/8jHxiVlE1wPBUkLSgw9fG/Zyw=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 45355:7809:null:purelymail
+X-Pm-Original-To: stable@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 879635646;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Fri, 19 Jun 2026 01:32:05 +0000 (UTC)
+From: Rafael Passos <rafael@rcpassos.me>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Jiri Kosina <jikos@kernel.org>,
+	Rafael Passos <rafael@rcpassos.me>,
+	Lucas Zampieri <lcasmz54@gmail.com>
+Subject: [PATCH 7.1] HID: Input: Add battery list cleanup with devm action
+Date: Thu, 18 Jun 2026 22:32:07 -0300
+Message-ID: <20260619013207.1968584-1-rafael@rcpassos.me>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] gve: fix header buffer corruption with header-split
- and
- HW-GRO
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178183202388.3150917.7651474889065363625.git-patchwork-notify@kernel.org>
-Date: Fri, 19 Jun 2026 01:20:23 +0000
-References: <20260617013208.3781453-1-joshwash@google.com>
-In-Reply-To: <20260617013208.3781453-1-joshwash@google.com>
-To: Joshua Washington <joshwash@google.com>
-Cc: netdev@vger.kernel.org, hramamurthy@google.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- willemb@google.com, thostet@google.com, ziweixiao@google.com,
- pkaligineedi@google.com, jeroendb@google.com, linux-kernel@vger.kernel.org,
- nktgrg@google.com, stable@vger.kernel.org, jordanrhee@google.com
+Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
+Content-Type: text/plain; charset=UTF-8
 
-Hello:
+commit 426e5846eba75feaf1c9c6c119cb153610192da1 upstream.
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+The batteries list (hdev->batteries) is not cleaned up during
+hidinput_disconnect(), but struct hid_battery entries are allocated
+with devm_kzalloc.
+When a driver is unbound (e.g. during devicereprobe), devm frees those
+entries while their list_head nodesremain dangling in hdev->batteries,
+which persists across rebinds.
 
-On Tue, 16 Jun 2026 18:32:08 -0700 you wrote:
-> From: Ankit Garg <nktgrg@google.com>
-> 
-> The DQO RX datapath programs a per-buffer-queue-descriptor
-> header_buf_addr at post time and reads the split header back at
-> completion time. Both the post and the read currently index the
-> header buffer by queue position rather than by the buffer's identity:
-> 
-> [...]
+Link: https://lore.kernel.org/all/20260602011949.2825852-1-rafael@rcpassos.=
+me/
+Fixes: 4a58ae85c3f9 ("HID: input: Add support for multiple batteries per de=
+vice")
+Signed-off-by: Rafael Passos <rafael@rcpassos.me>
+Acked-by: Lucas Zampieri <lcasmz54@gmail.com>
+Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
+---
 
-Here is the summary with links:
-  - [net] gve: fix header buffer corruption with header-split and HW-GRO
-    https://git.kernel.org/netdev/net/c/d676c9a73bdc
+Hi,
+This patch missed the 7.1 rc7 window.
+Booting fails without it on some devices with batteries.
+I hope it makes it to 7.1.1 :)
+This isn't needed for earlier trees.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Thanks,
+Rafael Passos
 
+ drivers/hid/hid-input.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
+index d73cfa2e73d3..c7b8c4ff7a33 100644
+--- a/drivers/hid/hid-input.c
++++ b/drivers/hid/hid-input.c
+@@ -519,6 +519,13 @@ static struct hid_battery *hidinput_find_battery(struc=
+t hid_device *dev,
+ =09return NULL;
+ }
+=20
++static void hidinput_cleanup_battery(void *res)
++{
++=09struct hid_battery *bat =3D res;
++
++=09list_del(&bat->list);
++}
++
+ static int hidinput_setup_battery(struct hid_device *dev, unsigned report_=
+type,
+ =09=09=09=09  struct hid_field *field, bool is_percentage)
+ {
+@@ -610,6 +617,12 @@ static int hidinput_setup_battery(struct hid_device *d=
+ev, unsigned report_type,
+=20
+ =09power_supply_powers(bat->ps, &dev->dev);
+ =09list_add_tail(&bat->list, &dev->batteries);
++
++=09error =3D devm_add_action_or_reset(&dev->dev,
++=09=09=09=09=09 hidinput_cleanup_battery, bat);
++=09if (error)
++=09=09return error;
++
+ =09return 0;
+=20
+ err_free_name:
+--=20
+2.53.0
 
