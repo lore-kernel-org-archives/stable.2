@@ -1,148 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com [209.85.214.225])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE50369991;
-	Fri, 19 Jun 2026 09:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528D0368D78
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 09:58:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781863027; cv=none; b=Rr1l/GZ5UBIuTWGk/gpi7xOVsM6yvc6C2C9Cm4MTBIjB8wXDG+uMfwPjVZZTDcArgPnC7+8KPigfg0QjZNGcckeFGXAKcYyWyhdap2JsGjeRJ6cb2QXPIsSJR2njToT6SZeTRO1u55X9pk2qCf1ACgW9nipRwQ8mQedW83iXPFI=
+	t=1781863087; cv=none; b=DW6cH148HihgUtgUHzjupTEeq9bJj8QtS+QSi6zxC1928u2ueGNADZabm8HUZZwg0ULdgA7ImiPuAMVYsL0TirURIvoRp0+0NfVuVt0cwqIDckq4pEjGC2WDN/0Ifb+iRTaNXR/ZmqgKFA7GovDLQmdd+rrs5x7RZBWMSpxt7Zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781863027; c=relaxed/simple;
-	bh=5nn0vOFfEC8IB7QEw+QjZpLzYA1Lz8v2GLiPO0g9xsE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vEwrhz4wadRzdetUSSL13UfN5QBHesNEVIlLpnHgDhXfs+RRWwMzkrdzkVIz+0yfI1y7cB7DJYjcnRQT3w0Y8iizxWyWhsKum2p4iMAOZgvFU51NW6PjXkTWVVXneSsrZ2w5qWJ7igWf70zQV2uiGZ3cn7OHISJXbJSmc1O+m+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=I1GC+9f7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781863087; c=relaxed/simple;
+	bh=hk2+uuYecO2IQQF9bcMQEfm2EUhrTFMxzsBYQSG8ZtI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=i2HP/yiZJiIe+HAkRL2kXLsBq5mRnKXhnPaa052dS/6Y59UdFlOlPvnxQ4jT3sATAF73jb+pd8L/fn4hD1sAvtKk7RfSo0AdJjXdfrh/Za8O/86KI4pt+iprzTmx5w9FhjmNMy2gLSHzp78zhjOcl9O3kYqlgMvXHhvlZhqtpKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=bddemX/m; arc=none smtp.client-ip=209.85.214.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="I1GC+9f7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4AFB1F000E9;
-	Fri, 19 Jun 2026 09:56:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781863020;
-	bh=DiFPSAGm3QGqD5XdKFqj9fbqyoJ+B1hzp8sXWp75HQo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I1GC+9f7yX3P3COKWIaUtw1Eb2qTl4squBDTA0mNPUZdzie+DoBKGfyNe7Fwe8VUH
-	 hwqyaAI2x0WWuJJCe24F8dYSZwW0XbDcBhBICqV069Jcp0ypuTWj/eS1LNXsshWS41
-	 zwNml85wJ2PfaRbVoTP3DK0mp1HX1aiokJ9kAmPw=
-Date: Fri, 19 Jun 2026 11:55:53 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	Weiming Shi <bestswngs@gmail.com>, Xiang Mei <xmei5@asu.edu>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Ramanan Govindarajan <ramanan.govindarajan@oracle.com>,
-	Vegard Nossum <vegard.nossum@oracle.com>
-Subject: Re: [PATCH 5.15 193/411] netfilter: nf_log: validate MAC header was
- set before dumping it
-Message-ID: <2026061924-treat-enjoyably-08c8@gregkh>
-References: <20260616145100.376842714@linuxfoundation.org>
- <20260616145110.984893387@linuxfoundation.org>
- <167562b4-4472-4ead-a107-6eb83275825c@oracle.com>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="bddemX/m"
+Received: by mail-pl1-f225.google.com with SMTP id d9443c01a7336-2c6b67d5fa1so15979585ad.2
+        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 02:58:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781863082; x=1782467882;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=U57pja5e0yJSy8SFBtN6ioJCsbtDVqRKjAnvzO5IXeQ=;
+        b=XO/IUI4KPPEWjg6/bZmoZ1QTH7mWSq7AeA8g0BaafsK+/VYVY6DFZ0xgRHhKJ9CCTD
+         uf1vOx/ynstdkh+a/bzEE7OMO/xC+XrjwzhSaqeG7MBxzlUv2DVgqY2Fj3KDd2o5BVD5
+         rhiw2hucjoGl0aG+RLDIKdksmL8a/M49bS91jp/uPs0EDX8BBPBb0zQgJXHQizebzDaz
+         F6G2gPF7u+Nr/8ZbMW8NN34+EuRdXto0lcpwVtzUyygaGjHGKSLpljJ0bQpjefC5yF/1
+         umy5J0qFZSZtVwu2WLQZmVKUFIeA03lzHGAk031sFsAXg7CqDss6X+qrTbxX2BV8XF6Y
+         gQuA==
+X-Gm-Message-State: AOJu0YwXJvJvPiUW3VIFeenNVXwDMI4zwAp42cN1M+/uo+mmxATdJhdl
+	2Ni3JiXcjtId3LGhJzIgzKn/BI7iaXFw020xO62nd8U+F0B/zeNPxFPtncz/jt3sAHF6Yysiyl6
+	yXpv5puH2o1cgfbHn2n9klSCi3pnlBYJmmnHjUbMwnA6wVmDfGjzQBn7piWYU3cWGXJ8evAbrXM
+	CUHxBHNi+KIgz3WErv+YQSgQEewyMrcqAwbaCi4+FkHwGRF0FfUuQPL3Kp/6K6X2tyCUbsGBG+8
+	8MDJTuy0qp6EUzDtw==
+X-Gm-Gg: AfdE7clZd8hXtXPuQdbJI1mBFRd6OER4nB2Eqomrk0tHCo8FLMs6evSrne14wVPnBaR
+	BA21Namws+KXT/ze8IDd02AxxIRCVzqTOm+7bIStfro4M22YUJlHBZLmZcMjNpN5KtsWMOD/YDk
+	zCODi2Ies8355NGwuKtP2l/+Xq93BtOG4g9LM8VvRM19ksSt3vtpqZen7NPJtRud/f7ZnDTNL84
+	bMXQZ8G7mk0Vyu1nac7pHeNPfwg0Dscae2F6FXOghJZBgrOcOwaEhmyXHLmzA5czOGAwEuS86OU
+	eSAIbjFZf/HQ9s+7AsYF9dN7G89Ir2gbZKXGCOzEF6llprMaw43e92ggS8BvWKae8/0tqi+PGtP
+	5ZPGX+WQm4IEUFpWGQFsPNF9QV3ew4LEFBW549PGyo7z77JWGfVFS9y0rbBegXp+CknEGUEwuTD
+	7JXE42RL0Tvs9ReTFwJAdOcVaPvT3gycaCjg57/dhJVHOGNTEFoA==
+X-Received: by 2002:a17:902:f712:b0:2c1:5a24:b4ed with SMTP id d9443c01a7336-2c725dbf5edmr24806625ad.37.1781863082370;
+        Fri, 19 Jun 2026 02:58:02 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-18.dlp.protect.broadcom.com. [144.49.247.18])
+        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2c7208981cesm1130785ad.4.2026.06.19.02.58.01
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 19 Jun 2026 02:58:02 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bdfcf7c14so7977927eec.0
+        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 02:58:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1781863081; x=1782467881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=U57pja5e0yJSy8SFBtN6ioJCsbtDVqRKjAnvzO5IXeQ=;
+        b=bddemX/mueuoTUw+FgpYuMdZmN2YG6KQCleH58432RU1ZqVcX9NspyjesIHnNVo1M8
+         zRXNHpWkO513UvHI+jtYcrSIVHzrDP7EUgyTMneZMbULLdHLIFsZEJxrEmBVPoLK8Y8b
+         xvYl2rvC6rsyZTlwCwbz3grmvbDenVoc7BqKQ=
+X-Received: by 2002:a05:7300:2310:b0:304:705f:e4e8 with SMTP id 5a478bee46e88-30c0d1123b2mr822016eec.32.1781863080768;
+        Fri, 19 Jun 2026 02:58:00 -0700 (PDT)
+X-Received: by 2002:a05:7300:2310:b0:304:705f:e4e8 with SMTP id 5a478bee46e88-30c0d1123b2mr821973eec.32.1781863079967;
+        Fri, 19 Jun 2026 02:57:59 -0700 (PDT)
+Received: from shivania.lvn.broadcom.net ([192.19.161.250])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c06d5bec5sm1851910eec.26.2026.06.19.02.57.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Jun 2026 02:57:59 -0700 (PDT)
+From: Shivani Agarwal <shivani.agarwal@broadcom.com>
+To: stable@vger.kernel.org,
+	gregkh@linuxfoundation.org
+Cc: pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ajay.kaher@broadcom.com,
+	alexey.makhalov@broadcom.com,
+	vamsi-krishna.brahmajosyula@broadcom.com,
+	yin.ding@broadcom.com,
+	tapas.kundu@broadcom.com,
+	Shivani Agarwal <shivani.agarwal@broadcom.com>
+Subject: [PATCH v6.1 0/3] Fix CVE-2026-23272
+Date: Fri, 19 Jun 2026 02:28:47 -0700
+Message-Id: <20260619092850.1274076-1-shivani.agarwal@broadcom.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <167562b4-4472-4ead-a107-6eb83275825c@oracle.com>
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Fri, Jun 19, 2026 at 10:58:54AM +0530, Harshit Mogalapalli wrote:
-> Hi Greg/Sasha,
-> 
-> 
-> On 16/06/26 20:27, Greg Kroah-Hartman wrote:
-> > 5.15-stable review patch.  If anyone has any objections, please let me know.
-> > 
-> > ------------------
-> > 
-> > From: Xiang Mei <xmei5@asu.edu>
-> > 
-> > [ Upstream commit a84b6fedbc97078788be78dbdd7517d143ad1a77 ]
-> > 
-> > The fallback path of dump_mac_header() guards the MAC header access
-> > only with "skb->mac_header != skb->network_header", without checking
-> > skb_mac_header_was_set(). When the MAC header is unset, mac_header is
-> > 0xffff, so the test passes and skb_mac_header(skb) returns
-> > skb->head + 0xffff, ~64 KiB past the buffer; the loop then reads
-> > dev->hard_header_len bytes out of bounds into the kernel log.
-> > 
-> > This is reachable via the netdev logger: nf_log_unknown_packet() calls
-> > dump_mac_header() unconditionally, and an skb sent through AF_PACKET
-> > with PACKET_QDISC_BYPASS reaches the egress hook with mac_header still
-> > unset (__dev_queue_xmit(), which would reset it, is bypassed).
-> > 
-> > Add the skb_mac_header_was_set() check the ARPHRD_ETHER path already
-> > uses, and replace the open-coded MAC header length test with
-> > skb_mac_header_len(). Only skbs with an unset MAC header are affected;
-> > valid ones are dumped as before.
-> > 
-> >   BUG: KASAN: slab-out-of-bounds in dump_mac_header (net/netfilter/nf_log_syslog.c:831)
-> >   Read of size 1 at addr ffff88800ea49d3f by task exploit/148
-> >   Call Trace:
-> >    kasan_report (mm/kasan/report.c:595)
-> >    dump_mac_header (net/netfilter/nf_log_syslog.c:831)
-> >    nf_log_netdev_packet (net/netfilter/nf_log_syslog.c:938 net/netfilter/nf_log_syslog.c:963)
-> >    nf_log_packet (net/netfilter/nf_log.c:260)
-> >    nft_log_eval (net/netfilter/nft_log.c:60)
-> >    nft_do_chain (net/netfilter/nf_tables_core.c:285)
-> >    nft_do_chain_netdev (net/netfilter/nft_chain_filter.c:307)
-> >    nf_hook_slow (net/netfilter/core.c:619)
-> >    nf_hook_direct_egress (net/packet/af_packet.c:257)
-> >    packet_xmit (net/packet/af_packet.c:280)
-> >    packet_sendmsg (net/packet/af_packet.c:3114)
-> >    __sys_sendto (net/socket.c:2265)
-> > 
-> > Fixes: 7eb9282cd0ef ("netfilter: ipt_LOG/ip6t_LOG: add option to print decoded MAC header")
-> > Reported-by: Weiming Shi <bestswngs@gmail.com>
-> > Assisted-by: Claude:claude-opus-4-8
-> > Signed-off-by: Xiang Mei <xmei5@asu.edu>
-> > Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> 
-> 
-> I ran an AI assisted backport review over the 5.15.210 queue, and thr report
-> looks valid to me:
-> 
-> this 5.15.y backport fixed the IPv4 split helper but missed the equivalent
-> IPv6 helper.
-> 
-> So we would need a 5.15.y backport slightly deviate from upstream patch.
-> 
-> Upstream a84b6fedbc97 uses this guard before dumping fallback MAC bytes:
-> 
->         if (dev->hard_header_len && skb_mac_header_was_set(skb) &&
->             skb_mac_header_len(skb) != 0) {
->                 const unsigned char *p = skb_mac_header(skb);
-> 
-> The 5.15.y IPv4 helper has that guard, but final 5.15.y still has this in
-> dump_ipv6_mac_header():
-> 
->         if (dev->hard_header_len &&
->             skb->mac_header != skb->network_header) {
->                 const unsigned char *p = skb_mac_header(skb);
-> 
-> Upstream has one shared helper, so the new guard covers both IPv4 and IPv6.
-> 5.15.y still has split helpers, and the backport mapped the fix only to the
-> IPv4 side. The IPv6 netdev logging path can therefore still call
-> skb_mac_header(skb) after the old unsafe fallback predicate.
-> 
-> I think 5.15.y needs the same skb_mac_header_was_set() /
-> skb_mac_header_len() guard added to dump_ipv6_mac_header(), thoughts?
-> 
-> And this is because 5.15.y doesn't have commit: 39ab798fc14d ("netfilter:
-> nf_log_syslog: Merge MAC header dumpers") so we need a similar adaption in
-> 5.15.y
-> 
-> I am still thinking having a TODO for these sorts of things might be worth
-> it, particularly because we will miss these easily where upstream commit is
-> backported(so nothing to backport from a git perspective) but that doesn't
-> fit downstream perfectly(so more work to do). Btw, its just a thought :)
+To fix CVE-2026-23272, commit def602e498a4 is required; however,
+it depends on commit d4b7f29eb85c and 8d738c1869f6. Therefore,
+both patches have been backported to v6.1.
 
-Yes, a TODO would be great for this type of thing, if you can come up
-with a way it can be tracked/handled, I'd be all for it.
+Florian Westphal (1):
+  netfilter: nf_tables: always increment set element count
 
-tanks,
+Pablo Neira Ayuso (2):
+  netfilter: nf_tables: fix set size with rbtree backend
+  netfilter: nf_tables: unconditionally bump set->nelems before
+    insertion
 
-greg k-h
+ include/net/netfilter/nf_tables.h |  6 +++
+ net/netfilter/nf_tables_api.c     | 72 ++++++++++++++++++++++++++-----
+ net/netfilter/nft_set_rbtree.c    | 43 ++++++++++++++++++
+ 3 files changed, 110 insertions(+), 11 deletions(-)
+
+-- 
+2.53.0
+
