@@ -1,314 +1,117 @@
-Received: from monticello.secure-endpoints.com (monticello.secure-endpoints.com [208.125.0.237])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2191FA859
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 21:38:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=208.125.0.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2D783A14
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 22:01:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781905103; cv=none; b=CcZ5kC0q/atnTxXKmvCoCW3mSivb19pIb0ZlhH4eJQpDh1f2Hj66rnVNQABy1WWA7V2BmAyjfhOgxpQPK1XN5xg1Unt/DdCv5zGwTmTXW0BcNvZMhSmC4Smw4kkgfpgF1mBeyjPeye8QP2Yx/a6Nwvynx+mZiR/6kUfNPjCUPaM=
+	t=1781906506; cv=none; b=dynGage1jEEWM7f8IGeGn9q3lodAAnUwZ5JuWtFe0jnkhCmlgNj18VQdWWOL+SHuDti6P3ZH2NQAfna2ZM7jGrlvBKRwAtm9CBdTigGaV7AQ6+AVPcVay6jEsecOvFf1aED7MMrjHlryp/d/QBu06CcODMROho/zx6wxKiNLkG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781905103; c=relaxed/simple;
-	bh=aTMx4fShMFM7yxIE30jLqxwcU9dlIxvXtF4rQlgVT2Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ipw64dWSAIRFkvc1079Iomvjv2t7SIzkyoyy090GKb/pIMagdYg16AzXQt40tra/p48mYY6u71umYsLfMLgjVebMhbbl+diChHD19YvIhlT0iI0lN0a2yA2JquU+5DFWkyy9j+Njtii+F6gJNuyUgEUgAx5SfRgngwIcJnvRLDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auristor.com; spf=pass smtp.mailfrom=auristor.com; dkim=pass (1024-bit key) header.d=auristor.com header.i=jaltman@auristor.com header.b=n1C3qiCp; arc=none smtp.client-ip=208.125.0.237
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auristor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auristor.com
+	s=arc-20240116; t=1781906506; c=relaxed/simple;
+	bh=E59fOlkjiRmKNrpvyNju4xihCzLoU7PNqA7gLFYmxEQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mHmjYf0PLBDnidwBAuH9fiKMGeVeXE3hObL7xjBwZ1xiBEZl3KvryXipRG+v8z+EmJAxCw3zRmQFIS+ZVhrISsoPO0Uow7KQGJzn3H36oBSP7Wxrh4CxSXeRRD2+yduqNnHYl6j574oouO1osSW1q2Y0yc6nMfGtZn/Dx0WiGMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qVWZ2DJf; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auristor.com header.i=jaltman@auristor.com header.b="n1C3qiCp"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qVWZ2DJf"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490cf3000f0so27000915e9.1
+        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 15:01:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=auristor.com; s=MDaemon; r=y; l=5096; t=1781904730;
-	x=1782509530; i=jaltman@auristor.com; q=dns/txt; h=Message-ID:
-	Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	Content-Language:From:Autocrypt:Organization:
-	Disposition-Notification-To:In-Reply-To:Content-Type:
-	Content-Transfer-Encoding; z=Received:=20from=20[IPV6=3A2603=3A7
-	002=3A100=3A8400=3A482b=3Aaa20=3A950d=3A90aa]=20by=20auristor.co
-	m=20(IPv6=3A2001=3A470=3A1f07=3Af77=3Affff=3A=3A312)=20(MDaemon=
-	20PRO=20v26.0.3)=20=0D=0A=09with=20ESMTPSA=20id=20md500100538363
-	6.msg=3B=20Fri,=2019=20Jun=202026=2017=3A32=3A09=20-0400|Message
-	-ID:=20<c0fd4fec-1576-4070-b31e-a37d5506f5ed@auristor.com>|Date:
-	=20Fri,=2019=20Jun=202026=2017=3A32=3A38=20-0400|MIME-Version:=2
-	01.0|User-Agent:=20Mozilla=20Thunderbird|Subject:=20Re=3A=20[PAT
-	CH=20net=20v2=2001/10]=20rxrpc=3A=20input=3A=20reject=20ACKALL=2
-	0outside=20transmit=0D=0A=20phase|To:=20David=20Howells=20<dhowe
-	lls@redhat.com>,=20netdev@vger.kernel.org|Cc:=20Marc=20Dionne=20
-	<marc.dionne@auristor.com>,=20Jakub=20Kicinski=20<kuba@kernel.or
-	g>,=0D=0A=20"David=20S.=20Miller"=20<davem@davemloft.net>,=20Eri
-	c=20Dumazet=20<edumazet@google.com>,=0D=0A=20Paolo=20Abeni=20<pa
-	beni@redhat.com>,=20Simon=20Horman=20<horms@kernel.org>,=0D=0A=2
-	0linux-afs@lists.infradead.org,=20linux-kernel@vger.kernel.org,=
-	0D=0A=20Wyatt=20Feng=20<bronzed_45_vested@icloud.com>,=20stable@
-	vger.kernel.org,=0D=0A=20Yuan=20Tan=20<yuantan098@gmail.com>,=20
-	Yifan=20Wu=20<yifanwucs@gmail.com>,=0D=0A=20Juefei=20Pu=20<tomap
-	ufckgml@gmail.com>,=20Zhengchuan=20Liang=20<zcliangcn@gmail.com>
-	,=0D=0A=20Xin=20Liu=20<bird@lzu.edu.cn>,=20Ren=20Wei=20<n05ec@lz
-	u.edu.cn>|References:=20<20260618134802.2477777-1-dhowells@redha
-	t.com>=0D=0A=20<20260618134802.2477777-2-dhowells@redhat.com>|Co
-	ntent-Language:=20en-US|From:=20Jeffrey=20E=20Altman=20<jaltman@
-	auristor.com>|Autocrypt:=20addr=3Djaltman@auristor.com=3B=20keyd
-	ata=3D=0D=0A=20xsFNBEwLlO0BEACu6yWFkd1+qwsGg8ZzgslSkcAKhSegWt5j8
-	6DpaRL0W8fxg6YjxwEPvwoH=0D=0A=20BGa/rpSdBd1gkmzeYxD3hVZdj75r6nVS
-	9f/mxNQzW+o1sW4vaeSxKgZSQz5RqHmwPDcqQP66=0D=0A=20+ZSnjV+G88MKwZ9
-	DIzA9AwpJhNAAlAlj3OvsQVsxd1ipc6C4/U3qjHL7Ih22UbPBM71ltIZx=0D=0A=
-	20kqcrAlXPnUTeraJXtfzYbq4mJFJ9JC6/o1NRSjsBvRD+ADxlG50+KccZN4SS5x
-	xdGuh1tA9U=0D=0A=20TydYBQB3YtJbq7CYau2kIYt/3HnyLYGo1s6Ti6cuAJJ/4
-	0iIE1xkqhvMiIz/Q+1ztmksJbLQ=0D=0A=20aCtW8kF42nF8MpPdIPTSPr2uGvpR
-	tCjRbh4lgMXgyNUx1wpCEY0X11xce++H8HySmFwryE2y=0D=0A=20kkxUQeMUjaa
-	XZDHYUSyQz7riChFiZ9ax9dmX0wUY/A05v0qcualglpk4wJ2kcsGKUEGkLvnV=0D
-	=0A=20wwvya8zifPwKOw5JlGPvzX8t2m7jB2GXKzvVAsImqOqnDBTKUXWQQZCW9R
-	qt7acdE8bQ2vqr=0D=0A=20vP+3Ykf4SrPwcuNCDt6QSgjVbhc3hA3hCtE1iW/Hh
-	uBAzKiuzJ9era+q9QjTtLPIkQDHRpcC=0D=0A=20MMWvK0Y1uQ34Ql1BfKRA4gc8
-	A7CuVUY6+Ga7PuJWd+FSglvmKQARAQABzTZKZWZmcmV5IEFs=0D=0A=20dG1hbiA
-	oQXVyaVN0b3IsIEluYy4pIDxqYWx0bWFuQGF1cmlzdG9yLmNvbT7CwXkEEwECACM
-	F=0D=0A=20AlY2YwgCGyMHCwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRD3en
-	NVkraaBDdzD/0XQUDW=0D=0A=20UWXrpapHdvZaHzPHc3xobRi4PABWfLW1jfMK5
-	Xy4DP/x7x3I2qAqTD6vv/OPFMx8gG6+Xeod=0D=0A=20Mj5vE7+7ZRd+J76J4DJH
-	2qoaXX8qnUEABUJHZYDhw2/Ij5AQ6ZsuSwXuURGEMi0vu1ihBbP6=0D=0A=203bt
-	4LRIa+F60ebDvCl9po+UB7TrjQCs+YV1r1YeCSv9hEHBly/W0u1OrnNCMWRcq7dm
-	TCbZ0=0D=0A=20R5w6VJ/+QEio+T6paGGMjJmrNw2qUeuK+SxOOxOWS8lgdqzjcK
-	3NsfiERrVbOWM83ZVy0/GN=0D=0A=20vpusjhI/3Q8lbV/p+IsJk/v1grkRzgU0f
-	rES2ANEPTpC4j2ggPOSMpsz3BZ8wIOg17rIWnK+=0D=0A=20gNLQe+XN7kvDwGu0
-	jYhTIZO10jcVsRSrAJGtgBNrYxOjEUhpnaSJDVcjapRvRPCQumA13Zkl=0D=0A=2
-	0nm4AYjp7L2oOIeOGcKRZwbrGDakksa5iaSIoywpwECWh2l9V0W3SeynBgPtR4qp
-	t4N8yKCcw=0D=0A=20suLCAKfBv9RcL641XZi/Fp9btSuTPUm5Lw3SIGr5U+Syez
-	mhzlwsObIF9W624aorriWoXNf3=0D=0A=20GgH9ZH0Hkc6aS99pIZhh5USWRO/pS
-	+lv5eNkEdf9LUBGX9b6ZMan0fpoEayqUejtZw3O2rgs=0D=0A=20zA+pTSA+/Hob
-	vtL6L3XtlPJ1NXlkgM7BTQRMC5TtARAA88hJdpgcg2RU/uAWfAL46XZHA59c=0D=
-	0A=20VpPNNly1tPWCSbG6+ONH6nOG/NarmNVxX6Mb9YRkEU6wmrZS85inz3otdyz
-	/zlyNSWma8qGN=0D=0A=20UlMbiwFQqfXWVBAPGoRC0a0aJrd4IayLuvv1UqEwx7
-	Otp7y5RNHtRv35/kho0Z+UheYVdGm2=0D=0A=20I06xIc+aNKW2LO7R5BNtjpADP
-	IG+NSdsVIeamhAWPvLrwbf6mUb//eA9pF0w0QixLVrH/cCo=0D=0A=20z+S27gCG
-	JvY6zF22NgdhnkIqNz8E/LKt6S36ZI9Mw/ixpQTozqRmdNzVQNgTHUZClbJj4iq1
-	=0D=0A=20EPHB7XqpxOv+awrxSxq2jt8GFD0rU+sAuzW+F7cBoIw434/IrxKYwcP
-	HpHLEVQ1tLP7d3ZpZ=0D=0A=20R30p3oqoliGiLsWvHHxyXjuMBF4XJ6MRXmD65/
-	qOhuo2DKduHMNlmxzgSzvWgXZeNJq+OcS8=0D=0A=20jQZDt2Na2pMKjWytau7xQ
-	u2ndm0FwS48ngMrDYRQMxzL1NfnBnT9BCwjiU+/6NBSwcNKIqye=0D=0A=20a9Ip
-	TwsVfkF4/iui7xD9+LtzqeUkBAe7q5jEJmJMZhAfh7usZGT8TGxXegCaF4Jwz2nx
-	S4Fv=0D=0A=207VRza/yUAOJlc0daR11TPeiUNCQWY7PpL1AXO9vaSyjFuOzTnU8
-	vzXvI9fGoxIxKGRQpKMU8=0D=0A=20PROIFw0AEQEAAcLBXwQYAQIACQUCTAuU7Q
-	IbDAAKCRD3enNVkraaBIxXD/4xlaBwW2TLFfMv=0D=0A=20lcY/2XDSm6NO4JaJG
-	2Nzp35xaaBVwMVzWvI+GgTgKNSFot9f4jiLBNQdnq3UKoEThR2ORKVL=0D=0A=20
-	0ZJS1QYR7yyrOo0MteDSy8ofU1FJ6xu4ND3ekOjP20BTrihDpqUdahir2uaRfMkw
-	M+0imOlc=0D=0A=20utGMhJNF/LAjrhoDp9SeDMYBXZ1wfrbrEo/EEu0PbkGyzqP
-	yEPqwN1iSJkcAnjuIA0rTf1jQ=0D=0A=20tJAaDov7yHsSRwUM+qTGsjOGQAN3wt
-	YwjPpw7hI01sE+x0uq0pVeo4qeWTZ2TE4Vtp8FKXFA=0D=0A=20kqnP878q+kNk9
-	Ve+DRs8UlRfa9Lgf5ETjXOTVGaT/UGxi9B4oo8k0lzvM/A1txexL/lLw8AU=0D=0
-	A=20LhUeGtyS6D2X9vFi6azna+o918R9BV86uXPiDOf1nMwqKchNCxmgH9vd0aQm
-	8TKCrWAW4kU1=0D=0A=20Ig6aMNuZiWloVZfKrmWizbgeGKE9rhNPNqxkqBaA4lr
-	J8L6bdKbhAOe3NQjO2vUAXB53Jphl=0D=0A=20F74GwEsh+85i9/yIbvwJVcsFYh
-	dZz7fCAUOcnFkGnyrwIgkizQ3xXShPW8mqkgUk4kYMnucC=0D=0A=204kG/E7pI/
-	4lke5X5X9vroXRHB7tkpAgT46SqSM/XTwCaseXG9orDgz3duRTUp6K0++S/qsqT=
-	0D=0A=20akGVmjD5917A1HqWfMmiKA=3D=3D|Organization:=20AuriStor,=2
-	0Inc.|Disposition-Notification-To:=20Jeffrey=20E=20Altman=20<jal
-	tman@auristor.com>|In-Reply-To:=20<20260618134802.2477777-2-dhow
-	ells@redhat.com>|Content-Type:=20text/plain=3B=20charset=3DUTF-8
-	=3B=20format=3Dflowed|Content-Transfer-Encoding:=208bit; bh=GfM/
-	E7NYy0tPCz4InFMotGQMZR3cNn5x8g+HdoCHvX8=; b=n1C3qiCpikKs0HY13SSw
-	oJT1HJKRJwimdJo23SfpFPGYOzyXcmkP8ifapVf7PgnEolBCUHI0YTiHomoadOGz
-	UNTqzwBJaj6Qg/vvaneGguo9iYFUzB+r8aN4k8ZcRO6UpDrhOKVKgrMrMDilpcJU
-	Ks5cuRdvTcHNbHf2VoLhlNk=
-X-MDAV-Result: clean
-X-MDAV-Processed: monticello.secure-endpoints.com, Fri, 19 Jun 2026 17:32:10 -0400
-Received: from [IPV6:2603:7002:100:8400:482b:aa20:950d:90aa] by auristor.com (IPv6:2001:470:1f07:f77:ffff::312) (MDaemon PRO v26.0.3) 
-	with ESMTPSA id md5001005383636.msg; Fri, 19 Jun 2026 17:32:09 -0400
-X-Spam-Processed: monticello.secure-endpoints.com, Fri, 19 Jun 2026 17:32:09 -0400
-	(not processed: message from trusted or authenticated source)
-X-MDRemoteIP: 2603:7002:100:8400:482b:aa20:950d:90aa
-X-MDHelo: [IPV6:2603:7002:100:8400:482b:aa20:950d:90aa]
-X-MDArrival-Date: Fri, 19 Jun 2026 17:32:09 -0400
-X-MDOrigin-Country: US, NA
-X-Authenticated-Sender: jaltman@auristor.com
-X-Return-Path: prvs=1630b1736d=jaltman@auristor.com
-X-Envelope-From: jaltman@auristor.com
-X-MDaemon-Deliver-To: stable@vger.kernel.org
-Message-ID: <c0fd4fec-1576-4070-b31e-a37d5506f5ed@auristor.com>
-Date: Fri, 19 Jun 2026 17:32:38 -0400
+        d=gmail.com; s=20251104; t=1781906504; x=1782511304; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=nmIEX6C9YTwBXIiTp9Q/p2/WVMpmkEt/6TPMjICMgDk=;
+        b=qVWZ2DJfgFCAwfcqo6H1R4Xy6fnZuEq/LU6RMQ0iY8qlGf4fdiLwot1KZL9a9gv2FE
+         S5GWWPx6FZ+SBtvzmtRHSy0a/C+KvmAILAaGIxRRGAgW0LgBLZu2SejzrggJE1cU4gT7
+         XqtvAV0Wvw8o1/ODy/rgi6AZpQzxfyETu+ehn25AmPkckI4fw+ND0KT/d+AuB1zZOVFv
+         fFtkDg7HIlqgdcoSm/5uixNZdK7K6oJI9LwQcfbkvaZdliOAv978BlbPwk5emKwLMMRV
+         e43SovL3SWPJExenPjKICWCzKyzFJAMVXuVv3j2wgrCOBvAG3UFgbfDhyo/M/sUXoRze
+         5qaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781906504; x=1782511304;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nmIEX6C9YTwBXIiTp9Q/p2/WVMpmkEt/6TPMjICMgDk=;
+        b=Zxi53VPOfjJpgqlUpW+DjdffD0hueM2/4MYsgRhyZdKOwTxOcHiGNR67zSf5WBLJDq
+         Bw3LpIQgzhzsC6qNfgt/+j9gZDbV9p7WKu84qDHCXmFvfmdTlkv7SpXT4sbWs/FUg7Mj
+         Xa5GX1pIO+BSrUsYYlso9RSRyEhdIyWDJR2yo9Ta6PT5s/UrrUG7NXcJHbg3QS0TNMNi
+         /5zC2H+gc3DJqQvrZ0Gt+z/Gmz5NNLnSemSnlHYlI6DHGIEMFC2WtdW8f6Dk2tnKm2gp
+         Dbb7kimd7cxytrFjnYKh697mocarRprsE4xpzbsdwEmKis1luNfQ0EhkX8QXgD2yzmXO
+         2W8A==
+X-Forwarded-Encrypted: i=1; AFNElJ+oChwxNkdkURPzOzZPbYKcOClze/wXK2pYalVj4mwoONM6SikrnnAGPOn68acmDnNaZ+4zQjQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxjMz/UG2v6AjltVwtGP0u7Dryw57Ub0FxvYVe43u7WNzZJ4bWp
+	H7gdAQ9PgDbYJ4ixfevqePNTOWDC6Opj7w++RMMiBUbaky8wccTYQ5o=
+X-Gm-Gg: AfdE7clPGOmwSJ4KuT4wTbNQGHNytEZxuVm4g95DT+IdjLNqQvCUDbxe7AvzUuZ/GrE
+	PMIK5Eu1v7c+PkVZWs4AwlVFCO5GKC49gP6NF6ey7ufMqWynU4oxwfwje68jqmMkC/b878p7fo5
+	w993lNFoM/Q5SLCeLhJS652hpMqrGP2A9jbBoG5d2MNX4/e6H49JhEYaG4OGgZqORkr1VTKfVV6
+	u43qizAjnP2S12L0IJF+vLEVq1hD+Vu/xHz9yasNr3GCG0LxJ6ERHHJHYiqwHoZ+rVPmAeunqeL
+	gy+1oW/LR8RdgHY2R96lyWR8du4xvgNQAuVJEzMLl2Vt6oZVCt91sdqBTjOgGolzOYv1hvGzh1E
+	/MP5qHEF0lA/j7/x2aDuAirPamAt9Se2MMClDxKqqz0Ipxjf4S0EOuVs4YA==
+X-Received: by 2002:a05:6000:25e6:b0:45e:739b:3e3c with SMTP id ffacd0b85a97d-46568f0843fmr5868475f8f.0.1781906503592;
+        Fri, 19 Jun 2026 15:01:43 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466667882f7sm2247803f8f.21.2026.06.19.15.01.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Jun 2026 15:01:42 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Carlos Llamas <cmllamas@google.com>,
+	Todd Kjos <tkjos@android.com>
+Cc: =?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
+	Martijn Coenen <maco@android.com>,
+	Joel Fernandes <joel@joelfernandes.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Li Li <dualli@google.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] binder: free fd fixups on superseded transaction teardown
+Date: Fri, 19 Jun 2026 22:01:41 +0000
+Message-ID: <20260619220141.3193697-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 01/10] rxrpc: input: reject ACKALL outside transmit
- phase
-To: David Howells <dhowells@redhat.com>, netdev@vger.kernel.org
-Cc: Marc Dionne <marc.dionne@auristor.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
- Wyatt Feng <bronzed_45_vested@icloud.com>, stable@vger.kernel.org,
- Yuan Tan <yuantan098@gmail.com>, Yifan Wu <yifanwucs@gmail.com>,
- Juefei Pu <tomapufckgml@gmail.com>, Zhengchuan Liang <zcliangcn@gmail.com>,
- Xin Liu <bird@lzu.edu.cn>, Ren Wei <n05ec@lzu.edu.cn>
-References: <20260618134802.2477777-1-dhowells@redhat.com>
- <20260618134802.2477777-2-dhowells@redhat.com>
-Content-Language: en-US
-From: Jeffrey E Altman <jaltman@auristor.com>
-Autocrypt: addr=jaltman@auristor.com; keydata=
- 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
- akGVmjD5917A1HqWfMmiKA==
-Organization: AuriStor, Inc.
-In-Reply-To: <20260618134802.2477777-2-dhowells@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-MDCFSigsAdded: auristor.com
 
-On 6/18/2026 9:47 AM, David Howells wrote:
-> From: Wyatt Feng <bronzed_45_vested@icloud.com>
->
-> rxrpc_input_ackall() accepts ACKALL packets without checking whether
-> the call is in a state that can legitimately have outstanding transmit
-> buffers.  A forged ACKALL can therefore reach a new service call in
-> RXRPC_CALL_SERVER_RECV_REQUEST before any reply packets have been
-> queued.
->
-> In that state call->tx_top is zero and call->tx_queue is NULL, so
-> rxrpc_rotate_tx_window() dereferences a NULL txqueue and triggers a
-> null-pointer dereference.
->
-> Fix rxrpc_input_ackall() to mirror the transmit-state gating already
-> used for normal ACK processing, and ignore ACKALL when there is no
-> outstanding transmit window to rotate.
->
-> Fixes: b341a0263b1b ("rxrpc: Implement progressive transmission queue struct")
-> Cc: stable@vger.kernel.org
-> Reported-by: Yuan Tan <yuantan098@gmail.com>
-> Reported-by: Yifan Wu <yifanwucs@gmail.com>
-> Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-> Reported-by: Zhengchuan Liang <zcliangcn@gmail.com>
-> Reported-by: Xin Liu <bird@lzu.edu.cn>
-> Assisted-by: Codex:GPT-5.4
-> Signed-off-by: Wyatt Feng <bronzed_45_vested@icloud.com>
-> Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-> Signed-off-by: David Howells <dhowells@redhat.com>
-> cc: Marc Dionne <marc.dionne@auristor.com>
-> cc: linux-afs@lists.infradead.org
-> ---
->   net/rxrpc/input.c | 16 +++++++++++++++-
->   1 file changed, 15 insertions(+), 1 deletion(-)
->
-> diff --git a/net/rxrpc/input.c b/net/rxrpc/input.c
-> index ce761466b02d..37881dffa898 100644
-> --- a/net/rxrpc/input.c
-> +++ b/net/rxrpc/input.c
-> @@ -1214,8 +1214,22 @@ static void rxrpc_input_ack(struct rxrpc_call *call, struct sk_buff *skb)
->   static void rxrpc_input_ackall(struct rxrpc_call *call, struct sk_buff *skb)
->   {
->   	struct rxrpc_ack_summary summary = { 0 };
-> +	rxrpc_seq_t top = READ_ONCE(call->tx_top);
-> +
-> +	switch (__rxrpc_call_state(call)) {
-> +	case RXRPC_CALL_CLIENT_SEND_REQUEST:
-> +	case RXRPC_CALL_CLIENT_AWAIT_REPLY:
-> +	case RXRPC_CALL_SERVER_SEND_REPLY:
-> +	case RXRPC_CALL_SERVER_AWAIT_ACK:
-> +		break;
-> +	default:
-> +		return;
-> +	}
-> +
-> +	if (call->tx_bottom == top)
-> +		return;
->   
-> -	if (rxrpc_rotate_tx_window(call, call->tx_top, &summary))
-> +	if (rxrpc_rotate_tx_window(call, top, &summary))
->   		rxrpc_end_tx_phase(call, false, rxrpc_eproto_unexpected_ackall);
->   }
->   
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Wyatt,
+When a TF_UPDATE_TXN oneway transaction supersedes an outdated pending
+transaction, the outdated transaction is freed with kfree() but its
+fd_fixups list is not cleaned up first.  Each binder_txn_fd_fixup on
+the list holds a reference to a struct file (from fget in the sender
+path) that is never released.
 
-Thank you for identifying the NULL pointer dereference but I do not 
-believe the patch is correct from an RxRPC protocol perspective.
+All other transaction teardown paths (binder_free_transaction and the
+error paths in binder_transaction) correctly call
+binder_free_txn_fixups() before freeing.  Apply the same cleanup to
+the t_outdated teardown path.
 
-The rxrpc protocol is not formally standardized.  Linux rxrpc is a clean 
-room implementation of Transarc/IBM RxRPC protocol used by AFS 3.0.
+Fixes: 9864bb480133 ("Binder: add TF_UPDATE_TXN to replace outdated txn")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/android/binder.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-I've been spelunking through old source code trees dating back to 
-mid-1988.  The original usage of the ACKALL packet was a form of delayed 
-acknowledgement only to be sent after all of the DATA packets inclusive 
-of the LAST_PACKET had been received.  Your expectation of how the 
-packet type is intended to be used is consistent with that behavior.
-
-However, in Nov 1988 the DATA acknowledgement logic was altered in a 
-backward incompatible manner.   Instead of immediately sending ACK 
-packets in response to every DATA packet except when the final DATA 
-packet inclusive of LAST_PACKET was received, the ACK packet usage was 
-extended to permit delayed transmissions. From Nov 1988 onward ACK 
-packets were scheduled to be sent with a 200ms delay unless the received 
-DATA packet was a duplicate, out-of-sequence, out-of-window, etc OR 
-unless the received DATA packet had the RX_REQUEST_ACK flag set.   The 
-delayed ACKs replaced the ACKALL usage in the general case.
-
-But it appears there was a bug introduced which resulted in the sending 
-of arbitrary ACKALL packets at any point in the call lifetime.   This 
-bug was not identified until Nov 2001 [OpenAFS 
-db2ddfaf1b322710e1bd4edce6d7519157c3c9eb] at which point the sending of 
-ACKALL packets was further restricted.  One of the reasons why the 
-sending of ACKALL packets at arbitrary times was not identified as a 
-problem for more than a decade is that ACKALL packets received when 
-there were no transmitted packets waiting for acknowledgement had no 
-impact on the call state.   If there were transmitted packets waiting 
-for acknowledgement and they were successfully delivered, then the call 
-continued successfully.
-
-OpenAFS 1.6 pre-releases attempted to resume use of ACKALL packets as a 
-performance enhancement only to revert the change because of 
-compatibility problems.
-
-I think the best change at this point would to accept the ACKALL packets 
-without generating an error regardless of the call state. If there are 
-transmitted DATA packets waiting for acknowledgement, acknowledge them.  
-If there are DATA packets which have yet to be sent, leave them alone.  
-Only complete the call in response to an ACKALL if the ACKALL is 
-received by the acceptor (incoming call) and all DATA packets inclusive 
-of LAST_PACKET have been transmitted at least once.
-
-Sincerely,
-
-Jeffrey Altman
-
-
+diff --git a/drivers/android/binder.c b/drivers/android/binder.c
+index 5fc2c8ee61b1..955bdfb4d907 100644
+--- a/drivers/android/binder.c
++++ b/drivers/android/binder.c
+@@ -2920,6 +2920,7 @@ static int binder_proc_transaction(struct binder_transaction *t,
+ 		trace_binder_transaction_update_buffer_release(buffer);
+ 		binder_release_entire_buffer(proc, NULL, buffer, false);
+ 		binder_alloc_free_buf(&proc->alloc, buffer);
++		binder_free_txn_fixups(t_outdated);
+ 		kfree(t_outdated);
+ 		binder_stats_deleted(BINDER_STAT_TRANSACTION);
+ 	}
+-- 
+2.47.3
 
