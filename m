@@ -1,262 +1,128 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089822DB785
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 02:30:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F8733B6F4;
+	Fri, 19 Jun 2026 03:02:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781836229; cv=none; b=tXgrU10zYg2hvbWmJR3ZMTpjzJq88fHFWnHEiUy3WtjlsyKT0mnfJq3iS3m4ua9MRLC2Ni/vJu7uqJIwbSJ1vLUSaME8E7x4DaJ3HnQbsD5juCWVMFEmaE1J5fnyuvOpMJqDXuzdMxjzQyzSUKNl+V0rtQJEfG9tVseDX9e0RKg=
+	t=1781838161; cv=none; b=ej79d1Aq4SeGmDdcLZ7orz18a4Lhk9IPzs7xpbqe0NsKXVT8qYunk6QanWQ8sVqvMIANor+4dbm4ayghgpgxiKOAp6+bogmU7v/wuvIW6+dw1O/JCX5dbVQV95xZ91yJnCBnTvtRsMqmNPOjfEI8THexcdusjDu6++Bncuo1pEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781836229; c=relaxed/simple;
-	bh=YqHtpdWA3JTot3VS9rnZO67d4p1Xi3B1iSTpQW+naMU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SC35WN0Bfw1LIDv9yqRTMc3YQZ97R4xtCvIxEWxltRjWHERQjH8kKw7VzQQPbhzWczmtLhdQCV8Hng9vuzndaWuI0KhDX0KHCzkAB3/X0mSRY6RexIhtAyuaEFSVyRUp8e3mIzVUpcNse9xFvefpBhkSCvHy6h2bb2Vb5yg9/po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HZpUaZjn; arc=none smtp.client-ip=209.85.160.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HZpUaZjn"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-517a5cafc3dso16188991cf.3
-        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 19:30:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781836227; x=1782441027; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SWxQsRnQ7R4yFYJGO8X5rI9njC1Ydr1XnXNU26v/VMI=;
-        b=HZpUaZjn6S6bawCx8ZOwRye60YbBLUJ9QI6hfosWIfvWtv9u1j1LK0v3iL49/k/FAQ
-         BJuj94UBkzpBpYNMYHUD44uAxnFzTJyrgZbZHmA1Xqz1j5moHTUteMep1FYqd1yNZKtQ
-         0Ti5w6lUvI+3qX6zuS5WZJ20ne+G8e8itWRDNVKQHaYRBHR4mYr8kCrCK7PjHEdhSYjI
-         gEYFJl57fP2rB5eP+hD0F1pDeHz0m72cGbK3NjhlgTLnPHJM68T+N+hSjxzt0dlUYXm1
-         No5t4NlV3GUnaHdHF13iqBILbVbDPgdlocf4g5qXI1q44RzTDDfUnSzptzT71jbCbeMr
-         IVOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781836227; x=1782441027;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=SWxQsRnQ7R4yFYJGO8X5rI9njC1Ydr1XnXNU26v/VMI=;
-        b=RVczzFjJib09s33rTs/LflTlBQyvJe2Y8vIFQoYSRKpq7lIlhkdDLtWZRaEVcr/CXe
-         q5N9ehLUIKhevsJua74Ds0iKjclQYGolnwN1wkj2NLDKy0bofrMbwtHBsI+mGXoidl0k
-         /3U+qDxgzzQgJ9Cuw37bpwESp9mnzTN87pJngwWl8qOaaSa7OgtNeNTdIc5wyEHY5CHg
-         rfNKmHEV6xWpemgiuloz5hrpNa4wDzLC7s62zHcCY+DkFJeE7cTwwljj4Xh1Y3/NkTwl
-         OFIoTfjDNpfTZ7QEQzwPNyUoxiS3W63hA5z6EOkJp6KwDRSyl5Iak9EyxXL0RZ6V7qtu
-         S8yQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+a1Y5GC3gsSPrQ2junuBXu/okvznxxpW7cUIpPV4pog9LKcC/KnNgrtSmX44e8aFcC0QQog1k=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMKRE9pZRC7Vl77kBUQ2FLtVr4t9HyK66xu38KNzeJUA4tkms/
-	OKlHwvCzVXA7c5ILGE0lw2+xkGfHW44deSKDkxnOcad8AqRdShfZ6XHvgO8dhQ==
-X-Gm-Gg: AfdE7cloNx+JI54wRlFBGrppTGpvSEqPkTmYaNcc/PAdPqu8fWDmIrpEb1OUGnCpO68
-	uUyN74S2o3dlA1Y8qqYbLMDc0R+wd+IDQOFajAplU9jZn/zM9SVPZ/mik9gbfTd9hvH+FmKakT+
-	2myoyUc/D2g3f1z/wu4Ol4oc7NhZscaPW+bnE6BrzWXPdzZecYzQpKD3KLu+ap9YfyIaZJv51tA
-	jWPMi5lKzxVJ1DfowCV1r0/MjVxM5mK/VLZ4L3tGkAu5O60LFXLMSVw0t1mdATFmqHR9dyt9Hy/
-	0PqmxWAodZbZM0/Ml1tSnpYqp5feY0tuF8K8iV72AtSD8SQiLOCbc2QBj+8pgCPzl/YdODgyPTy
-	ALLPsVugOgxcR1NWvKB7MubpxdrpNVe2fpJQsFtR7DMarzOPqsvHWafdVucZxceCNMN8RjmaPeY
-	F7CMUsWGf5aWY0ZRaOdTMjRw==
-X-Received: by 2002:a05:622a:1149:b0:517:c65c:488b with SMTP id d75a77b69052e-519e45c2d72mr30506691cf.0.1781836226907;
-        Thu, 18 Jun 2026 19:30:26 -0700 (PDT)
-Received: from localhost ([185.92.221.13])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-519e60ee850sm9152701cf.24.2026.06.18.19.30.26
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Thu, 18 Jun 2026 19:30:26 -0700 (PDT)
-Date: Fri, 19 Jun 2026 02:30:25 +0000
-From: Wei Yang <richard.weiyang@gmail.com>
-To: Wei Yang <richard.weiyang@gmail.com>
-Cc: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org,
-	david@kernel.org, ljs@kernel.org, riel@surriel.com,
-	liam@infradead.org, vbabka@kernel.org, harry@kernel.org,
-	jannh@google.com, balbirs@nvidia.com, ziy@nvidia.com, sj@kernel.org,
-	linux-mm@kvack.org, lorenzo.stoakes@oracle.com,
+	s=arc-20240116; t=1781838161; c=relaxed/simple;
+	bh=r4bodF9U8oMEN04T0y18dysLerS4jks16bI6avdd++w=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=FkiXvyvBDqjQr27sK3o7+ah2tnfeW8KzOyoS4khzGQtgsIrGcL7vhbxthEBU1DywGUzjM8PTaE8CtJNFzzV/pZgP8dSzWKoBQYmgxglnt0tAbCQisW6CJIuH6JMmz1Ggd9IS7yr0pg5WB5Fh9nxPUTuFiwvvBcfzz+kTucoZ9Io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 4a0426106b8b11f1aa26b74ffac11d73-20260619
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:54b7c1a8-4e26-4de3-9828-59c9a56bcaa4,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:4c2eda3750725ae7bc323e2f32abb649,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|136|850|865|898,TC:nil,Content
+	:0|15|50,EDM:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,CO
+	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 4a0426106b8b11f1aa26b74ffac11d73-20260619
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 677852642; Fri, 19 Jun 2026 11:02:21 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	johan@kernel.org,
+	kishon@kernel.org,
+	rogerq@ti.com
+Cc: linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	Sashiko AI <sashiko@kernel.org>,
 	stable@vger.kernel.org
-Subject: Re: [Patch v2] mm/page_vma_mapped: revalidate and do proper check
- before return device-private pmd
-Message-ID: <20260619023025.vqx2dsitxffuuwh3@master>
-Reply-To: Wei Yang <richard.weiyang@gmail.com>
-References: <20260616235022.iesy2jeb2p7zof2l@master>
- <20260617023211.80409-1-lance.yang@linux.dev>
- <20260617081815.kq6g3rjtomudxca5@master>
+Subject: [PATCH v6 4/4] phy: ti-pipe3: Fix clock leak in init error path
+Date: Fri, 19 Jun 2026 11:02:14 +0800
+Message-Id: <20260619030214.1779043-5-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260619030214.1779043-1-zenghongling@kylinos.cn>
+References: <20260619030214.1779043-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617081815.kq6g3rjtomudxca5@master>
-User-Agent: NeoMutt/20170113 (1.7.2)
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jun 17, 2026 at 08:18:15AM +0000, Wei Yang wrote:
->On Wed, Jun 17, 2026 at 10:32:11AM +0800, Lance Yang wrote:
->>
->>On Tue, Jun 16, 2026 at 11:50:22PM +0000, Wei Yang wrote:
->>>On Tue, Jun 16, 2026 at 08:30:01PM +0800, Lance Yang wrote:
->>>>
->>>>On Tue, Jun 16, 2026 at 06:34:36AM +0000, Wei Yang wrote:
->>>>[...]
->>>>>diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->>>>>index 2ccbabfb2cc1..21635fab209c 100644
->>>>>--- a/mm/page_vma_mapped.c
->>>>>+++ b/mm/page_vma_mapped.c
->>>>>@@ -243,40 +243,28 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
->>>>> 		 */
->>>>> 		pmde = pmdp_get_lockless(pvmw->pmd);
->>>>> 
->>>>>-		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
->>>>>-			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
->>>>>-			pmde = *pvmw->pmd;
->>>>>-			if (!pmd_present(pmde)) {
->>>>>-				softleaf_t entry;
->>>>>-
->>>>>-				if (!thp_migration_supported() ||
->>>>>-				    !(pvmw->flags & PVMW_MIGRATION))
->>>>>-					return not_found(pvmw);
->>>>>-				entry = softleaf_from_pmd(pmde);
->>>>>-
->>>>>-				if (!softleaf_is_migration(entry) ||
->>>>>-				    !check_pmd(softleaf_to_pfn(entry), pvmw))
->>>>>-					return not_found(pvmw);
->>>>>-				return true;
->>>>>-			}
->>>>>-			if (likely(pmd_trans_huge(pmde))) {
->>>>>-				if (pvmw->flags & PVMW_MIGRATION)
->>>>>-					return not_found(pvmw);
->>>>>-				if (!check_pmd(pmd_pfn(pmde), pvmw))
->>>>>-					return not_found(pvmw);
->>>>>-				return true;
->>>>>-			}
->>>>>-			/* THP pmd was split under us: handle on pte level */
->>>>>-			spin_unlock(pvmw->ptl);
->>>>>-			pvmw->ptl = NULL;
->>>>>-		} else if (!pmd_present(pmde)) {
->>>>>-			const softleaf_t entry = softleaf_from_pmd(pmde);
->>>>>-
->>>>>-			if (softleaf_is_device_private(entry)) {
->>>>>-				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
->>>>>-				return true;
->>>>>-			}
->>>>>+		if (pmd_present(pmde)) {
->>>>>+			if (!pmd_leaf(pmde))
->>>>>+				goto pte_table;
->>>>>+			if (pvmw->flags & PVMW_MIGRATION)
->>>>>+				return not_found(pvmw);
->>>>>+			if (!check_pmd(pmd_pfn(pmde), pvmw))
->>>>>+				return not_found(pvmw);
->>>>>+		} else if (pmd_is_migration_entry(pmde)) {
->>>>>+			softleaf_t entry = softleaf_from_pmd(pmde);
->>>>>+
->>>>>+			if (!(pvmw->flags & PVMW_MIGRATION))
->>>>>+				return not_found(pvmw);
->>>>
->>>>Looked at history a bit, and I wonder if this changed something old
->>>>here ...
->>>>
->>>>Since 616b8371539a ("mm: thp: enable thp migration in generic path"), PMD
->>>>migration handling took PTL before doing PVMW_MIGRATION/PFN checks,
->>>>including not_found() cases. So lockless PMD read was just a filter ...
->>>>
->>>>With this fix, true case gets final pmd_same() check, but this
->>>>not_found() case happens before taking PTL.
->>>>
->>>>So a !PVMW_MIGRATION walker could race with someone, e.g.
->>>>remove_migration_pmd(): we make the not_found() decision from old PMD
->>>>value that still says "migration", while real *pvmw->pmd may already be
->>>>present again. We return without ever taking PTL :)
->>>>
->>>
->>>Hi, Lance
->>>
->>>Thanks for take a look.
->>>
->>>I am trying to understand the scenario you mentioned. Let's say A migrate a
->>>pmd and B want to unmap the pmd.
->>>
->>>            A                                        B
->>>
->>>  try to migrate a pmd
->>>  pmd is set to migration entry
->>>                                           unmap the pmd ...
->>>  managed to finish migration
->>>                                           ...still see migration entry,
->>>                                           so skipped and unmap fail
->>>
->>>Would this be a timing case? Even B grab the PTL, it still could see migration
->>>entry if B visit pmd before A finish migration.
->>>
->>>Maybe I miss something, look forward your insight.
->>
->>Right, seeing migration entry while migration is still ongoing is fine.
->>
->>What I meant was this ordering:
->>
->>  CPU 0: pmde = pmdp_get_lockless(...); /* migration */
->>  CPU 1: remove_migration_pmd() restores PMD to present
->>  CPU 0: returns not_found() from old pmde, without ever taking PTL and
->>         rechecking *pvmw->pmd
->>
->>So issue is not seeing migration entry itself, but making final
->>not_found() decision from stale lockless PMD value ...
->>
->>Before this patch, PMD migration case took PTL before making that
->>decision ...
->>
->
->Yes, this patch changes the decision making condition for pmd entry. Thanks
->for pointing out.
->
->Hmm... I took another look into current pte handling and find for pte entry,
->we did two phase check:
->
->  * map_pte() without ptl
->  * check_pte() with ptl
->
->While check_pte() do extra pfn range check, map_pte() doesn't.
->
->This means for pte entry, we may face the same situation as you describe: 
->make the decision before grab PTL. Till now, it looks reasonable.
->
->But one thing jumped at me, PVMW_SYNC. When this flag is specified, all check
->is done under PTL. But now for pmd entry, we don't have a chance to do so.
->
->And as the comment says in try_to_migrate_one()
->
->	/*
->	 * When racing against e.g. zap_pte_range() on another cpu,
->	 * in between its ptep_get_and_clear_full() and folio_remove_rmap_*(),
->	 * try_to_migrate() may return before folio_mapped() has become false,
->	 * if page table locking is skipped: use TTU_SYNC to wait for that.
->	 */
->
->I tracked down to commit a98a2f0c8ce1 ('mm/rmap: split migration into its own
->function'), but not getting more detail on reasoning. Not fully understand it
->yet, but it seems there is some race between migration and unmap which is
->protected by PTL?
->
->Will look into this to get more detail.
->
+When regmap_update_bits() fails in ti_pipe3_init() for PCIe mode,
+the function returns the error without calling ti_pipe3_disable_clocks().
+This leaves the clocks permanently enabled since the PHY framework won't
+invoke the .exit callback on init failure.
 
-After going through the history, I found this:
+Fix this by adding proper clock cleanup in the PCIe error path, consistent
+with how the DPLL program error path handles cleanup.
 
-   commit 732ed55823fc3ad998d43b86bf771887bcc5ec67
-   Author: Hugh Dickins <hughd@google.com>
-   Date:   Tue Jun 15 18:23:53 2021 -0700
-   
-       mm/thp: try_to_unmap() use TTU_SYNC for safe splitting
+Fixes: 234738ea3390 ("phy: ti-pipe3: move clk initialization to a separate function")
+Reported-by: Sashiko AI <sashiko@kernel.org>
+Closes: https://lore.kernel.org/all/20260518023657.41852C2BCB0@smtp.kernel.org/
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: stable@vger.kernel.org
 
-This one fix the race mentioned above: we expect mapcount is 0, but is not.
+---
+Change in v5:
+  -Add Fix ignored clock enable return value in init patch
+---
+Change in v6:
+ -Fix all clock leak paths comprehensively:
+ -PCIe syscon update failure path
+ -SATA DPLL lock check path
+ -SATA errata path in ti_pipe3_exit()
+---
+ drivers/phy/ti/phy-ti-pipe3.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-
-IIUC, if we apply the change in this patch, the affected case is
-pmd_is_migration_entry(). In case someone else has cleared it but not update
-mapcount yet, try_to_migrate() would return before folio_mapped() is false.
-
-Thanks Lance for raise the question.
-
-If above analysis is true, I haven't got a neat way to take this into
-consideration.
-
-BTW, for a fix, I am thinking to keep it simple and direct. So how about leave
-the refactor as a followup cleanup?
-
+diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
+index 9ec228c2a940..860058f31594 100644
+--- a/drivers/phy/ti/phy-ti-pipe3.c
++++ b/drivers/phy/ti/phy-ti-pipe3.c
+@@ -518,6 +518,8 @@ static int ti_pipe3_init(struct phy *x)
+ 		val = 0x96 << OMAP_CTRL_PCIE_PCS_DELAY_COUNT_SHIFT;
+ 		ret = regmap_update_bits(phy->pcs_syscon, phy->pcie_pcs_reg,
+ 					 PCIE_PCS_MASK, val);
++		if (ret)
++			ti_pipe3_disable_clocks(phy);
+ 		return ret;
+ 	}
+ 
+@@ -531,8 +533,9 @@ static int ti_pipe3_init(struct phy *x)
+ 
+ 	/* SATA has issues if re-programmed when locked */
+ 	val = ti_pipe3_readl(phy->pll_ctrl_base, PLL_STATUS);
+-	if ((val & PLL_LOCK) && phy->mode == PIPE3_MODE_SATA)
+-		return ret;
++	if ((val & PLL_LOCK) && phy->mode == PIPE3_MODE_SATA) {
++		return 0;
++	}
+ 
+ 	/* Program the DPLL */
+ 	ret = ti_pipe3_dpll_program(phy);
+@@ -555,8 +558,10 @@ static int ti_pipe3_exit(struct phy *x)
+ 	/* If dpll_reset_syscon is not present we wont power down SATA DPLL
+ 	 * due to Errata i783
+ 	 */
+-	if (phy->mode == PIPE3_MODE_SATA && !phy->dpll_reset_syscon)
++	if (phy->mode == PIPE3_MODE_SATA && !phy->dpll_reset_syscon) {
++		ti_pipe3_disable_clocks(phy);
+ 		return 0;
++	}
+ 
+ 	/* PCIe doesn't have internal DPLL */
+ 	if (phy->mode != PIPE3_MODE_PCIE) {
 -- 
-Wei Yang
-Help you, Help me
+2.25.1
+
