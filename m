@@ -1,321 +1,157 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CD2A42E3FE;
-	Fri, 19 Jun 2026 07:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B122E3FE;
+	Fri, 19 Jun 2026 07:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781854427; cv=none; b=kBIkHDdKWvgz2LlyfZyFfqDldpnYjVEMuRnvhSkNM03e/1LJ1Ay5HysLvGIIxbe9H8nbTKrEwOLLY+9GQJcslzWaBQomO3pMJ4akwuwYNXdaTmPHsrpDG1s8LymgMq18SRzq46MnPVhsmyOE0UXylf39GvnrDms2hFbFDOWzTa0=
+	t=1781854997; cv=none; b=ptaGUAw/EU6vls4rlLBhdkSsXcblZ8ePTApNPmGLjRK6iEsVhazO3BAFnEJRRVUsZDgPdTsEoYokFXHXEOs7c07zJvOT29pXgMBvZgFDu4eRa5WZRoYUf8zVJLn7/nvz8lUhi1oxtWMgy9vy9YIbt7Acrv+XyBsfeYwSGiEce5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781854427; c=relaxed/simple;
-	bh=pzRfLVBwMQOX58T7Ntv+ZT+IDitgYeX4m4k3poCEZ/0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=beARlr9UPQutZSotgT+ikAJspUdLkJUPfEI+wEXw3Xuq0C6AzO7LsMngtJVz9lQMQcGS6vcM9V+UTiHWjENRiC/9U+Ke/tzRo5aE2GB8fp9YAkrnJYCVYcozI8M5vTyKWm0Izq9r9CK659ItRbL6kafK6Be2LD4k6Pn5FjRMtWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=A589hHbW; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1781854997; c=relaxed/simple;
+	bh=FOgKStLzO0xOF0jO7bzXqhVD0/V66GPgX0shuXv/kGY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Y5GJKEmYcMUgg9X2aIVM3u9Z/zvc5d1PggKIOZjzptrmFeVJd6vG0rIvWe3byNM+Z/Ws62vQ0yie/g7msSAYAuRAFMGBlmiLgJTWrdA3PaqBxo3gKamwa5x9Mo1bv9aosNI9EOZMqpDvUTLaFHcFyj3XY9gOEyo0vvjNmQm64ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=E2sqEzuw; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="A589hHbW"
-Received: by linux.microsoft.com (Postfix, from userid 1134)
-	id 213F320B7168; Fri, 19 Jun 2026 00:33:44 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 213F320B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1781854424;
-	bh=ovUJA3VVGrXVQvS7UQl3qPO/8XMnUYLmPpwt9DSZvBA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=A589hHbWs83Ug9fbvFktnax38teQW4z2pCcPyWce2cuqi09AIYj7SmVFo99HNVl64
-	 58mlIApLiSapEqn4yQfE2EYieA6U/tP/OHd/71cw892NONA3Opg+uqBfcNl2ePwled
-	 JHrWMDH9pJ//odEECq3fhHZZlRT/uMOb/nHWbQEk=
-From: Shradha Gupta <shradhagupta@linux.microsoft.com>
-To: Dexuan Cui <decui@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Konstantin Taranov <kotaranov@microsoft.com>,
-	Simon Horman <horms@kernel.org>,
-	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
-	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
-	Shiraz Saleem <shirazsaleem@microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Long Li <longli@microsoft.com>,
-	Yury Norov <yury.norov@gmail.com>
-Cc: Shradha Gupta <shradhagupta@linux.microsoft.com>,
-	linux-hyperv@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="E2sqEzuw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
+	Content-Type; bh=7A/B2ddRDY+Y78/x8MCWrdcZlXw9tB+5L+xXJCdcCFY=;
+	b=E2sqEzuwyLGrtoqXOxH/v4eMZMLBT8ABAj227TdiHJI7AqnfNpoJhTahbnynC4
+	9V8iJUPs2U6g0wY5RUllKcyYoxpmL/PdxhLr5rzHDdjKpHemUBA/WmAxT36PlnXT
+	Z7dtbPG/2lIkIkVNcK2LH2ZDecMXpheDpLSd+fWk5OF78=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wCnT8328jRq9k3FDw--.7545S2;
+	Fri, 19 Jun 2026 15:42:47 +0800 (CST)
+From: Chi Wang <wangchi@kylinos.cn>
+To: Paul Moore <paul@paul-moore.com>,
+	Eric Paris <eparis@redhat.com>
+Cc: audit@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Paul Rosswurm <paulros@microsoft.com>,
-	Shradha Gupta <shradhagupta@microsoft.com>,
-	Saurabh Singh Sengar <ssengar@microsoft.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 net] net: mana: Optimize irq affinity for low vcpu configs
-Date: Fri, 19 Jun 2026 00:33:35 -0700
-Message-ID: <20260619073338.481035-1-shradhagupta@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.7
+	stable@vger.kernel.org,
+	Ricardo Robaina <rrobaina@redhat.com>,
+	Chi Wang <wangchi@kylinos.cn>
+Subject: [PATCH v2] audit: Fix data races of skb_queue_len() readers on audit_queue
+Date: Fri, 19 Jun 2026 15:42:44 +0800
+Message-Id: <20260619074244.377226-1-wangchi@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260617130038.57465-1-wangchi@kylinos.cn>
+References: <20260617130038.57465-1-wangchi@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCnT8328jRq9k3FDw--.7545S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxArWxtFyDtrW7XFWDKrWfZrb_yoWrAr1kpr
+	yDWFWIyrs5ZFy8Xr18AF10vr4Yva18KF13Jrs3tF1ayr98KF1jgF1xJF4aqry8Crs8Aa1U
+	JFn8tayDtr4kGrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFhFxUUUUU=
+Sender: wangchi05@163.com
+X-CM-SenderInfo: 5zdqwulklqkqqrwthudrp/xtbC4RiixWo08vgiKwAA3D
 
-In mana driver, the number of IRQs allocated is capped by the
-min(num_cpu + 1, queue count). In cases, where the IRQ count is greater
-than the vcpu count, we want to utilize all the vCPUs, irrespective of
-their NUMA/core bindings.
+Multiple readers access audit_queue.qlen via skb_queue_len() without
+holding the queue lock or using READ_ONCE(), while kauditd writes to
+this field via the skb_dequeue() → __skb_unlink() path with WRITE_ONCE()
+protected by a spinlock. This constitutes data races.
 
-This is important, especially in the envs where number of vCPUs are so
-few that the softIRQ handling overhead on two IRQs on the same vCPU is
-much more than their overheads if they were spread across sibling vCPUs.
+All affected skb_queue_len(&audit_queue) call sites:
+  - kauditd_thread() wait_event_freezable() condition
+  - audit_receive_msg() AUDIT_GET handler (s.backlog assignment)
+  - audit_receive() backlog check
+  - audit_log_start() backlog check and pr_warn()
 
-This behaviour is more evident with dynamic IRQ allocation. Since MANA
-IRQs are assigned at a later stage compared to static allocation, other
-device IRQs may already be affinitized to the vCPUs. As a result, IRQ
-weights become imbalanced, causing multiple MANA IRQs to land on the
-same vCPU, while some vCPUs have none.
+KCSAN reports the following conflicting access pattern (one example):
+==================================================================
+BUG: KCSAN: data-race in audit_log_start / skb_dequeue
 
-In such cases when many parallel TCP connections are tested, the
-throughput drops significantly.
+write (marked) to 0xffffffff8512ee20 of 4 bytes by task 661 on cpu 57:
+ skb_dequeue+0x70/0xf0
+ kauditd_send_queue+0x71/0x220
+ kauditd_thread+0x1cb/0x430
+ kthread+0x1c2/0x210
+ ret_from_fork+0x162/0x1a0
+ ret_from_fork_asm+0x1a/0x30
 
-We also studied the results of setting the affinity and hint to
-NULL in these cases, and observed that, with this logic if there are
-pre existing IRQs allocated on the VM(apart from MANA), during MANA
-IRQs allocation, it leads to clustering of the MANA queue IRQs again.
-These results can be seen through case 3 in the following data.
+read to 0xffffffff8512ee20 of 4 bytes by task 36586 on cpu 1:
+ audit_log_start+0x2a0/0x6b0
+ audit_core_dumps+0x64/0xa0
+ do_coredump+0x14b/0x1260
+ get_signal+0xeb2/0xf70
+ arch_do_signal_or_restart+0x41/0x170
+ exit_to_user_mode_loop+0xa2/0x1c0
+ do_syscall_64+0x1a3/0x1c0
+ entry_SYSCALL_64_after_hwframe+0x76/0xe0
 
-Test envs:
-=======================================================
-Case 1: without this patch
-=======================================================
-4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
+value changed: 0x00000001 -> 0x00000000
+==================================================================
 
-	TYPE		effective vCPU aff
-=======================================================
-IRQ0:	HWC		0
-IRQ1:	mana_q1		0
-IRQ2:	mana_q2		2
-IRQ3:	mana_q3		0
-IRQ4:	mana_q4		3
+Resolve the race by switching to lockless helper skb_queue_len_lockless(),
+which internally uses READ_ONCE() and properly pairs with the WRITE_ONCE()
+write accesses already present on the writer side.
 
-%soft on each vCPU(mpstat -P ALL 1) on receiver
-vCPU		0	1	2	3
-=======================================================
-pass 1:		38.85	0.03	24.89	24.65
-pass 2:		39.15	0.03	24.57	25.28
-pass 3:		40.36	0.03	23.20	23.17
-
-=======================================================
-Case 2: with this patch
-=======================================================
-4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
-
-        TYPE            effective vCPU aff
-=======================================================
-IRQ0:   HWC             0
-IRQ1:   mana_q1         0
-IRQ2:   mana_q2         1
-IRQ3:   mana_q3         2
-IRQ4:   mana_q4         3
-
-%soft on each vCPU(mpstat -P ALL 1) on receiver
-vCPU            0       1       2       3
-=======================================================
-pass 1:         15.42	15.85	14.99	14.51
-pass 2:         15.53	15.94	15.81	15.93
-pass 3:         16.41	16.35	16.40	16.36
-
-=======================================================
-Case 3: with affinity set to NULL
-=======================================================
-4 vCPU(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
-
-	TYPE		effective vCPU aff
-=======================================================
-IRQ0:	HWC			0
-IRQ1:	mana_q1			2
-IRQ2:	mana_q2			3
-IRQ3:	mana_q3			2
-IRQ4:	mana_q4			3
-
-=======================================================
-Throughput Impact(in Gbps, same env)
-=======================================================
-TCP conn	with patch	w/o patch	aff NULL
-20480		15.65		7.73		5.25
-10240		15.63		8.93		5.77
-8192		15.64		9.69		7.16
-6144		15.64		13.16		9.33
-4096		15.69		15.75		13.50
-2048		15.69		15.83		13.61
-1024		15.71		15.28		13.60
-
-Fixes: 755391121038 ("net: mana: Allocate MSI-X vectors dynamically")
+Fixes: 3197542482df ("audit: rework audit_log_start()")
+Signed-off-by: Chi Wang <wangchi@kylinos.cn>
 Cc: stable@vger.kernel.org
-Co-developed-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
-Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
-Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
-Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
+Reviewed-by: Ricardo Robaina <rrobaina@redhat.com>
 ---
-Changes in v4
- * Add mana prefix on irq_affinity_*() in mana driver
- * Corrected grammar, comment for mana_irq_setup_linear()
- * added new line as per guidelines
- * added case 3 in commit message for when affinity is NULL
----
-Changes in v3
- * Optimize the comments in mana_gd_setup_dyn_irqs()
- * add more details in the dev_dbg for extra IRQs
----
-Changes in v2
- * Removed the unused skip_first_cpu variable
- * fixed exit condition in irq_setup_linear() with len == 0
- * changed return type of irq_setup_linear() as it will always be 0
- * removed the unnecessary rcu_read_lock() in irq_setup_linear()
- * added appropriate comments to indicate expected behaviour when
-   IRQs are more than or equal to num_online_cpus()
----
- .../net/ethernet/microsoft/mana/gdma_main.c   | 78 +++++++++++++++----
- 1 file changed, 64 insertions(+), 14 deletions(-)
+ kernel/audit.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index a0fdd052d7f1..e8b7ffb47eb9 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -210,6 +210,8 @@ static int mana_gd_query_max_resources(struct pci_dev *pdev)
- 	} else {
- 		/* If dynamic allocation is enabled we have already allocated
- 		 * hwc msi
-+		 * Also, we make sure in this case the following is always true
-+		 * (num_msix_usable - 1 HWC) <= num_online_cpus()
- 		 */
- 		gc->num_msix_usable = min(resp.max_msix, num_online_cpus() + 1);
+diff --git a/kernel/audit.c b/kernel/audit.c
+index 34dc7cb246ff..cf385393d1ed 100644
+--- a/kernel/audit.c
++++ b/kernel/audit.c
+@@ -950,7 +950,7 @@ static int kauditd_thread(void *dummy)
+ 		 *       do the multicast send and rotate records from the
+ 		 *       main queue to the retry/hold queues */
+ 		wait_event_freezable(kauditd_wait,
+-				     (skb_queue_len(&audit_queue) ? 1 : 0));
++				     (skb_queue_len_lockless(&audit_queue) ? 1 : 0));
  	}
-@@ -1909,8 +1911,8 @@ void mana_gd_free_res_map(struct gdma_resource *r)
-  * do the same thing.
-  */
- 
--static int irq_setup(unsigned int *irqs, unsigned int len, int node,
--		     bool skip_first_cpu)
-+static int mana_irq_setup_numa_aware(unsigned int *irqs, unsigned int len,
-+				     int node, bool skip_first_cpu)
- {
- 	const struct cpumask *next, *prev = cpu_none_mask;
- 	cpumask_var_t cpus __free(free_cpumask_var);
-@@ -1946,11 +1948,24 @@ static int irq_setup(unsigned int *irqs, unsigned int len, int node,
+
  	return 0;
- }
- 
-+/* must be called with cpus_read_lock() held */
-+static void mana_irq_setup_linear(unsigned int *irqs, unsigned int len)
-+{
-+	int cpu;
-+
-+	for_each_online_cpu(cpu) {
-+		if (len == 0)
-+			break;
-+
-+		irq_set_affinity_and_hint(*irqs++, cpumask_of(cpu));
-+		len--;
-+	}
-+}
-+
- static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
- {
- 	struct gdma_context *gc = pci_get_drvdata(pdev);
- 	struct gdma_irq_context *gic;
--	bool skip_first_cpu = false;
- 	int *irqs, err, i, msi;
- 
- 	irqs = kmalloc_objs(int, nvec);
-@@ -1958,10 +1973,12 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
- 		return -ENOMEM;
- 
- 	/*
-+	 * In this function, num_msix_usable = HWC IRQ + Queue IRQ.
-+	 * nvec is only Queue IRQ (HWC already setup).
- 	 * While processing the next pci irq vector, we start with index 1,
- 	 * as IRQ vector at index 0 is already processed for HWC.
- 	 * However, the population of irqs array starts with index 0, to be
--	 * further used in irq_setup()
-+	 * further used in mana_irq_setup_numa_aware()
- 	 */
- 	for (i = 1; i <= nvec; i++) {
- 		msi = i;
-@@ -1975,18 +1992,51 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
- 	}
- 
- 	/*
--	 * When calling irq_setup() for dynamically added IRQs, if number of
--	 * CPUs is more than or equal to allocated MSI-X, we need to skip the
--	 * first CPU sibling group since they are already affinitized to HWC IRQ
-+	 * When calling mana_irq_setup_numa_aware() for dynamically added IRQs,
-+	 * if number of CPUs is more than or equal to allocated MSI-X, we need to
-+	 * skip the first CPU sibling group since they are already affinitized to
-+	 * HWC IRQ
- 	 */
- 	cpus_read_lock();
--	if (gc->num_msix_usable <= num_online_cpus())
--		skip_first_cpu = true;
-+	if (gc->num_msix_usable <= num_online_cpus()) {
-+		err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node,
-+						true);
-+		if (err) {
-+			cpus_read_unlock();
-+			goto free_irq;
-+		}
-+	} else {
-+		/*
-+		 * When num_msix_usable are more than num_online_cpus, our
-+		 * queue IRQs should be equal to num of online vCPUs.
-+		 * We try to make sure queue IRQs spread across all vCPUs.
-+		 * In such a case NUMA or CPU core affinity does not matter.
-+		 * Note: in this case the total mana IRQ should always be
-+		 * num_online_cpus + 1. The first HWC IRQ is already handled
-+		 * in HWC setup calls
-+		 * However, if CPUs went offline since num_msix_usable was
-+		 * computed, queue IRQs will be more than num_online_cpus().
-+		 * In such cases remaining extra IRQs will retain their default
-+		 * affinity.
-+		 */
-+		int first_unassigned = num_online_cpus();
- 
--	err = irq_setup(irqs, nvec, gc->numa_node, skip_first_cpu);
--	if (err) {
--		cpus_read_unlock();
--		goto free_irq;
-+		if (nvec > first_unassigned) {
-+			char buf[32];
-+
-+			if (first_unassigned == nvec - 1)
-+				snprintf(buf, sizeof(buf), "%d",
-+					 first_unassigned);
-+			else
-+				snprintf(buf, sizeof(buf), "%d-%d",
-+					 first_unassigned, nvec - 1);
-+
-+			dev_dbg(&pdev->dev,
-+				"MANA IRQ indices #%s will retain the default CPU affinity\n",
-+				buf);
-+		}
-+
-+		mana_irq_setup_linear(irqs, nvec);
- 	}
- 
- 	cpus_read_unlock();
-@@ -2041,7 +2091,7 @@ static int mana_gd_setup_irqs(struct pci_dev *pdev, int nvec)
- 		nvec -= 1;
- 	}
- 
--	err = irq_setup(irqs, nvec, gc->numa_node, false);
-+	err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node, false);
- 	if (err) {
- 		cpus_read_unlock();
- 		goto free_irq;
+@@ -1283,7 +1283,7 @@ static int audit_receive_msg(struct sk_buff *skb, struct nlmsghdr *nlh,
+ 		s.rate_limit		   = audit_rate_limit;
+ 		s.backlog_limit		   = audit_backlog_limit;
+ 		s.lost			   = atomic_read(&audit_lost);
+-		s.backlog		   = skb_queue_len(&audit_queue);
++		s.backlog		   = skb_queue_len_lockless(&audit_queue);
+ 		s.feature_bitmap	   = AUDIT_FEATURE_BITMAP_ALL;
+ 		s.backlog_wait_time	   = audit_backlog_wait_time;
+ 		s.backlog_wait_time_actual = atomic_read(&audit_backlog_wait_time_actual);
+@@ -1627,7 +1627,7 @@ static void audit_receive(struct sk_buff *skb)
 
-base-commit: 96e7f9122aae0ed000ee321f324b812a447906d9
--- 
-2.34.1
+ 	/* can't block with the ctrl lock, so penalize the sender now */
+ 	if (audit_backlog_limit &&
+-	    (skb_queue_len(&audit_queue) > audit_backlog_limit)) {
++	    (skb_queue_len_lockless(&audit_queue) > audit_backlog_limit)) {
+ 		DECLARE_WAITQUEUE(wait, current);
+
+ 		/* wake kauditd to try and flush the queue */
+@@ -1933,7 +1933,7 @@ struct audit_buffer *audit_log_start(struct audit_context *ctx, gfp_t gfp_mask,
+ 		long stime = audit_backlog_wait_time;
+
+ 		while (audit_backlog_limit &&
+-		       (skb_queue_len(&audit_queue) > audit_backlog_limit)) {
++			(skb_queue_len_lockless(&audit_queue) > audit_backlog_limit)) {
+ 			/* wake kauditd to try and flush the queue */
+ 			wake_up_interruptible(&kauditd_wait);
+
+@@ -1953,7 +1953,7 @@ struct audit_buffer *audit_log_start(struct audit_context *ctx, gfp_t gfp_mask,
+ 			} else {
+ 				if (audit_rate_check() && printk_ratelimit())
+ 					pr_warn("audit_backlog=%d > audit_backlog_limit=%d\n",
+-						skb_queue_len(&audit_queue),
++						skb_queue_len_lockless(&audit_queue),
+ 						audit_backlog_limit);
+ 				audit_log_lost("backlog limit exceeded");
+ 				return NULL;
+--
+2.25.1
 
