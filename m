@@ -1,41 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A0A368D50;
-	Fri, 19 Jun 2026 09:47:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99C740D569
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 09:50:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781862460; cv=none; b=ZoOigBGzGsIlhjonJc6bs0XaQWORHy2LKBAfPIYOJTPE5txAcMQxZXElcYd43vZoc/0KanQfXjJCaAa0N8Mr3WU8XOrBVWjkUh0AGS//Tm+iUL4S9418/fH+Kp7+IBrF3jmXs+qhRQFNLMftiygHruqqoVXtSpLBWb004wtm0K0=
+	t=1781862607; cv=none; b=GCqNtXXOnapdmmbSLF+kHMYEvOW2ftRhLs10wJgdbwH8rOgTSqV1f2FkAG005viKoBPSRqohhLKBs4neXtGpojk50fHR1YrBKwXcqigwDvrg9OdCI9H95g9G5eUc4gyF8Ny7g7HqouYv9Xf7CGNbGNtHOVw6IYsFVJTjo0Flqpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781862460; c=relaxed/simple;
-	bh=ZjGZz97bts9x23vlxD6rAPcICjkxcr/8Lla/mojmJR8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gnqgl83wHMMV5y+Dt+HMMFEMgiVsrc1MD3qMzQ83PyUEZOycr/KSfekuXXzWl+wDvr7uLwZl3bx4P8s5jFGzea02UbyK+YBW/9h2sANnf6oReg0qom75xPWMDj+OD+/GeQoUd1DRyw7G/me+V7SzTA3o3aJDM0eESGnHX7bPECk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0QtQL8jN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781862607; c=relaxed/simple;
+	bh=UAuG4vuG5CgKeF6G4DlWpnMnvTmR9AFwp6RBEUHrfe8=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z23oOe7GF8CRBQQSzfCe6ASH8x+OqQzbtzlBC6UgImk64tIyuGrKgYrMkcDPin8TAHiZ9NB1Nvc89B6MjymSY3f+3aUKbHj1CXWF5P2zEqi3zulW5ig7yNIURGnzUAHKCccIrPsg+3epchg43TvhoOYAZLW2E6zTLvTkEOxf0yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nzJimoNp; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0QtQL8jN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2921F1F000E9;
-	Fri, 19 Jun 2026 09:47:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781862453;
-	bh=QEMo0EZhEJJGpmMRR680Dyf19MrtzkD+WeDdFbsfCJM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=0QtQL8jNkm5I3ucIPQinQQGdPaz3Ybc+iWOD6GB7oN4OwgRDYV3O/owETstFnn/cf
-	 C0i08bdYbH1/4CFgd7YvZTsi+q5GsBT4mfGKei7w5qRaYBohWS56NA+lDfFF6oBuq+
-	 45991b9EPcNERKqkbxrxTl87EsAAdP7kOEW44l4w=
-Date: Fri, 19 Jun 2026 11:46:27 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	Lee Jones <lee@kernel.org>, Simon Horman <horms@kernel.org>,
-	David Heidelberg <david@ixit.cz>, Sasha Levin <sashal@kernel.org>,
-	Vegard Nossum <vegard.nossum@oracle.com>
-Subject: Re: [PATCH 5.15 009/411] nfc: llcp: Fix use-after-free race in
- nfc_llcp_recv_cc()
-Message-ID: <2026061902-upside-resolute-a706@gregkh>
-References: <20260616145100.376842714@linuxfoundation.org>
- <20260616145100.851905886@linuxfoundation.org>
- <65070920-961c-4567-badd-cd4b2f264e34@oracle.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nzJimoNp"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-491b390f9e9so16898605e9.0
+        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 02:50:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781862602; x=1782467402; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=U+dCt2TtpuobcPqEN3sLtws+gA8QvpbrhpYYtvYzphQ=;
+        b=nzJimoNpU6NehT9fs0yByheSQnCHQbl/BdFPHa1k1l98ZLjoNL7EwZ4zLERa4IrNkz
+         Tbht4828SdC2FaKlI5gcQYFl9pbaqXCDCAcjkVzomWS65Hyo7d6528qCtkS/dF/7d0x4
+         ZMm4Q/3GoPBJj4yiiINfoebnDI3H7arTBSSWfsgX9zTn5VXeRke/izVCWilw+/lT6acg
+         Oc0+GIzmmyw5r/74pUrABU+vlRAC9VFrrBFS/Ik+J7tkYxEz5JH5ITDh93e4Jx4gQbwm
+         QxIhGktyNVx/Bt4xH7wkXFwPp2aY2NOLGfag0+gWp4al/0TEyiJsHJNovjy3zsC6LdqE
+         08fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781862602; x=1782467402;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=U+dCt2TtpuobcPqEN3sLtws+gA8QvpbrhpYYtvYzphQ=;
+        b=LvRzDAEhk+7phuVccIljef2pupvGoTzAfamf54VelY/I46SbJoRo5xM6MF4s4IRfyf
+         YuBn1IVbDk6haznq8lzGkvC42UlN+mB7GqrBgcdBr5QJfnS7q+lyjSK9pIdhy++ZiXpr
+         aJjoZqivVu3qvVSXTjfMnS4BIr9wVrAMP0W2BPMIUeFblyab4pOc5cXCRjywUZTpMcEj
+         qOphap08/DuQt6/tsm99lVjNPydA/uBItqI2jNKoA/dggJj4DUGx9wkFUR4bAJppM7K/
+         7I8sRqvPn/b/kNWEIRvRrH/LdCyDzXyNZsgyQAdZQuffFd5RrU7piJwoLHdV2fRAMz2l
+         suBg==
+X-Forwarded-Encrypted: i=1; AFNElJ+sMrQ/Rz2Q4eFv5BhKQGnprNFxTLwpQCcIWI95F3z8EwxogPFiWMCzSC7hqP5rGXz4mf15kKw=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxzf0q1dt98WTr+lFquVS6YA1g33XqP1Nx3BpR9JtxDTwvfsmVN
+	O9kTqC4Z9Vefy7zPa1CrKFukHn/e4HEKgXhGfc/9ZHb4UCuiFF3KJJ3q83Gfeg==
+X-Gm-Gg: AfdE7clNi+gwfoleK7YQxGWPc+brpmqUFLHFwU8f3KiNlcmN1HKq7THC8zNsTW7e1kw
+	4mV7ro0XjObk6Smwv4bujdBTQ4DukyNXsj/6o82YwjS0pL5H1qwBeXLPnps8c8L8WCQYaDcfkFc
+	6DMCO1Bd9WK9gDC3aalPTgJNRYZeyRYfXey571K190oa8UXSoX1IALKSQmTbPTOlSmgCMmm4Igm
+	x9BLbJqa5l7hHuyVJ+F2oEhXihq+mmqbyKgxxVq2x1sEKwU9XdnJ1HCvEyOzRdRcmtWzdDDG+Vm
+	83xcl1XddESCJWhG6o3H1JQA1totIHx7A7rr/9eOOVsDQAX1iR0Ynp4+piy9dSWp+oDYyNZaW4z
+	cBvrCspOY/9rwLPCquhSQKCjJid7xZM1mWFcduN9iTaD3mSghJFyqtGFGxNgug4R0tElQExyPIV
+	+7HSS4DBIPZUU=
+X-Received: by 2002:a05:600c:4e05:b0:490:9782:3eb8 with SMTP id 5b1f17b1804b1-49240e6c534mr44224975e9.25.1781862601718;
+        Fri, 19 Jun 2026 02:50:01 -0700 (PDT)
+Received: from krava ([176.74.159.170])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fcd7027sm57929595e9.1.2026.06.19.02.50.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Jun 2026 02:50:01 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Fri, 19 Jun 2026 11:49:59 +0200
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Xu Kuohai <xukuohai@huawei.com>,
+	Eduard Zingerman <eddyz87@gmail.com>, bpf@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: Re: [PATCH] bpf: Reset register bounds before narrowing retval range
+ in check_mem_access()
+Message-ID: <ajUQxyD2fu8M4wal@krava>
+References: <20260617120815.3910671-1-tristmd@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,135 +80,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <65070920-961c-4567-badd-cd4b2f264e34@oracle.com>
+In-Reply-To: <20260617120815.3910671-1-tristmd@gmail.com>
 
-On Thu, Jun 18, 2026 at 10:56:13PM +0530, Harshit Mogalapalli wrote:
-> Hi Greg/Sasha,
+On Wed, Jun 17, 2026 at 12:08:15PM +0000, Tristan Madani wrote:
+> From: Tristan Madani <tristan@talencesecurity.com>
 > 
+> When the BPF verifier processes a context load of an LSM hook return
+> value, it calls __mark_reg_s32_range() to narrow the register to the
+> hook's valid range. However, __mark_reg_s32_range() intersects the new
+> range with the register's existing bounds using max_t()/min_t() rather
+> than replacing them.
 > 
-> On 16/06/26 20:24, Greg Kroah-Hartman wrote:
-> > 5.15-stable review patch.  If anyone has any objections, please let me know.
-> > 
-> > ------------------
-> > 
-> > From: Lee Jones <lee@kernel.org>
-> > 
-> > [ Upstream commit b493ea2765cc17cb8aa7e7544a4b6dcb05b6ed77 ]
-> > 
-> > A race condition exists in the NFC LLCP connection state machine where
-> > the connection acceptance packet (CC) can be processed concurrently with
-> > socket release.  This can lead to a use-after-free of the socket object.
-> > 
+> If the destination register carries stale bounds from a prior instruction
+> (e.g. BPF_MOV64_IMM), the intersection can produce a range narrower than
+> reality. The verifier then believes it knows the register's exact value,
+> while at runtime the actual hook return value is loaded, creating a
+> verifier/runtime mismatch that can be used to bypass BPF memory safety
+> checks.
 > 
-> ^^ let's remember this: race between acceptance packet(receive) and socket
-> release.
-> 
-> > When nfc_llcp_recv_cc() moves the socket from the connecting_sockets
-> > list to the sockets list, it does so without holding the socket lock.
-> > If llcp_sock_release() is executing concurrently, it might have already
-> > unlinked the socket and dropped its references, which can result in
-> > nfc_llcp_recv_cc() linking a freed socket into the live list.
-> > 
-> > Fix this by holding lock_sock() during the state transition and list
-> > movement in nfc_llcp_recv_cc().  After acquiring the lock, check if
-> > the socket is still hashed to ensure it hasn't already been unlinked
-> > and marked for destruction by the release path.  This aligns the locking
-> > pattern with recv_hdlc() and recv_disc().
-> > 
-> > Fixes: a69f32af86e3 ("NFC: Socket linked list")
-> > Signed-off-by: Lee Jones <lee@kernel.org>
-> > Reviewed-by: Simon Horman <horms@kernel.org>
-> > Link: https://patch.msgid.link/20260429134115.3558604-2-lee@kernel.org
-> > Signed-off-by: David Heidelberg <david@ixit.cz>
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > ---
-> >   net/nfc/llcp_core.c | 11 +++++++++++
-> >   1 file changed, 11 insertions(+)
-> > 
-> > diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-> > index e04634f22b49f4..c7de44637e0187 100644
-> > --- a/net/nfc/llcp_core.c
-> > +++ b/net/nfc/llcp_core.c
-> > @@ -1225,6 +1225,15 @@ static void nfc_llcp_recv_cc(struct nfc_llcp_local *local,
-> >   	sk = &llcp_sock->sk;
-> > +	lock_sock(sk);
-> > +
-> > +	/* Check if socket was destroyed whilst waiting for the lock */
-> > +	if (!sk_hashed(sk)) {
-> > +		release_sock(sk);
-> > +		nfc_llcp_sock_put(llcp_sock);
-> > +		return;
-> > +	}
-> > +
-> >   	/* Unlink from connecting and link to the client array */
-> >   	nfc_llcp_sock_unlink(&local->connecting_sockets, sk);
-> >   	nfc_llcp_sock_link(&local->sockets, sk);
-> > @@ -1236,6 +1245,8 @@ static void nfc_llcp_recv_cc(struct nfc_llcp_local *local,
-> >   	sk->sk_state = LLCP_CONNECTED;
-> >   	sk->sk_state_change(sk);
-> > +	release_sock(sk);
-> > +
-> 
-> 
-> I ran an AI assisted backport review over the 5.15.210 queue and then
-> checked this one manually. I think the 5.15.y backport of:
-> 
-> This backport is still incomplete.
-> 
-> Upstream b493ea2765cc has the release-side list unlink covered by
-> lock_sock(sk):
-> 
-> net/nfc/llcp_sock.c:    .release        = llcp_sock_release,
-> ^ release socket function
-> 
-> lets see: llcp_sock_release()
-> 
->         lock_sock(sk);
-> 
->         if (sock->type == SOCK_RAW)
->                 nfc_llcp_sock_unlink(&local->raw_sockets, sk);
->         else if (sk->sk_state == LLCP_CONNECTING)
->                 nfc_llcp_sock_unlink(&local->connecting_sockets, sk);
->         else
->                 nfc_llcp_sock_unlink(&local->sockets, sk);
-> 
->         release_sock(sk);
-> 
-> So unlinking happened within lock_sock()
-> 
-> But final 5.15.y still drops the socket lock before the unlink:
-> 
->         release_sock(sk);
-> 
->         if (sk->sk_state == LLCP_DISCONNECTING)
->                 return err;
-> 
->         if (sock->type == SOCK_RAW)
->                 nfc_llcp_sock_unlink(&local->raw_sockets, sk);
->         else if (sk->sk_state == LLCP_CONNECTING)
->                 nfc_llcp_sock_unlink(&local->connecting_sockets, sk);
->         else
->                 nfc_llcp_sock_unlink(&local->sockets, sk);
-> 
->                 nfc_llcp_sock_unlink(&local->sockets, sk);
-> 
->         release_sock(sk);
-> 
-> The receive-side part of the patch now takes lock_sock(sk) and checks
-> sk_hashed(), but that only closes the race if release-side unlinking is
-> serialized by the same socket lock.
-> 
-> In 5.15.y there is still a window after release_sock(sk) and before the
-> unlink where nfc_llcp_recv_cc() can acquire the lock, see the socket as
-> hashed ? I think we don;'t have this backport: commit: a06b8044169f ("nfc:
-> llcp: protect nfc_llcp_sock_unlink() calls") in 5.15.y which might be needed
-> I think. This is only 5.18 +. Maybe we could queue up this for future stable
-> release ?
+> The else branch already calls mark_reg_unknown() to reset register state
+> before any narrowing. Apply the same reset in the is_retval path so
+> stale bounds are cleared before __mark_reg_s32_range() intersects.
 
-Yes, odd, it's only queued up for 5.10.y, and the backport there doesn't
-apply here either.  Can someone provide a working copy for 5.15.y as
-well?
+hi,
+you need to specify the bpf tree in the subject "[PATCH bpf] ..."
 
-thanks,
+jirka
 
-greg k-h
+
+> 
+> Fixes: 5d99e198be27 ("bpf, lsm: Add check for BPF LSM return value")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+> ---
+>  kernel/bpf/verifier.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index 54c6953a8b84..7e30dddc7721 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -7532,6 +7532,7 @@ static int check_mem_access(struct bpf_verifier_env *env, int insn_idx, u32 regn
+>  			 */
+>  			if (info.reg_type == SCALAR_VALUE) {
+>  				if (info.is_retval && get_func_retval_range(env->prog, &range)) {
+> +					mark_reg_unknown(env, regs, value_regno);
+>  					err = __mark_reg_s32_range(env, regs, value_regno,
+>  								   range.minval, range.maxval);
+>  					if (err)
+> -- 
+> 2.47.3
+> 
+> 
