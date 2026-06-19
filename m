@@ -1,291 +1,268 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95023B7752;
-	Fri, 19 Jun 2026 20:47:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781902078; cv=none; b=fcwop4Q6dSWkGpc54IXjeShvO3vgl75ebXoqFCGpIX7d+2kl4x1jU+VCg7W706voQ8JH9WzI1v+pxH9XLDSsZFxPNYXQUNgrkQ+BIFpDK92lYYozj2d4Vn3uV8ZoabBrrrI3nWu1uu4RI4ko+VLrOSLZ0UprgHiLVTpOaypNgfQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781902078; c=relaxed/simple;
-	bh=nBviE/XgkLdb5d6LSsFM8XiRcERpRL4t/uekfFvNKF8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kxhzqnj3owMdPwbUB/Zn3WmROEMNRRZW/RMuNGZvQJ+c/LvkgRytIQIWG0E0MsMnFUS2bWIChfZ72KzJPFnNgu/dvdeuyOQbcvH7qCkm805VdasUteilEyChs0BJ0V591USyM5vbwgrZUU8yBH+tPDxlvx48qaN0Q+2FkF5Ezks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFxvOINo; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE9535AC13
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 20:48:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781902125; cv=pass; b=aFt/v+3HB34G4i6Qlw0F8l6h9Ajt+FL8tSKQTblxzEgTCoRpLuqVy9bcVyI5vr0ECM0f2D+ha5V2dEheLBI1kkMmOlzTaQpfnx185BLCdXDCUjguA9pbLJtI4rPJ22rT4Tqaao2VErTKzgmB9AbuvHBT+KLYSy+AEoeqO1XGerE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781902125; c=relaxed/simple;
+	bh=apqdQKr7PEHlxfQQiXiex1WWm8qUWolV2mUZV3BhAi0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VUltTMNADc3ujadStyk1x5SlC57cwiTnIaUC03bTVI7hXJ2um4aBX1ZmBhr1s2ZngRp1cCVPLfE/Bb4riSJ1UxKuRpFD2Voqk3BSZCjr7sC1NdHdav4pTOT6kv+64paYtbNnEeYbWHJw5LU6ia8dQF+NwdeMwCAz3iOJa6/4aLc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JswXacds; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=U6+OoMoK; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFxvOINo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EE3F1F000E9;
-	Fri, 19 Jun 2026 20:47:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781902076;
-	bh=eTjwI3ZFfPnpYn4dTGDjGWea795tNP/BJ4bxYqXWEaY=;
-	h=From:To:Cc:Subject:Date;
-	b=MFxvOINoytQUnU6fNIpl8OBNQ9zxtnXnes+7NXn+J63uxlyzm2OZ+/fMTACxvQz9b
-	 FlVD+KlIJoH0WVxo2GYUfVw8oebksSgRFIxRlOEuIi3SMqerqq02+icXQ2IL9t78Xa
-	 OU9ekKwWR3xLI1juiTycuS8FHPscQ+acJtr+F7BTXJfhPGZvELeCVWITjY5Gd0dypE
-	 yU1LDPqamsY9POoZZL/+rQSSdJGQ9KQZ2US2IJfj2AowFtEV2xDfWTCbqoUUJNxK18
-	 t7yOTnMl2/ajiEvkB78NLE3FYjONrTEEVs/rIQCirc3iInY7APWHUVvGNgQadp7WtV
-	 qyQHd0YO2LQgA==
-From: Chuck Lever <cel@kernel.org>
-To: <stable@vger.kernel.org>
-Cc: <linux-nfs@vger.kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Tj <tj.iam.tj@proton.me>,
-	Jeff Layton <jlayton@kernel.org>
-Subject: [PATCH v7.0.2] lockd: fix TEST handling when not all permissions are available.
-Date: Fri, 19 Jun 2026 16:47:50 -0400
-Message-ID: <20260619204750.1803357-1-cel@kernel.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JswXacds";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="U6+OoMoK"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65JHUpbj1322356
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 20:48:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zA8WqZ4MHUkpwOcrbs9rDdlT2zHB2hwUW99729Sbo6k=; b=JswXacds6arRJBdU
+	BJn3HY+P8T68LsUJxkpxBB5wKEHB8ZawFBQM5umE1kWxgtBcBzHZTM+0PwlzQK93
+	MW+bHlhgGdg8WzNUu8TFDuz+Clo5iseNEz8nz5hNk8adcDTOubNtoPwy88OLKJ8a
+	kHRP8au++2NzpKn82UX6Hnj4EHU9tXuxBHaHK596WlnWxWIfYT2Q2/grjTpp3fUt
+	KNXP+DaENpyEi1Iko0y7P5J5HmWX3nzEFfMQGXWLFfSHBmIiVQsF1rG4uDmPb1e+
+	yhYzcf4dRAWtmyX/tqZdy+kU6rAuKIf/NTDIu3hlc9cOSGFqf/rggJc9+uweXW5K
+	t0KkiQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ew5hp9s82-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 20:48:42 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9157c8eb597so383021685a.2
+        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 13:48:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781902122; cv=none;
+        d=google.com; s=arc-20240605;
+        b=KTIbLJrpv9Rp4gj0js5c2lmcr2kCSv/BQbd2Gx1+nEHkrI4GTaBmmP+f2b748zdBmS
+         o7srAiS00mpyLP6JQrYymJE/wsbexQ+4v8s8t0LXJa/8cPCNNF6kxrFe2yKtQyDFbpxC
+         ZBL48xOptifovWkSX3THemQlUezIDO/4z7KrLNE/7HWeV+FpjxbDyqv3j69zbv3MqHwu
+         VoMckk575wOkyHS5fUtpHUR7Z1tM7QookXW10mNcITv6z40hiIHgdouo4hzbh/Ep+sU5
+         b6zJuxaBoCZgXjtn/47mVTsO2DM+MTLYZUH7Jq4ai8/bZcP4AjsLZKOzpKv40Zyr8JNS
+         qbHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zA8WqZ4MHUkpwOcrbs9rDdlT2zHB2hwUW99729Sbo6k=;
+        fh=Dw2EPuUCWmJr1UePkE6ghbx3kqWeKwO1COAyIndclQA=;
+        b=EWmK8WD4OTcpK9nx9UscFv7aiEwBQ/EPNODNlVAWi2VpTXqEq5YwmpH8DXgZqSArsv
+         i5fFw65kO3gQzkPICHswPBT4zYFsntRSPdkV1t+hG764tzD+QO5XXPF0TNAm8+XnSxew
+         tOrbaFlsJ+5WHu81VokXkyGgDRZ097+GJQ/959ca7vvrA/ApkAGn1DWuWGubt30rzbjI
+         5Vavq/T5inTb9ZLY1yosKyKdgoxx5stonex2pmNUh4WpomdVBZUJtANGYkidXUTnZHEk
+         zWFovpYqWaDFxysAIjaWQfwiuSRi4xK8/CkN/O9ddmNVGwXbraYJ3R3d86womrPtl75Y
+         8mzQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781902122; x=1782506922; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zA8WqZ4MHUkpwOcrbs9rDdlT2zHB2hwUW99729Sbo6k=;
+        b=U6+OoMoKIh21RyXbOjGWQHEJyH4gn+fIQLldzPy9kKpjzFVwSWo/6IZCIa+q4GYsoN
+         xoTdMqe89RzzTbHyjrmHUprbr4AjNhuf0MmTcfakdUO1Ev6zFpFn3C1goF4F6ABDn9Pi
+         wDtQOQw6C51xS1x8w/MF64DBppf+O/9XucHZAuOzCHzGTBZ7GvIO0biT8GqIuU4gVTZ5
+         aUVI55gHXjlSsyRIrd+ho4P+2M6f66S/MUs3v8vtn34mryejzzc3Gz/jsxkAoOL21E+m
+         mokElNun/kxgo1VMNkOdY1H4LHHBognwGSRuvqmH8qZGmRw0/tRR6QJvkyl+1sUutxD6
+         JR+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781902122; x=1782506922;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=zA8WqZ4MHUkpwOcrbs9rDdlT2zHB2hwUW99729Sbo6k=;
+        b=Tf7VtjZuUibG3rOetrB92w17US1os7jSdrV50CRAei57j0rMnNYpcr/2EpWe/T54xp
+         xJyLTLaYKOguPHIFfl4bBkxUfBb9/7Fg+mShotjptG/oGO8tKKcjkvVu2qKyGBStPYv0
+         esYNMvBDHkgTjGgSGDM8tScdBtFAQIDbHj/9XgbQny1PO96KvAcvWx+/C63fiWTh1QON
+         siafwbk4JUkyyom4CVo/BcH8LTNOQXUuaLGqLOt4WV7LxtnDdTe8gmLpT+IpP3GFSCjl
+         rcB/TZRrpmrx6Siu+7GfXLBMedikiDwIYlYLskq8EV6UVvZp2ttHOoYZxQWKB3Xdv4IQ
+         PrOQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8xDDlumsV+wwMtASCOqEPRW8o5EpkMng3ezuIeFSeqRgMupktaFlV8dtR+PBYDk45/8Hf9cNI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8V9+KowrjldPvuAquXS0NxLtPIwRj1SfZ52CLzCYwiR+ka3yu
+	s64g0VQDjtkmRU2bl549UtdShHx5UCUgb8UpThNmSNGiMseiRoFyb9yBNlv4wO3N4WgEtJEEIMx
+	sYR4/mRz1N9/LveQNUUoOHubRyrX9vhhfyeAJU9sHB/9enBwWTOJAOH2O51epL8PvlXUnL3hv0x
+	O5e4mTMmUIqn0ubCRFcB5bukfmcyNkDTNVrQ==
+X-Gm-Gg: AfdE7cnJu79Q6oSCmiHMFTXcLeECr26jbeNrThRwqpsQdCU8pg1XyR+NMp6MKDHqLhD
+	4sas49ii211VgO4PfvCOYZqRAtR0Pl6vmi48x9HR4fv/TUlmNqnlkIRG6j4qDL1JrxoOk6xhfAi
+	NesjV3vsgMJEC3LQ3jfkdMJzbPp7J081w8LC77CHOhD3uOZd/PEBVw0Bhpj1ON6ihUhTBJ6LScg
+	WeE6c5Ud+tP1HbG1BBXMg3QASX82CUGV6JzdzGqXvkalcfnZaHZO4AE9ArXcb7b+jLSbyE7NAZt
+	B0D9qhJy+g==
+X-Received: by 2002:a05:620a:2688:b0:915:7c1a:1390 with SMTP id af79cd13be357-92091786f27mr820314285a.39.1781902122159;
+        Fri, 19 Jun 2026 13:48:42 -0700 (PDT)
+X-Received: by 2002:a05:620a:2688:b0:915:7c1a:1390 with SMTP id
+ af79cd13be357-92091786f27mr820309685a.39.1781902121691; Fri, 19 Jun 2026
+ 13:48:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <178185979029.4044562.9993615975949055530@maoyixie.com>
+In-Reply-To: <178185979029.4044562.9993615975949055530@maoyixie.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 19 Jun 2026 22:48:30 +0200
+X-Gm-Features: AVVi8CcIfYL72Jybgb_uyRdiwHEb7NkzGSSu17a63NnIJruCaL_QhhQ5jNnd0gk
+Message-ID: <CAFEp6-37ambJxjnwxqMCnc5bGLmL0d+6dNtu_pNVYc4WKOSb5g@mail.gmail.com>
+Subject: Re: [PATCH net] net: wwan: iosm: bound device offsets in the MUX
+ downlink decoder
+To: Maoyi Xie <maoyixie.tju@gmail.com>
+Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: RiVl0Ylashs82OdsxkzY8bvWpfUKGV3m
+X-Authority-Analysis: v=2.4 cv=aOHAb79m c=1 sm=1 tr=0 ts=6a35ab2a cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8
+ a=d3nvGuovzB6WDmDeTcMA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: RiVl0Ylashs82OdsxkzY8bvWpfUKGV3m
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDIwMCBTYWx0ZWRfX41r7VIwm6RsW
+ X4Gkft1/smDwKyebmp1E8uB1m9i7uzZe7D94Q6EjTz6vkLiOGlK8aHVdOmoEn6MqGFQnHy0G+Zr
+ VwMzFBV6twv3Ul/MUehPVVvKUzLZydw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDIwMCBTYWx0ZWRfX5jHiiQtmNpCd
+ RNBvb8NlXbtvx/0GJvY6NQ8Gf95JNJq7cucVtJZ+ErdT7HDBQ9k29SB9P8OkLIu0U/mBeFr1tFJ
+ XH5o7si52d2BfdN1H/1oGTGF11Z144vIWAjLKawRsVDImMa4nmJATbIMhdZT+QWeDGuutLgxklX
+ tN/5CghUjUXRJrE0s0iuSoD4KhKcZKeGZP4BmMol2by0akCuQINub7RbZSG/E+lFraxIP0V3EyJ
+ qiF8f94zEwlgPkaD/WmqQCFr5OEk2R9MD7y+yEJI8M/+VXyaFhiL/yLLwmznXxItzYe6L1EMjma
+ CzBtY91OpJKcCNKhn58RF+m23/BWXAtpUZMrYRuN6XF5Q7+rI2hxpuLYOWHG4CEIiCXfl+NnM2f
+ lxvRpEHMFjUDlDgOkWJXBs67uFvkWxtW1yFb9eQQhK9iPkIIeCta3JA8nimX3j4heQVxQWZh1wT
+ RY0fNA0ujYU3R1rhttA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-19_04,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 spamscore=0 clxscore=1011 impostorscore=0
+ adultscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606190200
 
-From: NeilBrown <neil@brown.name>
+On Fri, Jun 19, 2026 at 11:03=E2=80=AFAM Maoyi Xie <maoyixie.tju@gmail.com>=
+ wrote:
+>
+> mux_dl_adb_decode() walks a chain of aggregated datagram tables using
+> offsets and lengths taken from the modem. first_table_index,
+> next_table_index, table_length, datagram_index and datagram_length are
+> all device supplied le values. Only first_table_index was checked, and
+> only for being non zero. The decoder then formed adth =3D block +
+> adth_index and read the table header and the datagram entries with no
+> bound against the received skb. A modem that reports an index or a
+> length past the downlink buffer makes the decoder read out of bounds.
+>
+> The buffer is IPC_MEM_MAX_DL_MUX_LITE_BUF_SIZE and skb->len is at most
+> that, so skb->len is the real limit, but none of these in band offsets
+> were checked against it.
+>
+> Validate every device offset and length against skb->len before use.
+> The block header must fit. Each table header, on entry and after every
+> next_table_index, must lie inside the skb. The datagram table must fit.
+> Each datagram index and length must stay inside the skb. The header
+> padding must not exceed the datagram length so the receive length does
+> not wrap.
+>
+> This was reproduced under KASAN as a slab out of bounds read on a normal
+> downlink receive once the iosm net device is up.
+>
+> Fixes: 1f52d7b62285 ("net: wwan: iosm: Enable M.2 7360 WWAN card support"=
+)
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+> ---
+>  drivers/net/wwan/iosm/iosm_ipc_mux_codec.c | 23 ++++++++++++++++++++--
+>  1 file changed, 21 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwa=
+n/iosm/iosm_ipc_mux_codec.c
+> index bff46f7ca59f..1c021bb0aa7a 100644
+> --- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> +++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> @@ -557,15 +557,21 @@ static int mux_dl_process_dg(struct iosm_mux *ipc_m=
+ux, struct mux_adbh *adbh,
+>                                 < sizeof(struct mux_adbh))
+>                         goto dg_error;
+>
+> -               /* Is the packet inside of the ADB */
+> +               /* Is the packet inside of the ADB and the received skb ?=
+ */
+>                 if (le32_to_cpu(dg->datagram_index) >=3D
+> -                                       le32_to_cpu(adbh->block_length)) =
+{
+> +                                       le32_to_cpu(adbh->block_length) |=
+|
+> +                   le32_to_cpu(dg->datagram_index) >=3D skb->len ||
+> +                   le16_to_cpu(dg->datagram_length) >
+> +                           skb->len - le32_to_cpu(dg->datagram_index)) {
 
-The F_GETLK fcntl can work with either read access or write access or
-both.  It can query F_RDLCK and F_WRLCK locks in either case.
+The logic is ok, but for readability, I would suggest to convert
+dg->datagram_index and dg->datagram_length into intermediate
+native-endian local variables (e.g dg_index, dg_len), making the if
+condition cleaner and avoiding repeated conversions.
 
-However lockd currently treats F_GETLK similar to F_SETLK in that read
-access is required to query an F_RDLCK lock and write access is required
-to query a F_WRLCK lock.
 
-This is wrong and can cause problems - e.g.  when qemu accesses a
-read-only (e.g. iso) filesystem image over NFS (though why it queries
-if it can get a write lock - I don't know.  But it does, and this works
-with local filesystems).
-
-So we need TEST requests to be handled differently.  To do this:
-
-- change nlm_do_fopen() to accept O_RDWR as a mode and in that case
-  succeed if either a O_RDONLY or O_WRONLY file can be opened.
-- change nlm_lookup_file() to accept a mode argument from caller,
-  instead of deducing base on lock time, and pass that on to nlm_do_fopen()
-- change nlm4svc_retrieve_args() and nlmsvc_retrieve_args() to detect
-  TEST requests and pass O_RDWR as a mode to nlm_lookup_file, passing
-  the same mode as before for other requests.  Also set
-   lock->fl.c.flc_file to whichever file is available for TEST requests.
-- change nlmsvc_testlock() to also not calculate the mode, but to use
-  whatever was stored in lock->fl.c.flc_file.
-
-This behaviour of lockd - requesting O_WRONLY access to TEST for
-exclusive locks - has been present at least since git history began.
-However it was hidden until recently because knfsd ignored the access
-requested by lockd and required only READ access for all locking
-requests (unless the underlying filesystem provided an f_op->open
-function which checked access permissions).
-
-The commit mentioned in Fixes: below changed nfsd_permission() to NOT
-override the access request for LOCK requests and this exposed the bug
-that we are now fixing.
-
-Note that there is another issue that this patch does not address.
-The flock(.., LOCK_EX) call is permitted on a read-only file descriptor.
-Linux NFS maps this to NLM locking as whole-file byte-range locks.
-nfsd will see this as though it were fcntl( F_SETLK (F_WRLCK)) and will
-now require write access, which it might not be able to get.
-It is not clear if this is a problem in practice, or what the best
-solution might be.  So no attempt is made to address it.
-
-Reported-by: Tj <tj.iam.tj@proton.me>
-Link: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1128861
-Fixes: 4cc9b9f2bf4d ("nfsd: refine and rename NFSD_MAY_LOCK")
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: NeilBrown <neil@brown.name>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
----
- fs/lockd/svc4proc.c         | 13 ++++++++++---
- fs/lockd/svclock.c          |  4 +---
- fs/lockd/svcproc.c          | 15 ++++++++++++---
- fs/lockd/svcsubs.c          | 35 +++++++++++++++++++++++++----------
- include/linux/lockd/lockd.h |  2 +-
- 5 files changed, 49 insertions(+), 20 deletions(-)
-
-diff --git a/fs/lockd/svc4proc.c b/fs/lockd/svc4proc.c
-index 4b6f18d97734..75e020a8bfd0 100644
---- a/fs/lockd/svc4proc.c
-+++ b/fs/lockd/svc4proc.c
-@@ -26,6 +26,8 @@ nlm4svc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	struct nlm_host		*host = NULL;
- 	struct nlm_file		*file = NULL;
- 	struct nlm_lock		*lock = &argp->lock;
-+	bool			is_test = (rqstp->rq_proc == NLMPROC_TEST ||
-+					   rqstp->rq_proc == NLMPROC_TEST_MSG);
- 	__be32			error = 0;
- 
- 	/* nfsd callbacks must have been installed for this procedure */
-@@ -46,15 +48,20 @@ nlm4svc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	if (filp != NULL) {
- 		int mode = lock_to_openmode(&lock->fl);
- 
-+		if (is_test)
-+			mode = O_RDWR;
-+
- 		lock->fl.c.flc_flags = FL_POSIX;
- 
--		error = nlm_lookup_file(rqstp, &file, lock);
-+		error = nlm_lookup_file(rqstp, &file, lock, mode);
- 		if (error)
- 			goto no_locks;
- 		*filp = file;
--
- 		/* Set up the missing parts of the file_lock structure */
--		lock->fl.c.flc_file = file->f_file[mode];
-+		if (is_test)
-+			lock->fl.c.flc_file = nlmsvc_file_file(file);
-+		else
-+			lock->fl.c.flc_file = file->f_file[mode];
- 		lock->fl.c.flc_pid = current->tgid;
- 		lock->fl.fl_start = (loff_t)lock->lock_start;
- 		lock->fl.fl_end = lock->lock_len ?
-diff --git a/fs/lockd/svclock.c b/fs/lockd/svclock.c
-index 255a847ca0b6..adfd8c072898 100644
---- a/fs/lockd/svclock.c
-+++ b/fs/lockd/svclock.c
-@@ -614,7 +614,6 @@ nlmsvc_testlock(struct svc_rqst *rqstp, struct nlm_file *file,
- 		struct nlm_lock *conflock)
- {
- 	int			error;
--	int			mode;
- 	__be32			ret;
- 
- 	dprintk("lockd: nlmsvc_testlock(%s/%ld, ty=%d, %Ld-%Ld)\n",
-@@ -632,14 +631,13 @@ nlmsvc_testlock(struct svc_rqst *rqstp, struct nlm_file *file,
- 		goto out;
- 	}
- 
--	mode = lock_to_openmode(&lock->fl);
- 	locks_init_lock(&conflock->fl);
- 	/* vfs_test_lock only uses start, end, and owner, but tests flc_file */
- 	conflock->fl.c.flc_file = lock->fl.c.flc_file;
- 	conflock->fl.fl_start = lock->fl.fl_start;
- 	conflock->fl.fl_end = lock->fl.fl_end;
- 	conflock->fl.c.flc_owner = lock->fl.c.flc_owner;
--	error = vfs_test_lock(file->f_file[mode], &conflock->fl);
-+	error = vfs_test_lock(lock->fl.c.flc_file, &conflock->fl);
- 	if (error) {
- 		ret = nlm_lck_denied_nolocks;
- 		goto out;
-diff --git a/fs/lockd/svcproc.c b/fs/lockd/svcproc.c
-index 5817ef272332..d98e8d684376 100644
---- a/fs/lockd/svcproc.c
-+++ b/fs/lockd/svcproc.c
-@@ -55,6 +55,8 @@ nlmsvc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	struct nlm_host		*host = NULL;
- 	struct nlm_file		*file = NULL;
- 	struct nlm_lock		*lock = &argp->lock;
-+	bool			is_test = (rqstp->rq_proc == NLMPROC_TEST ||
-+					   rqstp->rq_proc == NLMPROC_TEST_MSG);
- 	int			mode;
- 	__be32			error = 0;
- 
-@@ -70,15 +72,22 @@ nlmsvc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 
- 	/* Obtain file pointer. Not used by FREE_ALL call. */
- 	if (filp != NULL) {
--		error = cast_status(nlm_lookup_file(rqstp, &file, lock));
-+		mode = lock_to_openmode(&lock->fl);
-+
-+		if (is_test)
-+			mode = O_RDWR;
-+
-+		error = cast_status(nlm_lookup_file(rqstp, &file, lock, mode));
- 		if (error != 0)
- 			goto no_locks;
- 		*filp = file;
- 
- 		/* Set up the missing parts of the file_lock structure */
--		mode = lock_to_openmode(&lock->fl);
- 		lock->fl.c.flc_flags = FL_POSIX;
--		lock->fl.c.flc_file  = file->f_file[mode];
-+		if (is_test)
-+			lock->fl.c.flc_file = nlmsvc_file_file(file);
-+		else
-+			lock->fl.c.flc_file = file->f_file[mode];
- 		lock->fl.c.flc_pid = current->tgid;
- 		lock->fl.fl_lmops = &nlmsvc_lock_operations;
- 		nlmsvc_locks_init_private(&lock->fl, host, (pid_t)lock->svid);
-diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
-index dd0214dcb695..b83e6ecd5be3 100644
---- a/fs/lockd/svcsubs.c
-+++ b/fs/lockd/svcsubs.c
-@@ -82,18 +82,35 @@ int lock_to_openmode(struct file_lock *lock)
-  *
-  * We have to make sure we have the right credential to open
-  * the file.
-+ *
-+ * mode can be O_RDONLY(0), O_WRONLY(1) or O_RDWR(2). The latter
-+ * means success can be achieved with EITHER O_RDONLY or O_WRONLY.
-+ * It does NOT mean both read and write are required.
-  */
- static __be32 nlm_do_fopen(struct svc_rqst *rqstp,
- 			   struct nlm_file *file, int mode)
- {
--	struct file **fp = &file->f_file[mode];
--	__be32	nfserr;
-+	__be32 nfserr = nlm_lck_denied_nolocks;
-+	__be32 deferred = 0;
-+	struct file **fp;
-+	int m;
- 
--	if (*fp)
--		return 0;
--	nfserr = nlmsvc_ops->fopen(rqstp, &file->f_handle, fp, mode);
--	if (nfserr)
--		dprintk("lockd: open failed (error %d)\n", nfserr);
-+	for (m = O_RDONLY ; m <= O_WRONLY ; m++) {
-+		if (mode != O_RDWR && mode != m)
-+			continue;
-+
-+		fp = &file->f_file[m];
-+		if (*fp)
-+			return 0;
-+		nfserr = nlmsvc_ops->fopen(rqstp, &file->f_handle, fp, m);
-+		if (!nfserr)
-+			return 0;
-+		if (nfserr == nlm_drop_reply)
-+			deferred = nfserr;
-+	}
-+	if (deferred)
-+		return deferred;
-+	dprintk("lockd: open failed (error %d)\n", ntohl(nfserr));
- 	return nfserr;
- }
- 
-@@ -103,17 +120,15 @@ static __be32 nlm_do_fopen(struct svc_rqst *rqstp,
-  */
- __be32
- nlm_lookup_file(struct svc_rqst *rqstp, struct nlm_file **result,
--					struct nlm_lock *lock)
-+		struct nlm_lock *lock, int mode)
- {
- 	struct nlm_file	*file;
- 	unsigned int	hash;
- 	__be32		nfserr;
--	int		mode;
- 
- 	nlm_debug_print_fh("nlm_lookup_file", &lock->fh);
- 
- 	hash = file_hash(&lock->fh);
--	mode = lock_to_openmode(&lock->fl);
- 
- 	/* Lock file table */
- 	mutex_lock(&nlm_file_mutex);
-diff --git a/include/linux/lockd/lockd.h b/include/linux/lockd/lockd.h
-index 330e38776bb2..fe5cdd4d66f4 100644
---- a/include/linux/lockd/lockd.h
-+++ b/include/linux/lockd/lockd.h
-@@ -294,7 +294,7 @@ void		  nlmsvc_locks_init_private(struct file_lock *, struct nlm_host *, pid_t);
-  * File handling for the server personality
-  */
- __be32		  nlm_lookup_file(struct svc_rqst *, struct nlm_file **,
--					struct nlm_lock *);
-+				  struct nlm_lock *, int);
- void		  nlm_release_file(struct nlm_file *);
- void		  nlmsvc_put_lockowner(struct nlm_lockowner *);
- void		  nlmsvc_release_lockowner(struct nlm_lock *);
--- 
-2.54.0
-
+>                         goto dg_error;
+>                 } else {
+>                         packet_offset =3D
+>                                 le32_to_cpu(dg->datagram_index) +
+>                                 dl_head_pad_len;
+>                         dg_len =3D le16_to_cpu(dg->datagram_length);
+> +                       /* The header padding must not exceed the datagra=
+m. */
+> +                       if (dl_head_pad_len >=3D dg_len)
+> +                               goto dg_error;
+>                         /* Pass the packet to the netif layer. */
+>                         rc =3D ipc_mux_net_receive(ipc_mux, if_id, ipc_mu=
+x->wwan,
+>                                                  packet_offset,
+> @@ -595,6 +601,10 @@ static void mux_dl_adb_decode(struct iosm_mux *ipc_m=
+ux,
+>         block =3D skb->data;
+>         adbh =3D (struct mux_adbh *)block;
+>
+> +       /* The block header itself must fit in the received skb. */
+> +       if (skb->len < sizeof(struct mux_adbh))
+> +               goto adb_decode_err;
+> +
+>         /* Process the aggregated datagram tables. */
+>         adth_index =3D le32_to_cpu(adbh->first_table_index);
+>
+> @@ -606,6 +616,11 @@ static void mux_dl_adb_decode(struct iosm_mux *ipc_m=
+ux,
+>
+>         /* Loop through mixed session tables. */
+>         while (adth_index) {
+> +               /* The table header must lie within the received skb. */
+> +               if (adth_index < sizeof(struct mux_adbh) ||
+> +                   adth_index > skb->len - sizeof(struct mux_adth))
+> +                       goto adb_decode_err;
+> +
+>                 /* Get the reference to the table header. */
+>                 adth =3D (struct mux_adth *)(block + adth_index);
+>
+> @@ -629,6 +644,10 @@ static void mux_dl_adb_decode(struct iosm_mux *ipc_m=
+ux,
+>                 if (le16_to_cpu(adth->table_length) < sizeof(struct mux_a=
+dth))
+>                         goto adb_decode_err;
+>
+> +               /* The whole datagram table must fit in the received skb.=
+ */
+> +               if (le16_to_cpu(adth->table_length) > skb->len - adth_ind=
+ex)
+> +                       goto adb_decode_err;
+> +
+>                 /* Calculate the number of datagrams. */
+>                 nr_of_dg =3D (le16_to_cpu(adth->table_length) -
+>                                         sizeof(struct mux_adth)) /
+> --
+> 2.34.1
+>
