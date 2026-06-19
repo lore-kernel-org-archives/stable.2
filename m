@@ -1,158 +1,214 @@
-Received: from smtp-bc0f.mail.infomaniak.ch (smtp-bc0f.mail.infomaniak.ch [45.157.188.15])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011021.outbound.protection.outlook.com [52.101.70.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC2934D385
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 08:32:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781857976; cv=none; b=nXEVt+25pdBcG421dLplcOTgBw+9Lu0ZgFcTfDwl9E4v41fj8RHoYOIy6YIsQaS+Lj3Gjg8BKgLyg4Zyet9L+lNDVjOzOQvTAI5Fzj9hQb3pma75Mv5R9sXDhJudCujU5IBH2lcmw6E289oS087toMlcw201Kgh3KZHjxikoGTM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781857976; c=relaxed/simple;
-	bh=lcghnOgksc6K+V+60sUOKH8n4KczTxPimTMIG8NYUeo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZfXS6FBIN6pQi3lHeIGOVPvU2CWo+O/kJuhkXWBbyQ2QL1I1eHpySmLVv8MUQus0KSRw9P/5MXOZ5HjND7vSTWlBKc3kpgEbYnEcMsm8ItpeMW1V3Akmhn6JRYaR6k6XUgxbLzrT2gyupO5G07ehisQgVpJ5cvnr0PZtRcx28CI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=Cwv4/6bg; arc=none smtp.client-ip=45.157.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA7D2D8378;
+	Fri, 19 Jun 2026 08:59:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781859577; cv=fail; b=pPMjoLjChXxs81bSKnzzK2/UHsnmGMvUB3YcVQJXPoqFAvRNze5/NccPN3PxwrbOyRxfSgiHp24Uw9DnFvwjbYvIl09mHLElVELshWk8mfAcSFtDl15l7POIvaFo0WB7oFMDjHUeEIAYjIxOR6mgf3ppnTXu7BnX5osLOpicZIY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781859577; c=relaxed/simple;
+	bh=XpT/wHU7eGeMoBMzpY/esttXjifyrVBb2e9Sq3/xPmk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=d5e54Er+tCKQGhi3f5/zTHFdwm8iJ4LmqCn4R99ufCynXOnLgyCePOyM009HKQfyC44QuemSISPoqWdUV+G8OcNXUQwPwRXgt4O+yD5hiC1K9WZqKmRNvFmWeyVvFNNL2ifQoDfgzTJmWYzj/bOtgkWgzgRRmWscRlZPeXnyDmY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=PvWx2caz; arc=fail smtp.client-ip=52.101.70.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="Cwv4/6bg"
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4ghW7Q2Ycrzjb0;
-	Fri, 19 Jun 2026 10:32:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1781857970;
-	bh=TINzsjs7sBCgOdj6Zwmh7AnMmqEBiyCV2/FS4lTZiEY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Cwv4/6bgV0w/feEyfVInIsWZHiMNedNcv2d3bfpcq/mMGA1b0LXXHaWc9N83g/SUO
-	 pZe2EwU+7TmS7NPTdVj7pvnKTe6P0glLIQhmfGYZh1C4IGuLOIE56fhLMLzOxabgek
-	 /ynttDEvfxJ5t3QAIXciGNd8xN15d+pFdON4IMBk=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4ghW7P47gjzp2Z;
-	Fri, 19 Jun 2026 10:32:49 +0200 (CEST)
-Date: Fri, 19 Jun 2026 10:32:45 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Maximilian Heyne <mheyne@amazon.de>
-Cc: stable@vger.kernel.org, 
-	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, Shuah Khan <shuah@kernel.org>, 
-	linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/landlock: explicitly disable audit
-Message-ID: <20260619.Ang7AiGeishu@digikod.net>
-References: <20260529-welsh-nagoya-b4d9ca60@mheyne-amazon>
- <20260604.Gee4caexei8o@digikod.net>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="PvWx2caz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bFS7Uj8p9qWNAz6XfAFFu7TB+bjYomS4imCZGK9Ac2tyWUlzTUiZO6VQhkS3F9qGQINnVRHf7lWzHu9Rzp+8xryWbi50lfaDbJMbLw+MkMcN0s664GrHs86v/Gd8V1Ya4PlTatb4cSqeLo/yhj9zDMSj5vszzaYaQYzWJBo/K81gqL/i88Q+x16iUGDsb+OJOVXvrRkNbry5ErD1r4HqfEhKlmb+jCKDilvI350yH53WY69d3+fKIw2BhfgwY0y9JeSWJgzSUqNNc/SimMOGNrKpuu00gYw885g83YYi23JKwtdGFsBHguhlzJq1h5FPimD+yLh1cVpqqLAoesNROQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6/qS9A2zDvCffBOiDKoEhMlmGi0iWtCKmOfeMrXQ+aQ=;
+ b=w6MoBlAMPg0g/fWHNvU+xhxpZJv13/CtJOO31UkSZjZZuxnroLa05XvKUbJ3/VRkaOnBTpLZqY3Q1w0dxTiC7tt3XCuH10JzUOKxw/mXd24CbQd0L2Kt5kGeCV5WlPMP7R95ZGX2rD84/YxQlEGohW+8KKCwTlHRa6NUoocq4qeTyccNxxvITVXkBeqplP3VjWuYKAc5IHENBcOAATea+9G9EzjFjHW80E/y3b9ohn5ukb/N8o1hgMvB6MOKX4QMPLiRCEstlpdc/WpRyjY9Kl4Np4ujDJhy7EnjuZw0J+TLy7pF8oXKYEAJIS76jaaUOUHDpfBch3ZP3Fb+ORU3Jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6/qS9A2zDvCffBOiDKoEhMlmGi0iWtCKmOfeMrXQ+aQ=;
+ b=PvWx2cazsQDpGDHsbG6dL7sg2AwrZJIDVyLSqt19G7GKIxAEjcTryBZ7WhnbbpLBQaHnKd1TFGjlEOH240/LWapL7+thTLIDuK6H1EM9xQg4WwQi+7nW6eO3acfItNwwtlyRV4sS8JyOzmJR8wkKEyaaXOAoVV2b+n/hzyeVJue/pTT8ixXBem3Ujcgueg+qanAKnUWzgTs4FHWvIcOgbBcW2BWJJyYT3OofofmbBIL0zjrag2DOsCOw70c3sbBz0xdqOEIV6j5KHHbLgqDuogiJ18lU4JnmNuj0eTlDaY+/is9g8qaXKIOcdRvR62d9RCWrlXZ6ccoDrRJM6OI+Og==
+Received: from DB9PR05CA0027.eurprd05.prod.outlook.com (2603:10a6:10:1da::32)
+ by PA4PR10MB5610.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:263::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
+ 2026 08:59:28 +0000
+Received: from DU6PEPF0000A7E3.eurprd02.prod.outlook.com
+ (2603:10a6:10:1da:cafe::34) by DB9PR05CA0027.outlook.office365.com
+ (2603:10a6:10:1da::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.11 via Frontend Transport; Fri,
+ 19 Jun 2026 08:59:25 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DU6PEPF0000A7E3.mail.protection.outlook.com (10.167.8.41) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 08:59:25 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 19 Jun
+ 2026 11:03:29 +0200
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 19 Jun
+ 2026 10:59:24 +0200
+Message-ID: <02b07f43-3c90-4e89-8747-7fd424d87dd1@foss.st.com>
+Date: Fri, 19 Jun 2026 10:59:24 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] media: i2c: vd56g3: clean up subdev state on probe
+ failure
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+CC: Myeonghun Pak <mhun512@gmail.com>, Sylvain Petinot
+	<sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260424165238.31333-1-mhun512@gmail.com>
+ <c9c20bce-a1bb-4932-bfa0-c87f7156ff82@foss.st.com>
+ <ajPcKcJfbIdPKI8-@kekkonen.localdomain>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <ajPcKcJfbIdPKI8-@kekkonen.localdomain>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260604.Gee4caexei8o@digikod.net>
-X-Infomaniak-Routing: alpha
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU6PEPF0000A7E3:EE_|PA4PR10MB5610:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8eb4c36d-95cf-42c6-e238-08decde10ffe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|13003099007|18002099003|22082099003|4143699003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	rgyYKgF7iSs/dlZ7ZDYddmjt4qXOe3UuBPVMFMDqH0JV1Rny0GqY5Z/U3JHTnZEBuBWmH82aZE74gKduiGRxWj7gU6Y7/hUIc//X6vyrKplfV511dDRIq3ac6UV1chJNCW8E3xZqEekh1ooUv/HLHZhnyqH4V4FINnjId4tk2MIqiOX0JfOCNsq7LVHBTGLeUDGWi575BINHzXD1UPJAjv5zippPmhMvI/iWZ2aLFyCMewVToj+GS06wOZbLbeHCrwJawjtKrqWubqfjFOLMi3zIpKNNiKaPl59v49cJQaPQTKNlTwZPU34XfyTTY4cY/QzcQoAysJVAQnlwguG9jDKduMvZHoSEZdjXW6Y/5PmFNXMltyi/afOmQHTvnO4nKygnxI3ziFpTqaktA3N06rV9qa9U7fR1CRsOVE8z9B3PGBOcHx+/DFZd+L4GXgLXO54/f3GdRW29c6a3ZhsyWRo7U9pTqd11ZIjrY09BgccMhcewzMMrptgo78KYDPJ5ho1smLfQ9ym8Zc1FAXMxR2WV/W/L97wSmoSnqVfBrObx5NTI/7VE3URjM9StAdF7JGaJoC53+iVCQG5CVC30Pu97i/+b5Cl9ZdvJlIG+IeP6XcfdrjKgldfko9WE6oFXMOrpZnysRpqAr0EN3QDlt6F6znIJl8xkTw9GlzNsUm/E9gJtJVLikWWV9VG9nfFBwRfAnvywD9cD5rEmPAEzig==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(13003099007)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	mG4u6ihd/e3SqwOEfl3gFn6GsLs7JVIFqpEQvwPiI9vEXtsX//1+7D64qBI2RRR+xE/p9lm4NRU9EcLL6bQ2IzxogntAeEcYET/OzKxaq2JvpD6ojl/0IeB7YLbd/2Gbp0NwB7NCHUMkIbGreROTn/8czqIMN2OhumZZsnTXkvd7JLJu7UyBStJY6MqIEfTVkolaCcEKibZT6OVbHj3e2Y9aiK1t8mEro+Bc/0jarsoiGoZOHIi9Lr8dOwOfGDFn1hFju0TYxQAGuJMNchsTYphzQyVUrAq/YWoTUPfyCQEJYj5QH0NoOFtSM6urAO7KlqPC5FHRKip0IZ8zYOMFvm1WZj+dDcbgSYqP8zF492fs7PLA9KVvTuFyDkCPHmXE4TgA6cnaM33T+9SeANxtlMu+XuyyDlQh8e91tuUZwFP8RD6Rt6RCo4LGHyul6gqa
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 08:59:25.1647
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8eb4c36d-95cf-42c6-e238-08decde10ffe
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU6PEPF0000A7E3.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR10MB5610
 
-I extended your patch and merged it:
-https://git.kernel.org/mic/c/next&id=0302cd72fe196aee933e3fb76f6d175d1ab0e843
+Hi Sakari,
 
-Thanks!
+Le 18/06/2026 à 13:53, Sakari Ailus a écrit :
+> Hi Benjamin,
+> 
+> On Tue, Jun 16, 2026 at 02:49:54PM +0200, Benjamin Mugnier wrote:
+>> Hi,
+>>
+>> Thank you for your patch, and apologies for the delay.
+>>
+>> Le 24/04/2026 à 18:52, Myeonghun Pak a écrit :
+>>> vd56g3_subdev_init() calls v4l2_subdev_init_finalize(), which allocates
+>>> the subdev active state and requires v4l2_subdev_cleanup() to release it.
+>>>
+>>> If vd56g3_update_controls() fails after finalize succeeds, the probe error
+>>> path currently skips v4l2_subdev_cleanup() and returns an error. The driver
+>>> .remove() callback is not called after a failed probe, so the active state
+>>> is leaked.
+>>>
+>>> Route this error through a subdev cleanup label before freeing the control
+>>> handler and media entity.
+>>>
+>>> Fixes: 87aa97fc3157 ("media: i2c: Add driver for ST VD56G3 camera sensor")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+>>> ---
+>>> Changes in v2:
+>>> - Use a lowercase subject summary.
+>>
+>> Please keep the first character uppercase, just like other commits on
+>> this module.
+>>
+>>>
+>>>  drivers/media/i2c/vd56g3.c | 5 ++++-
+>>>  1 file changed, 4 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
+>>> index 157acea9e2..43f792288a 100644
+>>> --- a/drivers/media/i2c/vd56g3.c
+>>> +++ b/drivers/media/i2c/vd56g3.c
+>>> @@ -1427,11 +1427,14 @@ static int vd56g3_subdev_init(struct vd56g3 *sensor)
+>>>  	v4l2_subdev_unlock_state(state);
+>>>  	if (ret) {
+>>>  		dev_err(sensor->dev, "Controls update failed: %d\n", ret);
+>>> -		goto err_ctrls;
+>>> +		goto err_subdev;
+>>>  	}
+>>>  
+>>>  	return 0;
+>>>  
+>>> +err_subdev:
+>>> +	v4l2_subdev_cleanup(&sensor->sd);
+>>
+>> v4l2_subdev_cleanup() is already performed in the caller (i.e.
+>> vd56g3_probe()), but as you noticed it is not called from this path. I'd
+>> rather have the return value route correctly through
+>> v4l2_subdev_cleanup() in  vd56g3_probe(), allowing to keep a unique call
+>> to v4l2_subdev_cleanup() instead.
+> 
+> Is it?
+> 
+> If vd56g3_update_controls() in vd56g3_subdev_init() fails, it'll jump to
+> err_power_off in vd56g3_probe() which does PM related cleanup only.
+> 
 
-On Tue, Jun 09, 2026 at 12:51:03AM +0200, Mickaël Salaün wrote:
-> Thanks for this patch.  I merged a few fixes and I'd be interested to
-> know if this one fix the issue you spotted:
-> https://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git/commit/?h=next&id=d8dfb4c7faa87c3e41a8678f38f136c2c7c036fa
+Exactly, I realize my sentence was poorly written, but if I understand
+correctly we're on the same page. The problem being
+v4l2_subdev_cleanup() not being called in any path if
+vd56g3_update_controls() fails.
+
+Now if vd56g3_update_controls() fails, instead of performing
+v4l2_subdev_cleanup() in vd56g3_subdev_init() as this patch does, I'd
+rather have it done in vd56g3_probe()'s jump back so we can keep it all
+at the same place, instead of having 2 v4l2_subdev_cleanup() in 2
+different places.
+
+Tell me if this is still unclear.
+
+>>
+>> This patch looks like is LLM generated and sparks my curiosity. If so
+>> you must disclaim it using an Assisted-by tag [1]. Sorry if I’m mistaken.
+>>
+>> [1] https://docs.kernel.org/process/coding-assistants.html
+>>
+>>> +
+>>>  err_ctrls:
+>>>  	v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
+>>>  
+>>
+>> -- 
+>> Regards,
+>> Benjamin
+>>
 > 
-> 
-> On Fri, May 29, 2026 at 08:03:41PM +0000, Maximilian Heyne wrote:
-> > I'm seeing sporadic selftest failures, such as
-> > 
-> >   #  RUN           scoped_audit.connect_to_child ...
-> >   # scoped_abstract_unix_test.c:314:connect_to_child:Expected 0 (0) == records.access (8)
-> >   # connect_to_child: Test failed
-> >   #          FAIL  scoped_audit.connect_to_child
-> >   not ok 19 scoped_audit.connect_to_child
-> > 
-> > This seems similar to what commit 3647a4977fb73d ("selftests/landlock:
-> > Drain stale audit records on init") tried to fix. However, the added
-> > drain loop is not effective. When setting the AUDIT_STATUS_PID, the
-> > kauditd_thread is woken up starting to send messages from the hold queue
-> > to the netlink. Depending on scheduling of this kthread not all messages
-> > might be send via the netlink in the 1 us interval.
-> > 
-> > Therefore, instead of trying to drain the queue, let's just disable
-> > audit when running non-audit tests or more precisely disable it after
-> > audit-tests. This way we won't generate any new audit message that could
-> > interfere with the other tests.
-> > 
-> > The comment saying that on process exit audit will be disabled is wrong.
-> > The closed file descriptor just causes an auditd_reset(), not a
-> > disablement. So future messages will be queued in the hold queue.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Fixes: 6a500b22971c ("selftests/landlock: Add tests for audit flags and domain IDs")
-> > Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
-> > ---
-> > 
-> > I've seen the failures on the 6.18 kernels but haven't tested on latest
-> > upstream. However, I still think this is an issue.
-> > 
-> > ---
-> >  tools/testing/selftests/landlock/audit.h | 13 +++++--------
-> >  1 file changed, 5 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/tools/testing/selftests/landlock/audit.h b/tools/testing/selftests/landlock/audit.h
-> > index 834005b2b0f09..7842330875f53 100644
-> > --- a/tools/testing/selftests/landlock/audit.h
-> > +++ b/tools/testing/selftests/landlock/audit.h
-> > @@ -494,10 +494,9 @@ static int audit_init_filter_exe(struct audit_filter *filter, const char *path)
-> >  static int audit_cleanup(int audit_fd, struct audit_filter *filter)
-> 
-> audit_cleanup() should be called for audit_exec tests too.
-> 
-> >  {
-> >  	struct audit_filter new_filter;
-> > +	int err;
-> >  
-> >  	if (audit_fd < 0 || !filter) {
-> > -		int err;
-> > -
-> >  		/*
-> >  		 * Simulates audit_init_with_exe_filter() when called from
-> >  		 * FIXTURE_TEARDOWN_PARENT().
-> > @@ -518,12 +517,10 @@ static int audit_cleanup(int audit_fd, struct audit_filter *filter)
-> >  	audit_filter_exe(audit_fd, filter, AUDIT_DEL_RULE);
-> >  	audit_filter_drop(audit_fd, AUDIT_DEL_RULE);
-> >  
-> > -	/*
-> > -	 * Because audit_cleanup() might not be called by the test auditd
-> > -	 * process, it might not be possible to explicitly set it.  Anyway,
-> > -	 * AUDIT_STATUS_ENABLED will implicitly be set to 0 when the auditd
-> > -	 * process will exit.
-> > -	 */
-> 
-> Please add a comment that explains that the audit state is not restored
-> but just disabled.
-> 
-> > +	err = audit_set_status(audit_fd, AUDIT_STATUS_ENABLED, 0);
-> > +	if (err)
-> > +		return err;
-> > +
-> >  	return close(audit_fd);
-> 
-> FDs should always be closed.
-> 
-> >  }
-> >  
-> > -- 
-> > 2.50.1
-> > 
-> > 
-> > 
-> > 
-> > Amazon Web Services Development Center Germany GmbH
-> > Tamara-Danz-Str. 13
-> > 10243 Berlin
-> > Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
-> > Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
-> > Sitz: Berlin
-> > Ust-ID: DE 365 538 597
-> > 
-> > 
+
+-- 
+Regards,
+Benjamin
+
