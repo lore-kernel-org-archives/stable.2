@@ -1,177 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from confino.investici.org (confino.investici.org [93.190.126.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC43A383C99
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 12:45:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74800383310;
+	Fri, 19 Jun 2026 13:10:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.190.126.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781873126; cv=none; b=hFOihLx+5/MPiWKEFIDS4EIenUedZ6K0Dz0RZv0AeamDs+xAstPdnJW8MX9jrD6oWoVJ/JlF2hy+rC0gzLC1NlQ7JSSepf+wzB1RLtYIdsewxIZBO/neC33gycHYyddPi3Xmz7D2mXlxRifdbZ+wYWQ6Knp4h/2uipxGcZlN6GA=
+	t=1781874659; cv=none; b=OEFOzTPT+hhBGGfdISIQuefDVvf0bhow8LGRP7VeX74cBz2aLd6o+4+bdE4xpbEVe5uodUQojL51ZyqtZvyJ0JJnbLjekRukgHHqs+B8z0gSmkjUnKuNRp3vneevN2aeuvZI91lqjWeVkUnuJi19ajYt9S++EE17re5rZF/P2ZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781873126; c=relaxed/simple;
-	bh=TGA2JCPZEyY6tdazTpYaB8HNXLg5+WpDgvXWYYF8kao=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k4WWB/o9ODqFLZQTeSROQ/47Kfwi83Ufkwn/7JW0gqKpZWPP892fLeULncFozcBou0UTsjfHJHmOvVsYsuk/Y2uqkpOw+zTIR4PjeTUoq2ls6ww1HfEPnbkbPB2ZoCLBpKTANOaC7GSAglNetexzE6eiMdOAaGacLqVLz00eEy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B5Iwa2++; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781874659; c=relaxed/simple;
+	bh=0X1jycyDDJxqmtpyDdqGsvAfsAmRndcVeVafJnjQbPQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ps4b+YNKDtLXvNm4+q/vXgoPlpDz57Lldq+44vP1qhBYaIDOUAyqBGJlnksGv58p5aOBCt2qk8ircwKnGKnBDGBf+0gUpozL8I/5wbBzsN8uW9EnEKe34rsEUfpUAM8JsML8X27rf6++mx7FdI8RSieUHj/Vse8gatSaiCpC0kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=raQQXusM; arc=none smtp.client-ip=93.190.126.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B5Iwa2++"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781873125; x=1813409125;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=TGA2JCPZEyY6tdazTpYaB8HNXLg5+WpDgvXWYYF8kao=;
-  b=B5Iwa2++zPx5F1mZpmxKgOEO18Jtp6AzOuBoQ7U089PbHimLSAKPdfg8
-   JDoYZzr+xwd3kDqJmWuLftZihBFrmowb3trRCvDTNstMRlsXAsQyQ2ygs
-   DE+kRP9vdRGKLPzJy2aTmEqNNj2wHX2k3fxMbAIPmkhXVdXiTUFNi6dbY
-   5qDDPA7Mfbt5F9NB93n0CWO3Li0EIkuMDgefmv/F1TWLLAKyIqp4oh6kz
-   BRwm8ZV8fFIBjgUd/IAQv5+GgpojxFeDxPcCvQB7SNRH3pqc5XCjXrfDb
-   hG81Yc0iSk24WB0SHx99uDUoPbHSYC8pSM9wu8F32EHPhogba2zgMBUFl
-   w==;
-X-CSE-ConnectionGUID: vHigh7Q8Tu2KASSiR6Ur+g==
-X-CSE-MsgGUID: 9IDWz3gqQAqb1Ui+6MEdVg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11821"; a="82813299"
-X-IronPort-AV: E=Sophos;i="6.24,213,1774335600"; 
-   d="scan'208";a="82813299"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jun 2026 05:45:24 -0700
-X-CSE-ConnectionGUID: 2pDFDLJBTtKUDhrtwZS5JA==
-X-CSE-MsgGUID: /z4r2GaHTmC1/71lwG4Prw==
-X-ExtLoop1: 1
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.211]) ([10.245.244.211])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jun 2026 05:45:22 -0700
-Message-ID: <4c7300dc-ab5e-464f-9704-d8da378ee1af@intel.com>
-Date: Fri, 19 Jun 2026 13:45:20 +0100
+	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="raQQXusM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
+	s=stigmate; t=1781874188;
+	bh=HB8w+kNLRgDlrK5vN0aqYNaykc6XjEtmpeJdfRJsSBg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=raQQXusMvw4lhdPSevMt3FW60un+lmaoDvTr7Hvaq0JPqJAHUW3POzXkAxXuruFYx
+	 CBYB0DIjpSGLsMpFbFeMOnQUvmBsnVgHm7wiBnQ34RG1FQzujVyTTm7DrTKO8rTOmm
+	 VloR2DbXu4egwd2mmNO5HqM/NHcj17jV/jIkppUA=
+Received: from mx1.investici.org (unknown [127.0.0.1])
+	by confino.investici.org (Postfix) with ESMTP id 4ghd7J6yCFz11N8;
+	Fri, 19 Jun 2026 13:03:08 +0000 (UTC)
+Received: by mx1.investici.org (Postfix) id 4ghd7J0ztFz11N1;
+	Fri, 19 Jun 2026 13:03:08 +0000 (UTC)
+From: Bradley Morgan <include@grrlz.net>
+To: linux-security-module@vger.kernel.org,
+	bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Bradley Morgan <include@grrlz.net>,
+	stable@vger.kernel.org,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH 2/2] lsm: fix size queries for getselfattr with NULL buffer
+Date: Fri, 19 Jun 2026 13:03:04 +0000
+Message-ID: <20260619130305.27779-2-include@grrlz.net>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260619130305.27779-1-include@grrlz.net>
+References: <20260619130305.27779-1-include@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] gpu/buddy: bail out of try_harder when alignment cannot
- be honoured
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
- stable@vger.kernel.org
-References: <20260618124755.2751205-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260618124755.2751205-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 18/06/2026 13:47, Arunpravin Paneer Selvam wrote:
-> The try_harder contiguous fallback could return a range whose start
-> offset did not match the caller's min_block_size. Check each candidate
-> against the requested alignment and reject the allocation when no
-> candidate satisfies it, instead of handing back a misaligned range.
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Timur Kristóf <timur.kristof@gmail.com>
-> Cc: John Olender <john.olender@gmail.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> ---
->   drivers/gpu/buddy.c | 33 +++++++++++++++++++++------------
->   1 file changed, 21 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index dc81fe0301ce..28ed3250ac57 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-> @@ -1127,13 +1127,11 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->   	struct gpu_buddy_block *block;
->   	unsigned int tree, order;
->   	LIST_HEAD(blocks_lhs);
-> -	unsigned long pages;
->   	u64 modify_size;
->   	int err;
->   
->   	modify_size = rounddown_pow_of_two(size);
-> -	pages = modify_size >> ilog2(mm->chunk_size);
-> -	order = fls(pages) - 1;
-> +	order = ilog2(modify_size) - ilog2(mm->chunk_size);
->   	if (order == 0)
->   		return -ENOSPC;
->   
-> @@ -1149,31 +1147,42 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->   		while (iter) {
->   			block = rbtree_get_free_block(iter);
->   
-> -			/* Allocate blocks traversing RHS */
->   			rhs_offset = gpu_buddy_block_offset(block);
-> +
-> +			/* Allocate blocks traversing RHS */
->   			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
->   						       &filled, blocks);
-> -			if (!err || err != -ENOSPC)
-> +			if (err && err != -ENOSPC)
->   				return err;
-> +			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
-> +				return 0;
-> +			if (!err)
+The lsm_get_self_attr() syscall allows callers to pass in a NULL context
+buffer to find out the size of the output needed. That path still
+compared the computed entry size against the caller provided size first,
+so a NULL buffer with size 0 incorrectly returned -E2BIG rather than
+reporting the required size.
 
-Should we do some kind of rhs = round_down(rhs, min_block_size) at the 
-start? Just wondering if we can get something misaligned here, that 
-should have succeeded if we just applied the round_down first, in some 
-edge case?
+Only enforce the available buffer length after checking for the NULL
+buffer. Cover the zero length sizing query in the self test.
 
-> +				goto next;
->   
-> -			lhs_size = max((size - filled), min_block_size);
-> -			if (!IS_ALIGNED(lhs_size, min_block_size))
-> -				lhs_size = round_up(lhs_size, min_block_size);
-> +			lhs_size = round_up(max((size - filled), min_block_size),
-> +					    min_block_size);
+Fixes: d7cf3412a9f6 ("lsm: consolidate buffer size handling into lsm_fill_user_ctx()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bradley Morgan <include@grrlz.net>
+---
+ security/security.c                                  | 8 ++++----
+ tools/testing/selftests/lsm/lsm_get_self_attr_test.c | 5 ++---
+ 2 files changed, 6 insertions(+), 7 deletions(-)
 
-Can this be simplified as: round_up(size - filled, min_block_size) ?
-
-> +
-> +			if (lhs_size > rhs_offset)
-
-What is the idea with this check?
-
-> +				goto next;
->   
->   			/* Allocate blocks traversing LHS */
-> -			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
-> +			lhs_offset = rhs_offset - lhs_size;
-> +
-> +			if (!IS_ALIGNED(lhs_offset, min_block_size))
-> +				goto next;
-
-Would it make sense to just align the lhs down, if misaligned, instead 
-of baling? If the final size we get back is slightly too large, we can 
-just apply a trim at the end?
-
-> +
->   			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
->   						       NULL, &blocks_lhs);
->   			if (!err) {
->   				list_splice(&blocks_lhs, blocks);
->   				return 0;
-> -			} else if (err != -ENOSPC) {
-> +			}
-> +			if (err != -ENOSPC) {
->   				gpu_buddy_free_list_internal(mm, blocks);
->   				return err;
->   			}
-> -			/* Free blocks for the next iteration */
-> +next:
->   			gpu_buddy_free_list_internal(mm, blocks);
-> -
->   			iter = rb_prev(iter);
->   		}
->   	}
-> 
-> base-commit: b9e2d5cdaab05c997be3a69d9b372d7676683e1b
+diff --git a/security/security.c b/security/security.c
+index 71aea8fdf014..fa0d7e036249 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -406,15 +406,15 @@ int lsm_fill_user_ctx(struct lsm_ctx __user *uctx, u32 *uctx_len,
+ 	int rc = 0;
+ 
+ 	nctx_len = ALIGN(struct_size(nctx, ctx, val_len), sizeof(void *));
++	/* no buffer - return success/0 and set @uctx_len to the req size */
++	if (!uctx)
++		goto out;
++
+ 	if (nctx_len > *uctx_len) {
+ 		rc = -E2BIG;
+ 		goto out;
+ 	}
+ 
+-	/* no buffer - return success/0 and set @uctx_len to the req size */
+-	if (!uctx)
+-		goto out;
+-
+ 	nctx = kzalloc(nctx_len, GFP_KERNEL);
+ 	if (nctx == NULL) {
+ 		rc = -ENOMEM;
+diff --git a/tools/testing/selftests/lsm/lsm_get_self_attr_test.c b/tools/testing/selftests/lsm/lsm_get_self_attr_test.c
+index 60caf8528f81..2f5ababc2b95 100644
+--- a/tools/testing/selftests/lsm/lsm_get_self_attr_test.c
++++ b/tools/testing/selftests/lsm/lsm_get_self_attr_test.c
+@@ -39,15 +39,14 @@ TEST(size_null_lsm_get_self_attr)
+ 
+ TEST(ctx_null_lsm_get_self_attr)
+ {
+-	const long page_size = sysconf(_SC_PAGESIZE);
+-	__u32 size = page_size;
++	__u32 size = 0;
+ 	int rc;
+ 
+ 	rc = lsm_get_self_attr(LSM_ATTR_CURRENT, NULL, &size, 0);
+ 
+ 	if (attr_lsm_count()) {
+ 		ASSERT_NE(-1, rc);
+-		ASSERT_NE(1, size);
++		ASSERT_NE(0, size);
+ 	} else {
+ 		ASSERT_EQ(-1, rc);
+ 	}
+-- 
+2.53.0
 
