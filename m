@@ -1,320 +1,162 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C61EADC
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 19:46:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474A64964F;
+	Fri, 19 Jun 2026 19:50:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781898400; cv=none; b=bZ0rpXVpk0SIziukSLpV1RmTzhBQcZRwiU0ahGsfenfStleZe1Cf5HJMxRP9yVRhuvyf43A9lgjkVdBzzD23EpbfeF84w8Kva3Wx0SEKG5rnXLPUo/LmBKA+Jg0xfaUSWDVov4N0rlx/hcB3YsOfBWRGv+aEai58TyW1UKSCMRc=
+	t=1781898608; cv=none; b=Cv+44ADZzvau1Ha/0gKMyOzzBGyCSs8gRDuvEobzngiwleUjm4BNGdizwD79mjcM6xGUl/AG0wthnfKEBgdb73HO9Ht697iua83E4ywqy0YyO0bxiCZd1/INIy6CTzpatyI8Y0VuXrh7KKChJYP2TlzbAI8DtAxMErxkMJxWq7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781898400; c=relaxed/simple;
-	bh=Ak8KaVYAdNCM7uKimDwuwsEeEDofSny7sAcpzlfK4UY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pBHnb070ZrkhhmXZGfYsxPRux1ni0BoN7pz6HgMClNYloXMv2cCJ9a4Ju6H2kxBfApykR/JBcHplNANLLYEQeUu2Tn8uM5yQjimeVUkQMgJH/ZZ5TXcS7+sT7RCEBpqa6e0duoLNMMB903BmdVvqVjeEhVsW1dD9aTDPl9ZMuo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=rDZESBX0; arc=none smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1781898608; c=relaxed/simple;
+	bh=3Esf1VI+8mBSZlXZxyE8DJVNAndQ6nurenBFK82rTlA=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=EQqi8Nk3rHkps1JKON+sNg+keVMV4yf5aVsWMrAIE67gF9LUNdwNEBO7jMW4cq0hpHENcizwByjkiiSdeFR8hoPDHicy9c1KgkMEzlWEWGXSgNstMfoCzQ3RMhGyAIReldb9Gt8QRn5+QDMd89w/DPoySWFJu9NAoFRZrKJS9Jc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=nBYEWSKs; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=50/93gSQ; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="rDZESBX0"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-519eedc30a3so10054701cf.1
-        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 12:46:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1781898393; x=1782503193; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=X6gTumD1afmt47+eQHNq2xIZFcuee6vcKia2u6xIXfs=;
-        b=rDZESBX0DrLOIqna8imPexW95HanL4g9euTnNj9pPe/NsLVfMuug9tY5C31VmOqxzR
-         97nqPohGBaYm5H//KvrMzw18siSrJYv2Frhk9okhFo44YrftBYzZQM5CxZXBUAYsOoel
-         Rci9paFPHwkeZ5E/1VgvzYzntkKOieWseY77eghR0Ws6Dpz/qN6pGSYAnNLJ2JeT9qep
-         mTVcWZiddBucwYMIQ0mg6XrybXcGlTStOcq1XeGp/2NSGYya6w30FIQqxWl6udEKLJ33
-         PXcoXDxdhKCdTg6NKo5t8E1mHjzRMGmTax2791utvP+tVA/UNdDT9Vsev+OLU8FbpjAj
-         G/rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781898393; x=1782503193;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=X6gTumD1afmt47+eQHNq2xIZFcuee6vcKia2u6xIXfs=;
-        b=k16JzeXOqKrlEmn3iPzXyZk02NDj7xveFFe6f3/bhS/KkHQoABTjj/Dr8huNT0nx1+
-         gwaWduohCjMdfPrFImIyvHZ5NIRaREpy2HH6Yta4UAcVErRsP4DkwWdpKM/07NFWqYSd
-         0wAQJxcQZigAaFZ5uCZCUY2iPtGESNG+0qp+BIfFMJP9jUahtoHFwYSlFey2pSX3jMVD
-         3+nyaBLM1Y52YIn3OGPZ5xDXhSK8GrqrZa9t2C35hgnXB1YhdC2pUIgxfioc6tN8p4i/
-         3a1w6ZBzCgqqo/Ls+YwuMIEhEUk3K9Dcz/pk1hF9FEcbOKTSYWK9K/o5wdfplU3+BozF
-         t7Kg==
-X-Forwarded-Encrypted: i=1; AFNElJ+AnY+o0AJE+sozHJicWmmRttoWuM1RqnRs9s5zFDeC0L2HUREEYKqJhuSTBlMje9hk8BrlW0s=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsaxX7aQ1zg0Jrdzvy5GjG2jbGsjb0xAJF/pNTuiQZF8kv7gfQ
-	AmydU5jB0W1sl0YcuIYgr+r/zgGdsWckNX6evi3d7fb9K3NiA6NHy0Vqm8ZZnCrccA==
-X-Gm-Gg: AfdE7ckcOOj4OV0XR8ksHdtgX7G1Dwjwq1xdIYpoc2HK7bLpBFYUzCbXhfNLRQgDP8L
-	6fNaZ08vfs8JE7qJUqMp9HcYbACs0H9+qUUJ1rdSAQnaqx4hvwvY40/N76AZOEwf97dc/xhy28c
-	XVMnIy9NZHfNiHjgKDzfK7NIn2Agp8KZ0kDVrsDLlwg5opq5wz9Se8wAyj8TQ3La5N/ERkQJHj2
-	5Q+ahj9OX53E3iWXLuhzEud0Yk2LVeVgmWKqDIxYQOp1N2NFX6dO8l9rYziJnZQrzMj6p0jdBRb
-	4TVb8nGyVPJqQtrcaCqns4h6V5/O3aCH7pXGzqoeU/slmGw851lTZojxgElWPDC5GtiXQP9/4h6
-	ja2/CdqYALBdXOwviKKsw+3jT+zsKURuc+uCNOp39TQA8GqqKCqI8hr3MxRpe5RGpEsxN3MjZhb
-	+MDCw6nda3LnvMemNCKbE6ReRy9NZrkk3T
-X-Received: by 2002:a05:622a:651:b0:517:9e57:c681 with SMTP id d75a77b69052e-519e4de8800mr73003911cf.53.1781898392539;
-        Fri, 19 Jun 2026 12:46:32 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210:d62f:1911:f952:16ba])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8df81cdf302sm10419126d6.30.2026.06.19.12.46.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 12:46:31 -0700 (PDT)
-Date: Fri, 19 Jun 2026 15:46:29 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Nikhil Solanke <nikhilsolanke5@gmail.com>
-Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org, michal.pecio@gmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usbcore: Add quirk for 255-bytes initial config read
-Message-ID: <8175e40d-357a-4513-b827-752f679e9904@rowland.harvard.edu>
-References: <20260619095936.24080-1-nikhilsolanke5@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="nBYEWSKs";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="50/93gSQ"
+Date: Fri, 19 Jun 2026 19:50:03 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1781898605;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NvKfI+GpKNgzTfe3Vr/kACgxpad8Jy5xzUpUdkQ7oAw=;
+	b=nBYEWSKsu0o3EGIDZduPcYnubqlQ/QdiMTe8ji+8NeBiw+mPn9mvKn5HjJnTskU5+12phH
+	ZmfMhCbi0oqnW/+Wng+GmwMPbEv+A+uZVBTVJQc2dHvqSyukqzTVeESjJKq9YjsKsEu1Mr
+	EQB7wxUs+mJ45cDJlzxyYjryCyh0ZscERZ/KPcPtQ8du+g8F3tKrmFEvUTvKy5PmdlFFhE
+	sNzGNgFqHQHmSfjWsk24hfYvRZ1PWrFPAr898MXtiA5uHocwPccOlZMrRaLRdbEMB96+PD
+	KsW/dzmydV4nHoigtSI+zF6oC8wz1Ai4tvEWfh2Z8aqwgnHchI3yGboQVqggkQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1781898605;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NvKfI+GpKNgzTfe3Vr/kACgxpad8Jy5xzUpUdkQ7oAw=;
+	b=50/93gSQ0LnXP85bqAiYLHC877OT3ATf8QA4VRlGQR0lag8ffIlAQS6oZo630lXss1vFLr
+	9a5QgTXpg/za2bDw==
+From: "tip-bot2 for Rik van Riel" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: core/urgent] sched/mmcid: Fix OOB clear_bit when CID is
+ MM_CID_UNSET in fixup path
+Cc: Rik van Riel <riel@surriel.com>, Thomas Gleixner <tglx@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, stable@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260616203818.1516263-1-riel@surriel.com>
+References: <20260616203818.1516263-1-riel@surriel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260619095936.24080-1-nikhilsolanke5@gmail.com>
+Message-ID: <178189860337.1650852.6769464560023388491.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 19, 2026 at 03:29:36PM +0530, Nikhil Solanke wrote:
-> Certain third-party USB game controllers exposing (or spoofing) an Xbox
-> 360-compatible interface (VID:PID 045e:028e) fail to enumerate under Linux.
-> The device disconnects from the bus without responding to the initial
-> GET_DESCRIPTOR(CONFIGURATION) request, and the kernel logs 'unable to read
-> config index 0 descriptor/start: -71'.
-> 
-> The device then falls back to a secondary Android HID mode (with a
-> different VID:PID), losing XInput functionality including rumble support.
-> The failure reproduces across multiple machines, host controller types, and
-> kernel versions including current mainline and LTS. The device enumerates
-> correctly and remains in XInput mode under Windows. Notably, the device
-> enumerates correctly in Android mode when the same aklsjdasd 9-byte request
-> is issued for that mode's configuration descriptor, confirming the firmware
-> bug is specific to the XInput mode.
-> 
-> usbmon traces from Linux and Wireshark/USBPcap traces from Windows are
-> identical up to the point of failure, with no visible protocol-level
-> difference explaining the divergence. The root cause was identified when
-> Michal Pecio discovered via a QEMU bus-level capture that Windows does not
-> use wLength=9 for the initial config descriptor request; it uses
-> wLength=255. This is not visible in Windows Wireshark/USBPcap traces
-> because Windows routes enumeration-phase traffic to sniffers only after
-> initialization completes. Alan Stern subsequently confirmed this with a bus
-> analyzer on a different USB 2.0 device, and Michal verified the behavior
-> goes back to Windows 95 OSR2.1.
-> 
-> So, add a new quirk flag USB_QUIRK_CONFIG_SIZE which causes
-> usb_get_configuration() to issue a 255 byte sized configuration request
-> instead of USB_DT_CONFIG_SIZE (9) for the initial
-> GET_DESCRIPTOR(CONFIGURATION) request, mimicking long-standing Windows
-> behavior.
-> 
-> Suggested-by: Nikhil Solanke <nikhilsolanke5@gmail.com>
+The following commit has been merged into the core/urgent branch of tip:
 
-You don't need Suggested-by here.  It's redundant; we always assume that 
-people are responsible for authorship of the patches they write and 
-submit, unless they say otherwise.
+Commit-ID:     de3ab9bd3133899efb92e4cd05ba4203e58fc0a3
+Gitweb:        https://git.kernel.org/tip/de3ab9bd3133899efb92e4cd05ba4203e58=
+fc0a3
+Author:        Rik van Riel <riel@surriel.com>
+AuthorDate:    Tue, 16 Jun 2026 16:38:17 -04:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Fri, 19 Jun 2026 21:44:16 +02:00
 
-> Suggested-by: Alan Stern <stern@rowland.harvard.edu>
-> Suggested-by: Michal Pecio <michal.pecio@gmail.com>
-> Closes: https://lore.kernel.org/linux-usb/CAFgddh+JWdT4LLwMc5qjM8q_pBu-fRo2qADR5ovAKoGHWMQrRw@mail.gmail.com/
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: <stable@vger.kernel.org>
-> 
-> Signed-off-by: Nikhil Solanke <nikhilsolanke5@gmail.com>
-> ---
->  drivers/usb/core/config.c  | 56 +++++++++++++++++++++++++++-----------
->  drivers/usb/core/quirks.c  |  3 ++
->  include/linux/usb/quirks.h |  4 +++
->  3 files changed, 47 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/usb/core/config.c b/drivers/usb/core/config.c
-> index 45e20c6d76c0..623425cef085 100644
-> --- a/drivers/usb/core/config.c
-> +++ b/drivers/usb/core/config.c
-> @@ -912,6 +912,8 @@ int usb_get_configuration(struct usb_device *dev)
->  	unsigned char *bigbuffer;
->  	struct usb_config_descriptor *desc;
->  	int result;
-> +	size_t usb_dt_config_size = (dev->quirks & USB_QUIRK_CONFIG_SIZE)
-> +		? USB_DT_CONFIG_SIZE_QUIRK : USB_DT_CONFIG_SIZE;
+sched/mmcid: Fix OOB clear_bit when CID is MM_CID_UNSET in fixup path
 
-I wouldn't call the variable usb_dt_config_size.  It isn't always the 
-size of a USB configuration descriptor; it isn't even always the size 
-you expect for the response.  Rather, it is the size you intend to ask 
-for.
+In mm_cid_fixup_cpus_to_tasks(), when rq->curr has the target mm and
+mm_cid.active is set, the CID is checked with cid_in_transit() before
+setting the transition bit.  In per-CPU mode a newly forked or exec'd
+task can be running with mm_cid.cid =3D=3D MM_CID_UNSET because CIDs are
+assigned lazily on schedule-in.  With cid_in_transit() the guard passes
+for MM_CID_UNSET (no transit bit), converts it to MM_CID_UNSET |
+MM_CID_TRANSIT and stores it back; later mm_cid_schedout() feeds this
+to clear_bit() with MM_CID_UNSET as the bit number, triggering an
+out-of-bounds write.
 
->  
->  	if (ncfg > USB_MAXCONFIG) {
->  		dev_notice(ddev, "too many configurations: %d, "
-> @@ -938,7 +940,8 @@ int usb_get_configuration(struct usb_device *dev)
->  	if (!dev->rawdescriptors)
->  		return -ENOMEM;
->  
-> -	desc = kmalloc(USB_DT_CONFIG_SIZE, GFP_KERNEL);
-> +	desc = kmalloc(usb_dt_config_size, GFP_KERNEL);
-> +
->  	if (!desc)
->  		return -ENOMEM;
->  
-> @@ -946,7 +949,7 @@ int usb_get_configuration(struct usb_device *dev)
->  		/* We grab just the first descriptor so we know how long
->  		 * the whole configuration is */
+Symptoms: this is genuine memory corruption, but a bounded out-of-bounds
+write, not an arbitrary one.  MM_CID_UNSET is the fixed sentinel BIT(31),
+so once the bad value reaches mm_cid_schedout() the cid_from_transit_cid()
+strip leaves MM_CID_UNSET, which fails the "cid < max_cids" convergence
+test and falls into mm_drop_cid() -> clear_bit(MM_CID_UNSET,
+mm_cidmask(mm)).  The cid bitmap is embedded in the mm_struct slab object
+(after cpu_bitmap and mm_cpus_allowed) and is only num_possible_cpus()
+bits wide, so clearing bit 31 is a deterministic OOB bit-clear at a
+fixed offset of 2^31 / 8 =3D=3D 256 MiB past the bitmap base.  The address is
+not attacker-influenced (fixed sentinel -> fixed offset) and the op only
+clears a single bit; what sits 256 MiB further along the direct map is
+whatever kernel object happens to live there, so this corrupts one bit of
+unpredictable kernel memory -- it is not an arbitrary-address or
+arbitrary-value write.
 
-This comment is now out of date.  It should be rewritten to explain why 
-the quirk does and why.
+It triggers only in per-CPU CID mode, when a CPU is running an active
+task of the target mm whose cid is still MM_CID_UNSET -- the
+fork()/execve() window before that task's next schedule-in assigns it a
+real CID -- and a per-CPU -> per-task fixup walks over it (the mode
+fallback driven by a thread exit, sched_mm_cid_exit(), or by the deferred
+max_cids recompute in mm_cid_work_fn()).
 
->  		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
-> -		    desc, USB_DT_CONFIG_SIZE);
-> +		    desc, usb_dt_config_size);
->  		if (result < 0) {
->  			dev_err(ddev, "unable to read config index %d "
->  			    "descriptor/%s: %d\n", cfgno, "start", result);
-> @@ -957,26 +960,39 @@ int usb_get_configuration(struct usb_device *dev)
->  			break;
->  		} else if (result < 4) {
->  			dev_err(ddev, "config index %d descriptor too short "
-> -			    "(expected %i, got %i)\n", cfgno,
-> -			    USB_DT_CONFIG_SIZE, result);
-> +			    "(expected %zu, got %i)\n", cfgno,
+In practice syzkaller surfaced it as a KASAN use-after-free reported in
+__schedule -> mm_cid_switch_to, where the offending clear_bit() is inlined
+via mm_cid_schedout() -> mm_drop_cid().
 
-Likewise, "expected" here is wrong.  It should be "asked for" or 
-something like that.
+Guard the transition-bit assignment against MM_CID_UNSET, in addition to
+the existing cid_in_transit() check, so the bit is only set on a genuine
+task-owned CID.  A CPU-owned (MM_CID_ONCPU) CID of a running active task
+is handled by the cid_on_cpu(pcp->cid) branch above and never reaches
+this path, so excluding MM_CID_UNSET (and the already-transitioning case)
+is sufficient.
 
-> +			    usb_dt_config_size, result);
->  			result = -EINVAL;
->  			goto err;
->  		}
-> -		length = max_t(int, le16_to_cpu(desc->wTotalLength),
-> -		    USB_DT_CONFIG_SIZE);
-> +		/* If the device does returns the full length configuration
-> +		 * descriptor, skip the second read. Fallback to default
-> +		 * behavior otherwise.
-> +		 */
+Fixes: fbd0e71dc370 ("sched/mmcid: Provide CID ownership mode fixup functions=
+")
+Signed-off-by: Rik van Riel <riel@surriel.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Assisted-by: Claude:claude-opus-4-8 syzkaller
+Reviewed-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260616203818.1516263-1-riel@surriel.com
+---
+ kernel/sched/core.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-New multiline comments (or ones that are rewritten) should use the same 
-format as the rest of the USB stack:
-
-	/*
-	 * Blah, blah, blah
-	 * Blah, blah, blah
-	 */
-
-> +		if (dev->quirks & USB_QUIRK_CONFIG_SIZE
-> +				&& result == le16_to_cpu(desc->wTotalLength)
-> +				&& result < USB_DT_CONFIG_SIZE_QUIRK) {
-
-Whether the quirk flag is set doesn't matter.  All you care about is 
-whether the information received earlier contains the entire descriptor 
-set.  The first and third tests here should be removed.
-
-There is some question about what to do if wTotalLength < result.  My 
-advice is to use the smaller value in this case, but not smaller than 
-USB_DT_CONFIG_SIZE.
-
->  
-> -		/* Now that we know the length, get the whole thing */
-> -		bigbuffer = kmalloc(length, GFP_KERNEL);
-> -		if (!bigbuffer) {
-> -			result = -ENOMEM;
-> -			goto err;
-> -		}
-> +			bigbuffer = (unsigned char *) desc;
-> +			desc = NULL;
-> +			length = result;
-
-Don't keep the entire 255-byte buffer.  Use krealloc() to shrink the 
-buffer down to the right size.
-
-> +		} else {
-> +			length = max_t(int, le16_to_cpu(desc->wTotalLength),
-> +			    usb_dt_config_size);
-> +
-> +			/* Now that we know the length, get the whole thing */
-> +			bigbuffer = kmalloc(length, GFP_KERNEL);
-> +			if (!bigbuffer) {
-> +				result = -ENOMEM;
-> +				goto err;
-> +			}
->  
-> -		if (dev->quirks & USB_QUIRK_DELAY_INIT)
-> -			msleep(200);
-> +			if (dev->quirks & USB_QUIRK_DELAY_INIT)
-> +				msleep(200);
->  
-> -		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
-> -		    bigbuffer, length);
-> +			result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
-> +			    bigbuffer, length);
-> +		}
->  		if (result < 0) {
->  			dev_err(ddev, "unable to read config index %d "
->  			    "descriptor/%s\n", cfgno, "all");
-> @@ -1000,6 +1016,14 @@ int usb_get_configuration(struct usb_device *dev)
->  	}
->  
->  err:
-> +	/* Log failed device's VID:PID pair to make it easy to debug and fix
-> +	 * enumeration and initialization issues
-> +	 */
-> +	if (result < 0) {
-> +		dev_err(ddev, "Failed to initialize device %04x:%04x due to above errors.",
-
-The "due to above errors" part isn't needed, since the errors will be 
-obvious in the kernel log.  In fact, it probably would be better not to 
-put this information here at all but instead modify the error message in 
-usb_enumerate_device() (the caller).
-
-> +		    le16_to_cpu(dev->descriptor.idVendor), le16_to_cpu(dev->descriptor.idProduct));
-> +	}
-> +
->  	kfree(desc);
->  	dev->descriptor.bNumConfigurations = cfgno;
->  
-> diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
-> index 87810eff974e..92219684a604 100644
-> --- a/drivers/usb/core/quirks.c
-> +++ b/drivers/usb/core/quirks.c
-> @@ -142,6 +142,9 @@ static int quirks_param_set(const char *value, const struct kernel_param *kp)
->  				break;
->  			case 'q':
->  				flags |= USB_QUIRK_FORCE_ONE_CONFIG;
-> +				break;
-> +			case 'r':
-> +				flags |= USB_QUIRK_CONFIG_SIZE;
-
-For good style, there should be a "break" statement here.
-
-Also, you need to document the new flag under the usbcore.quirks entry 
-in Documentation/admin-guide/kernel-parameters.txt.
-
->  			/* Ignore unrecognized flag characters */
->  			}
->  		}
-> diff --git a/include/linux/usb/quirks.h b/include/linux/usb/quirks.h
-> index b3cc7beab4a3..f864571da870 100644
-> --- a/include/linux/usb/quirks.h
-> +++ b/include/linux/usb/quirks.h
-> @@ -81,4 +81,8 @@
->  /* Device claims zero configurations, forcing to 1 */
->  #define USB_QUIRK_FORCE_ONE_CONFIG		BIT(18)
->  
-> +/* Use a 255 byte sized config descriptor request */
-> +#define USB_QUIRK_CONFIG_SIZE			BIT(19)
-> +#define USB_DT_CONFIG_SIZE_QUIRK		255
-
-Again, I don't like this name.  It's not a quirk in the size of the 
-configuration descriptor type, which is what "USB_DT_CONFIG_SIZE" stands 
-for; it's a quirk in the way the kernel asks for config descriptors.  
-(Or in what size request the device will accept, if you prefer.)
-
-And the 255 value doesn't belong in this header file anyway.  It should 
-be defined in config.c since that's the only place it gets used.
-
-Alan Stern
-
-> +
->  #endif /* __LINUX_USB_QUIRKS_H */
-> -- 
-> 2.54.0
-> 
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 8b791e9..3cc6fb1 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -10909,8 +10909,19 @@ static void mm_cid_fixup_cpus_to_tasks(struct mm_str=
+uct *mm)
+ 		} else if (rq->curr->mm =3D=3D mm && rq->curr->mm_cid.active) {
+ 			unsigned int cid =3D rq->curr->mm_cid.cid;
+=20
+-			/* Ensure it has the transition bit set */
+-			if (!cid_in_transit(cid)) {
++			/*
++			 * Set the transition bit only on a genuine task-owned
++			 * CID. A running active task can legitimately have
++			 * MM_CID_UNSET here: in per-CPU mode CIDs are assigned
++			 * lazily on schedule-in, so the fork()/execve() window
++			 * leaves the task active with no owned CID. Setting the
++			 * transition bit on MM_CID_UNSET would later feed
++			 * clear_bit() an out-of-bounds bit number via
++			 * mm_cid_schedout(), so exclude it. A CPU-owned
++			 * (MM_CID_ONCPU) CID is handled by the cid_on_cpu()
++			 * branch above and never reaches here.
++			 */
++			if (cid !=3D MM_CID_UNSET && !cid_in_transit(cid)) {
+ 				cid =3D cid_to_transit_cid(cid);
+ 				rq->curr->mm_cid.cid =3D cid;
+ 				pcp->cid =3D cid;
