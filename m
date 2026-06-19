@@ -1,81 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAC433D4E4;
-	Fri, 19 Jun 2026 20:51:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781902312; cv=none; b=ZHgBtc4wqKKVU/KkQAuWDIoRRYHYUeoao3s8m9UtT/PWhGzNb1enV5NC7EQwPZJInaTzUz63aizNInSpuW9wGfPRCTMYJZmmcgg+u4caAXVGxlYqSXlnUr/yvvSDBo6BKvBtnfkywHfHVUqXCyFu8BHbrhV8+Iqs6WDHZ69EwU0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781902312; c=relaxed/simple;
-	bh=Gyz/K4csJI0UfKAbXzLIi3BIMnhcQOycKEtnC+z4rFY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iXYakCG7tzGIfVSbAWCM9b+TWA6RMm5Jqt2XLxOvu55ZjisnNTI8rvx5uFVDMFCh4JBgZukHrKvBwwdAhPvq6DrDQi2xrVZoM4weyNXDVfaIJxQSPutFfVwnIdR4BHgL2IGFAKs5+Y7/aO3wIHFeAjSYSGmao21zWBs7O4XRR2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h1OovN4s; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB343DEAC9
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 21:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781904580; cv=pass; b=h0T9PVDKFMI2BapOQ7VWQkk0tG1LYOwTDSGfb4hu/7sxZZCezxc+MvmX04vEUpJdhJzLXq1xwizd+wDUEgij8fvpYg+IHSwZqHRGUa1ISgjEy/3jB1SeobYAjHGk4zSoSFqLcZuF8KfuN/umbzrSEzUVk80XxrkbyKjM1e9WtBE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781904580; c=relaxed/simple;
+	bh=T4Vl7ScyqX/6yG4uTdcNG9eMwrrnNQihDYIZQ1xVyGY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CRpMSyUW6lOM8wveo4xFUijftz6sBh5yAiAEPfQkpmkaY20JS3l9IXPcSRfDdDm6oxsSBiT8TzGKS1WAix1Xp5HsFT3bDVkvIycoLfLEbMc9v/LITc48E9eFP8lfI+tul7nyM40qwmQEsW4pkxkcIIx41aozxghWqJ9lyW7Dyi8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EVZk7bPp; arc=pass smtp.client-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h1OovN4s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB5F21F000E9;
-	Fri, 19 Jun 2026 20:51:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781902311;
-	bh=4iq0ijo90COF3Rq3DtHD6rw3T7Yg//ZMNQpyM055t7Q=;
-	h=From:To:Cc:Subject:Date;
-	b=h1OovN4sxY+yovVJ4XlVy27s5+y10ZuVfIBbIbydeh9OnbDkr+eYx8cPyiR3q5j+C
-	 GVikjWO2PHiS906CfWT4guAhMyn/S4moYzQKGLfmTi6xVj1/A7GbnYzzbg+3mLhdb7
-	 R5Mp19yxBUCqaVpJPHTSBu+NO5PAJL2rrnib2acSYL7hO/NAvOOCToKF0lpH9LHf7W
-	 dVz9nlgef0HbkOQ8I1Y+oFjCMkMX+XRUwOqi5tzPYnEZymQ0hHWxQn3ZbEnK3ii3qe
-	 WqBbKxqdMrTHl8ChLcJ3yNEwNgrU6YxNdB275kEGLFGBJ6pZUbno+1gHg837V3574V
-	 OzZUHgQM0SYsQ==
-From: SeongJae Park <sj@kernel.org>
-To: 
-Cc: SeongJae Park <sj@kernel.org>,
-	"# 5 . 16 . x" <stable@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH] mm/damon: handle zero sampling interval in damon_max_nr_accesses()
-Date: Fri, 19 Jun 2026 13:51:43 -0700
-Message-ID: <20260619205144.150664-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EVZk7bPp"
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-13986d61b4fso2955279c88.0
+        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 14:29:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781904579; cv=none;
+        d=google.com; s=arc-20240605;
+        b=kSrhMb4JSmwTFAjWbQFxU5O4y5Nn8DuEzuMhK/vK/FGsPF1HF8S4CKx/mYWIQPNc91
+         MSmZZony104tyjQq5CpXTL1VgEWQbUBGgWR33OBBHiCNdJuxL62uPoZtwiPuYKfdeLa+
+         DgEAAxGUeP78lFc1ieY1uIIchHCNeTvV0jAsuLxrxKtwc46EJMDbWq+IdWOVDWi2EK2r
+         ZXFWnY62DJfKak8Rb2o5RVTs2ANVAU5iWAamniulYwF7T2/URYkHsydB4GL3fe6FANzA
+         pdruWfwX5nCP8nAn8cxjgVD/HVCX9wxHRHwR7KhLGf/rdQPYxi5hEhfeErnUExwxL1On
+         udkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=T4Vl7ScyqX/6yG4uTdcNG9eMwrrnNQihDYIZQ1xVyGY=;
+        fh=laWdsZOI4FB0oqBb80hVnqh+qnx2f7Gk3HxGNKaUgCI=;
+        b=VirECMVGEr85L6OBiHOA8JeQfN13tmZXo+w09uxvWPFnoMSPPNueHpmWCypTdLjlwP
+         f3jhA+raZDlVJGm5kVIhwqV6E2kw3KGK1D+TuASvMYfuY5R/oHE/BZV4Qvt/zXF9TZYS
+         AV+ATbGCQ1dpl9FQfLbkVAxCCiyPYufG0fv/4T78UVPWwbCOD5xa0Essft5X/n3zGhCd
+         VXbcA+xlNAudBcugOxwCXsOpSso5hb0JvwMhEt39uZ9oRDSsNfxHWI35RZYL8awD/ymU
+         sOnp1tsAQ/cADE/KpefWXCdWLiQYFZk2R2lEcfU0zCvWQvI2PM1ypV8SakKqg0Os99mm
+         X1tg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1781904579; x=1782509379; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=T4Vl7ScyqX/6yG4uTdcNG9eMwrrnNQihDYIZQ1xVyGY=;
+        b=EVZk7bPpHUzFpGM03AP8VJ7Kio71aQWZ6+AwYimnCvy5qR/YG8dPiK20DiE/4szqtz
+         qK2ecJH2SBaSf/tbWu42VXiY9n2CsH98ZzaSJ10TZgsxksamp0RE57DI+7+KqCy5I1G9
+         SBixvf/XuDdrjPPSO4r0eVxr3aHbEiGISzyu5FDMyrTi+Trt7nKsnizAOk7XoOGqrRZq
+         jq78k9Ahs2ZoBt2EsZ6zO1IF+TAXBYx9XsN437+BOAvonm+J46vrCCAjWrdeAYAukn+w
+         56vtisdwdxSfemo5C49YAfq8rNFxUVi/AzLFrYeGvV36zrP05pMKKMKSFPKylO9+HlBq
+         jfCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781904579; x=1782509379;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=T4Vl7ScyqX/6yG4uTdcNG9eMwrrnNQihDYIZQ1xVyGY=;
+        b=SOL0IWvkyc3+sGWzlfNXJ+gXjx3hflgl55na8DkniOEGzeAkbG6VoVx28vsYMbJ6G3
+         OZwU87dzgrkOGFkqnzMKSCemCuYm4gJ1RmTlQHL5D7QpOeDpBnNCDf4Q6BZGb3pzpFYx
+         cowc0IT4DtBR68ZphkdG2hH9oEaXPPk4954SO9+hrfDvsAskwEQPtPWkUeC17fV6aJTI
+         IkpswLEhc72GQf9mPEjT574ViDmiebDiUDPXdobI10inL+MuaxwqA+gtecgpKofZZXj2
+         11ubUbNboRm1w3cr9MDkcySy2wt90THIEqFfN1jdIwr1ad0l3QWLoapdnAYLMaHph2Yd
+         78hA==
+X-Forwarded-Encrypted: i=1; AFNElJ+k+0nLEEMxIM2IPtCivetyTRbjiwdlno1+bfEbTBY8vE1udCvIBGZy1SqET3cZpAHPZX6fR/E=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxCkXrdV2YO1+Iqf/0I45DstWiX+kJnCtRcZO5fkSi2h1tuvHn
+	fmzv2AJ9dSCleH2/RUW8IJZu3FX5hVrnqqT0f1MkvIjuSn2lJxlS9UohDksPWm8Bh1a1Qe7nVCe
+	5iTXl14eqZ6qSHAfzsWIZRZb0SBs8mhAotkHT0J/L
+X-Gm-Gg: AfdE7cnh6tJjpGH2NJchz2nM5lc7p2S4FMpXbuO7+npkhh1Tsdp7Z7bcsUUUHzK3xpK
+	lTFd8v2YHs/MPkSI+ehdv1YhCq1OPIkucXLkEZxhXGNoFeljAUiF7d1aV74bNnJ4IWLMP5qrMyH
+	ss7Sh0FoyelSafXrOm1eMPysazkWajavECfGL9xO7x0rWClRVqzaXIEMMOc9btJNgvCidWR1ipY
+	tw5KVhSRQ38vi83IY9Q3bhsNaMIvcW2815turWbDjUzEDKYkhfcPXcYltlcyGHY++zxBNQN11TO
+	CuEOrON6kyg11v9kwcNYp6ahMVQoVgeWO/R0Olx1OleTMO1bNl+kQSU2e4YX5QRUxsQ+cWfeozd
+	JxzvBQ8RVxU0Y/hIdh+/N6YoKhKzDRTOVMaeH/jVvXRCd1LnLtoY=
+X-Received: by 2002:a05:7022:43a1:b0:139:817a:f00a with SMTP id
+ a92af1059eb24-139a210c4famr3381380c88.17.1781904574988; Fri, 19 Jun 2026
+ 14:29:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260618070817.3378283-1-maoyixie.tju@gmail.com>
+In-Reply-To: <20260618070817.3378283-1-maoyixie.tju@gmail.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Fri, 19 Jun 2026 14:29:23 -0700
+X-Gm-Features: AVVi8CeTbFth22JNyN4ZbCRv9iOwGjjOFHXaiWJLYUYc1xJtx2RZrKLN8qTMr8M
+Message-ID: <CAAVpQUAdmJUihGxFp7QS6tP5htsKmP2Gt2Dgpzp_KTwkNb+fTg@mail.gmail.com>
+Subject: Re: [PATCH net] net: sit: require CAP_NET_ADMIN in the device netns
+ for changelink
+To: Maoyi Xie <maoyixie.tju@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Xiao Liang <shaw.leon@gmail.com>, Nicolas Dichtel <nicolas.dichtel@6wind.com>, 
+	Kees Cook <kees@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-damon_max_nr_accesses() causes divide-by-zero if sampling interval is
-zero.  Fix it by handling the case.
+On Thu, Jun 18, 2026 at 12:08=E2=80=AFAM Maoyi Xie <maoyixie.tju@gmail.com>=
+ wrote:
+>
+> ipip6_changelink() operates on at most two netns, dev_net(dev) and the
+> tunnel link netns t->net. They differ once the device is created in or
+> moved to a netns other than the one the request runs in. The rtnl
+> changelink path checks CAP_NET_ADMIN only against dev_net(dev), so a
+> caller privileged there but not in t->net can rewrite a tunnel that
+> lives in t->net.
+>
+> Gate ipip6_changelink() on rtnl_dev_link_net_capable() at its top,
+> before any attribute is parsed. sit was the one tunnel type not covered
+> by the recent series that added this check to the other changelink()
+> handlers.
+>
+> Fixes: 5e6700b3bf98 ("sit: add support of x-netns")
+> Link: https://lore.kernel.org/netdev/20260612085941.3158249-1-maoyixie.tj=
+u@gmail.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 
-The issue was dicovered [1] by Sashiko.
-
-[1] https://lore.kernel.org/20260619202459.145010-1-sj@kernel.org
-
-Fixes: 198f0f4c58b9 ("mm/damon/vaddr,paddr: support pageout prioritization")
-Cc: <stable@vger.kernel.org> # 5.16.x
-Signed-off-by: SeongJae Park <sj@kernel.org>
----
- include/linux/damon.h | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 64d75c78f4df4..b6fbe6089abc6 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -1066,8 +1066,10 @@ static inline bool damon_target_has_pid(const struct damon_ctx *ctx)
- 
- static inline unsigned int damon_max_nr_accesses(const struct damon_attrs *attrs)
- {
-+	unsigned long sample_interval = attrs->sample_interval ? : 1;
-+
- 	/* {aggr,sample}_interval are unsigned long, hence could overflow */
--	return min(attrs->aggr_interval / attrs->sample_interval,
-+	return min(attrs->aggr_interval / sample_interval,
- 			(unsigned long)UINT_MAX);
- }
- 
-
-base-commit: 7a58ae62cdf3c006a53b805bbb12079ab2621a07
--- 
-2.47.3
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
