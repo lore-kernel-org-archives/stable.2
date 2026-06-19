@@ -1,149 +1,141 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6E33ABD9D
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 15:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781882969; cv=pass; b=KEcRd4g2coaj5RNiG+Y6rYhhghXxI0ZnlUM4+LaM/ZjvxYVOjtvjPtLHR1Kgsu3fxI2IhEzKVu8jCDP34kz5seuDY+9oid5krEQmldQw17lt18ls/2Di4R7ozKtI83h4WG0u7Bdp/2vGl2/aHt7ubyUu5dv+pc/FLIuLVyCRzLY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781882969; c=relaxed/simple;
-	bh=TbLxyaDOtwX8lHN9/56pnNOqdgfU2UehfvSBMDPX2PE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WtT2utagXSVFb8eoACEIGrfxQNiphMPVrsK7IpiWZSIlOERYd3U0gDAy4FDRf9Ff1NBy7hfwsHK0rv40gc6fZMuS9Rl7E2DAkbp8xapFHKso8LUlUyanv4a9WIldHKrI6qrtvwkye+5UIFGYbQSL3Iw9v/ilpckrEnGGawQiz34=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pPynJzpX; arc=pass smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D9C396579;
+	Fri, 19 Jun 2026 15:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781883002; cv=none; b=a5Zvo5gmbRXVwZ9mc5i5oAeaDd5LZ9CHvCCCYayKs3RITnmyzwoIgQ1Srj7QP3ktNB8JrTFyBSg+4DXNbIHjrSg75u4EDQUDsNSwEM2JHqPOZ1CPVcMpV+gBSU7UETWn8k0jWGU3o0iFYxI/ZAvZQtL5164sfv+SDmq/vC0NMa8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781883002; c=relaxed/simple;
+	bh=VsKpYWkrPrAShCSa+mRwramheD17KC+6QII5dFUPgtQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZrGHm2o6PTb2AJP6IfpbA+HZgM8RBjfEf76NgFcoiVkkdlp4lcsEXDQMY0b/HpTvroMWxMPCstvzGjMnw5CwKzVNqzxcI7BbFIUvXk3XbjCxavzUX1bHuMMztvyJFAP6AWB3K51yZV1zVsJXhrWZcue2W8lsdt2B/HlobRdbuQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=MtPrZGsc; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pPynJzpX"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c07ea058c0cso337403266b.2
-        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 08:29:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781882966; cv=none;
-        d=google.com; s=arc-20240605;
-        b=M1BJDc2mymHVVb/nIWptiTJnBQg8YJoXXcKjNw20yLorQG1qtgqKm/X8nR2raJcFU8
-         iawNgtqxZxadYfxoHTkmnYncJC+d6Tvht2yg0NAYSFA3TCKFKPKZRQmMERTynIBbHwz+
-         Y7DiZkbz6zHwP9DRNRbO22Ju1TZSWMDLQAqYHtbQKXzMDtgSnSClXaqJ1FaqMAMy0Xk9
-         sJqpQ5ofKeqVLIyHHlOmHG2go+2VbvMZi/41zUsDBXA0mKXXfKRLssdGyj1QERCbiiPr
-         R9/WDs5rFoOI++7PqVv0D2kWaLUDzqJq9YvCVaKQWff91yoH5MqzYT3c/V/2GvXKb54y
-         mSIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dULTLRE6f8vtBip1INjm35ttJ1pitKtvcCZ3p4j8QbM=;
-        fh=d4LiDOcwqCVXOs198vNcn9GaPQ7eYsHBIcjVDNxLLcE=;
-        b=gY+yyJMhzgKEMWXl0vtSn8YhSW3X+ax+5OZPM5ANs+DnaOIeBTmzaGywGQFkjw3Hj9
-         pHHpUafWlxoT6FhoZXBbZMbYFyI/ltDFPwJqhLIJMtNSDRxtbhSqeqt9X8SAqgAxVIlQ
-         /N/hVPpozeNB61iE8UIpEURorAoYJ7HedCHFxf0z+b4NGJBuVG4wMQkpuGFPeHxsJn0k
-         itxnm4L0R622rL8d/tqrYOI2KK7pO6tqy45E3g0wuJcYdJFk+DhJ8vq8Oi61K3wc3HA2
-         Y6QkwDBmGPXKy+omxQEjIBigalfpLrmM4KGnrzU5Z7CmlDy55dPGoeWEc1xODdH29V+S
-         t5Kg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781882966; x=1782487766; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dULTLRE6f8vtBip1INjm35ttJ1pitKtvcCZ3p4j8QbM=;
-        b=pPynJzpXianUUqVKrr/uMSJ/MgAzzQ4Ud4lTVVeQJZ2ESuT9N/h2sG/mnUKKP3Vf+Q
-         M+41AFKtr4621MOrforToeKi+VUajlpe5yfF4BzUFwvcA+93PPmwDen6PIkxiUwLxahQ
-         031SKoNre2q65ubOVK4P90gQrnFgGbAsLk95FpsqmVqRzWFRZHxYZYa5TuPsM6uO9StI
-         MIrzpLbrEsbDPkG1TvNUKrwehxTdhXR9oqGl+m4w5hy0vuX66h7l1Udl26PQO9B8m8s2
-         zGb89JuT8s+jO4X5NWoGX8EnCxc8WnoTNsm0/IxO6NeEmg7KTcKVts8vk5XcBajd5HIF
-         IhRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781882966; x=1782487766;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=dULTLRE6f8vtBip1INjm35ttJ1pitKtvcCZ3p4j8QbM=;
-        b=VgbS2IRILxUDtRPN52yjVzsoH2GOOyevzPzR8YjyUztYGQjk+OznUdYcuc5lLmsJfz
-         jaR5lwLt/nNsakFPPjdThNy0Yj6SYR2p9BO5ojF+qTGYJ3lQ+4C7xveGVfH/IbtVOA7k
-         hCiM5eb8OZ7LIcaL113cLrHjhrbSQpHWOaEz05mKmVNbyY1j5WCSXeLzpa5togx7/YsD
-         lu6xGB1IDtp78tTE5JPbFLhkS2ZDyNNmG0tc9Sn2pQr4a6X2i43Y8Q2u84prudVnHhKz
-         My9KVRY4HcCSURHEAE0CHKYbM0Gj4Mhs9gyqsg5hAG7CLzHjyz+gQTM7b95TDTP/ovoQ
-         OHzA==
-X-Gm-Message-State: AOJu0YzlWEpqiR1gJ44sXkXAyZFKCOxx5JHKI0z73zUh3EydWpSJ5Iae
-	RYetR4Mey17R6B0JK1eWJ3GBp6rjWdv16uapHRHpUk6+a70j16zTir4fuxdUiTxcvzAlGe+OtV3
-	7ZljXSYSgWiP5m5KMa1iYIF+YDezK/NlApPpn
-X-Gm-Gg: AfdE7cnp7jaSfUYddV2O0cJU7dnp3R8bshhzEnnru+mXH2r51cX2aMKsLycg5kiCLyT
-	vqAMZkjWJm9/TWfqwez9dIGvbwTVZBSxwdnCKZN7km0fDrJkU3hVykJ/MWUVx6WfdZffe9Y4Pbd
-	HHfQY5ZMJPIRBr2DQccBVf9oCrJwIw9gmdSCwu5JOjnS0hqWFxTs22uaR6o7aL3okCST7oPKxTZ
-	X19zD48Guiq8ysuBei7SNLv2JRqG/usxeZYpdQsMBkMLr1CYFne2JZjQbIKGlv6xXNUNiYLC7Cn
-	1dibmNKSeQ==
-X-Received: by 2002:a17:907:3f08:b0:c05:a987:6818 with SMTP id
- a640c23a62f3a-c0b74791ec7mr160512166b.45.1781882965830; Fri, 19 Jun 2026
- 08:29:25 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="MtPrZGsc"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 430a44df4;
+	Fri, 19 Jun 2026 23:24:46 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Linus Walleij <linus.walleij@linaro.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	linux-gpio@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] gpio: tegra: do not call pinctrl for GPIO direction
+Date: Fri, 19 Jun 2026 23:24:39 +0800
+Message-Id: <20260619152439.1239561-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260515124218.151966-2-elaidya225@gmail.com> <2026061632-papaya-handwoven-d010@gregkh>
-In-Reply-To: <2026061632-papaya-handwoven-d010@gregkh>
-From: Ahmed Elaidy <elaidya225@gmail.com>
-Date: Fri, 19 Jun 2026 18:29:14 +0300
-X-Gm-Features: AVVi8CclmblgOHLTebR1IvQr0GdtabbyWwRGzxpmUmyAO7FztZWfvJDgibSTRt4
-Message-ID: <CAP48DwbYt3-3c+awg_s-=uHjKq3aE1J0Yx_XvR+v=hhsVMOSqA@mail.gmail.com>
-Subject: Re: [PATCH 6.18.y v4 0/9] mm: backport sticky VMA flags and
- soft-dirty fix
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, linux-mm@kvack.org, akpm@linux-foundation.org, 
-	ljs@kernel.org, avagin@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9ee07c0a8503a1kunm1ff7fdfad2af6
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSx4eVkweGB4dSB4ZSkpOH1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pOTE5VSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=MtPrZGscOiib643Wr3JQC5FZp1KPCD/FhaAj3xRQIe8Cdw8BmNcI05z3Sm4tdB5Q7C9kVuCkLrr9n1QXZEbF4l7teLPlMeTUrtWkeqFTf2gshywzIFDoJfne69g9oINpQPot+fCEGGI/xrlH1lcZNxclWS8sv5roVMJW4wpOF4k=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=BIgECSojf9+nQYsdS2ayF9Cu03BcvfJ+idAbu5gQmoQ=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Greg,
+tegra_gpio_direction_input() and tegra_gpio_direction_output() already
+program the GPIO controller direction registers directly. The additional
+pinctrl_gpio_direction_input/output() calls do not add a Tegra pinctrl
+operation, because the Tegra pinmux ops provide GPIO request/free
+handling but no gpio_set_direction hook.
 
-> Ok, but what does that actually mean?  A crash?  Normal user
-> triggerable or something else?
+The extra call still enters the pinctrl core and takes pctldev->mutex.
+Shared GPIO users can call the direction path while holding their
+per-line spinlock, so this otherwise redundant pinctrl direction call can
+sleep in an atomic context.
 
-The issue causes CRIU incremental dump/restore to fail when
-VM_SOFTDIRTY is lost during VMA merge,
-CRIU incorrectly treats pages as unmodified, leading to data loss in
-incremental checkpoints.
+This was found by our static analysis tool and then confirmed by manual
+review of tegra_gpio_probe(), the Tegra GPIO direction callbacks and the
+Tegra pinctrl ops. The reviewed path has a default non-sleeping
+struct gpio_chip while the direction callback still enters the pinctrl
+mutex path.
 
-> We need acks from the maintainers here before we can take these...
+A directed runtime validation kept the same non-sleeping chip registration
+and drove:
 
-Lorenzo has reviewed the series and given his ack:
-https://lore.kernel.org/stable/agcK1mzmGbB5KSpP@lucifer/
+  gpio_shared_proxy_direction_output()
+  gpiod_direction_output_raw_commit()
+  tegra_gpio_direction_output()
+  pinctrl_gpio_direction_output()
 
-Thanks,
-Ahmed
+Lockdep reported a sleep-in-atomic warning with the shared GPIO spinlock
+held and pinctrl_get_device_gpio_range() plus tegra_gpio_direction_output()
+on the stack.
 
+Do not mark the whole chip as can_sleep to paper over this: can_sleep
+describes whether get()/set() may sleep, and Tegra value access is MMIO.
+Remove the redundant pinctrl direction calls and keep pinctrl involvement
+in the existing request/free path.
 
-On Tue, Jun 16, 2026 at 6:39=E2=80=AFAM Greg KH <gregkh@linuxfoundation.org=
-> wrote:
->
-> On Fri, May 15, 2026 at 03:42:10PM +0300, Ahmed Elaidy wrote:
-> > This series backports the sticky VMA flags infrastructure and the
-> > VM_SOFTDIRTY-on-merge fix to linux-6.18.y.
-> >
-> > Motivation: CRIU incremental dump/restore can hit a missing-parent-page=
-map
-> > failure when VM_SOFTDIRTY is lost during VMA merge operations.
->
-> Ok, but what does that actually mean?  A crash?  Normal user
-> triggerable or something else?
->
-> > Patch 8 is the target fix:
-> >   mm: propagate VM_SOFTDIRTY on merge
-> >
-> > The preceding patches provide required dependencies on 6.18.y and are i=
-ncluded
-> > to preserve upstream behavior, as requested by maintainers for stable b=
-ackports.
-> >
-> > Changes since v3:
-> >   - Reverted to sending the full 9-patch series as requested by Greg KH=
- and Lorenzo.
-> >   - Updated Lorenzo's email to ljs@kernel.org across all patches.
-> >   - Added Cc: stable@vger.kernel.org # 6.18.x to all patches.
-> >   - Added Fixes tag for soft-dirty merging in Patch 8.
->
-> We need acks from the maintainers here before we can take these...
->
-> thanks,
->
-> greg k-h
+Fixes: 11da90541283 ("gpio: tegra: Fix offset of pinctrl calls")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/gpio/gpio-tegra.c | 18 ++----------------
+ 1 file changed, 2 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpio/gpio-tegra.c b/drivers/gpio/gpio-tegra.c
+index 15a5762a82c2..590e81c1e4d1 100644
+--- a/drivers/gpio/gpio-tegra.c
++++ b/drivers/gpio/gpio-tegra.c
+@@ -172,18 +172,11 @@ static int tegra_gpio_direction_input(struct gpio_chip *chip,
+ 				      unsigned int offset)
+ {
+ 	struct tegra_gpio_info *tgi = gpiochip_get_data(chip);
+-	int ret;
+ 
+ 	tegra_gpio_mask_write(tgi, GPIO_MSK_OE(tgi, offset), offset, 0);
+ 	tegra_gpio_enable(tgi, offset);
+ 
+-	ret = pinctrl_gpio_direction_input(chip, offset);
+-	if (ret < 0)
+-		dev_err(tgi->dev,
+-			"Failed to set pinctrl input direction of GPIO %d: %d",
+-			 chip->base + offset, ret);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int tegra_gpio_direction_output(struct gpio_chip *chip,
+@@ -191,19 +184,12 @@ static int tegra_gpio_direction_output(struct gpio_chip *chip,
+ 				       int value)
+ {
+ 	struct tegra_gpio_info *tgi = gpiochip_get_data(chip);
+-	int ret;
+ 
+ 	tegra_gpio_set(chip, offset, value);
+ 	tegra_gpio_mask_write(tgi, GPIO_MSK_OE(tgi, offset), offset, 1);
+ 	tegra_gpio_enable(tgi, offset);
+ 
+-	ret = pinctrl_gpio_direction_output(chip, offset);
+-	if (ret < 0)
+-		dev_err(tgi->dev,
+-			"Failed to set pinctrl output direction of GPIO %d: %d",
+-			 chip->base + offset, ret);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int tegra_gpio_get_direction(struct gpio_chip *chip,
+-- 
+2.34.1
+
