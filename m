@@ -1,158 +1,320 @@
-Received: from mail-dl1-f73.google.com (mail-dl1-f73.google.com [74.125.82.73])
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52BB12DC32C
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 18:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C61EADC
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 19:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781895171; cv=none; b=AayUxYdNyxs5e2IeQx5QiGFxSdBeib0vmMTdbkGmCalHTQRYmXoWaTxFAFugbjvP6TjPgLMDKPuW4wfZLDN6tIZPcPvyT2un9jJegtkzPHvxg0U6h69ZOISLSo3BAWwuEpcGxXW5FESd4x1P87LbqaxB0hT4bBOP4xLt6DGktFY=
+	t=1781898400; cv=none; b=bZ0rpXVpk0SIziukSLpV1RmTzhBQcZRwiU0ahGsfenfStleZe1Cf5HJMxRP9yVRhuvyf43A9lgjkVdBzzD23EpbfeF84w8Kva3Wx0SEKG5rnXLPUo/LmBKA+Jg0xfaUSWDVov4N0rlx/hcB3YsOfBWRGv+aEai58TyW1UKSCMRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781895171; c=relaxed/simple;
-	bh=KmPYFDA00ywcpcV04V/qvoVq6coYe693gi2Digv6cYo=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=mZ9SxfVd4pLZVH3jBIsaqlPWFRC1CVeDrNtf1FFLNljq750tlAWe76+tKxSWgXLzqLDLFH5Jg5zT8D8KWAHMnOZWFdP8eDbTSyuhP6+IEEBb8J5eejUjmayg+yUFX2ngBNO/zlJG3ArcP8cC00oY1sMOymDbv0+Yl2Gv500GnFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JykFicz4; arc=none smtp.client-ip=74.125.82.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
+	s=arc-20240116; t=1781898400; c=relaxed/simple;
+	bh=Ak8KaVYAdNCM7uKimDwuwsEeEDofSny7sAcpzlfK4UY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pBHnb070ZrkhhmXZGfYsxPRux1ni0BoN7pz6HgMClNYloXMv2cCJ9a4Ju6H2kxBfApykR/JBcHplNANLLYEQeUu2Tn8uM5yQjimeVUkQMgJH/ZZ5TXcS7+sT7RCEBpqa6e0duoLNMMB903BmdVvqVjeEhVsW1dD9aTDPl9ZMuo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=rDZESBX0; arc=none smtp.client-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JykFicz4"
-Received: by mail-dl1-f73.google.com with SMTP id a92af1059eb24-1383723dfddso3954383c88.0
-        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 11:52:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="rDZESBX0"
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-519eedc30a3so10054701cf.1
+        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 12:46:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1781895170; x=1782499970; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=3t8E6qPCGzKBRUKhCyGND86O0xwSlmxNUAVjxI941B0=;
-        b=JykFicz4L2ywnSnkGpXG9T6JGBIYJF7NnxEO9DMAwiVkQ+c1AtK6m2O4ebeF2Hb8CG
-         3SqnuhLWBA6Ki7tnyjoitfBCanYCRm/1u6JS5DVaw6yNvoZocsBKHhQfi/SruvUVLaU8
-         o1Tmdz/93Kxs7dRQ0sVixHeO6yUcXbJ6FvadNRLE2Zq/fxPcfcnDqLc0TEStp5NIXRSC
-         xK5wgi2nttmFXRv8KOIYqmr41V7OEoKauyuMFooVQz5O9YUsUu6kLB24LI8t7z5y07Eg
-         zXHayQa4/fYlkb5+mJJP0OWUSi5ubuNOFBfKmpmoZzlgcdnUW+65Ca3U2LWiNf/Qxfs9
-         DOvg==
+        d=rowland.harvard.edu; s=google; t=1781898393; x=1782503193; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=X6gTumD1afmt47+eQHNq2xIZFcuee6vcKia2u6xIXfs=;
+        b=rDZESBX0DrLOIqna8imPexW95HanL4g9euTnNj9pPe/NsLVfMuug9tY5C31VmOqxzR
+         97nqPohGBaYm5H//KvrMzw18siSrJYv2Frhk9okhFo44YrftBYzZQM5CxZXBUAYsOoel
+         Rci9paFPHwkeZ5E/1VgvzYzntkKOieWseY77eghR0Ws6Dpz/qN6pGSYAnNLJ2JeT9qep
+         mTVcWZiddBucwYMIQ0mg6XrybXcGlTStOcq1XeGp/2NSGYya6w30FIQqxWl6udEKLJ33
+         PXcoXDxdhKCdTg6NKo5t8E1mHjzRMGmTax2791utvP+tVA/UNdDT9Vsev+OLU8FbpjAj
+         G/rQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781895170; x=1782499970;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3t8E6qPCGzKBRUKhCyGND86O0xwSlmxNUAVjxI941B0=;
-        b=jdmB79W8pOUEyfrtTFT5NNetjV7NCnd627zjzn7BLko09gSAZUu5LazAXl2MIPGDJF
-         6dr0Jh8op9WM4RO/eWbFZIe0/t+tNFUpHUD9PTTzaFggU4hZOW/oK7NYb5AUwHYGLhOE
-         y2VvZOhDFXu+SFeebW99Sy98L6KPe45fP4/SajylcnOypdZqZUsGxix7pkoCU5zIlarI
-         68CKvwwYsi3iUkHttFX2gyTjCR2WywC37L9e/GxNTXqrelGpuVkSwx4bcPreORtJK4vP
-         sam/ijKS8pHBs/Ixg4GHk7xT3glSxQcqaxJitNhne8AzvrQ4suWNwgwfAalJVu5THgLE
-         f5ww==
-X-Forwarded-Encrypted: i=1; AFNElJ8FSAm9lRUAYDnfXcChUSTxyeHVfVkLRSopX68I/0qfRCrM3zW2GnfH6ZRxtKsCxKWlv0+p150=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy4o7il/Uvd+pabgJXsRd7O7yDvNAYaNUBo4I4/7Bc+hODM446H
-	eYzgqhj6YaYAef5w7BAzvmK0o30FZJ+ilsGNcts0EDejzAvqIds64drJBqi5Ws3pj/sNJoFe7cI
-	zag3y8wWgW17wLQ==
-X-Received: from dycmb20-n1.prod.google.com ([2002:a05:693c:20d4:10b0:30b:e04d:8201])
- (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:4194:b0:137:9ee5:208d with SMTP id a92af1059eb24-139a368eae1mr1954093c88.33.1781895169173;
- Fri, 19 Jun 2026 11:52:49 -0700 (PDT)
-Date: Fri, 19 Jun 2026 18:52:31 +0000
-In-Reply-To: <20260619185233.2194678-1-cmllamas@google.com>
+        d=1e100.net; s=20251104; t=1781898393; x=1782503193;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=X6gTumD1afmt47+eQHNq2xIZFcuee6vcKia2u6xIXfs=;
+        b=k16JzeXOqKrlEmn3iPzXyZk02NDj7xveFFe6f3/bhS/KkHQoABTjj/Dr8huNT0nx1+
+         gwaWduohCjMdfPrFImIyvHZ5NIRaREpy2HH6Yta4UAcVErRsP4DkwWdpKM/07NFWqYSd
+         0wAQJxcQZigAaFZ5uCZCUY2iPtGESNG+0qp+BIfFMJP9jUahtoHFwYSlFey2pSX3jMVD
+         3+nyaBLM1Y52YIn3OGPZ5xDXhSK8GrqrZa9t2C35hgnXB1YhdC2pUIgxfioc6tN8p4i/
+         3a1w6ZBzCgqqo/Ls+YwuMIEhEUk3K9Dcz/pk1hF9FEcbOKTSYWK9K/o5wdfplU3+BozF
+         t7Kg==
+X-Forwarded-Encrypted: i=1; AFNElJ+AnY+o0AJE+sozHJicWmmRttoWuM1RqnRs9s5zFDeC0L2HUREEYKqJhuSTBlMje9hk8BrlW0s=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwsaxX7aQ1zg0Jrdzvy5GjG2jbGsjb0xAJF/pNTuiQZF8kv7gfQ
+	AmydU5jB0W1sl0YcuIYgr+r/zgGdsWckNX6evi3d7fb9K3NiA6NHy0Vqm8ZZnCrccA==
+X-Gm-Gg: AfdE7ckcOOj4OV0XR8ksHdtgX7G1Dwjwq1xdIYpoc2HK7bLpBFYUzCbXhfNLRQgDP8L
+	6fNaZ08vfs8JE7qJUqMp9HcYbACs0H9+qUUJ1rdSAQnaqx4hvwvY40/N76AZOEwf97dc/xhy28c
+	XVMnIy9NZHfNiHjgKDzfK7NIn2Agp8KZ0kDVrsDLlwg5opq5wz9Se8wAyj8TQ3La5N/ERkQJHj2
+	5Q+ahj9OX53E3iWXLuhzEud0Yk2LVeVgmWKqDIxYQOp1N2NFX6dO8l9rYziJnZQrzMj6p0jdBRb
+	4TVb8nGyVPJqQtrcaCqns4h6V5/O3aCH7pXGzqoeU/slmGw851lTZojxgElWPDC5GtiXQP9/4h6
+	ja2/CdqYALBdXOwviKKsw+3jT+zsKURuc+uCNOp39TQA8GqqKCqI8hr3MxRpe5RGpEsxN3MjZhb
+	+MDCw6nda3LnvMemNCKbE6ReRy9NZrkk3T
+X-Received: by 2002:a05:622a:651:b0:517:9e57:c681 with SMTP id d75a77b69052e-519e4de8800mr73003911cf.53.1781898392539;
+        Fri, 19 Jun 2026 12:46:32 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210:d62f:1911:f952:16ba])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8df81cdf302sm10419126d6.30.2026.06.19.12.46.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Jun 2026 12:46:31 -0700 (PDT)
+Date: Fri, 19 Jun 2026 15:46:29 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Nikhil Solanke <nikhilsolanke5@gmail.com>
+Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org, michal.pecio@gmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usbcore: Add quirk for 255-bytes initial config read
+Message-ID: <8175e40d-357a-4513-b827-752f679e9904@rowland.harvard.edu>
+References: <20260619095936.24080-1-nikhilsolanke5@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260619185233.2194678-1-cmllamas@google.com>
-X-Mailer: git-send-email 2.55.0.rc0.738.g0c8ab3ebcc-goog
-Message-ID: <20260619185233.2194678-2-cmllamas@google.com>
-Subject: [PATCH v2 2/2] binder: fix UAF in binder_free_transaction()
-From: Carlos Llamas <cmllamas@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"=?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
-	Christian Brauner <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>, 
-	Alice Ryhl <aliceryhl@google.com>
-Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260619095936.24080-1-nikhilsolanke5@gmail.com>
 
-In binder_free_transaction(), the t->to_proc is read under the t->lock.
-However, once the t->lock is dropped, the to_proc can die in parallel.
-This leads to a use-after-free error when we attempt to acquire its
-inner lock right afterwards:
+On Fri, Jun 19, 2026 at 03:29:36PM +0530, Nikhil Solanke wrote:
+> Certain third-party USB game controllers exposing (or spoofing) an Xbox
+> 360-compatible interface (VID:PID 045e:028e) fail to enumerate under Linux.
+> The device disconnects from the bus without responding to the initial
+> GET_DESCRIPTOR(CONFIGURATION) request, and the kernel logs 'unable to read
+> config index 0 descriptor/start: -71'.
+> 
+> The device then falls back to a secondary Android HID mode (with a
+> different VID:PID), losing XInput functionality including rumble support.
+> The failure reproduces across multiple machines, host controller types, and
+> kernel versions including current mainline and LTS. The device enumerates
+> correctly and remains in XInput mode under Windows. Notably, the device
+> enumerates correctly in Android mode when the same aklsjdasd 9-byte request
+> is issued for that mode's configuration descriptor, confirming the firmware
+> bug is specific to the XInput mode.
+> 
+> usbmon traces from Linux and Wireshark/USBPcap traces from Windows are
+> identical up to the point of failure, with no visible protocol-level
+> difference explaining the divergence. The root cause was identified when
+> Michal Pecio discovered via a QEMU bus-level capture that Windows does not
+> use wLength=9 for the initial config descriptor request; it uses
+> wLength=255. This is not visible in Windows Wireshark/USBPcap traces
+> because Windows routes enumeration-phase traffic to sniffers only after
+> initialization completes. Alan Stern subsequently confirmed this with a bus
+> analyzer on a different USB 2.0 device, and Michal verified the behavior
+> goes back to Windows 95 OSR2.1.
+> 
+> So, add a new quirk flag USB_QUIRK_CONFIG_SIZE which causes
+> usb_get_configuration() to issue a 255 byte sized configuration request
+> instead of USB_DT_CONFIG_SIZE (9) for the initial
+> GET_DESCRIPTOR(CONFIGURATION) request, mimicking long-standing Windows
+> behavior.
+> 
+> Suggested-by: Nikhil Solanke <nikhilsolanke5@gmail.com>
 
-  ==================================================================
-  BUG: KASAN: slab-use-after-free in _raw_spin_lock+0xe4/0x1a0
-  Write of size 4 at addr ffff00001125da70 by task B/672
+You don't need Suggested-by here.  It's redundant; we always assume that 
+people are responsible for authorship of the patches they write and 
+submit, unless they say otherwise.
 
-  CPU: 20 UID: 0 PID: 672 Comm: B Not tainted 7.1.0-rc6-00284-g8e65320d91cd #4 PREEMPT
-  Hardware name: linux,dummy-virt (DT)
-  Call trace:
-   _raw_spin_lock+0xe4/0x1a0
-   binder_free_transaction+0x8c/0x320
-   binder_send_failed_reply+0x21c/0x2f8
-   binder_thread_release+0x488/0x7e0
-   binder_ioctl+0x12c0/0x29a0
-  [...]
+> Suggested-by: Alan Stern <stern@rowland.harvard.edu>
+> Suggested-by: Michal Pecio <michal.pecio@gmail.com>
+> Closes: https://lore.kernel.org/linux-usb/CAFgddh+JWdT4LLwMc5qjM8q_pBu-fRo2qADR5ovAKoGHWMQrRw@mail.gmail.com/
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: <stable@vger.kernel.org>
+> 
+> Signed-off-by: Nikhil Solanke <nikhilsolanke5@gmail.com>
+> ---
+>  drivers/usb/core/config.c  | 56 +++++++++++++++++++++++++++-----------
+>  drivers/usb/core/quirks.c  |  3 ++
+>  include/linux/usb/quirks.h |  4 +++
+>  3 files changed, 47 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/usb/core/config.c b/drivers/usb/core/config.c
+> index 45e20c6d76c0..623425cef085 100644
+> --- a/drivers/usb/core/config.c
+> +++ b/drivers/usb/core/config.c
+> @@ -912,6 +912,8 @@ int usb_get_configuration(struct usb_device *dev)
+>  	unsigned char *bigbuffer;
+>  	struct usb_config_descriptor *desc;
+>  	int result;
+> +	size_t usb_dt_config_size = (dev->quirks & USB_QUIRK_CONFIG_SIZE)
+> +		? USB_DT_CONFIG_SIZE_QUIRK : USB_DT_CONFIG_SIZE;
 
-  Allocated by task 675:
-   __kmalloc_cache_noprof+0x174/0x444
-   binder_open+0x118/0xb70
-   do_dentry_open+0x374/0x1040
-   vfs_open+0x58/0x3bc
-  [...]
+I wouldn't call the variable usb_dt_config_size.  It isn't always the 
+size of a USB configuration descriptor; it isn't even always the size 
+you expect for the response.  Rather, it is the size you intend to ask 
+for.
 
-  Freed by task 212:
-   __kasan_slab_free+0x58/0x80
-   kfree+0x1a0/0x4a4
-   binder_proc_dec_tmpref+0x32c/0x5e0
-   binder_deferred_func+0xc48/0x104c
-   process_one_work+0x53c/0xbc0
-  [...]
-  ==================================================================
+>  
+>  	if (ncfg > USB_MAXCONFIG) {
+>  		dev_notice(ddev, "too many configurations: %d, "
+> @@ -938,7 +940,8 @@ int usb_get_configuration(struct usb_device *dev)
+>  	if (!dev->rawdescriptors)
+>  		return -ENOMEM;
+>  
+> -	desc = kmalloc(USB_DT_CONFIG_SIZE, GFP_KERNEL);
+> +	desc = kmalloc(usb_dt_config_size, GFP_KERNEL);
+> +
+>  	if (!desc)
+>  		return -ENOMEM;
+>  
+> @@ -946,7 +949,7 @@ int usb_get_configuration(struct usb_device *dev)
+>  		/* We grab just the first descriptor so we know how long
+>  		 * the whole configuration is */
 
-To prevent this, pin the target thread (t->to_thread) to guarantee the
-target process remains alive. Undelivered transactions without a target
-thread are already safe, as the target process can only be the current
-context in those paths.
+This comment is now out of date.  It should be rewritten to explain why 
+the quirk does and why.
 
-Cc: stable@vger.kernel.org
-Reported-by: Alice Ryhl <aliceryhl@google.com>
-Closes: https://lore.kernel.org/all/aikJKVuny_eOivwN@google.com/
-Fixes: a370003cc301 ("binder: fix possible UAF when freeing buffer")
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
----
- drivers/android/binder.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+>  		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
+> -		    desc, USB_DT_CONFIG_SIZE);
+> +		    desc, usb_dt_config_size);
+>  		if (result < 0) {
+>  			dev_err(ddev, "unable to read config index %d "
+>  			    "descriptor/%s: %d\n", cfgno, "start", result);
+> @@ -957,26 +960,39 @@ int usb_get_configuration(struct usb_device *dev)
+>  			break;
+>  		} else if (result < 4) {
+>  			dev_err(ddev, "config index %d descriptor too short "
+> -			    "(expected %i, got %i)\n", cfgno,
+> -			    USB_DT_CONFIG_SIZE, result);
+> +			    "(expected %zu, got %i)\n", cfgno,
 
-diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-index 09bc052186cf..b85920c39694 100644
---- a/drivers/android/binder.c
-+++ b/drivers/android/binder.c
-@@ -1658,10 +1658,19 @@ static void binder_txn_latency_free(struct binder_transaction *t)
- 
- static void binder_free_transaction(struct binder_transaction *t)
- {
-+	struct binder_thread *target_thread;
- 	struct binder_proc *target_proc;
- 
- 	spin_lock(&t->lock);
- 	target_proc = t->to_proc;
-+	target_thread = t->to_thread;
-+	/*
-+	 * Pin target_thread to keep target_proc alive. Undelivered
-+	 * transactions with !target_thread are safe, as target_proc
-+	 * can only be the current context there.
-+	 */
-+	if (target_thread)
-+		atomic_inc(&target_thread->tmp_ref);
- 	spin_unlock(&t->lock);
- 
- 	if (target_proc) {
-@@ -1676,6 +1685,10 @@ static void binder_free_transaction(struct binder_transaction *t)
- 			t->buffer->transaction = NULL;
- 		binder_inner_proc_unlock(target_proc);
- 	}
-+
-+	if (target_thread)
-+		binder_thread_dec_tmpref(target_thread);
-+
- 	if (trace_binder_txn_latency_free_enabled())
- 		binder_txn_latency_free(t);
- 	/*
--- 
-2.55.0.rc0.738.g0c8ab3ebcc-goog
+Likewise, "expected" here is wrong.  It should be "asked for" or 
+something like that.
 
+> +			    usb_dt_config_size, result);
+>  			result = -EINVAL;
+>  			goto err;
+>  		}
+> -		length = max_t(int, le16_to_cpu(desc->wTotalLength),
+> -		    USB_DT_CONFIG_SIZE);
+> +		/* If the device does returns the full length configuration
+> +		 * descriptor, skip the second read. Fallback to default
+> +		 * behavior otherwise.
+> +		 */
+
+New multiline comments (or ones that are rewritten) should use the same 
+format as the rest of the USB stack:
+
+	/*
+	 * Blah, blah, blah
+	 * Blah, blah, blah
+	 */
+
+> +		if (dev->quirks & USB_QUIRK_CONFIG_SIZE
+> +				&& result == le16_to_cpu(desc->wTotalLength)
+> +				&& result < USB_DT_CONFIG_SIZE_QUIRK) {
+
+Whether the quirk flag is set doesn't matter.  All you care about is 
+whether the information received earlier contains the entire descriptor 
+set.  The first and third tests here should be removed.
+
+There is some question about what to do if wTotalLength < result.  My 
+advice is to use the smaller value in this case, but not smaller than 
+USB_DT_CONFIG_SIZE.
+
+>  
+> -		/* Now that we know the length, get the whole thing */
+> -		bigbuffer = kmalloc(length, GFP_KERNEL);
+> -		if (!bigbuffer) {
+> -			result = -ENOMEM;
+> -			goto err;
+> -		}
+> +			bigbuffer = (unsigned char *) desc;
+> +			desc = NULL;
+> +			length = result;
+
+Don't keep the entire 255-byte buffer.  Use krealloc() to shrink the 
+buffer down to the right size.
+
+> +		} else {
+> +			length = max_t(int, le16_to_cpu(desc->wTotalLength),
+> +			    usb_dt_config_size);
+> +
+> +			/* Now that we know the length, get the whole thing */
+> +			bigbuffer = kmalloc(length, GFP_KERNEL);
+> +			if (!bigbuffer) {
+> +				result = -ENOMEM;
+> +				goto err;
+> +			}
+>  
+> -		if (dev->quirks & USB_QUIRK_DELAY_INIT)
+> -			msleep(200);
+> +			if (dev->quirks & USB_QUIRK_DELAY_INIT)
+> +				msleep(200);
+>  
+> -		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
+> -		    bigbuffer, length);
+> +			result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
+> +			    bigbuffer, length);
+> +		}
+>  		if (result < 0) {
+>  			dev_err(ddev, "unable to read config index %d "
+>  			    "descriptor/%s\n", cfgno, "all");
+> @@ -1000,6 +1016,14 @@ int usb_get_configuration(struct usb_device *dev)
+>  	}
+>  
+>  err:
+> +	/* Log failed device's VID:PID pair to make it easy to debug and fix
+> +	 * enumeration and initialization issues
+> +	 */
+> +	if (result < 0) {
+> +		dev_err(ddev, "Failed to initialize device %04x:%04x due to above errors.",
+
+The "due to above errors" part isn't needed, since the errors will be 
+obvious in the kernel log.  In fact, it probably would be better not to 
+put this information here at all but instead modify the error message in 
+usb_enumerate_device() (the caller).
+
+> +		    le16_to_cpu(dev->descriptor.idVendor), le16_to_cpu(dev->descriptor.idProduct));
+> +	}
+> +
+>  	kfree(desc);
+>  	dev->descriptor.bNumConfigurations = cfgno;
+>  
+> diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
+> index 87810eff974e..92219684a604 100644
+> --- a/drivers/usb/core/quirks.c
+> +++ b/drivers/usb/core/quirks.c
+> @@ -142,6 +142,9 @@ static int quirks_param_set(const char *value, const struct kernel_param *kp)
+>  				break;
+>  			case 'q':
+>  				flags |= USB_QUIRK_FORCE_ONE_CONFIG;
+> +				break;
+> +			case 'r':
+> +				flags |= USB_QUIRK_CONFIG_SIZE;
+
+For good style, there should be a "break" statement here.
+
+Also, you need to document the new flag under the usbcore.quirks entry 
+in Documentation/admin-guide/kernel-parameters.txt.
+
+>  			/* Ignore unrecognized flag characters */
+>  			}
+>  		}
+> diff --git a/include/linux/usb/quirks.h b/include/linux/usb/quirks.h
+> index b3cc7beab4a3..f864571da870 100644
+> --- a/include/linux/usb/quirks.h
+> +++ b/include/linux/usb/quirks.h
+> @@ -81,4 +81,8 @@
+>  /* Device claims zero configurations, forcing to 1 */
+>  #define USB_QUIRK_FORCE_ONE_CONFIG		BIT(18)
+>  
+> +/* Use a 255 byte sized config descriptor request */
+> +#define USB_QUIRK_CONFIG_SIZE			BIT(19)
+> +#define USB_DT_CONFIG_SIZE_QUIRK		255
+
+Again, I don't like this name.  It's not a quirk in the size of the 
+configuration descriptor type, which is what "USB_DT_CONFIG_SIZE" stands 
+for; it's a quirk in the way the kernel asks for config descriptors.  
+(Or in what size request the device will accept, if you prefer.)
+
+And the 255 value doesn't belong in this header file anyway.  It should 
+be defined in config.c since that's the only place it gets used.
+
+Alan Stern
+
+> +
+>  #endif /* __LINUX_USB_QUIRKS_H */
+> -- 
+> 2.54.0
+> 
