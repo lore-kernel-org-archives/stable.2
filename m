@@ -1,329 +1,308 @@
-Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com [91.218.175.185])
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C6637FF54
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 12:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.185
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781871577; cv=none; b=iidmt53s84BV9btaWf8An7ljyGBUPNG3We4obhifz/5kxvJLQ+CbTeD3u2u2u/Ou8SZTGlsl5bShk4rrAAAWJFj9LqpLkYZ5A5E5aVMI1Y4R/nKggg9m57V2mjUxDhkg4qWjB3gnma22nLgdqez1rPWJFImEfhp8SrFyhllMPqM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781871577; c=relaxed/simple;
-	bh=ExKawaubyPeuHNklk9kp5tj2j1AuiNpfP++dc1luDY8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=er4xzyHWIVy0nyb+JUIBnQ7Xy4h0mauKN/sAstRoc62tk/AXjOHjCWrKvq/MInTw/4PHh/Rxu8IkocERypk25RUcr9XmuWN8gJ6S57PLiHBO/u/Eg5OHluRItr/C2aNsxzEhybv5OeDQ5qvJQ/pOHRM3TAdv4gZIvwIs+PabU/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SYHIcvZi; arc=none smtp.client-ip=91.218.175.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F40A01E98EF
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 12:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781871829; cv=fail; b=GV9qDf1mjWyyDnQKf+nehKnhRlGkGrqJsKCJDn3aSQHMtmDQ0Neu3svooKaX2Z0b8rgtZOzJ35XPZkjzZwyIkr85Q4naMjayEIqNKpyHxmrAMF3pb2i778rFjXxwOZXH5l9Jug9a4HIiQGFtpF6mqnKJceSXCNGilgBAN2Mt/Ps=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781871829; c=relaxed/simple;
+	bh=TnOQEd7U9FxNvWLsi8gHQ6gpKuOoAVZa0AKfw7QsXxg=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=A+b0MWBl/Dojps8YdkpcOoUAEesJpeYyseQzIdTtxP8IRKN8HM+/hRR6oazqOgQlAH5YTHPX26d6qdKAgCf/zZRUfsn4dhugsG7Xh2UP9dI8UJJDZdgfwq+NwkGNY5L/3DmmMliuVt1OEseyCQ0LAqcSFZ7xo6wDHKoq7MK6A4c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=K8UrgOSi; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=u08rDk97; arc=fail smtp.client-ip=205.220.177.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SYHIcvZi"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1781871569;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dLm3urJYs5AqA6zRwvG9Uk+mzQxTsxzJze3iYFghqEc=;
-	b=SYHIcvZiwt9Zl68PpyP3bg+XFvc+XdLp7zeGn6eskBJ+tAdJdOUp/LdciSnR683a5vNCDj
-	pFiY0QDo9Ns9Nh46Bko1USgKKqh2jJQtbIUeVp7zhhi9qj3NPju/qYoxadx8g5rbBm+By9
-	CT8eI/4HA8WsjAE7Vsvq1yXMAM86iPE=
-From: Lance Yang <lance.yang@linux.dev>
-To: richard.weiyang@gmail.com
-Cc: lance.yang@linux.dev,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	riel@surriel.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	balbirs@nvidia.com,
-	ziy@nvidia.com,
-	sj@kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [Patch v2] mm/page_vma_mapped: revalidate and do proper check before return device-private pmd
-Date: Fri, 19 Jun 2026 20:19:09 +0800
-Message-Id: <20260619121909.90510-1-lance.yang@linux.dev>
-In-Reply-To: <20260619023025.vqx2dsitxffuuwh3@master>
-References: <20260619023025.vqx2dsitxffuuwh3@master>
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="K8UrgOSi";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="u08rDk97"
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65ILUvRF1347429;
+	Fri, 19 Jun 2026 12:23:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=TNu1TwiIxa/mKDc+qEr9a7tvMrSAUefLrNd8+MvG65Y=; b=
+	K8UrgOSiAW6dN9d834BFUqg7evVrS9yUEtylEEYOfup1EaRBDFmCEAL2esvKDw1L
+	Ck9gn3IKCDysN6dV4arWNiLtuN50ZWkv8G7hQJhyzhY5GY7AnEHTi5wtloMFiZv+
+	Q3Tj2ele0qs6p4j/VmVCPXxa60+CDLg2W7EABeibkoB0+sdlc1EoZrlhmAe2erUg
+	APM32TsCn8MtffKutGzLPGljskQIYuvSa92Z9GRAXe4nSGtrgD1bYD91PtKcTtt/
+	INgHxbuDnbnFXfzTb67qcBZmIhoUpbGK0ffGYGu3C2ifd8Zv1RIJe+OG1cUEFt90
+	gdWh3uJTqB1Q/TOwdpGp5A==
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4euegm42dy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 19 Jun 2026 12:23:41 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 65JCNXE0025175;
+	Fri, 19 Jun 2026 12:23:41 GMT
+Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012032.outbound.protection.outlook.com [40.107.209.32])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4ev1bs115w-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 19 Jun 2026 12:23:41 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VlTFA5EawcE4J5iG9HV8goezoikdDkNMaQVuFe7c4gQCDjLBYS+bk3egoSLC2K2BocxYkkS37FVzgEa9ICj7U//V3fBa+Ds7eHzur8vqXtqY3ReKYwci3NFWXc3X8v/evSb/CF1r5Nu3nUTPo2/wlfjEiqrBchvYWS9y8M+lOsKI9lHuVNUPPomF593gnJA+HLw4vsFxinFiDGMDZc7gIjzWeZbsnzCekfVV8/buAlA03LU8eClMrO4wkPTivNvabpIL6EnUR6Sepw6/iRFtYElqxQ4UAq5KlJOMkVkhVgNhXhzNT3UQNMAV23/6Slmm3mwj9qoaoGuTdkTGFQmxYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TNu1TwiIxa/mKDc+qEr9a7tvMrSAUefLrNd8+MvG65Y=;
+ b=mMZ5vPKkMl6OBJaZXnXCZdfaMO0QyeYdk2BQ3UUf4xZqr6sO3yPoVXa4BOfwg/1P2ZFbF4EdynnvUG6hxSCsQLalS+hBbCLLoAIMQqZ1H3jUmLMcHH6c7rqE9eGcNOE7IfBeFdZSqxT6dpVct5O4ZNOnvOfvbZMhwO1n3TdfWOyvKu6SzS9aO/rwpXGBEXwrL4919X4oGZWcZy4biywbMYcCsU3FRvIqBJxTvuMFd6XF8fpuhVyx3BwbxsoC5J1fL4pvrCmRz6YYsQUlClhMZIZnGeIx2MUB8p6MqlMMcd9CUHK7pvWy7JhoA01gXfQ8hJ6Kno2HYcRv0oHuPWmByg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TNu1TwiIxa/mKDc+qEr9a7tvMrSAUefLrNd8+MvG65Y=;
+ b=u08rDk97jItzU8rSOvS8N6Rb2TmUgwTr4ep7kHAD5NTNk4eVE17bmfod4GEZVS1AQCy6EJlkXjvZrv32u8s5/gCIRKUzpV0myz2IuqImoPyePzNzEWm9wx6md3vaMmHAvg267Vi9DOsMf7lAWGW484+76zun7whzwFboV6cVOPU=
+Received: from DS3PR10MB997700.namprd10.prod.outlook.com (2603:10b6:8:347::19)
+ by MN6PR10MB8143.namprd10.prod.outlook.com (2603:10b6:208:4f5::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
+ 2026 12:23:05 +0000
+Received: from DS3PR10MB997700.namprd10.prod.outlook.com
+ ([fe80::4c1c:3bb:c4c9:8e7a]) by DS3PR10MB997700.namprd10.prod.outlook.com
+ ([fe80::4c1c:3bb:c4c9:8e7a%7]) with mapi id 15.21.0139.009; Fri, 19 Jun 2026
+ 12:23:05 +0000
+Message-ID: <e9e46186-c70d-4cbf-9e56-2d0dd9d49eb4@oracle.com>
+Date: Fri, 19 Jun 2026 17:52:59 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 278/411] net: qrtr: ns: Limit the total number of
+ nodes
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Jakub Kicinski <kuba@kernel.org>, Sasha Levin <sashal@kernel.org>,
+        Vegard Nossum <vegard.nossum@oracle.com>,
+        Ramanan Govindarajan <ramanan.govindarajan@oracle.com>
+References: <20260616145100.376842714@linuxfoundation.org>
+ <20260616145115.910988114@linuxfoundation.org>
+Content-Language: en-US
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+In-Reply-To: <20260616145115.910988114@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0161.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::20) To DS3PR10MB997700.namprd10.prod.outlook.com
+ (2603:10b6:8:347::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PR10MB997700:EE_|MN6PR10MB8143:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4d59e9a-32e6-4c99-324b-08decdfd83da
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|22082099003|18002099003|56012099006|4143699003|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	iSB7wR8s8lBxcVcqCJOCOYKsHhfTDGZhOJoJSsAO3jI8TIiT8I138YnmcL9CAOnvTmtkIAQo4M2ogVuEjn/ffcPenxkpjieyO9U3iYGnRZbXWO00hO2RiNF2QrXamZ15tJGfR/RpI0tHcwUPuAnFdVCzKInLK2iKy+0vFzG392GirneJIyR3KPMk5r+ddWNX3An9PU4TDgZkR8OxoxfqFtnz5y+qKaYOkIlOS9Qfbj5+556/JAPUJm3JHMFh/XUMoSHoAtJGToPQSekxyXlePOXpmaa4RA5GD4sSFxijEFrfWl3ru7weQsWXxiLd7OHmO2oKqSanvW+Uwll/Ieid6f5k/y1qgyIKS0u2T2mdzWh6i2XS1sIvYFQNqsyqeH7RZAqPkgQv8qhTxN3HMp3U40vlPHyxefv6kjrjplK92mFff8dPjmJSnXRCE3C+g4nEsR7U6SqOGzjKboNeuqlINlFhm19XFRZ8ox62+CkjJ9cNYTtqGltIzMQyj3PJrS95TuMW/KFWU8cVf7I9kglPrJTHGhfP52jLH2HX6pIB0B4MK+qHj5duPVDm2HE782biFUZR8oZ03AqjAFHnhOPDFQzjB3ezkSIAJR1hgZqSvORWAqgXADXzRu9ddkmDjpxY
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS3PR10MB997700.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(22082099003)(18002099003)(56012099006)(4143699003)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WXlURTZqMWdicDZueDJkZEtSTjRnSThQOXI4bXRxSmIrZnU5cTk4NDFoYVd1?=
+ =?utf-8?B?QTc0ZGM3LzM5SEZkRXpwbzY2THJZblRYNHdvVi93ZWQrRGYzaC9ZVVo0MWx0?=
+ =?utf-8?B?RW9oZzd5M1U4ZXg1VjNpa3h4UGx3RHAxMTVWK2o0T0FSNVFSRVFhYTA0ZzIz?=
+ =?utf-8?B?TWRKY3pNODdRYzUwMGo1aW9saDFTV3p0LzVNdDN3czJZeFJnMVhMWEkrVytQ?=
+ =?utf-8?B?UkszcDU4SStLMEYrODJZWC9ZaUlSa3M2bE52U0pDa3VyV3Jub0dBRUxwblov?=
+ =?utf-8?B?QXRJTEhlbWErOEpxWWx5UXJWMDQzUjdoc1AzZ3ArUDgrbXNqaDE0WTJ2Z0tZ?=
+ =?utf-8?B?Mm96OUhpQ2NWUzJHREEva3NNVXNKSGk3S09LWnlObnZ2WWtXdkRLTUVYU0ht?=
+ =?utf-8?B?NVFRWUxIQUtTaXFjMU14dHI5ZlVSWVZXNHIvdnYrNHEyN1Z1TWlpOVJBV0pX?=
+ =?utf-8?B?T0ZIV2J6c0NlMWhVTlhQM3JOekVCUjNzcGUyM1RzcFB1d0EzeEordFZNaWk3?=
+ =?utf-8?B?U3AybS92eGc3bTVESGNOWmlYRGlnem1WZk5ra3JEV0kyYVpCN0gwZTFDTmcw?=
+ =?utf-8?B?RkszVDVzSFAzUkhGVkpvNE5KMUZPMEdHWDhUcEw0dmJyT2Mzc2tsNWRuNTdX?=
+ =?utf-8?B?bUhSa2FwK0Z5U1M2ck9NQXRGVE8yaG5Nczkwbmxud0doSERMTUc1MDB6UjBU?=
+ =?utf-8?B?Skd5YjV3VXFadk96TXc3ZU94SGVSWklUdHV2ZDZBT0d0V2pXRXJGREpCdXlJ?=
+ =?utf-8?B?S21DdGxaUHJHeGJzSHg3UnRJM3J0N2ZMRU5CT2RnU3ZXMzhrNXAzYzM2TTE1?=
+ =?utf-8?B?aUFEaG81MFNDekR2K1E5QnlHeWF2eGxTMFpkRFNhVklOR2YzU3IwNGhReVp6?=
+ =?utf-8?B?bzFoR25rai92OHgxcnBPQXk3WWZkWFVzVm4yNDVRTVQwUDdqMmdVT3h1dGRr?=
+ =?utf-8?B?TVRIQXFSa2VEZk1oVHREVEtYS0FTWUt3dCt6elhlMnlLN1ZzbjA0T2dtU3M2?=
+ =?utf-8?B?Y2hUY3FYQ1NFQ0xCSmZ1R1ZRWEF2TGJmYmx1a0RMRU5FT0YzMzROTnhadWF3?=
+ =?utf-8?B?MTE4L3hBOVVxekFOUmxGelhxSWRCSjB0ZGw0OGdMZnNDdjRsZDRPZzY1TFR2?=
+ =?utf-8?B?NHM4d2oxRmRmZ1hKTC9GdkEzblpXK0xsNjlqMDBLbmw4MGQ3Q01NTFJ2S2RZ?=
+ =?utf-8?B?OXFaMHJNYkEzUEZmTXdsNDhON0t1aGpibkk0cWE3emdsOU5sc29Ld0RMaHVP?=
+ =?utf-8?B?dUt0cUYwY3ZWZTdsR2RvWkdZa2xuazFOckdhUlZ6eFlTVmRXdStsSkRzUW4w?=
+ =?utf-8?B?V0tvSlJGNG0wU1QzU3kwdlUvTzZmcHhNMmxVTFRLZGJiSE5peVpoZ2Y4MzFp?=
+ =?utf-8?B?WHQ5OVpMZ25KR2svZ3d2ODliQWVCbUMzWU9RaklHdHVTMGtnTGQyMW85Y0t2?=
+ =?utf-8?B?MEdrT1MvRFFxWWFmYnFrMkIvV1ppMllybzJCd2VFc2grSXVhMTFBRUtGeGdJ?=
+ =?utf-8?B?dWw1SEd3MEJRaTNiaCtlMVFVRUQ1RytCTUhPdzFIQmxjSk9KRm9HamZlQnph?=
+ =?utf-8?B?M3RQZ1VsRExsMzA3cFE3V1g3akhTNXVXQmpRL0dEbVlUbDVGc3BwT1VyYWpH?=
+ =?utf-8?B?T2ZUTnNBcWQzOUx0UlJCaVYzNkk4eWovQzNnK0VkZ0YyeUdWdnNtM2xKY0Fl?=
+ =?utf-8?B?SGVEUy9xUjZ2SGlqNnRIaCswa1dnWHJTVm5mVDh1WWswVVJvRmcySGZtVWg4?=
+ =?utf-8?B?TWdIMnM4MG9ienJvZ2VlVWhVMGdmOGNoYkRuaVpTSGQzUWlwcDMySDQ2bGRD?=
+ =?utf-8?B?eU9BWmtSQVNUNFU3UGxPKzVFaGJkcHpCM1RvL1QycXFmenVMNVZNcWJTOWFx?=
+ =?utf-8?B?ZEdYbHMvNlY3SlVCVzg4WEtGRjVSelNDY2R5TlFFd0RKd3VpSGI4ZlBHczVy?=
+ =?utf-8?B?LzcyZ21QbW9LTC9SQi9ReSs2UVJWUXl2Nkx2L1ViaG5iOXF6UzI3YTZNQ2Zx?=
+ =?utf-8?B?MW1ka21GNWJmK05LYm93OE5IRlgzTTlIektNRDFsVm5qTUFVeVFQTUJjL0FI?=
+ =?utf-8?B?Vy8yK2QxR1FrWkJmSEFVYUkxeFcxMmh5K1JiUG5TQnoyMzZhRlV4S1BlOWVC?=
+ =?utf-8?B?UVFqNDJKV09mR0t0dU5jMmQwYkFqNWQ5TXBrQXpJTm1yQU5ITC9nZ1B2d0JL?=
+ =?utf-8?B?UlREZ1cvSzFTZW1vMWJaRm9rWHBtUWV3SVl0RkNBQ2JtZzU2M2w0SGszQmZp?=
+ =?utf-8?B?cm1RS1dscXN3a2JXb2RSVm9XblVON2paN0lnYWo3TGhTSGVFbER4aXc4WjFY?=
+ =?utf-8?B?Wm5JeFhhaUlFUGlQeEZ6ODBnWFBvb2duWjlzb05tdmNyQStlRGtoUVZpR1Rz?=
+ =?utf-8?Q?ocZOHgnV9LGDDJhpiQSQr7IoSKcEy8muHHA5b?=
+X-Exchange-RoutingPolicyChecked:
+	jn/+yW+RBvlfSdiVgprDxWJThFpUadHHksJC+89NefH6eBKFhanGRZ7EAEFfPFEhrjl7ihc/EC3JtZHad/jX1EKAS1v2oi8DNqzRa8zBCE/z+m3wK0BvK2NLFjbmaqxwmFESI4bYVCTw0TzHazjKj5QihslWH5ZNpMF7Tw+bAYMpsfSVYyxTmz7FB2JUmq2A/blsp0FR+fq+Tq4D/fVgLQxXDZKhbvNbqV2Y59ss1aIlYVHrk88ry8Bn7pnDp74TRIejIHc/GBg8KQFwZZyPpbTIero1gMvnczPPd9v8NiunIrdJgSEzvpRrAox3CZhy+EBZ9vd8s8pBgoHLYa0AIQ==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	ju46OAHsZXqzttSRurAo86SvF1hgHcXP+M0IHJXNU5zUhiC21I57Hu7nE2O3syhVDATnor7+qrsOWruLdv74tzSuJYgFmR7hdw7hm1EEtebTyELzRMPNTPh1QXaJaKLFyoPKridxSt1OpJFz9h2rI7+UCJayJPhYnWNrgG/vcZLFL4DBcYon8D+2RkYFr826dM7PNBzSqkLwRYdJr/mMR0Jt/GIa5yFCQI2htsWI4GrV4J3U7/HPdvFVLCYv2lnoQY73BKcbg2pN6LAQMWarjStzLI8lXmOfVO1fltJI7q5bIPlObDv7icliCIjPkSjZMrf1/J8/BWW2VB52WblsfYw1mEo9UZhbbxdDiWiyr8241vrZOqTO+5FNZDd3Cxn+6uzKZr8W1e4UcpDRNZCWTxPMDV+N8GSSAh1SKLcSUAG8HzHsdFywwRkndZaS+QSQ01x9Qhyxg+azqWSYcbEa+j9uqXU35oWAkUDyam15q72mHXhOpi5JUKZmvqyZJ8Z7BbFTmbWtghAKB7+SKSKlUxluNGpzzm12aIo1aw2LtfLJY7i6lrU4llkpxNgBTcHvYTMlwyCRufHODqnr8oox3v1srWKmgfdZILId6xUgw6s=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4d59e9a-32e6-4c99-324b-08decdfd83da
+X-MS-Exchange-CrossTenant-AuthSource: DS3PR10MB997700.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 12:23:05.7015
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NLFoPhgHk0+inULsuXzHGi0WwSJnAh5UIPpVsejuMYwGmIYRN6IMafgr3s7aAr0O4GbqGFr4SBQlkb4niYoSMw+wqhq29KK6Llh7mfEu8+D/+KVlFN2xSsqJJZ2O/88M
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR10MB8143
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-19_02,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ bulkscore=0 malwarescore=0 mlxscore=0 adultscore=0 spamscore=0
+ mlxlogscore=999 suspectscore=0 lowpriorityscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2606160000 definitions=main-2606190116
+X-Proofpoint-GUID: Xmjv5xyBM-21oE1osQV2ZVWgShCFQP38
+X-Proofpoint-ORIG-GUID: Xmjv5xyBM-21oE1osQV2ZVWgShCFQP38
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDExNiBTYWx0ZWRfX9k/PnPVdF3kL
+ PDO5PxrrD7boyv5+hK+/wFzzb2GPEklghar2Cgb9MUOY6ryHntVpi9ff2rEgtjwQn09vhcyRxj1
+ qYM0jILEf6hYFmuFf2KzHJGexvmRNAYynHnudn86wyyGdavoBB5fUr5rstgwry5PpJRGjLge+Fu
+ BReZDEWP+Bq1eg13/6IfFWrEvXspK3Q9bL9QtzdeiqPkMPVuyoa59pCdEzIfGJDnhGedWml7XZv
+ KZUPGdc4aDN8OTjMT0Z1RS8///HPn7qn3pzFz5x3mPVwyvWQ4oFtV9/k3hkGgQs2Uq6S/wZKXJs
+ JH9T4K603YkRvLpMga+5SY8W6gQ9p+tos3HAGNkXl92hg8aexQkVqlfO2apZqqD/2NRRBcoR5vf
+ fsvBBhwbBoX3otRnICy4uMy/C+D+EEU5zfCjzEbzwFE7Dp29y0af4vzk9IOm0AZDWKenR3z2qnF
+ d+4uJ1vgQ1BfqJg3451xdEZk00LGR8SilUb3q2G0=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDExNiBTYWx0ZWRfX743ZwQSNZ5KM
+ YBLmcnEer0SSltQ+9MbtMdTPU2icYo+kqM+Fy3dpAp+uX7h9LSFZvupeMhLvLeyzux+fF8K/OuI
+ UJo9H0TrgWLetJFxSyGn9nmcJ6hGZiDyqvraI34A3SjsTYD7oEU5
+X-Authority-Analysis: v=2.4 cv=G4Ys1dk5 c=1 sm=1 tr=0 ts=6a3534cd b=1 cx=c_pps
+ a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=FelO9ux0wxsA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=o5oIOnhZENCTenyL_yNV:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=ag1SF4gXAAAA:8 a=fju4ZQ20zLSiMPiTHuQA:9
+ a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=Yupwre4RP9_Eg_Bd0iYG:22
+ a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13723
+
+Hi Sasha and Greg,
+
+On 16/06/26 20:28, Greg Kroah-Hartman wrote:
+> 5.15-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> 
+> [ Upstream commit 27d5e84e810b0849d08b9aec68e48570461ce313 ]
+> 
+> Currently, the nameserver doesn't limit the number of nodes it handles.
+> This can be an attack vector if a malicious client starts registering
+> random nodes, leading to memory exhaustion.
+> 
+> Hence, limit the maximum number of nodes to 64. Note that, limit of 64 is
+> chosen based on the current platform requirements. If requirement changes
+> in the future, this limit can be increased.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 0c2204a4ad71 ("net: qrtr: Migrate nameservice to kernel from userspace")
+> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> Link: https://patch.msgid.link/20260409-qrtr-fix-v3-4-00a8a5ff2b51@oss.qualcomm.com
+
+I have run an AI assisted backport review and I think what it spotted it 
+accurate.
+
+Please see the analysis below:
+
+> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> [ dropped node_count-- hunk since ctrl_cmd_bye() has no delete_node ]
+
+I think that is added in PATCH 276/411
+
+Upstream 27d5e84e810b increments node_count on successful node creation 
+and then decrements it in ctrl_cmd_bye():
+
+delete_node:
+         xa_erase(&nodes, from->sq_node);
+         kfree(node);
+         node_count--;
+
+         return ret;
+
+The 5.15.y backport has the limit and the node_count++ on insert, but 
+its ctrl_cmd_bye() delete path still only does:
+
+delete_node:
+         xa_erase(&nodes, from->sq_node);
+         kfree(node);
+
+         return ret;
+
+So every BYE deletion frees the node but leaves node_count elevated. 
+After enough create/delete churn, QRTR nameservice may likely hit the 
+64-node limit even though the nodes were erased and freed.
+
+I think 5.15.y just needs the missing node_count-- after kfree(node) in
+ctrl_cmd_bye(), thoughts?
+
+Thanks,
+Harshit
 
 
-On Fri, Jun 19, 2026 at 02:30:25AM +0000, Wei Yang wrote:
->On Wed, Jun 17, 2026 at 08:18:15AM +0000, Wei Yang wrote:
->>On Wed, Jun 17, 2026 at 10:32:11AM +0800, Lance Yang wrote:
->>>
->>>On Tue, Jun 16, 2026 at 11:50:22PM +0000, Wei Yang wrote:
->>>>On Tue, Jun 16, 2026 at 08:30:01PM +0800, Lance Yang wrote:
->>>>>
->>>>>On Tue, Jun 16, 2026 at 06:34:36AM +0000, Wei Yang wrote:
->>>>>[...]
->>>>>>diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->>>>>>index 2ccbabfb2cc1..21635fab209c 100644
->>>>>>--- a/mm/page_vma_mapped.c
->>>>>>+++ b/mm/page_vma_mapped.c
->>>>>>@@ -243,40 +243,28 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
->>>>>> 		 */
->>>>>> 		pmde = pmdp_get_lockless(pvmw->pmd);
->>>>>> 
->>>>>>-		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
->>>>>>-			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
->>>>>>-			pmde = *pvmw->pmd;
->>>>>>-			if (!pmd_present(pmde)) {
->>>>>>-				softleaf_t entry;
->>>>>>-
->>>>>>-				if (!thp_migration_supported() ||
->>>>>>-				    !(pvmw->flags & PVMW_MIGRATION))
->>>>>>-					return not_found(pvmw);
->>>>>>-				entry = softleaf_from_pmd(pmde);
->>>>>>-
->>>>>>-				if (!softleaf_is_migration(entry) ||
->>>>>>-				    !check_pmd(softleaf_to_pfn(entry), pvmw))
->>>>>>-					return not_found(pvmw);
->>>>>>-				return true;
->>>>>>-			}
->>>>>>-			if (likely(pmd_trans_huge(pmde))) {
->>>>>>-				if (pvmw->flags & PVMW_MIGRATION)
->>>>>>-					return not_found(pvmw);
->>>>>>-				if (!check_pmd(pmd_pfn(pmde), pvmw))
->>>>>>-					return not_found(pvmw);
->>>>>>-				return true;
->>>>>>-			}
->>>>>>-			/* THP pmd was split under us: handle on pte level */
->>>>>>-			spin_unlock(pvmw->ptl);
->>>>>>-			pvmw->ptl = NULL;
->>>>>>-		} else if (!pmd_present(pmde)) {
->>>>>>-			const softleaf_t entry = softleaf_from_pmd(pmde);
->>>>>>-
->>>>>>-			if (softleaf_is_device_private(entry)) {
->>>>>>-				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
->>>>>>-				return true;
->>>>>>-			}
->>>>>>+		if (pmd_present(pmde)) {
->>>>>>+			if (!pmd_leaf(pmde))
->>>>>>+				goto pte_table;
->>>>>>+			if (pvmw->flags & PVMW_MIGRATION)
->>>>>>+				return not_found(pvmw);
->>>>>>+			if (!check_pmd(pmd_pfn(pmde), pvmw))
->>>>>>+				return not_found(pvmw);
->>>>>>+		} else if (pmd_is_migration_entry(pmde)) {
->>>>>>+			softleaf_t entry = softleaf_from_pmd(pmde);
->>>>>>+
->>>>>>+			if (!(pvmw->flags & PVMW_MIGRATION))
->>>>>>+				return not_found(pvmw);
->>>>>
->>>>>Looked at history a bit, and I wonder if this changed something old
->>>>>here ...
->>>>>
->>>>>Since 616b8371539a ("mm: thp: enable thp migration in generic path"), PMD
->>>>>migration handling took PTL before doing PVMW_MIGRATION/PFN checks,
->>>>>including not_found() cases. So lockless PMD read was just a filter ...
->>>>>
->>>>>With this fix, true case gets final pmd_same() check, but this
->>>>>not_found() case happens before taking PTL.
->>>>>
->>>>>So a !PVMW_MIGRATION walker could race with someone, e.g.
->>>>>remove_migration_pmd(): we make the not_found() decision from old PMD
->>>>>value that still says "migration", while real *pvmw->pmd may already be
->>>>>present again. We return without ever taking PTL :)
->>>>>
->>>>
->>>>Hi, Lance
->>>>
->>>>Thanks for take a look.
->>>>
->>>>I am trying to understand the scenario you mentioned. Let's say A migrate a
->>>>pmd and B want to unmap the pmd.
->>>>
->>>>            A                                        B
->>>>
->>>>  try to migrate a pmd
->>>>  pmd is set to migration entry
->>>>                                           unmap the pmd ...
->>>>  managed to finish migration
->>>>                                           ...still see migration entry,
->>>>                                           so skipped and unmap fail
->>>>
->>>>Would this be a timing case? Even B grab the PTL, it still could see migration
->>>>entry if B visit pmd before A finish migration.
->>>>
->>>>Maybe I miss something, look forward your insight.
->>>
->>>Right, seeing migration entry while migration is still ongoing is fine.
->>>
->>>What I meant was this ordering:
->>>
->>>  CPU 0: pmde = pmdp_get_lockless(...); /* migration */
->>>  CPU 1: remove_migration_pmd() restores PMD to present
->>>  CPU 0: returns not_found() from old pmde, without ever taking PTL and
->>>         rechecking *pvmw->pmd
->>>
->>>So issue is not seeing migration entry itself, but making final
->>>not_found() decision from stale lockless PMD value ...
->>>
->>>Before this patch, PMD migration case took PTL before making that
->>>decision ...
->>>
->>
->>Yes, this patch changes the decision making condition for pmd entry. Thanks
->>for pointing out.
->>
->>Hmm... I took another look into current pte handling and find for pte entry,
->>we did two phase check:
->>
->>  * map_pte() without ptl
->>  * check_pte() with ptl
->>
->>While check_pte() do extra pfn range check, map_pte() doesn't.
->>
->>This means for pte entry, we may face the same situation as you describe: 
->>make the decision before grab PTL. Till now, it looks reasonable.
->>
->>But one thing jumped at me, PVMW_SYNC. When this flag is specified, all check
->>is done under PTL. But now for pmd entry, we don't have a chance to do so.
->>
->>And as the comment says in try_to_migrate_one()
->>
->>	/*
->>	 * When racing against e.g. zap_pte_range() on another cpu,
->>	 * in between its ptep_get_and_clear_full() and folio_remove_rmap_*(),
->>	 * try_to_migrate() may return before folio_mapped() has become false,
->>	 * if page table locking is skipped: use TTU_SYNC to wait for that.
->>	 */
->>
->>I tracked down to commit a98a2f0c8ce1 ('mm/rmap: split migration into its own
->>function'), but not getting more detail on reasoning. Not fully understand it
->>yet, but it seems there is some race between migration and unmap which is
->>protected by PTL?
->>
->>Will look into this to get more detail.
->>
->
->After going through the history, I found this:
->
->   commit 732ed55823fc3ad998d43b86bf771887bcc5ec67
->   Author: Hugh Dickins <hughd@google.com>
->   Date:   Tue Jun 15 18:23:53 2021 -0700
+
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>   net/qrtr/ns.c |   17 +++++++++++++++++
+>   1 file changed, 17 insertions(+)
+> 
+> --- a/net/qrtr/ns.c
+> +++ b/net/qrtr/ns.c
+> @@ -75,6 +75,16 @@ struct qrtr_node {
+>    */
+>   #define QRTR_NS_MAX_LOOKUPS 64
 >   
->       mm/thp: try_to_unmap() use TTU_SYNC for safe splitting
->
->This one fix the race mentioned above: we expect mapcount is 0, but is not.
+> +/* Max nodes, server, lookup limits are chosen based on the current platform
+> + * requirements. If the requirement changes in the future, these values can be
+> + * increased.
+> + */
+> +#define QRTR_NS_MAX_NODES   64
+> +#define QRTR_NS_MAX_SERVERS 256
+> +#define QRTR_NS_MAX_LOOKUPS 64
+> +
+> +static u8 node_count;
+> +
+>   static struct qrtr_node *node_get(unsigned int node_id)
+>   {
+>   	struct qrtr_node *node;
+> @@ -83,6 +93,11 @@ static struct qrtr_node *node_get(unsign
+>   	if (node)
+>   		return node;
+>   
+> +	if (node_count >= QRTR_NS_MAX_NODES) {
+> +		pr_err_ratelimited("QRTR clients exceed max node limit!\n");
+> +		return NULL;
+> +	}
+> +
+>   	/* If node didn't exist, allocate and insert it to the tree */
+>   	node = kzalloc(sizeof(*node), GFP_KERNEL);
+>   	if (!node)
+> @@ -96,6 +111,8 @@ static struct qrtr_node *node_get(unsign
+>   		return NULL;
+>   	}
+>   
+> +	node_count++;
+> +
+>   	return node;
+>   }
+>   
+> 
+> 
+> 
 
-Cool, thanks!
-
-I do want to spend more time on this refactor. It is touching some subtle
-page_vma_mapped_walk() rules, so I don't want to skim and guess ...
-
-One case I can pin down now is device-private: the PTE side gives us a
-clear rule to compare against :)
-
-On the PTE side:
-
-1) PVMW_SYNC set, PVMW_MIGRATION set
-
-  map_pte() uses pte_offset_map_lock(), so it takes PTL first.
-  check_pte() then runs under PTL. Since PVMW_MIGRATION is set,
-  check_pte() requires a migration entry, so device-private is rejected.
-
-2) PVMW_SYNC set, PVMW_MIGRATION clear
-
-  map_pte() takes PTL first. check_pte() then runs under PTL.
-  Since PVMW_MIGRATION is clear, device-private can be a normal mapping,
-  but check_pte() still checks entry type and PFN range.
-
-3) PVMW_SYNC clear, PVMW_MIGRATION set
-
-  map_pte() first does a lockless read. A non-present, non-none PTE can
-  still be a candidate, so map_pte() takes PTL. check_pte() then rejects
-  device-private, because PVMW_MIGRATION requires a migration entry.
-
-4) PVMW_SYNC clear, PVMW_MIGRATION clear
-
-  map_pte() first does a lockless read. A device-private PTE can be a
-  normal mapping candidate, so map_pte() takes PTL. check_pte() then
-  checks entry type and PFN range under PTL.
-
-On the PMD device-private side, before this patch, all four cases go
-through the same code once the lockless PMD read sees a device-private
-entry:
-
-- lockless read PMD into pmde
-- pmde is non-present
-- decode pmde as a softleaf entry
-- entry is device-private
-- take pmd_lock()
-- return true
-
-So compared with the PTE side:
-
-A) PVMW_SYNC set, PVMW_MIGRATION set
-
-  PTE rejects device-private under PTL.
-
-  PMD returns true.
-
-  This does not match. The PMD code misses the PVMW_MIGRATION direction
-  check, and does not reread/revalidate PMD under pmd_lock().
-
-B) PVMW_SYNC set, PVMW_MIGRATION clear
-
-  PTE can accept device-private, but only after locked check_pte()
-  validation.
-
-  PMD also returns true.
-
-  The direction is OK, but the final check is missing. PMD returns true
-  from the lockless PMD classification, without PMD revalidation and
-  without check_pmd() PFN-range check.
-
-C) PVMW_SYNC clear, PVMW_MIGRATION set
-
-  PTE can reach locked check_pte() from the lockless candidate, but
-  check_pte() rejects device-private.
-  
-  PMD returns true.
-
-  Same mismatch as case A: missing PVMW_MIGRATION direction check, and no
-  locked PMD revalidation.
-
-D) PVMW_SYNC clear, PVMW_MIGRATION clear
-
-  PTE can accept device-private after locked validation.
-
-  PMD also returns true.
-
-  Direction is OK here as well, but the PMD code still has no final
-  locked check matching check_pte(): no PMD reread/revalidation, and no
-  check_pmd() PFN-range check.
-
->
->IIUC, if we apply the change in this patch, the affected case is
->pmd_is_migration_entry(). In case someone else has cleared it but not update
->mapcount yet, try_to_migrate() would return before folio_mapped() is false.
->
->Thanks Lance for raise the question.
->
->If above analysis is true, I haven't got a neat way to take this into
->consideration.
->
->BTW, for a fix, I am thinking to keep it simple and direct. So how about leave
->the refactor as a followup cleanup?
-
-So for a fix, let's line up the PTE and PMD rules first :D
-
-Cheers, Lance
-
->-- 
->Wei Yang
->Help you, Help me
->
