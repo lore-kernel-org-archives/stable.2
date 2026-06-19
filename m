@@ -1,62 +1,62 @@
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8D03BFAD5
-	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 20:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EE23BFAEE
+	for <stable@vger.kernel.org>; Fri, 19 Jun 2026 20:31:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781901120; cv=none; b=E23osZ7wxPBppHy56qXBcCsgwNOQlqAMW78o9EIjeMSU1MvCZSOWmcaMccDNUjVodX3jzoVHi0/RInBr8aqN/DB5eqDesYikLoIGrmqzMVaLvlXGmb6a87XpUzvFz8YfJsZlmOSwS6+n7ZAC22l8MxAM4tTGuIZ0cXFbQGi+hNE=
+	t=1781901123; cv=none; b=A2RvABkOx+knLkvylVcxeaOF4cbpzOyUtVb+V7s+pHRRXYfbE0Ap8v9zpK3jZpUMrrJtPmWHMKFbnY33oI+71k8ECrHdX7G1CBzibLh620yYtqb+l2PMfhTEwRzIMylx1DnFl/QNDy6HP8syuoDE5BozOCVCc3N8O1sA0Oa6+88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781901120; c=relaxed/simple;
-	bh=u3DS0RW8qwKnPXbLqw4zkRsFPGr0SmLyS4ByHV94B/Q=;
+	s=arc-20240116; t=1781901123; c=relaxed/simple;
+	bh=lqeXZvwKd2+gKyapbikEC8uszALCZyZ/DkHgKCMSiHY=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CkbFio0WkCtCNpBcR4KGRcD9cBkgDL+2lPLlSNJTvdvTD4cd4iq47zgnpySGSW5F54EBw07N8vYFB86IqRIor68v3SdB/OBzYN09QHi8Gyf16sGKfW70KJJXRU3ajP16ddvk5KEUVU9wB3GSt15n7bcvfp9QDI4lM5D1s46fC9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IOi3drpz; arc=none smtp.client-ip=74.125.224.49
+	 MIME-Version; b=aYWPh5oVUFHF/iaieY9ZBkPv+3cuef1y/PD+YN3zKlCkoEJSmBxD6/uDSP5uZv50Ijpkg+alnaMhsu6nyLwzden4C7plnmuUIozmhXSH2KnyY+zj8Uq6tyJMAy312qFihtKjyLyQ7+E94jLL6Iq7XHJK/fhrL1yJmOjlMZNGIoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UQFqgbJi; arc=none smtp.client-ip=209.85.222.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IOi3drpz"
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-6611689dc10so2837364d50.1
-        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 13:31:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UQFqgbJi"
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-9159f631656so328047785a.1
+        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 13:31:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781901115; x=1782505915; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781901116; x=1782505916; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bd1mWB6GNyNzgHCKDKsPJpGXztRF54FOFrBz+pWkAI8=;
-        b=IOi3drpziRfoWd/KJT3NdR34UPQHXXrOZkgOkvG3WnQ9MXdrN+coIQyYH+93SERPpt
-         iYTzXqmM+X4eZ7Dywh9fwj53nXqGG6+TNT12Wtamj4FHUns1o36g5ssyr6Gh7KYRwoIw
-         a8HZNY11mj9SAleCt56qNZyL5Cx4qg0Pn9eXSdlyDEbGsDk4eQ3PZ6pCRi3iOLxGWjsJ
-         4S0BJdstjC5b9cIuCarC3xa+RmMaoRpX3OLtgiVgp4bQt3fIq75R2JXStuV6aIB/pmfU
-         kVtvTByA9A7Ofsk3s1RrpairRXAj0t6MUT2d452g4exk8yheSAeaIjXPz14n6j2cRwl/
-         xW6A==
+        bh=/Rfwd7WJck9jEb6I6f8Juo4t1Gf+3WTqdnf32I0mINY=;
+        b=UQFqgbJiqXW1j9nL3ahEAjmuNLPbFqp+JOMUClMofdKwv2rb2DF363xEt3VQC/2yt8
+         53YwOJcfGjjGtZWY9/BcssSWG53PLW1sZZIQ7FkmYpN+YPkSMf/YTvO33H5QXDfRRU5N
+         h+rPQ8SpqmcREFaWuQN5rQLyS6Z2SoEvboEs0NIIN4lzSEqjbZDkpjxT4nnRdk9PyyOb
+         69SXB1z2SLDgsPTahyogy4hX2k67dbEfiXczVMXhhK7DR1mgjTFlS0BY5+X9Ko42ycyX
+         KGf2OOqSv6bpWyxaIm2HwBPf2c89fIHo8dB0dJjTryRnIJBKjKOs2uwO2AaXBsW4T0tC
+         lKIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781901115; x=1782505915;
+        d=1e100.net; s=20251104; t=1781901116; x=1782505916;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=bd1mWB6GNyNzgHCKDKsPJpGXztRF54FOFrBz+pWkAI8=;
-        b=Ova+cIl4Fpxziy3O/hxbr+SLTlooolJ0ZsTXoJlWRSYJ533TpAlkrCSVAxBEcfw2PV
-         tB2UFtE8ebrAf9lHSkhggvxZuJlscDPdgT2SXeCWDVvO94GU/l3lRfr0xr8e2V4z9QAb
-         Jny1wyfrLsr6zyfoLralc6WZpP91EqM6GotelZSZ+dOF+HUBzcAXPNpfL4Trz69+il2r
-         J925FP/JsJTTebmk+aWMWiVjgO8GjCYjtFGB3vWOMfzKLqZOEz9jFgJScaeziQViA33U
-         Vh5jBg6+oseG9VrnfdnbIScpsbUcboXIVay3O5XI/9ORcIyopbtClUgzn7edYDcxHk+f
-         xV6A==
-X-Gm-Message-State: AOJu0YzbSgIzE5yusGmEXmkGKjTcSxri4t4K7z7Wcl+mCfqmDhJ51cuH
-	c1YTnZcMZFmFc5+mBfydl7Xjxk/b0V7KuFX3Ss4I6r+QhDUzWSDZ4dT7MtyO8tn3IDI=
-X-Gm-Gg: AfdE7cnh6uPqDEBBCkydT0+DOdIHA91U7D2UpMkxCFB4n0lTwQU0eNC5aUjExST597M
-	mmxOjqvK/oMRcw8YMpPd1b5gxjY2dpexxJAUwGTiQJ8YbXLqUbc6dlDqldeH9JRGrfqIO9OTUHB
-	nlliigUf31x4pYKa0YwXGVKRwCkBIMqbuaooGw/ghz1D7pQS0Y1avPVnF9uv3xvYgnFzfYSbgky
-	o7ufW3I6l3hseFJ19Y2oEqmUEpebtTa+MJFhBQAqcFidE5xss8HYRs4Lyo+mZxaP6xJqXlnkKf7
-	S5WUlKcYmr5YcPOsOBV4cs0Y8qCayLYAhdASV5RWEPGEpsgz+pphd4yIl/FzlfPH0CbAGuJisA7
-	IIq6HYgzJa6fSOFsY35VWo5sU/JcS3sT33o4DFaVaTR5fbtNsXH5XnKcZ3+DQuA+H80VnWraOMZ
-	AkJaGx93Na15siM7g=
-X-Received: by 2002:a05:690e:e85:b0:65d:7db3:5587 with SMTP id 956f58d0204a3-66302f041e5mr4221049d50.4.1781901114833;
-        Fri, 19 Jun 2026 13:31:54 -0700 (PDT)
+        bh=/Rfwd7WJck9jEb6I6f8Juo4t1Gf+3WTqdnf32I0mINY=;
+        b=mQbnk/hR3CMFp52qScluC1uDJ0doigMcDnL0SOvcd/xycdZFpyAX02PIbbdweqv+0X
+         7HnFu7q5wuK3U83YEu30hO7U2flovH8+Sb0YiOKvhxC1i6AJqId/VVgKRi8upA8nPP95
+         I3JqVKtKc5VNMEShx3LDvLNOS7ooDTSRb0ek7qvDWOObiaPh7lNG9gedD/52AtrZy8yj
+         Jdv7umzORegZyxPiASlhdNNeQ8Mn+XODBkQIuZ2lArILKvmmbJYtsNmBIl/maFYoVo+T
+         yHvkl2R+yV+7ADS/QmtCFZ9q5S9G7chirzQ1bViQg4uWQQ/cjkqecns/hDhpFtEXscXA
+         A+cg==
+X-Gm-Message-State: AOJu0YwOcS7DZL0AYQjqFl+aS89LoxvkLpYAVIg9mJyy07EhQlp9vjFz
+	hVrruUsnNej8WS14m5dD3Fqy06mgerWYAbX8ZH4GswjtReFPrwaApn68tWfKHDGifjo=
+X-Gm-Gg: AfdE7clrZUyWQ2qIzRk4jhrRuMLsoan7VENo7GkRi5DI8LH/1g1q3ynvoMtMT8sBvqx
+	v7vRSLoAlRGWnsqdTWQnV+iKL6d1Lzv1qAmPqtY+FKRnbZs9zs4BOmtQ7lafxHG24gVPhh/yc2E
+	8ZvG1BAy7nmew+c+qszSboNBQJdqgVs6ujqQkK2PPYTwfRFBZIyChEQCMb+8/22yVJdgk7KTsEg
+	cFFEeefwFqPagI6gFaQUcyAVI7HKNFuAi47DG0O/lGDBWj+jCA5eDDqvKssNVlCyJ4wdaVPyiB7
+	gGFhgBxJ8vNei90YHA7AliASCPSnJEhZQPJXR9Zvz7Q7qQhIgOfLyuf/ym1tuthwAAdvamnXdix
+	u7urJa7bXLsRelm5F383GI7Jn67DF/nutG0mAUU+Kz+YThhzJ5llwIB1TDYbcqJ4PFjqeCKnRrk
+	JlFTD9YoI+d9aspC0=
+X-Received: by 2002:a05:620a:2949:b0:915:9da9:b541 with SMTP id af79cd13be357-9208a8c738cmr623400585a.10.1781901116228;
+        Fri, 19 Jun 2026 13:31:56 -0700 (PDT)
 Received: from TurinLinux.. ([37.19.212.13])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8df7f015805sm11106986d6.1.2026.06.19.13.31.53
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8df7f015805sm11106986d6.1.2026.06.19.13.31.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 13:31:54 -0700 (PDT)
+        Fri, 19 Jun 2026 13:31:55 -0700 (PDT)
 From: Nicholas Dudar <main.kalliope@gmail.com>
 To: stable@vger.kernel.org
 Cc: seanjc@google.com,
@@ -68,9 +68,9 @@ Cc: seanjc@google.com,
 	mlevitsk@redhat.com,
 	jmattson@google.com,
 	Nicholas Dudar <main.kalliope@gmail.com>
-Subject: [PATCH v2 6.1.y 1/3] KVM: nVMX: Add a helper to get highest pending from Posted Interrupt vector
-Date: Fri, 19 Jun 2026 16:31:05 -0400
-Message-Id: <20260619203107.2752678-2-main.kalliope@gmail.com>
+Subject: [PATCH v2 6.1.y 2/3] KVM: nVMX: Check for pending posted interrupts when looking for nested events
+Date: Fri, 19 Jun 2026 16:31:06 -0400
+Message-Id: <20260619203107.2752678-3-main.kalliope@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260619203107.2752678-1-main.kalliope@gmail.com>
 References: <20260619203107.2752678-1-main.kalliope@gmail.com>
@@ -84,79 +84,80 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-commit d83c36d822be44db4bad0c43bea99c8908f54117 upstream.
+commit 27c4fa42b11af780d49ce704f7fa67b3c2544df4 upstream.
 
-Add a helper to retrieve the highest pending vector given a Posted
-Interrupt descriptor.  While the actual operation is straightforward, it's
-surprisingly easy to mess up, e.g. if one tries to reuse lapic.c's
-find_highest_vector(), which doesn't work with PID.PIR due to the APIC's
-IRR and ISR component registers being physically discontiguous (they're
-4-byte registers aligned at 16-byte intervals).
+Check for pending (and notified!) posted interrupts when checking if L2
+has a pending wake event, as fully posted/notified virtual interrupt is a
+valid wake event for HLT.
 
-To make PIR handling more consistent with respect to IRR and ISR handling,
-return -1 to indicate "no interrupt pending".
+Note that KVM must check vmx->nested.pi_pending to avoid prematurely
+waking L2, e.g. even if KVM sees a non-zero PID.PIR and PID.0N=1, the
+virtual interrupt won't actually be recognized until a notification IRQ is
+received by the vCPU or the vCPU does (nested) VM-Enter.
 
+Fixes: 26844fee6ade ("KVM: x86: never write to memory from kvm_vcpu_check_block()")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20240607172609.3205077-2-seanjc@google.com
+Cc: Maxim Levitsky <mlevitsk@redhat.com>
+Reported-by: Jim Mattson <jmattson@google.com>
+Closes: https://lore.kernel.org/all/20231207010302.2240506-1-jmattson@google.com
+Link: https://lore.kernel.org/r/20240607172609.3205077-5-seanjc@google.com
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-[ Nicholas Dudar: backport to 6.1.y. 6.1.y defines struct pi_desc in
-  posted_intr.h and predates the move to <asm/posted_intr.h>, so the helper
-  and the <linux/find.h> include go in posted_intr.h. ]
+[ Nicholas Dudar: backport to 6.1.y. Prerequisite for the next patch, which
+  folds its check into the vmx_has_nested_events() body this patch builds.
+  Applies cleanly. The for_injection path still returns preemption_timer ||
+  mtf, as the previous 6.1.y body did. ]
 Signed-off-by: Nicholas Dudar <main.kalliope@gmail.com>
 ---
- arch/x86/kvm/vmx/nested.c      |  5 +++--
- arch/x86/kvm/vmx/posted_intr.h | 10 ++++++++++
- 2 files changed, 13 insertions(+), 2 deletions(-)
+ arch/x86/kvm/vmx/nested.c | 36 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 34 insertions(+), 2 deletions(-)
 
 diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index bdc462944..7d8e18dbe 100644
+index 7d8e18dbe..ad07e83d2 100644
 --- a/arch/x86/kvm/vmx/nested.c
 +++ b/arch/x86/kvm/vmx/nested.c
-@@ -12,6 +12,7 @@
- #include "mmu.h"
- #include "nested.h"
- #include "pmu.h"
-+#include "posted_intr.h"
- #include "sgx.h"
- #include "trace.h"
- #include "vmx.h"
-@@ -3818,8 +3819,8 @@ static int vmx_complete_nested_posted_interrupt(struct kvm_vcpu *vcpu)
- 	if (!pi_test_and_clear_on(vmx->nested.pi_desc))
- 		return 0;
+@@ -3953,8 +3953,40 @@ static bool nested_vmx_preemption_timer_pending(struct kvm_vcpu *vcpu)
  
--	max_irr = find_last_bit((unsigned long *)vmx->nested.pi_desc->pir, 256);
--	if (max_irr != 256) {
-+	max_irr = pi_find_highest_vector(vmx->nested.pi_desc);
-+	if (max_irr > 0) {
- 		vapic_page = vmx->nested.virtual_apic_map.hva;
- 		if (!vapic_page)
- 			goto mmio_needed;
-diff --git a/arch/x86/kvm/vmx/posted_intr.h b/arch/x86/kvm/vmx/posted_intr.h
-index 269920765..88cea0dac 100644
---- a/arch/x86/kvm/vmx/posted_intr.h
-+++ b/arch/x86/kvm/vmx/posted_intr.h
-@@ -2,6 +2,8 @@
- #ifndef __KVM_X86_VMX_POSTED_INTR_H
- #define __KVM_X86_VMX_POSTED_INTR_H
- 
-+#include <linux/find.h>
+ static bool vmx_has_nested_events(struct kvm_vcpu *vcpu, bool for_injection)
+ {
+-	return nested_vmx_preemption_timer_pending(vcpu) ||
+-	       to_vmx(vcpu)->nested.mtf_pending;
++	struct vcpu_vmx *vmx = to_vmx(vcpu);
++	void *vapic = vmx->nested.virtual_apic_map.hva;
++	int max_irr, vppr;
 +
- #define POSTED_INTR_ON  0
- #define POSTED_INTR_SN  1
- 
-@@ -103,4 +105,12 @@ int vmx_pi_update_irte(struct kvm *kvm, unsigned int host_irq,
- 		       uint32_t guest_irq, bool set);
- void vmx_pi_start_assignment(struct kvm *kvm);
- 
-+static inline int pi_find_highest_vector(struct pi_desc *pi_desc)
-+{
-+	int vec;
++	if (nested_vmx_preemption_timer_pending(vcpu) ||
++	    vmx->nested.mtf_pending)
++		return true;
 +
-+	vec = find_last_bit((unsigned long *)pi_desc->pir, 256);
-+	return vec < 256 ? vec : -1;
-+}
++	/*
++	 * Virtual Interrupt Delivery doesn't require manual injection.  Either
++	 * the interrupt is already in GUEST_RVI and will be recognized by CPU
++	 * at VM-Entry, or there is a KVM_REQ_EVENT pending and KVM will move
++	 * the interrupt from the PIR to RVI prior to entering the guest.
++	 */
++	if (for_injection)
++		return false;
 +
- #endif /* __KVM_X86_VMX_POSTED_INTR_H */
++	if (!nested_cpu_has_vid(get_vmcs12(vcpu)) ||
++	    __vmx_interrupt_blocked(vcpu))
++		return false;
++
++	if (!vapic)
++		return false;
++
++	vppr = *((u32 *)(vapic + APIC_PROCPRI));
++
++	if (vmx->nested.pi_pending && vmx->nested.pi_desc &&
++	    pi_test_on(vmx->nested.pi_desc)) {
++		max_irr = pi_find_highest_vector(vmx->nested.pi_desc);
++		if (max_irr > 0 && (max_irr & 0xf0) > (vppr & 0xf0))
++			return true;
++	}
++
++	return false;
+ }
+ 
+ /*
 -- 
 2.34.1
 
