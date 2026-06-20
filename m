@@ -1,163 +1,145 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92E39443
-	for <stable@vger.kernel.org>; Sat, 20 Jun 2026 09:29:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040E932AACB;
+	Sat, 20 Jun 2026 09:42:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781947763; cv=none; b=BgpQlIzNkNqBa/SYZkI4HTo0zDmGybFsBSzi9uwUoguCEzsWziwPuNfYhXhuit/mTIjgNZpoZO6zNkLKpFf3kmrMNhhJ/+p8LOCYuxL7UJT8eFaZ6vrJNQYxq7BilTRfpjIMUJkYi0EWTURw19Y8i7o4fwK4pwoOWMti/cUIhzU=
+	t=1781948582; cv=none; b=uYHHw+zkch5D1cHwacl5P2hv65TyouT94J2kjSQ2W/JjEL44kaCBE+Gu7kNHMMTN1n1Ic5PaPRBkMGQwplIPmaBbMlFTLocyODkf6WFonygYxHYRBi7pYVmQKbfzglkj05Hlgpi6fXrZ0hINgUBRHi4CcFzyFqtbW8mxkuhBJdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781947763; c=relaxed/simple;
-	bh=5APvOQGjBXdDnIo4nhOU+JqLJI07zTuCW2waT0JM4lY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sAJhvgvLzAc8VZcuWK6w9zGuRdxbNIsOlSPfvZdrqmypUo15TPMMHug3p8tKvtEO7d49XGLKlBIbXUKCWDoR0f7YYMKzBSOxLBpHPr+OYzKXhH0OfQ5EBJB74Fmhcs37sF9epiyhl+GFQs7xso1QUtUXLwXTc0aZPvd6CMzs3ho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZCRTghDU; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781948582; c=relaxed/simple;
+	bh=8fMNRF0SqSKtMYIVnbt9RS7ifbrZk0Ewvn6V0lL10A4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ddO+FWRVFkCE2WRWm4c7DHbbzi7SOT3R2JgrQakWyHpOESPdnlR8rgLy+acKOiaRtnV4Nol2AS13jBywmDy0Ik1/vU1HOufxJlgb5v1XtPw4gXAXVKrPonW6Xz1ZK6S4/KeNX9NZvWN15CohD/ThRqfZSzm0xJFuVHjjQ9+ez/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=a3MT9u3D; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZCRTghDU"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so20715035e9.1
-        for <stable@vger.kernel.org>; Sat, 20 Jun 2026 02:29:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781947760; x=1782552560; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3G7AUd5H2ycf67BaRCEhRwe9JqDuDQY8lDx0k8sMpCM=;
-        b=ZCRTghDUuZAPU1FrQTp7UbR0QkBJAbCzeenXF1xqpORz+jtn+HLfGUBWTYM2b44Vt3
-         u0+2GctwQkmdy0Gmk6Ou+6zSEg0dBi0VG6U3UfzAl4yGt2ThcP167lUtwmF/72sMrzpE
-         qtb4KeGHWCVmn+EMIMM1Fs/nx5IEbBcVzFxpB9lRANy8z8iQzUJa0QpHGKbn9e/KEJL9
-         lW9yvtoktEpIEcVJPzOxoVfiClrW6y0kGksLjjJm+MksdDT+zvCk8A1All7Wb13ObWkB
-         VZ2ZFkIlOd6l0YWU1gLqe06Jlj0XEWr7q3uWRfRX5/ncX3Sf3fEEVRfBr/Q2BHjr49qb
-         Nxow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781947760; x=1782552560;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=3G7AUd5H2ycf67BaRCEhRwe9JqDuDQY8lDx0k8sMpCM=;
-        b=SHERFQ56y99Jxe+MqOzXuhY8qRaokpR4BmmhU58q60T3bGmlemh7DYK3BwiwrceDDq
-         XuyD7+TazKbfwN4TBOcxpFiIx7LcnAz+HwXaH5Ly5xWijFS6ZzzY8AD0y0E4Eo3pY21j
-         +dX5RoVqnVAviX3fIwKyu8+5h9TW0JVUPxsI54kOiY8xzBm2OCXOlRCwsOlxYNqB6JHA
-         hC/5Z48l2pb6F3lWMfLmzna18My3+RjhDQlk2do8PripyfRXOYwRImOPvf6efQ2ns9Vj
-         rcYc0Okne4A8JELcZxkLJQ6qa/cEB1Ma//KxBAI2pFOHzkjHsYIz8cDEox9I0L4OMWWj
-         7yPw==
-X-Forwarded-Encrypted: i=1; AFNElJ/UtcEJQCxG6OBccOAm+pR/rthZUMGqAmFlBn4lYNd/Tq1bbWmQD3nJ1XGweoKBpRA0BanKEZo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzdFWJWRLIOM4Yn+IE6iuJQTH/C7mAdYqNv7q/+hwg73EQEs70D
-	VTAb2tC0hhCpghxjQCzUtoimDgb6k9oIEg8GJcfMMOpjK5eqbU/K71qn
-X-Gm-Gg: AfdE7cmZiP+GjV9V/82ntWvpEgc7f1dKtZvRcnHSe+bGlhtjRkb+YNSlFLas7+8dLQY
-	oxPa6q4U91w4GXd5SnsGfWlV7x7UkKFDSfEaX2eqZ3SsGb5R4dbIWUMjqH6SaqDLNVTUEJZ6fly
-	5z5DCxDnfw6+ZUwp4QBN+HnXtm86l8O7upgp960LK+hddRGpvsWyOHjVbRYcV84eSd6Cf6aLlvD
-	YRzEmwgvhh1dXqZnns66TojbmnPPINcESrzdtlniH/uk94SfWS8HJ/BOnDi5JoMM7bbd72ffdww
-	RNAxThw/8v394FihvlY1d/GfR7rJWVH+g5rB1qgrThi2jMRpx8Xu2xrX5VK8Qci9tdqa3IqOZF7
-	+nMm9sy48z5XFLTpEHKGrFQUvgpcbvsCcTOoJBq69/mAMmT4yRWRGsJ3GlfXxFWTOoUrBDFOzkQ
-	1AUrpg6PQbcs9VqhKQE+cVMp4PClOhbyS12xjVSn23YjDr4Du2OqnEZVkGgONv
-X-Received: by 2002:a05:600c:45d5:b0:490:bb3e:30c2 with SMTP id 5b1f17b1804b1-4923f56c0bbmr114244515e9.18.1781947759946;
-        Sat, 20 Jun 2026 02:29:19 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466667881bfsm6721948f8f.22.2026.06.20.02.29.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Jun 2026 02:29:19 -0700 (PDT)
-Date: Sat, 20 Jun 2026 10:29:18 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, netdev@vger.kernel.org, Samuel
- Ortiz <sameo@linux.intel.com>, Christophe Ricard
- <christophe.ricard@gmail.com>, linux-kernel@vger.kernel.org, Jianhao Xu
- <jianhao.xu@seu.edu.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH net] nfc: st-nci: use unaligned accessors for frame
- length
-Message-ID: <20260620102918.7f3e0eb9@pumpkin>
-In-Reply-To: <20260620090536.1701282-1-runyu.xiao@seu.edu.cn>
-References: <20260620090536.1701282-1-runyu.xiao@seu.edu.cn>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="a3MT9u3D"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 43192ae6e;
+	Sat, 20 Jun 2026 17:37:46 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Taras Chornyi <taras.chornyi@plvision.eu>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Oleksandr Mazur <oleksandr.mazur@plvision.eu>,
+	Andrii Savka <andrii.savka@plvision.eu>,
+	Vadym Kochan <vadym.kochan@plvision.eu>,
+	Volodymyr Mytnyk <volodymyr.mytnyk@plvision.eu>,
+	linux-kernel@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: marvell: prestera: use unaligned accessors for DSA tag
+Date: Sat, 20 Jun 2026 17:37:39 +0800
+Message-Id: <20260620093739.2164921-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9ee464b63203a1kunme267ed1df294f
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHUpNVksfS0IdHkgZHhkYHlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=a3MT9u3DUyshn2ClhviuzzlH1+nQSFyiCps84FafLHUoYANG6J7JZaTBNYz1wCfT0fnFwk26PUhGA6KVxw3umGe1KAznznN+IE96+RCcbFA2/gCm0xIDP2q7eIKdZSv3cZSUgEuO3e3UAXPrDb3VOyqxcvaZXUjNVlE/HAZGRMA=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=MgB0X53jUypkv0f8t6Xh88X4qD70o0a+demyhV9n3tY=;
+	h=date:mime-version:subject:message-id:from;
 
-On Sat, 20 Jun 2026 17:05:36 +0800
-Runyu Xiao <runyu.xiao@seu.edu.cn> wrote:
+Prestera parses and builds its 16-byte DSA tag from an skb byte buffer.
+The current code casts the tag pointer to __be32 * and then reads or
+writes the four tag words through that typed pointer.
 
-> The ST NCI I2C and SPI transports parse a frame length from bytes
-> received from the controller. Both paths first read the frame header into
-> a local u8 buffer and then cast buf + 2 to __be16 * before converting it
-> from big endian.
+The tag pointer is derived from skb data, but that only identifies the
+protocol tag location inside the packet buffer. It does not make the tag
+a naturally aligned __be32 array. Use the unaligned big-endian helpers
+for both parsing and building the tag.
 
-Then align the local buffer.
+This issue was detected by our static analysis tool and confirmed by
+manual audit. The same access pattern was validated with UBSAN alignment
+instrumentation by keeping the original cast from a u8 DSA tag buffer to
+__be32 * and reading dsa_words[i] from a deliberately misaligned tag
+buffer. UBSAN reported misaligned-access loads of type '__be32' in
+prestera_dsa_parse().
 
-	David
+The driver has the same source-level issue: the RX path parses bytes at
+skb->data - ETH_TLEN, and the TX path writes the tag at skb->data +
+2 * ETH_ALEN. Those offsets identify the DSA tag bytes, but they do not
+establish a __be32 object or a 4-byte alignment guarantee for typed loads
+and stores.
 
-> 
-> These are transport byte buffers, not __be16 objects. Use
-> get_unaligned_be16() for the NCI frame length field in both the I2C and
-> SPI transports.
-> 
-> This issue was detected by our static analysis tool and confirmed by
-> manual audit. A focused UBSAN alignment validation kept the original
-> access shape, be16_to_cpu(*(__be16 *)(buf + 2)), and ran it on an NCI
-> frame byte buffer with buf + 2 at an odd address. UBSAN reported a
-> misaligned-access load of type '__be16', and the trace contained
-> st_nci_i2c_read().
-> 
-> The driver has the same source-level issue: the transport helpers fill
-> u8 buffers, and the length checks only prove that the bytes are present.
-> They do not establish a __be16 object at buf + 2 or a 2-byte alignment
-> guarantee before the typed load.
-> 
-> Fixes: ed06aeefdac3 ("nfc: st-nci: Rename st21nfcb to st-nci")
-> Fixes: 2bc4d4f8c8f3 ("nfc: st-nci: Add spi phy support for st21nfcb")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  drivers/nfc/st-nci/i2c.c | 3 ++-
->  drivers/nfc/st-nci/spi.c | 3 ++-
->  2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/nfc/st-nci/i2c.c b/drivers/nfc/st-nci/i2c.c
-> index 9ae839a6f5cc..29fdb4ae56e0 100644
-> --- a/drivers/nfc/st-nci/i2c.c
-> +++ b/drivers/nfc/st-nci/i2c.c
-> @@ -14,6 +14,7 @@
->  #include <linux/delay.h>
->  #include <linux/nfc.h>
->  #include <linux/of.h>
-> +#include <linux/unaligned.h>
->  
->  #include "st-nci.h"
->  
-> @@ -120,7 +121,7 @@ static int st_nci_i2c_read(struct st_nci_i2c_phy *phy,
->  	if (r != ST_NCI_I2C_MIN_SIZE)
->  		return -EREMOTEIO;
->  
-> -	len = be16_to_cpu(*(__be16 *) (buf + 2));
-> +	len = get_unaligned_be16(buf + 2);
->  	if (len > ST_NCI_I2C_MAX_SIZE) {
->  		nfc_err(&client->dev, "invalid frame len\n");
->  		return -EBADMSG;
-> diff --git a/drivers/nfc/st-nci/spi.c b/drivers/nfc/st-nci/spi.c
-> index 169eacc0a32a..1326c20e43fc 100644
-> --- a/drivers/nfc/st-nci/spi.c
-> +++ b/drivers/nfc/st-nci/spi.c
-> @@ -14,6 +14,7 @@
->  #include <linux/delay.h>
->  #include <linux/nfc.h>
->  #include <linux/of.h>
-> +#include <linux/unaligned.h>
->  #include <net/nfc/nci.h>
->  
->  #include "st-nci.h"
-> @@ -130,7 +131,7 @@ static int st_nci_spi_read(struct st_nci_spi_phy *phy,
->  	if (r < 0)
->  		return -EREMOTEIO;
->  
-> -	len = be16_to_cpu(*(__be16 *) (buf + 2));
-> +	len = get_unaligned_be16(buf + 2);
->  	if (len > ST_NCI_SPI_MAX_SIZE) {
->  		nfc_err(&dev->dev, "invalid frame len\n");
->  		phy->ndlc->hard_fault = 1;
+Fixes: 501ef3066c89 ("net: marvell: prestera: Add driver for Prestera family ASIC devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ .../ethernet/marvell/prestera/prestera_dsa.c  | 19 +++++++++----------
+ 1 file changed, 9 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/net/ethernet/marvell/prestera/prestera_dsa.c b/drivers/net/ethernet/marvell/prestera/prestera_dsa.c
+index b7e89c0ca5c0..276f98cbd50e 100644
+--- a/drivers/net/ethernet/marvell/prestera/prestera_dsa.c
++++ b/drivers/net/ethernet/marvell/prestera/prestera_dsa.c
+@@ -4,6 +4,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/bitops.h>
+ #include <linux/errno.h>
++#include <linux/unaligned.h>
+ #include <linux/string.h>
+ 
+ #include "prestera_dsa.h"
+@@ -33,15 +34,14 @@
+ 
+ int prestera_dsa_parse(struct prestera_dsa *dsa, const u8 *dsa_buf)
+ {
+-	__be32 *dsa_words = (__be32 *)dsa_buf;
+ 	enum prestera_dsa_cmd cmd;
+ 	u32 words[4];
+ 	u32 field;
+ 
+-	words[0] = ntohl(dsa_words[0]);
+-	words[1] = ntohl(dsa_words[1]);
+-	words[2] = ntohl(dsa_words[2]);
+-	words[3] = ntohl(dsa_words[3]);
++	words[0] = get_unaligned_be32(dsa_buf);
++	words[1] = get_unaligned_be32(dsa_buf + 4);
++	words[2] = get_unaligned_be32(dsa_buf + 8);
++	words[3] = get_unaligned_be32(dsa_buf + 12);
+ 
+ 	/* set the common parameters */
+ 	cmd = (enum prestera_dsa_cmd)FIELD_GET(PRESTERA_DSA_W0_CMD, words[0]);
+@@ -82,7 +82,6 @@ int prestera_dsa_parse(struct prestera_dsa *dsa, const u8 *dsa_buf)
+ 
+ int prestera_dsa_build(const struct prestera_dsa *dsa, u8 *dsa_buf)
+ {
+-	__be32 *dsa_words = (__be32 *)dsa_buf;
+ 	u32 dev_num = dsa->hw_dev_num;
+ 	u32 words[4] = { 0 };
+ 
+@@ -98,10 +97,10 @@ int prestera_dsa_build(const struct prestera_dsa *dsa, u8 *dsa_buf)
+ 	words[1] |= FIELD_PREP(PRESTERA_DSA_W1_EXT_BIT, 1);
+ 	words[2] |= FIELD_PREP(PRESTERA_DSA_W2_EXT_BIT, 1);
+ 
+-	dsa_words[0] = htonl(words[0]);
+-	dsa_words[1] = htonl(words[1]);
+-	dsa_words[2] = htonl(words[2]);
+-	dsa_words[3] = htonl(words[3]);
++	put_unaligned_be32(words[0], dsa_buf);
++	put_unaligned_be32(words[1], dsa_buf + 4);
++	put_unaligned_be32(words[2], dsa_buf + 8);
++	put_unaligned_be32(words[3], dsa_buf + 12);
+ 
+ 	return 0;
+ }
+-- 
+2.34.1
 
