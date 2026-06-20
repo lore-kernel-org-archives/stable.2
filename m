@@ -1,89 +1,138 @@
-Received: from mail-m60231.netease.com (mail-m60231.netease.com [210.79.60.231])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1180B64A8D;
-	Sat, 20 Jun 2026 02:56:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.79.60.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C91175A7E;
+	Sat, 20 Jun 2026 03:41:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781924212; cv=none; b=ZfKtaAJkJ+TYdUrO66HBDD6gk49dtkSixDKLGe0oH8UQlE3JaSRX0FF2BLpUVwj3JF/uqP+6D3L6gvXDNUNGbraUtGKbHHibRPcCyQBWuBcmS9DN/MvMfZjObp/NHjjlDc5C3yu1boOcjhq6f8DT7X1p8H/NSTa9cfIETjo7NZk=
+	t=1781926914; cv=none; b=lqtijPToU2Dk8T42/Igf9WRDg/DN4hZwFlBU+BpIxUyy3F8Fh8tzDpLWKfZRa+maqyDD4gXMTV1janKWn82aMVcfwpxRiLFy6I7SjUPnLRmkdQe0DMI709F0aspcjGw7XpfqRzix0epW+oc78t51KzNxE4lOmeCnZ2LFoo3zYqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781924212; c=relaxed/simple;
-	bh=JNpBd+uZkP6DfCrlhTY/drlL03eMzz5KkGj4NbXGVJI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iAXRJMNGcQ5CURrcmimJuPr45bjfTdhckqFJouO9fCLfv8rZfIdzeWfPR38KsJ41zdqBB7MPvQ8/mQPizdkQR3QtucG66CI+1Tx2SGqrRD6PQZOABMt5jzQXKZWlsr3K2/85zhgZ3b2WRxtuyB6rmN9awB0XlkGcM0xNT2dgl+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=H8n47/0A; arc=none smtp.client-ip=210.79.60.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1781926914; c=relaxed/simple;
+	bh=gRn7+RaIMUj3ehI0AupbH+dTvmv9oBzS1ZIJoCNs2fo=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=KAN+KIwjv6TwuIT/XVK7pYsBkK8agpv7NFkc4tigl4nKZtnZNlEOOHRBgu2oh5uWpm/NgmxRFFG6gmNaErk45iW0P1Q2ogXN7CRIzl/dlTmHKFGeywRKB63Qn5nOn+YrfVc2jnuOen9MFMqXfeGS7hc06LyCzkgPSOJ6d4NV+kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CIalplrY; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="H8n47/0A"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4314e50de;
-	Sat, 20 Jun 2026 10:56:37 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Ping-Ke Shih <pkshih@realtek.com>,
-	linux-wireless@vger.kernel.org
-Cc: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH wireless] wifi: rtlwifi: rtl8192du: check QoS TID before indexing tids
-Date: Sat, 20 Jun 2026 10:56:32 +0800
-Message-Id: <20260620025632.46206-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CIalplrY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781926913; x=1813462913;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=gRn7+RaIMUj3ehI0AupbH+dTvmv9oBzS1ZIJoCNs2fo=;
+  b=CIalplrYlXlf6nYjq+fIs9QOBN0qVYEHidgeM2W9TmrXDY8GYExmyD10
+   6d2HISrgjg1h70kLYuvXdP+o7lBXNdQ2sR72KH4/KN88OfZzj9ZC0IDEL
+   UUzt9GSNcztUtM7nkiXC3POdckereP/P9sjIqJisAzHuj8yf/+UU4pq7K
+   d1AQ9TWUBhpJRd2tDXlLLlIcLAALs0IJok5FjKd4Z6NJ/NEA6MKUsaCaO
+   e9p9wZQ9KMOnZgHqbeRjPqU+264sGHEOSwlg2Ds3puBzFO3mB8uiW9vCH
+   B9wGKLmP0ld69IPBtRmxj6E1nGTe1+hAkSlPAVKeY6AR6Oe9WlN9NSHcH
+   w==;
+X-CSE-ConnectionGUID: Be8LrNU4Q42kE/KVLcLjNQ==
+X-CSE-MsgGUID: kza/5XGUSMuJM3Ht8DDa+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11822"; a="105552631"
+X-IronPort-AV: E=Sophos;i="6.24,214,1774335600"; 
+   d="scan'208";a="105552631"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jun 2026 20:41:53 -0700
+X-CSE-ConnectionGUID: ZPsFrOMLSCyit/irfxJXtw==
+X-CSE-MsgGUID: cMKI8cwOTpuQulQg1GYa3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,214,1774335600"; 
+   d="scan'208";a="272816935"
+Received: from unknown (HELO [10.238.9.114]) ([10.238.9.114])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jun 2026 20:41:50 -0700
+Message-ID: <e9472b38-4a91-44b5-b75e-dc7abd23793d@linux.intel.com>
+Date: Sat, 20 Jun 2026 11:41:47 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, David Woodhouse <dwmw2@infradead.org>,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ gregkh@linuxfoundation.org, mathias.nyman@intel.com, stable@vger.kernel.org,
+ iommu@lists.linux.dev
+Subject: Re: [PATCH RFT RFC] usb: xhci: Kill hosts with HCE or HSE on command
+ timeout
+To: Desnes Nunes <desnesn@redhat.com>, Michal Pecio <michal.pecio@gmail.com>
+References: <20260430014817.2006885-1-desnesn@redhat.com>
+ <20260503071749.6abda137.michal.pecio@gmail.com>
+ <CACaw+ew8uV5g1G-6qZGtVBEYZ3k+fvFrOq3XMyq-Nuhbq5mdnA@mail.gmail.com>
+ <20260503213111.117db3a1.michal.pecio@gmail.com>
+ <20260504093118.615ff480.michal.pecio@gmail.com>
+ <20260518083339.507e24bd.michal.pecio@gmail.com>
+ <CACaw+ewSWTo72fSk2Q7ZzCM8pNuyrX5ua+qA=SZOQuNNMKSA5Q@mail.gmail.com>
+ <20260522110328.0d3eecd8.michal.pecio@gmail.com>
+ <CACaw+ezqEO_PgjGeYCLq5hA2eKczFXgmZLa8qjPtVJZCGwsdsg@mail.gmail.com>
+ <20260523022944.59799d83.michal.pecio@gmail.com>
+ <CACaw+exPdwXVsJc5Xr=vN1WJt8XR46=X0-8PP=+5dWY5zUrKeQ@mail.gmail.com>
+ <20260523102815.5c05c70a.michal.pecio@gmail.com>
+ <CACaw+ezMnQh2_oqbZ0jF99+wOADMU2vSMqxh9BoJoefjAC_ixw@mail.gmail.com>
+ <20260527103221.7f8b15b0.michal.pecio@gmail.com>
+ <CACaw+exN3fdzGQE7oK-hRE3KpMrA3ckPDRAcXaFbd=ySXf8E5A@mail.gmail.com>
+ <CACaw+ewuPm-eOACKX3Ux0UwJBRSftoBm7H+rxE2Z9E7KzWb5ew@mail.gmail.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <CACaw+ewuPm-eOACKX3Ux0UwJBRSftoBm7H+rxE2Z9E7KzWb5ew@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9ee2f574f803a1kunm08c4dea4e65b2
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGB8YVkwYHk1MS0sZQk5LSFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=H8n47/0AWazikQVEYseH7wOscfM60hPCE0l7xvqUy6iVyAqg6DFz0fT5NPEOuUWvLn9tW+qBo/5R9GMDKWD42OlPZn/YdeEq8cG752Mnws48Pt/q/rwuYxgrvCoxJnzB/e/NLSL8IKGOsSZ1lBCfnyRHquw6S+z1zgWONT++0Tg=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=1IWZ9O+Sl5aFiIfjp0uZas22aqensvgdoia6QJQRyjY=;
-	h=date:mime-version:subject:message-id:from;
 
-rtl92du_tx_fill_desc() uses ieee80211_get_tid() to read the QoS TID
-from the 802.11 header and then uses it as an index into
-sta_entry->tids[]. ieee80211_get_tid() returns the low 4-bit QoS TID
-value, so the result can be in the range 0..15.
+On 6/18/2026 8:57 AM, Desnes Nunes wrote:
+> Hello IOMMU mailing list,
+> 
+> On Wed, Jun 10, 2026 at 12:32 PM Desnes Nunes<desnesn@redhat.com> wrote:
+>> I have just found out the solution for the bug.
+>>
+> ...
+>> In scalable mode, a PCI bus may populate only the upper root half
+>> (UCTP) when all devices on that bus have devfn >= 0x80. On bus 0x80, I
+>> have e1000e at 80:1f.6 (devfn 0xfe) and xHCI at 80:14.0 (devfn 0xa0),
+>> so the hardware root entry correctly has lo=0 and hi=UCTP present.
+>>
+>> However, after copy_translation_tables(), I noticed that root[128].hi
+>> was zeroed-out (Present bit cleared) and another (expected) different
+>> value on root[128].lo.
+>>
+>> In short, the culprit here is having a zeroed LCTP, since at
+>> copy_context_table() the allocation of new_ce for LCTP context entries
+>> currently governs the pos variable; which is later used to save new_ce
+>> entries for UCTP at tbl[tbl + pos].
+>> On the first iteration idx will be zero, old_ce_phys will be empty,
+>> thus this moves the loop straight to devfn=0x80. At devfn 0x80, idx
+>> wraps to 0 again ( (devfn * 2) mod 256), but since no new_ce was
+>> previouly allocated for LCTP context entries, pos will remain zero
+>> while copying UCTP context entries.  After all upper context entries
+>> are saved, tbl will receive new_ce from UCTP at tbl[tbl_idx + 0], and
+>> not tbl[tbl_idx + 1]. These will be later written in
+>> copy_translation_tables() to iommu->root_entry[bus].lo and
+>> iommu->root_entry[bus].hi, which causes the bug.
+>>
+>> In summary, the hardware tables were correct, but the copy path
+>> misplaced the UCTP table for bus 0x80 when dealing with a LCTP
+>> zeroed-out during kdump.
+>>
+>> To fix this, I created a v3 patch that uses devfn to better track
+>> which half we are copying, so UCTP-only buses (lo=0, hi=P) are
+>> installed into the upper root half.
+> 0001-iommu-vt-d-Fix-UCTP-context-table-slot-when-copying-.rfc.patch
+> 
+>> I am doing some final tests now, but since this was a lot to digest,
+>> comments at this stage will be most appreciated.
+> FYI, all of my last tests looked OK.
+> 
+>> To IOMMU maintainers: should I send this patch to the iommu mailing
+>> list and move the discussion there?
 
-rtlwifi only allocates MAX_TID_COUNT entries for sta_entry->tids[], and
-MAX_TID_COUNT is 9. A QoS TID greater than 8 therefore indexes past the
-aggregation state array. Keep the default RTL_AGG_STOP state for
-out-of-range TIDs, matching rtl92cu_tx_fill_desc().
+Yes, absolutely. The iommu mailing list is the right place to discuss
+bugs and fixes, so please go ahead.
 
-This issue was detected by our static analysis tool and confirmed by
-manual audit. UBSAN validation for the same bug pattern reports an
-array-index-out-of-bounds access with index 10 for type
-'rtl_tid_data [9]'.
+> I meant as a new submission to IOMMU maling list, since this started
+> in xHCI at the usb mailing list.
+> Of course, that is if nobody has any comments or objections to the patch.
 
-Fixes: 8321424134a4 ("wifi: rtlwifi: Add rtl8192du/trx.{c,h}")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/net/wireless/realtek/rtlwifi/rtl8192du/trx.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192du/trx.c b/drivers/net/wireless/realtek/rtlwifi/rtl8192du/trx.c
-index 743ce0cfffe6..c608c51f1b78 100644
---- a/drivers/net/wireless/realtek/rtlwifi/rtl8192du/trx.c
-+++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192du/trx.c
-@@ -106,7 +106,8 @@ void rtl92du_tx_fill_desc(struct ieee80211_hw *hw,
- 	if (sta) {
- 		sta_entry = (struct rtl_sta_info *)sta->drv_priv;
- 		tid = ieee80211_get_tid(hdr);
--		agg_state = sta_entry->tids[tid].agg.agg_state;
-+		if (tid < MAX_TID_COUNT)
-+			agg_state = sta_entry->tids[tid].agg.agg_state;
- 		ampdu_density = sta->deflink.ht_cap.ampdu_density;
- 	}
- 
--- 
-2.34.1
-
+Thanks,
+baolu
