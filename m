@@ -1,114 +1,136 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53673397691
-	for <stable@vger.kernel.org>; Sat, 20 Jun 2026 16:06:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FE240D572;
+	Sat, 20 Jun 2026 16:30:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781971577; cv=none; b=pDrAqc1CBZFLm7SNpUmbqMQkZXTNBjKLWohBc3uyK100MW7QQRtv6NpquqiV+/j/LCdt4cFm98V4rmXRY03+HAB1F5zh4UwMtUOTdoKUoPXtSgvfBSSMqxDU+4sR4GP0VM/ezuF8XDZDirCL88DQsZiG2u49pAxBg0EcLzOj82Q=
+	t=1781973035; cv=none; b=IebzE3U9iuq+xSYMcy1j/Oh/pAo3aOeCminH4VnzjXGRnoIamSsKnXB0KZBXru8U8wyO+UxI3WeEuCBj1GRVo26918ySXW9UGFx3tqADOjfJKO7qyvkh1tAu8GPuhEcPwgPxXTvJzasxCTyMnuzK/kNdIxXkjANiur5Y/VwsAcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781971577; c=relaxed/simple;
-	bh=GYBR2fRvLo9AbAN9kQirI7hsgpWWk1FF5QW309PUpCU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HOgRostBhskRB8i2HY8SF6rgCb+uyKtFDTZXLcghL9OkOAmuX+BXboQhj9LL+vjsjBem5ERZwRTUjziT7FYM65RdieQJLU0tFmwvULipTAnlCC2LdUBWhNpqL/ZUrb3dJP45zX+P+ycnbmmQaMXPZWn17FGDqRDYSRM7IH6725A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h01gOM9L; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781973035; c=relaxed/simple;
+	bh=3Dpmmerb0QG1G8KOpjCvUTZKf0T5mNd9JG1LlDJ0JzM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kHmWPBXnXqlKMNKe5392TG0OnV/RVx1p8v4gSffHXDV6GR41T4S5wgcQBbLv9RIMajmZ13PnGXRaRkDhcQ+ZSTE0AeqWJvLfsWOPSfGRnknM6XJRVmQot2Ct2ssGv69i0XV8LWiLvIEK0EDE5Q+gJIy/2xoZnNPuhmDN0u3QRoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fWXNKPZl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h01gOM9L"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4908b92904fso40298195e9.0
-        for <stable@vger.kernel.org>; Sat, 20 Jun 2026 09:06:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781971575; x=1782576375; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=wwI3Ux2mpaIvVIB4hspGkGT9Oouh+sNJpjf3AsIcSBg=;
-        b=h01gOM9L3imIL5eBB1arkgNIHHB98NRj2fygr3kpYo3aPAumG3dw9OTX7S64Bdao0u
-         d7C5Cy3dmB5ibK5B61ME/yPIOfy1u6NNnfmNSDDoE73qu/WD96fl2sUVNcxXb4FBJ53W
-         MuQPK/QZORdiWl43dnpH9GAZJi4NLQFlWcJmDH1VNQf6N6fEVSl4+6ndcfRIGiqyIvyY
-         EwW+s/n2MNOKpjXgunJhCL/IohFbrQoF6586be8DPVuCeTgl6iYl16Qg/HchhV/n6QNx
-         eRyWFFkRCDezT/RKaqz7RMN5sdVjAKeDjBW6UrxVV4sro1LI/bDob6/sr3aSlqr4LqRy
-         0FUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781971575; x=1782576375;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=wwI3Ux2mpaIvVIB4hspGkGT9Oouh+sNJpjf3AsIcSBg=;
-        b=YrH8t25K5cBNdPa9YwRGnOnBYfMMT560E8mduUr4noRGTARo/KmVWq+4YUWyNhOqNZ
-         VNjwrCCZajP3XaCCwq1uwMJk+F+OZ/JhRr7sbyh6RYhAFyt5DVjOSFgEmsEnFi+GVIAP
-         mxsmupRu+6/GSt6zm0OPAk9dfDgiioApz4SeCcIwdmAqjCMEaixJrXFjvSnQahg/NQ2v
-         Sp6PEy4wS85nKX3UYgaGYKU9Jzb5xh0dUyyNwUdc2mG2FBuJn8R2uGy6j3xt5oSPUCC9
-         QfRkC+Be9VXtkkFaw9ESkSmaIZwqAuM+J1RH5q1nKpvnf/I8oOQs+zVNuTNo8RRhXs/6
-         pujQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8dYnZCjZP2SgG/9rvUSzQPgR58s+Sq0nml3uVe3ewXqmnoAwYsQ/X56SeFqNspUd5ggC8cMDo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YydeF0grp8Rs1XWb0P/1Z8Gd0CgGHiAl0iKRBvbJi/YpeUty0k7
-	VrsQyWZe8tc4Naw09ct4uWgvia2156HecCO4AWkobLuVG8T85CMhf611
-X-Gm-Gg: AfdE7cl0mRu8NN+evEpMNIdOXP5G2h8V5zA8b35U4w2EpyRCcYMIT3smSrwReMYwN6A
-	3kdb2T77LYJiuZ2Ckk2E2FNSbK4VxyuMZgEHDvHyTuyiGSZNe0UZEB1w2V/SelNmLiN11yf5g0F
-	5W2ymfHPH3iIuPBi32wFx3TN/qxvaLXLWE/YA9iO5eXa4TYLn6ZgUCdjc8hl3WWzEN1A5dNusCh
-	y31R8uMgCS0CLyy213i0ft2LbgjfKB+eE1SOsePDl98bI8JDCr77enY7qhv4ksyNCI+y4v6mV96
-	iDEhbyalqSWjEj7eHgEOIXN7LyvGAtDc5gHH9QaGam90OBQ0fFoBbdchOvZV/h7lt9jc6k6HGqa
-	ubRNBEqa8/yZejn9L94tXyjU3GMd3dZ5XEReVMFzY8NZswZ0Os6jZCxXL0cWf0X+rFL/Z2IWVxY
-	ycgispDQmppJjgynCS11euv+2hPLUbxQ==
-X-Received: by 2002:a05:600c:820c:b0:492:5030:5e7b with SMTP id 5b1f17b1804b1-49250305f4emr7110645e9.10.1781971574502;
-        Sat, 20 Jun 2026 09:06:14 -0700 (PDT)
-Received: from [192.168.1.21] ([41.249.60.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492494497ffsm74121685e9.11.2026.06.20.09.06.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 20 Jun 2026 09:06:11 -0700 (PDT)
-Message-ID: <989e0b69-8b00-4f6a-965f-1dcc370bee73@gmail.com>
-Date: Sat, 20 Jun 2026 17:06:09 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fWXNKPZl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3C4E1F000E9;
+	Sat, 20 Jun 2026 16:30:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781973034;
+	bh=D6t63Jy9/sgsYx1uJL6I1MjmSXoE7TCkLo+nXd+KPuE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fWXNKPZlBWyTdQbXzoThXH/SeBRUhorUJKPsfN9xAPKoG18QJhs0snK4JG63X1qVz
+	 DRKCkOEr0kbqBzik+DTrrjTGwBlbqhU1Wngff+WgfdG3ti6dAc64vP3XRd+tOcJQ8X
+	 oG3Iw10H87jzBYATA1+GK/WvnySc2EQuSOdaFauRHoInJq4E+8br/cDv6xKp4++/80
+	 VGTRtUO9n93Not0f5Q2r4VLEDSIVjA3pAle+iii3wQxHsNwBjZ3wS4zZNN+gqZad3S
+	 5Co0ua3fxYiceYokKoHpicoxGDja/XL7V0svTXndP5nDm74+VCs3RQQsFaxet02VGD
+	 7YSzRd+MHSHlw==
+Date: Sat, 20 Jun 2026 17:30:28 +0100
+From: Simon Horman <horms@kernel.org>
+To: Doruk Tan Ozturk <doruk@0sec.ai>
+Cc: saeedm@nvidia.com, leon@kernel.org, tariqt@nvidia.com,
+	mbloch@nvidia.com, sd@queasysnail.net, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, borisp@nvidia.com, raeds@nvidia.com,
+	ehakim@nvidia.com, netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3] net/mlx5e: macsec: fix use-after-free of
+ metadata_dst on RX SC delete
+Message-ID: <20260620163028.GW827683@horms.kernel.org>
+References: <20260618145545.53035-1-doruk@0sec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.0 000/378] 7.0.13-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260616145109.744539446@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260616145109.744539446@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260618145545.53035-1-doruk@0sec.ai>
 
-
-
-On 6/16/2026 7:53 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.0.13 release.
-> There are 378 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Thu, Jun 18, 2026 at 04:55:45PM +0200, Doruk Tan Ozturk wrote:
+> When an offloaded MACsec RX SC is deleted, macsec_del_rxsc_ctx() released
+> the per-SC metadata_dst with metadata_dst_free(), which calls kfree()
+> unconditionally and ignores the dst reference count. The RX datapath in
+> mlx5e_macsec_offload_handle_rx_skb() looks up the SC under rcu_read_lock()
+> via xa_load() and, while still holding only the RCU read lock, takes a
+> reference with dst_hold() and attaches the dst to the skb with
+> skb_dst_set().
 > 
-> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
-> Anything received after that time might be too late.
+> A reader that has already obtained the rx_sc pointer can therefore race
+> with the delete path:
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.0.13-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.0.y
-> and the diffstat can be found below.
+>   CPU0 (del_rxsc)			CPU1 (rx datapath)
+>   --------------			------------------
+> 					rcu_read_lock();
+> 					rx_sc = xa_load(...)->rx_sc;
+>   xa_erase(...);
+>   metadata_dst_free(rx_sc->md_dst);	/* kfree(), ignores refcount */
+> 					dst_hold(&rx_sc->md_dst->dst); /* UAF */
+> 					skb_dst_set(skb, &rx_sc->md_dst->dst);
 > 
-> thanks,
+> metadata_dst_free() frees the object even though the datapath still holds
+> (or is about to take) a reference, so the subsequent dst_hold() /
+> skb_dst_set() and the later skb free operate on freed memory.
 > 
-> greg k-h
+> Fix the owner side by dropping the reference with dst_release() instead of
+> freeing unconditionally. dst_release() only schedules the RCU-deferred
+> dst_destroy() once the reference count reaches zero, so a concurrent reader
+> that still holds a reference keeps the object alive.
+> 
+> Dropping the owner reference is not sufficient on its own: once the owner
+> reference is the last one, dst_release() drops the count to zero and the
+> destroy is merely RCU-deferred. A racing reader that runs plain dst_hold()
+> on that already-dead dst gets rcuref_get() == false but dst_hold() only
+> WARNs and attaches the dying dst to the skb anyway; the later skb free then
+> calls dst_release() on an object whose destroy is already scheduled, again
+> a use-after-free.
+> 
+> Convert the RX datapath to dst_hold_safe(), which returns false (without
+> warning) when the dst is already dead, and only attach it to the skb when a
+> reference was successfully taken. When the SC is being deleted the in-flight
+> packet simply proceeds without the offload metadata_dst: skb_metadata_dst()
+> returns NULL, the MACsec core sees !is_macsec_md_dst and skips this secy
+> (rx_uses_md_dst path), which is the correct behaviour for a packet whose SC
+> is going away.
+> 
+> While reworking the datapath lookup, also guard the two NULL dereferences
+> on the same path that an automated review (forwarded by Simon Horman)
+> flagged: xa_load() can return NULL when the fs_id has just been erased, and
+> mlx5e_macsec_add_rxsc() publishes sc_xarray_element via xa_alloc() before
+> rx_sc->md_dst is allocated, so a packet carrying a freshly recycled fs_id
+> can observe a non-NULL rx_sc whose md_dst is still NULL. Check both before
+> dereferencing.
+> 
+> Note: macsec_del_rxsc_ctx() also kfree()s rx_sc->sc_xarray_element without
+> an RCU grace period while the same datapath reads it under rcu_read_lock();
+> that is a separate pre-existing issue and is left to a follow-up patch.
+> 
+> Fixes: b7c9400cbc48 ("net/mlx5e: Implement MACsec Rx data path using MACsec skb_metadata_dst")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+> ---
+> v3:
+>  - Also guard the RX-datapath NULL dereferences flagged by the automated
+>    review: NULL-check the xa_load() result and rx_sc->md_dst before use.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENEIRC:
+The review of this patch on sashiko.dev flags that this change doesn't
+appear to be complete:
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+  "This is a pre-existing issue, but since xa_alloc() in mlx5e_macsec_add_rxsc()
+   publishes sc_xarray_element before rx_sc->md_dst is allocated and initialized,
+   is it safe to use a plain read here?
+   drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c:mlx5e_macsec_add_rxsc() {
+      ...
+      err = xa_alloc(&macsec->sc_xarray, &sc_xarray_element->fs_id, sc_xarray_element, ...);
+      ...
+      rx_sc->md_dst = metadata_dst_alloc(0, METADATA_MACSEC, GFP_KERNEL);
+      ...
+   }
+   Because there are no memory barriers around the assignment and initialization
+   of md_dst, could a concurrent datapath reader observe a non-NULL md_dst
+   pointer but read uninitialized memory from it in dst_hold_safe()?"
 
+...
