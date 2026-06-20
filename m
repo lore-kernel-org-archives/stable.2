@@ -1,174 +1,227 @@
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539DB379C2A
-	for <stable@vger.kernel.org>; Sat, 20 Jun 2026 13:39:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781962756; cv=pass; b=kzrVPhCcCWQ0GVgDFqhXpXR41liUXDZ4OJ4VhEsEwNcJxL2nXkt8EJmpWLWEAi+/AVq5txbHx4MtU20YFYgOkHYkiIDB80krhRibfXSnT+vSeV48ZVEXTF9RWptyzeJ4hGYUD45TyX+tISkNkPpErNekgfIOBA2+iB4DLTh2Tdo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781962756; c=relaxed/simple;
-	bh=d/2Xphxb/NI8SXff8epqBhW9BadwTw3kZPh26Vr8TxQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ts74USAC4OupTPalzZPEsyG6qNFtlfdOojixYrnDP9OvHVo1TdpARxPaoFBckDS5fukD7pfpR7DRQScOnGUQa6ODxJ/1QARudG5Jzjrol3IpbHyTgyzbReKCnifLZRPtZMvInmArg0T2H5HX/NbZV4GRU2QfpfMCsTnkOqn0RbU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=bOFvcPQr; arc=pass smtp.client-ip=74.125.224.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2AFB397352
+	for <stable@vger.kernel.org>; Sat, 20 Jun 2026 14:37:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781966237; cv=none; b=Nh4KjuduC4oapsxPwMFODfeq2eUK2gwaf1jqreYLHP4ofSY9MCl9Kx9uAl/dPeueFhbPeySNf32R3lKsgVp3fz+dDnPN8Syjkcq1MSfh5Jqj7zmUYsVpuOKyOxCAOJH5K+8IBOBZ5GnvzHlJDuMCnCL+6RsA9gVtzqoYQgberQM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781966237; c=relaxed/simple;
+	bh=3LnB2KEMsWTwILNjzOPYbu/QSICMjx+q5S3tQtePcpw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pYIPMfqMr1yKSx7TlfYtvFNyZ5WKX2XD/tPo5gO3CWP0lP76bVFNykFgb6e/1jB9sdKpBQ+J8inNPsqwLLKxS17q3EV/DYsOKHeGSvGgP13QRXcGlXLKBwqAR0V5zuo+5rxy6Qcf5kIq9xVUay5JIbKsRGSp+X+9DVTHL6dTUmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=E0m8vB7i; arc=none smtp.client-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="bOFvcPQr"
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-662ccb916c5so3105517d50.1
-        for <stable@vger.kernel.org>; Sat, 20 Jun 2026 06:39:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781962753; cv=none;
-        d=google.com; s=arc-20240605;
-        b=FtjK+EqbmI4HkPsxGLpHSJ1sXjqRmUF90ezYnsf0+s4F2mJGRDnv0YnJTfkjMFyY6m
-         G+johJsHHdxQheXUBolhQ6cPSsfDNeiE2PkFXDEwq71DabXb85GPAJBvmXGFikehuJbu
-         pVJ+NU4zr472pO3ze7onOhHUragGjG4C4Vz9BrqVHxO/9GTekb/GvtcNHNX9w1t0lDUM
-         W87VV+MSyOqDnwDg4AwnAaIdTEaYYVJAIT7ObH0nR3Cfeuai6RfuKQc8z7kTi+EYRfQH
-         Nc936IAqgHDvsc5DbwF6H1I530ufdsxaDczpTYVyIx0ug6TJcNDTDGEIyu9WSsC48bdH
-         cp/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MvXJJoRTCi60JChXHq7XeN8L9UaXun9JAUDhzWqhDrg=;
-        fh=1EYiYE5srQBdSuKts2J8Aplb5CRsRmmIb/rPuYCxGaY=;
-        b=aw/PB+PaLn0n/D/haGr9Dtv0KsJujh4fzxa+Ksb6onMwYSUUFcsiXyRy2B7PAIQEoQ
-         B/sEWWo8eTsgI0GvrHP29vlXH8Z/etxYYiPgCic6OSvvZvjalJ/SQQc8/vYk0V1vtgH0
-         OcgWvjgMkNHPFQHOiLCszKSE+kXKJxp9zikTp8ZjNlGofq40cqab6VjGHR9SSkaygti8
-         t7YHepdwFj9k7WKurCnEh9MTrLEqd2fKWIS94+swPXnLZ+sUhc2GiKiX7/SzwyCbOEED
-         AuJ62KyOcwY1KNPwGE8uuSwD8Y2PPYTOGs5pqtWqGmJ3KMhYiQPbKpYmO6YjXcsXiT3b
-         YT/A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="E0m8vB7i"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5177945a22eso20652271cf.1
+        for <stable@vger.kernel.org>; Sat, 20 Jun 2026 07:37:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1781962753; x=1782567553; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MvXJJoRTCi60JChXHq7XeN8L9UaXun9JAUDhzWqhDrg=;
-        b=bOFvcPQrVxthXOvC7Jm31Cj8l7hm+sQ6sQlv08piCTiTzZhEhAzOUqDqjOtmqgzcYk
-         xPXHoaJpNOvgRdaw89x3wvmbWCG/cz8Cg6LruFj8hZIBT4+AABPMqsyOqnWrBeJKd6xT
-         kxuo+3VnPNj+6pYSoUGBRjQoHdy2e+z0pQctc=
+        d=rowland.harvard.edu; s=google; t=1781966234; x=1782571034; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=JZrVAzbLCWnlT/KunNGolgjG4pmV/JlH45+vzJSkxkg=;
+        b=E0m8vB7iGtLAjtl66ovcC0dKnCaTLqOTSeSvpXZtqg1cQx6J4xA0Umz/GjNPnMa0f+
+         /S6A2PFFjIp5LwW/nzaOJ155NYAw5gfnt0woVTVnKxB7TfjEwjBRu3GNlXtKrnhVXtJ4
+         3wwjQkrPQQ9Sh2RNtv4OUPR43JrqqaziEkXVjXjuz8/d4sNMo4HEfHySjPhS6KqIec+o
+         iRxCDwgg+BIY6c9KvEn/HmZ9sFLHGzaw2ZR+3zP9pOAVeBE0/dOEJs1EmojyirPqHJX2
+         BwlfkQ3iTycBu4YTuFCD6nPlC/fSLlNOHXhkpbXfgQirsCceouvOYvmUrU/lqzFjUKvo
+         /6Ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781962753; x=1782567553;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=MvXJJoRTCi60JChXHq7XeN8L9UaXun9JAUDhzWqhDrg=;
-        b=ku/PUzBaLdEtKXiwIbVdhLqC73HDh7NzoR36dFTepg5+jxeTiS9CpgLbsNUHyCdqDs
-         3CAmndBEBsqce+eMnmLmbbEWBibH9KPLB+jsN15BQQKRpuZocyH9yUOwbvgH5cjEM8BB
-         AKurID/zGEuDnCxa1FYhLDpkXVNnXMP1CqfXYGFM8UVNg6KegbE56bg9nQ1glmxdkv8t
-         H3vfzrTTyYTMvsu3eB5n7ibGPo31M2zd++M1MSyamrdZ4l1994AFA2D3hIho1HVn5vnC
-         T/kquNiyAtNIHmlStktve10pya4p2/CBKwOwrkRaoGdCIhI3aJGEHbQtzx94ncdHKHdC
-         27jg==
-X-Forwarded-Encrypted: i=1; AHgh+RqkSc0iToiZYdfl+GyTiirl0IgQ84KSe6zXlB7ZyoTkYVnx7UxEpZWLdDk5/yjsqs+O2xtoKA4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkYc9h4NiO6c1NYqoMN8+w9fAKikbgTlvAL/ZSBNAKVp2qPCFq
-	mhZo7wF63IkPoMvh56c9Do88hUADASbTFb/rEKGA3wQ+0xA5GSeOyO0QUWtWnYmgEaam88CwSe3
-	bfwlKyCmwbRyIHzLhK8UwJwtgXBx7nYf7WTYxgw5U
-X-Gm-Gg: AfdE7clEj5NqoWhTwWNITb7kbmGMMtGN+Haq6VbwIcxZC20LFZhY78EAChuhISiH4VU
-	VvQHhZqOlrjO9EpLB8MI2rdUYyqoOwCwL8zG0KpysVq8TF8zGJq2oid20SVvhjsxeswziqAjqPb
-	FaqPNhaGx43bA7RG9YtkzDPWDgfwjDYjJai9RDuL4PMsXVAMIsnTLqbtnckgmLgVN7G1UlgvlUS
-	x+obRl1U/nA9GVAOI3BqLNMb8Gi7BMY5VykOd+Epc9ON8C00Kc7Zh9WF+bSwkpHnS2iCQ==
-X-Received: by 2002:a53:b009:0:b0:65e:48cd:7fd2 with SMTP id
- 956f58d0204a3-662fcb97f1cmr6274557d50.54.1781962753338; Sat, 20 Jun 2026
- 06:39:13 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781966234; x=1782571034;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=JZrVAzbLCWnlT/KunNGolgjG4pmV/JlH45+vzJSkxkg=;
+        b=f8IiSeCpNr8vlsLH9oOvDwZhu6EN6csTffythLhUiqpK4/7e+WdtLO7L7mhT2TuaGA
+         P+PdTO2qnJaAmZFk/OGF3kZnHF+MtRysUsgBMYviK90N/0a/3E2UBP2OBzxDB8Hno7jw
+         TJTHIPcMp79Vcn/Jh3zfL2g3ZxQ+E0AO5wNsyJQRws/t0Wxh1PthhCeIrayWpifNHXIw
+         nk3MLWOD1P/IyYLLNbW29XZK/XPG8t1H30GZpsNmfpyOcgzHVSpwh8C+Qj+3sitfvipt
+         RP3HjIJHAiWdOXKQ9wpUg2BDg1HGjy39V1dYjiVsR/O6eDChzrJW8HOKYnJhAiVYgco4
+         MV4w==
+X-Forwarded-Encrypted: i=1; AFNElJ+cO3apYwnjzchDAazXgkw/S2OSbwo/+b7rUhG0zVWroCyytIxQoEsb4PhLe5IadT47LKYde6o=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+JjoaeCuEVVYD0SxLM+GCAMRqYLT+BBXh1Mw9lRLFyto7NL+J
+	jcTUPw1dstDsMw0m5LcLxqqw/GJ2fqKz0CSMUsZ8TUSzhqYcyUrNx+f46iqcQgOA8A==
+X-Gm-Gg: AfdE7ckCZuwMMbB2+u8bW7/sKJR96QjG9WJNGodVfXQzTj4orYoQOVRbNmN+t+e9vVp
+	dI4FziQE7Y0S92Tsr5eNlLFtQfHq+crABDxxS61qcAyNRTLgdKdFHNZ7hXlWpohfeDl7dZ/YKzj
+	SK+meHSrdHyqe3elViyaIeE+MohuQSTX7fva9AijYHqJx63/HtCGoFbNzORgjKdyhCqtzXgHLP9
+	CEsUH3fUdZfqgmUOQ+6Pk2LAcNTxd9svrYEXSOJImjwhhlwM/ouNCnzti4lXKb6PqtKSxFhB8iA
+	j/vx8EedCw3xoZ/Xd6jFUuZs9zFwoK4W+9ttWZ0NzQcVEMMF9dJs4JWvy20w6qls8s5Gej1vCCe
+	0cBFY37rEKhJSQcB2OdO7KgWfNnMfCtgxtTkaVDMrcMA48Zplh2BdmCNQsW0DNk76ZUQMHlDKq6
+	4RPaX38uc7PnRytrpTufY1p6gC3/uYoVQ5
+X-Received: by 2002:a05:622a:957:20b0:51a:35d:ab59 with SMTP id d75a77b69052e-51a035dac3amr52318961cf.39.1781966233460;
+        Sat, 20 Jun 2026 07:37:13 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210:d62f:1911:f952:16ba])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51a09202f35sm22205601cf.8.2026.06.20.07.37.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 20 Jun 2026 07:37:12 -0700 (PDT)
+Date: Sat, 20 Jun 2026 10:37:09 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Nikhil Solanke <nikhilsolanke5@gmail.com>
+Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org, michal.pecio@gmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usbcore: Add quirk for 255-bytes initial config read
+Message-ID: <8da4a00f-a01c-4b38-82a3-a718e5588f51@rowland.harvard.edu>
+References: <20260619095936.24080-1-nikhilsolanke5@gmail.com>
+ <8175e40d-357a-4513-b827-752f679e9904@rowland.harvard.edu>
+ <CAFgddhKKuGQgu0Ahu_WRyZocQGwPZkUejjoaJQ+P8--+k=Lwkg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260619151447.223640-1-b1n@b1n.io>
-In-Reply-To: <20260619151447.223640-1-b1n@b1n.io>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Sat, 20 Jun 2026 09:39:01 -0400
-X-Gm-Features: AVVi8CeG_uNdG2Eo3vidjrDC2ro61mWJTdFhQ08AjfXtcR5BUcwg6QZpXpOAysw
-Message-ID: <CAM0EoMk74Q5W7OFP8OM7YBT6MKPmdeXXo=XQZs8vUMv3eH1rVw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] net/sched: dualpi2: fix GSO backlog accounting
-To: Xingquan Liu <b1n@b1n.io>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	Victor Nogueira <victor@mojatatu.com>, Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAFgddhKKuGQgu0Ahu_WRyZocQGwPZkUejjoaJQ+P8--+k=Lwkg@mail.gmail.com>
 
-On Fri, Jun 19, 2026 at 11:15=E2=80=AFAM Xingquan Liu <b1n@b1n.io> wrote:
->
-> When DualPI2 splits a GSO skb into N segments, it propagates N
-> additional packets to its parent before returning NET_XMIT_SUCCESS.
-> The parent then accounts for the original skb once more, leaving its
-> qlen one larger than the number of packets actually queued.
->
-> With QFQ as the parent, after all real packets are dequeued, QFQ still
-> has a non-zero qlen while its in-service aggregate has no active
-> classes. qfq_choose_next_agg() returns NULL and qfq_dequeue() passes
-> the result to qfq_peek_skb(), causing a NULL pointer dereference.
->
-> Follow the same pattern used by tbf_segment() and taprio: count only
-> successfully queued segments, propagate the difference between the
-> original skb and those segments, and return NET_XMIT_SUCCESS whenever
-> at least one segment was queued.
->
-> Fixes: 8f9516daedd6 ("sched: Add enqueue/dequeue of dualpi2 qdisc")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xingquan Liu <b1n@b1n.io>
+On Sat, Jun 20, 2026 at 12:38:00PM +0530, Nikhil Solanke wrote:
+> > > @@ -946,7 +949,7 @@ int usb_get_configuration(struct usb_device *dev)
+> > >               /* We grab just the first descriptor so we know how long
+> > >                * the whole configuration is */
+> >
+> > This comment is now out of date.  It should be rewritten to explain why
+> > the quirk does and why.
+> 
+> I will explain the quirk above where the variable is defined and reference
+> it here. A reader would probably question about the quirk there.
 
-BTW, in the future make sure you wait at least 24 hours before you
-send an updated version.
-You didnt do that here..
+Okay, so long as you don't keep a comment that is now incorrect.
 
-cheers,
-jamal
-> ---
-> v3:
-> - Move the UDP GSO sender into tdc_gso.py.
->
-> v2:
-> - Change patch commit message.
-> - Add tdc test.
->
->  net/sched/sch_dualpi2.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
->
-> diff --git a/net/sched/sch_dualpi2.c b/net/sched/sch_dualpi2.c
-> index d7c3254ef800..5434df6ca8ef 100644
-> --- a/net/sched/sch_dualpi2.c
-> +++ b/net/sched/sch_dualpi2.c
-> @@ -461,7 +461,7 @@ static int dualpi2_qdisc_enqueue(struct sk_buff *skb,=
- struct Qdisc *sch,
->                 if (IS_ERR_OR_NULL(nskb))
->                         return qdisc_drop(skb, sch, to_free);
->
-> -               cnt =3D 1;
-> +               cnt =3D 0;
->                 byte_len =3D 0;
->                 orig_len =3D qdisc_pkt_len(skb);
->                 skb_list_walk_safe(nskb, nskb, next) {
-> @@ -488,16 +488,15 @@ static int dualpi2_qdisc_enqueue(struct sk_buff *sk=
-b, struct Qdisc *sch,
->                                 byte_len +=3D nskb->len;
->                         }
->                 }
-> -               if (cnt > 1) {
-> +               if (cnt > 0) {
->                         /* The caller will add the original skb stats to =
-its
->                          * backlog, compensate this if any nskb is enqueu=
-ed.
->                          */
-> -                       --cnt;
-> -                       byte_len -=3D orig_len;
-> +                       qdisc_tree_reduce_backlog(sch, 1 - cnt,
-> +                                                 orig_len - byte_len);
->                 }
-> -               qdisc_tree_reduce_backlog(sch, -cnt, -byte_len);
->                 consume_skb(skb);
-> -               return err;
-> +               return cnt > 0 ? NET_XMIT_SUCCESS : err;
->         }
->         return dualpi2_enqueue_skb(skb, sch, to_free);
->  }
->
-> base-commit: 96e7f9122aae0ed000ee321f324b812a447906d9
-> --
-> Xingquan Liu
->
+> > > @@ -957,26 +960,39 @@ int usb_get_configuration(struct usb_device *dev)
+> > >                       break;
+> > >               } else if (result < 4) {
+> > >                       dev_err(ddev, "config index %d descriptor too short "
+> > > -                         "(expected %i, got %i)\n", cfgno,
+> > > -                         USB_DT_CONFIG_SIZE, result);
+> > > +                         "(expected %zu, got %i)\n", cfgno,
+> >
+> > Likewise, "expected" here is wrong.  It should be "asked for" or
+> > something like that.
+> 
+> For this branch tho, we are expecting atleast 9 bytes. if we don't get
+> those we simply bail out. expected is the right word here. But this was the
+> originial implementation. With the introduction of the quirk, the wording
+> of it does fall apart. Instead of adding more branches just to rename a log
+> message, let's just keep it as "expected"? In a similar branch later on,
+> when we ask for the bigbuffer, it does make sense to use "asked for" like
+> you suggested. I will make the change there.
+
+Again, I don't care too much about the exact wording; I just want to 
+make sure that the log message isn't actually wrong.  Saying "expected 
+255" would definitely be wrong, but saying "expected at least 9" would 
+be okay.
+
+> > > +                         usb_dt_config_size, result);
+> > >                       result = -EINVAL;
+> > >                       goto err;
+> > >               }
+> > > -             length = max_t(int, le16_to_cpu(desc->wTotalLength),
+> > > -                 USB_DT_CONFIG_SIZE);
+> > > +             /* If the device does returns the full length configuration
+> > > +              * descriptor, skip the second read. Fallback to default
+> > > +              * behavior otherwise.
+> > > +              */
+> >
+> > New multiline comments (or ones that are rewritten) should use the same
+> > format as the rest of the USB stack:
+> >
+> >         /*
+> >          * Blah, blah, blah
+> >          * Blah, blah, blah
+> >          */
+> >
+> 
+> Alright. About the comments formatting, all other comments were not
+> following a consistent format in the same file. so I didn't bother to fix
+> such small style changes. But I will still fix them in the way you (and
+> kernel code style guidelines) say.
+
+Yeah, don't bother to fix up comments that the patch doesn't otherwise 
+touch -- that would be mere pointless churn and would make reviewing the 
+patch more difficult for no good reason.  But comments that you _do_ 
+alter are fair game for reformatting.
+
+> > Whether the quirk flag is set doesn't matter.  All you care about is
+> > whether the information received earlier contains the entire descriptor
+> > set.  The first and third tests here should be removed.
+> >
+> > There is some question about what to do if wTotalLength < result.  My
+> > advice is to use the smaller value in this case, but not smaller than
+> > USB_DT_CONFIG_SIZE.
+> 
+> In the case where wTotalLength < result, wouldn't it be better to consider
+> the result value as the truth? Or are there scenarios where the device or
+> the buffer will contain gibberish just to fill it, which is why you
+> suggested a smaller value.
+
+Sort of.  Software that parses the descriptors later on will ignore the 
+extra stuff in any case, limiting itself to just the first wTotalLength 
+bytes.  So there's not really any need to keep the excess.
+
+>  I did understand the part that it should be
+> atleast USB_DT_CONFIG_SIZE because its the header, but isn't that part
+> already handled above with result < 4? It does ensure all the critical
+> fields are actually present.
+
+The critical fields are not just the first 4 bytes, but the first 9 
+bytes.  If you want, you can change that test against 4 above, making it 
+against USB_DT_CONFIG_SIZE.  The reason the existing code only tests 
+against 4 is because it knows that it will issue another request for the 
+full length, but that won't always be true after your changes.
+
+>  And with just the second test, the code will
+> naturally jump to the else branch for any cases like you mentioned. I will
+> change the max_t back to use USB_DT_CONFIG_SIZE and everything seems to be
+> covered now? Also looking at the 3rd test now, it is actually redundant.
+> Thanks for pointing that out.
+> 
+> 
+> > >
+> > > -             /* Now that we know the length, get the whole thing */
+> > > -             bigbuffer = kmalloc(length, GFP_KERNEL);
+> > > -             if (!bigbuffer) {
+> > > -                     result = -ENOMEM;
+> > > -                     goto err;
+> > > -             }
+> > > +                     bigbuffer = (unsigned char *) desc;
+> > > +                     desc = NULL;
+> > > +                     length = result;
+> >
+> > Don't keep the entire 255-byte buffer.  Use krealloc() to shrink the
+> > buffer down to the right size.
+> 
+> I did intially though of using krealloc(), but when looked at existing
+> implementation, bigbuffer is alloced with wTotalLength while ensuring its
+> atleast USB_DT_CONFIG_SIZE (9) bytes. Then when we receive the result, the
+> bigbuffer isn't realloced as per the size we received. So I tried to mirror
+> this exising behavior in fear that I might mess up something else while
+> trying to be smart. (Although yea, it is waste of memory).
+
+You're right that the existing code could have reallocated the buffer if 
+it received less than it asked for.  I believe it doesn't bother to do 
+this because that possibility is considered to be very unlikely.
+
+In fact, you could arrange to do the check and reallocation after the 
+two code paths merge back together.  That would be the best solution.
+
+> > Again, I don't like this name.  It's not a quirk in the size of the
+> > configuration descriptor type, which is what "USB_DT_CONFIG_SIZE" stands
+> > for; it's a quirk in the way the kernel asks for config descriptors.
+> > (Or in what size request the device will accept, if you prefer.)
+> >
+> > And the 255 value doesn't belong in this header file anyway.  It should
+> > be defined in config.c since that's the only place it gets used.
+> 
+> So what about USB_CONFIG_REQ_SIZE? it's what you had suggested before in
+> earlier conversations (without the QUIRK word in between naming our magic
+> number 255).
+
+Yes, that seems like a better choice for the name.  Or maybe 
+USB_CONFIG_BIG_REQ_SIZE or USB_CONFIG_WINDOWS_REQ_SIZE, to indicate this 
+isn't the value we normally use but copies the behavior of Windows.
+
+Alan Stern
