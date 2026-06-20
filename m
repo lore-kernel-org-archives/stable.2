@@ -1,89 +1,90 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9531C364E93
-	for <stable@vger.kernel.org>; Sat, 20 Jun 2026 13:35:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6331C5F13
+	for <stable@vger.kernel.org>; Sat, 20 Jun 2026 13:36:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.170
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781962536; cv=pass; b=VV8UoVPh4FsLrM39BaImBVcaaKEegQf6TvswA1QdVhFPWWYHrW6+6gVd2fmV/pptfcGlAKQhkZXmu+giXmgKvIo+/yvQotqTWRDzpyFKxWIixoO+haEu5dpplGWil8ynOdkVyx5ZsEFfXWX52s2sPLoTo6ITQJU6AEka6ZRRkaA=
+	t=1781962582; cv=pass; b=GBOBQ0SuluFDzugUds8m2IwtHsrdr3Ur81qyDfyO+55sEWPoQpFN+ntZTBpcvi9aBi+ptCCvmB2h/4OzG3zD8+xpAJ1o60WYG73yAmMy/ZDaT0oqSj+v/8GKDAkWFJRPWfKkMw3DFHGFY5qJuz03gOcHiP/8UxPNX+Up6yqJOLQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781962536; c=relaxed/simple;
-	bh=y3doYASW5ECQ4nHcNiLPC+9Ao8BMX93ek5uutFzUeIQ=;
+	s=arc-20240116; t=1781962582; c=relaxed/simple;
+	bh=MN1s+Z+Xu5aFRgSauLt5FFTso1rCRaYXtl0n4UoTUOM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ugQK5olp+fPPHUrZ7MyD8IO4ELi+VNoIAqFFwOuXzOX32nguiTAdg452agixip+5WMQM1+uMp5Sg5KSFLOYpqhr8WK1TQm6sYgJ/XROrp3Di9FebAMx1m/g0l0Cr081rudXqRjjLykTEjx38zeifIdVkeUvdylOXTJkyug5Cc3Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=wwNZUTbH; arc=pass smtp.client-ip=74.125.224.53
+	 To:Cc:Content-Type; b=F+T/W+BUVSy8FAVUkeAEtt7EbOYkgwjlPXdUG0SnrjEBdL8JE4WTwaVQRfYbI9RXdma8DjEOyXvncIEF+ErUo/v4I3tj1phvC6jUBMT+A5Q/lnBf+khTbKXz+JKGZmZlqwljWeAxfSExW2TS89avNKATUcxiksARfZeC5VL/H+M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=fNPo1WnB; arc=pass smtp.client-ip=209.85.128.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="wwNZUTbH"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66310a69f65so895579d50.2
-        for <stable@vger.kernel.org>; Sat, 20 Jun 2026 06:35:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781962534; cv=none;
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="fNPo1WnB"
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-7e0b3db3499so25890107b3.0
+        for <stable@vger.kernel.org>; Sat, 20 Jun 2026 06:36:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781962579; cv=none;
         d=google.com; s=arc-20240605;
-        b=HkC/iApz4TQ8Ky/nRb4j3DloDvTCr6XYI/n3I8LaTliKgc14ewgOO+H+hBBKgIyEvA
-         pCqTBFNmL5FNh0ZFc7oZCnRoFkyHjLs3XyznLtwTq9XegVL0GBj0cz8F9dfvoe6YaZ7L
-         pIQxIYTBxBfXvDY9247AvAKGs6qahzqwhPMdeps/PJMUIS/ybPJhsdL6Z8hv1UP0fdU9
-         QMh1Pl5oGJ395RxrGXD845Hm3yBqM0qWo9pVjeq8QeJxmhNUUbmqcojFAqTVXssWkk5v
-         KcV38ypdjk+6ovA86VPdd+vOD8wSTTBUzvGpddM3wqCicllU9p0sYXMDuyhNsMeGyuv+
-         1Jrg==
+        b=gyzYrxq5Z8K+f9nYRNW3AbCF7KN087RBi3QgBCeVcIvxF6zUMC1Y8b7Pzi7gHiYjsc
+         GPrVScqyjOxqx4UT7vcw8Etx3blxqvO7ZhcnekqntdX/BdWWfG3fnsKSSvz81sCITEdS
+         pqz60zt4HdoJR/epy2EZ2CuPSdoDZBrMi+CwD5SmGyiGqRXjad04e616uFxP/E0Pxx6y
+         vSGrkS9KHbgEXP7kEjZxi5Rl2hs/gJqKF4d0sVbLulRJdNEvwF8ZH1EQstjYfiZ/MCHR
+         0keVTAxtjEX7vQhuUjIl3MCr9nAlEBERBIpGYf7TXUxcBkMMSsZTrNeBO40AamGy0Yuh
+         DvPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=yx+PTC/S7HbVkqI1ApnQaU5vb58oKN55FN9FqUeM7fA=;
-        fh=Ln0RpI+NCV5Fyz7n6b2K76tnj+9FP3fBY0wEfx2HjgY=;
-        b=Awaz6XM7IT2cgXthlcxaIKMHzDnAh2aeD9NbkNXoJsMzcJ2GbUmPkTkN92oJlJQPe/
-         XGyFXJ04qyKtszv6qYYoE7rkn8Y0JjDLa9X78HcAhs+zH0Zba2UOE8GqruylwK6XakrK
-         YQDFidCYV8HO6x88EjjTARWnj768PX5Lf6OkMhsRZyHkWcQdCVzF7BSpFxHU4hPq2V18
-         teiGUjpjsFgKk8az/a371QojK0UV4PfuisGotJqdaM9LZzFwF127s3qOtalwnGLIfyin
-         1oddk+vxBfClDeaZ2wOCZ6bHXuXWl7XU0bNuITHTSRTudHWUA+qjM6vfe3Ti9fSEcXG4
-         qwbQ==;
+        bh=HNXxrQW8BiAnWvUn2VdMTxhLOGhlRa3nkN0KOSpPFGU=;
+        fh=uR07HqeHjAhViEKtav3BYJK18vgYDtGGnnPXojlxUc8=;
+        b=aMXISEUGR7sBrgkf/35LN0p9x/Mp6CWvn7DAtDgRKrUiMZq+O5Uw89OVcDV8JCHBsB
+         6h9hGjP2IGYKfjTJUtSAI72M7LiB1iFXRSVrepL72Ie9CP2WTD0z/67DuEV3gmOdGGKP
+         hOFZ3GYT4OQZ2d8vg2Y6ItFpPK5eE/z34eRhuE5CpX8BjVN/1x/CIx+fXhc23kPkUm8v
+         GuWYmav5cBOd+6ofOdPbpa0xL1KEVW1SuBL+sKucA/i2e9IrjlDtf4tuvi2fe+7Lgmu3
+         FP7ovwTBQrc2K4mF9iFJQ5w3qW5B6YR+RkIgVqYmv2v9orr+3j8UEJt+iT8/rnMECw5n
+         qx+Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1781962534; x=1782567334; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1781962579; x=1782567379; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yx+PTC/S7HbVkqI1ApnQaU5vb58oKN55FN9FqUeM7fA=;
-        b=wwNZUTbH87bJdU8ccQ1ThL9vx+JKJo2SUgiGUpYF6iVOaPLs9AkfC1Ty9puMp8qBeM
-         KTdKD17kJ+tGHUmscJmlGk5DZEgR01TIJoegXftJ7Ct8w6pe0s5j+gE5qHS8btcVCQdD
-         C8f5o5y46K8ijk0OpsPK8Yw0avT1EwBQIMKEE=
+        bh=HNXxrQW8BiAnWvUn2VdMTxhLOGhlRa3nkN0KOSpPFGU=;
+        b=fNPo1WnBCup5r6KOJh1GMtntwUFusp2h89q84fXZcTmlQJNT5sm6bul487KtvdUbTF
+         lk32LPBT4IHzIcQr6SYPEm9s3Ajn71+ZaVj57xRjzizd1CC4F6s+WIdtBEhYrNAq/HF5
+         N2zKSmTt4eVkP0rm9pk4/SLZuzuIrbAmA8SM4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781962534; x=1782567334;
+        d=1e100.net; s=20251104; t=1781962579; x=1782567379;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=yx+PTC/S7HbVkqI1ApnQaU5vb58oKN55FN9FqUeM7fA=;
-        b=MPS5LDr6Dw5qM2tF1wZ2UJYx29EL0VZ7Fu/2VteO0P6RgzPEWDauksfbaX5t9DzZ5z
-         g7cny6gxfJ2BBKEauSYvmOx7cT+y9rZEp+LQcRMWoGhx1QFtXlw3tLUArq+hHLRZ3MCE
-         Ab4Bk+kvdKgv1btA2sULPHMCbyoD4M0DxU8OooE3/VFh3crfCZjoZpqRnj01O+s3uG/C
-         Ji9WSvS45xq/U9e6GJ1FlRc3oVI7cWOJuJy7VKTk5mj5NNX8qcWMQukMxSA90jiwo4uZ
-         jZzclKBL+cPTT5Zwg8TCS7c0bHPBkYDawsm1qKnDFcVFncCwlb0NAc2aUZV5V+r6/vmA
-         Mjww==
-X-Forwarded-Encrypted: i=1; AHgh+RpdYl/PBeb7LEVVu+XxWapOyzDkvqIv3PU7XZQJkAQfryvPG2Y+yR5hV7Q4raDk8XPB0Oy1f94=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXHmhM1Wtb7KPnwL2g8svvHlbXx8jgVTfrOs3Y7iVgDYR48xeF
-	d5/uywseyMnII4paltT9E2jT1+ZP81XQ5NGMEXb7Op7ABeOGTdrNJJboS21g5a40p7Dkfl1BDMr
-	0WACV78dyhtnw7bAVcp70WA25LK5rlGc3rul+Zr40
-X-Gm-Gg: AfdE7cnXV98T8JSg4ahblE9yEtmC2FoTXN9djUYuMujV4B8AIUQYoroAiM4bMzrS04W
-	F09JGhDok/n//EpXvN4dhFGbRMSbBhuuapb0e6es1WvcSPtkIj69T24+Z44/8mAmMq7/iICfRA7
-	+KoYPJJKV73ZnWVbymmxT4Wa4+D66/T5v/cz4Zihq/oSdcA0lDn3F+MhsA7SR7Q0pvS7gcr9NIp
-	s9hsDgmcOvidy9x4PUZ09tXH5FAex0AAItgfrfqvRGUJIt8jNh+ynAav1O9L4PM9xAE0w==
-X-Received: by 2002:a05:690e:168d:b0:662:c587:4351 with SMTP id
- 956f58d0204a3-663033dbe71mr5581711d50.55.1781962534607; Sat, 20 Jun 2026
- 06:35:34 -0700 (PDT)
+        bh=HNXxrQW8BiAnWvUn2VdMTxhLOGhlRa3nkN0KOSpPFGU=;
+        b=QXcSPxvZADl1ES7ftdRgi6bBMfNzw/siK0TYYIAwVgs1ULui4B5ajpneQSAHv7IP/1
+         m2w0pKvzBpXIV0AizopyET+bDi/zIRH13IC31mLAOYi5+w/50ilU56kQEBaFhkMaqzxh
+         YwAlWfJVmIZNcsG5DgrfntMBatVv+duycAtnUBe/LYQadEybJ5pMHo5hWsVAOU1u/4d3
+         8hXcQG1F8orVO+TwoxWfmdDAY0hpTMks1QUviaBoLCylPAPgBGJHIIrKNtCfjtyLNAcU
+         X+WmYWIaOfcz7YNdtFdDzn1r1w1oPS9/7UGsFqm27bqu4goyEuzCqZBMYT7sAUXAAU/t
+         954Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rqt01uE0PZhcqY1eu4sSN44jvwoxtnI2JLdTlH92/mdrUt0gr6teJ+Hc8ceUJbH4BdQqYspBwk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzbwd1yS3wk4+0Az7r3WzT2STuOaddI98dPHItFahkW9VdULf7X
+	qO07dAmSiks9UZGw9D1sVJfvvHB4alDf845V1Kp6CmnQFA31OhTp1/tKrGg5BZ0qrfAc8sn/zlD
+	E1sVL7kURfG8/AqGbusApB4SR5weRbTBz1r1r6lF1
+X-Gm-Gg: AfdE7cnX9/uuHq8sPM7Oe1OStVySeUtuquN8ABggH7cCdGlOwCpyudel27YgoZq01R0
+	kr0+IP7qKcBtlfj6QFPGZBfK//EA4x8v2+AyrYPHHmAmuiO8i9d/+2UahR49UrcxU1fr5wGQgjC
+	aZPJevcHIaz4nyulxsB9U8MqWpnU36GCI4zOYVFn7pIbjvoTPzoGmCyBvGVosmR8qoK5aoHqTU1
+	Lu00wOSX+3DhbRSZYYgNOIUTtlPl0PhR+BiPOscB418LpOGHNOFHMCSaFkxS6ItaRYKRQ==
+X-Received: by 2002:a05:690c:6609:b0:7fd:a4e0:7919 with SMTP id
+ 00721157ae682-8013227679dmr87522757b3.0.1781962579315; Sat, 20 Jun 2026
+ 06:36:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260619151447.223640-1-b1n@b1n.io>
-In-Reply-To: <20260619151447.223640-1-b1n@b1n.io>
+References: <20260619151447.223640-1-b1n@b1n.io> <20260619151447.223640-2-b1n@b1n.io>
+In-Reply-To: <20260619151447.223640-2-b1n@b1n.io>
 From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Sat, 20 Jun 2026 09:35:22 -0400
-X-Gm-Features: AVVi8CfaQz3apZiOvExxZflvS1CkQ5NK9ylZ237bnRCRWFgA4GQhV_B_m-t_Sps
-Message-ID: <CAM0EoMk7Ev6oXZ0MzYEbR2Ld2_mHsXv6u6J84=TcSJv9WJn-0Q@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] net/sched: dualpi2: fix GSO backlog accounting
+Date: Sat, 20 Jun 2026 09:36:07 -0400
+X-Gm-Features: AVVi8CfQUoncW7_tfjZxRR2A5b-4Jex5w5efpfja42_2Wo1uObhYdqQh167V2E4
+Message-ID: <CAM0EoMnfAuWc2VAHB9g6druz8hkutX7Wk9eq3hUWe+HdRNF_tA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] selftests/tc-testing: Add DualPI2 GSO backlog
+ accounting test
 To: Xingquan Liu <b1n@b1n.io>
 Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
 	Victor Nogueira <victor@mojatatu.com>, Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>, 
@@ -91,25 +92,19 @@ Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 19, 2026 at 11:15=E2=80=AFAM Xingquan Liu <b1n@b1n.io> wrote:
+On Fri, Jun 19, 2026 at 11:16=E2=80=AFAM Xingquan Liu <b1n@b1n.io> wrote:
 >
-> When DualPI2 splits a GSO skb into N segments, it propagates N
-> additional packets to its parent before returning NET_XMIT_SUCCESS.
-> The parent then accounts for the original skb once more, leaving its
-> qlen one larger than the number of packets actually queued.
+> Add a regression test for DualPI2 GSO backlog accounting when it is
+> used as a child qdisc of QFQ.
 >
-> With QFQ as the parent, after all real packets are dequeued, QFQ still
-> has a non-zero qlen while its in-service aggregate has no active
-> classes. qfq_choose_next_agg() returns NULL and qfq_dequeue() passes
-> the result to qfq_peek_skb(), causing a NULL pointer dereference.
+> The test sends one UDP GSO datagram through a QFQ class with DualPI2 as
+> the leaf qdisc. DualPI2 splits the skb into two segments. After the
+> traffic drains, both QFQ and DualPI2 must report zero backlog and zero
+> qlen.
 >
-> Follow the same pattern used by tbf_segment() and taprio: count only
-> successfully queued segments, propagate the difference between the
-> original skb and those segments, and return NET_XMIT_SUCCESS whenever
-> at least one segment was queued.
+> On kernels with the broken accounting, QFQ can keep a stale non-zero
+> qlen after all real packets have been dequeued.
 >
-> Fixes: 8f9516daedd6 ("sched: Add enqueue/dequeue of dualpi2 qdisc")
-> Cc: stable@vger.kernel.org
 > Signed-off-by: Xingquan Liu <b1n@b1n.io>
 
 Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
@@ -118,56 +113,121 @@ cheers,
 jamal
 
 > ---
-> v3:
-> - Move the UDP GSO sender into tdc_gso.py.
+>  .../tc-testing/tc-tests/qdiscs/dualpi2.json   | 44 +++++++++++++++++++
+>  tools/testing/selftests/tc-testing/tdc_gso.py | 43 ++++++++++++++++++
+>  2 files changed, 87 insertions(+)
+>  create mode 100755 tools/testing/selftests/tc-testing/tdc_gso.py
 >
-> v2:
-> - Change patch commit message.
-> - Add tdc test.
->
->  net/sched/sch_dualpi2.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
->
-> diff --git a/net/sched/sch_dualpi2.c b/net/sched/sch_dualpi2.c
-> index d7c3254ef800..5434df6ca8ef 100644
-> --- a/net/sched/sch_dualpi2.c
-> +++ b/net/sched/sch_dualpi2.c
-> @@ -461,7 +461,7 @@ static int dualpi2_qdisc_enqueue(struct sk_buff *skb,=
- struct Qdisc *sch,
->                 if (IS_ERR_OR_NULL(nskb))
->                         return qdisc_drop(skb, sch, to_free);
->
-> -               cnt =3D 1;
-> +               cnt =3D 0;
->                 byte_len =3D 0;
->                 orig_len =3D qdisc_pkt_len(skb);
->                 skb_list_walk_safe(nskb, nskb, next) {
-> @@ -488,16 +488,15 @@ static int dualpi2_qdisc_enqueue(struct sk_buff *sk=
-b, struct Qdisc *sch,
->                                 byte_len +=3D nskb->len;
->                         }
->                 }
-> -               if (cnt > 1) {
-> +               if (cnt > 0) {
->                         /* The caller will add the original skb stats to =
-its
->                          * backlog, compensate this if any nskb is enqueu=
-ed.
->                          */
-> -                       --cnt;
-> -                       byte_len -=3D orig_len;
-> +                       qdisc_tree_reduce_backlog(sch, 1 - cnt,
-> +                                                 orig_len - byte_len);
->                 }
-> -               qdisc_tree_reduce_backlog(sch, -cnt, -byte_len);
->                 consume_skb(skb);
-> -               return err;
-> +               return cnt > 0 ? NET_XMIT_SUCCESS : err;
->         }
->         return dualpi2_enqueue_skb(skb, sch, to_free);
->  }
->
-> base-commit: 96e7f9122aae0ed000ee321f324b812a447906d9
+> diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/dualpi2.j=
+son b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/dualpi2.json
+> index cd1f2ee8f354..ed6a900bb568 100644
+> --- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/dualpi2.json
+> +++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/dualpi2.json
+> @@ -250,5 +250,49 @@
+>          "teardown": [
+>              "$TC qdisc del dev $DUMMY handle 1: root"
+>          ]
+> +    },
+> +    {
+> +        "id": "891f",
+> +        "name": "Verify DualPI2 GSO backlog accounting with QFQ parent",
+> +        "category": [
+> +            "qdisc",
+> +            "dualpi2",
+> +            "qfq",
+> +            "gso"
+> +        ],
+> +        "plugins": {
+> +            "requires": "nsPlugin"
+> +        },
+> +        "setup": [
+> +            "$IP link set dev $DUMMY up || true",
+> +            "$IP addr add 10.10.10.10/24 dev $DUMMY || true",
+> +            "$TC qdisc add dev $DUMMY root handle 1: qfq",
+> +            "$TC class add dev $DUMMY parent 1: classid 1:1 qfq weight 1=
+ maxpkt 4096",
+> +            "$TC qdisc add dev $DUMMY parent 1:1 handle 2: dualpi2",
+> +            "$TC filter add dev $DUMMY parent 1: matchall classid 1:1"
+> +        ],
+> +        "cmdUnderTest": "./tdc_gso.py 10.10.10.10 10.10.10.1 9000 1200 2=
+400",
+> +        "expExitCode": "0",
+> +        "verifyCmd": "$TC -j -s qdisc ls dev $DUMMY",
+> +        "matchJSON": [
+> +            {
+> +                "kind": "qfq",
+> +                "handle": "1:",
+> +                "packets": 2,
+> +                "backlog": 0,
+> +                "qlen": 0
+> +            },
+> +            {
+> +                "kind": "dualpi2",
+> +                "handle": "2:",
+> +                "packets": 2,
+> +                "backlog": 0,
+> +                "qlen": 0
+> +            }
+> +        ],
+> +        "teardown": [
+> +            "$TC qdisc del dev $DUMMY root",
+> +            "$IP addr del 10.10.10.10/24 dev $DUMMY || true"
+> +        ]
+>      }
+>  ]
+> diff --git a/tools/testing/selftests/tc-testing/tdc_gso.py b/tools/testin=
+g/selftests/tc-testing/tdc_gso.py
+> new file mode 100755
+> index 000000000000..b66528ea4b68
+> --- /dev/null
+> +++ b/tools/testing/selftests/tc-testing/tdc_gso.py
+> @@ -0,0 +1,43 @@
+> +#!/usr/bin/env python3
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +"""
+> +tdc_gso.py - send a UDP GSO datagram
+> +
+> +Copyright (C) 2026 Xingquan Liu <b1n@b1n.io>
+> +"""
+> +
+> +import argparse
+> +import socket
+> +import struct
+> +import sys
+> +
+> +UDP_MAX_SEGMENTS =3D 1 << 7
+> +
+> +
+> +parser =3D argparse.ArgumentParser(description=3D"UDP GSO datagram sende=
+r")
+> +parser.add_argument("src", help=3D"source IPv4 address")
+> +parser.add_argument("dst", help=3D"destination IPv4 address")
+> +parser.add_argument("port", type=3Dint, help=3D"destination UDP port")
+> +parser.add_argument("gso_size", type=3Dint, help=3D"UDP GSO segment payl=
+oad size")
+> +parser.add_argument("payload_len", type=3Dint, help=3D"total UDP payload=
+ length")
+> +args =3D parser.parse_args()
+> +
+> +if args.gso_size <=3D 0 or args.gso_size > 0xFFFF:
+> +    parser.error("gso_size must fit in an unsigned 16-bit integer")
+> +if args.payload_len <=3D args.gso_size:
+> +    parser.error("payload_len must be larger than gso_size")
+> +if args.payload_len > args.gso_size * UDP_MAX_SEGMENTS:
+> +    parser.error("payload_len exceeds UDP_MAX_SEGMENTS")
+> +
+> +SOL_UDP =3D getattr(socket, "SOL_UDP", socket.IPPROTO_UDP)
+> +UDP_SEGMENT =3D getattr(socket, "UDP_SEGMENT", 103)
+> +
+> +sock =3D socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+> +sock.bind((args.src, 0))
+> +
+> +payload =3D b"b" * args.payload_len
+> +cmsg =3D [(SOL_UDP, UDP_SEGMENT, struct.pack("=3DH", args.gso_size))]
+> +
+> +sent =3D sock.sendmsg([payload], cmsg, 0, (args.dst, args.port))
+> +sys.exit(sent !=3D len(payload))
 > --
 > Xingquan Liu
 >
