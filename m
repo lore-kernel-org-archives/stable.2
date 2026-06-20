@@ -1,138 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C91175A7E;
-	Sat, 20 Jun 2026 03:41:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781926914; cv=none; b=lqtijPToU2Dk8T42/Igf9WRDg/DN4hZwFlBU+BpIxUyy3F8Fh8tzDpLWKfZRa+maqyDD4gXMTV1janKWn82aMVcfwpxRiLFy6I7SjUPnLRmkdQe0DMI709F0aspcjGw7XpfqRzix0epW+oc78t51KzNxE4lOmeCnZ2LFoo3zYqs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781926914; c=relaxed/simple;
-	bh=gRn7+RaIMUj3ehI0AupbH+dTvmv9oBzS1ZIJoCNs2fo=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=KAN+KIwjv6TwuIT/XVK7pYsBkK8agpv7NFkc4tigl4nKZtnZNlEOOHRBgu2oh5uWpm/NgmxRFFG6gmNaErk45iW0P1Q2ogXN7CRIzl/dlTmHKFGeywRKB63Qn5nOn+YrfVc2jnuOen9MFMqXfeGS7hc06LyCzkgPSOJ6d4NV+kk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CIalplrY; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCD940D57A
+	for <stable@vger.kernel.org>; Sat, 20 Jun 2026 05:40:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781934038; cv=pass; b=kBnyporyPio3Jw9379IDuaXqkB7A/wwXS9gy/Z1BURlcYwOAc8BYLVLDzpvZ3W5OQAibcqyn5pu6ECL3TQ63pllZkPr248DamsNgkpHO52hm5SQszRLGqWDz1bq6sgp0uYdiwKjwzWHagQxv9cTceGNICMJYE/nXGkyGra5eXho=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781934038; c=relaxed/simple;
+	bh=XVIrocMTbotto2Yn9Y6S6ITRcTskf67l19nQM1UMx8g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UEGn41ykHS0b0+vmAohCRhSObdoBpTT3BDfJr6YrsAcFvl7bPTNE5+xdZBo2fX5ziGoqF2gDW0BsZsXPKqWSXCHjaOlY62ztgOF+3j3vxXfFCEze0prPdxS/31P8SGLRuPqXg3Hp6Ag6N3sgCX6lMRFMTyDHxqM21pNmZtxtni0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f7qJw/bT; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gBs4L9WA; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CIalplrY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781926913; x=1813462913;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=gRn7+RaIMUj3ehI0AupbH+dTvmv9oBzS1ZIJoCNs2fo=;
-  b=CIalplrYlXlf6nYjq+fIs9QOBN0qVYEHidgeM2W9TmrXDY8GYExmyD10
-   6d2HISrgjg1h70kLYuvXdP+o7lBXNdQ2sR72KH4/KN88OfZzj9ZC0IDEL
-   UUzt9GSNcztUtM7nkiXC3POdckereP/P9sjIqJisAzHuj8yf/+UU4pq7K
-   d1AQ9TWUBhpJRd2tDXlLLlIcLAALs0IJok5FjKd4Z6NJ/NEA6MKUsaCaO
-   e9p9wZQ9KMOnZgHqbeRjPqU+264sGHEOSwlg2Ds3puBzFO3mB8uiW9vCH
-   B9wGKLmP0ld69IPBtRmxj6E1nGTe1+hAkSlPAVKeY6AR6Oe9WlN9NSHcH
-   w==;
-X-CSE-ConnectionGUID: Be8LrNU4Q42kE/KVLcLjNQ==
-X-CSE-MsgGUID: kza/5XGUSMuJM3Ht8DDa+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11822"; a="105552631"
-X-IronPort-AV: E=Sophos;i="6.24,214,1774335600"; 
-   d="scan'208";a="105552631"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jun 2026 20:41:53 -0700
-X-CSE-ConnectionGUID: ZPsFrOMLSCyit/irfxJXtw==
-X-CSE-MsgGUID: cMKI8cwOTpuQulQg1GYa3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,214,1774335600"; 
-   d="scan'208";a="272816935"
-Received: from unknown (HELO [10.238.9.114]) ([10.238.9.114])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jun 2026 20:41:50 -0700
-Message-ID: <e9472b38-4a91-44b5-b75e-dc7abd23793d@linux.intel.com>
-Date: Sat, 20 Jun 2026 11:41:47 +0800
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f7qJw/bT";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gBs4L9WA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781934034;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XVIrocMTbotto2Yn9Y6S6ITRcTskf67l19nQM1UMx8g=;
+	b=f7qJw/bTJIxabBZZI28uR8FlUiRzZ+JBWlOPB+DkbQLQsOD8mwBTeIhrYPRG+6iz5DnIwB
+	ViRT12kRbUHM7dQTz41ugMjDp9ZMmeoO5DVwzv+9xtRjW2mBUsZUQHAqFmyOeLMYbjiLV2
+	fStHAjV/HT0J3XUD2BlIzxm9073TeHY=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-532-r5lOtexKPgafmMm4pI8iWA-1; Sat, 20 Jun 2026 01:40:33 -0400
+X-MC-Unique: r5lOtexKPgafmMm4pI8iWA-1
+X-Mimecast-MFC-AGG-ID: r5lOtexKPgafmMm4pI8iWA_1781934032
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4924314568cso11494835e9.3
+        for <stable@vger.kernel.org>; Fri, 19 Jun 2026 22:40:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781934032; cv=none;
+        d=google.com; s=arc-20240605;
+        b=WGWuzLvnLbSEuXipIGzCY2BxPI9HcDIZag8JubqcOhBJCCARgMPylgh/XTUldK0ve9
+         w9ijqhgc9jXzBXOszn4Ajyroin7Lfhks8HG/XVymmieIDyvK1EOt8rGoGsRHTxOh86eC
+         9VFvRkjW8GeqxOReOx4n9gSQzssiywVcm6h6ZVFvPfHLj/mn7gqxl2jWhdICSNqy53Hy
+         f3n+BcpNQQt76DvZiNYO9/J6JRC1OeG47UJIkjGSH9Wpf6rmnwGniCyTJVrWKd+JjH4i
+         cR0T5ZUudlZYFZ0UkprcQsbT/qnscw9hBwnQGTZ8t7S90RVENKVcSQ0fOX1rwOONWv2F
+         /TOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XVIrocMTbotto2Yn9Y6S6ITRcTskf67l19nQM1UMx8g=;
+        fh=SvJjNpwVD9hp4p/JYmn3bH5u0MKdwNDlz9PRQZN7TgE=;
+        b=J4dAJK6SQ+V2VTY8c3GCq1iw+WBest55LrB2EVCVUncLYGqIzDwW+XtcoOcfWCJYN8
+         SQOrzbMH1euHfDWna1/4eCwaaumojtyoGJi6oMJIG+NhOHcHC2HzODhtqKoRNVDePRdd
+         oTuyhn4GoXTxUnpjgJz7zoJNQ/G40B/KS5YuSoUwF32bxwkiiUss9aLl+zDYF4ueddyO
+         FdnVHAlLgDfN1T6GMvB4jjk/xGlVwFB+/ZhVAfxFP5+FPnbmW51IBi4BRZktMEwyFHLm
+         kqOQuZH6zHfJMNIK+EmNxHc10ZodYb9omzWHekPe1LXHt2EmefSUYInqfXaVcL11b/Rl
+         6PBw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1781934032; x=1782538832; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XVIrocMTbotto2Yn9Y6S6ITRcTskf67l19nQM1UMx8g=;
+        b=gBs4L9WAjY67fM9XLZT2WkkwmBtCXEmznn7Y2DUPlbjOUsspqFuiUEfxS+occMv/8h
+         kciRl78Uy9i1rCugWq65m3sv1Y7mwNzZNVIG/MS5AYRoiNEfMLEx+zTVauTaWS/SYMaz
+         DOcvUsLWMvC2BNKTs6SkNsXQTu1ugBWGiDyueFziEb8e4pfhJS5sG0XV1MiNqg2gkLk3
+         A7i8LedrvZk6ELL62INYp0Qa9berGsLXUvxpdZkCGN9zv05bwFtuKVKp5iuux8cecYog
+         INO59fxzjMw1PtcBYNlNVkwuFrjmauetQExL6DIEjmL9hTdy+nrcI4ncpr99D+kiTHTV
+         DTKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781934032; x=1782538832;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=XVIrocMTbotto2Yn9Y6S6ITRcTskf67l19nQM1UMx8g=;
+        b=KFyjSucXTglggQmQPi/6/2k9b/ebMqARUdKuxgE1VTe+opcwvAsNccumbPRCqbPmHx
+         TdxBTFWmHZ4Rljk1J8183GMDlQ7EMR5q1zS8qzT/mqBHimMg4WbnwUp2qECKvkMnWLXI
+         8gHb/wHZKxAzqrfM/YqUHFp0tY6szafxn3MLOvDRoAi5zXoWOvgiHWEUgj9u3PbR14J3
+         8pxsuUEnAHnKDdXIwsO4X+p7yAIOnbUePFNgcqhVOAn1hruku1ZDOAifq0F1dpIyCArk
+         YCSXlBv6M0oSrRTZoS9okSN8X/MG0SEAQErihvTGhf53MtoWNMwa+v2rdYDycQNi5xNr
+         hodg==
+X-Forwarded-Encrypted: i=1; AFNElJ9WtC++nLM7gHMaVW3iJ8Fg87YK8BZM9Ecix2fYq7PXTqbxewj01cwF7155t2KPw2RX982bPtI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4diwwDn828vSrFknYdTwawW23F770Fvz/6hLOhC8ezM8wh/9e
+	wn+KNtB69cIhbFyn7VEmka+mkZNeUpRCAHhDpnq2ubnYmkPC0STyICh7dMxPwYZ9ctL4e4ccyD1
+	YocWvZoKDT9BQhW0wxLM4YYhg5Ekse6j7hT7aCkEKd0xJV23ZF4cZdgbAe/BOtVyczJy/xpKKn0
+	G/cijmbrQqSaqQV8DWuLLfOY2gRb5oyJte
+X-Gm-Gg: AfdE7clmAK6GVO+dpkVp7tzHmz9RamGFZJzZYIHQGhytBlr4OQgZFNMYiAjt4vd/3d+
+	grPiJ6dqdmTwLNu6NEvfaYv1E5rnG4Nk7cQlMQ8NYus45+0SFkofOZsaCfz8EdHoyL9m9/SY6/A
+	ENquVu+caoRQlUp4AVfpaBtUuMzj9SmIfAlse+J0AtGN0BaVwKTDuwQqfrPyi4cX04WNKmRMZsg
+	YFe3oGTtZhT/T7alWpKfvB+KO4CQr7NaqEfqkHgpB+25AOY/OBY2lWx4FUAiIRLZjQiLdts
+X-Received: by 2002:a05:600c:5020:b0:490:d946:47cf with SMTP id 5b1f17b1804b1-4923ef47d08mr108763455e9.4.1781934032080;
+        Fri, 19 Jun 2026 22:40:32 -0700 (PDT)
+X-Received: by 2002:a05:600c:5020:b0:490:d946:47cf with SMTP id
+ 5b1f17b1804b1-4923ef47d08mr108763315e9.4.1781934031793; Fri, 19 Jun 2026
+ 22:40:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, David Woodhouse <dwmw2@infradead.org>,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- gregkh@linuxfoundation.org, mathias.nyman@intel.com, stable@vger.kernel.org,
- iommu@lists.linux.dev
-Subject: Re: [PATCH RFT RFC] usb: xhci: Kill hosts with HCE or HSE on command
- timeout
-To: Desnes Nunes <desnesn@redhat.com>, Michal Pecio <michal.pecio@gmail.com>
-References: <20260430014817.2006885-1-desnesn@redhat.com>
- <20260503071749.6abda137.michal.pecio@gmail.com>
- <CACaw+ew8uV5g1G-6qZGtVBEYZ3k+fvFrOq3XMyq-Nuhbq5mdnA@mail.gmail.com>
- <20260503213111.117db3a1.michal.pecio@gmail.com>
- <20260504093118.615ff480.michal.pecio@gmail.com>
- <20260518083339.507e24bd.michal.pecio@gmail.com>
- <CACaw+ewSWTo72fSk2Q7ZzCM8pNuyrX5ua+qA=SZOQuNNMKSA5Q@mail.gmail.com>
- <20260522110328.0d3eecd8.michal.pecio@gmail.com>
- <CACaw+ezqEO_PgjGeYCLq5hA2eKczFXgmZLa8qjPtVJZCGwsdsg@mail.gmail.com>
- <20260523022944.59799d83.michal.pecio@gmail.com>
- <CACaw+exPdwXVsJc5Xr=vN1WJt8XR46=X0-8PP=+5dWY5zUrKeQ@mail.gmail.com>
- <20260523102815.5c05c70a.michal.pecio@gmail.com>
- <CACaw+ezMnQh2_oqbZ0jF99+wOADMU2vSMqxh9BoJoefjAC_ixw@mail.gmail.com>
- <20260527103221.7f8b15b0.michal.pecio@gmail.com>
- <CACaw+exN3fdzGQE7oK-hRE3KpMrA3ckPDRAcXaFbd=ySXf8E5A@mail.gmail.com>
- <CACaw+ewuPm-eOACKX3Ux0UwJBRSftoBm7H+rxE2Z9E7KzWb5ew@mail.gmail.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <CACaw+ewuPm-eOACKX3Ux0UwJBRSftoBm7H+rxE2Z9E7KzWb5ew@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260503201029.106481-1-pbonzini@redhat.com> <62bedd23-a9d8-4c05-bf39-662c2d37b793@redhat.com>
+ <ahlQQlD1ygfiQ3bG@dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com>
+In-Reply-To: <ahlQQlD1ygfiQ3bG@dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Sat, 20 Jun 2026 07:40:18 +0200
+X-Gm-Features: AVVi8Cc9pgh_rugpxF92QHP0_KXWWdqXna6GpieKRqAEmkG8WgK-gTKAo9E9NdU
+Message-ID: <CABgObfawkiKRDz0to=oCjo1vygVAkHyZXAzpsLWT2GXwkszV_A@mail.gmail.com>
+Subject: Re: stable backports for "KVM: x86: Fix shadow paging use-after-free
+ due to unexpected GFN"
+To: Bjoern Doebel <doebel@amazon.de>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	Sean Christopherson <seanjc@google.com>, Alexander Bulekov <bkov@amazon.com>, 
+	Fred Griffoul <fgriffo@amazon.co.uk>, stable@vger.kernel.org, zcgao@amazon.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/18/2026 8:57 AM, Desnes Nunes wrote:
-> Hello IOMMU mailing list,
-> 
-> On Wed, Jun 10, 2026 at 12:32 PM Desnes Nunes<desnesn@redhat.com> wrote:
->> I have just found out the solution for the bug.
->>
-> ...
->> In scalable mode, a PCI bus may populate only the upper root half
->> (UCTP) when all devices on that bus have devfn >= 0x80. On bus 0x80, I
->> have e1000e at 80:1f.6 (devfn 0xfe) and xHCI at 80:14.0 (devfn 0xa0),
->> so the hardware root entry correctly has lo=0 and hi=UCTP present.
->>
->> However, after copy_translation_tables(), I noticed that root[128].hi
->> was zeroed-out (Present bit cleared) and another (expected) different
->> value on root[128].lo.
->>
->> In short, the culprit here is having a zeroed LCTP, since at
->> copy_context_table() the allocation of new_ce for LCTP context entries
->> currently governs the pos variable; which is later used to save new_ce
->> entries for UCTP at tbl[tbl + pos].
->> On the first iteration idx will be zero, old_ce_phys will be empty,
->> thus this moves the loop straight to devfn=0x80. At devfn 0x80, idx
->> wraps to 0 again ( (devfn * 2) mod 256), but since no new_ce was
->> previouly allocated for LCTP context entries, pos will remain zero
->> while copying UCTP context entries.  After all upper context entries
->> are saved, tbl will receive new_ce from UCTP at tbl[tbl_idx + 0], and
->> not tbl[tbl_idx + 1]. These will be later written in
->> copy_translation_tables() to iommu->root_entry[bus].lo and
->> iommu->root_entry[bus].hi, which causes the bug.
->>
->> In summary, the hardware tables were correct, but the copy path
->> misplaced the UCTP table for bus 0x80 when dealing with a LCTP
->> zeroed-out during kdump.
->>
->> To fix this, I created a v3 patch that uses devfn to better track
->> which half we are copying, so UCTP-only buses (lo=0, hi=P) are
->> installed into the upper root half.
-> 0001-iommu-vt-d-Fix-UCTP-context-table-slot-when-copying-.rfc.patch
-> 
->> I am doing some final tests now, but since this was a lot to digest,
->> comments at this stage will be most appreciated.
-> FYI, all of my last tests looked OK.
-> 
->> To IOMMU maintainers: should I send this patch to the iommu mailing
->> list and move the discussion there?
-
-Yes, absolutely. The iommu mailing list is the right place to discuss
-bugs and fixes, so please go ahead.
-
-> I meant as a new submission to IOMMU maling list, since this started
-> in xHCI at the usb mailing list.
-> Of course, that is if nobody has any comments or objections to the patch.
+On Fri, May 29, 2026 at 10:39=E2=80=AFAM Bjoern Doebel <doebel@amazon.de> w=
+rote:
+>
+> Hi Paolo,
+>
+> On Tue, May 05, 2026 at 12:13:34PM +0200, Paolo Bonzini wrote:
+> > I'll get to testing and sending them out, but it will take a while; if
+> > anybody wants to help testing, I can provide my tentative patches.
+>
+> took us a while, but if you are still looking for help, my friend Nathan
+> and I would volunteer to test these in the context of Amazon Linux.
 
 Thanks,
-baolu
+
+I placed everything in the linux-5.10.y and linux-5.15.y branches of
+https://git.kernel.org/pub/scm/virt/kvm/kvm.git, adding also a couple
+more issues that were fixed in the last merge window.
+
+Paolo
+
