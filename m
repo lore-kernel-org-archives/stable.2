@@ -1,44 +1,36 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D131A7264;
-	Sat, 20 Jun 2026 08:38:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1431A268;
+	Sat, 20 Jun 2026 09:11:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781944702; cv=none; b=YmbgK57uccf0uIrc9zKgUOD1z+9s7e5VN67vinnPvJ7Nf2Dkx3mBAqcP/M2RwX6esj4H5H+TZThbk8Ox8B27hvYzgV/tytdZLXJHf/+fY3+Doo6eh1Msjv+m2mTbDnF5QMPbjJ/WbN3S9XRCjduUXs9zKUfeaA0+ZvNbtdaYqEo=
+	t=1781946667; cv=none; b=U+6lOnpcO+1OAQDfB0y0+LxMPP0We5kj8WCX9dz7BY57omBl6zzIQ/8yqQyRTWrC+dErBeF0RmkH5KXZ3q0nOQBC3fgFL4OOKRdnslfgxfS+oID7jeDAtchL6oMjhlBBddT3XutNOaPQ1wSpiPNlzKEK2ugFMjyxTDwD2ZUv1GM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781944702; c=relaxed/simple;
-	bh=zEMukMBeMwrPcONyhw38vn1lpBqPIHdDff/YFQd2mLs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GekQP8n+kwwGKWNthfp3RFq6DqxC7TV3KuwTSiUdqP7K1HSJfWs3La5MKB7LSFDKWQS2FysPf3JwCTh1xf3JYSfNdG0MEi+LQurTEmezOxePs/W4HwYs3XIp32SjJWwABrxfIHE6MMlIy+f1V7Y4XKEAnZu3eZ13Rqlz3MT15/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jvkFxt9/; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1781946667; c=relaxed/simple;
+	bh=tHv9uXgs8Y2ZcpWUi5IFXv5XMWxzogokL2cxQdnBhIc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sT0XZSkw7M2MPBrOKZuCZo4ppnsPLKivfknP3cVvMaMTkKdNWDjwNw8Hokj+BSLExYK5zU28h+N4cvMy3XFXST+QJxxFquhfsDPMv2ysvmfB2tfUxgb2ajWDi5UjJby1AsY/YdVTnGeM0rqS+ii8HMLA34ODHFboJJy7tCF8sz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=cdIbTquB; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jvkFxt9/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=d2
-	yvxLlucterId8c/ram7jvV+2CDThmj8Ip83xZTfFI=; b=jvkFxt9/s1RFI18adK
-	W49+3WBuBq8AnmUkspU54x52Cku+J5YJlumUCdVS5lFo+T4eWh7kGQ47MtyFDV+G
-	e+RGHX6co5V7ythfXC3AU186GGk0p+loRyH+EAZijqck8bDynOCSRf+2Cw804Yos
-	6v/ex5BrEdSJu2Bv0JspfRV14=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnra9IUTZqBIGuEg--.2619S2;
-	Sat, 20 Jun 2026 16:37:30 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	felix.manlunas@cavium.com,
-	ricardo.farrington@cavium.com
-Cc: netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="cdIbTquB"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 43192ac9f;
+	Sat, 20 Jun 2026 17:05:42 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+	netdev@vger.kernel.org
+Cc: Samuel Ortiz <sameo@linux.intel.com>,
+	Christophe Ricard <christophe.ricard@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	Haoxiang Li <haoxiang_li2024@163.com>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] net: liquidio: fix BAR resource leak on PF number failure
-Date: Sat, 20 Jun 2026 16:37:28 +0800
-Message-Id: <20260620083728.2722895-1-haoxiang_li2024@163.com>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH net] nfc: st-nci: use unaligned accessors for frame length
+Date: Sat, 20 Jun 2026 17:05:36 +0800
+Message-Id: <20260620090536.1701282-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,41 +38,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnra9IUTZqBIGuEg--.2619S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtw1ftF43uF1ktFyfWF1rWFg_yoWkWrX_Wr
-	129wn7Xa12k34qkw4DAr4jq340kanFqrykAayUtFZ3J3y3Xws8Zr4kArs5G3Wjg34xCF9r
-	uFnrKr4fXw17GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUUjQ6PUUUUU==
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7QqO-Go2UUqX1wAA3S
+X-HM-Tid: 0a9ee4475c3d03a1kunm0d8c5fb9f19e0
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTE4dVhlDQk5KSkpKGR4aT1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=cdIbTquBfendraRqFe4krLhMJYVJydU+r1Kd566vsPhd/DQNK1Za+RYsaFrpDdr9n8J1J/IEJBniLeXFz93QPxDw/4tEZYWiOsjMW6/AgBW8YKnKyiKzrnXoT9uoh1SWL64gA/PlIPA7Q8T/2kF7aJqN8USgCWYB2x0jXUyjQRs=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=sOZTNnYn6KwP5i+b2wq9J349cElhRcEW7KAkjje6FuU=;
+	h=date:mime-version:subject:message-id:from;
 
-If cn23xx_get_pf_num() fails, the function returns without
-unmapping either BAR. Unmap both BARs before returning from
-the error path.
+The ST NCI I2C and SPI transports parse a frame length from bytes
+received from the controller. Both paths first read the frame header into
+a local u8 buffer and then cast buf + 2 to __be16 * before converting it
+from big endian.
 
-Fixes: 0c45d7fe12c7 ("liquidio: fix use of pf in pass-through mode in a virtual machine")
+These are transport byte buffers, not __be16 objects. Use
+get_unaligned_be16() for the NCI frame length field in both the I2C and
+SPI transports.
+
+This issue was detected by our static analysis tool and confirmed by
+manual audit. A focused UBSAN alignment validation kept the original
+access shape, be16_to_cpu(*(__be16 *)(buf + 2)), and ran it on an NCI
+frame byte buffer with buf + 2 at an odd address. UBSAN reported a
+misaligned-access load of type '__be16', and the trace contained
+st_nci_i2c_read().
+
+The driver has the same source-level issue: the transport helpers fill
+u8 buffers, and the length checks only prove that the bytes are present.
+They do not establish a __be16 object at buf + 2 or a 2-byte alignment
+guarantee before the typed load.
+
+Fixes: ed06aeefdac3 ("nfc: st-nci: Rename st21nfcb to st-nci")
+Fixes: 2bc4d4f8c8f3 ("nfc: st-nci: Add spi phy support for st21nfcb")
 Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- drivers/net/ethernet/cavium/liquidio/cn23xx_pf_device.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/nfc/st-nci/i2c.c | 3 ++-
+ drivers/nfc/st-nci/spi.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/cavium/liquidio/cn23xx_pf_device.c b/drivers/net/ethernet/cavium/liquidio/cn23xx_pf_device.c
-index 75f22f74774c..a1548ca81ecd 100644
---- a/drivers/net/ethernet/cavium/liquidio/cn23xx_pf_device.c
-+++ b/drivers/net/ethernet/cavium/liquidio/cn23xx_pf_device.c
-@@ -1167,8 +1167,11 @@ int setup_cn23xx_octeon_pf_device(struct octeon_device *oct)
- 		return 1;
- 	}
+diff --git a/drivers/nfc/st-nci/i2c.c b/drivers/nfc/st-nci/i2c.c
+index 9ae839a6f5cc..29fdb4ae56e0 100644
+--- a/drivers/nfc/st-nci/i2c.c
++++ b/drivers/nfc/st-nci/i2c.c
+@@ -14,6 +14,7 @@
+ #include <linux/delay.h>
+ #include <linux/nfc.h>
+ #include <linux/of.h>
++#include <linux/unaligned.h>
  
--	if (cn23xx_get_pf_num(oct) != 0)
-+	if (cn23xx_get_pf_num(oct) != 0) {
-+		octeon_unmap_pci_barx(oct, 0);
-+		octeon_unmap_pci_barx(oct, 1);
- 		return 1;
-+	}
+ #include "st-nci.h"
  
- 	if (cn23xx_sriov_config(oct)) {
- 		octeon_unmap_pci_barx(oct, 0);
+@@ -120,7 +121,7 @@ static int st_nci_i2c_read(struct st_nci_i2c_phy *phy,
+ 	if (r != ST_NCI_I2C_MIN_SIZE)
+ 		return -EREMOTEIO;
+ 
+-	len = be16_to_cpu(*(__be16 *) (buf + 2));
++	len = get_unaligned_be16(buf + 2);
+ 	if (len > ST_NCI_I2C_MAX_SIZE) {
+ 		nfc_err(&client->dev, "invalid frame len\n");
+ 		return -EBADMSG;
+diff --git a/drivers/nfc/st-nci/spi.c b/drivers/nfc/st-nci/spi.c
+index 169eacc0a32a..1326c20e43fc 100644
+--- a/drivers/nfc/st-nci/spi.c
++++ b/drivers/nfc/st-nci/spi.c
+@@ -14,6 +14,7 @@
+ #include <linux/delay.h>
+ #include <linux/nfc.h>
+ #include <linux/of.h>
++#include <linux/unaligned.h>
+ #include <net/nfc/nci.h>
+ 
+ #include "st-nci.h"
+@@ -130,7 +131,7 @@ static int st_nci_spi_read(struct st_nci_spi_phy *phy,
+ 	if (r < 0)
+ 		return -EREMOTEIO;
+ 
+-	len = be16_to_cpu(*(__be16 *) (buf + 2));
++	len = get_unaligned_be16(buf + 2);
+ 	if (len > ST_NCI_SPI_MAX_SIZE) {
+ 		nfc_err(&dev->dev, "invalid frame len\n");
+ 		phy->ndlc->hard_fault = 1;
 -- 
-2.25.1
+2.34.1
 
