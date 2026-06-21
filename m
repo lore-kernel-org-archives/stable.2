@@ -1,99 +1,69 @@
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F251DC1AB;
-	Sun, 21 Jun 2026 20:19:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.32.30.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078D42DCBFA;
+	Sun, 21 Jun 2026 21:40:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782073197; cv=none; b=k24/w3v0rYf/m4LhiHYRmB0SmjY3pL/4NM3ApZoGezAhJnXKEVfuMWPVyjRLu6fI5DcxZAAFaeUQ804zGpiw4fjvoe475OXBE/5dvJ38HhwqBM3k04IDAZk/TdjpUJHg1jcm8lOrrOrfoRqQMxkSGAHTPxycgeYwu+qW37LBniU=
+	t=1782078050; cv=none; b=E7Mj2dGhsO3ta9WczvCRyOiEBDKahNKHD9i1oqxNnJkJotuiCzykba318GUmXjtO3KByM5XEmegGS0c7gdsledBGRJpABju2u9gsCwS2sB2c7LJ+/I+bYcBZMAKZ873yaomGLbrPfK4SwtMAgiw6BIk5MaEw5iY4pcsB+xqaUCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782073197; c=relaxed/simple;
-	bh=OxDQya4sv56ck8l8gGXwh400pbujH0EtDBc9DFMZUEs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HHgyWYoqrLorZ+NSN3y1F6ZzFiweUnYMXDhEZZOavnjZvJOQ1GpkAHWGtd2tHUbRl3pqruJ9p3fYhCPCiB3VbA69VGwyCcc4KkEvhNWFWJff6oUlIjf3cHxB6Ivgp8ZW6TEdVSn9i55Pmk+rX3wKoIJUqX3Ua9ZZ3bd3y6+a7L8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk; spf=none smtp.mailfrom=armlinux.org.uk; dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b=UwDjcfsH; arc=none smtp.client-ip=78.32.30.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=armlinux.org.uk
+	s=arc-20240116; t=1782078050; c=relaxed/simple;
+	bh=X5pGV1s0tb8RzbdB2MLctPvgkzsHzHWrGSc/nN3KGsM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aEjKExGp8UkQxxTgjemYAiYI4dwQH3mM7ScfXig7SI2x0tBKfx5A1eDSwXnfKxBaIdYrshMY2sktzMMubHHpiAGoKzPR/ZPtTqHtgLaKY6AYPEZvhNQ2jq+Yzd6rxnklarFr4HRMznJSZKHcskI3cC6NIn2JMr6G/HpMdcFbAN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LEyG607A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b="UwDjcfsH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=56VzwGPLml2RMJZUA6A+wMBtbfbyi8m/QYimvD9XNGo=; b=UwDjcfsH5FfLDuQ+4T9XZuPX9c
-	w6+gfZCT7wqrSyfgSMjIwT8gSsJEVUoPUZjXblyJ85tKj3uPgMUvPCxkuvfcij8+wt4em0dlkLGly
-	o1hrCjhDj/nbWEnjyAwuJ4X8srMviD/F8FxVu5O35B6qUoGL/E9WhHy2HSFbiXUsNlWQq7x8Jzubw
-	184HBgVEsr5QxOjCAxg4Rveq33V2vyfvxiXDE2dd9BLxvceduJXa9cBk+4n8nV8A4OdaFBjdnCVI3
-	XTrPRgHN/6dvEXzSfOJxzKBc8x9ielydeFeesIOnLfSwCkgp9/MkcMnVFdPaS4c/L9mx+y6ww6vbs
-	VCSSyDiQ==;
-Received: from shell.armlinux.org.uk ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:45102)
-	by pandora.armlinux.org.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <linux@armlinux.org.uk>)
-	id 1wbOdu-000000004ZR-0fbx;
-	Sun, 21 Jun 2026 21:19:46 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
-	(envelope-from <linux@shell.armlinux.org.uk>)
-	id 1wbOds-000000006Zt-2lFL;
-	Sun, 21 Jun 2026 21:19:44 +0100
-Date: Sun, 21 Jun 2026 21:19:44 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: slipher <slipher@protonmail.com>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	"linus.walleij@linaro.org" <linus.walleij@linaro.org>
-Subject: Re: [REGRESSION] 32-bit ARM's BKPT instruction no longer works
-Message-ID: <ajhHYKyvL9nCUvG5@shell.armlinux.org.uk>
-References: <kJqktbpLphg_Pk5I5SPptgTLjl3E3eq5mN5UzCslyFj7Q1Irp-wDid4mj5eQVd2iZtRGXgeZd8goq195EkXdjyt864YMc8mVb2B9NGH91NQ=@protonmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LEyG607A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6BB1F000E9;
+	Sun, 21 Jun 2026 21:40:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782078049;
+	bh=X5pGV1s0tb8RzbdB2MLctPvgkzsHzHWrGSc/nN3KGsM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LEyG607AjsH9UuvhNVXOCOfCZ9MkEPbKo2G30XGhwLDJbqZnDBH3zCYT5N0S/4qGQ
+	 JdVH1dj/RFyr7nTj4rpAPcqN33Zq7b0Py9ZxtZjTL7fMNaSViW70Z56YZD6KNZBX4U
+	 B7k2DgD1WtW2EiqJrtipDrqeUrTMBZHTDoMmPcWgH4sh8uCi4sPFyb99KbNjtURp83
+	 jlMxEnmkJPeFLolkG/0STMvHgY7WK2+b3yZ6g2ZTotb4P5UFY9nYDBl/2Etfw7U/BA
+	 xLtdkOLRgINbK/ONjHXP37Jo+MfG70fUWctXloQuqvnquIgZs0EAp8Qi3tYCnC6c7t
+	 oqmkYatHIV8Jg==
+Date: Sun, 21 Jun 2026 14:40:47 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: =?UTF-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>
+Cc: Nicolas Ferre <nicolas.ferre@microchip.com>, Claudiu Beznea
+ <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
+ Abeni <pabeni@redhat.com>, Haavard Skinnemoen <hskinnemoen@atmel.com>, Jeff
+ Garzik <jeff@garzik.org>, Conor Dooley <conor.dooley@microchip.com>, Paolo
+ Valerio <pvalerio@redhat.com>, Nicolai Buchwitz <nb@tipi-net.de>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Vladimir Kondratiev
+ <vladimir.kondratiev@mobileye.com>, Gregory CLEMENT
+ <gregory.clement@bootlin.com>, =?UTF-8?B?QmVub8OudA==?= Monin
+ <benoit.monin@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Maxime Chevallier
+ <maxime.chevallier@bootlin.com>, stable@vger.kernel.org
+Subject: Re: [PATCH net v3 1/2] net: macb: give reasons for Tx SKB kfree
+Message-ID: <20260621144047.3db74e2b@kernel.org>
+In-Reply-To: <20260617-macb-drop-tx-v3-1-d4c7e57d890b@bootlin.com>
+References: <20260617-macb-drop-tx-v3-0-d4c7e57d890b@bootlin.com>
+	<20260617-macb-drop-tx-v3-1-d4c7e57d890b@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <kJqktbpLphg_Pk5I5SPptgTLjl3E3eq5mN5UzCslyFj7Q1Irp-wDid4mj5eQVd2iZtRGXgeZd8goq195EkXdjyt864YMc8mVb2B9NGH91NQ=@protonmail.com>
-Sender: "Russell King,,," <linux@armlinux.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jun 21, 2026 at 07:15:27PM +0000, slipher wrote:
-> Consider the C program for 32-bit ARM architectures:
-> 
-> int main() {
-> 	__asm__ __volatile__ ("BKPT");
-> 	return 0;
-> }
-> 
-> 
-> Expected behavior is that this raises SIGTRAP. Since Linux 6.10 this no
-> longer happens; instead execution perpetually resumes at the same
-> instruction, using 100% of CPU. It does not matter whether GDB is
-> attached. I have tested with an armv7l CPU, but I imagine any other
-> variants with the BKPT instruction would be equally affected.
+On Wed, 17 Jun 2026 11:17:29 +0200 Th=C3=A9o Lebrun wrote:
+> Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
+> Cc: stable@vger.kernel.org
 
-Looking at the code, I doubt this has ever cleanly raised SIGTRAP (can
-you check whether it does in kernels without c3f89986fde please?)
+Interesting, did AI suggest this? It's fairly uncommon for drivers
+to care about drop reasons, packet loss on egress ports is pretty
+clearly attributed by tx_drops.
 
-What I suspect instead is you get an "Unhandled ... abort" instead
-and the program forcefully killed as hw_breakpoint_pending() would
-have ARM_DSCR_MOE(dscr) == 3, and the switch() would set ret = 1.
-That triggers the fault handlers in arch/arm/mm/fault.c to
-complain bitterly, and forced a SIGTRAP to the program to kill it
-off. No resumption from an unhandled trap is expected.
-
-BKPT was added in later versions of the architecture. In order for
-32-bit ARM to have functional breakpoints with older versions of the
-architecture, we had to invent our own breakpoint instruction using
-what was available in the reference manuals of the time - and this
-needed to be maintained in a forwards compatible manner. Sadly, Arm
-Ltd were late to the party.
-
-The ARM mode breakpoint instructions that were chosen were 0xe7f001f0
-and 0xde01 for Thumb. These cause a SIGTRAP with a TRAP_BRKPT code.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+I don't think this belongs in net, net-next would be fine, if you think
+it's necessary. Sashiko seems to point out a few more clear cut bugs.
+--=20
+pw-bot: cr
