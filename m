@@ -1,125 +1,162 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D001E5207
-	for <stable@vger.kernel.org>; Sun, 21 Jun 2026 15:09:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500A42BB1D;
+	Sun, 21 Jun 2026 15:30:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782054552; cv=none; b=aiAi8hawSzBwHye7NxfFLIdcXGUs8WE+qqLLzVITE5/HrP9MNXmXyCrSHjZyR84yxbbmeUVxr0oGXZhDi1duJ6FM3NoLlYKZtaHhDCTB/R60SOnnD6XyXScqTG7y7yoPsGFXWRdvOKk//GETd/AXf6mcOYHQH7HjXI69bxP10Tw=
+	t=1782055807; cv=none; b=i0HtwBSF9EpYRBqBK8K1jXZh2dAr8XpojUzVmdSeLuGgON+y8j2CQBCX/pgnDTioSkqsISFMtyuf5HvT/Kdafl1T1WXCjSXUx2wphj2Z1ML3s2Qd6U+KPJjHF6UmzsIaDnpUWt3zyCdVdoEV5bsyH2ETDUOqiQoijEvBB9ljSNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782054552; c=relaxed/simple;
-	bh=bGe6auSy2bAcoq3YNv8c9FdmMy0rUqHqUQJP0+7B/4I=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=a+E1e1OLT0yXPOa6VG3IhQmrBPKn355IUkFZrqWpZdtbURp+ONWu+4DtLJ37D9eqTGkqeqNN1JliO9iWJiW3qg+7re3rQ/0x0tidXGk8QNUunTHSp5kr7lTAgMeGBy3lNxGMoh9DdCSe6FQulhTbvGOShsASvZpNU8uM4bicW9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iymBW88s; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iymBW88s"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-842307473b5so2509686b3a.2
-        for <stable@vger.kernel.org>; Sun, 21 Jun 2026 08:09:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782054551; x=1782659351; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=31UQCBSl6VHtaj4HbZ4B9yytESDTf5UVo9IslisOCfo=;
-        b=iymBW88s6DFkORO2NjBKYBMyjdgoeAhgh/RIkmiBNJqEfpW/0J5lkS9uEMjJIIHU3S
-         S1XmS2IRuUap9pHKxe2yD/Iv/4MzUQ6pBBua2V1DPpV9iaX8cogQKFxXIfpcVFn1isYN
-         mjVYpAWalscVvkZEx51eE4vIwpS4zbKu6/ozsoJmzP/rEtgvC2c0GkQhqJl6Cy4aMN4S
-         +UbZVx/dcWQ/3Oic026e9O/7byKGdOBURartKX1OcTI+C2NncQv+BhGXG1E703vxBXft
-         IxR4tYO9Q64MAUYw0E8hoKd36y1DRkNWpLystu5dNx7DoG6aduClg3crH72FWU22fjjN
-         AP+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782054551; x=1782659351;
-        h=mime-version:content-transfer-encoding:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=31UQCBSl6VHtaj4HbZ4B9yytESDTf5UVo9IslisOCfo=;
-        b=LeW02CzMkzFk/udCwcoRewWmluniCiF1jduCWTmRC9KFm+YuWPKPPXwF966APqsAph
-         1h3BC6xDdJndwxyzI9cqz0ez3AaJ/4r+taZrR0CRigPLveQQA4PWm8hUmK2Hwo0jAqEK
-         y7hFD3teVKQw6Q0vzwahCvOQSWzHS9/XnFQOE8Hgn1wEF8sQY/MRSSyz4lQw3PkK5m6M
-         4auSGuLD8k9dv1WLhSo6xIscaqRoN3ovOm2u8PCDPkRfYfMjKIn+peqlhnsnDpNTe+fq
-         moPJ7lvGHGFTtjmHDHLQ69Up7zyRaEc6eiMz7hwCFg64doyjd2o4kgv80v0JQIl/+JTn
-         KDeg==
-X-Forwarded-Encrypted: i=1; AFNElJ8KQIseerfBPcXcJ2z8XkQiGs9e9zH/W9/GOH5SOl4kELhP024nZtK/rENZeKEDhzOllMmgXe4=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw5RPa4EeTpG3MybsVbaqSIKAlsdt9+kJVxtCdxtXheWIOZzbnb
-	RKbp763+HnuVbr15f5CCGVMDgAWZKnltdCCK0GdgmtKV/n2v8CjN7DrJ
-X-Gm-Gg: AfdE7cmM5uYi067JntNPaoJFk9WIdL3248k4hqTqaF20Hyt+SsbMT/jxGkeTcfgv7GP
-	0SjYFMfJZzVKeDDr4mx35PTkNhOzDwmPkS1J1kuQPIRr25/a8Tvz9sM9ygp+Z9enG24wpJCVxrH
-	wtQSE5AgyGfb8Y4RcR2a2Mz+ZIf8QTdzRsrWaJqiIw6Ez0uWpru2bWxNVm+klnxD6YhEhTcH+4u
-	JLV9igahYDotSY2/dJdym74fFW6cF/5Z6Ieg2bs8LnrOdANlGMGbjE0D5nkosU9+SwgT/UD5paj
-	g87cIBtjjEuMD/mwZE6JyBoUOD2kksuf8+0Or47Mbp7IzvnP6OsE4ulW54r4nEBFixuAw9GRoV9
-	n0O2t/oQRNx86JbcImaLQWyLZKVf+cL9clY4wfMJybMKXMffepZG1oOfvYCxh+WAsW6l24njMJ+
-	ophn2zisEFoXm4e4gVGC3YgezZqC2xVbIHC+eitA==
-X-Received: by 2002:a05:6a00:2294:b0:835:45bf:9660 with SMTP id d2e1a72fcca58-845561b605emr11255355b3a.42.1782054550938;
-        Sun, 21 Jun 2026 08:09:10 -0700 (PDT)
-Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84564e74727sm4840334b3a.39.2026.06.21.08.09.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Jun 2026 08:09:10 -0700 (PDT)
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-To: Clemens Ladisch <clemens@ladisch.de>,
- Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject:
- [PATCH] ALSA: firewire: isight: bound the sample count to the packet payload
-Date: Sun, 21 Jun 2026 23:09:07 +0800
-Message-ID: <178205454729.1900991.7807310178296762772@maoyixie.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=arc-20240116; t=1782055807; c=relaxed/simple;
+	bh=kA7f/hyE+3+kwHlt8ck/CMY1g+O20asTeh55awW8wcI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TYS2kxntM49L0DHWsnuKZ6SmOwg9cGSOGz86M1E2iTuqsNiCUPyJGfaco/G5N/zZsAJLVV63ca0ycu4KCEvq1HNEYjmmWlDRPXdlvRh98a1vf4BOkVrEzUhm/RMLizC3Qnuq0wwVgUB0LtOVAoHc041xydCJGXHZxqMgxBob1zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
+Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
+	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wbK7V-003aPu-1c;
+	Sun, 21 Jun 2026 15:30:01 +0000
+Received: from ben by deadeye with local (Exim 4.99.3)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wbK7V-00000007J8w-0KY8;
+	Sun, 21 Jun 2026 17:30:01 +0200
+Message-ID: <42c2abbdfdd4ea8e234fbcfc4b37095ebd2c7b36.camel@decadent.org.uk>
+Subject: Re: [PATCH 6.1 342/522] thermal: core: Fix thermal zone governor
+ cleanup issues
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Sasha Levin <sashal@kernel.org>, Greg Kroah-Hartman
+	 <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Date: Sun, 21 Jun 2026 17:29:55 +0200
+In-Reply-To: <20260616145141.812464695@linuxfoundation.org>
+References: <20260616145125.307082728@linuxfoundation.org>
+	 <20260616145141.812464695@linuxfoundation.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-LItfnKP3/zk17l2uSLEl"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
 
-isight_packet() takes the frame count from the device iso packet and
-checks it only against the device claimed iso length.
 
-	count = be32_to_cpu(payload->sample_count);
-	if (likely(count <= (length - 16) / 4))
-		isight_samples(isight, payload->samples, count);
+--=-LItfnKP3/zk17l2uSLEl
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-length is the iso header data_length. It can be up to 0xffff. So the
-gate allows a count up to about 16379. isight_samples() then copies
-count frames out of payload->samples into the PCM DMA buffer.
+On Tue, 2026-06-16 at 20:28 +0530, Greg Kroah-Hartman wrote:
+> 6.1-stable review patch.  If anyone has any objections, please let me kno=
+w.
+>=20
+> ------------------
+>=20
+> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+>=20
+> [ Upstream commit 41ff66baf81c6541f4f985dd7eac4494d03d9440 ]
+>=20
+> If thermal_zone_device_register_with_trips() fails after adding
+> a thermal governor to the thermal zone being registered, the
+> governor is not removed from it as appropriate which may lead to
+> a memory leak.
+>=20
+> In turn, thermal_zone_device_unregister() calls thermal_set_governor()
+> without acquiring the thermal zone lock beforehand which may race with
+> a governor update via sysfs and may lead to a use-after-free in that
+> case.
+>=20
+> Address these issues by adding two thermal_set_governor() calls, one to
+> thermal_release() to remove the governor from the given thermal zone,
+> and one to the thermal zone registration error path to cover failures
+> preceding the thermal zone device registration.
+>=20
+> Fixes: e33df1d2f3a0 ("thermal: let governors have private data for each t=
+hermal zone")
+> Cc: All applicable <stable@vger.kernel.org>
+> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> Link: https://patch.msgid.link/5092923.31r3eYUQgx@rafael.j.wysocki
+> [ adapted context for missing mutex_destroy/complete ]
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  drivers/thermal/thermal_core.c |    7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>=20
+> --- a/drivers/thermal/thermal_core.c
+> +++ b/drivers/thermal/thermal_core.c
+> @@ -756,6 +756,7 @@ static void thermal_release(struct devic
+>  		     sizeof("thermal_zone") - 1)) {
+>  		tz =3D to_thermal_zone(dev);
+>  		thermal_zone_destroy_device_groups(tz);
+> +		thermal_set_governor(tz, NULL);
+>  		kfree(tz);
+>  	} else if (!strncmp(dev_name(dev), "cooling_device",
+>  			    sizeof("cooling_device") - 1)) {
+> @@ -1260,8 +1261,10 @@ thermal_zone_device_register_with_trips(
+>  	/* sys I/F */
+>  	/* Add nodes that are always present via .groups */
+>  	result =3D thermal_zone_create_device_groups(tz, mask);
+> -	if (result)
+> +	if (result) {
+> +		thermal_set_governor(tz, NULL);
+>  		goto remove_id;
+> +	}
 
-payload->samples holds only 2 * MAX_FRAMES_PER_PACKET values. The
-device multiplexes two samples per frame. A count past
-MAX_FRAMES_PER_PACKET reads past the payload. A count past the buffer
-size writes past runtime->dma_area. The smallest PCM buffer is larger
-than MAX_FRAMES_PER_PACKET. Bounding the count to MAX_FRAMES_PER_PACKET
-keeps both the read and the write in range.
+The order of initialisation in thermal_zone_device_register_with_trips()
+is quite different between 6.1 and mainline.  Clearing the governor here
+doesn't make sense as the governor has not been set yet.
 
-A malicious or faulty Apple iSight on the FireWire bus reaches this
-during a normal capture.
+The proper place for this in 6.1 seems to be in the failure path after
+calling thermal_add_hwmon_sysfs().
 
-Add the MAX_FRAMES_PER_PACKET bound to the gate.
+Ben.
 
-Fixes: 3a691b28a0ca ("ALSA: add Apple iSight microphone driver")
-Suggested-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
----
- sound/firewire/isight.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> =20
+>  	/* A new thermal zone needs to be updated anyway. */
+>  	atomic_set(&tz->need_update, 1);
+> @@ -1396,8 +1399,6 @@ void thermal_zone_device_unregister(stru
+> =20
+>  	cancel_delayed_work_sync(&tz->poll_queue);
+> =20
+> -	thermal_set_governor(tz, NULL);
+> -
+>  	thermal_remove_hwmon_sysfs(tz);
+>  	ida_free(&thermal_tz_ida, tz->id);
+>  	ida_destroy(&tz->ida);
+>=20
+>=20
 
-diff --git a/sound/firewire/isight.c b/sound/firewire/isight.c
-index 2b7f071d593b..33c9dd48b3b0 100644
---- a/sound/firewire/isight.c
-+++ b/sound/firewire/isight.c
-@@ -179,7 +179,8 @@ static void isight_packet(struct fw_iso_context *context, u32 cycle,
- 	if (likely(length >= 16 &&
- 		   payload->signature == cpu_to_be32(0x73676874/*"sght"*/))) {
- 		count = be32_to_cpu(payload->sample_count);
--		if (likely(count <= (length - 16) / 4)) {
-+		if (likely(count <= (length - 16) / 4 &&
-+			   count <= MAX_FRAMES_PER_PACKET)) {
- 			total = be32_to_cpu(payload->sample_total);
- 			if (unlikely(total != isight->total_samples)) {
- 				if (!isight->first_packet)
--- 
-2.34.1
+--=20
+Ben Hutchings
+No political challenge can be met by shopping. - George Monbiot
 
+--=-LItfnKP3/zk17l2uSLEl
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmo4A3QACgkQ57/I7JWG
+EQnxEBAAktpSm8ttjcA5EALDe7ApE+dVmLcq+CA/kVofOgkvAH+WdkXvYmgUTWgE
+9yJwoYVHsM7VYN6CIFAlFi9wq3FNe2IsXAJizFl4g+CJE/MceOom9YQ5FA12lSpb
+AX15Ke+CBT9imiCCMp39aGyW0mwCCydeSuj3dJGVmoWr+Kyc/cm9KJiWlmxLV0dN
+g6NCrYV9iCrze4s0An5EXmC3912+v1CQNI1Q2rxkl+sSx+B3yZ55nG9z+E20+HMb
+TwbMLVvg24XjRsY/NVqJSF5Rz5gz/8/6BQSQVALPidR5P31KWXChIpfM54+BE9Y8
+EqEfkBin1z78aa+Et+miDvthtf03JkMRC4nWFQS+tFpUltxe1TffTr1wJC8fG9SI
+emPMKsUwHPfvQMmY8lAGrfV9ddZ1lhsX85Ni01bp0zV0TNI8DSrM56UFyoocp5zg
+jL8mtYVONcHPX4er+keYvLEJT+SD8s0N0cEdPT2iKXv1LUz/KCy0Nhfscq3pJiU8
+dolVs/NqjA2n+WaFuwslhK6d6d5+rts9gWtJNWb98blqXnNRlkCwKHsfX3vJRn8J
+Qr0jA9B0evtaztoYGeAsTRCbwcsttp+YtHEQKnl5/1EZ8YqrdRqgfdcWv7jATa53
+MWzD/NyXE+Re3wV4uBFzSLbmY7d9w5eX+hp9lq05KaJRirXa1ag=
+=7K1w
+-----END PGP SIGNATURE-----
+
+--=-LItfnKP3/zk17l2uSLEl--
