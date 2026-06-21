@@ -1,152 +1,146 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDBD621ABAA;
-	Sun, 21 Jun 2026 16:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA629280CD5
+	for <stable@vger.kernel.org>; Sun, 21 Jun 2026 16:23:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782058353; cv=none; b=fLpFHMHBtQ3pBqJm8V2Vt3/x2FySBHwsx0pe7sBnIuOlqJazPg+ahhOvb0eD7qA/V0GOk6lpq/ruv9ZdutI/R2cfGn6AVbw+BVwyFcOaj38zHxK8TkggMeqQ4Wltrc69HVaINEwH6UKwwPo+9bicu7YWDIGpgyQhsGOQTCGiZUQ=
+	t=1782059002; cv=none; b=F0DVtsaWh4XsBNydBrxcHxQTttr9XQHqGJQ0ZGCWc62vjdgrrFpylx+uoM49VsEJ66Ca+sZL+iwPVrIHMAnXHHEmCkyrCeA++NOYJup2q5CcpqnMcQZ0s6yNjTxmar9/DxZ6l4quveDRPdXuvt2w2hBCwRriPn2vpgNYamSKlS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782058353; c=relaxed/simple;
-	bh=C5gbBvGbEjXZp+lv/dI+WhRjHTDqFwecX2kHUEMmcRI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=g6jKIiF8QwB7MViLu7p9cZVYnMjVnDmzl+DCoFKDdf7pU4vBEFabDCPqAOjDEqe6yjFjDcgjh89hqFfiVGpPhGqi9grSMcEIueZIqpdkg/nPo7JAP1/pau/JXM2j5IIVr8GNcsbB9AjisyJqAXrs1JIu1lCcleZqEms4xWt8KNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wbKmZ-003aX7-11;
-	Sun, 21 Jun 2026 16:12:27 +0000
-Received: from ben by deadeye with local (Exim 4.99.3)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wbKmY-00000007LsX-1WL8;
-	Sun, 21 Jun 2026 18:12:26 +0200
-Message-ID: <51fafef3d7dce78fd0210b55e45336caaa4a71d9.camel@decadent.org.uk>
-Subject: Re: [PATCH 6.1 342/522] thermal: core: Fix thermal zone governor
- cleanup issues
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Sasha Levin <sashal@kernel.org>, Greg Kroah-Hartman
-	 <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Date: Sun, 21 Jun 2026 18:12:21 +0200
-In-Reply-To: <42c2abbdfdd4ea8e234fbcfc4b37095ebd2c7b36.camel@decadent.org.uk>
-References: <20260616145125.307082728@linuxfoundation.org>
-		 <20260616145141.812464695@linuxfoundation.org>
-	 <42c2abbdfdd4ea8e234fbcfc4b37095ebd2c7b36.camel@decadent.org.uk>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-6TXC5E2rZosMEtxACXKK"
-User-Agent: Evolution 3.56.2-9 
+	s=arc-20240116; t=1782059002; c=relaxed/simple;
+	bh=9D3krCGzGGlRpYwm56oiCtazTMOUWfsdff/eOQAoLCc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qKeGD2gRuTLH3LcMvYvQ8ZCVNtGY8YE/dyyMC/hQITx093dG0sFvtdGaIGJL1LZdAaTyr98mkEBp8rk9tJ7p4Nv6LZbEowgIwzWJMrjveoo3hkJvrPCL8BgC/sE56Fy+Ya73/oDElFxnxWCIntVgHhcT/Irqx17q6sgx5turMa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FxpgSqxr; arc=none smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FxpgSqxr"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c07d76ffd0fso331665866b.0
+        for <stable@vger.kernel.org>; Sun, 21 Jun 2026 09:23:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782058999; x=1782663799; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=bybjcRHpNKQC6YvGZ5klSk+Kw3IBZ+UA74h0Z6azPxw=;
+        b=FxpgSqxrnao4Vm8hwmKmqnK2juuVgYq2RXc97q9qUqRJPYC9JZbXDSaIVENzznvWIS
+         KPbm3j+tZoTTmXRNPGeQ1eb24v0nki5bL6Rb7Ej0T1DDLB//PWyZPtwDtU9SIw8EBdk6
+         E+cioNtbyiDUAomJvc7saJkW7rhuX9SnJrFV5RCjeqowN5sW+2a/eP/S7jFxCJAsrxSs
+         lxVZdcSRJbLH4oG5b+2SNDBx5TaxNvTD6ZcTfuQwATCIb1qALJJbQznwop+PuzWk5YBW
+         QKtVVvV1H5mG1lP4cjhBMH89x0UrCwGLvb0fl9xRd3hLE6lNfDB2VT6/wnxBtWqTTDp8
+         Zhuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782058999; x=1782663799;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bybjcRHpNKQC6YvGZ5klSk+Kw3IBZ+UA74h0Z6azPxw=;
+        b=JGtBoL/Ila2rUzCQU0ugYsNd+7blQr4bveAEpDRjOd9GW7RVHoTZ0QCdI2ZahkjOxM
+         OFHpEWBmEkk3xOd65kKoEh5s4yhPY55jYl+7oivoHWkTBf3/nL/vM7gnReTeDMZ3KINf
+         sOAzSXoSSvdHR2vh1VobczlmXrVcWmD7f0/yNZeKXlYcHn4keyo2OVZZJ7qzQvK95BgV
+         CHlcM0TiG7nf2Q9C5dLMkNHNIbyJrWhUPBBapiKyK2HjGLv/QwGYzx/OsUWPqZkgRJ1b
+         ug4XrxDP7HnxqRLc9WRQctGkIaABn5cbkZqQThbIYsV2U+buYWoLLkcZkCe/Zrwrdijk
+         +bFA==
+X-Forwarded-Encrypted: i=1; AFNElJ+BUceJyHQjA1BwcK2eFM3rFtBxafXWc86Rd+39OwOlKWKu7Nl35FUQxxUbCGrvNjVoLAgzRAI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyqIz8zxQhuPOYpLjJHCRkCEBrJeJMg9W/OpnzMuRrCb65VKZv/
+	yfbzEPJHfNu01dfm/0B0/+1WrRq8SvRJLXjSM+Pu0frz7lLA7Fxjed/K
+X-Gm-Gg: AfdE7claXmaUsVSPkrLJjybba9yvouAbwcZcEy9oXpmlg9jJBhz5RA1KYoGUDM3NcLZ
+	3uIN6tdhdPhVuNR+wieJiG1xgdDDcZ8sdzZ1igvFzA1FNrhmUeabA5rHAE05mihtpe7taJeUuEf
+	EdxfjPUeXWSy5SzJkdKgYThlZmv0evofsp6LhCouHwg9S5Jt6dSf/EHDKkUHjU0xZKvUlz4b+bE
+	YLFlYEftJEU2tjovd72G5/qSRSyMioEXw856nlUo+zOSNUsNsa2wW+gJ0iOFj0QlF+66sj/oAdi
+	4V2vDdgdFfujieqZ9LWP4LVzxkh/G1XnpVgJHfsFGPNATvUO68FBn2dE/KFjmNBDxXtA2qn1jgW
+	BLDwaacYxM1Howoi1EkrFQq6MsaA/ZNCRLuXHNGR8BgyIRI1mnhJQFX9kQocS68n3TlcBiUUcRJ
+	Xow1sNBAKuoKSRLdLO+FgIGoWCTrT4t0ozuOgQZr4fJyNVp6uyXrMKk21UW0q51BE=
+X-Received: by 2002:a17:907:3f89:b0:bf0:550:d9f with SMTP id a640c23a62f3a-c0b743ac8e1mr482252966b.31.1782058998924;
+        Sun, 21 Jun 2026 09:23:18 -0700 (PDT)
+Received: from node ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c5ef8acaesm216907366b.27.2026.06.21.09.23.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 21 Jun 2026 09:23:17 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Iulia Tanasescu <iulia.tanasescu@nxp.com>,
+	Muhammad Bilal <meatuni001@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: ISO: avoid NULL deref of conn in iso_conn_big_sync()
+Date: Sun, 21 Jun 2026 21:23:05 +0500
+Message-ID: <20260621162305.219763-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+Content-Transfer-Encoding: 8bit
 
+iso_conn_big_sync() drops the socket lock to call hci_get_route() and
+then re-acquires it, but dereferences iso_pi(sk)->conn->hcon afterwards
+without re-checking that conn is still valid.
 
---=-6TXC5E2rZosMEtxACXKK
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+While the lock is dropped, the connection can be torn down under the
+same socket lock: iso_disconn_cfm() -> iso_conn_del() -> iso_chan_del()
+sets iso_pi(sk)->conn to NULL (and the broadcast teardown path can also
+clear conn->hcon on its own). When iso_conn_big_sync() re-acquires the
+lock and reads conn->hcon, conn may be NULL, causing a NULL pointer
+dereference (hcon is the first member of struct iso_conn).
 
-On Sun, 2026-06-21 at 17:29 +0200, Ben Hutchings wrote:
-> On Tue, 2026-06-16 at 20:28 +0530, Greg Kroah-Hartman wrote:
-> > 6.1-stable review patch.  If anyone has any objections, please let me k=
-now.
-> >=20
-> > ------------------
-> >=20
-> > From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-> >=20
-> > [ Upstream commit 41ff66baf81c6541f4f985dd7eac4494d03d9440 ]
-> >=20
-> > If thermal_zone_device_register_with_trips() fails after adding
-> > a thermal governor to the thermal zone being registered, the
-> > governor is not removed from it as appropriate which may lead to
-> > a memory leak.
-> >=20
-> > In turn, thermal_zone_device_unregister() calls thermal_set_governor()
-> > without acquiring the thermal zone lock beforehand which may race with
-> > a governor update via sysfs and may lead to a use-after-free in that
-> > case.
-> >=20
-> > Address these issues by adding two thermal_set_governor() calls, one to
-> > thermal_release() to remove the governor from the given thermal zone,
-> > and one to the thermal zone registration error path to cover failures
-> > preceding the thermal zone device registration.
-> >=20
-> > Fixes: e33df1d2f3a0 ("thermal: let governors have private data for each=
- thermal zone")
-> > Cc: All applicable <stable@vger.kernel.org>
-> > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> > Link: https://patch.msgid.link/5092923.31r3eYUQgx@rafael.j.wysocki
-> > [ adapted context for missing mutex_destroy/complete ]
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > ---
-> >  drivers/thermal/thermal_core.c |    7 ++++---
-> >  1 file changed, 4 insertions(+), 3 deletions(-)
-> >=20
-> > --- a/drivers/thermal/thermal_core.c
-> > +++ b/drivers/thermal/thermal_core.c
-> > @@ -756,6 +756,7 @@ static void thermal_release(struct devic
-> >  		     sizeof("thermal_zone") - 1)) {
-> >  		tz =3D to_thermal_zone(dev);
-> >  		thermal_zone_destroy_device_groups(tz);
-> > +		thermal_set_governor(tz, NULL);
-> >  		kfree(tz);
-> >  	} else if (!strncmp(dev_name(dev), "cooling_device",
-> >  			    sizeof("cooling_device") - 1)) {
-> > @@ -1260,8 +1261,10 @@ thermal_zone_device_register_with_trips(
-> >  	/* sys I/F */
-> >  	/* Add nodes that are always present via .groups */
-> >  	result =3D thermal_zone_create_device_groups(tz, mask);
-> > -	if (result)
-> > +	if (result) {
-> > +		thermal_set_governor(tz, NULL);
-> >  		goto remove_id;
-> > +	}
->=20
-> The order of initialisation in thermal_zone_device_register_with_trips()
-> is quite different between 6.1 and mainline.  Clearing the governor here
-> doesn't make sense as the governor has not been set yet.
->=20
-> The proper place for this in 6.1 seems to be in the failure path after
-> calling thermal_add_hwmon_sysfs().
+This path is reached from iso_sock_recvmsg() for a PA-sync broadcast
+sink socket (BT_SK_DEFER_SETUP | BT_SK_PA_SYNC), so the dropped-lock
+window can race with connection teardown driven by controller events.
 
-The backports to all stable branches from 5.10 to 6.12 (inclusive) seem
-to have the same problem.
+Re-validate iso_pi(sk)->conn and its hcon after re-acquiring the socket
+lock and bail out if the connection went away, as already done in the
+sibling iso_sock_rebind_bc().
 
-Ben.
+Fixes: 7a17308c17880d ("Bluetooth: iso: Fix circular lock in iso_conn_big_sync")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+ net/bluetooth/iso.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
---=20
-Ben Hutchings
-No political challenge can be met by shopping. - George Monbiot
+diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
+index 3abd8111dda83..7186e8d88c757 100644
+--- a/net/bluetooth/iso.c
++++ b/net/bluetooth/iso.c
+@@ -1589,6 +1589,7 @@ static void iso_conn_big_sync(struct sock *sk)
+ {
+ 	int err;
+ 	struct hci_dev *hdev;
++	struct iso_conn *conn;
+ 	bdaddr_t src, dst;
+ 	u8 src_type;
+ 
+@@ -1611,8 +1612,17 @@ static void iso_conn_big_sync(struct sock *sk)
+ 	hci_dev_lock(hdev);
+ 	lock_sock(sk);
+ 
++	/* The socket lock was dropped for hci_get_route(), so the connection
++	 * may have been torn down meanwhile: iso_chan_del() clears conn and
++	 * the broadcast teardown path can clear conn->hcon on its own. Check
++	 * both before dereferencing conn->hcon.
++	 */
++	conn = iso_pi(sk)->conn;
++	if (!conn || !conn->hcon)
++		goto unlock;
++
+ 	if (!test_and_set_bit(BT_SK_BIG_SYNC, &iso_pi(sk)->flags)) {
+-		err = hci_conn_big_create_sync(hdev, iso_pi(sk)->conn->hcon,
++		err = hci_conn_big_create_sync(hdev, conn->hcon,
+ 					       &iso_pi(sk)->qos,
+ 					       iso_pi(sk)->sync_handle,
+ 					       iso_pi(sk)->bc_num_bis,
+@@ -1621,6 +1631,7 @@ static void iso_conn_big_sync(struct sock *sk)
+ 			bt_dev_err(hdev, "hci_big_create_sync: %d", err);
+ 	}
+ 
++unlock:
+ 	release_sock(sk);
+ 	hci_dev_unlock(hdev);
+ 	hci_dev_put(hdev);
+-- 
+2.54.0
 
---=-6TXC5E2rZosMEtxACXKK
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmo4DWUACgkQ57/I7JWG
-EQlg2Q//ZABfGMf6qsHOLuHxRJUjyPiW09wSzv6JicIRylu7qVSl03dwRsxSv8gn
-+52uawEQUqGe+qF+3DOXvC4JPOLwG3Y75dwOfkso1HyEGfy3c+DtrODWiYPfMXSP
-K9JH304mYR1EIcv9Gek4H381B0LFORPC+X+t2B0DWF/acsxuWGgmr5m7JI/bwNUj
-6ajDQcBl5bmsc2o/3tjZQ5bIxdjrGut35KRou7kB+xnZ3AUkxzbdMmce6LV4idIP
-3APRoYRfAyjkgfOERF403UOl//jnISXA/CR5qih2oBq0EcDFWq74MSknDbVXI2y2
-/zMQLzjSkIpqkTCkt/xU+wAH8Ua4wEWSWxKCF2eMUtlHZe4ZiOwxknCbrKq9eg5H
-GBWw+M4EkSxrTFxghMEjScRo6SMIrqspdIk1w/9ocMKc9/cb357+092z+0xQ/5oZ
-dGL9hjZU6CLyDWYdZIq+Rzk3d5ymCjqXKd9IwN8HkareVd8XQU9bi9KHW6Z2ax+T
-x1/8uu38H36KB6PQRiy86b911ASQSr2ye1uj/3Qc4lxLgfMqOBCAR0cb0paPMvqx
-SOXhNtOUjvwE9CnrpnLZUqJfaXfa/89gDf3DuOlHq7HMCDdliFP5mh1CcKr7ChVc
-9KJe+nFJqSvTUhTPzAF1bqVqWfeYg7GZ7iNZK3g8wYXcyZaNSRU=
-=eTi/
------END PGP SIGNATURE-----
-
---=-6TXC5E2rZosMEtxACXKK--
