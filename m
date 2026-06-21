@@ -1,124 +1,62 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B7423A99F;
-	Sun, 21 Jun 2026 18:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9470305684;
+	Sun, 21 Jun 2026 19:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782067615; cv=none; b=EUTXOp7Z1qHdsmy1fHF/26qMyf6UJjx+hdHMl5VVgaYEAMNlZNDzop3ByQI8uVdOsL32rawRgJua+8p3H1xdexKPwiVen/V0AqdXYrFr0JUpiR0ujBtGZYQrLOeXAyD2R6AyKVEASp9uL5mTjiOuzgsCUU9mAT3/0W4OKeP7BGY=
+	t=1782068998; cv=none; b=I5Av6N7hBIzcrYnAkVxBC3bB5XuvNgQISYG5vH5pcJ1PzWQGvOaH7QYGRcMZHbR4M4MQdwRkX7fmz8kGbGwJMJi3Ivna7iTnD1fP4wGFf06lQ2nVuKYNbS/7hlJAeXAI7/B7uPoJVHI6xLv7R7MITT5ESN5tVd744/RZ4PABJEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782067615; c=relaxed/simple;
-	bh=bsaXozOlFtQLOff54MxvFMSE/NC3fOX2WCCYF6g0RiU=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=OxVjcyPmgRU6kuJPTHqJZxpopniprA7JeN3flXHyQ63cu+DqxePwT87D3L2/p6aHe93L/OdulehTGS53mBthYPgTjKOsXg1siaxo4JOZl+dgi+dTf3Z6YBZ5AoMh9yS9Bsrh8CbBeSktL9jmTghfUjx7mIUyVRmJkj2v+tvD5f0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pOXh6p/a; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=300V/f4B; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1782068998; c=relaxed/simple;
+	bh=9M6/EZhFjrvseSERQnNrl2Rxu8Gt16x54QL3zfQ3CR0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=t0NXBhCR9v3M+vP45/xx8l5wh+7x0glLfaogwOeaJs8/Z6bMKbXDnmoisnJGXxNCV4YIHoB3hlEbN2IYNzYEXu0Y4pGSTITwn5d5THKKc0izRDacQ5yUhCGeELT9LzGfTRbbNR9Nni24DFkGuiHF8APICjYR2ojv0vw8++p1oD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IbYjSYmF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pOXh6p/a";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="300V/f4B"
-Date: Sun, 21 Jun 2026 18:46:44 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1782067606;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JnEArZozBKZQRQM6LoKdX6St8L1j9Kmrh3b24zqzSC8=;
-	b=pOXh6p/aSkomxtAI3R9B7JlFAky+WpeCgVkrRdLRS9NMe5ckHbB0Odc7n1e01lpRpP4GkR
-	2TC9WmcV713N0/zMY1jzweWwCjat8Z3PiMKgZpohptpr6jF4jL05yan7sHu0Ba1XGmJnDJ
-	oVh0fTkThijUHkdg3E08kBk0LcvwvOKg4Bs8xsGKgc8mN7ayyVsESABvIZiC0JBESaQlu2
-	hZ5M6p4U39jTR9dbik7XT2MPvhTJ7nPE3OoYMiceieJMoJfMLq0aLBekGg26mq5xff9iPZ
-	KD45ACfwRMPNNTAvUifUR7OJ6QFXQcfY44zDfgkeozQVxJPNgwfA1GeJ/Y3lGA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1782067606;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JnEArZozBKZQRQM6LoKdX6St8L1j9Kmrh3b24zqzSC8=;
-	b=300V/f4BvTw11YBtoQAq7uf9a0tymUvskKeD1NF1A1FtRccOmKs//YG4WgZGth7MSodYYC
-	GajSuuueRTOh63Ag==
-From: "tip-bot2 for Bradley Morgan" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: smp/urgent] cpu: hotplug: Preserve per instance callback errors
-Cc: Bradley Morgan <include@grrlz.net>, Thomas Gleixner <tglx@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260619163719.12103-1-include@grrlz.net>
-References: <20260619163719.12103-1-include@grrlz.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IbYjSYmF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA5361F000E9;
+	Sun, 21 Jun 2026 19:09:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782068996;
+	bh=8EjJuiCle17v1bI761iV9pQg/1bmN0Ic6hAHb2LFFUw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IbYjSYmFBrG9aUZAS0/FpdFFMCRtw6MpQe8XKwe6xj9YhOVTYsO+/ITfK684lQaoI
+	 +FsPrTqFRd3MPkXPLCoqKN+VmZqOf6xuJbPm9V1SqL8QUcNdr0dzT6b/5oJumgfy/h
+	 vVt4ITM4aj1jn9uEL92LAy8DyGitHLwKsIpHU9Xsz1s0aPusmTrE4iSbZnVPe6VcfW
+	 4Sho7jDJoymqlfNZZ5Bg9lK+X7VxCS5mriDKIlhgEQQW1qwOCbJT8o639VTLSw0oqV
+	 0spk4CWm1kP//yk5GJXSVTG4MepLhgPkHfFoIytOrkuuB60ap7l/dxUI5b7q1KKYTw
+	 6jOfNyfUPR7kw==
+From: Sasha Levin <sashal@kernel.org>
+To: Ben Hutchings <ben@decadent.org.uk>
+Cc: Sasha Levin <sashal@kernel.org>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Sitnicki <jakub@cloudflare.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH 6.1 208/522] net: Annotate sk->sk_write_space() for UDP SOCKMAP.
+Date: Sun, 21 Jun 2026 15:09:53 -0400
+Message-ID: <20260621190954.367456-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260621133722.0008.sashal@kernel.org>
+References: <20260616145125.307082728@linuxfoundation.org> <20260616145135.793184452@linuxfoundation.org> <6f805abf1f8b058c1b1241e8568d7539185145df.camel@decadent.org.uk> <2026061944-vaseline-essence-0008@gregkh> <20260621133722.0008.sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178206760461.2745857.6453349457246781207.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the smp/urgent branch of tip:
+> I'll either prepare a minimal hand-crafted backport of just the
+> WRITE_ONCE() annotation [...], or we can leave the read-side
+> annotation unpaired for now. Leaning towards the minimal hand-crafted
+> version; will follow up.
 
-Commit-ID:     673db10729fb121ea1b16fe57791a0cb9eac1eb5
-Gitweb:        https://git.kernel.org/tip/673db10729fb121ea1b16fe57791a0cb9ea=
-c1eb5
-Author:        Bradley Morgan <include@grrlz.net>
-AuthorDate:    Fri, 19 Jun 2026 16:37:17=20
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sun, 21 Jun 2026 20:44:00 +02:00
+I've queued a backport of 2ef2b20cf4e0 ("net: annotate data-races around
+sk->sk_{data_ready,write_space}") for 6.1.
 
-cpu: hotplug: Preserve per instance callback errors
-
-cpuhp_invoke_callback() unwinds earlier callbacks for the same
-hotplug state when one instance fails. The rollback path currently
-reuses ret, so a successful rollback can hide the original error and
-make the failed transition look successful.
-
-Keep the rollback result separate from the original error.
-
-Fixes: 724a86881d03 ("smp/hotplug: Callback vs state-machine consistency")
-Signed-off-by: Bradley Morgan <include@grrlz.net>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260619163719.12103-1-include@grrlz.net
----
- kernel/cpu.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/cpu.c b/kernel/cpu.c
-index 8df2d77..3ed24c7 100644
---- a/kernel/cpu.c
-+++ b/kernel/cpu.c
-@@ -175,7 +175,7 @@ static int cpuhp_invoke_callback(unsigned int cpu, enum c=
-puhp_state state,
- 	struct cpuhp_step *step =3D cpuhp_get_step(state);
- 	int (*cbm)(unsigned int cpu, struct hlist_node *node);
- 	int (*cb)(unsigned int cpu);
--	int ret, cnt;
-+	int ret, cnt, rollback_ret;
-=20
- 	if (st->fail =3D=3D state) {
- 		st->fail =3D CPUHP_INVALID;
-@@ -239,12 +239,12 @@ err:
- 			break;
-=20
- 		trace_cpuhp_multi_enter(cpu, st->target, state, cbm, node);
--		ret =3D cbm(cpu, node);
--		trace_cpuhp_exit(cpu, st->state, state, ret);
-+		rollback_ret =3D cbm(cpu, node);
-+		trace_cpuhp_exit(cpu, st->state, state, rollback_ret);
- 		/*
- 		 * Rollback must not fail,
- 		 */
--		WARN_ON_ONCE(ret);
-+		WARN_ON_ONCE(rollback_ret);
- 	}
- 	return ret;
- }
+-- 
+Thanks,
+Sasha
