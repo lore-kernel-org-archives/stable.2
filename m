@@ -1,87 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78EA3235BE2;
-	Sun, 21 Jun 2026 12:58:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3667364EB8;
+	Sun, 21 Jun 2026 13:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782046681; cv=none; b=pnC48n/nv+DpvjfhEUTVGUtog5cubsPQDMK/cMjswMQxKKjSpslBpg/3c/st7yQpZjbYdfz33n4RCUQuTnfCbXbWgLFwKCikB1R8b6yAxXm/uhBaPlgVh/0KFVRj4/8vRhOcEEDnFVPDw2kSUTX2uzaJg8HOoTn/0lzU68BB6Ko=
+	t=1782046949; cv=none; b=sNesccGaMjhTtKGVhl0Jr7XxJBX9FBWeI8JgCImNuROhUineX1LyyX6+VKZicAo0Yc1AWs7l+jdzWYOlyTXRkF9R3A5wBY6VOz8Dc1QjzVaGrN59HXrdE7vAxlHRVH8lBcgsVJBJ2e7fFaRfqBh7IpdPUEfqrUHmRXBaJ72HaB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782046681; c=relaxed/simple;
-	bh=dwyyFF+yPpoJif6/OWI2GLmuQ0czkd3E3lwUANbsdlU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
-	 References:In-Reply-To; b=qBCRjQgNpnYtiY00oKK1V58HvlA2rtJfNBRgzp8D5brxEjK3f3rQnV+cyQ3Pudfo1bvjKCAQ1bRw7i87VaWlvwQSHYs2qS0PoBJ/vtzF9/HqE7U+pfvSTME89KjE4UJJM5YQ1BJf9kr1ypogKsy15SyK/S0NaQhDA0aLY2GXv+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ej4GDNKp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782046949; c=relaxed/simple;
+	bh=VePZLxrmJ7ngnEKO77FKMoaSqYDBpwC4nOAQd/C+Z4A=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=mh9sNJ24hDyMnwAeDjIZlDsfRRt3sI9lQvEgAzl83CLqlXXBoJyX5ZmUjaYBaetU1kxGvqtF0WMd1AgUuZLqb5p/yD8P0z2g/+y1sxaO6e+oMNXK35ss3i2Qp7r3zlB7CbrMw4OY2DDe3k50sJ+PixXiUJh46lM4cAQIy6C5BPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=UxuYcqd5; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vzwKj+Q5; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ej4GDNKp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 201171F000E9;
-	Sun, 21 Jun 2026 12:57:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782046680;
-	bh=dwyyFF+yPpoJif6/OWI2GLmuQ0czkd3E3lwUANbsdlU=;
-	h=Date:To:From:Subject:Cc:References:In-Reply-To;
-	b=ej4GDNKp63e4A8UkddmF6kyff7rAp64pM6UmytdApC9Z2U8CNc8xpnXLbGVRgaq6O
-	 z5VxJDYF3OJ+YtwKWSZjESGuCTKgCawhuCUi63t8WvgJta4H/ouC1WoJI2Nw3cXQ0o
-	 2V6H5INF+O3H2STyL7aUVK1/0NVGv3du7lkPSRrv+hb2i7idUkEhwaScyskTQCT1+F
-	 KC7+3TjE1aLVF8G/n1bLLW8hbjeaySn4/MwuenoOo58WNYQVSwuhll7muW+aBYDUS2
-	 OiEhsWBaiYbOcAOZvJU4UM8Sfzh+zdgGaVMJgya2WANSu9cYK5Jjej2+DGVuCR2WW0
-	 ZCxodLUPOamHg==
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="UxuYcqd5";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vzwKj+Q5"
+Date: Sun, 21 Jun 2026 13:02:24 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1782046946;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OYib6aacoTMLOl8UdQTaiTphv58BSgPMFBcYQDrPD2s=;
+	b=UxuYcqd5+gGJkbsvRrfEVXqd3K7ZM2/6hltA1vAcYoIXW18vxQr30JMNrt+2gIi+/rDzYd
+	tkeNZbg32T4qOBOdukf668n+cvyY/N0riPC1FwK2mErxB5c72cirJJkZx2jHwYEdAsnIcb
+	WtlWbfJrBSzYgGzhW53a2Mkres6JFwleJtQSjaFtgDvbC97JhsnPP4w8HVHvWJUD81L8MY
+	9JWOnW4koKc+F3yZDSUid2C3tYfi94K4lDmG03edPsjfwyjiKwktPd9Z/PZBlPpw6zhQZj
+	cFcB/DihZrtDAwvgu0Pmr+hQ3EDQQYjUuOwOWAiH0mgNvQ75fvzR72+eLzq43A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1782046946;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OYib6aacoTMLOl8UdQTaiTphv58BSgPMFBcYQDrPD2s=;
+	b=vzwKj+Q5UBvZcufUijl2fzFFxxVYTtzIpH/pnVxlBwSwllF+Trl9BHv86l8HmLMiHJ7G9W
+	EsbbU4ELJYAKs9BA==
+From: "tip-bot2 for Bhargav Joshi" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: irq/urgent] irqchip/crossbar: Use correct index in
+ crossbar_domain_free()
+Cc: Bhargav Joshi <j.bhargav.u@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
+ stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ maz@kernel.org
+In-Reply-To: <20260620-irq-crossbar-fix-v2-1-b8e8499f468a@gmail.com>
+References: <20260620-irq-crossbar-fix-v2-1-b8e8499f468a@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Message-ID: <178204694487.2745857.1186942294359401850.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 21 Jun 2026 14:57:56 +0200
-Message-Id: <DJEQTPJAR8DW.18CJ2FC7YZPA3@kernel.org>
-To: "Dawei Feng" <dawei.feng@seu.edu.cn>, "Timur Tabi" <ttabi@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2] nouveau/firmware: fix memory leak on BL load failure
-Cc: <lyude@redhat.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <simona@ffwll.ch>, <dri-devel@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <jianhao.xu@seu.edu.cn>, <stable@vger.kernel.org>, "Zilin Guan"
- <zilin@seu.edu.cn>
-References: <20260610025037.4115412-1-dawei.feng@seu.edu.cn>
-In-Reply-To: <20260610025037.4115412-1-dawei.feng@seu.edu.cn>
 
-(Cc: Timur)
+The following commit has been merged into the irq/urgent branch of tip:
 
-On Wed Jun 10, 2026 at 4:50 AM CEST, Dawei Feng wrote:
-> If loading the HS bootloader blob fails, nvkm_falcon_fw_ctor_hs() returns
-> immediately. This skips the common cleanup path and leaks the firmware
-> state allocated by nvkm_falcon_fw_ctor() and nvkm_falcon_fw_sign().
->
-> Fix this by routing the load failure to the 'done' label so
-> nvkm_falcon_fw_dtor() can properly clean up the partially initialized
-> state. Keep the original image firmware in 'blob' until the common
-> cleanup path, and use a separate 'blob_bl' pointer for the bootloader
-> firmware so it can be released immediately after the bootloader data has
-> been copied.
->
-> The bug was first flagged by an experimental analysis tool we are
-> developing for kernel memory-management bugs while analyzing
-> v6.13-rc1. The tool is still under development and is not yet publicly
-> available. Manual inspection confirms that the bug is still present in
-> v7.1-rc6.
->
-> An x86_64 allyesconfig build showed no new warnings. As we do not have a
-> supported NVIDIA GPU with the required firmware to test this path, no
-> runtime testing was able to be performed.
->
-> Fixes: 2541626cfb79 ("drm/nouveau/acr: use common falcon HS FW code for A=
-CR FWs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
+Commit-ID:     043db005a8d6932dc7d217c86307e9af0bc10ddc
+Gitweb:        https://git.kernel.org/tip/043db005a8d6932dc7d217c86307e9af0bc=
+10ddc
+Author:        Bhargav Joshi <j.bhargav.u@gmail.com>
+AuthorDate:    Sat, 20 Jun 2026 17:39:16 +05:30
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Sun, 21 Jun 2026 14:59:20 +02:00
 
-Is Zilin a co-author of the patch?
+irqchip/crossbar: Use correct index in crossbar_domain_free()
 
-> Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
-> ---
-> Changes in v2:
-> - Use a separate bootloader firmware pointer instead of reusing 'blob'.
-> - Keep the original image firmware release in the common cleanup path.
+crossbar_domain_free() resets the domain data and then uses the nulled
+out irq_data->hwirq member as index to reset the irq_map[] entry and to
+write the relevant crossbar register with a safe entry. That means it
+never frees the correct index and keeps the crossbar register connection
+to the source interrupt active.
 
-@Timur: Any further comments following up v1?
+If it would not reset the domain data, then this would be even worse as
+irq_data->hwirq holds the source interrupt number, but both the map and
+register index need the corresponding GIC SPI number and not the source
+interrupt number. This might even result in an out of bounds access as
+the source interrupt number can be higher than the maximal index space.
+
+Fix this by using the GIC SPI index from the parent domain's irq_data.
+
+Fixes: 783d31863fb82 ("irqchip: crossbar: Convert dra7 crossbar to stacked do=
+mains")
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260620-irq-crossbar-fix-v2-1-b8e8499f468a@gm=
+ail.com
+---
+ drivers/irqchip/irq-crossbar.c |  9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/irqchip/irq-crossbar.c b/drivers/irqchip/irq-crossbar.c
+index cd11341..4e19e9d 100644
+--- a/drivers/irqchip/irq-crossbar.c
++++ b/drivers/irqchip/irq-crossbar.c
+@@ -158,9 +158,14 @@ static void crossbar_domain_free(struct irq_domain *doma=
+in, unsigned int virq,
+ 	for (i =3D 0; i < nr_irqs; i++) {
+ 		struct irq_data *d =3D irq_domain_get_irq_data(domain, virq + i);
+=20
++		/*
++		 * irq_map[] is indexed by GIC SPI number. The parent domain's
++		 * hwirq contains the GIC interrupt number (GIC SPI +
++		 * GIC_IRQ_START).
++		 */
++		cb->irq_map[d->parent_data->hwirq - GIC_IRQ_START] =3D IRQ_FREE;
++		cb->write(d->parent_data->hwirq - GIC_IRQ_START, cb->safe_map);
+ 		irq_domain_reset_irq_data(d);
+-		cb->irq_map[d->hwirq] =3D IRQ_FREE;
+-		cb->write(d->hwirq, cb->safe_map);
+ 	}
+ 	raw_spin_unlock(&cb->lock);
+ }
