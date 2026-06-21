@@ -1,182 +1,156 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756A210F2;
-	Sun, 21 Jun 2026 09:54:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDC4281525
+	for <stable@vger.kernel.org>; Sun, 21 Jun 2026 10:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782035661; cv=none; b=GvP2Kq+NzxuZN9JOvZP1eGWdP0orJh8iytKWslubYonn0OCC/fbO2+stY0NoRG0/uvVz4SEUSh/BtcnvqtTNled+gAyUAaAQ+yTi7X+2oj+MzRSvL9L3YPztkS6Ep+fn/WMZpsxFUe10qo3HTSM8cAJIaxAhgkn64P53+fPncBI=
+	t=1782036533; cv=none; b=p8tmANXK6c9hGYTPU8lO1RHPLDFyAx8sAwY1FiBSRcFKKQe1gy/k2dSuVVsVCIN3nZftvqwXtI6heH2XJgv6KbxM9S9j8q4DfrYzMJLfnHe8kJXUXhmYqgydll0JrVEgfypSyCyYdm7hYByNqt31diJHiscmHntZ3md4KaN4i4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782035661; c=relaxed/simple;
-	bh=lBtfDoKT4Nzk55qPWnSHwcEbJy8/LJs3g+2iw+E23yo=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=EgWUcl7cnIpYXyZnT9WdqiJa7lo2emUyHUbS8RYDIcmMOpUMwKKuC1BUWlhe+YhZO/IGjv1eEsfDu5Dygrp2aO9QBVzLnODAYo7KclvLntyKuXk6rXrjKoPMf2EYbY/mufSV6/yaFxEQ/9sCzY10YCqAUNLSPNAFuQlzMoJpDV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CpjmSpuH; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ifbOgLiY; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1782036533; c=relaxed/simple;
+	bh=dtWdOxwNWwXH7pw0zgQYfBj0nw9Rt475E7W4gPVnOIU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MgBnQMRtWUHKsZKJED0K7suLKM4xDQijuz3FvEkaD+JTrxFls7bDTmJf82Rxr0OAxvgFxXEj8J2+0TGVsAPM2xzjKkabB20ZUuSZJutlue0EJz4H/sQAx7hNRoo9f+Jlx0ArRwWvH+VpEtLzFpv7HTHN042oazTQn+psw8MSelI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sd4jdKFv; arc=none smtp.client-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CpjmSpuH";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ifbOgLiY"
-Date: Sun, 21 Jun 2026 09:54:15 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1782035657;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tmL0oJEGp72/s3UmGEs3nIJNIJh133j+EHDCqRAauwQ=;
-	b=CpjmSpuHwrq+DGO1+adYFzUGKZunq2brydgvkjjAX72Pou4khnr3XdBzorGwNprmabW0k1
-	f3LGXq1fFcXDJQUHr6VZsLxmt8ex5shAg38WSK/pJhITn+lw172CZJelLRukMH4ZvUyIZA
-	Bupy8E8e9admBg8Q0zbd3DVv8HXH2wLxKJ8M+tfht9mrVvDfi4Qm7q0n9QKtKDJEHXjE+f
-	QnIdIlZ9VGp4/p+Um9ZFe86SGIkWNbC6GanadqBcvNZIxtzxmKOEX6AbKKsUXqBJvOMG1A
-	ciBVwri9jYUmP7YTWP6rEembvrj8sHsfcTNzrYxxQHGl26YkMOt8gcFDiOjTSQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1782035657;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tmL0oJEGp72/s3UmGEs3nIJNIJh133j+EHDCqRAauwQ=;
-	b=ifbOgLiY691ITmkTN/twAl46ZGoyeICTtWex9wdEaOZewPORqfGU8BC6CJG+QHj7qw+WQ9
-	hVfwMVECEcM3T7Cw==
-From: "tip-bot2 for Thomas Gleixner" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: locking/urgent] locking/rt: Fix the incorrect RCU protection in
- rt_spin_unlock()
-Cc: syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com,
- Thomas Gleixner <tglx@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Al Viro <viro@zeniv.linux.org.uk>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <87jyrud75z.ffs@fw13>
-References: <87jyrud75z.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sd4jdKFv"
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-8dedb44ed1fso22537496d6.1
+        for <stable@vger.kernel.org>; Sun, 21 Jun 2026 03:08:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782036531; x=1782641331; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ai/vQMf9K304uLaJT6I2I2q88PcbGz+JfSMbI420XYw=;
+        b=Sd4jdKFvOh0+5nWQiYuFkcM1Vc++CqfAtYl/rz5SytYXG/uFGtW5TeO0aKMjhbH2fF
+         fCbhr+zQjZ7EooDMGQWE6YiQMX9hMl5nmU/MgPdElwkJVLIp0g5e0KNZ5nBqfSgLw7hG
+         2ei9Rtv9ZiE3Zl+4JnezkTi0G7UG4YbVySFg1S1O+1Uqpt4fkqSd4hDgyFdh0OmRCD86
+         1XF+IRKQxXWkkPFHM1uiPsQSNOETA14E9VkhALgTk/5rIhS2Jukc71MvUoi+klJKIX5a
+         i7Neds8cTo1skFAQAnZrpLpLltgszjQEpdBTyo7NBkI1sH5E+W1Tn3fVRUOqNdmGQOHO
+         gxjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782036531; x=1782641331;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ai/vQMf9K304uLaJT6I2I2q88PcbGz+JfSMbI420XYw=;
+        b=OUUsbyR5CMH2lv9FUt8MiuB5kQ5TJ9gsGXNd/3FclAOkVSHKg8Eiad0zzKfMIFmqUy
+         EVfpD4CJp574dKYr8GZ25QWe29SEYwD9bS9bQeyP+RYXs6t3CVaQJlBbJkzDBPJMopYA
+         9HJ6NEBxdUjDbRp0f26aIYt9R7IGwEBd2sIW2BxFNF8tw58tF0v8QUc2cuHnQlDSFZR9
+         /NNskf5lh2d7MzxhCEykVTxyJ9AlJXn2qmwwGMbBmLn3QvBycrql/tP3bHlMEy344op3
+         0V17lAnlKq/7BJWPcR/rQXsln6t7fpQi9IK3/id9H8Al4IBCvV7xVkqFQjW0eVBOlAMF
+         1ayg==
+X-Forwarded-Encrypted: i=1; AFNElJ/+W+fvqj9aRN1/pHTh4T8WCV1GipiGk7w6U1EuYmRS/ypi8+7X1bWdRJVZPGVFwUjXDIvJVY4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxdcRYkcb6EmGGfV1YCALLkgk3c2RY1TzpI3cMRIRxL4KtWeE/W
+	oJPfiJDx3wDWSh4tvGTlDVh5K6FxYbpS15BNUg4MaCQ41KCopLUJGabz
+X-Gm-Gg: AfdE7cmc3X1ozxTUzYE6+6XfdO0EiOhoMbafY82INVpbO3g3PgeaOVEd0IXkWWzdBAA
+	H3UMJ5v26XYrtCi6udDgE5x04t7Z+qmx3Qroj2yV+fk8qgxE/fsH1pxT4MiRVmZn93iOcKxt1ti
+	c/7osgrsKj4YhYtcwe19nHEKY6Wq+8B5yOkPSxjrdgQKqSj6B7fPzP7V7Oy/kMPthfiETkFeXrp
+	B+FaijdP9xPm321ZgLKlVgRpYJUY1ljazVGM4u0u4oORVSvWBNO1Waq8BqedD2/H3UQRiqp2vrH
+	9h3t5jHFK32oQd1hM2SwVLK5xi5P/wtu+EJbCQtWtNGHgAQUOA2qrgRCNXKU987jI8ShsELc6eR
+	Aec1QT61i1vGK/q2l9qJhNBIWyVVExdJuwloXrKbf3etKjbhoGibNl0hbl4JqlesukvDNVcrZz7
+	JYkFiuHyXReophKpJGh4gSeKB6OgAjt06t91PLzOA=
+X-Received: by 2002:a05:620a:6cc1:b0:920:56af:ceee with SMTP id af79cd13be357-9208ef628d6mr1675860985a.17.1782036530765;
+        Sun, 21 Jun 2026 03:08:50 -0700 (PDT)
+Received: from claudeLX-01.hammies.cc ([165.173.24.245])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-921db359a7csm545405085a.38.2026.06.21.03.08.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 21 Jun 2026 03:08:49 -0700 (PDT)
+From: Alvin Lim <alvinwylim@gmail.com>
+To: linux-ide@vger.kernel.org
+Cc: Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Alvin Lim <alvinwylim@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ata: ahci: force 32-bit DMA for ASMedia ASM1166
+Date: Sun, 21 Jun 2026 18:08:44 +0800
+Message-ID: <20260621100844.1224301-1-alvinwylim@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178203565559.2745857.7687609911978199169.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the locking/urgent branch of tip:
+The ASMedia ASM1166 SATA controller (1b21:1166) advertises 64-bit DMA
+support (AHCI CAP.S64A), but on systems with the IOMMU enabled - where it
+can be handed DMA addresses above 4 GB - it silently corrupts data in
+transit. Reads return different, wrong data on each access. SMART is clean,
+there are no SATA link resets and no MCE is raised, so the corruption is
+invisible until it surfaces as filesystem metadata errors (XFS EUCLEAN)
+or, on Ceph, mass scrub errors across multiple independent filesystems at
+once - i.e. host-level, not filesystem-level.
 
-Commit-ID:     89038cc87d80c77e7aa6f42a64b2573b74af339f
-Gitweb:        https://git.kernel.org/tip/89038cc87d80c77e7aa6f42a64b2573b74a=
-f339f
-Author:        Thomas Gleixner <tglx@kernel.org>
-AuthorDate:    Fri, 19 Jun 2026 14:52:08 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sun, 21 Jun 2026 11:51:13 +02:00
+This is the same failure mode already quirked for other controllers that
+falsely claim working 64-bit DMA. See commit 105c42566a55 ("ata: ahci:
+force 32-bit DMA for JMicron JMB582/JMB585") and commit 20730e9b2778
+("ahci: add 43-bit DMA address quirk for ASMedia ASM1061 controllers").
+The ASM1166 currently maps to plain board_ahci with no DMA limit.
 
-locking/rt: Fix the incorrect RCU protection in rt_spin_unlock()
+Limit the ASM1166 to 32-bit DMA. 32-bit is the guaranteed-correct lower
+bound; the only cost is extra SWIOTLB bounce-buffering on transfers above
+4 GB, negligible for storage. A future change can widen it to the
+controller's true addressable width if characterised. Until this lands the
+only workarounds are disabling the IOMMU (amd_iommu=off / intel_iommu=off)
+or using an HBA.
 
-rt_spin_unlock() releases the RCU protection before unlocking the
-lock. That opens the door for the following UAF scenario:
+Reproduced on an AOOSTAR WTR MAX (AMD Ryzen 7 PRO 8845HS) whose six SATA
+bays all hang off one ASM1166: with the IOMMU on, six concurrent
+'dd ... | md5sum' of the same large file return six different sums; with
+amd_iommu=off they are identical, and a full Ceph deep-scrub of a 5.4 TiB
+/ 1.43M-object pool re-reads end-to-end with zero scrub errors.
 
- T1					T2
- spin_lock(&p->lock);		rcu_read_lock();
- invalidate(p);			p =3D rcu_dereference(ptr);
- rcu_assign_pointer(ptr, NULL);	if (!p) return;
- spin_unlock(&p->lock);		spin_lock(&p->lock)
- 				   lock(&lock->lock);
-				   rcu_read_lock();
- kfree_rcu(p);			rcu_read_unlock();
-				....
-				spin_unlock(&p->lock)
-				  rcu_read_unlock(); // Ends grace period
- rcu_do_batch()
-   kfree(p);
-			    UAF ->	  rt_mutex_cmpxchg_release(&lock->lock...)
+Add a board_ahci_32bit_dma board type (mirroring board_ahci_43bit_dma)
+and point the ASM1166 entry at it.
 
-Regular spinlocks keep preemption disabled accross the unlock operation,
-which provides full RCU protection, but the RT substitution fails to
-resemble that. Same applies for the rwlock substitution.
-
-Move the rcu_read_unlock() invocation past the unlock operations to match
-the non-RT semantics. This makes it asymmetric vs. rt_xxx_lock(), but
-that's harmless as the caller needs to hold RCU read lock across the lock
-operation. The migrate_enable() call stays before the unlock operation
-because there is no per CPU operation in the unlock path which would
-require migration to be kept disabled.
-
-Fixes: 0f383b6dc96e ("locking/spinlock: Provide RT variant")
-Reported-by: syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com
-Decoded-by: Jann Horn <jannh@google.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Acked-by: Al Viro <viro@zeniv.linux.org.uk>
+Fixes: 3bf614106094 ("ata: ahci: add identifiers for ASM2116 series adapters")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/87jyrud75z.ffs@fw13
+Assisted-by: Claude:claude-opus-4.8
+Signed-off-by: Alvin Lim <alvinwylim@gmail.com>
 ---
- kernel/locking/spinlock_rt.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+ drivers/ata/ahci.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/locking/spinlock_rt.c b/kernel/locking/spinlock_rt.c
-index db1e11b..1d5e1b3 100644
---- a/kernel/locking/spinlock_rt.c
-+++ b/kernel/locking/spinlock_rt.c
-@@ -79,10 +79,27 @@ void __sched rt_spin_unlock(spinlock_t *lock) __releases(=
-RCU)
- {
- 	spin_release(&lock->dep_map, _RET_IP_);
- 	migrate_enable();
--	rcu_read_unlock();
-=20
- 	if (unlikely(!rt_mutex_cmpxchg_release(&lock->lock, current, NULL)))
- 		rt_mutex_slowunlock(&lock->lock);
-+
-+	/*
-+	 * This must be last to prevent the following UAF:
-+	 *
-+	 * T1					T2
-+	 * spin_lock(&p->lock);			rcu_read_lock();
-+	 * invalidate(p);			p =3D rcu_dereference(ptr);
-+	 * rcu_assign_pointer(ptr, NULL);	if (!p) return;
-+	 * spin_unlock(&p->lock);		spin_lock(&p->lock);
-+	 * kfree_rcu(p);			rcu_read_unlock();
-+	 *					....
-+	 *					spin_unlock(&p->lock)
-+	 *					  rcu_read_unlock(); // Ends grace period
-+	 * rcu_do_batch()
-+	 *   kfree(p);
-+	 *			    UAF ->	  rt_mutex_cmpxchg_release(&p->lock.lock...)
-+	 */
-+	rcu_read_unlock();
- }
- EXPORT_SYMBOL(rt_spin_unlock);
-=20
-@@ -262,17 +279,21 @@ void __sched rt_read_unlock(rwlock_t *rwlock) __release=
-s(RCU)
- {
- 	rwlock_release(&rwlock->dep_map, _RET_IP_);
- 	migrate_enable();
--	rcu_read_unlock();
- 	rwbase_read_unlock(&rwlock->rwbase, TASK_RTLOCK_WAIT);
-+
-+	/* This must be last. See comment in rt_spin_unlock() */
-+	rcu_read_unlock();
- }
- EXPORT_SYMBOL(rt_read_unlock);
-=20
- void __sched rt_write_unlock(rwlock_t *rwlock) __releases(RCU)
- {
- 	rwlock_release(&rwlock->dep_map, _RET_IP_);
--	rcu_read_unlock();
- 	migrate_enable();
- 	rwbase_write_unlock(&rwlock->rwbase);
-+
-+	/* This must be last. See comment in rt_spin_unlock() */
-+	rcu_read_unlock();
- }
- EXPORT_SYMBOL(rt_write_unlock);
-=20
+diff --git a/drivers/ata/ahci.c b/drivers/ata/ahci.c
+index 58f512f8952a..895956c2ca15 100644
+--- a/drivers/ata/ahci.c
++++ b/drivers/ata/ahci.c
+@@ -48,6 +48,7 @@ enum {
+ enum board_ids {
+ 	/* board IDs by feature in alphabetical order */
+ 	board_ahci,
++	board_ahci_32bit_dma,
+ 	board_ahci_43bit_dma,
+ 	board_ahci_ign_iferr,
+ 	board_ahci_no_debounce_delay,
+@@ -132,6 +133,13 @@ static const struct ata_port_info ahci_port_info[] = {
+ 		.udma_mask	= ATA_UDMA6,
+ 		.port_ops	= &ahci_ops,
+ 	},
++	[board_ahci_32bit_dma] = {
++		AHCI_HFLAGS	(AHCI_HFLAG_32BIT_ONLY),
++		.flags		= AHCI_FLAG_COMMON,
++		.pio_mask	= ATA_PIO4,
++		.udma_mask	= ATA_UDMA6,
++		.port_ops	= &ahci_ops,
++	},
+ 	[board_ahci_43bit_dma] = {
+ 		AHCI_HFLAGS	(AHCI_HFLAG_43BIT_ONLY),
+ 		.flags		= AHCI_FLAG_COMMON,
+@@ -1559,7 +1567,7 @@ static const struct pci_device_id ahci_pci_tbl[] = {
+ 	}, {
+ 		/* ASM1166 */
+ 		PCI_VDEVICE(ASMEDIA, 0x1166),
+-		.driver_data = board_ahci,
++		.driver_data = board_ahci_32bit_dma,
+ 	}, {
+ 		/*
+ 		 * Samsung SSDs found on some macbooks.  NCQ times out if MSI is
+
+base-commit: 322008f87f917e2217eeac386a9410945092eb2e
+-- 
+2.47.3
+
