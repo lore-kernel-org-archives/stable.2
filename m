@@ -1,51 +1,32 @@
-Received: from out203-205-221-155.mail.qq.com (out203-205-221-155.mail.qq.com [203.205.221.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AB540D56B;
-	Sun, 21 Jun 2026 01:57:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.155
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7501578F59;
+	Sun, 21 Jun 2026 02:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782007080; cv=none; b=jz3khXssyUuRVZGkaxzjd3EhT7LSpsVZL3pbG88JQXkB6pJI2EfsBmCRPuJ3U4F1+egoACWU4h1crIXS70CN2SyU1k/90ll/XSGZrQI4/w1s1poPfwyRd5/lLtCWBXNkLKX2PNcvKs/seW6cePgy4FziUtNpao0YZfc79TZnDbY=
+	t=1782007307; cv=none; b=HKGMtGI3W/j8h6AeKKx3USPxbVB/zA1XHnnKagYm8HTnzaqDRxkIrHSMjMSU0liq/pzlu8ixX7kczTE9h4mMAzpkM2G47vtRkwWBGgWEa3X3o47Jrj1yuxQRE5XYq+fk4T73Lmx8HG6ogSxM0CwyY/2gsgH3qYAzsF3q9mERuEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782007080; c=relaxed/simple;
-	bh=4nSA1W0dZ3A8My6Tx4FHMwMMhrp7udIJH9cyids71j8=;
+	s=arc-20240116; t=1782007307; c=relaxed/simple;
+	bh=IG8s0ziE1yQkJWxxCfcPELA8jEth+tvSbd5/lyQPkOw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oseg6mmp+2DbyEuNFT8w5vmZhUrJi/vWiZn1eDHavbdcWj1FTyNvjP/HtETupYqQ/usimiUmhie2N/U0n1ox0Hn3qp1kibV5FEkZZfXR4LhQ17xyOb8Wq/MrrZTpMNxphKy+SXoo5MSJixz+uJylHndrkTuZ3IwFUXMk+a4Dem0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=F9EdR5oI; arc=none smtp.client-ip=203.205.221.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	 In-Reply-To:Content-Type; b=aYplFz2iGxFq8UbyahKOrwopjnxNC6yCsHbCe2suh+/+2yphpk59F5SV4uldKDt1O90ugy2+4MiAmMrPddsJnaC4HdmBFyU+k2evyQYZ7ohtGsKSla6FEJUaTdx9V9LKZ+z3ZLsF71zlHol09y28gldIMKvw91Ko3bl8Sh48qhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=l2WJ1m4K reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="F9EdR5oI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1782007074; bh=55hwt14a22pOIRp3VuqOXwaLO6HclYYnZ2ZYgZoCtOw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=F9EdR5oI8bJI72ot0yFuwx3fdIQQ2pLRJj/eH19TLYHHm6wJLLZRkg3rBBA3ht9Xl
-	 OBzBMg5LHUZUAjU3AGW/rUfb961re2PLGwGH5KP2n+/0aZNRyJlhYyUW0msjRde+gE
-	 9xw19O5RFuINbDa5FoB86EuadYG3wo/Mdx6lSImI=
-Received: from [192.168.1.100] ([58.19.27.181])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id E739C069; Sun, 21 Jun 2026 09:57:51 +0800
-X-QQ-mid: xmsmtpt1782007071tzx1c1d63
-Message-ID: <tencent_D72AF901D90EB103AEB5111845A7AC8FF705@qq.com>
-X-QQ-XMAILINFO: OLixz+tJ9V4goIAVmWE1DjcDAN43z3Z1d+9P81Q4xCdfaVKB2CD+L9FA5ZhIqe
-	 YuHJA8CV5CW2/XRv37jjjzN25nbM0thbWAFeBANWnHdC6zYcyAYlpZdoaajq+/qTy62JoBufgJ79
-	 z6suv2DuhxJSdxwNOWQTqWJj79asYSSfEEkTsXjfd9V7kkAVVTF2LK6rhH6J0TbJXDhjnz5IRj0C
-	 OK5uPV/0lbvWIH4dd19cZ/L4uCpWhylytOHN3DYjfYST/DQySvnqeUmPADsyo0GmLNO20IO7rcWi
-	 I+c9GLTLJQ9PqtBRXiW3v2dywJDKjAYWCtbhkxaoBNs7HlVEj/bPjVlFSsXcXEj3hjCKCuDP4103
-	 IRA7+FAGNMnYOli6knYOJWxzW1fCWJ6WuhTdlqlJtE/0jjsIyN4OIf8IR2EKtGgTGiUTQAcxkwil
-	 BeU+WOC/f2DeIMYa7LNbUV1xsJlPjECttioL1XxKOHGlvaCAlQJQ0EBXHCsb6EWnlTabJF1jhdby
-	 NUhPgzjAzevEL8QG/B38SSpkKCmBsnZ9T33BLkLSLpCv9NVO3cpsGEMsk231z0tYjQrd8UQASlXJ
-	 Ay4MQ1/Jq9H8pJkxqPHq9s35LUoC9FVG+/n+5t+KpSCuLf0zAT3upQyVLtZjv8EXp1DgWSm4v4ys
-	 t++W3tg3VnjhM+ckgyvdoRx9kfWBgFWujlWBAPtoZEeFVdqgQak8tuf3o2J9/pjgVZ19q4fSTfzS
-	 SBRy9sOLeJkwH2+euotaiLWw79vywdcJ4wmtcy9vr6F2GmP3Z1csN4uUC65WxpCbQC/Ns9FAN9jw
-	 vnHyUkD2ee1PpzK0wXYakhLuCgO+5oo1Qf6/Ge9meaWgbLAROrmBQFhSbkTTpgd/4duCSdB966i+
-	 pfLa8yn3ibgBn2IMQJoBwXzDOVbXdbWSj4Xb08Bjqg54d0j1WGOOHy/oQ6tGTW22AvuBbeEoHm8t
-	 VLaM1767njB/N1GnDGGnRdnGJ6JE6CWy0QSVPfpARPrxg3cMBxgn80QHv/R7UV8MTvEGbVNezHEE
-	 2oYCVNrAN47OGm0IQxMZqoaqW8/ozh0L78g1WVFTNkHOb+SHSW4/E+ShsSfd81g/vDQ6oTJ5dqeg
-	 a47VYrxjAvSYyS8Q/JPRzpzwRYAzeFvePhn7V2EvjClFBAhy0=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-OQ-MSGID: <e3ca8a21-44ab-4471-af23-0eecb9077d25@qq.com>
-Date: Sun, 21 Jun 2026 09:57:51 +0800
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="l2WJ1m4K"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=KSehoijHj
+	KLAFNgMhcpRQlFttsdXLavDyC+04q9ZjeA=; b=l2WJ1m4KByDAt3171Ehf+Lsat
+	ivEPDKv60ZPWVcVaUWhwXskfc3jrthTdnr1bZZQNIBWlV1FaxDMhga0W4I3KX+qF
+	I9ViwRjyIZCGn+shLdvMByfu8Wd7k3al0SF4Lh6GKwO2ORpWE4M4+26jwR3p8b9w
+	sD7CYbA9Cf/gxHnhNk=
+Received: from [10.196.180.86] (unknown [113.200.174.80])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with SMTP id BbQMCkB2mjT_RTdqenX5Ag--.46181S3;
+	Sun, 21 Jun 2026 10:01:37 +0800 (CST)
+Message-ID: <4a3fe921-77fb-4b5f-8403-43bb7ea40935@stu.xidian.edu.cn>
+Date: Sun, 21 Jun 2026 10:01:35 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,88 +34,120 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6.y] Bluetooth: hci_conn: fix potential UAF in
- set_cig_params_sync
-To: Alva Lan <alvalan9@foxmail.com>, gregkh@linuxfoundation.org,
- sashal@kernel.org, stable@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Pauli Virtanen <pav@iki.fi>,
- Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-References: <tencent_42D87A0C871AE6AF019BF6AB46F003577205@qq.com>
-From: XIAO WU <xiaowu.417@qq.com>
-In-Reply-To: <tencent_42D87A0C871AE6AF019BF6AB46F003577205@qq.com>
+Subject: Re: [PATCH v2] i2c: i801: fix hardware state machine corruption in
+ error path
+To: Andi Shyti <andi.shyti@kernel.org>, jdelvare@suse.com
+Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, w15303746062@163.com
+References: <20260512093534.348655-1-w15303746062@163.com>
+ <aicfiAEdlbGmKIAU@zenone.zhora.eu>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <aicfiAEdlbGmKIAU@zenone.zhora.eu>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkB2mjT_RTdqenX5Ag--.46181S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxWFyUXF17Jr1xXF43JryxZrb_yoW5Zw45pa
+	yUKws0krWDt3WjkF1UXr43uFyF9w17GrWjkr1kt3WUZa13CF1xZryIqFyY9FWkZr97Zw4a
+	qw1jqF9xuF1qvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
+	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7Cj
+	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
+	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
+	6r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
+	IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
+	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf
+	9x07bY9N-UUUUU=
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgULEWo2rnInqwAAsR
 
-Hi,
+Hi Jean,
 
-I came across a Sashiko AI code review [1] that flagged a related
-use-after-free in `get_l2cap_conn()` — it has the same lock-dropping
-pattern that your patch fixes in `set_cig_params_sync()`.
+Just a gentle ping on this patch following up on Andi's message.
+Please let me know if you have any questions or if further changes are 
+needed.
 
-I was able to trigger it in QEMU with KASAN on a 6.6.y kernel. Writing
-to the 6lowpan debugfs control file races against connection teardown.
+Best regards,
 
-On Sun, Jun 8, 2026 at 5:56:55PM +0300, Pauli Virtanen wrote:
- > This commit adds hci_dev_lock() around the hci_conn lookup and field
- > accesses in set_cig_params_sync(). This prevents a potential
- > use-after-free if the connection is concurrently freed.
+Mingyu
 
-The same pattern in `get_l2cap_conn()` still drops the lock before
-accessing the returned hcon pointer:
-
-```c
-// net/bluetooth/6lowpan.c: get_l2cap_conn()
-hci_dev_lock(hdev);
-hcon = hci_conn_hash_lookup_le(hdev, addr, le_addr_type);
-hci_dev_unlock(hdev);                  // lock dropped
-hci_dev_put(hdev);
-
-if (!hcon)
-     return -ENOENT;
-
-*conn = (struct l2cap_conn *)hcon->l2cap_data;  // UAF if freed
-```
-
-The connection is returned without a reference count.  If a concurrent
-disconnect event frees it via `hci_conn_del()`, the subsequent
-dereference of `hcon->l2cap_data` hits freed memory.
-
-[KASAN report — kernel 6.6.142, CONFIG_KASAN=y]
-
-   ==================================================================
-   BUG: KASAN: slab-use-after-free in get_l2cap_conn.constprop.0+0x73f/0x750
-   Read of size 8 at addr ffff888106514ab8 by task poc/9349
-
-   CPU: 1 PID: 9349 Comm: poc Not tainted 6.6.142-g1ab6d2b45d08 #1
-
-   Call Trace:
-    <TASK>
-    dump_stack_lvl+0xd9/0x1b0
-    print_report+0xce/0x630
-    kasan_report+0xd4/0x110
-    get_l2cap_conn.constprop.0+0x73f/0x750
-    lowpan_control_write+0x574/0x740
-    full_proxy_write+0x12f/0x1a0
-    vfs_write+0x2ba/0xe60
-    ksys_write+0x134/0x260
-    do_syscall_64+0x39/0xc0
-    entry_SYSCALL_64_after_hwframe+0x79/0xe3
-
-   Allocated by task 56:
-    __hci_conn_add+0x136/0x1ac0
-    hci_conn_add_unset+0x72/0x100
-    le_conn_complete_evt+0x667/0x2180
-    hci_le_conn_complete_evt+0x241/0x370
-
-   Freed by task 56:
-    __kmem_cache_free+0xb6/0x2e0
-    hci_conn_del+0x.../...
-
-[1] 
-https://sashiko.dev/#/patchset/tencent_42D87A0C871AE6AF019BF6AB46F003577205%40qq.com
-     (Sashiko AI code review — "Use-After-Free", Severity: High)
-
-Thanks,
-XIAO
-
+在 2026/6/9 4:01, Andi Shyti 写道:
+> Hi Jean,
+>
+> could you please take a look here?
+>
+> Thanks,
+> Andi
+>
+> On Tue, May 12, 2026 at 05:35:34PM +0800, w15303746062@163.com wrote:
+>> From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+>>
+>> A severe livelock and subsequent Hung Task panic were observed in the
+>> i2c-i801 driver during concurrent Fuzzing. The crash is caused by an
+>> unconditional hardware register cleanup in the error handling path of
+>> i801_access().
+>>
+>> When i801_check_pre() fails (e.g., returning -EBUSY because the SMBus
+>> controller is actively used by BIOS/ACPI), the kernel does not actually
+>> acquire the hardware ownership. However, the code jumps to the 'out'
+>> label and executes:
+>>
+>>      iowrite8(SMBHSTSTS_INUSE_STS | STATUS_FLAGS, SMBHSTSTS(priv));
+>>
+>> This forcefully clears the INUSE_STS lock and resets the hardware status
+>> flags without owning the controller. Doing so interrupts ongoing BIOS/ACPI
+>> transactions and totally corrupts the SMBus hardware state machine.
+>>
+>> Consequently, all subsequent i801_access() calls fail at the pre-check
+>> stage, triggering an endless stream of "SMBus is busy, can't use it!"
+>> error logs. Over a slow serial console, this printk flood monopolizes
+>> the CPU (Console Livelock), starving other processes trying to acquire
+>> the mmap_lock down_read semaphore, ultimately triggering the hung task
+>> watchdog.
+>>
+>> Fix this by moving the 'out' label below the hardware register cleanup.
+>> If i801_check_pre() fails, we safely bypass the iowrite8() and only
+>> release the software locks (pm_runtime and mutex), strictly adhering to
+>> the rule of not releasing resources that were never acquired.
+>>
+>> Fixes: 1f760b87e54c ("i2c: i801: Call i801_check_pre() from i801_access()")
+>> Cc: stable@vger.kernel.org # v6.3+
+>>
+>> Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+>> ---
+>> Changes in v2:
+>>   - Reused and moved the existing 'out' label instead of adding a new one,
+>>     fixing a build warning regarding an unused label.
+>>   - Dropped the inaccurate mention of "another thread" in the commit message,
+>>     as i801_access() is serialized by a mutex.
+>>   - Added Fixes and Cc stable tags as suggested.
+>>
+>>   drivers/i2c/busses/i2c-i801.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/i2c/busses/i2c-i801.c b/drivers/i2c/busses/i2c-i801.c
+>> index 32a3cef02c7b..b29c99ed3883 100644
+>> --- a/drivers/i2c/busses/i2c-i801.c
+>> +++ b/drivers/i2c/busses/i2c-i801.c
+>> @@ -931,13 +931,13 @@ static s32 i801_access(struct i2c_adapter *adap, u16 addr,
+>>   	 */
+>>   	if (hwpec)
+>>   		iowrite8(ioread8(SMBAUXCTL(priv)) & ~SMBAUXCTL_CRC, SMBAUXCTL(priv));
+>> -out:
+>>   	/*
+>>   	 * Unlock the SMBus device for use by BIOS/ACPI,
+>>   	 * and clear status flags if not done already.
+>>   	 */
+>>   	iowrite8(SMBHSTSTS_INUSE_STS | STATUS_FLAGS, SMBHSTSTS(priv));
+>>   
+>> +out:
+>>   	pm_runtime_put_autosuspend(&priv->pci_dev->dev);
+>>   	mutex_unlock(&priv->acpi_lock);
+>>   	return ret;
+>> -- 
+>> 2.34.1
+>>
 
