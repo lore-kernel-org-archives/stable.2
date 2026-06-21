@@ -1,144 +1,122 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226841A683B
-	for <stable@vger.kernel.org>; Sun, 21 Jun 2026 03:24:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D4E3016F7
+	for <stable@vger.kernel.org>; Sun, 21 Jun 2026 03:29:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782012268; cv=none; b=W8Cv2y1FQdziXeYiJamh4DaW0zYqnslkSKtlzt0H72gADgCpV4lvFft9YyZY9vEiVx0oR2ENV3+DLs+A2lEDob0wgP6AOoDAEeRixtuCyukd++ly9BITAobRBQHm2cSRP9wIdDM3bmnA93rhwk8uTzzIIbzWERAodtMkD8AuzGY=
+	t=1782012549; cv=none; b=H7Baw11QQ3ypejgIlJzV3lf27xL+VYjLyd4J8tIU1yw1q9tm896fDyamW3KdXGFexGkCyomBgtoTxVUAnCdF+2AvAcIm8a8HECt7YnYG2Xmw+yp+pOTKBMWA4W1nbYsJxrTQKk45ktgw6VGDGeXkX6DnYHgGY1/hK+UF1dwMjRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782012268; c=relaxed/simple;
-	bh=Y0Ba6yPSCo9zQjmVk6P93mv40CSzFhFf9lgURZqXbgE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u64f3KK6iJq0sintC7Dgq1RJsvMvgiY6mKq58lU015Vdb9oGgjRoY416u5m/iwPl3UwfVvDubY9CJKnbNyM/oOoykAK6yh0MMXHYWP8evoIKcib3uZuR2i3bNGEbQAe8dT4TUgmXX5ZGbw9Mt3oROWsJvBs8+cOABnq93cJyPCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ql0NSVmN; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1782012549; c=relaxed/simple;
+	bh=5TTnQMJ64j6fkFTT1X4VxIf4BD8/ZcRvg1IoNYvHTgE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PTiNvACY8F+NYrpJ8I+7JL/eQrFOcr1feQwAXafL0+Dyp1YlY67VuYoNq5kXtU224IQ04i1hxKNMsmlPowE2uJ9kiDjJGjKcIdJS6UiO5/b+ksjwv/bfNs/jBKJ7EVFmEyfy4oF53rwVMWu5SNXX2jrpUYsKLAm0JB2pQdRk5hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=N0d8glU8; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ql0NSVmN"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="N0d8glU8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782012265;
+	s=mimecast20190719; t=1782012546;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4Yu2mki38BefPDLre6bXeAKMaOu1RLSJX8hzP70eax4=;
-	b=Ql0NSVmNNSKeQlb1dmm/fN0Zt4fyvV0VdkaA5z9ZHPPt1fg8F3E2DX5yenjzU3DdMhavMs
-	Tu6J1lWo6ivjp0rZHkx/Jivr6aBVixe1URlLrAuYhg4OCkdLFBGLH59pgDFv81c6JCOoXE
-	nHTC3sqd32SljTuw3jv9Q9l4/tBS7xE=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=L1ubz5RM55xhky20q2CFqUIgnMhmpPl8PwpfjJQdIdY=;
+	b=N0d8glU8JvPaQjPH4bhVM/x8KQWzSjsQ2KcCO5Oc9eleKmdYCrqeLkq3ejQo1QI9skSXI0
+	U1ULegEsRin+7bdooYF5eyOyQ/A2kGrRLXCZVvxU7IdGqrT9AGmgJ4VyUMQ6p1je8T4Wtr
+	8xPREgko1E+eCvwNtspDKv8A3H319Ls=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-537-HmnhANAkPfSLuV-PbR185Q-1; Sat,
- 20 Jun 2026 23:24:21 -0400
-X-MC-Unique: HmnhANAkPfSLuV-PbR185Q-1
-X-Mimecast-MFC-AGG-ID: HmnhANAkPfSLuV-PbR185Q_1782012259
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-265-YqEZB4WLOc2VkI6gLejasA-1; Sat,
+ 20 Jun 2026 23:29:01 -0400
+X-MC-Unique: YqEZB4WLOc2VkI6gLejasA-1
+X-Mimecast-MFC-AGG-ID: YqEZB4WLOc2VkI6gLejasA_1782012539
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 448821956060;
-	Sun, 21 Jun 2026 03:24:18 +0000 (UTC)
-Received: from [10.22.88.8] (unknown [10.22.88.8])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id AE5FA1686;
-	Sun, 21 Jun 2026 03:24:14 +0000 (UTC)
-Message-ID: <9d8b650d-6faa-425a-8db7-1e206cb25158@redhat.com>
-Date: Sat, 20 Jun 2026 23:24:13 -0400
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1E7FF1801BDC;
+	Sun, 21 Jun 2026 03:28:59 +0000 (UTC)
+Received: from llong-thinkpadp16vgen1.westford.csb (unknown [10.22.88.8])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3DBCD195604E;
+	Sun, 21 Jun 2026 03:28:56 +0000 (UTC)
+From: Waiman Long <longman@redhat.com>
+To: Ridong Chen <ridong.chen@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Li Zefan <lizefan@huawei.com>,
+	Farhad Alemi <farhad.alemi@berkeley.edu>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Guopeng Zhang <guopeng.zhang@linux.dev>,
+	Gregory Price <gourry@gourry.net>,
+	David Hildenbrand <david@kernel.org>,
+	Waiman Long <longman@redhat.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v7 1/9] cgroup/cpuset: rebind mm mempolicy to effective_mems, not mems_allowed
+Date: Sat, 20 Jun 2026 23:28:08 -0400
+Message-ID: <20260621032816.1806773-2-longman@redhat.com>
+In-Reply-To: <20260621032816.1806773-1-longman@redhat.com>
+References: <20260621032816.1806773-1-longman@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] cgroup/cpuset: rebind mm mempolicy to effective_mems,
- not mems_allowed
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Gregory Price <gourry@gourry.net>
-Cc: Farhad Alemi <farhad.alemi@berkeley.edu>,
- Andrew Morton <akpm@linux-foundation.org>, Farhad Alemi <falemi@asu.edu>,
- Yury Norov <ynorov@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, stable@vger.kernel.org
-References: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
- <CA+0ovCgfHJHv5d1mzapWWvF-LhjppzDX8NPPLvCPZxPKg8RiYw@mail.gmail.com>
- <8d3b4561-92cd-4ebc-8462-5fb0fd659e8a@kernel.org>
- <ai_IHvyptWPcTD0y@gourry-fedora-PF4VCD3F>
- <70f486ce-5ef6-4d72-8cc3-7086f4eea930@redhat.com>
- <c1495b1b-9dee-4cd5-ac8e-eeb7a2d968ed@redhat.com>
- <51eafe6c-6622-479b-b391-6d3ff9350e75@kernel.org>
- <c61c7925-b9e7-4a6f-82e2-398849ad9f27@redhat.com>
- <38578aea-61c3-4328-aee9-8e7421672647@kernel.org>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <38578aea-61c3-4328-aee9-8e7421672647@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On 6/18/26 4:41 AM, David Hildenbrand (Arm) wrote:
-> On 6/16/26 17:23, Waiman Long wrote:
->> On 6/16/26 2:59 AM, David Hildenbrand (Arm) wrote:
->>> On 6/16/26 05:43, Waiman Long wrote:
->>>> BTW, I still prefer the v2 patch. If it is decided we should use the
->>>> guarantee_online_mems() value instead, it will have to be a separate patch with
->>>> changes in the relevant documentation like Documentation/admin-guide/cgroup-v1/
->>>> cpuset.rst.
->>> newmems is "obviously" correct, so I really don't see why we should add
->>> something that needs half a page of text to explain why it is fine -- if newmems
->>> just does the trick?
->>>
->>> Please enlighten me.
->> Yes, taking newmems is a reasonable choice and there are pros and cons with each
->> options. My focus is more on not changing how v1 cpuset behaves as it is well
->> defined in the v1 cpusets.rst file:
->>
->>      Requests by a task, using the sched_setaffinity(2) system call to
->>      include CPUs in its CPU affinity mask, and using the mbind(2) and
->>      set_mempolicy(2) system calls to include Memory Nodes in its memory
->>      policy, are both filtered through that task's cpuset, filtering out any
->>      CPUs or Memory Nodes not in that cpuset.  The scheduler will not
->>      schedule a task on a CPU that is not allowed in its cpus_allowed
->>      vector, and the kernel page allocator will not allocate a page on a
->>      node that is not allowed in the requesting task's mems_allowed vector.
->>
->> v2, OTOH, is more vague as to what setting cpuset.mems will mean and we
->> generally follow what v1 is doing, but we have more leeway of what we can do.
->>
->> Using newmems will make the above text not totally correct. At least the offline
->> memory nodes will be filtered out which will not be utilized by the task when
->> the offline node becomes online. That is why I am saying that we will have to
->> correct the documentation if we want to make this change.
-> So IIUC:
->
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 1335e437098e..cdfc615f35a5 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2645,7 +2645,13 @@ void cpuset_update_tasks_nodemask(struct cpuset *cs)
->   
->                  migrate = is_memory_migrate(cs);
->   
-> -               mpol_rebind_mm(mm, &cs->mems_allowed);
-> +               /*
-> +                * For v1 we can have empty effective_mems, but we cannot
-> +                * attach any tasks (see cpuset_can_attach_check()). For v2,
-> +                * it's guaranteed to not be empty.
-> +                */
-> +               VM_WARN_ON_ONCE(nodes_empty(cs->effective_mems));
-> +               mpol_rebind_mm(mm, &cs->effective_mems);
->                  if (migrate)
->                          cpuset_migrate_mm(mm, &cs->old_mems_allowed, &newmems);
->                  else
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
 
-That is true, but I don't think we need a VM_WARN_ON_ONCE() here.
+Creating a child cpuset where cpuset.mems is never set leads to a div/0
+when a VMA mempolicy with MPOL_F_RELATIVE_NODES rebinds in response to a
+CPU hotplug event.
 
-Cheers,
-Longman
+Reproduction steps:
+ 1) Create a cgroup w/ cpuset controls (do not set cpuset.mems)
+ 2) Move the task into the child cpuset
+ 3) Create a VMA mempolicy for that task with MPOL_F_RELATIVE_NODES
+ 4) unplug and hotplug a cpu
+      echo 0 > /sys/devices/system/cpu/cpu1/online
+      echo 1 > /sys/devices/system/cpu/cpu1/online
+ 5) mempolicy rebind does a div/0 in mpol_relative_nodemask on the
+    call to __nodes_fold()
 
->
+The cpuset code passes (cs->mems_allowed) which is not guaranteed to have
+nodes to the rebind routine.  Use cs->effective_mems instead, which is
+guaranteed to have a non-empty nodemask.
+
+Closes: https://lore.kernel.org/linux-mm/CA+0ovCgxbZkXa+OU8w3s84R3KNPNxxRfmsNR-udh+afQBbGNmw@mail.gmail.com/
+Link: https://lore.kernel.org/all/CA+0ovCiEz6SP_sn3kN4Tb+_oC=eHMXy_Ffj=usV3wREdQrUtww@mail.gmail.com/
+Fixes: ae1c802382f7 ("cpuset: apply cs->effective_{cpus,mems}")
+Suggested-by: Gregory Price <gourry@gourry.net>
+Suggested-by: Waiman Long <longman@redhat.com>
+Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Acked-by: Waiman Long <longman@redhat.com>
+Cc: stable@vger.kernel.org
+---
+ kernel/cgroup/cpuset.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 591e3aa487fc..b21c31650583 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -2653,7 +2653,7 @@ void cpuset_update_tasks_nodemask(struct cpuset *cs)
+ 
+ 		migrate = is_memory_migrate(cs);
+ 
+-		mpol_rebind_mm(mm, &cs->mems_allowed);
++		mpol_rebind_mm(mm, &cs->effective_mems);
+ 		if (migrate)
+ 			cpuset_migrate_mm(mm, &cs->old_mems_allowed, &newmems);
+ 		else
+-- 
+2.54.0
 
