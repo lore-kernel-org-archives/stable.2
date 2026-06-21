@@ -1,150 +1,149 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012070.outbound.protection.outlook.com [52.101.48.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A444078F59;
-	Sun, 21 Jun 2026 07:39:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782027582; cv=fail; b=IfapwWntgx30q5Hweb+X19ynZbnawOsSW1JIvceh3I5LbwpUTHyAUzSLI9Wdzo0y3LpAb9Qo5aerneW7Ocdc6Vl9uOLDWHTGbf4vuovWSlp0YmGbWqAhBEzIRBItes9Y/KQNfmAtW/AR7cLnPi+R1Fwsjcb570jBmsand6qYV/A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782027582; c=relaxed/simple;
-	bh=bOnde65kga/gYob8FU3dKxk9KcVd3yHzG+bC84bCs30=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=jofsiN25aR7mBPYuX2RJXmmQxl6HKuiLD3ZxM+FVLFRtCRaz8FJRebGZtuHMPO1aHai0jzUi9XuTgz2vyu3nThy8yBFTIsN8M5pxs9bVhrzzv5ayAy3sdEavCKUf2GiaX65LGqTK0CBFMQXDP1UYHV8LKpgbHA7wt+la4AkTHj4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=fg62XwXN; arc=fail smtp.client-ip=52.101.48.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A01274B44
+	for <stable@vger.kernel.org>; Sun, 21 Jun 2026 08:17:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782029832; cv=none; b=pGjC9SX7DJue32RzfFdrNtF1aMQ275hIeNYzG/LMa22wHYtFnoqvEG7hh1ciELGX+7kNOv98htJX5UjL5h/DEJHy16EI6/r7dqwuv+XNa3rsivWgPtl74WJsIuEU1mvYOq1WdqgZYXd8yfZXjt3pAJvPszXspvWcIi4HNUu4xTI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782029832; c=relaxed/simple;
+	bh=gmAnStZ8FyZx2TvUXcP7lf5VWLG1jbjrk1AXQ6cghxY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RipBf1KAWvgnw4mg83zcaOuLTB0IRFfs5+ocaMuQXZzX5UGUh9blHxnuNAxydv/JhvYvlWOOTSKBC36/JtIp8wwtAatBCU9ieCslvT0JOxDGTEbqm0h4n7UWK5Vyv6AzRFjCGCXsiwa5IXB51oDo0GY0H9+VuMrFtFcXmw/6anM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IGIPkLRA; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="fg62XwXN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fHCnLhaJRZT0l7dIH+UDwxPwD46KHfjhNbmR/+MDTSHhz05Z8U/ua3B16QlZDIpRyXvF9ZxP5LD0w7WZoFSEGA6yaVHygT/lR/TbYpMxu6242uaJ/8U3CHT0VTlmqtDItpdlJJXJ6FS3CT79PYFZGukDtG9YGeC3UO5bp+Y4WCpXV+U4jb5ifwAhT5YUtRfamx1DNSEn3kOAHNgH921IpdcglHaX1pCM0h5vSKguAVRp0u7y4Nqtl0q8Df2egxBMkjDfmekJNA6oRAEtZ5dJtlLVopwWDpkfDRyRlLFPefzhpX92QXUS+o64AxvOcUskra79BFZU2865pyRNaFx9JA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cp0LchYyspW81wbnfdTTTlK3u1bSbQEzszC0MJ96Oaw=;
- b=UjinRX6STi9l3W1/TsWa8jv35VGWztJzrcHVK1Qpz5Qgkj315KvlCsm89NBFHfGSvVztmUfYy4LRDSbs8Esc5SLrhQ25cY07FbcGM1nJLByDxVJGyfPI5uMnbaCrLoJlk1rynB5zTdi9Qq8NKlNW5utD9hHpD3cLC50mHlMxgCy7gglvs/0Hgt4TCd/I2EJzLRwcygXmbDBAn8yc6LZ2MDl3kH1My8m4objV2Da9A+X0Bb1NJHhopj2jwa02mIEZjGyTnhs4fSuPfLohI0O1NkzEDuLjRS6BXkRtKy1knGHuiEdUtmRt7Or7MABhm8yCpEKkcxmspxUaVqwZDQTGlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cp0LchYyspW81wbnfdTTTlK3u1bSbQEzszC0MJ96Oaw=;
- b=fg62XwXNxhWTGElfxJSEfLgrvLB/fQ8njTTtzS+Y70BqEDXBgmPx+dMx7fKIYUl5xSmYYJa3Z+elovAPSS+CQv4WqLjbAD9ChTEWXKlGRjX0cGSUaQlUuY/2ASZHY1s6+82fLs9zuuLwswl+VfxQDnNL7cU6evB6/bN8Xsp4JAk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by DM4PR12MB6400.namprd12.prod.outlook.com (2603:10b6:8:b9::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.18; Sun, 21 Jun 2026 07:39:38 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0139.009; Sun, 21 Jun 2026
- 07:39:37 +0000
-Message-ID: <e4f60b98-9bd8-491a-9703-a5a7a58a4ca0@amd.com>
-Date: Sun, 21 Jun 2026 00:39:35 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [resend] [regression] amdgpu carrizo: no display signal after
- modeset
-Content-Language: en-US
-To: Salvatore Bonaccorso <carnil@debian.org>, Jaak Ristioja
- <jaak@ristioja.ee>, Dianne Skoll <dianne@skoll.ca>,
- Chris Park <chris.park@amd.com>, Matthew Stewart <matthew.stewart2@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: 1139950@bugs.debian.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <9fba2020-24d1-4235-9869-319d4aab3a4c@ristioja.ee>
- <178198613176.3658222.16247101620976737948@eldamar.lan>
- <ajcLuO0YZCoPN7Xw@eldamar.lan>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <ajcLuO0YZCoPN7Xw@eldamar.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH8PR20CA0013.namprd20.prod.outlook.com
- (2603:10b6:510:23c::27) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IGIPkLRA"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-46019b190b6so2659479f8f.3
+        for <stable@vger.kernel.org>; Sun, 21 Jun 2026 01:17:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782029828; x=1782634628; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xv8167L13PZ/JQZMUsJG/gGl8WHuMlNvKPvQHLdring=;
+        b=IGIPkLRAKULhs6PPvfp54vjEI13GYwoqM7T6hUu9c0YfkBdgXqV693kxtcBpzMOeVs
+         bTekNvAF2IBMV9XKtLoR3vaC+/z9rtRv0dpmmxKW/zb6eDtNH/oJcvCuyQgaBhVVJqbZ
+         B22I/IMTgIocYy5xpss9U4Uq+j2D0iNk2opMm1kfM4A4wpmFZWOVIl4Zfp4QR3e62yxl
+         At+XCDFbvoG/ZXs+VlJo2Ytqq+J0P1kwKm7brhY1JgFcBRi/4CZ2sb/TeIbOZ7ZJl7jN
+         ZPrdqMcakXTSXomAF0FBoxsFpUdk/zkmJUDFZBHh4jdSrG2RbvVDDoxhIzyXA9DmSEed
+         uCXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782029828; x=1782634628;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xv8167L13PZ/JQZMUsJG/gGl8WHuMlNvKPvQHLdring=;
+        b=cH0ulnLBydV2Y7Yb6IDDKnR8c30feL0K/hOLfNGRfzqv/J9u1mBiIJo3KVWhr4SBbr
+         lxh/QfyjKF4gxmgQhF9errtlVxtQ/dzdkvU3cax+eSb9l91KI7qyTc+36LUtKgsPIx7F
+         FQHKkvLOfU/HRbW6EYvvYEArIk3vKmeeookwYDtx4fyRksbxU6MMKVEelwE6rd2bEIR+
+         XUec54ay/tiAH+2dcznmWE/PyD4G+9HzTfKkLoccyar+kHkSKDeR09ZFtoTFVVauekwg
+         i21xag8rFI650OgNmXbYxvOm+SOk+qQ4GLlYObqF3aCuRKuSf0cqENQ4KJcpufl3TxyL
+         megQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoVOxe+JmqvxvKce5H5hhfOFOeP7r17BFN/7gKEJdbTFpnxHWFtoP/WdT01LXKnEn5qyy0r+v8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzu06IvNKh7rNJ1NK9x2MQdAUgn1CJz/UrdVJyUKkhGvBugThVE
+	W8AajVl2mWHQ+DOWq7178QXhEJmzjcAa0O009U2VpVloYFmOn3s+xQ9Q
+X-Gm-Gg: AfdE7cnD2PoPAEOAbXb3ubqy5q5as3Cs7r2Xvf4Irqqvv4gv5MX87vSRWQ7PkYEtyjm
+	nNIEHVXErYl9Bz2Rz1WoeEpelm+IO6Ue6afCkr6iXWHiokRV6Bc6gI2FlOu3AFlg0wlkZ7MOrha
+	dAjUhAvxh2Ly5fauURTf8Z8RDAUKgtBOqHWZuFVRjcxb1JI1xQmTma/TqC+AMDoGhG6yTs9xNTG
+	Y7/W0aFeLEWC7xJHtMoxTrEe2t+JNCDmGjZYV/vek7maFexnOoSJpYUeaX/9iNbQcp8XhOt1Sp8
+	tsocu8czOGIM4nBdAacMLo+1w23x18f4ULQkwRP858kiwKAvSkdral3F6Oxd1Bm0X3aft+Zdkbc
+	7tSYeudOo2oofg4NO/nmA+D9jjd0hknIJn/ofWIUyyXc5BpLGdQ6iVLMQKsmTMu9RAtr1TLefF3
+	eazg3nQbsmqRaP5BGPzxf3A6y7P10pMZHeGu5kaktHfr7KHYCpwHV/HqBFKPTRa+F2l5DVE/BWj
+	76+P9WrRiI=
+X-Received: by 2002:adf:fc8c:0:b0:43f:e934:50ac with SMTP id ffacd0b85a97d-464fff62e1emr13858379f8f.7.1782029828081;
+        Sun, 21 Jun 2026 01:17:08 -0700 (PDT)
+Received: from shift (p200300d5ff229f0050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff22:9f00:50f4:96ff:fe46:beef])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466648c5ddbsm15917211f8f.12.2026.06.21.01.17.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 21 Jun 2026 01:17:07 -0700 (PDT)
+Received: from localhost ([127.0.0.1])
+	by shift.daheim with esmtp (Exim 4.99.4)
+	(envelope-from <chunkeey@gmail.com>)
+	id 1wbDH4-000000002RS-40So;
+	Sun, 21 Jun 2026 10:17:06 +0200
+Message-ID: <a2bc98ef-fae5-4309-9066-452ee780fe04@gmail.com>
+Date: Sun, 21 Jun 2026 10:17:06 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DM4PR12MB6400:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88d276e9-8320-48e3-fd4b-08decf683f22
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|921020|4143699003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	BoL1hyrDIiVdXpvH8O3+d9wFidZhMncCBu6xzNCYdzbUQZylunXv9w4dwT0LuFOMF+3IU9D/enwB5JAPvzseLmXLXJ6WgJCSC3NGfmQgJR5oZEQv/ZIx7blLVSfU3RVLoJDqZh3YwX4MGAnueI0j6xfFdB6VYg4uJOv6mPHzxqKRN0tIWLpRVphSVRCDmD2eBJ0Yd5UipPduaZFdWeHvk5Z/gTYLL4/lYY8eb2JcFzerCsYrrTxh3KwcD+u0INfUjkxcdmncqFUTQR/uXl7eR0FcScpY9wOaMMmhq/R3WVtLdi3NyBjSE0FQ44jcIyVpFeQ5iQxiff/rYimqtvOlpymTvdgL2fOH6GHiRy4IqEumWxamMzEocIxMBMMn4e4GB+pJuEQfcTxOVCBHWSMVoRcZUOz3XQG24mRRYo8LXz5cVizD5X4AUVmPFeGXk/PiL7eJd/KPXb3S1yTSVCGjpLk2R6r4W7NlfdBK1p3VTehe8dPXX5z8QnWAXitZk+Ucnn33fC8SyIsqVmpkfxIPEKZZusAfMEnlXtUO5Qy5zEGaMSgDha1hXwZasqaL0heKzglDX4kLhIYtU9C5qJQQExXvsLIjRzQCI9+eYevQfv5ljsPkLg/BzyVVqPybADJY9o4lxQ+h2I7ad5KbvzJAgh6Qa4EtSm6H4gI5MqIx6Q1gbUPltxXDJyJFpWwiSnrgzaEvfMW0oPlChJz1QIbxyw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(921020)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OVBqOCtNVUkxM3dFZDBaWnIvaTJYSzVKeStUQmhWaElNZVZDOXlGU3Viakxz?=
- =?utf-8?B?Lyt2K09xRU4xaXBSclVuRnFOb2lYTjBPNE9QS3ZwNVNlRDMzZG94eFNNUWdO?=
- =?utf-8?B?TlVkVTlRSjNGR2lOQTNoL1dJKzFybVJjeHphYndWRllhaWozbkJDSjNpQWVh?=
- =?utf-8?B?ejVkT29SS0UvN0NWdkxHWDRudytJUC9TeGlvZm9aTmhabzdRZ2tzVExxVDB1?=
- =?utf-8?B?U1MrNFJicW5xOExhY08yeVFQZDFxSlFRYWY5cENnQkM1d2R0RkpiSWd2MTdr?=
- =?utf-8?B?ZEUrN2dhVURPUi9KTFBvV25rTXNSRHVGemNwdkdlRS83NXFBamtCbE5BZncv?=
- =?utf-8?B?eHA0QndxWGJiVHRlU3c3TkdTMG9BZFA1NXBlTzdndmxHbEFHUnBleWZVMGpN?=
- =?utf-8?B?emJUNlRWZXlKZTdGc0IwTXhvOExoTDZ0ZXhHQlJyZDZJZkJ3WU9JMXRjS3Fx?=
- =?utf-8?B?WHhSOXU1bzMrVkZLZm9qa2ttdjYvVlZQa01DdnNpVWl1elliVElEaGpMbWRK?=
- =?utf-8?B?dWVjRTJjT2RlNWZkU2dsZlZwWWp3MkhKVys1UFFGZ2FWOVd4eUhyeWdkditm?=
- =?utf-8?B?M1duM1FJUm51ZStRNEs5bngyb21aSlg1QXNIWFdTclFLT2FtNlFFUDBOU0Fs?=
- =?utf-8?B?MEFMYW9yVU1xT0lDWFdzYnpZeWlRbnRkdldHOExoVHh6Rm00MVJkK0hRQjJl?=
- =?utf-8?B?WlVySG8rdDFLR0FmaFp3eTRTYnpvN2dHbXhWZGN1amYrSUkxWldTYldTN1k5?=
- =?utf-8?B?SFdPVmI2V0VDc0dpdVlVQUg5YmVNVEpmMDFPOTRpdW80NkUyd0MyZThOeTlq?=
- =?utf-8?B?dDAvZTNUNUJZa1g4WEJqdXM1TW9JVzQ0MXM3Y09WL2NRV2RFZXFyQW1wVm5H?=
- =?utf-8?B?R3FibEpscE5KSjdnNk1nWDhXN1ZNYnBwbGNURFMzOHpacmljQzJJRXlwRXY2?=
- =?utf-8?B?NE9KR1k1aWN5TmFpaTF1R3dNdnhtd2V0MnR0RkpLcmlIdk1JbW5wK2RCdHh5?=
- =?utf-8?B?ZHV1VkxVNmdIcFhGTUpDL2RrbU9KWm1YTDhqbHJlTzZLVnA3SXZEblRRY0JJ?=
- =?utf-8?B?eStUY0trbzNsT1A0R3pjdzdPOUpnUFRzZ3pGRVhCVkNyNHMwZVpuR012d3Y4?=
- =?utf-8?B?Smg4VFp1d0JxZDlFSkVzS1hRUnFvMmN0SGlkSjA4eUs5SEhLbFZCRDJteXVp?=
- =?utf-8?B?TUVHL2FpZ1NtMFEybXBuWEVtN2wrR1YyczBZMFN3cEx4M0I5TVJLTmhFOUNj?=
- =?utf-8?B?TlRQTi9kMldFRlZ6MzllUDh5MXUwWXdGZFcxRmNsdnRRaW52R0VnQzczSE1j?=
- =?utf-8?B?ZythY3d2RVhiOXNMYUp4SGdkTUYycEo3cVd5dXQ2Y2wzdVNvV2RzclRSTW9W?=
- =?utf-8?B?U01NcndJMWVteVBjVFFJdkorNStnNFo2bWI4VU9kNVBkU25yUWFpczFJYWNm?=
- =?utf-8?B?ODN4andjUlRiYWRvR3ZOMFdGZUNSSXJJYTlvNXhuWHBHMExHc0M4TlpBakN4?=
- =?utf-8?B?OGozUkZHb1ovYnpmYWhPR2E3NWxsOGRwWXZINFVOUUg1Y3o2aWVrRHpTWlMv?=
- =?utf-8?B?bVZhWEVJdmtkdGU5MEp5TjNzWERnRzhsZTN6TXAxTVpYVWt6RmQxVnZWanBY?=
- =?utf-8?B?bCtIajBkKzN1dG1Yc0VqaVJzcm9HbkRjZVMyRWZmVkVPbmR5NHVGck9Eb2lj?=
- =?utf-8?B?UHl2SXZ6NUxWVDF0M1RIOHh3Qkw0TXhsUFE2dXlxaXNXY1czNUMvYkYzNWIz?=
- =?utf-8?B?ZDI2TG52cUhEZEZSSDFZZlBRcUJXbFBMWWFNZXVlN0ZNcGtKS09yaVpOVlBO?=
- =?utf-8?B?Zms3MVdHRXBEQkl2SHdWTTk5S0RiZmQ3QXJTOU1KdFlNU2JzVGxObmJnaFZH?=
- =?utf-8?B?OHEwYmN0TU10bVMzNU45UllBTmtycloyS09ETlNIMkNQMWN1b2V5eDFObGQr?=
- =?utf-8?B?am45TWMwU1Zrb3pzUDhJK3U1UGF0ZVMyano3YnpLWG1NWGx6S292UkhoL2Vk?=
- =?utf-8?B?alEybUVoWTRDTm14RnhBWkFMeFlUOVRjVTc0bVNwaW5pWDFXU201MGFsbzRJ?=
- =?utf-8?B?K2VvUnFJUjFieU5RL0tPSDZXVm80alE3UXlpYUxBMlNsUDduRDh5UEI4RHd1?=
- =?utf-8?B?b3dLSTBLUy81cnBVTFRwZFdRYlplUVZLdXg4TDRVTno4SlRVcUxFWkV0cDZL?=
- =?utf-8?B?Z2J3RWNTYkRVYXU2eGN3SEdFcmxOU0hjWEpwdnpMYTgyeVJnSnFIS1pYNnBD?=
- =?utf-8?B?aGFid25ScHVDMStYYjhIUmVxckVDWXNOamVnaURNUDlqWjE2Vnk3Vks5VWx3?=
- =?utf-8?B?cy9RSlI2OEwrUmgrOHljWlRuSnJtN0M5YVEvNVN0aFY0RHFCakttdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88d276e9-8320-48e3-fd4b-08decf683f22
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2026 07:39:37.8022
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xlp9SxJnpLkkX3r2Hm/Osavd4FYLcac3bNB+Fmke49IstOkCb6nHB7QMsJt8WptnIXxf1emqmXYlBssxIZpwzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] wifi: carl9170: clamp command response copy to the read
+ buffer size
+To: Doruk Tan Ozturk <doruk@0sec.ai>,
+ Christian Lamparter <chunkeey@googlemail.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Jeff Johnson <jeff.johnson@oss.qualcomm.com>, kartikey406@gmail.com,
+ Tristan Madani <tristmd@gmail.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260619224818.90751-1-doruk@0sec.ai>
+Content-Language: de-DE, en-US
+From: Christian Lamparter <chunkeey@gmail.com>
+In-Reply-To: <20260619224818.90751-1-doruk@0sec.ai>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-There have been other bandwith related changes.
-Would you mind please trying to reproduce on more recent mainline 
-release, IE 7.1.y?
+Hi,
 
-Also; can you please check both your cable and dongle?  I wonder if one 
-of them is not compatible with HDMI 1.3?  Are they marketed as 
-"Standard" or "High Speed"?
+On 6/20/26 12:48 AM, Doruk Tan Ozturk wrote:
+> carl9170_cmd_callback() copies len - 4 bytes from the device command
+> response into ar->readbuf, which was allocated by the caller with
+> ar->readlen bytes. When the firmware/device returns a response whose
+> payload is larger than the requested ar->readlen, the mismatch is only
+> logged (and the device is restarted via carl9170_restart()); the code
+> then still performs the full-length memcpy(), writing past the end of
+> ar->readbuf -- an out-of-bounds write driven by an attacker-controlled
+> (malicious/compromised) carl9170 USB device.
+> 
+> Clamp the copy to ar->readlen so an over-sized response can never write
+> past the caller's buffer. A response that fails the length check is
+> already discarded by the restart, so copying only the buffer-sized
+> prefix changes nothing for the valid path.
 
+This is contested territory.
+<https://lore.kernel.org/linux-wireless/26e33fea-c81e-48f4-a058-4b3bf0dc95c5@gmail.com/>
 
+Original patch (as part of a series is from Tristan Madani)
+<https://lore.kernel.org/linux-wireless/20260421134929.325662-2-tristmd@gmail.com/>
+
+Yes, I do think each came up with the patch individually. But I have no idea how
+this works with three authors / tools? Does anyone? I don't think this will get
+any better though.
+
+> Reported-by: syzbot+5c1ca6ccaa1215781cac@syzkaller.appspotmail.com
+> Tested-by: syzbot+5c1ca6ccaa1215781cac@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=5c1ca6ccaa1215781cac
+> Fixes: a84fab3cbfdc ("carl9170: 802.11 rx/tx processing and usb backend")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+> ---
+> Verified with syzbot via "#syz test" against the public C reproducer
+> (Tested-by above); I do not have carl9170 hardware locally.
+> 
+>   drivers/net/wireless/ath/carl9170/rx.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/wireless/ath/carl9170/rx.c b/drivers/net/wireless/ath/carl9170/rx.c
+> index 908c4c8..897e682 100644
+> --- a/drivers/net/wireless/ath/carl9170/rx.c
+> +++ b/drivers/net/wireless/ath/carl9170/rx.c
+> @@ -150,7 +150,8 @@ static void carl9170_cmd_callback(struct ar9170 *ar, u32 len, void *buffer)
+>   	spin_lock(&ar->cmd_lock);
+>   	if (ar->readbuf) {
+>   		if (len >= 4)
+> -			memcpy(ar->readbuf, buffer + 4, len - 4);
+> +			memcpy(ar->readbuf, buffer + 4,
+> +			       min_t(unsigned int, len - 4, ar->readlen));
+>   
+>   		ar->readbuf = NULL;
+>   	}
+
+Regards,
+Christian
