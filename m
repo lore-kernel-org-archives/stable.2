@@ -1,127 +1,228 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3667364EB8;
-	Sun, 21 Jun 2026 13:02:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782046949; cv=none; b=sNesccGaMjhTtKGVhl0Jr7XxJBX9FBWeI8JgCImNuROhUineX1LyyX6+VKZicAo0Yc1AWs7l+jdzWYOlyTXRkF9R3A5wBY6VOz8Dc1QjzVaGrN59HXrdE7vAxlHRVH8lBcgsVJBJ2e7fFaRfqBh7IpdPUEfqrUHmRXBaJ72HaB0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782046949; c=relaxed/simple;
-	bh=VePZLxrmJ7ngnEKO77FKMoaSqYDBpwC4nOAQd/C+Z4A=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=mh9sNJ24hDyMnwAeDjIZlDsfRRt3sI9lQvEgAzl83CLqlXXBoJyX5ZmUjaYBaetU1kxGvqtF0WMd1AgUuZLqb5p/yD8P0z2g/+y1sxaO6e+oMNXK35ss3i2Qp7r3zlB7CbrMw4OY2DDe3k50sJ+PixXiUJh46lM4cAQIy6C5BPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=UxuYcqd5; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vzwKj+Q5; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9B2364EB8;
+	Sun, 21 Jun 2026 13:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782047033; cv=pass; b=HagsUEmWJu8KC9VIeDQUWBW4/t8vLOZq+f9c+bXGAj6lqf+cihBfqch0GAmM2SRjFOOSHCOCot0i7rQoyl+c0/qtqZx3+lfTMTdRBBN2LeV2HeVYYuqnZbLhzK7M+UrO9/KArZlZmraTfHSWiOrePsBjvjiFU20lj4HNgRgBUQ0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782047033; c=relaxed/simple;
+	bh=7PrAuHyBeAQBenZW4uSwuarZHrLxay6iu9szZXVdzzk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AdpjZJsouROY8/MIflFSiZ1psGdaVYeC7THuyTeF1JB0aojcTR1jrZBbULdFUKiMjwZPIYura1g8Z4CnEJ0mRZFDzFKVZgTcSL9P0nmApqOyKIZQq4/HdgP2wNARLL60Y2pdpCZspwC9nPER3YZswtBX3nl044hlftwZ8VtmJsc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.beauty; spf=pass smtp.mailfrom=linux.beauty; dkim=pass (1024-bit key) header.d=linux.beauty header.i=me@linux.beauty header.b=RhFuP8cw; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.beauty
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.beauty
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="UxuYcqd5";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vzwKj+Q5"
-Date: Sun, 21 Jun 2026 13:02:24 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1782046946;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OYib6aacoTMLOl8UdQTaiTphv58BSgPMFBcYQDrPD2s=;
-	b=UxuYcqd5+gGJkbsvRrfEVXqd3K7ZM2/6hltA1vAcYoIXW18vxQr30JMNrt+2gIi+/rDzYd
-	tkeNZbg32T4qOBOdukf668n+cvyY/N0riPC1FwK2mErxB5c72cirJJkZx2jHwYEdAsnIcb
-	WtlWbfJrBSzYgGzhW53a2Mkres6JFwleJtQSjaFtgDvbC97JhsnPP4w8HVHvWJUD81L8MY
-	9JWOnW4koKc+F3yZDSUid2C3tYfi94K4lDmG03edPsjfwyjiKwktPd9Z/PZBlPpw6zhQZj
-	cFcB/DihZrtDAwvgu0Pmr+hQ3EDQQYjUuOwOWAiH0mgNvQ75fvzR72+eLzq43A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1782046946;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OYib6aacoTMLOl8UdQTaiTphv58BSgPMFBcYQDrPD2s=;
-	b=vzwKj+Q5UBvZcufUijl2fzFFxxVYTtzIpH/pnVxlBwSwllF+Trl9BHv86l8HmLMiHJ7G9W
-	EsbbU4ELJYAKs9BA==
-From: "tip-bot2 for Bhargav Joshi" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/urgent] irqchip/crossbar: Use correct index in
- crossbar_domain_free()
-Cc: Bhargav Joshi <j.bhargav.u@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- maz@kernel.org
-In-Reply-To: <20260620-irq-crossbar-fix-v2-1-b8e8499f468a@gmail.com>
-References: <20260620-irq-crossbar-fix-v2-1-b8e8499f468a@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.beauty header.i=me@linux.beauty header.b="RhFuP8cw"
+ARC-Seal: i=1; a=rsa-sha256; t=1782047012; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=eOAd2mp+W7gVNnMPPBFafakukPmkQ7Bg69HT11sLRyM0a1NDDes2Uq+4fx7JCCIu0Do78u8LBcPXzLPlcULn98d7C3QJ30gYibD/PxrUPYK7qUntUqow4iHfZxktL7fCSYvYqERvqMTbFUaxwduPUmfEcwJCy+/ZEM+47m4moR4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1782047012; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=YUNRo1JqI1ERS6Bx8k5dKxete2j3i20QxBJxNki2PEo=; 
+	b=E0tiiDN7z2Zc6Jr5MTLzScog1S7qHAZc8gfJpSGcu18UqPlYXMTgEvbp2nRKjn/sVQ1DZEMD0Ea1Wq+Qo2ti5LT5c/Y/3qyi9rIcY8j6sm8yZdw9ffwYQkdL+sLpYXKaFCfRl0jt3XDd3vBzeZusUXnxUaMx5mVHxl3dt/yHpbU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=linux.beauty;
+	spf=pass  smtp.mailfrom=me@linux.beauty;
+	dmarc=pass header.from=<me@linux.beauty>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782047012;
+	s=zmail; d=linux.beauty; i=me@linux.beauty;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=YUNRo1JqI1ERS6Bx8k5dKxete2j3i20QxBJxNki2PEo=;
+	b=RhFuP8cwcLBNM8vpj4CyZo6sJliD4PQmP4aYwdHUB06+pVaBwUnWjbb00VrPpaA1
+	x9c0t04EpsWQSNhuB4bsi8D4Ic4+fYBXD1c9z/do3dG2YLNSDA3eSg/ETOPbWcoUM3i
+	RGSF+JDenZ9Dsf+YTbzMl/7OqxeoWTPkYWhCAdiU=
+Received: by mx.zohomail.com with SMTPS id 1782047010077356.34651500703205;
+	Sun, 21 Jun 2026 06:03:30 -0700 (PDT)
+From: Li Chen <me@linux.beauty>
+To: Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Ira Weiny <ira.weiny@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	virtualization@lists.linux.dev,
+	nvdimm@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Li Chen <me@linux.beauty>
+Subject: [PATCH v6 08/12] nvdimm: virtio_pmem: refcount requests for token lifetime
+Date: Sun, 21 Jun 2026 21:02:39 +0800
+Message-ID: <20260621130246.2973254-9-me@linux.beauty>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260621130246.2973254-1-me@linux.beauty>
+References: <20260621130246.2973254-1-me@linux.beauty>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178204694487.2745857.1186942294359401850.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-The following commit has been merged into the irq/urgent branch of tip:
+KASAN reports slab-use-after-free in __wake_up_common():
+BUG: KASAN: slab-use-after-free in __wake_up_common+0x114/0x160
+Read of size 8 at addr ffff88810fdcb710 by task swapper/0/0
 
-Commit-ID:     043db005a8d6932dc7d217c86307e9af0bc10ddc
-Gitweb:        https://git.kernel.org/tip/043db005a8d6932dc7d217c86307e9af0bc=
-10ddc
-Author:        Bhargav Joshi <j.bhargav.u@gmail.com>
-AuthorDate:    Sat, 20 Jun 2026 17:39:16 +05:30
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sun, 21 Jun 2026 14:59:20 +02:00
+CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
+6.19.0-next-20260220-00006-g1eae5f204ec3 #4 PREEMPT(full)
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Arch Linux
+1.17.0-2-2 04/01/2014
+Call Trace:
+ <IRQ>
+ dump_stack_lvl+0x6d/0xb0
+ print_report+0x170/0x4e2
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ ? __virt_addr_valid+0x1dc/0x380
+ kasan_report+0xbc/0xf0
+ ? __wake_up_common+0x114/0x160
+ ? __wake_up_common+0x114/0x160
+ __wake_up_common+0x114/0x160
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ __wake_up+0x36/0x60
+ virtio_pmem_host_ack+0x11d/0x3b0
+ ? sched_balance_domains+0x29f/0xb00
+ ? __pfx_virtio_pmem_host_ack+0x10/0x10
+ ? _raw_spin_lock_irqsave+0x98/0x100
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ vring_interrupt+0x1c9/0x5e0
+ ? __pfx_vp_interrupt+0x10/0x10
+ vp_vring_interrupt+0x87/0x100
+ ? __pfx_vp_interrupt+0x10/0x10
+ __handle_irq_event_percpu+0x17f/0x550
+ ? __pfx__raw_spin_lock+0x10/0x10
+ handle_irq_event+0xab/0x1c0
+ handle_fasteoi_irq+0x276/0xae0
+ __common_interrupt+0x65/0x130
+ common_interrupt+0x78/0xa0
+ </IRQ>
 
-irqchip/crossbar: Use correct index in crossbar_domain_free()
+virtio_pmem_host_ack() wakes a request that has already been freed by the
+submitter.
 
-crossbar_domain_free() resets the domain data and then uses the nulled
-out irq_data->hwirq member as index to reset the irq_map[] entry and to
-write the relevant crossbar register with a safe entry. That means it
-never frees the correct index and keeps the crossbar register connection
-to the source interrupt active.
+This happens when the request token is still reachable via the virtqueue,
+but virtio_pmem_flush() returns and frees it.
 
-If it would not reset the domain data, then this would be even worse as
-irq_data->hwirq holds the source interrupt number, but both the map and
-register index need the corresponding GIC SPI number and not the source
-interrupt number. This might even result in an out of bounds access as
-the source interrupt number can be higher than the maximal index space.
+Fix the token lifetime by refcounting struct virtio_pmem_request.
+virtio_pmem_flush() holds a submitter reference, and the virtqueue holds an
+extra reference once the request is queued. The completion path drops the
+virtqueue reference, and the submitter drops its reference before
+returning.
 
-Fix this by using the GIC SPI index from the parent domain's irq_data.
-
-Fixes: 783d31863fb82 ("irqchip: crossbar: Convert dra7 crossbar to stacked do=
-mains")
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Fixes: 6e84200c0a29 ("virtio-pmem: Add virtio pmem driver")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260620-irq-crossbar-fix-v2-1-b8e8499f468a@gm=
-ail.com
+Signed-off-by: Li Chen <me@linux.beauty>
 ---
- drivers/irqchip/irq-crossbar.c |  9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+v2->v3:
+- Add raw KASAN report to the patch description.
+- Drop timestamps from the embedded report.
+v3->v4:
+- Rebased onto v7.1-rc7 and renumbered after the flush error patches.
 
-diff --git a/drivers/irqchip/irq-crossbar.c b/drivers/irqchip/irq-crossbar.c
-index cd11341..4e19e9d 100644
---- a/drivers/irqchip/irq-crossbar.c
-+++ b/drivers/irqchip/irq-crossbar.c
-@@ -158,9 +158,14 @@ static void crossbar_domain_free(struct irq_domain *doma=
-in, unsigned int virq,
- 	for (i =3D 0; i < nr_irqs; i++) {
- 		struct irq_data *d =3D irq_domain_get_irq_data(domain, virq + i);
-=20
-+		/*
-+		 * irq_map[] is indexed by GIC SPI number. The parent domain's
-+		 * hwirq contains the GIC interrupt number (GIC SPI +
-+		 * GIC_IRQ_START).
-+		 */
-+		cb->irq_map[d->parent_data->hwirq - GIC_IRQ_START] =3D IRQ_FREE;
-+		cb->write(d->parent_data->hwirq - GIC_IRQ_START, cb->safe_map);
- 		irq_domain_reset_irq_data(d);
--		cb->irq_map[d->hwirq] =3D IRQ_FREE;
--		cb->write(d->hwirq, cb->safe_map);
+ drivers/nvdimm/nd_virtio.c   | 34 +++++++++++++++++++++++++++++-----
+ drivers/nvdimm/virtio_pmem.h |  2 ++
+ 2 files changed, 31 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
+index da829e9f4bdff..7b6761adf28bc 100644
+--- a/drivers/nvdimm/nd_virtio.c
++++ b/drivers/nvdimm/nd_virtio.c
+@@ -9,6 +9,14 @@
+ #include "virtio_pmem.h"
+ #include "nd.h"
+ 
++static void virtio_pmem_req_release(struct kref *kref)
++{
++	struct virtio_pmem_request *req;
++
++	req = container_of(kref, struct virtio_pmem_request, kref);
++	kfree(req);
++}
++
+ static void virtio_pmem_wake_one_waiter(struct virtio_pmem *vpmem)
+ {
+ 	struct virtio_pmem_request *req_buf;
+@@ -36,6 +44,7 @@ void virtio_pmem_host_ack(struct virtqueue *vq)
+ 		virtio_pmem_wake_one_waiter(vpmem);
+ 		WRITE_ONCE(req_data->done, true);
+ 		wake_up(&req_data->host_acked);
++		kref_put(&req_data->kref, virtio_pmem_req_release);
  	}
- 	raw_spin_unlock(&cb->lock);
+ 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
  }
+@@ -66,6 +75,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
+ 	if (!req_data)
+ 		return -ENOMEM;
+ 
++	kref_init(&req_data->kref);
+ 	WRITE_ONCE(req_data->done, false);
+ 	init_waitqueue_head(&req_data->host_acked);
+ 	init_waitqueue_head(&req_data->wq_buf);
+@@ -83,10 +93,23 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
+ 	  * to req_list and wait for host_ack to wake us up when free
+ 	  * slots are available.
+ 	  */
+-	while ((err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
+-					GFP_ATOMIC)) == -ENOSPC) {
+-
+-		dev_info(&vdev->dev, "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
++	for (;;) {
++		err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
++					GFP_ATOMIC);
++		if (!err) {
++			/*
++			 * Take the virtqueue reference while @pmem_lock is
++			 * held so completion cannot run concurrently.
++			 */
++			kref_get(&req_data->kref);
++			break;
++		}
++
++		if (err != -ENOSPC)
++			break;
++
++		dev_info_ratelimited(&vdev->dev,
++				     "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
+ 		WRITE_ONCE(req_data->wq_buf_avail, false);
+ 		list_add_tail(&req_data->list, &vpmem->req_list);
+ 		spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
+@@ -95,6 +118,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
+ 		wait_event(req_data->wq_buf, READ_ONCE(req_data->wq_buf_avail));
+ 		spin_lock_irqsave(&vpmem->pmem_lock, flags);
+ 	}
++
+ 	err1 = virtqueue_kick(vpmem->req_vq);
+ 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
+ 	/*
+@@ -110,7 +134,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
+ 		err = le32_to_cpu(req_data->resp.ret);
+ 	}
+ 
+-	kfree(req_data);
++	kref_put(&req_data->kref, virtio_pmem_req_release);
+ 	return err;
+ };
+ 
+diff --git a/drivers/nvdimm/virtio_pmem.h b/drivers/nvdimm/virtio_pmem.h
+index f72cf17f9518f..1017e498c9b4c 100644
+--- a/drivers/nvdimm/virtio_pmem.h
++++ b/drivers/nvdimm/virtio_pmem.h
+@@ -12,11 +12,13 @@
+ 
+ #include <linux/module.h>
+ #include <uapi/linux/virtio_pmem.h>
++#include <linux/kref.h>
+ #include <linux/libnvdimm.h>
+ #include <linux/mutex.h>
+ #include <linux/spinlock.h>
+ 
+ struct virtio_pmem_request {
++	struct kref kref;
+ 	struct virtio_pmem_req req;
+ 	struct virtio_pmem_resp resp;
+ 
+-- 
+2.52.0
