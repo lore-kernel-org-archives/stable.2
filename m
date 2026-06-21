@@ -1,124 +1,83 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com [95.215.58.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28CAF23EA94
-	for <stable@vger.kernel.org>; Sun, 21 Jun 2026 19:23:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A87A17A2F6
+	for <stable@vger.kernel.org>; Sun, 21 Jun 2026 19:26:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782069809; cv=none; b=R8lIXZC5JzFpcxM6sSbreZmS2OWA0DZa2OjXrskf9bcG46j2ONbu275XAHcYbWHatVFCMhth9VjPduTCxoxQ51O+RCMU9iXnaYuDBhRPuk4WnqNCgQUtxok4ZjYUNvpvR6gPEzPBmTbu9ZsxHsL9m000KmZ6NHHNt9gcbvptpHA=
+	t=1782070005; cv=none; b=GkpH2P+cMgDTQ4RjdInQdO5Xmuq3JSUAdIL0Q4NV+R7LpgxpTdXHUX2ULu08cbxJZ55lhnLlk/EO0MYPbq4xaNy0L9J59q4Jt4qoTiv/CzfnIdrPoOsALHkj/Wy/ZKsrQVSFFvu813g/WZXCwIU8DnP6pJqKidPjS/s9Zm6axnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782069809; c=relaxed/simple;
-	bh=uA04HhTsQ8dsNxyfMLdub768NjxZBn1yPSaIJCrMcAk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dz5OIzIJoah32EIIsEF8JUUvJqtdwItWyITWXXY2dlUcw1FdQXQzXb4JiOYCKiE72ynXTwEPaEQaIvRHSvHVRXbyYINOn+cHWd9wY8+HuYBP6Cz72gsPajy5CGHkoZNtYPklhKsFiX+UQHxYq4+SpBZ4HA1bEIwZh55eQUhHYb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XJv7qvYz; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782070005; c=relaxed/simple;
+	bh=QLkT6UpBtXFAmC/EbtJYRlAe8jiyZbpGniPqrtKoJ60=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XaJLO6lQsTxcS9F4db3cogsXthC5eNiFb6HII6v2fyF565G6ePdXBDBsGVHCkrMKDubLVnVRCWIbGK0indfsru1QlaUQtbh+GZDcuLaHX9wOv0BOzOWExBbblRteTXMjqDFkB5gJMsVVa0VqoZemimWJ4e6G76yPz36bvXPAQaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=A+/X6/gz; arc=none smtp.client-ip=95.215.58.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XJv7qvYz"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490b8ac62baso41800225e9.0
-        for <stable@vger.kernel.org>; Sun, 21 Jun 2026 12:23:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782069806; x=1782674606; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=be9MjW25f2njwerBgXRPJ/M+aGJqyGySllhx7C6vl6k=;
-        b=XJv7qvYz6E2DTU5WEROSjG1ev5A803giayoMq/Huhaak+H95LS+snqA6HtYCmOrSNb
-         AGBOGw56OYtF0Itppy1liNkJGFOQczdvJemgOnWwkXSB1iJeIu+vh0e5WlYo/Z0WRldO
-         48PjIm8M0nkc/5i0S41vqLdRULYOHOOT3Lw6V2BfnIzE8H3foGYlQlEcjMWrxfMs6LXq
-         V/2xx4g/6eHkxrbYwspIkTfVfmsBEHKGOnoldf/bARpmxH9F0Ccok9aDxHrlGaBpf+8x
-         bnAHhh3jOqD/651YXAH8flOcqWhy5JZXZ/fGYwMq5PmkQrftaX/f/z+bPIOH1qZFS6uB
-         VIOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782069806; x=1782674606;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=be9MjW25f2njwerBgXRPJ/M+aGJqyGySllhx7C6vl6k=;
-        b=KHy0D+wwPjk9yFQUfXjgk53gj8PFUC7PSG4+aU9y3d0866NkB83Y60DeLethKzvwCH
-         1hu+cozV1vht/UhySLLL258gY4CQYgEQw1uStyhGxRnUvs6MmGtCLCnf3Jai444TEY10
-         jw0bDeqUVFOowPgf6n5qSCi3kTx5DwbOa89bA6+sJppT2mQwxmOtzUPfh1vugMQMPF84
-         RoALyFScjkRPLY9zLaaIeVqO7tPG3zOgzc55gkdDUI1BMJgq5D0kFvCwZpdebBtmeO36
-         VzEQRjYZduXeOugz70g1BJA442OxHF7UHknZUvlvUU7o/MVrzQzSa236iRNZ2zRg0G36
-         IsVA==
-X-Forwarded-Encrypted: i=1; AFNElJ+jYZ+W0Z8GisTphv/h15ed+llAxMRWCN4mR7oRouE1rYXMlkG8we0BngDOHGnJ7STL/tx2JDo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyVI8yF/MxK2R6zrvmIbY8j7emqsWnwp+yMr+YOuTYxBHnGmgrF
-	8v7JZvTRrrBKg1einj6JEMfkX4dVzeM8ykbAeyRznSuia0DHpP8uOic=
-X-Gm-Gg: AfdE7clE4IQgNk/LX9WyCfSq7M7pHYl163/gaSy/xWQaWtCLRqkU0esM9ORXpYaKmzY
-	HJwLoLGmHfPXEynFCo01OjRYkbpDiGbE4QqDIqO+bd2oOdi2/lH3TKeZSTGdm8PyZX4UlAu7Fkh
-	qQg6zDf/nra72TrmM8sbU2uGjF2ur1pgFmTauO+kuOibRPu2iHk+PCTw99Mw5B7Aidgo5ZC4fck
-	RcszAEcbPPs5qPGJpXOE4vTpCZ38NbDYUtSyHk3qOvU2QaMQXCKyIM2qSlkrmWKn26XqiIto00B
-	Bg8Jesv+X5EF2KefKYyKI3LMeWIIeC9hEst7AE1bCu0JyX4lSc4SP/D/mOE2FBhE1JCRDpLou+x
-	pt+sG5eZ/FQstEe58jXf3mzZBZ7pMbCbPHEZfMSihgUPvhoWpKS+ctTtVBA==
-X-Received: by 2002:a05:600c:6a06:b0:490:b0bf:7606 with SMTP id 5b1f17b1804b1-49240a5bfafmr115465675e9.16.1782069806451;
-        Sun, 21 Jun 2026 12:23:26 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466643f4e3esm18569656f8f.8.2026.06.21.12.23.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Jun 2026 12:23:25 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Ingo Molnar <mingo@elte.hu>,
-	Dave Hansen <dave@linux.vnet.ibm.com>,
-	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="A+/X6/gz"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782069992;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SyW5BDjbbmigNhBIEQlI5kPn/+PoFEIgeknateLdwe4=;
+	b=A+/X6/gzL5DsFhYcVjNECqD+KhJW/fBatsdvl4pn75ovYj8zQv+UGoGeBcc6rC+dYKZt7q
+	US1KlZRu0kr4Xh0w68gjTtp8o10XQ8RFA5lLOmZ+hrYzI9OPOfMlLvxbu4RwV2Rx/e++zV
+	U5pyo4k3gooQ0UAzUc1PomZ+hBjomNM=
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Marek Vasut <marex@denx.de>
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
 	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH] profiling: prevent stale prof_cpu_mask access on init failure
-Date: Sun, 21 Jun 2026 19:23:24 +0000
-Message-ID: <20260621192324.2062795-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	linux-crypto@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] crypto: mxs-dcp - fix source scatterlist length access
+Date: Sun, 21 Jun 2026 21:26:16 +0200
+Message-ID: <20260621192615.277957-2-thorsten.blum@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1044; i=thorsten.blum@linux.dev; h=from:subject; bh=QLkT6UpBtXFAmC/EbtJYRlAe8jiyZbpGniPqrtKoJ60=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkWVtf/Cu5UfHHr5psQA8WX6k/jS97s97SteKueYCvQw Vf6q/9JRykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAEyk0Zjhr9TxwPL6Od9fHNC/ JRK9ceuRs/JzOpTnTmC0NsladWLWQzVGhubVJxLtTZfx7L59V6Ah7OsRx4mp7Fu9TkjfKL07d+2 EEG4A
+X-Developer-Key: i=thorsten.blum@linux.dev; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-From: Tristan Madani <tristan@talencesecurity.com>
+mxs_dcp_aes_block_crypt() uses sg_dma_len() without mapping the source
+scatterlist with dma_map_sg() first. Therefore, sg_dma_len() is invalid
+and could return zero or a stale DMA length, causing encryption and
+decryption to process the wrong number of bytes when
+CONFIG_NEED_SG_DMA_LENGTH=y.
 
-When profiling is enabled at runtime via /sys/kernel/profiling,
-profile_setup() sets prof_on and profile_init() allocates prof_cpu_mask
-and attempts to allocate prof_buffer. If all prof_buffer allocations
-fail, the error path frees prof_cpu_mask but leaves prof_on set.
+Use the original scatterlist length instead.
 
-Since profile_tick() runs from timer interrupt context and checks
-cpumask_available(prof_cpu_mask) without first checking prof_on, it can
-dereference the freed cpumask between the free and the next reboot.
-
-Clear prof_on before freeing prof_cpu_mask so the profiling state remains
-consistent on allocation failure. Also gate the cpumask access in
-profile_tick() on prof_on to prevent accessing stale state during the
-teardown window.
-
-Fixes: 22b8ce94708f ("profiling: dynamically enable readprofile at runtime")
+Fixes: 15b59e7c3733 ("crypto: mxs - Add Freescale MXS DCP driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 ---
- kernel/profile.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/crypto/mxs-dcp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/profile.c b/kernel/profile.c
-index 984f819b701c9..a166ad9512714 100644
---- a/kernel/profile.c
-+++ b/kernel/profile.c
-@@ -123,6 +123,7 @@ int __ref profile_init(void)
- 	if (prof_buffer)
- 		return 0;
+diff --git a/drivers/crypto/mxs-dcp.c b/drivers/crypto/mxs-dcp.c
+index 133ebc998236..595b2fd84667 100644
+--- a/drivers/crypto/mxs-dcp.c
++++ b/drivers/crypto/mxs-dcp.c
+@@ -353,7 +353,7 @@ static int mxs_dcp_aes_block_crypt(struct crypto_async_request *arq)
  
-+	prof_on = 0;
- 	free_cpumask_var(prof_cpu_mask);
- 	return -ENOMEM;
- }
-@@ -325,7 +326,7 @@ void profile_tick(int type)
- {
- 	struct pt_regs *regs = get_irq_regs();
+ 	for_each_sg(req->src, src, sg_nents(req->src), i) {
+ 		src_buf = sg_virt(src);
+-		len = sg_dma_len(src);
++		len = src->length;
+ 		tlen += len;
+ 		limit_hit = tlen > req->cryptlen;
  
--	if (!user_mode(regs) && cpumask_available(prof_cpu_mask) &&
-+	if (!user_mode(regs) && prof_on && cpumask_available(prof_cpu_mask) &&
- 	    cpumask_test_cpu(smp_processor_id(), prof_cpu_mask))
- 		profile_hit(type, (void *)profile_pc(regs));
- }
--- 
-2.47.3
-
