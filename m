@@ -1,69 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106119.protonmail.ch (mail-106119.protonmail.ch [79.135.106.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078D42DCBFA;
-	Sun, 21 Jun 2026 21:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31028199949
+	for <stable@vger.kernel.org>; Sun, 21 Jun 2026 21:53:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782078050; cv=none; b=E7Mj2dGhsO3ta9WczvCRyOiEBDKahNKHD9i1oqxNnJkJotuiCzykba318GUmXjtO3KByM5XEmegGS0c7gdsledBGRJpABju2u9gsCwS2sB2c7LJ+/I+bYcBZMAKZ873yaomGLbrPfK4SwtMAgiw6BIk5MaEw5iY4pcsB+xqaUCw=
+	t=1782078811; cv=none; b=SAtn030op+SMA8q+3TaSlLspIb9PdQIcAWkv1uGHXRaSh12eoUI0LuS1aEuBHnL6XIJhQD11h3F0SW1Kxuxyse8KgwAAfjS6It4oxKMWh0Mx+NbsuS9SkZ+QVLMsFb6TkfDW/iNgUKhbENgjZqIb76g+QuARk9Kq7mcs8eZNAGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782078050; c=relaxed/simple;
-	bh=X5pGV1s0tb8RzbdB2MLctPvgkzsHzHWrGSc/nN3KGsM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aEjKExGp8UkQxxTgjemYAiYI4dwQH3mM7ScfXig7SI2x0tBKfx5A1eDSwXnfKxBaIdYrshMY2sktzMMubHHpiAGoKzPR/ZPtTqHtgLaKY6AYPEZvhNQ2jq+Yzd6rxnklarFr4HRMznJSZKHcskI3cC6NIn2JMr6G/HpMdcFbAN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LEyG607A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782078811; c=relaxed/simple;
+	bh=J4aUq+F1WFMlW/D/6ft0V6jKSSupR/BLhO/k5fLS0xg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kKNRrLTA2ouUGuuQ4wodZQvd8aVMj/NWxqEeZMIr/M1LyPg22mMJYS9Yrr5K13HnR65WLLyaTX1TcauTNwb2ifAUHJKmVMbqit/dVe525/jFd4us76ZbkXgAFXqeRdvWVp/3uxUv5AP2ZEN/jryIctWaByKdofwTv/NyuvtWtks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=ou1ZxcEW; arc=none smtp.client-ip=79.135.106.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LEyG607A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6BB1F000E9;
-	Sun, 21 Jun 2026 21:40:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782078049;
-	bh=X5pGV1s0tb8RzbdB2MLctPvgkzsHzHWrGSc/nN3KGsM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LEyG607AjsH9UuvhNVXOCOfCZ9MkEPbKo2G30XGhwLDJbqZnDBH3zCYT5N0S/4qGQ
-	 JdVH1dj/RFyr7nTj4rpAPcqN33Zq7b0Py9ZxtZjTL7fMNaSViW70Z56YZD6KNZBX4U
-	 B7k2DgD1WtW2EiqJrtipDrqeUrTMBZHTDoMmPcWgH4sh8uCi4sPFyb99KbNjtURp83
-	 jlMxEnmkJPeFLolkG/0STMvHgY7WK2+b3yZ6g2ZTotb4P5UFY9nYDBl/2Etfw7U/BA
-	 xLtdkOLRgINbK/ONjHXP37Jo+MfG70fUWctXloQuqvnquIgZs0EAp8Qi3tYCnC6c7t
-	 oqmkYatHIV8Jg==
-Date: Sun, 21 Jun 2026 14:40:47 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: =?UTF-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>
-Cc: Nicolas Ferre <nicolas.ferre@microchip.com>, Claudiu Beznea
- <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
- Abeni <pabeni@redhat.com>, Haavard Skinnemoen <hskinnemoen@atmel.com>, Jeff
- Garzik <jeff@garzik.org>, Conor Dooley <conor.dooley@microchip.com>, Paolo
- Valerio <pvalerio@redhat.com>, Nicolai Buchwitz <nb@tipi-net.de>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Vladimir Kondratiev
- <vladimir.kondratiev@mobileye.com>, Gregory CLEMENT
- <gregory.clement@bootlin.com>, =?UTF-8?B?QmVub8OudA==?= Monin
- <benoit.monin@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Maxime Chevallier
- <maxime.chevallier@bootlin.com>, stable@vger.kernel.org
-Subject: Re: [PATCH net v3 1/2] net: macb: give reasons for Tx SKB kfree
-Message-ID: <20260621144047.3db74e2b@kernel.org>
-In-Reply-To: <20260617-macb-drop-tx-v3-1-d4c7e57d890b@bootlin.com>
-References: <20260617-macb-drop-tx-v3-0-d4c7e57d890b@bootlin.com>
-	<20260617-macb-drop-tx-v3-1-d4c7e57d890b@bootlin.com>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="ou1ZxcEW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1782078801; x=1782338001;
+	bh=m87NiDcicjBl1RdAxIJiXY5TTTaKMhW9IomUuRdZcMs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ou1ZxcEWfycmjbZ9Zgr0bSE/jU8xpqnrshxAp5xpSN2zIrZSQ0Bm5rew6tfu96d7g
+	 LMsskOLB+9ggzXT2zpkBF8ys0E4imr0UhuC6UUMgMrCrEROY0ZrYMzUzTO+ak24hqS
+	 O774sQPYjv2vS1C06w4Sc7ArjgPPUyEy0iBYga0f5vytrnrPw/bP+zj91Iv6qljIRX
+	 8inQw0y0vS16qN31JBFZXPzuEUoftp6XczJkM1D5eKKCt+eOm7jM/pWVNVo+JZ235S
+	 6gV478BVaxgKtXLQcEUpQlc9/ttDf2uiComgj9V433LSHJ7r/0ep/k6o9oPVOzpAa7
+	 JWFjGYYVdBHzw==
+Date: Sun, 21 Jun 2026 21:53:17 +0000
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+From: slipher <slipher@protonmail.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "regressions@lists.linux.dev" <regressions@lists.linux.dev>
+Subject: Re: [REGRESSION] 32-bit ARM's BKPT instruction no longer works
+Message-ID: <zbEOoL4_phCCh7td7DwqQtyhleFJ_G3yRBc8AFjT5hwIwcRipRMsjtIVJgLi3t5vJk5QsuKjY9c8I91nuVSYk4-xlzrAqigMWIE0iNMc9PM=@protonmail.com>
+In-Reply-To: <ajhHYKyvL9nCUvG5@shell.armlinux.org.uk>
+References: <kJqktbpLphg_Pk5I5SPptgTLjl3E3eq5mN5UzCslyFj7Q1Irp-wDid4mj5eQVd2iZtRGXgeZd8goq195EkXdjyt864YMc8mVb2B9NGH91NQ=@protonmail.com> <ajhHYKyvL9nCUvG5@shell.armlinux.org.uk>
+Feedback-ID: 10906495:user:proton
+X-Pm-Message-ID: cd29de95e1cf57bc5f6c870c1af70a39c6a6b03f
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 17 Jun 2026 11:17:29 +0200 Th=C3=A9o Lebrun wrote:
-> Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
-> Cc: stable@vger.kernel.org
 
-Interesting, did AI suggest this? It's fairly uncommon for drivers
-to care about drop reasons, packet loss on egress ports is pretty
-clearly attributed by tx_drops.
+On Sunday, June 21st, 2026 at 3:19 PM, Russell King (Oracle) <linux@armlinu=
+x.org.uk> wrote:
 
-I don't think this belongs in net, net-next would be fine, if you think
-it's necessary. Sashiko seems to point out a few more clear cut bugs.
---=20
-pw-bot: cr
+> On Sun, Jun 21, 2026 at 07:15:27PM +0000, slipher wrote:
+> > Consider the C program for 32-bit ARM architectures:
+> >
+> > int main() {
+> > =09__asm__ __volatile__ ("BKPT");
+> > =09return 0;
+> > }
+> >
+> >
+> > Expected behavior is that this raises SIGTRAP. Since Linux 6.10 this no
+> > longer happens; instead execution perpetually resumes at the same
+> > instruction, using 100% of CPU. It does not matter whether GDB is
+> > attached. I have tested with an armv7l CPU, but I imagine any other
+> > variants with the BKPT instruction would be equally affected.
+>=20
+> Looking at the code, I doubt this has ever cleanly raised SIGTRAP (can
+> you check whether it does in kernels without c3f89986fde please?)
+>=20
+> What I suspect instead is you get an "Unhandled ... abort" instead
+> and the program forcefully killed as hw_breakpoint_pending() would
+> have ARM_DSCR_MOE(dscr) =3D=3D 3, and the switch() would set ret =3D 1.
+> That triggers the fault handlers in arch/arm/mm/fault.c to
+> complain bitterly, and forced a SIGTRAP to the program to kill it
+> off. No resumption from an unhandled trap is expected.
+
+I have tested with a 6.6 kernel. All of that is correct, as detailed in
+the aforementioned blog post, except the last sentence. The switch does
+set ret =3D 1, thereby passing on the exception. The kernel complains,
+with such lines in dmesg output:
+
+[ 1547.164526] Unhandled prefetch abort: breakpoint debug exception (0x222)=
+ at 0x0001051c
+
+Indeed, it is not clean or efficient; the blog
+(https://www.jwhitham.org/2015/04/the-mystery-of-fifteen-millisecond.html)
+even has a proposed patch to improve the performance when raising
+SIGTRAP. However, it is possible to catch the signal, and even resume
+with something like this:
+
+
+#include <ucontext.h>
+#include <signal.h>
+#include <stdio.h>
+
+void handl(int a, siginfo_t *b, void *uc) {
+        puts("caught SIGTRAP");
+        ((ucontext_t*)uc)->uc_mcontext.arm_pc +=3D 4;
+}
+
+int main() {
+        struct sigaction s;
+        s.sa_flags =3D SA_SIGINFO;
+        s.sa_sigaction =3D handl;
+        sigemptyset(&s.sa_mask);
+        sigaction(SIGTRAP, &s, 0);
+        puts("start");
+        __asm__ __volatile__("BKPT");
+        puts("resumed");
+        return 0;
+}
+
+Re-testing, I realized there is a huge caveat: SIGTRAP is *not* raised
+when running under a debugger! If GDB is attached, either of the C
+programs above will repeatedly resume at the faulting instruction on
+Linux 6.6, just as they will with the latest kernels. So the regression
+only affects the perhaps-obscure case of using BKPT without any
+intention of attaching a debugger, unless that worked in even-earlier
+versions of Linux.
+
+
