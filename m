@@ -1,72 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C1E1519B4;
-	Sun, 21 Jun 2026 13:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577B52459FE
+	for <stable@vger.kernel.org>; Sun, 21 Jun 2026 13:18:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782047602; cv=none; b=H6WTkRZlI12eDoXZ7wX89u/3gL2OZA3V3zooCnobpeLh+8VK77a5HS22q7D10/NtFKwVOfGPDmjfbt1+VKQUuV9xkiP90UC5eL2vwGeMZNJjkVAWQSIniLD1ToTzQVKw4yhprJMwZFq/GT2GF+awyrz2k4wyLS2tEyREYFWDxn4=
+	t=1782047939; cv=none; b=i6xGkw+/NSIdpbCyhkUgbtiEvEDjqxYEh2cfYElft4HUNpo9nXzMUF48g0HysdwNQvZIVLOdJcPdlmSgd97EjtZvPkHMCeERjspTeB8XsWJ0tFtFIxJZN0hNMhEfSIIM+fZHrZFPXIvrzUgFCpxyiJVM3FuTkE6vD5OmT1QQYYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782047602; c=relaxed/simple;
-	bh=Zu7CANSEEIBm1+sX7/ph355b3PEMOEcFZPbvnRk/40o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mr2E7VSf4EOiZATa4mQ0nRF7M3M6hu3EBytt7YMvUm8NSqE2OlGXAMTX9Er1KybokTp4rblUjHwyQztvMxHZCoDkFSJNH8n06xmlcaYoIN3FwtcsyH/tvUF9fuoQWNO33TIUiULmhmRbbRntRDcXve2Noka+MkmhRDqGVjjEDp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I5CfqH6g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782047939; c=relaxed/simple;
+	bh=AyPxKl5oBQalTzhyidZ2I8buKQepo27B+cbRvOvJGyE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QAyD7KpKEVYHA+oOagjjVpnu0p3vbDdsZfliELH9ORHirwJpSDYzDOQ4vL6uliWeuKB9DRVXLfaC2/6SO5qLwuS1IRSOSw2tXXs30Wo/c5hhyTp4vG2IixxWmgqzXHnoQUD/Mm2xMP5YKqIWe3epfAid+HhI3FZf3xzk92bLHZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=p0Z2Zwc4; arc=none smtp.client-ip=95.215.58.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I5CfqH6g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40C91F000E9;
-	Sun, 21 Jun 2026 13:13:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782047601;
-	bh=dzuTGsXHWnUFFlf4w6v0xDSvKV+lTAJBsA0LpxaiREM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I5CfqH6gPdXXucwP6yOGU4artKH2QLhVG0qGr/JwlXZc4DSn0XQajzUomOB9brj6m
-	 UgrCst2nHkoNdmOhbATdqCjhaIKUTJPZ/isy2ymJRAvmujj1jIeXp5y1k4A+z/ikY+
-	 ppaFj71DqvYSWPBDpUET/WOi68CjCvtSGOabTH+ivznSH4hNmZt2dM4oNsuip23zVm
-	 eSs6KJT1cv9JHcRZ3o07pJDk0sSkGA6r8r46MNZcYQBexvsUuBgio1Q5DCifTBc1e3
-	 zUJn9sSjHQnLZ/wz3tyr04dd0yjom5s+foVfZj8FZ9XFmyMw9qrBEVMsr5XW4Db6RR
-	 DV4CjQn8QyV5g==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: lyude@redhat.com,
-	dakr@kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/nouveau/acr: fix missing nvkm_done() in error path of nvkm_acr_oneinit()
-Date: Sun, 21 Jun 2026 15:13:10 +0200
-Message-ID: <20260621131310.5004-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260606155606.77593-1-vulab@iscas.ac.cn>
-References: <20260606155606.77593-1-vulab@iscas.ac.cn>
-X-Patch-Reply: applied
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="p0Z2Zwc4"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782047926;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Uk1iymDuJIMBegf3LSsRMQr90HS3BQmdoLuXkwIxLLw=;
+	b=p0Z2Zwc4IL/Ix0gByyuB8+CYFp2XOGMH8gkS79PPSKp6ccrosc9wD4cE2z0f3etFSbNQFz
+	nHLs3UI/nVdpwDD+jzCIV6PtcfFOWEF2KedmQwtt+CSLseDgKs6rQnhyYsmkyIJ/fo3zod
+	2ju+B0izJRro/jBObgvSiWhn+2Xln3A=
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Chao Fan <fanc.fnst@cn.fujitsu.com>
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	stable@vger.kernel.org,
+	Borislav Petkov <bp@suse.de>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] x86/boot: Reject overlong acpi_rsdp= values
+Date: Sun, 21 Jun 2026 15:18:36 +0200
+Message-ID: <20260621131836.175468-2-thorsten.blum@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1428; i=thorsten.blum@linux.dev; h=from:subject; bh=AyPxKl5oBQalTzhyidZ2I8buKQepo27B+cbRvOvJGyE=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnmT9ak3e1/d5d5h+jvhxU5zkpfBa9v3tHYb7/8qdiFi plvQ1Umd5SyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBFljH8L570YIKWlnehr6fn 0r/hwlsFJY+vrtpoWXy+nX1Kvlx7IcM/u2MJ0e2LZnnWH6sz1rItY7VqmpU8KVPRn2n2OlOjm84 sAA==
+X-Developer-Key: i=thorsten.blum@linux.dev; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On Sat,  6 Jun 2026 15:56:06 +0000, Wentao Liang wrote:
-> [PATCH] drm/nouveau/acr: fix missing nvkm_done() in error path of nvkm_acr_oneinit()
+cmdline_find_option() returns the full length of the acpi_rsdp= value
+even if it is truncated. However, get_cmdline_acpi_rsdp() only checks
+whether acpi_rsdp= is present and does not reject overlong values that
+do not fit in the buffer.
 
-Applied, thanks!
+Reject overlong values and warn to prevent boot_kstrtoul() from parsing
+a truncated value and thus from silently using the wrong RSDP address.
 
-  Branch: drm-misc-fixes
-  Tree:   https://gitlab.freedesktop.org/drm/misc/kernel.git
+Fixes: 3c98e71b42a7 ("x86/boot: Add "acpi_rsdp=" early parsing")
+Cc: stable@vger.kernel.org
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+---
+Changes in v2:
+- Warn on overlong acpi_rsdp= values (Boris)
+- v1: https://lore.kernel.org/r/20260617130417.36651-4-thorsten.blum@linux.dev/
+---
+ arch/x86/boot/compressed/acpi.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-[1/1] drm/nouveau/acr: fix missing nvkm_done() in error path of nvkm_acr_oneinit()
-      commit: c3027973f692
-
-The patch will appear in the next linux-next integration (typically within 24
-hours on weekdays).
-
-The patch is queued up for Linus's tree and should land in the next -rc release.
+diff --git a/arch/x86/boot/compressed/acpi.c b/arch/x86/boot/compressed/acpi.c
+index f196b1d1ddf8..baaad01d2074 100644
+--- a/arch/x86/boot/compressed/acpi.c
++++ b/arch/x86/boot/compressed/acpi.c
+@@ -184,10 +184,15 @@ static unsigned long get_cmdline_acpi_rsdp(void)
+ 	char val[MAX_ADDR_LEN] = { };
+ 	int ret;
+ 
+-	ret = cmdline_find_option("acpi_rsdp", val, MAX_ADDR_LEN);
++	ret = cmdline_find_option("acpi_rsdp", val, sizeof(val));
+ 	if (ret < 0)
+ 		return 0;
+ 
++	if (ret >= sizeof(val)) {
++		warn("acpi_rsdp= value too long; ignoring\n");
++		return 0;
++	}
++
+ 	if (boot_kstrtoul(val, 16, &addr))
+ 		return 0;
+ #endif
