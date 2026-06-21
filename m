@@ -1,122 +1,64 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEEA240D588
-	for <stable@vger.kernel.org>; Sun, 21 Jun 2026 04:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0890B33985;
+	Sun, 21 Jun 2026 05:38:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782016497; cv=none; b=mgsqyJRUIm74OCY3od7o4xYCEJwBcMJyTXLz8/BbZMWnND8UjnTEo5wYHiI08xuupra8GqWPO5dnaQL2SvQ0WCogduBbYVjU5mLw770i5Md2i9TXDV3BNwIWXc7G0gc/AmzmCn3nAXtbcXRs6P414/QxWcSRzHuL7hvn7aRapws=
+	t=1782020319; cv=none; b=LEDPe3ms1743qsEGXnh6zkD+Rz4OgAmf0kg6lhh/cmOKVHDQexon+iuebHXNojx5J3Fn8tok/AVbcwJ9e3or1j0/BuJLdwEKKvZKQJvtLd+4ElXuZCGC9MWOzJ8iiLQ3YTejKy10eGYG8QR8juh96KZze6tPE63m9fv7E8g9Pdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782016497; c=relaxed/simple;
-	bh=nJkwZ2j117c0Z3zPl5Dhlg/EXAbSwaozedbg+/sxW+M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D/mb1y9A2XCKfrsl/GMxoD5QjQlUN46SGsn/rzraoct4qvdcF+ofBxsaus54+yVXUm4DQtUrXnZTm0r4S82HgYXF/G9CEwmT5BumIv3ING1iPrmEBoibe2LqnT2n6A+CNFi4mAD9denScd+bw88GCEyyaBwwRZ3rKahedUpzn48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OgwvxGbo; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782020319; c=relaxed/simple;
+	bh=KCI3N5hsA0tEbO+4K3hwY/UL9X7Tjr1gCAyLd6IXY+s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SzXr8tywOVVkUNbRysWaAwv4TiEhAr25ui5GyqwVPk4ty/B03nFA+UNN3oSHqz5g0dMd3UUhw64PtG/RHnwMMpviANv6vPYyzsnS3/z6rBZaxgG5ygqsH7Q6mx/VyJ6eviYLEhZ5vDhKfpwVjKSpUq4lljo80LWHW4wX6UDKHyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qggICgvv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OgwvxGbo"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-84537777d45so2567828b3a.3
-        for <stable@vger.kernel.org>; Sat, 20 Jun 2026 21:34:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782016496; x=1782621296; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=EZhvgXv/PGau/vVplEkRNj2uGEyJ8j257hahknRP+sc=;
-        b=OgwvxGbocdOHyDkrOOyTeDCm9ykgdviAswa9nlkAFQ4RHgd4BM3vp+AYg6uacJRBQw
-         SQDT/iyTobImI3mNRwTBPkWYL1JRFXrvOzkIakdmgohZpBnu7y/smexSzlzU58LhKTFK
-         VkNzOozc4/QG13RxEUY8UGQRQ9NhjSLrp0Zk5i0BU79uybBTqfw4pETcC+/Uv02XaSrT
-         eo9x5V+H1Rm4Qp8ZiXfQiZ0eFuBsVChlQQTg0kqrCdcHgtNSjezdqOF4oOEOGh/vsGog
-         bwozvBj6kUJGp5aRlQfTYfqYA9zPpsNlsw/86MPXFF1HWlbOW0oMggqarERGpTqeJVHA
-         cyDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782016496; x=1782621296;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EZhvgXv/PGau/vVplEkRNj2uGEyJ8j257hahknRP+sc=;
-        b=nlYNyfB1+i+wX9Jt/wzAZohpp4qiuZugN+1GdeE3fB2V1dP5ggsyzd3ioGKueuh9z0
-         GHZuFUWiUzF6WYBDz6QR2P4OPnVB/3NJwnNov0hlz09feiE1dJ/u1Z3dNfuXqv2u+sxX
-         28759sideuIrEfONbJd2hN5azScRezkuoX+kQTlBdHSiHrLN5f8aLoEq0jLu5p0Zm3x3
-         32BVy1WUD+tMI6S/XVw/jqov5hXuVzHw5ezZq6AhMG97+XgWnHpgpeZ3HZID3nMUJVrD
-         Xru5odx5xUmOuw8xEICuCSfhqPCzbmnA/Dunj89lAYGwqDNa2rgf4Io1RkcD5JwEVDn1
-         I4gA==
-X-Forwarded-Encrypted: i=1; AFNElJ9qkNmtsfkLGFs00fdsQnShcDUg0R4DPlzwtQ7Ey1nnI7LrFba0PpPfyCve1DXDumpjyw7/F2o=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz8ISNjN2vZ7HiyiBygCwns3qlTmivqyuhrSqM21txk1cni08wh
-	wRUqS7tbcRNwrjjUAn/IEKyye+Hw49vb9ltBh81Y8vE7NQjQXd5LrArq
-X-Gm-Gg: AfdE7ckqRWbGic3b4XZ8ms98eQQE2c3nszE6Le13AuGxRR68meq08ostVAeCI+b5zUF
-	BKqx5QLNmtLrZctaN5+znMYalRyNo0e0jxcFl9GCtw68QH772eKZhhSs7XXipBT7pgopFjF4dYJ
-	3VGJNgEFOeE9zF2JT8JyYW3GeC2emRB6g31k2fLlcPFAywaBK78DJWD11pvqetySiEEjzfzl7Aa
-	3VC6zmeJn+I+p2/3GK1m3oAtZR7uvZYFalkM8sagRsb6SrmxPNzXidH+YQMpjjxroA+6lDMkfMN
-	4l/MMgRFoPvk0r5JabpmlSbkGiNhwdBQNLLOXOAgfIRbYPrncKi1yNLdk0e0h+2avZBweCxmqom
-	7jssvLtTurtmnUAcQVa3CaLSGealoPCfVeqA+TfLos6LB48Mv0Q6pUs0mfiC+5GjOpSNBXfBhbv
-	z/MzyudGXBuGpcA/XduevRrsLjB99wl6nM2+Ub4qlyW+3QZHt2maWh
-X-Received: by 2002:a05:6a00:2e23:b0:845:3c47:9159 with SMTP id d2e1a72fcca58-845508e2719mr10476394b3a.45.1782016495956;
-        Sat, 20 Jun 2026 21:34:55 -0700 (PDT)
-Received: from localhost.localdomain ([49.207.234.96])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84564d6813bsm3695572b3a.8.2026.06.20.21.34.51
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 20 Jun 2026 21:34:55 -0700 (PDT)
-From: Biren Pandya <birenpandya@gmail.com>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: hdanton@sina.com,
-	syzbot+051024d603432b4ab395@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com,
-	Biren Pandya <birenpandya@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: cec: disable delayed work before freeing an interrupted transmit
-Date: Sun, 21 Jun 2026 10:04:37 +0530
-Message-ID: <20260621043439.52943-2-birenpandya@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qggICgvv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EFA31F000E9;
+	Sun, 21 Jun 2026 05:38:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1782020318;
+	bh=mKMU7ZpAbRqTnuDft50cZJalrjo3GGSFUaeEDGhH+6I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=qggICgvvZ7jZGrITSwZqOcOr0HMU+FRcGLyiz0l9MVbEtcIqZ38nR29cfrkJiHW3f
+	 rR76uOFKjLVpJMNIxuxloL7YdVGp/CtkkSLMdDg3qUYS+zt7Wjv8E5utt4A1WJkz2O
+	 Y/QcL/SEHgBi9B+Q9D6tKLBOQHnJzX/yRZrSEp9w=
+Date: Sun, 21 Jun 2026 07:38:53 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: XIAO WU <xiaowu.417@qq.com>
+Cc: Alva Lan <alvalan9@foxmail.com>, sashal@kernel.org,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Pauli Virtanen <pav@iki.fi>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Subject: Re: [PATCH 6.6.y] Bluetooth: hci_conn: fix potential UAF in
+ set_cig_params_sync
+Message-ID: <2026062127-serve-valid-f1b2@gregkh>
+References: <tencent_42D87A0C871AE6AF019BF6AB46F003577205@qq.com>
+ <tencent_D72AF901D90EB103AEB5111845A7AC8FF705@qq.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <tencent_D72AF901D90EB103AEB5111845A7AC8FF705@qq.com>
 
-cec_transmit_msg_fh() drops adap->lock to wait for a blocking transmit in
-wait_for_completion_killable(). If that wait is interrupted by a signal,
-cancel_delayed_work_sync() can run before the CEC kthread arms the reply
-timeout via schedule_delayed_work(&data->work) in cec_transmit_done_ts().
-The work is then armed after the cancel, and the data is freed with its
-delayed_work still pending:
+On Sun, Jun 21, 2026 at 09:57:51AM +0800, XIAO WU wrote:
+> Hi,
+> 
+> I came across a Sashiko AI code review [1] that flagged a related
+> use-after-free in `get_l2cap_conn()` — it has the same lock-dropping
+> pattern that your patch fixes in `set_cig_params_sync()`.
+> 
+> I was able to trigger it in QEMU with KASAN on a 6.6.y kernel. Writing
+> to the 6lowpan debugfs control file races against connection teardown.
 
-  ODEBUG: free active (active state 0) object: ... hint: cec_wait_timeout
+That's a very old kernel version, can you try 7.1.1 please?  Also, can
+you just send a fix for it if it is an issue there?
 
-Use disable_delayed_work_sync(): it cancels the work and disables it, so
-the later schedule_delayed_work() becomes a no-op and the work cannot be
-re-armed. The data is freed right after, so it need not be re-enabled.
+thanks,
 
-Fixes: 490d84f6d73c ("media: cec: forgot to cancel delayed work")
-Reported-by: syzbot+051024d603432b4ab395@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=051024d603432b4ab395
-Suggested-by: Hillf Danton <hdanton@sina.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Biren Pandya <birenpandya@gmail.com>
----
-v2: Use disable_delayed_work_sync() instead of reordering the cancel, and
-    name the re-arm path. Suggested by Hillf Danton.
- drivers/media/cec/core/cec-adap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/cec-adap.c
-index 8f7244ac1d43..acb0b5483bbf 100644
---- a/drivers/media/cec/core/cec-adap.c
-+++ b/drivers/media/cec/core/cec-adap.c
-@@ -965,7 +965,7 @@ int cec_transmit_msg_fh(struct cec_adapter *adap, struct cec_msg *msg,
- 	 */
- 	mutex_unlock(&adap->lock);
- 	err = wait_for_completion_killable(&data->c);
--	cancel_delayed_work_sync(&data->work);
-+	disable_delayed_work_sync(&data->work);
- 	mutex_lock(&adap->lock);
- 
- 	if (err)
--- 
-2.50.1
-
+greg k-h
