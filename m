@@ -1,146 +1,150 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [185.100.197.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA629280CD5
-	for <stable@vger.kernel.org>; Sun, 21 Jun 2026 16:23:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 711EC25A2A2;
+	Sun, 21 Jun 2026 16:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782059002; cv=none; b=F0DVtsaWh4XsBNydBrxcHxQTttr9XQHqGJQ0ZGCWc62vjdgrrFpylx+uoM49VsEJ66Ca+sZL+iwPVrIHMAnXHHEmCkyrCeA++NOYJup2q5CcpqnMcQZ0s6yNjTxmar9/DxZ6l4quveDRPdXuvt2w2hBCwRriPn2vpgNYamSKlS0=
+	t=1782060415; cv=none; b=nFZM4K9z/kVz05NMi3nY+raKW8T5fGwUySQ05ih9qA3i9rr/t6v41UnODzMhVt7RTSVj4yCbQ0X7CgoZw4KaLzV1bq3paje86bWmSsWOjaQ4uOsgz7MFI1iBIW1P9rowgKBndCXulEOFcan2y0lHMkf5YiuYJU0kKlZnSyoH4gg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782059002; c=relaxed/simple;
-	bh=9D3krCGzGGlRpYwm56oiCtazTMOUWfsdff/eOQAoLCc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qKeGD2gRuTLH3LcMvYvQ8ZCVNtGY8YE/dyyMC/hQITx093dG0sFvtdGaIGJL1LZdAaTyr98mkEBp8rk9tJ7p4Nv6LZbEowgIwzWJMrjveoo3hkJvrPCL8BgC/sE56Fy+Ya73/oDElFxnxWCIntVgHhcT/Irqx17q6sgx5turMa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FxpgSqxr; arc=none smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782060415; c=relaxed/simple;
+	bh=STXvpeu7nQOPue5B6sSF92suZAxf9Rv5L2bRXa9ouAo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MgrtWlI1eh+0ka162mQ7kluJHkuKMuO42imOO2HnpeZsbKTAOLbDl2fhN6IYGEYq6FwCasBfRtmnMgbwgUvtkStNbrtWtVn9vkZULSPUq6uk8B/lAtkkxdOTgSKrF5JleaNQHn9C9qBaMQP9noY2P8CrtUXhEPQRnU1XfGlG1GQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=BUrFzYSf; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FxpgSqxr"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c07d76ffd0fso331665866b.0
-        for <stable@vger.kernel.org>; Sun, 21 Jun 2026 09:23:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782058999; x=1782663799; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=bybjcRHpNKQC6YvGZ5klSk+Kw3IBZ+UA74h0Z6azPxw=;
-        b=FxpgSqxrnao4Vm8hwmKmqnK2juuVgYq2RXc97q9qUqRJPYC9JZbXDSaIVENzznvWIS
-         KPbm3j+tZoTTmXRNPGeQ1eb24v0nki5bL6Rb7Ej0T1DDLB//PWyZPtwDtU9SIw8EBdk6
-         E+cioNtbyiDUAomJvc7saJkW7rhuX9SnJrFV5RCjeqowN5sW+2a/eP/S7jFxCJAsrxSs
-         lxVZdcSRJbLH4oG5b+2SNDBx5TaxNvTD6ZcTfuQwATCIb1qALJJbQznwop+PuzWk5YBW
-         QKtVVvV1H5mG1lP4cjhBMH89x0UrCwGLvb0fl9xRd3hLE6lNfDB2VT6/wnxBtWqTTDp8
-         Zhuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782058999; x=1782663799;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bybjcRHpNKQC6YvGZ5klSk+Kw3IBZ+UA74h0Z6azPxw=;
-        b=JGtBoL/Ila2rUzCQU0ugYsNd+7blQr4bveAEpDRjOd9GW7RVHoTZ0QCdI2ZahkjOxM
-         OFHpEWBmEkk3xOd65kKoEh5s4yhPY55jYl+7oivoHWkTBf3/nL/vM7gnReTeDMZ3KINf
-         sOAzSXoSSvdHR2vh1VobczlmXrVcWmD7f0/yNZeKXlYcHn4keyo2OVZZJ7qzQvK95BgV
-         CHlcM0TiG7nf2Q9C5dLMkNHNIbyJrWhUPBBapiKyK2HjGLv/QwGYzx/OsUWPqZkgRJ1b
-         ug4XrxDP7HnxqRLc9WRQctGkIaABn5cbkZqQThbIYsV2U+buYWoLLkcZkCe/Zrwrdijk
-         +bFA==
-X-Forwarded-Encrypted: i=1; AFNElJ+BUceJyHQjA1BwcK2eFM3rFtBxafXWc86Rd+39OwOlKWKu7Nl35FUQxxUbCGrvNjVoLAgzRAI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyqIz8zxQhuPOYpLjJHCRkCEBrJeJMg9W/OpnzMuRrCb65VKZv/
-	yfbzEPJHfNu01dfm/0B0/+1WrRq8SvRJLXjSM+Pu0frz7lLA7Fxjed/K
-X-Gm-Gg: AfdE7claXmaUsVSPkrLJjybba9yvouAbwcZcEy9oXpmlg9jJBhz5RA1KYoGUDM3NcLZ
-	3uIN6tdhdPhVuNR+wieJiG1xgdDDcZ8sdzZ1igvFzA1FNrhmUeabA5rHAE05mihtpe7taJeUuEf
-	EdxfjPUeXWSy5SzJkdKgYThlZmv0evofsp6LhCouHwg9S5Jt6dSf/EHDKkUHjU0xZKvUlz4b+bE
-	YLFlYEftJEU2tjovd72G5/qSRSyMioEXw856nlUo+zOSNUsNsa2wW+gJ0iOFj0QlF+66sj/oAdi
-	4V2vDdgdFfujieqZ9LWP4LVzxkh/G1XnpVgJHfsFGPNATvUO68FBn2dE/KFjmNBDxXtA2qn1jgW
-	BLDwaacYxM1Howoi1EkrFQq6MsaA/ZNCRLuXHNGR8BgyIRI1mnhJQFX9kQocS68n3TlcBiUUcRJ
-	Xow1sNBAKuoKSRLdLO+FgIGoWCTrT4t0ozuOgQZr4fJyNVp6uyXrMKk21UW0q51BE=
-X-Received: by 2002:a17:907:3f89:b0:bf0:550:d9f with SMTP id a640c23a62f3a-c0b743ac8e1mr482252966b.31.1782058998924;
-        Sun, 21 Jun 2026 09:23:18 -0700 (PDT)
-Received: from node ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c5ef8acaesm216907366b.27.2026.06.21.09.23.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Jun 2026 09:23:17 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Iulia Tanasescu <iulia.tanasescu@nxp.com>,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: ISO: avoid NULL deref of conn in iso_conn_big_sync()
-Date: Sun, 21 Jun 2026 21:23:05 +0500
-Message-ID: <20260621162305.219763-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="BUrFzYSf"
+Received: from [10.0.0.200] (unknown [10.88.125.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id F38655340EE1;
+	Sun, 21 Jun 2026 18:46:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1782060410;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=QB4kZzq0d7QARlHOMNAX0CIwDMajl4yKzadziq8ERbs=;
+	b=BUrFzYSfH8uZgw2BLqsXO02B28Ees4sWKW6eM6lu3xxx4TIwSbqIMY22cvYdqnBVodAHKu
+	dLt9BYndBTFX4FLqAzt3ZMj7CbFPKf0ujuX/F+AcY1J5mDrvioQujA+pkuRqiedgWs7uDf
+	ivohex+RYD95g11eQ8VfPQC1jzw/NoA=
+Message-ID: <415b6372-9bb5-4488-b7e2-3873066ff912@ixit.cz>
+Date: Sun, 21 Jun 2026 18:46:49 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] nfc: nci: validate packet length when parsing NCI 2.x
+ RF interfaces
+To: Zijing Yin <yzjaurora@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260611162718.2301552-1-yzjaurora@gmail.com>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260611162718.2301552-1-yzjaurora@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-iso_conn_big_sync() drops the socket lock to call hci_get_route() and
-then re-acquires it, but dereferences iso_pi(sk)->conn->hcon afterwards
-without re-checking that conn is still valid.
+On 11/06/2026 18:27, Zijing Yin wrote:
+> nci_core_init_rsp_packet_v2() parses the variable-length list of
+> supported RF interfaces carried in an NCI 2.x CORE_INIT_RSP without ever
+> validating the controller-supplied lengths against the size of the
+> received packet.
+> 
+> Each list entry is a (RF interface, RF extension count, RF extensions[])
+> tuple. The loop walks the list using the per-entry extension count
+> (rf_extension_cnt, up to 255) taken straight from the packet, so a
+> malformed CORE_INIT_RSP can advance the read pointer far past the end of
+> the skb data buffer. The stored interface count is clamped to
+> NCI_MAX_SUPPORTED_RF_INTERFACES so the write side is bounded, but the
+> read side runs off the end of the buffer.
+> 
+> A malformed CORE_INIT_RSP from the controller, also reachable from user
+> space through the virtual NCI device (CONFIG_NFC_VIRTUAL_NCI) once the
+> device has entered NCI 2.x mode, therefore makes the parser read past the
+> end of the response buffer while walking the interface list, copying the
+> out-of-bounds bytes into ndev->supported_rf_interfaces[].
+> 
+> Reject responses shorter than the fixed part of the structure, and make
+> sure each interface entry and its extension bytes lie within the received
+> packet before dereferencing them. A truncated or malformed list is
+> treated as a syntax error, which fails the CORE_INIT request instead of
+> reading out of bounds.
+> 
+> Fixes: bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zijing Yin <yzjaurora@gmail.com>
+> ---
+>   net/nfc/nci/rsp.c | 18 +++++++++++++++++-
+>   1 file changed, 17 insertions(+), 1 deletion(-)
+> 
 
-While the lock is dropped, the connection can be torn down under the
-same socket lock: iso_disconn_cfm() -> iso_conn_del() -> iso_chan_del()
-sets iso_pi(sk)->conn to NULL (and the broadcast teardown path can also
-clear conn->hcon on its own). When iso_conn_big_sync() re-acquires the
-lock and reads conn->hcon, conn may be NULL, causing a NULL pointer
-dereference (hcon is the first member of struct iso_conn).
+Hello Zijing,
 
-This path is reached from iso_sock_recvmsg() for a PA-sync broadcast
-sink socket (BT_SK_DEFER_SETUP | BT_SK_PA_SYNC), so the dropped-lock
-window can race with connection teardown driven by controller events.
+in meanwhile [1] got merged earlier patch, which also seems to address the issue.
 
-Re-validate iso_pi(sk)->conn and its hcon after re-acquiring the socket
-lock and bail out if the connection went away, as already done in the
-sibling iso_sock_rebind_bc().
+Could you review that the issue is now fixed for you?
 
-Fixes: 7a17308c17880d ("Bluetooth: iso: Fix circular lock in iso_conn_big_sync")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
- net/bluetooth/iso.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+The NFC tree is here [2].
 
-diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-index 3abd8111dda83..7186e8d88c757 100644
---- a/net/bluetooth/iso.c
-+++ b/net/bluetooth/iso.c
-@@ -1589,6 +1589,7 @@ static void iso_conn_big_sync(struct sock *sk)
- {
- 	int err;
- 	struct hci_dev *hdev;
-+	struct iso_conn *conn;
- 	bdaddr_t src, dst;
- 	u8 src_type;
- 
-@@ -1611,8 +1612,17 @@ static void iso_conn_big_sync(struct sock *sk)
- 	hci_dev_lock(hdev);
- 	lock_sock(sk);
- 
-+	/* The socket lock was dropped for hci_get_route(), so the connection
-+	 * may have been torn down meanwhile: iso_chan_del() clears conn and
-+	 * the broadcast teardown path can clear conn->hcon on its own. Check
-+	 * both before dereferencing conn->hcon.
-+	 */
-+	conn = iso_pi(sk)->conn;
-+	if (!conn || !conn->hcon)
-+		goto unlock;
-+
- 	if (!test_and_set_bit(BT_SK_BIG_SYNC, &iso_pi(sk)->flags)) {
--		err = hci_conn_big_create_sync(hdev, iso_pi(sk)->conn->hcon,
-+		err = hci_conn_big_create_sync(hdev, conn->hcon,
- 					       &iso_pi(sk)->qos,
- 					       iso_pi(sk)->sync_handle,
- 					       iso_pi(sk)->bc_num_bis,
-@@ -1621,6 +1631,7 @@ static void iso_conn_big_sync(struct sock *sk)
- 			bt_dev_err(hdev, "hci_big_create_sync: %d", err);
- 	}
- 
-+unlock:
- 	release_sock(sk);
- 	hci_dev_unlock(hdev);
- 	hci_dev_put(hdev);
--- 
-2.54.0
+Thank you and sorry for the late reply
+David
 
+
+
+[1] https://lore.kernel.org/all/20260527052625.3309581-1-yun.zhou@windriver.com/
+[2] https://codeberg.org/linux-nfc/linux
