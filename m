@@ -1,153 +1,93 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7501578F59;
-	Sun, 21 Jun 2026 02:01:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D14072623;
+	Sun, 21 Jun 2026 03:18:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782007307; cv=none; b=HKGMtGI3W/j8h6AeKKx3USPxbVB/zA1XHnnKagYm8HTnzaqDRxkIrHSMjMSU0liq/pzlu8ixX7kczTE9h4mMAzpkM2G47vtRkwWBGgWEa3X3o47Jrj1yuxQRE5XYq+fk4T73Lmx8HG6ogSxM0CwyY/2gsgH3qYAzsF3q9mERuEU=
+	t=1782011940; cv=none; b=YHYwfwbSTp9GebO9ap+TubI7d2Kl3qGWjk1GUaOsN0kEev5Hllo3eny65LA7vv4WtN1kJ9GGabqHP8Z98Q4SbeKMctbjgDtJ4gNq3gJuEwMwBzz+Xj2xW71+I/UXA77oFFRZP/1hbC/B6eaKMGLbfTtcVfk+5o5QPpBPj48l39g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782007307; c=relaxed/simple;
-	bh=IG8s0ziE1yQkJWxxCfcPELA8jEth+tvSbd5/lyQPkOw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aYplFz2iGxFq8UbyahKOrwopjnxNC6yCsHbCe2suh+/+2yphpk59F5SV4uldKDt1O90ugy2+4MiAmMrPddsJnaC4HdmBFyU+k2evyQYZ7ohtGsKSla6FEJUaTdx9V9LKZ+z3ZLsF71zlHol09y28gldIMKvw91Ko3bl8Sh48qhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=l2WJ1m4K reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1782011940; c=relaxed/simple;
+	bh=mkbMD+7zYAGDcZYs3QlObBY1EwK96OR38KEFRiqawnk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=V+/hHNuRlVQZC7Gi2/4gs6vkJJhRACWvCFI7CxIx1J8pFVMGBCtD1wVoCQdLAikYiz6iNsP6lSRWOUAsEqOlru0OnNMnHYe13RLk2WbWHbP0K+h/HLdvcPee7cqfObHYtSMS1h44rvQglu/F8GwLMRsjRBawxAUkubBGPjLncyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HQ1ky3GI; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="l2WJ1m4K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
-	MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=KSehoijHj
-	KLAFNgMhcpRQlFttsdXLavDyC+04q9ZjeA=; b=l2WJ1m4KByDAt3171Ehf+Lsat
-	ivEPDKv60ZPWVcVaUWhwXskfc3jrthTdnr1bZZQNIBWlV1FaxDMhga0W4I3KX+qF
-	I9ViwRjyIZCGn+shLdvMByfu8Wd7k3al0SF4Lh6GKwO2ORpWE4M4+26jwR3p8b9w
-	sD7CYbA9Cf/gxHnhNk=
-Received: from [10.196.180.86] (unknown [113.200.174.80])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with SMTP id BbQMCkB2mjT_RTdqenX5Ag--.46181S3;
-	Sun, 21 Jun 2026 10:01:37 +0800 (CST)
-Message-ID: <4a3fe921-77fb-4b5f-8403-43bb7ea40935@stu.xidian.edu.cn>
-Date: Sun, 21 Jun 2026 10:01:35 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HQ1ky3GI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ms
+	ZxSSxn9EyZY/UGjk9JvrVC6Nu7xVFKZEtKn+1E0AM=; b=HQ1ky3GIyAQ7N04dit
+	aDgAarWX5h/j3jt8r30H2IFzMoCmCI5nBKz7to9/N16d8S86fcXcBsrs4H4x65eR
+	R4DXnRHUV5Z2xc7XIoH9mln6H48nu1dr05Vstu3R66DfbgRiSoFwxEm71Imtd0Rv
+	KsYJV+7JlZtBNjnYw3jG1LnOk=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wAnsXi6Vzdq_vrOEw--.27839S2;
+	Sun, 21 Jun 2026 11:17:16 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: chandrashekar.devegowda@intel.com,
+	haijun.liu@mediatek.com,
+	ricardo.martinez@linux.intel.com,
+	loic.poulain@oss.qualcomm.com,
+	ryazanov.s.a@gmail.com,
+	johannes@sipsolutions.net,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	ilpo.jarvinen@linux.intel.com
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: wwan: t7xx: destroy DMA pool on CLDMA late init failure
+Date: Sun, 21 Jun 2026 11:17:14 +0800
+Message-Id: <20260621031714.3605022-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] i2c: i801: fix hardware state machine corruption in
- error path
-To: Andi Shyti <andi.shyti@kernel.org>, jdelvare@suse.com
-Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, w15303746062@163.com
-References: <20260512093534.348655-1-w15303746062@163.com>
- <aicfiAEdlbGmKIAU@zenone.zhora.eu>
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-In-Reply-To: <aicfiAEdlbGmKIAU@zenone.zhora.eu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkB2mjT_RTdqenX5Ag--.46181S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxWFyUXF17Jr1xXF43JryxZrb_yoW5Zw45pa
-	yUKws0krWDt3WjkF1UXr43uFyF9w17GrWjkr1kt3WUZa13CF1xZryIqFyY9FWkZr97Zw4a
-	qw1jqF9xuF1qvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7Cj
-	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
-	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
-	6r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
-	IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
-	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf
-	9x07bY9N-UUUUU=
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgULEWo2rnInqwAAsR
+X-CM-TRANSID:_____wAnsXi6Vzdq_vrOEw--.27839S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1ktr1xurWDGry3ZFy3XFb_yoWkGrXE9r
+	nYyF97Wwnrtay0kF1UtFZ5ZFyFkrWS9FsYgF97t3yFq3yUZ34fCws3uFy3G3W7CF4Yyr9r
+	ur1DJa4UAryxJjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUU0D73UUUUU==
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7Rxt22o3V7wKpwAA3c
 
-Hi Jean,
+t7xx_cldma_late_init() creates md_ctrl->gpd_dmapool before
+initializing the TX and RX rings. If any ring initialization
+fails, the error path frees the already initialized rings but
+leaves the DMA pool allocated.
 
-Just a gentle ping on this patch following up on Andi's message.
-Please let me know if you have any questions or if further changes are 
-needed.
+Destroy md_ctrl->gpd_dmapool on the late-init failure path
+to avoid leaking the DMA pool.
 
-Best regards,
+Fixes: 39d439047f1d ("net: wwan: t7xx: Add control DMA interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+ drivers/net/wwan/t7xx/t7xx_hif_cldma.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Mingyu
-
-在 2026/6/9 4:01, Andi Shyti 写道:
-> Hi Jean,
->
-> could you please take a look here?
->
-> Thanks,
-> Andi
->
-> On Tue, May 12, 2026 at 05:35:34PM +0800, w15303746062@163.com wrote:
->> From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
->>
->> A severe livelock and subsequent Hung Task panic were observed in the
->> i2c-i801 driver during concurrent Fuzzing. The crash is caused by an
->> unconditional hardware register cleanup in the error handling path of
->> i801_access().
->>
->> When i801_check_pre() fails (e.g., returning -EBUSY because the SMBus
->> controller is actively used by BIOS/ACPI), the kernel does not actually
->> acquire the hardware ownership. However, the code jumps to the 'out'
->> label and executes:
->>
->>      iowrite8(SMBHSTSTS_INUSE_STS | STATUS_FLAGS, SMBHSTSTS(priv));
->>
->> This forcefully clears the INUSE_STS lock and resets the hardware status
->> flags without owning the controller. Doing so interrupts ongoing BIOS/ACPI
->> transactions and totally corrupts the SMBus hardware state machine.
->>
->> Consequently, all subsequent i801_access() calls fail at the pre-check
->> stage, triggering an endless stream of "SMBus is busy, can't use it!"
->> error logs. Over a slow serial console, this printk flood monopolizes
->> the CPU (Console Livelock), starving other processes trying to acquire
->> the mmap_lock down_read semaphore, ultimately triggering the hung task
->> watchdog.
->>
->> Fix this by moving the 'out' label below the hardware register cleanup.
->> If i801_check_pre() fails, we safely bypass the iowrite8() and only
->> release the software locks (pm_runtime and mutex), strictly adhering to
->> the rule of not releasing resources that were never acquired.
->>
->> Fixes: 1f760b87e54c ("i2c: i801: Call i801_check_pre() from i801_access()")
->> Cc: stable@vger.kernel.org # v6.3+
->>
->> Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
->> ---
->> Changes in v2:
->>   - Reused and moved the existing 'out' label instead of adding a new one,
->>     fixing a build warning regarding an unused label.
->>   - Dropped the inaccurate mention of "another thread" in the commit message,
->>     as i801_access() is serialized by a mutex.
->>   - Added Fixes and Cc stable tags as suggested.
->>
->>   drivers/i2c/busses/i2c-i801.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/i2c/busses/i2c-i801.c b/drivers/i2c/busses/i2c-i801.c
->> index 32a3cef02c7b..b29c99ed3883 100644
->> --- a/drivers/i2c/busses/i2c-i801.c
->> +++ b/drivers/i2c/busses/i2c-i801.c
->> @@ -931,13 +931,13 @@ static s32 i801_access(struct i2c_adapter *adap, u16 addr,
->>   	 */
->>   	if (hwpec)
->>   		iowrite8(ioread8(SMBAUXCTL(priv)) & ~SMBAUXCTL_CRC, SMBAUXCTL(priv));
->> -out:
->>   	/*
->>   	 * Unlock the SMBus device for use by BIOS/ACPI,
->>   	 * and clear status flags if not done already.
->>   	 */
->>   	iowrite8(SMBHSTSTS_INUSE_STS | STATUS_FLAGS, SMBHSTSTS(priv));
->>   
->> +out:
->>   	pm_runtime_put_autosuspend(&priv->pci_dev->dev);
->>   	mutex_unlock(&priv->acpi_lock);
->>   	return ret;
->> -- 
->> 2.34.1
->>
+diff --git a/drivers/net/wwan/t7xx/t7xx_hif_cldma.c b/drivers/net/wwan/t7xx/t7xx_hif_cldma.c
+index e10cb4f9104e..2917cee9b802 100644
+--- a/drivers/net/wwan/t7xx/t7xx_hif_cldma.c
++++ b/drivers/net/wwan/t7xx/t7xx_hif_cldma.c
+@@ -1063,6 +1063,9 @@ static int t7xx_cldma_late_init(struct cldma_ctrl *md_ctrl)
+ 	while (i--)
+ 		t7xx_cldma_ring_free(md_ctrl, &md_ctrl->tx_ring[i], DMA_TO_DEVICE);
+ 
++	dma_pool_destroy(md_ctrl->gpd_dmapool);
++	md_ctrl->gpd_dmapool = NULL;
++
+ 	return ret;
+ }
+ 
+-- 
+2.25.1
 
