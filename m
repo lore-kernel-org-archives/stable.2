@@ -1,85 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com [91.218.175.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD9412B94;
-	Mon, 22 Jun 2026 01:26:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E3A322A
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 01:42:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782091563; cv=none; b=ds7hBUkyox8BktkWGlwyyCyiynPUnVzT6tZ7jwCZDtHwqxoQ2rUaXWy2xTvC372jqO4NdDxs9Ryf/H+tn66vslFyc6XOoGXRrTS57aZ9UBsVyqQYsuGVaKM/KCisEerF78ZdT3LAKy9h4lp7TBW8UTkxUaj/TN7VxZYUtjprAtA=
+	t=1782092552; cv=none; b=DfCSEgkywggQ8SzLs+igXvaE8MWwEMp7RXU9i0xWQIGqMKT5R85guagL8PN78s3KgUEXLrrUtwXwNCsWQDTNCdL4Q2VnqljpCG5fmMwTOp0lloqmUEHpWqZ/9NbFZ0ZKw4xvNqxDhaXNidCJ1t7S1K4KApdEsXSFq4obDKLWBtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782091563; c=relaxed/simple;
-	bh=FYXFG0/TfrGv4Al8kmRQ7eXUqLItVkQl0lZqAhBTFm8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IwuXh0xiz6/Q4vIQzxkf/Jlhg+TmkagnAXJJVS/ByUOoMnYzEBfJZFAl82ytLwT/yZM7lDhhtJwW03JweYZTpOHZ2Z/frnhN+my3WYZQ4pQkhaOoQPWKLxS/Tr0wuHxfsB/dGZD0dTuVHeXgq9rakShaUv0Ef0rhY0Jo/+qo03Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kFOwmDBj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782092552; c=relaxed/simple;
+	bh=Cz9Ld5YcxQmdCb3wmnb9RHjpjGqk0/1visOeYkHsGw4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ehC6vCw67iW9BvRJ9k8Q8ARX78VgMWc+RJHSA6KYJOpnMdkL6tOyPOjf12zn+yOuVmSINCIlIG21X98DzhXRnmb/AmUnhNoHkyzB+WKkOelQdAqiM5pCKM2S7S3J/T6e683ix1gPvtJ7cFotjA4P5f7J1D34Az5cwCpDXeTLwUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wkgpIn8o; arc=none smtp.client-ip=91.218.175.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kFOwmDBj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278651F000E9;
-	Mon, 22 Jun 2026 01:26:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782091561;
-	bh=vBFFAv4vJY9m1MG+5W9luTeAXHDARWP5cNSg2vooz3U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kFOwmDBjjR11fKsVXuVmgdhFZnKk7RG5CjEKiNFukgYAkoBi2WBKHMMFHKttLyVRg
-	 lBUVHP5I+5cJ2SoqWA+nFwfJSbcgIW2aDqylGEKMK6Y/R6sKc37T7g5fBJLuOG1//h
-	 YjIqw5IujmMTnv6wyoBuqBu5aEEmjPiST3jWnw9nODD8H/BAllPj49XRupC05KKy+7
-	 8h/AgwseMLDul5xdphUH689dFKka4bUa43vPqq/s3ZXsEEJnA6Gox3BpAabgwYU882
-	 roTFeFsUa0sBL2zF7ZAZjSSYrcrGzJ+1bny8h3H/CZSeoR+fRx7xlBIz0BVMX2wLJw
-	 JNgsBbIALVETw==
-From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Ben Hutchings <ben@decadent.org.uk>
-Subject: Re: [PATCH 6.1 342/522] thermal: core: Fix thermal zone governor cleanup issues
-Date: Sun, 21 Jun 2026 21:25:58 -0400
-Message-ID: <20260621212034.0001.sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <42c2abbdfdd4ea8e234fbcfc4b37095ebd2c7b36.camel@decadent.org.uk>
-References: <42c2abbdfdd4ea8e234fbcfc4b37095ebd2c7b36.camel@decadent.org.uk>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wkgpIn8o"
+Message-ID: <e7f3385a-953d-4e82-9e84-30029da7747b@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782092539;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ed3uADOh58bQx7YJ5G5Wy/xNlbT1GNIfgqT8EJ3Y7qI=;
+	b=wkgpIn8ovHyf81iFJXdi+qeQV71iHuM/ENCcPR8lAkanzvkNzaj4agu+xqnWVn5sA/4R50
+	anrOG9hy3OpZSEu7C3xGhAD+unhZ9cnyvkeTi8b2svHXytYrfq0dPaBxXjl1dpJHvRmhkA
+	JTAdvXYfpCgxmJTF4KzgR2JiLUb74rQ=
+Date: Mon, 22 Jun 2026 09:42:10 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v7 1/9] cgroup/cpuset: rebind mm mempolicy to
+ effective_mems, not mems_allowed
+To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Li Zefan <lizefan@huawei.com>,
+ Farhad Alemi <farhad.alemi@berkeley.edu>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Aaron Tomlin <atomlin@atomlin.com>, Guopeng Zhang <guopeng.zhang@linux.dev>,
+ Gregory Price <gourry@gourry.net>, David Hildenbrand <david@kernel.org>,
+ stable@vger.kernel.org
+References: <20260621032816.1806773-1-longman@redhat.com>
+ <20260621032816.1806773-2-longman@redhat.com>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20260621032816.1806773-2-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-On Sun, 2026-06-21 at 17:29 +0200, Ben Hutchings wrote:
-> > 	result = thermal_zone_create_device_groups(tz, mask);
-> > -	if (result)
-> > +	if (result) {
-> > +		thermal_set_governor(tz, NULL);
-> >  		goto remove_id;
-> > +	}
->
-> The order of initialisation in thermal_zone_device_register_with_trips()
-> is quite different between 6.1 and mainline.  Clearing the governor here
-> doesn't make sense as the governor has not been set yet.
->
-> The proper place for this in 6.1 seems to be in the failure path after
-> calling thermal_add_hwmon_sysfs().
 
-Right... looks like it's just a noop.
 
-Although it seems that  the leak it's meant to plug is still covered on the
-affected path. When registration fails after thermal_add_hwmon_sysfs() (the
-path where the governor *has* been set), the unwind goes through
-device_unregister() -> put_device() -> thermal_release(), and the
-thermal_release() hunk in this same backport adds thermal_set_governor(tz,
-NULL) there:
+On 6/21/2026 11:28 AM, Waiman Long wrote:
+> From: Farhad Alemi <farhad.alemi@berkeley.edu>
+> 
+> Creating a child cpuset where cpuset.mems is never set leads to a div/0
+> when a VMA mempolicy with MPOL_F_RELATIVE_NODES rebinds in response to a
+> CPU hotplug event.
+> 
+> Reproduction steps:
+>   1) Create a cgroup w/ cpuset controls (do not set cpuset.mems)
+>   2) Move the task into the child cpuset
+>   3) Create a VMA mempolicy for that task with MPOL_F_RELATIVE_NODES
+>   4) unplug and hotplug a cpu
+>        echo 0 > /sys/devices/system/cpu/cpu1/online
+>        echo 1 > /sys/devices/system/cpu/cpu1/online
+>   5) mempolicy rebind does a div/0 in mpol_relative_nodemask on the
+>      call to __nodes_fold()
+> 
+> The cpuset code passes (cs->mems_allowed) which is not guaranteed to have
+> nodes to the rebind routine.  Use cs->effective_mems instead, which is
+> guaranteed to have a non-empty nodemask.
+> 
+> Closes: https://lore.kernel.org/linux-mm/CA+0ovCgxbZkXa+OU8w3s84R3KNPNxxRfmsNR-udh+afQBbGNmw@mail.gmail.com/
+> Link: https://lore.kernel.org/all/CA+0ovCiEz6SP_sn3kN4Tb+_oC=eHMXy_Ffj=usV3wREdQrUtww@mail.gmail.com/
+> Fixes: ae1c802382f7 ("cpuset: apply cs->effective_{cpus,mems}")
+> Suggested-by: Gregory Price <gourry@gourry.net>
+> Suggested-by: Waiman Long <longman@redhat.com>
+> Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+> Acked-by: Waiman Long <longman@redhat.com>
+> Cc: stable@vger.kernel.org
+> ---
+>   kernel/cgroup/cpuset.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 591e3aa487fc..b21c31650583 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2653,7 +2653,7 @@ void cpuset_update_tasks_nodemask(struct cpuset *cs)
+>   
+>   		migrate = is_memory_migrate(cs);
+>   
+> -		mpol_rebind_mm(mm, &cs->mems_allowed);
+> +		mpol_rebind_mm(mm, &cs->effective_mems);
+>   		if (migrate)
+>   			cpuset_migrate_mm(mm, &cs->old_mems_allowed, &newmems);
+>   		else
 
-> > 		tz = to_thermal_zone(dev);
-> > 		thermal_zone_destroy_device_groups(tz);
-> > +		thermal_set_governor(tz, NULL);
-> > 		kfree(tz);
+Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
 
-That is the same put_device->release mechanism mainline relies on, so
-the governor is unbound before the thermal zone is freed and the leak
-does not occur.
+-- 
+Best regards
+Ridong
 
---
-Thanks,
-Sasha
