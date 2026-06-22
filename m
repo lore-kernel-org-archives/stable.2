@@ -1,129 +1,150 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CCB326945;
-	Mon, 22 Jun 2026 15:04:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94330244675;
+	Mon, 22 Jun 2026 15:19:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782140682; cv=none; b=Jb4gwgBDhvUwKyDcnlThgVInWKP/f3HwVqt+LVqe1ZJQa+lm/IH4CI24L9xwlcybemwMWP53CjH5sQpNKkjALKMo3OuWyGA5LVjMLE6tlXWgS8gjqtpTHwrvsbCwWIf5oCye/q6O8wdQgqb/CfM2nDYq0Jgx5Or3qA//DOsEMIo=
+	t=1782141564; cv=none; b=IISZMAFZdLt/7UbF68SZANnmo06GUJz4983jdVxpOhJfhkQsmLyVaq7PTbiEWsCzlhdE0qC5jLiGB+U9NnKkueQjs/4shbKqpA2A/g4Rf/8WXNezeRTf6p1q21XvvxSDUI9A5BT5LotN9hjDG+UfOiZJHOMNz5vbf0dckqpBDMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782140682; c=relaxed/simple;
-	bh=ggoK9rJ/xNRVxQ/PfgcSzYDOQgbNl4H3XBAyywGAyXs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UqUCxRr+ArkaG8st2yU3VWZcuQROQ1oX3ki/F7QMqY7yzc18OodGe8/PgtDN5TNMwzuHkIHMBXlaQfnO22ntiEmZQ8bUlo10op1TNOia9zTxeiu7FmAwziFfw0gR8uR1IEBcG++Z3hetUX/7URup5KjFZzmdwMheSx7evHkSI6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WjWOeg23; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WjWOeg23"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782140681; x=1813676681;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=ggoK9rJ/xNRVxQ/PfgcSzYDOQgbNl4H3XBAyywGAyXs=;
-  b=WjWOeg23qlUlAV46YSN6H3KM9eyDJZpJ5lAAneldDItHV7RqoiZimbUz
-   AjWL7HZZhmOrNca/IcLWFKAjY35xgA6Di6nUkHHvBRCXSsLR+o3+gMoDe
-   /dsEJAPXQwK6gKRbaeChvnsepVRkAhZPeFpRlmnm/ogJfSPq96po4D3zL
-   c8TgTDuIf/d3Z4Cyo0L9H5gDDtUFS3ghETvLHcvZdLX4yljCzNeSjr6Sa
-   PQtoVGkxg0nABXKRrSbR90Q4tDncLtNSKaTlxSLg7LfXZdhU7s8ANngqR
-   d135uzFoS7G3zzqRlvz0m2XubsTyJbAWWVq42+xPkS4mIl2jniPVp1Lhj
-   Q==;
-X-CSE-ConnectionGUID: 4MZNVLwFQeW23wUDsI7eOw==
-X-CSE-MsgGUID: W6NiEzvNSgefVSvkHOvffg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="100423307"
-X-IronPort-AV: E=Sophos;i="6.24,219,1774335600"; 
-   d="scan'208";a="100423307"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jun 2026 08:04:40 -0700
-X-CSE-ConnectionGUID: fQbYDY+jReKfkJfsMW0O6Q==
-X-CSE-MsgGUID: yVfqrxArSNqpYSY7wlmorg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,219,1774335600"; 
-   d="scan'208";a="249105435"
-Received: from spandruv-desk2.jf.intel.com ([10.88.27.176])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jun 2026 08:04:41 -0700
-Message-ID: <5f34e8cbff2c92f58831cbac9239c3251389da53.camel@linux.intel.com>
-Subject: Re: [RESEND PATCH] platform/x86: ishtp_eclite: fix ACPI device
- reference leak in probe error path
-From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
-To: Ma Ke <make_ruc2021@163.com>, hansg@kernel.org, 
-	ilpo.jarvinen@linux.intel.com, sumesh.k.naduvalath@intel.com, 
-	mgross@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	akpm@linux-foundation.org, stable@vger.kernel.org
-Date: Mon, 22 Jun 2026 08:04:40 -0700
-In-Reply-To: <20260622070352.689982-1-make_ruc2021@163.com>
-References: <20260622070352.689982-1-make_ruc2021@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+	s=arc-20240116; t=1782141564; c=relaxed/simple;
+	bh=iBwmvKevVolFhLql59YnzV3ie1X7obFkzvuuRhqWefs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=I7RpQlK4ZhGCEQjJAGhlDFqF8VBXz4Fl0bMUWViBDv21YGBhev8XnhxG1A6xFuVCf3o0UvkvTytdBjE9vPRdeMWdzIbvr8ALXOAm7LXYUlAEPOYNk3bPU2QnOPGN7mpZqhZYZZ0yrqf0cjMpLRUsFDSJou5T0Cv2GDxliZYtFEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.74.238])
+	by APP-01 (Coremail) with SMTP id qwCowACXO9RwUjlqCILBAg--.27065S2;
+	Mon, 22 Jun 2026 23:19:14 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Ayush Sawal <ayush.sawal@chelsio.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] Fix multiple issues in chcr driver:
+Date: Mon, 22 Jun 2026 23:19:10 +0800
+Message-Id: <20260622151910.49402-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowACXO9RwUjlqCILBAg--.27065S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxZr1xKFWDJw1rury8Ww15Arb_yoW5uF1rpF
+	s8CFZayryrJr17GF92yws5Wa43A3y3uF43CrWFya40vwsYqrykXaykZF1jvF1fGFWrG3yU
+	ZwsrXa1fCa4UG37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjJ73PUUUU
+	U==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCQ4GA2o5I0xylAABsZ
 
-On Mon, 2026-06-22 at 15:03 +0800, Ma Ke wrote:
+1. In chcr_ahash_final() and chcr_ahash_digest(), chcr_send_wr()
+   return value is not checked. If it fails, DMA buffers are not
+   unmapped, causing leaks.
 
-Why Resend?
+2. In chcr_aead_op(), the inflight counter is not decremented when
+   assoclen validation fails.
 
-I like the first character after ishtp_eclite: to be upper case as the
-first version of the driver (Later than convention broke). If you
-happen to report for any region, you can change that.
+Fix by:
+- Adding error handling for chcr_send_wr() with goto unmap
+- Adding chcr_dec_wrcount() on the assoclen error path
 
-> ecl_ishtp_cl_probe() acquires a reference to an ACPI device via
-> acpi_find_eclite_device() but fails to release it in the error path
-> when acpi_opregion_init() fails. This results in a reference count
-> leak, preventing proper cleanup of the ACPI device.
->=20
+Fix the following functions with missing decrement on error paths:
+- chcr_aes_encrypt()
+- chcr_aes_decrypt()
+- chcr_aead_op()
 
-Change is good.
+For chcr_aes_encrypt() and chcr_aes_decrypt(), use a common error
+label to decrement the counter. For chcr_aead_op(), use the existing
+chcr_dec_wrcount() helper on the invalid assoclen error path.
 
-> Calling path: acpi_find_eclite_device() ->
-> acpi_dev_get_first_match_dev() -> acpi_dev_get_next_match_dev() ->
-> bus_find_device() -> get_device().
->=20
-> Found by code review.
->=20
-> Signed-off-by: Ma Ke <make_ruc2021@163.com>
-> Cc: stable@vger.kernel.org
-> Fixes: 7b6bf51de974 ("platform/x86: Add Intel ishtp eclite driver")
+Cc: stable@vger.kernel.org
+Fixes: b8fd1f4170e7 ("crypto: chcr - Add ctr mode and process large sg entries for cipher")
+Fixes: d91a3159e8d9 ("Crypto/chcr: fix gcm-aes and rfc4106-gcm failed tests")
+Fixes: 324429d74127 ("chcr: Support for Chelsio's Crypto Hardware")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/crypto/chelsio/chcr_algo.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-    Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+diff --git a/drivers/crypto/chelsio/chcr_algo.c b/drivers/crypto/chelsio/chcr_algo.c
+index 6dec42282768..e431e8c1fdbd 100644
+--- a/drivers/crypto/chelsio/chcr_algo.c
++++ b/drivers/crypto/chelsio/chcr_algo.c
+@@ -1359,7 +1359,7 @@ static int chcr_aes_encrypt(struct skcipher_request *req)
+ 	err = process_cipher(req, u_ctx->lldi.rxq_ids[reqctx->rxqidx],
+ 			     &skb, CHCR_ENCRYPT_OP);
+ 	if (err || !skb)
+-		return  err;
++		goto error;
+ 	skb->dev = u_ctx->lldi.ports[0];
+ 	set_wr_txq(skb, CPL_PRIORITY_DATA, reqctx->txqidx);
+ 	chcr_send_wr(skb);
+@@ -1402,11 +1402,15 @@ static int chcr_aes_decrypt(struct skcipher_request *req)
+ 	err = process_cipher(req, u_ctx->lldi.rxq_ids[reqctx->rxqidx],
+ 			     &skb, CHCR_DECRYPT_OP);
+ 	if (err || !skb)
+-		return err;
++		goto error;
+ 	skb->dev = u_ctx->lldi.ports[0];
+ 	set_wr_txq(skb, CPL_PRIORITY_DATA, reqctx->txqidx);
+ 	chcr_send_wr(skb);
+ 	return -EINPROGRESS;
++
++error:
++	chcr_dec_wrcount(dev);
++	return err;
+ }
+ static int chcr_device_init(struct chcr_context *ctx)
+ {
+@@ -1877,7 +1881,10 @@ static int chcr_ahash_finup(struct ahash_request *req)
+ 	req_ctx->hctx_wr.processed += params.sg_len;
+ 	skb->dev = u_ctx->lldi.ports[0];
+ 	set_wr_txq(skb, CPL_PRIORITY_DATA, req_ctx->txqidx);
+-	chcr_send_wr(skb);
++	if (chcr_send_wr(skb)) {
++		error = -EIO;
++		goto unmap;
++	}
+ 	return -EINPROGRESS;
+ unmap:
+ 	chcr_hash_dma_unmap(&u_ctx->lldi.pdev->dev, req);
+@@ -1978,7 +1985,10 @@ static int chcr_ahash_digest(struct ahash_request *req)
+ 	req_ctx->hctx_wr.processed += params.sg_len;
+ 	skb->dev = u_ctx->lldi.ports[0];
+ 	set_wr_txq(skb, CPL_PRIORITY_DATA, req_ctx->txqidx);
+-	chcr_send_wr(skb);
++	if (chcr_send_wr(skb)) {
++		error = -EIO;
++		goto unmap;
++	}
+ 	return -EINPROGRESS;
+ unmap:
+ 	chcr_hash_dma_unmap(&u_ctx->lldi.pdev->dev, req);
+@@ -3636,6 +3646,7 @@ static int chcr_aead_op(struct aead_request *req,
+ 	    crypto_ipsec_check_assoclen(req->assoclen) != 0) {
+ 		pr_err("RFC4106: Invalid value of assoclen %d\n",
+ 		       req->assoclen);
++		chcr_dec_wrcount(cdev);
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.39.5 (Apple Git-154)
 
-Thanks,
-Srinivas
-
-> ---
-> =C2=A0drivers/platform/x86/intel/ishtp_eclite.c | 5 ++++-
-> =C2=A01 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/platform/x86/intel/ishtp_eclite.c
-> b/drivers/platform/x86/intel/ishtp_eclite.c
-> index 93ac8b2dbf38..bca7e217878b 100644
-> --- a/drivers/platform/x86/intel/ishtp_eclite.c
-> +++ b/drivers/platform/x86/intel/ishtp_eclite.c
-> @@ -600,13 +600,16 @@ static int ecl_ishtp_cl_probe(struct
-> ishtp_cl_device *cl_device)
-> =C2=A0	rv =3D acpi_opregion_init(opr_dev);
-> =C2=A0	if (rv) {
-> =C2=A0		dev_err(cl_data_to_dev(opr_dev), "ACPI opregion init
-> failed\n");
-> -		goto err_exit;
-> +		goto err_put;
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	/* Reprobe devices depending on ECLite - battery, fan, etc.
-> */
-> =C2=A0	acpi_dev_clear_dependencies(opr_dev->adev);
-> =C2=A0
-> =C2=A0	return 0;
-> +
-> +err_put:
-> +	acpi_dev_put(opr_dev->adev);
-> =C2=A0err_exit:
-> =C2=A0	ishtp_set_connection_state(ecl_ishtp_cl,
-> ISHTP_CL_DISCONNECTING);
-> =C2=A0	ishtp_cl_disconnect(ecl_ishtp_cl);
