@@ -1,123 +1,116 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3623803E9;
-	Mon, 22 Jun 2026 07:51:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D8D382F2F
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 07:53:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782114680; cv=none; b=ALUasakVl+GkimY0SIPMmf/CyEgFIMLnKyM/nAdtpIOJfQ4swI/NFhKkFQ27nnlbrYkS5CJijyrnLDIzVXitjz+YafnFogUwnCF8ldScwdXuxeHawcz4paazIUCgnWuJ3+2OO/PupGojkAb/4lliFEQPs7akfTqJF/FR62uxoP4=
+	t=1782114825; cv=none; b=GZ//GwWPbW5C0/Rw5JxtVlyAoWYie6+Fd5IoG2Dvnk0oneZQ+UBjlXcHoFbfzlMMPO7v6PuNbMAiVg5bBpsYLOguGQq05cl4bw9Yn9FyRypZAXLTpKurZs87rt5DjUvKgbhrQJNPOa0wZ5JpPk+SYQxQuA946lUIxX5LAifTxFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782114680; c=relaxed/simple;
-	bh=GwVHIoZ7r/M8GteP9m8gN+gqChmMb7gtvlHqruMu3OY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eBRcCAQrM5sHWKYMmOomDgbBkX5whGMY301/6rG6HSbcdHCLLEOULEh37J7v3wUCW8+AhxMCtNkVUKRzfhHWEvLYEWWbP/DngOHKLk2rWcMJi5yTsHeeypCiORB0nAU/aTvfgqWLmci81Ljc107h3Lfznzqto5q+jsCYTD/VpaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 21bd73886e0f11f1aa26b74ffac11d73-20260622
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:df1340d8-bad8-4902-a57c-bc94b27aad22,IP:0,U
-	RL:0,TC:0,Content:0,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-20
-X-CID-META: VersionHash:e7bac3a,CLOUDID:97fc9069a1c6fe1949f2f7a7b81d7275,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|865|898,TC:nil,Content:0|15|50,EDM:1
-	,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
-	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 21bd73886e0f11f1aa26b74ffac11d73-20260622
-X-User: leixiang@kylinos.cn
-Received: from ninol.. [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <leixiang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 972357421; Mon, 22 Jun 2026 15:51:09 +0800
-From: leixiang <leixiang@kylinos.cn>
-To: 
-Cc: leixiang <leixiang@kylinos.cn>,
-	stable@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Paul Mackerras <paulus@ozlabs.org>,
-	Suresh Warrier <warrier@linux.vnet.ibm.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] KVM: Nullify irqfd->producer when add_producer() fails
-Date: Mon, 22 Jun 2026 15:51:01 +0800
-Message-ID: <20260622075103.35164-1-leixiang@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1782114825; c=relaxed/simple;
+	bh=kwPAUQHA46UWAzKtvEAsrpO6XV/aeWY/zPZEW9c3HjU=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=tSjWLrO40sLjg7/1ZjABRYD7MZ/6+C6Pp3lWUUcWYf3Qo/7In2DKOD2P3jBcUOQs90AWOLQIOcan6flAxJyjUCqCVAfBG4JqDa7u0btHhIKCLrHIArYt9ZtPdCktKrywyieDvpaOTBpIJP737ZFmslRkRluRQos72LvHh59TajA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SD3D6mmw; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SD3D6mmw"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2c0c379e8ffso33215185ad.3
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 00:53:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782114822; x=1782719622; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=muhh0ZwVTyB0/KcADVsIhtg8n2TSc3l0G+5X+uSwFu4=;
+        b=SD3D6mmwLaW3/dquDGLd+NGimfScOJx31HW2jKD/HRtxxPDZnm+mR3e3VGES1vhcH8
+         4G6XmMfp0OXA8YsYn1gZ+Hn3+lA7xal7d0nBM4VuKENrUPqlXN3RBKvL64WMClSG5QOe
+         azd/gmtNV9vpQTOUbc/O3kXiHyXIvOP+nu8Z57el0up11+Jh9UtmFCCMhXC9QUefj+Pd
+         P3UfrCUdVlRnd3G056UZIAAGyGGPdgVGV9pVOX6yQMYzCVzywUYtqgio08asYaeIw0Km
+         TaE04696N5j9kEeqrUJdMPwYVZIDsb6RhNAxkDdItq0Yrmq/pMooEhtfyhTm0e50kA49
+         kiag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782114822; x=1782719622;
+        h=mime-version:content-transfer-encoding:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=muhh0ZwVTyB0/KcADVsIhtg8n2TSc3l0G+5X+uSwFu4=;
+        b=UaYPkk3zwVsMO+MxVnPokWFuCLy9SIhtLxhj0PPRrR7NNJ1JnmEh9+qcEkR3Ogdw0c
+         2lwageAEWdpW2e00bmTfTm8bKHQQeqF532QgrrUl3r7wWH7zSgMxw6cTJgPxqMd2NLvW
+         z6vcPnPyDKA4xfGxTiV6IWnWb7RXGxhSaKH4bS2MqZf+G7+AFVNhUUIX1fUXquOVyHM9
+         mcL/2eWhYI2by8282XDQUGuIjMAesnbuCfCzZQPWxnQx+J4um1luzZqmP6r4Zpu5Yl0Q
+         1OI4q3fpSp8+689xe2ce76YiK7BcHWlIT8fXEH6y43yO16QMxS1L01RYG7vxq4Lcs8Qp
+         G/Mw==
+X-Forwarded-Encrypted: i=1; AHgh+RqkQcjtbvbvnjapSrbGGieIacFPFUC+6r7A+e2Qoift8rxQuYhkOeYTjYKeqChFU3N4VYQihsI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxiqWwwvqTeZUb+kgW1QytBv/Scw/2UGufZNAPk0C7gdHuWcdG
+	ZtvczAFFMKNk8BN4w6VSAbA7huD2O9kitmGBBwarWifnzTLItKv8HQ6E
+X-Gm-Gg: AfdE7cl9Bac+al0fE80sn7EGsye67QNjdoD/zXr3jQqi7xWIOxmn1r08LRjV+zQOha5
+	w2L3aSLHKigrCsJclQdX7owKiMhAbriEwON1/ZfxyVrkkTIXFV7PysIdn9LfZ09zrVvTuI1UWyM
+	Np+tCpjSl8frKpclp6QU4fdI5wsDV8jPBv93yr3Lj6c/ZSsUKZjuD8tUJxag9nfaD11n367QjT5
+	MeGIJiNmLumyD6rWR/dr4ugNOTrH9tsi2ZBs2MLgOFgDVdkLHH3XzI9XMFI2FEXSQeqjH/Nz+4l
+	FNG1RXCrdev1pTyOm01V5c24nMI4eSO9R9XhGqrtuIn/gSb0N15TRYKzUSwxrlsXOXw7T7h+KnX
+	IO0HbHHnliYsZ4lsy3XW5z94othznbEwcF0ziXrDvMUkPh4k3dbYlRtWET90CYd+3U0YhjhRUVV
+	FqmgK1fUdvOwyFY7Eji2ONTOwQmgm1RA+vJmbovA==
+X-Received: by 2002:a17:903:1d1:b0:2c6:d70a:92af with SMTP id d9443c01a7336-2c7190576c9mr133110835ad.37.1782114821743;
+        Mon, 22 Jun 2026 00:53:41 -0700 (PDT)
+Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7444aa5f1sm79786155ad.78.2026.06.22.00.53.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Jun 2026 00:53:41 -0700 (PDT)
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Jakub Kicinski <kuba@kernel.org>, linux-wireless@vger.kernel.org,
+ libertas-dev@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH] wifi: libertas_tf: fix use-after-free in lbtf_free_adapter()
+Date: Mon, 22 Jun 2026 15:53:38 +0800
+Message-ID: <178211481807.2212567.8773346114561900100@maoyixie.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The x86 and powerpc add_producer() callbacks set irqfd->producer before the
-fallible setup and never clear it on error.  The bypass manager doesn't
-register a producer whose add_producer() failed -- producer->eventfd is
-left NULL, so the later unregister early-returns and del_producer() is
-never called -- so nothing ever drops the pointer.
+lbtf_free_adapter() calls timer_delete(&priv->command_timer), which does
+not wait for a running command_timer_fn() callback. lbtf_free_adapter()
+runs on the teardown path right before ieee80211_free_hw() frees priv,
+both in lbtf_remove_card() and in the probe error path. command_timer is
+armed by mod_timer() in lbtf_cmd() whenever a firmware command is sent.
+command_timer_fn() dereferences priv. If a command times out as the
+device is removed, command_timer_fn() runs concurrently with teardown and
+dereferences priv after it has been freed.
 
-For VFIO PCI the producer is embedded in struct vfio_pci_irq_ctx and freed
-when the vector is disabled, after which a routing update dereferences the
-dangling pointer via kvm_arch_update_irqfd_routing().
+This is the same use-after-free that commit 03cc8f90d053 ("wifi: libertas:
+fix use-after-free in lbs_free_adapter()") fixed in the sibling libertas
+driver. The libertas_tf variant has the identical pattern and was left
+unchanged. Use timer_delete_sync() so any in-flight callback completes
+before priv is freed.
 
-Nullify irqfd->producer on the error paths.
-
-Fixes: 77e1b8332d1d ("KVM: x86: Decouple device assignment from IRQ bypass")
-Fixes: c57875f5f9be ("KVM: PPC: Book3S HV: Enable IRQ bypass")
+Fixes: 06b16ae53192 ("libertas_tf: main.c, data paths and mac80211 handlers")
 Cc: stable@vger.kernel.org
-Signed-off-by: leixiang <leixiang@kylinos.cn>
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 ---
- arch/powerpc/kvm/book3s_hv.c | 4 +++-
- arch/x86/kvm/irq.c           | 4 +++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+I asked about this on linux-wireless on 2026-06-15 and got no reply, so
+I am sending the fix. It mirrors the merged libertas fix exactly.
 
-diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-index 61dbeea317f3..14919b76fb32 100644
---- a/arch/powerpc/kvm/book3s_hv.c
-+++ b/arch/powerpc/kvm/book3s_hv.c
-@@ -6114,9 +6114,11 @@ static int kvmppc_irq_bypass_add_producer_hv(struct irq_bypass_consumer *cons,
- 	irqfd->producer = prod;
+ drivers/net/wireless/marvell/libertas_tf/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- 	ret = kvmppc_set_passthru_irq(irqfd->kvm, prod->irq, irqfd->gsi);
--	if (ret)
-+	if (ret) {
- 		pr_info("kvmppc_set_passthru_irq (irq %d, gsi %d) fails: %d\n",
- 			prod->irq, irqfd->gsi, ret);
-+		irqfd->producer = NULL;
-+	}
-
- 	return ret;
+diff --git a/drivers/net/wireless/marvell/libertas_tf/main.c b/drivers/net/wireless/marvell/libertas_tf/main.c
+index fb20fe31cd36..42be6fa22f9c 100644
+--- a/drivers/net/wireless/marvell/libertas_tf/main.c
++++ b/drivers/net/wireless/marvell/libertas_tf/main.c
+@@ -174,7 +174,7 @@ static void lbtf_free_adapter(struct lbtf_private *priv)
+ {
+ 	lbtf_deb_enter(LBTF_DEB_MAIN);
+ 	lbtf_free_cmd_buffer(priv);
+-	timer_delete(&priv->command_timer);
++	timer_delete_sync(&priv->command_timer);
+ 	lbtf_deb_leave(LBTF_DEB_MAIN);
  }
-diff --git a/arch/x86/kvm/irq.c b/arch/x86/kvm/irq.c
-index 8c62c6d4d5c1..cb8ac4b9b0d7 100644
---- a/arch/x86/kvm/irq.c
-+++ b/arch/x86/kvm/irq.c
-@@ -488,8 +488,10 @@ int kvm_arch_irq_bypass_add_producer(struct irq_bypass_consumer *cons,
+ 
+-- 
+2.34.1
 
- 	if (irqfd->irq_entry.type == KVM_IRQ_ROUTING_MSI) {
- 		ret = kvm_pi_update_irte(irqfd, &irqfd->irq_entry);
--		if (ret)
-+		if (ret) {
- 			kvm->arch.nr_possible_bypass_irqs--;
-+			irqfd->producer = NULL;
-+		}
- 	}
- 	spin_unlock_irq(&kvm->irqfds.lock);
-
---
-2.45.0
