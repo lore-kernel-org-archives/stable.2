@@ -1,72 +1,90 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A693A543A
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 10:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB68F2E1746;
+	Mon, 22 Jun 2026 10:46:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782124075; cv=none; b=PUSUguVDCa2FMVDAZ1eFxfF+WaqEfSK4EaC35qqu4e73tjrY85bodFQpwRe7VDIFrv17+amCyJzbkAhnIPvYcVZSgm0I1dndg9WHGanZ6DRaN1OzksxmbaQEQPAyEGnt4gR2XzXuUXGim7RBY928SwVWsp8L1bsJ7FPsr0nepsg=
+	t=1782125210; cv=none; b=fFVSf6DdLzDLAuFBNfsVtEva/ZkjvzFy6gzb3Yt+PqMiVz6TqIYWOx9jeasoQKbRbxu0rHHFaPAV8BV9XsEMUWuSIxqHXDJN5ZRu/KbQQvAH2l35VGDzOnN53KJMds+jt9Y7M5nMo9ol43HnXibpG61N0rRqM/LMrgprFNLiE6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782124075; c=relaxed/simple;
-	bh=WKHcFZO2rpkCa8F4CHPzSqRTrUd2TU9dM7KkXClfL+8=;
+	s=arc-20240116; t=1782125210; c=relaxed/simple;
+	bh=+ZO1iASMF+CRlK9jmJVMgpITx+bJg3PMb2ZjSbxVFzc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DeLfKrUtRay1KlxeIM68frjOjTVm09RXD7kBWF2qdy4ASGc/eXQGG3KtpAa4DijaLrOhRkz4FnCOcmeub9m0uMetgDnptj99/PFuRsEpLti1YmjWu8ZSwMiNJ4vz01Lxh8XW9ajlk5tEDVRbeSICDW43DzDNNQwXT9l2BK2K9fQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=KS17N/yh; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CtJOklFL; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=oyL6G58hObHaET5eeZPDjseaqg/KQQU3uZJGlAS8nBHN4ta+B8zXXW9pOSxPyHK3JDTF3LVhpB3remMl8fj65kUZDLa0PTJ7/oje6ES7vtyZWg0m7aH6HYs4CVF1LpKLxxuRpnwT/BHLIoPM6iHn5ETNsixv3lchuQcJmstmiT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LPc0MXrP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KS17N/yh";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CtJOklFL"
-Date: Mon, 22 Jun 2026 12:27:50 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1782124072;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s038YWIfUpBDCuiGtkkXVvM91k1d45bdU4KObnsKNTM=;
-	b=KS17N/yhtGlAEzPY9GYkkf37vknNhhW/F4aOPJHWgOO5QoLg+Kdo+kjJ5n5Vdi01oQlScr
-	vX7gqadVQ3DEg+5XdP94bR8t8CJNC36bS0fRSWzsFQ6sYN51nYqDbGu9eUeQX/wgUHp2CO
-	8uT3cSFOtNUHxYwocsmkSsqxLsOpLtsFbGGh8XMfT9PGeZr6t6XQoVMOYfme5BoGn/RtSx
-	Zrw5tX1gmbVle0UJzWlHKMLHdHM3SOTvs7gXQGS3PORnGEttpAuLeplqHsL0mdffDLw+gu
-	fsgaveR8CX/gNkN4xiPB0wjhoihotdaCLGsx7nMqf02q7wl6LCFnnHt0f1bvwQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1782124072;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s038YWIfUpBDCuiGtkkXVvM91k1d45bdU4KObnsKNTM=;
-	b=CtJOklFLBivk0B4Szp5IZIQwhXTnQ6X1hJ/ZPE87NOUsHtUfJijYI+aG+93ou1PfVlhwov
-	IVlTRAp3ySHzTsBg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, Bryan Brattlof <bb@ti.com>,
-	Daniel Wagner <daniel.wagner@monom.org>,
-	Jan Kiszka <jan.kiszka@siemens.com>, cip-dev@lists.cip-project.org,
-	nobuhiro.iwamatsu.x90@mail.toshiba, pavel@nabladev.com,
-	Russell King <rmk+kernel@armlinux.org.uk>
-Subject: Re: [PATCH 0/4] ARM: stable backports
-Message-ID: <20260622102750.RMAlQTxT@linutronix.de>
-References: <20260511135357.2786242-1-bigeasy@linutronix.de>
- <20260608082818.LZiPJ9ot@linutronix.de>
- <2026060832-extortion-cattail-2467@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LPc0MXrP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13BEA1F000E9;
+	Mon, 22 Jun 2026 10:46:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782125209;
+	bh=vsh49OMZYO1Tlv9qz7wIhMt5WYyYMgq7eYLYxvaCqgY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LPc0MXrPZ2OyDKy0FSGAGs5H0IlssIhfEEwcY3m+hHlKAQZl48CEUfc1PkTxilfL+
+	 GuOfsK/w5B7ak1c2qxKVHcX1X+8BgG83ZcwBIMkS9nwWZLPoxEQUFCTwZV8z8kzg9/
+	 SSnYBpNUcd8jP0umEzy30vwN5d7stFqz/vIRWtfVwAKZV03uWLuRzvbc6pEmUUZG7t
+	 uL1g5jdtLnVgD4z3pxyBTZ6VWeodLg2h7ObzWCSP26te2mkPUeOH1YSnwseXostBxg
+	 7bZS7txVRP00JAyUXlIBo2D7RJn8U7GLv+QJROeePmuLl20dzz2XtoJCVunGmn31dd
+	 +5ac+Yn8sIX5Q==
+Date: Mon, 22 Jun 2026 18:46:45 +0800
+From: Peter Chen <peter.chen@kernel.org>
+To: Haoxiang Li <haoxiang_li2024@163.com>
+Cc: pawell@cadence.com, gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: cdnsp: fix stream context array leak in
+ cdnsp_alloc_stream_info()
+Message-ID: <ajkSlRv6e2ck5aEE@QCOM-gEdNzOMOFu.na.qualcomm.com>
+References: <20260622052627.696373-1-haoxiang_li2024@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2026060832-extortion-cattail-2467@gregkh>
+In-Reply-To: <20260622052627.696373-1-haoxiang_li2024@163.com>
 
-On 2026-06-08 16:12:05 [+0200], Greg KH wrote:
-> We have hundreds of patches in the backlog right now, these are way down
-> the list, sorry.  Hope to catch up "soon"...
-
-No need to be sorry. Thank you (two) for doing the work.
-
-> thanks,
+On 26-06-22 13:26:27, Haoxiang Li wrote:
+> cdnsp_alloc_stream_info() allocates stream_info->stream_ctx_array with
+> cdnsp_alloc_stream_ctx(). If a later stream ring allocation or stream
+> mapping update fails, the error path frees the allocated stream rings
+> and stream_rings array, but leaves stream_ctx_array allocated.
 > 
-> greg k-h
+> Free the stream context array before falling through to the stream_rings
+> cleanup path.
+> 
+> Fixes: 3d82904559f4 ("usb: cdnsp: cdns3 Add main part of Cadence USBSSP DRD Driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
 
-Sebastian
+Acked-by: Peter Chen <peter.chen@kernel.org>
+
+Peter
+> ---
+>  drivers/usb/cdns3/cdnsp-mem.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/usb/cdns3/cdnsp-mem.c b/drivers/usb/cdns3/cdnsp-mem.c
+> index a2a1b21f2ef8..880097f1007d 100644
+> --- a/drivers/usb/cdns3/cdnsp-mem.c
+> +++ b/drivers/usb/cdns3/cdnsp-mem.c
+> @@ -631,6 +631,8 @@ int cdnsp_alloc_stream_info(struct cdnsp_device *pdev,
+>  		}
+>  	}
+>  
+> +	cdnsp_free_stream_ctx(pdev, pep);
+> +
+>  cleanup_stream_rings:
+>  	kfree(pep->stream_info.stream_rings);
+>  
+> -- 
+> 2.25.1
+> 
+> 
+
+-- 
+
+Thanks,
+Peter Chen
