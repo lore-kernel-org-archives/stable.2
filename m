@@ -1,322 +1,133 @@
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB7134252B
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 17:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.153.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF35341057
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 17:43:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782150192; cv=none; b=OVJQHtCEu7OOoWhChv6KitySHaRTT8bLJWQFoXRK4kTwm03BypEnD4Es+2R7PomLLoMY283EKF6ceHjJDHYC4WzUl8IMwP028xIzhtMM5QVm91ZqQ7s68/YvmEjlGpa+IaI7YnHU4i+S6FoORo1U+pWBf6YW5hErr+tM7fF2vcY=
+	t=1782150215; cv=none; b=hcDsJQFzoBMpgjJOBaa48fqXsQTlnQZsNgoYoZpFGrdGE668JgdeaIf0u7wUFzCmobqh4i4Qn+Oh0fJBf/NHns/Fd++01SN0wIfiPT2oXuNnoNniifsRIDJHGC4bm7BRJSICmxjuuieg+Y9bbljCNsFWoU4ar0T98tIvhBtHSOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782150192; c=relaxed/simple;
-	bh=i6XyfTKS0OC3DtGc4HnKa+aEtXtud1PYnmp4y37/BnI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lQuDt1yInLmqSVad9+O9dJwhjL3/sGVQMfChQc4EyqmY3xJkjWdLRsE4VAHMbbXva2rkfX0GTTlpVGZ4AKNVVzlOgVabGwu+x3KpoMVqrx2rQ26O9XawSJrBWTw4MPugikBlpHdlpTYlIZuWOfdl1QULih5dGV7VouqkprjK7LE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=p/PNwBfP; arc=none smtp.client-ip=67.231.153.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	s=arc-20240116; t=1782150215; c=relaxed/simple;
+	bh=37n0r5kMauruI+X87up//ZNJGThpP+mu8r7gnCJwuZs=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MX/hEZj/3AcIVgczlvwdmrYsyIedMKsjRcVMyzg1OKenbTV2LagIGMTOdskK0wlJIlQtuX8AVKtXjJeG/n8VyQlQpec9MwGkatsNQA4uWXENHfD7UjmSTHQn7rgoXRYRi+Nt+FqP2Pu4vaW1XmOtsUpzAmE3/75qhx7Iw6yiw8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bWs9bj1f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="p/PNwBfP"
-Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65MHVXDc2338892
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 10:43:09 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=s2048-2025-q2;
-	 bh=eHPTl4shIvkRyyHdVGqO++Nc71dmiBDeeS+bTk7Mqww=; b=p/PNwBfPMf/s
-	PKuTuAlMQ0OjWgur5CgHB8b8NMPahCJ1pdP8gZ7SEgOrCOgCOCmKSvV4Vi1uatm3
-	XJPfE8ucx9jEOvOXHcRLSRL6IHYnMMuSEb7bfA2giJytRyM/VUaGqcl+Q65iSBDs
-	y4oV5ASHaWRByGJdTB9UPxSOeSPJbFB+2X2u1OgbK+MrXJMQ1lMbDLunDPYOsAaw
-	g0vlrR/Zkaljw/aFa8dhpJD7bPeUdNkjq6i9ey4a89WpOZw3Ae85HQ5u+yvdsYEP
-	ZFRDDsFyVIwo2h4Jbn054JOCVncFgixh0dwC2Sjowc11TP8CZ6mxIQj3/rYF8QXe
-	skoT04RqAQ==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4ewrcd4x2y-13
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 10:43:09 -0700 (PDT)
-Received: from twshared4973.01.snb2.facebook.com (2620:10d:c085:108::150d) by
- mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Mon, 22 Jun 2026 17:43:02 +0000
-Received: by devbig197.nha3.facebook.com (Postfix, from userid 544533)
-	id 290C323A15DE8; Mon, 22 Jun 2026 10:42:47 -0700 (PDT)
-From: Keith Busch <kbusch@meta.com>
-To: <linux-block@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>
-CC: <dm-devel@lists.linux.dev>, <hch@lst.de>, <axboe@kernel.dk>,
-        <brauner@kernel.org>, <djwong@kernel.org>, <viro@zeniv.linux.org.uk>,
-        Keith
- Busch <kbusch@kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCHv2 6/6] block: validate user space vectors during extraction
-Date: Mon, 22 Jun 2026 10:42:41 -0700
-Message-ID: <20260622174241.2299563-7-kbusch@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260622174241.2299563-1-kbusch@meta.com>
-References: <20260622174241.2299563-1-kbusch@meta.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bWs9bj1f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5B0D1F01560
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 17:43:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782150212;
+	bh=ZOvkxM7SoiYga4F3HI0NRlsezjpo0hLIkN4UO4HHxjU=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=bWs9bj1fag5KYrEtQKDWajU/F6qyj+Xj0XywCLK/icvKgyu3zXE8BtiE5VCmzBOIO
+	 skOV0vdmfh5mCkma6G1yrE/H1sWckCiKx0kV384oGGNyzktYrin//aZ1A2T9J+RvZq
+	 tLhd4ueV9nefHqs6/L55gODvylLnx+BGn1DaSxnxjd+YO5r+feGhhbbldQDXQzrV7q
+	 InN3bE5Wk7q70Sq7/fRrBO5JcoyyAgKcaZfkUgqIJcm8KxCXn9dPVJbUuFpObZuXcl
+	 40yRt2QoBA60YiGyyZSznJ1lh57IMuMv+WKUqWeRQZyld2GfoWo6fs7ZFdt1rcNYd6
+	 YnYd6Pb1v9FZg==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3966c0d5ac9so47961311fa.2
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 10:43:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8eLYCfC10umlN/yDHXKfxlcgSkaH3sptbHWlPVowMSyY0m+XhWTTHd/eORsEKbGsESK3HnC2Y=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxNN0xmPJF0WeKin4m+D2LBgOt3X9kOpPwHGzlw5XtcZBkjPgA
+	VjVW4G+tqOqbigzog6x5eb7x+arFo6vZLyC+X3BjOI3G3EFmyOsdDlQon0/9GV3AEZUiBXf9hoK
+	FUTkJgqlkylXGNIkzVo1Hkqhpy8e5b93ZhgcOfd5Q8g==
+X-Received: by 2002:a05:651c:88b:b0:394:635:70b1 with SMTP id
+ 38308e7fff4ca-3998bc52fbemr41304291fa.3.1782150210743; Mon, 22 Jun 2026
+ 10:43:30 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 22 Jun 2026 13:43:29 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 22 Jun 2026 13:43:28 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260521-pdev-fwnode-ref-v1-5-88c324a1b8d2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDE3MyBTYWx0ZWRfX3+ZbjQwNCzhS
- wcCgqpZ0AOyTHNBmoyecBMVE9TeNQxdty9WNiCCQsMXakwF8RafCo61t3WOE0I2qJ9D8cj85fF9
- swCk6xDBBavEGQEQimmfhPZJR3nsB9c=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDE3MyBTYWx0ZWRfX63qscUa5/oXb
- zCeTbkKs62Yb18cGAsQErfnhW+qB/wIB289/wGs4OlR/79RB/Mb71TPEA3LfcuLgOU55PZrEjuh
- Bzi28BBcVMKgfHFrTVR/2uStFKdPBLZ3cY/doiEkksOyWGJfUx7bwLUc6mZyVgwHnfbPeIqaHXs
- 3w4EemlcKkc5GnX5tjE6shIAzW9rm/0Dy2OpeQBiz/0o3J5+Y3uA/WUdLHOihruwyxuan67dsWS
- DUvCyHoTnjSBdBVX6lLkCRFx2XOCT4HnhhJ07LQixrH3jyyhKdenv4ApSEVSiTTR1eIboEC11JA
- UJPOGsBnP6LyHLIDwqmbn3nWrF7aizGWK8utpaOHjHMgXxW2aiWwxrxztH53cSvXOLOoelnhRDU
- EHKkkBlYLPLcJDc4tHqYZAvx4f3Le9/t2qMzdDymHRfQBPkQCFvhsMQPiKDswb/dGMFGlE8KZmK
- 4u5PhVSIpKYXTYv8vZg==
-X-Authority-Analysis: v=2.4 cv=VZTH+lp9 c=1 sm=1 tr=0 ts=6a39742d cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=JnKecZnUtZousrUlYMGU:22 a=VwQbUJbxAAAA:8 a=sJVWJGQxNneOVQlFS3cA:9
-X-Proofpoint-GUID: JZD78I8YYlpvpwuHN9No3RAno9fYMUeg
-X-Proofpoint-ORIG-GUID: JZD78I8YYlpvpwuHN9No3RAno9fYMUeg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-22_03,2026-06-22_01,2025-10-01_01
+References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com> <20260521-pdev-fwnode-ref-v1-5-88c324a1b8d2@oss.qualcomm.com>
+Date: Mon, 22 Jun 2026 13:43:28 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MfSsLt8+CAh++8qo_=F=q5XRu6G3WGB=B2TZj8dTZydfg@mail.gmail.com>
+X-Gm-Features: AVVi8CfRnQqz6Nh2M0v3z0C67LQjbAf_AXtOmIr-lp4acya5s7VimMoD1ExGxmc
+Message-ID: <CAMRc=MfSsLt8+CAh++8qo_=F=q5XRu6G3WGB=B2TZj8dTZydfg@mail.gmail.com>
+Subject: Re: [PATCH 05/23] powerpc/powermac: fix OF node refcount
+To: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
+	driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org, 
+	iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
+	linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, stable@vger.kernel.org, 
+	Lee Jones <lee@kernel.org>, Mark Brown <broonie@opensource.wolfsonmicro.com>, 
+	Thierry Reding <thierry.reding@avionic-design.de>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Srinivas Kandagatla <srini@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, 
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Matthew Brost <matthew.brost@intel.com>, 
+	=?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Peter Chen <peter.chen@kernel.org>, 
+	Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Maximilian Luz <luzmaximilian@gmail.com>, 
+	Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Keith Busch <kbusch@kernel.org>
+On Thu, 21 May 2026 10:36:28 +0200, Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> said:
+> Platform devices created with platform_device_alloc() call
+> platform_device_release() when the last reference to the device's
+> kobject is dropped. This function calls of_node_put() unconditionally.
+> This works fine for devices created with platform_device_register_full()
+> but users of the split approach (platform_device_alloc() +
+> platform_device_add()) must bump the reference of the of_node they
+> assign manually. Add the missing call to of_node_get().
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 81e5d8646ff6 ("i2c/powermac: Register i2c devices from device-tree")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  arch/powerpc/platforms/powermac/low_i2c.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/powerpc/platforms/powermac/low_i2c.c b/arch/powerpc/platforms/powermac/low_i2c.c
+> index da72a30ab8657e6dc7e6f3437af612155783d8f9..973f58771d9636605ed5d3e91b45008543b584d3 100644
+> --- a/arch/powerpc/platforms/powermac/low_i2c.c
+> +++ b/arch/powerpc/platforms/powermac/low_i2c.c
+> @@ -1471,7 +1471,7 @@ static int __init pmac_i2c_create_platform_devices(void)
+>  		if (bus->platform_dev == NULL)
+>  			return -ENOMEM;
+>  		bus->platform_dev->dev.platform_data = bus;
+> -		bus->platform_dev->dev.of_node = bus->busnode;
+> +		bus->platform_dev->dev.of_node = of_node_get(bus->busnode);
+>  		platform_device_add(bus->platform_dev);
+>  	}
+>
+>
+> --
+> 2.47.3
+>
+>
 
-The bio-based drivers don't necessarily check the alignment split, and
-stacking block drivers don't always handle a misalignment detected after
-submitting the bio. Validate user vectors against the device's
-dma_alignment as the bio is built from the iov_iter, rejecting
-misaligned early with -EINVAL.
+Madhavan, can you please pick this up and send it upstream as a fix please?
+Not having to carry it with the rest of the series will make things easier
+for the next release.
 
-Cc: stable@vger.kernel.org
-Fixes: 5ff3f74e145a ("block: simplify direct io validity check")
-Fixes: 7eac33186957 ("iomap: simplify direct io validity check")
-Signed-off-by: Keith Busch <kbusch@kernel.org>
----
- block/bio.c          | 50 +++++++++++++++++++++++++++++++++++++++++---
- block/blk-map.c      |  2 +-
- block/fops.c         |  1 +
- fs/iomap/direct-io.c |  1 +
- include/linux/bio.h  |  2 +-
- include/linux/uio.h  |  3 ++-
- lib/iov_iter.c       |  9 +++++++-
- 7 files changed, 61 insertions(+), 7 deletions(-)
-
-diff --git a/block/bio.c b/block/bio.c
-index f2a5f4d0a9672..4360149d4eba2 100644
---- a/block/bio.c
-+++ b/block/bio.c
-@@ -1220,10 +1220,39 @@ static int bio_iov_iter_align_down(struct bio *bi=
-o, struct iov_iter *iter,
- 	return 0;
- }
-=20
-+#ifdef CONFIG_DEBUG_KERNEL
-+static inline bool bio_iov_bvec_aligned(const struct bio *bio,
-+					unsigned mem_align_mask)
-+{
-+	struct bvec_iter iter;
-+	struct bio_vec bv;
-+
-+	for_each_mp_bvec(bv, bio->bi_io_vec, iter, bio->bi_iter)
-+		if ((bv.bv_offset | bv.bv_len) & mem_align_mask)
-+			return false;
-+	return true;
-+}
-+#else
-+static inline bool bio_iov_bvec_aligned(const struct bio *bio,
-+					unsigned mem_align_mask)
-+{
-+	/*
-+	 * The vectors are owned and laid out by the caller; we only forward
-+	 * them. Most callers are already aligned, but io_uring can place a
-+	 * user chosen offset through a registered buffer, where only the first
-+	 * vector may be unaligned.
-+	 */
-+	return !(mp_bvec_iter_offset(bio->bi_io_vec, bio->bi_iter) &
-+							mem_align_mask);
-+}
-+#endif
-+
- /**
-  * bio_iov_iter_get_pages - add user or kernel pages to a bio
-  * @bio: bio to add pages to
-  * @iter: iov iterator describing the region to be added
-+ * @mem_align_mask: the mask the source address and length must be align=
-ed to,
-+ *	0 for no requirement
-  * @len_align_mask: the mask to align the total size to, 0 for any lengt=
-h
-  *
-  * This takes either an iterator pointing to user memory, or one pointin=
-g to
-@@ -1242,7 +1271,7 @@ static int bio_iov_iter_align_down(struct bio *bio,=
- struct iov_iter *iter,
-  * is returned only if 0 pages could be pinned.
-  */
- int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
--			   unsigned len_align_mask)
-+			   unsigned mem_align_mask, unsigned len_align_mask)
- {
- 	iov_iter_extraction_t flags =3D 0;
-=20
-@@ -1251,6 +1280,10 @@ int bio_iov_iter_get_pages(struct bio *bio, struct=
- iov_iter *iter,
-=20
- 	if (iov_iter_is_bvec(iter)) {
- 		bio_iov_bvec_set(bio, iter);
-+
-+		if (!bio_iov_bvec_aligned(bio, mem_align_mask))
-+			return -EINVAL;
-+
- 		iov_iter_advance(iter, bio->bi_iter.bi_size);
- 		return 0;
- 	}
-@@ -1265,8 +1298,19 @@ int bio_iov_iter_get_pages(struct bio *bio, struct=
- iov_iter *iter,
-=20
- 		ret =3D iov_iter_extract_bvecs(iter, bio->bi_io_vec,
- 				BIO_MAX_SIZE - bio->bi_iter.bi_size,
--				&bio->bi_vcnt, bio->bi_max_vecs, flags);
-+				&bio->bi_vcnt, bio->bi_max_vecs,
-+				mem_align_mask, flags);
- 		if (ret <=3D 0) {
-+			/*
-+			 * A misaligned vector fails the whole I/O.  Release any
-+			 * pages pinned by earlier iterations before returning
-+			 * since this bio won't be submitted to release them.
-+			 */
-+			if (ret =3D=3D -EINVAL) {
-+				bio_release_pages(bio, false);
-+				bio_clear_flag(bio, BIO_PAGE_PINNED);
-+				bio->bi_vcnt =3D 0;
-+			}
- 			if (!bio->bi_vcnt)
- 				return ret;
- 			break;
-@@ -1377,7 +1421,7 @@ static int bio_iov_iter_bounce_read(struct bio *bio=
-, struct iov_iter *iter,
- 		ssize_t ret;
-=20
- 		ret =3D iov_iter_extract_bvecs(iter, bio->bi_io_vec + 1, len,
--				&bio->bi_vcnt, bio->bi_max_vecs - 1, 0);
-+				&bio->bi_vcnt, bio->bi_max_vecs - 1, 0, 0);
- 		if (ret <=3D 0) {
- 			if (!bio->bi_vcnt) {
- 				folio_put(folio);
-diff --git a/block/blk-map.c b/block/blk-map.c
-index 768549f19f97e..c9535efe1a913 100644
---- a/block/blk-map.c
-+++ b/block/blk-map.c
-@@ -274,7 +274,7 @@ static int bio_map_user_iov(struct request *rq, struc=
-t iov_iter *iter,
- 	 * No alignment requirements on our part to support arbitrary
- 	 * passthrough commands.
- 	 */
--	ret =3D bio_iov_iter_get_pages(bio, iter, 0);
-+	ret =3D bio_iov_iter_get_pages(bio, iter, 0, 0);
- 	if (ret)
- 		goto out_put;
- 	ret =3D blk_rq_append_bio(rq, bio);
-diff --git a/block/fops.c b/block/fops.c
-index b5c320da28123..84eeabd97e1f0 100644
---- a/block/fops.c
-+++ b/block/fops.c
-@@ -47,6 +47,7 @@ static inline int blkdev_iov_iter_get_pages(struct bio =
-*bio,
- 		struct iov_iter *iter, struct block_device *bdev)
- {
- 	return bio_iov_iter_get_pages(bio, iter,
-+			bdev_dma_alignment(bdev),
- 			bdev_logical_block_size(bdev) - 1);
- }
-=20
-diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-index b485e3b191daf..ff458aa12ae29 100644
---- a/fs/iomap/direct-io.c
-+++ b/fs/iomap/direct-io.c
-@@ -358,6 +358,7 @@ static ssize_t iomap_dio_bio_iter_one(struct iomap_it=
-er *iter,
- 				iomap_max_bio_size(&iter->iomap), alignment);
- 	else
- 		ret =3D bio_iov_iter_get_pages(bio, dio->submit.iter,
-+					     bdev_dma_alignment(bio->bi_bdev),
- 					     alignment - 1);
- 	if (unlikely(ret))
- 		goto out_put_bio;
-diff --git a/include/linux/bio.h b/include/linux/bio.h
-index 8f33f717b14f5..ce34ea49ef358 100644
---- a/include/linux/bio.h
-+++ b/include/linux/bio.h
-@@ -477,7 +477,7 @@ int bdev_rw_virt(struct block_device *bdev, sector_t =
-sector, void *data,
- 		size_t len, enum req_op op);
-=20
- int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
--		unsigned len_align_mask);
-+		unsigned mem_align_mask, unsigned len_align_mask);
-=20
- void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter);
- void __bio_release_pages(struct bio *bio, bool mark_dirty);
-diff --git a/include/linux/uio.h b/include/linux/uio.h
-index a9bc5b3067e32..653dee76c0b33 100644
---- a/include/linux/uio.h
-+++ b/include/linux/uio.h
-@@ -391,7 +391,8 @@ ssize_t iov_iter_extract_pages(struct iov_iter *i, st=
-ruct page ***pages,
- 			       size_t *offset0);
- ssize_t iov_iter_extract_bvecs(struct iov_iter *iter, struct bio_vec *bv=
-,
- 		size_t max_size, unsigned short *nr_vecs,
--		unsigned short max_vecs, iov_iter_extraction_t extraction_flags);
-+		unsigned short max_vecs, unsigned mem_align_mask,
-+		iov_iter_extraction_t extraction_flags);
-=20
- /**
-  * iov_iter_extract_will_pin - Indicate how pages from the iterator will=
- be retained
-diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-index 273919b161617..8d5ca3e38522a 100644
---- a/lib/iov_iter.c
-+++ b/lib/iov_iter.c
-@@ -1886,6 +1886,8 @@ static unsigned int get_contig_folio_len(struct pag=
-e **pages,
-  * @max_size:	maximum size to extract from @iter
-  * @nr_vecs:	number of vectors in @bv (on in and output)
-  * @max_vecs:	maximum vectors in @bv, including those filled before call=
-ing
-+ * @mem_align_mask:	reject with -EINVAL if the source address or length =
-is not
-+ *		aligned to this mask
-  * @extraction_flags: flags to qualify request
-  *
-  * Like iov_iter_extract_pages(), but returns physically contiguous rang=
-es
-@@ -1897,14 +1899,19 @@ static unsigned int get_contig_folio_len(struct p=
-age **pages,
-  */
- ssize_t iov_iter_extract_bvecs(struct iov_iter *iter, struct bio_vec *bv=
-,
- 		size_t max_size, unsigned short *nr_vecs,
--		unsigned short max_vecs, iov_iter_extraction_t extraction_flags)
-+		unsigned short max_vecs, unsigned mem_align_mask,
-+		iov_iter_extraction_t extraction_flags)
- {
-+	unsigned long start =3D (unsigned long)iter_iov_addr(iter);
- 	unsigned short entries_left =3D max_vecs - *nr_vecs;
- 	unsigned short nr_pages, i =3D 0;
- 	size_t left, offset, len;
- 	struct page **pages;
- 	ssize_t size;
-=20
-+	if ((start | iter_iov_len(iter)) & mem_align_mask)
-+		return -EINVAL;
-+
- 	/*
- 	 * Move page array up in the allocated memory for the bio vecs as far a=
-s
- 	 * possible so that we can start filling biovecs from the beginning
---=20
-2.52.0
-
+Thanks,
+Bartosz
