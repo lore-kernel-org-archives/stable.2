@@ -1,134 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F9436F90B
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 22:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5247E37BE9E
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 22:56:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782168738; cv=none; b=Fi0vcbYOMeIhKmLlXqoM3Cqd1cQp0kBLGskECmJd0Eung/3mnSuGroccelS58m/Wl6yAkrUvl4Y/U5v38i/X5tmyIHx9sp5fqYB4k73RYDhya+9cv1oi+d2p7viFxPvUCgO3Ro8yo3od8UucIArWZTYJlddz+ZH9AkewHtOT2dk=
+	t=1782168966; cv=none; b=o3cHoFd3NRdArMuYU7BN9N2WaL7eMV+tBBa/pk8xounhxGI8inlImKqBFXtetjTQYQUQVbcRgzNjeQC7DiLMf/NJR1ge/T5U+eTnvHyVfBX1YjasyA3+3ggTXjagw/mSNzp7kv4b8JKZH6HWW+9DbpWSVNbNMi7fHqZdcNda1nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782168738; c=relaxed/simple;
-	bh=TvAcEuk2XHt4r/QEK/A4Pajv2/5S3b1Eeu7n6KSlsWQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ntQxI7JSmtun9CnIQU6ejrMpIoFWkTzQWOWbE8nGjNtrZQsp0Ej/ppkwr8UpbN+MxB98rS3KLr/h3kOKZnX5S76iy0yLHD3s1HPz2adqaUEyfH0c1fccSnQ18lTLk1DtEyJ7sXwoyvYHPSDdUH4BvnHhNjGmxTUzBMZlGdh/ty0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZIOxnaKa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782168966; c=relaxed/simple;
+	bh=hhM9TVmD8TUIUHX6GnOglzxp7Qwel59R5ToCYuzYuss=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fEVCjpb7aHIggxE8pSk/DLjFrsmSP42OsIoKfrkJKfkoygw4kZNBI8kmDOzfk0bHvIXv6LhqnaYkkboWYCkBK9nY88MSfvzb7D1GGm+wRTkq5xBBn3+TfRhCwYVMtO9NSpKP71n6jDMuCdX6FsYYPHT14QzmsVUMaV6B7IzTTug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=SstuOnl7; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=SstuOnl7; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZIOxnaKa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F4F1F00A3A
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 22:52:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782168737;
-	bh=sOaJBY2vYbjxJ/JpG7DCE2JRLzNVwpwwc0x2I1M0tkU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ZIOxnaKab5p1n/3vTLL9gXUkmX2oYBpiSSI4S1Uk7/8zrSjEy4ofyrWXKIk/7YAyq
-	 EIWbcTgfeqfpaQWtp89e++0rRLLoJ0jGyKhsnjB+nA6RbCXJ2urbaNlaVOEpEksnW0
-	 +NI4Tmh/r5FFEazkOrnPF0cVnldvTgPEBCCRpUex6WgBu2wzruGpvm/KQOV+dnCnNS
-	 2je8b9x8rWa46d6mP7P07hk5/7kSuu2lJbxdTTY6b17r6cfiux0vCxtYj3MsoFF12U
-	 oeTNV7yKN5OY2kcDbfFvqAeGWTC3dPTMtHQym47+ezpqjj0ahN4oJt7s2Gsu0SJIV3
-	 6bUTMmOdJX9xA==
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-9158fbaa4bbso562172385a.1
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 15:52:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ88hknNoOy+edclt7z47/Y+Mj+yXjl+B9q+tRndBVvXCg/2RLPSwNvL4ibh1dLEvvu7IRu3K3Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx9+L9XP38xjmcJIqOB0TyFYmQLXu08p0QjJ5zouWl6V6f3RnjW
-	hwWZbvj1bQOBz9h1pdfP6YchZqnrNPRNkuva+dUFK20wsDs5kR3debrBQgiUK1zu469wPQjxgd2
-	R+LIivTF9J69e8q2Bm9RAICd857Ig0xI=
-X-Received: by 2002:a05:620a:a2c5:10b0:920:be30:2d38 with SMTP id
- af79cd13be357-920be302dbamr1837599785a.9.1782168736458; Mon, 22 Jun 2026
- 15:52:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="SstuOnl7";
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="SstuOnl7"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 76FEC70AD5;
+	Mon, 22 Jun 2026 22:56:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1782168963; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jdm2jwrJU3Fpc1+eCtb2ZSLHrtQTCh3r+TUZqhO56Xw=;
+	b=SstuOnl7I7efFc8ZGIL2d6jP95w4BCrU3BDwyZrrpir08oVwaE+nf5JLq+++/zvFfRmMQE
+	OosBbJLaJdNlisTf40SqTp1tor78yzp1wjgGrDsxL0ML6s95X12XQ+lCDQS/OCycHJ4fsj
+	K0xkw8fJFx/0jae6PfOycWrnmPpOuCU=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1782168963; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jdm2jwrJU3Fpc1+eCtb2ZSLHrtQTCh3r+TUZqhO56Xw=;
+	b=SstuOnl7I7efFc8ZGIL2d6jP95w4BCrU3BDwyZrrpir08oVwaE+nf5JLq+++/zvFfRmMQE
+	OosBbJLaJdNlisTf40SqTp1tor78yzp1wjgGrDsxL0ML6s95X12XQ+lCDQS/OCycHJ4fsj
+	K0xkw8fJFx/0jae6PfOycWrnmPpOuCU=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D963C779A8;
+	Mon, 22 Jun 2026 22:56:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id +HZLIoG9OWq0OQAAD6G6ig
+	(envelope-from <wqu@suse.com>); Mon, 22 Jun 2026 22:56:01 +0000
+From: Qu Wenruo <wqu@suse.com>
+To: linux-btrfs@vger.kernel.org
+Cc: syzbot+d950c6ba09b79f6e1864@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] btrfs: do not try compression for data reloc inodes
+Date: Tue, 23 Jun 2026 08:25:39 +0930
+Message-ID: <4191bde54303559d0065213f7970ec1ad9790e02.1782168847.git.wqu@suse.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1782168847.git.wqu@suse.com>
+References: <cover.1782168847.git.wqu@suse.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <5A9E929D82717101+12fcf643-efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn>
- <20260622073703.79258-1-qi.zheng@linux.dev>
-In-Reply-To: <20260622073703.79258-1-qi.zheng@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 23 Jun 2026 06:52:04 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4z34ZRu_RKkaZ7EgTWMOxptUjZ90WJyNoJrXGNjzutxnA@mail.gmail.com>
-X-Gm-Features: AVVi8Ce0foZMj_P664AgKaMfmRLO4b5-1jEQyynf-QVbFLWZ4URCnbuGkwqxqQo
-Message-ID: <CAGsJ_4z34ZRu_RKkaZ7EgTWMOxptUjZ90WJyNoJrXGNjzutxnA@mail.gmail.com>
-Subject: Re: [PATCH] mm: mglru: fix stale batch updates after memcg reparenting
-To: Qi Zheng <qi.zheng@linux.dev>
-Cc: akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com, 
-	shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, hannes@cmpxchg.org, harry@kernel.org, 
-	muchun.song@linux.dev, peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, 
-	roman.gushchin@linux.dev, ljs@kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -2.80
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[d950c6ba09b79f6e1864];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[appspotmail.com:email,suse.com:email,suse.com:mid];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Level: 
 
-On Mon, Jun 22, 2026 at 3:38=E2=80=AFPM Qi Zheng <qi.zheng@linux.dev> wrote=
-:
->
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
->
-> The mglru page table walker batches per-generation size deltas in
-> walk->nr_pages while walking page tables without holding the lruvec lock.
-> The reset_batch_size() later folds those deltas into walk->lruvec under
-> the lruvec lock.
->
-> The page table walker can run concurrently with the memcg reparenting pat=
-h
-> as follows:
->
-> CPU0                           CPU1
-> =3D=3D=3D=3D                           =3D=3D=3D=3D
->
-> walk_mm
-> --> walk_page_range
->     --> update_batch_size
->         --> walk->nr_pages +=3D delta
->
->                               mem_cgroup_css_offline
->                               --> memcg_reparent_objcgs
->                                   --> lock lruvec
->                                       lru_gen_reparent_memcg
->                                       --> reparent child folios to parent
->                                       unlock lruvec
->
->     lock lruvec
->     reset_batch_size
->     --> child lrugen->nr_pages +=3D delta
->
-> This can trigger the following warning:
->
-> WARNING: mm/vmscan.c:5867 at lru_gen_exit_memcg+0x26f/0x300
-> RIP: 0010:lru_gen_exit_memcg+0x26f/0x300 mm/vmscan.c:5867
+[BUG]
+There is a syzbot report that the check inside get_new_location()
+triggered:
 
-I can't find 5867; instead, I can find 5828:
+ BTRFS info (device loop0): found 31 extents, stage: move data extents
+ BTRFS info (device loop0): leaf 8908800 gen 16 total ptrs 28 free space 1676 owner 18446744073709551607
+        item 0 key (256 INODE_ITEM 0) itemoff 3835 itemsize 160
+                inode generation 5 transid 0 size 0 nbytes 0
+                block group 0 mode 40755 links 1 uid 0 gid 0
+                rdev 0 sequence 0 flags 0x0
+                atime 1669132761.0
+                ctime 1669132761.0
+                mtime 1669132761.0
+                otime 0.0
+        item 1 key (256 INODE_REF 256) itemoff 3823 itemsize 12
+                index 0 name_len 2
+        item 2 key (258 INODE_ITEM 0) itemoff 3663 itemsize 160
+                inode generation 1 transid 16 size 733184 nbytes 106496
+                block group 0 mode 100600 links 0 uid 0 gid 0
+                rdev 0 sequence 24 flags 0x18
+        item 3 key (258 EXTENT_DATA 0) itemoff 3595 itemsize 68
+                generation 16 type 0
+                inline extent data size 47 ram_bytes 4096 compression 1
+ [...]
+        item 27 key (18446744073709551611 ORPHAN_ITEM 258) itemoff 2376 itemsize 0
+ BTRFS error (device loop0): unexpected non-zero offset in file extent item for data reloc inode 258 key offset 0 offset 9277520992061368337
+ ------------[ cut here ]------------
+ btrfs_abort_should_print_stack(__error)
 
-VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
-  sizeof(lruvec->lrugen.nr_pages)));
+[CAUSE]
+The above dump tree shows the first file extent item is inlined, which
+should make no sense for data reloc inodes, as such inodes are just
+representing where the data extents are in the relocation destination chunk.
 
-Is this the warning?
+However the relocation path is just preallocate space for each block,
+then dirty them, cluster by cluster.
+It's possible to have a single block at the beginning of the block
+group, and no other block in the same cluster.
 
-> Call Trace:
->   <TASK>
->   mem_cgroup_free mm/memcontrol.c:3972 [inline]
->   mem_cgroup_css_free+0x76/0xb0 mm/memcontrol.c:4241
->   css_free_rwork_fn+0x125/0x1260 kernel/cgroup/cgroup.c:5575
->   process_one_work+0xa0d/0x1c30 kernel/workqueue.c:3314
->   process_scheduled_works kernel/workqueue.c:3397 [inline]
->   worker_thread+0x645/0xe80 kernel/workqueue.c:3478
->   kthread+0x367/0x480 kernel/kthread.c:436
->   ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
->   ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
->   </TASK>
->
-> To fix it, add lrugen->reparented to remember the new owner of a
-> reparented lruvec, and make reset_batch_size() charge pending deltas to
-> that owner.
->
-> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a-a=
-53a-1e28cc894f0b@smail.nju.edu.cn
-> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+Then relocation will preallocate a file extent for that block, dirty the first block.
+Then memory pressure forces the data reloc inode to be written back, before
+any other blocks being dirtied/allocated.
 
-Looks reasonable to me.
-Reviewed-by: Barry Song <baohua@kernel.org>
+Finally commit 3eaf5f082c4c ("btrfs: extract inlined creation into a dedicated
+delalloc helper") changed the timing of delalloc, before that commit we
+always try NOCOW first, so that dirtied block will be written back into
+the preallocated space.
+
+But with that commit, we always try inline first, and since compression
+is forced, we try compressing the first block, and then inline the
+compressed data, resulting in the above inlined file extent in data
+reloc tree.
+
+Then the check in get_new_location() will check the file offset, without
+checking if the file extent is inlined or not, resulting the above
+failure.
+
+[FIX]
+Do not allow compression for data reloc inodes in the first place.
+
+Reported-by: syzbot+d950c6ba09b79f6e1864@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/linux-btrfs/6a373dc5.764cf64f.168fbe.0001.GAE@google.com/
+Fixes: 3eaf5f082c4c ("btrfs: extract inlined creation into a dedicated delalloc helper")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+---
+ fs/btrfs/btrfs_inode.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
+index d5d81f9546c3..fff72f6cc1e8 100644
+--- a/fs/btrfs/btrfs_inode.h
++++ b/fs/btrfs/btrfs_inode.h
+@@ -476,6 +476,8 @@ static inline bool btrfs_inode_can_compress(const struct btrfs_inode *inode)
+ 	if (inode->flags & BTRFS_INODE_NODATACOW ||
+ 	    inode->flags & BTRFS_INODE_NODATASUM)
+ 		return false;
++	if (btrfs_root_id(inode->root) == BTRFS_DATA_RELOC_TREE_OBJECTID)
++		return false;
+ 	return true;
+ }
+ 
+-- 
+2.54.0
+
