@@ -1,40 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1CD3A452E
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 09:54:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8705639B943
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 09:54:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782122088; cv=none; b=ftQZ1QxR0IcjooOIZr2gTFeKGzSaHOXk74UB/EDJtY5nR8nzSB0lI4+lImRtRaYQm1/T3rwOxrqhQC7+fYQwCuQJn55RIpXyVN7eCxpMi5lRQNg/rS336N+jf3Z6+sEMzJyo0ApcO4EKhHjyukL9WY8xo36uYVZcHgqsFLTyOr4=
+	t=1782122092; cv=none; b=PWB8mKFEpPNPPrI0vbQLI98TYRHltPLoKQBvwUOznRUW7WSsC/h3iOhB6QklW//MKmsv5Wj6vSCqoDiClfINQQ6pmu2T6HqovnHRu/zKdvprHShIwb7TsgychUC/+eGBPgLooNw793pVt/5AA5IBRnlrzVJB8sAa9qyRX0xdru8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782122088; c=relaxed/simple;
-	bh=oqiicfY4FIQX0iDyOzCrhT5s6dW5vq8a/rQ2+zX+FK8=;
+	s=arc-20240116; t=1782122092; c=relaxed/simple;
+	bh=rhbBsj18Ju3cRk75uvOuxgVx59GBDUVQI00foVUl+uA=;
 	h=Date:Message-ID:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=Kn8frrk4tQSx2KqmqR0fbVazGTCYLZlPRyLwEOZ9UYkEwTDuoiIZjlOjNJApQsCxeKdWe6x3xbLp7brqe0p66MyCLXhND3zv7IL2AXDiT/oVdVd6Ii0ZmtuNBHM005flc8Sqn9nP59fCU0gGp2XwxuF3IKCilTsBCUqm2fRReso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVavMTA+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=MxOKnbhihu0l+xLAXiusSryci4SYbBORJCHfRur4eF5S/qatjghdG+jOvNQaSr3xAgZyi4cBJ6hzwsfhdqapmDjnyjmFGO9Lz/tAgNXmoAhOSWyWo7Cno/b6Yp8ehVuGn05EVCt3ARC5FFLSCCstNNzK50CXkiuZSwvCyxhvLp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jAe/upEw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVavMTA+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B0F1F00A3A;
-	Mon, 22 Jun 2026 09:54:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jAe/upEw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CED41F000E9;
+	Mon, 22 Jun 2026 09:54:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782122085;
-	bh=R4wbtXHQe1yBTxtj1741PuYiVyXqPIZKeMVUgFa2K6s=;
+	s=k20260515; t=1782122089;
+	bh=0YvRsbPtH8/qa4dC25QI2LFhdrQiSrclNWOe0ymOCe0=;
 	h=Date:From:To:Cc:Subject:References;
-	b=SVavMTA+B/GfaFmg3qrXLXQ0vAq1Wdlj8It6N7Dm1J3Xir2Ao0NY3fSqF9pAic0O/
-	 ajos0FpOg1QZFOZ1idzA2XlclTai4AO9kkdRF76sqnSGVLGy4wYhqBulWXlAsUi4AD
-	 UBmSCZL/3PmEjJqPXYtOCRl6QPldWx9bJ+Tm3WyvN0hOYhPdf2z6JsDWpnVVMr8WDT
-	 8c2UuISdVJaDeo5XEvoQeozqAfGloXr6Ng1ZBewg4vZSEj469eAx827aQic5WMEhFX
-	 L3Y7TWXoCPsq6sStUN2lBOqSgGIME7S3hQeizTHnSYVSCVN5nNWUF194k2oZGuK2xC
-	 re/HKNovomR/Q==
-Date: Mon, 22 Jun 2026 11:54:42 +0200
-Message-ID: <20260622093321.585763770@kernel.org>
+	b=jAe/upEwM0aNfJABoVSUU7rqovROKf1sEY05dBhGgyVebbo7sqSefAO5PsoJnPI2D
+	 RaSZf0ay6C/MsiWcpwWxKIgHsrBwgwTeWZKgNw/ScnY9C29dy5llyUAB+ZqeDk0V6A
+	 rusimg22ZzuW2s2nFb9YDCzOw0V5OeGZMEHGoA9y1o4SNzilEplEfxXN1ZIJmbipO9
+	 CoMxT829q982m3gCBS9OS+Wjiht7weiGIHeaWRR5vn+RX8M4SWFEsJkUTaaZHt5PvA
+	 85n4sHd6VFpm7v23v2NNYKX/AUqLwlAkT8AG/f6L+3R+N0d13RF/g26IFDa8+e+PT/
+	 vDZsYyUmlp8rw==
+Date: Mon, 22 Jun 2026 11:54:46 +0200
+Message-ID: <20260622093321.640886555@kernel.org>
 User-Agent: quilt/0.69
 From: Thomas Gleixner <tglx@kernel.org>
 To: stable@vger.kernel.org
 Cc: Waiman Long <longman@redhat.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [patch v6.18.y 2/4] debugobjects: Use LD_WAIT_CONFIG instead of
- LD_WAIT_SLEEP
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ syzbot+b8ca586b9fc235f0c0df@syzkaller.appspotmail.com,
+ Helen Koike <koike@igalia.com>
+Subject: [patch v6.18.y 3/4] debugobjects: Do not fill_pool() if pi_blocked_on
 References: <20260622093040.582177124@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -44,42 +45,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+From: Helen Koike <koike@igalia.com>
 
-commit 37de2dbc318ee10577c1c2704de5a803e75e55a2 upstream.
+commit 5f41161059fd0f1bbf18c90f3180e38cc45a14eb upstream.
 
-fill_pool_map is used to suppress nesting violations caused by acquiring
-a spinlock_t (from within the memory allocator) while holding a
-raw_spinlock_t. The used annotation is wrong.
+On RT enabled kernels, fill_pool() ends up calling rtlock_lock(), which
+asserts if current::pi_blocked_on is set, because a task can obviously only
+block on one lock as otherwise the priority inheritenace chain gets
+corrupted.
 
-LD_WAIT_SLEEP is for always sleeping lock types such as mutex_t.
-LD_WAIT_CONFIG is for lock type which are sleeping while spinning on
-PREEMPT_RT such as spinlock_t.
+Prevent this by expanding the conditional to take current::pi_blocked_on
+into account.
 
-Use LD_WAIT_CONFIG as override.
-
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Link: https://patch.msgid.link/20251127153652.291697-3-bigeasy@linutronix.de
+Fixes: 4bedcc28469a ("debugobjects: Make them PREEMPT_RT aware")
+Reported-by: syzbot+b8ca586b9fc235f0c0df@syzkaller.appspotmail.com
+Signed-off-by: Helen Koike <koike@igalia.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://patch.msgid.link/20260511215359.3351259-1-koike@igalia.com
+Closes: https://syzkaller.appspot.com/bug?extid=b8ca586b9fc235f0c0df
 ---
- lib/debugobjects.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ lib/debugobjects.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 ---
 diff --git a/lib/debugobjects.c b/lib/debugobjects.c
-index 9d59b797d1b5..4343dc5e5c99 100644
+index 4343dc5e5c99..cbd025dae5ce 100644
 --- a/lib/debugobjects.c
 +++ b/lib/debugobjects.c
-@@ -734,10 +734,10 @@ static void debug_objects_fill_pool(void)
- 	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || preemptible() || system_state < SYSTEM_SCHEDULING) {
+@@ -711,6 +711,15 @@ static struct debug_obj *lookup_object_or_alloc(void *addr, struct debug_bucket 
+ 	return NULL;
+ }
+ 
++static inline bool debug_objects_is_pi_blocked_on(void)
++{
++#ifdef CONFIG_RT_MUTEXES
++	return current->pi_blocked_on != NULL;
++#else
++	return false;
++#endif
++}
++
+ static void debug_objects_fill_pool(void)
+ {
+ 	if (!static_branch_likely(&obj_cache_enabled))
+@@ -727,11 +736,12 @@ static void debug_objects_fill_pool(void)
+ 
+ 	/*
+ 	 * On RT enabled kernels the pool refill must happen in preemptible
+-	 * context -- for !RT kernels we rely on the fact that spinlock_t and
+-	 * raw_spinlock_t are basically the same type and this lock-type
+-	 * inversion works just fine.
++	 * context and not enqueued on an rt_mutex -- for !RT kernels we rely
++	 * on the fact that spinlock_t and raw_spinlock_t are basically the
++	 * same type and this lock-type inversion works just fine.
+ 	 */
+-	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || preemptible() || system_state < SYSTEM_SCHEDULING) {
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || system_state < SYSTEM_SCHEDULING ||
++	    (preemptible() && !debug_objects_is_pi_blocked_on())) {
  		/*
  		 * Annotate away the spinlock_t inside raw_spinlock_t warning
--		 * by temporarily raising the wait-type to WAIT_SLEEP, matching
-+		 * by temporarily raising the wait-type to LD_WAIT_CONFIG, matching
- 		 * the preemptible() condition above.
- 		 */
--		static DEFINE_WAIT_OVERRIDE_MAP(fill_pool_map, LD_WAIT_SLEEP);
-+		static DEFINE_WAIT_OVERRIDE_MAP(fill_pool_map, LD_WAIT_CONFIG);
- 		lock_map_acquire_try(&fill_pool_map);
- 		fill_pool();
- 		lock_map_release(&fill_pool_map);
+ 		 * by temporarily raising the wait-type to LD_WAIT_CONFIG, matching
 
