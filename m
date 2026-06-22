@@ -1,168 +1,156 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69014340407
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 17:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782150510; cv=none; b=m7BE2O3UzD3ACfrnlopkyFy2gDEakLy1RhWnLK4tvvHMDbRNvZbtNNVcRlt+xAFZLdzwzqQXYptwon8C5f7M7mkF1EZsW+R5rqZ55E/6209pa7J/EKJ5wDCXmrhsNNc1Tkx0ray7KCetTp0yZusePg8SoGKH1xHyX3elgey68YU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782150510; c=relaxed/simple;
-	bh=rT+UtKMtzGnsnjtDXBDLQP30MQk3djrKnOyWlXkyvIw=;
-	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type; b=U+39+tMJLMkDpq64lr9AKBdg9rUUW8SOuK6aQdGrngyDeiNx6FnLfhyeDBPVc5j0YUMKiHM2XwS6jkBjp3AHzodm44Um7IdNA9XDfh0u2aj+wo/J+aIBMT3CJ7kZfZYAYmxfAjh5a+SOTPvytpAhXvmXPZhR/sLHVIJds5yQwe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q0f92W9A; arc=none smtp.client-ip=209.85.128.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8557342173
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 17:53:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782150830; cv=pass; b=VkG/w3aHgIHjfx4konjCUUQH5/W809ZDtaUtLvfVMrF/TEQO95gq8M/cszMlO4brDeWWjiUwo6AM+foUVT9nDXglMapK8hN4vVQSAj2eEJ+Go4BV8hUaFKwQlLDzwCUW2m1f9kKBzQb+dISZbXPEwGa7n7I6ZhPda63LLSf1AfE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782150830; c=relaxed/simple;
+	bh=792JthRakdk5sbEo8g+d1nmVLBE1qYjza4D99D/L3GY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pkIToCq68MfWuCcl8nCmSDPTUbCU5iHuYsp5uVB8TUaaFAg8Pt2j8QrWNrk9pE6taqhwG4hJ9vV/XpQp5c6OOK53dgvNvDOHQs4q8jjsXYAAhMWBRNYyfNpv7RFAPYeaA1ZDu84lRg5B9+mTcrr3rNcqmno9yVYHUUjMJquREQs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jnrzrHxQ; arc=pass smtp.client-ip=209.85.208.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q0f92W9A"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-805f5d1a6c3so8444207b3.1
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 10:48:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jnrzrHxQ"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-69767cb5d4aso5215239a12.3
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 10:53:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782150827; cv=none;
+        d=google.com; s=arc-20240605;
+        b=P75wp5Qk8LptxDEh2qBLkusQz12QDHjPwdpPa1AfxbEstqfQKHkRHqa+WbgXbtpvpI
+         hxeF0fgQlGODsHpFGyH2Joc3cVW7LCmTNzvdN8Kjsrhl5xpmInV/FxsiGwxQXk6OVF3H
+         ETA+AKG01rxBrJhe1jR01e1NTYL25AsFmHaYZ4YyVH7dYhxjG49CARpjvuHAvowhS1oK
+         /Uvoa+PmsRwn/FtJ0d82sukG62xhuB2kNQ7rosnIWMJDplWKlBF9mmp82EJgXJQB0XxA
+         aGdJ6PzYfFO9WyZPA83TYrgG7lQe7rm0kcXmdnP4COadCYfJOpQIyOjhPrQ6NQe/Ag6X
+         TP8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xWxywB8yX97dTgz4W7+C3cuW4P0X8MyukDE24mZ3+gk=;
+        fh=TtxxF5ZLr4IUGSD146dL6PVjebaFaYUdPbH9CxMcxm8=;
+        b=cLxYL7p4lPx6QRzJqTqV5MESF74xw+9vtSK+hBW6uvVSNU1kBSDLkavZm2RpmoHPsI
+         /gXy0pgJirNGdN/fXZ6oQ/I0iJMwhkuEid5l+YiAnYNKdIJwNXU4/8RtTNzOko9QnmH0
+         Rwq8YS9Jczrozn1uRayKp8fsWzhXV4eKBAp06vzxaDPTqDkW8OThmCFMsw3O5/4nQ0pv
+         Vsu9XDMuIR4gIbi7qK2/jJXsxoSlzFO/VeWA/bUcfvbyPF8FZvawT46/BF7X/lw507xS
+         hYq2m2LcW9vdTOLs4IHAP1AEEjsgv+OR6HTvkRfq4UhXPzpyrmU6Dc4ffbWaZjj9obue
+         5O8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782150508; x=1782755308; darn=vger.kernel.org;
-        h=content-language:thread-index:content-transfer-encoding
-         :mime-version:message-id:date:subject:in-reply-to:references:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=33veWonGavd+osVYaZO16Ido/MSdlOEETv1HhacB24U=;
-        b=Q0f92W9AAVD8CyTlZPOOj6rGZXrm1afo90xqXd/BHWsbEW6084DAARrb18A/Uiv3mR
-         3k/ki1DY49QLWFWy8bZ8QyUEr+miikmIAyUM2x3kGMwG2oGLE+r1Gx4UJpVl1d2oaQs2
-         h5Vu5gq/TqZ/KWVv/PaRpOM+wtiSAFreC5D7x2YjQaErOxHbQYQRX0oaXHh/UiEadmEe
-         RLP7VL7ZL+R+oz3Rc8fNu40bdCMo7s7eIvpFhBgCmP7L9g8ztSQdBabQ4e+DSZDF6/vy
-         jBxD+1cREN6469Qx3TIm+0W9oG6/9EYkDK9id4i1WGzjrXAkd3AOPRnOrFv7nama0sAa
-         PPgQ==
+        d=gmail.com; s=20251104; t=1782150827; x=1782755627; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xWxywB8yX97dTgz4W7+C3cuW4P0X8MyukDE24mZ3+gk=;
+        b=jnrzrHxQU4ZCqVsfPnMHcES83wfZKqap5cReGyCqbz9z/JH3Ib2VF3TOMyS5lOGPId
+         t+3/cMOJpByjoo7vhP9JPzGRpE/UyJY+qF31uXXiKgk1AaMN3o63jcxXTxybOLPQ52Xp
+         T3JWvp24yvXO3YuK9WojYHgtjQPeIe3lSm1zy30Pbkku+40t5L60LSZ6SGqeiJDA0Aey
+         Pt0v8BJ+EfTcRqTaH4UyiJ3PuSv5dTZyx4nw2wNTZyUWFxIj9PEwle/i6pkNrcyWYFvI
+         PPOf+VcPLdsPJlH4nl+bMUtZfaNace3aopN9xDAkXRlTLuHfE3zMnOeso/IYCWHuMWob
+         VNXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782150508; x=1782755308;
-        h=content-language:thread-index:content-transfer-encoding
-         :mime-version:message-id:date:subject:in-reply-to:references:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=33veWonGavd+osVYaZO16Ido/MSdlOEETv1HhacB24U=;
-        b=LP6PXIM4CZSTYlnu7qLNq+cpFKXBilGJ6qSzdl5XSNKeGXsxr9n2NzB9YD5WH1MIax
-         J37Qv/jTlkrpkzscoSF9S0bUqzPMivE7zzWgBUjmpgNBWWOZoIX3ADFq2sxwwHPXQGj6
-         8beRjlU3SI89A5notTkeP47tPzmRKZ3qui1SWIgocPGZ2hQb+LL/SMjTSl5JLPkK+Xiw
-         OcxPinXjqnI4Ca4RzYlnW0c8IQH7YRnbXl073GD8V+OryE86mjov01I/oGwn5hxZwCLG
-         Fd/zpj8/dLP8eQpxFp4S4Nz9ummPl4o69Qx6JhwZDb/1aPNUWkbIlQcSTrZvEuneKe5S
-         qXkw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro2DpL1+JEkg7Q5ZcRXbga92TDGVj5hvY++6d3o9oTli9QVmoEjHjuIEDmNS9RliXEUNw8jBV8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxHmvmKeGpHndx6zTzT9uEgVsehE2gbqPWj1fTdFOmHVvhJugRO
-	cdYi1wjoONYJOQiF9XjkUSX3rYjPsJPmmGlSw64g83lDcvzw2RhGOPkQ
-X-Gm-Gg: AfdE7cmq6XIJ4edAg5JC38eBLHHOqJyaZlYCyCBwv7obQfnzwmX6qlP10CllfzcppLa
-	DhT6iHwKYci1dx9ZQBylprfg2EbgmPRomiKDa9L1QRwPxxMIIc5QrnWq9xGncsdRiIeHxUV8QQZ
-	61PIgQP6x+rhFYyniJRdyhu183kIKbkHrwVyYcSv5pXS3fLKCDw0M1dnFdstV4q3+RdbU7b89KB
-	7YPVh7wb78VO9EHmJ3qnGa5482X3vQwHi2kUDYxzBLAF/7b0ICxTl2LkDF3DqH8UtGVswpymzHA
-	en59P5X2DvGrv6LnF6+n+/3flZ93uqWx8EnBnmEex4XQLpZigeJBVCAdMLZr/0tUAYCeIhcq0nS
-	ryEUhQnH6Pq3q8aZP6qOkqNJdQv6P21yZHFRF6qkktm63X8bf7OjsbZRue4xgpFaafpC50sNQKZ
-	OVvYW8KJlRygnY7v2xG6JWEvMyeXKTkXnfWHpCgmjhmJJn4c+D6rXVD5oQq/O320/LvtYMBVhtR
-	Cuak+2W/0Sv14U=
-X-Received: by 2002:a05:690c:4b10:b0:7fe:bd7:9cae with SMTP id 00721157ae682-80178c4a2ecmr145514817b3.44.1782150508479;
-        Mon, 22 Jun 2026 10:48:28 -0700 (PDT)
-Received: from WIN6DK41G9CSL2 (c-73-56-149-95.hsd1.fl.comcast.net. [73.56.149.95])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8025f8da5fbsm34884557b3.30.2026.06.22.10.48.27
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 22 Jun 2026 10:48:28 -0700 (PDT)
-From: "Brien Oberstein" <brienpub@gmail.com>
-To: "'Stefano Garzarella'" <sgarzare@redhat.com>
-Cc: <netdev@vger.kernel.org>,
-	<regressions@lists.linux.dev>,
-	<stable@vger.kernel.org>
-References: <467b01dd017b$733792d0$59a6b870$@gmail.com> <ajkAlpiyPWmNPWfx@sgarzare-redhat> <618701dd023e$063de350$12b9a9f0$@gmail.com> <ajkmjgGdJp9Dj6em@sgarzare-redhat>
-In-Reply-To: <ajkmjgGdJp9Dj6em@sgarzare-redhat>
-Subject: RE: [REGRESSION 6.12.90 -> 6.12.94] vsock/virtio: large AF_VSOCK transfers reset under backpressure
-Date: Mon, 22 Jun 2026 13:48:27 -0400
-Message-ID: <672f01dd026f$54fa0600$feee1200$@gmail.com>
+        d=1e100.net; s=20251104; t=1782150827; x=1782755627;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=xWxywB8yX97dTgz4W7+C3cuW4P0X8MyukDE24mZ3+gk=;
+        b=MEV0YSLIkwq5tSr6LUPQejvGaP/YsOc9n/uuW7IWIdL8yR+6K68EnHrfU+TeShf3l/
+         vDaLbPtO86ETf7LMwYJo8SSIyxk0WwLJgSXaCrX3Bg+sMECBXb3RjgaRjY1eCdqf1Pgn
+         Vtr2jm91m42/1uwzDMZCVlMoRYbB0umslUo+Ou8few7f4SqLq92NeNidWw7V+KaUY6H4
+         96o0Xhpr2W8Zlu82dweCpjeykaL1BPhJ7TBucsltATMzT/NaCtOqZH7EXYr6QbiwCJcu
+         oxwwria8VzusNxTKTKJ/nt36Hm12V4SC9RK206LsDxsHZA2BZk70MHWOyZpP+1mmsHa5
+         O7dg==
+X-Forwarded-Encrypted: i=1; AFNElJ8J5Wcyn5YD/rEgbMzmMpNZ+pQUoBN3kEX6AKUy+k2KK8mI8oD1rRt8Cuo6C+VJn8cM+j1kpAs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOaCKAmtJNNIXiT6tWzfLhQXp0sG3M0IULJB7HV5z9X6JAdS28
+	BDf86YTIaxMVfiLu2te3gdv/WelhBpJ5OEMcuaZrOiZtmgsjgX+KJj8n6TBVRTuZPVtepJqejEl
+	wCBsk4FgakGAx4bB4BVhPOOM2FwOEsrU=
+X-Gm-Gg: AfdE7cmoEs+xnm4dymMbLolpwvqyBmSWntMWPaKEjG+8RkKjCBouJgJq29K2hGVR/gA
+	41sINtdKUZnlEa4HNlrXTA6IFWoKkH+9wKeYammMUgBTZV51XPNyBQgiroW+446WAEXYS/JG+KO
+	UCu/IZXwWBsU7JnwtAbd2sW/Jp19N/0afJqlemybozSebonhdXEOpF+D0FdZgwtqDa/dEYnJXW6
+	H+Fwa3O7/hf61uKih7EQWLbWLM9H9uXRuZ2NBFFk6kmjmS81ljEdSDFROuQjA7HuCBmsnKmY2rZ
+	EJ7YXGD8UI9O62rGtm4uL3q9O51/B2g=
+X-Received: by 2002:a05:6402:ea0:b0:671:a18b:32b8 with SMTP id
+ 4fb4d7f45d1cf-696e5275851mr6985046a12.0.1782150827279; Mon, 22 Jun 2026
+ 10:53:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGzlm2Q3QdtCPSkkHXQpTkeFGbfJwIutksBAb+8QgECzm+rZbZnykdw
-Content-Language: en-us
+References: <20260619120026.2630196-1-tristmd@gmail.com>
+In-Reply-To: <20260619120026.2630196-1-tristmd@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Mon, 22 Jun 2026 19:53:36 +0200
+X-Gm-Features: AVVi8CflF_ZPJwZiHQ-Fm5jcIlERe35O8dwHLZPmPNek-7hP-ECJ3tNgWCYTdTQ
+Message-ID: <CAOQ4uxhEqS-ALvuP_YxBi=MDpF5fWOsWfgBm2BBOu+GT=d+xKQ@mail.gmail.com>
+Subject: Re: [PATCH] fuse: check fi is not NULL before calling fuse_passthrough_release()
+To: Tristan Madani <tristmd@gmail.com>
+Cc: miklos@szeredi.hu, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, 
+	tristan@talencesecurity.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Stefano,
+On Fri, Jun 19, 2026 at 2:00=E2=80=AFPM Tristan Madani <tristmd@gmail.com> =
+wrote:
+>
+> From: Tristan Madani <tristan@talencesecurity.com>
+>
+> fuse_create_open() calls fuse_sync_release() with a NULL fuse_inode
+> when fuse_iget() fails. This propagates to fuse_prepare_release(),
+> which passes the NULL fi to fuse_inode_backing() via the
+> fuse_passthrough_release() call, resulting in a NULL pointer
+> dereference.
+>
+> The existing comment in fuse_prepare_release() documents that the
+> inode can be NULL on the error path of fuse_create_open(), and the
+> fi->lock access below is already guarded with if (likely(fi)), but
+> the passthrough release path added by commit 4a90451bbc7f ("fuse:
+> implement open in passthrough mode") was not given the same
+> protection.
 
-Confirmed -- the 16 MB buffer fixes it: with socat owning the VSOCK-LISTEN
-and SO_VM_SOCKETS_BUFFER_MAX_SIZE/SIZE at 16 MB, a 6.12.94 guest passed
-21/21 large transfers (1.5 MB x12 through 8 MB); the same 1.5 MB payload
-failed every time without it. So the per-socket workaround covers the
-bridges whose listen I control, but not vsock services I can't
-reconfigure, which stay broken on 6.12.94.
+But passthrough open happens after this error patch, so this sounds
+like an invented problem
 
-Agreed the old behaviour was buggy in its own right -- it was
-over-allocating past the advertised buffer. The practical effect for me is
-just that a config that worked on 6.12.90 no longer does on 6.12.94.
+>
+> Add the missing NULL check for fi before calling
+> fuse_passthrough_release().
+>
+> Found by syzkaller.
 
-A question mainly for stable@: until the merging work lands, would an
-interim be acceptable -- something that keeps ordinary small-packet
-workloads under the limit without reopening the DoS? I don't have the
-kernel-side expertise to judge what's safe there, but I'm glad to prepare
-and test whatever interim you think is right, and to test the merging
-patch when it's ready.
+Where is the report? where is the repro?
+
+>
+> Fixes: 4a90451bbc7f ("fuse: implement open in passthrough mode")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+> ---
+>  fs/fuse/file.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+> index c59452d60b8d..9b368eab159c 100644
+> --- a/fs/fuse/file.c
+> +++ b/fs/fuse/file.c
+> @@ -313,7 +313,7 @@ static void fuse_prepare_release(struct fuse_inode *f=
+i, struct fuse_file *ff,
+>         struct fuse_conn *fc =3D ff->fm->fc;
+>         struct fuse_release_args *ra =3D &ff->args->release_args;
+>
+> -       if (fuse_file_passthrough(ff))
+> +       if (fi && fuse_file_passthrough(ff))
+>                 fuse_passthrough_release(ff, fuse_inode_backing(fi));
+>
+
+This should not be possible and if it were possible, this code would
+be leaking ff->passthrough.
+
+I don't know how you got to this issue and why, but if you are sending
+me code fixes from an hallucinating AI agent without really understanding
+and really reproducing the problem please respect my time and don't!
 
 Thanks,
-Brien
-
------Original Message-----
-From: Stefano Garzarella <sgarzare@redhat.com> 
-Sent: Monday, June 22, 2026 8:22 AM
-To: Brien Oberstein <brienpub@gmail.com>
-Cc: netdev@vger.kernel.org; regressions@lists.linux.dev;
-stable@vger.kernel.org
-Subject: Re: [REGRESSION 6.12.90 -> 6.12.94] vsock/virtio: large AF_VSOCK
-transfers reset under backpressure
-
-On Mon, Jun 22, 2026 at 07:55:30AM -0400, Brien Oberstein wrote:
->Hi Stefano,
->
->Thanks, that matches what I'm seeing: large transfers reset mid-stream
->instead of the sender being throttled (reliable above ~1.5 MB, fine below
->~90 KB).
->
->The bind for me: it's not just this mail bridge -- I use AF_VSOCK for a few
->host/guest services, some of which open their own sockets, so the
-per-socket
->buffer workaround can't cover them all. That leaves pinning 6.12.90 (losing
->the DoS fix and further kernel updates) as the only blanket option.
-
-Okay, but in that case did it work?
-
->
->A few quick questions:
->
->1. Is a -stable backport of the merging fix likely, and roughly when?
-
-We don't have a fix yet.
-
->2. Could a smaller interim land in -stable sooner (e.g. more default
->   headroom) without reopening the DoS?
-
-What we've merged so far is the best we can do for now, but anyone who 
-wants to help improve the situation is welcome to submit patches.
-
->3. Will the fix guarantee backpressure for any packet size, or just widen
->   the margin?
-
-It should fix STREAM sockets for any packet size.
-SEQPACKET/DGRAM is a bit different since we need to keep boundaries, so 
-it will come later if needed.
-
->
->Happy to test any patch
-
-THanks, I'll ask you to test.
-
->I have a solid reproducer and can turn it around
->in a day. I'll also file this as a tracked regression so it's not lost.
-
-Unfortunately, it's always been partially broken, using more memory than 
-specified, so I don't know if this is actually a full regression, but I 
-understand.
-
-Thanks,
-Stefano
-
-
+Amir.
