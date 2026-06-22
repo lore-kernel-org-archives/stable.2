@@ -1,85 +1,141 @@
-Received: from confino.investici.org (confino.investici.org [93.190.126.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FEC2313545;
-	Mon, 22 Jun 2026 15:42:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.190.126.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95B53C8737;
+	Mon, 22 Jun 2026 15:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782142953; cv=none; b=kPEJDYMS/ebAlD5DghPGuEElrl5LNETrap7sRiBdx1C4cWjym0xZkRqS9Pdegiy+vD5ALAJWG52DUu+8u8sSUDrL2/0pUxGZTDMqnnIlAVDD6uwMwwr1LeVU0FFoUBgkKt45rZir5M42LbpamQ6W++TiO1eAzzlpTvMN1Eh2h1w=
+	t=1782143225; cv=none; b=EWFNrRX8sMbWlKEhdhtluVgTIaRL9fFXYM8xS6QJgn+8GbLpCWU5N8JmZVvWqQfsyBoYqgDNV0obpbvRHh9EI+kRW0mwSGUGDr1JvJe7ykb260MnxE35pDHsu73Hds9eA34YG4iz6Cm2B4+2RBNRWFO8gxruxLvkgbqnw+BGhps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782142953; c=relaxed/simple;
-	bh=w0CF9D7qA0+TFxzuaf5uEQDES1j7coKNW/VOdu7PohA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iG0bfkZJ3R5MDW9SFxoH4hilCIeFL4X7FUly9/VYa1eFiso4tWBfqa1P9Xxe3oTzeF3bHWjmdU9yoHCHqhtLM2KsEVanbCrEWr2Qjm/QF2tTZmuJdduVVBW1OOwZHVHD7nAvDw4rFyFJEuwfIFyAcJTxHHFcX/uqGnxsnVG+7rA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=qU7OXhdU; arc=none smtp.client-ip=93.190.126.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
+	s=arc-20240116; t=1782143225; c=relaxed/simple;
+	bh=0+de0zXtiLclgZC23qL7jAbhKZXMpbjdSbp2UUjLG6U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pxn1wtbhtY9+zpDfyif5Zwh5ZsSRvAgZaeGSJRydW9TYY7s740Oi1v33WDbubNzTqdldcvfouCJOOwS+9xx/1KYwx4aB1eXRsApflux+H0zkUYo63ke6IJNC1UJGpyTu2WzgBiRIaIg32YCo8o63P8a3kgII+DkdyyTDzPRV13M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOaTZUid; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="qU7OXhdU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1782142949;
-	bh=8HvyzZuawri13YB92T7bVnVD98DHY25m1Z90Cfn8Rdk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=qU7OXhdUfBzV1ZdAqfTngw/0Tt1PJ98cDMYL326oOpbGQ3+D9EKirxvRLaRdF3G/3
-	 X78z75f/wognEhYEARNF72oK/8QQXh8ACuWz6VIs/9/toMgh7aQIWWO4GGyzjd/X6S
-	 1KAOPtevmTVRz0xexT+VPKHp1f4EqgB5RolNo2KU=
-Received: from mx1.investici.org (unknown [127.0.0.1])
-	by confino.investici.org (Postfix) with ESMTP id 4gkXWn4tnxz10x5;
-	Mon, 22 Jun 2026 15:42:29 +0000 (UTC)
-Received: by mx1.investici.org (Postfix) id 4gkXWn0tthz10x8;
-	Mon, 22 Jun 2026 15:42:29 +0000 (UTC)
-From: Bradley Morgan <include@grrlz.net>
-To: Kees Cook <kees@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Matteo Croce <mcroce@microsoft.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bradley Morgan <include@grrlz.net>
-Subject: [PATCH] reboot: keep parsed reboot CPU in range
-Date: Mon, 22 Jun 2026 15:42:16 +0000
-Message-ID: <20260622154216.10064-1-include@grrlz.net>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOaTZUid"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B3AD1F000E9;
+	Mon, 22 Jun 2026 15:47:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782143224;
+	bh=yoWdqaO8IqnJhMic0naLfg9Wn06LbUJ/uEvj5S1j1zc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UOaTZUidvSSHad4akjDsUxFvvXJTkNlMnJWzr8mhmjDu93CmYPG5szEye5UWCoKVH
+	 q+jWJ25h/c0Yru7Lhi/OPOhsPzzZiuCjHuEqMo6nbU24ij++eyg0Vw7berLgMAmGf6
+	 Ut0HYWoZZP3ajm1TCRkqYZLyO82bv9hto2Kv4XmcD0v9d95bZU6B041fbJfjymxTZz
+	 0fM3PYOMj1VGqJB38MFDWxGEnO3f1MKYZxYapUlyLmT/Thq3G5DP4SOyBZu3fA4nQR
+	 9wicAQNAX2kOTKgZQXJSclNUajrYc9X3HzJ6E0EhjfQkvUdDFMDa5ZffvDz4BxVX1d
+	 21RNcqU9SIgmA==
+Message-ID: <b8962738-98a4-41c2-a85a-f668fe8c211b@kernel.org>
+Date: Mon, 22 Jun 2026 17:47:00 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH hotfix] mm/compaction: handle free_pages_prepare()
+ properly in compaction_free()
+Content-Language: en-US
+To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <jackmanb@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Jiaqi Yan <jiaqiyan@google.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260622-handle_free_pages_prepare_in_compaction_free-v1-1-fcf3b14abcf7@nvidia.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260622-handle_free_pages_prepare_in_compaction_free-v1-1-fcf3b14abcf7@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-reboot=s... parses the CPU number with simple_strtoul(), but stores
-it in an int before checking it against num_possible_cpus(). Very
-large values can wrap negative and bypass the range check, leaving
-reboot_cpu invalid for migrate_to_reboot_cpu().
+On 6/22/26 17:30, Zi Yan wrote:
+> free_pages_prepare() can fail but compaction_free() does not handle the
+> failure case. Failed pages should not be added back to cc->freepages for
+> future use, since they can be either PageHWPoison or free_page_is_bad()
+> and might cause data corruption.
+> 
+> Fixes: 733aea0b3a7bb ("mm/compaction: add support for >0 order folio memory compaction.")
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> Cc: stable@vger.kernel.org
 
-Keep the parsed value unsigned until after the range check.
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Fixes: f9a90501faac ("reboot: refactor and comment the cpu selection code")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bradley Morgan <include@grrlz.net>
----
- kernel/reboot.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/reboot.c b/kernel/reboot.c
-index 695c33e75efd..a1ad6047b14a 100644
---- a/kernel/reboot.c
-+++ b/kernel/reboot.c
-@@ -1134,12 +1134,11 @@ static int __init reboot_setup(char *str)
- 			str += str[1] == 'm' && str[2] == 'p' ? 3 : 1;
- 
- 			if (isdigit(str[0])) {
--				int cpu = simple_strtoul(str, NULL, 0);
-+				unsigned long cpu = simple_strtoul(str, NULL, 0);
- 
- 				if (cpu >= num_possible_cpus()) {
--					pr_err("Ignoring the CPU number in reboot= option. "
--					"CPU %d exceeds possible cpu number %d\n",
--					cpu, num_possible_cpus());
-+					pr_err("Ignoring the CPU number in reboot= option. CPU %lu exceeds possible cpu number %u\n",
-+					       cpu, num_possible_cpus());
- 					break;
- 				}
- 				reboot_cpu = cpu;
--- 
-2.53.0
+> ---
+> free_pages_prepare() can fail if a page is PageHWPoison or
+> free_page_is_bad(). compaction_free() needs to handle these cases to
+> prevent failed pages being reused in cc->freepages.
+> ---
+>  mm/compaction.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/compaction.c b/mm/compaction.c
+> index b776f35ad0200..f08765ade014c 100644
+> --- a/mm/compaction.c
+> +++ b/mm/compaction.c
+> @@ -1875,15 +1875,14 @@ static void compaction_free(struct folio *dst, unsigned long data)
+>  	int order = folio_order(dst);
+>  	struct page *page = &dst->page;
+>  
+> -	if (folio_put_testzero(dst)) {
+> -		free_pages_prepare(page, order);
+> +	if (folio_put_testzero(dst) && free_pages_prepare(page, order)) {
+>  		list_add(&dst->lru, &cc->freepages[order]);
+>  		cc->nr_freepages += 1 << order;
+>  	}
+>  	cc->nr_migratepages += 1 << order;
+>  	/*
+> -	 * someone else has referenced the page, we cannot take it back to our
+> -	 * free list.
+> +	 * someone else has referenced the page or free_pages_prepare() fails,
+> +	 * we cannot take it back to our free list.
+>  	 */
+>  }
+>  
+> 
+> ---
+> base-commit: 13a1e1a618858407fa12c391f664ea750651f6b2
+> change-id: 20260621-handle_free_pages_prepare_in_compaction_free-7cca3ff08367
+> 
+> Best regards,
 
