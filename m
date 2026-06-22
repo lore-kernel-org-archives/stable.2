@@ -1,95 +1,126 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE08436EAA6;
-	Mon, 22 Jun 2026 08:02:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073A438E8B1
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 08:02:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782115323; cv=none; b=b413aUKD4QuGoRadXWO1lXywPvERS4N1XjKSLczXBi6NvcpuZY/5L4SPUP5WkaLi8bBgVJMTSLibvWsoOyCJV54Crhe2JLdCXpCZslyrD+JYHB/49+ANZ79wfiMorxCeSVqvIYeX3SfTxQnX9brNw2Hjoop/HZtJAoWhKdauiU4=
+	t=1782115328; cv=none; b=h4Vrttj00zYCDGga78jq7tdpWLdRF04uYUgTllBwi7Hk108/kwaQuTXPJrQ/4Us8O3rKet6jkFxMrvVONm7wFNQnuz/NuF2ksrPz6/8fypiYvX5UC7i8dUvpJJ2T12JMhKEPXZ0qvw3krz4t9c9pLAz44b1TR7hQB6+ZyPnhacA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782115323; c=relaxed/simple;
-	bh=9YcSQDgiIdeeJ5Q6A5OyXgluQjm6S2yxNJeBrtelcm4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vDr3IEms3rgX5Oqg72q2Gf9cOWBXcn2e8AH0fjjOa6CdNbDl6WVmfOIC3kvu0U8ay1s52RysciI+FEukg79Kj1AKQZBCrgtMrGnti/o6uWCWcAei5BQNtglO0HG/ZMgEo42AWGIpO3XjeKzouUYmBaHXM5yhbpbtDybm1j1nZ64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=okk9t4Df; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1782115328; c=relaxed/simple;
+	bh=XtlAZCp5/3F/xwVUnuePPqRADO4ZsJiWAhJuz4RSiB0=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=gCjzrnIHEK6PSrhkpYn3pDBAn/848fehQnGb8YelyG8ZlKfUwaXyv9Q5Aya6Payu5lfhoStLfODJqi47v93hjplJzLKdnW16S+tchMUq76mOymQsId3/32v8D6dVpu0FEKoacvEJJRR2hZ/WjC0l/A9wv8MQSxakyLcQwb2KBFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nZ9RAtJy; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="okk9t4Df"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=aTh+kVZB6+gAPWFNfzyuI+EJqNKK1a/lt3CUQPy9Nng=; b=ok
-	k9t4DfJzBHbCvaiZX0urkEZrmrub1EWvQw35Zan6erjLzqSodanFfjZ5MXgaOmCsc2CTj1I/Dcr5H
-	GAW10W6sucnnIKyCYZ3JsqrI/gsiJjwacrsi1y7BK3E6rfRM1q7TaJpIIu73fF1NvQtusGxiB3HSW
-	LzPvMlnDd4l/TRE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wbZbI-008nRY-9V; Mon, 22 Jun 2026 10:01:48 +0200
-Date: Mon, 22 Jun 2026 10:01:48 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Pavan Chebbi <pavan.chebbi@broadcom.com>
-Cc: Haoxiang Li <haoxiang_li2024@163.com>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net: meth: check skb allocation in meth_init_rx_ring()
-Message-ID: <d4b8eedd-5be4-46a8-a887-a06f80f1a293@lunn.ch>
-References: <20260622044914.664749-1-haoxiang_li2024@163.com>
- <CALs4sv2dr2QsFU_DUDNAMgr4MDxHcRrHqer+Kdm7dP+4TUT0eg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nZ9RAtJy"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-c85d4b4245aso2897578a12.1
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 01:02:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782115325; x=1782720125; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QIY8NrKQY33GiAZXeNgSrvmyjQBHSuRv6lsLBuV2R68=;
+        b=nZ9RAtJyGf12YTxGAK4GPun5ZkVDAQQ5986MRkF0IHgJ0JJj/4vkC3XMa5jOtJFzfE
+         fJmec0g+sX/9plfJg80/kMEZRiy64SSxyAv4ug8vw3CRglV/Gf8IgFGObvPxPW0zEg1i
+         39V4cSR2HTsIYLRbrSzID32J5YxriwpHqDpZVwKO5t0Z0YQsBYVi6dEAr72r/FEQcW9w
+         kiDDXx4nmZPbjR/1+3fgwUi/PNFNItBBC9emPncxNsNSmcYDObqfOhZtzMJ5XDNfDbba
+         sObBTk/nJKqcZ4rrHmg64aUXLSYAc9xkpvYU+cWZfXWqJ5Zee93NsN4ruTFnPbOcWyKK
+         LWSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782115325; x=1782720125;
+        h=mime-version:content-transfer-encoding:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QIY8NrKQY33GiAZXeNgSrvmyjQBHSuRv6lsLBuV2R68=;
+        b=QJpJgV/WSVBY2Dow9DzuK8r6lrQZwNRuEKZixbYRcndhRgLGe/2fRN5xXbPdeIFXJK
+         O7R7nMDU64jdAp0/D0thOoZE66QrTwAmPuimWfwyVyGiJzmIIIzUKhZ7BQ2Fm0HdoVwB
+         yPRSSSzndnedSFC+aKDdemYxrkD+KhuI1d8zV5cU3HDVr6ftwCjiwcHCDsxd3xxrdyc7
+         02ZruMm0QGpx19T1mPBkwZBrYdTTD8sc/DHsRJWO11oL+9VIu/GvVkGKcnxbpWmYg4Jk
+         9Dnmwr9IPIccmxGhXRKazNJcG0rd3hHpniyAjOhEjbwXcEl05dgD3u3T3rAw1smuhpuz
+         kQzA==
+X-Forwarded-Encrypted: i=1; AFNElJ+z4VB9kCG2kRtSSV8RaOp95yDt+4SSDKyUHXgAsC6L7fQ1IEKp7LqZxvB1Bo6Z4wk/s8vmzqU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzb9j1zPujNVtoSlaAqpzRJA6hYBEyfE5Dj7ls/P6suIzYZYI2/
+	wJgWKS60zZlSpNhn851TeblpVe/sFVyOxEQsH4zeUHtUBARITo/RlIwL
+X-Gm-Gg: AfdE7cky47/uOqELCXMkMd2pTjAGy6S8WRzsxX1msgLoa83l+SO7FlaZ4riaN0keELF
+	9OksB3lDhxv6UxIw5WI4K1hc0dsXGi2n4rKKnOc2za/0FPtwBAX0vWelatf5tydqrqV9l+O0s6o
+	oPOpFOYY+B909O0eTPdqw+qP53RBzWsWW37xu/2dmFZQPLZvGthr31I1bIDMtAyuFPqpU/4Sytq
+	gyQ5APVISA+uWVLiFWNfk8fB9ItIXnBSJjvBTgB/sQ4P0+IMls1v/rAw9MZ1b771+s00yLx/qCd
+	qrRmaVAY0mGGAwMhpP2EegZch4Za0L6u6BHq/uOiJMPAoEHbYqgEvUoSoeNLIVlZzHj5m7ZlQYW
+	psN5DWCCAjuuomTIpqgrZXoJMpjMgGxPMT3Idf4EGUg2ybAyhoE0NQnibqmzmNyG/aieIyAKJz/
+	TpFwk5zFTM2NaIL94O5wU2zj4imkqI4zK4mmsCdQ==
+X-Received: by 2002:a05:6a21:7105:b0:3b1:cce5:9140 with SMTP id adf61e73a8af0-3bb346583d8mr15583404637.33.1782115324909;
+        Mon, 22 Jun 2026 01:02:04 -0700 (PDT)
+Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8bc374375csm6564925a12.13.2026.06.22.01.01.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Jun 2026 01:02:03 -0700 (PDT)
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+To: Oliver Neukum <oneukum@suse.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject:
+ [PATCH net] net: usb: kalmia: bound RX frame length in kalmia_rx_fixup()
+Date: Mon, 22 Jun 2026 16:01:57 +0800
+Message-ID: <178211531778.2216480.12637613349790980750@maoyixie.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CALs4sv2dr2QsFU_DUDNAMgr4MDxHcRrHqer+Kdm7dP+4TUT0eg@mail.gmail.com>
 
-On Mon, Jun 22, 2026 at 11:27:41AM +0530, Pavan Chebbi wrote:
-> On Mon, Jun 22, 2026 at 10:20 AM Haoxiang Li <haoxiang_li2024@163.com> wrote:
-> >
-> > meth_init_rx_ring() does not check the return value of alloc_skb().
-> > If the allocation fails, the NULL skb is passed to skb_reserve() and
-> > then dereferenced through skb->head.
-> >
-> > Add check for alloc_skb() to prevent potential null pointer dereference.
-> >
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-> > ---
-> >  drivers/net/ethernet/sgi/meth.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/drivers/net/ethernet/sgi/meth.c b/drivers/net/ethernet/sgi/meth.c
-> > index f7c3a5a766b7..ceff3cc937ad 100644
-> > --- a/drivers/net/ethernet/sgi/meth.c
-> > +++ b/drivers/net/ethernet/sgi/meth.c
-> > @@ -228,6 +228,9 @@ static int meth_init_rx_ring(struct meth_private *priv)
-> >
-> >         for (i = 0; i < RX_RING_ENTRIES; i++) {
-> >                 priv->rx_skbs[i] = alloc_skb(METH_RX_BUFF_SIZE, 0);
-> > +               if (!priv->rx_skbs[i])
-> > +                       return -ENOMEM;
-> > +
-> 
-> I think the fix is not complete. The caller meth_open() will not free
-> any successfully allocated skbs if the function ever returns -ENOMEM.
+kalmia_rx_fixup() computes usb_packet_length = skb->len - (2 *
+KALMIA_HEADER_LENGTH) as a u16, guarded only by a pre-loop check that
+skb->len is at least KALMIA_HEADER_LENGTH, which is 6. A device can
+deliver a short bulk-IN frame with skb->len in the 6 to 11 range, or
+leave a short trailing remainder on a later loop iteration. Either case
+underflows usb_packet_length to about 65530.
 
-There is also the question, does anybody care? Are SGI machines still
-used? This is a Fast Ethernet driver, written in 2003. It has no
-Maintainer. Maybe it would be better to just remove the driver?
+That bypasses the usb_packet_length < ether_packet_length truncation path.
+The device-supplied ether_packet_length, a le16 up to 65535 read from
+header_start[2], then drives a memcmp() and the following skb_trim() and
+skb_pull() past the end of the rx buffer. The rx buffer is hard_mtu * 10,
+which is 14000 bytes. That is an out of bounds read.
 
-At least drop the Fixes: tag, it does not fit the Stable rules.
+Require both the start and end framing headers to be present before
+subtracting them, on every loop iteration.
 
-https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-
-    Andrew
-
+Fixes: d40261236e8e ("net/usb: Add Samsung Kalmia driver for Samsung GT-B3730")
+Cc: stable@vger.kernel.org
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 ---
-pw-bot: cr
+I asked about this on linux-usb on 2026-06-15 and got no reply, so I
+am sending the fix.
+
+ drivers/net/usb/kalmia.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/net/usb/kalmia.c b/drivers/net/usb/kalmia.c
+index ee9c48f7f68f..0dd0a30c3db4 100644
+--- a/drivers/net/usb/kalmia.c
++++ b/drivers/net/usb/kalmia.c
+@@ -276,6 +276,14 @@ kalmia_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
+ 				"Received header: %6phC. Package length: %i\n",
+ 				header_start, skb->len - KALMIA_HEADER_LENGTH);
+ 
++		/* both framing headers must be present before we subtract
++		 * them, otherwise usb_packet_length underflows and the
++		 * device-supplied ether_packet_length drives an out of bounds
++		 * access below
++		 */
++		if (skb->len < 2 * KALMIA_HEADER_LENGTH)
++			return 0;
++
+ 		/* subtract start header and end header */
+ 		usb_packet_length = skb->len - (2 * KALMIA_HEADER_LENGTH);
+ 		ether_packet_length = get_unaligned_le16(&header_start[2]);
+-- 
+2.34.1
+
