@@ -1,232 +1,163 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FABC25B0B2
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 12:01:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782129667; cv=pass; b=dsJC2YmsgryAAYAPSgZShKj3tTpXUFLurbIQbKFEI1ZhehgNEFTsC4FsNvQd4csNzAGMF3pDWCoSTEY1Pla5JruUInYF/BZmZwf7kptYjjpBhqLNw+qu8I44Xff8npnigxchH0+/2CLdfvY+dBk/Acc6p+YBhMGaJ5dBtrnTgHs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782129667; c=relaxed/simple;
-	bh=ZD9tGJJOmrxjp+XXPfu98euctPfzwVJyhsLLMYaGrfM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GbIbV1pQbXO4gR4o7aFe+LNhghGvD6d20gArA5gzJe5AIZAQVCkC933L9frtwmb3WODs9GeJ+iADpfYennTqckn/PbJlTIUWk04q9wMLDzdK8Qi5JHW9U0bnTkJoznqlceWsUMMDWYxynOvElURY7IhNpO3UuTK1RBV545PfDco=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HP4KpAFv; arc=pass smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CFB639A801
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 12:14:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782130480; cv=none; b=p4xwmKHLwdKtmHSBDoUlgMb+Z261G3NBT6EgKkDeb3SgFa5ubLMYyxBgs/yros7FLJQvh7Wp11sZfvGb0Z3B/wgFHXrXwVETauGsQAL9yvEKZglntVU602XaOpbEfjEA+JGrWQ0ZzQnnMOofaMUXVTWUp5N606uhVgB7HHVzSVo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782130480; c=relaxed/simple;
+	bh=Je4ATXoR4va71A2ZAIetqA9Orlr2fNUDHK1Gq/4Bdgk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fhe04MIqabP4ltTZw7fKL9hv91dZs2b0ci7Z4YV/1Ts29/u6vkP8GeKhaxEtmPjyMOjOpf6qQmsseV8A4REYIG5WQhi3MQ9U0mqgBlMlZsbqDqjG98FUqSZNajxVvViEl79VKX5sNF2z1YHSdmj5o1U4MrDaw67RQPj7wdnC/rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YsNT3tok; arc=none smtp.client-ip=209.85.210.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HP4KpAFv"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-bdb3fd39045so577833766b.3
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 05:01:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782129665; cv=none;
-        d=google.com; s=arc-20240605;
-        b=cS9IA46O94sIHsiHiG07kCgHlLh3Bq8LbBDEBaZyLsEEmzlCyjF4fYTjejkP6JKmmW
-         X1MggGg8oWiWMw6D/Rj0+7+38WZOrU+opTxIe74vUg/WHpR5wW3NPf5hufvSxkjqAIZV
-         BvN5IWojbTS9StezbEDd2HieHjZfwmHOi7DOQQNrsZbV6PlmdXk0S8ITHIzceerD/bty
-         O/nyn5hbFmej6GznE0/UsvX+zRD89ZyAJHpvRxCoZRP1YpGqarYXs5D/iGMsHgETIMsE
-         C53hX64Rx1LCCOgdpkcpX8KaXLM2giTkJ+5Jdf0aiuaGmdgHguQEJNg+Ittiz2NTcQ5+
-         HEzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=z/UQd6gAiCKpdO/qT7NweWYk9EmiL69nd3YrHKH5p+g=;
-        fh=D4EoJiXlyLZOMcFoqFYixno/3/3jeCII1Co2wXUZ3q4=;
-        b=fAKp63edqSAV0hGIuTxiIiFoVw/KrAsfyKwF4JpncmyC4JPBKgsn+dze7ZWzuRzsjL
-         mqzhennonWaukKjJUMA/bQDUS1rdtw8rr8P8EyAZNr+3H3L6Ol0tFE0RWDJZAFStMGb9
-         KyKlPivIoGHpHrT4gOQfMJsRgWw6Yxz3GKOlEpZk+v4DMQyki1J+wLMw1LeTAxD8ZImb
-         f9DOrl7wdeAxasvDEHIiiMf89YcVKjG5xAmwBgcbsFl/BeDEgcIJg655wCAN4bvRcWwx
-         YbEFRb388tZZ3B5mCbUUY5oduyqN2eb0YnMONsJUxNeeOEplmjXJhlvx3CqSdSOMolvN
-         PMsw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YsNT3tok"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-84229481d44so1902591b3a.0
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 05:14:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782129665; x=1782734465; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=z/UQd6gAiCKpdO/qT7NweWYk9EmiL69nd3YrHKH5p+g=;
-        b=HP4KpAFvarJ30i0m1IA4XhHGf1JN2cGmHG5/RhBR3LagblBMwkjj+tr6lakX2UZHZK
-         4RbofxocXuRFYKOl69z7vnjO+wL6xjYeXctfiPTy7WcFgss35WTLCRFC2jkgByjK20Z9
-         pXOpd+nYX8928hmJIyTgjFX2B2elcCzL5xtojmV99Iql3d20pOsfrkAm3TYupJASixdX
-         wLOhBgs1sBEQe7he9eKquT04Q62aUMmWCtC85QBDIWzgV4CJh1hZJQdEShQY73fX1DoA
-         iK+74c21kqX2OlRSKN6kw4iqtRTfuJYcXeP/9vam8dGf2OCioWSqtb2AFHBxqeCh0iEJ
-         dAVQ==
+        d=gmail.com; s=20251104; t=1782130477; x=1782735277; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=O5sfJNmc1yKWdZTqu3HegJ66XvBTGvbaI9z9chRhIF0=;
+        b=YsNT3toklcqnrjz20RrfSZL6/5iYNoLG7wJbdlaM9HUPMpsDRifJ+bn7q0cRTeMTyF
+         ieL3++lq8vfJckHuvRNloJWS1nzZYNSjt6m+QZxc/GSVEhplLoWz0YZxAhB21p0SgyKc
+         F0bycQ3O/giPHYhPTLc6++WnlQRmEZv5SrztNLh09lPsS2Fyz3mQpK7O7w4DVquuqsgX
+         vSWxfHld3XDLu+7O8k0DYN0JMPtK+y7q8o3oLLOJaVUaE3YGNaSJ579HihdqEs3i6X4l
+         ZAitQm3r5heFIXo5W1ZS5lo9BuPeizfF4GmXEQ6S7WBgMdFj7T24ybXLGwpIi50sQ41y
+         79Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782129665; x=1782734465;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=z/UQd6gAiCKpdO/qT7NweWYk9EmiL69nd3YrHKH5p+g=;
-        b=rjm9W2CruYSA2ADQevbp8O/PD2yZWQMjMCE8qfZjzKU6SF8plola2/uXwcX5fHcKa8
-         HTF3nZeDvjbH70vUWiOHR6p83WZhoaNsOllTnGmOfa53ZMkkLk2oUlKOOMY5ychm+uId
-         4GZIH+UCQc1pIMoLrKQ9rNjSKZNkJU7gU65qbfh8U9uDgjpF9tfbqmpt3YWWd13JBPCU
-         0vhO+xZLbsE4FjLGZt4hWFHa0OlGdbOFMm63li0zHUZg/NY6ECvULw59qtM3q98q6Naz
-         basfPdjPmbBlTr286+bIb3puSJrm0fCsd1QQUHLKEvw3oSuid3UC58wqucljNr3A/LRW
-         C0qA==
-X-Forwarded-Encrypted: i=1; AFNElJ8bg7PsX2oA4IIFlEtUs6Mp8yc3bBbr4cf7jZZHazzxdXmjehunhH1IPbvJqBZ10W8ME9oRVJM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwCxWWXKMpinfGvhSiEAMjnIQsag98tuds/jaw7FDuzkqnl9Vsq
-	1Z0JBOwrOnxtJIAi+BCO6PaRH+uHZtr7RCVCUAUA46skEd1agm40WAzjjGm2zwqU4UP9Q7JSOYD
-	QklyjhpTqOaEO5s7ISavMxziubXynqg==
-X-Gm-Gg: AfdE7cmOeQ8ZMPmp2gNOFCVaRaaI8379PS7rg8pobMpJuakG7UXYSMPJ9CR9sbSXKix
-	fcnw/b1yqxCUv1EDL13pGJr04YQoJawqpJScR9cPOgkQfCQ9Vw78NGGflYIPqb/+Chh0IQEn22X
-	Q0xKPHgDrLz+/ywn9ZaZIHJkOXigCQeDwDEFplZVbb3LU63vmFFNNH/NwFPSEhsZVnjNdDaZP6/
-	/eK0+crYB9d0GGiPvix6x2vjf3G07p1BRsd/5wid7/lPEaD0D3V+9YQTdubxeRNwrIkJplY3yzZ
-	QjeyU50kD2oPn7Z0nEmx1+xw
-X-Received: by 2002:a17:907:3e8a:b0:bec:5264:e52d with SMTP id
- a640c23a62f3a-c097ae2dba6mr734296866b.11.1782129664281; Mon, 22 Jun 2026
- 05:01:04 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782130477; x=1782735277;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=O5sfJNmc1yKWdZTqu3HegJ66XvBTGvbaI9z9chRhIF0=;
+        b=qxEEBefRXIHrh98yA8GNHW354sVf7E5hZJp5BHjiWfMnZ82gUgNcEqnzCiFmtGUQoi
+         x3EYkGspLx5CeeokHVTeOjSfC0ZumliW15p1TMl3nENTLMzLK9pH7dX3MdbmumcK/NtQ
+         hvLxEZQon19S7iZDcJszGa6V5d6Sag4gqSxegJBDGMBNNrEyXLaIWMnev62azrGfGl5x
+         VRkimErwviEXm/ZpHv8Nn45N/e/ZWqGqyOKHUrFdxb7WzE+NHfNSY2NKyG3zZPuJE2kq
+         vtZEu0zXmtui4vn7ww7RKJyyNqEbS/agQlEO7aDYHKSXeFJqvdGRrRJi7X7UDJoUBWv+
+         E8eQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+4n5tELKscE5GzOOJAYv+M1K7uy54pDStrEBoW0tdtwXyJ+UultTlE8Qmnxib3lAD5B1czWbY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzXwn/1qOFKEp8UWa4nUTrYe7IzIgZODSOcG67LwrsuV11tX++/
+	YnAEnNY6mGZkb5/SwQgWVCGkkTNHizRKtK0PL1Qb4OSBTzCSzfJYxwY=
+X-Gm-Gg: AfdE7ckc7F77WMY1i9mWOvENeH909TToMRNx9QxE3nBl+IeSCfe8ivjwm53w9HRXw5t
+	xUIVIgeji48RroZmgYHmTo1JkU9b/Cfh2II7c9Cs/xZIunhwuqnCRxiWjq7UHsZKYW777In2uWo
+	bYJdIuE0JJzdAwaq5pF6SMt8ksJvwTNR5kFhSXNnE+69aWBE1ZTtie0phpxkpB1xao6TxWdP7/b
+	HXQlUGGgiwrB6nV/hZiAIG2EJwsCZ2uo9Se5BBOZr6LYR2eOw7RkAB1wsDCbHm2mvtwo5KWq8Hv
+	87WlojEUxOhpRNqBp0FJl7d+U/qWUEtpScJ/heDzk1FtJCWmnUdZMI4vynojEmt0+AwwiMNwHcF
+	hQPewO3Q6OVHWe12ztqkcV3dDY/vS2OLcC3IU6EZ3BRC9k+qFgV6e3maPxyjGuCGIVewBA0sIGo
+	z+7R3MiUMqyEeXkNscD/2UOtAbrwXd7YsztmOmKV9Ci1TGJbMNzAldgcK4Dlf0WQEA
+X-Received: by 2002:a05:6a00:94ee:b0:842:2419:6c0b with SMTP id d2e1a72fcca58-845507bac4fmr14675413b3a.10.1782130477449;
+        Mon, 22 Jun 2026 05:14:37 -0700 (PDT)
+Received: from localhost.localdomain ([14.5.152.27])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84564d8ee89sm7046238b3a.20.2026.06.22.05.14.34
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 22 Jun 2026 05:14:36 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Myeonghun Pak <mhun512@gmail.com>
+Subject: [PATCH v3] media: i2c: vd56g3: Clean up subdev state on init failure
+Date: Mon, 22 Jun 2026 21:14:29 +0900
+Message-ID: <20260622121429.47765-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260424165238.31333-1-mhun512@gmail.com> <c9c20bce-a1bb-4932-bfa0-c87f7156ff82@foss.st.com>
- <ajPcKcJfbIdPKI8-@kekkonen.localdomain> <02b07f43-3c90-4e89-8747-7fd424d87dd1@foss.st.com>
-In-Reply-To: <02b07f43-3c90-4e89-8747-7fd424d87dd1@foss.st.com>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Mon, 22 Jun 2026 21:00:51 +0900
-X-Gm-Features: AVVi8Cca7UOWphF8HJsSk1WcZ5pnlyOtgCIPMzJHRCDI7-laXJTy-z3xZ9jXfvM
-Message-ID: <CAGEsz8F3P8NpOPr_7wCcr+KOLHjYOXu9=5k3-EaiAvb3Eirvrw@mail.gmail.com>
-Subject: Re: [PATCH v2] media: i2c: vd56g3: clean up subdev state on probe failure
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Benjamin, Sakari,
+vd56g3_subdev_init() calls v4l2_subdev_init_finalize(), which allocates
+the subdev active state and requires v4l2_subdev_cleanup() to release it.
 
-Thank you for the clarification.
+If vd56g3_update_controls() fails after finalize succeeds, the probe error
+path currently skips v4l2_subdev_cleanup() and returns an error. The driver
+.remove() callback is not called after a failed probe, so the active state
+is leaked.
 
-I agree. The missing cleanup is on the vd56g3_update_controls() failure
-path after v4l2_subdev_init_finalize() has succeeded.
+Move the control update to vd56g3_probe() after vd56g3_subdev_init()
+succeeds, and route failures through the existing err_subdev path. This
+keeps v4l2_subdev_cleanup() in the common vd56g3_subdev_cleanup() helper.
 
-I'll send a v3 that keeps v4l2_subdev_cleanup() in
-vd56g3_subdev_cleanup(), and routes this failure through the probe-side
-err_subdev path instead of adding another v4l2_subdev_cleanup() call in
-vd56g3_subdev_init().
+Fixes: 87aa97fc3157 ("media: i2c: Add driver for ST VD56G3 camera sensor")
+Cc: stable@vger.kernel.org
+Assisted-by: OpenAI:GPT-5.4
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Changes in v3:
+- Restore the capitalized subject summary.
+- Route vd56g3_update_controls() failures through the probe-side subdev
+  cleanup path instead of adding a second v4l2_subdev_cleanup() call.
+- Add the Assisted-by trailer.
 
-I'll also add the appropriate Assisted-by tag.
+Changes in v2:
+- Use a lowercase subject summary.
 
-Regards,
-Myeonghun
+ drivers/media/i2c/vd56g3.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-2026=EB=85=84 6=EC=9B=94 19=EC=9D=BC (=EA=B8=88) =EC=98=A4=ED=9B=84 5:59, B=
-enjamin Mugnier <benjamin.mugnier@foss.st.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=
-=EC=84=B1:
->
-> Hi Sakari,
->
-> Le 18/06/2026 =C3=A0 13:53, Sakari Ailus a =C3=A9crit :
-> > Hi Benjamin,
-> >
-> > On Tue, Jun 16, 2026 at 02:49:54PM +0200, Benjamin Mugnier wrote:
-> >> Hi,
-> >>
-> >> Thank you for your patch, and apologies for the delay.
-> >>
-> >> Le 24/04/2026 =C3=A0 18:52, Myeonghun Pak a =C3=A9crit :
-> >>> vd56g3_subdev_init() calls v4l2_subdev_init_finalize(), which allocat=
-es
-> >>> the subdev active state and requires v4l2_subdev_cleanup() to release=
- it.
-> >>>
-> >>> If vd56g3_update_controls() fails after finalize succeeds, the probe =
-error
-> >>> path currently skips v4l2_subdev_cleanup() and returns an error. The =
-driver
-> >>> .remove() callback is not called after a failed probe, so the active =
-state
-> >>> is leaked.
-> >>>
-> >>> Route this error through a subdev cleanup label before freeing the co=
-ntrol
-> >>> handler and media entity.
-> >>>
-> >>> Fixes: 87aa97fc3157 ("media: i2c: Add driver for ST VD56G3 camera sen=
-sor")
-> >>> Cc: stable@vger.kernel.org
-> >>> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> >>> ---
-> >>> Changes in v2:
-> >>> - Use a lowercase subject summary.
-> >>
-> >> Please keep the first character uppercase, just like other commits on
-> >> this module.
-> >>
-> >>>
-> >>>  drivers/media/i2c/vd56g3.c | 5 ++++-
-> >>>  1 file changed, 4 insertions(+), 1 deletion(-)
-> >>>
-> >>> diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
-> >>> index 157acea9e2..43f792288a 100644
-> >>> --- a/drivers/media/i2c/vd56g3.c
-> >>> +++ b/drivers/media/i2c/vd56g3.c
-> >>> @@ -1427,11 +1427,14 @@ static int vd56g3_subdev_init(struct vd56g3 *=
-sensor)
-> >>>     v4l2_subdev_unlock_state(state);
-> >>>     if (ret) {
-> >>>             dev_err(sensor->dev, "Controls update failed: %d\n", ret)=
-;
-> >>> -           goto err_ctrls;
-> >>> +           goto err_subdev;
-> >>>     }
-> >>>
-> >>>     return 0;
-> >>>
-> >>> +err_subdev:
-> >>> +   v4l2_subdev_cleanup(&sensor->sd);
-> >>
-> >> v4l2_subdev_cleanup() is already performed in the caller (i.e.
-> >> vd56g3_probe()), but as you noticed it is not called from this path. I=
-'d
-> >> rather have the return value route correctly through
-> >> v4l2_subdev_cleanup() in  vd56g3_probe(), allowing to keep a unique ca=
-ll
-> >> to v4l2_subdev_cleanup() instead.
-> >
-> > Is it?
-> >
-> > If vd56g3_update_controls() in vd56g3_subdev_init() fails, it'll jump t=
-o
-> > err_power_off in vd56g3_probe() which does PM related cleanup only.
-> >
->
-> Exactly, I realize my sentence was poorly written, but if I understand
-> correctly we're on the same page. The problem being
-> v4l2_subdev_cleanup() not being called in any path if
-> vd56g3_update_controls() fails.
->
-> Now if vd56g3_update_controls() fails, instead of performing
-> v4l2_subdev_cleanup() in vd56g3_subdev_init() as this patch does, I'd
-> rather have it done in vd56g3_probe()'s jump back so we can keep it all
-> at the same place, instead of having 2 v4l2_subdev_cleanup() in 2
-> different places.
->
-> Tell me if this is still unclear.
->
-> >>
-> >> This patch looks like is LLM generated and sparks my curiosity. If so
-> >> you must disclaim it using an Assisted-by tag [1]. Sorry if I=E2=80=99=
-m mistaken.
-> >>
-> >> [1] https://docs.kernel.org/process/coding-assistants.html
-> >>
-> >>> +
-> >>>  err_ctrls:
-> >>>     v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
-> >>>
-> >>
-> >> --
-> >> Regards,
-> >> Benjamin
-> >>
-> >
->
-> --
-> Regards,
-> Benjamin
->
+diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
+index 157acea9e2..39fb14bab5 100644
+--- a/drivers/media/i2c/vd56g3.c
++++ b/drivers/media/i2c/vd56g3.c
+@@ -1388,7 +1388,6 @@ static int vd56g3_detect(struct vd56g3 *sensor)
+ 
+ static int vd56g3_subdev_init(struct vd56g3 *sensor)
+ {
+-	struct v4l2_subdev_state *state;
+ 	int ret;
+ 
+ 	/* Init remaining sub device ops */
+@@ -1421,15 +1420,6 @@ static int vd56g3_subdev_init(struct vd56g3 *sensor)
+ 		goto err_ctrls;
+ 	}
+ 
+-	/* Update controls according to the resolution set */
+-	state = v4l2_subdev_lock_and_get_active_state(&sensor->sd);
+-	ret = vd56g3_update_controls(sensor);
+-	v4l2_subdev_unlock_state(state);
+-	if (ret) {
+-		dev_err(sensor->dev, "Controls update failed: %d\n", ret);
+-		goto err_ctrls;
+-	}
+-
+ 	return 0;
+ 
+ err_ctrls:
+@@ -1452,6 +1442,7 @@ static void vd56g3_subdev_cleanup(struct vd56g3 *sensor)
+ static int vd56g3_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
++	struct v4l2_subdev_state *state;
+ 	struct vd56g3 *sensor;
+ 	int ret;
+ 
+@@ -1517,6 +1508,15 @@ static int vd56g3_probe(struct i2c_client *client)
+ 		goto err_power_off;
+ 	}
+ 
++	/* Update controls according to the resolution set */
++	state = v4l2_subdev_lock_and_get_active_state(&sensor->sd);
++	ret = vd56g3_update_controls(sensor);
++	v4l2_subdev_unlock_state(state);
++	if (ret) {
++		dev_err(sensor->dev, "Controls update failed: %d\n", ret);
++		goto err_subdev;
++	}
++
+ 	ret = v4l2_async_register_subdev(&sensor->sd);
+ 	if (ret) {
+ 		dev_err(dev, "Async subdev register failed: %d\n", ret);
+-- 
+2.50.1
+
