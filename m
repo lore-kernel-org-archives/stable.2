@@ -1,114 +1,120 @@
-Received: from out-170.mta0.migadu.com (out-170.mta0.migadu.com [91.218.175.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73447270EC3
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 14:44:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806D629D270;
+	Mon, 22 Jun 2026 14:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782139472; cv=none; b=TGwH06cC1gfYb0ZpaHVG7/EcidRUeqDXkVRvcCTSYw060h9sxXnPdYMYtcDvsePvPK8dCEs7jHwDDNBMqQKsKQ1ywOQPkOrku71Zggm9fdeupS10GiMi/xfZTUvkWeuVGYpj0bNwjgjwhIXCIMZ8j3TB0R9CBopjVeRNjEXMNn0=
+	t=1782139559; cv=none; b=DeKOF13+8pDFOVXPeU1GC43C8Ig/fxVXDL/lRSTgzi4bY1LdIXxxrdbbQY14/B+dVEkBzagV/Z+AkMRVw/jkWDJ9Qb0LGfuNKbBO4jpGCpw9djDRYhi7pqu4VySDgh5RpLU9bcJJ8RInRz9hzXwRH2XKaj43uU1hZBDtBZMVFKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782139472; c=relaxed/simple;
-	bh=SXAT9iR8fgMl4hnb97zZeOWs16cDRbwBUGNnqc6ffWM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hH/HN+0sD8sIGGJTwdg9DUjnGyDVrkHoUDAXqXVwrnr+RlVJMPVPpvFbvXGuOPM/hQf1nUEYu4INEdGpFVY1104QsrSyfYLy0S6UmvPb8CyMUZgy1JJqyd3oawE85nL4aP5iOjwjqY9Mqw5+kgPguYKaW4hQ3u2EjcEzzDUrd3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VOl8Ph1D; arc=none smtp.client-ip=91.218.175.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VOl8Ph1D"
-Message-ID: <bae77c2d-117e-4344-91cd-ab9d5293c605@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782139469;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5GpC/58OIjPW5VUdg3/lmsNA+ApTm9doUWXBLX0N1fY=;
-	b=VOl8Ph1DZdilhTcZXNLqhnjlYI0B8CCAfUVYmd3MpweWipJrtmwv69CSLaXG8x4/kLUavF
-	H6C+4GX180ccjbkalabMfKh56X8K0O8Hw583aKpWsxh6SBM5pNzVuGB3dPWEiw7+x+y5GI
-	xHaSBW/3/LoztTgGrTbJDIPbRRav/HE=
-Date: Mon, 22 Jun 2026 22:44:17 +0800
+	s=arc-20240116; t=1782139559; c=relaxed/simple;
+	bh=seEuGJQPHl7cpUghtZ7WZ3R5gvpd1kZRcayw8AKhYjk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oDpcaG+4mbeWthi/o3l8Biy+U51v8MVH0r5WHErz3IfoSoqO3Z3ZT/VaHV+/FrOMAJN5SGHsegfaGDXpdt2dQbhEE6CA9cysvJglD9GZjdfqSDBsCUklwxad9GdeEUFcIjnCcU8krtzLdL/jjoVkr85RDq35FneKjW142OFTLt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.74.238])
+	by APP-01 (Coremail) with SMTP id qwCowAB3GtObSjlq8snAAg--.26626S2;
+	Mon, 22 Jun 2026 22:45:49 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Ayush Sawal <ayush.sawal@chelsio.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] crypto: chcr - fix inflight counter leaks in multiple paths
+Date: Mon, 22 Jun 2026 22:45:44 +0800
+Message-Id: <20260622144544.47023-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH] mm/page_vma_mapped: revalidate and do proper check before
- return device-private pmd
-To: Lorenzo Stoakes <ljs@kernel.org>, Wei Yang <richard.weiyang@gmail.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, riel@surriel.com,
- liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
- sj@kernel.org, ziy@nvidia.com, balbirs@nvidia.com, linux-mm@kvack.org,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260622130651.23359-1-richard.weiyang@gmail.com>
- <ajk0N3Aekapljaoh@lucifer>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <ajk0N3Aekapljaoh@lucifer>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowAB3GtObSjlq8snAAg--.26626S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tFWUAw15urWDWw43Ar1DWrg_yoW8KrWDpF
+	s8CrZYyryrXr17GF9Yyw1rWa43X3y29FWakrW5ta40vwsYq3ykXFsFvF1jvF1rJFWrJ3yU
+	X3yqqF1rZa4DGaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbSfO7UUUU
+	U==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCREGA2o5I0xq6AABsi
 
+In multiple functions, dev->inflight is incremented via atomic_inc()
+before submitting operations. If subsequent calls fail, the functions
+return without decrementing the counter, causing it to drift and
+potentially stalling future operations that rely on the counter
+reaching zero.
 
+Fix the following functions with missing decrement on error paths:
+- chcr_aes_encrypt()
+- chcr_aes_decrypt()
+- chcr_aead_op()
 
-On 2026/6/22 21:46, Lorenzo Stoakes wrote:
-> +cc Lance, linux-kernel
+For chcr_aes_encrypt() and chcr_aes_decrypt(), use a common error
+label to decrement the counter. For chcr_aead_op(), use the existing
+chcr_dec_wrcount() helper on the invalid assoclen error path.
 
-Thanks for the cc.
+Cc: stable@vger.kernel.org
+Fixes: b8fd1f4170e7 ("crypto: chcr - Add ctr mode and process large sg entries for cipher")
+Fixes: d91a3159e8d9 ("Crypto/chcr: fix gcm-aes and rfc4106-gcm failed tests")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/crypto/chelsio/chcr_algo.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-[...]
+diff --git a/drivers/crypto/chelsio/chcr_algo.c b/drivers/crypto/chelsio/chcr_algo.c
+index 6dec42282768..b69cd46193d0 100644
+--- a/drivers/crypto/chelsio/chcr_algo.c
++++ b/drivers/crypto/chelsio/chcr_algo.c
+@@ -1359,7 +1359,7 @@ static int chcr_aes_encrypt(struct skcipher_request *req)
+ 	err = process_cipher(req, u_ctx->lldi.rxq_ids[reqctx->rxqidx],
+ 			     &skb, CHCR_ENCRYPT_OP);
+ 	if (err || !skb)
+-		return  err;
++		goto error;
+ 	skb->dev = u_ctx->lldi.ports[0];
+ 	set_wr_txq(skb, CPL_PRIORITY_DATA, reqctx->txqidx);
+ 	chcr_send_wr(skb);
+@@ -1402,11 +1402,15 @@ static int chcr_aes_decrypt(struct skcipher_request *req)
+ 	err = process_cipher(req, u_ctx->lldi.rxq_ids[reqctx->rxqidx],
+ 			     &skb, CHCR_DECRYPT_OP);
+ 	if (err || !skb)
+-		return err;
++		goto error;
+ 	skb->dev = u_ctx->lldi.ports[0];
+ 	set_wr_txq(skb, CPL_PRIORITY_DATA, reqctx->txqidx);
+ 	chcr_send_wr(skb);
+ 	return -EINPROGRESS;
++
++error:
++	chcr_dec_wrcount(dev);
++	return err;
+ }
+ static int chcr_device_init(struct chcr_context *ctx)
+ {
+@@ -3636,6 +3640,7 @@ static int chcr_aead_op(struct aead_request *req,
+ 	    crypto_ipsec_check_assoclen(req->assoclen) != 0) {
+ 		pr_err("RFC4106: Invalid value of assoclen %d\n",
+ 		       req->assoclen);
++		chcr_dec_wrcount(cdev);
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.39.5 (Apple Git-154)
 
-> 
-> ----8<----
->  From e6a3c1c782714ed831c4d46a14bb99226423bf59 Mon Sep 17 00:00:00 2001
-> From: Wei Yang <richard.weiyang@gmail.com>
-> Date: Mon, 22 Jun 2026 13:06:51 +0000
-> Subject: [PATCH] refactored
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> ---
->   mm/page_vma_mapped.c | 20 +++++++++++++++-----
->   1 file changed, 15 insertions(+), 5 deletions(-)
-> 
-> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
-> index 2ccbabfb2cc1..17dff8aab9f9 100644
-> --- a/mm/page_vma_mapped.c
-> +++ b/mm/page_vma_mapped.c
-> @@ -269,14 +269,24 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
->   			/* THP pmd was split under us: handle on pte level */
->   			spin_unlock(pvmw->ptl);
->   			pvmw->ptl = NULL;
-> -		} else if (!pmd_present(pmde)) {
-> -			const softleaf_t entry = softleaf_from_pmd(pmde);
-> +		} else if (pmd_is_device_private_entry(pmde)) {
-> +			softleaf_t entry;
-> +
-> +			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
-> +			pmde = *pvmw->pmd;
-> +			entry = softleaf_from_pmd(pmde);
-> 
-> -			if (softleaf_is_device_private(entry)) {
-> -				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
-> +			if (likely(softleaf_is_device_private(entry))) {
-> +				if (pvmw->flags & PVMW_MIGRATION)
-> +					return not_found(pvmw);
-> +				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
-> +					return not_found(pvmw);
->   				return true;
->   			}
-> -
-> +			/* device-private pmd was split under us: handle on pte level */
-> +			spin_unlock(pvmw->ptl);
-> +			pvmw->ptl = NULL;
-> +		} else if (!pmd_present(pmde)) {
->   			if ((pvmw->flags & PVMW_SYNC) &&
->   			    thp_vma_suitable_order(vma, pvmw->address,
->   						   PMD_ORDER) &&
-> --
-> 2.54.0
-
-Cool, looks way cleaner :) Nothing jumped out at me :)
-
-Cheers, Lance
