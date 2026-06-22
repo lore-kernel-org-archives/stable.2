@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4DA379ECD;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB38037998B;
 	Mon, 22 Jun 2026 15:27:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782142054; cv=none; b=bqWk/QEWEaN+gJZP57VN3ieC115dANBqtvrWqvtt2smTg2PDlG+DbHPCWqFfa2Oe+ca5VTSId0BQG3QXlKraCpjYUp4l/Kvsx8Lsai5gSDK7gIRstxqV6F8BKAmBeqDoYC6gdq2j/iWzebyfQt1A8NrCt8aVsgDq9FFT8iQLDWw=
+	t=1782142054; cv=none; b=RW+Dd00YxIgyFYC2exTgme9qN1oTBqGbfCdtCFe69AtYz+Emy8Mss9qphskYCUI5U9xgEttYExkBDWhKz1kM8gJXx1HXySun5gY2p399AqJghAHnyrOzgKMdNLPiRKMiMRiORo6s3KOFuUnqxcdFztUMKD4W4zar79+0Hy6MMF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782142054; c=relaxed/simple;
-	bh=k5mEzvHfECX+NQXWGlXkQyJW7lIy+OzSTwhNBky1YLg=;
+	bh=ekePxrm2S6HQSGZpiHKKB1nbs+WPRuIjZ3TsfkKyc+0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UPbDAmJvFUpzWHnC+DHttnFCPPDszHEpdTVeex26VcwcfduQv+Y9zyBUHWB85ILVf2bKsuYvLS8EoCExuCD9eOlmEmYlKrqj243QInFoMtxh63eKCrbL24n0G4WBz1soqMKZGgh8lq6oZqk0/PMMYBtUWoimZFOzDWbdi732wdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JDQCUEdw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KZRmERinSjThKKMG9NL8KPwsXokdcBThscdn/sDlU/uksqMIQsGdYpzWlxeQdTFNtlvh3jQKb/1IAjMds3+tfZAgGwI4HSBm+wUc9kOOdlAC/kQtH1wWAwsCb0jcKPwyBH99yYQZ18zteqq80pzsQiV3X/PRy3HjDpHvQthAGcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WNWZ9I15; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JDQCUEdw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2CBD1F00ACA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WNWZ9I15"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 851811F000E9;
 	Mon, 22 Jun 2026 15:27:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1782142051;
-	bh=WT/aXSNySJ8SGKUwVmgop3kKkxHqX8VbVTruLW67AfY=;
+	bh=3yyo3T2+q3Ee+eG25RYcUNLGqNwIVD16XC+8UIG6WHs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JDQCUEdwV0pJovFJvFIPOTDUJPREPkKmBbRfOdY+RgerPVr2rCMt/s1Emu8KAjPjN
-	 yRwXE5HOgjhyJtPDjcGCCvzSCa+MquTLNxxRFvwGbmZKd1HtFm8dCmSmakWMWUfbFF
-	 APegImzTdMPLgGnAqGRdWuLzxR2RB+VL5zC35EGJs/RczEkIcnOZxbm39u4NX6+2S2
-	 FO5jY2gi2HQhCONsU6m9IPofs2VqULZXvzsj84YUvnNy5fdkzl68YL214V8xIiWd/O
-	 eRJByZnwn52+n60VCEyvqfvrp4nlaJsY5zZfRizXNUG+dY4KZwkkWEBkH2ZZVJFs3j
-	 yUx3dKPD/+jnQ==
+	b=WNWZ9I15bwKg9wJ1PeUkMblBTymMrdE5Daq3XEbFuZbTYshjssbenlvj+vcXfwp+U
+	 CHqeiPIVK5/FHV63S6Nxcq3/sNOWTqw/S8/F4CTrZfjjuOiHOC4GuitAYrdqr8Ml9q
+	 nxSg7A4ihp0sVgwso/WVnI5TTpGTdZXu6MQ8HN9uYLH31d+0LCH+kC8TRO9tOIl7w8
+	 oKQp88tzs/ka+NCAM0ydZpfqAZd+DUSou8fQL/Dh3lMuTaTIeJVA+VHzOAhWX3zJX4
+	 6niilxqMUYJkh2ysVlUaxnVgBkWeVfSQA7uM2rX3uasPlUVQ5a02OLUDyW5hMu/L23
+	 d5XwIb+Wvcs7g==
 Received: from johan by xi.lan with local (Exim 4.99.3)
 	(envelope-from <johan@kernel.org>)
-	id 1wbgYb-00000000UIx-178s;
+	id 1wbgYb-00000000UJ3-1EXQ;
 	Mon, 22 Jun 2026 17:27:29 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -37,10 +37,11 @@ Cc: Juergen Stuber <starblue@users.sourceforge.net>,
 	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Johan Hovold <johan@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/4] USB: iowarrior: fix use-after-free on disconnect race
-Date: Mon, 22 Jun 2026 17:26:09 +0200
-Message-ID: <20260622152612.116422-2-johan@kernel.org>
+	stable@vger.kernel.org,
+	Daniel Walker <dwalker@mvista.com>
+Subject: [PATCH 4/4] USB: legousbtower: fix use-after-free on disconnect race
+Date: Mon, 22 Jun 2026 17:26:12 +0200
+Message-ID: <20260622152612.116422-5-johan@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260622152612.116422-1-johan@kernel.org>
 References: <20260622152612.116422-1-johan@kernel.org>
@@ -59,144 +60,131 @@ and therefore cannot be used to manage lifetime of objects directly
 Use a kref to release the driver data to avoid use-after-free in
 mutex_unlock() when release() races with disconnect().
 
-[1] a51749ab34d9 ("locking/mutex: Document that mutex_unlock() is non-atomic")
+[1] a51749ab34d9 ("locking/mutex: Document that mutex_unlock() is
+                   non-atomic")
 [2] 2b9d9e0a9ba0 ("locking/mutex: Clarify that mutex_unlock(), and most
                    other sleeping locks, can still use the lock object
                    after it's unlocked")
 
-Fixes: 946b960d13c1 ("USB: add driver for iowarrior devices.")
-Cc: stable@vger.kernel.org	# 2.6.21
-Reported-by: Yue Sun <samsun1006219@gmail.com>
-Link: https://lore.kernel.org/r/20260618080204.38322-1-samsun1006219@gmail.com
+Fixes: 18bcbcfe9ca2 ("USB: misc: legousbtower: semaphore to mutex")
+Cc: stable@vger.kernel.org	# 2.6.25
+Cc: Daniel Walker <dwalker@mvista.com>
 Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/usb/misc/iowarrior.c | 57 +++++++++++++++---------------------
- 1 file changed, 24 insertions(+), 33 deletions(-)
+ drivers/usb/misc/legousbtower.c | 37 +++++++++++++++++----------------
+ 1 file changed, 19 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/usb/misc/iowarrior.c b/drivers/usb/misc/iowarrior.c
-index 88c6d1d1da11..de2b236ef903 100644
---- a/drivers/usb/misc/iowarrior.c
-+++ b/drivers/usb/misc/iowarrior.c
-@@ -72,6 +72,7 @@ static struct usb_driver iowarrior_driver;
+diff --git a/drivers/usb/misc/legousbtower.c b/drivers/usb/misc/legousbtower.c
+index 052ffc2e71ee..18dd4115befb 100644
+--- a/drivers/usb/misc/legousbtower.c
++++ b/drivers/usb/misc/legousbtower.c
+@@ -185,6 +185,7 @@ MODULE_DEVICE_TABLE(usb, tower_table);
  
  /* Structure to hold all of our device specific stuff */
- struct iowarrior {
-+	struct kref kref;
- 	struct mutex mutex;			/* locks this structure */
- 	struct usb_device *udev;		/* save off the usb device pointer */
- 	struct usb_interface *interface;	/* the interface for this device */
-@@ -240,8 +241,10 @@ static void iowarrior_write_callback(struct urb *urb)
+ struct lego_usb_tower {
++	struct kref		kref;
+ 	struct mutex		lock;		/* locks this structure */
+ 	struct usb_device	*udev;		/* save off the usb device pointer */
+ 	unsigned char		minor;		/* the starting minor number for this device */
+@@ -220,7 +221,6 @@ struct lego_usb_tower {
+ /* local function prototypes */
+ static ssize_t tower_read(struct file *file, char __user *buffer, size_t count, loff_t *ppos);
+ static ssize_t tower_write(struct file *file, const char __user *buffer, size_t count, loff_t *ppos);
+-static inline void tower_delete(struct lego_usb_tower *dev);
+ static int tower_open(struct inode *inode, struct file *file);
+ static int tower_release(struct inode *inode, struct file *file);
+ static __poll_t tower_poll(struct file *file, poll_table *wait);
+@@ -286,8 +286,10 @@ static inline void lego_usb_tower_debug_data(struct device *dev,
  /*
-  *	iowarrior_delete
+  *	tower_delete
   */
--static inline void iowarrior_delete(struct iowarrior *dev)
-+static inline void iowarrior_delete(struct kref *kref)
+-static inline void tower_delete(struct lego_usb_tower *dev)
++static inline void tower_delete(struct kref *kref)
  {
-+	struct iowarrior *dev = container_of(kref, struct iowarrior, kref);
++	struct lego_usb_tower *dev = container_of(kref, struct lego_usb_tower, kref);
 +
- 	kfree(dev->int_in_buffer);
- 	usb_free_urb(dev->int_in_urb);
- 	kfree(dev->read_queue);
-@@ -637,6 +640,9 @@ static int iowarrior_open(struct inode *inode, struct file *file)
- 	}
- 	/* increment our usage count for the driver */
- 	++dev->opened;
-+
+ 	/* free data structures */
+ 	usb_free_urb(dev->interrupt_in_urb);
+ 	usb_free_urb(dev->interrupt_out_urb);
+@@ -381,6 +383,8 @@ static int tower_open(struct inode *inode, struct file *file)
+ 
+ 	dev->open_count = 1;
+ 
 +	kref_get(&dev->kref);
 +
- 	/* save our object in the file's private structure */
- 	file->private_data = dev;
- 	retval = 0;
-@@ -652,7 +658,6 @@ static int iowarrior_open(struct inode *inode, struct file *file)
- static int iowarrior_release(struct inode *inode, struct file *file)
- {
- 	struct iowarrior *dev;
--	int retval = 0;
+ unlock_exit:
+ 	mutex_unlock(&dev->lock);
  
- 	dev = file->private_data;
- 	if (!dev)
-@@ -660,29 +665,18 @@ static int iowarrior_release(struct inode *inode, struct file *file)
+@@ -404,14 +408,8 @@ static int tower_release(struct inode *inode, struct file *file)
  
- 	/* lock our device */
- 	mutex_lock(&dev->mutex);
-+	dev->opened = 0;	/* we're closing now */
+ 	mutex_lock(&dev->lock);
  
--	if (dev->opened <= 0) {
--		retval = -ENODEV;	/* close called more than once */
--		mutex_unlock(&dev->mutex);
--	} else {
--		dev->opened = 0;	/* we're closing now */
--		retval = 0;
--		if (dev->present) {
--			/*
--			   The device is still connected so we only shutdown
--			   pending read-/write-ops.
--			 */
--			usb_kill_urb(dev->int_in_urb);
--			wake_up_interruptible(&dev->read_wait);
--			wake_up_interruptible(&dev->write_wait);
--			mutex_unlock(&dev->mutex);
--		} else {
--			/* The device was unplugged, cleanup resources */
--			mutex_unlock(&dev->mutex);
--			iowarrior_delete(dev);
--		}
-+	if (dev->present) {
-+		usb_kill_urb(dev->int_in_urb);
-+		wake_up_interruptible(&dev->read_wait);
-+		wake_up_interruptible(&dev->write_wait);
- 	}
--	return retval;
-+	mutex_unlock(&dev->mutex);
-+
-+	kref_put(&dev->kref, iowarrior_delete);
-+
-+	return 0;
+-	if (dev->disconnected) {
+-		/* the device was unplugged before the file was released */
+-
+-		/* unlock here as tower_delete frees dev */
+-		mutex_unlock(&dev->lock);
+-		tower_delete(dev);
+-		goto exit;
+-	}
++	if (dev->disconnected)
++		goto out_unlock;
+ 
+ 	/* wait until write transfer is finished */
+ 	if (dev->interrupt_out_busy) {
+@@ -425,7 +423,9 @@ static int tower_release(struct inode *inode, struct file *file)
+ 
+ 	dev->open_count = 0;
+ 
++out_unlock:
+ 	mutex_unlock(&dev->lock);
++	kref_put(&dev->kref, tower_delete);
+ exit:
+ 	return retval;
  }
- 
- static __poll_t iowarrior_poll(struct file *file, poll_table * wait)
-@@ -767,6 +761,7 @@ static int iowarrior_probe(struct usb_interface *interface,
+@@ -752,6 +752,7 @@ static int tower_probe(struct usb_interface *interface, const struct usb_device_
  	if (!dev)
- 		return retval;
+ 		goto exit;
  
 +	kref_init(&dev->kref);
- 	mutex_init(&dev->mutex);
- 
- 	atomic_set(&dev->intr_idx, 0);
-@@ -885,7 +880,8 @@ static int iowarrior_probe(struct usb_interface *interface,
+ 	mutex_init(&dev->lock);
+ 	dev->udev = usb_get_dev(udev);
+ 	spin_lock_init(&dev->read_buffer_lock);
+@@ -828,7 +829,7 @@ static int tower_probe(struct usb_interface *interface, const struct usb_device_
  	return retval;
  
  error:
--	iowarrior_delete(dev);
-+	kref_put(&dev->kref, iowarrior_delete);
-+
+-	tower_delete(dev);
++	kref_put(&dev->kref, tower_delete);
  	return retval;
  }
  
-@@ -909,19 +905,14 @@ static void iowarrior_disconnect(struct usb_interface *interface)
- 	usb_kill_anchored_urbs(&dev->submitted);
+@@ -856,18 +857,18 @@ static void tower_disconnect(struct usb_interface *interface)
  
- 	if (dev->opened) {
--		/* There is a process that holds a filedescriptor to the device ,
--		   so we only shutdown read-/write-ops going on.
--		   Deleting the device is postponed until close() was called.
--		 */
- 		usb_kill_urb(dev->int_in_urb);
- 		wake_up_interruptible(&dev->read_wait);
- 		wake_up_interruptible(&dev->write_wait);
--		mutex_unlock(&dev->mutex);
+ 	mutex_lock(&dev->lock);
+ 
+-	/* if the device is not opened, then we clean up right now */
+-	if (!dev->open_count) {
+-		mutex_unlock(&dev->lock);
+-		tower_delete(dev);
 -	} else {
--		/* no process is using the device, cleanup now */
--		mutex_unlock(&dev->mutex);
--		iowarrior_delete(dev);
+-		dev->disconnected = 1;
++	dev->disconnected = 1;
++
++	if (dev->open_count) {
+ 		/* wake up pollers */
+ 		wake_up_interruptible_all(&dev->read_wait);
+ 		wake_up_interruptible_all(&dev->write_wait);
+-		mutex_unlock(&dev->lock);
  	}
-+
-+	mutex_unlock(&dev->mutex);
-+
-+	kref_put(&dev->kref, iowarrior_delete);
- }
  
- /* usb specific object needed to register this driver with the usb subsystem */
++	mutex_unlock(&dev->lock);
++
++	kref_put(&dev->kref, tower_delete);
++
+ 	dev_info(&interface->dev, "LEGO USB Tower #%d now disconnected\n",
+ 		 (minor - LEGO_USB_TOWER_MINOR_BASE));
+ }
 -- 
 2.53.0
 
