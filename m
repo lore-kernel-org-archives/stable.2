@@ -1,123 +1,149 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB5833F58B;
-	Mon, 22 Jun 2026 18:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCC534752E
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 18:57:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782154125; cv=none; b=Z/E+ZxPtpHmPOhcei1zg6WjoXDBc/gHfjEyUblGCo1kX+oWz/H8YwIERRRj1S63vJ1SjUN9/YqXkt/VYwc6Y+qdxNGLcWYQAWQ0dPXDqLNPaQ4RlHeCTZck7e8toIGFZOA5l9hhz3A5Yqb2HZC/PjtzyVPHicEZVtD1972WXQ0Y=
+	t=1782154676; cv=none; b=ON1vOqwpE9ct1L8duGwj7kSGk2ih/e+g94rHSCRnKxy4sPxD1F6UMQPUIEKxNlx6hyGXGtm26cLvI8eg/mlB85kLih7oSqOmKJ6XMQ1mXsJHxmd7s69PQFTEBO0vtp0FMkrdVmIltuyx7DSuXeplgp61Y56q+iaCYUwRjR1MzCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782154125; c=relaxed/simple;
-	bh=gn2CjkQeDZoAmuiaS7haPnR/kL+Anhuwk3Smo7kMd+g=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hw+O1RieAK3NImWkn17apiWDVdecS7pHzU/F+VZzzG1kdKAnXE6fPXgGSOkMByfsCsprP14YJJ5bQEsRSMjIXziX+lkVhfdh5AufsMaRi+wL055w1TPAek4p8b7yf9HH6CfXD9YYCQDWiEZKUBWTiDJvMD9w33NSoSs115ee6Gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wbjh4-003kBc-1K;
-	Mon, 22 Jun 2026 18:48:26 +0000
-Received: from ben by deadeye with local (Exim 4.99.3)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wbjh3-00000007oJw-0mf6;
-	Mon, 22 Jun 2026 20:48:25 +0200
-Message-ID: <ab577daf17c46a72e35c668756d5b33b3ca3ca09.camel@decadent.org.uk>
-Subject: Re: [PATCH 5.10 238/342] net: bridge: use a stable FDB dst snapshot
- in RCU readers
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, stable@kernel.org, Yifan Wu
- <yifanwucs@gmail.com>,  Juefei Pu <tomapufckgml@gmail.com>, Yuan Tan
- <yuantan098@gmail.com>, Xin Liu <bird@lzu.edu.cn>, Ren Wei	
- <enjou1224z@gmail.com>, Zhengchuan Liang <zcliangcn@gmail.com>, Ren Wei	
- <n05ec@lzu.edu.cn>, Ido Schimmel <idosch@nvidia.com>, Nikolay Aleksandrov	
- <razor@blackwall.org>, Paolo Abeni <pabeni@redhat.com>, Sasha Levin	
- <sashal@kernel.org>
-Date: Mon, 22 Jun 2026 20:48:09 +0200
-In-Reply-To: <20260616145059.293155612@linuxfoundation.org>
-References: <20260616145048.348037099@linuxfoundation.org>
-	 <20260616145059.293155612@linuxfoundation.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-8CzP0LIYX80jWadwAj0l"
-User-Agent: Evolution 3.56.2-9 
+	s=arc-20240116; t=1782154676; c=relaxed/simple;
+	bh=Eci/a/8tHg4tTZJiIfDpEB3IqM/YUJ/xXRXY7o2DXVc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=nzxwnNP1BzBQUWOuLoor0JIpdenTbwITkmXsCyxPh9hX+uNSlj4Lbo75F2WAaCiiVTtZXPdb0nsKeb1z1aSCrpvwc6DPYbxXR4lJbA1E8nJ4rqIoyziPxOQxCc7s7DFCGf0rJvgpNvU3Ykbs0W9+D3Bt9tPQb251xBsSsuDmH+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TKjSs/8X; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TKjSs/8X"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4629051c946so145508f8f.1
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 11:57:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1782154673; x=1782759473; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=brZs3+MH5gJMBhPZfGjHt4FXO3H2ccunenuS6LTLrkg=;
+        b=TKjSs/8X4fyrzk4Qode7dCVl4Uyszpotigbr10WpOgJXCgOc2yJIf5k1acFWwlFmC0
+         O1yPxyS6uBOkUVkQEroT6g48T86oTWGzzmjjeZNtYITGQlzgsqjaUUzP0QWEGWzrEBd9
+         qn1FjtWm9AYz7GgrHhvAFytG5cf4cF2WPWuRgguXd2qXuwmtDN2FEPffgfFG/9SkAHLF
+         4Ka2x/rxGYxu9PcTAXiWTnhUHfomyQA2G0kOjytt5+L3KqfpXicTtjJr2aw5LUIP3pLs
+         8OnVRg8Tmlm+yIvK/iRvqqCQuTRMur3oinc3h5K9XsQlk0DjeI3fTiHqMAdVM3DHTmq/
+         TS3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782154673; x=1782759473;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=brZs3+MH5gJMBhPZfGjHt4FXO3H2ccunenuS6LTLrkg=;
+        b=eZqrpvE78n35B8Wu6CajQa20a1JQZr+1jxMQI8ZztWPCDxyREvKnYKm/HC1jYGlZHj
+         eJD+ug97E2+G8LYMbe9Lf76X6DKWTAhCvcSSHj9qHpPlg/8ZqAi4e+tsyiQa8Kvqoo0W
+         LlTEg7R6qf8XjmqHWZ05Ibnj6WLDoG9FFdBl4XKOfTZsvO4gPl9woBVzMkpAL9cgG/oK
+         Cojk/xOxNzHwS5sgVXe8noNHc76p2fcH31OF5oYhLV6/5yazqGNZnuk8kk+QBp3YOb8Q
+         +MvUyIFSKUjeh4Tu+NMy3bcGLhtXzn5oNEKwQb5lSs6sc0b6huA/LcmURDDU5tP9Qph7
+         M6xg==
+X-Forwarded-Encrypted: i=1; AHgh+Ron0oea3lz9KhxXE9+BuRGdSsnZ3PDxdoEXKrbCDcqiZTPRNmHMBX6XDxf2flYD/iU9wRr/j+E=@vger.kernel.org
+X-Gm-Message-State: AOJu0YypQkBRLCgqN55kEVs2hZOr2TmPDnavzrL3G/fzBjzrPq89z7uP
+	ou92Uz+IGY8RsekX7Cl8L+sD5bQaWvvPlxGCg+nFO4zSAaWNnpyGmkfdGTpcLUFvtpw=
+X-Gm-Gg: AfdE7cmDISloSSJAEMtTEbJ1DjiecSzX7M/xvFyvNU0lC+FTo/l+zYAXOiYLC9hdFrC
+	rvc+uS+vEwuODkm5NcUK30XRMeVho0rWI5Dn7kTItu3OYYxh+PJSL/TRiNZ/htb2jGhW71EfgNV
+	QDQLceKQS+Pp/FaRzKC6fXS4P3NrPNcofBtPIouB1uwl9rlBEjiMX7WAs/Ipje2YBPSKptVRdPB
+	2EMQob4CU93KDCt20Qs4XTYXUfp3ixBac4ptDznRZH3DoNg9zYXMzb2vW1Dnt7PG3mvf6JVNmVS
+	AD2fAbNj1NBe2KUIwsDEJ5ZXWSFclGSiiY4o3LdfnLCR46yHfPlZuldysu1vu43p8mIzje8lQrx
+	hkxGSCk0NJQ4yhPjF9sH+eqD1+2QCussK4EYTIjiIDDtGLe5dehZBb7g8T0JZ3xNAtvGrGKnGoj
+	FA2ZkimAOJGT70FVekua1Og4ysFVU5K/hTBXiCyTgrZZJJt1D6Ean0UQZmmSU1gIujT5GrZN+Nw
+	UG8rJuFEucQ
+X-Received: by 2002:a05:6000:220b:b0:46a:6474:839e with SMTP id ffacd0b85a97d-46a7e9f3eb8mr1087064f8f.4.1782154673472;
+        Mon, 22 Jun 2026 11:57:53 -0700 (PDT)
+Received: from localhost ([2.122.8.179])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466648c5413sm29609719f8f.11.2026.06.22.11.57.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 22 Jun 2026 11:57:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
-
-
---=-8CzP0LIYX80jWadwAj0l
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 19:57:52 +0100
+Message-Id: <DJFT3TXC0OJA.1ZK17YA2RSQXK@linaro.org>
+To: "Peter Griffin" <peter.griffin@linaro.org>
+Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, "Alim Akhtar"
+ <alim.akhtar@samsung.com>, "Sam Protsenko" <semen.protsenko@linaro.org>,
+ <linux-samsung-soc@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>, "Sashiko" <sashiko-bot@kernel.org>
+Subject: Re: [PATCH 3/3] soc: samsung: exynos-pmu: fix error paths in
+ cpuhotplug/idle states setup
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+X-Mailer: aerc 0.21.0
+References: <20260605-exynos-pmu-cpuhp-idle-fixes-v1-0-0cd05c81a82d@linaro.org> <20260605-exynos-pmu-cpuhp-idle-fixes-v1-3-0cd05c81a82d@linaro.org> <CADrjBPq4fou5KWh4T=oNkUVPz5Jk-821OVe3j5sWrKnCtHYM6w@mail.gmail.com> <DJ5GP6VQJDHL.2V30K56ME95DO@linaro.org> <CADrjBPqF6GPRLNUZtzkGUHTUQ6NOPoaRvVvF1mUUj_DJ9As1dg@mail.gmail.com>
+In-Reply-To: <CADrjBPqF6GPRLNUZtzkGUHTUQ6NOPoaRvVvF1mUUj_DJ9As1dg@mail.gmail.com>
 
-On Tue, 2026-06-16 at 20:28 +0530, Greg Kroah-Hartman wrote:
-> 5.10-stable review patch.  If anyone has any objections, please let me kn=
-ow.
->=20
-> ------------------
->=20
-> From: Zhengchuan Liang <zcliangcn@gmail.com>
->=20
-> [ Upstream commit df4601653201de21b487c3e7fffd464790cab808 ]
->=20
-> Local FDB entries can be rewritten in place by `fdb_delete_local()`, whic=
-h
-> updates `f->dst` to another port or to `NULL` while keeping the entry
-> alive. Several bridge RCU readers inspect `f->dst`, including
-> `br_fdb_fillbuf()` through the `brforward_read()` sysfs path.
->=20
-> These readers currently load `f->dst` multiple times and can therefore
-> observe inconsistent values across the check and later dereference.
-> In `br_fdb_fillbuf()`, this means a concurrent local-FDB update can chang=
-e
-> `f->dst` after the NULL check and before the `port_no` dereference,
-> leading to a NULL-ptr-deref.
->=20
-> Fix this by taking a single `READ_ONCE()` snapshot of `f->dst` in each
-> affected RCU reader and using that snapshot for the rest of the access
-> sequence. Also publish the in-place `f->dst` updates in `fdb_delete_local=
-()`
-> with `WRITE_ONCE()` so the readers and writer use matching access pattern=
-s.
-[...]
+Hi Peter,
 
-For 5.10 only, commit 3e19ae7c6fd6 "net: bridge: use READ_ONCE() and
-WRITE_ONCE() compiler barriers for fdb->dst" is also needed (but doesn't
-apply cleanly).
+On Thu Jun 11, 2026 at 8:07 AM BST, Peter Griffin wrote:
+> Hi Alexey,
+>
+> On Wed, 10 Jun 2026 at 16:07, Alexey Klimov <alexey.klimov@linaro.org> wr=
+ote:
+>>
+>> On Wed Jun 10, 2026 at 2:34 PM BST, Peter Griffin wrote:
+>> > Hi Alexey,
+>>
+>> Hi Peter,
+>>
+>> > Thanks for your patch!
+>> >
+>> > On Fri, 5 Jun 2026 at 21:19, Alexey Klimov <alexey.klimov@linaro.org> =
+wrote:
+>> >>
+>> >> The setup_cpuhp_and_cpuidle() initialisation sequence currently ignor=
+es
+>> >> the return values of cpuhp_setup_state(), cpu_pm_register_notifier(),=
+ and
+>> >> register_reboot_notifier(). If any of these registrations fail during
+>> >> probe() routine, the driver returns 0, leaving the driver partially
+>> >> configured.
+>> >
+>> > I originally made the failure non-fatal because the system still boots
+>> > without the notifiers registered (and all other Arm64 Exynos SoCs
+>> > upstream don't register notifiers and AFAICT have broken cpu hotplug
+>> > and cpu idle).
+>> >
+>> > In hindsight, that seems like a mistake. I think your patch to fully
+>> > unwind everything in case of failure makes more sense.  See small
+>> > comment below about destroy_cpuhp_and_cpuidle()
+>>
+>> Wait, setup_cpuhp_and_cpuidle() should be non-fatal and shouldn't
+>> return any errors?
+>
+> I suggest you re-read my above comment above ^^
 
-Ben.
+Could you please clarify what specifically addresses my question about
+notifiers?
 
---=20
-Ben Hutchings
-I haven't lost my mind; it's backed up on tape somewhere.
+Looking further into this, it seems that, for instance, if one of the
+hotplug states fails to register then tracking of pmu_context->in_cpuhp
+becomes broken.
+If reboot notifier silently fails to be registered, then it is unclear how
+this from gs101_cpu_pmu_offline() supposed to work:
 
---=-8CzP0LIYX80jWadwAj0l
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+/* Ignore CPU_PM_ENTER event in reboot or suspend sequence. */
+if (pmu_context->sys_insuspend || pmu_context->sys_inreboot) {
+	raw_spin_unlock(&pmu_context->cpupm_lock);
+	return NOTIFY_OK;
+}
 
------BEGIN PGP SIGNATURE-----
+If c2 idles are used during reboot/shutdown then they fail or what?
 
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmo5g2oACgkQ57/I7JWG
-EQmrVw//Yyo3ZafQeqsEBoyOqnJpWaXVHLNChi+UyDBRa21WvyovQ6GNUCkxcRh2
-lUEVYvXNZMlXi61+5krzqLjw6FEkKuwBQKFZxCwNGQWGY93LVh8uP/umKa3ezZ27
-zihpBHVIXI/PJCO2tZVhoAsqIUyC3xIOp2J16IRpWoQy4X4yIWTwSclbK7gmoQBo
-OAUaeGvXATbKcxnUT59Le/Lftq+ido/rVE5+ZKAQ2R2hsKMqncMkHZPYfa/TQ0hS
-eS9yVrAv5uBETrXBaXWbK7czQpezd6dp8RjQEnfrza8P+agq2aDXZpoR55Liz9kC
-NoXd45jKdzmrDtMWqOWm1x2by4r7bAnIlqcKx4i9tGEk4nraZjRXNgPR1ME/xOZF
-uszs9c/FOI3e1aKl5Ad+E/uFN/BzJ9VDZdQozz5xtsIov0vE2AJHoh6aQIaY4UQ7
-YRRuYyjhXIm8ax8dlj7vUo+KXGW4J4TnwwJHpPHBbELPPMRcY5lPdQxL3JasRw5Y
-gNCVrE4Dn6pkT6JtIO63kLbYR/xQW2OWpoBtLkvmjKVruVS7iEvnY6jBjH3gXhMm
-m36QNXQlLS2VpjnsJpL56X8TJrIvasVzLUfRe2SBEkNBPCopu2PZah0rn7pX4W/X
-rPVa18kiMS1tLauLjwfQD14oU3JLmLDrljFVRStijgt0zNQnJ84=
-=Q0/V
------END PGP SIGNATURE-----
+I am not saying that patch is correct and some rework is needed but I don't
+get why we should completely ignore errors from hotplug states registration
+and should not check registration of notifiers. At least warning should be
+shown to user that pm functionality might be unreliable.
 
---=-8CzP0LIYX80jWadwAj0l--
+Best regards,
+Alexey.
+
