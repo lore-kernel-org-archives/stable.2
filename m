@@ -1,82 +1,141 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB2439D6FD;
-	Mon, 22 Jun 2026 09:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D0E335066
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 09:32:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782120721; cv=none; b=Oj82Li8f2zcZeWLx5vc0W37vPF42FSbwvXaBvEX6aScTJevhULp1YYr8m2JfKcBrljxmcFPv1UrE7Ka/vNhBmQf0RWffIIQUKtHAutcRQGLWmIm0UUnvKzVC+9BvML3gXHufUxMcXKM2gCg6KfRa/hrZ/ZZapMI7ntqfyje931Y=
+	t=1782120781; cv=none; b=LBuMphxq57IDcyckKIE2uKrm233qASIjt7/Bh9GWBZuxkKSAU3e158ItLz97IIhqMcGgayWBp2uDuhXAvo1dhNH+H1FYZE/ohcJ45MjSPwibuBxX8jef3wONb3fn6LSJ6UKpWXhFFLPHELeopOhqXOM7citW6H3Nq/GPsYx5AKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782120721; c=relaxed/simple;
-	bh=FKc2SrzAap8kCeUfWLH+dp5oozb8HCbZwsYL/n8/vB0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EpiuQn+y7JF50zQT+ZMw57NM2EPer7TxmqMvoFud/340DvlGWd36mXnb/h3mClN/A6KaZ67ReA8dFvoCmfdrw5W3Qb2Vs99i4fzpJTlQbeGUu+Q8kNodoz9nwb8hm/vN/AxEpD4Fzmb+1WurHG5tvbdJ6gDDtJblDfGsvKtAeEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lHoTu4bc; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1782120781; c=relaxed/simple;
+	bh=0CvKUFjKoILmkCGQleW1GHUvPBmFheCJkQxaNG2gEsk=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=DplGJd3oHtevqaIGokGb5JW8r13dp8xMLExZgyHL14jcr+np2nwJo6GjkaoehroJP8HCvFA/fZekGAyI9ze8R/r3rB09jsRjAQmnmgAXGHpUwlnMp5G2cHkdVg+VphN7l2TuQ42W5mSZY91oUFvciD0qkj/nbGdpZu6aotcSPxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gipXYsTr; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lHoTu4bc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=F6
-	43udD+I2EbhSBnHb9DPRMM81MefYnLwXaGGR11J2o=; b=lHoTu4bctzIY7g+7kk
-	PlaVuHKba1/zlQmi03OECMd8EyABnjftK5W/kJGZO11I/ioPW11114O3M1Te6hXM
-	ccRxQK5pFJ3s2eFPPhhykM0DuLdFIYeOy/0Mv3Q25oc4/FiyhpA2VIFEuk/jkZ4j
-	kz1pWNH04e6fXaYM+qAmHfOc4=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgCX6rr1ADlqtrcPDw--.54368S2;
-	Mon, 22 Jun 2026 17:31:34 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: bhelgaas@google.com,
-	aduyck@mirantis.com
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] PCI/IOV: Drop device reference on sriov_init() failure
-Date: Mon, 22 Jun 2026 17:31:32 +0800
-Message-Id: <20260622093132.910859-1-haoxiang_li2024@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gipXYsTr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782120780; x=1813656780;
+  h=message-id:date:mime-version:subject:from:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=0CvKUFjKoILmkCGQleW1GHUvPBmFheCJkQxaNG2gEsk=;
+  b=gipXYsTr4QKUcS8eqPugRStGA2efaCpMBSZ4Rd0AVL19KgqYwPofLhmE
+   ghQG+g78+u9Nswg8jPRjRVCgVpiNHVS0I1mbMxfTE9Q4sQqIuoFzxAQ6K
+   J44bHfriSmfJlVvY/btf2tGKaDULdr4i0Jrn2QYza5NjNDebVqEIRgzgW
+   kfHrh78nW06e0I2bRPuXdq67UccAaILqGw/ZDT7pnkdKy1cJewFBVWJoG
+   e+QBWfEGa+gl6b6H6Q1ifQuc9+wKTqQ0f7YbjC9W4bliV87YyaqU44lEO
+   3bT1G8hwkYfBDwl0BRmfgHKO3rD4cuJhQPNobegL2vvLKVjhzp3zEyOAS
+   Q==;
+X-CSE-ConnectionGUID: 6DobiWuBTuy24/jRKE5CHQ==
+X-CSE-MsgGUID: iYhp/XsTTuaFA4boj3ooFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11824"; a="81949200"
+X-IronPort-AV: E=Sophos;i="6.24,218,1774335600"; 
+   d="scan'208";a="81949200"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jun 2026 02:32:59 -0700
+X-CSE-ConnectionGUID: Rwe2EGAeRS2KbPP8uXzJTQ==
+X-CSE-MsgGUID: 7KRajiXbQvGKtAKblHntMw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,218,1774335600"; 
+   d="scan'208";a="287299079"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.245.133]) ([10.245.245.133])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jun 2026 02:32:58 -0700
+Message-ID: <51364474-5b32-4f7c-80e8-86c430fee7b7@intel.com>
+Date: Mon, 22 Jun 2026 10:32:55 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/xe/display: consider DPT when WA 22019338487 is
+ active
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Uma Shankar <uma.shankar@intel.com>,
+ Nikolay Mikhaylov <sonny@milton.pro>, stable@vger.kernel.org
+References: <20260609171002.380499-2-matthew.auld@intel.com>
+Content-Language: en-GB
+In-Reply-To: <20260609171002.380499-2-matthew.auld@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgCX6rr1ADlqtrcPDw--.54368S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7GF15ur4rCw48Ww43XF1fJFb_yoWfKFbE9w
-	10yr97Aa1jkF1kKw1YkF1SvrWSk3WDXa92grW0ga4fGFy3Zr4vvry5Z395G3W8Ww4fuF98
-	Aw1qkF1UC34xujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRuCJPUUUUUU==
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7RcmlGo5APdsdwAA33
 
-sriov_init() takes a reference to another PF device with pci_dev_get()
-when an existing PF is found on the bus. If compute_max_vf_buses() fails
-afterwards, the error path clears dev->sriov and frees the pci_sriov
-structure, but does not drop that reference.
+On 09/06/2026 18:10, Matthew Auld wrote:
+> WA 22019338487 (22019338487_display) indicates that stolen memory should
+> not be used for display allocations on affected platforms (like Lunar
+> Lake).
+> 
+> While the fbdev allocation in xe_display_bo.c properly respected this
+> workaround, the Display Page Table (DPT) allocation in xe_fb_pin.c
+> continued to unconditionally attempt to allocate from stolen memory on
+> all integrated GPUs.
+> 
+> Check XE_DEVICE_WA(xe, 22019338487_display) before attempting to
+> allocate the DPT from stolen memory. If the workaround applies, skip the
+> stolen allocation attempt and let the driver naturally fall back to
+> allocating from system memory.
+> 
+> Without this we will end up hammering stolen when programming the DPT on
+> the host side during the normal operation, which seems to be exactly
+> what the WA wants us to avoid.
+> 
+> There are a bunch of users all getting some kind of hard hang in the fb
+> pin programming sequence on LNL, so wondering if this could help there.
+> 
+> Assisted-by: Gemini:gemini-3.1-pro-preview
+> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Fixes: 775d0adc01a5 ("drm/xe/fbdev: Limit the usage of stolen for LNL+")
+> Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Nikolay Mikhaylov <sonny@milton.pro>
+> Cc: <stable@vger.kernel.org> # v6.12+
 
-Release iov->dev before freeing iov on the error path, matching the
-cleanup done by sriov_release().
+Any takers for this one?
 
-Fixes: ea9a8854161d ("PCI: Set SR-IOV NumVFs to zero after enumeration")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
----
- drivers/pci/iov.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/pci/iov.c b/drivers/pci/iov.c
-index 91ac4e37ecb9..1a55863fa7a0 100644
---- a/drivers/pci/iov.c
-+++ b/drivers/pci/iov.c
-@@ -905,6 +905,8 @@ static int sriov_init(struct pci_dev *dev, int pos)
- 	return 0;
- 
- fail_max_buses:
-+	if (iov->dev != dev)
-+		pci_dev_put(iov->dev);
- 	dev->sriov = NULL;
- 	dev->is_physfn = 0;
- failed:
--- 
-2.25.1
+> ---
+>   drivers/gpu/drm/xe/display/xe_fb_pin.c | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> index f93c98bec5b5..46b1fd620527 100644
+> --- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> +++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> @@ -20,6 +20,9 @@
+>   #include "xe_pat.h"
+>   #include "xe_pm.h"
+>   #include "xe_vram_types.h"
+> +#include "xe_wa.h"
+> +
+> +#include <generated/xe_device_wa_oob.h>
+>   
+>   static void
+>   write_dpt_rotated(struct xe_bo *bo, struct iosys_map *map, u32 *dpt_ofs, u32 bo_ofs,
+> @@ -172,7 +175,7 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object *obj,
+>   						   XE_BO_FLAG_GGTT |
+>   						   XE_BO_FLAG_PAGETABLE,
+>   						   pin_params->alignment, false);
+> -	else
+> +	else if (!XE_DEVICE_WA(xe, 22019338487_display))
+>   		dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+>   						   dpt_size,  ~0ull,
+>   						   ttm_bo_type_kernel,
+> @@ -180,6 +183,9 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object *obj,
+>   						   XE_BO_FLAG_GGTT |
+>   						   XE_BO_FLAG_PAGETABLE,
+>   						   pin_params->alignment, false);
+> +	else
+> +		dpt = ERR_PTR(-ENODEV);
+> +
+>   	if (IS_ERR(dpt))
+>   		dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+>   						   dpt_size,  ~0ull,
 
