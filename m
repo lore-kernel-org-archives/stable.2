@@ -1,129 +1,130 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240F03914FE;
-	Mon, 22 Jun 2026 08:29:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F1833914FE
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 08:31:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782116952; cv=none; b=nDKIiMfIWmMn/C0uXfBXdeplnsmQpAz+PXQ8UbQS6mIhBXa08isnI2joWJKPzizhdX07NWcJXS5RfgD8OGpt4EUAoedJo8I4A8GAQk5YpIXxq8TCSkVDlbrafPOy+pcRZSW5IHEVyOnZSH9PY/nDze8VAUzhIM2+P1NkDB7W7Ts=
+	t=1782117075; cv=none; b=gyegDoyr5UUs5UlvFXUEZmzIUVE0CzvXp6oxFEd4OFXQSf/y4mKT3MupNhHbKyLL+RGKG5Ti3+6hDWbraGEXfbUfHPdRCmBCWp6Q8OMqEOK2S2dEfgytZG3p1ghZ9zP64jPQeZkpFBWp5Fhbxila4OFDaq3yKSkoGNGeCw1B4L0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782116952; c=relaxed/simple;
-	bh=oshX+1OGH/tG2YcTkp8LoN02KXSBFvXanHE3Hn7KKrU=;
+	s=arc-20240116; t=1782117075; c=relaxed/simple;
+	bh=UIrGJQRLoeLZ+6bqNUe5Pb5lnSByTOg2YlrKxWry3r8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bypN7WDJXLl53qI2YkJ/jx6SpfK90pdSdz1UraegPJiXKvhEcx1/t98BTUGIp1MqNiKRMD4kWznS5+r2ZpRFvpqEstxBWSpegP4oDi8bMBk1bLy6g2W6EEg5wLRZGvpxzVaujTs8bajO3wuwPbPhhIdFa6pcUtC+ihgmbV4hMTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=JfJBOhMn; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=cFeKgvCIjTk1SIkTUi3nZQLL5awta1yNppJ+VsWWWjiVGSlq6HIE+ekW9RZ/Lq9LMvDrdyFEvxSYbkhjhbfWMZ2HA79qd3NqYHBgXoSXSEmtb2hWKBhggTAP4mFUR5wnm6U5Qy07JIcy2ogJ0KgSQBohuboWr2Xe+zGxaQ71030=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RT09Vz+E; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Ja5gRp23; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=q1PvMtCe; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XR+mV1tt; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="JfJBOhMn"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=bbTyrnhqvWIcaXGI5ya6CH216d2F3ewFkzDXa3yFmPg=; b=JfJBOhMnP5yLYxb1TUJmIV3k3W
-	bvDEHpVJOLzGrwPYiEZMexVe1cwXhJ7WA7O/wQMfJbczJU3pKj7Pt2HntYo2K0viOYJuuIaPE6zoP
-	gnj6Py8/FSiFean+s4tC2MRe1sLbxfL2ML0WaSa5oFpmjTxN00XvDVyUaHRWkEaG/V8REbqwL2a0W
-	getComPHsxZWERYn3U+N/OeI8ZjUI/WtzVLI/b0ssXSU9CDznuiazbAmYET+RljytwgDllD887NDg
-	Xxt9F1YlHFJ2Wm8dEMN8u8BAjDYdDs36LB8N8IOQbOYpiZ0xGuW7/n9Xo9Fi7d9UMbrb28GCgwFdx
-	LMjYg2eg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1wba1L-0000000HCHO-3ygg;
-	Mon, 22 Jun 2026 08:28:44 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id D0349300B5F; Mon, 22 Jun 2026 10:28:41 +0200 (CEST)
-Date: Mon, 22 Jun 2026 10:28:41 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Guo Ren <guoren@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, arnd@arndb.de, palmer@rivosinc.com,
-	tglx@linutronix.de, luto@kernel.org, conor.dooley@microchip.com,
-	heiko@sntech.de, jszhang@kernel.org, lazyparser@gmail.com,
-	falcon@tinylab.org, chenhuacai@kernel.org, apatel@ventanamicro.com,
-	atishp@atishpatra.org, mark.rutland@arm.com, bjorn@kernel.org,
-	palmer@dabbelt.com, bjorn@rivosinc.com, daniel.thompson@linaro.org,
-	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, stable@vger.kernel.org,
-	Guo Ren <guoren@linux.alibaba.com>
-Subject: Re: [PATCH] riscv: entry: Fixup do_trap_break from kernel side
-Message-ID: <20260622082841.GW49951@noisy.programming.kicks-ass.net>
-References: <20230702025708.784106-1-guoren@kernel.org>
- <202606191652.38297DE51@keescook>
- <ajeKPpg2rwadVPY4@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RT09Vz+E";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ja5gRp23";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="q1PvMtCe";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XR+mV1tt"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 59E9B70660;
+	Mon, 22 Jun 2026 08:31:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1782117069; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8EArO4dwg83BiygLJAYyP6Bvz/p+P7hQnbAm2VrjDow=;
+	b=RT09Vz+EXu23S+fNXCC6sfFhn5hoLY2QoyBeB/ELDO+51qpYZaX+n8zvmPgZuhDbJPChKk
+	sNCcY+95aphsEitfXA7TnJX9lrJ3+G14qGG4EW5oe0LU0mqQVB9Ow8r20Lz+ZYLqfNJH2a
+	/bY9U12+Yua4c9/xZiHW803/LvceEXs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1782117069;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8EArO4dwg83BiygLJAYyP6Bvz/p+P7hQnbAm2VrjDow=;
+	b=Ja5gRp23Rxu4X0FBv614DeJkgpAbWUYn/ROj1GyQ/eBDsHu4GNbCou9jvWCwJZ8je/koaE
+	eYtQ6ZipwSravIDA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1782117068; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8EArO4dwg83BiygLJAYyP6Bvz/p+P7hQnbAm2VrjDow=;
+	b=q1PvMtCeH6SjXGoxNr83bWk1Gb8rzgHLkKmz3WUZU5MvzzZ4jy4sDj2JB3ZZ2QgwufaD3z
+	sCLKd2vlXBuX6nsj4nY1NTkwy5ZBWxsr4ld5P2UpJQzZBm3rPMx6YkkoDqtJP1RwPrLmRH
+	RhFMzHS7X9Q++Dj7hJkvj0Fr4vyQiag=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1782117068;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8EArO4dwg83BiygLJAYyP6Bvz/p+P7hQnbAm2VrjDow=;
+	b=XR+mV1ttiW1CdzgCw9DSrWwYD7YWd8kCssL7jKoVSI5ogVd6FXC2slWAOjdmq1xMTEsKSc
+	AAUo48trJE04GrCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 46C94779A8;
+	Mon, 22 Jun 2026 08:31:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id GwC2D8zyOGqRfQAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Mon, 22 Jun 2026 08:31:08 +0000
+Date: Mon, 22 Jun 2026 10:31:07 +0200
+From: Daniel Wagner <dwagner@suse.de>
+To: Haoxiang Li <haoxiang_li2024@163.com>
+Cc: ram.vegesna@broadcom.com, James.Bottomley@hansenpartnership.com, 
+	martin.petersen@oracle.com, jsmart2021@gmail.com, hare@suse.de, linux-scsi@vger.kernel.org, 
+	target-devel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] scsi: elx: efct: Fix IO leak on unsupported additional
+ CDB
+Message-ID: <ce64efec-3c5a-43b2-8950-14073d9f6f1d@flourine.local>
+References: <20260622075844.832871-1-haoxiang_li2024@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ajeKPpg2rwadVPY4@gmail.com>
+In-Reply-To: <20260622075844.832871-1-haoxiang_li2024@163.com>
+X-Spam-Flag: NO
+X-Spam-Score: -4.30
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[broadcom.com,hansenpartnership.com,oracle.com,gmail.com,suse.de,vger.kernel.org];
+	FREEMAIL_TO(0.00)[163.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,flourine.local:mid]
+X-Spam-Level: 
 
-On Sun, Jun 21, 2026 at 02:52:46AM -0400, Guo Ren wrote:
-> On Fri, Jun 19, 2026 at 04:54:53PM -0700, Kees Cook wrote:
-> > *thread encromancy*
-> > 
-> > On Sat, Jul 01, 2023 at 10:57:07PM -0400, guoren@kernel.org wrote:
-> > > From: Guo Ren <guoren@linux.alibaba.com>
-> > > 
-> > > The irqentry_nmi_enter/exit would force the current context into in_interrupt.
-> > > That would trigger the kernel to dead panic, but the kdb still needs "ebreak" to
-> > > debug the kernel.
-> > > 
-> > > Move irqentry_nmi_enter/exit to exception_enter/exit could correct handle_break
-> > > of the kernel side.
-> > > 
-> > > Before the fixup:
-> > > $echo BUG > /sys/kernel/debug/provoke-crash/DIRECT
-> > >   lkdtm: Performing direct entry BUG
-> > >   ------------[ cut here ]------------
-> > >   kernel BUG at drivers/misc/lkdtm/bugs.c:78!
-> > > [...]
-> > >   Kernel panic - not syncing: Aiee, killing interrupt handler!
-> > 
-> > This appears to still be unfixed. What's the blocker? The solutions in
-> > this thread seem to work...
-> > 
-> > I'd like to be exercising an Oops path via KUnit (for KCFI), and riscv
-> > just instantly falls over instead of thread-killing on the exception.
-> Thanks for reviving this thread. At the time I didn’t fully understand
-> Peter’s point. We should only use the NMI path when the trap occurs with
-> interrupts disabled.
-> Here’s the updated fix:
+On Mon, Jun 22, 2026 at 03:58:44PM +0800, Haoxiang Li wrote:
+> efct_dispatch_fcp_cmd() allocates an efct_io before dispatching an
+> unsolicited FCP command. If the command has an unsupported additional
+> CDB, the function returns -EIO before handing the IO to the SCSI layer.
 > 
->  do_trap_break(struct pt_regs *regs)
-> ... 
->  		irqentry_exit_to_user_mode(regs);
->  	} else {
-> -		irqentry_state_t state = irqentry_nmi_enter(regs);
-> +		if (regs->status & SR_IE) {
-> +			enum ctx_state prev_state = exception_enter();
->  
-> -		handle_break(regs);
-> +			handle_break(regs);
->  
-> -		irqentry_nmi_exit(regs, state);
-> +			exception_exit(prev_state);
-> +		} else {
-> +			irqentry_state_t state = irqentry_nmi_enter(regs);
-> +
-> +			handle_break(regs);
-> +
-> +			irqentry_nmi_exit(regs, state);
-> +		}
->  	}
->  }
+> Free the allocated IO before returning from this error path.
 > 
-> If you & Peter have no objection, I’ll post a v2.
+> Fixes: f45ae6aac0a0 ("scsi: elx: efct: Unsolicited FC frame processing routines")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
 
-I still don't understand it. This cannot fix anything. Consider:
+Looks good.
 
- EBREAK
- raw_spin_lock_irq(&your_lock)
- EBREAK
-
-So now the first 'works', but the second will crash. Additionally,
-having the EBREAK context differ so dramatically between invocations
-seems like a very bad deal to me.
-
+Reviewed-by: Daniel Wagner <dwagner@suse.de>
