@@ -1,230 +1,232 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C48A2DC331
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 11:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782129333; cv=none; b=sUpf/Ixi55cmRq5J/zMvQPMdFsuj+XqNIXrG6l+zM3h3r8/8KSj2S9OWKCulk6j5NrAr5/zlRre8zPtkc+Cssa1fXczXXaJ1AWl/nhuBzmU5wpqzvqYTyZKASXjyNdS8AqfiYRhrTdQkxUG3rTbWp1jFoIOn8EZI+4J9q0rWY9c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782129333; c=relaxed/simple;
-	bh=PrVUMGsRNDpIJ/UshiJYTdB0TRQ987SpJrx5TNYpco0=;
-	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type; b=YbfBvKIjd1tJLt01fwe1u/rbM4jHwka+WSH1TccmALxJPx4QkPrD/+FC7J3GX6sHCrXUcBckmDr0KOCmWgCskH7HB1mpNl/ashl8A8cb2lAqNWFDykIdw/rr2iFkXq+x8CN+wiYLzuYngJueTWr7r/xU+MwKytTibE9wI839oUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eBDr0NTq; arc=none smtp.client-ip=209.85.128.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FABC25B0B2
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 12:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782129667; cv=pass; b=dsJC2YmsgryAAYAPSgZShKj3tTpXUFLurbIQbKFEI1ZhehgNEFTsC4FsNvQd4csNzAGMF3pDWCoSTEY1Pla5JruUInYF/BZmZwf7kptYjjpBhqLNw+qu8I44Xff8npnigxchH0+/2CLdfvY+dBk/Acc6p+YBhMGaJ5dBtrnTgHs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782129667; c=relaxed/simple;
+	bh=ZD9tGJJOmrxjp+XXPfu98euctPfzwVJyhsLLMYaGrfM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GbIbV1pQbXO4gR4o7aFe+LNhghGvD6d20gArA5gzJe5AIZAQVCkC933L9frtwmb3WODs9GeJ+iADpfYennTqckn/PbJlTIUWk04q9wMLDzdK8Qi5JHW9U0bnTkJoznqlceWsUMMDWYxynOvElURY7IhNpO3UuTK1RBV545PfDco=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HP4KpAFv; arc=pass smtp.client-ip=209.85.218.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eBDr0NTq"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-7fe4808741eso44451227b3.1
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 04:55:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HP4KpAFv"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-bdb3fd39045so577833766b.3
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 05:01:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782129665; cv=none;
+        d=google.com; s=arc-20240605;
+        b=cS9IA46O94sIHsiHiG07kCgHlLh3Bq8LbBDEBaZyLsEEmzlCyjF4fYTjejkP6JKmmW
+         X1MggGg8oWiWMw6D/Rj0+7+38WZOrU+opTxIe74vUg/WHpR5wW3NPf5hufvSxkjqAIZV
+         BvN5IWojbTS9StezbEDd2HieHjZfwmHOi7DOQQNrsZbV6PlmdXk0S8ITHIzceerD/bty
+         O/nyn5hbFmej6GznE0/UsvX+zRD89ZyAJHpvRxCoZRP1YpGqarYXs5D/iGMsHgETIMsE
+         C53hX64Rx1LCCOgdpkcpX8KaXLM2giTkJ+5Jdf0aiuaGmdgHguQEJNg+Ittiz2NTcQ5+
+         HEzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=z/UQd6gAiCKpdO/qT7NweWYk9EmiL69nd3YrHKH5p+g=;
+        fh=D4EoJiXlyLZOMcFoqFYixno/3/3jeCII1Co2wXUZ3q4=;
+        b=fAKp63edqSAV0hGIuTxiIiFoVw/KrAsfyKwF4JpncmyC4JPBKgsn+dze7ZWzuRzsjL
+         mqzhennonWaukKjJUMA/bQDUS1rdtw8rr8P8EyAZNr+3H3L6Ol0tFE0RWDJZAFStMGb9
+         KyKlPivIoGHpHrT4gOQfMJsRgWw6Yxz3GKOlEpZk+v4DMQyki1J+wLMw1LeTAxD8ZImb
+         f9DOrl7wdeAxasvDEHIiiMf89YcVKjG5xAmwBgcbsFl/BeDEgcIJg655wCAN4bvRcWwx
+         YbEFRb388tZZ3B5mCbUUY5oduyqN2eb0YnMONsJUxNeeOEplmjXJhlvx3CqSdSOMolvN
+         PMsw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782129331; x=1782734131; darn=vger.kernel.org;
-        h=content-language:thread-index:content-transfer-encoding
-         :mime-version:message-id:date:subject:in-reply-to:references:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=AjtVZE+G6ZNdvtmmDJa7f0CJF6c7p8Zb+gTkGkKohN4=;
-        b=eBDr0NTqosFfv2i/cxebJkkKzworUTlnbvth85FwomRmUla8Y+OjPBNQSd6vTxZpsi
-         6O4XieBdnr8UBFwiM65miAsyJRXo7CffX+pdTFejH+kCxHivUD8aLT9RwvKUVUmVppfo
-         dGRmwlg2towjK9YzLSsxKa800cBMozvrU3EeG9uQ1sOjwkvxVT257ZU0obOGjtyC5Vox
-         sfm2VIAQV7YvAhjje9/RGJD4kvbcEHLeWN1oHssXS42psnNB38p+9uTb57j4946NkyF9
-         cfRiqHn5qVopL+0IDHCSqHyvCkymKlchvus6+YLnU8L4CAgzkWH2aMW47XGx/sPkxD46
-         im2Q==
+        d=gmail.com; s=20251104; t=1782129665; x=1782734465; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=z/UQd6gAiCKpdO/qT7NweWYk9EmiL69nd3YrHKH5p+g=;
+        b=HP4KpAFvarJ30i0m1IA4XhHGf1JN2cGmHG5/RhBR3LagblBMwkjj+tr6lakX2UZHZK
+         4RbofxocXuRFYKOl69z7vnjO+wL6xjYeXctfiPTy7WcFgss35WTLCRFC2jkgByjK20Z9
+         pXOpd+nYX8928hmJIyTgjFX2B2elcCzL5xtojmV99Iql3d20pOsfrkAm3TYupJASixdX
+         wLOhBgs1sBEQe7he9eKquT04Q62aUMmWCtC85QBDIWzgV4CJh1hZJQdEShQY73fX1DoA
+         iK+74c21kqX2OlRSKN6kw4iqtRTfuJYcXeP/9vam8dGf2OCioWSqtb2AFHBxqeCh0iEJ
+         dAVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782129331; x=1782734131;
-        h=content-language:thread-index:content-transfer-encoding
-         :mime-version:message-id:date:subject:in-reply-to:references:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=AjtVZE+G6ZNdvtmmDJa7f0CJF6c7p8Zb+gTkGkKohN4=;
-        b=QAns3hVmmx93yU3yvlz+ED2t9IJsi5GBP4AJo7E8+9utnhnladcHYXUIzPoghvjNy4
-         aIYT7Vyd5PtZ9VJN3Nhws6dVMkxP4bCDuKUOVjyGyax5OHeDy5kQ+PYqhCnFXXhhoTA7
-         zGdY1x9WhPVB1x6SJ3cpxSnIodxAATejZDoftlKM8npgoUkOWABQIps5Dil+KrmyPfFm
-         nj99cNUXNQrCSNVSsrT3ffac2I+5noE4zk67zTcQQxBWgoF0+i0hOVmQ005IBoLqgPrT
-         ZU9eR6XfdnYfJESfHPwv6jdrm8EX6gcz8Z9lqusKdXDh25S+HOsR4uLEQXm0t5Tqn4qG
-         iMyw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrgihp2kBzc4znzt18glyzoYEIZ9DLgBL8hxql93zkIXviKvTzebulHPWSFPP37614lmSPo2bE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyr+6woV5ajbb9YwdSPmlsJ684inbefWf9j0QlgSoweYnphxwd4
-	m25fffYN9pvRZpU/s9FFlcsa5ffRQadkOoWlELrimKjEpuh1GeWTX8Cq
-X-Gm-Gg: AfdE7cnzlM7Z6tZYU5tAYB/e8LDd5ab293Bd0mCthgngIlbGY9pMF7H7iMWHdyql/Ws
-	K6FWWpeZYqyNeW/XHTHkc/o7c5Yhv+Dtp26X8gozb3GPxvGdYQtLN7dbZDPC7LCIgIe8L9uIeVR
-	zqboEE11Zxm8HeduHEk4Z569ZEfjJLzzb6UIGftAwI1gI6ek7oSaVYCwpo3FtgEOZoijp6qxgPc
-	ZSFjaYuFl8+vlA4sOEMwxhfmNkjrash0lMeY5zhLprDXK5jiVPKt9iI3bmbLEsm4jhHXmuMo9Aw
-	TOqy5mdyt8CxBt34f4IoC742sKgpTPMUEsqYrStaQIu0KZWmUMYnV5n3lwXLmYY0DTWBlXdOrVR
-	V+HhORE+k7ZchA4FHxUj+Ev+3rQQMQI4XFN1IRw9ZZ5rWTdsRl3x8wBT3eo5xdRAYT5whFviDS1
-	Je7cW5/K1M2alwiiBwCQuiU0Tbc5qMoT//FbdTHyfRxmt/ELHmJQxKNkdtmpkSQ7HQ0guzBXjV5
-	lOB
-X-Received: by 2002:a05:690c:6706:b0:7bb:11a4:2e70 with SMTP id 00721157ae682-80130b0b8cdmr125913627b3.14.1782129331028;
-        Mon, 22 Jun 2026 04:55:31 -0700 (PDT)
-Received: from WIN6DK41G9CSL2 (c-73-56-149-95.hsd1.fl.comcast.net. [73.56.149.95])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-802606a918bsm29833007b3.43.2026.06.22.04.55.30
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 22 Jun 2026 04:55:30 -0700 (PDT)
-From: "Brien Oberstein" <brienpub@gmail.com>
-To: "'Stefano Garzarella'" <sgarzare@redhat.com>
-Cc: <netdev@vger.kernel.org>,
-	<regressions@lists.linux.dev>,
-	<stable@vger.kernel.org>
-References: <467b01dd017b$733792d0$59a6b870$@gmail.com> <ajkAlpiyPWmNPWfx@sgarzare-redhat>
-In-Reply-To: <ajkAlpiyPWmNPWfx@sgarzare-redhat>
-Subject: RE: [REGRESSION 6.12.90 -> 6.12.94] vsock/virtio: large AF_VSOCK transfers reset under backpressure
-Date: Mon, 22 Jun 2026 07:55:30 -0400
-Message-ID: <618701dd023e$063de350$12b9a9f0$@gmail.com>
+        d=1e100.net; s=20251104; t=1782129665; x=1782734465;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=z/UQd6gAiCKpdO/qT7NweWYk9EmiL69nd3YrHKH5p+g=;
+        b=rjm9W2CruYSA2ADQevbp8O/PD2yZWQMjMCE8qfZjzKU6SF8plola2/uXwcX5fHcKa8
+         HTF3nZeDvjbH70vUWiOHR6p83WZhoaNsOllTnGmOfa53ZMkkLk2oUlKOOMY5ychm+uId
+         4GZIH+UCQc1pIMoLrKQ9rNjSKZNkJU7gU65qbfh8U9uDgjpF9tfbqmpt3YWWd13JBPCU
+         0vhO+xZLbsE4FjLGZt4hWFHa0OlGdbOFMm63li0zHUZg/NY6ECvULw59qtM3q98q6Naz
+         basfPdjPmbBlTr286+bIb3puSJrm0fCsd1QQUHLKEvw3oSuid3UC58wqucljNr3A/LRW
+         C0qA==
+X-Forwarded-Encrypted: i=1; AFNElJ8bg7PsX2oA4IIFlEtUs6Mp8yc3bBbr4cf7jZZHazzxdXmjehunhH1IPbvJqBZ10W8ME9oRVJM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCxWWXKMpinfGvhSiEAMjnIQsag98tuds/jaw7FDuzkqnl9Vsq
+	1Z0JBOwrOnxtJIAi+BCO6PaRH+uHZtr7RCVCUAUA46skEd1agm40WAzjjGm2zwqU4UP9Q7JSOYD
+	QklyjhpTqOaEO5s7ISavMxziubXynqg==
+X-Gm-Gg: AfdE7cmOeQ8ZMPmp2gNOFCVaRaaI8379PS7rg8pobMpJuakG7UXYSMPJ9CR9sbSXKix
+	fcnw/b1yqxCUv1EDL13pGJr04YQoJawqpJScR9cPOgkQfCQ9Vw78NGGflYIPqb/+Chh0IQEn22X
+	Q0xKPHgDrLz+/ywn9ZaZIHJkOXigCQeDwDEFplZVbb3LU63vmFFNNH/NwFPSEhsZVnjNdDaZP6/
+	/eK0+crYB9d0GGiPvix6x2vjf3G07p1BRsd/5wid7/lPEaD0D3V+9YQTdubxeRNwrIkJplY3yzZ
+	QjeyU50kD2oPn7Z0nEmx1+xw
+X-Received: by 2002:a17:907:3e8a:b0:bec:5264:e52d with SMTP id
+ a640c23a62f3a-c097ae2dba6mr734296866b.11.1782129664281; Mon, 22 Jun 2026
+ 05:01:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
+References: <20260424165238.31333-1-mhun512@gmail.com> <c9c20bce-a1bb-4932-bfa0-c87f7156ff82@foss.st.com>
+ <ajPcKcJfbIdPKI8-@kekkonen.localdomain> <02b07f43-3c90-4e89-8747-7fd424d87dd1@foss.st.com>
+In-Reply-To: <02b07f43-3c90-4e89-8747-7fd424d87dd1@foss.st.com>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Mon, 22 Jun 2026 21:00:51 +0900
+X-Gm-Features: AVVi8Cca7UOWphF8HJsSk1WcZ5pnlyOtgCIPMzJHRCDI7-laXJTy-z3xZ9jXfvM
+Message-ID: <CAGEsz8F3P8NpOPr_7wCcr+KOLHjYOXu9=5k3-EaiAvb3Eirvrw@mail.gmail.com>
+Subject: Re: [PATCH v2] media: i2c: vd56g3: clean up subdev state on probe failure
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGzlm2Q3QdtCPSkkHXQpTkeFGbfJwIutksBtovYSHA=
-Content-Language: en-us
 
-Hi Stefano,
+Hi Benjamin, Sakari,
 
-Thanks, that matches what I'm seeing: large transfers reset mid-stream
-instead of the sender being throttled (reliable above ~1.5 MB, fine =
-below
-~90 KB).
+Thank you for the clarification.
 
-The bind for me: it's not just this mail bridge -- I use AF_VSOCK for a =
-few
-host/guest services, some of which open their own sockets, so the =
-per-socket
-buffer workaround can't cover them all. That leaves pinning 6.12.90 =
-(losing
-the DoS fix and further kernel updates) as the only blanket option.
+I agree. The missing cleanup is on the vd56g3_update_controls() failure
+path after v4l2_subdev_init_finalize() has succeeded.
 
-A few quick questions:
+I'll send a v3 that keeps v4l2_subdev_cleanup() in
+vd56g3_subdev_cleanup(), and routes this failure through the probe-side
+err_subdev path instead of adding another v4l2_subdev_cleanup() call in
+vd56g3_subdev_init().
 
-1. Is a -stable backport of the merging fix likely, and roughly when?
-2. Could a smaller interim land in -stable sooner (e.g. more default
-   headroom) without reopening the DoS?
-3. Will the fix guarantee backpressure for any packet size, or just =
-widen
-   the margin?
+I'll also add the appropriate Assisted-by tag.
 
-Happy to test any patch -- I have a solid reproducer and can turn it =
-around
-in a day. I'll also file this as a tracked regression so it's not lost.
+Regards,
+Myeonghun
 
-Thanks again,
-Brien
-
-#regzbot introduced: v6.12.90..v6.12.94
-
------Original Message-----
-From: Stefano Garzarella <sgarzare@redhat.com>=20
-Sent: Monday, June 22, 2026 6:08 AM
-To: Brien Oberstein <brienpub@gmail.com>
-Cc: edumazet@google.com
-Subject: Re: [REGRESSION 6.12.90 -> 6.12.94] vsock/virtio: large =
-AF_VSOCK transfers reset under backpressure
-
-On Sun, Jun 21, 2026 at 08:42:41AM -0400, Brien Oberstein wrote:
->Hi Stefano, Eric,
-
-Hi Brien,
-
+2026=EB=85=84 6=EC=9B=94 19=EC=9D=BC (=EA=B8=88) =EC=98=A4=ED=9B=84 5:59, B=
+enjamin Mugnier <benjamin.mugnier@foss.st.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=
+=EC=84=B1:
 >
->I'm hitting a regression in the 6.12.y stable series: a bulk transfer=20
->over
->AF_VSOCK is torn down mid-stream once the message is large enough to
->exercise receiver-side backpressure. By stable version it lands on
->6.12.94; 6.12.90 is fine.
+> Hi Sakari,
 >
->Setup
->-----
->A host process mails a guest's postfix over an AF_VSOCK bridge:
+> Le 18/06/2026 =C3=A0 13:53, Sakari Ailus a =C3=A9crit :
+> > Hi Benjamin,
+> >
+> > On Tue, Jun 16, 2026 at 02:49:54PM +0200, Benjamin Mugnier wrote:
+> >> Hi,
+> >>
+> >> Thank you for your patch, and apologies for the delay.
+> >>
+> >> Le 24/04/2026 =C3=A0 18:52, Myeonghun Pak a =C3=A9crit :
+> >>> vd56g3_subdev_init() calls v4l2_subdev_init_finalize(), which allocat=
+es
+> >>> the subdev active state and requires v4l2_subdev_cleanup() to release=
+ it.
+> >>>
+> >>> If vd56g3_update_controls() fails after finalize succeeds, the probe =
+error
+> >>> path currently skips v4l2_subdev_cleanup() and returns an error. The =
+driver
+> >>> .remove() callback is not called after a failed probe, so the active =
+state
+> >>> is leaked.
+> >>>
+> >>> Route this error through a subdev cleanup label before freeing the co=
+ntrol
+> >>> handler and media entity.
+> >>>
+> >>> Fixes: 87aa97fc3157 ("media: i2c: Add driver for ST VD56G3 camera sen=
+sor")
+> >>> Cc: stable@vger.kernel.org
+> >>> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> >>> ---
+> >>> Changes in v2:
+> >>> - Use a lowercase subject summary.
+> >>
+> >> Please keep the first character uppercase, just like other commits on
+> >> this module.
+> >>
+> >>>
+> >>>  drivers/media/i2c/vd56g3.c | 5 ++++-
+> >>>  1 file changed, 4 insertions(+), 1 deletion(-)
+> >>>
+> >>> diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
+> >>> index 157acea9e2..43f792288a 100644
+> >>> --- a/drivers/media/i2c/vd56g3.c
+> >>> +++ b/drivers/media/i2c/vd56g3.c
+> >>> @@ -1427,11 +1427,14 @@ static int vd56g3_subdev_init(struct vd56g3 *=
+sensor)
+> >>>     v4l2_subdev_unlock_state(state);
+> >>>     if (ret) {
+> >>>             dev_err(sensor->dev, "Controls update failed: %d\n", ret)=
+;
+> >>> -           goto err_ctrls;
+> >>> +           goto err_subdev;
+> >>>     }
+> >>>
+> >>>     return 0;
+> >>>
+> >>> +err_subdev:
+> >>> +   v4l2_subdev_cleanup(&sensor->sd);
+> >>
+> >> v4l2_subdev_cleanup() is already performed in the caller (i.e.
+> >> vd56g3_probe()), but as you noticed it is not called from this path. I=
+'d
+> >> rather have the return value route correctly through
+> >> v4l2_subdev_cleanup() in  vd56g3_probe(), allowing to keep a unique ca=
+ll
+> >> to v4l2_subdev_cleanup() instead.
+> >
+> > Is it?
+> >
+> > If vd56g3_update_controls() in vd56g3_subdev_init() fails, it'll jump t=
+o
+> > err_power_off in vd56g3_probe() which does PM related cleanup only.
+> >
 >
->  host msmtp --(unix sock)--> socat --(AF_VSOCK: host CID 2 ->
->    guest CID 101, port 20025)--> [guest] socat --(TCP 127.0.0.1:25)-->
->    postfix
+> Exactly, I realize my sentence was poorly written, but if I understand
+> correctly we're on the same page. The problem being
+> v4l2_subdev_cleanup() not being called in any path if
+> vd56g3_update_controls() fails.
 >
->postfix (TLS-terminating, then writing to its queue) drains the stream
->slower than the host writes it, so the per-socket vsock buffer fills
->during a large message.
+> Now if vd56g3_update_controls() fails, instead of performing
+> v4l2_subdev_cleanup() in vd56g3_subdev_init() as this patch does, I'd
+> rather have it done in vd56g3_probe()'s jump back so we can keep it all
+> at the same place, instead of having 2 v4l2_subdev_cleanup() in 2
+> different places.
 >
->Symptom (guest, 6.12.94)
->------------------------
->The guest-side socat exits status=3D1 mid-transfer and postfix logs:
+> Tell me if this is still unclear.
 >
->  postfix/smtpd: NNN: lost connection after DATA (153330 bytes)
->    from localhost[127.0.0.1]
->  postfix/smtpd: disconnect ... data=3D0/1 commands=3D5/6
+> >>
+> >> This patch looks like is LLM generated and sparks my curiosity. If so
+> >> you must disclaim it using an Assisted-by tag [1]. Sorry if I=E2=80=99=
+m mistaken.
+> >>
+> >> [1] https://docs.kernel.org/process/coding-assistants.html
+> >>
+> >>> +
+> >>>  err_ctrls:
+> >>>     v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
+> >>>
+> >>
+> >> --
+> >> Regards,
+> >> Benjamin
+> >>
+> >
 >
->On the host, msmtp reports:
+> --
+> Regards,
+> Benjamin
 >
->  msmtp: cannot write to TLS connection: The TLS connection was
->    non-properly terminated.        (sendmail exit 74 / EX_TEMPFAIL)
->
->So the AF_VSOCK connection is dropped while data is still flowing, =
-rather
->than the sender being throttled by the credit-based flow control.
->
->Reproduction
->------------
->Send messages of increasing size through the bridge:
->
->  body <=3D ~88 KB : always succeeds
->  body ~354 KB   : intermittent failure
->  body >=3D 1.5 MB : fails 12/12
->
->On 6.12.90 the identical test passes 20/20, including 1.5 MB x12,
->2.4 MB x3, 4 MB x3 and 8 MB x2. The only variable is the guest kernel.
->
->Bisection
->---------
->6.12.91, .92 and .93 carry no vsock changes. 6.12.94 pulled in three
->vsock/virtio commits:
->
->  1eca304f  vsock/virtio: fix potential unbounded skb queue
->  f3bf0f3b  vsock/virtio: fix skb overhead accounting to preserve
->            full buf_alloc
->  149205a1  vsock/virtio: fix skb overhead overflow on 32-bit builds
->
->The behaviour (drop/reset under a fast sender + slow receiver instead =
-of
->applying backpressure) makes 1eca304f the prime suspect, but I have =
-only
->A/B tested whole stable releases, not the individual commits.
-
-Yep, I'm working on a followup to improve the status.
-
-Basically, the memory management in AF_VSOCK has always been broken. The =
-
-patches you mentioned are designed to prevent one peer from consuming=20
-all of the other peer=E2=80=99s memory.
-Instead of counting only the payload bytes, we now also take the packet=20
-metadata into account, using a socket buffer that is double the size set =
-
-(default 256 KB).
-
-So if your system is sending small packets, then this is likely hitting=20
-this issue.
-
-My advice for now is to increase the socket buffer size. Thanks to=20
-VMware, AF_VSOCK have specific sockopts :-(:
-- SO_VM_SOCKETS_BUFFER_SIZE (0)
-- SO_VM_SOCKETS_BUFFER_MAX_SIZE (2)
-
-I suggest to set both to 16 MB (MAX should be set first).
-I tried this with socat and seems to work:
-   socat =
-VSOCK-LISTEN:4242,setsockopt=3D40:2:x0000000001000000,setsockopt=3D40:0:x=
-0000000001000000
-
-Hope this helps.
-
-In the mean time, I'm working on a follow-up for net-next to ensure that =
-
-packets are merged when we exceed a threshold; we might be able to=20
-backport this to stable, but I'm not sure.
-
-Thanks,
-Stefano
-
-
