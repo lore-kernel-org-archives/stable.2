@@ -1,194 +1,322 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF8C8248F73;
-	Mon, 22 Jun 2026 14:20:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D8539FCB5
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 14:21:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782138038; cv=none; b=H79Gh2OwajDs41jt99l8OHOaXAtiEVlramOFwebiY/GOUJaGqZzK2ErZJF7Zg17/7tMFT1bohEV1tZ2N22veDtPINVHBy0e6dWzXIyMXmOKcyFyYnhmuXXeT8EvPTAXQyM5tH2rh8V8x77Xw+BRYHFFXTA4uA1zPSA8lr+9baBc=
+	t=1782138068; cv=none; b=TfvlTnqR/8JZNExEF3TEgCzD/efSxt4F5BDe4DKgNSKQQK4/8BnTT93CL6kBS0tNcR0q6Yw3KKffYyYYNPx1JmhzEiDbbvP7KodlPK9KJNp65RA2dL0oassLEt++XfV6qtOkGVoVhH49dgda4I0WoyToJvHDO52pIp0pBw7GraM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782138038; c=relaxed/simple;
-	bh=BhTHbidjT81SQxLkUG1b5TPpTZt/QW8Ig73w74Gt/G8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q1hm7aFouKq4EVA/BCdAqeuziygJ8JBJ024OnsG18XYOvznPT6MFAHfmo68JHOYDWKh7OjSFErSJL4l708ekdfTVx+wx09zreWFNfwAVgNl1h2SVXZF05htRDzsr9PhQiELBLsa2ZOGQWFZ1s2QQd4tordNHBNJj8fhBmfgLRUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=izEH+IML; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782138068; c=relaxed/simple;
+	bh=hhrf5kckJPGvrVr5eOHuluzTAdUadjuAXSKK9Iq25SY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ax7KbOh5k2kpKdGb1CZI6XohORhlmzUWH4unWmZNWJRLjvmxVINywQadyg5EodISed16rE60oAupBdUFNkq+GVpjzIQFjqy+53z9TNrRT5MCtJgyRUtr3cO0goguOIb9aZZnHC6wWHNn+1uXvsHizG9yRdqAHWNrZsEtPNPjGvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oHDwpZK7; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="izEH+IML"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 606EF1F000E9;
-	Mon, 22 Jun 2026 14:20:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782138036;
-	bh=o+Xb3taXT85TT7EwmxpsyqZV0XfoZmQOVxpqJeSH654=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=izEH+IMLy43MqEQDUiW/ddt1sXlIm6bygQ1FyUWsVv9rM9xwKCGswy4pzOhgv8BHH
-	 CdKj9uG7LcZO14MM077GtN6Si52AWmOtNc3A6LOCh8uGMMuRdwRhp/PsCRfmyqNw9a
-	 JFTv6QmITyZMnGO22xhG3Pvgnk4ykHN40fBflWJtbqMhNWoqVaWRbisSpzAYMfo63n
-	 fP2a9oYqnVkja77/ToK0Uh8A1A+OPrtnwwc/CentJDmXlyKQTn9lVJ37srGZXRdQ8a
-	 AqeG9rXV+9QN3j8sdm61lD8rFgR7TfUbU5TXvrE1jc+SU7ATiXLi/s4dpGAAjqo3VJ
-	 j8cR7Z+QatKzQ==
-Message-ID: <6621c832-b399-40f9-b4b6-4519d6c4e0de@kernel.org>
-Date: Mon, 22 Jun 2026 16:20:31 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oHDwpZK7"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6977dc206afso3874628a12.1
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 07:21:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782138064; x=1782742864; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HTwUN8Q/4wLdeKzilYCyv8Ge+JFMwxPAhYfNtl9tb/Y=;
+        b=oHDwpZK7TElnH1skkZjQU8cK+UjN2gBVodjRB6J6PFT2eb0EHpTQ7cd0w/aiN1unQA
+         0wFEpSV7ky5ZFRgpgVPxcyiJFSUp72nQtGkvJJDYHVYajNSRbV99uBUCmPjkZRfeqR8R
+         IUNJrk06/fiEOZn3CfI4VF4rhQfCjgSH3M7xhxhPS3d2zcgfkZM/wvcs+8zySZT2z8+g
+         g3evfWLVwtX804Aq5W7cooQGgfJzJ552tY3ngaYaHpadYmhiSku4tf+p9jI4ugvVdsfU
+         Wf9VLD/xZ6diZEKjCaF8adc/E1g1+g2B3/gb2xtfBoQC7K/xfwBGyWHnnRDANWRmJ1+M
+         COsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782138064; x=1782742864;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HTwUN8Q/4wLdeKzilYCyv8Ge+JFMwxPAhYfNtl9tb/Y=;
+        b=ZkzGvZNXQiNRRMOi1cYVDP+tILJEp+uRmP3MhUjxFBufg4/W8jKWFZ/m+2Nmq9bphi
+         IX4xlIPeaJmR096LUI7mRMd58ks+CVEsw1eAjaXLWQ5DcPgYfGgs4LkNEDPszNxxE9n3
+         jBRmtD1jV6/yTrLFbetNtbt482kK/fCVx97xFfjCy44fQ0NnHW1zPXiI006qUJ/jB9eW
+         dUng1jvBgmkDlTBeKR+fdCA0MWj+kRl2lLtD3m3o9z5qqS9tSD+2Gunr0okrfM8aZ6cH
+         fCyYaAnJsLLZHn2pqOAv4F6mBNc/oNq133+Xnxej8etSde2z44WCFZQzeAJqr3wmRjUM
+         F3Fw==
+X-Forwarded-Encrypted: i=1; AFNElJ/nMw6y1dywmM0m9xIhbSxITC0RYBF/AVWWrn1lszMu3cLwFowOJvkoQnDxM1HvzJq9ZYDeUlM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyYuiTTC9G/qVSxcLJhbyzgEsDKoe8opV1ekrsPk54l3H6QXt68
+	ppDwbZ2buo0vgfhZg7ibmGXhPgDP1CFHRRr5H/k/EZRn0n/9TiYnW0YT
+X-Gm-Gg: AfdE7cloHwRjHPhbzl89Gao+eGi3qbD7SD+Q/mCDtjR/n54jtvHOJlNkwjCl4SSe5DL
+	HjPOFZigJI2SjN1rxEFBN3Et/9IS5h1HrEGdP0Hseoohu9dq8ygUjqnh14lFcKekGkaXmSl0INz
+	3mea0R2PLZ0HPeM4oMfTVJtKfnRDJdyC1YBynTkMqiddtgj/sEkVTz7UZ/Lr9dlYsksilqOfImY
+	iKW2NFz+RVsDTQrsfSl4Q/dovgUcmzmCTrsNKLCmavBRcp3uc942STS8k0AKzznK8UJcxocmJHf
+	cyXZ6lSgOHHj6+pHLLIypR/kv+1BQPXOwp6C9VcY0u8bPHdfCAMkM3AmbtiHkdiaytFBHS4Na/f
+	Joj7IpJsHOyGKPKEgc6cKpknxwffJ8LF9V6f2AaAYQ82IO1X6unpyp+8fOA5kPek8fZVBE6FGGD
+	MP1hslaSTSez4=
+X-Received: by 2002:a05:6402:550f:b0:695:df86:d774 with SMTP id 4fb4d7f45d1cf-696dde43a4emr5830085a12.9.1782138063649;
+        Mon, 22 Jun 2026 07:21:03 -0700 (PDT)
+Received: from localhost ([185.92.221.13])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6977b84f362sm3136005a12.10.2026.06.22.07.21.02
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Mon, 22 Jun 2026 07:21:02 -0700 (PDT)
+Date: Mon, 22 Jun 2026 14:21:02 +0000
+From: Wei Yang <richard.weiyang@gmail.com>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Wei Yang <richard.weiyang@gmail.com>, akpm@linux-foundation.org,
+	david@kernel.org, riel@surriel.com, liam@infradead.org,
+	vbabka@kernel.org, harry@kernel.org, jannh@google.com,
+	sj@kernel.org, ziy@nvidia.com, balbirs@nvidia.com,
+	linux-mm@kvack.org, stable@vger.kernel.org,
+	Lance Yang <lance.yang@linux.dev>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/page_vma_mapped: revalidate and do proper check
+ before return device-private pmd
+Message-ID: <20260622142102.pcmr5pftshj5lvju@master>
+Reply-To: Wei Yang <richard.weiyang@gmail.com>
+References: <20260622130651.23359-1-richard.weiyang@gmail.com>
+ <ajk0N3Aekapljaoh@lucifer>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm: page_ext: add count limit to page_ext_iter_next to
- prevent invalid PFN access
-To: Ketan <ketan.kishore@oss.qualcomm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <jackmanb@google.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Luiz Capitulino <luizcap@redhat.com>
-Cc: kernel@oss.qualcomm.com, stable@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Mike Rapoport <rppt@kernel.org>
-References: <20260622-page_ext-v2-1-135d4cfbc42f@oss.qualcomm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260622-page_ext-v2-1-135d4cfbc42f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ajk0N3Aekapljaoh@lucifer>
+User-Agent: NeoMutt/20170113 (1.7.2)
 
-On 6/22/26 16:14, Ketan wrote:
-> The page_ext iteration API does not validate if the PFN still
-> belongs to a valid section while advancing the iterator. When
-> dynamically adding memory in the hotplug path, it can lead to a
-> NULL pointer dereference during page_ext_lookup at the boundary
-> of the last valid section when iterator count equals __pgcount.
-> 
-> The for_each_page_ext() macro calls page_ext_iter_next() as its
-> loop increment. for_each_page_ext() does a
-> "__page_ext = page_ext_iter_next(&__iter)" at the end. This
-> causes page_ext_iter_next() to increment iter->index past
-> __pgcount and call page_ext_lookup(start_pfn + __pgcount).
-> During memory hotplug (online), the PFN at start_pfn + __pgcount
-> may belong to a section that has not yet been initialized,
-> causing page_ext_lookup() to trigger a NULL pointer dereference.
-> 
-> [   14.555124][  T846] Call trace:
-> [   14.555125][  T846]  lookup_page_ext+0x6c/0x108 (P)
-> [   14.555127][  T846]  page_ext_lookup+0x30/0x3c
-> [   14.555129][  T846]  __reset_page_owner+0x11c/0x260
-> [   14.571201][  T846]  __free_pages_ok+0x5e8/0x8e0
-> [   14.571204][  T846]  __free_pages_core+0x78/0xf0
-> [   14.571206][  T846]  generic_online_page+0x14/0x24
-> [   14.597782][  T846]  online_pages+0x178/0x30c
-> [   14.597784][  T846]  memory_block_change_state+0x284/0x32c
-> [   14.597787][  T846]  memory_subsys_online+0x4c/0x64
-> [   14.597789][  T846]  device_online+0x88/0xb0
-> [   14.597791][  T846]  online_memory_block+0x30/0x40
-> [   14.597793][  T846]  walk_memory_blocks+0xac/0xe8
-> [   14.597794][  T846]  add_memory_resource+0x280/0x298
-> [   14.656161][  T846]  add_memory+0x60/0x98
-> 
-> Move the iteration boundary enforcement inside the iterator
-> functions, so callers cannot inadvertently access beyond the
-> requested range.
-> 
-> Fixes: 9039b9096ea2 ("mm: page_owner: use new iteration API")
-> Cc: stable@vger.kernel.org
-> Suggested-by: David Hildenbrand <david@redhat.com>
-> Suggested-by: Matthew Wilcox <willy@infradead.org>
-> Signed-off-by: Ketan Kishore <ketan.kishore@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Incorporated comments from David and Matthew to check for invalid PFN
->   in page_ext iterator rather than checking for NULL section in
->   page_ext_lookup.
-> - Minor improvement in commit description to include the issue with
->   page_ext_iter_next
-> - Link to v1: https://patch.msgid.link/20260617-page_ext-v1-1-37ad802b1a38@oss.qualcomm.com
-> 
-> To: Andrew Morton <akpm@linux-foundation.org>
-> To: David Hildenbrand <david@kernel.org>
-> To: Lorenzo Stoakes <ljs@kernel.org>
-> To: "Liam R. Howlett" <liam@infradead.org>
-> To: Vlastimil Babka <vbabka@kernel.org>
-> To: Mike Rapoport <rppt@kernel.org>
-> To: Suren Baghdasaryan <surenb@google.com>
-> To: Michal Hocko <mhocko@suse.com>
-> To: Luiz Capitulino <luizcap@redhat.com>
-> Cc: kernel@oss.qualcomm.com
-> Cc: linux-mm@kvack.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  include/linux/page_ext.h | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/include/linux/page_ext.h b/include/linux/page_ext.h
-> index 61e876e255e8..4f7d7a8709de 100644
-> --- a/include/linux/page_ext.h
-> +++ b/include/linux/page_ext.h
-> @@ -120,14 +120,18 @@ struct page_ext_iter {
->   * page_ext_iter_begin() - Prepare for iterating through page extensions.
->   * @iter: page extension iterator.
->   * @pfn: PFN of the page we're interested in.
-> + * @count: maximum number of page extensions to return.
->   *
->   * Must be called with RCU read lock taken.
->   *
->   * Return: NULL if no page_ext exists for this page.
->   */
->  static inline struct page_ext *page_ext_iter_begin(struct page_ext_iter *iter,
-> -						unsigned long pfn)
-> +		unsigned long pfn, unsigned long count)
->  {
-> +	if (count == 0)
+On Mon, Jun 22, 2026 at 02:46:40PM +0100, Lorenzo Stoakes wrote:
+>+cc Lance, linux-kernel
+>
+>Your subject line is 83 characters long and is way too detailed how about 'fix
+>device-private PMD handling'?
+>
 
-Nit: !count, but we can keep it as is. Thanks!
+Got it.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+>You forgot to include linux-kernel@vger.kernel.org on the mail, lore seems to be
+>a bit broken atm but in general it's helpful to include that.
+
+Got it.
+
+So usually we send a patch to both linux-mm and linux-kernel? If so, I
+remember is later actions.
+
+>
+>Also is useful to make this [PATCH mm-hotfixes] to make it really clear it's
+>intended as a hotfix.
+>
+
+Got it.
+
+>Some commit msg language nits:
+>
+>On Mon, Jun 22, 2026 at 01:06:51PM +0000, Wei Yang wrote:
+>> For pmd_trans_huge() and pmd_is_migration_entry(), we does following
+>> before return the pmd entry:
+>
+>Sounds better as:
+>
+>	For PMD entries that satisfy pmd_trans_huge() or pmd_is_migration_entry(), we
+>	perform the following actions:
+>
+
+Sure.
+
+>>
+>>   * re-validate pmd entry after PTL
+>>   * check PVMW_MIGRATION
+>>   * check_pmd()
+>>   * handle on pte level if split under us
+>>
+>> But for device-private pmd, we just return after pmd_lock().
+>
+>->
+>
+>	However, for device-private PMD entries, we simply acquire the PMD lock
+>	and return.
+>
+
+Sure.
+
+>Also can you please give some justification here as to why all this also applies
+>to device-private PMD? Right now it sounds hand wavey.
+>
+
+I thought below paragraph explain it. Not sure what justification is preferred.
+
+>> If a softleaf entry is present, e.g. device-private pmd, the existing
+>> code simply acquires the PMD lock and returns success even if
+>> PVMW_MIGRATION is set (indicating a migration entry is sought), meaning
+>> that the caller can incorrectly interpret the entry as something it is
+>> not, causing data corruption.
+>
+>This is repetitive, you already mentioned device-private PMD, you already
+>mentioned that it simply acquires the PMD lock.
+>
+
+Ah, I copied your suggestion from [1]. Hope I don't misunderstand it.
+
+[1]: https://lore.kernel.org/linux-mm/ajUXNjRMraKb6k2n@lucifer/
+
+>You should talk about what issue it caused and why:
+>
+>	This is particularly problematic when PVMW_MIGRATION is set (meaning a
+>	migration entry is sought), as it causes a device-private PMD entry to
+>	be returned with a different data layout, causing memory corruption.
+>
+
+This looks good. I would take this one, if you prefer.
+
+>>
+>> This patch fixes commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration
+>> support device-private entries") by following the same pattern as
+>> pmd_trans_huge() and pmd_is_migration_entry() for device private entry.
+>
+>This is pretty useless. We see what patch it fixes in the Fixes tag, and you're
+>just repeating things you said above, I'd drop it.
+>
+
+Got it.
+
+>> Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
+>> Cc: <stable@vger.kernel.org>
+>> Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
+>> Suggested-by: David Hildenbrand <david@kernel.org>
+>> Cc: David Hildenbrand <david@kernel.org>
+>> Cc: Balbir Singh <balbirs@nvidia.com>
+>> Cc: SeongJae Park <sj@kernel.org>
+>> Cc: Zi Yan <ziy@nvidia.com>
+>> Cc: Lorenzo Stoakes <ljs@kernel.org>
+>>
+>> ---
+>> v3:
+>>   * remove cleanup part, only fix the issue for device-private entry
+>>   * refine user effect description based on Lorenzo's suggestion
+>> v2: https://lore.kernel.org/all/20260616063436.20455-1-richard.weiyang@gmail.com/T/#u
+>>   * specify the possible error case of current code and user visible effect
+>>   * besides fix, cleanup the pmd entry handling based on David's suggestion
+>>
+>> v1: https://lore.kernel.org/linux-mm/20260508013728.21285-1-richard.weiyang@gmail.com/
+>> ---
+>>  mm/page_vma_mapped.c | 32 ++++++++++++++++++++++----------
+>>  1 file changed, 22 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>> index 2ccbabfb2cc1..8de3c6b82df6 100644
+>> --- a/mm/page_vma_mapped.c
+>> +++ b/mm/page_vma_mapped.c
+>> @@ -270,21 +270,33 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+>>  			spin_unlock(pvmw->ptl);
+>>  			pvmw->ptl = NULL;
+>>  		} else if (!pmd_present(pmde)) {
+>> -			const softleaf_t entry = softleaf_from_pmd(pmde);
+>> +			softleaf_t entry = softleaf_from_pmd(pmde);
+>>
+>>  			if (softleaf_is_device_private(entry)) {
+>>  				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+>> -				return true;
+>> -			}
+>>
+>> -			if ((pvmw->flags & PVMW_SYNC) &&
+>> -			    thp_vma_suitable_order(vma, pvmw->address,
+>> -						   PMD_ORDER) &&
+>> -			    (pvmw->nr_pages >= HPAGE_PMD_NR))
+>> -				sync_with_folio_pmd_zap(mm, pvmw->pmd);
+>> +				entry = softleaf_from_pmd(*pvmw->pmd);
+>>
+>> -			step_forward(pvmw, PMD_SIZE);
+>> -			continue;
+>> +				if (softleaf_is_device_private(entry)) {
+>
+>This is all very horrible. You have an example of how pmde is re-got in the
+>pmd_trans_huge() branch and pmd_is_device_private_entry() exists...
+>
+>We can just make this another branch and do the re-check more neatly.
+>
+
+I plan to keep the change small, but yeah it is ugly.
+
+>I enclose a patch that does that (untested, please check).
+>
+>
+>> +					if (pvmw->flags & PVMW_MIGRATION)
+>> +						return not_found(pvmw);
+>> +					if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+>> +						return not_found(pvmw);
+>> +					return true;
+>> +				}
+>> +				/* device-private pmd was split under us: handle on pte level */
+>> +				spin_unlock(pvmw->ptl);
+>> +				pvmw->ptl = NULL;
+>> +			} else {
+>> +				if ((pvmw->flags & PVMW_SYNC) &&
+>> +				    thp_vma_suitable_order(vma, pvmw->address,
+>> +							   PMD_ORDER) &&
+>> +				    (pvmw->nr_pages >= HPAGE_PMD_NR))
+>> +					sync_with_folio_pmd_zap(mm, pvmw->pmd);
+>> +
+>> +				step_forward(pvmw, PMD_SIZE);
+>> +				continue;
+>> +			}
+>>  		}
+>>  		if (!map_pte(pvmw, &pmde, &ptl)) {
+>>  			if (!pvmw->pte)
+>> --
+>> 2.34.1
+>>
+>
+>Thanks, Lorenzo
+>
+>----8<----
+>>From e6a3c1c782714ed831c4d46a14bb99226423bf59 Mon Sep 17 00:00:00 2001
+>From: Wei Yang <richard.weiyang@gmail.com>
+>Date: Mon, 22 Jun 2026 13:06:51 +0000
+>Subject: [PATCH] refactored
+>
+>Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+>---
+> mm/page_vma_mapped.c | 20 +++++++++++++++-----
+> 1 file changed, 15 insertions(+), 5 deletions(-)
+>
+>diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>index 2ccbabfb2cc1..17dff8aab9f9 100644
+>--- a/mm/page_vma_mapped.c
+>+++ b/mm/page_vma_mapped.c
+>@@ -269,14 +269,24 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+> 			/* THP pmd was split under us: handle on pte level */
+> 			spin_unlock(pvmw->ptl);
+> 			pvmw->ptl = NULL;
+>-		} else if (!pmd_present(pmde)) {
+>-			const softleaf_t entry = softleaf_from_pmd(pmde);
+>+		} else if (pmd_is_device_private_entry(pmde)) {
+>+			softleaf_t entry;
+>+
+>+			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+>+			pmde = *pvmw->pmd;
+>+			entry = softleaf_from_pmd(pmde);
+>
+>-			if (softleaf_is_device_private(entry)) {
+>-				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+>+			if (likely(softleaf_is_device_private(entry))) {
+>+				if (pvmw->flags & PVMW_MIGRATION)
+>+					return not_found(pvmw);
+>+				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+>+					return not_found(pvmw);
+> 				return true;
+> 			}
+>-
+>+			/* device-private pmd was split under us: handle on pte level */
+>+			spin_unlock(pvmw->ptl);
+>+			pvmw->ptl = NULL;
+>+		} else if (!pmd_present(pmde)) {
+> 			if ((pvmw->flags & PVMW_SYNC) &&
+> 			    thp_vma_suitable_order(vma, pvmw->address,
+> 						   PMD_ORDER) &&
+>--
+>2.54.0
+
+If we prefer this way, I will check and take it.
 
 -- 
-Cheers,
-
-David
+Wei Yang
+Help you, Help me
