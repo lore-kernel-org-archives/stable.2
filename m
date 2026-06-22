@@ -1,98 +1,123 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A424344D9B
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 18:28:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB5833F58B;
+	Mon, 22 Jun 2026 18:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782152929; cv=none; b=XenznMxIL8Sz4qubrGmNvlXZ9/T7eIqqysezZxWsVvP59xl6aJDbvsi75/WTTomzviDg56RCJ7eLkW+8wyLi0+cPZ4RToc9Lid4qzrznnmMFPZV85WH8JA7s5U3xp36LBjEMPY97q5c0RBO+8rFDDHHNg7oiYfm9oXBmhm1Piuw=
+	t=1782154125; cv=none; b=Z/E+ZxPtpHmPOhcei1zg6WjoXDBc/gHfjEyUblGCo1kX+oWz/H8YwIERRRj1S63vJ1SjUN9/YqXkt/VYwc6Y+qdxNGLcWYQAWQ0dPXDqLNPaQ4RlHeCTZck7e8toIGFZOA5l9hhz3A5Yqb2HZC/PjtzyVPHicEZVtD1972WXQ0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782152929; c=relaxed/simple;
-	bh=SGBlUrE1CYvkAsoFhupgwqHbmryO09vV1weN5LC6u7s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=N9SnLxWbPNziEk0kaObPle/89JBoyU0dxrHaBw+6o7n544a3dPIVgNoXXnMyFsafv/mXMdk0Vo699Dmzb7wHUxQ+OE72gOq/7MQFk/iplOysNroQpXxLVbN+bF++qDK3XQVGA5xDenbyJz1bWPLSAABSz514Fw5uWmGXILmnRe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jdu/ilGG; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jdu/ilGG"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4645995069bso2679659f8f.1
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 11:28:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782152927; x=1782757727; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SGBlUrE1CYvkAsoFhupgwqHbmryO09vV1weN5LC6u7s=;
-        b=jdu/ilGGtSDoUAWmc+6mLjWauz3JMfS1Edwms05imqq/cY6m7A0Ku2NPnNE8DCwKiQ
-         5UYbIMX6mKe6Q4w8eab8qfAmAPtybf07VoMNdPwR7DJ0WrzWE5o/HRbIC7OVNQhTF63u
-         33eOPli07q/ucJSWiFadFd8wKx9LE6eN4x7XrjSEhu80A2qwK18BZ2KF9Z/YFOUogGlw
-         evrhfwAkInc6mjYLzJSkjH05PDf0mrPy3j0wygAGBpv9kSKns3yM1gBptaRFXoCs+d8n
-         2n9P1Fsg6g+7IdtZVWeDUHTirOFkBWM3O5cwGZtg9g+1fylTilOmnTQMwoIP/iNe2HcL
-         8Dvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782152927; x=1782757727;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=SGBlUrE1CYvkAsoFhupgwqHbmryO09vV1weN5LC6u7s=;
-        b=g4NrLOn7UnPvVJR2ucmEIYNICVQQczHsBddna9tXwmi9uphL8mgEPVK3WWc1vqxBxg
-         qo+1CwiVcEzwSSQYPmvprOSA+jvLILJsj6jsOR3OLko2pF3rnVN4Odl3nBraFQA+wnBM
-         OF9JQMrFJXb9fya6El18L3/1r+D1Pa4BQSM3yeiNN339WR+2BIr/JbjLQk1Kzk0kG6A6
-         waI52ZV4TerzDiOVdeQ5k/am0HzWXu7Vexwz6w79BDoTmShL5Y5Yhba9v2dViT4u9SCR
-         WtkjC8XAzsHxfOKxkrDUUI/xTRBAmVCWgxn3YLxQJBkNjjRhNDiJMWeMwIqnR/oqfy9B
-         DMWg==
-X-Forwarded-Encrypted: i=1; AFNElJ9fbd5soy1VTZBj1f6PFEpTkDKIHDK7M/F4MbGvG4+pyggcYTw5WuqRo6V78bAFTjSc0iIm3+Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVmk/naQBM+iqqFkYeppScgWFEWLHDAUziLqtYKrxyL9WI+ad6
-	IeKV0Hy27KoI/RhMHot7eKEGMaa4dnnqvNpIXleIagFz5zcansdH6hk=
-X-Gm-Gg: AfdE7ckIvF9e04HAPJhbH57z1eytatrwdCLhqXOyNwnPRs7roH2yZ2pvHwhd2BZykME
-	IftXSy85fudoo5pGwQxKe7PlRQ+I5ES4DPHYs+MjZ8ehudjRGLde0pc729DU/XKsqpxaiVXURQd
-	j2QTyyh06KNGbrpzXyfYDsqLgUXMMgDec+NZjFgEp2Gz0aviTfIEZYd0hEipMjf3zUYAZhzgIDG
-	Qfn5T5zJ1R/XhIU0fXirVieUDuYOzskC4zRWsmyjmpNo9tcKeQoI4n0tkHru82PjgYw+a+8sMqw
-	39g6ImNmbBNkSC2/dxvcBgGRA3ETjiL1Q3g2t4vr7P5h0kuXMqXmVQCP4Gz/ccr3UYoiEP59jbh
-	R3xQ6pDExCPmpVdu8qkCiASHELW3P4BcDAmvZwq2Wygpxa3WJjz+VDj5J+hbC10qPdZ1rMb5ngi
-	hTZWNhBRLi75r2+TjsTSUwyxHjDVw=
-X-Received: by 2002:a05:600c:638e:b0:490:c024:2ec8 with SMTP id 5b1f17b1804b1-4923eea91efmr253997895e9.0.1782152926404;
-        Mon, 22 Jun 2026 11:28:46 -0700 (PDT)
-Received: from kali (88-170-213-78.subs.proxad.net. [88.170.213.78])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466667882f7sm29067783f8f.21.2026.06.22.11.28.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 11:28:45 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Dave Hansen <dave@linux.vnet.ibm.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
-Subject: Re: [PATCH v2] profiling: don't free prof_cpu_mask on init failure
-Date: Mon, 22 Jun 2026 18:28:45 -0000
-Message-ID: <178215292501.1603617.6905680542049189509@gmail.com>
-In-Reply-To: <fb12bd4b-58e0-4d78-a725-7e2d44b6350c@I-love.SAKURA.ne.jp>
-References: <20260622000022.3375262-1-tristmd@gmail.com>
- <fb12bd4b-58e0-4d78-a725-7e2d44b6350c@I-love.SAKURA.ne.jp>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=arc-20240116; t=1782154125; c=relaxed/simple;
+	bh=gn2CjkQeDZoAmuiaS7haPnR/kL+Anhuwk3Smo7kMd+g=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hw+O1RieAK3NImWkn17apiWDVdecS7pHzU/F+VZzzG1kdKAnXE6fPXgGSOkMByfsCsprP14YJJ5bQEsRSMjIXziX+lkVhfdh5AufsMaRi+wL055w1TPAek4p8b7yf9HH6CfXD9YYCQDWiEZKUBWTiDJvMD9w33NSoSs115ee6Gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
+Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
+	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wbjh4-003kBc-1K;
+	Mon, 22 Jun 2026 18:48:26 +0000
+Received: from ben by deadeye with local (Exim 4.99.3)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wbjh3-00000007oJw-0mf6;
+	Mon, 22 Jun 2026 20:48:25 +0200
+Message-ID: <ab577daf17c46a72e35c668756d5b33b3ca3ca09.camel@decadent.org.uk>
+Subject: Re: [PATCH 5.10 238/342] net: bridge: use a stable FDB dst snapshot
+ in RCU readers
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, stable@kernel.org, Yifan Wu
+ <yifanwucs@gmail.com>,  Juefei Pu <tomapufckgml@gmail.com>, Yuan Tan
+ <yuantan098@gmail.com>, Xin Liu <bird@lzu.edu.cn>, Ren Wei	
+ <enjou1224z@gmail.com>, Zhengchuan Liang <zcliangcn@gmail.com>, Ren Wei	
+ <n05ec@lzu.edu.cn>, Ido Schimmel <idosch@nvidia.com>, Nikolay Aleksandrov	
+ <razor@blackwall.org>, Paolo Abeni <pabeni@redhat.com>, Sasha Levin	
+ <sashal@kernel.org>
+Date: Mon, 22 Jun 2026 20:48:09 +0200
+In-Reply-To: <20260616145059.293155612@linuxfoundation.org>
+References: <20260616145048.348037099@linuxfoundation.org>
+	 <20260616145059.293155612@linuxfoundation.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-8CzP0LIYX80jWadwAj0l"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
 
-On 2026/06/22 20:32, Tetsuo Handa wrote:
-> Why 22b8ce94708f ? That commit did not add free_cpumask_var().
-> Since free_cpumask_var() was removed by 7c51f7bbf057, your patch might want
-> explanation about why you choose to only avoid UAF-read for stable kernels
-> instead of try to apply 7c51f7bbf057.
 
-Thanks for the review. You're right, the Fixes tag should be
-c309b917cab5 ("cpumask: convert kernel/profile.c").
+--=-8CzP0LIYX80jWadwAj0l
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I went with the minimal fix you suggested since 7c51f7bbf057 touches
-two files and adds serialization, which felt heavier for a stable
-backport.
+On Tue, 2026-06-16 at 20:28 +0530, Greg Kroah-Hartman wrote:
+> 5.10-stable review patch.  If anyone has any objections, please let me kn=
+ow.
+>=20
+> ------------------
+>=20
+> From: Zhengchuan Liang <zcliangcn@gmail.com>
+>=20
+> [ Upstream commit df4601653201de21b487c3e7fffd464790cab808 ]
+>=20
+> Local FDB entries can be rewritten in place by `fdb_delete_local()`, whic=
+h
+> updates `f->dst` to another port or to `NULL` while keeping the entry
+> alive. Several bridge RCU readers inspect `f->dst`, including
+> `br_fdb_fillbuf()` through the `brforward_read()` sysfs path.
+>=20
+> These readers currently load `f->dst` multiple times and can therefore
+> observe inconsistent values across the check and later dereference.
+> In `br_fdb_fillbuf()`, this means a concurrent local-FDB update can chang=
+e
+> `f->dst` after the NULL check and before the `port_no` dereference,
+> leading to a NULL-ptr-deref.
+>=20
+> Fix this by taking a single `READ_ONCE()` snapshot of `f->dst` in each
+> affected RCU reader and using that snapshot for the rest of the access
+> sequence. Also publish the in-place `f->dst` updates in `fdb_delete_local=
+()`
+> with `WRITE_ONCE()` so the readers and writer use matching access pattern=
+s.
+[...]
 
-Would a v3 with the corrected Fixes tag and a note explaining the
-choice over 7c51f7bbf057 work, or would you prefer to just Cc stable
-on your commit?
+For 5.10 only, commit 3e19ae7c6fd6 "net: bridge: use READ_ONCE() and
+WRITE_ONCE() compiler barriers for fdb->dst" is also needed (but doesn't
+apply cleanly).
 
-Tristan
+Ben.
+
+--=20
+Ben Hutchings
+I haven't lost my mind; it's backed up on tape somewhere.
+
+--=-8CzP0LIYX80jWadwAj0l
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmo5g2oACgkQ57/I7JWG
+EQmrVw//Yyo3ZafQeqsEBoyOqnJpWaXVHLNChi+UyDBRa21WvyovQ6GNUCkxcRh2
+lUEVYvXNZMlXi61+5krzqLjw6FEkKuwBQKFZxCwNGQWGY93LVh8uP/umKa3ezZ27
+zihpBHVIXI/PJCO2tZVhoAsqIUyC3xIOp2J16IRpWoQy4X4yIWTwSclbK7gmoQBo
+OAUaeGvXATbKcxnUT59Le/Lftq+ido/rVE5+ZKAQ2R2hsKMqncMkHZPYfa/TQ0hS
+eS9yVrAv5uBETrXBaXWbK7czQpezd6dp8RjQEnfrza8P+agq2aDXZpoR55Liz9kC
+NoXd45jKdzmrDtMWqOWm1x2by4r7bAnIlqcKx4i9tGEk4nraZjRXNgPR1ME/xOZF
+uszs9c/FOI3e1aKl5Ad+E/uFN/BzJ9VDZdQozz5xtsIov0vE2AJHoh6aQIaY4UQ7
+YRRuYyjhXIm8ax8dlj7vUo+KXGW4J4TnwwJHpPHBbELPPMRcY5lPdQxL3JasRw5Y
+gNCVrE4Dn6pkT6JtIO63kLbYR/xQW2OWpoBtLkvmjKVruVS7iEvnY6jBjH3gXhMm
+m36QNXQlLS2VpjnsJpL56X8TJrIvasVzLUfRe2SBEkNBPCopu2PZah0rn7pX4W/X
+rPVa18kiMS1tLauLjwfQD14oU3JLmLDrljFVRStijgt0zNQnJ84=
+=Q0/V
+-----END PGP SIGNATURE-----
+
+--=-8CzP0LIYX80jWadwAj0l--
