@@ -1,141 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95B53C8737;
-	Mon, 22 Jun 2026 15:47:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782143225; cv=none; b=EWFNrRX8sMbWlKEhdhtluVgTIaRL9fFXYM8xS6QJgn+8GbLpCWU5N8JmZVvWqQfsyBoYqgDNV0obpbvRHh9EI+kRW0mwSGUGDr1JvJe7ykb260MnxE35pDHsu73Hds9eA34YG4iz6Cm2B4+2RBNRWFO8gxruxLvkgbqnw+BGhps=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782143225; c=relaxed/simple;
-	bh=0+de0zXtiLclgZC23qL7jAbhKZXMpbjdSbp2UUjLG6U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pxn1wtbhtY9+zpDfyif5Zwh5ZsSRvAgZaeGSJRydW9TYY7s740Oi1v33WDbubNzTqdldcvfouCJOOwS+9xx/1KYwx4aB1eXRsApflux+H0zkUYo63ke6IJNC1UJGpyTu2WzgBiRIaIg32YCo8o63P8a3kgII+DkdyyTDzPRV13M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOaTZUid; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE72578F2E
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 15:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782143338; cv=pass; b=jOilBJ6oBKerdSKCgQTQTF3ydOSy+lOMYUI1VMfQMRwX7W+BArQLKU4Z4aGBijcycMbnJFzdtfdN6SYszFNvfKdyoXT/poEbDkDSJ5l1FPZXnP4B1rPRJfRwnQlT+4t1B4bLU0PwnubT/fM7l/JKFusS5Gvo4y+mEJoaX+nAEM4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782143338; c=relaxed/simple;
+	bh=9KXUHzooZ6A4y0KMRUZR+/Wvmg2ePvw6LkNmcJ3n8rM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=l5BnA0Eeq4lNmqP97UkUsix39rGMWWPiFFfZGRM3n8/OyJYDy1Vu72XAEvCgZM4TU6J4Ba1rs4bDR1ae5c7ZrpiBqImrHOhQbQ50Kg3CvvTFayovXSMul0WULX/L7+jJ1P6W3sUFF3SXVW7wOj7k1kFjcgwhz5Ne7+Mqv1A7Bdo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Nx2dxMfI; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MRLNOYxY; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOaTZUid"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B3AD1F000E9;
-	Mon, 22 Jun 2026 15:47:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782143224;
-	bh=yoWdqaO8IqnJhMic0naLfg9Wn06LbUJ/uEvj5S1j1zc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UOaTZUidvSSHad4akjDsUxFvvXJTkNlMnJWzr8mhmjDu93CmYPG5szEye5UWCoKVH
-	 q+jWJ25h/c0Yru7Lhi/OPOhsPzzZiuCjHuEqMo6nbU24ij++eyg0Vw7berLgMAmGf6
-	 Ut0HYWoZZP3ajm1TCRkqYZLyO82bv9hto2Kv4XmcD0v9d95bZU6B041fbJfjymxTZz
-	 0fM3PYOMj1VGqJB38MFDWxGEnO3f1MKYZxYapUlyLmT/Thq3G5DP4SOyBZu3fA4nQR
-	 9wicAQNAX2kOTKgZQXJSclNUajrYc9X3HzJ6E0EhjfQkvUdDFMDa5ZffvDz4BxVX1d
-	 21RNcqU9SIgmA==
-Message-ID: <b8962738-98a4-41c2-a85a-f668fe8c211b@kernel.org>
-Date: Mon, 22 Jun 2026 17:47:00 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Nx2dxMfI";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MRLNOYxY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1782143336;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9KXUHzooZ6A4y0KMRUZR+/Wvmg2ePvw6LkNmcJ3n8rM=;
+	b=Nx2dxMfIKexh9hoGgYPfnZaNTQ8FFaooFvlAZbk5/ykoUW1o5OhthUJTiCacS+wFsgFyvP
+	xQTOgIhcGPnJgTsrVfWWESa8D1O6bJGAAcmj5zkcorB5+ipd69grkCBuqYkxCb+vem4l2x
+	Pn/Edt0mpr50DExrA8Pe6Iz5KyEcT3E=
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
+ [209.85.161.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-301-l2b_ZfIlMOuCZSP_yeBO3g-1; Mon, 22 Jun 2026 11:48:55 -0400
+X-MC-Unique: l2b_ZfIlMOuCZSP_yeBO3g-1
+X-Mimecast-MFC-AGG-ID: l2b_ZfIlMOuCZSP_yeBO3g_1782143334
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6a0e15d07e6so3858032eaf.1
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 08:48:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782143334; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ADPIA2QiYrDiLFW66Xo4AqrOAGHBn2TQm1/OlPFeYZ5ai/h7B5XRGi3abkYu0SNX3S
+         VB2Jzu0d10jut3X3ZtLXBmULGK06+uPot+ga1MjKfmY8hjNWTsupv5xYPF2KVUExmJ9T
+         p/4ad8PTdBLycKNuw0jmRLpcsEsF8HQqQDghlKa9vpWSXB7xNjh6sAhpgOPIrqMKVFc7
+         MwVm8DTqZYYHk+P1b1/agQDRaLMAuoC7c3CjXeparcWc6ibdY+oi+eI6OKjHRoHSMy0o
+         /3WBVqdPEUbD09eXKo81PB0YSX9xXevszUovca86vAGkksL2LM2p2GkKFhmo3xhJcNRA
+         4Fbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=9KXUHzooZ6A4y0KMRUZR+/Wvmg2ePvw6LkNmcJ3n8rM=;
+        fh=VJhm9fo5SUO4RaGSaxh6xBIYVpieVoxrjCA5Lzp3sfM=;
+        b=h5xnmY1N0ZRfF3pn7B89+cvYfaLYOUfSwqXIdG/IJ5gE8rcb7Y+jKEwuKJT1lY5S2x
+         Smr1dhPGD69RfcSgzvMRRv3rIsUwhqVbhv5LCx+SyC6OmAlboRe/O+SC8Zzz/rNi/M4h
+         ExUSsCrCAyoMpL5YUJ4L/92ItQ90jErH5dJuXBgEPvfEVfIHw0o1JJhWW3YOIUDTTuOl
+         B098yYcrAhKJzbPKrQfYCwvZoYrBCPm0DK4TkcvS6odeqqkbO5jH03hUYHTIz38Gljzp
+         OBYuBhJBILTYzUzCwiXkWGwNFpdvB6KmBh4i6IoojarzeT+IKyqqKE33pVA69GI4DFJM
+         oxfA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1782143334; x=1782748134; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=9KXUHzooZ6A4y0KMRUZR+/Wvmg2ePvw6LkNmcJ3n8rM=;
+        b=MRLNOYxYhItLcRFl/tu9QFd0YsFm6fWUgADos1IgY/ciySvjsZxmDxpRMy5zOIBuP0
+         3Hg0b9qA23F8Ui/AyAw5OqeKmSgB7shCHj/DNF6uDdqfDhCr8GJIGqJ9HLv/Rs2fk2db
+         FZjeBbQtSwFqMPoHA5Z2qAMY3Q8OAkdPSL/T7OhsPQ9M7S/Hj+lV5QUY/1Vz/PRiaIya
+         aIu+e5n88jCyrUpAeX5I4EEkYKDRIYfOU5L5QOrv+FGXFdqNkDR6/93Bfa8lscfoY5yf
+         70Ps9h3dQ4kgprhwenPgh473OH/x94ehqhmURbSq4sOyr+muhiO/3B0dItgv4mDr5Cel
+         +Kaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782143334; x=1782748134;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9KXUHzooZ6A4y0KMRUZR+/Wvmg2ePvw6LkNmcJ3n8rM=;
+        b=L9avWdVJQOUly70F5YHxc2555Pe2fFKPa7659VL2pMFwsfT4keSE8MCyNG9GUjQl4j
+         3YzUFWp3K8klofWH752nHYrFanYqUYHG55YKaftT11OkhiXU1XEh8O106UaMmgrw9vox
+         uAbwkEvDtpHHM7+j7LGZizwpcoHG6y/Epouu+k8RS2r/YjufqI1LaN6G+TpOVUj1gJ9X
+         a1cTu+99kaikyzwdN2/PnT/DHhZisi869bZRb2O4O9dGfFA6APsArNs9k7qjgpHZx0Ya
+         ei1npKdrUXUzHL/uncX83Bd8svihXRXMg8zy1eZfcvj/fPE3IYccOnrXM/HcWP8zngrs
+         iCOw==
+X-Forwarded-Encrypted: i=1; AFNElJ8tYReoP1cz+ZOyO786cramCNKSHN/cv1bpSko9BWHQTYdUb6EXiF7RpWBVDXgCSOJSzmhiOhE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQXwzks3t19RW6scgVVcbHHrOjcMZxQ9S59Bsp0PEo1AT4ec4S
+	VMUncfrpOv7jNCkGen2udr9GJOSGol+a8L0qJEfgaImxkNTY/RaxVTRqdakCTlJiW4KIJ+odgUT
+	OwPdg1B4L0rZldbYSnt3MpxotUg75hCZwF0TuDos3+dzNKZZXqpoN487XrlRcEau+d+wl3zhA/7
+	sMl/e03bjxLsPiNegwD43SUaUXDU3RfLFJ
+X-Gm-Gg: AfdE7clzkEqJXNR32SO7BaiHP3XQvxOuucOcSzgxji7vL2+vclzzl2RoHdpbaop96IO
+	XTYggjiU9C+0o5qzf55PfHSD4+dY+cxPNGH7m8iRmaWdm5VnbFuozveZYBUOGDz3/bw5tR2LLd6
+	IgDAOdAT3ndezluf9ZA8XEKAaG+a9l5Vt8YDLuxSV9D0/Y1+P77HyO2x6OLZ0d2VICjpHRatKTP
+	ldp4CbypBRr+dRgJliff7elV9Jf
+X-Received: by 2002:a05:6820:8108:b0:69e:3c79:6e7c with SMTP id 006d021491bc7-6a0d8992909mr12978971eaf.46.1782143334544;
+        Mon, 22 Jun 2026 08:48:54 -0700 (PDT)
+X-Received: by 2002:a05:6820:8108:b0:69e:3c79:6e7c with SMTP id
+ 006d021491bc7-6a0d8992909mr12978928eaf.46.1782143334005; Mon, 22 Jun 2026
+ 08:48:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH hotfix] mm/compaction: handle free_pages_prepare()
- properly in compaction_free()
-Content-Language: en-US
-To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <jackmanb@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Jiaqi Yan <jiaqiyan@google.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260622-handle_free_pages_prepare_in_compaction_free-v1-1-fcf3b14abcf7@nvidia.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260622-handle_free_pages_prepare_in_compaction_free-v1-1-fcf3b14abcf7@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260430014817.2006885-1-desnesn@redhat.com> <20260503071749.6abda137.michal.pecio@gmail.com>
+ <CACaw+ew8uV5g1G-6qZGtVBEYZ3k+fvFrOq3XMyq-Nuhbq5mdnA@mail.gmail.com>
+ <20260503213111.117db3a1.michal.pecio@gmail.com> <20260504093118.615ff480.michal.pecio@gmail.com>
+ <20260518083339.507e24bd.michal.pecio@gmail.com> <CACaw+ewSWTo72fSk2Q7ZzCM8pNuyrX5ua+qA=SZOQuNNMKSA5Q@mail.gmail.com>
+ <20260522110328.0d3eecd8.michal.pecio@gmail.com> <CACaw+ezqEO_PgjGeYCLq5hA2eKczFXgmZLa8qjPtVJZCGwsdsg@mail.gmail.com>
+ <20260523022944.59799d83.michal.pecio@gmail.com> <CACaw+exPdwXVsJc5Xr=vN1WJt8XR46=X0-8PP=+5dWY5zUrKeQ@mail.gmail.com>
+ <20260523102815.5c05c70a.michal.pecio@gmail.com> <CACaw+ezMnQh2_oqbZ0jF99+wOADMU2vSMqxh9BoJoefjAC_ixw@mail.gmail.com>
+ <20260527103221.7f8b15b0.michal.pecio@gmail.com> <CACaw+exN3fdzGQE7oK-hRE3KpMrA3ckPDRAcXaFbd=ySXf8E5A@mail.gmail.com>
+ <CACaw+ewuPm-eOACKX3Ux0UwJBRSftoBm7H+rxE2Z9E7KzWb5ew@mail.gmail.com> <e9472b38-4a91-44b5-b75e-dc7abd23793d@linux.intel.com>
+In-Reply-To: <e9472b38-4a91-44b5-b75e-dc7abd23793d@linux.intel.com>
+From: Desnes Nunes <desnesn@redhat.com>
+Date: Mon, 22 Jun 2026 12:48:42 -0300
+X-Gm-Features: AVVi8CcAlAvfkd2ErCnICSEvqW5Np5KqWlEvhK2rTPgdX5mT-Gkc_TQT0VvBDf8
+Message-ID: <CACaw+ewAk_fs7gw83kRJ=Gj9oSPLMru-txtbPohAttZEyn0qvg@mail.gmail.com>
+Subject: Re: [PATCH RFT RFC] usb: xhci: Kill hosts with HCE or HSE on command timeout
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: Michal Pecio <michal.pecio@gmail.com>, David Woodhouse <dwmw2@infradead.org>, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	gregkh@linuxfoundation.org, mathias.nyman@intel.com, stable@vger.kernel.org, 
+	iommu@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On 6/22/26 17:30, Zi Yan wrote:
-> free_pages_prepare() can fail but compaction_free() does not handle the
-> failure case. Failed pages should not be added back to cc->freepages for
-> future use, since they can be either PageHWPoison or free_page_is_bad()
-> and might cause data corruption.
-> 
-> Fixes: 733aea0b3a7bb ("mm/compaction: add support for >0 order folio memory compaction.")
-> Signed-off-by: Zi Yan <ziy@nvidia.com>
-> Cc: stable@vger.kernel.org
+Hello Baolu,
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> >> To IOMMU maintainers: should I send this patch to the iommu mailing
+> >> list and move the discussion there?
+>
+> Yes, absolutely. The iommu mailing list is the right place to discuss
+> bugs and fixes, so please go ahead.
+>
+> > I meant as a new submission to IOMMU maling list, since this started
+> > in xHCI at the usb mailing list.
+> > Of course, that is if nobody has any comments or objections to the patch.
 
-> ---
-> free_pages_prepare() can fail if a page is PageHWPoison or
-> free_page_is_bad(). compaction_free() needs to handle these cases to
-> prevent failed pages being reused in cc->freepages.
-> ---
->  mm/compaction.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
-> 
-> diff --git a/mm/compaction.c b/mm/compaction.c
-> index b776f35ad0200..f08765ade014c 100644
-> --- a/mm/compaction.c
-> +++ b/mm/compaction.c
-> @@ -1875,15 +1875,14 @@ static void compaction_free(struct folio *dst, unsigned long data)
->  	int order = folio_order(dst);
->  	struct page *page = &dst->page;
->  
-> -	if (folio_put_testzero(dst)) {
-> -		free_pages_prepare(page, order);
-> +	if (folio_put_testzero(dst) && free_pages_prepare(page, order)) {
->  		list_add(&dst->lru, &cc->freepages[order]);
->  		cc->nr_freepages += 1 << order;
->  	}
->  	cc->nr_migratepages += 1 << order;
->  	/*
-> -	 * someone else has referenced the page, we cannot take it back to our
-> -	 * free list.
-> +	 * someone else has referenced the page or free_pages_prepare() fails,
-> +	 * we cannot take it back to our free list.
->  	 */
->  }
->  
-> 
-> ---
-> base-commit: 13a1e1a618858407fa12c391f664ea750651f6b2
-> change-id: 20260621-handle_free_pages_prepare_in_compaction_free-7cca3ff08367
-> 
-> Best regards,
+Sure, just submitted this RFC as a new submission in the IOMMU mailing list.
+
+Thanks Michal and Baolu,
+
+Desnes
 
