@@ -1,235 +1,230 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013019.outbound.protection.outlook.com [40.93.196.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA5A2DC32E
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 11:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782129265; cv=fail; b=Km2A6mOrU5HQU6ru4PAjdgn/zOqX1yjQhgxcVe0Vk6gMDlRIR9WAOpdNJY2d6TLnoyBrjM3JLVqwyjcoon7+H27UllmOl27NSQSGch/LaJvp3rqN2YWkGRxjLtpLEgEKbYxNheA1AGf1F3V17vinV6AYk5LNuyuDjzISWD0rS7E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782129265; c=relaxed/simple;
-	bh=OUaMT8gqVj8MMA7PR5E63e/okfc/0zEPHVxwjJewmF0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ARUgMwdtUkO5wPRuPcO4u1kZEcLkgk67pwhaJgoX5dc7Lm1oYR9FFf8TRoEHjx8KLbnaMWV0GeZk11t0CySoJwh3uSFReD43Knnvh7FDP9tDHsjrdqz46OgZcmQOrRj9DN4BH7/EItkuLPoGvxooWgDib7KNMbM32odTYD9agHE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FZltaeoT; arc=fail smtp.client-ip=40.93.196.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C48A2DC331
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 11:55:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782129333; cv=none; b=sUpf/Ixi55cmRq5J/zMvQPMdFsuj+XqNIXrG6l+zM3h3r8/8KSj2S9OWKCulk6j5NrAr5/zlRre8zPtkc+Cssa1fXczXXaJ1AWl/nhuBzmU5wpqzvqYTyZKASXjyNdS8AqfiYRhrTdQkxUG3rTbWp1jFoIOn8EZI+4J9q0rWY9c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782129333; c=relaxed/simple;
+	bh=PrVUMGsRNDpIJ/UshiJYTdB0TRQ987SpJrx5TNYpco0=;
+	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type; b=YbfBvKIjd1tJLt01fwe1u/rbM4jHwka+WSH1TccmALxJPx4QkPrD/+FC7J3GX6sHCrXUcBckmDr0KOCmWgCskH7HB1mpNl/ashl8A8cb2lAqNWFDykIdw/rr2iFkXq+x8CN+wiYLzuYngJueTWr7r/xU+MwKytTibE9wI839oUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eBDr0NTq; arc=none smtp.client-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FZltaeoT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gxkreA+mFM2rj6YZLnN1tZPt5aYG0zr4QxYdctpQ/EQS18iPwuu3biW1HbYim5Mv1MKseKg4C16AtjuZk4IWsZrnCborYIl4eLFaTo7zdgktvJrUuSkiLoM2kH4Qk+jw5xJ7CqK+XeB8GvHmmkDCXr+p9HmdTqdHvuXrANvMDTHPJJK318rIBz3kCoQK23GiWG/MHt54uzERAqZGjnvdwG9Zse16WUHqJ4miX1qWZvJh9dSNc/Z6fGbsAMdJWU2WOdwA8TUmO3mS2a0XxPkWAikMPodqBuUwPKA5gafiBQj0zCl27lPbb8e2wslb7P43cWrWhF1AfD2Id/HXl/lwLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/ZOjhi5mtl06sRjyzYssJZ9i4h0SK3g0hV9FbpocKkE=;
- b=nlFoSh73zkux0z2cYW8EchTedVu6Mi5NF/eanbENDTfPceTQryzi9bXP8uMnPFzeMQ0rORahAKaWSkYysK7rfR5SiH8INDin4bWEtphd82DAsvmrF8JrlYFoqKo2ci6m8+oAGTBep6tixNWpn2o78pWGR/BWL7IMmwF6Kt6o54jH2Fwi6hcnqFU6FSsJkeJbfx9NvIIMRhGn4mg5XbJkBMeRNY8UIRt4euWdrI9XYKBG1dhAr0GgzJzLqMjXZMadtx9OBEGLaCiu86GAJw4ytXx1ozqoWGWS2YCjLy4SkE5sx6q5fuZjBq9GA7jG7bc3EO2gv5V9L8/2/C9souXgKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=linuxfoundation.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/ZOjhi5mtl06sRjyzYssJZ9i4h0SK3g0hV9FbpocKkE=;
- b=FZltaeoTCHrffhaFSdg03ZN5OWYXE7a6ZkQIKW9vrFmoIdpvZQUIpZEFgUIBHm0HHYAR0rANaORtOoaEzJ5tKjjOzIo0DEB/NiAZ5pMzfO7uQUiNulSHlOjRrHDlKdCF8qjfvmB2dSWN05RthxPNhbrRLKx2m8Oxvdjx3PaWwNiYwnIsmsF3WczQEItF0sswwGW4pMX/D2bInzShdOgN9klebQxnW2aKyBW/7YEnb8pBFLYBDiwOgtr2oRhtfibe48sacpAzfym9R8YdaFpxFfG/whJ+FQSjJGmld+IRQnSOPqt6YNsABK3Re+6sS0Wn46GyWP9bipJ0/HDeJxeFmA==
-Received: from SN7P222CA0004.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:124::18)
- by DS0PR12MB8501.namprd12.prod.outlook.com (2603:10b6:8:15d::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
- 2026 11:54:19 +0000
-Received: from SA2PEPF00003F63.namprd04.prod.outlook.com
- (2603:10b6:806:124:cafe::1f) by SN7P222CA0004.outlook.office365.com
- (2603:10b6:806:124::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.19 via Frontend Transport; Mon,
- 22 Jun 2026 11:54:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- SA2PEPF00003F63.mail.protection.outlook.com (10.167.248.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Mon, 22 Jun 2026 11:54:18 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 22 Jun
- 2026 04:54:10 -0700
-Received: from fedora.docsis.vodafone.cz (10.126.230.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.20; Mon, 22 Jun 2026 04:54:06 -0700
-From: Petr Machata <petrm@nvidia.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-CC: Petr Machata <petrm@nvidia.com>, <stable@vger.kernel.org>, Sasha Levin
-	<sashal@kernel.org>, Wojtek Wasko <wwasko@nvidia.com>, Mahesh Bandewar
-	<maheshb@google.com>, Shuah Khan <shuah@kernel.org>, Richard Cochran
-	<richardcochran@gmail.com>
-Subject: [PATCH 6.12.y] Reapply "selftest/ptp: update ptp selftest to exercise the gettimex options"
-Date: Mon, 22 Jun 2026 13:53:25 +0200
-Message-ID: <cb079700e35515f5b7119d0c14933acaf01ada27.1782122983.git.petrm@nvidia.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eBDr0NTq"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-7fe4808741eso44451227b3.1
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 04:55:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782129331; x=1782734131; darn=vger.kernel.org;
+        h=content-language:thread-index:content-transfer-encoding
+         :mime-version:message-id:date:subject:in-reply-to:references:cc:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=AjtVZE+G6ZNdvtmmDJa7f0CJF6c7p8Zb+gTkGkKohN4=;
+        b=eBDr0NTqosFfv2i/cxebJkkKzworUTlnbvth85FwomRmUla8Y+OjPBNQSd6vTxZpsi
+         6O4XieBdnr8UBFwiM65miAsyJRXo7CffX+pdTFejH+kCxHivUD8aLT9RwvKUVUmVppfo
+         dGRmwlg2towjK9YzLSsxKa800cBMozvrU3EeG9uQ1sOjwkvxVT257ZU0obOGjtyC5Vox
+         sfm2VIAQV7YvAhjje9/RGJD4kvbcEHLeWN1oHssXS42psnNB38p+9uTb57j4946NkyF9
+         cfRiqHn5qVopL+0IDHCSqHyvCkymKlchvus6+YLnU8L4CAgzkWH2aMW47XGx/sPkxD46
+         im2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782129331; x=1782734131;
+        h=content-language:thread-index:content-transfer-encoding
+         :mime-version:message-id:date:subject:in-reply-to:references:cc:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=AjtVZE+G6ZNdvtmmDJa7f0CJF6c7p8Zb+gTkGkKohN4=;
+        b=QAns3hVmmx93yU3yvlz+ED2t9IJsi5GBP4AJo7E8+9utnhnladcHYXUIzPoghvjNy4
+         aIYT7Vyd5PtZ9VJN3Nhws6dVMkxP4bCDuKUOVjyGyax5OHeDy5kQ+PYqhCnFXXhhoTA7
+         zGdY1x9WhPVB1x6SJ3cpxSnIodxAATejZDoftlKM8npgoUkOWABQIps5Dil+KrmyPfFm
+         nj99cNUXNQrCSNVSsrT3ffac2I+5noE4zk67zTcQQxBWgoF0+i0hOVmQ005IBoLqgPrT
+         ZU9eR6XfdnYfJESfHPwv6jdrm8EX6gcz8Z9lqusKdXDh25S+HOsR4uLEQXm0t5Tqn4qG
+         iMyw==
+X-Forwarded-Encrypted: i=1; AHgh+Rrgihp2kBzc4znzt18glyzoYEIZ9DLgBL8hxql93zkIXviKvTzebulHPWSFPP37614lmSPo2bE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyr+6woV5ajbb9YwdSPmlsJ684inbefWf9j0QlgSoweYnphxwd4
+	m25fffYN9pvRZpU/s9FFlcsa5ffRQadkOoWlELrimKjEpuh1GeWTX8Cq
+X-Gm-Gg: AfdE7cnzlM7Z6tZYU5tAYB/e8LDd5ab293Bd0mCthgngIlbGY9pMF7H7iMWHdyql/Ws
+	K6FWWpeZYqyNeW/XHTHkc/o7c5Yhv+Dtp26X8gozb3GPxvGdYQtLN7dbZDPC7LCIgIe8L9uIeVR
+	zqboEE11Zxm8HeduHEk4Z569ZEfjJLzzb6UIGftAwI1gI6ek7oSaVYCwpo3FtgEOZoijp6qxgPc
+	ZSFjaYuFl8+vlA4sOEMwxhfmNkjrash0lMeY5zhLprDXK5jiVPKt9iI3bmbLEsm4jhHXmuMo9Aw
+	TOqy5mdyt8CxBt34f4IoC742sKgpTPMUEsqYrStaQIu0KZWmUMYnV5n3lwXLmYY0DTWBlXdOrVR
+	V+HhORE+k7ZchA4FHxUj+Ev+3rQQMQI4XFN1IRw9ZZ5rWTdsRl3x8wBT3eo5xdRAYT5whFviDS1
+	Je7cW5/K1M2alwiiBwCQuiU0Tbc5qMoT//FbdTHyfRxmt/ELHmJQxKNkdtmpkSQ7HQ0guzBXjV5
+	lOB
+X-Received: by 2002:a05:690c:6706:b0:7bb:11a4:2e70 with SMTP id 00721157ae682-80130b0b8cdmr125913627b3.14.1782129331028;
+        Mon, 22 Jun 2026 04:55:31 -0700 (PDT)
+Received: from WIN6DK41G9CSL2 (c-73-56-149-95.hsd1.fl.comcast.net. [73.56.149.95])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-802606a918bsm29833007b3.43.2026.06.22.04.55.30
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 22 Jun 2026 04:55:30 -0700 (PDT)
+From: "Brien Oberstein" <brienpub@gmail.com>
+To: "'Stefano Garzarella'" <sgarzare@redhat.com>
+Cc: <netdev@vger.kernel.org>,
+	<regressions@lists.linux.dev>,
+	<stable@vger.kernel.org>
+References: <467b01dd017b$733792d0$59a6b870$@gmail.com> <ajkAlpiyPWmNPWfx@sgarzare-redhat>
+In-Reply-To: <ajkAlpiyPWmNPWfx@sgarzare-redhat>
+Subject: RE: [REGRESSION 6.12.90 -> 6.12.94] vsock/virtio: large AF_VSOCK transfers reset under backpressure
+Date: Mon, 22 Jun 2026 07:55:30 -0400
+Message-ID: <618701dd023e$063de350$12b9a9f0$@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F63:EE_|DS0PR12MB8501:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6ad873c-5d3c-45ea-a3c6-08ded054fdfb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|23010399003|376014|18002099003|11063799006|56012099006|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	DHRVvZGIFWQv/wtgxRzJFGrLFLTNN69elk+M6+fkoNCFXpafXbPW5rbOWaxw0Nom04TSaVmEf456MwPq8f/q1Qt63KEiUkveTpZd28XsxdrPgX2HQkBzWx/v26SBm193jeuy/Cnd/8PORAPearFUOFbnanqwL07wmy+jms0flyXpCwp3ygYkRPgztn86ETgcVywD4A9kd/chXdeBFDLhQY9h2YeaP3p38XLAHpLtRZyvogWOqUkr6O7JfS+IpbAn5/iCyzx5K6Ct6iCfjENzjPZR1SMZ0oWHujo33Y+CYSl7ycpGvyb3X69G36UWd5YEBGOdXMHuMGnNJLejl+Qu1KmH5zznDRARvRHRCpmIPy7fLtRxrkyo4M7octKRrK3EikVpJP9OHG4baPOkLNnbrxHgXlnsUR1BfP6IlwQtrhkFr15yawlc+efNJxfQPZ+t2tM7hOLtYhBw3zxZay3aEh0dpc11HSROLNn6ozEleBTCjD5OCRg4jdWyHN5hooMXIQEpUkJBw5ZHC4bnL7qIQ3Q/gBEUdbZjE5Xq8CH0bnbvjaMe671aSdtXrgcWOKT0BXtUt62F6/HvEprntus3R5s/Cr3kAF2XlCdFwCoE9MtOaCpS7SRwm6jc582ielgJE4VQ7eOeDbho8nVUL+sgPbVwiS1eJDjKe99vpT0rtPA2CZoQOn1TzyDmH/uy2ZGeC9V0SQaIcyCdFL14vu+4tQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(376014)(18002099003)(11063799006)(56012099006)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	EUKAxLmfeufjXPefjtxhf6sN2M//NVANWi7tw47oIwIvG8iV4BRgw1OmXlPIc5qSlUZAMZALs06tRhYTFOUmIZtc8C0oxMnwKWcwcEg8BgYKiFl2a58k9+wW4JcoklDT34941qmQiUZEIhZqDB0yigOCD+17EQIiyKyCFdlyYcJg1+njmv9rY5elCKjdV3ale7VrcmChTmTW0xMWtElrpl/IbvhuatQ41io/cNWEuDWOMv6cSDrHKF+9uGbBLAxQtWdXtMgfWrlV5yBNxFXD5CqWu6JTorxyU1IdworLXWIkgEAfZbVI6NV9jJRAXMU7NDspVMI8jhu43DR0Umwi7xqZtf7pvT50zu9UmSKkUIXKi6wDAo0+m4g14AJs4y1JXprujmbc6qEvbkETMShcolK/4c3lWaNTU3SancwguFcBuAyCaih+0J7/seuw7Nfx
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 11:54:18.9099
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6ad873c-5d3c-45ea-a3c6-08ded054fdfb
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F63.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8501
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGzlm2Q3QdtCPSkkHXQpTkeFGbfJwIutksBtovYSHA=
+Content-Language: en-us
 
-This reverts commit 6b2176a5c99b33f3c4acc04faadaa9c75da7b163, which in turn
-reverts commit fa361565a7275cc43c6ca1abec9ec4fcc9ec51f1, which is commit
-3d07b691ee707c00afaf365440975e81bb96cd9b upstream.
+Hi Stefano,
 
-The reason for the original revert was that struct ptp_sys_offset_extended
-does not contain the field clock_id in 6.12.y. However the claim was false:
-6.12.y does in fact contain the field. Reapply therefore the original
-patch.
+Thanks, that matches what I'm seeing: large transfers reset mid-stream
+instead of the sender being throttled (reliable above ~1.5 MB, fine =
+below
+~90 KB).
 
-Signed-off-by: Petr Machata <petrm@nvidia.com>
----
- tools/testing/selftests/ptp/testptp.c | 62 ++++++++++++++++++++++++---
- 1 file changed, 57 insertions(+), 5 deletions(-)
+The bind for me: it's not just this mail bridge -- I use AF_VSOCK for a =
+few
+host/guest services, some of which open their own sockets, so the =
+per-socket
+buffer workaround can't cover them all. That leaves pinning 6.12.90 =
+(losing
+the DoS fix and further kernel updates) as the only blanket option.
 
-diff --git a/tools/testing/selftests/ptp/testptp.c b/tools/testing/selftests/ptp/testptp.c
-index e0aed424fe42..edc08a4433fd 100644
---- a/tools/testing/selftests/ptp/testptp.c
-+++ b/tools/testing/selftests/ptp/testptp.c
-@@ -147,6 +147,7 @@ static void usage(char *progname)
- 		" -T val     set the ptp clock time to 'val' seconds\n"
- 		" -x val     get an extended ptp clock time with the desired number of samples (up to %d)\n"
- 		" -X         get a ptp clock cross timestamp\n"
-+		" -y val     pre/post tstamp timebase to use {realtime|monotonic|monotonic-raw}\n"
- 		" -z         test combinations of rising/falling external time stamp flags\n",
- 		progname, PTP_MAX_SAMPLES);
- }
-@@ -191,6 +192,7 @@ int main(int argc, char *argv[])
- 	int readonly = 0;
- 	int settime = 0;
- 	int channel = -1;
-+	clockid_t ext_clockid = CLOCK_REALTIME;
- 
- 	int64_t t1, t2, tp;
- 	int64_t interval, offset;
-@@ -200,7 +202,7 @@ int main(int argc, char *argv[])
- 
- 	progname = strrchr(argv[0], '/');
- 	progname = progname ? 1+progname : argv[0];
--	while (EOF != (c = getopt(argc, argv, "cd:e:f:F:ghH:i:k:lL:n:o:p:P:rsSt:T:w:x:Xz"))) {
-+	while (EOF != (c = getopt(argc, argv, "cd:e:f:F:ghH:i:k:lL:n:o:p:P:rsSt:T:w:x:Xy:z"))) {
- 		switch (c) {
- 		case 'c':
- 			capabilities = 1;
-@@ -283,6 +285,21 @@ int main(int argc, char *argv[])
- 		case 'X':
- 			getcross = 1;
- 			break;
-+		case 'y':
-+			if (!strcasecmp(optarg, "realtime"))
-+				ext_clockid = CLOCK_REALTIME;
-+			else if (!strcasecmp(optarg, "monotonic"))
-+				ext_clockid = CLOCK_MONOTONIC;
-+			else if (!strcasecmp(optarg, "monotonic-raw"))
-+				ext_clockid = CLOCK_MONOTONIC_RAW;
-+			else {
-+				fprintf(stderr,
-+					"type needs to be realtime, monotonic or monotonic-raw; was given %s\n",
-+					optarg);
-+				return -1;
-+			}
-+			break;
-+
- 		case 'z':
- 			flagtest = 1;
- 			break;
-@@ -575,6 +592,7 @@ int main(int argc, char *argv[])
- 		}
- 
- 		soe->n_samples = getextended;
-+		soe->clockid = ext_clockid;
- 
- 		if (ioctl(fd, PTP_SYS_OFFSET_EXTENDED, soe)) {
- 			perror("PTP_SYS_OFFSET_EXTENDED");
-@@ -583,12 +601,46 @@ int main(int argc, char *argv[])
- 			       getextended);
- 
- 			for (i = 0; i < getextended; i++) {
--				printf("sample #%2d: system time before: %lld.%09u\n",
--				       i, soe->ts[i][0].sec, soe->ts[i][0].nsec);
-+				switch (ext_clockid) {
-+				case CLOCK_REALTIME:
-+					printf("sample #%2d: real time before: %lld.%09u\n",
-+					       i, soe->ts[i][0].sec,
-+					       soe->ts[i][0].nsec);
-+					break;
-+				case CLOCK_MONOTONIC:
-+					printf("sample #%2d: monotonic time before: %lld.%09u\n",
-+					       i, soe->ts[i][0].sec,
-+					       soe->ts[i][0].nsec);
-+					break;
-+				case CLOCK_MONOTONIC_RAW:
-+					printf("sample #%2d: monotonic-raw time before: %lld.%09u\n",
-+					       i, soe->ts[i][0].sec,
-+					       soe->ts[i][0].nsec);
-+					break;
-+				default:
-+					break;
-+				}
- 				printf("            phc time: %lld.%09u\n",
- 				       soe->ts[i][1].sec, soe->ts[i][1].nsec);
--				printf("            system time after: %lld.%09u\n",
--				       soe->ts[i][2].sec, soe->ts[i][2].nsec);
-+				switch (ext_clockid) {
-+				case CLOCK_REALTIME:
-+					printf("            real time after: %lld.%09u\n",
-+					       soe->ts[i][2].sec,
-+					       soe->ts[i][2].nsec);
-+					break;
-+				case CLOCK_MONOTONIC:
-+					printf("            monotonic time after: %lld.%09u\n",
-+					       soe->ts[i][2].sec,
-+					       soe->ts[i][2].nsec);
-+					break;
-+				case CLOCK_MONOTONIC_RAW:
-+					printf("            monotonic-raw time after: %lld.%09u\n",
-+					       soe->ts[i][2].sec,
-+					       soe->ts[i][2].nsec);
-+					break;
-+				default:
-+					break;
-+				}
- 			}
- 		}
- 
--- 
-2.54.0
+A few quick questions:
+
+1. Is a -stable backport of the merging fix likely, and roughly when?
+2. Could a smaller interim land in -stable sooner (e.g. more default
+   headroom) without reopening the DoS?
+3. Will the fix guarantee backpressure for any packet size, or just =
+widen
+   the margin?
+
+Happy to test any patch -- I have a solid reproducer and can turn it =
+around
+in a day. I'll also file this as a tracked regression so it's not lost.
+
+Thanks again,
+Brien
+
+#regzbot introduced: v6.12.90..v6.12.94
+
+-----Original Message-----
+From: Stefano Garzarella <sgarzare@redhat.com>=20
+Sent: Monday, June 22, 2026 6:08 AM
+To: Brien Oberstein <brienpub@gmail.com>
+Cc: edumazet@google.com
+Subject: Re: [REGRESSION 6.12.90 -> 6.12.94] vsock/virtio: large =
+AF_VSOCK transfers reset under backpressure
+
+On Sun, Jun 21, 2026 at 08:42:41AM -0400, Brien Oberstein wrote:
+>Hi Stefano, Eric,
+
+Hi Brien,
+
+>
+>I'm hitting a regression in the 6.12.y stable series: a bulk transfer=20
+>over
+>AF_VSOCK is torn down mid-stream once the message is large enough to
+>exercise receiver-side backpressure. By stable version it lands on
+>6.12.94; 6.12.90 is fine.
+>
+>Setup
+>-----
+>A host process mails a guest's postfix over an AF_VSOCK bridge:
+>
+>  host msmtp --(unix sock)--> socat --(AF_VSOCK: host CID 2 ->
+>    guest CID 101, port 20025)--> [guest] socat --(TCP 127.0.0.1:25)-->
+>    postfix
+>
+>postfix (TLS-terminating, then writing to its queue) drains the stream
+>slower than the host writes it, so the per-socket vsock buffer fills
+>during a large message.
+>
+>Symptom (guest, 6.12.94)
+>------------------------
+>The guest-side socat exits status=3D1 mid-transfer and postfix logs:
+>
+>  postfix/smtpd: NNN: lost connection after DATA (153330 bytes)
+>    from localhost[127.0.0.1]
+>  postfix/smtpd: disconnect ... data=3D0/1 commands=3D5/6
+>
+>On the host, msmtp reports:
+>
+>  msmtp: cannot write to TLS connection: The TLS connection was
+>    non-properly terminated.        (sendmail exit 74 / EX_TEMPFAIL)
+>
+>So the AF_VSOCK connection is dropped while data is still flowing, =
+rather
+>than the sender being throttled by the credit-based flow control.
+>
+>Reproduction
+>------------
+>Send messages of increasing size through the bridge:
+>
+>  body <=3D ~88 KB : always succeeds
+>  body ~354 KB   : intermittent failure
+>  body >=3D 1.5 MB : fails 12/12
+>
+>On 6.12.90 the identical test passes 20/20, including 1.5 MB x12,
+>2.4 MB x3, 4 MB x3 and 8 MB x2. The only variable is the guest kernel.
+>
+>Bisection
+>---------
+>6.12.91, .92 and .93 carry no vsock changes. 6.12.94 pulled in three
+>vsock/virtio commits:
+>
+>  1eca304f  vsock/virtio: fix potential unbounded skb queue
+>  f3bf0f3b  vsock/virtio: fix skb overhead accounting to preserve
+>            full buf_alloc
+>  149205a1  vsock/virtio: fix skb overhead overflow on 32-bit builds
+>
+>The behaviour (drop/reset under a fast sender + slow receiver instead =
+of
+>applying backpressure) makes 1eca304f the prime suspect, but I have =
+only
+>A/B tested whole stable releases, not the individual commits.
+
+Yep, I'm working on a followup to improve the status.
+
+Basically, the memory management in AF_VSOCK has always been broken. The =
+
+patches you mentioned are designed to prevent one peer from consuming=20
+all of the other peer=E2=80=99s memory.
+Instead of counting only the payload bytes, we now also take the packet=20
+metadata into account, using a socket buffer that is double the size set =
+
+(default 256 KB).
+
+So if your system is sending small packets, then this is likely hitting=20
+this issue.
+
+My advice for now is to increase the socket buffer size. Thanks to=20
+VMware, AF_VSOCK have specific sockopts :-(:
+- SO_VM_SOCKETS_BUFFER_SIZE (0)
+- SO_VM_SOCKETS_BUFFER_MAX_SIZE (2)
+
+I suggest to set both to 16 MB (MAX should be set first).
+I tried this with socat and seems to work:
+   socat =
+VSOCK-LISTEN:4242,setsockopt=3D40:2:x0000000001000000,setsockopt=3D40:0:x=
+0000000001000000
+
+Hope this helps.
+
+In the mean time, I'm working on a follow-up for net-next to ensure that =
+
+packets are merged when we exceed a threshold; we might be able to=20
+backport this to stable, but I'm not sure.
+
+Thanks,
+Stefano
+
 
