@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD97C37A4BC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB403379C40;
 	Mon, 22 Jun 2026 15:27:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782142053; cv=none; b=YPN81SKhocKhmskC3ExSVdy0jt4f1e+mvxbbTQmsI5zjUkav/WPLp/xrhUKf5eWa//2Mp5oZ4KOAhllVICT7OrzUceg34E3JBTZikjRJVVXeGfxF0DebzI1jXGnAdfC7W4GiBanSF6mAgJ7UNcSsGI0oB5YxZw3wG6ErEqPMz8c=
+	t=1782142053; cv=none; b=rS5W8I5C88oGvE0J4Dx/PA/JuuPANhh0cxR134iqVG9hQ0ZrRv7mdztnJTJEJdJOfEPLXJBCuqwkU3lobfD6QlxP9JJh+zk1swQYKWzqxPUvlkbWaIw3fiL/DgOggUpg3weatu+6U4hcHGkmHiHijc1jZKahH91vWk7E0tsNZac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782142053; c=relaxed/simple;
-	bh=XpSGDIpRCRBAE29hwz+4orc/NRgr22LCWxO8o578Ytc=;
+	bh=gNVHHIX5newH5kihK8/wnZKOREtcCZakUcbBSmCN1cU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QGuKzH2AViej98GVYfxj1TeQ5J6smy0MDU/y7bJzVtBomnNqjMHAp/P7whCXa/NQe5v924aXFMYxg+0yvPbwnw9IcSli9mtw5HVH9qYsMLNfZ+OnjqSICBXMtZHxGsuny85zWWrTSiE893Wjy8xVC7TPbva3qb2Dn7VlzD1M5U4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n5Xw5jax; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=n+a4SYuh7+rAyPoVMB+1MVpsARQMkHFnm5YLp7vMg3RygZJdr/3QDxB+oMk3XLkSpYgP7YrDhZtg8qSAL/xdmviq8RuBlaHzAdYsWMrIxI84nREkrBf/RK3rYSa41YTjbFk1tsNx5ojQPcqa4hQDD397TrWqIlfHsRH6S1Kk6TE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YeP3LvHp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n5Xw5jax"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96C5C1F00A3F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YeP3LvHp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931401F00A3A;
 	Mon, 22 Jun 2026 15:27:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1782142051;
-	bh=E7gkdZlqTSQVDTaW6A9yoz151Q1XtNekP8BRqWYpAJY=;
+	bh=DWz/eLFK/9A9yZ6iAAf5ABx4uIdW8UyvIjL8hORVCPI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n5Xw5jaxp5pm2PHA4STJDXsnKR4vBaF+s8bEICdWBCVmEMN+k3bMzEHqT/5Ap6Z8/
-	 7Srx2npQtG+YcVFCrHCj1d0PrjhxNbvULRDvAucYtImFVXJN7LhaUjvRY7aHNWHMI/
-	 VsYoORAeDbAZUUgiucDRNmERwSywXGb+3C6N45VtYzhhWWVGT3qOD82pnTDhgLGkDa
-	 O21WIt3xYyocJGlMwlWzBh4uq6Wm53PMFfuzbtB7DyymmUPBQ8IX9grJMVqJayNx70
-	 +I2r27cXFT0I5pUT/Vwbd0CNyWkrHzfenzuYjCfJBfmHG+VwoiuPDZFjn3n6aMWf7B
-	 ikabF8pIDjE3g==
+	b=YeP3LvHpxEr/UrlTQd6ALIOYL3JwY88gP7xDg1FZILXrSMtBx6D6yhEWUHQ3wQrYG
+	 4z3tv7LFisWOoxRDcMn0x2GD3CgjQGxrWF2N5PbneQL8c+A/WYQJi4IkNMND3F7+JM
+	 NT7v8zIi6g53PP1kUrwyoLBbmhl3tfxgS32Car75gm0kG1d/eoeRKzpm5MbiYrgxe3
+	 XfBWgbchWZHSOekbW/1EHUmJobbtZ8V4mIpflzzfN8y6cM2JtXDBWesLsI9jeFku83
+	 nQXeHEG81cpe/XiXqKHXxh4MieDDw5D9rLugyhPG95cSV2l8qyhyRTLE2jv+fqW/Ix
+	 cdzHFaD4ET2kw==
 Received: from johan by xi.lan with local (Exim 4.99.3)
 	(envelope-from <johan@kernel.org>)
-	id 1wbgYb-00000000UIz-19bP;
+	id 1wbgYb-00000000UJ1-1C6E;
 	Mon, 22 Jun 2026 17:27:29 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -38,10 +38,10 @@ Cc: Juergen Stuber <starblue@users.sourceforge.net>,
 	linux-kernel@vger.kernel.org,
 	Johan Hovold <johan@kernel.org>,
 	stable@vger.kernel.org,
-	Oliver Neukum <oliver@neukum.org>
-Subject: [PATCH 2/4] USB: idmouse: fix use-after-free on disconnect race
-Date: Mon, 22 Jun 2026 17:26:10 +0200
-Message-ID: <20260622152612.116422-3-johan@kernel.org>
+	Daniel Walker <dwalker@mvista.com>
+Subject: [PATCH 3/4] USB: ldusb: fix use-after-free on disconnect race
+Date: Mon, 22 Jun 2026 17:26:11 +0200
+Message-ID: <20260622152612.116422-4-johan@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260622152612.116422-1-johan@kernel.org>
 References: <20260622152612.116422-1-johan@kernel.org>
@@ -66,134 +66,118 @@ mutex_unlock() when release() races with disconnect().
                    other sleeping locks, can still use the lock object
                    after it's unlocked")
 
-Fixes: 54d2bc068fd2 ("USB: fix locking in idmouse")
-Cc: stable@vger.kernel.org	# 2.6.24
-Cc: Oliver Neukum <oliver@neukum.org>
+Fixes: ce0d7d3f575f ("usb: ldusb: ld_usb semaphore to mutex")
+Cc: stable@vger.kernel.org	# 2.6.26
+Cc: Daniel Walker <dwalker@mvista.com>
 Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/usb/misc/idmouse.c | 45 +++++++++++++++++++-------------------
- 1 file changed, 22 insertions(+), 23 deletions(-)
+ drivers/usb/misc/ldusb.c | 38 ++++++++++++++++++--------------------
+ 1 file changed, 18 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/usb/misc/idmouse.c b/drivers/usb/misc/idmouse.c
-index 0f6b3464c2d6..3e37adf2bb57 100644
---- a/drivers/usb/misc/idmouse.c
-+++ b/drivers/usb/misc/idmouse.c
-@@ -63,6 +63,7 @@ MODULE_DEVICE_TABLE(usb, idmouse_table);
+diff --git a/drivers/usb/misc/ldusb.c b/drivers/usb/misc/ldusb.c
+index c74f142f6637..71132a15e771 100644
+--- a/drivers/usb/misc/ldusb.c
++++ b/drivers/usb/misc/ldusb.c
+@@ -150,6 +150,7 @@ MODULE_PARM_DESC(min_interrupt_out_interval, "Minimum interrupt out interval in
  
- /* structure to hold all of our device specific stuff */
- struct usb_idmouse {
-+	struct kref kref;
- 
- 	struct usb_device *udev; /* save off the usb device pointer */
- 	struct usb_interface *interface; /* the interface for this device */
-@@ -209,8 +210,10 @@ static int idmouse_resume(struct usb_interface *intf)
- 	return 0;
- }
- 
--static inline void idmouse_delete(struct usb_idmouse *dev)
-+static inline void idmouse_delete(struct kref *kref)
+ /* Structure to hold all of our device specific stuff */
+ struct ld_usb {
++	struct kref		kref;
+ 	struct mutex		mutex;		/* locks this structure */
+ 	struct usb_interface	*intf;		/* save off the usb interface pointer */
+ 	unsigned long		disconnected:1;
+@@ -201,8 +202,10 @@ static void ld_usb_abort_transfers(struct ld_usb *dev)
+ /*
+  *	ld_usb_delete
+  */
+-static void ld_usb_delete(struct ld_usb *dev)
++static void ld_usb_delete(struct kref *kref)
  {
-+	struct usb_idmouse *dev = container_of(kref, struct usb_idmouse, kref);
++	struct ld_usb *dev = container_of(kref, struct ld_usb, kref);
 +
- 	kfree(dev->bulk_in_buffer);
- 	kfree(dev);
- }
-@@ -254,6 +257,8 @@ static int idmouse_open(struct inode *inode, struct file *file)
- 		/* increment our usage count for the driver */
- 		++dev->open;
+ 	/* free data structures */
+ 	usb_free_urb(dev->interrupt_in_urb);
+ 	usb_free_urb(dev->interrupt_out_urb);
+@@ -355,6 +358,8 @@ static int ld_usb_open(struct inode *inode, struct file *file)
+ 		goto unlock_exit;
+ 	}
  
-+		kref_get(&dev->kref);
++	kref_get(&dev->kref);
 +
- 		/* save our object in the file's private structure */
- 		file->private_data = dev;
+ 	/* save device in the file's private structure */
+ 	file->private_data = dev;
  
-@@ -277,16 +282,11 @@ static int idmouse_release(struct inode *inode, struct file *file)
+@@ -381,17 +386,8 @@ static int ld_usb_release(struct inode *inode, struct file *file)
  
- 	/* lock our device */
- 	mutex_lock(&dev->lock);
--
- 	--dev->open;
-+	mutex_unlock(&dev->lock);
-+
-+	kref_put(&dev->kref, idmouse_delete);
+ 	mutex_lock(&dev->mutex);
  
--	if (!dev->present) {
+-	if (dev->open_count != 1) {
+-		retval = -ENODEV;
++	if (dev->disconnected)
+ 		goto unlock_exit;
+-	}
+-	if (dev->disconnected) {
 -		/* the device was unplugged before the file was released */
--		mutex_unlock(&dev->lock);
--		idmouse_delete(dev);
--	} else {
--		mutex_unlock(&dev->lock);
+-		mutex_unlock(&dev->mutex);
+-		/* unlock here as ld_usb_delete frees dev */
+-		ld_usb_delete(dev);
+-		goto exit;
 -	}
- 	return 0;
+ 
+ 	/* wait until write transfer is finished */
+ 	if (dev->interrupt_out_busy)
+@@ -401,7 +397,7 @@ static int ld_usb_release(struct inode *inode, struct file *file)
+ 
+ unlock_exit:
+ 	mutex_unlock(&dev->mutex);
+-
++	kref_put(&dev->kref, ld_usb_delete);
+ exit:
+ 	return retval;
  }
- 
-@@ -334,6 +334,7 @@ static int idmouse_probe(struct usb_interface *interface,
- 	if (dev == NULL)
- 		return -ENOMEM;
- 
+@@ -659,6 +655,8 @@ static int ld_usb_probe(struct usb_interface *intf, const struct usb_device_id *
+ 	dev = kzalloc_obj(*dev);
+ 	if (!dev)
+ 		goto exit;
++
 +	kref_init(&dev->kref);
- 	mutex_init(&dev->lock);
- 	dev->udev = udev;
- 	dev->interface = interface;
-@@ -342,8 +343,7 @@ static int idmouse_probe(struct usb_interface *interface,
- 	result = usb_find_bulk_in_endpoint(iface_desc, &endpoint);
- 	if (result) {
- 		dev_err(&interface->dev, "Unable to find bulk-in endpoint.\n");
--		idmouse_delete(dev);
--		return result;
-+		goto err_put_kref;
- 	}
+ 	mutex_init(&dev->mutex);
+ 	spin_lock_init(&dev->rbsl);
+ 	dev->intf = intf;
+@@ -740,7 +738,7 @@ static int ld_usb_probe(struct usb_interface *intf, const struct usb_device_id *
+ 	return retval;
  
- 	dev->orig_bi_size = usb_endpoint_maxp(endpoint);
-@@ -351,8 +351,8 @@ static int idmouse_probe(struct usb_interface *interface,
- 	dev->bulk_in_endpointAddr = endpoint->bEndpointAddress;
- 	dev->bulk_in_buffer = kmalloc(IMGSIZE + dev->bulk_in_size, GFP_KERNEL);
- 	if (!dev->bulk_in_buffer) {
--		idmouse_delete(dev);
--		return -ENOMEM;
-+		result = -ENOMEM;
-+		goto err_put_kref;
- 	}
+ error:
+-	ld_usb_delete(dev);
++	kref_put(&dev->kref, ld_usb_delete);
  
- 	/* allow device read, write and ioctl */
-@@ -364,14 +364,18 @@ static int idmouse_probe(struct usb_interface *interface,
- 	if (result) {
- 		/* something prevented us from registering this device */
- 		dev_err(&interface->dev, "Unable to allocate minor number.\n");
--		idmouse_delete(dev);
--		return result;
-+		goto err_put_kref;
- 	}
- 
- 	/* be noisy */
- 	dev_info(&interface->dev,"%s now attached\n",DRIVER_DESC);
- 
- 	return 0;
-+
-+err_put_kref:
-+	kref_put(&dev->kref, idmouse_delete);
-+
-+	return result;
+ 	return retval;
  }
+@@ -768,18 +766,18 @@ static void ld_usb_disconnect(struct usb_interface *intf)
  
- static void idmouse_disconnect(struct usb_interface *interface)
-@@ -387,14 +391,9 @@ static void idmouse_disconnect(struct usb_interface *interface)
- 	/* prevent device read, write and ioctl */
- 	dev->present = 0;
+ 	mutex_lock(&dev->mutex);
  
--	/* if the device is opened, idmouse_release will clean this up */
--	if (!dev->open) {
--		mutex_unlock(&dev->lock);
--		idmouse_delete(dev);
+-	/* if the device is not opened, then we clean up right now */
+-	if (!dev->open_count) {
+-		mutex_unlock(&dev->mutex);
+-		ld_usb_delete(dev);
 -	} else {
--		/* unlock */
--		mutex_unlock(&dev->lock);
--	}
-+	mutex_unlock(&dev->lock);
+-		dev->disconnected = 1;
++	dev->disconnected = 1;
 +
-+	kref_put(&dev->kref, idmouse_delete);
++	if (dev->open_count) {
+ 		/* wake up pollers */
+ 		wake_up_interruptible_all(&dev->read_wait);
+ 		wake_up_interruptible_all(&dev->write_wait);
+-		mutex_unlock(&dev->mutex);
+ 	}
  
- 	dev_info(&interface->dev, "disconnected\n");
++	mutex_unlock(&dev->mutex);
++
++	kref_put(&dev->kref, ld_usb_delete);
++
+ 	dev_info(&intf->dev, "LD USB Device #%d now disconnected\n",
+ 		 (minor - USB_LD_MINOR_BASE));
  }
 -- 
 2.53.0
