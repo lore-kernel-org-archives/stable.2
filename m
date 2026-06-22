@@ -1,113 +1,92 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from confino.investici.org (confino.investici.org [93.190.126.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BAD31195B
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 16:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0612BCF4C;
+	Mon, 22 Jun 2026 16:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.190.126.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782146399; cv=none; b=CS+BEJxdC9C6sgOzVhf5n/B73GDmvdo1NCYEi33b5boUiT44tdN/CszNg0irDTZgZTWhuOXCH3o+fB6gwlitO6SFdoZFNdX+0p9xGvt+WdnSLnBrxPGoPo4wyxzOYVhaT7PXFzWFd8KFd8NRq6Y0ZmGteQFlvaEEEDJRu+4Uqus=
+	t=1782146444; cv=none; b=FF8YHMGjowH1okuKao79yoYXyqGl0ZttKCxDBEIYOR+XLsi/0gMK0Gd0Dgs/2/99QMO3CmWm7fZY7Ao1gDm4HEBj8iXacEVj7XcpsuaqaEIF922Vxkq8L3DmtvQzFaQHUDwLoN48mYiP1tYbcQVX3gH8BVfKfBn4QuuwOvs3KL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782146399; c=relaxed/simple;
-	bh=5+tDMdsJThIYK3BfVinjMIZ2VhLWEN5NWD5f7yUPuRI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=DZn4Ia+yMreYTl/aGP5GcaBr1HpXMglvtYsDy65mygqDArzLoFxBGK05qXBUIIHuY37n2xBuC1SDP01ofjfdgbk3EpBzfJX/fA3LcukZ6VRffqTq6NH63swtwMWVFDJKs/15cutGhYcGfvPC9KY3Q7DvBl0BkUr+g7SUbExNZZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FwsUFI2m; arc=none smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782146444; c=relaxed/simple;
+	bh=DCP3W9YLiAc31JR3edriHXrEEtfmniauBuuh65ADoVw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uHSKG37GdQxJ0WNjQi8MPzQWOSl/BV/ZT4VDz9DgaugYgg9tfyZ6HuSRnihptWjtszTu2Oa9DR5VaM4305MhJLK38QquHRkbmoVdrbe0xGKp7k/vzq+R/NJHhAJs0OOzISHWiLeUVm2uXFfAfe5Mjw0XDkhoTShQMaKBTu8kRzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=XI5JEL8E; arc=none smtp.client-ip=93.190.126.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FwsUFI2m"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-697cd68d7adso1046694a12.1
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 09:39:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782146397; x=1782751197; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=+UiOBa/IqtfWsMn+EdSXuBzHGb6PpRZ4HutiV+njy7k=;
-        b=FwsUFI2mgRtQnzd0+RATWJK4GwQup5QD6NuqGlCX2wMMSxy+0rTDPxCjhLQjBMm67B
-         HALzgN3gQ/Sqm2AGwEgR4cmJqNkWJhNnGr2rwiLG33wI0nQS0MlQYRJp+AspZxOZ1gdZ
-         IN3QXzxPpQMuNS48MiAKvKdx9NsYiImIsQvRxnCql6plW7oGfq6DYTQZ80WeI01J4woQ
-         SNM0en5FGq/b4fSZ5zqbpc2Afwf5udd5OoKg8MiPyo6kI36rjuloIkMMgKV6saiXgr55
-         sK6OD6H2oF2qvqKwaztwBvStd6c8Zse5wxcZfVSEeisnOAlZ+VdeSiR83t5hFdzZl3sY
-         IpgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782146397; x=1782751197;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+UiOBa/IqtfWsMn+EdSXuBzHGb6PpRZ4HutiV+njy7k=;
-        b=bIt9PD4+SyHmRu/+xMESJlUUFiZCi/ROX73kAiYLq35JBKiJEP+l37zVZZ6N5klZA2
-         tv29f/zTKeyewyh4IT8ncwwGQRXlv8UHNyMCde+rZtSuRKN2jFOjnWXYVF7t/BDbpqiA
-         KNJO/843VISsYNcPOKlrpOaU/Ew4ZNEq1g6U1L0tk9DZYoHK3sY4gDKJMNC0ZeOrRLvI
-         +VBtpkPA4QZNlnTxucPKwYbFcsXiW35Idb1+hpWqLg2u6eF6hbjalI0etsi5HCzT0Jmp
-         0CihCT6tJ6TERhRksFU/zLPB0192IivdRm1k4zel7LG7DEIWEk/bOI6wuRdTMb+fMslX
-         /8WA==
-X-Forwarded-Encrypted: i=1; AFNElJ+Fy80unFOvbqYQvL+5KwMGmVkvCYo6zvJJcUIsFw6cH7dTAWVk91QPyBBOlP6RyPg8ODH9jtE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGBAsFpLkAYyAEB0kC/gF7yvPI52N4M+EFvOmK2XDt/R5dNKIx
-	a1F/6jqS4Q810+74DFNKX8GxrBj7KcS/iHc6X91r10SsNTmVFyhLk0TP
-X-Gm-Gg: AfdE7cl1Y+HREzvywR+e5SOH2sigCfNOVsyf2y5+Mz4t2n6I18N7ayeambvcmKfB5VT
-	mAyJoOOhrNwZpPXRAZJe6IoH8hiW/PX03aab9onA/XeJf2XIdwOaU7IM9PxqDDQR/DfkdHVKYY4
-	SDtJamZsGhQ+U8s11CikFKRujw5fosactMdrTklvwS+auxVMF3R5Iwd2/t/iphXyQVrH7GQ42ah
-	F6oxubdZmryPGUCRzv6PIGuJF2qUoa5LeCOXZvyu8kHO05mhmfUB+uaOZdu/A6wCWIo8ZWwf5Fb
-	h6I02YH4g0/aLcWJL3K26G0wS+qEyiUFvJqNTXK2AKdILOPcK3B9UvOhzslf43kBD3GK5u/N6B2
-	O3MfcL2bOFB8Dn8yLD8pA4NXdc1o0odL+Edriu9TC1AYtNohtzgOEDG+B1NXni/u2JI8UtKXgA1
-	eQ/W5QD6PtUhWsFYVeSl3L9H0LvG30Hg==
-X-Received: by 2002:a17:907:26c6:b0:bea:5ce6:4267 with SMTP id a640c23a62f3a-c0b74a83ebemr698183966b.35.1782146396793;
-        Mon, 22 Jun 2026 09:39:56 -0700 (PDT)
-Received: from [10.178.4.71] ([192.19.176.219])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c60bc01d2sm379776166b.31.2026.06.22.09.39.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Jun 2026 09:39:55 -0700 (PDT)
-Message-ID: <ae8667b4-8bff-428f-a725-44f3d1fb8d8b@gmail.com>
-Date: Mon, 22 Jun 2026 17:39:53 +0100
+	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="XI5JEL8E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
+	s=stigmate; t=1782146439;
+	bh=SRSnCm+XvgkWvcngWiaeNCja7gM8kd6UVrJXrvVEfF8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=XI5JEL8EdY7Mcp4yP1SnriH0hpzdlBsM6mw7Ws/LPhUY3wcHCwLIXUocYDHzERzcO
+	 IH8nPDtq2iTxgmebn9aVWpomaKV84CQOoXP+9iz33PDLqel9sxpO2dOiC7euWtUNlA
+	 Kr/XE/KltGiPB2UNX5IErucrcXUGAbTYjz5GlVvc=
+Received: from mx1.investici.org (unknown [127.0.0.1])
+	by confino.investici.org (Postfix) with ESMTP id 4gkYpv6ryQz10vh;
+	Mon, 22 Jun 2026 16:40:39 +0000 (UTC)
+Received: by mx1.investici.org (Postfix) id 4gkYpv1zwZz10wc;
+	Mon, 22 Jun 2026 16:40:39 +0000 (UTC)
+From: Bradley Morgan <include@grrlz.net>
+To: Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	ebiederm@xmission.com
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Adrian Huang <adrianhuang0701@gmail.com>,
+	Marco Elver <elver@google.com>,
+	Kexin Sun <kexinsun@smail.nju.edu.cn>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bradley Morgan <include@grrlz.net>
+Subject: [PATCH] signal: avoid shared siginfo namespace rewrites
+Date: Mon, 22 Jun 2026 16:40:29 +0000
+Message-ID: <20260622164029.11474-1-include@grrlz.net>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Florian Fainelli <f.fainelli@gmail.com>
-Subject: Re: [PATCH 7.1 0/8] 7.1.1-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260616145523.335696673@linuxfoundation.org>
-Content-Language: en-US
-In-Reply-To: <20260616145523.335696673@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+send_signal_locked() rewrites sender ids for the target namespace.
+Group sends reuse the same siginfo, so one recipient can affect the
+next.
 
+Copy the siginfo before changing it.
 
-On 6/16/2026 7:58 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.1 release.
-> There are 8 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 18 Jun 2026 14:55:16 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.1-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Fixes: 7a0cf094944e ("signal: Correct namespace fixups of si_pid and si_uid")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bradley Morgan <include@grrlz.net>
+---
+ kernel/signal.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENEIRC:
-
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+diff --git a/kernel/signal.c b/kernel/signal.c
+index b9fc7be1a169..d72d9be3a992 100644
+--- a/kernel/signal.c
++++ b/kernel/signal.c
+@@ -1181,6 +1181,7 @@ static inline bool has_si_pid_and_uid(struct kernel_siginfo *info)
+ int send_signal_locked(int sig, struct kernel_siginfo *info,
+ 		       struct task_struct *t, enum pid_type type)
+ {
++	struct kernel_siginfo rewritten;
+ 	/* Should SIGKILL or SIGSTOP be received by a pid namespace init? */
+ 	bool force = false;
+ 
+@@ -1194,6 +1195,9 @@ int send_signal_locked(int sig, struct kernel_siginfo *info,
+ 		/* SIGKILL and SIGSTOP is special or has ids */
+ 		struct user_namespace *t_user_ns;
+ 
++		rewritten = *info;
++		info = &rewritten;
++
+ 		rcu_read_lock();
+ 		t_user_ns = task_cred_xxx(t, user_ns);
+ 		if (current_user_ns() != t_user_ns) {
 -- 
-Florian
+2.53.0
 
