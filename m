@@ -1,158 +1,85 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBD83A545E;
-	Mon, 22 Jun 2026 10:25:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE5A3A545B
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 10:26:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782123955; cv=none; b=T4jpwEsJl6yAMRkuLeufPO6bAlyPD3uWduNpyIWE+hbmkLZqs7EHZveqLWga8vwd5Q/a/xofAxEkit2QBSkLe7uN88i8SBiYRNqiyjBBl+wYttQo3iZXOLWwP2WQfSs57ZQO+DAkzqMiYPE0qxWYrplCFZ0Emsutf/Tji9oZsjY=
+	t=1782124017; cv=none; b=gZNp8wEFedUHPwnZfTwJwDhKysMvhq9jq+mc1+KOlIFe4q7RnqW+5M30slRJ85fT0C4bGZOWQLikDxlz7XoSvXgFq7I4kkVCxWIABO5BfPP3ya/tn/0Oc+TZEamRIJcae9pTbmL4oOnsbQjA6EnDG8L4aHPlb/KvNw5wyeawdt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782123955; c=relaxed/simple;
-	bh=iN2N/e3dZW+kPQjRl36cn7UsVIeGGeCWu7/JO1xDn3U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ef0R4cAsUSdhTpxPfHOFRJ5dh+oUaR/QTuGFjjN6r9jjB5u1+S6baKMC73XUGx3VZ4GQ3r17Kn6Lb23hBBMVq6oH2ixoQDENqTV244siMhy2iMsfih8HdL7YqVwiIFlszT6on0HgJRBqNlaHzBun/yEcIEGfBgJsiX10wJTwuYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [192.168.0.105] (unknown [123.118.218.239])
-	by APP-05 (Coremail) with SMTP id zQCowAA3nN+JDTlqtLaqFA--.57426S2;
-	Mon, 22 Jun 2026 18:25:14 +0800 (CST)
-Message-ID: <2f32370b-63c1-4e8a-bf71-d40874b6bebb@iscas.ac.cn>
-Date: Mon, 22 Jun 2026 18:25:13 +0800
+	s=arc-20240116; t=1782124017; c=relaxed/simple;
+	bh=baSwirDpA4monkJd3G396GlGsw2NX5Cc/zcZ+SCqjws=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cHQ5UNJIvz8rKUW8ljhzkTJbSeeHymRX473vT5fqj1Jx7EGGcPGHX6ifA54CCY2tPMtd3RPTpJuQ6vwkONc7/VvBlNiFJNxDDASRJaCBzGvdO6HGnyhup/SX1qHJnb/ogx2xcIKvY7PLzm3E9L/9o5fAjG24asJAv9THspgmg94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3iIq2/jp; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=d96NQf+w; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3iIq2/jp";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="d96NQf+w"
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1782124013;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=YXvFuUhlC/+OE4W3ff8nmdCq38KYvqxt0ICsJOWSQeQ=;
+	b=3iIq2/jpfKCs6dmDVcQ8W7+XpcJ4uRTb5sT0V1S9xzQUoaxsp2a0ZLl9MGgmzretjgzjsX
+	NEUp6jKFf9eKMLzNdeSQohhmQPRRyuzEDNhN+HyQkJqIXs/pamlzhFt10Ym6LNjPda6UoU
+	THytOOctXIQkOF6ri5SHhXKnD7WgVRjw5zwf1I+Zo4S5bGuSbYu2r99FJQFiu3MjaqiQDJ
+	mQlotuMX9jF5wPEbZLTckvDxZEpz6pzI/sID5++pOhs8vXpG7WCIwGtIkaflBLsBP+cmWr
+	V9ZJqVUVjHd4d1Ue1T1o3xhmhLVntBU9FoHxo+ClpEVIpaW1hCkebWIzC146yw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1782124013;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=YXvFuUhlC/+OE4W3ff8nmdCq38KYvqxt0ICsJOWSQeQ=;
+	b=d96NQf+wLuKxq6Du417kDBLSH6jws2UUp5b+5lwxQ1C1UnocSs7/dRFE1ZYIItFHp8+Cz+
+	8UsPY7Q7JdedXVCA==
+To: stable@vger.kernel.org
+Cc: Bryan Brattlof <bb@ti.com>,
+	Daniel Wagner <daniel.wagner@monom.org>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	cip-dev@lists.cip-project.org,
+	nobuhiro.iwamatsu.x90@mail.toshiba,
+	pavel@nabladev.com,
+	Russell King <rmk+kernel@armlinux.org.uk>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Subject: [PATCH 0/4] ARM: v6.6 and v6.1 stable backports
+Date: Mon, 22 Jun 2026 12:26:30 +0200
+Message-ID: <20260622102634.780100-1-bigeasy@linutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] riscv: entry: Fixup do_trap_break from kernel side
-To: Peter Zijlstra <peterz@infradead.org>, Guo Ren <guoren@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, arnd@arndb.de, palmer@rivosinc.com,
- tglx@linutronix.de, luto@kernel.org, conor.dooley@microchip.com,
- heiko@sntech.de, jszhang@kernel.org, lazyparser@gmail.com,
- falcon@tinylab.org, chenhuacai@kernel.org, apatel@ventanamicro.com,
- atishp@atishpatra.org, mark.rutland@arm.com, bjorn@kernel.org,
- palmer@dabbelt.com, bjorn@rivosinc.com, daniel.thompson@linaro.org,
- linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, stable@vger.kernel.org,
- Guo Ren <guoren@linux.alibaba.com>
-References: <20230702025708.784106-1-guoren@kernel.org>
- <202606191652.38297DE51@keescook> <ajeKPpg2rwadVPY4@gmail.com>
- <20260622082841.GW49951@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: Vivian Wang <wangruikang@iscas.ac.cn>
-In-Reply-To: <20260622082841.GW49951@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3nN+JDTlqtLaqFA--.57426S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxur4ktFy3KFW7Cw4fCrykZrb_yoW5CFWkpF
-	W3Kay2kF4kJryxZwsrKw40vF9Yka4SqF4rCr45tryrJw4avr1SgFs7trW3KFWDZrW8Wr12
-	vFy0q3srua4UAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjxUvaZXDUUUU
-X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
+Content-Transfer-Encoding: quoted-printable
 
-On 6/22/26 16:28, Peter Zijlstra wrote:
-> On Sun, Jun 21, 2026 at 02:52:46AM -0400, Guo Ren wrote:
->> On Fri, Jun 19, 2026 at 04:54:53PM -0700, Kees Cook wrote:
->>> *thread encromancy*
->>>
->>> On Sat, Jul 01, 2023 at 10:57:07PM -0400, guoren@kernel.org wrote:
->>>> From: Guo Ren <guoren@linux.alibaba.com>
->>>>
->>>> The irqentry_nmi_enter/exit would force the current context into in_interrupt.
->>>> That would trigger the kernel to dead panic, but the kdb still needs "ebreak" to
->>>> debug the kernel.
->>>>
->>>> Move irqentry_nmi_enter/exit to exception_enter/exit could correct handle_break
->>>> of the kernel side.
->>>>
->>>> Before the fixup:
->>>> $echo BUG > /sys/kernel/debug/provoke-crash/DIRECT
->>>>   lkdtm: Performing direct entry BUG
->>>>   ------------[ cut here ]------------
->>>>   kernel BUG at drivers/misc/lkdtm/bugs.c:78!
->>>> [...]
->>>>   Kernel panic - not syncing: Aiee, killing interrupt handler!
->>> This appears to still be unfixed. What's the blocker? The solutions in
->>> this thread seem to work...
->>>
->>> I'd like to be exercising an Oops path via KUnit (for KCFI), and riscv
->>> just instantly falls over instead of thread-killing on the exception.
->> Thanks for reviving this thread. At the time I didn’t fully understand
->> Peter’s point. We should only use the NMI path when the trap occurs with
->> interrupts disabled.
->> Here’s the updated fix:
->>
->>  do_trap_break(struct pt_regs *regs)
->> ... 
->>  		irqentry_exit_to_user_mode(regs);
->>  	} else {
->> -		irqentry_state_t state = irqentry_nmi_enter(regs);
->> +		if (regs->status & SR_IE) {
->> +			enum ctx_state prev_state = exception_enter();
->>  
->> -		handle_break(regs);
->> +			handle_break(regs);
->>  
->> -		irqentry_nmi_exit(regs, state);
->> +			exception_exit(prev_state);
->> +		} else {
->> +			irqentry_state_t state = irqentry_nmi_enter(regs);
->> +
->> +			handle_break(regs);
->> +
->> +			irqentry_nmi_exit(regs, state);
->> +		}
->>  	}
->>  }
->>
->> If you & Peter have no objection, I’ll post a v2.
-> I still don't understand it. This cannot fix anything. Consider:
->
->  EBREAK
->  raw_spin_lock_irq(&your_lock)
->  EBREAK
->
-> So now the first 'works', but the second will crash. Additionally,
-> having the EBREAK context differ so dramatically between invocations
-> seems like a very bad deal to me.
+This is a backport of ARM related fixes. This applies cleanly to v6.6
+and v6.1. The v6.18 and v6.12 trees already contain this.
 
-To spell it out, the problem that needs fixing is:
+I've been looking at v5.15 and it seems there is code missing so I am
+not enitrely sure if it makes sense to backport the last two patches of
+the series any further than v6.1. Therefore I am stopping here ;)=20
 
--> BUG()
-   -> ebreak instruction
-      -> Breakpoint exception
-         -> do_trap_break()
-            -> irqentry_nmi_enter()
-            [ now in_nmi() / in_interrupt() ]
-            -> report_bug() returns BUG_TRAP_TYPE_BUG
-            -> die()
-               -> make_task_dead()
-                  -> panic() because we're in_interrupt()
+#1 and #2 are prerequisites for #3.=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+Russell King (Oracle) (4):
+  ARM: group is_permission_fault() with is_translation_fault()
+  ARM: allow __do_kernel_fault() to report execution of memory faults
+  ARM: fix hash_name() fault
+  ARM: fix branch predictor hardening
 
-As such, currently on riscv all BUG() simply completely panic() the
-entire machine, rather than just killing the one task.
+ arch/arm/mm/alignment.c |  4 ++
+ arch/arm/mm/fault.c     | 94 +++++++++++++++++++++++++++++++----------
+ 2 files changed, 76 insertions(+), 22 deletions(-)
 
-How do you think this should be fixed? Here are some ideas but I'm not
-familiar with generic entry stuff:
-
-  * Should we irqentry_nmi_exit() before calling die() for BUG()?
-  * Should we move the GENERIC_BUG trap instruction to cause illegal
-    instruction exception instead, for which we can write a simpler
-    handler that doesn't need to care about the probe stuff?
-
-Vivian "dramforever" Wang
+--=20
+2.53.0
 
