@@ -1,124 +1,125 @@
-Received: from mx1.heh.ee (heh.ee [213.35.143.160])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB8A200110;
-	Mon, 22 Jun 2026 17:46:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.35.143.160
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA963200110
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 17:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782150393; cv=none; b=oTx57nhj55Pda71q8RvVzQ32UE7Sgd2MJcgXRHJg4DKiOqiK5qLo+w9aiXsnG1SHKVXtPeqKUaJOSvqG3b5Zi9ZtUhxlwugBf/on7TcjI05NwDdc3WVe8CIjEXIf24cJYLGiZ9EGBofpkJVRYGmLvxTXaIWfpXOmGo5epKlhAIg=
+	t=1782150413; cv=none; b=Z5GO2Qbr2cNFt13ezOhn80YLQJRsXfz7letghkFQJyvcYktM8R+abgRB2LhECKPoBM8v0mapy345xVUGLWDqW5sYQozXsrrOi4VLSR2Huii7TiqsnE8a9Pk8e5Vzo4zBXzlYzOUcrm3sodD6ihN5Vs9SetUkPL9VwlBOPPLbgP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782150393; c=relaxed/simple;
-	bh=GJ+dJ48hAsXJ+yZvg31moPKWUIg2iQCxpClyhh8ghyo=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=JTt8hGaAEsOD66jPp/nno+oLMGZvJ6x1l2pslpzPgKaU9E38clL4qUee+CeGs2uUd8cGf55+vtbGLiR+P7e/XuBq3NGlWsZ8rKh5ZbfTtTdndzXaCg6EdhCnOrjmraN/n0fRbOJvv7hBouImeR3RWREcz88qeSNu574IBhgZbHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ristioja.ee; spf=pass smtp.mailfrom=ristioja.ee; dkim=pass (1024-bit key) header.d=ristioja.ee header.i=@ristioja.ee header.b=Aeg2Q2mh; arc=none smtp.client-ip=213.35.143.160
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ristioja.ee
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ristioja.ee
+	s=arc-20240116; t=1782150413; c=relaxed/simple;
+	bh=5Md68ozpaBWQYx5mDCyb358QU5P+LGoDnzuxsdgoaMk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=idT0zi/pD0gmzPAO1oGCjkFWr0AfiqZHkZkMJScFehPmjr7KFfQonQUGaamTtjF8oqxfQNQ32CbgYvPD7yoFnq+19/Yk1aodMzdAkszl7vlMw2jwfu/mWbFHCaj390Q5grKQKS2CJJWid5wj5hx722/5F4VLMeVMCTDQjaF6/1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WYZSZIYQ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ristioja.ee header.i=@ristioja.ee header.b="Aeg2Q2mh"
-Received: by mx1.heh.ee (Hehee) id 34581111EE0;
-	Mon, 22 Jun 2026 20:46:27 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ristioja.ee; s=mail;
-	t=1782150387; bh=GJ+dJ48hAsXJ+yZvg31moPKWUIg2iQCxpClyhh8ghyo=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=Aeg2Q2mh6TmGzecTcl0b/EEZh4Zz7X+9ibc2awBKtZEn8+cvv48udJpnOHnLZh/pZ
-	 6i2IA0IEUhuQtOiUzGqc94m91SUeGDQOv6s2dHCOuJv4q6ooVOt3d1JhGnQJcFEiqm
-	 Y/BaLDzQ+XCzRIUi8ibwEd5S7fPwyPMb/35MdRV0=
-Message-ID: <6cf6be99-76c3-43b3-854f-96cae180318c@ristioja.ee>
-Date: Mon, 22 Jun 2026 20:46:44 +0300
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WYZSZIYQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1782150410;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ogkNTdRbHLKr+SfKtfZvK8CYRxW/59/l8+UnBjTN5IU=;
+	b=WYZSZIYQEEt+PHNosZX6VNVOf8Pp4zDAcatzrODGxf2zsRBBKmhvRpOMOLCW6e8naXK6AH
+	qAqirabw4/Mj/J1tOggto+CL0HOZXstPsQbyUlmS31wmmXxRGRNtsmFCpO2oEbjYPJTPZd
+	tFt+P7YO6PSkNqZfZa0iHP0vh0paWiM=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-595-Y88W61W_PXqrW7GAbp0kDw-1; Mon,
+ 22 Jun 2026 13:46:47 -0400
+X-MC-Unique: Y88W61W_PXqrW7GAbp0kDw-1
+X-Mimecast-MFC-AGG-ID: Y88W61W_PXqrW7GAbp0kDw_1782150405
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7407D1954B3A;
+	Mon, 22 Jun 2026 17:46:44 +0000 (UTC)
+Received: from fedora (unknown [10.44.32.50])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id D746B180058D;
+	Mon, 22 Jun 2026 17:46:39 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Mon, 22 Jun 2026 19:46:44 +0200 (CEST)
+Date: Mon, 22 Jun 2026 19:46:37 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Bradley Morgan <include@grrlz.net>
+Cc: Christian Brauner <brauner@kernel.org>, ebiederm@xmission.com,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Adrian Huang <adrianhuang0701@gmail.com>,
+	Marco Elver <elver@google.com>,
+	Kexin Sun <kexinsun@smail.nju.edu.cn>,
+	Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] signal: avoid shared siginfo namespace rewrites
+Message-ID: <ajl0_fTFXHpL8P9T@redhat.com>
+References: <20260622164029.11474-1-include@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [resend] [regression] amdgpu carrizo: no display signal after
- modeset
-From: Jaak Ristioja <jaak@ristioja.ee>
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Salvatore Bonaccorso <carnil@debian.org>, Dianne Skoll <dianne@skoll.ca>,
- Chris Park <chris.park@amd.com>, Matthew Stewart <matthew.stewart2@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: 1139950@bugs.debian.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <9fba2020-24d1-4235-9869-319d4aab3a4c@ristioja.ee>
- <178198613176.3658222.16247101620976737948@eldamar.lan>
- <ajcLuO0YZCoPN7Xw@eldamar.lan> <e4f60b98-9bd8-491a-9703-a5a7a58a4ca0@amd.com>
- <82b5026d-2dcc-4dcd-9094-2ccf70057964@ristioja.ee>
-Content-Language: et-EE
-Autocrypt: addr=jaak@ristioja.ee; keydata=
- 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
-In-Reply-To: <82b5026d-2dcc-4dcd-9094-2ccf70057964@ristioja.ee>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260622164029.11474-1-include@grrlz.net>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On 2026.06.22 16:52, Jaak Ristioja wrote:
-> Issue also seems to occurs with 7.1.1 (`dmesg -f kern` output attached).
+On 06/22, Bradley Morgan wrote:
+>
+> send_signal_locked() rewrites sender ids for the target namespace.
+> Group sends reuse the same siginfo, so one recipient can affect the
+> next.
+
+Hmm... I'll re-read this change tomorrow after sleep, but I am almost sure
+you are you are right anyway...
+
+I am wondering if we can conditionalize the "swap(rewritten, info)" logic
+with your patch, most probably this makes no sense...
+
+May I suggest another change on top of your fix? Make the "kernel_siginfo *info"
+arg of send_signal_locked() "const". To make it more clear. Yes, the signature
+of has_si_pid_and_uid() should be changed too. Up to you.
+
+Thanks,
+
+Oleg.
+
+> Copy the siginfo before changing it.
+>
+> Fixes: 7a0cf094944e ("signal: Correct namespace fixups of si_pid and si_uid")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bradley Morgan <include@grrlz.net>
+> ---
+>  kernel/signal.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/kernel/signal.c b/kernel/signal.c
+> index b9fc7be1a169..d72d9be3a992 100644
+> --- a/kernel/signal.c
+> +++ b/kernel/signal.c
+> @@ -1181,6 +1181,7 @@ static inline bool has_si_pid_and_uid(struct kernel_siginfo *info)
+>  int send_signal_locked(int sig, struct kernel_siginfo *info,
+>  		       struct task_struct *t, enum pid_type type)
+>  {
+> +	struct kernel_siginfo rewritten;
+>  	/* Should SIGKILL or SIGSTOP be received by a pid namespace init? */
+>  	bool force = false;
 > 
-> The DisplayPort to HDMI dongle does not have markings on the body to 
-> identify the exact model, but by the looks of it I think it might be a 
-> Vention HBKB0, which seems to be marketed as "1080p@60", "DP male to 
-> HDMI female", "classic" (as opposed to "4K"). According to some 
-> materials, the chip inside is a MXP3361.
+> @@ -1194,6 +1195,9 @@ int send_signal_locked(int sig, struct kernel_siginfo *info,
+>  		/* SIGKILL and SIGSTOP is special or has ids */
+>  		struct user_namespace *t_user_ns;
 > 
-> The text on the HDMI cable reads "ULTRA HIGH SPEED HDMI™ CABLE - 
-> WWW.HAMA.COM - HAMA GMBH & CO KG 86652 MONHEIM/GERMANY - 82623".
+> +		rewritten = *info;
+> +		info = &rewritten;
+> +
+>  		rcu_read_lock();
+>  		t_user_ns = task_cred_xxx(t, user_ns);
+>  		if (current_user_ns() != t_user_ns) {
+> --
+> 2.53.0
+>
 
-Reverting commit fee50077656 ("drm/amd/display: Bump the HDMI clock to 
-340MHz") on top of v7.1.1 appears to resolve the issue, as I am now able 
-to get a picture.
-
-
-PS: My previous e-mail with the attached dmesg-7.1.1.txt.xz file was 
-bounced from @amd.com addresses: Diagnostic-Code: smtp;550 5.0.350 One 
-or more of the attachments in your email is of a file type that is NOT 
-allowed by the recipient's organization.
