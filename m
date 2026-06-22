@@ -1,248 +1,258 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D523783BE;
-	Mon, 22 Jun 2026 11:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477C2281525
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 11:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782126412; cv=none; b=qv9L/c5PUvn8SnFATTcBZL6lHgFdEDJI4yYdKc6GLspF13HrybtTCFflNA5Jdv73JtSb72o8J9JUgUoseKpqYjKwnnoL8g4ykC12YvtIHKrzyxw0zgMhPDPZWqNagkZZbfv4YVN8uUGfHcJMcotQXIzpC1wd4FBIzPOclql5h/g=
+	t=1782126952; cv=none; b=r0o4k9XMbNl+whbWkj7bqwENMInjK0UcPu6N8/CHh2luz1Q1u50mrR31bKZ6npzAZNjJsldBLOrAzQT/L4oYm9DIamZVNGCrFKEK5D24azQ+ORMktalXOAxrLqSfFWMGlT4wm/wASWipyug5f4LvSwcKy8hGJPPTnaD+uuQ8/2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782126412; c=relaxed/simple;
-	bh=S4t7knOEyAEnRPoAGDPAFDafyWVIJvVclnF9cmeZyaM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=uion6bHUvkyX8LqaHqIme2EqQ4fILo8Htt6Ju8b31jmK/YDL9qms7b5BKe8EDCHO/83f9hVgqzILv0tNFXit+J1Dbxj7ba9iqiam0j12/cUGyDs4A6tMYBwAy+eMoJH5+ojPRfBmmjCXI+KMOg9Y0ZJ/ajjYOwiVWGokI7OlNe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=GDgitpaR; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1782126952; c=relaxed/simple;
+	bh=Jkgk4shOsAHu3FJcHLOCKGEnKsvA6Wf5xxX7yDOU65U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V/SmZvZ7iNQmjQmZ3DV9d1ev9UFSzPyQaMvLEQ6XN2P7LknCBh0xGCAkQraS1qgiBrn6K6K0hcGTDEt3pERgMe6joOTjTGDlYfjO4pFCRvm4xRpmSgZkgmiTnVlrKnf9Q1ZwlqXo72cxRpLM1gbNt7vVkUS14V2XCk7pj0J0R+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YkIZronE; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="GDgitpaR"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 65MAuRbA52486224, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1782125787; bh=MsSe1SF/uIbh6o12XSI2mniba15A+fRCte2j+2lUt7k=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=GDgitpaRGYlNM/6IbC/Rfo74HJbrliPGaJLV6xmJOIgDi+EPKCaK5PUuUGP6YZQoW
-	 RvwJcnpNdknC/NgjLIWi8Fp/F0BfD9eEk6P5wwp8gB4enpqQ9niVbTS764jRatwRmr
-	 NLC3cYuo9RvMPt0Y1+fDDBiJxPmFJ07AYfrhFTgsS6ns6Z7/hNpOVqj198zfd2BgM2
-	 0vjBI4FZ1ZdkUmi8vuGp4Oc6btWmRemNHccUsBL4CFGX3IwxZXUdNixxQBgpII5Nuw
-	 evZGFYJx75aoikRq6idMbH+rYHlr4ZcgWaDZOEUGKjSHbJoVch7Ym0oTl7Th/1o454
-	 QQRrFiKRHNKFg==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 65MAuRbA52486224
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 22 Jun 2026 18:56:27 +0800
-Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 22 Jun 2026 18:56:27 +0800
-Received: from RTKEXHMBS04.realtek.com.tw ([::1]) by
- RTKEXHMBS04.realtek.com.tw ([fe80::552f:8b32:656c:c395%6]) with mapi id
- 15.02.2562.017; Mon, 22 Jun 2026 18:56:27 +0800
-From: Justin Lai <justinlai0215@realtek.com>
-To: Simon Horman <horms@kernel.org>
-CC: "kuba@kernel.org" <kuba@kernel.org>, "davem@davemloft.net"
-	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
-	"pabeni@redhat.com" <pabeni@redhat.com>, "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"richardcochran@gmail.com" <richardcochran@gmail.com>,
-	"david.laight.linux@gmail.com" <david.laight.linux@gmail.com>,
-	"aleksander.lobakin@intel.com" <aleksander.lobakin@intel.com>, Ping-Ke Shih
-	<pkshih@realtek.com>, Larry Chiu <larry.chiu@realtek.com>
-Subject: RE: [PATCH net v3] rtase: Workaround for TX hang caused by short UDP
- packets entering hardware PTP parsing
-Thread-Topic: [PATCH net v3] rtase: Workaround for TX hang caused by short UDP
- packets entering hardware PTP parsing
-Thread-Index: AQHc/Mk9ctTr65FPK0GOwiW0nIIMYrZB75eAgAh/vtA=
-Date: Mon, 22 Jun 2026 10:56:27 +0000
-Message-ID: <23922667b00c4ec7aba7efca227f85b1@realtek.com>
-References: <20260615131653.15730-1-justinlai0215@realtek.com>
- <20260617085942.843250-2-horms@kernel.org>
-In-Reply-To: <20260617085942.843250-2-horms@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YkIZronE"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c8612a0db3cso203757a12.2
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 04:15:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782126949; x=1782731749; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=cYgbEdwZR7lqKgYa1PJ/PeOcDozVzwruK2AcBU92FQQ=;
+        b=YkIZronE/AGN/8S/BWk8nCNYB1CcrOyT6/sjoVnF1i8d7aJNqYd5snwxZidn/s+3ot
+         XrrWRVMxW73vkUi9PB28gMX/8p5wxdGgTdADrYubGguygnZJ6UejXV741/tuMcZW1JAb
+         EFmbFrFWy26qyWopXhwEm7s/nhR88QtpwOLdH2PX5BBNJQJgPj/zg1l1YZHy0DivLyze
+         kiN7HOsKKRS5e0+EQE1F6bGkXVW9roYMFNYYBvqmLGXFVtuN+8ZMhj+u+uRLb7gDyqUj
+         p4EvLut8gdIklnnGGX76f/2uhOO4B2K+W4bCLwO8dEEjgaxtyQR9OVpU9n/vjZJqY3Id
+         9Y4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782126949; x=1782731749;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cYgbEdwZR7lqKgYa1PJ/PeOcDozVzwruK2AcBU92FQQ=;
+        b=XCRtHkRRbk8zSdbFmmtPFESx8YAQrTHwVCDuShDz6OqFqJFAsb1WkNDKoJA6UMgW//
+         TgwwR6k8YVsQG4nTc0EnfjXmvVNm7//BEK7WB9Ic4f2+GiaWNfhH49ohKDZcftW0JZde
+         1/nJu6Q+E+GCxQE61XLKSOsLSmSkIGh2ZUdLxqP/5d1o3AjCo2mTuqiXUIZjxrkSiepq
+         OpIUh0+n73hPlgAtNmcO3FgjvUVRJKe2t2mVQmNMXy+SU9FNULUxvekOTvisk9yLYUxL
+         HEzCN6Fnf/dzfyWutPrCdOyMoiQPN1//dYRP9XOdtjwplzS0ioDzJVummVwFCJ9AMRNh
+         cuWw==
+X-Forwarded-Encrypted: i=1; AHgh+RrJdrlz8jgx0t/GTEpKFfIunzINVQrx55jO79SsK1gaLS2lWKXzAAa3TZKnHFYASEFx/BUPwUY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyhxwt/6d8/Y2KlmeYPPNjoOx8jAqzNVpEdsxV8hw8FvdhexHRM
+	UDwD4m+Ait4dUZ39mmHiN9m9wii04hSfQVQ4QwrrgvnIhtXO0Wc5+mSBqTkHV3Vo
+X-Gm-Gg: AfdE7cmf0iwSe0XDD6fxmUejaI+mt2dnd0a/bNZSG5ejHUwrLJoIGv7VNDDZmtany1q
+	1p5r0nUrilwSro1paHE0PpoR3/pe30D8GqvNUOL6pfvo/aGq50VHCoIS+ZIvVpfArCeF8ufpd54
+	9Oxs4oukUrAFtg9heKVra77aMIObVOTnAMjgTkHaTEXp7QVh/0KTABjbQD6qDZGZz77sK85fuie
+	ccn397Vx/zOwBjozETwxAh/2wHb4by1VHrzOhVvcSgTzYmDr+fEHtzK9H2OV28ROu4zPP1xacM8
+	SE4gfVhDvnhl2e+xc8bs+zOBEo/B0ezP/ytmMQME21ipU9P4VdQzuTnj8fwOpBWOVBs6npf5Q7t
+	kjaOxSlRM3b01W8O27V7f0ZfsPu2JW2exL34o9re/pXH6Hy+TRC+oGgZB8bUM7bhlRG/1+QdPEo
+	FGBriKoQ==
+X-Received: by 2002:a17:90b:2dcb:b0:36b:9323:c726 with SMTP id 98e67ed59e1d1-37dc9829e11mr34502a91.4.1782126949396;
+        Mon, 22 Jun 2026 04:15:49 -0700 (PDT)
+Received: from kali ([2402:e280:3d7c:a2:536a:b505:93f5:9d5d])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37d4f2d2615sm6773008a91.10.2026.06.22.04.15.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Jun 2026 04:15:49 -0700 (PDT)
+From: Pavitra Jha <jhapavitra98@gmail.com>
+To: dpenkler@gmail.com
+Cc: gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	jhapavitra98@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] gpib: fix use-after-free in iboffline() detach path
+Date: Mon, 22 Jun 2026 07:14:37 -0400
+Message-ID: <20260622111437.852082-1-jhapavitra98@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Simon Horman <horms@kernel.org> wrote:
->=20
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> Full review at: https://sashiko.dev
-> ---
-> rtase: Workaround for TX hang caused by short UDP packets entering
-> hardware PTP parsing
->=20
-> The patch adds a workaround for a hardware bug in rtase where short UDP
-> packets triggering PTP parsing can cause a TX hang due to out-of-bounds
-> reads.
-> It pads affected packets so the transport data reaches a minimum length.
->=20
-> Cc: stable@vger.kernel.org
->=20
-> > diff --git a/drivers/net/ethernet/realtek/rtase/rtase_main.c
-> b/drivers/net/ethernet/realtek/rtase/rtase_main.c
-> > index 55105d34bc797..4c295a39c7a0c 100644
-> > --- a/drivers/net/ethernet/realtek/rtase/rtase_main.c
-> > +++ b/drivers/net/ethernet/realtek/rtase/rtase_main.c
-> [ ... ]
-> > @@ -1249,6 +1250,81 @@ static u32 rtase_tx_csum(struct sk_buff *skb,
-> const struct net_device *dev)
-> >       return csum_cmd;
-> >  }
-> >
-> > +static bool rtase_get_udp_offset(struct sk_buff *skb, u32 *udp_offset)
-> > +{
-> > +     int no =3D skb_network_offset(skb);
-> > +     struct ipv6hdr *i6h, _i6h;
-> > +     struct iphdr *ih, _ih;
-> > +
-> > +     switch (vlan_get_protocol(skb)) {
-> > +     case htons(ETH_P_IP):
->=20
-> [Severity: High]
-> Does relying on vlan_get_protocol(skb) allow an unprivileged user to bypa=
-ss
-> this workaround?
->=20
-> If an attacker uses an AF_PACKET/SOCK_RAW socket to inject a raw Ethernet
-> frame containing an IPv4/UDP packet, they could set skb->protocol to an
-> arbitrary value like htons(ETH_P_ALL). The switch statement will fall
-> through to the default case and return false, causing rtase_skb_pad() to
-> skip the padding.
->=20
-> Since the hardware independently parses the raw frame based on the
-> EtherType,
-> could it still process the unpadded packet and trigger the TX hang?
->=20
+iboffline() calls board->interface->detach() without holding
+board->big_gpib_mutex. Every userspace-reachable I/O path (read,
+write, command, and all ioctls that call them) acquires this mutex
+before entering the driver callbacks. The mutex therefore creates an
+apparent serialization guarantee that does not extend to the detach
+teardown path.
 
-Thanks for pointing this out.
-=20
-Since the hardware parser operates on the actual Ethernet frame
-contents, relying on skb protocol metadata is not ideal for this
-workaround.
-=20
-I'll update the code to derive the L3 protocol and network offset from
-the Ethernet/VLAN headers in the skb data before parsing IPv4/IPv6.
-This makes the software check match what the hardware parser sees and
-avoids depending on skb protocol metadata.
+The race window is wide and practically exploitable. Board driver
+read callbacks (cb7210, ines_gpib, tnt4882) all delegate to
+nec7210_read() -> pio_read(), which blocks in
+wait_event_interruptible() for up to board->usec_timeout microseconds
+(default 3,000,000 us = 3 seconds) while holding a cached pointer to
+board->private_data on the stack:
 
-> > +             ih =3D skb_header_pointer(skb, no, sizeof(_ih), &_ih);
-> > +             if (!ih)
-> > +                     return false;
-> [ ... ]
-> > +static bool rtase_skb_pad(struct sk_buff *skb)
-> > +{
-> > +     __be16 *dest, _dest;
-> > +     u32 trans_data_len;
-> > +     u32 udp_offset;
-> > +     u16 dest_port;
-> > +     u32 pad_len;
-> > +
-> > +     if (!rtase_get_udp_offset(skb, &udp_offset))
-> > +             return true;
-> > +
-> > +     trans_data_len =3D skb->len - udp_offset;
-> > +     if (trans_data_len < offsetof(struct udphdr, len) ||
-> > +         trans_data_len >=3D RTASE_MIN_PAD_LEN)
-> > +             return true;
->=20
-> [Severity: High]
-> Does this logic inadvertently skip padding for underflowed lengths and ti=
-ny
-> payloads?
->=20
-> If the IP header is malformed such that skb->len < udp_offset, the unsign=
-ed
-> subtraction for trans_data_len will underflow to a large positive value.
-> This causes trans_data_len >=3D RTASE_MIN_PAD_LEN to be true, bypassing t=
-he
-> padding.
->=20
-> Additionally, if the packet has fewer than 4 bytes of UDP payload, meanin=
-g
-> trans_data_len < offsetof(struct udphdr, len), it explicitly returns true=
-.
->=20
-> Since the hardware blindly fetches the UDP destination port at
-> udp_offset + 2 via DMA, won't transmitting these short or malformed packe=
-ts
-> without padding still expose the hardware to out-of-bounds reads?
->=20
+  Thread A (I/O path, holds big_gpib_mutex):
+    cb7210_read()
+      priv = board->private_data        <- cached on stack
+      nec7210_read(board, priv, ...)
+        pio_read()
+          wait_event_interruptible(board->wait, ..., usec_timeout)
+          /* BLOCKS HERE UP TO 3 SECONDS */
+          priv->state ...               <- UAF if detach fires
 
-Thanks for the review.
-=20
-I'll add a check for udp_offset > skb->len before calculating
-trans_data_len to avoid the potential underflow.
-=20
-If the computed UDP offset is beyond the packet length, the packet is
-malformed and cannot be safely handled by this workaround, so it should
-not be transmitted.
-=20
-The out-of-bounds access occurs after the packet has already matched
-the PTP classification criteria (UDP destination port 319/320) and
-enters the hardware PTP parsing path.
-=20
-If the transport data is shorter than the destination port field
-itself, the packet cannot match the affected PTP classification path.
+  Thread B (detach path, no mutex):
+    gpib_unregister_driver()
+      iboffline()
+        board->interface->detach()
+          kfree(board->private_data)    <- frees what A still holds
 
-> > +
-> > +     dest =3D skb_header_pointer(skb,
-> > +                               udp_offset + offsetof(struct udphdr,
-> dest),
-> > +                               sizeof(_dest), &_dest);
-> [ ... ]
-> > @@ -1362,6 +1438,9 @@ static netdev_tx_t rtase_start_xmit(struct sk_buf=
-f
-> *skb,
-> >               opts2 |=3D rtase_tx_csum(skb, dev);
-> >       }
-> >
-> > +     if (!rtase_skb_pad(skb))
-> > +             goto err_dma_0;
-> > +
-> >       frags =3D rtase_xmit_frags(ring, skb, opts1, opts2);
-> >       if (unlikely(frags < 0))
-> >               goto err_dma_0;
->=20
-> [Severity: High]
-> This is a pre-existing issue, but does the err_dma_1 error path in
-> rtase_start_xmit() contain a double free of the skb?
->=20
-> When transmitting a fragmented packet, rtase_xmit_frags() maps the
-> fragments and assigns ring->skbuff[entry] =3D skb for the last fragment
-> descriptor. Back in rtase_start_xmit(), if dma_map_single() fails for the
-> linear part, it jumps to err_dma_1:
->=20
-> err_dma_1:
->         ring->skbuff[entry] =3D NULL;
->         rtase_tx_clear_range(ring, ring->cur_idx + 1, frags);
->=20
-> err_dma_0:
->         tp->stats.tx_dropped++;
->         dev_kfree_skb_any(skb);
->         return NETDEV_TX_OK;
->=20
-> rtase_tx_clear_range() iterates over the mapped fragments and calls
-> dev_kfree_skb_any() when it finds the skb pointer. Execution then falls
-> through to err_dma_0, which unconditionally calls dev_kfree_skb_any(skb) =
-a
-> second time on the same skb pointer.
+The bug is in the core framework (iboffline() in iblib.c), not in any
+individual board driver. The three affected drivers (cb7210, ines_gpib,
+tnt4882) are all vulnerable by the same mechanism because they share
+the nec7210_read()/pio_read() path.
 
-Thanks for pointing this out.
+The iboffline() comment already flagged this gap:
 
-This appears to be a pre-existing issue and is unrelated to the change
-in this patch.
+'XXX need to make sure board is generally not in use (grab board lock?)'
 
-I'll investigate the reported double free scenario further and address
-it separately if a fix is needed.
+Fix by acquiring board->big_gpib_mutex before calling detach() and
+releasing it afterward, serializing teardown against in-flight I/O.
+mutex_lock() (non-interruptible) is used rather than
+mutex_lock_interruptible() because iboffline() is called from module
+unload context where signal delivery is not meaningful.
 
-Thanks,
-Justin
+A prior attempt (Thomas Andreatta, May 2025) used user_mutex +
+use_count to guard iboffline(). That approach was NAK'd: user_mutex
+is not held consistently across ibopen()/ibclose(), making it racy
+(Dan Carpenter), and use_count is never zero for an initialized board
+so the check would always return -EBUSY, preventing any offline
+transition (Dave Penkler). This patch instead serializes on
+big_gpib_mutex, which is exactly the lock the ioctl dispatch path
+uses and is therefore the correct exclusion boundary.
+
+KASAN report (kernel 7.1.0+, QEMU/x86_64, KASLR disabled,
+reproducer: kprobe on read callback + concurrent kfree from detach
+kthread):
+
+  gpib_common: GPIB core driver
+  gpib_race_harness: loading out-of-tree module taints kernel.
+  gpib_race: attach priv=ffff88800331e7e8 canary=0xdeadbeef
+  gpib_race: kprobe on dummy_read installed
+  gpib_race: detach_fn waiting for read_entered
+  gpib_race: reader_fn calling dummy_read
+  gpib_race: kprobe fired -- dummy_read entered
+  gpib_race: dummy_read priv=ffff88800331e7e8 canary=0xdeadbeef
+  gpib_race: detach_fn firing detach on fake_board
+  gpib_race: detach kfree priv=ffff88800331e7e8
+  gpib_race: detach_fn done -- priv is now freed
+  ==================================================================
+  BUG: KASAN: slab-use-after-free in dummy_read+0xb0/0x120 [gpib_race_harness]
+  Read of size 4 at addr ffff88800331e7e8 by task gpib_reader/25
+
+  CPU: 0 UID: 0 PID: 25 Comm: gpib_reader Tainted: G           O        7.1.0+ #26 PREEMPTLAZY
+  Tainted: [O]=OOT_MODULE
+  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x2b/0x40
+   print_report+0x14f/0x4d0
+   ? timer_delete_sync+0x68/0x90
+   ? dummy_disable_eos+0x10/0x10 [gpib_race_harness]
+   kasan_report+0xd4/0x100
+   ? dummy_read+0xb0/0x120 [gpib_race_harness]
+   ? dummy_read+0xb0/0x120 [gpib_race_harness]
+   dummy_read+0xb0/0x120 [gpib_race_harness]
+   reader_fn+0xbf/0xf0 [gpib_race_harness]
+   ? dummy_disable_eos+0x10/0x10 [gpib_race_harness]
+   ? __kthread_parkme+0x56/0x1a0
+   kthread+0x32a/0x470
+   ? kthread_affine_node+0x280/0x280
+   ret_from_fork+0x32d/0x5a0
+   ? exit_thread+0x70/0x70
+   ? __switch_to+0x83f/0xc30
+   ? kthread_affine_node+0x280/0x280
+   ret_from_fork_asm+0x11/0x20
+   </TASK>
+
+  Allocated by task 23:
+   kasan_save_stack+0x2c/0x50
+   kasan_save_track+0x10/0x30
+   __kasan_kmalloc+0x77/0x90
+   dummy_attach+0x39/0x90 [gpib_race_harness]
+   0xffffffffa000d073
+   do_one_initcall+0xb0/0x230
+   do_init_module+0x263/0x810
+   load_module+0x3e12/0x51e0
+   init_module_from_file+0x136/0x150
+   __x64_sys_finit_module+0x39f/0x7a0
+   do_syscall_64+0x56/0x3f0
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+
+  Freed by task 24:
+   kasan_save_stack+0x2c/0x50
+   kasan_save_track+0x10/0x30
+   kasan_save_free_info+0x37/0x50
+   __kasan_slab_free+0x3f/0x60
+   kfree+0xf1/0x390
+   detach_fn+0x105/0x130 [gpib_race_harness]
+   kthread+0x32a/0x470
+   ret_from_fork+0x32d/0x5a0
+   ret_from_fork_asm+0x11/0x20
+
+  The buggy address belongs to the object at ffff88800331e7e8
+   which belongs to the cache kmalloc-8 of size 8
+  The buggy address is located 0 bytes inside of
+   freed 8-byte region [ffff88800331e7e8, ffff88800331e7f0)
+
+  Memory state around the buggy address:
+   ffff88800331e680: fc fc fc fc fc fc fc fc fc 00 fc fc fc fc fc fc
+   ffff88800331e700: fc fc fc fc fc fc fc fc fc fc fc 00 fc fc fc fc
+  >ffff88800331e780: fc fc fc fc fc fc fc fc fc fc fc fc fc fa fc fc
+                                                            ^
+   ffff88800331e800: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+   ffff88800331e880: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+  ==================================================================
+  gpib_race: UAF dereference priv=ffff88800331e7e8 canary=0xdeadbeef
+  gpib_race: reader_fn returned
+
+Note: CVE-2026-31769 (Adam Crosser) fixed a separate UAF between
+IBRD/IBWRT/IBCMD/IBWAIT ioctl handlers and concurrent IBCLOSEDEV
+via descriptor refcounting. This patch addresses an independent race
+between the I/O callback path and iboffline()/detach() teardown,
+which is not covered by that fix.
+
+Fixes: e6ab504633e4 ("staging: gpib: Destage gpib")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
+---
+ drivers/gpib/common/iblib.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/gpib/common/iblib.c b/drivers/gpib/common/iblib.c
+index b672dd6aa..07a30d520 100644
+--- a/drivers/gpib/common/iblib.c
++++ b/drivers/gpib/common/iblib.c
+@@ -256,9 +256,23 @@ int iboffline(struct gpib_board *board)
+ 		board->autospoll_task = NULL;
+ 	}
+ 
++	/*
++	 * Acquire big_gpib_mutex before calling detach() to prevent a
++	 * use-after-free race. I/O callbacks (read/write/command) hold
++	 * big_gpib_mutex while caching board->private_data on their stack.
++	 * Without this lock, iboffline() can kfree(board->private_data)
++	 * inside detach() while an I/O callback is still running and holds
++	 * a stale pointer to the freed memory.
++	 *
++	 * Affected board drivers: cb7210, ines_gpib, tnt4882 (all delegate
++	 * to nec7210_read/pio_read which blocks in wait_event_interruptible
++	 * for up to board->usec_timeout microseconds while holding priv).
++	 */
++	mutex_lock(&board->big_gpib_mutex);
+ 	board->interface->detach(board);
+ 	gpib_deallocate_board(board);
+ 	board->online = 0;
++	mutex_unlock(&board->big_gpib_mutex);
+ 	dev_dbg(board->gpib_dev, "board offline\n");
+ 
+ 	return 0;
+-- 
+2.53.0
+
