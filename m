@@ -1,126 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013055.outbound.protection.outlook.com [40.107.201.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820C83955C9
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 08:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782118710; cv=none; b=Y82DR3XuCqEK1+ZTmzC52YrWIeF0TAw35QequqfK3b9NnuF53wRP7qdZ75rgJsSux9Jj3bbkOFa8ky7+FGzbwBUl1N8MnyRy8Iw1yLk1FS2ZqMMRM9NtQ0pwhyahnrOcktvRnvsaQXG0oXouDlLSzh8r/QLDMMRLGNDUa3UsR1M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782118710; c=relaxed/simple;
-	bh=XWamjMWq4bCiyRmDx5mTxnsTzc8Js/1PI+rWRsrqj/Q=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qAt4+KJ/0IrZuMwYouceWe9cu6A3FNRx4EbZEoiF/yCjMRykH2G8Zodtm2xXx8WHAg3wPe7ZZmv4tclWUgUcsBUS8Bw8psy2eIIzRcOB3nH11Q6c5akusTJgk2E7h29MyhzFuTPxMQbSL9UmTcea3yfwWT7bylVfigDvTRLwn4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sNbGyfkW; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09613955F4;
+	Mon, 22 Jun 2026 09:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782118909; cv=fail; b=jrFzhKixdAmjkroW0sfym0MUDvPTBAz+YekKnyLRiUBZeiHLOwXqLxIhsL+gSqU8a+4poUVc2VjN7oQN0ljkfiXBm94mLhYbmedxmLwYLYYnM0S7M/AeWUfm9fE+fhqQYBqLw4rQbJgCi+p6tAme6fjslapOb4IQ8SKacM64GJk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782118909; c=relaxed/simple;
+	bh=YWO9FCs+3h2mbRpJ5xPaNG5kJCbkZrMSy3zuoq2N2To=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=HGpIfiP/MwMfRylh4AwlD9Af8utD95ht0fUj2H3J5wlvD1vWIUDmV86kNPdl723C90g8Et9oN8fNhH4jTX+4DAyI3WVnxRryPLcRZTwtKnYRmnt7kt+7hDFBochCMw+LXI2g98QcL2ytftK/AhMEi88x+2/8G13bytFkCyhMAHo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=aGMmzOhF; arc=fail smtp.client-ip=40.107.201.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sNbGyfkW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30D01F000E9;
-	Mon, 22 Jun 2026 08:58:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782118709;
-	bh=1MvXxH0uMZnaoKAMqpJmdAieUJ7AvVaXmP4/icb4FvU=;
-	h=Subject:To:Cc:From:Date;
-	b=sNbGyfkW/X2YJNQq/bdE+etaUr12hV/wgP6u7pokPY7ispmwj5qw6H/OBg10vE/p5
-	 tlmshhlp12aGujqFS8UdGlHjJhaLYJT9jaiq/OwIDQnDnZARyPCbpV1Sjp/oAnAFaf
-	 hJcyjPu7jeU3WIRuQ99LNcUwIuPkupXgKZiqCIsI=
-Subject: FAILED: patch "[PATCH] fuse: re-lock request before replacing page cache folio" failed to apply to 5.10-stable tree
-To: joannelkoong@gmail.com,llfamsec@gmail.com,mszeredi@redhat.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 22 Jun 2026 10:58:32 +0200
-Message-ID: <2026062232-saga-pyramid-4c00@gregkh>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="aGMmzOhF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vuMKmqFoRZE5kv4lPvn4vLLjzqI7//wOgcaA4NCQkMh11AXzcCSBVzdrIs67eXSAkU5coLSIs+lNwYnCilKqQ+rl0Q68EgeklcroQTz88M+vOUZvqKQ5w1SEUZAf123tQZ2LGAO5FjMDm3QPVuveUlDMGKfTnnY5rJZRYskvOoCt1MZArWKqdK6gCcYtuJAENEr26pQEKcBiCtsV0NTPFfVcnphDRjA3zSpGgZVGKyJ4do2VjbDLB/VGw5c2mkTBjpVY0FGQxiXNQIUM+8WNdtqKHfx0AblufuLm9E8eYPTmFTFlkfYlqQZ3RasRKLQW97hEKYuXY03ahzmYs2YeqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fM3N+Of2MvR2Qh/K5xlqvmbpI0WS9m9uPHk3xbeAp8w=;
+ b=KhZJSxNQ9Zw08TOCHzVVwDXsl9WrBtwRS6kaD6FSdGNqaHiGIAgwYGCdmqgRUHy6CDhlqPqvu7DQWxvY4T7XAZb65I21+li1zFpuU5B9bGa4FYTJPaCxqIsykEYYXE7eqNRoDCv50Wvo3y6MEyAGVNkZukXPP1nB0LQIRpiA+HHBi6L4k2Y504fadyBYUb0msHN2T4G78Zzt1sVx/tM1MfvwhhGl2Ru2YDlKEFhwr1fqd+q/ZuF/piP1k4u8XcIvtQl4HWbI78CE6Y1v5B8jxRCGXSbzJQzuQNhRktLqQzmD+GSfEdOpFrdOO3eCtC0HtCqwZDG6nu6chMbYdGTH8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fM3N+Of2MvR2Qh/K5xlqvmbpI0WS9m9uPHk3xbeAp8w=;
+ b=aGMmzOhFuAF8RV5XYpF/NILm3KS5/dsiMGe7jXphwLo3eGl1xvld3qdEVciqeoqqHaizrq652qMbYrnXlX3l46AL3oBm036s2VGRUJ0FPwUHGAKVw+6rkHtgWASW6GBWbs24s4Mk6dTnVSUGdOxitwa9zBxpyN/zq65ff/YzV/PdAo6sLfegaXgrv2NOX3u/1NISxhk2wZyaRUXFZ+GAxHUFGtWH6VL56capBBl9MYEUh8SWmhNneUis8qX2gu6VFC8Z8Qsre6yhI63J3ZRKT4YBFuvFRCbhbFMv+Z7/YvVTPXx09oRuWmSrcv0zRdlnY65ap/TDJxwHvBHHJklMEQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW6PR12MB7086.namprd12.prod.outlook.com (2603:10b6:303:238::20)
+ by MN2PR12MB4318.namprd12.prod.outlook.com (2603:10b6:208:1d8::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Mon, 22 Jun
+ 2026 09:01:44 +0000
+Received: from MW6PR12MB7086.namprd12.prod.outlook.com
+ ([fe80::4eb8:7fcb:fe8d:e95e]) by MW6PR12MB7086.namprd12.prod.outlook.com
+ ([fe80::4eb8:7fcb:fe8d:e95e%3]) with mapi id 15.21.0139.011; Mon, 22 Jun 2026
+ 09:01:43 +0000
+Message-ID: <293db0b4-f308-469e-99c1-ef1b57d41451@nvidia.com>
+Date: Mon, 22 Jun 2026 12:01:35 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/mlx5e: Use sender devcom for MPV master-up
+To: Manjunath Patil <manjunath.b.patil@oracle.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Mark Bloch <mbloch@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
+ netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Patrisious Haddad <phaddad@nvidia.com>,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260610173915.4053423-1-manjunath.b.patil@oracle.com>
+Content-Language: en-US
+From: Tariq Toukan <tariqt@nvidia.com>
+In-Reply-To: <20260610173915.4053423-1-manjunath.b.patil@oracle.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0196.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e5::18) To MW6PR12MB7086.namprd12.prod.outlook.com
+ (2603:10b6:303:238::20)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW6PR12MB7086:EE_|MN2PR12MB4318:EE_
+X-MS-Office365-Filtering-Correlation-Id: 285c296c-74c5-40eb-39f3-08ded03ce133
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|7416014|23010399003|1800799024|11063799006|6133799003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	4qlJYGM5iSW/XXLOSeXFjEFeTl0LKRqPYjK4Yo7vY+KcXOwwy0s9/YgW6RgzlgP27egmFejZUxKpKzaIdS4EYHgTX70hUxHZYwe9ScfHHIaE7xCqMTDZ/NOaRrqycJQ48UaqF1lA2+26sAH/L096G1mBA9GuoB6DFIocKE8kfZX8d6/2CzQypGJjpQ7/Uvg7ZlVKDbuHXwTHxtxW13BnpTLEaX5SF5LWmOKC9faKpKCF8Albwml1GTes8uKK9rv/ZkhoinVLwcP/mZLzE1A26+uCVr7r9dc0uYIELIKoV6bHE23Mm6T8KNPLHiqN83LHFv0525ipjCP8UiJlWl07HaTXs94hMRk9vaL5rYAx0XjEsUVb0FroT7tTUEujDhcQwPQi6nhDAYCocCLrcP2VtmkUzudQl96e7DH2+4wL+J6dXXum1UVqVds1eLD/P0xKLVXxkUrEgXbQ5EuMC3cMx5Jxbftkzu4FaOnW24KumiSar452Sfog6Ww0j53KLyPKmkAENI4/S8M2k4rS/rKmdQ8uGPhyybHquNGFzpQ7DwZx32aYYVr38AZ3thbVPRHLGca8DrdhI971+WMl29JiwXaR7x85Ho4JWVUmwI/JIMS9K5A/DJWHBSw0/AP1QCKtVioBFqpmQrKXxBZ6E5UZumvzDhixVKyBuzXx7ni7N8g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW6PR12MB7086.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(23010399003)(1800799024)(11063799006)(6133799003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Sk4wSEZYZ3I5R21VOUNJTEY3SHdkRmV6L2U1QnM2VWk0MFRCUFl5YTZrNnZ5?=
+ =?utf-8?B?cFkvR1ZXY0FkQTBYeGx5L1NFYUpMSHhITEtsWTJKT1BzaW1NRzZDaHlmQUNB?=
+ =?utf-8?B?eHhrWmx6cHp5RU5DNC9oNmpDbVYxL2ZIRE8zZkRXMkQxbEZBT2YrK2lzd1Bh?=
+ =?utf-8?B?RDJ2dVU3cVU5UmJMRVlBTkk2MGZKQzlvU2h2ZXJ0SUowd1FjL0xXaklMM1M0?=
+ =?utf-8?B?NEsvOVI4QVVTVnphc05LMmg1MUpucmU5OUIyWjVvY1U0WWtLOVQvazFEbjg3?=
+ =?utf-8?B?L0FTZGVRdFNFeW5naWlicCtIZWFTZXhtbWpKUWtFby9qZmVPbmp3ZUNzM29Q?=
+ =?utf-8?B?Umwyd2pOTEVyUFZucWlySkFrTHMxNU9RTzdyOEZTR3RjbEE2VXZPUzNJLzVw?=
+ =?utf-8?B?ZlY1RGJ6UFVjZUhWK1V3SUswZFp6N2FDc21yTTNLaXJIRGh3eldXanBGN3lI?=
+ =?utf-8?B?WHFMZURQamFXOXZEVDVQUGRTNDN4RTBocmdoYWR3UHd6b05LZ2pKWGpNTVpq?=
+ =?utf-8?B?Z0x6SnZ6REtrNnpVQ0locTBpUG5xZjlCbUZXT0JmSVlTQjFPdDZUUGl4ZGNK?=
+ =?utf-8?B?VnVDb3pUZUY0clp5dXYwQU1RYkNBL0dDdWxodFBweWZuRThCdlg0a3JMQmRy?=
+ =?utf-8?B?VjVHM3Vld2FsRWQzZEphZU5vZ24zWXEzNVowRzhObWp0OERXcDQ2ZXJMd1RZ?=
+ =?utf-8?B?aUQ1MkZ0SWwwcXBWYjNyQ3Y3UEtKUDlYSDJCRlJic2Z4OFJ1M0Y4M25lMVg5?=
+ =?utf-8?B?TW1waVlkYU9EZ2szKzkxMFNSTCt2U1d0d0VQRkMxWmhiY1NJeXJsK21ROHo0?=
+ =?utf-8?B?K1M5U3pJRXFlVW1FYkNBUVZjT05UOE5IY0JBSmN5aHpwQWZkZk5MNEJSTUtO?=
+ =?utf-8?B?bmV1ekp2N1RkeGVtRFBPMkI5RFBDdk9ST3paTUNPUFVrWHlkSURLUU50c3Zl?=
+ =?utf-8?B?bFl1M2orVEJ6dk8zTTdBaG5WcThnQlQ5RjRoeGd6NWdYbzdOTkF5eW9wWW1G?=
+ =?utf-8?B?N1dKK2llNzYvOUloY2xzb1cvOTZrRkcxOXJ0S3FuWC9EdFM5Qms2dnpZbkk3?=
+ =?utf-8?B?RzNUUUxyR1FKQnQzTE1pL2llOThOWStQVlJtSURjOU15dGhFRmxMaFY3eTdk?=
+ =?utf-8?B?WllKTHAvOVgvYVoySzhHWUs3RDd2bkxncjZVNHpvbklUbVpxNWc2M1AzSDlO?=
+ =?utf-8?B?d3dOYUlLN0QyS1cxazY5d2ZIaDZPUUY4NnNTVmJyMm5VWVpyT0RwZkZmdVNX?=
+ =?utf-8?B?R2dDVDBDZDJGc25jaEE1WFhaM01IRjA5UHoyaFhveUJEUHdrYnFnWERtZzBv?=
+ =?utf-8?B?TkwxVFNuVkdlak1ORzdwU25YZnRzQ1UyUzF2c0Q3WXoxMjc5Rng1Z2lWY1FW?=
+ =?utf-8?B?SEZBWHBGelBqRjJlemtEYW9GM1ZlR3pZeGNLVXhPeC96L2g0dVh1TzVPSWRo?=
+ =?utf-8?B?aCtQSzlhMTNOclJ5eXRWSjBiYTFESVltWHhWTkRyQlF3K2hUU2pKK05leEhT?=
+ =?utf-8?B?dUlnQnhCRWFBZlFFWmpLcWZSeU5yQ2IrWUlGRUh6MnM3QmxSMTBkSHNYU01s?=
+ =?utf-8?B?MHgxNGVDbjZCdFFFaUFEV1poMnVmcU0wdmZxQUhBZHR6dTNWSnliMXRPK00y?=
+ =?utf-8?B?L1FzYVJIN09GQzFzQnMwVW4zNVJMa3dWbDhCc29MWHRzRXE5QnptNE96NUlK?=
+ =?utf-8?B?N0tCUTFqOGdXa1JvZkc5akJWOERoOG02VTM3c01SQlFPRXhuOWhNazNTUTZ6?=
+ =?utf-8?B?dm02elp6QTFnNXhIbGtMQ2dscnVFK1Q1VjA2Znp0cjNTYjZNd3MyMHlxZG1n?=
+ =?utf-8?B?S3pPbXptcnZscERhYlRaK3hyTDl1Q01yajdBb1RVcUZqTWYydzlrS3hRN3VS?=
+ =?utf-8?B?dzhscis3NmdLZlEwVXVJSFJPYkhLVFVTME85NWhMSjZQMWZ6cWg0VWpRaC9u?=
+ =?utf-8?B?UGFiNjh5dW42N1FTNDdGNlkybkpuWXlVbzM5d1pZUm8yQzZHVzMvUkhjRTFX?=
+ =?utf-8?B?WThGQjQ5MFBIU0lrVGFGdDdkTEFJOUZRWlFnUnBZNkhNWHJiejJYYjRSeUJm?=
+ =?utf-8?B?Y1JHTDZzak5HK2JnVHp3azZZQ1BkNjFQTXQ5OWJiV0hHTUg1eThDM1NuZFgw?=
+ =?utf-8?B?SExPRlpsV25tZG8wVFVwUFl1c1FDSko4aEJqUk1iZlplUmNOR2N3OWhHZXpp?=
+ =?utf-8?B?ckphQkRCOVZKNURSRXFHRVBWM1RGRTJHVGNSSUdmQ09PV0x5d3EwZFJFS2ZC?=
+ =?utf-8?B?U0dicWlscXk5SHBGR0hDZ1ZYNE5tV1VIUzI1d2VzS2oyRmlwOTRFbVQya0pO?=
+ =?utf-8?B?NFpGMm83MUI3YWRaMWl0bTNkRWlVb0xrSTNJSFhOa1Y0bjF3dVVFUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 285c296c-74c5-40eb-39f3-08ded03ce133
+X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB7086.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 09:01:43.0499
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Dg8K0Zv/zfVOQHjGpnybB+QtR2HtZ+AdWwBKgcdspiD0NzQV8VIhS3xANIjDlkdE7xEWqotzMk6Ys1/lM1y0ZA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4318
 
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+On 10/06/2026 20:39, Manjunath Patil wrote:
+> After PCIe DPC recovery, mlx5 reloads the affected functions and
+> replays multiport affiliation events. In the reported failure, the
+> first relevant device error was:
+> 
+>    pcieport 0000:10:01.1: DPC: containment event
+>    pcieport 0000:10:01.1: PCIe Bus Error: severity=Uncorrected (Fatal)
+>    pcieport 0000:10:01.1:    [ 5] SDES                   (First)
+> 
+> mlx5 recovered the PCI functions and resumed 0000:11:00.1. During
+> that resume, RDMA multiport binding replayed
+> MLX5_DRIVER_EVENT_AFFILIATION_DONE and mlx5e sent
+> MPV_DEVCOM_MASTER_UP. The host then panicked with:
+> 
+>    BUG: kernel NULL pointer dereference, address: 0000000000000010
+>    RIP: mlx5_devcom_comp_set_ready+0x5/0x40 [mlx5_core]
+>    RDI: 0000000000000000
+> 
+> Call trace included:
+> 
+>    mlx5_devcom_comp_set_ready
+>    mlx5e_devcom_event_mpv
+>    mlx5_devcom_send_event
+>    mlx5_ib_bind_slave_port
+>    mlx5r_mp_probe
+>    mlx5_pci_resume
+> 
+> MPV devcom registration publishes mlx5e private data to the component
+> peer list before mlx5e_devcom_init_mpv() stores the returned component
+> device in priv->devcom. A concurrent master-up event can therefore
+> reach a peer whose private data is visible but whose priv->devcom
+> backpointer is still NULL.
+> 
+> MPV_DEVCOM_MASTER_UP already carries the sender/master mlx5e private
+> data as event_data. The ready bit is stored on the shared devcom
+> component, not on an individual peer. Use the sender devcom when
+> marking the MPV component ready.
+> 
+> This preserves the readiness transition while avoiding a NULL
+> dereference of the peer devcom pointer during affiliation replay after
+> PCI error recovery.
+> 
+> Fixes: bf11485f8419 ("net/mlx5: Register mlx5e priv to devcom in MPV mode")
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Manjunath Patil <manjunath.b.patil@oracle.com>
+> Cc: stable@vger.kernel.org # 6.7+
+> ---
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x a078484921052d0badd827fcc2770b5cfc1d4120
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026062232-saga-pyramid-4c00@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Thanks for your patch and sorry for the late response.
 
-Possible dependencies:
+>   drivers/net/ethernet/mellanox/mlx5/core/en_main.c | 7 +++++--
+>   1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+> index 8f2b3abe0092..f7ff20b97e8c 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+> @@ -211,11 +211,14 @@ static void mlx5e_disable_async_events(struct mlx5e_priv *priv)
+>   
+>   static int mlx5e_devcom_event_mpv(int event, void *my_data, void *event_data)
+>   {
+> -	struct mlx5e_priv *slave_priv = my_data;
+> +	struct mlx5e_priv *master_priv = event_data;
+>   
 
+makes sense.
 
+>   	switch (event) {
+>   	case MPV_DEVCOM_MASTER_UP:
+> -		mlx5_devcom_comp_set_ready(slave_priv->devcom, true);
+> +		if (!master_priv || !master_priv->devcom)
+> +			return -EINVAL;
 
-thanks,
+is this currently possible? or just being defensive?
+if this return is unreachable I'd drop it.
 
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From a078484921052d0badd827fcc2770b5cfc1d4120 Mon Sep 17 00:00:00 2001
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Mon, 18 May 2026 22:28:06 -0700
-Subject: [PATCH] fuse: re-lock request before replacing page cache folio
-
-fuse_try_move_folio() unlocks the request on entry but does not
-re-lock it on the success path. This means fuse_chan_abort() can end the
-request and free the fuse_io_args (eg fuse_readpages_end()) while the
-subsequent copy chain logic after fuse_try_move_folio() accesses the
-fuse_io_args, leading to use-after-free issues.
-
-Fix this by calling lock_request() before replace_page_cache_folio().
-This ensures the request is locked on the success path which will
-prevent the fuse_io_args from being freed while the later copying logic
-runs, and also ensures that the ap->folios[i]->mapping is never null
-since ap->folios[i] will always point to the newfolio after
-replace_page_cache_folio().
-
-Fixes: ce534fb05292 ("fuse: allow splice to move pages")
-Cc: stable@vger.kernel.org
-Reported-by: Lei Lu <llfamsec@gmail.com>
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-
-diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 05b6d15afe61..86b62a1d3746 100644
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -1037,6 +1037,10 @@ static int fuse_try_move_folio(struct fuse_copy_state *cs, struct folio **foliop
- 	if (WARN_ON(folio_test_mlocked(oldfolio)))
- 		goto out_fallback_unlock;
- 
-+	err = lock_request(cs->req);
-+	if (err)
-+		goto out_fallback_unlock;
-+
- 	replace_page_cache_folio(oldfolio, newfolio);
- 
- 	folio_get(newfolio);
-@@ -1050,20 +1054,7 @@ static int fuse_try_move_folio(struct fuse_copy_state *cs, struct folio **foliop
- 	 */
- 	pipe_buf_release(cs->pipe, buf);
- 
--	err = 0;
--	spin_lock(&cs->req->waitq.lock);
--	if (test_bit(FR_ABORTED, &cs->req->flags))
--		err = -ENOENT;
--	else
--		*foliop = newfolio;
--	spin_unlock(&cs->req->waitq.lock);
--
--	if (err) {
--		folio_unlock(newfolio);
--		folio_put(newfolio);
--		goto out_put_old;
--	}
--
-+	*foliop = newfolio;
- 	folio_unlock(oldfolio);
- 	/* Drop ref for ap->pages[] array */
- 	folio_put(oldfolio);
+> +
+> +		mlx5_devcom_comp_set_ready(master_priv->devcom, true);
+>   		break;
+>   	case MPV_DEVCOM_MASTER_DOWN:
+>   		/* no need for comp set ready false since we unregister after
 
