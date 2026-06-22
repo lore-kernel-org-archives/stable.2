@@ -1,84 +1,95 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3537B361675;
-	Mon, 22 Jun 2026 07:59:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE08436EAA6;
+	Mon, 22 Jun 2026 08:02:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782115196; cv=none; b=CrQzYctDzrVNcOkWXjFrmgydp7+Yo4Id4eqDtQefs4D5vXDf0x7GVUILGwvWlUkEx94njY9Q+7PEb7Du61AN5rjw2mAAGpkRcI46Hr+h71EkF+sqvDeU82LT0NevtCsvh2d2quabQfU2oe/P6CbWlAPdvD6HYoaoas3Zy8pa0TE=
+	t=1782115323; cv=none; b=b413aUKD4QuGoRadXWO1lXywPvERS4N1XjKSLczXBi6NvcpuZY/5L4SPUP5WkaLi8bBgVJMTSLibvWsoOyCJV54Crhe2JLdCXpCZslyrD+JYHB/49+ANZ79wfiMorxCeSVqvIYeX3SfTxQnX9brNw2Hjoop/HZtJAoWhKdauiU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782115196; c=relaxed/simple;
-	bh=qyBaaWnYRbK7XCAbAJbWuep5cFL9E/JUZL/x+Cq/CYo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=g8J1oS0Lt7aJz/4Dirv89V0Dlu5GRzMGmOUAZG4WFCqKsjQbxD33IwskofsNqpsT6dxDkK+N3E7pHtFzkbPZTkC7POGgmL900stt4PEqpuFWHCvU3ksrkjPzdmUaws2b/dzh7xn1haQJTIu3eJ7KxgaVc2MYegQK0a77eFlurBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eMhbPW4A; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1782115323; c=relaxed/simple;
+	bh=9YcSQDgiIdeeJ5Q6A5OyXgluQjm6S2yxNJeBrtelcm4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vDr3IEms3rgX5Oqg72q2Gf9cOWBXcn2e8AH0fjjOa6CdNbDl6WVmfOIC3kvu0U8ay1s52RysciI+FEukg79Kj1AKQZBCrgtMrGnti/o6uWCWcAei5BQNtglO0HG/ZMgEo42AWGIpO3XjeKzouUYmBaHXM5yhbpbtDybm1j1nZ64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=okk9t4Df; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eMhbPW4A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ws
-	C9plxLC49dLoH7qzqis/G3QGv01+Xrfj7bJMYdBtE=; b=eMhbPW4A+xpCxezzUb
-	p6ljtzbsufNBos05mhI+GMooS5VAAhvcSSUFadlUkiBynfiv0VnjrpK7Tn6kTPLv
-	qx0P0ckt66X/RXdHE0KCxW2oVGZf6ELA9RcA39pefdqSvQsVuieig0BgCD/HvbQR
-	19BfYNXvrMbSdPiCnBucelB5E=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnNwU16zhqBIo_FA--.7653S2;
-	Mon, 22 Jun 2026 15:58:47 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: ram.vegesna@broadcom.com,
-	James.Bottomley@HansenPartnership.com,
-	martin.petersen@oracle.com,
-	dwagner@suse.de,
-	jsmart2021@gmail.com,
-	hare@suse.de
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: elx: efct: Fix IO leak on unsupported additional CDB
-Date: Mon, 22 Jun 2026 15:58:44 +0800
-Message-Id: <20260622075844.832871-1-haoxiang_li2024@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="okk9t4Df"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=aTh+kVZB6+gAPWFNfzyuI+EJqNKK1a/lt3CUQPy9Nng=; b=ok
+	k9t4DfJzBHbCvaiZX0urkEZrmrub1EWvQw35Zan6erjLzqSodanFfjZ5MXgaOmCsc2CTj1I/Dcr5H
+	GAW10W6sucnnIKyCYZ3JsqrI/gsiJjwacrsi1y7BK3E6rfRM1q7TaJpIIu73fF1NvQtusGxiB3HSW
+	LzPvMlnDd4l/TRE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wbZbI-008nRY-9V; Mon, 22 Jun 2026 10:01:48 +0200
+Date: Mon, 22 Jun 2026 10:01:48 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Pavan Chebbi <pavan.chebbi@broadcom.com>
+Cc: Haoxiang Li <haoxiang_li2024@163.com>, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] net: meth: check skb allocation in meth_init_rx_ring()
+Message-ID: <d4b8eedd-5be4-46a8-a887-a06f80f1a293@lunn.ch>
+References: <20260622044914.664749-1-haoxiang_li2024@163.com>
+ <CALs4sv2dr2QsFU_DUDNAMgr4MDxHcRrHqer+Kdm7dP+4TUT0eg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnNwU16zhqBIo_FA--.7653S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7GF17ZF4fur4rtr18tr4xJFb_yoWDCrg_ur
-	4rXryfZrnYkF1kGF4rtF4fZayaka1Duwn7ZF1Fg34Fgr47ZrWUCw1DArZag3yUJrZ2yFZ5
-	Ww17ZFWUCr17ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRRPfHUUUUUU==
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7hewH2o46zdBawAA3y
+In-Reply-To: <CALs4sv2dr2QsFU_DUDNAMgr4MDxHcRrHqer+Kdm7dP+4TUT0eg@mail.gmail.com>
 
-efct_dispatch_fcp_cmd() allocates an efct_io before dispatching an
-unsolicited FCP command. If the command has an unsupported additional
-CDB, the function returns -EIO before handing the IO to the SCSI layer.
+On Mon, Jun 22, 2026 at 11:27:41AM +0530, Pavan Chebbi wrote:
+> On Mon, Jun 22, 2026 at 10:20 AM Haoxiang Li <haoxiang_li2024@163.com> wrote:
+> >
+> > meth_init_rx_ring() does not check the return value of alloc_skb().
+> > If the allocation fails, the NULL skb is passed to skb_reserve() and
+> > then dereferenced through skb->head.
+> >
+> > Add check for alloc_skb() to prevent potential null pointer dereference.
+> >
+> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+> > ---
+> >  drivers/net/ethernet/sgi/meth.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >
+> > diff --git a/drivers/net/ethernet/sgi/meth.c b/drivers/net/ethernet/sgi/meth.c
+> > index f7c3a5a766b7..ceff3cc937ad 100644
+> > --- a/drivers/net/ethernet/sgi/meth.c
+> > +++ b/drivers/net/ethernet/sgi/meth.c
+> > @@ -228,6 +228,9 @@ static int meth_init_rx_ring(struct meth_private *priv)
+> >
+> >         for (i = 0; i < RX_RING_ENTRIES; i++) {
+> >                 priv->rx_skbs[i] = alloc_skb(METH_RX_BUFF_SIZE, 0);
+> > +               if (!priv->rx_skbs[i])
+> > +                       return -ENOMEM;
+> > +
+> 
+> I think the fix is not complete. The caller meth_open() will not free
+> any successfully allocated skbs if the function ever returns -ENOMEM.
 
-Free the allocated IO before returning from this error path.
+There is also the question, does anybody care? Are SGI machines still
+used? This is a Fast Ethernet driver, written in 2003. It has no
+Maintainer. Maybe it would be better to just remove the driver?
 
-Fixes: f45ae6aac0a0 ("scsi: elx: efct: Unsolicited FC frame processing routines")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+At least drop the Fixes: tag, it does not fit the Stable rules.
+
+https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+
+    Andrew
+
 ---
- drivers/scsi/elx/efct/efct_unsol.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/scsi/elx/efct/efct_unsol.c b/drivers/scsi/elx/efct/efct_unsol.c
-index e6addab66a60..6a871a59c909 100644
---- a/drivers/scsi/elx/efct/efct_unsol.c
-+++ b/drivers/scsi/elx/efct/efct_unsol.c
-@@ -385,6 +385,7 @@ efct_dispatch_fcp_cmd(struct efct_node *node, struct efc_hw_sequence *seq)
- 
- 		if (cmnd->fc_flags & FCP_CFL_LEN_MASK) {
- 			efc_log_err(efct, "Additional CDB not supported\n");
-+			efct_scsi_io_free(io);
- 			return -EIO;
- 		}
- 		/*
--- 
-2.25.1
-
+pw-bot: cr
