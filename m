@@ -1,191 +1,218 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6596E3AE185
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 13:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425FD3B27EE
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 13:18:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782134292; cv=none; b=BrkeBFZRg5387ASKC6kCJo4gZmBaOUQXxR91OVcai4a09dkP7atdTX6lMpxHeE8JnTInI7cH6Jk1XS9mOeF2MIXP9kH3cSdd6py/s4pDvOvNRkfBuBrnIILbrJtqcsUuQi7itVJs8EGEBjk+sVjJJADMIAPDYkxVywDHcqCM1NU=
+	t=1782134313; cv=none; b=P5P8WVEolHDemOUkwbd5J9Ij2Fyvy6uqkjJrWt7Y0mvasoqrgSxocMCeBvJDOc1EaBcbNux39SbfWl0Yk5ZIuWp9iesj3xrr+dB4z88D8mYqgVuLciy96AsUrQX4nE41v61ilwKRcnmeNw1IacO12MWNIRFIXUq53nKP8NZHVws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782134292; c=relaxed/simple;
-	bh=yyw0nMtUQFYySF+Vo3tr4O3uzZRBP38LtrsViqoS/Xk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=becMBH6Sozlb5MnBTo2fsiXyKaB9q2b/RKu0EsssRSKIVsEhprDHDMH0v3EDhxVClKzCwGClyIq0L/W5R26BknK2NX/Ym8KIroZx5YxMQpKewDFryeV0HLTsU/ZMFtzKahkD86oo74/+e2zRXfpQLKFCaSXjLteCOZSIRybx13Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T29KCQpC; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782134313; c=relaxed/simple;
+	bh=Gsf5Y/HDxD+V6bLXZ6WcyrJ5nX++1Wb9U6zu3HGNCFQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eMl1vQ2wiIfp1chfhOi0rdHEN+ZYOFNmcJR9OeUIboyee9pEw1q3HCqjWPqpONOTqpb2pf7hN1o9gmuR73Hj28NLORWXb7uWk0dI812A/AbGapaym5qHaNnFk3zP9Fnkcuw+pZOldBRi2s1S/otH+at2InGFovI0joNRIJx0LvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aLepsZvu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GgIZMzTv; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T29KCQpC"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c07fd4dc2c8so457291066b.1
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 06:18:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aLepsZvu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GgIZMzTv"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65MDGD6d1283778
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 13:18:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Qc6SkApcoToxsNsU0a9mCd
+	0fcsW+qqqlVPg7o+a1dtI=; b=aLepsZvu21Jx61Ayo/PC3hL9A8Rx/VmuMPhwig
+	imm7KpaSGyrujoVKkiYsXGGv75cEir0Y9EnCDf0FDKX94K8+K78v7+WWQd4iIHtS
+	IvPYhR/mYDEEK9MwtVP+XrTZgcUKPKTqF7xeZTvvEDc4SVPKzXWDqnDgKqBrOuWq
+	9bOM17dNldnc7wvKI+sjIlLkhwROmiiqxIJ8VqPI6h7BbybrkfzGzKJZQvjUqwDD
+	xJ3lorpdXCe+8i7vLud7wNpUxQHFR2Ea8/blWAKFm7wZTNfFbbxEWcSxjUHqAD7g
+	7IbQKVlRglVCXmvK1b0av5t2SGMR+aynpGvil83M8oeRJAsw==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ey5n401ad-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 13:18:31 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-9646997241cso1323490241.3
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 06:18:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782134290; x=1782739090; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=64GS0cV1F3q6Azsz5ClQ2jQ7hHXoaFyqY/ADvWBZ5O8=;
-        b=T29KCQpC83FMWIUMXtVjT7ip3KbjcDOwIVyOIrMEOwMoPZt2iD38tI9zYhfnNFrKcN
-         els/EjHrO9ufU+9dzWhXbvNB/CeuNmmjVzqeL8mWc5rC7cMoL1zQB+tYZmJhzkcQgxGn
-         jdH8hO/8OQO7/FzJV4rV2ySzHhDXUGQ8TQJz5LHgY85yNUNq8UjJsEUnEi5WUMMf3WZs
-         WZXFFjzW9fZaKi3Nu4OfejxoV/d0aO4dHwvRskXEx5Z3Ca+lIhLIF9AQtDhXedSk3h2k
-         9DJVJPbnUxdwUUxjPlgR62k04mHHegXtLpIwqlu7srNmfVudDCzj+SPXzH8bec3NrDUP
-         g/gQ==
+        d=oss.qualcomm.com; s=google; t=1782134310; x=1782739110; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Qc6SkApcoToxsNsU0a9mCd0fcsW+qqqlVPg7o+a1dtI=;
+        b=GgIZMzTvPh4eL5X++K4WLeOZ46ohdEKQOiDRC/OgCL7gv6aqdhw3bakiZYpH7apNCv
+         bgzRKFoZDQXRhxqt25hih5qethczirtS7I+RBlgNq/vDx6Duj/QoYdjO+rrM8TJ5qwV4
+         xehhp9Bu8Cr+oFGnBDksn5bo+WVe62Dt2NpbevmULarmYf3nvJKG1h+KNRMsFQVkhZ0V
+         Epmsq3MtTQv8RtskhEBQzM3bujGvRUdhQNTu0c9QS2I4qHFfwS9eRDfA82wLRYZHumY9
+         E0vVxASEHJhaIYphR6aYtboZGFGI4aUkbSCbUGjjv+WJJ4kukL4n4KXXRa8RLMHstd3Y
+         HT3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782134290; x=1782739090;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1782134310; x=1782739110;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=64GS0cV1F3q6Azsz5ClQ2jQ7hHXoaFyqY/ADvWBZ5O8=;
-        b=kDTe6OYo1M62nS/KQ1X0T2G+GZT6KQUw35bK+ohREht+xSBmviXtlDYoIxRgTgObtt
-         VhuznRBViMQc3uzIqWRpCkEizFX0JhsPa1KDpZCrh8T+0dkZjvaWbG+huCK9k9/Lq3t8
-         6EfZvTx/uM37VdPoOT5OPH7Vhgo7n8xKNwndDix9DE9uZvO1jdniZZ+aaLKey/n9Tksn
-         oKx3W90LJmTsAdv9JwxyGME3uaVuLmPUS6yLXf9eM3yFpTF7n9vHE4fj68ACtRi/neQq
-         /6pp/dGJvLXgXurJki0Yd2uiuJZFUQnoU25B75o1r4l1p2+VRx6YC8G4GlbcOaCjnt5T
-         e0Tw==
-X-Forwarded-Encrypted: i=1; AFNElJ/jXhTpCi+d5zFotVoPCh+nusa+DNVcdgMeN3xNMVdGEn7pVqOzJ48N+sYd4w2Z7NXr4AasNKU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx47DW0BxGD2ULEVyjs0TY3bN5lVcLwqcYOSKIr9blrDJTPmTMi
-	dC884SS/22L7AfHy+SndJ2Ss+sf+DzCjQgD5JY6BLEtsb2Cc3T1ibH5y
-X-Gm-Gg: AfdE7clIZWuVJ5+2ZWuKZ4Z5Vu6wDW9NgRveTkWL/hBjCnGrWFKE1qDOPLQjUEDI6jA
-	EYIp2+V3M5VzHzep0fNLQjmjkeOCeYzjhjjFKv8+MYXWUfTH6/3NvQQ0z7/7ncD0hA1aHFZGBTz
-	/zwZ99mDny58P6kFifD5GvaNVVuU80vWB4QP+n5WMsfnLbRAdP5W+blinK/iDP/w65Thk177rZa
-	8ZeMlgKle3IE35MTrZdhsR8+loDnDH5eSnElqEV6OWFF8a6FKni8pyZPsGEsi52HjXCLNxqt0eg
-	fFFn1FcfSeGkHAeLE0e2qdOP264sFLlDfMu8CsKTnNHu12WLcRonG5F2NRapIloxoUXyZDLb4Rv
-	9bRy6ncIw74DR48utyzU059GygM2deHlQp+WiS7z5B8RQPzNXPgDX1sf+jF/6yclgd9v32Odx1M
-	UoO5uB6M8OcrYG024caLbeDTzvcrh2sCdM3UPQ7lxb+/upCYrFGYgKAIli8C4=
-X-Received: by 2002:a17:907:3e9a:b0:c0f:cbe8:7830 with SMTP id a640c23a62f3a-c0fcbe8976dmr71683266b.38.1782134288453;
-        Mon, 22 Jun 2026 06:18:08 -0700 (PDT)
-Received: from node ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c5e99b968sm356605966b.24.2026.06.22.06.18.04
+        bh=Qc6SkApcoToxsNsU0a9mCd0fcsW+qqqlVPg7o+a1dtI=;
+        b=Phsfi8cfTdRxYkFPIDRWR94REBQwDG6ll4jVzU6edSkE4hiI31FZmNEyGtBdy/II4c
+         K/V5XYQo4rtqCp8EfGgPEYWek2Zt9rz8t6xy4e/CQzwZidQ12TZrTL+KdT02+U7rkg7R
+         I0k2VoCa36GOYL80OgY96M7XDhipV7l6ISreDCjpDj4hAQGlvFXxqvEG8u9DmaLiDIiu
+         teV/GMWpsfsukihPb9vt24Sz1EQjM0DeFRDj02jky8Uq1Z6HA1ZSQmiuYgMA85L/Ig1/
+         EMXAVejK8vSq/yXycxk+K3jSFovO557hw6vuJphvz+mCan88i+q5XFHVCBNu1PXLW8II
+         hmcA==
+X-Forwarded-Encrypted: i=1; AFNElJ/5T3butQN683KMM/SttJaqVCnCurpUOsClaLB+23cThYyuc1Me1Zxpw/ZMjenm7nWmXkJNqrE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWR/WIchmpaDQu8U8OT/a4r8tCyGrFcpIC8kCYNKrYo3uPRTZx
+	7xHKdkuh75qqUUAI+j7+9SmTDblhYCWJweI16FfzcP3E+YxDnqS0Zr3mdXMxkn+zBbWfibqN2y3
+	XPfRSp9GjE1/p+c7ic5C/iAXmeEM0Iulf3aGQ9g/cueCM0vmTT9zjXqVUA2DSwkOp7xmE9Q==
+X-Gm-Gg: AfdE7cnYy9Es5OPdODDqoCBTm0w338x5qsMOQ3T33s8szfrkuLwugilq7sp8ljPrJlq
+	a3YoGm3a/0SbeQjyDDqlfYuUBXEheogiqV0gcDza9I3sKA/WVneLw3sE7thRcLDyYekma91AKFl
+	EAZFHdV/aUvtDcyuzmFyTWqdJne25UnS97VbSCpXXhQ9yCC/9WgT6uc26AovlYLS5ZdDFiJCWZa
+	g5876j1/K4KubSHH2lJ4tolh9oChy4sglLcx47LIm/IWTTeWEVtWkWn9H6va8yzQyZMD//LnIlN
+	wOrSDqzJ8hpnENdkluZmfIUuTx6AmxR7zqSDPldzxzLDAjY6La7XFRolqehonW7wQduvvItdMUq
+	QDg6XhRCgowyLPD/4YIfEb3srvcQYJUg1fB/SbcDi
+X-Received: by 2002:a05:6102:1613:b0:726:7bda:b8c8 with SMTP id ada2fe7eead31-72b64946dfcmr5164995137.5.1782134310346;
+        Mon, 22 Jun 2026 06:18:30 -0700 (PDT)
+X-Received: by 2002:a05:6102:1613:b0:726:7bda:b8c8 with SMTP id ada2fe7eead31-72b64946dfcmr5164936137.5.1782134309887;
+        Mon, 22 Jun 2026 06:18:29 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:dea2:c31b:2872:1bd1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fd30078sm294083835e9.7.2026.06.22.06.18.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 06:18:07 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: David Heidelberg <david@ixit.cz>,
-	netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	krzk@kernel.org,
-	oe-linux-nfc@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] nfc: llcp: fix OOB read and u8 offset wrap in TLV parsers
-Date: Mon, 22 Jun 2026 18:18:02 +0500
-Message-ID: <20260622131802.239035-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        Mon, 22 Jun 2026 06:18:29 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v4 0/8] crypto: qce - Fix crypto self-test failures
+Date: Mon, 22 Jun 2026 15:18:08 +0200
+Message-Id: <20260622-qce-fix-self-tests-v4-0-4f82ffa716c6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABA2OWoC/23NwQrCMAwG4FeRnu1os24yT76HeKht6grb6ppZl
+ LF3txsIHnYJ/OHPl5kRRo/EzoeZRUyefBhyUMcDM60eHsi9zZmBgFrUUvDRIHf+zQk7xyekibh
+ qwDkL6JqqYvnwGTE3NvR6y7n1NIX42X4kWLc/rtrjEnDBrWmkdFJrq+ASiIrxpTsT+r7Ig61qK
+ v+l065UZgmNgbuyaI2zO9KyLF/NyiF1BQEAAA==
+X-Change-ID: 20260610-qce-fix-self-tests-492ffd2ef955
+To: Thara Gopinath <thara.gopinath@gmail.com>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>,
+        Stanimir Varbanov <svarbanov@mm-sol.com>,
+        Eneas U de Queiroz <cotequeiroz@gmail.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Eric Biggers <ebiggers@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, brgl@kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2663;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=Gsf5Y/HDxD+V6bLXZ6WcyrJ5nX++1Wb9U6zu3HGNCFQ=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqOTYWxmLJ8XGOenZWKbYM/FLlqwhiNh503J6QU
+ HfbiysR0O+JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCajk2FgAKCRAFnS7L/zaE
+ wyo9D/9bZjRyjMnhp5BiyHYsVTqsuqPXoUoD3C4GcPF40LXRB13QhT1/hxqkWPK2BvzAzli3Yj+
+ ulHyNoN80/bEAGFSHuq08MTrBhRWHgS77OgguSBpyvhaDqphdyKOeZwPFyCFT5Bq5uwks5Zh7UD
+ O6pyfBJvYak/5kX2aBEKlBjkIfaPEOyf2Dd5bg0s8PpLVatKfmGUhb2111A4JYbQn8wrv9tSJTt
+ zuLSG8l1oMeois+zZF681ebU7TB3E5cpJ5FIknmwyAEOIrZKr/xQLwvQ35TA6tDHuLe1xITcvUT
+ cIlYatk/qAyLt1GzMLhzOIj1AUIJjC55cHjSq7kvicxDuz8JoAnSlkd4U4pXAD+atIlzlV/W1c+
+ a4nLoMoDfwtSZYkh6MEagmTHPORYUiZPBWzb8lJCWSR6zrMFUNwtE9VPxcl37oFxfRRgTCYWXkA
+ 5Gr2wiWSBkvle/0UxIatsr3cHIm5UTi526ndXcofU1uFXFW4h6AtuAk/6GNmQsQCzU8ByNGZqV3
+ K1NCFPl3GQaLHGp/0/qYObZQIDCJ4euVhc2QAAu3WfAQQzFRo1P0juzM6fgT8j9f7QqfJF47hyp
+ E1UTwVzb+quVJIcynuJlrEKzbzW4UmXDCisOCc+q7AN0qJl/uJsyvQOV4rT8QKE/p5tlYY8PQKC
+ UA59F5Pch+4wRsg==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDEzMSBTYWx0ZWRfX8MClOkI981m3
+ tMkILJ8Qa+0H/H7XntD2V8gYFYDWkZKzN8gTjHAQ0GSkCuoO3t6mdr+22xKS/dmpcl/ho+9OT/m
+ f4q2sjO5dYcBIhERkkSOjaJhier12cU=
+X-Authority-Analysis: v=2.4 cv=R8Uz39RX c=1 sm=1 tr=0 ts=6a393627 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=5rERACauPDyaBIpbJ_EA:9 a=QEXdDO2ut3YA:10
+ a=TOPH6uDL9cOC6tEoww4z:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: UaVeD4-EXHZ0S-tMc7mDsYDYK8xrHEHs
+X-Proofpoint-GUID: UaVeD4-EXHZ0S-tMc7mDsYDYK8xrHEHs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDEzMSBTYWx0ZWRfX9RcA9rgu0LY7
+ IYRDZ9zOlTJ6q3kXZqmJZwojh3tck7SLnL2r/bMsulSwAdzm0YMsjom9v9fka9VbgFi9muqKh/i
+ CSOyAcodaJUzoczK9/FjZb1ECdwOcIa8jvlLctbi1mVa6d8awLII0V2eUpq+sFUG4sGNWgiD8f9
+ e57HxYx1C35Hder7vc5u4BuRPbvavTYj7edOCBTHrEl+u12uqgvTgZYFUphD3TcQej/BHzzyTfr
+ i3+2ETEyLj1trQJqQuVPY0aba9KRmwImmN+rQUeUVnp0X5B07gIYzjLtEkH6BjKCIOJG0/23eCO
+ oKXgKgGwqh4QNiKHVeE2V50C4wLSe8Blqp/qOllB3h53RpHMCnmg5zkLfxFkIC3Vy/QA70uNLzM
+ mhEi8eqJHIY1PPqkY388NrU5YZrXrQYgpCV3XSkpgDP000reaH2iQWxbwrGElifPebtmYMIRgah
+ 345cpoS6ze+NBnLZd2Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-22_02,2026-06-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606220131
 
-nfc_llcp_parse_gb_tlv() and nfc_llcp_parse_connection_tlv() contain
-three related bugs in their TLV parsing loops:
+This extends the initial submission from Kuldeep.
 
-1. 'offset' is declared u8 but tlv_array_len is u16. When TLV data
-   advances offset past 255 it silently wraps to zero, causing
-   infinite loops or double-processing of buffer data.
+The QCE hardware crypto engine has several limitations that cause it to
+produce incorrect results or stall on certain inputs. This series fixes
+several bugs and adds workaround allowing the deiver to pass crypto
+self-tests.
 
-2. Before reading tlv[0] (type) and tlv[1] (length) there is no
-   check that offset+2 <= tlv_array_len. A truncated TLV causes
-   an OOB read of one byte past the buffer end.
+The failures addressed are:
 
-3. After reading the length field, the value bytes are accessed
-   without checking offset+2+length <= tlv_array_len. A crafted
-   length=0xFF on a short buffer causes up to 255 bytes of OOB
-   read past the buffer end.
+- HMAC self-test failures for empty messages
+- AES-XTS returning success on zero-length input (should be -EINVAL)
+- AES-CTR: partial final block causes the engine to stall, output IV
+  derivation was incorrect
+- AES-XTS with key1 == key2 is not supported by the CE
+- AES-CCM: partial final block and fragmented payload both stall the
+  engine
 
-Both functions are reachable without authentication via
-nfc_llcp_set_remote_gb() which feeds remote LLCP general bytes
-directly into nfc_llcp_parse_gb_tlv() with no additional
-validation.
+All fixes were tested on an SM8650 QRD board with
+CONFIG_CRYPTO_SELFTESTS=y and CONFIG_CRYPTO_SELFTESTS_FULL=y.
 
-Fix all three issues by widening offset from u8 to u16 and adding
-bounds checks for both the TLV header and value field before each
-access.
-
-Fixes: 3df40eb3a2ea ("nfc: constify several pointers to u8, char and sk_buff")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
+Changes in v4:
+- Remove remaining ECB and DES3 bits
+- Pick up tags
+- Link to v3: https://patch.msgid.link/20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com
 
-Notes:
-    v2:
-     - Rebased onto current nfc/for-next.
-     - Dropped the previous nfc_llcp_recv_snl() fix since equivalent checks
-       were merged by commit ed85d4cbbfaa ("nfc: llcp: bound SNL TLV parsing
-       to the skb and add length checks").
-     - Retain only the fixes for u8 offset wraparound and missing TLV bounds
-       checks in nfc_llcp_parse_gb_tlv() and nfc_llcp_parse_connection_tlv().
-     - Reject invalid TLVs silently with -EINVAL; dropped the v1 pr_err()
-       logging, which was reachable from a remote peer.
-    
-    Link: https://lore.kernel.org/netdev/20260519011937.12903-1-meatuni001@gmail.com/
+Changes in v3:
+- Remove even more algorithms and dead code in patch 1/8
+- Link to v2: https://patch.msgid.link/20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com
 
- net/nfc/llcp_commands.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+Changes in v2:
+- Add fixes for the full suite of crypto self-tests
+- Add Fixes and Cc tags
+- Link to v1: https://patch.msgid.link/20260610-qce_selftest_fix-v1-0-1b0504783a46@oss.qualcomm.com/
 
-diff --git a/net/nfc/llcp_commands.c b/net/nfc/llcp_commands.c
-index 291f26facbf3a..ca89fe967d6a2 100644
---- a/net/nfc/llcp_commands.c
-+++ b/net/nfc/llcp_commands.c
-@@ -193,7 +193,8 @@ int nfc_llcp_parse_gb_tlv(struct nfc_llcp_local *local,
- 			  const u8 *tlv_array, u16 tlv_array_len)
- {
- 	const u8 *tlv = tlv_array;
--	u8 type, length, offset = 0;
-+	u8 type, length;
-+	u16 offset = 0;
- 
- 	pr_debug("TLV array length %d\n", tlv_array_len);
- 
-@@ -201,9 +202,15 @@ int nfc_llcp_parse_gb_tlv(struct nfc_llcp_local *local,
- 		return -ENODEV;
- 
- 	while (offset < tlv_array_len) {
-+		if (offset + 2 > tlv_array_len)
-+			return -EINVAL;
-+
- 		type = tlv[0];
- 		length = tlv[1];
- 
-+		if (offset + 2 + length > tlv_array_len)
-+			return -EINVAL;
-+
- 		pr_debug("type 0x%x length %d\n", type, length);
- 
- 		switch (type) {
-@@ -243,7 +250,8 @@ int nfc_llcp_parse_connection_tlv(struct nfc_llcp_sock *sock,
- 				  const u8 *tlv_array, u16 tlv_array_len)
- {
- 	const u8 *tlv = tlv_array;
--	u8 type, length, offset = 0;
-+	u8 type, length;
-+	u16 offset = 0;
- 
- 	pr_debug("TLV array length %d\n", tlv_array_len);
- 
-@@ -251,9 +259,15 @@ int nfc_llcp_parse_connection_tlv(struct nfc_llcp_sock *sock,
- 		return -ENOTCONN;
- 
- 	while (offset < tlv_array_len) {
-+		if (offset + 2 > tlv_array_len)
-+			return -EINVAL;
-+
- 		type = tlv[0];
- 		length = tlv[1];
- 
-+		if (offset + 2 + length > tlv_array_len)
-+			return -EINVAL;
-+
- 		pr_debug("type 0x%x length %d\n", type, length);
- 
- 		switch (type) {
+---
+Bartosz Golaszewski (6):
+      crypto: qce - Remove unsafe/deprecated algorithms
+      crypto: qce - Fix HMAC self-test failures for empty messages
+      crypto: qce - Reject empty messages for AES-XTS
+      crypto: qce - Use a fallback for AES-CTR with a partial final block
+      crypto: qce - Use a fallback for CCM with a partial final block
+      crypto: qce - Use fallback for CCM with a fragmented payload
 
-base-commit: ed85d4cbbfaa4e630c5aa0d607348b42620d976b
+Kuldeep Singh (2):
+      crypto: qce - Fix CTR-AES for partial block requests
+      crypto: qce - Fix xts-aes-qce for weak keys
+
+ drivers/crypto/qce/aead.c     |  88 ++++++++++----------------
+ drivers/crypto/qce/cipher.h   |   1 +
+ drivers/crypto/qce/common.c   |  55 ++++------------
+ drivers/crypto/qce/common.h   |  16 +----
+ drivers/crypto/qce/regs-v5.h  |   4 --
+ drivers/crypto/qce/sha.c      | 114 ++++++++++++++++++++++++---------
+ drivers/crypto/qce/sha.h      |   2 +-
+ drivers/crypto/qce/skcipher.c | 143 ++++++++++++------------------------------
+ 8 files changed, 173 insertions(+), 250 deletions(-)
+---
+base-commit: 7f5e2941e7dccc9dfaaa23d0548a40039772a284
+change-id: 20260610-qce-fix-self-tests-492ffd2ef955
+
+Best regards,
 -- 
-2.54.0
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
