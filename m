@@ -1,152 +1,189 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77196352014
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 20:43:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782161033; cv=pass; b=mQ1mUsd/RXBQq9qgpe698wMs+LXpX990NnQEuFGXPDfLHyr6PRGhZZdReDC5LbEjntT4K9duxRr6oHB2f2O55h4dy/a6NvLrT6DQcfppaf4L8OfAhqMs+oE4O6yl/GbvAWBVXfS1diFC/ZbdOHkAlkVmkuYZruoL+oaaSxyrIfQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782161033; c=relaxed/simple;
-	bh=PmY9a393FkPMi7cXE1kIXzUX+srKCbPNwHhnlFRxeaA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tV0GuM+gxgyMAtCVOVe4WOD6BnqKX29t0Sa/IhuwAKuc61WXoBDZgoS7knKMaScP00ZyMkNpygdna7m9HlvkO24quTkswVj/MOqgsExC6AaPg74JhFEpjU26p13jlUlgz0yZG651+rJOSOY1A2hiJtkaEVFfV49o/8PFHoG6H1o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=okXjPV0A; arc=pass smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98A23546CF
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 21:03:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782162216; cv=none; b=b91pMA0sFeAO3ufNQJRbs4UFkMoJLyDJgWgVLb6NgSr5vkriwUdS6S2SaMZW7L0OowJ4v2sS2jS1ECb+wMHqnMa8PHIvreifFMVZ4CRl8KKod3fXAeveH5ryphLuLDLGdlzWWFL8OWZJS0E8ShtEDfz5Gi7rInju0fZQ6k01aCY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782162216; c=relaxed/simple;
+	bh=JqC3pq7NIWbTtr2/fYT4t/8plFRvdglrTV+xjsQtjcY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PyKJ/BUnEuf0wvNyImkEUu6n20ZFmaLh1m9O5N6K3vbLqoHYbAnOJQdP7Jr6WiNX98ujnRF5DnyGAahoabDInU/6AD8szZE7GnbVjMNIvGNvVuTspZxrErG3Gk8ZaUwl4+LBO1BvzvVcUl47Q6BxGvZS3xpIT/X5DkK4446Eupw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iYZmUNfW; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="okXjPV0A"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6974a6e54dbso6211104a12.2
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 13:43:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782161031; cv=none;
-        d=google.com; s=arc-20240605;
-        b=N0sijhxeTy0Bx4hP2BDRYMgAyRYtsvwJmAflskPn/GQqUpCUxTQnbtff7vFHnZnmy4
-         hpSCajGPOf17zirVU6ybolJabW01xy/5WMcWR/ottElyvD8+nHx4aG5OPoKVltF5LF9Z
-         rMBooLrpi5Hp+GWWDf7s9ltWAAnnX1qpD+IWYbUye1W8QPjy4PUKJyHQ0CXdNA4ZGyh1
-         8QqW2yGhk3TCr9FMG7d4VzZ61UEqMXcuDq52WtSSg1Y61pdNCuszPrrZDCXRBDwANIJe
-         337du6SWImcFeoNwlBhmKQhyjnytRib3L8Z8sThTJu6lz5FugDxtnU0lCNQFIth3UIGV
-         of/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=LK9z00ubzec0E/FSX4Kl4K5PC+aZIx5IC8zFGof99gs=;
-        fh=LDzpXBjl55ZQPVDfk1+qRirqMHolVXUx4WFk1dTv4sc=;
-        b=Ev3JCjUAo+cbDhuSHxMlq6YT7pOwoCuUg1sy8PHpVu4+89pD6ztwQiFJqMri9xSb+I
-         kfChCefW8iY1NuaIo5+mVvmFemKd+gS5s22NB777omgLgVyVB4JRaw1YHxYz5eIEZv76
-         wZoLZQDOKTiPMXttyufBuSfSbtf0JMhc7AZwU+jbmWqKWbWqKB3OCLJnm2cTdJMhj5Yl
-         qpAwA4DMhYFyhNhFncxXgqDz3uyGGkTeIqo7JDF4KrQ/kZJeKF2g9haNG2Tebxdtj+Rq
-         uemMDhQJD9OEfdkfFxQlLOYZzvHluyj+GrxfTXms/dAyviV/jabFSueCtfYmymFM/Bbv
-         FqjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iYZmUNfW"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-491609cdd8fso30279635e9.2
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 14:03:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1782161031; x=1782765831; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=LK9z00ubzec0E/FSX4Kl4K5PC+aZIx5IC8zFGof99gs=;
-        b=okXjPV0AOSJKvZm7tQjyO7uxpIS5W9igsAWDUnJxqXu4LGRBVY/BmykQWaUu0nL0bX
-         +ph0Q9E2NzDsdY1Ec7GJ1MqWhEETd4a0PXQgeATcI/XYzznigwM04kKsH0nsAgG7wihn
-         wdfplEWxQQ/M37Z7klWPJD6yHJscOskP9TF1/dKr5yYeqYoi6aQuQGux00hMEP+QDDQl
-         4y7H4p5wKDE6VEIXhm6/qgOEPeJBHRN5i/WVzf/kKx1Cgp1zFqQjo+ANlqO+p01wWfAq
-         Ff3a7lz4Yw6dUt3yoN4Uc4Elo43Dj1J7bL6q6dOM3LZf5GrN5B71k9Q21xZULv97DHLy
-         a+Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782161031; x=1782765831;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1782162213; x=1782767013; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LK9z00ubzec0E/FSX4Kl4K5PC+aZIx5IC8zFGof99gs=;
-        b=ErxjOX6WRXZPmwzwaN/X8Ypu+GGLSlYrEqMDmXNgEhghG4g9iDvP+NqHNXInMA3SpP
-         qPOEThdiAGCSOY7ywa3h27oMIFwpbfgXpq2MnemRaH6KUQnxUyIxrl2dE3aRoE+6dMBH
-         OFPJjTOzhl9kONKcMFIJ0QSVdOdMz3Vra5YvSUGmp2H3neDEI/A4j9yNAvtH/wAU6fPP
-         RlTx1hATzBHtaRJTrkMu/VvR6ZghRGBh8P1K++xLH1k5CkCKyOtIyFGWFyLvoxZiALVZ
-         FaaZLd3E54JyZ7TR+8eNntr80G8MSiLGAoq5WqzfQtadiQ5UhG8f5LVmhvXNnti5GFr5
-         4lLA==
-X-Forwarded-Encrypted: i=1; AFNElJ8C/5XXsAaiEMKPXwrVas5+xboMg8HjQAn4BYahPlYtIdNX+Z3S1AF0mRxKEf3ndfew2Zwy5J0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx9yoWmV189WeAcU6OLr9hLZIP89ke+xPSF1xPt30ws/2ccaCRj
-	cUgfg7DKF9BX5kPtl5BxPszF6qD4+Ch85rrdw0Gf6GafcgCdYTWSTMBUdODuEhOXfWov1mQ3Gob
-	Cqs0NC3m7iI5aDt32IOI6fD4pMmgtSg/vmXDFE4phZdAvVsjdK3qnrJGNvQ==
-X-Gm-Gg: AfdE7ckN0VN5smtI9rl+E3tJ2Sb138ZGCzTGa+UxRoLh+/u2rk05JItBt/++tBbuJ+7
-	RJ4CGvE5TkVzkIc5MYzBcAjAsm4bJrsjtf/uh6Fb0tjbLf+EXJ6AmsGA+0hhjacCY4qcvZbXGIe
-	SQl89wxMk3bHnFp1xdPbZVHiTRkpyu3+/nhw5ui64rkDF0ZqgY3AEy0vpyq1ivlNP0TP2adNthx
-	uCuakJRasa60AwBh1L4XiWQRIJUZLCL13bHn/4+Qh4uNQ86CjEisVu+lO3LuRBwxGy9JJFWxFpm
-	aGyquy/CLw98IGzGZtxg39mTn4NGJX0=
-X-Received: by 2002:a05:6402:5203:b0:68d:d511:4a9f with SMTP id
- 4fb4d7f45d1cf-6970f7bb394mr10422389a12.18.1782161030519; Mon, 22 Jun 2026
- 13:43:50 -0700 (PDT)
+        bh=i+hBnMxhJkO6FDQAL0eqBCFsfSLziGXalyqU7rpqVDw=;
+        b=iYZmUNfWGkDg81+a6uErbhY/9LOBD1YpkxGR/QJTIPUghu8pBwdDDyYu3M6p+sJTe3
+         rM437Vl30ieukUqUF5kC7XD3oj9Ic2GXwUeSO9eCBy2HdPjmj2d6W8IRil49BufCYslJ
+         Yu09PfEW4gXCd5wy68DCOoO998vcybgRJoud56vf5DNTLnZwWPH6bpmKbeE0dq3LlATS
+         kRQERQ4LLi85sWi9OZ1I+kZZl96WMyiZzqWGEbMctpWTeW5cI+IMJCWCb6kgsiGIQxas
+         cmIfXBXkYxptO2PHPo95jAjN0ZmQFZY5wfFt5VNOs5aTYUQZeVB2el42d6HLGK/Ls47K
+         a3YQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782162213; x=1782767013;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=i+hBnMxhJkO6FDQAL0eqBCFsfSLziGXalyqU7rpqVDw=;
+        b=N+M+2IYuR2LvN7e3Ly8bnx35TGzLGi9i+XaordFqOyaDu+FCgXyeAhu+PoBzZaBjlX
+         58GAMF5qGeZDiGqUpUnqTPxY33Ylu+oU3BO/AQNwFjB80S+7r86wj9DKYpx6+V7XYThX
+         RvTeMl7kk6SmXiNKdspTVvmWXpgoBDaGoeFGxWsSa9L7LxjWJaQjy+lZ63rUOjtk7GH/
+         cSpnpvUAgfy+e0mqcUkkB5Fo1YcEKcK3tHP++fLmdM7g71Qa7m8zoP7MaRZpjLycyAIE
+         eUiXM5wcvyAsETRQfbuRhbebHKfgduWyNpKjeQm5VlgIQNTpo+KZ40lD7cW+GnGM7dD1
+         XQYw==
+X-Forwarded-Encrypted: i=1; AFNElJ9DYtGY0tTjvnWicTbFtF1PCn4fP18gooALcFfQuEi95gKdK7YTMrdGw/YMpnMPL2DvBcng4IE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzILLL+uibrcPAqxwCPXx85b9a7bej7TlOI+xxAWtCvJ4f0BpFS
+	j4Lit2MBkJvDV/3DHC2JCtvT0ZGBSJ75ZRXyQG/AU63yQY7ogTVjGOy4mf9K
+X-Gm-Gg: AfdE7ckYpQPiZMjYYxqmwceobI8vg/JAswqlQ+jcAvri1Qj4/Ns7/doS+LB3BiT2ofL
+	ze8Q+KPxxaoio+PXZn2WR+r/fGvAnU8IPxWfoqARlfBxVTfsVu9mJEQ4neMATtPTI5ZNw/XtyBi
+	q8YciST+QXYU9cYNCCOTTfH88fKzOkY0WXmqpiYqaTpQALnoaeuX2ILQ2i2T434zaJTm/Bt/BFC
+	yGGPbYcPgC2kSGa8Ngr/4pYRFHe4XIxlcVlX0a+oISVoQFK29QbYcIxF2eDNhmADq35jZg2JdbS
+	poZSAD9RaelGnIihokzv2eQx6f41WPimGHwsp/89VZ5922p9cMg+LWRth9tLe0osvDMfVn+McZo
+	BMgF6zPibkhXV1IxxoqAyD/UmN6bdBj3m55fsCUnMgwrcrsmUeahtDYZ3Zg==
+X-Received: by 2002:a05:600c:e548:20b0:492:3e69:a86f with SMTP id 5b1f17b1804b1-49240df7dafmr179983725e9.1.1782162213270;
+        Mon, 22 Jun 2026 14:03:33 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49245bba787sm198208495e9.1.2026.06.22.14.03.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Jun 2026 14:03:31 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Paul Moore <paul@paul-moore.com>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>
+Cc: Ondrej Mosnacek <omosnace@redhat.com>,
+	Richard Haines <richard_c_haines@btinternet.com>,
+	selinux@vger.kernel.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tristan@talencesecurity.com
+Subject: [PATCH v2] selinux: avoid sk_socket dereference in selinux_sctp_bind_connect()
+Date: Mon, 22 Jun 2026 21:03:30 +0000
+Message-ID: <20260622210330.3187099-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260618232149.1780219-1-tristmd@gmail.com>
+References: <20260618232149.1780219-1-tristmd@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260605-exynos-pmu-cpuhp-idle-fixes-v1-0-0cd05c81a82d@linaro.org>
- <20260605-exynos-pmu-cpuhp-idle-fixes-v1-3-0cd05c81a82d@linaro.org>
- <CADrjBPq4fou5KWh4T=oNkUVPz5Jk-821OVe3j5sWrKnCtHYM6w@mail.gmail.com>
- <DJ5GP6VQJDHL.2V30K56ME95DO@linaro.org> <CADrjBPqF6GPRLNUZtzkGUHTUQ6NOPoaRvVvF1mUUj_DJ9As1dg@mail.gmail.com>
- <DJFT3TXC0OJA.1ZK17YA2RSQXK@linaro.org>
-In-Reply-To: <DJFT3TXC0OJA.1ZK17YA2RSQXK@linaro.org>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Mon, 22 Jun 2026 21:43:39 +0100
-X-Gm-Features: AVVi8CcSJhlsiEYo8DbJV4KtarpnAeTWxw-4zzSg6pxbzuPPjnCW8fducZqtX0Y
-Message-ID: <CADrjBPovA8Kpzjqwr5w0UvqYhpdGyBwpv=xkBLcGGuwZZoocPg@mail.gmail.com>
-Subject: Re: [PATCH 3/3] soc: samsung: exynos-pmu: fix error paths in
- cpuhotplug/idle states setup
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Sam Protsenko <semen.protsenko@linaro.org>, linux-samsung-soc@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Alexey,
+From: Tristan Madani <tristan@talencesecurity.com>
 
-On Mon, 22 Jun 2026 at 19:57, Alexey Klimov <alexey.klimov@linaro.org> wrote:
-[..]
-> >> >
-> >> > I originally made the failure non-fatal because the system still boots
-> >> > without the notifiers registered (and all other Arm64 Exynos SoCs
-> >> > upstream don't register notifiers and AFAICT have broken cpu hotplug
-> >> > and cpu idle).
-> >> >
-> >> > In hindsight, that seems like a mistake. I think your patch to fully
-> >> > unwind everything in case of failure makes more sense.  See small
-> >> > comment below about destroy_cpuhp_and_cpuidle()
-> >>
-> >> Wait, setup_cpuhp_and_cpuidle() should be non-fatal and shouldn't
-> >> return any errors?
-> >
-> > I suggest you re-read my above comment above ^^
->
-> Could you please clarify what specifically addresses my question about
-> notifiers?
+selinux_sctp_bind_connect() dereferences sk->sk_socket to pass a
+struct socket * to selinux_socket_bind() and
+selinux_socket_connect_helper().  However, when the hook is invoked
+from the ASCONF softirq path (sctp_process_asconf), there is no file
+reference guaranteeing that sk->sk_socket is non-NULL.  The setsockopt
+callers (bindx, connectx, set_primary, sendmsg connect) hold a file
+reference and are not affected.
 
-Sure, I was referring to this part of my previous reply:
+Both selinux_socket_bind() and selinux_socket_connect_helper()
+immediately resolve sock->sk, never using the struct socket * for
+anything else.  Refactor the inner logic into helpers that take a
+struct sock * directly so that selinux_sctp_bind_connect() never needs
+to touch sk->sk_socket at all.
 
-> >> > In hindsight, that seems like a mistake. I think your patch to fully
-> >> > unwind everything in case of failure makes more sense.
+Suggested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Fixes: d452930fd3b9 ("selinux: Add SCTP support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+Changes in v2:
+- Refactor selinux_socket_bind() and selinux_socket_connect_helper()
+  into sk-based inner helpers instead of adding a NULL check on
+  sk->sk_socket (Stephen Smalley)
 
-[..]
->
-> If c2 idles are used during reboot/shutdown then they fail or what?
+ security/selinux/hooks.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-This followed similar logic to the Samsung downstream kernel drivers.
-I have no extra information about it beyond the downstream kernel
-source. It seemed reasonable though that CPU's will be hotplugged
-during suspend and reboot so you may wish to ignore these.
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 1a713d96206f..aa58a17da219 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -4994,9 +4994,8 @@ static int selinux_socket_socketpair(struct socket *socka,
+    Need to determine whether we should perform a name_bind
+    permission check between the socket and the port number. */
+ 
+-static int selinux_socket_bind(struct socket *sock, struct sockaddr *address, int addrlen)
++static int __selinux_socket_bind(struct sock *sk, struct sockaddr *address, int addrlen)
+ {
+-	struct sock *sk = sock->sk;
+ 	struct sk_security_struct *sksec = selinux_sock(sk);
+ 	u16 family;
+ 	int err;
+@@ -5126,13 +5125,17 @@ static int selinux_socket_bind(struct socket *sock, struct sockaddr *address, in
+ 	return -EAFNOSUPPORT;
+ }
+ 
++static int selinux_socket_bind(struct socket *sock, struct sockaddr *address, int addrlen)
++{
++	return __selinux_socket_bind(sock->sk, address, addrlen);
++}
++
+ /* This supports connect(2) and SCTP connect services such as sctp_connectx(3)
+  * and sctp_sendmsg(3) as described in Documentation/security/SCTP.rst
+  */
+-static int selinux_socket_connect_helper(struct socket *sock,
++static int selinux_socket_connect_helper(struct sock *sk,
+ 					 struct sockaddr *address, int addrlen)
+ {
+-	struct sock *sk = sock->sk;
+ 	struct sk_security_struct *sksec = selinux_sock(sk);
+ 	int err;
+ 
+@@ -5221,7 +5224,7 @@ static int selinux_socket_connect(struct socket *sock,
+ 	int err;
+ 	struct sock *sk = sock->sk;
+ 
+-	err = selinux_socket_connect_helper(sock, address, addrlen);
++	err = selinux_socket_connect_helper(sk, address, addrlen);
+ 	if (err)
+ 		return err;
+ 
+@@ -5706,13 +5709,10 @@ static int selinux_sctp_bind_connect(struct sock *sk, int optname,
+ 	int len, err = 0, walk_size = 0;
+ 	void *addr_buf;
+ 	struct sockaddr *addr;
+-	struct socket *sock;
+ 
+ 	if (!selinux_policycap_extsockclass())
+ 		return 0;
+ 
+-	/* Process one or more addresses that may be IPv4 or IPv6 */
+-	sock = sk->sk_socket;
+ 	addr_buf = address;
+ 
+ 	while (walk_size < addrlen) {
+@@ -5741,14 +5741,14 @@ static int selinux_sctp_bind_connect(struct sock *sk, int optname,
+ 		case SCTP_PRIMARY_ADDR:
+ 		case SCTP_SET_PEER_PRIMARY_ADDR:
+ 		case SCTP_SOCKOPT_BINDX_ADD:
+-			err = selinux_socket_bind(sock, addr, len);
++			err = __selinux_socket_bind(sk, addr, len);
+ 			break;
+ 		/* Connect checks */
+ 		case SCTP_SOCKOPT_CONNECTX:
+ 		case SCTP_PARAM_SET_PRIMARY:
+ 		case SCTP_PARAM_ADD_IP:
+ 		case SCTP_SENDMSG_CONNECT:
+-			err = selinux_socket_connect_helper(sock, addr, len);
++			err = selinux_socket_connect_helper(sk, addr, len);
+ 			if (err)
+ 				return err;
+ 
+-- 
+2.47.3
 
-The proper solution of course is a fully PSCI compliant firmware,
-which doesn't require these side channel hints.
-
->
-> I am not saying that patch is correct and some rework is needed but I don't
-> get why we should completely ignore errors from hotplug states registration
-> and should not check registration of notifiers. At least warning should be
-> shown to user that pm functionality might be unreliable.
-
-As mentioned above, and in my previous reply, I think your proposed
-patch is a good idea.
-
-regards,
-
-Peter
