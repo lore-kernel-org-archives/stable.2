@@ -1,147 +1,127 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1243009E2
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 12:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94C43A7193
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 12:26:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782130941; cv=none; b=IE/pmwnfxG5ZIBp7A/wVozEXkvPGm0ZWSkyRqG2u1MpqF94nkxayYsZymKNcjDCpLg62uxAcdHPnEtNgwqzEV6ITnW6Qsqc7j7PEqmbarfcGG3yfdO3b3f4sC26m/QD5n0zdmdkv4xJ4F6f9n1E9IvbUOMGE9B9iFTIqc/snLhA=
+	t=1782131205; cv=none; b=kTKOkxRFSj+QPnoQc3xuKD05LQ3krvHbKvhHtw3DiY3xQRW6uFOSe1jc+qsEFCGsOL6ms+amm71mLFp1mtCAEYtQb22h6+3yufYgYEhozQ+n6GqYeRVOi26CSS945C5u27RHFlKkXJFfDGuRUEUetLag8FBQkF2k2Ya+o5+dIJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782130941; c=relaxed/simple;
-	bh=ROjtMhAJVqAplE9ZCKI+gepuDwCOm8vYUnpYF87scYo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xi1RT5v8AaHlEH1K57O9gjIPvurK7c1MsViwBOW5y7CNTin7TAcjsEj6/N0HAv1g9k10zQ3t0DmSUVFZcsZQiyuqd13tLbkaZa7re4CH5V1NeDEL1JVhUAxPaq9zjtj61DiAov9oJxMAcDATSDKUFNUcwXdnj5HcGBWONDazrEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Flvu86DT; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=FrOuaElU; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1782131205; c=relaxed/simple;
+	bh=5Hu2qBT5Fk+1jqMEqYg5XniloZ1f4s6qcip4ZB7U0mQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BNBvxthn6vBwnNRdFdQ22d62t7PKXT0q5JGt/A5vbPfPRp+4qJxBo4eVLGaTovN43tsd1GAByE5aVKnin7wVxE05WGosHVtRFoyd5RVXUQ+ddRbhZSpqU6EZ+XLCzewmGIHYiJjQG1B8nfi0Hlnr3uG9o/li93kSRwdJ0u9Wr7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZC8yXWoB; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Flvu86DT";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="FrOuaElU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782130938;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NE61WDsqzyH4+WIlfYLsAL+lHpKgDOSKscv3FLr3jxs=;
-	b=Flvu86DT33CVa5iOavrcKY5m6X0h7OL0WBLbbrvw6pxcwd4UrbZIh/GTIBWyajk4RR7ZrN
-	YNseOBbhzvYsFSRmO1VbD9n3xo1dNcjXZMu8IEbIrjUoj6M3AXCqSI4FeUYlrpAAQ5hUr+
-	NACu4chwZ4c8QDbuFhwk4wdzDerbWps=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-668-5NpusdHWPaen0c0GKnf-IQ-1; Mon, 22 Jun 2026 08:22:17 -0400
-X-MC-Unique: 5NpusdHWPaen0c0GKnf-IQ-1
-X-Mimecast-MFC-AGG-ID: 5NpusdHWPaen0c0GKnf-IQ_1782130936
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49221de4ed4so28100325e9.0
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 05:22:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZC8yXWoB"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4908b92904fso62822325e9.0
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 05:26:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1782130936; x=1782735736; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=NE61WDsqzyH4+WIlfYLsAL+lHpKgDOSKscv3FLr3jxs=;
-        b=FrOuaElU7tcVLBEpK03HOHt+zo52scmlRr82q/oNCRzsq/KnswTTKi2sO9CgIEe1/C
-         KVhxtLb/Kn/93vLazh082SedQ1jyoy8dxoVmbNiMh2jvFta+Xy/kH7ryuumTUvlitt4s
-         1jVrK1rW8DbrkfD7Hcxp9jgVI26BC16uXUnIgUmWGS2PQ/E6r/Rv7ge3bIw+HehU+scC
-         mb8R4eu3XiRDv/kRoWO/6y4PaUfeK+iqY2KQR9qX4YlRc/IS2seQi3aM2PqhOxiSKAYp
-         NmWAdg61zc6RuilLiozrRXEE9D2iYeMwqURAFfQyyXfN034/sxEfJhBpTdUhfqSWMiLj
-         DlEw==
+        d=gmail.com; s=20251104; t=1782131202; x=1782736002; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rWBXR6ADAVQ2Qq7HEur2Os4QsmTGdoI3snIfzoQqpdU=;
+        b=ZC8yXWoBFufAAyaqgSHo1nF5A2AfB00Cd6gWEG2gw0cEd83YcYWGJioHM8LLG3ercF
+         WL9eITgo0jRiyGNMrGVzZGQNkR+rZ2oFhe4SQzUAdaEmx5749cqANoaZ2DSGwOBebrNE
+         5ryqboqogjLZSd5WNx4MDGt1c3LzNTBkXijr2+6HaIJsPeNJEgs+yefgtRqrLzQngNXu
+         u7I3XfPb0DT94l5lnUJLG+C50++MPNmHBrYh8mr5UgcSeUyJ2xjsuTltVr8DPuztlmkp
+         CRl9WIpHd2Z6EIjG7w6z6z7SCMAOQRg+l0BLqco3JOrKfnDFGAW/5C9WE8AOkTPhpfV6
+         He9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782130936; x=1782735736;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NE61WDsqzyH4+WIlfYLsAL+lHpKgDOSKscv3FLr3jxs=;
-        b=YDDo89mtYC+wfpO3MrLWbPdhAZnVWc1l+NbrMo6c0tKiVNc+pJH/agS0dmyJGbDXMl
-         cB/j/odsx4KJ/mFWq8/2wIAMOTHExl/B3ZwLYGUhFybLUxr8mK8Yry0aLlTR6dapRoKb
-         FY4IDhdqFeQXmG3tUvWAE8WzQzNxrrhkP4eDwv9KJJJyEf8NBFmZxVsBQN5gdxRcFEd8
-         0BLWzSLChNF3HL7UL7ZyWWSYm8GmModg2ZvFNl95EAcvFScGTDPBHBTp7jqg7TzBg/rq
-         TJC/bMyVPxJMaONmqg1VNqTzIYzqVOmkZPnlAsPgz/EzPJhpHoP6anGODiUZfS8UKwT4
-         bcDQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/njkXx/0Ga4slI3lZAivj2ojlK2mQ/fWM4MtW5fWvSqXoz/V8oLB71eGQuTMO5sUimuuPvXlI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1PVjrsVmix6cgl/tJpJ9oW15n6MvOJ1FyDdcwXxgKWPWLN2xq
-	8maqUv75MyuR7PxuzvB/t6tvmp/1qVa/uu6IXD+/ZPO8GcIQij7qcSIoAQPkKgU6gjkFy/6zaXY
-	S6AWXf7GNQ3b9vpK9LBsUXPBlCwKEhYLDa7Gg47jqGn9iDltEwTKaEYtx2dHvyteCPA==
-X-Gm-Gg: AfdE7cn2NTIXL9+z65X80pRB9ZNxiC3H9HR5Hgi2BOroxVXOHCPXCYr8fwO0Hg/K/Sp
-	feFqlPQQ3w9/hetRMNqoy+VJqQPwSChzjvBqg3OgGlmJkxSxRz2o4vSO2v38UY3rn8BUG6Pe1wK
-	W+ShD3DlEtqSZTAqtWx68DSxo5YqhnaUggIG85ceepSW8WJFFSkw6pjbmXL7/ezkIP4z/IAk8p8
-	3dz262HoRXFgNwgxZJNIikSCSKyzH30Booy1PDS1jyMKAGBTieLjNMTwuc8mEreEXRWqy603qRA
-	/fjsCXK2itj8I3HCe5JbMRbBv3ukTjtXlnYKQ2r/9Sr8Fj4IAK/iNAJJXeLQzLNBEWgXbQgDOIq
-	Q69BM83dqLYI3kJHaqz7a03WOZUPS5kNZt5U5bGZazocSRzBgJXbsJt5S/8nx
-X-Received: by 2002:a05:600c:1c1c:b0:490:b724:507d with SMTP id 5b1f17b1804b1-49240e40a01mr263798005e9.11.1782130936097;
-        Mon, 22 Jun 2026 05:22:16 -0700 (PDT)
-X-Received: by 2002:a05:600c:1c1c:b0:490:b724:507d with SMTP id 5b1f17b1804b1-49240e40a01mr263797255e9.11.1782130935490;
-        Mon, 22 Jun 2026 05:22:15 -0700 (PDT)
-Received: from sgarzare-redhat (host-82-53-135-12.retail.telecomitalia.it. [82.53.135.12])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466667881bfsm27415740f8f.22.2026.06.22.05.22.14
+        d=1e100.net; s=20251104; t=1782131202; x=1782736002;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=rWBXR6ADAVQ2Qq7HEur2Os4QsmTGdoI3snIfzoQqpdU=;
+        b=TYdUHcO86nJ+TrZezgJspDxk/SjK8fb2AePMXlnL4aIewk9N9PDiasP+ITI1m49BJh
+         +ysVyO4oB0dSfqLSTTKmSTX5auGxY++UAiIkwSO93MxbrCnZOd+Oq333CeOvcBEy1+kG
+         OxfsHf66h2BU/En5iEhXKrYm7dzkgn1XjuHjVjp8rthsJuPHvouGYWkIeLL6vy16syG2
+         mGAg4oCM0DIO5LmYZOmtzydQU//0Vs5kEsVl+/jmV4D4/4d3MsF9nWnMO6RLhJK5G0pD
+         a4m8sAfonDF2Um8diqqErgM38VXlyncaDlnQG3OMp3mpevrF0kYON9KXr7J3VGtBy6cZ
+         6zng==
+X-Forwarded-Encrypted: i=1; AFNElJ/X7VQp36ajzPd61c5btnuYhYrgVPYRY81bMcyCqj4TtyH6M7VgjKjjw7/zY+fnHR8z7Fmuycc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxb4De4k4fclvrIpl/M8samQAdlfPSirr0AvgeEMlSemqcR5dhv
+	3gCeWzWkpC/IM43GqBN08Mf4aACXEczi3cjV05AUfpta80qP5pIMD52m
+X-Gm-Gg: AfdE7clj2q564lnKk7Q3aAoo0hMIYhR2E3LoDsKGqyxHQQiuV+xNsm9PevTlzha7+9m
+	1eqpBm5Yn72CI24dU5Vh8M0cPUnY4Kqok3kraphbqUZWyIOlVSxGCBfYtmI8674nNyqXVYKucd7
+	CgQ54IlXccHwVz8h8UQ8YWNUIoDvdNdGR3W4OGXMOsjjbzbj7+AoYFOZl8cSt9DcCuTUvc46a9y
+	MWV61QYvWbrdhOmeLD01ze39xJWeOTYIw46s0YXa5nSlvHAIwYePFx82a2p62BluZ99Ydm8BwvP
+	FJEOufqzMHy9BAgh93s/57vKE0Tg8hBdDwoMdbrjJL+7Zozq9AUVU/Uc1C54swt0aUx9PlRwQjI
+	SJIR+kILM56iNY+oWKVQRiP3bKKYFY1lGkhDMx8AqvUro2s09GK8YZJdvHee7alQJcOdFu7/bD0
+	+0mgabP6+VwU6fj1Ux/wlruEx77HiOiNa73TRCYQ==
+X-Received: by 2002:a05:600c:5493:b0:490:e190:38f3 with SMTP id 5b1f17b1804b1-4924256fe84mr192162475e9.21.1782131202105;
+        Mon, 22 Jun 2026 05:26:42 -0700 (PDT)
+Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49240ee9bc2sm208803975e9.1.2026.06.22.05.26.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 05:22:14 -0700 (PDT)
-Date: Mon, 22 Jun 2026 14:22:10 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Brien Oberstein <brienpub@gmail.com>
-Cc: netdev@vger.kernel.org, regressions@lists.linux.dev, 
+        Mon, 22 Jun 2026 05:26:41 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: Javier Martinez Canillas <javierm@redhat.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Amit Barzilai <amit.barzilai22@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [REGRESSION 6.12.90 -> 6.12.94] vsock/virtio: large AF_VSOCK
- transfers reset under backpressure
-Message-ID: <ajkmjgGdJp9Dj6em@sgarzare-redhat>
-References: <467b01dd017b$733792d0$59a6b870$@gmail.com>
- <ajkAlpiyPWmNPWfx@sgarzare-redhat>
- <618701dd023e$063de350$12b9a9f0$@gmail.com>
+Subject: [PATCH 1/3] drm/ssd130x: fix column and row end address in partial updates for ssd132x
+Date: Mon, 22 Jun 2026 15:26:02 +0300
+Message-ID: <20260622122604.32500-2-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260622122604.32500-1-amit.barzilai22@gmail.com>
+References: <20260622122604.32500-1-amit.barzilai22@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <618701dd023e$063de350$12b9a9f0$@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 22, 2026 at 07:55:30AM -0400, Brien Oberstein wrote:
->Hi Stefano,
->
->Thanks, that matches what I'm seeing: large transfers reset mid-stream
->instead of the sender being throttled (reliable above ~1.5 MB, fine below
->~90 KB).
->
->The bind for me: it's not just this mail bridge -- I use AF_VSOCK for a few
->host/guest services, some of which open their own sockets, so the per-socket
->buffer workaround can't cover them all. That leaves pinning 6.12.90 (losing
->the DoS fix and further kernel updates) as the only blanket option.
+On partial screen updates, SSD132X controllers expect to get the
+rectangle addresses as arguments of the "Set Column Address" and "Set
+Row Address" commands. Each command expects the start address and end
+address of the row/column in absolute format, however the end
+addresses were being sent in a relative format (relative to the start
+address).
 
-Okay, but in that case did it work?
+The relative end addresses work only when the start address is 0. In
+those situations, there is no value difference between relative and
+absolute addresses.
 
->
->A few quick questions:
->
->1. Is a -stable backport of the merging fix likely, and roughly when?
+Fixes: fdd591e00a9c9 ("drm/ssd130x: Add support for the SSD132x OLED controller family")
+Cc: stable@vger.kernel.org
+Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
+---
+ drivers/gpu/drm/solomon/ssd130x.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-We don't have a fix yet.
-
->2. Could a smaller interim land in -stable sooner (e.g. more default
->   headroom) without reopening the DoS?
-
-What we've merged so far is the best we can do for now, but anyone who 
-wants to help improve the situation is welcome to submit patches.
-
->3. Will the fix guarantee backpressure for any packet size, or just widen
->   the margin?
-
-It should fix STREAM sockets for any packet size.
-SEQPACKET/DGRAM is a bit different since we need to keep boundaries, so 
-it will come later if needed.
-
->
->Happy to test any patch
-
-THanks, I'll ask you to test.
-
->I have a solid reproducer and can turn it around
->in a day. I'll also file this as a tracked regression so it's not lost.
-
-Unfortunately, it's always been partially broken, using more memory than 
-specified, so I don't know if this is actually a full regression, but I 
-understand.
-
-Thanks,
-Stefano
+diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
+index c77455b1834d..77aa5585a46c 100644
+--- a/drivers/gpu/drm/solomon/ssd130x.c
++++ b/drivers/gpu/drm/solomon/ssd130x.c
+@@ -864,12 +864,13 @@ static int ssd132x_update_rect(struct ssd130x_device *ssd130x,
+ 	 */
+ 
+ 	/* Set column start and end */
+-	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_COL_RANGE, x / segment_width, columns - 1);
++	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_COL_RANGE, x / segment_width,
++				x / segment_width + columns - 1);
+ 	if (ret < 0)
+ 		return ret;
+ 
+ 	/* Set row start and end */
+-	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_ROW_RANGE, y, rows - 1);
++	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_ROW_RANGE, y, y + rows - 1);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-- 
+2.54.0
 
