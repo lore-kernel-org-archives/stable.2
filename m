@@ -1,168 +1,306 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011027.outbound.protection.outlook.com [52.101.57.27])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159363CB2D4
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 16:10:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782144629; cv=fail; b=feGFn1HwAll46CA+1abv1JgakTCJQ4zfIH081FNz3eDbYGTh+n6Kz0r0kY+t+m2lqVoD0MM8AtY0A/Hw13/+1rCnd+tmZq53bU3OcmlAUXNJAD80v3qCO/7Mr+BS2oQfKcHz33Cy3tzcbqR0s1QM5sIFj6g1BH86RP2ypgbKybw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782144629; c=relaxed/simple;
-	bh=jfPCj8eIsury3P+CX9frpdSerWPReEWUodA6T2+2yIo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=JBPZQ8HQe4k8weymJcmOt2M8/HKcCysIxGQJ7CCWYEv+VHe9kIUg291jL0nOWhy2/Z046PBW8mWE7bgHCApfVCoc6vFvqRl0ZSU59OSOi0ClPxUw3T2Idn0llt4xAjDKmWdrFs2d1OBKsLfTJ83c+AOfagNNxX9V44oXUUy9ijA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oUW6IGui; arc=fail smtp.client-ip=52.101.57.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4553CB2E5;
+	Mon, 22 Jun 2026 16:11:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782144671; cv=none; b=AinxrPvc+vB7YN6d2kkibugSDxiWtBlKSEwgqB1Tfe1CXhmu9TIgAAA7rI9aFBypMLiG/RoyihuLNb+kxuJG6PsfAHVrjYLBvVSd7eHfqGugKE88jVeE8ZtbaoqZkMDq9Z48be9uR6bHlr0Ra8FNAvZqLjkn9z3bE5sEHnRYHIM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782144671; c=relaxed/simple;
+	bh=sDTcRIo3FP/93Kk3+oaY7jv+la+FNZ83dBD9MIW6RPk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kSCt67V9hZFrCgMfO4+5Gkl3GlR8bmgceUsbN6VpmnHzQNmMZe8H6qV44H6PnXZkaQjIRhRXO/MXUQQgwPaAIn4noaD0phTQrMMaSMOBeqa10b9JUk4CXlRplojCTtlNJLWXaxfxYaTHJplDlvXSFh4p6zmoyn87IgdAYKCkT2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mQOiN8sX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oUW6IGui"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eMmRlvvUgssmCIZ+NiCf1e2yzw/dsUNZdte0cV+MW1bhmgBsgsihze0Ga2wuKO6cpvnR/0X2yZqvmU/xsJOYsVhYvc0fWd2TMlotp7R3s8TJ0DHyyUnWT099HQLrREf4o3YnNYPtt1Ii2oTvStFW0B1juAzmV7scF8Jr+cI7J3/WrsasDCJzY3hWutUHrXr1xhz+Y8RBs1SqMfmTxScomhlqm6mhdXTvUqLzn3+f35sejq0qFjf6I3qsA6A2YE48DH+2behLdy+UeznP8jec4ohuRdZbKzMYbaKN4YOtrR7ecyzF6otjDZuET53G+prxLiQheAFaPOSTPXVcuj4mQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BTTxtljqVi7oB80SgRuG/ZSd8P2f4Wxk5EAQcLq7vbc=;
- b=TIMM+N/udkIcWH7wrL0IZn5ODRjqdPQE30dmvtf4Sxu6slJk2C3RCzkYVfpGpYTVvbtHLeO+Sjpz9sekHvaUblXbH1eMQZ0KRL2bGc+3edU1LLKCqLfN0Ak1mHfN6JbFtE61XjiO6clwdyJOoDjepoZQeUqS38ys3iqV0bFjz9WPHej7uwAoHimMrkCXRQkfIcrpnaR0zm08nfC04mjbO7M11qWxN3zC41YgLLlkoIZEngWBk7T9OVr7e6HMC7mkDSd2UFoq/xefTxuJ8sI7VgN4H1fcpCNrYh/PyMmiTI7eoW63XO6bJ/Ff8lhWMj6mdAvb+2yJhji0hackrGOBLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BTTxtljqVi7oB80SgRuG/ZSd8P2f4Wxk5EAQcLq7vbc=;
- b=oUW6IGuiHOCnWm4NPf/n7aDqX9cf4fuWorrCj3BRqZtnm1sIqHEqSyH47F4uOUmA/B1Gaov6mTmTEcH2dyJ/KUArY45gHBimc5SRVprzI6as7DF5foENE9T8BoqwsVNKeG090UVCiXlHKbaXYVhTo0CSv7hFQ4vokKmWxYLYjkYi54v98vasTxMzh6dXz9R0KQRcXbBwOt2OveCnMdKPsE4fLSxMVVeYlGLXKs6A4/LLXO10QClEIOhLWMedf2fDVQd2rc3wyPoEryS8XMgDXdHt/fATKlblo9MiFRgaugEZVqnjinkdiPf2bjDgslBjaqZFXy7Sb5c7jFriJ4xDlw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH0PR12MB8488.namprd12.prod.outlook.com (2603:10b6:610:18d::18)
- by CH3PR12MB7643.namprd12.prod.outlook.com (2603:10b6:610:152::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
- 2026 16:10:22 +0000
-Received: from CH0PR12MB8488.namprd12.prod.outlook.com
- ([fe80::c565:c0e5:2c8b:c315]) by CH0PR12MB8488.namprd12.prod.outlook.com
- ([fe80::c565:c0e5:2c8b:c315%5]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
- 16:10:22 +0000
-Date: Mon, 22 Jun 2026 18:10:17 +0200
-From: Thierry Reding <treding@nvidia.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: javierm@redhat.com, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch, rayyan@ansari.sh, 
-	dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] drm/sysfb: simpledrm: Improve stride validation
-Message-ID: <ajld8iWQ9iLwBen8@orome>
-X-NVConfidentiality: public
-References: <20260622132433.722823-1-tzimmermann@suse.de>
- <20260622132433.722823-5-tzimmermann@suse.de>
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5k67bgowkeraeisy"
-Content-Disposition: inline
-In-Reply-To: <20260622132433.722823-5-tzimmermann@suse.de>
-X-ClientProxiedBy: BE1P281CA0395.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:80::15) To CH0PR12MB8488.namprd12.prod.outlook.com
- (2603:10b6:610:18d::18)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mQOiN8sX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81A1D1F000E9;
+	Mon, 22 Jun 2026 16:11:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782144669;
+	bh=YV5QzOQ/E9P2Ro+ab3mma+QwYmwAGYI0yZQ28i65vpA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mQOiN8sXcaacTPR80jbZvLqhW9i5FH7SSG+DZq1bLlgoXaBg/dSYfMs7olULErObb
+	 VhvmvSEg1g4c4PlfuAU9jLRMW7Ipn/HfeW+Hrh/5wFnsSRpL/ZNw2gkHHKMJefGkkn
+	 3HqOWy/N/cSceHmgLadCpls43df+mnikRPbCeyJqJwpJzIqpPqSP/OrH+TbPI366AF
+	 UCgB1lwByTn1EturoSVdoFbWBMYso6LpQn9p55RgPYIh7UBK2ohHi6n9h9clMSjqUz
+	 SI5BKleq3X+lY96okaCzNevEPz8wxwyucwC+gmtT5tAdlaGnS8W1Fz/2obXBbFFNrl
+	 mCd3P75J7I7pQ==
+Date: Mon, 22 Jun 2026 17:11:02 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Wei Yang <richard.weiyang@gmail.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, riel@surriel.com, 
+	liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com, 
+	sj@kernel.org, ziy@nvidia.com, balbirs@nvidia.com, linux-mm@kvack.org, 
+	stable@vger.kernel.org, Lance Yang <lance.yang@linux.dev>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/page_vma_mapped: revalidate and do proper check
+ before return device-private pmd
+Message-ID: <ajld6RKK02Vi-LxM@lucifer>
+References: <20260622130651.23359-1-richard.weiyang@gmail.com>
+ <ajk0N3Aekapljaoh@lucifer>
+ <20260622142102.pcmr5pftshj5lvju@master>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR12MB8488:EE_|CH3PR12MB7643:EE_
-X-MS-Office365-Filtering-Correlation-Id: fdea43bf-9df3-48d1-85d6-08ded078c32d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|366016|1800799024|7416014|376014|18002099003|22082099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	C5ERk4/WTe1+Hgzpj+ZH8vfANOv5i6seGmalt2yL3b188SmfnaGfNwQ17XbHO33xTSHTcwHNhkUcKGLl01Q6pP/DPLL0oqYEqDStVi2prw+U6t09zhETgLSmHizRKctru9V45XoPYbZxmOgCEfAzfTWEfmW/la6fWeBw8+a/fuaCQMWLxCB7QL4w4SKBPuQHIadPrUaHmDsZ7fGW32cNzhmtJ1wIm/1GgwId+Pbzp5ludj0YiCqlIv5uoyqHoaWsz++f+EqlcADDvm6KkfejezaKmsQVwhadQ++5AvUgNWtM0cWJPB4fa50TXNIbkQYYOUVh9q+i4Np6D29TPyQPNUSSOJ0NUVQbXUMzgEUiaH67i9P3wMd5j/kckgf8ZrII2AdahTshAc0pNNeUJyri/cfcuP3L5Ik81U2V9m+aYD9yI9k/2I4IgYhkXapilo5meiBn67YHgUmvn0Z1hjT1WvrFXlJSG7m6a/zrNiwaDjF3+p+HANdfe0drsaowmjNQKFkRHk1xgl2WEi2i7HdVZR4Houii70hp5QjKxtrornTH5EdBX1QXNrP99anws2Uu+unDbmokAFk5/w8oLL9rWoVOYuIgM4W4M8TuDOSZzo6mcNRKYyJCul87ZjSLPS11EEVDI/bpDEKzHF0d8lL8OzTABR2SQvv0FCXDhY19QlA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR12MB8488.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(366016)(1800799024)(7416014)(376014)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?TAppDvLoXhIoTfTnLQbSSi2dOYYxRC0FZOWTqCM+LY461gtwQu8t8jrIuavI?=
- =?us-ascii?Q?Y/EPxusw+wk8BGro/yuJ8LJksWra9UzbXsT4+26h1BkYPTBnRa/qGjDk7xBP?=
- =?us-ascii?Q?kE8OJ5YZCahmboLQGVPvQKTPAh9Fzi6PIp+7AsHFqpbLyeS1mxZvuPUgj7I7?=
- =?us-ascii?Q?D/CmEYUL/9XmXQRuG7RGzXMw96cSUTDgOtP+vwgpN0DFlMFQ5GpCIaBbaLtC?=
- =?us-ascii?Q?/vm9ie+6CheY/stlM29JlC1Dp4NO5gIdTflJC/Ezjw9Wcac2v/T1zlvuzuRu?=
- =?us-ascii?Q?hmr2gXG9VnLPL2ppaG06QGjXgib4IUs7yZavTsGxa45m7E9CR7/XnyLOB5Uk?=
- =?us-ascii?Q?lvfQS9MlwrJjnZiP9C/5RQA7627thLt44sVIFLdquyPAuCYhwv4p5cmxetmI?=
- =?us-ascii?Q?hIZn7t8lC3zjT2qfJz1z56yXfEuoAVa5QLzD8V1MFzu78sXU37ky+vPFH5AY?=
- =?us-ascii?Q?Ux8pVjcpbfrVEJ+SEvV2hEljnYqx7cPYdDGmspAJLBwiCae/GPAFfv6r4mLq?=
- =?us-ascii?Q?EfZUYR/nrigCB4tyawQX05pNl970BP0ZxpCPBCIX6h5iUBjl/WUZWt/c1uKC?=
- =?us-ascii?Q?gzrHRWQ3UXzN+pjIBH5gmZ5AQIaEzEBb8zEIB9h3cuRAKNzAxbSWK/vzqxUu?=
- =?us-ascii?Q?2SWliHurkd8IvfKIC2okfZ045G1gqZ22TmXwV9DHJ5b8+fI1Jt52EEwpDIGU?=
- =?us-ascii?Q?s21ZBcnBD/s//QjdjOijjzFizG5h2SSXLULwfznDZs9a02AbYwqqJPE8FQiO?=
- =?us-ascii?Q?mgTjmvSNxunBKesKMMNMsgYx6PuY96EWbEd3t1cNlrmgPQpZ+QKdZyjAe0QG?=
- =?us-ascii?Q?uShv7dQk/iWsL04bNQV2wbr0vO7TaqOYPyfyV7nlKpPtO0x5mQ5vNiuAvb/h?=
- =?us-ascii?Q?4f5uWHZB9YX/Ywvbqa2UF7os1k9y1lgbjGIV/sefhgN+hNxu+/h0jvQY39aH?=
- =?us-ascii?Q?iTFuVsNI7pCdU+WxAUBcaDFQG8OltEGiAXJkvFqXDILE2Qr2JqxU25JZgWGi?=
- =?us-ascii?Q?K98TJ5kuwRipRjx9NnjdXHxuTTyEoLtMb+1NFztAfSmrPpUXM6rKNcftcAV5?=
- =?us-ascii?Q?wJTgNkjI+cO5a+mimLCZQIkop2JqP0QtmyZvc9aSiU6ogfm57ZjzjnhMLTKC?=
- =?us-ascii?Q?80W5Kwm1XTzsc7jxDqqpwXU3cvAMbH4daqOSfhhiebWSEixzzltCns7QPXY5?=
- =?us-ascii?Q?w+12whxX+bT6kuUZUdLJtoVaZz3o4gzkcoSuEHXWswtUPP1W+9u3C9uuaTNL?=
- =?us-ascii?Q?4zMgQVOnSo8KSrvd6oKEliUY644WIrgNkA52W14R0etRujdaG9B4fmFkHdME?=
- =?us-ascii?Q?TNoXHDQT1hHW42z4p0SGCTGx6NYF10UYhP4SQSF86Lz/j8EZN/FIgTOi0+Ya?=
- =?us-ascii?Q?Cv/U7owMf14vIpL2Wj4QFETCj14YvT9yVKJokiDuBrIY0KSUbBUMJQ2pTL0C?=
- =?us-ascii?Q?8qcmvKdtY/cAWvutRMUStmhByZ7y7Eb+W0hCLRoMZx5uSxngvfTJjumvuiT3?=
- =?us-ascii?Q?ywO7R5vWHMbBxJ+0iOsobB78NwtDz3E8jTz7FOUvQnlzZwlFgW1dBohZffn/?=
- =?us-ascii?Q?giEj55avwdGOPV8sfM9iwZVPKGIklvZMqqAF4V6YwuiB9Z6jXENRoa2jIO7x?=
- =?us-ascii?Q?xaAIPM9Eu+ULREj4N5gffwoXI3sVeDFyCttZMLGvkz9Dytjku5vUDzuIg3ux?=
- =?us-ascii?Q?IcK9INKBC0xI0pJ9RZqwuei3nIwFmvMyonYE26L6tju1+phqNi60maXiH9/U?=
- =?us-ascii?Q?r477u6vBFHMvTVlAzKJFB52F8BmKsgsyjmZyX90PR4aGZgrKNnDqS9soyTs0?=
-X-MS-Exchange-AntiSpam-MessageData-1: 5Or9g6V3/9i+Jw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdea43bf-9df3-48d1-85d6-08ded078c32d
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB8488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 16:10:22.4176
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +8JwNf6qMA3KK4RvdXPNt10E74xr6UeXqcop9mVgi/dCQoOM0ZzmgaJ7CUoYCq2OUi67NQz36fPgv4GSPOYTKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7643
-
---5k67bgowkeraeisy
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 4/6] drm/sysfb: simpledrm: Improve stride validation
-MIME-Version: 1.0
+In-Reply-To: <20260622142102.pcmr5pftshj5lvju@master>
 
-On Mon, Jun 22, 2026 at 03:19:38PM +0200, Thomas Zimmermann wrote:
-> Validate the computed stride against the maximum value INT_MAX.
->=20
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: 7bfa5c7b28d6 ("drm/simpledrm: Compute linestride with drm_format_i=
-nfo_min_pitch()")
-> Cc: <stable@vger.kernel.org> # v6.1+
-> ---
->  drivers/gpu/drm/sysfb/simpledrm.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
+On Mon, Jun 22, 2026 at 02:21:02PM +0000, Wei Yang wrote:
+> On Mon, Jun 22, 2026 at 02:46:40PM +0100, Lorenzo Stoakes wrote:
+> >+cc Lance, linux-kernel
+> >
+> >Your subject line is 83 characters long and is way too detailed how about 'fix
+> >device-private PMD handling'?
+> >
+>
+> Got it.
+>
+> >You forgot to include linux-kernel@vger.kernel.org on the mail, lore seems to be
+> >a bit broken atm but in general it's helpful to include that.
+>
+> Got it.
+>
+> So usually we send a patch to both linux-mm and linux-kernel? If so, I
+> remember is later actions.
 
-Ugh... I have a hard time imagining that we'd ever exceed INT_MAX here,
-but I guess better safe than sorry?
+Yeah it's better for dealing with kvack going wrong etc. :)
 
-Reviewed-by: Thierry Reding <treding@nvidia.com>
+>
+> >
+> >Also is useful to make this [PATCH mm-hotfixes] to make it really clear it's
+> >intended as a hotfix.
+> >
+>
+> Got it.
+>
+> >Some commit msg language nits:
+> >
+> >On Mon, Jun 22, 2026 at 01:06:51PM +0000, Wei Yang wrote:
+> >> For pmd_trans_huge() and pmd_is_migration_entry(), we does following
+> >> before return the pmd entry:
+> >
+> >Sounds better as:
+> >
+> >	For PMD entries that satisfy pmd_trans_huge() or pmd_is_migration_entry(), we
+> >	perform the following actions:
+> >
+>
+> Sure.
+>
+> >>
+> >>   * re-validate pmd entry after PTL
+> >>   * check PVMW_MIGRATION
+> >>   * check_pmd()
+> >>   * handle on pte level if split under us
+> >>
+> >> But for device-private pmd, we just return after pmd_lock().
+> >
+> >->
+> >
+> >	However, for device-private PMD entries, we simply acquire the PMD lock
+> >	and return.
+> >
+>
+> Sure.
+>
+> >Also can you please give some justification here as to why all this also applies
+> >to device-private PMD? Right now it sounds hand wavey.
+> >
+>
+> I thought below paragraph explain it. Not sure what justification is preferred.
 
---5k67bgowkeraeisy
-Content-Type: application/pgp-signature; name="signature.asc"
+Something about device private PMDs splitting the same way THP ones do, in the
+pmd_is_device_private_entry() branch of __split_huge_pmd_locked().
 
------BEGIN PGP SIGNATURE-----
+>
+> >> If a softleaf entry is present, e.g. device-private pmd, the existing
+> >> code simply acquires the PMD lock and returns success even if
+> >> PVMW_MIGRATION is set (indicating a migration entry is sought), meaning
+> >> that the caller can incorrectly interpret the entry as something it is
+> >> not, causing data corruption.
+> >
+> >This is repetitive, you already mentioned device-private PMD, you already
+> >mentioned that it simply acquires the PMD lock.
+> >
+>
+> Ah, I copied your suggestion from [1]. Hope I don't misunderstand it.
+>
+> [1]: https://lore.kernel.org/linux-mm/ajUXNjRMraKb6k2n@lucifer/
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmo5XmkACgkQ3SOs138+
-s6Gs/RAArHMJRiJ+b7/io1WDzPa1O5d4F1yNMDiqd3pTZi4qIw4ae4xp9AoVhmsc
-t0MsiTVolZKHV7Z/AsKEPBALWonz0jSdRWgkls2tXYt2JFOgSVvNGYZPU4ke4ehS
-BgYx1gjyXmlPc+lkXOJ1u6+CG/9+6DLCC9TH3BuWbIgFnwCVes0YhfyqXEINDz26
-TpXoG9LK4w0aQk2YrpWh6QBuKWZPiQK4Edol+IJxWkRfggE4aOo/Oxjjxbg0IWqr
-/9DoitahazMYitHOOp4c0oZjmOutXZhZ5BJEMkFk+lXmvLa3rMeF6TmxgRjnffqC
-9NxIRQPLMDZv6IgbCezadcy85r+AuFiXItMoPW3PfNOxrKofzZrv78iCFPqUeAvh
-wwjkan0FyZEGTufIRn2Oy4mEdzquKrJbX9YnIf2HWtG7E/8T8OuecX9S9SXJvv73
-PrLmX+fshh0RMHcj/QCCQRd0XTyXss1F7LYTCKkrj0Nr7HgZlCoJ1uAKCCVDdeza
-63WWbtrLvc2uNrdupoMeFLIEgcImyqrpMlqcPf1ps3YecG1kgNkm/3OXNOJ71t5U
-ce3zQhfpjX0oU4dnOCEuySqW0Gg74RVclsVJx9pxgGORfagLRo0vZK07r6mU7UTE
-8xpth4KH4Y9CqRc6B2Aknue6herhn9yNKg0BRLEX6ieWyn5IKDQ=
-=//ms
------END PGP SIGNATURE-----
+Sure, thanks but in context with the above ends up being a bit repetitive.
 
---5k67bgowkeraeisy--
+>
+> >You should talk about what issue it caused and why:
+> >
+> >	This is particularly problematic when PVMW_MIGRATION is set (meaning a
+> >	migration entry is sought), as it causes a device-private PMD entry to
+> >	be returned with a different data layout, causing memory corruption.
+> >
+>
+> This looks good. I would take this one, if you prefer.
+
+Sure, thanks!
+
+>
+> >>
+> >> This patch fixes commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration
+> >> support device-private entries") by following the same pattern as
+> >> pmd_trans_huge() and pmd_is_migration_entry() for device private entry.
+> >
+> >This is pretty useless. We see what patch it fixes in the Fixes tag, and you're
+> >just repeating things you said above, I'd drop it.
+> >
+>
+> Got it.
+>
+> >> Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
+> >> Cc: <stable@vger.kernel.org>
+> >> Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
+> >> Suggested-by: David Hildenbrand <david@kernel.org>
+> >> Cc: David Hildenbrand <david@kernel.org>
+> >> Cc: Balbir Singh <balbirs@nvidia.com>
+> >> Cc: SeongJae Park <sj@kernel.org>
+> >> Cc: Zi Yan <ziy@nvidia.com>
+> >> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> >>
+> >> ---
+> >> v3:
+> >>   * remove cleanup part, only fix the issue for device-private entry
+> >>   * refine user effect description based on Lorenzo's suggestion
+> >> v2: https://lore.kernel.org/all/20260616063436.20455-1-richard.weiyang@gmail.com/T/#u
+> >>   * specify the possible error case of current code and user visible effect
+> >>   * besides fix, cleanup the pmd entry handling based on David's suggestion
+> >>
+> >> v1: https://lore.kernel.org/linux-mm/20260508013728.21285-1-richard.weiyang@gmail.com/
+> >> ---
+> >>  mm/page_vma_mapped.c | 32 ++++++++++++++++++++++----------
+> >>  1 file changed, 22 insertions(+), 10 deletions(-)
+> >>
+> >> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+> >> index 2ccbabfb2cc1..8de3c6b82df6 100644
+> >> --- a/mm/page_vma_mapped.c
+> >> +++ b/mm/page_vma_mapped.c
+> >> @@ -270,21 +270,33 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+> >>  			spin_unlock(pvmw->ptl);
+> >>  			pvmw->ptl = NULL;
+> >>  		} else if (!pmd_present(pmde)) {
+> >> -			const softleaf_t entry = softleaf_from_pmd(pmde);
+> >> +			softleaf_t entry = softleaf_from_pmd(pmde);
+> >>
+> >>  			if (softleaf_is_device_private(entry)) {
+> >>  				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+> >> -				return true;
+> >> -			}
+> >>
+> >> -			if ((pvmw->flags & PVMW_SYNC) &&
+> >> -			    thp_vma_suitable_order(vma, pvmw->address,
+> >> -						   PMD_ORDER) &&
+> >> -			    (pvmw->nr_pages >= HPAGE_PMD_NR))
+> >> -				sync_with_folio_pmd_zap(mm, pvmw->pmd);
+> >> +				entry = softleaf_from_pmd(*pvmw->pmd);
+> >>
+> >> -			step_forward(pvmw, PMD_SIZE);
+> >> -			continue;
+> >> +				if (softleaf_is_device_private(entry)) {
+> >
+> >This is all very horrible. You have an example of how pmde is re-got in the
+> >pmd_trans_huge() branch and pmd_is_device_private_entry() exists...
+> >
+> >We can just make this another branch and do the re-check more neatly.
+> >
+>
+> I plan to keep the change small, but yeah it is ugly.
+>
+> >I enclose a patch that does that (untested, please check).
+> >
+> >
+> >> +					if (pvmw->flags & PVMW_MIGRATION)
+> >> +						return not_found(pvmw);
+> >> +					if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+> >> +						return not_found(pvmw);
+> >> +					return true;
+> >> +				}
+> >> +				/* device-private pmd was split under us: handle on pte level */
+> >> +				spin_unlock(pvmw->ptl);
+> >> +				pvmw->ptl = NULL;
+> >> +			} else {
+> >> +				if ((pvmw->flags & PVMW_SYNC) &&
+> >> +				    thp_vma_suitable_order(vma, pvmw->address,
+> >> +							   PMD_ORDER) &&
+> >> +				    (pvmw->nr_pages >= HPAGE_PMD_NR))
+> >> +					sync_with_folio_pmd_zap(mm, pvmw->pmd);
+> >> +
+> >> +				step_forward(pvmw, PMD_SIZE);
+> >> +				continue;
+> >> +			}
+> >>  		}
+> >>  		if (!map_pte(pvmw, &pmde, &ptl)) {
+> >>  			if (!pvmw->pte)
+> >> --
+> >> 2.34.1
+> >>
+> >
+> >Thanks, Lorenzo
+> >
+> >----8<----
+> >>From e6a3c1c782714ed831c4d46a14bb99226423bf59 Mon Sep 17 00:00:00 2001
+> >From: Wei Yang <richard.weiyang@gmail.com>
+> >Date: Mon, 22 Jun 2026 13:06:51 +0000
+> >Subject: [PATCH] refactored
+> >
+> >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> >---
+> > mm/page_vma_mapped.c | 20 +++++++++++++++-----
+> > 1 file changed, 15 insertions(+), 5 deletions(-)
+> >
+> >diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+> >index 2ccbabfb2cc1..17dff8aab9f9 100644
+> >--- a/mm/page_vma_mapped.c
+> >+++ b/mm/page_vma_mapped.c
+> >@@ -269,14 +269,24 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+> > 			/* THP pmd was split under us: handle on pte level */
+> > 			spin_unlock(pvmw->ptl);
+> > 			pvmw->ptl = NULL;
+> >-		} else if (!pmd_present(pmde)) {
+> >-			const softleaf_t entry = softleaf_from_pmd(pmde);
+> >+		} else if (pmd_is_device_private_entry(pmde)) {
+> >+			softleaf_t entry;
+> >+
+> >+			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+> >+			pmde = *pvmw->pmd;
+> >+			entry = softleaf_from_pmd(pmde);
+> >
+> >-			if (softleaf_is_device_private(entry)) {
+> >-				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+> >+			if (likely(softleaf_is_device_private(entry))) {
+> >+				if (pvmw->flags & PVMW_MIGRATION)
+> >+					return not_found(pvmw);
+> >+				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+> >+					return not_found(pvmw);
+> > 				return true;
+> > 			}
+> >-
+> >+			/* device-private pmd was split under us: handle on pte level */
+> >+			spin_unlock(pvmw->ptl);
+> >+			pvmw->ptl = NULL;
+> >+		} else if (!pmd_present(pmde)) {
+> > 			if ((pvmw->flags & PVMW_SYNC) &&
+> > 			    thp_vma_suitable_order(vma, pvmw->address,
+> > 						   PMD_ORDER) &&
+> >--
+> >2.54.0
+>
+> If we prefer this way, I will check and take it.
+
+Yeah, feel free to go ahead + use it :)
+
+>
+> --
+> Wei Yang
+> Help you, Help me
+
+Thanks, Lorenzo
