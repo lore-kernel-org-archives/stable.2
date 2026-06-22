@@ -1,125 +1,168 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA963200110
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 17:46:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69014340407
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 17:48:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782150413; cv=none; b=Z5GO2Qbr2cNFt13ezOhn80YLQJRsXfz7letghkFQJyvcYktM8R+abgRB2LhECKPoBM8v0mapy345xVUGLWDqW5sYQozXsrrOi4VLSR2Huii7TiqsnE8a9Pk8e5Vzo4zBXzlYzOUcrm3sodD6ihN5Vs9SetUkPL9VwlBOPPLbgP4=
+	t=1782150510; cv=none; b=m7BE2O3UzD3ACfrnlopkyFy2gDEakLy1RhWnLK4tvvHMDbRNvZbtNNVcRlt+xAFZLdzwzqQXYptwon8C5f7M7mkF1EZsW+R5rqZ55E/6209pa7J/EKJ5wDCXmrhsNNc1Tkx0ray7KCetTp0yZusePg8SoGKH1xHyX3elgey68YU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782150413; c=relaxed/simple;
-	bh=5Md68ozpaBWQYx5mDCyb358QU5P+LGoDnzuxsdgoaMk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=idT0zi/pD0gmzPAO1oGCjkFWr0AfiqZHkZkMJScFehPmjr7KFfQonQUGaamTtjF8oqxfQNQ32CbgYvPD7yoFnq+19/Yk1aodMzdAkszl7vlMw2jwfu/mWbFHCaj390Q5grKQKS2CJJWid5wj5hx722/5F4VLMeVMCTDQjaF6/1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WYZSZIYQ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1782150510; c=relaxed/simple;
+	bh=rT+UtKMtzGnsnjtDXBDLQP30MQk3djrKnOyWlXkyvIw=;
+	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type; b=U+39+tMJLMkDpq64lr9AKBdg9rUUW8SOuK6aQdGrngyDeiNx6FnLfhyeDBPVc5j0YUMKiHM2XwS6jkBjp3AHzodm44Um7IdNA9XDfh0u2aj+wo/J+aIBMT3CJ7kZfZYAYmxfAjh5a+SOTPvytpAhXvmXPZhR/sLHVIJds5yQwe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q0f92W9A; arc=none smtp.client-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WYZSZIYQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782150410;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ogkNTdRbHLKr+SfKtfZvK8CYRxW/59/l8+UnBjTN5IU=;
-	b=WYZSZIYQEEt+PHNosZX6VNVOf8Pp4zDAcatzrODGxf2zsRBBKmhvRpOMOLCW6e8naXK6AH
-	qAqirabw4/Mj/J1tOggto+CL0HOZXstPsQbyUlmS31wmmXxRGRNtsmFCpO2oEbjYPJTPZd
-	tFt+P7YO6PSkNqZfZa0iHP0vh0paWiM=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-595-Y88W61W_PXqrW7GAbp0kDw-1; Mon,
- 22 Jun 2026 13:46:47 -0400
-X-MC-Unique: Y88W61W_PXqrW7GAbp0kDw-1
-X-Mimecast-MFC-AGG-ID: Y88W61W_PXqrW7GAbp0kDw_1782150405
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7407D1954B3A;
-	Mon, 22 Jun 2026 17:46:44 +0000 (UTC)
-Received: from fedora (unknown [10.44.32.50])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id D746B180058D;
-	Mon, 22 Jun 2026 17:46:39 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Mon, 22 Jun 2026 19:46:44 +0200 (CEST)
-Date: Mon, 22 Jun 2026 19:46:37 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Bradley Morgan <include@grrlz.net>
-Cc: Christian Brauner <brauner@kernel.org>, ebiederm@xmission.com,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Adrian Huang <adrianhuang0701@gmail.com>,
-	Marco Elver <elver@google.com>,
-	Kexin Sun <kexinsun@smail.nju.edu.cn>,
-	Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] signal: avoid shared siginfo namespace rewrites
-Message-ID: <ajl0_fTFXHpL8P9T@redhat.com>
-References: <20260622164029.11474-1-include@grrlz.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q0f92W9A"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-805f5d1a6c3so8444207b3.1
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 10:48:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782150508; x=1782755308; darn=vger.kernel.org;
+        h=content-language:thread-index:content-transfer-encoding
+         :mime-version:message-id:date:subject:in-reply-to:references:cc:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=33veWonGavd+osVYaZO16Ido/MSdlOEETv1HhacB24U=;
+        b=Q0f92W9AAVD8CyTlZPOOj6rGZXrm1afo90xqXd/BHWsbEW6084DAARrb18A/Uiv3mR
+         3k/ki1DY49QLWFWy8bZ8QyUEr+miikmIAyUM2x3kGMwG2oGLE+r1Gx4UJpVl1d2oaQs2
+         h5Vu5gq/TqZ/KWVv/PaRpOM+wtiSAFreC5D7x2YjQaErOxHbQYQRX0oaXHh/UiEadmEe
+         RLP7VL7ZL+R+oz3Rc8fNu40bdCMo7s7eIvpFhBgCmP7L9g8ztSQdBabQ4e+DSZDF6/vy
+         jBxD+1cREN6469Qx3TIm+0W9oG6/9EYkDK9id4i1WGzjrXAkd3AOPRnOrFv7nama0sAa
+         PPgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782150508; x=1782755308;
+        h=content-language:thread-index:content-transfer-encoding
+         :mime-version:message-id:date:subject:in-reply-to:references:cc:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=33veWonGavd+osVYaZO16Ido/MSdlOEETv1HhacB24U=;
+        b=LP6PXIM4CZSTYlnu7qLNq+cpFKXBilGJ6qSzdl5XSNKeGXsxr9n2NzB9YD5WH1MIax
+         J37Qv/jTlkrpkzscoSF9S0bUqzPMivE7zzWgBUjmpgNBWWOZoIX3ADFq2sxwwHPXQGj6
+         8beRjlU3SI89A5notTkeP47tPzmRKZ3qui1SWIgocPGZ2hQb+LL/SMjTSl5JLPkK+Xiw
+         OcxPinXjqnI4Ca4RzYlnW0c8IQH7YRnbXl073GD8V+OryE86mjov01I/oGwn5hxZwCLG
+         Fd/zpj8/dLP8eQpxFp4S4Nz9ummPl4o69Qx6JhwZDb/1aPNUWkbIlQcSTrZvEuneKe5S
+         qXkw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro2DpL1+JEkg7Q5ZcRXbga92TDGVj5hvY++6d3o9oTli9QVmoEjHjuIEDmNS9RliXEUNw8jBV8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHmvmKeGpHndx6zTzT9uEgVsehE2gbqPWj1fTdFOmHVvhJugRO
+	cdYi1wjoONYJOQiF9XjkUSX3rYjPsJPmmGlSw64g83lDcvzw2RhGOPkQ
+X-Gm-Gg: AfdE7cmq6XIJ4edAg5JC38eBLHHOqJyaZlYCyCBwv7obQfnzwmX6qlP10CllfzcppLa
+	DhT6iHwKYci1dx9ZQBylprfg2EbgmPRomiKDa9L1QRwPxxMIIc5QrnWq9xGncsdRiIeHxUV8QQZ
+	61PIgQP6x+rhFYyniJRdyhu183kIKbkHrwVyYcSv5pXS3fLKCDw0M1dnFdstV4q3+RdbU7b89KB
+	7YPVh7wb78VO9EHmJ3qnGa5482X3vQwHi2kUDYxzBLAF/7b0ICxTl2LkDF3DqH8UtGVswpymzHA
+	en59P5X2DvGrv6LnF6+n+/3flZ93uqWx8EnBnmEex4XQLpZigeJBVCAdMLZr/0tUAYCeIhcq0nS
+	ryEUhQnH6Pq3q8aZP6qOkqNJdQv6P21yZHFRF6qkktm63X8bf7OjsbZRue4xgpFaafpC50sNQKZ
+	OVvYW8KJlRygnY7v2xG6JWEvMyeXKTkXnfWHpCgmjhmJJn4c+D6rXVD5oQq/O320/LvtYMBVhtR
+	Cuak+2W/0Sv14U=
+X-Received: by 2002:a05:690c:4b10:b0:7fe:bd7:9cae with SMTP id 00721157ae682-80178c4a2ecmr145514817b3.44.1782150508479;
+        Mon, 22 Jun 2026 10:48:28 -0700 (PDT)
+Received: from WIN6DK41G9CSL2 (c-73-56-149-95.hsd1.fl.comcast.net. [73.56.149.95])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8025f8da5fbsm34884557b3.30.2026.06.22.10.48.27
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 22 Jun 2026 10:48:28 -0700 (PDT)
+From: "Brien Oberstein" <brienpub@gmail.com>
+To: "'Stefano Garzarella'" <sgarzare@redhat.com>
+Cc: <netdev@vger.kernel.org>,
+	<regressions@lists.linux.dev>,
+	<stable@vger.kernel.org>
+References: <467b01dd017b$733792d0$59a6b870$@gmail.com> <ajkAlpiyPWmNPWfx@sgarzare-redhat> <618701dd023e$063de350$12b9a9f0$@gmail.com> <ajkmjgGdJp9Dj6em@sgarzare-redhat>
+In-Reply-To: <ajkmjgGdJp9Dj6em@sgarzare-redhat>
+Subject: RE: [REGRESSION 6.12.90 -> 6.12.94] vsock/virtio: large AF_VSOCK transfers reset under backpressure
+Date: Mon, 22 Jun 2026 13:48:27 -0400
+Message-ID: <672f01dd026f$54fa0600$feee1200$@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260622164029.11474-1-include@grrlz.net>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGzlm2Q3QdtCPSkkHXQpTkeFGbfJwIutksBAb+8QgECzm+rZbZnykdw
+Content-Language: en-us
 
-On 06/22, Bradley Morgan wrote:
->
-> send_signal_locked() rewrites sender ids for the target namespace.
-> Group sends reuse the same siginfo, so one recipient can affect the
-> next.
+Hi Stefano,
 
-Hmm... I'll re-read this change tomorrow after sleep, but I am almost sure
-you are you are right anyway...
+Confirmed -- the 16 MB buffer fixes it: with socat owning the VSOCK-LISTEN
+and SO_VM_SOCKETS_BUFFER_MAX_SIZE/SIZE at 16 MB, a 6.12.94 guest passed
+21/21 large transfers (1.5 MB x12 through 8 MB); the same 1.5 MB payload
+failed every time without it. So the per-socket workaround covers the
+bridges whose listen I control, but not vsock services I can't
+reconfigure, which stay broken on 6.12.94.
 
-I am wondering if we can conditionalize the "swap(rewritten, info)" logic
-with your patch, most probably this makes no sense...
+Agreed the old behaviour was buggy in its own right -- it was
+over-allocating past the advertised buffer. The practical effect for me is
+just that a config that worked on 6.12.90 no longer does on 6.12.94.
 
-May I suggest another change on top of your fix? Make the "kernel_siginfo *info"
-arg of send_signal_locked() "const". To make it more clear. Yes, the signature
-of has_si_pid_and_uid() should be changed too. Up to you.
+A question mainly for stable@: until the merging work lands, would an
+interim be acceptable -- something that keeps ordinary small-packet
+workloads under the limit without reopening the DoS? I don't have the
+kernel-side expertise to judge what's safe there, but I'm glad to prepare
+and test whatever interim you think is right, and to test the merging
+patch when it's ready.
 
 Thanks,
+Brien
 
-Oleg.
+-----Original Message-----
+From: Stefano Garzarella <sgarzare@redhat.com> 
+Sent: Monday, June 22, 2026 8:22 AM
+To: Brien Oberstein <brienpub@gmail.com>
+Cc: netdev@vger.kernel.org; regressions@lists.linux.dev;
+stable@vger.kernel.org
+Subject: Re: [REGRESSION 6.12.90 -> 6.12.94] vsock/virtio: large AF_VSOCK
+transfers reset under backpressure
 
-> Copy the siginfo before changing it.
+On Mon, Jun 22, 2026 at 07:55:30AM -0400, Brien Oberstein wrote:
+>Hi Stefano,
 >
-> Fixes: 7a0cf094944e ("signal: Correct namespace fixups of si_pid and si_uid")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bradley Morgan <include@grrlz.net>
-> ---
->  kernel/signal.c | 4 ++++
->  1 file changed, 4 insertions(+)
+>Thanks, that matches what I'm seeing: large transfers reset mid-stream
+>instead of the sender being throttled (reliable above ~1.5 MB, fine below
+>~90 KB).
 >
-> diff --git a/kernel/signal.c b/kernel/signal.c
-> index b9fc7be1a169..d72d9be3a992 100644
-> --- a/kernel/signal.c
-> +++ b/kernel/signal.c
-> @@ -1181,6 +1181,7 @@ static inline bool has_si_pid_and_uid(struct kernel_siginfo *info)
->  int send_signal_locked(int sig, struct kernel_siginfo *info,
->  		       struct task_struct *t, enum pid_type type)
->  {
-> +	struct kernel_siginfo rewritten;
->  	/* Should SIGKILL or SIGSTOP be received by a pid namespace init? */
->  	bool force = false;
-> 
-> @@ -1194,6 +1195,9 @@ int send_signal_locked(int sig, struct kernel_siginfo *info,
->  		/* SIGKILL and SIGSTOP is special or has ids */
->  		struct user_namespace *t_user_ns;
-> 
-> +		rewritten = *info;
-> +		info = &rewritten;
-> +
->  		rcu_read_lock();
->  		t_user_ns = task_cred_xxx(t, user_ns);
->  		if (current_user_ns() != t_user_ns) {
-> --
-> 2.53.0
+>The bind for me: it's not just this mail bridge -- I use AF_VSOCK for a few
+>host/guest services, some of which open their own sockets, so the
+per-socket
+>buffer workaround can't cover them all. That leaves pinning 6.12.90 (losing
+>the DoS fix and further kernel updates) as the only blanket option.
+
+Okay, but in that case did it work?
+
 >
+>A few quick questions:
+>
+>1. Is a -stable backport of the merging fix likely, and roughly when?
+
+We don't have a fix yet.
+
+>2. Could a smaller interim land in -stable sooner (e.g. more default
+>   headroom) without reopening the DoS?
+
+What we've merged so far is the best we can do for now, but anyone who 
+wants to help improve the situation is welcome to submit patches.
+
+>3. Will the fix guarantee backpressure for any packet size, or just widen
+>   the margin?
+
+It should fix STREAM sockets for any packet size.
+SEQPACKET/DGRAM is a bit different since we need to keep boundaries, so 
+it will come later if needed.
+
+>
+>Happy to test any patch
+
+THanks, I'll ask you to test.
+
+>I have a solid reproducer and can turn it around
+>in a day. I'll also file this as a tracked regression so it's not lost.
+
+Unfortunately, it's always been partially broken, using more memory than 
+specified, so I don't know if this is actually a full regression, but I 
+understand.
+
+Thanks,
+Stefano
+
 
