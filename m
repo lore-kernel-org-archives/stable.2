@@ -1,107 +1,84 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DEA23815DD;
-	Mon, 22 Jun 2026 07:59:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3537B361675;
+	Mon, 22 Jun 2026 07:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782115144; cv=none; b=GfKNmERtsZoQQRZrB9qLc/RidmmR/rtjYlVS9WdbUCsuyymdD5qy4+NGwBJpi6MdnNSdkwWlur6yf9qaUOT/5Hbvali3NwjNg9lbld+R2FkD+lVW0d1wVOvv7zsrQidlhMb6ZQMhQMGS8ARJ8moSQNgn0AnZIKDch4FeMmt07Lk=
+	t=1782115196; cv=none; b=CrQzYctDzrVNcOkWXjFrmgydp7+Yo4Id4eqDtQefs4D5vXDf0x7GVUILGwvWlUkEx94njY9Q+7PEb7Du61AN5rjw2mAAGpkRcI46Hr+h71EkF+sqvDeU82LT0NevtCsvh2d2quabQfU2oe/P6CbWlAPdvD6HYoaoas3Zy8pa0TE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782115144; c=relaxed/simple;
-	bh=91QdCSk232KiUANG4CEhHOZADC/4ruPF70HDR+2rVoo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ganaDeuY4ggby3jngSnHoI1zVgjDxpz+sbzx1rWTum5oB7KGuP73Zzy620WtLU3rcepC1GL+OJZ6m7ENbqrLw5INE4jIYU2MJY0FuSm2a9Xct/xXNnBchRn/tpLi9G3T8E+pnhnbIoZvj2h/1oaEMEP5FvmiTgPOdsoLcBo3o0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UeHDRADs; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1782115196; c=relaxed/simple;
+	bh=qyBaaWnYRbK7XCAbAJbWuep5cFL9E/JUZL/x+Cq/CYo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=g8J1oS0Lt7aJz/4Dirv89V0Dlu5GRzMGmOUAZG4WFCqKsjQbxD33IwskofsNqpsT6dxDkK+N3E7pHtFzkbPZTkC7POGgmL900stt4PEqpuFWHCvU3ksrkjPzdmUaws2b/dzh7xn1haQJTIu3eJ7KxgaVc2MYegQK0a77eFlurBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eMhbPW4A; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UeHDRADs"
-Received: from ideasonboard.com (mob-109-113-9-173.net.vodafone.it [109.113.9.173])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 40EFF1E6;
-	Mon, 22 Jun 2026 09:58:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1782115103;
-	bh=91QdCSk232KiUANG4CEhHOZADC/4ruPF70HDR+2rVoo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UeHDRADsEzARdpfx9wqYb97j7Ckk9PpBDNWUtrP/rJNzZ5rReLLLghp3vJqv7JvA5
-	 F1xIQk8Mcpw+JMW8+Gjn/5M0wxM0za/0iqkqVp+QhVPRs/vn1Kf392bqZ+vvlidDkY
-	 FOMFY5Hy0qelSOc2KzDosYyZ7jvh8S8iOxOVhf84=
-Date: Mon, 22 Jun 2026 09:58:57 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Biren Pandya <birenpandya@gmail.com>
-Cc: Jacopo Mondi <jacopo+renesas@jmondi.org>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, "open list:RDACM21 Camera Sensor" <linux-media@vger.kernel.org>, 
-	open list <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] media: i2c: rdacm21: Fix missing
- media_entity_cleanup()
-Message-ID: <ajjp7QW_F2Hryuw9@zed>
-References: <20260621060709.54396-2-birenpandya@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eMhbPW4A"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ws
+	C9plxLC49dLoH7qzqis/G3QGv01+Xrfj7bJMYdBtE=; b=eMhbPW4A+xpCxezzUb
+	p6ljtzbsufNBos05mhI+GMooS5VAAhvcSSUFadlUkiBynfiv0VnjrpK7Tn6kTPLv
+	qx0P0ckt66X/RXdHE0KCxW2oVGZf6ELA9RcA39pefdqSvQsVuieig0BgCD/HvbQR
+	19BfYNXvrMbSdPiCnBucelB5E=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnNwU16zhqBIo_FA--.7653S2;
+	Mon, 22 Jun 2026 15:58:47 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: ram.vegesna@broadcom.com,
+	James.Bottomley@HansenPartnership.com,
+	martin.petersen@oracle.com,
+	dwagner@suse.de,
+	jsmart2021@gmail.com,
+	hare@suse.de
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: elx: efct: Fix IO leak on unsupported additional CDB
+Date: Mon, 22 Jun 2026 15:58:44 +0800
+Message-Id: <20260622075844.832871-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260621060709.54396-2-birenpandya@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnNwU16zhqBIo_FA--.7653S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7GF17ZF4fur4rtr18tr4xJFb_yoWDCrg_ur
+	4rXryfZrnYkF1kGF4rtF4fZayaka1Duwn7ZF1Fg34Fgr47ZrWUCw1DArZag3yUJrZ2yFZ5
+	Ww17ZFWUCr17ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRRPfHUUUUUU==
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7hewH2o46zdBawAA3y
 
-Hi Biren
+efct_dispatch_fcp_cmd() allocates an efct_io before dispatching an
+unsolicited FCP command. If the command has an unsupported additional
+CDB, the function returns -EIO before handing the IO to the SCSI layer.
 
-On Sun, Jun 21, 2026 at 11:37:06AM +0530, Biren Pandya wrote:
-> If an error occurs after media_entity_pads_init() is called, the media
-> entity is left uncleaned, potentially leaking resources or leaving it
-> in an invalid state. Similarly, the remove path misses the cleanup.
->
-> Add media_entity_cleanup() to both the error path in rdacm21_probe()
-> and the rdacm21_remove() function to ensure proper resource release.
->
-> Fixes: a59f853b3b4b ("media: i2c: Add driver for RDACM21 camera module")
-> Cc: stable@vger.kernel.org
+Free the allocated IO before returning from this error path.
 
-I wouldn't backport this. media_entity_cleanup() does nothing at the
-moment and will do nothing on stable kernels as well.
+Fixes: f45ae6aac0a0 ("scsi: elx: efct: Unsolicited FC frame processing routines")
+Cc: stable@vger.kernel.org
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+ drivers/scsi/elx/efct/efct_unsol.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-It is anyway worth adding it to the driver in case in future it will
-do something.
+diff --git a/drivers/scsi/elx/efct/efct_unsol.c b/drivers/scsi/elx/efct/efct_unsol.c
+index e6addab66a60..6a871a59c909 100644
+--- a/drivers/scsi/elx/efct/efct_unsol.c
++++ b/drivers/scsi/elx/efct/efct_unsol.c
+@@ -385,6 +385,7 @@ efct_dispatch_fcp_cmd(struct efct_node *node, struct efc_hw_sequence *seq)
+ 
+ 		if (cmnd->fc_flags & FCP_CFL_LEN_MASK) {
+ 			efc_log_err(efct, "Additional CDB not supported\n");
++			efct_scsi_io_free(io);
+ 			return -EIO;
+ 		}
+ 		/*
+-- 
+2.25.1
 
-> Signed-off-by: Biren Pandya <birenpandya@gmail.com>
-> ---
->  drivers/media/i2c/rdacm21.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/media/i2c/rdacm21.c b/drivers/media/i2c/rdacm21.c
-> index bcab462708c7..41d4242a9b58 100644
-> --- a/drivers/media/i2c/rdacm21.c
-> +++ b/drivers/media/i2c/rdacm21.c
-> @@ -594,6 +594,7 @@ static int rdacm21_probe(struct i2c_client *client)
->
->  error_free_ctrls:
->  	v4l2_ctrl_handler_free(&dev->ctrls);
-> +	media_entity_cleanup(&dev->sd.entity);
-
-Don't you think a new label befoer error_free_ctrls: (possibile named
-error_entity_cleanup) would be better ?
-
-The code jumps to error_free_ctrls: even before calling
-media_entity_pads_init().
-
-Thanks
-   j
-
->  error:
->  	i2c_unregister_device(dev->isp);
->
-> @@ -606,6 +607,7 @@ static void rdacm21_remove(struct i2c_client *client)
->
->  	v4l2_async_unregister_subdev(&dev->sd);
->  	v4l2_ctrl_handler_free(&dev->ctrls);
-> +	media_entity_cleanup(&dev->sd.entity);
->  	i2c_unregister_device(dev->isp);
->  }
->
-> --
-> 2.50.1 (Apple Git-155)
->
