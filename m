@@ -1,33 +1,50 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94330244675;
-	Mon, 22 Jun 2026 15:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD97C37A4BC;
+	Mon, 22 Jun 2026 15:27:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782141564; cv=none; b=IISZMAFZdLt/7UbF68SZANnmo06GUJz4983jdVxpOhJfhkQsmLyVaq7PTbiEWsCzlhdE0qC5jLiGB+U9NnKkueQjs/4shbKqpA2A/g4Rf/8WXNezeRTf6p1q21XvvxSDUI9A5BT5LotN9hjDG+UfOiZJHOMNz5vbf0dckqpBDMc=
+	t=1782142053; cv=none; b=YPN81SKhocKhmskC3ExSVdy0jt4f1e+mvxbbTQmsI5zjUkav/WPLp/xrhUKf5eWa//2Mp5oZ4KOAhllVICT7OrzUceg34E3JBTZikjRJVVXeGfxF0DebzI1jXGnAdfC7W4GiBanSF6mAgJ7UNcSsGI0oB5YxZw3wG6ErEqPMz8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782141564; c=relaxed/simple;
-	bh=iBwmvKevVolFhLql59YnzV3ie1X7obFkzvuuRhqWefs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=I7RpQlK4ZhGCEQjJAGhlDFqF8VBXz4Fl0bMUWViBDv21YGBhev8XnhxG1A6xFuVCf3o0UvkvTytdBjE9vPRdeMWdzIbvr8ALXOAm7LXYUlAEPOYNk3bPU2QnOPGN7mpZqhZYZZ0yrqf0cjMpLRUsFDSJou5T0Cv2GDxliZYtFEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.74.238])
-	by APP-01 (Coremail) with SMTP id qwCowACXO9RwUjlqCILBAg--.27065S2;
-	Mon, 22 Jun 2026 23:19:14 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Ayush Sawal <ayush.sawal@chelsio.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: linux-crypto@vger.kernel.org,
+	s=arc-20240116; t=1782142053; c=relaxed/simple;
+	bh=XpSGDIpRCRBAE29hwz+4orc/NRgr22LCWxO8o578Ytc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QGuKzH2AViej98GVYfxj1TeQ5J6smy0MDU/y7bJzVtBomnNqjMHAp/P7whCXa/NQe5v924aXFMYxg+0yvPbwnw9IcSli9mtw5HVH9qYsMLNfZ+OnjqSICBXMtZHxGsuny85zWWrTSiE893Wjy8xVC7TPbva3qb2Dn7VlzD1M5U4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n5Xw5jax; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n5Xw5jax"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96C5C1F00A3F;
+	Mon, 22 Jun 2026 15:27:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782142051;
+	bh=E7gkdZlqTSQVDTaW6A9yoz151Q1XtNekP8BRqWYpAJY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=n5Xw5jaxp5pm2PHA4STJDXsnKR4vBaF+s8bEICdWBCVmEMN+k3bMzEHqT/5Ap6Z8/
+	 7Srx2npQtG+YcVFCrHCj1d0PrjhxNbvULRDvAucYtImFVXJN7LhaUjvRY7aHNWHMI/
+	 VsYoORAeDbAZUUgiucDRNmERwSywXGb+3C6N45VtYzhhWWVGT3qOD82pnTDhgLGkDa
+	 O21WIt3xYyocJGlMwlWzBh4uq6Wm53PMFfuzbtB7DyymmUPBQ8IX9grJMVqJayNx70
+	 +I2r27cXFT0I5pUT/Vwbd0CNyWkrHzfenzuYjCfJBfmHG+VwoiuPDZFjn3n6aMWf7B
+	 ikabF8pIDjE3g==
+Received: from johan by xi.lan with local (Exim 4.99.3)
+	(envelope-from <johan@kernel.org>)
+	id 1wbgYb-00000000UIz-19bP;
+	Mon, 22 Jun 2026 17:27:29 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Juergen Stuber <starblue@users.sourceforge.net>,
+	Yue Sun <samsun1006219@gmail.com>,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] Fix multiple issues in chcr driver:
-Date: Mon, 22 Jun 2026 23:19:10 +0800
-Message-Id: <20260622151910.49402-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	Johan Hovold <johan@kernel.org>,
+	stable@vger.kernel.org,
+	Oliver Neukum <oliver@neukum.org>
+Subject: [PATCH 2/4] USB: idmouse: fix use-after-free on disconnect race
+Date: Mon, 22 Jun 2026 17:26:10 +0200
+Message-ID: <20260622152612.116422-3-johan@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260622152612.116422-1-johan@kernel.org>
+References: <20260622152612.116422-1-johan@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,116 +52,149 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACXO9RwUjlqCILBAg--.27065S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZr1xKFWDJw1rury8Ww15Arb_yoW5uF1rpF
-	s8CFZayryrJr17GF92yws5Wa43A3y3uF43CrWFya40vwsYqrykXaykZF1jvF1fGFWrG3yU
-	ZwsrXa1fCa4UG37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
-	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
-	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
-	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
-	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
-	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjJ73PUUUU
-	U==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCQ4GA2o5I0xylAABsZ
 
-1. In chcr_ahash_final() and chcr_ahash_digest(), chcr_send_wr()
-   return value is not checked. If it fails, DMA buffers are not
-   unmapped, causing leaks.
+mutex_unlock() may access the mutex structure after releasing the lock
+and therefore cannot be used to manage lifetime of objects directly
+(unlike spinlocks and refcounts). [1][2]
 
-2. In chcr_aead_op(), the inflight counter is not decremented when
-   assoclen validation fails.
+Use a kref to release the driver data to avoid use-after-free in
+mutex_unlock() when release() races with disconnect().
 
-Fix by:
-- Adding error handling for chcr_send_wr() with goto unmap
-- Adding chcr_dec_wrcount() on the assoclen error path
+[1] a51749ab34d9 ("locking/mutex: Document that mutex_unlock() is
+                   non-atomic")
+[2] 2b9d9e0a9ba0 ("locking/mutex: Clarify that mutex_unlock(), and most
+                   other sleeping locks, can still use the lock object
+                   after it's unlocked")
 
-Fix the following functions with missing decrement on error paths:
-- chcr_aes_encrypt()
-- chcr_aes_decrypt()
-- chcr_aead_op()
-
-For chcr_aes_encrypt() and chcr_aes_decrypt(), use a common error
-label to decrement the counter. For chcr_aead_op(), use the existing
-chcr_dec_wrcount() helper on the invalid assoclen error path.
-
-Cc: stable@vger.kernel.org
-Fixes: b8fd1f4170e7 ("crypto: chcr - Add ctr mode and process large sg entries for cipher")
-Fixes: d91a3159e8d9 ("Crypto/chcr: fix gcm-aes and rfc4106-gcm failed tests")
-Fixes: 324429d74127 ("chcr: Support for Chelsio's Crypto Hardware")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Fixes: 54d2bc068fd2 ("USB: fix locking in idmouse")
+Cc: stable@vger.kernel.org	# 2.6.24
+Cc: Oliver Neukum <oliver@neukum.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/crypto/chelsio/chcr_algo.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+ drivers/usb/misc/idmouse.c | 45 +++++++++++++++++++-------------------
+ 1 file changed, 22 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/crypto/chelsio/chcr_algo.c b/drivers/crypto/chelsio/chcr_algo.c
-index 6dec42282768..e431e8c1fdbd 100644
---- a/drivers/crypto/chelsio/chcr_algo.c
-+++ b/drivers/crypto/chelsio/chcr_algo.c
-@@ -1359,7 +1359,7 @@ static int chcr_aes_encrypt(struct skcipher_request *req)
- 	err = process_cipher(req, u_ctx->lldi.rxq_ids[reqctx->rxqidx],
- 			     &skb, CHCR_ENCRYPT_OP);
- 	if (err || !skb)
--		return  err;
-+		goto error;
- 	skb->dev = u_ctx->lldi.ports[0];
- 	set_wr_txq(skb, CPL_PRIORITY_DATA, reqctx->txqidx);
- 	chcr_send_wr(skb);
-@@ -1402,11 +1402,15 @@ static int chcr_aes_decrypt(struct skcipher_request *req)
- 	err = process_cipher(req, u_ctx->lldi.rxq_ids[reqctx->rxqidx],
- 			     &skb, CHCR_DECRYPT_OP);
- 	if (err || !skb)
--		return err;
-+		goto error;
- 	skb->dev = u_ctx->lldi.ports[0];
- 	set_wr_txq(skb, CPL_PRIORITY_DATA, reqctx->txqidx);
- 	chcr_send_wr(skb);
- 	return -EINPROGRESS;
-+
-+error:
-+	chcr_dec_wrcount(dev);
-+	return err;
+diff --git a/drivers/usb/misc/idmouse.c b/drivers/usb/misc/idmouse.c
+index 0f6b3464c2d6..3e37adf2bb57 100644
+--- a/drivers/usb/misc/idmouse.c
++++ b/drivers/usb/misc/idmouse.c
+@@ -63,6 +63,7 @@ MODULE_DEVICE_TABLE(usb, idmouse_table);
+ 
+ /* structure to hold all of our device specific stuff */
+ struct usb_idmouse {
++	struct kref kref;
+ 
+ 	struct usb_device *udev; /* save off the usb device pointer */
+ 	struct usb_interface *interface; /* the interface for this device */
+@@ -209,8 +210,10 @@ static int idmouse_resume(struct usb_interface *intf)
+ 	return 0;
  }
- static int chcr_device_init(struct chcr_context *ctx)
+ 
+-static inline void idmouse_delete(struct usb_idmouse *dev)
++static inline void idmouse_delete(struct kref *kref)
  {
-@@ -1877,7 +1881,10 @@ static int chcr_ahash_finup(struct ahash_request *req)
- 	req_ctx->hctx_wr.processed += params.sg_len;
- 	skb->dev = u_ctx->lldi.ports[0];
- 	set_wr_txq(skb, CPL_PRIORITY_DATA, req_ctx->txqidx);
--	chcr_send_wr(skb);
-+	if (chcr_send_wr(skb)) {
-+		error = -EIO;
-+		goto unmap;
-+	}
- 	return -EINPROGRESS;
- unmap:
- 	chcr_hash_dma_unmap(&u_ctx->lldi.pdev->dev, req);
-@@ -1978,7 +1985,10 @@ static int chcr_ahash_digest(struct ahash_request *req)
- 	req_ctx->hctx_wr.processed += params.sg_len;
- 	skb->dev = u_ctx->lldi.ports[0];
- 	set_wr_txq(skb, CPL_PRIORITY_DATA, req_ctx->txqidx);
--	chcr_send_wr(skb);
-+	if (chcr_send_wr(skb)) {
-+		error = -EIO;
-+		goto unmap;
-+	}
- 	return -EINPROGRESS;
- unmap:
- 	chcr_hash_dma_unmap(&u_ctx->lldi.pdev->dev, req);
-@@ -3636,6 +3646,7 @@ static int chcr_aead_op(struct aead_request *req,
- 	    crypto_ipsec_check_assoclen(req->assoclen) != 0) {
- 		pr_err("RFC4106: Invalid value of assoclen %d\n",
- 		       req->assoclen);
-+		chcr_dec_wrcount(cdev);
- 		return -EINVAL;
++	struct usb_idmouse *dev = container_of(kref, struct usb_idmouse, kref);
++
+ 	kfree(dev->bulk_in_buffer);
+ 	kfree(dev);
+ }
+@@ -254,6 +257,8 @@ static int idmouse_open(struct inode *inode, struct file *file)
+ 		/* increment our usage count for the driver */
+ 		++dev->open;
+ 
++		kref_get(&dev->kref);
++
+ 		/* save our object in the file's private structure */
+ 		file->private_data = dev;
+ 
+@@ -277,16 +282,11 @@ static int idmouse_release(struct inode *inode, struct file *file)
+ 
+ 	/* lock our device */
+ 	mutex_lock(&dev->lock);
+-
+ 	--dev->open;
++	mutex_unlock(&dev->lock);
++
++	kref_put(&dev->kref, idmouse_delete);
+ 
+-	if (!dev->present) {
+-		/* the device was unplugged before the file was released */
+-		mutex_unlock(&dev->lock);
+-		idmouse_delete(dev);
+-	} else {
+-		mutex_unlock(&dev->lock);
+-	}
+ 	return 0;
+ }
+ 
+@@ -334,6 +334,7 @@ static int idmouse_probe(struct usb_interface *interface,
+ 	if (dev == NULL)
+ 		return -ENOMEM;
+ 
++	kref_init(&dev->kref);
+ 	mutex_init(&dev->lock);
+ 	dev->udev = udev;
+ 	dev->interface = interface;
+@@ -342,8 +343,7 @@ static int idmouse_probe(struct usb_interface *interface,
+ 	result = usb_find_bulk_in_endpoint(iface_desc, &endpoint);
+ 	if (result) {
+ 		dev_err(&interface->dev, "Unable to find bulk-in endpoint.\n");
+-		idmouse_delete(dev);
+-		return result;
++		goto err_put_kref;
  	}
  
+ 	dev->orig_bi_size = usb_endpoint_maxp(endpoint);
+@@ -351,8 +351,8 @@ static int idmouse_probe(struct usb_interface *interface,
+ 	dev->bulk_in_endpointAddr = endpoint->bEndpointAddress;
+ 	dev->bulk_in_buffer = kmalloc(IMGSIZE + dev->bulk_in_size, GFP_KERNEL);
+ 	if (!dev->bulk_in_buffer) {
+-		idmouse_delete(dev);
+-		return -ENOMEM;
++		result = -ENOMEM;
++		goto err_put_kref;
+ 	}
+ 
+ 	/* allow device read, write and ioctl */
+@@ -364,14 +364,18 @@ static int idmouse_probe(struct usb_interface *interface,
+ 	if (result) {
+ 		/* something prevented us from registering this device */
+ 		dev_err(&interface->dev, "Unable to allocate minor number.\n");
+-		idmouse_delete(dev);
+-		return result;
++		goto err_put_kref;
+ 	}
+ 
+ 	/* be noisy */
+ 	dev_info(&interface->dev,"%s now attached\n",DRIVER_DESC);
+ 
+ 	return 0;
++
++err_put_kref:
++	kref_put(&dev->kref, idmouse_delete);
++
++	return result;
+ }
+ 
+ static void idmouse_disconnect(struct usb_interface *interface)
+@@ -387,14 +391,9 @@ static void idmouse_disconnect(struct usb_interface *interface)
+ 	/* prevent device read, write and ioctl */
+ 	dev->present = 0;
+ 
+-	/* if the device is opened, idmouse_release will clean this up */
+-	if (!dev->open) {
+-		mutex_unlock(&dev->lock);
+-		idmouse_delete(dev);
+-	} else {
+-		/* unlock */
+-		mutex_unlock(&dev->lock);
+-	}
++	mutex_unlock(&dev->lock);
++
++	kref_put(&dev->kref, idmouse_delete);
+ 
+ 	dev_info(&interface->dev, "disconnected\n");
+ }
 -- 
-2.39.5 (Apple Git-154)
+2.53.0
 
