@@ -1,90 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4053A75A3
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 12:36:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EBC3AC0CD;
+	Mon, 22 Jun 2026 12:41:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782131814; cv=none; b=Lk2r61ezfL+eNAMM7cftiyAhoQEXAaWjj4qYbB95hCSXyl/7vn+P369Ls/iJerHKZ7+/Dw3781/Cym9ZOxcOiRaZ6WMG/j7zAprimfKC3JZ2rnLaP/EvXLhjdC2lRLWIpPJbh5aydn83tPbVuphjcUC3r1B0VFe0+4OVra7GyDA=
+	t=1782132088; cv=none; b=C0lmqNfNcShjGxSmOQIeBaI0KC8kpwThrfitNHonSUlHNz55j++UBtqb3VQ3zZTuo8Q+OvQ7c9qeAkLjJF0+HkU2VwGhX4ouum8wlGVKKCKKbsP3cssCocleoXYmKR6uwVZjl/fpyo6EbLxLNH72ZL7KCZDwU+ssvAE9Uu28MDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782131814; c=relaxed/simple;
-	bh=eUbWCd4uA8L8ygZtERA+T3ccKTe/KW3JOZWQf6S5pFc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FrYvHYVQlbQ/iGv5mXsJpnFcRt+2PUkTzMTD4kauTc+WqmNutMXj8BYlcjBETf29TVWin2ukQovibWCJGO5FfwLxf4YRIo3eZI1E8KGG1xaIQt8RJ8rFwY5Y9MokyGhbVL05/LtfPS41QRV8wS+2IIFm9tdbubTCBVlFWtS73gI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VTQwzqcW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782132088; c=relaxed/simple;
+	bh=FZe9L1aOihvNsi1mP/k0gXCo1sbBVdCbhaxSa68d8mY=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=u8H85hzLt6EEqI5t/icdqYbQxn4WRFHATG4Y1pbIFLFJIiQcvi+zVHpbVjfSp++/83iRimczRM2dooj+h1fS6d+pzoUPQhz07HtM+ayNuuTcODM/XZsvUZIQatPTxMy9hxT1M4rkmp8aAjQi7nQqvuoLaMm/JWOHsWXNhi1cjh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OQxsNm4s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VTQwzqcW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76FCE1F00AC4
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 12:36:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OQxsNm4s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68C7A1F000E9;
+	Mon, 22 Jun 2026 12:41:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782131812;
-	bh=eUbWCd4uA8L8ygZtERA+T3ccKTe/KW3JOZWQf6S5pFc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=VTQwzqcWsL+ec4uJUlRyWBn6P4NDKvuFWOnLMBCwEajeaJsaL6hyD4ZSyR4yZehTk
-	 w2iuOYdo8byuNGfdivY1NaxqjPNuLE5iiSdq7njvs+98Q+plKQKfL4aPX0NeHD3CD0
-	 PqoG/O+FxwyS4oMkUjI7nBR72+epLp1BLEsKHv3FrXPPLB2MRzpH2By//67XBu3heB
-	 K+RBE2SX/4zEGl1ivagT7tbdh87WqNMLsTXk1DY4jYHxFamRQTLo2Km/3yv4IxGorK
-	 p6jVwpME8gxObHWtf1bdvt4slxX0HYrbQ2RGRVFsCQTAltq861p/gxSMmLskMyzFhk
-	 YWtgaAA96LGtw==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5aa68d9d56fso4936429e87.2
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 05:36:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8d+DfRUJIyLIW4o0dXfSUFtEoEX2/jQ62HxQWDYgt7Me03Orpm87ZO8Or4zrPTTng4LAgDWc4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwovbiBn94IRuBmlmytSk396dngEN7n3rJqD68AejNLip8NvcJk
-	4Y9RL8L6opaqzeqbxsApu7i4AoI80vRD9lkfOhCjKXTyb0s6TNktflOIY+BQv2/8qck75hAHSo3
-	tCkKypByf4c48rZTStiI7FodUe6GvyA8=
-X-Received: by 2002:a05:6512:3ca6:b0:5aa:8824:1571 with SMTP id
- 2adb3069b0e04-5ad58f5896bmr3300879e87.49.1782131811251; Mon, 22 Jun 2026
- 05:36:51 -0700 (PDT)
+	s=k20260515; t=1782132086;
+	bh=QGutXJ/UQR7Pm54Zrjalv+sNwgnUcPPhvyee6Rqu+sM=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=OQxsNm4sn4VTg03ihN8zkLau945H9lhQfIBCQGlPgx9vv0cJ8bERM0oiRpjKgsZEc
+	 Y+8RguJhc6DGxueH9X6BguAi3rcBeVta1LzamrGBL80SUOoQAGA0QJhMFjaTqVWrdt
+	 IMtvzjTFOVEqHtJ/Ww2nfIV1oa2mzXU1t7nN3m3T1Uqdl5sm9u0iAyHs3w0tf54Qlm
+	 caMYYfZNbIjsoXHkbdsZk/iI/jfbrfSM2HIk5uq5B+Rrk9F1Pny+QpuhTNXy3JEnk/
+	 5y+NMCQlfsbJRDlDObp4hkrXlNwIrlndMFyEa4b4I9D9mVs/zDLWcvnpYzFQek1BaJ
+	 G5HFkoSOdc3Ww==
+Message-ID: <41cbc896-016c-411a-bb6e-950e8400ff41@kernel.org>
+Date: Mon, 22 Jun 2026 20:41:22 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260622043015.643637-1-haoxiang_li2024@163.com>
-In-Reply-To: <20260622043015.643637-1-haoxiang_li2024@163.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 22 Jun 2026 14:36:36 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmEUnYXwm3VWMSZJW-rtQkQniyhcs_0J5ex9OxsP=2SxA@mail.gmail.com>
-X-Gm-Features: AVVi8CdfcYAReKAYIfo8lQyvbhkLo8Uu4wjTfvGwWbMoKmleSl20UIG87a7HorA
-Message-ID: <CAD++jLmEUnYXwm3VWMSZJW-rtQkQniyhcs_0J5ex9OxsP=2SxA@mail.gmail.com>
-Subject: Re: [PATCH] net: ixp4xx_hss: fix duplicate HDLC netdev allocation
-To: Haoxiang Li <haoxiang_li2024@163.com>
-Cc: kaloz@openwrt.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	huangguangbin2@huawei.com, lipeng321@huawei.com, 
-	linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Yunji Kang <yunji0.kang@samsung.com>, Yeongjin Gil
+ <youngjin.gil@samsung.com>, Sungjong Seo <sj1557.seo@samsung.com>
+Subject: Re: [PATCH v2] f2fs: fix to round down start offset of fallocate for
+ pin file
+To: Sunmin Jeong <s_min.jeong@samsung.com>, jaegeuk@kernel.org
+References: <CGME20260622052831epcas1p205548491ce904c0cfda685ed05fe7cab@epcas1p2.samsung.com>
+ <20260622052817.3972188-1-s_min.jeong@samsung.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260622052817.3972188-1-s_min.jeong@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jun 22, 2026 at 6:30=E2=80=AFAM Haoxiang Li <haoxiang_li2024@163.co=
-m> wrote:
-
-> ixp4xx_hss_probe() allocates two HDLC netdevs. The first one is stored
-> in ndev, initialized, and registered with register_hdlc_device(). The
-> second one is stored in port->netdev and later used by the remove path
-> for unregister_hdlc_device() and free_netdev().
->
-> This means that the registered netdev is not the same object that is
-> unregistered and freed on remove. It also leaks the first allocation if
-> the second alloc_hdlcdev() call fails, and the first allocation is not
-> checked before ndev is used.
->
-> Older code allocated the HDLC netdev only once and stored the same object
-> in both the local variable and port->netdev. The buggy conversion split
-> this into two alloc_hdlcdev() calls. A later rename changed the local
-> variable name to ndev, but the underlying mismatch remained.
->
-> Fix this by allocating the HDLC netdev only once and assigning the same
-> object to port->netdev.
->
-> Fixes: 99ebe65eb9c0 ("net: ixp4xx_hss: move out assignment in if conditio=
-n")
+On 6/22/26 13:28, Sunmin Jeong wrote:
+> Currently, the length of fallocate for pin file is section-aligned to
+> keep allocated sections from being selected as victims of GC. However,
+> for the case that the start offset of fallocate is not aligned in
+> section, the allocated sections can't be fully utilized. It's because a
+> new section is allocated by f2fs_allocate_pinning_section() after using
+> blks_per_sec blocks regardless of the start offset. As a result, several
+> unexpected dirty segments may be created, including blocks assigned to
+> the pinned file.
+> 
+> To address this issue, let's round down the start offset of fallocate
+> to the length of section.
+> 
+> The reproducing scenario is as below
+> 
+> chunk=$(((2<<20)+4096)) # 2MB + 4KB
+> touch test
+> f2fs_io pinfile set test
+> f2fs_io fallocate 0 0 $chunk test
+> f2fs_io fallocate 0 $chunk $chunk test
+> f2fs_io fallocate 0 $((chunk*2)) $chunk test
+> f2fs_io fiemap 0 $((chunk*3)) test
+> 
+> Fiemap: offset = 0 len = 12288
+>     logical addr.    physical addr.   length           flags
+> 0   0000000000000000 000000068c600000 0000000000400000 00001088
+> 1   0000000000400000 000000003d400000 0000000000001000 00001088
+> 2   0000000000401000 00000003eb200000 0000000000200000 00001088
+> 3   0000000000601000 00000005e4200000 0000000000001000 00001088
+> 4   0000000000602000 0000000605400000 0000000000200000 00001089
+> 
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+> Fixes: f5a53edcf01e ("f2fs: support aligned pinned file")
+> Reviewed-by: Yunji Kang <yunji0.kang@samsung.com>
+> Reviewed-by: Yeongjin Gil <youngjin.gil@samsung.com>
+> Reviewed-by: Sungjong Seo <sj1557.seo@samsung.com>
+> Signed-off-by: Sunmin Jeong <s_min.jeong@samsung.com>
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Chao Yu <chao@kernel.org>
 
-Yours,
-Linus Walleij
+Thanks,
