@@ -1,67 +1,76 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2363B283FE6
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 22:56:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52499231830
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 23:01:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782168972; cv=none; b=qTjZtE44W1Pb95Q5Uz5tHCteHNIjK+Z5nBGf807KSi2Bd5QlI2eiL8rRPoMQlyUbl5L1LorDmH1L5CH8J1loBrp45M7lYUBmxCqTu6jhFK8rgE9zZj2Be67bMASBWwI46qEDzXPU+jA5eE+2ULNVsYBgePG3rotETtOvWJerIQM=
+	t=1782169287; cv=none; b=l3Sx1FzqAlJasGlVTYwnCupMmHWxABii5SzE18+N4iT23fjg87Ylyi06Ij34iMueAaW3kiaMZcmHD/D2zx9KDtICYlC+HTgs03pg72ncZDLh9i4HaxUMdo+0NlH6PvonF8JqrB3grdA+U6LOwFEcirQDoLxecDoaNUodhqOBsg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782168972; c=relaxed/simple;
-	bh=aE4zOPksyvDe6M7IPzuddw/Z7bnLdRCTy3Rk5LxMLdU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OdYQMIOmeGWK5zS5HK/o0aFlaonlsMcNAH48kJwMQJrQQVui86c2r7R3G4U9EnjSZ+7y4x0yt+iZ+cugynpRZGwdURzTJzUNUJ90dY/2rzqjjpOJ4JPiVWdU60Ih1Q2PuxA7WUwg83VGOYpDWo1pVtfCTi03yAHcHlegvPciXqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=sOSrwB0B; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=r1vkQ3mc; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1782169287; c=relaxed/simple;
+	bh=3JBxGBnmq2p2FDhnDtI4+aT0V6p9eLbBXeAWbVZXxEk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NVqTehNEBZM78eUzZ1ypxzmDleCK9QQHVsednvx3SOCfC0SK52cUOw0dMR+4WeUNz9YEwxoK8XDvpc7DcdcV5H0w9NUPZZMJVaxdLg3QQQQICfqAnBp2H81QQPWNbTsu/SZUYMR+ICKURPq2x+WWnxrS7Q/OHHIHTKJWW2TMuBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dhXwrePV; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="sOSrwB0B";
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="r1vkQ3mc"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E9F1770AD6;
-	Mon, 22 Jun 2026 22:56:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1782168967; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=k2OHDwc38vlocbMIzqDd7Ne3P/Tn0061xwzxeVJdjF0=;
-	b=sOSrwB0BO+KGgCQt2PcbLrDbuFd4nKcwRyPl3tiFK4ZZp3FEmzB8lYgJrOlDMPBwIbwpZq
-	5NMgxfqF69Jmdkim23dr+kn5nYn8WqvAY3hYj+tYflD+RqZflEo0HMTPA64h9a5pfx2Yln
-	GTzuA/qi/92bweOUfkWhG2QZ51aNODA=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1782168966; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=k2OHDwc38vlocbMIzqDd7Ne3P/Tn0061xwzxeVJdjF0=;
-	b=r1vkQ3mcA9ITHDfFKkc/jeJPtLIYr0FQsmXGNtlOpbKvtLss8oCivjorRTbMEw9MBG9Gw1
-	tQC51HARozAgDuS/kK1PZHYYpTe3L363/VkifQU4o2mBDWgqfBDHO4ZQfcmycbhcBLO5NU
-	5s2i1/XKt0WJLyJVXP6xW+VHJK7EIIk=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A56DC779A8;
-	Mon, 22 Jun 2026 22:56:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oCCOFYW9OWq0OQAAD6G6ig
-	(envelope-from <wqu@suse.com>); Mon, 22 Jun 2026 22:56:05 +0000
-From: Qu Wenruo <wqu@suse.com>
-To: linux-btrfs@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2 2/2] btrfs: reject inline file extent item in get_new_location()
-Date: Tue, 23 Jun 2026 08:25:41 +0930
-Message-ID: <619560576690f592ba60044c4761bd7fca204ae9.1782168847.git.wqu@suse.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1782168847.git.wqu@suse.com>
-References: <cover.1782168847.git.wqu@suse.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dhXwrePV"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4921e4dd62dso3296465e9.0
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 16:01:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782169285; x=1782774085; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8raFnbe3ZmeHv8tNWRCnm2r9ziZZ3BplUai93sgg1aI=;
+        b=dhXwrePVrgWJMf7swRp3i6C6yO+u2zGdcKDz78TNmC/kQkjWoshMQMIAVdXBzalLdx
+         AIdI9p4tHT+ixmNpPg6EmcRKqU+P1FOWDSc0HcQ0KiyemwMqXmww67JbtUirTA+iTlR9
+         795HT62uRbQmUxt5TxIpagalXgJQ3AccDwsJyaiH71Mef2yrNKY4goAULFLGCe/DnfjO
+         5rOLccpftkTdBWbbzEQrGF49lrJI0CQWnFyPPml4oUFzl64u/b0ZJuuKaKxs0cOfANu8
+         bR7CsokQWPRdIIaC+p8lv8dBG/n2sYmH08YZRxzW7zVwA2BJ6clfqxJIKSLEBeVBtWdU
+         4oBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782169285; x=1782774085;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8raFnbe3ZmeHv8tNWRCnm2r9ziZZ3BplUai93sgg1aI=;
+        b=jGdOYvv5gPZXhBKM4eZnk3p7Qe4bdOluXiU90YCCCHWvrHRPQyW2dc1Iz9AdbASjwN
+         dvbqdWmxhCQR9ujgzsZ/qsTzXcFyr7oOKOkufAA0UnFCY2Fz/LQGUdSmKoJXhSg4SfsX
+         W925G1D97rbAFgkgIu/KbrokLhzpj1QhXegfffiDy4OtazEG8zmzwHSEt+QC+I5/+Eu+
+         WOFUVBS4fjZ4bBuY/3a/prJEj1/r693NWf75zLcCI06WCuDZXCyWke5Lq4JfHNJM0fED
+         HBvnnxfdsdhDZlw9Ia8EWzJCyH2yTF8POVSa+mYo1jN657OC+y3oVrvtM4AjqcOJROM7
+         C0Lw==
+X-Forwarded-Encrypted: i=1; AFNElJ+1uZ3X+Tec7Gv5xdJH2ZgKf+TapzfDKeZtrOCnGMORXGkdmymqbtcI4AwGJ3Hz4q4qFqgWKhI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxq+xXysKnUkolBDg7uKQJxIzXV1zTGWusH1EXiXFLwv1l/YaS1
+	dJjEK7LHuKRuCGC04d5C6UPRR9FtS77T+NdFe1xEjqM/mqHfV/IHroo=
+X-Gm-Gg: AfdE7cmb9F3TXMOZ6l6wqcJTOA8tMhAxQswWMzlHu/cFz0MYc8Jw2J7YZcS2a2Mp+6n
+	xSN8a1WU87QX1s8syd00fFQjstCBzyO5jk3J9M46XRvpkF1QOHnXko++k7wEqgXcMou20wcbJfw
+	kwdbfxkd1+zEKL2gmiS8yBJe4sIvQL9cUIIE94WN64IE5d+FA+LFdPozJQx5gmyXD4XJE7cr47b
+	m3BfJWyv8Kpr7gZ1Mwpi/qm/QpSho4KTG06DAUkR2+hHztzAyib/Ide8mq1qAu7kzRRqZyw5xnP
+	BGfA+gy5rUVW0gmknnmER1vnw7hHa8IiNjncnZN0Pl7bFJSh8wUSeN82hgOwZU3/L+gSj5gRUEj
+	s/VXoQL3cc1smuYX0n7BeGzCbSXXMyq4UwB9JedME1VtK0Kt81ANBcVn7WEnMdfshK8x2
+X-Received: by 2002:a05:600c:3e0a:b0:489:32b:ac0b with SMTP id 5b1f17b1804b1-4925a0a9ad9mr16515335e9.6.1782169284668;
+        Mon, 22 Jun 2026 16:01:24 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fd1fa34sm371339255e9.5.2026.06.22.16.01.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Jun 2026 16:01:24 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>
+Cc: Eduard Zingerman <eddyz87@gmail.com>,
+	Xu Kuohai <xukuohai@huawei.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	bpf@vger.kernel.org,
+	stable@vger.kernel.org,
+	tristan@talencesecurity.com
+Subject: [PATCH bpf v3 0/2] Fix stale register bounds on LSM retval context load
+Date: Mon, 22 Jun 2026 23:01:21 +0000
+Message-ID: <20260622230123.3695446-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,67 +78,27 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_TWO(0.00)[2];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Level: 
 
-Commit a6908f88c9da ("btrfs: validate data reloc tree file extent item
-members") introduced extra checks on file extent items for data reloc
-inodes, but it checks file extent offset without checking if the file
-extent is inlined.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-This can lead to either false alerts (as the offset member is inside the
-inlined data) or even read beyond the item range.
+check_mem_access() calls __mark_reg_s32_range() to narrow a register to
+the LSM hook retval range, but the intersection preserves stale bounds
+from prior instructions. Add mark_reg_unknown() before narrowing (same
+pattern as the else branch) and a selftest that catches the mismatch.
 
-This has already triggered a warning in a syzbot report.
-Although the root fix is to avoid compression for data reloc inodes, for
-the sake of consistency, reject inlined file extents first.
+Changes in v3:
+- Add selftest demonstrating the issue (Eduard Zingerman)
+- No code change in patch 1 from v2
 
-Fixes: a6908f88c9da ("btrfs: validate data reloc tree file extent item members")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qu Wenruo <wqu@suse.com>
----
- fs/btrfs/relocation.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Tristan Madani (2):
+  bpf: Reset register bounds before narrowing retval range in
+    check_mem_access()
+  selftests/bpf: Add test for stale bounds on LSM retval context load
 
-diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
-index e1dd9939f4f1..f5fac0e34494 100644
---- a/fs/btrfs/relocation.c
-+++ b/fs/btrfs/relocation.c
-@@ -893,6 +893,13 @@ static int get_new_location(struct inode *reloc_inode, u64 *new_bytenr,
- 	leaf = path->nodes[0];
- 	fi = btrfs_item_ptr(leaf, path->slots[0],
- 			    struct btrfs_file_extent_item);
-+	if (unlikely(btrfs_file_extent_type(leaf, fi) == BTRFS_FILE_EXTENT_INLINE)) {
-+		btrfs_print_leaf(leaf);
-+		btrfs_err(fs_info,
-+	"unexpected inline file extent item for data reloc inode %llu key offset %llu",
-+			  btrfs_ino(BTRFS_I(reloc_inode)), bytenr);
-+		return -EUCLEAN;
-+	}
- 
- 	/*
- 	 * The cluster-boundary key searched above is always written by
+ kernel/bpf/verifier.c                            |  1 +
+ tools/testing/selftests/bpf/progs/verifier_lsm.c | 15 +++++++++++++++
+ 2 files changed, 16 insertions(+)
+
 -- 
-2.54.0
+2.47.3
 
