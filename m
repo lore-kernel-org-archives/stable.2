@@ -1,76 +1,68 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012043.outbound.protection.outlook.com [40.107.200.43])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B6E2E7F39
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 17:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782148701; cv=fail; b=t9ZA+7Ly2FqsHC0FeGUN1WbDOGE1JddrXrYL977uFsNYzATVVUY4OCkwIkiDbm602DR8rit00KH6oBq0WRp6HrhDbbS/gramnoHe1YD/aj5muySCelCI+UFeC8MfRcAkxzHTXiyF/zsEYbcdcDhZShHvNM8wwd8U73dnjwp30ac=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782148701; c=relaxed/simple;
-	bh=yPKLyzPJxqQOLu/heO2YX57fwwA22Kz9D3cb6SH90uA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Cim1kELetw8L7BqlIfH9IfIvuXmnzIh+G3+Sur1p+krxbONyXxfggrwt4O2nkRyydfgHLEY9CcNuxQk/orNdrToVQSlmhxVY9meqy8ap8YPX5YzS6s/3sGtrlo9EhhaUnV4+EgMalBQmn/2ppVHTTArpewF1Qdiju+svmkAB0as=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=qVYWk6nh; arc=fail smtp.client-ip=40.107.200.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A4229B781;
+	Mon, 22 Jun 2026 17:18:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782148729; cv=none; b=t1EmwZLuAhjZd0E2AIMz48qQkn1oYpwchNp6Y9uCE6DnvmymFQ3mOuOYsj9rgmxdR3lvlss24bI6OzIlV3J0CxUagNfrQgIBlGtmu9RHsz/7xIQ2ADj/2FA5KHmQKuEzANdKJEFQEDEXRuPqRwWFI9zF6hVkCE39zhyp2qXb8vc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782148729; c=relaxed/simple;
+	bh=k4KMELZOZMjReqUINd6UWjfPtFpSJBooYrdFY9fuOQQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fnPzXQWNmXLfrTt8qTqOHFNkl3Kmb4HYOMlAxqNsXm1YSqiDu0jNvaV2fZosQ7FSaV/NDOYWt7OOW8lCzBTtLdPuez97XXKq6e2IdDveFKxRioM7mvdXLIWODlJFA1UotZfP+SPkeR2t0whvIGzAEAZ30A7upYyzbAUkPaOR6F8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=CeYVj35N; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="qVYWk6nh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s3WzOOAeLgPKdgqNm7IkY8M0dkVqeQckdEe+9lqPyBcwJM3E3xpEpplDG/sXxExHaJNHIqjm66U9Vtvkp+GOTW6808Va1ggv/YatlWu7dFMg8+2x6x6Zcrlt7KHloCyy3mCuAksKGR3Sv+HztlrAOs11RGY6MJ+qNpJhorglCS2sj5d92L4XWtTadM3wlKYF1vfzlPByjGHcyjC1cPbQrx0oSPePrgRRblQoDB9q6fr8dBCNDH3NanmZWQ4SSQJJP8jrNqD9acn/Wf6+021acb8hPDjuge6mYJW52torewPRVXgP8ZgS3BBjdlTTAyxV5QAPZ9b3Gbc8+Vq6YU4xog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JDyi6CbggafWHlBnSAOg2b4VCQMoGyq3X8P36+Pwjh0=;
- b=K/aZ/5BZeNJf4Taoakp+F5TZToDCkCvsYF9BHSvWZ4a3nSpxZAwQE3juJ2MVhMZ6WxrzsQC2wZ3nNgQhKk8ZEssKjddSMV8WxdYc3PUZ803Pbgd4kAsmJGkWhHendD9lvCGirfVsyB3qFshUmSgL/FvKsehi9XDU71iw/SIVuKiFGN7RCXcvwsgKamAIFoGCK3OgbxghTywDSFgQfT1H6qrF81Pe0Z+Kj9GcKXWu8JI743CUU4dVFdtF6LleUuFOSem21nTWxqpmiyIG24Xbxz4jURlL0/yZjcWxhx0QIcLNcqnBJgZmvoNZmy0bPx7bnA0HGMz87mJz/wl27wqz8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JDyi6CbggafWHlBnSAOg2b4VCQMoGyq3X8P36+Pwjh0=;
- b=qVYWk6nhKHUTQk1ZYI/r4lsm+d9R3ZbBisemMb9ZzJR9vXWSJMIVh8pseLIMk2a3Qh9knjEb1xnjarQWvOzTGQytElQr2uCiwDKH8cynqnagxt/flJ8PqOMC4KYiiWxzekFYF296v+GGYKo5TwD0Oe/9jWxmDQw/QIWinBvNwLE=
-Received: from CH2PR14CA0044.namprd14.prod.outlook.com (2603:10b6:610:56::24)
- by MW4PR12MB7261.namprd12.prod.outlook.com (2603:10b6:303:229::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
- 2026 17:18:05 +0000
-Received: from CH1PEPF0000AD76.namprd04.prod.outlook.com
- (2603:10b6:610:56:cafe::50) by CH2PR14CA0044.outlook.office365.com
- (2603:10b6:610:56::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Mon,
- 22 Jun 2026 17:18:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD76.mail.protection.outlook.com (10.167.244.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.10 via Frontend Transport; Mon, 22 Jun 2026 17:18:04 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 22 Jun
- 2026 12:18:04 -0500
-Received: from flamewok (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
- with Microsoft SMTP Server id 15.2.2562.41 via Frontend Transport; Mon, 22
- Jun 2026 12:18:03 -0500
-From: <sunpeng.li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <mario.limonciello@amd.com>,
-	<wiagn233@outlook.com>, <sysdadmin@m1k.cloud>, <timur.kristof@gmail.com>,
-	<xaver.hugl@kde.org>, <mario.kleiner.de@gmail.com>,
-	<michel.daenzer@mailbox.org>, <matthew.schwartz@linux.dev>,
-	<chris@kode54.net>, Leo Li <sunpeng.li@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH v2 2/3] drm/amd/display: check GRPH_FLIP status before sending event
-Date: Mon, 22 Jun 2026 13:17:49 -0400
-Message-ID: <20260622171752.73374-3-sunpeng.li@amd.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260622171752.73374-1-sunpeng.li@amd.com>
-References: <20260622171752.73374-1-sunpeng.li@amd.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="CeYVj35N"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65MFmJW43357496;
+	Mon, 22 Jun 2026 17:18:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=SsYY2v5J0FFWddj+V
+	ekcEqqu1s6FY7VRl+LYEUz+cfQ=; b=CeYVj35N0YBqOEdgDh8Lhb/a5iwSx6oTB
+	RpXx0kWgoJSncK+8yiQhUaMX0upDtEhksfg5IorZz1vudw5PDCFkh22f3lGfXdj2
+	aJakzfvQlollrOsYO8c1aIA1Zwq6LhWtLZpfeBHAQH3Ke27In/XgWZgUwsT3YYFY
+	qqFvcGxw3GmPKjZQhofdi8aMmAQ+6etEiNcs+Amnv83dg5mtxNVTLEFLbQW8AF11
+	fhhmc+6dcRr/oYTeEnd+FNdcpwzrEJTibMr18RzoiaF0KuFrqXr9gJJWiIwED1fJ
+	Fmvde+CM40T0kw9vNK7ruigQsWJNBaztyvrJcDDfRF7FIBWj4IC+A==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ewg9hjrmf-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 22 Jun 2026 17:18:44 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65MH4bLT020022;
+	Mon, 22 Jun 2026 17:18:43 GMT
+Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ex7dfy301-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 22 Jun 2026 17:18:43 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65MHIgjZ16646728
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 22 Jun 2026 17:18:42 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3EE3E58056;
+	Mon, 22 Jun 2026 17:18:42 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 907C458052;
+	Mon, 22 Jun 2026 17:18:41 +0000 (GMT)
+Received: from IBM-D32RQW3.ibm.com (unknown [9.61.248.203])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 22 Jun 2026 17:18:41 +0000 (GMT)
+From: Farhan Ali <alifm@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pci@vger.kernel.org
+Cc: helgaas@kernel.org, alex@shazbot.org, alifm@linux.ibm.com,
+        schnelle@linux.ibm.com, mjrosato@linux.ibm.com, stable@vger.kernel.org
+Subject: [PATCH v20 1/4] PCI: Allow per function PCI slots to fix slot reset on s390
+Date: Mon, 22 Jun 2026 10:18:37 -0700
+Message-ID: <20260622171840.1618-2-alifm@linux.ibm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260622171840.1618-1-alifm@linux.ibm.com>
+References: <20260622171840.1618-1-alifm@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,374 +70,212 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD76:EE_|MW4PR12MB7261:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ea43641-03bf-4081-033e-08ded08238c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|23010399003|1800799024|32650700020|22082099003|18002099003|11063799006|56012099006|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	/G4emsDa1K5p3g9+mDgGxK3t8KGVCL0R3kkOdvKFP1ulsxpRS/D6rUb9xKfLr3GgTU8+f3bAo02y+zi+44mKIH0Kk7+LAWaMYXZlvTVSJdTkLdVbRCA9CgxPLIhuR6jIi3AUHxVOhE4hIS85BEIV1tQeb1EWbrpkLEB7A1Ljm5s+AtyYZ0NIrZ7SRlR0Mgni2K14irwJFdSMvC4RKeZ2f1/Pr4fKyLeEN2u+OIQgfuEkEYc1iFVBHz20z9q60sqDz2WkstqwYuQmZfi3lwo9tmN1g+nwsyPYXlCVjD29BYhTPy7W5pTCWsRLu6BOlEFQznRyF5Lrkd+k7k6fIdepExsLHJv1Q4Glx37wCPge4QynqKZuLpNDOyYYN1T85XT+d8MINuAOm3OiJ4dZ+YkmS/y7gGlXJMwDSmVfu1ypfa4oReYC1WY2gHiKO7R91zdq3VrfyhQfE/obKfSR3IyhOGbqQQGEVI/INMPWuvNh0q7YPOL5IclOnJouV8PDUJza1fHZPOPfPqHtwuw/JlqnvsLOvafhVxH8PrZDGv+QckNWxA2Z702SUga7BLLCu4pSrKLbZy8DWmy5oxR60BWkUHfgU7oo49es8rDY4sgzser3d4oK4DMQZO5Vf8H9549QEIgQvIlLBz0Hk1YiGT4JQQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(23010399003)(1800799024)(32650700020)(22082099003)(18002099003)(11063799006)(56012099006)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	+1m6HcIMc7GlsCDAFEniGAkec73O3VkUJG1QrlzVUNLD8cNscQRpwfNKOf4HsV/66objnqyrzm0135Dij4ZEnz/nxtyyWoq8/03q0PI6xe93AmofdaSIqMS9BNXTzox0EMhCc7ChmDrbR16tWwEf+aE/vz6lMO1r05g1DwgSKr129uJvVBO3ujtlcECC8agE+W/V0e4qHiF0CtZBziWhCwYdzMT57dfp/NDf3ZnQDnP11mV2C8hs1ZXKKQbqii1yE+klmfHfnLIKVXyOTsjlBIrueqNosbQVD5c0frGTsjeVrIjKyWg7nzdn8ozUcSl4+eT5SJ1Ihg6pmR3vXuhCZGHjp7KT27gSQ0ORZ9/EQTWZojb5DLJECMayIQfDuzmfVlQLn0FpPJm8DQNWJ1+/5BJWG66eLUYX58holuy6Djd1VdsTqJT2H+rjb0cAxGGF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 17:18:04.9450
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ea43641-03bf-4081-033e-08ded08238c6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD76.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7261
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: xT4W6R7YRbOSK2Uo0iz-5IBfu2b1Uz0V
+X-Proofpoint-GUID: xT4W6R7YRbOSK2Uo0iz-5IBfu2b1Uz0V
+X-Authority-Analysis: v=2.4 cv=Y4XIdBeN c=1 sm=1 tr=0 ts=6a396e74 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=9_SSeoq7eJPDN4OswFYA:9 a=O8hF6Hzn-FEA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDE2OSBTYWx0ZWRfX7QMNVPntxSyi
+ nvu26rUlgsN05uZ/H/oJiIySFAohTK0/6wQ1wcvG3LUqbg29Q6fBqwOkYygqNurAhjS1bBJl2HR
+ eXVC8+xMwfC5D2apEKcqcMc/5V7d6/7rLtqKyYfll2JpseysAQRaCqpbGKPODh8S0RBE74k+8xA
+ Mngu/Og55PLasG6AGnwuWMp/e2mP+l8rbeSELmdiuKmnAmN/t7SOOpFJ+9by8r/vlQ8+hGG5wDs
+ tvCMWrsOfwGWNthwFOMEINS2b/TnwOle6TOA1m7Cm093higLMigeKsBh5a/dlmYwRIVnMR/+3Kq
+ bJ+kMZ4XdiNGJenOqZ8daLumnA1rLqdo+HBZ0o5hMT+eX0ktgvQzR97Z+PjCzkGFN7H7CcScfNg
+ +PkCCTnVBxq09PDSGDXDT5dGdnDBMEeBLHo0pXMnhrqz626ZmogkI44mCIajePrKt1rJ0fQRu+Y
+ 86NqwkQWa+BmGpXi00A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDE2OSBTYWx0ZWRfX8CQ1aewTTEm/
+ oEVJC9c/4zBLdVNXeXsl15vwAGtKfioGQKYG5AEkOHuzOYWwt4roINzEOvTBtpX45gXRT/Hapgh
+ IrehvzNcciifs/gSfRHPreJraox+Vws=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-22_03,2026-06-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0 spamscore=0
+ clxscore=1015 suspectscore=0 impostorscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606220169
 
-From: Leo Li <sunpeng.li@amd.com>
+On s390 systems, which use a machine level hypervisor, PCI devices are
+always accessed through a form of PCI pass-through which fundamentally
+operates on a per PCI function granularity. This is also reflected in the
+s390 PCI hotplug driver which creates hotplug slots for individual PCI
+functions. Its reset_slot() function, which is a wrapper for
+zpci_hot_reset_device(), thus also resets individual functions.
 
-[Why]
+Currently, the kernel's PCI_SLOT() macro assigns the same pci_slot object
+to multifunction devices. This approach worked fine on s390 systems that
+only exposed virtual functions as individual PCI domains to the operating
+system.  Since commit 44510d6fa0c0 ("s390/pci: Handling multifunctions")
+s390 supports exposing the topology of multifunction PCI devices by
+grouping them in a shared PCI domain. This creates a problem when resetting
+a function through the hotplug driver's slot_reset() interface.
 
-After unifying DCN interrupt sources under VUPDATE_NO_LOCK, we have two
-remaining issues to clean up:
+When attempting to reset a function through the hotplug driver, the shared
+slot assignment causes the wrong function to be reset instead of the
+intended one. It also leaks memory as we do create a pci_slot object for
+the function, but don't correctly free it in pci_slot_release().
 
-1. On DCN, flip completion is now delivered from VUPDATE_NO_LOCK
-   (dm_crtc_high_irq_handler) instead of GRPH_PFLIP. But VUPDATE_NO_LOCK
-   fires every frame, regardless of whether a flip has latched.
+Add a flag for struct pci_slot to allow per function PCI slots for
+functions managed through a hypervisor, which exposes individual PCI
+functions while retaining the topology. Since we can use all 8 bits
+for slot 'number' (for ARI devices), change slot 'number' u16 to
+account for special values -1 and PCI_SLOT_ALL_DEVICES.
 
-2. There is a window during commit where a flip is armed (pflip_status =
-   SUBMITTED) but not yet programmed into HW. If the VUPDATE_NO_LOCK
-   fires in that window, its handler would deliver a flip event to
-   userspace before HW has latched to it. If userspace then renders to
-   what it believes is now the back buffer (but HW is still latched to
-   it!), it will cause display corruption. This issue seemed to have
-   been introduced by:
-   commit 1159898a88db ("drm/amd/display: Handle commit plane with no FB.")
-   Enabling replay or psr extended the duration of this window, and
-   hence made corruption more likely to be observed.
-
-[How]
-
-* Move acrtc->event/pflip_status arming to after
-  update_planes_and_stream_adapter() has programmed the flip into HW.
-  This closes the window where pflip_status is SUBMITTED but the flip is
-  not yet programmed.
-
-* Add dc_get_flip_pending_on_otg(), which reads the HUBP flip-pending
-  status straight from HW for the pipe(s) bound to an OTG instance. It
-  is keyed only by otg_inst and does not take or mutate a
-  dc_plane_state, so it is safe to call from the OTG interrupt handler
-  without racing a concurrent commit that may be modifying plane state.
-
-* Optimistically query for flip-pending after programming, in the event
-  that HW latched to the new fb between programming start and arming
-  event. If it latched, send the vblank event immediately, rather than
-  wait for the next vblank IRQ.
-
-* In the VUPDATE_NO_LOCK handler, only deliver flip completion once
-  dc_get_flip_pending_on_otg() reports the flip is no longer pending.
-  Otherwise leave the flip armed and retry on the next vupdate.
-
-* For DCE, maintain the existing behavior of arming flips before
-  programming, and relying on GRPH_FLIP to fire at HW latch.
-
-v2:
-* Drop flip_programmed completion object, instead move
-  event/pflip_status arming after programming.
-* For DCN, optimistically query for flip pending immediately after
-  programming, and if it latched, send event right away.
-
+Fixes: 44510d6fa0c0 ("s390/pci: Handling multifunctions")
 Cc: stable@vger.kernel.org
-Fixes: 9b47278cec98 ("drm/amd/display: temp w/a for dGPU to enter idle optimizations")
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/3787
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/4141
-Assisted-by: Copilot:claude-opus-4.8
-Signed-off-by: Leo Li <sunpeng.li@amd.com>
+Suggested-by: Niklas Schnelle <schnelle@linux.ibm.com>
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 125 ++++++++++++------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c |  27 +++-
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  45 +++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |   1 +
- 4 files changed, 156 insertions(+), 42 deletions(-)
+ drivers/pci/hotplug/rpaphp_slot.c |  2 +-
+ drivers/pci/pci.c                 |  5 +++--
+ drivers/pci/slot.c                | 33 +++++++++++++++++++++++--------
+ include/linux/pci.h               |  8 ++++++--
+ 4 files changed, 35 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index da118377b73a8..732ddafb5cfea 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4135,6 +4135,28 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_display_manager *dm,
- 	}
+diff --git a/drivers/pci/hotplug/rpaphp_slot.c b/drivers/pci/hotplug/rpaphp_slot.c
+index 67362e5b9971..92eabf5f61b9 100644
+--- a/drivers/pci/hotplug/rpaphp_slot.c
++++ b/drivers/pci/hotplug/rpaphp_slot.c
+@@ -84,7 +84,7 @@ int rpaphp_register_slot(struct slot *slot)
+ 	struct hotplug_slot *php_slot = &slot->hotplug_slot;
+ 	u32 my_index;
+ 	int retval;
+-	int slotno = -1;
++	int slotno = PCI_SLOT_PLACEHOLDER;
+ 
+ 	dbg("%s registering slot:path[%pOF] index[%x], name[%s] pdomain[%x] type[%d]\n",
+ 		__func__, slot->dn, slot->index, slot->name,
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index d34266651ad0..f5f8291482b0 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -4865,8 +4865,9 @@ static int pci_reset_hotplug_slot(struct hotplug_slot *hotplug, bool probe)
+ 
+ static int pci_dev_reset_slot_function(struct pci_dev *dev, bool probe)
+ {
+-	if (dev->multifunction || dev->subordinate || !dev->slot ||
+-	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET)
++	if (dev->subordinate || !dev->slot ||
++	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET ||
++	    (dev->multifunction && !dev->slot->per_func_slot))
+ 		return -ENOTTY;
+ 
+ 	return pci_reset_hotplug_slot(dev->slot->hotplug, probe);
+diff --git a/drivers/pci/slot.c b/drivers/pci/slot.c
+index 6d5cd37bfb1e..894d6213ed30 100644
+--- a/drivers/pci/slot.c
++++ b/drivers/pci/slot.c
+@@ -37,7 +37,7 @@ static const struct sysfs_ops pci_slot_sysfs_ops = {
+ 
+ static ssize_t address_read_file(struct pci_slot *slot, char *buf)
+ {
+-	if (slot->number == 0xff)
++	if (slot->number == (u16)PCI_SLOT_PLACEHOLDER)
+ 		return sysfs_emit(buf, "%04x:%02x\n",
+ 				  pci_domain_nr(slot->bus),
+ 				  slot->bus->number);
+@@ -72,6 +72,23 @@ static ssize_t cur_speed_read_file(struct pci_slot *slot, char *buf)
+ 	return bus_speed_read(slot->bus->cur_bus_speed, buf);
  }
  
-+static void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
-+				struct dm_crtc_state *acrtc_state,
-+				bool pflip_update,
-+				bool cursor_update)
++static bool pci_dev_matches_slot(struct pci_dev *dev, struct pci_slot *slot)
 +{
-+	assert_spin_locked(&acrtc->base.dev->event_lock);
++	if (slot->per_func_slot)
++		return dev->devfn == slot->number;
 +
-+	if (pflip_update && acrtc->base.state->event &&
-+	acrtc_state->active_planes > 0) {
-+		drm_crtc_vblank_get(&acrtc->base);
-+		WARN_ON(acrtc->pflip_status != AMDGPU_FLIP_NONE);
-+		/* Arm flip completion handling and event delivery after programming. */
-+		prepare_flip_isr(acrtc);
-+	} else if (cursor_update && acrtc_state->active_planes > 0) {
-+		if (acrtc->base.state->event) {
-+			drm_crtc_vblank_get(&acrtc->base);
-+			acrtc->event = acrtc->base.state->event;
-+			acrtc->base.state->event = NULL;
-+		}
-+	}
++	return slot->number == PCI_SLOT_ALL_DEVICES ||
++		PCI_SLOT(dev->devfn) == slot->number;
 +}
 +
- static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 				    struct drm_device *dev,
- 				    struct amdgpu_display_manager *dm,
-@@ -4158,6 +4180,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 	bool cursor_update = false;
- 	bool pflip_present = false;
- 	bool immediate_flip = false;
-+	bool flip_latched_during_prog = false;
- 	bool dirty_rects_changed = false;
- 	bool updated_planes_and_streams = false;
- 	struct {
-@@ -4390,39 +4413,23 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			usleep_range(1000, 1100);
- 		}
- 
--		/**
--		 * Prepare the flip event for the pageflip interrupt to handle.
--		 *
--		 * This only works in the case where we've already turned on the
--		 * appropriate hardware blocks (eg. HUBP) so in the transition case
--		 * from 0 -> n planes we have to skip a hardware generated event
--		 * and rely on sending it from software.
--		 */
--		if (acrtc_attach->base.state->event &&
--		    acrtc_state->active_planes > 0) {
--			drm_crtc_vblank_get(pcrtc);
--
--			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
--
--			WARN_ON(acrtc_attach->pflip_status != AMDGPU_FLIP_NONE);
--			prepare_flip_isr(acrtc_attach);
--
--			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
--		}
--
- 		if (acrtc_state->stream) {
- 			if (acrtc_state->freesync_vrr_info_changed)
- 				bundle->stream_update.vrr_infopacket =
- 					&acrtc_state->stream->vrr_infopacket;
- 		}
--	} else if (cursor_update && acrtc_state->active_planes > 0) {
--		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
--		if (acrtc_attach->base.state->event) {
--			drm_crtc_vblank_get(pcrtc);
--			acrtc_attach->event = acrtc_attach->base.state->event;
--			acrtc_attach->base.state->event = NULL;
--		}
--		spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
-+	}
++static bool pci_slot_enabled_per_func(void)
++{
++	if (IS_ENABLED(CONFIG_S390))
++		return true;
 +
-+	/*
-+	 * DCE depends on a combination of GRPH_FLIP, VLINE0, and VUPDATE for
-+	 * event delivery. Only GRPH_FLIP handler can send pflip events, and it
-+	 * only fires if HW latched to the flip. Maintain legacy behavior by
-+	 * arming event before programming.
-+	 */
-+	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
-+		scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock)
-+			dm_arm_vblank_event(acrtc_attach, acrtc_state,
-+					pflip_present, cursor_update);
- 	}
++	return false;
++}
++
+ static void pci_slot_release(struct kobject *kobj)
+ {
+ 	struct pci_dev *dev;
+@@ -82,8 +99,7 @@ static void pci_slot_release(struct kobject *kobj)
  
- 	/* Update the planes if changed or disable if we don't have any. */
-@@ -4515,19 +4522,63 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 		amdgpu_dm_commit_cursors(state);
+ 	down_read(&pci_bus_sem);
+ 	list_for_each_entry(dev, &slot->bus->devices, bus_list)
+-		if (slot->number == PCI_SLOT_ALL_DEVICES ||
+-		    PCI_SLOT(dev->devfn) == slot->number)
++		if (pci_dev_matches_slot(dev, slot))
+ 			dev->slot = NULL;
+ 	up_read(&pci_bus_sem);
+ 
+@@ -187,8 +203,7 @@ void pci_dev_assign_slot(struct pci_dev *dev)
+ 
+ 	mutex_lock(&pci_slot_mutex);
+ 	list_for_each_entry(slot, &dev->bus->slots, list)
+-		if (slot->number == PCI_SLOT_ALL_DEVICES ||
+-		    PCI_SLOT(dev->devfn) == slot->number)
++		if (pci_dev_matches_slot(dev, slot))
+ 			dev->slot = slot;
+ 	mutex_unlock(&pci_slot_mutex);
+ }
+@@ -267,7 +282,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
+ 
+ 	mutex_lock(&pci_slot_mutex);
+ 
+-	if (slot_nr == -1)
++	if (slot_nr == PCI_SLOT_PLACEHOLDER)
+ 		goto placeholder;
  
  	/*
--	 * On DCN, flip completion is normally delivered from VUPDATE_NO_LOCK.
--	 * However, an immediate (tearing / async) flip is latched by HW right
--	 * away and does not wait for the next vupdate, so deliver its
--	 * completion event here after programming.
-+	 * DCN specific vblank handling:
-+	 *
-+	 * With the event_lock held, arm the vblank event, and determine whether
-+	 * deliver it immediately, or in VUPDATE_NO_LOCK IRQ handler. Do this
-+	 * *after* programming so that vblank IRQ(s) will not deliver the event
-+	 * before HW consumes it.
-+	 *
-+	 * There's a consequence of arming after: it's possible for the IRQ to
-+	 * fire between HW programming and acrtc->event/pflip_status arming
-+	 * below. When this happens, the handler will skip event sending and
-+	 * flip_done signaling, even though HW has latched onto the programmed
-+	 * values, and send it on the next vblank.
-+	 *
-+	 * The more correct fix is to wrap programming and arming with the
-+	 * event_lock and thus serializing it with the IRQ handler. However,
-+	 * there are various sleep-waits on within
-+	 * update_planes_and_stream_adapter() that makes spin locking illegal.
-+	 * And on full updates, it can take 1-2 frame-times to return (see
-+	 * commit_planes_for_stream).
- 	 *
--	 * On DCE, GRPH_PFLIP already fires immediately for immediate flips, so
--	 * this is DCN-only.
-+	 * Details of how this is handled are in comments below.
- 	 */
--	if (immediate_flip && amdgpu_ip_version(dm->adev, DCE_HWIP, 0) != 0) {
-+	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) != 0) {
- 		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
--		if (acrtc_attach->pflip_status == AMDGPU_FLIP_SUBMITTED &&
-+		/*
-+		 * By the time programming returns, it's possible that HW has
-+		 * already latched. So, optimistically query whether HW latching
-+		 * has occurred, and if so, send out the event immediately
-+		 * rather than wait for the next IRQ.
-+		 */
-+		if (updated_planes_and_streams)
-+			flip_latched_during_prog =
-+				!dc_get_flip_pending_on_otg(dm->dc, acrtc_attach->otg_inst);
-+
-+		dm_arm_vblank_event(acrtc_attach, acrtc_state,
-+				    pflip_present, cursor_update);
-+
-+		/*
-+		 * Deliver the event immediately on immediate flip, or on a
-+		 * update that has already latched.
-+		 *
-+		 * Since drm_send_vblank_event() uses cooked values from the
-+		 * last drm_update_vblank_count(), which the VUPDATE_NO_LOCK irq
-+		 * handler hits via drm_crtc_handle_vblank(), the count and
-+		 * timestamp correctly reflect the most recent HW latch point.
-+		 *
-+		 * However, for immediate flips, the HW latch point is
-+		 * immediately after programming; the vblank count and timestamp
-+		 * need to be cooked again before sending.
-+		 *
-+		 * On DCE, GRPH_PFLIP used and takes care of this.
-+		 */
-+		if ((immediate_flip || flip_latched_during_prog) &&
-+		    acrtc_attach->pflip_status == AMDGPU_FLIP_SUBMITTED &&
- 		    acrtc_attach->event) {
--			drm_crtc_accurate_vblank_count(&acrtc_attach->base);
-+			if (immediate_flip)
-+				drm_crtc_accurate_vblank_count(&acrtc_attach->base);
- 			drm_crtc_send_vblank_event(&acrtc_attach->base,
- 						   acrtc_attach->event);
- 			acrtc_attach->event = NULL;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index d0181c797b71e..6018bccba7e5b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -1991,13 +1991,30 @@ static void dm_crtc_high_irq_handler(struct amdgpu_device *adev,
- 	 * Deliver pageflip completion events (DCN only).
- 	 *
- 	 * Since GRPH_PFLIP is not used, VUPDATE_NO_LOCK is the flip latch
--	 * point. Deliver any pending pageflip completion event from here.
-+	 * point. Deliver any pending pageflip completion event from here,
-+	 * once HW has consumed the new address (the OTG no longer reports a
-+	 * pending flip).
- 	 *
--	 * NOTE: This can deliver an event for a flip that was armed but not yet
--	 * programmed into HW; that race is closed in a follow-up change by
--	 * checking the programmed flip status.
-+	 * Also handle the case here where there aren't any active planes and
-+	 * DCN HUBP may be clock-gated, so the flip-pending status may be
-+	 * undefined.
- 	 */
--	if (is_dcn && acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED) {
-+	if (is_dcn && acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
-+	    acrtc->event) {
-+
-+		if (!dc_get_flip_pending_on_otg(adev->dm.dc, acrtc->otg_inst)) {
-+			drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
-+			acrtc->event = NULL;
-+			drm_crtc_vblank_put(&acrtc->base);
-+			acrtc->pflip_status = AMDGPU_FLIP_NONE;
-+		}
-+		/*
-+		 * If the flip is still pending, leave it armed and
-+		 * retry on the next vupdate.
-+		 */
-+	} else if (is_dcn && acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
-+		   acrtc->dm_irq_params.active_planes == 0) {
-+
- 		if (acrtc->event) {
- 			drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
- 			acrtc->event = NULL;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index ae776519e6ea6..330f31578cb03 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -6219,6 +6219,51 @@ void dc_interrupt_ack(struct dc *dc, enum dc_irq_source src)
- 	dal_irq_service_ack(dc->res_pool->irqs, src);
- }
+@@ -298,6 +313,9 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
+ 	slot->bus = pci_bus_get(parent);
+ 	slot->number = slot_nr;
  
-+/*
-+ * dc_get_flip_pending_on_otg() - Check if a GRPH_FLIP is still pending on OTG
-+ *
-+ * @dc: display core context @otg_inst: OTG instance to query
-+ *
-+ * Reads the HUBP flip-pending status for the pipe(s) bound to @otg_inst,
-+ * returning true if any of them has not yet latched its programmed surface
-+ * address.
-+ *
-+ * Unlike dc_plane_get_status(), this does not take or mutate a dc_plane_state,
-+ * so it is safe to call from interrupt context without racing a concurrent
-+ * commit that may be updating plane state.
-+ *
-+ * Return: true if a flip is still pending on the OTG, false otherwise.
-+ */
-+bool dc_get_flip_pending_on_otg(struct dc *dc, int otg_inst)
-+{
-+	bool flip_pending = false;
-+	int i;
++	if (pci_slot_enabled_per_func())
++		slot->per_func_slot = 1;
 +
-+	if (!dc || !dc->current_state)
-+		return false;
+ 	slot->kobj.kset = pci_slots_kset;
+ 
+ 	slot_name = make_slot_name(name);
+@@ -318,8 +336,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
+ 
+ 	down_read(&pci_bus_sem);
+ 	list_for_each_entry(dev, &parent->devices, bus_list)
+-		if (slot_nr == PCI_SLOT_ALL_DEVICES ||
+-		    PCI_SLOT(dev->devfn) == slot_nr)
++		if (pci_dev_matches_slot(dev, slot))
+ 			dev->slot = slot;
+ 	up_read(&pci_bus_sem);
+ 
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 2c4454583c11..d58982aa8730 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -78,14 +78,18 @@
+  * and, if ARI Forwarding is enabled, functions may appear to be on multiple
+  * devices.
+  */
+-#define PCI_SLOT_ALL_DEVICES	0xfe
++#define PCI_SLOT_ALL_DEVICES	0xfeff
 +
-+	dc_exit_ips_for_hw_access(dc);
-+
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct pipe_ctx *pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[i];
-+		struct hubp *hubp = pipe_ctx->plane_res.hubp;
-+
-+		if (!pipe_ctx->plane_state || !pipe_ctx->stream_res.tg)
-+			continue;
-+
-+		if (pipe_ctx->stream_res.tg->inst != otg_inst)
-+			continue;
-+
-+		if (hubp && hubp->funcs->hubp_is_flip_pending &&
-+		    hubp->funcs->hubp_is_flip_pending(hubp)) {
-+			flip_pending = true;
-+			break;
-+		}
-+	}
-+
-+	return flip_pending;
-+}
-+
- void dc_power_down_on_boot(struct dc *dc)
- {
- 	if (dc->ctx->dce_environment != DCE_ENV_VIRTUAL_HW &&
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 0e115b1aac5f7..81076d6287922 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2992,6 +2992,7 @@ enum dc_irq_source dc_interrupt_to_irq_source(
- 		uint32_t ext_id);
- bool dc_interrupt_set(struct dc *dc, enum dc_irq_source src, bool enable);
- void dc_interrupt_ack(struct dc *dc, enum dc_irq_source src);
-+bool dc_get_flip_pending_on_otg(struct dc *dc, int otg_inst);
- enum dc_irq_source dc_get_hpd_irq_source_at_index(
- 		struct dc *dc, uint32_t link_index);
++/* Used to identify a slot as a placeholder */
++#define PCI_SLOT_PLACEHOLDER	-1
+ 
+ /* pci_slot represents a physical slot */
+ struct pci_slot {
+ 	struct pci_bus		*bus;		/* Bus this slot is on */
+ 	struct list_head	list;		/* Node in list of slots */
+ 	struct hotplug_slot	*hotplug;	/* Hotplug info (move here) */
+-	unsigned char		number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
++	u16			number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
++	unsigned int		per_func_slot:1; /* Allow per function slot */
+ 	struct kobject		kobj;
+ };
  
 -- 
-2.54.0
+2.43.0
 
