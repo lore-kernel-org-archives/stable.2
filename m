@@ -1,145 +1,303 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1947311592
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 14:53:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE7E30FC27
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 14:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782139992; cv=none; b=eJz22rGluVALx7tqSLvN8EFGOjm9oJrBuszc6RkDjCjT/34VfMnvqbXroha1vOrd2Oxvb3aPWAtmIy5GYBpUIG8EWG2VIxGgniPwaZ9VpDO8tskKu8ygA2FpbsvaIF7InxHAX+BJKKdO02/o+JY7osswvUtBEykj+puyk8WYD/Q=
+	t=1782140080; cv=none; b=O3IqWA3E6QUgiDbFudsqZKdsvr7Yf+mzuueduresVIQ5iVjNvNUlOBCpFh60CzDysNhbkUuuYtK5dGXgc5JFfMBhYj26gqDZDqRLkKj0F5WlkpRLcBRhsLvhjN2lPwSufZyu3Z0MZZh/tkBH+ykkz4qf+KVYlG39SmBOk5NbFYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782139992; c=relaxed/simple;
-	bh=Xy59s+JNRnmSM6VzrGtWFcxa0uMF9TCT4hk6jnMbGwQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AZdWcWv689AZozUmQ9ABlHbsk+dQ3UFzkQDhlk0JStEi3jPPr8p/FusAzoKuOfnHC2cALp4nlfouwRsP2boCSJPTyGD/dXbLIeNhU+JJSFPL07E8JQt2CYHCLnRvwXdBxg/gOi7XCxuyRLaxW9uGViE3MVT1Bc0WSOj0BzxXQsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=DahQ+KU1; arc=none smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
+	s=arc-20240116; t=1782140080; c=relaxed/simple;
+	bh=4O/Lk+bmL14dJHrMXVZE6YRVaBcltePxcx51t7J73hI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DOegZgRxFslWi640z4s8/+qH3CM8HYjjICb8He2q4zQZVQ1hcjtEKpSIM+WLQhVJ9ClLZBHa3j10HwVNgzdM/xwg0B40FdBcAXU3AndDfM6ky/E1TreKpXX/I7S3rYxfpzxP50vtaHaNLaUZ5O9Zhpd3PHwPBUjynRV1yYNy+xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=oEr7QA3m; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=844/Hlof; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=oEr7QA3m; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=844/Hlof; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="DahQ+KU1"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-691c5776f95so7176763a12.3
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 07:53:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bynar.io; s=google; t=1782139989; x=1782744789; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=a+82Wee9YcYFC/CDtK+GzldKM6pWgg161oAknThGH2Q=;
-        b=DahQ+KU1HUi+xzN5D+GKQLaLLWGhqQKN88PehlWXgESv1ndgnhx+VPcX96jEnRXskd
-         tceBMZi1ExL+jvZJF+8JJgCpZ86mab4H6TLw07SLk5pCxOdNIqlBnVPabjePdv3qM2rK
-         kCn1PrsV4pH2QgztMBtjJFhgKSDqMIPuRYjzMJgnnuUsBkOUivkALprBGPAeqKl/X0ae
-         kX72Zu9wcZxGXGHvsHiw9AMQZlD9Ltj3D4Qfbw+zrP/m6OT8WbszzGYIxPJEYogaKgQC
-         3cEyDz76bNw+d+aNbcxOUmKsSLX51sTBrIEYCiKktC8vuDja1zRDNm7pU/RmjOgXzGhV
-         LLfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782139989; x=1782744789;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=a+82Wee9YcYFC/CDtK+GzldKM6pWgg161oAknThGH2Q=;
-        b=kjPgz6mBo0lg2Y1JCk4W/Jq7MCaUN0J460L44DfXVI24aTFUdTuElNnMfUQM8NeVG9
-         8l+iwpYGqlNlquSfDTXTO570V/7dONMrErl/0QfwTpmCQRpY5eRvkdlcSwriCVUSsn0x
-         XcIk3qoRl9XxjkWcRIlXvT1i/4GyuwuqhtxYklZiUmaOTWBd1eZUaE0zszeacDZXBGYG
-         YllOxL6amHRSJd76L16vXhwCFpy4KT6OKYhqrhsuoM0JKIzdm170WppbnYYPGaH3ApNZ
-         +0Tr+Zcef6gRY7E9SKGY4zs+ZEzQAmBLyC0TtoDyZ1SJpCZxjslhh2WrdAm/SFS+t0Sp
-         wkjg==
-X-Forwarded-Encrypted: i=1; AFNElJ+26xVee14Uo0vYNxYomcEOfGSRgAy/9e8o31lG6fxviVurxP8U+jsyWMh16xHCpiNX7Ji3zM0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxkGQ6KlyOWxcDsuclmpuSumNouM9U9QBs25OdC9uc3zmk8p+JF
-	NeB9trTFjY5isY3TmlB7oA1H70CjWDi2CeQf8bzX7alVzNnOMl/tk+KaYgx+57knBWRC
-X-Gm-Gg: AfdE7cmLs/wzpXnBCnHO8xVPHY7WDSsYNdaYa8vVg1QbGeMHNhfAFLMscJUcsNhX8QF
-	5TJNAdSDIgGoqA+x5USZ7LvFw3AUBnALu5gDGeV7HtTctIgpijA7ujdvIMyybvSN+hzguJ0UxJw
-	fgGdnkZMFnxUE7/jT7jqV++Q/WbNbW/+Urgb305iKHGidr751EHmIvR2Oj+WrtYMJExVIdFJNL4
-	Ql3JF7bEdKw8Rvxt7qYFCFGDrnvE0gVLmqkcC58BcW59tNw83El0gfmjKr46yk1i7iNUjnkodZH
-	6zsRNQlfPcahPzqLchvLtD9f/+ZFEkAabPf8H/RMNp0JnqfIp4m9XewU1xXnFh9+/x9t9Ovr65p
-	WZAqm839KMsanOpybKDch/LnP8vQLHDxwMGCt0IpWAvlD5nRMM3XTI5i27mDDYIJ465dd+mm1HI
-	w+
-X-Received: by 2002:a05:6402:2116:b0:662:ac7e:aac9 with SMTP id 4fb4d7f45d1cf-6975678925emr6317263a12.20.1782139989329;
-        Mon, 22 Jun 2026 07:53:09 -0700 (PDT)
-Received: from localhost ([2a06:61c2:d427:0:b321:1c7a:b072:326e])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6977b82fa67sm3680336a12.4.2026.06.22.07.53.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 07:53:08 -0700 (PDT)
-From: Samuel Page <sam@bynar.io>
-To: David Heidelberg <david@ixit.cz>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Samuel Page <sam@bynar.io>
-Subject: [PATCH net] nfc: nci: fix out-of-bounds write in nci_target_auto_activated()
-Date: Mon, 22 Jun 2026 16:52:43 +0200
-Message-ID: <20260622145243.3167276-1-sam@bynar.io>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oEr7QA3m";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="844/Hlof";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oEr7QA3m";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="844/Hlof"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 62E1C75991;
+	Mon, 22 Jun 2026 14:54:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1782140076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=jxh1gHLoGNtM52tLMMkGn2yRHkmuZf/Zujd0BM3u68s=;
+	b=oEr7QA3mKbhoVPXJ4rVR6K/mwPDkNHBzxLnqHDWCsO4VKPlZjwYj3eRdi2Gf/G3X+QNhXB
+	FUt27PsTIkvIEkgszs0m47WlitGv2qz464gNGHwnl+Mv1ymscQc8SF1bSLShI1Q0tALWBo
+	JRiVozWVzx0FHDh3nj0XWWVT+fksojY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1782140076;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=jxh1gHLoGNtM52tLMMkGn2yRHkmuZf/Zujd0BM3u68s=;
+	b=844/HlofZeD0Pz5Js3SnEw2w3Srz5DH8PDQv+1zn4ZJw7uKsbX3Cqt5dnct4KSDwXol9pf
+	f/D+uc5gFMBL2nBA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1782140076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=jxh1gHLoGNtM52tLMMkGn2yRHkmuZf/Zujd0BM3u68s=;
+	b=oEr7QA3mKbhoVPXJ4rVR6K/mwPDkNHBzxLnqHDWCsO4VKPlZjwYj3eRdi2Gf/G3X+QNhXB
+	FUt27PsTIkvIEkgszs0m47WlitGv2qz464gNGHwnl+Mv1ymscQc8SF1bSLShI1Q0tALWBo
+	JRiVozWVzx0FHDh3nj0XWWVT+fksojY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1782140076;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=jxh1gHLoGNtM52tLMMkGn2yRHkmuZf/Zujd0BM3u68s=;
+	b=844/HlofZeD0Pz5Js3SnEw2w3Srz5DH8PDQv+1zn4ZJw7uKsbX3Cqt5dnct4KSDwXol9pf
+	f/D+uc5gFMBL2nBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 10382779A8;
+	Mon, 22 Jun 2026 14:54:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id DRWPAqxMOWrdeQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Mon, 22 Jun 2026 14:54:36 +0000
+Message-ID: <926d9d5f-be68-4377-9a90-0d9ace2c2c53@suse.de>
+Date: Mon, 22 Jun 2026 16:54:35 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/fb-helper: Only consider active CRTCs for vblank
+ sync
+To: Jani Nikula <jani.nikula@linux.intel.com>, hns@goldelico.com,
+ zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch, akemnade@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ letux-kernel@openphoenux.org, kernel@pyra-handheld.com,
+ sashiko-reviews@lists.linux.dev, stable@vger.kernel.org
+References: <20260622113434.682292-1-tzimmermann@suse.de>
+ <395f15bb770b4be0ffeeb09e7cdeef49340f910c@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <395f15bb770b4be0ffeeb09e7cdeef49340f910c@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -4.30
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.993];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	MIME_TRACE(0.00)[0:+];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	FREEMAIL_TO(0.00)[linux.intel.com,goldelico.com,iscas.ac.cn,kernel.org,gmail.com,ffwll.ch];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	URIBL_BLOCKED(0.00)[iscas.ac.cn:email,suse.com:url,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,goldelico.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,iscas.ac.cn:email,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Level: 
 
-nci_target_auto_activated() appends a target to the fixed-size array
-ndev->targets[NCI_MAX_DISCOVERED_TARGETS] and increments ndev->n_targets
-without first checking the array is full; unlike its sibling
-nci_add_new_target(), which bails out when n_targets already equals
-NCI_MAX_DISCOVERED_TARGETS.
+Hi
 
-ndev->n_targets is only cleared by nci_clear_target_list(), so an NFCC
-that repeatedly re-runs discovery (RF_DISCOVER_RSP, which re-enters
-NCI_DISCOVERY without clearing the target list) and reports an
-auto-activated target (RF_INTF_ACTIVATED_NTF) drives n_targets past the
-limit. The append then writes a struct nfc_target past the end of the
-array (a slab out-of-bounds write), and nfc_targets_found() goes on to
-walk the array with the inflated count:
+Am 22.06.26 um 15:34 schrieb Jani Nikula:
+> On Mon, 22 Jun 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Only synchronize fbdev output to the vblank of an active CRTC. Go over
+>> the list of CRTCs and pick the first that matches. Fixes warnings as
+>> the one shown below
+>>
+>> [   77.201354] WARNING: drivers/gpu/drm/drm_vblank.c:1320 at drm_crtc_wait_one_vblank+0x194/0x1cc [drm], CPU#1: kworker/1:7/1867
+>> [   77.201354] omapdrm omapdrm.0: [drm] vblank wait timed out on crtc 0
+>>
+>> This currently happens if the fbdev output is not on CRTC 0.
+>>
+>> Atomic and non-atomic drivers require distinct code paths. As for other
+>> fbdev operations, implement both and select the correct one at runtime.
+>>
+>> Not finding an active CRTC is not a bug. Do not wait in this case, but
+>> flush the display update as before.
+>>
+>> v2:
+>> - move look-up code into separate helper
+>> - support drivers with legacy modesetting
+>> v1:
+>> - see https://lore.kernel.org/dri-devel/1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@suse.de/
+>>
+>> Co-authored-by: H. Nikolaus Schaller <hns@goldelico.com>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Fixes: d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker with vblank")
+>> Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+>> Closes: https://bugs.debian.org/1138033
+>> Cc: <stable@vger.kernel.org> # v6.19+
+>> ---
+>>   drivers/gpu/drm/drm_fb_helper.c | 71 ++++++++++++++++++++++++++++++++-
+>>   1 file changed, 70 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+>> index 7b11a582f8ec..cbf0a9a7b8e5 100644
+>> --- a/drivers/gpu/drm/drm_fb_helper.c
+>> +++ b/drivers/gpu/drm/drm_fb_helper.c
+>> @@ -225,16 +225,85 @@ static void drm_fb_helper_resume_worker(struct work_struct *work)
+>>   	console_unlock();
+>>   }
+>>   
+>> +static int find_crtc_index_atomic(struct drm_fb_helper *helper)
+>> +{
+>> +	struct drm_device *dev = helper->dev;
+>> +	struct drm_plane *plane;
+>> +
+>> +	drm_for_each_plane(plane, dev) {
+>> +		const struct drm_plane_state *plane_state;
+>> +		const struct drm_crtc *crtc;
+>> +
+>> +		if (plane->type != DRM_PLANE_TYPE_PRIMARY)
+>> +			continue;
+>> +
+>> +		plane_state = plane->state;
+>> +		if (plane_state->fb != helper->fb || !plane_state->crtc)
+>> +			continue; /* plane doesn't display fbdev emulation */
+>> +
+>> +		crtc = plane_state->crtc;
+>> +		if (!crtc->state->active)
+>> +			continue;
+>> +		if (drm_WARN_ON_ONCE(dev, crtc->index > INT_MAX))
+>> +			continue; /* driver bug */
+> I take it this is here because crtc->index is unsigned, and this
+> function returns int so you can have negative error codes. Ditto the
+> other function below.
+>
+> I feel like this is something that should be checked once somewhere, if
+> that. I think adding arbitrary checks like this invites more arbitrary
+> checks everywhere. crtc->index is supposed to be invariant over the
+> lifetime of the CRTC.
 
-  BUG: KASAN: slab-out-of-bounds in nci_add_new_protocol+0x94/0x2ac [nci]
-  Write of size 2 at addr ffff0000c7299a18 by task kworker/u8:0/12
-  Workqueue: nfc0_nci_rx_wq nci_rx_work [nci]
-  Call trace:
-   nci_add_new_protocol+0x94/0x2ac [nci]
-   nci_ntf_packet+0xddc/0x11a0 [nci]
-   nci_rx_work+0x15c/0x1e0 [nci]
-   process_one_work+0x2dc/0x500
-   worker_thread+0x240/0x460
-   kthread+0x1c0/0x1d0
-   ret_from_fork+0x10/0x20
+Ok, makes sense.
 
-  The buggy address belongs to the cache kmalloc-2k of size 2048
-  The buggy address is located 1024 bytes to the right of
-  allocated 1560-byte region [ffff0000c7299000, ffff0000c7299618)
+Best regards
+Thomas
 
-Guard nci_target_auto_activated() with the same check used by
-nci_add_new_target().
+>
+> BR,
+> Jani.
+>
+>> +
+>> +		return crtc->index;
+>> +	}
+>> +
+>> +	return -EINVAL;
+>> +}
+>> +
+>> +static int find_crtc_index_legacy(struct drm_fb_helper *helper)
+>> +{
+>> +	struct drm_device *dev = helper->dev;
+>> +	struct drm_crtc *crtc;
+>> +
+>> +	drm_for_each_crtc(crtc, dev) {
+>> +		struct drm_plane *plane = crtc->primary;
+>> +
+>> +		if (!crtc->enabled)
+>> +			continue;
+>> +		if (!plane || plane->fb != helper->fb)
+>> +			continue; /* CRTC doesn't display fbdev emulation */
+>> +		if (drm_WARN_ON_ONCE(dev, crtc->index > INT_MAX))
+>> +			continue; /* driver bug */
+>> +
+>> +		return crtc->index;
+>> +	}
+>> +
+>> +	return -EINVAL;
+>> +}
+>> +
+>> +static int drm_fb_helper_find_crtc_index(struct drm_fb_helper *helper)
+>> +{
+>> +	struct drm_device *dev = helper->dev;
+>> +	int crtc_index;
+>> +
+>> +	mutex_lock(&dev->mode_config.mutex);
+>> +
+>> +	if (drm_drv_uses_atomic_modeset(dev))
+>> +		crtc_index = find_crtc_index_atomic(helper);
+>> +	else
+>> +		crtc_index = find_crtc_index_legacy(helper);
+>> +
+>> +	mutex_unlock(&dev->mode_config.mutex);
+>> +
+>> +	return crtc_index;
+>> +}
+>> +
+>>   static void drm_fb_helper_fb_dirty(struct drm_fb_helper *helper)
+>>   {
+>>   	struct drm_device *dev = helper->dev;
+>>   	struct drm_clip_rect *clip = &helper->damage_clip;
+>>   	struct drm_clip_rect clip_copy;
+>> +	int crtc_index;
+>>   	unsigned long flags;
+>>   	int ret;
+>>   
+>>   	mutex_lock(&helper->lock);
+>> -	drm_client_modeset_wait_for_vblank(&helper->client, 0);
+>> +	crtc_index = drm_fb_helper_find_crtc_index(helper);
+>> +	if (crtc_index >= 0)
+>> +		drm_client_modeset_wait_for_vblank(&helper->client, crtc_index);
+>>   	mutex_unlock(&helper->lock);
+>>   
+>>   	if (drm_WARN_ON_ONCE(dev, !helper->funcs->fb_dirty))
 
-Fixes: 019c4fbaa790 ("NFC: Add NCI multiple targets support")
-Cc: stable@vger.kernel.org
-Assisted-by: Bynario AI
-Signed-off-by: Samuel Page <sam@bynar.io>
----
- net/nfc/nci/ntf.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-index c96512bb8653..566ca839fa48 100644
---- a/net/nfc/nci/ntf.c
-+++ b/net/nfc/nci/ntf.c
-@@ -603,6 +603,12 @@ static void nci_target_auto_activated(struct nci_dev *ndev,
- 	struct nfc_target *target;
- 	int rc;
- 
-+	/* This is a new target, check if we've enough room */
-+	if (ndev->n_targets == NCI_MAX_DISCOVERED_TARGETS) {
-+		pr_debug("not enough room, ignoring new target...\n");
-+		return;
-+	}
-+
- 	target = &ndev->targets[ndev->n_targets];
- 
- 	rc = nci_add_new_protocol(ndev, target, ntf->rf_protocol,
-
-base-commit: 47186409c092cd7dd70350999186c700233e854d
 -- 
-2.54.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
