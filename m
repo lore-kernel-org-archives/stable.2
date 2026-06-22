@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17643A4F31
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 09:56:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9E83A5430
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 09:56:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782122168; cv=none; b=a0KWYUNl/9Y2bQGvlEV2Dqfss7+1hHXeYpDIyRX3wk3c+jrMXygJtI1J9zaDWsNjBu+nsMrK4FCTwrayHtH0Hk4e88onQVQ9smGa4saIBlkxnzgpWIhMwdCQHjhhow4JUgDeoHotdygaOY9CqCb2FM3jOD8sj6qF6VwU8BgiMXE=
+	t=1782122173; cv=none; b=T4ZVaHVtkAkhsn8x0BKtJH7mXObiqmnOZjmpNQEMXyiANcitR+I44hAUTnf+dHsMU2nwttHYDooCH9HVO9BmAm7GjltA4BIl83QwWK8rmbbcrQMVOFay/FVCC1kuK9MR+tFMGSHH/2ueA9TPR7eUOyfEGRkDOXPQ1JlhI5kXzVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782122168; c=relaxed/simple;
-	bh=6/YTeWqo4P+1wOX8lvY2Y/4anoZPkQ9PpjnIsVEFHcY=;
+	s=arc-20240116; t=1782122173; c=relaxed/simple;
+	bh=gU1hAbIFH/xa/hYrmGYHw8hV1kinhcFLanBG87oiwag=;
 	h=Date:Message-ID:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=eNWz94rBp4jt67j+EEiEIulVwHxfJfUxsmeqJ0pP8Ve0M0ElA4sqquRTB1zEj7bUpEKDXfv+BM45FjWqw3GWVPXO1W2qaPXnwTExVIZPdarbf8FZ3nUd8DEDDxoSXFR4zM/REXNA5lG5emjmUOPMfErN36e0cvAgbm86X3IK+Xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IdgRe8gx; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=Hi7WCxgo+nQk4lRzRpZyGDjKuaS3vNK6LKhFsPeNVgHVgO0NUzhpJhgOAsrgTAvBFJ93SC5Ey1YhBFxs1AEYKHKn7SnmZ5fQXUCydDuwQzK+P8AR3kwTTc390EbNToOQW+CQDfUdUV4Sx5T4UbOVBGwkEX2D75rBGZT05tddRSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OH71PTIl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IdgRe8gx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF89F1F000E9;
-	Mon, 22 Jun 2026 09:56:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OH71PTIl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 370E21F000E9;
+	Mon, 22 Jun 2026 09:56:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782122165;
-	bh=lKh/o5+T5Q67K0nZxGerkYQ74gixsjJnkagCU4gBEps=;
+	s=k20260515; t=1782122169;
+	bh=xBgWuMW0ZtH315BOBobbh/t2mBePIm63ZkBL1s/PMn8=;
 	h=Date:From:To:Cc:Subject:References;
-	b=IdgRe8gxw2NNlQU31FVnPBd/TaryvWIbEQMwHYmL+kQ7piePVhFcLkJDtcHGVN0h2
-	 oMpM+we1k9VH6b/aK6RrKZ6llgDp72wTU2iDVkTa1174p6K1KTE/uv1FGA7Z2KHicx
-	 CaMZ+G1+QLeaz0PvU12aAODgBnjTro5bL+g9Oe/T094Jz7Ost+zxx7ev5aFqDYSmLJ
-	 3FdW7547Y5L65l4Egxjq7YtZZ7H3yrp/4KnC/mOVaJ43rrn1w/UQJa4RYBHbaO/sj7
-	 zRV9ApmuvRHhGO60L930TJfWPDYnmZDVzfbXvXu6ym2Foo7GBcpDnzUlwaLPd1u9aP
-	 oNYbgBie50wjg==
-Date: Mon, 22 Jun 2026 11:56:02 +0200
-Message-ID: <20260622094802.257399324@kernel.org>
+	b=OH71PTIlSdOXV9wRjZLOe32VNsspjp0ofnEoAYsW6k+N2DVawcYAJsXNdIw38mYd5
+	 KLRbGJuaAbsGWCaHR5x4Q+8czwlG2bcHlPKEWFn40LObq7bNoJp+ZxL4mmuKCtw/SQ
+	 +JiTYGNFZmcES8N21w3rSef8O0J1KBo+EFp4mG8XV1X3Xoz9CvJEKvdsqMCLHk1nuJ
+	 czlyHuOoGsP1ICS7PfMejhplNButhoiZ3G9bWuBV0U87Iu77GMZQ/Z9TgSQS/Nl0mj
+	 s9AZz+tKgHRhlsVPuiucURrLZvXivYLUnVvEaMXfuuZSF6xdp/w7GlTjy/7SwHAN7s
+	 R1zQ6490HllaA==
+Date: Mon, 22 Jun 2026 11:56:07 +0200
+Message-ID: <20260622094802.314769410@kernel.org>
 User-Agent: quilt/0.69
 From: Thomas Gleixner <tglx@kernel.org>
 To: stable@vger.kernel.org
 Cc: Waiman Long <longman@redhat.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- syzbot+b8ca586b9fc235f0c0df@syzkaller.appspotmail.com,
- Helen Koike <koike@igalia.com>
-Subject: [patch v6.1.y 4/5] debugobjects: Do not fill_pool() if pi_blocked_on
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Subject: [patch v6.1.y 5/5] debugobjects: Dont call fill_pool() in early boot
+ hardirq context
 References: <20260622094345.511524619@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -45,58 +44,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Helen Koike <koike@igalia.com>
+From: Waiman Long <longman@redhat.com>
 
-commit 5f41161059fd0f1bbf18c90f3180e38cc45a14eb upstream.
+commit 0d046ae106255cba5eb83b23f78ee93f3620247d upstream.
 
-On RT enabled kernels, fill_pool() ends up calling rtlock_lock(), which
-asserts if current::pi_blocked_on is set, because a task can obviously only
-block on one lock as otherwise the priority inheritenace chain gets
-corrupted.
+When booting a debug PREEMPT_RT kernel on an ARM64 system, a "inconsistent
+{HARDIRQ-ON-W} -> {IN-HARDIRQ-W} usage" lockdep warning message was
+reported to the console.
 
-Prevent this by expanding the conditional to take current::pi_blocked_on
-into account.
+During early boot, interrupts are enabled before the scheduler is
+enabled. In this window (before SYSTEM_SCHEDULING is set) interrupts can
+fire and in the hard interrupt context handler attempt to fill the pool
 
-Fixes: 4bedcc28469a ("debugobjects: Make them PREEMPT_RT aware")
-Reported-by: syzbot+b8ca586b9fc235f0c0df@syzkaller.appspotmail.com
-Signed-off-by: Helen Koike <koike@igalia.com>
+This can lead to a deadlock when the interrupt occurred when the interrupt
+hits a region which holds a lock that is required to be taken in the
+allocation path.
+
+Add a new can_fill_pool() helper and reorder the exception rule and forbid
+this scenario by excluding allocations from hard interrupt context.
+
+Fixes: 06e0ae988f6e ("debugobjects: Allow to refill the pool before SYSTEM_SCHEDULING")
+Suggested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Suggested-by: Thomas Gleixner <tglx@linutronix.de>
+Signed-off-by: Waiman Long <longman@redhat.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20260511215359.3351259-1-koike@igalia.com
-Closes: https://syzkaller.appspot.com/bug?extid=b8ca586b9fc235f0c0df
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260605173038.495075-1-longman@redhat.com
 ---
- lib/debugobjects.c |   18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ lib/debugobjects.c |   44 ++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 36 insertions(+), 8 deletions(-)
 ---
 --- a/lib/debugobjects.c
 +++ b/lib/debugobjects.c
-@@ -596,15 +596,25 @@ static struct debug_obj *lookup_object_o
- 	return NULL;
+@@ -606,20 +606,48 @@ static inline bool debug_objects_is_pi_b
+ #endif
  }
  
-+static inline bool debug_objects_is_pi_blocked_on(void)
-+{
-+#ifdef CONFIG_RT_MUTEXES
-+	return current->pi_blocked_on != NULL;
-+#else
-+	return false;
-+#endif
-+}
-+
- static void debug_objects_fill_pool(void)
+-static void debug_objects_fill_pool(void)
++static inline bool can_fill_pool(void)
  {
  	/*
- 	 * On RT enabled kernels the pool refill must happen in preemptible
--	 * context -- for !RT kernels we rely on the fact that spinlock_t and
--	 * raw_spinlock_t are basically the same type and this lock-type
--	 * inversion works just fine.
-+	 * context and not enqueued on an rt_mutex -- for !RT kernels we rely
-+	 * on the fact that spinlock_t and raw_spinlock_t are basically the
-+	 * same type and this lock-type inversion works just fine.
+-	 * On RT enabled kernels the pool refill must happen in preemptible
+-	 * context and not enqueued on an rt_mutex -- for !RT kernels we rely
+-	 * on the fact that spinlock_t and raw_spinlock_t are basically the
+-	 * same type and this lock-type inversion works just fine.
++	 * On !RT enabled kernels there are no restrictions and spinlock_t and
++	 * raw_spinlock_t are the same types.
++	 */
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++		return true;
++
++	/*
++	 * On RT enabled kernels, the task must not be blocked on a lock as
++	 * that could corrupt the PI state when blocking on a lock in the
++	 * allocation path.
++	 */
++	if (debug_objects_is_pi_blocked_on())
++		return false;
++
++	/*
++	 * On RT enabled kernels the pool refill should happen in preemptible
++	 * context.
  	 */
--	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || preemptible() || system_state < SYSTEM_SCHEDULING) {
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || system_state < SYSTEM_SCHEDULING ||
-+	    (preemptible() && !debug_objects_is_pi_blocked_on())) {
+-	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || system_state < SYSTEM_SCHEDULING ||
+-	    (preemptible() && !debug_objects_is_pi_blocked_on())) {
++	if (preemptible())
++		return true;
++
++	/*
++	 * Though during system boot before scheduling is set up, preemption is
++	 * disabled and the pool can get exhausted. Before scheduling is active
++	 * a task cannot be blocked on a sleeping lock, but it might hold a lock
++	 * and if interrupted then hard interrupt context might run into a lock
++	 * inversion. So exclude hard interrupt context from allocations before
++	 * scheduling is active.
++	 */
++	return system_state < SYSTEM_SCHEDULING && !in_hardirq();
++}
++
++static void debug_objects_fill_pool(void)
++{
++	if (can_fill_pool()) {
  		/*
  		 * Annotate away the spinlock_t inside raw_spinlock_t warning
  		 * by temporarily raising the wait-type to LD_WAIT_CONFIG, matching
+-		 * the preemptible() condition above.
++		 * the preemptible() condition in can_fill_pool().
+ 		 */
+ 		static DEFINE_WAIT_OVERRIDE_MAP(fill_pool_map, LD_WAIT_CONFIG);
+ 		lock_map_acquire_try(&fill_pool_map);
 
