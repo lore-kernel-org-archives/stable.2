@@ -1,136 +1,126 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1B935E1B5;
-	Mon, 22 Jun 2026 08:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFA92147E5
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 08:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782118547; cv=none; b=pf34SyCZGJYd5kZIET/IKlRQCvP4QL5YrDepP1ov33VwXGNZDi1CJY33tN/C5S4KujPPJmbqgorhC6lIzJGR/VlGkrIV5IwEjX6eysTlpwwcUxfNWjSCtU4XH2SB5Q9uchkf++jzLFItK79rYC1RuLoyCk93jgMw/+mW15HS6aw=
+	t=1782118697; cv=none; b=SNO9XkckNdcLkqlL7M4xxPbAIKtuA6MddAW6R69FsorbT6xz+M3CQsj6ILrVd7Eca9zrHEOTlj0eWunDzhZQq8ziDF8j0cG+qTpi4/XGTv4m0ji87zsCfS9wOLLljR+Knsu171M3B1OiTczAUJjpIQmjoTM6ebwgmeGF1CDoRRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782118547; c=relaxed/simple;
-	bh=r4bodF9U8oMEN04T0y18dysLerS4jks16bI6avdd++w=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=LksZW7WgSTMyXfwshNE68a6GP9bl9EXc8wTAOsGVpmrgCH95kEYXOl019VUEbiRueD1OQ2jcVQtyPdYTn5F6CTcG1aCrFvga8lQ7/4Cgcb27q899VQq7ESouJ2pCi0iss7f+fiwCke5fRmPK4lifk1MmBeAjCJrmMRwzaOpmBiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=none smtp.helo=mailgw.kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.helo=mailgw.kylinos.cn
-X-UUID: 4a0426106b8b11f1aa26b74ffac11d73-20260619
-Message-ID:<1782118512967996.3955.seg@mailgw.kylinos.cn>
-X-Spam-Fingerprint: 0
-X-GW-Reason: 11101
-X-Content-Feature:
-	ica/max.line-size 85
-	audit/email.address 4
-	dict/adv 1
-	dict/game 2
-	meta/cnt.alert 1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:54b7c1a8-4e26-4de3-9828-59c9a56bcaa4,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:4c2eda3750725ae7bc323e2f32abb649,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|136|850|865|898,TC:nil,Content
-	:0|15|50,EDM:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,CO
-	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 4a0426106b8b11f1aa26b74ffac11d73-20260619
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 677852642; Fri, 19 Jun 2026 11:02:21 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	johan@kernel.org,
-	kishon@kernel.org,
-	rogerq@ti.com
-Cc: linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	Sashiko AI <sashiko@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v6 4/4] phy: ti-pipe3: Fix clock leak in init error path
-Date: Fri, 19 Jun 2026 11:02:14 +0800
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260619030214.1779043-1-zenghongling@kylinos.cn>
-References: <20260619030214.1779043-1-zenghongling@kylinos.cn>
+	s=arc-20240116; t=1782118697; c=relaxed/simple;
+	bh=xXvRbk8eb7grq0nwDm5IPD5kf1VuIH2HEo4lQr8XwCI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DEg1F9iClt72N47sYEjTMY88OqHVYlKAaobQkB4qoDYOTsvgGZAB+OsQ9yL9GS+etxrzuSBt9IYjqIHx8s09wDh+GB4B7CCDGuP4S6O1SG4IeBAkCe0e1vjoSMRqyBHSval2ceZeeLjBKSrL+2HoKrthcO15faMB7tYhaQlhEL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mVVnFGNC; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mVVnFGNC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6C9B1F000E9;
+	Mon, 22 Jun 2026 08:58:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1782118696;
+	bh=WqY+XEPS1NtiJgkn31mddjCudfgarrfisRBKKYYeHt8=;
+	h=Subject:To:Cc:From:Date;
+	b=mVVnFGNCvzZUOiv4UmqqraSAK2HqiVkLS1nTTnxzqwtEI26PGKjZnPIildfvEx7zI
+	 k++IFo6cdz9s82Gs5KqxE9/d3eAkSu/T6h14qTS7SISt7jFZmPG15tvzLL2tpbUgkC
+	 3KE7aGx7uoENa6D6bXkjRekWVbe48joHbTpEzF7w=
+Subject: FAILED: patch "[PATCH] fuse: re-lock request before replacing page cache folio" failed to apply to 6.12-stable tree
+To: joannelkoong@gmail.com,llfamsec@gmail.com,mszeredi@redhat.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 22 Jun 2026 10:58:30 +0200
+Message-ID: <2026062230-operable-mushroom-1659@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-When regmap_update_bits() fails in ti_pipe3_init() for PCIe mode,
-the function returns the error without calling ti_pipe3_disable_clocks().
-This leaves the clocks permanently enabled since the PHY framework won't
-invoke the .exit callback on init failure.
 
-Fix this by adding proper clock cleanup in the PCIe error path, consistent
-with how the DPLL program error path handles cleanup.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Fixes: 234738ea3390 ("phy: ti-pipe3: move clk initialization to a separate function")
-Reported-by: Sashiko AI <sashiko@kernel.org>
-Closes: https://lore.kernel.org/all/20260518023657.41852C2BCB0@smtp.kernel.org/
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x a078484921052d0badd827fcc2770b5cfc1d4120
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026062230-operable-mushroom-1659@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From a078484921052d0badd827fcc2770b5cfc1d4120 Mon Sep 17 00:00:00 2001
+From: Joanne Koong <joannelkoong@gmail.com>
+Date: Mon, 18 May 2026 22:28:06 -0700
+Subject: [PATCH] fuse: re-lock request before replacing page cache folio
+
+fuse_try_move_folio() unlocks the request on entry but does not
+re-lock it on the success path. This means fuse_chan_abort() can end the
+request and free the fuse_io_args (eg fuse_readpages_end()) while the
+subsequent copy chain logic after fuse_try_move_folio() accesses the
+fuse_io_args, leading to use-after-free issues.
+
+Fix this by calling lock_request() before replace_page_cache_folio().
+This ensures the request is locked on the success path which will
+prevent the fuse_io_args from being freed while the later copying logic
+runs, and also ensures that the ap->folios[i]->mapping is never null
+since ap->folios[i] will always point to the newfolio after
+replace_page_cache_folio().
+
+Fixes: ce534fb05292 ("fuse: allow splice to move pages")
 Cc: stable@vger.kernel.org
+Reported-by: Lei Lu <llfamsec@gmail.com>
+Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
 
----
-Change in v5:
-  -Add Fix ignored clock enable return value in init patch
----
-Change in v6:
- -Fix all clock leak paths comprehensively:
- -PCIe syscon update failure path
- -SATA DPLL lock check path
- -SATA errata path in ti_pipe3_exit()
----
- drivers/phy/ti/phy-ti-pipe3.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
-index 9ec228c2a940..860058f31594 100644
---- a/drivers/phy/ti/phy-ti-pipe3.c
-+++ b/drivers/phy/ti/phy-ti-pipe3.c
-@@ -518,6 +518,8 @@ static int ti_pipe3_init(struct phy *x)
- 		val = 0x96 << OMAP_CTRL_PCIE_PCS_DELAY_COUNT_SHIFT;
- 		ret = regmap_update_bits(phy->pcs_syscon, phy->pcie_pcs_reg,
- 					 PCIE_PCS_MASK, val);
-+		if (ret)
-+			ti_pipe3_disable_clocks(phy);
- 		return ret;
- 	}
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 05b6d15afe61..86b62a1d3746 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -1037,6 +1037,10 @@ static int fuse_try_move_folio(struct fuse_copy_state *cs, struct folio **foliop
+ 	if (WARN_ON(folio_test_mlocked(oldfolio)))
+ 		goto out_fallback_unlock;
  
-@@ -531,8 +533,9 @@ static int ti_pipe3_init(struct phy *x)
++	err = lock_request(cs->req);
++	if (err)
++		goto out_fallback_unlock;
++
+ 	replace_page_cache_folio(oldfolio, newfolio);
  
- 	/* SATA has issues if re-programmed when locked */
- 	val = ti_pipe3_readl(phy->pll_ctrl_base, PLL_STATUS);
--	if ((val & PLL_LOCK) && phy->mode == PIPE3_MODE_SATA)
--		return ret;
-+	if ((val & PLL_LOCK) && phy->mode == PIPE3_MODE_SATA) {
-+		return 0;
-+	}
- 
- 	/* Program the DPLL */
- 	ret = ti_pipe3_dpll_program(phy);
-@@ -555,8 +558,10 @@ static int ti_pipe3_exit(struct phy *x)
- 	/* If dpll_reset_syscon is not present we wont power down SATA DPLL
- 	 * due to Errata i783
+ 	folio_get(newfolio);
+@@ -1050,20 +1054,7 @@ static int fuse_try_move_folio(struct fuse_copy_state *cs, struct folio **foliop
  	 */
--	if (phy->mode == PIPE3_MODE_SATA && !phy->dpll_reset_syscon)
-+	if (phy->mode == PIPE3_MODE_SATA && !phy->dpll_reset_syscon) {
-+		ti_pipe3_disable_clocks(phy);
- 		return 0;
-+	}
+ 	pipe_buf_release(cs->pipe, buf);
  
- 	/* PCIe doesn't have internal DPLL */
- 	if (phy->mode != PIPE3_MODE_PCIE) {
--- 
-2.25.1
+-	err = 0;
+-	spin_lock(&cs->req->waitq.lock);
+-	if (test_bit(FR_ABORTED, &cs->req->flags))
+-		err = -ENOENT;
+-	else
+-		*foliop = newfolio;
+-	spin_unlock(&cs->req->waitq.lock);
+-
+-	if (err) {
+-		folio_unlock(newfolio);
+-		folio_put(newfolio);
+-		goto out_put_old;
+-	}
+-
++	*foliop = newfolio;
+ 	folio_unlock(oldfolio);
+ 	/* Drop ref for ap->pages[] array */
+ 	folio_put(oldfolio);
 
