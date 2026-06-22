@@ -1,111 +1,88 @@
-Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com [91.218.175.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E3A322A
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 01:42:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.180
+Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5556A25B092;
+	Mon, 22 Jun 2026 02:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.97.182.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782092552; cv=none; b=DfCSEgkywggQ8SzLs+igXvaE8MWwEMp7RXU9i0xWQIGqMKT5R85guagL8PN78s3KgUEXLrrUtwXwNCsWQDTNCdL4Q2VnqljpCG5fmMwTOp0lloqmUEHpWqZ/9NbFZ0ZKw4xvNqxDhaXNidCJ1t7S1K4KApdEsXSFq4obDKLWBtE=
+	t=1782094499; cv=none; b=Uth1HIVqlEYq03R9VG+KYp1LHF1zlOPLwcUSKUfoV0O12mQu0kgxV1tmT7ZrUduqG0OXnn3j2SPMBJ1KozzEgDAR4zRavH56AaqkxPTsu7GtI39YrWvbmgv5V+mXRs52b8RtAZDmzYOEJfq5ZgzGffKfG6qEMC4nuUh8OWjW70M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782092552; c=relaxed/simple;
-	bh=Cz9Ld5YcxQmdCb3wmnb9RHjpjGqk0/1visOeYkHsGw4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ehC6vCw67iW9BvRJ9k8Q8ARX78VgMWc+RJHSA6KYJOpnMdkL6tOyPOjf12zn+yOuVmSINCIlIG21X98DzhXRnmb/AmUnhNoHkyzB+WKkOelQdAqiM5pCKM2S7S3J/T6e683ix1gPvtJ7cFotjA4P5f7J1D34Az5cwCpDXeTLwUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wkgpIn8o; arc=none smtp.client-ip=91.218.175.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782094499; c=relaxed/simple;
+	bh=hLAgi6PJaf3BdseRiaHAyoH7aPqwW/GU/uRfcjXAiMk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=thYzD6pBecKVYAW8+ZhrhzaFaeuWPq/frJtPNQni6xJpF4w5/oUU1uUUtbrxSuluwSie7sfgj1ncjtku2JGZjvmmsYO+X6H19gs7mBaSGV4WopdJkAk68I+2QJcEfpDjyHw+huhRV/Y7fQEgxLBkC4D9f0FG894Q1kj1HJY0qyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=AjtakNDq; arc=none smtp.client-ip=209.97.182.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wkgpIn8o"
-Message-ID: <e7f3385a-953d-4e82-9e84-30029da7747b@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782092539;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ed3uADOh58bQx7YJ5G5Wy/xNlbT1GNIfgqT8EJ3Y7qI=;
-	b=wkgpIn8ovHyf81iFJXdi+qeQV71iHuM/ENCcPR8lAkanzvkNzaj4agu+xqnWVn5sA/4R50
-	anrOG9hy3OpZSEu7C3xGhAD+unhZ9cnyvkeTi8b2svHXytYrfq0dPaBxXjl1dpJHvRmhkA
-	JTAdvXYfpCgxmJTF4KzgR2JiLUb74rQ=
-Date: Mon, 22 Jun 2026 09:42:10 +0800
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="AjtakNDq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
+	Date:Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=hLAgi6PJaf3BdseRiaHAyoH7aPqwW/GU/u
+	RfcjXAiMk=; b=AjtakNDq+diORRRcJpiN5ZYs0/uMr800UITLGZvS0+mzn463IU
+	OL3Va5Guzhzs2UCpSydvipoFeRhQxZvo3F40GpVlTze6FtMVaQlT8M3Qv9J8wyOT
+	f7aTgohlIS+ypbSWyEg5DMAfMvzTaMajcEtEP/KEWDNuXB6Z+VjEzzaiU=
+Received: from localhost.localdomain (unknown [101.5.13.242])
+	by web5 (Coremail) with SMTP id zAQGZQC3cMCImjhqxbCZAg--.9818S2;
+	Mon, 22 Jun 2026 10:14:33 +0800 (CST)
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+To: horms@kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	fengxw06@126.com,
+	kees@kernel.org,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	qli01@tsinghua.edu.cn,
+	stable@vger.kernel.org,
+	veritas501@foxmail.com,
+	wangao@seu.edu.cn,
+	xuke@tsinghua.edu.cn,
+	yangyx22@mails.tsinghua.edu.cn,
+	zhaoyz24@mails.tsinghua.edu.cn
+Subject: Re: [PATCH net] appletalk: fix use-after-free in atalk_find_primary()
+Date: Mon, 22 Jun 2026 10:14:26 +0800
+Message-ID: <20260622021426.68213-1-zhaoyz24@mails.tsinghua.edu.cn>
+X-Mailer: git-send-email 2.46.2
+In-Reply-To: <20260616163403.GA827683@horms.kernel.org>
+References: <20260616163403.GA827683@horms.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v7 1/9] cgroup/cpuset: rebind mm mempolicy to
- effective_mems, not mems_allowed
-To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Li Zefan <lizefan@huawei.com>,
- Farhad Alemi <farhad.alemi@berkeley.edu>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Aaron Tomlin <atomlin@atomlin.com>, Guopeng Zhang <guopeng.zhang@linux.dev>,
- Gregory Price <gourry@gourry.net>, David Hildenbrand <david@kernel.org>,
- stable@vger.kernel.org
-References: <20260621032816.1806773-1-longman@redhat.com>
- <20260621032816.1806773-2-longman@redhat.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260621032816.1806773-2-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zAQGZQC3cMCImjhqxbCZAg--.9818S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYJ7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcV
+	AFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2
+	jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAac4AC62xK8xCEY4
+	vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VCjz48v1sIEY20_GrWkJr1UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr4
+	1lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkIecxEwVAF
+	wVW8JwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4rKr1UJr1l4c8EcI0Ec7
+	CjxVAaw2AFwI0_Jw0_GFyl4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
+	JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7V
+	AKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42
+	IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUs73vUUUUU
+X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgYEAWo1wh2a2wACsC
 
+Hi Simon,
 
+Thanks for the review.
 
-On 6/21/2026 11:28 AM, Waiman Long wrote:
-> From: Farhad Alemi <farhad.alemi@berkeley.edu>
-> 
-> Creating a child cpuset where cpuset.mems is never set leads to a div/0
-> when a VMA mempolicy with MPOL_F_RELATIVE_NODES rebinds in response to a
-> CPU hotplug event.
-> 
-> Reproduction steps:
->   1) Create a cgroup w/ cpuset controls (do not set cpuset.mems)
->   2) Move the task into the child cpuset
->   3) Create a VMA mempolicy for that task with MPOL_F_RELATIVE_NODES
->   4) unplug and hotplug a cpu
->        echo 0 > /sys/devices/system/cpu/cpu1/online
->        echo 1 > /sys/devices/system/cpu/cpu1/online
->   5) mempolicy rebind does a div/0 in mpol_relative_nodemask on the
->      call to __nodes_fold()
-> 
-> The cpuset code passes (cs->mems_allowed) which is not guaranteed to have
-> nodes to the rebind routine.  Use cs->effective_mems instead, which is
-> guaranteed to have a non-empty nodemask.
-> 
-> Closes: https://lore.kernel.org/linux-mm/CA+0ovCgxbZkXa+OU8w3s84R3KNPNxxRfmsNR-udh+afQBbGNmw@mail.gmail.com/
-> Link: https://lore.kernel.org/all/CA+0ovCiEz6SP_sn3kN4Tb+_oC=eHMXy_Ffj=usV3wREdQrUtww@mail.gmail.com/
-> Fixes: ae1c802382f7 ("cpuset: apply cs->effective_{cpus,mems}")
-> Suggested-by: Gregory Price <gourry@gourry.net>
-> Suggested-by: Waiman Long <longman@redhat.com>
-> Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-> Acked-by: Waiman Long <longman@redhat.com>
-> Cc: stable@vger.kernel.org
-> ---
->   kernel/cgroup/cpuset.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 591e3aa487fc..b21c31650583 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2653,7 +2653,7 @@ void cpuset_update_tasks_nodemask(struct cpuset *cs)
->   
->   		migrate = is_memory_migrate(cs);
->   
-> -		mpol_rebind_mm(mm, &cs->mems_allowed);
-> +		mpol_rebind_mm(mm, &cs->effective_mems);
->   		if (migrate)
->   			cpuset_migrate_mm(mm, &cs->old_mems_allowed, &newmems);
->   		else
+I noticed that AppleTalk has since been moved out of tree by commit
+8a398a0c189e ("appletalk: move the protocol out of tree"), so this patch no
+longer applies to the current tree. I will not respin a v2 for mainline.
 
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+If you think this should still be addressed for stable trees or the
+out-of-tree AppleTalk code, I can respin the fix there following your
+comments.
 
--- 
-Best regards
-Ridong
+Best,
+Yizhou
 
