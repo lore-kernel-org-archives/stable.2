@@ -1,35 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017B325B0B3;
-	Mon, 22 Jun 2026 01:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E372624293C
+	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 01:12:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782090629; cv=none; b=JKhj09qZqYs1qFgbvh6ITkJ8WxVl06oSSy6Mm1REP4HLz4AB2xbKHvhgw3yviq3gHz/x093XO5bd2oVpH/v1hdqu9tjavN6XV1UErftA5WXmZletIH3O9fxnxfegyR4mV3PATgmBYWtThaO26Nk3aHV171ZIcDxOmI+FI8EOY38=
+	t=1782090775; cv=none; b=mYkDBuAAXiiKfkLQgOS9AIvNczKZ/TT3CBOgZqGHWXfbrDUZu4k/CRaBezVIgWbdqMkpdWQ0BFB8XDvh3H7vJQWFIEC8XIJYu8B34XFj2mVs3BXujNKOVUpe6Fckved//TMJJPmQ1QZfJbonS9RHg+CDpt4QCNXfDxcd2+sYtRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782090629; c=relaxed/simple;
-	bh=okaSSlX2zsK2EKljbfqrXB/8Wg3kzVTvhcqstVdOm/4=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=TZ09dwh2wor09uHyxPiz25V9wblCsnW5vrn1HZvcu/9501Q9DWBgdCYXhK5oBZQ2XmMLH7EhwGkoScpfUYrKl/Dlj6mP2PFNh6y71r9mL9Xf+dObVf+prIoHUaR1+8bULdT0kglO1rVZoE9q/4xf+qa7PkvfRLSlmYpsTMONt2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ir4eCmZX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782090775; c=relaxed/simple;
+	bh=j94HQK6oZ0r8NQs9hVhnpkh1dynCNV5NjnR+rHJVplU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WflAHuUhLYz5xrbV28m38G9uE2ozmCg9AvawCisOueGRyyyS72k3esUmzxVWMEfEX2efW9ji0hW2AO81AygLSdkcVvBY2cWUXAQD9WCXv5ITRKtiGdC8IujVhEn7VylGnV5hGJZj8iyseXX+IIkClPl0GQqqVUuyr3EhqGzm4fU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l+wPjFOD; arc=none smtp.client-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ir4eCmZX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B15001F000E9;
-	Mon, 22 Jun 2026 01:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782090628;
-	bh=qhQqOjUJLNnukTok9daW+cbWuP9q9NoA69dCM5QadKk=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ir4eCmZXm8TLRm8b+CSh0LRopvfjXgXE6DNwe5/U//XDydxAd2PWLp1DnXm10tWIj
-	 +KAu7Xd8Fm+J3DRwkye8DSl8DfpXTxdcemwlxcbxvJaA1WMVlUvpavOZeh/D0BMCuq
-	 rL9zBhxbf6/gAe5wNy43GYFEnQlC6ZWTARGuT0ao0cP7az3UV9JHfyw0rHVWi2CtU2
-	 wPqtm7x7PWCKvef5I0ULccpS54VoCPyti3GqiwukvSx/a2z4k3hNdi0QbDVka9Mdzb
-	 cs5bJcHPNG/FJX9XyJ07dGJY26vxZ8z6TfnrP7DIjKLPrbRwZnKJiRIa9d6y729DIW
-	 jwjPc1TeoGssw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 197C13AAA6EF;
-	Mon, 22 Jun 2026 01:10:21 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l+wPjFOD"
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-447134764f7so1860956fac.2
+        for <stable@vger.kernel.org>; Sun, 21 Jun 2026 18:12:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782090773; x=1782695573; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=v3a9PPciCr47HimGYz06wh3ROlaOsQ1tPkQ9F4Y9Wec=;
+        b=l+wPjFODwGgs5jlwHXUNR3MWbjzGgF6okEFyWO1Q2k+ByBwVEJla4p+H6wxWjBQ3zz
+         DAK0tP+3pmnGEuw8zlaN+/GO/0lb59qw9bv4Wf0LZ7hVc2GO0d8d1qG0i2dHqaa/Jzcc
+         UdsG0FbGkelsmEdXN6wyBnJs23rCGpuh7xL2U5X2aE77NaFtbl8NEi16M+OEhsoBjf21
+         T9VSjVSxx0xMzOWIEMttKamhErF7sSfbdbkstm/bSsnquX2oU2Vwg6J0hioTOuftVVes
+         7/1CThrzVSvJDtJDTi8qh/wbPDs3tWosd2Qsvfe0Wcngbc9go3E0W5mzQLZkf40FYyRb
+         L+yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782090773; x=1782695573;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=v3a9PPciCr47HimGYz06wh3ROlaOsQ1tPkQ9F4Y9Wec=;
+        b=Mz2ojN9awbM8ZFUzMMZeeZtEdlkApFGkpmCm/0LJVhJaE6X3LC5w9/elb3j+8vSyV+
+         g4QWsqC1B9kN4Ddu/YmhMEH9Xc/ujzXMLV9Wkas+Sehc4zGNFhFuUV54VnsZ0YPD2153
+         gtNlH0NJjXMfEFk+rOgBRAWhuROLTYWmORnOCmTf7rOYloaapGZV6w3EzzkGRXIlfKTo
+         mRna1roIAjEREEaTdGBby+97kLy4RDGTaPesbA+pxW/odKxL6b2pZOwYMzEUm5E5rMeo
+         QOcgXRCFKo5V4LinMBoql5xk/IWIurEUv712NZDQm5Lc6IhjszCo521EnUOOdgZzRRv1
+         Alyw==
+X-Forwarded-Encrypted: i=1; AFNElJ+9DqrWe6WDZUJ/0nbDmlR8WmcezN256mkPMIj5QXDZNZj6uCXpP4odS+0WWsydfcBmStGmOo0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTDlOxBaOfF49/DykP+8rOnUKkdaq/T1xSzwQfi/xek0rx8YOO
+	xmrXlFoX2IVhXpkbpCiMXVa87lGW98kQl7ggrrs213LNY2lNEtdKIJxT5u7xqHqg
+X-Gm-Gg: AfdE7clc0vjIWqoybZu7a36Za/Y3273raqyRXNn8GL+ZdKjPnmD8JWeW7+rkhymC23H
+	g5pPUa3leMRfnI+quSGbwWmBpYEbkGY32J1vTAbLd8X188akijRXRUpyu7N3JO8cLlkCg1AAMD1
+	+iT+LobAV0xkfqh7HuuLeobSW2beIkQoJnxUqcQlMn6ZLz8mVv1guxcQipPqXIOe3xAN7pwg8e0
+	GEdwuiReBwbLFwgOm2T+xk67RsyQUTkpAlFwLT0OKw01ugz9ggLpRlUBAyTTXSK7Led2nwM/0s4
+	Ar7TpN6W3Ux7yJhLjLtlnT60lu6JOoktZUrVrhPjVaL6OpA7xXbI6dRBpdIpKYockqeOEFYpBhv
+	JcUODS3kshB3IPn958KbeLNTGa0I1Kr7BC3Vum/PcMlg9kL6PTRrX/HrVEF1OCykVXLLZ8ybEuH
+	NcHizFm+bL6b+jTZIwx+BNyJphi/DavsjPzYkdV1HP3mCbxOYuvc6TJtX5JRt1oA9aHgiImAOhy
+	h0v/PJPNFNeE5SVXxBSOptXCFkKWzIs5p2XjbThbn5PYBNZsZBK8p4JVQYMPTLEnCF2m+cyW1da
+	tmgaS8Un/RMCtTe9xXsoGc/0+oN2jfzdB1B/hA==
+X-Received: by 2002:a05:6820:905:b0:69e:b788:36e0 with SMTP id 006d021491bc7-6a0d8cd341cmr9696671eaf.34.1782090772772;
+        Sun, 21 Jun 2026 18:12:52 -0700 (PDT)
+Received: from smfrench-ThinkPad-P16s-Gen-2 ([2603:8080:2200:13fc:fe9d:7f65:95c3:3c73])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4472ec52815sm5206853fac.1.2026.06.21.18.12.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 21 Jun 2026 18:12:52 -0700 (PDT)
+From: Steve French <smfrench@gmail.com>
+X-Google-Original-From: Steve French <stfrench@microsoft.com>
+To: linux-cifs@vger.kernel.org
+Cc: Ralph Boehme <slow@samba.org>,
+	stable@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>
+Subject: [PATCH 3/3] smb/client: fix chown/chgrp with SMB3 POSIX Extensions
+Date: Sun, 21 Jun 2026 20:08:17 -0500
+Message-ID: <20260622010838.107524-3-stfrench@microsoft.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260622010838.107524-1-stfrench@microsoft.com>
+References: <smfrench@gmail.com>
+ <20260622010838.107524-1-stfrench@microsoft.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,46 +80,38 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf] bpf: Add missing access_ok call to copy_user_syms
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178209061954.558026.1860128949099362401.git-patchwork-notify@kernel.org>
-Date: Mon, 22 Jun 2026 01:10:19 +0000
-References: <20260616083056.405652-1-jolsa@kernel.org>
-In-Reply-To: <20260616083056.405652-1-jolsa@kernel.org>
-To: Jiri Olsa <jolsa@kernel.org>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- stable@vger.kernel.org, sashiko-bot@kernel.org, bpf@vger.kernel.org,
- martin.lau@linux.dev, eddyz87@gmail.com, songliubraving@fb.com, yhs@fb.com
 
-Hello:
+From: Ralph Boehme <slow@samba.org>
 
-This patch was applied to bpf/bpf.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
+Ownership (chown) and group (chgrp) modifications were being ignored when
+mounting with SMB3 POSIX Extensions unless CIFS_MOUNT_CIFS_ACL or
+CIFS_MOUNT_MODE_FROM_SID were also explicitly set.
 
-On Tue, 16 Jun 2026 10:30:56 +0200 you wrote:
-> As reported by sashiko we use __get_user without prior access_ok call on the
-> user space pointer. Adding the missing call for the whole pointer array.
-> 
-> Plus removing the err check in the error path, because it's not needed and
-> also we can return -ENOMEM directly from the first kvmalloc_array fail path.
-> 
-> Cc: stable@vger.kernel.org
-> [1] https://lore.kernel.org/bpf/20260611115503.AC16D1F00893@smtp.kernel.org/
-> Fixes: 0236fec57a15 ("bpf: Resolve symbols with ftrace_lookup_symbols for kprobe multi link")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/bpf/20260611115503.AC16D1F00893@smtp.kernel.org/
-> Signed-off-by: Jiri Olsa <jolsa@kernel.org>
-> 
-> [...]
+Fix this by checking for posix_extensions in cifs_setattr_nounix() when
+updating UID and GID, ensuring that id_mode_to_cifs_acl() is called to map
+and set the ownership/group information on the server.
 
-Here is the summary with links:
-  - [bpf] bpf: Add missing access_ok call to copy_user_syms
-    https://git.kernel.org/bpf/bpf/c/d5dc200c3a3f
+Cc: stable@vger.kernel.org
+Signed-off-by: Ralph Boehme <slow@samba.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+---
+ fs/smb/client/inode.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-You are awesome, thank you!
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index 51fb7c418d52..56b0f109e41b 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -3376,7 +3376,8 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
+ 	if (attrs->ia_valid & ATTR_GID)
+ 		gid = attrs->ia_gid;
+ 
+-	if (sbflags & (CIFS_MOUNT_CIFS_ACL | CIFS_MOUNT_MODE_FROM_SID)) {
++	if ((sbflags & (CIFS_MOUNT_CIFS_ACL | CIFS_MOUNT_MODE_FROM_SID)) ||
++	    cifs_sb_master_tcon(cifs_sb)->posix_extensions) {
+ 		if (uid_valid(uid) || gid_valid(gid)) {
+ 			mode = NO_CHANGE_64;
+ 			rc = id_mode_to_cifs_acl(inode, full_path, &mode,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
