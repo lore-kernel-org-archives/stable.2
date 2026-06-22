@@ -1,195 +1,260 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A717238E8C9
-	for <stable@vger.kernel.org>; Mon, 22 Jun 2026 08:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D699390234;
+	Mon, 22 Jun 2026 08:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782116031; cv=none; b=lKZm+pMGh+fYcSLVZlLyw5U492CHHCAcvxCOpE43ZjRMqDYS7mX47hAzIjxvWR37l/hlJzKE/2aJRJXomWVukMN44C0MDCBNOIi7Y9hnpk7ryPt9rB17GF5EO2MW/CNu9eAtxFyrlraJOozzW91NDI+9ZZnHaPKW1l5CuHn6rJE=
+	t=1782116699; cv=none; b=G5TWlBn/b+HWra5pJSn4hWID9NQf3rDUiC/Ku9+N4y6Q05wgtTZItQO1moUYzcxDMLC9FyYjN3CUw9BnmxePupgd5J7fEXpZmi5hKEbzrjjWqs70vPI8zHabLm2WFsjXw0Df0SP2pnY17SCEwddxhH1FkxYDrhkyL0zlYQra+Ko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782116031; c=relaxed/simple;
-	bh=F6H+rAEwAFlvo2vcoaq3mMaDhsIksTBUqphzpxP80WY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lnZI06ecKL/oM55jiLws34wr4Rfj21rWP9EluFpno3EPoa/3PKHwie7PEMd4Hjp1YOpyLmg3ibXO7s7n3VYSji+NX12ugysqDrT+i+lI/TvzK2/Q0zhiyPahKEvE4e90jFE8V4RPgMCb9qvRU4MSdr1KRN1rkKSt+Z1SpCuK2vs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mYadQOo4; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782116699; c=relaxed/simple;
+	bh=Pg7hW6UKHEUVKYo53Yka4oI7nfp4gN1bRWO+XPjuT9s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CAgRudcliNUJNAMbRtbfM94OsSV4Aq12acMxffyRft2O+YWvw30VwfP/Nd6dQ/dRsMfa8BBB2J/VwrRCEwLQH/i1/eySCPSv0ME8UqjMBXBIVH7PA1hPQLgzkPbA22O5V7LvAXA/eD8X+ELR5MONT96OjdfeUTqysRYaVvdgFVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=LGvAaws2; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mYadQOo4"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490b9318997so27156165e9.2
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 01:13:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782116027; x=1782720827; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=y69DNLtkcPX106ySVX6ZlNH6S9rjQScn7EBr8UTU9k0=;
-        b=mYadQOo46NcgaU12CxB9GSPlIIegnCNLdCNhSOyW/I+Xy07v53GHjb50/R+GSFI+uR
-         YlfBTbDf95ZxaB/UL/7XxShjkXDQD2vQ09dYUezg8LsqE0eDEIUsFBaQut53YdNbx3eO
-         cJYu+JGbxn302NwD1+7xmLweKbs+aIfxkrSyQv2gQHvgLtNUfY5PPhFvCdz0vUe1cvi0
-         itW/cqtzbndpD86fPZZMZD03nuRNiJ6g1ijby3UiOPkjZXtsZwdDfCrmpkdXd6SM0zSO
-         Gj1NCfGLVSTpe5zsqhmplOlaFb5PhD8s1Jk+ifwjkZhxHZzFqL/da7BZ6D9tFxKu9DZp
-         YToA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782116027; x=1782720827;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=y69DNLtkcPX106ySVX6ZlNH6S9rjQScn7EBr8UTU9k0=;
-        b=ecdr01WNA6C6OFkHj6XCNElMOr6yLSUQtJEoW36PCnMEvIm4rq5JOYFgFlxJ+F15wd
-         LBtTgc8wZjm5n5k6Sw0i5YUujWPhdTLklbvOSgkL2gGj84I0LB+tTZrl7P4kOIC3Lh04
-         wHdcrOeTY+u2dhvB7kLW96tBuxCu1APjZgWho63lXpTGOMPx4d4VVBpWjZpnxFJmCwNp
-         8mWQ0sIkk6aIaTt+Xdtj7gBE+DpgOZ09x8+cKUmMVGWrExycTZqTNfY24bnniYvCWlQU
-         /DKXKP7y8+jU7Ot4paRgRWL1sKf029k2x8qgkjiuHlyocHQEzszVCJ37EvXuRSvV0dOO
-         xfUQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8CoOOaz1UGex7uQnQf/GANq5HoMWg0CR2sl9wuzmFlEofg54fY6I8Pa1853vi2INkMYtS/1HY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxeMFMMXofq6UUGf5lvdkjuHZlyutJYum/LcYi4KSfc6bkoJjZy
-	ZmAzCuKesU079nWHdoWnRrxTZSXdLPHeZwEv0fQsBKvQiwOgCuceC/IE
-X-Gm-Gg: AfdE7cnuoQv6ClDAYwC5Dd0+DSb4lcIy93JsGGWHKmOFmYPGd9zKbAQY1bfqxmiO37R
-	ilMgToQ0dNGr657GjEk8C9iJbkTEM20P7Mp1lzz/fikgBLxpXioP/tRKBw9Qm8zvw03IQJMIVKJ
-	hR/8V/1DblX7fyzoTLZDRy9KJGAyC30mRISRsebRZg9wdOiHCT/q0S4TIewwDV7HJHP/94SPhtp
-	7ps2STNnXVsCMpw3sJayETcCWBXBRUIMgRD8oSTpIuKoxWUe8O+tl/E0Lr8UYbzy61wlM3mjXXX
-	c078Qy+KDdMvd+9FGJCEnmFqwYhRuLU7ke45CKJ60XoG6FeYiXUCCCrFCSaV15n5v4x4jmC2JUu
-	bXQUdSYoKEgtPPtVSVlMFERJOFSxx256HKwIvp3rMXeYyubzsK5NhbEzMwIXvgA6qqadKQiftHW
-	apFL3lnCJvp6P8h1DU4Jj4KOoAL4VXjMUDBgYbVEyhBb3DkoPATw==
-X-Received: by 2002:a05:600c:8719:b0:492:4c60:bfb8 with SMTP id 5b1f17b1804b1-4924c60bfdemr121648545e9.28.1782116026585;
-        Mon, 22 Jun 2026 01:13:46 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fd30078sm274806595e9.7.2026.06.22.01.13.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 01:13:45 -0700 (PDT)
-Date: Mon, 22 Jun 2026 09:13:44 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: David Hu <xuehaohu@google.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, "Christian =?UTF-8?B?S8O2bmln?="
- <christian.koenig@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen
- <nicolinc@nvidia.com>, Leon Romanovsky <leon@kernel.org>, Kevin Tian
- <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, Alex Williamson
- <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, jmoroni@google.com,
- praan@google.com, kpberry@google.com, sashiko-bot <sashiko-bot@kernel.org>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] dma-buf: Split sgl by largest page-aligned chunk
-Message-ID: <20260622091344.794e0d74@pumpkin>
-In-Reply-To: <20260621222130.1667453-1-xuehaohu@google.com>
-References: <20260621222130.1667453-1-xuehaohu@google.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="LGvAaws2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1782116671;
+	bh=aFSO6AHP6WYDaFwfcRLcXH+hUoEb893SICpnQ5kYTyQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=LGvAaws27AHu5l3g7y7vx5mnEf7fsvlp5HoEAq4RJdscwG7lhZAniJjhLgTBJ3ZVA
+	 Zi/3MwaBvTgicfWQRJnALukNLjmIXWiNfRtqqKMXmsG3lvA+Ub2lGfbh2Z2IRsbkYb
+	 OwFrMQ8kwIQv8tzxxbrrvIdHsjjQz+5T1yO2nI6U=
+X-QQ-mid: zesmtpsz5t1782116664t87087744
+X-QQ-Originating-IP: aohLYNy9A2EbmAsTJnCfZLbDfB7g8+Zs+Hv+rcxIqUU=
+Received: from [127.0.0.1] ( [202.119.42.245])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 22 Jun 2026 16:24:20 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 16359244240173991143
+Message-ID: <F5EBCFC495955241+61489c47-c792-43de-a8f8-4b1030f4ab6a@smail.nju.edu.cn>
+Date: Mon, 22 Jun 2026 16:24:20 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: mglru: fix stale batch updates after memcg
+ reparenting
+To: Qi Zheng <qi.zheng@linux.dev>, akpm@linux-foundation.org,
+ david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
+ baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+ weixugc@google.com, hannes@cmpxchg.org, harry@kernel.org,
+ muchun.song@linux.dev, mhocko@kernel.org, roman.gushchin@linux.dev,
+ ljs@kernel.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+References: <5A9E929D82717101+12fcf643-efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn>
+ <20260622073703.79258-1-qi.zheng@linux.dev>
+Content-Language: en-US
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+In-Reply-To: <20260622073703.79258-1-qi.zheng@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: OQZoPFOgkfDq/kPAOy3/RxrWZFlsA9EHBX8QVE48UKrEBG1WQVOIAsex
+	xUbTTnGc83b1BDi2Nr9TLjgO7qW4oNsgKmB35/UqAgf6JmPFJ6KgtK5E9NOc/kcoLzQYnmm
+	YdCqitMs+tvLX3LmeM5d32YT4f7fL7TXXipzISgw1SC7Ih9z20r+97PXXut+OQU24PyYlYV
+	Ipkiy4OfnNZR/ooA+4pfoMWzAZoasqT6TUkJPfh+stbJzyyciDAuWUw+xVMEYpeVy1+H1UA
+	4p9CbR/vXTJzBIFEis7VKfJ4avP/qyxOhvzqkP0Wc2gSv4gBBW1yv4cW2e3E8Ut/gsWCcLK
+	7/6sz2ZZhxlHc+iGcbzd+gEXxhs+3ZZD56kJ/hKbV7vY/5mvGa+po1R1ZgZBUf+8CIaWvBX
+	1QDmBCS7Ea4ET/JYBs9WiN37mW/nRw+VjhVZ6zrYfl4YFS9jlPSTtQidN3cXHv5puLx577+
+	HtPpQ7YkKa1TyDc6szstWt0wggtP3g7FxDIWXUz0psXQAq0y3FD+uPb+noSGHhbPaXifL6B
+	5EeWncPaQT8RZu1y41ccY1rvNgCEf0zGzq8NQ59gALiNw/hrC7VSx1KWQvOm+Pcy9yWr59h
+	owsuQn5mAS9hHhD7Xf8mXiwIKLrVQcdskAHNsgtT2ZmTDsk4iAYbzjUs5K1PyzCha6KHe8y
+	oP6HWz8PtX3Ym5qnRZiBUriARxqro3vUaxXxatKlu+nXkTMYqE0ytEEFvv9Tl/2kKJcpiV1
+	46S2BUsdmRCdkRUfpTZlc2FAx7MFZCFZRXYOQTbHEhjgzu2PRRD48NKhrBEb2CeRivBtlHO
+	+LpaOf1DVIxXFJ6slMbcXSvuupTULTb0x3OfCs8FCEj08B+l6PseshMyZKJPIFE/clCI0OL
+	cy6Cl7aBYMO9OuV5zrHBscZwH6QFDioQD0xblj9jkKZzwDDx119CYpL1CmTBDJTNWjwAueI
+	nwuxz2gMYXVVxTgplHh7JQcysMeGa/csDhmZBEVx4KsI4ucRcKprXU1My6xmE+LizR2QHtZ
+	aZmKkzV7S0dx6lPfT0t9dl0Q8w86Wa8GKQezbSnxcO+cGY53EbzZyFt4g78AKxcXSiOE29n
+	DOyIGY4LmV1
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-On Sun, 21 Jun 2026 22:21:30 +0000
-David Hu <xuehaohu@google.com> wrote:
+Hi Qi,
 
-> Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-> This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-> first entry, resulting in non-page-aligned DMA addresses for all
-> subsequent entries.
+Thanks for confirming this bug and proposing the patch. The fix I previously proposed was indeed incorrect. I have applied your patch and tested it using the PoC script that previously triggered the warning; no warning is observed anymore.
 
-How did you find this?
-It requires a single buffer over 4GB - seems highly unlikely.
+Best,
+Peiyang
 
-
+On 2026/6/22 15:37, Qi Zheng wrote:
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
 > 
-> While the underlying IOMMU mapping may be contiguous, hardware
-> DMA engines often require explicit address alignment (e.g., page,
-> cacheline, or storage sector boundaries). Passing unaligned
-> addresses and lengths can cause explicit failures in DMA descriptor
-> creation or silent data corruption if lower unaligned bits are
-> truncated.
+> The mglru page table walker batches per-generation size deltas in
+> walk->nr_pages while walking page tables without holding the lruvec lock.
+> The reset_batch_size() later folds those deltas into walk->lruvec under
+> the lruvec lock.
 > 
-> Fix this by splitting the scatterlist by the largest possible page
-> aligned chunk within `UINT_MAX` (`ALIGN_DOWN(UINT_MAX, PAGE_SIZE)`).
-> This ensures all scatterlist DMA addresses and lengths remain page
-> aligned and satisfy hardware constraints.
-
-It would almost certainly better to spilt into 2G chunks.
-That removes any need for any divisions.
-
-> Page-aligned entries allow the system to cleanly chunk payloads into
-> PCIe MaxPayloadSize (MPS) (e.g., 128 bytes, 256 bytes, 512 bytes).
-> As a result, this may help reduce TLP fragmentation in P2P transfers
-> and alleviate potential congestion within a logical PCIe switch
-> partition, especially when Relaxed Ordering is not possible due to
-> hardware constraints.
+> The page table walker can run concurrently with the memcg reparenting path
+> as follows:
 > 
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260609165431.778061F00893@smtp.kernel.org/
-> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hu <xuehaohu@google.com>
+> CPU0                           CPU1
+> ====                           ====
+> 
+> walk_mm
+> --> walk_page_range
+>     --> update_batch_size
+>         --> walk->nr_pages += delta
+> 
+>                               mem_cgroup_css_offline
+>                               --> memcg_reparent_objcgs
+>                                   --> lock lruvec
+>                                       lru_gen_reparent_memcg
+>                                       --> reparent child folios to parent
+>                                       unlock lruvec
+> 
+>     lock lruvec
+>     reset_batch_size
+>     --> child lrugen->nr_pages += delta
+> 
+> This can trigger the following warning:
+> 
+> WARNING: mm/vmscan.c:5867 at lru_gen_exit_memcg+0x26f/0x300
+> RIP: 0010:lru_gen_exit_memcg+0x26f/0x300 mm/vmscan.c:5867
+> Call Trace:
+>   <TASK>
+>   mem_cgroup_free mm/memcontrol.c:3972 [inline]
+>   mem_cgroup_css_free+0x76/0xb0 mm/memcontrol.c:4241
+>   css_free_rwork_fn+0x125/0x1260 kernel/cgroup/cgroup.c:5575
+>   process_one_work+0xa0d/0x1c30 kernel/workqueue.c:3314
+>   process_scheduled_works kernel/workqueue.c:3397 [inline]
+>   worker_thread+0x645/0xe80 kernel/workqueue.c:3478
+>   kthread+0x367/0x480 kernel/kthread.c:436
+>   ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
+>   ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>   </TASK>
+> 
+> To fix it, add lrugen->reparented to remember the new owner of a
+> reparented lruvec, and make reset_batch_size() charge pending deltas to
+> that owner.
+> 
+> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+> Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn
+> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 > ---
->  drivers/dma-buf/dma-buf-mapping.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
+>  include/linux/mmzone.h |  4 ++++
+>  mm/vmscan.c            | 43 +++++++++++++++++++++++++++++++++++-------
+>  2 files changed, 40 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-> index 794acff2546a..f2bde38fdb1f 100644
-> --- a/drivers/dma-buf/dma-buf-mapping.c
-> +++ b/drivers/dma-buf/dma-buf-mapping.c
-> @@ -5,6 +5,9 @@
->   */
->  #include <linux/dma-buf-mapping.h>
->  #include <linux/dma-resv.h>
-> +#include <linux/align.h>
+> diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+> index ca2712187147..0d572db2ef64 100644
+> --- a/include/linux/mmzone.h
+> +++ b/include/linux/mmzone.h
+> @@ -584,6 +584,10 @@ struct lru_gen_folio {
+>  	u8 gen;
+>  	/* the list segment this lru_gen_folio belongs to */
+>  	u8 seg;
+> +#ifdef CONFIG_MEMCG
+> +	/* the lruvec this lruvec has been reparented to */
+> +	struct lruvec *reparented;
+> +#endif
+>  	/* per-node lru_gen_folio list for global reclaim */
+>  	struct hlist_nulls_node list;
+>  };
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 35c3bb15ae96..64362cbed814 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -3262,10 +3262,37 @@ static void update_batch_size(struct lru_gen_mm_walk *walk, struct folio *folio,
+>  	walk->nr_pages[new_gen][type][zone] += delta;
+>  }
+>  
+> +#ifdef CONFIG_MEMCG
+> +static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
+> +{
+> +	struct lruvec *reparented;
 > +
-> +#define MAX_ENT_SZ ALIGN_DOWN(UINT_MAX, PAGE_SIZE)
-
+> +	for (;;) {
+> +		lruvec_lock_irq(lruvec);
+> +
+> +		reparented = lruvec->lrugen.reparented;
+> +		if (!reparented)
+> +			break;
+> +
+> +		lruvec_unlock_irq(lruvec);
+> +		lruvec = reparented;
+> +	}
+> +
+> +	return lruvec;
+> +}
+> +#else
+> +static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
+> +{
+> +	lruvec_lock_irq(lruvec);
+> +
+> +	return lruvec;
+> +}
+> +#endif
+> +
+>  static void reset_batch_size(struct lru_gen_mm_walk *walk)
+>  {
+>  	int gen, type, zone;
+> -	struct lruvec *lruvec = walk->lruvec;
+> +	struct lruvec *lruvec = lock_batch_lruvec(walk->lruvec);
+>  	struct lru_gen_folio *lrugen = &lruvec->lrugen;
 >  
->  static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
->  					 dma_addr_t addr)
-> @@ -12,9 +15,9 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
->  	unsigned int len, nents;
->  	int i;
->  
-> -	nents = DIV_ROUND_UP(length, UINT_MAX);
-> +	nents = DIV_ROUND_UP(length, MAX_ENT_SZ);
->  	for (i = 0; i < nents; i++) {
-
-Why not change that to 'while (length) {' to avoid the division above.
-
-> -		len = min_t(size_t, length, UINT_MAX);
-> +		len = min_t(size_t, length, MAX_ENT_SZ);
-
-I bet that doesn't need to be min_t()
-
->  		length -= len;
->  		/*
->  		 * DMABUF abuses scatterlist to create a scatterlist
-> @@ -24,7 +27,7 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
->  		 * does not require the CPU list for mapping or unmapping.
->  		 */
->  		sg_set_page(sgl, NULL, 0, 0);
-> -		sg_dma_address(sgl) = addr + (dma_addr_t)i * UINT_MAX;
-> +		sg_dma_address(sgl) = addr + (dma_addr_t)i * MAX_ENT_SZ;
->  		sg_dma_len(sgl) = len;
-
-Replace the multiply with 'addr += len'.
-
--- David
-
->  		sgl = sg_next(sgl);
+>  	walk->batched = 0;
+> @@ -3285,6 +3312,8 @@ static void reset_batch_size(struct lru_gen_mm_walk *walk)
+>  			lru += LRU_ACTIVE;
+>  		__update_lru_size(lruvec, lru, zone, delta);
 >  	}
-> @@ -41,14 +44,14 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
+> +
+> +	lruvec_unlock_irq(lruvec);
+>  }
 >  
->  	if (!state || !dma_use_iova(state)) {
->  		for (i = 0; i < nr_ranges; i++)
-> -			nents += DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
-> +			nents += DIV_ROUND_UP(phys_vec[i].len, MAX_ENT_SZ);
->  	} else {
->  		/*
->  		 * In IOVA case, there is only one SG entry which spans
->  		 * for whole IOVA address space, but we need to make sure
->  		 * that it fits sg->length, maybe we need more.
->  		 */
-> -		nents = DIV_ROUND_UP(size, UINT_MAX);
-> +		nents = DIV_ROUND_UP(size, MAX_ENT_SZ);
+>  static int should_skip_vma(unsigned long start, unsigned long end, struct mm_walk *args)
+> @@ -3779,11 +3808,8 @@ static void walk_mm(struct mm_struct *mm, struct lru_gen_mm_walk *walk)
+>  			mmap_read_unlock(mm);
+>  		}
+>  
+> -		if (walk->batched) {
+> -			lruvec_lock_irq(lruvec);
+> +		if (walk->batched)
+>  			reset_batch_size(walk);
+> -			lruvec_unlock_irq(lruvec);
+> -		}
+>  
+>  		cond_resched();
+>  	} while (err == -EAGAIN);
+> @@ -4563,6 +4589,8 @@ void lru_gen_reparent_memcg(struct mem_cgroup *memcg, struct mem_cgroup *parent,
+>  			mem_cgroup_update_lru_size(parent_lruvec, lru, zid, size);
+>  		}
+>  	}
+> +
+> +	child_lruvec->lrugen.reparented = parent_lruvec;
+>  }
+>  
+>  #endif /* CONFIG_MEMCG */
+> @@ -4867,9 +4895,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+>  	walk = current->reclaim_state->mm_walk;
+>  	if (walk && walk->batched) {
+>  		walk->lruvec = lruvec;
+> -		lruvec_lock_irq(lruvec);
+>  		reset_batch_size(walk);
+> -		lruvec_unlock_irq(lruvec);
 >  	}
 >  
->  	return nents;
+>  	mod_lruvec_state(lruvec, PGDEMOTE_KSWAPD + reclaimer_offset(sc),
+> @@ -5784,6 +5810,9 @@ void lru_gen_init_lruvec(struct lruvec *lruvec)
+>  
+>  	lrugen->max_seq = MIN_NR_GENS + 1;
+>  	lrugen->enabled = lru_gen_enabled();
+> +#ifdef CONFIG_MEMCG
+> +	lrugen->reparented = NULL;
+> +#endif
+>  
+>  	for (i = 0; i <= MIN_NR_GENS + 1; i++)
+>  		lrugen->timestamps[i] = jiffies;
+
 
