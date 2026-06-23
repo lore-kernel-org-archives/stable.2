@@ -1,44 +1,42 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B1F14E2F2;
-	Tue, 23 Jun 2026 01:06:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4EED22126C;
+	Tue, 23 Jun 2026 01:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782176779; cv=none; b=aNc+Y+W/9kT13XfuXUnutmsQ3LMNAsUAc5eCoeZjc9q2JLtX9eeMZ42pjWF47cyCKUY6ES1WAtLdONVtX6jGRMxECNBtq4Lbo3LbJhn6gQbeAqPgUEk1pePqP2aQgmgTUXo1V1RBvCR57vQaOCJePoaZDLFADgGyd/yy2A07khA=
+	t=1782177424; cv=none; b=qx0cMAaagGHvZqH2TSXCdvQJedKSPBd/g5YTlPgpVSUw1AvCC94g5LCzfPmUsNXs9nHSBpfHt50KhPokouqiF9XkwvHRqabGZSK7QkOUOXvgd/17iLpyKbnazw+Z7NpRvG4vmavgMDfOoqihiH59cR5Z4/RnNVs5u+0hJoMRXz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782176779; c=relaxed/simple;
-	bh=nXJAC1Bkt4ZEPbDASEykPbDo8IJQHPs3a2eZlfHcpuU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K+0tmNOlhqyJqdhUutlXlviE4D8UhHmpa3TJAj4lzwjAdcBDKafp7kLClEzxhT4l9SZlc2KN5OHDIcKFpMPotFNx3rIx8rUsr62lV5pzgem4Koj1igyxqpVlquZqDujVIQymE5ltmJJ4wycmn1uqH8KfqOTNOfUP05sgR+KhGpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KPcKBwv4; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1782177424; c=relaxed/simple;
+	bh=oqOnemjzgCXMJgsfare7jn1n9dXlKqqBFVJq0mYANls=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CqKx3XPs6Khi6fQfQKBazucx26cMt5RtAxv+oxJZvXNkaafTb7KxADXoe8saRnejEBVO4OYehKPOD6s5/vz0vy/pCNZaSFo4+4pJp9aQujGuCFgE/z4Q561tncEuAr/72dxqoyvyWTFYic1dbYihCkqEsvKi3HjIF8fjqJnurew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eV/LLi9a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KPcKBwv4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=i8
-	6uuRCCHQsNumSlwGejvaTIyEPVzfunawWRnAKEGmM=; b=KPcKBwv4z4ZXkAy2Qj
-	SjIpaImbbSAuhRnpS0YQUuE/KG1N7J2LX45WtlAX07ZBDCpS75HvLMVjlin/Mxka
-	yVh1muPd5l3lcR6fShXfpULRoN2L64WTXfAO1uVcaQsm4iV3w5ICBmIAEFpAfE9K
-	Y27a+DdykPcqyxUevo+0V7vyo=
-Received: from ubuntu.. (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDnj1_k2zlqTqIVEw--.44375S4;
-	Tue, 23 Jun 2026 09:05:47 +0800 (CST)
-From: Ma Ke <make_ruc2021@163.com>
-To: srinivas.pandruvada@linux.intel.com,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	sumesh.k.naduvalath@intel.com,
-	mgross@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eV/LLi9a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B141F000E9;
+	Tue, 23 Jun 2026 01:17:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782177423;
+	bh=uNO+RQmUCKpyh3OJUwnU0KKiT0g7xqCEn/1y3Eui4M4=;
+	h=From:To:Cc:Subject:Date;
+	b=eV/LLi9aYqGVT3NMiY/2Sw2taMBtu2M9N8g7QZ10iOebp3xP2JdyJAZhQsvvjVDEf
+	 gHce/8tStbVSjqGLUjJ/tpFZhu9hgWr5ucijcRBCxK2Qevkjt3dHZlozXuzAdItLDx
+	 UJLrN0u/pWSRqCXvQDu5JVKNNP3V91HgGZXCfyD1BN7lmOaP7zhauhfZHGEVCnZ9Eb
+	 teiX5rlJIMiYa8iZA/a5DnnziqAenk1EkYJntrkY/wVd4OtM8+wxYMw5SZcyb+An1c
+	 vjgRu7ifY3fKkU8OZTti41WbpgzWZ52YL0cm8ZAjwEAPvsqikXhuSUuvLY+wgUYuaL
+	 oa+vRpYI18u2Q==
+From: SeongJae Park <sj@kernel.org>
+To: 
+Cc: SeongJae Park <sj@kernel.org>,
+	"# 5 . 16 . x" <stable@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	Ma Ke <make_ruc2021@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] platform/x86: ishtp_eclite: Fix ACPI device reference leak in probe error path
-Date: Tue, 23 Jun 2026 09:05:39 +0800
-Message-ID: <20260623010539.2367634-1-make_ruc2021@163.com>
-X-Mailer: git-send-email 2.43.0
+	linux-mm@kvack.org
+Subject: [RFC PATCH v1.3] mm/damon/ops-common: handle extreme intervals in damon_hot_score()
+Date: Mon, 22 Jun 2026 18:16:51 -0700
+Message-ID: <20260623011652.1354-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,54 +44,106 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnj1_k2zlqTqIVEw--.44375S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CryxZrWUuFW8WrWrKryDKFg_yoW8WrW5pF
-	W7KFWrKrW5GrWfK348XF48Z3Wruw1jv3yUGrWvkw48ur45uF9aqa1Ika4YkF1kurWkJa45
-	ZFn7trW8AF1UZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piJGYdUUUUU=
-X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC9QsaJWo52+ssVAAA3a
 
-ecl_ishtp_cl_probe() acquires a reference to an ACPI device via
-acpi_find_eclite_device() but fails to release it in the error path
-when acpi_opregion_init() fails. This results in a reference count
-leak, preventing proper cleanup of the ACPI device.
+Fix three issues in damon_hot_score() that comes from wrong handling of
+extreme (zero or too high) monitoring intervals user setup.
 
-Calling path: acpi_find_eclite_device() ->
-acpi_dev_get_first_match_dev() -> acpi_dev_get_next_match_dev() ->
-bus_find_device() -> get_device().
+When the user sets sampling interval zero, damon_max_nr_accesses(),
+which  is called from damon_hot_score(), causes a divide-by-zero.
+Needless to say, it is a problem.
 
-Found by code review.
+When the user sets the aggregation interval zero, the function returns
+zero.  It is wrong, since the real maximum nr_acceses in the setup
+should be one.  Worse yet, it can cause another divide-by-zero from its
+caller, damon_hot_score(), since it uses damon_max_nr_accesses() return
+value as a denominator.
 
-Signed-off-by: Ma Ke <make_ruc2021@163.com>
-Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: stable@vger.kernel.org
-Fixes: 7b6bf51de974 ("platform/x86: Add Intel ishtp eclite driver")
+When the user sets the aggregation interval very high, damon_hot_score()
+could return a value out of [0, DAMOS_MAX_SCORE] range.  Since the
+return value is used as an index to the regions_score_histogram array,
+which is DAMOS_MAX_SCORE+1 size, it causes out of bounds array access.
+
+The issues can be relatively easily reproduced like below.  The sysfs
+write permission is required, though.
+
+    # ./damo start --damos_action lru_prio --damos_quota_space 100M \
+            --damos_quota_interval 1s
+    # cd /sys/kernel/mm/damon/admin/kdamonds/0
+    # echo 0 > contexts/0/monitoring_attrs/intervals/sample_us
+    # echo 0 > contexts/0/monitoring_attrs/intervals/aggr_us
+    # echo commit > state
+    # dmesg
+    [...]
+    [  131.329762] Oops: divide error: 0000 [#1] SMP NOPTI
+    [...]
+    [  131.336089] RIP: 0010:damon_hot_score+0x27/0xd0
+    [...]
+
+Fix the divide-by-zero intervals problems by explicitly handling the
+zero intervals in damon_max_nr_accesses().  Fix the out-of-bound array
+access by applying [0, DAMOS_MAX_SCORE] bounds before returning from
+damon_hot_score().
+
+The issue was discovered [1] by Sashiko.
+
+[1] https://lore.kernel.org/20260619202459.145010-1-sj@kernel.org
+
+Fixes: 198f0f4c58b9 ("mm/damon/vaddr,paddr: support pageout prioritization")
+Cc: <stable@vger.kernel.org> # 5.16.x
+Signed-off-by: SeongJae Park <sj@kernel.org>
 ---
- drivers/platform/x86/intel/ishtp_eclite.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Changes from RFC v1.2
+- RFC v1.2: https://lore.kernel.org/20260622141027.29145-1-sj@kernel.org
+- Drop patch 2 and make patch 1 fixes all damon_hot_score() problems.
+Changes from v1
+- v1: https://lore.kernel.org/20260621154808.86431-1-sj@kernel.org
+- Add out-of-bound array access bug fix as patch 2.
+- Add the RFC tag again.
+Changes from RFC v1.1
+- RFC v1.1: https://lore.kernel.org/20260620171413.89555-1-sj@kernel.org
+- Wordsmith commit message.
+- Drop RFC tag.
+Changes from RFC v1
+- RFC v1: https://lore.kernel.org/20260619205144.150664-1-sj@kernel.org
+- Handle zero aggr_interval case.
 
-diff --git a/drivers/platform/x86/intel/ishtp_eclite.c b/drivers/platform/x86/intel/ishtp_eclite.c
-index 93ac8b2dbf38..bca7e217878b 100644
---- a/drivers/platform/x86/intel/ishtp_eclite.c
-+++ b/drivers/platform/x86/intel/ishtp_eclite.c
-@@ -600,13 +600,16 @@ static int ecl_ishtp_cl_probe(struct ishtp_cl_device *cl_device)
- 	rv = acpi_opregion_init(opr_dev);
- 	if (rv) {
- 		dev_err(cl_data_to_dev(opr_dev), "ACPI opregion init failed\n");
--		goto err_exit;
-+		goto err_put;
- 	}
+ include/linux/damon.h | 8 ++++++--
+ mm/damon/ops-common.c | 1 +
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/include/linux/damon.h b/include/linux/damon.h
+index 64d75c78f4df4..02ac34537df9a 100644
+--- a/include/linux/damon.h
++++ b/include/linux/damon.h
+@@ -1066,9 +1066,13 @@ static inline bool damon_target_has_pid(const struct damon_ctx *ctx)
  
- 	/* Reprobe devices depending on ECLite - battery, fan, etc. */
- 	acpi_dev_clear_dependencies(opr_dev->adev);
- 
- 	return 0;
+ static inline unsigned int damon_max_nr_accesses(const struct damon_attrs *attrs)
+ {
+-	/* {aggr,sample}_interval are unsigned long, hence could overflow */
+-	return min(attrs->aggr_interval / attrs->sample_interval,
++	unsigned long sample_interval;
++	unsigned long max_nr_accesses;
 +
-+err_put:
-+	acpi_dev_put(opr_dev->adev);
- err_exit:
- 	ishtp_set_connection_state(ecl_ishtp_cl, ISHTP_CL_DISCONNECTING);
- 	ishtp_cl_disconnect(ecl_ishtp_cl);
--- 
-2.43.0
++	sample_interval = attrs->sample_interval ? : 1;
++	max_nr_accesses = min(attrs->aggr_interval / sample_interval,
+ 			(unsigned long)UINT_MAX);
++	return max_nr_accesses ? : 1;
+ }
+ 
+ 
+diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
+index 5c93ef2bb8a97..d1842e2b00ef8 100644
+--- a/mm/damon/ops-common.c
++++ b/mm/damon/ops-common.c
+@@ -143,6 +143,7 @@ int damon_hot_score(struct damon_ctx *c, struct damon_region *r,
+ 	 * Transform it to fit in [0, DAMOS_MAX_SCORE]
+ 	 */
+ 	hotness = hotness * DAMOS_MAX_SCORE / DAMON_MAX_SUBSCORE;
++	hotness = max(min(hotness, DAMOS_MAX_SCORE), 0);
+ 
+ 	return hotness;
+ }
 
+base-commit: 0f0046f6171e76f3dba376cc13ace04d654bf372
+-- 
+2.47.3
