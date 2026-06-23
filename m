@@ -1,187 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from confino.investici.org (confino.investici.org [93.190.126.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F8638887C;
-	Tue, 23 Jun 2026 17:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3819138887C;
+	Tue, 23 Jun 2026 17:04:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.190.126.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782234186; cv=none; b=hkVHn/b4YSsl3DJLwt6TZFu2Zqi6lTgh0hQXzZ18yuxf+WC0zf//q/5L/2ovfQ4eDb+ZRlOj8tda9wcF3X3nQHssj5gyLnqSR6XMjr7JuLAp+CXKvMNCVoHB4hUZtMjLA9A2+CCRymQpxAYvL6qNUTcjSDKj1hsSuLLxwjvHwcA=
+	t=1782234252; cv=none; b=lTsv0f6q3hD75uRgt4AVBm91mSvp8Iskk9OPi/dkuMKlaxDwS6xScdhGKvf09aV0HSM/t4xhctCTm6hNREvKt6yiNL6BZwc9c+ptwomJtL5lOSz0umQCBvgBMerDKiOHvYYxoO1wIGJaxCjvsU0BRW17Th9x871N3d7UENq8eXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782234186; c=relaxed/simple;
-	bh=bWwbIF8DkHpLJdfgmTAjnt0nuFcP5y92eynr+khybkk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Sndu7ommMytWK/zO/Fo2O2thv7aMLMCOC46TmH/4ZDTa+/F9p21x4U+NhD9WHBV2MzjdYnBz54tXuStIS/ZEViv3Y60ooogflIDt574CtlYfOytwostl3nMZ0GBoTHuriDa1vmuhf2J7yUp8Z5bQabSItpmYlv+olYdVZRPvTvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QF/KWJpt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782234252; c=relaxed/simple;
+	bh=qAUPUko/0eP+0ncRRfo01ze6iPzdwOokxduC/d0OeQ0=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=ncVnuesfnpwWydDJXKg3h/X+ARASSPLqHGgDkAFa9uB4RM8Wg7WE0a2Xw0Kz22RhImAHgUbJOEwnTUHfXCTFIOi7WnzEvCgJ2UdjOpW/WWF7lOuaE7HMyiulnEw1amwo/uZw0UanJ8EtalnNdLRS/g7gjaBT8CDhAxv6K21LhG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=YJN4q9Eg; arc=none smtp.client-ip=93.190.126.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QF/KWJpt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 839AD1F000E9;
-	Tue, 23 Jun 2026 17:03:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782234185;
-	bh=rtTgNffd+ktGj4/4i7jP7FiYW4hi0YlXf5Zh0yOOOxM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QF/KWJpt2klgdXVoJvW1tlbNo+5ETlGF4EkCUCZW6Gs9zf92yBEvKI7ADGa3fRUun
-	 aS7xcR7mfJhTC0ZPVpD7Ghet9Kw9V3w5y9mCsBYpggpBIO22W7zYO3RqWuM0wXSIRi
-	 HCzjwblEI+3qGW8JqXvAzTbSp9LFPsQy2ke1e4BvKL+d48v5vUPn1g2/pFhAHsdyNw
-	 BMhqITDRDrmboARk59av/5BpelSc5JhlIJ8dXIWUIDbd/tzcPXBXkfVqrYRHmPP+KN
-	 rVz2/SYu3ich1mZpGipBibT2SrcyOLVlI6NElx+lL01dkJy7hCGGhnDLjy0QSCPJsZ
-	 scZQc6Vze+ECA==
-Date: Tue, 23 Jun 2026 18:02:56 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Wei Yang <richard.weiyang@gmail.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, riel@surriel.com, 
-	liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com, 
-	sj@kernel.org, ziy@nvidia.com, balbirs@nvidia.com, linux-mm@kvack.org, 
-	stable@vger.kernel.org, Lance Yang <lance.yang@linux.dev>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/page_vma_mapped: revalidate and do proper check
- before return device-private pmd
-Message-ID: <ajq4_VndR8gwponS@lucifer>
-References: <20260622130651.23359-1-richard.weiyang@gmail.com>
- <ajk0N3Aekapljaoh@lucifer>
- <20260622142102.pcmr5pftshj5lvju@master>
- <ajld6RKK02Vi-LxM@lucifer>
- <20260622234518.nnx3r7ckphlxn5vm@master>
+	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="YJN4q9Eg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
+	s=stigmate; t=1782234248;
+	bh=6FwWUfeDNbrDVJef4pRnO+7OmxGA3ye0UB7FxK8Uml4=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=YJN4q9Eg6ghoc4x1zlCrrp2xc2ihCAFI7ikXGqZFL3pJaqolwnIqS8P5wHeUucyTy
+	 BuwoWd9xLTROkLRgpJwRL7PsC2w23T/oYNCOnHzXcMzV5XK9JrpgG1VaXFHEGHuBfW
+	 OzaDIUWTFkpQ2LemoEldP8b4kWNZcqDKEZiV/xEs=
+Received: from mx1.investici.org (unknown [127.0.0.1])
+	by confino.investici.org (Postfix) with ESMTP id 4glBHX0H9mz110p;
+	Tue, 23 Jun 2026 17:04:08 +0000 (UTC)
+Received: by mx1.investici.org (Postfix) id 4glBHW4PlKz10vp;
+	Tue, 23 Jun 2026 17:04:07 +0000 (UTC)
+Date: Tue, 23 Jun 2026 18:04:07 +0100
+From: Bradley Morgan <include@grrlz.net>
+To: Marc Zyngier <maz@kernel.org>
+CC: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev,
+ Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>,
+ Steffen Eiden <seiden@linux.ibm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Quentin Perret <qperret@google.com>,
+ Vincent Donnefort <vdonnefort@google.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_1/2=5D_KVM=3A_arm64=3A_skip_pKVM?=
+ =?US-ASCII?Q?_cache_flushes_for_non_cacheable_mappings?=
+In-Reply-To: <86qzlxqjf3.wl-maz@kernel.org>
+References: <20260623160339.15143-1-include@grrlz.net> <20260623163756.4591-1-include@grrlz.net> <86qzlxqjf3.wl-maz@kernel.org>
+Message-ID: <5925B41F-0F57-4BCB-9F93-7600878ECA27@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260622234518.nnx3r7ckphlxn5vm@master>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 22, 2026 at 11:45:18PM +0000, Wei Yang wrote:
-> On Mon, Jun 22, 2026 at 05:11:02PM +0100, Lorenzo Stoakes wrote:
-> >On Mon, Jun 22, 2026 at 02:21:02PM +0000, Wei Yang wrote:
-> >> On Mon, Jun 22, 2026 at 02:46:40PM +0100, Lorenzo Stoakes wrote:
-> >> >+cc Lance, linux-kernel
-> >> >
-> >> >Your subject line is 83 characters long and is way too detailed how about 'fix
-> >> >device-private PMD handling'?
-> >> >
-> >>
-> >> Got it.
-> >>
-> >> >You forgot to include linux-kernel@vger.kernel.org on the mail, lore seems to be
-> >> >a bit broken atm but in general it's helpful to include that.
-> >>
-> >> Got it.
-> >>
-> >> So usually we send a patch to both linux-mm and linux-kernel? If so, I
-> >> remember is later actions.
-> >
-> >Yeah it's better for dealing with kvack going wrong etc. :)
-> >
-> >>
-> >> >
-> >> >Also is useful to make this [PATCH mm-hotfixes] to make it really clear it's
-> >> >intended as a hotfix.
-> >> >
-> >>
-> >> Got it.
-> >>
-> >> >Some commit msg language nits:
-> >> >
-> >> >On Mon, Jun 22, 2026 at 01:06:51PM +0000, Wei Yang wrote:
-> >> >> For pmd_trans_huge() and pmd_is_migration_entry(), we does following
-> >> >> before return the pmd entry:
-> >> >
-> >> >Sounds better as:
-> >> >
-> >> >	For PMD entries that satisfy pmd_trans_huge() or pmd_is_migration_entry(), we
-> >> >	perform the following actions:
-> >> >
-> >>
-> >> Sure.
-> >>
-> >> >>
-> >> >>   * re-validate pmd entry after PTL
-> >> >>   * check PVMW_MIGRATION
-> >> >>   * check_pmd()
-> >> >>   * handle on pte level if split under us
-> >> >>
-> >> >> But for device-private pmd, we just return after pmd_lock().
-> >> >
-> >> >->
-> >> >
-> >> >	However, for device-private PMD entries, we simply acquire the PMD lock
-> >> >	and return.
-> >> >
-> >>
-> >> Sure.
-> >>
-> >> >Also can you please give some justification here as to why all this also applies
-> >> >to device-private PMD? Right now it sounds hand wavey.
-> >> >
-> >>
-> >> I thought below paragraph explain it. Not sure what justification is preferred.
-> >
-> >Something about device private PMDs splitting the same way THP ones do, in the
-> >pmd_is_device_private_entry() branch of __split_huge_pmd_locked().
-> >
+On June 23, 2026 6:02:40 PM GMT+01:00, Marc Zyngier <maz@kernel.org> wrote:
+>Bradley,
 >
-> Hi, Lorenzo
+>Just a few things to keep in mind for your next contributions:
 >
-> Thanks for your detailed suggestions.
+>- If you are sending more than a single patch, add a cover letter.
 >
-> I tried to add the justification here, and the following is the commit log
-> after consolidate your suggestions.
+>- Don't send a v2 in reply to a v1. It messes the threading we are
+>  relying on, and makes it hard to ignore replies to an older version.
+>  Always send new series standalone.
 >
->     For PMD entries that satisfy pmd_trans_huge() or
->     pmd_is_migration_entry(), we perform the following actions:
+>- Don't immediately send a V2, even if (especially if!) a bot is
+>  pestering you. 34 minutes between versions is way too short (at
+>  least a few days is the norm).
 >
->       * re-validate pmd entry after PTL
->       * check PVMW_MIGRATION
->       * check_pmd()
->       * handle on pte level if split under us
+>On Tue, 23 Jun 2026 17:37:55 +0100,
+>Bradley Morgan <include@grrlz.net> wrote:
+>> 
+>> pKVM keeps its own mapping list for stage 2 operations. Its flush path
+>> uses that list directly, so it lost the PTE attribute check done by the
+>> generic stage 2 walker.
+>> 
+>> Record whether a mapping is cacheable and skip cache maintenance for
+>> mappings that are not cacheable.
+>> 
+>> Fixes: e912efed485a ("KVM: arm64: Introduce the EL1 pKVM MMU")
+>> Cc: stable@vger.kernel.org
 >
->     However, for device-private PMD entries, we simply acquire the PMD lock
->     and return. This is not enough, as __split_huge_pmd_locked() would split
->     a pmd device-private PMD under us just as it does for THP PMD.
+>What device memory gets mapped in an upstream pKVM guest that would
+>require a backport to stable?
 >
->     This is particularly problematic when PVMW_MIGRATION is set (meaning a
->     migration entry is sought), as it causes a device-private PMD entry to
->     be returned with a different data layout, causing memory corruption.
+>> Signed-off-by: Bradley Morgan <include@grrlz.net>
+>> ---
+>> Changes in v2:
+>> - Add patch 2 for the pKVM permission fault mapping cache bug.
 >
-> Just feel this is not that smooth. Would you mind taking another look to see
-> if I get your point correctly?
-
-Honestly I'd just drop the whole pmd_trans_huge()/pmd_is_migration_entry() bit
-and say:
-
-	Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
-	device-private entries") introduced the concept of device-private
-	PMD entries, but did not correctly update the rmap walk code to
-	account for them.
-
-	As a result, when page_vma_mapped_walk() encounters device-private
-	PMD entries, it takes no action other than to acquire the PMD lock
-	and exit.
-
-	However this is highly problematic for two reasons - firstly,
-	device private entries possess a PFN so check_pmd() needs to be
-	called to ensure an overlapping PFN range.
-
-	Secondly, and more importantly, if PVMW_MIGRATION is set the
-	caller assumes the returned entry is a migration entry, resulting
-	in memory corruption when the caller tries to interpret the device
-	private entry as such.
-
-	In addition, commit 146287290023 ("mm/huge_memory: implement
-	device-private THP splitting") allowed device private PMDs to be
-	split like THP mappings, but again did not update this code path.
-
-	As a result, we might race a PMD split prior to acquiring the PMD
-	lock.
-
-	This patch addresses all of these issues by invoking check_pmd(),
-	ensuring PMVW_MIGRATION is not set and checks whether a split raced
-	us we do for PMD THP and migration entries.
-
+>This is the sort of information that goes in the cover letter.
 >
-> --
-> Wei Yang
-> Help you, Help me
+>> 
+>>  arch/arm64/include/asm/kvm_pkvm.h | 1 +
+>>  arch/arm64/kvm/pkvm.c             | 8 +++++++-
+>>  2 files changed, 8 insertions(+), 1 deletion(-)
+>> 
+>> diff --git a/arch/arm64/include/asm/kvm_pkvm.h
+>b/arch/arm64/include/asm/kvm_pkvm.h
+>> index 74fedd9c5ff0..d9dd8239910d 100644
+>> --- a/arch/arm64/include/asm/kvm_pkvm.h
+>> +++ b/arch/arm64/include/asm/kvm_pkvm.h
+>> @@ -196,6 +196,7 @@ struct pkvm_mapping {
+>>  	u64 gfn;
+>>  	u64 pfn;
+>>  	u64 nr_pages;
+>> +	bool cacheable;
+>
+>Errr, no. That's a terrible idea.
+>
+>This thing is already big enough, let's not add a bool right in the
+>middle (use pahole to find out why this is bad). Given that nr_pages
+>is for a range, and that the minimum page size uses 12 bits, the
+>largest number of pages you can have here is 56-12=48 bit wide. That's
+>another 16 bits worth of flags you can use.
+>
+>Thanks,
+>
+>	M.
+>
+>
 
-Cheers, Lorenzo
+thanks.
+
+I'll go and do V3 with another sashiko suggestion. I'll fix your path too.
+I'll park V3 for a bit.
+
+Thanks!
