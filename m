@@ -1,132 +1,96 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37382FDC30
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 15:53:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588065478D;
+	Tue, 23 Jun 2026 15:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782230035; cv=none; b=pqMBlzDwUSqlGkmUwOGYL4am8AbW5M5YWPysOsFdojBqOMJTFuluP+vuPzjuhJn5WWaUHzDcackt6JCVJ1gXhl2pRLBWxM8vApPz3LVyfGY9yZd8Weav2xixgywVQbk2PiY6doDcm2NrQkNaZvlRYS93x6bt4mZXVLrNmH76HYU=
+	t=1782230377; cv=none; b=QkkseMN/mKe9kphHiORXU110new5Mu2e0WQ3Zgs2Oe+yTSOfmXLOqlibYSF5Z5ufgdzTPxaxvBajwttrx7AokYhG7JnDt6p39ridkV9J7+DAXrccmYbmB7hjFVdYqO6MlU7zbKXHTc9obn3shSud4UEkwSYYypu9XdQBkvPqrOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782230035; c=relaxed/simple;
-	bh=zYXd6ReU2WdIxJbOFNrBVnjOGqbTxv1cNEEG6ENsyng=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GOBLkPseWQ/pR1PMccWUIRTaEX9IjHHrNTln9aLa7Qmn6L0u5mikCPTrzvDgSh8SF7zUKvoBDBI+tgXJcLtkCcLfafwk7LAmys5Ze9+hpkeq8DHjpu2K6J+vZZomnNIwabsk/+YgW78o4uXa5SIFPW8wRgK/rAwV/6f6nq18Ylk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org; spf=pass smtp.mailfrom=ieee.org; dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b=TplHOpRx; arc=none smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	s=arc-20240116; t=1782230377; c=relaxed/simple;
+	bh=3YbxOkAFmrrWFrmx4lKEWGRhnfP2EL+6MR25TY9MDhA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S/VW6AyT2yfWaEDANTiTVr8l0C6fR9ixgtt8dTu3c779AttBgfLURABAf3f3Zz7b6rUEcwJcW+4MbSoTLZ2sn1ITujl7pMABLRHMdLxhXTkyKgVZCW7JgE9T4CoiDBf0LxASq9GWZA7JRdaecZcyB/gbenXbvLmwvfPKtOtteXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oBNgyJsj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b="TplHOpRx"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-516d0db9372so46754921cf.2
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 08:53:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1782230033; x=1782834833; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XqPTCm5YKqWQJxJHEkoz96y23iqGtdrjAIIsxTeKqR8=;
-        b=TplHOpRxxkKEVbj69AkhMrHVomYawMCyP4bLfnOyq/jBZrXkIekITaun9qKutsGkS1
-         MjiW19zEzdDDcdZHnY+Ji+ZyQUScG/8t+67fLBI6HA3KCcpg10kEqULJsZe81e9s9Z1h
-         3t9FnqjKHNO9b1BFIkC7caopC7GFCAC7hReQg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782230033; x=1782834833;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=XqPTCm5YKqWQJxJHEkoz96y23iqGtdrjAIIsxTeKqR8=;
-        b=AApwMbvGVzgXhpUdMJxWwkz20qs0EOK3K2opAnxpj4nNhJHgk9+2QORRwJM7TG3eDD
-         SWcc8LFW8pl5r24PyvE53lVhVI2KrMaCQ8FJbCJIyKueseHb44mG7qvGjUzT3w4dGUua
-         y8+J87Cc2+V94UTOrDaaOvlKAyxc/Fj0MkSIF9PXmBM53lV5AE3bB3RSqdwQ2R1BYjl7
-         hNxK7TR299VOdIfBIsGTI8S0Q3Te8L7jYmaTgcQ1GSc0hYsOMIkFGFSIW8Kl27FZ0XgS
-         w3Dkuo4VHpr+iI/RAOH7NNGauxPXnGrlkwbhxdCxSpfae60xr87pDjKHDL4PCMjZk4uQ
-         vGiA==
-X-Forwarded-Encrypted: i=1; AFNElJ+bzx7xdd7HMbIdvTKICB1lEdFdgv3fPv3p70tc4zJlFM0c2HtHNawAv/Ac8xYVrqXnA3Dr7yE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwAOUyefzGuofhg7Jrm4RxE24h+5WTXwRoXp3kaOEL/4DoIffiV
-	qbDaLgB9kwmiskNpMOisOxoVMpCfbojFEVWNqnFk3c/bs8twl23p3P69casj+XBI/g==
-X-Gm-Gg: AfdE7ckOrTmikj7eWDtatgqCezgPKQH7IMQAmvla65zEGcSnUP1JxqTx+osLX5k1nzJ
-	kZelaic82NsHIm2nXif+3X8F1eVL5XZZ2RfkBDH05CX7XKT6XTJLAdQjAl7Vh/B/XveyqsOTiiG
-	WMMg9uFSjyZDxzT9xzM7LaF9782QYSxD9xb38ZcVyplUQjMAfw7OL4Iw85aUk752fBkJN0G2Y8c
-	wUns8EQZe8gkaSCjzMA+P48+8lgkoFSeJsmS3DJrt1+hZD/QBs2TRuue3m8d9NWxAwUt3kW6p3t
-	LosI/K7D3jLqNWPVBx0xQjOuCVZpKKCS7uVVanVGgfYrRLLz2X17piVkA3fyAP597B4atniDXYx
-	mBVNodcS+kyy9qH2phjvX+c354viYTQwSLA5KiFCO4o5gux4ZHb4OlREGg8tbm/KAtlhhhQnMR3
-	GoZvMaT3bR
-X-Received: by 2002:a05:622a:91:b0:517:9e5b:919b with SMTP id d75a77b69052e-519e4c8ed1cmr286911061cf.47.1782230032727;
-        Tue, 23 Jun 2026 08:53:52 -0700 (PDT)
-Received: from [172.22.22.234] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id d75a77b69052e-51a514b4f5dsm26143431cf.1.2026.06.23.08.53.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 23 Jun 2026 08:53:51 -0700 (PDT)
-Message-ID: <526c68fd-684d-4593-8c6a-e08aafdada5d@ieee.org>
-Date: Tue, 23 Jun 2026 10:53:49 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oBNgyJsj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD75C1F000E9;
+	Tue, 23 Jun 2026 15:59:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782230376;
+	bh=vLtVFSmBuhYWJsbQwd3uD5Ya7gbzMbUajH/IUCeuC7s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oBNgyJsjV4puyRG3/LGiFkqJx28rxvjqq2eOLbrYuRYnRFJgklCTlDEXQu9bpQ3LB
+	 q009GD0lS8ypf7LEQBh+038bHWNQ/+7/rdn22kz63Su4neeVBdnQiD5DLdmnjfLDde
+	 6dzGKrnSCoJuy4N8yw/QFCuZDNxWNo3HcuHUplOLxKX4l243WLM5AP/qHb0y+KPZN1
+	 MDqKEaoh66XGgHx4Wo60Ns9C2yMLFhKEPstAvcnsfikeyqC+zFzZHBk5B3hub4P3pk
+	 mMBw2zUUM/RhZyMbO3p0DsBltGQVHZWWSo0sd1rQwZ4hpkJbRJf8/c2AWWmqw3ycZR
+	 yA5gVbScHwZhg==
+Date: Tue, 23 Jun 2026 17:59:31 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: w15303746062@163.com
+Cc: jdelvare@suse.com, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Mingyu Wang <25181214217@stu.xidian.edu.cn>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] i2c: i801: fix hardware state machine corruption in
+ error path
+Message-ID: <ajqtEIAX_D5z_UW5@zenone.zhora.eu>
+References: <20260512093534.348655-1-w15303746062@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] net: ipa: fix SMEM state handle leaks in SMP2P init
-To: Haoxiang Li <haoxiang_li2024@163.com>, elder@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260623031831.1788454-1-haoxiang_li2024@163.com>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <20260623031831.1788454-1-haoxiang_li2024@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512093534.348655-1-w15303746062@163.com>
 
-On 6/22/26 10:18 PM, Haoxiang Li wrote:
-> ipa_smp2p_init() acquires two Qualcomm SMEM state handles with
-> qcom_smem_state_get(). However, neither the init error paths
-> nor ipa_smp2p_exit() release them.
+Hi Minguy,
+
+On Tue, May 12, 2026 at 05:35:34PM +0800, w15303746062@163.com wrote:
+> From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 > 
-> Use devm_qcom_smem_state_get() for both state handles so the
-> references are released automatically when the platform device
-> is removed.
+> A severe livelock and subsequent Hung Task panic were observed in the
+> i2c-i801 driver during concurrent Fuzzing. The crash is caused by an
+> unconditional hardware register cleanup in the error handling path of
+> i801_access().
 > 
-> Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-
-So I guess they were never "put" before?
-
-This looks OK, but I'll just mention that the IPA code
-doesn't use devm_*() (managed) interfaces.  So it would
-be more consistent to just call qcom_smem_state_put()
-at the end of ipa_smp2p_exit() for both ipa->enabled_state
-and ipa->valid_state.
-
-					-Alex
-
-> ---
->   drivers/net/ipa/ipa_smp2p.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
+> When i801_check_pre() fails (e.g., returning -EBUSY because the SMBus
+> controller is actively used by BIOS/ACPI), the kernel does not actually
+> acquire the hardware ownership. However, the code jumps to the 'out'
+> label and executes:
 > 
-> diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
-> index 2f0ccdd937cc..d8fd56949082 100644
-> --- a/drivers/net/ipa/ipa_smp2p.c
-> +++ b/drivers/net/ipa/ipa_smp2p.c
-> @@ -228,15 +228,15 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
->   	u32 valid_bit;
->   	int ret;
->   
-> -	valid_state = qcom_smem_state_get(dev, "ipa-clock-enabled-valid",
-> -					  &valid_bit);
-> +	valid_state = devm_qcom_smem_state_get(dev, "ipa-clock-enabled-valid",
-> +					       &valid_bit);
->   	if (IS_ERR(valid_state))
->   		return PTR_ERR(valid_state);
->   	if (valid_bit >= 32)		/* BITS_PER_U32 */
->   		return -EINVAL;
->   
-> -	enabled_state = qcom_smem_state_get(dev, "ipa-clock-enabled",
-> -					    &enabled_bit);
-> +	enabled_state = devm_qcom_smem_state_get(dev, "ipa-clock-enabled",
-> +						 &enabled_bit);
->   	if (IS_ERR(enabled_state))
->   		return PTR_ERR(enabled_state);
->   	if (enabled_bit >= 32)		/* BITS_PER_U32 */
+>     iowrite8(SMBHSTSTS_INUSE_STS | STATUS_FLAGS, SMBHSTSTS(priv));
+> 
+> This forcefully clears the INUSE_STS lock and resets the hardware status
+> flags without owning the controller. Doing so interrupts ongoing BIOS/ACPI
+> transactions and totally corrupts the SMBus hardware state machine.
+> 
+> Consequently, all subsequent i801_access() calls fail at the pre-check
+> stage, triggering an endless stream of "SMBus is busy, can't use it!"
+> error logs. Over a slow serial console, this printk flood monopolizes
+> the CPU (Console Livelock), starving other processes trying to acquire
+> the mmap_lock down_read semaphore, ultimately triggering the hung task
+> watchdog.
+> 
+> Fix this by moving the 'out' label below the hardware register cleanup.
+> If i801_check_pre() fails, we safely bypass the iowrite8() and only
+> release the software locks (pm_runtime and mutex), strictly adhering to
+> the rule of not releasing resources that were never acquired.
+> 
+> Fixes: 1f760b87e54c ("i2c: i801: Call i801_check_pre() from i801_access()")
+> Cc: stable@vger.kernel.org # v6.3+
+> 
 
+Please, next time don't leave a blank space in the tag section.
+
+> Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+
+The patch looks correct to me, although I'd have liked an ack
+from Jean.
+
+I merged it to i2c/i2c-fixes.
+
+Thanks,
+Andi
