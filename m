@@ -1,185 +1,161 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012050.outbound.protection.outlook.com [40.93.195.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057E33AE1BC
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 21:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9057E395AE9;
+	Tue, 23 Jun 2026 21:19:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782249262; cv=pass; b=NcqW9sZth/fIByWmIp8nzgsKEajd6GGbegP3YbEjGk53P5hMtNIR0kqxJcC5ROCpf45IvSKbJkLcUBJqt2FINqsRyCSj+Lu8wfpztzZPc06SdQPsK7Bdfci66WOt1lyYyJcZEDBOipp66mD3Pm9hmkDreH0LUVo7eR4IoyytV+k=
+	t=1782249554; cv=fail; b=tkuiEqdvSfpQvKY5tatXzQEGy6AofjHrgYQ6GgZ/NXHe5MI2ORC74kIVBj6u7kMhn9qSaEdX7Is3Z4sBv4lwYv+jmoGHkM6iyGRxSe5iCPmR72FkVF7D/wYgxuMlcbzQJpoeXOPylo6IJp1v34n2rw4xR+XkKwV+pK0Y1ITQNtA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782249262; c=relaxed/simple;
-	bh=BEu6oE1hirZSlFOt35YJmaquG08gwWbriv8/eCijrXU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lOeFilMjW26mQBiDYxwiNUTOXCPWiMAalhMcFAe9g5mKV46QEjLngGGvSr1/EIevPxqDNSm10KWh5HPr8C5LSE3yf7uKnFepsXnUycQt8R14w0JFGt4gx2SgvJ91QdL5OR9TeB35ZWf0GCTGbalklWNgMmB4wEly8OHJtRMc274=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sl0yFM9f; arc=pass smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782249554; c=relaxed/simple;
+	bh=22mu/dy31qodfyTotsHQe8aFzqdECRMp1oSsW0hLC34=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sflc6gws92kesZZmw5owvjqX2t3ir2KW7nnI9hUGgjjgmbkSgPmNwBGIgSCyS+HBaRawXdESdOyqPeSzsHnjc4hBkTDYyr1Q7HSPwgt1AJ5GHWjT4wqx2/2xKSmAj++hoD1hH2rjMGCPZVMp+tfwT5wytIaIwcYNOISMq1Rlm7M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=VksBbn4M; arc=fail smtp.client-ip=40.93.195.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sl0yFM9f"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-bec49f7e35eso50516566b.2
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 14:14:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782249259; cv=none;
-        d=google.com; s=arc-20240605;
-        b=g2Vtssnt8Myr6+ORSA6AI9eeMfA6SX8FJgGDjNtIDX2ghVrJnSMudfC1ZR7HeVzwYR
-         8tfPib3ALii2VZ4L9h6eoKLJ+jgNUNDtrt2GJ4NCffdO91sV8QNVzvQgbT9WOtmyBM7p
-         kTJpYuxpt758UupN+btyVfH5TotD5NycgHuaGWJYUh7tNkS5kd/wbroeOOQXBIK2nA5D
-         gnB86jNNDgGHU5JMRQVZ5fBGvmBtxpGjnNDgTpRHsUBF6E74NFqKc3fMKeanMgV9ZP74
-         1K7IKRXXfFdb8NXshL0EitlWqhHs6dKu2ZrqH+s/7XGP3ASpDlFrHWAhZvH7ObAcz+uM
-         FYQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=71fysXJovgrDCc8Ak5Zz96I/xjwYwfjNFkfuKiiFSRU=;
-        fh=I84fkDWB3XwTwIdr/ASWGvLLuwBVPwUf/mj/dvLOnWM=;
-        b=RDBHeyg1LUlWnJidQC62Sr1iE0zhtgr/oGs2SilMTbJOWdkv420whb+oHmNZ4HiCeT
-         G3TC6usGJCBaJuOuz45dJuVUTtFWzjWHqPG2YmuN4LJ0lCfbHQ1puIwxljDDMjSXL68e
-         5NHSlIwN/qp3Sruy3NEF2Xag5nb1zxdihqGQUHkneOLIO6FGLX2Y2DrGJhuZwWcmVkLv
-         jwi3M5zTFzZMRM+qy6pczlADnKcNIyTyRad2uky8SjyVVDh/pCSNu0ND3k3Ch6yT4p8G
-         t6lCGRqI0g9YZck4uCQXn6cQiLtdPEtsTVDbnjtV3UKu4UGp1+QTIQGjIPOX7cQshUCM
-         sZwQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782249259; x=1782854059; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=71fysXJovgrDCc8Ak5Zz96I/xjwYwfjNFkfuKiiFSRU=;
-        b=Sl0yFM9fmlE/0dP2EFtzcITAAp0HejHQhaNmqIAXpLIdhlQ/C6UbKpz5gK1e2ZDH0y
-         3a5otLbdkPZzFWLT7UE+918hOBWtzduIWZtQzcH1bDIbTxiUvxwSHTTSJBkNEmlQUlSE
-         C2Zvu/lo2k5BZCOyvBSolXycPTWfcqywGn1ChKrj6jTdoUVv654TWlXiKcGR2mgs254n
-         Hi42tL2sVvzmubRhXeqUhY90EF4mY375DCSQHEQFuxV2/0gPx0G9MdmfrjXJwJSsimMo
-         1bKoKhTl5paVWMjv1pflCYUidBHWl9OKaHA1hJS0O7QWY6kpjU9goNlYSg0uKWTGyLeA
-         AaxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782249259; x=1782854059;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=71fysXJovgrDCc8Ak5Zz96I/xjwYwfjNFkfuKiiFSRU=;
-        b=YNOFLvREDrY+q4bA31LBMgCAtIJyEcrbJXbh5XViF0nh6uTPBGxk4xtU0FcgG9/nLN
-         dg1o84XvEbrYPU7uPglZ7pprhspHX37teGgaDr0HdTHnoD9Rhrl5YRnoR1m27W+WEx3b
-         l+jeyJqsE7Bm2Rsxwmbd+P3GbdH29l0mron3baABFcXlvHgt6anUai+diKR3hc5Y5NBR
-         U74eVezDBgPvuCepertRgXi1tvX35YXHMYqRd/jORNtIjR02jEnedw8jGq+rCIekLkZv
-         AqcWn9lZMVaw6Y16LKPfRxEvFoOZrk6ASG/N8neUr9Ru5JxkWi5KYjiML6g01xHlqfLF
-         n6/A==
-X-Forwarded-Encrypted: i=1; AFNElJ8HevX0VGcyY+icEZymXxwGKRlMAcnrlvy0yif0yakaowBZfkNxCoS/nHNa5Rr7zuonVRSdmd4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzfENuezHSINg4cpjOjEsWF3TKwbmKfY++EUuiqGzLI4XzLTBmc
-	t2iVF6b3Tdt8iyq7ufay2RK3LAMEtoNq2HIyO0rsdEZJhJQiPRbumu6xSspjlXsjWvgICgpQy4O
-	SQ7ygnGy5PBmGSAngTp2PK3j2XGC+mmE=
-X-Gm-Gg: AfdE7clgxGvhm+Hr9As79RWDoCs6WVpXqW7vKJ3MA8SU5VdCdap3Px03tIYJ1wDfGJa
-	YIrO/LbXCqbjhoDkJG9dcQL7Kye4UMpRMBx9I/4XKqw2RAkFOvyUkux9dFRL2Zdwt1x2QQNjeoC
-	/oTcp6aAukTOuO7lHSa+d7qFrR5KHQQmU6VBuhvnPEDUhcJZzz6Ph0+EACyTvTfguhz5+RPIkkg
-	HHig5gOghwsV7uib5vNRD1CpJ3B3ahpqY6uo81/jE64kHX1+yluMPDrxXiDhPK1AwjYNT7WiQ==
-X-Received: by 2002:a17:907:3f1f:b0:c11:1753:25cc with SMTP id
- a640c23a62f3a-c119f025261mr13470466b.42.1782249258699; Tue, 23 Jun 2026
- 14:14:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="VksBbn4M"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YvPX0hFvkE+P+In+GSjGrlpm6JfBESvX+Fs2N0H8UfHsIPPhTlDltJN2KW3QSx9SQJFDkG56cYh+J0bQa8/WoiKQxnmjToGQCIuLmHOoISPUtDXKt21Yk33WaOgRxDJ+5afnTnqLVKQo4VIFKFnW5xQ4l5sQzfQSyRQAJK7r6L0+jMTOJmUTc0Re0xv9DifxFkAgfZsBOinaCZuRZMEWDtHD9BFBlXttiDBRLGrjyz9bqjUWV3kvrlj7fBqmU7CuoAR2wZPL68z/fMM4MGx72f0uO5izGNjc9gYTf/TvfpUPGYYecEbFAqNsJftGENJRqbq3qSBM6sbLV1P0fj5lfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x+GPFJksbe5osfJ1naelBNgLRcpoUxuDQeUwut6/eyk=;
+ b=ZfO4Afo2X0PDxPM4FkrYHhOFcJwCtpc75qWIaH8OImQFhiEDwOSpZG8bpkwpEzAWEhUhymXdzThM1ZehvPBipLcQXsPZ9rcSWGEKPZkdBBTzasciloc1kTWr5641dPgGkvjFUugyKifnHTheH5rmJAwv6DkC3qoiHkKuiFl02r1xJsDSnX2e3ru66+ngHDMBROZ2Av50eYpZy8mTPKcAzAiSNOPUNHWbUbyDBVJI2HiQjBsus5wfYT0ssUOz9bXpPeMLUiPa2YWTKPvMLiwYyLQpgphxaGfEaF3hlk9xcxcYuzHXYYo7g/iFNnfiAmqiJ34GJoPUFZ4CQkwV33pgnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x+GPFJksbe5osfJ1naelBNgLRcpoUxuDQeUwut6/eyk=;
+ b=VksBbn4MmRUQa00FXW4csgI4Nl+THZUxmN/hDUqHwqy3MJfKeJ0Yi0xRImknYqFYrpBA0duOlUX+2obOo01UFyqwzteYgl+dozrEipQDybe+iSiDDZkm6MENP0YZNUUARRjNSLPCTzwi9SVgN7wTRDc8mMu1gn91iSa0z/nmP/w=
+Received: from BN1PR13CA0014.namprd13.prod.outlook.com (2603:10b6:408:e2::19)
+ by CH3PR12MB9249.namprd12.prod.outlook.com (2603:10b6:610:1bc::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Tue, 23 Jun
+ 2026 21:19:07 +0000
+Received: from BN2PEPF000044A3.namprd02.prod.outlook.com
+ (2603:10b6:408:e2:cafe::81) by BN1PR13CA0014.outlook.office365.com
+ (2603:10b6:408:e2::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.13 via Frontend Transport; Tue,
+ 23 Jun 2026 21:19:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000044A3.mail.protection.outlook.com (10.167.243.154) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.10 via Frontend Transport; Tue, 23 Jun 2026 21:19:07 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
+ 2026 16:19:06 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
+ 2026 16:19:06 -0500
+Received: from amd-BIRMANPLUS.mshome.net (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41
+ via Frontend Transport; Tue, 23 Jun 2026 16:19:05 -0500
+From: Jason Andryuk <jason.andryuk@amd.com>
+To: Mario Limonciello <mario.limonciello@amd.com>, Yazen Ghannam
+	<yazen.ghannam@amd.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
+	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
+	<hpa@zytor.com>
+CC: Penny Zheng <penny.zheng@amd.com>, Jason Andryuk <jason.andryuk@amd.com>,
+	<stable@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] x86: Avoid divide by 0 in amd_smn_init()
+Date: Tue, 23 Jun 2026 17:19:03 -0400
+Message-ID: <20260623211904.3674-1-jason.andryuk@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260623161035.5792-1-nikhilsolanke5@gmail.com> <567e8866-4308-4e5f-819c-fe778dbf74f8@rowland.harvard.edu>
-In-Reply-To: <567e8866-4308-4e5f-819c-fe778dbf74f8@rowland.harvard.edu>
-From: Nikhil Solanke <nikhilsolanke5@gmail.com>
-Date: Wed, 24 Jun 2026 02:44:07 +0530
-X-Gm-Features: AVVi8CdIaeu_joffRLcSvxxiZQ1_ZI76_fR_kxTsWH5gxda-81WTi5hBvd3VxLE
-Message-ID: <CAFgddhJk0EYG71fnKdio=RHC-cH+JmL-EZ7-oVD-LdHoa2TBSA@mail.gmail.com>
-Subject: Re: [PATCH v2] usbcore: Add quirk for 255-bytes initial config read
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org, michal.pecio@gmail.com, stable@vger.kernel.org, 
-	corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A3:EE_|CH3PR12MB9249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 792fc022-b6f7-47f8-eadb-08ded16d0f4b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|376014|36860700016|11063799006|56012099006|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	QsPq64KPEgxPyCtroy1u+Dbsvk2iPteuaG4yjgrqvByrdf6a5fnjIoPvX6s1vXALT5j4nxDcywVb/fJ9o5yWawivjg5DTdqmU1kSzRnzXWR7McjQkAlj9ynqJc5dw3tMp7SBnPGexmtVk1ZTCjJjq5+E52aMaACocqWNKpVXIf7KP4gQX73Zb46lUsWn/w4Mi40yVXhwXh9uXcjzzgPgCaOqZxXTy2Yjb00zolQCQqbeQTC+KaHz/sXx1R1tciPpHol6ZI80XHQWhHSm5sYd06uD31medBrRD6TYyJnmm9A8GkFQRGNQpZmrt9xBEJLij4uF7X28aBQ57rEBOsc/MSSqATREn4G5RqU66o6Y9Bvsw1Z/WH/SUIa3BJ/bKYXfIqKQE2HOrHpCuUPYbyAjAFGNQioDSSUr2VfV9PMBC790OHRZ4fjFpKd3drVZu6lwaqcFgPNeUAhnIfQ8k3lKyatz+ZE8Sr7/jVzNBzmylO7vCtY8JaoO7iGrTFXIOmIbGLOMEoiJfOq7d1Cbb6beOigKOmcBbB0Bpm48WpFDgmyhUvqrSfyn9ZIH6Ly/d4Zz0NUtAUg8/SiI0trwGRVcwcM820CBF4n+cQYOfDMf8eaXseK1gE5Qqiev0eNNnEDd/COvouzxsp5QV7ll0dJRqmn0NY+TNYV+MVlFZxDweZndOcKwaiLy1pHpySShwXkRP/wK3nk4GTWrIFUp3uZo0Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(36860700016)(11063799006)(56012099006)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	vZcb7HKwSeTBZP/QljiO0E41I5oX2PD+Bk5ZUkE2woaM1CXKkOvr4gVB7MGkax7E33gOzhF95ioqNPCxG2jgLXTmqGZkBU7asiL/m0WWvDZXFG6PDv9/cgv2NZiJ2j2HZQaKwW5ryLQicAheHTSnXQ7MN6vfvL2y7F9uWSCRybSMWOVBXHjGdU/7HPqlY+qWbvP29uvGADGNoh1sC3c2CbQURfmmMSz9pg9KfmExph9CG0CjvtOKV9+y4cHapD0rSDHVKMmCD5tAi12dBz5Os5YlYQwcIb3N2CkTLtFjCzWg6i+ZaNAku87w6IM/tIqTtuHnqpXLAbBlqQGW6ZJC8tbgz37FZ1Raqr6quLCnIPQFvR/3xBehEpTf1eB0Alor5RKSQReWHEk15H/MXZFxpXHOf2U3q4mS6IfaNQja2LNNCeDobL3MaiE2sbIJB9PT
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 21:19:07.1037
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 792fc022-b6f7-47f8-eadb-08ded16d0f4b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000044A3.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9249
 
-> Moving this delay up here changes the behavior when the quirk flag isn't
-> set.  While it agrees with the intention of the USB_QUIRK_DELAY_INIT
-> flag, such a change should be mentioned in the patch description.
+Xen synthesizes the CPU topology, so the num_nodes and num_roots values
+may be surprising for amd_smn_init().  Specifically:
 
-How should I mention it then? Nothing comes to mind besides the
-obvious: "Also move the USB_QUIRK_DELAY_INIT sleep to before the
-initial descriptor read, so the delay applies consistently regardless
-of whether USB_QUIRK_CONFIG_SIZE is set.". Or should i revert it back
-to original position?
+    roots_per_node = num_roots / num_nodes;
 
-> > +
-> > +             /*
-> > +              * Grab just the first descriptor so we know how long the whole
-> > +              * configuration is. In case of quirky firmware, try to grab the
-> > +              * whole thing in one go by asking for a 255-bytes sized buffer
-> > +              * mirroring Windows behavior.
-> > +              */
->
-> This needs to be rewritten, as it is self-contradictory.  When the quirk
-> flag is set we issue a 255-byte request to mimic the Windows behavior,
-> and only when the flag isn't set do we grab just the first descriptor.
+may results in roots_per_node == 0 which leads to divide by zero in
 
-I am sorry I didn't understand how it is self contradictory. The
-comment does say, "in case of quirky firmware..."? Am i missing
-something?
+    count % roots_per_node
 
-> >               result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
-> > -                 desc, USB_DT_CONFIG_SIZE);
-> > +                                             desc, usb_config_req_size);
->
-> Don't make extraneous changes to the existing indentation (or whitespace
-> in general), here and below.
+As an example, I have a system with a Xen PVH dom0 that reports:
+Found 1 AMD root devices
+Found 2 AMD nodes
 
-Well the linux coding style guidelines mention that those descendants
-should preferably be aligned with the function open parenthesis. Since
-i did "touch" that line/part of code I though might as well indent it
-a bit accordingly. Should i revert the indent then (in this and the
-other place)?
+Ensure roots_per_node is at least 1 to avoid the divide by zero errors.
+num_nodes are allocated for amd_roots, so roots_per_node = 1 will
+populate all the entries.
 
-> >                       if (result != -EPIPE)
-> >                               goto err;
-> >                       dev_notice(ddev, "chopping to %d config(s)\n", cfgno);
-> > @@ -957,13 +976,25 @@ int usb_get_configuration(struct usb_device *dev)
-> >                       break;
-> >               } else if (result < 4) {
-> >                       dev_err(ddev, "config index %d descriptor too short "
-> > -                         "(expected %i, got %i)\n", cfgno,
-> > -                         USB_DT_CONFIG_SIZE, result);
-> > +                             "(asked for %zu, got %i, expected at least %i)\n",
-> > +                             cfgno, usb_config_req_size, result, 4);
-> >                       result = -EINVAL;
-> >                       goto err;
-> >               }
-> > +
-> >               length = max_t(int, le16_to_cpu(desc->wTotalLength),
-> > -                 USB_DT_CONFIG_SIZE);
-> > +                             USB_DT_CONFIG_SIZE);
->
-> This is another example of a change that has nothing to do with the
-> purpose of the patch.
+Also add a pr_debug() for the number of nodes.
 
-Isn't that what you told me to change? So the logs are accurate? I
-made that change because you suggested it. :')
+Cc: stable@vger.kernel.org
+Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+---
+This is an alternative to
+https://lore.kernel.org/xen-devel/20260506055528.476493-2-penny.zheng@amd.com/
+but it leaves smn available for dom0.
+---
+ arch/x86/kernel/amd_node.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> > +
-> > +             /*
-> > +              * If the device returns the full length configuration
-> > +              * descriptor, skip the second read. Otherwise, send a second
->
-> Strictly speaking, the configuration descriptor is only 9 bytes long.
-> What you mean here is the entire configuration descriptor set.
+diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
+index 0be01725a2a4..f335c5f1ae1d 100644
+--- a/arch/x86/kernel/amd_node.c
++++ b/arch/x86/kernel/amd_node.c
+@@ -282,11 +282,14 @@ static int __init amd_smn_init(void)
+ 		return -ENODEV;
+ 
+ 	num_nodes = amd_num_nodes();
++	pr_debug("Found %d AMD nodes\n", num_nodes);
+ 	amd_roots = kzalloc_objs(*amd_roots, num_nodes);
+ 	if (!amd_roots)
+ 		return -ENOMEM;
+ 
+ 	roots_per_node = num_roots / num_nodes;
++	if (roots_per_node == 0)
++		roots_per_node = 1;
+ 
+ 	count = 0;
+ 	node = 0;
+-- 
+2.34.1
 
-Alright i'll reword it.
-
-> > +              * request asking for the full length.
-> > +              */
-> > +             if (result >= le16_to_cpu(desc->wTotalLength)) {
->
-> Shouldn't this be: result >= length?  No point in repeating the
-> le16_to_cpu calculation.
-
-Yess. initially the length assignment was happening afterwards in my
-patch. then i decided to move it before the "if" statement since the
-outcome of length was going to be similar in any case (within if and
-after if). but then i forgot to modify the if too. Will fix it.
-
-> Like above, this string should all be on one line.
-
-Will fix all the strings as well
-
-Nikhil Solanke
