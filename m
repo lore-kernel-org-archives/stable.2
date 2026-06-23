@@ -1,161 +1,89 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5833C34BA50
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 11:48:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782215309; cv=pass; b=usoYrBnhORdBd3luo8gOWMeN+p3yTW9FlPglw+Qv7oQG5d84xecRJle6kP0W0HC5E6phqzCFnzSfJeR9qLBeWPX8ZXIE7HY+KqqtIS82snEX79WTdRhxiZ/Lh/5TBWmsaVtJQgUAH1OijQ5IV0Y9O/8XBPyhJrRcaHnijaBRAkY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782215309; c=relaxed/simple;
-	bh=7aSA4J9Q74PtgoVuZcBUHnk4I3DuCxmhRb9seHM+X0c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YLiKzRkrQQVTIoy7m5IAmXGOy8KskpYo2LGI5YJU41gxPVkCn36++4oNd7PKSTeSL0gCq5cuqjesRcHJp/Ud5C25x0n50YtLxwr9LyGJL1eFTRkw+FHI+zjQIxNcb4wPl+S0UYN3tXA2ZgkudY+mXavo2kZDbIWJ+95V4ti1h2s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=khvHwyui; arc=pass smtp.client-ip=209.85.222.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7729534BA50;
+	Tue, 23 Jun 2026 11:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782215683; cv=none; b=RUE+w9tzqlBUIzCUhJI4+IP9o/w3EP/CwsAjOgyTshyUfeP4YPoOx6Jm28pWMLVXaqtptQb5pqQOImAH2Vo0EIMf5Ti4Vgtrt6NnCbXXJb1n6R6RUq3TBcXXw+f/a5g6tnPMOxnB+8ObK9dLLvTR2lIEx5O1rmtVCuesIxcLf9s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782215683; c=relaxed/simple;
+	bh=MtnZMRhYrROhIvmxLTrsezHs78ZcfJ61HBdYCexhb9U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L9guK79M1W7JU1bBXGxDMcVAxoWHZi1gB9BhaLrH1vrdMZE8oAK9HOtlZ8BZwGc7MD8QAyIillN0bUX2q+YbJRpJbi7jG4ZHtO7oTgpOnHQ1R1cFUlUUyQwbl93+lvxzeAGdvXZkANR6n0wdwc1Cqpkwnp7ked9UuBVtIK/BcE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=V9pKA7na; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="khvHwyui"
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-91587626ae1so654744785a.3
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 04:48:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782215307; cv=none;
-        d=google.com; s=arc-20240605;
-        b=eBrfibutXIlk2pMaCT8QV74ppmDP3oViTka2UQEaay3kyKLbogKU5ZJ+0JnTouqetk
-         C+rHLeV+C19ZHAhBYZHCuMRsq8bZCe1BCVylWb8rE9GXE7JRPXuSMiHnhTZq0P+5/y7v
-         l+N1F13eUJYWHZulLkxYnARm/e4aCWTlvbtXMZM6BhYgXfhlXPa/g6aRY7L2+wS1rDER
-         Wl+aIm7jFcKluytCX539VBVhUSNjsKA/ZDCdCxe5PnrCcV315xFZzIiUBT5y/xRIsieU
-         Zbg84bHdvOe2a3udSKcummSzcAoVrHkLvc1F+EOWe8DWK3PHxOqJCbGJTnXZMP4u99JU
-         im9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=r2R52dlUxeU9DF8c3zp5NFTial0xbiyrqgTzHQYM56g=;
-        fh=bxbSlclQiwHfWvJ3KP17x5UmGF2KrmYSSB4HV6JwkBk=;
-        b=Vq1GrRqGOt67cSjuB1P13nfI9HwT1L3PR/vqvaqNlC48xrxFi50P349psiAW5Qo+DL
-         q+0xn6ufxVpczXifTuSI3BGuiLDuvM+AvoHB7DRdnbCLQXR+hSTUOhZedmyCmOTXLY2l
-         8Y9stRjvBpO6miDqfHDJgX8/rdi1zqmYWSIdVfNdca6Nm0pDmhUIrqduDjzFTuO/QhJb
-         D07edS1OsHLCMQBcHKv5xaAqk8jmzF4gi6h/I84Mh7LOFtUEIwPROdfP6Dj29sL7XnqA
-         Ww29BLShDiLmKb+13aKHUJwKUOPZXtN2mvWnGkvxVL0X12oXwpsiVOQtvUxZ4gurFgbw
-         PF6Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782215307; x=1782820107; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=r2R52dlUxeU9DF8c3zp5NFTial0xbiyrqgTzHQYM56g=;
-        b=khvHwyuibzHk74hTlc/AnKWxXtIPca8fsWEsboUIut2jispKkdsPJ/JaGsHRKZ27ur
-         xQZNW4FDgOaUKCocJq2NU+xH/EMR1WhrY/PFWmkv9ZqtDFM+OLGQYBpU1QoGMXandeR4
-         6Z/ub93JF1AT+KhwXMROJ1XyYQx7n48b5zzdrH5GDtoZsW/oPxxoyPHgdYwPR+7MIUx2
-         dz8otb4dC03KgVilJfmHpnmzs5FW/rsBPkAGM1zgeF9coZ5N990XKV2wja9kHsMI760A
-         mbkmV4iMRikVgOBxDEE99ysNszNjqRdpWm9zvTIxEQ+I0TAVKd+uUBnT/JczEPPzHwT4
-         WWmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782215307; x=1782820107;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=r2R52dlUxeU9DF8c3zp5NFTial0xbiyrqgTzHQYM56g=;
-        b=q037sZP43RQHrGXy66OlQmlUnoehIV4uTDsL/TEZwRoSP30lPCDsN7hpxKpz52+VIO
-         mOL4q5FVit3fpV6GqJ5buXj7TRdJWkiCcH5LYNpIIoyE1OHx+DEiemM9KifI3brA5w5v
-         n9WV8yqs2OCjA9ybzCmvfdPFO/RYlwSYFaj3hDaydfpNjeVRYFqEn39nLkdE0Q3aj08E
-         WFv9a0Jt3Ktm1zXzA/xbM4adpCbWTHUyEy62T9db3a9vjQTpY043uCcj3ekdxQ7FzO5q
-         O9kQ+oYBDdiUt1rkoS6sM5IVM2QqVEJ3j7GeISdnlj0tK5dL//oZ/JX3CD51TMEJgh2X
-         D+Yg==
-X-Gm-Message-State: AOJu0Yx6KAvIYeX/QU3Np4Phd+8qqqwJV0sJfPCG4XyjoHASLigFlIQC
-	cHYKYWKGmIvvpBPk4xz2z6inpWnQFLx4Qufu3BWJmK7OGW3zTa4CQ57m5HEJJZ/rEal7Ec8G3Hp
-	J7EyFMF8iD8zV2xo/lWT6FQ5tdxWzLLs2PI59jyE=
-X-Gm-Gg: AfdE7cnhRjocJs1ilTxPKfdgORVzC4GuFX1rbEYcev/UWjYAYwpZCCAbCTJ4ZZblvLW
-	Fub4KPG3Bfv//u7N2NIyjtuI9oGIQGYSUWR6shfQLsxPD0B57zDeGn2eA2p7jGpGcOdLiwwiOsW
-	zeJ6lvEOAOlWgk4flgZD+d7u8Xsfbiu2RRcr1C8p9EXUvLQdiN/j1PCIA4mtNCP9ltCD+IRQixm
-	eHJZsvfKHrd+X5JibvJOMO2oyj7SK3CZL0gRVPpxQzGsgNbZEv0Ecngy/Pe5i0bqHk30lalOg==
-X-Received: by 2002:a05:620a:40d1:b0:916:1980:b462 with SMTP id
- af79cd13be357-92092b3fb53mr3133630185a.52.1782215307157; Tue, 23 Jun 2026
- 04:48:27 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="V9pKA7na"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6175D1F000E9;
+	Tue, 23 Jun 2026 11:54:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1782215682;
+	bh=h76uWuNHHgMzp8lEDtKmFje9j78UHKbnnBpQIlM0Vus=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=V9pKA7naAZFxBaTyQXja1fOoqJvGPuTltI4UJr0nqIqgYFrdRM3RBmdb7/GJgkvbM
+	 7B4OWMOllmdxrCmB2+9wQBcCsHiWY1a9jfvonqNLAo40TLI8p+w33lcAwdfXo4P8bS
+	 8faCOjqEsr5JZqQqTuWNjZpXFvV2KqvlkYUFaM5g=
+Date: Tue, 23 Jun 2026 13:53:30 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: w15303746062@163.com
+Cc: arnd@arndb.de, linux-kernel@vger.kernel.org, kees@kernel.org,
+	stable@vger.kernel.org, Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: Re: [PATCH v2] misc: ibmasm: Fix static and dynamic out-of-bounds
+ MMIO accesses
+Message-ID: <2026062354-quote-lullaby-85e3@gregkh>
+References: <2026062354-crawfish-t-shirt-d45d@gregkh>
+ <20260623114046.368089-1-w15303746062@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260623112131.752148-1-slatoncomputers@gmail.com> <2026062327-unengaged-apostle-5728@gregkh>
-In-Reply-To: <2026062327-unengaged-apostle-5728@gregkh>
-From: Michael Pratte <slatoncomputers@gmail.com>
-Date: Tue, 23 Jun 2026 06:48:18 -0500
-X-Gm-Features: AVVi8CeplyYocFCVOBAKeRQfqZFFp22wOiKhFQcbynKRp_1iAUgUmaofU8bRnmg
-Message-ID: <CAButv0efpYUSmOaqksOs0C6To6n+DQQ7vdQFq-pQWwK6Dfau+g@mail.gmail.com>
-Subject: Re: [PATCH] s2io: only arm hardware LSO for GSO skbs
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260623114046.368089-1-w15303746062@163.com>
 
-On Mon, Jun 23, 2026, Greg Kroah-Hartman wrote:
-> Why not just remove the driver in older kernels as well if it is not
-> being used?
+On Tue, Jun 23, 2026 at 07:40:46PM +0800, w15303746062@163.com wrote:
+> From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+> 
+> The ibmasm driver maps PCI BAR 0 without verifying if the hardware-provided
+> resource length is sufficient.
+> 
+> When evaluating the driver against emulated hardware or during virtual
+> device fuzzing, a malformed device may expose a significantly undersized
+> BAR 0. This leads to two distinct out-of-bounds (OOB) MMIO access vectors:
+> 
+> 1. Static OOB: The driver hardcodes access to INTR_CONTROL_REGISTER
+>    (offset 0x13A4) during probe.
+> 2. Dynamic OOB: The driver reads dynamic Message Frame Addresses (MFA)
+>    from hardware queues and uses them directly as offsets to dereference
+>    I2O messages via get_i2o_message(). A malicious MFA can cause the
+>    driver to access memory far beyond the mapped BAR.
+> 
+> If an OOB access triggers a #PF during module probe while holding the
+> idempotent_init_module() lock, it leaves the module loading subsystem
+> in a corrupted state, leading to a cascading global soft lockup.
+> 
+> Fix this comprehensively by:
+> - Storing the mapped resource size in 'struct service_processor'.
+> - Ensuring the BAR size covers the highest statically accessed register
+>   (INTR_CONTROL_REGISTER) during probe.
+> - Validating all dynamic MFA offsets against the mapped size before
+>   dereferencing to prevent dynamic OOB accesses.
+> 
+> Fixes: bdbeed75b288 ("pci: use pci_ioremap_bar() in drivers/misc")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+> ---
+> Changes in v2:
+>  - Added dynamic MFA bounds checking in get_i2o_message() to prevent runtime OOB (prompted by Greg KH).
+>  - Implemented hardware mailbox deadlock prevention by releasing MFA if bounds check fails.
+>  - Fixed potential unsigned integer underflow in bounds check arithmetic.
 
-It is being used - Xframe-II (17d5:5832) in a Supermicro X5DA8 on 6.6.
-Please keep it in stable.
+That's a lot of different things all at once here.  Please split this up
+into a patch series, doing only one logical thing per patch so it is
+easier to review and apply.
 
-> And if it's not being used, why is this patch needed at all?
+thanks,
 
-It's used and broken: since v4.2 (51466a7545b7) s2io arms LSO with
-MSS=3D0 on every non-GSO TCP frame, so the card aborts all TCP TX - links
-fine, UDP/ICMP ok, but no TCP at all. The one-liner restores it.
-
-Thanks,
-Michael
-
-
-On Tue, Jun 23, 2026 at 6:41=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Tue, Jun 23, 2026 at 06:21:31AM -0500, Michael Pratte wrote:
-> > s2io_xmit() enables the Xframe/Xframe-II hardware LSO (TCP segmentation=
-)
-> > engine whenever the skb's gso_type carries SKB_GSO_TCPV4/TCPV6, and
-> > programs the segment size from gso_size:
-> >
-> >       offload_type =3D s2io_offload_type(skb);
-> >       if (offload_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6)) {
-> >               txdp->Control_1 |=3D TXD_TCP_LSO_EN;
-> >               txdp->Control_1 |=3D TXD_TCP_LSO_MSS(s2io_tcp_mss(skb));
-> >       }
-> >
-> > Since commit 51466a7545b7 ("tcp: fill shinfo->gso_type at last moment")
-> > tcp_transmit_skb() sets skb_shinfo(skb)->gso_type unconditionally on
-> > every TCP skb, including non-GSO frames where gso_size is 0. The driver
-> > therefore arms the LSO engine with MSS =3D=3D 0 for ordinary TCP segmen=
-ts
-> > such as the connection's SYN. The Xframe-II LSO engine treats an MSS of
-> > 0 as an illegal descriptor and aborts the transmit (lso_err_reg reports
-> > LSO6_ABORT), so the frame is dropped before it reaches the MAC. The
-> > result is that no TCP can be transmitted on these adapters since v4.2;
-> > UDP and ICMP (which never carry SKB_GSO_TCPV4) are unaffected.
-> >
-> > Only arm the LSO engine when the skb is actually GSO (gso_size > 0),
-> > restoring the pre-4.2 behaviour. Non-GSO TCP frames take the normal
-> > transmit path.
-> >
-> > Reproduced and fixed on Linux 6.6.67 with an Xframe-II adapter
-> > (PCI 17d5:5832); bisected to good v4.1.6 / bad v4.2.2.
-> >
-> > Fixes: 51466a7545b7 ("tcp: fill shinfo->gso_type at last moment")
-> > Signed-off-by: Michael Pratte <slatoncomputers@gmail.com>
-> > ---
-> > [ Not upstream and cannot be: the s2io driver was removed from mainline=
- in
-> >   commit aba0138eb7d7 ("net: ethernet: neterion: s2io: remove unused
-> >   driver"). It still ships in the 6.6.y and 6.12.y stable trees, where =
-this
-> >   bug is present and the patch applies cleanly. Please apply there. ]
->
-> Why not just remove the driver in older kernels as well if it is not
-> being used?
->
-> And if it's not being used, why is this patch needed at all?
->
-> thanks,
->
-> greg k-h
+greg k-h
