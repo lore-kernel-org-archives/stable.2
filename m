@@ -1,106 +1,103 @@
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FB2242910;
-	Tue, 23 Jun 2026 04:39:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.210
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8013502A5
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 05:18:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782189577; cv=none; b=u6XHl4NLLoJBsTd6830i4RPnWRJA70YgL4UrcJvMDrd1mYGUxQrmF4Qmu3IO8ddiFwoMfUvyXQ6vCO5A63NnUJubgmeEZM+HdyLocQun6Q4Um05Ptd7rl84d4pkTORUQ2jWbw8P2qdLKoH/5pxLgPBwsQvKJOHz0XqXEoPje2EY=
+	t=1782191929; cv=none; b=CTbREXrsQ3bxPxTrInJEfQ/NXdSKTORb2Sqv2oU6OeLNItTTgts+zEJhzScZ31XdJUEkC6tk61fboJlGTtjeOAY83XIcARcfTi/SCKsGdwYISrcgLU47VViCC6uQHsZ8L+JlBWGTm36WpP3trMowHUppXv3LbJXK6Uz8pYEQXAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782189577; c=relaxed/simple;
-	bh=OWuWmLFeJ5HRMTGzBeh35LWznvf8RSsmOwK2Zz9yMao=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=rD9e5NyXvmkZvGV+rNUolbFs3cqhwqRwrRMEJsAchYzCcZnU9g0w5OJppFQXaHcw6dXYMG91e1jDHMvAphRFxJacdjdszifSMd9mu37Gni9Frghy1c0bwlPdTGc8blJ7ccA6CXUs0C/IfsP7ZVgWDmjz2V4j/ZjAq5kQqgBtfsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=cBN/lkTO; arc=none smtp.client-ip=162.62.57.210
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1782191929; c=relaxed/simple;
+	bh=KfJOqsyfmXXIKvwAP834CJTfx23DKu9FvGemclQrN5U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PJQnpWIWFjhIgvtm2MY2fQgAOROQmXaVf222RCm/Nq+67iEPxpD4YcvwN6SdMSVWnzi9WIjc8LdVqAJYboagN6c40oZnrIRPvINo9ILixI1nGvzQvT+OTXsilKVLLTVBcrdrCp0A+bkivlJAE10PDIFGzz2H8A9XAAeXnVPS6jc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GBDbwnDB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="cBN/lkTO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1782189568; bh=vByuusCNWRw7Uh/u62cApKv7cBmVCuUzrj2EhnKQ2Sc=;
-	h=From:To:Cc:Subject:Date;
-	b=cBN/lkTOCVGU//VISsQ42rpO0G2bnOsWgXNtRD9XNzv2z/48wLefkCVl0bz4ojD3m
-	 jl3RID89kgLYjmUiO20n8O5mgAJ6wQgDHU1a3U76hXBqwKpjLIcfiTUwUzfh5gZppH
-	 FeHVcUqjUWr2CgeeF8XmzI28qyT8BeF7e3Ix5bzg=
-Received: from ws006419.mbzu.ae ([5.195.0.150])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 9C91BEAA; Tue, 23 Jun 2026 12:39:09 +0800
-X-QQ-mid: xmsmtpt1782189549tvoi1308y
-Message-ID: <tencent_F35CBD76D113E494EEA8930320DCEF7B6506@qq.com>
-X-QQ-XMAILINFO: NbgegmlEc3Ju9XwnU4+EAkg39x+31O9VPpwLPk7VJNROwMFDFrWP0XSJ5UgKu1
-	 +ySn50pINIfi2Uui5qQKA0PI6jFtDR4qEVNcDFtUgMj8WYpLBeATMNDytul/HIx19I2FVlU6t3LJ
-	 KA/a+Z5l3N7yzotbkfazrzVc5ja96GJJOMwV3uGU1cxl/m2NWwnml6MVXklkAJpXCiYj1WA288ll
-	 LYjZGZwj86xHc7IFf0CBNk9f06kuuzx2TemWQW84bcsUXeHYnOD8tyZHDLKpyf0ppVcq5ADbxD2n
-	 PC17yQLonosVpRHdNqBNvrc5/Nr7FPakZX1u4wxncFvgvYqNBckwOT3mm+qDA6UKhKgdoKLLvT1E
-	 OeVxKpT2N2MBntSSRcg5elyFirGFC+74foFXqncU6zaUZyMe8LH/RpVSZCHy4KpeRj0KzBXTdyUC
-	 aVI5sKslVH1qBgP66IfkovYScT3oIBuuIGyfHIKbvzibzRR7jHB9Qk9dALUJpB+qgV/AeGt0xVVH
-	 ssjgKzdS4+9Sjf+RaKQO9ADlU0+5lEHT+dC1slo3K2dNuMOX24+XIsixrWtoW3tD9oH+wuvum+c6
-	 qxmpl5xR7vNRL25gCFZOiXvYNiKyKnOGcpRUvjF2LY9+N0NxfS96c111PUcDicAEP9Z0wPePrlMV
-	 5KGCjif5WbLA+i5kfg8uMA2DAzPXdWU76hq0vK/JQXavb1U/fe0zKH8qflj0VbQH/NpkYiXnrOx1
-	 LLkZBnybySVsaV6P21leCvagUsWYdBj0w6Q7KKp9rLAwmnoI2whmCF2TyP/J9cic2wnILIifaJWB
-	 bXXED5JV5+KnHiZSyUue1VRkuYNKBDEpaJBVGejZ9zkjxhMWwYGMgEpx30YojaHj1Fx0BikMfiet
-	 YW+CcHweEgsCbbAyrkoE4l+mOEvLt9KA/BO3+58PO+jTferVJsf1+dI8q8DnJwvWp+B6oqZDMfMr
-	 ODxPr3R+f8VWcDtU0KsbzYh5tZtPxK/yxM+Bxnauqc3OIP14hIdmMVtuaknP+CG3KvyZgD/eK1X2
-	 44evPD8zQ1YpZJI1faCAMIMlPqLGEs2UMwa9PlKTEiG4fxR9na+/NyCvFNs6geaZWILguboA==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Jiawen Liu <1298662399@qq.com>
-To: mchehab@kernel.org
-Cc: bod@kernel.org,
-	hverkuil+cisco@kernel.org,
-	kees@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jiawen Liu <1298662399@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: as102: drop device reference on probe failure
-Date: Tue, 23 Jun 2026 08:39:05 +0400
-X-OQ-MSGID: <20260623043905.1329318-1-1298662399@qq.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GBDbwnDB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2531F00A3F
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 05:18:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782191927;
+	bh=yhohV7YjvElsAzT2mfcS1W0N3pAPOcaR2oSGtusTcHM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=GBDbwnDBHTMRsgfQcWbxfWUQp7YgKqTISPM1yJYJblNm99oM8l8DhzBe+XW+hoK3D
+	 ouC1pGqYPQcfVeeaafZrLKsFDwUZBj/3tvgp594WWTCUy+TfLbCOb3zhKP3jFSTjLi
+	 W66d2m3DDKC1W3izsDRlalzJmtaVTHH/8cEwItkm+0Q7RbQqaC27kCbLO5SIyxTAwC
+	 dbRUVNavNfl1Oul90k7f13cFJgfI5DsZWA5ys+WMshli+KsQnSnlaz0UljkgYuTc+p
+	 Q0JrLZiGOz/KKztMNc1nxSVgxXXRENTACA5LUqYotMDxzmQQACYcoNkjViXmQkbGZ6
+	 DMX3Mq2JONoUg==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c07ea058c1aso827166866b.2
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 22:18:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ97G493jvUS06HMvYfrQlcxCW0HlFr8E1AJiO20/N+2SR2o/8yqnOWQ5mp7JzpOEk4ZBYWwhjw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEepFAIB4D4yeSvQ+AlmnaNolQ4glvJkKmiqRoFpbI9+SBh5Ii
+	lWita6oXblUizNjq2NDtpQw4QWVGwaIGCQDZgzk57LGsEgJzgeetqj5rv6NT1NWkwkFgAT20cf5
+	VfsFwVZAZgj35enECAOFnGLTawCgpa+w=
+X-Received: by 2002:a17:907:c708:b0:bfe:ed06:5a20 with SMTP id
+ a640c23a62f3a-c10903d460amr43020866b.53.1782191926362; Mon, 22 Jun 2026
+ 22:18:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <tencent_61D9C47692BD8C4063364E24FD8181DE1007@qq.com>
+In-Reply-To: <tencent_61D9C47692BD8C4063364E24FD8181DE1007@qq.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 23 Jun 2026 14:18:34 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8ONFMMtCMt49pWTobGr9_OS3E06zzMJ90T7Xz0iud6Aw@mail.gmail.com>
+X-Gm-Features: AVVi8Ccnzb0xyL_wYj8gawXqJZ6E0dSq_Wtlr-6nG5iY59gDQOJGiQeUUcLGv2o
+Message-ID: <CAKYAXd8ONFMMtCMt49pWTobGr9_OS3E06zzMJ90T7Xz0iud6Aw@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: validate NTLMv2 response before updating session key
+To: Haofeng Li <920484857@qq.com>
+Cc: smfrench@gmail.com, pc@manguebit.org, ronniesahlberg@gmail.com, 
+	sprasad@microsoft.com, tom@talpey.com, bharathsm@microsoft.com, 
+	senozhatsky@chromium.org, dhowells@redhat.com, metze@samba.org, 
+	chenxiaosong@chenxiaosong.com, linux-cifs@vger.kernel.org, 
+	Haofeng Li <13266079573@163.com>, Haofeng Li <lihaofeng@kylinos.cn>, stable@vger.kernel.org, 
+	ChenXiaoSong <chenxiaosong@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-as102_usb_probe() initializes the kref and takes a USB device reference
-before registering the USB minor.
-
-The change named in the Fixes tag avoided freeing as102_dev directly
-after usb_register_dev() succeeds, because userspace can open the minor
-before a later probe failure and hold an extra kref until release.
-
-However, the stream-allocation and DVB-registration failure paths now
-deregister the USB minor and return without dropping the probe path
-initial kref. That leaves the USB device reference held by as102_dev
-leaked.
-
-Drop the initial reference with kref_put() after usb_deregister_dev(). If
-no userspace file is open, as102_usb_release() releases the USB device
-and frees as102_dev immediately. If a file is open, the final free is
-deferred until the last file release drops the remaining kref.
-
-Fixes: 8bd29dbe03fc ("media: as102: fix to not free memory after the device is registered in as102_usb_probe()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiawen Liu <1298662399@qq.com>
----
- drivers/media/usb/as102/as102_usb_drv.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/media/usb/as102/as102_usb_drv.c b/drivers/media/usb/as102/as102_usb_drv.c
-index a11024451ceb..ad6c5837f1d7 100644
---- a/drivers/media/usb/as102/as102_usb_drv.c
-+++ b/drivers/media/usb/as102/as102_usb_drv.c
-@@ -405,6 +405,7 @@ static int as102_usb_probe(struct usb_interface *intf,
- failed_stream:
- 	usb_set_intfdata(intf, NULL);
- 	usb_deregister_dev(intf, &as102_usb_class_driver);
-+	kref_put(&as102_dev->kref, as102_usb_release);
- 	return ret;
- failed:
- 	usb_put_dev(as102_dev->bus_adap.usb_dev);
-
-base-commit: 9e7e6633458362db72427b48effad8d759131c35
--- 
-2.34.1
-
+On Tue, Jun 23, 2026 at 10:31=E2=80=AFAM Haofeng Li <920484857@qq.com> wrot=
+e:
+>
+> From: Haofeng Li <lihaofeng@kylinos.cn>
+>
+> ksmbd_auth_ntlmv2() derives the NTLMv2 session key into
+> sess->sess_key before it verifies the NTLMv2 response.
+> ksmbd_decode_ntlmssp_auth_blob() then continues into KEY_XCH even
+> when ksmbd_auth_ntlmv2() failed.
+>
+> With SMB3 multichannel binding, the failed authentication operates on
+> an existing session and the session setup error path does not expire
+> binding sessions. A client can send a binding session setup with a
+> bad NT proof and KEY_XCH and still modify sess->sess_key before
+> STATUS_LOGON_FAILURE is returned.
+>
+> Relevant path:
+>
+>   smb2_sess_setup()
+>     -> conn->binding =3D true
+>     -> ntlm_authenticate()
+>        -> session_user()
+>        -> ksmbd_decode_ntlmssp_auth_blob()
+>           -> ksmbd_auth_ntlmv2()
+>              -> calc_ntlmv2_hash()
+>              -> hmac_md5_usingrawkey(..., sess->sess_key)
+>              -> crypto_memneq() returns mismatch
+>           -> KEY_XCH arc4_crypt(..., sess->sess_key, ...)
+>     -> out_err without expiring the binding session
+>
+> Derive the base session key into a local buffer and copy it to
+> sess->sess_key only after the proof matches. Return immediately on
+> authentication failure so KEY_XCH is only processed after successful
+> authentication.
+>
+> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+> Fixes: f9929ef6a2a5 ("ksmbd: add support for key exchange")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Haofeng Li <lihaofeng@kylinos.cn>
+> Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Applied it to #ksmbd-for-next-next.
+Thanks!
