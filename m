@@ -1,68 +1,87 @@
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D50377574
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 11:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41DBB3D4119
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 11:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782213692; cv=none; b=ibSvX7LehkYX2bgFnHaiQIdtrDGycfpRBHveThsTlPK7b7SQMxdn89G/kexEkh58YkurFd8+a36xAKj6xbA5MmK3mY8XLxW21mKcO6WJG0SMmpyQM87tWWZ6XBVOuB66SIvR6BEKMXbe6tWUswIcRtLp8rHf/DnwKOrNn++77Io=
+	t=1782213752; cv=none; b=gS52LtKlsDWGgTCc/vVtTkXIjglENoJdlhQXCMgns/9q+Y1o2HniOoda3XVVDRFvkZEDYzmUkKRMniCDj9DAyluJv5PH7ULbfUw6sr8PYcKLFfwdQ3k7eMeMBNuXGO+IUtJtwWTu1ZdIt/PVie9kP/SI7EFcvaw/Ng83AgJ3d8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782213692; c=relaxed/simple;
-	bh=DvUc4qs6pGlAq5YVheN9HonjTAdavu+DHluLkjiJn8E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kmDJOVe1UhMta8ah13T1mOpobcDY5MODXwQOc2npV4FyTyw3i7RHWVH13tOEnIcWgRK7MR9IuMScGrOMHnUqYGX5oYSkmOwzhXTgMv7szWXbvx9UAb8uubCt9YiI8jrgif3BeBY+YdXhdY8hrbZvO+IWGYHV4EeEVVTCvwvOWsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vw2YvPfh; arc=none smtp.client-ip=209.85.167.169
+	s=arc-20240116; t=1782213752; c=relaxed/simple;
+	bh=S2wixHTY5PpR7xzLsbG2IqKF1SaBjFwr2zTAieLWxXw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GAGAQ4csOFmh+JGSPVVslkMRGTQfDCrQhwuJkCr6JojNV0kbWu2tjfspzrD0tMscGc1neKb+xjjhkhVqy57DEd8/Y8eSiGRqgASc64hE7sFRG2mUT5h0DPGEKDtJCXSjMVfrpcYQEC3YCwKIaX+IIGslOXlA2rS8rRRXCvpPcGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bsfX8BvI; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vw2YvPfh"
-Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4864a5c83f1so3059031b6e.0
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 04:21:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bsfX8BvI"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490cf3000f0so57378095e9.1
+        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 04:22:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782213691; x=1782818491; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782213750; x=1782818550; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=EMH/IcGTLo6vZoiysZQe+TRMu5P99Nsjkh7igJAUCYU=;
-        b=Vw2YvPfhpfKU+mNZYC+++Kf3Z0vI7PnmU4qOhiOD0WO+ZoAUnfK6sjl1b8qcLrHZL9
-         gFEpWmhYqN/D+nNRIcLtMOOeYoxtAdDyfbPBOOVmB2kUaDLpwA4iOiQes7MbIzZLO66T
-         Jn7dYQxwejtoik6yodSnJRS2juf+nyRH/nZKKDgAC8A2eC8ngverb5Px7/VBL4hR6vKC
-         N3Vu/pNjeSGJijnMSP+G45kfefskSA4qhuzc6YtpwL+iJGYl6bFACRTkOcBCTq2L0Sm/
-         rgBdruLgAL+bA6F+3hoXjwR7wKHiWLRbj8G2MYKFdRxPNO9S35UM63rAYJjgdrWvrE2n
-         iDTw==
+        bh=4Ll5fGvrULmASpVjjrUyqyYpgppQmeYjrRkuEZdoatc=;
+        b=bsfX8BvIuCEJWba8m1oEiK+IB3M/pO6Hb9OkWi3LFatWpOwH6zdPW1gfbPSAGYekuk
+         d2V8hs6mhViIsZY/k5wlGzxMjbZOHDfbaC9GbSSTCusqGoIjlBoEmU7RNwMPq78CrrHf
+         RDoowpBFRIufmJ00nvJm2NjjK6SR7M3uOymZB3Fo4uWVTH+cSC3s6WKRIeOru4z7wJAi
+         mK6AEZ9I0AY7DzVDhCPgc2VX374u0JtFT8G0+WKPc4KLGH3cnvVcqh1Tv7lhqpnLKTA+
+         O/2RZ8HuVXcvNUwlEYH5ECjeLpyINra7PtGrBhY6S0D86JuVuZidCIHmpfiMQlLZYDeC
+         h85Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782213691; x=1782818491;
+        d=1e100.net; s=20251104; t=1782213750; x=1782818550;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EMH/IcGTLo6vZoiysZQe+TRMu5P99Nsjkh7igJAUCYU=;
-        b=m4XaU4UZVnbO2MFFvIoF6vcO3oPzjlW7Tif5M2E7DhHmObuK/5phNoXYmsWHiGj3X9
-         qtdu8JVee7IJ8KCosoM/u9eBWXNbKK9iRBuBRJUGcFu0wHQdWTTkuE/e9zIKvUTMjBQ9
-         Oj+kp/QO9XLSvytQ4EkbBbm0xOvr+Y37N3Yj5AlkQYk+xDFdCN4bE2uEvQzWLqi7ZRiR
-         2q6HcT+2nxRWVaEpiYfUGvACPDbnSlm2WDJGyHy49+7Lv/q8ELgGt0ZrfMY9zKwXZJup
-         3nXoEKZpcQnWvw0Z+O9CjkF+D0TPWl+aUXXf3MTpUZKZJQf44f/dac5wVrCfLFUf2n5h
-         mhuA==
-X-Gm-Message-State: AOJu0YwXliUegeTGfkjY14nJtm3kteTESDCHomzWzoCuzB3j8dqPdAPV
-	XWCZ9vbTCwU49ilYPanD+avMky2eje0BAfkftxZr8HBPVvoLq8UkVk1jL990dxXd
-X-Gm-Gg: AfdE7ckzOESPw2KTO3v5tlpqFwPRttdYmhGRCmtcf552jCZRb+tgCh5Ke8ftlhWXBl2
-	/DbaswFinaFwxPUJeDSWsNluW+ig3yLBC1VvoCo5WDz5M2QK4v55Au/szxYL7eMCPMkvhPfdWo2
-	KRXpqiokkp57tb/Zq6goDwJvzgH1K3GBI/n7cCqRkaEyY1rB0vyGxu/97o4qro1rwDyQbd65LT3
-	I1WhOm1p8XBTBYtsrbbkckHqA5pGXenTjkAH6642QWGWmrRgDsg0v6luZW/9WeQmGBWObsO6v1c
-	qrenrA0brDoGepU5nJ2b6pjtrjNnz4yBwXDxKsO+0Uyfxqg9FNvQGyboGHTjuHaXEWLnue1wGKK
-	r4NVKEnrCs9udpaaxgMCDO0sVpz4u5NwcmI9GD7KQ0kCWbdyxrbDQgoUzIcgYTMAPa1C/I/am+0
-	3xO46jk1Gyg65gLf5IaTMug86zCxof
-X-Received: by 2002:a05:6808:1204:b0:489:5caa:68ac with SMTP id 5614622812f47-4896aa62383mr15259240b6e.14.1782213690647;
-        Tue, 23 Jun 2026 04:21:30 -0700 (PDT)
-Received: from GINKO1.localdomain ([216.167.189.32])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e944068feesm8291748a34.11.2026.06.23.04.21.30
+        bh=4Ll5fGvrULmASpVjjrUyqyYpgppQmeYjrRkuEZdoatc=;
+        b=Bahwh1mDEzixfdpbNPZ24RAGjs5ZVRjmqO3qNG6xPXfExzWibYXjyyczANIk1wmsq/
+         W0obYU9rKycDzsh+5537oyOQu6yzZTz5aIlmYpXZAnO0YdHyjc/KpAIAwf1BJXuT/VtE
+         hGNv6g0GyOQSB5wm6EXuvupNJ91VizZRJfaWYK1kFUiGFDpG/pMcXeiR0PaNEXPfRsWQ
+         p0Wwu0MQUsGsIU7ejBLd1p8UfaKRwL3G2ndMoiFJ2ddXKTG0wUPUfEaN7iuv/LjIGU/o
+         1rhzJQ4ylpQxqnutIqrcpjsA0Dfr+dwlDvcoCQ7DH6LodbTJ2H+8Ehvr/DyuDHXfrPBQ
+         SgXg==
+X-Forwarded-Encrypted: i=1; AFNElJ8NTruAOYIfnv4NSFTJ7dhLIMnHV42r745xPept1/HL4seh42m7wkMOBDm7FRPDF6O4xd4ofUs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzrN8FlABpAsRosK35pnmT+0OzVAMemcdzgCL+9mK4fifq291sW
+	w61qY3gDmM7MZQQWdcqkuYlSa9fgkTNUSE+Y95RdYh3L0SMOsydhCgcJ
+X-Gm-Gg: AfdE7clj4KQ5f7+iG9/hMOrwN5uHvSZHF/pK3xYmysuTPrh0H89wsmzFsbBOd6A7D4J
+	vfjtELa/Ma5WthILYgfV8Ynl1mR2wRqKY/P+ffFhU749Htv0dye522PL8VYYm1nFt7394M7c1vD
+	m1HMAEAdEDjRIcs8UqvoxdipI616uvvugxSZDHCuaSeneDTU6qTcVfbl1GaN3BB8MrIwQdgW1AL
+	sZ1BXBzflr8Wb6UBKDRubZE54B9if6y3fH5U5lXtP2MyjiCw/6MP1sJPuc+NM2l6FtRV4XUELlc
+	l1R/6ogTyecsJ/JgEzHKMkjHQVppZLGrR9BljLdF+dwL+Nx4+0lPXtcdmlYri/2Zxj1GbAnC4VH
+	5NKlce4TTTPt0KClBSxNnfiv1xkx19lc23FmaHiJrnnFy3U4avl/0sEhUMuuQeHMyhpRU9qCdkM
+	ZgBOGZl8koOytmHXvZrKJv5ayKYivvO/aaX3OlCDUCZe3mXkpJwtd601X5N3w/6bmCzI2hhvZDC
+	dyJF84Qq5E=
+X-Received: by 2002:a05:600c:4455:b0:492:40f2:4d78 with SMTP id 5b1f17b1804b1-4925b34a2e6mr33035365e9.2.1782213749442;
+        Tue, 23 Jun 2026 04:22:29 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4924923cbe7sm272220715e9.8.2026.06.23.04.22.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 04:21:30 -0700 (PDT)
-From: Michael Pratte <slatoncomputers@gmail.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH] s2io: only arm hardware LSO for GSO skbs
-Date: Tue, 23 Jun 2026 06:21:31 -0500
-Message-ID: <20260623112131.752148-1-slatoncomputers@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        Tue, 23 Jun 2026 04:22:29 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: danishanwar@ti.com,
+	rogerq@kernel.org,
+	andrew+netdev@lunn.ch,
+	netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	m-malladi@ti.com,
+	hawk@kernel.org,
+	john.fastabend@gmail.com,
+	sdf@fomichev.me,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>
+Subject: [PATCH net v2] net: ti: icssg-prueth: fix XDP_TX from the AF_XDP zero-copy RX path
+Date: Tue, 23 Jun 2026 12:22:25 +0100
+Message-ID: <20260623112225.303930-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,57 +90,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-s2io_xmit() enables the Xframe/Xframe-II hardware LSO (TCP segmentation)
-engine whenever the skb's gso_type carries SKB_GSO_TCPV4/TCPV6, and
-programs the segment size from gso_size:
+On XDP_TX from the zero-copy RX path, emac_run_xdp() converts the xsk
+buffer via xdp_convert_zc_to_xdp_frame(), which clones the data into a
+fresh MEM_TYPE_PAGE_ORDER0 page that is not DMA mapped. Transmitting it
+as PRUETH_TX_BUFF_TYPE_XDP_TX derives the DMA address with
+page_pool_get_dma_addr(), reading an uninitialized page->dma_addr, so
+the device DMAs from a bogus address (corrupt TX, or an IOMMU fault).
 
-	offload_type = s2io_offload_type(skb);
-	if (offload_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6)) {
-		txdp->Control_1 |= TXD_TCP_LSO_EN;
-		txdp->Control_1 |= TXD_TCP_LSO_MSS(s2io_tcp_mss(skb));
-	}
+Pick the TX buffer type from the frame's memory type: keep
+PRUETH_TX_BUFF_TYPE_XDP_TX for page_pool frames and use
+PRUETH_TX_BUFF_TYPE_XDP_NDO for the cloned zero-copy frame, which is then
+DMA mapped through the NDO path and unmapped on completion.
 
-Since commit 51466a7545b7 ("tcp: fill shinfo->gso_type at last moment")
-tcp_transmit_skb() sets skb_shinfo(skb)->gso_type unconditionally on
-every TCP skb, including non-GSO frames where gso_size is 0. The driver
-therefore arms the LSO engine with MSS == 0 for ordinary TCP segments
-such as the connection's SYN. The Xframe-II LSO engine treats an MSS of
-0 as an illegal descriptor and aborts the transmit (lso_err_reg reports
-LSO6_ABORT), so the frame is dropped before it reaches the MAC. The
-result is that no TCP can be transmitted on these adapters since v4.2;
-UDP and ICMP (which never carry SKB_GSO_TCPV4) are unaffected.
+While at it, fix the page_pool XDP_TX completion path. A
+PRUETH_TX_BUFF_TYPE_XDP_TX frame carries a page_pool-owned DMA mapping
+(established against rx_chn->dma_dev), yet prueth_xmit_free()
+unconditionally calls dma_unmap_single() on it with tx_chn->dma_dev,
+tearing down a mapping the driver does not own; xdp_return_frame()
+already recycles the page back to the pool. Tag such frames with a
+dedicated PRUETH_SWDATA_XDPF_TX type so the completion path skips the
+unmap, the same way PRUETH_SWDATA_XSK buffers are handled.
 
-Only arm the LSO engine when the skb is actually GSO (gso_size > 0),
-restoring the pre-4.2 behaviour. Non-GSO TCP frames take the normal
-transmit path.
-
-Reproduced and fixed on Linux 6.6.67 with an Xframe-II adapter
-(PCI 17d5:5832); bisected to good v4.1.6 / bad v4.2.2.
-
-Fixes: 51466a7545b7 ("tcp: fill shinfo->gso_type at last moment")
-Signed-off-by: Michael Pratte <slatoncomputers@gmail.com>
+Fixes: 7a64bb388df3 ("net: ti: icssg-prueth: Add AF_XDP zero copy for RX")
+Fixes: 62aa3246f462 ("net: ti: icssg-prueth: Add XDP support")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
-[ Not upstream and cannot be: the s2io driver was removed from mainline in
-  commit aba0138eb7d7 ("net: ethernet: neterion: s2io: remove unused
-  driver"). It still ships in the 6.6.y and 6.12.y stable trees, where this
-  bug is present and the patch applies cleanly. Please apply there. ]
+v2:
+ - fold in the page_pool XDP_TX completion-path unmap fix raised by
+   Meghana Malladi: tag page_pool TX frames with PRUETH_SWDATA_XDPF_TX
+   so prueth_xmit_free() skips dma_unmap_single() on a pool-owned
+   mapping; xdp_return_frame() already recycles the page.
+ - add Fixes: 62aa3246f462 for that path.
+ - no change to the original zero-copy fix.
+v1: https://lore.kernel.org/netdev/20260620213756.87499-1-devnexen@gmail.com
+ drivers/net/ethernet/ti/icssg/icssg_common.c | 20 +++++++++++++++++---
+ drivers/net/ethernet/ti/icssg/icssg_prueth.h |  1 +
+ 2 files changed, 18 insertions(+), 3 deletions(-)
 
- drivers/net/ethernet/neterion/s2io.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/neterion/s2io.c b/drivers/net/ethernet/neterion/s2io.c
-index 1e55ccb..9988ff9 100644
---- a/drivers/net/ethernet/neterion/s2io.c
-+++ b/drivers/net/ethernet/neterion/s2io.c
-@@ -4105,7 +4105,7 @@ static netdev_tx_t s2io_xmit(struct sk_buff *skb, struct net_device *dev)
- 	}
+diff --git a/drivers/net/ethernet/ti/icssg/icssg_common.c b/drivers/net/ethernet/ti/icssg/icssg_common.c
+index 82ddef9c17d5..96c8bf5ef671 100644
+--- a/drivers/net/ethernet/ti/icssg/icssg_common.c
++++ b/drivers/net/ethernet/ti/icssg/icssg_common.c
+@@ -185,7 +185,7 @@ void prueth_xmit_free(struct prueth_tx_chn *tx_chn,
+ 	first_desc = desc;
+ 	next_desc = first_desc;
+ 	swdata = cppi5_hdesc_get_swdata(first_desc);
+-	if (swdata->type == PRUETH_SWDATA_XSK)
++	if (swdata->type == PRUETH_SWDATA_XSK || swdata->type == PRUETH_SWDATA_XDPF_TX)
+ 		goto free_pool;
  
- 	offload_type = s2io_offload_type(skb);
--	if (offload_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6)) {
-+	if ((offload_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6)) && skb_is_gso(skb)) {
- 		txdp->Control_1 |= TXD_TCP_LSO_EN;
- 		txdp->Control_1 |= TXD_TCP_LSO_MSS(s2io_tcp_mss(skb));
- 	}
+ 	cppi5_hdesc_get_obuf(first_desc, &buf_dma, &buf_dma_len);
+@@ -259,6 +259,7 @@ int emac_tx_complete_packets(struct prueth_emac *emac, int chn,
+ 			napi_consume_skb(skb, budget);
+ 			break;
+ 		case PRUETH_SWDATA_XDPF:
++		case PRUETH_SWDATA_XDPF_TX:
+ 			xdpf = swdata->data.xdpf;
+ 			dev_sw_netstats_tx_add(ndev, 1, xdpf->len);
+ 			total_bytes += xdpf->len;
+@@ -769,7 +770,8 @@ u32 emac_xmit_xdp_frame(struct prueth_emac *emac,
+ 	k3_udma_glue_tx_dma_to_cppi5_addr(tx_chn->tx_chn, &buf_dma);
+ 	cppi5_hdesc_attach_buf(first_desc, buf_dma, xdpf->len, buf_dma, xdpf->len);
+ 	swdata = cppi5_hdesc_get_swdata(first_desc);
+-	swdata->type = PRUETH_SWDATA_XDPF;
++	swdata->type = buff_type == PRUETH_TX_BUFF_TYPE_XDP_TX ?
++		PRUETH_SWDATA_XDPF_TX : PRUETH_SWDATA_XDPF;
+ 	swdata->data.xdpf = xdpf;
+ 
+ 	/* Report BQL before sending the packet */
+@@ -804,6 +806,7 @@ EXPORT_SYMBOL_GPL(emac_xmit_xdp_frame);
+  */
+ static u32 emac_run_xdp(struct prueth_emac *emac, struct xdp_buff *xdp, u32 *len)
+ {
++	enum prueth_tx_buff_type tx_buff_type;
+ 	struct net_device *ndev = emac->ndev;
+ 	struct netdev_queue *netif_txq;
+ 	int cpu = smp_processor_id();
+@@ -826,11 +829,21 @@ static u32 emac_run_xdp(struct prueth_emac *emac, struct xdp_buff *xdp, u32 *len
+ 			goto drop;
+ 		}
+ 
++		/* In AF_XDP zero-copy mode xdp_convert_buff_to_frame()
++		 * clones the xsk buffer into a fresh MEM_TYPE_PAGE_ORDER0
++		 * page that is not DMA mapped. Such a frame must be mapped
++		 * via the NDO path; only a page pool-backed frame already
++		 * carries a usable page_pool DMA address.
++		 */
++		tx_buff_type = xdpf->mem_type == MEM_TYPE_PAGE_POOL ?
++				PRUETH_TX_BUFF_TYPE_XDP_TX :
++				PRUETH_TX_BUFF_TYPE_XDP_NDO;
++
+ 		q_idx = cpu % emac->tx_ch_num;
+ 		netif_txq = netdev_get_tx_queue(ndev, q_idx);
+ 		__netif_tx_lock(netif_txq, cpu);
+ 		result = emac_xmit_xdp_frame(emac, xdpf, q_idx,
+-					     PRUETH_TX_BUFF_TYPE_XDP_TX);
++					     tx_buff_type);
+ 		__netif_tx_unlock(netif_txq);
+ 		if (result == ICSSG_XDP_CONSUMED) {
+ 			ndev->stats.tx_dropped++;
+@@ -1395,6 +1408,7 @@ void prueth_tx_cleanup(void *data, dma_addr_t desc_dma)
+ 		dev_kfree_skb_any(skb);
+ 		break;
+ 	case PRUETH_SWDATA_XDPF:
++	case PRUETH_SWDATA_XDPF_TX:
+ 		xdpf = swdata->data.xdpf;
+ 		xdp_return_frame(xdpf);
+ 		break;
+diff --git a/drivers/net/ethernet/ti/icssg/icssg_prueth.h b/drivers/net/ethernet/ti/icssg/icssg_prueth.h
+index df93d15c5b78..00bb760d68a9 100644
+--- a/drivers/net/ethernet/ti/icssg/icssg_prueth.h
++++ b/drivers/net/ethernet/ti/icssg/icssg_prueth.h
+@@ -153,6 +153,7 @@ enum prueth_swdata_type {
+ 	PRUETH_SWDATA_CMD,
+ 	PRUETH_SWDATA_XDPF,
+ 	PRUETH_SWDATA_XSK,
++	PRUETH_SWDATA_XDPF_TX,
+ };
+ 
+ enum prueth_tx_buff_type {
 -- 
-2.54.0
+2.53.0
 
