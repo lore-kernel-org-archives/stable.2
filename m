@@ -1,76 +1,56 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from confino.investici.org (confino.investici.org [93.190.126.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6EB30BF69
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 16:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F25283FDD;
+	Tue, 23 Jun 2026 16:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.190.126.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782232166; cv=none; b=ib+AtQHgGGZpIZd+lfvASLckNEoOUtsuMAnIOjf0+x5X/ajNsJDmWwRXjzIQmldsT0XIL/xvz2Kptyorw9J62Ar2ICkpJMRJnaUryZTe6e8ePt/MFWLWPkY9ldYLnVPDLTnbf+n/la5qf5zdcxa7yMh2OmLvgrvjVYrgEdAdvqY=
+	t=1782232684; cv=none; b=X1it0ncMjYeXxMKQkmmxQuoxcmv95j5KGyJeAgNN0z9gHDMZvfyUJKk8kBW6lGgJOUG9Yhh0nq7ATviakbQGMPTWEPh8mrIbys7sjiUifRjGC2rwP8+fWdBCo6hLM8n+EYwQrMgv98W5EC4rJ1CpSaxEUuRsY1A3liXDBNTuLak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782232166; c=relaxed/simple;
-	bh=sgRb9QrPcs9oS6CnpRhT2PvipgYjDvnpOalhc9QTUDM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q5x73Gfdamqye01YuGk9yEu6+Ak27OCNKy62zqLsUgG1UioO5eJw5l6T8aR5uR3Iyr40h28DSag1qGqCMUSzVfhnGizYlF78onAZFQE85SWt2zEUWC0DlzgBLCSTmX/Nd3XnSsBye7uUL4jRQ3T44HEfBCU1TNtLDjsVCxlA9R4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jri6Zncz; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782232684; c=relaxed/simple;
+	bh=a5OC2JOF3YPtiGGkxWl6MQIADOn8x8NC/hZkuflqIO4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Xo48LM+U+qLzrA6I+WrpuCpu7gTvZDvaDTq6l51cpGK9Q+7RazjV7FJsPDL9IY0yGAHB9IOgSFNcSQZn1zWCJma7R+XrlSacZyPk3OcD/XDAfpJdhVL9qole5XZ2spL+k99i+/UQaaH0LSVAuvkDzrhrmJWjI4243D7a+8z3Ac0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=SOUjBCpR; arc=none smtp.client-ip=93.190.126.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jri6Zncz"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36b9ec98144so113101a91.1
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 09:29:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782232163; x=1782836963; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=533kl146Q9+rB3ShsS7d/jyf2XCjy3Sxnhb3Dedl6lw=;
-        b=jri6ZnczSI4UEmEvFxsURYgWDu7lHGossvYkpmJPelZC5VQgjmfUhO1tAo/ILwTfuj
-         EqZa7OPo7NZiVtoccUgT+nGmxxgUQBQiiS/Uw9W9yph0807Nwiq56uCTJiqPSYTv7jFV
-         Frg7S8Q1sGkhnDS0Be8OU2wvEsehfHiFxRcAyBOQ73CliPFdpME9jc7mHpTbvUX/X9Qo
-         AmyZVOStIiCcu7BqMWiP5LAdOomn2ypuDXCw5P0Q5DAekcR4PBCg+fYsNWzHH6kpMeD+
-         ctZEafFzuGs5WJtQKRfaAp8Qpxz/eBt6VMA+6FfDRlpl8iG1dFZ6HBOfngERF/LutEYk
-         pq4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782232163; x=1782836963;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=533kl146Q9+rB3ShsS7d/jyf2XCjy3Sxnhb3Dedl6lw=;
-        b=rvcJkov5PHDKePEkLUtNq3bHjuzy2B81OjvxDVkadixerDVdXqSE4yiSEewYUuNtH2
-         Cb0IsIJfL60VVg4tNGd9NN7vwRjuCMfFGpXpdZGzQUpxIiwmaDrsFlOO1yZPysbFI91e
-         1x16ZDeYk17DkmWZvaqC3hVO9cmq5Zu17Vq5+iok/Bf6uUS3c6QoKYqT0NLZ3BcnfxyH
-         1kVTVXYpPgLeEUmeJhqdxB0g4w1N07SNspLG8CtCXzoi/SNhWI9koR+Z1EoqyEanIi6v
-         OvRYak+4hZuMH3QJs0piLmTeWJ6GQGk8+tvzDPZlqkM3lrBnkbfiLV2xL0P6m/aAvx+a
-         cRfw==
-X-Forwarded-Encrypted: i=1; AHgh+RrvVDgME4EZBLV8An9aKYhM9g4oIKU4WIolDf8g2x7+XrVbaTJvh+oLKveVGeOU5KSdx0oS5Xw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzG6rAcoosFfe5wRNRzzh6xg9wFwTemGPFnC20CC1ugITPhEc3m
-	rM4OLImgl8NkokPDXQpOnD+TmMTKo7lB0KZb103ls2aT1+OpMh8uZJLc
-X-Gm-Gg: AfdE7cnr9g7looenmeQ5eT10SIAwwnwS4i2nQT4a1rv33ZdGIRpn+DzYbi0wrcG5j3m
-	AH4xJBBbYc5cGE8W7aiaAIGYMTuFqk1XZby/VfIDDi6VjqM3CzlHezy7s3neXdy0bYBqs/0BGwt
-	kwrjss5FhUCuiW+b0ETsYpY9kIhqiSLIkaNhfiO4zGkXVZ+1xDCWRAkyTBSLUfSdESUXQ2/1zJl
-	5FKYljkAc8DbSaFemXwmhmY1l7ARYGMr/ex8Ljw8/Da6pO746KcOUCKgwLMZKM4xTTyvxWHGPqj
-	gE/UIbq07BbCqDGLVL0H2IGHBUpNubI4HXnZ0qlOQ/OH2J7TBqy8qwDdwNoH9ErUU7k5XTq2Ktg
-	PTXUhEkB4wAzdRJkc0rfwDH8fWVD9OmIt8vBGN+WD5uc8Ie3yRfjMgZ3T8FfVsRXOaLhpRms7ph
-	aGSVzLJqNhDIJmArBXmtN1Ssk8KqCD8tqzO3p8b7isI9c=
-X-Received: by 2002:a17:903:32c8:b0:2bf:1e37:a2ff with SMTP id d9443c01a7336-2c74175fb03mr157565595ad.0.1782232163071;
-        Tue, 23 Jun 2026 09:29:23 -0700 (PDT)
-Received: from sprasad-dev1.corp.microsoft.com ([167.220.110.216])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c743bfdc97sm135185485ad.65.2026.06.23.09.29.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 09:29:22 -0700 (PDT)
-From: nspmangalore@gmail.com
-X-Google-Original-From: sprasad@microsoft.com
-To: linux-cifs@vger.kernel.org,
-	smfrench@gmail.com,
-	pc@manguebit.org,
-	bharathsm@microsoft.com,
-	dhowells@redhat.com,
-	henrique.carvalho@suse.com,
-	ematsumiya@suse.de
-Cc: Shyam Prasad N <sprasad@microsoft.com>,
+	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="SOUjBCpR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
+	s=stigmate; t=1782232681;
+	bh=ew/LlPLw3Lt+f/j01bC1s7trU+R/AxgJa4nxqXWW84s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=SOUjBCpRFJEBDCvpTKdlmUMx771wapPNm6YSGdCtwMiaY+dxe2a26oik5hWlSYj+d
+	 8mG5IsXmotNVJiQcPgStBJr+2uU2HpQ2J572izQknyn8RDKpF6cdXSImocThXlxTT/
+	 5v1tndf+BiDSt/jOHeSsg2ymmR3K+C4LsT7yKblA=
+Received: from mx1.investici.org (unknown [127.0.0.1])
+	by confino.investici.org (Postfix) with ESMTP id 4gl9jP4zf7z110k;
+	Tue, 23 Jun 2026 16:38:01 +0000 (UTC)
+Received: by mx1.investici.org (Postfix) id 4gl9jN59Clz10xM;
+	Tue, 23 Jun 2026 16:38:00 +0000 (UTC)
+From: Bradley Morgan <include@grrlz.net>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev
+Cc: Fuad Tabba <tabba@google.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Quentin Perret <qperret@google.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Bradley Morgan <include@grrlz.net>,
 	stable@vger.kernel.org
-Subject: [PATCH v6 01/17] cifs: invalidate cfid on unlink/rename/rmdir
-Date: Tue, 23 Jun 2026 21:58:54 +0530
-Message-ID: <20260623162910.343930-1-sprasad@microsoft.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH v2 1/2] KVM: arm64: skip pKVM cache flushes for non cacheable mappings
+Date: Tue, 23 Jun 2026 16:37:55 +0000
+Message-ID: <20260623163756.4591-1-include@grrlz.net>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260623160339.15143-1-include@grrlz.net>
+References: <20260623160339.15143-1-include@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,96 +59,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shyam Prasad N <sprasad@microsoft.com>
+pKVM keeps its own mapping list for stage 2 operations. Its flush path
+uses that list directly, so it lost the PTE attribute check done by the
+generic stage 2 walker.
 
-Today we do not invalidate the cached_dirent or the entire
-parent cfid when a dentry in a dir has been removed/moved.
+Record whether a mapping is cacheable and skip cache maintenance for
+mappings that are not cacheable.
 
-This change invalidates the parent cfid so that we don't serve
-directory contents from the cache.
-
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Shyam Prasad N <sprasad@microsoft.com>
+Fixes: e912efed485a ("KVM: arm64: Introduce the EL1 pKVM MMU")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bradley Morgan <include@grrlz.net>
 ---
- fs/smb/client/inode.c | 30 +++++++++++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+Changes in v2:
+- Add patch 2 for the pKVM permission fault mapping cache bug.
 
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 6c22fc3267500..51fb7c418d52a 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -28,6 +28,23 @@
- #include "cached_dir.h"
- #include "reparse.h"
+ arch/arm64/include/asm/kvm_pkvm.h | 1 +
+ arch/arm64/kvm/pkvm.c             | 8 +++++++-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/include/asm/kvm_pkvm.h b/arch/arm64/include/asm/kvm_pkvm.h
+index 74fedd9c5ff0..d9dd8239910d 100644
+--- a/arch/arm64/include/asm/kvm_pkvm.h
++++ b/arch/arm64/include/asm/kvm_pkvm.h
+@@ -196,6 +196,7 @@ struct pkvm_mapping {
+ 	u64 gfn;
+ 	u64 pfn;
+ 	u64 nr_pages;
++	bool cacheable;
+ 	u64 __subtree_last;	/* Internal member for interval tree */
+ };
  
-+static void cifs_invalidate_cached_dir(struct cifs_tcon *tcon,
-+				       struct dentry *parent)
-+{
-+	struct cached_fid *parent_cfid = NULL;
+diff --git a/arch/arm64/kvm/pkvm.c b/arch/arm64/kvm/pkvm.c
+index 428723b1b0f5..105ab1258066 100644
+--- a/arch/arm64/kvm/pkvm.c
++++ b/arch/arm64/kvm/pkvm.c
+@@ -473,6 +473,8 @@ int pkvm_pgtable_stage2_map(struct kvm_pgtable *pgt, u64 addr, u64 size,
+ 	mapping->gfn = gfn;
+ 	mapping->pfn = pfn;
+ 	mapping->nr_pages = size / PAGE_SIZE;
++	mapping->cacheable = !(prot & (KVM_PGTABLE_PROT_DEVICE |
++				       KVM_PGTABLE_PROT_NORMAL_NC));
+ 	pkvm_mapping_insert(mapping, &pgt->pkvm_mappings);
+ 
+ 	return ret;
+@@ -517,9 +519,13 @@ int pkvm_pgtable_stage2_flush(struct kvm_pgtable *pgt, u64 addr, u64 size)
+ 	struct pkvm_mapping *mapping;
+ 
+ 	lockdep_assert_held(&kvm->mmu_lock);
+-	for_each_mapping_in_range_safe(pgt, addr, addr + size, mapping)
++	for_each_mapping_in_range_safe(pgt, addr, addr + size, mapping) {
++		if (!mapping->cacheable)
++			continue;
 +
-+	if (!tcon || !parent)
-+		return;
-+
-+	if (!open_cached_dir_by_dentry(tcon, parent, &parent_cfid)) {
-+		mutex_lock(&parent_cfid->dirents.de_mutex);
-+		parent_cfid->dirents.is_valid = false;
-+		parent_cfid->dirents.is_failed = true;
-+		mutex_unlock(&parent_cfid->dirents.de_mutex);
-+		close_cached_dir(parent_cfid);
+ 		__clean_dcache_guest_page(pfn_to_kaddr(mapping->pfn),
+ 					  PAGE_SIZE * mapping->nr_pages);
 +	}
-+}
-+
- /*
-  * Set parameters for the netfs library
-  */
-@@ -2067,6 +2084,9 @@ static int __cifs_unlink(struct inode *dir, struct dentry *dentry, bool sillyren
- 		cifs_set_file_info(inode, attrs, xid, full_path, origattr);
  
- out_reval:
-+	if (!rc && dentry->d_parent)
-+		cifs_invalidate_cached_dir(tcon, dentry->d_parent);
-+
- 	if (inode) {
- 		cifs_inode = CIFS_I(inode);
- 		cifs_inode->time = 0;	/* will force revalidate to get info
-@@ -2378,7 +2398,6 @@ int cifs_rmdir(struct inode *inode, struct dentry *direntry)
- 	}
- 
- 	rc = server->ops->rmdir(xid, tcon, full_path, cifs_sb);
--	cifs_put_tlink(tlink);
- 
- 	cifsInode = CIFS_I(d_inode(direntry));
- 
-@@ -2388,6 +2407,8 @@ int cifs_rmdir(struct inode *inode, struct dentry *direntry)
- 		i_size_write(d_inode(direntry), 0);
- 		clear_nlink(d_inode(direntry));
- 		spin_unlock(&d_inode(direntry)->i_lock);
-+		if (direntry->d_parent)
-+			cifs_invalidate_cached_dir(tcon, direntry->d_parent);
- 	}
- 
- 	/* force revalidate to go get info when needed */
-@@ -2402,6 +2423,7 @@ int cifs_rmdir(struct inode *inode, struct dentry *direntry)
- 
- 	inode_set_ctime_current(d_inode(direntry));
- 	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
-+	cifs_put_tlink(tlink);
- 
- rmdir_exit:
- 	free_dentry_path(page);
-@@ -2668,6 +2690,12 @@ cifs_rename2(struct mnt_idmap *idmap, struct inode *source_dir,
- 	}
- 
- 	/* force revalidate to go get info when needed */
-+	if (!rc) {
-+		cifs_invalidate_cached_dir(tcon, source_dentry->d_parent);
-+		if (target_dentry->d_parent != source_dentry->d_parent)
-+			cifs_invalidate_cached_dir(tcon, target_dentry->d_parent);
-+	}
-+
- 	CIFS_I(source_dir)->time = CIFS_I(target_dir)->time = 0;
- 
- cifs_rename_exit:
+ 	return 0;
+ }
 -- 
-2.43.0
-
+2.53.0
