@@ -1,145 +1,119 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941973451C8;
-	Tue, 23 Jun 2026 19:15:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D0F38B142;
+	Tue, 23 Jun 2026 19:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782242120; cv=none; b=rlDQXYQO37B60D+XlnYOAiII/UaZ8ifx1v/kq5WDc7Um0MR5ovfcixTY9ICd20MZiyxrSda3cOsAIVkEdUfpQwg5+VjeBU+oYLToaRxQkmnz93RqEE1yRc4r5a/0kSGjnyhnuP2QMvyfFR8fM/i8iLubGCbluz9fPsUuD4WGVHI=
+	t=1782242624; cv=none; b=lMrHSb0na2xm3P46w4gFHGkpUMDpDgsvpBGKn7EVMQnvMvE6lGvHzAoSycUi3zgKBRFLPO30rc6vR4q9/qf1h69sC8fX1iC9XblEiI3TkfvLVSx7sWkfkcLctreauhZfBqsKvrbgIEVHToq2RLbXfpfcG2OiiT2kCQYb9hU8fuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782242120; c=relaxed/simple;
-	bh=+4w1cwmGCOBfNgnh9CjNJLL2xzFGrpbytR5Ln7c/FWA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V7PC3ILcHKw9mVjrDHazzXricUXXhQlQBEW810ZsvXcXChHGJBw/FPcnE1Kl6+h2zntQA+tDDpo9IM2J0EfpO4oFA86Sxy2EKttSBbKWmc3416CoLMpD1KSoMAFnjMfxLU0JCZ0syahml6Tx57bIn3itdDSW/pDnWBSQOrpPsdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Vod6nmLW; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1782242624; c=relaxed/simple;
+	bh=O7DR9ILkd2nJoHBh2TQnDbYT3Y7Ne14/dVuQzQqfa9k=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fdlo3GaTifF/lhesZvYzgEMoxkN7MG8lljtf7FHw6nQednR8JfRW7xy0kndH1SJW08xQFj/H2KBuqwpAt6TRM4TWDwyPJv47yHJ4Fb/SAspC28z2YtW9lrEaNqjZBp/xMyadO+s8fYWSIv2tgi7Z5PXb0XLgoSAU3RXnAy11ck4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WShvWu8F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Vod6nmLW"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65NBmRZL1914627;
-	Tue, 23 Jun 2026 19:15:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=QFGzWOrOeMaGW9Uc4
-	5BDxkQB2n97WnL5QNSYwhNDk4E=; b=Vod6nmLWfGJFIWWivCsfIIg0vd9L5LJrt
-	IK2pjHqFkyP3RzKI+jARXPMZMLoc4EhOy6t70pchSzT7SsnlEtLrrjgjlHWRMGSe
-	W0fD/SEI+0ps94ZYLvvtlzKPy+oCqF746JdWKqJTO5loYS8MW2vZc8opb6H5jiPz
-	amDcFHELYWVKp3AxwOGWiRfz47F6I0IdXBEOc3ol6eWG9mVnnyng8Y83P+0Nu9TH
-	bvqz1bbM1OC1UiCqm9a0f67B2w5KUL9uHNvO8G7yYkZ3P4ZFmGEjB3b+INT7mDK3
-	O07hPhqw+zasS2NLmbIPAly4QXh9SaLwdovqV0sLDL8wxL/5ByhxA==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ewjk4geja-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 23 Jun 2026 19:15:04 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65NJ4em7015733;
-	Tue, 23 Jun 2026 19:15:03 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ex7dg4rd0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 23 Jun 2026 19:15:03 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65NJF0GP38601018
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 23 Jun 2026 19:15:00 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F26F52004D;
-	Tue, 23 Jun 2026 19:14:59 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A65302004B;
-	Tue, 23 Jun 2026 19:14:57 +0000 (GMT)
-Received: from ltcrain4-lp15.ltc.tadn.ibm.com (unknown [9.5.7.39])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 23 Jun 2026 19:14:57 +0000 (GMT)
-From: adubey@linux.ibm.com
-To: bpf@vger.kernel.org
-Cc: hbathini@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com,
-        ast@kernel.org, andrii@kernel.org, daniel@iogearbox.net,
-        shuah@kernel.org, linux-kselftest@vger.kernel.org,
-        stable@vger.kernel.org, Abhishek Dubey <adubey@linux.ibm.com>,
-        sashiko-bot@kernel.org
-Subject: [PATCH bpf v9 8/8] powerpc64/bpf: fix percpu private stack leak on JIT failure
-Date: Tue, 23 Jun 2026 19:14:11 -0400
-Message-ID: <20260623231411.6216-9-adubey@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260623231411.6216-1-adubey@linux.ibm.com>
-References: <20260623231411.6216-1-adubey@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WShvWu8F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E1B61F000E9;
+	Tue, 23 Jun 2026 19:23:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782242623;
+	bh=/eUnBmyw2rFOllRrbRo6eVqfdlq5TkvvC1+VM9YXfiw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WShvWu8FV9VtCbeNSuU3WtBZKK/Ri3PUigE77CXwQuUY0D3+bwB26QgV+gnHoITwV
+	 n7K3XMkwYI71pqkqNpj5mv+02apbsy8aGitAfGB/8T6XQwE59w+PMP5dZATy+g+Jlm
+	 B/cc5C+aRK4aBueXfjtAwsozb3Zrck8Af0uYhTAGnByUGn5cKojNNwdfyfy5Vbrm3f
+	 bswxYtvL5qtpB6dnfEtg6WIg8UVvlym6aANEoHU4dVfxM0xPMpRoZN24DmZcAn8t8B
+	 Oyp5fWMyGs/lLSnBAl6UrDe4TZFjYO27HxPVf9dlk2X23M0+NkDrVnemc5xWBNhdZs
+	 AfRFMm5ZD/Sdg==
+Date: Tue, 23 Jun 2026 20:23:34 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Herman van Hazendonk <github.com@herrie.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nick
+ Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>, Denis Ciocca
+ <denis.ciocca@gmail.com>, Lars-Peter Clausen <lars@metafoo.de>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Denis Ciocca <denis.ciocca@st.com>, Linus Walleij
+ <linusw@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+ devicetree@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] iio: common: st_sensors: honour channel
+ endianness in read_axis_data
+Message-ID: <20260623202334.2217b1d4@jic23-huawei>
+In-Reply-To: <ajJwzsIMxX3Ew1x_@ashevche-desk.local>
+References: <20260616-submit-iio-lsm303dlh-magn-fixes-v2-0-063edcf74e60@herrie.org>
+	<20260616-submit-iio-lsm303dlh-magn-fixes-v2-1-063edcf74e60@herrie.org>
+	<ajJwzsIMxX3Ew1x_@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=Oph/DS/t c=1 sm=1 tr=0 ts=6a3adb38 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=SJ-jtujo7bo76xSWeacA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDE1NSBTYWx0ZWRfX2H5XoMx5nWWJ
- m62y6PksTNZin6rBCXi4c4pjygPixUARVgoOqwR3VF7zW3wI5yBplclQj4b0EwkRY2eZGweylvn
- dtAWAUAfAqsiRhov16M/8Bbw6oC9V3DGtAuyHOWE268Lr6ubQJssDKkduo4ftMIrNUV2QkJmz8K
- ybL2qODKGrMCS3rLeyCjtvxdbjeewG+EL6Kgs2RhI2tEco/0uZ1EZmDqpqiYs5NldkwL7n2AOQM
- L8NuJvDTjER13EFCi0f8qLmZ4CG/b6MyxGJKswqh3O5FEPoDMEsqC9yzndbWg0xVZff4pzaAlwm
- icr0ymb7L7trZ4R5KWzMCIu0AvqQ5TP+kAxIGAbD+um9AybOLCZazhwz0YiH4Km6oOtJaPEP9SL
- E+hwHvAeeGyLlQjJwvzieeek+VKvpw==
-X-Proofpoint-GUID: xAJjT9n7SPaDfVV7uNdzhCqfg5IRru91
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDE1NSBTYWx0ZWRfX3BkofGrn1xk0
- y2+igvHcNP931PcZu3rd5wgnN1/vOcVXxACR5vzKNepuPl30q19sNDDH+s8hhfq7gAOJ5mRJroJ
- wmBW+AvQOcrJxV2fBIJOoEjhzdNGSek=
-X-Proofpoint-ORIG-GUID: xAJjT9n7SPaDfVV7uNdzhCqfg5IRru91
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-23_03,2026-06-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 suspectscore=0
- malwarescore=0 adultscore=0 classifier=typeunknown authscore=0 authtc=
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2606150000 definitions=main-2606230155
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Abhishek Dubey <adubey@linux.ibm.com>
+On Wed, 17 Jun 2026 13:02:54 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-The existing conditional statement in bpf_int_jit_compile() frees the
-percpu private stack at out_addrs only when the image buffer was never
-allocated.
+> On Tue, Jun 16, 2026 at 03:02:04PM +0200, Herman van Hazendonk wrote:
+> > st_sensors_read_axis_data() unconditionally decoded multi-byte
+> > results with get_unaligned_le16() / get_unaligned_le24() regardless
+> > of the channel's declared scan_type.endianness.
+> >=20
+> > For every ST sensor that has used this helper since it was introduced
+> > this happened to be fine because the ST IMU/accel/gyro/pressure
+> > families publish their data registers as little-endian and the
+> > channel specs in those drivers declare IIO_LE accordingly.
+> >=20
+> > The LSM303DLH magnetometer however publishes its X/Y/Z output as a
+> > pair of big-endian bytes (the H register sits at the lower address,
+> > 0x03/0x05/0x07, and the L register immediately after), and its
+> > channel specs in st_magn_core.c correctly declare IIO_BE -- but
+> > read_axis_data() ignored that and decoded as little-endian, swapping
+> > the high and low bytes of every magnetometer sample. The LSM303DLHC
+> > and LSM303DLM share the same st_magn_16bit_channels (IIO_BE) and
+> > were therefore byte-swapped by the same bug; users of those parts
+> > will see different in_magn_*_raw values after this fix lands.
+> >=20
+> > The bug is most visible on a stationary chip: in earth's field the
+> > true X reading is small and the high byte sits at 0x00, so swapping
+> > the bytes pins sysfs X at exactly the low byte's pattern (e.g. 0x00F0
+> > =3D 240). Y and Z still appear "to vary" because their magnitudes are
+> > larger and the noise in the low byte produces big swings in the
+> > swapped high byte:
+> >=20
+> >   before (LSM303DLH flat, sysfs in_magn_*_raw):
+> >       X=3D240 (stuck), Y=3D 12032..23296, Z=3D-16128..-9728
+> >=20
+> >   after (direct i2c-dev big-endian decode, same chip same orientation):
+> >       X=E2=89=88-4096, Y=E2=89=88210, Z=E2=89=8880     (sensible values=
+ reflecting earth's
+> >                                 ambient field at low gauss range)
+> >=20
+> > Fix read_axis_data() to dispatch on ch->scan_type.endianness and
+> > call get_unaligned_be16() / get_unaligned_be24() when the channel
+> > declares IIO_BE. Existing IIO_LE consumers (st_accel, st_gyro,
+> > st_pressure, st_lsm6dsx and others) are unaffected because their
+> > channel specs already declare IIO_LE and the LE path is unchanged.
+> >=20
+> > While restructuring the branches, replace the previously implicit
+> > silent-success-with-uninitialised-*data fall-through for
+> > byte_for_channel outside 1..3 with an explicit return -EINVAL. No
+> > in-tree ST sensor publishes such a channel, but the new behaviour
+> > is strictly safer than handing userspace garbage. =20
+>=20
+> Sounds like inevitable change in ABI, but worth doing it.
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Applied to the fixes-togreg branch of iio.git. I'll wait until after
+rc1 to send a pull request though (and rebase on rc1 in the meantime).
+The other patches may have to wait, I haven't checked yet!
 
-If bpf_jit_build_body() fails during a code-generation pass, the
-image buffer has already been allocated, so !image is false and the
-percpu stack is not freed.
+Jonathan
 
-Because JIT compilation failed, fp->jited remains at 0. The subsequent
-bpf_jit_free() path only frees priv_stack_ptr when fp->jited is set, so
-freeing is skipped here too, leaking the percpu allocation.
-
-Fix implements freeing the private stack whenever fp->jited was not set,
-i.e. compilation did not succeed, instead of keying off !image. !fp->jited
-already covers the !image case, since image is only NULL on early-failure
-paths where fp->jited is likewise 0.
-
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/bpf/20260616135426.A06B71F000E9@smtp.kernel.org
-Fixes: 156d985123b6 ("powerpc64/bpf: Implement JIT support for private stack")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
----
- arch/powerpc/net/bpf_jit_comp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
-index 171cb6017259..46bbfb6be613 100644
---- a/arch/powerpc/net/bpf_jit_comp.c
-+++ b/arch/powerpc/net/bpf_jit_comp.c
-@@ -403,7 +403,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 				(void *)fimage + FUNCTION_DESCR_SIZE);
- 
- out_addrs:
--		if (!image && priv_stack_ptr) {
-+		if (!fp->jited && priv_stack_ptr) {
- 			fp->aux->priv_stack_ptr = NULL;
- 			free_percpu(priv_stack_ptr);
- 		}
--- 
-2.52.0
+>=20
 
