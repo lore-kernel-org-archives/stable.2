@@ -1,112 +1,150 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0BE3CCFC2
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 08:25:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6AF2E2286
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 08:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782203106; cv=none; b=SZHI2BPmxqx7f1WFCUqJClJjd6elDKWxMFLyWZO2W/B5PDuWbpKrM8So5se1Wc7GeoyhQciFG0488oTlHiVLrCgs9EjuqfNvnu4USWazomBfxKLnMXJm7rwq93G8AAyZD6pM5axLLAJVYK6pTrOUZT8u7awouFE8+H6qIpZNirs=
+	t=1782203292; cv=none; b=qL/mldQtqpk9il3loxzsvH2G3UFBs8JkxJNuxjd4XBy109QCGbIzxxB128vAqTGK2NGsjm2QLOS+ynPgyCme5gM4FyMq2IhUnpWNvNb9O+0I1Ut4r9Qu/2SIztEqe43njnZBzITSF1QUFvNPMMFhMBAFs13gljmvscLlPjwk5q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782203106; c=relaxed/simple;
-	bh=ALu77l9JWVXGe1A3hUFppTa6Pdqm7Gq1p7JR3rm89DU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ogaz4MT4k50mOOF2jzMX8oR8yISvUGFJam5YL+ccwWHKokDu+/iXuj+E3ZgWzhFAEUQxJ9rn0CO48RyNYZ3lp6JQD+t3Jz92xfGG55v7jWvfzueVwtpleT6cHjSX1SWp0TFY+SizHxwL9HTlaPpF92SCg3Rx/yG084NvTKklv2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CrlgJ/mF; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782203292; c=relaxed/simple;
+	bh=z0SXAia8ruPxK/zDm9KXDLErWTklT5oxtPUHHuhfMGA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f08I8+Kh8K7MUFbXOTZeHdsIVw7nRKEqmhWYGRhvI8R1X1NrqTd08wvlONeQ3H6GR78u0+HQjKs82cwlYI7Y6pQFXLls8CvfE8tg0acumiiaVRzPiG5NmbvmnacQQktksAqNm3bREngZTzRBLOH8DGdQmC4/li/nBT7wYP0MP14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=JPC8ilqp; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CrlgJ/mF"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49230a567a9so25856675e9.0
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 01:25:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782203103; x=1782807903; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XqWt0bI44jas3c/HR//JGgX6WMjaPFSRIYH+iY3eOF4=;
-        b=CrlgJ/mFJMMhclIQfH5UZLv8UMNvdShR3QoAmhwaNitLBJcLRiBlrsUfeZl4+ETK0o
-         4hDXPyzbKjpou5rwFUiVCZFpwoJMs5PjTWP0bsAvxy8+eTHkGmAm0AsHRoLfrpD8Nhe1
-         Z/D9N6kTHy/R8yvrioyvVEK5thF71O0azIGQv4KyXXF76QYy+QSbqjyMQ4gJpyv+GhGQ
-         JhRcUwa1k6vQ0vaycjKHi2N4Q3srUolQD0EmNuOM2LgsPfTfGCU55N4qVbKorv/LrHDX
-         W5++kk/lBUw+4g5zhLrkoHyfSHcm/pw9j98V6S0wXeBIoiAjgO1xlFHUzgMMMNdmAGqi
-         J3KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782203103; x=1782807903;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=XqWt0bI44jas3c/HR//JGgX6WMjaPFSRIYH+iY3eOF4=;
-        b=aX8Xdw2L1/Jkfi7WfFjuGUzxLOOgQ1GvhuO1klXKWQkL99EQLeMOmIi1aHZMOutGhX
-         fS3t+HeH5PjCTiSBUHzd2PXhbxGOyV+xeg6FfZSI2qv2/yPecTRniPnP3I2nuznM3Yxz
-         WGFHsLj9mc4ND0HHmEOTo1lB6jwdM4lKZd6P+z9/nYQWbbLFM7Ng3F+7KwosL9E+SWYE
-         IOnixfcugvLdd+mdmeWn6B0vhq+sX6ypRDl6tvC0utrSGOu0hhBvWurZLDrA8jqNbf0R
-         fmr2coI+pjbUW+NvTvTvu2UNNAPbAwcWnEeTFs57dltZe6XyM34HukhcGPjHAq5CrVXI
-         ydWg==
-X-Forwarded-Encrypted: i=1; AFNElJ91uxf5ELn8IZ0wBSnrazMZVXLwcptAbGiKiVdBJhCmnnbcdaAym2q3F3Ee9UbvWiGB5ySH8Fw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzH9hXRXbR+XsRDjiPLhc8XhjqzQWPruDOG8dui1H9FORK0CwEb
-	91+8Vvl65/K8la9tgucYMYgHp7FpJ051DPfcNGPGuDjSe2tuhQ6JCOLN
-X-Gm-Gg: AfdE7cmKCkR8InqH2KM4CqDr5ykYkcHGekfn1GpNnTVRtUZ5z9upSXO8KW3twFdH3vS
-	5kS0Rztlhl0BaiAcWLekNkqcv/je4Nc5VEZOidyMTuunXuaDz37ZD84nFB28N1/F2zJFKZBTELm
-	iBNeKwwMwLAZr/KDR4p3ADRFsTjkb7wnH6cRGr2AepScE591feVA/4lQ65PSBjKhNGW50kIRZJe
-	it9vyZ1axEJhaYM4HGa5oOdsh35wSlw7VBd5Gk95ammvpOwPRtlSBYFGFiNGSBAyadzsZxBKlDS
-	P6wqg2EszBRu9OLN3bSz207tlITqA4AeYFyLrQmeOPZGZcD8rRwbmVVD47/eZD+vKmU9bsTqaqv
-	lrCNGv6wxfg+rFcprgTevvqvc95CKr5lqwnAUqUVV7QmQgxQtJLOJjV624WrmtY/yBN/8O3nZH8
-	fFCSwxsEusRVyD3ITQt0KbdqyK/oVpoumehjdt3q3EfZM1uD8WpQ==
-X-Received: by 2002:a05:600c:348f:b0:492:4636:87ae with SMTP id 5b1f17b1804b1-492463687d1mr271367215e9.17.1782203103276;
-        Tue, 23 Jun 2026 01:25:03 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4924923c862sm262149435e9.7.2026.06.23.01.25.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 01:25:02 -0700 (PDT)
-Date: Tue, 23 Jun 2026 09:25:01 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: David Hu <xuehaohu@google.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen
- <nicolinc@nvidia.com>, Leon Romanovsky <leon@kernel.org>, Kevin Tian
- <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, Alex Williamson
- <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, jmoroni@google.com,
- praan@google.com, kpberry@google.com, sashiko-bot <sashiko-bot@kernel.org>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] dma-buf: Split sgl by largest page-aligned chunk
-Message-ID: <20260623092501.17bef195@pumpkin>
-In-Reply-To: <CAPd9Lg9+d=Rw4230FdcMFd0VYfyhXhD=eju53iURR8c61iXsWw@mail.gmail.com>
-References: <20260621222130.1667453-1-xuehaohu@google.com>
-	<20260622091344.794e0d74@pumpkin>
-	<CAPd9Lg9+d=Rw4230FdcMFd0VYfyhXhD=eju53iURR8c61iXsWw@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="JPC8ilqp"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gkyr56Ljgz9tqv;
+	Tue, 23 Jun 2026 10:28:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1782203285;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gJimQdzybTxzTLGbKtZM1e8rYaAZQLBVJJujT6gBEis=;
+	b=JPC8ilqp8nnQ4aN499Qi/XAZ92ws7JYpGM9wcnJvfQYq2+QgymDOolFOoI3jJ1yyXFc6c7
+	5b1PPRW4aj5BbQYO2eOF7LI/lCw5Oh/CZfTFisW/PFI2Y5FWStfDqSTDtiGe1x31nB70ZS
+	l/J+xIZ8Wp5SLgz4QbpXOuPk0nzfXDb6cmyJ6f5g7GXhAhspDh/b5k5+6b7Ndoi0EdDIsG
+	J18HyzhAun1RI4XTVYVVj5sfCjd9XhVp+r+/Lj19BS9XqoA/9VOH2BLB+wp9Io1IWHA+Ie
+	tbV0ywdxrapdd5WiDHTEZUN0Pyka3iBK5LbV009Mk1uM9n0oLbyKQvN1Y9jycA==
+Message-ID: <f36d5096-b509-42b7-8a11-423c03c05919@mailbox.org>
+Date: Tue, 23 Jun 2026 10:28:00 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Subject: Re: [PATCH v2 2/3] drm/amd/display: check GRPH_FLIP status before
+ sending event
+To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Harry.Wentland@amd.com, mario.limonciello@amd.com, wiagn233@outlook.com,
+ sysdadmin@m1k.cloud, timur.kristof@gmail.com, xaver.hugl@kde.org,
+ mario.kleiner.de@gmail.com, matthew.schwartz@linux.dev, chris@kode54.net,
+ stable@vger.kernel.org
+References: <20260622171752.73374-1-sunpeng.li@amd.com>
+ <20260622171752.73374-3-sunpeng.li@amd.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <20260622171752.73374-3-sunpeng.li@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 4p1kghpoqgpc6odtkt3cgxgochkn6agr
+X-MBO-RS-ID: b2c8e0ce78beb67af8b
 
-On Mon, 22 Jun 2026 17:26:10 -0400
-David Hu <xuehaohu@google.com> wrote:
+On 6/22/26 19:17, sunpeng.li@amd.com wrote:
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index da118377b73a8..732ddafb5cfea 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4135,6 +4135,28 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_display_manager *dm,
+>  	}
+>  }
+>  
+> +static void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
+> +				struct dm_crtc_state *acrtc_state,
+> +				bool pflip_update,
+> +				bool cursor_update)
+> +{
+> +	assert_spin_locked(&acrtc->base.dev->event_lock);
+> +
+> +	if (pflip_update && acrtc->base.state->event &&
+> +	acrtc_state->active_planes > 0) {
+> +		drm_crtc_vblank_get(&acrtc->base);
+> +		WARN_ON(acrtc->pflip_status != AMDGPU_FLIP_NONE);
+> +		/* Arm flip completion handling and event delivery after programming. */
+> +		prepare_flip_isr(acrtc);
+> +	} else if (cursor_update && acrtc_state->active_planes > 0) {
+> +		if (acrtc->base.state->event) {
+> +			drm_crtc_vblank_get(&acrtc->base);
+> +			acrtc->event = acrtc->base.state->event;
+> +			acrtc->base.state->event = NULL;
+> +		}
+> +	}
+> +}
 
-> On Mon, Jun 22, 2026 at 4:13=E2=80=AFAM David Laight
-> <david.laight.linux@gmail.com> wrote:
-> > =20
->=20
-> Hi David,
->=20
-> Thank you for your review. You raised many good points regarding
-> optimizations here. I'll switch to using 2G as the max entry size
-> (`SZ_2G` from `linux/sizes.h`), and remove divisions and
-> multiplications. I'll also replace the `for()` loop with `while
-> (length)`, and drop `min_t()` in favor of `min()` by casting `SZ_2G`
-> to `size_t`.
+This looks like it can be cleaned up a bit (feel free to ignore though):
 
-You shouldn't need a cast at all.
+{
+	assert_spin_locked(&acrtc->base.dev->event_lock);
 
-	David L.
+	if (acrtc->base.state->event && acrtc_state->active_planes > 0) {
+		if (pflip_update) {
+			drm_crtc_vblank_get(&acrtc->base);
+			WARN_ON(acrtc->pflip_status != AMDGPU_FLIP_NONE);
+			/* Arm flip completion handling and event delivery after programming. */
+			prepare_flip_isr(acrtc);
+		} else if (cursor_update) {
+			drm_crtc_vblank_get(&acrtc->base);
+			acrtc->event = acrtc->base.state->event;
+			acrtc->base.state->event = NULL;
+		}
+	}
+}
 
-> I'll send out a v2 with these changes shortly.
->=20
-> Thanks,
-> David
+
+> +	/*
+> +	 * DCE depends on a combination of GRPH_FLIP, VLINE0, and VUPDATE for
+> +	 * event delivery. Only GRPH_FLIP handler can send pflip events, and it
+> +	 * only fires if HW latched to the flip. Maintain legacy behavior by
+> +	 * arming event before programming.
+> +	 */
+> +	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
+> +		scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock)
+> +			dm_arm_vblank_event(acrtc_attach, acrtc_state,
+> +					pflip_present, cursor_update);
+>  	}
+
+Coding style:
+
+	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
+		scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
+			dm_arm_vblank_event(acrtc_attach, acrtc_state,
+					    pflip_present, cursor_update);
+		}
+	}
+
+Nested multi-line statements require curly braces.
+
+
+> +		if (updated_planes_and_streams)
+> +			flip_latched_during_prog =
+> +				!dc_get_flip_pending_on_otg(dm->dc, acrtc_attach->otg_inst);
+
+		if (updated_planes_and_streams) {
+			flip_latched_during_prog =
+				!dc_get_flip_pending_on_otg(dm->dc, acrtc_attach->otg_inst);
+		}
+
+
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
