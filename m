@@ -1,147 +1,197 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527093D4131
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 11:37:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799ED379C23
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 11:37:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782214645; cv=none; b=DS/1dy8rSbUY1q4gsGDG66uyD3tV8jEw5/QGcfSquyBsgYJJiAdWvOCSRyQNzrFprHleExm0av7yz9mOuMNxkOJyseM0JRa8rKLQbAiljZ7CFfxfC/V68ifca7RB0BCdJEJznYxdFXRcGYKxdKY1Fw7gDp6b+oQur7Dhem/Lc6c=
+	t=1782214661; cv=none; b=fp67OXOyF4sW/7pp0UDqyJf6on8REZuBDMUd8AF18N6TDta4GUKPutBLTI99VR21p63WD+TwPpS99fHZNwPiQLLwZaQRIEi2ED5V/7DWn50k0+PGk7W8TrhRXIcDzOm9MVSyreKPSj9BudnQZ31ylTmE7+2XNcHvG1HKNV/zprk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782214645; c=relaxed/simple;
-	bh=/rvnHWxsyjatejwWQprf3f9bMXo+Vb/0KMckYAc718M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JPjsnmIz96UUf6fPHGi8+/FhYZL1MGh8TbuIHGWOB6NTQkXz6nNz7R2PHuY1nnN6lm+EnS7PfndLILjocU2YNQZZfMMZaiuzFGWbmvh9shFJBm7dBIaBY1hTh605NLwVepbXOMwxKFpt5TdgXCUBl3XA7opbKgzybWZcuMXV8f8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NxG5LlWN; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1782214661; c=relaxed/simple;
+	bh=Xu7t+cKPF+EwjZAZnjajT4xCj7gmPCUbCUxOgtEcujE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GmrKslAsNTgFeaM1sXt+bw6bvBV/MfuVS65BJj6aoGUO1vXSfj7TOzjZkEjg4SmIbl7pfHDMVi9vWOQJAghb8cQcKE1W8lNKHDym3DAUFgOseM7MKkzvmN4S44Ir1pxJfkJbSx0JqMJZAzXD+mYWL7mvVClBTGGpnpwRgqJQb0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=GRK4WUuN; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=Lop63WGT; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NxG5LlWN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782214643;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QY/9Nl/VrWcVhdfUgvda7VSgNL1uP8RPDDyNnbWdsHA=;
-	b=NxG5LlWNTy9oXRdbgze5xauuc8gno+gsUAJXpV9ryh2usGlfDpUqXQ4GRFtfCKujf1ca9a
-	rs6Cv0lUbiogLozy1Zy9dC+4TmuDIB2p1vhArCrjThF0Sp5FeGBudMaxN0jzQN96e25eYy
-	YSB+G8ctFeCyJavjPSjPRpHKjD/DWQ0=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-198-pUab9T4nMmyWCqshHQA76g-1; Tue,
- 23 Jun 2026 07:37:20 -0400
-X-MC-Unique: pUab9T4nMmyWCqshHQA76g-1
-X-Mimecast-MFC-AGG-ID: pUab9T4nMmyWCqshHQA76g_1782214637
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="GRK4WUuN";
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="Lop63WGT"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E34EE18009C8;
-	Tue, 23 Jun 2026 11:37:16 +0000 (UTC)
-Received: from fedora (unknown [10.44.49.10])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 68CD33189;
-	Tue, 23 Jun 2026 11:37:10 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Tue, 23 Jun 2026 13:37:16 +0200 (CEST)
-Date: Tue, 23 Jun 2026 13:37:09 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Bradley Morgan <include@grrlz.net>,
-	"Eric W. Biederman" <ebiederm@xmission.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Marco Elver <elver@google.com>,
-	Aleksandr Nogikh <nogikh@google.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Adrian Huang <adrianhuang0701@gmail.com>,
-	Kexin Sun <kexinsun@smail.nju.edu.cn>, linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] signal: avoid shared siginfo namespace rewrites
-Message-ID: <ajpv5bW01_xtlZ6R@redhat.com>
-References: <20260622164029.11474-1-include@grrlz.net>
- <86a8857d58d43ee26a8b365b837fd24830343494.1782159692.git.include@grrlz.net>
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9674275E5C;
+	Tue, 23 Jun 2026 11:37:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1782214658; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CL9yxumRVnFYgGhnjKnvnigfROZ5GpbLesj5lSlnaVo=;
+	b=GRK4WUuNFGU/cx5GdD2K+oEtF9kFr6A6GGZb4qn5Nwn0++9EpNBpIIsHIMD3haXI+hFQr0
+	rGmslD0hVayRayXIBddtXSFC83imupDhnpbG6Ni4M0k5kfNSidc3CO9LvNZSsRYioOs5YB
+	f8n3emNbPG1N22YeWk0Xkb+emvzRakQ=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=Lop63WGT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1782214657; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CL9yxumRVnFYgGhnjKnvnigfROZ5GpbLesj5lSlnaVo=;
+	b=Lop63WGTZwE/8aGPEJkiywLU2Jbgl+oDpbrtpaNhP8c/5BUs6CXPz37tlyTZUbksxA2RTm
+	zHYS7YnE/VaF7bIi0JFoa/v4YcEu5LsHIMK9SHDWlW7DIRFNHDzuu3zEWyxsU5U3QERoi5
+	+TpbmW0jbZqwAnzjeJoMQG7YYBrRESM=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 04447779A8;
+	Tue, 23 Jun 2026 11:37:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id oIfqKf9vOmqDBAAAD6G6ig
+	(envelope-from <wqu@suse.com>); Tue, 23 Jun 2026 11:37:35 +0000
+From: Qu Wenruo <wqu@suse.com>
+To: linux-btrfs@vger.kernel.org
+Cc: syzbot+d950c6ba09b79f6e1864@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] btrfs: do not try compression for data reloc inodes
+Date: Tue, 23 Jun 2026 21:07:14 +0930
+Message-ID: <48f22f6de55d47522ef1a0b9865eebe8a2aa7088.1782214614.git.wqu@suse.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1782214614.git.wqu@suse.com>
+References: <cover.1782214614.git.wqu@suse.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86a8857d58d43ee26a8b365b837fd24830343494.1782159692.git.include@grrlz.net>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	TO_DN_NONE(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[d950c6ba09b79f6e1864];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid,appspotmail.com:email]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 9674275E5C
+X-Spam-Score: -3.01
 
-Add Eric.
+[BUG]
+There is a syzbot report that the check inside get_new_location()
+triggered:
 
-OK, I agree, it seems we need a simple fix.
+ BTRFS info (device loop0): found 31 extents, stage: move data extents
+ BTRFS info (device loop0): leaf 8908800 gen 16 total ptrs 28 free space 1676 owner 18446744073709551607
+        item 0 key (256 INODE_ITEM 0) itemoff 3835 itemsize 160
+                inode generation 5 transid 0 size 0 nbytes 0
+                block group 0 mode 40755 links 1 uid 0 gid 0
+                rdev 0 sequence 0 flags 0x0
+                atime 1669132761.0
+                ctime 1669132761.0
+                mtime 1669132761.0
+                otime 0.0
+        item 1 key (256 INODE_REF 256) itemoff 3823 itemsize 12
+                index 0 name_len 2
+        item 2 key (258 INODE_ITEM 0) itemoff 3663 itemsize 160
+                inode generation 1 transid 16 size 733184 nbytes 106496
+                block group 0 mode 100600 links 0 uid 0 gid 0
+                rdev 0 sequence 24 flags 0x18
+        item 3 key (258 EXTENT_DATA 0) itemoff 3595 itemsize 68
+                generation 16 type 0
+                inline extent data size 47 ram_bytes 4096 compression 1
+ [...]
+        item 27 key (18446744073709551611 ORPHAN_ITEM 258) itemoff 2376 itemsize 0
+ BTRFS error (device loop0): unexpected non-zero offset in file extent item for data reloc inode 258 key offset 0 offset 9277520992061368337
+ ------------[ cut here ]------------
+ btrfs_abort_should_print_stack(__error)
 
-Acked-by: Oleg Nesterov <oleg@redhat.com>
+[CAUSE]
+The above dump tree shows the first file extent item is inlined, which
+should make no sense for data reloc inodes, as such inodes just
+represent where the data extents are in the relocation destination chunk.
 
--------------------------------------------------------------------------
-But let me add some "offtopic" notes... Why do we actually need this fix?
+However the relocation path preallocates space for each block,
+then dirties them, cluster by cluster.
+It's possible to have a single block at the beginning of the block
+group, and no other block in the same cluster.
 
-kill_something_info(). But at first glance sys_kill/kill_something_info
-can simply use SEND_SIG_NOINFO? If yes, this makes sense anyway, I will
-re-check...
+So relocation will preallocate a file extent for that block and dirty
+the first block.
+Then memory pressure forces the data reloc inode to be written back, before
+any other blocks are dirtied/allocated.
 
-do_pidfd_send_signal(PIDFD_SIGNAL_PROCESS_GROUP) allows to call
-kill_pgrp_info() if si_code < 0... Not that I think this would be better,
-but we could move this "rewrite" logic into __kill_pgrp_info()...
+Finally commit 3eaf5f082c4c ("btrfs: extract inlined creation into a dedicated
+delalloc helper") changed the sequence of delalloc. Before that commit we
+always tried NOCOW first, so that dirtied block will be written back into
+the preallocated space, and appear as a regular extent.
 
-Anything else needs this change? Most probably yes, but after the quick
-grep I don't see other group senders with !is_si_special(info).
+But with that commit, we always try inline first, and since compression
+is forced, we try compressing the first block, and then inline the
+compressed data, resulting in the above inlined file extent in the data
+reloc tree.
 
-Eric, what do you think?
+Then the check in get_new_location() will check the file offset, without
+checking if the file extent is inlined or not, resulting in the above
+failure.
 
-Oleg.
+[FIX]
+Do not allow compression for data reloc inodes.
 
-On 06/22, Bradley Morgan wrote:
->
-> send_signal_locked() rewrites sender ids for the target namespace.
-> Group sends reuse the same siginfo, so one recipient can affect the
-> next.
->
-> Copy the siginfo before changing it.
->
-> Fixes: 7a0cf094944e ("signal: Correct namespace fixups of si_pid and si_uid")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bradley Morgan <include@grrlz.net>
-> ---
-> Changes since v1:
-> - No code changes in this patch.
-> - Add patch 2 for Oleg's const suggestion.
-> - Link to v1:
->   https://lore.kernel.org/all/0873AC4A-3CB2-4F7B-BFE6-75D855AD22DC@grrlz.net/T/#m89955d13f10807c316d34cc76680d690a2d95b31
->
->  kernel/signal.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/kernel/signal.c b/kernel/signal.c
-> index b9fc7be1a169..d72d9be3a992 100644
-> --- a/kernel/signal.c
-> +++ b/kernel/signal.c
-> @@ -1181,6 +1181,7 @@ static inline bool has_si_pid_and_uid(struct kernel_siginfo *info)
->  int send_signal_locked(int sig, struct kernel_siginfo *info,
->  		       struct task_struct *t, enum pid_type type)
->  {
-> +	struct kernel_siginfo rewritten;
->  	/* Should SIGKILL or SIGSTOP be received by a pid namespace init? */
->  	bool force = false;
->
-> @@ -1194,6 +1195,9 @@ int send_signal_locked(int sig, struct kernel_siginfo *info,
->  		/* SIGKILL and SIGSTOP is special or has ids */
->  		struct user_namespace *t_user_ns;
->
-> +		rewritten = *info;
-> +		info = &rewritten;
-> +
->  		rcu_read_lock();
->  		t_user_ns = task_cred_xxx(t, user_ns);
->  		if (current_user_ns() != t_user_ns) {
-> --
-> 2.53.0
->
+Since data reloc inode sizes are always block aligned, as long as we do
+not compress, @data_len will always be at least one block, and
+that will cause can_cow_file_range_inline() to return false, thus no
+inlined extent will be created.
+
+Reported-by: syzbot+d950c6ba09b79f6e1864@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/linux-btrfs/6a373dc5.764cf64f.168fbe.0001.GAE@google.com/
+Fixes: 3eaf5f082c4c ("btrfs: extract inlined creation into a dedicated delalloc helper")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+---
+ fs/btrfs/btrfs_inode.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
+index d5d81f9546c3..7fdc6c3fd066 100644
+--- a/fs/btrfs/btrfs_inode.h
++++ b/fs/btrfs/btrfs_inode.h
+@@ -476,6 +476,8 @@ static inline bool btrfs_inode_can_compress(const struct btrfs_inode *inode)
+ 	if (inode->flags & BTRFS_INODE_NODATACOW ||
+ 	    inode->flags & BTRFS_INODE_NODATASUM)
+ 		return false;
++	if (btrfs_is_data_reloc_root(inode->root))
++		return false;
+ 	return true;
+ }
+ 
+-- 
+2.54.0
 
