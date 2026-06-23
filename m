@@ -1,115 +1,127 @@
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80E53845C4
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 14:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2E3384CEE;
+	Tue, 23 Jun 2026 14:22:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782224357; cv=none; b=gr9H8Nu10XW979i7+JV3hRwThZHzDO/ZXJzvF5SxS98WlZSigrRmYLjfiNUVmGqBCm/ZHOdSDGEVkjdPcaPtBdkJB/LpKKNfSLcjX+omtg9N3e1s19pvsbvXwuGFbivNFhHKcHtBRgw1DGmzwJsmxFwuct0cyxmqG8Hm0ffKpRg=
+	t=1782224543; cv=none; b=akbaEbkHWAuOngqApOPppl8KX+TvpkqHD+5B0KiwoGEr0gydNyGfaeN4QehbFaeexaNbqR1BTK7uDweXPN4+7FbTXzkf85iwS+e2D3RZF0LTss+JSlP/fPn8Vws7KUvAxwaulb4rXpq02dDpc8E9V+T+XCUSpv6iWsX2iWMvFJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782224357; c=relaxed/simple;
-	bh=HJcckcb1tmwcKra1TI77JdVCL++FTLRkdVJg+FBYLAA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RZi/JXrWNE0TCyS8BGAMGbMJOd9RpK95AIYFpfu9kovME0EdJ+r7VeZOzvUDzpbZiitSn2aTYYRAo3o6nHbCkCcRXBz3tf46hVYw3b7CWm4zWTm29q6dgs85kIi0Xom25RvSN0RgJkaf0oFWW/inpN6Yvtf5Nl/VoZ0P/hgTwoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DLphn3Uz; arc=none smtp.client-ip=209.85.208.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782224543; c=relaxed/simple;
+	bh=Pns2t7isW4RCFxxk1wQn9nVVZeXZt7jt9DQaH295GLQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lrs8+D1hD/z9UOT0DV4IMgIFVP549GWrW5mnSgvcEswgnNMJXAD/ACIZGVAziDTq3q1kjA5R/RhV1EGLEC0KmBkchH2fjteLFN4pLHvA5mdsAPtUwz85kO37nkCxWkzgejrKmtQV4fnt2VsRSVESqBnvbxOmVWt7dT/AOgZnvl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqynbePo; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DLphn3Uz"
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-399735e64d7so63942281fa.0
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 07:19:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782224354; x=1782829154; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9l5vPuFiQ6HlKIilyz6JJBZ99660cgcQoT5otos/iI4=;
-        b=DLphn3Uzpl9cROgJ8X9/68XvbpAPQ3jlS54AV0UXIwU2uod7wfSeEFRw1HBR2fQ6ZR
-         oWAG3m5v8abo4+ZJLgjqDDdiSqBTOVS388IZ3hyIcFldEdjIqxMq/fOg0ign9zrJ9LLj
-         2xda4EdxZ2c4bPpc4O89jDy0bX6yAM9BZU0jMg2+xDbe77CNNJmuAqu82EqxjltqEUh1
-         JhVRjYWkLgS1+V+JvQtfCdUPUKB/V+AMTgY9x0CvBVRucZupvHu03Uvkv1ghZiKg1okc
-         74SPZiW0e38IO0QYFsvG0UoLZXGPPsKVu5SdrPq9XRvmxjsn8jByAMrnN9sh9P+nchqA
-         RkOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782224354; x=1782829154;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9l5vPuFiQ6HlKIilyz6JJBZ99660cgcQoT5otos/iI4=;
-        b=frMVBdfx1xuNyhm2i6xkFO5Gi39IhVX9atn0YkOh1mulBiNRsYhClKZ6pVUXYSehFp
-         xrzf3LxypTDqxsk/wTNJ0CRWl9iRfQBPGrnorKaO0sf3VszHzqcsXnfDAFhsxJXZOs3w
-         C40BgIu9J8uJnqmSfx3JbAr7s0jaFQrf4mVrAv8WmyOYqobbWRPDA3rChnsT9xmUw9fG
-         PoyyJI8KpAftve2ggl8DF3X5+QyKYcq63lg/UfK5G4Y7hQsR8geBtbMT5AF0NXzIdamj
-         P978DIBtRRx56ZCLK5ruP7/L51BUy48dPqcYyAvBAwnj5O5eFhq7KTfuTRbAFQDrBXzH
-         V89g==
-X-Gm-Message-State: AOJu0Yw4RuXDUdZair4PKGkmqXRmBNdhEwJzsCDNz9L5nfqv+DKCmp/1
-	lTvsjaPxaDOh/rG4B8ETK33Dur/SE+BsNgkHpTHaNZ8yMsokiV80f1HwkYM8+KLA
-X-Gm-Gg: AfdE7cne/iI0HHJuLG2/i3J/pJFu/w1vHdDBxmfp/kCIabVxxb4YA7nHJAZ3XjJbkGU
-	Fv0pZdmm+s7G2+J1nteGru4qFodH5Er9gVYGqtZk3mQc7Uhnqep2ErHbNvwPOMA85E7Mb+dObJu
-	ZJ9wRVPUgc9VJuTNor/tGVzkxFjLGCZJIwDaaygueDLrUTrzZJjrUDX8lNByJrvcaKsjjTLtRKn
-	kjx7YH+5QvSr7YY8PKpHRWCSN6kajKpeebyfiRkcIXYlkBW4veQMj93xFukPJH4Bc2Hes/XnimG
-	sdWIVT1EkKEE92zQR3zSi7H0bSJ89lj1sAnm5Y6aw/b4c1A1EpI+IsyUPww+6BdkVYre+gIaXA8
-	ygb4D0vEMHhoBr396FNu5el75WBeWz32rTjsmlnOY1OcWIffq4l8K8585rZTs+/EHRxlc/Hy4eN
-	u26/tpywfe5LJNedcD7tq1TlRryVAK142JPI8uGh8ppV0Fo8wY6C+A1lANVQlm0Fy27i96c5Qvf
-	CrRgJPfn4HpPEtWgeuEyWnr5IaXd/cN1578PmBZ4B0VfHt4XgpAKMocQw94dJ8uUL6kWvAwtvx/
-	B4f2rMIbHjJgBwa3DXhPX6TiwqywHjjUv0DexeAHJakhoCZMTqr+
-X-Received: by 2002:a2e:a5cb:0:b0:396:7079:5e3b with SMTP id 38308e7fff4ca-3998bbfb36amr48813331fa.1.1782224353683;
-        Tue, 23 Jun 2026 07:19:13 -0700 (PDT)
-Received: from ghostnode.. ([185.213.154.182])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3999afeb521sm25437181fa.18.2026.06.23.07.19.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 07:19:12 -0700 (PDT)
-From: pomzm67@gmail.com
-To: stable@vger.kernel.org
-Cc: selvin.xavier@broadcom.com,
-	kalesh-anakkur.purayil@broadcom.com,
-	jgg@ziepe.ca,
-	leon@kernel.org,
-	eddie.wai@broadcom.com,
-	somnath.kotur@broadcom.com,
-	sriharsha.basavapatna@broadcom.com,
-	devesh.sharma@broadcom.com,
-	dledford@redhat.com,
-	gregkh@linuxfoundation.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lord Ulf Henrik Holmberg <henrik.holmberg@defensify.se>
-Subject: Please backport f6b079629bec ("RDMA/bnxt_re: zero shared page before exposing to userspace") to stable
-Date: Tue, 23 Jun 2026 16:17:59 +0200
-Message-ID: <20260623141759.1231452-1-pomzm67@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqynbePo"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AE97BC2BCB8;
+	Tue, 23 Jun 2026 14:22:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782224542;
+	bh=Pns2t7isW4RCFxxk1wQn9nVVZeXZt7jt9DQaH295GLQ=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=oqynbePo3+Qc+S0WAz4o9dVtuUICGNGmaRDhufmYJIPIGvZsS8sw6Qw+o0hyRpguk
+	 eDrWZBX/+74t2PE31Me+uZPjHdFEJvyUhuC8d5MQ15PKWYuEoXTvaWFyJhCUAm/r49
+	 xnIzem8cDgCNH6PXTsC7hjs/WiYyXS3utMtXDOeBKlDEteIjnjWyYty8EsKzTsJrou
+	 +QEirj/VSn2lZqCV7WxI87u/KMqyvNflj0WrDFMyVkLKXx+OJXY5zd+NwHrmvUf03i
+	 Mdt50+x25NmL77NxQi6WI3Po0vhUq711r3QHW6eVx4TxCoEOTu4wnGALPM/fTvv9Xn
+	 vjMXPFK6X96cQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E486CDB47C;
+	Tue, 23 Jun 2026 14:22:22 +0000 (UTC)
+From: Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
+Date: Tue, 23 Jun 2026 16:22:15 +0200
+Subject: [PATCH] iio: imu: inv_icm42600: fix timestamp clock period by
+ using lower value
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260623-inv-icm42600-fix-timestamp-clock-period-v1-1-82184d2429f4@tdk.com>
+X-B4-Tracking: v=1; b=H4sIAJaWOmoC/yXNywrCMBCF4Vcps3YgbUqJvoq4iNNRR82FJBah9
+ N0ddfnB4T8rVC7CFQ7dCoUXqZKiot91QDcfr4wyq2Eww2SmwaLEBYXCqDR4kTc2CVybDxnpmei
+ BWYNpxr3trXXejY4saC0X1vXv6Xj6u77Od6b2zcO2fQBspTfIiwAAAA==
+X-Change-ID: 20260623-inv-icm42600-fix-timestamp-clock-period-931338a848c3
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org, 
+ Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782224541; l=2300;
+ i=jean-baptiste.maneyrol@tdk.com; s=20240923; h=from:subject:message-id;
+ bh=Pdi02nqbDQa7TGG6wvznAl8hOcvaYmTiUhks6dkcg2U=;
+ b=xm8GSodRL9WngRPi2+R0IR6mKTwL9ZUkIpZsxO7Je5OQs03vmaxPnB45pRotaI8WLJR+bWPuS
+ Z4vgx1huc2uAHhxa6MmgMmOjwRgItr9xK7WZdUHMYk15a8WOj8v8KY0
+X-Developer-Key: i=jean-baptiste.maneyrol@tdk.com; a=ed25519;
+ pk=bRqF1WYk0hR3qrnAithOLXSD0LvSu8DUd+quKLxCicI=
+X-Endpoint-Received: by B4 Relay for
+ jean-baptiste.maneyrol@tdk.com/20240923 with auth_id=218
+X-Original-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Reply-To: jean-baptiste.maneyrol@tdk.com
 
-From: Lord Ulf Henrik Holmberg <henrik.holmberg@defensify.se>
+From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 
-Hi,
+Clock period value is used for computing periods of sampling. There is
+no need for it to be higher than the maximum odr, otherwise we are
+losing precision in the computation for nothing.
 
-Could the following upstream commit be queued for the active stable
-trees? It does not carry a Cc: stable tag and does not appear to have
-been picked up by AUTOSEL.
+Switch clock period value to maximum odr period (8kHz).
 
-  commit f6b079629becfa977f9c51fe53ad2e6dcc55ef44
-  ("RDMA/bnxt_re: zero shared page before exposing to userspace")
+Fixes: 0ecc363ccea7 ("iio: make invensense timestamp module generic")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+---
+ drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c | 4 ++--
+ drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c  | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-It fixes a kernel-memory information leak: bnxt_re_alloc_ucontext()
-allocates uctx->shpg with __get_free_page() (no __GFP_ZERO) and then
-maps the whole page into userspace via vm_insert_page() under
-BNXT_RE_MMAP_SH_PAGE. The driver writes only 4 bytes (a u32 AVID) to
-the page, so the remaining 4092 bytes of stale kernel memory are
-exposed to any user with access to /dev/infiniband/uverbsX (typically
-rdma group membership).
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c
+index 532d5fdffaf8..7df920ef3cf0 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c
+@@ -1170,10 +1170,10 @@ struct iio_dev *inv_icm42600_accel_init(struct inv_icm42600_state *st)
+ 	accel_st->filter = INV_ICM42600_FILTER_AVG_16X;
+ 
+ 	/*
+-	 * clock period is 32kHz (31250ns)
++	 * clock period is 8kHz (125000ns)
+ 	 * jitter is +/- 2% (20 per mille)
+ 	 */
+-	ts_chip.clock_period = 31250;
++	ts_chip.clock_period = 125000;
+ 	ts_chip.jitter = 20;
+ 	ts_chip.init_period = inv_icm42600_odr_to_period(st->conf.accel.odr);
+ 	inv_sensors_timestamp_init(&accel_st->ts, &ts_chip);
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c
+index 11339ddf1da3..a18dcac93929 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c
+@@ -755,10 +755,10 @@ struct iio_dev *inv_icm42600_gyro_init(struct inv_icm42600_state *st)
+ 	}
+ 
+ 	/*
+-	 * clock period is 32kHz (31250ns)
++	 * clock period is 8kHz (125000ns)
+ 	 * jitter is +/- 2% (20 per mille)
+ 	 */
+-	ts_chip.clock_period = 31250;
++	ts_chip.clock_period = 125000;
+ 	ts_chip.jitter = 20;
+ 	ts_chip.init_period = inv_icm42600_odr_to_period(st->conf.accel.odr);
+ 	inv_sensors_timestamp_init(&gyro_st->ts, &ts_chip);
 
-It carries:
+---
+base-commit: cc746297b23e89bd5df9f91f3a0ca209e8991763
+change-id: 20260623-inv-icm42600-fix-timestamp-clock-period-931338a848c3
 
-  Fixes: 1ac5a4047975 ("RDMA/bnxt_re: Add bnxt_re RoCE driver")
+Best regards,
+--  
+Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 
-so every kernel from 4.10 onwards is affected. Please apply to the
-6.6, 6.12 and 7.0 stable trees (and any other active trees you deem
-appropriate).
 
-Thanks,
-Lord Ulf Henrik Holmberg (Defensify)
