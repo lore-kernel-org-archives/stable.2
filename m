@@ -1,86 +1,232 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92EF2379C23
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 11:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85E1379C23;
+	Tue, 23 Jun 2026 11:41:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782214864; cv=none; b=rEZH98y8wNUd3mvGJ219bpbJeQ4BOiPfW8xG7hcPGoJmcck5qB7NdXJqsqFw2O04epjEyn13hlwnzYUaiZeNCJISofNLa1WlGnJRCLKxDgSTyanhpjYh/Txq0/UNrXuXLHUVlYpd+BQuQkTY8lfGknBiNP6TdFm2hmqjSGhbEJQ=
+	t=1782214880; cv=none; b=NMAw4w+cBatBxRQhOZ2TG+wvJxNsZXTQpgf93x811otB6LIRw5uDpbhg3zMWH3TcOXmqnhVErr+JOdK25AuHpp5U7z1UYrzxolfzRAO7F0CiC0b6meWk40wF65mfRQ4Mezo05pO57/oXjTfWo+OosmLB5yaf6czoqU8Ufk9LXXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782214864; c=relaxed/simple;
-	bh=g8jduOyiWy0B8mnnrt/rrd5sTEje8WVrXChbwVgRBQE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MzM+0SuHFq6LMMrAMif6zP/q6u951laQJYGAPaWWnU1VNLJf9GfZ0RvuSUURbra7xW/9s4dctPOEzmdcAi8wqXY7zwshz0ygH2fxEfaPaDoP/iOaWi54dHgppdxvu2+v/uykWdJhuP9tkibxNG9AIxZXnqlG/zpx2GgynqKB7C0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aaTs0w2z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782214880; c=relaxed/simple;
+	bh=P1O4Peh2GQajhAgi2qRFo0a504zzt+m8zHHplCe5OQ0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=DCg3/Pmq2hr0hdVTE37cFThCIEa3c3fJkUkIkOaP+5uYWdscbjzfNQf9B57zLZ4sklbfn2crlOS1Sy/LP8uzvfKd9j3zQprOEBFwLl+tw3qL6stmFNeFxX1DI2XP9AWUNoopuAlCXQIpqGDALTRnoZMRfKJusqMqC/buSsz7X1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XS8RxKKT; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aaTs0w2z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D561F00A3D;
-	Tue, 23 Jun 2026 11:41:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782214863;
-	bh=dsaYxsMb1EimdZ98sPE2h53JZZwh4ERS19yygJ6FH38=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aaTs0w2zqzSMl7Rf3DeUMrWURyja1HP88bR3ExxbGB3UVVXr3fU/D6fumNNluxalY
-	 RK3/lSzpJ4wUuKWvalug3KVSn9/d7asHq7hHw//1h8fmz3pwZQaC2XlZeCMMxsFayY
-	 Yl6jfoei5KrzoSQV/bgJ9fP8wFjjYrhOg0k3GjXM=
-Date: Tue, 23 Jun 2026 13:39:52 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Michael Pratte <slatoncomputers@gmail.com>
-Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH] s2io: only arm hardware LSO for GSO skbs
-Message-ID: <2026062327-unengaged-apostle-5728@gregkh>
-References: <20260623112131.752148-1-slatoncomputers@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XS8RxKKT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Bx
+	YXQsgR/auECzMSZJFFhJW9pN2lNiQIvoFrCfIi9Kg=; b=XS8RxKKTev/LSmLOm0
+	7aHFUE3WCphSUX8BI1v5kojfHvAwhTNzBCF2olEdcxsZWf2ioaCLIZU8RROZFYES
+	VAKrK/kYci6pXjWpGbsCpFx4DgzNds4pyZZG46BISzitH9GOvZRclGbqUeU3b+O7
+	tnpz+O0O7PDFQGvbreZE5Y3VI=
+Received: from 163.com (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD33xnAcDpqTl49FQ--.44205S2;
+	Tue, 23 Jun 2026 19:40:51 +0800 (CST)
+From: w15303746062@163.com
+To: arnd@arndb.de,
+	gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	kees@kernel.org,
+	stable@vger.kernel.org,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: [PATCH v2] misc: ibmasm: Fix static and dynamic out-of-bounds MMIO accesses
+Date: Tue, 23 Jun 2026 19:40:46 +0800
+Message-Id: <20260623114046.368089-1-w15303746062@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026062354-crawfish-t-shirt-d45d@gregkh>
+References: <2026062354-crawfish-t-shirt-d45d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260623112131.752148-1-slatoncomputers@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD33xnAcDpqTl49FQ--.44205S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3XF4DGrWxtFyfuw4DXFy3twb_yoWxCF1xpF
+	n0v3yrAry5AFW2vws7Kr409Fy5uas7KFWUKrW3Aa4fZFyYyFy5ZF1jka47XFW8X3WkK3yj
+	yryDJryru3WjqrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFBT5UUUUU=
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC4wN1WWo6cMMzCwAA3X
 
-On Tue, Jun 23, 2026 at 06:21:31AM -0500, Michael Pratte wrote:
-> s2io_xmit() enables the Xframe/Xframe-II hardware LSO (TCP segmentation)
-> engine whenever the skb's gso_type carries SKB_GSO_TCPV4/TCPV6, and
-> programs the segment size from gso_size:
-> 
-> 	offload_type = s2io_offload_type(skb);
-> 	if (offload_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6)) {
-> 		txdp->Control_1 |= TXD_TCP_LSO_EN;
-> 		txdp->Control_1 |= TXD_TCP_LSO_MSS(s2io_tcp_mss(skb));
-> 	}
-> 
-> Since commit 51466a7545b7 ("tcp: fill shinfo->gso_type at last moment")
-> tcp_transmit_skb() sets skb_shinfo(skb)->gso_type unconditionally on
-> every TCP skb, including non-GSO frames where gso_size is 0. The driver
-> therefore arms the LSO engine with MSS == 0 for ordinary TCP segments
-> such as the connection's SYN. The Xframe-II LSO engine treats an MSS of
-> 0 as an illegal descriptor and aborts the transmit (lso_err_reg reports
-> LSO6_ABORT), so the frame is dropped before it reaches the MAC. The
-> result is that no TCP can be transmitted on these adapters since v4.2;
-> UDP and ICMP (which never carry SKB_GSO_TCPV4) are unaffected.
-> 
-> Only arm the LSO engine when the skb is actually GSO (gso_size > 0),
-> restoring the pre-4.2 behaviour. Non-GSO TCP frames take the normal
-> transmit path.
-> 
-> Reproduced and fixed on Linux 6.6.67 with an Xframe-II adapter
-> (PCI 17d5:5832); bisected to good v4.1.6 / bad v4.2.2.
-> 
-> Fixes: 51466a7545b7 ("tcp: fill shinfo->gso_type at last moment")
-> Signed-off-by: Michael Pratte <slatoncomputers@gmail.com>
-> ---
-> [ Not upstream and cannot be: the s2io driver was removed from mainline in
->   commit aba0138eb7d7 ("net: ethernet: neterion: s2io: remove unused
->   driver"). It still ships in the 6.6.y and 6.12.y stable trees, where this
->   bug is present and the patch applies cleanly. Please apply there. ]
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-Why not just remove the driver in older kernels as well if it is not
-being used?
+The ibmasm driver maps PCI BAR 0 without verifying if the hardware-provided
+resource length is sufficient.
 
-And if it's not being used, why is this patch needed at all?
+When evaluating the driver against emulated hardware or during virtual
+device fuzzing, a malformed device may expose a significantly undersized
+BAR 0. This leads to two distinct out-of-bounds (OOB) MMIO access vectors:
 
-thanks,
+1. Static OOB: The driver hardcodes access to INTR_CONTROL_REGISTER
+   (offset 0x13A4) during probe.
+2. Dynamic OOB: The driver reads dynamic Message Frame Addresses (MFA)
+   from hardware queues and uses them directly as offsets to dereference
+   I2O messages via get_i2o_message(). A malicious MFA can cause the
+   driver to access memory far beyond the mapped BAR.
 
-greg k-h
+If an OOB access triggers a #PF during module probe while holding the
+idempotent_init_module() lock, it leaves the module loading subsystem
+in a corrupted state, leading to a cascading global soft lockup.
+
+Fix this comprehensively by:
+- Storing the mapped resource size in 'struct service_processor'.
+- Ensuring the BAR size covers the highest statically accessed register
+  (INTR_CONTROL_REGISTER) during probe.
+- Validating all dynamic MFA offsets against the mapped size before
+  dereferencing to prevent dynamic OOB accesses.
+
+Fixes: bdbeed75b288 ("pci: use pci_ioremap_bar() in drivers/misc")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+---
+Changes in v2:
+ - Added dynamic MFA bounds checking in get_i2o_message() to prevent runtime OOB (prompted by Greg KH).
+ - Implemented hardware mailbox deadlock prevention by releasing MFA if bounds check fails.
+ - Fixed potential unsigned integer underflow in bounds check arithmetic.
+
+ drivers/misc/ibmasm/ibmasm.h   |  1 +
+ drivers/misc/ibmasm/lowlevel.c | 19 +++++++++++++++----
+ drivers/misc/ibmasm/lowlevel.h | 27 +++++++++++++++++++++++++--
+ drivers/misc/ibmasm/module.c   | 13 +++++++++++++
+ 4 files changed, 54 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/misc/ibmasm/ibmasm.h b/drivers/misc/ibmasm/ibmasm.h
+index a5ced88ca923..8d69198bf10f 100644
+--- a/drivers/misc/ibmasm/ibmasm.h
++++ b/drivers/misc/ibmasm/ibmasm.h
+@@ -140,6 +140,7 @@ struct service_processor {
+ 	struct list_head	node;
+ 	spinlock_t		lock;
+ 	void __iomem		*base_address;
++	resource_size_t		mapped_size;
+ 	unsigned int		irq;
+ 	struct command		*current_command;
+ 	struct command		*heartbeat;
+diff --git a/drivers/misc/ibmasm/lowlevel.c b/drivers/misc/ibmasm/lowlevel.c
+index 5313230f36ad..db84e5f827cb 100644
+--- a/drivers/misc/ibmasm/lowlevel.c
++++ b/drivers/misc/ibmasm/lowlevel.c
+@@ -9,7 +9,6 @@
+ 
+ #include "ibmasm.h"
+ #include "lowlevel.h"
+-#include "i2o.h"
+ #include "dot_command.h"
+ #include "remote.h"
+ 
+@@ -34,7 +33,14 @@ int ibmasm_send_i2o_message(struct service_processor *sp)
+ 		return 1;
+ 
+ 	header.message_size = outgoing_message_size((unsigned int)command_size);
+-	message = get_i2o_message(sp->base_address, mfa);
++	message = get_i2o_message(sp->base_address, sp->mapped_size, mfa);
++	if (!message) {
++		/* MFA was reserved for us; must release it to avoid
++		 * deadlocking the hardware mailbox.
++		 */
++		set_mfa_inbound(sp->base_address, mfa);
++		return 1;
++	}
+ 
+ 	memcpy_toio(&message->header, &header, sizeof(struct i2o_header));
+ 	memcpy_toio(&message->data, command->buffer, command_size);
+@@ -63,8 +69,13 @@ irqreturn_t ibmasm_interrupt_handler(int irq, void * dev_id)
+ 
+ 	mfa = get_mfa_outbound(base_address);
+ 	if (valid_mfa(mfa)) {
+-		struct i2o_message *msg = get_i2o_message(base_address, mfa);
+-		ibmasm_receive_message(sp, &msg->data, incoming_data_size(msg));
++		struct i2o_message *msg = get_i2o_message(base_address,
++							  sp->mapped_size, mfa);
++		if (msg)
++			ibmasm_receive_message(sp, &msg->data,
++					       incoming_data_size(msg));
++		else
++			dbg("received mfa out of bounds\n");
+ 	} else
+ 		dbg("didn't get a valid MFA\n");
+ 
+diff --git a/drivers/misc/ibmasm/lowlevel.h b/drivers/misc/ibmasm/lowlevel.h
+index 25f1ed07c3c5..8c9700fc70bb 100644
+--- a/drivers/misc/ibmasm/lowlevel.h
++++ b/drivers/misc/ibmasm/lowlevel.h
+@@ -13,6 +13,9 @@
+ #define __IBMASM_CONDOR_H__
+ 
+ #include <asm/io.h>
++#include <linux/compiler.h>
++#include <linux/types.h>
++#include "i2o.h"
+ 
+ #define VENDORID_IBM	0x1014
+ #define DEVICEID_RSA	0x010F
+@@ -33,6 +36,9 @@
+ #define INTR_STATUS_REGISTER   0x13A0
+ #define INTR_CONTROL_REGISTER  0x13A4
+ 
++/* Highest statically accessed register offset */
++#define IBMASM_MAX_REG_OFFSET	INTR_CONTROL_REGISTER
++
+ #define SCOUT_COM_A_BASE         0x0000
+ #define SCOUT_COM_B_BASE         0x0100
+ #define SCOUT_COM_C_BASE         0x0200
+@@ -115,9 +121,26 @@ static inline void set_mfa_inbound(void __iomem *base_address, u32 mfa)
+ 	writel(mfa, base_address + INBOUND_QUEUE_PORT);
+ }
+ 
+-static inline struct i2o_message *get_i2o_message(void __iomem *base_address, u32 mfa)
++/**
++ * get_i2o_message - Convert MFA to i2o_message pointer with bounds check
++ * @base_address: BAR 0 virtual address
++ * @mapped_size:  actual size of BAR 0 mapping
++ * @mfa:          Message Frame Address from hardware
++ *
++ * Returns NULL if the offset derived from @mfa does not fit within
++ * the mapped BAR (including the i2o_message header).
++ */
++static inline struct i2o_message *get_i2o_message(void __iomem *base_address,
++						  resource_size_t mapped_size,
++						  u32 mfa)
+ {
+-	return (struct i2o_message *)(GET_MFA_ADDR(mfa) + base_address);
++	u32 offset = GET_MFA_ADDR(mfa);
++
++	/* Prevent read/write beyond the ioremap region */
++	if (unlikely(offset + sizeof(struct i2o_message) > mapped_size))
++		return NULL;
++
++	return (struct i2o_message *)(offset + base_address);
+ }
+ 
+ #endif /* __IBMASM_CONDOR_H__ */
+diff --git a/drivers/misc/ibmasm/module.c b/drivers/misc/ibmasm/module.c
+index 4509c15a76a8..87d4d698a5ff 100644
+--- a/drivers/misc/ibmasm/module.c
++++ b/drivers/misc/ibmasm/module.c
+@@ -93,6 +93,19 @@ static int ibmasm_init_one(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	}
+ 
+ 	sp->irq = pdev->irq;
++	sp->mapped_size = pci_resource_len(pdev, 0);
++
++	/*
++	 * Ensure BAR 0 is large enough to cover the highest statically
++	 * accessed hardware register (IBMASM_MAX_REG_OFFSET).
++	 */
++	if (sp->mapped_size < IBMASM_MAX_REG_OFFSET + 4) {
++		dev_err(sp->dev, "PCI BAR0 too small, need at least %zu bytes\n",
++			(size_t)(IBMASM_MAX_REG_OFFSET + 4));
++		result = -ENODEV;
++		goto error_ioremap;
++	}
++
+ 	sp->base_address = pci_ioremap_bar(pdev, 0);
+ 	if (!sp->base_address) {
+ 		dev_err(sp->dev, "Failed to ioremap pci memory\n");
+-- 
+2.34.1
+
