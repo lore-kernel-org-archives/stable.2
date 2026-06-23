@@ -1,153 +1,160 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936143C417E
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 08:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CDA43CE4B6;
+	Tue, 23 Jun 2026 08:50:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782204327; cv=none; b=J6qCv/SA2nkSGlP9QViqhyiUfKJFfPD//+5U9WG/xGgAojeMkY+VibbPsRg0j6LXh17YvR+iFH9rikJhedITvWAMqZNHjHK4CGbr1mFRCEB37rKKuA49NOZssjOVNdhWM4kBY7QcURUHCOiT2g2ZB9QbQFSneGsAqPFB3zvJ2EU=
+	t=1782204636; cv=none; b=lkXUcifhSIFkaTU+VasON0rAk20hzGXLRqhFIVpoyTPx1RWHnSK2Asf4BcoU9XRPai3JWiH1bdXaXwfhK9SiHejZXHLYAklrMvcINp7JmCvdpAknWZJvk62NLfBPWBurVBHJt/6s0oY1H1YnWDwW7Xgq9G/Y3+CKHj5BjdJxQAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782204327; c=relaxed/simple;
-	bh=PEfg9/E5y1UFi3sIEh1+99lXZ/MgRXWyftWSdT02h3A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VMXwF+0YXmYscELkVMPT+zXbt7ClHCQZvxuX8M55fiugQk4ZpAsqtgLRmyHjRzUBBV+GExkTs42/1Me4zZenau/EATYwoycLp7k2u3IcIkWVUGT8+kiVLJaedVgWW1+aowEBkDCHyUviSB1ae3JP+MD/8oD1sPrDywykJk/C1xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ADIqg0r0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IcN1o4/b; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782204636; c=relaxed/simple;
+	bh=SIr2vDvs0AWleStmL6oPmKjHddGSAR4/MrYLpb8EbdU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t9e/j+8skKXFgbsxRVK4NGd5VHtZ4v5K4QpW6DHTebIyGlYNty30WoQiojGRmDQbi5jAa0S++HhAu6i+4Konx7jPIGIeLH1/Metd8d0AYe17PWcIIDFQ6517IF/jkl3rWOhQxz84pIqVzY/vP0ZnVTFxDuPKHFIEy0vRrR1HpOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FJwUnbGs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ADIqg0r0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IcN1o4/b"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65N6cbfu2992200
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 08:45:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	O0q7WRTscj9d++RUzX6zRMArlx5VJ2vmnVwOo85kg9g=; b=ADIqg0r0UmZFfIA2
-	GbpbtZRizks2YNme7bRdSkrW/ikbhz70yXNFFQ4ZvC9+GE6miDx4I9cpVeQkMmv2
-	I4gJsIDkLIQqX/Dy7S3+Aoze9l3Y9TM74thAjmQQOEZXaZ5veZCuNMy5fiC+KQDv
-	5ylI4NzG8uAyFOpnQZG6NxJEfZHHt8lwg3Ckbj7u5uKN5N+GwNFoGlnLl//PtiZI
-	HsytoI6OUx4T2CKXg9bNLgHcTj2i08PtUP3YQNhu0CSxBe9+vFrzPXLzju5mzNfX
-	iw44vNFrEsLYpgOkoCeyfYK7sYGAZNxgHciB0o15ImGTZbS9uGuW7WjKHc48wrlT
-	mC1YtA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ey729ufke-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 08:45:24 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-91574ad681eso823256485a.0
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 01:45:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782204324; x=1782809124; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=O0q7WRTscj9d++RUzX6zRMArlx5VJ2vmnVwOo85kg9g=;
-        b=IcN1o4/bSoiSLFIjJax2ewXtxgSGK8StJRhraPLwNBIJRvIZYBaYOfRZpvZevgHIAb
-         Ir3jc/RHJNRQi18ncdutsVuWeqij0bRPdkey0tu8dmBMwXoIp5+f73mv/G2Ti6rSd0tC
-         Dwwj6+qeBiDOOp7JjhcLyvKFmdTCd/lpajmvK21PT3/X0/usvvqPlr76wDDkAE33KPUn
-         l+qHN6+4pn6YGeCd9mBkKeY2kETgV6xdIWCHJC9PtUpWFCAdeMd828DZmDYLaG327rQc
-         HOhweYgOouGBaq2dS2JSTJ0W7E/btk/DLYrKKEefiHBtWphmEaC/cJ4KYVKB1wW2Zxyc
-         LmJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782204324; x=1782809124;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=O0q7WRTscj9d++RUzX6zRMArlx5VJ2vmnVwOo85kg9g=;
-        b=qHquqLjjMaj1GflJEXsQoebUqfiUfp4iCE//N9idywpkC1sklBGc7ZWL1g0M2ltBJE
-         QtKZuZ37vQSHCcp5mlKm2tDwVoOT4qZpIGsWLvI1E+4hEYqw8gFBnTATOwOdJoHbU289
-         mu4rsh5J/+iJbdJVYNO6tMtU4A8MXvMP87R8o77AS3xrAB0TAax02Tgpub/b5dsqAz8o
-         PR4c2jL/zYHYjHH1ThZ+B+NMk9D9Q9/w+s5j6Rz2sraKUr0LVPH7G+UVX36Sy+9JyttQ
-         pc3QHPwe2dP9oY7O4GdXk5r//TpOKvhS3UL61ugxjp6wnDrtwK4kvPCEdXnlb8uSNYvP
-         ZNVA==
-X-Forwarded-Encrypted: i=1; AFNElJ8q3WJr+Lx6zJ0u41BNTJA/ffqJiSvcABdjfM1PNnUu8mO2rLjwz8iGyLHF4vcrFHFWMrqYxMc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyUmFkwcEoKtEPuF3MRV7JTNnuRb4nCcpzMLhVUQFTf9ZgDfcqd
-	DrO4/MOILgiiOUy5HrlVA05B8F5y4hvb7/zd7U2/v2Kadpk1FAXH5Dh/gRoiPSwsmupbj9Le9nr
-	mGVzBxnEwG5eOvnKpZHud0nWs0OufKii/qXAGBMNECbCef6kKzb6TtRjAWnY=
-X-Gm-Gg: AfdE7ck1UqGDnKhYbRVJgjTlUqnVayrgFepr8Ol3BUXy4Ep9tvKjif5eDerxkHC2ZgH
-	eFvoHKREoC/Jh/1Nc/DdHskI9Qi8zz0T2pIcbPmvpqjcfdxqcBowGd1m9fBP32w26VniciNUhXi
-	95EKvelNGes8C1gaZwnlG8h2R00C7DRULxKH2VREnViIPm5GNcF41VUCHudvvkkpyXb2Fg57OTm
-	hz0zIVt+NxDNH12K83hBcMgO020YvShtdgrR30ihdSPR+k0A1ay1KWSZrRTEvzE7W1sqh4+e68q
-	wjpRDUFBj0cbeJgJbEl/AZdLVzuIOBDRCOIANZ2Edg9vZPhX6evgAzqioLP7X3tnh47ivNAb17N
-	B/EDNVqYf9iIzvPArcJ9maBb8Ucr+N5/jvsPFxxw=
-X-Received: by 2002:a05:620a:4481:b0:915:9051:ba2 with SMTP id af79cd13be357-92092450e6cmr2841998185a.49.1782204323752;
-        Tue, 23 Jun 2026 01:45:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:4481:b0:915:9051:ba2 with SMTP id af79cd13be357-92092450e6cmr2841994985a.49.1782204323304;
-        Tue, 23 Jun 2026 01:45:23 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:ac73:5de7:b9d6:d9e8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46666788547sm35622583f8f.18.2026.06.23.01.45.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 01:45:22 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
-        Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Thierry Reding <thierry.reding@gmail.com>,
-        Jonathan Hunter <jonathanh@nvidia.com>, linux-gpio@vger.kernel.org,
-        linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH] gpio: tegra: do not call pinctrl for GPIO direction
-Date: Tue, 23 Jun 2026 10:45:18 +0200
-Message-ID: <178220431330.7682.16070388780345614075.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260619152439.1239561-1-runyu.xiao@seu.edu.cn>
-References: <20260619152439.1239561-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FJwUnbGs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B971F000E9;
+	Tue, 23 Jun 2026 08:50:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782204632;
+	bh=cby/NkFpouS46q4pLc0mukueRXBfbwYvij9ZnBXdZJk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FJwUnbGshGsmEZiPKt4L8heL1ZngMD58ykqyg2wIhG0ALmRms2f04kxqt1LgYGbm5
+	 pMcNTezmDe5DrjxGHtavu8hto4nfKjhij2KJPKea0NRsvuJVz4hLhDoLLyzE/xIIlg
+	 Tc4gA/Vg/2UqmmeRmlECN38ogyXdWHgetWxCPfsivyuitYaBHAlcOD/2RMBteow12I
+	 xgeSEtOdklphyfCLW/OIVCcc53i48V/tTP6QAsu1icCsCflmaFc4iq2BY1fU5leFLk
+	 DSFYRLTr/uJ+KfEgaY8JfYpe1p5GL2jEv77uHuk8s04d/9blmUnfvW4/TIEP/fdv9P
+	 0CU/Css1gbhHQ==
+Message-ID: <2d51a6ab-2d1e-4fa1-9d06-24de1ed9badf@kernel.org>
+Date: Tue, 23 Jun 2026 09:50:19 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDA3MCBTYWx0ZWRfXyWACjikjLaHL
- p1VG6ICkN+iEwn2neZfG8eTLGVO0fFLARx7gsx3P0f0tn3y4EWEVJ8Do9xWosOYGwymxS50e85R
- KpYZy7U0dM7ypH4rOQJH04Jd68ZIzlU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDA3MCBTYWx0ZWRfX6rzrLUn5sDDe
- IP0Pk6KWTdYlam8DZyZHjWzg9uj1q8qMtrTD9HZKeeWwwYDjv50PDNJ8UTMawpunFhHPw+F91NI
- I2P6GBfJY+oqxfqVYRkVOe17dOu5s6jSHSmQfjBqM5J7hmkqQQHIo9TNYg8O6OlRUG4+DkNzri/
- 7wY3VPyDv2BOHb/jwXQQcIveVq4y1lkaQu3/zj24p9lyqovpni8ZZ96ti/9cB32yJtAbghdiJa2
- 0X4aXBnjt/lJIbI3P6xkW6ZSTu78yK90q2g80KqObRXxyZuuO3TTtdPi+iacjbcdAV6mtx8hkI7
- nU5fijhqNK5dUXcPFMQLskvymUf0oiWkKFuT+rQXaWYNrMIBX2mcpphnthVJgv4dakYXySa+6e8
- omOYNohT3UEeP5ipB4dNXJZaFC+Ov/mMmAllQ4zk4g0xpWtC1hey4VxWC1dxu7KlpzaxzrosNL+
- a71vW5M/sbOCakPRTAA==
-X-Proofpoint-ORIG-GUID: qBYfGlQClkpDhpYSBXS7QLTEPdwGibro
-X-Proofpoint-GUID: qBYfGlQClkpDhpYSBXS7QLTEPdwGibro
-X-Authority-Analysis: v=2.4 cv=eN0jSnp1 c=1 sm=1 tr=0 ts=6a3a47a4 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=DckfCgsgHaicydLOKuwA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-23_02,2026-06-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606230070
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] media: as102: drop device reference on probe failure
+To: Jiawen Liu <1298662399@qq.com>, mchehab@kernel.org
+Cc: hverkuil+cisco@kernel.org, kees@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <tmWO8aa9slCLa1R6aBLH7HXyONblpSZfVKYyTaxSL7PYmxsEXUkEpSfd7qvoeuPHxof-wx3-QqD1PoqkUddhOQ==@protonmail.internalid>
+ <tencent_F35CBD76D113E494EEA8930320DCEF7B6506@qq.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <tencent_F35CBD76D113E494EEA8930320DCEF7B6506@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
-On Fri, 19 Jun 2026 23:24:39 +0800, Runyu Xiao wrote:
-> tegra_gpio_direction_input() and tegra_gpio_direction_output() already
-> program the GPIO controller direction registers directly. The additional
-> pinctrl_gpio_direction_input/output() calls do not add a Tegra pinctrl
-> operation, because the Tegra pinmux ops provide GPIO request/free
-> handling but no gpio_set_direction hook.
+On 23/06/2026 05:39, Jiawen Liu wrote:
+> as102_usb_probe() initializes the kref and takes a USB device reference
+> before registering the USB minor.
 > 
-> The extra call still enters the pinctrl core and takes pctldev->mutex.
-> Shared GPIO users can call the direction path while holding their
-> per-line spinlock, so this otherwise redundant pinctrl direction call can
-> sleep in an atomic context.
+> The change named in the Fixes tag avoided freeing as102_dev directly
+> after usb_register_dev() succeeds, because userspace can open the minor
+> before a later probe failure and hold an extra kref until release.
 > 
-> [...]
+> However, the stream-allocation and DVB-registration failure paths now
+> deregister the USB minor and return without dropping the probe path
+> initial kref. That leaves the USB device reference held by as102_dev
+> leaked.
+> 
+> Drop the initial reference with kref_put() after usb_deregister_dev(). If
+> no userspace file is open, as102_usb_release() releases the USB device
+> and frees as102_dev immediately. If a file is open, the final free is
+> deferred until the last file release drops the remaining kref.
+> 
+> Fixes: 8bd29dbe03fc ("media: as102: fix to not free memory after the device is registered in as102_usb_probe()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiawen Liu <1298662399@qq.com>
+> ---
+>   drivers/media/usb/as102/as102_usb_drv.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/media/usb/as102/as102_usb_drv.c b/drivers/media/usb/as102/as102_usb_drv.c
+> index a11024451ceb..ad6c5837f1d7 100644
+> --- a/drivers/media/usb/as102/as102_usb_drv.c
+> +++ b/drivers/media/usb/as102/as102_usb_drv.c
+> @@ -405,6 +405,7 @@ static int as102_usb_probe(struct usb_interface *intf,
+>   failed_stream:
+>   	usb_set_intfdata(intf, NULL);
+>   	usb_deregister_dev(intf, &as102_usb_class_driver);
+> +	kref_put(&as102_dev->kref, as102_usb_release);
+>   	return ret;
+>   failed:
+>   	usb_put_dev(as102_dev->bus_adap.usb_dev);
+> 
+> base-commit: 9e7e6633458362db72427b48effad8d759131c35
+> --
+> 2.34.1
+> 
 
-Applied, thanks!
+Your kref_put() is correct but, the jump labels should be collapsed down 
+to a single return.
 
-[1/1] gpio: tegra: do not call pinctrl for GPIO direction
-      https://git.kernel.org/brgl/c/d3e91a95b2b0fc6336dbf3ec90d831a1654d2720
+diff --git a/drivers/media/usb/as102/as102_usb_drv.c 
+b/drivers/media/usb/as102/as102_usb_drv.c
+index a11024451cebd..2e6c9b50ee5ff 100644
+--- a/drivers/media/usb/as102/as102_usb_drv.c
++++ b/drivers/media/usb/as102/as102_usb_drv.c
+@@ -403,13 +403,10 @@ static int as102_usb_probe(struct usb_interface *intf,
+  failed_dvb:
+         as102_free_usb_stream_buffer(as102_dev);
+  failed_stream:
+-       usb_set_intfdata(intf, NULL);
+         usb_deregister_dev(intf, &as102_usb_class_driver);
+-       return ret;
+  failed:
+-       usb_put_dev(as102_dev->bus_adap.usb_dev);
+         usb_set_intfdata(intf, NULL);
+-       kfree(as102_dev);
++       kref_put(&as102_dev->kref, as102_usb_release);
+         return ret;
+  }
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+bod
