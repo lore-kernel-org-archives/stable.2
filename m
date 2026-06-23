@@ -1,153 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D5830C608;
-	Tue, 23 Jun 2026 18:58:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6225E208D0;
+	Tue, 23 Jun 2026 19:00:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782241137; cv=none; b=PMju3iwNc5dfeAdhCqFzl/kalVXY/hKYD829ZH2cbWOX47xj+AV7xZ7M48327F+rr4uHlhRbGW66wDndAl+zNwL05w/Y1Z5Ho0hUNrIL7l7W5stN+n6npAGJPk0r9ZqkxVljbwjZnlW5rz44bNOgUmAa+tX3v4zxvOSSz0OdcMo=
+	t=1782241209; cv=none; b=FTWlpdkoUh+TOG1bv/wB4YQNhW9rvDwOG4XQUcc9AmUMMSs8Ukk09oqLN3ZDijMDr0TZQ2lZ4N4X0BELyCZw9sCLTDhXcftg+NMj2U2Oec2B/zkomh4k809aGzwp1Iiut9CFGJjgEdyHWEckBe4+nX6oUPatgkc/qxw+KE70BMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782241137; c=relaxed/simple;
-	bh=tUwz1MLn/BZOz7PcqjWrLUp2F4k3oKpKxq+R89aZ8TA=;
-	h=Date:To:From:Subject:Message-Id; b=ggP+0ENRaWF7QFrVuJIn1aXDzJynBhcvdK9lD8eXPZ++X3Cngh1Yg/LRIqcjSPKAbcayNxL2vVPABPIBPXT7SJdVOQKtl8rUiiO5R2wxRua1SkEvQFjOgK/fAA9Zmw/OYYVSswmIJISEelOKWlNizkGKhDkt+byh8qsNYR0Qq84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=sPhN/BFa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782241209; c=relaxed/simple;
+	bh=JVjFuSKn3aFlRO2Q8/2E9ZSMlkBFFd6H9fKy00BxQRs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=L/kP20cNdjgE8QTBjqy77iGjRNXbIMvs3s5ka3yWYBJ+mCz2UdwFqJazwOWygz3hgqaORqckoGjD29bl+EDzZCCyuToBC1bI7ilpi8DSXIRzy+UMEJU6eOnMI5XSFBF7tqzcKFfK8S4+pd/A6wCcZX1GfTihECfV32y1aNn3z20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=A46V19S6; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="sPhN/BFa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBE1C1F000E9;
-	Tue, 23 Jun 2026 18:58:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1782241136;
-	bh=kYRVF6hH9+7QEdbIYa2tN7tCPDTEIeHfLXPxCs+JSl4=;
-	h=Date:To:From:Subject;
-	b=sPhN/BFaUNAkUHGFs8vrUlB6NTngh/MX165iq6h5VYKGjW/Rn7wj+RFupTd4u2JNF
-	 sdsUiwuvjolnYaQnWlcl2bLM0kRXSQOnZw0oJcMLLHlE81mYy08mXo+s1qIhpdPzeD
-	 sFsOLiKRZP5g4CT5aLJFlAmMWLo0VKhcYt99lGtg=
-Date: Tue, 23 Jun 2026 11:58:55 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-ops-common-handle-extreme-intervals-in-damon_hot_score.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260623185855.EBE1C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="A46V19S6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=NIYs76V2E3I8ofE5ECYosMQo1WgSs68DjhqIn/YRT1U=; b=A46V19S6sav/MEWuy5UNNVIC89
+	W/F2f830iFwrbnwGQb4ozWrVg0NELhmCVxgY3tymv8ecEkHaybOmKPWviryProptFnX7wNhsrW+rh
+	7eybeOgUIVRR/pZ17tQlEtNzFLYMyHqECxrWUjiPTA9OyaPdgevchhYwlB7uybWg4S2Ijoa7nypdH
+	pu2ilxpJIiF1w4fr5nDtsCA+GXvWRzSlyeRYbdvHLYduD0FvCcI780R7Khznfl4Se0g4+0qDQ5bJz
+	luki0afj/HZqr+NUIQ4dPToaREuxM10VA5Ukc9Fbyd5hc5oxv+C6v3/ARZ16PLj7slLIFvi7CAaRC
+	ib8ljBxA==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wc6Lv-00000006mIR-1Bkp;
+	Tue, 23 Jun 2026 19:00:07 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	driver-core@lists.linux.dev,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-doc@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] kernel-doc: xforms: support __SYSFS_FUNCTION_ALTERNATIVE()
+Date: Tue, 23 Jun 2026 12:00:04 -0700
+Message-ID: <20260623190006.406571-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Add support for __SYSFS_FUNCTION_ALTERNATIVE() to create a union of its
+members (as though CONFIG_CFI is unset).
 
-The patch titled
-     Subject: mm/damon/ops-common: handle extreme intervals in damon_hot_score()
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-damon-ops-common-handle-extreme-intervals-in-damon_hot_score.patch
+Fixes these docs build warnings:
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-ops-common-handle-extreme-intervals-in-damon_hot_score.patch
+WARNING: include/linux/device.h:117 Invalid param: __SYSFS_FUNCTION_ALTERNATIVE( ssize_t (*show)(struct device *dev, struct device_attribute *attr, char *buf)
+WARNING: include/linux/device.h:117 struct member '__SYSFS_FUNCTION_ALTERNATIVE( ssize_t (*show' not described in 'device_attribute'
+WARNING: include/linux/device.h:117 Invalid param: __SYSFS_FUNCTION_ALTERNATIVE( ssize_t (*store)(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
+WARNING: include/linux/device.h:117 struct member '__SYSFS_FUNCTION_ALTERNATIVE( ssize_t (*store' not described in 'device_attribute'
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: SeongJae Park <sj@kernel.org>
-Subject: mm/damon/ops-common: handle extreme intervals in damon_hot_score()
-Date: Tue, 23 Jun 2026 06:58:31 -0700
-
-Fix three issues in damon_hot_score() that comes from wrong handling of
-extreme (zero or too high) monitoring intervals user setup.
-
-When the user sets sampling interval zero, damon_max_nr_accesses(), which
-is called from damon_hot_score(), causes a divide-by-zero.  Needless to
-say, it is a problem.
-
-When the user sets the aggregation interval zero, the function returns
-zero.  It is wrong, since the real maximum nr_acceses in the setup should
-be one.  Worse yet, it can cause another divide-by-zero from its caller,
-damon_hot_score(), since it uses damon_max_nr_accesses() return value as a
-denominator.
-
-When the user sets the aggregation interval very high, damon_hot_score()
-could return a value out of [0, DAMOS_MAX_SCORE] range.  Since the return
-value is used as an index to the regions_score_histogram array, which is
-DAMOS_MAX_SCORE+1 size, it causes out of bounds array access.
-
-The issues can be relatively easily reproduced like below.  The sysfs
-write permission is required, though.
-
-    # ./damo start --damos_action lru_prio --damos_quota_space 100M \
-            --damos_quota_interval 1s
-    # cd /sys/kernel/mm/damon/admin/kdamonds/0
-    # echo 0 > contexts/0/monitoring_attrs/intervals/sample_us
-    # echo 0 > contexts/0/monitoring_attrs/intervals/aggr_us
-    # echo commit > state
-    # dmesg
-    [...]
-    [  131.329762] Oops: divide error: 0000 [#1] SMP NOPTI
-    [...]
-    [  131.336089] RIP: 0010:damon_hot_score+0x27/0xd0
-    [...]
-
-Fix the divide-by-zero intervals problems by explicitly handling the zero
-intervals in damon_max_nr_accesses().  Fix the out-of-bound array access
-by applying [0, DAMOS_MAX_SCORE] bounds before returning from
-damon_hot_score().
-
-The issue was discovered [1] by Sashiko.
-
-Link: https://lore.kernel.org/20260623135834.67189-1-sj@kernel.org
-Link: https://lore.kernel.org/20260619202459.145010-1-sj@kernel.org [1]
-Fixes: 198f0f4c58b9 ("mm/damon/vaddr,paddr: support pageout prioritization")
-Signed-off-by: SeongJae Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 5.16.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 434506b86a6c ("driver core: Allow the constification of device attributes")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 ---
+Cc: Thomas Weißschuh <linux@weissschuh.net>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: driver-core@lists.linux.dev
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: stable@vger.kernel.org
 
- include/linux/damon.h |    8 ++++++--
- mm/damon/ops-common.c |    1 +
- 2 files changed, 7 insertions(+), 2 deletions(-)
+ tools/lib/python/kdoc/xforms_lists.py |    1 +
+ 1 file changed, 1 insertion(+)
 
---- a/include/linux/damon.h~mm-damon-ops-common-handle-extreme-intervals-in-damon_hot_score
-+++ a/include/linux/damon.h
-@@ -979,9 +979,13 @@ static inline bool damon_target_has_pid(
+--- linux-next-20260619.orig/tools/lib/python/kdoc/xforms_lists.py
++++ linux-next-20260619/tools/lib/python/kdoc/xforms_lists.py
+@@ -49,6 +49,7 @@ class CTransforms:
+         (CMatch("DEFINE_DMA_UNMAP_ADDR"), r"dma_addr_t \1"),
+         (CMatch("DEFINE_DMA_UNMAP_LEN"), r"__u32 \1"),
+         (CMatch("VIRTIO_DECLARE_FEATURES"), r"union { u64 \1; u64 \1_array[VIRTIO_FEATURES_U64S]; }"),
++        (CMatch("__SYSFS_FUNCTION_ALTERNATIVE"), r"union { \1+ }"),
+         (CMatch("__attribute__"), ""),
  
- static inline unsigned int damon_max_nr_accesses(const struct damon_attrs *attrs)
- {
--	/* {aggr,sample}_interval are unsigned long, hence could overflow */
--	return min(attrs->aggr_interval / attrs->sample_interval,
-+	unsigned long sample_interval;
-+	unsigned long max_nr_accesses;
-+
-+	sample_interval = attrs->sample_interval ? : 1;
-+	max_nr_accesses = min(attrs->aggr_interval / sample_interval,
- 			(unsigned long)UINT_MAX);
-+	return max_nr_accesses ? : 1;
- }
- 
- 
---- a/mm/damon/ops-common.c~mm-damon-ops-common-handle-extreme-intervals-in-damon_hot_score
-+++ a/mm/damon/ops-common.c
-@@ -140,6 +140,7 @@ int damon_hot_score(struct damon_ctx *c,
- 	 * Transform it to fit in [0, DAMOS_MAX_SCORE]
- 	 */
- 	hotness = hotness * DAMOS_MAX_SCORE / DAMON_MAX_SUBSCORE;
-+	hotness = max(min(hotness, DAMOS_MAX_SCORE), 0);
- 
- 	return hotness;
- }
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-mm-damon-sysfs-schemes-fix-dir-put-orders-in-access_pattern_add_dirs.patch
-mm-damon-sysfs-schemes-put-stats-for-scheme_add_dirs-internal-error.patch
-mm-damon-ops-common-handle-extreme-intervals-in-damon_hot_score.patch
-
+         #
