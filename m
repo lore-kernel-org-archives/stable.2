@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8551337FF41;
-	Tue, 23 Jun 2026 00:30:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D174384254;
+	Tue, 23 Jun 2026 00:40:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782174625; cv=none; b=TEtk+MhTikrOLEfJ1oZKEN8VoAxFhwIPhLhzqEcusaM48TGh0kxBPDz8GKpRqj+UKzXUA8dwwh/5Nn5LKyAT7zMfDmgM/mpSyAZZU8632Mq19zv3tA0a9fAkaItOj1Ea19Q6meVmKDttOYvuRuQzP0HJacOXTLvty1mcSk7LkZU=
+	t=1782175219; cv=none; b=idDBCjjzKTb4L8Jgws58RwD6i+jXapxPGeih6NzCda3aIpLgcqHlhRkSnsxoXVd7dnd2kGOcnDcbDw5Q4Ycv2hSlqoXAnvCCsKJq9yvuocNWWhp/HRBBYIfKNeZTSdBSrvIchcNAYrYyuYfNWfp7VOhEzSArQFlRbAu5LDiy13M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782174625; c=relaxed/simple;
-	bh=tBMqPTTMZ/blwTEveTSY/DHSXD4CEv/VgroCrW1WXX4=;
+	s=arc-20240116; t=1782175219; c=relaxed/simple;
+	bh=jR+8piwKKC18zByzQZJ8iz2QHs5Ule5av7qKhfUfMH4=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=O+apCKDvbNrQaMwwajx+YrYXbOkG1y/EP4WWVJ3YKEXHn/Q6vcVgmXJ4ljICDm+An5bSH9CI54QEFM4mcWRLzRVBlZWNu3vMI++GVUoG8gtGjNJLmvKovLLGGTkH1XQ8993vioB8jCtKCnFzs+g5oVGSGhJL8wom47jPsXZk1hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jv8nvqVC; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=f6oS18P4OtEoq175FOnwJY+B+VZ1GCVbDx80tXoFrP80nlJY8cRhj3FsKIuhg3g8Uy1Op2uREgXbUKfe1n3WoBmwqbxs3Q98fgujE/krysnnP0dMBm0qs+hIAvZy8Xy8fkZmiC5j3nz9hIctm1YdrpPpcjglv/oJApPRrJuHQY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bjdBRNag; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jv8nvqVC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2023F1F000E9;
-	Tue, 23 Jun 2026 00:30:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bjdBRNag"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6044F1F000E9;
+	Tue, 23 Jun 2026 00:40:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782174624;
-	bh=jJ/FeTwB958bqT0CvT3zpI7nxDka1yEjfrGPU9SLm18=;
+	s=k20260515; t=1782175217;
+	bh=7WwV7C+/RLdDadamoZpqAbgcBr1uPP2MLzfTS8DLY5Y=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=jv8nvqVCyDJ/0eFpt7G+0RlJr3IbFQZCi7j82TcAkhtGKNzE9sV+lMjrf07vkgurK
-	 WvcmCGInfrdnb8M4cVdqw5EIaywf9NeJDkcun0i/+LH7Q7gM28jGBcvF/owuZLHEAG
-	 ju7p6lW89sew+pgDl7K8b9rbxpTFO9112pxooEaL8sD+pBZ/Yvypt2zGTJi+h6UJiZ
-	 5dD6hYi5MVdkJ0E1kYuw5wwa9OK50g9iWP+v3HxxgCzaCy/430f8ayaI0LZPDmfPgp
-	 l82tp9hcBknNF1XKca+6Zu3jK1XfYwH1PI+i8xo3QUnVobpwRPzK4sbZwgcntb1PDx
-	 bLT1tMA4dblMQ==
+	b=bjdBRNaguj22PXjdacq/w3hYWxHJgbesC81IPiW8FGBjN9WHlCL0PDHIDRjpCrOZj
+	 OMUiCwPqFi0UYz1sZPSX2aaGBsl0PRDJdXiymFUTLnsNfobvs6HjWcii1Y/Ghqz5QK
+	 WYHlwMxHQ0Gmuh7rZr47pIsAOdoXNnZD3M5QZhVHVCsbmhax7aoPNWYv/S8lr6jL3w
+	 kp0SiI+DN6xZg+Gk8mqkxbju9tzoiZgBKi5zpvv3+e9NGvOumh5/QZQ7BYc7ofsY+f
+	 va56l+1DMJ655GupUq4KFdQf9lfODVQKX/pAqhLg6JxlTMK7szoY+1XxYFKAb2QdKy
+	 VELpMfsq0/S0g==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93A45393098A;
-	Tue, 23 Jun 2026 00:30:15 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0B14393098A;
+	Tue, 23 Jun 2026 00:40:08 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,41 +37,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf v3 0/2] Fix stale register bounds on LSM retval
- context
- load
+Subject: Re: [PATCH net v2] net: ethernet: ti: icssg: guard PA stat lookups
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <178217461422.1476259.13794764203016830138.git-patchwork-notify@kernel.org>
-Date: Tue, 23 Jun 2026 00:30:14 +0000
-References: <20260622230123.3695446-1-tristmd@gmail.com>
-In-Reply-To: <20260622230123.3695446-1-tristmd@gmail.com>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, xukuohai@huawei.com, jolsa@kernel.org,
- john.fastabend@gmail.com, martin.lau@linux.dev, bpf@vger.kernel.org,
- stable@vger.kernel.org, tristan@talencesecurity.com
+ <178217520750.1479120.9274219966916752634.git-patchwork-notify@kernel.org>
+Date: Tue, 23 Jun 2026 00:40:07 +0000
+References: <20260618093037.3448858-1-dev@pschenker.ch>
+In-Reply-To: <20260618093037.3448858-1-dev@pschenker.ch>
+To: Philippe Schenker <dev@pschenker.ch>
+Cc: netdev@vger.kernel.org, philippe.schenker@impulsing.ch, horms@kernel.org,
+ danishanwar@ti.com, rogerq@kernel.org, linux-arm-kernel@lists.infradead.org,
+ stable@vger.kernel.org, andrew+netdev@lunn.ch, devnexen@gmail.com,
+ davem@davemloft.net, edumazet@google.com, jacob.e.keller@intel.com,
+ kuba@kernel.org, haokexin@gmail.com, m-malladi@ti.com, pabeni@redhat.com,
+ vadim.fedorenko@linux.dev, linux-kernel@vger.kernel.org
 
 Hello:
 
-This series was applied to bpf/bpf.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon, 22 Jun 2026 23:01:21 +0000 you wrote:
-> From: Tristan Madani <tristan@talencesecurity.com>
+On Thu, 18 Jun 2026 11:30:24 +0200 you wrote:
+> From: Philippe Schenker <philippe.schenker@impulsing.ch>
 > 
-> check_mem_access() calls __mark_reg_s32_range() to narrow a register to
-> the LSM hook retval range, but the intersection preserves stale bounds
-> from prior instructions. Add mark_reg_unknown() before narrowing (same
-> pattern as the else branch) and a selftest that catches the mismatch.
+> icssg_ndo_get_stats64() unconditionally calls emac_get_stat_by_name()
+> with FW PA stat names regardless of whether the PA stats block is
+> present on the hardware.  emac_get_stat_by_name() already guards the
+> PA stats lookup with `if (emac->prueth->pa_stats)`; when that pointer
+> is NULL the lookup falls through to netdev_err() and returns -EINVAL.
+> Because ndo_get_stats64 is polled regularly by the networking stack
+> this produces thousands of log entries of the form:
 > 
 > [...]
 
 Here is the summary with links:
-  - [bpf,v3,1/2] bpf: Reset register bounds before narrowing retval range in check_mem_access()
-    https://git.kernel.org/bpf/bpf/c/5e0b273e0a62
-  - [bpf,v3,2/2] selftests/bpf: Add test for stale bounds on LSM retval context load
-    https://git.kernel.org/bpf/bpf/c/644332f48fc2
+  - [net,v2] net: ethernet: ti: icssg: guard PA stat lookups
+    https://git.kernel.org/netdev/net/c/27b9daba5060
 
 You are awesome, thank you!
 -- 
