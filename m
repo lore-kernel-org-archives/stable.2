@@ -1,119 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D0F38B142;
-	Tue, 23 Jun 2026 19:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2EC390CBA
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 19:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782242624; cv=none; b=lMrHSb0na2xm3P46w4gFHGkpUMDpDgsvpBGKn7EVMQnvMvE6lGvHzAoSycUi3zgKBRFLPO30rc6vR4q9/qf1h69sC8fX1iC9XblEiI3TkfvLVSx7sWkfkcLctreauhZfBqsKvrbgIEVHToq2RLbXfpfcG2OiiT2kCQYb9hU8fuY=
+	t=1782243137; cv=none; b=BgjH4mf6owqCmfvmIGks3TuD04XyOnRFv64cL4cSHV59vt06K/MEzIK557Yxyhzq7k14MLcwwesRQ4TxkoD8+mZElKaYCu7oE10YpUmkfu/gUwajkpaxUY2Qz6vMMaBl6/ZQro7OZyfUMvRitfVgGsL+6IhXtT3QXdYc6kW/OZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782242624; c=relaxed/simple;
-	bh=O7DR9ILkd2nJoHBh2TQnDbYT3Y7Ne14/dVuQzQqfa9k=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fdlo3GaTifF/lhesZvYzgEMoxkN7MG8lljtf7FHw6nQednR8JfRW7xy0kndH1SJW08xQFj/H2KBuqwpAt6TRM4TWDwyPJv47yHJ4Fb/SAspC28z2YtW9lrEaNqjZBp/xMyadO+s8fYWSIv2tgi7Z5PXb0XLgoSAU3RXnAy11ck4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WShvWu8F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782243137; c=relaxed/simple;
+	bh=Nr2aL63sOv9f485z/UhCxW0OunsYshCUH3IQCPyx7X4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZAwJOJ6YVDgI8DM81X+3DpVi8K6TP7OZOcjxwh84rc/Ap+/u6jnsZyZUg4OAr9qbE6gooUPatpG3a0sb41Oacal4E5R6NGDeQ/Fz/IxjFQpuOWkD4iVKnGZwUbfnpxH5Ed7qm865wSzyyhJWOiuMzB0boxHTEaFr6ya4WXrjWs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nhoward.dev; spf=pass smtp.mailfrom=nhoward.dev; dkim=pass (2048-bit key) header.d=nhoward.dev header.i=@nhoward.dev header.b=EBJwVYxt; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=nAE4IqtA; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nhoward.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nhoward.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WShvWu8F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E1B61F000E9;
-	Tue, 23 Jun 2026 19:23:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782242623;
-	bh=/eUnBmyw2rFOllRrbRo6eVqfdlq5TkvvC1+VM9YXfiw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WShvWu8FV9VtCbeNSuU3WtBZKK/Ri3PUigE77CXwQuUY0D3+bwB26QgV+gnHoITwV
-	 n7K3XMkwYI71pqkqNpj5mv+02apbsy8aGitAfGB/8T6XQwE59w+PMP5dZATy+g+Jlm
-	 B/cc5C+aRK4aBueXfjtAwsozb3Zrck8Af0uYhTAGnByUGn5cKojNNwdfyfy5Vbrm3f
-	 bswxYtvL5qtpB6dnfEtg6WIg8UVvlym6aANEoHU4dVfxM0xPMpRoZN24DmZcAn8t8B
-	 Oyp5fWMyGs/lLSnBAl6UrDe4TZFjYO27HxPVf9dlk2X23M0+NkDrVnemc5xWBNhdZs
-	 AfRFMm5ZD/Sdg==
-Date: Tue, 23 Jun 2026 20:23:34 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Herman van Hazendonk <github.com@herrie.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nick
- Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>, Denis Ciocca
- <denis.ciocca@gmail.com>, Lars-Peter Clausen <lars@metafoo.de>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Denis Ciocca <denis.ciocca@st.com>, Linus Walleij
- <linusw@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
- devicetree@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] iio: common: st_sensors: honour channel
- endianness in read_axis_data
-Message-ID: <20260623202334.2217b1d4@jic23-huawei>
-In-Reply-To: <ajJwzsIMxX3Ew1x_@ashevche-desk.local>
-References: <20260616-submit-iio-lsm303dlh-magn-fixes-v2-0-063edcf74e60@herrie.org>
-	<20260616-submit-iio-lsm303dlh-magn-fixes-v2-1-063edcf74e60@herrie.org>
-	<ajJwzsIMxX3Ew1x_@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=nhoward.dev header.i=@nhoward.dev header.b="EBJwVYxt";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="nAE4IqtA"
+DKIM-Signature: a=rsa-sha256; b=EBJwVYxtKk62YxLgGLtFNLjkFNauEJm1unuBauKQEKR4iFgJY4H8Pt8uU5rhC3Oe21JNO2VwfLUDeBAfkLF0Lt6IVyi+dPRzgLGFdkAHvv1UEpXad4CEpbCnsYDAGKSBD87HVOOYKlaiQSY4ANqHFuXay73/MOsw78DGZgRfU+fpOThJdGCnMl5XsRQcwSxonP5oa8IVkXf+wFRahhUpYo8DSIO10wxiBXlAgiPmC30AN0X0Yr2n+4BIDQzduOpAUsu18mN4UdfIXAVG2xlWk1/LrWz7Fx9zITomx8SAHWmN5Sftx5jkL6a8Wyro1ktyjBZMCOqYOnpjwg4ixRL28Q==; s=purelymail1; d=nhoward.dev; v=1; bh=Nr2aL63sOv9f485z/UhCxW0OunsYshCUH3IQCPyx7X4=; h=Received:Date:From:To:Subject;
+DKIM-Signature: a=rsa-sha256; b=nAE4IqtAGyo8QxOv4tzc2TMiu3efeyMIg4BsbN6+auKho8AbbN5w23CzUgmsS7RYR7jmRn6MXGBxzXdJruMTJhp/a7otMkTQ0o4zZ/lthGmw1Qaw274JOpq3WMC2QctuvzNP3zkdq8CGwztaSMb+BwDjpijhTfmX20E2X1WSjNoHWaVlSJqjOEUHrkDkjeLoGvTMnfbvK+19fnqIjuCOLK8yndI9P1JZysvAdbHDWc7HF4GFDIpTigTGSSvGOFgCN/2Vlwv2qnxsmdeMnh3V8QmJzgiOqonjnnruQQWYNKINP+Bisxdo2OOwVxGi6+GgpN4OEeNJdO5xrauFTkjZTA==; s=purelymail1; d=purelymail.com; v=1; bh=Nr2aL63sOv9f485z/UhCxW0OunsYshCUH3IQCPyx7X4=; h=Feedback-ID:Received:Date:From:To:Subject;
+Feedback-ID: 823466:39853:null:purelymail
+X-Pm-Original-To: stable@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 420816377;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Tue, 23 Jun 2026 19:31:53 +0000 (UTC)
+Date: Tue, 23 Jun 2026 15:31:52 -0400
+From: Nathan Howard <kernel@nhoward.dev>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Yingjie Cao <yingjcao@sigvoid.com>, linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: mac80211: only accept IBSS channel switch from our
+ own BSSID
+Message-ID: <ajrfKAmdZnPPkGKE@gpu1>
+References: <20260623090437.13198-1-yingjcao@sigvoid.com>
+ <c3fd8617849368e579a56c4397b7ee8624ef27ad.camel@sipsolutions.net>
+ <9201d828365fa2b11fb6a83d1ff66365435a9072.camel@sipsolutions.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9201d828365fa2b11fb6a83d1ff66365435a9072.camel@sipsolutions.net>
 
-On Wed, 17 Jun 2026 13:02:54 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+On Tue, Jun 23, 2026 at 11:12:20AM +0200, Johannes Berg wrote:
+> On Tue, 2026-06-23 at 11:10 +0200, Johannes Berg wrote:
+> > On Tue, 2026-06-23 at 17:04 +0800, Yingjie Cao wrote:
+> > > ieee80211_rx_bss_info() acts on a channel switch announcement (CSA)
+> > > carried in a received beacon or probe response before it verifies that
+> > > the frame's BSSID matches our own IBSS; it only checks that the SSID
+> > > matches. ieee80211_rx_mgmt_spectrum_mgmt() acts on a spectrum management
+> > > (channel switch) action frame without checking the BSSID at all.
+> > > 
+> > > Because of this, any station in radio range that knows the IBSS SSID
+> > > (which is broadcast in cleartext) can inject a beacon or action frame
+> > > carrying a CSA element that points at an unsupported channel. The switch
+> > > then fails in ieee80211_ibss_process_chanswitch(), which queues
+> > > csa_connection_drop_work and tears the whole IBSS down. The members
+> > > rejoin and the attacker repeats, resulting in a persistent,
+> > > unauthenticated denial of service. Encrypted IBSS networks are equally
+> > > affected because beacons are not protected. Since both of these CSA
+> > > entry points are IBSS-specific, the impact is confined to IBSS (ad-hoc)
+> > > mode; managed-mode CSA is handled separately in mlme.c and is unaffected.
+> > 
+> > Once you rewrite this to be more honest, you'll see that the whole Cc
+> > stable thing and all is fairly much pointless?
+> > 
+> > Or have you not realised yet that stations can also trivially fake their
+> > MAC address?
+> 
+> Also, since you don't have a track record in wifi, I'll point once again
+> to https://docs.kernel.org/process/coding-assistants.html
+>
 
-> On Tue, Jun 16, 2026 at 03:02:04PM +0200, Herman van Hazendonk wrote:
-> > st_sensors_read_axis_data() unconditionally decoded multi-byte
-> > results with get_unaligned_le16() / get_unaligned_le24() regardless
-> > of the channel's declared scan_type.endianness.
-> >=20
-> > For every ST sensor that has used this helper since it was introduced
-> > this happened to be fine because the ST IMU/accel/gyro/pressure
-> > families publish their data registers as little-endian and the
-> > channel specs in those drivers declare IIO_LE accordingly.
-> >=20
-> > The LSM303DLH magnetometer however publishes its X/Y/Z output as a
-> > pair of big-endian bytes (the H register sits at the lower address,
-> > 0x03/0x05/0x07, and the L register immediately after), and its
-> > channel specs in st_magn_core.c correctly declare IIO_BE -- but
-> > read_axis_data() ignored that and decoded as little-endian, swapping
-> > the high and low bytes of every magnetometer sample. The LSM303DLHC
-> > and LSM303DLM share the same st_magn_16bit_channels (IIO_BE) and
-> > were therefore byte-swapped by the same bug; users of those parts
-> > will see different in_magn_*_raw values after this fix lands.
-> >=20
-> > The bug is most visible on a stationary chip: in earth's field the
-> > true X reading is small and the high byte sits at 0x00, so swapping
-> > the bytes pins sysfs X at exactly the low byte's pattern (e.g. 0x00F0
-> > =3D 240). Y and Z still appear "to vary" because their magnitudes are
-> > larger and the noise in the low byte produces big swings in the
-> > swapped high byte:
-> >=20
-> >   before (LSM303DLH flat, sysfs in_magn_*_raw):
-> >       X=3D240 (stuck), Y=3D 12032..23296, Z=3D-16128..-9728
-> >=20
-> >   after (direct i2c-dev big-endian decode, same chip same orientation):
-> >       X=E2=89=88-4096, Y=E2=89=88210, Z=E2=89=8880     (sensible values=
- reflecting earth's
-> >                                 ambient field at low gauss range)
-> >=20
-> > Fix read_axis_data() to dispatch on ch->scan_type.endianness and
-> > call get_unaligned_be16() / get_unaligned_be24() when the channel
-> > declares IIO_BE. Existing IIO_LE consumers (st_accel, st_gyro,
-> > st_pressure, st_lsm6dsx and others) are unaffected because their
-> > channel specs already declare IIO_LE and the LE path is unchanged.
-> >=20
-> > While restructuring the branches, replace the previously implicit
-> > silent-success-with-uninitialised-*data fall-through for
-> > byte_for_channel outside 1..3 with an explicit return -EINVAL. No
-> > in-tree ST sensor publishes such a channel, but the new behaviour
-> > is strictly safer than handing userspace garbage. =20
->=20
-> Sounds like inevitable change in ABI, but worth doing it.
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Applied to the fixes-togreg branch of iio.git. I'll wait until after
-rc1 to send a pull request though (and rebase on rc1 in the meantime).
-The other patches may have to wait, I haven't checked yet!
-
-Jonathan
-
->=20
-
+So, what's the litmus test?  I've been watching this list for some time
+now.  I've seen (what appears) to be an ushering of distrust brought
+on by llm's.  This also seems to have come into prominence within the last 6 or
+so months.  I understand the cautious approach, but what if one's been
+working diligently (and quietly), and has spent many hours studying and
+preparing a driver series (for oneself and submission to the kernel)?
+I've always done well by doing my homework the hard way.  But now,
+submissions are met with skepticism... that the work must have been
+assisted-by if the person doesn't have a track record.  How should one defend
+his work (I'd rather not share credit with a machine when my work is my own)?
+To be clear, my question is sourcing from what I've seen to be trending
+more recently whereby several submissions have been ?softly? tagged as assisted-by.
+Maybe they were, but my point still stands.  Kindly provide guidance.
