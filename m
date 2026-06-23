@@ -1,33 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02983CE4B6;
-	Tue, 23 Jun 2026 08:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A8C3C584E
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 08:56:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782204647; cv=none; b=C1c11Mq2Je1Nu50Mk1d6s4LzN8305SXvblNHlQavYTVCyK6N6ssQme2HIM7sLi6lRzht24o0OB/IMtr1As/gNBoLyTo8af00gM0MgnxtQyR3HRAQNzEJh1bON3bE/yM4vTeAV2/39tv7wB44MIDHt2dxCaf8Vq0dBWPSfWWe/uk=
+	t=1782205018; cv=none; b=prD1zFclMuvTLpqsMQLQwEYhZB7d8miaZXGA9d7XRUSyPJJBMdbHjRx2bvu0+MhLve//L+jGKqHzDrZ0ISVDEZ5z7D2PlLVwwEK73+T4RQtrP3NDKFT71hMeoYJVbGzm3mB1MA2GIsqBlgvNH0aNtji5qlewa8Vc8W4f3zqsiWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782204647; c=relaxed/simple;
-	bh=ymyLnNo2wfX+1LVNgsG48XC8G/ZktpRxoS4AYqmXBes=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=IeXOeiMixOGqG6KoVkPWRXND7y/U2OWfZqbJ9GnLY4aFAERuLtGyLFGudzN2/ZCEmRyd6PQoicjZtypud+DTc4bf2X5F7oPauqY+Sve65UJtoOcnCkTk1E9flhHW/FabbSUgowO1cTv/wfLgCPvLVtOT9nZkbv0Hv/cT8/mwLlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XbF7w1y+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782205018; c=relaxed/simple;
+	bh=QNHtK1HmYLGWut5Lk/dx4QruEmeCpYCTh4Syvg2FqqI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BHRRFbRlt71beS1zR64eTRvK7IKGyRHfggSi82TmGsL+K3MGzpGcVdo3bolN1GPV8xgaNtYDBKyOpynsYHv6Z/KGKI0NWR9bFZBTq6jmSzXZq1E+lkrZdWyn7+Jr/z+DKTGcjJ2EskTbfppuXwpfjvqNqF8KoFYJ3Wg3mWZDJT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=TmjYq+ts; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=lsn2SiHQ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=TmjYq+ts; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=lsn2SiHQ; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XbF7w1y+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58B561F000E9;
-	Tue, 23 Jun 2026 08:50:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782204646;
-	bh=0YLaSGVbAXAi4eLXg080mHSZJtv4thCtHhEgcK7CLFc=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=XbF7w1y+9xegvP1N0qKa+yoV8eSwctsa9IO9SJkio6qCWJQYyhbYceQT+hJruf4PN
-	 nvOeMjQVFy3UBMmQ7uhJy8CyrDiW+JfmhhRQOduCOktcNKiWg2rOFNz7lQdUq7g6DO
-	 IjvN7N+JG8p1S/YR15CrbE1DX/K49zYxtRAxIPh0omew5DFArbqX7Sr/relWMs1Roi
-	 oWwj4EUWXkRVPm+Ao10nRj7BxKDBYnKj04U/yPXhxAcHc0J2C6RaQsIiLGAWRC3I4K
-	 6+Ek82Wnt4CRBy88v79ysZKj30PpVaJmNwaM5NvHIQYr5eSAQiGRLPuRfJeW91Mam2
-	 DQHAP9cWVyAEA==
-Message-ID: <ddfa2884-c5c7-4cf5-b857-b9ad8d55736b@kernel.org>
-Date: Tue, 23 Jun 2026 16:50:42 +0800
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TmjYq+ts";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lsn2SiHQ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TmjYq+ts";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lsn2SiHQ"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2CABD75D4C;
+	Tue, 23 Jun 2026 08:56:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1782205008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=3RnNK/GtLp3yp0QwhGJnVLwz7l0WW2gZlBt7s+tpRA8=;
+	b=TmjYq+tseDuvJkUDRHS2u3LY5GKULsmXtLNv8U1lvVm9gE1EelXBCn7c8tMxRlDTzGNIsN
+	fS+OcHetSS86eKfNMqkqoECbfArLYF8WjgpFdzg41i6cziPv5pKp8t56gtJCWNJL5FZD6o
+	6pWxvSz0XiK27Ov6kBddPGuSfqC+E78=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1782205008;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=3RnNK/GtLp3yp0QwhGJnVLwz7l0WW2gZlBt7s+tpRA8=;
+	b=lsn2SiHQlvXURtjNi5fhhPG/M1Tv7glmuVLazcX+NKRUtJ2ODPyMmBRAdkJ/pE/tzxvWiv
+	/111/012Kqq44RAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1782205008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=3RnNK/GtLp3yp0QwhGJnVLwz7l0WW2gZlBt7s+tpRA8=;
+	b=TmjYq+tseDuvJkUDRHS2u3LY5GKULsmXtLNv8U1lvVm9gE1EelXBCn7c8tMxRlDTzGNIsN
+	fS+OcHetSS86eKfNMqkqoECbfArLYF8WjgpFdzg41i6cziPv5pKp8t56gtJCWNJL5FZD6o
+	6pWxvSz0XiK27Ov6kBddPGuSfqC+E78=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1782205008;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=3RnNK/GtLp3yp0QwhGJnVLwz7l0WW2gZlBt7s+tpRA8=;
+	b=lsn2SiHQlvXURtjNi5fhhPG/M1Tv7glmuVLazcX+NKRUtJ2ODPyMmBRAdkJ/pE/tzxvWiv
+	/111/012Kqq44RAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D5220779A8;
+	Tue, 23 Jun 2026 08:56:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id nbXcMU9KOmq0ZgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Tue, 23 Jun 2026 08:56:47 +0000
+Message-ID: <32644b7a-c09d-4c81-913d-53d2fc2e2950@suse.de>
+Date: Tue, 23 Jun 2026 10:56:47 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,55 +82,100 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daniel Lee <chullee@google.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, stable@vger.kernel.org,
- Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: Re: [PATCH v2] f2fs: don't drop the top folio order in the
- f2fs_iostat tracepoint
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <69618bed-db94-4503-aa9b-c78fb51a945c@kernel.org>
- <20260623072641.3547410-1-zhanxusheng@xiaomi.com>
+Subject: Re: [PATCH v2 4/6] drm/sysfb: simpledrm: Improve stride validation
+To: Thierry Reding <treding@nvidia.com>
+Cc: javierm@redhat.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch, rayyan@ansari.sh,
+ dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
+ stable@vger.kernel.org
+References: <20260622132433.722823-1-tzimmermann@suse.de>
+ <20260622132433.722823-5-tzimmermann@suse.de> <ajld8iWQ9iLwBen8@orome>
 Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260623072641.3547410-1-zhanxusheng@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <ajld8iWQ9iLwBen8@orome>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -4.30
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,ansari.sh,lists.freedesktop.org,lists.linux.dev,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,nvidia.com:email,suse.com:url,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Level: 
 
-On 6/23/26 15:26, Zhan Xusheng wrote:
-> The f2fs_iostat tracepoint stores the per-order read folio counts in a
-> fixed-size array and prints a fixed number of buckets, both hardcoded to
-> 11. The sysfs iostat accounting array is instead sized by NR_PAGE_ORDERS
-> (= MAX_PAGE_ORDER + 1), which is not always 11:
-> 
-> 	arm64 16K pages -> MAX_PAGE_ORDER 11 -> NR_PAGE_ORDERS 12
-> 	arm64 64K pages -> MAX_PAGE_ORDER 13 -> NR_PAGE_ORDERS 14
-> 
-> f2fs enables large folios for immutable, non-compressed files, and the
-> read folio order is bounded by MAX_PAGECACHE_ORDER, i.e.
-> min(MAX_XAS_ORDER, PREFERRED_MAX_PAGECACHE_ORDER). With THP enabled this
-> reaches order 11 on 16K/64K base-page kernels (MAX_XAS_ORDER caps it at
-> 11). So an order-11 read folio is possible there and is accounted into
-> index 11 of the array.
-> 
-> On those configurations the sysfs file reports the order-11 count
-> correctly, but the tracepoint silently drops it: the memcpy is capped at
-> min(NR_PAGE_ORDERS, 11), so index 11 is never copied and the trace
-> disagrees with sysfs. There is no memory-safety issue, only the order-11
-> bucket missing from the trace; 4K-page kernels (NR_PAGE_ORDERS == 11,
-> max order <= 9) are unaffected.
-> 
-> Size the array and the printed buckets by a ceiling that covers the
-> largest possible NR_PAGE_ORDERS (14) with headroom, and add a
-> BUILD_BUG_ON() so any future growth of NR_PAGE_ORDERS fails the build
-> loudly instead of silently truncating again. The human-readable
-> "order=count" output is preserved.
-> 
-> Fixes: cb8ff3ead9a3 ("f2fs: add page-order information for large folio reads in iostat")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Hi
 
-Reviewed-by: Chao Yu <chao@kernel.org>
+Am 22.06.26 um 18:10 schrieb Thierry Reding:
+> On Mon, Jun 22, 2026 at 03:19:38PM +0200, Thomas Zimmermann wrote:
+>> Validate the computed stride against the maximum value INT_MAX.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Fixes: 7bfa5c7b28d6 ("drm/simpledrm: Compute linestride with drm_format_info_min_pitch()")
+>> Cc: <stable@vger.kernel.org> # v6.1+
+>> ---
+>>   drivers/gpu/drm/sysfb/simpledrm.c | 10 ++++++++--
+>>   1 file changed, 8 insertions(+), 2 deletions(-)
+> Ugh... I have a hard time imagining that we'd ever exceed INT_MAX here,
+> but I guess better safe than sorry?
 
-Thanks,
+Yeah. The idea of these patches is to harden the driver against all kind 
+of nonsense the firmware might give it. With patch 1 that limits the 
+width to 2^16, I don't think it's possible to exceed a pitch of INT_MAX, 
+but let's check anyway.
+
+Best regards
+Thomas
+
+>
+> Reviewed-by: Thierry Reding <treding@nvidia.com>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
