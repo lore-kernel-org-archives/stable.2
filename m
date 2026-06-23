@@ -1,90 +1,115 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2EC390CBA
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 19:32:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E573939B6
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 19:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782243137; cv=none; b=BgjH4mf6owqCmfvmIGks3TuD04XyOnRFv64cL4cSHV59vt06K/MEzIK557Yxyhzq7k14MLcwwesRQ4TxkoD8+mZElKaYCu7oE10YpUmkfu/gUwajkpaxUY2Qz6vMMaBl6/ZQro7OZyfUMvRitfVgGsL+6IhXtT3QXdYc6kW/OZ8=
+	t=1782244181; cv=none; b=ZKic7DjgyF6pfRP166qEXAW21ELAqnha62dzRewOJWUGFpcOtmLC3hjmp8g64S0GssWFwvNDj5dOzeZYX6LMgNdXH+uYIgXMeSZH0UN4qHD4msGW7jjl3OG2ZBBY9xZUEGk2h3SmCdzVDpqEQjfNxVMQh6MC6r+x7TdwNce9lrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782243137; c=relaxed/simple;
-	bh=Nr2aL63sOv9f485z/UhCxW0OunsYshCUH3IQCPyx7X4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZAwJOJ6YVDgI8DM81X+3DpVi8K6TP7OZOcjxwh84rc/Ap+/u6jnsZyZUg4OAr9qbE6gooUPatpG3a0sb41Oacal4E5R6NGDeQ/Fz/IxjFQpuOWkD4iVKnGZwUbfnpxH5Ed7qm865wSzyyhJWOiuMzB0boxHTEaFr6ya4WXrjWs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nhoward.dev; spf=pass smtp.mailfrom=nhoward.dev; dkim=pass (2048-bit key) header.d=nhoward.dev header.i=@nhoward.dev header.b=EBJwVYxt; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=nAE4IqtA; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nhoward.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nhoward.dev
+	s=arc-20240116; t=1782244181; c=relaxed/simple;
+	bh=6RzFIdGudxTx8h17dyce85P9cpvFv2zSRZGFxRvlWWU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JJeOElpy3FtpOHRu2BBP8aDE7nNS7prz/H/VRFurqVQFuH4SSjuuDy163oHqyz+uEXm7AgQad7vjrWFMG6QEvkDOzrkhHAHFKK2XbO2tXCHGxj1goXu+YBf9wTQshU1/K+jt8sF9IDlAEPQa2MwlvNDib2zhNiyZxlcAKFPs1Us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UHYpVdnS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nhoward.dev header.i=@nhoward.dev header.b="EBJwVYxt";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="nAE4IqtA"
-DKIM-Signature: a=rsa-sha256; b=EBJwVYxtKk62YxLgGLtFNLjkFNauEJm1unuBauKQEKR4iFgJY4H8Pt8uU5rhC3Oe21JNO2VwfLUDeBAfkLF0Lt6IVyi+dPRzgLGFdkAHvv1UEpXad4CEpbCnsYDAGKSBD87HVOOYKlaiQSY4ANqHFuXay73/MOsw78DGZgRfU+fpOThJdGCnMl5XsRQcwSxonP5oa8IVkXf+wFRahhUpYo8DSIO10wxiBXlAgiPmC30AN0X0Yr2n+4BIDQzduOpAUsu18mN4UdfIXAVG2xlWk1/LrWz7Fx9zITomx8SAHWmN5Sftx5jkL6a8Wyro1ktyjBZMCOqYOnpjwg4ixRL28Q==; s=purelymail1; d=nhoward.dev; v=1; bh=Nr2aL63sOv9f485z/UhCxW0OunsYshCUH3IQCPyx7X4=; h=Received:Date:From:To:Subject;
-DKIM-Signature: a=rsa-sha256; b=nAE4IqtAGyo8QxOv4tzc2TMiu3efeyMIg4BsbN6+auKho8AbbN5w23CzUgmsS7RYR7jmRn6MXGBxzXdJruMTJhp/a7otMkTQ0o4zZ/lthGmw1Qaw274JOpq3WMC2QctuvzNP3zkdq8CGwztaSMb+BwDjpijhTfmX20E2X1WSjNoHWaVlSJqjOEUHrkDkjeLoGvTMnfbvK+19fnqIjuCOLK8yndI9P1JZysvAdbHDWc7HF4GFDIpTigTGSSvGOFgCN/2Vlwv2qnxsmdeMnh3V8QmJzgiOqonjnnruQQWYNKINP+Bisxdo2OOwVxGi6+GgpN4OEeNJdO5xrauFTkjZTA==; s=purelymail1; d=purelymail.com; v=1; bh=Nr2aL63sOv9f485z/UhCxW0OunsYshCUH3IQCPyx7X4=; h=Feedback-ID:Received:Date:From:To:Subject;
-Feedback-ID: 823466:39853:null:purelymail
-X-Pm-Original-To: stable@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 420816377;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Tue, 23 Jun 2026 19:31:53 +0000 (UTC)
-Date: Tue, 23 Jun 2026 15:31:52 -0400
-From: Nathan Howard <kernel@nhoward.dev>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Yingjie Cao <yingjcao@sigvoid.com>, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: mac80211: only accept IBSS channel switch from our
- own BSSID
-Message-ID: <ajrfKAmdZnPPkGKE@gpu1>
-References: <20260623090437.13198-1-yingjcao@sigvoid.com>
- <c3fd8617849368e579a56c4397b7ee8624ef27ad.camel@sipsolutions.net>
- <9201d828365fa2b11fb6a83d1ff66365435a9072.camel@sipsolutions.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UHYpVdnS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E8C1F000E9;
+	Tue, 23 Jun 2026 19:49:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782244179;
+	bh=05sabeZwNOEIHThmaI+9BpqqhsMHzxqNBn+GvhIoVek=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UHYpVdnSGnVWvn3yJEV+VdEdjmMJpi9hF5IV6OsFZ134tJ3+AVGpE+EwA6kNux8bd
+	 2MK6hpoJEIfq1ZSjlMQkb5JMPUuNXSYDNholGRAQExLXPG37ZLAcVmCNWyC6/bOcs6
+	 Ii6KcyTbtAdm70kHEYbfB3bhBePbinlF94vED2550Hy3Qxp/s50RVqoViS/f9MCxCg
+	 n4voSi37ztoCe9v/5DuuV2fOjqP0tB52A3iM4CTahCyJmC0LGrYrsyrxoxoBG9coER
+	 FszVLdHixvVve3NlsYu30m9mn8Qh0PGNCee0R9O3CLni0l4Ylbt4GLCSUrtMP/cb2V
+	 xk47RDXfRzPSA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Joanne Koong <joannelkoong@gmail.com>,
+	Lei Lu <llfamsec@gmail.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] fuse: re-lock request before replacing page cache folio
+Date: Tue, 23 Jun 2026 15:49:37 -0400
+Message-ID: <20260623194937.1375846-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026062231-sterilize-crisped-5ef7@gregkh>
+References: <2026062231-sterilize-crisped-5ef7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9201d828365fa2b11fb6a83d1ff66365435a9072.camel@sipsolutions.net>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 23, 2026 at 11:12:20AM +0200, Johannes Berg wrote:
-> On Tue, 2026-06-23 at 11:10 +0200, Johannes Berg wrote:
-> > On Tue, 2026-06-23 at 17:04 +0800, Yingjie Cao wrote:
-> > > ieee80211_rx_bss_info() acts on a channel switch announcement (CSA)
-> > > carried in a received beacon or probe response before it verifies that
-> > > the frame's BSSID matches our own IBSS; it only checks that the SSID
-> > > matches. ieee80211_rx_mgmt_spectrum_mgmt() acts on a spectrum management
-> > > (channel switch) action frame without checking the BSSID at all.
-> > > 
-> > > Because of this, any station in radio range that knows the IBSS SSID
-> > > (which is broadcast in cleartext) can inject a beacon or action frame
-> > > carrying a CSA element that points at an unsupported channel. The switch
-> > > then fails in ieee80211_ibss_process_chanswitch(), which queues
-> > > csa_connection_drop_work and tears the whole IBSS down. The members
-> > > rejoin and the attacker repeats, resulting in a persistent,
-> > > unauthenticated denial of service. Encrypted IBSS networks are equally
-> > > affected because beacons are not protected. Since both of these CSA
-> > > entry points are IBSS-specific, the impact is confined to IBSS (ad-hoc)
-> > > mode; managed-mode CSA is handled separately in mlme.c and is unaffected.
-> > 
-> > Once you rewrite this to be more honest, you'll see that the whole Cc
-> > stable thing and all is fairly much pointless?
-> > 
-> > Or have you not realised yet that stations can also trivially fake their
-> > MAC address?
-> 
-> Also, since you don't have a track record in wifi, I'll point once again
-> to https://docs.kernel.org/process/coding-assistants.html
->
+From: Joanne Koong <joannelkoong@gmail.com>
 
-So, what's the litmus test?  I've been watching this list for some time
-now.  I've seen (what appears) to be an ushering of distrust brought
-on by llm's.  This also seems to have come into prominence within the last 6 or
-so months.  I understand the cautious approach, but what if one's been
-working diligently (and quietly), and has spent many hours studying and
-preparing a driver series (for oneself and submission to the kernel)?
-I've always done well by doing my homework the hard way.  But now,
-submissions are met with skepticism... that the work must have been
-assisted-by if the person doesn't have a track record.  How should one defend
-his work (I'd rather not share credit with a machine when my work is my own)?
-To be clear, my question is sourcing from what I've seen to be trending
-more recently whereby several submissions have been ?softly? tagged as assisted-by.
-Maybe they were, but my point still stands.  Kindly provide guidance.
+[ Upstream commit a078484921052d0badd827fcc2770b5cfc1d4120 ]
+
+fuse_try_move_folio() unlocks the request on entry but does not
+re-lock it on the success path. This means fuse_chan_abort() can end the
+request and free the fuse_io_args (eg fuse_readpages_end()) while the
+subsequent copy chain logic after fuse_try_move_folio() accesses the
+fuse_io_args, leading to use-after-free issues.
+
+Fix this by calling lock_request() before replace_page_cache_folio().
+This ensures the request is locked on the success path which will
+prevent the fuse_io_args from being freed while the later copying logic
+runs, and also ensures that the ap->folios[i]->mapping is never null
+since ap->folios[i] will always point to the newfolio after
+replace_page_cache_folio().
+
+Fixes: ce534fb05292 ("fuse: allow splice to move pages")
+Cc: stable@vger.kernel.org
+Reported-by: Lei Lu <llfamsec@gmail.com>
+Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/fuse/dev.c | 19 +++++--------------
+ 1 file changed, 5 insertions(+), 14 deletions(-)
+
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 58ec5bac6ce9d1..8e21bbfe65dc7b 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -839,6 +839,10 @@ static int fuse_try_move_page(struct fuse_copy_state *cs, struct page **pagep)
+ 	if (WARN_ON(PageMlocked(oldpage)))
+ 		goto out_fallback_unlock;
+ 
++	err = lock_request(cs->req);
++	if (err)
++		goto out_fallback_unlock;
++
+ 	replace_page_cache_page(oldpage, newpage);
+ 
+ 	get_page(newpage);
+@@ -852,20 +856,7 @@ static int fuse_try_move_page(struct fuse_copy_state *cs, struct page **pagep)
+ 	 */
+ 	pipe_buf_release(cs->pipe, buf);
+ 
+-	err = 0;
+-	spin_lock(&cs->req->waitq.lock);
+-	if (test_bit(FR_ABORTED, &cs->req->flags))
+-		err = -ENOENT;
+-	else
+-		*pagep = newpage;
+-	spin_unlock(&cs->req->waitq.lock);
+-
+-	if (err) {
+-		unlock_page(newpage);
+-		put_page(newpage);
+-		goto out_put_old;
+-	}
+-
++	*pagep = newpage;
+ 	unlock_page(oldpage);
+ 	/* Drop ref for ap->pages[] array */
+ 	put_page(oldpage);
+-- 
+2.53.0
+
