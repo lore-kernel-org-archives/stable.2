@@ -1,235 +1,293 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022109.outbound.protection.outlook.com [52.101.66.109])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58003D3CEA;
-	Tue, 23 Jun 2026 11:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.109
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782213837; cv=fail; b=UHzigdjF+C0wasivDNOUu0EOC5o5c2hQX6r8PRhcWEAg+wuWYut8y6vatL2FRVIFtHhZHX9YOAYcnUA7EVxDgl4OFZ2pzlAq7QpRl1DXa1km8b11vDTBMUiUz4DByxcKBcMQ0wEwk8J/Bl4c5r2Klg1ahDQfYRzgGguFzmJwoec=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782213837; c=relaxed/simple;
-	bh=Q0hmXLQEj/kmGWT0/bLPgfxY+1n+BLXkySRSEsh3S7g=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=B5059X2UqvSZL5k9xz+cTFYdTLoZc3RnRodnQ3SnX6DcP89OAmK6jTUL88dlqVcOD0tfG3A9kbk0B+JarU3xADN9t1vrCPa+m+EwiAeAyf+Wgbq2xBO/ObJw9Rwi1aHi2rXJM8AXxyDU4N5Pbp3wG+uDtY3FzwV57oC2c+8KqPw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de; spf=pass smtp.mailfrom=ziehl-abegg.de; dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b=RlZkGNSa; arc=fail smtp.client-ip=52.101.66.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziehl-abegg.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26423D3D00
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 11:25:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782213952; cv=none; b=c0NkdtoKGOfSilGniCD6GkDNtd30cCMoIPNMsCzYnls2p9zv2IPeRWYHsgX6v00Gs6KdJC60UgyfdRnQWrcTL0XRD0kRLWSrFEujLuV95QvIE4AYX9+I+LZPCU+xrlPdeN6iabSzd5RMvly6ql8O1TyK7034bAUTJQZiFQxorDU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782213952; c=relaxed/simple;
+	bh=m+E3TjkE6dn/6fKKHYHpYC0iGcTgTNTIlGlR5oO/3lo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KdyBIVtb/eKBfyiuwP8ZrGyTObNhIRrAlbqJwAN4EAI0p221N6LY42dEVnJL/EPynyqD3cZnKfQSqf44qOvyq2goLflNhrMzX/Fkp2DMba3jJDkPFU+U1WfnZVo9mkKeDQ7LpiV7NC1NV/frCN003i6wVssZ2wTIt79mNF7VZYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PInSf4QT; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b="RlZkGNSa"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gnl2hPmlPgHDyEIy2MflL0CNuojXk4W5emtAMzTLmp2uMB4+7zXWmuWT83OAubUJaUOL9TMtZojRf9StKs5nNSSvAEmzIH/SQ7GPCKo3JABDAWzavZLX7W1dgagHirxn1WSvL5S2vrZtBi9ZlnLJ9w5haw3V8LvQVRrCzrs3nwpZs6CbeskQR5rSmzS4Fgv11/ykcVtfC0oT+5IQTJ9I+NOmHIZ+YV7DC4C4tCSmSW2sOD7uc1FczHSzGWTI/OYM2ct4ymUpC9+t6YjAFCsrl4aYbO17btstd9Ly7BnvR8aobPsNzM+8gGulD8apzjcjbCnxXB7MAb2y0xHP9B9nbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eaZAMQMHyAqLlHABN23P+XeQj+DmC7/C9UYdZFOWjxE=;
- b=xJ6OiYJGRy7YSiZxFdz+c+YgyRqW7XsFnOl2/ty8ol56xKpfwwca8yIDRg3eFJHjUtd8ecakwKe4m7nXxqaPLCUV2hRufhAhOk3xsNm8icm2nmHxhTWqw57G4EsVEJKuC9r6Ggq6tdMvUz34FxTOuCmONvmbIYrJ7VuKfSod6yoYFaTQRY+NQycWqIZvoRsosL1UEstjrs8lohE5TTgcPThmeI3HbCwfykY7OmTcYibOIqEgZAjtg+GuTtVuREU/B2ovM/iExfUx1bbCVoZtTaLWIyTQZyG/Ixw3BOFCjHvrEe/9YofSXbh7lQuJHieZdeAzqC3dlxGt/tLquSmVbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 52.138.216.130) smtp.rcpttodomain=vger.kernel.org
- smtp.mailfrom=ziehl-abegg.de; dmarc=pass (p=quarantine sp=quarantine pct=100)
- action=none header.from=ziehl-abegg.de; dkim=none (message not signed);
- arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziehl-abegg.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eaZAMQMHyAqLlHABN23P+XeQj+DmC7/C9UYdZFOWjxE=;
- b=RlZkGNSaE+bq0Ip5ofZaTzUhwyRlGSR1sTH143kgJ4bNmuTKAfD1QvXkOidssfDhg7ElDDVhC3s3eEsmXClZ/0Xnm1zBHJPQoD79Zank1bTqT7ElYt2SC9PMKy3V87kSY+2HVVFf7TiDpWTYORDZGQyFLrHHy/wt7bVuEyRB918=
-Received: from DU7P189CA0006.EURP189.PROD.OUTLOOK.COM (2603:10a6:10:552::6) by
- GV2PR02MB11852.eurprd02.prod.outlook.com (2603:10a6:150:351::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Tue, 23 Jun
- 2026 11:23:49 +0000
-Received: from DU2PEPF0001E9C3.eurprd03.prod.outlook.com
- (2603:10a6:10:552:cafe::41) by DU7P189CA0006.outlook.office365.com
- (2603:10a6:10:552::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Tue,
- 23 Jun 2026 11:23:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 52.138.216.130)
- smtp.mailfrom=ziehl-abegg.de; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ziehl-abegg.de;
-Received-SPF: Pass (protection.outlook.com: domain of ziehl-abegg.de
- designates 52.138.216.130 as permitted sender)
- receiver=protection.outlook.com; client-ip=52.138.216.130;
- helo=eu22-emailsignatures-cloud.codetwo.com; pr=C
-Received: from eu22-emailsignatures-cloud.codetwo.com (52.138.216.130) by
- DU2PEPF0001E9C3.mail.protection.outlook.com (10.167.8.72) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.10 via Frontend Transport; Tue, 23 Jun 2026 11:23:49 +0000
-Received: from GV1PR07CU001.outbound.protection.outlook.com (40.93.214.97) by eu22-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Tue, 23 Jun 2026 11:23:48 +0000
-Received: from PR1P264CA0072.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:2cc::14)
- by PA1PPFF94441E0E.eurprd02.prod.outlook.com (2603:10a6:108:1::266) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Tue, 23 Jun
- 2026 11:23:41 +0000
-Received: from AM4PEPF00025F97.EURPRD83.prod.outlook.com
- (2603:10a6:102:2cc:cafe::92) by PR1P264CA0072.outlook.office365.com
- (2603:10a6:102:2cc::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Tue,
- 23 Jun 2026 11:23:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 217.6.247.99)
- smtp.mailfrom=ziehl-abegg.de; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ziehl-abegg.de;
-Received-SPF: Pass (protection.outlook.com: domain of ziehl-abegg.de
- designates 217.6.247.99 as permitted sender) receiver=protection.outlook.com;
- client-ip=217.6.247.99; helo=mail.za.ziehl-abegg.de; pr=C
-Received: from mail.za.ziehl-abegg.de (217.6.247.99) by
- AM4PEPF00025F97.mail.protection.outlook.com (10.167.16.6) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.21.181.0 via Frontend Transport; Tue, 23 Jun 2026 11:23:41 +0000
-Received: from localhost (10.1.201.87) by vEX02.za.ziehl-abegg.de
- (10.1.201.106) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Tue, 23 Jun
- 2026 13:23:40 +0200
-From: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
-To: <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <gregkh@linuxfoundation.org>, <jirislaby@kernel.org>,
-	<hvilleneuve@dimonoff.com>, Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>,
-	<stable@vger.kernel.org>, Tobias Gannert <tobias.gannert@ziehl-abegg.de>,
-	Joachim Knorr <joachim.knorr@ziehl-abegg.de>
-Subject: [PATCH 2/2] serial: sc16is7xx: set TX FIFO trigger level to half FIFO to prevent underruns
-Date: Tue, 23 Jun 2026 13:22:25 +0200
-Message-ID: <20260623112225.82386-3-paultyson.mbewe@ziehl-abegg.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260623112225.82386-1-paultyson.mbewe@ziehl-abegg.de>
-References: <20260623112225.82386-1-paultyson.mbewe@ziehl-abegg.de>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PInSf4QT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1782213949;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=XCMI4TR7QFtDkc3LYw54gkw6mxhFRqeq79UUiIMDTNY=;
+	b=PInSf4QTPyQ1JEkdxrouBCM+DL7h9JtbwzEGbgyWQy4uhRuNMqL3SknFxIlpivPIgUt0xc
+	LOr9QW2F6urGj0ZtExXlJtyrgstZ7v22wCm+ddTOYIDrt5QEU6YXx7zgGxbUVoGaNRa5bf
+	V3ACQjodKL+wrV09+sXaRMBTO21VzOE=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-549-3Diog-vuNYuzkEiwpJDqLQ-1; Tue,
+ 23 Jun 2026 07:25:44 -0400
+X-MC-Unique: 3Diog-vuNYuzkEiwpJDqLQ-1
+X-Mimecast-MFC-AGG-ID: 3Diog-vuNYuzkEiwpJDqLQ_1782213942
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C71771955E9C;
+	Tue, 23 Jun 2026 11:25:41 +0000 (UTC)
+Received: from vmalik-fedora.brq.redhat.com (unknown [10.43.17.131])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6D3D31800597;
+	Tue, 23 Jun 2026 11:25:37 +0000 (UTC)
+From: Viktor Malik <vmalik@redhat.com>
+To: linux-perf-users@vger.kernel.org
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Howard Chu <howardchu95@gmail.com>,
+	Viktor Malik <vmalik@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Michael Petlan <mpetlan@redhat.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] perf trace: Refactor augmented_raw_syscalls using bpf_loop
+Date: Tue, 23 Jun 2026 13:25:33 +0200
+Message-ID: <20260623112533.1151502-1-vmalik@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
-X-ClientProxiedBy: vEX01.za.ziehl-abegg.de (10.1.201.105) To
- vEX02.za.ziehl-abegg.de (10.1.201.106)
-X-TM-AS-Product-Ver: SMEX-14.0.0.3239-9.1.2019-30024.005
-X-TM-AS-Result: No-10--4.312200-8.000000
-X-TMASE-MatchedRID: q5UJ2wehuDckDlvy+ffZUzZ4NKr/TszH7814D0cDbtDKAd0YkM9ab5j2
-	vOXaN4CszPfm3fNtqgKn580SYyFa2PS+I4N0lniB7yR/hLt1y2hBqFX02wvtDzJl3k9vFQK8lD+
-	GIBs9iQepD+/GDBR8n9akduhEokwBo91Bfe4M/hNch/PYekr/BJQLKJadRcalLgvRN6KVzVH7WV
-	YxF/s3BHFv5c46i5n2F3jricVIA+fHmKc8+sjQVFJTtM6CHKVOgdXztqOEBnBRCkSxJRCOByAtO
-	k0TFyJTl/ETfolbQGB2AlnmjIjYf9vUNTm/lfkGsB15x1ZALMW9lzVGWamWgOH7RHkgEpGyv9rS
-	d36EgULQoHBWslVIiAe98bp28iq6V93NVRFdgSdDxHBP9yEsTZFFWyA10lpHJQrjMEMuzZp7suh
-	/AKf/E3DLHVQqp8D4H//4RiQO7F0oFPancsWKldnNPL8uqbTpqqX6uXlOMLLzxM9/7084CIf4l3
-	W0tVe7u49q1sWEC7dHBp5ZT1n34TddPuHwt7TAxYVzI3UCCaY=
-X-TM-AS-User-Approved-Sender: No
-X-TM-AS-User-Blocked-Sender: No
-X-TMASE-Result: 10--4.312200-8.000000
-X-TMASE-Version: SMEX-14.0.0.3239-9.1.2019-30024.005
-X-TM-SNTS-SMTP: 053DDB8CDFC445236748F2C390F8A0893967896AABD8A6E27DDC1B18A7F2C7772000:8
-X-EOPAttributedMessage: 1
-X-MS-TrafficTypeDiagnostic:
-	AM4PEPF00025F97:EE_|PA1PPFF94441E0E:EE_|DU2PEPF0001E9C3:EE_|GV2PR02MB11852:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc3ba97e-3987-48a5-bbe4-08ded119e603
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|22082099003|18002099003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info-Original:
- ur2YwWt1IMTX5u0IOp5B4uyRhDkEaiye6nh10cxKNH8mDY/lJ9gW2eY2wvq8wrOZJBu9d/FI6s4Hb8ajYL8/g7mwGodXIPjS8Za8m5U//sMu7pOWfoqNb6XGUNuarsiZOPhDTLaQGxBj1BQyKqh/pdRrhHU7JR4h2UuT0cxJPaY/ERkRLsBzhoa/W4M8g3pMsDGMcmjTD/gbNFWNr2GsgAWgE85BEwv3dX7ao474SYk6i96TwODmzozUCW2ScwvUE5tXLgpz4fRLKm52uTS5DSjVFnmd0JeOvhhczexrHG2tlv2e+ntm7o9VgdTU6Z3Yk2D6nWycv1sXpkC/DRG5B1J3WOEmtHpiwXUjFk3O+8T4i172CSf9qKawKOJOU029u+W1F30s2DsGcBE0dZQdlyCfM4ocUYxv4rlW3E6pVJYnTbvq3aFVVGQdKKePMLXEJws5sqDoOh2SE5Z8ZkQC7nwJIKH2JIM1W3XTUceJCc39Ezhy51TcDFHOFP+qKUHoflI7dipGtrRWO8MwTsqoDb0rSfeeYKdr7fDqDv+E/K6qUKkO7ttBtV+YTLr/vDUezRGZMWfYRKGKAmn942ISLgtqi4Q+qbPiWmvNeiOf/PijeCY/dlM7CpxhHlGixCOYc5jjQ6uxMn9oqOhlBrX0S75FxE87pC88IiUY1/P9+XsbKn/yIYUezx3w2Aj2QYTbWf3O5ZUct5+rPVSNBuAFUw==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:217.6.247.99;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.za.ziehl-abegg.de;PTR:nix.ziehl-abegg.de;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1102;
-X-Exchange-RoutingPolicyChecked: RwhqzAd1NdFplAICPeJoSs5yzRJWe5PZloMLar5WFfQdfEp/rLGKj8qvPXdTfBb/+ISyuNgk68SdZWDKdSojRhzboL5ybt+pb9Oz6n8VpwfQCLDmEMc/u/JEVMIjIU/OJLtpiaQXVkf67asi4UisFR4EwcFBCaAcZmzIheHAz3yonGU5f+4+82wMV+05+inYon6y1m5cIROef8tBG+iCw9fZazR+dw20SvVVXwjcXNt0knGMNDP0pJeDuDPkF8s5QHyMO/icxUrQF45me5+Iioy+sQFPsb0fZBZfYLSBSBqrPCA1mgV7XCtzgQaICwo+soHn485X1+bgF1dol3tVKQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PPFF94441E0E
-X-CodeTwo-MessageID: 7f96e497-eb27-49da-a459-7e4e6d72fe6e.20260623112348@eu22-emailsignatures-cloud.codetwo.com
-X-CodeTwoProcessed: true
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DU2PEPF0001E9C3.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	f851a209-4f5b-4ca2-c5dc-08ded119e151
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|14060799003|35042699022|1800799024|376014|18002099003|22082099003|56012099006|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	0BW+psEpnRyj9X2BKxxZ4+3NnjVCUO0GS6qgx6HbM/mnWWbHfCVKhh31IFgN3yrO9Hkp0N2RDW6ZsCyTlDS4rDw3Oq81SsbVvyxwTSBOwbHF5yJaFxUFaP8Pvx4/mxB1rcHMSY+fIkmBc+HXWmAnGIPODd6oPWCyZSWK+chBfp+PAEtw3YxwHg3BM3xbaM8qkwJngifwbXUnYHHevYs5jCEWTQbr8Vlt4zYESPgVNsW/rqI9NwZQb9dNAKKL/OvfU1h3upnGlQAr8fMGAhHPz6Cq2u3y6cxxnXjalLot3u6V0y8buqX/s9A+W82BKr/MAvGBLGGuwJz1xP9zkqPq9NGZahPy26FpOeOwYu4GR84cCl2E5LHFb1VOo+vnE1co3CZwQYx77nN8nSr8RaFGunhHwSI3bBULS0LQCIDoJS7Rp9Jyy6GE4Wy01dqOTxQDfZmMfdIg/RUnAF1fi0x0iehdYRN689MzeNhntmYxpD3NapR3iFE51HK8rnsi4xJecPZshdkyrjcrF3Y3PU+UyNtayTkqFyRuePTAQfqj15HEEuV10mEUxIsEtZId22wKofhWh7crlBPQ9SSvwdbboCAUOrXxSQFNFBpuGwkdaG6Yzq3Qk6WlcQwXSeBYBYa+9OjMOBf8Ebr5ytkfqrGA5uE+LT0RM0UiNC7AF4LYx3A02X5Cz5vU+Dip+uA4I1T408kR10eL5xtyJGptmAuIgw==
-X-Forefront-Antispam-Report:
-	CIP:52.138.216.130;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:eu22-emailsignatures-cloud.codetwo.com;PTR:eu22-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(14060799003)(35042699022)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	LYIgG8He2PzKfhJcUYH9mD7IfyHKzx1z70tnI6vKzgL+0PsqvrbjgUQ1ja5wNuuLE/UK9DVegfN1GiCkJyF7/CQAjSXhGTzLV52VQl5dbeQ4h/oK+ICDakg5QXWfbNc4aXqQNMvPliHQa9t/lR7/K7wo6UQtWW5QIRTuJCiSB0xdAxmVuQ7S/Zw2efroU50sbpVFQGIuDfQpu6FDNx2688GZmpjcYZ5Upa2GHNnsPj4QOkbGFI1yKe/EGH9AIhE673bTzTMv66ZVwANilYg+YIjH+ZCWJ9HG0MQqIhkA2bCR3QI+cLnLWylOB2DDMqmNYpBzFEhnHObxzJvcSz3Fes1ysUB1tBmL9w1PeTD2z92huUglBEY30OwJAMpyHfqxeODh3+M1fvPww3qscx+rvBnxX17ScUQUCLIGH1pwnplh0+XiUxAIUd5RExUtT7mV
-X-OriginatorOrg: ziehl-abegg.de
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 11:23:49.6466
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc3ba97e-3987-48a5-bbe4-08ded119e603
-X-MS-Exchange-CrossTenant-Id: 11a5c065-3ef5-41f0-92f9-a77cbf208c03
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=11a5c065-3ef5-41f0-92f9-a77cbf208c03;Ip=[52.138.216.130];Helo=[eu22-emailsignatures-cloud.codetwo.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF0001E9C3.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR02MB11852
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-The THRI interrupt (IER[1]) fires when the TX FIFO free space reaches the
-configured threshold. With the reset default (TLR=3D0), the chip falls back
-to the FCR TX trigger of 8 free spaces (FCR[5:4]=3D00), causing THRI to
-assert after every 8 bytes drain from the FIFO.
+The loop for processing syscall args in augment_raw_syscalls has a
+history of breaking with Clang updates, see e.g. commit 013eb043f37b
+("perf trace: Fix BPF loading failure (-E2BIG)") from Clang 15 to 16.
 
-At 115200 baud 8N1, 8 bytes drain in 694 us. On slow single-core SPI
-hosts, the combined latency of an SPI IIR read, TXLVL read, and 8-byte
-THR write per interrupt, plus kthread scheduling jitter, can exceed this
-window on a loaded system. When the kthread cannot refill the FIFO within
-694 us, the FIFO empties and produces an idle gap on the TX line.
+Now, a similar thing happened between Clang 21 and 22. While the issue
+is mitigated on the main line by a recent verifier update, it remains
+broken on the 6.12 and 6.18 stable branches:
 
-This violates the Modbus RTU specification, which treats any intra-frame
-silence longer than 1.5 character times (~130 us at 115200 baud) as a
-frame boundary, causing receivers to fragment frames and report CRC errors.
-Oscilloscope measurements confirmed a 757 us inter-burst gap during
-continuous transmission without this fix.
+    [linux-6.18.y]# sudo perf trace true
+    libbpf: prog 'sys_enter': BPF program load failed: -E2BIG
+    libbpf: prog 'sys_enter': -- BEGIN PROG LOAD LOG --
+    [...]
+    BPF program is too large. Processed 1000001 insn
+    processed 1000001 insns (limit 1000000) max_states_per_insn 40 total_states 37941 peak_states 232 mark_read 0
+    -- END PROG LOAD LOG --
+    libbpf: prog 'sys_enter': failed to load: -E2BIG
+    libbpf: failed to load object 'augmented_raw_syscalls_bpf'
+    libbpf: failed to load BPF skeleton 'augmented_raw_syscalls_bpf': -E2BIG
+    Error: failed to get syscall or beauty map fd
+    [...]
 
-Setting the TX trigger to 32 free spaces (half FIFO) via TLR[3:0]=3D8
-widens the refill window to 2778 us at 115200 baud, reducing THRI events
-per 256-byte frame from ~32 to ~8 and eliminating the underrun.
+The reason is that the loop is quite complex and the BPF verifier often
+struggles to prove that it terminates.
 
-Only TLR[3:0] is written; TLR[7:4] is left at zero, so the RX trigger
-retains its FCR default. Only TX interrupt timing is affected.
+Fix the issue by refactoring the loop body into a callback function and
+calling the bpf_loop helper. This should prevent future breakages of
+this kind since the callback function has no loops. It also allows to
+drop a few artificial checks to help the verifier, including the changes
+introduced by 013eb043f37b.
 
-While increasing the SPI clock would also reduce per-round-trip latency,
-the driver should work correctly regardless of SPI speed. The fix belongs
-in the driver.
-
-Tested on i.MX6ULL (ARM Cortex-A7, single-core) with SC16IS752IBS over
-SPI at 1 MHz, 115200 baud 8N1, 256-byte Modbus RTU frames under production
-load:
-
-  IRQ thread (irq/134-spi2.0):  ~15-17%  ->  ~5%    (~67% reduction)
-  sys CPU:                       ~51-61%  ->  ~19-28% (~55% reduction)
-  load average:                  ~2.0-2.2 ->  ~0.65-1.3
-
-No mid-frame gaps observed after fix. Without fix, oscilloscope confirmed
-757 us inter-burst gaps causing Modbus frame fragmentation.
-
+Signed-off-by: Viktor Malik <vmalik@redhat.com>
+Fixes: a68fd6a6cdd3 ("perf trace: Collect augmented data using BPF")
+Fixes: 013eb043f37b ("perf trace: Fix BPF loading failure (-E2BIG)")
 Cc: stable@vger.kernel.org
-Reported-by: Tobias Gannert <tobias.gannert@ziehl-abegg.de>
-Tested-by: Tobias Gannert <tobias.gannert@ziehl-abegg.de>
-Reviewed-by: Joachim Knorr <joachim.knorr@ziehl-abegg.de>
-Signed-off-by: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
 ---
- drivers/tty/serial/sc16is7xx.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ .../bpf_skel/augmented_raw_syscalls.bpf.c     | 157 +++++++++++-------
+ 1 file changed, 96 insertions(+), 61 deletions(-)
 
-diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.=
-c
-index 395a219280be..476e0dd3fa7f 100644
---- a/drivers/tty/serial/sc16is7xx.c
-+++ b/drivers/tty/serial/sc16is7xx.c
-@@ -1196,6 +1196,16 @@ static int sc16is7xx_startup(struct uart_port *port)
- 			     SC16IS7XX_TCR_RX_RESUME(24) |
- 			     SC16IS7XX_TCR_RX_HALT(48));
-=20
-+	/*
-+	 * Set TX FIFO trigger level to 32 spaces (half FIFO) via TLR. The reset
-+	 * default (TLR=3D0) falls back to the FCR TX trigger of 8 free spaces,
-+	 * requiring ~8 SPI round-trips per 64-byte FIFO load. On slow single-cor=
-e
-+	 * SPI hosts, this accumulated latency can cause a TX FIFO underrun gap
-+	 * between bursts.
-+	 */
-+	sc16is7xx_port_write(port, SC16IS7XX_TLR_REG,
-+			     SC16IS7XX_TLR_TX_TRIGGER(32));
+diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+index 2a6e61864ee0..6d553ed3ac23 100644
+--- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
++++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+@@ -429,15 +429,96 @@ static bool pid_filter__has(struct pids_filtered *pids, pid_t pid)
+ 	return bpf_map_lookup_elem(pids, &pid) != NULL;
+ }
+ 
++struct args_loop_ctx {
++	struct syscall_enter_args *args;
++	unsigned int *beauty_map;
++	void *payload_offset;
++	int value_size;
++	u64 *output;
++	bool *do_output;
++};
 +
- 	/* Disable TCR/TLR access */
- 	sc16is7xx_port_update(port, SC16IS7XX_MCR_REG, SC16IS7XX_MCR_TCRTLR_BIT, =
-0);
-=20
---=20
-2.43.0
++static long process_arg_cb(u64 i, void *ctx)
++{
++	/*
++	 * Determine what type of argument and how many bytes to read from user space, using the
++	 * value in the beauty_map. This is the relation of parameter type and its corresponding
++	 * value in the beauty map, and how many bytes we read eventually:
++	 *
++	 * string: 1			      -> size of string
++	 * struct: size of struct	      -> size of struct
++	 * buffer: -1 * (index of paired len) -> value of paired len (maximum: TRACE_AUG_MAX_BUF)
++	 */
++	struct augmented_arg *augmented_arg;
++	struct args_loop_ctx *loop_ctx;
++	int aug_size, size, index;
++	bool augmented;
++	void *arg;
++
++	/* Bounds check for the below map access to help the verifier */
++	if (i < 0 || i >= 6)
++		return 1;
++
++	loop_ctx = (struct args_loop_ctx *)ctx;
++	arg = (void *)loop_ctx->args->args[i];
++	augmented = false;
++	size = loop_ctx->beauty_map[i];
++	aug_size = size; /* size of the augmented data read from user space */
++	augmented_arg = (struct augmented_arg *)loop_ctx->payload_offset;
++
++	if (size == 0 || arg == NULL)
++		return 0; /* continue */
++
++	if (size == 1) { /* string */
++		aug_size = bpf_probe_read_user_str(augmented_arg->value, loop_ctx->value_size, arg);
++		augmented = true;
++	} else if (size > 0 && size <= loop_ctx->value_size) { /* struct */
++		if (!bpf_probe_read_user(augmented_arg->value, size, arg))
++			augmented = true;
++	} else if (size < 0 && size >= -6) { /* buffer */
++		index = -(size + 1);
++		barrier_var(index); // Prevent clang (noticed with v18) from removing the &= 7 trick.
++		index &= 7;	    // Satisfy the bounds checking with the verifier in some kernels.
++		aug_size = loop_ctx->args->args[index];
++
++		if (aug_size > TRACE_AUG_MAX_BUF)
++			aug_size = TRACE_AUG_MAX_BUF;
++
++		if (aug_size > 0) {
++			if (!bpf_probe_read_user(augmented_arg->value, aug_size, arg))
++				augmented = true;
++		}
++	}
++
++	/* Augmented data size is limited to sizeof(augmented_arg->unnamed union with value field) */
++	if (aug_size > loop_ctx->value_size)
++		aug_size = loop_ctx->value_size;
++
++	/* write data to payload */
++	if (augmented) {
++		int written = offsetof(struct augmented_arg, value) + aug_size;
++
++		if (written < 0 || written > sizeof(struct augmented_arg))
++			return 1; /* break */
++
++		augmented_arg->size = aug_size;
++		*loop_ctx->output += written;
++		loop_ctx->payload_offset += written;
++		*loop_ctx->do_output = true;
++	}
++
++	return 0;
++}
++
+ static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
+ {
+-	bool augmented, do_output = false;
+-	int zero = 0, index, value_size = sizeof(struct augmented_arg) - offsetof(struct augmented_arg, value);
++	bool do_output = false;
++	int zero = 0, value_size = sizeof(struct augmented_arg) - offsetof(struct augmented_arg, value);
+ 	u64 output = 0; /* has to be u64, otherwise it won't pass the verifier */
+-	s64 aug_size, size;
+ 	unsigned int nr, *beauty_map;
+ 	struct beauty_payload_enter *payload;
+-	void *arg, *payload_offset;
++	void *payload_offset;
++	long iters;
+ 
+ 	/* fall back to do predefined tail call */
+ 	if (args == NULL)
+@@ -457,63 +538,17 @@ static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
+ 	/* copy the sys_enter header, which has the syscall_nr */
+ 	__builtin_memcpy(&payload->args, args, sizeof(struct syscall_enter_args));
+ 
+-	/*
+-	 * Determine what type of argument and how many bytes to read from user space, using the
+-	 * value in the beauty_map. This is the relation of parameter type and its corresponding
+-	 * value in the beauty map, and how many bytes we read eventually:
+-	 *
+-	 * string: 1			      -> size of string
+-	 * struct: size of struct	      -> size of struct
+-	 * buffer: -1 * (index of paired len) -> value of paired len (maximum: TRACE_AUG_MAX_BUF)
+-	 */
+-	for (int i = 0; i < 6; i++) {
+-		arg = (void *)args->args[i];
+-		augmented = false;
+-		size = beauty_map[i];
+-		aug_size = size; /* size of the augmented data read from user space */
+-
+-		if (size == 0 || arg == NULL)
+-			continue;
+-
+-		if (size == 1) { /* string */
+-			aug_size = bpf_probe_read_user_str(((struct augmented_arg *)payload_offset)->value, value_size, arg);
+-			/* minimum of 0 to pass the verifier */
+-			if (aug_size < 0)
+-				aug_size = 0;
+-
+-			augmented = true;
+-		} else if (size > 0 && size <= value_size) { /* struct */
+-			if (!bpf_probe_read_user(((struct augmented_arg *)payload_offset)->value, size, arg))
+-				augmented = true;
+-		} else if ((int)size < 0 && size >= -6) { /* buffer */
+-			index = -(size + 1);
+-			barrier_var(index); // Prevent clang (noticed with v18) from removing the &= 7 trick.
+-			index &= 7;	    // Satisfy the bounds checking with the verifier in some kernels.
+-			aug_size = args->args[index] > TRACE_AUG_MAX_BUF ? TRACE_AUG_MAX_BUF : args->args[index];
+-
+-			if (aug_size > 0) {
+-				if (!bpf_probe_read_user(((struct augmented_arg *)payload_offset)->value, aug_size, arg))
+-					augmented = true;
+-			}
+-		}
+-
+-		/* Augmented data size is limited to sizeof(augmented_arg->unnamed union with value field) */
+-		if (aug_size > value_size)
+-			aug_size = value_size;
+-
+-		/* write data to payload */
+-		if (augmented) {
+-			int written = offsetof(struct augmented_arg, value) + aug_size;
+-
+-			if (written < 0 || written > sizeof(struct augmented_arg))
+-				return 1;
+-
+-			((struct augmented_arg *)payload_offset)->size = aug_size;
+-			output += written;
+-			payload_offset += written;
+-			do_output = true;
+-		}
+-	}
++	struct args_loop_ctx loop_ctx = {
++		.args = args,
++		.beauty_map = beauty_map,
++		.payload_offset = payload_offset,
++		.value_size = value_size,
++		.output = &output,
++		.do_output = &do_output
++	};
++	iters = bpf_loop(6, process_arg_cb, &loop_ctx, 0);
++	if (iters != 6)
++		return 1;
+ 
+ 	if (!do_output || (sizeof(struct syscall_enter_args) + output) > sizeof(struct beauty_payload_enter))
+ 		return 1;
+-- 
+2.54.0
 
