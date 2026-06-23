@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E573939B6
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 19:49:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7364530BF4E
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 19:52:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782244181; cv=none; b=ZKic7DjgyF6pfRP166qEXAW21ELAqnha62dzRewOJWUGFpcOtmLC3hjmp8g64S0GssWFwvNDj5dOzeZYX6LMgNdXH+uYIgXMeSZH0UN4qHD4msGW7jjl3OG2ZBBY9xZUEGk2h3SmCdzVDpqEQjfNxVMQh6MC6r+x7TdwNce9lrc=
+	t=1782244363; cv=none; b=fWRwC5HCzUBPxIJ8QcG8ZpXOgniyOA/6UZOIgca2D9kE9dqgro9X7oEN2chz0f92ZZnaMim4ZMYRjXmUilgouOlUsgCsZ+iTbIBDbonj6uXkrT0msthxFC+8VLnNc4HEALXWdobVEIUvaOOqQt3eu1m5US2+p+twKZamr8BjT2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782244181; c=relaxed/simple;
-	bh=6RzFIdGudxTx8h17dyce85P9cpvFv2zSRZGFxRvlWWU=;
+	s=arc-20240116; t=1782244363; c=relaxed/simple;
+	bh=jpVy0QVc2BGEF8kHIQbOvoc1+4joSiGrA7UDy2tep8M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JJeOElpy3FtpOHRu2BBP8aDE7nNS7prz/H/VRFurqVQFuH4SSjuuDy163oHqyz+uEXm7AgQad7vjrWFMG6QEvkDOzrkhHAHFKK2XbO2tXCHGxj1goXu+YBf9wTQshU1/K+jt8sF9IDlAEPQa2MwlvNDib2zhNiyZxlcAKFPs1Us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UHYpVdnS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UWuuxXWPtVykzxpH30kwqdhXUUejPUP7ZQ5YH4K/HwObb/mfxuq48a0NXqkMJuFqhkv0CV+4kb2j2QwIaM9WtCgGtPUi1b3hp7bN/bUbyrt5CAOo2EZPShd8nAlpc4Xb9ndOqKLhHgmIxN8KmBZKT6UwSum5H0WrjPnwCpLYXRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UVuAgQDm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UHYpVdnS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E8C1F000E9;
-	Tue, 23 Jun 2026 19:49:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UVuAgQDm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FB951F000E9;
+	Tue, 23 Jun 2026 19:52:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782244179;
-	bh=05sabeZwNOEIHThmaI+9BpqqhsMHzxqNBn+GvhIoVek=;
+	s=k20260515; t=1782244362;
+	bh=SCtNyAccqIG1mBViTpaZCxe142RZfiD/rltBGNu9ZkE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UHYpVdnSGnVWvn3yJEV+VdEdjmMJpi9hF5IV6OsFZ134tJ3+AVGpE+EwA6kNux8bd
-	 2MK6hpoJEIfq1ZSjlMQkb5JMPUuNXSYDNholGRAQExLXPG37ZLAcVmCNWyC6/bOcs6
-	 Ii6KcyTbtAdm70kHEYbfB3bhBePbinlF94vED2550Hy3Qxp/s50RVqoViS/f9MCxCg
-	 n4voSi37ztoCe9v/5DuuV2fOjqP0tB52A3iM4CTahCyJmC0LGrYrsyrxoxoBG9coER
-	 FszVLdHixvVve3NlsYu30m9mn8Qh0PGNCee0R9O3CLni0l4Ylbt4GLCSUrtMP/cb2V
-	 xk47RDXfRzPSA==
+	b=UVuAgQDmITmoZZgLvFrP1XOZPFb8h36UaALS3Sm6Lm/XGu8xwakchM9y4S25zj8yC
+	 BnhLZHqcDRKVu7SpaZv22drcrE1ZY4UalQwx9hju7ksIOpYubT0osMMaqiFXJ8XhK2
+	 WBsInkpnVfaq/CCnL3prH9iPSkD42UGb/yC6a7EgZxjc57j31Zr/OiWhwfmCCfRPDf
+	 hE0Vk3fcHhIKsJ3WgM2FaO9C2xA4FIwlG6qaNwGL1hhf1JwtBVGXQQuEbaeOl9WLi4
+	 Zxc2pQfjeECe+RmMX/JdtHSqm9pkdTAvK80PFMtLtl1+U5YuzsXeV45TQ+fIhuyzpx
+	 TfoFnh8ukZ2lw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Joanne Koong <joannelkoong@gmail.com>,
 	Lei Lu <llfamsec@gmail.com>,
 	Miklos Szeredi <mszeredi@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] fuse: re-lock request before replacing page cache folio
-Date: Tue, 23 Jun 2026 15:49:37 -0400
-Message-ID: <20260623194937.1375846-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] fuse: re-lock request before replacing page cache folio
+Date: Tue, 23 Jun 2026 15:52:40 -0400
+Message-ID: <20260623195240.1378610-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026062231-sterilize-crisped-5ef7@gregkh>
-References: <2026062231-sterilize-crisped-5ef7@gregkh>
+In-Reply-To: <2026062231-impale-afar-8694@gregkh>
+References: <2026062231-impale-afar-8694@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,10 +74,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 5 insertions(+), 14 deletions(-)
 
 diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 58ec5bac6ce9d1..8e21bbfe65dc7b 100644
+index 231b1c14b76778..618f3a3b1d8f65 100644
 --- a/fs/fuse/dev.c
 +++ b/fs/fuse/dev.c
-@@ -839,6 +839,10 @@ static int fuse_try_move_page(struct fuse_copy_state *cs, struct page **pagep)
+@@ -845,6 +845,10 @@ static int fuse_try_move_page(struct fuse_copy_state *cs, struct page **pagep)
  	if (WARN_ON(PageMlocked(oldpage)))
  		goto out_fallback_unlock;
  
@@ -88,7 +88,7 @@ index 58ec5bac6ce9d1..8e21bbfe65dc7b 100644
  	replace_page_cache_page(oldpage, newpage);
  
  	get_page(newpage);
-@@ -852,20 +856,7 @@ static int fuse_try_move_page(struct fuse_copy_state *cs, struct page **pagep)
+@@ -858,20 +862,7 @@ static int fuse_try_move_page(struct fuse_copy_state *cs, struct page **pagep)
  	 */
  	pipe_buf_release(cs->pipe, buf);
  
