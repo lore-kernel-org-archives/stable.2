@@ -1,66 +1,67 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64610DDA9
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 00:07:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69048DDA9
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 00:08:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782173278; cv=none; b=XpEH0viinE/ZXHHmZsmeMSz7TBmsDmmhE+/og8DzdNjfFNajtYGW1YKaaVRaIpo2LfUftUEPer4OChDr5OtL9u2SdXKuGtTwP3S3JwRVVKNSAj5Upf/P2UndmWL0ZXqSevlG8mZA0Lvh9gHFI+bK5VZwAJvyNXjgaLvdNLSKroM=
+	t=1782173328; cv=none; b=SEMyaCaSvsGWxbGzpHynA050hit0L+Tggl10eYFjz76C9QrU0oaA230pOXgucgrKUarwwthGhIBycYL4LcwN2YAXnxp6T/qd0V61pAr/nCx7/A6NUS5C5NxkPf1NN8D5lsU7JZyFycG39wyRRdjqRWZl8ICpJfOtAxGpJgilFgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782173278; c=relaxed/simple;
-	bh=nRV59y3Rno5LQFnWbfsFG/AK69d4DippmWN5QexS0A8=;
+	s=arc-20240116; t=1782173328; c=relaxed/simple;
+	bh=icuTFQPXGAsYRe0MUVQcIakHaKWLZBH+fggtc0IRHCw=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=d05HxC9QVxLP5tZEUTT4v88RVLWykSW8/VoNH5GMgUmP51Q2G2PHi3NKpxtX/Sb2IuQ5OBk8yUC49++Vu1v6adtmc04v4WdCUU/qDcvlE36/S4X1ltLnE80ldhRfiRkaThrNLXJoFTwSai8Hb0/VB7dcKtUhFa1Zh3Hf9TiH0K4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PSzL0RE3; arc=none smtp.client-ip=74.125.82.180
+	 Content-Type:MIME-Version; b=kFxe1fwjjhDuYDtvGuOwVDRlyTErmgU32/4fmaR1/cxZ215zx6SPUfDQmkMqLBpu2glivHJgIiSpSTTWTiKkujOYtUWJHaFYdEaQ/gZC3B2uFi/rvCvZ/Ig4w7dsS9glAzUMVQWblXqithsEF4nt0KEawQNUKJ6DsRZRApI78dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C/cLEmTM; arc=none smtp.client-ip=74.125.82.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PSzL0RE3"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-30beab3af9eso12031105eec.1
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 17:07:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C/cLEmTM"
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-139a5f4ca15so3664124c88.1
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 17:08:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782173276; x=1782778076; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782173327; x=1782778127; darn=vger.kernel.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=nRV59y3Rno5LQFnWbfsFG/AK69d4DippmWN5QexS0A8=;
-        b=PSzL0RE3kBKj8Y2pyDrwX58/IHVxeml22HnLn+snl0DCL1dUe+YZ5uYg93XBD6EFhp
-         SH1pOZOJxKYJykrwXqObVnnx939UkqH7tzTB/siLcBqmVFmvEjmFEQW17cnI6iNvlahH
-         tJvIUNAYave4XRp5JwaycMjyRJFdns4oSgaSIqlOiIkYOyS5fpwrmJckWbr7x7cUogdu
-         YAKP2O5w//LGm0MHkzS6SxKXp2zpaYyJih7wnd6jEoMKLOHS0bK19jHVXYU0jPnGvP06
-         2Iw1KW2LdqEzHQbd88zEHfDQDPfLqIZ8Jo+N55OcFLeB+3r0y4zZa13otYgUmL4kczVV
-         0HQg==
+        bh=icuTFQPXGAsYRe0MUVQcIakHaKWLZBH+fggtc0IRHCw=;
+        b=C/cLEmTMsM1JTmbGA4eDqKl5Jge8eXjVq8l1UmqzN1eMzw93DGlJWiCOo68x60FIho
+         CN6lxWFu/BZSL/0KhhG97Uh8r5QSPdY2f0k1sguTU2L+WRHVRIL6yUVJC0hJZu06rqEW
+         AvuZti1c+Pyj+svxCuUol5Joe1zWrmlKJtLwGP25YFkMDnr4thMMq6rQ8SqriECDO7bO
+         vSukCt0HokW8A+YYsGocol8P3zI7CwkvSYK318gTdYVS+BNkYPg4kBXnhix+gPH6t5jQ
+         sEvLC5DuJIqZB8GTdYk6ccwiIYDJryvnvy/+V9U8pcHeWME7fnbXY73lcX5eqIxhOXJQ
+         jHBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782173276; x=1782778076;
+        d=1e100.net; s=20251104; t=1782173327; x=1782778127;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nRV59y3Rno5LQFnWbfsFG/AK69d4DippmWN5QexS0A8=;
-        b=WB1lLgc/QamCqPssEqUebiXsSc0Untrk0gWKFB0I6Ywe65p5T2lGLxTfimTdaifufD
-         gubjbhI+tO4payAIuYJwwBpqaB0X+To0NWStxm8S/C4Uof0byqjK1mTpdgAbWCjujtNf
-         XWVF4abM067DatGE5hTT4oBHjz6A+g7vXFxFsbgiHtiSLcHJrvz2dWIGXwF2Vfn8rcRa
-         e2IHAoJJPr8+RuwxKxW2ED/hWOpIIU/ZPiz5NthjSLPiJhRLjhlHJjZBNg68axYx2xMO
-         zRvsOTwzKKXLhq2LN00gZyjBNnuNq23appkUZoNd0gjFjj1jjcBNTBVMpV1cWCAvdE2D
-         j/qg==
-X-Forwarded-Encrypted: i=1; AHgh+RoLIy6xywEYmnwqnJsCIB7AI3dYl5/Uosa/ORZVMDQbEfNQewpZc2VujlQFmmbWtcA62R3hk5I=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxyZFpSRJyYoWfxMs4ZFi8BA4VUyKUZ1DEmODfR0Gex5M3Mne8E
-	pM2tmk++wJy3iyr8CIoxoEsNZtWM7ftZrFoEVPBbULNZm+j29D2odWbc
-X-Gm-Gg: AfdE7cnoiI9G6KYALBFYNvjuSHPDRWpAP85pAffOsDgMJzPto755bCaPxl8NV5Fw0k7
-	GQgV1bWmmrehJsY923fz81Pto8zLsuLevGRS8oJEmi5uSrH0uRY8P+6BSFCkujQhO1qkVxOh9gZ
-	5QaZFv7gagANC+CIzeJ0ymKCel2hIydy4dsoB0rz47u/9ZNcmxPyoXaqQ653wd1fDEGiwpBdEwi
-	2q7XNZWdwBBtGtNOtzmtQ+LsWktnz1tPDZPPnLhSlREsUnYCufyWtGNXDjruNgVSvLJxYQEQ2O9
-	hn5l68hFycTVbHTZpOJ1YCAfhLFWRHcbyD0WqEnal7c3RgyYjD6hrD0Z9SlMtChG5YijldtAeqL
-	ldcba9NYx2aLWvPNWJ6wiaLo4+r6pL6wfUUjCVOlnVnK8fxiMxUcT7y+w/TyiStX9OgmjmQ84c5
-	Lr+1zrXYU2nWq4MGgj6IC5q05qhI1/Eaj2WqqD1TByzCaVYYjk3klSomKw2RlIBexT1cF6qw==
-X-Received: by 2002:a05:7301:38a4:b0:2d9:ad46:4a92 with SMTP id 5a478bee46e88-30c06e4f9edmr11670192eec.13.1782173276518;
-        Mon, 22 Jun 2026 17:07:56 -0700 (PDT)
+        bh=icuTFQPXGAsYRe0MUVQcIakHaKWLZBH+fggtc0IRHCw=;
+        b=e4gCkUUEtFnNpV5F4NXQn6OFQVZliQY03tBhhnDgvojobdTPtwy/0R8BeFLIgYbCX/
+         QO6CQTG8XMRzuIEXBMI5B/IR0EUsJcRiCn0NcLlsYG8ALeJCwI5uIJEp2Ey0MnIz/KTS
+         13tDwFzrDkpsiaEpx35YKdEdyPcnlux5LUk/kxLP/FHrywLJFj6jJdDxGHgQZLE2ALiG
+         3KIhlPbSm8L8e3RMzdIg102yyN+53F2+qocDtLfOkMjxkpcG5DdHSmo4zYgeotTXoj8b
+         axE6M2INQclnPpwdQs2FACqt1H2KiI8QVlJJnx9nsBx0VoeN+zmo20yhyvm9VDdONCVD
+         aYQQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+fqeDsT2QKL7G/6Rm6jnm+zNU68HvxJzdJngr0b3uPODjQecUvmMcJRbARRh2yswhQd8V252I=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzT/Eun96016ke2nm0whiW0xbnrVQVJqbMtRWAjSNdErBGhUN7y
+	qnnSgkJAfnuyhAWairoJSw73eDPjoGlObTHsSRgnH4BCQFqxetu2KbUk
+X-Gm-Gg: AfdE7cnrv8bouvCEXhR3D4oSINcfmm7pRQAy7xI7fdeLg3PvdauqUHXM88+3oZiXQfd
+	hcpEwgzJfwQsUB4jPbsudQmev6ylw00rGatENf6cEfd/DfXQXwb2Sn+67S7x4vI2q2sX57sXtrB
+	n2j0kdI7fqjrw4+yYCab0WILWxGIWCsfx93a4sBssarllHp5cRwfbxZZcdM+NNoiKsMDDkw+fSD
+	W13l447AqjfW6q0vNUD0r+I+jBrVM3K6nk3mYLQlTQL7wNH8LXaMmAshMKTR2KxohwwvHIcen1h
+	50UJ3xDmSVa/9uK6iNx3d3vBwuA1BC8aymzrIjjzPlwh0uiLyPmIs3qfygQ4WHiSjoXhxGpOf0R
+	Jmd3JT/MZzWkmg6UmH0jZP2nywW+fmTIzvEvPsxS37OQi/mvgv+HXG0msoU4WyCPBqqe81B14aR
+	KUFhyOuyrgyuW6k+pOnH3u6G0hkproEg5XJeoK217N+1mNeANieFmAbYoUWwcpfV8epO8mBjtui
+	4qxXDvC
+X-Received: by 2002:a05:701b:4592:b0:139:c4e3:9496 with SMTP id a92af1059eb24-139c4e398bfmr436341c88.13.1782173326499;
+        Mon, 22 Jun 2026 17:08:46 -0700 (PDT)
 Received: from ?IPv6:2a03:83e0:115c:1:c4f4:7a34:78e2:a600? ([2620:10d:c090:500::2:e8d1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c1ba1f8b2sm12488864eec.4.2026.06.22.17.07.54
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c1be5c5desm12569328eec.28.2026.06.22.17.08.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 17:07:56 -0700 (PDT)
-Message-ID: <ee4804545dc421010b5ec8b2d8b30be168faf6de.camel@gmail.com>
-Subject: Re: [PATCH bpf v3 1/2] bpf: Reset register bounds before narrowing
- retval range in check_mem_access()
+        Mon, 22 Jun 2026 17:08:45 -0700 (PDT)
+Message-ID: <6c8cb4e03a3c626b0e37c7e4d95ea111e4116e4d.camel@gmail.com>
+Subject: Re: [PATCH bpf v3 2/2] selftests/bpf: Add test for stale bounds on
+ LSM retval context load
 From: Eduard Zingerman <eddyz87@gmail.com>
 To: Tristan Madani <tristmd@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
   Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>
@@ -68,10 +69,10 @@ Cc: Xu Kuohai <xukuohai@huawei.com>, Jiri Olsa <jolsa@kernel.org>, John
  Fastabend <john.fastabend@gmail.com>, Martin KaFai Lau
  <martin.lau@linux.dev>, bpf@vger.kernel.org, 	stable@vger.kernel.org,
  tristan@talencesecurity.com
-Date: Mon, 22 Jun 2026 17:07:53 -0700
-In-Reply-To: <20260622230123.3695446-2-tristmd@gmail.com>
+Date: Mon, 22 Jun 2026 17:08:44 -0700
+In-Reply-To: <20260622230123.3695446-3-tristmd@gmail.com>
 References: <20260622230123.3695446-1-tristmd@gmail.com>
-	 <20260622230123.3695446-2-tristmd@gmail.com>
+	 <20260622230123.3695446-3-tristmd@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
@@ -85,25 +86,14 @@ MIME-Version: 1.0
 On Mon, 2026-06-22 at 23:01 +0000, Tristan Madani wrote:
 > From: Tristan Madani <tristan@talencesecurity.com>
 >=20
-> When the BPF verifier processes a context load of an LSM hook return
-> value, it calls __mark_reg_s32_range() to narrow the register to the
-> hook's valid range. However, __mark_reg_s32_range() intersects the new
-> range with the register's existing bounds using max_t()/min_t() rather
-> than replacing them.
+> Add a verifier test that catches the stale-bounds issue fixed in the
+> previous patch. The test sets r6 =3D 0 to create known bounds, then loads
+> the LSM hook return value into r6 from the context. Without the fix,
+> the verifier intersects the retval range with the stale bounds and
+> incorrectly narrows r6 to a single value, pruning the fall-through
+> branch as dead code and missing the div-by-zero.
 >=20
-> If the destination register carries stale bounds from a prior instruction
-> (e.g. BPF_MOV64_IMM), the intersection can produce a range narrower than
-> reality. The verifier then believes it knows the register's exact value,
-> while at runtime the actual hook return value is loaded, creating a
-> verifier/runtime mismatch that can be used to bypass BPF memory safety
-> checks.
->=20
-> The else branch already calls mark_reg_unknown() to reset register state
-> before any narrowing. Apply the same reset in the is_retval path so
-> stale bounds are cleared before __mark_reg_s32_range() intersects.
->=20
-> Fixes: 5d99e198be27 ("bpf, lsm: Add check for BPF LSM return value")
-> Cc: stable@vger.kernel.org
+> Suggested-by: Eduard Zingerman <eddyz87@gmail.com>
 > Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 > ---
 
