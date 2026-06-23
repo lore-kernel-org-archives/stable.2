@@ -1,42 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5E5311C38;
-	Tue, 23 Jun 2026 20:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B73F3988F8;
+	Tue, 23 Jun 2026 20:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782245421; cv=none; b=TM3DzsWTNL+2dMiogvVn4GxA4ASXMFv2qfH1hzwqdlcIQ5rzVVtoJ5WedYdvO7DKUtw2/4aPqZ0pHKuPumUtq1C3/F7mQLshFeNa3GXwPUjFTJ9g8v1QzMu1LlAI0JZ724XYJhlKPvDK7Er74hsav+ObJZlRyMECpPD0oEtWm6A=
+	t=1782245497; cv=none; b=lAjcWP/KRQ81feRB6gLSHJyT2AKVsaqULKytD5P5LuolCiSYqRP086vZW783yKmzrQW+8VAxyU1SA7dEox+9f+4z4ri/dQ1TQdVSg9bfA5VB1To630T4jEF0cRwvvnIPIJZQ1J1dnWW41/gteD+sA2xkqpIEB1yLWSfpMoILdEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782245421; c=relaxed/simple;
-	bh=Nt3A2NFe2hgxN+mXwP/5LU9r32AXsdxR1NzGfIsWQSQ=;
+	s=arc-20240116; t=1782245497; c=relaxed/simple;
+	bh=kW91b4d2Vx0G184J/85Y4W5ZdTuxK1621sMYs06jpXc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BVzsIhN8qMyIj3MwvqmY3NuG9muoOp0eOxv+pSoblVbsdh2Odowa3OGLR1xYn3NmOUrZI1hICe/UHC08raGmu72yNs+YXTPmiYBzVZgEXt5lSWQGPZ2INDHbKAEPQL/6EU7d/YyBVtHMxtNkmCmP5nkAW2lTPCH+dAc2x8vlYMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=asEztcvP; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rb5k+rjjwoiFarfeWvtWbuzEhFAYmbQt6dTuRedMnw4Z9z/rZYVlQp1DV6HVkMvzCydCZHYodDfw+sAPMGEEXjL0soq99khOuT5RqjJ943bVnwmtj0qYdUAjUsI66/rfnj+N2TsHhIi2baWVjymzoMvg/9Sli5DGQXbYztdxaQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dUsIkQxi; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="asEztcvP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1071F000E9;
-	Tue, 23 Jun 2026 20:10:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782245420;
-	bh=8TrQZE9vH39dIRDw32V4DNDUUodeQOx70heLgohi/mA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=asEztcvPQ0Qf1LSCraHYg3M2kMxixqmxcDmg7KxK4v9lajXjJ7NiSl+hkqIlYTIqF
-	 QuNpna1+Hpu92/DLFRuk5Fc/Y8fRH4s5Yy1v+n6GLoDgEjycRjTrPiCwJqbTRrWM6z
-	 h8O3pSBLK7EE+rdh0OgE3Wm0J8Ca7iLPnaQX4zVGtnf9nkbKpFkyo5oF3SdCvSGVaO
-	 /a0owvNBzJ6tOB1esP/TbrU0HrTDVDidVJNdOz09qbt1nw5BHBgjOrEhRZv9wZCU/k
-	 1NjfCzKtHhlREKUcVXwgGX41rxC4GJdUwv2SiXbuij/Fn4Iy0980+aKiVwGtQy3a0Y
-	 XYuP7M3bcNMqQ==
-Date: Tue, 23 Jun 2026 22:10:16 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: "Carlos Song (OSS)" <carlos.song@oss.nxp.com>
-Cc: o.rempel@pengutronix.de, kernel@pengutronix.de, s.hauer@pengutronix.de, 
-	festevam@gmail.com, carlos.song@nxp.com, haibo.chen@nxp.com, 
-	linux-i2c@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dUsIkQxi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782245496; x=1813781496;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kW91b4d2Vx0G184J/85Y4W5ZdTuxK1621sMYs06jpXc=;
+  b=dUsIkQxitSj2VLkN/73e/bUREtYRvi7eOaMx6HIu27Ha3coAQ18QZ7E8
+   T7zIYe5rFXDtI/ldMncoQlQuQ1E9XktpScJzjX1+gmBRG2EVlIRc25VS2
+   JVOXWGbKrWbnJWqkuGqiEwSOCijFSG0vhZaefWtIlmAsNESfhF4HSIL/X
+   gaCUyjpRkYoOI8OcV12Yn5Bvi/XUtjlJ6vrl+BgfVicmXphYI19CGnLcw
+   tZlCz7c+cK6DU/vI620UBuuNnJKTSG7jliS/5l3wqhmZM1IHBwgiYKlqN
+   wRHzbE6q/P87X8NZ4L79BCYmSfST+tGDR7j8VeXTJj4wmsTTk29Ob6kI6
+   g==;
+X-CSE-ConnectionGUID: R91AS1UkTousHETMnnL1Gg==
+X-CSE-MsgGUID: hnQa1O3vQoKImP7U7u0dxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="81975047"
+X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; 
+   d="scan'208";a="81975047"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 13:11:35 -0700
+X-CSE-ConnectionGUID: 7e5sP7wISn6wthXldq4j8Q==
+X-CSE-MsgGUID: P7NBgoiESFeBKK0b9V/v5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; 
+   d="scan'208";a="248730861"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.7])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 13:11:30 -0700
+Date: Tue, 23 Jun 2026 23:11:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bradley Morgan <include@grrlz.net>
+Cc: Petr Mladek <pmladek@suse.com>, Feng Tang <feng.tang@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
+	Jinchao Wang <wangjinchao600@gmail.com>,
+	Kees Cook <kees@kernel.org>, Rio <rioo.tsukatsukii@gmail.com>,
+	Joel Granados <joel.granados@kernel.org>,
+	Pnina Feder <pnina.feder@mobileye.com>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	Mayank Rungta <mrungta@google.com>, Tejun Heo <tj@kernel.org>,
+	Zhenguo Yao <yaozhenguo1@gmail.com>, linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v5] i2c: imx: mark I2C adapter when hardware is powered
- down
-Message-ID: <ajrn2kvH_MelCv4Q@zenone.zhora.eu>
-References: <20260525030400.3182911-1-carlos.song@oss.nxp.com>
+Subject: Re: [PATCH v2 1/4] sys_info: add helper for callers that handle
+ all_bt
+Message-ID: <ajrob9r6cVtxqv72@ashevche-desk.local>
+References: <9b8c96e291696815d3c7de5d3e199298dee0279d.1782228656.git.include@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,121 +75,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260525030400.3182911-1-carlos.song@oss.nxp.com>
+In-Reply-To: <9b8c96e291696815d3c7de5d3e199298dee0279d.1782228656.git.include@grrlz.net>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Oleksij,
+On Tue, Jun 23, 2026 at 03:34:58PM +0000, Bradley Morgan wrote:
+> Some callers handle SYS_INFO_ALL_BT themselves before calling sys_info().
+> Add a helper that strips that bit without turning an all_bt only mask into
+> a kernel_sys_info fallback.
 
-Any chance you can give this a review?
+You also want a getter with check
 
-Thanks,
-Andi
+bool sysinfo_is_all_bt_enabled(...,  *si_mask)
 
-On Mon, May 25, 2026 at 11:04:00AM +0800, Carlos Song (OSS) wrote:
-> From: Carlos Song <carlos.song@nxp.com>
-> 
-> On some i.MX platforms, certain I2C client drivers keep a periodic
-> workqueue which continues to trigger I2C transfers.
-> 
-> During system suspend/resume, there exists a time window between:
->   - suspend_noirq and the system entering suspend
->   - the system starting to resume and resume_noirq
-> 
-> In this window, the I2C controller resources such as clock and pinctrl
-> may already be disabled or not yet restored.
-> 
-> If a workqueue triggers an I2C transfer in this period, the driver
-> attempts to access I2C registers while the hardware resources are
-> unavailable, which may lead to system hang.
-> 
-> Mark the I2C adapter as suspended during noirq suspend and block new
-> transfers until resume, ensuring that I2C transfers are only issued
-> when hardware resources are available.
-> 
-> Fixes: 358025ac091e ("i2c: imx: make controller available until system suspend_noirq() and from resume_noirq()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Carlos Song <carlos.song@nxp.com>
-> ---
-> Change for v5:
->   - Remake commit log including the issue detail from Mukesh's
->     suggestion.
-> Change for v4:
->   - Restore hrtimer when pm_runtime_force_suspend failed when slave mode
->     enabled.
-> Change for v3:
->   - Add hrtimer_cancel in i2c_imx_suspend_noirq to cancel slave_timer for
->     safe suspend in i2c slave mode.
-> Change for v2:
->   - Call i2c_mark_adapter_suspended() before pm_runtime_force_suspend()
->     to prevent potential deadlock if a transfer is active during suspend.
->   - Roll back with i2c_mark_adapter_resumed() if pm_runtime_force_suspend()
->     fails.
-> ---
->  drivers/i2c/busses/i2c-imx.c | 45 ++++++++++++++++++++++++++++++++++--
->  1 file changed, 43 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-> index 28313d0fad37..73317ddd5f02 100644
-> --- a/drivers/i2c/busses/i2c-imx.c
-> +++ b/drivers/i2c/busses/i2c-imx.c
-> @@ -1922,6 +1922,47 @@ static int i2c_imx_runtime_resume(struct device *dev)
->  	return 0;
->  }
->  
-> +static int __maybe_unused i2c_imx_suspend_noirq(struct device *dev)
-> +{
-> +	struct imx_i2c_struct *i2c_imx = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	i2c_mark_adapter_suspended(&i2c_imx->adapter);
-> +
-> +	/*
-> +	 * Cancel the slave timer before powering down to prevent
-> +	 * i2c_imx_slave_timeout() from accessing hardware registers
-> +	 * while the clock is disabled.
-> +	 */
-> +	hrtimer_cancel(&i2c_imx->slave_timer);
-> +
-> +	ret = pm_runtime_force_suspend(dev);
-> +	if (ret) {
-> +		i2c_mark_adapter_resumed(&i2c_imx->adapter);
-> +		if (i2c_imx->slave) {
-> +			hrtimer_forward_now(&i2c_imx->slave_timer, I2C_IMX_CHECK_DELAY);
-> +			hrtimer_restart(&i2c_imx->slave_timer);
-> +		}
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int __maybe_unused i2c_imx_resume_noirq(struct device *dev)
-> +{
-> +	struct imx_i2c_struct *i2c_imx = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret = pm_runtime_force_resume(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	i2c_mark_adapter_resumed(&i2c_imx->adapter);
-> +
-> +	return 0;
-> +}
-> +
->  static int i2c_imx_suspend(struct device *dev)
->  {
->  	/*
-> @@ -1955,8 +1996,8 @@ static int i2c_imx_resume(struct device *dev)
->  }
->  
->  static const struct dev_pm_ops i2c_imx_pm_ops = {
-> -	NOIRQ_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-> -				  pm_runtime_force_resume)
-> +	NOIRQ_SYSTEM_SLEEP_PM_OPS(i2c_imx_suspend_noirq,
-> +				  i2c_imx_resume_noirq)
->  	SYSTEM_SLEEP_PM_OPS(i2c_imx_suspend, i2c_imx_resume)
->  	RUNTIME_PM_OPS(i2c_imx_runtime_suspend, i2c_imx_runtime_resume, NULL)
->  };
-> -- 
-> 2.43.0
-> 
+where *si_mask is the result of READ_ONCE() that you keep as implementation
+detail inside this helper.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
