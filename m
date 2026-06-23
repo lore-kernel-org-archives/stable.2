@@ -1,102 +1,81 @@
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69048DDA9
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 00:08:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8551337FF41;
+	Tue, 23 Jun 2026 00:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782173328; cv=none; b=SEMyaCaSvsGWxbGzpHynA050hit0L+Tggl10eYFjz76C9QrU0oaA230pOXgucgrKUarwwthGhIBycYL4LcwN2YAXnxp6T/qd0V61pAr/nCx7/A6NUS5C5NxkPf1NN8D5lsU7JZyFycG39wyRRdjqRWZl8ICpJfOtAxGpJgilFgo=
+	t=1782174625; cv=none; b=TEtk+MhTikrOLEfJ1oZKEN8VoAxFhwIPhLhzqEcusaM48TGh0kxBPDz8GKpRqj+UKzXUA8dwwh/5Nn5LKyAT7zMfDmgM/mpSyAZZU8632Mq19zv3tA0a9fAkaItOj1Ea19Q6meVmKDttOYvuRuQzP0HJacOXTLvty1mcSk7LkZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782173328; c=relaxed/simple;
-	bh=icuTFQPXGAsYRe0MUVQcIakHaKWLZBH+fggtc0IRHCw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kFxe1fwjjhDuYDtvGuOwVDRlyTErmgU32/4fmaR1/cxZ215zx6SPUfDQmkMqLBpu2glivHJgIiSpSTTWTiKkujOYtUWJHaFYdEaQ/gZC3B2uFi/rvCvZ/Ig4w7dsS9glAzUMVQWblXqithsEF4nt0KEawQNUKJ6DsRZRApI78dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C/cLEmTM; arc=none smtp.client-ip=74.125.82.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782174625; c=relaxed/simple;
+	bh=tBMqPTTMZ/blwTEveTSY/DHSXD4CEv/VgroCrW1WXX4=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=O+apCKDvbNrQaMwwajx+YrYXbOkG1y/EP4WWVJ3YKEXHn/Q6vcVgmXJ4ljICDm+An5bSH9CI54QEFM4mcWRLzRVBlZWNu3vMI++GVUoG8gtGjNJLmvKovLLGGTkH1XQ8993vioB8jCtKCnFzs+g5oVGSGhJL8wom47jPsXZk1hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jv8nvqVC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C/cLEmTM"
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-139a5f4ca15so3664124c88.1
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 17:08:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782173327; x=1782778127; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=icuTFQPXGAsYRe0MUVQcIakHaKWLZBH+fggtc0IRHCw=;
-        b=C/cLEmTMsM1JTmbGA4eDqKl5Jge8eXjVq8l1UmqzN1eMzw93DGlJWiCOo68x60FIho
-         CN6lxWFu/BZSL/0KhhG97Uh8r5QSPdY2f0k1sguTU2L+WRHVRIL6yUVJC0hJZu06rqEW
-         AvuZti1c+Pyj+svxCuUol5Joe1zWrmlKJtLwGP25YFkMDnr4thMMq6rQ8SqriECDO7bO
-         vSukCt0HokW8A+YYsGocol8P3zI7CwkvSYK318gTdYVS+BNkYPg4kBXnhix+gPH6t5jQ
-         sEvLC5DuJIqZB8GTdYk6ccwiIYDJryvnvy/+V9U8pcHeWME7fnbXY73lcX5eqIxhOXJQ
-         jHBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782173327; x=1782778127;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=icuTFQPXGAsYRe0MUVQcIakHaKWLZBH+fggtc0IRHCw=;
-        b=e4gCkUUEtFnNpV5F4NXQn6OFQVZliQY03tBhhnDgvojobdTPtwy/0R8BeFLIgYbCX/
-         QO6CQTG8XMRzuIEXBMI5B/IR0EUsJcRiCn0NcLlsYG8ALeJCwI5uIJEp2Ey0MnIz/KTS
-         13tDwFzrDkpsiaEpx35YKdEdyPcnlux5LUk/kxLP/FHrywLJFj6jJdDxGHgQZLE2ALiG
-         3KIhlPbSm8L8e3RMzdIg102yyN+53F2+qocDtLfOkMjxkpcG5DdHSmo4zYgeotTXoj8b
-         axE6M2INQclnPpwdQs2FACqt1H2KiI8QVlJJnx9nsBx0VoeN+zmo20yhyvm9VDdONCVD
-         aYQQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+fqeDsT2QKL7G/6Rm6jnm+zNU68HvxJzdJngr0b3uPODjQecUvmMcJRbARRh2yswhQd8V252I=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzT/Eun96016ke2nm0whiW0xbnrVQVJqbMtRWAjSNdErBGhUN7y
-	qnnSgkJAfnuyhAWairoJSw73eDPjoGlObTHsSRgnH4BCQFqxetu2KbUk
-X-Gm-Gg: AfdE7cnrv8bouvCEXhR3D4oSINcfmm7pRQAy7xI7fdeLg3PvdauqUHXM88+3oZiXQfd
-	hcpEwgzJfwQsUB4jPbsudQmev6ylw00rGatENf6cEfd/DfXQXwb2Sn+67S7x4vI2q2sX57sXtrB
-	n2j0kdI7fqjrw4+yYCab0WILWxGIWCsfx93a4sBssarllHp5cRwfbxZZcdM+NNoiKsMDDkw+fSD
-	W13l447AqjfW6q0vNUD0r+I+jBrVM3K6nk3mYLQlTQL7wNH8LXaMmAshMKTR2KxohwwvHIcen1h
-	50UJ3xDmSVa/9uK6iNx3d3vBwuA1BC8aymzrIjjzPlwh0uiLyPmIs3qfygQ4WHiSjoXhxGpOf0R
-	Jmd3JT/MZzWkmg6UmH0jZP2nywW+fmTIzvEvPsxS37OQi/mvgv+HXG0msoU4WyCPBqqe81B14aR
-	KUFhyOuyrgyuW6k+pOnH3u6G0hkproEg5XJeoK217N+1mNeANieFmAbYoUWwcpfV8epO8mBjtui
-	4qxXDvC
-X-Received: by 2002:a05:701b:4592:b0:139:c4e3:9496 with SMTP id a92af1059eb24-139c4e398bfmr436341c88.13.1782173326499;
-        Mon, 22 Jun 2026 17:08:46 -0700 (PDT)
-Received: from ?IPv6:2a03:83e0:115c:1:c4f4:7a34:78e2:a600? ([2620:10d:c090:500::2:e8d1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c1be5c5desm12569328eec.28.2026.06.22.17.08.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 17:08:45 -0700 (PDT)
-Message-ID: <6c8cb4e03a3c626b0e37c7e4d95ea111e4116e4d.camel@gmail.com>
-Subject: Re: [PATCH bpf v3 2/2] selftests/bpf: Add test for stale bounds on
- LSM retval context load
-From: Eduard Zingerman <eddyz87@gmail.com>
-To: Tristan Madani <tristmd@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
-  Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>
-Cc: Xu Kuohai <xukuohai@huawei.com>, Jiri Olsa <jolsa@kernel.org>, John
- Fastabend <john.fastabend@gmail.com>, Martin KaFai Lau
- <martin.lau@linux.dev>, bpf@vger.kernel.org, 	stable@vger.kernel.org,
- tristan@talencesecurity.com
-Date: Mon, 22 Jun 2026 17:08:44 -0700
-In-Reply-To: <20260622230123.3695446-3-tristmd@gmail.com>
-References: <20260622230123.3695446-1-tristmd@gmail.com>
-	 <20260622230123.3695446-3-tristmd@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jv8nvqVC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2023F1F000E9;
+	Tue, 23 Jun 2026 00:30:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782174624;
+	bh=jJ/FeTwB958bqT0CvT3zpI7nxDka1yEjfrGPU9SLm18=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=jv8nvqVCyDJ/0eFpt7G+0RlJr3IbFQZCi7j82TcAkhtGKNzE9sV+lMjrf07vkgurK
+	 WvcmCGInfrdnb8M4cVdqw5EIaywf9NeJDkcun0i/+LH7Q7gM28jGBcvF/owuZLHEAG
+	 ju7p6lW89sew+pgDl7K8b9rbxpTFO9112pxooEaL8sD+pBZ/Yvypt2zGTJi+h6UJiZ
+	 5dD6hYi5MVdkJ0E1kYuw5wwa9OK50g9iWP+v3HxxgCzaCy/430f8ayaI0LZPDmfPgp
+	 l82tp9hcBknNF1XKca+6Zu3jK1XfYwH1PI+i8xo3QUnVobpwRPzK4sbZwgcntb1PDx
+	 bLT1tMA4dblMQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93A45393098A;
+	Tue, 23 Jun 2026 00:30:15 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf v3 0/2] Fix stale register bounds on LSM retval
+ context
+ load
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178217461422.1476259.13794764203016830138.git-patchwork-notify@kernel.org>
+Date: Tue, 23 Jun 2026 00:30:14 +0000
+References: <20260622230123.3695446-1-tristmd@gmail.com>
+In-Reply-To: <20260622230123.3695446-1-tristmd@gmail.com>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+ eddyz87@gmail.com, xukuohai@huawei.com, jolsa@kernel.org,
+ john.fastabend@gmail.com, martin.lau@linux.dev, bpf@vger.kernel.org,
+ stable@vger.kernel.org, tristan@talencesecurity.com
 
-On Mon, 2026-06-22 at 23:01 +0000, Tristan Madani wrote:
+Hello:
+
+This series was applied to bpf/bpf.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
+
+On Mon, 22 Jun 2026 23:01:21 +0000 you wrote:
 > From: Tristan Madani <tristan@talencesecurity.com>
->=20
-> Add a verifier test that catches the stale-bounds issue fixed in the
-> previous patch. The test sets r6 =3D 0 to create known bounds, then loads
-> the LSM hook return value into r6 from the context. Without the fix,
-> the verifier intersects the retval range with the stale bounds and
-> incorrectly narrows r6 to a single value, pruning the fall-through
-> branch as dead code and missing the div-by-zero.
->=20
-> Suggested-by: Eduard Zingerman <eddyz87@gmail.com>
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> ---
+> 
+> check_mem_access() calls __mark_reg_s32_range() to narrow a register to
+> the LSM hook retval range, but the intersection preserves stale bounds
+> from prior instructions. Add mark_reg_unknown() before narrowing (same
+> pattern as the else branch) and a selftest that catches the mismatch.
+> 
+> [...]
 
-Acked-by: Eduard Zingerman <eddyz87@gmail.com>
+Here is the summary with links:
+  - [bpf,v3,1/2] bpf: Reset register bounds before narrowing retval range in check_mem_access()
+    https://git.kernel.org/bpf/bpf/c/5e0b273e0a62
+  - [bpf,v3,2/2] selftests/bpf: Add test for stale bounds on LSM retval context load
+    https://git.kernel.org/bpf/bpf/c/644332f48fc2
 
-[...]
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
