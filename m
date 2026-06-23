@@ -1,67 +1,95 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0734825F99F;
-	Tue, 23 Jun 2026 15:10:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D5CA3D8115;
+	Tue, 23 Jun 2026 15:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782227426; cv=none; b=TeFLtVRpDDWL/0TNMMLkg4GV7LaPvofBNDdjm5lFjU12Te2Si0rYBsPbhB3K1feHHivRa1RGAJRHog0vGvrSvKkA9Haf1S4jAihC7zCc/plfzjoyuTeKwP9Ic2YMg6F3J9mqCf/zE6wtGflhjheUYlnAwLQHfxqhf2HDo+kbmqI=
+	t=1782227482; cv=none; b=ahMXRD6Mq9zw34+Vu2wg+R9hKAUex9YsyYHZVwhT0GuBTyRY+6pJww/tpDKD/cf7KLhhaviXrfCNwNya197C0VRT+dO3FCn5rL7R1braDV872rVwJQpKAi7rGSPchFgChXvm6ZANQtIy3/uoR838f9glmUbmu1oIhVF4PmeolNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782227426; c=relaxed/simple;
-	bh=+T/B/tZ+woy91IHFHED5KB3IAl+8s0Wv7O1/PBcwXuY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gw+3V6Y/J8miFwpIwkMKquZ/RJQLzHgE0ZYfhLfBbBhcbq/uCra3XHW+6tbkK1HhFyZzmeARX4NOJTTLRBEZ4trxX4FzofIuCmKqMvabq8kwyioqVDXnQ6IwRQjlPcLuRhHW7X4mklooja92A4vH17IknkSJ/Bh42VpI2H2hAzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 81F1C68C4E; Tue, 23 Jun 2026 17:10:21 +0200 (CEST)
-Date: Tue, 23 Jun 2026 17:10:21 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Keith Busch <kbusch@meta.com>
-Cc: linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	dm-devel@lists.linux.dev, hch@lst.de, axboe@kernel.dk,
-	brauner@kernel.org, djwong@kernel.org, viro@zeniv.linux.org.uk,
-	Keith Busch <kbusch@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCHv2 6/6] block: validate user space vectors during
- extraction
-Message-ID: <20260623151021.GA14919@lst.de>
-References: <20260622174241.2299563-1-kbusch@meta.com> <20260622174241.2299563-7-kbusch@meta.com>
+	s=arc-20240116; t=1782227482; c=relaxed/simple;
+	bh=uwk1PymkjxyUBw3V19NQW1dEKUnOAIgDGoHbHtGcO5M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ype/OmPJ3tFC/yccESREr/0S2B6czkIQg3hvtA2nhzEa1X+zAiH7qBxgBz317WphNoFUfoDJJoWzylx0q72kXAUGK0gWgTv45dntRAvWNnWcZ9Rl2TIfvgl2tGAF75sDz/Oebe6CFulcbIMUezPCP9nHWvwtzRP1E98TcLlaB98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G/eJhAl9; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G/eJhAl9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 744831F000E9;
+	Tue, 23 Jun 2026 15:11:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782227481;
+	bh=AemHZ9NEJJAtBbe4ElE//7AIo3UG/zkX8kzlaVFE7JM=;
+	h=From:To:Cc:Subject:Date;
+	b=G/eJhAl98WlIvz/iIqismZe5fIoNQycg+E3c9NxM1D+tTNYtwyBkMlOKEK//NzO9G
+	 aYIEvWJJs3/JsJ9+4MPh6M/isbefb3+I0my+dosvc7S1IFyCvhCPWsXwsgfif62q0x
+	 qyutWuPAGP7wzwcDhHaWb8CoKno8Sq+Gf4wADSEde9Xuy5hmXfIsY3Lsc1MhuoWMji
+	 DIp4N4bkWrWfrVUURQYt+hbhdOh5mNPS4Y3rCfgdHGnYyBhvEdmpiKJwFC4Kb2mxiw
+	 VXt8fuGt1wzsMvyN7RRSUV461MJQ6gowZdRsnF1TVsh7+0+qR4mYbIB63tQEPulBWT
+	 F9ax4k/ZWyWig==
+Received: from johan by xi.lan with local (Exim 4.99.3)
+	(envelope-from <johan@kernel.org>)
+	id 1wc2mV-00000001Jyy-14VJ;
+	Tue, 23 Jun 2026 17:11:19 +0200
+From: Johan Hovold <johan@kernel.org>
+To: linux-usb@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] USB: serial: digi_acceleport: fix hard lockup on disconnect
+Date: Tue, 23 Jun 2026 17:11:10 +0200
+Message-ID: <20260623151110.315126-1-johan@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260622174241.2299563-7-kbusch@meta.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
 
-> +#ifdef CONFIG_DEBUG_KERNEL
+If submitting the OOB write urb fails persistently (e.g if the device is
+being disconnected) the driver would loop indefinitely with interrupts
+disabled.
 
-That's a pretty broad option.  Not that I have any better idea off the
-bat.
+Check for urb submission errors when sending OOB commands to avoid
+hanging if, for example, open(), set_termios() or close() races with a
+physical disconnect.
 
-> +static inline bool bio_iov_bvec_aligned(const struct bio *bio,
-> +					unsigned mem_align_mask)
-> +{
-> +	/*
-> +	 * The vectors are owned and laid out by the caller; we only forward
-> +	 * them. Most callers are already aligned, but io_uring can place a
-> +	 * user chosen offset through a registered buffer, where only the first
-> +	 * vector may be unaligned.
-> +	 */
-> +	return !(mp_bvec_iter_offset(bio->bi_io_vec, bio->bi_iter) &
-> +							mem_align_mask);
+This is issue was flagged by Sashiko when reviewing an unrelated change
+to the driver.
 
-I don't fully understand the comment.  I guess this is to say ITER_BVEC
-users better don't create any alignment gaps?  Maybe we should also
-clearly document that in uio.h?
+Link: https://sashiko.dev/#/patchset/20260610132232.356139-1-johan%40kernel.org?part=1
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/usb/serial/digi_acceleport.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
->  	return bio_iov_iter_get_pages(bio, iter,
-> +			bdev_dma_alignment(bdev),
+diff --git a/drivers/usb/serial/digi_acceleport.c b/drivers/usb/serial/digi_acceleport.c
+index 6899aebfd6ae..88c61030982a 100644
+--- a/drivers/usb/serial/digi_acceleport.c
++++ b/drivers/usb/serial/digi_acceleport.c
+@@ -392,12 +392,14 @@ static int digi_write_oob_command(struct usb_serial_port *port,
+ 			len &= ~3;
+ 		memcpy(oob_port->write_urb->transfer_buffer, buf, len);
+ 		oob_port->write_urb->transfer_buffer_length = len;
++
+ 		ret = usb_submit_urb(oob_port->write_urb, GFP_ATOMIC);
+-		if (ret == 0) {
+-			oob_priv->dp_write_urb_in_use = 1;
+-			count -= len;
+-			buf += len;
+-		}
++		if (ret)
++			break;
++
++		oob_priv->dp_write_urb_in_use = 1;
++		count -= len;
++		buf += len;
+ 	}
+ 	spin_unlock_irqrestore(&oob_priv->dp_port_lock, flags);
+ 	if (ret)
+-- 
+2.53.0
 
-Nit: this easily fits onto the previous line.
-
-Otherwise this looks good.
