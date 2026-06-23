@@ -1,33 +1,33 @@
 Received: from confino.investici.org (confino.investici.org [93.190.126.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5DE72DCC1C;
-	Tue, 23 Jun 2026 15:35:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0388C2F7EE3;
+	Tue, 23 Jun 2026 15:35:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.190.126.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782228913; cv=none; b=Nzf3QARzgzsA4LM9mHgCdsJke00vlWlWKPvM31rU4k85iOw7qVHDfF+8wuojWlFYIx7YoA6rktaoMKIpfykTKRHcWcaRX0t8/2LKMMGN8W0ZraWQUw5ylIIfhqgrBDUGlBn3Mo16sS8n7M5k9AvvrrhZFHBf4scNwWaOlJkPS6g=
+	t=1782228914; cv=none; b=JUy+A5Sb9s32DGf1iEA7H6bLNlt+m0X5KnKjxWC9XqjKYs+wwyV3n2DRe0eoLPdfvdB8uJqYhDuxBg6Q4GNL/uurmO8FUebIaZGQbJQ5EGSov1XbrDQmdydCT7v0YqtJAvOSmBkRVLJaHLqrl2T398978mQXEV2q+LrpAaESqVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782228913; c=relaxed/simple;
-	bh=SjLtyaL91bTnbCOPCH0D5LX6mWYJPA5V9F2HIyYhNSc=;
+	s=arc-20240116; t=1782228914; c=relaxed/simple;
+	bh=1Gp/NOYgjpPwmJILJJFsZmVhfxObqfsGcV7GsCvTAWA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gZMG966eeMc7eULsLp+F0IQBdwg4aJXV+gSmNsJl5P++DIuI36ttZ/Nhy009q0OLkPGLKfFkat/pOOUVluf+RzZctQT5ez0jpOjHgBxw7MscxUUVoJefQnie6/fRXOrMn++cOhxVm8+qxR3wgK5yX0tPLdRgEPChiSV7YURIA7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=hz41nq6C; arc=none smtp.client-ip=93.190.126.19
+	 MIME-Version; b=udMUDvIIcOtOVpbAsPFsO64uL1snaf8GoDO0pXj/dSc1bk8Zn7++qhrefc1PbtyFIIUR+t3+Kw5QDWAmzOfuFeIMSfhWu4m8s839eQEP8D2zqQKwrRIHEVreGyKl17GlCo3QFqzgbeH7yGipmsvMZ00R6xzlrzGkuscquNDeVNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=YWQ63Pqr; arc=none smtp.client-ip=93.190.126.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="hz41nq6C"
+	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="YWQ63Pqr"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1782228910;
-	bh=Uip+6pol1RtIR3cScKDKsDw9xFYuq25oTXx0BH2GssA=;
+	s=stigmate; t=1782228911;
+	bh=yJvoIA1fO2feDg/kwex0Po7ylI4GiWcadD1slikx9OE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hz41nq6CvwLTOGNnMSJCTGOF3q+HqVCmmrgQGYcS1yyjzcT7BLHxATDm+i9u5wVLG
-	 yK5apygC/Vv9txFnngu5IsEqfBJwdQVUX3BlD3LTc3muOdcOkXCGHaCDs8Ce6OdNMU
-	 WEQZ9vfv5pOKPlnyiM/axIZUv5Arz89jYAIqzX40=
+	b=YWQ63PqrZA6fHb8qsiiZDoFe8MfB9mrdyJNeNo70YVy2vjDtftfvhU4iMf/0NMZTl
+	 Rr6cmR0Pic59edq6R/aHn1RQm+BOmvPs1Yy4a6UpumqBRscME5k1uJj10kJW1t8FDF
+	 4E9tmGrDQ8GfP2ptybXd6OHZwo30tkIyAsf+LS+s=
 Received: from mx1.investici.org (unknown [127.0.0.1])
-	by confino.investici.org (Postfix) with ESMTP id 4gl8Jt2RpBz10xv;
+	by confino.investici.org (Postfix) with ESMTP id 4gl8Jv4hBZz10yw;
+	Tue, 23 Jun 2026 15:35:11 +0000 (UTC)
+Received: by mx1.investici.org (Postfix) id 4gl8Jt3GQrz10xZ;
 	Tue, 23 Jun 2026 15:35:10 +0000 (UTC)
-Received: by mx1.investici.org (Postfix) id 4gl8Js113Hz10xZ;
-	Tue, 23 Jun 2026 15:35:09 +0000 (UTC)
 From: Bradley Morgan <include@grrlz.net>
 To: Petr Mladek <pmladek@suse.com>,
 	Feng Tang <feng.tang@linux.alibaba.com>,
@@ -53,9 +53,9 @@ Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Bradley Morgan <include@grrlz.net>
-Subject: [PATCH v2 3/4] powerpc/watchdog: avoid sys_info fallback for all_bt
-Date: Tue, 23 Jun 2026 15:35:00 +0000
-Message-ID: <c78a3377b26023cff23d176c029d03d79645b3e6.1782228656.git.include@grrlz.net>
+Subject: [PATCH v2 4/4] panic: avoid duplicate all CPU backtraces from sys_info
+Date: Tue, 23 Jun 2026 15:35:01 +0000
+Message-ID: <2199a8b4da8700b9f27e61486293e9c26ab107ef.1782228656.git.include@grrlz.net>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <9b8c96e291696815d3c7de5d3e199298dee0279d.1782228656.git.include@grrlz.net>
 References: <9b8c96e291696815d3c7de5d3e199298dee0279d.1782228656.git.include@grrlz.net>
@@ -67,78 +67,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The powerpc watchdog prints all CPU backtraces itself. When the watchdog
-mask contains only SYS_INFO_ALL_BT, stripping that bit leaves zero and
-sys_info(0) falls back to kernel_sys_info.
+panic_other_cpus_shutdown() handles SYS_INFO_ALL_BT before stopping the
+other CPUs. Do not ask sys_info() to handle that bit again later in the
+panic path.
 
-Use sys_info_without_all_bt() so an explicit all_bt mask does not request
-the global default.
+Use sys_info_without_all_bt() so panic_print=all_bt does not request more
+output after the CPUs are stopped.
 
-Fixes: e561383a39ed ("powerpc/watchdog: add support for hardlockup_sys_info sysctl")
+Fixes: b76e89e50fc3 ("panic: generalize panic_print's function to show sys info")
 Cc: stable@vger.kernel.org
 Signed-off-by: Bradley Morgan <include@grrlz.net>
 ---
 Changes since v1:
-- Use the shared sys_info_without_all_bt() helper.
-- Keep the powerpc watchdog change in its own patch.
+- New patch using the same helper for panic.
 
- arch/powerpc/kernel/watchdog.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ kernel/panic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/powerpc/kernel/watchdog.c b/arch/powerpc/kernel/watchdog.c
-index c40c69368476..813f9d48a6be 100644
---- a/arch/powerpc/kernel/watchdog.c
-+++ b/arch/powerpc/kernel/watchdog.c
-@@ -201,6 +201,7 @@ static bool set_cpu_stuck(int cpu)
- static void watchdog_smp_panic(int cpu)
- {
- 	static cpumask_t wd_smp_cpus_ipi; // protected by reporting
-+	unsigned long si_mask;
- 	unsigned long flags;
- 	u64 tb, last_reset;
- 	int c;
-@@ -236,8 +237,9 @@ static void watchdog_smp_panic(int cpu)
- 	pr_emerg("CPU %d TB:%lld, last SMP heartbeat TB:%lld (%lldms ago)\n",
- 		 cpu, tb, last_reset, tb_to_ns(tb - last_reset) / 1000000);
+diff --git a/kernel/panic.c b/kernel/panic.c
+index d030f88ad4ef..2cf229c7c0cf 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -683,7 +683,7 @@ void vpanic(const char *fmt, va_list args)
+ 	 */
+ 	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
  
-+	si_mask = READ_ONCE(hardlockup_si_mask);
- 	if (sysctl_hardlockup_all_cpu_backtrace ||
--	    (hardlockup_si_mask & SYS_INFO_ALL_BT)) {
-+	    (si_mask & SYS_INFO_ALL_BT)) {
- 		trigger_allbutcpu_cpu_backtrace(cpu);
- 		cpumask_clear(&wd_smp_cpus_ipi);
- 	} else {
-@@ -251,7 +253,7 @@ static void watchdog_smp_panic(int cpu)
- 		}
- 	}
+-	sys_info(panic_print);
++	sys_info_without_all_bt(panic_print);
  
--	sys_info(hardlockup_si_mask & ~SYS_INFO_ALL_BT);
-+	sys_info_without_all_bt(si_mask);
- 	if (hardlockup_panic)
- 		nmi_panic(NULL, "Hard LOCKUP");
- 
-@@ -371,6 +373,7 @@ static void watchdog_timer_interrupt(int cpu)
- 
- DEFINE_INTERRUPT_HANDLER_NMI(soft_nmi_interrupt)
- {
-+	unsigned long si_mask;
- 	unsigned long flags;
- 	int cpu = raw_smp_processor_id();
- 	u64 tb;
-@@ -418,11 +421,12 @@ DEFINE_INTERRUPT_HANDLER_NMI(soft_nmi_interrupt)
- 
- 		xchg(&__wd_nmi_output, 1); // see wd_lockup_ipi
- 
-+		si_mask = READ_ONCE(hardlockup_si_mask);
- 		if (sysctl_hardlockup_all_cpu_backtrace ||
--		    (hardlockup_si_mask & SYS_INFO_ALL_BT))
-+		    (si_mask & SYS_INFO_ALL_BT))
- 			trigger_allbutcpu_cpu_backtrace(cpu);
- 
--		sys_info(hardlockup_si_mask & ~SYS_INFO_ALL_BT);
-+		sys_info_without_all_bt(si_mask);
- 		if (hardlockup_panic)
- 			nmi_panic(regs, "Hard LOCKUP");
+ 	kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
  
 -- 
 2.53.0
