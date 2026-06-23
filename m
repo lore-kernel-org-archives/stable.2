@@ -1,178 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5696E377004
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 10:42:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D50377574
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 11:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782211333; cv=none; b=uHh1kc7UCKjgKIi8pZ57T8w+hXzC6sINfE7fS1gvvFOgqW9GEhUK+3cnFVp+Qt64FlF8ZYNJzZqiRbsT0tqoVq5AfL3zi3ZCNOxnP1nWzGuJ4ed08efBGr4dP9NA+9bFZzN6Zcw/3zGC/j/OAINbJ/vmMX9eavRHvY4VufBBJiM=
+	t=1782213692; cv=none; b=ibSvX7LehkYX2bgFnHaiQIdtrDGycfpRBHveThsTlPK7b7SQMxdn89G/kexEkh58YkurFd8+a36xAKj6xbA5MmK3mY8XLxW21mKcO6WJG0SMmpyQM87tWWZ6XBVOuB66SIvR6BEKMXbe6tWUswIcRtLp8rHf/DnwKOrNn++77Io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782211333; c=relaxed/simple;
-	bh=7ZCS+nAf9DzWaGovhhLRooaMeMhWFa/fjNG1lrvH+eU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RiiMnNiZ8ZCG9yq8G3z+CCPhwyyvL4pfgk85lh/HTeoSbJcinvg0xmxIMZWjqFV2cAdeVDU1GhD0aWCqaDueBh6UXw39uZG5KFhOXZhO8F6JLzKQqFVqdMUTqCYbLyqUwJ6+Gl0Kdv5ubZMsZNOny1fC8m6myT1DN43OcHbYkFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=anhOIvsH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782213692; c=relaxed/simple;
+	bh=DvUc4qs6pGlAq5YVheN9HonjTAdavu+DHluLkjiJn8E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kmDJOVe1UhMta8ah13T1mOpobcDY5MODXwQOc2npV4FyTyw3i7RHWVH13tOEnIcWgRK7MR9IuMScGrOMHnUqYGX5oYSkmOwzhXTgMv7szWXbvx9UAb8uubCt9YiI8jrgif3BeBY+YdXhdY8hrbZvO+IWGYHV4EeEVVTCvwvOWsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vw2YvPfh; arc=none smtp.client-ip=209.85.167.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="anhOIvsH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A08E1F00A3A
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 10:42:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782211331;
-	bh=o9DCNxsxP2zCzqd8I8S0j3nNfEC5TwHFVfZu6CxNHo8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=anhOIvsHPaiIvd0EtrT/m3h8tYbGHx3lqFdFRYs/DRdEx95B73wBDZVlHaoHRN+4w
-	 dLsX7XNiwaI3ObYrCwh7UlNuYYwpi0iIQc8VPq11p3oHDM7EZvpxDYC7ITTPRHbigl
-	 1V1hayHZ5bJq74yOwCKuoy89SeVX913Rog0A++luEsamxJW8DlMqqUjUOyTbS0xX1s
-	 9OaWxrfO5xOn/1xmgUw7Q0VR/P7wHPlERpDcYpSLH4g/KqZTfUNGHr40g42HYdP8EZ
-	 2IXbwluhWJttklJyTTJMNXmnJhCkdywucbL1NXnly50urJu3r1QfifaVKxo475nTy6
-	 HIdtOnn/WoxXg==
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c0efc7ef797so308045066b.2
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 03:42:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8bnphES5XT5MbbY04joekXGlcpy7GsmbT1qoUjCEcbLaVL8hLuXUOaYeuPf2eNnwJ2+HT+07o=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwhlKRy5ZkFLbgmX4WNIgFlrxB7lsRqdP2CI4yx1EPiU2u0zBjn
-	A2EUK+vQgvvqak4K7nfof6+MqZiLJa+lBPUhyGzUHtafdY1vpoYuKR0L2eqrQSGdNNjC+KsXvsJ
-	XDKJ5C/QOARGHTMyqz8/I2mhUMhP7CLk=
-X-Received: by 2002:a17:907:c498:b0:bf3:230c:4c64 with SMTP id
- a640c23a62f3a-c108e00aa7bmr106683866b.16.1782211329690; Tue, 23 Jun 2026
- 03:42:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vw2YvPfh"
+Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4864a5c83f1so3059031b6e.0
+        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 04:21:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782213691; x=1782818491; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=EMH/IcGTLo6vZoiysZQe+TRMu5P99Nsjkh7igJAUCYU=;
+        b=Vw2YvPfhpfKU+mNZYC+++Kf3Z0vI7PnmU4qOhiOD0WO+ZoAUnfK6sjl1b8qcLrHZL9
+         gFEpWmhYqN/D+nNRIcLtMOOeYoxtAdDyfbPBOOVmB2kUaDLpwA4iOiQes7MbIzZLO66T
+         Jn7dYQxwejtoik6yodSnJRS2juf+nyRH/nZKKDgAC8A2eC8ngverb5Px7/VBL4hR6vKC
+         N3Vu/pNjeSGJijnMSP+G45kfefskSA4qhuzc6YtpwL+iJGYl6bFACRTkOcBCTq2L0Sm/
+         rgBdruLgAL+bA6F+3hoXjwR7wKHiWLRbj8G2MYKFdRxPNO9S35UM63rAYJjgdrWvrE2n
+         iDTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782213691; x=1782818491;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EMH/IcGTLo6vZoiysZQe+TRMu5P99Nsjkh7igJAUCYU=;
+        b=m4XaU4UZVnbO2MFFvIoF6vcO3oPzjlW7Tif5M2E7DhHmObuK/5phNoXYmsWHiGj3X9
+         qtdu8JVee7IJ8KCosoM/u9eBWXNbKK9iRBuBRJUGcFu0wHQdWTTkuE/e9zIKvUTMjBQ9
+         Oj+kp/QO9XLSvytQ4EkbBbm0xOvr+Y37N3Yj5AlkQYk+xDFdCN4bE2uEvQzWLqi7ZRiR
+         2q6HcT+2nxRWVaEpiYfUGvACPDbnSlm2WDJGyHy49+7Lv/q8ELgGt0ZrfMY9zKwXZJup
+         3nXoEKZpcQnWvw0Z+O9CjkF+D0TPWl+aUXXf3MTpUZKZJQf44f/dac5wVrCfLFUf2n5h
+         mhuA==
+X-Gm-Message-State: AOJu0YwXliUegeTGfkjY14nJtm3kteTESDCHomzWzoCuzB3j8dqPdAPV
+	XWCZ9vbTCwU49ilYPanD+avMky2eje0BAfkftxZr8HBPVvoLq8UkVk1jL990dxXd
+X-Gm-Gg: AfdE7ckzOESPw2KTO3v5tlpqFwPRttdYmhGRCmtcf552jCZRb+tgCh5Ke8ftlhWXBl2
+	/DbaswFinaFwxPUJeDSWsNluW+ig3yLBC1VvoCo5WDz5M2QK4v55Au/szxYL7eMCPMkvhPfdWo2
+	KRXpqiokkp57tb/Zq6goDwJvzgH1K3GBI/n7cCqRkaEyY1rB0vyGxu/97o4qro1rwDyQbd65LT3
+	I1WhOm1p8XBTBYtsrbbkckHqA5pGXenTjkAH6642QWGWmrRgDsg0v6luZW/9WeQmGBWObsO6v1c
+	qrenrA0brDoGepU5nJ2b6pjtrjNnz4yBwXDxKsO+0Uyfxqg9FNvQGyboGHTjuHaXEWLnue1wGKK
+	r4NVKEnrCs9udpaaxgMCDO0sVpz4u5NwcmI9GD7KQ0kCWbdyxrbDQgoUzIcgYTMAPa1C/I/am+0
+	3xO46jk1Gyg65gLf5IaTMug86zCxof
+X-Received: by 2002:a05:6808:1204:b0:489:5caa:68ac with SMTP id 5614622812f47-4896aa62383mr15259240b6e.14.1782213690647;
+        Tue, 23 Jun 2026 04:21:30 -0700 (PDT)
+Received: from GINKO1.localdomain ([216.167.189.32])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e944068feesm8291748a34.11.2026.06.23.04.21.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 Jun 2026 04:21:30 -0700 (PDT)
+From: Michael Pratte <slatoncomputers@gmail.com>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH] s2io: only arm hardware LSO for GSO skbs
+Date: Tue, 23 Jun 2026 06:21:31 -0500
+Message-ID: <20260623112131.752148-1-slatoncomputers@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1782168847.git.wqu@suse.com> <4191bde54303559d0065213f7970ec1ad9790e02.1782168847.git.wqu@suse.com>
-In-Reply-To: <4191bde54303559d0065213f7970ec1ad9790e02.1782168847.git.wqu@suse.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Tue, 23 Jun 2026 11:41:32 +0100
-X-Gmail-Original-Message-ID: <CAL3q7H70Wmq4WZJ4dbQ0stNFbs3XuTd9pk0qNHTQQ0y0-4u54Q@mail.gmail.com>
-X-Gm-Features: AVVi8CfeH3YsPW9rjhjtXwO_WaSNdFvy5Jih0qTqc80c2uPgre1ZwGH-xZsBr5I
-Message-ID: <CAL3q7H70Wmq4WZJ4dbQ0stNFbs3XuTd9pk0qNHTQQ0y0-4u54Q@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] btrfs: do not try compression for data reloc inodes
-To: Qu Wenruo <wqu@suse.com>
-Cc: linux-btrfs@vger.kernel.org, 
-	syzbot+d950c6ba09b79f6e1864@syzkaller.appspotmail.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 22, 2026 at 11:56=E2=80=AFPM Qu Wenruo <wqu@suse.com> wrote:
->
-> [BUG]
-> There is a syzbot report that the check inside get_new_location()
-> triggered:
->
->  BTRFS info (device loop0): found 31 extents, stage: move data extents
->  BTRFS info (device loop0): leaf 8908800 gen 16 total ptrs 28 free space =
-1676 owner 18446744073709551607
->         item 0 key (256 INODE_ITEM 0) itemoff 3835 itemsize 160
->                 inode generation 5 transid 0 size 0 nbytes 0
->                 block group 0 mode 40755 links 1 uid 0 gid 0
->                 rdev 0 sequence 0 flags 0x0
->                 atime 1669132761.0
->                 ctime 1669132761.0
->                 mtime 1669132761.0
->                 otime 0.0
->         item 1 key (256 INODE_REF 256) itemoff 3823 itemsize 12
->                 index 0 name_len 2
->         item 2 key (258 INODE_ITEM 0) itemoff 3663 itemsize 160
->                 inode generation 1 transid 16 size 733184 nbytes 106496
->                 block group 0 mode 100600 links 0 uid 0 gid 0
->                 rdev 0 sequence 24 flags 0x18
->         item 3 key (258 EXTENT_DATA 0) itemoff 3595 itemsize 68
->                 generation 16 type 0
->                 inline extent data size 47 ram_bytes 4096 compression 1
->  [...]
->         item 27 key (18446744073709551611 ORPHAN_ITEM 258) itemoff 2376 i=
-temsize 0
->  BTRFS error (device loop0): unexpected non-zero offset in file extent it=
-em for data reloc inode 258 key offset 0 offset 9277520992061368337
->  ------------[ cut here ]------------
->  btrfs_abort_should_print_stack(__error)
->
-> [CAUSE]
-> The above dump tree shows the first file extent item is inlined, which
-> should make no sense for data reloc inodes, as such inodes are just
-> representing where the data extents are in the relocation destination chu=
-nk.
->
-> However the relocation path is just preallocate space for each block,
+s2io_xmit() enables the Xframe/Xframe-II hardware LSO (TCP segmentation)
+engine whenever the skb's gso_type carries SKB_GSO_TCPV4/TCPV6, and
+programs the segment size from gso_size:
 
-"is just preallocate" is weird, more like "preallocates"
+	offload_type = s2io_offload_type(skb);
+	if (offload_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6)) {
+		txdp->Control_1 |= TXD_TCP_LSO_EN;
+		txdp->Control_1 |= TXD_TCP_LSO_MSS(s2io_tcp_mss(skb));
+	}
 
-> then dirty them, cluster by cluster.
-> It's possible to have a single block at the beginning of the block
-> group, and no other block in the same cluster.
->
-> Then relocation will preallocate a file extent for that block, dirty the =
-first block.
-> Then memory pressure forces the data reloc inode to be written back, befo=
-re
-> any other blocks being dirtied/allocated.
->
-> Finally commit 3eaf5f082c4c ("btrfs: extract inlined creation into a dedi=
-cated
-> delalloc helper") changed the timing of delalloc, before that commit we
+Since commit 51466a7545b7 ("tcp: fill shinfo->gso_type at last moment")
+tcp_transmit_skb() sets skb_shinfo(skb)->gso_type unconditionally on
+every TCP skb, including non-GSO frames where gso_size is 0. The driver
+therefore arms the LSO engine with MSS == 0 for ordinary TCP segments
+such as the connection's SYN. The Xframe-II LSO engine treats an MSS of
+0 as an illegal descriptor and aborts the transmit (lso_err_reg reports
+LSO6_ABORT), so the frame is dropped before it reaches the MAC. The
+result is that no TCP can be transmitted on these adapters since v4.2;
+UDP and ICMP (which never carry SKB_GSO_TCPV4) are unaffected.
 
-This isn't about changing the timing but rather changing the order of
-the rule set for inline/compression/nocow.
-Saying timing is confusing.
+Only arm the LSO engine when the skb is actually GSO (gso_size > 0),
+restoring the pre-4.2 behaviour. Non-GSO TCP frames take the normal
+transmit path.
 
-> always try NOCOW first, so that dirtied block will be written back into
-> the preallocated space.
->
-> But with that commit, we always try inline first, and since compression
-> is forced, we try compressing the first block, and then inline the
-> compressed data, resulting in the above inlined file extent in data
-> reloc tree.
->
-> Then the check in get_new_location() will check the file offset, without
-> checking if the file extent is inlined or not, resulting the above
-> failure.
->
-> [FIX]
-> Do not allow compression for data reloc inodes in the first place.
+Reproduced and fixed on Linux 6.6.67 with an Xframe-II adapter
+(PCI 17d5:5832); bisected to good v4.1.6 / bad v4.2.2.
 
-I would add an explanation here about why disallowing compression
-prevents the inline extent, as this is non-obvious and involves a
-convoluted path.
+Fixes: 51466a7545b7 ("tcp: fill shinfo->gso_type at last moment")
+Signed-off-by: Michael Pratte <slatoncomputers@gmail.com>
+---
+[ Not upstream and cannot be: the s2io driver was removed from mainline in
+  commit aba0138eb7d7 ("net: ethernet: neterion: s2io: remove unused
+  driver"). It still ships in the 6.6.y and 6.12.y stable trees, where this
+  bug is present and the patch applies cleanly. Please apply there. ]
 
-So adding this new check in btrfs_inode_can_compress() makes
-run_delalloc_inline() skip the compression `if` statement. Then, when
-it calls can_cow_file_range_inline() that returns false because the
-data size is >=3D sector size, causing run_delalloc_inline() to return
-1, signaling to the caller, btrfs_run_delalloc_range(), it cannot
-inline and must follow the nocow path.
+ drivers/net/ethernet/neterion/s2io.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks.
+diff --git a/drivers/net/ethernet/neterion/s2io.c b/drivers/net/ethernet/neterion/s2io.c
+index 1e55ccb..9988ff9 100644
+--- a/drivers/net/ethernet/neterion/s2io.c
++++ b/drivers/net/ethernet/neterion/s2io.c
+@@ -4105,7 +4105,7 @@ static netdev_tx_t s2io_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	}
+ 
+ 	offload_type = s2io_offload_type(skb);
+-	if (offload_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6)) {
++	if ((offload_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6)) && skb_is_gso(skb)) {
+ 		txdp->Control_1 |= TXD_TCP_LSO_EN;
+ 		txdp->Control_1 |= TXD_TCP_LSO_MSS(s2io_tcp_mss(skb));
+ 	}
+-- 
+2.54.0
 
->
-> Reported-by: syzbot+d950c6ba09b79f6e1864@syzkaller.appspotmail.com
-> Link: https://lore.kernel.org/linux-btrfs/6a373dc5.764cf64f.168fbe.0001.G=
-AE@google.com/
-> Fixes: 3eaf5f082c4c ("btrfs: extract inlined creation into a dedicated de=
-lalloc helper")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qu Wenruo <wqu@suse.com>
-> ---
->  fs/btrfs/btrfs_inode.h | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
-> index d5d81f9546c3..fff72f6cc1e8 100644
-> --- a/fs/btrfs/btrfs_inode.h
-> +++ b/fs/btrfs/btrfs_inode.h
-> @@ -476,6 +476,8 @@ static inline bool btrfs_inode_can_compress(const str=
-uct btrfs_inode *inode)
->         if (inode->flags & BTRFS_INODE_NODATACOW ||
->             inode->flags & BTRFS_INODE_NODATASUM)
->                 return false;
-> +       if (btrfs_root_id(inode->root) =3D=3D BTRFS_DATA_RELOC_TREE_OBJEC=
-TID)
-> +               return false;
->         return true;
->  }
->
-> --
-> 2.54.0
->
->
