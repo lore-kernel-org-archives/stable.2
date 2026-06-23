@@ -1,117 +1,132 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409EF2F8E84
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 15:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37382FDC30
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 15:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782229906; cv=none; b=qq0NIc0+UIyljt0oU9uCQX5rsYo+6NUkYl49dRWQQrwo7nBwNoJTJqg3IqKVNNO2tosZxKd/2MBcfYjCYghoHETna3n7+KXr37XrfsplxO5PhKW5K1JmoFYpJ6ADym+sRE0XQ19KfPBlNcjXPelSC/24TR0SSaXPc55IfNgeK6o=
+	t=1782230035; cv=none; b=pqMBlzDwUSqlGkmUwOGYL4am8AbW5M5YWPysOsFdojBqOMJTFuluP+vuPzjuhJn5WWaUHzDcackt6JCVJ1gXhl2pRLBWxM8vApPz3LVyfGY9yZd8Weav2xixgywVQbk2PiY6doDcm2NrQkNaZvlRYS93x6bt4mZXVLrNmH76HYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782229906; c=relaxed/simple;
-	bh=t8mXf1KWzBFFHZItSaMJ1BAc0QXxY+Opyx4omfe868o=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=U5kbGjy3f7MRshcR0oNtAftbIXqL2NuU2KqlKJwx1ZTb8ysbBdNGBq8T8GBznZClbs5BoFOontNbnl7u6whLCr09c6GN0BwL4x4sfAcvbGOXbeH0G6nLwCZwrsnKvwnFWQzR5KCIXc7mv7RsbqsOBnlax+mpXNoqzrg8Zywvthg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UglRfJhW; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782230035; c=relaxed/simple;
+	bh=zYXd6ReU2WdIxJbOFNrBVnjOGqbTxv1cNEEG6ENsyng=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GOBLkPseWQ/pR1PMccWUIRTaEX9IjHHrNTln9aLa7Qmn6L0u5mikCPTrzvDgSh8SF7zUKvoBDBI+tgXJcLtkCcLfafwk7LAmys5Ze9+hpkeq8DHjpu2K6J+vZZomnNIwabsk/+YgW78o4uXa5SIFPW8wRgK/rAwV/6f6nq18Ylk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org; spf=pass smtp.mailfrom=ieee.org; dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b=TplHOpRx; arc=none smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UglRfJhW"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84226d0f1d2so68606b3a.1
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 08:51:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b="TplHOpRx"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-516d0db9372so46754921cf.2
+        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 08:53:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782229904; x=1782834704; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=j9NNaAQXxA7tp5h7ZzpX9ErwD3n1HZRKdmhW285xKfA=;
-        b=UglRfJhWKHlLdsoCguVvp3apAqNTjg9nHv/v7C2EWUpqoBywT4r8r9ViQsJcdT0+Z2
-         Pml48DzI5qBkzNhKgdrpvbdVvcEa5ktojS/nfgYhrpt3jpKdfRSh4lVsuW02R3zfsml0
-         fy6I6jxN8G6YHDBOeASoUrro+q6dMNYJx76ijnaNfiew+j0TQP/+imhf5gl+NQM4MJA6
-         bzOJRXv+VX7NAd2he1F6L0opJGk94MDJs9HGUWLWgXXIjXPmM9KGO+G6nlwihzCA/vgs
-         r+9ijCSe+wMvQuGPBpbbLsWxB3f5PyXqt4PXsNTOQmE3Hwzw5IIEbea4XTaA+tn9C6gt
-         xzuA==
+        d=ieee.org; s=google; t=1782230033; x=1782834833; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=XqPTCm5YKqWQJxJHEkoz96y23iqGtdrjAIIsxTeKqR8=;
+        b=TplHOpRxxkKEVbj69AkhMrHVomYawMCyP4bLfnOyq/jBZrXkIekITaun9qKutsGkS1
+         MjiW19zEzdDDcdZHnY+Ji+ZyQUScG/8t+67fLBI6HA3KCcpg10kEqULJsZe81e9s9Z1h
+         3t9FnqjKHNO9b1BFIkC7caopC7GFCAC7hReQg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782229904; x=1782834704;
-        h=mime-version:content-transfer-encoding:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=j9NNaAQXxA7tp5h7ZzpX9ErwD3n1HZRKdmhW285xKfA=;
-        b=awb5oh/DUzWxGjkDj0UKDVBMEdA0neg+vxVR3DQ6Q7eQhEP3bwprq3byZEftmL4XGy
-         dFZWvhpYUMrVn2ZWXzf6Yx08Knov0ak+8becQCYNJ8WF43+sLmc4eSuMh1j5403R/B3V
-         G1UqfiU6EFj5PwsD6XtszCZmWXPH/vQ6HBWpx9UrnTa8yY+E5IvUtlUNop9m76W5JUR+
-         fpRv8NvZty7xGsLkHWFBkQof8IhBXUZJt7UlJTSBO7gXYo/0/AGLFjIB7WkLX3rdgdvX
-         a9ZQ7O08D4Gu00cWSOeGJwFsrjec27YuZ4y4FMxVU8NCDA8OF1JAvd1FNGToXwSDOLL4
-         sVXQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8MXpFsdgIFW08lT6OiuW/yTSfl5MxgZQQORHExh7rO1nPfBxTmNykz2S6dY/LPLGhRvbQH0I8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyM/qPpavUY5P6lSXWMMCmVIzCw91FU4XATleOwzW1OXmBHwLpM
-	DRDn7qZOH18LWR0uAyMEc3uaWrIfrm+zE0xqGFAb+U7db98ghTCfCuqC
-X-Gm-Gg: AfdE7cmR38UKEzbQ5Tpiq4c6yXDjwAP/FXgtzZ2aUnmOJUP10z09lGNbbJO2zhj23e6
-	UTlj8EAuYOgeIZ+sExAm+1OKnFNmddIrKOB6Wctg2V9Fnnz4Q1xnyHFT2rTmdKwGWEyEpKz2hlD
-	pRBWnpu6UMLs4Uz0C6TjYUYXQNA8Y2PIzA7DiZvXV69sHKwyR1zl9rQTb/sZrTEA4Wr4Nn8s1VH
-	hY6oGi672hfuzcDvLHHTNclDGMFKAkKGqPqVoMB5WNYC7lfJzhqekFY9ktcXDz7KqMwHfJPUvKO
-	x+/i1HTwZMnAaj3ZMvPdJ2mL8OjPTemHJ9cIKuHwHKBTR/mOEIO5LgAGV5fThJcb2Y1U7oUkykQ
-	L9ePDG2lNcXm2CqLeFnyVt1MhvlxSkEj2yM2eIoUSTwQ+eqItlu3t0STPRucor6wbfF/kMkUCLx
-	SfmBEKeN9TFxwTYKSxY2wlf5BTflsJ/C/X0KqF2A==
-X-Received: by 2002:a05:6a00:4004:b0:845:4c76:e46a with SMTP id d2e1a72fcca58-845952108a1mr4322078b3a.3.1782229904262;
-        Tue, 23 Jun 2026 08:51:44 -0700 (PDT)
-Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84564ebcf45sm10418471b3a.48.2026.06.23.08.51.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 08:51:43 -0700 (PDT)
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, Frank Li <Frank.Li@nxp.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Kaixuan Li <kaixuan.li@ntu.edu.sg>, linux-i3c@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject:
- [PATCH] i3c: master: svc: bound IBI payload to the requested max_payload_len
-Date: Tue, 23 Jun 2026 23:51:40 +0800
-Message-ID: <178222990006.2767135.12462569914183698733@maoyixie.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+        d=1e100.net; s=20251104; t=1782230033; x=1782834833;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=XqPTCm5YKqWQJxJHEkoz96y23iqGtdrjAIIsxTeKqR8=;
+        b=AApwMbvGVzgXhpUdMJxWwkz20qs0EOK3K2opAnxpj4nNhJHgk9+2QORRwJM7TG3eDD
+         SWcc8LFW8pl5r24PyvE53lVhVI2KrMaCQ8FJbCJIyKueseHb44mG7qvGjUzT3w4dGUua
+         y8+J87Cc2+V94UTOrDaaOvlKAyxc/Fj0MkSIF9PXmBM53lV5AE3bB3RSqdwQ2R1BYjl7
+         hNxK7TR299VOdIfBIsGTI8S0Q3Te8L7jYmaTgcQ1GSc0hYsOMIkFGFSIW8Kl27FZ0XgS
+         w3Dkuo4VHpr+iI/RAOH7NNGauxPXnGrlkwbhxdCxSpfae60xr87pDjKHDL4PCMjZk4uQ
+         vGiA==
+X-Forwarded-Encrypted: i=1; AFNElJ+bzx7xdd7HMbIdvTKICB1lEdFdgv3fPv3p70tc4zJlFM0c2HtHNawAv/Ac8xYVrqXnA3Dr7yE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwAOUyefzGuofhg7Jrm4RxE24h+5WTXwRoXp3kaOEL/4DoIffiV
+	qbDaLgB9kwmiskNpMOisOxoVMpCfbojFEVWNqnFk3c/bs8twl23p3P69casj+XBI/g==
+X-Gm-Gg: AfdE7ckOrTmikj7eWDtatgqCezgPKQH7IMQAmvla65zEGcSnUP1JxqTx+osLX5k1nzJ
+	kZelaic82NsHIm2nXif+3X8F1eVL5XZZ2RfkBDH05CX7XKT6XTJLAdQjAl7Vh/B/XveyqsOTiiG
+	WMMg9uFSjyZDxzT9xzM7LaF9782QYSxD9xb38ZcVyplUQjMAfw7OL4Iw85aUk752fBkJN0G2Y8c
+	wUns8EQZe8gkaSCjzMA+P48+8lgkoFSeJsmS3DJrt1+hZD/QBs2TRuue3m8d9NWxAwUt3kW6p3t
+	LosI/K7D3jLqNWPVBx0xQjOuCVZpKKCS7uVVanVGgfYrRLLz2X17piVkA3fyAP597B4atniDXYx
+	mBVNodcS+kyy9qH2phjvX+c354viYTQwSLA5KiFCO4o5gux4ZHb4OlREGg8tbm/KAtlhhhQnMR3
+	GoZvMaT3bR
+X-Received: by 2002:a05:622a:91:b0:517:9e5b:919b with SMTP id d75a77b69052e-519e4c8ed1cmr286911061cf.47.1782230032727;
+        Tue, 23 Jun 2026 08:53:52 -0700 (PDT)
+Received: from [172.22.22.234] ([73.62.185.64])
+        by smtp.googlemail.com with ESMTPSA id d75a77b69052e-51a514b4f5dsm26143431cf.1.2026.06.23.08.53.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 23 Jun 2026 08:53:51 -0700 (PDT)
+Message-ID: <526c68fd-684d-4593-8c6a-e08aafdada5d@ieee.org>
+Date: Tue, 23 Jun 2026 10:53:49 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net: ipa: fix SMEM state handle leaks in SMP2P init
+To: Haoxiang Li <haoxiang_li2024@163.com>, elder@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260623031831.1788454-1-haoxiang_li2024@163.com>
+Content-Language: en-US
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <20260623031831.1788454-1-haoxiang_li2024@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-svc_i3c_master_handle_ibi() reads the IBI payload from the RX FIFO into
-the IBI slot. The loop is bounded by the hardware FIFO size
-(SVC_I3C_FIFO_SIZE), not by the slot size.
+On 6/22/26 10:18 PM, Haoxiang Li wrote:
+> ipa_smp2p_init() acquires two Qualcomm SMEM state handles with
+> qcom_smem_state_get(). However, neither the init error paths
+> nor ipa_smp2p_exit() release them.
+> 
+> Use devm_qcom_smem_state_get() for both state handles so the
+> references are released automatically when the platform device
+> is removed.
+> 
+> Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
 
-slot->data points into the IBI pool, which i3c_generic_ibi_alloc_pool()
-sizes at max_payload_len per slot. svc_i3c_master_request_ibi() only
-rejects a max_payload_len larger than SVC_I3C_FIFO_SIZE, so a driver can
-request a smaller one. mctp-i3c requests 1. Each readsb() then copies the
-controller RXCOUNT bytes (up to 31) with no check against the slot size.
-A device that sends more bytes than the slot holds writes past
-slot->data, an out-of-bounds write into the IBI pool.
+So I guess they were never "put" before?
 
-Bound the loop by dev->ibi->max_payload_len and clamp each read to the
-space left in the slot, the same way dw-i3c does.
+This looks OK, but I'll just mention that the IPA code
+doesn't use devm_*() (managed) interfaces.  So it would
+be more consistent to just call qcom_smem_state_put()
+at the end of ipa_smp2p_exit() for both ipa->enabled_state
+and ipa->valid_state.
 
-Fixes: dd3c52846d59 ("i3c: master: svc: Add Silvaco I3C master driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
----
- drivers/i3c/master/svc-i3c-master.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+					-Alex
 
-diff --git a/drivers/i3c/master/svc-i3c-master.c b/drivers/i3c/master/svc-i3c-master.c
-index e2d99a3ac07d..7420bfbdd259 100644
---- a/drivers/i3c/master/svc-i3c-master.c
-+++ b/drivers/i3c/master/svc-i3c-master.c
-@@ -465,9 +465,11 @@ static int svc_i3c_master_handle_ibi(struct svc_i3c_master *master,
- 	buf = slot->data;
- 
- 	while (SVC_I3C_MSTATUS_RXPEND(readl(master->regs + SVC_I3C_MSTATUS))  &&
--	       slot->len < SVC_I3C_FIFO_SIZE) {
-+	       slot->len < dev->ibi->max_payload_len) {
- 		mdatactrl = readl(master->regs + SVC_I3C_MDATACTRL);
- 		count = SVC_I3C_MDATACTRL_RXCOUNT(mdatactrl);
-+		count = min_t(unsigned int, count,
-+			      dev->ibi->max_payload_len - slot->len);
- 		readsb(master->regs + SVC_I3C_MRDATAB, buf, count);
- 		slot->len += count;
- 		buf += count;
+> ---
+>   drivers/net/ipa/ipa_smp2p.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
+> index 2f0ccdd937cc..d8fd56949082 100644
+> --- a/drivers/net/ipa/ipa_smp2p.c
+> +++ b/drivers/net/ipa/ipa_smp2p.c
+> @@ -228,15 +228,15 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
+>   	u32 valid_bit;
+>   	int ret;
+>   
+> -	valid_state = qcom_smem_state_get(dev, "ipa-clock-enabled-valid",
+> -					  &valid_bit);
+> +	valid_state = devm_qcom_smem_state_get(dev, "ipa-clock-enabled-valid",
+> +					       &valid_bit);
+>   	if (IS_ERR(valid_state))
+>   		return PTR_ERR(valid_state);
+>   	if (valid_bit >= 32)		/* BITS_PER_U32 */
+>   		return -EINVAL;
+>   
+> -	enabled_state = qcom_smem_state_get(dev, "ipa-clock-enabled",
+> -					    &enabled_bit);
+> +	enabled_state = devm_qcom_smem_state_get(dev, "ipa-clock-enabled",
+> +						 &enabled_bit);
+>   	if (IS_ERR(enabled_state))
+>   		return PTR_ERR(enabled_state);
+>   	if (enabled_bit >= 32)		/* BITS_PER_U32 */
+
