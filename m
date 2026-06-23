@@ -1,77 +1,134 @@
-Received: from mail-pj1-f74.google.com (mail-pj1-f74.google.com [209.85.216.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574B72C21FF
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 02:07:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E4D25B090
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 02:16:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782180434; cv=none; b=asFjB3esgKWysLkRO72gYuMEpFKICZRqqYKy5BDz+dWBlXfCSnVJ8uZId6JB2OuWmkbi90voSKYQ3Z0Qm+R3Y3AIhp0qz+/D1fh74LEYmXl4UCMvLKd3khPj0U8STsrtekgTtTJ0m3BX6fYcLh1LpO0mAV3cGzCf0F5FbGsn29w=
+	t=1782180970; cv=none; b=mE6p8K83ZME2/LjXCyfGeJW3oGF99sfe4Gs+3EbJfX79Zy1J0VmrHLs6es/gFgZpx1zmVkqc3F+DiZhkK8TRY5jUm1KSJPHGQvmsChZmZxih2Csk8+We9q45qz4ZD/FjVeoq9sofsrl4e9Hga59wnInvnkE6m31eJFlPbdDdUrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782180434; c=relaxed/simple;
-	bh=4K2rc/keiADBTmcCzAYpI+UXrdsZoBJ6VPBmODXWpBo=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Kt84me1TYmCR4usdGSgMOlYsrvmu61brV3UgtVGNBqBq5u/cWMRlOPKYcHySO4b+FjCgj/TPJJXMgKIpuZZVocvrs5GloH2HDNIXQrDiTYmmFldgd5kJbR7LvH4tnro1KdHfDXoQPA3s7K/H0qdgoglgXgQBfRrmatkuAP4Dc5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NfcLUwf1; arc=none smtp.client-ip=209.85.216.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1782180970; c=relaxed/simple;
+	bh=eLXPRQKDOIayJgd/Muv5lk2mozROgecGOZJ2U9v31ZA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZPx9jU6kFMgP74klDWTJmvfyC1KAQZSMn6CxIq7F8lN54HZirtD1886x6g6Omn3E6LxOV5ljwwPvxGvlg8FXsMQ84opFvFgaRx/5lPjbKB77AbeXIPXOm9Fo+egYp/FVsNOw/Y4YJAbovxzhy2uPxJFGaj7pM2c2+cjbhoZZ1Ug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XP9pTHwD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NfcLUwf1"
-Received: by mail-pj1-f74.google.com with SMTP id 98e67ed59e1d1-36b9d265308so3327460a91.2
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 19:07:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782180433; x=1782785233; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=16OIrO/rsCCNlasgtWoObyCXrmjWyog2BYpUhpGypjE=;
-        b=NfcLUwf1bqaievrKQIEbLPkxj33AsN9M1CZ+pQDvZ6f7JI2HqnzktzdU6yvmd7SVCu
-         67jFrxgwzrawQybdu5AN0crCn3YMpkv72jlrV+qjJreyIE0qSIUX5Wr4GDqKUrArJN9C
-         gaiULf3unPMWfiuDlDh/rVhMXnzRyIWUnCrmF9bvQ5Mub3pn3kRlJ137+TUSux0ZOEQT
-         wxrlfWrwIXBqYdOwRYl2bFCgIX/YFIJDJ6m3Ew5WBKYRGyRJT7xVUirVrTiAdsRMaF0Y
-         FPXht5OUyIijXLkeEGi+ZJktxzSS7y7/kNqOlyqdALdr509lz4A5cAKB5FLhYqhY33Tq
-         0qSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782180433; x=1782785233;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=16OIrO/rsCCNlasgtWoObyCXrmjWyog2BYpUhpGypjE=;
-        b=eyUdKcgoAyOFx5qNWEscRpzX2zld1g8LCwNz1t042ykaikr9DVlPrHZPzQpCYcvBSh
-         ExC9XXBECYEiBNiiFEbm9FXUr0ii62JzANJUDUW1oljH17rCC5FVhKQoHhd4vFCBDGPH
-         dCtr7GzH4twpZw0aoyxRrH+hDEsVkmGeqC9DQgEwOvMwYTb2sindq4caxX0r9LwCvx3a
-         6/cIMoT2qRnizG2/CiU/SOij8E1IDhXjWW8gGPk/ZsbvxpAkJPadSAG/YiuXvA1SlAkU
-         KRE01ijLi08zRgITNozDIXYNsrT1obT+UwzZzGuwoOFQre4jPOQkDNaqxiAt8fVuAxaF
-         yt0w==
-X-Gm-Message-State: AOJu0Ywpg0Ydzxc7p6O7lIQnRphQrpM5QhEQpsBpdg+siXLY7EqNGTA0
-	vBNw7tJEbCPLXNmCceGVECU6hSCxVvOfRaNqMV7gypzfmD2tzYchRnFg6CmF5F49LjVArH9ciwn
-	dwbT0pQ==
-X-Received: from pjbhi12.prod.google.com ([2002:a17:90b:30cc:b0:37c:b313:3c1])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4c4f:b0:36b:9798:4f67
- with SMTP id 98e67ed59e1d1-37dd16de36fmr630782a91.8.1782180432324; Mon, 22
- Jun 2026 19:07:12 -0700 (PDT)
-Date: Mon, 22 Jun 2026 19:07:11 -0700
-In-Reply-To: <20260621133722.0003.sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XP9pTHwD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EAF91F00A3D
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 02:16:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782180969;
+	bh=ORG1110TKZO9YaLb3hwjWsJ78jK9FF5h+lt0diWED9Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XP9pTHwD5gI1rie9x1qke3VNK/muvum94K8NNGS2ZMK54STe2BUBuLXVUXfRjPH73
+	 4Hlj5UP7dXLZf36+X++F/7Y5ao0IedlvQWGMOQzD1OKXrRoDv6UBmohd+pLVhtamhg
+	 G/+SUxjqqhvaDubmB7A/u0did3yllQW3yIZ+Nr1Jz6pQYyTxld5U3N6aujTl4UVMHp
+	 9ZU7Bq8wouzCdVUUezp/WMhyqRzfS/3g57JUSe71KT/n/tAyokKKJBjslwUFinf+a6
+	 jocINOArtkObwpQ6R91w0PLxa0l0Z7D/aWt2RG4oe6BOSa8oLA/4mTm43iWE9/qLdM
+	 Z5LuGHy89V1MQ==
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-91587626ae1so599456885a.3
+        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 19:16:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/5gH10YSCACf3yAGMj4/qAd1HAs4tF6PEKBUZlM/UN+DMyVq1+Fb3zHPjD4RlipGXnX8v1hqo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9Py+C9BG3p+1ttTYvzbZLck2ZmwXEFMmv4jCgxFbnTqbSbm41
+	6m2w74tEqCoTbHud1PkRqhOk3NrNZijvkreU3oyOw3zWVyhB5V0AmJ1hiJasumwu+YpGMNHws8C
+	HLd2OdWwJRStc6/UsHBEwExLHDHHQGog=
+X-Received: by 2002:a05:620a:4455:b0:91f:12a7:beae with SMTP id
+ af79cd13be357-920900fa471mr2990686585a.24.1782180968833; Mon, 22 Jun 2026
+ 19:16:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260619203107.2752678-1-main.kalliope@gmail.com> <20260621133722.0003.sashal@kernel.org>
-Message-ID: <ajnqTyhKNqOjKnzF@google.com>
-Subject: Re: [PATCH v2 6.1.y 0/3] KVM: nVMX: backport virtual-APIC host
- NULL-deref fix
-From: Sean Christopherson <seanjc@google.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, pbonzini@redhat.com, gregkh@linuxfoundation.org, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 0wn@theori.io, 
-	mlevitsk@redhat.com, jmattson@google.com, 
-	Nicholas Dudar <main.kalliope@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <5A9E929D82717101+12fcf643-efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn>
+ <20260622073703.79258-1-qi.zheng@linux.dev> <CAGsJ_4z34ZRu_RKkaZ7EgTWMOxptUjZ90WJyNoJrXGNjzutxnA@mail.gmail.com>
+ <19710ee5-8e1c-4b13-812b-4b03ca34260d@linux.dev>
+In-Reply-To: <19710ee5-8e1c-4b13-812b-4b03ca34260d@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 23 Jun 2026 10:15:57 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zC8jMNk0twWQd+oRWCzZTm523K-KgzDQ6TkjbzPq4MTw@mail.gmail.com>
+X-Gm-Features: AVVi8CcgxGHg4osYX-YWIWEqreagag-ELHwB1D_7PjRMnGTDlB9P1uVVdJMh8og
+Message-ID: <CAGsJ_4zC8jMNk0twWQd+oRWCzZTm523K-KgzDQ6TkjbzPq4MTw@mail.gmail.com>
+Subject: Re: [PATCH] mm: mglru: fix stale batch updates after memcg reparenting
+To: Qi Zheng <qi.zheng@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com, 
+	shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, hannes@cmpxchg.org, harry@kernel.org, 
+	muchun.song@linux.dev, peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, 
+	roman.gushchin@linux.dev, ljs@kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jun 21, 2026, Sasha Levin wrote:
-> > This series backports the fix for a guest-triggerable host NULL pointer
-> > dereference in nested-VMX virtual-APIC handling. The bug is present in
-> > 6.1.y and fixed in 6.6.y and later.
-> 
-> Queued the 3-patch series for 6.1, thanks.
+On Tue, Jun 23, 2026 at 9:58=E2=80=AFAM Qi Zheng <qi.zheng@linux.dev> wrote=
+:
+>
+> Hi Barry,
+>
+> On 6/23/26 6:52 AM, Barry Song wrote:
+> > On Mon, Jun 22, 2026 at 3:38=E2=80=AFPM Qi Zheng <qi.zheng@linux.dev> w=
+rote:
+> >>
+> >> From: Qi Zheng <zhengqi.arch@bytedance.com>
+> >>
+> >> The mglru page table walker batches per-generation size deltas in
+> >> walk->nr_pages while walking page tables without holding the lruvec lo=
+ck.
+> >> The reset_batch_size() later folds those deltas into walk->lruvec unde=
+r
+> >> the lruvec lock.
+> >>
+> >> The page table walker can run concurrently with the memcg reparenting =
+path
+> >> as follows:
+> >>
+> >> CPU0                           CPU1
+> >> =3D=3D=3D=3D                           =3D=3D=3D=3D
+> >>
+> >> walk_mm
+> >> --> walk_page_range
+> >>      --> update_batch_size
+> >>          --> walk->nr_pages +=3D delta
+> >>
+> >>                                mem_cgroup_css_offline
+> >>                                --> memcg_reparent_objcgs
+> >>                                    --> lock lruvec
+> >>                                        lru_gen_reparent_memcg
+> >>                                        --> reparent child folios to pa=
+rent
+> >>                                        unlock lruvec
+> >>
+> >>      lock lruvec
+> >>      reset_batch_size
+> >>      --> child lrugen->nr_pages +=3D delta
+> >>
+> >> This can trigger the following warning:
+> >>
+> >> WARNING: mm/vmscan.c:5867 at lru_gen_exit_memcg+0x26f/0x300
+> >> RIP: 0010:lru_gen_exit_memcg+0x26f/0x300 mm/vmscan.c:5867
+> >
+> > I can't find 5867; instead, I can find 5828:
+> >
+> > VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
+> >    sizeof(lruvec->lrugen.nr_pages)));
+> >
+> > Is this the warning?
+>
+> Yes, I just copy-pasted the warning log from Peiyang's report.
+>
+> Maybe the description should be changed to:
+>
+> This will trigger the following warning in lru_gen_exit_memcg():
+>
+>         VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
+>                                            sizeof(lruvec->lrugen.nr_pages=
+)));
+>
+> >
 
-Backports LGTM, thanks Nicholas!
+Yep. Can we update the v2 changelog accordingly?
+
+Best Regards
+Barry
