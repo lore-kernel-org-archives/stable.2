@@ -1,141 +1,172 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C8539E9B0
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 06:11:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46AA3B47D6;
+	Tue, 23 Jun 2026 06:17:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782195105; cv=none; b=Er7smNC1VMxrjtpDe+jfTYUTSkR1mIvQlUBQQ85mwZrtupd6A/rEQ/u+T+XKryzqCTYci8YfKK7gKG/SBquILaXnWXCuWa5Y+/rc3vludUqy8UbRqtC+ZmGN9LgVO540vUrgZ4JXpJwYeWXNxs1sjDCMwuVMDEShjdCa0OzTWXs=
+	t=1782195458; cv=none; b=JauqSLWZzl4+KjYP+rlsYZ0t0NU1pQtbOWFVqZ0plDRLiqIdWsURfmNGirIY53eioy/9829e8CULiTkzlq9EJpF3/No6/rE06gpCwnPOeKAIj1w97aMhw66JGNU+w2/SceTCZ8+8e14tkQxy2E93ucGKEg+n6x/T6txQVtndLNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782195105; c=relaxed/simple;
-	bh=lbPIcbZwWKO9mggxTz7p3Nf3bUnQJxUwEnf9iEg+jNs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KkmlT814S5MT+i0bhKKb1W5X2qTkEeaa+GEIEl/0chcLSYq0PrAuBjPOokus4oHjbX+dka7V0mq8VZGXOYN5AiKhxPF+Py5cxz8B+OloF5dVExUNSH3ybsxVKnWCqbUfSxSVY4kgqqFViOtetMJ44Dizh28n9Nf+MEIExPT4Vos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=W/lpISAD; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1782195458; c=relaxed/simple;
+	bh=OlNkiUoAcYNO4SjyMJTT1xjKM/8Vo4VabBXs47K39GY=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=fDLYuv0xE+eHQC1nRJWSaPbYQTbLqLBqKjR3eyB9nVCmooqSCQ23f+bwpBShdkvmmEOnKc0podK9io25W0R8H2jmxmqe9Dt0SeD8OoB+6Ck//RppADWAUt0C8/LvU42xdrctgqO7YUGCZRWvzulg8dNnpRxz2lB3eHdyY6A4ePs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRuB9r/X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="W/lpISAD"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49249707788so20864875e9.2
-        for <stable@vger.kernel.org>; Mon, 22 Jun 2026 23:11:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782195097; x=1782799897; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gEWRyTTg19ufsww9mTBAfvx9IHHIlg0mdl0hqLyxq/0=;
-        b=W/lpISADcxduaZNlocdKjZzyD3/aYeFeFse0gyPD6hliSxtm3l/HldHzEkne38zin2
-         clRIZPQyy8YlF/4yIDZ2cWzxhxICI0DB9g//8m4H8JIniWoXj4iDpkR8iXoBRAZRAX6e
-         RCkh/hk6hpOeN4OeklOD1VOdqUIgv4ZOpHoI1nskcoBeXa7po1jxCqFgDPAMIZCTxnG8
-         OQ67VPfh1DmZ1XI18rr2MUH5oTTYTCHs0Jz7y6oXnCioTw/plVsP+36nXBPt7ytF0VUQ
-         jxlMy6GYftVkIlxvIjr/qv9NDXnB2cCKLojB5MHlZ4LGpMzdpwWlDwRkQdzrcKpzWk3B
-         8NqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782195097; x=1782799897;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=gEWRyTTg19ufsww9mTBAfvx9IHHIlg0mdl0hqLyxq/0=;
-        b=rvXt9ZVjsGNUXrJWbepgAFXI886sVnj4p9g4tB00GCBpRHWoCfxF/Z6M8GoZ2k/1FR
-         u/de/jM1ZkWk23Dsh2HavhF454oaPc2PjcqkuvdCTvi7gEgIdxCpKbhgG3ocKMRcLyKs
-         wcu/DeQJw6bcfpdTUARC5/JT+kf36U45v3hELDf9h7k94E/8SwYbPRoc02VP0SwSHWob
-         KAiRsIXmY5U/HiCY8U4WutoDG3Hu018gZdoyDy1ZKVDIn4haIaFc6eVyHKt0UATiireu
-         3Y5N4bQVsHrYS+EVtHYd+7JQuDoknJbmnRjP7pFL69oOF3b7fqSu8dp2PmUpSf20Lvzq
-         Gu8Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+96mdFu+jVTLoextX8XFeps9GQpGXXAyYdoj4f4ogtEP5CUnuusVUHdCuDFuEXLbD6lwX6jtU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzJ2oMLiOMeRXRY4G9BJMtz0oQnub6HbjSrW3ZoOXVD+SSTGuuQ
-	mE6nSjYmL4VDcGNdEjwwAO7OsfAL1QPZCMtpLGENnO2c85CkurvQo/Z9v22VeFw/ylM=
-X-Gm-Gg: AfdE7ckMQ0NbRXx+h3EROGKtx3MicKrX35Jsb7/4GFhdPh6LtpAVfMe29pXGGWjnlhv
-	g8mNOYk4SVA/J4JLo9XyMaeQUmH9djmg/Xj4o2zylCm8IcxDY2nhoLggrDWD1IteY8OVoibg4dE
-	eSEdsq/GZ8zyV40l6UAM2Mk0Q5Sau0y9BD2bmvhNy1VerYDEENZYbQXFjKIUAazJXKUS/Dysypc
-	5+VnP0ZZarE5mH2kRciqD1RBJm69G22b9W76effLhhTXTajPv5ZNhN8rGMSsf7uzDTdCi1LUK0J
-	5/7PmeCWoE0OKL4zUkuuK/OJdhN45V9jQZMIaWySarh6YSbcnDF+a6rK0NItYfGap2601xaTjCV
-	uNZK4BeiTk4tEPCVLYKkIIEWf9ds1Qj2TLuzh6GoocneBDDJN19MUT/hLrMA/6cx9b0NWNo5a7C
-	TVGXY=
-X-Received: by 2002:a05:600c:4694:b0:492:4717:59fb with SMTP id 5b1f17b1804b1-492490a77a4mr214171985e9.17.1782195097216;
-        Mon, 22 Jun 2026 23:11:37 -0700 (PDT)
-Received: from linux-l9pv.suse ([124.11.22.254])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37d1aa48f04sm2986708a91.2.2026.06.22.23.11.33
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 22 Jun 2026 23:11:36 -0700 (PDT)
-Date: Tue, 23 Jun 2026 14:11:30 +0800
-From: joeyli <jlee@suse.com>
-To: Disha Goel <disgoel@linux.ibm.com>
-Cc: Chun-Yi Lee <joeyli.kernel@gmail.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	David Howells <dhowells@redhat.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Matthew Garrett <mjg59@srcf.ucam.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] debugfs: Fix lockdown check for mmap_prepare
-Message-ID: <20260623061130.GA11413@linux-l9pv.suse>
-References: <20260615104750.1000-1-jlee@suse.com>
- <30561ae5-1e6a-4cc2-99e2-436c88b2f11d@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRuB9r/X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EF481F000E9;
+	Tue, 23 Jun 2026 06:17:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782195450;
+	bh=wURFcKatuG6Z9PR+jWQVTJNfeJ7Yg+VswIaJSJOM9QU=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=HRuB9r/X5W4McSJjC38ySksYgMQnjNn0tmhZ9k01WwSqfu1rnnyyFx+/q5lhVnqXX
+	 hJjTLEYVFjfj1JunJECgn1C+c/Pq4/lykMIUFKPRhrLBPW2YG3yvI/k16kSvheNJQo
+	 9/idUGBSxH2rkcGJFKs4P+3FFcah/2qjFfRoEnD043nz5uZloeZSX68htRAsBVoWmu
+	 x+kFibYc9sm3zhAqnO8jwX8IrCp6ttGi3qMxhYY6AOzgZ3QJi1cmuryNFincMbd3By
+	 5XhRVKz1GUKh1JwbTa6Nqs5YXjOiHXWJMFQpaacJ0e9OmKZuK52Wjaf7drQ05xJ4dv
+	 aWCUf6rA/TiUQ==
+Message-ID: <e74b0808-3bcc-414d-a037-41e479210cc0@kernel.org>
+Date: Tue, 23 Jun 2026 15:17:26 +0900
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <30561ae5-1e6a-4cc2-99e2-436c88b2f11d@linux.ibm.com>
-User-Agent: Mutt/1.11.4 (2019-03-13)
+User-Agent: Mozilla Thunderbird
+From: Harry Yoo <harry@kernel.org>
+Subject: Re: [PATCH v2] mm: mglru: fix stale batch updates after memcg
+ reparenting
+To: Qi Zheng <qi.zheng@linux.dev>, akpm@linux-foundation.org,
+ david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
+ baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+ weixugc@google.com, hannes@cmpxchg.org, muchun.song@linux.dev,
+ peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
+ ljs@kernel.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+References: <20260623024237.45990-1-qi.zheng@linux.dev>
+Content-Language: en-US
+In-Reply-To: <20260623024237.45990-1-qi.zheng@linux.dev>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------8YsZNEvf73Xski3Cmenrn9FR"
 
-Hi Disha,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------8YsZNEvf73Xski3Cmenrn9FR
+Content-Type: multipart/mixed; boundary="------------ER20SFcEhPfRwGGdTjKgmtqc";
+ protected-headers="v1"
+From: Harry Yoo <harry@kernel.org>
+To: Qi Zheng <qi.zheng@linux.dev>, akpm@linux-foundation.org,
+ david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
+ baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+ weixugc@google.com, hannes@cmpxchg.org, muchun.song@linux.dev,
+ peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
+ ljs@kernel.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+Message-ID: <e74b0808-3bcc-414d-a037-41e479210cc0@kernel.org>
+Subject: Re: [PATCH v2] mm: mglru: fix stale batch updates after memcg
+ reparenting
+References: <20260623024237.45990-1-qi.zheng@linux.dev>
+In-Reply-To: <20260623024237.45990-1-qi.zheng@linux.dev>
 
-On Fri, Jun 19, 2026 at 04:41:57PM +0530, Disha Goel wrote:
-> On 15/06/26 4:17 pm, Chun-Yi Lee wrote:
-> > From: Chun-Yi Lee <jlee@suse.com>
-> > 
-> > Commit 651fdda8406d ("relay: update relay to use mmap_prepare")
-> > changed the `mmap` file operation to `mmap_prepare` for relayfs, but
-> > the lockdown check in debugfs was not updated accordingly.
-> > 
-> > This prevents debugfs from being locked down when the kernel is in
-> > integrity mode if a file uses `mmap_prepare` but not `mmap`.
-> > 
-> > Since the conversion to `mmap_prepare` across the kernel is not yet
-> > complete, update the lockdown check to look for both `mmap` and
-> > `mmap_prepare` to ensure comprehensive coverage.
-> > 
-> > Fixes: 651fdda8406d ("relay: update relay to use mmap_prepare")
-> > Signed-off-by: Chun-Yi Lee <jlee@suse.com>
-> > Cc: David Howells <dhowells@redhat.com>
-> > Cc: Lorenzo Stoakes <ljs@kernel.org>
-> > Cc: Andy Shevchenko <andy.shevchenko@gmail.com>
-> > Cc: Thomas Gleixner <tglx@linutronix.de>
-> > Cc: Rafael J. Wysocki <rafael@kernel.org>
-> > Cc: Matthew Garrett <mjg59@srcf.ucam.org>
-> > Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > Cc: Danilo Krummrich <dakr@kernel.org>
-> > Cc: driver-core@lists.linux.dev
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: stable@vger.kernel.org
-> > ---
-> 
-> Hi,
-> 
-> I tested this patch on ppc64le with lockdown enabled. It correctly fixes the
-> security issue where debugfs files using mmap_prepare were not being
-> restricted.
-> 
-> Test: blktrace/001 from blktests (uses relayfs via debugfs)
-> - Before patch: blktrace bypassed lockdown and accessed debugfs
-> - After patch: blktrace properly blocked from accessing debugfs
-> 
-> Environment:
-> Kernel: 7.1.0-rc7
-> Lockdown: integrity mode
-> 
-> Feel free to add:
-> Tested-by: Disha Goel <disgoel@linux.ibm.com>
-> 
+--------------ER20SFcEhPfRwGGdTjKgmtqc
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for your testing!
 
-Joey Lee
+
+On 6/23/26 11:42 AM, Qi Zheng wrote:
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>=20
+> The mglru page table walker batches per-generation size deltas in
+> walk->nr_pages while walking page tables without holding the lruvec loc=
+k.
+> The reset_batch_size() later folds those deltas into walk->lruvec under=
+
+> the lruvec lock.
+
+Ouch.
+
+IIRC the user-visible impact of underestimated nr_pages in MGLRU
+was premature OOMs because MGLRU does not try to reclaim memory when
+nr_pages reaches zero, but there are still more pages.
+
+Perhaps worth mentioning in the changelog?
+
+> The page table walker can run concurrently with the memcg reparenting p=
+ath
+> as follows:
+>=20
+> CPU0                           CPU1
+> =3D=3D=3D=3D                           =3D=3D=3D=3D
+>=20
+> walk_mm
+> --> walk_page_range
+>     --> update_batch_size
+>         --> walk->nr_pages +=3D delta
+>=20
+>                               mem_cgroup_css_offline
+>                               --> memcg_reparent_objcgs
+>                                   --> lock lruvec
+>                                       lru_gen_reparent_memcg
+>                                       --> reparent child folios to pare=
+nt
+>                                       unlock lruvec
+>=20
+>     lock lruvec
+>     reset_batch_size
+>     --> child lrugen->nr_pages +=3D delta
+
+The problem here is that, while grabbing a reference to memcg
+(via mem_cgroup_iter(), for example) makes sure that the memcg is not
+freed, it does not prevent offlining happening, and reset_batch_size()
+doesn't check whether the lruvec has been reparented, or the lruvec
+is going to be reparented.
+
+> This will trigger the following warning in lru_gen_exit_memcg():
+>=20
+> 	VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
+> 				   sizeof(lruvec->lrugen.nr_pages)));
+>=20
+> To fix it, add lrugen->reparented to remember the new owner of a
+> reparented lruvec, and make reset_batch_size() charge pending deltas to=
+
+> that owner.
+
+Could you please explain why it is unavoidable to introduce the new
+field and why checking whether the cgroup is dying (and charging deltas
+to non-dying parent) doesn't work?
+
+> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+> Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a=
+-a53a-1e28cc894f0b@smail.nju.edu.cn
+> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios"=
+)
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> Reviewed-by: Barry Song <baohua@kernel.org>
+> ---
+
+--=20
+Cheers,
+Harry / Hyeonggon
+
+--------------ER20SFcEhPfRwGGdTjKgmtqc--
+
+--------------8YsZNEvf73Xski3Cmenrn9FR
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHQEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCajok9gAKCRCGXBN6rc5S
+1kURAQCrKB/rsq4mdWtdZZm4JU1WVSaM4LcbuV2X4quEVTJE4gD3XKbfFR+HrWSj
+FKsjLyGg+8QuabxOWILmVsvWQ1DIDQ==
+=j7cm
+-----END PGP SIGNATURE-----
+
+--------------8YsZNEvf73Xski3Cmenrn9FR--
