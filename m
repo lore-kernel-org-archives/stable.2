@@ -1,228 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011036.outbound.protection.outlook.com [52.101.52.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32ED331AA9B;
-	Tue, 23 Jun 2026 16:44:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782233078; cv=none; b=NBYnQx+H1/pv1RZhshPPdbxJSbXq0117v11qRzrAztZ5Y1p+L6BQpxwt1bSEYWcjEQtgSGyserefvC6NPHybkhfZezbKNT2KvZzlUcjb7TTrgCmR5uP1siUhhJu7abulUThn+Su6WhoDtzHlkuAeIyOrblmH/UfH7hMVSRrIYYI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782233078; c=relaxed/simple;
-	bh=6SAVyQlrsSRNRMeAbGgF+sVjoaioeWif8dG3D2ESsyQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=LsB11A92YBCnvGxx6tBWYoiW+gJy2b1Be5eZzqL3FDtxspA+T1MrFIDDGt5aFrFEojvUBiGq1UMkXyLq0F/EpFLUvuxPmmwU8lxSfhzuU83Hh1HQtgElf+f5R1bv0sP0WnjSMjpfcEuX68g0CNISYZtO3fTuFiEHQotpmrm1YcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=im8D+SzY; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F13F31A572
+	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 16:48:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782233311; cv=fail; b=UTeGq2JU7yUnu8iWFajbTIIdHizWFyhIXIPTe+aGG8sI//CsMOq/iHUUGxFdBUuXbxkCVXE4RFa8rHLsswA7Si0WRLnnEArQOqL6m+CgQyGMGnx2S1lV1mZJ/d6tJmwcEFYT2uittqQsMq+ym4EiGEIaaehu95Hm3ZJgk6/F9iI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782233311; c=relaxed/simple;
+	bh=UwoeC9hL0tr3xiotuDM9x3HIcxGELXEzVnVXqcM+RF8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Dk6x8HlFdq8/2ODQE0jSSw/PZIYrT9jp+87D0yZari9hVU7TAAxVFnEBp5heybKb/f+g4Gyyty0BgrEopvRs3Pw21Ps7fgCkJ9vWXPIAXuCtxkUabv+QLfkJ0H5CKnPsVswVekI/ltJHqouJiPDeDbx4a2vXaJ4gRBHaAoRYQ04=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DrjWdJdn; arc=fail smtp.client-ip=52.101.52.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="im8D+SzY"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B59ABC2BCC6;
-	Tue, 23 Jun 2026 16:44:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782233077;
-	bh=6SAVyQlrsSRNRMeAbGgF+sVjoaioeWif8dG3D2ESsyQ=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=im8D+SzY/BfwUaAVrKg/Q3NgN6UH98OWdiA/dopLCnvbZo79hQYr1tM6hOH0FeZLA
-	 Cq8lXhqdG98vhgw/4mzzs6a6Or/wVnKvUojYxHz/OldAPI9V64trgGyRm/DP6vmnN4
-	 yN7Ct3LXSEO7oHUu6zL6L9nWlKRmWwj1338W3z/0dSgfd/gpqj1lhnZANSykfNN41z
-	 v5MllE/6f/+FF+FI68EMT5312I3SMGKqjIISzaDIYQUvm3CAIOA5N5m3uLPwFAtkp6
-	 Q78q7snQyWBnUz36PZqm4l40CzzsidkieUMZzTVFzADUK0H1vpCbTLDMysp1O6r8Pn
-	 +pHZARZs/3AuA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 96F35CD98F2;
-	Tue, 23 Jun 2026 16:44:37 +0000 (UTC)
-From: Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
-Date: Tue, 23 Jun 2026 18:44:22 +0200
-Subject: [PATCH] iio: imu: inv_icm42600: fix timestamping by limiting FIFO
- reading
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DrjWdJdn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HpHGXkBpymFhvhoSEPYiNDVbHl5eM/nsifGF1U+jyC95mZE+CqMfwKCs/5SRSNnmWi9FCEx19mwJz+FivmNaZ0DkZoSy5mM0HPUHUvDtvEBvE+6aFhvtFbh8wKbKLk4o4jLLwtKr6n5iHtqe12jxBc0H0U/cpF9sfRTtYYtqs24QFJr1Rkb//mTXq4oCxhuYt07CIR5JqSHrbkVpnhaLFtlFBQiJ1e+pGg4WwDslMznVKOuyqsDJErpa3onso3DFaPsCaoqxifnn7vx8z4WfjkmYQwCioomwYyplrfW193RryOKh+SY5rxdOeFU+PKn+1708IB1DX20XvJcZNVor2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2XgEAEcpZV7HPog/ER+MmoCPvyM4sJ8w732ybNx6EXE=;
+ b=lmBpu63OK4MeJW+9yg8OpbToD8a9TxLtU8AOzg7Fy8dRASciiSaDML8jqveW+MRvrLdUjvPPdT4E6voRI7zl+mVTIV2HH/bUuKCyCcNx7s8Ey34RN42aqPX8OF3E2ieWASsY1flsxwzKH9OlZ027SlOuSKlvcc07q7OKw9VzggMJzLUxDu1UiwnBkfvwTpJi72VvAoL+2RzgXSScwPkzuPbNQNwemr118cGhwy2N1mEYeQxlO2m1Xao4yq8I8U4NyWgrf16oeM0ZkJjT3zD4hWvKyTPx2zUIbUbLZZUnSGiKTTFpispPKqqZHXWKE04w/wJDRjayFYh6iGjLRGYzOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2XgEAEcpZV7HPog/ER+MmoCPvyM4sJ8w732ybNx6EXE=;
+ b=DrjWdJdnsz8EL/ClBO8yg34Wrp/ZoKb4LHp+VNormT7c9Imd2M50p2nK0GLBePDhJwwq2CGpoN/gCfJglW21mzxoDENKCyvAPno9x/JLvi9LclXoI0/Xm50oae6BHZhGRFXY7Z5+PZCN2hOEMLKTQD3Nr1GUQahpvKaB549vLls=
+Received: from DS7P222CA0012.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::15) by
+ SA3PR12MB7858.namprd12.prod.outlook.com (2603:10b6:806:306::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Tue, 23 Jun
+ 2026 16:48:27 +0000
+Received: from DS1PEPF0001709D.namprd05.prod.outlook.com
+ (2603:10b6:8:2e:cafe::1f) by DS7P222CA0012.outlook.office365.com
+ (2603:10b6:8:2e::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.12 via Frontend Transport; Tue,
+ 23 Jun 2026 16:48:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS1PEPF0001709D.mail.protection.outlook.com (10.167.18.107) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.10 via Frontend Transport; Tue, 23 Jun 2026 16:48:26 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
+ 2026 11:48:23 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
+ 2026 11:48:23 -0500
+Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Tue, 23 Jun 2026 11:48:22 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH v3 10/11] drm/amd/display: Set COLOR_SPACE_SRGB when fixed matrix colorop is bypassed
+Date: Tue, 23 Jun 2026 12:48:11 -0400
+Message-ID: <20260623164812.81110-11-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260623164812.81110-1-harry.wentland@amd.com>
+References: <20260623164812.81110-1-harry.wentland@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260623-inv-icm42600-fix-watermark-fifo-reading-v1-1-f3f5694a818a@tdk.com>
-X-B4-Tracking: v=1; b=H4sIAOW3OmoC/yXN0QrCMAyF4VcZuTZQa63iq8guYpfOKOsknVMYe
- 3ejXn5w+M8ClVW4wqlZQHmWKmMxbDcNpCuVnlE6M3jno4t+h1JmlDQEo8Msb3zRxDqQ3k15RGX
- qpPQYfUiU3dEd9gGs9lC29e/p3P5dn5cbp+mbh3X9ACkT4EqLAAAA
-X-Change-ID: 20260623-inv-icm42600-fix-watermark-fifo-reading-624caf080754
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>, 
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org, 
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782233076; l=6594;
- i=jean-baptiste.maneyrol@tdk.com; s=20240923; h=from:subject:message-id;
- bh=3ssvSfe95gYTtmZ+Ylkig8dkoYCsEu/3jrM6HnnCLEs=;
- b=C3WPzPI1kzun7KRJUGlHPK1Y/sND95/Y9cpUsm1S8n5dtocdhTWgKyMihRQwP6sH4Tyq+rHxX
- 4/BB2mc+8IqBO/1ydz5o/bIfyeh/F7MRpjd4Nnu9KA+xW/CK+hkX1i2
-X-Developer-Key: i=jean-baptiste.maneyrol@tdk.com; a=ed25519;
- pk=bRqF1WYk0hR3qrnAithOLXSD0LvSu8DUd+quKLxCicI=
-X-Endpoint-Received: by B4 Relay for
- jean-baptiste.maneyrol@tdk.com/20240923 with auth_id=218
-X-Original-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Reply-To: jean-baptiste.maneyrol@tdk.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709D:EE_|SA3PR12MB7858:EE_
+X-MS-Office365-Filtering-Correlation-Id: bfabb8a8-4db3-4263-2d88-08ded1473f35
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|22082099003|18002099003|3023799007|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	WxF5P0dmDCE1zubUIWvx2Q0uwpK+gHh7KHVWaQ+6JuGhXX6oe+BmzAeK/sOGX6ZXIHYB35MbBEhHZKZWX0i9FMuiPQdZG0Z4YktMC5vL8zCggHUS44ebK85Ce8ZSa0j2tgmmckw7Tg49uv5nGyYRKt53s6hiDUXDajpWPrfIFhNohapYAA8MyYxZJl92fE3SILFL6rtJZSRQjQSKRX0Y/chRd+H4dRwl12OSE3AiHZEOE6ssGavi4Gzia9yg1iVR6yJNF5J1EPYZ5HCc8z8CtSVaAocl2+oCCALnUUco5wATExNJ5wGf4y/oGQ9ARcW5yH7Z2Qbik8hS4nmsWtDxxIfA8943rAg1RDmVDxOaLh0JOD9sHRo0IxGcnUeGsL+iD331e/JV/DcDkfj/3DYuqeFqgE81ERYqrqgExF13Q3IfCXpwzBKARHK1zNg3hONtfRuSYVT9quJ9MXITf9P3+VdeximW4xsUx21zfqmuSrNxHaeeJOqsNuCEaCySnoVM4oi5EW5KyLDc30Ogq0GNj9rK46oSME48/Tz4EHtsgcVd0cD/R1f3HmD2UTRbfNen8KluC6ehsWC4RwsrvbbmdvCW3KQHTyWDdXEol8hFZo9LSSbp3bcYrCBZhafZ1RleCB3MSOjCwNbPcU9ZfnwUTX7woq+sZSu6MANSAOfdWgDUpGPETTzXny3WPXRCaAsae5pW5GlxVmhb8y3I0zfwuQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(22082099003)(18002099003)(3023799007)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	3SSamgjgKOC7DDlqCir1NYcGznIu90KDEHgDShLGoZtF/mLsrGjVcnnKXqHYT5hIwNXpDZfAnicNLeVRwe0cLyCYX+svMlD1v4nUgXttelvpFB7shh4bEwvVMy5wiHzbpKnpRLbaJHe8hpf9T2BBUXz4xsE+dTqFukjjG0DKMsHYl7RalA2K+CsWQKzD0cVaTSEoYND8XJygC3rwjLazJdE1d2+iGHU8pDG2So5YLUizUuxftlQJ5HSTFW4J3mMd3NcWJcvIWI6hjxZret22WJmrPiZCIwicH43LEGZgPZD0yIaJ+EkfUaXz5LO+Ku/WU7BMfRdDK6r+77wJjhSwaDAZQK4K+a36vR3MLcAsUzUzf7CYGtosMv8WuxJ7N4asu7VooZzIc0yr/r8I/U+Lhtrd/IYyj/CBNoTxbyAzJ91pDI6O9dZB0co9Dh3a7Dh1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 16:48:26.6018
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfabb8a8-4db3-4263-2d88-08ded1473f35
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0001709D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7858
 
-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+When the fixed matrix colorop is bypassed, the color_space was set to
+COLOR_SPACE_UNKNOWN (0). In DC's DPP setup (dpp1_cnv_setup), the logic
+'input_color_space ? input_color_space : color_space' treats 0 as
+'not provided', causing it to fall back to the format-based default of
+COLOR_SPACE_YCBCR709 for YUV framebuffers. This results in an implicit
+YUV-to-RGB conversion via ICSC even when a color pipeline is active and
+the fixed matrix is bypassed.
 
-Timestamps are made by measuring the chip clock using the watermark
-interrupts. If we read more than watermark samples as done today, we
-are reducing the period between interrupts and distort the period
-measurement. Fix that by reading only watermark samples in the
-interrupt case.
+Fix this by setting COLOR_SPACE_SRGB (1) instead. This is non-zero, so
+it overrides the format default. The SRGB entry in dpp_input_csc_matrix
+is an identity matrix, so ICSC performs no actual conversion, which is
+the correct behavior when the fixed matrix colorop is bypassed.
 
-Better watermark computation using gcd and store watermark value for
-FIFO reading.
-
-Fixes: 7f85e42a6c54 ("iio: imu: inv_icm42600: add buffer support in iio devices")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>
+Fixes: 93d922f4833b ("drm/amd/display: Implement fixed matrix colorop color space mapping")
+Assisted-by: Copilot:claude-opus-4.6
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
-Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
----
- drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c | 68 +++++++++-------------
- drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h |  1 +
- 2 files changed, 29 insertions(+), 40 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-index 68a395758031..0972294da227 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-@@ -5,6 +5,7 @@
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 561ee9a2e749..984bbfcf23f0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -1534,7 +1534,7 @@ __set_dm_plane_colorop_fixed_matrix(struct drm_plane_state *plane_state,
+ 		return -EINVAL;
  
- #include <linux/kernel.h>
- #include <linux/device.h>
-+#include <linux/gcd.h>
- #include <linux/minmax.h>
- #include <linux/mutex.h>
- #include <linux/pm_runtime.h>
-@@ -182,25 +183,18 @@ static unsigned int inv_icm42600_wm_truncate(unsigned int watermark,
-  *
-  * FIFO watermark threshold is computed based on the required watermark values
-  * set for gyro and accel sensors. Since watermark is all about acceptable data
-- * latency, use the smallest setting between the 2. It means choosing the
-- * smallest latency but this is not as simple as choosing the smallest watermark
-- * value. Latency depends on watermark and ODR. It requires several steps:
-- * 1) compute gyro and accel latencies and choose the smallest value.
-- * 2) adapt the choosen latency so that it is a multiple of both gyro and accel
-- *    ones. Otherwise it is possible that you don't meet a requirement. (for
-- *    example with gyro @100Hz wm 4 and accel @100Hz with wm 6, choosing the
-- *    value of 4 will not meet accel latency requirement because 6 is not a
-- *    multiple of 4. You need to use the value 2.)
-- * 3) Since all periods are multiple of each others, watermark is computed by
-- *    dividing this computed latency by the smallest period, which corresponds
-- *    to the FIFO frequency. Beware that this is only true because we are not
-- *    using 500Hz frequency which is not a multiple of the others.
-+ * latency, we need to use the biggest latency that is able to cope with accel
-+ * gyro latencies. Using the shortest period and computing the gcd of the 2
-+ * latencies will give the working result.
-+ *
-+ * Beware this is only working because we are not using the 500Hz frequency,
-+ * resulting in FIFO having a fixed period.
-  */
- int inv_icm42600_buffer_update_watermark(struct inv_icm42600_state *st)
- {
- 	size_t packet_size, wm_size;
--	unsigned int wm_gyro, wm_accel, watermark;
--	u32 period_gyro, period_accel;
-+	unsigned int wm_gyro, wm_accel;
-+	u32 period_gyro, period_accel, period;
- 	u32 latency_gyro, latency_accel, latency;
- 	bool restore;
- 	__le16 raw_wm;
-@@ -222,32 +216,26 @@ int inv_icm42600_buffer_update_watermark(struct inv_icm42600_state *st)
+ 	if (colorop_state->bypass) {
+-		dc_plane_state->color_space = COLOR_SPACE_UNKNOWN;
++		dc_plane_state->color_space = COLOR_SPACE_SRGB;
  		return 0;
- 
- 	if (latency_gyro == 0) {
--		watermark = wm_accel;
--		st->fifo.watermark.eff_accel = wm_accel;
-+		period = period_accel;
-+		latency = latency_accel;
- 	} else if (latency_accel == 0) {
--		watermark = wm_gyro;
--		st->fifo.watermark.eff_gyro = wm_gyro;
-+		period = period_gyro;
-+		latency = latency_gyro;
- 	} else {
--		/* compute the smallest latency that is a multiple of both */
--		if (latency_gyro <= latency_accel)
--			latency = latency_gyro - (latency_accel % latency_gyro);
--		else
--			latency = latency_accel - (latency_gyro % latency_accel);
--		/* all this works because periods are multiple of each others */
--		watermark = latency / min(period_gyro, period_accel);
--		if (watermark < 1)
--			watermark = 1;
--		/* update effective watermark */
--		st->fifo.watermark.eff_gyro = latency / period_gyro;
--		if (st->fifo.watermark.eff_gyro < 1)
--			st->fifo.watermark.eff_gyro = 1;
--		st->fifo.watermark.eff_accel = latency / period_accel;
--		if (st->fifo.watermark.eff_accel < 1)
--			st->fifo.watermark.eff_accel = 1;
-+		/* use the shortest period and the gcd of the latencies */
-+		period = min(period_gyro, period_accel);
-+		latency = gcd(latency_gyro, latency_accel);
  	}
  
-+	/* update effective watemarks */
-+	st->fifo.watermark.value = max(latency / period, 1);
-+	if (wm_gyro)
-+		st->fifo.watermark.eff_gyro = max(latency / period_gyro, 1);
-+	if (wm_accel)
-+		st->fifo.watermark.eff_accel = max(latency / period_accel, 1);
-+
- 	/* compute watermark value in bytes */
--	wm_size = watermark * packet_size;
-+	wm_size = st->fifo.watermark.value * packet_size;
- 
- 	/* changing FIFO watermark requires to turn off watermark interrupt */
- 	ret = regmap_update_bits_check(st->map, INV_ICM42600_REG_INT_SOURCE0,
-@@ -454,11 +442,10 @@ int inv_icm42600_buffer_fifo_read(struct inv_icm42600_state *st,
- 	st->fifo.nb.accel = 0;
- 	st->fifo.nb.total = 0;
- 
--	/* compute maximum FIFO read size */
-+	/* compute maximum FIFO read size (watermark for max = 0 interrupt case) */
- 	if (max == 0)
--		max_count = sizeof(st->fifo.data);
--	else
--		max_count = max * inv_icm42600_get_packet_size(st->fifo.en);
-+		max = st->fifo.watermark.value;
-+	max_count = max * inv_icm42600_get_packet_size(st->fifo.en);
- 
- 	/* read FIFO count value */
- 	raw_fifo_count = (__be16 *)st->buffer;
-@@ -574,6 +561,7 @@ int inv_icm42600_buffer_init(struct inv_icm42600_state *st)
- 
- 	st->fifo.watermark.eff_gyro = 1;
- 	st->fifo.watermark.eff_accel = 1;
-+	st->fifo.watermark.value = 1;
- 
- 	/*
- 	 * Default FIFO configuration (bits 7 to 5)
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
-index ffca4da1e249..88b8b9f780af 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
-@@ -34,6 +34,7 @@ struct inv_icm42600_fifo {
- 		unsigned int accel;
- 		unsigned int eff_gyro;
- 		unsigned int eff_accel;
-+		unsigned int value;
- 	} watermark;
- 	size_t count;
- 	struct {
-
----
-base-commit: cc746297b23e89bd5df9f91f3a0ca209e8991763
-change-id: 20260623-inv-icm42600-fix-watermark-fifo-reading-624caf080754
-
-Best regards,
---  
-Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-
+-- 
+2.54.0
 
