@@ -1,107 +1,95 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE0A3D4131;
-	Tue, 23 Jun 2026 11:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0F8C2D63E5;
+	Tue, 23 Jun 2026 11:47:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782215053; cv=none; b=GJXocgIxqmMpnAov4v7fy7ZTDw036K9iaudk+Dk6urTLfdvo5OgCqEPpORZ2x3sOXA5URoA1+GLspw9Y2ECkgMocp89vNCuodrrM4JryOL82FHT+CXCKM3Y8YvzimCskUwdwk7sieKZXRWqBzkhR22ucgO9l4x9mP9pZZsFMoH4=
+	t=1782215282; cv=none; b=gOPO9JakYw1YN6KAhS/ZxubEJw08XpG69B3ijTgR0+bgaqmny3m9tlw6G0uXHie9JNfSD7N3Z4WeR5lwFjbfK4nokEFdLLqbDRUstdmUt7bFVd1H0vBJvOmU7Kts28czU7EXuAMEsGkT0M5XwHfw5zsD4hcfmBQnG6MQjKMlIAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782215053; c=relaxed/simple;
-	bh=KPAmj7aDGiKAZkKcPtUk6oRSaJpQQF75AYEbE9S2gDg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e9CqJiFgMoIAFtAtMZFvk8+dmcgvOBsBaM5HyFK7RotCceZYLy9YI84XgS55Vdjn37xH5gSxPxkrzxwjRHUk8pEjZkALkxHF+TG7FdTcntNW397VaPxFHbDX101eltKdGe+cAK0TrGPwrxzgrvv9G93UIFS4bcdH6loHjLxBwWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=W68ccqO2; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1782215282; c=relaxed/simple;
+	bh=oaYsPIiRr7O+D3CaQD7H9ELKJrE/yqkcdbXvz2dNA2c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AnQIjaTachobW4GCBrJMm4EPAKsqKeRMVSVXHR+LtgC1t5Jw+Rg5Lvx9bXboQdbC1IqSxnjThm5IbSt4GzwY+MHDBel7XMJsk159tp3oVAuU1RGv7wYwohIWQi6gDW0hyd6mOEst70q2zo0kjbBifv4Z7WO1SetyUd58fihHiPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=fvodauGg reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="W68ccqO2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=gv
-	ybHwrlSJJexIpk2JiGbmml9pbb9SZAyfP6bmqjPAA=; b=W68ccqO2n/q/NT6dSU
-	VM+Z9vc5DFbT/xz5agy6RTsaGwxyiarjpZ0Y8TBtbv30aajqzRbQL+ON3560lRJ9
-	Ul4nf1WK7PZy+RJyzSv+e2AH27tN2jOjaqkoGjph6xzzvbDs8dHL3ZnlTmEClqLt
-	3vo/7HPb4BZfdysgInMiWAEGg=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDn7_JVcTpqE0LjFA--.8026S2;
-	Tue, 23 Jun 2026 19:43:18 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: sgoutham@marvell.com,
-	lcherian@marvell.com,
-	gakula@marvell.com,
-	hkelam@marvell.com,
-	sbhatta@marvell.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] octeontx2-af: Free BPID bitmap on setup failure
-Date: Tue, 23 Jun 2026 19:43:16 +0800
-Message-Id: <20260623114316.2182271-1-haoxiang_li2024@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="fvodauGg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=riT3aCfBg
+	TqpJw4wns4sVNKZ8p18asVLyO8oYAD4aAE=; b=fvodauGg7nCWuaCTVO3YLh04Z
+	bHSz12BJFERC8lfPrpQ1f1Vs4KaAmFvO03QRTpQqfi8j1oF8c5OqWcQD6iBMjuIO
+	fXplDULp9/J6UIQglT8Z3Tgo1F1jHHOQHJGE6MYk+uvuK1kUa/7VY4NO9F3ttQNW
+	1XeNs3fRUUbFYAGmnU=
+Received: from [10.196.180.86] (unknown [113.200.174.80])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with SMTP id BbQMCkD2GzZfcjpq3ZsQAw--.28590S3;
+	Tue, 23 Jun 2026 19:47:44 +0800 (CST)
+Message-ID: <62e6c81c-a904-450b-8e32-7861e41412bb@stu.xidian.edu.cn>
+Date: Tue, 23 Jun 2026 19:47:42 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] misc: ibmasm: Fix out-of-bounds MMIO access during module
+ load
+To: Greg KH <gregkh@linuxfoundation.org>, w15303746062@163.com
+Cc: arnd@arndb.de, linux-kernel@vger.kernel.org, kees@kernel.org,
+ stable@vger.kernel.org
+References: <20260623070909.362260-1-w15303746062@163.com>
+ <2026062354-crawfish-t-shirt-d45d@gregkh>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <2026062354-crawfish-t-shirt-d45d@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn7_JVcTpqE0LjFA--.8026S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tFyxXF1fZFWrKw17trykAFb_yoW8WrWfpF
-	4jy34rAa40qFyfuw17tw40vay5Ca9FgrWUKFyxZ3WrZ3Wftr4kuFZYkF1Fvr4FkF97Cr1j
-	yF1Fy3W3CFyDArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pitCztUUUUU=
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbCxRaaCWo6cVY6mwAA3W
+X-CM-TRANSID:BbQMCkD2GzZfcjpq3ZsQAw--.28590S3
+X-Coremail-Antispam: 1UD129KBjvdXoWruw43Gr4Dury3Cw4kXFy5urg_yoWkCFbEk3
+	sYv3srGr4ayrZIv3Wag3ZxZFn2k3929r93X3y0qr17X34rXrW7uF4DXr1Svryft34ktrs3
+	Ww15Zrn5Aw17WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbaxYjsxI4VWDJwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
+	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr
+	4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY
+	1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Gw4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYx
+	BIdaVFxhVjvjDU0xZFpf9x07jFpB-UUUUU=
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUNEWo5UXK2FwABsL
 
-nix_setup_bpids() allocates bp->bpids with rvu_alloc_bitmap(), which uses
-a plain kcalloc(). If any of the following devm_kcalloc() allocations for
-the BPID mapping arrays fails, the function returns without freeing the
-bitmap. Free the BPID bitmap before returning from those error paths.
+Hi Greg,
 
-Fixes: d6212d2e41a0 ("octeontx2-af: Create BPIDs free pool")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
----
- drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+> The kernel trusts the hardware to not do foolish things like this 🙂
+>> When evaluating the driver against emulated hardware or during virtual
+>> device fuzzing, a malformed device may expose a significantly undersized
+>> BAR 0 (e.g., 4KB). In this scenario, the readl() in enable_sp_interrupts()
+>> crosses the mapped page boundary into unmapped memory, causing a page fault
+>> during probe.
+> Are you sure this is the only code path for this type of issue for this
+> device/driver?  Why just worry about this one?
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-index d8989395e875..0297c7ab0614 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-@@ -528,19 +528,24 @@ static int nix_setup_bpids(struct rvu *rvu, struct nix_hw *hw, int blkaddr)
- 	bp->fn_map = devm_kcalloc(rvu->dev, bp->bpids.max,
- 				  sizeof(u16), GFP_KERNEL);
- 	if (!bp->fn_map)
--		return -ENOMEM;
-+		goto free_bpids;
- 
- 	bp->intf_map = devm_kcalloc(rvu->dev, bp->bpids.max,
- 				    sizeof(u8), GFP_KERNEL);
- 	if (!bp->intf_map)
--		return -ENOMEM;
-+		goto free_bpids;
- 
- 	bp->ref_cnt = devm_kcalloc(rvu->dev, bp->bpids.max,
- 				   sizeof(u8), GFP_KERNEL);
- 	if (!bp->ref_cnt)
--		return -ENOMEM;
-+		goto free_bpids;
- 
- 	return 0;
-+
-+free_bpids:
-+	rvu_free_bitmap(&bp->bpids);
-+	bp->bpids.bmap = NULL;
-+	return -ENOMEM;
- }
- 
- void rvu_nix_flr_free_bpids(struct rvu *rvu, u16 pcifunc)
--- 
-2.25.1
+You were absolutely right to ask. Prompted by your question, I did a full
+audit of the MMIO access paths in this driver.
+
+I found that the dynamic MFA (Message Frame Address) reads from the 
+hardware
+queues, which are used directly as offsets in `get_i2o_message()`, are also
+highly vulnerable to OOB accesses if the fuzzed hardware returns malicious
+offsets during runtime.
+
+I have just submitted a v2 patch in this thread that comprehensively fixes
+both the static OOB during probe and the dynamic OOB during runtime.
+
+Thank you very much for catching this and pointing me in the right 
+direction!
+
+Best regards,
+Mingyu Wang
 
