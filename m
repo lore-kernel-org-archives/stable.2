@@ -1,226 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5170838D3EA;
-	Tue, 23 Jun 2026 18:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6713738886F;
+	Tue, 23 Jun 2026 18:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782239237; cv=none; b=OiEf3BGMCGWFsMBoG1fpDYipLWKBDLTSTfLx1JZ4h1LPi1k50jchdhj3lIHgI5rQzQj/imWjLFQuRF4tYXhDE1TCnLWplPbxM/IhZayX4kKm0C8iSjJwjxJKNHjM9/L2oR7SYl60BaV9GeCG0ivO8rxx8KUMdeeN01T1DkHm2r4=
+	t=1782239759; cv=none; b=rlARFhyNAq2K5Cc24Hl1P1DJURRZPdADrORDadU/05jSLrL827Z5EL/v5B1QDDeJjztNYeQpKCvtKEPMqRKHzIApSwlQ98y6m4iy9QCmMEXoIlujvIWzjxy6gK13WcrorceXSRmhgwOIkAU4VqSGzAxxZ9rniWsCeCwxaUOHIeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782239237; c=relaxed/simple;
-	bh=c266SklNeNU3U1hZxkhZXefmDfRswMXlkKWxX6IQPFU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X4hms5qrDHRy0rdLKTty4ORlum4aGQTIogKPvARNLjIahO8fCxXWfqbylkPpj+mFAIIc23hwkDn/PqEYVdLB8ehCkvcjz/es54F7aouC1YRZXZ4t1qwUFMXvjI0jXzgbs9gcvFp7Bxw54IwXWJFPwi5FtZIAnOjrtH5qoM2ErOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VistuIYF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782239759; c=relaxed/simple;
+	bh=3denSDWU4lslLMMrBoV7SduczTmb4bDlfrVrLSfyQOU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IAUrQxqRdxaGocTZAr0YaoFoe3LdA9kO4Yqs42eZqippIizRiiQC5kiMOkDjW50Ghouo45CurkYtQjJtlwSGFITUtrQEe+hj6CunkUGr6V3sDjdWM/+sRtDDVq1dOJ/7PN2zUSrhADSVy3mrYCRfkWTNB65GLYXpsOcs7aFqq0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=DHb6vyiY; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VistuIYF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C28DF1F000E9;
-	Tue, 23 Jun 2026 18:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782239235;
-	bh=M1H6GgCBkd12Q2vTtVWlECeEISgxezKOQCjK4ILhU5Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VistuIYFPmsC9YAjO6zS3akWtB7tmYrnuf958eTRfOHmEFfov6RoofYe0xZdZesIU
-	 gAPBOENhcg6P+A0jRh8KTQqFuVrptXuntVmewM1Zi1fJ2NHMIGPfeQ8nAjeKL79GrJ
-	 pM5UAVCvkUW/3Hp9YiIakqaaEPQRt3R50XKsjR5CZS8hQNT2wYztUtS0KcyryhCzW6
-	 fMl1TumweDCyj4N7hRf13pQIIqroVuGlXcMYYWy/g5IsvF6Aw3MGm02s1h2m+ErNtF
-	 oiRo0PVFQq6eAJZEUX43QsFWk/aU1TPMQeV/zz2rY8/qUvCr4/mXe9+9zATWz7wqjg
-	 imjgaNWU0x7+Q==
-From: Simon Horman <horms@kernel.org>
-To: sam@bynar.io
-Cc: Simon Horman <horms@kernel.org>,
-	david@ixit.cz,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] nfc: nci: fix out-of-bounds write in nci_target_auto_activated()
-Date: Tue, 23 Jun 2026 18:21:10 +0100
-Message-ID: <20260623172109.1105965-2-horms@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260622145243.3167276-1-sam@bynar.io>
-References: <20260622145243.3167276-1-sam@bynar.io>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="DHb6vyiY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=8eu3Tvugp4G3bN3k1ldUXH5hZPq1X4tfuU0wkqE8zfk=; b=DHb6vyiYJyimYURUi7NGZDHuIH
+	lSoYKVDsTVEJomfIBZxlXmuIE4Ltgb045Nymk7a6n7YdrzpbIOak00qMU48J75e9hQpbOHt0FQd4V
+	+G/SzJQNxz2DSroO9RLAMs6yVVu51eVhbAuL3VS7TDvzZSJu1oTnMdx3YcS4Qq9qFpZV+hiz003ld
+	mPxD3oMYra0zZ2UpgiZh73Ys87AEI4in1l3FpPaGt8r2dWuhQwS2pl1yeeweYyu8y67Soo6mBTQiy
+	Um5gtYQhMOQlX3cAcNFzkt59nGsDryC7EwC/WurS3icu2fOqweOnVhe5SASWKB70/4n5/UBMVRlzg
+	WHlon57g==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wc5yW-00000006lNN-2Zbn;
+	Tue, 23 Jun 2026 18:35:56 +0000
+Message-ID: <75822857-473d-4067-a378-aae2cdab4176@infradead.org>
+Date: Tue, 23 Jun 2026 11:35:54 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] usbcore: Add quirk for 255-bytes initial config read
+To: Nikhil Solanke <nikhilsolanke5@gmail.com>, linux-usb@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ stern@rowland.harvard.edu, michal.pecio@gmail.com, stable@vger.kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
+References: <20260623161035.5792-1-nikhilsolanke5@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260623161035.5792-1-nikhilsolanke5@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://sashiko.dev
----
-nfc: nci: fix out-of-bounds write in nci_target_auto_activated()
 
-This commit adds a bounds check to nci_target_auto_activated() to prevent
-an out-of-bounds array write. If ndev->n_targets equals
-NCI_MAX_DISCOVERED_TARGETS, it prints a debug message and returns early.
 
-> diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-> index c96512bb86531..566ca839fa488 100644
-> --- a/net/nfc/nci/ntf.c
-> +++ b/net/nfc/nci/ntf.c
-> @@ -603,6 +603,12 @@ static void nci_target_auto_activated(struct nci_dev *ndev,
->  	struct nfc_target *target;
->  	int rc;
+On 6/23/26 9:10 AM, Nikhil Solanke wrote:
+> Certain third-party USB game controllers exposing (or spoofing) an Xbox
+> 360-compatible interface (VID:PID 045e:028e) fail to enumerate under Linux.
+> The device disconnects from the bus without responding to the initial
+> GET_DESCRIPTOR(CONFIGURATION) request, and the kernel logs 'unable to read
+> config index 0 descriptor/start: -71'.
+> 
+> The device then falls back to a secondary Android HID mode (with a
+> different VID:PID), losing XInput functionality including rumble support.
+> The failure reproduces across multiple machines, host controller types, and
+> kernel versions including current mainline and LTS. The device enumerates
+> correctly and remains in XInput mode under Windows. Notably, the device
+> enumerates correctly in Android mode when the same 9-byte request
+> is issued for that mode's configuration descriptor, confirming the firmware
+> bug is specific to the XInput mode.
+> 
+> usbmon traces from Linux and Wireshark/USBPcap traces from Windows are
+> identical up to the point of failure, with no visible protocol-level
+> difference explaining the divergence. The root cause was identified when
+> Michal Pecio discovered via a QEMU bus-level capture that Windows does not
+> use wLength=9 for the initial config descriptor request; it uses
+> wLength=255. Alan Stern subsequently confirmed this with a bus
+> analyzer on a different USB 2.0 device, and Michal verified the behavior
+> goes back to Windows 95 OSR2.1.
+> 
+> So, add a new quirk flag USB_QUIRK_CONFIG_SIZE which causes
+> usb_get_configuration() to issue a 255 byte sized configuration request
+> instead of USB_DT_CONFIG_SIZE (9) for the initial
+> GET_DESCRIPTOR(CONFIGURATION) request, mimicking long-standing Windows
+> behavior.
+> 
+> Suggested-by: Alan Stern <stern@rowland.harvard.edu>
+> Suggested-by: Michal Pecio <michal.pecio@gmail.com>
+> Closes: https://lore.kernel.org/linux-usb/CAFgddh+JWdT4LLwMc5qjM8q_pBu-fRo2qADR5ovAKoGHWMQrRw@mail.gmail.com/
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> 
+> Signed-off-by: Nikhil Solanke <nikhilsolanke5@gmail.com>
+> ---
+> Changes in v2:
+> - Add Documentation
+> - Naming changes
+> - Refactored to have a better flow with existing code.
+> 
+>  .../admin-guide/kernel-parameters.txt         |  9 +++
+>  drivers/usb/core/config.c                     | 61 ++++++++++++++-----
+>  drivers/usb/core/hub.c                        |  6 +-
+>  drivers/usb/core/quirks.c                     |  4 ++
+>  include/linux/usb/quirks.h                    |  3 +
+>  5 files changed, 67 insertions(+), 16 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 97007f4f69d4..af4bf0ef2c7b 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -8158,6 +8158,15 @@ Kernel parameters
+>  				q = USB_QUIRK_FORCE_ONE_CONFIG (Device
+>  					claims zero configurations,
+>  					forcing to 1);
+> +                r = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE (Device
+> +                    fails during initialization when asked for
+> +                    9-bytes configuration desciptor request. Ask
+
+		                             descriptor
+
+> +                    for 255-bytes request instead to mirror
+> +                    Windows' behavior. This quirk is originally
+> +                    meant to fix some quirky gamepads that refuse
+> +                    to connect in their XInput mode. But it can also
+> +                    potentially fix issues with other USB devices
+> +                    that work on Windows but not on Linux)
+
+add ending '.'
+
+For all lines added here, use tabs instead of spaces for indentation.
+
+
+>  			Example: quirks=0781:5580:bk,0a5c:5834:gij
 >  
-> +	/* This is a new target, check if we've enough room */
-> +	if (ndev->n_targets == NCI_MAX_DISCOVERED_TARGETS) {
-> +		pr_debug("not enough room, ignoring new target...\n");
-> +		return;
+>  	usbhid.mousepoll=
 
-[Severity: High]
-Does this early return cause the state machine to stall?
 
-Looking at nci_rf_intf_activated_ntf_packet(), the state is transitioned
-to NCI_POLL_ACTIVE right before this function is called:
+-- 
+~Randy
 
-net/nfc/nci/ntf.c:nci_rf_intf_activated_ntf_packet() {
-    ...
-    atomic_set(&ndev->state, NCI_POLL_ACTIVE);
-    if (err == NCI_STATUS_OK)
-        nci_target_auto_activated(ndev, &ntf);
-    ...
-}
-
-Because of the early return here, nfc_targets_found() is skipped. Does this
-leave the state wedged in NCI_POLL_ACTIVE, permanently blocking future 
-attempts to stop polling since nci_stop_poll() requires the state to be 
-NCI_DISCOVERY?
-
-> +	}
-> +
->  	target = &ndev->targets[ndev->n_targets];
-
-[ ... ]
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but can the ntf union copy
-uninitialized stack memory into persistent device structures?
-
-In net/nfc/nci/ntf.c:nci_rf_discover_ntf_packet(), the local ntf struct
-is declared on the stack:
-
-    struct nci_rf_discover_ntf ntf;
-
-If the incoming packet has ntf.rf_tech_specific_params_len == 0, the
-extraction routines are bypassed, leaving the rf_tech_specific_params union
-uninitialized. The struct is then passed to nci_add_new_target():
-
-    if (add_target == true)
-        nci_add_new_target(ndev, &ntf);
-
-This eventually calls nci_add_new_protocol(), which blindly reads from this
-union:
-
-    nfca_poll = (struct rf_tech_specific_params_nfca_poll *)params;
-    target->sens_res = nfca_poll->sens_res;
-    target->sel_res = nfca_poll->sel_res;
-    target->nfcid1_len = nfca_poll->nfcid1_len;
-
-Could this uninitialized stack garbage be copied into ndev->targets, and
-later broadcasted to userspace via Netlink in nfc_targets_found()?
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but does the general bytes length
-calculation underflow?
-
-In net/nfc/nci/ntf.c:nci_store_general_bytes_nfc_dep():
-
-    ndev->remote_gb_len = min_t(__u8, 
-        (ntf->activation_params.listen_nfc_dep.atr_req_len - 
-         NFC_ATR_REQ_GT_OFFSET), NFC_ATR_REQ_GB_MAXSIZE);
-         
-    memcpy(ndev->remote_gb, 
-        (ntf->activation_params.listen_nfc_dep.atr_req + 
-         NFC_ATR_REQ_GT_OFFSET), ndev->remote_gb_len);
-
-The length is computed by subtracting NFC_ATR_REQ_GT_OFFSET (14) from
-atr_req_len. If atr_req_len is less than 14, this subtraction will
-underflow.
-
-Because of the min_t cast, this large underflowed value is bounded to
-NFC_ATR_REQ_GB_MAXSIZE (48). The memcpy() then copies 48 bytes starting
-from atr_req + 14 into ndev->remote_gb.
-
-Since the source buffer is part of the ntf union allocated on the stack
-in nci_rf_intf_activated_ntf_packet(), could this leak up to 48 bytes of
-uninitialized kernel stack memory to userspace?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the lack of skb->len
-validation in NCI response handlers allow out-of-bounds reads?
-
-In nci_core_init_rsp_packet_v1() in net/nfc/nci/rsp.c, fields are read
-and arrays are copied from the payload:
-
-    ndev->num_supported_rf_interfaces = 
-        rsp_1->num_supported_rf_interfaces;
-        
-    memcpy(ndev->supported_rf_interfaces, rsp_1->supported_rf_interfaces, 
-           ndev->num_supported_rf_interfaces);
-
-Similarly in nci_core_init_rsp_packet_v2():
-
-    while (rf_interface_idx < ndev->num_supported_rf_interfaces) {
-        ndev->supported_rf_interfaces[rf_interface_idx++] = 
-            *supported_rf_interface++;
-    }
-
-Since the NCI control header is stripped via skb_pull(), leaving the
-payload length in skb->len, what happens if an NFCC sends a short response
-packet (e.g. plen = 1)? Could this cause the handlers to read adjacent
-kernel slab memory?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a missing boundary
-validation when extracting activation parameters?
-
-In net/nfc/nci/ntf.c:nci_extract_activation_params_iso_dep():
-
-    nfca_poll->rats_res_len = min_t(__u8, *data++, NFC_ATS_MAXSIZE);
-    if (nfca_poll->rats_res_len > 0) {
-        memcpy(nfca_poll->rats_res, data, nfca_poll->rats_res_len);
-    }
-
-And in nci_extract_activation_params_nfc_dep():
-
-    poll->atr_res_len = min_t(__u8, *data++, NFC_ATR_RES_MAXSIZE - 2);
-    if (poll->atr_res_len > 0)
-        memcpy(poll->atr_res, data, poll->atr_res_len);
-
-These inner lengths are bounded by a maximum size like NFC_ATS_MAXSIZE, but
-they are not validated against the remaining bytes in the SKB (skb->len).
-
-If a malformed packet provides a large inner length but a short payload,
-could this memcpy() read out of bounds into the device structure,
-potentially leaking adjacent slab memory to userspace later?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a potential
-priority inversion or timeout deadlock involving the device lock?
-
-Functions like nfc_stop_poll() in net/nfc/core.c acquire the device lock:
-
-    device_lock(&dev->dev);
-    ...
-    if (dev->ops->stop_poll)
-        dev->ops->stop_poll(dev);
-
-This eventually calls nci_request(), which synchronously waits for a
-completion signaled by the nci_rx_work thread. However, if an NTF packet
-is received first, nci_rx_work processes it and invokes
-nfc_targets_found(), which also attempts to acquire the device lock:
-
-    device_lock(&dev->dev);
-
-Since the calling thread already holds the device lock, nci_rx_work blocks
-indefinitely. Because the RX worker is blocked, it cannot process the
-pending RSP, causing nci_request() to time out and fail. Could this
-deadlock the RX thread?
