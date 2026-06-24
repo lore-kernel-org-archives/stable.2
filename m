@@ -1,75 +1,141 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569BC3B42EC
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 13:10:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D3024676D;
+	Wed, 24 Jun 2026 13:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782306647; cv=none; b=YkZXStrbE1Pm25tXPU7zNNhdLsZ4tWa2ABeb3gw7iQ4Lkayk7Jm0U9I386HE3xQef82G+UgHwVNAWfBOUgNz+8M9vHbxZycbf8wkLykK8s4rK9PFcH2QlKNMgftS6IYjjz2FgM1U1Ea6hVQrR2AAtPuUKcg+bKptLx+JjtAG+08=
+	t=1782307792; cv=none; b=IBy13PcD2A/38zsbLF8dMaOEHGbK7xnRtnQFHn6jqNmFara9ey+hhSZeWsI41HFETWvkmnoeDnx9tWcZfTDteyfUiRMZfNsJpV7bQVuBNGKp1EesMOXUiMQSzkVmO+g5j068D+kE+uFqHjZ3pnuo6dZtYa/BDwhwEYTHL1B/QgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782306647; c=relaxed/simple;
-	bh=VmZaLlkBLGt0ARVny9+Gp++UE5Ffrwgf6SGkHjK53zc=;
-	h=Cc:Content-Type:Mime-Version:In-Reply-To:From:Subject:Date:To:
-	 Message-Id:References; b=Lc/h8sdCCBtIsu7tgl60rE11nh1VF8jkEiELA3KVeXICrYpBjT8kvjXnfTaPU8ZN9QtrhIwTBE/9EYjq8c9no6UUX/L6wpQ4dvVTn1RflDQNeexUunYNl+LDojg47tR7Nci7VgTjzAChDwgm0TMUgybC8ZQVTFAIdy4Hm6a6XPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=KGG+WJAH; arc=none smtp.client-ip=209.127.230.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="KGG+WJAH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1782306637; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=zN4T/UVKge7pXSanXH24MPheLLCPtQ+8e1/On+MY1lw=;
- b=KGG+WJAHzIFsY/smaTrWaOIdEIBF1LPPIfckRepsPpLJFsD3lViJj08iDdrblBv7Y3n6hu
- ENsCh2HwFIpEykobF4gkGeXkRwMX10nb1+rqAgB6jkAVvaudX4mY+FZJsYoV8PkNIEieWn
- mVZETjl+WlRBAE99qCK8M0Kl81RZBplMqkM0S4jpElj7D6WClUeylo8bl+SJbMnCZiMTaD
- hEoQC8MO8LrfSkMSaeZIfhpKN/GDkVfEVSjblM0xf5TV3EuLx7zmSSGnVbfO0WNEqD6s4R
- R+yniLsT2g8tXV9j4CndXcMb60tJiHkDdY+mmD9S4WcIYOMSChWa1lrKgt7zNA==
-Cc: "Zhu Jia" <zhujia.zj@bytedance.com>, 
-	"Zhang Yi" <yi.zhang@huaweicloud.com>, "Theodore Ts'o" <tytso@mit.edu>, 
-	"Andreas Dilger" <adilger.kernel@dilger.ca>, 
-	"Baokun Li" <libaokun@linux.alibaba.com>, 
-	"Ojaswin Mujoo" <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani" <ritesh.list@gmail.com>, <linux-ext4@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-X-Lms-Return-Path: <lba+26a3bd74b+ada606+vger.kernel.org+zhujia.zj@bytedance.com>
-X-Original-From: Zhu Jia <zhujia.zj@bytedance.com>
+	s=arc-20240116; t=1782307792; c=relaxed/simple;
+	bh=zZm4Xgd6iOm/DKfGrXNLdfXUOCkrewA90M9ZYr4yLmU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nKNoKlcdLjLz5xvZx3uCHCxMnFKuyWr1PqU6hofFcHgV9KrPEyMna2ft8gr37mB+2jZvZqgetAvB4+tX3Der74oJo08TstfbrSfUAn1NUt2t+VimbjduPoLZy8zugtoG8JorMF6M4T1zrARNFIWexwTd4Ifes4za2rAlwvldDlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-03 (Coremail) with SMTP id rQCowACHqN_J2ztqrSO2FQ--.26284S2;
+	Wed, 24 Jun 2026 21:29:47 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>
+Subject: [PATCH v2] PCI: qcom-ep: Fix runtime PM reference leak in probe error paths
+Date: Wed, 24 Jun 2026 21:29:43 +0800
+Message-Id: <20260624132943.40718-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <x3jm3mhgsr7zx4hvfgdvmwoqyz5vxx2fjyxy6gs6him46767f6@dkkirnw54x6x>
-From: "Zhu Jia" <zhujia.zj@bytedance.com>
-Subject: Re: [PATCH] ext4: cancel dirty accounting for folios without buffers
-Date: Wed, 24 Jun 2026 21:10:31 +0800
-To: "Jan Kara" <jack@suse.cz>
-Message-Id: <20260624130549.1-zhujia.zj@bytedance.com>
-References: <20260623094947.7853-1-zhujia.zj@bytedance.com> <81ed36cc-b5c8-41cf-8b7d-16611e61e294@huaweicloud.com> <20260624094535.1-zhujia.zj@bytedance.com> <x3jm3mhgsr7zx4hvfgdvmwoqyz5vxx2fjyxy6gs6him46767f6@dkkirnw54x6x>
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACHqN_J2ztqrSO2FQ--.26284S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCF47WF4xuw17Jw4xZF13urg_yoW5CF45p3
+	yfXFZ5tFy8XF4xtw42y3W7ZF1Y9rZayryrG34DW3WIv3WfZ34jqryrtFyFqF1rtrWkua4U
+	tw4jqa17ZF45tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCQ4IA2o7lVz41AAAs4
 
-On Wed, Jun 24, 2026 at 02:32:27PM +0200, Jan Kara wrote:
-> On Wed 24-06-26 17:52:06, Zhu Jia wrote:
-> > The reason I left the tags unchanged in this version is that I was not sure
-> > whether it is appropriate for ext4 to open-code xarray tag cleanup directly.
-> > 
-> > If you think this is the right direction, I can add the helper back and
-> > send a v2.
-> 
-> That was a good judgement! Playing with xarray tags like this in filesystem
-> code is certainly not a good thing. For now, I'd leave the xarray tags
-> dangling - they will be eventually synced with reality on next writeback
-> attempt. If this inconsistency of tags needs to be fixed, the fix belongs
-> to the generic code (so that it can be used in other places as well).
-> 
-> 								Honza
+The qcom_pcie_ep_probe() function obtains a runtime PM reference via
+pm_runtime_get_noresume() at the beginning of the probe, but this
+reference is only released on the successful completion path using
+pm_runtime_put_sync().
 
-Thanks, makes sense. I'll keep the fix as-is and leave the xarray tags
-alone.
+However, the error paths fail to release this reference. The devres
+cleanup registered by devm_pm_runtime_enable() only calls
+pm_runtime_disable() and does not decrement the usage_count. As a
+result, if any error occurs during probe (e.g., resource acquisition
+failure or endpoint initialization failure), the reference is leaked,
+permanently elevating the device's usage_count. This prevents proper
+runtime suspend and clean device removal.
 
-Thanks,
-Jia
+Fix this by properly distinguishing error paths that occur before and
+after devm_pm_runtime_enable() succeeds:
+
+- For errors before devm_pm_runtime_enable() succeeds: call
+  pm_runtime_put_noidle() and pm_runtime_disable() manually to clean
+  up the initial reference and disable runtime PM.
+
+- For errors after devm_pm_runtime_enable() succeeds: only call
+  pm_runtime_put_sync() to drop the initial reference. The
+  pm_runtime_disable() is left to the devres cleanup handler,
+  avoiding a double-disable.
+
+- On the successful probe path: call pm_runtime_put_sync() to drop
+  the initial reference. The return value of pm_runtime_put_sync()
+  is ignored because errors like -EAGAIN or -EBUSY only indicate
+  that the device cannot be suspended at this moment and do not
+  represent a fatal probe failure.
+
+This ensures the runtime PM reference is correctly released on all
+error paths without introducing double-disables or double-puts.
+
+Cc: stable@vger.kernel.org
+Fixes: 5b026a9e714d ("PCI: qcom-ep: Add support for firmware-managed PCIe Endpoint")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/pci/controller/dwc/pcie-qcom-ep.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/pcie-qcom-ep.c b/drivers/pci/controller/dwc/pcie-qcom-ep.c
+index 257c2bcb5f76..0c6799d57dd4 100644
+--- a/drivers/pci/controller/dwc/pcie-qcom-ep.c
++++ b/drivers/pci/controller/dwc/pcie-qcom-ep.c
+@@ -892,16 +892,16 @@ static int qcom_pcie_ep_probe(struct platform_device *pdev)
+ 	pm_runtime_set_active(dev);
+ 	ret = devm_pm_runtime_enable(dev);
+ 	if (ret)
+-		return ret;
++		goto err_manual_cleanup;
+ 
+ 	ret = qcom_pcie_ep_get_resources(pdev, pcie_ep);
+ 	if (ret)
+-		return ret;
++		goto err_put_ref;
+ 
+ 	ret = dw_pcie_ep_init(&pcie_ep->pci.ep);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to initialize endpoint: %d\n", ret);
+-		return ret;
++		goto err_put_ref;
+ 	}
+ 
+ 	ret = qcom_pcie_ep_enable_irq_resources(pdev, pcie_ep);
+@@ -932,6 +932,13 @@ static int qcom_pcie_ep_probe(struct platform_device *pdev)
+ err_ep_deinit:
+ 	dw_pcie_ep_deinit(&pcie_ep->pci.ep);
+ 
++err_put_ref:
++	pm_runtime_put_sync(dev);
++	return ret;
++
++err_manual_cleanup:
++	pm_runtime_put_noidle(dev);
++	pm_runtime_disable(dev);
+ 	return ret;
+ }
+ 
+-- 
+2.39.5 (Apple Git-154)
+
