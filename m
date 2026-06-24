@@ -1,98 +1,102 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B09A33F5A9;
-	Wed, 24 Jun 2026 17:14:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E9B3DD50E;
+	Wed, 24 Jun 2026 17:16:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782321250; cv=none; b=pgGD170ANKiNVIRx7B9iGt7l3rCg9sQMkxP+T8PK68tJE6sQ/zn2xZqCltFh8sjIwA910G43aPkYmgS0E8ZrT+BKxTiHXBNuWGjs2QZVWURst6xwupin/Bc9iNFxa+YKGL9SP+FkNkKUeVVFtLRzmRLhuNQd8r9BX7FbnwEhW0s=
+	t=1782321366; cv=none; b=Qe3KP6hL/5IhdUzOtxozRwF4y1WK/LUBAWpRKvpL6L540RxFkC78JES68Lx6l+grWAQ//BH4s40hbcdmWWEp4EWvzyIVoncvAoN6z61RASGJSghysz5dpf/7A2EfCDbiDlxDyB2OKRLyDj+nNfqi9d5FZC072iDpmY+pUS/I6G4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782321250; c=relaxed/simple;
-	bh=zOA+NRAC3fnoUFbbw5rsQgGbAmrqEGSkAVCK6P8mSvY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RO8mdvbuTxBZ21vZY9DttUSOQFFJrd4LVVYO4T0QB9x8ZUq7zlxFL49lJyZr9WmFeSvOI7JnYDGs3ijUGRAkHov4K9jIawJ2iqqrOJxm2QNGyhjx4QIdpX6wfXGI9s85rw/azOeeL++b7Ou77LKdysJMhm7tdmmk3ed0SadB1R0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wcRAR-0042vN-0z;
-	Wed, 24 Jun 2026 17:13:39 +0000
-Received: from ben by deadeye with local (Exim 4.99.3)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wcRAO-000000088WR-2hYd;
-	Wed, 24 Jun 2026 19:13:36 +0200
-Message-ID: <66cf4f95534aa5428a362857cf78dcb946c51672.camel@decadent.org.uk>
-Subject: Re: [PATCH 5.15 323/411] spi: topcliff-pch: fix controller
- deregistration
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Masayuki Ohtake <masa-korg@dsn.okisemi.com>, 
- Johan Hovold <johan@kernel.org>, Mark Brown <broonie@kernel.org>, Sasha
- Levin <sashal@kernel.org>
-Date: Wed, 24 Jun 2026 19:13:30 +0200
-In-Reply-To: <20260616145118.324999322@linuxfoundation.org>
-References: <20260616145100.376842714@linuxfoundation.org>
-	 <20260616145118.324999322@linuxfoundation.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-4Hbk2u6isj5YWtDERwLc"
-User-Agent: Evolution 3.56.2-9 
+	s=arc-20240116; t=1782321366; c=relaxed/simple;
+	bh=iPNcIeLf/61yvKOkQo1dLhgUZkJvexzibt0odvRRsYs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j1s9mmd1O8ZOF3Nn8HdXHCeWyJh3846NMnRBnvkZNoKX3kKDtCtrscNkjYjXOvMl8Idx+SR5Vv5EXDEek2G8p3E8BCCCnMyH3Q9YH4akAIMK14Z63ilmuJp1n1pRqV2Rnhr2mE6S5GlJNS3eN74Rs5/61FvcN2qvKNYk2Cy8N0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Vtw6jtyQ; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Vtw6jtyQ"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 28D1340E0031;
+	Wed, 24 Jun 2026 17:16:02 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id JcqgbK_5Wjrj; Wed, 24 Jun 2026 17:15:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1782321352; bh=CTk+ROcPgrIf3u1NqBedkrjU88PTb7VXwIsNvLzCv+c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Vtw6jtyQEXc7XI+hJeBcCwAYxc9PAvM+dj97XeI7T1wEOrDg55zwlxgCax+uX9E0Y
+	 fKBbU6jUQ8JrwQ4oNrDvcRheo0iJOedO+rpmtqz2DSHdsZgpw1BxeHpo5ydsfiZ2AO
+	 nBg9RRCxV+6g7UBvfttss/2surdRdqfQa+mOhSD9PkqTCPOcipUAjKX6631zHWSV4R
+	 3k34BiDCEeQugFw4Mtfyz7nGh2Y+YwyzlYSsTjj07gry0wfzkPCpHA17DU7SadH6Om
+	 8OeJAaQAmawni9t57dRG4UXS28s+ZilnXWq4Op2ECElQ5r4dp2SOXCmiz7prx8aeSc
+	 faSOz1zCW0cbsy6X+kHve3PGmmiyzBu3cOlvAjVp+MNgOzrwFMhwjSONNbm15M+G77
+	 coamxf/MztM3XhOaNqXeLO5yLnY22xVj57lVN6qEmytWOpH+SSyFAWqEkPbsbG6/2+
+	 y3DhABVo8+84wpyjs/Y1G1FIe6Pdg5oGVAXr0tGKM5SMmRaNjQnqrPySy2eaTohv1Z
+	 Pg/qo+ul50Pbb0fhfSxEeOeqPENxtR+RqjbD3EfNHjkTHU7HCw3vn3nOsjPgadRtds
+	 fI9EqYU4M0BzB/5178ROtKEELN4mEtCnM/c6QYK/OsxWdnWAJhXrTLTIVH99ZZAb5A
+	 1S6m4nfQaOQT0XA9Aj/11Q1A=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8D8A740E00BF;
+	Wed, 24 Jun 2026 17:15:39 +0000 (UTC)
+Date: Wed, 24 Jun 2026 10:15:36 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Penny Zheng <penny.zheng@amd.com>,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] x86: Avoid divide by 0 in amd_smn_init()
+Message-ID: <20260624171536.GDajwQuLD9pkLRLpLE@fat_crate.local>
+References: <20260623211904.3674-1-jason.andryuk@amd.com>
+ <20260623213552.GAajr8ONjXFUnuUOE3@fat_crate.local>
+ <48629f88-4b78-424e-a199-d87594c8cb40@amd.com>
+ <20260624155910.GCajv-zguf0GiBxt2F@fat_crate.local>
+ <0500111d-91bf-4105-8de3-af44a113157a@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <0500111d-91bf-4105-8de3-af44a113157a@amd.com>
 
+On Wed, Jun 24, 2026 at 12:41:48PM -0400, Jason Andryuk wrote:
+> I think this is the issue:
+> 
+>     The "root" device search was introduced to support SMN access for Zen
+>     systems. This device represents a PCIe root complex. It is not the
+>     same as the "CPU/node" devices found at slots 0x18-0x1F.
 
---=-4Hbk2u6isj5YWtDERwLc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+What is that? AI output?
 
-On Tue, 2026-06-16 at 20:29 +0530, Greg Kroah-Hartman wrote:
-> 5.15-stable review patch.  If anyone has any objections, please let me kn=
-ow.
->=20
-> ------------------
->=20
-> From: Johan Hovold <johan@kernel.org>
->=20
-> [ Upstream commit 5d6f477d6fc0767c57c5e1e6f55a1662820eef87 ]
-[...]
+> We don't want dom0 to access the "CPU/node" devices.  It's the "root" device
+> SMN access I am trying to retain.
 
-Aside from the issue already pointed out with this backport, the fix is
-also missing from the 6.1 and 6.6 branches.
+I know what you're trying to do - you want to use SMN accesses on dom0. And
+I'm trying to figure out a stable detection method on Xen which is future
+proof.
 
-Ben.
+> Many amd_smn_read/write calls have hardcoded node 0, like for amd-pmc.
 
---=20
-Ben Hutchings
-Anthony's Law of Force: Don't force it, get a larger hammer.
+Maybe.
 
---=-4Hbk2u6isj5YWtDERwLc
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Whatever it is, it needs to be a long-term solution and properly vetted by Xen
+folks so that we don't do crazy hacks for Xen's sake everytime.
 
------BEGIN PGP SIGNATURE-----
+-- 
+Regards/Gruss,
+    Boris.
 
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmo8EDsACgkQ57/I7JWG
-EQk39BAAkBvHYG5NgAUy6GD8EWNHQhti4b/CS3m8zb9pk56yFbzm6Bfwe77ScShD
-3psMgpOtazD/kBN56YEACPUp+iftg8+V9GTQ5MhX71LyAmDpdxd17Q7v/+mZsXUI
-cjf5rJH8Ed6bWPqgJgCPaL+4Y+tSdv41ydxqPcKfYMCpFWpKM2Yqm7qSK7cYZ+A1
-KN9SUenLZdaDp4wiJSkbUhr5to7xKh2CpJpLOeO6I+MMhkk/0gQ+YSkRJN8IOVZQ
-LA0OP21ZSKtu/h9AzCqImt77k1pnpvkGK18lov7y9Nib8yIhFF6M5TCFNWYL7+Zm
-1EmLa+iDC+/Qvnsc+snquja3kr7/OT6o30Gov/H7B1IOYK62WYVBWQIWcIV/Og3n
-gmg6Goo4sBNXLmKp4EYo5Jx59nPMen7yZPw92sjVdbHWwPuAjtWRDMzXeM1njmQo
-IEh58UJ+qhL31nHZwHWrUmT/KA4pEZ0c8NfXg+Jd1YumaYORQStboRT6+2S/3k9B
-yYc7lDWtWC6Cybh2tkgyhVkm29idgFFVBWiEfG0unWDkM4lf5LcLdgYvGlHF0znS
-wLjplfbzoTZ5vwP3gic9I8Sz2RVaJyNLNCIw2N+aIrs1h9Kd/mY4DOiAqoi1fAi/
-2Np2w5y1l75FApHPhhdYF5SKXWFYp7Sn0AvbO1l8BjBiqg+bFys=
-=ysk7
------END PGP SIGNATURE-----
-
---=-4Hbk2u6isj5YWtDERwLc--
+https://people.kernel.org/tglx/notes-about-netiquette
