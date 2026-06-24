@@ -1,66 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5973A9856;
-	Wed, 24 Jun 2026 11:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA51D272801
+	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 12:16:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782302333; cv=none; b=NeN6lJcMj7WLrwoopltHWR+Db9ccywLZRAtThH6gw7NoJnJQISflINYW4VVIgcH6ViwoV+j7tQCyvyKdnDi1eeOJjI2jnAbbpcyHNndqqEfrWK/xtBVl3J2GvRyd7uYGyaZQnjrHfyr/AqWHh+BUY+TeGtioG6w7gIWXxsIRZe4=
+	t=1782303386; cv=none; b=dca/gqWr2w5ZLee3I7fUoBjn4QLEJ3x3+Wu7QjpyIUdPe0YLoktfNEhLieen6YOYUHEEou27MMCPLC4wm/4HWsNXG76+azdYrw7WHX2rVoird3GAMppfPIA0OOHYSiyhMHkDMm2uSnBecwt6hjap7DtbLpthFNv2q34boI9LnzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782302333; c=relaxed/simple;
-	bh=Afjq53kjtlJtWaM/iynRMo2B4fa28T0aOwWngmX1NHI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hjImPJBzYB2lwQEmNq29bdjF7tqWTvwyjN+invQ/eabMwKC2gfH9zavtC6o5cmb8VbG0xmijY4loEKDuPstUkSWmjTC9mzkfgQNHlGXIzZm2cqEdCa6saaPbSvVFBRx/SZOYox570fc1pD1WHN22UZyiMBE8DurMCnZUeUIax98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OVkmIq0O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782303386; c=relaxed/simple;
+	bh=8mTZuUoiyhNRN3gTKiUmzENom/VFrrl5XjY2DI/t9pU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BBI1s/qnE8R+mim2+4NggOydBAWKrsW9N1FhCPwHNe4HM3Qp9MosrewhVlqAHXXj8ISZb8XvYTS31y69MqlwfL81ui7M+Lbgkp/a5THVvJ7WumjCpgcdCoeLt9UtTGjuL50bq91ZXurEBalzk9+OeUedpMa6JO9JccJlWdz4bTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V2raHcm4; arc=none smtp.client-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OVkmIq0O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878791F000E9;
-	Wed, 24 Jun 2026 11:58:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782302332;
-	bh=FgVZL5yjF1lvBvWnuYIQDHGkjIANCmjkiCOImFrhE0Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OVkmIq0OgK6ozwJCfT96eLni0mKCGIOEblshJgP+XC8zElVQukV9PL5Zcs8jmJu7H
-	 RdkUPdtbaGyeJ7zBcpjJgdp+JuCXxAR5qR+keD/JN1D4Id1jimMRVIPGyDMDMbRwcC
-	 thmOVSiHyW/aYwTUw42x1b7jk+MuJmQUJmBj4fEw=
-Date: Wed, 24 Jun 2026 12:57:41 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: Alexander Martyniuk <alexevgmart@gmail.com>, stable@vger.kernel.org,
-	Jozsef Kadlecsik <kadlec@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V2raHcm4"
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-399389dae7fso10076221fa.0
+        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 05:16:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782303383; x=1782908183; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZWN+ktVTYkpSQqdNFGaR2EYDD+puHcc21cFbcKJgBfs=;
+        b=V2raHcm4aq59i6qi0YfjMaqw8TXp1JbHv1JaNVBJ1C0bXP7+3dHBVRQqMBY0KHnvMm
+         AkG+HFYcLqUUWHwx6Ch0UQEWHrMch9cq/7r1ANOBfHHgpPQPLZSa7kQgD+XCS8rW2QFZ
+         jO1H2gIPQwJmogZ1qKqrSIX9k/VrTj8zNA5ll/vaw8fEoYF1VoG129P0Ayq1mYKXdk3+
+         pXm948Uir2MbhKX1PCUySlzsLAQBHYuytszwn91cmxfRX0tKzwy3Irt0hHiPmyjbwVaT
+         XI9Jt/Rm1oyumHGhgOCN8c1FBXaOvtm4XIWMGeJPw9TJUD5Nmrn0d5jO6QJQi/50LnSD
+         8ddA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782303383; x=1782908183;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZWN+ktVTYkpSQqdNFGaR2EYDD+puHcc21cFbcKJgBfs=;
+        b=U5g5Ec4NZIXl4sSxmRBIvlJ3xlt+U3/kNAbvEQqWaBSeb2FrJhs0jw7S9yJI39i1T9
+         QVxLrFW8pjc05bGpW5XsUxC55OpUQ2fwnBoHC06xjj0Ym/TN4pYlpATUCmrITqCt0RSY
+         bc/VvE4oHw0a5rUJtZZIkPFWV8l+5LstuqHUh4UCIX5pnBqQNxzzvDktt5qbbmmVpQtc
+         h8YL7WUxL8Ptf3OJGaghecVpL1PyD2tA1eGmLYlfUo6aERUhywgJQabFD5WlrzIX21E/
+         +DKHkdu7E4UIji9xE9mXtRXcNVT0wT8XzmC8TFjPrrvu9NRK9MGZAogllclDgB5yuVmz
+         Jzig==
+X-Gm-Message-State: AOJu0YyVxdrr/P2xy9FVQKZv2OCI+RqD5Qqq6i0e4bA8aC77pmzHp1sp
+	x1npL6uYVzo7Ft899jSDUiJEH3Q0fgffujJ8wftj+ooVwfVIE79sGOz+cajaof417hE=
+X-Gm-Gg: AfdE7cl1vPei5ELdrAU1pdXmOjhyGQBIXnx+IG9ESXTFTx1mpLQhnXiTXa8y10oaAme
+	kvVvd5IZA2PsqijPBSgZUwP7Kfv9I4R8i/dn4GJjjGZDkAYg/N/OI3gM0KMgLiSFhZiIwuGnJTd
+	uNpEx4bi2186/THb2KOX+hpgqqz/gdPMTwMF40v5J6Vv4c9D2LhEPOgCrF6HfCG4I/uQ0uc5mpA
+	QSMQ69rwU110vhpEMyVEX1EGv169Clw5KJnAsbqrhu6frhyFh7YP691Sso06Tja33LdNkBJEjpZ
+	ou5zgz8JJuiA1jayy8HrX0d8MUYAcZpJrjm2uIFpnsz+k0PXms2BmUQ7BboZ50LYYMtDL2NQML3
+	8arLaLukkfExcQR8wsNzMIZJ1IpygxAOtYpRj+4QN5+ESvGDvn5mVHMBPwZN2yEcidL2VyZA90k
+	LEfVEYsfXXY2a8g/+qjLrjIsUwM6UK
+X-Received: by 2002:a2e:a913:0:b0:38e:8357:c5ae with SMTP id 38308e7fff4ca-39ac25ddbedmr400571fa.9.1782303382591;
+        Wed, 24 Jun 2026 05:16:22 -0700 (PDT)
+Received: from grower.astra-academy.ru ([185.32.135.49])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3999b156f23sm33089191fa.27.2026.06.24.05.16.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 24 Jun 2026 05:16:22 -0700 (PDT)
+From: Alexander Martyniuk <alexevgmart@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alexander Martyniuk <alexevgmart@gmail.com>,
 	"David S. Miller" <davem@davemloft.net>,
-	Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
-	Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
-	Jakub Kicinski <kuba@kernel.org>, Patrick McHardy <kaber@trash.net>,
-	netfilter-devel@vger.kernel, coreteam@netfilter.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Weiming Shi <bestswngs@gmail.com>, Xiang Mei <xmei5@asu.edu>
-Subject: Re: [PATCH 5.10] netfilter: nf_log: validate MAC header was set
- before dumping it
-Message-ID: <2026062417-icky-dissuade-7379@gregkh>
-References: <20260624140117.19799-1-alexevgmart@gmail.com>
- <ajvEDFOlP7Bqb-3j@chamomile>
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jann Horn <jannh@google.com>,
+	Lee Jones <lee@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Rao Shoaib <rao.shoaib@oracle.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@kernel.org,
+	Yuan Tan <yuantan098@gmail.com>,
+	Yifan Wu <yifanwucs@gmail.com>,
+	Juefei Pu <tomapufckgml@gmail.com>,
+	Xin Liu <bird@lzu.edu.cn>,
+	Jiexun Wang <wangjiexun2025@gmail.com>,
+	Ren Wei <n05ec@lzu.edu.cn>
+Subject: [PATCH 5.15/6.1/6.6] af_unix: Reject SIOCATMARK on non-stream sockets
+Date: Wed, 24 Jun 2026 15:16:48 +0000
+Message-ID: <20260624151651.38894-1-alexevgmart@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ajvEDFOlP7Bqb-3j@chamomile>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jun 24, 2026 at 01:48:28PM +0200, Pablo Neira Ayuso wrote:
-> Hi,
-> 
-> Thanks but why only 5.10?
+From: Jiexun Wang <wangjiexun2025@gmail.com>
 
-It's already in the following releases:
-	5.15.210 6.1.176 6.6.143 6.12.94 6.18.36 7.0.13 7.1
+commit d119775f2bad827edc28071c061fdd4a91f889a5 upstream.
 
-so 5.10.y seems like the only one missing it at the moment.
+SIOCATMARK reports whether the receive queue is at the urgent mark for
+MSG_OOB.
 
-thanks,
+In AF_UNIX, MSG_OOB is supported only for SOCK_STREAM sockets.
+SOCK_DGRAM and SOCK_SEQPACKET reject MSG_OOB in sendmsg() and recvmsg(),
+so they should not support SIOCATMARK either.
 
-greg k-h
+Return -EOPNOTSUPP for non-stream sockets before checking the receive
+queue.
+
+Fixes: 314001f0bf92 ("af_unix: Add OOB support")
+Cc: stable@kernel.org
+Reported-by: Yuan Tan <yuantan098@gmail.com>
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Suggested-by: Kuniyuki Iwashima <kuniyu@google.com>
+Signed-off-by: Jiexun Wang <wangjiexun2025@gmail.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260506140825.2987635-1-n05ec@lzu.edu.cn
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
+---
+Backport fix for CVE-2026-52928
+ net/unix/af_unix.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+index 32892a40d139..8bd78cad69e7 100644
+--- a/net/unix/af_unix.c
++++ b/net/unix/af_unix.c
+@@ -3139,6 +3139,9 @@ static int unix_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
+ 			struct sk_buff *skb;
+ 			int answ = 0;
+ 
++			if (sk->sk_type != SOCK_STREAM)
++				return -EOPNOTSUPP;
++
+ 			skb = skb_peek(&sk->sk_receive_queue);
+ 			if (skb && skb == READ_ONCE(unix_sk(sk)->oob_skb))
+ 				answ = 1;
+-- 
+2.43.0
+
