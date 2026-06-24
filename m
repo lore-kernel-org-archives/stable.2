@@ -1,129 +1,181 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010065.outbound.protection.outlook.com [52.101.201.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380A526F29B
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 14:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782309673; cv=none; b=IU9xPoT/5hdwHZbg1fi91czMvYlw4ZL6bcou6cjtDuGYD01MEwtAIJLe3rUVURyVZjV975GFrgUyOn6kYBJuQd4px7t5pDNQb28vZzwhApY+0S9DBmMB0GWis0SDm97r/y+ycmjnWYIP0pi7exlwMa1jm6Hj0qaa/6Olibed0+E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782309673; c=relaxed/simple;
-	bh=sqz/nCl4XMoZ5TKKVVNz5tAI/LScRoJeM9WbyPmJx3E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aBWX/PWsN5XK3JqiTh5ZIbWeBRhjES7ciRiD82fHCWV7QbD9+nGT8XFFErGJ2qlWxcor8fc3o1L3HliZoZU7dTj82QLnfvh+Uq2aFl2q8mJ23h8ZBXMyK7ECS+t+tXGcKGTh3B6V0Zz3eAP9+WLpSkNHYItEuVgf6yJDMSPSd2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=KstfDJkD; arc=none smtp.client-ip=209.85.222.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9983322D7A9;
+	Wed, 24 Jun 2026 14:06:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782310008; cv=fail; b=S10uYNggKUnJcHhHQyZh6dGg5k3i/PNTFB7JhmTcZpGX5PiQ1UuFw2ZRPzVFjRmrB2ZksT+ly1C/Cm6MAEPu5c3etwLxtYdls+c/oxdtr4QxhMmC2PWpKDz93R+QGzZFibL9+nW0nzt/htXOHY6ar+Wiy8d2/4bUf+/Xgm4NiXk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782310008; c=relaxed/simple;
+	bh=3TpzWbRLbscNS4sxTSoRWJ1/wRjkTPp1hc4WN3iZo2c=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=h8zSdV0YS/D0EGKRN2dmctWnbJR6sel3dR8ds7ln8EiKBMPn+OZ/nZYZ+5fVMNytHWHbpaXlip1D+eum2Zo2c1Q1vDy50yE2Cb0OaA1tpFFiViOhU3nWp8aFEMTo+cuo83R1AiPaieHb3TqD5jIT6wYpqfLGsiCEdQ2R5txilEs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=afwN8AZK; arc=fail smtp.client-ip=52.101.201.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="KstfDJkD"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-915b5ce94c7so93377985a.2
-        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 07:01:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1782309671; x=1782914471; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=wsEoW4DBoKT0fUYLZPdL7MZJTkz7+GAlNaoQ4msQnkg=;
-        b=KstfDJkDlEZuT1HYy2wLN0zzVO7os9Mav9CMPrsd7Kv98rDcLUS7Wg5ukVEMLr3LVG
-         wrMAP69DjNNNzDVB2ZNOfiTOc1hFWk6LOgZdLKLlC+joHQiuqFZ40e7hNzcPh9oWhGY/
-         2G/O2HjDTmBS9oRGG1S37xQaTYUM3wBJHlcPNdyjlvsE1IDgBr7ovk0ZlAyLMvD5K4F2
-         s+LsOd3mFqtYmxhVb2PFHtvW7RF7jgiJBAVwWIQuzP65aYXobwjDznATwWFVkYABsJXZ
-         LVH9wW2TsSZf+p2SWTS7/3e2nLXqldUfpW6QUJzVbbrD9x+kGVzbxfNNIV+4CBNNqAON
-         puzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782309671; x=1782914471;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wsEoW4DBoKT0fUYLZPdL7MZJTkz7+GAlNaoQ4msQnkg=;
-        b=LSvXT0WjVyPXV9BSFSqMVxYUmENC2NPjvxg0fuwzZa9baKoOF5spSNp9cXwd0VzhNs
-         jWSl6Nr2lOhXBQl4sRUSgz5Z1qGRfnhp2N1AD7nzfBtgjatUfRXa84hsaIs97ZFZ+SmM
-         TyoaQhI2jAbzR8CsEY79rTQX9QSdv27/Jg+KDHltBPFTXjmHO9o+xX5bsrxtNcYcyNpP
-         9tVGrZfu7TMVBV+zRpsSd74P4bmL4YNHwFcNJ2kiUvIn60ckXJGbFvk6n6BE8m1y2ROV
-         uHGvsrB6gIqZZpmA3tM8lPa8nSzsEQHn2rHcQwSF9MEw36SKFZOmqG03S7Rp8JTu+tfy
-         auxA==
-X-Forwarded-Encrypted: i=1; AFNElJ/ukKjiLEHtGXwO6lV6mWH4k3YCMtXlcsI/UApfVImCCGi9OogQNIwYGleWBpLkFTF/OTAuxC8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz6xnmQsd/TJjnV1pK8jRdIu1/X4cjj0b3I8WdeJAzlD27GfZlx
-	BulJXlvg1/0Wk9J2LDo5/29cyVsUZUmfZqaOMfG13gPBeLCkr9nLUvsMSh1kBs4l2Q==
-X-Gm-Gg: AfdE7clg+aNnUC7oLXt0I25BOktweYD64ZmnpzpBm320lD8yyPep+OVJNI6/qfl+qjT
-	n/WhmQrRcQBJ3B7y0oQa+4LXLGNDRvB/+v6g33x4IV/0tk/Maz6NTRH/LAHLc6jFzQQzIw/A+XT
-	68uu+++nklBNEmJSgdk2KDouojdTsvRnhMpO3/qx1Z3xOM0a58g6ZzEtr7ENKVvaCRJsjekURIZ
-	aOiOuIl8IwetVkPTO1K2zcbvcc2KX9Ml7pXoAt1wlQZfvJdEZmIlp4qSiqsXXaho5NuOxpUXFtg
-	A1g7cuQFjsgoUJH98qQgHea2dOn2F+QcPnLRWtwhXQLGRdxuz0cyem24zxjdiCglvyiuyMDNQ68
-	Nq7OmaHnOHJiHwFj9I51ZHTDOjjpeC7z6DG5n0CXgrA4XOq/uV6yVx3apCC9C+wmjPgygRRtnpl
-	v8qhPnK3J2BiEV1H/wR+CZKJubAmLZQRQ9
-X-Received: by 2002:a05:620a:1a09:b0:915:cb5c:7f70 with SMTP id af79cd13be357-927800a2787mr561454085a.29.1782309641938;
-        Wed, 24 Jun 2026 07:00:41 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210:d62f:1911:f952:16ba])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92600c7bf55sm552191785a.46.2026.06.24.07.00.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 07:00:41 -0700 (PDT)
-Date: Wed, 24 Jun 2026 10:00:38 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Nikhil Solanke <nikhilsolanke5@gmail.com>
-Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org, michal.pecio@gmail.com,
-	stable@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2] usbcore: Add quirk for 255-bytes initial config read
-Message-ID: <eb0dfd45-91c5-49ba-a297-b183dbc52c8c@rowland.harvard.edu>
-References: <20260623161035.5792-1-nikhilsolanke5@gmail.com>
- <567e8866-4308-4e5f-819c-fe778dbf74f8@rowland.harvard.edu>
- <CAFgddhJk0EYG71fnKdio=RHC-cH+JmL-EZ7-oVD-LdHoa2TBSA@mail.gmail.com>
- <5159fd69-dddf-4073-a8e7-95fa77de0b7f@rowland.harvard.edu>
- <CAFgddhJ2HeJ=oTBX_axMJcgJq7GXH9abe+LH+x9NGekGO4BMyw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="afwN8AZK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ewqgq+MYBNmgJ9ggkuin1hBy5Key0aQD9xhFlHGdhzAdNRNKCnEJA5Pg8t8iNMOWVHbmDM9OzuaJOwXZA8hodXpjX/t+WWuFoTWl+z1ypuuFqc/QpEp7AHRmPCzxEXQwGobtm5hdsQR+3xLTQdg/gT2mbWmgYltj8bnymFv5Cr0Ji3PcemBQ3ulwvWic0X2jy1dXJQdK+lkK5XuO8ZvV1/HJpsY5FESwvjj/ma9xl60ujufuFFfBevsVkELvveX4r5TmNVvYSgf2dO8kfF4EfKNhwYtfNZBorioHsPF1Qpg/E6Ln+1JUKEgrD4KzSVbAC65QazrJ7fkz9gtS0Q3x0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3TpzWbRLbscNS4sxTSoRWJ1/wRjkTPp1hc4WN3iZo2c=;
+ b=DVsd+YoQMwOHi4q+3+EcJr/bpRFQiOOP2gJpwib8xGgxySmILxWpBF8B7WpM/ss/gKXq5Ild5jGSklmNwI4WYdLNxYrQYMP0KNKo0bybplAKzvf7JofYkB68mJfMpCDXbSyYN4SjBeWXyNOmrubJRBNmAeU7t9mDwrY1OSKEDQshkFWi0AYPA6H0SV0vf5tdj3f13nUdEqwrz+09yTykgP3gbgvQhhRAfkdsi+cFFiVQ2X0L8VlCmG5GDiobFea4p+IaRCAS1pqcq/D5Hy6ubWXvu5i4WoS44DirnPzQ11chtsKrTAUt3IhoZdnNTGzljtalhN6Y8JlH1DxcpY+G5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3TpzWbRLbscNS4sxTSoRWJ1/wRjkTPp1hc4WN3iZo2c=;
+ b=afwN8AZKNU6d4AEm0722lBCfPpFOLHYa5GU0h56SRiws0y0g4QAjbUxiKwvjEoLEZmTLUBDasKQqczSn5yoWkvWyhg+Xbyqq2a4G8QQ0n7gQz7GUdC0sFP+/3UhBOO7TMmiArih1g+k9I+mrWksj33ONtFs8uXIZbj3RXWiU0ece79FGtYHjwfpWflz5l5EWJRft9FjHYFzHGBayFDeeekHtAfWd3sZNc9ULiIAuWLyEpALlms9ja4ToGOKt9LB+dLYSQxUPPUGTZxcgrlaysI6xjqW6bLvyMlR139ftbKlmd6eAp38hoLD+2cH4Z70oEVT461h8FpNsMaYWyOpw3A==
+Received: from SJ2PR11MB8369.namprd11.prod.outlook.com (2603:10b6:a03:53d::16)
+ by SA3PR11MB7461.namprd11.prod.outlook.com (2603:10b6:806:319::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Wed, 24 Jun
+ 2026 14:06:43 +0000
+Received: from SJ2PR11MB8369.namprd11.prod.outlook.com
+ ([fe80::6777:e753:dd60:983b]) by SJ2PR11MB8369.namprd11.prod.outlook.com
+ ([fe80::6777:e753:dd60:983b%4]) with mapi id 15.21.0139.018; Wed, 24 Jun 2026
+ 14:06:43 +0000
+From: <Don.Brace@microchip.com>
+To: <haoxiang_li2024@163.com>
+CC: <James.Bottomley@HansenPartnership.com>, <martin.petersen@oracle.com>,
+	<david.carroll@microsemi.com>, <justin.lindley@microsemi.com>,
+	<scott.teel@microsemi.com>, <storagedev@microchip.com>,
+	<linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: Re: Re:Re: [PATCH] scsi: hpsa: fix DMA mapping leak on IOACCEL2 reset
+ path
+Thread-Topic: Re:Re: [PATCH] scsi: hpsa: fix DMA mapping leak on IOACCEL2
+ reset path
+Thread-Index: AQHdAmBjE9j71K4IqkGWSUInwrj2jbZK4SsRgAJabgCAAISIlw==
+Date: Wed, 24 Jun 2026 14:06:43 +0000
+Message-ID:
+ <SJ2PR11MB8369F4ADD8F072D04B62BC5EE1ED2@SJ2PR11MB8369.namprd11.prod.outlook.com>
+References: <20260622160028.1240496-1-haoxiang_li2024@163.com>
+ <SJ2PR11MB8369CC3A2E487829E96057BAE1EF2@SJ2PR11MB8369.namprd11.prod.outlook.com>
+ <3881ced5.4b48.19ef8408558.Coremail.haoxiang_li2024@163.com>
+In-Reply-To: <3881ced5.4b48.19ef8408558.Coremail.haoxiang_li2024@163.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ2PR11MB8369:EE_|SA3PR11MB7461:EE_
+x-ms-office365-filtering-correlation-id: 32e6e491-b5be-4530-03bb-08ded1f9d1f6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|22082099003|18002099003|11063799006|4143699003|56012099006|38070700021;
+x-microsoft-antispam-message-info:
+ kt1z1o82NrMP4Ha2UExUfNHqoY0aERsqmmjUhz+brkhuh0QdOTk9bKiyndDKc4VpcBlETaAZrEzdfCg1iOYP9DefAknhiPCTK2fUY57Ob9Nnlx7Zy9XKuw45QKy3aVzrmuykSYa1tQBCO0k8MYAa3BtQZi7v1WAGsakZcQBdhCFx98Bk55zUP+EGYcJ5ZYa1vNFTiriJfS61qjQnfaQAk0RCSSYppGa7tqU5CvdjtBy+IcsqS71Qoj0oJLOqLAnnyA+qH/9L66CZqnHCWVgb+WY1/qgw7VazouZxZWyXFHYa/LvRZWslXZR6kWum0xqo0Cptu+PP6usQSRywyaOP41NeJnvmAM7rQ2NIWhrkvx2SitnhDsaJjsG3xCnz3r6oDhyYldEeaMLRlmO/L4YKWrj59MvB3C53YmujPI39cKErJNe3CjnF95JF1JlA2nH4DvcpK1b+uQXcv1YbgeeanNkNdygha/GJYijdeh3FJB1H2N7PbuGU8SdaLz6BnMzuX2HRWzYnhpQ9aOSdXhylaWGmQh7bycZX+xXDatnViz59RMlsyapHtPx0H46CagYK00P79dp9hydAci35HPOO9pbY1u9hNDxRyKqMG1Yi0U2ZL/SgfFpvb49QAWM03KdBhyQj9MR5n6JLUsJ9LRN5d6uSvo2s0ybnRY5bMhP04uNM9GMy+g7thoI74JHFYh2mBnbfcJrgDwZuBAHs4EEfIUALyNeKdL0wcv3ZFs3uTfU=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8369.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?YVVHeitjUm1LUU1OdTZJMDRCWHRtQ3krNTJZUHVSNklTdmhrMHlKOEhrNFl1?=
+ =?utf-8?B?RkxnRG1FTmJYSmxsRkVBTWt5dTVXcVhlVjYyY1lTaVg5QTBCSTJ5Um44OGJO?=
+ =?utf-8?B?aVBvM2VackJJMWJEWWYvOVZ0cmIyUXBMYjFQTUFoMG03QU8yczFqUVdjK2NI?=
+ =?utf-8?B?ZWFuVXdwbWFKcTF2am03MFlyY3hnYVFyWTRMTWFkMU1HSjhXbURRZy9CaFZy?=
+ =?utf-8?B?V2xjUVBDR25TK0kwUTdDUGhtRUVoZ25WenpydkdLWVNDeUFSaWRjc2ZCQnYz?=
+ =?utf-8?B?V2RNUnpOeG9GSFI0R1FjY2lLV0o2SVZwY1U4WnBFQmhaVzBJQWprSnlLc3RD?=
+ =?utf-8?B?dWQyc1k0SXNESjFxSlFTWGVmV3liNTBlczI1S3ZrU2NoZVltcTdKaGtVZDFt?=
+ =?utf-8?B?ZE1JNDZGeERzSXVDMEdkMFRmUGlZWE02UHRuRWJkdy9pNS84QWhEZWg1QlBL?=
+ =?utf-8?B?YW1oYndaOE9vRTcvTGxpS2hUN0FuYXliVlBmMXhFWVJIcjhGYzhmMVZGZ3J6?=
+ =?utf-8?B?dE8wTHhzNW1rNmZVNmtwYzBMOFNscE9LWTN4Rm5tYmNOOGRhRWZxcXA3d3pK?=
+ =?utf-8?B?eFQ5eC9KS2NKOVBCaVJRd0JwaWZFRTI3RVI4UkxqWnNQQ3drRDVMZ2UwUXRP?=
+ =?utf-8?B?Y0czMkx1aDZ0T2dxbngzVFZhc0VxeFNOS0FCVmZHV3dzZ2FSNEt6TzF0RkZ4?=
+ =?utf-8?B?UWFzVklJZjFYRVJwTmxXbStyanJSQlo2aThpTXREMVM5U3J3SGVFUEU0VmNB?=
+ =?utf-8?B?VFVCZ2dTWi9sTUxiTzNvZy9yUXc1a1NkWDNTS1h4QkcxQ2xha04ybkFkaWlF?=
+ =?utf-8?B?anJDWmw4M3BmbWVJdVBmSW1nbklrdkYzMStCekRIN1JFbXRXa3M0dkJISXVM?=
+ =?utf-8?B?cm1DNFRUNWpMZEdiUllWdDBIaVZXSzNUUUJQRUZJdTNjYTN5aExmY2xYZzRx?=
+ =?utf-8?B?US91QXdPRDhFZy9rTldKN1lmeEYvTUJ2NDI5bjZmenFNMnlzV0dZemlLZmlO?=
+ =?utf-8?B?bkEvVHZOK0dUczBPeWI4TE5EN1czM2JTL240SlhyTjRRbGJpZlhydjB1b2cx?=
+ =?utf-8?B?TGIvajdZL1h0cEFJbHRNWCtnSmx0UGx0U0pFbTZCS1ZicWIvMzVBc3RKakNo?=
+ =?utf-8?B?dzJEakM2Q29tS3NvenRhT3VXQ0ZHQjlCZzhLMnkyTXAyekEzU0VIdUZDL3JU?=
+ =?utf-8?B?WGovS0VvZkVhTjYxYWFSZUtsZ1d6T0V2dE1HT2k2NUFCYTRwOGlYanZvdGJI?=
+ =?utf-8?B?cUt4bVcvOE9ISmhrWVZTNEp4TXJtQmZUcERHSitsbWxwWFdUMUFNYWxNVm5r?=
+ =?utf-8?B?N1ExUE9kUnZnS0M4b2JwVVBLV0FIQkh0OW1sUzNudjBleFRKWDZ6bjJSM1FB?=
+ =?utf-8?B?L2hiS0szY3FKOTJFaHRMOEwwb2lLY2JBanovOE9qQWtxRlJzRUJnNm9aREl6?=
+ =?utf-8?B?NkY4cGQyNHNaUHNWSG5BaURqN1lTMlB2c1RXVnJFQWZGUTJuclZsWUMwTDdD?=
+ =?utf-8?B?eDN5RjY2b0xBN0YvZnFQNFFqVU5XaG94QkQvNWo1eU9jWFhwNVE3T1R5ZFBS?=
+ =?utf-8?B?MTE2cU94aVRLdkd1cEJrUW1GSDkzV29JQ1l3VVNrLzNMUkxoc21XR0xCZU1t?=
+ =?utf-8?B?dk52TklrZ2xudW9uVDRXanJHak9SNmEvc24xNkVwZ3h3aHNlL0ZjdDJlOVB2?=
+ =?utf-8?B?Y0MrdjNWSkpGRzNyeDVCVnR1S0x2YjJUcDJ6VFZUSDlZTkVwUjI2aTk4QTlh?=
+ =?utf-8?B?MGVCWHlKellxaHQ2dERmc0V4TFJ4MXNJR0dhZjdpVEtLWVRDOGhKUmtVclM2?=
+ =?utf-8?B?WTNheVptNXU0VTgzNllpVDBqSnVGQlVpTVdMZ1hGR0E4VkxlOEtSczZxWVBB?=
+ =?utf-8?B?U2N3MXNtaUJyUU9oVkFtUzV0Rm53SHFPazNFekpsaFFXek9NQ3RKSmVVTU51?=
+ =?utf-8?B?ekhqOUVmWVI0ZXBpdHh6U0VsajlVcEs5aS96dnY5N1VKRVZ2U2RzZmVGMW9I?=
+ =?utf-8?B?bzc4a25PYlAydkYwWWROVTcxenNmdVVDM1dTWGJrOVIxZllYZi9yQTMvVnlK?=
+ =?utf-8?B?Vlk2SDlxa0ZQUlR2ZVg0OW5PcTFjRWxJRnR6eHRUM0E4YlVVUWtKQjZ1ekxr?=
+ =?utf-8?B?K24yK1gvRHNiK2VFak1CbndqdFUvUUMyYnZNWFRVZ1RPNSsrRURqSlJ3SWVN?=
+ =?utf-8?B?cDVDWmk3WmJkUW5Zb0FsNDdOYVNKeDBoeXlhTTRIU28rcklsOTFvZFhFZGVn?=
+ =?utf-8?B?YTlvN2JROEwzd0VNc0kwR3hac0FvdThDMHhEYThTcFNjd1gxQUpHMlpoTGcr?=
+ =?utf-8?B?eU5HOGpBVXZmYTZXTUoxVUNjR2JMVzRNYWFKZVpCQ3ZKek9JZnF6QT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAFgddhJ2HeJ=oTBX_axMJcgJq7GXH9abe+LH+x9NGekGO4BMyw@mail.gmail.com>
+X-OriginatorOrg: microchip.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8369.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32e6e491-b5be-4530-03bb-08ded1f9d1f6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jun 2026 14:06:43.2253
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8ml3FV3cgl205v/6lfvx1LDWXrE8IHnSrk573smsoz0d7L7OOm1A2W1SqbRgfSZWnYmTpeb9Uw0ZB1i/0XrbWw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB7461
 
-On Wed, Jun 24, 2026 at 01:36:28PM +0530, Nikhil Solanke wrote:
-> > Actually, the best approach here would be to put this single change into
-> > a separate patch that comes before the current one.  That removes issues
-> > of making more than one functional change in one patch and improves
-> > bisectability.
-> 
-> Before? Shouldn't it be after my changes? That would make it easier to
-> justify the changes. And just to be sure, you did mention it does
-> align with what the intention of USB_QUIRK_DELAY_INIT, but it does
-> change its behavior when the quirk is not set. Atleast from what I
-> understood from the documentation and an LLM's summary, the device
-> needs time to prepare the full configuration set. So, does delaying
-> before the first header read really work? I can't test this since I
-> don't have a device that requires the quirk to be set.
-> 
-> I personally think adding a condition to check if the quirk is set and
-> then delaying before sending the first request would be appropriate.
-> What are your opinions on this.
-
-Well, put it this way: If you change the existing behavior, that change 
-belongs in a separate patch.  If you want to redo this patch so that it 
-doesn't change anything when the quirk flag isn't set, that's fine.
-
-> Also is it fine if the string lines exceed 100 columns?
-
-In lines containing long strings, it's okay for the string to extend 
-well beyond 80 columns.  But then you should break the line at some 
-point closely following the end of the string.  I'm sure you can find 
-examples of this if you look through some of the other source files.
-
-> Also, is there a need to check for krealloc()'s return value? Since we
-> are only shrinking the buffer, there won't be any moves or completely
-> new blocks (at least as per my understanding). Do I still need to
-> check its return value for completeness' sake?
-
-It's a little tricky to track this down, but if you look in 
-include/linux/slab.h you'll see that krealloc() is defined as 
-krealloc_node(), which is defined as krealloc_node_align(), which is 
-defined as krealloc_node_align_noprof(), which is declared with 
-__must_check.  So yes, you need to check the return value from 
-krealloc().
-
-Of course, you could simply try not checking the return value and seeing 
-if that provokes a warning or error from the compiler.
-
-Alan Stern
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcm9tOsKgaGFveGlhbmdf
+bGkyMDI0IDxoYW94aWFuZ19saTIwMjRAMTYzLmNvbT4KU2VudDrCoFdlZG5lc2RheSwgSnVuZSAy
+NCwgMjAyNiAxOjEwIEFNClRvOsKgRG9uIEJyYWNlIC0gQzMzNzA2IDxEb24uQnJhY2VAbWljcm9j
+aGlwLmNvbT4KQ2M6wqBKYW1lcy5Cb3R0b21sZXlASGFuc2VuUGFydG5lcnNoaXAuY29tIDxKYW1l
+cy5Cb3R0b21sZXlASGFuc2VuUGFydG5lcnNoaXAuY29tPjsgbWFydGluLnBldGVyc2VuQG9yYWNs
+ZS5jb20gPG1hcnRpbi5wZXRlcnNlbkBvcmFjbGUuY29tPjsgZGF2aWQuY2Fycm9sbEBtaWNyb3Nl
+bWkuY29tIDxkYXZpZC5jYXJyb2xsQG1pY3Jvc2VtaS5jb20+OyBqdXN0aW4ubGluZGxleUBtaWNy
+b3NlbWkuY29tIDxqdXN0aW4ubGluZGxleUBtaWNyb3NlbWkuY29tPjsgc2NvdHQudGVlbEBtaWNy
+b3NlbWkuY29tIDxzY290dC50ZWVsQG1pY3Jvc2VtaS5jb20+OyBzdG9yYWdlZGV2IDxzdG9yYWdl
+ZGV2QG1pY3JvY2hpcC5jb20+OyBsaW51eC1zY3NpQHZnZXIua2VybmVsLm9yZyA8bGludXgtc2Nz
+aUB2Z2VyLmtlcm5lbC5vcmc+OyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnIDxsaW51eC1r
+ZXJuZWxAdmdlci5rZXJuZWwub3JnPjsgc3RhYmxlQHZnZXIua2VybmVsLm9yZyA8c3RhYmxlQHZn
+ZXIua2VybmVsLm9yZz4KU3ViamVjdDrCoFJlOlJlOiBbUEFUQ0hdIHNjc2k6IGhwc2E6IGZpeCBE
+TUEgbWFwcGluZyBsZWFrIG9uIElPQUNDRUwyIHJlc2V0IHBhdGgKwqAKRVhURVJOQUwgRU1BSUw6
+IERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3Uga25vdyB0
+aGUgY29udGVudCBpcyBzYWZlCgpPbiAyMDI2LTA2LTIzIDAyOjI2OjQy77yMRG9uLkJyYWNlQG1p
+Y3JvY2hpcC5jb20gd3JvdGXvvJoKCj5GaXhlczogYzVkZmQxMDY0MTRmICgic2NzaTogaHBzYTog
+Y29ycmVjdCBkZXZpY2UgcmVzZXRzIikKPkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj5TaWdu
+ZWQtb2ZmLWJ5OiBIYW94aWFuZyBMaSA8aGFveGlhbmdfbGkyMDI0QDE2My5jb20+Cj4KPkFja2Vk
+LWJ5OiBEb24gQnJhY2UgPGRvbi5icmFjZUBtaWNyb2NoaXAuY29tCj5UaGFua3MgZm9yIHlvdXIg
+cGF0Y2guIENhbiBmaXggcG90ZW50aWFsIHBlcmZvcm1hbmNlIGlzc3VlcyB3aXRoIGRldmljZXMg
+dW5kZXJnb2luZyByZXNldHMuCj5XaGF0IGFib3V0IGFub3RoZXIgcGF0Y2ggZm9yIHdoZW4gY2Fs
+bCB0byBocHNhX21hcF9pb2FjY2VsMl9zZ19jaGFpbl9ibG9jaygpIGZhaWxzPwo+Cgo+CgpUaGFu
+a3MgZm9yIHlvdXIgcmV2aWV3ISBJIGNoZWNrZWQgdGhlIGhwc2FfbWFwX2lvYWNjZWwyX3NnX2No
+YWluX2Jsb2NrKCkgZmFpbHVyZSBwYXRoLiBJdAphbHJlYWR5IGRlY3JlbWVudHMgaW9hY2NlbF9j
+bWRzX291dCBhbmQgY2FsbHPCoCBzY3NpX2RtYV91bm1hcChjbWQpLiBJIHRoaW5rIHRoaXMgcGF0
+Y2gKaXMgZW5vdWdoPwoKWWVzLCBnb29kIGVub3VnaC4KVGhhbmtzIGZvciBjaGVja2luZy4KPi0t
+LQo+wqBkcml2ZXJzL3Njc2kvaHBzYS5jIHwgNCArKysrCj7CoDEgZmlsZSBjaGFuZ2VkLCA0IGlu
+c2VydGlvbnMoKykKPgo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvc2NzaS9ocHNhLmMgYi9kcml2ZXJz
+L3Njc2kvaHBzYS5jCj5pbmRleCBhMWIxMTZjZDQ3MjMuLjhlZGFkMTgzMGFiZSAxMDA2NDQKPi0t
+LSBhL2RyaXZlcnMvc2NzaS9ocHNhLmMKPisrKyBiL2RyaXZlcnMvc2NzaS9ocHNhLmMKPkBAIC01
+MDE3LDYgKzUwMTcsMTAgQEAgc3RhdGljIGludCBocHNhX3Njc2lfaW9hY2NlbDJfcXVldWVfY29t
+bWFuZChzdHJ1Y3QgY3Rscl9pbmZvICpoLAo+Cj7CoMKgwqDCoMKgwqDCoCBpZiAocGh5c19kaXNr
+LT5pbl9yZXNldCkgewo+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNtZC0+cmVzdWx0
+ID0gRElEX1JFU0VUIDw8IDE2Owo+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYXRvbWlj
+X2RlYygmcGh5c19kaXNrLT5pb2FjY2VsX2NtZHNfb3V0KTsKPivCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIHNjc2lfZG1hX3VubWFwKGNtZCk7Cj4rwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBpZiAodXNlX3NnID4gaC0+aW9hY2NlbF9tYXhzZykKPivCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBocHNhX3VubWFwX2lvYWNjZWwyX3NnX2NoYWluX2Js
+b2NrKGgsIGNwKTsKPsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLTE7Cj7C
+oMKgwqDCoMKgwqDCoCB9Cj4KPi0tCj4yLjI1LjEKClRoYW5rcywKSGFveGlhbmc=
