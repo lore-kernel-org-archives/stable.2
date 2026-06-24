@@ -1,66 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53CE145B3F;
-	Wed, 24 Jun 2026 18:16:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEEBD298CA3;
+	Wed, 24 Jun 2026 18:25:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782325017; cv=none; b=W40eoiJ1ISyWHuwxXkRiTl6n6SriZClIRau1rIZ+Pg5HETes8riY4pOBCbY+gMo+uTQJ2pv9Du/NIP8mTTE1pqOoNvpeybL95h32oKPGGM+VGlLIIUTZTd3yoXEgukK/OGmOp0Xj7jPdJgTOGnERyQKCEEAKQ0n5fFJsgI7z0QY=
+	t=1782325508; cv=none; b=rcjlkqsflxJwPm6clrX8Q1EgDWJ3ljwSAM74j/SC2O+B8Qh0npp0Atu01smkvd63auCgz+syL5j8DmhPWzREtEzJ4epQwvRiB6Pnr+7gncawe8iuhFJh0Tqx51w63O8mtk6a/p1R1Spm54+0wThkJCcHZ9KdJbrYWWE7EWMs+30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782325017; c=relaxed/simple;
-	bh=7NnaKsEYxlQ7+w0A9v23Et8HeWTkSa7HrG3iVsCesv0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WMna50D6HGEA61+ClLIjV+QPSH3v2cEBoDqvQ6Igk12o8eKMThmSYCD96vZ9pP3iajho0ijQ/429FUa0QJeLAZDJwbkKczA6IyPU4MIpUCHFIbDTbAu4rmfiJzAWG62F8v0MBhcxx6XqBQ349YllrlNcJcmBEMJzgGfWwiRR6VY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oG6UZAJW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782325508; c=relaxed/simple;
+	bh=5+Sy2FOiWnGoth3jqSOjOwUWo/xuVYB5KHaM0bCqpWk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fYmEA0TOIpoN8mKBcYqo0A1ZdkeJGwURUrdsnXjIA0iYU1IMZ+eQ34Qg0VbBRwisZFWhHgEsKGkzjCxKBHC0wL3cF+/VafDGJuHktcjd1yEKrQeQJ7Ckdq8ZatGaHV/M6L7aO4a90VSe/aMdyfL6+wEzZl8wzarUSk2T5HyHJwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=et54GvQw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oG6UZAJW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA13A1F000E9;
-	Wed, 24 Jun 2026 18:16:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="et54GvQw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DF5F1F000E9;
+	Wed, 24 Jun 2026 18:25:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782325016;
-	bh=xls8epCz9Eh9Dj6gwTjfqKKY5gFaZNqvZ8MA83RxZGc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oG6UZAJWNoZeyPneAL76f/xmotrBI5IsW5FU6h6ulrPghXDNhRXsXitBUwzTe0P2Q
-	 hyal4TKlYaEIW8M7YmqXXsoCHbtr4wafAf5rMygxrcggr9wKOkGfez+DdYiq9gWjKM
-	 DZkDb5J8VbWOZEvcGT4MHTKhBrdZwvWQN1nUm/FVS+PwE+9UBXlItk0GiNOwycPNM4
-	 OO17HXbEge9bWuH6/5XBUzMv97MTtYjNBJh0Utq2KUSa4EYvDTJ08DwpU5wH0W9L97
-	 feOopsCXYoJBnzbgCF81WVIsV2ssSIoouHqbbO3JBV5qvJ+qtWaldx0y80LN4Qi1ob
-	 Kiknqm1HQcliQ==
-Date: Wed, 24 Jun 2026 19:16:51 +0100
-From: Simon Horman <horms@kernel.org>
-To: Haoxiang Li <haoxiang_li2024@163.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, Steen.Hegelund@microchip.com,
-	daniel.machon@microchip.com, UNGLinuxDriver@microchip.com,
-	kees@kernel.org, bjarni.jonasson@microchip.com,
-	lars.povlsen@microchip.com, netdev@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	s=k20260515; t=1782325507;
+	bh=0fbeFIfFUvGMAe5cuzxSu1wxHQwrTOcqgfAbEnIXJ9I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=et54GvQwwoFwM29uYCezg/ao4/R7nkfnsMbw/fNchDLOPrBnKsXaVQrkXAJnZV9UZ
+	 pKpn+jDq9NWNJzICNboo4ikKAQxuggzhtINQ2HEYkgyaMc26gXoCtM5srIqM22gSh/
+	 iD/d2L0IaNFnWasv7Je+pNlpdh/ue+4fcii7aieLdb74gf0fwtvoFDYzQcBk0GD+w/
+	 6zjCZhdJqwjvNknSYJz7EFZW1/WYy7DaEO7D5OG4J3xqTE1FhRIxliWHPluPT5C/ZJ
+	 r129Cy6UkSnso0cSQna2njd2EaCN0i0lVKNZAdX8wQ3Ado0i37rToef+S4OEAhu3Hm
+	 iuhIxqYjn1Wfw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wcSHY-0000000FjZo-4Aon;
+	Wed, 24 Jun 2026 18:25:05 +0000
+Date: Wed, 24 Jun 2026 19:25:04 +0100
+Message-ID: <86ik77re2n.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Bradley Morgan <include@grrlz.net>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Quentin Perret <qperret@google.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Gavin Shan <gshan@redhat.com>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] net: sparx5: unregister blocking notifier on init failure
-Message-ID: <20260624181651.GC1131256@horms.kernel.org>
-References: <20260623115714.2192074-1-haoxiang_li2024@163.com>
+Subject: Re: [PATCH v3 3/3] KVM: arm64: top up stage 2 memcache for dirty logging faults
+In-Reply-To: <6FBA06E8-B0C4-444C-B226-0B756C0172A7@grrlz.net>
+References: <20260624160028.15591-1-include@grrlz.net>
+	<20260624160028.15591-4-include@grrlz.net>
+	<9FCEC7E9-DE50-443F-8E82-9FA22CA15ED6@grrlz.net>
+	<6FBA06E8-B0C4-444C-B226-0B756C0172A7@grrlz.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260623115714.2192074-1-haoxiang_li2024@163.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: include@grrlz.net, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, qperret@google.com, vdonnefort@google.com, gshan@redhat.com, alexandru.elisei@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, Jun 23, 2026 at 07:57:14PM +0800, Haoxiang Li wrote:
-> sparx5_register_notifier_blocks() registers the switchdev blocking
-> notifier before allocating the ordered workqueue. If the workqueue
-> allocation fails, the error path unregisters the switchdev and netdevice
-> notifiers, but leaves the blocking notifier registered.
+On Wed, 24 Jun 2026 18:46:10 +0100,
+Bradley Morgan <include@grrlz.net> wrote:
 > 
-> Add a separate error label for the workqueue allocation failure path and
-> unregister the switchdev blocking notifier there.
+> On June 24, 2026 6:39:16 PM GMT+01:00, Bradley Morgan <include@grrlz.net>
+> wrote:
+> >
+> >Note: Patch 3 seems to conflict because of patch 2 (the comments)
+> >
+> >
+> >Oops! :(
+> >
+> >V4 (after people have their review go), will contain one commit (patch
+> >3) with the updated comments.
+> >
+> >Patch 1 and 2 applies as usual.
+> >
+> >Apologies for my messup. 
+> >
+> >Thanks!
 > 
-> Fixes: d6fce5141929 ("net: sparx5: add switching support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+> 
+> Actually. Hmm.
+> 
+> I'll just drop patches 2 and 3, I'll do them at a later date, please
+> disregard patches 2 and 3, patch 1 doesn't rely on 2 and 3..
+> 
+> If you guys wanna have a look feel free! :)
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+As I suggested in my reply to your hasty v2, taking a few *days*
+between versions is generally a good thing. it gives the reviewers
+time to chime in, and gives you the opportunity to reflect on what
+you've just written (reading your own patches after a few days is a
+sure way to go and rewrite them).
 
+Actually, by posting more often, you are guaranteeing that people
+*avoid* reviewing your stuff, since odds are that there is a new
+version coming in the next 10 minutes, so why bother...
+
+But hey, that's free advice, so it's probably worthless.
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
