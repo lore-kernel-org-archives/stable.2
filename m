@@ -1,119 +1,119 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A1D3A6F1B
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 08:14:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5FCE3AC0FB;
+	Wed, 24 Jun 2026 08:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782288881; cv=none; b=PhNpDUyqni+LhiMUZnEZ0FslE2oS8q+VgbJ6uj1lmQw9r1huVPTZB9qvncJXhUUBJ5oek4/j8rBeO5vmnb31v6KHrft679YE80axt4AOAPp896hCIoNsbpKQgOAvXITsvRBwd3m68zH0G8UBHVjlqfBlMiEXwHlI4W6lYwFoJgg=
+	t=1782289218; cv=none; b=CYWvUJHUGb33iQgvuAkfDLl43GryWzVuoYeM/3HDIunKUIJj/tJ5IcTjyJu7VdRq4QsZUPztjuHZVs/sv625PbminTLwDlHcmXn9C2pMR4qoeanWsWigiVuWeFEYH8UIhbBW4vUqcFaVQ8h3J5cVy8VkglPY5cK1RIhdb9W1s6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782288881; c=relaxed/simple;
-	bh=SNghCK72DxaazYBg3LIzbKk7npcc3SWRM6RiCnpLKsY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=CG5ThdTgXPZdwa8aNvd59oMVAucdW1FsR/km2dtFaPz49VhX7JSDfuGFZ2Sa8no9YeQQy8XqxRowy5vw4JAThcO2//PYJLIEnCxygrnwe2Kj0h5bRjkx6D5RX5/XjQmfNuiWiWj4FlegLMvz3INhjn5rI8ZcpLlUWs5uYVUJbE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ORKPXT4P; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ORKPXT4P"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8453bcf7276so544220b3a.2
-        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 01:14:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782288880; x=1782893680; darn=vger.kernel.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=OCVBXI/svCRCwrJkBXjKTo/5hLmC+RUS/LaBmkHGSvo=;
-        b=ORKPXT4PZmivv+u+YWJqxHv6KUf/KK6kbEJNJ9KIksswf9Z2mVQyihHL4H+aY5SKX/
-         sl0yQeMC6qcSUiouwnNU6fzgwOnHcSrW/ZloL8uOjrFUqxWahSWfHur2BTPhjy5XPQ6e
-         UWM9PLgfis2AKtF5ijLOer6UtYQYFo8BvlvKYUDxWebUDQZ05mjsLoMQSzg3zxTWotYm
-         xsw1Mjv/rlhjoM/Ie1yzdX2+aqakzhksKqtDtpUDMeCM1kxHpcj68WUraOTQxook/nDZ
-         PjytF3/8CciZJMDBV8JseqsZo2CoxLxlUCtpIx7B415LOUKsG7hwshPqgRlHiBsdhH4I
-         dI9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782288880; x=1782893680;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OCVBXI/svCRCwrJkBXjKTo/5hLmC+RUS/LaBmkHGSvo=;
-        b=bKDHquVWDRkhRe4X8RkCiYNGIQ1pBxtPWc6gY0EfJf+1DONR9QgBu9nAaOyK/r2izi
-         +wIWlBSn8Dsy0jxXv5g3/VgFFYmeVKwc3xEPeLkPPjxBc68YvitquyJFspNQcIAjQXlz
-         J8SS5d5iaxGV87Mt/bcOOB4fe+rmyMdEdndwgOTxs6hTLRe8S3q/BA4+A7AHcbPV0S3L
-         fmsxhAMKjf5rP61itE9vF3T5b84jk6sH6s/uns65foWtrV+9KAHP+8/1wzq3y3j9EeJk
-         ElNms2EV847+4+QnrvyCqAEJkNVT75u/fYr7+mC1X8TMYRPPJFD0u2Z6ua5w44sNv1QX
-         rcqA==
-X-Gm-Message-State: AOJu0Yw23njiJnl/BpKNrgnEBWSB+OAK3rbxPjrYbKaD1bHiGEREtcEQ
-	B451FarlZyrAMG1OmhG1L9iZ6Q2eymdir/YJYozM0mJmxOh0rOp8nGnYC6nrNxr9tfg=
-X-Gm-Gg: AfdE7ck8urYsfa0iJbqLU+43CmPRIWeYZC/aQnqdyGCvk7ISJF26Dd9ZOJk8oS7cTyJ
-	6BhK8E7exJHEDRe+OmqiXCt/i2l1R53IeZcwb7J1WVIR4Yk+93TJ9HaT7XzYW2Nibud57asG7xt
-	tMthb+DhOJew3+X4lDje8iG240EJO3Depe+pc38SeE6B7+TLzGXl0KLLX/Mt2GiNbMEoY/BADHB
-	0UzrZs05klU69PRp8WPdBYgkqkNs0zxFZ1pie/lF7zROuEyT7tqm1WNx2GW20U/OI/T772535cq
-	d57F//2gOmAEcD7NVJX98OFNE5ilbO3/9nFHq5NXAUMgXlQgOziNjEiE0f2A1Vh1Vhnz7g1q+6T
-	0iKFet50TTOpjgNNKemwVjac7/hboksVsHdfqQAbh0qcC6aZtAbUgEIlElbeFktwX7LDT4ABUtI
-	/uumRVOyVRJGcz7dSL18QZai1ZMMXypk01S/BTKiNDGHzo7dATpJkoJS1KNCD9l81dBA==
-X-Received: by 2002:a05:6a00:a13:b0:845:363e:12d7 with SMTP id d2e1a72fcca58-845a2a96261mr2903123b3a.6.1782288879700;
-        Wed, 24 Jun 2026 01:14:39 -0700 (PDT)
-Received: from DESKTOP-19IMU7U.localdomain ([125.242.148.221])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-845a41474cfsm1426591b3a.61.2026.06.24.01.14.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 01:14:39 -0700 (PDT)
-Date: Wed, 24 Jun 2026 17:14:38 +0900
-From: Wongi Lee <qw3rtyp0@gmail.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
-	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jungwoo Lee <jwlee2217@gmail.com>
-Subject: Please apply 736b380e28d0 and eca856950f7c down to 6.1.y
-Message-ID: <ajuR7rZYU943EG6p@DESKTOP-19IMU7U.localdomain>
+	s=arc-20240116; t=1782289218; c=relaxed/simple;
+	bh=2zg9BWH7scCDsn2NtD/89iAObk1ppChjKw5IxGVKxL4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s4o0d1ih43igsD1uGt1gR0RBH1ddMx/cH6BSmTkC0Z+jukSXA/n43bY3vIxjLzZXh6lc7my77/GBNFUCmS3vdS4wV0ubSlE+7Oaj2k+43xnKQ6xeNqMIDbH8Y3Mw+FRIl/wWS4jTN5kXzMOaRxzLM5Mq/63YSYDXTcKgmERhS6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4glZbX6w08zYQtsg;
+	Wed, 24 Jun 2026 16:19:20 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 25620409D9;
+	Wed, 24 Jun 2026 16:20:03 +0800 (CST)
+Received: from [10.174.178.253] (unknown [10.174.178.253])
+	by APP1 (Coremail) with SMTP id cCh0CgBXWj8xkztqw3mxCw--.15244S3;
+	Wed, 24 Jun 2026 16:20:02 +0800 (CST)
+Message-ID: <81ed36cc-b5c8-41cf-8b7d-16611e61e294@huaweicloud.com>
+Date: Wed, 24 Jun 2026 16:20:00 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ext4: cancel dirty accounting for folios without buffers
+To: Zhu Jia <zhujia.zj@bytedance.com>, tytso@mit.edu, adilger.kernel@dilger.ca
+Cc: libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com,
+ ritesh.list@gmail.com, linux-ext4@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260623094947.7853-1-zhujia.zj@bytedance.com>
+Content-Language: en-US
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <20260623094947.7853-1-zhujia.zj@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:cCh0CgBXWj8xkztqw3mxCw--.15244S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7ArWUGw4UJFWUuFW3Wr1fXrb_yoW8tr18pF
+	W5KFZ8JrsYqasxCa43ua1UXr1UK393Wa1UGFy7J3Wjva45GFy2grW8KF18uF13Jr1xJFWF
+	qF4jgw17WF4UCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
+	wI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUF1
+	v3UUUUU
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-Hi,
+On 6/23/2026 5:49 PM, Zhu Jia wrote:
+> Since commit cc5095747edf ("ext4: don't BUG if someone dirty pages
+> without asking ext4 first"), mpage_prepare_extent_to_map() handles dirty
+> folios without buffer heads by warning, clearing PG_dirty, and skipping
+> them. ext4 cannot write these folios because there are no buffer heads to
+> map and submit.
+> 
+> That recovery leaves dirty accounting behind: folio_clear_dirty() clears
+> PG_dirty but does not undo the accounting charged when the folio was
+> dirtied. We have seen this in production as Dirty/nr_dirty staying high
+> while Writeback/nr_writeback and device write IO stayed near zero, with
+> many writer tasks blocked in balance_dirty_pages() throttling. Thus the
+> warning-and-skip recovery can still become a dirty-throttle DoS.
+> 
+> Use folio_cancel_dirty() so dropping PG_dirty also cancels the dirty
+> accounting.
 
-Could the following upstream commits be queued for the active stable
-trees?
+Hi, Zhu jia!
 
-  commit 736b380e28d0480c7bc3e022f1950f31fe53a7c5
-  ("ipv6: account for fraggap on the paged allocation path")
-
-  commit eca856950f7cb1a221e02b99d758409f2c5cec42
-  ("ipv4: account for fraggap on the paged allocation path")
-
-These fix incorrect fraggap accounting in the paged allocation path.
-This can write past skb->end into skb_shared_info when MSG_MORE is 
-used together with MSG_SPLICE_PAGES.
-
-Please apply these to 6.1.y, 6.6.y, 6.12.y, 6.18.y, 7.0.y and 7.1.y.
-
-I checked that the IPv6 upstream commit cherry-picks cleanly onto the
-following stable branches:
-
-linux-7.0.y
-linux-6.18.y
-linux-6.12.y
-linux-6.6.y
-linux-6.1.y
-
-I checked that the IPv4 upstream commit cherry-picks cleanly onto the
-following stable branches:
-
-linux-7.0.y
-linux-6.18.y
-
-The IPv4 commit needs a small context-only backport for:
-
-linux-6.12.y
-linux-6.6.y
-linux-6.1.y
+Thanks for the patch. This overall looks good to me. But should we also
+clear PAGECACHE_TAG_DIRTY and PAGECACHE_TAG_TOWRITE here? Since the folio
+won't be written back again until it gets dirtied, it seems cleaner to
+remove these tags as well. Are there any side-effects I'm missing?
 
 Thanks,
-Wongi
+Yi.
+
+> 
+> Fixes: cc5095747edf ("ext4: don't BUG if someone dirty pages without asking ext4 first")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhu Jia <zhujia.zj@bytedance.com>
+> ---
+>  fs/ext4/inode.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index c2c2d6ac7f3d1..7ea280e70c06e 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -2715,7 +2715,13 @@ static int mpage_prepare_extent_to_map(struct mpage_da_data *mpd)
+>  			 */
+>  			if (!folio_buffers(folio)) {
+>  				ext4_warning_inode(mpd->inode, "page %lu does not have buffers attached", folio->index);
+> -				folio_clear_dirty(folio);
+> +				/*
+> +				 * folio_cancel_dirty() pairs the dropped dirty
+> +				 * state with dirty accounting, but leaves stale
+> +				 * PAGECACHE_TAG_DIRTY/TOWRITE tags behind. Later
+> +				 * writeback may rescan this clean folio.
+> +				 */
+> +				folio_cancel_dirty(folio);
+>  				folio_unlock(folio);
+>  				continue;
+>  			}
+
