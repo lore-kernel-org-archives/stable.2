@@ -1,104 +1,67 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170A9388E66;
-	Wed, 24 Jun 2026 08:59:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9996226E71E;
+	Wed, 24 Jun 2026 09:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782291567; cv=none; b=GNsp1eDHePfXyC/H6i6vFR+90mZgnSJczyFvLwCZ9ial4a12ptfsAy8hyp5LCvFLPvxyRz8Vc0Smu/NjPAG6s8YrQXmuCj3GqzedJ5jmNeNhN1NnU9LVbKDICQXCbTTC/0eMBAirfWltCT7pNFRYO77g+F9q5NlZlodAm09DrmI=
+	t=1782291718; cv=none; b=gS4MY5hi/m+n2ZjbBqw4iphylUGAiucIEUSUoGaWmKxiP6kPMY3p4dxP+8YaVtNu3G7aGZ7xd+3IM25UmflxsmDvE4+Mqet6QbLyAMTBNQNSL06PxYAAUqYt1E8Zt/CGsDy49cIRX9FYZ2oa+daNlpWP8TcyrGIrt1ZsR8piI1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782291567; c=relaxed/simple;
-	bh=fC6w5B2nTnKPRsothCtVZ+qn5I3g0FjCgVdQ7JVzBlo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fCIEauxWao6IQ1nRuormU04jaqOOVbIPym9T/vJ/HYrUkb4Hdpwz1KLA7cKcEUPfaiigv3picLHo4ETyp7LKiZbxgZ+0ykfDecceVQTcQh7lqyKvP6B2orFNSfsabcF7Q17FrP5JBM7muhhhAOfzvNCSWgmMFR6aU3qgH3FVXJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=erdZEh2o; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1782291718; c=relaxed/simple;
+	bh=mG4kqmdJnkhWHZE+f5aO87axog8zU1qKaoOXCFnNm+k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z2Ain9OxQ9Ud+4c64h4Ejl+Axdoft1YDiTFu921jony1Yu86WOsmgW3igqTT6GVQsCStr6cP0bZV6blk2nAtSOZbQZDBA5qaqMQSrJ2R34DneVC2fyf7u1Xwf4tjbeGAlgUbO60gYpRLmJigK0hol6nN3tkEaF4/5z9Lg9dhzks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ULbq0g2c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="erdZEh2o"
-Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 439346cd7;
-	Wed, 24 Jun 2026 16:59:19 +0800 (GMT+08:00)
-From: Dawei Feng <dawei.feng@seu.edu.cn>
-To: mripard@kernel.org
-Cc: paulk@sys-base.io,
-	mchehab@kernel.org,
-	gregkh@linuxfoundation.org,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	samuel@sholland.org,
-	hverkuil@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn,
-	zilin@seu.edu.cn,
-	Dawei Feng <dawei.feng@seu.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: cedrus: fix memory leak in cedrus_init_ctrls()
-Date: Wed, 24 Jun 2026 16:59:20 +0800
-Message-Id: <20260624085920.578446-1-dawei.feng@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ULbq0g2c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76A821F000E9;
+	Wed, 24 Jun 2026 09:01:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1782291717;
+	bh=JQQFU0Uj4J/mvgiMOlCqHxgkArpeIUmKsdk5kg7XB0k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ULbq0g2cKsRQAPmuA54r489t5XzTOQLejeH6zBRkEYamrqVkaKVZwzydkFd1zPXMJ
+	 o4qVnMBHPST2GRUasjobUVEZtapCSexe/Hc39GFdbQcnuTTGkusVw2rKESMDFduPlP
+	 ab67dkh1Tgkfee+daI2ixgtmI2hgoD6g3nccoG3s=
+Date: Wed, 24 Jun 2026 11:00:45 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Wongi Lee <qw3rtyp0@gmail.com>
+Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
+	netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jungwoo Lee <jwlee2217@gmail.com>
+Subject: Re: Please apply 736b380e28d0 and eca856950f7c down to 6.1.y
+Message-ID: <2026062417-conceal-driving-0ebd@gregkh>
+References: <ajuR7rZYU943EG6p@DESKTOP-19IMU7U.localdomain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9ef8daf33f03a2kunmb50e020236f68
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHRpLVkhOTx1LGR8fTkIaTlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=erdZEh2o+CuenN77cKHcsJJ1qdCHhHw85+ajbj6voIkvWHuPMI/l8WEyNmbHW+2oU/Z3oJcbTNeRdMPI3imx4Pw8pDeGvZO2CNXVCkcWIGktPUH/jyjplOoWdLREfWyp6j98Qb0ccJd6yNNEqA2w3CWrJYZaezLpnyzUFClFKb0=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=nQ64irTn5cB91B6G4LunXFGhvflcWlZllUKpo3Q4WA0=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ajuR7rZYU943EG6p@DESKTOP-19IMU7U.localdomain>
 
-In cedrus_init_ctrls(), the V4L2 control handler is initialized before
-allocating memory for ctx->ctrls. If this allocation fails, the function
-returns -ENOMEM without freeing the previously allocated handler
-resources, leading to a memory leak.
+On Wed, Jun 24, 2026 at 05:14:38PM +0900, Wongi Lee wrote:
+> Hi,
+> 
+> Could the following upstream commits be queued for the active stable
+> trees?
+> 
+>   commit 736b380e28d0480c7bc3e022f1950f31fe53a7c5
+>   ("ipv6: account for fraggap on the paged allocation path")
 
-Fix this by calling v4l2_ctrl_handler_free() on the ctx->ctrls allocation
-failure path.
+I do not see that commit id in Linus's tree, are you sure it is correct?
 
-The bug was first flagged by an experimental analysis tool we are
-developing for kernel memory-management bugs while analyzing
-v6.13-rc1. The tool is still under development and is not yet publicly
-available. Manual inspection confirms that the bug is still
-present in v7.1.1.
+>   commit eca856950f7cb1a221e02b99d758409f2c5cec42
+>   ("ipv4: account for fraggap on the paged allocation path")
 
-An x86_64 allyesconfig build showed no new warnings. As we do not have an
-Allwinner SoC or board with a Cedrus VPU available to test with, no
-runtime testing was able to be performed.
+Same here, no id of that one in Linus's tree that I can see.
 
-Fixes: 50e761516f2b ("media: platform: Add Cedrus VPU decoder driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
----
- drivers/staging/media/sunxi/cedrus/cedrus.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+thanks,
 
-diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.c b/drivers/staging/media/sunxi/cedrus/cedrus.c
-index bbd186b8035b..96acd52e380c 100644
---- a/drivers/staging/media/sunxi/cedrus/cedrus.c
-+++ b/drivers/staging/media/sunxi/cedrus/cedrus.c
-@@ -285,8 +285,10 @@ static int cedrus_init_ctrls(struct cedrus_dev *dev, struct cedrus_ctx *ctx)
- 	ctrl_size = sizeof(ctrl) * CEDRUS_CONTROLS_COUNT + 1;
- 
- 	ctx->ctrls = kzalloc(ctrl_size, GFP_KERNEL);
--	if (!ctx->ctrls)
-+	if (!ctx->ctrls) {
-+		v4l2_ctrl_handler_free(hdl);
- 		return -ENOMEM;
-+	}
- 
- 	j = 0;
- 	for (i = 0; i < CEDRUS_CONTROLS_COUNT; i++) {
--- 
-2.34.1
-
+greg k-h
