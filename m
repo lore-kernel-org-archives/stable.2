@@ -1,77 +1,48 @@
-Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com [209.85.218.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8C3388379
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 06:22:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7CF38758F;
+	Wed, 24 Jun 2026 06:27:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782282178; cv=none; b=rJ4HiRe4mIPN77+79ecWm20BwUO7i52izReToq/glNGcQv/1EkVJLa4mzU1egjiAAY2MXPolSGNZBafBmo9DWpl9aL9yoZsZHXwtHpNFHMfxIOm6H1FoYpIHgHsk31+OrKl+TGrKFMnE5GXLc7jM3IVRjWMlIMX/OXa4DZEe42A=
+	t=1782282456; cv=none; b=VhiLqwFC9AL27lsB07mPQX8fIOEpu1c86wUhC2p9+asy6k9y+uAFPc/3Kd7anetXv76f0gN+XpyutjBAMbcmSirnVMBeefTpTRB2hTgAy0/iSTSo9heZ1w2129G42IpiXlLH0Jtc6AOSvb2rkZUNnW/QCMxBAa+gVWS5gSSSFag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782282178; c=relaxed/simple;
-	bh=Uhsyq0CUs3WXevhOJHuFqAYMxTAvMIMdMAGzrmceiWY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mugqCEGl6/YkjvsKuYcyscQ/GXvWtwB9zQU1oslVAdgu/WYzX9cvfSThM9ru+i5SEV1xO91RrAJ8SHkaFsxJSpmTYDrx/aNwVQ5o7V0To7LMeLRf+yXihYR9K3CKM9uFVqZ9/UcN8OsZ4l1ztZU/7JlhidakNskSTta3kuTJ6KA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=b83Xq97J; arc=none smtp.client-ip=209.85.218.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1782282456; c=relaxed/simple;
+	bh=5sZq2MEmOZzdOLk1yMKeZt0Arc4QPKJAuJvhZ9wbT4w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fHYkslsVYB4+z4Rl+qSEjTOnY2vNS1cvq1FSnq+ZlTRWIQ14ewAcwPZYNp6DJrfspvUfEErvEBdKYkA1tiGnPefMZ7J8tF+B5uH+h+sq7GOXN3TOCW36cjczSzniWFAcy+dyEg5X0F4jUUkXhIuXMc+hCK8tW7TkbpxM5kZlriw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=ivje4ESn; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="b83Xq97J"
-Received: by mail-ej1-f68.google.com with SMTP id a640c23a62f3a-c0d6c75c58cso101069166b.1
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 23:22:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782282175; x=1782886975; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=m2FYgyzT0EA6TeLkUKE25jXiBWCLsyh7nyw0QWKYGZE=;
-        b=b83Xq97JFEDDLfg2Ry4VwV3XOKhsfl7qNcHEie4cx31rUkv9klK5YXI9qVXvMppiWJ
-         mRNcQumKv/stAUA8y7n56/HhuTaPScrtXcPgJi1+CLPL8g1fTqtM+TqzERtD3pkY4YUw
-         TlKLCIjaYAjAaT8RPdbI4K5C7Rt+3CvaA1vGkly4HOoEk8zN+TENMahH9QOL8tHg1r5R
-         bXv4EPSsFDltqORJFao6Ppp0cfjc58ChLHgVVYT+JgbgEAiFr2XGWJwLFAWSasNaa2Rp
-         i5MVMjg9GVp5oeyyroaqJ9jXnnh/UmxIEmB+vVuJwdBdOn9hd9yi8UKA2a4B2bXfY1tw
-         EXSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782282175; x=1782886975;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=m2FYgyzT0EA6TeLkUKE25jXiBWCLsyh7nyw0QWKYGZE=;
-        b=lhSKWA3WzSMfW8+50rTuAXhRc2clLp+gvXOw7ipWZEIce8mWFOJ1nEWlGX5kLL2hij
-         HZVuHE1RQOe1sYAFaWyB8PfxUMtbIr5vdb1o0eTV0K+C8IGiRzpLDgGSOl9oiBt4FFDQ
-         +k0jyfCzdI73O68mg0R7Q+AkRrL6jHF1/n/IsegOqee69ypzTzEFoYeJyGcgBp6tIMvs
-         r9sNjbYr7zRRZHpmY3ixIpkiUXkElnsdUihVNqw9YxxZNxuZddIkrP0QQ/bVN6VIy/uw
-         /AHnh+yFRh8EIvCh8kLol8u6k61XyxWB70vk10JNYbf3lCHSyW8G4aZUZzlv/NEMw7wk
-         8SrA==
-X-Gm-Message-State: AOJu0YybBxpTrPhUvujkU2uxmuqZ+WlXEKCwP/uErVycJoR4i46Nwiqz
-	exfBR+IuvZNlYQSRxTRm+ez6f5eqI4tuLZWY67UoSPm1Ucjet7Y8AmU3bM2TDs8qZp1oICRszP9
-	77BeJiHEaeKih
-X-Gm-Gg: AfdE7cn4Ksl3Y2cGEWWnHbIAFEk2Sm6MMm06OR81PAuI7UE8b8N83pIcFSC/C/OOJmB
-	R5eYV4ZeyGoXRN/4ywJtMVZEimS74vaQirgdnljrGNq0FDC6XWgQoDVPrTHJ9I7QCEL/CE+4maX
-	49w7gmiSVZjRFmoIXIh/GfwHHO6oFRRWfrwcDr0P8Nv/kw2Mi78oR0nwCORydKojnPM0+Bs+ti5
-	8ZJWZb4DNcAKglimdhDu1rcrXwkb5CNGzwgQdknZ4JzDdpj9vCkmRkUUMHGtzreyhkJiULGa8Ad
-	WG/rwK0Sh11SAhMDiUDa7hWjOOQXETzDdClnVdNGGDa24enHR2Y9ZV8pdnH1rnXTSfRS61ZR6va
-	cbQ0G34vYltRqE3+FpslkBwztiLH/bM+FiRQyAUlNiQTTM0/XePsuLrOu6Achld9Gj4+pvjdzsK
-	eGeCWNHXeIYLcuQvve6w6jKP1n6J7tWrD0DWkAJ20=
-X-Received: by 2002:a17:907:e8f:b0:be8:93c2:cbae with SMTP id a640c23a62f3a-c0c644a5667mr842151466b.19.1782282175026;
-        Tue, 23 Jun 2026 23:22:55 -0700 (PDT)
-Received: from localhost (110-28-2-172.adsl.fetnet.net. [110.28.2.172])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e94429a5bdsm11356754a34.22.2026.06.23.23.22.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 23:22:54 -0700 (PDT)
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: stable@vger.kernel.org
-Cc: Shung-Hsi Yu <shung-hsi.yu@suse.com>,
-	Varun R Mallya <varunrmallya@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Leon Hwang <leon.hwang@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>
-Subject: [PATCH stable 6.12 2/2] selftests/bpf: Add test to ensure kprobe_multi is not sleepable
-Date: Wed, 24 Jun 2026 14:22:32 +0800
-Message-ID: <20260624062235.21002-2-shung-hsi.yu@suse.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260624062235.21002-1-shung-hsi.yu@suse.com>
-References: <20260624062235.21002-1-shung-hsi.yu@suse.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="ivje4ESn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1782282431;
+	bh=OBOWGHs0suZ0nAimJdxPtgJE7kQ7tpW2enopv6Ogv/Y=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=ivje4ESngw8Oxq1nKogNIqTLvpEoBz1QMYNghLwVEn9OcKX4GzCWZ2+SyV/VIbHTt
+	 qKArSzE5P1tXFZh9RYmFCW/J01qQcfuoubqXFqd4TyUHFtK/3tVKMkkvymtTumrkAA
+	 hiZnh4RUmH0IGzQDR5pRCQKASB9mL4VGJMRAW3Lo=
+X-QQ-mid: esmtpsz20t1782282427tdaaa7dd6
+X-QQ-Originating-IP: jsBfDqdOal073tfexxLZ81gxvHcUMiZ4k9Oz7bAbS+k=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 24 Jun 2026 14:27:05 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 8524247679303276143
+EX-QQ-RecipientCnt: 7
+From: raoxu <raoxu@uniontech.com>
+To: andreas.noever@gmail.com
+Cc: westeri@kernel.org,
+	YehezkelShB@gmail.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org
+Subject: [PATCH v4] thunderbolt: fix bandwidth group reservation indexing
+Date: Wed, 24 Jun 2026 14:27:03 +0800
+Message-ID: <7683233B90328D40+20260624062703.601833-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,128 +50,80 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: OZr+81FobgwuqGOTS8S6aVcM3CoJKk8voFpTYHCtsCgOJkC3MDm4ozmU
+	YqjKAkPovPdaT2kzV3GWPOzasXUe9WfJPI8y5a7cwXdeKT2MYT30fTCM/Fu2ZtHvSTsDkT2
+	J773/D5dj29Dmgln9nKenAzwfp6xlWLjnPNQHUFgej62KeYuXQ278ImRpRd8saEYDokodO3
+	IcQf0y3A94QR2+XoG2ZAhFRV7CMvskl18xTwNeE9tcD5r4s6Ik6u5ArOqrJrFXSCLS0v/HS
+	cY3doo+rFGnCTybk8inJGj/dnI4P5HNq98WdssL6TMMCbKV5b1ehZB5nxzHulxHPdwaeBkx
+	EZso8ZRRwX143muJ6VNj7jiMbtbdUYr1yrtxtVef+u/DK81erUC0OkRZgPUeMgSciPQsgJu
+	54yx00FZDknSOORIOE3Gwp4JjexbqvIr1nI09ZqGh/n7Hg5zbsdncpkxGAofA1zqxCff1Z+
+	9cqh21F6HnLcraB1s8m1EX4JLQkunjmfN06z4XtmkuqprlriStY4QpcvfLlDX9siQgZJ6K5
+	yCvH4HFXTQPzA4pnsfq8rEhwWDMV6TVR12ZXGqFznkXxyYSjNzHPvYhj2Co3P7wS6FfjDV/
+	gdz9I9+uYEYgHFPT+xBpYohaz4DHgTctcLsaE0DcNT+8FaPYM+gjGncI9z+knggoclGQsYf
+	G8DizYyHWx45Ca2Mn4cRfib2b/n5HoS/TqEV2fHJYD4pQXn6DelZwtuy2QLhuSaoGHvgXQn
+	52wjz1S3kT8EjDOm1WLxYtMyUU7wfwd7wVJrfiwG1hiHDeyAXhhwzt1M+vXaJhZx3XrTnqn
+	M4DVoeBQSJztWnEGQEisPZs99Cgb+J4geu+S2u0x5EwDxquGhrgMCPc1/VBIR3CIzawMgfQ
+	xpH0SGxLN/hROFjEZNgAhymSQa4qDxHnT6Vw08CuD5SFj98S0UqbtVVvUxzAUZfT5hXbrVa
+	Ui0yJUbiJqSA0JwAqEcF7+qr9q2cM1EYnzwWzY7JxlYxEOUNfVz1fQA3NTFDbvZoVAdPbmG
+	4YMMX8sMmtDUs4YDhSVyLhycGsqd+O4186K2EPxyM1rOfwF+VHCj5wLCBOY6bQnOuInFPWO
+	h9+kBbj0wNVh4kCE07/nEw+sPN3g9PX7rA6iKLEAmK7nVhNzOtkeH4=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-From: Varun R Mallya <varunrmallya@gmail.com>
+From: Xu Rao <raoxu@uniontech.com>
 
-commit c7cab53f9d5273f0cf2a26bdf178c4e074bdfb50 upstream.
+Valid bandwidth group IDs range from 1 through MAX_GROUPS, while Group
+ID 0 is reserved. tb_consumed_dp_bandwidth() uses the Group ID directly
+to index its local group_reserved[] array.
 
-Add a selftest to ensure that kprobe_multi programs cannot be attached
-using the BPF_F_SLEEPABLE flag. This test succeeds when the kernel
-rejects attachment of kprobe_multi when the BPF_F_SLEEPABLE flag is set.
+The array currently has MAX_GROUPS entries, so its valid indices are 0
+through MAX_GROUPS - 1. Group ID MAX_GROUPS therefore accesses one
+element past the end, and the final group's reserved bandwidth is not
+included when the array is summed.
 
-Suggested-by: Leon Hwang <leon.hwang@linux.dev>
-Signed-off-by: Varun R Mallya <varunrmallya@gmail.com>
-Link: https://lore.kernel.org/r/20260408190137.101418-3-varunrmallya@gmail.com
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+Give group_reserved[] MAX_GROUPS + 1 entries so direct Group ID
+indexing covers the reserved ID 0 and valid IDs 1 through MAX_GROUPS.
+
+Fixes: 52a4490e89d7 ("thunderbolt: Reserve released DisplayPort bandwidth for a group for 10 seconds")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
 ---
- .../bpf/prog_tests/kprobe_multi_test.c        | 35 ++++++++++++++++++-
- .../bpf/progs/kprobe_multi_sleepable.c        | 25 +++++++++++++
- 2 files changed, 59 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/bpf/progs/kprobe_multi_sleepable.c
+Changes in v4:
+- Keep MAX_GROUPS and the existing tb_cm::groups allocation, indexing,
+  and iteration unchanged.
+- Expand only group_reserved[] by one entry.
+- Drop the bandwidth group remapping and loop changes from v3.
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c
-index 960c9323d1e0..4183c2c057a3 100644
---- a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c
-+++ b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c
-@@ -6,6 +6,7 @@
- #include "kprobe_multi_override.skel.h"
- #include "kprobe_multi_session.skel.h"
- #include "kprobe_multi_session_cookie.skel.h"
-+#include "kprobe_multi_sleepable.skel.h"
- #include "bpf/libbpf_internal.h"
- #include "bpf/hashmap.h"
- 
-@@ -216,7 +217,9 @@ static void test_attach_api_syms(void)
- static void test_attach_api_fails(void)
+Changes in v3:
+- Keep tb_cm::groups[] sized with MAX_GROUPS and map its entries
+  directly to Group IDs 0 through 7.
+- Initialize the reserved Group ID 0 entry, but skip it when allocating
+  or discovering usable bandwidth groups.
+- Drop the incorrect MAX_GROUPS - 1 sizing from v2.
+
+Changes in v2:
+- Keep Group ID as the direct group_reserved[] index instead of
+  converting it to a zero-based index as in v1.
+- Include the reserved Group ID 0 in MAX_GROUPS.
+
+ drivers/thunderbolt/tb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+index b7cc689..47753a5 100644
+--- a/drivers/thunderbolt/tb.c
++++ b/drivers/thunderbolt/tb.c
+@@ -609,7 +609,7 @@ static int tb_consumed_dp_bandwidth(struct tb *tb,
+ 				    int *consumed_up,
+ 				    int *consumed_down)
  {
- 	LIBBPF_OPTS(bpf_kprobe_multi_opts, opts);
-+	LIBBPF_OPTS(bpf_test_run_opts, topts);
- 	struct kprobe_multi *skel = NULL;
-+	struct kprobe_multi_sleepable *sl_skel = NULL;
- 	struct bpf_link *link = NULL;
- 	unsigned long long addrs[2];
- 	const char *syms[2] = {
-@@ -224,7 +227,7 @@ static void test_attach_api_fails(void)
- 		"bpf_fentry_test2",
- 	};
- 	__u64 cookies[2];
--	int saved_error;
-+	int saved_error, err;
- 
- 	addrs[0] = ksym_get_addr("bpf_fentry_test1");
- 	addrs[1] = ksym_get_addr("bpf_fentry_test2");
-@@ -323,9 +326,39 @@ static void test_attach_api_fails(void)
- 	if (!ASSERT_EQ(saved_error, -E2BIG, "fail_6_error"))
- 		goto cleanup;
- 
-+	/* fail_9 - sleepable kprobe multi should not attach */
-+	sl_skel = kprobe_multi_sleepable__open();
-+	if (!ASSERT_OK_PTR(sl_skel, "sleep_skel_open"))
-+		goto cleanup;
-+
-+	sl_skel->bss->user_ptr = sl_skel;
-+
-+	err = bpf_program__set_flags(sl_skel->progs.handle_kprobe_multi_sleepable,
-+				     BPF_F_SLEEPABLE);
-+	if (!ASSERT_OK(err, "sleep_skel_set_flags"))
-+		goto cleanup;
-+
-+	err = kprobe_multi_sleepable__load(sl_skel);
-+	if (!ASSERT_OK(err, "sleep_skel_load"))
-+		goto cleanup;
-+
-+	link = bpf_program__attach_kprobe_multi_opts(sl_skel->progs.handle_kprobe_multi_sleepable,
-+						     "bpf_fentry_test1", NULL);
-+	saved_error = -errno;
-+
-+	if (!ASSERT_ERR_PTR(link, "fail_9"))
-+		goto cleanup;
-+
-+	if (!ASSERT_EQ(saved_error, -EINVAL, "fail_9_error"))
-+		goto cleanup;
-+
-+	err = bpf_prog_test_run_opts(bpf_program__fd(sl_skel->progs.fentry), &topts);
-+	ASSERT_OK(err, "bpf_prog_test_run_opts");
-+
- cleanup:
- 	bpf_link__destroy(link);
- 	kprobe_multi__destroy(skel);
-+	kprobe_multi_sleepable__destroy(sl_skel);
- }
- 
- static void test_session_skel_api(void)
-diff --git a/tools/testing/selftests/bpf/progs/kprobe_multi_sleepable.c b/tools/testing/selftests/bpf/progs/kprobe_multi_sleepable.c
-new file mode 100644
-index 000000000000..932e1d9c72e2
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/kprobe_multi_sleepable.c
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include "vmlinux.h"
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+
-+void *user_ptr = 0;
-+
-+SEC("kprobe.multi")
-+int handle_kprobe_multi_sleepable(struct pt_regs *ctx)
-+{
-+	int a, err;
-+
-+	err = bpf_copy_from_user(&a, sizeof(a), user_ptr);
-+	barrier_var(a);
-+	return err;
-+}
-+
-+SEC("fentry/bpf_fentry_test1")
-+int BPF_PROG(fentry)
-+{
-+	return 0;
-+}
-+
-+char _license[] SEC("license") = "GPL";
--- 
-2.54.0
+-	int group_reserved[MAX_GROUPS] = {};
++	int group_reserved[MAX_GROUPS + 1] = {};
+ 	struct tb_cm *tcm = tb_priv(tb);
+ 	struct tb_tunnel *tunnel;
+ 	bool downstream;
+--
+2.50.1
 
