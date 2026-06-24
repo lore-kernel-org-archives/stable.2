@@ -1,152 +1,86 @@
-Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2880DE555;
-	Wed, 24 Jun 2026 00:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.97.182.222
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 42ABC19995E;
+	Wed, 24 Jun 2026 01:20:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782261193; cv=none; b=Xr8mjmUey1GRzxEq+Bs4L9QN9FWzaLfAuCCQUqKN1QwFdRN6tq2DNkF4+y7wF+Ra2ETAFZXo7PpJZlrluTe9HanVqKr88wBbx7IVZtsgH95MC8tfdgEFQQlaEzXI/D2XNHbM/LKofJMhFjQRQ6Qs1I5pUJ50kM7zH3/AWgXD+8k=
+	t=1782264026; cv=none; b=GS5Iyw6D+HZ/CKRVBnflnKEDu3zO+3L09+keUDXo5WXLy24SjkcmMHYiaztSu3Lm6k728EkZbOGATSO81ywD05m9RkCSw6u0yeioGjNSon18Cx8n8Y9vbbQIKABuxJtYQSEsyc4wsNInJI+ZV1cy97dvAdjFHyyXDJKGB80CO24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782261193; c=relaxed/simple;
-	bh=RJwzbP6AOFlTb+ucuscYV6woLw/D274yC0iKw8Pv4BE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BWneJAD1K0FYfAGm8M5Pq5rrVNact76c+KPlUF6IX1F9rJQW9uadV0Vxs7KTd7zYr2g8G1NZOhwRYgOom6TLVYmqyNON9CRgnqPwhds2f2os7gijkSkltXWemoj4YAPz+oCX4wKO9kVsfvGXKKJCoBoqa92TRb7J//fkM+anNfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=209.97.182.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDnVtC_JTtqNNIEAw--.19900S3;
-	Wed, 24 Jun 2026 08:33:04 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgBHl5+_JTtqlq47Ag--.46757S2;
-	Wed, 24 Jun 2026 08:33:03 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: mirela.rabulea@nxp.com,
-	mchehab@kernel.org
-Cc: shawnguo@kernel.org,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	imx@lists.linux.dev,
-	linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] media: imx-jpeg: finish the job on device_run() error paths
-Date: Wed, 24 Jun 2026 00:32:08 +0000
-Message-Id: <20260624003208.12400-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1782264026; c=relaxed/simple;
+	bh=LRhhQxlv7tDwHgMYsYEz+Cp27davY0GRfN0Qh1DiFjo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rx+AGUTWU696uOQtyB4fjx0sm78kfL+0X+NZasYrhjuCL1FakvbDWEJiVyEOx3lFrrXRahN5VG+xSa+Z32JDXA5V1jNQzqgm+AhEsvQwAuNXYqQNN4urG6GwAEJtXZlys9iOF0Q/ggLMMK00p6dsulOPdqbsPxIk9M1WdF1dKD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=iqW5JDek reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="iqW5JDek"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=RhVCMiN2A
+	jWP4GgT4xDsh2vnJCHKlRf8JX+7XyIr3qs=; b=iqW5JDekV0Rr6xayW1rPl0IPM
+	4UhfwEYxIBt5pMhPTz4POibxsHWBuzXVNRGVxaKoMGReoOXOGaBFmByQKZxIQWfp
+	Odiro53WUEwbpA7QRiUq3URiLzTV+SsouMSxfCpnpmQ7i8XID2lWBdAPnyFjlyCc
+	MLgIkyCbciiNEAzk/Q=
+Received: from [10.196.180.86] (unknown [113.200.174.80])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with SMTP id BrQMCkB2G7fKMDtqhoAXAw--.55906S3;
+	Wed, 24 Jun 2026 09:20:11 +0800 (CST)
+Message-ID: <ca6fbfb1-1e08-4b4f-b823-8312327d5b38@stu.xidian.edu.cn>
+Date: Wed, 24 Jun 2026 09:20:09 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgBHl5+_JTtqlq47Ag--.46757S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?xwzJ2QXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBFB48mKC5DDzTCdDpjvUvjuGCGVJYTzvwsltdPDHA6IOBJZ
-	R1Ezv3MDA86MpxTOsUDN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoWxuF13trWDuFWUZF43JFWxXwc_yoW5ury5pr
-	ZIgryqkFyFqrs7tF4xtr4UAF1Yyrn3uF42ga18Ww1ku34agF4DtF40k3WUtF17tas29F1F
-	qw4qvwsrurWDCFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPIb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E
-	14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8w
-	AqjxCEc2xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8I
-	cVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjc
-	xG0xvY0x0EwIxGrwACjcxG0xvY0x0EwIxGrVCF72vEw4AK0wACI402YVCY1x02628vn2kI
-	c2xKxwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
-	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
-	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4U
-	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jbo7NUUU
-	UU=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] i2c: i801: fix hardware state machine corruption in
+ error path
+To: Andi Shyti <andi.shyti@kernel.org>, w15303746062@163.com
+Cc: jdelvare@suse.com, linux-i2c@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260512093534.348655-1-w15303746062@163.com>
+ <ajqtEIAX_D5z_UW5@zenone.zhora.eu>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <ajqtEIAX_D5z_UW5@zenone.zhora.eu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:BrQMCkB2G7fKMDtqhoAXAw--.55906S3
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYB7k0a2IF6F4UM7kC6x804xWl14x267AK
+	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1j
+	6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j6r4UM28EF7xvwVC2z280aVAFwI0_Gr
+	0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAac4AC62xK8xCEY4vEwIxC4wAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcVAKI48JMxkIecxEwVAFwVWkMxAIw28IcxkI7VAKI48JMxAqzxv26xkF7I0En4kS14
+	v26r126r1DMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2Iq
+	xVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42
+	IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY
+	6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aV
+	CY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU2eOJUUUUU
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAQUOEWo6o2ZU4QAAs7
 
-mxc_jpeg_device_run() returns early through a shared "end" label on several
-error paths (no free slot, mxc_jpeg_alloc_slot_data() failure, or missing
-buffers or queue data), and none of them calls v4l2_m2m_job_finish().
-Since the delayed work is queued only after the hardware is started, those
-paths neither finish the job directly nor queue timeout work that could
-finish it later. The job is left with TRANS_RUNNING set, so the
-wait_event() in v4l2_m2m_cancel_job() (reached from v4l2_m2m_ctx_release()
-at close) waits indefinitely and the close hangs.
+Hi Andi,
 
-mxc_jpeg_alloc_slot_data() uses dma_alloc_coherent(), so the failure path
-is reachable under memory pressure.
+>> Fixes: 1f760b87e54c ("i2c: i801: Call i801_check_pre() from i801_access()")
+>> Cc: stable@vger.kernel.org # v6.3+
+> Please, next time don't leave a blank space in the tag section.
+I apologize for that; it was an oversight on my part. I'll be more 
+careful in future submissions.
+> The patch looks correct to me, although I'd have liked an ack
+> from Jean.
+>
+> I merged it to i2c/i2c-fixes.
 
-Return the src/dst buffers with VB2_BUF_STATE_ERROR and call
-v4l2_m2m_job_finish() on those paths: paths that have buffers use a
-"buf_finish" label; the no-buffer path uses "job_finish" directly. This
-mirrors the existing jpeg_parse_error path.
+I understand.
 
-This bug was found by static analysis.
+If Jean has any concerns, I'm happy to provide a follow-up fix if needed.
 
-Fixes: 2db16c6ed72c ("media: imx-jpeg: Add V4L2 driver for i.MX8 JPEG Encoder/Decoder")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- .../media/platform/nxp/imx-jpeg/mxc-jpeg.c    | 21 +++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+I'll also keep an eye on the thread in case he comments.
 
-diff --git a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-index 9e4a813489c0..6b224a19f40e 100644
---- a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-+++ b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-@@ -1525,15 +1525,15 @@ static void mxc_jpeg_device_run(void *priv)
- 	dst_buf = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
- 	if (!src_buf || !dst_buf) {
- 		dev_err(dev, "Null src or dst buf\n");
--		goto end;
-+		goto job_finish;
- 	}
- 
- 	q_data_cap = mxc_jpeg_get_q_data(ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE);
- 	if (!q_data_cap)
--		goto end;
-+		goto buf_finish;
- 	q_data_out = mxc_jpeg_get_q_data(ctx, V4L2_BUF_TYPE_VIDEO_OUTPUT);
- 	if (!q_data_out)
--		goto end;
-+		goto buf_finish;
- 	src_buf->sequence = q_data_out->sequence++;
- 	dst_buf->sequence = q_data_cap->sequence++;
- 
-@@ -1571,11 +1571,11 @@ static void mxc_jpeg_device_run(void *priv)
- 	ctx->slot = mxc_get_free_slot(&jpeg->slot_data);
- 	if (ctx->slot < 0) {
- 		dev_err(dev, "No more free slots\n");
--		goto end;
-+		goto buf_finish;
- 	}
- 	if (!mxc_jpeg_alloc_slot_data(jpeg)) {
- 		dev_err(dev, "Cannot allocate slot data\n");
--		goto end;
-+		goto buf_finish;
- 	}
- 
- 	mxc_jpeg_enable_slot(reg, ctx->slot);
-@@ -1597,8 +1597,17 @@ static void mxc_jpeg_device_run(void *priv)
- 		mxc_jpeg_dec_mode_go(dev, reg);
- 	}
- 	schedule_delayed_work(&ctx->task_timer, msecs_to_jiffies(hw_timeout));
--end:
-+
- 	spin_unlock_irqrestore(&ctx->mxc_jpeg->hw_lock, flags);
-+	return;
-+buf_finish:
-+	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
-+	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
-+	v4l2_m2m_buf_done(src_buf, VB2_BUF_STATE_ERROR);
-+	v4l2_m2m_buf_done(dst_buf, VB2_BUF_STATE_ERROR);
-+job_finish:
-+	spin_unlock_irqrestore(&ctx->mxc_jpeg->hw_lock, flags);
-+	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
- }
- 
- static int mxc_jpeg_decoder_cmd(struct file *file, void *priv,
--- 
-2.34.1
+
+Best regards,
+Mingyu Wang
 
