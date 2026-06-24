@@ -1,77 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B7F2EEE60;
-	Wed, 24 Jun 2026 09:55:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F7D3B71BE
+	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 10:01:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782294916; cv=none; b=LgAKI/MqLBiGV7XkySTmp+nK3+4NtDWo2KzN8aDhLnhkRQr22nL0Ya47jY1/puzSGxHUc4zktr0BiSQtwOWtYSNKbROU5FY7KwPucWqbEc8Nsrb7jzlArSSPHx3ZLKlDLx8aLpm13cPnpgMMaVlaHApH7meMi1txUyckZPuKirY=
+	t=1782295266; cv=none; b=hm4Tqrklgv8+2ZYPTGskuRjG/yHuSQAv30McKC+n7+Yq0Ri0zLIlZIFFJ6KPIOvfRZdFdSft+5eIwzN25Kzb7isiVrzKi9zVZPW4cGYzdWiLP//7dOlzonXPStVb3tbgHeyMXf67QKLwlHfBMrBxdlqCZFgh9WnehvrJELQqVwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782294916; c=relaxed/simple;
-	bh=veoHHobWOSqCfbPZ6yU/KvwdbWjpFw1LgXCo+C1Gu8I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XrjbavA/CJA9W07VvktYW1igvoQQiuH+aUuJlPujlyMdIIPQGOawEZlgWznMM+VnfwWH61DKWZt6pHDFob4xueV5nV1AS+3bu7AHkLsbRd9LPE3sEKLvORBZHnx7ml8FVeSHMiDLTYgUbdhQkda54KCW5CFPU0A7DQB9e8ABl4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SYtjoPXP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782295266; c=relaxed/simple;
+	bh=oIEYfyBI/HY6darqsVGBC82MMHrJVuN7qqQh5Yujuq0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Eoq9/hkddha4/DY3s+gQQq0EwPd2mwRjuY+lCSNJAV70g4fIgxJOiRBdP0SGrhq7qj3A/DYjJ9l9H4yAzy0hRGG9S4BofTa58x43H10gcZoYcFHnuQvNEWTaBr5Ha08sBZ4cm53KRRbeutsNPfJeK4epJuk0Lm/4MUdTVlcWxd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=ejqkpcJl; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SYtjoPXP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D3541F000E9;
-	Wed, 24 Jun 2026 09:55:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782294915;
-	bh=iEive92/b764zbh1F4eouWRY1Zxw6EldLaKnejGO/As=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SYtjoPXPOZuEHT58F7mJAtt3b9PniEDRwez/qyVATGEX+YC0Ob3S20OYvSZSPu3RD
-	 PZiFEMRa3swWyKVYi4dkbbz/8eX+vD89iKMb7bqrMubFFpCqBKHx58+h0P/snz4fWU
-	 AbgSrmyTZX7PClDsV27LKmBnHa1zd3VOrnyjUVhvveMpOr0HYp0mY1Edxd6NPBzdQW
-	 x4QPvBrclrqX4R/z85AnEUOVOj0XhSxDZ71cS8s39GeiAxe2+l1J8gpDE7aCbaY9LY
-	 s2nkgpBfVz3j1g4d8vmG6Y8gH1aFrh9k3t5cGWHdRO+zWQwb7WcxaiLJnKHDYOcCz7
-	 9xJVli1yZmX7g==
-Date: Wed, 24 Jun 2026 11:55:10 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Nathan Chancellor <nathan@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] x86/boot/compressed: Disable jump tables for clang
-Message-ID: <ajupfkcZTTxGP2dG@gmail.com>
-References: <20260623-x86-boot-compressed-disable-jt-clang-v1-1-575fccd58107@kernel.org>
- <ajulLtY29HtgWokg@gmail.com>
- <20260624093848.GA48970@noisy.programming.kicks-ass.net>
- <ajuoqIk4tSV7CmFC@gmail.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="ejqkpcJl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1782295192;
+	bh=VkOUhbDww57iO0p2rxbAqZ3RyZ9Ngi7YuBKPJC2iPVk=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=ejqkpcJl8PlOpgMSoluWekrdqnK0f6hpC47+WDMzyZJ+stBi3ZItDY9zqTxcqvRV5
+	 6A/4QpHcU1ZhifpVl74/gecnb4gdXNQ5by7B3zxxvqV7HGBjmz6ZLtQl5L1kkWknJl
+	 y1Ki2f7XfPDMSLkTPQ0r1M5SjX0ibAo2P26eUSHk=
+X-QQ-mid: esmtpsz21t1782295172t6a960cbd
+X-QQ-Originating-IP: 5QqDY9Mz6lwiVbw5RvPqbi8h8LaIAWJ/rqaZHU13jvM=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 24 Jun 2026 17:59:30 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 14368970454076104944
+EX-QQ-RecipientCnt: 9
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: 00107082@163.com,
+	guanwentao@uniontech.com,
+	iklatzco@gmail.com,
+	patches@lists.linux.dev,
+	peterz@infradead.org,
+	sashal@kernel.org,
+	stable@vger.kernel.org,
+	yeoreum.yun@arm.com
+Subject: [PATCH] perf: Fix dangling cgroup pointer in cpuctx backport
+Date: Wed, 24 Jun 2026 17:59:21 +0800
+Message-Id: <20260624095920.2558406-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <2026062455-obtrusive-sandbox-d6d1@gregkh>
+References: <2026062455-obtrusive-sandbox-d6d1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ajuoqIk4tSV7CmFC@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NRN3UPsLzYKVIW2xGgI+zTzrMhHEZ34YQiVhoPad/kZ0sEXCPJylnjIZ
+	A/hVA9DahAmetClMLK1cZTfNBjOJqj7RBxUqZwdctuKehGu7TK70YQ9Sf/OwsXVEagdZpsI
+	jaaQxFlCtvdNhaSl7k3u8Vel6y0cuX5DVXA5Ql01AV0aCeyFmm/hsVA0vWAI3DRlJmHYap7
+	rNz02g07LFXDKKVKMzor83aMwIJJqxgIe3buA5DO0OPPEhwKacUoHXYcHH/N0mmCDp9PIUx
+	H1+diaRUCId/7HjOJPxz/FFOiacs9VcwwlfnBJemLJY03FEkEFbTccEwvyBE76LO/cdRICs
+	hHTQ8lm+OM8eybRTn//4XzuenXM4pOsbi9VYccvAtZiSTbMv76yUIn1AFdxPddXMEtzm3L4
+	oOAmw1KjjcgBl/SV79XRfRyJzQWyhssHVsH6DHVSjSgP/laaNrzSXiGSENxq9CSAmoZTR2c
+	S8PL6WlZt66h0hv8g27Wq2kete9HuqEt6X6YxBMIwBa0kq+fzBI5HIrRMn93E29B/Y891EC
+	D+Te6zUNLX0tPdPrHc4c/UFr51h9u7/DFIyWb5GX0YZQA5EDzfZZKJZIysj2XfVP3tYLlf2
+	9hd9swjuI0Pd/8Hn5hTT8yIypgj8Hitne8VaVxgUhDdZWZRVg4UVtE3FYXXOXRqIYd22gfg
+	0R8qMcCXZbWckcd0OChTlwOZmtmS+9dzBlkVd/bpXrs1WGkPzssWe/aREbCxyOoq1r6FIXy
+	32KLfIKkyipvpiJb/gy6hYnFF+CIGcnYL9SsmkLFMYBYjUfYqDVSZmKO9Dlskbvj/a+LGyM
+	WLmjJorHOm1GONfR5Someh20e0SxgGc7Paqf6g8uo0vB2QJjkNgQcQuB5fj1FScGYlPKgf7
+	eZPErAMON6unXBsIQVPzAvsoamoEE917Mo2+XwmgcM8Sx9QAIuIwxzczl2G0SxJKB4fhB3y
+	3hOYDOlVFSMcDEDNI9ntl/EV5tGalZdetIyRDC0V1qqgtvqiBWnJet44lbgiUfoBBwa7+T2
+	1t91t19rMs54b5a0cz7imFqAnwA6+itUnkIEpLc6QC5kKGXGyP17WFgxskaHGKPnrjZv52y
+	Q==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
+recently backport of ("perf: Fix dangling cgroup pointer in cpuctx")
+use a middle version, so aligned with the upstream commit:
+3b7a34aebbdf2a4b7295205bf0c654294283ec82
 
-* Ingo Molnar <mingo@kernel.org> wrote:
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+---
+ kernel/events/core.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index a4187dea6402a..73a86db06cc9b 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -2384,10 +2384,9 @@ __perf_remove_from_context(struct perf_event *event,
+ 	 */
+ 	if (flags & DETACH_EXIT)
+ 		state = PERF_EVENT_STATE_EXIT;
+-	if (flags & DETACH_DEAD) {
+-		event->pending_disable = 1;
++	if (flags & DETACH_DEAD)
+ 		state = PERF_EVENT_STATE_DEAD;
+-	}
++
+ 	event_sched_out(event, ctx);
+ 
+ 	if (event->state > PERF_EVENT_STATE_OFF)
+-- 
+2.30.2
 
-> > I'm sitting on a patch to unconditionally disable jump-tables for
-> > x86_64:
-> > 
-> >   https://web.git.kernel.org/pub/scm/linux/kernel/git/peterz/queue.git/log/?h=x86/syscall
-> 
-> In particular:
-> 
->   https://web.git.kernel.org/pub/scm/linux/kernel/git/peterz/queue.git/commit/?h=x86/syscall&id=76612388fe7aa41a8eb88f890d451bc17255eda0
-
-Side note: since arch/x86/boot/compressed/Makefile constructs
-its own KBUILD_CFLAGS, so a change to that Makefile will still
-be required to universally apply -fno-jump-tables and work
-around this Clang optimization in the decompression code.
-
-Thanks,
-
-	Ingo
