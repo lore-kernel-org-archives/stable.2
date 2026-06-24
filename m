@@ -1,59 +1,73 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2CC103AEF21;
-	Wed, 24 Jun 2026 07:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com [209.85.218.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6711D5160
+	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 07:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782285721; cv=none; b=NIfhz7DmpAKaUUTO8hAH44WrFje0ohhwCoqjBajaL/Dd8DRllqGlSEvQFTTwAYrtuqNNoCTukmyT9iZO5k4wWl2KYYiFpBxRRV/iWZrk7KuoIqQl00S1t4HZ6+1Y8gyC/gc8YwjcCDNlQB/rdlgnS1HVVG5xvcCRNWdM245oKH4=
+	t=1782286152; cv=none; b=VWiCytD5unVM+td27Z72Z3LAO4d5JFIMYXRaICeSxCDV+Aj0f/E/SSrqAKnHfIZ9vUnDFquiLgb5RgzPvY5RDcV9R8rjqUkrX3RXDSsdM+wt4PlI7fKj/EYyBCQxd8V4/AX5LqnXjZllrUKWosF0vNCa8R+IDAjuTqzepQ+eBFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782285721; c=relaxed/simple;
-	bh=gMg4cJ1lc++NRxcPRk2cYtFHfIOvtZA72w1qrvkSCA0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W1C1RXOnHDRZX/yIk0uMtLD3qG6CBFE2Z079YD9qPAcZ3iJpblca+YQJZS1Nlgq/KcI+hK9yZeRvC8iV3Bi+R4HWXEVzMeIgFmczAo8DZxaOIkswvRH2/P+ysS8CEmpUyPXViU46MwZ8fgLcdVQwnqzzx3gX39hvjjFepGBvWRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=OoIZ3WFJ; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1782286152; c=relaxed/simple;
+	bh=gvBmCBqn5+uUthgyL/Yo5EJAHOL6uLjcL31etUlterw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GSkPheYbWcGxICxwhi1PZmigrGV1UVT9a63u/PyuPB0/1JJL2N9MhGVBkw/kzYdAtwtLNKTjGaPNO1rrU8G8efkwo8yZ8BjVerNMTLogJovOsfpDfhaMx1qSigFA9xZSXpYn0ma2qTPDSLOq5v435LxcasPKouiK3z9Ow6plkU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=TKDDpt8Q; arc=none smtp.client-ip=209.85.218.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="OoIZ3WFJ"
-Received: by linux.microsoft.com (Postfix, from userid 1134)
-	id 53B8B20B7166; Wed, 24 Jun 2026 00:21:49 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 53B8B20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1782285709;
-	bh=+K6Bh3hIZ0daDgho/IIaZdeJRXdcwIKYv85ESXlxElU=;
-	h=From:To:Cc:Subject:Date:From;
-	b=OoIZ3WFJ9urIb8zKJk/SKAcq0vOaTbS9Ka59q/SZKLvuSPnD2i640TmETgUIXnfpa
-	 CU4qGxrOwRQPl9x4jjO937bz+n8448IBdwIx2UtcdxBnDgNBsVuRTj9A2B6AmPSm1j
-	 efH4ukfIac81kARf9E8UZMkcK+JQOdYSLRvC+gdk=
-From: Shradha Gupta <shradhagupta@linux.microsoft.com>
-To: Dexuan Cui <decui@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Konstantin Taranov <kotaranov@microsoft.com>,
-	Simon Horman <horms@kernel.org>,
-	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
-	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
-	Shiraz Saleem <shirazsaleem@microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Long Li <longli@microsoft.com>,
-	Yury Norov <yury.norov@gmail.com>
-Cc: Shradha Gupta <shradhagupta@linux.microsoft.com>,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Paul Rosswurm <paulros@microsoft.com>,
-	Shradha Gupta <shradhagupta@microsoft.com>,
-	Saurabh Singh Sengar <ssengar@microsoft.com>,
-	stable@vger.kernel.org,
-	Yury Norov <ynorov@nvidia.com>
-Subject: [PATCH v5 net] net: mana: Optimize irq affinity for low vcpu configs
-Date: Wed, 24 Jun 2026 00:21:35 -0700
-Message-ID: <20260624072138.1632849-1-shradhagupta@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="TKDDpt8Q"
+Received: by mail-ej1-f66.google.com with SMTP id a640c23a62f3a-c08922c23ebso89437666b.0
+        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 00:29:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1782286149; x=1782890949; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=//zWkE5eXuOOvL8CKayhYFP5cUFO3Bzt9/t1TnfnhDI=;
+        b=TKDDpt8Q6V/W+Fbwcy6TX3g4bWMIjyb45fDwg54yS+CPTRjQDX+45V2nCDsYtuNu3x
+         2MbL3Tcdq3juXip8fmID043IV3Vh4MReqWt58/bClmmi/SYqASXSee0bmN3q8lXbgjuU
+         U6iHeb8v0dTBnd0MeSZR4x6qVkaMseGs3hQiLE6BW0IxKz3Ki9oB7VEMY1UQPjc3U1t8
+         SsOjMq7nP09Cd1YuxKE45aK5+g3DFc8Ce/j/lAknCWXkCN25dumrG2dz9KIIKAmJ39/D
+         8Ed8zI0LNr+pCbOQLGQg4KjKribA7KG97Lwcju1xOMOkQF5DBwwGhEFpYeNJWHk8sLPe
+         IZKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782286149; x=1782890949;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=//zWkE5eXuOOvL8CKayhYFP5cUFO3Bzt9/t1TnfnhDI=;
+        b=PV4dVnvfIsR6W74gLr/raez8TSoXptvvaIjNxq2bHSzO3Xan/k4Ik3UJq2xkT/IJLz
+         rFMEA7GSS6Z+L/bI/lXOwDhiHYf8kY6BBofxAK9BsCmcUEO36XdAWvy7GEiyzv7uCfBw
+         lOZrmrQXJqygGYbQhqfhmY/RslMXtJ3D2GHNsMi8bG3NNjkSMq2wF9dGVe0ihU/NucD8
+         eIez2eWfonq3s/ezZqUPt+mQ19m+9edSH+A8hs80zMeDM3FvhKgsN02mq0/ac8e5BLI0
+         Inu7wf18hxQYlWb7ZwFV41P8PEriIaCONKyKOIMV/EmRRXimtJAiYnshU6joUB2N0IBW
+         Iocw==
+X-Gm-Message-State: AOJu0YwawMY2/yOT9cwVrZRjsqc0fUuXy8QL1UZZogRgk/ncz+DUZ9Mm
+	f+wxL34WgGB95NzJc4zeSI9nJeJxAUQMvvD0xcEDgYKYofGyEWsPGLwOeiCZrX4KCZlpXlvNlOq
+	fE0YJmkoDOtg3
+X-Gm-Gg: AfdE7cml6GHLzijs8ogZM8B/448cNllvKQu6hgf46lEZJd0VjfW8kNxcJEIEhEv7fbC
+	O01H+Y5xtGIM5Q2CoQ9RuPW7sKcrpk0dQ5Vw76Yz8y4awzz3tWQTbFzKZEQc+q5gnzBQ+Rw/Ifw
+	GXuOOm5E8hgqxKek6rNJ2sayhnWWS7wnBH4IkpziW45aVzkf0dOr9aCL647IFdIr45Eczcv0/yO
+	ye3rEj/IJ78IY6CICH9u/QN/34/+S+RqnfuRTvqmAr+LyHa7VDQaKgfpaIxmoWmMcp9pdcfutkE
+	YBj7eiwhl4VQu6UlgNQ+AZUOQu21CXb+Y/wY1Q6+GxtDRW0hmbSG5mrOwiU5eDyG27jP6LWWg0y
+	s1fTF66MIW7qmYVULPJsA/re9U6W2s3y8PbptpAVUycOmLBxWU6es0u5Stvl4NNndHpFzq9ondg
+	GNFu5PvvGmCye+ukIiESNWGaMNO8R+u9HKvsX6L1A=
+X-Received: by 2002:a17:907:8743:b0:bff:334:1fe1 with SMTP id a640c23a62f3a-c107d40abc6mr352657266b.12.1782286149076;
+        Wed, 24 Jun 2026 00:29:09 -0700 (PDT)
+Received: from localhost (110-28-2-172.adsl.fetnet.net. [110.28.2.172])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8bc5ef74ecsm13146195a12.29.2026.06.24.00.29.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 24 Jun 2026 00:29:08 -0700 (PDT)
+From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+To: stable@vger.kernel.org
+Cc: Shung-Hsi Yu <shung-hsi.yu@suse.com>,
+	Varun R Mallya <varunrmallya@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Leon Hwang <leon.hwang@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>
+Subject: [PATCH stable 6.6 1/2] bpf: Reject sleepable kprobe_multi programs at attach time
+Date: Wed, 24 Jun 2026 15:28:59 +0800
+Message-ID: <20260624072901.28197-1-shung-hsi.yu@suse.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,268 +76,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Before the commit 755391121038 ("net: mana: Allocate MSI-X vectors
-dynamically"), all the MANA IRQs were assigned statically and together
-during early driver load.
+From: Varun R Mallya <varunrmallya@gmail.com>
 
-After this commit, the IRQ allocation for MANA was done in two phases.
-HWC IRQ allocated earlier and then, queue IRQs dynamically added at a
-later point. By this time, the IRQ weights on vCPUs can become imbalanced
-and if IRQ count is greater than the vCPU count the topology aware IRQ
-distribution logic in MANA can cause multiple MANA IRQs to land on the
-same vCPUs, while other sibling vCPUs have none (case 1).
+commit eb7024bfcc5f68ed11ed9dd4891a3073c15f04a8 upstream.
 
-On SMP enabled, low-vCPU systems, this becomes a bigger problem as the
-softIRQ handling overhead of two IRQs on the same vCPUs becomes much more
-than their overheads if they were spread across sibling vCPUs.
+kprobe.multi programs run in atomic/RCU context and cannot sleep.
+However, bpf_kprobe_multi_link_attach() did not validate whether the
+program being attached had the sleepable flag set, allowing sleepable
+helpers such as bpf_copy_from_user() to be invoked from a non-sleepable
+context.
 
-In such cases when many parallel TCP connections are tested, the
-throughput drops significantly.
+This causes a "sleeping function called from invalid context" splat:
 
-Fix the affinity assignment logic, in cases where the IRQ count is greater
-than the vCPU count and when IRQs are added dynamically, by utilizing all
-the vCPUs irrespective of their NUMA/core bindings (case 2).
+  BUG: sleeping function called from invalid context at ./include/linux/uaccess.h:169
+  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1787, name: sudo
+  preempt_count: 1, expected: 0
+  RCU nest depth: 2, expected: 0
 
-The results of setting the affinity and hint to NULL were also studied,
-and we observed that, with this logic if there are pre-existing IRQs
-allocated on the VM (apart from MANA), during MANA IRQs allocation, it
-leads to clustering of the MANA queue IRQs again (case 3).
+Fix this by rejecting sleepable programs early in
+bpf_kprobe_multi_link_attach(), before any further processing.
 
-
-=======================================================
-Case 1: without this patch
-=======================================================
-4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
-
-	TYPE		effective vCPU aff
-=======================================================
-IRQ0:	HWC		0
-IRQ1:	mana_q1		0
-IRQ2:	mana_q2		2
-IRQ3:	mana_q3		0
-IRQ4:	mana_q4		3
-
-%soft on each vCPU(mpstat -P ALL 1) on receiver
-vCPU		0	1	2	3
-=======================================================
-pass 1:		38.85	0.03	24.89	24.65
-pass 2:		39.15	0.03	24.57	25.28
-pass 3:		40.36	0.03	23.20	23.17
-
-=======================================================
-Case 2: with this patch
-=======================================================
-4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
-
-        TYPE            effective vCPU aff
-=======================================================
-IRQ0:   HWC             0
-IRQ1:   mana_q1         0
-IRQ2:   mana_q2         1
-IRQ3:   mana_q3         2
-IRQ4:   mana_q4         3
-
-%soft on each vCPU(mpstat -P ALL 1) on receiver
-vCPU            0       1       2       3
-=======================================================
-pass 1:         15.42	15.85	14.99	14.51
-pass 2:         15.53	15.94	15.81	15.93
-pass 3:         16.41	16.35	16.40	16.36
-
-=======================================================
-Case 3: with affinity set to NULL
-=======================================================
-4 vCPU(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
-
-	TYPE		effective vCPU aff
-=======================================================
-IRQ0:	HWC			0
-IRQ1:	mana_q1			2
-IRQ2:	mana_q2			3
-IRQ3:	mana_q3			2
-IRQ4:	mana_q4			3
-
-=======================================================
-Throughput Impact(in Gbps, same env)
-=======================================================
-TCP conn	with patch	w/o patch	aff NULL
-20480		15.65		7.73		5.25
-10240		15.63		8.93		5.77
-8192		15.64		9.69		7.16
-6144		15.64		13.16		9.33
-4096		15.69		15.75		13.50
-2048		15.69		15.83		13.61
-1024		15.71		15.28		13.60
-
-Fixes: 755391121038 ("net: mana: Allocate MSI-X vectors dynamically")
-Cc: stable@vger.kernel.org
-Co-developed-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
-Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
-Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
-Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Reviewed-by: Yury Norov <ynorov@nvidia.com>
+Fixes: 0dcac2725406 ("bpf: Add multi kprobe link")
+Signed-off-by: Varun R Mallya <varunrmallya@gmail.com>
+Acked-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Acked-by: Leon Hwang <leon.hwang@linux.dev>
+Acked-by: Jiri Olsa <jolsa@kernel.org>
+Link: https://lore.kernel.org/r/20260401191126.440683-1-varunrmallya@gmail.com
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+[shung-hsi.yu: sleepable flag was in 'struct bpf_prog_aux' before commit
+66c8473135c6 "bpf: move sleepable flag from bpf_prog_aux to bpf_prog"]
+Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
 ---
-Changes in v5
- * modify commit message to align with fix patch format
----
-Changes in v4
- * Add mana prefix on irq_affinity_*() in mana driver
- * Corrected grammar, comment for mana_irq_setup_linear()
- * added new line as per guidelines
- * added case 3 in commit message for when affinity is NULL
----
-Changes in v3
- * Optimize the comments in mana_gd_setup_dyn_irqs()
- * add more details in the dev_dbg for extra IRQs
----
-Changes in v2
- * Removed the unused skip_first_cpu variable
- * fixed exit condition in irq_setup_linear() with len == 0
- * changed return type of irq_setup_linear() as it will always be 0
- * removed the unnecessary rcu_read_lock() in irq_setup_linear()
- * added appropriate comments to indicate expected behaviour when
-   IRQs are more than or equal to num_online_cpus()
----
- .../net/ethernet/microsoft/mana/gdma_main.c   | 78 +++++++++++++++----
- 1 file changed, 64 insertions(+), 14 deletions(-)
+Checked that test_verifier and all flavors of test_progs in BPF
+selftests still passes on x86_64 with the patchset applied[1].
 
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index a0fdd052d7f1..e8b7ffb47eb9 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -210,6 +210,8 @@ static int mana_gd_query_max_resources(struct pci_dev *pdev)
- 	} else {
- 		/* If dynamic allocation is enabled we have already allocated
- 		 * hwc msi
-+		 * Also, we make sure in this case the following is always true
-+		 * (num_msix_usable - 1 HWC) <= num_online_cpus()
- 		 */
- 		gc->num_msix_usable = min(resp.max_msix, num_online_cpus() + 1);
- 	}
-@@ -1909,8 +1911,8 @@ void mana_gd_free_res_map(struct gdma_resource *r)
-  * do the same thing.
-  */
- 
--static int irq_setup(unsigned int *irqs, unsigned int len, int node,
--		     bool skip_first_cpu)
-+static int mana_irq_setup_numa_aware(unsigned int *irqs, unsigned int len,
-+				     int node, bool skip_first_cpu)
- {
- 	const struct cpumask *next, *prev = cpu_none_mask;
- 	cpumask_var_t cpus __free(free_cpumask_var);
-@@ -1946,11 +1948,24 @@ static int irq_setup(unsigned int *irqs, unsigned int len, int node,
- 	return 0;
- }
- 
-+/* must be called with cpus_read_lock() held */
-+static void mana_irq_setup_linear(unsigned int *irqs, unsigned int len)
-+{
-+	int cpu;
-+
-+	for_each_online_cpu(cpu) {
-+		if (len == 0)
-+			break;
-+
-+		irq_set_affinity_and_hint(*irqs++, cpumask_of(cpu));
-+		len--;
-+	}
-+}
-+
- static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
- {
- 	struct gdma_context *gc = pci_get_drvdata(pdev);
- 	struct gdma_irq_context *gic;
--	bool skip_first_cpu = false;
- 	int *irqs, err, i, msi;
- 
- 	irqs = kmalloc_objs(int, nvec);
-@@ -1958,10 +1973,12 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
- 		return -ENOMEM;
- 
- 	/*
-+	 * In this function, num_msix_usable = HWC IRQ + Queue IRQ.
-+	 * nvec is only Queue IRQ (HWC already setup).
- 	 * While processing the next pci irq vector, we start with index 1,
- 	 * as IRQ vector at index 0 is already processed for HWC.
- 	 * However, the population of irqs array starts with index 0, to be
--	 * further used in irq_setup()
-+	 * further used in mana_irq_setup_numa_aware()
- 	 */
- 	for (i = 1; i <= nvec; i++) {
- 		msi = i;
-@@ -1975,18 +1992,51 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
- 	}
- 
- 	/*
--	 * When calling irq_setup() for dynamically added IRQs, if number of
--	 * CPUs is more than or equal to allocated MSI-X, we need to skip the
--	 * first CPU sibling group since they are already affinitized to HWC IRQ
-+	 * When calling mana_irq_setup_numa_aware() for dynamically added IRQs,
-+	 * if number of CPUs is more than or equal to allocated MSI-X, we need to
-+	 * skip the first CPU sibling group since they are already affinitized to
-+	 * HWC IRQ
- 	 */
- 	cpus_read_lock();
--	if (gc->num_msix_usable <= num_online_cpus())
--		skip_first_cpu = true;
-+	if (gc->num_msix_usable <= num_online_cpus()) {
-+		err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node,
-+						true);
-+		if (err) {
-+			cpus_read_unlock();
-+			goto free_irq;
-+		}
-+	} else {
-+		/*
-+		 * When num_msix_usable are more than num_online_cpus, our
-+		 * queue IRQs should be equal to num of online vCPUs.
-+		 * We try to make sure queue IRQs spread across all vCPUs.
-+		 * In such a case NUMA or CPU core affinity does not matter.
-+		 * Note: in this case the total mana IRQ should always be
-+		 * num_online_cpus + 1. The first HWC IRQ is already handled
-+		 * in HWC setup calls
-+		 * However, if CPUs went offline since num_msix_usable was
-+		 * computed, queue IRQs will be more than num_online_cpus().
-+		 * In such cases remaining extra IRQs will retain their default
-+		 * affinity.
-+		 */
-+		int first_unassigned = num_online_cpus();
- 
--	err = irq_setup(irqs, nvec, gc->numa_node, skip_first_cpu);
--	if (err) {
--		cpus_read_unlock();
--		goto free_irq;
-+		if (nvec > first_unassigned) {
-+			char buf[32];
-+
-+			if (first_unassigned == nvec - 1)
-+				snprintf(buf, sizeof(buf), "%d",
-+					 first_unassigned);
-+			else
-+				snprintf(buf, sizeof(buf), "%d-%d",
-+					 first_unassigned, nvec - 1);
-+
-+			dev_dbg(&pdev->dev,
-+				"MANA IRQ indices #%s will retain the default CPU affinity\n",
-+				buf);
-+		}
-+
-+		mana_irq_setup_linear(irqs, nvec);
- 	}
- 
- 	cpus_read_unlock();
-@@ -2041,7 +2091,7 @@ static int mana_gd_setup_irqs(struct pci_dev *pdev, int nvec)
- 		nvec -= 1;
- 	}
- 
--	err = irq_setup(irqs, nvec, gc->numa_node, false);
-+	err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node, false);
- 	if (err) {
- 		cpus_read_unlock();
- 		goto free_irq;
+1: https://github.com/kernel-patches/linux-stable/actions/runs/28080168542/job/83133064970
+---
+ kernel/trace/bpf_trace.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-base-commit: 96e7f9122aae0ed000ee321f324b812a447906d9
+diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+index a896b80252ae..87e7cc2dc5cc 100644
+--- a/kernel/trace/bpf_trace.c
++++ b/kernel/trace/bpf_trace.c
+@@ -2905,6 +2905,10 @@ int bpf_kprobe_multi_link_attach(const union bpf_attr *attr, struct bpf_prog *pr
+ 	if (prog->expected_attach_type != BPF_TRACE_KPROBE_MULTI)
+ 		return -EINVAL;
+ 
++	/* kprobe_multi is not allowed to be sleepable. */
++	if (prog->aux->sleepable)
++		return -EINVAL;
++
+ 	flags = attr->link_create.kprobe_multi.flags;
+ 	if (flags & ~BPF_F_KPROBE_MULTI_RETURN)
+ 		return -EINVAL;
 -- 
-2.34.1
+2.54.0
 
