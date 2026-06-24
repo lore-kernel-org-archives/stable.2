@@ -1,43 +1,53 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A8A3A16A1;
-	Wed, 24 Jun 2026 09:38:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2FA339BFED;
+	Wed, 24 Jun 2026 09:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782293927; cv=none; b=Vx9/DbmcF6xJgUSDmy2OLvBy29134w0JIuSl4fQ6Wwb+7wSxOJihLmoCQeYa3y5SnEynoobYyibb3BV94VSdUhgzzo0pnx5fOsjJhYtw7zt+5Nf2ZLpQlxW5ImXDzSRfcZsL9Sud56WfmTqqir17hIc6SBk5ZbvLk9WAHdC7+yo=
+	t=1782293938; cv=none; b=lKcGK5f5HvQntY8lXKa9nSz3vgHbN2hSiC2e86jI91VtU4D/gIazyEvBPHGXUNdohITc5ETjlyWaO2gPWHBTFiWAvI88B4p9RFNSTRhAlPtk2Vl/9PnDZyQ4Q7C3HOnpkXqysr5259uNYAWSVppSVKwYcVk4PnFHWd5Ua9BpxoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782293927; c=relaxed/simple;
-	bh=M2YMAyyrXp+m7daGRk83FBoAsgDyiLWZKk8W6zjdrnU=;
+	s=arc-20240116; t=1782293938; c=relaxed/simple;
+	bh=Ig0qug2I/Az2rFpPjAA8R35/bN9spPpqR1YFwjD4zzc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kFD3QXGxmnJz1kOL1e5SV5QgjIghs0DdZSb3gZxtlZUmKfqAGpm0H7rNY57uw9kFvkjchHreMPTWkCOpwls5xDkj0YyWoo3fyzF+gIXYe4LLjIAoQV1rnlqz8afwg4cCCwG+g+IefolSKYm5bjd1T1uGlgneghQxg8QV/GDyv4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qRFYTXnE; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DDjEFyWL8holBsBVy4Wcz4o/mI8X+fYHWEuGkVMf0hr+aA5OdT2HnTi5ZlNbOuP4fstflKHYlrGB5X5TBrzUoo1FvnlQvONq8f1YY4C9rsFu/Dm88B4m+Bpsb4n7QQDYxq37H4R4lYE4FjFLrRPe3BotftGAzOa0iy769w4/5g4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=BXJkkgGD; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qRFYTXnE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECF251F000E9;
-	Wed, 24 Jun 2026 09:38:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782293921;
-	bh=HwV1spafxwZqAlW6qWIVPzH+VQ8S47/INwFY5X+vW84=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=qRFYTXnEJeQ7p0Il9HzB8Gcdt6GhOBhMppeXIjxMYGd+tL1swUy7Cb1xJN64rB9Wr
-	 UVvR6h+Q6b1ABEjXrEYUYZK/7tTIfLLFPIbKQGeWkfyHAjLxm9lm9xSIu49S4/tpts
-	 G/13VZbx20tLGL3kauIbdteRfF84AW9LalZh2W7g=
-Date: Wed, 24 Jun 2026 11:37:29 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Wongi Lee <qw3rtyp0@gmail.com>
-Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
-	netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jungwoo Lee <jwlee2217@gmail.com>
-Subject: Re: Please apply 736b380e28d0 and eca856950f7c down to 6.1.y
-Message-ID: <2026062416-amulet-paradox-cf7c@gregkh>
-References: <ajuR7rZYU943EG6p@DESKTOP-19IMU7U.localdomain>
- <2026062417-conceal-driving-0ebd@gregkh>
- <ajujm9+82N1g/HgF@DESKTOP-19IMU7U.localdomain>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BXJkkgGD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=lX806ff/J16u4dwImlE38JzQyqABU8n1P1+oNc6Rc+c=; b=BXJkkgGDBhZ6Ntfge1O8rysW6d
+	WjsYWdv0ytk/Xzo98JPSDLu4aWLUVFuH1dpMrrx4gGu2cUlt05TbLMaKXhhCJnn/URVK3D2Z5Uon1
+	waoyW5jBYSN0OzbHPsfb0K27+ZD34M8rXby2tHYCWd04YRvdW0IzYa+fahJMSDOEcBvtQoNsbXigC
+	tBBZNN3vW5xW1sqT32nLs6F3NGA6vc8bbmDiOxfg9L6GRaeGAfiz7eFHLwskh6MRR8LNi1ag/PVEs
+	vtrMuQ8qs5g9UJRjRf6W07BGXK9Qpx4GcyqVn4GtJ3O0UJgETYtL9ZkhdgvwPjjhuEdweW1b0ErtJ
+	RlyL4C9g==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wcK4G-00000007nH3-1oBJ;
+	Wed, 24 Jun 2026 09:38:48 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 427F0300400; Wed, 24 Jun 2026 11:38:48 +0200 (CEST)
+Date: Wed, 24 Jun 2026 11:38:48 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Ingo Molnar <mingo@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/boot/compressed: Disable jump tables for clang
+Message-ID: <20260624093848.GA48970@noisy.programming.kicks-ass.net>
+References: <20260623-x86-boot-compressed-disable-jt-clang-v1-1-575fccd58107@kernel.org>
+ <ajulLtY29HtgWokg@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,55 +56,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ajujm9+82N1g/HgF@DESKTOP-19IMU7U.localdomain>
+In-Reply-To: <ajulLtY29HtgWokg@gmail.com>
 
-On Wed, Jun 24, 2026 at 06:30:03PM +0900, Wongi Lee wrote:
-> On Wed, Jun 24, 2026 at 11:00:45AM +0200, Greg Kroah-Hartman wrote:
-> > On Wed, Jun 24, 2026 at 05:14:38PM +0900, Wongi Lee wrote:
-> > > Hi,
-> > > 
-> > > Could the following upstream commits be queued for the active stable
-> > > trees?
-> > > 
-> > >   commit 736b380e28d0480c7bc3e022f1950f31fe53a7c5
-> > >   ("ipv6: account for fraggap on the paged allocation path")
+On Wed, Jun 24, 2026 at 11:36:46AM +0200, Ingo Molnar wrote:
+> 
+> * Nathan Chancellor <nathan@kernel.org> wrote:
+> 
+> > After a recent upstream LLVM change to start generating jump and lookup
+> > tables in switch statements in more instances [1], linking the
+> > compressed x86 boot image when CONFIG_KERNEL_ZSTD is enabled fails with:
 > > 
-> > I do not see that commit id in Linus's tree, are you sure it is correct?
+> >   ld.lld: error: Unexpected run-time relocations (.rela) detected!
 > > 
-> > >   commit eca856950f7cb1a221e02b99d758409f2c5cec42
-> > >   ("ipv4: account for fraggap on the paged allocation path")
+> > Dumping the relocations in misc.o, which is the only file influenced by
+> > CONFIG_KERNEL_ZSTD in the decompressor, shows dynamic relocations to
+> > some string constants, which correspond to the string literals in the
+> > switch statement in handle_zstd_error():
 > > 
-> > Same here, no id of that one in Linus's tree that I can see.
+> >   Relocation section '.rela.data.rel.ro' at offset 0x277b0 contains 31 entries:
+> >       Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+> >   0000000000000000  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 73a
+> >   0000000000000008  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 78e
+> >   0000000000000010  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 78e
+> >   0000000000000018  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 78e
+> >   ...
 > > 
-> > thanks,
+> > This optimization is problematic for the decompressor environment, as it
+> > is built as -fPIE without any explicit absolute references (as described
+> > at the top of misc.c) while not applying any dynamic relocations, hence
+> > the linker assertion. To opt out of this optimization, which is of
+> > little value in this special early boot code, disable jump tables in the
+> > decompressor when building with clang. This mirrors the other x86
+> > startup code in arch/x86/boot/startup.
 > > 
-> > greg k-h
+> > Cc: stable@vger.kernel.org
+> > Closes: https://github.com/ClangBuiltLinux/linux/issues/2165
+> > Link: https://github.com/llvm/llvm-project/commit/fa02a6ed66b1700c996b49c96c6bc0eb014c9518 [1]
+> > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> > ---
+> >  arch/x86/boot/compressed/Makefile | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
+> > index 07e0e64b9a98..1c0d29e3eeba 100644
+> > --- a/arch/x86/boot/compressed/Makefile
+> > +++ b/arch/x86/boot/compressed/Makefile
+> > @@ -31,6 +31,7 @@ KBUILD_CFLAGS += -Wundef
+> >  KBUILD_CFLAGS += -DDISABLE_BRANCH_PROFILING
+> >  cflags-$(CONFIG_X86_32) := -march=i386
+> >  cflags-$(CONFIG_X86_64) := -mcmodel=small -mno-red-zone
+> > +cflags-$(CONFIG_CC_IS_CLANG) += -fno-jump-tables
 > 
+> So, shouldn't we just use -fno-jump-tables for *all* compilers,
+> like we do in arch/x86/boot/startup/Makefile?
 > 
-> Hi Greg,
-> 
-> First, sorry for confusing you.
-> 
-> The commit IDs are from netdev/net.git:
-> 
->   736b380e28d0480c7bc3e022f1950f31fe53a7c5
->   https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=736b380e28d0
-> 
->   eca856950f7cb1a221e02b99d758409f2c5cec42
->   https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=eca856950f7c
-> 
-> They were applied to netdev without Cc: stable@vger.kernel.org, so I
-> wanted to flag them for stable handling but I send it too fast (before
-> merge).
-> 
-> I will resend the request with the Linus tree commit ID.
+> The point wouldn't be to just work around any Clang
+> jump-table optimization complications alone, but also
+> to synchronize the build options of very early code and such.
 
-They have to be in Linus's tree, before we can take them in a stable
-release, right?
+I'm sitting on a patch to unconditionally disable jump-tables for
+x86_64:
 
-And why were they not originally tagged with the cc: stable?  That would
-save you time in the future as it would all just happen automatically.
+  https://web.git.kernel.org/pub/scm/linux/kernel/git/peterz/queue.git/log/?h=x86/syscall
 
-thanks,
-
-greg k-h
+I need to fix the robot fallout and then actually post this.
