@@ -1,48 +1,44 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB19192B75;
-	Wed, 24 Jun 2026 01:37:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC9F19D8A8;
+	Wed, 24 Jun 2026 01:49:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782265027; cv=none; b=V+MGPl/uNJxBm3wRYDrSiTlR28MYF6CqMxn7Sb63iOPzfATW1pGgFUPTa5QDWWAU171JbcUCjfUvZZ0jRjyB8TqANiycj4o2JvGkAJh8VFy9aB0I/dLU9fK/p5JWOCieaNiUnCkGMNrpkNugGHrg/kvP7H8t/IMNSeEZLYPdu8Y=
+	t=1782265797; cv=none; b=rxz6dOiyA0ygl/yaZ6jrNzK1vj6M+ap2/qW2yH9jAgfOE+XgYtImSCxRlYTKDdTwUEXNOOluYp4y7PAnIjui5J/l+9hQbXe23x0awN8bOWNR59KMcGcSIOmdBm2UwQMjuSjR9dPPiIiC/nO21XEAM1n3xueRLAab0iAWBIM1ync=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782265027; c=relaxed/simple;
-	bh=hkwOOki2RqLJgHnzvIKyiilqnxhTHu7gUnV6xBVS8d8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=H3wtH4r4Bm7zXva8FBzYy5POUW/If8686QwGsMeqphJGj6GSrzBMPnpcVKhFfM7b+PmJpGcsv2tncy9lDHfjaC+uC00e9ZNxY6ZUtK2mY0RNg8w48UO0XpWas6WCeZxOkwsRbFUmO1wUBwbyyFBwlCFCKa53EJEhQazRpdcom+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=PaS1UCYd; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1782265797; c=relaxed/simple;
+	bh=aXdha9Lzm8KNZOGqt6ca5f0gEqRdjSX1c712Za0soR0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rDVSxpoQYhE9Tcq8V8zbVYIMLHjZum131lapZpH202M5UBe3oWVY1zeAqu/UJxJ2Gj+4g0IEl7x+8ECRFjmVe1Pz/9Md7wJGwj36eetOZIkni9D9hY641172ByuHUo6NocWFLMD8cxwcCRfC9YVaaNZbNDv8mNhdrDexJorQVig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UA5YXMt6; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="PaS1UCYd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1782264981;
-	bh=sINvD0bskv+vJHonYANAwnvBnaUdmZEFu+17EC2edy8=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=PaS1UCYd+mL0d1pT2UMZLA0+7sGPJ24PiLx8opW07YlR3rpnP19ZuUMb/a3S8woo1
-	 Ai3zkt9pgXSklGFyD64pD4oLjksonHGdsd6zSoLFf55gRsxVYY8xzo5HHFboVN0257
-	 0KPBwc/0SS2p+ZfVZDSbAHMriJEX+irv/AXzIWlE=
-X-QQ-mid: esmtpgz16t1782264975tbb836680
-X-QQ-Originating-IP: 98Kg+0tnLi7B4a2+y8gyh0T2Ap7++7BlJgNHfAQdQI8=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 24 Jun 2026 09:36:14 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 4840196878114388730
-EX-QQ-RecipientCnt: 7
-From: Yang Shao <shaoyang@uniontech.com>
-To: sudipm.mukherjee@gmail.com
-Cc: marko.kohtala@gmail.com,
-	akpm@osdl.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UA5YXMt6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=iP
+	8mrG11w2dbFP7B1CMCKm8J3kEi2aLfDVcWGB/L430=; b=UA5YXMt6CgWwOw6RyA
+	MhFEf4xjAQGbuvEecXBKP1ryxUafgLbYwK+U7jOTZOuLdEGIFzRKl/SBZeIquvo6
+	iTNEJINaNtlenRLaBTCurvwzS7hCMWaCt0RHXR+TUdqGsDRAxTTHfDf1Th6XcCQ+
+	PfmxpgKmrGHJt/FOLX0mGyW1U=
+Received: from ubuntu.. (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wBXr7OXNztqde_EFA--.60164S4;
+	Wed, 24 Jun 2026 09:49:17 +0800 (CST)
+From: Ma Ke <make_ruc2021@163.com>
+To: srinivas.pandruvada@linux.intel.com,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	mgross@linux.intel.com,
+	sumesh.k.naduvalath@intel.com
+Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	kernel@uniontech.com,
-	Yang Shao <shaoyang@uniontech.com>,
+	akpm@linux-foundation.org,
+	Ma Ke <make_ruc2021@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] parport: fix inverted daisy selection result check
-Date: Wed, 24 Jun 2026 09:36:03 +0800
-Message-Id: <20260624013603.1184198-1-shaoyang@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+Subject: [PATCH v3] platform/x86: ishtp_eclite: Fix ACPI device reference leak in probe error path
+Date: Wed, 24 Jun 2026 09:49:09 +0800
+Message-ID: <20260624014910.1226446-1-make_ruc2021@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,69 +46,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NEAatei6DLTNU4P+Zkv8Q9/0aNKRHZox71ekWgTNVWHDIZjN85DG4Q2A
-	L9kxXuiLRcXwQsa1vIOFOltJf2UcjTtXTb6Dh7hG7h51+H9RIlJVMks+3kgGtmkMwXuUsUU
-	ZW04nafcFMcZYqYYcy/OJVVDXPTq0vhaQ9AuPFfzl4Zb2ednfW92WAehdHz9UwF0YAliBYs
-	HfjyuYSLPadniGnbGtN27YQPIvX6+TVJggCFzCEGgjMqPGr3sjMd8YJ1wdC+7VA67xczQCr
-	KMOu/Fl2F51vrXjctai3AYagtjbNhOOEmRrnjihITiLNLWyU1jc2zRTLRYUeysSA8Bs39QU
-	g8u/f/xayADatDuMhbXGAZ0QVGo8Wo1yrvWtxZJeshpDcw5eAtUyc+lHRpX908uvYp5qcMJ
-	6Pk3IzUbFRGiwkCsrhQuygKdHDLTGjvzf/gb0s1VpOEZxJIQ9Wllkz9cAB/R9AYHsF1HCqN
-	izfQp90FNTPDXZwlzfIjyBZt9GystdZGsOzxd+dd5lwYEzgmKZbzKal2tPypfUO/v+LEzmN
-	dVrzHwm/otqqtwtcR1Elz9QjYEECkZ4BRIHDqjj8g4YIjfT1THbebfkxaEMpLFqEyosANmw
-	viVogmyEKv8tWx/hxZI7dadFDyrqNT+eC576ON3+UGxI55QTE9MRkms1RwP2alIRr39JKCw
-	GPfRku3No7ZdvVSy8Ca9/9MXf0YPDQgkRdWIKP4OM2BR2fNqh4Jpb8OcCjfzoaqmbFgr3cz
-	HYpt1QX8XlJhY/OK+RNY8DLmInFwRw8nYtyo+I3n9q7EZvRSs2pEYSKeFXBIg4/eBuuiGzd
-	8DPfPUAR7ykZGmtz8vSd/tr8UDGiJReuNSRc5XxBvB4yqkNPWfpP0aB73NLyjxd0Jf2QNvV
-	iYAQDPQn9HmJOtjzsUsC1KLIm/f33bU7k1P6l6oSOqPw7mTnJSO85fWeD7K2pj2VbNxpZSD
-	cfeHVemEbifcAuFjKx/J7P6b+kDm8zmJkRoxphB2E8h8o/qLMS//ev7F6DoCnEJwEI4LG03
-	U5u//CazVWKo3OpuerUild1SLstfs=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+X-CM-TRANSID:_____wBXr7OXNztqde_EFA--.60164S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CryxZrWUuFW8WrWrKryDKFg_yoW8Aw1kpF
+	W7KFWrKrW5Gr4fK348XF48ZF1ruw1jv348GrWvkw48ur45uF92qw42ka4FkF1kurWkJa4Y
+	vF1xtrW8AF1UZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piJGYdUUUUU=
+X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC1B1eaWo7N508GAAA3h
 
-parport_daisy_select() returns a boolean success result. It returns 1
-when the requested daisy-chain device acknowledges the CPP selection
-command and 0 otherwise.
+ecl_ishtp_cl_probe() acquires a reference to an ACPI device via
+acpi_find_eclite_device() but fails to release it in the error path
+when acpi_opregion_init() fails. This results in a reference count
+leak, preventing proper cleanup of the ACPI device.
 
-Commit 7c9cc3be1094 ("[PATCH] parport: parport_daisy_select return
-value fix") changed the helper from returning the raw
-PARPORT_STATUS_ERROR bit to returning its logical negation. Selection
-success therefore changed from a zero return value to a nonzero return
-value, but parport_claim() retained the old zero-is-success test.
+Calling path: acpi_find_eclite_device() ->
+acpi_dev_get_first_match_dev() -> acpi_dev_get_next_match_dev() ->
+bus_find_device() -> get_device().
 
-As a result, a successful selection does not update port->daisy, while
-an unsuccessful selection can be recorded as the currently selected
-daisy address. parport_open() later checks port->daisy to determine
-whether the requested device was successfully selected, so this can
-reject an existing device or accept a device address that was not
-selected.
+Found by code review.
 
-Test the return value directly and update port->daisy only after a
-successful selection.
-
-Fixes: 7c9cc3be1094 ("[PATCH] parport: parport_daisy_select return value fix")
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Yang Shao <shaoyang@uniontech.com>
+Fixes: 7b6bf51de974 ("platform/x86: Add Intel ishtp eclite driver")
 ---
- drivers/parport/share.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Changes in v3:
+- add missing version changelog.
+- thank Srinivas Pandruvada for the review and reminder.
+Changes in v2:
+- Capitalize "fix" to "Fix" in subject as suggested by Srinivas.
+---
+ drivers/platform/x86/intel/ishtp_eclite.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/parport/share.c b/drivers/parport/share.c
-index c4c5869..2888005 100644
---- a/drivers/parport/share.c
-+++ b/drivers/parport/share.c
-@@ -1025,8 +1025,8 @@ int parport_claim(struct pardevice *dev)
- 	/* If it's a daisy chain device, select it. */
- 	if (dev->daisy >= 0) {
- 		/* This could be lazier. */
--		if (!parport_daisy_select(port, dev->daisy,
--					   IEEE1284_MODE_COMPAT))
-+		if (parport_daisy_select(port, dev->daisy,
-+					 IEEE1284_MODE_COMPAT))
- 			port->daisy = dev->daisy;
+diff --git a/drivers/platform/x86/intel/ishtp_eclite.c b/drivers/platform/x86/intel/ishtp_eclite.c
+index 93ac8b2dbf38..bca7e217878b 100644
+--- a/drivers/platform/x86/intel/ishtp_eclite.c
++++ b/drivers/platform/x86/intel/ishtp_eclite.c
+@@ -600,13 +600,16 @@ static int ecl_ishtp_cl_probe(struct ishtp_cl_device *cl_device)
+ 	rv = acpi_opregion_init(opr_dev);
+ 	if (rv) {
+ 		dev_err(cl_data_to_dev(opr_dev), "ACPI opregion init failed\n");
+-		goto err_exit;
++		goto err_put;
  	}
- #endif /* IEEE1284.3 support */
---
-2.47.3
+ 
+ 	/* Reprobe devices depending on ECLite - battery, fan, etc. */
+ 	acpi_dev_clear_dependencies(opr_dev->adev);
+ 
+ 	return 0;
++
++err_put:
++	acpi_dev_put(opr_dev->adev);
+ err_exit:
+ 	ishtp_set_connection_state(ecl_ishtp_cl, ISHTP_CL_DISCONNECTING);
+ 	ishtp_cl_disconnect(ecl_ishtp_cl);
+-- 
+2.43.0
 
