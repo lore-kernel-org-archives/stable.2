@@ -1,104 +1,273 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 340C22F7F16
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 08:46:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EFA175A67
+	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 08:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782290816; cv=none; b=RLxuttsCU1xz2OzWoALHP+yZw4lztEBTUfIDrjJzuJj2AOCL2xrPeBShCLujOYOyBA/TH7MaKHNYXM5LvkzpJITVVHc5wJb9e/1t0IMo1ephQneDcKB1ET16yk4YRL5nyvZQjKVuIQaJ0hGnDmfyh4PqGyvjEaUMBVq7nRlP+uA=
+	t=1782291510; cv=none; b=ubKbSoib8h8QGRaBAZHjVmeqU9vajsYrrn0t4LrBqx5onIJAiarrUVOCJ6VvPHPRa2/8Ryxm4AOl1YmFnAZ8umPt8ZS+WxUkqvK36pmm4za8cTvPFKyqhFK7uEwTvJScqnhpujSYO8wcE6TuFdyedrAAwq2kv9xrdz8+JlGoUUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782290816; c=relaxed/simple;
-	bh=JYmu2+JdkqGyZTP1oLieVZekIxSdPrIlArUvGyIdG1o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MZlCu2KXy3KFMt8aNg3GbLO8KUR333MU5zy2ybGYRGPanKrsQLrMeUGkHRobsOK202/AHIAGXY4H/UQugyLR5lo/LZ+SpHvIx2rICtQz/AAC5G5x8O9kUXV0i5JPsXS4cqTU+SzP9EA19OXGeQ72bQWvvAdlm405yTSxgRwJ7xA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=Pr+6ZLnk; arc=none smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
+	s=arc-20240116; t=1782291510; c=relaxed/simple;
+	bh=xkcNbW0l33v3rAO/IdjcFyWV9hn9OXrgZlbD7fkWqCA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FtKNMI268VdbjxhZ7YArFaKkrOyt7SbbQSZB6CJe0YvD2Aigpx6GdQ3RVUyRiXKAnXoErBEfa0NpNoaXAUu1mFEtVV2ty6PZq+JYa6H7bjj21+UjA03jMgk/ox0+nx/IVKJtjqzRF/O130haB4b3+sal98fx3G+0bYzhBxXeGAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DqzeXJwN; arc=none smtp.client-ip=91.218.175.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="Pr+6ZLnk"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-697cd68d7adso1186353a12.1
-        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 01:46:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bynar.io; s=google; t=1782290813; x=1782895613; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EVe3tCAxlFJeaGN50Dp+OHqy135nya+hifIMDSlUhLs=;
-        b=Pr+6ZLnkFJ/CK92fIeBD+pneWmBW8MO0IhIk9kGAKCFKAdy8z2r76aUPFsba2Obcju
-         621IactixP9QJrmpGsycrc1I1xUBHfzhkjsWXU7tXsB2OrGXJraqNXU+rgHZl0megyrC
-         XaFl4ivYa0izGw7rIgJTVH2uIhISu28xWOl30ARz4r7h97lrtI5MK4L5xFNYfroNaZPC
-         mu6WtvqyvUv1Wpd0L9Ct/VFAA1dyElY2k3Vzqbcmf8lRYuMfzhh+s6UOpkqj3PEopoW+
-         HU4o7JN6g2DJeDgLHdKHqXCl8QRZ5TDUNHOmP9MPQNSXxgDHniSHKL1gIIbIBHlREMXZ
-         gFBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782290813; x=1782895613;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=EVe3tCAxlFJeaGN50Dp+OHqy135nya+hifIMDSlUhLs=;
-        b=A3dRico0qeHTHk48mUwYAgl7RxCWsz7pi6JktUIbz+tEcEtoMPGUCOdMEUbT8uxCO2
-         B3kvuszFqvDOVQRmp/kxag/+c3KDWbETFZQuox5Oxmg/+z1OxNn01Rpys/l/RlrSam1/
-         z/Qr3Sef9/5RfukVe+gDdkYi8iDT/iEWmNzupiqKuwCH4Mws8TlVTCspzbNnJHzv18lN
-         TKoznRIfy0Pl5izSuH5lyHdmKhvEua8yGEmS205lnIIGA2jFgOE9GAAokBbN1dWAs5f0
-         WT3bryHXVFEbSBsJI81GG46FGoqd7JcJAocGLVGgMqmZdBbcLqK4+HEzIYpKuPJaBS/U
-         jGbA==
-X-Forwarded-Encrypted: i=1; AFNElJ9b+WQaHKx0vy+LhcRt6GuyjWLexw+SjO8ILVX8opKgq7ZElEo0912aplV66VD5LxP5KjtBJ+Q=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6Dn0NkYbVnjqX3Qs4dNmc6uh9A8Kiy8Uwa3UCCl94xk1l+voI
-	tzSfkG85UXJcOVIDejgF8HoZLfdvKl6JcGbhGhfKZCQ4lEkhRL+AyG/KcEJImoqg5U+j
-X-Gm-Gg: AfdE7cn23VO+a0Ncsd9Opr0EeqoJ/4y9RTKI7fy5JSl72UJ1hVJBlObausnEf+Lvy7+
-	nXEXgELQ+8CYFbkyOssVD2MEKkOlKgU/EP9P9H+Sk5/QtvxWTkvBVDeeOosqIFCplBDiLBqEvHv
-	xNiArMJgt+U5gQL2CsvYm2m+7fcxWyJ2gJe/FR1XzgCKtSes7Tl3Cc1q9tQK83nwcG5FG+DF9E9
-	wCP0Fp/Wxx6+bVBqM6ar2mFE8lyuiDc5o7ZiQpTJR6i2a5Uqra04539xMlUlGVPy29nkJJ715Yq
-	l0egcu3HroKKg0axnD1FuEQACLqde76Ux4J5FyRMyzT4oqFLNeIV2gkBGY1V3evwItAimpSowKu
-	k2JOxN/DAvW+NVv7FyYEmV11VOBhmv0FqC6dyNPka1TfY7iZXwPbTsmWt9iz9X5IhjRrbNjnbzi
-	krq/4zoVCF5yJHu8ngbhMckbEL5D7M1uwHZc0qh8OtFvc1iA==
-X-Received: by 2002:a17:907:a392:b0:c08:417e:3696 with SMTP id a640c23a62f3a-c107d7137b7mr319688366b.20.1782290812994;
-        Wed, 24 Jun 2026 01:46:52 -0700 (PDT)
-Received: from ?IPV6:2a06:61c2:d427:0:b321:1c7a:b072:326e? ([2a06:61c2:d427:0:b321:1c7a:b072:326e])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c61610b2esm640641866b.57.2026.06.24.01.46.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 24 Jun 2026 01:46:52 -0700 (PDT)
-Message-ID: <c9abc633-239c-4562-b1df-5c9d687e70d4@bynar.io>
-Date: Wed, 24 Jun 2026 09:46:51 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DqzeXJwN"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782291505;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DXPW+YBNntz9f0Lp8avROen0rFA3jB4hGj6rmd8rypo=;
+	b=DqzeXJwNf5gDBGu1OcL4/hrbV9Hi1AXOHwTCheCL8GbteM8Cem4O7iA9uT/jeE696Ozhmn
+	Cm1ez+SF+AitEURBxgb1tUSkQcp5Fw9X5eQrpr1OJ6rdTzeyNFIv+JRBpsjgpbZFvsfJ+G
+	/aZo7pU8DQ1WTrzMM0taz0iO8CxoXJs=
+From: Lance Yang <lance.yang@linux.dev>
+To: richard.weiyang@gmail.com
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	ziy@nvidia.com,
+	sj@kernel.org,
+	balbirs@nvidia.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	lance.yang@linux.dev
+Subject: Re: [Patch mm-hotfixes v4] mm/page_vma_mapped: fix device-private PMD handling
+Date: Wed, 24 Jun 2026 16:57:56 +0800
+Message-Id: <20260624085756.6598-1-lance.yang@linux.dev>
+In-Reply-To: <20260624065353.1622-1-richard.weiyang@gmail.com>
+References: <20260624065353.1622-1-richard.weiyang@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [syzbot ci] Re: nfc: nci: fix uninit-value in
- nci_core_init_rsp_packet()
-To: syzbot ci <syzbot+cie92d4e0088e1c4d0@syzkaller.appspotmail.com>,
- davem@davemloft.net, david@ixit.cz, edumazet@google.com, horms@kernel.org,
- kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- oe-linux-nfc@lists.linux.dev, pabeni@redhat.com, stable@vger.kernel.org
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-References: <6a3b838b.c358b6d0.89040.0007.GAE@google.com>
-Content-Language: en-GB
-From: Sam P <sam@bynar.io>
-In-Reply-To: <6a3b838b.c358b6d0.89040.0007.GAE@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On 24/06/2026 09:13, syzbot ci wrote:
-> syzbot ci has tested the following series
+
+On Wed, Jun 24, 2026 at 06:53:53AM +0000, Wei Yang wrote:
+>Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
+>device-private entries") introduced the concept of device-private
+>PMD entries, but did not correctly update the rmap walk code to
+>account for them.
+>
+>As a result, when page_vma_mapped_walk() encounters device-private
+>PMD entries, it takes no action other than to acquire the PMD lock
+>and exit.
+>
+>However this is highly problematic for two reasons - firstly,
+>device private entries possess a PFN so check_pmd() needs to be
+>called to ensure an overlapping PFN range.
+>
+>Secondly, and more importantly, if PVMW_MIGRATION is set the
+>caller assumes the returned entry is a migration entry, resulting
+>in memory corruption when the caller tries to interpret the device
+>private entry as such.
+>
+>In addition, commit 146287290023 ("mm/huge_memory: implement
+>device-private THP splitting") allowed device private PMDs to be
+>split like THP mappings, but again did not update this code path.
+>
+>As a result, we might race a PMD split prior to acquiring the PMD
+>lock.
+>
+>This patch addresses all of these issues by invoking check_pmd(),
+>ensuring PMVW_MIGRATION is not set and checks whether a split raced
+>us we do for PMD THP and migration entries.
+>
+>Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
+>Cc: <stable@vger.kernel.org>
+>Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
+>Suggested-by: David Hildenbrand <david@kernel.org>
+
+Shouldn't we add
+
+Suggested-by: Lorenzo Stoakes <ljs@kernel.org>
+
+as well?
+
+v4 mostly follows Lorenzo's comments, code bits included. Feels only fair.
+
+>Cc: David Hildenbrand <david@kernel.org>
+>Cc: Balbir Singh <balbirs@nvidia.com>
+>Cc: SeongJae Park <sj@kernel.org>
+>Cc: Zi Yan <ziy@nvidia.com>
+>Cc: Lorenzo Stoakes <ljs@kernel.org>
+>Cc: Lance Yang <lance.yang@linux.dev>
+>
+>---
+>v4:
+>  * refine subject and commit log based on Lorenzo's suggestion
+>  * put pmd device-private entry handling in its own if branch,
+>    suggested by Lorenzo
+>
+>v3:
+>  * remove cleanup part, only fix the issue for device-private entry
+>  * refine user effect description based on Lorenzo's suggestion
+>
+>v2: https://lore.kernel.org/all/20260616063436.20455-1-richard.weiyang@gmail.com/T/#u
+>  * specify the possible error case of current code and user visible effect
+>  * besides fix, cleanup the pmd entry handling based on David's suggestion
+>
+>v1: https://lore.kernel.org/linux-mm/20260508013728.21285-1-richard.weiyang@gmail.com/
+>---
+> mm/page_vma_mapped.c | 20 +++++++++++++++-----
+> 1 file changed, 15 insertions(+), 5 deletions(-)
+>
+>diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>index 2ccbabfb2cc1..17dff8aab9f9 100644
+>--- a/mm/page_vma_mapped.c
+>+++ b/mm/page_vma_mapped.c
+>@@ -269,14 +269,24 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+
+
+Hmm ... looks like there may still be a race here ...
+
+Current code picks the branch from the lockless PMD value:
+
+		pmde = pmdp_get_lockless(pvmw->pmd);
+
+		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
+			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+			pmde = *pvmw->pmd;
+			if (!pmd_present(pmde)) {
+				softleaf_t entry;
+
+				if (!thp_migration_supported() ||
+				    !(pvmw->flags & PVMW_MIGRATION))
+					return not_found(pvmw);
+				entry = softleaf_from_pmd(pmde);
+
+				if (!softleaf_is_migration(entry) ||
+				    !check_pmd(softleaf_to_pfn(entry), pvmw))
+					return not_found(pvmw);
+				return true;
+			}
+		}
+
+But after taking PTL, the PMD may already be a different non-present PMD
+type:
+
+CPU0: pmde = pmdp_get_lockless();   // sees PMD migration entry
+
+CPU1: remove_migration_ptes(src, dst /* device-private */)
+        ... via rmap_walk(dst) ...
+        page_vma_mapped_walk(&pvmw /* src, PVMW_MIGRATION */)
+          returns with PTL held for the PMD migration entry
+        remove_migration_pmd(new = dst page)
+          installs a device-private PMD
+        next page_vma_mapped_walk()
+          drops PTL via not_found()
+
+CPU0: takes PTL
+      pmde = *pvmw->pmd;            // now device-private PMD
+
+So when PVMW_MIGRATION is not set, current code can return not_found()
+before we even decode the locked PMD as a device-private entry.
+
+Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
+device-private entries") made the
+
+device-private PMD <-> PMD migration
+
+transition possible.
+
+set_pmd_migration_entry() can replace a device-private PMD with a PMD
+migration entry, and remove_migration_pmd() can restore a PMD migration
+entry back to a device-private PMD when the new folio is device-private.
+
+Maybe decode the locked softleaf entry first, before the migration-only
+checks? Something like this on top:
+
+---8<---
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index 17dff8aab9f9..97babd408dba 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -249,10 +249,18 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			if (!pmd_present(pmde)) {
+ 				softleaf_t entry;
+
++				entry = softleaf_from_pmd(pmde);
++				if (softleaf_is_device_private(entry)) {
++					if (pvmw->flags & PVMW_MIGRATION)
++						return not_found(pvmw);
++					if (!check_pmd(softleaf_to_pfn(entry), pvmw))
++						return not_found(pvmw);
++					return true;
++				}
++
+ 				if (!thp_migration_supported() ||
+ 				    !(pvmw->flags & PVMW_MIGRATION))
+ 					return not_found(pvmw);
+-				entry = softleaf_from_pmd(pmde);
+
+ 				if (!softleaf_is_migration(entry) ||
+ 				    !check_pmd(softleaf_to_pfn(entry), pvmw))
+@@ -266,7 +274,10 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 					return not_found(pvmw);
+ 				return true;
+ 			}
+-			/* THP pmd was split under us: handle on pte level */
++			/*
++			 * THP pmd was split under us, or device-private PMD
++			 * changed under us: handle on pte level.
++			 */
+ 			spin_unlock(pvmw->ptl);
+ 			pvmw->ptl = NULL;
+ 		} else if (pmd_is_device_private_entry(pmde)) {
+--
+
+Anyway, that stuff is getting kinda messy now. Feels like it really needs
+a cleanup on top before it bites us again :)
+
+Cheers, Lance
+
+> 			/* THP pmd was split under us: handle on pte level */
+> 			spin_unlock(pvmw->ptl);
+> 			pvmw->ptl = NULL;
+>-		} else if (!pmd_present(pmde)) {
+>-			const softleaf_t entry = softleaf_from_pmd(pmde);
+>+		} else if (pmd_is_device_private_entry(pmde)) {
+>+			softleaf_t entry;
+>+
+>+			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+>+			pmde = *pvmw->pmd;
+>+			entry = softleaf_from_pmd(pmde);
 > 
-> [v1] nfc: nci: fix uninit-value in nci_core_init_rsp_packet()
-> https://lore.kernel.org/all/20260623222402.175798-1-sam@bynar.io
-> * [PATCH net] nfc: nci: fix uninit-value in nci_core_init_rsp_packet()
-> 
-> and found the following issue:
-> UBSAN: array-index-out-of-bounds in nci_init_complete_req
-> 
-> Full report is available here:
-> https://ci.syzbot.org/series/2a9a8657-37a3-4dce-8cb5-2035027791dd
-
-Oops, looks like this patch did indeed introduce a regression due to bad
-check ordering. I have a v2 prepared, tested against the syzbot repro and
-NCI selftest which I will submit after the ~24h patch resend period is up.
-
-Thanks,
-Sam
-
+>-			if (softleaf_is_device_private(entry)) {
+>-				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+>+			if (likely(softleaf_is_device_private(entry))) {
+>+				if (pvmw->flags & PVMW_MIGRATION)
+>+					return not_found(pvmw);
+>+				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+>+					return not_found(pvmw);
+> 				return true;
+> 			}
+>-
+>+			/* device-private pmd was split under us: handle on pte level */
+>+			spin_unlock(pvmw->ptl);
+>+			pvmw->ptl = NULL;
+>+		} else if (!pmd_present(pmde)) {
+> 			if ((pvmw->flags & PVMW_SYNC) &&
+> 			    thp_vma_suitable_order(vma, pvmw->address,
+> 						   PMD_ORDER) &&
+>-- 
+>2.34.1
+>
+>
