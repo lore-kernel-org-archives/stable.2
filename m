@@ -1,81 +1,118 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72E87080D;
-	Wed, 24 Jun 2026 14:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7167E2BDC2F;
+	Wed, 24 Jun 2026 15:05:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782312922; cv=none; b=nKX56vsAim/Rq7gD58DqygXqCcyjrQQuMaYlB3vxjwJX0ekZ5awIY+s0lKcTq+8WyGk+WLB1la+ADIPPb4elXQdGKq2/JIDysS2Hg1cxl4ZBs62PKapGDfr7V5+OiLrLnmbSl71VpjLlKmt1bBHx6UIXSo54C5lDXvdv7gEQF/s=
+	t=1782313506; cv=none; b=ABcP1Kwt/HWkihQWYULPHhuPezWAfPTKFAsreQWNkwgIZwurL9n+nPgdDMrfCwmPiJfH7kKHTuC5E2fCeAkvk5E+S7B26SstdGDKRdlblUBSZ7P9E5vKVIoKQIWfCVCKfaGPxXO/5bsD68gEl5IpiUeTm+A8rImKrKRzkGKfTMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782312922; c=relaxed/simple;
-	bh=4nd3yqcYNi3f7qm94r9ycstMdmmR5xlz/Ot0GPRN/SA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MtMdXF7TkcxmQJzmJWRg/KTm5XgOIi6hQp25ckIM3WRmgK8gRxmAUBb1tOPicYpAHN6iqBXyVy3cjEl/jX2qx9lveEVYDPtBWMEHvF+gj29e449ewL+FjsYuhT5FEg553BXgiLD3sU50OacbSICeWWyM7YDgMQSwEQByB08xZuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Iqg2ldxM; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1782313506; c=relaxed/simple;
+	bh=t/6bTMiWUaEV1IYOjK8N+ioKve+8nIP8GwG/6p2eaTg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=acfbzFSHXAKIkgmGkS1IBwGFbJlU+1tvhJgM0NyacP8LPOLYj9vnB8wwRPHmSygFDyw1TxOKVdlIFH6oLcfcJRUApUNMDq6Vlyf7aixP2qqpEZu2QPfBfuKCyAcuhdn4AmY2Zv9tPVk0VBakPnpDapBh3W2UjV3wya018Wuo4Ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Q35MDHB4; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Iqg2ldxM"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E923540E0031;
-	Wed, 24 Jun 2026 14:55:17 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id GRNam2NP54VA; Wed, 24 Jun 2026 14:55:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1782312908; bh=Ieg4mv/KoDtt92MiGbXazKY3j5Ot+XMJxqgH9tTjzDY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Iqg2ldxM+Z01crie45EqthIKw1UF3KgTxKOYHIbYF2E9A7T1zmudjmLsCT48q0Kts
-	 iaOTgxNtakIFqNsLXLDxSySAMFvPQBWwNLEMwzq/XoMUk59EIdQbHqWE17N0z9zKQf
-	 +3Poio93ljCRBouOJSF+fkMpA+8anpg+P41UoNV2gF8JoG/gfw5VgiH8BTGdTK+LBo
-	 mAJv2KSVsUDnm0fBh6Z7l6gM6+gJ+MgqTNkV2zHXQtwCLyrMKlGafw3NsJJiRd5/SJ
-	 zjuUzeT9eH0nJOwbtpj6TrGXnr7zlBslQcEVLN/tWgXOSvLcVR8aAAtZGbuK6Unl7G
-	 QI+oCfTvTiMTTe+3F0fJPFo3sAgsXr5xZ2JeU0mxKSBw/lkZJqGOhSws2n0UXD/aKF
-	 JZw/IfZkdFQwavyFBzSZIK0qcW+U5VmeVpYAdDaQY3bW/KZLrC2gmeRL3nrP12bAob
-	 HGWuG4yd4g4EUjiScSwt4VkBINb5m8hAo8BPAO2ffoK3mr8q558rVImuKTLLlFPPuh
-	 rRD1B8eVcf58iW5Z5+tmJ5RMb1lu2zjl8pzRTZH+BMIwChmreSfwv1gPDaJnr085yV
-	 oskvtuM6wpYtFZLqglE8mFbDGNDn8njFfwbXPNU4HQ6zz2fHUU4DCZ/gClrPqemAtW
-	 bZe/26cBUX67yBdDOyID8gBQ=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5055440E00BF;
-	Wed, 24 Jun 2026 14:54:55 +0000 (UTC)
-Date: Wed, 24 Jun 2026 07:54:51 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Ingo Molnar <mingo@kernel.org>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Yazen Ghannam <yazen.ghannam@amd.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Penny Zheng <penny.zheng@amd.com>,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] x86: Avoid divide by 0 in amd_smn_init()
-Message-ID: <20260624145451.GAajvvu2eLMa8yUDcK@fat_crate.local>
-References: <20260623211904.3674-1-jason.andryuk@amd.com>
- <ajuhrzRodTlLAiIe@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Q35MDHB4"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 392592308;
+	Wed, 24 Jun 2026 08:05:00 -0700 (PDT)
+Received: from [10.1.25.171] (XHFQ2J9959-4.cambridge.arm.com [10.1.25.171])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 228DF3F905;
+	Wed, 24 Jun 2026 08:05:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1782313504; bh=t/6bTMiWUaEV1IYOjK8N+ioKve+8nIP8GwG/6p2eaTg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Q35MDHB4NR7gxpgq4eAorP8mtkFCyLvLaC/Od24ga5UC549ID02pnOqRcnH6WRw4y
+	 VnXBa8D8vtzVB1X31ZHO7sAz9n5a5CeMqqgaSGy+h846vop4qVp5pdAvA41zoByrv1
+	 2c2Jsp9lHo0JDLD48N/06IdttEj2eHmNG5YdxR8c=
+Message-ID: <d2a633c8-496e-48e1-bfa0-a0fc75bd0a08@arm.com>
+Date: Wed, 24 Jun 2026 16:05:01 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ajuhrzRodTlLAiIe@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 337/522] arm64/mm: Enable batched TLB flush in
+ unmap_hotplug_range()
+To: Will Deacon <will@kernel.org>, Ben Hutchings <ben@decadent.org.uk>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, patches@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ stable <stable@vger.kernel.org>, mark.rutland@arm.com
+References: <20260616145125.307082728@linuxfoundation.org>
+ <20260616145141.584613180@linuxfoundation.org>
+ <b0d5836032ce3135bfc473f6bff791306d086925.camel@decadent.org.uk>
+ <ajqXWqiAol6Shdd6@willie-the-truck>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <ajqXWqiAol6Shdd6@willie-the-truck>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 24, 2026 at 11:21:51AM +0200, Ingo Molnar wrote:
-> Why should we not go back to something similar to the pre-40a5f6ffdfc8
+On 23/06/2026 15:25, Will Deacon wrote:
+> On Sun, Jun 21, 2026 at 05:02:27PM +0200, Ben Hutchings wrote:
+>> On Tue, 2026-06-16 at 20:28 +0530, Greg Kroah-Hartman wrote:
+>>> 6.1-stable review patch.  If anyone has any objections, please let me know.
+>>>
+>>> ------------------
+>>>
+>>> From: Anshuman Khandual <anshuman.khandual@arm.com>
+>>>
+>>> [ Upstream commit 48478b9f791376b4b89018d7afdfd06865498f65 ]
+>> [...]
+>>> @@ -949,15 +953,14 @@ static void unmap_hotplug_pmd_range(pud_
+>>>  		WARN_ON(!pmd_present(pmd));
+>>>  		if (pmd_sect(pmd)) {
+>>>  			pmd_clear(pmdp);
+>>> -
+>>> -			/*
+>>> -			 * One TLBI should be sufficient here as the PMD_SIZE
+>>> -			 * range is mapped with a single block entry.
+>>> -			 */
+>>> -			flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
+>>> -			if (free_mapped)
+>>> +			if (free_mapped) {
+>>> +				/* CONT blocks are not supported in the vmemmap */
+>>> +				WARN_ON(pmd_cont(pmd));
+>>> +				flush_tlb_kernel_range(addr, addr + PMD_SIZE);
+>>
+>> It wasn't clear to me from the commit message why this now adds PMD_SIZE
+>> rather than PAGE_SIZE.  It seems like this change is fine for Linux
+>> 6.13+ with a CPU that supports TLB range flushing, but otherwise results
+>> in unnecessarily executing multiple TLB invalidations at intervals of
+>> the base page size.
+> 
+> Hmm, the commit message also makes very little sense to me and so I don't
+> understand why this patch has us doing multiple TLB invalidations when
+> we run into a !cont, block mapping at the PMD level. The old comment
+> (which this patch removes) should still apply afaict.
+> 
+> Anshuman, Ryan, any ideas what's going on here?
 
-Because this code obviously cannot run in a guest. See my other reply.
+I think this change was probably my fault; Given the API is called
+flush_tlb_kernel_range() it seemed like an abuse/hack to pretend we are only
+flushing the first PAGE_SIZE of the range. But as I understand it, even if the
+HW shatters a block mapping into multiple TLB entries, all of the entries
+relating to the block mapping will be invalidated if just one of them intersects
+the TLBI range/address. So it should be safe to reapply this hack.
 
--- 
-Regards/Gruss,
-    Boris.
+Although ideally I think it would be better if this API took a stride argument;
+then intent is clear.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+What's the best way to handle this? Submit a patch for mainline that reverts
+this part, then get it backported to stable (implying this current patch will
+have been applied to stable)?
+
+Thanks,
+Ryan
+
+
+> 
+> Will
+
