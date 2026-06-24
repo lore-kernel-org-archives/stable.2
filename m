@@ -1,76 +1,76 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140882517AF
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 22:40:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D254A274FD1
+	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 22:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782340834; cv=none; b=YOqbxbHa+jrf/jPR5Knv8EnX4wQij+3AuCwEjBnMOpMjJjPcMRsATuaNIiKZIfWSRmmMBToBf9dTnLxMpfbDEj7TJ7DcnaZQLU2FKCYmctcCCQsNqXW6+tj5Rf8HNo7rd8CkkWnP23IEBizHFIameF7ZMuq6a9MFZPbZEiE8Lrg=
+	t=1782341122; cv=none; b=c4SC7kWRDSsbHznTiz5ToxLZcoY/8a6B9pOIrf+kBASGyFKK85Vy3elgWOuXGC6S0L82lwYnefVGDQbcT1QOrsOTzajkF5jFRYw6S/YhtjQ432DgMF/7SDYUgc29JJbqzCra3oB/IYWXMeJwfipThYjtN+8WCi68hyt34fESSUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782340834; c=relaxed/simple;
-	bh=3wihXAlk2zqaiyMnQua880sT4ShZNok22VdcJu+m0Vs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=goKKUmLzD3bisoxXjtbE3mZ0x0Uw02jMfZNDiAtKixAyVsRJxb2/Q/8stj/y+S2iB7gJFn5/kQSkmhrBqTh19QCQZes6Q1ThVoEUOn00MH8uPEFubd30eZYxaUtyzB2tGfSANSCx0m0g8iFTV+xA+xDVlHDhbeI7J9mmeVf32+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=T6whi/rI; arc=none smtp.client-ip=209.85.160.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1782341122; c=relaxed/simple;
+	bh=F9Kyj9psFA3CcUgAE4ZqMqWA0H5hu/8LTdI7oKfL23g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Zd5f3OZFb6HVp8TK6FRTws/noFXcIEhXRwlLCkSI8vthJvgjQZ8EWow4OLdDLoNR91GPYamCzAqQ9KPu48McVey6KodfcP8p7A313njhXYZQrjS87JRbF3zAUOJJBx2vKBj9Xeavs+VPKko5zBL36eL6fDCRvEIB2qcP+DBK7GQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=a2xcvEO/; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="T6whi/rI"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-51a019e9ea9so15420731cf.2
-        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 15:40:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="a2xcvEO/"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-bec450b950dso281903266b.2
+        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 15:45:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1782340831; x=1782945631; darn=vger.kernel.org;
+        d=bynar.io; s=google; t=1782341119; x=1782945919; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=8ShrCq9N2eaWr2Eu4mW42vOQni+stuP9/ZUI2U6Tccg=;
-        b=T6whi/rIJZWa2iezkGHCJbqQAFzuohrsq6O/4iIfKOcnzzlwhT6352+N2rjFdPYJ+5
-         KXMhpcCIWFjcprVjNV8Pc3zZe8ZV2+9kjfl8AsxoB3YvcOU2b2Q2sOzwNUfUg98tHXYv
-         Fi07mMk1FltdpighYl0e217hz5gf3UblWhxGQ=
+        bh=OIv0SNIrWvan8AixNggFQO+S0jupCa7X1WRFdoPzAug=;
+        b=a2xcvEO/u4eMoyWkO3g0O7rq+d9euVX2ADJCaP/pZ4WgBapkIx/rDC6K/KXetrPMhP
+         jU3xc8B4zLOTTpXJi4CZyHi40VaU47033EoIZKc+coaYkpp6ovw7K77PHqfODQOwgXsf
+         0ca4VgEO+MGh6dQ+wIO/03bN7MYaUDKRptbgQFmm9b4exAznwjVqhex3t9No0VnW0QMZ
+         CUqDsjx2GgMyQAbAV3iTfpfqa8RqOBHo+ZcZEp5kjrJylOSoIW16Z7gy9Why6/Z/Lswm
+         uIb1ngm+sNdr+2puiZwtz1y8KgnSsD4JCXFkm1w5XxbYllaM6JeZDr3zeuxhssPtnYwb
+         WWpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782340831; x=1782945631;
+        d=1e100.net; s=20251104; t=1782341119; x=1782945919;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8ShrCq9N2eaWr2Eu4mW42vOQni+stuP9/ZUI2U6Tccg=;
-        b=XthS99zeChtGomQXOM4NAtqhXW0tQ7AsrUg1yFgD1Y0hBVokvaQvCugmTlClrSL1dJ
-         DTSR1bc4HX797/Cst+X+L8M4JaS1kP8PKEbIlakVjO94RMo5V/pV4Ebbns4EVGJRTvXb
-         4WZAPU2DsK6hnstP2SLrlajsbKedTYNEP5R8H9sbxOqTdbgW1M3vBxSTRDXvOI/uENeD
-         +eRgrMxE9L0xpTCqwAslGxeilmXMtkoYWkTbKbMXLsGGU6V0bBr2aHdlNZS32FSXCoIf
-         is7vJmRKi36CdAtwioLmR/3qwnVXE4SxucrAsY1NjMD7N1A0FdYcRr3j8YgI1rqSVzAt
-         3f5w==
-X-Forwarded-Encrypted: i=1; AFNElJ+NdJTUvofOrwM7AV7j9pOQiv83m1H7ko2uLuHFTu6CoTtHqvcAw8QcLH51c8kmbbpRaKL5WJc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzTT08qF4kJNEGA3+3mxFmlJVGn7FGEmoaot0cSNG2+Alv0kQYE
-	0RXpPZPnNbTIAF7/JXzZquykKoUiEKAmi6WOg0wiM2B8is6ybLbdZO86il60UGPZQw==
-X-Gm-Gg: AfdE7cnF1qHoObLI1GMGZX4WAKbPR12FetvpzlNnYtrRcNUdzjnPuF//PiFbH/ZkOhL
-	wlqeyQB5V4CYVxuLRPOY7MFnFo/qTvUiqia7vQm+rtQWl4HsbWaXegQdFiAAdqkxKXsztFVdiuN
-	47uNmde9+X+OVoDPQpBPWvN0kskvN3UNppuXzgZZXYbfE6dSGmVIgthBoEiiviu/ZCNBMJh/VC0
-	d7VdLekOxOx0JXaru8fWPWmM4vOBApiusqCNoo60r1hwclB+eY3kpCGMsgLWTwJdoQntzPPbI7i
-	loW2Usl0RpqjRIEi8ZfpK5dELmyfRpnmt+sb96TTR7EswaI0D6B9Mp+X5kZLk6eAcuRhSzvXhIv
-	d/+SljN7vN2Hv683JFn71hylk1WEGrxRCuRUIEIMJwnTl6LAEpkuE4rzR9GjP9HxZHypqGEPI7/
-	Z41xHeWg==
-X-Received: by 2002:ac8:5f88:0:b0:509:3cd:b22f with SMTP id d75a77b69052e-51a0675f987mr308710821cf.23.1782340830694;
-        Wed, 24 Jun 2026 15:40:30 -0700 (PDT)
-Received: from majuu.waya ([184.144.29.222])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8e231613af9sm104838306d6.38.2026.06.24.15.40.28
+        bh=OIv0SNIrWvan8AixNggFQO+S0jupCa7X1WRFdoPzAug=;
+        b=dZmUVkBYtZrO79dv7qHA+GFtiFCS5a0pmfDAFCEQ7ad672Ejieio99zs4qZZnbnmZH
+         UsTjHRxkVs45eGKEibNu46cb2tSraBbIjnIOQ6Q98wsLVzyAVsjvuS9w86FO/1xf9gtJ
+         Gv8y89rDW/jM2jwZcaRg3Xt7SlCCqCXwMrakrXP+/Y2a3Dm4KjVcjDlqR7HaXBfyvAYt
+         m+U9TjObeyZ29/436U2xqFsSyoyvMZe57FdFgVo2Hnjqx3DUn96hL2D3tIhYOD03R5nh
+         uDenJpshxAnAtrg6ltbp1JpU3W3dGmZXHyXrSJx1jiA5JFWgQiW//kwfYxB7dpun/F/C
+         W8yw==
+X-Forwarded-Encrypted: i=1; AFNElJ9eeBI5dVlLpP74Js4/F2svI7ZlyRo1+hPo10y98UkC02v4iEiOVtIl1ZyclAr3aMZRYiSpKPM=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+H6LAqgQeGlcs5qYWhPcCxZZOYi16P/SCkjYq7G5j2uAUd0ZA
+	cpeaL2KQR3n1xYILD5pbkAHdpKWwug91NiRcxeKFHWnbFVmPbMTT0f7e+K4l7L2aqG4Z
+X-Gm-Gg: AfdE7cnQn+DMhb2EwJhnbI+biFMTZw5ylpvjr5ayggkVf9bWxUtMXQZhovYqiAXRkM7
+	eXrBo7+HaUk3esorHDPHV/Ohd80w0rIsnJ7W8hpYm167ehKU72u1tbr5qgue0eeCySxvXBEKwbl
+	3c6ACapuHs8hUIyBiS2/52eAPnQK6TpZW4v8aT0bRgeTzWBqp4N0xwWyyg4mzFcrWbhO6GdpCx/
+	ZjJhMi8UFC+vSHMeHu/aUVYENx4lBtYA3so1UiSFWz0ygxajyDS70TJHPE4LCH1ZycP5NBJ1CAi
+	5tFqVIRV/+J2H6y5wOJp4D4gs+eJIzSZw/JvGTbqLDaSSROlLzuiWzR5bzfqwTiXPXrrZJd1Pcg
+	F7gPRbD7m/ayjqDzqTV8KFNmB4kha3njhKg8LGFSW6PV9tIkcWbxAm8AkEwEkml5XDO0ZLQIM0m
+	uDRtwyvs5vpmA=
+X-Received: by 2002:a17:907:6d07:b0:c02:6fbc:203b with SMTP id a640c23a62f3a-c10801b77fbmr541038366b.46.1782341119093;
+        Wed, 24 Jun 2026 15:45:19 -0700 (PDT)
+Received: from localhost ([2a06:61c2:d427:0:b321:1c7a:b072:326e])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c11fbe6220esm51310366b.45.2026.06.24.15.45.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 15:40:29 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	jiri@resnulli.us,
-	victor@mojatatu.com,
-	security@kernel.org,
-	zdi-disclosures@trendmicro.com,
-	stable@vger.kernel.org,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH net v2 1/1] net/sched: sch_teql: Introduce slaves_lock to avoid race condition and UAF
-Date: Wed, 24 Jun 2026 18:40:16 -0400
-Message-Id: <20260624224016.24018-1-jhs@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+        Wed, 24 Jun 2026 15:45:18 -0700 (PDT)
+From: Samuel Page <sam@bynar.io>
+To: David Heidelberg <david@ixit.cz>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] nfc: nci: fix uninit-value in nci_core_init_rsp_packet()
+Date: Wed, 24 Jun 2026 23:44:55 +0100
+Message-ID: <20260624224455.999374-1-sam@bynar.io>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,332 +79,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The teql master->slaves singly linked list is not protected against
-multiple writes. It can be mod'ed concurently from teql_master_xmit(),
-teql_dequeue(), teql_init() and teql_destroy() without holding any list
-lock or RCU protection.
+The CORE_INIT_RSP handlers walk the response using length fields taken
+from the packet itself, without checking they stay within skb->len:
 
-zdi-disclosures@trendmicro.com has demonstrated that the qdisc is freed
-after an RCU grace period, but teql_master_xmit() running on another
-CPU can still hold a stale pointer into the list, resulting in a
-slab-use-after-free:
+ - v1 computes
+	rsp_2 = skb->data + 6 + rsp_1->num_supported_rf_interfaces;
+   from the on-wire (unclamped) interface count and then dereferences
+   rsp_2, and memcpy()s the advertised interfaces - both can run past the
+   received data;
+ - v2 walks supported_rf_interfaces[], advancing the cursor by an
+   in-packet rf_extension_cnt with no bound.
 
-BUG: KASAN: slab-use-after-free in teql_destroy+0x3ca/0x440 linux/net/sched/sch_teql.c:142
-Read of size 8 at addr ffff88802923aa80 by task ip/10024
+A short CORE_INIT_RSP therefore makes the parser read past the packet
+(into the uninitialised tail of the RX skb); the values are stored into
+struct nci_dev and consumed while bringing the device up:
 
-The zdi-disclosures@trendmicro.com repro created concurrent AF_PACKET
-senders on a teql device against a thread that repeatedly adds/deletes the
-slave qdisc, together with a SLUB spray that reclaims the freed slot; the
-resulting UAF is controllable enough to be turned into a read/write
-primitive against the freed qdisc object.
+  BUG: KMSAN: uninit-value in nci_dev_up+0x10f3/0x1720
+   nci_dev_up+0x10f3/0x1720
+   nfc_dev_up+0x187/0x380
+   nfc_genl_dev_up+0xdc/0x1a0
+   genl_rcv_msg+0x5d4/0x9e0
+   netlink_rcv_skb+0x28f/0x530
+  Uninit was stored to memory at:
+   nci_rsp_packet+0x68f/0x2310
+   nci_rx_work+0x25f/0x5d0
+  Uninit was created at:
+   __alloc_skb+0x540/0xd40
+   virtual_ncidev_write+0x65/0x210
 
-The fix?
-Add a per-master slaves_lock spinlock that serializes all mutations of
-master->slaves and the NEXT_SLAVE() links in teql_destroy() and
-teql_qdisc_init(). teql_master_xmit() also takes the same slaves_lock
-around those updates.
-Annotate master->slaves and the per-slave ->next pointer with __rcu and
-use the appropriate RCU accessors everywhere they are touched:
-rcu_assign_pointer() on the writer side (under slaves_lock),
-rcu_dereference_protected() for the writer-side loads (also under
-slaves_lock), rcu_dereference_bh() for the loads in teql_master_xmit() and
-rtnl_dereference() for the loads in teql_master_open()/teql_master_mtu(),
-which run under RTNL.
-Pair this with rcu_read_lock_bh()/rcu_read_unlock_bh() around the list
-traversal in teql_master_xmit(), so that readers either observe a fully
-linked list or are deferred until the in-flight mutation completes. The two
-early-return paths in teql_master_xmit() are updated to release the RCU-bh
-read-side critical section before returning, since leaving it held would
-disable BH on that CPU for good.
+Validate the response length before parsing or storing the
+variable-length parts, rejecting truncated responses with
+NCI_STATUS_SYNTAX_ERROR.  In v1 the check is done before
+num_supported_rf_interfaces is stored into ndev, so a truncated response
+cannot leave ndev->num_supported_rf_interfaces holding the unclamped
+on-wire count, which nci_init_complete_req() would otherwise use as a
+bound for the fixed-size supported_rf_interfaces[] array.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: zdi-disclosures@trendmicro.com
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202606241501.XQBMu4b8-lkp@intel.com/
-Tested-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Fixes: 6a2968aaf50c ("NFC: basic NCI protocol implementation")
+Fixes: bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
+Cc: stable@vger.kernel.org
+Tested-by: syzbot@syzkaller.appspotmail.com
+Assisted-by: Bynario AI
+Signed-off-by: Samuel Page <sam@bynar.io>
 ---
-Changes in v2:
-Address sparse issues found by kernel test robot <lkp@intel.com>
- - rcu annotated struct teql_master->slaves and struct teql_sched_data->next
- - teql_destroy/teql_qdisc_init: replace all READ/WRITE_ONCE() with rcu_dereference_protected()/rcu_assign_pointer()
----
- net/sched/sch_teql.c | 119 ++++++++++++++++++++++++++++++++++-----------------
- 1 file changed, 80 insertions(+), 39 deletions(-)
+v2: validate the response length before storing num_supported_rf_interfaces
+    into @ndev.  In v1 the unclamped on-wire count was stored first and the
+    length check returned early on a truncated response, leaving
+    ndev->num_supported_rf_interfaces > NCI_MAX_SUPPORTED_RF_INTERFACES; a
+    subsequent CORE_INIT completion then walked it in nci_init_complete_req(),
+    which the syzbot CI run on v1 flagged as a UBSAN array-index-out-of-bounds.
+    https://ci.syzbot.org/series/2a9a8657-37a3-4dce-8cb5-2035027791dd
+    v1: https://lore.kernel.org/all/20260623222402.175798-1-sam@bynar.io
 
-diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
-index e7bbc9e5174d..f4654f1b1200 100644
---- a/net/sched/sch_teql.c
-+++ b/net/sched/sch_teql.c
-@@ -52,7 +52,8 @@
- struct teql_master {
- 	struct Qdisc_ops qops;
- 	struct net_device *dev;
--	struct Qdisc *slaves;
-+	struct Qdisc __rcu	*slaves;
-+	spinlock_t		slaves_lock;	/* serializes writes to ->slaves */
- 	struct list_head master_list;
- 	unsigned long	tx_bytes;
- 	unsigned long	tx_packets;
-@@ -61,7 +62,7 @@ struct teql_master {
- };
+ net/nfc/nci/rsp.c | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
+
+diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
+index 9eeb862825c5..6b2fa6bdbd14 100644
+--- a/net/nfc/nci/rsp.c
++++ b/net/nfc/nci/rsp.c
+@@ -50,11 +50,25 @@ static u8 nci_core_init_rsp_packet_v1(struct nci_dev *ndev,
+ 	const struct nci_core_init_rsp_1 *rsp_1 = (void *)skb->data;
+ 	const struct nci_core_init_rsp_2 *rsp_2;
  
- struct teql_sched_data {
--	struct Qdisc *next;
-+	struct Qdisc __rcu	*next;
- 	struct teql_master *m;
- 	struct sk_buff_head q;
- };
-@@ -101,7 +102,9 @@ teql_dequeue(struct Qdisc *sch)
- 	if (skb == NULL) {
- 		struct net_device *m = qdisc_dev(q);
- 		if (m) {
--			dat->m->slaves = sch;
-+			spin_lock_bh(&dat->m->slaves_lock);
-+			rcu_assign_pointer(dat->m->slaves, sch);
-+			spin_unlock_bh(&dat->m->slaves_lock);
- 			netif_wake_queue(m);
- 		}
- 	} else {
-@@ -132,34 +135,49 @@ teql_destroy(struct Qdisc *sch)
- 	struct Qdisc *q, *prev;
- 	struct teql_sched_data *dat = qdisc_priv(sch);
- 	struct teql_master *master = dat->m;
-+	struct netdev_queue *txq = NULL;
-+	bool reset_master_queue = false;
- 
- 	if (!master)
- 		return;
- 
--	prev = master->slaves;
-+	spin_lock_bh(&master->slaves_lock);
-+	prev = rcu_dereference_protected(master->slaves,
-+					 lockdep_is_held(&master->slaves_lock));
- 	if (prev) {
- 		do {
--			q = NEXT_SLAVE(prev);
--			if (q == sch) {
--				NEXT_SLAVE(prev) = NEXT_SLAVE(q);
--				if (q == master->slaves) {
--					master->slaves = NEXT_SLAVE(q);
--					if (q == master->slaves) {
--						struct netdev_queue *txq;
--
--						txq = netdev_get_tx_queue(master->dev, 0);
--						master->slaves = NULL;
--
--						dev_reset_queue(master->dev,
--								txq, NULL);
--					}
--				}
--				skb_queue_purge(&dat->q);
--				break;
-+			struct Qdisc *head, *next;
++	if (skb->len < sizeof(*rsp_1))
++		return NCI_STATUS_SYNTAX_ERROR;
 +
-+			q = rcu_dereference_protected(NEXT_SLAVE(prev),
-+						      lockdep_is_held(&master->slaves_lock));
-+			if (q != sch) {
-+				prev = q;
-+				continue;
- 			}
+ 	pr_debug("status 0x%x\n", rsp_1->status);
  
--		} while ((prev = q) != master->slaves);
-+			next = rcu_dereference_protected(NEXT_SLAVE(q),
-+							 lockdep_is_held(&master->slaves_lock));
-+			rcu_assign_pointer(NEXT_SLAVE(prev), next);
+ 	if (rsp_1->status != NCI_STATUS_OK)
+ 		return rsp_1->status;
+ 
++	/*
++	 * supported_rf_interfaces[] and the trailing nci_core_init_rsp_2 are
++	 * addressed using the on-wire (unclamped) interface count, so the
++	 * response must be long enough for both before any of it is parsed or
++	 * stored into @ndev - otherwise a truncated response would leave
++	 * ndev->num_supported_rf_interfaces holding the unclamped count.
++	 */
++	if (skb->len < sizeof(*rsp_1) +
++	    rsp_1->num_supported_rf_interfaces + sizeof(*rsp_2))
++		return NCI_STATUS_SYNTAX_ERROR;
 +
-+			head = rcu_dereference_protected(master->slaves,
-+							 lockdep_is_held(&master->slaves_lock));
-+			if (q == head) {
-+				rcu_assign_pointer(master->slaves, next);
-+				if (q == next) {
-+					txq = netdev_get_tx_queue(master->dev, 0);
-+					rcu_assign_pointer(master->slaves, NULL);
-+					reset_master_queue = true;
-+				}
-+			}
-+			skb_queue_purge(&dat->q);
-+			break;
-+		} while (prev != rcu_dereference_protected(master->slaves,
-+							   lockdep_is_held(&master->slaves_lock)));
- 	}
-+	spin_unlock_bh(&master->slaves_lock);
-+
-+	if (reset_master_queue)
-+		dev_reset_queue(master->dev, txq, NULL);
- }
+ 	ndev->nfcc_features = __le32_to_cpu(rsp_1->nfcc_features);
+ 	ndev->num_supported_rf_interfaces = rsp_1->num_supported_rf_interfaces;
  
- static int teql_qdisc_init(struct Qdisc *sch, struct nlattr *opt,
-@@ -168,6 +186,7 @@ static int teql_qdisc_init(struct Qdisc *sch, struct nlattr *opt,
- 	struct net_device *dev = qdisc_dev(sch);
- 	struct teql_master *m = (struct teql_master *)sch->ops;
- 	struct teql_sched_data *q = qdisc_priv(sch);
-+	struct Qdisc *first;
- 
- 	if (dev->hard_header_len > m->dev->hard_header_len)
- 		return -EINVAL;
-@@ -184,7 +203,9 @@ static int teql_qdisc_init(struct Qdisc *sch, struct nlattr *opt,
- 
- 	skb_queue_head_init(&q->q);
- 
--	if (m->slaves) {
-+	spin_lock_bh(&m->slaves_lock);
-+	first = rcu_dereference_protected(m->slaves, lockdep_is_held(&m->slaves_lock));
-+	if (first) {
- 		if (m->dev->flags & IFF_UP) {
- 			if ((m->dev->flags & IFF_POINTOPOINT &&
- 			     !(dev->flags & IFF_POINTOPOINT)) ||
-@@ -192,8 +213,10 @@ static int teql_qdisc_init(struct Qdisc *sch, struct nlattr *opt,
- 			     !(dev->flags & IFF_BROADCAST)) ||
- 			    (m->dev->flags & IFF_MULTICAST &&
- 			     !(dev->flags & IFF_MULTICAST)) ||
--			    dev->mtu < m->dev->mtu)
-+			    dev->mtu < m->dev->mtu) {
-+				spin_unlock_bh(&m->slaves_lock);
- 				return -EINVAL;
-+			}
- 		} else {
- 			if (!(dev->flags&IFF_POINTOPOINT))
- 				m->dev->flags &= ~IFF_POINTOPOINT;
-@@ -204,14 +227,17 @@ static int teql_qdisc_init(struct Qdisc *sch, struct nlattr *opt,
- 			if (dev->mtu < m->dev->mtu)
- 				m->dev->mtu = dev->mtu;
- 		}
--		q->next = NEXT_SLAVE(m->slaves);
--		NEXT_SLAVE(m->slaves) = sch;
-+		rcu_assign_pointer(q->next,
-+				   rcu_dereference_protected(NEXT_SLAVE(first),
-+							     lockdep_is_held(&m->slaves_lock)));
-+		rcu_assign_pointer(NEXT_SLAVE(first), sch);
- 	} else {
--		q->next = sch;
--		m->slaves = sch;
-+		rcu_assign_pointer(q->next, sch);
-+		rcu_assign_pointer(m->slaves, sch);
- 		m->dev->mtu = dev->mtu;
- 		m->dev->flags = (m->dev->flags&~FMASK)|(dev->flags&FMASK);
- 	}
-+	spin_unlock_bh(&m->slaves_lock);
- 	return 0;
- }
- 
-@@ -285,7 +311,9 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
- 	int subq = skb_get_queue_mapping(skb);
- 	struct sk_buff *skb_res = NULL;
- 
--	start = master->slaves;
-+	rcu_read_lock_bh();
-+
-+	start = rcu_dereference_bh(master->slaves);
- 
- restart:
- 	nores = 0;
-@@ -317,10 +345,14 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
- 				    netdev_start_xmit(skb, slave, slave_txq, false) ==
- 				    NETDEV_TX_OK) {
- 					__netif_tx_unlock(slave_txq);
--					master->slaves = NEXT_SLAVE(q);
-+					spin_lock_bh(&master->slaves_lock);
-+					rcu_assign_pointer(master->slaves,
-+							   rcu_dereference_bh(NEXT_SLAVE(q)));
-+					spin_unlock_bh(&master->slaves_lock);
- 					netif_wake_queue(dev);
- 					master->tx_packets++;
- 					master->tx_bytes += length;
-+					rcu_read_unlock_bh();
- 					return NETDEV_TX_OK;
- 				}
- 				__netif_tx_unlock(slave_txq);
-@@ -329,14 +361,18 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
- 				busy = 1;
- 			break;
- 		case 1:
--			master->slaves = NEXT_SLAVE(q);
-+			spin_lock_bh(&master->slaves_lock);
-+			rcu_assign_pointer(master->slaves,
-+					   rcu_dereference_bh(NEXT_SLAVE(q)));
-+			spin_unlock_bh(&master->slaves_lock);
-+			rcu_read_unlock_bh();
- 			return NETDEV_TX_OK;
- 		default:
- 			nores = 1;
- 			break;
- 		}
- 		__skb_pull(skb, skb_network_offset(skb));
--	} while ((q = NEXT_SLAVE(q)) != start);
-+	} while ((q = rcu_dereference_bh(NEXT_SLAVE(q))) != start);
- 
- 	if (nores && skb_res == NULL) {
- 		skb_res = skb;
-@@ -345,29 +381,32 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
- 
- 	if (busy) {
- 		netif_stop_queue(dev);
-+		rcu_read_unlock_bh();
- 		return NETDEV_TX_BUSY;
- 	}
- 	master->tx_errors++;
- 
- drop:
- 	master->tx_dropped++;
-+	rcu_read_unlock_bh();
- 	dev_kfree_skb(skb);
- 	return NETDEV_TX_OK;
- }
- 
- static int teql_master_open(struct net_device *dev)
+@@ -88,9 +102,13 @@ static u8 nci_core_init_rsp_packet_v2(struct nci_dev *ndev,
  {
--	struct Qdisc *q;
-+	struct Qdisc *q, *first;
- 	struct teql_master *m = netdev_priv(dev);
- 	int mtu = 0xFFFE;
- 	unsigned int flags = IFF_NOARP | IFF_MULTICAST;
+ 	const struct nci_core_init_rsp_nci_ver2 *rsp = (void *)skb->data;
+ 	const u8 *supported_rf_interface = rsp->supported_rf_interfaces;
++	const u8 *end = skb->data + skb->len;
+ 	u8 rf_interface_idx = 0;
+ 	u8 rf_extension_cnt = 0;
  
--	if (m->slaves == NULL)
-+	first = rtnl_dereference(m->slaves);
-+	if (!first)
- 		return -EUNATCH;
++	if (skb->len < sizeof(*rsp))
++		return NCI_STATUS_SYNTAX_ERROR;
++
+ 	pr_debug("status %x\n", rsp->status);
  
- 	flags = FMASK;
+ 	if (rsp->status != NCI_STATUS_OK)
+@@ -104,10 +122,16 @@ static u8 nci_core_init_rsp_packet_v2(struct nci_dev *ndev,
+ 		    NCI_MAX_SUPPORTED_RF_INTERFACES);
  
--	q = m->slaves;
-+	q = first;
- 	do {
- 		struct net_device *slave = qdisc_dev(q);
+ 	while (rf_interface_idx < ndev->num_supported_rf_interfaces) {
+-		ndev->supported_rf_interfaces[rf_interface_idx++] = *supported_rf_interface++;
++		/* one interface byte + one extension-count byte must be present */
++		if (end - supported_rf_interface < 2)
++			return NCI_STATUS_SYNTAX_ERROR;
++		ndev->supported_rf_interfaces[rf_interface_idx++] =
++			*supported_rf_interface++;
  
-@@ -389,7 +428,7 @@ static int teql_master_open(struct net_device *dev)
- 			flags &= ~IFF_BROADCAST;
- 		if (!(slave->flags&IFF_MULTICAST))
- 			flags &= ~IFF_MULTICAST;
--	} while ((q = NEXT_SLAVE(q)) != m->slaves);
-+	} while ((q = rtnl_dereference(NEXT_SLAVE(q))) != first);
- 
- 	m->dev->mtu = mtu;
- 	m->dev->flags = (m->dev->flags&~FMASK) | flags;
-@@ -417,14 +456,15 @@ static void teql_master_stats64(struct net_device *dev,
- static int teql_master_mtu(struct net_device *dev, int new_mtu)
- {
- 	struct teql_master *m = netdev_priv(dev);
--	struct Qdisc *q;
-+	struct Qdisc *q, *first;
- 
--	q = m->slaves;
-+	first = rtnl_dereference(m->slaves);
-+	q = first;
- 	if (q) {
- 		do {
- 			if (new_mtu > qdisc_dev(q)->mtu)
- 				return -EINVAL;
--		} while ((q = NEXT_SLAVE(q)) != m->slaves);
-+		} while ((q = rtnl_dereference(NEXT_SLAVE(q))) != first);
+-		/* skip rf extension parameters */
++		/* skip rf extension parameters, bounded by the packet */
+ 		rf_extension_cnt = *supported_rf_interface++;
++		if (rf_extension_cnt > end - supported_rf_interface)
++			return NCI_STATUS_SYNTAX_ERROR;
+ 		supported_rf_interface += rf_extension_cnt;
  	}
  
- 	WRITE_ONCE(dev->mtu, new_mtu);
-@@ -444,6 +484,7 @@ static __init void teql_master_setup(struct net_device *dev)
- 	struct teql_master *master = netdev_priv(dev);
- 	struct Qdisc_ops *ops = &master->qops;
- 
-+	spin_lock_init(&master->slaves_lock);
- 	master->dev	= dev;
- 	ops->priv_size  = sizeof(struct teql_sched_data);
- 
+
+base-commit: a986fde914d88af47eb78fd29c5d1af7952c3500
+-- 
+2.54.0
+
