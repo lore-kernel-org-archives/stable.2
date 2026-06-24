@@ -1,75 +1,45 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE072EC09F
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 09:30:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156602566F7;
+	Wed, 24 Jun 2026 09:36:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782293412; cv=none; b=UuGU9Yn/tNIf4eg5NES83AsMeB6z3zOL8lLNnxD+eGCVckps3/hg95143GEaXj59KuFnDyV8spsMhv65BPGatiBI9rqV7WpPojqgo1qJWQJzHe0v237dyaVLdB6KDYsYz1rreNUdL8YjOpXD+0DpZdmpmntXwJyTNYsk8LdIY3s=
+	t=1782293820; cv=none; b=hfc9dhXm6R0bhu+c0+J/a3mXnDn79gY9rpAB75D4yVmX/tRw0xxVR3k7LFcyX+4181qWbtIJn4qwNr3GNyktTI3KVZHKg5GlqOicKdu1t+5ORiYQI7PSz2sGmZb3PeY7xVHZFGEol24HR0F0q+Q6SCABwOlXgqgWLkWny6Avgy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782293412; c=relaxed/simple;
-	bh=D8CFwLPp5KatUW5AZ7GtpjRwh++f82p7zALAB4npO7o=;
+	s=arc-20240116; t=1782293820; c=relaxed/simple;
+	bh=cJB/GKjhRZ+tDueeEz/z4J/26HBUnbytnrhU3IDn0QA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jGcJr95NjF4acg1kUxoDM3yU4IF1OQWjXIipvIMx5UkL6HgknQTzFZaTaZjrmQnOCW5BRzlJYrOqS14m3cgk+O4TI4/SX2bRBF2rmm9myWWMeBmfNC3n/+dMgqrrHAJRBnJ89s2t4EQtadeQbR0GbYFBp2HvioeFfluf24GXDp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MSH5b1UV; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=e5Kjj5LPpnrhgTD19J5TbCYrwUI71B47IhIlWQ4wBXBbJIlm+ROJ6GRkXidJlPEHdsRsJIn3gWN/1QrKAr8M+HdvimKWyWV0YvqaT7mb5jhvEx9Y/ZIADUj+jQVRpknv+VyphweDMX2whDoRq2h157ej75Rwzlr9xaLo2Ydl1ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ABwJ1mYU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MSH5b1UV"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8454c5a280aso1120524b3a.1
-        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 02:30:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782293405; x=1782898205; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=04Y/Pe8XmMfRpuwlfV46g/2VJTxETiC/sRNVRFinUHU=;
-        b=MSH5b1UVo9mDNudBLwv/KkdWEX3cM1XrNJwmnVpGpVQgM1cAq5G0oGy1KkLl8DAus1
-         6Muo1CLjhv/t+nWaMZSqwqicqUk915yntntUlhQ2VOQQdRdrYReIJ1O+DW+BT+AZxCjo
-         PrLswFn9kP3Am34VvvIpK7RWV5ApwYRzknz5ZHaRlQuuf3CXiZrHOBppaPht1S7wP355
-         8MvJTGTX9er6c1VYK41UFmH9GCVcgFVrDVR7+cJp++XsV31dkONr/akjr/+tJ6SJDRGj
-         b9h+QzHmJPDCjbXH3ByvLkgzWPrfEbynVGYjsR6qLsUriKN4uH660aKgGjwnaM5xq3M/
-         I7vQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782293405; x=1782898205;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=04Y/Pe8XmMfRpuwlfV46g/2VJTxETiC/sRNVRFinUHU=;
-        b=KwEW9mJJMXjGH24cwya5Md4lVBADKwhjtMU6iLTIOIgU8ahwkeUk3v8+XQNDfG3Lz2
-         nU3wQj3qd3BBDhWyAWgsU6e4EkXDw3CptJ6Qwrr/7JzkY6RHSfPSRxkV+FABGGGZiMbV
-         de46ReZ1c4fRiBbbvE2fJQCKb+6Dh5ia98wHqFDOwQ/E44Qe3ckzxNYIFSkpWdll7Qcy
-         3Wx22vXHk1Q8uHwjDu29pJ6FL3T7bHqJlqoWpTicv/mxxfp5dZYHUIwrz0ot3QmLCseW
-         HF0oeEm07o847cNdfmbu6QLFW3XZF/aqg6a7ybW8Ry21KEfTPKavAVODaG/g+a/4H20e
-         S3EA==
-X-Gm-Message-State: AOJu0Yzpu1mO+b687Jz75Q98km9v7wCSg/lG0MhZDApZnNvCb5H6mAgP
-	wCebI5jbXiNZXi340OS5PIwvyuY1ku5iiWTCnMFYEVFize0c+jwTz7Yf
-X-Gm-Gg: AfdE7cnUvWVK62uw3yJzN9I7agw3EzUY2Qaa9Ja8O/ufjszJPOGJPrYpM2ooLe+aMRS
-	sv1xiAz5XM+IlnL5BCrKXD7ujIEUwoTt7NAknvmYw4oEuCYt5jxEBvE0BdRUdIwslveh78bDmkl
-	mMi7wrBnqjegoh85E6jVmfmxI3Cgz0zkn8yXCnGuKcCBwB7O7SaZKs5s4wL+UPPse1dGXsGrI+H
-	ME2y2DaAjPsTKSPrfLO7XczfE3HNRKMweaZrBVcc/zH9oIjqX5cIgM1MeT5HgeqyLCoG+PHyamR
-	Afhe3bSMzcCEfDsjlHGrVKYyxIiNZk8K1x35FXOc7WvRw7yCRbH+8jg3eSBoYjItDhkjwNjbYon
-	LGduww5KnX2GbFhNXHoVg/DYqD+abpHGXJy1qLnhIj7dKzv5xzgqgEkb/bXlhe8oPaWtECSk+9Y
-	y96rxawZYTZVvSew6TCohym2ytUOBfUzGaCBmgAHOp4jP6IcyfD1YShBokyvIw8WsD6Q==
-X-Received: by 2002:a05:6a00:2e9a:b0:837:f111:b70 with SMTP id d2e1a72fcca58-84591b23fe1mr6791752b3a.4.1782293404586;
-        Wed, 24 Jun 2026 02:30:04 -0700 (PDT)
-Received: from DESKTOP-19IMU7U.localdomain ([125.242.148.221])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-845a3fec0f7sm1679883b3a.22.2026.06.24.02.30.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 02:30:04 -0700 (PDT)
-Date: Wed, 24 Jun 2026 18:30:03 +0900
-From: Wongi Lee <qw3rtyp0@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
-	netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jungwoo Lee <jwlee2217@gmail.com>
-Subject: Re: Please apply 736b380e28d0 and eca856950f7c down to 6.1.y
-Message-ID: <ajujm9+82N1g/HgF@DESKTOP-19IMU7U.localdomain>
-References: <ajuR7rZYU943EG6p@DESKTOP-19IMU7U.localdomain>
- <2026062417-conceal-driving-0ebd@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ABwJ1mYU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53A611F00ACA;
+	Wed, 24 Jun 2026 09:36:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782293811;
+	bh=XywJu8jRVPBxeqs9rzmHag+3ezAMWumDSW8GspGo/YY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ABwJ1mYUI9+vP81/vgxFSbY8CiLWrAs4yA6jJ/jSjUQ48IVGwavUp1cWmtPvBEx8O
+	 3L3mLCWih2znE5U3TNCpefjVZDF2uzJ04Kb5eRwp6A8R+1sacjfa3sanWBYyMcuZD3
+	 OIqHB9TLt9UoNXdsqAU8+fTG6Q68KqyHrWtcIz3oo2gSM3nnfnqV0Jn09rcxWBjktY
+	 yA5ufg5sZaXSbfHX11B4z80Km2ZRBI+ia/1dYIUUjvm/CijGqHsRa78zY4CYnKrzRG
+	 C4mNPkUPcF/wQq5bXCUGA3blB5hj05bR+uUnSoqD5I7iv357xWsKZy96jTYRGeM/vx
+	 tOgCaxJQBYThw==
+Date: Wed, 24 Jun 2026 11:36:46 +0200
+From: Ingo Molnar <mingo@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/boot/compressed: Disable jump tables for clang
+Message-ID: <ajulLtY29HtgWokg@gmail.com>
+References: <20260623-x86-boot-compressed-disable-jt-clang-v1-1-575fccd58107@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,47 +48,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2026062417-conceal-driving-0ebd@gregkh>
+In-Reply-To: <20260623-x86-boot-compressed-disable-jt-clang-v1-1-575fccd58107@kernel.org>
 
-On Wed, Jun 24, 2026 at 11:00:45AM +0200, Greg Kroah-Hartman wrote:
-> On Wed, Jun 24, 2026 at 05:14:38PM +0900, Wongi Lee wrote:
-> > Hi,
-> > 
-> > Could the following upstream commits be queued for the active stable
-> > trees?
-> > 
-> >   commit 736b380e28d0480c7bc3e022f1950f31fe53a7c5
-> >   ("ipv6: account for fraggap on the paged allocation path")
+
+* Nathan Chancellor <nathan@kernel.org> wrote:
+
+> After a recent upstream LLVM change to start generating jump and lookup
+> tables in switch statements in more instances [1], linking the
+> compressed x86 boot image when CONFIG_KERNEL_ZSTD is enabled fails with:
 > 
-> I do not see that commit id in Linus's tree, are you sure it is correct?
+>   ld.lld: error: Unexpected run-time relocations (.rela) detected!
 > 
-> >   commit eca856950f7cb1a221e02b99d758409f2c5cec42
-> >   ("ipv4: account for fraggap on the paged allocation path")
+> Dumping the relocations in misc.o, which is the only file influenced by
+> CONFIG_KERNEL_ZSTD in the decompressor, shows dynamic relocations to
+> some string constants, which correspond to the string literals in the
+> switch statement in handle_zstd_error():
 > 
-> Same here, no id of that one in Linus's tree that I can see.
+>   Relocation section '.rela.data.rel.ro' at offset 0x277b0 contains 31 entries:
+>       Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+>   0000000000000000  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 73a
+>   0000000000000008  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 78e
+>   0000000000000010  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 78e
+>   0000000000000018  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 78e
+>   ...
 > 
-> thanks,
+> This optimization is problematic for the decompressor environment, as it
+> is built as -fPIE without any explicit absolute references (as described
+> at the top of misc.c) while not applying any dynamic relocations, hence
+> the linker assertion. To opt out of this optimization, which is of
+> little value in this special early boot code, disable jump tables in the
+> decompressor when building with clang. This mirrors the other x86
+> startup code in arch/x86/boot/startup.
 > 
-> greg k-h
+> Cc: stable@vger.kernel.org
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2165
+> Link: https://github.com/llvm/llvm-project/commit/fa02a6ed66b1700c996b49c96c6bc0eb014c9518 [1]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+>  arch/x86/boot/compressed/Makefile | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
+> index 07e0e64b9a98..1c0d29e3eeba 100644
+> --- a/arch/x86/boot/compressed/Makefile
+> +++ b/arch/x86/boot/compressed/Makefile
+> @@ -31,6 +31,7 @@ KBUILD_CFLAGS += -Wundef
+>  KBUILD_CFLAGS += -DDISABLE_BRANCH_PROFILING
+>  cflags-$(CONFIG_X86_32) := -march=i386
+>  cflags-$(CONFIG_X86_64) := -mcmodel=small -mno-red-zone
+> +cflags-$(CONFIG_CC_IS_CLANG) += -fno-jump-tables
 
+So, shouldn't we just use -fno-jump-tables for *all* compilers,
+like we do in arch/x86/boot/startup/Makefile?
 
-Hi Greg,
-
-First, sorry for confusing you.
-
-The commit IDs are from netdev/net.git:
-
-  736b380e28d0480c7bc3e022f1950f31fe53a7c5
-  https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=736b380e28d0
-
-  eca856950f7cb1a221e02b99d758409f2c5cec42
-  https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=eca856950f7c
-
-They were applied to netdev without Cc: stable@vger.kernel.org, so I
-wanted to flag them for stable handling but I send it too fast (before
-merge).
-
-I will resend the request with the Linus tree commit ID.
+The point wouldn't be to just work around any Clang
+jump-table optimization complications alone, but also
+to synchronize the build options of very early code and such.
 
 Thanks,
-Wongi
+
+	Ingo
