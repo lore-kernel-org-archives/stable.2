@@ -1,180 +1,133 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A679138837F
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 06:54:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782284100; cv=none; b=VET0uU6ki3NMR+YqgWM7AaNW4zFSR3tjpDCIU4VrkL58kQ6VSPuhSj3NAmmWCo5cCa5QV/i9VFsR4M8SzP0zSXR7sF4QABabiFEt717E8lJ9wNG3WJD3xidfLGV0XR1Ner/n0NcFBGWm42g51xt6N2aE8cSzmuzCifmqdAeKtAY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782284100; c=relaxed/simple;
-	bh=QAg6dLZz7JUcvu3ygEJFaGilWKrUiArOGp8JwZrF1lU=;
-	h=From:To:Cc:Subject:Date:Message-Id; b=dFFl3S9irUlcmKmuey4PuSXHsnYSW4vQNgSs5gc0vMTYjs6RNpwSUUuYxmieN//3Y7x6YitLgtK3ZPSdH053c0yr0dV6sFrXBYHYctEeDosWFAfoHxsEeYpTExtri68krgvwuQpaoIXmKl03P87Z1puJenewJSEbqDeq4TbEBLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kokBevYq; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B820389E05
+	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 06:59:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782284395; cv=pass; b=XJAi0jAv87dMcadc1GrKPwyHmDWV5cDPhchR0p+f0DWvhPf/gF4nkhL+TI+Z5MCSNqKHvMNgsYHUfTvpRLfGluPwvr7iX8Z98p9neMCybTmQiApG0SoFEaSJWp5QepRMvx5m6lPcyyNjnt7nqIr4233hQSDorfj+2LCmaxAtfgg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782284395; c=relaxed/simple;
+	bh=44VgNbI0l91KEdDqjsLiBND2ODLDt3zLlCpOVTLuvwY=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=dtjvymgxE0tyJY3ox3MXfuqTU323XaPAb6csSvNJoa6fq/oKkF+inFqIKPoG/7xh+exNDZsHEDL0yL6ahfesnv1Xpokv5TwBRBH6u67NqjQKGf627mWDRwCI3CccP8MWg37VoFRu5ZjedLFNPtA1TKPTRuqKY6hcsbI+/fVS/Q8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RWkzwMjf; arc=pass smtp.client-ip=209.85.208.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kokBevYq"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c08acccf4a4so77343666b.3
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 23:54:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RWkzwMjf"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-697df404e32so1100604a12.0
+        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 23:59:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782284392; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Ykwn1u2x84wQkJ/2UHKmCWi+p51x91q5A5Pb4JCuDB89HBDldbbn0wtwqHh47q6yys
+         yDcaIODzZYHvB/wk1UU6+VQU24N3lKgtzkQFrCw1MTzo+re2nzMUgjOEMcl6kEhKg89o
+         aBXYOwGmVga+rjVAFUvUsXfIK78/6SORwSPq7TOjw/mzYzkPHUmXfZEauWNtV8lOkbH5
+         aIvuVxphmj2dP5RSZ0eNLAnmkC1IknikbiVfNU/jH7snNsOyQZSJYazPNu/kaSPMxqRb
+         PkCTZlkilt7egYlZe4gSF3F2Q+2D5XMSEAlZAK5flvGKxce3Juc5sCtLFvVrvw3u1KRK
+         GKiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=44VgNbI0l91KEdDqjsLiBND2ODLDt3zLlCpOVTLuvwY=;
+        fh=V5C2UCEqKMRT/N/5IMFcPwLD9KwfxtxJ9iZ04+pscCc=;
+        b=b3Q0jINjtWEzFJL9GmonnB/lbAtnmp9pAJfTXSQKfYNQ7M48kcSuYQv/dp3Cw697xX
+         Y0ZNP1GOXiNNGDqZ3tG97axa9Tr4mKWId/hTETFhZ0TIwQ1xpBheul3Rb7zYxYIU/gqH
+         xDpBs/1PdD5j3uf8A7K+7IEWW2epO96koqcqAldoSHbxb9pGKt5bB0FkCvMgFVVuzRWe
+         SUYAhz6T5jl2UQj6+VPz9e9nfp0Y1sOayvwe2ya8I1GrRC4KPkUg9BCFMjUzfo35mk2e
+         Mym+cMxvs+eVdWoINI4D9c9lemwI0DTQFf0m8YBNU9GH1wJGTCJTtlgQvX2FbQ+nbOkw
+         EYtA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782284097; x=1782888897; darn=vger.kernel.org;
-        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FgXzFb3dVx+G0VhkHfJ6LeyUsAoRLr+Nz9RsQ6xstwc=;
-        b=kokBevYq1oSZiDgmLu7Re/RixUJ1bmTfwDJhyfpN1i00uxntH4aHNvGholvd1HcAaR
-         ifmWJW/i7EbgFAcI/xRksxN17/WykHL/yvSCBSMd09SlemKxZdzpm2SBOLcFi2Vm087k
-         RPu/1b3S2IEdV21T4BAPoHQZLOUf6mqlxBzTDLk1x9GjdZcshvaBB3sdOk07p767PT84
-         zLQJkTrzjDCgBy/kJ4CDShwDebCOimmdIKosTDYLmm+bFRvrRdrE//+lKK4G7YFFlUzv
-         3fTf3aB1oJRoFUrrJDJSKEKLJgwmIsRNLWcAG97wCBdSwATIRS9uuFzdCPkWgrfacwZr
-         QzIw==
+        d=gmail.com; s=20251104; t=1782284392; x=1782889192; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=44VgNbI0l91KEdDqjsLiBND2ODLDt3zLlCpOVTLuvwY=;
+        b=RWkzwMjfSbspuGMitpVnC20hjUGIfGntEprkZdgd3gHDn7maXw5PsQ1Ipd4GBmTZaQ
+         /pFbvKA7j6KDUm69QpvhQUgw5ldVOrifq4dZu4/F9+DFo+DbFW8ido/7Wu6pEOVvyOqP
+         QdZ2ehXh4sJmNq8uLNTvOEvhHtqhFjU7dGYKQcrlvskthhX+SaoLtrXJpK8MOO2LTIHX
+         7RVV8I4pG3e7Orm6h8SlU+CW0o6GdqHDt73boWVk1Thrr5Nt2Dd/gevyqIGj3Z+dYLak
+         Mo/7l0QXamYBuwWEU4UKuQqX9EIQijapP/XVr5p0jGcjwl2FQEgOV1uZC2j3SkXjoiR5
+         k57A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782284097; x=1782888897;
-        h=message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=FgXzFb3dVx+G0VhkHfJ6LeyUsAoRLr+Nz9RsQ6xstwc=;
-        b=Lu1WvL+LsakzwJcikAvwYqViVcmPx2/nOoeUzksClw3c85MNzN8hPqv3LKG52Oq3Fq
-         JCjtx21uLFW6GHV0IaCVExztJe/ADhHoXVDgZCTtNMWw+nAuJSIytiZQGWd5wtwcjju8
-         VaUFWfrukI8V+E+NHz959Enh71Xz2ogiT5a3ZI4WI4yuVmOlS372epCW5+63ifuT0SIE
-         r2clrZoRaYzwM5wj/MJ2JpS86836VenIgxMIkLqvC2An4EWfG0mTtU244+O7AaBC3kFs
-         /NySEM9XJx4H+XnIQt36fPdwjBrRBaW7baKQQ6WjsTi6HtQ1j7j2x3Xahy/6NURSXrDx
-         +3Sw==
-X-Forwarded-Encrypted: i=1; AFNElJ+d8Y9mOSxfj51eeWZVKX3F+Jiptneyfns/gopc26QI6MYqts9fLcyr8dsvfTodXRjdfr20H4w=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+hGGj5vIXXxg5u14x/fxcMwdSEbPARCnFPIAwZ/Blj+ROxDNP
-	ViWpssVwONUCgTueDLoR4rUAmYHEyTlNaZJ2Jg/NsNKXQMuPg6jq6peF
-X-Gm-Gg: AfdE7cnNz4Lyj+4KHJ7cKTBrM80910Jaig+Pbavx1NH6/rX23Xqq8ZFnkZZoJLEIYoz
-	6Mw5bnkiDoRt4WWPmK5/Yz8t1KRQhn9Pf/v6hbFZ9Ue0VOCiSk2DR0aFuohkJf2VSnFG0TcT1i4
-	am2osM7hrLwBd2wxBnrMPUMhvNFgU9Pzs9GekbZ6N3uaRMrTVBaZnhnzhoGcoUC+h6+IEApZkji
-	FC2Wau8F0ylf1oUFDzg8VGIT7e06qrQQdu7sOuZeg0iVuVkecSF+qf89+NjE5z1rJvZmoYOJzTB
-	1uqz5+wr6gE2b5OTzYUDrCWFkyy8zTorkZQMZ5YFwstmPLb1/suI8j6eMgdyMrB0hkKDWqV5CCA
-	qWsu0Nl+YESwDfKR1ca/RYh6RRRGRI3u8eQ74ldCxN9svgpi0MpEi7Lm/IYiXen0OvEmPHC8H+z
-	eiA/ZDTCn4oc8=
-X-Received: by 2002:a17:907:e895:b0:bef:db4:296e with SMTP id a640c23a62f3a-c107d00be34mr326784066b.10.1782284096711;
-        Tue, 23 Jun 2026 23:54:56 -0700 (PDT)
-Received: from localhost ([185.92.221.13])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c60ac98c9sm606560866b.29.2026.06.23.23.54.56
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Tue, 23 Jun 2026 23:54:56 -0700 (PDT)
-From: Wei Yang <richard.weiyang@gmail.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	riel@surriel.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	ziy@nvidia.com,
-	sj@kernel.org,
-	balbirs@nvidia.com
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Wei Yang <richard.weiyang@gmail.com>,
-	stable@vger.kernel.org,
-	Lance Yang <lance.yang@linux.dev>
-Subject: [Patch mm-hotfixes v4] mm/page_vma_mapped: fix device-private PMD handling
-Date: Wed, 24 Jun 2026 06:53:53 +0000
-Message-Id: <20260624065353.1622-1-richard.weiyang@gmail.com>
-X-Mailer: git-send-email 2.11.0
+        d=1e100.net; s=20251104; t=1782284392; x=1782889192;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=44VgNbI0l91KEdDqjsLiBND2ODLDt3zLlCpOVTLuvwY=;
+        b=XAZha2pP1JunZ0n3Sr8sko/WQxGWZIOX+VaOIEDu9G3UmfJhqQSXe0gVy39ZxktKZF
+         nXE6LqpM7Ge0o8DsA1jfEt+ZfOCc89tMWAYuX8HISlAxU1bOHhari96/qtDw0Ok/fGFa
+         +SEemk17X15Ehh93HlASdbpZYxhL2dyVRujNhDtuK2UWSmEHksaHqZ5Zus11i3YmDm8T
+         056wrDQwk0fmVo8ms1pTik8ZW/lDmpF9bFtVAHH5oc+IUZj2OyKrTYqKcSiqDlOQ22Zz
+         NgJ1ZcOOktYV8/vel78dLHRc4vscTppA6AuCFzs5WKubYXSdKDH1bK2mw2b+XIW9FkIL
+         KZ2Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/cWZAi4dMDCzt7N5YkBvQJMdmkO3YUMXFbKFGwIVOAYZwwguAuCoaim0SCbVnL8Oh9DuJ6F+M=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxg2OlditTcSd7wQxp47rXhStoCAjlgmMqOOc6Zk1kia1MwZJ6J
+	sJ3OFrHGGz0biOicyqr5SzY19c36RBjIq6V2rN2p+kbt9Gf7ZPSRlE+Z6cP9K8OnGt1q+FbFHiZ
+	z580TTJmDmN/46DPjygY+Xi8L1Hd+bis=
+X-Gm-Gg: AfdE7clZdXs088v4S2ZteyyFlfD2nnm3jt86J1j8tQEK03bww9heD7cD23DgMvIdGy9
+	YuPJir/0hFsAKE197iVAKw2vh40xiyO3v6ppU176nY0XTpvRY7VASkGkngWGyjEZ4CMAShUygIM
+	94H449nni1KvmK4Es8qVRgxCuvAYlTodVJICkb9pghQU14qP6vinrL96H7Lp1DdF2FRuzv2bAXt
+	Tlz6bEP6bC/FrJZ5bDths8u6yAgRrMb8mwudd/mcBLRi+eDOibNXNDQgKGrD9rXL60QY9+vQmLA
+	8tpvUdrO
+X-Received: by 2002:a17:907:a807:b0:bea:f5ec:e70d with SMTP id
+ a640c23a62f3a-c119cc73499mr81252166b.10.1782284392161; Tue, 23 Jun 2026
+ 23:59:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: Ujjal Roy <royujjal@gmail.com>
+Date: Wed, 24 Jun 2026 12:29:36 +0530
+X-Gm-Features: AVVi8CcjqT2HGCtdY0b3TsVb5_1CyqP5ethEgfbUu0VypPx0SY_tnqJhPcFQITk
+Message-ID: <CAE2MWknz4X_gcNo6jkR87Lg8F0zfubkOc4Ujr57CS3aBMWrjEA@mail.gmail.com>
+Subject: Please backport bridge multicast exponential field encoding fix
+ series to stable kernels
+To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>, 
+	David Ahern <dsahern@kernel.org>, Shuah Khan <shuah@kernel.org>, Andy Roulin <aroulin@nvidia.com>, 
+	Yong Wang <yongwang@nvidia.com>, Petr Machata <petrm@nvidia.com>, stable@vger.kernel.org, 
+	Greg KH <greg@kroah.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Ujjal Roy <ujjal@alumnux.com>, bridge@lists.linux.dev, 
+	Kernel <netdev@vger.kernel.org>, Kernel <linux-kernel@vger.kernel.org>, 
+	linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
-device-private entries") introduced the concept of device-private
-PMD entries, but did not correctly update the rmap walk code to
-account for them.
+Hi Greg,
 
-As a result, when page_vma_mapped_walk() encounters device-private
-PMD entries, it takes no action other than to acquire the PMD lock
-and exit.
+Please consider backporting the following bridge multicast fix series
+to all applicable stable kernels:
 
-However this is highly problematic for two reasons - firstly,
-device private entries possess a PFN so check_pmd() needs to be
-called to ensure an overlapping PFN range.
+726fa7da2d8c ("ipv4: igmp: get rid of IGMPV3_{QQIC,MRC} and simplify
+calculation")
+12cfb4ecc471 ("ipv6: mld: rename mldv2_mrc() and add mldv2_qqi()")
+95bfd196f0dc ("ipv4: igmp: encode multicast exponential fields")
+e51560f4220a ("ipv6: mld: encode multicast exponential fields")
+529dbe762de0 ("selftests: net: bridge: add MRC and QQIC field encoding tests")
 
-Secondly, and more importantly, if PVMW_MIGRATION is set the
-caller assumes the returned entry is a migration entry, resulting
-in memory corruption when the caller tries to interpret the device
-private entry as such.
+This series was merged via: db314398f618 ("net: bridge: mcast: support
+exponential field encoding")
 
-In addition, commit 146287290023 ("mm/huge_memory: implement
-device-private THP splitting") allowed device private PMDs to be
-split like THP mappings, but again did not update this code path.
+History: The multicast stack currently supports decoding of IGMPv3 and
+MLDv2 exponential timer field encodings, but lacks the corresponding
+encoding logic when generating multicast query packets. As a result,
+query intervals and response codes exceeding the linear encoding range
+can be transmitted incorrectly. This can cause multicast queriers and
+listeners to interpret different timing values, resulting in protocol
+interoperability issues, membership timeouts, and premature multicast
+group expiration.
 
-As a result, we might race a PMD split prior to acquiring the PMD
-lock.
+Testing: The series adds the missing encoding support for both IGMPv3
+and MLDv2 and includes selftests that validate the behavior.
+I backported the series to v6.6.123.2 and verified the accompanying
+selftests. The selftests fail on the unpatched kernel and pass after
+applying the series, demonstrating both the bug and the effectiveness
+of the fix.
 
-This patch addresses all of these issues by invoking check_pmd(),
-ensuring PMVW_MIGRATION is not set and checks whether a split raced
-us we do for PMD THP and migration entries.
+Given that this is a protocol correctness issue affecting multicast
+query generation, please consider backporting the complete series to
+all applicable stable kernels.
 
-Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
-Suggested-by: David Hildenbrand <david@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Balbir Singh <balbirs@nvidia.com>
-Cc: SeongJae Park <sj@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-
----
-v4:
-  * refine subject and commit log based on Lorenzo's suggestion
-  * put pmd device-private entry handling in its own if branch,
-    suggested by Lorenzo
-
-v3:
-  * remove cleanup part, only fix the issue for device-private entry
-  * refine user effect description based on Lorenzo's suggestion
-
-v2: https://lore.kernel.org/all/20260616063436.20455-1-richard.weiyang@gmail.com/T/#u
-  * specify the possible error case of current code and user visible effect
-  * besides fix, cleanup the pmd entry handling based on David's suggestion
-
-v1: https://lore.kernel.org/linux-mm/20260508013728.21285-1-richard.weiyang@gmail.com/
----
- mm/page_vma_mapped.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
-
-diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
-index 2ccbabfb2cc1..17dff8aab9f9 100644
---- a/mm/page_vma_mapped.c
-+++ b/mm/page_vma_mapped.c
-@@ -269,14 +269,24 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
- 			/* THP pmd was split under us: handle on pte level */
- 			spin_unlock(pvmw->ptl);
- 			pvmw->ptl = NULL;
--		} else if (!pmd_present(pmde)) {
--			const softleaf_t entry = softleaf_from_pmd(pmde);
-+		} else if (pmd_is_device_private_entry(pmde)) {
-+			softleaf_t entry;
-+
-+			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
-+			pmde = *pvmw->pmd;
-+			entry = softleaf_from_pmd(pmde);
- 
--			if (softleaf_is_device_private(entry)) {
--				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
-+			if (likely(softleaf_is_device_private(entry))) {
-+				if (pvmw->flags & PVMW_MIGRATION)
-+					return not_found(pvmw);
-+				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
-+					return not_found(pvmw);
- 				return true;
- 			}
--
-+			/* device-private pmd was split under us: handle on pte level */
-+			spin_unlock(pvmw->ptl);
-+			pvmw->ptl = NULL;
-+		} else if (!pmd_present(pmde)) {
- 			if ((pvmw->flags & PVMW_SYNC) &&
- 			    thp_vma_suitable_order(vma, pvmw->address,
- 						   PMD_ORDER) &&
--- 
-2.34.1
-
+Thanks,
+Ujjal
