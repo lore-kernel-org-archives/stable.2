@@ -1,111 +1,108 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D511A6800;
-	Wed, 24 Jun 2026 16:16:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F1420DD51;
+	Wed, 24 Jun 2026 16:24:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782317818; cv=none; b=kbVnffsulQmaFukq3U8F6mHCxflXbXieb3QFHpyrKjc8qpM103lrEsI/pS+8qdckhxaIUqHIo6RpEt5jBDGdWGHtfhVZ3JCEKQf00Frc+RLsvRXUyLYRC9cjxJaahXew+EO8W4fGQCCYZPalw4Pliy+JQrZdotvzBBzRirCJfw8=
+	t=1782318300; cv=none; b=qTJFTeemzUFR4iITOschX42K4OK0ArIYuo+PgliuCTtavdzC+tUZjd44H9iXeIXp9hsAGjXKqUSpEef2wp9O6Vo2zNXJklKt4vhFZMDy0P5bYd2Sm2Km8UGfIgCcMS1EmUhJkUT96d9m5Cru8oB53Mav+jvbHRCcK7aRasJezcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782317818; c=relaxed/simple;
-	bh=IOhWgwBBMWg6Ldbg26XTYhcGvygbIBOcQjU8gr0xbjc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Jtx7n3vKnRh4tEb5eoTY8GgHtQwCvgCsWO26c89xQiVgleD1qaBtv+bU5wvHH7hFFsUki9jTcTji4/maP394E+vilcSNCP8aW0uLUfSMfHIJSZa9jF65vZFYEWjJMZ97s/nwI8NFKBXccGU3/ghaQUbQ1bWbLGh38/AHUfqQ8aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=MnpUL2zc; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="MnpUL2zc"
-Received: from [10.0.0.200] (unknown [10.88.125.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 6C8175340427;
-	Wed, 24 Jun 2026 18:16:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1782317814;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=YKIkxch6KLPeashywy0J/xWIuotTcRwzMsXsdGIZyMw=;
-	b=MnpUL2zcl2CdP0319oQMHMagw4BLto6CBFgevV6EaXXgzvQlZlF/w/d9r9RhA6F8EZi/3s
-	DyGiGNwBoBaNVs8wmODmhXG4GZzkL2UxPgxkj1YMUAMaizla1iSzMsna1vwed8RZ2bpWli
-	jSs+Qwyzen24Cv5+OOeoUNy5N6OSTvM=
-Message-ID: <87079ae8-bee8-4ae5-a016-de9b81962c04@ixit.cz>
-Date: Wed, 24 Jun 2026 18:16:54 +0200
+	s=arc-20240116; t=1782318300; c=relaxed/simple;
+	bh=R5ZfFVkRQZeDfb++4G4BucOYTlrYjFIRmmldsD6a4Wk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SSL4nlSaGlpBN3w9xb+SVioeWavxurM7C5u4EncJCkSSQULa8MNvhiGnlc1s4wUQtJA11F7CpgXN3OGcSNN8P6h05fkT8yb9Lc/Cg8gdj2bhfZRz4OayhDuhSOIwh5EWixE/R+Wsc24g+yFADWyMxe5GlQil7B4EYJmprsRmyag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
+Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
+	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wcQPH-0042Fl-1C;
+	Wed, 24 Jun 2026 16:24:55 +0000
+Received: from ben by deadeye with local (Exim 4.99.3)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wcQPF-000000085ap-3kxj;
+	Wed, 24 Jun 2026 18:24:53 +0200
+Message-ID: <6218e66138c5c1c5fb02bd653c8b91d6ff8c3abd.camel@decadent.org.uk>
+Subject: Re: [PATCH 6.1 375/522] net: ipv4: stop checking
+ crypto_ahash_alignmask
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Eric Biggers <ebiggers@google.com>, Herbert Xu
+	 <herbert@gondor.apana.org.au>, Sasha Levin <sashal@kernel.org>
+Date: Wed, 24 Jun 2026 18:24:48 +0200
+In-Reply-To: <20260616145143.326415700@linuxfoundation.org>
+References: <20260616145125.307082728@linuxfoundation.org>
+	 <20260616145143.326415700@linuxfoundation.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-BywJuZ00Y7z4WxuA4+IA"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] nfc: llcp: fix OOB read and u8 offset wrap in TLV
- parsers
-To: Muhammad Bilal <meatuni001@gmail.com>, oe-linux-nfc@lists.linux.dev
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, krzk@kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, netdev@vger.kernel.org
-References: <20260622131802.239035-1-meatuni001@gmail.com>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <20260622131802.239035-1-meatuni001@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
 
 
-On Mon, 22 Jun 2026 18:18:02 +0500, Muhammad Bilal wrote:
- > nfc: llcp: fix OOB read and u8 offset wrap in TLV parsers
+--=-BywJuZ00Y7z4WxuA4+IA
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Applied, thanks!
+On Tue, 2026-06-16 at 20:28 +0530, Greg Kroah-Hartman wrote:
+> 6.1-stable review patch.  If anyone has any objections, please let me kno=
+w.
+>=20
+> ------------------
+>=20
+> From: Eric Biggers <ebiggers@google.com>
+>=20
+> [ Upstream commit e77f5dd701381cef35b9ea8b6dea6e62c8a7f9f3 ]
+>=20
+> Now that the alignmask for ahash and shash algorithms is always 0,
+> crypto_ahash_alignmask() always returns 0 and will be removed.
+[...]
 
-[1/1] nfc: llcp: fix OOB read and u8 offset wrap in TLV parsers
-       commit: cb682b66aba4bc3f4dd4d7ae5612f49ad75b2087
+But that is only true after the earlier changes in the series from which
+this was cherry-picked!  To avoid a regression, it would be necessary to
+backport at least the driver changes to support unaligned buffers:
 
-Best regards,
--- 
-David Heidelberg <david@ixit.cz>
+9924003807a9 "crypto: sparc/crc32c - stop using the shash alignmask"
+f35a4e237f4e "crypto: omap-sham - stop setting alignmask for ahashes"
+8c87553e2db6 "crypto: starfive - remove unnecessary alignmask for ahashes"
+
+However I think it makes more sense to revert this and its ipv6
+counterpart and to fix up whatever the conflict was.
+
+Ben.
+
+--=20
+Ben Hutchings
+Anthony's Law of Force: Don't force it, get a larger hammer.
+
+--=-BywJuZ00Y7z4WxuA4+IA
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmo8BNEACgkQ57/I7JWG
+EQnOoA//fKTfYCyNPKJnXzxFcCIgYdQFT9ryfR99lLYsvxhKUqwrnOzxWrfI7BeQ
+n86yz8jVdxhRGaOuX0qWobrMWYXmLvEwbVTeaa4WwtR/buHJZCPcY9sVAkJOTwxB
+0GeBPd0emHsEagPVVLsKgF2bqJ2aUaPO7YLUWk764sRWR72S5N40yZySVv0i5rP0
+B4LZUgOxdHdNR5tRTTMfaakolz8azPHHznVWp5l2Jj8Xrx4cCWhtgM6aZ4DON2AW
+zfgjth+Wv+l078GOHhpOovqkthMCe6eaP31K1/fADoB1ZkH/XEh/z2KBostOVTTc
+ILPBgPABQ5h4DOhy5PwCZHpM1+gBteEaN/YX619F6ADGCwSer/tXm90NQLdXIQCm
+kCqdD696JRZgLeuEhWOFC04KT6GjBXCwA/Mll1iPKdEm2osEwkbozRAkpxk7J+sf
+2taHd0RAoTzNSFTYNBY5BDyo3hOrs/QKXcOTpGiKiwGAU3c2rKyarI4SOPjt3g57
+dAoHzCzE+5uvN21YC24kIpEFaCpKFy87HRbvtwMSl3GGDLz81H6IaXfTM3HhjaMJ
+LZCpsfSV4gj2ERnJDeSfRfwbVKKOIRpR2n8Mu8r2xKeJnzE3drwzUVqnz7N13RVJ
+t91Pq7HSybwV8o/79XYo7tpiD/xa2NGmY9Al48lnGOLz2TQOMGk=
+=W1K3
+-----END PGP SIGNATURE-----
+
+--=-BywJuZ00Y7z4WxuA4+IA--
