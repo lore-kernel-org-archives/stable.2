@@ -1,60 +1,60 @@
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EBB39C64E;
-	Wed, 24 Jun 2026 12:24:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ACCE17A300;
+	Wed, 24 Jun 2026 12:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782303850; cv=none; b=LM638NqKaeUnQCwk2/hRzEL1tzWNq4Bf8bOYOIbGybQHNok6qhc3SJKQYJqE9sw9aCyXhlwOZTRJkVSu+FiW+XnsjG3BuM2ypt32fJNRsdXVQdGoWEVYKzHevKqLEc3DbigLgUALY28/M7oQfc1k/sKP9EnOaBbTdIckbCKgloo=
+	t=1782303871; cv=none; b=gKRRhgIok4by29+Uk/VunA5pxhN06/jo58Aaz2Cp8CrjOnKjUFcKJy9g25efi5b2lfOSdtDGSXpy+iRlzghoTSKBcJMwZ+5pvGN6IQcjqxQN9gNN3ApCmuMQgkuSQZx/mCYhz286sCpZO6vktV3dLHal/e9NhaOp7STesdjoisU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782303850; c=relaxed/simple;
-	bh=8CSB78j5XmmeWef3CYb78etFjNwLbKBgQvDdSOXQqH0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Y3H6E/UUIyeuuBsonFHB2AD3PNbrpcj2AkEd8xVpeImM0fHWQ8bZmpHnpAN8WJEytyVeSCOR3MkZprff+bDlSpmy2L3reijtLMqMjN57Kdsmoh7c4VyBRdS8jgbwxIDzzikZTHDtEeadSiKTMTCCCA+rl/D17HcOHoFNg1tWgyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=aFenbhqT; arc=none smtp.client-ip=35.83.148.184
+	s=arc-20240116; t=1782303871; c=relaxed/simple;
+	bh=XLlqBBnRDRZstIwJ+0KRDED8w8EH1SfkPGEn5Dei+g8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=s0qgtQUwZ17XoBYmwoeEexmXYTFJZr7rogGPIdGgHSKbMrL4k3CbAVPOaoq6Yh3hMZ4W6CCN+FQ/rE6lmMJiy8BEyWknlSg+JUkYKAJWO4BfUmVavgb1rji/6sN9hmEMx9kSktFtTqnWY0Ym0MEP31edlJWzC4tu/SVvMCVqF3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=T5wUaXXx; arc=none smtp.client-ip=34.218.115.239
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="aFenbhqT"
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="T5wUaXXx"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1782303849; x=1813839849;
+  t=1782303870; x=1813839870;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=+iKH6OUOcGTM4cj63XtTt5xOEu4DYEUZEkjafOXnPAs=;
-  b=aFenbhqTtXwcShVQB9eD1mTxR0QD042ouhX2Srx+alvMSLAq4+wmA8Qj
-   OzyKNEp+9T3GBEU4GFs9Rr2C6QYav1+UWHdOkf+naTJ9qHH5KK4Qtbt6H
-   9xzbF++MjslzkLE69MWXODm8eppT37lTUWz7x/d2JoJ+Pbvn7GEQAYXv7
-   qBvY+ba7vqa39O2Za+ZS3pk3FWmIDoZBT6Xy00+oH6xLS9/Sk759Og2im
-   3Em6J8hduLE5EIMFsJfgHfZecbT7ECi6Zf3p5LJiwGAmyeYPJidQhJj+U
-   e0Gm6RYshCvlCq7B5fZVsqhbiA72tusgN9tV+1QsrvkvL2fvSXAbVLBIs
+  bh=4CGeDu3hMo8aMIESD7AmSWajUrAp09msfHqA1oL1ei4=;
+  b=T5wUaXXxfc9xNZ2lLagG6mpF9lURgMUm2fS5DtsAlAAnuP5bsLIGrUq1
+   YL4J5qcg33vbgBrvmzvaxCOFd2Nyo33AxkipyyvYSezYqvyUnywCi7hUq
+   XANxWhP/PVJYjZgCuoh8j/C6Bo/MMaCd5JuDxOaGhCzn3H5JEx9pyVIKV
+   QirEGcb5WrnULgOJlNSEsyYFipEOqApS6tBWYWDp67BEvZgEJ8lwqynpN
+   emrQwcJnKGUxBkBqi7ZN7Mbrj/9g/CFQ00906IqVHaWhmPa1/TK5TJ2NP
+   DdVLWlC4rKEnM/a4fMZtpJvbEQxKFLr7WtoP2dnlHU7KfnMGMiiIOzo22
    w==;
-X-CSE-ConnectionGUID: REu6y/BTSC+La7jaOGOvLA==
-X-CSE-MsgGUID: 2VHHjsLzRb6U3kQMx5QLYA==
+X-CSE-ConnectionGUID: QL2WzA6RQ5SZHeE1mbR7RA==
+X-CSE-MsgGUID: 2T/rD8ahSP+S7yJuVQXkow==
 X-IronPort-AV: E=Sophos;i="6.24,222,1774310400"; 
-   d="scan'208";a="22189975"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 12:24:06 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:28601]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.37.116:2525] with esmtp (Farcaster)
- id 1dddcb46-528b-444f-95f8-60b781982ab2; Wed, 24 Jun 2026 12:24:06 +0000 (UTC)
-X-Farcaster-Flow-ID: 1dddcb46-528b-444f-95f8-60b781982ab2
+   d="scan'208";a="22200394"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 12:24:27 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:4717]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.226:2525] with esmtp (Farcaster)
+ id 983191cf-44e7-40d8-80e7-28447858eef1; Wed, 24 Jun 2026 12:24:27 +0000 (UTC)
+X-Farcaster-Flow-ID: 983191cf-44e7-40d8-80e7-28447858eef1
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
  EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Wed, 24 Jun 2026 12:24:05 +0000
+ Wed, 24 Jun 2026 12:24:27 +0000
 Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
  by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Wed, 24 Jun 2026 12:24:04 +0000
+ Wed, 24 Jun 2026 12:24:26 +0000
 From: Bjoern Doebel <doebel@amazon.de>
 To: <stable@vger.kernel.org>
 CC: Bjoern Doebel <doebel@amazon.de>, Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>, <linux-trace-kernel@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, Mathieu Desnoyers
 	<mathieu.desnoyers@efficios.com>, David Howells <dhowells@redhat.com>
-Subject: [PATCH 5.15.y] ring-buffer: Remove ring_buffer_read_prepare_sync()
-Date: Wed, 24 Jun 2026 12:23:49 +0000
-Message-ID: <20260624122351.2477592-1-doebel@amazon.de>
+Subject: [PATCH 5.10.y] ring-buffer: Remove ring_buffer_read_prepare_sync()
+Date: Wed, 24 Jun 2026 12:24:11 +0000
+Message-ID: <20260624122413.2477871-1-doebel@amazon.de>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -62,7 +62,7 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D036UWB001.ant.amazon.com (10.13.139.133) To
+X-ClientProxiedBy: EX19D042UWB004.ant.amazon.com (10.13.139.150) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
@@ -114,10 +114,10 @@ Signed-off-by: Bjoern Doebel <doebel@amazon.de>
  4 files changed, 18 insertions(+), 75 deletions(-)
 
 diff --git a/include/linux/ring_buffer.h b/include/linux/ring_buffer.h
-index 3e7bfc0f65ae..b53335ed2d0e 100644
+index 7d5a78f49d43..be5c12092246 100644
 --- a/include/linux/ring_buffer.h
 +++ b/include/linux/ring_buffer.h
-@@ -130,9 +130,7 @@ ring_buffer_consume(struct trace_buffer *buffer, int cpu, u64 *ts,
+@@ -128,9 +128,7 @@ ring_buffer_consume(struct trace_buffer *buffer, int cpu, u64 *ts,
  		    unsigned long *lost_events);
  
  struct ring_buffer_iter *
@@ -129,10 +129,10 @@ index 3e7bfc0f65ae..b53335ed2d0e 100644
  
  struct ring_buffer_event *
 diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index e44115db0efe..770dc7c60656 100644
+index 03a7127efc5a..05f2d7f16670 100644
 --- a/kernel/trace/ring_buffer.c
 +++ b/kernel/trace/ring_buffer.c
-@@ -5037,28 +5037,20 @@ ring_buffer_consume(struct trace_buffer *buffer, int cpu, u64 *ts,
+@@ -4858,28 +4858,20 @@ ring_buffer_consume(struct trace_buffer *buffer, int cpu, u64 *ts,
  EXPORT_SYMBOL_GPL(ring_buffer_consume);
  
  /**
@@ -168,7 +168,7 @@ index e44115db0efe..770dc7c60656 100644
  {
  	struct ring_buffer_per_cpu *cpu_buffer;
  	struct ring_buffer_iter *iter;
-@@ -5083,51 +5075,12 @@ ring_buffer_read_prepare(struct trace_buffer *buffer, int cpu, gfp_t flags)
+@@ -4904,51 +4896,12 @@ ring_buffer_read_prepare(struct trace_buffer *buffer, int cpu, gfp_t flags)
  
  	atomic_inc(&cpu_buffer->resize_disabled);
  
@@ -224,10 +224,10 @@ index e44115db0efe..770dc7c60656 100644
  EXPORT_SYMBOL_GPL(ring_buffer_read_start);
  
 diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 537360be8e4e..1a29a9d9e868 100644
+index 5bcd4cbeeb4f..ed32d3c4f0e7 100644
 --- a/kernel/trace/trace.c
 +++ b/kernel/trace/trace.c
-@@ -4803,21 +4803,15 @@ __tracing_open(struct inode *inode, struct file *file, bool snapshot)
+@@ -4480,21 +4480,15 @@ __tracing_open(struct inode *inode, struct file *file, bool snapshot)
  	if (iter->cpu_file == RING_BUFFER_ALL_CPUS) {
  		for_each_tracing_cpu(cpu) {
  			iter->buffer_iter[cpu] =
@@ -254,7 +254,7 @@ index 537360be8e4e..1a29a9d9e868 100644
  	}
  
 diff --git a/kernel/trace/trace_kdb.c b/kernel/trace/trace_kdb.c
-index 59857a1ee44c..628c25693cef 100644
+index 9da76104f7a2..18d1551db2b0 100644
 --- a/kernel/trace/trace_kdb.c
 +++ b/kernel/trace/trace_kdb.c
 @@ -43,17 +43,15 @@ static void ftrace_dump_buf(int skip_entries, long cpu_file)
