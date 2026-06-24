@@ -1,81 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-3-112.ptr.tlmpb.com (sg-3-112.ptr.tlmpb.com [101.45.255.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856BD22126C;
-	Wed, 24 Jun 2026 10:03:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030373BC680
+	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 10:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782295414; cv=none; b=WD1zqtcW1zDb4O+Qv5y7j4kvTHyon9nZLQ07WsGfnrw2vL58WgVfItGhibXOIEiZXUd+3JSFvU3Ht2PVXNvDjwUZizGWjHG4oHZmjV9a7U+ArnFJIaEnlBmcKtBtNKudaz275LYuDmEg3qpucuSSu5tw4BbyOg3IDeQFsEvEMpY=
+	t=1782295465; cv=none; b=f4Vwuiadpazy8BTFMARBIYoFOQtVW7PU8HSXHV8p5V8MX2c1B3WCK/8Qsyf4yecT6Rv5K/CwX3TKieFWzrtzpHnPpYW5qmwNBK/8p18DCEODJUe0TbAv1RG6sckoXOOiFv0is64XXRjtqsh7SmqQIFB7WczSm6H55LsPIqRf/hI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782295414; c=relaxed/simple;
-	bh=FVXutdEyC0x0cYFJWy0uhvg1KlpMoLrmECvCw+Pc0rA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DPsB5ggwpJGKW03uMiYmAotv/jLNGsk4kEeryTQT0F64FcbSFeKsjOkEEfYY/9VLnjkrtE2P+Zi05NRhcadTUXO5ZSigPTHo3IIdZDJB8jvyx72ES+u+OWN6MKEk4Y0zfsaeN6qr39+hYdpfpI735g6Lbv32RwKYJUArfHeVEWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Mng0XmTb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782295465; c=relaxed/simple;
+	bh=joBK+B3mYaMGNAxp3fOJTks/CETcFMfVsK+aX1v74NQ=;
+	h=To:Cc:Message-Id:Mime-Version:In-Reply-To:Content-Type:References:
+	 Subject:Date:From; b=nBLe1nUMj5lqEZ7jdv+bptvt8btY4gvGRVrQ9CwMQh+r1pElykqrxd3xqNvqaApENceDZaPTOx/nhQk+7gkK2bZW1IxJsr0zz/uaqgCaTRkAaG30Qu62/d+aOaUqpK3P+6qB6jnQ+bhEgYuPVBAtFLLmVy5h0E1yzMcwxTm8rtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=Qo4SovjB; arc=none smtp.client-ip=101.45.255.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Mng0XmTb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432671F000E9;
-	Wed, 24 Jun 2026 10:03:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782295412;
-	bh=954vwfv0onOMTvLBwot3VrPpWzQAzKYexf8k6owoKRY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mng0XmTbHJolB4hGA0HOv7x4doOtSehYCzZ1XaUA8kpa7UiBYSxPhwWYAA2E6MxdI
-	 fjJC8kbO3yBodd/oMNgj09pwGrLNSD+6b7hOAz3ZevrHrOHUOTuHtmnnBsbUtbFnoO
-	 pN1y8RFs7Uhh/53EtKNZZBhKTYf1MS9Zbo7OZaCk=
-Date: Wed, 24 Jun 2026 11:02:21 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Wentao Guan <guanwentao@uniontech.com>
-Cc: 00107082@163.com, iklatzco@gmail.com, patches@lists.linux.dev,
-	peterz@infradead.org, sashal@kernel.org, stable@vger.kernel.org,
-	yeoreum.yun@arm.com
-Subject: Re: [PATCH] perf: Fix dangling cgroup pointer in cpuctx backport
-Message-ID: <2026062404-unusual-nutmeg-87d5@gregkh>
-References: <2026062455-obtrusive-sandbox-d6d1@gregkh>
- <20260624095920.2558406-1-guanwentao@uniontech.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="Qo4SovjB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1782294733; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=umShoTivTMViTlH/8dCfBir+diXBA0Qrg1F+tK6uXyw=;
+ b=Qo4SovjBUNNjajxoqY/MsOZpFTAcbYMwHsGsALJDkMiBQkEQMq3mKh5ZZboe+cCTxsNuic
+ proxRLjemkMxaMZaWbanMUS2cB9L54CP/j+X4F170Q5YdcXGC/Y0RdYdBI436SA07KFDBG
+ frT81FqmsOOn2KHVSGyIDtSQL3UMT/mcstZo3/AgY8kSymMOfd0T0eHnY+cSgYFpDsM3Iw
+ RqtoapK54KOHXjyjiECSuuwPOvAfI2vO5LL4E7kIFaJGNCNVT6fosN7vJUH+QTofoeN1UJ
+ HBbLYPNPFHROWVPtI6QCxvCGqq1j1W7L4fIOmHiKgTo8kWD+10980/yPv/0vuQ==
+To: "Zhang Yi" <yi.zhang@huaweicloud.com>
+Content-Transfer-Encoding: 7bit
+Cc: "Zhu Jia" <zhujia.zj@bytedance.com>, <tytso@mit.edu>, 
+	<adilger.kernel@dilger.ca>, <libaokun@linux.alibaba.com>, <jack@suse.cz>, 
+	<ojaswin@linux.ibm.com>, <ritesh.list@gmail.com>, 
+	<linux-ext4@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
+Message-Id: <20260624094535.1-zhujia.zj@bytedance.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260624095920.2558406-1-guanwentao@uniontech.com>
+Mime-Version: 1.0
+In-Reply-To: <81ed36cc-b5c8-41cf-8b7d-16611e61e294@huaweicloud.com>
+Content-Type: text/plain; charset=UTF-8
+References: <20260623094947.7853-1-zhujia.zj@bytedance.com> <81ed36cc-b5c8-41cf-8b7d-16611e61e294@huaweicloud.com>
+Subject: Re: [PATCH] ext4: cancel dirty accounting for folios without buffers
+Date: Wed, 24 Jun 2026 17:52:06 +0800
+X-Original-From: Zhu Jia <zhujia.zj@bytedance.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+From: "Zhu Jia" <zhujia.zj@bytedance.com>
+X-Lms-Return-Path: <lba+26a3ba8cb+b21b49+vger.kernel.org+zhujia.zj@bytedance.com>
 
-On Wed, Jun 24, 2026 at 05:59:21PM +0800, Wentao Guan wrote:
-> recently backport of ("perf: Fix dangling cgroup pointer in cpuctx")
-> use a middle version, so aligned with the upstream commit:
-> 3b7a34aebbdf2a4b7295205bf0c654294283ec82
-> 
-> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
-> ---
->  kernel/events/core.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index a4187dea6402a..73a86db06cc9b 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -2384,10 +2384,9 @@ __perf_remove_from_context(struct perf_event *event,
->  	 */
->  	if (flags & DETACH_EXIT)
->  		state = PERF_EVENT_STATE_EXIT;
-> -	if (flags & DETACH_DEAD) {
-> -		event->pending_disable = 1;
-> +	if (flags & DETACH_DEAD)
->  		state = PERF_EVENT_STATE_DEAD;
-> -	}
-> +
->  	event_sched_out(event, ctx);
->  
->  	if (event->state > PERF_EVENT_STATE_OFF)
-> -- 
-> 2.30.2
-> 
+Hi Yi,
 
-What kernel tree(s) is this for?  What git id does this fix?
+Thanks for taking a look.
 
-thanks,
+Yes, clearing PAGECACHE_TAG_DIRTY/TOWRITE would make the page-cache state
+cleaner. I had a version that did this by adding a helper around
+folio_cancel_dirty() and clearing the xarray tags after confirming the
+folio was still the same clean page-cache entry.
 
-greg k-h
+It looked like this:
+
+static void ext4_cancel_dirty_folio(struct address_space *mapping,
+				    struct folio *folio)
+{
+	XA_STATE(xas, &mapping->i_pages, folio->index);
+	unsigned long flags;
+
+	folio_cancel_dirty(folio);
+
+	xas_lock_irqsave(&xas, flags);
+	if (xas_load(&xas) == folio && !folio_test_dirty(folio)) {
+		xas_clear_mark(&xas, PAGECACHE_TAG_DIRTY);
+		xas_clear_mark(&xas, PAGECACHE_TAG_TOWRITE);
+	}
+	xas_unlock_irqrestore(&xas, flags);
+}
+
+The reason I left the tags unchanged in this version is that I was not sure
+whether it is appropriate for ext4 to open-code xarray tag cleanup directly.
+
+If you think this is the right direction, I can add the helper back and
+send a v2.
+
+Thanks,
+Jia
