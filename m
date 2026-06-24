@@ -1,154 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C6193C2BA2;
-	Wed, 24 Jun 2026 14:31:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764673C769F
+	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 14:32:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782311485; cv=none; b=qczc1MqIXRT/fOofvsHoMtsiml/flONRK7YAuYWdKkXTm1K4uc/4VzpyN1aOz3z557jbBhvB9SMsZXSHEqMWaYQL7S34iA5ySkMfykn2eTjlhIVAZhfTOCflfQdyZdrwYYj9zFpkOHUu7RmRrYU//yaF5Tk3OT2cBRwgFfVmkxs=
+	t=1782311553; cv=none; b=UWTY55gJua+69tFU3ES+xoSQYnWh8Bnt1d8uhfSymxFSTSI+BX9V8574vkTp0ZoFW2tZVI4c1xWVCJ5YHnFv1YMcr30wWYCjevc1Tqq3dS36hMZCTDcUd/BZl7EhhVsodqlFFJmihXKZONkeeganPafoh9oMRUfxKoHeO8HLmGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782311485; c=relaxed/simple;
-	bh=gQkEKF0/rzuyGK6P25/LwLzJCSwmAYKC7KJiWeKC1P8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=objHZ77upssswvV/sX7mpVyePlyrKtIZ9EPYM1jN1BZBSMS/eN10PD+Z/j45Oo/PbQwkAawRZB+vuivxAb4ctj/jXi7yz4zs9jCaLg3xe2loTfGI7nSR0TAQaCMkX+DmWLnEeRTEMc3DuROvlu4EIMlEiv3q866IoCROuHdzwEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xcj86EXk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782311553; c=relaxed/simple;
+	bh=3jw0dPXicuYVunThsf727I5c27B62CFGeg4SsJeHGQg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nA3Azm4vFvWdOL20itDhx6Eh8AJqRAXIc4J8U8usvy+6hc+4JvPHiIv1r8yh4pLBCJay0k+Bl1uilMIh0G60tml+TMRQ3xTBf5roJ3wGzB76lW+tRF/A2NGP65vOvGkMdJ5cMaULOj+CAN4FFFkU5osoBiQIhmjy/1P8r5pZDws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=swIF575m; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xcj86EXk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183991F000E9;
-	Wed, 24 Jun 2026 14:31:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782311483;
-	bh=dMJlxp8QipVxy2M9SnWzpGrx6rBzEVmcbiBu62OC/Ew=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Xcj86EXknUiizWzaPEFY1ZJZBKFKp44sKaQgJw4AKDhpmLbVWGfhD2saUODX1WBt2
-	 qYc2Akrz3AmSr0iitaVzc/maSTOWGR6/7qYP1rCXN4BfB2DbEdkYST9ZV0KE5sMbBu
-	 RgFSAihK8C3KYHuaPxwiOzFOCH3jCehmSVuGwbVeZerU7KpMWXBO5AO2o5qderwYCn
-	 qiH5Zm8pa1kbYM//LH4iVQq2DjoIZodWIVytV/2tLOINXQYgIExyPRR3Mo/L3NqFYi
-	 OoVIfoGbe0L0GMLeGllR+qC2wkmTefZnIhRgPxseduf1fZBepZKgngNip8+o+Az1zV
-	 G230X6Y0L/zpQ==
-Date: Wed, 24 Jun 2026 17:31:19 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Pranjal Shrivastava <praan@google.com>, David Hu <xuehaohu@google.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	jmoroni@google.com, kpberry@google.com, chriscli@google.com,
-	sashiko-bot@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] dma-buf: Split sgl into page-aligned 2G chunks
-Message-ID: <20260624143119.GA124186@unreal>
-References: <20260621222130.1667453-1-xuehaohu@google.com>
- <20260623015459.1153884-1-xuehaohu@google.com>
- <20260623094446.4a8fc2ed@pumpkin>
- <ajryxMaT5evDUxaq@google.com>
- <20260623235350.6540eaa2@pumpkin>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="swIF575m"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-c8ff15af279so675726a12.3
+        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 07:32:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782311552; x=1782916352; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KX+FzcCzMCbQ0Z1ebqZSA2AR+d8QDIytple7rfFBzzk=;
+        b=swIF575mS5Ur30T/8G1gPle775O+beJTenK15aMYNhtT4sP5TyF4cxVF27Q+V/mBRT
+         lYmElDpwOnY+ay1SuULYE1VMuV9Dqh4MRUCSHjf5DZNvWoXM0OEJ5UG9MRoDH93nos6t
+         JMRZ5Linc3QjCFC8DVnxJreXW7DMu+Nv3gz2pf5Je90RnwwIO70fB/X7qxGBWi3Nhbgd
+         bNPGGeKouofNoH8w6JrxOd/NgXD2NuTnS3VE1TcW93GKV2GeoSWA7GA6h0Ab+o2LP2KW
+         Pz2QpnbOVJzm/lFmwOd5NIwPp4OMkyQdbAIKomvzc9okfcWK+9+aZZke9C+NMfaK/gWa
+         3uFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782311552; x=1782916352;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=KX+FzcCzMCbQ0Z1ebqZSA2AR+d8QDIytple7rfFBzzk=;
+        b=IDZZt2u+plwTH6BCbLoY1XV/o6Wx9VFpS2CDIE/FH2ZR2gvep3BuWMYdtPd/PzduJ2
+         DsOxGM9nS2Mx/i7WFtXYbOgKoG0Lk478kAjK9tBwS6g3pVcSe14srErHTu6Ds7xHV6md
+         7G4pntLCXt6Cr9clYMTs8HE6FjdY+DgkpZ1Upj8+tU6CgmHWGvDbfDF5L8SLxbr+j31a
+         lbuuTIHyJkWmJHramvGGCk+0/kw6/kcYvqalLp1kfBdmT9OBGjmC2KXPmaXj36nMVYhI
+         EuUgl8uDTmbg3/1qZOPESN2vE7yRbq68hzRaBF/B/f/PNk+fpLuHVc44mlyXchm/Fz/X
+         PCTA==
+X-Forwarded-Encrypted: i=1; AFNElJ+LqjhLsuufaibQe46NSUYHbGXil0xVRt0Yj3+0puRz9THVwYFeR8aHjArx2rU3NujqYqOH6Uc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLcZJNOtSJPKh1TBdAcf37TYTfoPZDFiRt5tmvxjBND0UswL0s
+	3V/SqL+MHhELm9MYWjTqr3ejxIXDHWTILf3n0XaT5r9Uff2MkUMogBsE
+X-Gm-Gg: AfdE7cl7D3ntx5g8maNwb/fItvvjEbW1/fUgIK8tgrRKn8l+3Dd5qrCgyyx1RStQKtO
+	cf8TUFwefAW8gBeAm60SW3H5FuYpR6XhJCC5mAZG65o59AovOpvY/tm4i+NWW6z2Goidyj9pN1B
+	qKOG/vPB3Qz7pvYncDjnhx709fJx4TkhPl6LZaqwyozkjjbY7r6nh30HilhOvreJ8u8919+dIz7
+	BwH8WjusmlnhlFRr7+6l9RH9ee7tpUv2vVBGk01wtL6gMfqIFgvaLMrdlFQSGf0VNe0WVQ7nZKL
+	Lw6vkmenCORlNWi8OxY7ZuTmyE6/RlfAHXuIxk++imcz7pBCufhXoan5XmreuTlO15bhuH5vUFo
+	zvz/wUGH9Ba12GD/XhdWxVoPl21QA90DtvMKOenGtCoZUo36GNYOqoJ8mhMnGcXAjG6EEv8HQR4
+	3YJ+fLbc6ul7VmieOu1l5cJN4I9OeehNpTB80EtOvt1vV5NZKymHcgt92fHNDrTlk1gmHRaQprb
+	zNFwQ==
+X-Received: by 2002:a05:6a20:3d07:b0:3b4:b275:c5b1 with SMTP id adf61e73a8af0-3bd2d2341b0mr4675063637.26.1782311551485;
+        Wed, 24 Jun 2026 07:32:31 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8bc5d04858sm12884295a12.28.2026.06.24.07.32.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 24 Jun 2026 07:32:30 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] Bluetooth: eir: Fix OOB read in eir_get_service_data()
+Date: Wed, 24 Jun 2026 23:32:22 +0900
+Message-ID: <20260624143222.883120-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260624115439.868817-1-sammiee5311@gmail.com>
+References: <20260624115439.868817-1-sammiee5311@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260623235350.6540eaa2@pumpkin>
 
-On Tue, Jun 23, 2026 at 11:53:50PM +0100, David Laight wrote:
-> On Tue, 23 Jun 2026 20:55:32 +0000
-> Pranjal Shrivastava <praan@google.com> wrote:
-> 
-> > On Tue, Jun 23, 2026 at 09:44:46AM +0100, David Laight wrote:
-> > 
-> > Hi David,
-> > 
-> > > On Tue, 23 Jun 2026 01:54:59 +0000
-> > > David Hu <xuehaohu@google.com> wrote:
-> > >   
-> > > > Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-> > > > This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-> > > > first entry, resulting in non-page-aligned DMA addresses for all
-> > > > subsequent entries.  
-> > > 
-> > > There is a separate issue of whether this code is even needed at all.
-> > > Where can transfers over 2G (never mind 4G) actually come from.
-> > > 
-> > > The read, write and similar system calls limit transfers to INT_MAX
-> > > (even on 64bit) and a lot of driver code will need fixing it longer
-> > > lengths are allowed though.
-> > > io_uring better enforce the same limits.
-> > > So the transfers can come directly from userspace.
-> > > 
-> > > Not only that but you also need a single physically contiguous buffer.
-> > > Good luck allocating that!
-> > > 
-> > > Now maybe there are some peer-to-peer places where the large buffer
-> > > is device memory, but they will be unusual and probably need
-> > > special treatment anyway.
-> > >   
-> > 
-> > I agree that traditional VFS read/write face the MAX_RW_COUNT limit 
-> > (~2GB), and io_uring has its limits, but I'm a little confused by the
-> > push to enforce these limits here in the SGL code?
-> > 
-> > File I/O seems to be only one side of the picture. In my view, this fix
-> > is necessary and certainly has a use-case:
-> > 
-> > For example, the RDMA subsystem has the capability to import dmabufs [1],
-> > which gives rise to use cases for dmabuf beyond standard file ops 
-> > (via VFS/io_uring). 
-> > 
-> > In these scenarios, GPU HBM can be exported as dmabufs. With recent GPUs,
-> > HBM capacity can be in the order of hundreds of GBs [2]. RDMA can employ
-> > infrastructure like the vfio-dmabuf-exporter [3] or similar dmabuf 
-> > exporters to frequently move huge blocks of data via P2PDMA.
-> 
-> Ok, that explains where big buffers can come from.
-> I just wasn't sure.
-> 
-> > If we restrict incoming dmabuf transfers to fit within VFS-centric 
-> > limits (2GB), we impose unnecessary overhead on the RDMA stack, forcing
-> > it to manage a significantly higher number of memory registrations. By 
-> > cleanly splitting these massive contiguous device buffers into 
-> > page-aligned SGL entries, we directly improve the efficiency of P2P 
-> > transfers and memory registration.
-> 
-> But a divide by '4G - PAGE_SIZE' is also non-trivial and (I think affects
-> a lot of io) when the quotient is always 1.
-> Splitting into 2G chunks is a lot cheaper.
-> 
-> > Since this change doesn't seem to have a negative impact on standard file
-> > I/O or break existing VFS constraints, I'm curious why we shouldn't 
-> > support splitting these >4GB P2P transfers? Am I missing something?
-> 
-> I was only wondering whether it was needed...
-> It does bring up the question of why the >4GB transfers even need splitting.
-> But that is another question.
+eir_get_service_data() walks the advertising data looking for a Service
+Data field with a matching UUID.  eir_get_data() returns a pointer to the
+matched field's data (field + 2) and reports dlen = field_len - 1 (the
+data length only), while the field actually spans field_len + 1 = dlen + 2
+bytes once its length and type bytes are counted.
 
-Just a side note:
+On a UUID mismatch the loop advances:
 
-In our vision, we aim to transition DMABUF to use physical  
-addresses directly https://lore.kernel.org/all/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/  
-and eliminate the scatter‑gather layer from the DMABUF path.
+    eir += dlen;
+    eir_len -= dlen;
 
-Thanks
+The pointer advance is correct, but eir_len is decremented by only dlen --
+2 less than the bytes the field really spans (and less still when
+eir_get_data() skipped preceding non-Service-Data fields).  eir_len thus
+over-counts the remaining buffer, and the error compounds across fields.
+As eir_get_data() bounds its walk by this inflated eir_len, it ends up
+reading the length/type bytes of a "field" past the end of the buffer.
 
-> 
-> If you want to split large transfers into 4G-PAGE_SIZE blocks
-> it is probably worth having a quick test that returns 1 for 'small' buffers.
-> 
-> 	David
-> 
-> > 
-> > Thanks,
-> > Praan
-> > 
-> > [1] https://elixir.bootlin.com/linux/v7.1.1/source/drivers/infiniband/core/umem_dmabuf.c#L174 
-> > [2] https://nvdam.widen.net/s/fdvdqvfvj2/hopper-h200-nvl-product-brief (Table 2-2)
-> > [3] https://elixir.bootlin.com/linux/v7.1.1/source/drivers/vfio/pci/vfio_pci_dmabuf.c#L297
-> > 
-> 
+For an ISO broadcast sink the buffer is hcon->le_per_adv_data[], filled
+from the periodic-advertising reports of a remote broadcaster and parsed
+by eir_get_service_data() in net/bluetooth/iso.c.  A crafted PA payload
+packed with mismatching Service Data fields drives the walk past the
+array into adjacent struct hci_conn memory -- a remotely triggerable
+out-of-bounds read; when a drifted field happens to match the BAA UUID
+the out-of-bounds bytes are copied into iso_pi(sk)->base and become
+readable from user space via getsockopt(BT_ISO_BASE).
+
+Keep eir_len in sync with the pointer by recomputing it from the end of
+the buffer on each iteration.
+
+Fixes: 8f9ae5b3ae80 ("Bluetooth: eir: Add helpers for managing service data")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+---
+Changes in v2:
+- Untab the commit-message code snippet to satisfy the gitlint check; no
+  code change.
+
+ net/bluetooth/eir.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/bluetooth/eir.c b/net/bluetooth/eir.c
+index 1de5f9df6eec..a55696820b22 100644
+--- a/net/bluetooth/eir.c
++++ b/net/bluetooth/eir.c
+@@ -369,6 +369,7 @@ u8 eir_create_scan_rsp(struct hci_dev *hdev, u8 instance, u8 *ptr)
+ 
+ void *eir_get_service_data(u8 *eir, size_t eir_len, u16 uuid, size_t *len)
+ {
++	const u8 *eir_end = eir + eir_len;
+ 	size_t dlen;
+ 
+ 	while ((eir = eir_get_data(eir, eir_len, EIR_SERVICE_DATA, &dlen))) {
+@@ -381,7 +382,7 @@ void *eir_get_service_data(u8 *eir, size_t eir_len, u16 uuid, size_t *len)
+ 		}
+ 
+ 		eir += dlen;
+-		eir_len -= dlen;
++		eir_len = eir_end - eir;
+ 	}
+ 
+ 	return NULL;
+-- 
+2.43.0
+
