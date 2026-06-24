@@ -1,186 +1,111 @@
-Received: from cache8.serv00.com (cache8.serv00.com [128.204.223.114])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA1C33DEF7;
-	Wed, 24 Jun 2026 16:51:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.204.223.114
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8847377ECA;
+	Wed, 24 Jun 2026 17:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782319915; cv=none; b=KIjELuLJ9q4mALpe20PkpoHpTn8hGGMq0YwIWXyQibBOrkc28JfUIP5QJ6uBQ6P1ibpMgdzQqt/4R0/MeGcOqEDZX6DlXr+mRhhzwPi2Nl3sLbZ6JKEuWmooAcm+ZHvPrYhFfbZvpVbdpebzD/GWmp5u1cXQFlti7WSj8OQIrRU=
+	t=1782320765; cv=none; b=JAR8VfUxsAwSu9IIU23dVETmUAxQ4ZyVBwjbp8dArYdGvK3MvddUGrOSDmVllMkrWscHSHTsRauULGslpnCyqwzUka5JEGNBkHqWWqH9BoEr6XFLpCTE4/duLfcuwGAYqbPTotFd+d7LyXM8De5TXjlV7CmAd2x+PEY1gMDO8EE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782319915; c=relaxed/simple;
-	bh=49+HNziQ6DaJS8BYEKYppoYy7/F7F+2/UbGJSXITjQ8=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=E7TTBIM5fHDW1iASYyLlWJxx2HR3Oa8lLpGa35FypnLFGvltVS+nUi86UlHKjSFMvPptH/ISPr0kjWyVhtoO5w3xZR43slTOq95TdFBFILmtk/wjTnosotc9YbMi8ESW04sbe9rWUKuZ7A0dHqd1Q4FVKpLNX3vURsBmj1RjbCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=simplelinux.cn.eu.org; spf=pass smtp.mailfrom=simplelinux.cn.eu.org; arc=none smtp.client-ip=128.204.223.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=simplelinux.cn.eu.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simplelinux.cn.eu.org
-Message-ID: <a4c057ae-cba3-453d-8bd0-54c94dbfe491@simplelinux.cn.eu.org>
-Date: Thu, 25 Jun 2026 00:15:36 +0800
+	s=arc-20240116; t=1782320765; c=relaxed/simple;
+	bh=YCDGEuINTLe++ujMs0MLsvBendFNcyERfYr932ENZlY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=h1I6cm44QdM6ba71p99AOfKq/lgi32wx5O/DhIVg8WSQahsQDBVprY46YHxr5eX4YC4mkyqnsogWppw8szUvcS6fgRg08OsI/VZjwyzPCv/9GYABoMCipXoGPjLSuGdHab8nbbMzUF07pX1H118vJoEikuuJ1mtiuTOvkkXX8qs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NAbFzUeU; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NAbFzUeU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782320763; x=1813856763;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=YCDGEuINTLe++ujMs0MLsvBendFNcyERfYr932ENZlY=;
+  b=NAbFzUeUJY1E9YIY5LQvqx1LHGSF47mGBW7g+8N84azQbBf/QbcH6AYz
+   FWjedB/oL8TOnekLZJKxbO45gGD1ESv9igr4cxw3jfC0Hw2TDeeQ+7kJi
+   5VUr40syok9G7UCFJA+CjtIHAJJQ9Sz6tcMls6dw2f3wTEbmbysOCmPAz
+   /bHNsUiyDzr+4Gbi2ZEzVHDp4xgIZfcQy5BVHCctOwJ7s0Qr1cFp2UJtQ
+   ZvQBWVJZE4FcBtGLS2K0pA+lWwXot6DCVk3ezc3EvyR5zjnOukITP4TJ9
+   MVQBt+wXyrkk4m5ikS56OSzoVRUUfZfwzQBfavRF5GqEJFB8Yuw6HIU9v
+   g==;
+X-CSE-ConnectionGUID: H6CTjG0KSK2ovFUoynmwEg==
+X-CSE-MsgGUID: z0bREPv0TnikE0tdX+c8ZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="70599477"
+X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; 
+   d="scan'208";a="70599477"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 10:04:57 -0700
+X-CSE-ConnectionGUID: CGqLnAELQLinR1/MALmkCg==
+X-CSE-MsgGUID: 53XqoACrRRKO7EfJ4Y9shw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; 
+   d="scan'208";a="255030529"
+Received: from zzombora-mobl1 ([10.245.244.173])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 10:04:54 -0700
+Date: Wed, 24 Jun 2026 20:04:50 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+    =?ISO-8859-15?Q?P=E9ter_Ujfalusi?= <peter.ujfalusi@intel.com>, 
+    =?ISO-8859-15?Q?P=E9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>, 
+    Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+    Jaroslav Kysela <perex@perex.cz>, 
+    Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+    stable@vger.kernel.org, Uma Shankar <uma.shankar@intel.com>
+Subject: Re: [PATCH] ALSA: hda/hdmi: disable KAE for Intel Panther Lake
+In-Reply-To: <178196763509.3248.8656978100050911066@sms-medipool.de>
+Message-ID: <b6e4caac-53f1-729f-51d2-aa0ca514ab04@linux.intel.com>
+References: <f7d26e4d-8810-430a-b727-52c00d2d6edc@intel.com> <20260612181314.5577-1-alexander.kaplan@sms-medipool.de> <e5a56b3c-1fd7-35ad-f072-e490e2b471a9@linux.intel.com> <178196763509.3248.8656978100050911066@sms-medipool.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Yuanzhen Gan <elysia-best@simplelinux.cn.eu.org>
-Subject: Re: [PATCH] LoongArch: Add PIO for early access before ACPI PCI root
- register
-Reply-To: elysia-best@simplelinux.cn.eu.org
-To: Huacai Chen <chenhuacai@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>
-Cc: loongarch@lists.linux.dev, Xuefeng Li <lixuefeng@loongson.cn>,
- Guo Ren <guoren@kernel.org>, Xuerui Wang <kernel@xen0n.name>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Kexy Biscuit <kexybiscuit@aosc.io>,
- Mingcong Bai <jeffbai@aosc.io>
-References: <20260622065843.3961572-1-chenhuacai@loongson.cn>
-Content-Language: en-US
-Autocrypt: addr=elysia-best@simplelinux.cn.eu.org; keydata=
- xjMEaJsoJxYJKwYBBAHaRw8BAQdAmKn44BnjrSjnLk+4kelzELvhTTWpOZTPmez2jy8squ3N
- KkVseXNpYSA8ZWx5c2lhLWJlc3RAc2ltcGxlbGludXguY24uZXUub3JnPsKPBBMWCAA3FiEE
- dKkzyG7ab0S7lAwAAxs1vPhHLWAFAmibKCcFCQWjmoACGwMECwkIBwUVCAkKCwUWAgMBAAAK
- CRADGzW8+EctYL66AQDlhTx8ZtQRjonY5JZbBWPQVwKrtjiANGgP5/uQLMR6/wD8CXOeYIYb
- qQVkLZZmcf/iabf19/mheoBBsyh4BrUCPQzOOARomygnEgorBgEEAZdVAQUBAQdAbDmqQT+f
- Z6Ivru0sdFV+yHivtibOx9K+K4riXcwfajYDAQgHwn4EGBYIACYWIQR0qTPIbtpvRLuUDAAD
- GzW8+EctYAUCaJsoJwUJBaOagAIbDAAKCRADGzW8+EctYDIvAQCtWFldeDqEJZ5C/JDBcogi
- zbSGxdlsfdtUyI69Y86lWwD8DlA4dIOH0o5tohTYA6hw74fAmR1jMkPfEE8dsy0ohg8=
-In-Reply-To: <20260622065843.3961572-1-chenhuacai@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-System-Sender: elysia-best@simplelinux.cn.eu.org
-X-System-UID: 5146
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 22 Jun 2026 14:58:43 +0800, Huacai Chen <chenhuacai@loongson.cn> 
-wrote:
-  > For ACPI system we suppose the ISA/LPC PIO range is registered together
-  > with PCI root bridge. But the fact is there may be some early access to
-  > the ISA/LPC PIO range before ACPI PCI root register (most of them are
-  > due to abnormal BIOS). Unconditionally register the ISA/LPC PIO range
-  > usually causes ACPI PCI root register fail because of the address range
-  > confliction. So we add a pair of helpers: acpi_add_early_pio() to add
-  > PIO for early access, and acpi_remove_early_pio() to remove PIO before
-  > PCI root register. Since acpi_remove_early_pio() may be called multiple
-  > times, we add an acpi_pio flag to ensure PIO be removed only once.
-  >
-  > Cc: <stable@vger.kernel.org>
-  > Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
-  > ---
-  >  arch/loongarch/include/asm/acpi.h |  2 ++
-  >  arch/loongarch/kernel/acpi.c      | 28 ++++++++++++++++++++++++++++
-  >  arch/loongarch/kernel/setup.c     |  2 ++
-  >  arch/loongarch/pci/acpi.c         |  2 ++
-  >  4 files changed, 34 insertions(+)
-  >
-  > diff --git a/arch/loongarch/include/asm/acpi.h 
-b/arch/loongarch/include/asm/acpi.h
-  > index eda9d4d0a493..c05168aedcaa 100644
-  > --- a/arch/loongarch/include/asm/acpi.h
-  > +++ b/arch/loongarch/include/asm/acpi.h
-  > @@ -38,6 +38,8 @@ static inline bool acpi_has_cpu_in_madt(void)
-  >  extern struct list_head acpi_wakeup_device_list;
-  >  extern struct acpi_madt_core_pic acpi_core_pic[MAX_CORE_PIC];
-  >
-  > +extern void acpi_add_early_pio(void);
-  > +extern void acpi_remove_early_pio(void);
-  >  extern int __init parse_acpi_topology(void);
-  >
-  >  #endif /* !CONFIG_ACPI */
-  > diff --git a/arch/loongarch/kernel/acpi.c b/arch/loongarch/kernel/acpi.c
-  > index 058f0dbe8e8f..8f650c9ffecd 100644
-  > --- a/arch/loongarch/kernel/acpi.c
-  > +++ b/arch/loongarch/kernel/acpi.c
-  > @@ -16,6 +16,7 @@
-  >  #include <linux/memblock.h>
-  >  #include <linux/of_fdt.h>
-  >  #include <linux/serial_core.h>
-  > +#include <linux/vmalloc.h>
-  >  #include <asm/io.h>
-  >  #include <asm/numa.h>
-  >  #include <asm/loongson.h>
-  > @@ -59,6 +60,33 @@ void __iomem 
-*acpi_os_ioremap(acpi_physical_address phys, acpi_size size)
-  >  		return ioremap_cache(phys, size);
-  >  }
-  >
-  > +#define PIO_BASE (unsigned long)PCI_IOBASE
-  > +#define PIO_SIZE ALIGN(ISA_IOSIZE, PAGE_SIZE)
-  > +
-  > +static bool acpi_pio;
-  > +
-  > +/* Add PIO for early access */
-  > +void acpi_add_early_pio(void)
-  > +{
-  > +	if (!acpi_disabled) {
-  > +		acpi_pio = true;
-  > +		vmap_page_range(PIO_BASE, PIO_BASE + PIO_SIZE,
-  > +				LOONGSON_LIO_BASE, pgprot_device(PAGE_KERNEL));
-  > +	}
-  > +}
-  > +
-  > +/* Remove PIO for PCI register */
-  > +void acpi_remove_early_pio(void)
-  > +{
-  > +	if (!acpi_pio)
-  > +		return;
-  > +
-  > +	if (!acpi_disabled) {
-  > +		acpi_pio = false;
-  > +		vunmap_range(PIO_BASE, PIO_BASE + PIO_SIZE);
-  > +	}
-  > +}
-  > +
-  >  #ifdef CONFIG_SMP
-  >  static int set_processor_mask(u32 id, u32 pass)
-  >  {
-  > diff --git a/arch/loongarch/kernel/setup.c 
-b/arch/loongarch/kernel/setup.c
-  > index 369262117c63..eaebb52bd36e 100644
-  > --- a/arch/loongarch/kernel/setup.c
-  > +++ b/arch/loongarch/kernel/setup.c
-  > @@ -502,6 +502,8 @@ static __init int arch_reserve_pio_range(void)
-  >  {
-  >  	struct device_node *np;
-  >
-  > +	acpi_add_early_pio();
-  > +
-  >  	for_each_node_by_name(np, "isa") {
-  >  		struct of_range range;
-  >  		struct of_range_parser parser;
-  > diff --git a/arch/loongarch/pci/acpi.c b/arch/loongarch/pci/acpi.c
-  > index b02698a338ee..ccbcea61fcd9 100644
-  > --- a/arch/loongarch/pci/acpi.c
-  > +++ b/arch/loongarch/pci/acpi.c
-  > @@ -65,6 +65,8 @@ static int acpi_prepare_root_resources(struct 
-acpi_pci_root_info *ci)
-  >  	struct resource_entry *entry, *tmp;
-  >  	struct acpi_device *device = ci->bridge;
-  >
-  > +	acpi_remove_early_pio();
-  > +
-  >  	status = acpi_pci_probe_root_resources(ci);
-  >  	if (status > 0) {
-  >  		acpi_evaluate_integer(device->handle, "PCIH", NULL, &pci_h);
+Hello Alexander,
 
-I have tested this patch on my Loongson-3A6000 system with Kunlun 
-firmware. The patch successfully resolves the ACPI PCI root bridge 
-registration issue caused by early ISA/LPC PIO access.
+On Sat, 20 Jun 2026, Alexander Kaplan wrote:
 
-On this platform, the DSDT defines _CRS methods for UAR and LPT devices 
-that call the ENFG() and EXFG() methods from the ITE1 device. This 
-causes early writes to the ISA/LPC PIO range before PCI root bridge 
-registration. The patch's early PIO registration mechanism properly 
-handles this firmware quirk.
+> thanks for the quick test patch.
+> 
+> I ran it on Panther Lake with PTL kept at MODEL_ADLP so the KAE path is
+> active.
+[...]
+>   # speaker-test -D hw:0,3 -c6   (silent)
+>   hdmi_pin_setup_infoframe: pin NID=0xa channels=6 ca=0x0b
+>   HDMI: KAE 0 cvt-NID=0x3
+>   hdmi_pin_hbr_setup: NID=0xa, pinctl=0x40
+>   i915_hsw_setup_stream: HDMI: multichannel stream, disable KAE
+> 
+>   # speaker-test -D hw:0,3 -c2   (stays silent)
+>   hdmi_pin_setup_infoframe: pin NID=0xa channels=2 ca=0x00
+>   HDMI: KAE 0 cvt-NID=0x3
+>   hdmi_pin_hbr_setup: NID=0xa, pinctl=0x40
+>   HDMI: KAE 1 cvt-NID=0x3
+[...]
+> So the wedge happens earlier in the sequence, as you suspected, not at
+> the re-arm.
+> The trigger looks like the multichannel DMA start itself once the KAE
+> block has been active in the running power cycle, below the codec verb
+> level.
 
-Test environment:
-- Platform: Seewo OEM 3A6000 (CB,L3A6.MA01 V1.0)
-- Firmware: Kunlun BIOS
-- CPU: Loongson-3A6000-HV @ 2.50 GHz
-- OS: AOSC OS 13.2.0 (loongarch64)
-- Kernel: Linux 7.0.13-aosc-main-16k
+thanks for the quick test. I'm working with our display folks to test
+this out with some Synaptic DP-alt HDMI converter. This same test
+worked ok with one converter (Lenovo USB-C to HDMI Adapter GX90K37871),
+but I'll try to get someone to test with more converters. Given you see
+this with multiple DP-HDMI converters, we should be able to hit this.
 
-The system boots successfully when the patch is applied.
+And a bit suspicious how this could work with the Lenovo adapter. I wonder 
+if we have something else differing in the test setup. Given you cannot 
+recover by unplugging and reconnecting the converter, it would seem the 
+issue is on transmitter side and should be visible with all DP-alt 
+receivers.
 
-Cc: Mingcong Bai <jeffbai@aosc.io>
-Cc: Kexy Biscuit <kexybiscuit@aosc.io>
-Tested-by: Yuanzhen Gan <elysia-best@simplelinux.cn.eu.org>
+I filed a bug to Xe/display to track this effort:
+https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8412
 
+Br, Kai
