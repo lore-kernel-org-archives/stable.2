@@ -1,133 +1,136 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B820389E05
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 06:59:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782284395; cv=pass; b=XJAi0jAv87dMcadc1GrKPwyHmDWV5cDPhchR0p+f0DWvhPf/gF4nkhL+TI+Z5MCSNqKHvMNgsYHUfTvpRLfGluPwvr7iX8Z98p9neMCybTmQiApG0SoFEaSJWp5QepRMvx5m6lPcyyNjnt7nqIr4233hQSDorfj+2LCmaxAtfgg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782284395; c=relaxed/simple;
-	bh=44VgNbI0l91KEdDqjsLiBND2ODLDt3zLlCpOVTLuvwY=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=dtjvymgxE0tyJY3ox3MXfuqTU323XaPAb6csSvNJoa6fq/oKkF+inFqIKPoG/7xh+exNDZsHEDL0yL6ahfesnv1Xpokv5TwBRBH6u67NqjQKGf627mWDRwCI3CccP8MWg37VoFRu5ZjedLFNPtA1TKPTRuqKY6hcsbI+/fVS/Q8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RWkzwMjf; arc=pass smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79DF2F8E9C;
+	Wed, 24 Jun 2026 07:00:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782284441; cv=none; b=T+RVQxSZX5dYBwvJl3tHyR6UWtPTFmDm65yE3Y+L8sMGgj97kESiGiRUoUoHdSQFv9CcunyOW5WFYkq1BIzkALuPfRJ/hjLO8VlfbxTkeqpVFjk9SFjMeMcF+vqJd3rQRYsrLIUlCag06CrOJvMCAelx5JNTGsjqO+hJ3Bhziic=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782284441; c=relaxed/simple;
+	bh=NDALycz1iIRSXnwLnG+zXOgRA2ZAYGVGRwhsULPuY7s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UzPN9HMooBeGn12gLvvm/A8qfmCSZk86JpBVKaWZmH4tvh7lKamqRAVifeLann8IF86/JOtqdTaoUKF8IMXNC6A4JN/B9jStAe848vSWE3QrSbp54/qC08Los1zwRipzLya+KDDBpo4nezLpGVzpS46zr/3qHMQYaxCGrU7G56Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=NPKosWM/; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RWkzwMjf"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-697df404e32so1100604a12.0
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 23:59:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782284392; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Ykwn1u2x84wQkJ/2UHKmCWi+p51x91q5A5Pb4JCuDB89HBDldbbn0wtwqHh47q6yys
-         yDcaIODzZYHvB/wk1UU6+VQU24N3lKgtzkQFrCw1MTzo+re2nzMUgjOEMcl6kEhKg89o
-         aBXYOwGmVga+rjVAFUvUsXfIK78/6SORwSPq7TOjw/mzYzkPHUmXfZEauWNtV8lOkbH5
-         aIvuVxphmj2dP5RSZ0eNLAnmkC1IknikbiVfNU/jH7snNsOyQZSJYazPNu/kaSPMxqRb
-         PkCTZlkilt7egYlZe4gSF3F2Q+2D5XMSEAlZAK5flvGKxce3Juc5sCtLFvVrvw3u1KRK
-         GKiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=44VgNbI0l91KEdDqjsLiBND2ODLDt3zLlCpOVTLuvwY=;
-        fh=V5C2UCEqKMRT/N/5IMFcPwLD9KwfxtxJ9iZ04+pscCc=;
-        b=b3Q0jINjtWEzFJL9GmonnB/lbAtnmp9pAJfTXSQKfYNQ7M48kcSuYQv/dp3Cw697xX
-         Y0ZNP1GOXiNNGDqZ3tG97axa9Tr4mKWId/hTETFhZ0TIwQ1xpBheul3Rb7zYxYIU/gqH
-         xDpBs/1PdD5j3uf8A7K+7IEWW2epO96koqcqAldoSHbxb9pGKt5bB0FkCvMgFVVuzRWe
-         SUYAhz6T5jl2UQj6+VPz9e9nfp0Y1sOayvwe2ya8I1GrRC4KPkUg9BCFMjUzfo35mk2e
-         Mym+cMxvs+eVdWoINI4D9c9lemwI0DTQFf0m8YBNU9GH1wJGTCJTtlgQvX2FbQ+nbOkw
-         EYtA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782284392; x=1782889192; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=44VgNbI0l91KEdDqjsLiBND2ODLDt3zLlCpOVTLuvwY=;
-        b=RWkzwMjfSbspuGMitpVnC20hjUGIfGntEprkZdgd3gHDn7maXw5PsQ1Ipd4GBmTZaQ
-         /pFbvKA7j6KDUm69QpvhQUgw5ldVOrifq4dZu4/F9+DFo+DbFW8ido/7Wu6pEOVvyOqP
-         QdZ2ehXh4sJmNq8uLNTvOEvhHtqhFjU7dGYKQcrlvskthhX+SaoLtrXJpK8MOO2LTIHX
-         7RVV8I4pG3e7Orm6h8SlU+CW0o6GdqHDt73boWVk1Thrr5Nt2Dd/gevyqIGj3Z+dYLak
-         Mo/7l0QXamYBuwWEU4UKuQqX9EIQijapP/XVr5p0jGcjwl2FQEgOV1uZC2j3SkXjoiR5
-         k57A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782284392; x=1782889192;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=44VgNbI0l91KEdDqjsLiBND2ODLDt3zLlCpOVTLuvwY=;
-        b=XAZha2pP1JunZ0n3Sr8sko/WQxGWZIOX+VaOIEDu9G3UmfJhqQSXe0gVy39ZxktKZF
-         nXE6LqpM7Ge0o8DsA1jfEt+ZfOCc89tMWAYuX8HISlAxU1bOHhari96/qtDw0Ok/fGFa
-         +SEemk17X15Ehh93HlASdbpZYxhL2dyVRujNhDtuK2UWSmEHksaHqZ5Zus11i3YmDm8T
-         056wrDQwk0fmVo8ms1pTik8ZW/lDmpF9bFtVAHH5oc+IUZj2OyKrTYqKcSiqDlOQ22Zz
-         NgJ1ZcOOktYV8/vel78dLHRc4vscTppA6AuCFzs5WKubYXSdKDH1bK2mw2b+XIW9FkIL
-         KZ2Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/cWZAi4dMDCzt7N5YkBvQJMdmkO3YUMXFbKFGwIVOAYZwwguAuCoaim0SCbVnL8Oh9DuJ6F+M=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxg2OlditTcSd7wQxp47rXhStoCAjlgmMqOOc6Zk1kia1MwZJ6J
-	sJ3OFrHGGz0biOicyqr5SzY19c36RBjIq6V2rN2p+kbt9Gf7ZPSRlE+Z6cP9K8OnGt1q+FbFHiZ
-	z580TTJmDmN/46DPjygY+Xi8L1Hd+bis=
-X-Gm-Gg: AfdE7clZdXs088v4S2ZteyyFlfD2nnm3jt86J1j8tQEK03bww9heD7cD23DgMvIdGy9
-	YuPJir/0hFsAKE197iVAKw2vh40xiyO3v6ppU176nY0XTpvRY7VASkGkngWGyjEZ4CMAShUygIM
-	94H449nni1KvmK4Es8qVRgxCuvAYlTodVJICkb9pghQU14qP6vinrL96H7Lp1DdF2FRuzv2bAXt
-	Tlz6bEP6bC/FrJZ5bDths8u6yAgRrMb8mwudd/mcBLRi+eDOibNXNDQgKGrD9rXL60QY9+vQmLA
-	8tpvUdrO
-X-Received: by 2002:a17:907:a807:b0:bea:f5ec:e70d with SMTP id
- a640c23a62f3a-c119cc73499mr81252166b.10.1782284392161; Tue, 23 Jun 2026
- 23:59:52 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="NPKosWM/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=NI
+	t6ovgy9E7cLXqhwIgCmEMV3bGprFBmdZQOBIElmT0=; b=NPKosWM/0mTJs/ytNv
+	NZwKTGfjgXA7bJi88mTjLRYnxHuA3X73hwMBEaGeMAIC8ga+NBdPip2rn65B2QYM
+	5R956CDADCtG8bjLEHNSt3sUoh9YZx0FO2uQYvrYWKJ/pZefEE8KarUp6z66I5t7
+	vohK0eJp0TnWR/CWMnsKNfSx8=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3X1RsgDtq2RGRFQ--.40730S2;
+	Wed, 24 Jun 2026 14:59:58 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: elder@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: ipa: fix SMEM state handle leaks in SMP2P init
+Date: Wed, 24 Jun 2026 14:59:55 +0800
+Message-Id: <20260624065955.2822765-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Ujjal Roy <royujjal@gmail.com>
-Date: Wed, 24 Jun 2026 12:29:36 +0530
-X-Gm-Features: AVVi8CcjqT2HGCtdY0b3TsVb5_1CyqP5ethEgfbUu0VypPx0SY_tnqJhPcFQITk
-Message-ID: <CAE2MWknz4X_gcNo6jkR87Lg8F0zfubkOc4Ujr57CS3aBMWrjEA@mail.gmail.com>
-Subject: Please backport bridge multicast exponential field encoding fix
- series to stable kernels
-To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>, 
-	David Ahern <dsahern@kernel.org>, Shuah Khan <shuah@kernel.org>, Andy Roulin <aroulin@nvidia.com>, 
-	Yong Wang <yongwang@nvidia.com>, Petr Machata <petrm@nvidia.com>, stable@vger.kernel.org, 
-	Greg KH <greg@kroah.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Ujjal Roy <ujjal@alumnux.com>, bridge@lists.linux.dev, 
-	Kernel <netdev@vger.kernel.org>, Kernel <linux-kernel@vger.kernel.org>, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3X1RsgDtq2RGRFQ--.40730S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Cr1xCF1fCw1DGw4DAF1UKFg_yoW8KFyrpw
+	n8uwsIgry5Jr4xKF17KFyxuas8uw4xKrWDGrZxA3s5uFW5Ar4rtF1DtryFyFZYkrW8GF1a
+	yw43AFs8WayFvrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piOVy7UUUUU=
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7Q6kE2o7gG6bogAA3S
 
-Hi Greg,
+ipa_smp2p_init() acquires two Qualcomm SMEM state handles with
+qcom_smem_state_get(). However, neither the init error paths
+nor ipa_smp2p_exit() release them.
 
-Please consider backporting the following bridge multicast fix series
-to all applicable stable kernels:
+Release both handles with qcom_smem_state_put() in the init
+error paths and in ipa_smp2p_exit().
 
-726fa7da2d8c ("ipv4: igmp: get rid of IGMPV3_{QQIC,MRC} and simplify
-calculation")
-12cfb4ecc471 ("ipv6: mld: rename mldv2_mrc() and add mldv2_qqi()")
-95bfd196f0dc ("ipv4: igmp: encode multicast exponential fields")
-e51560f4220a ("ipv6: mld: encode multicast exponential fields")
-529dbe762de0 ("selftests: net: bridge: add MRC and QQIC field encoding tests")
+Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
+Cc: stable@vger.kernel.org
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+Changes in v2:
+ - Use explicit qcom_smem_state_put() calls instead of devm helpers.
+   Thanks, Alex! Thanks, Jakub!
+---
+ drivers/net/ipa/ipa_smp2p.c | 30 ++++++++++++++++++++++--------
+ 1 file changed, 22 insertions(+), 8 deletions(-)
 
-This series was merged via: db314398f618 ("net: bridge: mcast: support
-exponential field encoding")
+diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
+index 2f0ccdd937cc..331c00ad02c0 100644
+--- a/drivers/net/ipa/ipa_smp2p.c
++++ b/drivers/net/ipa/ipa_smp2p.c
+@@ -232,19 +232,27 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
+ 					  &valid_bit);
+ 	if (IS_ERR(valid_state))
+ 		return PTR_ERR(valid_state);
+-	if (valid_bit >= 32)		/* BITS_PER_U32 */
+-		return -EINVAL;
++	if (valid_bit >= 32) {		/* BITS_PER_U32 */
++		ret = -EINVAL;
++		goto err_valid_state_put;
++	}
+ 
+ 	enabled_state = qcom_smem_state_get(dev, "ipa-clock-enabled",
+ 					    &enabled_bit);
+-	if (IS_ERR(enabled_state))
+-		return PTR_ERR(enabled_state);
+-	if (enabled_bit >= 32)		/* BITS_PER_U32 */
+-		return -EINVAL;
++	if (IS_ERR(enabled_state)) {
++		ret = PTR_ERR(enabled_state);
++		goto err_valid_state_put;
++	}
++	if (enabled_bit >= 32) {		/* BITS_PER_U32 */
++		ret = -EINVAL;
++		goto err_enabled_state_put;
++	}
+ 
+ 	smp2p = kzalloc_obj(*smp2p);
+-	if (!smp2p)
+-		return -ENOMEM;
++	if (!smp2p) {
++		ret = -ENOMEM;
++		goto err_enabled_state_put;
++	}
+ 
+ 	smp2p->ipa = ipa;
+ 
+@@ -289,6 +297,10 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
+ 	ipa->smp2p = NULL;
+ 	mutex_destroy(&smp2p->mutex);
+ 	kfree(smp2p);
++err_enabled_state_put:
++	qcom_smem_state_put(enabled_state);
++err_valid_state_put:
++	qcom_smem_state_put(valid_state);
+ 
+ 	return ret;
+ }
+@@ -305,6 +317,8 @@ void ipa_smp2p_exit(struct ipa *ipa)
+ 	ipa_smp2p_power_release(ipa);
+ 	ipa->smp2p = NULL;
+ 	mutex_destroy(&smp2p->mutex);
++	qcom_smem_state_put(smp2p->enabled_state);
++	qcom_smem_state_put(smp2p->valid_state);
+ 	kfree(smp2p);
+ }
+ 
+-- 
+2.25.1
 
-History: The multicast stack currently supports decoding of IGMPv3 and
-MLDv2 exponential timer field encodings, but lacks the corresponding
-encoding logic when generating multicast query packets. As a result,
-query intervals and response codes exceeding the linear encoding range
-can be transmitted incorrectly. This can cause multicast queriers and
-listeners to interpret different timing values, resulting in protocol
-interoperability issues, membership timeouts, and premature multicast
-group expiration.
-
-Testing: The series adds the missing encoding support for both IGMPv3
-and MLDv2 and includes selftests that validate the behavior.
-I backported the series to v6.6.123.2 and verified the accompanying
-selftests. The selftests fail on the unpatched kernel and pass after
-applying the series, demonstrating both the bug and the effectiveness
-of the fix.
-
-Given that this is a protocol correctness issue affecting multicast
-query generation, please consider backporting the complete series to
-all applicable stable kernels.
-
-Thanks,
-Ujjal
