@@ -1,104 +1,136 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B24B63815CB;
-	Wed, 24 Jun 2026 06:11:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0324B1C5F27;
+	Wed, 24 Jun 2026 06:17:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782281472; cv=none; b=LIhmuC0+SPlR+NqhU66p4KxgMm6HwybzuowRg7Tlx8I+AUS3qqDWVt/Z4IXqh1jd5weO/+AgvGIMcCE6yX2DHTvcgAdfzr28p8S9Pf2ooKhHLN8aR7qC5w8qygEhpJyFbDhDysPt0L9DLlOhSYIOeBhVo62iF4kk1dR4nQsuQ5g=
+	t=1782281854; cv=none; b=bgOKgL0dBh9LNYDOxIznpMbgndt5O5TTrjddpHwAgtRFQuho45xTltUO04a1A+hojLpYmK14DwXn3epgmy0+Hld1249twfJ8jRl1sdm1FasZ8ib9XDJmiUYxBr5runJ6LZ9MEn51T7Q6jJh9l/xxbJ6iMueqebf4yheZ4r07Ymc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782281472; c=relaxed/simple;
-	bh=ci9nYdIhzU87Tg/cUNxcFVynHXUV0/f88ZKyLFGQTms=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=kwV2EevywdUA/6A4PeVOGbfYO4SJGnOrka0/eGbGJNuIzFg67j/klO/cSZmvvS/gCeUxTG43kvaRgfKM1eXSzN9P1gcJp+PACQpGBTqtoz7wvx+FOuNWYfY5y1ROXZUT7G9KipL5tYJZk/EEGvXIV/DyoH7AucBYT3uYcmfs88w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=i5X3AMHF; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1782281854; c=relaxed/simple;
+	bh=v90PhLcJLyT/2ztDpcv2ajbHy++PTPvl6RpvzQ986F0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EJiRft2t6TR7OB7qyiRbsw71CAI0IoQs2qxg380So1dqdrgEvNjRSYT5vpBqDVQF0ilE2hFb+7bq65DoxBgJpwZPSwnvWvX9eVE/fnvTo0bKfm7f5Dhm6A2Bns2+vP62o4OU5YTtQq4IcWlqAGr30+cJFqgQvq+z/MfbSs1rfkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=LXvPmPBy; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="i5X3AMHF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=ci9nYdIhzU87Tg/cUNxcFVynHXUV0/f88ZKyLFGQTms=; b=i
-	5X3AMHFcxWxDpVWhYXa08tfHxGfcJ2pp975KqI91274vLYqHxM6RbKorWrB0kQb5
-	NPDBohul754QGXKErHXlL4y8KBpAa0jOx5QzkNMETpoACrhrzyqx07xRXHcQQPTo
-	XRFQaLf3D5GbIBG/O2k7QmaU30cyjYoS5NPSJNIBSg=
-Received: from haoxiang_li2024$163.com ( [36.112.3.223] ) by
- ajax-webmail-wmsvr-40-108 (Coremail) ; Wed, 24 Jun 2026 14:10:38 +0800
- (CST)
-Date: Wed, 24 Jun 2026 14:10:38 +0800 (CST)
-From: haoxiang_li2024  <haoxiang_li2024@163.com>
-To: Don.Brace@microchip.com
-Cc: James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
-	david.carroll@microsemi.com, justin.lindley@microsemi.com,
-	scott.teel@microsemi.com, storagedev@microchip.com,
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re:Re: [PATCH] scsi: hpsa: fix DMA mapping leak on IOACCEL2 reset
- path
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <SJ2PR11MB8369CC3A2E487829E96057BAE1EF2@SJ2PR11MB8369.namprd11.prod.outlook.com>
-References: <20260622160028.1240496-1-haoxiang_li2024@163.com>
- <SJ2PR11MB8369CC3A2E487829E96057BAE1EF2@SJ2PR11MB8369.namprd11.prod.outlook.com>
-X-NTES-SC: AL_Qu2TAP6Tvkwo7iWcZekfmUwSj+s8WsO0vf4i245fO5B+jCLpyzEDYXpkLHTOzeC2LxuSuwqcbydQy+9XTK1GRYskkxBk2e9GBiBxILWb28fmHw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="LXvPmPBy"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1782281848; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=gPiqJ8EAvjFK9ofq3L0YUNV8mpGt7xsTx92E0OJpExs=;
+	b=LXvPmPByvJkKPLZHODThPUuDSsxIUTLPP4NqxWdJ73r1tRAocZmSsu+/BjdtYXcaVGdw0wawW/ejmhkfQ1LNpGoLHW07D+DtBLWkHdPrO6WukAN+5/aToxAuKYY+Htsl/TlYmDkd0hcb9R6CdR+FSEjWXeW3SSzJH0pzlcWX37I=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0X5X8Ig5_1782281838;
+Received: from localhost.localdomain(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0X5X8Ig5_1782281838 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 24 Jun 2026 14:17:27 +0800
+From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuanhe Shu <xiangzao@linux.alibaba.com>
+Subject: [PATCH] tracing: Fix NULL pointer dereference in func_set_flag()
+Date: Wed, 24 Jun 2026 14:17:15 +0800
+Message-Id: <20260624061715.1445655-1-xiangzao@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <3881ced5.4b48.19ef8408558.Coremail.haoxiang_li2024@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:bCgvCgCntwbedDtq0LoPAA--.9W
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbCxh69LGo7dN7LKgAA3T
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CgpPbiAyMDI2LTA2LTIzIDAyOjI2OjQy77yMRG9uLkJyYWNlQG1pY3JvY2hpcC5jb20gd3JvdGXv
-vJoKPl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPkZyb206wqBIYW94
-aWFuZyBMaSA8aGFveGlhbmdfbGkyMDI0QDE2My5jb20+Cj5TZW50OsKgTW9uZGF5LCBKdW5lIDIy
-LCAyMDI2IDExOjAwIEFNCj5UbzrCoEphbWVzLkJvdHRvbWxleUBIYW5zZW5QYXJ0bmVyc2hpcC5j
-b20gPEphbWVzLkJvdHRvbWxleUBIYW5zZW5QYXJ0bmVyc2hpcC5jb20+OyBtYXJ0aW4ucGV0ZXJz
-ZW5Ab3JhY2xlLmNvbSA8bWFydGluLnBldGVyc2VuQG9yYWNsZS5jb20+OyBkYXZpZC5jYXJyb2xs
-QG1pY3Jvc2VtaS5jb20gPGRhdmlkLmNhcnJvbGxAbWljcm9zZW1pLmNvbT47IGp1c3Rpbi5saW5k
-bGV5QG1pY3Jvc2VtaS5jb20gPGp1c3Rpbi5saW5kbGV5QG1pY3Jvc2VtaS5jb20+OyBzY290dC50
-ZWVsQG1pY3Jvc2VtaS5jb20gPHNjb3R0LnRlZWxAbWljcm9zZW1pLmNvbT4KPkNjOsKgc3RvcmFn
-ZWRldiA8c3RvcmFnZWRldkBtaWNyb2NoaXAuY29tPjsgbGludXgtc2NzaUB2Z2VyLmtlcm5lbC5v
-cmcgPGxpbnV4LXNjc2lAdmdlci5rZXJuZWwub3JnPjsgbGludXgta2VybmVsQHZnZXIua2VybmVs
-Lm9yZyA8bGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZz47IEhhb3hpYW5nIExpIDxoYW94aWFu
-Z19saTIwMjRAMTYzLmNvbT47IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcgPHN0YWJsZUB2Z2VyLmtl
-cm5lbC5vcmc+Cj5TdWJqZWN0OsKgW1BBVENIXSBzY3NpOiBocHNhOiBmaXggRE1BIG1hcHBpbmcg
-bGVhayBvbiBJT0FDQ0VMMiByZXNldCBwYXRoCj7CoAo+RVhURVJOQUwgRU1BSUw6IERvIG5vdCBj
-bGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3Uga25vdyB0aGUgY29udGVu
-dCBpcyBzYWZlCj4KPklmIHBoeXNfZGlzay0+aW5fcmVzZXQgaXMgc2V0LCB0aGUgZnVuY3Rpb24g
-cmV0dXJucyBkaXJlY3RseSB3aXRob3V0Cj51bmRvaW5nIHRoZSByZXNvdXJjZXMgYWNxdWlyZWQg
-Zm9yIHRoZSBjb21tYW5kLiBBZGQgdGhlIG1pc3NpbmcgZXJyb3IKPmNsZWFudXAgYnkgdW5tYXBw
-aW5nIHRoZSBJT0FDQ0VMMiBTRyBjaGFpbiBibG9jayB3aGVuIG5lZWRlZCwgdW5tYXBwaW5nCj50
-aGUgU0NTSSBjb21tYW5kLCBhbmQgZHJvcHBpbmcgdGhlIG91dHN0YW5kaW5nIElPQUNDRUwgY29t
-bWFuZCBjb3VudAo+YmVmb3JlIHJldHVybmluZy4KPgo+Rml4ZXM6IGM1ZGZkMTA2NDE0ZiAoInNj
-c2k6IGhwc2E6IGNvcnJlY3QgZGV2aWNlIHJlc2V0cyIpCj5DYzogc3RhYmxlQHZnZXIua2VybmVs
-Lm9yZwo+U2lnbmVkLW9mZi1ieTogSGFveGlhbmcgTGkgPGhhb3hpYW5nX2xpMjAyNEAxNjMuY29t
-Pgo+Cj5BY2tlZC1ieTogRG9uIEJyYWNlIDxkb24uYnJhY2VAbWljcm9jaGlwLmNvbQo+VGhhbmtz
-IGZvciB5b3VyIHBhdGNoLiBDYW4gZml4IHBvdGVudGlhbCBwZXJmb3JtYW5jZSBpc3N1ZXMgd2l0
-aCBkZXZpY2VzIHVuZGVyZ29pbmcgcmVzZXRzLgo+V2hhdCBhYm91dCBhbm90aGVyIHBhdGNoIGZv
-ciB3aGVuIGNhbGwgdG8gaHBzYV9tYXBfaW9hY2NlbDJfc2dfY2hhaW5fYmxvY2soKSBmYWlscz8K
-PgoKPgoKVGhhbmtzIGZvciB5b3VyIHJldmlldyEgSSBjaGVja2VkIHRoZSBocHNhX21hcF9pb2Fj
-Y2VsMl9zZ19jaGFpbl9ibG9jaygpIGZhaWx1cmUgcGF0aC4gSXQKYWxyZWFkeSBkZWNyZW1lbnRz
-IGlvYWNjZWxfY21kc19vdXQgYW5kIGNhbGxzICBzY3NpX2RtYV91bm1hcChjbWQpLiBJIHRoaW5r
-IHRoaXMgcGF0Y2gKaXMgZW5vdWdoPwoKPi0tLQo+wqBkcml2ZXJzL3Njc2kvaHBzYS5jIHwgNCAr
-KysrCj7CoDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKykKPgo+ZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvc2NzaS9ocHNhLmMgYi9kcml2ZXJzL3Njc2kvaHBzYS5jCj5pbmRleCBhMWIxMTZjZDQ3
-MjMuLjhlZGFkMTgzMGFiZSAxMDA2NDQKPi0tLSBhL2RyaXZlcnMvc2NzaS9ocHNhLmMKPisrKyBi
-L2RyaXZlcnMvc2NzaS9ocHNhLmMKPkBAIC01MDE3LDYgKzUwMTcsMTAgQEAgc3RhdGljIGludCBo
-cHNhX3Njc2lfaW9hY2NlbDJfcXVldWVfY29tbWFuZChzdHJ1Y3QgY3Rscl9pbmZvICpoLAo+Cj7C
-oMKgwqDCoMKgwqDCoCBpZiAocGh5c19kaXNrLT5pbl9yZXNldCkgewo+wqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGNtZC0+cmVzdWx0ID0gRElEX1JFU0VUIDw8IDE2Owo+K8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgYXRvbWljX2RlYygmcGh5c19kaXNrLT5pb2FjY2VsX2NtZHNf
-b3V0KTsKPivCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNjc2lfZG1hX3VubWFwKGNtZCk7
-Cj4rwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAodXNlX3NnID4gaC0+aW9hY2NlbF9t
-YXhzZykKPivCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBocHNh
-X3VubWFwX2lvYWNjZWwyX3NnX2NoYWluX2Jsb2NrKGgsIGNwKTsKPsKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCByZXR1cm4gLTE7Cj7CoMKgwqDCoMKgwqDCoCB9Cj4KPi0tCj4yLjI1LjEK
-ClRoYW5rcywKSGFveGlhbmcK
+func_set_flag() dereferences tr->current_trace_flags before verifying
+that the current tracer is actually the function tracer. When the active
+tracer has been switched away from "function" (e.g., to "wakeup_rt"),
+tr->current_trace_flags can be NULL, leading to a NULL pointer
+dereference and kernel crash.
+
+The call chain that triggers this is:
+
+  trace_options_write()
+    -> __set_tracer_option()
+      -> trace->set_flag()          /* func_set_flag */
+
+In func_set_flag(), the first operation is:
+
+  if (!!set == !!(tr->current_trace_flags->val & bit))
+
+This dereferences tr->current_trace_flags unconditionally. The safety
+check that guards against a non-function tracer:
+
+  if (tr->current_trace != &function_trace)
+      return 0;
+
+is placed *after* the dereference, which is too late.
+
+This was observed with the following crash dump:
+
+  BUG: unable to handle page fault at 0000000000000000
+  RIP: func_set_flag+0xd
+
+  Call Trace:
+   __set_tracer_option+0x27
+   trace_options_write+0x75
+   vfs_write+0x12a
+   ksys_write+0x66
+   do_syscall_64+0x5b
+
+  RIP: ffffffff914c973d  RSP: ff67ec88b01dfdf0  RFLAGS: 00010202
+  RAX: 0000000000000000  RBX: ff3a826e80354580  RCX: 0000000000000001
+  RDX: 0000000000000001  RSI: 0000000000000000  RDI: ffffffff93918080
+
+The disassembly confirms the fault:
+
+  func_set_flag+0:   mov 0x1f08(%rdi), %rax  ; RAX = tr->current_trace_flags = NULL
+  func_set_flag+13:  mov (%rax), %eax        ; page fault: dereference NULL
+
+At the time of the crash:
+  tr->current_trace_flags = 0x0 (NULL)
+  tr->current_trace = wakeup_rt_tracer (not function_trace)
+
+The scenario is that a process opens a function tracer option file (such
+as "func_stack_trace"), then the current tracer is switched to another
+tracer (e.g., "wakeup_rt"), which sets current_trace_flags to NULL. When
+the process subsequently writes to the option file, func_set_flag() is
+invoked and crashes on the NULL dereference.
+
+Fix this by moving the current_trace check before the
+current_trace_flags dereference, so that func_set_flag() returns early
+when the function tracer is not active.
+
+Cc: stable@vger.kernel.org
+Fixes: 76680d0d2825 ("tracing: Have function tracer define options per instance")
+Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+---
+ kernel/trace/trace_functions.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/trace/trace_functions.c b/kernel/trace/trace_functions.c
+index f283391a4dc8..cd37f2013758 100644
+--- a/kernel/trace/trace_functions.c
++++ b/kernel/trace/trace_functions.c
+@@ -458,12 +458,12 @@ func_set_flag(struct trace_array *tr, u32 old_flags, u32 bit, int set)
+ 	ftrace_func_t func;
+ 	u32 new_flags;
+ 
+-	/* Do nothing if already set. */
+-	if (!!set == !!(tr->current_trace_flags->val & bit))
++	/* We can change this flag only when current tracer is function. */
++	if (tr->current_trace != &function_trace)
+ 		return 0;
+ 
+-	/* We can change this flag only when not running. */
+-	if (tr->current_trace != &function_trace)
++	/* Do nothing if already set. */
++	if (!!set == !!(tr->current_trace_flags->val & bit))
+ 		return 0;
+ 
+ 	new_flags = (tr->current_trace_flags->val & ~bit) | (set ? bit : 0);
+-- 
+2.39.3
+
