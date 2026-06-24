@@ -1,153 +1,82 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DFA3B7B72;
-	Wed, 24 Jun 2026 13:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B741F4C96;
+	Wed, 24 Jun 2026 13:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782308214; cv=none; b=ZHI/m9gS+H3UjRxSJOC9nWbq0AsCsj2s/dnbDovK2ig6znPAfJYWOPO9+gOGwv3MX6FFrKRDTMDKUN+xnBpX99RcD/ZKWL+q6YkvcB4Q2TMg6W3k9M3KQecTBlP2asIZEIOQaWtFhSDwuwQoBe7zVw3iEfDdl3PRI5fuaek2CDY=
+	t=1782308444; cv=none; b=PQBU5Po2rEeCRWB4kWbCxdw+2AaHc7YUeT+ZXD+UEsJ8MfetTux2K08hNgb+3UwFvD+/ew3TV7arI7WOdn8hnZk+gI2UxDQ0zMQ5cAywh8eZ7YdDplylg6h0U4obX/etqtPJOCsqchLlo+lJhTRaIciUEjYvgmuqQoTwLsrdO6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782308214; c=relaxed/simple;
-	bh=Hi4iGHbMBrFCzXj12hjAJngZ/JyoSo5JWtA0IM1C4Oo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rADnTKmPYMuoFuP58B1YQnnXYtq3Wc1avY7jTk2+f2zbcoUsH65KArFCDhzHUya0+6wwQFEzQQMLevBPsXkVGAXn13MHVbRSMxHezpERY/olwH9QR5fhSBi1JUJ1r8AhfMgPRyCjRdHOnZlUJQTVjWlYCM6wKUQ6Kd512Sp+lg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-03 (Coremail) with SMTP id rQCowAC3k5ps3TtqCEe2FQ--.898S2;
-	Wed, 24 Jun 2026 21:36:45 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH v3] PCI: qcom-ep: Fix runtime PM reference leak in probe error paths
-Date: Wed, 24 Jun 2026 21:36:43 +0800
-Message-Id: <20260624133643.42323-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	s=arc-20240116; t=1782308444; c=relaxed/simple;
+	bh=I8OzF5ucG5cy5yK/yi1L9HMqVYLuGARpoBRv1k/nvjE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KDG2AeLKZGhakPHfsyOYaKVXSHmPcxv4SrHfZkYttVAc+2kZlZt7c1+C46STjZFr1mcR047cdOrzsl4iJ9qkc7lubWJcvFssNBO8BZNoGERraxrkoP7pfoegWDP6NEeaj+H0kqKtlyRUtnkUpZix5SE9n1OOqYNXRTlYscZwsXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 7BF8B68B05; Wed, 24 Jun 2026 15:40:39 +0200 (CEST)
+Date: Wed, 24 Jun 2026 15:40:39 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: cem@kernel.org
+Cc: linux-xfs@vger.kernel.org, stable@vger.kernel.org,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Dave Chinner <david@fromorbit.com>,
+	Eric Sandeen <sandeen@redhat.com>, Christoph Hellwig <hch@lst.de>,
+	"Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>,
+	Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org,
+	Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH] xfs: fix capabily check in xfs_setattr_nonsize
+Message-ID: <20260624134039.GB5649@lst.de>
+References: <20260624101436.362533-1-cem@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3k5ps3TtqCEe2FQ--.898S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCF47WF4xuw17Jw4xZF13urg_yoW5trW8p3
-	yxXFZ5tFW8XF4xt3y2yw1UXF1FgrZayry8G3yqg3WIv3WfZ34jqryrtFyFqFn5KrWkWa4U
-	Jw4jqa17ZF45tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
-	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
-	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
-	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
-	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
-	C2KfnxnUUI43ZEXa7VU13ku3UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAcIA2o73MgDUwAAsV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260624101436.362533-1-cem@kernel.org>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-The qcom_pcie_ep_probe() function obtains a runtime PM reference via
-pm_runtime_get_noresume() at the beginning of the probe, but this
-reference is only released on the successful completion path using
-pm_runtime_put_sync().
+Adding Jan and Christian for quota and user_ns knowledge.
 
-However, the error paths fail to release this reference. The devres
-cleanup registered by devm_pm_runtime_enable() only calls
-pm_runtime_disable() and does not decrement the usage_count. As a
-result, if any error occurs during probe (e.g., resource acquisition
-failure or endpoint initialization failure), the reference is leaked,
-permanently elevating the device's usage_count. This prevents proper
-runtime suspend and clean device removal.
+On Wed, Jun 24, 2026 at 12:14:29PM +0200, cem@kernel.org wrote:
+> From: Carlos Maiolino <cem@kernel.org>
+> 
+> An user reported a bug where he managed to evade group's quota
+> by changing a file's gid to a different group id the same user
+> belonged to, even though quotas were enforced on both gids and the
+> file's size was big enough to exceed the quota's hardlimit.
+> 
+> Commit eba0549bc7d1 replaced a capable() call by a
+> has_capability_noaudit() to prevent unnecessary selinux audit messages.
+> Turns out that both calls have slightly different semantics even though
+> their documentation seems similar. Where in a nutshell:
+> 
+> capable() - Tests the task's effective credentials
+> has_ns_capability_noaudit() - Tests the task's real credentials
 
-Fix this by properly distinguishing error paths that occur before and
-after devm_pm_runtime_enable() succeeds:
+Eww..
 
-- For errors before devm_pm_runtime_enable() succeeds: call
-  pm_runtime_put_noidle() and pm_runtime_disable() manually to clean
-  up the initial reference and disable runtime PM.
+> This most of the time has no practical difference but in some cases like
+> changing attrs (specifically group id in this case) through a NFS client
+> this will allow the quota code to use XFS_QMOPT_FORCE_RES, effectively
+> bypassing quota accounting checks.
 
-- For errors after devm_pm_runtime_enable() succeeds: only call
-  pm_runtime_put_sync() to drop the initial reference. The
-  pm_runtime_disable() is left to the devres cleanup handler,
-  avoiding a double-disable.
+Yeah, this does look wrong.  Do the other conversion in the above commit
+have tthe same issue?
 
-- On the successful probe path: call pm_runtime_put_sync() to drop
-  the initial reference. The return value of pm_runtime_put_sync()
-  is ignored because errors like -EAGAIN or -EBUSY only indicate
-  that the device cannot be suspended at this moment and do not
-  represent a fatal probe failure.
+> Using instead ns_capable_noaudit() should fix this issue and prevent
+> selinux audit messages.
 
-This ensures the runtime PM reference is correctly released on all
-error paths without introducing double-disables or double-puts.
+The generic quota code manages to do without either has_capability_noaudit
+or ns_capable_noaudit.  I think this might be hidden behind
+inode_owner_or_capable calls.  Any idea why we're different?
 
-Cc: stable@vger.kernel.org
-Fixes: 5b026a9e714d ("PCI: qcom-ep: Add support for firmware-managed PCIe Endpoint")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/pci/controller/dwc/pcie-qcom-ep.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+> +	bool			force = ns_capable_noaudit(&init_user_ns,
+> +							   CAP_FOWNER);
 
-diff --git a/drivers/pci/controller/dwc/pcie-qcom-ep.c b/drivers/pci/controller/dwc/pcie-qcom-ep.c
-index 257c2bcb5f76..ff31f14b92a3 100644
---- a/drivers/pci/controller/dwc/pcie-qcom-ep.c
-+++ b/drivers/pci/controller/dwc/pcie-qcom-ep.c
-@@ -892,16 +892,16 @@ static int qcom_pcie_ep_probe(struct platform_device *pdev)
- 	pm_runtime_set_active(dev);
- 	ret = devm_pm_runtime_enable(dev);
- 	if (ret)
--		return ret;
-+		goto err_manual_cleanup;
- 
- 	ret = qcom_pcie_ep_get_resources(pdev, pcie_ep);
- 	if (ret)
--		return ret;
-+		goto err_put_ref;
- 
- 	ret = dw_pcie_ep_init(&pcie_ep->pci.ep);
- 	if (ret) {
- 		dev_err(dev, "Failed to initialize endpoint: %d\n", ret);
--		return ret;
-+		goto err_put_ref;
- 	}
- 
- 	ret = qcom_pcie_ep_enable_irq_resources(pdev, pcie_ep);
-@@ -915,10 +915,8 @@ static int qcom_pcie_ep_probe(struct platform_device *pdev)
- 	}
- 
- 	ret = pm_runtime_put_sync(dev);
--	if (ret < 0) {
-+	if (ret < 0)
- 		dev_err(dev, "Failed to suspend device: %d\n", ret);
--		goto err_disable_irqs;
--	}
- 
- 	pcie_ep->debugfs = debugfs_create_dir(name, NULL);
- 	qcom_pcie_ep_init_debugfs(pcie_ep);
-@@ -932,6 +930,13 @@ static int qcom_pcie_ep_probe(struct platform_device *pdev)
- err_ep_deinit:
- 	dw_pcie_ep_deinit(&pcie_ep->pci.ep);
- 
-+err_put_ref:
-+	pm_runtime_put_sync(dev);
-+	return ret;
-+
-+err_manual_cleanup:
-+	pm_runtime_put_noidle(dev);
-+	pm_runtime_disable(dev);
- 	return ret;
- }
- 
--- 
-2.39.5 (Apple Git-154)
+I'd do away with the local variable here.
 
