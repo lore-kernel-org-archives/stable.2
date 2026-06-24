@@ -1,185 +1,99 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A3E225791
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 12:32:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE843AEF59;
+	Wed, 24 Jun 2026 12:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782304366; cv=none; b=Kw8SBWSELYb7Qe6omYKt4k0OwoUElpGXq3jTRD3fOPPSKdnlWwFk2BHPZOnDTkffzmXopzi0O5u/MhaJW25nV4qVv+MQUDKJ9owUo+aS9NfQ12XgW91VGP0qEQMYlA3TuPMAyyvxRP2oo82VngYNcunWFc26Rurl7i5glIk8Jcg=
+	t=1782305689; cv=none; b=Vd9hNThxWo+3F7/lfzVTVLdZmF/K8+PHMHwjErFDeMC9yVBHfgPNUWyM5oE/0hMGWR+/I8NU1I1AlncdTS+vt5GuZHevGv3LGMwfAfiOULdYOBF4mCmdeDtDWzaxKT3Z3c5FhqOjHK3THQeQSwdccV2GksfNbgHkK2SFS2kZNxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782304366; c=relaxed/simple;
-	bh=1nfNxqXNEotcmGX35uyaBU2McLbyXdNu8TfrVYyikNo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lPI383PvFtElQHBXCg5Tr++mECyzFbZYyl+nv4YQ/ai459vBiN5XqWFFAAIEV9OVi9/nFq9FtQUQ2BUoYXs16CmGB4Mz7eoL9kH/Ke3faZbKZZSp/ORFQR0IRGjEr0x+QjxwVspv2nM/V9H2bxXtHLO57IcRE7Kx/TyXRD20A6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=gO78/Ria; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=87EI2CLE; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=kpvtle5U; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=uLUlAiN6; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="gO78/Ria";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="87EI2CLE";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="kpvtle5U";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="uLUlAiN6"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E07BD761B0;
-	Wed, 24 Jun 2026 12:32:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1782304363; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FhW8V1lQcHi9f3NBpYZEyRelNO4ARaBYoHkSvTL08Pc=;
-	b=gO78/RiaHqU1GUVCKHUCkHbWwjYZk9WRm9xeG054V5QtuRDlZOJpvLgZavM/SQRa4KxbyX
-	6+c61KOPcaauPs65oBH3Tvewp3vOww/nhyn3pDbJ4ez6IIlKh1mmJpj1qn+bPfbVBiXaRu
-	XkDPaUp5ABLZXzNbfln5WlXcZEWbngY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1782304363;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FhW8V1lQcHi9f3NBpYZEyRelNO4ARaBYoHkSvTL08Pc=;
-	b=87EI2CLE11Tzjj2oYdOpoW6MoTVjNv99AcMkJ2zHZTGEs/uvXxqUpPJAphJrpCxFXjvpS8
-	xnmi714BPk35tAAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=kpvtle5U;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=uLUlAiN6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1782304362; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FhW8V1lQcHi9f3NBpYZEyRelNO4ARaBYoHkSvTL08Pc=;
-	b=kpvtle5UJf9ToTQjRr4AqqhI3UYT7/0HTgATpDFklc6SECl5KnU6gTwapB18B2PX60YkTP
-	YB+UCuE3lO0eqvHeEyYrmpZZacUJiDxPap2dgjVS+UJr//ppULbR9UL3DM0zH0WmmBSOet
-	FZ51m2QgHt+6Uq9yLRKzZtl0yFwhBaE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1782304362;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FhW8V1lQcHi9f3NBpYZEyRelNO4ARaBYoHkSvTL08Pc=;
-	b=uLUlAiN6r1kyrZQaDvKmUOx3ZUXeiWOEQQP54Kz+CrDTVcxufaLywV0kBNHM6Fmi8M+E5m
-	Herb+RkZP8BdoYCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D6A60779A8;
-	Wed, 24 Jun 2026 12:32:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id tfBkNGrOO2rQUAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 24 Jun 2026 12:32:42 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 91A09A093E; Wed, 24 Jun 2026 14:32:42 +0200 (CEST)
-Date: Wed, 24 Jun 2026 14:32:42 +0200
-From: Jan Kara <jack@suse.cz>
-To: Zhu Jia <zhujia.zj@bytedance.com>
-Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
-	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	yi.zhang@huawei.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	s=arc-20240116; t=1782305689; c=relaxed/simple;
+	bh=PX65Uws/u7npoi1freBnkSIjgM1Lr6ZNbU/gEi1HGSQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EitsboR4QwhxzA+xRj4nQR5Be9ER3DFHlCR2oQGXbqEQTiaK3aZYCuC98Q0K9T91zq35D7JO2jOUTXmyqQ21Xr9dTeNGxrKKQ9PQBK9TNzczSvBH5cdH9UKXnd/NfcSbHCaRFI8cADE0uXYpniUJu5/SrVnxayxulTTcVZACiUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-05 (Coremail) with SMTP id zQCowADXYQXl0Ttq9ogDFQ--.42119S2;
+	Wed, 24 Jun 2026 20:47:35 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: Lijo Lazar <lijo.lazar@amd.com>,
+	Mario Limonciello <superm1@kernel.org>,
+	Aurabindo Pillai <aurabindo.pillai@amd.com>,
+	Xiaogang Chen <xiaogang.chen@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: cancel dirty accounting for folios without buffers
-Message-ID: <zm2zycnujo3h33h4ovwycoqihtnpvn6bxf5r3f7h5ut6j7tyg2@y4cykmdey4sa>
-References: <20260623094947.7853-1-zhujia.zj@bytedance.com>
+Subject: [PATCH v4] drm/amdgpu: Fix resource leak in amdgpu_gfx_run_cleaner_shader_job()
+Date: Wed, 24 Jun 2026 20:47:31 +0800
+Message-Id: <20260624124731.37479-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260623094947.7853-1-zhujia.zj@bytedance.com>
-X-Spam-Flag: NO
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,bytedance.com:email]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: E07BD761B0
-X-Spam-Score: -2.51
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADXYQXl0Ttq9ogDFQ--.42119S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tr4DXF4xWw4kZryUGF45Wrg_yoW8GF4rpF
+	sYgw12vryUZa1xt34UZ3WkXF95Kay3Xa4fGrnFk39Y93Z8X3Z5JFy3JFWYqr97CrWkCF4a
+	grWqq3y7XFnIvaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwsIA2o7lQXSkAAAsE
 
-On Tue 23-06-26 17:49:47, Zhu Jia wrote:
-> Since commit cc5095747edf ("ext4: don't BUG if someone dirty pages
-> without asking ext4 first"), mpage_prepare_extent_to_map() handles dirty
-> folios without buffer heads by warning, clearing PG_dirty, and skipping
-> them. ext4 cannot write these folios because there are no buffer heads to
-> map and submit.
-> 
-> That recovery leaves dirty accounting behind: folio_clear_dirty() clears
-> PG_dirty but does not undo the accounting charged when the folio was
-> dirtied. We have seen this in production as Dirty/nr_dirty staying high
-> while Writeback/nr_writeback and device write IO stayed near zero, with
-> many writer tasks blocked in balance_dirty_pages() throttling. Thus the
-> warning-and-skip recovery can still become a dirty-throttle DoS.
-> 
-> Use folio_cancel_dirty() so dropping PG_dirty also cancels the dirty
-> accounting.
-> 
-> Fixes: cc5095747edf ("ext4: don't BUG if someone dirty pages without asking ext4 first")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhu Jia <zhujia.zj@bytedance.com>
+When amdgpu_job_alloc_with_ib() fails in
+amdgpu_gfx_run_cleaner_shader_job(), the function returns directly
+without destroying the scheduler entity, causing a resource leak.
 
-Good point. Feel free to add:
+Fix this by moving the entity cleanup to a common error path. Set r = 0
+on success and use a single cleanup point at the err label to ensure the
+entity is always destroyed regardless of whether the function succeeds
+or fails.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Also remove the unnecessary error check for dma_fence_wait() since it
+never fails with intr=false and infinite timeout.
 
-								Honza
+Cc: stable@vger.kernel.org
+Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with 'drm_sched_entity' in cleaner shader")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-> ---
->  fs/ext4/inode.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-> index c2c2d6ac7f3d1..7ea280e70c06e 100644
-> --- a/fs/ext4/inode.c
-> +++ b/fs/ext4/inode.c
-> @@ -2715,7 +2715,13 @@ static int mpage_prepare_extent_to_map(struct mpage_da_data *mpd)
->  			 */
->  			if (!folio_buffers(folio)) {
->  				ext4_warning_inode(mpd->inode, "page %lu does not have buffers attached", folio->index);
-> -				folio_clear_dirty(folio);
-> +				/*
-> +				 * folio_cancel_dirty() pairs the dropped dirty
-> +				 * state with dirty accounting, but leaves stale
-> +				 * PAGECACHE_TAG_DIRTY/TOWRITE tags behind. Later
-> +				 * writeback may rescan this clean folio.
-> +				 */
-> +				folio_cancel_dirty(folio);
->  				folio_unlock(folio);
->  				continue;
->  			}
-> -- 
-> 2.20.1
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 523b681d0da9..29a07af6f5f4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1689,9 +1689,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 
+ 	dma_fence_put(f);
+ 
+-	/* Clean up the scheduler entity */
+-	drm_sched_entity_destroy(&entity);
+-	return 0;
++	r = 0;
+ 
+ err:
+     /* Clean up the scheduler entity */
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.39.5 (Apple Git-154)
+
