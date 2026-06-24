@@ -1,51 +1,73 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com [209.85.128.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3714A1C5F27;
-	Wed, 24 Jun 2026 06:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05F331F99F
+	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 06:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782281996; cv=none; b=Rgvecc94SAuL4Oz64nqphUzzzVTOqimRbDsx3w+p26HPGPBVAsDeyaKKs+ujfk0Haj0jqWJH21Mpl4ba677hQnuFzjm7dFaq/9ecr3I3tA9gcEXiDlXHdwtrpU7/I5HgostcvBYZ29McJEmEBZqA19o3AMNFZPrAO8yk3txYkCU=
+	t=1782282169; cv=none; b=De6BdCjXCEKTqvf8wM0Fz0WaYSgWQ3cK9VW12O/Ju25eCEKmcHpXq0SzYORzBQcro2DR1b/XenRztri3qrZAfEPcYAwxMz9sOWlptO8g7XQE8V5vzlNKg+xVTZ86cWL41vMG4BR+4Zz2uxJGeUy5JhKyMttvA0+9PPFtW8FaUt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782281996; c=relaxed/simple;
-	bh=Cm8uxm8lEwj/kLkx5WD6HgrQFavrQweJc59P3wASls8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aeIGS0lsRgda5KOsVt0mlhlWvsvexsCybQitOVFTzq7uBGTPPf5JyNPZm6fUsGMBIDY0VHndrh2OfxH1SV6lQ1wRF0DAjBAXtWxVqgtPR72XT7I1lU/LMTLhFhKehNN6T5wnXpXinKWZf7/4zPckf/mRDUbHTIMhrfTQCtbuP1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=We4dDDJu; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1782282169; c=relaxed/simple;
+	bh=4UMJY/XqjesJPz0LD2+Zpg7YYQMhj6htdO1rzR6ZIrs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WzHqVn2RyFY4MeFk/v55Y0+Fuvg/d7+rzPpXiYz3UkkGI1yC1G52ynogaL2SgUxc2peO+cu5xfZKm1/rh4KhVqjTd5dM1qB8Y7mrL1rUcOAf2qTBoyAjAyIpZKlWX6OJnvCjYaBA3WYM4XUl4v/vlXh0fhGXApr9HqooT1nhKQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Vlp6m3lE; arc=none smtp.client-ip=209.85.128.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="We4dDDJu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=yl
-	e0Kqd88zaVEflBPBDE3K9lYXnitx52ifkJn5SKETE=; b=We4dDDJueapUQ2UchF
-	xCRY8IHkbysKOWewwKRaqDMudfZhxP+cZFzNoY5+qxU0m6OkCu6Hh/RCBQmi8/I1
-	9HfxSNnhSLAj8HArHVezdIhNN1GQQ+GwWT4/USEacbKshDY22XPcnIkd9/QOxvVl
-	lBDv3o6Xi5G3+VMIGwcze5XYY=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDn8xDfdjtq3ideEw--.60S2;
-	Wed, 24 Jun 2026 14:19:15 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: mjrosato@linux.ibm.com,
-	alifm@linux.ibm.com,
-	farman@linux.ibm.com,
-	borntraeger@linux.ibm.com,
-	frankja@linux.ibm.com,
-	imbrenda@linux.ibm.com,
-	david@kernel.org,
-	hca@linux.ibm.com,
-	gor@linux.ibm.com,
-	agordeev@linux.ibm.com,
-	svens@linux.ibm.com,
-	schnelle@linux.ibm.com
-Cc: linux-s390@vger.kernel.org,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] KVM: s390: pci: Fix GISC refcount leak on AIF enable failure
-Date: Wed, 24 Jun 2026 14:19:10 +0800
-Message-Id: <20260624061910.2794734-1-haoxiang_li2024@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Vlp6m3lE"
+Received: by mail-wm1-f66.google.com with SMTP id 5b1f17b1804b1-4924944fe6bso4160385e9.0
+        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 23:22:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1782282166; x=1782886966; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Qj/92CaBdTIG4k88Avh122fV2bK4mXqDyX6lPzZHuMA=;
+        b=Vlp6m3lEfwgYibLPjiZzl1ETQqr4Xue5ksTtWw+GnDyJPzLy4gqmq7FlN+fmHS/2ko
+         SWdESQnIYbdxm61WAGm0I+hTCQ6nh1U38jfYi4MdahNJHtFy02oAWSSRdsykL62QOok7
+         FYtQXQujU+qw0qkTkyJmrd9/SoIUGJ+vfqlsDdxsTUVk/CxRQOi+T/RAfE9dkLlIbKbV
+         ddkISlrXlKnbjkxDqST9IsQmsLaHjYQgg+FHi5+8lfMtm60Ux8+bBqQPlExGhYC6fHDv
+         FjYPelpWHGrxYEzQtws+LwAc5pXD8SxAENIhlp+tnP3p6sj6tXDrAfihDRZQ5HslQXxL
+         9GkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782282166; x=1782886966;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Qj/92CaBdTIG4k88Avh122fV2bK4mXqDyX6lPzZHuMA=;
+        b=S/CqgWztjqO458QZR2qtYDGkja9a/EWSFNTXewFaCuHnOzjuz9fE827tdh0wyruxtt
+         YyJVMJl8WUK6F+ls1+SHGzLP/M01/F9rDZU3BwmDfqSl0YDQ5Eby6QRAo2vvQ/qhdDAS
+         BoiQVnccCukPtJeYBlp3id4yF/BaoK4/CNtjw/LXbNButHyT/PNRf5RCukP7+JTIZ++7
+         cI9QYa0LPDqo19zmsfz2AMlT0+ZhZ8XZcKwsik01X41qZJFRC8RPHLJcF5WuDyVqgqzP
+         9XQuPrF6FmSe4TVFOtZlVGSilFu5DeEELRleq8j/Flj0Rmy26zhYcZxLF3miAPOfkWfJ
+         QKMg==
+X-Gm-Message-State: AOJu0YwRB0Q+FGIGOltGFWrWYokXaFnialbHSQi3s4qre5KHM+p12viz
+	lLCMfifclKLgv+/h7q4ExCkBVnYdMe5MJvcnJ9RXy4YmT2+n6svMWm7hsx4TrgDLqvNcHDfzyET
+	lySX7BCl5Mfxp
+X-Gm-Gg: AfdE7ckFj+uWHaQXuOmIkWmdTvZi562cTLNSyIa4nlqUhEVDpwpAqmOJMVoQnQq+oKC
+	7mGlOu4DIFeAPndkHbYT8eR+fx4yw8lvnPCamL/mFV5ffSRy/Tu+nrBUt5kvW0MntZRCs7MNWC1
+	dUq7kxusPxFgl/mfow+5N98N5wIPJUk3piZsg46/u410BvdWyRLUA0i0klkXwk361JMsxnW7QBZ
+	BlcCh1EXnf5LeDOjnXHtKAB/cGm7I8wXuP1lT1nXripWwInF6VQJQMGUHQ5u0DTkaqDn+efJzkC
+	65JyIl6gYmyAe2bLsDKXBy0T8/zZSwtz1e77dbUAD5GsC+AzUKLWQ+qY0BJaZvQ7O6Ee7ZF0Y6H
+	GDqd/F9sRAeCnoq9dj6CcKniBjMgNsd/OmwX2D+JLNIEgQm91gz81dUGPuAMEeXgs6XbDdPeBAc
+	jVFWmh/iv4uFeXepkhku6kn25Vr13e2KiKjnh3gig=
+X-Received: by 2002:a05:600c:584a:b0:492:32a0:7f92 with SMTP id 5b1f17b1804b1-4926084848bmr16832505e9.12.1782282165986;
+        Tue, 23 Jun 2026 23:22:45 -0700 (PDT)
+Received: from localhost (110-28-2-172.adsl.fetnet.net. [110.28.2.172])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4472f0464a6sm9658968fac.15.2026.06.23.23.22.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 Jun 2026 23:22:44 -0700 (PDT)
+From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+To: stable@vger.kernel.org
+Cc: Shung-Hsi Yu <shung-hsi.yu@suse.com>,
+	Varun R Mallya <varunrmallya@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Leon Hwang <leon.hwang@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>
+Subject: [PATCH stable 6.12 1/2] bpf: Reject sleepable kprobe_multi programs at attach time
+Date: Wed, 24 Jun 2026 14:22:31 +0800
+Message-ID: <20260624062235.21002-1-shung-hsi.yu@suse.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,42 +75,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn8xDfdjtq3ideEw--.60S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7JFWfZw1kAFyUWr17tw43Jrb_yoWDKFbEvw
-	1Iy340q395ZrsrCryqkFs7ZF1Fka48WF4fAr10qrn8JF95ZrsrW3y8Zr43u3s7Wr4SyrWx
-	X392ywn3Z34IkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRu0PfDUUUUU==
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbCxQM-rWo7duO5pwAA3O
 
-kvm_s390_gisc_register() registers the guest ISC before pinning
-the guest interrupt forwarding pages and allocating the AISB bit.
-If any of the later setup steps fails, the function unwinds the
-pinned pages and other local state, but does not unregister the
-GISC reference. Add the missing kvm_s390_gisc_unregister() to the
-error unwind path.
+From: Varun R Mallya <varunrmallya@gmail.com>
 
-Fixes: 3c5a1b6f0a18 ("KVM: s390: pci: provide routines for enabling/disabling interrupt forwarding")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+commit eb7024bfcc5f68ed11ed9dd4891a3073c15f04a8 upstream.
+
+kprobe.multi programs run in atomic/RCU context and cannot sleep.
+However, bpf_kprobe_multi_link_attach() did not validate whether the
+program being attached had the sleepable flag set, allowing sleepable
+helpers such as bpf_copy_from_user() to be invoked from a non-sleepable
+context.
+
+This causes a "sleeping function called from invalid context" splat:
+
+  BUG: sleeping function called from invalid context at ./include/linux/uaccess.h:169
+  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1787, name: sudo
+  preempt_count: 1, expected: 0
+  RCU nest depth: 2, expected: 0
+
+Fix this by rejecting sleepable programs early in
+bpf_kprobe_multi_link_attach(), before any further processing.
+
+Fixes: 0dcac2725406 ("bpf: Add multi kprobe link")
+Signed-off-by: Varun R Mallya <varunrmallya@gmail.com>
+Acked-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Acked-by: Leon Hwang <leon.hwang@linux.dev>
+Acked-by: Jiri Olsa <jolsa@kernel.org>
+Link: https://lore.kernel.org/r/20260401191126.440683-1-varunrmallya@gmail.com
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
 ---
-Changes in v2:
- - Move unregister call after "out" label. Thanks, Matt!
----
- arch/s390/kvm/pci.c | 1 +
- 1 file changed, 1 insertion(+)
+Checked that test_verifier and all flavors of test_progs in BPF
+selftests still passes on x86_64 with the patchset applied[1].
 
-diff --git a/arch/s390/kvm/pci.c b/arch/s390/kvm/pci.c
-index 5b075c38998e..686113be0530 100644
---- a/arch/s390/kvm/pci.c
-+++ b/arch/s390/kvm/pci.c
-@@ -328,6 +328,7 @@ static int kvm_s390_pci_aif_enable(struct zpci_dev *zdev, struct zpci_fib *fib,
- unpin1:
- 	unpin_user_page(aibv_page);
- out:
-+	kvm_s390_gisc_unregister(kvm, fib->fmt0.isc);
- 	return rc;
- }
+1: https://github.com/kernel-patches/linux-stable/actions/runs/28078688463/job/83128410301
+---
+ kernel/trace/bpf_trace.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+index 4a44451efbcc..41c874fbd6fa 100644
+--- a/kernel/trace/bpf_trace.c
++++ b/kernel/trace/bpf_trace.c
+@@ -2943,6 +2943,10 @@ int bpf_kprobe_multi_link_attach(const union bpf_attr *attr, struct bpf_prog *pr
+ 	if (!is_kprobe_multi(prog))
+ 		return -EINVAL;
  
++	/* kprobe_multi is not allowed to be sleepable. */
++	if (prog->sleepable)
++		return -EINVAL;
++
+ 	flags = attr->link_create.kprobe_multi.flags;
+ 	if (flags & ~BPF_F_KPROBE_MULTI_RETURN)
+ 		return -EINVAL;
 -- 
-2.25.1
+2.54.0
 
