@@ -1,110 +1,124 @@
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8BF2C08AC
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 09:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE072EC09F
+	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 09:30:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782293377; cv=none; b=mb0EOBQUd4KVnqW+GfJAXCz2zCZD/zKo2pbgHqCfN9UEraWhLGo1+SJGNswF1HmK+6xp4q8x/wu0Gk2DX5xoPBMKyhdz/LXwzYp2GP7srtuVD8DuSH2e7FwzYKvRjHN1kbm84vodrKy6/owTvzwBKDBx1CpIkauHbBD8MPRkQSA=
+	t=1782293412; cv=none; b=UuGU9Yn/tNIf4eg5NES83AsMeB6z3zOL8lLNnxD+eGCVckps3/hg95143GEaXj59KuFnDyV8spsMhv65BPGatiBI9rqV7WpPojqgo1qJWQJzHe0v237dyaVLdB6KDYsYz1rreNUdL8YjOpXD+0DpZdmpmntXwJyTNYsk8LdIY3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782293377; c=relaxed/simple;
-	bh=OCeN4taB/M5dPJpMJKkXhDru/InAXPoRvcuwgcg6ICI=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=LLyfpbu6WtuzLrx90Bn/gL4wxaXCsGL3PRXkwiONoUW7WTuCprDXGhElP+++ly7sePCNatyKrnexotLvMB9wGUdkm6JtSn+dfB6JaG1Kh5f9eo4wPW6AdMPAivx2gOdnQoU1u9ZyFr3FOsBUG7dV8t5AfIolT9lrTJQUyF5jk3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=SnIneY0E; arc=none smtp.client-ip=18.194.254.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1782293412; c=relaxed/simple;
+	bh=D8CFwLPp5KatUW5AZ7GtpjRwh++f82p7zALAB4npO7o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jGcJr95NjF4acg1kUxoDM3yU4IF1OQWjXIipvIMx5UkL6HgknQTzFZaTaZjrmQnOCW5BRzlJYrOqS14m3cgk+O4TI4/SX2bRBF2rmm9myWWMeBmfNC3n/+dMgqrrHAJRBnJ89s2t4EQtadeQbR0GbYFBp2HvioeFfluf24GXDp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MSH5b1UV; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="SnIneY0E"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1782293278;
-	bh=OCeN4taB/M5dPJpMJKkXhDru/InAXPoRvcuwgcg6ICI=;
-	h=From:To:Subject:Mime-Version:Date:Message-ID;
-	b=SnIneY0ErAHhMC3ZDG5GhOhOTa6taGbqDvPbgw8ifG5pri44t8GoOPrAZx3eL2rrZ
-	 WSEAzh/iQhIteD+IK+APHy0PkLOwTSIEd9AVuysBc7Yk+JCMa5EexLabQh62zuBNEa
-	 vs4S9cpNCWEUG3S+M/mXc2ujuLMcZ5Qdb5Cux3QU=
-EX-QQ-RecipientCnt: 8
-X-QQ-GoodBg: 1
-X-QQ-SSF: 00400000000000F0
-X-QQ-FEAT: D4aqtcRDiqRdFc3p2pDC+jQy+RNMWdI0Y5ii4Iz6wLU=
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: +VT0cWnT7GyX0qk2JdQ4G3JLprWid0GRigGxRf0uoCI=
-X-QQ-STYLE: 
-X-QQ-mid: lv3gz7b-6t1782293276tcd911889
-From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
-To: "=?utf-8?B?R3JlZyBLSA==?=" <gregkh@linuxfoundation.org>
-Cc: "=?utf-8?B?aWtsYXR6Y28=?=" <iklatzco@gmail.com>, "=?utf-8?B?MDAxMDcwODI=?=" <00107082@163.com>, "=?utf-8?B?cGF0Y2hlcw==?=" <patches@lists.linux.dev>, "=?utf-8?B?cGV0ZXJ6?=" <peterz@infradead.org>, "=?utf-8?B?U2FzaGEgTGV2aW4=?=" <sashal@kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>, "=?utf-8?B?eWVvcmV1bS55dW4=?=" <yeoreum.yun@arm.com>
-Subject: Re: perf: Fix dangling cgroup pointer in cpuctx
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MSH5b1UV"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8454c5a280aso1120524b3a.1
+        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 02:30:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782293405; x=1782898205; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=04Y/Pe8XmMfRpuwlfV46g/2VJTxETiC/sRNVRFinUHU=;
+        b=MSH5b1UVo9mDNudBLwv/KkdWEX3cM1XrNJwmnVpGpVQgM1cAq5G0oGy1KkLl8DAus1
+         6Muo1CLjhv/t+nWaMZSqwqicqUk915yntntUlhQ2VOQQdRdrYReIJ1O+DW+BT+AZxCjo
+         PrLswFn9kP3Am34VvvIpK7RWV5ApwYRzknz5ZHaRlQuuf3CXiZrHOBppaPht1S7wP355
+         8MvJTGTX9er6c1VYK41UFmH9GCVcgFVrDVR7+cJp++XsV31dkONr/akjr/+tJ6SJDRGj
+         b9h+QzHmJPDCjbXH3ByvLkgzWPrfEbynVGYjsR6qLsUriKN4uH660aKgGjwnaM5xq3M/
+         I7vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782293405; x=1782898205;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=04Y/Pe8XmMfRpuwlfV46g/2VJTxETiC/sRNVRFinUHU=;
+        b=KwEW9mJJMXjGH24cwya5Md4lVBADKwhjtMU6iLTIOIgU8ahwkeUk3v8+XQNDfG3Lz2
+         nU3wQj3qd3BBDhWyAWgsU6e4EkXDw3CptJ6Qwrr/7JzkY6RHSfPSRxkV+FABGGGZiMbV
+         de46ReZ1c4fRiBbbvE2fJQCKb+6Dh5ia98wHqFDOwQ/E44Qe3ckzxNYIFSkpWdll7Qcy
+         3Wx22vXHk1Q8uHwjDu29pJ6FL3T7bHqJlqoWpTicv/mxxfp5dZYHUIwrz0ot3QmLCseW
+         HF0oeEm07o847cNdfmbu6QLFW3XZF/aqg6a7ybW8Ry21KEfTPKavAVODaG/g+a/4H20e
+         S3EA==
+X-Gm-Message-State: AOJu0Yzpu1mO+b687Jz75Q98km9v7wCSg/lG0MhZDApZnNvCb5H6mAgP
+	wCebI5jbXiNZXi340OS5PIwvyuY1ku5iiWTCnMFYEVFize0c+jwTz7Yf
+X-Gm-Gg: AfdE7cnUvWVK62uw3yJzN9I7agw3EzUY2Qaa9Ja8O/ufjszJPOGJPrYpM2ooLe+aMRS
+	sv1xiAz5XM+IlnL5BCrKXD7ujIEUwoTt7NAknvmYw4oEuCYt5jxEBvE0BdRUdIwslveh78bDmkl
+	mMi7wrBnqjegoh85E6jVmfmxI3Cgz0zkn8yXCnGuKcCBwB7O7SaZKs5s4wL+UPPse1dGXsGrI+H
+	ME2y2DaAjPsTKSPrfLO7XczfE3HNRKMweaZrBVcc/zH9oIjqX5cIgM1MeT5HgeqyLCoG+PHyamR
+	Afhe3bSMzcCEfDsjlHGrVKYyxIiNZk8K1x35FXOc7WvRw7yCRbH+8jg3eSBoYjItDhkjwNjbYon
+	LGduww5KnX2GbFhNXHoVg/DYqD+abpHGXJy1qLnhIj7dKzv5xzgqgEkb/bXlhe8oPaWtECSk+9Y
+	y96rxawZYTZVvSew6TCohym2ytUOBfUzGaCBmgAHOp4jP6IcyfD1YShBokyvIw8WsD6Q==
+X-Received: by 2002:a05:6a00:2e9a:b0:837:f111:b70 with SMTP id d2e1a72fcca58-84591b23fe1mr6791752b3a.4.1782293404586;
+        Wed, 24 Jun 2026 02:30:04 -0700 (PDT)
+Received: from DESKTOP-19IMU7U.localdomain ([125.242.148.221])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-845a3fec0f7sm1679883b3a.22.2026.06.24.02.30.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 24 Jun 2026 02:30:04 -0700 (PDT)
+Date: Wed, 24 Jun 2026 18:30:03 +0900
+From: Wongi Lee <qw3rtyp0@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
+	netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jungwoo Lee <jwlee2217@gmail.com>
+Subject: Re: Please apply 736b380e28d0 and eca856950f7c down to 6.1.y
+Message-ID: <ajujm9+82N1g/HgF@DESKTOP-19IMU7U.localdomain>
+References: <ajuR7rZYU943EG6p@DESKTOP-19IMU7U.localdomain>
+ <2026062417-conceal-driving-0ebd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Wed, 24 Jun 2026 17:27:56 +0800
-X-Priority: 3
-Message-ID: <tencent_62A2AD8F12114EBC582137F1@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20260616145120.525872058@linuxfoundation.org>
-	<20260624080310.2502480-1-guanwentao@uniontech.com>
-	<2026062455-obtrusive-sandbox-d6d1@gregkh>
-In-Reply-To: <2026062455-obtrusive-sandbox-d6d1@gregkh>
-X-QQ-ReplyHash: 1032237551
-X-BIZMAIL-ID: 5673338499215917731
-X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1])
-	by smtp.qq.com (ESMTP) with SMTP
-	id ; Wed, 24 Jun 2026 17:27:57 +0800 (CST)
-Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NAtipnnbTPea+aNH8FRrsJRoedTR8oAzEuEdIuBK8aiCiGooKDxQS4r3
-	1n2HLxSasRlLfPyUMxXaVKpqiB3JILEqUMQf3p8RL1fKlKmeVMG5T0pAM3wikxvvRUHIfJm
-	3/jjxwiqMosQxG6DpainEXzVCA5FDiXgfw7YN4ELbv1yg6v9zFV0h7YLB6Kx+Y4t6ifYOE1
-	1KJ7CTRI4XVZ6q4TN3s5xXW4hTmiG1XDndqOeyeu4ZvOqwac3HkJJJVGG/jKRzU1Zq33i+q
-	5Ei9bjVZkwOQ2I1NoIcxii+zog32e5XVHBRe9Vm9mNOB6y6rPXd6MR5DseQudExJL2zNfc4
-	GTpsTaExCH8kPUNBbrDk3oZr5KjDXmuuqqlMs1ep1L8Z4/nRL6ETy1o79xsb6rfHjwOlXAG
-	1JDkjHw7/bVoLEGJ4sRwbFgB0EP83Lecq4+mqZyRXf42rrTjRk51TmtWzY1QL99NhyAeswz
-	Ua/sKnanQ3+NbAOVds5rX4SkaLUkKU+7OLXBqrRvGebpEvXc54niP8AoLb0QKN/2rx93uvu
-	jtqwPbjw8x3ZFVTvGtF7NnP8fLdYw9AGaIKb+FVYXgSUQT/N+R5xRL6w4P1Au9CG9Wax98B
-	zev09Y0hjrwupDR8ftJBMv+dnIEvDPce6yJK6FhCXV1QnqLn9zhdX0WwmM1HwXMZwWRvX0t
-	1dMwAj+6vT7q8OuhiXsB71kBMTBifvXRrNBmShlKQp+0fwXL2f/aHmFGuOxTPwGLwj3IVcP
-	DXi+FyEvOHVEDvUCZ4wrBhP6ECXGQ8FIYct8rnzbFKVxI05J7OnVY285bq+PXmt4WgBLzXr
-	lDqkYQG2GdCo8vfygN8bOnqx947Iw0dOU7e/692KrcRNe/JOJFC5b2fVFeFMRFi0x+kzFOy
-	BB5IuCrinCUSh73Yg5oqS0nFLNFmarzh7bW3lhFdEGnGaDEPXkGC+xEXE3JGMOYS9m73rDP
-	QN18XPuK1gYEBVaFrZheqbpRPuIze0mzeGzG6ncbZvjVcnRGnm65RxpRjBrTFVTRUsbp9zR
-	tKt/+7K56Hhk7V/62vOWBF7ko7mWpX6a92omrutU6lOHAJNO2cRZEY2d3epCr9+y0Piqb4H
-	Q==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026062417-conceal-driving-0ebd@gregkh>
 
-SGVsbG8sDQoNCm9yZ2luYWwgcGF0Y2ggY29tbWl0IDNiN2EzNGFlYmJkZjJhNGI3Mjk1MjA1
-YmYwYzY1NDI5NDI4M2VjODIsDQpwZXJmOiBGaXggZGFuZ2xpbmcgY2dyb3VwIHBvaW50ZXIg
-aW4gY3B1Y3R4IGRlbGV0ZQ0KJ2V2ZW50LT5wZW5kaW5nX2Rpc2FibGUgPSAxOycgaW4gX19w
-ZXJmX3JlbW92ZV9mcm9tX2NvbnRleHQoKSwNCmJ1dCB0aGUgYmFja3BvcnQgY29tbWl0IGFl
-MWFkYTBhZjE2MjQ5YTNlZDE1ZTMzZmE2NzE5YTZhMmY5NmY1MzcgZGlkIG5vdC4NCg0KW2Nv
-bnRleHQgZGlmZmVyZW50XQ0KMjUsMjZjMTksMjANCjwgIGtlcm5lbC9ldmVudHMvY29yZS5j
-IHwgMTYgKysrKy0tLS0tLS0tLS0tLQ0KPCAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9u
-cygrKSwgMTIgZGVsZXRpb25zKC0pDQotLS0NCj4gIGtlcm5lbC9ldmVudHMvY29yZS5jIHwg
-MjEgKysrKysrLS0tLS0tLS0tLS0tLS0tDQo+ICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRp
-b25zKCspLCAxNSBkZWxldGlvbnMoLSkNCjI5YzIzDQo8IGluZGV4IDBhYzgzZmMxY2I1ZTMu
-LjEzMjUyNGQwMjk3Y2IgMTAwNjQ0DQotLS0NCj4gaW5kZXggMWNjOThiOWIzYzBiNC4uZDc4
-NjA4MzIzOTE2ZiAxMDA2NDQNCjMyYzI2DQo8IEBAIC0yMDU2LDE4ICsyMDU2LDYgQEAgbGlz
-dF9kZWxfZXZlbnQoc3RydWN0IHBlcmZfZXZlbnQgKmV2ZW50LCBzdHJ1Y3QgcGVyZl9ldmVu
-dF9jb250ZXh0ICpjdHgpDQotLS0NCj4gQEAgLTIxMjAsMTggKzIxMjAsNiBAQCBsaXN0X2Rl
-bF9ldmVudChzdHJ1Y3QgcGVyZl9ldmVudCAqZXZlbnQsIHN0cnVjdCBwZXJmX2V2ZW50X2Nv
-bnRleHQgKmN0eCkNCjUxYzQ1LDUxDQo8IEBAIC0yNDAxLDYgKzIzODksMTAgQEAgX19wZXJm
-X3JlbW92ZV9mcm9tX2NvbnRleHQoc3RydWN0IHBlcmZfZXZlbnQgKmV2ZW50LA0KLS0tDQo+
-IEBAIC0yNDg4LDExICsyNDc2LDE0IEBAIF9fcGVyZl9yZW1vdmVfZnJvbV9jb250ZXh0KHN0
-cnVjdCBwZXJmX2V2ZW50ICpldmVudCwNCj4gICAgICAgICAgICAgICBzdGF0ZSA9IFBFUkZf
-RVZFTlRfU1RBVEVfRVhJVDsNCj4gICAgICAgaWYgKGZsYWdzICYgREVUQUNIX1JFVk9LRSkN
-Cj4gICAgICAgICAgICAgICBzdGF0ZSA9IFBFUkZfRVZFTlRfU1RBVEVfUkVWT0tFRDsNCj4g
-LSAgICAgaWYgKGZsYWdzICYgREVUQUNIX0RFQUQpIHsNCj4gLSAgICAgICAgICAgICBldmVu
-dC0+cGVuZGluZ19kaXNhYmxlID0gMTsNCj4gKyAgICAgaWYgKGZsYWdzICYgREVUQUNIX0RF
-QUQpDQo1M2M1Myw1NA0KPCAgICAgICB9DQotLS0NCj4gLSAgICAgfQ0KDQoNCkJScw0KV2Vu
-dGFvIEd1YW4=
+On Wed, Jun 24, 2026 at 11:00:45AM +0200, Greg Kroah-Hartman wrote:
+> On Wed, Jun 24, 2026 at 05:14:38PM +0900, Wongi Lee wrote:
+> > Hi,
+> > 
+> > Could the following upstream commits be queued for the active stable
+> > trees?
+> > 
+> >   commit 736b380e28d0480c7bc3e022f1950f31fe53a7c5
+> >   ("ipv6: account for fraggap on the paged allocation path")
+> 
+> I do not see that commit id in Linus's tree, are you sure it is correct?
+> 
+> >   commit eca856950f7cb1a221e02b99d758409f2c5cec42
+> >   ("ipv4: account for fraggap on the paged allocation path")
+> 
+> Same here, no id of that one in Linus's tree that I can see.
+> 
+> thanks,
+> 
+> greg k-h
 
+
+Hi Greg,
+
+First, sorry for confusing you.
+
+The commit IDs are from netdev/net.git:
+
+  736b380e28d0480c7bc3e022f1950f31fe53a7c5
+  https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=736b380e28d0
+
+  eca856950f7cb1a221e02b99d758409f2c5cec42
+  https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=eca856950f7c
+
+They were applied to netdev without Cc: stable@vger.kernel.org, so I
+wanted to flag them for stable handling but I send it too fast (before
+merge).
+
+I will resend the request with the Linus tree commit ID.
+
+Thanks,
+Wongi
