@@ -1,76 +1,39 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA9D3C76A0
-	for <stable@vger.kernel.org>; Tue, 23 Jun 2026 23:41:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2880DE555;
+	Wed, 24 Jun 2026 00:33:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.97.182.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782258114; cv=none; b=Rt/vynvUDwEWH6dxmfdOiVyBbrw5+KJhRwciJrjt4FXg8fdzCG4oPGFE7fIRX5IC+kumKdb7VetXSlpanhMmfhik9KDOV+Avqin9ojkWxJs78cZg7Z6sl/eTvI6XJuMsblsG/drJR8GpMvJwENQSO6m9PkTyhN9eGFR435OgVOk=
+	t=1782261193; cv=none; b=Xr8mjmUey1GRzxEq+Bs4L9QN9FWzaLfAuCCQUqKN1QwFdRN6tq2DNkF4+y7wF+Ra2ETAFZXo7PpJZlrluTe9HanVqKr88wBbx7IVZtsgH95MC8tfdgEFQQlaEzXI/D2XNHbM/LKofJMhFjQRQ6Qs1I5pUJ50kM7zH3/AWgXD+8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782258114; c=relaxed/simple;
-	bh=Q0OR99yi2KTeQqBV6zSKr/IxWlEosp13yzQoJ9jbwdo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VSyokKnupnixF4kUyFca7x/HX0dNOLnqyiOF8wR9xtP5g2SMLhzOGhrEHqcaWpwX2beq8oTfVdJgH3P7eeevSTWYbBUxdP2muRWy2haCSefjshPCRBt3BZ6184lgSQ3Ol8SjT8gOLFJkLBjGYgaNxtzMgnbkKTSAp5Ab36hoYhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=DJOQipYY; arc=none smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="DJOQipYY"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c106f737b5bso43889866b.1
-        for <stable@vger.kernel.org>; Tue, 23 Jun 2026 16:41:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bynar.io; s=google; t=1782258111; x=1782862911; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=nOj4ZzoO0fd8cVdfzVSBt6Auoi0sws5oiKgIpomRCU4=;
-        b=DJOQipYYly18FrthmR6swX7UcCIXFkKhPNgyr8wuWWtrU0FTBSihz3/JKOQUX6CaKB
-         YoS+IBVSzHVPlvX1WSKpEEBJZhCHR0jA8d/Pr1r7z6ROc3ceT22WfgP60o0QAQPDubX+
-         3Rwyg8NMQjDYIWxSjmCxYFF9w6QIk54CiWm1WB5SDAu3O+TQf8PW7fp9td9BlFEGqiMR
-         8nYE2FaRHTeyp/Wswc57owlyUqUXqOx14e8AsWdRMzpZFUtf0b2VJMUCxtlQ+JJnsIqB
-         shJiz+L5aVjm7tY3I/4w1nGrVQdLHPPDIbPNinmUHThlE3BzrtygJsXODtRbxz1XOBia
-         mCHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782258111; x=1782862911;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nOj4ZzoO0fd8cVdfzVSBt6Auoi0sws5oiKgIpomRCU4=;
-        b=r67ZgUDs/GRdBkRA1Q2JvKtS/wV+smXtHOb20OWPdE6vM1nskxfT74pCVmS0NsAUCt
-         7TmPRBc4XtW6aGsT2arbov5USE9iXI1kqxUTvaXxcT77yc0IMly/p3j/fXZU069uRtoC
-         aHF34AD/sHEeuOOxjdYD9wgTa8LW9tnTn2L/8nfw/msUfGLdbyEORz7qYPZsrlXbM5q3
-         UQ49QxtR8TRtk2uI5fqih4vTvyZjXlGU7XXVx/NzYGqAnVUrO7QkLNvjaIdAW5Oo1ZPZ
-         74VxHrh3WFm//DkvfR3s5AuYbqa5+wZCsD6NSdkdkvyDmeX9OHVV+i5NqP6fXh3pjblq
-         Zxqw==
-X-Forwarded-Encrypted: i=1; AFNElJ9AcfPq+RtUix5HLznvuiIeu6rj0G6ezkJCt/Wo0OylBW1v5UEk7/Ig8MlqliBoqH0khiFRoRs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzA4DWySoA3hojLZ5aINz1ziFyv5pQJ7EHpiQ/JgPXRp3x7zTFm
-	hw3fsVmf6HxOS7rPr0GCK8iKuM2Qtuxz9gD2dk9ZDDdaavEMH5rEAjBLK0KddLQFlUML
-X-Gm-Gg: AfdE7clRcuS4Z0NY7ibMjGplrq86031opDCWoWRgoDxymep/sssEqSEeKJkzimZctoL
-	6KIFOCf/kvtDOraNTM750MeVRDwKHln4s4MfHwFL9Sc2bKGP8k2z6Hy20C8tU5Cdewnqpz2zuXy
-	OS9x8MgLw9SLY5Ra7fwzb80xUyuIWS3MtuncGNJA89DLdWcRpo1sRpy9YKnuER/PKUX9wWZDYED
-	UMkiXiskXMSvRWg/B2EsGEcrVXVEdQTXx/WnM0Y2tpDX4jC5d6KguiCyiROi6hQc3acbI4nb4RO
-	ecHKieJiF7ft04TKw5GaUrhtUJyU65YUuvogZVdyomdsYHgstBdj9wWOHdClQd/Wutqfezkhb/V
-	4olbL3IGNr5D5qqxqZ0f2ncoCZv3sZJKNGDxbKF7DX/ly01BH3xEkpe0/lhgmEzzBnjXdJJqA5b
-	ZWMU176o/BJZk=
-X-Received: by 2002:a17:907:3ea6:b0:c08:59dd:3fea with SMTP id a640c23a62f3a-c107efc1f64mr260781666b.27.1782258110366;
-        Tue, 23 Jun 2026 16:41:50 -0700 (PDT)
-Received: from localhost ([2a06:61c2:d427:0:b321:1c7a:b072:326e])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c61610bacsm591936366b.58.2026.06.23.16.41.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 16:41:50 -0700 (PDT)
-From: Samuel Page <sam@bynar.io>
-To: David Heidelberg <david@ixit.cz>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
+	s=arc-20240116; t=1782261193; c=relaxed/simple;
+	bh=RJwzbP6AOFlTb+ucuscYV6woLw/D274yC0iKw8Pv4BE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BWneJAD1K0FYfAGm8M5Pq5rrVNact76c+KPlUF6IX1F9rJQW9uadV0Vxs7KTd7zYr2g8G1NZOhwRYgOom6TLVYmqyNON9CRgnqPwhds2f2os7gijkSkltXWemoj4YAPz+oCX4wKO9kVsfvGXKKJCoBoqa92TRb7J//fkM+anNfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=209.97.182.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDnVtC_JTtqNNIEAw--.19900S3;
+	Wed, 24 Jun 2026 08:33:04 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgBHl5+_JTtqlq47Ag--.46757S2;
+	Wed, 24 Jun 2026 08:33:03 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: mirela.rabulea@nxp.com,
+	mchehab@kernel.org
+Cc: shawnguo@kernel.org,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	imx@lists.linux.dev,
+	linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] nfc: nci: fix uninit-value in the RF discover/activated NTF handlers
-Date: Wed, 24 Jun 2026 00:41:26 +0100
-Message-ID: <20260623234126.214667-1-sam@bynar.io>
-X-Mailer: git-send-email 2.54.0
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] media: imx-jpeg: finish the job on device_run() error paths
+Date: Wed, 24 Jun 2026 00:32:08 +0000
+Message-Id: <20260624003208.12400-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,73 +41,112 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgBHl5+_JTtqlq47Ag--.46757S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?xwzJ2QXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBFB48mKC5DDzTCdDpjvUvjuGCGVJYTzvwsltdPDHA6IOBJZ
+	R1Ezv3MDA86MpxTOsUDN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoWxuF13trWDuFWUZF43JFWxXwc_yoW5ury5pr
+	ZIgryqkFyFqrs7tF4xtr4UAF1Yyrn3uF42ga18Ww1ku34agF4DtF40k3WUtF17tas29F1F
+	qw4qvwsrurWDCFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUPIb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E
+	14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8w
+	AqjxCEc2xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8I
+	cVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjc
+	xG0xvY0x0EwIxGrwACjcxG0xvY0x0EwIxGrVCF72vEw4AK0wACI402YVCY1x02628vn2kI
+	c2xKxwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
+	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
+	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4U
+	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jbo7NUUU
+	UU=
 
-nci_rf_discover_ntf_packet() and nci_rf_intf_activated_ntf_packet() each
-parse a notification into an on-stack struct (nci_rf_discover_ntf /
-nci_rf_intf_activated_ntf) that is not initialised. The technology- and
-activation-specific parameters are only extracted when the corresponding
-length field is non-zero, so a notification that reports a zero length
-leaves the relevant union uninitialised - and the handlers then read it:
+mxc_jpeg_device_run() returns early through a shared "end" label on several
+error paths (no free slot, mxc_jpeg_alloc_slot_data() failure, or missing
+buffers or queue data), and none of them calls v4l2_m2m_job_finish().
+Since the delayed work is queued only after the hardware is started, those
+paths neither finish the job directly nor queue timeout work that could
+finish it later. The job is left with TRANS_RUNNING set, so the
+wait_event() in v4l2_m2m_cancel_job() (reached from v4l2_m2m_ctx_release()
+at close) waits indefinitely and the close hangs.
 
- - discover: with rf_tech_specific_params_len == 0, nci_add_new_protocol()
-   reads the uninitialised rf_tech_specific_params union (nfca_poll->
-   nfcid1_len is used as a branch condition and a memcpy length) into
-   ndev->targets;
- - activated: with rf_tech_specific_params_len == 0 the same union is read
-   via nci_target_auto_activated(); with activation_params_len == 0 the
-   activation_params union is read by nci_store_ats_nfc_iso_dep() into
-   ndev->target_ats.
+mxc_jpeg_alloc_slot_data() uses dma_alloc_coherent(), so the failure path
+is reachable under memory pressure.
 
-In each case the uninitialised bytes are subsequently exposed to user
-space (NFC_CMD_GET_TARGET / NFC_ATTR_TARGET_ATS).
+Return the src/dst buffers with VB2_BUF_STATE_ERROR and call
+v4l2_m2m_job_finish() on those paths: paths that have buffers use a
+"buf_finish" label; the no-buffer path uses "job_finish" directly. This
+mirrors the existing jpeg_parse_error path.
 
-  BUG: KMSAN: uninit-value in nci_add_new_protocol+0x624/0x6c0
-   nci_add_new_protocol+0x624/0x6c0
-   nci_ntf_packet+0x25b2/0x3c30
-   nci_rx_work+0x318/0x5d0
-   process_scheduled_works+0x84b/0x17a0
-   worker_thread+0xc10/0x11b0
-   kthread+0x376/0x500
-  Local variable ntf.i created at:
-   nci_ntf_packet+0xbc2/0x3c30
+This bug was found by static analysis.
 
-Zero-initialise both on-stack notifications so the unions read back as
-zero when the corresponding parameters are absent.
-
-Fixes: 019c4fbaa790 ("NFC: Add NCI multiple targets support")
-Fixes: e8c0dacd9836 ("NFC: Update names and structs to NCI spec 1.0 d18")
-Link: https://lore.kernel.org/netdev/20260623172109.1105965-2-horms@kernel.org/
+Fixes: 2db16c6ed72c ("media: imx-jpeg: Add V4L2 driver for i.MX8 JPEG Encoder/Decoder")
 Cc: stable@vger.kernel.org
-Assisted-by: Bynario AI
-Signed-off-by: Samuel Page <sam@bynar.io>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- net/nfc/nci/ntf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../media/platform/nxp/imx-jpeg/mxc-jpeg.c    | 21 +++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-index c96512bb8653..274d9a4202c9 100644
---- a/net/nfc/nci/ntf.c
-+++ b/net/nfc/nci/ntf.c
-@@ -440,7 +440,7 @@ void nci_clear_target_list(struct nci_dev *ndev)
- static int nci_rf_discover_ntf_packet(struct nci_dev *ndev,
- 				      const struct sk_buff *skb)
- {
--	struct nci_rf_discover_ntf ntf;
-+	struct nci_rf_discover_ntf ntf = {};
- 	const __u8 *data;
- 	bool add_target = true;
+diff --git a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
+index 9e4a813489c0..6b224a19f40e 100644
+--- a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
++++ b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
+@@ -1525,15 +1525,15 @@ static void mxc_jpeg_device_run(void *priv)
+ 	dst_buf = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
+ 	if (!src_buf || !dst_buf) {
+ 		dev_err(dev, "Null src or dst buf\n");
+-		goto end;
++		goto job_finish;
+ 	}
  
-@@ -688,7 +688,7 @@ static int nci_rf_intf_activated_ntf_packet(struct nci_dev *ndev,
- 					    const struct sk_buff *skb)
- {
- 	struct nci_conn_info *conn_info;
--	struct nci_rf_intf_activated_ntf ntf;
-+	struct nci_rf_intf_activated_ntf ntf = {};
- 	const __u8 *data;
- 	int err = NCI_STATUS_OK;
+ 	q_data_cap = mxc_jpeg_get_q_data(ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE);
+ 	if (!q_data_cap)
+-		goto end;
++		goto buf_finish;
+ 	q_data_out = mxc_jpeg_get_q_data(ctx, V4L2_BUF_TYPE_VIDEO_OUTPUT);
+ 	if (!q_data_out)
+-		goto end;
++		goto buf_finish;
+ 	src_buf->sequence = q_data_out->sequence++;
+ 	dst_buf->sequence = q_data_cap->sequence++;
  
-
-base-commit: a986fde914d88af47eb78fd29c5d1af7952c3500
+@@ -1571,11 +1571,11 @@ static void mxc_jpeg_device_run(void *priv)
+ 	ctx->slot = mxc_get_free_slot(&jpeg->slot_data);
+ 	if (ctx->slot < 0) {
+ 		dev_err(dev, "No more free slots\n");
+-		goto end;
++		goto buf_finish;
+ 	}
+ 	if (!mxc_jpeg_alloc_slot_data(jpeg)) {
+ 		dev_err(dev, "Cannot allocate slot data\n");
+-		goto end;
++		goto buf_finish;
+ 	}
+ 
+ 	mxc_jpeg_enable_slot(reg, ctx->slot);
+@@ -1597,8 +1597,17 @@ static void mxc_jpeg_device_run(void *priv)
+ 		mxc_jpeg_dec_mode_go(dev, reg);
+ 	}
+ 	schedule_delayed_work(&ctx->task_timer, msecs_to_jiffies(hw_timeout));
+-end:
++
+ 	spin_unlock_irqrestore(&ctx->mxc_jpeg->hw_lock, flags);
++	return;
++buf_finish:
++	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
++	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
++	v4l2_m2m_buf_done(src_buf, VB2_BUF_STATE_ERROR);
++	v4l2_m2m_buf_done(dst_buf, VB2_BUF_STATE_ERROR);
++job_finish:
++	spin_unlock_irqrestore(&ctx->mxc_jpeg->hw_lock, flags);
++	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+ }
+ 
+ static int mxc_jpeg_decoder_cmd(struct file *file, void *priv,
 -- 
-2.54.0
+2.34.1
 
