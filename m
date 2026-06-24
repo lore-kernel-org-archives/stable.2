@@ -1,341 +1,98 @@
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC333CE0B0
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 17:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.153.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B09A33F5A9;
+	Wed, 24 Jun 2026 17:14:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782320978; cv=none; b=HEPn1PZDKS8aBYwNdk249OrY2nQIPiuQnOW1+uwoWXZAnW41EjoPLZBb43A9iQn4oAUiRbTSNICEx9s1WLWXzqnx9JWIX2wBCgQKNZZVWoI9hAULoezyl2ZNZXVMo1g4RezkoudjdD2oFvYEAQ43EGA3LwyMVyHZwFhW3CrGUWM=
+	t=1782321250; cv=none; b=pgGD170ANKiNVIRx7B9iGt7l3rCg9sQMkxP+T8PK68tJE6sQ/zn2xZqCltFh8sjIwA910G43aPkYmgS0E8ZrT+BKxTiHXBNuWGjs2QZVWURst6xwupin/Bc9iNFxa+YKGL9SP+FkNkKUeVVFtLRzmRLhuNQd8r9BX7FbnwEhW0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782320978; c=relaxed/simple;
-	bh=t3zk8zvQ1DiSSovPWsnR8dTPTOVXAS5862x6D1wAUz4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=srNzNjpjYuuVqo1rzmNHWisgct8smB744DwzDYfC4fMfJeoGqgmOYIQPJlIiF9pGPvaLel7Hj4P5564LvVN4ty1YE005632+XKy2B92FOdzUE6jeyvlLNtJzQVgeNVyCW45/ycyX0SHA643fVSSVFqb52NKaA9u2GhRLAj63LNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=a1pDwle8; arc=none smtp.client-ip=67.231.153.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="a1pDwle8"
-Received: from pps.filterd (m0528006.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65OEiQKg4072694
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 10:09:33 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=s2048-2025-q2;
-	 bh=wGn86Bzy428SsRS3YWgR++pwndLALlx3xQfXFRyyX4A=; b=a1pDwle8XSTM
-	+pwzwPZ5wueL54ogMHzaIsQzw9ELXkAcAy7NYS7mE0VekQHrb6tlQe/nfH/WxoNx
-	QmzmOfZ7v+WYAn0iP4wHBtIoRGFgO9bnxfeQkr5aRTaTp4PM16jpVqyWD6LZYi8P
-	EC8cf3tEY+O76Ti1GFoxWOBfDe/WaAV/gnkaVI/AF8MJqRlqxizWHnf+apxYWI8F
-	D03BZ8bwhRMOYXGVe+3KsAleuONeX7QE1LiqADGeAERFocq5Gg3lDWDRW+NHOpAR
-	L6eJEU4crRg1I2meiqYmGnnljTx7TMGbdskFFNFBHuKafIjkJRHcbGVTJ7rAMSbo
-	zCrrblLcwg==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4eyyffqk7d-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 10:09:33 -0700 (PDT)
-Received: from twshared90881.15.frc2.facebook.com (2620:10d:c0a8:1b::2d) by
- mail.thefacebook.com (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Wed, 24 Jun 2026 17:09:26 +0000
-Received: by devbig197.nha3.facebook.com (Postfix, from userid 544533)
-	id 8AEAA23C452C1; Wed, 24 Jun 2026 10:09:08 -0700 (PDT)
-From: Keith Busch <kbusch@meta.com>
-To: <linux-block@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>
-CC: <dm-devel@lists.linux.dev>, <hch@lst.de>, <axboe@kernel.dk>,
-        <brauner@kernel.org>, <djwong@kernel.org>, <viro@zeniv.linux.org.uk>,
-        Keith
- Busch <kbusch@kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH v3 5/5] block: validate user space vectors during extraction
-Date: Wed, 24 Jun 2026 10:09:05 -0700
-Message-ID: <20260624170905.3972095-6-kbusch@meta.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260624170905.3972095-1-kbusch@meta.com>
-References: <20260624170905.3972095-1-kbusch@meta.com>
+	s=arc-20240116; t=1782321250; c=relaxed/simple;
+	bh=zOA+NRAC3fnoUFbbw5rsQgGbAmrqEGSkAVCK6P8mSvY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RO8mdvbuTxBZ21vZY9DttUSOQFFJrd4LVVYO4T0QB9x8ZUq7zlxFL49lJyZr9WmFeSvOI7JnYDGs3ijUGRAkHov4K9jIawJ2iqqrOJxm2QNGyhjx4QIdpX6wfXGI9s85rw/azOeeL++b7Ou77LKdysJMhm7tdmmk3ed0SadB1R0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
+Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
+	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wcRAR-0042vN-0z;
+	Wed, 24 Jun 2026 17:13:39 +0000
+Received: from ben by deadeye with local (Exim 4.99.3)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wcRAO-000000088WR-2hYd;
+	Wed, 24 Jun 2026 19:13:36 +0200
+Message-ID: <66cf4f95534aa5428a362857cf78dcb946c51672.camel@decadent.org.uk>
+Subject: Re: [PATCH 5.15 323/411] spi: topcliff-pch: fix controller
+ deregistration
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Masayuki Ohtake <masa-korg@dsn.okisemi.com>, 
+ Johan Hovold <johan@kernel.org>, Mark Brown <broonie@kernel.org>, Sasha
+ Levin <sashal@kernel.org>
+Date: Wed, 24 Jun 2026 19:13:30 +0200
+In-Reply-To: <20260616145118.324999322@linuxfoundation.org>
+References: <20260616145100.376842714@linuxfoundation.org>
+	 <20260616145118.324999322@linuxfoundation.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-4Hbk2u6isj5YWtDERwLc"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+
+
+--=-4Hbk2u6isj5YWtDERwLc
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDE0MyBTYWx0ZWRfX4qZmuNcVqvL0
- SBoKwV117zc3f94cdsSqkQLZwgswX3dH6X+DB9/4cvQ5l+yFjbr4d8tR3J7qn6rkVv0lU7F7EQA
- r2BK5lnex4eJspoYJK7IoXQnNsaEvtArKifV16pB9pNzG+cNxRx36WNJhG4Dp0ppYjXbbMlwA1N
- IImojfHB1VbVIdlXwZ/ojoE1q9NjfJshi/58LLIWxOItPTGkUYR28djN8ui6EtMrnAr7USxb4Z8
- P9If7F4q+nVt6dugVnBmGmbtH9GHq9N476h6NIpMsT2/pFnMRa5M+Y/B+yqx7MysZpgDDFuWCvg
- C4gav6I4SYNbP1+gmNwPAXBa5+lCv7GtOSmUAy09oEFmBM9mr/Qt1mNj+vugoMTKd6wrHg4p7IX
- tu81FhQ5fnoPe1bzVnOos1iVIl2N+EFO1OjHQhGtmZ0ufiZvYsTbYMN1OXj/opRT4rGJ8k27LvZ
- hrEPVsPckis9To+0suA==
-X-Proofpoint-ORIG-GUID: h_K6JJ9FZhOj1JXPgEPFApO9jOHyVTpW
-X-Proofpoint-GUID: h_K6JJ9FZhOj1JXPgEPFApO9jOHyVTpW
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDE0MyBTYWx0ZWRfX3X1V50uUsjrT
- A9/iJwCbhMANJ8m3PxmfnkFO4EGTVXs+gavvCvSGsQCeBFolxdlIdXmUDCBmS7zO7QVjj4xPQUl
- DT2ej0x9CE0pRqsVQGGHZtI5uVvyZ7c=
-X-Authority-Analysis: v=2.4 cv=C6HZDwP+ c=1 sm=1 tr=0 ts=6a3c0f4d cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=kkcUborcUVj0H7zxAXTl:22 a=VwQbUJbxAAAA:8 a=Hx0Vx7WpTRxxbsLxYwoA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-24_03,2026-06-24_01,2025-10-01_01
 
-From: Keith Busch <kbusch@kernel.org>
+On Tue, 2026-06-16 at 20:29 +0530, Greg Kroah-Hartman wrote:
+> 5.15-stable review patch.  If anyone has any objections, please let me kn=
+ow.
+>=20
+> ------------------
+>=20
+> From: Johan Hovold <johan@kernel.org>
+>=20
+> [ Upstream commit 5d6f477d6fc0767c57c5e1e6f55a1662820eef87 ]
+[...]
 
-The bio-based drivers don't necessarily check the alignment split, and
-stacking block drivers don't always handle a misalignment detected after
-submitting the bio. Validate user vectors against the device's
-dma_alignment as the bio is built from the iov_iter, rejecting
-misaligned early with -EINVAL.
+Aside from the issue already pointed out with this backport, the fix is
+also missing from the 6.1 and 6.6 branches.
 
-Cc: stable@vger.kernel.org
-Fixes: 5ff3f74e145a ("block: simplify direct io validity check")
-Fixes: 7eac33186957 ("iomap: simplify direct io validity check")
-Signed-off-by: Keith Busch <kbusch@kernel.org>
----
- block/bio.c          | 56 +++++++++++++++++++++++++++++++++++++++++---
- block/blk-map.c      |  2 +-
- block/fops.c         |  2 +-
- fs/iomap/direct-io.c |  1 +
- include/linux/bio.h  |  2 +-
- include/linux/uio.h  | 10 +++++++-
- lib/iov_iter.c       |  9 ++++++-
- 7 files changed, 74 insertions(+), 8 deletions(-)
+Ben.
 
-diff --git a/block/bio.c b/block/bio.c
-index f2a5f4d0a9672..faad41a72ac77 100644
---- a/block/bio.c
-+++ b/block/bio.c
-@@ -1220,10 +1220,45 @@ static int bio_iov_iter_align_down(struct bio *bi=
-o, struct iov_iter *iter,
- 	return 0;
- }
-=20
-+#ifdef CONFIG_DEBUG_KERNEL
-+static inline bool bio_iov_bvec_aligned(const struct bio *bio,
-+					unsigned mem_align_mask)
-+{
-+	struct bvec_iter iter;
-+	struct bio_vec bv;
-+
-+	/*
-+	 * Correct callers never break the alignment requirements, so this
-+	 * exhaustive check is only paid for in debug builds.
-+	 */
-+	for_each_mp_bvec(bv, bio->bi_io_vec, iter, bio->bi_iter)
-+		if ((bv.bv_offset | bv.bv_len) & mem_align_mask)
-+			return false;
-+	return true;
-+}
-+#else
-+static inline bool bio_iov_bvec_aligned(const struct bio *bio,
-+					unsigned mem_align_mask)
-+{
-+	/*
-+	 * We forward the bio_vec as-is, so ITER_BVEC callers must provide
-+	 * segments already aligned to the device's DMA alignment. The only
-+	 * unchecked user-controllable offset that reaches here is an io_uring
-+	 * registered buffer where just the first segment can be unaligned
-+	 * (the rest is virtually contiguous), so checking only that one is
-+	 * sufficient to know if the entire vector is valid.
-+	 */
-+	return !(mp_bvec_iter_offset(bio->bi_io_vec, bio->bi_iter) &
-+							mem_align_mask);
-+}
-+#endif
-+
- /**
-  * bio_iov_iter_get_pages - add user or kernel pages to a bio
-  * @bio: bio to add pages to
-  * @iter: iov iterator describing the region to be added
-+ * @mem_align_mask: the mask the source address and length must be align=
-ed to,
-+ *	0 for no requirement
-  * @len_align_mask: the mask to align the total size to, 0 for any lengt=
-h
-  *
-  * This takes either an iterator pointing to user memory, or one pointin=
-g to
-@@ -1242,7 +1277,7 @@ static int bio_iov_iter_align_down(struct bio *bio,=
- struct iov_iter *iter,
-  * is returned only if 0 pages could be pinned.
-  */
- int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
--			   unsigned len_align_mask)
-+			   unsigned mem_align_mask, unsigned len_align_mask)
- {
- 	iov_iter_extraction_t flags =3D 0;
-=20
-@@ -1251,6 +1286,10 @@ int bio_iov_iter_get_pages(struct bio *bio, struct=
- iov_iter *iter,
-=20
- 	if (iov_iter_is_bvec(iter)) {
- 		bio_iov_bvec_set(bio, iter);
-+
-+		if (!bio_iov_bvec_aligned(bio, mem_align_mask))
-+			return -EINVAL;
-+
- 		iov_iter_advance(iter, bio->bi_iter.bi_size);
- 		return 0;
- 	}
-@@ -1265,8 +1304,19 @@ int bio_iov_iter_get_pages(struct bio *bio, struct=
- iov_iter *iter,
-=20
- 		ret =3D iov_iter_extract_bvecs(iter, bio->bi_io_vec,
- 				BIO_MAX_SIZE - bio->bi_iter.bi_size,
--				&bio->bi_vcnt, bio->bi_max_vecs, flags);
-+				&bio->bi_vcnt, bio->bi_max_vecs,
-+				mem_align_mask, flags);
- 		if (ret <=3D 0) {
-+			/*
-+			 * A misaligned vector fails the whole I/O.  Release any
-+			 * pages pinned by earlier iterations before returning
-+			 * since this bio won't be submitted to release them.
-+			 */
-+			if (ret =3D=3D -EINVAL) {
-+				bio_release_pages(bio, false);
-+				bio_clear_flag(bio, BIO_PAGE_PINNED);
-+				bio->bi_vcnt =3D 0;
-+			}
- 			if (!bio->bi_vcnt)
- 				return ret;
- 			break;
-@@ -1377,7 +1427,7 @@ static int bio_iov_iter_bounce_read(struct bio *bio=
-, struct iov_iter *iter,
- 		ssize_t ret;
-=20
- 		ret =3D iov_iter_extract_bvecs(iter, bio->bi_io_vec + 1, len,
--				&bio->bi_vcnt, bio->bi_max_vecs - 1, 0);
-+				&bio->bi_vcnt, bio->bi_max_vecs - 1, 0, 0);
- 		if (ret <=3D 0) {
- 			if (!bio->bi_vcnt) {
- 				folio_put(folio);
-diff --git a/block/blk-map.c b/block/blk-map.c
-index 768549f19f97e..c9535efe1a913 100644
---- a/block/blk-map.c
-+++ b/block/blk-map.c
-@@ -274,7 +274,7 @@ static int bio_map_user_iov(struct request *rq, struc=
-t iov_iter *iter,
- 	 * No alignment requirements on our part to support arbitrary
- 	 * passthrough commands.
- 	 */
--	ret =3D bio_iov_iter_get_pages(bio, iter, 0);
-+	ret =3D bio_iov_iter_get_pages(bio, iter, 0, 0);
- 	if (ret)
- 		goto out_put;
- 	ret =3D blk_rq_append_bio(rq, bio);
-diff --git a/block/fops.c b/block/fops.c
-index 0098a90a956e1..e519d7f43b310 100644
---- a/block/fops.c
-+++ b/block/fops.c
-@@ -46,7 +46,7 @@ static bool blkdev_dio_invalid(struct block_device *bde=
-v, struct kiocb *iocb,
- static inline int blkdev_iov_iter_get_pages(struct bio *bio,
- 		struct iov_iter *iter, struct block_device *bdev)
- {
--	return bio_iov_iter_get_pages(bio, iter,
-+	return bio_iov_iter_get_pages(bio, iter, bdev_dma_alignment(bdev),
- 			bdev_logical_block_size(bdev) - 1);
- }
-=20
-diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-index b485e3b191daf..ff458aa12ae29 100644
---- a/fs/iomap/direct-io.c
-+++ b/fs/iomap/direct-io.c
-@@ -358,6 +358,7 @@ static ssize_t iomap_dio_bio_iter_one(struct iomap_it=
-er *iter,
- 				iomap_max_bio_size(&iter->iomap), alignment);
- 	else
- 		ret =3D bio_iov_iter_get_pages(bio, dio->submit.iter,
-+					     bdev_dma_alignment(bio->bi_bdev),
- 					     alignment - 1);
- 	if (unlikely(ret))
- 		goto out_put_bio;
-diff --git a/include/linux/bio.h b/include/linux/bio.h
-index 8f33f717b14f5..ce34ea49ef358 100644
---- a/include/linux/bio.h
-+++ b/include/linux/bio.h
-@@ -477,7 +477,7 @@ int bdev_rw_virt(struct block_device *bdev, sector_t =
-sector, void *data,
- 		size_t len, enum req_op op);
-=20
- int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
--		unsigned len_align_mask);
-+		unsigned mem_align_mask, unsigned len_align_mask);
-=20
- void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter);
- void __bio_release_pages(struct bio *bio, bool mark_dirty);
-diff --git a/include/linux/uio.h b/include/linux/uio.h
-index a9bc5b3067e32..fe2e985d74d24 100644
---- a/include/linux/uio.h
-+++ b/include/linux/uio.h
-@@ -389,9 +389,17 @@ ssize_t iov_iter_extract_pages(struct iov_iter *i, s=
-truct page ***pages,
- 			       size_t maxsize, unsigned int maxpages,
- 			       iov_iter_extraction_t extraction_flags,
- 			       size_t *offset0);
-+/*
-+ * Block-layer consumers (e.g. bio_iov_iter_get_pages()) require that th=
-e
-+ * segments of an ITER_BVEC iterator are already aligned to the target d=
-evice's
-+ * DMA alignment, and forward them as-is.  In-kernel users that build th=
-eir own
-+ * bvecs must not create sub-aligned segments; iov_iter_extract_bvecs() =
-enforces
-+ * the same for the segments it extracts via @mem_align_mask.
-+ */
- ssize_t iov_iter_extract_bvecs(struct iov_iter *iter, struct bio_vec *bv=
-,
- 		size_t max_size, unsigned short *nr_vecs,
--		unsigned short max_vecs, iov_iter_extraction_t extraction_flags);
-+		unsigned short max_vecs, unsigned mem_align_mask,
-+		iov_iter_extraction_t extraction_flags);
-=20
- /**
-  * iov_iter_extract_will_pin - Indicate how pages from the iterator will=
- be retained
-diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-index 273919b161617..c343075951ded 100644
---- a/lib/iov_iter.c
-+++ b/lib/iov_iter.c
-@@ -1886,6 +1886,8 @@ static unsigned int get_contig_folio_len(struct pag=
-e **pages,
-  * @max_size:	maximum size to extract from @iter
-  * @nr_vecs:	number of vectors in @bv (on in and output)
-  * @max_vecs:	maximum vectors in @bv, including those filled before call=
-ing
-+ * @mem_align_mask:	reject with -EINVAL if the source address or
-+ *		length is not aligned to this mask
-  * @extraction_flags: flags to qualify request
-  *
-  * Like iov_iter_extract_pages(), but returns physically contiguous rang=
-es
-@@ -1897,14 +1899,19 @@ static unsigned int get_contig_folio_len(struct p=
-age **pages,
-  */
- ssize_t iov_iter_extract_bvecs(struct iov_iter *iter, struct bio_vec *bv=
-,
- 		size_t max_size, unsigned short *nr_vecs,
--		unsigned short max_vecs, iov_iter_extraction_t extraction_flags)
-+		unsigned short max_vecs, unsigned mem_align_mask,
-+		iov_iter_extraction_t extraction_flags)
- {
-+	unsigned long start =3D (unsigned long)iter_iov_addr(iter);
- 	unsigned short entries_left =3D max_vecs - *nr_vecs;
- 	unsigned short nr_pages, i =3D 0;
- 	size_t left, offset, len;
- 	struct page **pages;
- 	ssize_t size;
-=20
-+	if ((start | iter_iov_len(iter)) & mem_align_mask)
-+		return -EINVAL;
-+
- 	/*
- 	 * Move page array up in the allocated memory for the bio vecs as far a=
-s
- 	 * possible so that we can start filling biovecs from the beginning
 --=20
-2.53.0-Meta
+Ben Hutchings
+Anthony's Law of Force: Don't force it, get a larger hammer.
 
+--=-4Hbk2u6isj5YWtDERwLc
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmo8EDsACgkQ57/I7JWG
+EQk39BAAkBvHYG5NgAUy6GD8EWNHQhti4b/CS3m8zb9pk56yFbzm6Bfwe77ScShD
+3psMgpOtazD/kBN56YEACPUp+iftg8+V9GTQ5MhX71LyAmDpdxd17Q7v/+mZsXUI
+cjf5rJH8Ed6bWPqgJgCPaL+4Y+tSdv41ydxqPcKfYMCpFWpKM2Yqm7qSK7cYZ+A1
+KN9SUenLZdaDp4wiJSkbUhr5to7xKh2CpJpLOeO6I+MMhkk/0gQ+YSkRJN8IOVZQ
+LA0OP21ZSKtu/h9AzCqImt77k1pnpvkGK18lov7y9Nib8yIhFF6M5TCFNWYL7+Zm
+1EmLa+iDC+/Qvnsc+snquja3kr7/OT6o30Gov/H7B1IOYK62WYVBWQIWcIV/Og3n
+gmg6Goo4sBNXLmKp4EYo5Jx59nPMen7yZPw92sjVdbHWwPuAjtWRDMzXeM1njmQo
+IEh58UJ+qhL31nHZwHWrUmT/KA4pEZ0c8NfXg+Jd1YumaYORQStboRT6+2S/3k9B
+yYc7lDWtWC6Cybh2tkgyhVkm29idgFFVBWiEfG0unWDkM4lf5LcLdgYvGlHF0znS
+wLjplfbzoTZ5vwP3gic9I8Sz2RVaJyNLNCIw2N+aIrs1h9Kd/mY4DOiAqoi1fAi/
+2Np2w5y1l75FApHPhhdYF5SKXWFYp7Sn0AvbO1l8BjBiqg+bFys=
+=ysk7
+-----END PGP SIGNATURE-----
+
+--=-4Hbk2u6isj5YWtDERwLc--
