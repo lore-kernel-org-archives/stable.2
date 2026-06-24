@@ -1,41 +1,43 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 711723B635E
-	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 09:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A8A3A16A1;
+	Wed, 24 Jun 2026 09:38:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782293844; cv=none; b=IPb0XJKDJ7AEQt7xXOeimoO+iyI4n9Io0iC8enO9UyWYcx5l6bBJ/lb4AMx2m+WA/D4xubkSG1QUu+h+Rww1qhY7M2xr0yqraIo1Mf0UByvNGoZv71Vv8InZsy3lnMpjwXjc6VaIDzcSGDH9zQEm3GCqfnQN2rOqKS/SfCbzriU=
+	t=1782293927; cv=none; b=Vx9/DbmcF6xJgUSDmy2OLvBy29134w0JIuSl4fQ6Wwb+7wSxOJihLmoCQeYa3y5SnEynoobYyibb3BV94VSdUhgzzo0pnx5fOsjJhYtw7zt+5Nf2ZLpQlxW5ImXDzSRfcZsL9Sud56WfmTqqir17hIc6SBk5ZbvLk9WAHdC7+yo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782293844; c=relaxed/simple;
-	bh=1cqTBdcnChw8QnoeTxO6pHgP5ZdYyoFcPJLg3SKwsWw=;
+	s=arc-20240116; t=1782293927; c=relaxed/simple;
+	bh=M2YMAyyrXp+m7daGRk83FBoAsgDyiLWZKk8W6zjdrnU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jePLFrtLI+Y69zHFOQqQ7pgdZQfM0x7LP2ZMfO7RYHWKfL9+15LRzdbTn183OdME4YGJIkcUo04s9Kg3wTCqNzCb9JI6lXhKWS37QRsmG9creTFQ2vF7KSuakC6k6OrPKA4/rZz/11oK9DB+0d6AJDCh+2OSGqPzaRmMlW2krMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=h8R8Z9jL; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=kFD3QXGxmnJz1kOL1e5SV5QgjIghs0DdZSb3gZxtlZUmKfqAGpm0H7rNY57uw9kFvkjchHreMPTWkCOpwls5xDkj0YyWoo3fyzF+gIXYe4LLjIAoQV1rnlqz8afwg4cCCwG+g+IefolSKYm5bjd1T1uGlgneghQxg8QV/GDyv4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qRFYTXnE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="h8R8Z9jL"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8FE842944;
-	Wed, 24 Jun 2026 02:37:12 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AAFEB3F632;
-	Wed, 24 Jun 2026 02:37:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1782293837; bh=1cqTBdcnChw8QnoeTxO6pHgP5ZdYyoFcPJLg3SKwsWw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=h8R8Z9jLg6U+gI89CL20iOYcQ4YrIl1lVhKH5zVgl2OLlQvpZrEobcT1HptU+7/bm
-	 okNAaryVuY3J+cbSDfMWLIiPlZRxqg3OI3ASdqJCK0Bxr75cKMmEIzriYn8YdSAPAu
-	 BYkdSmALk16mjhEatgu5Dbg0oFiPnxza895bdxvY=
-Date: Wed, 24 Jun 2026 10:37:12 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Wentao Guan <guanwentao@uniontech.com>
-Cc: iklatzco@gmail.com, gregkh@linuxfoundation.org, 00107082@163.com,
-	patches@lists.linux.dev, peterz@infradead.org, sashal@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: perf: Fix dangling cgroup pointer in cpuctx
-Message-ID: <ajulSBVbBakh6NWu@e129823.arm.com>
-References: <20260616145120.525872058@linuxfoundation.org>
- <20260624080310.2502480-1-guanwentao@uniontech.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qRFYTXnE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECF251F000E9;
+	Wed, 24 Jun 2026 09:38:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1782293921;
+	bh=HwV1spafxwZqAlW6qWIVPzH+VQ8S47/INwFY5X+vW84=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=qRFYTXnEJeQ7p0Il9HzB8Gcdt6GhOBhMppeXIjxMYGd+tL1swUy7Cb1xJN64rB9Wr
+	 UVvR6h+Q6b1ABEjXrEYUYZK/7tTIfLLFPIbKQGeWkfyHAjLxm9lm9xSIu49S4/tpts
+	 G/13VZbx20tLGL3kauIbdteRfF84AW9LalZh2W7g=
+Date: Wed, 24 Jun 2026 11:37:29 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Wongi Lee <qw3rtyp0@gmail.com>
+Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
+	netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jungwoo Lee <jwlee2217@gmail.com>
+Subject: Re: Please apply 736b380e28d0 and eca856950f7c down to 6.1.y
+Message-ID: <2026062416-amulet-paradox-cf7c@gregkh>
+References: <ajuR7rZYU943EG6p@DESKTOP-19IMU7U.localdomain>
+ <2026062417-conceal-driving-0ebd@gregkh>
+ <ajujm9+82N1g/HgF@DESKTOP-19IMU7U.localdomain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,19 +46,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260624080310.2502480-1-guanwentao@uniontech.com>
+In-Reply-To: <ajujm9+82N1g/HgF@DESKTOP-19IMU7U.localdomain>
 
-Hi, 
-
-> Hello, 
+On Wed, Jun 24, 2026 at 06:30:03PM +0900, Wongi Lee wrote:
+> On Wed, Jun 24, 2026 at 11:00:45AM +0200, Greg Kroah-Hartman wrote:
+> > On Wed, Jun 24, 2026 at 05:14:38PM +0900, Wongi Lee wrote:
+> > > Hi,
+> > > 
+> > > Could the following upstream commits be queued for the active stable
+> > > trees?
+> > > 
+> > >   commit 736b380e28d0480c7bc3e022f1950f31fe53a7c5
+> > >   ("ipv6: account for fraggap on the paged allocation path")
+> > 
+> > I do not see that commit id in Linus's tree, are you sure it is correct?
+> > 
+> > >   commit eca856950f7cb1a221e02b99d758409f2c5cec42
+> > >   ("ipv4: account for fraggap on the paged allocation path")
+> > 
+> > Same here, no id of that one in Linus's tree that I can see.
+> > 
+> > thanks,
+> > 
+> > greg k-h
 > 
-> I noticed your backport missed - 'event->pending_disable = 1;',
-> which different than upstream version, is that true?
 > 
+> Hi Greg,
+> 
+> First, sorry for confusing you.
+> 
+> The commit IDs are from netdev/net.git:
+> 
+>   736b380e28d0480c7bc3e022f1950f31fe53a7c5
+>   https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=736b380e28d0
+> 
+>   eca856950f7cb1a221e02b99d758409f2c5cec42
+>   https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=eca856950f7c
+> 
+> They were applied to netdev without Cc: stable@vger.kernel.org, so I
+> wanted to flag them for stable handling but I send it too fast (before
+> merge).
+> 
+> I will resend the request with the Linus tree commit ID.
 
-Yes. I think it was missed otherwise for the DEAD event, it would have
-the middle OFF state.
+They have to be in Linus's tree, before we can take them in a stable
+release, right?
 
--- 
-Sincerely,
-Yeoreum Yun
+And why were they not originally tagged with the cc: stable?  That would
+save you time in the future as it would all just happen automatically.
+
+thanks,
+
+greg k-h
