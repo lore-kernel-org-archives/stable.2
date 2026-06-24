@@ -1,154 +1,129 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621133B14CE;
-	Wed, 24 Jun 2026 13:49:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380A526F29B
+	for <stable@vger.kernel.org>; Wed, 24 Jun 2026 14:01:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782308981; cv=none; b=SiiHKF95VyN+3h/Yu0x/1+FqVz8rjGvmx6/zz70owit/Rg+a7fq3AfUS+SiTxLfM2TbuvVjCnsD59edOHQfL4DjSZ1seRIAlNe+8IvQBWu1he5cn2LICcMk9QbLTrD1XLBfxG3fWiPPN/fW+d90JM5V3o4cIrqbYhzl3LOhqGis=
+	t=1782309673; cv=none; b=IU9xPoT/5hdwHZbg1fi91czMvYlw4ZL6bcou6cjtDuGYD01MEwtAIJLe3rUVURyVZjV975GFrgUyOn6kYBJuQd4px7t5pDNQb28vZzwhApY+0S9DBmMB0GWis0SDm97r/y+ycmjnWYIP0pi7exlwMa1jm6Hj0qaa/6Olibed0+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782308981; c=relaxed/simple;
-	bh=10zWnuD+cMNU27+iOYDgFHNPL2n5p34chPeS+HsNCjg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=j6/5qAoxhmbPwYvM2rOmihaT9wrL17xUfROsLUr6QI9gh3PG16iqPgXAx0GCwOVAJ6nwePQLqEiOF8r4PoLbFiT1REsuc+k4MoTUJEn4uWTQ065JlkGwX7ylLDvMFkop9laFBuPrMCYi8bcRvn3d9niXvrtHGdesPtvX475+Pnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-03 (Coremail) with SMTP id rQCowAC31dxu4DtqoYm2FQ--.855S2;
-	Wed, 24 Jun 2026 21:49:36 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH v4] PCI: qcom-ep: Fix runtime PM reference leak in probe error paths
-Date: Wed, 24 Jun 2026 21:49:32 +0800
-Message-Id: <20260624134932.44357-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	s=arc-20240116; t=1782309673; c=relaxed/simple;
+	bh=sqz/nCl4XMoZ5TKKVVNz5tAI/LScRoJeM9WbyPmJx3E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aBWX/PWsN5XK3JqiTh5ZIbWeBRhjES7ciRiD82fHCWV7QbD9+nGT8XFFErGJ2qlWxcor8fc3o1L3HliZoZU7dTj82QLnfvh+Uq2aFl2q8mJ23h8ZBXMyK7ECS+t+tXGcKGTh3B6V0Zz3eAP9+WLpSkNHYItEuVgf6yJDMSPSd2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=KstfDJkD; arc=none smtp.client-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="KstfDJkD"
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-915b5ce94c7so93377985a.2
+        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 07:01:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1782309671; x=1782914471; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=wsEoW4DBoKT0fUYLZPdL7MZJTkz7+GAlNaoQ4msQnkg=;
+        b=KstfDJkDlEZuT1HYy2wLN0zzVO7os9Mav9CMPrsd7Kv98rDcLUS7Wg5ukVEMLr3LVG
+         wrMAP69DjNNNzDVB2ZNOfiTOc1hFWk6LOgZdLKLlC+joHQiuqFZ40e7hNzcPh9oWhGY/
+         2G/O2HjDTmBS9oRGG1S37xQaTYUM3wBJHlcPNdyjlvsE1IDgBr7ovk0ZlAyLMvD5K4F2
+         s+LsOd3mFqtYmxhVb2PFHtvW7RF7jgiJBAVwWIQuzP65aYXobwjDznATwWFVkYABsJXZ
+         LVH9wW2TsSZf+p2SWTS7/3e2nLXqldUfpW6QUJzVbbrD9x+kGVzbxfNNIV+4CBNNqAON
+         puzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782309671; x=1782914471;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wsEoW4DBoKT0fUYLZPdL7MZJTkz7+GAlNaoQ4msQnkg=;
+        b=LSvXT0WjVyPXV9BSFSqMVxYUmENC2NPjvxg0fuwzZa9baKoOF5spSNp9cXwd0VzhNs
+         jWSl6Nr2lOhXBQl4sRUSgz5Z1qGRfnhp2N1AD7nzfBtgjatUfRXa84hsaIs97ZFZ+SmM
+         TyoaQhI2jAbzR8CsEY79rTQX9QSdv27/Jg+KDHltBPFTXjmHO9o+xX5bsrxtNcYcyNpP
+         9tVGrZfu7TMVBV+zRpsSd74P4bmL4YNHwFcNJ2kiUvIn60ckXJGbFvk6n6BE8m1y2ROV
+         uHGvsrB6gIqZZpmA3tM8lPa8nSzsEQHn2rHcQwSF9MEw36SKFZOmqG03S7Rp8JTu+tfy
+         auxA==
+X-Forwarded-Encrypted: i=1; AFNElJ/ukKjiLEHtGXwO6lV6mWH4k3YCMtXlcsI/UApfVImCCGi9OogQNIwYGleWBpLkFTF/OTAuxC8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz6xnmQsd/TJjnV1pK8jRdIu1/X4cjj0b3I8WdeJAzlD27GfZlx
+	BulJXlvg1/0Wk9J2LDo5/29cyVsUZUmfZqaOMfG13gPBeLCkr9nLUvsMSh1kBs4l2Q==
+X-Gm-Gg: AfdE7clg+aNnUC7oLXt0I25BOktweYD64ZmnpzpBm320lD8yyPep+OVJNI6/qfl+qjT
+	n/WhmQrRcQBJ3B7y0oQa+4LXLGNDRvB/+v6g33x4IV/0tk/Maz6NTRH/LAHLc6jFzQQzIw/A+XT
+	68uu+++nklBNEmJSgdk2KDouojdTsvRnhMpO3/qx1Z3xOM0a58g6ZzEtr7ENKVvaCRJsjekURIZ
+	aOiOuIl8IwetVkPTO1K2zcbvcc2KX9Ml7pXoAt1wlQZfvJdEZmIlp4qSiqsXXaho5NuOxpUXFtg
+	A1g7cuQFjsgoUJH98qQgHea2dOn2F+QcPnLRWtwhXQLGRdxuz0cyem24zxjdiCglvyiuyMDNQ68
+	Nq7OmaHnOHJiHwFj9I51ZHTDOjjpeC7z6DG5n0CXgrA4XOq/uV6yVx3apCC9C+wmjPgygRRtnpl
+	v8qhPnK3J2BiEV1H/wR+CZKJubAmLZQRQ9
+X-Received: by 2002:a05:620a:1a09:b0:915:cb5c:7f70 with SMTP id af79cd13be357-927800a2787mr561454085a.29.1782309641938;
+        Wed, 24 Jun 2026 07:00:41 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210:d62f:1911:f952:16ba])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92600c7bf55sm552191785a.46.2026.06.24.07.00.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 24 Jun 2026 07:00:41 -0700 (PDT)
+Date: Wed, 24 Jun 2026 10:00:38 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Nikhil Solanke <nikhilsolanke5@gmail.com>
+Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org, michal.pecio@gmail.com,
+	stable@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2] usbcore: Add quirk for 255-bytes initial config read
+Message-ID: <eb0dfd45-91c5-49ba-a297-b183dbc52c8c@rowland.harvard.edu>
+References: <20260623161035.5792-1-nikhilsolanke5@gmail.com>
+ <567e8866-4308-4e5f-819c-fe778dbf74f8@rowland.harvard.edu>
+ <CAFgddhJk0EYG71fnKdio=RHC-cH+JmL-EZ7-oVD-LdHoa2TBSA@mail.gmail.com>
+ <5159fd69-dddf-4073-a8e7-95fa77de0b7f@rowland.harvard.edu>
+ <CAFgddhJ2HeJ=oTBX_axMJcgJq7GXH9abe+LH+x9NGekGO4BMyw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC31dxu4DtqoYm2FQ--.855S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCF47WF4xuw17Jw4xZF13urg_yoW5tw1kp3
-	ySqFZ5tFy8XF4xt3y2yw1UXFnYqrZayry8G34vg3WIv3WfZ34jqryrtFyFqFn5KrWkWa4U
-	Ja1jqa17ZF4UKaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
-	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
-	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
-	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
-	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
-	C2KfnxnUUI43ZEXa7VUU0zuJUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwwIA2o73LoS3wAAs6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAFgddhJ2HeJ=oTBX_axMJcgJq7GXH9abe+LH+x9NGekGO4BMyw@mail.gmail.com>
 
-The qcom_pcie_ep_probe() function obtains a runtime PM reference via
-pm_runtime_get_noresume() at the beginning of the probe, but this
-reference is only released on the successful completion path using
-pm_runtime_put_sync().
+On Wed, Jun 24, 2026 at 01:36:28PM +0530, Nikhil Solanke wrote:
+> > Actually, the best approach here would be to put this single change into
+> > a separate patch that comes before the current one.  That removes issues
+> > of making more than one functional change in one patch and improves
+> > bisectability.
+> 
+> Before? Shouldn't it be after my changes? That would make it easier to
+> justify the changes. And just to be sure, you did mention it does
+> align with what the intention of USB_QUIRK_DELAY_INIT, but it does
+> change its behavior when the quirk is not set. Atleast from what I
+> understood from the documentation and an LLM's summary, the device
+> needs time to prepare the full configuration set. So, does delaying
+> before the first header read really work? I can't test this since I
+> don't have a device that requires the quirk to be set.
+> 
+> I personally think adding a condition to check if the quirk is set and
+> then delaying before sending the first request would be appropriate.
+> What are your opinions on this.
 
-However, the error paths fail to release this reference. The devres
-cleanup registered by devm_pm_runtime_enable() only calls
-pm_runtime_disable() and does not decrement the usage_count. As a
-result, if any error occurs during probe (e.g., resource acquisition
-failure or endpoint initialization failure), the reference is leaked,
-permanently elevating the device's usage_count. This prevents proper
-runtime suspend and clean device removal.
+Well, put it this way: If you change the existing behavior, that change 
+belongs in a separate patch.  If you want to redo this patch so that it 
+doesn't change anything when the quirk flag isn't set, that's fine.
 
-Fix this by properly distinguishing error paths that occur before and
-after devm_pm_runtime_enable() succeeds:
+> Also is it fine if the string lines exceed 100 columns?
 
-- For errors before devm_pm_runtime_enable() succeeds: call
-  pm_runtime_put_noidle() and pm_runtime_disable() manually to clean
-  up the initial reference and disable runtime PM.
+In lines containing long strings, it's okay for the string to extend 
+well beyond 80 columns.  But then you should break the line at some 
+point closely following the end of the string.  I'm sure you can find 
+examples of this if you look through some of the other source files.
 
-- For errors after devm_pm_runtime_enable() succeeds: only call
-  pm_runtime_put_sync() to drop the initial reference. The
-  pm_runtime_disable() is left to the devres cleanup handler,
-  avoiding a double-disable.
+> Also, is there a need to check for krealloc()'s return value? Since we
+> are only shrinking the buffer, there won't be any moves or completely
+> new blocks (at least as per my understanding). Do I still need to
+> check its return value for completeness' sake?
 
-- On the successful probe path: call pm_runtime_put_sync() to drop
-  the initial reference. The return value is not checked because
-  -EAGAIN/-EBUSY only indicate that the device cannot be suspended
-  at this moment and do not represent a probe failure. Checking
-  the return value would cause a double-put if it fails.
+It's a little tricky to track this down, but if you look in 
+include/linux/slab.h you'll see that krealloc() is defined as 
+krealloc_node(), which is defined as krealloc_node_align(), which is 
+defined as krealloc_node_align_noprof(), which is declared with 
+__must_check.  So yes, you need to check the return value from 
+krealloc().
 
-This ensures the runtime PM reference is correctly released on all
-error paths without introducing double-disables or double-puts.
+Of course, you could simply try not checking the return value and seeing 
+if that provokes a warning or error from the compiler.
 
-Cc: stable@vger.kernel.org
-Fixes: 5b026a9e714d ("PCI: qcom-ep: Add support for firmware-managed PCIe Endpoint")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/pci/controller/dwc/pcie-qcom-ep.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/pci/controller/dwc/pcie-qcom-ep.c b/drivers/pci/controller/dwc/pcie-qcom-ep.c
-index 257c2bcb5f76..4fb21ef50cd0 100644
---- a/drivers/pci/controller/dwc/pcie-qcom-ep.c
-+++ b/drivers/pci/controller/dwc/pcie-qcom-ep.c
-@@ -892,16 +892,16 @@ static int qcom_pcie_ep_probe(struct platform_device *pdev)
- 	pm_runtime_set_active(dev);
- 	ret = devm_pm_runtime_enable(dev);
- 	if (ret)
--		return ret;
-+		goto err_manual_cleanup;
- 
- 	ret = qcom_pcie_ep_get_resources(pdev, pcie_ep);
- 	if (ret)
--		return ret;
-+		goto err_put_ref;
- 
- 	ret = dw_pcie_ep_init(&pcie_ep->pci.ep);
- 	if (ret) {
- 		dev_err(dev, "Failed to initialize endpoint: %d\n", ret);
--		return ret;
-+		goto err_put_ref;
- 	}
- 
- 	ret = qcom_pcie_ep_enable_irq_resources(pdev, pcie_ep);
-@@ -914,11 +914,7 @@ static int qcom_pcie_ep_probe(struct platform_device *pdev)
- 		goto err_disable_irqs;
- 	}
- 
--	ret = pm_runtime_put_sync(dev);
--	if (ret < 0) {
--		dev_err(dev, "Failed to suspend device: %d\n", ret);
--		goto err_disable_irqs;
--	}
-+	pm_runtime_put_sync(dev);
- 
- 	pcie_ep->debugfs = debugfs_create_dir(name, NULL);
- 	qcom_pcie_ep_init_debugfs(pcie_ep);
-@@ -932,6 +928,13 @@ static int qcom_pcie_ep_probe(struct platform_device *pdev)
- err_ep_deinit:
- 	dw_pcie_ep_deinit(&pcie_ep->pci.ep);
- 
-+err_put_ref:
-+	pm_runtime_put_sync(dev);
-+	return ret;
-+
-+err_manual_cleanup:
-+	pm_runtime_put_noidle(dev);
-+	pm_runtime_disable(dev);
- 	return ret;
- }
- 
--- 
-2.39.5 (Apple Git-154)
-
+Alan Stern
