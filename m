@@ -1,129 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82D11E633C;
-	Thu, 25 Jun 2026 13:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48AB026FD9B
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 13:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782393048; cv=none; b=ZlVky0ktSuzFcWwbC03Q+GGhWD3nn6A7ghfY354f8lauPs4JL/1fogDJ+qf6XTK/I05dR3BoWmSPg96/XdH2I8mLySa+Y04l7NHkhnA/nWgG4sDVOM/HC64m1jO+Ih+3c1ZfBNQrBrfnUMTKTuIy2nphDk/6VIACuKQf07psbtU=
+	t=1782393049; cv=none; b=FcAuFg/Vl89R8sdNDVEV3RpEldx44mHDn4LHZprrorDueokv0PS2K0tjy6bQtYpD5/fWkD7lNRZm5V+NeVbB1O0KQT/U/E8MWRBBnsVPhVeWnKlGqHfQXmzk18BLYJ4bmjR789zUC4CplCFU/tnDK8Gk8O2PZ2DRmq3T3s/nuD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782393048; c=relaxed/simple;
-	bh=1nuildRU1GQd3c1ai8j5KwNFwB9yDZJ97wPHNKo5im0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n8ET8T7n7y27he9ewljFVNWSQhV+c3gXg2f56yML7EaSXo3EmUUKX8B3G6Ijit5swxj4znYulT4ags5Zr9F6werajgBR0EVWfobe2ih2ktyOcN+wG1CzSQr0tTQb0N7XgLsmrlnmOE69rKHrFlajxzVimhRYt2ksoxqR5Au8tBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZjHuJNsC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782393049; c=relaxed/simple;
+	bh=lzC+LUUvfV7uYGcBaOhEXbvYJIWnO8/EqxSud/5mrYI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AJLBmpb2HVm9TzJ+3a7i2vLBjZXYgBS0zYAb6eP6iuPKh6avfg5xqbCN+fPH+6dVCO0jaGgV958QzzftLkiXlbjogB0B1SnAnn/YkZbSTCqlDFsB5F7PVz6W8z0ia+891FO+yu1K74lROljx7oqsJ6WFDJm8AcfYwOWmI5I2mLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CEbCx2Ox; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZjHuJNsC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33CAC1F000E9;
-	Thu, 25 Jun 2026 13:10:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782393047;
-	bh=3XsR9oXnuuHGvnfYgoLbUPCYZ3DD9RUH2BTyeGrYb2k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZjHuJNsCRbprOrkD+cXvey8AmLWi3H0A9SdwNITzgUZJ/V5soEoLJdXaJyj/iQbt8
-	 bxj/N9L29HT7TCqFzi18QhC373ezmgGL3qHvuCtI8TvAHaVayLVZYlS+oQuPfa2cD6
-	 eN92ymRX0WJqEif+Tvia4AldDUfREKOwQSQ2xhaY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Bernard Pidoux <bernard.f6bvp@gmail.com>
-Subject: [PATCH 7.0 26/49] rose: release netdev ref and destroy orphaned incoming sockets
-Date: Thu, 25 Jun 2026 14:03:38 +0100
-Message-ID: <20260625125641.174558942@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260625125637.527552689@linuxfoundation.org>
-References: <20260625125637.527552689@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CEbCx2Ox"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782393048; x=1813929048;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=lzC+LUUvfV7uYGcBaOhEXbvYJIWnO8/EqxSud/5mrYI=;
+  b=CEbCx2OxcnNzT2WKPoet6fUs+DpiClwjmEsIOmoZ5zgrk4gpY0MqTIES
+   kbjcgi5whr+d20RxJiHZCoCAwLqc+SGbVYVDNt0bPIl5O1wRB83CbHdyR
+   yLKcw1jny4Q1ugY6RBqsMAtECLOzIYOwJtHEfz6cN7z3M2WhXWdDsI+Ho
+   BSfefWwIVH+FGvTH/lmMHZ+aPbhQWBKPv57CIP7b0riGggDXgT2jF7E0M
+   kTk8oIw9nin3P0JNyPWZpD20KIeuNvEpp4zccOAPFI7sh4iSQ3K+hjaTT
+   ocxXiFN3b5Bgnrn4LnucAKuJhalv0Q4cjIPYHIulxV7WpUPD1SH0K/YTB
+   w==;
+X-CSE-ConnectionGUID: LrgTtdcvSZOWaHiMdq16uA==
+X-CSE-MsgGUID: 4Q5CqBhRTbivw6O7szOHIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="100720060"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; 
+   d="scan'208";a="100720060"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 06:10:47 -0700
+X-CSE-ConnectionGUID: VMgQrozUR0awUldBDO2E3w==
+X-CSE-MsgGUID: fCUVJKuuRguOl8X5bOl8Zg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; 
+   d="scan'208";a="250863153"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.126])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 06:10:46 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com,
+	Martin Hodo <martin.hodo@intel.com>,
+	stable@vger.kernel.org,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH] drm/i915/vrr: require valid min/max vfreq for VRR
+Date: Thu, 25 Jun 2026 16:10:40 +0300
+Message-ID: <20260625131040.1051272-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 
-7.0-stable review patch.  If anyone has any objections, please let me know.
+Ensure the EDID provided min/max vfreq are valid. Most scenarios are
+already covered (by coincidence) through the checks in
+intel_vrr_is_capable() and intel_vrr_is_in_range(), but be more explicit
+about it. At worst, a zero min_vfreq could lead to a division by zero in
+intel_vrr_compute_vmax().
 
-------------------
+Discovered using AI-assisted static analysis confirmed by Intel Product
+Security.
 
-From: Bernard Pidoux <bernard.f6bvp@gmail.com>
-
-commit df12be096302d2c947388acc25764456c7f18cc1 upstream.
-
-Two related cleanup gaps left the module unremovable after a loopback
-session:
-
-1. rose_destroy_socket() did not release the device reference.  When
-   an unaccepted incoming socket (created by rose_rx_call_request()) is
-   destroyed via rose_heartbeat_expiry(), it is removed from rose_list
-   before rose_kill_by_device() can find it, so the netdev_hold() taken
-   in rose_rx_call_request() was never matched by netdev_put().  Add the
-   release at the top of rose_destroy_socket() guarded by a NULL check
-   so that rose_release() and rose_kill_by_device(), which already call
-   netdev_put() and set device = NULL, are not affected.
-
-2. rose_heartbeat_expiry() STATE_0 cleanup required TCP_LISTEN in
-   addition to SOCK_DEAD.  Unaccepted incoming sockets are
-   TCP_ESTABLISHED, so the condition was never true and those sockets
-   lingered forever, holding the module use count above zero and
-   blocking rmmod.  Drop the TCP_LISTEN restriction: any STATE_0 +
-   SOCK_DEAD socket is orphaned and should be destroyed.
-
-Together with the earlier rose_make_new() double-hold fix these three
-patches allow clean rmmod after loopback sessions.
-
-Signed-off-by: Bernard Pidoux <bernard.f6bvp@gmail.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reported-by: Martin Hodo <martin.hodo@intel.com>
+Fixes: 117cd09ba528 ("drm/i915/display/dp: Compute VRR state in atomic_check")
+Cc: <stable@vger.kernel.org> # v5.12+
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- net/rose/af_rose.c    |    9 +++++++++
- net/rose/rose_timer.c |    9 +++++----
- 2 files changed, 14 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
---- a/net/rose/af_rose.c
-+++ b/net/rose/af_rose.c
-@@ -363,6 +363,7 @@ static void rose_destroy_timer(struct ti
-  */
- void rose_destroy_socket(struct sock *sk)
- {
-+	struct rose_sock *rose = rose_sk(sk);
- 	struct sk_buff *skb;
- 
- 	rose_remove_socket(sk);
-@@ -370,6 +371,14 @@ void rose_destroy_socket(struct sock *sk
- 	rose_stop_idletimer(sk);
- 	rose_stop_timer(sk);
- 
-+	/* Drop any device reference not already released by rose_kill_by_device()
-+	 * or rose_release() -- e.g. incoming sockets that were never accepted.
-+	 */
-+	if (rose->device) {
-+		netdev_put(rose->device, &rose->dev_tracker);
-+		rose->device = NULL;
-+	}
-+
- 	rose_clear_queues(sk);		/* Flush the queues */
- 
- 	while ((skb = skb_dequeue(&sk->sk_receive_queue)) != NULL) {
---- a/net/rose/rose_timer.c
-+++ b/net/rose/rose_timer.c
-@@ -128,10 +128,11 @@ static void rose_heartbeat_expiry(struct
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 5d9b11185296..bffbdee76ee1 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -76,6 +76,10 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+ 		return false;
  	}
- 	switch (rose->state) {
- 	case ROSE_STATE_0:
--		/* Magic here: If we listen() and a new link dies before it
--		   is accepted() it isn't 'dead' so doesn't get removed. */
--		if (sock_flag(sk, SOCK_DESTROY) ||
--		    (sk->sk_state == TCP_LISTEN && sock_flag(sk, SOCK_DEAD))) {
-+		/* Destroy any orphaned STATE_0 socket: either explicitly
-+		 * flagged SOCK_DESTROY, or SOCK_DEAD (covers both unaccepted
-+		 * incoming connections and listening sockets whose link died).
-+		 */
-+		if (sock_flag(sk, SOCK_DESTROY) || sock_flag(sk, SOCK_DEAD)) {
- 			bh_unlock_sock(sk);
- 			rose_destroy_socket(sk);
- 			sock_put(sk);
-
+ 
++	if (!info->monitor_range.min_vfreq || !info->monitor_range.max_vfreq ||
++	    info->monitor_range.min_vfreq > info->monitor_range.max_vfreq)
++		return false;
++
+ 	return info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
+ }
+ 
+-- 
+2.47.3
 
