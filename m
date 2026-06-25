@@ -1,95 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19332192F9
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 13:49:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C71343D64
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 13:51:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782395383; cv=none; b=uxnMOjhggPgaM05PdKt5Uf7kahnD2zGA9CEvtskiBfAvg1FBmMAFM0Nywl+ymD7QwiXMse+SGCV7IkDoIMSQp+CYbU2OeQKThdG9rxUmKm1g3afLPv4Nijf6M/7qEN8ZZorwR/pCDqTP5EIxwW8+i7PYe89VSnPuBhtMG50AqLY=
+	t=1782395499; cv=none; b=aDBNB5NHRe9eQKnJMW0n5HV+fA5RFDEcIoyYRVfTS4l+esEx3B6ejSNiPKoGPbtMgJzOFmemQibRj+Xs/6b4Z8Zx5sSIM0pnpAhX9jSDQwZdsi8GLQlOp+oFquWx612YmO3e3bM0TuBqM89vATbaSNWmri1Cf97ZdRYwN4Rs0so=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782395383; c=relaxed/simple;
-	bh=sK90DKIpXujBmuc6efNUTihY5mOXWkWZ3dpINeyZMUk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=am0V622sfsamFfM+lNkW2Y9wQyZx2B/bUP61vo5sDk+t40LgQk0lWzDfCGeFMxtsJM3eT8eJ2KSwUJadT8xJepZuQI58tV0se2piutrUQxXogCvKpqEDHy2bP2pnA527pymr8IwA6w55aogkFMYxQiYRj8XC2FAkT0t+Vd5du/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bz9Tx4OF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782395499; c=relaxed/simple;
+	bh=7Ms9ZwlXGgSC+ZWp84GBwMd0ABoFw1BjQCGie0NcqNY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=iF0bbcSRKaFO6EBEZBFsxMXnRSZ3G2SSmF/5Ag3MritUHXcTnTzFIWq4wXNTia+iNiOI5rPJZbDHlfFi4rCxWw6svzkqtFTvU0Dd8m9ZpADDuP0kcOB0lJJ0dQIVqzRjfGl5ttQre/Xc0jL9W3Z8bm+b2c+UjzDS9FRx+l5AFSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EQGkW3aw; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bz9Tx4OF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9B921F000E9;
-	Thu, 25 Jun 2026 13:49:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782395382;
-	bh=0Ws++Yb8Re/RhT8yz+I2RacKLjDKk/rCZvO++Sb9te8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bz9Tx4OFzSZ6LhcDRi5Nft7TBEHc5lrHs7q6dnz1Np3NYiwxSMqv+0YsDrOQF4o5G
-	 rco87hzUsrlssTysrX9+Dk3K8lRBzvue58bFc27PlB4pDmyC/rcYH0OlNsCXa/y9uN
-	 Ov4SIVXPuxZK9OGR6W6EzfkTk/Utor06rp4e83GG1JM+3eOZndnq2VhHuGJCAiztVw
-	 keDDl2pVIcaIGNz7IBpGVpb2Axu8zDg3rLmX5xvxP+AVMH3vt5N1+XTgpZIBfUUJMS
-	 8Og4PQaOzyoponUq6B8quM8f1qzNk9KN567coMO+F4gpx4M0Fd86ZJmugs+zct/7r9
-	 MhlFPrSq0sM1g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Stepan Ionichev <sozdayvek@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] serial: 8250_dw: unregister 8250 port if clk_notifier_register() fails
-Date: Thu, 25 Jun 2026 09:49:39 -0400
-Message-ID: <20260625134939.2415321-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026062537-limeade-detection-f50d@gregkh>
-References: <2026062537-limeade-detection-f50d@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EQGkW3aw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782395497; x=1813931497;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=7Ms9ZwlXGgSC+ZWp84GBwMd0ABoFw1BjQCGie0NcqNY=;
+  b=EQGkW3awGToTL5uguL1DNw451msCl8KwI9Y4EwHUA3IUoeuSrItZkuCf
+   Di6PojLkLlGDqMhrDwPWqTD1vUnsRGsjcHX/nXl2EmMDGYtfrNqbQxGhn
+   5Tz1THeqSQPhn206bQ4XJBQKXBwnmD3Nvc1+PmwsOpb9PDMx0ZFTm4alK
+   fK8ylfjxqstT/AQuEcJ2liYFLT2n5sVUpi9OVW1aAKVVdkIwTSW0tvJWC
+   TDDHelB4sNY7WrfFzrhVt1P7f7UP2KY3qAkzBoPiZ2jXZwDhcbeLRNeE4
+   +WFdfdrvJeu0qoRGs4po+zQ/ELCFT2jcqOY2JuiczwYVDZ6rQ3iGFYMyI
+   A==;
+X-CSE-ConnectionGUID: 0N5mBNh7R8G9jy4YEoVTYw==
+X-CSE-MsgGUID: EzLzFk+BTCCvo6SfOZHPXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="87015662"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; 
+   d="scan'208";a="87015662"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 06:51:37 -0700
+X-CSE-ConnectionGUID: U3GQvWICS3ajz5HL+lqFGQ==
+X-CSE-MsgGUID: L7WyAELvQX+xnhT9VnN6eA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; 
+   d="scan'208";a="250901072"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.126])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 06:51:34 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com,
+	Martin Hodo <martin.hodo@intel.com>,
+	stable@vger.kernel.org,
+	Animesh Manna <animesh.manna@intel.com>,
+	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@intel.com>
+Subject: [PATCH] drm/i915/bios: range check LFP Data Block panel_type2
+Date: Thu, 25 Jun 2026 16:51:30 +0300
+Message-ID: <20260625135130.1067872-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 
-From: Stepan Ionichev <sozdayvek@gmail.com>
+While the panel_type from LFP Data Block is range checked, panel_type2
+is not. Add a few helpers for range checking, and use them to not only
+check panel_type2, but also imrove clarity and correctness in the panel
+type selection.
 
-[ Upstream commit 10fc708b4de7f86002d2d735a2dbf3b5b7f65692 ]
+Discovered using AI-assisted static analysis confirmed by Intel Product
+Security.
 
-dw8250_probe() registers the 8250 port via serial8250_register_8250_port()
-and then, if the device has a clock, registers a clock notifier. If
-clk_notifier_register() fails, probe returns the error but leaves the
-8250 port registered. The matching serial8250_unregister_port() lives
-in dw8250_remove(), which is not called when probe fails, so the port
-slot stays occupied until the device is rebound or the system is
-rebooted. The devm-allocated driver data is freed while the port still
-references it (via the saved private_data and serial_in/serial_out
-callbacks), so any access to that port slot before a rebind is a
-use-after-free hazard.
-
-Unregister the port on the clk_notifier_register() error path.
-
-Fixes: cc816969d7b5 ("serial: 8250_dw: Fix common clocks usage race condition")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stepan Ionichev <sozdayvek@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Link: https://patch.msgid.link/20260514143746.23671-2-sozdayvek@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: Martin Hodo <martin.hodo@intel.com>
+Fixes: 6434cf630086 ("drm/i915/bios: calculate panel type as per child device index in VBT")
+Cc: <stable@vger.kernel.org> # v6.0+
+Cc: Animesh Manna <animesh.manna@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/tty/serial/8250/8250_dw.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_bios.c | 29 +++++++++++++++++------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index f17dc3de020c19..7b2e72bfeb7522 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -655,8 +655,10 @@ static int dw8250_probe(struct platform_device *pdev)
- 	 */
- 	if (data->clk) {
- 		err = clk_notifier_register(data->clk, &data->clk_notifier);
--		if (err)
-+		if (err) {
-+			serial8250_unregister_port(data->data.line);
- 			return dev_err_probe(dev, err, "Failed to set the clock notifier\n");
-+		}
- 		queue_work(system_unbound_wq, &data->clk_work);
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 15ebadc72b88..0c420019e46a 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -623,6 +623,16 @@ get_lfp_data_tail(const struct bdb_lfp_data *data,
+ 		return NULL;
+ }
+ 
++static bool is_panel_type_valid(int panel_type)
++{
++	return panel_type >= 0 && panel_type < 16;
++}
++
++static bool is_panel_type_valid_or_pnp(int panel_type)
++{
++	return is_panel_type_valid(panel_type) || panel_type == 0xff;
++}
++
+ static int opregion_get_panel_type(struct intel_display *display,
+ 				   const struct intel_bios_encoder_data *devdata,
+ 				   const struct drm_edid *drm_edid, bool use_fallback)
+@@ -640,15 +650,21 @@ static int vbt_get_panel_type(struct intel_display *display,
+ 	if (!lfp_options)
+ 		return -1;
+ 
+-	if (lfp_options->panel_type > 0xf &&
+-	    lfp_options->panel_type != 0xff) {
++	if (!is_panel_type_valid_or_pnp(lfp_options->panel_type)) {
+ 		drm_dbg_kms(display->drm, "Invalid VBT panel type 0x%x\n",
+ 			    lfp_options->panel_type);
+ 		return -1;
  	}
  
+-	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2)
++	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2) {
++		if (!is_panel_type_valid_or_pnp(lfp_options->panel_type2)) {
++			drm_dbg_kms(display->drm, "Invalid VBT panel type 2 0x%x\n",
++				    lfp_options->panel_type2);
++			return -1;
++		}
++
+ 		return lfp_options->panel_type2;
++	}
+ 
+ 	drm_WARN_ON(display->drm,
+ 		    devdata && devdata->child.handle != DEVICE_HANDLE_LFP1);
+@@ -762,13 +778,12 @@ static int get_panel_type(struct intel_display *display,
+ 				    panel_types[i].name, panel_types[i].panel_type);
+ 	}
+ 
+-	if (panel_types[PANEL_TYPE_OPREGION].panel_type >= 0)
++	if (is_panel_type_valid(panel_types[PANEL_TYPE_OPREGION].panel_type))
+ 		i = PANEL_TYPE_OPREGION;
+ 	else if (panel_types[PANEL_TYPE_VBT].panel_type == 0xff &&
+-		 panel_types[PANEL_TYPE_PNPID].panel_type >= 0)
++		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID].panel_type))
+ 		i = PANEL_TYPE_PNPID;
+-	else if (panel_types[PANEL_TYPE_VBT].panel_type != 0xff &&
+-		 panel_types[PANEL_TYPE_VBT].panel_type >= 0)
++	else if (is_panel_type_valid(panel_types[PANEL_TYPE_VBT].panel_type))
+ 		i = PANEL_TYPE_VBT;
+ 	else
+ 		i = PANEL_TYPE_FALLBACK;
 -- 
-2.53.0
+2.47.3
 
