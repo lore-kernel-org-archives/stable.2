@@ -1,141 +1,85 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C1E3CD8AC
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 10:04:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6868C3C2BA4
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 10:07:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782381883; cv=none; b=WsXFqBl3jll7J2udUxL0W3LUGFNkyRRl8xrKbPFszk1YZWXmUn3Nfrd5RGjaCKrlgNywkYkcMSVCtEHAgROmw9X9LDzgbhCc4TSBI5yBqZIJvMmNA4bIBjFu0xgdgTjWdQrjIEdMaW/VOXSy42PLQq3kioM35gtZ6fiMu0tw7qw=
+	t=1782382049; cv=none; b=Un8JCFAsQrQwWMLt7QCi2HxtiRwK5Z/3xR7FnV5rRD2HgPNuWhj6KOJPQQE4fc8bCqj95AaXwEwTSS4W5xEFxmmLeQyq9t1JBcu8rU1uE5tdGYWmYxId0BNYimLhEfG4r53/dXDJemR/sFAqAlDdqfPeDmcqaLQ1/w9CZAbnb6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782381883; c=relaxed/simple;
-	bh=QDzsnUqwF537r9M0E1hQPClNIzZvDM04Y5WP6j505Wg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GA451PGu20HHVEVzv9kmOdN/yqKjfS29LFyyRI8DWFSjCvWgAHMXzMa4hrjDk8B21G0DUfBNLhBKitYaCRmBzxNgeYf+CADglzprY1fJ3er3tduQbKIhzV/NG8fd3E6Rp3TKs/HqZw+EstcNBb8Qzw50+qpgNUve4Fet1pHGx3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=d1s+AjUE; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
+	s=arc-20240116; t=1782382049; c=relaxed/simple;
+	bh=JRKcCwku1VbtJJEhFhz+Kf1u5xuWM/axT/2vwJWLaos=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jvDKRu8ESkpfR8UL3dn9bT+MIrHWmOTDdv7fWSfZSnro0p9S5ao7QAwmS0LFxnl1hZ9abemAssoxXY9HxfQwyAeFCSO3tPBKqRt8PhB/nulI864MuHfY9NG+wfrTv/d6Bvl/SCyt3iYD6amgQeg8ixf+zcvj8xQyvxakhQLqk10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o2x/0XO1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="d1s+AjUE"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c0e12cb1d90so315738666b.2
-        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 03:04:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bynar.io; s=google; t=1782381880; x=1782986680; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZJYAU8T0dbhlhhmhVee2XR5nvnk6dSr8CYdyAa40XFg=;
-        b=d1s+AjUElnxOsvZM/lRCxbAL9Av+hMqibOb574krGZbEOEiQazCVqlJFvxqcp7XscD
-         YDoyF2m4AkJI/ASx63vw2lQAyLSKXuDFAGSDaNhRbn4GjhC/k3urQYpEfhY+bUvi/Uuu
-         sXdG997xSTxOK4E5wwks/nIMLovJXXG6Oh7Yt9ZU/nXnLbOsBzlnWAAuWomPtx1CF3Re
-         zXPY0JslBzI2NPQjCfTqcWf+VfbSNdcLETSKeGRGpYi1c4dTQnNt8fNe2DRndspe0IRh
-         9gCcW+hKU0igciSa5t+IIgL9M/x7fNd+VDru2c7XA3/MSGvCzKyKjP2iEJsVmmQ/OVGJ
-         gE3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782381880; x=1782986680;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZJYAU8T0dbhlhhmhVee2XR5nvnk6dSr8CYdyAa40XFg=;
-        b=ZEs5dyj2NsuSQK03jKViUbMVzzrI6IOz5oe6ZH9TjGQPoD91m1SlDwLd/t7E0yvsKh
-         8zbwT0kAmkWvtUlA/Q76a7zewBkmWylIMJnqy7gR1gDyuz1WS2t2NLS2xYSX0lbmfZ8Y
-         LjkjKvmZEuFbf7rJAAj5GeU46JhiBxHmUqKuAA+DrIXYks1u0ZW5/nhmYQhejXDIBfyi
-         +BZKQdtKCdX5rztxmAs5eiishsINOFmOejH/5wOFyeD9SwxiorMqEwbuWkrbCgwh5azg
-         00tEVz4mGwGxTRgd4ATFI+AceU0hUJqZSuZOSxr95Cg8qgt6bymrJ9+aciVZgA5EaDkV
-         K3Tg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqr7U9lPOxQDXYEQrdaPAXi1h5/iRdGAn7d0ILmAiGBw2OrGUAB9oG0oBVHDQC1ph85j8vetJ4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCZ4XVa8Od4DuC+8fOQEBvT1xryzjdz4OtPAI8pHVOg1PwR7IL
-	KbbI56LGeVJnXgTmrpuefDgazAZgdLK3188OE53C/923Xvf6PK66vPH+dIFroyocxp/Z
-X-Gm-Gg: AfdE7cnUWonEZ90Mzmy7Z9CE0b06RyqTrFjkbc8tNUNyDSB6xhbqa5a0n492b1Fej2T
-	4iJbqIl1ml6J16ie9uc5BqUCIAWfBWs3Ks0FSzTdOPS6P+e7OpgDFsTsg+fAiPAuGDyxKC2I9Pg
-	t2IDtvYq/PGkKF0RqMU8U4PpXyE9PhymuHy4WSgN8W8HQq8ItF5tdgRdRk9od6FTWAHJojFKCPM
-	Eg6p59SZeH0TTmzZgp0aLzf8OitR1eHwl53Yy/QQe24hoE74hDrEGzHDNhAUZz5eAhAmyN0yTyD
-	W2VfIqIhTprnzGRTWmksdV/NQT4gGXtjt3YMWKbQ7VhVsP9vhtx7b/C1v54lVon9pI2a7usuZzQ
-	oEZPsF6XTJzozmdQz5XWlVqHgpvcB+wRldPRSxkx2KlZnyVv9Ibu5L06mZw6151T0TAzQZdtTS8
-	N7/Z2ANJ4fM6mVluzHl5Sx/Yaortp3+cUhnXo/tMhUuntz3A==
-X-Received: by 2002:a17:906:f5a2:b0:c0e:840a:79a3 with SMTP id a640c23a62f3a-c12061eb76dmr128400266b.52.1782381879743;
-        Thu, 25 Jun 2026 03:04:39 -0700 (PDT)
-Received: from ?IPV6:2a06:61c2:d427:0:b321:1c7a:b072:326e? ([2a06:61c2:d427:0:b321:1c7a:b072:326e])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c11fbe05cb3sm150309966b.35.2026.06.25.03.04.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 25 Jun 2026 03:04:39 -0700 (PDT)
-Message-ID: <ea447873-9222-4b75-8090-68d08e53097a@bynar.io>
-Date: Thu, 25 Jun 2026 11:04:38 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o2x/0XO1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28AF91F01561
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 10:07:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782382048;
+	bh=JRKcCwku1VbtJJEhFhz+Kf1u5xuWM/axT/2vwJWLaos=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=o2x/0XO1xrRvf319YAiLAVMBX4BXD1ncJXyBMYgfFq4a0w4pQnpJ5bgMTXs3J27/n
+	 FTtTRqrTi4lTZNpt8p4+X4HLj0iVvwKzZ7JXa92i2mNgbMoRWQU5TBpmB+35IdeNSY
+	 lI+GaaarnUhFjjUdr2eIIjb1qsDlEvSkR5Xt+0wvIp7LeZRKxZiuZc9MOyLnOmd7we
+	 HaETwwRJkf9H2RrWj4ZrbIW7soSd2dKY+96Vsz1+Na97Z3YOTVRFY7iG9R3ojDkjWi
+	 rftx81cOqv4cUO8si2SBFX02bEbR5ZYU1r2FZ4devdrmhZPxX2UpkTmA4uGTwyOmk+
+	 8X8oxlBL5t8mg==
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-91562bf6c12so197184185a.2
+        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 03:07:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ88nEG9nPm7ZbPBSXo3He4PlfNFou7qq2DpnbKCRz9WN95hsCT3WS54SIX5T1N0+QStKRH0f7Q=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw76KY9Mn93QjiZBCm/md/6duNXgUxA9to47iT5k7MbSeJItu1w
+	DXm2se2fiECPotP6/lR6vCK/W8uzNb8UOUB0utonHQ6ncjbQ33l68BcgA/nVKQQ3at9hEJY2wh4
+	+MdD2TSWg3YfpjiUnpAkCrwkIX6m94ug=
+X-Received: by 2002:a05:620a:1720:b0:920:56af:cef2 with SMTP id
+ af79cd13be357-9293af9a8e7mr225785685a.25.1782382047433; Thu, 25 Jun 2026
+ 03:07:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] nfc: nci: fix uninit-value in the RF
- discover/activated NTF handlers
-To: Simon Horman <horms@kernel.org>
-Cc: david@ixit.cz, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260623234126.214667-1-sam@bynar.io>
- <20260625091828.1170615-2-horms@kernel.org>
-Content-Language: en-GB
-From: Sam P <sam@bynar.io>
-In-Reply-To: <20260625091828.1170615-2-horms@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260623024237.45990-1-qi.zheng@linux.dev> <e74b0808-3bcc-414d-a037-41e479210cc0@kernel.org>
+ <d97128c0-7d89-4b5c-b891-84f9af702fee@linux.dev> <8a76aefd-629c-41f3-b365-aefd4cc1411e@kernel.org>
+ <7946da94-dc1d-4cf2-986e-466c378665b6@linux.dev> <dfe5d773-2992-448b-a6cb-ef633714a08f@kernel.org>
+ <1d638906-6d64-4e57-a181-4b77683652b5@linux.dev> <b5c85cea-5daa-4690-ac41-a6f5aebd1555@kernel.org>
+ <f18bf1b1-ccf7-4d77-9389-07311d2d1613@linux.dev>
+In-Reply-To: <f18bf1b1-ccf7-4d77-9389-07311d2d1613@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 25 Jun 2026 18:07:15 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zwyaOtNkk8Xgqc3rNNE23XbU-kCB8oULqdGhpMERPsug@mail.gmail.com>
+X-Gm-Features: AVVi8Cds3hyjYY1EEWV4vTH8VzylNNkIBPvgwWgSkKxNrZ0vwSNhmCzbjB5L9p8
+Message-ID: <CAGsJ_4zwyaOtNkk8Xgqc3rNNE23XbU-kCB8oULqdGhpMERPsug@mail.gmail.com>
+Subject: Re: [PATCH v2] mm: mglru: fix stale batch updates after memcg reparenting
+To: Qi Zheng <qi.zheng@linux.dev>
+Cc: Harry Yoo <harry@kernel.org>, akpm@linux-foundation.org, david@kernel.org, 
+	kasong@tencent.com, shakeel.butt@linux.dev, axelrasmussen@google.com, 
+	yuanchu@google.com, weixugc@google.com, hannes@cmpxchg.org, 
+	muchun.song@linux.dev, peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, 
+	roman.gushchin@linux.dev, ljs@kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 25/06/2026 10:18, Simon Horman wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> Full review at: https://netdev-ai.bots.linux.dev/sashiko/
-> ---
-> nfc: nci: fix uninit-value in the RF discover/activated NTF handlers
-> 
-> This zero-initialises the on-stack nci_rf_discover_ntf and
-> nci_rf_intf_activated_ntf structs in the RF discover and interface
-> activated NTF handlers so that the technology- and activation-specific
-> unions read back as zero when the corresponding length fields are zero.
-> 
-> Link: https://lore.kernel.org/netdev/20260623172109.1105965-2-horms@kernel.org/
-> 
->>   - activated: with rf_tech_specific_params_len == 0 the same union is read
->>     via nci_target_auto_activated(); with activation_params_len == 0 the
->>     activation_params union is read by nci_store_ats_nfc_iso_dep() into
->>     ndev->target_ats.
-> 
-> [Low]
-> Does the third scenario in this paragraph match the code?
-> 
-> Looking at nci_store_ats_nfc_iso_dep():
-> 
->      static int nci_store_ats_nfc_iso_dep(struct nci_dev *ndev,
->                           const struct nci_rf_intf_activated_ntf *ntf)
->      {
->          ndev->target_ats_len = 0;
-> 
->          if (ntf->activation_params_len <= 0)
->              return NCI_STATUS_OK;
-> 
->          if (ntf->activation_params.nfca_poll_iso_dep.rats_res_len > NFC_ATS_MAXSIZE) {
->          ...
-> 
-> The function returns NCI_STATUS_OK before any access to the
-> activation_params union when activation_params_len is 0, so the union
-> is not read in that case.
-> 
-> The sibling nci_store_general_bytes_nfc_dep() has the same early return
-> on activation_params_len <= 0.
-> 
-> The two rf_tech_specific_params_len == 0 cases listed earlier in the
-> commit message do match the code (nci_add_new_protocol() and
-> nci_target_auto_activated() unconditionally pass
-> &ntf.rf_tech_specific_params even when rf_tech_specific_params_len is
-> 0), and the KMSAN trace quoted in the commit message only mentions the
-> nci_add_new_protocol() path.
-> 
-> The ntf = {} change still looks correct and necessary for the
-> rf_tech_specific_params union. Could the third bullet be dropped or
-> adjusted so the commit message reflects only the paths that actually
-> read uninitialised bytes?
+On Thu, Jun 25, 2026 at 2:11=E2=80=AFPM Qi Zheng <qi.zheng@linux.dev> wrote=
+:
 
-Thanks for sharing the review.
+[...]
+> >>
+> >> Does this make sense?
+> >
+> > Yes, looks good to me!
+>
+> OK, this sync method makes more sense as it doesn't require adding a
+> new lrugen->reparente. I'll go with this method and update v3.
+>
+> Hi Barry and Baolin, what do you think? Since the sync method has been
+> changed, I will temporarily drop your previous Reviewed-by tags in v3. ;)
 
-This is valid feedback, I'll fix up the commit message in a v2.
+Feel free to proceed with the new version and drop my tag :-)
+
+Best Regards
+Barry
