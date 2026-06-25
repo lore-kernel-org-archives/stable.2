@@ -1,107 +1,104 @@
-Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
+Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B1632D0CC;
-	Thu, 25 Jun 2026 22:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=50.112.246.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0D137F737;
+	Thu, 25 Jun 2026 22:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782425141; cv=none; b=r2KG1wtdg6WiRUtXfeuaqWE3pAoWFSt/R1T6qk5Onaj84AIn2r5ggE08TFJr+ASqQH/s2hjMWmrh1bhh8pzNxMLSq3CpppUCv97B5Zl7UnGySXelkCOjtERBTVFhg8xmRIDu/uvdZsalPKLWnSnl4RxwJPT+AMWBswNvHQZ/rKU=
+	t=1782425961; cv=none; b=sNpx4V8e+sL02nglSXR+ktvhXBKnTTYVioZI8nBod8z4RSTzsrTId14ED+Rg+1id8SbVpqFazw0nMXmFufsDYfTOuCYpsZPvZ0IRU4MWk8+fuXJy1m+nVpJG/91K9/urAjvr3QBYcg87GvaI7xYB1dTsUEkFZzHYfWU8IfptTfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782425141; c=relaxed/simple;
-	bh=o9784fq5H0vKbEhs9q1nhq9qzCGvGCXr6nkGiH4HQdY=;
+	s=arc-20240116; t=1782425961; c=relaxed/simple;
+	bh=hcicJlfK8T5L5/HEK78jokcPzZyJx5jTeAgBKwX0N7k=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KMoKXyj7U1mpEhyk7yD82QHxAZrbpBlMOIF8IAFqX1cdY4jU5qM3gEhksw2o0/j1W5UGD2dLBIV1M6E6O1BzfrFgtIHPKGwcwBXbu2ogFN1O70+eFFKtyKkgI1aFF/o+PR3lgpeTdMjKaFdl9AGHlKdsxChgABLvoRwicvj7rEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=cTiLefe6; arc=none smtp.client-ip=50.112.246.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	 MIME-Version:Content-Type:Content-Disposition; b=OtNN6KLL2se6ta8EOwVGdgDvGmKm9evt+FFs9YorKraW8RU7PCqv0bO+HF5DO0dhpt5Iw+gh39vAGu7bPgYmbVfn2EPKRL0bVdFrjc45iap/FjX6jYFo6IsSYxvjbPt33SzUbPc4Vw9FMPhvBH9ZJB2JbchK6w43NuIKznbPkV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=fEBnOpob; arc=none smtp.client-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="cTiLefe6"
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="fEBnOpob"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1782425140; x=1813961140;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1782425960; x=1813961960;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=aoFONVOhyScoEnWz8QaO9D6p4/Oi64chHMt1wSu33gc=;
-  b=cTiLefe6/DYCYR3q7uTSE26YwktRd1kRams/NBt0FfbJRUJnJJhJiQh7
-   +A9ubVMquTU17nkxE1F56nT4PtUIih4LEZ9H4eOO7MS3j+QSdKDEFdfUC
-   f3Aw/GWE5gutnqzy6PiWBbKGZH3BT+eGO4FlLFIe4NP7B8MUR0oD70528
-   NUzVmV+5NbcSHT4+uwLp3GvGCpSQaOj+J8vg7u63UTCJYatwVQAM9OOra
-   1aaLgOK4SqCRlYoZFJorYt+wwTwAfh96ITCMicZUykXh1KMHTdWTy8TYM
-   YXtGKVrZh5aw+CODeNztpvWBfu61lf8Iv/URK34J0DCkTTD+EO/DzASzY
+  bh=gqfHYJGq1OA4xHUtal9D1MJSyJMcOMtM3Z2ja3x61Is=;
+  b=fEBnOpobgZYkytumD/TAhUknTBXpe75d7B4Y8ogCqKKE3U6Uf8CEeATq
+   n8v9ntkrK9shj8hheOO/Bn/hRR1xCuvXL1DcrH7y65oZXLSjUAkxKcq4v
+   gpK7SWLRYNSSnOfHC5lf6WYMDIO94l10DwXdC7mYyN+LyVx8EEjT+0P/B
+   UrkfRfrd9lrI8B5FuRwZ8CA7llB27tCyH02sF71K1pM+pnE84oSp89rvm
+   y04ESmXQtodCotpjXqpjAI2G46FJb10Aegx4RBSGELM94g95kF/mA+0ty
+   ELq8DQhP3z5ypZDcWPCnGbiBup3r4PLXhsiXc8Bxd9Rw9xWYRTwxQNVkc
    w==;
-X-CSE-ConnectionGUID: IIl9M7GQTKKu5hd2UILYNA==
-X-CSE-MsgGUID: b6Hm8G91T5az+AqzX1mSWA==
+X-CSE-ConnectionGUID: ibPfposvRVi0YbYajB8Nqg==
+X-CSE-MsgGUID: i4hSxOCDQOyHW158eNz3YA==
 X-IronPort-AV: E=Sophos;i="6.24,225,1774310400"; 
-   d="scan'208";a="22325959"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 22:05:40 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:30621]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.52.142:2525] with esmtp (Farcaster)
- id ec50139c-a60b-49fe-b7e2-85f290cfb846; Thu, 25 Jun 2026 22:05:39 +0000 (UTC)
-X-Farcaster-Flow-ID: ec50139c-a60b-49fe-b7e2-85f290cfb846
+   d="scan'208";a="22299701"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 22:19:17 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:11485]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.1.61:2525] with esmtp (Farcaster)
+ id 66017a07-fe43-45c5-b0e0-c45c7745dcbc; Thu, 25 Jun 2026 22:19:17 +0000 (UTC)
+X-Farcaster-Flow-ID: 66017a07-fe43-45c5-b0e0-c45c7745dcbc
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
  EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Thu, 25 Jun 2026 22:05:39 +0000
-Received: from 6c7e67c92ceb.amazon.com (10.187.171.24) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ Thu, 25 Jun 2026 22:19:16 +0000
+Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Thu, 25 Jun 2026 22:05:39 +0000
-From: Nathan Gao <zcgao@amazon.com>
-To: <pbonzini@redhat.com>
-CC: <bkov@amazon.com>, <doebel@amazon.de>, <fgriffo@amazon.co.uk>,
-	<kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <seanjc@google.com>,
-	<stable@vger.kernel.org>, <zcgao@amazon.com>
-Subject: Re: stable backports for "KVM: x86: Fix shadow paging use-after-free due to unexpected GFN"
-Date: Thu, 25 Jun 2026 15:04:37 -0700
-Message-ID: <20260625220437.52368-1-zcgao@amazon.com>
+ Thu, 25 Jun 2026 22:19:15 +0000
+From: Bjoern Doebel <doebel@amazon.de>
+To: Sasha Levin <sashal@kernel.org>
+CC: Bjoern Doebel <doebel@amazon.de>, <stable@vger.kernel.org>, Steven Rostedt
+	<rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+	<linux-trace-kernel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	"Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>, David Howells
+	<dhowells@redhat.com>
+Subject: Re: [PATCH 5.15.y] ring-buffer: Remove ring_buffer_read_prepare_sync()
+Date: Thu, 25 Jun 2026 22:19:00 +0000
+Message-ID: <aj2pQ2IPGP5eR2TO@amazon.de>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <CABgObfawkiKRDz0to=oCjo1vygVAkHyZXAzpsLWT2GXwkszV_A@mail.gmail.com>
-References: <CABgObfawkiKRDz0to=oCjo1vygVAkHyZXAzpsLWT2GXwkszV_A@mail.gmail.com>
+In-Reply-To: <20260625054005.0014.ringbuf-515@kernel.org>
+References: <20260624122351.2477592-1-doebel@amazon.de> <20260625054005.0014.ringbuf-515@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D041UWB003.ant.amazon.com (10.13.139.176) To
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+X-ClientProxiedBy: EX19D042UWB004.ant.amazon.com (10.13.139.150) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Transfer-Encoding: 7bit
 
-Thanks Paolo! I tested these in the context of Amazon Linux, carrying the
-series as a downstream patch set on top of our 5.10 and 5.15 trees, as
-follows.
+On Thu, Jun 25, 2026 at 06:41:58AM -0400, Sasha Levin wrote:
+> > [PATCH 5.15.y] ring-buffer: Remove ring_buffer_read_prepare_sync()
+> 
+> I had to drop this one for 5.15. The upstream guard(raw_spinlock_irqsave)
+> conversion in ring_buffer_read_start() introduces a new
+> -Wdeclaration-after-statement warning on 5.15 (the guard variable ends up after
+> a statement), which the build flags as an
+> error there.
+> 
+> Could you respin a warning-free version for 5.15 (and 5.10, which has the same
+> problem)? E.g. hoisting the declaration or keeping the explicit
+> raw_spin_lock/unlock instead of guard() on these older trees.  6.6 and 6.1 are
+> already queued.
 
-Test setup
-- Trees: Amazon Linux 5.10 and 5.15, with the backports applied as
-  downstream patches. (For 5.10, applied a83e50d86^..d3d0e6688; for 5.15,
-  applied 4db658c99^..1ab8cd246)
-- For each tree we ran with EPT enabled and disabled, i.e.
-    sudo rmmod kvm_intel && sudo modprobe kvm_intel ept=0
-  and confirmed via /sys/module/kvm_intel/parameters/ept.
-- Tested with AWS EC2 c5.metal.
+Absolutely, I'll send a v2.
 
-Tests
-- KVM selftests: make -C tools/testing/selftests/kvm run_tests
-- kvm-unit-tests: https://www.linux-kvm.org/page/KVM-unit-tests
+Best,
+Bjoern
 
-For each (tree x EPT setting) we collected results before and after
-applying the backport and compared them.
 
-Results
-- No regressions. On both 5.10 and 5.15, and with EPT on and off, the
-  test outcomes are the same before and after the backport.
-- kvm-unit-tests output was identical before vs. after.
-- The KVM selftest verdicts (ok/not ok) were identical before vs. after.
-  The handful of failing tests are pre-existing on our baseline and
-  unrelated to the MMU change (e.g. debug_regs, vmx_pmu_msrs_test, a
-  memslot_perf_test timeout, etc.).
 
-So from these tests, the backport looks good. Please let me know if
-there are any other tests I can help with. 
 
-Tested-by: Nathan Gao <zcgao@amazon.com>
+Amazon Web Services Development Center Germany GmbH
+Tamara-Danz-Str. 13
+10243 Berlin
+Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
+Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
+Sitz: Berlin
+Ust-ID: DE 365 538 597
 
-Thanks,
-Nathan Gao
