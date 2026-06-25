@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8C130276A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD83123395F;
 	Thu, 25 Jun 2026 18:22:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782411723; cv=none; b=XB1qBUaCAPcCNk4QXD7Cjr9l3Gx1/HY+KIVwCdsAzvRIEhL0hJegY/JK47YM6i0Go8hEV0VRGwgZHem5jmknzO4pMdb1ff4pEnhPhpD5e43sx/ThJYSzEIHZWOPxP/1VVvOOoy1bUDo1Co5fRQNyellq3TcRYnKsctA4uW3ghFo=
+	t=1782411723; cv=none; b=H4Ig6SEoLy53rx2OUDVTbk429kwPC8Ixr/dA4I9vDTy3Qm/unCI8p9C4Pum9zZng7cXbRl5rmf7vyfbxthJcB4Q0k8uRxV2oZvvy8CZE9UaWbqb3+jIpbyduhAm1qaR/4j6mU4mQDxMqQu2K6dkmwOZ7ZX2tjKalVTPe0tcu+4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782411723; c=relaxed/simple;
-	bh=3edDUx1OJyq6F5Nt8kol1Id5577Ud94qZQmIhfKj76k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WzPWnu6LuJL+qN8Yjy9SufH1paza1o5bJcDEpFv+IQCRZ/R+nVOeAAQ30BVyrlCDnleLPFTeljkd1KWzmQk/0jbzyfGtBRQcLu1tZ8s7qzSfXtW5cyzUrlhEOAS3Zvn2ljgRj/Z98vJrIkPAUDjzRwsgPtoat+l2zXcxbv/D3Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sGq4GPCl; arc=none smtp.client-ip=10.30.226.201
+	bh=XQ53pe/Jq8Z+Ffdi2ZgG+P8nlFouXKNplbiEL69TedA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YCXQb//IEi8LpmW1CTQIR7l/Wj4xGOy9yofqU9F0u2FwNNWrHmW/wPbEz+HmYlDT8SZZxXHNn7PuQAlaGrfH6bMTCTFcFpQ300VeyRsK42Olm12AZvBngDhbMsT5CUCLEVZ+PfPvOTpJlAcl9KBVKWGUb9JnTiCdFzBCn106ync=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nbNcI+hD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sGq4GPCl"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 71929C2BCC9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nbNcI+hD"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4F9A2C2BCB3;
 	Thu, 25 Jun 2026 18:22:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1782411723;
-	bh=3edDUx1OJyq6F5Nt8kol1Id5577Ud94qZQmIhfKj76k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=sGq4GPCldKT33NUEJfxQ+v7K4recO7d74JGtXodPvfAuhwb/9MUCbiKBlFs0XaSrY
-	 Lo57dFOm3Uc7ARyGNJffPznzS2jPd6gKFI2lWe3RObi7l2gko8sJGVpXcV5a+OKZaE
-	 xXQvXC4x0ADO75GDwGntr5IHrdmhxGfvWnSf9oZBAZym2i2KlSPTmNRehCHzjRATmX
-	 PmpLMe5X1tFPPFquqr2wTSklSfuLmGc8mzU6yUOdeewTnX33/JbciWFDsL6fy45SK6
-	 aOoaStTIhLOjsZOxiZzyfUkes785Zh2VbXh85Lc6TY7bkFrG0Jh6RdXwZzwazDAWWO
-	 i21zURoOA2gkg==
+	bh=XQ53pe/Jq8Z+Ffdi2ZgG+P8nlFouXKNplbiEL69TedA=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=nbNcI+hD4YojfcmBlTQ8EkFwujbVSf7ym/7ciFmh63AIWyeCsKElzLxFT7bYDb8A8
+	 64T7quoyA9KN8UuLkYqRoIN7W136C29w/12j+e6uLILe2xcFI4JGzWtcj5eUUUAefn
+	 UcXdcNEshGCtU4vej9fbzGKED2l0zmtni2YXEbzqZTnBiBYI+9MV0V3Lb1YhBzVTZF
+	 jaFzp2L0SSDkTXa3d/0qqyie9ATmB0WABaNkIysWs6wmb36XMpB59HleCVjey7Xywh
+	 Dqngly8XZc3mYj+Sg8+N1rX1EwIjOZV367gamPQKEX76dT8ECinzkhu7tjQgRDiqyj
+	 zwSNo7ZooWDaw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60171CDE00D;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D4CACDE00B;
 	Thu, 25 Jun 2026 18:22:03 +0000 (UTC)
 From: Dmitry Safonov via B4 Relay <devnull+0x7f454c46.gmail.com@kernel.org>
-Date: Thu, 25 Jun 2026 19:21:40 +0100
-Subject: [PATCH net v3 2/3] tcp: defer md5sig_info kfree past RCU grace
- period in tcp_connect
+Subject: [PATCH net v3 0/3] tcp: TCP-AO connect() fixes
+Date: Thu, 25 Jun 2026 19:21:38 +0100
+Message-Id: <20260625-tcp-md5-connect-v3-0-1fd313d6c1e0@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,9 +40,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-tcp-md5-connect-v3-2-1fd313d6c1e0@gmail.com>
-References: <20260625-tcp-md5-connect-v3-0-1fd313d6c1e0@gmail.com>
-In-Reply-To: <20260625-tcp-md5-connect-v3-0-1fd313d6c1e0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIALJxPWoC/yWMQQ6CMBBFr0Jm7UQsUKNXMS7a6SBjwkDaakwId
+ 7fV5Xt5/2+QOAonuDYbRH5LkkULdIcGaHL6YJRQGExrbGvNgJlWnMOAtKgyZQxkOnsJ57E/9VB
+ Wa+RRPr/HGyhnuP9levln6etXzbxLjD46pamqEh5nJwr7/gWAJJKUkwAAAA==
+X-Change-ID: 20260625-tcp-md5-connect-dc2369d7f414
 To: David Ahern <dsahern@kernel.org>, Eric Dumazet <edumazet@google.com>, 
  Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
  "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
@@ -54,11 +54,11 @@ Cc: Michael Bommarito <michael.bommarito@gmail.com>,
  linux-kernel@vger.kernel.org, Dmitry Safonov <0x7f454c46@gmail.com>, 
  stable@vger.kernel.org, Dmitry Safonov <0x7f454c46@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782411722; l=4975;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782411722; l=762;
  i=0x7f454c46@gmail.com; s=20260625; h=from:subject:message-id;
- bh=rwR9oxxgK8rnbEgI9ngZgk8acfHkfL6iVNB5+wJyuyY=;
- b=onZnxH/ETX6Yb5pxGub2sJoTx8MbenBso3/bP/RHVJMsnKEwPETubBovBFQIE3ZOWHOIjSjYB
- eO4+N4OsoXHAzLVqWPRG2LFcpdTtVN20qqdgBFn+ZOlofI7dcAJiiZF
+ bh=XQ53pe/Jq8Z+Ffdi2ZgG+P8nlFouXKNplbiEL69TedA=;
+ b=Y7z8nzcRMUDzxvqM7RljOh8KweK3DMHV8ICMaFA05PjJgEO3zSkUJxtrhQHXWTzSkEoIp7UgX
+ d88tq5AcaTEDzlQwBvZq1J6tg9JGtkqXSqsrxf0ShwkFRsiYIrfbX8b
 X-Developer-Key: i=0x7f454c46@gmail.com; a=ed25519;
  pk=clHVGbfKfZMeCUp+xCL/096jI68XK5EZLytgy6lSyrc=
 X-Endpoint-Received: by B4 Relay for 0x7f454c46@gmail.com/20260625 with
@@ -66,126 +66,31 @@ X-Endpoint-Received: by B4 Relay for 0x7f454c46@gmail.com/20260625 with
 X-Original-From: Dmitry Safonov <0x7f454c46@gmail.com>
 Reply-To: 0x7f454c46@gmail.com
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+Resending v3.
 
-The md5+ao reconciliation in tcp_connect() (net/ipv4/tcp_output.c)
-has two symmetric branches:
+I've addeded credits to Qihang on patch 2; and a third patch/fix
+for static key decrement.
 
-	if (needs_md5) {
-		tcp_ao_destroy_sock(sk, false);
-	} else if (needs_ao) {
-		tcp_clear_md5_list(sk);
-		kfree(rcu_replace_pointer(tp->md5sig_info, NULL, ...));
-	}
-
-Both branches free a per-socket auth-info object while the socket is
-in TCP_SYN_SENT and is already on the inet ehash (inserted by
-inet_hash_connect() in tcp_v4_connect()). Both branches are reachable
-by softirq RX-path readers that load the corresponding info pointer
-via implicit RCU before bh_lock_sock_nested() is taken.
-
-The needs_md5 branch is fixed in the prior patch by re-introducing
-the call_rcu() free in tcp_ao_destroy_sock(): the equivalent per-key
-loop runs inside tcp_ao_info_free_rcu(), the RCU callback, so by the
-time it frees each tcp_ao_key all softirq readers that captured the
-container have already completed rcu_read_unlock().
-
-The needs_ao branch is not symmetric in the same way. The container
-free can be deferred via kfree_rcu(md5sig, rcu) -- struct
-tcp_md5sig_info already has the required rcu member
-(include/net/tcp.h:1999-2002), and the rest of the tree already does
-this in the tcp_md5sig_info_add() rollback paths
-(net/ipv4/tcp_ipv4.c:1410, 1436). But the per-key teardown is done
-by tcp_clear_md5_list() in process context BEFORE the container's
-RCU grace period: it walks &md5sig->head and frees each
-tcp_md5sig_key with bare hlist_del + kfree. A concurrent softirq
-reader in __tcp_md5_do_lookup() / __tcp_md5_do_lookup_exact()
-(tcp_ipv4.c:1253, 1298) walks the same list via
-hlist_for_each_entry_rcu() and races with that bare kfree on the
-keys themselves -- a per-key slab use-after-free of the same class
-as the TCP-AO bug, on the same race window.
-
-Fix this in two halves:
-
-  1. Convert the bare kfree() in tcp_connect() to kfree_rcu() so the
-     md5sig_info container joins the rest of the md5sig lifecycle.
-     The local-variable lift is mechanical and required because
-     kfree_rcu() is a macro that expects an lvalue.
-
-  2. Make tcp_clear_md5_list() RCU-safe by replacing hlist_del +
-     kfree(key) with hlist_del_rcu + kfree_rcu(key, rcu). struct
-     tcp_md5sig_key already carries the rcu member
-     (include/net/tcp.h:1995) and tcp_md5_do_del()
-     (net/ipv4/tcp_ipv4.c:1456) already uses kfree_rcu, so this
-     restores the lifecycle invariant the rest of the file follows
-     rather than introducing a one-off.
-
-The other caller of tcp_clear_md5_list() is tcp_md5_destruct_sock()
-(net/ipv4/tcp.c:412), which runs from the sock destructor when the
-socket is already unhashed and unreachable; the extra grace period
-there is unnecessary but harmless. Making the helper unconditionally
-RCU-safe is the cleaner contract.
-
-The needs_ao branch is not reachable by the userns reproducer used
-to demonstrate the AO-side splat (the repro installs both keys but
-ends up in the needs_md5 branch because the connect peer matches
-the MD5 key, not the AO key); however the symmetric race exists
-and a maintainer touching this code should not have to think about
-which branch escapes RCU and which one does not.
-
-Fixes: 51e547e8c89c ("tcp: Free TCP-AO/TCP-MD5 info/keys without RCU")
-Cc: stable@vger.kernel.org # v6.18+
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Assisted-by: Claude:claude-opus-4-7
-Reviewed-by: Dmitry Safonov <dima@arista.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-[also credits to Qihang, who found that this races with tcp-diag]
-Reported-by: Qihang <q.h.hack.winter@gmail.com>
 Signed-off-by: Dmitry Safonov <0x7f454c46@gmail.com>
 ---
+Dmitry Safonov (1):
+      tcp: Decrement tcp_md5_needed static branch
+
+Michael Bommarito (2):
+      tcp: restore RCU grace period in tcp_ao_destroy_sock
+      tcp: defer md5sig_info kfree past RCU grace period in tcp_connect
+
+ include/net/tcp_ao.h  | 1 +
+ net/ipv4/tcp_ao.c     | 5 +++--
  net/ipv4/tcp_ipv4.c   | 4 ++--
  net/ipv4/tcp_output.c | 8 ++++++--
- 2 files changed, 8 insertions(+), 4 deletions(-)
+ 4 files changed, 12 insertions(+), 6 deletions(-)
+---
+base-commit: 02f144fbb4c86c360495d33debe307cb46a57f95
+change-id: 20260625-tcp-md5-connect-dc2369d7f414
 
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index ec09f97cc9e6..209ef7522508 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -1467,9 +1467,9 @@ void tcp_clear_md5_list(struct sock *sk)
- 	md5sig = rcu_dereference_protected(tp->md5sig_info, 1);
- 
- 	hlist_for_each_entry_safe(key, n, &md5sig->head, node) {
--		hlist_del(&key->node);
-+		hlist_del_rcu(&key->node);
- 		atomic_sub(sizeof(*key), &sk->sk_omem_alloc);
--		kfree(key);
-+		kfree_rcu(key, rcu);
- 	}
- }
- 
-diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
-index 00ec4b5900f2..bc03809ca3af 100644
---- a/net/ipv4/tcp_output.c
-+++ b/net/ipv4/tcp_output.c
-@@ -4329,9 +4329,13 @@ int tcp_connect(struct sock *sk)
- 		if (needs_md5) {
- 			tcp_ao_destroy_sock(sk, false);
- 		} else if (needs_ao) {
-+			struct tcp_md5sig_info *md5sig;
-+
- 			tcp_clear_md5_list(sk);
--			kfree(rcu_replace_pointer(tp->md5sig_info, NULL,
--						  lockdep_sock_is_held(sk)));
-+			md5sig = rcu_replace_pointer(tp->md5sig_info, NULL,
-+						     lockdep_sock_is_held(sk));
-+			if (md5sig)
-+				kfree_rcu(md5sig, rcu);
- 		}
- 	}
- #endif
-
--- 
-2.51.2
+Best regards,
+--  
+Dmitry Safonov <0x7f454c46@gmail.com>
 
 
