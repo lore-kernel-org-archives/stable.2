@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1571C28E
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 18:42:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15BD1A0B0E
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 18:42:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782412936; cv=none; b=PUI+NTBFiu3FVhxeAQ/MVlQQetBMrOm0lpMpGJNf9aV9vLbzMxDvdGkeMOKbuyoRkhLnnNbpIKTf8iPVsfCqeetWJKhp5SQZjZbyF77pSpSuoU8qKZKckxs8OOl2GNC7Mdp5eYdnGAlC7TXflEbCEbXhypysrM+gdGuvaYDIkR0=
+	t=1782412937; cv=none; b=KrKudnXcSfeCVj7tc66eni4pMFA5YGGE0V2lBkzTEz07B5ipOeeV8g+CCs2G/z2rZoAsVmblgIoclT/sNxQ1YdC4K1QwB8hfU0OhjsFhr9JGgeLd0pdlsNgwaCN0renL/vzggCPfNz41imTwkoyJQuuVDIiSmHnDalHk4jjJTjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782412936; c=relaxed/simple;
-	bh=cdtA1bSTqn/96Jk4VPfuKnwiBcG9uU1tKaVqsApiVR4=;
+	s=arc-20240116; t=1782412937; c=relaxed/simple;
+	bh=/jBCsoM+98qeQ+oHuZr0ZB7iJyOzVyfJzM8PsAzOzVE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=srgwUizIwfAyzB7ywPDDHKIVU11+QObZlYmf3ugYttP732FfmH2e1ilIME1v6mDu4One/XnM5avtFJObsrfsdo5vBJQ9zgjWI/emWnegS9jUnMHiJSrTQ2hPeQ5TgpL18tkcNzEx4GvdDGi6jTEm/gu1xq+h4CUFrxy+d4xsjQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHohmGBb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=S1F4i4B5QTxq4Mu+qpldbDHJPpZY+RnjSVR6ag820E+4CNDioJJMWg+sgU4N/hS36tZ1JHM6Sh4pGKGgSM4gsnuRRkN7junAl0nLY4gEhXekqaZY329qXAfJwLP0ECYaxIVz/JCdo0/epe4ABYpFiyRxUn09KbFO7wroSP3wU9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TdrwtMjh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHohmGBb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73591F000E9;
-	Thu, 25 Jun 2026 18:42:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TdrwtMjh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7AC1F00A3A;
+	Thu, 25 Jun 2026 18:42:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782412932;
-	bh=Z1/QpyPoABY7xmIU79vpjkLevGItUKia7sefIQo0OD4=;
+	s=k20260515; t=1782412935;
+	bh=BvYkRDjXO6A34Z0zrWv3cOSLlGqcBHADYFu0jLNUF7A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nHohmGBb5Wq9EDFocKUkRH5FNr67UCZ+pzawM4KAU6+nxMdcb0jfaIB2kqjmMNO6L
-	 eBf6Xk2xzI9LG715ABc8qZ/aZ8Qc+OMWYUHw6bz/0u0EjZAefO78P74QGQer8tElKT
-	 6NJTwgTb8dqWWD+thTVBy0TdtL3hEEH26IWMNoNP/JxUe90g5qjzxbnEC8BRRMEg0G
-	 1emJDi9wsnTSU54JRV5Xhu9Eq7QI9irFIXNzD9l6QRvpaF1BxiDBSiK6sm/TwPDhB3
-	 hUZ1Vi0WAXhNvABhKhSFd22z3SRwoYpB4rrcNdD7K9Yn5VhFkUW2pcAPl4Hez37hOF
-	 Z4XoCgZ5utuyA==
+	b=TdrwtMjhefDqBobNIdlRaSyGpLFNPQiudb3wJlWTTtK/emdVHfHHPkrH0m/CB7plJ
+	 hF3XzlOOCoCCKoIatHqQDG80XSejKFuG4kvfRrjOxxrpYx5E5yUg+GGh0Tl/02Fd52
+	 H4hqRZmLOYzNhVsrQkK761FsPz4CL2QJrdo7g91Wxqq3X8smCSM3FwlWpgTQM1nBx/
+	 1Je5EkkcDf3s3FzX3U2ywxIJCctVFGdrUxm2EYDgNmypcp7W3SnqZiPr5xO/D63Tcy
+	 A111+leGaxbgXXEQPt2cpHDFBR6BPg6IGo5QzJ02SPAM3rmFPVds38uxMZjl5/lDNZ
+	 ALuasQzNvCxpQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bagas Sanjaya <bagasdotme@gmail.com>,
-	Haren Myneni <haren@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
+Cc: Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	Zhi Wang <wangzhi@stu.xidian.edu.cn>,
+	Bin Yu <byu@xidian.edu.cn>,
+	MingYu Wang <w15303746062@163.com>,
+	Ahsan Atta <ahsan.atta@intel.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/4] Documentation: ioctl-number: Extend "Include File" column width
-Date: Thu, 25 Jun 2026 14:42:07 -0400
-Message-ID: <20260625184210.2600469-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 4/4] crypto: qat - remove unused character device and IOCTLs
+Date: Thu, 25 Jun 2026 14:42:10 -0400
+Message-ID: <20260625184210.2600469-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026062534-vendetta-rice-1545@gregkh>
+In-Reply-To: <20260625184210.2600469-1-sashal@kernel.org>
 References: <2026062534-vendetta-rice-1545@gregkh>
+ <20260625184210.2600469-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,562 +50,712 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bagas Sanjaya <bagasdotme@gmail.com>
+From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
 
-[ Upstream commit 15afd5def819e4df2a29cef6fcfa6ae7ba167c0f ]
+[ Upstream commit d237230728c567297f2f98b425d63156ab2ed17f ]
 
-Extend width of "Include File" column to fit full path to
-papr-physical-attestation.h in later commit.
+The QAT driver exposes a character device (qat_adf_ctl) with IOCTLs
+for device configuration, start, stop, status query and enumeration.
+These IOCTLs are not part of any public uAPI header and have no known
+in-tree or out-of-tree users. Device lifecycle is already managed via
+sysfs.
 
-Reviewed-by: Haren Myneni <haren@linux.ibm.com>
-Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
-Acked-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Signed-off-by: Jonathan Corbet <corbet@lwn.net>
-Link: https://lore.kernel.org/r/20250714015711.14525-3-bagasdotme@gmail.com
-Stable-dep-of: d237230728c5 ("crypto: qat - remove unused character device and IOCTLs")
+The ioctl interface also increases the attack surface and is the
+subject of a number of bug reports.
+
+Remove the character device, the IOCTL definitions, and the related
+data structures (adf_dev_status_info, adf_user_cfg_key_val,
+adf_user_cfg_section, adf_user_cfg_ctl_data). Drop the now-unused
+adf_cfg_user.h header and strip adf_ctl_drv.c down to the minimal
+module_init/module_exit hooks for workqueue, AER, and crypto/compression
+algorithm registration.
+
+Clean up leftover dead code that was only reachable from the removed
+IOCTL paths: adf_cfg_del_all(), adf_devmgr_verify_id(),
+adf_devmgr_get_num_dev(), adf_devmgr_get_dev_by_id(),
+adf_get_vf_real_id() and the unused ADF_CFG macros.
+
+Additionally, drop the entry associated to QAT IOCTLs in
+ioctl-number.rst.
+
+Cc: stable@vger.kernel.org
+Fixes: d8cba25d2c68 ("crypto: qat - Intel(R) QAT driver framework")
+Reported-by: Zhi Wang <wangzhi@stu.xidian.edu.cn>
+Reported-by: Bin Yu <byu@xidian.edu.cn>
+Reported-by: MingYu Wang <w15303746062@163.com>
+Closes: https://lore.kernel.org/all/61d6d499.ab89.19b9b7f3186.Coremail.wangzhi_xd@stu.xidian.edu.cn/
+Link: https://lore.kernel.org/all/20260508034841.256794-1-w15303746062@163.com/
+Link: https://lore.kernel.org/all/20260508023542.256299-1-w15303746062@163.com/
+Link: https://lore.kernel.org/all/20260504025120.98242-1-w15303746062@163.com/
+Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+Reviewed-by: Ahsan Atta <ahsan.atta@intel.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../userspace-api/ioctl/ioctl-number.rst      | 448 +++++++++---------
- 1 file changed, 224 insertions(+), 224 deletions(-)
+ .../userspace-api/ioctl/ioctl-number.rst      |   1 -
+ .../crypto/qat/qat_common/adf_cfg_common.h    |  32 --
+ drivers/crypto/qat/qat_common/adf_cfg_user.h  |  38 --
+ .../crypto/qat/qat_common/adf_common_drv.h    |   3 -
+ drivers/crypto/qat/qat_common/adf_ctl_drv.c   | 409 +-----------------
+ drivers/crypto/qat/qat_common/adf_dev_mgr.c   |  70 ---
+ 6 files changed, 3 insertions(+), 550 deletions(-)
+ delete mode 100644 drivers/crypto/qat/qat_common/adf_cfg_user.h
 
 diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
-index 404ecb6d0f87f7..021292a218b88d 100644
+index 021292a218b88d..77cc9073002ede 100644
 --- a/Documentation/userspace-api/ioctl/ioctl-number.rst
 +++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -66,17 +66,17 @@ This table lists ioctls visible from user land for Linux/x86.  It contains
- most drivers up to 2.6.31, but I know I am missing some.  There has been
- no attempt to list non-X86 architectures or ioctls from drivers/staging/.
+@@ -214,7 +214,6 @@ Code  Seq#    Include File                                             Comments
+                                                                        <mailto:gregkh@linuxfoundation.org>
+ 'a'   all    linux/atm*.h, linux/sonet.h                               ATM on linux
+                                                                        <http://lrcwww.epfl.ch/>
+-'a'   00-0F  drivers/crypto/qat/qat_common/adf_cfg_common.h            conflict! qat driver
+ 'b'   00-FF                                                            conflict! bit3 vme host bridge
+                                                                        <mailto:natalia@nikhefk.nikhef.nl>
+ 'c'   all    linux/cm4000_cs.h                                         conflict!
+diff --git a/drivers/crypto/qat/qat_common/adf_cfg_common.h b/drivers/crypto/qat/qat_common/adf_cfg_common.h
+index 4fabb70b1f180c..d52e7eb53b92b4 100644
+--- a/drivers/crypto/qat/qat_common/adf_cfg_common.h
++++ b/drivers/crypto/qat/qat_common/adf_cfg_common.h
+@@ -4,18 +4,11 @@
+ #define ADF_CFG_COMMON_H_
  
--====  =====  ======================================================= ================================================================
--Code  Seq#    Include File                                           Comments
-+====  =====  ========================================================= ================================================================
-+Code  Seq#    Include File                                             Comments
-       (hex)
--====  =====  ======================================================= ================================================================
--0x00  00-1F  linux/fs.h                                              conflict!
--0x00  00-1F  scsi/scsi_ioctl.h                                       conflict!
--0x00  00-1F  linux/fb.h                                              conflict!
--0x00  00-1F  linux/wavefront.h                                       conflict!
-+====  =====  ========================================================= ================================================================
-+0x00  00-1F  linux/fs.h                                                conflict!
-+0x00  00-1F  scsi/scsi_ioctl.h                                         conflict!
-+0x00  00-1F  linux/fb.h                                                conflict!
-+0x00  00-1F  linux/wavefront.h                                         conflict!
- 0x02  all    linux/fd.h
- 0x03  all    linux/hdreg.h
--0x04  D2-DC  linux/umsdos_fs.h                                       Dead since 2.6.11, but don't reuse these.
-+0x04  D2-DC  linux/umsdos_fs.h                                         Dead since 2.6.11, but don't reuse these.
- 0x06  all    linux/lp.h
- 0x09  all    linux/raid/md_u.h
- 0x10  00-0F  drivers/char/s390/vmcp.h
-@@ -84,291 +84,291 @@ Code  Seq#    Include File                                           Comments
- 0x10  20-2F  arch/s390/include/uapi/asm/hypfs.h
- 0x12  all    linux/fs.h
-              linux/blkpg.h
--0x1b  all                                                            InfiniBand Subsystem
--                                                                     <http://infiniband.sourceforge.net/>
-+0x1b  all                                                              InfiniBand Subsystem
-+                                                                       <http://infiniband.sourceforge.net/>
- 0x20  all    drivers/cdrom/cm206.h
- 0x22  all    scsi/sg.h
- '!'   00-1F  uapi/linux/seccomp.h
--'#'   00-3F                                                          IEEE 1394 Subsystem
--                                                                     Block for the entire subsystem
-+'#'   00-3F                                                            IEEE 1394 Subsystem
-+                                                                       Block for the entire subsystem
- '$'   00-0F  linux/perf_counter.h, linux/perf_event.h
--'%'   00-0F  include/uapi/linux/stm.h                                System Trace Module subsystem
--                                                                     <mailto:alexander.shishkin@linux.intel.com>
-+'%'   00-0F  include/uapi/linux/stm.h                                  System Trace Module subsystem
-+                                                                       <mailto:alexander.shishkin@linux.intel.com>
- '&'   00-07  drivers/firewire/nosy-user.h
--'1'   00-1F  linux/timepps.h                                         PPS kit from Ulrich Windl
--                                                                     <ftp://ftp.de.kernel.org/pub/linux/daemons/ntp/PPS/>
-+'1'   00-1F  linux/timepps.h                                           PPS kit from Ulrich Windl
-+                                                                       <ftp://ftp.de.kernel.org/pub/linux/daemons/ntp/PPS/>
- '2'   01-04  linux/i2o.h
--'3'   00-0F  drivers/s390/char/raw3270.h                             conflict!
--'3'   00-1F  linux/suspend_ioctls.h,                                 conflict!
-+'3'   00-0F  drivers/s390/char/raw3270.h                               conflict!
-+'3'   00-1F  linux/suspend_ioctls.h,                                   conflict!
-              kernel/power/user.c
--'8'   all                                                            SNP8023 advanced NIC card
--                                                                     <mailto:mcr@solidum.com>
-+'8'   all                                                              SNP8023 advanced NIC card
-+                                                                       <mailto:mcr@solidum.com>
- ';'   64-7F  linux/vfio.h
--'='   00-3f  uapi/linux/ptp_clock.h                                  <mailto:richardcochran@gmail.com>
--'@'   00-0F  linux/radeonfb.h                                        conflict!
--'@'   00-0F  drivers/video/aty/aty128fb.c                            conflict!
--'A'   00-1F  linux/apm_bios.h                                        conflict!
--'A'   00-0F  linux/agpgart.h,                                        conflict!
-+'='   00-3f  uapi/linux/ptp_clock.h                                    <mailto:richardcochran@gmail.com>
-+'@'   00-0F  linux/radeonfb.h                                          conflict!
-+'@'   00-0F  drivers/video/aty/aty128fb.c                              conflict!
-+'A'   00-1F  linux/apm_bios.h                                          conflict!
-+'A'   00-0F  linux/agpgart.h,                                          conflict!
-              drivers/char/agp/compat_ioctl.h
--'A'   00-7F  sound/asound.h                                          conflict!
--'B'   00-1F  linux/cciss_ioctl.h                                     conflict!
--'B'   00-0F  include/linux/pmu.h                                     conflict!
--'B'   C0-FF  advanced bbus                                           <mailto:maassen@uni-freiburg.de>
--'C'   all    linux/soundcard.h                                       conflict!
--'C'   01-2F  linux/capi.h                                            conflict!
--'C'   F0-FF  drivers/net/wan/cosa.h                                  conflict!
-+'A'   00-7F  sound/asound.h                                            conflict!
-+'B'   00-1F  linux/cciss_ioctl.h                                       conflict!
-+'B'   00-0F  include/linux/pmu.h                                       conflict!
-+'B'   C0-FF  advanced bbus                                             <mailto:maassen@uni-freiburg.de>
-+'C'   all    linux/soundcard.h                                         conflict!
-+'C'   01-2F  linux/capi.h                                              conflict!
-+'C'   F0-FF  drivers/net/wan/cosa.h                                    conflict!
- 'D'   all    arch/s390/include/asm/dasd.h
- 'D'   40-5F  drivers/scsi/dpt/dtpi_ioctl.h
- 'D'   05     drivers/scsi/pmcraid.h
--'E'   all    linux/input.h                                           conflict!
--'E'   00-0F  xen/evtchn.h                                            conflict!
--'F'   all    linux/fb.h                                              conflict!
--'F'   01-02  drivers/scsi/pmcraid.h                                  conflict!
--'F'   20     drivers/video/fsl-diu-fb.h                              conflict!
--'F'   20     drivers/video/intelfb/intelfb.h                         conflict!
--'F'   20     linux/ivtvfb.h                                          conflict!
--'F'   20     linux/matroxfb.h                                        conflict!
--'F'   20     drivers/video/aty/atyfb_base.c                          conflict!
--'F'   00-0F  video/da8xx-fb.h                                        conflict!
--'F'   80-8F  linux/arcfb.h                                           conflict!
--'F'   DD     video/sstfb.h                                           conflict!
--'G'   00-3F  drivers/misc/sgi-gru/grulib.h                           conflict!
--'H'   00-7F  linux/hiddev.h                                          conflict!
--'H'   00-0F  linux/hidraw.h                                          conflict!
--'H'   01     linux/mei.h                                             conflict!
--'H'   02     linux/mei.h                                             conflict!
--'H'   03     linux/mei.h                                             conflict!
--'H'   00-0F  sound/asound.h                                          conflict!
--'H'   20-40  sound/asound_fm.h                                       conflict!
--'H'   80-8F  sound/sfnt_info.h                                       conflict!
--'H'   10-8F  sound/emu10k1.h                                         conflict!
--'H'   10-1F  sound/sb16_csp.h                                        conflict!
--'H'   10-1F  sound/hda_hwdep.h                                       conflict!
--'H'   40-4F  sound/hdspm.h                                           conflict!
--'H'   40-4F  sound/hdsp.h                                            conflict!
-+'E'   all    linux/input.h                                             conflict!
-+'E'   00-0F  xen/evtchn.h                                              conflict!
-+'F'   all    linux/fb.h                                                conflict!
-+'F'   01-02  drivers/scsi/pmcraid.h                                    conflict!
-+'F'   20     drivers/video/fsl-diu-fb.h                                conflict!
-+'F'   20     drivers/video/intelfb/intelfb.h                           conflict!
-+'F'   20     linux/ivtvfb.h                                            conflict!
-+'F'   20     linux/matroxfb.h                                          conflict!
-+'F'   20     drivers/video/aty/atyfb_base.c                            conflict!
-+'F'   00-0F  video/da8xx-fb.h                                          conflict!
-+'F'   80-8F  linux/arcfb.h                                             conflict!
-+'F'   DD     video/sstfb.h                                             conflict!
-+'G'   00-3F  drivers/misc/sgi-gru/grulib.h                             conflict!
-+'H'   00-7F  linux/hiddev.h                                            conflict!
-+'H'   00-0F  linux/hidraw.h                                            conflict!
-+'H'   01     linux/mei.h                                               conflict!
-+'H'   02     linux/mei.h                                               conflict!
-+'H'   03     linux/mei.h                                               conflict!
-+'H'   00-0F  sound/asound.h                                            conflict!
-+'H'   20-40  sound/asound_fm.h                                         conflict!
-+'H'   80-8F  sound/sfnt_info.h                                         conflict!
-+'H'   10-8F  sound/emu10k1.h                                           conflict!
-+'H'   10-1F  sound/sb16_csp.h                                          conflict!
-+'H'   10-1F  sound/hda_hwdep.h                                         conflict!
-+'H'   40-4F  sound/hdspm.h                                             conflict!
-+'H'   40-4F  sound/hdsp.h                                              conflict!
- 'H'   90     sound/usb/usx2y/usb_stream.h
--'H'   00-0F  uapi/misc/habanalabs.h                                  conflict!
-+'H'   00-0F  uapi/misc/habanalabs.h                                    conflict!
- 'H'   A0     uapi/linux/usb/cdc-wdm.h
--'H'   C0-F0  net/bluetooth/hci.h                                     conflict!
--'H'   C0-DF  net/bluetooth/hidp/hidp.h                               conflict!
--'H'   C0-DF  net/bluetooth/cmtp/cmtp.h                               conflict!
--'H'   C0-DF  net/bluetooth/bnep/bnep.h                               conflict!
--'H'   F1     linux/hid-roccat.h                                      <mailto:erazor_de@users.sourceforge.net>
-+'H'   C0-F0  net/bluetooth/hci.h                                       conflict!
-+'H'   C0-DF  net/bluetooth/hidp/hidp.h                                 conflict!
-+'H'   C0-DF  net/bluetooth/cmtp/cmtp.h                                 conflict!
-+'H'   C0-DF  net/bluetooth/bnep/bnep.h                                 conflict!
-+'H'   F1     linux/hid-roccat.h                                        <mailto:erazor_de@users.sourceforge.net>
- 'H'   F8-FA  sound/firewire.h
--'I'   all    linux/isdn.h                                            conflict!
--'I'   00-0F  drivers/isdn/divert/isdn_divert.h                       conflict!
--'I'   40-4F  linux/mISDNif.h                                         conflict!
-+'I'   all    linux/isdn.h                                              conflict!
-+'I'   00-0F  drivers/isdn/divert/isdn_divert.h                         conflict!
-+'I'   40-4F  linux/mISDNif.h                                           conflict!
- 'K'   all    linux/kd.h
--'L'   00-1F  linux/loop.h                                            conflict!
--'L'   10-1F  drivers/scsi/mpt3sas/mpt3sas_ctl.h                      conflict!
--'L'   E0-FF  linux/ppdd.h                                            encrypted disk device driver
--                                                                     <http://linux01.gwdg.de/~alatham/ppdd.html>
--'M'   all    linux/soundcard.h                                       conflict!
--'M'   01-16  mtd/mtd-abi.h                                           conflict!
-+'L'   00-1F  linux/loop.h                                              conflict!
-+'L'   10-1F  drivers/scsi/mpt3sas/mpt3sas_ctl.h                        conflict!
-+'L'   E0-FF  linux/ppdd.h                                              encrypted disk device driver
-+                                                                       <http://linux01.gwdg.de/~alatham/ppdd.html>
-+'M'   all    linux/soundcard.h                                         conflict!
-+'M'   01-16  mtd/mtd-abi.h                                             conflict!
-       and    drivers/mtd/mtdchar.c
- 'M'   01-03  drivers/scsi/megaraid/megaraid_sas.h
--'M'   00-0F  drivers/video/fsl-diu-fb.h                              conflict!
-+'M'   00-0F  drivers/video/fsl-diu-fb.h                                conflict!
- 'N'   00-1F  drivers/usb/scanner.h
- 'N'   40-7F  drivers/block/nvme.c
--'O'   00-06  mtd/ubi-user.h                                          UBI
--'P'   all    linux/soundcard.h                                       conflict!
--'P'   60-6F  sound/sscape_ioctl.h                                    conflict!
--'P'   00-0F  drivers/usb/class/usblp.c                               conflict!
--'P'   01-09  drivers/misc/pci_endpoint_test.c                        conflict!
-+'O'   00-06  mtd/ubi-user.h                                            UBI
-+'P'   all    linux/soundcard.h                                         conflict!
-+'P'   60-6F  sound/sscape_ioctl.h                                      conflict!
-+'P'   00-0F  drivers/usb/class/usblp.c                                 conflict!
-+'P'   01-09  drivers/misc/pci_endpoint_test.c                          conflict!
- 'Q'   all    linux/soundcard.h
--'R'   00-1F  linux/random.h                                          conflict!
--'R'   01     linux/rfkill.h                                          conflict!
-+'R'   00-1F  linux/random.h                                            conflict!
-+'R'   01     linux/rfkill.h                                            conflict!
- 'R'   C0-DF  net/bluetooth/rfcomm.h
- 'R'   E0     uapi/linux/fsl_mc.h
--'S'   all    linux/cdrom.h                                           conflict!
--'S'   80-81  scsi/scsi_ioctl.h                                       conflict!
--'S'   82-FF  scsi/scsi.h                                             conflict!
--'S'   00-7F  sound/asequencer.h                                      conflict!
--'T'   all    linux/soundcard.h                                       conflict!
--'T'   00-AF  sound/asound.h                                          conflict!
--'T'   all    arch/x86/include/asm/ioctls.h                           conflict!
--'T'   C0-DF  linux/if_tun.h                                          conflict!
--'U'   all    sound/asound.h                                          conflict!
--'U'   00-CF  linux/uinput.h                                          conflict!
-+'S'   all    linux/cdrom.h                                             conflict!
-+'S'   80-81  scsi/scsi_ioctl.h                                         conflict!
-+'S'   82-FF  scsi/scsi.h                                               conflict!
-+'S'   00-7F  sound/asequencer.h                                        conflict!
-+'T'   all    linux/soundcard.h                                         conflict!
-+'T'   00-AF  sound/asound.h                                            conflict!
-+'T'   all    arch/x86/include/asm/ioctls.h                             conflict!
-+'T'   C0-DF  linux/if_tun.h                                            conflict!
-+'U'   all    sound/asound.h                                            conflict!
-+'U'   00-CF  linux/uinput.h                                            conflict!
- 'U'   00-EF  linux/usbdevice_fs.h
- 'U'   C0-CF  drivers/bluetooth/hci_uart.h
--'V'   all    linux/vt.h                                              conflict!
--'V'   all    linux/videodev2.h                                       conflict!
--'V'   C0     linux/ivtvfb.h                                          conflict!
--'V'   C0     linux/ivtv.h                                            conflict!
--'V'   C0     media/davinci/vpfe_capture.h                            conflict!
--'V'   C0     media/si4713.h                                          conflict!
--'W'   00-1F  linux/watchdog.h                                        conflict!
--'W'   00-1F  linux/wanrouter.h                                       conflict! (pre 3.9)
--'W'   00-3F  sound/asound.h                                          conflict!
-+'V'   all    linux/vt.h                                                conflict!
-+'V'   all    linux/videodev2.h                                         conflict!
-+'V'   C0     linux/ivtvfb.h                                            conflict!
-+'V'   C0     linux/ivtv.h                                              conflict!
-+'V'   C0     media/davinci/vpfe_capture.h                              conflict!
-+'V'   C0     media/si4713.h                                            conflict!
-+'W'   00-1F  linux/watchdog.h                                          conflict!
-+'W'   00-1F  linux/wanrouter.h                                         conflict! (pre 3.9)
-+'W'   00-3F  sound/asound.h                                            conflict!
- 'W'   40-5F  drivers/pci/switch/switchtec.c
- 'W'   60-61  linux/watch_queue.h
--'X'   all    fs/xfs/xfs_fs.h,                                        conflict!
-+'X'   all    fs/xfs/xfs_fs.h,                                          conflict!
-              fs/xfs/linux-2.6/xfs_ioctl32.h,
-              include/linux/falloc.h,
-              linux/fs.h,
--'X'   all    fs/ocfs2/ocfs_fs.h                                      conflict!
--'X'   01     linux/pktcdvd.h                                         conflict!
-+'X'   all    fs/ocfs2/ocfs_fs.h                                        conflict!
-+'X'   01     linux/pktcdvd.h                                           conflict!
- 'Z'   14-15  drivers/message/fusion/mptctl.h
--'['   00-3F  linux/usb/tmc.h                                         USB Test and Measurement Devices
--                                                                     <mailto:gregkh@linuxfoundation.org>
--'a'   all    linux/atm*.h, linux/sonet.h                             ATM on linux
--                                                                     <http://lrcwww.epfl.ch/>
--'a'   00-0F  drivers/crypto/qat/qat_common/adf_cfg_common.h          conflict! qat driver
--'b'   00-FF                                                          conflict! bit3 vme host bridge
--                                                                     <mailto:natalia@nikhefk.nikhef.nl>
--'c'   all    linux/cm4000_cs.h                                       conflict!
--'c'   00-7F  linux/comstats.h                                        conflict!
--'c'   00-7F  linux/coda.h                                            conflict!
--'c'   00-1F  linux/chio.h                                            conflict!
--'c'   80-9F  arch/s390/include/asm/chsc.h                            conflict!
-+'['   00-3F  linux/usb/tmc.h                                           USB Test and Measurement Devices
-+                                                                       <mailto:gregkh@linuxfoundation.org>
-+'a'   all    linux/atm*.h, linux/sonet.h                               ATM on linux
-+                                                                       <http://lrcwww.epfl.ch/>
-+'a'   00-0F  drivers/crypto/qat/qat_common/adf_cfg_common.h            conflict! qat driver
-+'b'   00-FF                                                            conflict! bit3 vme host bridge
-+                                                                       <mailto:natalia@nikhefk.nikhef.nl>
-+'c'   all    linux/cm4000_cs.h                                         conflict!
-+'c'   00-7F  linux/comstats.h                                          conflict!
-+'c'   00-7F  linux/coda.h                                              conflict!
-+'c'   00-1F  linux/chio.h                                              conflict!
-+'c'   80-9F  arch/s390/include/asm/chsc.h                              conflict!
- 'c'   A0-AF  arch/x86/include/asm/msr.h conflict!
--'d'   00-FF  linux/char/drm/drm.h                                    conflict!
--'d'   02-40  pcmcia/ds.h                                             conflict!
-+'d'   00-FF  linux/char/drm/drm.h                                      conflict!
-+'d'   02-40  pcmcia/ds.h                                               conflict!
- 'd'   F0-FF  linux/digi1.h
--'e'   all    linux/digi1.h                                           conflict!
--'f'   00-1F  linux/ext2_fs.h                                         conflict!
--'f'   00-1F  linux/ext3_fs.h                                         conflict!
--'f'   00-0F  fs/jfs/jfs_dinode.h                                     conflict!
--'f'   00-0F  fs/ext4/ext4.h                                          conflict!
--'f'   00-0F  linux/fs.h                                              conflict!
--'f'   00-0F  fs/ocfs2/ocfs2_fs.h                                     conflict!
-+'e'   all    linux/digi1.h                                             conflict!
-+'f'   00-1F  linux/ext2_fs.h                                           conflict!
-+'f'   00-1F  linux/ext3_fs.h                                           conflict!
-+'f'   00-0F  fs/jfs/jfs_dinode.h                                       conflict!
-+'f'   00-0F  fs/ext4/ext4.h                                            conflict!
-+'f'   00-0F  linux/fs.h                                                conflict!
-+'f'   00-0F  fs/ocfs2/ocfs2_fs.h                                       conflict!
- 'f'   13-27  linux/fscrypt.h
- 'f'   81-8F  linux/fsverity.h
- 'g'   00-0F  linux/usb/gadgetfs.h
- 'g'   20-2F  linux/usb/g_printer.h
--'h'   00-7F                                                          conflict! Charon filesystem
--                                                                     <mailto:zapman@interlan.net>
--'h'   00-1F  linux/hpet.h                                            conflict!
-+'h'   00-7F                                                            conflict! Charon filesystem
-+                                                                       <mailto:zapman@interlan.net>
-+'h'   00-1F  linux/hpet.h                                              conflict!
- 'h'   80-8F  fs/hfsplus/ioctl.c
--'i'   00-3F  linux/i2o-dev.h                                         conflict!
--'i'   0B-1F  linux/ipmi.h                                            conflict!
-+'i'   00-3F  linux/i2o-dev.h                                           conflict!
-+'i'   0B-1F  linux/ipmi.h                                              conflict!
- 'i'   80-8F  linux/i8k.h
--'i'   90-9F  `linux/iio/*.h`                                         IIO
-+'i'   90-9F  `linux/iio/*.h`                                           IIO
- 'j'   00-3F  linux/joystick.h
--'k'   00-0F  linux/spi/spidev.h                                      conflict!
--'k'   00-05  video/kyro.h                                            conflict!
--'k'   10-17  linux/hsi/hsi_char.h                                    HSI character device
--'l'   00-3F  linux/tcfs_fs.h                                         transparent cryptographic file system
--                                                                     <http://web.archive.org/web/%2A/http://mikonos.dia.unisa.it/tcfs>
--'l'   40-7F  linux/udf_fs_i.h                                        in development:
--                                                                     <http://sourceforge.net/projects/linux-udf/>
--'m'   00-09  linux/mmtimer.h                                         conflict!
--'m'   all    linux/mtio.h                                            conflict!
--'m'   all    linux/soundcard.h                                       conflict!
--'m'   all    linux/synclink.h                                        conflict!
--'m'   00-19  drivers/message/fusion/mptctl.h                         conflict!
--'m'   00     drivers/scsi/megaraid/megaraid_ioctl.h                  conflict!
-+'k'   00-0F  linux/spi/spidev.h                                        conflict!
-+'k'   00-05  video/kyro.h                                              conflict!
-+'k'   10-17  linux/hsi/hsi_char.h                                      HSI character device
-+'l'   00-3F  linux/tcfs_fs.h                                           transparent cryptographic file system
-+                                                                       <http://web.archive.org/web/%2A/http://mikonos.dia.unisa.it/tcfs>
-+'l'   40-7F  linux/udf_fs_i.h                                          in development:
-+                                                                       <http://sourceforge.net/projects/linux-udf/>
-+'m'   00-09  linux/mmtimer.h                                           conflict!
-+'m'   all    linux/mtio.h                                              conflict!
-+'m'   all    linux/soundcard.h                                         conflict!
-+'m'   all    linux/synclink.h                                          conflict!
-+'m'   00-19  drivers/message/fusion/mptctl.h                           conflict!
-+'m'   00     drivers/scsi/megaraid/megaraid_ioctl.h                    conflict!
- 'n'   00-7F  linux/ncp_fs.h and fs/ncpfs/ioctl.c
--'n'   80-8F  uapi/linux/nilfs2_api.h                                 NILFS2
--'n'   E0-FF  linux/matroxfb.h                                        matroxfb
--'o'   00-1F  fs/ocfs2/ocfs2_fs.h                                     OCFS2
--'o'   00-03  mtd/ubi-user.h                                          conflict! (OCFS2 and UBI overlaps)
--'o'   40-41  mtd/ubi-user.h                                          UBI
--'o'   01-A1  `linux/dvb/*.h`                                         DVB
--'p'   00-0F  linux/phantom.h                                         conflict! (OpenHaptics needs this)
--'p'   00-1F  linux/rtc.h                                             conflict!
-+'n'   80-8F  uapi/linux/nilfs2_api.h                                   NILFS2
-+'n'   E0-FF  linux/matroxfb.h                                          matroxfb
-+'o'   00-1F  fs/ocfs2/ocfs2_fs.h                                       OCFS2
-+'o'   00-03  mtd/ubi-user.h                                            conflict! (OCFS2 and UBI overlaps)
-+'o'   40-41  mtd/ubi-user.h                                            UBI
-+'o'   01-A1  `linux/dvb/*.h`                                           DVB
-+'p'   00-0F  linux/phantom.h                                           conflict! (OpenHaptics needs this)
-+'p'   00-1F  linux/rtc.h                                               conflict!
- 'p'   40-7F  linux/nvram.h
--'p'   80-9F  linux/ppdev.h                                           user-space parport
--                                                                     <mailto:tim@cyberelk.net>
--'p'   A1-A5  linux/pps.h                                             LinuxPPS
--                                                                     <mailto:giometti@linux.it>
-+'p'   80-9F  linux/ppdev.h                                             user-space parport
-+                                                                       <mailto:tim@cyberelk.net>
-+'p'   A1-A5  linux/pps.h                                               LinuxPPS
-+                                                                       <mailto:giometti@linux.it>
- 'q'   00-1F  linux/serio.h
--'q'   80-FF  linux/telephony.h                                       Internet PhoneJACK, Internet LineJACK
--             linux/ixjuser.h                                         <http://web.archive.org/web/%2A/http://www.quicknet.net>
-+'q'   80-FF  linux/telephony.h                                         Internet PhoneJACK, Internet LineJACK
-+             linux/ixjuser.h                                           <http://web.archive.org/web/%2A/http://www.quicknet.net>
- 'r'   00-1F  linux/msdos_fs.h and fs/fat/dir.c
- 's'   all    linux/cdk.h
- 't'   00-7F  linux/ppp-ioctl.h
- 't'   80-8F  linux/isdn_ppp.h
--'t'   90-91  linux/toshiba.h                                         toshiba and toshiba_acpi SMM
--'u'   00-1F  linux/smb_fs.h                                          gone
--'u'   20-3F  linux/uvcvideo.h                                        USB video class host driver
--'u'   40-4f  linux/udmabuf.h                                         userspace dma-buf misc device
--'v'   00-1F  linux/ext2_fs.h                                         conflict!
--'v'   00-1F  linux/fs.h                                              conflict!
--'v'   00-0F  linux/sonypi.h                                          conflict!
--'v'   00-0F  media/v4l2-subdev.h                                     conflict!
--'v'   20-27  arch/powerpc/include/uapi/asm/vas-api.h		     VAS API
--'v'   C0-FF  linux/meye.h                                            conflict!
--'w'   all                                                            CERN SCI driver
--'y'   00-1F                                                          packet based user level communications
--                                                                     <mailto:zapman@interlan.net>
--'z'   00-3F                                                          CAN bus card conflict!
--                                                                     <mailto:hdstich@connectu.ulm.circular.de>
--'z'   40-7F                                                          CAN bus card conflict!
--                                                                     <mailto:oe@port.de>
--'z'   10-4F  drivers/s390/crypto/zcrypt_api.h                        conflict!
-+'t'   90-91  linux/toshiba.h                                           toshiba and toshiba_acpi SMM
-+'u'   00-1F  linux/smb_fs.h                                            gone
-+'u'   20-3F  linux/uvcvideo.h                                          USB video class host driver
-+'u'   40-4f  linux/udmabuf.h                                           userspace dma-buf misc device
-+'v'   00-1F  linux/ext2_fs.h                                           conflict!
-+'v'   00-1F  linux/fs.h                                                conflict!
-+'v'   00-0F  linux/sonypi.h                                            conflict!
-+'v'   00-0F  media/v4l2-subdev.h                                       conflict!
-+'v'   20-27  arch/powerpc/include/uapi/asm/vas-api.h                   VAS API
-+'v'   C0-FF  linux/meye.h                                              conflict!
-+'w'   all                                                              CERN SCI driver
-+'y'   00-1F                                                            packet based user level communications
-+                                                                       <mailto:zapman@interlan.net>
-+'z'   00-3F                                                            CAN bus card conflict!
-+                                                                       <mailto:hdstich@connectu.ulm.circular.de>
-+'z'   40-7F                                                            CAN bus card conflict!
-+                                                                       <mailto:oe@port.de>
-+'z'   10-4F  drivers/s390/crypto/zcrypt_api.h                          conflict!
- '|'   00-7F  linux/media.h
- 0x80  00-1F  linux/fb.h
- 0x81  00-1F  linux/vduse.h
- 0x89  00-06  arch/x86/include/asm/sockios.h
- 0x89  0B-DF  linux/sockios.h
--0x89  E0-EF  linux/sockios.h                                         SIOCPROTOPRIVATE range
--0x89  F0-FF  linux/sockios.h                                         SIOCDEVPRIVATE range
-+0x89  E0-EF  linux/sockios.h                                           SIOCPROTOPRIVATE range
-+0x89  F0-FF  linux/sockios.h                                           SIOCDEVPRIVATE range
- 0x8B  all    linux/wireless.h
--0x8C  00-3F                                                          WiNRADiO driver
--                                                                     <http://www.winradio.com.au/>
-+0x8C  00-3F                                                            WiNRADiO driver
-+                                                                       <http://www.winradio.com.au/>
- 0x90  00     drivers/cdrom/sbpcd.h
- 0x92  00-0F  drivers/usb/mon/mon_bin.c
- 0x93  60-7F  linux/auto_fs.h
--0x94  all    fs/btrfs/ioctl.h                                        Btrfs filesystem
--             and linux/fs.h                                          some lifted to vfs/generic
--0x97  00-7F  fs/ceph/ioctl.h                                         Ceph file system
--0x99  00-0F                                                          537-Addinboard driver
--                                                                     <mailto:buk@buks.ipn.de>
--0xA0  all    linux/sdp/sdp.h                                         Industrial Device Project
--                                                                     <mailto:kenji@bitgate.com>
--0xA1  0      linux/vtpm_proxy.h                                      TPM Emulator Proxy Driver
--0xA2  all    uapi/linux/acrn.h                                       ACRN hypervisor
--0xA3  80-8F                                                          Port ACL  in development:
--                                                                     <mailto:tlewis@mindspring.com>
-+0x94  all    fs/btrfs/ioctl.h                                          Btrfs filesystem
-+             and linux/fs.h                                            some lifted to vfs/generic
-+0x97  00-7F  fs/ceph/ioctl.h                                           Ceph file system
-+0x99  00-0F                                                            537-Addinboard driver
-+                                                                       <mailto:buk@buks.ipn.de>
-+0xA0  all    linux/sdp/sdp.h                                           Industrial Device Project
-+                                                                       <mailto:kenji@bitgate.com>
-+0xA1  0      linux/vtpm_proxy.h                                        TPM Emulator Proxy Driver
-+0xA2  all    uapi/linux/acrn.h                                         ACRN hypervisor
-+0xA3  80-8F                                                            Port ACL  in development:
-+                                                                       <mailto:tlewis@mindspring.com>
- 0xA3  90-9F  linux/dtlk.h
--0xA4  00-1F  uapi/linux/tee.h                                        Generic TEE subsystem
--0xA4  00-1F  uapi/asm/sgx.h                                          <mailto:linux-sgx@vger.kernel.org>
--0xA5  01-05  linux/surface_aggregator/cdev.h                         Microsoft Surface Platform System Aggregator
--                                                                     <mailto:luzmaximilian@gmail.com>
--0xA5  20-2F  linux/surface_aggregator/dtx.h                          Microsoft Surface DTX driver
--                                                                     <mailto:luzmaximilian@gmail.com>
-+0xA4  00-1F  uapi/linux/tee.h                                          Generic TEE subsystem
-+0xA4  00-1F  uapi/asm/sgx.h                                            <mailto:linux-sgx@vger.kernel.org>
-+0xA5  01-05  linux/surface_aggregator/cdev.h                           Microsoft Surface Platform System Aggregator
-+                                                                       <mailto:luzmaximilian@gmail.com>
-+0xA5  20-2F  linux/surface_aggregator/dtx.h                            Microsoft Surface DTX driver
-+                                                                       <mailto:luzmaximilian@gmail.com>
- 0xAA  00-3F  linux/uapi/linux/userfaultfd.h
- 0xAB  00-1F  linux/nbd.h
- 0xAC  00-1F  linux/raw.h
--0xAD  00                                                             Netfilter device in development:
--                                                                     <mailto:rusty@rustcorp.com.au>
--0xAE  00-1F  linux/kvm.h                                             Kernel-based Virtual Machine
--                                                                     <mailto:kvm@vger.kernel.org>
--0xAE  40-FF  linux/kvm.h                                             Kernel-based Virtual Machine
--                                                                     <mailto:kvm@vger.kernel.org>
--0xAE  20-3F  linux/nitro_enclaves.h                                  Nitro Enclaves
--0xAF  00-1F  linux/fsl_hypervisor.h                                  Freescale hypervisor
--0xB0  all                                                            RATIO devices in development:
--                                                                     <mailto:vgo@ratio.de>
--0xB1  00-1F                                                          PPPoX
--                                                                     <mailto:mostrows@styx.uwaterloo.ca>
-+0xAD  00                                                               Netfilter device in development:
-+                                                                       <mailto:rusty@rustcorp.com.au>
-+0xAE  00-1F  linux/kvm.h                                               Kernel-based Virtual Machine
-+                                                                       <mailto:kvm@vger.kernel.org>
-+0xAE  40-FF  linux/kvm.h                                               Kernel-based Virtual Machine
-+                                                                       <mailto:kvm@vger.kernel.org>
-+0xAE  20-3F  linux/nitro_enclaves.h                                    Nitro Enclaves
-+0xAF  00-1F  linux/fsl_hypervisor.h                                    Freescale hypervisor
-+0xB0  all                                                              RATIO devices in development:
-+                                                                       <mailto:vgo@ratio.de>
-+0xB1  00-1F                                                            PPPoX
-+                                                                       <mailto:mostrows@styx.uwaterloo.ca>
- 0xB3  00     linux/mmc/ioctl.h
--0xB4  00-0F  linux/gpio.h                                            <mailto:linux-gpio@vger.kernel.org>
--0xB5  00-0F  uapi/linux/rpmsg.h                                      <mailto:linux-remoteproc@vger.kernel.org>
-+0xB4  00-0F  linux/gpio.h                                              <mailto:linux-gpio@vger.kernel.org>
-+0xB5  00-0F  uapi/linux/rpmsg.h                                        <mailto:linux-remoteproc@vger.kernel.org>
- 0xB6  all    linux/fpga-dfl.h
--0xB7  all    uapi/linux/remoteproc_cdev.h                            <mailto:linux-remoteproc@vger.kernel.org>
--0xB7  all    uapi/linux/nsfs.h                                       <mailto:Andrei Vagin <avagin@openvz.org>>
-+0xB7  all    uapi/linux/remoteproc_cdev.h                              <mailto:linux-remoteproc@vger.kernel.org>
-+0xB7  all    uapi/linux/nsfs.h                                         <mailto:Andrei Vagin <avagin@openvz.org>>
- 0xC0  00-0F  linux/usb/iowarrior.h
- 0xCA  00-0F  uapi/misc/cxl.h
- 0xCA  10-2F  uapi/misc/ocxl.h
- 0xCA  80-BF  uapi/scsi/cxlflash_ioctl.h
--0xCB  00-1F                                                          CBM serial IEC bus in development:
--                                                                     <mailto:michael.klein@puffin.lb.shuttle.de>
--0xCC  00-0F  drivers/misc/ibmvmc.h                                   pseries VMC driver
-+0xCB  00-1F                                                            CBM serial IEC bus in development:
-+                                                                       <mailto:michael.klein@puffin.lb.shuttle.de>
-+0xCC  00-0F  drivers/misc/ibmvmc.h                                     pseries VMC driver
- 0xCD  01     linux/reiserfs_fs.h
--0xCE  01-02  uapi/linux/cxl_mem.h                                    Compute Express Link Memory Devices
-+0xCE  01-02  uapi/linux/cxl_mem.h                                      Compute Express Link Memory Devices
- 0xCF  02     fs/cifs/ioctl.c
- 0xDB  00-0F  drivers/char/mwave/mwavepub.h
--0xDD  00-3F                                                          ZFCP device driver see drivers/s390/scsi/
--                                                                     <mailto:aherrman@de.ibm.com>
-+0xDD  00-3F                                                            ZFCP device driver see drivers/s390/scsi/
-+                                                                       <mailto:aherrman@de.ibm.com>
- 0xE5  00-3F  linux/fuse.h
--0xEC  00-01  drivers/platform/chrome/cros_ec_dev.h                   ChromeOS EC driver
--0xF3  00-3F  drivers/usb/misc/sisusbvga/sisusb.h                     sisfb (in development)
--                                                                     <mailto:thomas@winischhofer.net>
--0xF6  all                                                            LTTng Linux Trace Toolkit Next Generation
--                                                                     <mailto:mathieu.desnoyers@efficios.com>
-+0xEC  00-01  drivers/platform/chrome/cros_ec_dev.h                     ChromeOS EC driver
-+0xF3  00-3F  drivers/usb/misc/sisusbvga/sisusb.h                       sisfb (in development)
-+                                                                       <mailto:thomas@winischhofer.net>
-+0xF6  all                                                              LTTng Linux Trace Toolkit Next Generation
-+                                                                       <mailto:mathieu.desnoyers@efficios.com>
- 0xFD  all    linux/dm-ioctl.h
- 0xFE  all    linux/isst_if.h
--====  =====  ======================================================= ================================================================
-+====  =====  ========================================================= ================================================================
+ #include <linux/types.h>
+-#include <linux/ioctl.h>
+ 
+ #define ADF_CFG_MAX_STR_LEN 64
+ #define ADF_CFG_MAX_KEY_LEN_IN_BYTES ADF_CFG_MAX_STR_LEN
+ #define ADF_CFG_MAX_VAL_LEN_IN_BYTES ADF_CFG_MAX_STR_LEN
+ #define ADF_CFG_MAX_SECTION_LEN_IN_BYTES ADF_CFG_MAX_STR_LEN
+-#define ADF_CFG_BASE_DEC 10
+-#define ADF_CFG_BASE_HEX 16
+-#define ADF_CFG_ALL_DEVICES 0xFE
+-#define ADF_CFG_NO_DEVICE 0xFF
+-#define ADF_CFG_AFFINITY_WHATEVER 0xFF
+-#define MAX_DEVICE_NAME_SIZE 32
+ #define ADF_MAX_DEVICES (32 * 32)
+ #define ADF_DEVS_ARRAY_SIZE BITS_TO_LONGS(ADF_MAX_DEVICES)
+ 
+@@ -35,29 +28,4 @@ enum adf_device_type {
+ 	DEV_C3XXXVF,
+ 	DEV_4XXX,
+ };
+-
+-struct adf_dev_status_info {
+-	enum adf_device_type type;
+-	__u32 accel_id;
+-	__u32 instance_id;
+-	__u8 num_ae;
+-	__u8 num_accel;
+-	__u8 num_logical_accel;
+-	__u8 banks_per_accel;
+-	__u8 state;
+-	__u8 bus;
+-	__u8 dev;
+-	__u8 fun;
+-	char name[MAX_DEVICE_NAME_SIZE];
+-};
+-
+-#define ADF_CTL_IOC_MAGIC 'a'
+-#define IOCTL_CONFIG_SYS_RESOURCE_PARAMETERS _IOW(ADF_CTL_IOC_MAGIC, 0, \
+-		struct adf_user_cfg_ctl_data)
+-#define IOCTL_STOP_ACCEL_DEV _IOW(ADF_CTL_IOC_MAGIC, 1, \
+-		struct adf_user_cfg_ctl_data)
+-#define IOCTL_START_ACCEL_DEV _IOW(ADF_CTL_IOC_MAGIC, 2, \
+-		struct adf_user_cfg_ctl_data)
+-#define IOCTL_STATUS_ACCEL_DEV _IOW(ADF_CTL_IOC_MAGIC, 3, __u32)
+-#define IOCTL_GET_NUM_DEVICES _IOW(ADF_CTL_IOC_MAGIC, 4, __s32)
+ #endif
+diff --git a/drivers/crypto/qat/qat_common/adf_cfg_user.h b/drivers/crypto/qat/qat_common/adf_cfg_user.h
+deleted file mode 100644
+index 421f4fb8b4dd2f..00000000000000
+--- a/drivers/crypto/qat/qat_common/adf_cfg_user.h
++++ /dev/null
+@@ -1,38 +0,0 @@
+-/* SPDX-License-Identifier: (BSD-3-Clause OR GPL-2.0-only) */
+-/* Copyright(c) 2014 - 2020 Intel Corporation */
+-#ifndef ADF_CFG_USER_H_
+-#define ADF_CFG_USER_H_
+-
+-#include "adf_cfg_common.h"
+-#include "adf_cfg_strings.h"
+-
+-struct adf_user_cfg_key_val {
+-	char key[ADF_CFG_MAX_KEY_LEN_IN_BYTES];
+-	char val[ADF_CFG_MAX_VAL_LEN_IN_BYTES];
+-	union {
+-		struct adf_user_cfg_key_val *next;
+-		__u64 padding3;
+-	};
+-	enum adf_cfg_val_type type;
+-} __packed;
+-
+-struct adf_user_cfg_section {
+-	char name[ADF_CFG_MAX_SECTION_LEN_IN_BYTES];
+-	union {
+-		struct adf_user_cfg_key_val *params;
+-		__u64 padding1;
+-	};
+-	union {
+-		struct adf_user_cfg_section *next;
+-		__u64 padding3;
+-	};
+-} __packed;
+-
+-struct adf_user_cfg_ctl_data {
+-	union {
+-		struct adf_user_cfg_section *config_section;
+-		__u64 padding;
+-	};
+-	__u8 device_id;
+-} __packed;
+-#endif
+diff --git a/drivers/crypto/qat/qat_common/adf_common_drv.h b/drivers/crypto/qat/qat_common/adf_common_drv.h
+index 75693ca4afea1e..d91b8e6dcd08a5 100644
+--- a/drivers/crypto/qat/qat_common/adf_common_drv.h
++++ b/drivers/crypto/qat/qat_common/adf_common_drv.h
+@@ -74,11 +74,8 @@ int adf_devmgr_add_dev(struct adf_accel_dev *accel_dev,
+ void adf_devmgr_rm_dev(struct adf_accel_dev *accel_dev,
+ 		       struct adf_accel_dev *pf);
+ struct list_head *adf_devmgr_get_head(void);
+-struct adf_accel_dev *adf_devmgr_get_dev_by_id(u32 id);
+ struct adf_accel_dev *adf_devmgr_get_first(void);
+ struct adf_accel_dev *adf_devmgr_pci_to_accel_dev(struct pci_dev *pci_dev);
+-int adf_devmgr_verify_id(u32 id);
+-void adf_devmgr_get_num_dev(u32 *num);
+ int adf_devmgr_in_reset(struct adf_accel_dev *accel_dev);
+ int adf_dev_started(struct adf_accel_dev *accel_dev);
+ int adf_dev_restarting_notify(struct adf_accel_dev *accel_dev);
+diff --git a/drivers/crypto/qat/qat_common/adf_ctl_drv.c b/drivers/crypto/qat/qat_common/adf_ctl_drv.c
+index 8c881b321f2d7d..bbadeac095ac42 100644
+--- a/drivers/crypto/qat/qat_common/adf_ctl_drv.c
++++ b/drivers/crypto/qat/qat_common/adf_ctl_drv.c
+@@ -1,412 +1,14 @@
+ // SPDX-License-Identifier: (BSD-3-Clause OR GPL-2.0-only)
+ /* Copyright(c) 2014 - 2020 Intel Corporation */
++
++#include <crypto/algapi.h>
++#include <linux/errno.h>
+ #include <linux/module.h>
+-#include <linux/mutex.h>
+-#include <linux/slab.h>
+-#include <linux/fs.h>
+-#include <linux/bitops.h>
+-#include <linux/pci.h>
+-#include <linux/cdev.h>
+-#include <linux/uaccess.h>
+-#include <linux/crypto.h>
+ 
+-#include "adf_accel_devices.h"
+ #include "adf_common_drv.h"
+-#include "adf_cfg.h"
+-#include "adf_cfg_common.h"
+-#include "adf_cfg_user.h"
+-
+-#define DEVICE_NAME "qat_adf_ctl"
+-
+-static DEFINE_MUTEX(adf_ctl_lock);
+-static long adf_ctl_ioctl(struct file *fp, unsigned int cmd, unsigned long arg);
+-
+-static const struct file_operations adf_ctl_ops = {
+-	.owner = THIS_MODULE,
+-	.unlocked_ioctl = adf_ctl_ioctl,
+-	.compat_ioctl = compat_ptr_ioctl,
+-};
+-
+-struct adf_ctl_drv_info {
+-	unsigned int major;
+-	struct cdev drv_cdev;
+-	struct class *drv_class;
+-};
+-
+-static struct adf_ctl_drv_info adf_ctl_drv;
+-
+-static void adf_chr_drv_destroy(void)
+-{
+-	device_destroy(adf_ctl_drv.drv_class, MKDEV(adf_ctl_drv.major, 0));
+-	cdev_del(&adf_ctl_drv.drv_cdev);
+-	class_destroy(adf_ctl_drv.drv_class);
+-	unregister_chrdev_region(MKDEV(adf_ctl_drv.major, 0), 1);
+-}
+-
+-static int adf_chr_drv_create(void)
+-{
+-	dev_t dev_id;
+-	struct device *drv_device;
+-
+-	if (alloc_chrdev_region(&dev_id, 0, 1, DEVICE_NAME)) {
+-		pr_err("QAT: unable to allocate chrdev region\n");
+-		return -EFAULT;
+-	}
+-
+-	adf_ctl_drv.drv_class = class_create(THIS_MODULE, DEVICE_NAME);
+-	if (IS_ERR(adf_ctl_drv.drv_class)) {
+-		pr_err("QAT: class_create failed for adf_ctl\n");
+-		goto err_chrdev_unreg;
+-	}
+-	adf_ctl_drv.major = MAJOR(dev_id);
+-	cdev_init(&adf_ctl_drv.drv_cdev, &adf_ctl_ops);
+-	if (cdev_add(&adf_ctl_drv.drv_cdev, dev_id, 1)) {
+-		pr_err("QAT: cdev add failed\n");
+-		goto err_class_destr;
+-	}
+-
+-	drv_device = device_create(adf_ctl_drv.drv_class, NULL,
+-				   MKDEV(adf_ctl_drv.major, 0),
+-				   NULL, DEVICE_NAME);
+-	if (IS_ERR(drv_device)) {
+-		pr_err("QAT: failed to create device\n");
+-		goto err_cdev_del;
+-	}
+-	return 0;
+-err_cdev_del:
+-	cdev_del(&adf_ctl_drv.drv_cdev);
+-err_class_destr:
+-	class_destroy(adf_ctl_drv.drv_class);
+-err_chrdev_unreg:
+-	unregister_chrdev_region(dev_id, 1);
+-	return -EFAULT;
+-}
+-
+-static struct adf_user_cfg_ctl_data *adf_ctl_alloc_resources(unsigned long arg)
+-{
+-	struct adf_user_cfg_ctl_data *cfg_data;
+-
+-	cfg_data = memdup_user((void __user *)arg, sizeof(*cfg_data));
+-	if (IS_ERR(cfg_data))
+-		pr_err("QAT: failed to copy from user cfg_data.\n");
+-	return cfg_data;
+-}
+-
+-static int adf_add_key_value_data(struct adf_accel_dev *accel_dev,
+-				  const char *section,
+-				  const struct adf_user_cfg_key_val *key_val)
+-{
+-	if (key_val->type == ADF_HEX) {
+-		long *ptr = (long *)key_val->val;
+-		long val = *ptr;
+-
+-		if (adf_cfg_add_key_value_param(accel_dev, section,
+-						key_val->key, (void *)val,
+-						key_val->type)) {
+-			dev_err(&GET_DEV(accel_dev),
+-				"failed to add hex keyvalue.\n");
+-			return -EFAULT;
+-		}
+-	} else {
+-		if (adf_cfg_add_key_value_param(accel_dev, section,
+-						key_val->key, key_val->val,
+-						key_val->type)) {
+-			dev_err(&GET_DEV(accel_dev),
+-				"failed to add keyvalue.\n");
+-			return -EFAULT;
+-		}
+-	}
+-	return 0;
+-}
+-
+-static int adf_copy_key_value_data(struct adf_accel_dev *accel_dev,
+-				   struct adf_user_cfg_ctl_data *ctl_data)
+-{
+-	struct adf_user_cfg_key_val key_val;
+-	struct adf_user_cfg_key_val *params_head;
+-	struct adf_user_cfg_section section, *section_head;
+-
+-	section_head = ctl_data->config_section;
+-
+-	while (section_head) {
+-		if (copy_from_user(&section, (void __user *)section_head,
+-				   sizeof(*section_head))) {
+-			dev_err(&GET_DEV(accel_dev),
+-				"failed to copy section info\n");
+-			goto out_err;
+-		}
+-
+-		if (adf_cfg_section_add(accel_dev, section.name)) {
+-			dev_err(&GET_DEV(accel_dev),
+-				"failed to add section.\n");
+-			goto out_err;
+-		}
+-
+-		params_head = section.params;
+-
+-		while (params_head) {
+-			if (copy_from_user(&key_val, (void __user *)params_head,
+-					   sizeof(key_val))) {
+-				dev_err(&GET_DEV(accel_dev),
+-					"Failed to copy keyvalue.\n");
+-				goto out_err;
+-			}
+-			if (adf_add_key_value_data(accel_dev, section.name,
+-						   &key_val)) {
+-				goto out_err;
+-			}
+-			params_head = key_val.next;
+-		}
+-		section_head = section.next;
+-	}
+-	return 0;
+-out_err:
+-	adf_cfg_del_all(accel_dev);
+-	return -EFAULT;
+-}
+-
+-static int adf_ctl_ioctl_dev_config(struct file *fp, unsigned int cmd,
+-				    unsigned long arg)
+-{
+-	struct adf_user_cfg_ctl_data *ctl_data;
+-	struct adf_accel_dev *accel_dev;
+-	int ret = 0;
+-
+-	ctl_data = adf_ctl_alloc_resources(arg);
+-	if (IS_ERR(ctl_data))
+-		return PTR_ERR(ctl_data);
+-
+-	accel_dev = adf_devmgr_get_dev_by_id(ctl_data->device_id);
+-	if (!accel_dev) {
+-		ret = -EFAULT;
+-		goto out;
+-	}
+-
+-	if (adf_dev_started(accel_dev)) {
+-		ret = -EFAULT;
+-		goto out;
+-	}
+-
+-	if (adf_copy_key_value_data(accel_dev, ctl_data)) {
+-		ret = -EFAULT;
+-		goto out;
+-	}
+-	set_bit(ADF_STATUS_CONFIGURED, &accel_dev->status);
+-out:
+-	kfree(ctl_data);
+-	return ret;
+-}
+-
+-static int adf_ctl_is_device_in_use(int id)
+-{
+-	struct adf_accel_dev *dev;
+-
+-	list_for_each_entry(dev, adf_devmgr_get_head(), list) {
+-		if (id == dev->accel_id || id == ADF_CFG_ALL_DEVICES) {
+-			if (adf_devmgr_in_reset(dev) || adf_dev_in_use(dev)) {
+-				dev_info(&GET_DEV(dev),
+-					 "device qat_dev%d is busy\n",
+-					 dev->accel_id);
+-				return -EBUSY;
+-			}
+-		}
+-	}
+-	return 0;
+-}
+-
+-static void adf_ctl_stop_devices(u32 id)
+-{
+-	struct adf_accel_dev *accel_dev;
+-
+-	list_for_each_entry(accel_dev, adf_devmgr_get_head(), list) {
+-		if (id == accel_dev->accel_id || id == ADF_CFG_ALL_DEVICES) {
+-			if (!adf_dev_started(accel_dev))
+-				continue;
+-
+-			/* First stop all VFs */
+-			if (!accel_dev->is_vf)
+-				continue;
+-
+-			adf_dev_stop(accel_dev);
+-			adf_dev_shutdown(accel_dev);
+-		}
+-	}
+-
+-	list_for_each_entry(accel_dev, adf_devmgr_get_head(), list) {
+-		if (id == accel_dev->accel_id || id == ADF_CFG_ALL_DEVICES) {
+-			if (!adf_dev_started(accel_dev))
+-				continue;
+-
+-			adf_dev_stop(accel_dev);
+-			adf_dev_shutdown(accel_dev);
+-		}
+-	}
+-}
+-
+-static int adf_ctl_ioctl_dev_stop(struct file *fp, unsigned int cmd,
+-				  unsigned long arg)
+-{
+-	int ret;
+-	struct adf_user_cfg_ctl_data *ctl_data;
+-
+-	ctl_data = adf_ctl_alloc_resources(arg);
+-	if (IS_ERR(ctl_data))
+-		return PTR_ERR(ctl_data);
+-
+-	if (adf_devmgr_verify_id(ctl_data->device_id)) {
+-		pr_err("QAT: Device %d not found\n", ctl_data->device_id);
+-		ret = -ENODEV;
+-		goto out;
+-	}
+-
+-	ret = adf_ctl_is_device_in_use(ctl_data->device_id);
+-	if (ret)
+-		goto out;
+-
+-	if (ctl_data->device_id == ADF_CFG_ALL_DEVICES)
+-		pr_info("QAT: Stopping all acceleration devices.\n");
+-	else
+-		pr_info("QAT: Stopping acceleration device qat_dev%d.\n",
+-			ctl_data->device_id);
+-
+-	adf_ctl_stop_devices(ctl_data->device_id);
+-
+-out:
+-	kfree(ctl_data);
+-	return ret;
+-}
+-
+-static int adf_ctl_ioctl_dev_start(struct file *fp, unsigned int cmd,
+-				   unsigned long arg)
+-{
+-	int ret;
+-	struct adf_user_cfg_ctl_data *ctl_data;
+-	struct adf_accel_dev *accel_dev;
+-
+-	ctl_data = adf_ctl_alloc_resources(arg);
+-	if (IS_ERR(ctl_data))
+-		return PTR_ERR(ctl_data);
+-
+-	ret = -ENODEV;
+-	accel_dev = adf_devmgr_get_dev_by_id(ctl_data->device_id);
+-	if (!accel_dev)
+-		goto out;
+-
+-	if (!adf_dev_started(accel_dev)) {
+-		dev_info(&GET_DEV(accel_dev),
+-			 "Starting acceleration device qat_dev%d.\n",
+-			 ctl_data->device_id);
+-		ret = adf_dev_init(accel_dev);
+-		if (!ret)
+-			ret = adf_dev_start(accel_dev);
+-	} else {
+-		dev_info(&GET_DEV(accel_dev),
+-			 "Acceleration device qat_dev%d already started.\n",
+-			 ctl_data->device_id);
+-	}
+-	if (ret) {
+-		dev_err(&GET_DEV(accel_dev), "Failed to start qat_dev%d\n",
+-			ctl_data->device_id);
+-		adf_dev_stop(accel_dev);
+-		adf_dev_shutdown(accel_dev);
+-	}
+-out:
+-	kfree(ctl_data);
+-	return ret;
+-}
+-
+-static int adf_ctl_ioctl_get_num_devices(struct file *fp, unsigned int cmd,
+-					 unsigned long arg)
+-{
+-	u32 num_devices = 0;
+-
+-	adf_devmgr_get_num_dev(&num_devices);
+-	if (copy_to_user((void __user *)arg, &num_devices, sizeof(num_devices)))
+-		return -EFAULT;
+-
+-	return 0;
+-}
+-
+-static int adf_ctl_ioctl_get_status(struct file *fp, unsigned int cmd,
+-				    unsigned long arg)
+-{
+-	struct adf_hw_device_data *hw_data;
+-	struct adf_dev_status_info dev_info;
+-	struct adf_accel_dev *accel_dev;
+-
+-	if (copy_from_user(&dev_info, (void __user *)arg,
+-			   sizeof(struct adf_dev_status_info))) {
+-		pr_err("QAT: failed to copy from user.\n");
+-		return -EFAULT;
+-	}
+-
+-	accel_dev = adf_devmgr_get_dev_by_id(dev_info.accel_id);
+-	if (!accel_dev)
+-		return -ENODEV;
+-
+-	hw_data = accel_dev->hw_device;
+-	dev_info.state = adf_dev_started(accel_dev) ? DEV_UP : DEV_DOWN;
+-	dev_info.num_ae = hw_data->get_num_aes(hw_data);
+-	dev_info.num_accel = hw_data->get_num_accels(hw_data);
+-	dev_info.num_logical_accel = hw_data->num_logical_accel;
+-	dev_info.banks_per_accel = hw_data->num_banks
+-					/ hw_data->num_logical_accel;
+-	strlcpy(dev_info.name, hw_data->dev_class->name, sizeof(dev_info.name));
+-	dev_info.instance_id = hw_data->instance_id;
+-	dev_info.type = hw_data->dev_class->type;
+-	dev_info.bus = accel_to_pci_dev(accel_dev)->bus->number;
+-	dev_info.dev = PCI_SLOT(accel_to_pci_dev(accel_dev)->devfn);
+-	dev_info.fun = PCI_FUNC(accel_to_pci_dev(accel_dev)->devfn);
+-
+-	if (copy_to_user((void __user *)arg, &dev_info,
+-			 sizeof(struct adf_dev_status_info))) {
+-		dev_err(&GET_DEV(accel_dev), "failed to copy status.\n");
+-		return -EFAULT;
+-	}
+-	return 0;
+-}
+-
+-static long adf_ctl_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
+-{
+-	int ret;
+-
+-	if (mutex_lock_interruptible(&adf_ctl_lock))
+-		return -EFAULT;
+-
+-	switch (cmd) {
+-	case IOCTL_CONFIG_SYS_RESOURCE_PARAMETERS:
+-		ret = adf_ctl_ioctl_dev_config(fp, cmd, arg);
+-		break;
+-
+-	case IOCTL_STOP_ACCEL_DEV:
+-		ret = adf_ctl_ioctl_dev_stop(fp, cmd, arg);
+-		break;
+-
+-	case IOCTL_START_ACCEL_DEV:
+-		ret = adf_ctl_ioctl_dev_start(fp, cmd, arg);
+-		break;
+-
+-	case IOCTL_GET_NUM_DEVICES:
+-		ret = adf_ctl_ioctl_get_num_devices(fp, cmd, arg);
+-		break;
+-
+-	case IOCTL_STATUS_ACCEL_DEV:
+-		ret = adf_ctl_ioctl_get_status(fp, cmd, arg);
+-		break;
+-	default:
+-		pr_err_ratelimited("QAT: Invalid ioctl %d\n", cmd);
+-		ret = -EFAULT;
+-		break;
+-	}
+-	mutex_unlock(&adf_ctl_lock);
+-	return ret;
+-}
+ 
+ static int __init adf_register_ctl_device_driver(void)
+ {
+-	if (adf_chr_drv_create())
+-		goto err_chr_dev;
+-
+ 	if (adf_init_aer())
+ 		goto err_aer;
+ 
+@@ -428,21 +30,16 @@ static int __init adf_register_ctl_device_driver(void)
+ err_pf_wq:
+ 	adf_exit_aer();
+ err_aer:
+-	adf_chr_drv_destroy();
+-err_chr_dev:
+-	mutex_destroy(&adf_ctl_lock);
+ 	return -EFAULT;
+ }
+ 
+ static void __exit adf_unregister_ctl_device_driver(void)
+ {
+-	adf_chr_drv_destroy();
+ 	adf_exit_aer();
+ 	adf_exit_vf_wq();
+ 	adf_exit_pf_wq();
+ 	qat_crypto_unregister();
+ 	adf_clean_vf_map(false);
+-	mutex_destroy(&adf_ctl_lock);
+ }
+ 
+ module_init(adf_register_ctl_device_driver);
+diff --git a/drivers/crypto/qat/qat_common/adf_dev_mgr.c b/drivers/crypto/qat/qat_common/adf_dev_mgr.c
+index 4c752eed10fea9..fb5bdf98d494d3 100644
+--- a/drivers/crypto/qat/qat_common/adf_dev_mgr.c
++++ b/drivers/crypto/qat/qat_common/adf_dev_mgr.c
+@@ -45,19 +45,6 @@ static struct vf_id_map *adf_find_vf(u32 bdf)
+ 	return NULL;
+ }
+ 
+-static int adf_get_vf_real_id(u32 fake)
+-{
+-	struct list_head *itr;
+-
+-	list_for_each(itr, &vfs_table) {
+-		struct vf_id_map *ptr =
+-			list_entry(itr, struct vf_id_map, list);
+-		if (ptr->fake_id == fake)
+-			return ptr->id;
+-	}
+-	return -1;
+-}
+-
+ /**
+  * adf_clean_vf_map() - Cleans VF id mapings
+  *
+@@ -312,63 +299,6 @@ struct adf_accel_dev *adf_devmgr_pci_to_accel_dev(struct pci_dev *pci_dev)
+ }
+ EXPORT_SYMBOL_GPL(adf_devmgr_pci_to_accel_dev);
+ 
+-struct adf_accel_dev *adf_devmgr_get_dev_by_id(u32 id)
+-{
+-	struct list_head *itr;
+-	int real_id;
+-
+-	mutex_lock(&table_lock);
+-	real_id = adf_get_vf_real_id(id);
+-	if (real_id < 0)
+-		goto unlock;
+-
+-	id = real_id;
+-
+-	list_for_each(itr, &accel_table) {
+-		struct adf_accel_dev *ptr =
+-				list_entry(itr, struct adf_accel_dev, list);
+-		if (ptr->accel_id == id) {
+-			mutex_unlock(&table_lock);
+-			return ptr;
+-		}
+-	}
+-unlock:
+-	mutex_unlock(&table_lock);
+-	return NULL;
+-}
+-
+-int adf_devmgr_verify_id(u32 id)
+-{
+-	if (id == ADF_CFG_ALL_DEVICES)
+-		return 0;
+-
+-	if (adf_devmgr_get_dev_by_id(id))
+-		return 0;
+-
+-	return -ENODEV;
+-}
+-
+-static int adf_get_num_dettached_vfs(void)
+-{
+-	struct list_head *itr;
+-	int vfs = 0;
+-
+-	mutex_lock(&table_lock);
+-	list_for_each(itr, &vfs_table) {
+-		struct vf_id_map *ptr =
+-			list_entry(itr, struct vf_id_map, list);
+-		if (ptr->bdf != ~0 && !ptr->attached)
+-			vfs++;
+-	}
+-	mutex_unlock(&table_lock);
+-	return vfs;
+-}
+-
+-void adf_devmgr_get_num_dev(u32 *num)
+-{
+-	*num = num_devices - adf_get_num_dettached_vfs();
+-}
+-
+ /**
+  * adf_dev_in_use() - Check whether accel_dev is currently in use
+  * @accel_dev: Pointer to acceleration device.
 -- 
 2.53.0
 
