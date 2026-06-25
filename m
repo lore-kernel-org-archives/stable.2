@@ -1,51 +1,38 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9767212564;
-	Thu, 25 Jun 2026 07:18:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F11378D89
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 07:32:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782371906; cv=none; b=F3zUQqvSIrdkmK8T8+RO38al2zGCDmcYdgLflWCHyJ9waXub2/Hkvewl8qlrUDZxr+OBZEJJp36P3FUJnTawl3q4NWX04Dtxiyf6dTLd3xA1Ee702SgXzQQci0RixRfSMfqbV1j6jZ0HD23szsHsgks9Q98EOjVX+94cnZG4CSA=
+	t=1782372740; cv=none; b=CS7JU3N1ytzA1siRlnbzhTHPBez7dakD8nndEdghqwAAHkJBVmZR40wAAdNQumJOjxXQr2IKBISE0Tyz92w6eV7PD+R2pe3SuLaLy+YpnjsgP4yd8/nzjIyQDcpp4E49/w4rHSq143tJNoUa/4eYLyNmMClG3UUZE3taOO3zQzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782371906; c=relaxed/simple;
-	bh=sJ+CCPF0CYyGnCSQxtoQ9+ZKYBlQ0GV4hzUB+BKi3bI=;
+	s=arc-20240116; t=1782372740; c=relaxed/simple;
+	bh=zevK5vF09d6T9kn9KhDm+RWkCiWy3KpFERzApn0czK0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dQLfjMJ3MiF5KLRQd/BZ3DIZhWlc3m6OoYtiRKJpV77hxIlHLLgpQrkd3oFSHn1rmsbaIVYkX0M1/PQ4GryBDJ5vFys3s4Cauxi4GaloQSSn5TT0dkSKDxX9XxQd/ZbWUmlUtakPH/KKCq0yDfJHjb8NTjxR3d4maZSON8cxC0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2961520066B;
-	Thu, 25 Jun 2026 09:18:23 +0200 (CEST)
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wceLv-004YMz-0G;
-	Thu, 25 Jun 2026 09:18:23 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wceLu-0000000DGBy-42LG;
-	Thu, 25 Jun 2026 09:18:22 +0200
-Date: Thu, 25 Jun 2026 09:18:22 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Vincent Jardin <vjardin@free.fr>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Andi Shyti <andi.shyti@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Wolfram Sang <wsa@kernel.org>,
-	Kaushal Butala <kaushalkernelmailinglist@gmail.com>,
-	Shawn Guo <shawn.guo@freescale.com>,
-	Stefan Eichenberger <stefan.eichenberger@toradex.com>,
-	linux-i2c@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] i2c: imx: fix SMBus block-read of 0 locking the
- bus
-Message-ID: <ajzWPi3L8MjyrKfo@pengutronix.de>
-References: <20260525-for-upstream-i2c-lx2160-fix-v1-v1-0-f30ab53dd97c@free.fr>
- <20260525-for-upstream-i2c-lx2160-fix-v1-v2-0-26a3cc8cd055@free.fr>
+	 Content-Type:Content-Disposition:In-Reply-To; b=N5VR/Qtajhtl8DzSb0d8CrWVl1j3Oe5RqZEUHako0p+Ml3GfF8wsouMLju8icwUcDat6DdS93Q2LnO3zV1UP5TzlPjYIDclvmBz8IXfHOprl1J16QrI2MgZsCQV2PKMa2/YDTwDQ8GX39+NgBq1eiNs8aq37eRRkxszFUHBensY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Qw9xP0OM; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qw9xP0OM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A4061F000E9;
+	Thu, 25 Jun 2026 07:32:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1782372739;
+	bh=1tI5DV4QPJAYhk1GZLq5dEDXXnyejB+8Z3wWKxu2iKg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Qw9xP0OMU2Nk3/poNDhfRXCKoVkrLWZ+L1ttpZR8WR1WF6zo/nCb9jq1++108mnX4
+	 ef+OHJXG//V4JfpC1zBGTnn76typTPjKq6Of2LO1y5v3P+49vXCZtH7BgbN3F6vxPe
+	 CBC/a8tZbs5CrOLCsm/0DGYreylotf//bqRgMKH0=
+Date: Thu, 25 Jun 2026 08:31:06 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Faicker Mo <faicker.mo@gmail.com>
+Cc: stable@vger.kernel.org
+Subject: Re: need the upstream commit to be merged to stable kernel
+Message-ID: <2026062536-pleat-unpiloted-9a6c@gregkh>
+References: <CAG9krM_RbUhPgkcP6DFJM=jgDxMCNu8032=pM5OS2Agcxm-UKQ@mail.gmail.com>
+ <2026062331-bruising-wimp-74a7@gregkh>
+ <2026062320-backtrack-unusable-96e1@gregkh>
+ <CAG9krM9398KH27SngNaujagzMz6DYfcSBFYzFaxj8aZMRh7_iQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,33 +41,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260525-for-upstream-i2c-lx2160-fix-v1-v2-0-26a3cc8cd055@free.fr>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAG9krM9398KH27SngNaujagzMz6DYfcSBFYzFaxj8aZMRh7_iQ@mail.gmail.com>
 
-On Mon, May 25, 2026 at 06:43:14PM +0200, Vincent Jardin wrote:
-> i2c-imx rejects a SMBus Block Read byte count of 0 (valid per SMBus 3.1
-> 6.5.7) and it returns without a NACK+STOP, leaving the target
-> holding SDA so the bus is stuck until a power cycle occur.
-> 
-> The same bug is occuring with two independently introduced spots, so the
-> fix is two patches with their respective Fixes: tags and backport ranges:
-> 
->   1/2  atomic/polling path       Fixes: 8e8782c71595   v3.16+
->   2/2  IRQ-driven state machine  Fixes: 5f5c2d4579ca   v6.13+
-> 
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+On Thu, Jun 25, 2026 at 11:42:31AM +0800, Faicker Mo wrote:
+> On Tue, Jun 23, 2026 at 3:06 PM Greg KH <gregkh@linuxfoundation.org> wrote:
+> >
+> > On Tue, Jun 23, 2026 at 09:03:42AM +0200, Greg KH wrote:
+> > > On Tue, Jun 23, 2026 at 02:35:18PM +0800, Faicker Mo wrote:
+> > > > Subject: net: net_failover: Fix the deadlock in slave register
+> > > > Commit: b84c563
+> > > > Reason: wish the upstream commit to be merged to 7.0, because Ubuntu
+> > > > 26.04 (LTS) uses this kernel. Thanks.
+> > > >
+> > >
+> > > Sure, but note that 7.0.y will go end-of-life in a matter of days :)
+> > >
+> > > Also applied to 6.18.y which will not go end-of-life.
+> >
+> > Nope, breaks the build :(
+> Hi, I tested it with make defconfig(CONFIG_NET_FAILOVER=y), make
+> vmlinux, no errors.
+> Both 7.0.y and 6.18.y branches were tested.
 
-Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Here's what I get:
 
-Thank you!
+$ make -j100
+  DESCEND objtool
+  CALL    scripts/checksyscalls.sh
+  INSTALL libsubcmd_headers
+  CC [M]  net/core/failover.o
+  CC [M]  drivers/net/net_failover.o
+  MODPOST Module.symvers
+ERROR: modpost: "netif_open" [drivers/net/net_failover.ko] undefined!
+make[2]: *** [scripts/Makefile.modpost:147: Module.symvers] Error 1
+make[1]: *** [/home/gregkh/linux/stable/linux-7.0.y/Makefile:2061: modpost] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
-Best Regards,
-Oleksij
-- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
