@@ -1,117 +1,98 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA2030E84F
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 23:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9095630EF63
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 23:46:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782429369; cv=none; b=V5BwY3e76qf5UiDqZcmojNr8cMcL5t8F2CzYtjdtBRZKnJMr+Nfmr59lv30obae+JT184JqIZaGlDdof/zp+rgL1tk/kl6xNWUjdw49eV479fyf8NzlvbXXxuaJJb/TC5L+wwBe4E1/ePb5hr6B5AuEULeOY4ER1mFu0ewXxf3A=
+	t=1782431167; cv=none; b=iZ4f472iriL2bEuhydPJu6dxpSi4C9pfvBCfoYWyOF2EDSpUHDwXmOtevPo+7qDKLDYJO7V09E3dnrCZYgCZEK+qnkERFBUNygqs2dBDynNs0oWmSDjnJbIGsmTrqlf7Ar6t5/eJq0h9TjQ9aKmLzo0AicnIzrNsoY9vdD4V7do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782429369; c=relaxed/simple;
-	bh=BV5zcaQ8Y5o9Fb6RBkQ1aF90+h1OMXrJ5U+lcv+2SmY=;
+	s=arc-20240116; t=1782431167; c=relaxed/simple;
+	bh=jnIzd9eXyM0lY5nLSKWOGJM4W2fxtczCL/IrCKu34m8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gRUTH3lgHAbqHhuGkAgZRZe3uuMZIpVGs/EE3VhDjmVqUtPTe3emohBQQVIX7MexK1vqD0vz6zQA+P32G5QasFzOiyvHI7wbTdjNu+8Da/vMXZkEvD2hkjU8IkeHWQOJlGzgYJ3T86RHpX9wWyfy8Qf2RlAeWFxbizWEHoLjGiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NDV1Pt3e; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:MIME-Version; b=uwEICp3GYMnlo0CBIv77WC63jyTxiZr+uk6MM9UlnKXS++lN0cnMsxDKfLYdE/beqIa1HQiFpaB2AT5zBnQWImz0MNucxfrzv2D3GpD+Z2oyIGGkND3Td0DP0UoyRXQY9bQtpZ5UL96HERzO0+gloKYGOfcYV9ya3KtZpxt4FFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QKbuiSZo; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NDV1Pt3e"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782429367;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yrCphSM3KhpC5g69iDlAmJJN2Kzxjdu/a38nP3+JCPU=;
-	b=NDV1Pt3eyLhQQePmQHrRgI/Ay+XndhHHR9cDR13+Pu00eG8rYr+083iml0W3gpqX3oo9eD
-	9QZIfTM9H9c/ZWLoA+PrA7Sx5vC+ID5vy9ZhPjX+mOU5NK3cxuJXOPZvsmZu1XOG9/Xd0+
-	LWtGJpMZDEnhxVglcW64AESwl4lzciY=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-711-Fb5Al1OVPRu4zvq2iSnKww-1; Thu,
- 25 Jun 2026 19:16:01 -0400
-X-MC-Unique: Fb5Al1OVPRu4zvq2iSnKww-1
-X-Mimecast-MFC-AGG-ID: Fb5Al1OVPRu4zvq2iSnKww_1782429358
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B40AC1955D99;
-	Thu, 25 Jun 2026 23:15:58 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.64.18])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 81B3630A8;
-	Thu, 25 Jun 2026 23:15:56 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Dave Airlie <airlied@redhat.com>,
-	Kees Cook <kees@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Timur Tabi <ttabi@nvidia.com>,
-	Ben Skeggs <bskeggs@nvidia.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Mel Henning <mhenning@darkrefraction.com>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
-	"Simona Vetter" <simona@ffwll.ch>,
-	"David Airlie" <airlied@gmail.com>,
-	"Thomas Zimmermann" <tzimmermann@suse.de>,
-	"Maxime Ripard" <mripard@kernel.org>,
-	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH 2/2] drm/nouveau/gsp/r570: Never enter Gcoff state
-Date: Thu, 25 Jun 2026 19:10:55 -0400
-Message-ID: <20260625231252.89684-3-lyude@redhat.com>
-In-Reply-To: <20260625231252.89684-1-lyude@redhat.com>
-References: <20260625231252.89684-1-lyude@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QKbuiSZo"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-490b9318997so2918145e9.2
+        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 16:46:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782431165; x=1783035965; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jnIzd9eXyM0lY5nLSKWOGJM4W2fxtczCL/IrCKu34m8=;
+        b=QKbuiSZosEQxQUhbQggRt8UItfhFDmC0tLrLcEL51qtr5EgnZSEtpeEZFqUyzXMXvT
+         2d1LKTAq7z9sEbhQrJuBb9uHvJrvksZkeMoKZwZz8Bi9OI5N2aQJLxduu5Nzkn8UpYko
+         hSlOhNYr30cD/m+G15lesKfFbbVcZxcIpw73hz3iLW77WmdbLSeFEfhAJXL7LAQiLM+M
+         1nY1u8m9xhRVrT4Pds7Q/QI2i4O2BURUIzRQJP/F0L15PzDzXH5k3wrVZBd7ko3XTxdT
+         dONZhhAM1Ww2vQF+rshUSJrSi7h+J3DWghGlYVBQxdgidDogObn9VUDy/ZRg9WaCjP6b
+         me1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782431165; x=1783035965;
+        h=mime-version:content-transfer-encoding:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=jnIzd9eXyM0lY5nLSKWOGJM4W2fxtczCL/IrCKu34m8=;
+        b=qf0hAaSA02JChgb4LtoMemJwF1jfudn78bzz3fmgNVXqmCvWe9G1AECGbtbpo1lRtN
+         +xrG87EdCqgWCUWk06HQ82pBWV+TlA4TP6EkS900zGZqqwDS8gjvN5Xq7NJvEEEzdCOU
+         GE84n5G6oPqEGo0yW5UJ0nYRkMZ8x78RSDEq3fD6Lcj4ckyooo4TbNYjBLeqCxHksA7U
+         NzpRpMhNOL2qisYa3z2wTr+EUJ4KK3/A3RKEcsNc+Iue3A9ty/Xfl7FX+u8tgXmK2CtB
+         bpjgyAtcnSB69Wl7AZAiw+IWrCLh39qOOctsasboOW9sIW5TnVoxZgf07dSP/WQd1fnf
+         qHhQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+rSgOFlGdQIYBF9RubsHO23Y+xomWyqxUHFEzsanaPRttNYyn824Bi3NC+pvn4R1sHlv8NWqU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyRyhK44aNF6uCFCvAD3abGMWNIQzUK7MzQgUiCjLVXk+jb8vtu
+	km30ZzAKQC6BABJcXlJ26tFeshVWs68M91j9hAzXi9aRcweosyHQjVM=
+X-Gm-Gg: AfdE7ckfv+8fkdzZb5SkndOjooKRzX4w0bMkxSCt/cxJCnl9cTbtzqJV5nkSYTE4awc
+	OZFeWHb7/cUrloAk8sGDVu3nlROPQ6Hf0lhnM2FHlCcH18vptTchvC1lRCRewpoQ92igX/8WEyN
+	Y+m5a7yTdUGh9AxZkK8ToWKiN+mrhp2sCJKAaM7mWTVZL/DEL7HmRwjeRmGOD9onPLWOe/U1C2N
+	ypKw+VK5tFAXfVa/wNux+ijxUBTQ2e7ObdRtkwUhpXCc5i0q2oPqj1IAZnv/7u5th5o7smQzdQq
+	lcE1LwGJ/4yqNkGPWBsnMcxEsAuJWWILsMO3e+HCrcrjPHTnuCFyoi7ivg+q+gQtnj5c/3PC/e8
+	nY75TtH738We6ZJNUh9UspopjPSWHWFFR+4l3NY5XdTFSLd4sscl1yc4=
+X-Received: by 2002:a05:600d:6452:10b0:492:1e36:85dc with SMTP id 5b1f17b1804b1-4926689ac37mr53156515e9.36.1782431164934;
+        Thu, 25 Jun 2026 16:46:04 -0700 (PDT)
+Received: from debian ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c22c680fasm20285246f8f.34.2026.06.25.16.46.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 25 Jun 2026 16:46:04 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Christian Lamparter <chunkeey@gmail.com>
+Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Jeff Johnson <jeff.johnson@oss.qualcomm.com>, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ tristan@talencesecurity.com
+Subject: Re: [PATCH] wifi: carl9170: clamp command response copy to the read
+ buffer size
+Date: Thu, 25 Jun 2026 23:46:03 -0000
+Message-ID: <178243116343.3635355.16109712055530784127@gmail.com>
+In-Reply-To:
+ CAPdMp1oWXvtdvp8D0f32vpvzGa0H9PhprQcACqqoc4Gnyy=f6A@mail.gmail.com
+References: CAPdMp1oWXvtdvp8D0f32vpvzGa0H9PhprQcACqqoc4Gnyy=f6A@mail.gmail.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-It turns out that the only reason our previous fixes looked like they
-worked for this was because we would occasionally set the Gcoff state to 0
-in the normal S3 path, which fixed suspend/resume on desktops - but not on
-machines using runtime suspend.
+Hi Christian, Doruk,
 
-The proper fix is to just never set this flag. Our current guess for the
-reasoning behind this is that Gcoff likely coincides with GC6, and not
-literally power off.
+No worries at all, these things happen. Both patches address the same
+underlying issue from different angles -- mine returns early after
+carl9170_restart() to skip the invalid response entirely, Doruk's
+clamps the memcpy to ar->readlen.
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Fixes: 8302d0afeaec ("nouveau/gsp: fix suspend/resume regression on r570 firmware")
-Cc: <stable@vger.kernel.org>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Timur Tabi <ttabi@nvidia.com>
-Cc: Ben Skeggs <bskeggs@nvidia.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Mel Henning <mhenning@darkrefraction.com>
-Cc: <stable@vger.kernel.org> # v6.19+
----
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Either approach works. If it helps, I'm happy to respin my 3-patch
+series (the other two patches fix the TX status off-by-two and
+rx_stream failover overflow in the same driver).
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-index 2945d5b4e5707..af5aa5065c3dd 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-@@ -81,7 +81,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size)
- 	ctrl->hClient = gsp->internal.client.object.handle;
- 	ctrl->hSysMem = memlist.handle;
- 	ctrl->sysmemAddrOfSuspendResumeData = gsp->sr.meta.addr;
--	ctrl->bEnteringGcoffState = 1;
-+	ctrl->bEnteringGcoffState = 0;
- 
- 	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
- 	if (ret)
--- 
-2.54.0
+Let me know if you'd prefer a fresh resend or if you'd rather pick
+from what's already on the list.
 
+Thanks,
+Tristan
