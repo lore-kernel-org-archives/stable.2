@@ -1,189 +1,110 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD0D374E57
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 23:53:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C9D930C15C
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 23:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782431624; cv=none; b=TjloiCbOob0Sr8AxadtvSNfseaoS4zuOx0OQxcvs8Vbi8ab44mOMTMY4c4Z7ljF7exnOEVG7QYtPq22tkUWh8eXJ4xwYYTDw2gnjzYnD9oHvbaWyX6uvcBMqFG5YYmb52QZAgnlpi/OdLXIIdeAzHJZyuy1+z30eI31XBnkfr3c=
+	t=1782431764; cv=none; b=O6EYYxs0MMycdr+LtfCJ0ptotX+uov9TRHSGGzugMmcHzFy946z8jYVHvup0goG/q3VRM+cUKrnEr8ywqFl5YMZYY5GvECAPVnfDOga4DDGlbiW2fqd2PdQnwMNeTZTj346+xwhUJQAiu/OFxB15mxNenH1sRZ1QZR9O4SFY6Dk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782431624; c=relaxed/simple;
-	bh=SZxuankCvUX6ApChHtho3Rt2t5QOrvDbrJtuqI4WIho=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=driIl8mehpGKgMhjge/n6ItxcGcBgD2/31KlvDWw9BlRHeUStQtALLAGM85fIWvGdONFzB2LECno1tokh5hAjveRhzf7JaNKIC0P85Ny8BunMgliF6Ttke9r5+6osGabFv2oQ5myfow2h3jKUwSTX0ae7WmUpiyqLaMtBzT8Unc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k3CmUnRq; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782431764; c=relaxed/simple;
+	bh=v4qQOSfEsJBEAiTB8bNtCsmlBCLgcXgtDRs+K1rY+Gk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f9AK6rvFMDbvKnbz1u0nXDEx24LLMHa1v0YsBE9S7gryc8+bLX2K/UGNYLFtvBiEmErWS7ycrw+cowVsAOx0NrgqLSF/ACA1IVLQrracYS318Jk1mV9w3CW+ANP8cWJjy3+Jx2FcvX7h+KGxCOJGSvDdL+8C+lcnT4+KfOald4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ipdt+DsK; arc=none smtp.client-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k3CmUnRq"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4923139e940so2345425e9.3
-        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 16:53:41 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ipdt+DsK"
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-7e94c26f9e0so182160a34.1
+        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 16:56:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782431620; x=1783036420; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=HCBP2ycGuS7vhe9+Yccf8aICwkrlxSyd4hD3m1eGqSo=;
-        b=k3CmUnRq5EPbTlePoForv5ISjmqe4GFdHdu7LiVNvnPe2GiMtclqQZc+guqUOH1/HY
-         llpefpu8NXidsPrY+8Xu8mp0KmIL5ykNozJlrz+iE6H9Jox+fODR1PuvMgDzX5+whUvG
-         me4uDtz9PUYpVwbBqoUVq3FMDhOq1B7HPy32lqxZwa4q+SD2ZB1qz+dlXk4a/ukvjJp1
-         xiTWqzbCF+cLqBck6v/1OQF/80x4ml7iGNhSRyDqJ6do1goAUsTi9glW3auaQZqXGfVL
-         SATwjloPt37S30amez+luikjiOjzMov9rftS7EE3yj0VGJbh6P5v/vu86ojDwEzzU3zP
-         CJ4w==
+        d=linuxfoundation.org; s=google; t=1782431761; x=1783036561; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=se3VN4EIvD6SLhtE53lIkfV7dyEZn4T4JlYolPRuK7Q=;
+        b=Ipdt+DsKQlwznU3M6GlTRoIu0wIPX27zTqclUQgyeQKfO/th9Ugaea4PfM0iW0uuJF
+         MLhUdLHL/aqS3FsaaM/ESAYvW0dSygU3NKaMFYxHVhgbGtxPN8TQm+tGjN/5g8xn5FeR
+         z7qW6moXlGx3sQus5TbafS1yJ3v7/lDOnkxPE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782431620; x=1783036420;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HCBP2ycGuS7vhe9+Yccf8aICwkrlxSyd4hD3m1eGqSo=;
-        b=j2+2WSsaiX01dZtKd3k290kjKiMLPMIrOgOfBWQGTP5mhUGKt+Hizx8hPRRRiGpsjb
-         5T1KR9XLbnKsJ9SIhC1Nyqkt1t04JJSJAum9LJE1n3/fsK0VGDItRb46hYyRI0n2/sW3
-         au5Zy/9DfMoJHaHKagvV480nkWH4Di5biha6Ppa/NvHo7flYpC7u/mM3so8gHk/9F15m
-         QFqRVCWUwST4nIiiC2QSbDlNNSLQ4LaPYKjoJe7Jpg/MbsyMzF/8yOw3BMUPYLWE8k+e
-         qFIRm+hyB0cYz+DVcEfUfS+zA33hqnfzHE3di1lsvztLgFXTlqPqhhsOTUcoSoSHm2TB
-         zgDg==
-X-Forwarded-Encrypted: i=1; AFNElJ+DmkAf6666uncz5OBjrfqDLh0bjNShSADCdpQwDlerLZ8spp5puHZFpyXWvX82IjFv6uqgjHM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCMpIw/ZGw/4QZg9CZzW9UMAiIe9drpnV7sdf6ibKWECRAI/Rh
-	EHSuc1e2Hh/9Vshzdk9VRhsFZqW3mjsCpWmeVvIR8srLjbq3iBs89zM=
-X-Gm-Gg: AfdE7ckly0h5F+5jJouO2gLIlE/PjkSTMJNcMAKrRLCOrUpiLPgXsyBvisWfYoZE9gp
-	fwLMsKxdrB8klAp/H7aF5wqCBTQBR2CCNce2CAW5ieK30WiOvkMiiS5iQxe5S0FWa9Hsmxv0Jra
-	GiU9vuT8cQpRutn2ZqcpfpLwJZGrlW3ltI3/z/L8+rwrg6mbOM6x4w092dBqYo7O50KNMYLAbvC
-	xeot7WNOyYdDew5JetoVt5G1weIcWkokIi8AhUDfpcmwGOFsKfuSzGUmQzzWTr+TU29roeO4JrC
-	An6sRTegsr+kWslVJDeS/IcQF3VgXwRw9ta5Hr8Zm8aj46fKtZW03O0evMGYT6O7pgD2PohDRvv
-	FoZkNRJTErbMkcpws7nJgvmGZ1jMcMsyfUWz6SQLEKBdZy6xjEXIO3kiKaA==
-X-Received: by 2002:a05:600c:c04b:10b0:492:418b:b5e1 with SMTP id 5b1f17b1804b1-492668b02damr50677105e9.37.1782431620004;
-        Thu, 25 Jun 2026 16:53:40 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c2279bc77sm18979840f8f.32.2026.06.25.16.53.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 16:53:38 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Paul Moore <paul@paul-moore.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>
-Cc: Ondrej Mosnacek <omosnace@redhat.com>,
-	Richard Haines <richard_c_haines@btinternet.com>,
-	selinux@vger.kernel.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tristan@talencesecurity.com
-Subject: [PATCH v3] selinux: avoid sk_socket dereference in selinux_sctp_bind_connect()
-Date: Thu, 25 Jun 2026 23:53:36 +0000
-Message-ID: <20260625235336.3641828-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20251104; t=1782431761; x=1783036561;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=se3VN4EIvD6SLhtE53lIkfV7dyEZn4T4JlYolPRuK7Q=;
+        b=ibm4pz4sCInohImGVOZM1NCMuIXgAsNPWgj6Mm1gzCjjDDLHnPLhwyumwgGSxfh9WQ
+         GSvw5sfEg3D+/FrHjATPQ2jIvrh6usKY9hanZliM2y144c2HxfUEVBpZGImNHHyW7Ugc
+         xwwYVOx/wFG4ohndge2N0TdWUXurvTSsawsYP+tykzibWChrvaZZ+/twm5GER6JgCSdy
+         D5kV6EIKkU8zYm+ha/NOGytPSNo3NpT/RkzgsNWf2VXY3b3u8M2yKJU3wqJWTHncy5L8
+         RQ6fNi0fqy6e+qShb2WMjcAAmVKB7QtntIT7w5de6QsUi1w7t9/fIhTOJ7s4w2VgNHsY
+         Z82w==
+X-Forwarded-Encrypted: i=1; AFNElJ+o1Dv3ZiQ0tkTZYKfqCTopf/6ywDz9SWPP1epHIUxrUQDIS9/DwzEWe9gYg4aMhDzc3El8tLk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWq1GX2brmO8Qn1yVQ1haMteuXORF+gVpyU9p1OKAHZ3aNoYRE
+	Tj8xCDyjJRo/M26uoi0CSgzJifthgtTUDCrMNxvSYiqo1ogwgJRuMIUq8oCI4lkQVWw=
+X-Gm-Gg: AfdE7clOI32wEQCxaMI6gW4Pfesg1ZxY+TJEf5XoXy+u86j6U3yvLtGAsjaTxx2ZBKt
+	kAi0s3mMpAWPHLm1WQJRi442TvZXSJKJmlvaagUXgOeq1UnC+m58S9mx0/nM40R989TYyrcKomi
+	vOdoHjyqXFfaQVCSzMmlQRemsUBrIHjtVvwInNvcDvEGIU+A2bJxCZXkItB4SkKkstogLt28Kfb
+	7xJRfZyaqpmTShkIDTfYZOZpUKlrr+t4XePii9CFhaKd4leAawbN7vFDqxtK3IR96nWRDb4CP/E
+	z/fORfZIcOPRI5Eop+VDfQcBXLylLAGsFBOPA2hy9njiDPPE9uoUBxQ+rbkI7HGDINvv3ezM2Ex
+	wE1cGk/Vp1wWMDEx//zr9qt3JTD8PGk/1lel95hA24tS7udLaeMoBbX1Y1J7E01KZD3ISHMPv1+
+	7LhMklA4LfH5j0UaLfDyguRdT2vWOeoSU=
+X-Received: by 2002:a05:6830:6383:b0:7dc:c4ae:a689 with SMTP id 46e09a7af769-7e99bf37bf5mr4066834a34.2.1782431760999;
+        Thu, 25 Jun 2026 16:56:00 -0700 (PDT)
+Received: from [192.168.1.14] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9aa7bfd54sm378845a34.21.2026.06.25.16.55.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 25 Jun 2026 16:56:00 -0700 (PDT)
+Message-ID: <0d5a418d-4ee4-45a3-9ef2-79fe77afec2c@linuxfoundation.org>
+Date: Thu, 25 Jun 2026 17:55:58 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 00/21] 7.1.2-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260625125613.243729608@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260625125613.243729608@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+On 6/25/26 07:03, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.2 release.
+> There are 21 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sat, 27 Jun 2026 12:54:50 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.2-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-selinux_sctp_bind_connect() dereferences sk->sk_socket to pass a
-struct socket * to selinux_socket_bind() and
-selinux_socket_connect_helper().  However, when the hook is invoked
-from the ASCONF softirq path (sctp_process_asconf), there is no file
-reference guaranteeing that sk->sk_socket is non-NULL.  The setsockopt
-callers (bindx, connectx, set_primary, sendmsg connect) hold a file
-reference and are not affected.
+Compiled and booted on my test system. No dmesg regressions.
 
-Both selinux_socket_bind() and selinux_socket_connect_helper()
-immediately resolve sock->sk, never using the struct socket * for
-anything else.  Refactor the inner logic into helpers that take a
-struct sock * directly so that selinux_sctp_bind_connect() never needs
-to touch sk->sk_socket at all.
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-Suggested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Fixes: d452930fd3b9 ("selinux: Add SCTP support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
-Changes in v3:
-  - Keep comment describing IPv4/IPv6 address processing loop
-    (Stephen Smalley).
-
-Changes in v2:
-  - Refactor selinux_socket_bind() and selinux_socket_connect_helper()
-    into sk-based inner helpers instead of adding a NULL check on
-    sk->sk_socket (Stephen Smalley).
-
- security/selinux/hooks.c | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
-
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index fc926d3..1f202f6 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -4689,9 +4689,8 @@ static int selinux_socket_socketpair(struct socket *socka,
-    Need to determine whether we should perform a name_bind
-    permission check between the socket and the port number. */
- 
--static int selinux_socket_bind(struct socket *sock, struct sockaddr *address, int addrlen)
-+static int __selinux_socket_bind(struct sock *sk, struct sockaddr *address, int addrlen)
- {
--	struct sock *sk = sock->sk;
- 	struct sk_security_struct *sksec = selinux_sock(sk);
- 	u16 family;
- 	int err;
-@@ -4825,13 +4824,17 @@ err_af:
- 	return -EAFNOSUPPORT;
- }
- 
-+static int selinux_socket_bind(struct socket *sock, struct sockaddr *address, int addrlen)
-+{
-+	return __selinux_socket_bind(sock->sk, address, addrlen);
-+}
-+
- /* This supports connect(2) and SCTP connect services such as sctp_connectx(3)
-  * and sctp_sendmsg(3) as described in Documentation/security/SCTP.rst
-  */
--static int selinux_socket_connect_helper(struct socket *sock,
-+static int selinux_socket_connect_helper(struct sock *sk,
- 					 struct sockaddr *address, int addrlen)
- {
--	struct sock *sk = sock->sk;
- 	struct sk_security_struct *sksec = selinux_sock(sk);
- 	int err;
- 
-@@ -4924,7 +4927,7 @@ static int selinux_socket_connect(struct socket *sock,
- 	int err;
- 	struct sock *sk = sock->sk;
- 
--	err = selinux_socket_connect_helper(sock, address, addrlen);
-+	err = selinux_socket_connect_helper(sk, address, addrlen);
- 	if (err)
- 		return err;
- 
-@@ -5409,13 +5412,11 @@ static int selinux_sctp_bind_connect(struct sock *sk, int optname,
- 	int len, err = 0, walk_size = 0;
- 	void *addr_buf;
- 	struct sockaddr *addr;
--	struct socket *sock;
- 
- 	if (!selinux_policycap_extsockclass())
- 		return 0;
- 
- 	/* Process one or more addresses that may be IPv4 or IPv6 */
--	sock = sk->sk_socket;
- 	addr_buf = address;
- 
- 	while (walk_size < addrlen) {
-@@ -5444,14 +5445,14 @@ static int selinux_sctp_bind_connect(struct sock *sk, int optname,
- 		case SCTP_PRIMARY_ADDR:
- 		case SCTP_SET_PEER_PRIMARY_ADDR:
- 		case SCTP_SOCKOPT_BINDX_ADD:
--			err = selinux_socket_bind(sock, addr, len);
-+			err = __selinux_socket_bind(sk, addr, len);
- 			break;
- 		/* Connect checks */
- 		case SCTP_SOCKOPT_CONNECTX:
- 		case SCTP_PARAM_SET_PRIMARY:
- 		case SCTP_PARAM_ADD_IP:
- 		case SCTP_SENDMSG_CONNECT:
--			err = selinux_socket_connect_helper(sock, addr, len);
-+			err = selinux_socket_connect_helper(sk, addr, len);
- 			if (err)
- 				return err;
- 
--- 
-2.47.3
-
+thanks,
+-- Shuah
