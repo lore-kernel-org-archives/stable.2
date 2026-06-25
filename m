@@ -1,74 +1,39 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E566C2F8EBC
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 17:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32499245019;
+	Thu, 25 Jun 2026 17:55:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782408658; cv=none; b=j6I5Mm2P69dpuVivhvgbEzfBK9/KW5ukE4D+KZoNTvQius24SyRKYbkztqNVjzcOzQFTYSsCiT7eBTfXaMyv962wuEHZUNokRLXyu+0kykmYmVo4Z1jeYhuc+nsc27Uph8mViXoFneKvX2j4WuhKI8WFTuKC8dpJorU25nn67Ig=
+	t=1782410121; cv=none; b=P518DxQ+XQSPVMyvfpNsdIDxU4PzpO1cSisCHT6e1bRryt1C1v9+Als6J/m+NMF3KNMh5ukc4fQimS1vN1ao+x2+9905QTzWoYeLdbMOfESqi0M7Fts6g6CRpt3XPW+wgaAilA8p51796h0cry4hOC81xro1XxF70Lv5XYB8I8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782408658; c=relaxed/simple;
-	bh=wVpHIkn3RE3gC/nfpVm3k2hccIIjRg0U8XV2yLjOTIs=;
+	s=arc-20240116; t=1782410121; c=relaxed/simple;
+	bh=ky7vFA+kLp2WwoCZ0QlyEYPS3dBWjmzFfa5dHx09NgY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZO07mojDKa8zXwIQzny0EDldfIEdTjGkIcMGt8Caaj2bETI/Fyq2ac/3DYS7pP/c+R4zV/0eFOLd8xMUXfYU83K7zHxzGVApAxNM7brNycM2ZD9FgACZhpWtUfx76gjuhnCdvAP9HsI2dDtMzL6LCBIbm+GeO4VpZJAI+QhhYZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org; spf=pass smtp.mailfrom=linuxtx.org; dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b=hDK8bw0h; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=fZ3CLcsnOoOFus3P6cTGkIUqlbRyQsZiDYyvj4pxtPLMgv5pZDDZsH9DDIwSh/N7DBymkqhrmBiPPbtLCHmBwFMZs6cZgYeP5KUdm+FfXNy0qnJiWs4fR7RV5jQJU4D1zeLAJtS/4VE+au0LgbuskpHKVzoIi5BSlHmO2OEkkco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WlLObI/e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b="hDK8bw0h"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2c80d215169so1674865ad.3
-        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 10:30:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxtx.org; s=google; t=1782408656; x=1783013456; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+Ns9Na0/3PBHaGaylTzimtteynQsaE2Wv7+sI3PG6dw=;
-        b=hDK8bw0hh4t69qZU2QfTUgGmXmA8Jvd6xVmAEvOB0xBo29O8MCvx2zTEQzvYSCl6x5
-         ia8juwfK98DGGgfFcU5EMyUMJCJMJ4eu3id1u3Up7hFy6vV7wx93K/rnKvuNGFPbbwR8
-         xY1491OoBHvtS8T5prnJNySobHevK4mwJJrsc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782408656; x=1783013456;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=+Ns9Na0/3PBHaGaylTzimtteynQsaE2Wv7+sI3PG6dw=;
-        b=l6OTaXKj+niOcGcQqWVNVBkR5L53z27x+bOPMlpPjajRGMBTad/gZdz69lW8MGdirP
-         +WticWyvAARJuUAdpj/fdzCHvi8G1AwIvnLHeCNSCpfV7uOekMsgisEap7zaHQN3QsGp
-         xWGxppGFIcKnH1gfOOGfx5Bh1Ja5A9Q8svC8q8mAyUmx5KNVK0KQCw8O12Np6Rb2Q6Xm
-         AOaxB91uU13V11ZCCgVGvlFnFrArTBrwh091bMc4H7ejhZGR+g96fqkC5JdatiTSdl9G
-         nyNUwLwJU0amFCHzZt/JbYP8ydl9DkE50cwInalxO84/ALhO5epKFfhPSMkqSufOgr6v
-         wRQQ==
-X-Gm-Message-State: AOJu0Yy088vEyr1PCQSauSyegpi2Byoj0B+3jQpIb9lo07KuUiAc+sL+
-	e08nxVQ67nRBQfB6HeZrSmOR0wi5c9iZCVcevvoEI4R0UcgYdptpW6VPiYlaoPB+pw==
-X-Gm-Gg: AfdE7clPR9ymHjJErR3KcEKKqnOKR7wje72IM2m7ebOJ1GkjN+0xKA3zW+Yz61Jll8n
-	JHBsxBYA+qTTmBs1P4kOvyF0thNT03Y+RpVK8qO0hB6PHMXu7zFlw7lxPCuTpRBS+R4L0At9vDm
-	O19LozY2eP/OtptxgU6YSpkckjc9iQ1OedqOB8sP7oDIZav1fKW0sH/Dz2NHyWGHKRX+sa99B8I
-	9qxmj5ofdoXyxlvWxby7DiLxEgVRri9RNHNsdnogd90Z5S+Chh7wJ1j89n67j7MObwByBtmUSHo
-	YRpurB2YglUlmB+6YgYblophgZ5Zrch7p5HLqWthbapaDgT+8D/4uOA4iwCl3Bj8Z5QkxtllSxy
-	xuQLXjb6Lip3C2Dl7tpdlRGKcB7MwL31U4i5MWss+fuE2j5VGubYRI8dyuEq4mqU/1FudK1I6yt
-	Lrbr+tlfcRTXldnCAmMlJ3WpBX6XbIuURwU3HLkmgs
-X-Received: by 2002:a17:902:f650:b0:2c0:db23:4c1 with SMTP id d9443c01a7336-2c7fc63261bmr39873245ad.5.1782408656107;
-        Thu, 25 Jun 2026 10:30:56 -0700 (PDT)
-Received: from fedora64.linuxtx.org ([98.97.107.16])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7f5ac8e3csm24377875ad.10.2026.06.25.10.30.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 10:30:55 -0700 (PDT)
-Sender: Justin Forbes <jmforbes@linuxtx.org>
-Date: Thu, 25 Jun 2026 11:30:53 -0600
-From: Justin Forbes <jforbes@fedoraproject.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.0 00/49] 7.0.14-rc1 review
-Message-ID: <aj1lzVpxbxFz2x0F@fedora64.linuxtx.org>
-References: <20260625125637.527552689@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WlLObI/e"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BFE971F000E9;
+	Thu, 25 Jun 2026 17:55:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782410119;
+	bh=CmPEiPARV3/xMoOf26mHkTIa1Jz90unuF8UFgKqXVZU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WlLObI/eY+KWsXGDhfBdzoQC4I/ZTZM/BB6lUzFosFQJicG4sOdlZW9ezzLDOzZ/B
+	 fZ6IKrzONyGVBDREAaz93XGllldQHH/k3YUftfrFRBaY2qPg66ycPWBFpyQgKDn4RS
+	 ay7558f+5oqKodR306tkvtdcakTs1dxrWwRWbxKq5Me8H/IDy+OHFuUoBKXcYQq5Mc
+	 EPEG7r1nopDtvbAop7IE2PIRQaUgdbgjOG6AMbJJKQTs7AiVZIsH36S8gWbAhMFA0i
+	 YDtcFgkA53yHTcWbFSikWk6m8zmtwVRKLbMIXMTkJ200lwaH2a5t57sdUY0VJjQq4v
+	 AyOexS11eUiuw==
+Date: Thu, 25 Jun 2026 10:55:19 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Yingjie Gao <gaoyingjie@uniontech.com>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: release dquot buffer after dqflush failure
+Message-ID: <20260625175519.GF6078@frogsfrogsfrogs>
+References: <20260625131623.3261735-1-gaoyingjie@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,28 +42,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260625125637.527552689@linuxfoundation.org>
+In-Reply-To: <20260625131623.3261735-1-gaoyingjie@uniontech.com>
 
-On Thu, Jun 25, 2026 at 02:03:12PM +0100, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.0.14 release.
-> There are 49 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Thu, Jun 25, 2026 at 09:16:23PM +0800, Yingjie Gao wrote:
+> xfs_qm_dqpurge() gets a locked buffer from xfs_dquot_use_attached_buf().
+> If xfs_qm_dqflush() fails, the error path skips xfs_buf_relse() and then
+> calls xfs_dquot_detach_buf(), which tries to lock the same buffer again.
 > 
-> Responses should be made by Sat, 27 Jun 2026 12:54:50 +0000.
-> Anything received after that time might be too late.
+> Release the buffer after xfs_qm_dqflush() returns so the error path drops
+> the caller hold and unlocks the buffer before the dquot is detached,
+> matching the other dqflush callers.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.0.14-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.0.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+> Fixes: a40fe30868ba ("xfs: separate dquot buffer reads from xfs_dqflush")
+> Cc: stable@vger.kernel.org # v6.13+
+> Signed-off-by: Yingjie Gao <gaoyingjie@uniontech.com>
 
-Tested rc1 against the Fedora build system (aarch64, ppc64le, s390x,
-x86_64), and boot tested x86_64. No regressions noted.
+Looks fine, though scanning this function further, I suspect that "goto
+out_funlock" in the "resurrect the refcount from the dead" isn't quite
+right either.
 
-Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+
+--D
+
+> ---
+>  fs/xfs/xfs_qm.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/xfs/xfs_qm.c b/fs/xfs/xfs_qm.c
+> index aa0d2976f1c3..896b24f87ac9 100644
+> --- a/fs/xfs/xfs_qm.c
+> +++ b/fs/xfs/xfs_qm.c
+> @@ -166,10 +166,9 @@ xfs_qm_dqpurge(
+>  		 * does it on success.
+>  		 */
+>  		error = xfs_qm_dqflush(dqp, bp);
+> -		if (!error) {
+> +		if (!error)
+>  			error = xfs_bwrite(bp);
+> -			xfs_buf_relse(bp);
+> -		}
+> +		xfs_buf_relse(bp);
+>  		xfs_dqflock(dqp);
+>  	}
+>  	xfs_dquot_detach_buf(dqp);
+> -- 
+> 2.20.1
+> 
+> 
