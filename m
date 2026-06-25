@@ -1,122 +1,136 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC5A373BFE
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 07:55:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782374138; cv=pass; b=ke3oZMa+LcSbRFCSvtJ4P6I+/fTg5GUg5JFsC2lWizMTJyi0n93T6baHuOvGP8uizxJBoedGPWHIFHM4qFCKVJGIt60Ufrn3IMlDeeb3jauSZGFoZxopvvV/SyQQXuvNgRrKckV6n/Jo/MbIMmVwLQVLRJSDhFVs7CwNH2vCCqI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782374138; c=relaxed/simple;
-	bh=UeixKLDd1bxLQVD2tdQf18Y4CR1YFUz/5IolhY6Scdw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tLtNYPq5QlG6Ik0ut2otEaLPLIezterVpoF0wbbH5Y+RUP4nPmHdzkH+h9z+tL4fRpVgyZzoaFqgNmyS0zWLLeEMwai+l+xqiKMGKyxNG6J/B2nuF85cLdrAkbrZxPFQteovyQ9FbMJLd8zpAvDygqe3By8QJnIMagu7RuhguxY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=melexis.com; spf=pass smtp.mailfrom=melexis.com; dkim=pass (2048-bit key) header.d=melexis.com header.i=@melexis.com header.b=1CWqQZZr; arc=pass smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=melexis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=melexis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EC761D47AC;
+	Thu, 25 Jun 2026 07:56:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782374214; cv=none; b=XADpyWgAtEFP3J1/FBBtbKTyYhOCT30fOQUL8AsFE8eXVsW3Ijf8T5gLF2bADngva/hZIOpsoA1YMehw5Y6J0M0YAtNwaW1rOHu5a3UrUtObMnKQFkKnqcLo1ZJbUqTxUvZyS2l12cScxmYNC7ptOrIyDXn8oScme8tMrNJjm2s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782374214; c=relaxed/simple;
+	bh=f3CgPYvjqOChOn+obzej8vXe6MGJn5QL9utAatZR9zA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u9rG4J6x+dlxLCcGmxprzUHvuJRJWFgVVDhsUelEKrIW2MkVmz5nEEcDgAHC39u37NnM4TgjRLFndZ4ypBUeZxE5bw5Bq8LtAPoy8X/eQo6Ab+wiQ2GKkMaZ+7wCipytBSl1fyW3iE8dCaFxkWk8zlde4s5QhFT3Nkime6ZLKKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sx5k9p5v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=melexis.com header.i=@melexis.com header.b="1CWqQZZr"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-92213351918so209517185a.0
-        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 00:55:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782374136; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rAoTqjXq5QiG4zYXyMJX5CxfYPgNrk7eAc2mrs9WsfgoIfZrT/+vtd/p7TPJ0FZSEL
-         jKOFj2UtnNMv6LAtTeAQAYvUEckaVIocdAqmTRqgKbBg/kGpmoZ4EBUg3R8ayFR31lTh
-         MfbfTGuVq8Zyvi8CT4JpkoG3bx8+5/0cQAoF5FwRxIWjhPWsnIbm3rOQCHJI4o1ygVx+
-         vEtcn6Yb7Dc/8zZNcFoJo4oEbZXwFGPAXujQOcushoTXU0nxIIaLGp7OuWJW+g/2fBiA
-         YAnN8aGlXlt1y/2c9rXE3oJVAmunham3l/oaOzotNJG39i6Cz3BVneyNUv18ED1rPSKm
-         Zcng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=UeixKLDd1bxLQVD2tdQf18Y4CR1YFUz/5IolhY6Scdw=;
-        fh=eEghoWRiBlftapybIwf6ZD3eZqu+fsX685Y3gLBqDCk=;
-        b=IuvboZxXu03oQVGw2qxijAsZivN+mDN4+rB2hhH8ovSthmzJZR1pxJBWIv5O2F47F8
-         lvBuntqppH3KZFA5UR34Bx8FyspGw9H6uzoCjnw57lO6aAaA6AWcxCvpUtoCiPxDSZMG
-         oePujTRL2/Mu9qaAYl0XFvnCWlu9Jqw6WyMZJM2yyfhzqarlQaugQqlIi8x+G0M2Ux+/
-         mgcVPPUIjLw0zyM/UDKA8n6DW2v4nX9K/Ex4wDFU+G4nV+WsX2bwVH3KZQKRETqWB7Rd
-         7kCQRtITCNvIrwpv0Tj14xctf7j8nCaSdXasqLdAqLTy/unTirCsJ6y5iPujHrgRP6/b
-         ym0Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=melexis.com; s=google; t=1782374136; x=1782978936; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=UeixKLDd1bxLQVD2tdQf18Y4CR1YFUz/5IolhY6Scdw=;
-        b=1CWqQZZrZRfJWTcyZ9Z+tZVza4eR5QbVhJcDmuIvP+87DTN73i0WeXLF7qR8ajFHrO
-         W9F0oJJ23MX42n1DUvnBCsARqXQe2deL26DjfyWRY51kTiqFiW7vprT+KyV2+Q2l516z
-         CdxkQuTYn42Paef64UUSVQ8zlevcKLwpZW31pzu4bPnnp2aJcYM38vy5/4BUeTVmamgI
-         cBZ8alAKH9kCewfzqO+OYhIHMbHWwsPCfrPlF2Pecp/VXaFheMz9ihs6MYBfams+w3Vx
-         eDX4tbR/Oy2ZrAwLRVzTf8SNAYCVuMAzwSfVZK4cDl5WA/zSUYb/Z+/ICI9DNPUONqo1
-         mPHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782374136; x=1782978936;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UeixKLDd1bxLQVD2tdQf18Y4CR1YFUz/5IolhY6Scdw=;
-        b=Uw1Newrj+ivdoPlG+OT2SJw0qVCHlhhCVwOfgj6QJJZy0shRDBR4q7SiR/9TDXMu5I
-         YAUKI7L3wFc2QEK+PPLqiDA4BHGCiUjXwGk6uRk1nuzpkLgdEQsJQTLdAi8g+G6LyXo6
-         6I4eAX14T1xnKpttdQ2i6o2sLP7qxEAvtVgGXWLKYrKHy0jodutrh/GQpPqBCzrKTfAt
-         1aIP7hsJ7Bj8VcIZO+5u1Hn5UM13bRnGlmci7fFz9NwmnPuldyuQbnCArkE0IEBjivE+
-         w3GdE6ZAM5pE2Rqem7EqZOOam6nkgp4fvCHmvl4iYEy7S8xePW6Cd60MxAASOVElTyYM
-         86LA==
-X-Forwarded-Encrypted: i=1; AFNElJ/125ov/P5gdwn/op41P+JoIvGCMZlISTze8jfXdv2A+jpce1ij/8rTAll9flvuzz8R0zQ3vfQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+TWdrL4FrGojz/gvgcaTTW7YOUHdzNehSWdMcWP+x4aOSioqX
-	8OSab1SqT7d2KCOcQdL75yXh3hLAc4QOxyu1I9By+Lz27Fieodo+RoqcMa0r24DDrIUhv/Df39t
-	hRFzA/7AeGvvNB8+1kLVDcjyN2kF/ZHfO+BWEzMvk
-X-Gm-Gg: AfdE7clx56vlyeVrLMAe+1r8AWT8s1WBaBloj/h5rRDNzmZVfz9ZUfILx+dpoDfaopY
-	eHZ/HoIu2bJONAdfbpeh4M6/AIyo0Cst4qSjKqAsMpTwY69d+P2NkWhvXv+ix9npy4qi2jX3MAf
-	ogBkCAfi4vpk2HQkyO0IEQObddOUSvqZWJYA2V2bnYGfBuvVFIzREQZVmnmJsHvS2gzPtDto/YG
-	3ZKDhxumqxBGx9FB3USZiFdAdkgyMzdULsZ7rhdoQijagfgV3e5cCrnIb2UbWTbfs0oJg==
-X-Received: by 2002:a05:620a:3912:b0:915:745a:70fe with SMTP id
- af79cd13be357-9293c11e3cfmr179731185a.28.1782374135581; Thu, 25 Jun 2026
- 00:55:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sx5k9p5v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33AA01F000E9;
+	Thu, 25 Jun 2026 07:56:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782374212;
+	bh=OkLdmWeXxP7Oi0BCM7+2L8XOA1JIZ57KBqhE89bZ8/s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Sx5k9p5v665BEWYXTxcVC05749Bo32HMTyJnP22MWIscfGJRosgdU4N4F3+X2x0Af
+	 ouRSAUStQ1CzNOywznEuK8Iwoe/YO8uA08/oE2kxQEIFDO8cXz3L/Z4pqABaQqk97m
+	 0OkcRXML+4r5jCn31IloBPUwpKgaMfRv3D/Etz+yF+CIe8VKXQzQc407nRE6ETSIR5
+	 1B+OMnpIEkfKlm1267ul9r9YUnU+yBTrokB6ECiwSKPqecAXYLZKZsHgqMtAj2GvIE
+	 PZBm3l7NoGsfpclQ57vspDvPMY+CYXe2O7zsDrfOPO4j9a6Z4sHGWIfRi2geCmKoYU
+	 V0NrO+POW9FCw==
+Message-ID: <ca31c254-504f-4857-bec7-10b8c2de94ed@kernel.org>
+Date: Thu, 25 Jun 2026 09:56:47 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260624081309.77805-1-pengpeng@iscas.ac.cn> <20260625054259.76774-1-pengpeng@iscas.ac.cn>
- <ajzOA3MGaCqrgCDp@ashevche-desk.local>
-In-Reply-To: <ajzOA3MGaCqrgCDp@ashevche-desk.local>
-From: Crt Mori <cmo@melexis.com>
-Date: Thu, 25 Jun 2026 09:54:58 +0200
-X-Gm-Features: AVVi8Cf0Kq8KvxED7bUTegw9DwvGkx-iAJ0WMlc-jUAjlQ3zb6kIh99CFD1m9KI
-Message-ID: <CAKv63uupUcUGXwXJQL957YtUmP+OZ5makvGROvFuvS8BWF-sPQ@mail.gmail.com>
-Subject: Re: [PATCH v2] iio: temperature: Build mlx90635 with CONFIG_MLX90635
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/rmap: use huge_ptep_get() in try_to_unmap_one()
+To: Dev Jain <dev.jain@arm.com>, akpm@linux-foundation.org, ljs@kernel.org
+Cc: riel@surriel.com, liam@infradead.org, vbabka@kernel.org,
+ harry@kernel.org, jannh@google.com, kas@kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, ryan.roberts@arm.com,
+ anshuman.khandual@arm.com, stable@vger.kernel.org
+References: <20260625042853.2752898-1-dev.jain@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260625042853.2752898-1-dev.jain@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thanks for spotting this Pengpeng Hou; it's strange that nobody
-noticed until now. I would like to apologize to everyone for this
-mistake.
+On 6/25/26 06:28, Dev Jain wrote:
+> try_to_unmap_one() handles hugetlb folios when memory failure needs
+> to replace a poisoned hugetlb mapping with a hwpoison entry. In that
+> case page_vma_mapped_walk() returns the hugetlb entry in pvmw.pte, but
+> the code reads it with ptep_get() before decoding the PFN.
+> 
+> That is wrong on architectures where hugetlb entries are not encoded as
+> regular PTEs. On s390, for example, a raw huge RSTE must be converted
+> by huge_ptep_get() before helpers such as pte_pfn() can inspect it. A
+> raw decode can select the wrong subpage, so try_to_unmap_one() can
+> install a hwpoison entry for the wrong PFN.
+> 
+> The userspace-visible result is that a later access to the poisoned
+> hugetlb subpage can miss the expected SIGBUS. With DEBUG_VM, the wrong
+> subpage can also trip the PageHWPoison check.
+> 
+> Use huge_ptep_get() for hugetlb mappings before decoding the PFN.
+> 
+> Before c7ab0d2fdc84, the bug existed in the form of a plain dereference:
+> we would check the head page pfn of the hugetlb with pte_pfn(*pte), and
+> bail out on mismatch. This would mean that the hwpoisoned entry will not
+> get installed.
+> 
+> I am not sure what is the procedure on such kinds of very old bugs - how
+> back should I really go?
+> 
+> Fixes: c7ab0d2fdc84 ("mm: convert try_to_unmap_one() to use page_vma_mapped_walk()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dev Jain <dev.jain@arm.com>
+> ---
+> Applies on mm-unstable (d17fe8a046a2).
+> There are similar old bugs present, in try_to_migrate_one(), check_pte(),
+> remove_migration_pte(), prot_none_hugetlb_entry().
 
-Acked-by: Crt Mori <cmo@melexis.com>
+Yeah, we should handle all these cases properly. Can you send fixes?
 
-On Thu, 25 Jun 2026 at 08:43, Andy Shevchenko
-<andriy.shevchenko@intel.com> wrote:
->
-> On Thu, Jun 25, 2026 at 01:42:59PM +0800, Pengpeng Hou wrote:
-> > drivers/iio/temperature/Kconfig has a dedicated MLX90635 option, but
-> > the Makefile currently builds mlx90635.o under CONFIG_MLX90632.
-> >
-> > This means enabling CONFIG_MLX90635 alone does not carry its provider
-> > object into the build, while enabling CONFIG_MLX90632 unexpectedly also
-> > builds mlx90635.o.
-> >
-> > Gate mlx90635.o on the matching generated Kconfig symbol.
->
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+Using ptep_get() on something that's not a PTE entry is shaky on some architectures.
+
+-- 
+Cheers,
+
+David
