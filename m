@@ -1,188 +1,130 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95EB735DA5B;
-	Thu, 25 Jun 2026 08:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A2B36EAAC
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 08:33:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782376376; cv=none; b=GtQr4ZbJAOxfq5B7VQoUfLKClrfHk5HqvFWklYEyySJ/ezVm4f/yETst7HVv8QeVwwP2beywiU5fCp0Xj/CxBlhEuHk28/AEOuuz04OwwxNphq7HG/jsR7pVVKOJi/PwRQyDAGui9djIdwe2FDFgkX4HtpgVMWQyw8OOf0Y6yDI=
+	t=1782376382; cv=none; b=bRL/W+Wp8yZFgU9gDHCt14YfuIozbbZE3ydlrt6uJlssj5dVB/zgAanUiLB87ll00Za4yc6dPsQ/msqPYJoDo2W4Lk85rQxgDo5WYyL0rl7HEO4K+X5iM0KBaSwK2Tibv2boCNejYAs/VHk+gU4UbYCEJ6zBPiKP5B1vckuwI20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782376376; c=relaxed/simple;
-	bh=vxAqKqHaGz7NXLdQ1go42ReEIBp782jSBRm+6F6iGz4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dq5SYxT4m/meCxKmGa9c5ZHjvKgUNthDkj6huVxFlV5keZw25VhPnbpJ7kE+VGZqvoGQlC4ACIb794Fc5jT04S0LhijuzfUO5x2j1wJn1ibH3H8eeHxC5OEx3VTRWxMlln5tdQqwj0EVHgUAIMmDyZ1mdIpyAA+n0Zbf/gLQ0U0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=OiDXltOr; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1782376382; c=relaxed/simple;
+	bh=yThKp5mFhuRuvb6z97ASLajoXXHye6N71J4ltOFHR/Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=rpLhBqRL1I4vr3fjutlOrPMxNd7JIAEfwPAT9omVqXrd5LMKgeDejnJKdKKj/bqgsLoicKYlAdYSTlwsSkjkMBTzJHV1DxnQ9tL9hjzLlQiE4fi9OuzbUrDkbEylbSZKwsxFfYrQpUgKtnCUmGJ6783ENmpbOMFafcP3AoYaz4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tKFX3rij; arc=none smtp.client-ip=91.218.175.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="OiDXltOr"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65P3mMxb3185507;
-	Thu, 25 Jun 2026 08:32:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=mCrR8I
-	urneLBowxIgFvA95tQoKFx9He7WISMZo2sX7I=; b=OiDXltOrOyJZpMzpvB4q2y
-	gnoXGkfxlfj7vCYnNeTnjzdHlwmaBC8XQhH66pcm6Aa8kUSvftIJ9Gt68SSAmh1Q
-	KOkE3g1b+gI2x39uh87Ugh3lTJSyQYVu2PeCvb2Dbbe4BRLd8DmXdLmR9xPI69iO
-	zzyL5Q8ayFGj4ODWuMDp5sdeuOhzmx1bt7nE2AIojXq+v1KxMwXmzThMr4tCya7p
-	WFaeH2Pt0EYgDgcCYpGZlJhJeFtwXK/x7CG1XFpRm20MHJ4in3ykPF6GnsHmAAYd
-	+nBrJbQ0wgbS+acl+Ktq+sMFIAZOn1bdXNoyvwao38jSkUljwFsn3RAJRO5l9rSQ
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ewjhr0pbp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 25 Jun 2026 08:32:34 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65P8JeM8007543;
-	Thu, 25 Jun 2026 08:32:34 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ex56qneng-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 25 Jun 2026 08:32:33 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65P8WUb256230202
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 25 Jun 2026 08:32:30 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 60D102004D;
-	Thu, 25 Jun 2026 08:32:30 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8A5A920040;
-	Thu, 25 Jun 2026 08:32:26 +0000 (GMT)
-Received: from [9.123.14.166] (unknown [9.123.14.166])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 25 Jun 2026 08:32:26 +0000 (GMT)
-Message-ID: <17c1cbac-de30-4372-8c24-2acd755f503e@linux.ibm.com>
-Date: Thu, 25 Jun 2026 14:02:25 +0530
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tKFX3rij"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782376369;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UUNI9HVJojfD4QXjQosjhgaZEtAM61ThFHovUKlA78o=;
+	b=tKFX3rijkHIvpaRTLtYUWBP+vVHJYVFOVBtx43BhVE5xCTtwDKHoULneghqJTlVDgkpEVi
+	2TK6P/HCx3Z98Q+sYRWbZ3I+MAGVnJVBAKbhrFxKPbaOC0kH3hrRT7lWYDDeCdrtC42uvV
+	RETfyOImHnF0/0+evGHHOqHRPdJYxbo=
+From: George Guo <dongtai.guo@linux.dev>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>,
+	Hengqi Chen <hengqi.chen@gmail.com>
+Cc: WANG Xuerui <kernel@xen0n.name>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	George Guo <guodongtai@kylinos.cn>,
+	bpf@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH bpf 2/2] LoongArch: BPF: Don't charge an empty prog_array slot to the tail call count
+Date: Thu, 25 Jun 2026 16:32:12 +0800
+Message-Id: <20260625083212.277417-3-dongtai.guo@linux.dev>
+In-Reply-To: <20260625083212.277417-1-dongtai.guo@linux.dev>
+References: <20260625083212.277417-1-dongtai.guo@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net/smc: avoid recursive sk_callback_lock in listen
- data_ready
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-        "D. Wythe"
- <alibuda@linux.alibaba.com>,
-        Dust Li <dust.li@linux.alibaba.com>,
-        Wenjia Zhang <wenjia@linux.ibm.com>,
-        "David S. Miller"
- <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>
-Cc: Mahanta Jambigi <mjambigi@linux.ibm.com>,
-        Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
-        Simon Horman <horms@kernel.org>, Karsten Graul <kgraul@linux.ibm.com>,
-        linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-References: <20260617152855.1039151-1-runyu.xiao@seu.edu.cn>
-Content-Language: en-US
-From: Sidraya Jayagond <sidraya@linux.ibm.com>
-In-Reply-To: <20260617152855.1039151-1-runyu.xiao@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=I4VVgtgg c=1 sm=1 tr=0 ts=6a3ce7a3 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=51JgxwwAL-zXi2UjDcgA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDA3MSBTYWx0ZWRfXyEcLcEW349B2
- k8Sc5c6yGobuuxdwMbCKN0pmwLsXMT5k6IraB4ZNqXSVgIzBwDLIZGtrsA0AVmEvaEBKVlB9iQc
- xRQkXGodzOLxqNHaY10jDHl0yPXyZxJOSQIJiIzQO/vva0helg9BPpoGFi69PtyE4zRBHLtjq6/
- ljZsm//hlr6hRAOQcxGfWuDCpfkt3eiAYrS3QZ29ABXJcFX5glHBjVgph+ZzwS95CWCUG1aipMO
- Grf5zBAbRVS5MeqBNHF5aeHrHDel0I9alRLfZcQBZgVUgUvtGe0zPKJNBFz+k1aqvacU+pVb5lf
- Y0l3DV/DjX0cLbgolFxVebdkVcnIC4YSIR54gZHCy5xOe7dBRcRitib2BlrHqGg7gg7V2nq0NjL
- S24JiwDI3gsYnNC+8BDD3QoYmTwn41iRtE67TyfZvRiNVmeC9cOpp2mPBZWyiQAOHjhatOURB+i
- IQNo/1RxlYQGk/nQD8g==
-X-Proofpoint-GUID: 5rbcDbwbMeYSIbrFeDOqZ8cZZrPr0N_U
-X-Proofpoint-ORIG-GUID: tacv5n88DyUZAzK4jWQzlIHZ0bBwgxVI
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDA3MSBTYWx0ZWRfXxhI+PZVfK5Yr
- yxi61okkU5RTcO0gnPynvcTGS7uF8D0iSqHmBVxcjz7rgxzRc0SaJUyAGSs6bBPLBSF0ISZrmRD
- ggvggaSdwbMKMe3pdquAUvPrrxHr19w=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-25_01,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 clxscore=1011 impostorscore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 priorityscore=1501
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606250071
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
+From: George Guo <guodongtai@kylinos.cn>
 
+emit_bpf_tail_call() bumped the tail call count and stored it back to
+*tcc_ptr before loading array->ptrs[index] and testing it for NULL.  A
+tail call that targets an empty slot therefore consumed one unit of the
+tail call budget even though control never transferred.
 
-On 17/06/26 8:58 pm, Runyu Xiao wrote:
-> smc_listen() installs smc_clcsock_data_ready() as the underlying TCP
-> listen socket's sk_data_ready callback.  smc_clcsock_data_ready() then
-> immediately takes sk_callback_lock before looking up the SMC listener and
-> queuing smc_tcp_listen_work().
-> 
-> That is unsafe once the TCP listen socket is leaving TCP_LISTEN.  The TCP
-> close/flush path can run the installed sk_data_ready callback with
-> sk_callback_lock already held, so entering smc_clcsock_data_ready() again
-> tries to take the same rwlock recursively in the same thread.  The nvmet
-> TCP listener had to make the same state check before taking
-> sk_callback_lock for this reason.
-> 
-> This issue was found by our static analysis tool and then manually
-> reviewed against the current tree.
-> 
-> The grounded PoC kept the SMC listen callback installation path:
-> 
->   smc_listen()
->   smc_clcsock_replace_cb()
->   sk_data_ready = smc_clcsock_data_ready()
-> 
-> It then modeled the close/flush carrier that invokes the installed
-> sk_data_ready callback while sk_callback_lock is already held.  Lockdep
-> reported the same-thread recursive acquisition:
-> 
->   WARNING: possible recursive locking detected
->   smc_clcsock_data_ready+0xa/0x4d [vuln_msv]
->   smc_close_flush_work+0x1f/0x30 [vuln_msv]
->   *** DEADLOCK ***
-> 
-> Return before taking sk_callback_lock when the underlying TCP socket is no
-> longer in TCP_LISTEN.  In that state there is no listen accept work to
-> queue for SMC, and avoiding the callback lock mirrors the fix used by the
-> TCP nvmet listener.
-> 
-> Fixes: 0558226cebee ("net/smc: Fix slab-out-of-bounds issue in fallback")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  net/smc/af_smc.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-> index 6421c2e1c84d..1af4e3c333ff 100644
-> --- a/net/smc/af_smc.c
-> +++ b/net/smc/af_smc.c
-> @@ -2631,6 +2631,9 @@ static void smc_clcsock_data_ready(struct sock *listen_clcsock)
->  {
->  	struct smc_sock *lsmc;
->  
-> +	if (READ_ONCE(listen_clcsock->sk_state) != TCP_LISTEN)
-> +		return;
-> +
+The interpreter increments tail_call_cnt only after the prog pointer is
+found to be non-NULL (kernel/bpf/core.c, BPF_TAIL_CALL), so a fall-through
+to an empty slot leaves the count untouched.  The JIT must do the same.
 
-In smc_close_active(), the TCP socket remains in TCP_LISTEN state while
-holding write_lock_bh(&smc->clcsock->sk->sk_callback_lock);. The patch's
-state check would pass during this window, not preventing the recursive
-lock scenario.
-It's unclear whether it fully prevents the recursive locking scenario
-described in the commit message for the specific code path in
-smc_close_active().
-Could you come up with exact deadlock scenario and how the patch
-addresses it?
+This is visible with selftests/bpf tailcalls/tailcall_3, whose entry prog
+tail-calls an empty slot before the real target: the observed count is 32
+instead of the expected 33.
 
->  	read_lock_bh(&listen_clcsock->sk_callback_lock);
->  	lsmc = smc_clcsock_user_data(listen_clcsock);
->  	if (!lsmc)
+Defer the store of the bumped count until after the NULL check.  The limit
+comparison is unchanged: t3 = *tcc_ptr + 1, and "t3 > MAX_TAIL_CALL_CNT" is
+equivalent to "*tcc_ptr >= MAX_TAIL_CALL_CNT".
+
+The check-before-NULL ordering dates back to the original JIT; commit
+c0fcc955ff82 ("LoongArch: BPF: Fix the tailcall hierarchy") reworked the
+counter into the *tcc_ptr form but preserved the same ordering.
+
+Fixes: 5dc615520c4d ("LoongArch: Add BPF JIT support")
+Cc: stable@vger.kernel.org
+Signed-off-by: George Guo <guodongtai@kylinos.cn>
+---
+ arch/loongarch/net/bpf_jit.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
+index f705de099f23..f2aa0b7f65ad 100644
+--- a/arch/loongarch/net/bpf_jit.c
++++ b/arch/loongarch/net/bpf_jit.c
+@@ -323,13 +323,18 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, int insn)
+ 		goto toofar;
+ 
+ 	/*
+-	 * if ((*tcc_ptr)++ >= MAX_TAIL_CALL_CNT)
++	 * if (*tcc_ptr + 1 > MAX_TAIL_CALL_CNT)
+ 	 *      goto out;
++	 *
++	 * Compute the bumped count but do not write it back yet: the
++	 * interpreter increments tail_call_cnt only after the prog pointer is
++	 * found to be non-NULL, so a tail call to an empty slot must not
++	 * consume the tail call budget.  The store is deferred until the call
++	 * is known to be taken (below).
+ 	 */
+ 	emit_insn(ctx, ldd, REG_TCC, LOONGARCH_GPR_SP, tcc_ptr_off);
+ 	emit_insn(ctx, ldd, t3, REG_TCC, 0);
+ 	emit_insn(ctx, addid, t3, t3, 1);
+-	emit_insn(ctx, std, t3, REG_TCC, 0);
+ 	emit_insn(ctx, addid, t2, LOONGARCH_GPR_ZERO, MAX_TAIL_CALL_CNT);
+ 	if (emit_tailcall_jmp(ctx, BPF_JSGT, t3, t2, jmp_offset) < 0)
+ 		goto toofar;
+@@ -346,6 +351,9 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, int insn)
+ 	if (emit_tailcall_jmp(ctx, BPF_JEQ, t2, LOONGARCH_GPR_ZERO, jmp_offset) < 0)
+ 		goto toofar;
+ 
++	/* (*tcc_ptr)++; the tail call is taken, so commit the bumped count */
++	emit_insn(ctx, std, t3, REG_TCC, 0);
++
+ 	/* goto *(prog->bpf_func + 4); */
+ 	off = offsetof(struct bpf_prog, bpf_func);
+ 	emit_insn(ctx, ldd, t3, t2, off);
+-- 
+2.25.1
 
