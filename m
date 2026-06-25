@@ -1,130 +1,118 @@
-Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A2B36EAAC
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 08:33:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 02A48374170;
+	Thu, 25 Jun 2026 08:40:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782376382; cv=none; b=bRL/W+Wp8yZFgU9gDHCt14YfuIozbbZE3ydlrt6uJlssj5dVB/zgAanUiLB87ll00Za4yc6dPsQ/msqPYJoDo2W4Lk85rQxgDo5WYyL0rl7HEO4K+X5iM0KBaSwK2Tibv2boCNejYAs/VHk+gU4UbYCEJ6zBPiKP5B1vckuwI20=
+	t=1782376822; cv=none; b=KXBREAk1bxSakTlLETlsd5pOzAH0/IGbILuVODE4ns/IKomNHdBF5ok4UNr7hnIp/AXW6JY0fRJ7ZBqT9Y8B2K6LKHb44UM+iPK1K/hUrdVnX8FyFry5FrGyAxNjtifXKmHtxTAimwsJEFi3mV2xd09mla+yFb9/cDGoNfoKgf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782376382; c=relaxed/simple;
-	bh=yThKp5mFhuRuvb6z97ASLajoXXHye6N71J4ltOFHR/Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rpLhBqRL1I4vr3fjutlOrPMxNd7JIAEfwPAT9omVqXrd5LMKgeDejnJKdKKj/bqgsLoicKYlAdYSTlwsSkjkMBTzJHV1DxnQ9tL9hjzLlQiE4fi9OuzbUrDkbEylbSZKwsxFfYrQpUgKtnCUmGJ6783ENmpbOMFafcP3AoYaz4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tKFX3rij; arc=none smtp.client-ip=91.218.175.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782376822; c=relaxed/simple;
+	bh=BWj4NQGKd4mjmlkdybirdAqawz1Y04I6GIWh4Gx5jiU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SGviUgQ1pr0M3ECsmsiGOhfJUd3eOj26PszP//9j/mLEEK61lmlIce80gfo55tYcP8tSMoi2xBMso7Z0iViO6RRiqwniA1ejKf8Br26LlXbjdmVAKcpmm9X5vnHk2g0SgT+UmnsqUYTEoBbhDDqNCL55JkrRfKlxToVXiqldr/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GGavGui+; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tKFX3rij"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782376369;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UUNI9HVJojfD4QXjQosjhgaZEtAM61ThFHovUKlA78o=;
-	b=tKFX3rijkHIvpaRTLtYUWBP+vVHJYVFOVBtx43BhVE5xCTtwDKHoULneghqJTlVDgkpEVi
-	2TK6P/HCx3Z98Q+sYRWbZ3I+MAGVnJVBAKbhrFxKPbaOC0kH3hrRT7lWYDDeCdrtC42uvV
-	RETfyOImHnF0/0+evGHHOqHRPdJYxbo=
-From: George Guo <dongtai.guo@linux.dev>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Hengqi Chen <hengqi.chen@gmail.com>
-Cc: WANG Xuerui <kernel@xen0n.name>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	George Guo <guodongtai@kylinos.cn>,
-	bpf@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH bpf 2/2] LoongArch: BPF: Don't charge an empty prog_array slot to the tail call count
-Date: Thu, 25 Jun 2026 16:32:12 +0800
-Message-Id: <20260625083212.277417-3-dongtai.guo@linux.dev>
-In-Reply-To: <20260625083212.277417-1-dongtai.guo@linux.dev>
-References: <20260625083212.277417-1-dongtai.guo@linux.dev>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GGavGui+"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D2DE52BCE;
+	Thu, 25 Jun 2026 01:40:14 -0700 (PDT)
+Received: from [10.164.19.14] (unknown [10.164.19.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C36F63F836;
+	Thu, 25 Jun 2026 01:40:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1782376819; bh=BWj4NQGKd4mjmlkdybirdAqawz1Y04I6GIWh4Gx5jiU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=GGavGui+k0FYR7uIV3hPdH3uSry9W7h2Do9UqFdinnEraOlgikBT8u5AQd9lV8P1C
+	 xyJzy7nC83ViHAtje4xZv8QlxTwwvzp/xA3ktS9ilzR1667loWyfqwZpBbSxmqk+c1
+	 4WK1oEkh8K7hXxod9TzJ0MSZKS0+hycjFGvQpgJ4=
+Message-ID: <d2cc9d50-3e17-4217-ac79-00978cd9e3c0@arm.com>
+Date: Thu, 25 Jun 2026 14:10:13 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/rmap: use huge_ptep_get() in try_to_unmap_one()
+To: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org,
+ ljs@kernel.org
+Cc: riel@surriel.com, liam@infradead.org, vbabka@kernel.org,
+ harry@kernel.org, jannh@google.com, kas@kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, ryan.roberts@arm.com,
+ anshuman.khandual@arm.com, stable@vger.kernel.org
+References: <20260625042853.2752898-1-dev.jain@arm.com>
+ <ca31c254-504f-4857-bec7-10b8c2de94ed@kernel.org>
+ <614e89a8-5108-4ac1-bdf8-fecca48bd91b@arm.com>
+ <237cdb97-5abc-4c89-a0cf-1a961425f947@kernel.org>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <237cdb97-5abc-4c89-a0cf-1a961425f947@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: George Guo <guodongtai@kylinos.cn>
 
-emit_bpf_tail_call() bumped the tail call count and stored it back to
-*tcc_ptr before loading array->ptrs[index] and testing it for NULL.  A
-tail call that targets an empty slot therefore consumed one unit of the
-tail call budget even though control never transferred.
 
-The interpreter increments tail_call_cnt only after the prog pointer is
-found to be non-NULL (kernel/bpf/core.c, BPF_TAIL_CALL), so a fall-through
-to an empty slot leaves the count untouched.  The JIT must do the same.
+On 25/06/26 1:58 pm, David Hildenbrand (Arm) wrote:
+> On 6/25/26 10:03, Dev Jain wrote:
+>>
+>>
+>> On 25/06/26 1:26 pm, David Hildenbrand (Arm) wrote:
+>>> On 6/25/26 06:28, Dev Jain wrote:
+>>>> try_to_unmap_one() handles hugetlb folios when memory failure needs
+>>>> to replace a poisoned hugetlb mapping with a hwpoison entry. In that
+>>>> case page_vma_mapped_walk() returns the hugetlb entry in pvmw.pte, but
+>>>> the code reads it with ptep_get() before decoding the PFN.
+>>>>
+>>>> That is wrong on architectures where hugetlb entries are not encoded as
+>>>> regular PTEs. On s390, for example, a raw huge RSTE must be converted
+>>>> by huge_ptep_get() before helpers such as pte_pfn() can inspect it. A
+>>>> raw decode can select the wrong subpage, so try_to_unmap_one() can
+>>>> install a hwpoison entry for the wrong PFN.
+>>>>
+>>>> The userspace-visible result is that a later access to the poisoned
+>>>> hugetlb subpage can miss the expected SIGBUS. With DEBUG_VM, the wrong
+>>>> subpage can also trip the PageHWPoison check.
+>>>>
+>>>> Use huge_ptep_get() for hugetlb mappings before decoding the PFN.
+>>>>
+>>>> Before c7ab0d2fdc84, the bug existed in the form of a plain dereference:
+>>>> we would check the head page pfn of the hugetlb with pte_pfn(*pte), and
+>>>> bail out on mismatch. This would mean that the hwpoisoned entry will not
+>>>> get installed.
+>>>>
+>>>> I am not sure what is the procedure on such kinds of very old bugs - how
+>>>> back should I really go?
+>>>>
+>>>> Fixes: c7ab0d2fdc84 ("mm: convert try_to_unmap_one() to use page_vma_mapped_walk()")
+>>>> Cc: stable@vger.kernel.org
+>>>> Signed-off-by: Dev Jain <dev.jain@arm.com>
+>>>> ---
+>>>> Applies on mm-unstable (d17fe8a046a2).
+>>>> There are similar old bugs present, in try_to_migrate_one(), check_pte(),
+>>>> remove_migration_pte(), prot_none_hugetlb_entry().
+>>>
+>>> Yeah, we should handle all these cases properly. Can you send fixes?
+>>>
+>>> Using ptep_get() on something that's not a PTE entry is shaky on some architectures.
+>>
+>> I can send the fixes blaming the commit till which backport is relatively simple. The bug will
+>> still remain before that, where we don't even do ptep_get(), just a plain dereference, if
+>> that is fine. Probably no one is running pre-2017 kernels.
+> 
+> The issue is that we would have to analyze in which cases exactly it would cause
+> problems, like when migrating prot-none hugetlb folios on s390x, where
+> pte_present() would not work as expected.
+> 
+> I don't think any of us has time (or motivation) for that detailed analysis to
+> make some odd hugetlb cases happy.
+> 
+> So I'd say, let's just fix it in a simple way and be done with it. Use
+> best-effort Fixes: but rather state in the patch description that this was found
+> by code inspection and that the actual effects are unclear (e.g., pte_present()
+> misbehaving on s390x), and using huge_ptep_get() is just the right thing to do.
 
-This is visible with selftests/bpf tailcalls/tailcall_3, whose entry prog
-tail-calls an empty slot before the real target: the observed count is 32
-instead of the expected 33.
+Sure thing, sounds good.
 
-Defer the store of the bumped count until after the NULL check.  The limit
-comparison is unchanged: t3 = *tcc_ptr + 1, and "t3 > MAX_TAIL_CALL_CNT" is
-equivalent to "*tcc_ptr >= MAX_TAIL_CALL_CNT".
-
-The check-before-NULL ordering dates back to the original JIT; commit
-c0fcc955ff82 ("LoongArch: BPF: Fix the tailcall hierarchy") reworked the
-counter into the *tcc_ptr form but preserved the same ordering.
-
-Fixes: 5dc615520c4d ("LoongArch: Add BPF JIT support")
-Cc: stable@vger.kernel.org
-Signed-off-by: George Guo <guodongtai@kylinos.cn>
----
- arch/loongarch/net/bpf_jit.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
-index f705de099f23..f2aa0b7f65ad 100644
---- a/arch/loongarch/net/bpf_jit.c
-+++ b/arch/loongarch/net/bpf_jit.c
-@@ -323,13 +323,18 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, int insn)
- 		goto toofar;
- 
- 	/*
--	 * if ((*tcc_ptr)++ >= MAX_TAIL_CALL_CNT)
-+	 * if (*tcc_ptr + 1 > MAX_TAIL_CALL_CNT)
- 	 *      goto out;
-+	 *
-+	 * Compute the bumped count but do not write it back yet: the
-+	 * interpreter increments tail_call_cnt only after the prog pointer is
-+	 * found to be non-NULL, so a tail call to an empty slot must not
-+	 * consume the tail call budget.  The store is deferred until the call
-+	 * is known to be taken (below).
- 	 */
- 	emit_insn(ctx, ldd, REG_TCC, LOONGARCH_GPR_SP, tcc_ptr_off);
- 	emit_insn(ctx, ldd, t3, REG_TCC, 0);
- 	emit_insn(ctx, addid, t3, t3, 1);
--	emit_insn(ctx, std, t3, REG_TCC, 0);
- 	emit_insn(ctx, addid, t2, LOONGARCH_GPR_ZERO, MAX_TAIL_CALL_CNT);
- 	if (emit_tailcall_jmp(ctx, BPF_JSGT, t3, t2, jmp_offset) < 0)
- 		goto toofar;
-@@ -346,6 +351,9 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, int insn)
- 	if (emit_tailcall_jmp(ctx, BPF_JEQ, t2, LOONGARCH_GPR_ZERO, jmp_offset) < 0)
- 		goto toofar;
- 
-+	/* (*tcc_ptr)++; the tail call is taken, so commit the bumped count */
-+	emit_insn(ctx, std, t3, REG_TCC, 0);
-+
- 	/* goto *(prog->bpf_func + 4); */
- 	off = offsetof(struct bpf_prog, bpf_func);
- 	emit_insn(ctx, ldd, t3, t2, off);
--- 
-2.25.1
 
