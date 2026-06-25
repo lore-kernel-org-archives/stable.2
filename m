@@ -1,225 +1,141 @@
-Received: from latitanza.investici.org (latitanza.investici.org [185.218.207.228])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097653A8738;
-	Thu, 25 Jun 2026 14:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.218.207.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7880526ED25;
+	Thu, 25 Jun 2026 14:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782398611; cv=none; b=NJbzVnmN06o/3W4a4SzX7+TuO+y4eqX6a31NCOcA0zMbCaB8K2HFOCpooxGnSk/BGeP2tyn9vrzg94BxzGokHK17r2TmcWprRp/DXytsBe7xkib+RVJ9FHG4rJBiA1EPZj4aF27VxXLtY6ZU5Zqap2+5wwhCyzGgPAYOqjBz4lg=
+	t=1782398856; cv=none; b=ooHaTFzujJLgfEjaA3QGE/Ytn16iyklB6hLQEkZ37j+UfKFIWlqE9yjutmELHIR1fbsRkmwIrbsrH+QGIiVG1Qkis/Us11fX7dFflNYGku/NgFxiZDHCX4xZT2gIg6lzZOaurHOtKfPz2+6II17LJJ5uW9oMxgecR7z+cw3WoeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782398611; c=relaxed/simple;
-	bh=0YmjP4c35CyU6dSFGeiMYD4pUi5ZnBclTpIdMEK3Ykg=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=gWvus91qwGH+WAInwiQmDezqk/PZduHcTeWx0h/UE3Ru6Thter7rGLv6myT+uoQOs+k9lcRICiJQ/P0CMjA63Y/6q87k+l40TjxqMvpwZ1XzRkJw/gjOtJwbnelUGtZ9G/i9wZrk/rZcOFyROn9fUiP/ab92r7V+YW6MRoizo0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=cVpKmTOS; arc=none smtp.client-ip=185.218.207.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
+	s=arc-20240116; t=1782398856; c=relaxed/simple;
+	bh=1PO3YHl+btPykbwTM16jfcwADiOLFguz3RVcskKvjrA=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type; b=S2sLVnSuQxXhlqC59m0sIM0eZNqMOWe8uADKwHC8wvksKIoqcaLuc3OULMNr+HXQjCAb0ZGQhprBj4ej5OIyawwZxgYleXOGycEYOorHm+wMxrBrV40Rl7CQvgvGOJvi66UOM9F1J1fINdVzj2MZWRepJS/y5ckK+L1+QIvsoA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=clDBfDsf; arc=none smtp.client-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="cVpKmTOS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1782398605;
-	bh=WLGg/qNr6zyTjoQ8SIyFz87JHSmJwOpxTGwb6Pye5Qs=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=cVpKmTOSDKfXYRNG6q4brwY9CT/MaqUBcTVmZYtdxGIY37jJGYeCOzr/Udd69jfbR
-	 RU5SzygZBVj4rRC1b3Y9XlOlEkGg74+sAobwI80SovtL0kAyr8NBNJNnpBwFIxhH9m
-	 3zXzc6xL3X/lTISoyQnihcp7lUoz5V/KbE33Ckgk=
-Received: from mx3.investici.org (unknown [127.0.0.1])
-	by latitanza.investici.org (Postfix) with ESMTP id 4gmM4F6v01zGpDG;
-	Thu, 25 Jun 2026 14:43:25 +0000 (UTC)
-Received: by mx3.investici.org (Postfix) id 4gmM4F3STNzGpD3;
-	Thu, 25 Jun 2026 14:43:25 +0000 (UTC)
-Date: Thu, 25 Jun 2026 15:43:26 +0100
-From: Bradley Morgan <include@grrlz.net>
-To: Petr Mladek <pmladek@suse.com>
-CC: Feng Tang <feng.tang@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Jinchao Wang <wangjinchao600@gmail.com>, Kees Cook <kees@kernel.org>,
- Rio <rioo.tsukatsukii@gmail.com>, Joel Granados <joel.granados@kernel.org>,
- Pnina Feder <pnina.feder@mobileye.com>, Petr Pavlu <petr.pavlu@suse.com>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Douglas Anderson <dianders@chromium.org>, Mayank Rungta <mrungta@google.com>,
- Tejun Heo <tj@kernel.org>, Zhenguo Yao <yaozhenguo1@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_1/4=5D_sys=5Finfo=3A_add_he?=
- =?US-ASCII?Q?lper_for_callers_that_handle_all=5Fbt?=
-In-Reply-To: <aj01RHgagZm83dFq@pathway.suse.cz>
-References: <9b8c96e291696815d3c7de5d3e199298dee0279d.1782228656.git.include@grrlz.net> <aj01RHgagZm83dFq@pathway.suse.cz>
-Message-ID: <D2693750-5CA8-4F0E-B73A-2D07AD611034@grrlz.net>
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="clDBfDsf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1782398852; x=1783003652; i=rwarsow@gmx.de;
+	bh=1PO3YHl+btPykbwTM16jfcwADiOLFguz3RVcskKvjrA=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:From:Subject:To:
+	 Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=clDBfDsfAaPf/GGE1AgknuWnmYdIEyct1AS8w4W9Io13BTyjt5+YzvOTfZj8nHJZ
+	 rVSWhzZiSp/U+VDUUNgpGWdRRIxzBlL6Kp16ZujnQ/Nnf5vBDq38caX02wi5gesJr
+	 JJSHAAfnqjEAuG8U0DgY04zzVTGCD1foKYlXZyQTe1/htlKGh2EsQsGpOEOe2AKPr
+	 OjErWPuHmh1o+NucI4dMAvFJcaY6U5gGKG2FWntkfgXYuSi4Are1wFeLjiMUXc44y
+	 YbNdaWiiy9ZIKdayZanXn69smoACengoRQN0RZ5unTj/HiWMpcZ16OT2Bs0MMfmeH
+	 Dkl02chM/95J7Ly5UQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MuUnK-1xUJUM1Ux8-00t0fN; Thu, 25
+ Jun 2026 16:47:32 +0200
+Message-ID: <958783c6-826d-4e81-a840-70d6d6f1757b@gmx.de>
+Date: Thu, 25 Jun 2026 16:47:31 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Ronald Warsow <rwarsow@gmx.de>
+Content-Language: de-DE, en-US
+Subject: Re: [PATCH 7.1 00/21] 7.1.2-rc1 review
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:251JYwyItmu7JD75xF8sdK6PH2cEir/C/fX8IM0G7EgblLTiq1F
+ gf2BxUdJQEPp3bMyHEs9PmrDTvQBy0/Cay3QXl9pytlcxFXrTJTQovvAmytm5DPMJVamWqo
+ 2+Fk88er4ytRjdkcR/VVa5oIR9pRKZioIidhwlPPWQsyUXHhu543pvVc1RnlXusKGQ9D2lY
+ MGJ3aEpudm13lJS6q5LeA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Y7Hu/XH4Tww=;18chbAtFrTojOrcMKrrEY0EpWsg
+ ouo7B6Y39I+h+x8J2l0XqMwGdTiaSS6MjH/gVLyg+8TNyEjBJEMMLmWh3PiG53Wx6YrKKi3yA
+ zFpCRJqlznExvfKRsLu2+ZbfAPxgU5mUbfLeEbZ4NqviRHvJWxXRzYGi0//XTBu3bAsd+a8I2
+ FvC5P9w7yIUpLPjPnQCe12S2ONGoI4cG6762B7uPnSNlOvroTFpUcimVxzDggqvEcPom9JWXB
+ YGDsRjQOKJRni2eG9Lp/Od/vt0Y5WuM1uzc4DSfE3EsFsO0OAAAigva2DHYppJFN3aUJTqkEg
+ EPH5P1r9hOgt+moj0xSId202qiJ7JQwDdK5s/usXM08Qohe4AwrzO+y9vN6dMK7iCUcYuYBSJ
+ KQCNvVRw468EztG3II/h54O1OiOF3mII0EyYiobT2d7ASpJcpbAC9v5YQXSRNfok/PV5SLg0p
+ GpyoZa4qnHutxwvZKf3acS/3be0PTBA+WgSizO/6gEQoxxVmIsVF/FQpuLvdhRrrz3iHw5qXA
+ rbGLrYFXcAqf9ej8sFMCY4eqGbjhSY7YcXzR3FpC7TAu2qlJ6ChCCMzKwaplQAhlwAI3/4BPq
+ d/h+pCoGAY1UivEhf5jZI/lF1mLwnnIrie1kIc4DqKJJREJ3VXo70wrK0lwjuIzdFgPdQSqLu
+ 06/WzDRVudzM+5CLoc8P3IqC6JfDzScuzrcn6CPrlBv7nxAke/RilGamh5vss8FtBhcXYmI8k
+ s2SqClsN0elYBh6DryO8gRlpqEEpm9mTCpJlnyMf9shgFjaXU/7KrxmI/8seUxysBvAPiF2VJ
+ vTK6UHtqWrh2R4SxP3aIyfK5A2jdr/qjvePYAklUX1UyllxggRb9+uwNWumrAZVuJH8ie+sHE
+ Ad7vW8E/35fka+bwWntC7I8c+6xE7B/hwf19hbbSG+jZWDteFkc/W+zeB1wYXuvZGm3PQdZFP
+ Yr6/o2cfweKmXGBQDnf2TvzrO9FCuf0isbqqmGA9OgbKsf1BAiGUwXormM9wtF9TppaEMGDlw
+ auaa4okMjUbriD+lXE6j7JYWGTl41Vr8ubW/nA2WGo1DoOEYCyZ9UsgcKhgjN2V4p4HNLIrxk
+ By0WdcU1hkzjGnw2C80tw09tGEnhVu+fiI9bilt1BqDhL1Uv/0/Xp8lvAWTEjNwaMc/m+sh4s
+ WMRCLEzoK6BHXrr+Z/U1j0bn2qzQVVfH6hzf786G0lOxmYtd/1YLV8ANY+WxSuzCfKDEghoDE
+ 8hGqd/eRytZKSIJm/aXdoXr0VVu/Bq++4nwgoJt6QyNM5jvfMewTvLsdYxQuq428oIfzCTitB
+ yqB7rzg+YQmYegkRDfX0EHAk2WM6TWQqjRq1i8rSDGa/dXyzVR8deZLyG3iuIbDgKi6J972Vg
+ EQ1u+lHbSYHIpcx5ph/ObbZOQcCrZoafGHZYoZPulDu9/NwgkP3uV/PN19rPNEhppuMyNmAdY
+ oYQ3t0+o2BwdbbMJ3v4akGm8L+n7KO7b3MNoIzKqxjrG48cT8pBuNaypfZ5GUZaqxUDMsh1xc
+ M4uNvudFJWbk1G5CDTATPPhoqev3jh2dqeO4Zc0smamVrVppqgHClhXyWq4vKCnCpzeRbVod2
+ wn1cOjX9kbslcWHsSAihxaBxQup3J3L+DX+cY7dvx1lfuOJqXczi0p8I5bgykz10FwER25Slc
+ X7z8IZDJiG7UgFkBX5u8dNnYzOGKOM1hY4j1JgvBluWIvqLLOFlvLRGboc0jxxoRMHHBrbktC
+ 1Hptw75xduFF1kE5rsVoH7Xkn3gzh1Wa98Ufs+mnVuevtNZOR04bgBfJCjx66LIcAShknlRaW
+ zdxy7cuJwrzPTAMnQFoXOHRa0nf80K+KY3m5UhVkb2ktaZrwoXM2WefZZvWAaYjpS3gNArHmB
+ f9zrj12f+MsWu2HFJI6JCP8ghhNpRDqm0F0WmpnHxxL9eF0DfYjv/MWpdPTu7Ryj9OsX03sQ/
+ 7HboXS7MH/90Aiit4CMlH0yZ+lsGtmnu5hfSwCfMTCDBVjtV7EQ+090Oh9oxxEi9YUafjSpuF
+ eJgCQcqAw095hzN1R9ykCHxx6yrl1DwgyOR9Y5A9MDeOkW1ygg9nfIHwX+f/S8HSCG5hshk/z
+ oc+iS2Q7bCM9eh5/Ik5Tn96Bi4i32SaPoJPBp918W74xB/VKpMgC6XvSkflNh36Y99wAzVx6B
+ /mvTwMhKyhdtuHK1PldJmrSWCAU/zXU1t39xv4DzDmA/BH8hK+VuU9pMZEn2F6bdyP7WCj6RB
+ BexJIhxFSabhXaH9ooXeMdvSZXdfxZ88JV4x3GLUzcaUvVkM7ZerLxg8uYqUoXlEtpnYhe1sF
+ 1alHOXHZixBKGbWo+YD/YX8PBwMt4worQ+g+UP+wEprUwMoFeYSkNzhK/lxpO5Ge6IQaXybQP
+ HOgKmIKzQNmC01FXHekc66FuSkDODSlaB+XjpnjzF48VYelPu4ejSXqfYM+cdkjKqB44PDC/C
+ SinXl2xVV4HUTScybXfjiSv+yuVFLizzzvd7qPS/N1WAQDLbxZrnOxM9M7oJoAxkoUHy9uD7C
+ g1BHwawQnB5gdGZPdNw0PTM8jNg2QMxpBtl39ZJhwrGaCklu3wWRzwvJ+BUJmQukWi3IYpyNT
+ KRZUaToxnT4+hzKBkVSL3tCSUeZo+OaN1GNsUAIT6TLw1KynZ/gUvvwHx4WVkBlXpn4EkUlr4
+ pkfH2FW31kOBfp3gr/P+wQsUUxIzy2eP2DMaIStmhi/5Y/LPK8Ct6ulMwLJ6ZXECgI8tki7Ko
+ 4xOkPfL+fTQ9M8Nt05R1fuom3QWxB80/qeio4aMaQttCrnhk8PjLSWnCYoZRnmRGVkMiCHzd9
+ JaplQ1N52LSqXEo0Xo7lUmVJYLlgAmid2ZMUS41wMqKjtB8L7Wo9y1OEp+cMGyuvh8pKyJEiz
+ wIl/8K6J8ombRLk+bL4EPcIz89JbEB3pShEX+aY3nQNwQDEdTdwRQ28KHLsIw8DsWTZcn25D4
+ AvGDEJEqQI/eeFC/zFvQZ6ALWvffOry/Q5TFxIH1GpDhnBUYPde8vkTP9AlhlYo4wfssAO1PV
+ tStuGpP6SSMnUPFaY4JTRAnYh0TJDSsfKVx/EMhxiIl1dQIW+9XtQ11BZ2nvqkKTg2fVb+A2q
+ eQGXxU39prPbWnNqF02nTWgaFlowKe5//i3BcvAD6CJrH6pivtzkVwK7QwRFBs1gf7DY/ytmY
+ KCWQqi1bFzOk294exv67ddvXS5aHx1UJNvnYDm3f9dbcwn0wTbPs3NNCIHDOKDBuQ/iD8287Z
+ i2eqZ6CwUkxFJn/skxusEB3NDfMhUs5zX7aa/g7kwjPWwMyzLuMmM3Snn+HrO4aV7EccErqAt
+ isR18oMrzF4icpNUC3+AOsBcqH/+7egzGqFmaEYZ6dZw5ZdVRn4Zo4RXECORKmSotvWi3t2u/
+ yf3QxT5ryESlau3j205xcp8OXXeSJv+TnLrgdkI/UBjDGOPwTsfbk/K3hX4YopGnEcvFj4485
+ ZfdhKAlWAfAAE8gC/hu2RGfYQMwB7s5XXOQ7XYvJSSccQ8RKciC67S+8Uj26v6pvqqypi6BQ3
+ idDX8ARmrGMRFHJxAdXSzoAdenfeA2yZl4phAgEWnIUi+uDfGyeXi7ywpsQvZrGDy5iOGagHh
+ 0bHBh6giauBN9dpbXYcoLOlu10qraD8vOMplsQJ/F1409IExtwnc/ysG986GVUWc8QOMtS9No
+ 5V0/tqB49xSW2ag/cC1S+fOxICy9jP5CjepVlTqj0JP8Ps89dY1oaJ4ORrS2131ojHLticmF7
+ LRgHfVNCYQMOgBvRSLQslWewrOmU/e8u4WekgbuuIz96/u2L5eG6tRCT/8ZjAdGoZfGcfflSx
+ 2luRdEFGUs1HzzExapNwGjK1X13xoB+g/LUdw1vP/G5j7WNfVr76WLBzcprnC6oXf6H+U8qSl
+ KqtrC8RuN0lQulHutXg7MerxqyNPLHHEkzaqpSviQJRotRgdzH1vuAb9NCwkJmwHMxOE1QjS8
+ tr8FBuwN7I4D87j6YNlp3gVvEZe7aiuK84351focApgMQ8ydLp/zNKFkKq6kEAEzNwdqLnBB7
+ 0WW5hNwbtvq0r2si7e1Bw5prlX4tQ56CAaUEMBx76U/H3IeJMnteF87839d1q/GXdNrwJbf2r
+ Rf2yd1610AyjxANc8qo4FTencbv3epk23jAoRxyBvMaDYYFVg1Mhylbro3lmc1fFgTjJEPAUS
+ ANBpE3upEq1wA4c7w8KmFvF0blYQhb+Ja6ATg8u6MzvrXqIRuDzDm3updudSQX9Dfd/NLPHtn
+ 6jIG5VbGyUlRqVAaNFCvJdvlu8DfSrejqdroJl4nCEKei/Oz4UvkjxdACkiRwq6gi51sTuNyg
+ nqcNLHppw0iqdDSURTVm8SFzUIOwj6WuEVwUmhKZUKfkeD9Lc3jRfAdCseXdJqG/VzkDSlzBa
+ qkN5kzbHf00BtCzUNCp32p9a+Q+JXEK1ysCTKL5ynhRXGy7oWIVqZ7mlpRgXd86OFrjQbQoKV
+ ujQDf8SUt5f45I69/ZtQqGq3BqGL4g1l4wfg3qsJ8Nlz7Bv+I4ATdl4GMY2jFgT1UYSSaxuyJ
+ 18DbMJUx3FMxb8FooqIGPJkA0/xyqjdYW5FyWhmbXIcRjHpmjJKnOy8oWvfKeztWMXhiiGAIE
+ OPoWAOE+t+jEUduDYvDQTgZjooYeYmh9OgrUY+Zn40PPYjLRGxzDiu7EgM9/aHeocIDheNUQ+
+ 64Vj3hfcsFBU/J292KSvWIbhfOqaAnNuU159ZFsDDcTl8hKWxltuzGORJ1IXs0K6Yy8DBIG7V
+ 9B6Hj6PIa10HN0doAhi24NSYWQq0F7/TATJZz9kT4Kh8voU1wewm1lyk0wSbj/L8056aaluOH
+ Ex3I5RS7HTr6tF5umBAS2bOuCmFR82K7l/DTJilsm7rsi+Rn5XRoeVQt2Glwq2SmAZi0O/BLb
+ wuIiOqLwzBwmU4bXzxfmJyXG+C5ixH+dIw/RRKD9yFk06EZB6HzV3ExcPTBx7COp8upBUCCMZ
+ ewbSemL/l9kYE0wpBqdU13ZoEbcC4rz8YacTWzKCpZ2SSMUelU9D3iGRNNP9o+wWwgl/KTfwp
+ zwY5Fh4jCg7vbnLYBvsk9QwgIjhGKyoxKXftF3Ip2/TwU/yKEnkWUxjVaZ28XhwS6cOYEDhpE
+ mIju6ZbNh+oUaKtowYuHWePPWWc109uLU7H3iWvlfxgYBCKbilXCDQUGIUYyOMuKlmHyrVFXg
+ 5KctheW/wa128IDbPllTEnyBqbddzlt9UgGt9rVbPZgq0ZOhIPPoUXpE8ZQkfUp1u6Rv5HMgs
+ VH+/NSHeyDaXDWoEQHL1zIw/QnOjXxd5XAlh+Ukec+LZ2rEDM0NQZpWE479LFAmC5PJ5fb4Zg
+ l6aHGu3hfRsAkKDkeXiIg45DwgXRTuP16tzovHYaoAwdl6rF3KmViVZlNN89/WfGQojpLDrbU
+ Dab64Lvu6vwahwkyBFSwPkZ57rxZNBItP5frglV+0WK/IpRhVbLN5ESQMTfL250t45
 
-On June 25, 2026 3:03:48 PM GMT+01:00, Petr Mladek <pmladek@suse.com>
-wrote:
->On Tue 2026-06-23 15:34:58, Bradley Morgan wrote:
->> Some callers handle SYS_INFO_ALL_BT themselves before calling
->sys_info().
->> Add a helper that strips that bit without turning an all_bt only mask
->into
->> a kernel_sys_info fallback.
->> 
->> Signed-off-by: Bradley Morgan <include@grrlz.net>
->> ---
->> Changes since v1:
->> - New patch for the shared helper suggested by Petr.
->> 
->>  include/linux/sys_info.h |  1 +
->>  lib/sys_info.c           | 15 +++++++++++++++
->>  2 files changed, 16 insertions(+)
->> 
->> diff --git a/include/linux/sys_info.h b/include/linux/sys_info.h
->> index a5bc3ea3d44b..87a841ec7b6a 100644
->> --- a/include/linux/sys_info.h
->> +++ b/include/linux/sys_info.h
->> @@ -18,6 +18,7 @@
->>  #define SYS_INFO_BLOCKED_TASKS		0x00000080
->>  
->>  void sys_info(unsigned long si_mask);
->> +void sys_info_without_all_bt(unsigned long si_mask);
->>  unsigned long sys_info_parse_param(char *str);
->>  
->>  #ifdef CONFIG_SYSCTL
->> diff --git a/lib/sys_info.c b/lib/sys_info.c
->> index f32a06ec9ed4..6afd4c697633 100644
->> --- a/lib/sys_info.c
->> +++ b/lib/sys_info.c
->> @@ -164,3 +164,18 @@ void sys_info(unsigned long si_mask)
->>  {
->>  	__sys_info(si_mask ? : kernel_si_mask);
->>  }
->> +
->> +void sys_info_without_all_bt(unsigned long si_mask)
->> +{
->> +	unsigned long dump_mask = si_mask & ~SYS_INFO_ALL_BT;
->> +
->> +	/*
->> +	 * Do not call sys_info() when the caller context required only
->> +	 * backtraces from all CPUs. Otherwise sys_info() would fall back
->> +	 * to the generic kernel_si_mask.
->> +	 */
->> +	if (si_mask && !dump_mask)
->> +		return;
->> +
->> +	sys_info(dump_mask);
->> +}
->
->Sashiko AI pointed out that this function still migth trigger printing
->duplicate backtraces when (si_mask == 0). It calls sys_info(0)
->which falls back to kernel_si_mask which might have SYS_INFO_ALL_BT
->bit set, see
->https://sashiko.dev/#/patchset/9b8c96e291696815d3c7de5d3e199298dee0279d.1782228656.git.include%40grrlz.net
->
->=> we need to eventually disable the SYS_INFO_ALL_BT bit also
->   in kernel_si_mask.
->
->I think about creating a generic API which would allow to apply
->a filter mask, something like:
->
->From 02fc810a801adc0fc4d1fd14318415719bdfc656 Mon Sep 17 00:00:00 2001
->From: Bradley Morgan <include@grrlz.net>
->Date: Tue, 23 Jun 2026 15:34:58 +0000
->Subject: [PATCH 1/4] sys_info: add helper for callers that print some
->sys_info on their own
->
->Some callers print some sys_info on their own before calling sys_info().
->Add a helper which would allow to prevent a duplicated output.
->
->It is a bit tricky because kernel_si_mask should be used only
->when the call-specific si_mask is empty. But the duplicated
->output must be prevented there as well.
->
->Signed-off-by: Bradley Morgan <include@grrlz.net>
->Fixes: a9af76a78760 ("watchdog: add sys_info sysctls to dump sys info on system lockup") ?
->Fixes: a9af76a78760 ("watchdog: add sys_info sysctls to dump sys info on system lockup")
->---
-> include/linux/sys_info.h |  1 +
-> lib/sys_info.c           | 20 ++++++++++++++++++--
-> 2 files changed, 19 insertions(+), 2 deletions(-)
->
->diff --git a/include/linux/sys_info.h b/include/linux/sys_info.h
->index a5bc3ea3d44b..f1c2552ca3d1 100644
->--- a/include/linux/sys_info.h
->+++ b/include/linux/sys_info.h
->@@ -18,6 +18,7 @@
-> #define SYS_INFO_BLOCKED_TASKS		0x00000080
-> 
-> void sys_info(unsigned long si_mask);
->+void sys_info_with_filter(unsigned long si_mask, unsigned long si_ignore_mask);
-> unsigned long sys_info_parse_param(char *str);
-> 
-> #ifdef CONFIG_SYSCTL
->diff --git a/lib/sys_info.c b/lib/sys_info.c
->index f32a06ec9ed4..d411fee10415 100644
->--- a/lib/sys_info.c
->+++ b/lib/sys_info.c
->@@ -136,8 +136,10 @@ static int __init sys_info_sysctl_init(void)
-> subsys_initcall(sys_info_sysctl_init);
-> #endif
-> 
->-static void __sys_info(unsigned long si_mask)
->+static void __sys_info(unsigned long si_mask, unsigned long si_ignore_mask)
-> {
->+	si_mask &= ~si_ignore_mask;
->+
-> 	if (si_mask & SYS_INFO_TASKS)
-> 		show_state();
-> 
->@@ -160,7 +162,21 @@ static void __sys_info(unsigned long si_mask)
-> 		show_state_filter(TASK_UNINTERRUPTIBLE);
-> }
-> 
->+void sys_info_with_filter(unsigned long si_mask, unsigned long si_ignore_mask)
->+{
->+	unsigned long dump_mask = si_mask & ~si_ignore_mask;
->+
->+	/*
->+	 * Do not fall back to kernel_si_mask when the caller context
->+	 * required only the ignored information.
->+	 */
->+	if (si_mask && !dump_mask)
->+		return;
->+
->+	__sys_info(dump_mask ? : kernel_si_mask, si_ignore_mask);
->+}
->+
-> void sys_info(unsigned long si_mask)
-> {
->-	__sys_info(si_mask ? : kernel_si_mask);
->+	sys_info_with_filter(si_mask, 0);
-> }
->
->The next patches might use sys_info_with_filter(si_mask,
->SYS_INFO_ALL_BT) instead of sys_info_without_all_bt(si_mask).
->
->Feel free to bike shed about the function name. Also I am not
->sure whether to pass the filter as bits to filter or already
->the complement (~mask).
->
->Best Regards,
->Petr
->
->
+Hi
 
-Okay petr, so, The whole V3 situation..
+kernel build / boot test on x86_64.
 
-I have to 
-- Add (or modify) your suggestion
-- Add fengs reviewed by tag
-- and find a more neutral fixes tag
-- And also add Cc stable to patch 1
+No regressions here.
 
-Ill work on V4 today.
+Thanks
 
-Thanks!
+Tested-by: Ronald Warsow <rwarsow@gmx.de>
