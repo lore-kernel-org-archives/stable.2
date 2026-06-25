@@ -1,208 +1,88 @@
-Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D990367B62
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 15:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5715A367B62;
+	Thu, 25 Jun 2026 15:18:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782400681; cv=none; b=Emlp+McyArlHZgJiDMRy/7mpn1SXYX0Cwb5xM+x5A0HoIKy6/ArTHkGgYV/KyRC28QstDjJcI8yXg1mLwYFUgDTsjw/gPYlt8niZFYf/GkTzcw8LPfeE6STFrfSdmUL+C29x8PdeDJ3UkaMfCMlGIBFYE7cDnB655QKdBh/TfBg=
+	t=1782400718; cv=none; b=thXsFHxNgXjzbfPXbFthuDxIl9caByQ7Emc/1nh8BhrFRNyoTtrEdPPrXCOqAwNARQ1hlooyLW/+MMHpfXT9+IKhlnS3kmPMid446rRCfg+lEaORm+QIRkSG2TV18AYm0oO1cWCtkCncMj+fuqV+WWaLjNVW1MyHqtfNfglfS5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782400681; c=relaxed/simple;
-	bh=ekx5cr7T299wlK8jCLijW3dhHd83+VG4kNX/35JMfiM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DjIw5861wmOAxUNsPkdLxU1xK6s2GHLungnJjRpMF07KWeOa74wbhVhJPGQ1jb0ovnf5u+YNPNeG0DbENNPksp1xiWsKjk3QXQKxgOajQjWduAgKwsqk6mokAfFr0GmSw/+7+KSWkkqhXe70g45SGFZI25DBITDOCwfN+7na4jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=araeRisd; arc=none smtp.client-ip=95.215.58.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782400718; c=relaxed/simple;
+	bh=gF7cN1XBfU+vYIAiMKMGthjfqnRBxkJi+XdTR3JVbbo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b4qnFsPVQctL8k3Ay7xEk2SXKfmn1Gw3V9ZQrVuBejMcR7hvC2Ci3EDvuL1h/T2f09MPi8ne4TBs9keWf94i5KrLb9bNhL9K+NDKxmKRGWe+QWp1/O+KlKRmUh7KKhC7cS00o2YwGVPGlOGFhEnhaV0d4FnjqUU1XymN3XJwZ1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=NwZRwZFb reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="araeRisd"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782400676;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=0abFjDD7MeWR8jXMZ2j0zCKAbj5uTG1W2qlcF8YqFc4=;
-	b=araeRisdZjkkXDB5B5YHuyjgxiM3QgILhTA3HYQM2YO4riqCwXB16muACRB18zccxmj6HB
-	uk5sdyKDreRF+CYXqUsePISuTN1byrhnIsvTqYnq8CpyfVWyZlNIte2FgGzk+V6kjepyj3
-	1MUTcDj9eg6EsdVDrA1sykzJH9DqGZo=
-From: Qi Zheng <qi.zheng@linux.dev>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	kasong@tencent.com,
-	shakeel.butt@linux.dev,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	hannes@cmpxchg.org,
-	harry@kernel.org,
-	muchun.song@linux.dev,
-	peiyang_he@smail.nju.edu.cn,
-	mhocko@kernel.org,
-	roman.gushchin@linux.dev,
-	ljs@kernel.org
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Qi Zheng <zhengqi.arch@bytedance.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] mm: mglru: fix stale batch updates after memcg reparenting
-Date: Thu, 25 Jun 2026 23:15:54 +0800
-Message-ID: <20260625151554.55105-1-qi.zheng@linux.dev>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="NwZRwZFb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=4kyyfjN9B
+	zKx+wWFPMXdh5wL3oVfa81GTY/BlCtYCN4=; b=NwZRwZFbveEg2cIwkElfUH350
+	CqSGnoMlU+hn0xl4+lqON55BJftz9GkDhDdQtEj2o8vFvxldOCJTbeI1QSiEfS07
+	A576vR1q7xHhS4j6km8gqyEYgc1E9tBTWWotcLyhMwla9EUucx3uOaouFa7xKeEc
+	dpV3dDBnssKI6vPKvM=
+Received: from [10.196.180.86] (unknown [113.200.174.80])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with SMTP id BLQMCkDGDzW5Rj1qp6gAAA--.2760S3;
+	Thu, 25 Jun 2026 23:18:19 +0800 (CST)
+Message-ID: <d8e82639-c112-41bd-8ab3-f3f5fa9f80d6@stu.xidian.edu.cn>
+Date: Thu, 25 Jun 2026 23:18:17 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: fbcon: fix out-of-bounds read in err_out of
+ fbcon_do_set_font()
+To: Thomas Zimmermann <tzimmermann@suse.de>, w15303746062@163.com,
+ deller@gmx.de, simona@ffwll.ch
+Cc: syoshida@redhat.com, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260624083316.389677-1-w15303746062@163.com>
+ <7dd87e55-5170-4317-8c9e-38a7868f68fc@suse.de>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <7dd87e55-5170-4317-8c9e-38a7868f68fc@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:BLQMCkDGDzW5Rj1qp6gAAA--.2760S3
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYd7k0a2IF6F4UM7kC6x804xWl14x267AK
+	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1j
+	6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr
+	1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAac4AC62xK8xCEY4vEwIxC
+	4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
+	IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4U
+	M4x0Y48IcVAKI48JMxkIecxEwVAFwVW5WwCF04k20xvY0x0EwIxGrwCF54CYxVCY1x0262
+	kKe7AKxVWUtVW8ZwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1l
+	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jwPEfUUUUU=
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUPEWo9P0QD-wABsI
 
-From: Qi Zheng <zhengqi.arch@bytedance.com>
+Hi Thomas,
 
-The mglru page table walker batches per-generation size deltas in
-walk->nr_pages while walking page tables without holding the lruvec lock.
-The reset_batch_size() later folds those deltas into walk->lruvec under
-the lruvec lock.
 
-The page table walker can run concurrently with the memcg reparenting path
-as follows:
+>
+> The email in your S-o-b tag differs from the one in the mail's From: 
+> line. I think this is not accepted in the kernel. Can you please 
+> resubmit with the email addresses synchronized.
+>
+>
 
-CPU0                           CPU1
-====                           ====
+Thank you very much for the review and the Reviewed-by tag!
 
-walk_mm
---> walk_page_range
-    --> update_batch_size
-        --> walk->nr_pages += delta
+The email mismatch was due to my university's SMTP server restrictions, 
+which forced me to use my personal 163 email to route the patch. I 
+apologize for the confusion.
 
-                              mem_cgroup_css_offline
-                              --> memcg_reparent_objcgs
-                                  --> lock lruvec
-                                      lru_gen_reparent_memcg
-                                      --> reparent child folios to parent
-                                      unlock lruvec
+I will synchronize my git authorship and Signed-off-by tags, and send a 
+v2 patch shortly with your Reviewed-by tag included.
 
-    lock lruvec
-    reset_batch_size
-    --> child lrugen->nr_pages += delta
-
-This will trigger the following warning in lru_gen_exit_memcg():
-
-	VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
-				   sizeof(lruvec->lrugen.nr_pages)));
-
-And the user-visible impact of underestimated nr_pages in MGLRU was
-premature OOMs because MGLRU does not try to reclaim memory when nr_pages
-reaches zero, but there are still more pages.
-
-To fix it, make reset_batch_size() check CSS_DYING under RCU before
-flushing the pending batch. A non-dying memcg keeps the original lruvec
-stable against RCU-delayed offlining; a dying memcg redirects the deltas
-to the first non-dying ancestor.
-
-Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn
-Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
----
-Changes in v3:
- - re-implement lock_batch_lruvec() by checking CSS_DYING under the RCU lock
-   (suggested by Harry)
- - update the commit message (suggested by Harry)
- - temporarily drop the previous Reviewed-by tags
-   (since the sync method has changed)
- - rebase onto the next-20260624
-
-Changes in v2:
- - update the commit message (pointed by Barry)
- - collect Reviewed-by
-
- mm/vmscan.c | 45 ++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 38 insertions(+), 7 deletions(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 35c3bb15ae96..1ec8c23c72b9 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -3262,10 +3262,44 @@ static void update_batch_size(struct lru_gen_mm_walk *walk, struct folio *folio,
- 	walk->nr_pages[new_gen][type][zone] += delta;
- }
- 
-+#ifdef CONFIG_MEMCG
-+static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
-+{
-+	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
-+
-+	rcu_read_lock();
-+
-+	/*
-+	 * The memcg can be NULL when the memory controller is disabled.
-+	 * Otherwise, the caller keeps the memcg owning @lruvec alive.
-+	 */
-+	if (!memcg || !css_is_dying(&memcg->css))
-+		goto lock;
-+
-+	do {
-+		memcg = parent_mem_cgroup(memcg);
-+	} while (memcg && css_is_dying(&memcg->css));
-+	lruvec = mem_cgroup_lruvec(memcg, pgdat);
-+
-+lock:
-+	spin_lock_irq(&lruvec->lru_lock);
-+
-+	return lruvec;
-+}
-+#else
-+static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
-+{
-+	lruvec_lock_irq(lruvec);
-+
-+	return lruvec;
-+}
-+#endif
-+
- static void reset_batch_size(struct lru_gen_mm_walk *walk)
- {
- 	int gen, type, zone;
--	struct lruvec *lruvec = walk->lruvec;
-+	struct lruvec *lruvec = lock_batch_lruvec(walk->lruvec);
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 
- 	walk->batched = 0;
-@@ -3285,6 +3319,8 @@ static void reset_batch_size(struct lru_gen_mm_walk *walk)
- 			lru += LRU_ACTIVE;
- 		__update_lru_size(lruvec, lru, zone, delta);
- 	}
-+
-+	lruvec_unlock_irq(lruvec);
- }
- 
- static int should_skip_vma(unsigned long start, unsigned long end, struct mm_walk *args)
-@@ -3779,11 +3815,8 @@ static void walk_mm(struct mm_struct *mm, struct lru_gen_mm_walk *walk)
- 			mmap_read_unlock(mm);
- 		}
- 
--		if (walk->batched) {
--			lruvec_lock_irq(lruvec);
-+		if (walk->batched)
- 			reset_batch_size(walk);
--			lruvec_unlock_irq(lruvec);
--		}
- 
- 		cond_resched();
- 	} while (err == -EAGAIN);
-@@ -4867,9 +4900,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	walk = current->reclaim_state->mm_walk;
- 	if (walk && walk->batched) {
- 		walk->lruvec = lruvec;
--		lruvec_lock_irq(lruvec);
- 		reset_batch_size(walk);
--		lruvec_unlock_irq(lruvec);
- 	}
- 
- 	mod_lruvec_state(lruvec, PGDEMOTE_KSWAPD + reclaimer_offset(sc),
--- 
-2.54.0
+Best regards,
+Mingyu
 
