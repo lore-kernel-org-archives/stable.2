@@ -1,127 +1,175 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4DB7363C7C
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 00:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8D95B5AB;
+	Thu, 25 Jun 2026 00:54:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782348452; cv=none; b=QqHwqUHAYrccQhDFDrWsHJ09BDWnDA7V4rsaKM/bw7jZr5LQdE+rkvAGebXDUq2wdDquxXuBsiRII4fDlP2/xNCIXzALUFqSJoClUDWW37oEt69riH9iD7nRoUSu+QXjNe8cphPw+DO2GQOjccPHEi23YHPhr4wQA8HYdKYph/c=
+	t=1782348900; cv=none; b=H8ROTJL7RXdOYY3hD+gB6TRhn0dpi4B1bcgGKIV14iOpUDkA6XWIXAgc8Fz6fvahB/jnAuW4bM1D0tldgJ/NS2CERqEfrwmHwi1Omf66woSvlGbJSz0E+yntmHoLpzWHKxsLq3Z6gvo5JQF+2JL6OJzYQctssdYkW46EGuaHxBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782348452; c=relaxed/simple;
-	bh=6ButBLdA+1V8pgs3btifBXMmHkfjeyMpBeJ0zUqDwVA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c++Xpp2nzJR+FZqg4OIhfls0BEm7aYPSpdyIuek8eIwWUm5wTmmK422/rcqps7s6Ek1soSCHLe4jNdagfK4FN0mXYp2z/u/ZCwUpywWio8kB/h3X9JPtzTPJMCORQljw8kNIdfoZHoOX4axx7MuO6z3kQi3Nvb06HReZpnGUEOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kb2jk8vN; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1782348900; c=relaxed/simple;
+	bh=E1QMaLPuXJSmKrpKJ2S/oQ2jD77yOLsebWrvZbksCLQ=;
+	h=Date:To:From:Subject:Message-Id; b=iNZONzT7lxYEv0OBwu6emgIKy4CCZV2r7aKPDDy9BOsyopDOF7Fw/ZksJg+RYJSWeH4qEkQGgq0Es2Qx1xj5jdX57hV8GmEOBmF8t88deenjkLaO7g4lyO3POOlWRRDg/m00Fy3FREEz9RmpkW0bQk1nK6wtTiPoCd7NL1Ullf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=vTIQaQRZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kb2jk8vN"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2c6a4eccab1so12195ad.1
-        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 17:47:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="vTIQaQRZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F75F1F000E9;
+	Thu, 25 Jun 2026 00:54:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782348450; x=1782953250; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yufoDQhIisHVA9FgmK9gfcD3owed3DX6TgCMh49B200=;
-        b=kb2jk8vNS6xi0SKaVc7vlf9N3v8ULKbHVDM0OSo1B4Zyykx0eUJv+hM1XCsvbagwqa
-         pzjWMs5slfZ/pEGvH7G8m6fOrUjOKJh0nSoG94GuOqR+EUvvPRRs9cf/XassZxqMHliF
-         Zgrc82kuOtFxBahTQo4Mney5sCkq6GVglMhXALvAKeaoNeivoPbvQycvlNKAymgqorK6
-         pS2CUQrEnX5cnuaq2X1NEP+95J3PIJiGzWWd/lnF5Pk315y1DzHeMjHwM+tVeSPbkM1i
-         FdGrB50IBF4VnCCQPkeGmgdZJomWg9ZZRkpzE1JeWXp+K0yI+VDa1J4/5MtX+zWQNpyL
-         dpOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782348450; x=1782953250;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yufoDQhIisHVA9FgmK9gfcD3owed3DX6TgCMh49B200=;
-        b=XdOUAh89i2IkXbwiET6xFnZ1w5sV8rILPH9hSaWgxvKMQ4b2v/MpynGRfXIzFuHFOu
-         5TDFFbK7zJAufH/W+2aRxRCtbw+C6bgHyTSmMj/lSsoIfVxTmCgSd1/lrjyIrvgDLQbi
-         JgiLbnC5v1tUMl4xoNfdJayX+dvgFtzjblzfyUfynPVCaXjy9EcJDE+wer5LzpJQAr6i
-         GdwL0rLortTvVNbzuBb8c2VgZdcdT7FLkFQT7jr0HmwFZDgYqQ0+1UqvLsmZfBNsJKSD
-         7KRG0ovfcHIzFbyJzZixeU1kFnzbVvyRJ/d4sstLFWzBfOJxTsKnx9XMlrnfqf0lKCZl
-         Ekbw==
-X-Forwarded-Encrypted: i=1; AHgh+RqPjXQiJHl+EY64BnK72op/pFeGbYLp4sOmhZU3zSQNGBS/2GRK1wF5koDp1v3gJCziIwOxn4U=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxLN5tXtU6d8ujQwAleR0aipQDEhQ8Id+YHEWDFgszQC/mPOubN
-	lsflc2OISWzjno0IlL6BsSJEachCdNGy/2SJmLrY2yV/Fr6aLa4odDjQy8VS/iN9Aw==
-X-Gm-Gg: AfdE7cm397Dt+hQLJEoQ8uKFdPzmkv/+c6WVzdorkIbM7GfeLLe3XZFZBR6iJFFxwDr
-	bORnPq3xYuX1RoE3ulIjIg8n2H9z4puFoUju8ezIiINVU18vOemHbqos791uzL5YYnP6BDn1lx+
-	Z5M9VLvHYuqeywGAh7LMBDQ2dIIj5+Fv6P9p8g+9GQc8i5KgrsJrmI+BPj2S0kZVONFoWSkdVin
-	MrJo2CS27a2sawfDpXCgh8lku8ilUnqMG8SzVNthWEDSGOUbBo883z90kMSOd23oy6FAnB1pq6v
-	WjzAB19Andst+6XtlpMDzcXCy9zxQfcGPln6XrbZK3iwxSojQXCjG23Lu4+blJBMuFm096fO7/Y
-	5q+q6yLW531mFFMQ2X+l8FWLY7VLVO6zDSMpTnUnX83g1cfI0GMh0DFdYOod54kXDgVkGKefejZ
-	sIANxpDKQN+0QOpKpVVp+yyoONXQJP46yiSg6ZHvmLYYMCbDzeHxKwNxTu5MTIMuOBkd/FAAiK2
-	CJZ9jdnYdi7XNKaHFvMSprlktyqLw86RBQ=
-X-Received: by 2002:a17:903:1a08:b0:2ba:73c3:49b0 with SMTP id d9443c01a7336-2c7f7312516mr1278445ad.14.1782348449420;
-        Wed, 24 Jun 2026 17:47:29 -0700 (PDT)
-Received: from google.com (112.174.16.34.bc.googleusercontent.com. [34.16.174.112])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37df3af8563sm752195a91.5.2026.06.24.17.47.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 17:47:28 -0700 (PDT)
-Date: Thu, 25 Jun 2026 00:47:24 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Todd Kjos <tkjos@android.com>,
-	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
-	Martijn Coenen <maco@android.com>,
-	Joel Fernandes <joel@joelfernandes.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>, Li Li <dualli@google.com>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: Re: [PATCH] binder: free fd fixups on superseded transaction teardown
-Message-ID: <ajx6nMBX0nrkf4qw@google.com>
-References: <20260619220141.3193697-1-tristmd@gmail.com>
+	d=linux-foundation.org; s=korg; t=1782348898;
+	bh=rPJlVCmVLEVN7l0Dkkg76TNEEyp3cE7p52OjSBpRNJs=;
+	h=Date:To:From:Subject;
+	b=vTIQaQRZrmpZ012qLOlpnG2/oJ+5HT++vLF4ZQkZNPDFLss9HRalgrPnxkYoYo7oL
+	 TMT0bon7huwYOPa59Z6MEDR/zreUS+Ct/iuYfUjBLEsoXc0+37FCfBOvJUioD0r+Fh
+	 hP0wTqwY76J7Uha/A6vbzaLh2ZQxrEmvvogdHoFY=
+Date: Wed, 24 Jun 2026 17:54:58 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,osalvador@suse.de,muchun.song@linux.dev,kas@kernel.org,david@kernel.org,mclapinski@google.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-hugetlb-init-tails-before-init_migratetype.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260625005458.9F75F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260619220141.3193697-1-tristmd@gmail.com>
 
-On Fri, Jun 19, 2026 at 10:01:41PM +0000, Tristan Madani wrote:
-> From: Tristan Madani <tristan@talencesecurity.com>
-> 
-> When a TF_UPDATE_TXN oneway transaction supersedes an outdated pending
-> transaction, the outdated transaction is freed with kfree() but its
-> fd_fixups list is not cleaned up first.  Each binder_txn_fd_fixup on
-> the list holds a reference to a struct file (from fget in the sender
-> path) that is never released.
-> 
-> All other transaction teardown paths (binder_free_transaction and the
-> error paths in binder_transaction) correctly call
-> binder_free_txn_fixups() before freeing.  Apply the same cleanup to
-> the t_outdated teardown path.
-> 
-> Fixes: 9864bb480133 ("Binder: add TF_UPDATE_TXN to replace outdated txn")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> ---
->  drivers/android/binder.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-> index 5fc2c8ee61b1..955bdfb4d907 100644
-> --- a/drivers/android/binder.c
-> +++ b/drivers/android/binder.c
-> @@ -2920,6 +2920,7 @@ static int binder_proc_transaction(struct binder_transaction *t,
->  		trace_binder_transaction_update_buffer_release(buffer);
->  		binder_release_entire_buffer(proc, NULL, buffer, false);
->  		binder_alloc_free_buf(&proc->alloc, buffer);
-> +		binder_free_txn_fixups(t_outdated);
->  		kfree(t_outdated);
->  		binder_stats_deleted(BINDER_STAT_TRANSACTION);
->  	}
-> -- 
-> 2.47.3
-> 
 
-Thanks Tristan,
+The patch titled
+     Subject: mm/hugetlb: init tails before init_migratetype
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-hugetlb-init-tails-before-init_migratetype.patch
 
-Acked-by: Carlos Llamas <cmllamas@google.com>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hugetlb-init-tails-before-init_migratetype.patch
+
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Michal Clapinski <mclapinski@google.com>
+Subject: mm/hugetlb: init tails before init_migratetype
+Date: Mon, 22 Jun 2026 12:19:01 +0200
+
+Currently, if you enable HVO, DEFERRED_STRUCT_PAGE_INIT and VM_DEBUG the
+kernel will crash with the following stack trace
+
+get_pfnblock_bitmap_bitidx
+__set_pfnblock_flags_mask
+hugetlb_bootmem_init_migratetype
+prep_and_add_bootmem_folios
+gather_bootmem_prealloc_node
+gather_bootmem_prealloc_parallel
+padata_do_multithreaded
+gather_bootmem_prealloc
+hugetlb_init
+
+on this code
+
+VM_BUG_ON_PAGE(!zone_spans_pfn(page_zone(page), pfn), page);
+
+This code looks inside the struct page which will be uninitialized
+for hugetlb tail pages, which will cause a false positive.
+
+So let's initialize the tail pages before this happens.
+
+Link: https://lore.kernel.org/20260622101901.223961-1-mclapinski@google.com
+Fixes: 622026e87c40 ("mm/hugetlb: remove fake head pages")
+Signed-off-by: Michal Clapinski <mclapinski@google.com>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Tested-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Michal Clapinski <mclapinski@google.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/hugetlb.c         |    1 +
+ mm/hugetlb_vmemmap.c |   14 +++++++++-----
+ mm/hugetlb_vmemmap.h |    5 +++++
+ 3 files changed, 15 insertions(+), 5 deletions(-)
+
+--- a/mm/hugetlb.c~mm-hugetlb-init-tails-before-init_migratetype
++++ a/mm/hugetlb.c
+@@ -4127,6 +4127,7 @@ static int __init hugetlb_init(void)
+ 	}
+ 
+ 	hugetlb_init_hstates();
++	hugetlb_vmemmap_init_tails();
+ 	gather_bootmem_prealloc();
+ 	report_hugepages();
+ 
+--- a/mm/hugetlb_vmemmap.c~mm-hugetlb-init-tails-before-init_migratetype
++++ a/mm/hugetlb_vmemmap.c
+@@ -867,14 +867,10 @@ static const struct ctl_table hugetlb_vm
+ 	},
+ };
+ 
+-static int __init hugetlb_vmemmap_init(void)
++void __init hugetlb_vmemmap_init_tails(void)
+ {
+-	const struct hstate *h;
+ 	struct zone *zone;
+ 
+-	/* HUGETLB_VMEMMAP_RESERVE_SIZE should cover all used struct pages */
+-	BUILD_BUG_ON(__NR_USED_SUBPAGE > HUGETLB_VMEMMAP_RESERVE_PAGES);
+-
+ 	for_each_zone(zone) {
+ 		for (int i = 0; i < NR_VMEMMAP_TAILS; i++) {
+ 			struct page *tail, *p;
+@@ -890,6 +886,14 @@ static int __init hugetlb_vmemmap_init(v
+ 				init_compound_tail(p + j, NULL, order, zone);
+ 		}
+ 	}
++}
++
++static int __init hugetlb_vmemmap_init(void)
++{
++	const struct hstate *h;
++
++	/* HUGETLB_VMEMMAP_RESERVE_SIZE should cover all used struct pages */
++	BUILD_BUG_ON(__NR_USED_SUBPAGE > HUGETLB_VMEMMAP_RESERVE_PAGES);
+ 
+ 	for_each_hstate(h) {
+ 		if (hugetlb_vmemmap_optimizable(h)) {
+--- a/mm/hugetlb_vmemmap.h~mm-hugetlb-init-tails-before-init_migratetype
++++ a/mm/hugetlb_vmemmap.h
+@@ -20,6 +20,7 @@
+ #define HUGETLB_VMEMMAP_RESERVE_PAGES	(HUGETLB_VMEMMAP_RESERVE_SIZE / sizeof(struct page))
+ 
+ #ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
++void hugetlb_vmemmap_init_tails(void);
+ int hugetlb_vmemmap_restore_folio(const struct hstate *h, struct folio *folio);
+ long hugetlb_vmemmap_restore_folios(const struct hstate *h,
+ 					struct list_head *folio_list,
+@@ -72,6 +73,10 @@ static inline void hugetlb_vmemmap_optim
+ {
+ }
+ 
++static inline void hugetlb_vmemmap_init_tails(void)
++{
++}
++
+ static inline void hugetlb_vmemmap_optimize_bootmem_folios(struct hstate *h,
+ 						struct list_head *folio_list)
+ {
+_
+
+Patches currently in -mm which might be from mclapinski@google.com are
+
+mm-hugetlb-init-tails-before-init_migratetype.patch
+
