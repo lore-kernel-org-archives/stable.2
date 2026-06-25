@@ -1,88 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1E62EC086;
-	Thu, 25 Jun 2026 13:12:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AC42ECE91;
+	Thu, 25 Jun 2026 13:12:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782393138; cv=none; b=FvZnbkNpEzjdSgJwycg5NQoHbYX07mobYID0RM+rZD5MU6IG6kgwo4mFu/2nYdxDj/wazNfQzKLix9rTKtyGvUoP0rf7jB7Y52I8U0jkLU+jD0oa8OTYlCwyNFaG+F1hfF9OGKoc+liOdJLnghXaf2sf/raLOJi6AY0DCDZKJV0=
+	t=1782393138; cv=none; b=loQ3w9AIxLBNzkQQzzajDD3CsFMVUiMNMvgdfkY2TDEjgHtsHqCUT14ddWsdGM6vj+fUGDoVWGCQLw32pu9hu8YHkeg7ZOD+BADDrYUAWsK8EB/XzSdiMT6ZOUG/FE1pWmFVr8fZtTtGhf4b19P6P95YkrdCtdtLjfi+MW1LI+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782393138; c=relaxed/simple;
-	bh=D81KOzLhDndSB2nazroX4QfkNTHZkGQApGxxg6iue84=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UlIaFcK76d2moaSmh4ZWlIdMBL8l8ntb9BNgE7LU86hOyau33RRmH+gfwYD1/IIia/pMA+MvUu/q6247ZcoeEjlUpHYKaXQvlm4xAZx9wOcHDFrR/8tuAuAFnQ3GzknDRsGKsUTgXGXTY9ch0peldGEJQnknhhTcO/WEQTXRt/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=d8mvQG8F; arc=none smtp.client-ip=100.103.45.18
+	bh=KaJcGnJ6r8JBco2fM1Z0ek6EnjCHDlGc6nEznvNC2CE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AlngS6gvv5SgMWsPXvATGMOSMK7NyIX3+jkJW1Odd98PRWJ/rvw10eAa1HkCN6X3J93QUFAKSqBYiSqYegQ+dkbD04H6xkOrcz0JGg3E8WjTwcXNKMFkZzYEyeNnwAzcY/gI7BLB9ihCjpmpJ26HJ56yzMMD5FORu3VKWR1c58w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fTLDowH5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="d8mvQG8F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41EE61F000E9;
-	Thu, 25 Jun 2026 13:12:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782393136;
-	bh=CU/c9OScvD64qdALd8C+qqOPUWucTC/B7tPCzs9ShVM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d8mvQG8FOKX3a5eo8bwwntLnjg20j5WGEjSke53NitaxRP3JtmhZlOQkJl/UJE8IP
-	 04w4qI04Bt3+EVxNQQJTBXXUWjJH9texkYVHqU9Z9EVVnw4+Dq5uePBPx5BaxaPIpv
-	 0jhKHbOLB0+EZzEmVs2U6ZxR3728FzvQjbHqdJuw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Subject: [PATCH 7.1 07/21] Input: rmi4 - fix register descriptor address calculation
-Date: Thu, 25 Jun 2026 14:03:59 +0100
-Message-ID: <20260625125614.261693623@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260625125613.243729608@linuxfoundation.org>
-References: <20260625125613.243729608@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fTLDowH5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 402091F00A3A;
+	Thu, 25 Jun 2026 13:12:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782393137;
+	bh=KaJcGnJ6r8JBco2fM1Z0ek6EnjCHDlGc6nEznvNC2CE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fTLDowH5PeF4TSMdSHX04kELKtpk2BBEbgHYeRXXnckqD9mJLpoCmxZNT6fkvzv22
+	 N8EdfCekYiMkfyoUBQPyChzQzuAKsiIwTG30lScYPSUol2+G1unZd6mSIs1kD5UvXd
+	 6zlSbgHwWz7NYiH1ZwtfC2jV9+rjIk6Qc6quFegBJq5anXxsthlY9AwgiQeOTKx1uw
+	 rIaEg5jCt85UwzkEnYQ6tcOXnFC9CTxzh1wJiVT1oI3i7LONqxXEJ2e5qDdosLSY0x
+	 AcZYmfS/FP7RSOdxCpA5QMaaIv0n9WovpRhn4GZGNfIpUtjumsRbzWttpBeArzSfu+
+	 X/6diao8kdIwA==
+Date: Thu, 25 Jun 2026 14:12:09 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: richard.weiyang@gmail.com, akpm@linux-foundation.org, david@kernel.org, 
+	riel@surriel.com, liam@infradead.org, vbabka@kernel.org, harry@kernel.org, 
+	jannh@google.com, ziy@nvidia.com, sj@kernel.org, balbirs@nvidia.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [Patch mm-hotfixes v4] mm/page_vma_mapped: fix device-private
+ PMD handling
+Message-ID: <aj0nl4001L9zMxFG@lucifer>
+References: <20260624065353.1622-1-richard.weiyang@gmail.com>
+ <20260624085756.6598-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260624085756.6598-1-lance.yang@linux.dev>
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Jun 24, 2026 at 04:57:56PM +0800, Lance Yang wrote:
+>
+> On Wed, Jun 24, 2026 at 06:53:53AM +0000, Wei Yang wrote:
+> >Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
+> >device-private entries") introduced the concept of device-private
+> >PMD entries, but did not correctly update the rmap walk code to
+> >account for them.
+> >
+> >As a result, when page_vma_mapped_walk() encounters device-private
+> >PMD entries, it takes no action other than to acquire the PMD lock
+> >and exit.
+> >
+> >However this is highly problematic for two reasons - firstly,
+> >device private entries possess a PFN so check_pmd() needs to be
+> >called to ensure an overlapping PFN range.
+> >
+> >Secondly, and more importantly, if PVMW_MIGRATION is set the
+> >caller assumes the returned entry is a migration entry, resulting
+> >in memory corruption when the caller tries to interpret the device
+> >private entry as such.
+> >
+> >In addition, commit 146287290023 ("mm/huge_memory: implement
+> >device-private THP splitting") allowed device private PMDs to be
+> >split like THP mappings, but again did not update this code path.
+> >
+> >As a result, we might race a PMD split prior to acquiring the PMD
+> >lock.
+> >
+> >This patch addresses all of these issues by invoking check_pmd(),
+> >ensuring PMVW_MIGRATION is not set and checks whether a split raced
+> >us we do for PMD THP and migration entries.
+> >
+> >Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
+> >Cc: <stable@vger.kernel.org>
+> >Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
+> >Suggested-by: David Hildenbrand <david@kernel.org>
+>
+> Shouldn't we add
+>
+> Suggested-by: Lorenzo Stoakes <ljs@kernel.org>
+>
+> as well?
+>
+> v4 mostly follows Lorenzo's comments, code bits included. Feels only fair.
 
-------------------
+Thanks Lance :)
 
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+I'm kinda indifferent about it really, I'm really keen to ensure people sending
+patches get the credit for their work, so if I send a patch in reply as a
+shorthand for 'I think this might work better', I don't expect/require any
+credit at all, it's just sometimes a quicker way of responding!
 
-commit a98518e72439fd42cbfe641c2896543cb088e3d1 upstream.
+But if Wei wants to add a S-b that's fine by me also! :)
 
-When reading the register descriptor, the base address is incremented by
-1 to read the presence register block. However, after reading the
-presence register block, the address is incorrectly incremented by only
-1 byte (++addr) instead of the actual size of the presence block
-(size_presence_reg). This causes the subsequent structure block read to
-read from the wrong memory location if the presence block is larger than
-1 byte.
-
-Fix this by advancing the address by size_presence_reg.
-
-Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
-Cc: stable@vger.kernel.org
-Assisted-by: Gemini:gemini-3.1-pro
-Link: https://patch.msgid.link/20260505045952.1570713-1-dmitry.torokhov@gmail.com
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/input/rmi4/rmi_driver.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/drivers/input/rmi4/rmi_driver.c
-+++ b/drivers/input/rmi4/rmi_driver.c
-@@ -594,7 +594,7 @@ int rmi_read_register_desc(struct rmi_de
- 	ret = rmi_read_block(d, addr, buf, size_presence_reg);
- 	if (ret)
- 		return ret;
--	++addr;
-+	addr += size_presence_reg;
- 
- 	if (buf[0] == 0) {
- 		presense_offset = 3;
-
-
+Cheers, Lorenzo
