@@ -1,133 +1,122 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013060.outbound.protection.outlook.com [40.93.196.60])
+Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311873264E0;
-	Thu, 25 Jun 2026 13:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782394349; cv=fail; b=PbKB2AuqQ8/ZMhOEKdnO1zACp5JXdtkqevcZSjLmdz5yL2iFY5MkxKytu1C+NfCAJWUHJmgbOE0yGpgWaRXVRfUfkvTUA4fuPaRDA7r1LLpUJRQnhcv0LOAhzZFbYjCoWabUBr8scrkjRYyytHT+ZvX9jj/SwyX5SnlX5U6eqT4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782394349; c=relaxed/simple;
-	bh=Km11Hldy6PaQddIex2ZswaypRdqJ8KYAxgql0mZXZWc=;
-	h=References:From:To:CC:Subject:Date:In-Reply-To:Message-ID:
-	 MIME-Version:Content-Type; b=PZAfK4JuO1y94FJV93ieAiD+zJiJ7PWRIWo2SiepslZBQATD39ayTlYRV1kOGD5BxEF+TQmLSryGK7Yrn8WudGgZFTYem9jzekRBCGj4BAybK/tAaBBZxal0Nk5CxldTZLwpZTlRIpaDvYq1HF91huuDIQinv8wuaFg+KbaYwao=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mfAvgJgs; arc=fail smtp.client-ip=40.93.196.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F0632B99E;
+	Thu, 25 Jun 2026 13:32:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782394380; cv=none; b=CCD+7ux6M/+daVBMw/B3fRUJYwsOeatCt3M/XsyqYXuj2UeVEb5dq3bhIdEQ/It86/fzPPPAfT4jC8YzFUqiHTkzLewP8V/KGD7wLzU7yZ4xctgOhtT+xgYxaXQn1z3BtU93JqcsMGt0zhM7/7GLUVJMlWG/KTfvyGrotMefshQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782394380; c=relaxed/simple;
+	bh=uinX7VfrDcyCLlZv5BCWfLiMKRCkJYGjqcTraIDeyo0=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mruyY5Oqm2y7m3MTbfwPOD+zlaLOokhVZFQeDEXuYKCIUdR6TPoaTemq+aNizHCZWenfXkL4KszbqCpgr2ygg2kWQc3RpgPy7L4Hh9ByphLjq/pksrtDPMz+Cn0vcB/QiudVg4rsqddeILrhX6+zPss8CFTlRCvxq8DN2PcH0vA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=UQXe19AS; arc=none smtp.client-ip=35.83.148.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mfAvgJgs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qTzqG01mQaiJPV9b4RpuSBDW/ivRZmouH0BizpOGCri0FTf8ca0SSc1VUsAYFxQICCYrsgXAmDqtSoltSGwcrQlHl53iPwa1aWSjH9IOHSEC1oywbvy8gZsRejixMSyD7nb3wXx+GwT+MeriyKGonUzztixl7gPjzPBu4wnWfKsSOmAhO/KJ4+6f5H9HaapqmbsVx8O66r1dM11Ko+4BrvjqS+gkV8UvwYIb/TA8VDXqPfdurlklfuLpLxJcTGrQvqmBlZpstTtlS5Q71qrelCv+3XrY6tK86xZY0ar0UvP5vu2OaDyPbxIq26pHDnj7PIEA+Wi17b2Q/x9QB/ky5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Km11Hldy6PaQddIex2ZswaypRdqJ8KYAxgql0mZXZWc=;
- b=P0IXJ557C1MyL6j9iejETRd+aiR2Mj2oUr+8e/pcjkSk06s8WQh+8TGU+cyvSXn3uAld+eklEiHTzvX5Xrp7L77aXqpJ3rnRZa7mf7d+33VJbO78TXGaosAZX7XmnZOXEJjl9o85K0EAAOt2QxDRo2EYgJR0gO3SLHBMjwZch4tFkISoiRb78Bo/yIQ0vPnS+QnJnLBz1DpoMwJ+irMbuTWiQoLpkOCQOPcUdNS26s/lk671LHMgMNm0s0TEMSJWvvEBoU/MaHXwlgWUItxa7CjXfcXufFT7dqpfvS8uy5sWhzVNsVt21vd9uNmd64aKDpfmF5PO5MUlDZI3nLxnBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=linuxtesting.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Km11Hldy6PaQddIex2ZswaypRdqJ8KYAxgql0mZXZWc=;
- b=mfAvgJgsA1hwsJ+tE3BTPImvnA22lhKFoRCqNfDppoiYViRciQ4sOz2+qqtxSG6lWERBzQSQoZ7IT/yrYQUHisnMfuTxNAK4BPXc+S3xNaEK9+Y7fokmJkv7ws8i2HBHXE8WyhlSov6zox7LJb3x8Sygtf/ls0lfygDtjpXuyjUGsMN+B4u/Y3B5FhFuic2Ue2yhZlAsEwaDP3tHG4FuN5OGLG13zNm7cQYbAXENIbqXCuykL4etW1nrI+S8ewWcg29kQXY83fzSFxbnuWAJ2jsF7J0U5h8C39Jr9thodRbv6TzrPLULYb895GaqAj4AESJ3HOAP2qf5jk5kGZz3gg==
-Received: from BN9PR03CA0977.namprd03.prod.outlook.com (2603:10b6:408:109::22)
- by CH0PR12MB8485.namprd12.prod.outlook.com (2603:10b6:610:193::18) with
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="UQXe19AS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1782394379; x=1813930379;
+  h=from:to:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Jhzw3hDe1qETvRMOXpQ3ufg25Aa3Q0kmNblxIpF9o3Q=;
+  b=UQXe19ASWa5y/BwYwpbWinyfCvHMrvn4jTCA/RZij96wKI6NCTgIlSVz
+   NmHPHK3yR+fUeyrD7T0eCSd/J5ukhHn9EbJdg+3Qt8kpLcfTWT9RlYPdX
+   fh4x5ksJn1GT0QO1d44LSHRBQv8OTcvc89Tly1fY7qPV1kcLpZqncenU/
+   0i+kPqAPha2HC8+klz/b8AeUGmaUlxFrNPtKbWIAvzkNqtTSZGcxxn6bT
+   cQJ5IN3LZ7WySB1qUka45H4zQCJ27C7SeeHGV91qsf8994aHJKio92iA1
+   NFR8gXPoHWXL4SdcBVYlzEt/7JTT03G+yCgp0nsFU3XMOtnaQ0UsJBWjl
+   w==;
+X-CSE-ConnectionGUID: 3i4i2+ppRnS1kTJFipTfdg==
+X-CSE-MsgGUID: qLUHoCpdRjCzC4F5/UTbCQ==
+X-IronPort-AV: E=Sophos;i="6.24,224,1774310400"; 
+   d="scan'208";a="22277557"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 13:32:56 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:20069]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.52.142:2525] with esmtp (Farcaster)
+ id 4af665ad-abdf-4f6c-942e-bae9622621b0; Thu, 25 Jun 2026 13:32:55 +0000 (UTC)
+X-Farcaster-Flow-ID: 4af665ad-abdf-4f6c-942e-bae9622621b0
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
+ Thu, 25 Jun 2026 13:32:55 +0000
+Received: from dev-dsk-simonlie-1b-ad174abf.eu-west-1.amazon.com
+ (172.19.78.185) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
- 2026 13:32:19 +0000
-Received: from BN2PEPF00004FBF.namprd04.prod.outlook.com
- (2603:10b6:408:109:cafe::61) by BN9PR03CA0977.outlook.office365.com
- (2603:10b6:408:109::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.14 via Frontend Transport; Thu,
- 25 Jun 2026 13:32:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN2PEPF00004FBF.mail.protection.outlook.com (10.167.243.185) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 13:32:18 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 25 Jun
- 2026 06:31:56 -0700
-Received: from fedora (10.126.231.37) by rnnvmail201.nvidia.com (10.129.68.8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 25 Jun
- 2026 06:31:51 -0700
-References: <20260625114831.17386-1-evg28bur@yandex.ru>
-User-agent: mu4e 1.8.14; emacs 30.2
-From: Petr Machata <petrm@nvidia.com>
-To: Evgenii Burenchev <evg28bur@yandex.ru>
-CC: <stable@vger.kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	<idosch@nvidia.com>, <petrm@nvidia.com>, <andrew+netdev@lunn.ch>,
-	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <jiri@resnulli.us>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>
-Subject: Re: [PATCH net] mlxsw: spectrum_acl_erp: Fix const qualifier of
- delta_clear()
-Date: Thu, 25 Jun 2026 15:27:15 +0200
-In-Reply-To: <20260625114831.17386-1-evg28bur@yandex.ru>
-Message-ID: <87h5mq3fwg.fsf@nvidia.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43; Thu, 25 Jun 2026
+ 13:32:53 +0000
+From: Simon Liebold <simonlie@amazon.de>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Mark Rutland
+	<mark.rutland@arm.com>, Alexander Shishkin
+	<alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, "Namhyung
+ Kim" <namhyung@kernel.org>, Simon Liebold <simonlie@amazon.de>, Ian Rogers
+	<irogers@google.com>, <linux-perf-users@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: [PATCH 6.1.y 0/2] Backport dependency commits for 616b14b47a86 ("perf build: Conditionally define NDEBUG")
+Date: Thu, 25 Jun 2026 13:32:20 +0000
+Message-ID: <20260625133222.3412820-1-simonlie@amazon.de>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBF:EE_|CH0PR12MB8485:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa1f2101-60de-4618-d4ec-08ded2be2e0d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|7416014|376014|1800799024|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	czMgYaJ3HxB+IcTi15YwxcFvEY+ZfLIiwWd+v120YJsX1WXxZZeM1gA2PjgcIXMqiKVZUuRSXiHh/raEnG1AD8TneuaVy0nK9QJMeWhcuoPduU+N9EH5waGAed2Rk/el92W52tZVuGSFai8bgxfCuoXOmpQsv35LNmm6Q6tKYnfhx5hcFKZZjYAJLbTL/S3/Tq1KyagejPPMxj7SoM15G+pWwWYL01UZP6+fwZiDNppbGc8QIRGSIHKrVisRUpPJghWLneuGAZoy8uGuDdeab5vEEKvK5ULlB5FPp4J43QBdWalJP5VuvDf1I5gULM2MwlqvSQ7PfnNQSp/bz+pFRsd/yvBX5uSxsF/UXjxuofsO35FhE6/Hl5yKiOtUBrtMdBCm5C/duZr86eU+kriFsMboSl6ZXcKNSMnf0xOmt9V0bQULSZqNLR6eqvT048jiWx3weh0bWx6Q/Gf5BRRatFPLlcYcqrJttaHvxDkCYJoO2iXI1gWQd49nrc7lO39LNOxcF51GO7QZe7aM6PCiJP+jw9Ub+obX0R2LDaz3hf4u0Atw6Atdd6zY+Y7MfhKVzHmORyC9sDYxz62JMNeh8MPVA4XJUYgPqh1iEHf6BfZiQJXI5SafF+fIxgCv6VqWw/D8yPrlYKeSwsJMQaPzN7z+dJJ2d/CN1ExfiOKUjo8DLIuBlCjpf07v0csjUIWyrjTOewI9sdtfgi/ikOQKwQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(7416014)(376014)(1800799024)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xpwBnuuVUu+k02WOY477yIWRChbD31S2CvQs/DdTYhUaZLr+geX6wNm50XvayZFuRYsunF/Q6AMlcYLPNzUvo0cIWlSiKvrdWtnbsic+S/XbZKO9xjyH6YhF8gDVPTtudL3Wkqx+kMHe0aDKBGcKfc+BLaIwhALRzOurggVQqFeFQstcp/UjAx6KyM476p/5mzya8/85JWxEc7Xp1O3KjgrJGATHSXFr8Vdf0KjesyEIc3XoB18bEJPQrANy1Y4iuiJxKb2B12IW0u3HZt9SCCC2IO+K7vK8ZcRDWyuk/GIAPaCCM8fl1Ki/vPCtJEQ56feenXxJ/zALfDwLKFvOjuCbAKVLoZsYC6URI4WyYakgGE+fZBGqX+APPzKBZV6z9/CHIG+FiJhTVgsPwDmZLHwvqjSUv2hVUYaCdpLSqm4IJxn5VqjcxaP9YOHTRpUz
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 13:32:18.9436
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa1f2101-60de-4618-d4ec-08ded2be2e0d
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FBF.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8485
+X-ClientProxiedBy: EX19D037UWB002.ant.amazon.com (10.13.138.121) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+Hi, please backport the following two patches to 6.1.y:
+
+- d1babea9c382 ("perf bench: Avoid NDEBUG warning")
+- 984a785f25e5 ("perf block-range: Move debug code behind ifndef NDEBUG")
+
+They are stable dependencies for commit 616b14b47a86 ("perf build: Conditionally
+define NDEBUG") which was backported to v6.1.176 as 7bf35a0237d04.
+
+That commit adds -DNDEBUG=1 to perf CFLAGS, which compiles out assert() calls,
+leaving variables consumed only by asserts as unused-but-set. Combined with
+-Werror this breaks the build:
+
+    bench/find-bit-bench.c:64:22: error: variable 'old' set but not used
+    util/block-range.c:20:13: error: variable 'old' set but not used
+
+We need these two dependency patches, because both guard assert-only variables
+with #ifndef NDEBUG so they are compiled out alongside the asserts they
+validate.
+
+Tested using our regression test suite including kselftest and LTP on various
+EC2 instances.
+
+Thanks.
+
+- Simon
+
+Ian Rogers (2):
+  perf bench: Avoid NDEBUG warning
+  perf block-range: Move debug code behind ifndef NDEBUG
+
+ tools/perf/bench/find-bit-bench.c | 8 ++++++--
+ tools/perf/util/block-range.c     | 6 +-----
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
 
-Evgenii Burenchev <evg28bur@yandex.ru> writes:
+base-commit: fdb6fcb41cc741ad5eaa7995f278dfcb94fdf795
+-- 
+2.50.1
 
-> mlxsw_sp_acl_erp_delta_clear() takes 'const char *enc_key' but modifies
-> the memory it points to. This is a logical error in the function
-> declaration.
->
-> The only caller passes a non-const buffer (aentry->ht_key.enc_key), so
-> the const qualifier is misleading and unnecessary.
->
-> Remove const from the enc_key parameter to match the actual usage.
->
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
->
-> Fixes: c22291f7cf45 ("mlxsw: spectrum: acl: Implement delta for ERP")
-> Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
 
-Dunno how much of a net material this is, there's no bug to be fixed,
-it's a source code cleanliness improvement. But the patch is correct.
 
-Reviewed-by: Petr Machata <petrm@nvidia.com>
+
+Amazon Web Services Development Center Germany GmbH
+Tamara-Danz-Str. 13
+10243 Berlin
+Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
+Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
+Sitz: Berlin
+Ust-ID: DE 365 538 597
+
