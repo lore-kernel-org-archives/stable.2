@@ -1,91 +1,150 @@
-Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC313D88F7
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 11:26:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9921D3AA500;
+	Thu, 25 Jun 2026 11:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782386781; cv=none; b=aZ7mWTGJzBh3/GKdR1T1KxDdP2HKW/LSzRsf+hIQP6GdDw3KPEXguq4pW9fBbLzL85t/xwkxhvN2V1PVnKR1FeuRMZumKmZ0tolG56e3rvdccwRYz1AKlYOT5A6Z4SJDsgH2n1eOk7RpwCTNO8PwDly3JpH5mapnpUG+0TNbFng=
+	t=1782387022; cv=none; b=AhYFyjWqDrzMGvdhSLloidcBguqC22MJlplreNIm0qIvFQUQ4cTf94syDYu/vp/fXE7aYDL42cAAloQQyGdqYXY2UC70CQwvaBI4SkIMg/InwDtTQhKrEsNH5oZQX1Q8gEDdAEmLlXd/LSbTdWlk//OzgzU5dDW8ISVGC+b101o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782386781; c=relaxed/simple;
-	bh=Uc/Rm/8WbppIw3KMH18yWQrNEi8EgOmOYl4vwnXvZPE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BzyTGY00FsTjeSUIGmzzU4kPiwzLpe7IdkyVPUpUhu+gDh5pB4TJVd7wZbZJLytNHWYEQC/JWIWuYF/UH/e5SZ/F2I5BhZjJpWodNg48tdSJ8pd4G8iCfG3+Yt+uyYyhAqHIDmylVkwYdqopWNXgjm4vFhDWjkJEYEBLRszZzZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Y6UyviYp; arc=none smtp.client-ip=95.215.58.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782387022; c=relaxed/simple;
+	bh=QtQ8GPWloMli0RbtDXW5k6ZOS1ivmXc5LVDMq/8ZE0s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KLRivjock9ut6UN8XGeJOz/CEf4NMM1i3ZlLzUpfP5WL203zIHAKoCJ2rtWvJgwvVqDgwRxQJNIuWMo9shfWjREdndHCkX9T6EuKDHWHjanzHwyp+K42vxzfrFhJv1so5EA57ANQmc6ljXONriy1Uac4w3PWiMkK+bOy4WHUofY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VaLjxRt3; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Y6UyviYp"
-Message-ID: <b6c11065-8e4d-4d27-baf6-e94c1db51175@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782386767;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c8lDCA7qPRr9jNsO+3q9qYqPG2WVRS7I1dNqVMGwaE8=;
-	b=Y6UyviYpeIDfCsWOPdJyWLxNNBjydnptTaNt2p5gWx23Z2RluaCf6poV/r+diWTABfr+I0
-	HIH98jXon0jcczHx7fpTBUxLcBLzRXSWHMwF4VC1cTs2Pyb/R8J9B01RgCv1HGo/3YLJNC
-	J3ycJAZ3UrXM9cEZ7Csv2aPEimTX3kQ=
-Date: Thu, 25 Jun 2026 19:25:45 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VaLjxRt3"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5847D2C46;
+	Thu, 25 Jun 2026 04:30:15 -0700 (PDT)
+Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.31])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 065623F62B;
+	Thu, 25 Jun 2026 04:30:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1782387019; bh=QtQ8GPWloMli0RbtDXW5k6ZOS1ivmXc5LVDMq/8ZE0s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=VaLjxRt3/7/p0anZpXqR8+DAL6bdCNHL3CUiUSzwJtBPmWo0qYBn1WDY7pWuXqFjq
+	 monTMitTvtDfW8B6chmLjY8d3MAnHyUbwQQ7tVbf2qGbaIDhJWU8jioydOr+eHztTW
+	 X7Rif88PZSY7xHy3jhDuCDhfJBZtdzD21Ro+O/BM=
+From: Dev Jain <dev.jain@arm.com>
+To: muchun.song@linux.dev,
+	osalvador@suse.de,
+	akpm@linux-foundation.org,
+	ljs@kernel.org,
+	david@kernel.org,
+	liam@infradead.org
+Cc: Dev Jain <dev.jain@arm.com>,
+	riel@surriel.com,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	lance.yang@linux.dev,
+	kas@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	rcampbell@nvidia.com,
+	apopple@nvidia.com,
+	ziy@nvidia.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	mel@csn.ul.ie,
+	nao.horiguchi@gmail.com,
+	ak@linux.intel.com,
+	j-nomura@ce.jp.nec.com,
+	pfalcato@suse.de,
+	dave.hansen@intel.com,
+	tglx@kernel.org,
+	jpoimboe@kernel.org,
+	ryan.roberts@arm.com,
+	anshuman.khandual@arm.com,
+	stable@vger.kernel.org
+Subject: [PATCH 1/5] mm/rmap: use huge_ptep_get() in try_to_unmap_one()
+Date: Thu, 25 Jun 2026 11:29:50 +0000
+Message-ID: <20260625112955.3254283-2-dev.jain@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260625112955.3254283-1-dev.jain@arm.com>
+References: <20260625112955.3254283-1-dev.jain@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [Patch mm-hotfixes v4] mm/page_vma_mapped: fix device-private PMD
- handling
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Wei Yang <richard.weiyang@gmail.com>, balbirs@nvidia.com
-Cc: akpm@linux-foundation.org, ljs@kernel.org, riel@surriel.com,
- liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
- ziy@nvidia.com, sj@kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260624065353.1622-1-richard.weiyang@gmail.com>
- <20260624085756.6598-1-lance.yang@linux.dev>
- <20260625095728.woikmkxb6gskth3b@master>
- <2252683e-df5d-47ce-b15d-1036bef8d063@kernel.org>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <2252683e-df5d-47ce-b15d-1036bef8d063@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
 
+try_to_unmap_one() handles hugetlb folios when memory failure needs
+to replace a poisoned hugetlb mapping with a hwpoison entry. In that
+case page_vma_mapped_walk() returns the pte pointer to the hugetlb folio
+in pvmw.pte, but the code reads it with ptep_get().
 
+On arches which provide their own huge_ptep_get() to dereference a huge
+pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
+etc to misbehave.
 
-On 2026/6/25 18:37, David Hildenbrand (Arm) wrote:
-> 
->>> CPU0: pmde = pmdp_get_lockless();   // sees PMD migration entry
->>>
->>> CPU1: remove_migration_ptes(src, dst /* device-private */)
->>>         ... via rmap_walk(dst) ...
->>>         page_vma_mapped_walk(&pvmw /* src, PVMW_MIGRATION */)
->>>           returns with PTL held for the PMD migration entry
->>>         remove_migration_pmd(new = dst page)
->>>           installs a device-private PMD
->>>         next page_vma_mapped_walk()
->>>           drops PTL via not_found()
->>>
->>> CPU0: takes PTL
->>>       pmde = *pvmw->pmd;            // now device-private PMD
->>>
->>> So when PVMW_MIGRATION is not set, current code can return not_found()
->>> before we even decode the locked PMD as a device-private entry.
->>>
->>> Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
->>> device-private entries") made the
->>>
->>> device-private PMD <-> PMD migration
->>>
->>> transition possible.
-> 
-> Doesn't the folio lock help here already?
+It is not clear whether this has a trivially visible effect to userspace.
 
-Ah, yeah, I was too focused on the PTL and missed the folio lock ...
-Don't have a caller like that :) Went over the fix again, nothing
-else jumped out.
+Just use huge_ptep_get() for dereferencing a huge pte pointer.
 
+Fixes: c7ab0d2fdc84 ("mm: convert try_to_unmap_one() to use page_vma_mapped_walk()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Dev Jain <dev.jain@arm.com>
+---
+ include/linux/hugetlb.h |  3 +++
+ mm/rmap.c               | 16 ++++++++++------
+ 2 files changed, 13 insertions(+), 6 deletions(-)
+
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index 2abaf99321e90..fdb7bdf7645c5 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -1261,6 +1261,9 @@ static inline void hugetlb_count_sub(long l, struct mm_struct *mm)
+ {
+ }
+ 
++pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr,
++		    pte_t *ptep);
++
+ static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
+ 					  unsigned long addr, pte_t *ptep)
+ {
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 1c77d5dc06e9f..aa8a254efaecc 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -2095,11 +2095,16 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 		/* Unexpected PMD-mapped THP? */
+ 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
+ 
+-		/*
+-		 * Handle PFN swap PTEs, such as device-exclusive ones, that
+-		 * actually map pages.
+-		 */
+-		pteval = ptep_get(pvmw.pte);
++		address = pvmw.address;
++		if (folio_test_hugetlb(folio)) {
++			pteval = huge_ptep_get(mm, address, pvmw.pte);
++		} else {
++			/*
++			 * Handle PFN swap PTEs, such as device-exclusive ones,
++			 * that actually map pages.
++			 */
++			pteval = ptep_get(pvmw.pte);
++		}
+ 		if (likely(pte_present(pteval))) {
+ 			pfn = pte_pfn(pteval);
+ 		} else {
+@@ -2110,7 +2115,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 		}
+ 
+ 		subpage = folio_page(folio, pfn - folio_pfn(folio));
+-		address = pvmw.address;
+ 		anon_exclusive = folio_test_anon(folio) &&
+ 				 PageAnonExclusive(subpage);
+ 
+-- 
+2.43.0
 
