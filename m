@@ -1,105 +1,272 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AC42ECE91;
-	Thu, 25 Jun 2026 13:12:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 465B22DCC13;
+	Thu, 25 Jun 2026 13:12:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782393138; cv=none; b=loQ3w9AIxLBNzkQQzzajDD3CsFMVUiMNMvgdfkY2TDEjgHtsHqCUT14ddWsdGM6vj+fUGDoVWGCQLw32pu9hu8YHkeg7ZOD+BADDrYUAWsK8EB/XzSdiMT6ZOUG/FE1pWmFVr8fZtTtGhf4b19P6P95YkrdCtdtLjfi+MW1LI+w=
+	t=1782393141; cv=none; b=rYIJ55X6sY9aTl7wdrx6IrpUV/8HBD9rnKJQympRHgykoGUG21s8eQniK6P3y4SBBj3QNLVfrecy6k4saofYxG45BMH+eCoFOl/uyYePFf5wybQZcB/BZdm5Axkv47+uaQ7TuaJbreWSKgvZJWJv1mEH0OB2eP2pabx6YWaiOi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782393138; c=relaxed/simple;
-	bh=KaJcGnJ6r8JBco2fM1Z0ek6EnjCHDlGc6nEznvNC2CE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AlngS6gvv5SgMWsPXvATGMOSMK7NyIX3+jkJW1Odd98PRWJ/rvw10eAa1HkCN6X3J93QUFAKSqBYiSqYegQ+dkbD04H6xkOrcz0JGg3E8WjTwcXNKMFkZzYEyeNnwAzcY/gI7BLB9ihCjpmpJ26HJ56yzMMD5FORu3VKWR1c58w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fTLDowH5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782393141; c=relaxed/simple;
+	bh=b++CI4q41pVMLiVrajZzwd18WUYuOI1dz3/9FNEGjeM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VZnVmcCwrVF4vhwe9A5Pz1dioXBWMhU2N2bIoqbzMUBS0Ykb8h1lbMmr507UsanRsA9ILEC6A2tHm++kvQ8UIrxR/iXIc4dAg1n+1jcmZ5aF9nnqTaaM49sXSiRKNz4xajJU4Oqx3gdl2RN3a1c5ZXTpx6aRAAJB1Rii1WTF4Ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rBZoqxCz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fTLDowH5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 402091F00A3A;
-	Thu, 25 Jun 2026 13:12:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782393137;
-	bh=KaJcGnJ6r8JBco2fM1Z0ek6EnjCHDlGc6nEznvNC2CE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fTLDowH5PeF4TSMdSHX04kELKtpk2BBEbgHYeRXXnckqD9mJLpoCmxZNT6fkvzv22
-	 N8EdfCekYiMkfyoUBQPyChzQzuAKsiIwTG30lScYPSUol2+G1unZd6mSIs1kD5UvXd
-	 6zlSbgHwWz7NYiH1ZwtfC2jV9+rjIk6Qc6quFegBJq5anXxsthlY9AwgiQeOTKx1uw
-	 rIaEg5jCt85UwzkEnYQ6tcOXnFC9CTxzh1wJiVT1oI3i7LONqxXEJ2e5qDdosLSY0x
-	 AcZYmfS/FP7RSOdxCpA5QMaaIv0n9WovpRhn4GZGNfIpUtjumsRbzWttpBeArzSfu+
-	 X/6diao8kdIwA==
-Date: Thu, 25 Jun 2026 14:12:09 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: richard.weiyang@gmail.com, akpm@linux-foundation.org, david@kernel.org, 
-	riel@surriel.com, liam@infradead.org, vbabka@kernel.org, harry@kernel.org, 
-	jannh@google.com, ziy@nvidia.com, sj@kernel.org, balbirs@nvidia.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [Patch mm-hotfixes v4] mm/page_vma_mapped: fix device-private
- PMD handling
-Message-ID: <aj0nl4001L9zMxFG@lucifer>
-References: <20260624065353.1622-1-richard.weiyang@gmail.com>
- <20260624085756.6598-1-lance.yang@linux.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rBZoqxCz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887AF1F000E9;
+	Thu, 25 Jun 2026 13:12:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1782393140;
+	bh=RTSr4TX5friC0i00IRQBzpYjr0pgarrEYS+1KqbbNw4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=rBZoqxCzLWvwj1c4ztnRgbcT70oNn7VqKUvKa9PMLHnJpz+gWiXouOKIYQNczbR+Q
+	 xlvNzMzKjsaWUBJMLLgWWorkzByto0h0/0pePAAp/dp93Um3/2tEpXL9QdBVCWjzir
+	 QFDU+Fn+bGXaybm/0nphwreGbegqq0PGsUlPNdxo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH 7.1 08/21] Input: rmi4 - refactor register descriptor parsing
+Date: Thu, 25 Jun 2026 14:04:00 +0100
+Message-ID: <20260625125614.406492194@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260625125613.243729608@linuxfoundation.org>
+References: <20260625125613.243729608@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260624085756.6598-1-lance.yang@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jun 24, 2026 at 04:57:56PM +0800, Lance Yang wrote:
->
-> On Wed, Jun 24, 2026 at 06:53:53AM +0000, Wei Yang wrote:
-> >Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
-> >device-private entries") introduced the concept of device-private
-> >PMD entries, but did not correctly update the rmap walk code to
-> >account for them.
-> >
-> >As a result, when page_vma_mapped_walk() encounters device-private
-> >PMD entries, it takes no action other than to acquire the PMD lock
-> >and exit.
-> >
-> >However this is highly problematic for two reasons - firstly,
-> >device private entries possess a PFN so check_pmd() needs to be
-> >called to ensure an overlapping PFN range.
-> >
-> >Secondly, and more importantly, if PVMW_MIGRATION is set the
-> >caller assumes the returned entry is a migration entry, resulting
-> >in memory corruption when the caller tries to interpret the device
-> >private entry as such.
-> >
-> >In addition, commit 146287290023 ("mm/huge_memory: implement
-> >device-private THP splitting") allowed device private PMDs to be
-> >split like THP mappings, but again did not update this code path.
-> >
-> >As a result, we might race a PMD split prior to acquiring the PMD
-> >lock.
-> >
-> >This patch addresses all of these issues by invoking check_pmd(),
-> >ensuring PMVW_MIGRATION is not set and checks whether a split raced
-> >us we do for PMD THP and migration entries.
-> >
-> >Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
-> >Cc: <stable@vger.kernel.org>
-> >Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
-> >Suggested-by: David Hildenbrand <david@kernel.org>
->
-> Shouldn't we add
->
-> Suggested-by: Lorenzo Stoakes <ljs@kernel.org>
->
-> as well?
->
-> v4 mostly follows Lorenzo's comments, code bits included. Feels only fair.
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-Thanks Lance :)
+------------------
 
-I'm kinda indifferent about it really, I'm really keen to ensure people sending
-patches get the credit for their work, so if I send a patch in reply as a
-shorthand for 'I think this might work better', I don't expect/require any
-credit at all, it's just sometimes a quicker way of responding!
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-But if Wei wants to add a S-b that's fine by me also! :)
+commit 0adb483fbf2dc43c875cd7550a58b41e92efc52d upstream.
 
-Cheers, Lorenzo
+Factor out parsing a register descriptor item from
+rmi_read_register_desc() and ensure there are no out-of-bounds accesses.
+
+Use get_unaligned_le16() and get_unaligned_le32() for reading multi-byte
+values.
+
+Reported-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
+Cc: stable@vger.kernel.org
+Assisted-by: Gemini:gemini-3.1-pro
+Link: https://patch.msgid.link/20260505045952.1570713-2-dmitry.torokhov@gmail.com
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/input/rmi4/rmi_driver.c |  124 ++++++++++++++++++++++++----------------
+ 1 file changed, 76 insertions(+), 48 deletions(-)
+
+--- a/drivers/input/rmi4/rmi_driver.c
++++ b/drivers/input/rmi4/rmi_driver.c
+@@ -22,6 +22,7 @@
+ #include <uapi/linux/input.h>
+ #include <linux/rmi.h>
+ #include <linux/export.h>
++#include <linux/unaligned.h>
+ #include "rmi_bus.h"
+ #include "rmi_driver.h"
+ 
+@@ -558,30 +559,74 @@ int rmi_scan_pdt(struct rmi_device *rmi_
+ 	return retval < 0 ? retval : 0;
+ }
+ 
++static int rmi_parse_register_desc_item(struct rmi_register_desc_item *item,
++					const u8 *buf, size_t size)
++{
++	unsigned int offset = 0;
++	unsigned int map_offset = 0;
++	int b;
++
++	if (offset >= size)
++		return -EIO;
++
++	item->reg_size = buf[offset++];
++	if (item->reg_size == 0) {
++		if (size - offset < 2)
++			return -EIO;
++		item->reg_size = get_unaligned_le16(&buf[offset]);
++		offset += 2;
++	}
++
++	if (item->reg_size == 0) {
++		if (size - offset < 4)
++			return -EIO;
++		item->reg_size = get_unaligned_le32(&buf[offset]);
++		offset += 4;
++	}
++
++	do {
++		if (offset >= size)
++			return -EIO;
++
++		for (b = 0; b < 7; b++) {
++			if (buf[offset] & BIT(b)) {
++				if (map_offset >= RMI_REG_DESC_SUBPACKET_BITS)
++					return -EIO;
++				__set_bit(map_offset, item->subpacket_map);
++			}
++			++map_offset;
++		}
++	} while (buf[offset++] & BIT(7));
++
++	item->num_subpackets = bitmap_weight(item->subpacket_map,
++					     RMI_REG_DESC_SUBPACKET_BITS);
++
++	return offset;
++}
++
+ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+-				struct rmi_register_descriptor *rdesc)
++			   struct rmi_register_descriptor *rdesc)
+ {
+ 	int ret;
+ 	u8 size_presence_reg;
+ 	u8 buf[35];
+-	int presense_offset = 1;
+-	u8 *struct_buf;
+-	int reg;
+-	int offset = 0;
+-	int map_offset = 0;
++	unsigned int presence_offset;
++	unsigned int map_offset;
++	unsigned int offset;
++	unsigned int reg;
+ 	int i;
+ 	int b;
+ 
+ 	/*
+ 	 * The first register of the register descriptor is the size of
+-	 * the register descriptor's presense register.
++	 * the register descriptor's presence register.
+ 	 */
+ 	ret = rmi_read(d, addr, &size_presence_reg);
+ 	if (ret)
+ 		return ret;
+ 	++addr;
+ 
+-	if (size_presence_reg < 0 || size_presence_reg > 35)
++	if (size_presence_reg < 1 || size_presence_reg > 35)
+ 		return -EIO;
+ 
+ 	memset(buf, 0, sizeof(buf));
+@@ -597,16 +642,23 @@ int rmi_read_register_desc(struct rmi_de
+ 	addr += size_presence_reg;
+ 
+ 	if (buf[0] == 0) {
+-		presense_offset = 3;
+-		rdesc->struct_size = buf[1] | (buf[2] << 8);
++		if (size_presence_reg < 3)
++			return -EIO;
++		presence_offset = 3;
++		rdesc->struct_size = get_unaligned_le16(&buf[1]);
+ 	} else {
++		presence_offset = 1;
+ 		rdesc->struct_size = buf[0];
+ 	}
+ 
+-	for (i = presense_offset; i < size_presence_reg; i++) {
++	map_offset = 0;
++	for (i = presence_offset; i < size_presence_reg; i++) {
+ 		for (b = 0; b < 8; b++) {
+-			if (buf[i] & (0x1 << b))
++			if (buf[i] & BIT(b)) {
++				if (map_offset >= RMI_REG_DESC_PRESENSE_BITS)
++					return -EIO;
+ 				bitmap_set(rdesc->presense_map, map_offset, 1);
++			}
+ 			++map_offset;
+ 		}
+ 	}
+@@ -626,7 +678,7 @@ int rmi_read_register_desc(struct rmi_de
+ 	 * I'm not using devm_kzalloc here since it will not be retained
+ 	 * after exiting this function
+ 	 */
+-	struct_buf = kzalloc(rdesc->struct_size, GFP_KERNEL);
++	u8 *struct_buf __free(kfree) = kzalloc(rdesc->struct_size, GFP_KERNEL);
+ 	if (!struct_buf)
+ 		return -ENOMEM;
+ 
+@@ -638,56 +690,32 @@ int rmi_read_register_desc(struct rmi_de
+ 	 */
+ 	ret = rmi_read_block(d, addr, struct_buf, rdesc->struct_size);
+ 	if (ret)
+-		goto free_struct_buff;
++		return ret;
+ 
+ 	reg = find_first_bit(rdesc->presense_map, RMI_REG_DESC_PRESENSE_BITS);
++	offset = 0;
+ 	for (i = 0; i < rdesc->num_registers; i++) {
+ 		struct rmi_register_desc_item *item = &rdesc->registers[i];
+-		int reg_size = struct_buf[offset];
++		int item_size;
+ 
+-		++offset;
+-		if (reg_size == 0) {
+-			reg_size = struct_buf[offset] |
+-					(struct_buf[offset + 1] << 8);
+-			offset += 2;
+-		}
+-
+-		if (reg_size == 0) {
+-			reg_size = struct_buf[offset] |
+-					(struct_buf[offset + 1] << 8) |
+-					(struct_buf[offset + 2] << 16) |
+-					(struct_buf[offset + 3] << 24);
+-			offset += 4;
+-		}
++		item_size = rmi_parse_register_desc_item(item,
++							 &struct_buf[offset],
++							 rdesc->struct_size - offset);
++		if (item_size < 0)
++			return item_size;
+ 
+ 		item->reg = reg;
+-		item->reg_size = reg_size;
+-
+-		map_offset = 0;
+-
+-		do {
+-			for (b = 0; b < 7; b++) {
+-				if (struct_buf[offset] & (0x1 << b))
+-					bitmap_set(item->subpacket_map,
+-						map_offset, 1);
+-				++map_offset;
+-			}
+-		} while (struct_buf[offset++] & 0x80);
+-
+-		item->num_subpackets = bitmap_weight(item->subpacket_map,
+-						RMI_REG_DESC_SUBPACKET_BITS);
++		offset += item_size;
+ 
+ 		rmi_dbg(RMI_DEBUG_CORE, &d->dev,
+ 			"%s: reg: %d reg size: %ld subpackets: %d\n", __func__,
+ 			item->reg, item->reg_size, item->num_subpackets);
+ 
+ 		reg = find_next_bit(rdesc->presense_map,
+-				RMI_REG_DESC_PRESENSE_BITS, reg + 1);
++				    RMI_REG_DESC_PRESENSE_BITS, reg + 1);
+ 	}
+ 
+-free_struct_buff:
+-	kfree(struct_buf);
+-	return ret;
++	return 0;
+ }
+ 
+ const struct rmi_register_desc_item *rmi_get_register_desc_item(
+
+
