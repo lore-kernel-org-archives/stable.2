@@ -1,91 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44FAC3749F9;
-	Thu, 25 Jun 2026 09:17:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACBE378D68;
+	Thu, 25 Jun 2026 09:19:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782379079; cv=none; b=pdSNCtRI5LrMNOhwKWkpUlvVC8TCZnVCLFEzPDl+gyi0bITSirWS/awixp5ZORj2mzozAN5jQSCp2UVqO/gY9H9OTvcs9IQOA1LkYUlKWhl9yHq9HwoF5pfbY4tltXJLtdQbEr6mgkYGqVUKOo9lJyk4iPzmU1XH9c7eLoOx9ow=
+	t=1782379151; cv=none; b=CPwS07dtZsZJomEMHz5AIHVqbQ+xxkAKWl15YaTs/uLyIkbS+hjr0wfuedOgjXsuUxWYzcKTj2msU/lm39lu+kLW0+IzD5xjKpSApssEdtRwrZrfBnF13OLi8TSLFMEIY6f7GpkUc0eEetcDi7mYwGtQbuQxCIhQIfc4/m6EBW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782379079; c=relaxed/simple;
-	bh=bjgGWlplv9/JktxLIMqoRkr5vATpR2RJU5bhLxl0QLU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A7dNHa9xGHw6lQYekEBN0qu1KCPU+0CJ+Yx78E3T7RZ4O3yPu/gZI035z0IdOfskHfTu3CBy2HFkUVxx2KKY9usjTRTveMTu2GUUDEdm2wRIUVKJe4XfHuLBokV6kVviK5RhnZBTI8uqL6Wr4AvjN6KbEAy+ltZ/gemRIlCtB5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=djTeP2uC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782379151; c=relaxed/simple;
+	bh=L2sCHNBArFECZu32wDNGqOQ7ezC0d75AGZsPyq/Vh7k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cS0Q4eHWx0YC7pw3WPojhpvw6Jlj5pJ2oM3wmBN37hcp5XKYFCc0gOGRPwJ5nLKwAYRrmbPYJ4PnQFvocinNOa5lcg8H6gne57F+PeNB4NIZa5z/h9pRbxZqoKVcrxprVv0roMOotcZEgrVYHz5AtlQgabTltIrMDpWa+CaiDfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kiDTg4Ns; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="djTeP2uC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3FC1F000E9;
-	Thu, 25 Jun 2026 09:17:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kiDTg4Ns"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0B091F000E9;
+	Thu, 25 Jun 2026 09:19:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782379078;
-	bh=hyl0r7qoXpmlOqukqnYP5mXmYI+O28BQshwsjUEjmBI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=djTeP2uC+QLKcSOTUUl+65wvlAUwmoceprV7HWk97NLWgvQ2p1VWg1uKlk6krpWPy
-	 AqjUZHdfD+VCjUnBc1xKMEIk2L3MkB4QOt4jLCvG9LtiM/MaLpXpOnGEsMKj5JoMTe
-	 iyQjKwq2s+7LdQJi//FvkG6gQlbTxJilTTPTaBIygR80SLTwVP0ij5unej1Msjd5M8
-	 d6RqUKOkPyrn/hOXG7liXQqoU0Bpt8sGA9yJ59FVxN04ilPknAmsN+/XBlIsnDMl2d
-	 p8Ff2s8KGavNJH+JmPzuwXKw+60jcbd3v16+yQBlYWtKY7sd94U5USUr4ZLu06b0Xb
-	 aiWVwJcLszC+Q==
-Date: Thu, 25 Jun 2026 12:17:50 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Richard Weinberger <richard@nod.at>
-Cc: linux-kernel@vger.kernel.org, upstream+x86@sigma-star.at,
-	peterz@infradead.org, hpa@zytor.com, x86@kernel.org,
-	dave.hansen@linux.intel.com, bp@alien8.de, mingo@redhat.com,
-	tglx@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] x86/Kconfig: enable ROX also when STRICT_KERNEL_RWX is
- present
-Message-ID: <ajzyPjOPw3bpXfuK@kernel.org>
-References: <20260625090627.1501095-1-richard@nod.at>
+	s=k20260515; t=1782379150;
+	bh=PX3gHaNl+RrkqI/2n6IzyNkbaa8O+J8H4fP3FFUzniA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kiDTg4NsexmH7Y55xAAMfod0mhd5ne698Q2UXdGQmJ3aas3ewPdalsfloRBMovyH8
+	 0YWkFbHMHK9zje/dXWc7the4YydDeqwWtffh2zss/s3ffEDHXAkLBoFIwefKum0rtY
+	 Yh/LPUDs+KkWFUiqjNHRfloIolm6IhRjHCxXFjRhGWuuYz0xIr2NoD879Xkxi3SCSr
+	 O8XKlo7rfzq5eDzY4FE4SugJhxh3SWi/iO7puA2CP0HyzZS8PKmiV+gM/l4q8WZwTS
+	 2KjsKeUhww/fAbfxHHLKtoO7sK64EDOOc9pxZhnr6ugsJuzr+xmg1ppGges2CMzEaf
+	 SEysaG+p0Iyig==
+From: Simon Horman <horms@kernel.org>
+To: sam@bynar.io
+Cc: Simon Horman <horms@kernel.org>,
+	david@ixit.cz,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] nfc: nci: fix uninit-value in the RF discover/activated NTF handlers
+Date: Thu, 25 Jun 2026 10:18:29 +0100
+Message-ID: <20260625091828.1170615-2-horms@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260623234126.214667-1-sam@bynar.io>
+References: <20260623234126.214667-1-sam@bynar.io>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625090627.1501095-1-richard@nod.at>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 25, 2026 at 11:06:27AM +0200, Richard Weinberger wrote:
-> Running a kernel with CONFIG_MODULES=n causes the W+X page dectection
-> to trigger:
-> x86/mm: Found insecure W+X mapping at address 0xffffffffc033a000
-> 
-> The W+X pages come from __its_alloc() with type being EXECMEM_MODULE_TEXT.
-> Without ARCH_HAS_EXECMEM_ROX pgprot is PAGE_KERNEL instead of
-> PAGE_KERNEL_ROX.
-> 
-> Cc: stable@vger.kernel.org
-> Cc: Peter Zijlstra (Intel) <peterz@infradead.org>
-> Cc: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Fixes: 47410d839fcda ("x86/Kconfig: only enable ROX cache in execmem when STRICT_MODULE_RWX is set")
-> Suggested-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Signed-off-by: Richard Weinberger <richard@nod.at>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+---
+nfc: nci: fix uninit-value in the RF discover/activated NTF handlers
 
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+This zero-initialises the on-stack nci_rf_discover_ntf and
+nci_rf_intf_activated_ntf structs in the RF discover and interface
+activated NTF handlers so that the technology- and activation-specific
+unions read back as zero when the corresponding length fields are zero.
 
-> ---
->  arch/x86/Kconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-> index 0b5f30d769ffb..330ccbf6726ad 100644
-> --- a/arch/x86/Kconfig
-> +++ b/arch/x86/Kconfig
-> @@ -85,7 +85,7 @@ config X86
->  	select ARCH_HAS_DMA_OPS			if GART_IOMMU || XEN
->  	select ARCH_HAS_EARLY_DEBUG		if KGDB
->  	select ARCH_HAS_ELF_RANDOMIZE
-> -	select ARCH_HAS_EXECMEM_ROX		if X86_64 && STRICT_MODULE_RWX
-> +	select ARCH_HAS_EXECMEM_ROX		if X86_64 && (STRICT_MODULE_RWX || STRICT_KERNEL_RWX)
->  	select ARCH_HAS_FAST_MULTIPLIER
->  	select ARCH_HAS_FORTIFY_SOURCE
->  	select ARCH_HAS_GCOV_PROFILE_ALL
-> -- 
-> 2.51.0
-> 
+Link: https://lore.kernel.org/netdev/20260623172109.1105965-2-horms@kernel.org/
 
--- 
-Sincerely yours,
-Mike.
+>  - activated: with rf_tech_specific_params_len == 0 the same union is read
+>    via nci_target_auto_activated(); with activation_params_len == 0 the
+>    activation_params union is read by nci_store_ats_nfc_iso_dep() into
+>    ndev->target_ats.
+
+[Low]
+Does the third scenario in this paragraph match the code?
+
+Looking at nci_store_ats_nfc_iso_dep():
+
+    static int nci_store_ats_nfc_iso_dep(struct nci_dev *ndev,
+                         const struct nci_rf_intf_activated_ntf *ntf)
+    {
+        ndev->target_ats_len = 0;
+
+        if (ntf->activation_params_len <= 0)
+            return NCI_STATUS_OK;
+
+        if (ntf->activation_params.nfca_poll_iso_dep.rats_res_len > NFC_ATS_MAXSIZE) {
+        ...
+
+The function returns NCI_STATUS_OK before any access to the
+activation_params union when activation_params_len is 0, so the union
+is not read in that case.
+
+The sibling nci_store_general_bytes_nfc_dep() has the same early return
+on activation_params_len <= 0.
+
+The two rf_tech_specific_params_len == 0 cases listed earlier in the
+commit message do match the code (nci_add_new_protocol() and
+nci_target_auto_activated() unconditionally pass
+&ntf.rf_tech_specific_params even when rf_tech_specific_params_len is
+0), and the KMSAN trace quoted in the commit message only mentions the
+nci_add_new_protocol() path.
+
+The ntf = {} change still looks correct and necessary for the
+rf_tech_specific_params union. Could the third bullet be dropped or
+adjusted so the commit message reflects only the paths that actually
+read uninitialised bytes?
