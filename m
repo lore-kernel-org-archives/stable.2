@@ -1,127 +1,150 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-172.mta1.migadu.com (out-172.mta1.migadu.com [95.215.58.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA4722D7A9
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 02:45:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C47827B340
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 02:50:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782355546; cv=none; b=hJXIb0NELpDleV31K8shGyZVXbH+YQ3rpfxjOlrnYNdPehhglSXqdtgCr9Ow+XxZ/ZonTe9xin7fq3PQmTHk1pgSaHSIu2QNtSp3tJD0tTAcXdSlunCDQNZNjc5x7RigSgw8FHtrNgjXr5KGoRJ6n82hBbmE7D5a97x5sw4ewEk=
+	t=1782355815; cv=none; b=Jbq0MP32BWj9eeCLJrgMFQsouJOTb/4+GpFfaP1M/mhh3aJU+6DCGfziVHLxmI+DTBN108hKYZB+WmCLuT3a5prFN90mBfg+nebWtTAvAUU2ibmOC5Fp7HQjJp3412sjHmy5A5qN9+z2W067jYmS8Ze6WMUn2JVaHWUmdRkmrVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782355546; c=relaxed/simple;
-	bh=AySLtgFOtp3529pAwkKmx1IWp7boPyf16WKMeJ7VPcE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=adrMnciOAZzYP+iSrlDUnzT7pa75wr72dImW1ISI6LmMql7mJ4LfKzKBAA/rx+On0cHbJvm9HTfKoV/TO5DIkNDO0cHJCUYwBRG5JlPhoDTe1GzM6vau0RTitr+XktJflli1BZ6SGBX/sImT8uzmtu5Tv335kJh8Fs+XOmAjQTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=f1O3RzMw; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1782355815; c=relaxed/simple;
+	bh=+RMxs6WouMV+QBrd2CzDNYOlwIYPMhCQnwNtubPoCSE=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=h9IJQhESV0RVlwcO7QV2wnwxNedl74FgV45QJhUT4QRQcLjbfYMSPq/owdNzMaSXpqsOMxi6bc0iiXF/m82ZtKUzEH8qvU4JVY3bSJvDn8kY5ffT4pGAhykI+6C+MD448rmoK/qKnL9BBVzAYACJ0BqNntFxfC47mTsujozWHUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DykFukn9; arc=none smtp.client-ip=95.215.58.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="f1O3RzMw"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2c6b7bd4e8dso25035ad.0
-        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 19:45:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782355544; x=1782960344; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wJTr5Nx9Y5ptjpvg/KPhM4NW7y4Vw06GKfeQFFI2HR0=;
-        b=f1O3RzMw9Cu/2cncPlbWfkljhEUyroaiSd+5NxpGSJguPyNinmxzsBtG5ctxTKO6On
-         82KefBXYsrO8w+dEBs1Gt6bDiPixgtCY6K1XqZyAk1ZJYhNdTmKgKYmPLzy4JEhTzCzN
-         6tLsmS48/FHQTtaKOVGNSJiSdMIM5aPY2wNuPbff22wDsnPr3X+c+A50IoOSZ4mihYZA
-         CWpkf6WWCO9hPD1pnjEmB3uWE7gRgiaZGFeKWMVfc7rx75AY2PEibZcbZHmjiZEAjGze
-         +WsVAsAGUPgWCRPml5/zYodbj0LFQPI7pUA0xPtFZsOUugsFbErjkb8Ab5oFGb7cWIa+
-         2kwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782355544; x=1782960344;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wJTr5Nx9Y5ptjpvg/KPhM4NW7y4Vw06GKfeQFFI2HR0=;
-        b=DrjVhGyGJCchdpBPsYtUsA1rlsMUuqJ4XgJLZyXxP8OVVtXtsCwIj8r7pyl6SKDvG2
-         Rdm3y7SwPjPW4EdD3dzJWIMrjx3pNUYY+VC16BGlHXK2gCYNTo8MuWa2a7K60ZoKCTS3
-         sv+9FmnAxALYtSHdXxD8BYLHgCcUJ/4D5GvQf7vpwAXC2GPXcJD3e92lwxCQQChShini
-         XnQOTKa+CkG2O4rBRKr4vdeGebMUpHFIFjXvo0YU3PGOJpeCny386GCvZH/UWkhhpc5c
-         BODQaIU1lJ2jBD65JGEAf/P4rp3DvAVe7g7+sUiJqobLkeqSX2KYVSE2PTgPIKJCaA+G
-         8eMQ==
-X-Forwarded-Encrypted: i=1; AHgh+RojQpUWFnRFo20AcsouWwlG7oWXGsC9TRo7bbmKLsD3hoywweD0gpBJdgwsBBd88RDBrlFWyg8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw362V/HbGKhh7t0KPpmll6Jkkh6AtokB0w7jtM5elpWVXLt4wg
-	2Srfw5ArwF/n+eBhS2ZpOoYBv+l48FGhGIIGtnunKzkjDkyxdqnxiASbEIu1r2U1j+DSmrAQsyO
-	NlcI2us2M
-X-Gm-Gg: AfdE7cm+k+PynolFVy6q/5faHLcgyfhCOZuksF+lUD2b9NpQOMG+1fYCF5wwblx96mx
-	ry5uerGAKaEaXl9NOaHlZ/wKX51iQFB0InJTWupIdfPJI9VrFHHhzRc5DA6sC+z10Z7sJNHy6ci
-	PxKp50dRUqgluaGzglt5QRPjoBcrLSIrr/J8HhP90PGsx0GT0tnwEJjoT3CVrlFCNw4krLWnLcS
-	ojQjnmC3PqQedI+1pjHcyVGON65SS5mW0iM8iX0uOt/Fcx8JFBtyUs4WPfNXBuO6JI1O8KwApU+
-	Qs7PLyUu2aPYm3HaYzzr5rNfjlUQ/O37b9XWFY5/l/Xqb8mhVq4Cr9yHrhozLOjm1H/09BVt5tz
-	NX7sQmryQrvSk/fPKOeoc3wr8Kl0jA9XpsZ+ljoYG9MYnT7H9WXIpl6/tUspZK1NRGQ8qYhz5o/
-	LosDB21aQ0YeH6NfrY8dIt/Oq3pBO0bl3yLHz3Gd5WG+AH9uw6ZbuQuTlEK2MEDgTH006BGFdVo
-	8R5lQqn3krptf//12wdeu7nfVPCBW9FK60=
-X-Received: by 2002:a17:902:cf42:b0:2c6:a078:bfb7 with SMTP id d9443c01a7336-2c7fae6b9c1mr870365ad.7.1782355543229;
-        Wed, 24 Jun 2026 19:45:43 -0700 (PDT)
-Received: from google.com (112.174.16.34.bc.googleusercontent.com. [34.16.174.112])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c92b9cc8496sm744276a12.8.2026.06.24.19.45.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 19:45:41 -0700 (PDT)
-Date: Thu, 25 Jun 2026 02:45:37 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
-	Todd Kjos <tkjos@android.com>,
-	Christian Brauner <brauner@kernel.org>, kernel-team@android.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] binder: fix UAF in binder_free_transaction()
-Message-ID: <ajyWUfA5BLrlNo9A@google.com>
-References: <20260619185233.2194678-1-cmllamas@google.com>
- <20260619185233.2194678-2-cmllamas@google.com>
- <CAH5fLghnFSB0KYHQ7T4LEnHcx+kLP0RavpQL2LSyO2MCjE4DeA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DykFukn9"
+Content-Type: text/plain;
+	charset=utf-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782355811;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MicaSn+z48usKhojf8188nP53q3d4Jw8leQ7MwI5jT8=;
+	b=DykFukn9zpbYGSheo5bRdVmxZg5okx6GYR+9olh/n0MGcLKMlo1w2+tT5dR5jKAl/98osG
+	eWwKJtTqNZ1y2uAoaMa4wSH5P9rgTL7DrF/FKxA8rO3Aaut7L5qPOpDthT6+Jw+W+K/KJG
+	cQOX0XMTR3IgF0mOtkB0hrdHkiAg/TI=
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAH5fLghnFSB0KYHQ7T4LEnHcx+kLP0RavpQL2LSyO2MCjE4DeA@mail.gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: + mm-hugetlb-init-tails-before-init_migratetype.patch added to
+ mm-hotfixes-unstable branch
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260625005458.9F75F1F000E9@smtp.kernel.org>
+Date: Thu, 25 Jun 2026 10:49:25 +0800
+Cc: mm-commits@vger.kernel.org,
+ vbabka@kernel.org,
+ stable@vger.kernel.org,
+ osalvador@suse.de,
+ kas@kernel.org,
+ david@kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <A6C55A66-5225-4C1C-9E4C-988EEAA960D0@linux.dev>
+References: <20260625005458.9F75F1F000E9@smtp.kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+ mclapinski@google.com
+X-Migadu-Flow: FLOW_OUT
 
-On Mon, Jun 22, 2026 at 09:55:29PM +0200, Alice Ryhl wrote:
-> > --- a/drivers/android/binder.c
-> > +++ b/drivers/android/binder.c
-> > @@ -1658,10 +1658,19 @@ static void binder_txn_latency_free(struct binder_transaction *t)
-> >
-> >  static void binder_free_transaction(struct binder_transaction *t)
-> >  {
-> > +       struct binder_thread *target_thread;
-> >         struct binder_proc *target_proc;
-> >
-> >         spin_lock(&t->lock);
-> >         target_proc = t->to_proc;
-> > +       target_thread = t->to_thread;
-> > +       /*
-> > +        * Pin target_thread to keep target_proc alive. Undelivered
-> > +        * transactions with !target_thread are safe, as target_proc
-> > +        * can only be the current context there.
-> > +        */
-> > +       if (target_thread)
-> > +               atomic_inc(&target_thread->tmp_ref);
-> 
-> This is more complicated than the comment suggests, but I think it's
-> correct. As far as I can tell, scenarios where to_thread is NULL but
-> to_proc is not are also scenarios where the caller ensures that
-> to_proc stays alive during this function call.
 
-Right, transactions with !to_thread and a valid to_proc are undelivered,
-and as such they can only reach this point from the to_proc's context.
 
-> 
-> It's unfortunate that there's no obvious better way of doing this. I'd
-> like to just take a refcount on the process, but it's not atomic, and
-> you can't take the proc lock protecting it because of lock inversion.
+> On Jun 25, 2026, at 08:54, Andrew Morton <akpm@linux-foundation.org> =
+wrote:
+>=20
+>=20
+> The patch titled
+>     Subject: mm/hugetlb: init tails before init_migratetype
+> has been added to the -mm mm-hotfixes-unstable branch.  Its filename =
+is
+>     mm-hugetlb-init-tails-before-init_migratetype.patch
+>=20
+> This patch will shortly appear at
+>     =
+https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patch=
+es/mm-hugetlb-init-tails-before-init_migratetype.patch
+>=20
+> This patch will later appear in the mm-hotfixes-unstable branch at
+>    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+>=20
+> Before you just go and hit "reply", please:
+>   a) Consider who else should be cc'ed
+>   b) Prefer to cc a suitable mailing list as well
+>   c) Ideally: find the original patch on the mailing list and do a
+>      reply-to-all to that, adding suitable additional cc's
+>=20
+> *** Remember to use Documentation/process/submit-checklist.rst when =
+testing your code ***
+>=20
+> The -mm tree is included into linux-next via various
+> branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+> and is updated there most days
+>=20
+> ------------------------------------------------------
+> From: Michal Clapinski <mclapinski@google.com>
+> Subject: mm/hugetlb: init tails before init_migratetype
+> Date: Mon, 22 Jun 2026 12:19:01 +0200
+>=20
+> Currently, if you enable HVO, DEFERRED_STRUCT_PAGE_INIT and VM_DEBUG =
+the
+> kernel will crash with the following stack trace
+>=20
+> get_pfnblock_bitmap_bitidx
+> __set_pfnblock_flags_mask
+> hugetlb_bootmem_init_migratetype
+> prep_and_add_bootmem_folios
+> gather_bootmem_prealloc_node
+> gather_bootmem_prealloc_parallel
+> padata_do_multithreaded
+> gather_bootmem_prealloc
+> hugetlb_init
+>=20
+> on this code
+>=20
+> VM_BUG_ON_PAGE(!zone_spans_pfn(page_zone(page), pfn), page);
+>=20
+> This code looks inside the struct page which will be uninitialized
+> for hugetlb tail pages, which will cause a false positive.
+>=20
+> So let's initialize the tail pages before this happens.
+>=20
+> Link: =
+https://lore.kernel.org/20260622101901.223961-1-mclapinski@google.com
+> Fixes: 622026e87c40 ("mm/hugetlb: remove fake head pages")
+> Signed-off-by: Michal Clapinski <mclapinski@google.com>
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Tested-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Michal Clapinski <mclapinski@google.com>
+> Cc: Muchun Song <muchun.song@linux.dev>
+> Cc: Oscar Salvador <osalvador@suse.de>
+> Cc: Vlastimil Babka <vbabka@kernel.org>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-Bingo! I'm using the thread as a proxy because refactoring proc->tmp_ref
-to be atomic would be a bigger and thus riskier change.
+Hi Andrew,
 
-> 
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Just a quick heads-up =E2=80=94 this bug was actually already fixed in =
+my patch #1 of
+patchset [1]. Since both patches address the same issue, I'd suggest =
+picking
+mine to avoid unnecessary merge conflicts when the rest of my series =
+gets applied.
 
-Thanks!
+Thanks to Michal for also taking a look at this =E2=80=94 always good to =
+have extra eyes
+on the same problem.
+
+[1] =
+https://lore.kernel.org/linux-mm/20260612035903.2468601-2-songmuchun@byted=
+ance.com/
+
+Muchun,
+Thanks.
+
