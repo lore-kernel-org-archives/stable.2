@@ -1,35 +1,53 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289053A75B8;
-	Thu, 25 Jun 2026 15:16:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D990367B62
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 15:17:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782400607; cv=none; b=uBQBJiqm5FK6nhx3t+WoHt9+heHyheiW+u8ofmf9VoU5RTAAYKmmv43BLKTiC+1IrbesBh0GWl81rzOkcdlNWuWWqXMv2nvT331c20ydaYlstM/Et6ipEZt66GZk11+vMGdYiICL+l1LMLLxOKUKL4mVPD/3IAMqpqt0Uoq8Uaw=
+	t=1782400681; cv=none; b=Emlp+McyArlHZgJiDMRy/7mpn1SXYX0Cwb5xM+x5A0HoIKy6/ArTHkGgYV/KyRC28QstDjJcI8yXg1mLwYFUgDTsjw/gPYlt8niZFYf/GkTzcw8LPfeE6STFrfSdmUL+C29x8PdeDJ3UkaMfCMlGIBFYE7cDnB655QKdBh/TfBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782400607; c=relaxed/simple;
-	bh=5tiUYLobpfAyf7PHa9U4KBOHa0KSi5lZCgKiQ+VdnLc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=A+A4uUT2iKK9BGLgX4JqlHnjC0Y4h8c6+I1GpqUUys0+NCoGfqGyyCqGX0Onj2YMeCOIyijLJwCompyQlPH5HISvo+NhUHMEOiMswJ6EIardiuEin0sxG2d+y6BQsIs77rtDLHxcWI4YJ2yK3pemOFGiiB4TJeUr6bMjH9N2iSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-03 (Coremail) with SMTP id rQCowACHerFWRj1qsU7UFQ--.9911S2;
-	Thu, 25 Jun 2026 23:16:39 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: philipp.reisner@linbit.com,
-	lars.ellenberg@linbit.com,
-	christoph.boehmwalder@linbit.com,
-	axboe@kernel.dk
-Cc: drbd-dev@lists.linbit.com,
-	linux-block@vger.kernel.org,
+	s=arc-20240116; t=1782400681; c=relaxed/simple;
+	bh=ekx5cr7T299wlK8jCLijW3dhHd83+VG4kNX/35JMfiM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DjIw5861wmOAxUNsPkdLxU1xK6s2GHLungnJjRpMF07KWeOa74wbhVhJPGQ1jb0ovnf5u+YNPNeG0DbENNPksp1xiWsKjk3QXQKxgOajQjWduAgKwsqk6mokAfFr0GmSw/+7+KSWkkqhXe70g45SGFZI25DBITDOCwfN+7na4jw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=araeRisd; arc=none smtp.client-ip=95.215.58.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="araeRisd"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782400676;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=0abFjDD7MeWR8jXMZ2j0zCKAbj5uTG1W2qlcF8YqFc4=;
+	b=araeRisdZjkkXDB5B5YHuyjgxiM3QgILhTA3HYQM2YO4riqCwXB16muACRB18zccxmj6HB
+	uk5sdyKDreRF+CYXqUsePISuTN1byrhnIsvTqYnq8CpyfVWyZlNIte2FgGzk+V6kjepyj3
+	1MUTcDj9eg6EsdVDrA1sykzJH9DqGZo=
+From: Qi Zheng <qi.zheng@linux.dev>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	kasong@tencent.com,
+	shakeel.butt@linux.dev,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	hannes@cmpxchg.org,
+	harry@kernel.org,
+	muchun.song@linux.dev,
+	peiyang_he@smail.nju.edu.cn,
+	mhocko@kernel.org,
+	roman.gushchin@linux.dev,
+	ljs@kernel.org
+Cc: linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	Qi Zheng <zhengqi.arch@bytedance.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] drbd: Fix local_cnt refcount leak on ascw allocation failure in _drbd_set_state
-Date: Thu, 25 Jun 2026 23:16:36 +0800
-Message-Id: <20260625151636.72599-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Subject: [PATCH v3] mm: mglru: fix stale batch updates after memcg reparenting
+Date: Thu, 25 Jun 2026 23:15:54 +0800
+Message-ID: <20260625151554.55105-1-qi.zheng@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,72 +55,154 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACHerFWRj1qsU7UFQ--.9911S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47Cw1DKryxJryxtr15XFb_yoW8ZF4UpF
-	sxGrW7KryUK3yfKFnrJw409Fs5Ka1kt34rKr92yw1a9wsxGr1fA3s0yFW7Xay5Ar93Jr4r
-	Xa42yryv9rWYyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
-	6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
-	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
-	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
-	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU13ku3UUUU
-	U==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAcJA2o9Q+oF3QAAsn
+X-Migadu-Flow: FLOW_OUT
 
-In _drbd_set_state(), when transitioning a device to D_FAILED or
-D_DISKLESS, an extra reference on local_cnt is taken via
-atomic_inc(&device->local_cnt) to prevent premature destruction of
-the local disk. This reference is normally released by put_ldev()
-in after_state_ch(), which is called asynchronously through the
-after_state_chg_work (ascw) work item.
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-If the GFP_ATOMIC allocation of the ascw work item fails, the work
-is never queued, after_state_ch() never runs, and the extra
-local_cnt reference is permanently leaked. Additionally, the
-state_change object allocated by remember_old_state() is also
-leaked, along with the krefs it acquired on the resource,
-connections, and devices.
+The mglru page table walker batches per-generation size deltas in
+walk->nr_pages while walking page tables without holding the lruvec lock.
+The reset_batch_size() later folds those deltas into walk->lruvec under
+the lruvec lock.
 
-Fix both leaks in the ascw allocation failure path:
- - Call put_ldev() to release the extra local_cnt reference when
-   the transition matches the same conditions used for the
-   atomic_inc.
- - Call forget_state_change() to free the state_change object and
-   release the krefs it holds.
+The page table walker can run concurrently with the memcg reparenting path
+as follows:
 
-Cc: stable@vger.kernel.org
-Fixes: d01801710265 ("drbd: Remove the terrible DEV hack")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+CPU0                           CPU1
+====                           ====
+
+walk_mm
+--> walk_page_range
+    --> update_batch_size
+        --> walk->nr_pages += delta
+
+                              mem_cgroup_css_offline
+                              --> memcg_reparent_objcgs
+                                  --> lock lruvec
+                                      lru_gen_reparent_memcg
+                                      --> reparent child folios to parent
+                                      unlock lruvec
+
+    lock lruvec
+    reset_batch_size
+    --> child lrugen->nr_pages += delta
+
+This will trigger the following warning in lru_gen_exit_memcg():
+
+	VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
+				   sizeof(lruvec->lrugen.nr_pages)));
+
+And the user-visible impact of underestimated nr_pages in MGLRU was
+premature OOMs because MGLRU does not try to reclaim memory when nr_pages
+reaches zero, but there are still more pages.
+
+To fix it, make reset_batch_size() check CSS_DYING under RCU before
+flushing the pending batch. A non-dying memcg keeps the original lruvec
+stable against RCU-delayed offlining; a dying memcg redirects the deltas
+to the first non-dying ancestor.
+
+Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn
+Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- drivers/block/drbd/drbd_state.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Changes in v3:
+ - re-implement lock_batch_lruvec() by checking CSS_DYING under the RCU lock
+   (suggested by Harry)
+ - update the commit message (suggested by Harry)
+ - temporarily drop the previous Reviewed-by tags
+   (since the sync method has changed)
+ - rebase onto the next-20260624
 
-diff --git a/drivers/block/drbd/drbd_state.c b/drivers/block/drbd/drbd_state.c
-index adcba7f1d8ea..68e273c6d5be 100644
---- a/drivers/block/drbd/drbd_state.c
-+++ b/drivers/block/drbd/drbd_state.c
-@@ -1480,7 +1480,13 @@ _drbd_set_state(struct drbd_device *device, union drbd_state ns,
- 		drbd_queue_work(&connection->sender_work,
- 				&ascw->w);
- 	} else {
--		drbd_err(device, "Could not kmalloc an ascw\n");
-+		if ((os.disk != D_FAILED && ns.disk == D_FAILED) ||
-+		    (os.disk != D_DISKLESS && ns.disk == D_DISKLESS))
-+			put_ldev(device);
+Changes in v2:
+ - update the commit message (pointed by Barry)
+ - collect Reviewed-by
+
+ mm/vmscan.c | 45 ++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 38 insertions(+), 7 deletions(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 35c3bb15ae96..1ec8c23c72b9 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3262,10 +3262,44 @@ static void update_batch_size(struct lru_gen_mm_walk *walk, struct folio *folio,
+ 	walk->nr_pages[new_gen][type][zone] += delta;
+ }
+ 
++#ifdef CONFIG_MEMCG
++static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
++{
++	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
++	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
 +
-+		forget_state_change(state_change);
-+		drbd_err(device, "Could not kmalloc an ascw, state change %p -> %p leaked\n",
-+			 &os, &ns);
++	rcu_read_lock();
++
++	/*
++	 * The memcg can be NULL when the memory controller is disabled.
++	 * Otherwise, the caller keeps the memcg owning @lruvec alive.
++	 */
++	if (!memcg || !css_is_dying(&memcg->css))
++		goto lock;
++
++	do {
++		memcg = parent_mem_cgroup(memcg);
++	} while (memcg && css_is_dying(&memcg->css));
++	lruvec = mem_cgroup_lruvec(memcg, pgdat);
++
++lock:
++	spin_lock_irq(&lruvec->lru_lock);
++
++	return lruvec;
++}
++#else
++static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
++{
++	lruvec_lock_irq(lruvec);
++
++	return lruvec;
++}
++#endif
++
+ static void reset_batch_size(struct lru_gen_mm_walk *walk)
+ {
+ 	int gen, type, zone;
+-	struct lruvec *lruvec = walk->lruvec;
++	struct lruvec *lruvec = lock_batch_lruvec(walk->lruvec);
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+ 
+ 	walk->batched = 0;
+@@ -3285,6 +3319,8 @@ static void reset_batch_size(struct lru_gen_mm_walk *walk)
+ 			lru += LRU_ACTIVE;
+ 		__update_lru_size(lruvec, lru, zone, delta);
+ 	}
++
++	lruvec_unlock_irq(lruvec);
+ }
+ 
+ static int should_skip_vma(unsigned long start, unsigned long end, struct mm_walk *args)
+@@ -3779,11 +3815,8 @@ static void walk_mm(struct mm_struct *mm, struct lru_gen_mm_walk *walk)
+ 			mmap_read_unlock(mm);
+ 		}
+ 
+-		if (walk->batched) {
+-			lruvec_lock_irq(lruvec);
++		if (walk->batched)
+ 			reset_batch_size(walk);
+-			lruvec_unlock_irq(lruvec);
+-		}
+ 
+ 		cond_resched();
+ 	} while (err == -EAGAIN);
+@@ -4867,9 +4900,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 	walk = current->reclaim_state->mm_walk;
+ 	if (walk && walk->batched) {
+ 		walk->lruvec = lruvec;
+-		lruvec_lock_irq(lruvec);
+ 		reset_batch_size(walk);
+-		lruvec_unlock_irq(lruvec);
  	}
  
- 	return rv;
+ 	mod_lruvec_state(lruvec, PGDEMOTE_KSWAPD + reclaimer_offset(sc),
 -- 
-2.39.5 (Apple Git-154)
+2.54.0
 
