@@ -1,109 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F63F26F2BE;
-	Thu, 25 Jun 2026 15:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B3A3E7BA7;
+	Thu, 25 Jun 2026 15:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782399628; cv=none; b=IbCAShA3qKeVHeAJWzKHfOyBu1pch3/sQpi7Wv/TP3R1LL4HvzMpx1JkYO5u03/QXGNFfHDVKr8PGwtadeWcf8IMVQEzgNNVZfMLLwP7mwsvK3gRtoIGbQVdjBnVqWwQ3GFg/bt9YGl8/8uO9Yc3ngfQP5IsU0uyqwZ3ZjsVLrQ=
+	t=1782399692; cv=none; b=uh606El0IZS+FGsEN1+ueenjfZTOgAbbAFttqxrxHApI2WsyjFxOD3j2cy6isBqWkN9BxwO5tWPY0duycyr2hxFUloic0UDcVa9FJjplXQoe58UKzoKc48Yje0/JW+xG5bufM8n23X39epZpKl7AAq1qZwOQfEzgd0y0BJvQTiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782399628; c=relaxed/simple;
-	bh=2rGJNW7kzzC2EOAQp+lG2xHE1YA8UeZ14RY+D3jdZss=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S0mv4IJh5zw838l81ZekftsgHyAt3R/I+K604gNBEk6yRi1L+08+IF791IaWg263eVKjpn0tF38W/KQn35enpfSA9XP4J1VKPwsiyav7EYikSDit2MEuzhcTsq0MvF6q6P643xDR124vI/K45NqwrGZUHt6q6qD5E7IrOz9KRzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CoS0GIWz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782399692; c=relaxed/simple;
+	bh=y0kLbmjBiEqarhYNWRM45XNqeHkgeRs6fYzViD2tGxo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UaO5VUhnj5Z+hP05nVUWjg0Su4OYtUJj0dSEBtw5NDoBb8ggkIfVX/WaA1m7OU2DdbyLXeiXUVaAdR6Rq1rITskH1Q/X15ZJAiygVqnhA3V6wBnPAkTazKiTL5ZuSapDef7hhueuXaeU/66pCJ95jqF+29nQtzI+0cjZMaffhJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ycI0Burm; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CoS0GIWz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBCB01F00A3A;
-	Thu, 25 Jun 2026 15:00:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782399627;
-	bh=zRvgAQyPPoK2vUdPbDN7JiZo6UURRerJQsTHI7SpChE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CoS0GIWz0OFCjX9XSXwQosvDlIWcW7PHsxkYrGnEXFeBS8OhtuwJTQlXUW9Lztm3G
-	 Di7qd+qyhVYKeXaX8UQUXOAF8DGodLgUS92D0ckGmUSBc90zkAbDWgHPLQ0Aei2U4A
-	 1SfUzABBMak/gA3UNBS/VaQPIqNojZmQi9SJ5IpDjlR5CCCIavqOsgJ7U2Dp86yBLO
-	 zrQft2+1yEi0BM/tRQJLbx4w++Y0Y9vYTetzOlJNjRpVWNt+bJcTp4cUq8L+3K9EZs
-	 tgg8YnFILMsneAhqfwSSbudgzgzrwHW+7nlU/esr2nWlx4f/b0nQqRpJKXCVrfzC14
-	 UfWx/G2F+nSWA==
-Date: Thu, 25 Jun 2026 17:00:21 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jan Kara <jack@suse.cz>, linux-xfs@vger.kernel.org, 
-	stable@vger.kernel.org, "Darrick J. Wong" <djwong@kernel.org>, 
-	Dave Chinner <david@fromorbit.com>, Eric Sandeen <sandeen@redhat.com>, 
-	"Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>, linux-fsdevel@vger.kernel.org, 
-	Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH] xfs: fix capabily check in xfs_setattr_nonsize
-Message-ID: <aj1CdKwE3A40vQhQ@nidhogg.toxiclabs.cc>
-References: <20260624101436.362533-1-cem@kernel.org>
- <20260624134039.GB5649@lst.de>
- <qcsdbdpp23fsu3cqhpjdpwusvl6onc2knnrun522ofrutxpz6j@reh3k2ofqjir>
- <20260625123754.GA19947@lst.de>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ycI0Burm"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gmMSz0dPXz9vDY;
+	Thu, 25 Jun 2026 17:01:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1782399684; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eDf8uKydeb/dWDgOUroHzcLhyUDFhghnhH6xp9NcqCs=;
+	b=ycI0BurmMS2ieeqdTbYQ84MnvXcjhlbp53mhDYB9+wT3sGlmCH48HAU8XRCob/RY15qKfa
+	46vH0a9/eUKKIR6acC0jVlN70oxzUXcuQ3A7lfNj4LGqNiG2AoTlWmdwoe7jO7wc9PRn5c
+	FX/dlwNXmSfJw5lsGBbl3YhKjkWsZ02u3jekBXN3SwwTNuqptKlYhuMf5nD+/NfEld7Ibh
+	SZvnezVMZStCMT+ko8iO8+rIXht+Hz+DQ9enUvZRxRk40lcClIkValkQnBvj8oEanFnqWw
+	WvnJHDu3QY6aDNry8JeBVbaI9nfArpBP2ct0WI5HTIu/avTb6zCPcw6MwLQT6Q==
+Message-ID: <de3b9b978ffeeb43c18d877080e93823214313ec.camel@mailbox.org>
+Subject: Re: [PATCH] dma-fence: Fix dma_fence_timeline_name() to call
+ get_timeline_name()
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Baineng Shou <shoubaineng@gmail.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, =?ISO-8859-1?Q?Andr=E9?= Draszik	
+ <andre.draszik@linaro.org>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Philipp Stanner
+ <phasta@kernel.org>,  Akash Goel <akash.goel@arm.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Thu, 25 Jun 2026 17:01:15 +0200
+In-Reply-To: <20260625141227.38931-1-shoubaineng@gmail.com>
+References: <20260625141227.38931-1-shoubaineng@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625123754.GA19947@lst.de>
+X-MBO-RS-ID: 1c878a47db5afd3a54a
+X-MBO-RS-META: xyidt6keibsxozexi515dqim3gdtwzox
 
-On Thu, Jun 25, 2026 at 02:37:54PM +0200, Christoph Hellwig wrote:
-> On Thu, Jun 25, 2026 at 12:43:54PM +0200, Jan Kara wrote:
-> > On Wed 24-06-26 15:40:39, Christoph Hellwig wrote:
-> > > Adding Jan and Christian for quota and user_ns knowledge.
-> > > 
-> > > On Wed, Jun 24, 2026 at 12:14:29PM +0200, cem@kernel.org wrote:
-> > > > From: Carlos Maiolino <cem@kernel.org>
-> > > > 
-> > > > An user reported a bug where he managed to evade group's quota
-> > > > by changing a file's gid to a different group id the same user
-> > > > belonged to, even though quotas were enforced on both gids and the
-> > > > file's size was big enough to exceed the quota's hardlimit.
-> > > > 
-> > > > Commit eba0549bc7d1 replaced a capable() call by a
-> > > > has_capability_noaudit() to prevent unnecessary selinux audit messages.
-> > > > Turns out that both calls have slightly different semantics even though
-> > > > their documentation seems similar. Where in a nutshell:
-> > > > 
-> > > > capable() - Tests the task's effective credentials
-> > > > has_ns_capability_noaudit() - Tests the task's real credentials
-> > > 
-> > > Eww..
-> > 
-> > Yeah, that's a catch.
-> > 
-> > > > This most of the time has no practical difference but in some cases like
-> > > > changing attrs (specifically group id in this case) through a NFS client
-> > > > this will allow the quota code to use XFS_QMOPT_FORCE_RES, effectively
-> > > > bypassing quota accounting checks.
-> > > 
-> > > Yeah, this does look wrong.  Do the other conversion in the above commit
-> > > have tthe same issue?
-> > > 
-> > > > Using instead ns_capable_noaudit() should fix this issue and prevent
-> > > > selinux audit messages.
-> > > 
-> > > The generic quota code manages to do without either has_capability_noaudit
-> > > or ns_capable_noaudit.  I think this might be hidden behind
-> > > inode_owner_or_capable calls.  Any idea why we're different?
-> > 
-> > Actually no. Generic quota code has equivalent checks in ignore_hardlimit()
-> > function which does capable(CAP_SYS_RESOURCE) check. I guess the reason why
-> > nobody complained about generic quota code is that we call
-> > ignore_hardlimit() only if we are above hardlimit whereas XFS calls this
-> > for every transaction...
-> 
-> I guess we should aim for the same to avoid the spurious audit logs.
-> 
-> I.e. xfs_trans_alloc_ichange is currently always called either with
-> force = true or force = this capable check.  So as a first step we can
-> move the check into xfs_trans_alloc_ichange for the !force case, and the
-> propagate that through XFS_QMOPT_FORCE_RES into xfs_trans_dqresv, i.e.
-> only set XFS_QMOPT_FORCE_RES for the real forced case and instead
-> have the capable check down in xfs_trans_dqresv.
-> 
++Cc Andr=C3=A9
 
-Sounds fair, I'll give it a try tomorrow.
+On Thu, 2026-06-25 at 22:12 +0800, Baineng Shou wrote:
+> dma_fence_timeline_name() incorrectly invokes ops->get_driver_name()
+> instead of ops->get_timeline_name(), so every caller receives the
+> driver name where the timeline name was expected.
+>=20
+> This is a copy-paste regression that has resurfaced twice. It was
+> originally introduced by commit 62918542b7bf ("dma-fence: Fix sparse
+> warnings due __rcu annotations") when adding the __rcu casts, fixed
+> by commit 033559473dd3 ("dma-fence: Fix safe access wrapper to call
+> timeline name method"), and then accidentally reintroduced by commit
+> e58b4dea9054 ("dma-buf/dma-fence: Add dma_fence_test_signaled_flag()")
+> when both wrappers were refactored to use the new helper.
+>=20
+> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+
+Andr=C3=A9 has caught this a few days ago already:
+
+https://lore.kernel.org/dri-devel/20260618-linux-drm_crtc_fix-v1-1-801f29c9=
+853d@linaro.org/
+
+
+To save my honor I want to state that e58b4dea9054 did not actually *do
+this* change. But merging it must have caused it somehow, since that
+commit was still based on the old bug. I guess somewhere in conflict
+resolution somehow tho old code must have entered.
+
+
+P.
+
+> ---
+> =C2=A0drivers/dma-buf/dma-fence.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index b3bfa6943a8e..5292d714419b 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -1202,7 +1202,7 @@ const char __rcu *dma_fence_timeline_name(struct dm=
+a_fence *fence)
+> =C2=A0	/* RCU protection is required for safe access to returned string *=
+/
+> =C2=A0	ops =3D rcu_dereference(fence->ops);
+> =C2=A0	if (!dma_fence_test_signaled_flag(fence))
+> -		return (const char __rcu *)ops->get_driver_name(fence);
+> +		return (const char __rcu *)ops->get_timeline_name(fence);
+> =C2=A0	else
+> =C2=A0		return (const char __rcu *)"signaled-timeline";
+> =C2=A0}
+	=09
