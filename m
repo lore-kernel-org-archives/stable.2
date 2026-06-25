@@ -1,192 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492C32DCF46;
-	Thu, 25 Jun 2026 06:32:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A73F2FD681;
+	Thu, 25 Jun 2026 06:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782369161; cv=none; b=r9kb9U8GKdxqwe/TQxJojPAzMFOwgHdkyLoaiS02fwA6RkiW3p62ZMoJw7d61tOOVvPaXzxOsOLBVl6LqzqXj/ftobu/Hm3Diy9ACDWZ7cPXEAbeyQ/2emSfOSU9tbtGiLzTjj0vHOyyjgeRuv7YIYjdYuEjvQYBfvGOR3XtJaM=
+	t=1782369609; cv=none; b=OgO/GXa3PgQlLUknalRP9RfcHbcketuK4T4adKa/T2BecFWy9yBDXRV6IQW9EXDnnvyiDMP/1TRTpaoykXTH5dCgdycAUK2m7JIGOaZ+tDWrmIXo2H21gsA4zQOHrtLhWm1ZvWGZpE3g2z8hRkR43fZwwUrihmvA8dtLqvMNxds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782369161; c=relaxed/simple;
-	bh=PA++kEo6Y4a1roRSn0w8MGq4LueGE2Q8Z1qFuXhLmFY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q3sSjbI4Sdz/fKF7a4xrbBgRAwKi7+9EPK7c2d7TWH/J5LwmXI0sltO7lU8xYQNIXxvNmBxGZf5Ho58oVbqttuByu1snIrjTi6OC2o/7HcEmTurUdEi9jbP6kQxSKH+Ib21lDP3grCJ39TKI11HTkpeh0IQcN/LYRgEV0j+eTRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EUb9A7bf; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EUb9A7bf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E0521F000E9;
-	Thu, 25 Jun 2026 06:32:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782369159;
-	bh=PA++kEo6Y4a1roRSn0w8MGq4LueGE2Q8Z1qFuXhLmFY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EUb9A7bfT8o3xC2ShcbPTp3AtLHchbnUhfWwHdlOwyZsh3St007Q/Xs0YRAbPpKMY
-	 quqEr/j0IjbouRsTm4EzGkODpqMQTtJIMICXpGO2ruBvW4jAmZTV9OQQmreCW6B/LL
-	 2hjww5y4aG2w4n4zEJkJvE59uvTx1GZ+tQdMC0iuUPFE77eIsmlPuhnN3P5FLaikDK
-	 CKpMhUfVTeOhWw1gKsN7DO48KZu5kwK0n6c8RyHM68a/nWcZZdTJKXzkatR9dUNk1S
-	 Wcu+7PER42343ww7e8KP/ZMkfl7nTJUeHXjWOkZDSnaGx5KICtS9mw7NbNERuQrru0
-	 LRMnEHeeSYw4g==
-Message-ID: <1d78e1c1-0cdb-435e-b278-670bce9148b3@kernel.org>
-Date: Thu, 25 Jun 2026 15:32:17 +0900
+	s=arc-20240116; t=1782369609; c=relaxed/simple;
+	bh=2JMoRHKUQ/kQHqvaMEdRcJ0m8VcfYZX/7FHNM/oWlks=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=k5pLMxV6M+u287cFtDJ90TdfJh9nbFIgzRL+CCf6pxW5HA3PY2Q1ooEi8PxIe8AH9jmrE/n1WIlCEIQ0BvZtln2AcrE3RWGOSbVl910CPdg3Tc1H5SR28nfH56Nyc4HTd2MYt8sKxweg53D+wMRcGoAhDeO60p9usZak+bnJJuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-05 (Coremail) with SMTP id zQCowAAXbhE6zTxqV6YpFQ--.19217S2;
+	Thu, 25 Jun 2026 14:39:56 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Sunil Goutham <sgoutham@marvell.com>,
+	Linu Cherian <lcherian@marvell.com>,
+	Geetha sowjanya <gakula@marvell.com>,
+	hariprasad <hkelam@marvell.com>,
+	Subbaraya Sundeep <sbhatta@marvell.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] octeontx2-af: Fix pci_dev reference leak in cgx_print_dmac_flt
+Date: Thu, 25 Jun 2026 14:39:51 +0800
+Message-Id: <20260625063951.44361-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm: mglru: fix stale batch updates after memcg
- reparenting
-To: Qi Zheng <qi.zheng@linux.dev>, akpm@linux-foundation.org,
- david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
- baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
- weixugc@google.com, hannes@cmpxchg.org, muchun.song@linux.dev,
- peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
- ljs@kernel.org
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
-References: <20260623024237.45990-1-qi.zheng@linux.dev>
- <e74b0808-3bcc-414d-a037-41e479210cc0@kernel.org>
- <d97128c0-7d89-4b5c-b891-84f9af702fee@linux.dev>
- <8a76aefd-629c-41f3-b365-aefd4cc1411e@kernel.org>
- <7946da94-dc1d-4cf2-986e-466c378665b6@linux.dev>
- <dfe5d773-2992-448b-a6cb-ef633714a08f@kernel.org>
- <1d638906-6d64-4e57-a181-4b77683652b5@linux.dev>
- <b5c85cea-5daa-4690-ac41-a6f5aebd1555@kernel.org>
- <f18bf1b1-ccf7-4d77-9389-07311d2d1613@linux.dev>
-Content-Language: en-US
-From: Harry Yoo <harry@kernel.org>
-In-Reply-To: <f18bf1b1-ccf7-4d77-9389-07311d2d1613@linux.dev>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------uktpT6dUCb9cs0xThB17O4X2"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAXbhE6zTxqV6YpFQ--.19217S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AFy7tFW8AFy3Jr1xuw4DArb_yoW8Aw4kpa
+	1Y9a4rArW8tryftw4UJa10yr98Ga1vq393K3y8Cw1F93WrJr1Fqa48KayUKF1SyFWkW3W3
+	tF1Y9a1xua1Dt3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAcJA2o8pXKEjgABsL
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------uktpT6dUCb9cs0xThB17O4X2
-Content-Type: multipart/mixed; boundary="------------6ZIs0zsJlyzWHCa3l0yyOpja";
- protected-headers="v1"
-From: Harry Yoo <harry@kernel.org>
-To: Qi Zheng <qi.zheng@linux.dev>, akpm@linux-foundation.org,
- david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
- baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
- weixugc@google.com, hannes@cmpxchg.org, muchun.song@linux.dev,
- peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
- ljs@kernel.org
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
-Message-ID: <1d78e1c1-0cdb-435e-b278-670bce9148b3@kernel.org>
-Subject: Re: [PATCH v2] mm: mglru: fix stale batch updates after memcg
- reparenting
-References: <20260623024237.45990-1-qi.zheng@linux.dev>
- <e74b0808-3bcc-414d-a037-41e479210cc0@kernel.org>
- <d97128c0-7d89-4b5c-b891-84f9af702fee@linux.dev>
- <8a76aefd-629c-41f3-b365-aefd4cc1411e@kernel.org>
- <7946da94-dc1d-4cf2-986e-466c378665b6@linux.dev>
- <dfe5d773-2992-448b-a6cb-ef633714a08f@kernel.org>
- <1d638906-6d64-4e57-a181-4b77683652b5@linux.dev>
- <b5c85cea-5daa-4690-ac41-a6f5aebd1555@kernel.org>
- <f18bf1b1-ccf7-4d77-9389-07311d2d1613@linux.dev>
-In-Reply-To: <f18bf1b1-ccf7-4d77-9389-07311d2d1613@linux.dev>
+In cgx_print_dmac_flt(), pci_get_device() is called to look up the AF
+PCI device, but its return value is passed directly to pci_get_drvdata()
+without saving the pointer. This means pci_dev_put() can never be called
+for the obtained device, causing a reference count leak.
 
---------------6ZIs0zsJlyzWHCa3l0yyOpja
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Fix it by saving the return value of pci_get_device() in a local variable
+and releasing it via pci_dev_put() after the drvdata is extracted.
 
+Cc: stable@vger.kernel.org
+Fixes: dbc52debf95f ("octeontx2-af: Debugfs support for DMAC filters")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ .../net/ethernet/marvell/octeontx2/af/rvu_debugfs.c   | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
+index fa461489acdd..90dc13df9ff9 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
+@@ -2949,7 +2949,7 @@ RVU_DEBUG_SEQ_FOPS(cgx_stat, cgx_stat_display, NULL);
+ 
+ static int cgx_print_dmac_flt(struct seq_file *s, int lmac_id)
+ {
+-	struct pci_dev *pdev = NULL;
++	struct pci_dev *af_pdev, *pdev = NULL;
+ 	void *cgxd = s->private;
+ 	char *bcast, *mcast;
+ 	u16 index, domain;
+@@ -2958,8 +2958,13 @@ static int cgx_print_dmac_flt(struct seq_file *s, int lmac_id)
+ 	u64 cfg, mac;
+ 	int pf;
+ 
+-	rvu = pci_get_drvdata(pci_get_device(PCI_VENDOR_ID_CAVIUM,
+-					     PCI_DEVID_OCTEONTX2_RVU_AF, NULL));
++	af_pdev = pci_get_device(PCI_VENDOR_ID_CAVIUM,
++				 PCI_DEVID_OCTEONTX2_RVU_AF, NULL);
++	if (!af_pdev)
++		return -ENODEV;
++
++	rvu = pci_get_drvdata(af_pdev);
++	pci_dev_put(af_pdev);
+ 	if (!rvu)
+ 		return -ENODEV;
+ 
+-- 
+2.39.5 (Apple Git-154)
 
-On 6/25/26 3:11 PM, Qi Zheng wrote:
-> On 6/25/26 12:16 PM, Harry Yoo wrote:
->>
-> [...]
->=20
->>
->>> So lock_batch_lruvec() can be implemented like this:
->>>
->>> #ifdef CONFIG_MEMCG
->>> static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
->>> {
->>> =C2=A0=C2=A0=C2=A0=C2=A0 struct pglist_data *pgdat =3D lruvec_pgdat(l=
-ruvec);
->>> =C2=A0=C2=A0=C2=A0=C2=A0 struct mem_cgroup *memcg =3D lruvec_memcg(lr=
-uvec);
->>>
->>> =C2=A0=C2=A0=C2=A0=C2=A0 rcu_read_lock();
->>>
->>> =C2=A0=C2=A0=C2=A0=C2=A0 /*
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * The memcg can be NULL when the memor=
-y controller is disabled.
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Otherwise, the caller keeps the memc=
-g owning @lruvec alive.
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
->>> =C2=A0=C2=A0=C2=A0=C2=A0 if (!memcg || !css_is_dying(&memcg->css))
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto lock;
->>>
->>> =C2=A0=C2=A0=C2=A0=C2=A0 do {
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memcg =3D parent_mem=
-_cgroup(memcg);
->>> =C2=A0=C2=A0=C2=A0=C2=A0 } while (memcg && css_is_dying(&memcg->css))=
-;
->>> =C2=A0=C2=A0=C2=A0=C2=A0 lruvec =3D mem_cgroup_lruvec(memcg, pgdat);
->>>
->>> lock:
->>> =C2=A0=C2=A0=C2=A0=C2=A0 spin_lock_irq(&lruvec->lru_lock);
->>>
->>> =C2=A0=C2=A0=C2=A0=C2=A0 return lruvec;
->>> }
->>> #else
->>> static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
->>> {
->>> =C2=A0=C2=A0=C2=A0=C2=A0 lruvec_lock_irq(lruvec);
->>>
->>> =C2=A0=C2=A0=C2=A0=C2=A0 return lruvec;
->>> }
->>> #endif
->>>
->>> Does this make sense?
->>
->> Yes, looks good to me!
->=20
-> OK, this sync method makes more sense as it doesn't require adding a
-> new lrugen->reparente. I'll go with this method and update v3.
-
-Thanks!
-
-Just one thing to clarify...
-
-So, when we check something that's updated _before_ grace period
-(CSS_DYING), RCU is sufficient.
-
-But in folio_lruvec_lock*(), that is not the case because reparenting
-is performed in the RCU work, under the lruvec lock. So the check needs
-to be done under RCU and the lruvec lock.
-
-This is quite subtle :D
-
-> Hi Barry and Baolin, what do you think? Since the sync method has been
-> changed, I will temporarily drop your previous Reviewed-by tags in v3. =
-;)
-
-And hopefully Peiyang would kindly double check v3 still not reproduced
-on the machine :)
-
---=20
-Cheers,
-Harry / Hyeonggon
-
-
---------------6ZIs0zsJlyzWHCa3l0yyOpja--
-
---------------uktpT6dUCb9cs0xThB17O4X2
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCajzLcgAKCRCGXBN6rc5S
-1iu7AP9alaQqS1MV8EMiCjRZYb/5uBiLKw0FD420qVXcokWGtAEA37LSbn5gKsxP
-zjfUl7srE5vdhsoYShNZJGI60VhJLQ4=
-=QuH5
------END PGP SIGNATURE-----
-
---------------uktpT6dUCb9cs0xThB17O4X2--
