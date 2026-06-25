@@ -1,27 +1,28 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012010.outbound.protection.outlook.com [40.107.209.10])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012033.outbound.protection.outlook.com [52.101.48.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D293DFC99
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 12:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342973E120B
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 12:32:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.33
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782390753; cv=fail; b=SmHbU4KQtMuYBEzGPbpfChC+EQV04BJKGVjtAC9CCqi4N11jTRB5Bh9j75n2tj5NR42p6DRrBrtCLqGRnT4QSro+ac5PT0UCS2pgkUXfe/QcK2Dz/SD+HYmTS3EAM6J3q624WQZm6iib/4r8U5iN1T+ZR/LLJJNTZH13cWeSARA=
+	t=1782390764; cv=fail; b=Q+SCcHYk6M+XNGo4agQ7wDP9qYIJDLR8Iy4ADRBRsRo6Mr0sRwTuOGsp/M5kDC5YQDAwHdfTPRWPfaihqX3+uSia+mrnT65H7slIcmtnKCoi03vjWAPb7b0HRno78gxMIw+iIkp2Iflc6D1kDuokeAigX85deBLVKTDuDVpiVbA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782390753; c=relaxed/simple;
-	bh=yMRgIFLdbSmU0bRmP5cKmKfF9zWYVVgYADDddpQutPU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=paoIx+fTqYO2KlW7qNvfv/6txp+P7VVUvVQWA1TPoM2F7r0ff98P3nLahRmAewYFRh8bpvgM+jzn1k+QVRAoU3Erv4fLBb7G2N9uE9CQrvACtWrXd3rJT7BjpBtpjkmXMSyBixPl1fjqBZjGEi/OA6vXYRnrVGEw2xDmyGpJmxc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nsKiZnT5; arc=fail smtp.client-ip=40.107.209.10
+	s=arc-20240116; t=1782390764; c=relaxed/simple;
+	bh=j+aJ6U7KR/YDLz+Qu5qoqvhwlJe+Y6Jm4s1xKC8d+SA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ikQkiVBTCmWRIMYPxuRCEFYdeIyA+N04q5iXN3puquDNWD+0Op6vC9AL50ZS/4B1EDjjO/dl+3ReyXnvobWnyonmdqx8O7Oxga6fKC+LOgPKWvDqBB0K6zaebr6k1YlzO8uQF5qB8N4dpridIBEaab6CLy5ZZ2BJJV7owqL2ejc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XL6imn6w; arc=fail smtp.client-ip=52.101.48.33
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nsKiZnT5"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XL6imn6w"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tCo3xQPHeRfiAbJkWbW5cH8BwbkZwb3exKKvvHrFUjRQyj0NHKjzXDgwoRskVxkzpOAj+0xXXDfb3+oMmx+YjaBWrrpsGdgHR9yaI+DDER7i+g09aqZo7qG1VZKMWys3DQRA6cMM7PuktIUivwt2ul/6xGJd+7wZKPyeESXGsrJLe0jbrgehvAFqwwxWoDGIgd6prErcx3IN7cFeKmHdjQUiH8HCtJ/aAOLLLGH/MFx4FxHBkYsCzm02/V6pFZYAIdcCQBFrgn5X3apCbVu3Gg0RlhWXINu80RCFUbnQc7rnz80ffAQzmw2PoaZk0fjXRrxrxU6FTjbKaKjSQx3xdA==
+ b=HchEuRYLofYX38PVzsJdDMScRMm+Wogq7iRHG9M8g2NMaZG9+IEReKcUqqulPd4EdkU0wrRA2p7QCyaYp+OCwVm4OGOHcOw1npmZcWWjmdq3uBEg3CJu5pi4CtbLzK0sSzuh6bw9uQGX1qu6DhP26WapE1c1b3JZO2wNt08pJdZ/dJmqCQGMbS/iHg+cUejKlfUPSIWvSEOb36RDcRwoRhdefuO2qDo1CM3X81HpbaqpNTUBANSZezyry/KTDdnBnhUWd+2cEQpdEQ4YP50E4+2n5m6zMq0b4XmizcFWAOuPOoDIWpz31yVHa0p7ROMHjmM2IDwonBJPIdEjU/1INg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OTc3szy+u3xs+4dsc1/BgQ+/ZtuNIaF+OwhLWk7NPK0=;
- b=k9cWreoYknas78Xry1X3qX0Ym96o7685J1nkMsmBe4OEsdjs3sVXShdjLV96tSFxUY7gGLmYvXuRfz11fBj3gs16rguJ1SbMWIvcOrI5W2ULVEErJFRtoJsAFl2YQLjZ3ooJprWE7sBKmvTFi0MojRoIy9KNV0+cXaQAqUM/62uQTKhiZI7rbI2o6D7KsPFwhHUeTviuACHulZ74QxpTHywWB7Oz71sdU/CZQQOF9FzB+v3he0I/koR+M+dEvTvFzmV6r2u9RDcAgpUBJfzz3Br20dKF49dxaAyj21U8AV3wjvK8kSN//R4D5n/j/PVOHZEIqHcM48Yr0xbJp1gLtg==
+ bh=ZkbEsQkoN/kl9u143cIymWHfzk4LychwWshYzK1mOtI=;
+ b=mK5bp7C9bQLUdGFqKRJlB5s8k4NMFBe8iAyeyQL6ZaJKblNtELOXK6/g61OHglMhFf5MOSvkMEGKL8PxGAL3uJoDVxTFTHuy2KiTi92Q4v//7Wa2M40OnYQLtv47x45s3ybd7oWHkbOkecuI3AOSElYLwfUvCFc30jxE7gAdQjZoppzL6FivxAUWUgvL0jOK5KSFmh3wVXnH44yfaX14tqIi7fE/scrQAsYgLAyqhlTbgHV67VmHA/PJKRIo/59rrQ2xzGZQjxRRI9bD2HlEyweI3sTj/20sT6XVnOPbmCgEKMuXtMKpiV0EfXI7Pwe+Ylz5YQlv014ZIqK7EKse6w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.161) smtp.rcpttodomain=linuxfoundation.org
  smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
@@ -29,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OTc3szy+u3xs+4dsc1/BgQ+/ZtuNIaF+OwhLWk7NPK0=;
- b=nsKiZnT5dW1eCY6Rm6ZmfJPjqxtj4ftTZrXu1amj6XeajhT2WUG+SLIjgpT81umhwDr4jOMdtlE2E3VF1n4AqXmoy7vAYebWGNLZiKPLGJXPT7+WnbZPEg8yEEbLmPFJ22VsK7WHBuAfgzNT8gPn2vJ668DUOADLtpoYxVkYa3Jr/3I3MQovdMsBy3xZ0jVT7vMwVm0kb9xf/h7gnGe3KreJSex8zbzzjlmHnasu4wRZUZM02RmFujQ+dbJl8iCrBWPMyvhl5cZ332ux8q2Xyw2aoW4Gq97SKgqIRxDiqQLgY5bh/cwHg5/6VfkCiqxVDN738D8GowdIdLezezngAg==
-Received: from SJ0PR03CA0346.namprd03.prod.outlook.com (2603:10b6:a03:39c::21)
- by MW4PR12MB6684.namprd12.prod.outlook.com (2603:10b6:303:1ee::22) with
+ bh=ZkbEsQkoN/kl9u143cIymWHfzk4LychwWshYzK1mOtI=;
+ b=XL6imn6wddbqSonW3tNN4srl/4cnxDBONHqdNC2Gqodswv/+u4nIv2bqi7+TdLlIQbsgV77Q4YJckFJuavhE6ZxWgY88T9Zo5U0iGEV07LoU9srLh6ORY4E8U2TTnC9ymwdQ62ivBdOGpAZZVzUywK0rgurKrISxCG1N6aLg2LR0LR00tDB0C90AvtjPhqWl7ZlOmgmfUywB5TtEvPWpa/yio7I/sovZHr895W1P+aY6lusJWF9frk3MtgPLhA/awRGzT88Qwyi0NOLz01514Y5fSYeyDSdsDSs9L+PoKw3KhBLYolsNS+rirEGdNlzMhVq9zTHp975+gHnVCskt8g==
+Received: from SJ0PR03CA0126.namprd03.prod.outlook.com (2603:10b6:a03:33c::11)
+ by MN0PR12MB6319.namprd12.prod.outlook.com (2603:10b6:208:3c0::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Thu, 25 Jun
- 2026 12:32:26 +0000
-Received: from SJ1PEPF00002321.namprd03.prod.outlook.com
- (2603:10b6:a03:39c:cafe::7c) by SJ0PR03CA0346.outlook.office365.com
- (2603:10b6:a03:39c::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.16 via Frontend Transport; Thu,
- 25 Jun 2026 12:32:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
+ 2026 12:32:34 +0000
+Received: from SJ1PEPF00002327.namprd03.prod.outlook.com
+ (2603:10b6:a03:33c:cafe::20) by SJ0PR03CA0126.outlook.office365.com
+ (2603:10b6:a03:33c::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.14 via Frontend Transport; Thu,
+ 25 Jun 2026 12:32:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -48,27 +49,29 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.161 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.161) by
- SJ1PEPF00002321.mail.protection.outlook.com (10.167.242.91) with Microsoft
+ SJ1PEPF00002327.mail.protection.outlook.com (10.167.242.90) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 12:32:26 +0000
+ 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 12:32:34 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 25 Jun
- 2026 05:32:14 -0700
+ 2026 05:32:19 -0700
 Received: from fedora.mtl.com (10.126.230.37) by rnnvmail201.nvidia.com
  (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 25 Jun
- 2026 05:32:09 -0700
+ 2026 05:32:14 -0700
 From: Petr Machata <petrm@nvidia.com>
 To: Greg KH <gregkh@linuxfoundation.org>
 CC: Petr Machata <petrm@nvidia.com>, <stable@vger.kernel.org>, Sasha Levin
 	<sashal@kernel.org>, Wojtek Wasko <wwasko@nvidia.com>, Mahesh Bandewar
 	<maheshb@google.com>, Shuah Khan <shuah@kernel.org>, Richard Cochran
 	<richardcochran@gmail.com>, Yong Wang <yongwang@nvidia.com>
-Subject: [PATCH 5.15.y 1/2] Revert "selftest/ptp: update ptp selftest to exercise the gettimex options"
-Date: Thu, 25 Jun 2026 14:31:51 +0200
-Message-ID: <99e19551955b903936bedb1516bd2502c40f9505.1782385817.git.petrm@nvidia.com>
+Subject: [PATCH 5.15.y 2/2] Revert "ptp: add testptp mask test"
+Date: Thu, 25 Jun 2026 14:31:52 +0200
+Message-ID: <16a11dee5304bf528593441b3959ed1729e3eadf.1782385817.git.petrm@nvidia.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <99e19551955b903936bedb1516bd2502c40f9505.1782385817.git.petrm@nvidia.com>
+References: <99e19551955b903936bedb1516bd2502c40f9505.1782385817.git.petrm@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,166 +84,123 @@ X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002321:EE_|MW4PR12MB6684:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5609793-b049-440b-15fb-08ded2b5d094
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002327:EE_|MN0PR12MB6319:EE_
+X-MS-Office365-Filtering-Correlation-Id: cfbe622f-1c2d-43e8-ad5d-08ded2b5d549
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|18002099003|6133799003|3023799007|11063799006|56012099006;
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|82310400026|1800799024|18002099003|22082099003|3023799007|56012099006|6133799003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	PcT9IuJ0ixLSle+6suIRhPcXjIPRBsJ8o+aXcQaR2x6UzJh90g1FteDKICukElWhK2kbE2a3mpjloXXYUkPsmY40GSXzQ7qfPPRCJakAb6HtJ3d2qxLcWGlwwdBUwmw3XytPgjMXNX0yiyNEsfrZwS41SBKzCfQR1KjWhuYJ7X3gZStPuQTUscP541QfO3fkJj6jgt247bxXTmYGSBS3r4p/Q6kvqSasKh7lOKIEYe0MKwfp6cexEkpJuHwI2c/Jl8kFlvwtFrV8QlpDK2hYm995b69cutc5H4T5oHawg0c2w9WmAw6jS5dOMIBzmvx1coQ67TK+KCP501jaZrJkkIYqefV9LzVTgedcMdePrnj0kHnUCr+RSktjpa4C7ORqZ/Axuhu9AAUS4V1CFr+XjHBuiEu/pirEmlWMUWxmDMbNlnuL5mC0Lud63M8BBXb4+JyU/JuFqdALhuFKJwncHU50u192L7SzTDjHWbh2yC330eHs3/+72DKfWmEn79QdsLXFeSMKwYcNWn9LZ0whqNfVst/v5ocxQJBofjZsfSAJXi/DmfIIO9JszmtM8iK3G9IYvhWeFOS4Tgu/MWymJOCrGO0WNzO4woMC+86ltlRkaFfdfaxaEWdnjUvYLLRYBrcWkX+RUjae+x5Tql7V0F6vO4lpVaQ5+afxnGWxqRIS9rBnro/J3zt5p2dKFLioSLqmnQGMI7UD30zPox+Lwg==
+	Jr+7CGFva2IG6xRq/AbLPBYmfCZP456iC2uyyPN1+/H2ik7rqMrrFxnngiyD4HF6Vwn08xitsYxV5sHgkMPUAyWlA+t3CGgKtsKmtx4K3ONdjn3W5jyf/LhSdsSpxj7ATyWk3kYAy8dzrigpAlxh4Oox44aFMDiU8FKui7+HDu3crSOH30OCI+nMXryH4WcIUn/LY32aM1xl6+lHWbyAsBPMkN+XPVTbCvgUiGpglBEYWwlwhwzSZAJA8qajvPFw6O9jM4O8nvRRi9BUvQniLPDF4ZEqs+EWgERIG28rqmgLBlQRB6RECbL5Ik33BIZKapjK1Lok+PNPxA52m65YGd/RJAmhQrAXrcIflxl8DCDVEX398s9B0QhTLcwscrw9bd8ghfH8VDcdyEqxYrN+pw0rQsLnlmXac3vYLckkpvZ38ZzUnD1CnPEE0jVFNAN4QmJZq4B6k1tUWH8sRTy+ZqoLYaj7wHlMZSgcmRP/rnHu3+7m8n2apGv/R8ldy66uenVAWyeXKxYduO39vEq2j4LSSOwiFI0lg9a8ULtXqONJyZkMEkqH2at0WOrB/fwzPle74eYBspolB7RPYw+UAbooFUHlqiSnIUoLxZ2QNYG1zo1IulKXtSsyBG7QBmPo9+t66oaZlLKmFoYCD2d7H5CZEip/v+W/M6GuqT/sdwe2EJsDfTUYW3yAwF1dWULSP5k+2iGcMQBcfyr3xFcx2g==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(18002099003)(6133799003)(3023799007)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(82310400026)(1800799024)(18002099003)(22082099003)(3023799007)(56012099006)(6133799003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	BX6oRxCm6QjnW8oPuiE170FVKqKGdRlbth2V0Lt3cWdyCaqqmaU0FqkRZQdohYo7hHc9SgiBLxXw29TVJBF4M2i17rREa9xrLgxKhTTFQhb0uuuLHpeziVhBsa5Vqqwa1KH/XNdKumBR7shCrVVjU2FuVf9+ifqZ21chsYwVP7/wvqflRshG0M7K8MHhip+2VKyMXIOMAQWV78QSRLQfA+2Fb1c3xj97nihxYMqfgurGIS7R7SerD9qEkNRj8/MvquMFciOz4kGMWckg9lua06JENTVXao6R3QbcO1gOFT0iMfye9frK9cg03ascDxyEi0kE4zp2TV+hQ/jCzBPptHUdZCUoNlkz0WAucml9D0bxAK5xvug+nxTcclpSW9TFYiMdmAk/jjgPgWCzywvBlZ1KgNEs14bEWsxOC8cpZftWDfu0PDroMYL81lk9Np2C
+	gIRtLcWZHMOlwFpEJqlE8wVl1wdaDf9D9SH2msV9wJ6QFvoQxxzmpaUbq6CHJYjRb0FQ0LItgmg4OZzb1Mh3iTsgeJhrTi2YMxcrNm1xy2yAAekmrm2/Iej9Luwa0PEAjnlDng6+xar5G+QZZptHltUULDAQPAqtf+3/gxp9BVAjkyKjM+iWes29LhLHhBxjEwM1sTQg/oBVmDQG3EVcVnTXwImr1+vkeO8Y7BwJQZFMcVKNeo89FCR/OGtGvykbH/lqHuygRN4aQKfr1Hc/jYdpsOHumMCqAqRJbv8FkGZM5+1ckBRMHZN4f8J3a7St+fMr+2q7cVYS+t+btUTja1W+yHhRBhbzyCBNAeFrTiP7dRvlu+TFmcWG4n+lqokuUGpW1uppvpYdcg+6J9xjJmpvl2FAn4ke409aK++EhPDAb2a0d7wZB58w/Xcy9MpI
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 12:32:26.3223
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 12:32:34.2165
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5609793-b049-440b-15fb-08ded2b5d094
+X-MS-Exchange-CrossTenant-Network-Message-Id: cfbe622f-1c2d-43e8-ad5d-08ded2b5d549
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002321.namprd03.prod.outlook.com
+	SJ1PEPF00002327.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6684
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6319
 
-This reverts commit 6b32d042aa8255e964ebed860e24adccb204fcbc, which is
-commit 3d07b691ee707c00afaf365440975e81bb96cd9b upstream.
+This reverts commit 8510559c0fa1e228b18fcf77cfbcf5b970793a8a, which is
+commit 26285e689c6cd2cf3849568c83b2ebe53f467143 upstream.
 
-The cited commit allows testptp to set a configurable clock_id. That is
-done via a PTP_SYS_OFFSET_EXTENDED ioctl call, whose argument is struct
-ptp_sys_offset_extended, where the clock_id is set. However, this Linux
-version does not support the ptp_sys_offset_extended.clockid field, and
-the test case cannot be built against this tree's own UAPI headers.
+The reverted commit extends the selftest to test timestamp event queue mask
+manipulation in testptp. It exercises masks PTP_MASK_CLEAR_ALL and
+PTP_MASK_EN_SINGLE, introduced in commit c5a445b1e934 ("ptp: support event
+queue reader channel masks"), which is not on this stable branch. The test
+case thus cannot be built against this tree's own UAPI headers.
 
 The reverted commit was introduced to resolve a missing dependency of
 commit bef3a83a9a67 ("testptp: Add option to open PHC in readonly mode"),
-which is 76868642e427 upstream. My suspicion is that the only conflict
-between the two is the getopt string, and there is otherwise no direct
-dependency between the two.
+which is 76868642e427 upstream. The only conflict between the two is the
+getopt string, and there is otherwise no direct dependency between the two.
 
 This patch therefore reverts the cited commit, with hand-resolving the
 getopt string to include 'r' (as introduced by c6dc458227a3), but not
-'y' (introduced by 06954f715deb).
+'F' (introduced by c1c50689799d).
 
 Reported-by: Yong Wang <yongwang@nvidia.com>
 Signed-off-by: Petr Machata <petrm@nvidia.com>
 ---
- tools/testing/selftests/ptp/testptp.c | 62 +++------------------------
- 1 file changed, 5 insertions(+), 57 deletions(-)
+
+Notes:
+    This issue exists also on 6.1 and 6.6. I'm sending
+    individual reverts for these branches.
+    
+    Reproducer:
+     # make headers_install INSTALL_HDR_PATH=$(pwd)/I
+     # cd tools/testing/selftests/ptp/
+     # gcc -isystem ../../../../I/include/ -D_GNU_SOURCE= testptp.c -lrt -o testptp
+
+ tools/testing/selftests/ptp/testptp.c | 19 +------------------
+ 1 file changed, 1 insertion(+), 18 deletions(-)
 
 diff --git a/tools/testing/selftests/ptp/testptp.c b/tools/testing/selftests/ptp/testptp.c
-index 89b4f43a7ba4..d78d52f028ab 100644
+index d78d52f028ab..84e86898f4b4 100644
 --- a/tools/testing/selftests/ptp/testptp.c
 +++ b/tools/testing/selftests/ptp/testptp.c
-@@ -147,7 +147,6 @@ static void usage(char *progname)
- 		" -T val     set the ptp clock time to 'val' seconds\n"
- 		" -x val     get an extended ptp clock time with the desired number of samples (up to %d)\n"
- 		" -X         get a ptp clock cross timestamp\n"
--		" -y val     pre/post tstamp timebase to use {realtime|monotonic|monotonic-raw}\n"
- 		" -z         test combinations of rising/falling external time stamp flags\n",
- 		progname, PTP_MAX_SAMPLES);
- }
-@@ -192,7 +191,6 @@ int main(int argc, char *argv[])
+@@ -121,7 +121,6 @@ static void usage(char *progname)
+ 		" -d name    device to open\n"
+ 		" -e val     read 'val' external time stamp events\n"
+ 		" -f val     adjust the ptp clock frequency by 'val' ppb\n"
+-		" -F chan    Enable single channel mask and keep device open for debugfs verification.\n"
+ 		" -g         get the ptp clock time\n"
+ 		" -h         prints this message\n"
+ 		" -i val     index for event/trigger\n"
+@@ -190,7 +189,6 @@ int main(int argc, char *argv[])
+ 	int seconds = 0;
  	int readonly = 0;
  	int settime = 0;
- 	int channel = -1;
--	clockid_t ext_clockid = CLOCK_REALTIME;
+-	int channel = -1;
  
  	int64_t t1, t2, tp;
  	int64_t interval, offset;
-@@ -202,7 +200,7 @@ int main(int argc, char *argv[])
+@@ -200,7 +198,7 @@ int main(int argc, char *argv[])
  
  	progname = strrchr(argv[0], '/');
  	progname = progname ? 1+progname : argv[0];
--	while (EOF != (c = getopt(argc, argv, "cd:e:f:F:ghH:i:k:lL:n:o:p:P:rsSt:T:w:x:Xy:z"))) {
-+	while (EOF != (c = getopt(argc, argv, "cd:e:f:F:ghH:i:k:lL:n:o:p:P:rsSt:T:w:x:Xz"))) {
+-	while (EOF != (c = getopt(argc, argv, "cd:e:f:F:ghH:i:k:lL:n:o:p:P:rsSt:T:w:x:Xz"))) {
++	while (EOF != (c = getopt(argc, argv, "cd:e:f:ghH:i:k:lL:n:o:p:P:rsSt:T:w:x:Xz"))) {
  		switch (c) {
  		case 'c':
  			capabilities = 1;
-@@ -285,21 +283,6 @@ int main(int argc, char *argv[])
- 		case 'X':
- 			getcross = 1;
+@@ -214,9 +212,6 @@ int main(int argc, char *argv[])
+ 		case 'f':
+ 			adjfreq = atoi(optarg);
  			break;
--		case 'y':
--			if (!strcasecmp(optarg, "realtime"))
--				ext_clockid = CLOCK_REALTIME;
--			else if (!strcasecmp(optarg, "monotonic"))
--				ext_clockid = CLOCK_MONOTONIC;
--			else if (!strcasecmp(optarg, "monotonic-raw"))
--				ext_clockid = CLOCK_MONOTONIC_RAW;
--			else {
--				fprintf(stderr,
--					"type needs to be realtime, monotonic or monotonic-raw; was given %s\n",
--					optarg);
--				return -1;
--			}
+-		case 'F':
+-			channel = atoi(optarg);
 -			break;
--
- 		case 'z':
- 			flagtest = 1;
+ 		case 'g':
+ 			gettime = 1;
  			break;
-@@ -590,7 +573,6 @@ int main(int argc, char *argv[])
- 		}
+@@ -616,18 +611,6 @@ int main(int argc, char *argv[])
+ 		free(xts);
+ 	}
  
- 		soe->n_samples = getextended;
--		soe->clockid = ext_clockid;
- 
- 		if (ioctl(fd, PTP_SYS_OFFSET_EXTENDED, soe)) {
- 			perror("PTP_SYS_OFFSET_EXTENDED");
-@@ -599,46 +581,12 @@ int main(int argc, char *argv[])
- 			       getextended);
- 
- 			for (i = 0; i < getextended; i++) {
--				switch (ext_clockid) {
--				case CLOCK_REALTIME:
--					printf("sample #%2d: real time before: %lld.%09u\n",
--					       i, soe->ts[i][0].sec,
--					       soe->ts[i][0].nsec);
--					break;
--				case CLOCK_MONOTONIC:
--					printf("sample #%2d: monotonic time before: %lld.%09u\n",
--					       i, soe->ts[i][0].sec,
--					       soe->ts[i][0].nsec);
--					break;
--				case CLOCK_MONOTONIC_RAW:
--					printf("sample #%2d: monotonic-raw time before: %lld.%09u\n",
--					       i, soe->ts[i][0].sec,
--					       soe->ts[i][0].nsec);
--					break;
--				default:
--					break;
--				}
-+				printf("sample #%2d: system time before: %lld.%09u\n",
-+				       i, soe->ts[i][0].sec, soe->ts[i][0].nsec);
- 				printf("            phc time: %lld.%09u\n",
- 				       soe->ts[i][1].sec, soe->ts[i][1].nsec);
--				switch (ext_clockid) {
--				case CLOCK_REALTIME:
--					printf("            real time after: %lld.%09u\n",
--					       soe->ts[i][2].sec,
--					       soe->ts[i][2].nsec);
--					break;
--				case CLOCK_MONOTONIC:
--					printf("            monotonic time after: %lld.%09u\n",
--					       soe->ts[i][2].sec,
--					       soe->ts[i][2].nsec);
--					break;
--				case CLOCK_MONOTONIC_RAW:
--					printf("            monotonic-raw time after: %lld.%09u\n",
--					       soe->ts[i][2].sec,
--					       soe->ts[i][2].nsec);
--					break;
--				default:
--					break;
--				}
-+				printf("            system time after: %lld.%09u\n",
-+				       soe->ts[i][2].sec, soe->ts[i][2].nsec);
- 			}
- 		}
- 
+-	if (channel >= 0) {
+-		if (ioctl(fd, PTP_MASK_CLEAR_ALL)) {
+-			perror("PTP_MASK_CLEAR_ALL");
+-		} else if (ioctl(fd, PTP_MASK_EN_SINGLE, (unsigned int *)&channel)) {
+-			perror("PTP_MASK_EN_SINGLE");
+-		} else {
+-			printf("Channel %d exclusively enabled. Check on debugfs.\n", channel);
+-			printf("Press any key to continue\n.");
+-			getchar();
+-		}
+-	}
+-
+ 	close(fd);
+ 	return 0;
+ }
 -- 
 2.54.0
 
