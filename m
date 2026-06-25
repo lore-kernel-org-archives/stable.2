@@ -1,110 +1,86 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A73F2FD681;
-	Thu, 25 Jun 2026 06:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951493074B1;
+	Thu, 25 Jun 2026 06:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782369609; cv=none; b=OgO/GXa3PgQlLUknalRP9RfcHbcketuK4T4adKa/T2BecFWy9yBDXRV6IQW9EXDnnvyiDMP/1TRTpaoykXTH5dCgdycAUK2m7JIGOaZ+tDWrmIXo2H21gsA4zQOHrtLhWm1ZvWGZpE3g2z8hRkR43fZwwUrihmvA8dtLqvMNxds=
+	t=1782369801; cv=none; b=BpmizkXl95MzEctrpGvtWUZtflrEurQBnQXY/GusvAKZ8l6Lx3ZN8pJBvDt8LlfF8ANDDCrVGzIQz4E5jTZZbWch4Zn+S9lk5ParF4cr0XXYCkJ12EuDaJIWlme0y8/0SKYWMRQYR9L9blTOeSSV9VymAbyMDxw1nqJh7T4o2r0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782369609; c=relaxed/simple;
-	bh=2JMoRHKUQ/kQHqvaMEdRcJ0m8VcfYZX/7FHNM/oWlks=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=k5pLMxV6M+u287cFtDJ90TdfJh9nbFIgzRL+CCf6pxW5HA3PY2Q1ooEi8PxIe8AH9jmrE/n1WIlCEIQ0BvZtln2AcrE3RWGOSbVl910CPdg3Tc1H5SR28nfH56Nyc4HTd2MYt8sKxweg53D+wMRcGoAhDeO60p9usZak+bnJJuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-05 (Coremail) with SMTP id zQCowAAXbhE6zTxqV6YpFQ--.19217S2;
-	Thu, 25 Jun 2026 14:39:56 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Sunil Goutham <sgoutham@marvell.com>,
-	Linu Cherian <lcherian@marvell.com>,
-	Geetha sowjanya <gakula@marvell.com>,
-	hariprasad <hkelam@marvell.com>,
-	Subbaraya Sundeep <sbhatta@marvell.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	s=arc-20240116; t=1782369801; c=relaxed/simple;
+	bh=ZkCZ+PvKSsAlrWKiWwS9avQLygO8V0+UtEp5WRMVUPw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jCIFtrzE5AwwShLJi0C0JCi8iAUg3FeDVvLDLVy1Vf0tw7lmpbTlDSSKSX7nkv3NRv8fMVOpcA2bkDfjR0Qtsqgl9SBz8gzRO6SaqFTKy3oX5ysJOeCr1NlzFiD18u6tw8kRH7pAPNiUd2wkDl8mJTN08bH4ui+QSLit/4pLgk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O2RikE/x; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O2RikE/x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782369800; x=1813905800;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZkCZ+PvKSsAlrWKiWwS9avQLygO8V0+UtEp5WRMVUPw=;
+  b=O2RikE/xif0LANMdjCyga36GHXmO3Nx3xoRhFifUcXTBgo2x+bLuFca+
+   hONqIhUQlnECy7XgxTTUxQD0HjU4Kn5S4qBppdV/7A4uGV8i59rEHNbqn
+   9kuZecy7Eg4vZFGWsD7QuNSi9KiYXzfyv8w4xiC7XPVr7w3Yw/BuRRuOp
+   qDuJ9jjQt/JLzoB5YscIc+oQsALDwOX6UEoEL/TDsH2aFHZxKDgctZb7I
+   IV0dbax1gN1ib8yxcqtCruKWGPKVc5ajnzWJl4BtRZ1lLt7YWCIs7gVDc
+   AKWJMOMaehca02rZhDtDZPhThK5AC2fRD4f2xe1sKDPIIMYsyjS8IR7ly
+   g==;
+X-CSE-ConnectionGUID: X5aRDU9rRwuN53uvpRAz6g==
+X-CSE-MsgGUID: Ku/I0+/BTmeyrS7WLoTupw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="86984214"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; 
+   d="scan'208";a="86984214"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 23:43:20 -0700
+X-CSE-ConnectionGUID: i6IUU8G9RWyn2fO2A9vzlA==
+X-CSE-MsgGUID: PROuEBAvQ0mYGYFWFy9iyg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; 
+   d="scan'208";a="247926035"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 23:43:17 -0700
+Date: Thu, 25 Jun 2026 09:43:15 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Crt Mori <cmo@melexis.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] octeontx2-af: Fix pci_dev reference leak in cgx_print_dmac_flt
-Date: Thu, 25 Jun 2026 14:39:51 +0800
-Message-Id: <20260625063951.44361-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Subject: Re: [PATCH v2] iio: temperature: Build mlx90635 with CONFIG_MLX90635
+Message-ID: <ajzOA3MGaCqrgCDp@ashevche-desk.local>
+References: <20260624081309.77805-1-pengpeng@iscas.ac.cn>
+ <20260625054259.76774-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXbhE6zTxqV6YpFQ--.19217S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AFy7tFW8AFy3Jr1xuw4DArb_yoW8Aw4kpa
-	1Y9a4rArW8tryftw4UJa10yr98Ga1vq393K3y8Cw1F93WrJr1Fqa48KayUKF1SyFWkW3W3
-	tF1Y9a1xua1Dt3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAcJA2o8pXKEjgABsL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260625054259.76774-1-pengpeng@iscas.ac.cn>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-In cgx_print_dmac_flt(), pci_get_device() is called to look up the AF
-PCI device, but its return value is passed directly to pci_get_drvdata()
-without saving the pointer. This means pci_dev_put() can never be called
-for the obtained device, causing a reference count leak.
+On Thu, Jun 25, 2026 at 01:42:59PM +0800, Pengpeng Hou wrote:
+> drivers/iio/temperature/Kconfig has a dedicated MLX90635 option, but
+> the Makefile currently builds mlx90635.o under CONFIG_MLX90632.
+> 
+> This means enabling CONFIG_MLX90635 alone does not carry its provider
+> object into the build, while enabling CONFIG_MLX90632 unexpectedly also
+> builds mlx90635.o.
+> 
+> Gate mlx90635.o on the matching generated Kconfig symbol.
 
-Fix it by saving the return value of pci_get_device() in a local variable
-and releasing it via pci_dev_put() after the drvdata is extracted.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Cc: stable@vger.kernel.org
-Fixes: dbc52debf95f ("octeontx2-af: Debugfs support for DMAC filters")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- .../net/ethernet/marvell/octeontx2/af/rvu_debugfs.c   | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
-index fa461489acdd..90dc13df9ff9 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
-@@ -2949,7 +2949,7 @@ RVU_DEBUG_SEQ_FOPS(cgx_stat, cgx_stat_display, NULL);
- 
- static int cgx_print_dmac_flt(struct seq_file *s, int lmac_id)
- {
--	struct pci_dev *pdev = NULL;
-+	struct pci_dev *af_pdev, *pdev = NULL;
- 	void *cgxd = s->private;
- 	char *bcast, *mcast;
- 	u16 index, domain;
-@@ -2958,8 +2958,13 @@ static int cgx_print_dmac_flt(struct seq_file *s, int lmac_id)
- 	u64 cfg, mac;
- 	int pf;
- 
--	rvu = pci_get_drvdata(pci_get_device(PCI_VENDOR_ID_CAVIUM,
--					     PCI_DEVID_OCTEONTX2_RVU_AF, NULL));
-+	af_pdev = pci_get_device(PCI_VENDOR_ID_CAVIUM,
-+				 PCI_DEVID_OCTEONTX2_RVU_AF, NULL);
-+	if (!af_pdev)
-+		return -ENODEV;
-+
-+	rvu = pci_get_drvdata(af_pdev);
-+	pci_dev_put(af_pdev);
- 	if (!rvu)
- 		return -ENODEV;
- 
 -- 
-2.39.5 (Apple Git-154)
+With Best Regards,
+Andy Shevchenko
+
 
