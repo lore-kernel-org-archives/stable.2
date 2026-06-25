@@ -1,210 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AEA175A5;
-	Thu, 25 Jun 2026 04:29:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C775026158B;
+	Thu, 25 Jun 2026 04:29:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782361774; cv=none; b=JZbrY0iSCAlZW5uiDwx2X0Z4lxn0SR3N4Uyysn7vkkGGCixFY/m2y2SQOXso154SFMFdu3yb69AfrwIV6UnWYWAqtUw+8hYfNM+f5jsVd514az1aWY3e/6Ei30CDxQvIMqcAUXcgizHO/U+PnOong66oUaE8lL13/oJaiQyVKDY=
+	t=1782361780; cv=none; b=tIs7c34jj3PWLJhgreESdVpV4Cvbk4WhoLHnm8Kgnrmp4c133iVfOj46c6ChH5bA0eZUrg5CW02vkfqpH0BRcPVFsiQIJJ3rOFj0Wyb1L9HQ6mPr6wLL2T8xPs+y7phoyv/X5q7sfQEsJeqN4/qka0BiXwNf8xV/+M+XQtnUAaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782361774; c=relaxed/simple;
-	bh=UlySz4DuaXRDRfPr6IdbiYWxZRElJSPUvXxoBOgWpFk=;
-	h=Date:To:From:Subject:Message-Id; b=Dv1qJX/o1qoojdkDtgRGdjv1SNWvkGiQlxs145eVdnWAJNFxyz/VooXb1QlxSuDjZTPCkrWHApSQjrqGHQhMDq9Ktu6rths7V7nbKFDid8O6kpUWwW1mTqnGAFe/Ep3T9mFe46J912i0WWSIzcRucjFzIpcRWbqQo8CGwGJUfSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=F/oIFBGC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782361780; c=relaxed/simple;
+	bh=7mIUdhpxjfBGpDoIwyQsU3lKaGAeN4hJVoywz3Jt11U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TL1SQpjRFLj84Jm/Bybb5V3s+tSPbtGGOE3njM2CeZ6QFSDC+uUsKes6Uogp9sn0xaEyT/Sv8vadraP6qsEg2aAG/wT+aFDVeTpGivqD1ruOs0jAJBeLU/F9fXABCaK0+jVt4tbaFIjilnM3flNaiP9UnioyoDLfxi9Nv14IhXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=A65Fo0vA; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="F/oIFBGC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E9A11F000E9;
-	Thu, 25 Jun 2026 04:29:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1782361772;
-	bh=kJVGM8wSDVbnbVqKm3ymMFciPHvcmhn0xpg9kQna8VU=;
-	h=Date:To:From:Subject;
-	b=F/oIFBGClR1ZGnQHi2r0RCDoEhwEM1VtA7Q2gXh9J7Z+ALGFsIknkGDvw6zp5In73
-	 MTZTZbIhv7hmCqlgpIyssDhJzAcIGWExW+WgzosxNmEhZXIE92cCKtzk3CVim+bK38
-	 g3nBcMB1hPU0Igc+j1Wu9+/vIGO5YmjfplKS9qBU=
-Date: Wed, 24 Jun 2026 21:29:32 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,oleg@redhat.com,lance.yang@linux.dev,dave@stgolabs.net,catalin.marinas@arm.com,cai@lca.pw,leitao@debian.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-kmemleak-avoid-soft-lockup-when-scanning-task-stacks.patch added to mm-new branch
-Message-Id: <20260625042932.6E9A11F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="A65Fo0vA"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 71BCB2BCE;
+	Wed, 24 Jun 2026 21:29:32 -0700 (PDT)
+Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.31])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E23993F836;
+	Wed, 24 Jun 2026 21:29:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1782361776; bh=7mIUdhpxjfBGpDoIwyQsU3lKaGAeN4hJVoywz3Jt11U=;
+	h=From:To:Cc:Subject:Date:From;
+	b=A65Fo0vA4tHeeQXXWFvROS/Qx4WjhFQyKCTP3R+9g1J/pHMVXTLveKpCjWEo0lrP0
+	 LjuuNTfiardA87j/CArqMgKjjdiTuvEsqv9a36VCfwTQm1BjHEBg9Wk4yrRwthoiNE
+	 fZ05es2tqrTsRMM8eQqARMz0RPfjPEivtCMlIYJE=
+From: Dev Jain <dev.jain@arm.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org
+Cc: Dev Jain <dev.jain@arm.com>,
+	riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	kas@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	ryan.roberts@arm.com,
+	anshuman.khandual@arm.com,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/rmap: use huge_ptep_get() in try_to_unmap_one()
+Date: Thu, 25 Jun 2026 04:28:51 +0000
+Message-ID: <20260625042853.2752898-1-dev.jain@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+try_to_unmap_one() handles hugetlb folios when memory failure needs
+to replace a poisoned hugetlb mapping with a hwpoison entry. In that
+case page_vma_mapped_walk() returns the hugetlb entry in pvmw.pte, but
+the code reads it with ptep_get() before decoding the PFN.
 
-The patch titled
-     Subject: mm/kmemleak: avoid soft lockup when scanning task stacks
-has been added to the -mm mm-new branch.  Its filename is
-     mm-kmemleak-avoid-soft-lockup-when-scanning-task-stacks.patch
+That is wrong on architectures where hugetlb entries are not encoded as
+regular PTEs. On s390, for example, a raw huge RSTE must be converted
+by huge_ptep_get() before helpers such as pte_pfn() can inspect it. A
+raw decode can select the wrong subpage, so try_to_unmap_one() can
+install a hwpoison entry for the wrong PFN.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-kmemleak-avoid-soft-lockup-when-scanning-task-stacks.patch
+The userspace-visible result is that a later access to the poisoned
+hugetlb subpage can miss the expected SIGBUS. With DEBUG_VM, the wrong
+subpage can also trip the PageHWPoison check.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Use huge_ptep_get() for hugetlb mappings before decoding the PFN.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+Before c7ab0d2fdc84, the bug existed in the form of a plain dereference:
+we would check the head page pfn of the hugetlb with pte_pfn(*pte), and
+bail out on mismatch. This would mean that the hwpoisoned entry will not
+get installed.
 
-The mm-new branch of mm.git is not included in linux-next
+I am not sure what is the procedure on such kinds of very old bugs - how
+back should I really go?
 
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Breno Leitao <leitao@debian.org>
-Subject: mm/kmemleak: avoid soft lockup when scanning task stacks
-Date: Mon, 15 Jun 2026 10:49:06 -0700
-
-Patch series "mm/kmemleak: avoid soft lockup when scanning task", v3.
-
-kmemleak_scan() scans every task stack under one rcu_read_lock() with no
-reschedule point, which can trip the soft lockup watchdog on hosts with
-very many threads.
-
-That prints the following message, depending on the workload+host
-configuration:
-
-      watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
-       scan_block
-       kmemleak_scan
-       kmemleak_scan_thread
-       kthread
-
-Patch 1 walks the tasks with find_ge_pid() so the scan reschedules between
-tasks
-
-Patches 2-3 let the scan loops stop early once a scan is interrupted.
-
-
-This patch (of 3):
-
-kmemleak_scan() walks every thread and scans its kernel stack under a
-single rcu_read_lock() with no reschedule point.  On a host with very many
-threads -- amplified by KASAN/lockdep in debug builds -- this loop can hog
-a CPU long enough to trip the soft lockup watchdog:
-
-  watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
-   scan_block
-   kmemleak_scan
-   kmemleak_scan_thread
-   kthread
-
-A cond_resched() cannot be added directly: the loop runs inside an RCU
-read-side critical section.
-
-Walk the tasks one PID at a time with find_ge_pid(), taking the RCU read
-lock only to look up and pin each task.  The stack is then scanned with no
-lock held, so cond_resched() runs between tasks and the scan stops early
-on scan_should_stop().  This follows the next_tgid()/task_seq_get_next()
-iteration pattern and keeps each RCU critical section short.
-
-Link: https://lore.kernel.org/20260615-kmemleak-stack-resched-v3-0-acecd7d7fd92@debian.org
-Link: https://lore.kernel.org/20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org
-Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
-Cc: Qian Cai <cai@lca.pw>
-Cc: SeongJae Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: c7ab0d2fdc84 ("mm: convert try_to_unmap_one() to use page_vma_mapped_walk()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Dev Jain <dev.jain@arm.com>
 ---
+Applies on mm-unstable (d17fe8a046a2).
+There are similar old bugs present, in try_to_migrate_one(), check_pte(),
+remove_migration_pte(), prot_none_hugetlb_entry().
 
- mm/kmemleak.c |   51 +++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 38 insertions(+), 13 deletions(-)
+ mm/rmap.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
---- a/mm/kmemleak.c~mm-kmemleak-avoid-soft-lockup-when-scanning-task-stacks
-+++ a/mm/kmemleak.c
-@@ -1696,6 +1696,42 @@ unlock_put:
- }
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 1c77d5dc06e9f..aa8a254efaecc 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -2095,11 +2095,16 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 		/* Unexpected PMD-mapped THP? */
+ 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
  
- /*
-+ * Scan all task kernel stacks, rescheduling between tasks. Each task is looked
-+ * up and pinned within its own RCU read-side section, so no lock is held across
-+ * the scan and the walk cannot trip the soft lockup watchdog.
-+ */
-+static void kmemleak_scan_task_stacks(void)
-+{
-+	struct pid *pid;
-+	int nr = 1;
-+
-+	do {
-+		struct task_struct *p = NULL;
-+
-+		rcu_read_lock();
-+		pid = find_ge_pid(nr, &init_pid_ns);
-+		if (pid) {
-+			nr = pid_nr(pid) + 1;
-+			p = pid_task(pid, PIDTYPE_PID);
-+			if (p)
-+				get_task_struct(p);
+-		/*
+-		 * Handle PFN swap PTEs, such as device-exclusive ones, that
+-		 * actually map pages.
+-		 */
+-		pteval = ptep_get(pvmw.pte);
++		address = pvmw.address;
++		if (folio_test_hugetlb(folio)) {
++			pteval = huge_ptep_get(mm, address, pvmw.pte);
++		} else {
++			/*
++			 * Handle PFN swap PTEs, such as device-exclusive ones,
++			 * that actually map pages.
++			 */
++			pteval = ptep_get(pvmw.pte);
 +		}
-+		rcu_read_unlock();
-+
-+		if (p) {
-+			void *stack = try_get_task_stack(p);
-+
-+			if (stack) {
-+				scan_block(stack, stack + THREAD_SIZE, NULL);
-+				put_task_stack(p);
-+			}
-+			put_task_struct(p);
-+		}
-+		cond_resched();
-+	} while (pid && !scan_should_stop());
-+}
-+
-+/*
-  * Print one leak inline. The hex dump is gated on OBJECT_ALLOCATED so it
-  * does not touch user memory that was freed concurrently; the rest of the
-  * report (backtrace, comm, pid) is always emitted since the kmemleak_object
-@@ -1884,19 +1920,8 @@ static void kmemleak_scan(void)
- 	/*
- 	 * Scanning the task stacks (may introduce false negatives).
- 	 */
--	if (kmemleak_stack_scan) {
--		struct task_struct *p, *g;
--
--		rcu_read_lock();
--		for_each_process_thread(g, p) {
--			void *stack = try_get_task_stack(p);
--			if (stack) {
--				scan_block(stack, stack + THREAD_SIZE, NULL);
--				put_task_stack(p);
--			}
--		}
--		rcu_read_unlock();
--	}
-+	if (kmemleak_stack_scan)
-+		kmemleak_scan_task_stacks();
+ 		if (likely(pte_present(pteval))) {
+ 			pfn = pte_pfn(pteval);
+ 		} else {
+@@ -2110,7 +2115,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 		}
  
- 	/*
- 	 * Scan the objects already referenced from the sections scanned
-_
-
-Patches currently in -mm which might be from leitao@debian.org are
-
-mm-kmemleak-avoid-soft-lockup-when-scanning-task-stacks.patch
-mm-kmemleak-stop-the-task-stack-scan-early-when-interrupted.patch
-mm-kmemleak-stop-the-per-cpu-and-struct-page-scans-early-too.patch
+ 		subpage = folio_page(folio, pfn - folio_pfn(folio));
+-		address = pvmw.address;
+ 		anon_exclusive = folio_test_anon(folio) &&
+ 				 PageAnonExclusive(subpage);
+ 
+-- 
+2.43.0
 
