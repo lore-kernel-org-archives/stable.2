@@ -1,111 +1,135 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907DB1D5174
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 17:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67EBA23E25B;
+	Thu, 25 Jun 2026 17:03:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782406994; cv=none; b=f8p3yatOjHqiR25pHcUpi3wUHrstlJ3MfPxDA7fCkz5Rq7Q2lenwifApwk6AqGIo+m5Wznk0av45Vl/646FPO6+Fu4rfh+kusSF8Wyep/93cz05BsZb3FkVOW40wqJrRPj1PSdNV7S9RNmmVIEzu2HskzFNQKzl9U5BPRdxXbIk=
+	t=1782407016; cv=none; b=f19BIrT9b61orhfC7Hh5xJGLPSsJkXyi2AZjsB1uJx+Wk6WjsXk3FAcE6ep/KeGNK1YSmD8qbVhNC6s6P7jW1bJg3cLGutPHat3O0TP4w6xxHuZ4F83eE1d8CpSvqnb6Vcs22vcvc/buAVovRx+9W/v4eNZHqiWn1wuu1UDmjrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782406994; c=relaxed/simple;
-	bh=fcnuWjNDpxYoqPLJY8tZDCmNmusN3hivYrhzF//HNOM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b4GrTBGojDPMRfXR/VXUaPh/kYZFuHI4navgDRjmxZoTt88vZc+sy8YYuSIs2GF8vRGXFUfHpgfdAuJgHwKY46vbLW6jlcDiJT1nKmLlTjssG9gLjQxvRgf+z/lhs37KJ+JrDQvPIvlIn0ltT9VqN+ZQ/9yqbeQrQpWaqV+rjhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=asBWxr5S; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="asBWxr5S"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782406993; x=1813942993;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=fcnuWjNDpxYoqPLJY8tZDCmNmusN3hivYrhzF//HNOM=;
-  b=asBWxr5SfmzMAFHZ1kDLbe7YGTuByxTqjogNoXuod6un8VDGO9BwHHsh
-   QQ89HVNCfKWNzVuQiSDu2/uFzoVMzCCXVoFGfQt/OXqCi/Y4IvCnff6Jd
-   p9o8aqC7XUzkwVrA/AxITVhiTWO0VnbWdzRYUFybvKk6AI6OU/zrB7GDp
-   ISjvoJ8YZ8gRLO/KoJF/df7aX0rHW5qnaJPgpwkwo2hyYggtPnAhvpUsv
-   b+opbPfDryZMIrrpozjpdmIu6Us00g3mEYeolUtQRMy7NPCmlARaMeSAR
-   aQMxma2dmjqW/2X5231bN6jgAY4N7hVjoy9I8ajelTHpyat+bM62cHr8I
-   Q==;
-X-CSE-ConnectionGUID: VhN0uIytSoW8Lk0QnbAyTw==
-X-CSE-MsgGUID: unynUmwRS4enduyDu9lUZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11828"; a="83289076"
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; 
-   d="scan'208";a="83289076"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 10:03:12 -0700
-X-CSE-ConnectionGUID: 6s39jCKiRr+xXiPP/nKRFA==
-X-CSE-MsgGUID: zWSJR28ZToikF1c6x2A8ag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; 
-   d="scan'208";a="274187306"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.126])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 10:03:09 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	Martin Hodo <martin.hodo@intel.com>,
-	stable@vger.kernel.org,
-	Anshuman Gupta <anshuman.gupta@intel.com>,
-	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH] drm/i915/hdcp: check streams[] bounds before overflow
-Date: Thu, 25 Jun 2026 20:03:04 +0300
-Message-ID: <20260625170304.1104723-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
+	s=arc-20240116; t=1782407016; c=relaxed/simple;
+	bh=TkaC+ITyc5ECGcY11xX9NJOyBuFYLfP2h/nqfbyS8KM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Jh51cb02wJsbPt/itLSPdtp00yF4zRNZTaPIn+RIH7wblJUre7QlcxOm/wHuv2GX0sskqjX9egpikOXzdZgbPNL+IFd8IFtjETJ0t6Xnlpi6WwaX0H5UVJk7aTXt+2XoWLPdgx3qpefOhqhGnB0/BXFk7GKZSQPgPon4jkT2SY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
+Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
+	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wcnU5-004JTU-0c;
+	Thu, 25 Jun 2026 17:03:25 +0000
+Received: from ben by deadeye with local (Exim 4.99.3)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wcnU3-00000008Sti-30x4;
+	Thu, 25 Jun 2026 19:03:23 +0200
+Message-ID: <0e31e18e9567e8d58fbb8e06955c3ed8e5a120d3.camel@decadent.org.uk>
+Subject: Re: [PATCH 6.1 431/522] cgroup/cpuset: Reset DL migration state on
+ can_attach() failure
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Guopeng Zhang <zhangguopeng@kylinos.cn>, Tejun
+ Heo	 <tj@kernel.org>, Chen Ridong <chenridong@huaweicloud.com>, Waiman Long
+	 <longman@redhat.com>, Sasha Levin <sashal@kernel.org>
+Date: Thu, 25 Jun 2026 19:03:18 +0200
+In-Reply-To: <20260616145146.132165243@linuxfoundation.org>
+References: <20260616145125.307082728@linuxfoundation.org>
+	 <20260616145146.132165243@linuxfoundation.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-MaYQKXGlI/qt01T47OJK"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
 
-The data->streams[] overflow check is done after the buffer overflow has
-already happened. Move the overflow check before the write.
 
-Side note, emitting a warning splat with a backtrace might be overkill
-here, but prefer not changing the behaviour other than not doing the
-overrun.
+--=-MaYQKXGlI/qt01T47OJK
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Discovered using AI-assisted static analysis confirmed by Intel Product
-Security.
+On Tue, 2026-06-16 at 20:29 +0530, Greg Kroah-Hartman wrote:
+> 6.1-stable review patch.  If anyone has any objections, please let me kno=
+w.
+>=20
+> ------------------
+>=20
+> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>=20
+> [ Upstream commit 4a39eda5fdd867fc39f3c039714dd432cee00268 ]
+>=20
+> cpuset_can_attach() accumulates temporary SCHED_DEADLINE migration
+> state in the destination cpuset while walking the taskset.
+[...]
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2579,16 +2579,13 @@ static int cpuset_can_attach(struct cgro
+>  		int cpu =3D cpumask_any_and(cpu_active_mask, cs->effective_cpus);
+> =20
+>  		if (unlikely(cpu >=3D nr_cpu_ids)) {
+> -			reset_migrate_dl_data(cs);
+>  			ret =3D -EINVAL;
+>  			goto out_unlock;
+>  		}
+> =20
+>  		ret =3D dl_bw_alloc(cpu, cs->sum_migrate_dl_bw);
+> -		if (ret) {
+> -			reset_migrate_dl_data(cs);
+> +		if (ret)
+>  			goto out_unlock;
+> -		}
+>  	}
+> =20
+>  out_success:
+> @@ -3401,7 +3398,10 @@ static int cpuset_can_fork(struct task_s
 
-Reported-by: Martin Hodo <martin.hodo@intel.com>
-Fixes: e03187e12cae ("drm/i915/hdcp: MST streams support in hdcp port_data")
-Cc: <stable@vger.kernel.org> # v5.12+
-Cc: Anshuman Gupta <anshuman.gupta@intel.com>
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_hdcp.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+In this backport the second hunk is being applied to the wrong function!
+The backport to 6.6 has the same problem.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index e88fec24af49..521786a75c42 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -145,6 +145,9 @@ intel_hdcp_required_content_stream(struct intel_atomic_state *state,
- 		if (!new_conn_state || !new_conn_state->crtc)
- 			continue;
- 
-+		if (drm_WARN_ON(display->drm, data->k >= INTEL_NUM_PIPES(display)))
-+			return -EINVAL;
-+
- 		data->streams[data->k].stream_id =
- 			intel_conn_to_vcpi(state, connector);
- 		data->k++;
-@@ -155,7 +158,7 @@ intel_hdcp_required_content_stream(struct intel_atomic_state *state,
- 	}
- 	drm_connector_list_iter_end(&conn_iter);
- 
--	if (drm_WARN_ON(display->drm, data->k > INTEL_NUM_PIPES(display) || data->k == 0))
-+	if (drm_WARN_ON(display->drm, !data->k))
- 		return -EINVAL;
- 
- 	/*
--- 
-2.47.3
+Ben.
 
+>  	 * changes which zero cpus/mems_allowed.
+>  	 */
+>  	cs->attach_in_progress++;
+> +
+>  out_unlock:
+> +	if (ret)
+> +		reset_migrate_dl_data(cs);
+>  	mutex_unlock(&cpuset_mutex);
+>  	return ret;
+>  }
+>=20
+>=20
+
+--=20
+Ben Hutchings
+Humans are not rational beings; they are rationalising beings.
+
+--=-MaYQKXGlI/qt01T47OJK
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmo9X1YACgkQ57/I7JWG
+EQm1IBAAyTPz8RlfmKVe8sazTi0W6JmbsxE0aONe892BrngEcAz0g2zEr+OIkgHN
+vh1p7udtSSTGT9iy5SqAu/N+PUd/vlGWb/qbzLHat74HdsxfdcS3iV2qPBivEwNn
+INA7DxD83LCx+Hvz/Dmz4dy5G4tXqpRZLhWLAnCTqoMSeXpaW65XfddJnAPLPXl6
+Y+V/tvyLOwRa9F+ZJUlaUIQ73JlzS7fApzj4wPz59gkyDrwzv3+otM9WY52zmwtx
+gzCaKUK8epodzNBrKFdXBN2EbzUJu/cihPreFPIx5KcT3nWkwC863HOlAxv+EXsX
+rgLcDCjEI6Xi3VozaTrQkYKEPIQRHL6Y0vMFF8Nc+nii6yS1566Uj5PzmkK0ybch
+ZYsSz7rs6fl+HFD9iOPKmhqM9mQ4WNRtqJZ63phqUTceQwp6kBrJd+sJ+p4+78HQ
+1UhoSeAnlCSJnu67gdrUbfga9rKi9ZbhGn4de+B5GEAsAreehG0+Bx2a2IPkMham
+oLY7XBLLl1aHJQ9qpciqdhjliXoFDDdMl12Rz9PkwG6eMPu+8rTujtY4qPrhpcnB
+PjITP0JQlbSLegJWwd2Q6YiC8ptseGuFB2z4cCTExgfh0pAP12lxOyzo+CtUDoFj
+O2MluhcBM99WLEXTE1rrbDfPUqUSxcU8qt4a0sveKq/Ipuj1HOo=
+=SrAn
+-----END PGP SIGNATURE-----
+
+--=-MaYQKXGlI/qt01T47OJK--
