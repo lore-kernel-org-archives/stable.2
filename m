@@ -1,160 +1,105 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E54D36828B
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 09:04:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F98A35AC00;
+	Thu, 25 Jun 2026 09:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.26.1.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782378283; cv=none; b=Nxa9a2eqshy6sFme/x8KMN2eNTHSHquJtltfVuT3gVuHcrUxiJwTWpbmDQOUG6znMJhHQKuTPi9XaHEofHtzkn2cdlp3nDvlyoCq2mebG3XH5v6xk2YW7gj8qVox04Kr3YZ86MvNsxcHSIyWp0NnkGJjvxgeDO4p1FttrlrQ/Ms=
+	t=1782378665; cv=none; b=U6SL9s6//kv2ejL+mIOiWanGAN+qb/wRTd6hU5j9IVBMxz189t8hTjw/VlQw3vImgsWB2pnQW8PXYNC1Fpoqsk2nKBiyXlnIHC6US4vkOwgg0bpjCpfXxyUGD+/QN6T30hrI6oJ84RsEPSJqzVhb9uPvjD4Hu9TtjytZ3iZnY8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782378283; c=relaxed/simple;
-	bh=Fxdlux4xKPEUY23/deSXomK7ZVU4GMGdOEjfBvmQcWs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cANYmmJaUsNaydD5i1cRSLgy+/BhQY4p3FezHyvEbL8aS08d7gqKzUkgWXjrxhbWgET24KTkOhYXTjuDlXOndJcR0xo48LhXYAa35Qa+/VGkqUgfGaK54tVxaI2p3vvfMubovQZmp8SrC1ecIdQ47AaGwOQnbtYKnaFJrR1akr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NSXfHDJp; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782378665; c=relaxed/simple;
+	bh=oE928MWpjpguJbmMgOw+gSkPCYeo6lVM91/zGpnGPn4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sykvUcdDmsAtfNdG8CecFfLiqQRO3496DNNazPuWRSzwDThnqZC/thHqDntvimc/nQIrWSkefPr2OqAAZW+GxXyex3N7+AVS0YEw+5bOKUkuEpjriHCzuNXAu1+gnA2aFmxv5SA9N/YaWyedzNOOBBP2KHheNesyHY8rhreC/k0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=JdqxJYsp; arc=none smtp.client-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NSXfHDJp"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-46e22950091so116227f8f.0
-        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 02:04:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="JdqxJYsp"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782378279; x=1782983079; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=twZyJNe4oKAUakpXmtBipZs2eMFjp62u4eaHu+ufJQQ=;
-        b=NSXfHDJp0lc0BwkOvBFnLVC7Xd+dwmRK5UYLfeHXolOjGYZ329uok3SZZXMe9zSLj5
-         DNGCxkW+Yue98Amaj6cydaZJaSqeKsyV7o2/3liNkFCC/e/DxjlSAyphYoaW6nuqRPdq
-         BT24aN5ekHpGV+Dmk/FqHvgRgEWDzVtMyRzjwd3Sp63fBXRS02mES1W0xebBBY4nQ1A6
-         ATYU8eKNmq/7VgXfZnqKKZaYZyIxsRMORi8aNznpHQJy3tsv5HpBUoFyqKiOgDiv0cOt
-         qJBAFTq25JucCO1YqBAIdJGipY8BpDbozBOIOYGWApFcfENY3S4Z4sywhN0ddhBfqJtv
-         ySYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782378279; x=1782983079;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=twZyJNe4oKAUakpXmtBipZs2eMFjp62u4eaHu+ufJQQ=;
-        b=hQnQFDcvW1/1vF/NqtGC26SmrYAQQgsWq6C2CBXdty5vfIsLKJPNuGSHSwwbfZhr1/
-         mhl/UrBm4f71m9jH3WC6rSvi68dLyxm/W06WISpcsbyZxksQYrTxF+yvF3MBIXfw7dza
-         we7V5Op0fWzDpSyDNyPnqNnneS+H8Ajzr6ejkJDzC39Jzf3zsgka/inq6qs73loGitKz
-         HvTk5L7RCQ+dC2TxG9zjxxKwUzNaI0W8UB3sM4BDGOXzbUlOl84aT+pzu6bHljHF2nl8
-         9svuknKl/oqr/iqFga4pSquR0qKRfNgLcHN0m+/3M/QxLroqMqNAHtFsG6hsbPoGP361
-         NrQg==
-X-Forwarded-Encrypted: i=1; AFNElJ/K3oRdpZc3SXreytB3lunrtM88cxeMRs5TaCPi8R2ktv6X8PW6lGHMAApnk+xB0BQk/Ze/KqA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxWFXRN6kF8TewE6xrjrKQDNbsATh5W9EZDy9/TyXTxpg55liKo
-	amSbtbAlCTDUhpWjBZjMOVhJ9fpCjFKH3Jey03a4QBVUD+vzJcUP1yli
-X-Gm-Gg: AfdE7cl1I8w/jBBR6ebkE9bSTE5wSos+zBkuwiaIxogLW3XZxV1oAJJFZFwNnxtjyIp
-	N8dJSKZO3pJnhoTbrwJx4X6yNI7i3W9hMRn+cOQ9E/ips9sExpTEh28ulLgG8JQLAYFzIgH9153
-	Ptkv0Dy2FOdtlxztKdzYl6OUUrW0L1jAtAn1x7GAsIlD7v3+vJk5RqqOWk66c+TIbIxXGeRjN4N
-	gpmXut93rTEZ9sQdYc64gLY/xTxDiL5PJ+/XtQKVfMBu+QCmdzNc8Z9IzCybtPOiLytTAGkBgNK
-	nd+R3b7pRA59QHFwhQSkmfZw9IB80ijXqKcqyYKmrMjR+5dIx+guFxWVk+KS3icknUUpMjIZNLU
-	aEFYUhR6rIjfUVgbO60Y3MLdMcUq7dSpQ80+2va919Zi7sbmeFjdANhqVVLHbWVWSsg==
-X-Received: by 2002:a05:600c:c058:b0:492:48c8:c705 with SMTP id 5b1f17b1804b1-49266865fe5mr18834925e9.1.1782378279131;
-        Thu, 25 Jun 2026 02:04:39 -0700 (PDT)
-Received: from eichest-laptop ([2a02:168:af72::cb4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4926494f129sm47950825e9.0.2026.06.25.02.04.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 02:04:38 -0700 (PDT)
-Date: Thu, 25 Jun 2026 11:04:36 +0200
-From: Stefan Eichenberger <eichest@gmail.com>
-To: Vincent Jardin <vjardin@free.fr>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Andi Shyti <andi.shyti@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Wolfram Sang <wsa@kernel.org>,
-	Kaushal Butala <kaushalkernelmailinglist@gmail.com>,
-	Shawn Guo <shawn.guo@freescale.com>,
-	Stefan Eichenberger <stefan.eichenberger@toradex.com>,
-	linux-i2c@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] i2c: imx: fix locked bus on SMBus block-read of 0
- (atomic)
-Message-ID: <ajzvJE5LuzvLmpZN@eichest-laptop>
-References: <20260525-for-upstream-i2c-lx2160-fix-v1-v2-0-26a3cc8cd055@free.fr>
- <20260525-for-upstream-i2c-lx2160-fix-v1-v2-1-26a3cc8cd055@free.fr>
+  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
+  t=1782378664; x=1813914664;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=oE928MWpjpguJbmMgOw+gSkPCYeo6lVM91/zGpnGPn4=;
+  b=JdqxJYspKNXeA1OD4UdLrFwIBaqNtaBf7KkMRp8E9VqonFQ7wqPf/JJz
+   Kff+Qv1HBYXzV98dbH29J1Nwce7rszoB/Z767H8Uif1rkKChD4MlMZSNt
+   qS5KLiW8ZlppQWuuDHl5N8BQY1T3KQ/O0Yo8pgCD++zTibTIAt/0P3cOw
+   3yRBYeYR9cVVT20hG9rDTHmAdYMRfseViMBGQygNNFnQ75cI/ESSO+kLk
+   la/FDDawATRAJdcNR/uy+xtPDrosVl1nDpuSyL2RAStDXSRFotu63KQWj
+   3K8l4pKciYEKc8i06t51sYp2vFuzOjynxMtbw1kWIOd7pS8trYAg7U92j
+   g==;
+X-CSE-ConnectionGUID: BHvSDaCTQDGldW/+GkcQGw==
+X-CSE-MsgGUID: T6GC85OPQZqEzuE/bVyVkw==
+X-IronPort-AV: E=Sophos;i="6.24,224,1774310400"; 
+   d="scan'208";a="22495960"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 09:11:00 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:9509]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.37.116:2525] with esmtp (Farcaster)
+ id 53b71abc-ee40-4912-bc3d-4b91185244a3; Thu, 25 Jun 2026 09:10:59 +0000 (UTC)
+X-Farcaster-Flow-ID: 53b71abc-ee40-4912-bc3d-4b91185244a3
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
+ Thu, 25 Jun 2026 09:10:59 +0000
+Received: from cdd-dev.amazon.com (172.22.139.101) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
+ Thu, 25 Jun 2026 09:10:58 +0000
+From: Salvatore Dipietro <dipiets@amazon.it>
+To: <hch@infradead.org>, <ritesh.list@gmail.com>
+CC: <abuehaze@amazon.com>, <akpm@linux-foundation.org>, <alisaidi@amazon.com>,
+	<blakgeof@amazon.com>, <brauner@kernel.org>, <david@kernel.org>,
+	<dipietro.salvatore@gmail.com>, <dipiets@amazon.it>, <djwong@kernel.org>,
+	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <linux-xfs@vger.kernel.org>, <ljs@kernel.org>,
+	<mhocko@suse.com>, <rppt@kernel.org>, <stable@vger.kernel.org>,
+	<vbabka@kernel.org>, <vbabka@suse.com>, <willy@infradead.org>
+Subject: Re: [PATCH 1/1] iomap: avoid compaction for costly folio order allocation
+Date: Thu, 25 Jun 2026 09:10:37 +0000
+Message-ID: <20260625091039.24501-1-dipiets@amazon.it>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <ajvc7fSDngyx0X5j@infradead.org>
+References: <ajvc7fSDngyx0X5j@infradead.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260525-for-upstream-i2c-lx2160-fix-v1-v2-1-26a3cc8cd055@free.fr>
+X-ClientProxiedBy: EX19D035UWB002.ant.amazon.com (10.13.138.97) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Sorry for the late reply.
+T24gV2VkLCBKdW4gMjQsIDIwMjYgYXQgMTI6MjE6MDBQTSArMDAwMCwgUml0ZXNoIEhhcmphbmkg
+d3JvdGU6Cj4gU29ycnkgYWJvdXQgdGhlIGRlbGF5LiBJIGRpZCBicmluZyB0aGlzIHRvcGljIHVw
+IGluIG9uZSBvZiBvdXIgaW50ZXJuYWwKPiBleHQ0IGNvbW11bml0eSBjYWxscy4gQW5kIHRvIHNo
+YXJlIHNvbWUgY29udGV4dCwgTU0gY29tbXVuaXR5IHRoaW5rcyB3ZQo+IG5lZWQgYSBiZXR0ZXIg
+bG9uZyB0ZXJtIGZpeCBmb3IgdGhpcyBwcm9ibGVtIHJhdGhlciB0aGFuIHBhdGNoaW5nIGNhbGwK
+PiBzaXRlcyBhbmQvb3IgcGxheWluZyB0cmlja3MgbGlrZSAtIAoKVGhhbmtzIFJpdGVzaCBmb3Ig
+dGhlIHVwZGF0ZSBhbmQgZm9yIGJyaW5naW5nIHRoaXMgdG8gdGhlIHdpZGVyIE1NIGNvbW11bml0
+eS4gCkkgY29tcGxldGVseSB1bmRlcnN0YW5kIHRoYXQgdGhlIE1NIGNvbW11bml0eSBpcyBsb29r
+aW5nIGZvciBhIHByb3BlciBsb25nLXRlcm0KZml4IHJhdGhlciB0aGFuIHNwZWNpZmljIHBhdGNo
+aW5nLgoKCk9uIFdlZCwgSnVuIDI0LCAyMDI2IGF0IDEzOjM0OjAwUE0gKzAwMDAsIENocmlzdG9w
+aCBIZWxsd2lnIHdyb3RlOgo+IERvIHlvdSBoYXZlIG9pbnRlcnMgdG8gdGhlIHBhdGNoZXMgZm9y
+IGVhY2ggYXBwcm9hY2ggYWJvdmU/CgpZZXMg4oCUIGFsbCB0aGUgcGF0Y2hlcyBpbiB0aGUgcmVz
+dWx0IHRhYmxlIGFyZSBzaGFyZWQgd2l0aGluIHRoaXMgdGhyZWFkOgoKdjEgKG9yaWdpbmFsLCBp
+b21hcCBjYWxsZXIpOiBUaGUgb3JpZ2luYWwgUEFUQ0ggMS8xIGluIHRoaXMgc2VyaWVzClJpdGVz
+aCdzIHN1Z2dlc3Rpb24gKG1tL2ZpbGVtYXAuYyk6IFNoYXJlZCBpbiBSaXRlc2gncyByZXBseSBv
+biBNYXkgM3JkIFsxXQpNYXR0aGV3J3Mgc3VnZ2VzdGlvbiAobW0vZmlsZW1hcC5jKTogU2hhcmVk
+IGluIE1hdHRoZXcncyByZXBseSBvbiBBcHJpbCA0dGggWzJdCmtjb21wYWN0ZCBiYWNrZ3JvdW5k
+IChtbS9wYWdlX2FsbG9jLmMpOiBTaGFyZWQgaW4gbXkgcmVwbHkgb24gTWF5IDZ0aCBbM10KClsx
+XSBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjA0MDMxOTM1MzUuOTk3MC0xLWRpcGll
+dHNAYW1hem9uLml0L1QvI204YzNkYTFjOWZiOWU5YzY2ZDRlOGIxODQ5ZGU4MjRiMGVjZjM3Zjll
+ClsyXSBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjA0MDMxOTM1MzUuOTk3MC0xLWRp
+cGlldHNAYW1hem9uLml0L1QvI200YjkwY2YyODBmZjBlZmNmMTc4ZGZkOGQwNjhmMWRlM2IyNjJl
+MjhhClszXSBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjA0MDMxOTM1MzUuOTk3MC0x
+LWRpcGlldHNAYW1hem9uLml0L1QvI20yMjk3NzM1NTUzNWE0NTk5MDg0YTUxMTA0YTRkZjgwNmQ0
+OWM1M2QxCgotLQpTYWx2YXRvcmUKCgoKQU1BWk9OIERFVkVMT1BNRU5UIENFTlRFUiBJVEFMWSBT
+UkwsIHZpYWxlIE1vbnRlIEdyYXBwYSAzLzUsIDIwMTI0IE1pbGFubywgSXRhbGlhLCBSZWdpc3Ry
+byBkZWxsZSBJbXByZXNlIGRpIE1pbGFubyBNb256YSBCcmlhbnphIExvZGkgUkVBIG4uIDI1MDQ4
+NTksIENhcGl0YWxlIFNvY2lhbGU6IDEwLjAwMCBFVVIgaS52LiwgQ29kLiBGaXNjLiBlIFAuSVZB
+IDEwMTAwMDUwOTYxLCBTb2NpZXRhIGNvbiBTb2NpbyBVbmljbwoKCg==
 
-On Mon, May 25, 2026 at 06:43:15PM +0200, Vincent Jardin wrote:
-> SMBus 3.1 6.5.7 allows a Block Read byte count of 0, but the atomic
-> (polling) path rejects it as -EPROTO. Worse, it returns without a
-> NACK+STOP: the next receive cycle has already started, so the target
-> keeps holding SDA and the bus stays stuck until a power cycle for
-> this i2c controller.
-> 
-> Reading I2DR to obtain the count likewise arms the next byte on the
-> count > I2C_SMBUS_BLOCK_MAX path, which also returned -EPROTO directly
-> and left the bus held.
-> 
-> Handle both: NACK the in-flight dummy byte (TXAK) and extend msgs->len so
-> the existing last-byte handling emits STOP; the dummy byte is discarded.
-> A count of 0 is a valid empty block read; a count above
-> I2C_SMBUS_BLOCK_MAX is still reported as -EPROTO, but only after the bus
-> has been released.
-> 
-> The interrupt-driven path has the same flaw from a later commit and is
-> fixed separately, as it carries a different Fixes: tag and stable range.
-> 
-> Fixes: 8e8782c71595 ("i2c: imx: add SMBus block read support")
-> Cc: <stable@vger.kernel.org> # v3.16+
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
-> ---
->  drivers/i2c/busses/i2c-imx.c | 19 ++++++++++++++++---
->  1 file changed, 16 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-> index a208fefd3c3b..14107e1ad413 100644
-> --- a/drivers/i2c/busses/i2c-imx.c
-> +++ b/drivers/i2c/busses/i2c-imx.c
-> @@ -1415,6 +1415,7 @@ static int i2c_imx_atomic_read(struct imx_i2c_struct *i2c_imx,
->  	int i, result;
->  	unsigned int temp;
->  	int block_data = msgs->flags & I2C_M_RECV_LEN;
-> +	int block_err = 0;
->  
->  	result = i2c_imx_prepare_read(i2c_imx, msgs, false);
->  	if (result)
-> @@ -1436,8 +1437,20 @@ static int i2c_imx_atomic_read(struct imx_i2c_struct *i2c_imx,
->  		 */
->  		if ((!i) && block_data) {
->  			len = imx_i2c_read_reg(i2c_imx, IMX_I2C_I2DR);
-> -			if ((len == 0) || (len > I2C_SMBUS_BLOCK_MAX))
-> -				return -EPROTO;
-> +			if ((len == 0) || (len > I2C_SMBUS_BLOCK_MAX)) {
-> +				/*
-> +				 * SMBus 3.1 6.5.7: support count byte of 0.
-> +				 * I2C_SMBUS_BLOCK_MAX case should not hold the SDA either.
-> +				 */
-> +				if (len > I2C_SMBUS_BLOCK_MAX)
-> +					block_err = -EPROTO;
-> +				temp = imx_i2c_read_reg(i2c_imx, IMX_I2C_I2CR);
-> +				temp |= I2CR_TXAK;
-> +				imx_i2c_write_reg(temp, i2c_imx, IMX_I2C_I2CR);
-> +				msgs->buf[0] = 0;
-> +				msgs->len = 2;
-> +				continue;
-> +			}
->  			dev_dbg(&i2c_imx->adapter.dev,
->  				"<%s> read length: 0x%X\n",
->  				__func__, len);
-> @@ -1485,7 +1498,7 @@ static int i2c_imx_atomic_read(struct imx_i2c_struct *i2c_imx,
->  			"<%s> read byte: B%d=0x%X\n",
->  			__func__, i, msgs->buf[i]);
->  	}
-> -	return 0;
-> +	return block_err;
->  }
-
-Reviewed-by: Stefan Eichenberger <eichest@gmail.com>
