@@ -1,104 +1,141 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7842B2D7;
-	Thu, 25 Jun 2026 01:16:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40101375ABE;
+	Thu, 25 Jun 2026 01:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782350210; cv=none; b=Zrpi5OLoJL/WoYMHGAoSdR3AbNtpG+3FqI/gF9/1z05u2thyRV6hQIimtQ3bbiv5MXF4eW23+sKRvtfyZ+iYtgb7gMeAh1oFKy1lLhiBSl5lCX4uU/xpku2dKusgUxfkClsG9M58pmETOPrncFnkdJYgAtmDCPof4HEy39JiBmY=
+	t=1782351745; cv=none; b=nppHn94SPVLGaGndy7JokFwdK4xiXWDFQwgnfuOKwsYz0nhCRLXvTiMEbVl2SzYpS780opnvagHswVSkTkSXlBT1GBz1IhEqPaDvzjiNSejshpIF7sErhad2HtwSB7o2R850s/JneB//fVpQAdNhvQW9XWlSh6RQjn5H5+WKcT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782350210; c=relaxed/simple;
-	bh=bWjgzOiss5rncFwrFsXra0zcfyL6qXVwPOqWWql6Pgk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IOdZJMxfrL+cWEfzhKsIs6dtjyOipkBl0VbJyQr1GeU0mxoY6nk9qd70W+AeSzgsWxuIuIhJF1So4cKQMVRkM/zHmfE3KIf6vnyG7BA5DVmmLbp/UE1zKIurc2uEHGcL9rj7evuquA3e469s0K4gxJSgutwMIgrNBsV8j0sS8Xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XTPlXxD3; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1782351745; c=relaxed/simple;
+	bh=XiSoS7kYjmSVTdF34rIAD/vbcoDiwLTje/ChX+DqAgY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jIhrJEZCWYPs2K5bUkaSrYoBirzmvdMdRknuBceleLbcqfGmmI/aWdNSwQ/fZdYO36xmf4iR7M92SPc64SqEYgcCSUiCBMfpzNGNmP473Ir5aA+M9Ivm1ATkBH9QRAjbf7yichd3EDHn6h6KToHRw9v23gH3n+sWlPxGMNEpx2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ae9x9g3E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XTPlXxD3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=GU
-	6I1Ll3K1QM1UvrFJ6ycsSbd981EIeymAe7fRZaVAs=; b=XTPlXxD3VG0XITwiIp
-	EZYjR4iVOflmRpZqZd5SWJaEOsLnb8DmjtbkIpy4q1vi5Nc6fDvJ8gXcqgWvD2B6
-	mljRPuxu3gw/YSOYiTTBIA11s1hYNuGUKlnTG/j9fSc7zIpxxnjbxXBYtYoGmx1M
-	mp24LakG5c7sVtM+HGnJWes9U=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgD3Xwu3gDxqOQ4NEQ--.52354S2;
-	Thu, 25 Jun 2026 09:13:29 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: heikki.krogerus@linux.intel.com,
-	gregkh@linuxfoundation.org,
-	bleung@chromium.org,
-	abelvesa@kernel.org,
-	myrrhperiwinkle@qtmlabs.xyz,
-	jthies@google.com,
-	johan@kernel.org,
-	pooja.katiyar@intel.com,
-	yuanhsinte@chromium.org,
-	quic_linyyuan@quicinc.com
-Cc: linux-usb@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ae9x9g3E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37281F000E9;
+	Thu, 25 Jun 2026 01:42:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782351744;
+	bh=clTP1phHGX7USBYmYvhozxQUb7aSy62Sp83hMpW68/0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ae9x9g3EL8xnCvPR/S/6UUr9nONNs4bnxjBMp1VYovXq81pGwqn0L+3t0mMgTkqNt
+	 joLjfOLRKz9a4LD+4QRax6NcL0YVl8ZaifbeZDvCPVVBgRYMYf3byJpKM7YXyp8SBn
+	 9Efslk9xMohTUNpmAQAhdykI24mS7AWfbWNTDbIS/ozzntDtchyGt6uSf2rBPM6GYH
+	 icVWyXzBbXW0sTQS+uVqKFzW5OsN9wEGKoI3jANrL9s+uGI4nJSrvjBoRoT5vJedhF
+	 FVkhQ6uKv313Wddw7BbyEkYYL+mS6LKyfUqvqqRvc2OlplTVU2AJcLpT+ey/qcjles
+	 rtSBrhXMEboPA==
+From: Jakub Kicinski <kuba@kernel.org>
+To: maoyixie.tju@gmail.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	loic.poulain@oss.qualcomm.com,
+	ryazanov.s.a@gmail.com,
+	johannes@sipsolutions.net,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Haoxiang Li <haoxiang_li2024@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] usb: typec: ucsi: destroy work queue on fwnode_usb_role_switch_get() fails
-Date: Thu, 25 Jun 2026 09:13:26 +0800
-Message-Id: <20260625011326.3411572-1-haoxiang_li2024@163.com>
-X-Mailer: git-send-email 2.25.1
+Subject: Re: [PATCH net v2] net: wwan: iosm: bound device offsets in the MUX downlink decoder
+Date: Wed, 24 Jun 2026 18:42:21 -0700
+Message-ID: <20260625014222.2976678-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <178196118045.462404.11069139160448641355@maoyixie.com>
+References: <178196118045.462404.11069139160448641355@maoyixie.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgD3Xwu3gDxqOQ4NEQ--.52354S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CFWfCrW8Ww43JF4Utr4rAFb_yoW8WF45pr
-	Zakw4jqw18JF43WanrK3WDWF1Yg3W8JFy7Jr4Iqw18KrsxJw4DXw18tFyYgF15WFZ7WFnI
-	yFWDJrykua4DurJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piyE_tUUUUU=
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7hn3Zmo8gLn91QAA3h
 
-Call destroy_workqueue() if fwnode_usb_role_switch_get() fails
-to destroy the work queue con->wq.
-
-Fixes: 3c162511530c ("usb: typec: ucsi: Wait for the USB role switches")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
 ---
-Changes in v2:
- - Use a common err_destroy_workqueue error path. Thanks, Heikki!
----
- drivers/usb/typec/ucsi/ucsi.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+net: wwan: iosm: bound device offsets in the MUX downlink decoder
 
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index 61cb24ed820f..4503661b85d5 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -1663,9 +1663,12 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
- 
- 	cap->fwnode = ucsi_find_fwnode(con);
- 	con->usb_role_sw = fwnode_usb_role_switch_get(cap->fwnode);
--	if (IS_ERR(con->usb_role_sw))
--		return dev_err_probe(ucsi->dev, PTR_ERR(con->usb_role_sw),
--			"con%d: failed to get usb role switch\n", con->num);
-+	if (IS_ERR(con->usb_role_sw)) {
-+		ret = PTR_ERR(con->usb_role_sw);
-+		dev_err(ucsi->dev, "con%d: failed to get usb role switch\n",
-+			con->num);
-+		goto err_destroy_workqueue;
-+	}
- 
- 	/* Delay other interactions with the con until registration is complete */
- 	mutex_lock(&con->lock);
-@@ -1803,7 +1806,7 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
- 	fwnode_handle_put(cap->fwnode);
- out_unlock:
- 	mutex_unlock(&con->lock);
--
-+err_destroy_workqueue:
- 	if (ret && con->wq) {
- 		destroy_workqueue(con->wq);
- 		con->wq = NULL;
+This patch validates device-supplied offsets and lengths in
+mux_dl_adb_decode() and mux_dl_process_dg() against skb->len so that a
+modem reporting an index or length past the downlink buffer cannot make
+the decoder read out of bounds. The block header, each table header,
+the datagram table, and each datagram index and length are now bounded
+against skb->len.
+
+> diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> index bff46f7ca59f..ff9a4bc52f29 100644
+> --- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> +++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+
+[ ... ]
+
+> @@ -606,6 +612,11 @@ static void mux_dl_adb_decode(struct iosm_mux *ipc_mux,
+>  
+>  	/* Loop through mixed session tables. */
+>  	while (adth_index) {
+> +		/* The table header must lie within the received skb. */
+> +		if (adth_index < sizeof(struct mux_adbh) ||
+> +		    adth_index > skb->len - sizeof(struct mux_adth))
+> +			goto adb_decode_err;
+> +
+>  		/* Get the reference to the table header. */
+>  		adth = (struct mux_adth *)(block + adth_index);
+
+[High]
+The commit message frames the threat model as "A modem that reports an
+index or a length past the downlink buffer", and this patch bounds every
+device offset against skb->len. Could the same threat model also produce
+an infinite loop in this while (adth_index) loop?
+
+The loop continues as long as adth_index is non-zero, and each iteration
+sets:
+
+    adth_index = le32_to_cpu(adth->next_table_index);
+
+The new bounds check only requires that adth_index lies within
+[sizeof(struct mux_adbh), skb->len - sizeof(struct mux_adth)]. It does
+not require forward progress. Can a modem stage two valid struct mux_adth
+headers inside one downlink skb (each with the IOSM_AGGR_MUX_SIG_ADTH
+signature, a valid if_id, and table_length >= sizeof(struct mux_adth))
+where table A's next_table_index points to table B and table B's
+next_table_index points back to table A?
+
+Each adth_index passes the new range check, so the loop never terminates.
+mux_dl_adb_decode() runs in softirq context via:
+
+    ipc_task_queue_handler()
+      ipc_imem_tq_irq_cb()
+        ipc_imem_handle_irq()
+          ipc_imem_dl_pipe_process()
+            ipc_imem_dl_skb_process()
+              ipc_mux_dl_decode()
+                mux_dl_adb_decode()
+
+If the cycled tables also reference valid datagrams, each pass through
+the loop calls mux_dl_process_dg() -> ipc_mux_net_receive() which does
+skb_clone() per datagram, so the same skb produces unbounded clones for
+as long as the loop runs.
+
+This is not a regression introduced by this patch — the cycle was
+reachable before — but since the patch is hardening the decoder against
+modem-supplied offsets, would it make sense to also require strictly
+increasing next_table_index, cap the iteration count, or otherwise
+guarantee forward progress in the same change?
+
+> @@ -629,6 +640,10 @@ static void mux_dl_adb_decode(struct iosm_mux *ipc_mux,
+>  		if (le16_to_cpu(adth->table_length) < sizeof(struct mux_adth))
+>  			goto adb_decode_err;
+>  
+> +		/* The whole datagram table must fit in the received skb. */
+> +		if (le16_to_cpu(adth->table_length) > skb->len - adth_index)
+> +			goto adb_decode_err;
+> +
+>  		/* Calculate the number of datagrams. */
+>  		nr_of_dg = (le16_to_cpu(adth->table_length) -
+>  					sizeof(struct mux_adth)) /
 -- 
-2.25.1
-
+pw-bot: cr
