@@ -1,109 +1,120 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EF91624D5
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 06:03:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 000333BED1E
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 06:11:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782367420; cv=none; b=YO8Ehe7O+yu2CoAeO5qFsBU3PUt6X1la18ZmeMsGBS+gZtHbk38sengIIJpzlDOQ42IytV84HNDvILmJacNear/rQvV08nRcsM7cX+CGs9553+fhJ9we0fdnPP4hLCx4HVfZeOu1uDED8ksutI3OqBgthKHykcsEPj5NpqshNfM=
+	t=1782367907; cv=none; b=EvqlRuJrmyamQnyS7WP6LqVjkcuk1i6QZ6e9EnyCVfZKLqPLUNJ7pSIO6fAwZ2+JKWTeqNDXtDGIAGmIt7wAwQjLfWORLs4rEyOcFGGFSQ9lO+3/n13x3r4Uqc8yvZN6uDC+spMKfF6roRvOBpI/0CR466I54Qg8VJGN37YZ3g4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782367420; c=relaxed/simple;
-	bh=q/YwrEFIdj69fHdgVP44qW151yn/KW8ps9+eXO3UHFo=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=lCo5tZMKgyeMHNwVskdYqC6Pq4naC7DzZD1gv9wIXz8W8i5OQ6aTlsYUbZxtKNRa4oCkeDnZhbQEUrhQ4/YV9ZX0w9z3swrP70IcAt3NNSiqS6Ax6OAy6NwyOX0i4bdP82XTSJ9ck1iZkFjYtY6dPdX8yDYNG6MEGe5krfs0WIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JAoszi7l; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1782367907; c=relaxed/simple;
+	bh=WgQRdI0Kdq7aEnVKb9c7OASS4yeb0qoaPNVU8f06+4Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z2w+4hnqPBuunNkxzUMBoOSm6jrMd3EWAjlTd2SkO/wVBEpNxEMIVLM/pGMgU75qC/8r6hIG5xLg8ecf6LsD4XjuclCpJn3orkC0XHVDnFCRbvtB4UnOBaUZKp2kVZw8ukDdWyMAuLOUrDeoNhVFX+Gj4MbhuY2UCUscHmVkj8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iPGBHwrr; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JAoszi7l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782367419; x=1813903419;
-  h=mime-version:content-transfer-encoding:in-reply-to:
-   references:subject:from:cc:to:date:message-id;
-  bh=q/YwrEFIdj69fHdgVP44qW151yn/KW8ps9+eXO3UHFo=;
-  b=JAoszi7luhOdjpO4+AqlXIQ7wyh3nJMMIfa69hbxEuad9HQGdXdkvdJE
-   YBPwSD1DCx4ScT2PeUDntmLDgm+K1a7y2MSUtfaVYI+QrSPneR+RTBvj8
-   HzFp1avDQDAAdUy6r00g4Vq9iVi8jq8vHVOoMtbB7whbfcV1d83jy16/j
-   DvoeWITGCP73vIG9apkBXPFGs/MNSvn0RjbH+YseQ9g1xMpLDGVGh1SWc
-   gsW9zGIOQCC8QDdWo6E6I91OycI8nUlPCMZtnWv8+HB/c4tUEMSGsT6JS
-   PoCqKaSbtLIRTfAYAX0WFMEWHR6Yd1QmWiu0cLv1ZniUTLcMg6dIbPAFC
-   g==;
-X-CSE-ConnectionGUID: cXwiQbfVRGWg9AtwFMZu2Q==
-X-CSE-MsgGUID: C32sqXS4ThiaL9kcR6DM5w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="83190189"
-X-IronPort-AV: E=Sophos;i="6.24,223,1774335600"; 
-   d="scan'208";a="83190189"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 23:03:38 -0700
-X-CSE-ConnectionGUID: vq5Cf/qQR4G4HhsQIQKN4g==
-X-CSE-MsgGUID: vBKTnjf3Ti6bg1qjUqLxJQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,223,1774335600"; 
-   d="scan'208";a="288475638"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.75])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 23:03:36 -0700
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iPGBHwrr"
+Message-ID: <f18bf1b1-ccf7-4d77-9389-07311d2d1613@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782367902;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xUSTBB1mth+fzw/4QWCYM0WAsrU6UvEDP/rElXqwnzw=;
+	b=iPGBHwrrH9Djk0Ix8CjAt1/PVSBSALGaCFIEyhK2JpKUjjK5oqL4Kvv49azNzeQj1p7opV
+	AvvGRxc4A7tCrGXQeM9eUrYiqoM4c3Oxf9OY2OwHdnLR5DDX1qI4+bWRL0tkPtH6eDuH9m
+	urj5++hBAxg8aHMFtF4rsCCPvANwrXM=
+Date: Thu, 25 Jun 2026 14:11:22 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <ajvTjodx7LLj_BPO@zenone.zhora.eu>
-References: <20260624090940.74840-1-joonas.lahtinen@linux.intel.com> <178230031953.112641.4817434529385736057@jlahtine-mobl> <ajvTjodx7LLj_BPO@zenone.zhora.eu>
-Subject: Re: [PATCH] drm/i915: Return NULL on error in active_instance
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Intel graphics driver community testing & development <intel-gfx@lists.freedesktop.org>, Martin Hodo <martin.hodo@intel.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas =?utf-8?q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, Simona Vetter <simona.vetter@ffwll.ch>, stable@vger.kernel.org
-To: Andi Shyti <andi.shyti@kernel.org>
-Date: Thu, 25 Jun 2026 09:03:32 +0300
-Message-ID: <178236741262.19845.6184407491878204182@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+Subject: Re: [PATCH v2] mm: mglru: fix stale batch updates after memcg
+ reparenting
+To: Harry Yoo <harry@kernel.org>, akpm@linux-foundation.org,
+ david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
+ baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+ weixugc@google.com, hannes@cmpxchg.org, muchun.song@linux.dev,
+ peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
+ ljs@kernel.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+References: <20260623024237.45990-1-qi.zheng@linux.dev>
+ <e74b0808-3bcc-414d-a037-41e479210cc0@kernel.org>
+ <d97128c0-7d89-4b5c-b891-84f9af702fee@linux.dev>
+ <8a76aefd-629c-41f3-b365-aefd4cc1411e@kernel.org>
+ <7946da94-dc1d-4cf2-986e-466c378665b6@linux.dev>
+ <dfe5d773-2992-448b-a6cb-ef633714a08f@kernel.org>
+ <1d638906-6d64-4e57-a181-4b77683652b5@linux.dev>
+ <b5c85cea-5daa-4690-ac41-a6f5aebd1555@kernel.org>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <b5c85cea-5daa-4690-ac41-a6f5aebd1555@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-Quoting Andi Shyti (2026-06-24 15:59:30)
-> Hi Joonas,
->=20
-> On Wed, Jun 24, 2026 at 02:25:19PM +0300, Joonas Lahtinen wrote:
-> > Pushed to drm-intel-gt-next, thanks for the reviews.
->=20
-> please, next time:
->=20
-> - Give people more time to review the patch. Only two hours
->   passed between posting it and pushing it
 
-And why exactly is that a problem? I got the review from the original
-patch author and a yet another person on top while it's a very
-uncontroversial and trivial patch. Two reviewers per patch is already
-quite a high bar to clear if you look at git history.
 
-> (during lunch time, BTW).
+On 6/25/26 12:16 PM, Harry Yoo wrote:
+> 
 
-Sorry, I did not know there is a universally agreed 2 hour lunch window
-in UTC timezone that I should follow. I've missed that memo.
+[...]
 
-> - There were BAT failures. They were unrelated, but so far we
->   have generally held back patches until BAT was green, even for
->   the most obvious changes.
+> 
+>> So lock_batch_lruvec() can be implemented like this:
+>>
+>> #ifdef CONFIG_MEMCG
+>> static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
+>> {
+>>      struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+>>      struct mem_cgroup *memcg = lruvec_memcg(lruvec);
+>>
+>>      rcu_read_lock();
+>>
+>>      /*
+>>       * The memcg can be NULL when the memory controller is disabled.
+>>       * Otherwise, the caller keeps the memcg owning @lruvec alive.
+>>       */
+>>      if (!memcg || !css_is_dying(&memcg->css))
+>>          goto lock;
+>>
+>>      do {
+>>          memcg = parent_mem_cgroup(memcg);
+>>      } while (memcg && css_is_dying(&memcg->css));
+>>      lruvec = mem_cgroup_lruvec(memcg, pgdat);
+>>
+>> lock:
+>>      spin_lock_irq(&lruvec->lru_lock);
+>>
+>>      return lruvec;
+>> }
+>> #else
+>> static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
+>> {
+>>      lruvec_lock_irq(lruvec);
+>>
+>>      return lruvec;
+>> }
+>> #endif
+>>
+>> Does this make sense?
+> 
+> Yes, looks good to me!
 
-Strong disagree here. That'd have caused the patch to miss -next-fixes
-PR just due to random noise of CI.
+OK, this sync method makes more sense as it doesn't require adding a
+new lrugen->reparente. I'll go with this method and update v3.
 
-If there was a reasonable doubt about the impact of the patch on the
-failure, that'd of course be different, but here there was absolutely
-none in this case.
+Hi Barry and Baolin, what do you think? Since the sync method has been
+changed, I will temporarily drop your previous Reviewed-by tags in v3. ;)
 
-As per patchwork automated mail reply:
+Thanks,
+Qi
 
-> If you think the reported changes have nothing to do with the changes
-> introduced in Patchwork_169089v1, please notify your bug team
+> 
 
-That's exactly what was done here. That's a fair ask, but asking for
-maintainers not to merge any code because of false positives is simply
-not.
-
-Regards, Joonas
-
->=20
-> Thanks,
-> Andi
