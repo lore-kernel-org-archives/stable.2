@@ -1,89 +1,156 @@
-Received: from mail.crpt.ru (mail.crpt.ru [91.236.205.1])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E768A3BB4A;
-	Thu, 25 Jun 2026 05:18:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.236.205.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B366B1D89EF
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 05:21:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782364709; cv=none; b=D5LKFHH2D5wwVyBF6DVQYGsuDkBJQhHNxxeNTPVKvXv2yjrheKF3TQ5bi56vnz3YUAz1qMl58S2tLA74oXkIGmPkrNrUf3AYKyj/D7PeOo6u7dncyyoNoMabZXGzVaFbsVSjV9XqbUs3kfEvd+rfYYqK0kZbTXHL633hYEzz6uM=
+	t=1782364880; cv=none; b=R2zF5En8CZSOgpd9LEBatCQfK6H3z7rJ/ia+BVkv2wPdCFLohhvrmm17Jn3i6Y2hSdWquiBJfaxLVVK4AV5IKTn6Ya8lRtOP948nAX0KiJCWMhVt/exCS9cH8ueEidFWAifhj1U4DuFNY1Q26f6qmX4Jiizm9VJHIM+MJc6sOoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782364709; c=relaxed/simple;
-	bh=afAJe646dpCo+BLlH+iFnf5H0cWnJaU+tgNuHlFT67c=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=TB7b5KJIAxr2XfwycvvFpGagZnlE3qgFFf20RSfhdN/h957ZkMLeFL2AyBszWclj0HT1m8Tv90H6jjCeYoBk8reRr4q/ViwKKAOldgKm01WW8ti6Yw/E2vDIh8EIKkXnS03FdS98Npj83U1R9YgmaEvM7lCSxhCRAudyQhkc2Qs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crpt.ru; spf=pass smtp.mailfrom=crpt.ru; dkim=pass (2048-bit key) header.d=crpt.ru header.i=@crpt.ru header.b=Qhy6g2H0; arc=none smtp.client-ip=91.236.205.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crpt.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crpt.ru
+	s=arc-20240116; t=1782364880; c=relaxed/simple;
+	bh=gYsM5zxBNKvNiFGNYcYNrn6JwgorvGz1VH4jZTyvu58=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pRDChdwm5T36ScgkTHaDhNwgdsEf+JHTyxMTtM0TpbPGtDJWLogr+gT9JnsK80jB6NTyeNQ2CaI9RQXq4WVA0JgY9ar7o08ymk6W/JsiK86i+Bu1Gykt6B72IW6h0Zk/y2G75ov6fv9dEmiyJ6HKS1BG+zSRQuwG5cJZMk2dJz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=exjO5TuH; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crpt.ru header.i=@crpt.ru header.b="Qhy6g2H0"
-From: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
-	<a.vatoropin@crpt.ru>
-To: Philipp Reisner <philipp.reisner@linbit.com>
-CC: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
-	<a.vatoropin@crpt.ru>, Lars Ellenberg <lars.ellenberg@linbit.com>,
-	=?utf-8?B?Q2hyaXN0b3BoIELDtmhtd2FsZGVy?= <christoph.boehmwalder@linbit.com>,
-	Jens Axboe <axboe@kernel.dk>, Andreas Gruenbacher <agruen@linbit.com>,
-	"drbd-dev@lists.linbit.com" <drbd-dev@lists.linbit.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: [PATCH] drbd: Fix potential NULL pointer dereference in
- _drbd_set_state()
-Thread-Topic: [PATCH] drbd: Fix potential NULL pointer dereference in
- _drbd_set_state()
-Thread-Index: AQHdBF/o8AC8bC0OUUmJsIphGb6N3g==
-Date: Thu, 25 Jun 2026 05:03:06 +0000
-Message-ID: <20260625050016.12004-1-a.vatoropin@crpt.ru>
-Accept-Language: ru-RU, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-kse-serverinfo: EX1.crpt.local, 9
-x-kse-antivirus-interceptor-info: scan successful
-x-kse-antivirus-info: Clean, bases: 6/24/2026 10:04:00 PM
-x-kse-attachment-filter-triggered-rules: Clean
-x-kse-attachment-filter-triggered-filters: Clean
-x-kse-bulkmessagesfiltering-scan-result: protection disabled
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="exjO5TuH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782364879; x=1813900879;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=gYsM5zxBNKvNiFGNYcYNrn6JwgorvGz1VH4jZTyvu58=;
+  b=exjO5TuHa6vED3H+B6xhx0cx/B8Hh9nQe7+Wwp3RfS0KsF/S4dMRkr4a
+   vsU8hhHRPQWhu8d+RyxnoQTOe3OHMoq+YOWfjwYj3qHBk7ITk0uaIR2m7
+   vqIoD/cw3qyyytt85k9ez2T+f8I8a5ZW6ZWyk/i7SoN6/SVq+SLbndGsW
+   vP2frPyUhzHRx7wTb1BOc0z6YjE6m4ubo8FSplJcG8YKYcrmbTXB0Fm1H
+   XC8NRx15xjtp8ZJdl/todNXu0NqfAq4LU3yhEzmF9fTIEBZz2YY3xTWQo
+   O/IhaQK6zV2SwtYMRdrxZE7feIa0dtpjcA6nTnNcrpfcc+ylK4hqDpTsv
+   A==;
+X-CSE-ConnectionGUID: t5fTBufAReWCx0aUrRPSnQ==
+X-CSE-MsgGUID: KDaF2OckQZCTbNon4xgSHA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="94532147"
+X-IronPort-AV: E=Sophos;i="6.24,223,1774335600"; 
+   d="scan'208";a="94532147"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 22:21:18 -0700
+X-CSE-ConnectionGUID: F2IbV+htRj2bfZnEMoI+qg==
+X-CSE-MsgGUID: mWHcRgS1Tgy+jt7BPxrwRw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,223,1774335600"; 
+   d="scan'208";a="254575067"
+Received: from nitin-super-server.iind.intel.com ([10.190.238.72])
+  by orviesa004.jf.intel.com with ESMTP; 24 Jun 2026 22:21:16 -0700
+From: Nitin Gote <nitin.r.gote@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Nitin Gote <nitin.r.gote@intel.com>,
+	stable@vger.kernel.org,
+	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+	Christian Konig <christian.koenig@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>
+Subject: [PATCH] drm/ttm: Fix UAF on dma-buf attach failure for sg BOs
+Date: Thu, 25 Jun 2026 11:27:35 +0530
+Message-ID: <20260625055734.2831607-2-nitin.r.gote@intel.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=crpt.ru; s=crpt.ru; c=relaxed/relaxed;
- h=from:to:cc:subject:date:message-id:content-type:mime-version;
- bh=afAJe646dpCo+BLlH+iFnf5H0cWnJaU+tgNuHlFT67c=;
- b=Qhy6g2H0akYEnv/YdYOQNZJ3bqI6vzY5GEBdK/unMORx25+dluuQFAi1FCZrebjPLHikiSiqwu3g
-	av/VU0S9aS8oOUMCM7r5yDQH0Ga3T0FpvsXmJB2M9E1CCgz+QLYpQsMQYoS0M2pND83eJ9hEgzXz
-	S6iXtgLw/bPwlahZxQjBliaaNbb/jkoMh24IsPCQAPNruNeGjBLpCAvyLZGWYU8Xx5AUDWF8Onwu
-	erJ+Iv4sk+rGmQQ07THTywWIWtu8Rx2C8ajUBzmwtTDjl2QDSq0aWDABL1y5a6a5iT2pQVfUiH5h
-	zHryP/ZJN6FpfzgJSk3ZdVTMuPcn753d5Lz1Aw==
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-RnJvbTogQW5kcmV5IFZhdG9yb3BpbiA8YS52YXRvcm9waW5AY3JwdC5ydT4NCg0KVGhlIGNvbm5l
-Y3Rpb24gcG9pbnRlciByZWNlaXZlcyBhIHZhbHVlIGluIHRoZSBfZHJiZF9zZXRfc3RhdGUoKQ0K
-ZnVuY3Rpb24sIGluY2x1ZGluZyB0aHJvdWdoIGEgY2FsbCB0byB0aGUgZmlyc3RfcGVlcl9kZXZp
-Y2UoKSBmdW5jdGlvbi4NClRoaXMgZnVuY3Rpb24gcmV0dXJucyBhIHBvaW50ZXIgdG8gYSBsaXN0
-IGVsZW1lbnQuIElmIHRoZSBsaXN0IGlzIGVtcHR5LCBpdA0KcmV0dXJucyBhIE5VTEwgcG9pbnRl
-ciwgd2hpY2ggaXMgbGF0ZXIgYXNzaWduZWQgdG8gdGhlIGNvbm5lY3Rpb24NCnBvaW50ZXIuIFN1
-YnNlcXVlbnRseSwgdGhpcyBwb2ludGVyIHdpbGwgYmUgZGVyZWZlcmVuY2VkLg0KDQpBZGQgYSBO
-VUxMIGNoZWNrIGZvciB0aGUgY29ubmVjdGlvbiBwb2ludGVyIHRvIGF2b2lkIGRlcmVmZXJlbmNp
-bmcgYW4NCmludmFsaWQgcG9pbnRlci4NCg0KRm91bmQgYnkgTGludXggVmVyaWZpY2F0aW9uIENl
-bnRlciAobGludXh0ZXN0aW5nLm9yZykgd2l0aCBTVkFDRS4NCiAgICAgICANCkZpeGVzOiBhNmIz
-MmJjM2NlYmQgKCJkcmJkOiBJbnRyb2R1Y2UgInBlZXJfZGV2aWNlIiBvYmplY3QgYmV0d2VlbiAi
-ZGV2aWNlIiBhbmQgImNvbm5lY3Rpb24iIikNCkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnDQpT
-aWduZWQtb2ZmLWJ5OiBBbmRyZXkgVmF0b3JvcGluIDxhLnZhdG9yb3BpbkBjcnB0LnJ1Pg0KLS0t
-DQogZHJpdmVycy9ibG9jay9kcmJkL2RyYmRfc3RhdGUuYyB8IDUgKysrKysNCiAxIGZpbGUgY2hh
-bmdlZCwgNSBpbnNlcnRpb25zKCspDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2Jsb2NrL2RyYmQv
-ZHJiZF9zdGF0ZS5jIGIvZHJpdmVycy9ibG9jay9kcmJkL2RyYmRfc3RhdGUuYw0KaW5kZXggYWRj
-YmE3ZjFkOGVhLi5lYTk4MmQ0ODAxN2UgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2Jsb2NrL2RyYmQv
-ZHJiZF9zdGF0ZS5jDQorKysgYi9kcml2ZXJzL2Jsb2NrL2RyYmQvZHJiZF9zdGF0ZS5jDQpAQCAt
-MTI4MSw2ICsxMjgxLDExIEBAIF9kcmJkX3NldF9zdGF0ZShzdHJ1Y3QgZHJiZF9kZXZpY2UgKmRl
-dmljZSwgdW5pb24gZHJiZF9zdGF0ZSBucywNCiAJaWYgKHJ2IDwgU1NfU1VDQ0VTUykNCiAJCXJl
-dHVybiBydjsNCiANCisJaWYgKCFjb25uZWN0aW9uKSB7DQorCQlkcmJkX2VycihkZXZpY2UsICJO
-byBjb25uZWN0aW9uIHRvIHBlZXIsIGFib3J0aW5nIVxuIik7DQorCQlyZXR1cm4gU1NfQUxSRUFE
-WV9TVEFOREFMT05FOw0KKwl9DQorDQogCWlmICghKGZsYWdzICYgQ1NfSEFSRCkpIHsNCiAJCS8q
-ICBwcmUtc3RhdGUtY2hhbmdlIGNoZWNrcyA7IG9ubHkgbG9vayBhdCBucyAgKi8NCiAJCS8qIFNl
-ZSBkcmJkX3N0YXRlX3N3X2Vycm9ycyBpbiBkcmJkX3N0cmluZ3MuYyAqLw0KLS0gDQoyLjQzLjAN
-Cg==
+When a dma-buf importer creates a ttm_bo_type_sg BO with bo->base.resv
+pointing at the exporter's dma_buf->resv and dma_buf_dynamic_attach()
+fails, no dma_buf reference is held. The exporter can be freed before
+the delayed_delete worker calls dma_resv_lock(bo->base.resv), causing a
+use-after-free:
+
+  Oops: general protection fault, probably for non-canonical address
+        0x6b6b6b6b6b6b6b9c
+  Workqueue: ttm ttm_bo_delayed_delete [ttm]
+  RIP: 0010:mutex_can_spin_on_owner+0x3f/0xc0
+
+ttm_bo_individualize_resv() skips the resv swap for all sg BOs to keep
+the shared resv available for delayed_delete to release the dma-buf
+mapping. A BO whose attach never succeeded has no mapping to release,
+yet it keeps bo->base.resv pointing at the exporter resv that
+delayed_delete later locks once the exporter is gone.
+
+Fix this by checking bo->base.import_attach, which is only set after
+successful dma_buf_dynamic_attach(). Failed imports now individualize
+normally, so delayed_delete operates on the BO's private _resv. The
+exporter remains alive during individualize as it runs synchronously
+in ttm_bo_release(), while the gem_prime_import caller still holds
+its dma_buf reference.
+
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8023
+Fixes: d99fbd9aab62 ("drm/ttm: Always take the bo delayed cleanup path for imported bos")
+Cc: stable@vger.kernel.org # v6.8+
+Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
+Cc: Christian Konig <christian.koenig@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
+---
+v3:
+- Dropped the xe-side reordering approach since importer_priv must be
+  valid when dma_buf_dynamic_attach() publishes the attachment.
+- Per Christian's suggestion on the v1 thread, keyed the check on
+  import_attach rather than removing the sg guard entirely.
+- Exporter lifetime: individualize runs synchronously inside
+  ttm_bo_release(), called from drm_gem_object_put() in the
+  gem_prime_import error path while drm_gem_prime_fd_to_handle()
+  still holds its dma_buf reference.
+- Fixes both xe and amdgpu in a single TTM patch.
+
+ drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index bcd76f6bb7f0..bf8eaec0e9ca 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -196,6 +196,14 @@ static int ttm_bo_individualize_resv(struct ttm_buffer_object *bo)
+ 	if (bo->base.resv == &bo->base._resv)
+ 		return 0;
+ 
++	/*
++	 * Successfully imported sg BOs need the shared resv for dma-buf
++	 * cleanup. Failed imports have no attachment or mapping and can
++	 * use the private _resv.
++	 */
++	if (bo->type == ttm_bo_type_sg && bo->base.import_attach)
++		return 0;
++
+ 	BUG_ON(!dma_resv_trylock(&bo->base._resv));
+ 
+ 	r = dma_resv_copy_fences(&bo->base._resv, bo->base.resv);
+@@ -203,15 +211,13 @@ static int ttm_bo_individualize_resv(struct ttm_buffer_object *bo)
+ 	if (r)
+ 		return r;
+ 
+-	if (bo->type != ttm_bo_type_sg) {
+-		/* This works because the BO is about to be destroyed and nobody
+-		 * reference it any more. The only tricky case is the trylock on
+-		 * the resv object while holding the lru_lock.
+-		 */
+-		spin_lock(&bo->bdev->lru_lock);
+-		bo->base.resv = &bo->base._resv;
+-		spin_unlock(&bo->bdev->lru_lock);
+-	}
++	/* This works because the BO is about to be destroyed and nobody
++	 * references it any more. The only tricky case is the trylock on
++	 * the resv object while holding the lru_lock.
++	 */
++	spin_lock(&bo->bdev->lru_lock);
++	bo->base.resv = &bo->base._resv;
++	spin_unlock(&bo->bdev->lru_lock);
+ 
+ 	return r;
+ }
+-- 
+2.50.1
+
