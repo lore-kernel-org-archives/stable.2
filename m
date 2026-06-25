@@ -1,104 +1,108 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DEF2E7394
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 15:08:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782400089; cv=pass; b=ozBM0FEf+CJLqKx3R73Q0fv1lmW2gUMLqlAbJmzHzPyTU+4fflryn4XDkI4UWyHPlRULw9s3wQqH79UMYU88tf56y3n7K2o/4tK3ZU2WlB+Ww3hVnqYFc3d3BFVt6SaGThH/PjFZUkZDwRKUn5oY544JNyYLSmtEXcdIvffkUOE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782400089; c=relaxed/simple;
-	bh=MkO3fCXc1ZaOKiTnsnssleSvXkY2yN/+fGVR08qjueQ=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=pbY18H0qhL6bMsYJe6qEwekSVBv1NKsTDzmO3SwBgvA/vINvS/Cs3tPUD2SAqt4lzYAtFTNL47UR5tXTZbDMPnnxtUEd9enQpNcLdGw9yh+H4mlESi0+uu64fCgLmWD5wpbToXwTDhvQd5y6QaTIP3uuAVKNlgfJnJHJkNI9w5M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fSv+Mrsa; arc=pass smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fSv+Mrsa"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c1214dc027cso71428066b.1
-        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 08:08:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782400087; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OKpiB/BkUfW6wsRx0ckctFZk4tNU6dTG4I32pE1x1vyBgfA45MHU+swcM+wcZyM/Us
-         b6IGct67dSgDsYD42xWnYdkYFPx8BcE5yFG9fHc++mhU1YVUsBgDRxqRShEUclt7xfvG
-         nCByP6K+eas+f3rplFSR5rx2sqrL6amZQXkzRhWBsta+0bQt4ynzBCGOk0qpb1HTfFle
-         4dibARqX68HM7ZvYxyExT121elJ26EvdA1CAJzWDRHEInSkf8QwMfoks6jeC0uGIvYj0
-         iKZYA1sdj4D7Xgs89EjgTdj/iAJWfcRpmmFVhd6k71alLomYIzxaoYY/G+FcWkwaTOHj
-         7R9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=MkO3fCXc1ZaOKiTnsnssleSvXkY2yN/+fGVR08qjueQ=;
-        fh=AJ4wr+Vi7zKnuQ0MLruaL29ZfvBsaOkHYgXURjmQGRQ=;
-        b=qCt3r9tgos1IskoJeyClU/jkY8dnuvIGCp0EI/iOpKGuGG5p1vo1xKmn0gt1VGK5z6
-         oLwJHiqtbKwFJyRYu7L0QDm7ewhpAjpEywFPhUCnonB6n6VMhw3pMc35rYlhx+3B+GA5
-         bXky1kzSgchT53neghC1eZo0uCVS/Hdo3TCaCIpJR9PmC7S1XqPr1U8LMsCovl8PysuM
-         9M1x7RNQt/rgTigWLCP9i0GnYVOAHFdDX9NRhqhNRx45lL5NLFZW8svdv/ZXvIrDQQPy
-         dtjGfImtjQKq30W64WZG8olCZIZQ2YYBvAq2aq4cu5kskeXDaxNi+s2Bah93SnHnDl4s
-         8dRg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782400087; x=1783004887; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=MkO3fCXc1ZaOKiTnsnssleSvXkY2yN/+fGVR08qjueQ=;
-        b=fSv+MrsaWE7mMOXMXnZPNUDyQDVQ4Tz0enLSDwkuya+4W5n31sedpmamaKaqZN3drp
-         sUVd3x4xxh9iegn8jxY49mMy1lRxI0owIqMTtYjP9jwscuaR4BzMrbXToBgfAmpscNKP
-         z/dSBgYbmFIQofzkXSOSYguNsyQhR6lT0FYOOcYs/L8k7b/2fp6fYydymPZfzgHGU8tW
-         mqrk4WmqodTr4Yc/Ab3AexbC5JRo/qFI7WO228bXeBJae+asrZBxA0TD7tVtX/lRhpjB
-         hjC7B+HgZ7el7oNgCjJGSgRlZRSxwb0JCnJ31OOJI3Jq5GHKPRCIdq5FgV0PSc5YVYxe
-         /vWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782400087; x=1783004887;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=MkO3fCXc1ZaOKiTnsnssleSvXkY2yN/+fGVR08qjueQ=;
-        b=FX7ziQeuYAQ+Pt6CbT1fuCx0RDO0JdWFMlqcZqkQJxtxAUoTzes550dbtKBDmLJVCv
-         R6MCpZqFlXlLUOG2w/qACPXwb9seZnxRpC5311zl3MOHgdP/49oEDhnNCq/eCr8O78GE
-         XgxO5RWUM165fgAtM0azlAs5f4rQeSgkNaANp7M+5iTShnwPTJFp4v/GOkFGJWnTl2+L
-         ynXzUH2ousJVkz0VU4Ud8YtssI7dXJpA2XDnGcDafQbiYrMtpaLN2ZslQkePnmpzmyiB
-         HcsX+4XSROumz/WM2lrvRVffBxj+JvnIK+KCxIV57tDjqEz9dv5h1usGkn3mL/J4I/8s
-         vk9w==
-X-Forwarded-Encrypted: i=1; AHgh+RqPfHEXybcZbWzyzPCzZ1bFrh5nHLHIJxOKdMBRfEVaCl1cvG0XIWk+c7dKNnEBjMtDnRfRow0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzsFJk3P54LoaiU33SSJcUTEiwhqxSEjQvXikURfk58eXQ7J4YY
-	CAFTsX2/Ameg8IholUGy0aJ0FSHpJ1RuvyQwC98p+t8IV4SAlC1GlNkKJyPW4tFyw5LuKOzA/72
-	Y/IXLRlZ4ZqYOutE5mLFQ29nIoHuZX30=
-X-Gm-Gg: AfdE7clv94d16CJesBt9JYKClYK+tpav46VUrm1f18rLk/MZa9sptmVyTjqWXV1IgVo
-	uAiHGijqCJ6c7DHR7q1FtExxS8PJmIA95jXgbHL3rsDHxtoILM1JfXvcqaZsi/0+BZxz78GjgnR
-	N4c/4CxqGInTAkpwzAJ7AwqxmMp7U1p0Wouo8oV3j33IyoWk9otmvYyqqgPFKz3OEcxPNu9eCwH
-	5aRlmhO7MCU5CTsGPx9gZzzgkDCwYA6+sKUA4qyoA290XZDoqEV1BhEgya5FnkzzfxPeu5v
-X-Received: by 2002:a17:907:8d8e:b0:c0c:2033:c078 with SMTP id
- a640c23a62f3a-c1205ef178dmr223399166b.26.1782400086250; Thu, 25 Jun 2026
- 08:08:06 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289053A75B8;
+	Thu, 25 Jun 2026 15:16:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782400607; cv=none; b=uBQBJiqm5FK6nhx3t+WoHt9+heHyheiW+u8ofmf9VoU5RTAAYKmmv43BLKTiC+1IrbesBh0GWl81rzOkcdlNWuWWqXMv2nvT331c20ydaYlstM/Et6ipEZt66GZk11+vMGdYiICL+l1LMLLxOKUKL4mVPD/3IAMqpqt0Uoq8Uaw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782400607; c=relaxed/simple;
+	bh=5tiUYLobpfAyf7PHa9U4KBOHa0KSi5lZCgKiQ+VdnLc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=A+A4uUT2iKK9BGLgX4JqlHnjC0Y4h8c6+I1GpqUUys0+NCoGfqGyyCqGX0Onj2YMeCOIyijLJwCompyQlPH5HISvo+NhUHMEOiMswJ6EIardiuEin0sxG2d+y6BQsIs77rtDLHxcWI4YJ2yK3pemOFGiiB4TJeUr6bMjH9N2iSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-03 (Coremail) with SMTP id rQCowACHerFWRj1qsU7UFQ--.9911S2;
+	Thu, 25 Jun 2026 23:16:39 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: philipp.reisner@linbit.com,
+	lars.ellenberg@linbit.com,
+	christoph.boehmwalder@linbit.com,
+	axboe@kernel.dk
+Cc: drbd-dev@lists.linbit.com,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drbd: Fix local_cnt refcount leak on ascw allocation failure in _drbd_set_state
+Date: Thu, 25 Jun 2026 23:16:36 +0800
+Message-Id: <20260625151636.72599-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: liem <liem16213@gmail.com>
-Date: Thu, 25 Jun 2026 23:07:54 +0800
-X-Gm-Features: AVVi8CdXewmKMx24Id0KrC4KlPydUzifiJZC1utFI6DQTmNGydZ-bYS7JAqj14c
-Message-ID: <CABoz+=2PHMv0mqxPwHyR5rBOhT7xFxGVok69JoYhadQTuNnsdQ@mail.gmail.com>
-Subject: Re: [PATCH] i2c: imx: Fix slave registration error path and missing
- NULL check
-To: liem <liem16213@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Andi Shyti <andi.shyti@kernel.org>, Biwen Li <biwen.li@nxp.com>, 
-	Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-kernel@lists.infradead.org, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Oleksij Rempel <o.rempel@pengutronix.de>, Sascha Hauer <s.hauer@pengutronix.de>, stable@vger.kernel.org, 
-	Wolfram Sang <wsa@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACHerFWRj1qsU7UFQ--.9911S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47Cw1DKryxJryxtr15XFb_yoW8ZF4UpF
+	sxGrW7KryUK3yfKFnrJw409Fs5Ka1kt34rKr92yw1a9wsxGr1fA3s0yFW7Xay5Ar93Jr4r
+	Xa42yryv9rWYyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
+	6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU13ku3UUUU
+	U==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAcJA2o9Q+oF3QAAsn
 
-Hi,Carlos!
+In _drbd_set_state(), when transitioning a device to D_FAILED or
+D_DISKLESS, an extra reference on local_cnt is taken via
+atomic_inc(&device->local_cnt) to prevent premature destruction of
+the local disk. This reference is normally released by put_ldev()
+in after_state_ch(), which is called asynchronously through the
+after_state_chg_work (ascw) work item.
 
-Thank you for your review.
+If the GFP_ATOMIC allocation of the ascw work item fails, the work
+is never queued, after_state_ch() never runs, and the extra
+local_cnt reference is permanently leaked. Additionally, the
+state_change object allocated by remember_old_state() is also
+leaked, along with the krefs it acquired on the resource,
+connections, and devices.
 
-Q: Have you meet the issue on one real platform?
-A: No,I just noticed the error while reading the code.
+Fix both leaks in the ascw allocation failure path:
+ - Call put_ldev() to release the extra local_cnt reference when
+   the transition matches the same conditions used for the
+   atomic_inc.
+ - Call forget_state_change() to free the state_change object and
+   release the krefs it holds.
 
-I think your idea which cancel the slave timer and wait it finished
-after disabled IRQ is better.
+Cc: stable@vger.kernel.org
+Fixes: d01801710265 ("drbd: Remove the terrible DEV hack")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/block/drbd/drbd_state.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-I'll fix the issues and send a v2.Thank you again!
+diff --git a/drivers/block/drbd/drbd_state.c b/drivers/block/drbd/drbd_state.c
+index adcba7f1d8ea..68e273c6d5be 100644
+--- a/drivers/block/drbd/drbd_state.c
++++ b/drivers/block/drbd/drbd_state.c
+@@ -1480,7 +1480,13 @@ _drbd_set_state(struct drbd_device *device, union drbd_state ns,
+ 		drbd_queue_work(&connection->sender_work,
+ 				&ascw->w);
+ 	} else {
+-		drbd_err(device, "Could not kmalloc an ascw\n");
++		if ((os.disk != D_FAILED && ns.disk == D_FAILED) ||
++		    (os.disk != D_DISKLESS && ns.disk == D_DISKLESS))
++			put_ldev(device);
++
++		forget_state_change(state_change);
++		drbd_err(device, "Could not kmalloc an ascw, state change %p -> %p leaked\n",
++			 &os, &ns);
+ 	}
+ 
+ 	return rv;
+-- 
+2.39.5 (Apple Git-154)
+
