@@ -1,120 +1,92 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE58B1DDC35;
-	Thu, 25 Jun 2026 11:30:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6D13DBD5E;
+	Thu, 25 Jun 2026 11:32:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782387050; cv=none; b=M8L4Ecy8gK75P1mJWDIlaACSF4Y0tNgH0CR4LrVvdDaMS3xYIzziXFdPgz+uAmwm5DUjqQ7gEedzE5VE8j+yWizQ4QNqmt6yxEV65PycWORcMLl9fwKFCCKZ8NPKiQKCig7xRegqBjPyS1lcbNOhdkmfWkr/JPxgRpsmpmuHFC8=
+	t=1782387173; cv=none; b=jLpo/bS6k4F2pjR79x8lPUo+r7G4ATs6KhJk30zRcvBuZoDQV3gffM1ZUZ5uFe7+BljJ11k0D5F8ZpWwDEA6nxh9gz3RL1yyYthReSZYJ939WLxOYbiaclPRBaYkcQTX4YDLKOjQCb40d7xrpkFCZgpJcGsL1POzpkSLTMnIHk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782387050; c=relaxed/simple;
-	bh=YVYXx7DeCmRXI/6Xkq+kjiu0y3ZMotg0IHB7MU6Rf+0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E94dl0GihI7gPtM/EfRp+AIUHs6ryY0IsFYyt1yppmXWJxBjzI/6MgA+SDwxU0X3KNIK2Li6S4rrMu0J7wYtvp6EMaQJ7fFrD/4eo22tgTsU30EmOu79KBAwC4gKrJSeYmX59H6n3ATZiOBKfNcr//0hVzW2HYOJ0M49XGE4QDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lPhXMZix; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lPhXMZix"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B3B9932C5;
-	Thu, 25 Jun 2026 04:30:43 -0700 (PDT)
-Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.31])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 62A6A3F62B;
-	Thu, 25 Jun 2026 04:30:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1782387048; bh=YVYXx7DeCmRXI/6Xkq+kjiu0y3ZMotg0IHB7MU6Rf+0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=lPhXMZixeJNC/52qJLXM5cTBoxRiSy5jpouJtE3546YakjPVG02EkqA0y0Pttu6f4
-	 vEubb3v+HokNHqXS9u+EdjoFlvwz0SEaMIbm0h2LhhvM0p8h4sr3ODmRvGEXhBb643
-	 TyLvs/lWTDqBE7EgRklZegpCtyYIMNccFix02v8M=
-From: Dev Jain <dev.jain@arm.com>
-To: muchun.song@linux.dev,
-	osalvador@suse.de,
-	akpm@linux-foundation.org,
-	ljs@kernel.org,
-	david@kernel.org,
-	liam@infradead.org
-Cc: Dev Jain <dev.jain@arm.com>,
-	riel@surriel.com,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	lance.yang@linux.dev,
-	kas@kernel.org,
-	linux-mm@kvack.org,
+	s=arc-20240116; t=1782387173; c=relaxed/simple;
+	bh=jjI9ppPkTyZaQPEY1IgNokEQW+d3si723qUvqFs0Cdg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=o/FzVlP0Obnk80QCU0tbCzQfyV0WtCbd4y7yeWAs1trkHp+C2Cvs7SRwqWe4BYzER5qSbqn0dRmMXthNAxkRBwsHXjlt4mra3ZkUdvAdnJl0zk0MUdHUket1D8k7nTLDuSpcxaplueFY84vsfwLbWcpM1jgu0eRO4z8hwI4shcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-05 (Coremail) with SMTP id zQCowABXr9LaET1qLRs0FQ--.11371S2;
+	Thu, 25 Jun 2026 19:32:44 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: mamin506@gmail.com,
+	lizhi.hou@amd.com,
+	ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	rcampbell@nvidia.com,
-	apopple@nvidia.com,
-	ziy@nvidia.com,
-	matthew.brost@intel.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	byungchul@sk.com,
-	gourry@gourry.net,
-	ying.huang@linux.alibaba.com,
-	mel@csn.ul.ie,
-	nao.horiguchi@gmail.com,
-	ak@linux.intel.com,
-	j-nomura@ce.jp.nec.com,
-	pfalcato@suse.de,
-	dave.hansen@intel.com,
-	tglx@kernel.org,
-	jpoimboe@kernel.org,
-	ryan.roberts@arm.com,
-	anshuman.khandual@arm.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH 4/5] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
-Date: Thu, 25 Jun 2026 11:29:53 +0000
-Message-ID: <20260625112955.3254283-5-dev.jain@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260625112955.3254283-1-dev.jain@arm.com>
-References: <20260625112955.3254283-1-dev.jain@arm.com>
+Subject: [PATCH] accel/amdxdna: Fix use-after-free in amdxdna_gem_dmabuf_mmap()
+Date: Thu, 25 Jun 2026 19:32:39 +0800
+Message-Id: <20260625113239.49764-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABXr9LaET1qLRs0FQ--.11371S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uryDtw4DXry7tw1xAw43Wrg_yoW8GF1fpF
+	sxur15AFZ8Xw40qFsrZ3WDua4F9F13t3yrJryktw4fur15XF4UtFWfC3saqFs0ka4kCw4a
+	qF47tFW5X3WqyFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbSfO7UUUU
+	U==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCREJA2o84AnBZQAAsJ
 
-check_pte() is the final validation step in page_vma_mapped_walk().
-It reads pvmw->pte with ptep_get() to decide whether the entry maps
-the PFN range being walked. For hugetlb VMAs, that pointer refers
-to a hugetlb entry.
+When vm_insert_pages() fails, the error path calls vma->vm_ops->close(vma)
+which internally calls drm_gem_vm_close() → drm_gem_object_put(), 
+releasing the GEM object reference acquired at the start of the function.
+However, the close_vma label then falls through to put_obj, which calls
+drm_gem_object_put() a second time on the same object.
 
-On arches which provide their own huge_ptep_get() to dereference a huge
-pte pointer, accessing via ptep_get() would cause pte_pfn(),
-pte_present() etc to misbehave.
+If the first put releases the last reference, the object is freed and the
+second put accesses freed memory, causing a use-after-free.
 
-It is not clear whether this has a trivially visible effect to userspace.
+Fix by returning directly from close_vma instead of falling through to
+put_obj, since the close handler already performs all necessary cleanup
+including the object put.
 
-Use huge_ptep_get() to dereference a huge pte pointer.
-
-Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Dev Jain <dev.jain@arm.com>
+Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- mm/page_vma_mapped.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/accel/amdxdna/amdxdna_gem.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
-index 2ccbabfb2cc17..18e1d341f463c 100644
---- a/mm/page_vma_mapped.c
-+++ b/mm/page_vma_mapped.c
-@@ -107,7 +107,13 @@ static bool map_pte(struct page_vma_mapped_walk *pvmw, pmd_t *pmdvalp,
- static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
- {
- 	unsigned long pfn;
--	pte_t ptent = ptep_get(pvmw->pte);
-+	pte_t ptent;
-+
-+	if (is_vm_hugetlb_page(pvmw->vma))
-+		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
-+				      pvmw->pte);
-+	else
-+		ptent = ptep_get(pvmw->pte);
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index 6e367ddb9e1b..fec9763c518c 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -469,6 +469,7 @@ static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struc
  
- 	if (pvmw->flags & PVMW_MIGRATION) {
- 		const softleaf_t entry = softleaf_from_pte(ptent);
+ close_vma:
+ 	vma->vm_ops->close(vma);
++	return ret;
+ put_obj:
+ 	drm_gem_object_put(gobj);
+ 	return ret;
 -- 
-2.43.0
+2.39.5 (Apple Git-154)
 
