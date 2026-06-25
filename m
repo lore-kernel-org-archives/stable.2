@@ -1,150 +1,114 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C71343D64
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 13:51:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC61344044
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 13:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782395499; cv=none; b=aDBNB5NHRe9eQKnJMW0n5HV+fA5RFDEcIoyYRVfTS4l+esEx3B6ejSNiPKoGPbtMgJzOFmemQibRj+Xs/6b4Z8Zx5sSIM0pnpAhX9jSDQwZdsi8GLQlOp+oFquWx612YmO3e3bM0TuBqM89vATbaSNWmri1Cf97ZdRYwN4Rs0so=
+	t=1782395655; cv=none; b=AWQueb1R2y2DaSnuWVyh7JRGUE8djyetuOKSs0tm8alNsVFJLCOoNKHUMQ4wE5/nnQcA+KglPBwTN45a3Y2eBb894z5bYy+evRnex/i4cEeDnhXnsh+V+SGNB3jVNJNcPpP6E+FKPvTC/+538mhY0mEiVBYP+W05jOh86EdEDHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782395499; c=relaxed/simple;
-	bh=7Ms9ZwlXGgSC+ZWp84GBwMd0ABoFw1BjQCGie0NcqNY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=iF0bbcSRKaFO6EBEZBFsxMXnRSZ3G2SSmF/5Ag3MritUHXcTnTzFIWq4wXNTia+iNiOI5rPJZbDHlfFi4rCxWw6svzkqtFTvU0Dd8m9ZpADDuP0kcOB0lJJ0dQIVqzRjfGl5ttQre/Xc0jL9W3Z8bm+b2c+UjzDS9FRx+l5AFSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EQGkW3aw; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782395655; c=relaxed/simple;
+	bh=LG7nLw7OUYoPbNUTIUvO+GzE1e3hYi3mRXdDreFv97w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UVaQi33+oKqp0tFKeCrnYn7lLHCctoEpo9E+Y3NXxVIqU3Da5Eyiq51dBojY1VHDQnaJAipVTT0hm/wsyATKj3Ry0oc4uD4/lE5GejLzJkMqd2l5YKO0q8oE/Dk5xpuWH1Nvv3/PkPiXQRCClByrC7bVRoRPACbzUFtSWMOydGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OE2140LM; arc=none smtp.client-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EQGkW3aw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782395497; x=1813931497;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=7Ms9ZwlXGgSC+ZWp84GBwMd0ABoFw1BjQCGie0NcqNY=;
-  b=EQGkW3awGToTL5uguL1DNw451msCl8KwI9Y4EwHUA3IUoeuSrItZkuCf
-   Di6PojLkLlGDqMhrDwPWqTD1vUnsRGsjcHX/nXl2EmMDGYtfrNqbQxGhn
-   5Tz1THeqSQPhn206bQ4XJBQKXBwnmD3Nvc1+PmwsOpb9PDMx0ZFTm4alK
-   fK8ylfjxqstT/AQuEcJ2liYFLT2n5sVUpi9OVW1aAKVVdkIwTSW0tvJWC
-   TDDHelB4sNY7WrfFzrhVt1P7f7UP2KY3qAkzBoPiZ2jXZwDhcbeLRNeE4
-   +WFdfdrvJeu0qoRGs4po+zQ/ELCFT2jcqOY2JuiczwYVDZ6rQ3iGFYMyI
-   A==;
-X-CSE-ConnectionGUID: 0N5mBNh7R8G9jy4YEoVTYw==
-X-CSE-MsgGUID: EzLzFk+BTCCvo6SfOZHPXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="87015662"
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; 
-   d="scan'208";a="87015662"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 06:51:37 -0700
-X-CSE-ConnectionGUID: U3GQvWICS3ajz5HL+lqFGQ==
-X-CSE-MsgGUID: L7WyAELvQX+xnhT9VnN6eA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; 
-   d="scan'208";a="250901072"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.126])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 06:51:34 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	Martin Hodo <martin.hodo@intel.com>,
-	stable@vger.kernel.org,
-	Animesh Manna <animesh.manna@intel.com>,
-	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@intel.com>
-Subject: [PATCH] drm/i915/bios: range check LFP Data Block panel_type2
-Date: Thu, 25 Jun 2026 16:51:30 +0300
-Message-ID: <20260625135130.1067872-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OE2140LM"
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-9157d3f2098so205524885a.3
+        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 06:54:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782395653; x=1783000453; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kvt21rKieVMVkzHlfovU2dRzd6brOlyRtBK6C4duChU=;
+        b=OE2140LMg4Dw2ojUhaFkzA3KJAElfbxTYlMd9CTcZvqRZ+D2rOuaFxyIBdCP5BNccx
+         tEB54/DCXo4TiuCvGVAgvE1+2M+nLO1WGSXtBFCx3pKQiqh4FmZvR6uVldptFbouCnEQ
+         4OvSwnldzqiDRsUUxhSWtbEfOvQN4u3irf0mdVxc+sLuRQnNfPp6qpsf6Yoc5gISnsiL
+         wqvzTGxY2cBxDJARNMJnZXI2LWR0iZ9rtRvnCXB4dHxoJRR5KlKUTWcvs/c0uDYn6aNL
+         +jGDbVL+C/ttz0tqUJ4QlTijnElhA/Gg8VOc4KaqiyUJWftPnbmFflDMnQZNdNbwg5ZT
+         h3+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782395653; x=1783000453;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kvt21rKieVMVkzHlfovU2dRzd6brOlyRtBK6C4duChU=;
+        b=mwOVWoFyE/V5MSE3PQQwrg6bT5Rbua8Cg9+hR5eF8/DVVwMtbs0LNp9P7fbGSrjrc+
+         Df58eAvmIqU9FA4RZm5DC82Jn8J50cr0iREWXL6kUXyd1UMvDwzy+MPSHVlq4jGQEWWW
+         Mjrpp9j/ajc3K4fXK2wBdO07/KFJhGh1VN66sCHGlhJV48JQ/7XaBVo8CDY90TAN5Ux0
+         In0pvDu9Kv1TfvpsKyKxKb+zEAk+QK3i4E8581NYf1qtTFkWQNlrP0zzw0R6/tXiqH9P
+         H9S3r6IovKDd6jlfY1Aze73RokrK/3vrRiLo/dq6L0wgG7qjAxT2xQ2ZSev/Md9u+xDV
+         ZFiQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9CM5GADyEgwfpju/Z8l8qe8MO6kHW8dKeGfPaoneibvP+0F7rkQh3jCtrrszdNihgRYUtospg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YybaMsQx7tVJoGwG7pKEQNz44aUcuXCJD2j06WmKkXDX0WVrqVK
+	EJnM927hC7/aXaiGq+3del9RKdk/y6gje7aKBKx/lP9qQjYs8veny3b0
+X-Gm-Gg: AfdE7cmNrYE3w9EMazoE/UeEgaCsvP0UVwBgyf4HbNwEwqiuL09poe/3KgdaG5xuLik
+	9r+Z6QfS1z2GAA6NQHdny+WY3aGmFAlgB0qKaTh7Rl7HJdGCkn/bikb7QOKMeftEhKG4YzQGqvU
+	c1VgGls813Wdg2UwI0hLqIN8THNe6fTx7ZqgWQon9PHxM9yNGEY02Av8eSudhT35UiFUHQlWsAD
+	/A7cltnskhWIxjZFroevma8psGBTetaaVTq6wTssT0Rz13kaaE0nxQSxYCCp8gLdpCYweDMdcZz
+	8qH0INWpq7q8QA5JxZkoVSBmO53hx1nn3DFbwSa/HVD51L1QC1OgkN14vxrOPrOXCQEXGUxHbfQ
+	1U+y2WUDW3JehPsg7sLVZ2e3rV2GxTjdolRJFH1uBC2zhq6I5nklBpN0DPlx1azQ3W/RCTg82La
+	h+RDtWw3YYc+Ap+8zqQZXu31KhBxSpUQ==
+X-Received: by 2002:a05:620a:198f:b0:915:8f76:8029 with SMTP id af79cd13be357-9293cecd3f0mr396331885a.44.1782395652719;
+        Thu, 25 Jun 2026 06:54:12 -0700 (PDT)
+Received: from [10.178.4.71] ([192.19.176.219])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-926000c31b4sm844933285a.23.2026.06.25.06.54.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 25 Jun 2026 06:54:12 -0700 (PDT)
+Message-ID: <3c85a618-4a8e-4961-8e47-882557f23e12@gmail.com>
+Date: Thu, 25 Jun 2026 14:54:06 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 00/21] 7.1.2-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260625125613.243729608@linuxfoundation.org>
+Content-Language: en-US
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260625125613.243729608@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-While the panel_type from LFP Data Block is range checked, panel_type2
-is not. Add a few helpers for range checking, and use them to not only
-check panel_type2, but also imrove clarity and correctness in the panel
-type selection.
 
-Discovered using AI-assisted static analysis confirmed by Intel Product
-Security.
 
-Reported-by: Martin Hodo <martin.hodo@intel.com>
-Fixes: 6434cf630086 ("drm/i915/bios: calculate panel type as per child device index in VBT")
-Cc: <stable@vger.kernel.org> # v6.0+
-Cc: Animesh Manna <animesh.manna@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_bios.c | 29 +++++++++++++++++------
- 1 file changed, 22 insertions(+), 7 deletions(-)
+On 6/25/2026 2:03 PM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.2 release.
+> There are 21 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sat, 27 Jun 2026 12:54:50 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.2-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 15ebadc72b88..0c420019e46a 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -623,6 +623,16 @@ get_lfp_data_tail(const struct bdb_lfp_data *data,
- 		return NULL;
- }
- 
-+static bool is_panel_type_valid(int panel_type)
-+{
-+	return panel_type >= 0 && panel_type < 16;
-+}
-+
-+static bool is_panel_type_valid_or_pnp(int panel_type)
-+{
-+	return is_panel_type_valid(panel_type) || panel_type == 0xff;
-+}
-+
- static int opregion_get_panel_type(struct intel_display *display,
- 				   const struct intel_bios_encoder_data *devdata,
- 				   const struct drm_edid *drm_edid, bool use_fallback)
-@@ -640,15 +650,21 @@ static int vbt_get_panel_type(struct intel_display *display,
- 	if (!lfp_options)
- 		return -1;
- 
--	if (lfp_options->panel_type > 0xf &&
--	    lfp_options->panel_type != 0xff) {
-+	if (!is_panel_type_valid_or_pnp(lfp_options->panel_type)) {
- 		drm_dbg_kms(display->drm, "Invalid VBT panel type 0x%x\n",
- 			    lfp_options->panel_type);
- 		return -1;
- 	}
- 
--	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2)
-+	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2) {
-+		if (!is_panel_type_valid_or_pnp(lfp_options->panel_type2)) {
-+			drm_dbg_kms(display->drm, "Invalid VBT panel type 2 0x%x\n",
-+				    lfp_options->panel_type2);
-+			return -1;
-+		}
-+
- 		return lfp_options->panel_type2;
-+	}
- 
- 	drm_WARN_ON(display->drm,
- 		    devdata && devdata->child.handle != DEVICE_HANDLE_LFP1);
-@@ -762,13 +778,12 @@ static int get_panel_type(struct intel_display *display,
- 				    panel_types[i].name, panel_types[i].panel_type);
- 	}
- 
--	if (panel_types[PANEL_TYPE_OPREGION].panel_type >= 0)
-+	if (is_panel_type_valid(panel_types[PANEL_TYPE_OPREGION].panel_type))
- 		i = PANEL_TYPE_OPREGION;
- 	else if (panel_types[PANEL_TYPE_VBT].panel_type == 0xff &&
--		 panel_types[PANEL_TYPE_PNPID].panel_type >= 0)
-+		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID].panel_type))
- 		i = PANEL_TYPE_PNPID;
--	else if (panel_types[PANEL_TYPE_VBT].panel_type != 0xff &&
--		 panel_types[PANEL_TYPE_VBT].panel_type >= 0)
-+	else if (is_panel_type_valid(panel_types[PANEL_TYPE_VBT].panel_type))
- 		i = PANEL_TYPE_VBT;
- 	else
- 		i = PANEL_TYPE_FALLBACK;
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
+
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.47.3
+Florian
 
