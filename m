@@ -1,113 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF1B13D886;
-	Thu, 25 Jun 2026 01:01:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7222136826B;
+	Thu, 25 Jun 2026 01:09:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782349271; cv=none; b=btesVh/Mfga8JNqdecRAnM0ofewzkeF3MOsI816bLRT7NpzB9j/2rvOTA77cMfzzuAhVwcI4RZ6kkBovIDh4mWMJI5ojCRbOYrgxZDllrQUqTTVDZJHqLP+JjAKEn45B65E44C1BUwGPp9EAxKr9AX0kxpU2Or3yiXyHSY1WS9Y=
+	t=1782349757; cv=none; b=lfqzDQPJj2kaZXTLdlS3L00y39hcFUIBEFmU9DTJ0eSZLXZIk9ALQIJcGYmhFSCwf0CCu2xiQwPhAEpfvkXJj/X7F7Px+aa7WprM04khbrQPHjGUmuoUpn8Vgv4EgcUuIe6Udg+1/SvJaw40MZRnmQkbYDkj85jUYj6C8MHsWt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782349271; c=relaxed/simple;
-	bh=ogbATqBvOgVMjrqsCiFLRZI0eobdRYxlvrnJRSKow4Q=;
-	h=Date:To:From:Subject:Message-Id; b=CjgVdQmUgmqM8eEN4/97bQNQvS+XMb+6NLsuD7kTYesGYKrsSw2n4FXxazi9BeZ+vMgOAmoVq3xtr+vtLDz2UEASrgciMhMi5WKZCbt/9W8mIqSbTROUhqyYwENKNGmVlmPAgGO+ft55/VFXDu7FwhxmjhODxP1JbbqZlLh3sLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xgR3zRIK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782349757; c=relaxed/simple;
+	bh=kpewF/rPWYxnFccLuqdraPbJuV36lrpciYeSlOO0RL8=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=AZQDImH7pu5n7a+v3TzEihF7Aw8iBxpSLOd83QwqB5sciTGYcTger/tqGrkerKwGgMhjZheBs8d9iSAJjAzecWWpurEdYw33RthLsRtWdPBFF1PegpfZMDpY0ZWC6tfmEU7mKYwe0OeYDquFQF2Sog+WQiVHXj3DcreTB+zltdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PbZ/x6Ax; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xgR3zRIK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0FD1F000E9;
-	Thu, 25 Jun 2026 01:01:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1782349270;
-	bh=lgUqV1C/zhbSfL5NwoscnFHIEsbP5uZz0ginEb8C3m0=;
-	h=Date:To:From:Subject;
-	b=xgR3zRIK61MoXcrMqFmzEkDTSdxWm6lAf56k8yalHPzMrSGhUXOWdM60pCYdP+l83
-	 jvpP3+Y2F6W4jBL6L5rFkYlrDJlWkTXwlvuzGOqO45Ise22jglTjXPoWv9h/PTWSiP
-	 oHvo7aQM8qAhriKYjo33iRFPNmYhejiuLrbu80JM=
-Date: Wed, 24 Jun 2026 18:01:10 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,xu.xin16@zte.com.cn,willy@infradead.org,wangkefeng.wang@huawei.com,svetly.todorov@memverge.com,sunnanyong@huawei.com,stable@vger.kernel.org,luizcap@redhat.com,linmiaohe@huawei.com,david@kernel.org,chengming.zhou@linux.dev,tujinjiang@huawei.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + fs-proc-fix-kpf_ksm-reported-for-all-anonymous-pages.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260625010110.6A0FD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PbZ/x6Ax"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 554D11F00A3F;
+	Thu, 25 Jun 2026 01:09:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782349754;
+	bh=KSyb2XtjEX1eDUWv4A7qcjknp0JqfZehvr6jo6mvFpQ=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=PbZ/x6AxRAkXBIuusdBvANE1T1Xci4UQYkbzLietEy3tEwW8JIIbSUFemeol83U9u
+	 L+ZRikNvzDk75UOKiPuVc897sCx2Xudm7R+Luq9amk8LAO6dxPMYRgKGaTwUkgIlCC
+	 CXCpie0saI26iqyK03XESK5xvdSjmxi/5eG0OYlgWp6Plrc6xzpiqlcTCuQSQIIa7T
+	 Jp/HYmsAetYV67GMmVNIXq1EqBSwTMK0FKOZ2OoECsr4BtavZnq7YHZD0wnfg++RfU
+	 ruonreID+5nIc0PfzQ4HWC+DsmFGME3wBGKnsuZnNi5AcLrDFU3OK1l3/XKKrvO9nV
+	 UXvqLrD8RFTbQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0CD93AAA0F5;
+	Thu, 25 Jun 2026 01:09:03 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] net: ixp4xx_hss: fix duplicate HDLC netdev allocation
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178234974236.3045401.8869362652520123568.git-patchwork-notify@kernel.org>
+Date: Thu, 25 Jun 2026 01:09:02 +0000
+References: <20260622043015.643637-1-haoxiang_li2024@163.com>
+In-Reply-To: <20260622043015.643637-1-haoxiang_li2024@163.com>
+To: Haoxiang Li <haoxiang_li2024@163.com>
+Cc: linusw@kernel.org, kaloz@openwrt.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ huangguangbin2@huawei.com, lipeng321@huawei.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
+Hello:
 
-The patch titled
-     Subject: fs/proc: fix KPF_KSM reported for all anonymous pages
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     fs-proc-fix-kpf_ksm-reported-for-all-anonymous-pages.patch
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/fs-proc-fix-kpf_ksm-reported-for-all-anonymous-pages.patch
+On Mon, 22 Jun 2026 12:30:15 +0800 you wrote:
+> ixp4xx_hss_probe() allocates two HDLC netdevs. The first one is stored
+> in ndev, initialized, and registered with register_hdlc_device(). The
+> second one is stored in port->netdev and later used by the remove path
+> for unregister_hdlc_device() and free_netdev().
+> 
+> This means that the registered netdev is not the same object that is
+> unregistered and freed on remove. It also leaks the first allocation if
+> the second alloc_hdlcdev() call fails, and the first allocation is not
+> checked before ndev is used.
+> 
+> [...]
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Here is the summary with links:
+  - net: ixp4xx_hss: fix duplicate HDLC netdev allocation
+    https://git.kernel.org/netdev/net/c/db818b0e8af7
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Jinjiang Tu <tujinjiang@huawei.com>
-Subject: fs/proc: fix KPF_KSM reported for all anonymous pages
-Date: Mon, 22 Jun 2026 17:15:39 +0800
-
-Reading /proc/kpageflags for any anonymous page returns KPF_KSM set, even
-when KSM is not in use.  As a result, tools which use /proc/kpageflags
-(and hwpoison inject on a weird testing interface) misclassify all
-anonymous pages as KSM merged.
-
-In stable_page_flags(), if the page is anonymous, then use (mapping &
-FOLIO_MAPPING_KSM) check to identify if the anonymous page is KSM page. 
-However, FOLIO_MAPPING_KSM is FOLIO_MAPPING_ANON | FOLIO_MAPPING_ANON_KSM,
-(mapping & FOLIO_MAPPING_KSM) check returns true for all anonymous pages.
-
-To fix it, use FOLIO_MAPPING_ANON_KSM instead.
-
-Link: https://lore.kernel.org/20260622091539.836531-1-tujinjiang@huawei.com
-Fixes: dee3d0bef2b0 ("proc: rewrite stable_page_flags()")
-Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
-Cc: Luiz Capitulino <luizcap@redhat.com>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Nanyong Sun <sunnanyong@huawei.com>
-Cc: Svetly Todorov <svetly.todorov@memverge.com>
-Cc: xu xin <xu.xin16@zte.com.cn>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- fs/proc/page.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/fs/proc/page.c~fs-proc-fix-kpf_ksm-reported-for-all-anonymous-pages
-+++ a/fs/proc/page.c
-@@ -173,7 +173,7 @@ u64 stable_page_flags(const struct page
- 		u |= 1 << KPF_MMAP;
- 	if (is_anon) {
- 		u |= 1 << KPF_ANON;
--		if (mapping & FOLIO_MAPPING_KSM)
-+		if (mapping & FOLIO_MAPPING_ANON_KSM)
- 			u |= 1 << KPF_KSM;
- 	}
- 
-_
-
-Patches currently in -mm which might be from tujinjiang@huawei.com are
-
-fs-proc-fix-kpf_ksm-reported-for-all-anonymous-pages.patch
 
