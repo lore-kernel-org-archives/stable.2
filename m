@@ -1,182 +1,272 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FEF719D8A8
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 18:41:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096A919D8A8
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 18:42:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782412910; cv=none; b=lasV553bhe0ILzTlGctkcEgx8/TDl1pB2iCmVZWNnLPhu4zGag1N2pkjfp37SPNbjeXojqCwO1EElSBLRAc91DxrfC3Z7boXnGrTUa8PMkzNSoOBgJTfTh5nj9UOfW4GgFnapphvmjtZl/8cE2bFne1JBm7d1TP0amoYFtD+RoU=
+	t=1782412929; cv=none; b=Y28Ixs7zhqP0gjpOVlyrGQgFR2LeYkXhl4EevBxVVdiqYrVHQAJtZkHVfinG/+Qeo0RM/W0s4W2a0pgaVPtq76Z3CjnuhZqzCEpZq9AujEQKDbYttEyyw8UomT+12u/FH3lk1GnJk31T7aRec+cH8UQDcTuKQhFcv09Oeh7Dh3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782412910; c=relaxed/simple;
-	bh=e0gK7lIqf+xltt+M7H3q9GqpVJsWhxbKKTF3LELs+tU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EM24sxRl25dpsdLlCscrSSpJdSRJFoasNYvBQDWRWpjutaZ24TbkDX9OI5lL98xTFNopkfxYHM97OSC3QxXIMPRyhs86wmzqIYwoNacPUDqxY8cyrUoqC+AphRM1pvAKC+YTKM4h2NFmr1nuMfGB/hr6s4ctet0xEK+77LYal+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=Wd4FOkvA; arc=none smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1782412929; c=relaxed/simple;
+	bh=FTFiOqBlT0sIzYmkYqEPBA2R84rNSgB0Dx8qxDEtBxY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Vr0oUCYjU6BRSAZ5fZpnbJgfOO77h+WZINhBA0BxioAdWkOzi0TVB9mrFLtH2BYj3JMt7kgVSDBHx/GAIY4FEHjQSZXPeOTyJ/WCu7MNac9BRSqFjerXLxanI5zTQJ/U9c+B4yT0HNK/wsm2r1OdUJ7CyOxfYr2o+e6NIH/Ii4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O8ejT/A6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="Wd4FOkvA"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-51780bbc560so13154981cf.0
-        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 11:41:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1782412907; x=1783017707; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=1D9CBgF0HlJq0J3VbKd4okLgUS8bFp8B2vYpuNdfCds=;
-        b=Wd4FOkvAfFICR1mfEnRW44TvNQGkjkI9NQzlJTzOn4ocTARrngB6PeqMAzZCepvkde
-         iuiCS4kgypyrzHy98SrxDkIC5ziMGlejXfAJ4ukH+IoUZdqpqMupKZktJtu1EyZoZghE
-         a70qYtr0zWgRGmj1hTsNfbeQNJPOH1HAZPU8A/+eZVVoQ08O2L0Mis2fNhiTdhe/nTZ7
-         6j9fvd1tCgDOFHYYGXKKt1dvvxZo/bCrMdi+zZaAFTvk1PXhYDLmuCJWizrEkBzhXbvh
-         JZkDYq82KthUxOSOATg5/2p+jEeUK0k2WO8/4OdU5PeqvOsjmthmHpcLPjQm4HWGxqNW
-         HOsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782412907; x=1783017707;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=1D9CBgF0HlJq0J3VbKd4okLgUS8bFp8B2vYpuNdfCds=;
-        b=fiSa5MO6yR7dNbXysh8tR/UJkrKoZeHe6/uGQjjwmu8J/qG3cTtJDbglppzfKLNeBZ
-         uN4De8KyWaj0Wvdu1T8GQXS8zDTW1rikdbfAftOT7feJ0KbKh7NCJYNhtmoOK3TMkizl
-         dBBJMunttGC3r1Pw5LazJcy8sESC8gRzErsT4KvUdqeAj8TwEIudutz7Qsz0wkeZDS4O
-         JZr7qB4NZylD/oQQyPFEoqWza+ew8bz6+oaeaieAZJGnVXViPWt1c6dwHf3HICK4Awju
-         299SmWT7xb0RvFg0kQrNHyZNvUaax9RF4R1emlEKWKu6FAxS/DtqeRwBll77DWAlXOZn
-         SxLA==
-X-Forwarded-Encrypted: i=1; AFNElJ/FRUpelawBwoOkBi8xd1Kvy7A/BiuBK1N6+dj66aPYqKDTSLSd7AkmwEvmmvYbe1tcuyzmE68=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyO5AW7wQJd8ufJyR3Kib2QJvDUurZJ35uZmtGdHLheIMvUl/cj
-	Of9RdbDkC+OP4V0Qm0L3JxnL4uVGVDb6JbKhvC34Okm2A9GlpEJzSHn4p/6E7pYRIjI=
-X-Gm-Gg: AfdE7clnSSFHTsEqudIbQjzieGxsH+C/EsWee8VLal3NCI7G1XJ7/d/SVbmrxBHnO+3
-	fyBC3azmAvIF3KJZpotrcMr5FsFwCWgH1Ck4eageYpBf8DeAt+Cvvdj05IAGRxfvkXWZbL6KfwA
-	7rpHpOSxMPh5m0akFEMAzDfs98xT7OVfY0U+azA0oYzAyJubws6cnk+ikLJ4IWKCj4W5w3c3kR3
-	Eh2ryYRursegjgLeemkD2YS+aiKVVCGZayxw61w9d6vm9NLTL9PliDT3m1aUU3osvwutv6gfSeG
-	KfYUItBbDJMQ2I1dh+LdNUVqD8cpgbBMTDD5w/rigS/nzycQSQlRy4L3lP0qJXKNVGGzBM5s/62
-	BVIlhJ5xZvZyz6twDcPgEWr90O5VTFu6kmJE8sRi46QlJpk5u6U3pDoqO9sDfUVGCITgx08iNcC
-	fLK1BkjcalAiOMbREuh+xGuw==
-X-Received: by 2002:a05:622a:60f:b0:517:7220:b941 with SMTP id d75a77b69052e-51a51b79837mr181525901cf.32.1782412907285;
-        Thu, 25 Jun 2026 11:41:47 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8df7f018011sm193477016d6.5.2026.06.25.11.41.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 11:41:46 -0700 (PDT)
-Date: Thu, 25 Jun 2026 14:41:45 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Qi Zheng <qi.zheng@linux.dev>
-Cc: akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com,
-	shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
-	yuanchu@google.com, weixugc@google.com, harry@kernel.org,
-	muchun.song@linux.dev, peiyang_he@smail.nju.edu.cn,
-	mhocko@kernel.org, roman.gushchin@linux.dev, ljs@kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm: mglru: fix stale batch updates after memcg
- reparenting
-Message-ID: <aj12aVq3he6q7b2C@cmpxchg.org>
-References: <20260625151554.55105-1-qi.zheng@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O8ejT/A6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67B651F000E9;
+	Thu, 25 Jun 2026 18:42:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782412927;
+	bh=qR3CFq7Pjaq88DA9IS9ZZFb8ROdroN1XlCCZeEvvk3c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=O8ejT/A6mpGW1YEAUsnmzOeXVXU3qaXxLZmsuStC3u63Vu+GtILrnbM6iT+mysC3M
+	 KQNMjlI8PQkbIbHUeppI0smEK2OJrhFYcDKUCp52FZtXM7lAaSbTdRM3HvRss7wKZ2
+	 az1w7PmD+SSxgyhYYoHfsVMscLEvKwvO9NHLjcDrbw5DVy/9APtYGXTQdm3zXgX+tM
+	 D5h1BQIvZ+P8XxnOzgdMPHEtdw8NNaDiSUAz9gO7hM+mb+0u4OLCYPIPf/RUndzD72
+	 uSrwvls1gLHw5YFEfgdh7IlgmHUyPsk0gA+ngIP6QgHO2Mo09sJA5qC08Ev88jxGll
+	 V26itl5ma1a4A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] Input: rmi4 - refactor register descriptor parsing
+Date: Thu, 25 Jun 2026 14:42:05 -0400
+Message-ID: <20260625184205.2600332-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026062530-dorsal-breeches-46eb@gregkh>
+References: <2026062530-dorsal-breeches-46eb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625151554.55105-1-qi.zheng@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 25, 2026 at 11:15:54PM +0800, Qi Zheng wrote:
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> The mglru page table walker batches per-generation size deltas in
-> walk->nr_pages while walking page tables without holding the lruvec lock.
-> The reset_batch_size() later folds those deltas into walk->lruvec under
-> the lruvec lock.
-> 
-> The page table walker can run concurrently with the memcg reparenting path
-> as follows:
-> 
-> CPU0                           CPU1
-> ====                           ====
-> 
-> walk_mm
-> --> walk_page_range
->     --> update_batch_size
->         --> walk->nr_pages += delta
-> 
->                               mem_cgroup_css_offline
->                               --> memcg_reparent_objcgs
->                                   --> lock lruvec
->                                       lru_gen_reparent_memcg
->                                       --> reparent child folios to parent
->                                       unlock lruvec
-> 
->     lock lruvec
->     reset_batch_size
->     --> child lrugen->nr_pages += delta
-> 
-> This will trigger the following warning in lru_gen_exit_memcg():
-> 
-> 	VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
-> 				   sizeof(lruvec->lrugen.nr_pages)));
-> 
-> And the user-visible impact of underestimated nr_pages in MGLRU was
-> premature OOMs because MGLRU does not try to reclaim memory when nr_pages
-> reaches zero, but there are still more pages.
-> 
-> To fix it, make reset_batch_size() check CSS_DYING under RCU before
-> flushing the pending batch. A non-dying memcg keeps the original lruvec
-> stable against RCU-delayed offlining; a dying memcg redirects the deltas
-> to the first non-dying ancestor.
-> 
-> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn
-> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> ---
-> Changes in v3:
->  - re-implement lock_batch_lruvec() by checking CSS_DYING under the RCU lock
->    (suggested by Harry)
->  - update the commit message (suggested by Harry)
->  - temporarily drop the previous Reviewed-by tags
->    (since the sync method has changed)
->  - rebase onto the next-20260624
-> 
-> Changes in v2:
->  - update the commit message (pointed by Barry)
->  - collect Reviewed-by
-> 
->  mm/vmscan.c | 45 ++++++++++++++++++++++++++++++++++++++-------
->  1 file changed, 38 insertions(+), 7 deletions(-)
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 35c3bb15ae96..1ec8c23c72b9 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -3262,10 +3262,44 @@ static void update_batch_size(struct lru_gen_mm_walk *walk, struct folio *folio,
->  	walk->nr_pages[new_gen][type][zone] += delta;
->  }
->  
-> +#ifdef CONFIG_MEMCG
-> +static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
-> +{
-> +	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-> +	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
-> +
-> +	rcu_read_lock();
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-Where is this unlocked?
+[ Upstream commit 0adb483fbf2dc43c875cd7550a58b41e92efc52d ]
 
-> +	/*
-> +	 * The memcg can be NULL when the memory controller is disabled.
-> +	 * Otherwise, the caller keeps the memcg owning @lruvec alive.
-> +	 */
-> +	if (!memcg || !css_is_dying(&memcg->css))
-> +		goto lock;
-> +
-> +	do {
-> +		memcg = parent_mem_cgroup(memcg);
-> +	} while (memcg && css_is_dying(&memcg->css));
-> +	lruvec = mem_cgroup_lruvec(memcg, pgdat);
+Factor out parsing a register descriptor item from
+rmi_read_register_desc() and ensure there are no out-of-bounds accesses.
 
-	while (unlikely(memcg && css_is_dying(&memcg->css))) {
-		memcg = parent_mem_cgroup(memcg);
-		lruvec = mem_cgroup_lruvec(memcg, pgdat);
-	}
+Use get_unaligned_le16() and get_unaligned_le32() for reading multi-byte
+values.
+
+Reported-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
+Cc: stable@vger.kernel.org
+Assisted-by: Gemini:gemini-3.1-pro
+Link: https://patch.msgid.link/20260505045952.1570713-2-dmitry.torokhov@gmail.com
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+[ changed the new `#include <linux/unaligned.h>` to `<asm/unaligned.h>` and dropped the absent `export.h` context line ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/input/rmi4/rmi_driver.c | 124 +++++++++++++++++++-------------
+ 1 file changed, 76 insertions(+), 48 deletions(-)
+
+diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
+index ef9ea295f9e035..6c5a42d1b00225 100644
+--- a/drivers/input/rmi4/rmi_driver.c
++++ b/drivers/input/rmi4/rmi_driver.c
+@@ -21,6 +21,7 @@
+ #include <linux/irqdomain.h>
+ #include <uapi/linux/input.h>
+ #include <linux/rmi.h>
++#include <asm/unaligned.h>
+ #include "rmi_bus.h"
+ #include "rmi_driver.h"
+ 
+@@ -557,30 +558,74 @@ int rmi_scan_pdt(struct rmi_device *rmi_dev, void *ctx,
+ 	return retval < 0 ? retval : 0;
+ }
+ 
++static int rmi_parse_register_desc_item(struct rmi_register_desc_item *item,
++					const u8 *buf, size_t size)
++{
++	unsigned int offset = 0;
++	unsigned int map_offset = 0;
++	int b;
++
++	if (offset >= size)
++		return -EIO;
++
++	item->reg_size = buf[offset++];
++	if (item->reg_size == 0) {
++		if (size - offset < 2)
++			return -EIO;
++		item->reg_size = get_unaligned_le16(&buf[offset]);
++		offset += 2;
++	}
++
++	if (item->reg_size == 0) {
++		if (size - offset < 4)
++			return -EIO;
++		item->reg_size = get_unaligned_le32(&buf[offset]);
++		offset += 4;
++	}
++
++	do {
++		if (offset >= size)
++			return -EIO;
++
++		for (b = 0; b < 7; b++) {
++			if (buf[offset] & BIT(b)) {
++				if (map_offset >= RMI_REG_DESC_SUBPACKET_BITS)
++					return -EIO;
++				__set_bit(map_offset, item->subpacket_map);
++			}
++			++map_offset;
++		}
++	} while (buf[offset++] & BIT(7));
++
++	item->num_subpackets = bitmap_weight(item->subpacket_map,
++					     RMI_REG_DESC_SUBPACKET_BITS);
++
++	return offset;
++}
++
+ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+-				struct rmi_register_descriptor *rdesc)
++			   struct rmi_register_descriptor *rdesc)
+ {
+ 	int ret;
+ 	u8 size_presence_reg;
+ 	u8 buf[35];
+-	int presense_offset = 1;
+-	u8 *struct_buf;
+-	int reg;
+-	int offset = 0;
+-	int map_offset = 0;
++	unsigned int presence_offset;
++	unsigned int map_offset;
++	unsigned int offset;
++	unsigned int reg;
+ 	int i;
+ 	int b;
+ 
+ 	/*
+ 	 * The first register of the register descriptor is the size of
+-	 * the register descriptor's presense register.
++	 * the register descriptor's presence register.
+ 	 */
+ 	ret = rmi_read(d, addr, &size_presence_reg);
+ 	if (ret)
+ 		return ret;
+ 	++addr;
+ 
+-	if (size_presence_reg < 0 || size_presence_reg > 35)
++	if (size_presence_reg < 1 || size_presence_reg > 35)
+ 		return -EIO;
+ 
+ 	memset(buf, 0, sizeof(buf));
+@@ -596,16 +641,23 @@ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+ 	++addr;
+ 
+ 	if (buf[0] == 0) {
+-		presense_offset = 3;
+-		rdesc->struct_size = buf[1] | (buf[2] << 8);
++		if (size_presence_reg < 3)
++			return -EIO;
++		presence_offset = 3;
++		rdesc->struct_size = get_unaligned_le16(&buf[1]);
+ 	} else {
++		presence_offset = 1;
+ 		rdesc->struct_size = buf[0];
+ 	}
+ 
+-	for (i = presense_offset; i < size_presence_reg; i++) {
++	map_offset = 0;
++	for (i = presence_offset; i < size_presence_reg; i++) {
+ 		for (b = 0; b < 8; b++) {
+-			if (buf[i] & (0x1 << b))
++			if (buf[i] & BIT(b)) {
++				if (map_offset >= RMI_REG_DESC_PRESENSE_BITS)
++					return -EIO;
+ 				bitmap_set(rdesc->presense_map, map_offset, 1);
++			}
+ 			++map_offset;
+ 		}
+ 	}
+@@ -625,7 +677,7 @@ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+ 	 * I'm not using devm_kzalloc here since it will not be retained
+ 	 * after exiting this function
+ 	 */
+-	struct_buf = kzalloc(rdesc->struct_size, GFP_KERNEL);
++	u8 *struct_buf __free(kfree) = kzalloc(rdesc->struct_size, GFP_KERNEL);
+ 	if (!struct_buf)
+ 		return -ENOMEM;
+ 
+@@ -637,56 +689,32 @@ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+ 	 */
+ 	ret = rmi_read_block(d, addr, struct_buf, rdesc->struct_size);
+ 	if (ret)
+-		goto free_struct_buff;
++		return ret;
+ 
+ 	reg = find_first_bit(rdesc->presense_map, RMI_REG_DESC_PRESENSE_BITS);
++	offset = 0;
+ 	for (i = 0; i < rdesc->num_registers; i++) {
+ 		struct rmi_register_desc_item *item = &rdesc->registers[i];
+-		int reg_size = struct_buf[offset];
+-
+-		++offset;
+-		if (reg_size == 0) {
+-			reg_size = struct_buf[offset] |
+-					(struct_buf[offset + 1] << 8);
+-			offset += 2;
+-		}
++		int item_size;
+ 
+-		if (reg_size == 0) {
+-			reg_size = struct_buf[offset] |
+-					(struct_buf[offset + 1] << 8) |
+-					(struct_buf[offset + 2] << 16) |
+-					(struct_buf[offset + 3] << 24);
+-			offset += 4;
+-		}
++		item_size = rmi_parse_register_desc_item(item,
++							 &struct_buf[offset],
++							 rdesc->struct_size - offset);
++		if (item_size < 0)
++			return item_size;
+ 
+ 		item->reg = reg;
+-		item->reg_size = reg_size;
+-
+-		map_offset = 0;
+-
+-		do {
+-			for (b = 0; b < 7; b++) {
+-				if (struct_buf[offset] & (0x1 << b))
+-					bitmap_set(item->subpacket_map,
+-						map_offset, 1);
+-				++map_offset;
+-			}
+-		} while (struct_buf[offset++] & 0x80);
+-
+-		item->num_subpackets = bitmap_weight(item->subpacket_map,
+-						RMI_REG_DESC_SUBPACKET_BITS);
++		offset += item_size;
+ 
+ 		rmi_dbg(RMI_DEBUG_CORE, &d->dev,
+ 			"%s: reg: %d reg size: %ld subpackets: %d\n", __func__,
+ 			item->reg, item->reg_size, item->num_subpackets);
+ 
+ 		reg = find_next_bit(rdesc->presense_map,
+-				RMI_REG_DESC_PRESENSE_BITS, reg + 1);
++				    RMI_REG_DESC_PRESENSE_BITS, reg + 1);
+ 	}
+ 
+-free_struct_buff:
+-	kfree(struct_buf);
+-	return ret;
++	return 0;
+ }
+ 
+ const struct rmi_register_desc_item *rmi_get_register_desc_item(
+-- 
+2.53.0
+
