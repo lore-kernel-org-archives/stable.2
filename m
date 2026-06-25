@@ -1,77 +1,50 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10FBB1FBEA6
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 14:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77BD2E040D
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 14:14:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782396766; cv=none; b=Eh00MS7L518nGLegbZtG65b8FbR1RJdKvfmlqTvHXANQWug9stqAdto8rdFfU7vuLefIvKEJS15meUPP4Q7LQJuT0iP+aPUFld2s1WxOuDRy3wvMpFdO9d13qepUDbiHE5Z5nur9HlxmxcONzRsi1hnOyxpske3PjM1PvFzqVDc=
+	t=1782396886; cv=none; b=RMjd3oCzqyVj4pJgMuOlOYgg7+h4MIuKMD2vcti6HfKv+4TERTLoOlQWbcda7gmKhZB51HQ/Xy/h5Nuo90SRBdGiBl1fC1Z56XSdBH/xNdDbUbUc3wT1Zr0+YeFlDQuEoGMinP71thJn9HEm4JXLMgeBUqbDh+856U2OF9r/45s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782396766; c=relaxed/simple;
-	bh=Vrr1iG9Zqz34yHCA8PwngRTn8hJ+90K2+6Om0XiEXdA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Qxmw4Sg9K8PBYxuZsqlcoEkL0BTJZOM74uKBwm5chvwNeg1YjL9+1LwvzKWdpxagucHxNicDoLHKMCBiz6zqSfT+tZycTb2FLY+Cz/rCZDjVmud1AXcxhsIM9wtfHnx2huPTYL4Cy7lxOGvR3oBMhYZQ+nYycAtBqQHK8EeCACk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eKFMUv7k; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782396886; c=relaxed/simple;
+	bh=FjP/1uRLYnfJfXQqOJSDagBeINnaOPSsv11qg53ixTs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aX2ctGihZsjxmPwglcPp4wOM0+qgm4Dwa9Yg9jG/+EiVakgb7M3hGqcqS3oPGnWpKMop2+EBy+GOFsHF9XCittl7cnX9GIpSexgu2DlGCirC4p++ML+5+ooDVSUkkMs4igZs7vOg1BcXFXfkMBLo7+KTZyCoM3d2LPHjY6gF7Fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mUfS92fN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eKFMUv7k"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8422f395a4aso798632b3a.0
-        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 07:12:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782396764; x=1783001564; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=1agOcM108mYien5bPYKqYcmwOSbFBw2SAS45aRrQL3c=;
-        b=eKFMUv7kj6dHWgGk7CTrHH2m/MNFoh+0gZZbTtfWC3rrJ0BRzFKWPsYvSmxR2tLRKG
-         TgVnuB6hNEbhdcUV3mo3QTrn6NnwnL+FGeoCPzFPvWPqHhj9fGgNHaep0zYZwjm1nVVj
-         veBQjgiLj18y4nC1+gaBbGPEezuTcD5XDVVsKe6Qm+ESNauVEwyrXVZxvAu1UZhNplNA
-         X0HGdaIgfrqD79SOLrp+MmuykptBIFrvSjlfYcPLpLcPgcHVi90RaMHP5kzgBdh9BR1z
-         Ra/Nuqu1q5hLFYgrcgBw70ZCtVkqDe8ll1Tyy4HERWbDhEat4QgTtxRlrL9FJU96m0rU
-         HL9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782396764; x=1783001564;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1agOcM108mYien5bPYKqYcmwOSbFBw2SAS45aRrQL3c=;
-        b=jUZ4+Dy/T9FHlGhyvqi5gJ28qpKmxsvGAZtUUtMsqZnD8FT/5erE2m7WCAhedkKGZ9
-         IFQjshBiq3Q3C7r9qGiJemXNI725liRsSYNIjwsrJOP0qrc4Ex5VXde7OQuTB0Ecg/6S
-         Y6rf0dK44Kor/JndsBBFutPYMxAb400jlUH5b4aTSRqpwgnw7LFiCuhqXfqeRdQbWsG1
-         TKRflOOzMgPJeVJnqt7aHdTCwh8tzfCIjz+ZddVCCeq4ulqUd/uGtoFnRW9eXR8wIxtf
-         PqxU+PKF5rlC0CXrm5oELcWssIVuY48ofrm3cMDngyTo//cKtKi6XrUrWAXd4W6BhgKf
-         O2QA==
-X-Forwarded-Encrypted: i=1; AFNElJ+jOtU0GIGUBKyMJigeaMpAYlA7h9YB+/Yuc6jECGYjXAxChvL9oY/VsKGzsFY5qGe/b7nuKSI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyiAA7uSv13VX9u2h5nVq8LC2EEaNomhB+jLVVJ2txwCkXo3gzM
-	S4Mr+NHlRm1Iut93kHLyMZgzqOOSCKeGyX06KJIYDfSFlrqTu2zicS6Z
-X-Gm-Gg: AfdE7clbVveen5j2mZN55Xnf56YNgXdlMore/whqBHuaXbuVBRjAMUqyla5sqVZPBA0
-	nwRk/GlDrw8TAzqezuEIFe6HhArBd901Bbq6H0Hj+sghrt7ndkk0CmMhNi2wabqghdrNBnDWReB
-	ISbJAiN+jLGLA4yD4MMMH5SUXabAP91bkFA7Ppr1IcYZzMmdLsnH/+WD9jtywNnkR80uAImDkbN
-	9GTU6BZ2sL+WEaKGZU8442Rao46s+5xUUBfnhiioOFFiTVkMzVMMDk753NK34BTS9m1+g2nC1B7
-	0yQv55ikO0RLk0yJK3C2wdL3kGnd23qgG/phJyk45u5Y+AaGF7nIkFsAYJDcR7RPm8fZ80aNfnx
-	LxLaDO/CNxbrC8lTWy59SYNo8sjSQ5nqWiqnONpY3yASs2LTcR5yAiVc3HKwHMheK/6KM6nM0oy
-	NuXsHcCpqFfjYDzZ94pJuobTGTB+kV
-X-Received: by 2002:a05:6a00:10c7:b0:83f:250d:5a5 with SMTP id d2e1a72fcca58-845b44eb213mr2676677b3a.16.1782396764267;
-        Thu, 25 Jun 2026 07:12:44 -0700 (PDT)
-Received: from localhost.localdomain ([117.133.183.252])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-845a40d23d7sm4838015b3a.30.2026.06.25.07.12.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 07:12:43 -0700 (PDT)
-From: Baineng Shou <shoubaineng@gmail.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>,
-	Philipp Stanner <phasta@kernel.org>,
-	Akash Goel <akash.goel@arm.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Baineng Shou <shoubaineng@gmail.com>
-Subject: [PATCH] dma-fence: Fix dma_fence_timeline_name() to call get_timeline_name()
-Date: Thu, 25 Jun 2026 22:12:27 +0800
-Message-Id: <20260625141227.38931-1-shoubaineng@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mUfS92fN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55B2C1F000E9;
+	Thu, 25 Jun 2026 14:14:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782396885;
+	bh=6EQsWvo6oNp9KR6xzPK0XlOpLQCk9C1iaAatME+hfW4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mUfS92fNw+WJjSl4sF8/CYcmrrfBlnMItePZ/thYmMOYZgHfkf10Zjd6Ob3W/CG5h
+	 5oR7hkHDT8bVTNuRStTKc+QDDXA941ah50NII3pzjo4wvoj9MFhaJJfQlDSh8HRoAk
+	 GeIc93s/R0ZV0znhug26XJTWCF/RrWcvShkrZ750wnM/UGJeap9jitjhK9IN5VlVE2
+	 2GFY+qxMtFXXJi4lrRw9JnkkF/tMnTR6X32JIuz896ygdBoYhsmJLMKdYXNmkTxxpu
+	 VFxBHZdaXyoMJgfQHRy7BozgKScZPrD8P/aDoIG7YkSmdTOQekC+4sSXJdSZdbG9L1
+	 NkSrjc+9jSKUw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Georgi Djakov <georgi.djakov@oss.qualcomm.com>,
+	"Oscar Salvador (SUSE)" <osalvador@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Richard Cheng <icheng@nvidia.com>,
+	David Hildenbrand <david@kernel.org>,
+	Georgi Djakov <djakov@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] drivers/base/memory: set mem->altmap after successful device registration
+Date: Thu, 25 Jun 2026 10:14:42 -0400
+Message-ID: <20260625141442.2436561-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026062557-blinker-quartered-5591@gregkh>
+References: <2026062557-blinker-quartered-5591@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,36 +53,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dma_fence_timeline_name() incorrectly invokes ops->get_driver_name()
-instead of ops->get_timeline_name(), so every caller receives the
-driver name where the timeline name was expected.
+From: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
 
-This is a copy-paste regression that has resurfaced twice. It was
-originally introduced by commit 62918542b7bf ("dma-fence: Fix sparse
-warnings due __rcu annotations") when adding the __rcu casts, fixed
-by commit 033559473dd3 ("dma-fence: Fix safe access wrapper to call
-timeline name method"), and then accidentally reintroduced by commit
-e58b4dea9054 ("dma-buf/dma-fence: Add dma_fence_test_signaled_flag()")
-when both wrappers were refactored to use the new helper.
+[ Upstream commit a2b8d7827f48ee54a686cb80e4a1d0ff954ec42a ]
 
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+If __add_memory_block() fails at xa_store() (under memory pressure for
+example), device_unregister() is called, which eventually triggers
+memory_block_release() with mem->altmap still set, causing a
+WARN_ON(mem->altmap).  This was triggered by modifying virtio-mem driver.
+
+Fix this by delaying the assignment of mem->altmap until after
+__add_memory_block() has succeeded.
+
+Link: https://lore.kernel.org/20260514092657.3057141-1-georgi.djakov@oss.qualcomm.com
+Fixes: 1a8c64e11043 ("mm/memory_hotplug: embed vmem_altmap details in memory block")
+Signed-off-by: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
+Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
+Cc: Vishal Verma <vishal.l.verma@intel.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Richard Cheng <icheng@nvidia.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Georgi Djakov <djakov@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/dma-buf/dma-fence.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/base/memory.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index b3bfa6943a8e..5292d714419b 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -1202,7 +1202,7 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
- 	/* RCU protection is required for safe access to returned string */
- 	ops = rcu_dereference(fence->ops);
- 	if (!dma_fence_test_signaled_flag(fence))
--		return (const char __rcu *)ops->get_driver_name(fence);
-+		return (const char __rcu *)ops->get_timeline_name(fence);
- 	else
- 		return (const char __rcu *)"signaled-timeline";
- }
+diff --git a/drivers/base/memory.c b/drivers/base/memory.c
+index 9e413f522bd629..468ef9b3983cf8 100644
+--- a/drivers/base/memory.c
++++ b/drivers/base/memory.c
+@@ -773,7 +773,6 @@ static int add_memory_block(unsigned long block_id, unsigned long state,
+ 	mem->start_section_nr = block_id * sections_per_block;
+ 	mem->state = state;
+ 	mem->nid = NUMA_NO_NODE;
+-	mem->altmap = altmap;
+ 	INIT_LIST_HEAD(&mem->group_next);
+ 
+ #ifndef CONFIG_NUMA
+@@ -791,6 +790,8 @@ static int add_memory_block(unsigned long block_id, unsigned long state,
+ 	if (ret)
+ 		return ret;
+ 
++	mem->altmap = altmap;
++
+ 	if (group) {
+ 		mem->group = group;
+ 		list_add(&mem->group_next, &group->memory_blocks);
 -- 
-2.34.1
+2.53.0
 
