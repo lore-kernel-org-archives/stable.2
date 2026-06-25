@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9616C2EFD9B
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 13:41:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A1F1F03DE
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 13:41:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782394894; cv=none; b=CZym9pIbLd1LjAhQML8kFi48/N7t8Q5/Mx8z9n9AEiBL3AKfMpnq9p4hgitc1euQqQNowi78lyyjXyshBdT4C57k4UKET1uTgywaYWRTq+xBBTmg/fuPMpQY6ZeiGhf96b0V7C2d3mE1hTm2Sguc3Q7DQUX4ZPoahfOJcJ+eZcQ=
+	t=1782394904; cv=none; b=uf1LGIuXz449fxNFP+BJbwrs6NYdFaD58cy+CExbJk9yAw2ZgZpWBjWnK+u90UiRIB9gHD/QSyWU4eYoBPeMnfjJmaL7zv8UyId56ng1Zwn8YJqBkBAQ67Quc4s18al8JE+6cH7E1o6tVwybjOGW4cNc2ujkAmfMERR3+qNMqcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782394894; c=relaxed/simple;
-	bh=rrxIPqMfGhcAO5jWIktqxeb87TWBwYbSpsrWeVDMhYU=;
+	s=arc-20240116; t=1782394904; c=relaxed/simple;
+	bh=zeOIcoGHk4l6TCodEVFA6j6ZNy8JFNIz/aPXllMU+Lk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CCglfAUagNHE0rzg87CsCMpLsQsK8RT9pKtK4d3zTzDed9GiJryxKa25xKvIQyRC86XeDVCOAxNx8yUDBSjm2aNb3L90wY+dwgz/4lURRXtESvydLnwUrnkTpmiQPdslTodR1MvU4ECWwVLboI1aPFD5LT+u1oZV8TmcDG8mOGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZNh3NM1o; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GFg+NS2+HBEw/Mhg+NobfnMffcV6JQ+JgJMrbBEaguKPPAH1fYznRjCSC2DxpyVKEumq6B32H0nx545KyHX0quHNgo0Z6yhKi83GVgRxA3Wb4v8yAYxxqyDJATuh2MQGTYws+fjU/ZnTaY6kE7hTC0bY2AvWID/uXyq/HdncUcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CwqddWvQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZNh3NM1o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEFDF1F000E9;
-	Thu, 25 Jun 2026 13:41:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CwqddWvQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BC231F00A3A;
+	Thu, 25 Jun 2026 13:41:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782394893;
-	bh=ILtkIpWh7eTRXqJwczrY9gdkYhQVX4oVpCZcgrFZYwE=;
+	s=k20260515; t=1782394903;
+	bh=bwr95TyqJ21fnGQAL1TJMJy9QANMncsjZ0ueu+25nJ0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZNh3NM1oHSawZC+TesLqhVHPEe6Rl7bMLMnyL668PETFDg5jw8jZFrrFX9oJ+iPDW
-	 73IXneK6OISwi0AW5JmgObyUl6pA3PZu3m0ZPglTeCDEHA0hMbchXUvCXemg4jJuJp
-	 SJ8qVBFmtcJNI4RosdOeZHOpuQIQ0sLIl3GNdiie21nVpaVnh2r0np4Zk6j82JsRWd
-	 Pnm1e33ySByK7K0oqeNeVBFnnoYk4M3frVbtJN6cIHAerbDpfEqCaQwhsBNpaAOEXA
-	 2hyKtzAgMiTEkDH2i/OqrEu6Kt+YoG1F3pLkwcpF3MGXt3O2FPMO8jjv9SWp44WkKO
-	 5tGP0r4yUl7Fw==
+	b=CwqddWvQatk4zO7DV09ao4WVkRpcyUBh4lA1wUeTb3h2O9xyHOPvhX/g0DdJmJRPz
+	 dQNBQyCow8VQp8+s6BwRDUClpbaxXiqgnR5Nngvx1HOZTPcyd4xzS4j6c6RiD9jErc
+	 +BaQrBzFZRzwce7sxOoTEQv9eA8rH1ReadjLgc013yA9qNRZiFH051PXL5ueFzo/hd
+	 t8bg25HRWAhCJYAJZFBSxzqRMk9kGOWOnEWfM5rPIKi71aShSwD7ldQ277STxbdxtJ
+	 /yryk7aBSfJ2DZu6+fY4goNHeomdrj8tBE1gFH5EsTmHh6qX+pwyao8AbbWsO99WLm
+	 WpCnESqvkS3Pg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Stepan Ionichev <sozdayvek@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] serial: 8250_dw: unregister 8250 port if clk_notifier_register() fails
-Date: Thu, 25 Jun 2026 09:41:29 -0400
-Message-ID: <20260625134129.2411401-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] serial: qcom_geni: Fix RX DMA stall when SE_DMA_RX_LEN_IN is zero
+Date: Thu, 25 Jun 2026 09:41:41 -0400
+Message-ID: <20260625134141.2411620-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026062537-untying-ripening-0030@gregkh>
-References: <2026062537-untying-ripening-0030@gregkh>
+In-Reply-To: <2026062523-sulfite-banking-76d6@gregkh>
+References: <2026062523-sulfite-banking-76d6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,50 +46,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stepan Ionichev <sozdayvek@gmail.com>
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
-[ Upstream commit 10fc708b4de7f86002d2d735a2dbf3b5b7f65692 ]
+[ Upstream commit b93062b6d8a1b2d9bad235cac25558a909819026 ]
 
-dw8250_probe() registers the 8250 port via serial8250_register_8250_port()
-and then, if the device has a clock, registers a clock notifier. If
-clk_notifier_register() fails, probe returns the error but leaves the
-8250 port registered. The matching serial8250_unregister_port() lives
-in dw8250_remove(), which is not called when probe fails, so the port
-slot stays occupied until the device is rebound or the system is
-rebooted. The devm-allocated driver data is freed while the port still
-references it (via the saved private_data and serial_in/serial_out
-callbacks), so any access to that port slot before a rebind is a
-use-after-free hazard.
+In qcom_geni_serial_handle_rx_dma(), geni_se_rx_dma_unprep() clears
+port->rx_dma_addr before SE_DMA_RX_LEN_IN is read. If the register is zero,
+for example when the RX stale counter fires on an idle line, the handler
+returns without calling geni_se_rx_dma_prep().
 
-Unregister the port on the clk_notifier_register() error path.
+The next RX DMA interrupt then hits the !port->rx_dma_addr guard and
+returns immediately, so the RX DMA buffer is never rearmed and later input
+is lost.
 
-Fixes: cc816969d7b5 ("serial: 8250_dw: Fix common clocks usage race condition")
+Keep the handler on the rearm path when rx_in is zero. Warn about the
+unexpected zero-length DMA completion, skip received-data handling, and
+always call geni_se_rx_dma_prep().
+
+Fixes: 2aaa43c70778 ("tty: serial: qcom-geni-serial: add support for serial engine DMA")
 Cc: stable@vger.kernel.org
-Signed-off-by: Stepan Ionichev <sozdayvek@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Link: https://patch.msgid.link/20260514143746.23671-2-sozdayvek@gmail.com
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260528-serial-rx-0-byte-fix-v2-1-b4195cfe342f@oss.qualcomm.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/8250/8250_dw.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/tty/serial/qcom_geni_serial.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index 4103178725e396..7a000836354397 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -846,8 +846,10 @@ static int dw8250_probe(struct platform_device *pdev)
- 	 */
- 	if (data->clk) {
- 		err = clk_notifier_register(data->clk, &data->clk_notifier);
--		if (err)
-+		if (err) {
-+			serial8250_unregister_port(data->data.line);
- 			return dev_err_probe(dev, err, "Failed to set the clock notifier\n");
-+		}
- 		queue_work(system_unbound_wq, &data->clk_work);
- 	}
+diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
+index 5083eaddd635a9..ab5b4c6c29de08 100644
+--- a/drivers/tty/serial/qcom_geni_serial.c
++++ b/drivers/tty/serial/qcom_geni_serial.c
+@@ -838,12 +838,9 @@ static void qcom_geni_serial_handle_rx_dma(struct uart_port *uport, bool drop)
+ 	port->rx_dma_addr = 0;
  
+ 	rx_in = readl(uport->membase + SE_DMA_RX_LEN_IN);
+-	if (!rx_in) {
+-		dev_warn(uport->dev, "serial engine reports 0 RX bytes in!\n");
+-		return;
+-	}
+-
+-	if (!drop)
++	if (!rx_in)
++		dev_warn_ratelimited(uport->dev, "serial engine reports 0 RX bytes in!\n");
++	else if (!drop)
+ 		handle_rx_uart(uport, rx_in, drop);
+ 
+ 	ret = geni_se_rx_dma_prep(&port->se, port->rx_buf,
 -- 
 2.53.0
 
