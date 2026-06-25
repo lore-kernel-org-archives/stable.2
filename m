@@ -1,118 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43683033F5;
-	Thu, 25 Jun 2026 13:59:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEA42EDD7D;
+	Thu, 25 Jun 2026 14:01:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782395965; cv=none; b=PDPY3VOiZqUYFgpNokmZ9M/V3IBZD7v74gtgorGgktQ/GvWTPMCm/qKezr+nd9ksWJCmxQfi2rTBOcComgfNrEGRWAyzORaiq8ASoPWR8xhrWOFyonGY4P2zTpEssjbURgXgu37YA7ukb/yKaFV/dhUBfawPOzojgz0a+tAjQQs=
+	t=1782396094; cv=none; b=OUMHzk7qxEfyWnpequEZACd6QL/AEUFpFiUT+QjFlaugt/koUeh2U99/NXA6k3xxmu7FFhsgbU9D8tTHXvNp+LKaRXrN9lQHOae7UWyptO2Bm3NDTL8mRlrVSqvNtjyz0q/RWQIutBTCzYUgyiBmNqErcBhVTCqczKFteynN/QY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782395965; c=relaxed/simple;
-	bh=9KfnScTaU7V2VWW54Rm8nUqqtKVRHVbaZxtXq2v6HaY=;
+	s=arc-20240116; t=1782396094; c=relaxed/simple;
+	bh=2hc8qBoOkck7WCbYgfm7FidvX81QoZKx6sh7wleyU5k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HZ6GwETmNVvSAPkr0StkNnjejMU03N+rlCmGiAAuJeOvnr5g2/LAE6FJhAPaCy+yP2q38iFViGNGy1HNsCW5She4jmuyx1Y3AM1WmlPet30VHCRnXFAxr9r6mYg2bX33dpkw3IIir6FDtmgp1pTsaG2kkAM7hm6w6Az2R4ihvbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=N/oaw8XV; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=UwBIwL129lwzFE7obHAM2S8nqpasHDPdEeI04v7UHgOXkzKmtjpYrrehBsvDV2zczHCaxLgmLQwYTVFZJm7bD8egjxuF4LphVhBa572p0JzNMwFdy1fXyG+kxaBjT2uZsjY0dQqp2FtMA+7yoPyrRhpsBP8LhEQYbEsngp3H2v0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UBihqjH2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N/oaw8XV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B46251F000E9;
-	Thu, 25 Jun 2026 13:59:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UBihqjH2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000E61F000E9;
+	Thu, 25 Jun 2026 14:01:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782395964;
-	bh=VwuvOQTh9YnYvj1OE7I2iBGUZJIM6VMa+G3v72JjBJ4=;
+	s=korg; t=1782396092;
+	bh=UPjYKRx/JznPkgUBzNwXhhTkZxqTJPaIysGlReLI8jE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N/oaw8XVH2QstEhegFemDQQysi4GtRDqCso3vucekfWOxcwqpw5BKq3dvTI/ZzJU5
-	 B+gWGrzWoTkX50JZtahktAEXqS5WXqrjEXmqmRsaBmUN7nz+8chNwnlgZcguzxPFQS
-	 wWKKCJ9eAO8gpvUdrnU0zfruTV4u3aAgU1cDn0JI=
-Date: Thu, 25 Jun 2026 14:58:12 +0100
+	b=UBihqjH23k5nnsBHhRWtajsrTp8HxLF+0rWzQC17uNrLFEpseJYLpTLLBROougkxq
+	 2hmAaLuG3ZiZbu3p0wTNx+QjvUOnk7EVpxFwpbLktWzl0FFrW+mwoutvYllZcQVzh4
+	 NSkvwqZVSLvLdZAKqXN/RHEJaxiwq2MlHwiE3dM0=
+Date: Thu, 25 Jun 2026 15:00:20 +0100
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Adrian Korwel <adriank20047@gmail.com>
-Cc: linux-usb@vger.kernel.org, stable@vger.kernel.org, dave@stgolabs.net
-Subject: Re: [PATCH] usb: gadget: f_midi: cancel work before midi is freed
-Message-ID: <2026062501-espresso-sadness-801e@gregkh>
-References: <2026052509-shelter-caucus-92e5@gregkh>
- <20260525150139.3038-1-adriank20047@gmail.com>
+Cc: linux-usb@vger.kernel.org, stable@vger.kernel.org,
+	heikki.krogerus@linux.intel.com
+Subject: Re: [PATCH 1/4] usb: gadget: f_uac1_legacy: fix file handle leaks in
+ gaudio_open_snd_dev()
+Message-ID: <2026062500-thinness-crudeness-7036@gregkh>
+References: <2026052517-undergrad-reformat-44bc@gregkh>
+ <20260525202612.680-1-adriank20047@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260525150139.3038-1-adriank20047@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260525202612.680-1-adriank20047@gmail.com>
 
-On Mon, May 25, 2026 at 10:01:39AM -0500, Adrian Korwel wrote:
-> f_midi_disable() disables the USB endpoints but does not cancel the
-> pending work item before returning. Since f_midi uses the system
-> high-priority workqueue (system_highpri_wq) rather than a dedicated
-> workqueue, there is no implicit draining when the function is unbound.
+On Mon, May 25, 2026 at 03:26:09PM -0500, Adrian Korwel wrote:
+> gaudio_open_snd_dev() opens the ALSA control device file first, then
+> opens the PCM playback device. On two error paths the control file
+> handle is leaked:
 > 
-> The work item f_midi_in_work can therefore be scheduled via
-> queue_work() from f_midi_complete() or f_midi_in_trigger() and execute
-> after f_midi_free() has run, resulting in a use-after-free when
-> f_midi_transmit() accesses midi->in_ep, midi->transmit_lock,
-> midi->in_req_fifo and midi->in_ports_array.
+> When filp_open() for the playback device fails, the function returns
+> immediately without closing the already-opened control file handle.
 > 
-> This was introduced in commit 8653d71ce376 ("usb/gadget: f_midi:
-> Replace tasklet with work") which converted from tasklet_hi_schedule()
-> to queue_work() but omitted the cancel_work_sync() call needed to
-> ensure the work is not in flight when the structure is freed. Tasklets
-> did not require explicit cancellation in this path; workqueues do.
+> When playback_default_hw_params() fails, its return value was ignored
+> and both the playback and control file handles were leaked.
 > 
-> Fix by calling cancel_work_sync() in f_midi_disable() after disabling
-> the endpoints, ensuring no work item referencing midi can run after
-> teardown begins.
+> Both leaks result in gaudio_cleanup() calling filp_close() on already
+> freed file objects, causing a use-after-free.
 > 
-> Fixes: 8653d71ce376 ("usb/gadget: f_midi: Replace tasklet with work")
+> Fix by closing previously opened file handles before returning on
+> each error path, and by checking the return value of
+> playback_default_hw_params().
+> 
+> Fixes: d355339eecd9 ("usb: gadget: function: make current f_uac1 implementation legacy")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Adrian Korwel <adriank20047@gmail.com>
 > ---
->  drivers/usb/gadget/function/f_midi.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
-> index 4d9e4bd700d8..864527bf900c 100644
-> --- a/drivers/usb/gadget/function/f_midi.c
-> +++ b/drivers/usb/gadget/function/f_midi.c
-> @@ -430,6 +430,8 @@ static void f_midi_disable(struct usb_function *f)
->  	usb_ep_disable(midi->in_ep);
->  	usb_ep_disable(midi->out_ep);
->  
-> +	cancel_work_sync(&midi->work);
-> +
->  	/* release IN requests */
->  	while (kfifo_get(&midi->in_req_fifo, &req))
->  		free_ep_req(midi->in_ep, req);
-> -- 
-> 2.43.0
-> 
-> 
+>  drivers/usb/gadget/function/u_uac1_legacy.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
 
-Hi,
+Something is really odd with your email system, look at what is on the
+list from you for these patches.  It looks like:
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
-
-You are receiving this message because of the following common error(s)
-as indicated below:
+ 525   C May 25 Adrian Korwel   (  43) ┬─>[PATCH 1/2] USB: serial: io_ti: fix heap overflow in get_manuf_info()                                        
+ 527   C May 25 Adrian Korwel   (  40) │ └─>[PATCH 2/2] USB: serial: io_ti: fix heap overflow in build_i2c_fw_hdr()
+ 528   T May 25 Adrian Korwel   (  77) └─>Re: [PATCH] USB: serial: io_ti: fix heap overflows in get_manuf_info() and build_i2c_fw_hdr()
+ 623   C May 25 Adrian Korwel   (  54) ┬─>[PATCH 1/4] usb: gadget: f_uac1_legacy: fix file handle leaks in gaudio_open_snd_dev()
+ 624   C May 25 Adrian Korwel   (  64) │ ├─>[PATCH 2/4] usb: gadget: f_uac1_legacy: fix use-after-free caused by bound guard
+ 625   C May 25 Adrian Korwel   (  40) │ ├─>[PATCH 4/4] usb: typec: thunderbolt: cancel work before altmode is removed
+ 626   C May 25 Adrian Korwel   (  35) │ └─>[PATCH 3/4] usb: gadget: f_uac1_legacy: cancel work in f_audio_disable()
+ 627   C May 25 Adrian Korwel   (  40) └─>[PATCH 1/4] USB: serial: io_ti: fix heap overflow in build_i2c_fw_hdr()
+ 628   C May 25 Adrian Korwel   (  40)   ├─>[PATCH 4/4] usb: typec: thunderbolt: cancel work before altmode is removed
+ 629   C May 25 Adrian Korwel   (  35)   ├─>[PATCH 4/4] usb: gadget: f_uac1_legacy: cancel work in f_audio_disable()
+ 630   C May 25 Adrian Korwel   (  54)   ├─>[PATCH 1/4] usb: gadget: f_uac1_legacy: fix file handle leaks in gaudio_open_snd_dev()
+ 631   C May 25 Adrian Korwel   (  64)   ├─>[PATCH 2/4] usb: gadget: f_uac1_legacy: fix use-after-free caused by bound guard
+ 632   C May 25 Adrian Korwel   (  64)   ├─>[PATCH 3/4] usb: gadget: f_uac1_legacy: fix use-after-free caused by bound guard
+ 633   C May 25 Adrian Korwel   (  35)   ├─>[PATCH 3/4] usb: gadget: f_uac1_legacy: cancel work in f_audio_disable()
+ 634   C May 25 Adrian Korwel   (  54)   └─>[PATCH 2/4] usb: gadget: f_uac1_legacy: fix file handle leaks in gaudio_open_snd_dev()
+ 636   C May 24 Adrian Korwel   (  41) [PATCH] usb: typec: thunderbolt: cancel work before altmode is removed  
+ 637   C May 24 Adrian Korwel   (  62) [PATCH] usb: gadget: f_uac1_legacy: fix file handle leaks in gaudio_open_snd_dev()
 
 
-- This looks like a new version of a previously submitted patch, but you
-  did not list below the --- line any changes from the previous version.
-  Please read the section entitled "The canonical patch format" in the
-  kernel file, Documentation/process/submitting-patches.rst for what
-  needs to be done here to properly describe this.
+You have threading issues, patches in multiple places and resend, and all mixed
+up.
 
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
+Please resend everything that has not been accepted, as new versions, in the
+correct way, and we will be glad to review them.
 
 thanks,
 
-greg k-h's patch email bot
+greg k-h
