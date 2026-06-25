@@ -1,157 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F4B2FE59B;
-	Thu, 25 Jun 2026 04:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2F1DB2309AA;
+	Thu, 25 Jun 2026 05:06:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782362566; cv=none; b=sgDdKkHmgw5s8kbMkU7R7OYfRKI2niz/aTUy9g9Wiaf8w3maIU0SKCi3N2UNHWSv39+WRqeI80xuSuDxhsFDht3bIKSzafrNc8cCq646t7Ff6rfwvbSdysCy+3sdutSLtjZYUwpxsBO6CcMaZYmfsNqt1gwv1goFwqaVklhmDFA=
+	t=1782363972; cv=none; b=isuDwhRJFTmkaxlzl+w65oiqdZoNjajazcKC16T2B++0XOiYbj+sQzZ2C6HTucYM/eNWUJyD7ea1fC87/tRl532oU+GRdwiumbF6hIJtVTVo8MKQonEGe/4KICXroKg5Z1dPpYRnZBpJKjhc+fpjuk+D9jeP0gvzs4hDXisw0/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782362566; c=relaxed/simple;
-	bh=UgouWdz22LjFggkwylkQFqhuSxhvxoGcxteW5R3RauU=;
-	h=Date:To:From:Subject:Message-Id; b=O0sVdHj+Z6DiJxwKkMTo7QeMDkLyCmv0BNHSNCEckQXofDVWMYngw7I/P8WJdwC0bXN5vrfG26y2ysaMZvfV166dTWbC1q0+a261KtCqgcJA9xIJZfnaJ6SHOu9cEWNkH1ocn2jigqupguw6iWB6zQJK418C9nNV3nrgO5eylps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=f1PW2DOv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782363972; c=relaxed/simple;
+	bh=Lay1HVOEFuLeVqkTA0aGqyvQ+T34DBOYVeHMQyWlWxI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uZ6Ppp/SGRuYhYGL381tdtiBihUo5s5exuMAGUl9+7IzihQbf16mqI/g3jiKT2Np8GE4jWbsxv01MzvbcHD93yuknFi1J5glUoUL3oQ/g/iECA0bgWW04xQl6Axg/tVWFobovLSU8152vLZRzPXSTwxvjFh0RVMjxqnclFEMULc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UiR8YwXC; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="f1PW2DOv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9881F000E9;
-	Thu, 25 Jun 2026 04:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1782362563;
-	bh=80/RkbXbC9NMQ+qD7DMIo4hmLEDQyQl6i0DFgG/39Lo=;
-	h=Date:To:From:Subject;
-	b=f1PW2DOvWDDTe2yP8HgBVT+YuviWPM3B5hFOIv/cS7oNSyM5LVfCAXci6z/KgyrRT
-	 aBToShfT9qizLq6uBTBYWZ4xDnKhJjizuChmK4dpzWQOwNhKn6tSyvOHq6TV/Nb50g
-	 4Ttp+ZwfOTJGZbEqfGGzcxYvKDkIeXO6jvzv3+0o=
-Date: Wed, 24 Jun 2026 21:42:42 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,ryan.roberts@arm.com,riel@surriel.com,ljs@kernel.org,liam@infradead.org,kas@kernel.org,jannh@google.com,harry@kernel.org,david@kernel.org,anshuman.khandual@arm.com,dev.jain@arm.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-rmap-use-huge_ptep_get-in-try_to_unmap_one.patch added to mm-new branch
-Message-Id: <20260625044243.4E9881F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UiR8YwXC"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B0E762BCE;
+	Wed, 24 Jun 2026 22:06:04 -0700 (PDT)
+Received: from [10.164.19.14] (unknown [10.164.19.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 994CC3F905;
+	Wed, 24 Jun 2026 22:06:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1782363969; bh=Lay1HVOEFuLeVqkTA0aGqyvQ+T34DBOYVeHMQyWlWxI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=UiR8YwXC0OcWwu5H/2F2xG3WeZQPa7DTkaff1XDArWPQ5iDEW4vKBeqhsms5v91dY
+	 nqB/Pji3MJWFNE6eJIjpqk1zLtQ/xjJKzh1aVx9RrmCi8V/V0xd7EUS57VvjCat5l4
+	 CF/2pyXu3QWf/JrjUquDEykrcJRasB6AnnkTJwH4=
+Message-ID: <c17ea0ca-1e6c-4504-87f5-219f13c846f5@arm.com>
+Date: Thu, 25 Jun 2026 10:36:02 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-
-
-The patch titled
-     Subject: mm/rmap: use huge_ptep_get() in try_to_unmap_one()
-has been added to the -mm mm-new branch.  Its filename is
-     mm-rmap-use-huge_ptep_get-in-try_to_unmap_one.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-rmap-use-huge_ptep_get-in-try_to_unmap_one.patch
-
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/rmap: use huge_ptep_get() in try_to_unmap_one()
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: david@kernel.org, ljs@kernel.org, riel@surriel.com, liam@infradead.org,
+ vbabka@kernel.org, harry@kernel.org, jannh@google.com, kas@kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, ryan.roberts@arm.com,
+ anshuman.khandual@arm.com, stable@vger.kernel.org
+References: <20260625042853.2752898-1-dev.jain@arm.com>
+ <20260624214230.4aff522ec8fa4a8f1607c942@linux-foundation.org>
+Content-Language: en-US
 From: Dev Jain <dev.jain@arm.com>
-Subject: mm/rmap: use huge_ptep_get() in try_to_unmap_one()
-Date: Thu, 25 Jun 2026 04:28:51 +0000
+In-Reply-To: <20260624214230.4aff522ec8fa4a8f1607c942@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-try_to_unmap_one() handles hugetlb folios when memory failure needs to
-replace a poisoned hugetlb mapping with a hwpoison entry.  In that case
-page_vma_mapped_walk() returns the hugetlb entry in pvmw.pte, but the code
-reads it with ptep_get() before decoding the PFN.
 
-That is wrong on architectures where hugetlb entries are not encoded as
-regular PTEs.  On s390, for example, a raw huge RSTE must be converted by
-huge_ptep_get() before helpers such as pte_pfn() can inspect it.  A raw
-decode can select the wrong subpage, so try_to_unmap_one() can install a
-hwpoison entry for the wrong PFN.
 
-The userspace-visible result is that a later access to the poisoned
-hugetlb subpage can miss the expected SIGBUS.  With DEBUG_VM, the wrong
-subpage can also trip the PageHWPoison check.
+On 25/06/26 10:12 am, Andrew Morton wrote:
+> On Thu, 25 Jun 2026 04:28:51 +0000 Dev Jain <dev.jain@arm.com> wrote:
+> 
+>> try_to_unmap_one() handles hugetlb folios when memory failure needs
+>> to replace a poisoned hugetlb mapping with a hwpoison entry. In that
+>> case page_vma_mapped_walk() returns the hugetlb entry in pvmw.pte, but
+>> the code reads it with ptep_get() before decoding the PFN.
+>>
+>> That is wrong on architectures where hugetlb entries are not encoded as
+>> regular PTEs. On s390, for example, a raw huge RSTE must be converted
+>> by huge_ptep_get() before helpers such as pte_pfn() can inspect it. A
+>> raw decode can select the wrong subpage, so try_to_unmap_one() can
+>> install a hwpoison entry for the wrong PFN.
+>>
+>> The userspace-visible result is that a later access to the poisoned
+>> hugetlb subpage can miss the expected SIGBUS. With DEBUG_VM, the wrong
+>> subpage can also trip the PageHWPoison check.
+>>
+>> Use huge_ptep_get() for hugetlb mappings before decoding the PFN.
+>>
+>> Before c7ab0d2fdc84, the bug existed in the form of a plain dereference:
+>> we would check the head page pfn of the hugetlb with pte_pfn(*pte), and
+>> bail out on mismatch. This would mean that the hwpoisoned entry will not
+>> get installed.
+>>
+>> I am not sure what is the procedure on such kinds of very old bugs - how
+>> back should I really go?
+> 
+> I think 9 years is enough ;)
+> 
+>> There are similar old bugs present, in try_to_migrate_one(), check_pte(),
+>> remove_migration_pte(), prot_none_hugetlb_entry().
+> 
+> Why now?  Was there some more recent (s390?) change which exposed this?
 
-Use huge_ptep_get() for hugetlb mappings before decoding the PFN.
+I was refactoring the hugetlb bits in try_to_unmap_one, so the bug got
+caught in review by David (which reminds me to put a "Reported-by" tag
+on this patch).
 
-Before c7ab0d2fdc84, the bug existed in the form of a plain dereference:
-we would check the head page pfn of the hugetlb with pte_pfn(*pte), and
-bail out on mismatch.  This would mean that the hwpoisoned entry will not
-get installed.
-
-Link: https://lore.kernel.org/20260625042853.2752898-1-dev.jain@arm.com
-Fixes: c7ab0d2fdc84 ("mm: convert try_to_unmap_one() to use page_vma_mapped_walk()")
-Signed-off-by: Dev Jain <dev.jain@arm.com>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/rmap.c |   16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
---- a/mm/rmap.c~mm-rmap-use-huge_ptep_get-in-try_to_unmap_one
-+++ a/mm/rmap.c
-@@ -2095,11 +2095,16 @@ static bool try_to_unmap_one(struct foli
- 		/* Unexpected PMD-mapped THP? */
- 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
- 
--		/*
--		 * Handle PFN swap PTEs, such as device-exclusive ones, that
--		 * actually map pages.
--		 */
--		pteval = ptep_get(pvmw.pte);
-+		address = pvmw.address;
-+		if (folio_test_hugetlb(folio)) {
-+			pteval = huge_ptep_get(mm, address, pvmw.pte);
-+		} else {
-+			/*
-+			 * Handle PFN swap PTEs, such as device-exclusive ones,
-+			 * that actually map pages.
-+			 */
-+			pteval = ptep_get(pvmw.pte);
-+		}
- 		if (likely(pte_present(pteval))) {
- 			pfn = pte_pfn(pteval);
- 		} else {
-@@ -2110,7 +2115,6 @@ static bool try_to_unmap_one(struct foli
- 		}
- 
- 		subpage = folio_page(folio, pfn - folio_pfn(folio));
--		address = pvmw.address;
- 		anon_exclusive = folio_test_anon(folio) &&
- 				 PageAnonExclusive(subpage);
- 
-_
-
-Patches currently in -mm which might be from dev.jain@arm.com are
-
-mm-swap-rename-subpage-page-in-folio_dup_swap-folio_put_swap.patch
-mm-mprotect-drop-sub-from-batching-context.patch
-mm-rmap-use-huge_ptep_get-in-try_to_unmap_one.patch
+I guess if someone would run hugetlb-read-hwpoison.c on s390, this would
+be caught. Turns out, this selftest is in a category of "destructive tests"
+in run_vmtests.sh, so ./run_vmtests.sh or even ./run_vmtests.sh -a won't
+run this. We are supposed to run this with ./run_vmtests.sh -d, and that
+option was broken until one month ago, see 3432cbb291aa. So essentially
+no one has been running that test.
+> 
 
