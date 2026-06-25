@@ -1,106 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD351C84DC;
-	Thu, 25 Jun 2026 06:25:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E7C361DB8
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 06:28:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782368729; cv=none; b=Nzbaip6RgDvrtq9O9TYC96BJpqQs4nwtxNGzb06BL9QQiuor96Unk6tlibyUsYRMgMYfnkghMhNGe/KUG5cRMEw4SmDPB11daQ1eeypB/oynF6REAzDdMGbet4xI0KmYGnhp26ASXo2bjps6AP72dCDM84YZsdqMXXi1jBcZLq8=
+	t=1782368904; cv=none; b=hKaDkv3V3arycCGqTpBmbwgd+8rKOttAMMBiuHKXaC/N8ornSNtSztJ4tKISGNd2GLIiPfNL9JZ4XlsnFOZaYAASQI7cAJpC+Y/mp7gw2ohfpf+q1izaBoee0TscZw4WUhfRXxzeS98j9h46fKDtLoJRRE6hyWY6wpEA1q/7Z0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782368729; c=relaxed/simple;
-	bh=qN6rxeLPrWEPmxFGStMS4jQk+7YyeMkk+HD//Wyqj8g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AnZ3f+DhzE/EfVfAPd/xtHXCo40BmNrcx9hf8Oe/lXcN2fV2NqdLA3AqhQ9JnKQqTpBNp3RNzh6oKzbjS29piYLaIHwlZBXuLm0quP7LG8ZrzK0JL7nVYhwVoXkoxqMRhs4h0GwnOQo+CtUrvWaKDz6UmJ6fP63aV+WZc6b7bp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=khlGueke; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1782368904; c=relaxed/simple;
+	bh=0M9b9MEPq1z/kXNItE5PRl014Mi6+b1gzm92Rcg6eJg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VbzxvFzjdZf7nbM2oIMUH9Adh36qo3K6jO06lFGdnLD4qUUasv4CcFTE02V/nb/nIX8HPhhPCxWbP5TDyv8+eUus1yLl8OX2abLWPB6hj4zHxg7kM4DKvk2KjbT6ZKIXa3vLLVxfANgqeAne3BY9cap4Zd/uUIDPO3pFQQ6hZQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SH6GH3ng; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HnGwcIOc; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SH6GH3ng; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HnGwcIOc; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="khlGueke"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782368727; x=1813904727;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qN6rxeLPrWEPmxFGStMS4jQk+7YyeMkk+HD//Wyqj8g=;
-  b=khlGuekehxIYGRsaXyCDnpMbCaFnB4iiP3JmMAjfTeM070vUTXPopv/w
-   Q/In1v1NA84v+G1II+xtnJFUvXGhueGUURkJlq6bNTIvWHh8tWHmxtz32
-   WMxmm9UWUe74LSrEMRmn59TFUyPQcKKGWf9BkPs2wBoqcMDK1VNC+Gdv1
-   Xikk7uozr19FSoC/A5xSouFJX5h1B9QHfiWND+2VoDMoOWk2DHbwc7Jr8
-   7HP9RIHVDUIrTFfDzNTbGaqrs7gB7UnfT38MwBs0QQbmSsJc7mlutjEqp
-   qMzBnJisDzQcb8s9LNZh+MNJYB1neFHwGYJLu+GZa+s4Fxu5ry8hczHDK
-   w==;
-X-CSE-ConnectionGUID: vTfxrjgKSvqalvJ9Bd+q/g==
-X-CSE-MsgGUID: y4Bph3PHRt6c7Jm2oAU//w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="100566504"
-X-IronPort-AV: E=Sophos;i="6.24,223,1774335600"; 
-   d="scan'208";a="100566504"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 23:25:26 -0700
-X-CSE-ConnectionGUID: mgpo7onQQoGmj/svgy/OYA==
-X-CSE-MsgGUID: 38zIrkM8TsC/DcZrYr1OfQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,223,1774335600"; 
-   d="scan'208";a="255127244"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 23:25:21 -0700
-Date: Thu, 25 Jun 2026 09:25:19 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bradley Morgan <include@grrlz.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Feng Tang <feng.tang@linux.alibaba.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
-	Jinchao Wang <wangjinchao600@gmail.com>,
-	Kees Cook <kees@kernel.org>, Rio <rioo.tsukatsukii@gmail.com>,
-	Joel Granados <joel.granados@kernel.org>,
-	Pnina Feder <pnina.feder@mobileye.com>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Douglas Anderson <dianders@chromium.org>,
-	Mayank Rungta <mrungta@google.com>, Tejun Heo <tj@kernel.org>,
-	Zhenguo Yao <yaozhenguo1@gmail.com>, linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] sys_info: add helper for callers that handle
- all_bt
-Message-ID: <ajzJz_YgpTRLiJxX@ashevche-desk.local>
-References: <9b8c96e291696815d3c7de5d3e199298dee0279d.1782228656.git.include@grrlz.net>
- <20260624133419.a2d566f50c44ee2d4e0fb395@linux-foundation.org>
- <EB858B12-203D-4173-A44B-4926129983F4@grrlz.net>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SH6GH3ng";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HnGwcIOc";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SH6GH3ng";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HnGwcIOc"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 680F375D61;
+	Thu, 25 Jun 2026 06:28:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1782368901; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LqyRnCdWwD5/GhVDobjbRRcNZYuZHaOkqJjnDII62Dk=;
+	b=SH6GH3ng03EIq1CoU5ah4tXsJtUzLoksHndIMu2mK5MeTxAODmSYagJjmYIgfpvOTbHAWJ
+	NBdLZYXyiBy136pW5XYR0ASVLRwe+LulHJjsLbWxwpzPS/6csunCyjZCjpLGsKEk8r5it6
+	/jVxs2YcNejROzCqIMBGNCIxW5wiPsE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1782368901;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LqyRnCdWwD5/GhVDobjbRRcNZYuZHaOkqJjnDII62Dk=;
+	b=HnGwcIOcIz3W16xC7aIKe2+P2MZLOPimFzZ8m1wmEBEuIBegYP89DN+cxLUcR4nrR0WSty
+	byVX+1YuB7kRgCCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1782368901; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LqyRnCdWwD5/GhVDobjbRRcNZYuZHaOkqJjnDII62Dk=;
+	b=SH6GH3ng03EIq1CoU5ah4tXsJtUzLoksHndIMu2mK5MeTxAODmSYagJjmYIgfpvOTbHAWJ
+	NBdLZYXyiBy136pW5XYR0ASVLRwe+LulHJjsLbWxwpzPS/6csunCyjZCjpLGsKEk8r5it6
+	/jVxs2YcNejROzCqIMBGNCIxW5wiPsE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1782368901;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LqyRnCdWwD5/GhVDobjbRRcNZYuZHaOkqJjnDII62Dk=;
+	b=HnGwcIOcIz3W16xC7aIKe2+P2MZLOPimFzZ8m1wmEBEuIBegYP89DN+cxLUcR4nrR0WSty
+	byVX+1YuB7kRgCCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0BF4C779A8;
+	Thu, 25 Jun 2026 06:28:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id LwzuAIXKPGqTRwAAD6G6ig
+	(envelope-from <hare@suse.de>); Thu, 25 Jun 2026 06:28:21 +0000
+Message-ID: <e49bf04f-2004-4ff8-995f-6a17a54b57fa@suse.de>
+Date: Thu, 25 Jun 2026 08:28:20 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <EB858B12-203D-4173-A44B-4926129983F4@grrlz.net>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/5] block: validate user space vectors during
+ extraction
+To: Keith Busch <kbusch@meta.com>, linux-block@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org
+Cc: dm-devel@lists.linux.dev, hch@lst.de, axboe@kernel.dk,
+ brauner@kernel.org, djwong@kernel.org, viro@zeniv.linux.org.uk,
+ Keith Busch <kbusch@kernel.org>, stable@vger.kernel.org
+References: <20260624170905.3972095-1-kbusch@meta.com>
+ <20260624170905.3972095-6-kbusch@meta.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260624170905.3972095-6-kbusch@meta.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Level: 
+X-Spam-Score: -4.30
 
-On Wed, Jun 24, 2026 at 09:44:37PM +0100, Bradley Morgan wrote:
-> On June 24, 2026 9:34:19 PM GMT+01:00, Andrew Morton
-> <akpm@linux-foundation.org> wrote:
-> >On Tue, 23 Jun 2026 15:34:58 +0000 Bradley Morgan <include@grrlz.net>
-> >wrote:
-
-...
-
-> > It would be nice to have the conventional [0/N] cover letter to tell
-> > readers what this is all about.
+On 6/24/26 7:09 PM, Keith Busch wrote:
+> From: Keith Busch <kbusch@kernel.org>
 > 
-> I added a what I changed? I'm iffy on cover letters, if you want I'll do
-> it...
+> The bio-based drivers don't necessarily check the alignment split, and
+> stacking block drivers don't always handle a misalignment detected after
+> submitting the bio. Validate user vectors against the device's
+> dma_alignment as the bio is built from the iov_iter, rejecting
+> misaligned early with -EINVAL.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 5ff3f74e145a ("block: simplify direct io validity check")
+> Fixes: 7eac33186957 ("iomap: simplify direct io validity check")
+> Signed-off-by: Keith Busch <kbusch@kernel.org>
+> ---
+>   block/bio.c          | 56 +++++++++++++++++++++++++++++++++++++++++---
+>   block/blk-map.c      |  2 +-
+>   block/fops.c         |  2 +-
+>   fs/iomap/direct-io.c |  1 +
+>   include/linux/bio.h  |  2 +-
+>   include/linux/uio.h  | 10 +++++++-
+>   lib/iov_iter.c       |  9 ++++++-
+>   7 files changed, 74 insertions(+), 8 deletions(-)
+> 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-FWIW, always do cover-letter when you have 2+ patches in the series.
-And do not add it (there are rare exceptions, though) when it's a single patch.
+Cheers,
 
+Hannes
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
