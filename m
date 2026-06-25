@@ -1,181 +1,130 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012043.outbound.protection.outlook.com [52.101.43.43])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93CD367F31
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 08:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782376904; cv=fail; b=UYEjoVlJa1VuOIJnXvYzOfPPDxTlS/ic/Fk6o2hRaLjFQt5EjIc6cHaeV2pvQ7xTmGBmZpLxT1QIo8Tn83CG+prLrQ/ax5YlpSJbd4U78Gmi9R/kSF8kjcFPGeBYJDi0/eLFccGAStpw5gvSLPZPCMGzmFRCGan+e0Os51dTEiE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782376904; c=relaxed/simple;
-	bh=mzmBpUYW5ewaKGmLGKEwsdVCq2Ut+ISfqoTZ+f0Pq9M=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=akZ34O7Yxz+8HR5FxIItleB/XX2dXhpjeW0JEi0jkYyeBI5t3THwmOxSj8qMgMG97OG4Vj+DMNPXNTpk1sDBjklXj5zAo3uEmDt1YsDQzkQCI9pjfH0uyPOD95Qy9dTRbpFNBZDPUsPuGQoM+aSxR7B/pBT9YBeaBI/mx60pUpk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=N8r/upPb; arc=fail smtp.client-ip=52.101.43.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A07938655C
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 08:50:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782377456; cv=none; b=NHyqRFUNzJLboHoEw+E7afuph3Gpu3hTruZUau7fd78M0yO0jE5IGeSQapZMUKlkL4l3yb67swbqS1ZIKOirLcKGITiq6Mt9FkWrYnRB7N8NCSkLcJ+3Q/6yGmbElcHl1JUy67X7/T3p1ZOOyd37sS34l9083UJeIVQ3NiQq2yI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782377456; c=relaxed/simple;
+	bh=eAUE4cHxHPrECI9jHnsBEOHWjcdZZQoBblRYb2Tehs8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nJshN/Ote59DM/SRHCJZhVkSEXrdF0sqHXuk2s2/yTDWCP5vt1+Cc27iIlOy5dEGzf+Dom/7mfniFmjATnXbhIZnVcrqrFIFb8DEG5wxr4nAovKh4npAxTt2KHYxb2ASgwY5AGBKv4IUCD62paMGgMtWDWZO8/UWZl16Ft6UQVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ElZBykRK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="N8r/upPb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PsF/zxRI8bhpWeEsSI98rZITAO57dW8a3dVdRLSJDiBXXleQ0eWv1g836L01gWD2E5VZziLmVGJLygYqPqvvYBxEia48lKNvu+juio2uZnG3xePNeIH6mHoiHATCz4o5r6la0/eV8c4fT/WQgKMtK+BRldsMgyQ9jajsz4qRphluUG43l/ecocR7U6bCg/MCZQIGecubHws55EZ0ZhmafXKrALjR/UATgXWxrGGdY53bcQ2+1czIS65/mLNWpnE2Vblaf3hFi9gz0E8tynfCeK6C8e/pUKX+S8euya4KRWtpOwODSrvMIhTDy5KopMm37Yz9maoW1AfMQOJBQycZsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N9KHAiZsNoHLr4/C0wku8akkh/GCT43rMdRbjJzPyxE=;
- b=fM6orXQuZpqUGcuzZ/ik4/o19zb7PUm1kFG3cvEtdnRHD0kfi3QjPel66PjMSiGB2LYNhGCgkthcNYV+vE5oY1r6qgM0Ecm85W18Q7hiS/7b5JFRjQX4VwjUKP0jD/8UXdGvUA5J5cUh80sp8Ougv2MPr0Ade32lommaTzKCf+PB3RDHZYDJXRX1hL16ln/LvgRelLIinnNC1YvNsxvx0yY/EbfCz/vrsKCkACL2G0RWmk5BqKt4LNBnoEJ5NuAaYOTEE+8PFr+EsujUtDPlplT7ntCPR60xwceTiq/5BaO8R7vJ7pJS4OvctcRc7d+ZPQ9hRsrTkxKX7YRPDNPW0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=igalia.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N9KHAiZsNoHLr4/C0wku8akkh/GCT43rMdRbjJzPyxE=;
- b=N8r/upPbrR8z69X0CfGGKPvpZnRfa7efw7cjyq7VhQiPq+U2tq1bsz7kLIbFCJK8712dQOUw0leM1JvUdykGgWOgaTqnymML016jESw9wqYtVMx3nacyEpxs487To9RgAM7k6rXYTSm0/UuWDQjtOzhwNs17Uu2jPJpyimrn+NA=
-Received: from SA1P222CA0025.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:22c::10)
- by IA0PR12MB7601.namprd12.prod.outlook.com (2603:10b6:208:43b::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
- 2026 08:41:38 +0000
-Received: from SA2PEPF00003F66.namprd04.prod.outlook.com
- (2603:10b6:806:22c:cafe::56) by SA1P222CA0025.outlook.office365.com
- (2603:10b6:806:22c::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.15 via Frontend Transport; Thu,
- 25 Jun 2026 08:41:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003F66.mail.protection.outlook.com (10.167.248.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 08:41:37 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 25 Jun
- 2026 03:41:34 -0500
-From: Honglei Huang <honghuan@amd.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <siqueira@igalia.com>,
-	<Christian.Koenig@amd.com>, <Mario.Limonciello@amd.com>,
-	<amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Ray.Huang@amd.com>, Honglei Huang
-	<honghuan@amd.com>, <stable@vger.kernel.org>, Mario Limonciello
-	<superm1@kernel.org>
-Subject: [PATCH v2] drm/amd/display: use kvzalloc to allocate struct dc
-Date: Thu, 25 Jun 2026 16:41:21 +0800
-Message-ID: <20260625084121.3053587-1-honghuan@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ElZBykRK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 343A21F000E9;
+	Thu, 25 Jun 2026 08:50:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782377455;
+	bh=94j9tcH3gHmgqgGGvo6s8vTq5w3oHDWpmmtffj7Lr/0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ElZBykRKpnvAKp8ZpTdCQ5/E8HvExus66+R6Tx1kILNRrlqkzWC7m0Yul3nArpEAD
+	 Q/1HB8S2T2juGjR53x0A/0VtMbZ63cDvKch3NMj+PALadhSfCAXyA3Df5Op4oAt/jI
+	 3Jkrc9BEBd6+edUqKT8UHd8TuEFmOf+Y+i6h7bs0MDPI22AveLGmK8b+tr31CUiyFP
+	 vQDpBRxltp9BW5DLMC6pRP+wEs3oGoGWhTSf7UW96I0xBL3hINlLN9zeo6n/sVFxnG
+	 eMJJh8Z+JOTRvqe7PvBg8ow0WoZaZVboKdNZjos39hG8Mnk059SgZ2t0878rRk0BSF
+	 LrWU5s1+rGyIA==
+Date: Thu, 25 Jun 2026 10:50:50 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Intel graphics driver community testing & development <intel-gfx@lists.freedesktop.org>, 
+	Martin Hodo <martin.hodo@intel.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, Simona Vetter <simona.vetter@ffwll.ch>, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/i915: Return NULL on error in active_instanceg
+Message-ID: <ajznzdwvxSv2YNHp@zenone.zhora.eu>
+References: <20260624090940.74840-1-joonas.lahtinen@linux.intel.com>
+ <178230031953.112641.4817434529385736057@jlahtine-mobl>
+ <ajvTjodx7LLj_BPO@zenone.zhora.eu>
+ <178236741262.19845.6184407491878204182@jlahtine-mobl>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F66:EE_|IA0PR12MB7601:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4febb5ad-d1f1-4e50-7b87-08ded29591da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|82310400026|376014|56012099006|11063799006|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	1IzOQwFfGqSh59suf1aujkdQpakCdgrgshm+n+wId4Cwlp6ngvMngzMcNDfTWUzXAR6WfAfX+DaZGjguruc0EBJdp/BXfyTkBcVnLtaGYxCLiD6eBTeFIlFvGs5qqUvH7jeQ0UEcTtsCwahI48s/aWaXKBCd9X1jSi4VfMTv4OGQJdMlRIYlj1mc1I1CLuhM51H/XCu0muGw0QjxTr2B8iAf0dexKRei6UM+lFUDnaMjElJ84p0+peGdJqGtNWziRrPcQxLa+v4BtnY6yFdD+qWsJpSwD+46YKO4y2hRGItWspOtobrut05S9ZfZAMyTSma6yFXyye9mKq00sihUrMIxaAY7uMnJ1SSGjIeI/sXo6mM+opQ6PyODvMqhOSH9qT84pzdRZA93aJDtDEo7Ye7ixDz0Xhm6syaSqPrEB3p7Qsbe9YsmWgEcod5KWiACDLWMfSfFqA4fj/MCarhwOYJksntdISg0W43j3fYgQ4d6Jr7vs3tveuGsEZviI9N6iOgbauJ20yQyPFx0XOeeO61W7p9MbDH8fMNFBS5ghUHL4CCJfvVTlI5seGCz16ng1p20MJMd2hAZhnC7wRM6CtJVS6+1P5ve3oTrTQstjOQGVpMO4OqZlijfIJa0PRKcx9B+LfgQYXbsfoHJsPrmXfsZxqneugK37ahJUaLoPdYs9AtPt9PfEidjdUljxhpHxM2Of2qS2PNrT9A40NYxkA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(82310400026)(376014)(56012099006)(11063799006)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Fj5b1fFkf4Tdn9nWuK833pLF1I+4HHsCMRwNFAKGbLheXvw2sESOnNeijyuOMAJUCYmWnjXicwwGpSv9DBpmuczidoW2rjQSJTZrscrIrYDLGdsMZt45hrEvNa1dE9dCJwwQUt8jv6qLKiwiYtsuy2VpuPBjO42kecXlTOtyz5TS4twirMpSObPGZpl/Fq7GYYSaw6q0JhdgPJLYFp/gnbcyKmaKr9coy36gWVVw3iQRDEyxB3R4zQJp4YLRpNjkwmXR1inRFUTK49i0+/ayyC7OGtymU1Pwm4MaaK8mITmezwkhFDXpquBbb4DbYjIdi4AGxvORRfy0NRILoc93Ar//Qn/srVKtxReJ5p/TvGrIxZggcjabojX1doJUQ8Y1O9Wrx03N1/ROfUu5K21jzfxF3xIrfwmI1lyHz2TfYxY1gEA8Xr4n1gjgzP7C9hbz
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 08:41:37.1513
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4febb5ad-d1f1-4e50-7b87-08ded29591da
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F66.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7601
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178236741262.19845.6184407491878204182@jlahtine-mobl>
 
-struct dc has grown large over time (most of it the two inlined
-dc_scratch_space copies) and now sits close to the page allocator's 4 MiB
-contiguous allocation limit. Its actual size is not fixed by the source
-alone, it also depends on the compiler and the .config, so it can easily
-cross 4 MiB, e.g. with a newer GCC or a config change.
+Hi Joonas,
 
-dc_create() allocates it with kzalloc(). Once struct dc exceeds 4 MiB the
-request is rounded up to order 11 (8 MiB), which is above MAX_PAGE_ORDER,
-so the page allocator warns and returns NULL. dc_create() then fails, DM
-init fails and amdgpu probe aborts with -EINVAL:
+On Thu, Jun 25, 2026 at 09:03:32AM +0300, Joonas Lahtinen wrote:
+> Quoting Andi Shyti (2026-06-24 15:59:30)
+> > On Wed, Jun 24, 2026 at 02:25:19PM +0300, Joonas Lahtinen wrote:
+> > > Pushed to drm-intel-gt-next, thanks for the reviews.
+> > 
+> > please, next time:
+> > 
+> > - Give people more time to review the patch. Only two hours
+> >   passed between posting it and pushing it
+> 
+> And why exactly is that a problem? I got the review from the original
+> patch author and a yet another person on top while it's a very
+> uncontroversial and trivial patch. Two reviewers per patch is already
+> quite a high bar to clear if you look at git history.
+> 
+> > (during lunch time, BTW).
+> 
+> Sorry, I did not know there is a universally agreed 2 hour lunch window
+> in UTC timezone that I should follow. I've missed that memo.
 
-  WARNING: mm/page_alloc.c:5197 at __alloc_frozen_pages_noprof+0x2f9/0x380
-   dc_create+0x38/0x660 [amdgpu]
-   amdgpu_dm_init+0x2d9/0x510 [amdgpu]
-   dm_hw_init+0x1b/0x90 [amdgpu]
-   amdgpu_device_init.cold+0x150d/0x1e13 [amdgpu]
-   amdgpu_driver_load_kms+0x19/0x80 [amdgpu]
-   amdgpu_pci_probe+0x1e2/0x4c0 [amdgpu]
+It's not a matter of how many reviewers there are or how
+controversial a patch may be. A patch needs to stay on the list
+long enough for the whole community to have a chance to review
+it. Give it one or two days.
 
-dc_create() then returns NULL and DM init fails, which aborts the whole
-GPU init and makes amdgpu probe fail with -EINVAL ("hw_init of IP block
-<dm> failed -22"), leaving the display unusable. The subsequent
-amdgpu_irq_put() warnings during teardown are just fallout of unwinding
-a half-initialized device.
+Even if you and the other reviewers don't see anything wrong,
+someone else might. As submitters and maintainers, we need to
+give people a reasonable amount of time to look at every patch.
+Two hours, at any time of the day, are definitely not enough.
 
-struct dc is a software-only bookkeeping structure that is never handed
-to hardware DMA and is only ever kept as an opaque pointer, so it does
-not require physically contiguous memory. Allocate it with kvzalloc()
-(and free it with kvfree()) so that the allocator can fall back to
-vmalloc() when a contiguous allocation of that size is not available,
-which also avoids the MAX_PAGE_ORDER warning entirely.
+We often complain when people send new revisions too early for
+exactly the same reason.
 
-v2:
- - Rebase to amd-staging-drm-next.
+> > - There were BAT failures. They were unrelated, but so far we
+> >   have generally held back patches until BAT was green, even for
+> >   the most obvious changes.
+> 
+> Strong disagree here. That'd have caused the patch to miss -next-fixes
+> PR just due to random noise of CI.
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5406
-Cc: stable@vger.kernel.org
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+We shouldn't care. The rules are the same for everyone, including
+maintainers. Very often I've been told to wait until the next
+cycle and very often I've asked others to do the same.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index ae776519e6e..99d08bfad53 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1509,7 +1509,7 @@ static void disable_vbios_mode_if_required(
- 
- struct dc *dc_create(const struct dc_init_data *init_params)
- {
--	struct dc *dc = kzalloc(sizeof(*dc), GFP_KERNEL);
-+	struct dc *dc = kvzalloc(sizeof(*dc), GFP_KERNEL);
- 	unsigned int full_pipe_count;
- 
- 	if (!dc)
-@@ -1557,7 +1557,7 @@ struct dc *dc_create(const struct dc_init_data *init_params)
- 
- destruct_dc:
- 	dc_destruct(dc);
--	kfree(dc);
-+	kvfree(dc);
- 	return NULL;
- }
- 
-@@ -1606,7 +1606,7 @@ void dc_deinit_callbacks(struct dc *dc)
- void dc_destroy(struct dc **dc)
- {
- 	dc_destruct(*dc);
--	kfree(*dc);
-+	kvfree(*dc);
- 	*dc = NULL;
- }
- 
--- 
-2.34.1
+Besides, it's unfair to keep a patch on the list for only two
+hours just to avoid missing the current cycle, while everyone
+else is expected to wait.
 
+> If there was a reasonable doubt about the impact of the patch on the
+> failure, that'd of course be different, but here there was absolutely
+> none in this case.
+> 
+> As per patchwork automated mail reply:
+> 
+> > If you think the reported changes have nothing to do with the changes
+> > introduced in Patchwork_169089v1, please notify your bug team
+
+The bug team is a different matter. Here we're talking about the
+review process.
+
+> That's exactly what was done here. That's a fair ask, but asking for
+> maintainers not to merge any code because of false positives is simply
+> not.
+
+False positive or not, controversial or not, easy or difficult,
+patches have *always* been blocked when BAT was red. The shard
+tests don't even start if BAT is red.
+
+Otherwise, we might as well stop running automatic tests for
+patches considered "non-controversial" and save CI resources.
+
+Andi
+
+> Regards, Joonas
+> 
+> > 
+> > Thanks,
+> > Andi
