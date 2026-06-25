@@ -1,83 +1,78 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2E2221DB3;
-	Thu, 25 Jun 2026 02:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE503A9615;
+	Thu, 25 Jun 2026 02:10:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782353397; cv=none; b=OwBZvlLVidNFo5EafF/oi6+QibzuGfxWVxSThr5m8Lg+6QvVwKCMu+o0FaW9A+RCx+qnjQrx3doARVCjIiLM/8nqSNxdJIwroW/hV2E3HiAlEzIPp+l/lkIxLOQIlY6zsVYIR2JQGCJ63fdXPpRJUlfepmD7jKSGR3OZ9Yc4/+o=
+	t=1782353431; cv=none; b=MFrbKj51jPqn9Ml6jsU2WYKoR+AuPGPsrOVlkkJKGM+hysyB5GqwzmpYMXu+ViskdGRaSnuMFzgI/edgiJVESnNuNO4goyKibesia8ZMzaJEzmz4fQKVpICbXOaAsLA3A6CbHPYNKnITczOFwm82V4RA/xW1dVzrZJ071BOBk+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782353397; c=relaxed/simple;
-	bh=SIzx6P6m/uXY3xFhV06qM0vpTeruR97c00MXBUL9bvw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=F0ozrs/zbdmu1QRE4EOlcm9icBcbh2T9/8Q+KvkBm4KsTdZ8Xh8qdzO5GGdyuGXFGn+YueOEw/vUPjMzfgdjm2Wnun+rPA+TO7n+hWOdwCZubY3/WDSvg3YkJDqgwRvydwHR6YZoU9fVDgBELt6FaWCMsFX9zCQ9REODfFrxFHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pbGQKSqV; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1782353431; c=relaxed/simple;
+	bh=vUQ+GNW+9GoZ1bBTqXqLJWo/WogleoR97speMN87xOA=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=URZAyCRtmHNX80lhfjOmr9XWZnaYjbf7qqWWXej5HzJjL56yhJYG2Fi9gHRcaTISu0E5sTUyeamB2OQUDVa7W7A8N3s3dSpTsHY9XwyNQe+5fPJ9i9ZTaFNqVPi9QuaUGOVLJHzf0xHjdauvH18sMVlOEfmWl3vqYMp9dNnrBdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m8bdBche; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pbGQKSqV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=SIzx6P6m/uXY3xFhV06qM0vpTeruR97c00MXBUL9bvw=; b=p
-	bGQKSqVz/gf6PK3qoEQyNN9qsGnQxnZCehQ/XGF4X7sL0Y7M5i9CnIFt4o8v3OMD
-	dJLsJiRKG0r36ZWH9pm9AqsvqOgKTGRG//rR4PZ3lZGhaKiSFJz5rfbpqQXVN5f/
-	dKyqiMa9H6w0xSPgv96AitkbSSVhnrOX699dALCd5Y=
-Received: from haoxiang_li2024$163.com (
- [240e:604:311:e68d:6832:a84c:abe2:7179] ) by ajax-webmail-wmsvr-40-140
- (Coremail) ; Thu, 25 Jun 2026 10:09:10 +0800 (CST)
-Date: Thu, 25 Jun 2026 10:09:10 +0800 (CST)
-From: haoxiang_li2024  <haoxiang_li2024@163.com>
-To: "Paul Menzel" <pmenzel@molgen.mpg.de>,
-	"martin.petersen@oracle.com" <martin.petersen@oracle.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com, yangyingliang@huawei.com,
-	mst@redhat.com, error27@gmail.com, linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re:Re: [PATCH] Bluetooth: virtio_bt: unregister HCI device on open
- failure
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <17c94df1-3659-4d21-b327-ad52d498ba9c@molgen.mpg.de>
-References: <20260624084333.2885144-1-haoxiang_li2024@163.com>
- <17c94df1-3659-4d21-b327-ad52d498ba9c@molgen.mpg.de>
-X-NTES-SC: AL_Qu2TAP+evEsu5iebZukfmUwSj+s8WsO0vf4i245fO5B+jB/o4Q4tRFhsE0Xk4MWRNDqAryW1XBl/2v17bIpVcY8WCgTKpxqsvFou/vOZx0GQYQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m8bdBche"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216311F000E9;
+	Thu, 25 Jun 2026 02:10:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782353430;
+	bh=UqbZL7BWYZ7QqBCbFrb/Fv38IFOYv3GEAYWURv1o8Eg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=m8bdBchek5O+Kf1TkPqzTT273/0iBbBxCgb3YjgsRrAcqicfwK4klrkbu5x0DDoKO
+	 IilYPjfemJ3kbC/504m3J7cK6HdEInOfDAiPs13dK16A9k/rIdOecptuY1bDBQrTwu
+	 t0xwnkSyXcAWeihMZibnGZjg1rIMb7Amrq+17SuxJqSUj7F4hWX69OMg4FemhCmvct
+	 fFywnZriV2cnIlmdhDnxg87ckvL7VHuruVUVFcZ1yo2FCvsLXTBlBqyPfRz0VLPont
+	 AoU/VsyOxYF4+L8pIVOM5RGMmuoP3oQ8GNtMIcNbeyOxSafllWreqI0GwmiXNPIPNa
+	 q3jv69Ex7NT9g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 938D63AAA6D4;
+	Thu, 25 Jun 2026 02:10:19 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <7d587d87.1fca.19efc89d056.Coremail.haoxiang_li2024@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:jCgvCgD3nzXGjTxqcyAQAA--.606W
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbCxgY+rGo8jcaXhgAA3e
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
+Subject: Re:
+ [PATCH net] net: usb: kalmia: bound RX frame length in kalmia_rx_fixup()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178235341814.3082498.6889909573598271946.git-patchwork-notify@kernel.org>
+Date: Thu, 25 Jun 2026 02:10:18 +0000
+References: <178211531778.2216480.12637613349790980750@maoyixie.com>
+In-Reply-To: <178211531778.2216480.12637613349790980750@maoyixie.com>
+To: Maoyi Xie <maoyixie.tju@gmail.com>
+Cc: oneukum@suse.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-CkhpIFBhdWwsCgpBdCAyMDI2LTA2LTI0IDE3OjEwOjU1LCAiUGF1bCBNZW56ZWwiIDxwbWVuemVs
-QG1vbGdlbi5tcGcuZGU+IHdyb3RlOgo+Cj5TaG91bGQgeW91IHJlc2VuZCwgcGxlYXNlIHJlLWZs
-b3cgZm9yIDcyLzc1IGNoYXJhY3RlcnMsIHNvIG9ubHkgdGhyZWUgCj5saW5lcyBhcmUgdXNlZC4K
-PgoKVGhhbmsgeW91IGZvciB0aGUgcmV2aWV3IQoKRm9sbG93aW5nIERhbidzIHN1Z2dlc3Rpb25z
-LCBJIHJld29ya2VkIHRoZSBwYXRjaCBpbiB2Mi4gSSBhbHNvIG1hZGUgdGhlCmNvbW1pdCBtZXNz
-YWdlIG1vcmUgY29tcGFjdCBiYXNlZCBvbiB5b3VyIHN1Z2dlc3Rpb24uIAoKPgo+UFM6IGdlbWlu
-aS9nZW1pbmktMy4xLXByby1wcmV2aWV3IGZvdW5kIGFuIHVucmVsYXRlZCBpc3N1ZSB0byB0aGUg
-cGF0Y2ggCj5kdXJpbmcgcmV2aWV3IG9mIHRoaXMgcGF0Y2ggWzFdLgo+Cj4+IFRoaXMgaXMgYSBw
-cmUtZXhpc3RpbmcgaXNzdWUsIGJ1dCBkb2VzIHRoaXMgZXJyb3IgcGF0aCBzYWZlbHkgY2xlYW4g
-dXAgdGhlCj4+IGFjdGl2ZSB2aXJ0cXVldWVzPyAKPj4gRWFybGllciBpbiB2aXJ0YnRfcHJvYmUo
-KSwgdmlydGlvX2RldmljZV9yZWFkeSh2ZGV2KSBtYXJrcyB0aGUgZGV2aWNlIGFzCj4+IGFjdGl2
-ZS4gSWYgdmlydGJ0X29wZW5fdmRldigpIHN1YnNlcXVlbnRseSBmYWlscywgdGhlIGNvZGUganVt
-cHMgdG8gdGhlCj4+IG9wZW5fZmFpbGVkIGxhYmVsIGFuZCBldmVudHVhbGx5IHJlYWNoZXMgaGVy
-ZSB0byBjYWxsIGRlbF92cXModmRldikuCj4+IERlbGV0aW5nIHZpcnRxdWV1ZXMgd2l0aG91dCBj
-YWxsaW5nIHZpcnRpb19yZXNldF9kZXZpY2UodmRldikgZmlyc3QgdmlvbGF0ZXMKPj4gdGhlIFZp
-cnRJTyBBUEkgY29udHJhY3QgZm9yIGFjdGl2ZSBkZXZpY2VzLiBJdCBjb3VsZCBhbGxvdyB0aGUg
-aG9zdCBvcgo+PiBoeXBlcnZpc29yIHRvIGFjY2VzcyBndWVzdCBtZW1vcnkgdGhhdCBoYXMgYWxy
-ZWFkeSBiZWVuIGZyZWVkIGJ5IGRlbF92cXMoKSwKPj4gcG90ZW50aWFsbHkgbGVhZGluZyB0byBh
-IHVzZS1hZnRlci1mcmVlLgo+PiBTaG91bGQgdmlydGlvX3Jlc2V0X2RldmljZSh2ZGV2KSBiZSBj
-YWxsZWQgYmVmb3JlIHRlYXJpbmcgZG93biB0aGUKPj4gdmlydHF1ZXVlcyBpbiB0aGlzIGVycm9y
-IHBhdGg/Cj4KPk5vIGlkZWEsIGhvdyB0byBiZXN0IHRyYWNrIHRoZXNlIHRoaW5ncy4KPgoKVGhl
-IGlzc3VlIG5vdGVkIGluIHlvdXIgUFMgaXMgbm93IGhhbmRsZWQgYnkgcmVzZXR0aW5nIHRoZSB2
-aXJ0aW8gZGV2aWNlCmJlZm9yZSB0ZWFyaW5nIGRvd24gdGhlIHZpcnRxdWV1ZXMgaW4gdGhlIHZp
-cnRidF9vcGVuX3ZkZXYoKSBmYWlsdXJlIHBhdGguCgpTaW5jZSB2MiBjaGFuZ2VzIG1vcmUgdGhh
-biB0aGUgb3JpZ2luYWwgb25lLWxpbmUgZml4LCBJIGRpZCBub3QgY2FycnkgeW91cgpSZXZpZXdl
-ZC1ieSB0YWcuIFRoYW5rcyBhZ2FpbiEKClRoYW5rcywKSGFveGlhbmc=
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon, 22 Jun 2026 16:01:57 +0800 you wrote:
+> kalmia_rx_fixup() computes usb_packet_length = skb->len - (2 *
+> KALMIA_HEADER_LENGTH) as a u16, guarded only by a pre-loop check that
+> skb->len is at least KALMIA_HEADER_LENGTH, which is 6. A device can
+> deliver a short bulk-IN frame with skb->len in the 6 to 11 range, or
+> leave a short trailing remainder on a later loop iteration. Either case
+> underflows usb_packet_length to about 65530.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] net: usb: kalmia: bound RX frame length in kalmia_rx_fixup()
+    https://git.kernel.org/netdev/net/c/47b6bcef6e67
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
