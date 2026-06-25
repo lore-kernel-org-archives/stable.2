@@ -1,186 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF25F327BEC;
-	Thu, 25 Jun 2026 00:33:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB6932E121;
+	Thu, 25 Jun 2026 00:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782347611; cv=none; b=RNL62ciRAWBjQ/Cb04asKd5gq4phCf+m38hnvNmH0tsLCKPV24gXt2ksnZvyXeTyeJzSQPrW4IdqI7mC7OcJpmeuS6KLmv03XeYQn9FxycFplpqAhiS4BzM7BXcpYuksZdgzFThZ20vLgYvFYcultE8PtSRxvnyrKoqbhw6dMmk=
+	t=1782347726; cv=none; b=BGuu1Qw6pNOl21I1qgTmjThIyL0JQSL9SdjKjQJXmD+6gfeZ/p0ZyrPEWfCalf2S4JScXo5UpaedLFb/mifKTGGCCoefBWpqyLy/yw72oJHxSJiw6xgPudPs2bEhiKr/ST8ZJiXLphtCeDCx6Q7HFjQo6iHVpnqeqlsd+tzOOA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782347611; c=relaxed/simple;
-	bh=JuPC2NwHR8p7UCHAMp+5wPB1BpecNAnCCEwlcPzOpMI=;
-	h=Date:To:From:Subject:Message-Id; b=uhzK0+gp8YYLt0dLUXuEkxJevfUwa4ZAboacEJcxMDDEM5TaN5zETShO5nnE7xrOlH5SMelYb17WIl9ik1bsym9500slyoCXHH6Vgfo2rfRbHTmVU75R+QWK3KhN94OP26ecLXn6QdknJFDV06OEV1itwOkuFXSrsW2PP9JTCNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=o/xEAecB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782347726; c=relaxed/simple;
+	bh=4Y0lKEGeBVRVySdCzZchCGFehJY7/Eo30fxGpdo9EIc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=TENGG06UQcthhkJylmo61QpcNexPlpDSCYuCqAZ+DBXUeE/JshGoc5HL1LA/BlkHPkom5dAVh8wzOBFFh9MGVpLkdFW/ezmlaDkAHc+u9HTfPJaGHMeDZI+/0bd3YEiPQxYj1jQt7GUR+71gzejfLDqWJleDSY3KSWDgkQ08BA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cNiDGkBo; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="o/xEAecB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800D61F000E9;
-	Thu, 25 Jun 2026 00:33:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1782347600;
-	bh=WwrEgTb38eyQw+Y8zddZYjuF/WVHCGKJC5HUzhITnIE=;
-	h=Date:To:From:Subject;
-	b=o/xEAecBq78bHhOCGeyLR879mW+RiERsn8jrnpiM3nUfx+TCjm7O2lvCFunIVQwu0
-	 UkNw4PE5ZFFy0YoN8FgRFMK4gLdXn/WiLsC0Adi/EKmSIRqFQUZtdmV4HIU5GGob8c
-	 64uzwoxa/8YbcK0JpX2qv0ONctigCUwV13r0qZ4c=
-Date: Wed, 24 Jun 2026 17:33:20 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,willy@infradead.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,rppt@kernel.org,mhocko@suse.com,luizcap@redhat.com,ljs@kernel.org,liam@infradead.org,jackmanb@google.com,hannes@cmpxchg.org,david@redhat.com,david@kernel.org,ketan.kishore@oss.qualcomm.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-page_ext-add-count-limit-to-page_ext_iter_next-to-prevent-invalid-pfn-access.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260625003320.800D61F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cNiDGkBo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=4Y0lKEGeBVRVySdCzZchCGFehJY7/Eo30fxGpdo9EIc=; b=c
+	NiDGkBofgiyOPUdVEt72LEIoNgz948Hrg/YDr6VapprQmL9LiEyRVVd6dHxIOp57
+	hcHGy+35dw+YfHr+w5xzJOfE8F+v3AokBmJqKsX8Quuf1TYsUX4D8DEQHC+nsJya
+	IzYMUe/Ru1bp7cdtCVZheOBsLlT2YA7hUq6XEMgNR8=
+Received: from haoxiang_li2024$163.com ( [36.112.3.223] ) by
+ ajax-webmail-wmsvr-40-140 (Coremail) ; Thu, 25 Jun 2026 08:34:31 +0800
+ (CST)
+Date: Thu, 25 Jun 2026 08:34:31 +0800 (CST)
+From: haoxiang_li2024  <haoxiang_li2024@163.com>
+To: "Simon Horman" <horms@kernel.org>
+Cc: sgoutham@marvell.com, lcherian@marvell.com, gakula@marvell.com,
+	hkelam@marvell.com, sbhatta@marvell.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re:Re: [PATCH] octeontx2-af: Free BPID bitmap on setup failure
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260624170930.GB1131256@horms.kernel.org>
+References: <20260623114316.2182271-1-haoxiang_li2024@163.com>
+ <20260624170930.GB1131256@horms.kernel.org>
+X-NTES-SC: AL_Qu2TAP+fuE4s5yCYY+kfmUwSj+s8WsO0vf4i245fO5B+jB/o4Q4tRFhsE0Xk4MWRNDqAryW1XBl/2v17bIpVcY8WJvu48EKje2TKIfFRmLTlDw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Message-ID: <78397a8d.5bc.19efc3325e6.Coremail.haoxiang_li2024@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:jCgvCgD3T4mXdzxqhfoPAA--.155W
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbCxhesG2o8d5dByQAA3Y
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-
-The patch titled
-     Subject: mm: page_ext: add count limit to page_ext_iter_next to prevent invalid PFN access
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-page_ext-add-count-limit-to-page_ext_iter_next-to-prevent-invalid-pfn-access.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-page_ext-add-count-limit-to-page_ext_iter_next-to-prevent-invalid-pfn-access.patch
-
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Ketan <ketan.kishore@oss.qualcomm.com>
-Subject: mm: page_ext: add count limit to page_ext_iter_next to prevent invalid PFN access
-Date: Tue, 23 Jun 2026 02:48:04 +0530
-
-The page_ext iteration API does not validate if the PFN still belongs to a
-valid section while advancing the iterator.  When dynamically adding
-memory in the hotplug path, it can lead to a NULL pointer dereference
-during page_ext_lookup at the boundary of the last valid section when
-iterator count equals __pgcount.
-
-The for_each_page_ext() macro calls page_ext_iter_next() as its loop
-increment.  for_each_page_ext() does a "__page_ext =
-page_ext_iter_next(&__iter)" at the end.  This causes page_ext_iter_next()
-to increment iter->index past __pgcount and call page_ext_lookup(start_pfn
-+ __pgcount).  During memory hotplug (online), the PFN at start_pfn +
-__pgcount may belong to a section that has not yet been initialized,
-causing page_ext_lookup() to trigger a NULL pointer dereference.
-
-[   14.555124][  T846] Call trace:
-[   14.555125][  T846]  lookup_page_ext+0x6c/0x108 (P)
-[   14.555127][  T846]  page_ext_lookup+0x30/0x3c
-[   14.555129][  T846]  __reset_page_owner+0x11c/0x260
-[   14.571201][  T846]  __free_pages_ok+0x5e8/0x8e0
-[   14.571204][  T846]  __free_pages_core+0x78/0xf0
-[   14.571206][  T846]  generic_online_page+0x14/0x24
-[   14.597782][  T846]  online_pages+0x178/0x30c
-[   14.597784][  T846]  memory_block_change_state+0x284/0x32c
-[   14.597787][  T846]  memory_subsys_online+0x4c/0x64
-[   14.597789][  T846]  device_online+0x88/0xb0
-[   14.597791][  T846]  online_memory_block+0x30/0x40
-[   14.597793][  T846]  walk_memory_blocks+0xac/0xe8
-[   14.597794][  T846]  add_memory_resource+0x280/0x298
-[   14.656161][  T846]  add_memory+0x60/0x98
-
-Move the iteration boundary enforcement inside the iterator functions, so
-callers cannot inadvertently access beyond the requested range.
-
-Link: https://lore.kernel.org/20260623-page_ext-v3-1-a89799a5367c@oss.qualcomm.com
-Fixes: 9039b9096ea2 ("mm: page_owner: use new iteration API")
-Signed-off-by: Ketan Kishore <ketan.kishore@oss.qualcomm.com>
-Suggested-by: David Hildenbrand <david@redhat.com>
-Suggested-by: Matthew Wilcox <willy@infradead.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Brendan Jackman <jackmanb@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Luiz Capitulino <luizcap@redhat.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- include/linux/page_ext.h |   19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
-
---- a/include/linux/page_ext.h~mm-page_ext-add-count-limit-to-page_ext_iter_next-to-prevent-invalid-pfn-access
-+++ a/include/linux/page_ext.h
-@@ -120,14 +120,18 @@ struct page_ext_iter {
-  * page_ext_iter_begin() - Prepare for iterating through page extensions.
-  * @iter: page extension iterator.
-  * @pfn: PFN of the page we're interested in.
-+ * @count: maximum number of page extensions to return.
-  *
-  * Must be called with RCU read lock taken.
-  *
-  * Return: NULL if no page_ext exists for this page.
-  */
- static inline struct page_ext *page_ext_iter_begin(struct page_ext_iter *iter,
--						unsigned long pfn)
-+		unsigned long pfn, unsigned long count)
- {
-+	if (!count)
-+		return NULL;
-+
- 	iter->index = 0;
- 	iter->start_pfn = pfn;
- 	iter->page_ext = page_ext_lookup(pfn);
-@@ -138,19 +142,22 @@ static inline struct page_ext *page_ext_
- /**
-  * page_ext_iter_next() - Get next page extension
-  * @iter: page extension iterator.
-+ * @count: maximum number of page extensions to return.
-  *
-  * Must be called with RCU read lock taken.
-  *
-  * Return: NULL if no next page_ext exists.
-  */
--static inline struct page_ext *page_ext_iter_next(struct page_ext_iter *iter)
-+static inline struct page_ext *page_ext_iter_next(struct page_ext_iter *iter,
-+		unsigned long count)
- {
- 	unsigned long pfn;
- 
- 	if (WARN_ON_ONCE(!iter->page_ext))
- 		return NULL;
- 
--	iter->index++;
-+	if (++iter->index >= count)
-+		return NULL;
- 	pfn = iter->start_pfn + iter->index;
- 
- 	if (page_ext_iter_next_fast_possible(pfn))
-@@ -183,9 +190,9 @@ static inline struct page_ext *page_ext_
-  * IMPORTANT: must be called with RCU read lock taken.
-  */
- #define for_each_page_ext(__page, __pgcount, __page_ext, __iter) \
--	for (__page_ext = page_ext_iter_begin(&__iter, page_to_pfn(__page));\
--		__page_ext && __iter.index < __pgcount;          \
--		__page_ext = page_ext_iter_next(&__iter))
-+	for (__page_ext = page_ext_iter_begin(&__iter, page_to_pfn(__page), __pgcount); \
-+		__page_ext; \
-+		__page_ext = page_ext_iter_next(&__iter, __pgcount))
- 
- #else /* !CONFIG_PAGE_EXTENSION */
- struct page_ext;
-_
-
-Patches currently in -mm which might be from ketan.kishore@oss.qualcomm.com are
-
-mm-page_ext-add-count-limit-to-page_ext_iter_next-to-prevent-invalid-pfn-access.patch
-
+CgpBdCAyMDI2LTA2LTI1IDAxOjA5OjMwLCAiU2ltb24gSG9ybWFuIiA8aG9ybXNAa2VybmVsLm9y
+Zz4gd3JvdGU6Cj5PbiBUdWUsIEp1biAyMywgMjAyNiBhdCAwNzo0MzoxNlBNICswODAwLCBIYW94
+aWFuZyBMaSB3cm90ZToKPj4gbml4X3NldHVwX2JwaWRzKCkgYWxsb2NhdGVzIGJwLT5icGlkcyB3
+aXRoIHJ2dV9hbGxvY19iaXRtYXAoKSwgd2hpY2ggdXNlcwo+PiBhIHBsYWluIGtjYWxsb2MoKS4g
+SWYgYW55IG9mIHRoZSBmb2xsb3dpbmcgZGV2bV9rY2FsbG9jKCkgYWxsb2NhdGlvbnMgZm9yCj4+
+IHRoZSBCUElEIG1hcHBpbmcgYXJyYXlzIGZhaWxzLCB0aGUgZnVuY3Rpb24gcmV0dXJucyB3aXRo
+b3V0IGZyZWVpbmcgdGhlCj4+IGJpdG1hcC4gRnJlZSB0aGUgQlBJRCBiaXRtYXAgYmVmb3JlIHJl
+dHVybmluZyBmcm9tIHRob3NlIGVycm9yIHBhdGhzLgo+PiAKPj4gRml4ZXM6IGQ2MjEyZDJlNDFh
+MCAoIm9jdGVvbnR4Mi1hZjogQ3JlYXRlIEJQSURzIGZyZWUgcG9vbCIpCj4+IENjOiBzdGFibGVA
+dmdlci5rZXJuZWwub3JnCj4+IFNpZ25lZC1vZmYtYnk6IEhhb3hpYW5nIExpIDxoYW94aWFuZ19s
+aTIwMjRAMTYzLmNvbT4KPgo+UmV2aWV3ZWQtYnk6IFNpbW9uIEhvcm1hbiA8aG9ybXNAa2VybmVs
+Lm9yZz4KPgo+SSBhbSB3b25kZXJpbmcgaWYgeW91IGRpZCBhIHBhc3MgZm9yIGFueSBvdGhlciBz
+aW1pbGFyIHByb2JsZW1zCj53aXRoIHVzZXJzIG9mIHJ2dV9hbGxvY19iaXRtYXAuCgpUaGFua3Mg
+Zm9yIHlvdXIgcmV2aWV3ISBZZXMsIEkgZGlkLiBJIGZvdW5kIHNpbWlsYXIgaXNzdWVzIGluCm5p
+eF9zZXR1cF9pcG9saWNlcnMoKSBhbmQgcnZ1X3NldHVwX21zaXhfcmVzb3VyY2VzKCksIGFuZApJ
+IHdpbGwgYWRkcmVzcyB0aGVtIGluIGZvbGxvdy11cCBwYXRjaGVzLgoKVGhhbmtzLApIYW94aWFu
+ZwoK
