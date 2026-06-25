@@ -1,155 +1,172 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2553DC87B
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 12:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9AD3DE424;
+	Thu, 25 Jun 2026 12:05:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782388981; cv=none; b=KQGpbxxQhQ+ngm/bap7w3B2NQ/W2AmGt/hVv2lPeVMo1C6ngcdp2fQGCO9I86vTgUDarR48HTXdVbaTuTdO1rbzXuPHxm/heoFKrCmwWuKFvDfY2/M3cXsBRk2qS4nYja4oPQIMKOEXWYLXUOyGgfs7bBiF8tGbtX8ptkNw3NXc=
+	t=1782389110; cv=none; b=iSUo4SKcMMF5vyYkluIhMqP9sqY90+rM1lpfco6oTjXbIrrNw3PuOVAVfkifFGcu2yH1/po/2cD7WnON9/tSUNx4aLbin5+iDX2HK4kjD5JY4GSTzKglKSUaZ3sm7DOb4pQ083tbVw4mWa8WB9IhbBHEwyBD7384HOy4HXZON+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782388981; c=relaxed/simple;
-	bh=xyjYE+wdCRqfeXrLoCjAccvmSLZbMOpLrWkbvLXVmmY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kGOzuW/NhcP2ggQWjP3HhlUP7lletlmOqIIe84vaDVM5rEudRqY6y27YGd5CECwiq0YYkfCnXhZIPE+9BNefv+uKP7o2nlbhGaaWzQmRmT0hvSK7LSMgWbZ1td6x4sLJ0iZBRAgPn8s+P/w49JPrwGhBSkQJj5hEC54VulEX/WE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Efm1c2SR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=m46NOzkK; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rXg3UsSV; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=PGgCAjbw; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1782389110; c=relaxed/simple;
+	bh=wuXWvfKfQYO6/citvaczuoT2qoF6dfMJdKsHw1NA4bM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZkhmWJ7IQRAdRe6wRFHPQvNfdaZA3bGL5my6GDyWB/UGkIbCTi6tIyn/Vj+rNrgFLE5vZSWbBFvkwsvmPLGG6I7yXfAy9PYmOqxRZ9FBagmA0dd5JRYCBVgSciqu7YSqv4Lb4DJyh7WEnkcaKV1887Deuw1a4tP0+edFJsJy/cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=wCtbi7UM; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Efm1c2SR";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="m46NOzkK";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rXg3UsSV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PGgCAjbw"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 166E271B00;
-	Thu, 25 Jun 2026 12:02:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1782388977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cPS0ijg5scPFhq5gmIRPoChf+Roc+10cb3JS4k6uAcU=;
-	b=Efm1c2SR5cf8AO19tbRlWmG45eSot0YIIOde1bhJX1hsy8Qvy+0w93Lu/MhPAhKGELn91u
-	XTVMV04GrNw2ht7JO8jbFV/Aetls+HVsJ2n1wzevtOfvvoov4b2qiwRj8PrvQ4rrABAKEI
-	Q1x4LkxWdrBjYMgnY0D3fAlA2eTG5J8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1782388977;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cPS0ijg5scPFhq5gmIRPoChf+Roc+10cb3JS4k6uAcU=;
-	b=m46NOzkKBeuSEsQenk4/EWjCil4ConygAczDw/m8movtvFeh0q7qCwwxejcomqF27WgICn
-	6Cquffn69hn6AEBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1782388976; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cPS0ijg5scPFhq5gmIRPoChf+Roc+10cb3JS4k6uAcU=;
-	b=rXg3UsSV8xbC4U5qEXG1BmO4VFwGugx36jhsQ32yPk2AVSKwn1nopsBuDNBzecGACpBjM1
-	nmi2SS/EWAcWq+N8oVu28glRJESn8fiSDETmMSkiLffOdgNrfbtcKufNnowrMFzv/br3gl
-	e/J07JjXjP4uEpc/qc21XL59YV4uyXk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1782388976;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cPS0ijg5scPFhq5gmIRPoChf+Roc+10cb3JS4k6uAcU=;
-	b=PGgCAjbwplxstk0ADQoYutIuJinvUhk+MUi6Mhc6GcaSg7E/6KvYtcQmSh8dtNHP+7bNkq
-	K1ZecFmSBn3+hRBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D87B6779A8;
-	Thu, 25 Jun 2026 12:02:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 36vSM+8YPWruCAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 25 Jun 2026 12:02:55 +0000
-Date: Thu, 25 Jun 2026 14:02:51 +0200
-Message-ID: <877bnmvndg.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Maoyi Xie <maoyixie.tju@gmail.com>
-Cc: Clemens Ladisch <clemens@ladisch.de>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: firewire: isight: bound the sample count to the packet payload
-In-Reply-To: <178205454729.1900991.7807310178296762772@maoyixie.com>
-References: <178205454729.1900991.7807310178296762772@maoyixie.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="wCtbi7UM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=dPExcujj1dHzdJJh0v6ZWHvfvO26Hkf8IPiLlz3Negc=; b=wCtbi7UM8Xz8QDx1Zah6+1hiYH
+	5JoOaJm4E+lJW+e/xhrk1Vcle3v/umsexA6PwCyxUw+1USnZaZ0yunL4vMg9W/gBxjy+NvuVEPZUo
+	vBIn3uVRJFJFveuCq7DDDzKnfIZ+Rs3kA8kU+Ra5tL+yIhIhZlaIhUHbosZqWFDTH21Y1d2lrHgIV
+	eiiJX8u0FCyCBE79vBiubu2y3ra9fMmkeL1mZz/IB/+QxEZRrSYzJOlRYNabJRR9SEAjZCRFdmBef
+	xryDl/8t5I8bN3/xlQq265xrif6dFn/s6oPcphR1T7mBmfoU6ow9o69XCyCbv2TW51S0c7ivQPGzL
+	Nr3NTjaw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1wcipF-003BVH-2X;
+	Thu, 25 Jun 2026 12:04:58 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Thu, 25 Jun 2026 05:03:18 -0700
+Subject: [PATCH net v2] netpoll: fix a use-after-free on shutdown path
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -1.80
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
-X-Spam-Level: 
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260625-netpoll_rcu_fix-v2-1-0748ffac1e98@debian.org>
+X-B4-Tracking: v=1; b=H4sIAAUZPWoC/3XNQQqDMBBG4auEf22KmaK2rnqPIqJx1AFJJLFik
+ dy94L7rB987ETkIR9TqROBdoniHWlGmYOfOTaxlQK1AOZV5SaQdb6tfljbYTzvKoQceq96yobz
+ qkCmsgUc5LvENxxuaTGGWuPnwvS67udJfcDfaaFPYOz0KfhKXr4F76dzNhwlNSukHiUBZFbQAA
+ AA=
+X-Change-ID: 20260622-netpoll_rcu_fix-def7bce1207a
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Amerigo Wang <amwang@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ vlad.wing@gmail.com, asantostc@gmail.com, paulmck@kernel.org, 
+ kernel-team@meta.com, stable@vger.kernel.org, 
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3294; i=leitao@debian.org;
+ h=from:subject:message-id; bh=wuXWvfKfQYO6/citvaczuoT2qoF6dfMJdKsHw1NA4bM=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqPRll6A/GhLZbgzzU1BjhCa4B/AtI6Vv4X5OWX
+ 3Ketjz62QiJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaj0ZZQAKCRA1o5Of/Hh3
+ bbSJD/985V2K94Ml5Hzs3D8owCjx7heHM/WiQKJW6MsaDTuZXFjTWeLQPtuMIhhBYVVIXiR1eS6
+ rjXHM1CB5F1ZKJZn91mjt1SG4pHIMl9+jzZSJn623DidgT9yPuLpb440VNyi1tjt7nMwHX4m6LN
+ d8D5bXFOzTZ/aRmJ26AlZ93wXfVu5/RryP9fEFbFlq//Sn8rGBrazprpK48JvaP1haozEtSNWLi
+ Yy6eEgdYdf5W6OZ7IJOvkugpUn2FHxBCsmtwnVd9fgm8SETu7uXR4ircdqhE2Tz6ZpFxe86sa1I
+ 1HBC1rnJOLD7rdq+1G0WuSZjrBVUcke+oC6t+vk7aHvDl4PzXA7Yk1w8QZop0ZT9m+yOkjBaQol
+ uerG1EFISg0BmfCkB64ZzYmZKM+Z7+A4bc47dCKj+oMeLVLVpaIcQIlHio4SH2ylCjZpnbcRLoZ
+ W+0pNbdN32S3jXAaCvwJLqlaIemfRxe3l6AUtDNngtxAvexVx0HTS3qhlLEvZS9rEA1OERI550+
+ faU+IvIxiTyKh0jy0KS/VydLXSWGSHPiXnxq+kNoDNzvZ4TzXY69QnUyw/mUXnJ2qpLU11n+rA4
+ Mun3fCeyUaby3Cuoig6utiXLUdpIgHfBYJL4U0ndWtHvHcGPybgp0mb3w03JG8COMFCaC3B83Yt
+ E39rzpjAklNjclA==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Sun, 21 Jun 2026 17:09:07 +0200,
-Maoyi Xie wrote:
-> 
-> isight_packet() takes the frame count from the device iso packet and
-> checks it only against the device claimed iso length.
-> 
-> 	count = be32_to_cpu(payload->sample_count);
-> 	if (likely(count <= (length - 16) / 4))
-> 		isight_samples(isight, payload->samples, count);
-> 
-> length is the iso header data_length. It can be up to 0xffff. So the
-> gate allows a count up to about 16379. isight_samples() then copies
-> count frames out of payload->samples into the PCM DMA buffer.
-> 
-> payload->samples holds only 2 * MAX_FRAMES_PER_PACKET values. The
-> device multiplexes two samples per frame. A count past
-> MAX_FRAMES_PER_PACKET reads past the payload. A count past the buffer
-> size writes past runtime->dma_area. The smallest PCM buffer is larger
-> than MAX_FRAMES_PER_PACKET. Bounding the count to MAX_FRAMES_PER_PACKET
-> keeps both the read and the write in range.
-> 
-> A malicious or faulty Apple iSight on the FireWire bus reaches this
-> during a normal capture.
-> 
-> Add the MAX_FRAMES_PER_PACKET bound to the gate.
-> 
-> Fixes: 3a691b28a0ca ("ALSA: add Apple iSight microphone driver")
-> Suggested-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+There is a use-after-free error on netpoll, which is clearly detected by
+KASAN.
 
-Thanks, applied now.
+      BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x3b/0x80
+      Read of size 1 at addr ... by task kworker/9:1
+      Workqueue: events queue_process
+      Call Trace:
+       skb_dequeue+0x1e/0xb0
+       queue_process+0x2c/0x600
+       process_scheduled_works+0x4b6/0x850
+       worker_thread+0x414/0x5a0
+      Allocated by task 242:
+       __netpoll_setup+0x201/0x4a0
+       netpoll_setup+0x249/0x550
+       enabled_store+0x32f/0x380
+      Freed by task 0:
+       kfree+0x1b7/0x540
+       rcu_core+0x3f8/0x7a0
 
+The problem happens when there is a pending TX worker running in
+parallel with the cleanup path.
 
-Takashi
+This is what happens on netpoll shutdown path:
+
+1) __netpoll_cleanup() is called
+2) set dev->npinfo to NULL
+3) call_rcu() with rcu_cleanup_netpoll_info()
+  3.1) rcu_cleanup_netpoll_info() tries to cancel all workers with
+       cancel_delayed_work(), but doesn't wait for the worker to finish
+4) and kfree(npinfo);
+
+Because 3.1) doesn't really cancel the work, as the comment says "we
+can't call cancel_delayed_work_sync here, as we are in softirq", the TX
+worker can run after 4).
+
+Tl;DR: queue_process() is not an RCU reader, it reaches npinfo through
+the work item via container_of().
+
+Use disable_delayed_work_sync() to ensure the worker is completely
+stopped and prevent any future re-arming attempts. Once npinfo is set
+to NULL, senders will bail out and not queue new work. The disable flag
+ensures any in-flight re-arming attempts also fail silently.
+
+In the future, we can do the cleanup inline here without needing the
+npinfo->rcu rcu_head, but that is net-next material.
+
+Cc: stable@vger.kernel.org
+Fixes: 38e6bc185d95 ("netpoll: make __netpoll_cleanup non-block")
+Reviewed-by: Pavan Chebbi <pavan.chebbi@broadcom.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+Changes in v2:
+- Remove the synchronize_rcu() and keep cancel the tx_work
+  before call_rcu(). (Jakub)
+- Link to v1: https://lore.kernel.org/r/20260622-netpoll_rcu_fix-v1-1-15c3285e92e6@debian.org
+---
+ net/core/netpoll.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/net/core/netpoll.c b/net/core/netpoll.c
+index 229dde818ab33..96d5945e6a30f 100644
+--- a/net/core/netpoll.c
++++ b/net/core/netpoll.c
+@@ -633,14 +633,6 @@ static void rcu_cleanup_netpoll_info(struct rcu_head *rcu_head)
+ 			container_of(rcu_head, struct netpoll_info, rcu);
+ 
+ 	skb_queue_purge(&npinfo->txq);
+-
+-	/* we can't call cancel_delayed_work_sync here, as we are in softirq */
+-	cancel_delayed_work(&npinfo->tx_work);
+-
+-	/* clean after last, unfinished work */
+-	__skb_queue_purge(&npinfo->txq);
+-	/* now cancel it again */
+-	cancel_delayed_work(&npinfo->tx_work);
+ 	kfree(npinfo);
+ }
+ 
+@@ -664,6 +656,7 @@ static void __netpoll_cleanup(struct netpoll *np)
+ 			ops->ndo_netpoll_cleanup(np->dev);
+ 
+ 		RCU_INIT_POINTER(np->dev->npinfo, NULL);
++		disable_delayed_work_sync(&npinfo->tx_work);
+ 		call_rcu(&npinfo->rcu, rcu_cleanup_netpoll_info);
+ 	}
+ 
+
+---
+base-commit: d07d80b6a129a44538cda1549b7acf95154fb197
+change-id: 20260622-netpoll_rcu_fix-def7bce1207a
+
+Best regards,
+-- 
+Breno Leitao <leitao@debian.org>
+
