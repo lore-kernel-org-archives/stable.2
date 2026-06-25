@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096A919D8A8
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 18:42:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48581A0B0E
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 18:42:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782412929; cv=none; b=Y28Ixs7zhqP0gjpOVlyrGQgFR2LeYkXhl4EevBxVVdiqYrVHQAJtZkHVfinG/+Qeo0RM/W0s4W2a0pgaVPtq76Z3CjnuhZqzCEpZq9AujEQKDbYttEyyw8UomT+12u/FH3lk1GnJk31T7aRec+cH8UQDcTuKQhFcv09Oeh7Dh3o=
+	t=1782412934; cv=none; b=hYongRQo1dIAntPb4ub2wXHCNV0SQMmw2wr5bR3fhiKP41BbN4Yrm63b91R4TNb6faspbsP/ro06WnvP3M84R+GZgli9kvznLJSdWnA05VB+x/pepzxnViDMlKq+JZTWZE8kqy1YiBzW5ELUpFkVVljvj/tpA+YgrEO6clGQ4Hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782412929; c=relaxed/simple;
-	bh=FTFiOqBlT0sIzYmkYqEPBA2R84rNSgB0Dx8qxDEtBxY=;
+	s=arc-20240116; t=1782412934; c=relaxed/simple;
+	bh=azEgAQHFZzJ5p5nTHIjRqhFQgYRqu3/8cKQ6UmQiOMk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vr0oUCYjU6BRSAZ5fZpnbJgfOO77h+WZINhBA0BxioAdWkOzi0TVB9mrFLtH2BYj3JMt7kgVSDBHx/GAIY4FEHjQSZXPeOTyJ/WCu7MNac9BRSqFjerXLxanI5zTQJ/U9c+B4yT0HNK/wsm2r1OdUJ7CyOxfYr2o+e6NIH/Ii4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O8ejT/A6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=A6PHTLmX7EAobhZmTIWMxVV/IQaflE64qOaZin7N+WsjkyePDwXJa6fqZXlyFppTqygLUpmAP6L4dTvFABhwdIqcJk/UqIlCXaw4SGLXnjkjst4WCU/znHQBWwUOMoacQJn5IRGpU0TNZFTTzXxoKa7vi7Fr0GX2q5V9KTHgx+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a4gnh6qw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O8ejT/A6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67B651F000E9;
-	Thu, 25 Jun 2026 18:42:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a4gnh6qw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4E7D1F00A3D;
+	Thu, 25 Jun 2026 18:42:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782412927;
-	bh=qR3CFq7Pjaq88DA9IS9ZZFb8ROdroN1XlCCZeEvvk3c=;
+	s=k20260515; t=1782412933;
+	bh=fOPm/r4DM2U+YyywV8wN3i2KvZpVgAxFE++at3MZsxE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O8ejT/A6mpGW1YEAUsnmzOeXVXU3qaXxLZmsuStC3u63Vu+GtILrnbM6iT+mysC3M
-	 KQNMjlI8PQkbIbHUeppI0smEK2OJrhFYcDKUCp52FZtXM7lAaSbTdRM3HvRss7wKZ2
-	 az1w7PmD+SSxgyhYYoHfsVMscLEvKwvO9NHLjcDrbw5DVy/9APtYGXTQdm3zXgX+tM
-	 D5h1BQIvZ+P8XxnOzgdMPHEtdw8NNaDiSUAz9gO7hM+mb+0u4OLCYPIPf/RUndzD72
-	 uSrwvls1gLHw5YFEfgdh7IlgmHUyPsk0gA+ngIP6QgHO2Mo09sJA5qC08Ev88jxGll
-	 V26itl5ma1a4A==
+	b=a4gnh6qwYZ92T0cSXlk0PKYDSQvMMa4pi4KdrEqVjrlDWwUvhhd7PCKEKIfYEqQSf
+	 Tye+G/B0Unu139XbrMJMdpJsIscfykRXSDtIVQgJgUbYqm//Fm+1KqsY6N9DWn2zJG
+	 s3pVanM36WiCgM/1y6zSunDCrK/CzI4x1wPbhHyxEsL+K56OaXrD7OxiN8hiJP4Hzr
+	 OXxh7AyDIxcwP9/Kj3QjdESXor3/SXH2zZM2dJvWlML8z+ABlx1Ndgwcjo6X2o625i
+	 eFCpEHgoehYw0NOEMFSTnt1kj+eMse5D59KYl3nUqwzC3lxA8ZM1w5H8K4WJx74M2A
+	 v55rqe8UyIPMQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] Input: rmi4 - refactor register descriptor parsing
-Date: Thu, 25 Jun 2026 14:42:05 -0400
-Message-ID: <20260625184205.2600332-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/4] crypto: qat - Replace kzalloc() + copy_from_user() with memdup_user()
+Date: Thu, 25 Jun 2026 14:42:08 -0400
+Message-ID: <20260625184210.2600469-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026062530-dorsal-breeches-46eb@gregkh>
-References: <2026062530-dorsal-breeches-46eb@gregkh>
+In-Reply-To: <20260625184210.2600469-1-sashal@kernel.org>
+References: <2026062534-vendetta-rice-1545@gregkh>
+ <20260625184210.2600469-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,228 +46,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+From: Thorsten Blum <thorsten.blum@linux.dev>
 
-[ Upstream commit 0adb483fbf2dc43c875cd7550a58b41e92efc52d ]
+[ Upstream commit 1e26339703e2afd397037defa798682b2b93dcc0 ]
 
-Factor out parsing a register descriptor item from
-rmi_read_register_desc() and ensure there are no out-of-bounds accesses.
+Replace kzalloc() followed by copy_from_user() with memdup_user() to
+improve and simplify adf_ctl_alloc_resources(). memdup_user() returns
+either -ENOMEM or -EFAULT (instead of -EIO) if an error occurs.
 
-Use get_unaligned_le16() and get_unaligned_le32() for reading multi-byte
-values.
+Remove the unnecessary device id initialization, since memdup_user()
+(like copy_from_user()) immediately overwrites it.
 
-Reported-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
-Cc: stable@vger.kernel.org
-Assisted-by: Gemini:gemini-3.1-pro
-Link: https://patch.msgid.link/20260505045952.1570713-2-dmitry.torokhov@gmail.com
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-[ changed the new `#include <linux/unaligned.h>` to `<asm/unaligned.h>` and dropped the absent `export.h` context line ]
+No functional changes intended other than returning the more idiomatic
+error code -EFAULT.
+
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Stable-dep-of: d237230728c5 ("crypto: qat - remove unused character device and IOCTLs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/input/rmi4/rmi_driver.c | 124 +++++++++++++++++++-------------
- 1 file changed, 76 insertions(+), 48 deletions(-)
+ drivers/crypto/qat/qat_common/adf_ctl_drv.c | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
-index ef9ea295f9e035..6c5a42d1b00225 100644
---- a/drivers/input/rmi4/rmi_driver.c
-+++ b/drivers/input/rmi4/rmi_driver.c
-@@ -21,6 +21,7 @@
- #include <linux/irqdomain.h>
- #include <uapi/linux/input.h>
- #include <linux/rmi.h>
-+#include <asm/unaligned.h>
- #include "rmi_bus.h"
- #include "rmi_driver.h"
- 
-@@ -557,30 +558,74 @@ int rmi_scan_pdt(struct rmi_device *rmi_dev, void *ctx,
- 	return retval < 0 ? retval : 0;
- }
- 
-+static int rmi_parse_register_desc_item(struct rmi_register_desc_item *item,
-+					const u8 *buf, size_t size)
-+{
-+	unsigned int offset = 0;
-+	unsigned int map_offset = 0;
-+	int b;
-+
-+	if (offset >= size)
-+		return -EIO;
-+
-+	item->reg_size = buf[offset++];
-+	if (item->reg_size == 0) {
-+		if (size - offset < 2)
-+			return -EIO;
-+		item->reg_size = get_unaligned_le16(&buf[offset]);
-+		offset += 2;
-+	}
-+
-+	if (item->reg_size == 0) {
-+		if (size - offset < 4)
-+			return -EIO;
-+		item->reg_size = get_unaligned_le32(&buf[offset]);
-+		offset += 4;
-+	}
-+
-+	do {
-+		if (offset >= size)
-+			return -EIO;
-+
-+		for (b = 0; b < 7; b++) {
-+			if (buf[offset] & BIT(b)) {
-+				if (map_offset >= RMI_REG_DESC_SUBPACKET_BITS)
-+					return -EIO;
-+				__set_bit(map_offset, item->subpacket_map);
-+			}
-+			++map_offset;
-+		}
-+	} while (buf[offset++] & BIT(7));
-+
-+	item->num_subpackets = bitmap_weight(item->subpacket_map,
-+					     RMI_REG_DESC_SUBPACKET_BITS);
-+
-+	return offset;
-+}
-+
- int rmi_read_register_desc(struct rmi_device *d, u16 addr,
--				struct rmi_register_descriptor *rdesc)
-+			   struct rmi_register_descriptor *rdesc)
+diff --git a/drivers/crypto/qat/qat_common/adf_ctl_drv.c b/drivers/crypto/qat/qat_common/adf_ctl_drv.c
+index 6f64aa6931461d..3aa1e93eaf4f8f 100644
+--- a/drivers/crypto/qat/qat_common/adf_ctl_drv.c
++++ b/drivers/crypto/qat/qat_common/adf_ctl_drv.c
+@@ -87,17 +87,10 @@ static int adf_ctl_alloc_resources(struct adf_user_cfg_ctl_data **ctl_data,
  {
- 	int ret;
- 	u8 size_presence_reg;
- 	u8 buf[35];
--	int presense_offset = 1;
--	u8 *struct_buf;
--	int reg;
--	int offset = 0;
--	int map_offset = 0;
-+	unsigned int presence_offset;
-+	unsigned int map_offset;
-+	unsigned int offset;
-+	unsigned int reg;
- 	int i;
- 	int b;
+ 	struct adf_user_cfg_ctl_data *cfg_data;
  
- 	/*
- 	 * The first register of the register descriptor is the size of
--	 * the register descriptor's presense register.
-+	 * the register descriptor's presence register.
- 	 */
- 	ret = rmi_read(d, addr, &size_presence_reg);
- 	if (ret)
- 		return ret;
- 	++addr;
- 
--	if (size_presence_reg < 0 || size_presence_reg > 35)
-+	if (size_presence_reg < 1 || size_presence_reg > 35)
- 		return -EIO;
- 
- 	memset(buf, 0, sizeof(buf));
-@@ -596,16 +641,23 @@ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
- 	++addr;
- 
- 	if (buf[0] == 0) {
--		presense_offset = 3;
--		rdesc->struct_size = buf[1] | (buf[2] << 8);
-+		if (size_presence_reg < 3)
-+			return -EIO;
-+		presence_offset = 3;
-+		rdesc->struct_size = get_unaligned_le16(&buf[1]);
- 	} else {
-+		presence_offset = 1;
- 		rdesc->struct_size = buf[0];
+-	cfg_data = kzalloc(sizeof(*cfg_data), GFP_KERNEL);
+-	if (!cfg_data)
+-		return -ENOMEM;
+-
+-	/* Initialize device id to NO DEVICE as 0 is a valid device id */
+-	cfg_data->device_id = ADF_CFG_NO_DEVICE;
+-
+-	if (copy_from_user(cfg_data, (void __user *)arg, sizeof(*cfg_data))) {
++	cfg_data = memdup_user((void __user *)arg, sizeof(*cfg_data));
++	if (IS_ERR(cfg_data)) {
+ 		pr_err("QAT: failed to copy from user cfg_data.\n");
+-		kfree(cfg_data);
+-		return -EIO;
++		return PTR_ERR(cfg_data);
  	}
  
--	for (i = presense_offset; i < size_presence_reg; i++) {
-+	map_offset = 0;
-+	for (i = presence_offset; i < size_presence_reg; i++) {
- 		for (b = 0; b < 8; b++) {
--			if (buf[i] & (0x1 << b))
-+			if (buf[i] & BIT(b)) {
-+				if (map_offset >= RMI_REG_DESC_PRESENSE_BITS)
-+					return -EIO;
- 				bitmap_set(rdesc->presense_map, map_offset, 1);
-+			}
- 			++map_offset;
- 		}
- 	}
-@@ -625,7 +677,7 @@ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
- 	 * I'm not using devm_kzalloc here since it will not be retained
- 	 * after exiting this function
- 	 */
--	struct_buf = kzalloc(rdesc->struct_size, GFP_KERNEL);
-+	u8 *struct_buf __free(kfree) = kzalloc(rdesc->struct_size, GFP_KERNEL);
- 	if (!struct_buf)
- 		return -ENOMEM;
- 
-@@ -637,56 +689,32 @@ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
- 	 */
- 	ret = rmi_read_block(d, addr, struct_buf, rdesc->struct_size);
- 	if (ret)
--		goto free_struct_buff;
-+		return ret;
- 
- 	reg = find_first_bit(rdesc->presense_map, RMI_REG_DESC_PRESENSE_BITS);
-+	offset = 0;
- 	for (i = 0; i < rdesc->num_registers; i++) {
- 		struct rmi_register_desc_item *item = &rdesc->registers[i];
--		int reg_size = struct_buf[offset];
--
--		++offset;
--		if (reg_size == 0) {
--			reg_size = struct_buf[offset] |
--					(struct_buf[offset + 1] << 8);
--			offset += 2;
--		}
-+		int item_size;
- 
--		if (reg_size == 0) {
--			reg_size = struct_buf[offset] |
--					(struct_buf[offset + 1] << 8) |
--					(struct_buf[offset + 2] << 16) |
--					(struct_buf[offset + 3] << 24);
--			offset += 4;
--		}
-+		item_size = rmi_parse_register_desc_item(item,
-+							 &struct_buf[offset],
-+							 rdesc->struct_size - offset);
-+		if (item_size < 0)
-+			return item_size;
- 
- 		item->reg = reg;
--		item->reg_size = reg_size;
--
--		map_offset = 0;
--
--		do {
--			for (b = 0; b < 7; b++) {
--				if (struct_buf[offset] & (0x1 << b))
--					bitmap_set(item->subpacket_map,
--						map_offset, 1);
--				++map_offset;
--			}
--		} while (struct_buf[offset++] & 0x80);
--
--		item->num_subpackets = bitmap_weight(item->subpacket_map,
--						RMI_REG_DESC_SUBPACKET_BITS);
-+		offset += item_size;
- 
- 		rmi_dbg(RMI_DEBUG_CORE, &d->dev,
- 			"%s: reg: %d reg size: %ld subpackets: %d\n", __func__,
- 			item->reg, item->reg_size, item->num_subpackets);
- 
- 		reg = find_next_bit(rdesc->presense_map,
--				RMI_REG_DESC_PRESENSE_BITS, reg + 1);
-+				    RMI_REG_DESC_PRESENSE_BITS, reg + 1);
- 	}
- 
--free_struct_buff:
--	kfree(struct_buf);
--	return ret;
-+	return 0;
- }
- 
- const struct rmi_register_desc_item *rmi_get_register_desc_item(
+ 	*ctl_data = cfg_data;
 -- 
 2.53.0
 
