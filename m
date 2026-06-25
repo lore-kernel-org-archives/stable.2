@@ -1,119 +1,144 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2414238399C;
-	Thu, 25 Jun 2026 02:29:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B156355F2A;
+	Thu, 25 Jun 2026 02:41:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782354601; cv=none; b=UKTj9/G+dqPh4FTLCGqaRwZGK3IDwB3Mkx09rx2ZumgF1ZSwZh2eAZ73XtCCQNUlZsKvMs2BFajBMsBV7uo9lt7TGnpi3GshW5wD4+dYGkPwRWa/8f2kiEdzEchAF9pKNBzsQrA16HasEfXyyTHaPfS9jxwXjzliFbSGeGql04c=
+	t=1782355292; cv=none; b=EWEfaxumMkx9lZ2zv7I1hRInWE/EM3Zg//CfF/gXRuR8UylENoUeUXTvBUjNpWDdMJvcfD2qs9ODILZcoyriUwtq2/7UuPWzVONo/zaK9SaNBvaFRA2KIldzePBdECo0iLXwkobJMWyQPJ99x2L45WL/w1+h0+zwk4qeabXmBCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782354601; c=relaxed/simple;
-	bh=H4FgjilvRhDxaejSOs5jXTlNlpdPoqb31yfgAlihuI8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TtpAcnbZg2Aj5jpvWHAB4Q5z9+hDBpT3WKygi1aW9Nz/yP2+t86Y/LhUhrkArP8l4kSI8OJEeW8Cy981lEyaaCmsBwQ8KbJuim/jSes4/j5Ew9M2IBDenGRMt0ObPpejqPpzCOZYtKCOgydp19v2lh6ZmPJEVBhjUPIgi1cP64c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=giYOnuqR; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="giYOnuqR"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 719C72309;
-	Wed, 24 Jun 2026 19:29:52 -0700 (PDT)
-Received: from [10.164.18.48] (J09HK2D2RT.blr.arm.com [10.164.18.48])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DE6E53F836;
-	Wed, 24 Jun 2026 19:29:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1782354597; bh=H4FgjilvRhDxaejSOs5jXTlNlpdPoqb31yfgAlihuI8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=giYOnuqRdTISFy6hmWYZAGBzFNiE301udlj9j8E36XojIMm1id4IDbBt0Pz8fXMi+
-	 lPks3QTwKXnd2PcNe+ZX+ft3eOkI9Mz0BwsIm2M8pVZLdSWoEim1eegI/oZYlyKXCU
-	 8EfgGf/tcUo4PnBel4ckzDZ78lcKhuSctPtNojKI=
-Message-ID: <b51f82ed-aa54-4c67-bcef-e59acd10c789@arm.com>
-Date: Thu, 25 Jun 2026 07:59:51 +0530
+	s=arc-20240116; t=1782355292; c=relaxed/simple;
+	bh=HmM/nvptwnuvFXCkHu8CqOdZVHrb04Hz8BG2nwCFCFk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qGkRBJJEsXtSrtowQcseocw7lTUcW1vm7XVap7qGViMhNxL3WbWRdDQ8nqhvSHuG4HsrFz4Bofy5JMKF0vQhNQsBILyMymtuak5CK2Z5WQOPRNPyw4G3ieB1L8l8LvGJM8qi5whHw0JvC6CNBd+uIap+VzBDGnF021FtYjR+u8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.180.135.67])
+	by gateway (Coremail) with SMTP id _____8BxNehXlTxqeasXAA--.55118S3;
+	Thu, 25 Jun 2026 10:41:27 +0800 (CST)
+Received: from localhost.localdomain.org (unknown [10.180.135.67])
+	by front1 (Coremail) with SMTP id qMiowJAxHMJPlTxqtEuyAA--.10446S2;
+	Thu, 25 Jun 2026 10:41:20 +0800 (CST)
+From: Hongchen Zhang <zhanghongchen@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Helge Deller <deller@gmx.de>,
+	WangYuli <wangyuli@aosc.io>,
+	Tianyang Zhang <zhangtianyang@loongson.cn>,
+	Alistair Popple <apopple@nvidia.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>
+Cc: linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	Hongchen Zhang <zhanghongchen@loongson.cn>,
+	stable@vger.kernel.org,
+	Huacai Chen <chenhuacai@loongson.cn>
+Subject: [PATCH] LoongArch: Fix missing dirty page tracking with HW PTW for both pte and pmd
+Date: Thu, 25 Jun 2026 10:40:43 +0800
+Message-Id: <20260625024043.2960754-1-zhanghongchen@loongson.cn>
+X-Mailer: git-send-email 2.33.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 337/522] arm64/mm: Enable batched TLB flush in
- unmap_hotplug_range()
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Ryan Roberts <ryan.roberts@arm.com>
-Cc: Will Deacon <will@kernel.org>, Ben Hutchings <ben@decadent.org.uk>,
- Catalin Marinas <catalin.marinas@arm.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>, patches@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Sasha Levin <sashal@kernel.org>, stable <stable@vger.kernel.org>,
- mark.rutland@arm.com
-References: <20260616145125.307082728@linuxfoundation.org>
- <20260616145141.584613180@linuxfoundation.org>
- <b0d5836032ce3135bfc473f6bff791306d086925.camel@decadent.org.uk>
- <ajqXWqiAol6Shdd6@willie-the-truck>
- <d2a633c8-496e-48e1-bfa0-a0fc75bd0a08@arm.com>
- <2026062451-bluff-coherent-672d@gregkh>
-Content-Language: en-US
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-In-Reply-To: <2026062451-bluff-coherent-672d@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxHMJPlTxqtEuyAA--.10446S2
+X-CM-SenderInfo: x2kd0w5krqwupkhqwqxorr0wxvrqhubq/1tbiAgEJB2o7cbAYigAAsP
+X-Coremail-Antispam: 1Uk129KBj93XoWxCFWDZF18Gw47GF13ZrWUGFX_yoW5Cr45pF
+	Z7GFyvvF48KF1fGayDurW3Jryqkws7JF4UGFs8Cw1DW3s8W34DXr1Ikrn5XFWrAa9Yvay8
+	Zr4rtrykWFW7ArgCm3ZEXasCq-sJn29KB7ZKAUJUUUUf529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4j6r4UJwAaw2AFwI0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
+	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_
+	Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
+	xGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwCFI7km07C267AKxVWUAVWUtwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j0mhrUUUUU=
 
+When hardware page table walk (PTW) is enabled on LoongArch, the CPU
+may set _PAGE_DIRTY directly in the page table entry during a write
+TLB miss, without going through the software TLB store handler. The
+software TLB store handler (tlbex.S:254) sets both _PAGE_DIRTY and
+_PAGE_MODIFIED together:
 
+    ori t0, t0, (_PAGE_VALID | _PAGE_DIRTY | _PAGE_MODIFIED)
 
-On 24/06/26 9:59 PM, Greg Kroah-Hartman wrote:
-> On Wed, Jun 24, 2026 at 04:05:01PM +0100, Ryan Roberts wrote:
->> On 23/06/2026 15:25, Will Deacon wrote:
->>> On Sun, Jun 21, 2026 at 05:02:27PM +0200, Ben Hutchings wrote:
->>>> On Tue, 2026-06-16 at 20:28 +0530, Greg Kroah-Hartman wrote:
->>>>> 6.1-stable review patch.  If anyone has any objections, please let me know.
->>>>>
->>>>> ------------------
->>>>>
->>>>> From: Anshuman Khandual <anshuman.khandual@arm.com>
->>>>>
->>>>> [ Upstream commit 48478b9f791376b4b89018d7afdfd06865498f65 ]
->>>> [...]
->>>>> @@ -949,15 +953,14 @@ static void unmap_hotplug_pmd_range(pud_
->>>>>  		WARN_ON(!pmd_present(pmd));
->>>>>  		if (pmd_sect(pmd)) {
->>>>>  			pmd_clear(pmdp);
->>>>> -
->>>>> -			/*
->>>>> -			 * One TLBI should be sufficient here as the PMD_SIZE
->>>>> -			 * range is mapped with a single block entry.
->>>>> -			 */
->>>>> -			flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
->>>>> -			if (free_mapped)
->>>>> +			if (free_mapped) {
->>>>> +				/* CONT blocks are not supported in the vmemmap */
->>>>> +				WARN_ON(pmd_cont(pmd));
->>>>> +				flush_tlb_kernel_range(addr, addr + PMD_SIZE);
->>>>
->>>> It wasn't clear to me from the commit message why this now adds PMD_SIZE
->>>> rather than PAGE_SIZE.  It seems like this change is fine for Linux
->>>> 6.13+ with a CPU that supports TLB range flushing, but otherwise results
->>>> in unnecessarily executing multiple TLB invalidations at intervals of
->>>> the base page size.
->>>
->>> Hmm, the commit message also makes very little sense to me and so I don't
->>> understand why this patch has us doing multiple TLB invalidations when
->>> we run into a !cont, block mapping at the PMD level. The old comment
->>> (which this patch removes) should still apply afaict.
->>>
->>> Anshuman, Ryan, any ideas what's going on here?
->>
->> I think this change was probably my fault; Given the API is called
->> flush_tlb_kernel_range() it seemed like an abuse/hack to pretend we are only
->> flushing the first PAGE_SIZE of the range. But as I understand it, even if the
->> HW shatters a block mapping into multiple TLB entries, all of the entries
->> relating to the block mapping will be invalidated if just one of them intersects
->> the TLBI range/address. So it should be safe to reapply this hack.
->>
->> Although ideally I think it would be better if this API took a stride argument;
->> then intent is clear.
->>
->> What's the best way to handle this? Submit a patch for mainline that reverts
->> this part, then get it backported to stable (implying this current patch will
->> have been applied to stable)?
-> 
-> yes, that's probably the best way.
-Sure, will send out the change as suggested.
+But hardware PTW only sets _PAGE_DIRTY, the software-only bit
+_PAGE_MODIFIED is left unchanged. This creates a window where a PTE
+has _PAGE_DIRTY set (hardware knows the page is dirty) but
+_PAGE_MODIFIED clear (software is unaware).
+
+When fork() triggers copy-on-write, __copy_present_ptes() calls
+pte_wrprotect(), which unconditionally clears both _PAGE_WRITE and
+_PAGE_DIRTY:
+
+    pte_val(pte) &= ~(_PAGE_WRITE | _PAGE_DIRTY);
+
+Since _PAGE_MODIFIED was never set, the dirtiness information is
+completely lost. Subsequently, when memory pressure triggers page
+reclaim, page_mkclean() / try_to_unmap() sees the page as clean
+(pte_dirty() returns false) and the page may be freed without
+writeback, causing data corruption.
+
+Fix this by propagating _PAGE_DIRTY to _PAGE_MODIFIED in both
+pte_wrprotect() and pmd_wrprotect() before clearing writability bits:
+
+    if (pte_val(pte) & _PAGE_DIRTY)
+        pte_val(pte) |= _PAGE_MODIFIED;
+
+The pmd_wrprotect() fix handles the CONFIG_TRANSPARENT_HUGEPAGE case,
+where pmd entries need the same treatment.
+
+This ensures the software dirty tracking bit (checked by pte_dirty(),
+which reads _PAGE_DIRTY | _PAGE_MODIFIED) is preserved across fork
+COW write-protection.
+
+The issue was found by LTP madvise09 test case, which exercises
+page reclaim after madvise(MADV_FREE)/write/fork on private anonymous
+mappings.
+
+Fixes: 09cfefb7fa70 ("LoongArch: Add memory management")
+Cc: stable@vger.kernel.org
+Co-developed-by: Huacai Chen <chenhuacai@loongson.cn>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+Co-developed-by: Tianyang Zhang <zhangtianyang@loongson.cn>
+Signed-off-by: Tianyang Zhang <zhangtianyang@loongson.cn>
+Signed-off-by: Hongchen Zhang <zhanghongchen@loongson.cn>
+---
+ arch/loongarch/include/asm/pgtable.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/loongarch/include/asm/pgtable.h b/arch/loongarch/include/asm/pgtable.h
+index 2a0b63ae421f..223528c04d73 100644
+--- a/arch/loongarch/include/asm/pgtable.h
++++ b/arch/loongarch/include/asm/pgtable.h
+@@ -429,6 +429,8 @@ static inline pte_t pte_mkwrite_novma(pte_t pte)
+ 
+ static inline pte_t pte_wrprotect(pte_t pte)
+ {
++	if (pte_val(pte) & _PAGE_DIRTY)
++		pte_val(pte) |= _PAGE_MODIFIED;
+ 	pte_val(pte) &= ~(_PAGE_WRITE | _PAGE_DIRTY);
+ 	return pte;
+ }
+@@ -535,6 +537,8 @@ static inline pmd_t pmd_mkwrite_novma(pmd_t pmd)
+ 
+ static inline pmd_t pmd_wrprotect(pmd_t pmd)
+ {
++	if (pmd_val(pmd) & _PAGE_DIRTY)
++		pmd_val(pmd) |= _PAGE_MODIFIED;
+ 	pmd_val(pmd) &= ~(_PAGE_WRITE | _PAGE_DIRTY);
+ 	return pmd;
+ }
+-- 
+2.33.0
+
