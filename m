@@ -1,99 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A1F1F03DE
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 13:41:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12DE32E128
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 13:44:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782394904; cv=none; b=uf1LGIuXz449fxNFP+BJbwrs6NYdFaD58cy+CExbJk9yAw2ZgZpWBjWnK+u90UiRIB9gHD/QSyWU4eYoBPeMnfjJmaL7zv8UyId56ng1Zwn8YJqBkBAQ67Quc4s18al8JE+6cH7E1o6tVwybjOGW4cNc2ujkAmfMERR3+qNMqcM=
+	t=1782395065; cv=none; b=V91jaRRj5I31QmlL4lnwM2aNZPbSBLSlj5DSb2eyafRPSA4feATGACoxqHmGnXsqXmCmxMkMoa/xIwMRK+2T7bQGK3jQ/DZLH/qNyvB39s7WF/ntUiu/cAW6WcV86IqHdGJolzFnLWSzjwGJiXKXgJ3UVhT7LCgCSLIWN42/EbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782394904; c=relaxed/simple;
-	bh=zeOIcoGHk4l6TCodEVFA6j6ZNy8JFNIz/aPXllMU+Lk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GFg+NS2+HBEw/Mhg+NobfnMffcV6JQ+JgJMrbBEaguKPPAH1fYznRjCSC2DxpyVKEumq6B32H0nx545KyHX0quHNgo0Z6yhKi83GVgRxA3Wb4v8yAYxxqyDJATuh2MQGTYws+fjU/ZnTaY6kE7hTC0bY2AvWID/uXyq/HdncUcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CwqddWvQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782395065; c=relaxed/simple;
+	bh=QKRvbgSIs2tFHUBa5X93644/2PO1rLUb6wSo2J+apI0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=keXIpsOTwepjMoyhLnLElCZUqu3MjqnLHrtLQEJytziof7j4DCrwKL1VQprRFFCJs17Mnu4LAHEC66YiCJfdKv3YTBSXHWz8FpQhd5O7erH9dtDZ9u9Iiw755uarfeS+E1DNenfUEO0AiV/SeR7Jo9CIRXeF+m7/0SkJd/X63SE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9V24Po6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CwqddWvQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BC231F00A3A;
-	Thu, 25 Jun 2026 13:41:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9V24Po6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86F81F00A3A
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 13:44:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782394903;
-	bh=bwr95TyqJ21fnGQAL1TJMJy9QANMncsjZ0ueu+25nJ0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CwqddWvQatk4zO7DV09ao4WVkRpcyUBh4lA1wUeTb3h2O9xyHOPvhX/g0DdJmJRPz
-	 dQNBQyCow8VQp8+s6BwRDUClpbaxXiqgnR5Nngvx1HOZTPcyd4xzS4j6c6RiD9jErc
-	 +BaQrBzFZRzwce7sxOoTEQv9eA8rH1ReadjLgc013yA9qNRZiFH051PXL5ueFzo/hd
-	 t8bg25HRWAhCJYAJZFBSxzqRMk9kGOWOnEWfM5rPIKi71aShSwD7ldQ277STxbdxtJ
-	 /yryk7aBSfJ2DZu6+fY4goNHeomdrj8tBE1gFH5EsTmHh6qX+pwyao8AbbWsO99WLm
-	 WpCnESqvkS3Pg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] serial: qcom_geni: Fix RX DMA stall when SE_DMA_RX_LEN_IN is zero
-Date: Thu, 25 Jun 2026 09:41:41 -0400
-Message-ID: <20260625134141.2411620-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026062523-sulfite-banking-76d6@gregkh>
-References: <2026062523-sulfite-banking-76d6@gregkh>
+	s=k20260515; t=1782395063;
+	bh=Qw2Vxl+bknWvdMDnl/tVKs+kZ0MjbmwMJZ/OSAJ9qB4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=J9V24Po6Xm5gdIBRmIdKMo9q9ZLuavsoG9iGERlVJ2x/DDcvCPXJneGvfZINUFHba
+	 TMXmWOhIdsBn2Be5ZvtikcwSfTZTWknJ11mPejGq9r/in30prgXk9CGgb4/xiASivX
+	 i85nxJESK+J5nGm/w72zLDoMBsN6bDdEJFBXZMHYrV5DWQfzCkyPhpiWE38Uc9B5r8
+	 A6xHglNMqW6DhdPUHJ3BRlGmPOY03nf0D4hUoAsqWrhkmBYbX+R0zMni8mn3LAqZvX
+	 b3uARAStupwsreK/sQqOzeniyslHL4G9jLbzmveD3Km8DS/HDuKz9FtUNlIrUsLELC
+	 DUq5RI9ovkhBA==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5aea0fff535so1026446e87.3
+        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 06:44:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoP7E3zl489XzxXDh1Lhrsh/pvUCeA82+szQCWyZXXy0UezKP9GYZtDIv0L+waOBKkDg/9msYM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxhJUvUYZneADyuUALKmA//0ph2wD3ZiTMauVjj3EvoPoz5Aede
+	8gN+VS7VL/odmjDfMxQteoFPxmQON3etTnMIKPp/CFk8bYkDI9cLBKS6W2/x2nalDk+IJANrS8p
+	BLYHEcj++uCfJHKD3p+ZVMky2gAlv6eE=
+X-Received: by 2002:a05:6512:251f:b0:5ae:a488:cda3 with SMTP id
+ 2adb3069b0e04-5aea488cde1mr449055e87.26.1782395062279; Thu, 25 Jun 2026
+ 06:44:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <961A84FF37B50665+20260625132903.2840457-1-raoxu@uniontech.com>
+In-Reply-To: <961A84FF37B50665+20260625132903.2840457-1-raoxu@uniontech.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Thu, 25 Jun 2026 15:44:09 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gwx6FhnRs2HLNhNUAWtMMtE7vL8eGY6HkZj_SyUOgb=g@mail.gmail.com>
+X-Gm-Features: AVVi8CfNwTK5ldVrg7FbS7Plh3b9hNya5WSYFmcRi__wVOAPSImoFyv9PB5ex20
+Message-ID: <CAJZ5v0gwx6FhnRs2HLNhNUAWtMMtE7vL8eGY6HkZj_SyUOgb=g@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: TAD: Check AC wake capability before enabling wakeup
+To: raoxu <raoxu@uniontech.com>
+Cc: rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+On Thu, Jun 25, 2026 at 3:29=E2=80=AFPM raoxu <raoxu@uniontech.com> wrote:
+>
+> From: Xu Rao <raoxu@uniontech.com>
+>
+> ACPI_TAD_AC_WAKE is a non-zero bit definition, so testing the macro
+> itself is always true. As a result, every TAD device is initialized as
+> a system wakeup device, including RTC-only devices and devices whose
+> wake capability bits were cleared because _PRW is absent.
+>
+> Test the capability value returned by _GCP instead. This keeps
+> RTC-only TAD devices usable without advertising a wakeup capability
+> that the firmware does not provide.
+>
+> Fixes: 6c711fde3a1c ("ACPI: TAD: Support RTC without wakeup")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> ---
+>  drivers/acpi/acpi_tad.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/acpi/acpi_tad.c b/drivers/acpi/acpi_tad.c
+> index 386fc1abcbdc..fc43df083738 100644
+> --- a/drivers/acpi/acpi_tad.c
+> +++ b/drivers/acpi/acpi_tad.c
+> @@ -856,7 +856,7 @@ static int acpi_tad_probe(struct platform_device *pde=
+v)
+>          * runtime suspend.  Everything else should be taken care of by t=
+he ACPI
+>          * PM domain callbacks.
+>          */
+> -       if (ACPI_TAD_AC_WAKE) {
+> +       if (caps & ACPI_TAD_AC_WAKE) {
+>                 device_init_wakeup(dev, true);
+>                 dev_pm_set_driver_flags(dev, DPM_FLAG_SMART_SUSPEND |
+>                                              DPM_FLAG_MAY_SKIP_RESUME);
+> --
 
-[ Upstream commit b93062b6d8a1b2d9bad235cac25558a909819026 ]
-
-In qcom_geni_serial_handle_rx_dma(), geni_se_rx_dma_unprep() clears
-port->rx_dma_addr before SE_DMA_RX_LEN_IN is read. If the register is zero,
-for example when the RX stale counter fires on an idle line, the handler
-returns without calling geni_se_rx_dma_prep().
-
-The next RX DMA interrupt then hits the !port->rx_dma_addr guard and
-returns immediately, so the RX DMA buffer is never rearmed and later input
-is lost.
-
-Keep the handler on the rearm path when rx_in is zero. Warn about the
-unexpected zero-length DMA completion, skip received-data handling, and
-always call geni_se_rx_dma_prep().
-
-Fixes: 2aaa43c70778 ("tty: serial: qcom-geni-serial: add support for serial engine DMA")
-Cc: stable@vger.kernel.org
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260528-serial-rx-0-byte-fix-v2-1-b4195cfe342f@oss.qualcomm.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/tty/serial/qcom_geni_serial.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
-index 5083eaddd635a9..ab5b4c6c29de08 100644
---- a/drivers/tty/serial/qcom_geni_serial.c
-+++ b/drivers/tty/serial/qcom_geni_serial.c
-@@ -838,12 +838,9 @@ static void qcom_geni_serial_handle_rx_dma(struct uart_port *uport, bool drop)
- 	port->rx_dma_addr = 0;
- 
- 	rx_in = readl(uport->membase + SE_DMA_RX_LEN_IN);
--	if (!rx_in) {
--		dev_warn(uport->dev, "serial engine reports 0 RX bytes in!\n");
--		return;
--	}
--
--	if (!drop)
-+	if (!rx_in)
-+		dev_warn_ratelimited(uport->dev, "serial engine reports 0 RX bytes in!\n");
-+	else if (!drop)
- 		handle_rx_uart(uport, rx_in, drop);
- 
- 	ret = geni_se_rx_dma_prep(&port->se, port->rx_buf,
--- 
-2.53.0
-
+Applied as 7.2-rc material, thanks!
