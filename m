@@ -1,140 +1,145 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A2472F8EA0;
-	Thu, 25 Jun 2026 07:00:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FFD332623
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 07:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782370811; cv=none; b=EQ7ynfKHo2ca9LC8ey5BpzJK4AQ/3RCRvZdk14k00qNu0Hfs/n4K1UvKuIvpJw2Hnj3Ig6eyTYLXb3AWCKymXZQXWnEzvWrt5QP2ZCeWWBh2AP5tp66q4epaEhNKYm6muHP4YUlCGYEVdVHd2JbUOnb7CcgT6Mc6uQyeWmWi2KY=
+	t=1782371508; cv=none; b=ZPcDO4Isjdjht5gyd3E0edlOOBnRa7g0tfp3Qu6OMen1VNzVRdnc1WO9B9KfXN7eKsAQyq/N8eahH74r488RbmjfbQTk0WC6/khRdnIfceJI9sjlxmDRXXCzbB/+y53sEhlTl/g+Dih8eTPcQkb7iNhoNgRQZU9DwgLq7+5o+XY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782370811; c=relaxed/simple;
-	bh=u4jABPlZSzfgRRcXDTKbxucxNVmhlGdcQNnwT4HDB88=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jfYbS3kRnM/z7zB5yB9PSF8F1mXjjdYFhSXORoOjNjD2GC6/YPk45XpLQ57sIjhE5sJhtJMvHtFYBTCn1TfAm1cFAHYrKFsAAXeZgQp5GFId+3oXbuHv+SFtH/NVlDixDUk0dWvW4A2SEDMQ4vdh0pCh260OCADbLDd8DIuZL+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XuxD/Ybc; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1782371508; c=relaxed/simple;
+	bh=cT3Hg/8SGJkDy7HTaTfodhduHUgAnrmxwuYSn134zgo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JdUB2QiXYxddq7ZkO5pA/sJWwHg3fOrPp79PPkDJYBgG23vIMJb4BUK//R/Qi1q6BZFW+weMmFBA8O+EsR8Dq8UOm+N1MnUXrvxPy5Dek6+IPAXXtHlEEqWMWRVQFTgJqHr20F0GFbQGbanvkoVxCE6dTpJQVqGNaN356L/id54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EIzVGfS3; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XuxD/Ybc"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E9CFB2BCE;
-	Wed, 24 Jun 2026 23:59:55 -0700 (PDT)
-Received: from [10.164.19.14] (unknown [10.164.19.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 31CDA3F836;
-	Wed, 24 Jun 2026 23:59:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1782370800; bh=u4jABPlZSzfgRRcXDTKbxucxNVmhlGdcQNnwT4HDB88=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XuxD/YbcCBHLeD5/+EryCgdigQZJqPQxElywZZ0Ilifij5vaKJr4RZqj0Lvru/pd1
-	 Rkf/Sw7ploOIVlaucD7ISq1Z3UyP+NgM0R3KKQw28OG8hEDpg3fzF5EaCiet5MFZJr
-	 qzRT5ERDLz3i4MXs8olfw97jn7GefhMLUGYAieCg=
-Message-ID: <2fd3688b-b4d0-4a2f-8d49-4d4b9c512c66@arm.com>
-Date: Thu, 25 Jun 2026 12:29:53 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EIzVGfS3"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2c7f1db3ad4so9701205ad.3
+        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 00:11:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782371505; x=1782976305; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YyhtrgUl91lDu8t83AeqgjUXFN0xPavBjbeVdqHjXo8=;
+        b=EIzVGfS3Vgp01GpDCCjL34+w9eE+VKGTf69sZEXL/HVT52IleoJ06zHIwEwUOQV2Xx
+         I7LecKvQ/aLl2n/r7rXTB86seAZLD3wSogtPbsQ1RfIo4nAHQzX8GRVJ8tZiC+grlOuO
+         /ZZNsJzPrer7X0gzLfGc8X7as8e0eRddDqDxln1OM8Ax+GU34sc6AVAGWvOGKWTMqrmy
+         YPZYM0Hsrakc/R47oqoKzdBMp5td68zL1qCe/jN5KyMwtRcJN7Sj88U0jDjmetgO0tiG
+         7r/RBgBe8eZTXO5CMFlks70NF4L9RoUohlZGc+wZVfXZqhcB4vyLnLI/kUjzX/QQaf9k
+         eQgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782371505; x=1782976305;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YyhtrgUl91lDu8t83AeqgjUXFN0xPavBjbeVdqHjXo8=;
+        b=LD/CrWak9lMkcTlRgeQ1Jxi14CAyDTEsISXsZgfKorxqwnhGoCMsfUOf+pPNpWcuR0
+         UJdnw8ezRu30rkRdY5AB1IGXrmQtlL32g4U1nv84D+e9ELZj7RUCHf9VRCFkMM/Hooai
+         GTcKcWNtUCSuoZVC7jR0z/yu3g/v+OHY9TLMviZu5JZIUOhPfUr4Hak3YQGw8wDL43Oj
+         y32cOdLZ3+Uz39WMFiNH+fa5GzFWIGRrB9LrgK8PdT+RyXukN35rG0j03XridwsO7vBg
+         DQ4TFVMK1MVatHqzcxgwSNxo9Jcm2BXiZp0VzR/FVLVLFuikl5kIYHYxSxSa4kvtvj5T
+         SQJA==
+X-Forwarded-Encrypted: i=1; AHgh+Roc1fFdPA2XO+pCklvXTmDu/dU5JebraNwlGhMMt38HUzCWFgCBdiVnGK2a+SFs7pNnwo+shx4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJneelWNLHzpXrglShC5ijdiehUe/uD4NBn/fER/x76EU/Hf0s
+	w7nMO2VW9zS5ef2cRzoXJJcwnfOJZLjrlm4N1b9Ekk3Uis7EMQgq9WY7
+X-Gm-Gg: AfdE7ck3p5mXA5CJABU0+vNEBUJ71Xvgj44PWLybGq8j7LLYRJSuJHZMrrb3QO5kIzv
+	DGVVhpNAss1WaWZGC6nUg7M9OegApH3+AZMSbUwWb0xJQayJScseULUX3pC53HvBw5uriW/n0TZ
+	oKj0BFkCbnUn0muI6/YMgV1Ew83G13fjldUZft5DOQLmJ+f2+7rlsKUdfwmbgGO93Uv2ac0V4Uy
+	4mT7TbKxynpuRcUveOqd903erjX6SM8GiNbucIw8J2TaZjLuQmC+GOFR3LUy+cPIWIN5dMFQHlz
+	1vgoxjR0pdfVN/UZKyoBOGtD7LU/s2EdHUP+XzEP+N9Ly/bIILqmrF2Z7jTBWG5t0QfAUpuCWcu
+	untGwJjSmI8qx915jmXlxTdQMbNK1AiOjnKKsJky3C6clhbJ9Y/GOXMp/eEsDQ15Tu5+LXIiSEY
+	/TNRfnJQcCBmk=
+X-Received: by 2002:a17:902:da92:b0:2c0:d097:51bb with SMTP id d9443c01a7336-2c7fc9bfd9cmr15548495ad.1.1782371505585;
+        Thu, 25 Jun 2026 00:11:45 -0700 (PDT)
+Received: from archermind.. ([182.150.55.91])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7f58cbe35sm14624385ad.0.2026.06.25.00.11.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 25 Jun 2026 00:11:45 -0700 (PDT)
+From: Liem <liem16213@gmail.com>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Biwen Li <biwen.li@nxp.com>,
+	Wolfram Sang <wsa@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Liem <liem16213@gmail.com>
+Subject: [PATCH] i2c: imx: Fix slave registration error path and missing NULL check
+Date: Thu, 25 Jun 2026 15:11:30 +0800
+Message-Id: <20260625071130.93544-1-liem16213@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/rmap: use huge_ptep_get() in try_to_unmap_one()
-To: kernel test robot <lkp@intel.com>, akpm@linux-foundation.org,
- david@kernel.org, ljs@kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, riel@surriel.com,
- liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
- kas@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- ryan.roberts@arm.com, anshuman.khandual@arm.com, stable@vger.kernel.org
-References: <20260625042853.2752898-1-dev.jain@arm.com>
- <202606251341.jfIr1D7m-lkp@intel.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <202606251341.jfIr1D7m-lkp@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+There are two issues that affect the i2c-imx slave handling:
 
+1. In i2c_imx_reg_slave(), i2c_imx->slave is checked at the beginning
+   and the function returns -EBUSY if it is non-NULL.  If
+   pm_runtime_resume_and_get() fails later, the error path returns
+   without clearing i2c_imx->slave, leaving it non-NULL.  Subsequent
+   attempts to register a slave will then immediately fail with
+   -EBUSY, making it impossible to register the slave again.  Fix
+   by setting i2c_imx->slave = NULL on the error path.
 
-On 25/06/26 11:15 am, kernel test robot wrote:
-> Hi Dev,
-> 
-> kernel test robot noticed the following build errors:
-> 
-> [auto build test ERROR on akpm-mm/mm-everything]
-> 
-> url:    https://github.com/intel-lab-lkp/linux/commits/Dev-Jain/mm-rmap-use-huge_ptep_get-in-try_to_unmap_one/20260625-123050
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-> patch link:    https://lore.kernel.org/r/20260625042853.2752898-1-dev.jain%40arm.com
-> patch subject: [PATCH] mm/rmap: use huge_ptep_get() in try_to_unmap_one()
-> config: hexagon-allnoconfig (https://download.01.org/0day-ci/archive/20260625/202606251341.jfIr1D7m-lkp@intel.com/config)
-> compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 6cc609bb250b21b47fc7d394b4019101e9983597)
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260625/202606251341.jfIr1D7m-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202606251341.jfIr1D7m-lkp@intel.com/
-> 
-> All errors (new ones prefixed by >>):
-> 
->>> mm/rmap.c:2100:13: error: call to undeclared function 'huge_ptep_get'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
->     2100 |                         pteval = huge_ptep_get(mm, address, pvmw.pte);
->          |                                  ^
->>> mm/rmap.c:2100:11: error: assigning to 'pte_t' from incompatible type 'int'
->     2100 |                         pteval = huge_ptep_get(mm, address, pvmw.pte);
->          |                                ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    2 errors generated.
+2. In i2c_imx_unreg_slave(), the slave pointer is set to NULL after
+   disabling interrupts.  However, a pending interrupt might already
+   have started a timer (e.g. for slave event processing) before
+   the pointer was cleared.  The timer callback
+   i2c_imx_slave_event() dereferences i2c_imx->slave without a
+   NULL check, which results in a use-after-free / NULL pointer
+   dereference.  Prevent this by checking that i2c_imx->slave is
+   valid before calling i2c_slave_event() and updating the
+   last_slave_event field.
 
-Weird that I need a stub. This should do:
+Both issues can trigger a kernel oops or permanent slave
+registration failure under certain race conditions.  Add the
+missing NULL assignment and the missing NULL check to harden
+the slave path.
 
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 2abaf99321e90..4661f88eee55b 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -1261,6 +1261,16 @@ static inline void hugetlb_count_sub(long l, struct mm_struct *mm)
+Fixes: f7414cd6923f ("i2c: imx: support slave mode for imx I2C driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Liem <liem16213@gmail.com>
+---
+ drivers/i2c/busses/i2c-imx.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
+index 28313d0fad37..4f7bcbeecfd0 100644
+--- a/drivers/i2c/busses/i2c-imx.c
++++ b/drivers/i2c/busses/i2c-imx.c
+@@ -775,8 +775,10 @@ static void i2c_imx_enable_bus_idle(struct imx_i2c_struct *i2c_imx)
+ static void i2c_imx_slave_event(struct imx_i2c_struct *i2c_imx,
+ 				enum i2c_slave_event event, u8 *val)
  {
+-	i2c_slave_event(i2c_imx->slave, event, val);
+-	i2c_imx->last_slave_event = event;
++	if (i2c_imx->slave) {
++		i2c_slave_event(i2c_imx->slave, event, val);
++		i2c_imx->last_slave_event = event;
++	}
  }
+ 
+ static void i2c_imx_slave_finish_op(struct imx_i2c_struct *i2c_imx)
+@@ -936,6 +938,7 @@ static int i2c_imx_reg_slave(struct i2c_client *client)
+ 	/* Resume */
+ 	ret = pm_runtime_resume_and_get(i2c_imx->adapter.dev.parent);
+ 	if (ret < 0) {
++		i2c_imx->slave = NULL;
+ 		dev_err(&i2c_imx->adapter.dev, "failed to resume i2c controller");
+ 		return ret;
+ 	}
+-- 
+2.34.1
 
-+static inline pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr,
-+				  pte_t *ptep)
-+{
-+#ifdef CONFIG_MMU
-+	return ptep_get(ptep);
-+#else
-+	return *ptep;
-+#endif
-+}
-+
- static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
- 					  unsigned long addr, pte_t *ptep)
- {
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 1c77d5dc06e9f..aa8a254efaecc 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -2095,11 +2095,16 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
- 		/* Unexpected PMD-mapped THP? */
- 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
-
--		/*
--		 * Handle PFN swap PTEs, such as device-exclusive ones, that
--		 * actually map pages.
--		 */
--		pteval = ptep_get(pvmw.pte);
-+		address = pvmw.address;
-+		if (folio_test_hugetlb(folio)) {
-+			pteval = huge_ptep_get(mm, address, pvmw.pte);
-+		} else {
-+			/*
-+			 * Handle PFN swap PTEs, such as device-exclusive ones,
-+			 * that actually map pages.
-+			 */
-+			pteval = ptep_get(pvmw.pte);
-+		}
- 		if (likely(pte_present(pteval))) {
- 			pfn = pte_pfn(pteval);
- 		} else {
-@@ -2110,7 +2115,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
- 		}
-
- 		subpage = folio_page(folio, pfn - folio_pfn(folio));
--		address = pvmw.address;
- 		anon_exclusive = folio_test_anon(folio) &&
- 				 PageAnonExclusive(subpage);
