@@ -1,73 +1,42 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99780282F1D
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 18:02:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203392F1FEA
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 18:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782410530; cv=none; b=r1mHcbDJCFydGLUwS1dkGgoIDfDJM+puYfQ+PMpCpp/Gmnr8Uxzyp7VoRymJ8pURtAi6oDVDb/j7iYMvNBBeg7gfwxBewV8QIwD75giRvo7QLi+cKVSYQaZR9C5q4GP2uzoLSmTEXRkAA0ahvZynGnsIgcuqrxFymq3h61i/o6E=
+	t=1782410556; cv=none; b=VeD3gzGssw6QNHkJB34vDAkszY4Jf+h08ZW2F9fherJH4T51S9uqYwyIyjqdkOeuQF06RKOt/YtQ8bZzx672rM+SONR0n8SYV+UNSrj3861XpBdE5TSm0YbKxc8q8W8V8ksNk26hi1fdfa621Jc1PYqA81RtN8m/SV9Ekv0z1RY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782410530; c=relaxed/simple;
-	bh=AwfADB71gtX5OxxtbKioKMZhZz+x2T/CDlQMHNmN75w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JUbFpVUc1Wpqd1RHntHPLuS3Zj6lExgG/0Uepg+M9wm0jOOafh4urw0NmNeFt3X75ZhgPBgun85QYjzHPEHe3a+zUHo7x1evkWhEVHQQVq0Dxs21/CYMZZuDl/T1GtWeB/mj7Lij8Aa7n7kzW7RUOz2iGMbNZdlFWh8NKN014M8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UujjQC+d; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782410556; c=relaxed/simple;
+	bh=FTFiOqBlT0sIzYmkYqEPBA2R84rNSgB0Dx8qxDEtBxY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YveiMqBan+fYq7AM0l7eZWsc0+usDWRJoYgABfwmQoBWr9pYjxuravu+Vdqpl3/vA8IHKdGLSHYeePHlCtAyQXJRbFuO630hOeQNc7yv/ozHHODbgApv/w2JMDSwRKAnvzK9G+H/r8PRzlSWccyTPIqdLuB4UZN9zMnTX/Dxsq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i75N7j3v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UujjQC+d"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-46cf972f281so13743f8f.2
-        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 11:02:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782410526; x=1783015326; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Iy1R4WQwhE6n66P48kYKV+Z4fPY/RPEMTv/PHWH3DUc=;
-        b=UujjQC+dVVcLWdT6443TjHND8FA6tfKWMXtRpVakfUHjeIBzApSRAV5wNF0/ZbmJuR
-         waQ62L7pF/NubVS3fX/0uNXHPgxorntkpsbgKNZCh+Vm2l08VDk5/TGPl8W6yC21BsvQ
-         gS3e5RcBBSRKsegsUEdDeS3eDhlDENyoq2Aen5SP46HgI846u2oLSb+Zit1+her4VNbO
-         VGqRY6fNRwrXopoVTMeKLA9BcIoomnqhfs0myqBMqv3XPxvBvZM2eG72sJyfV55cwrWw
-         QYc8oR/sMFU9Lk4euzOXMivZYrrPEx1PxCSdjrstdRi9Lpax2uMmMXyNIDlP3siwCN6i
-         hSDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782410526; x=1783015326;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Iy1R4WQwhE6n66P48kYKV+Z4fPY/RPEMTv/PHWH3DUc=;
-        b=qjuHGGgYsXnUkv8pFwiLcluVvxNjxiL7UBW7F5Kf4TWzfVmoTUf/k3tuPHgB6sW1xN
-         S6L3x8dacZe7pr0R+mnVEMYlV1tzdjdPa1ZuK3Nt0gVbsbT0Ogt8YQ9n2V/WLmsjqyq+
-         l8iA8Ae9oJH0yqrNJWw2yKHhC66+T6T/Kv41cNQ7e+7Vub06X6YB2UCHbTZ+0mr7MBVi
-         b+ggxyCyufXJWhnvg59y+uddFyayjkwi9hC/3nXHGf7QN+KHUBcKuoiCDYxfjEMqM0Ti
-         nE8J4FbflrD85nxXvM37QGpcynaiNbPR14E9xs7p1UIRfqZ5GDlb/dFvvdQ40rxAwq4V
-         CW9w==
-X-Forwarded-Encrypted: i=1; AHgh+RpObGaqbwvBFRSYIvJEQfgA8eSdC3nadq5FlBvTqwq5Tqtm9N2zFKWmf3Diy5b5zDWQHb3cAtQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxyzP2yDb14opyy6zdohrVlzOEFeCKo8tH7cuN4ezh24hk40HpT
-	Vg9JyDfBFu4RWxCNcedV2AKCfeGQbTTK6xYT0q+VN4I7rKWimGeKcrQ=
-X-Gm-Gg: AfdE7cmdi2a9bn0fYqcIcbtsyg1GzP5m47pDxkiDFfY9/P5jssDigpEnM/xxmFwVKv9
-	6/4/ncvQnlzC3FGB6QztG2DRNcIEmOBTX4A7Ve4G4z9pF+FqGS+CYUb8iRN6g5/JWY1RLk+QNRP
-	HT5UdoCY0XJJ30OYaJKi1yTSPk4JQdegeZeC1ap2u4V9PXeHd6Ly6KuOO+JSoI50Q+jpxntsJiA
-	v78S/9/SdJVOU13pvJ5A9Z+yQJgXWUC/tcP0py99NHDZCrbdljtHe+kf6LsYLI7u5bSSf0Cz2X6
-	HErnS/0NDI7tWlnGQYc0sEXqYk6ED3N6e7RsWrPRqtzV7gSi5dR1c/JxYtnkflA4ztInYj3UpsB
-	LnST56YRg2qE+726MCpHdSywurwFJwRTcJ1IZCyxviDk/g8ZD63FHUUX2Rykeu1m93bUh
-X-Received: by 2002:a05:6000:4b15:b0:461:e43d:7d98 with SMTP id ffacd0b85a97d-46dc1f7a1c5mr5570318f8f.43.1782410525621;
-        Thu, 25 Jun 2026 11:02:05 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c2279b85csm16743544f8f.28.2026.06.25.11.02.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 11:02:04 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Beau Belgrave <beaub@linux.microsoft.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH] tracing/user_events: Use kfree_rcu for enabler cleanup
-Date: Thu, 25 Jun 2026 18:02:03 +0000
-Message-ID: <20260625180203.3343545-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i75N7j3v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37AD81F000E9;
+	Thu, 25 Jun 2026 18:02:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782410554;
+	bh=qR3CFq7Pjaq88DA9IS9ZZFb8ROdroN1XlCCZeEvvk3c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=i75N7j3vaRgmHgs9Lv2BEgd29Reg4KrzqbcAAi5XbRJ49U5K1EiPqHiEd1PGhDm/4
+	 eIX8pzc+9ZzBZJ797OVCLgAMExMfS72xgve1KvBWrrSov7nN/jr95WsNPkoKBPvWDm
+	 C8PjitEt6cBhkpksdUoVwcSeBH3dOUNrVeTO0jXgbMAtbkWdgIoL+sS6Vn+mzM2nuk
+	 R3czsXBrTV9NNump1kux7VZws/HGHFBsDGm/LWEh8Fx3DCaPV3d+pm0jkriiQ9MfDW
+	 oOZQBIqEHWrCnAupL5qkygv2YfYEIm76xIH7bLJ4wgIoMz7GfK0t+1Bf1tG+JJwrn5
+	 qDsuw02fpTplA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] Input: rmi4 - refactor register descriptor parsing
+Date: Thu, 25 Jun 2026 14:02:32 -0400
+Message-ID: <20260625180232.2549798-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026062529-remote-recovery-e8fe@gregkh>
+References: <2026062529-remote-recovery-e8fe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,49 +45,228 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-user_event_enabler_destroy() removes the enabler from an RCU-protected
-list via list_del_rcu() and then immediately frees it with kfree(). This
-can result in a concurrent reader in user_event_enabler_dup() accessing
-stale memory during fork, since the enabler list is traversed under
-rcu_read_lock().
+[ Upstream commit 0adb483fbf2dc43c875cd7550a58b41e92efc52d ]
 
-The ENABLE_VAL_FREEING_BIT check in user_event_enabler_dup() is not
-sufficient to prevent this, as the enabler can be freed between the bit
-test and the subsequent pointer dereference.
+Factor out parsing a register descriptor item from
+rmi_read_register_desc() and ensure there are no out-of-bounds accesses.
 
-Use kfree_rcu() to defer the free until after all RCU read-side critical
-sections complete.
+Use get_unaligned_le16() and get_unaligned_le32() for reading multi-byte
+values.
 
-Fixes: 7235759084a4 ("tracing/user_events: Use remote writes for event enablement")
+Reported-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Assisted-by: Gemini:gemini-3.1-pro
+Link: https://patch.msgid.link/20260505045952.1570713-2-dmitry.torokhov@gmail.com
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+[ changed the new `#include <linux/unaligned.h>` to `<asm/unaligned.h>` and dropped the absent `export.h` context line ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_user.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/input/rmi4/rmi_driver.c | 124 +++++++++++++++++++-------------
+ 1 file changed, 76 insertions(+), 48 deletions(-)
 
-diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-index c4ba484f7b38b..72bcb429eb4f3 100644
---- a/kernel/trace/trace_events_user.c
-+++ b/kernel/trace/trace_events_user.c
-@@ -109,6 +109,7 @@ struct user_event_enabler {
+diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
+index ef9ea295f9e035..6c5a42d1b00225 100644
+--- a/drivers/input/rmi4/rmi_driver.c
++++ b/drivers/input/rmi4/rmi_driver.c
+@@ -21,6 +21,7 @@
+ #include <linux/irqdomain.h>
+ #include <uapi/linux/input.h>
+ #include <linux/rmi.h>
++#include <asm/unaligned.h>
+ #include "rmi_bus.h"
+ #include "rmi_driver.h"
  
- 	/* Track enable bit, flags, etc. Aligned for bitops. */
- 	unsigned long		values;
-+	struct rcu_head		rcu;
- };
- 
- /* Bits 0-5 are for the bit to update upon enable/disable (0-63 allowed) */
-@@ -404,7 +405,7 @@ static void user_event_enabler_destroy(struct user_event_enabler *enabler,
- 	/* No longer tracking the event via the enabler */
- 	user_event_put(enabler->event, locked);
- 
--	kfree(enabler);
-+	kfree_rcu(enabler, rcu);
+@@ -557,30 +558,74 @@ int rmi_scan_pdt(struct rmi_device *rmi_dev, void *ctx,
+ 	return retval < 0 ? retval : 0;
  }
  
- static int user_event_mm_fault_in(struct user_event_mm *mm, unsigned long uaddr,
++static int rmi_parse_register_desc_item(struct rmi_register_desc_item *item,
++					const u8 *buf, size_t size)
++{
++	unsigned int offset = 0;
++	unsigned int map_offset = 0;
++	int b;
++
++	if (offset >= size)
++		return -EIO;
++
++	item->reg_size = buf[offset++];
++	if (item->reg_size == 0) {
++		if (size - offset < 2)
++			return -EIO;
++		item->reg_size = get_unaligned_le16(&buf[offset]);
++		offset += 2;
++	}
++
++	if (item->reg_size == 0) {
++		if (size - offset < 4)
++			return -EIO;
++		item->reg_size = get_unaligned_le32(&buf[offset]);
++		offset += 4;
++	}
++
++	do {
++		if (offset >= size)
++			return -EIO;
++
++		for (b = 0; b < 7; b++) {
++			if (buf[offset] & BIT(b)) {
++				if (map_offset >= RMI_REG_DESC_SUBPACKET_BITS)
++					return -EIO;
++				__set_bit(map_offset, item->subpacket_map);
++			}
++			++map_offset;
++		}
++	} while (buf[offset++] & BIT(7));
++
++	item->num_subpackets = bitmap_weight(item->subpacket_map,
++					     RMI_REG_DESC_SUBPACKET_BITS);
++
++	return offset;
++}
++
+ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+-				struct rmi_register_descriptor *rdesc)
++			   struct rmi_register_descriptor *rdesc)
+ {
+ 	int ret;
+ 	u8 size_presence_reg;
+ 	u8 buf[35];
+-	int presense_offset = 1;
+-	u8 *struct_buf;
+-	int reg;
+-	int offset = 0;
+-	int map_offset = 0;
++	unsigned int presence_offset;
++	unsigned int map_offset;
++	unsigned int offset;
++	unsigned int reg;
+ 	int i;
+ 	int b;
+ 
+ 	/*
+ 	 * The first register of the register descriptor is the size of
+-	 * the register descriptor's presense register.
++	 * the register descriptor's presence register.
+ 	 */
+ 	ret = rmi_read(d, addr, &size_presence_reg);
+ 	if (ret)
+ 		return ret;
+ 	++addr;
+ 
+-	if (size_presence_reg < 0 || size_presence_reg > 35)
++	if (size_presence_reg < 1 || size_presence_reg > 35)
+ 		return -EIO;
+ 
+ 	memset(buf, 0, sizeof(buf));
+@@ -596,16 +641,23 @@ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+ 	++addr;
+ 
+ 	if (buf[0] == 0) {
+-		presense_offset = 3;
+-		rdesc->struct_size = buf[1] | (buf[2] << 8);
++		if (size_presence_reg < 3)
++			return -EIO;
++		presence_offset = 3;
++		rdesc->struct_size = get_unaligned_le16(&buf[1]);
+ 	} else {
++		presence_offset = 1;
+ 		rdesc->struct_size = buf[0];
+ 	}
+ 
+-	for (i = presense_offset; i < size_presence_reg; i++) {
++	map_offset = 0;
++	for (i = presence_offset; i < size_presence_reg; i++) {
+ 		for (b = 0; b < 8; b++) {
+-			if (buf[i] & (0x1 << b))
++			if (buf[i] & BIT(b)) {
++				if (map_offset >= RMI_REG_DESC_PRESENSE_BITS)
++					return -EIO;
+ 				bitmap_set(rdesc->presense_map, map_offset, 1);
++			}
+ 			++map_offset;
+ 		}
+ 	}
+@@ -625,7 +677,7 @@ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+ 	 * I'm not using devm_kzalloc here since it will not be retained
+ 	 * after exiting this function
+ 	 */
+-	struct_buf = kzalloc(rdesc->struct_size, GFP_KERNEL);
++	u8 *struct_buf __free(kfree) = kzalloc(rdesc->struct_size, GFP_KERNEL);
+ 	if (!struct_buf)
+ 		return -ENOMEM;
+ 
+@@ -637,56 +689,32 @@ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+ 	 */
+ 	ret = rmi_read_block(d, addr, struct_buf, rdesc->struct_size);
+ 	if (ret)
+-		goto free_struct_buff;
++		return ret;
+ 
+ 	reg = find_first_bit(rdesc->presense_map, RMI_REG_DESC_PRESENSE_BITS);
++	offset = 0;
+ 	for (i = 0; i < rdesc->num_registers; i++) {
+ 		struct rmi_register_desc_item *item = &rdesc->registers[i];
+-		int reg_size = struct_buf[offset];
+-
+-		++offset;
+-		if (reg_size == 0) {
+-			reg_size = struct_buf[offset] |
+-					(struct_buf[offset + 1] << 8);
+-			offset += 2;
+-		}
++		int item_size;
+ 
+-		if (reg_size == 0) {
+-			reg_size = struct_buf[offset] |
+-					(struct_buf[offset + 1] << 8) |
+-					(struct_buf[offset + 2] << 16) |
+-					(struct_buf[offset + 3] << 24);
+-			offset += 4;
+-		}
++		item_size = rmi_parse_register_desc_item(item,
++							 &struct_buf[offset],
++							 rdesc->struct_size - offset);
++		if (item_size < 0)
++			return item_size;
+ 
+ 		item->reg = reg;
+-		item->reg_size = reg_size;
+-
+-		map_offset = 0;
+-
+-		do {
+-			for (b = 0; b < 7; b++) {
+-				if (struct_buf[offset] & (0x1 << b))
+-					bitmap_set(item->subpacket_map,
+-						map_offset, 1);
+-				++map_offset;
+-			}
+-		} while (struct_buf[offset++] & 0x80);
+-
+-		item->num_subpackets = bitmap_weight(item->subpacket_map,
+-						RMI_REG_DESC_SUBPACKET_BITS);
++		offset += item_size;
+ 
+ 		rmi_dbg(RMI_DEBUG_CORE, &d->dev,
+ 			"%s: reg: %d reg size: %ld subpackets: %d\n", __func__,
+ 			item->reg, item->reg_size, item->num_subpackets);
+ 
+ 		reg = find_next_bit(rdesc->presense_map,
+-				RMI_REG_DESC_PRESENSE_BITS, reg + 1);
++				    RMI_REG_DESC_PRESENSE_BITS, reg + 1);
+ 	}
+ 
+-free_struct_buff:
+-	kfree(struct_buf);
+-	return ret;
++	return 0;
+ }
+ 
+ const struct rmi_register_desc_item *rmi_get_register_desc_item(
 -- 
-2.47.3
+2.53.0
 
