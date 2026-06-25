@@ -1,100 +1,272 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54A73D9688
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 17:56:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889E13ED3A3
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 17:56:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782410172; cv=none; b=RuQXfv1TqFf1DJdde9SOF8mqw1KBDbrXpot0VPBRRQQsirwYK8OuGdUkloFV/cT3pdTpMTlhYLhiLMVDyIvkqyQYGj+8zf5iNX3o3zTE/VloS+s74Wmu9TGl7q8zTi1kpL45QkjiM+8PC0Z9NnTo7CGkb7b0u0rEXde9NXwOrdw=
+	t=1782410200; cv=none; b=hpjuPwVnDSi002SG9UjCDc4TKmwzaR3gxhvg9XCbx1UaeawORAf5zNwkHoqYmopyAwWlf+/RrKBbRVI6qUCxToRC2/LbLpXwm/AfEuVDVOyn/CW+wbXHFpwwUIEkZTHos3r+0e/xe0su/i1MrFVVF+oRyT4UPHNJfDG7CcvnZlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782410172; c=relaxed/simple;
-	bh=c1JovLtNMIL8kiSbfL85fembU3MkagrZ6hsCffMFG/A=;
+	s=arc-20240116; t=1782410200; c=relaxed/simple;
+	bh=FTFiOqBlT0sIzYmkYqEPBA2R84rNSgB0Dx8qxDEtBxY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fskIr5BISTBgpbR/MVW2JZR0nSSSdc0U5EcHmBPqAePBp6U0Fs5Wf6G5KAWs3uD8zhVkU1wpYzZGuxljV0U1oy2YXlEDrHgx1vU8EQPfXTjhgSDWsW8ZjWOS1Sz5FCa9rWYJxu6CHHEqC8ODEV4lpB/6Djb1x3yelPZTTyGuljQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k2jxmSrq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TcGBlJRL+sd6GY0vFKk4IoW2Qpt+u9WVQDjkbVRIBbWhk+1XJiHLOvv6Bj2ROaWbMpD7uaw5LTEGzdKzyELc7jgtUHWyEi6UwLTx7u5JK+pbpu/NZff2O9asQB6AJKsH+SVoKlWUXSlJM975eJzZNhMFMLOsefSHuGu5MofXy8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fZmRowqu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k2jxmSrq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EAD41F00A3A;
-	Thu, 25 Jun 2026 17:56:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fZmRowqu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5B851F000E9;
+	Thu, 25 Jun 2026 17:56:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782410171;
-	bh=kbRZmQgyFT5qaUe7Qtpvk+Su5KAJ1RI/2oxuTzmOPSI=;
+	s=k20260515; t=1782410198;
+	bh=qR3CFq7Pjaq88DA9IS9ZZFb8ROdroN1XlCCZeEvvk3c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k2jxmSrqeBpJoXT/S8nDdwu9vCzQmHWN7IjEH5pJ6bgyejtnJBIbvO6nnnSBt8oU1
-	 B3xTBODZn0NiaISydZeRMQcx4rumCK/n6codLyYXAqsoB5BT042enSPe+p4bWKxTFv
-	 5nTX01puPR7leo+rkpIz2DTA1qwhdqmdvDm9UizKC/BL7BG1Ieg03RirR9MvKPj5SF
-	 HSB4eNYtrSVBTFXXVj+P0KzF2WoRdX4kWskd6xOxSWON+X6TL68BZRoGBIBCBP+eAD
-	 MkVu3hcYKrwB/O5o/ZrhKB2upsGb4TrLMpfz1kXvgtwo30G5vLsczVTanS6dZT7NkT
-	 43tKsiDYVaanw==
+	b=fZmRowquBc+uaKuG3/y5LQyZOWjdORTHbhHuFmvvUjUfi/cKWBk7fg82xy3rL9T/J
+	 /EEKOlwtMugBMUgT8u4T4d4j8hH5jG6u+Ku6dpRmAu6raM1wwr+MoJzE/pQE+WTfJx
+	 ddhu5QAuDEKa/Lr24sR7cX9g/dg2BFI2bsu+0RA8BzDzg4RC3Adapq2YGrhBOMe6fm
+	 nYe60HWQiGjs5YqvXJykaiYi40VN7RsD3ALdi4tVpc0n4Ddl3/OwCvC97djAxQVSzc
+	 KGhT1DBIUeWXw7n9Ulr6BdrPJz1V8/Bve/rpL3MHLqE+uFNi6BvxfljTwN6m0IOXP/
+	 PdD3nHiW6VJzA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Miklos Szeredi <mszeredi@redhat.com>,
-	=?UTF-8?q?Aur=C3=A9lien=20Bombo?= <abombo@microsoft.com>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Greg Kurz <gkurz@redhat.com>,
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] virtiofs: fix UAF on submount umount
-Date: Thu, 25 Jun 2026 13:56:09 -0400
-Message-ID: <20260625175609.2544109-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] Input: rmi4 - refactor register descriptor parsing
+Date: Thu, 25 Jun 2026 13:56:36 -0400
+Message-ID: <20260625175636.2545563-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026062516-legroom-wrongdoer-ad3f@gregkh>
-References: <2026062516-legroom-wrongdoer-ad3f@gregkh>
+In-Reply-To: <2026062529-kung-curtain-6296@gregkh>
+References: <2026062529-kung-curtain-6296@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Miklos Szeredi <mszeredi@redhat.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-[ Upstream commit 06b41351779e9289e8785694ade9042ae85e41ea ]
+[ Upstream commit 0adb483fbf2dc43c875cd7550a58b41e92efc52d ]
 
-iput() called from fuse_release_end() can Oops if the super block has
-already been destroyed.  Normally this is prevented by waiting for
-num_waiting to go down to zero before commencing with super block shutdown.
+Factor out parsing a register descriptor item from
+rmi_read_register_desc() and ensure there are no out-of-bounds accesses.
 
-This only works, however, for the last submount instance, as the wait
-counter is per connection, not per superblock.
+Use get_unaligned_le16() and get_unaligned_le32() for reading multi-byte
+values.
 
-Revert to using synchronous release requests for the auto_submounts case,
-which is virtiofs only at this time.
-
-Reported-by: Aurélien Bombo <abombo@microsoft.com>
-Reported-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Cc: Greg Kurz <gkurz@redhat.com>
-Closes: https://github.com/kata-containers/kata-containers/issues/12589
-Fixes: 26e5c67deb2e ("fuse: fix livelock in synchronous file put from fuseblk workers")
+Reported-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
 Cc: stable@vger.kernel.org
-Reviewed-by: Greg Kurz <gkurz@redhat.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Assisted-by: Gemini:gemini-3.1-pro
+Link: https://patch.msgid.link/20260505045952.1570713-2-dmitry.torokhov@gmail.com
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+[ changed the new `#include <linux/unaligned.h>` to `<asm/unaligned.h>` and dropped the absent `export.h` context line ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/file.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/input/rmi4/rmi_driver.c | 124 +++++++++++++++++++-------------
+ 1 file changed, 76 insertions(+), 48 deletions(-)
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index 23bc96887abcb7..a8c080b485d036 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -330,8 +330,14 @@ void fuse_release_common(struct file *file, bool isdir)
- 	 * aio and closes the fd before the aio completes.  Since aio takes its
- 	 * own ref to the file, the IO completion has to drop the ref, which is
- 	 * how the fuse server can end up closing its clients' files.
-+	 *
-+	 * Exception is virtio-fs, which is not affected by the above (server is
-+	 * on host, cannot close open files in guest).  Virtio-fs needs sync
-+	 * release, because the num_waiting mechanism to wait for all requests
-+	 * before commencing with fs shutdown doesn't work if submounts are
-+	 * used.
- 	 */
--	fuse_file_put(ff, false, isdir);
-+	fuse_file_put(ff, ff->fm->fc->auto_submounts, isdir);
+diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
+index ef9ea295f9e035..6c5a42d1b00225 100644
+--- a/drivers/input/rmi4/rmi_driver.c
++++ b/drivers/input/rmi4/rmi_driver.c
+@@ -21,6 +21,7 @@
+ #include <linux/irqdomain.h>
+ #include <uapi/linux/input.h>
+ #include <linux/rmi.h>
++#include <asm/unaligned.h>
+ #include "rmi_bus.h"
+ #include "rmi_driver.h"
+ 
+@@ -557,30 +558,74 @@ int rmi_scan_pdt(struct rmi_device *rmi_dev, void *ctx,
+ 	return retval < 0 ? retval : 0;
  }
  
- static int fuse_open(struct inode *inode, struct file *file)
++static int rmi_parse_register_desc_item(struct rmi_register_desc_item *item,
++					const u8 *buf, size_t size)
++{
++	unsigned int offset = 0;
++	unsigned int map_offset = 0;
++	int b;
++
++	if (offset >= size)
++		return -EIO;
++
++	item->reg_size = buf[offset++];
++	if (item->reg_size == 0) {
++		if (size - offset < 2)
++			return -EIO;
++		item->reg_size = get_unaligned_le16(&buf[offset]);
++		offset += 2;
++	}
++
++	if (item->reg_size == 0) {
++		if (size - offset < 4)
++			return -EIO;
++		item->reg_size = get_unaligned_le32(&buf[offset]);
++		offset += 4;
++	}
++
++	do {
++		if (offset >= size)
++			return -EIO;
++
++		for (b = 0; b < 7; b++) {
++			if (buf[offset] & BIT(b)) {
++				if (map_offset >= RMI_REG_DESC_SUBPACKET_BITS)
++					return -EIO;
++				__set_bit(map_offset, item->subpacket_map);
++			}
++			++map_offset;
++		}
++	} while (buf[offset++] & BIT(7));
++
++	item->num_subpackets = bitmap_weight(item->subpacket_map,
++					     RMI_REG_DESC_SUBPACKET_BITS);
++
++	return offset;
++}
++
+ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+-				struct rmi_register_descriptor *rdesc)
++			   struct rmi_register_descriptor *rdesc)
+ {
+ 	int ret;
+ 	u8 size_presence_reg;
+ 	u8 buf[35];
+-	int presense_offset = 1;
+-	u8 *struct_buf;
+-	int reg;
+-	int offset = 0;
+-	int map_offset = 0;
++	unsigned int presence_offset;
++	unsigned int map_offset;
++	unsigned int offset;
++	unsigned int reg;
+ 	int i;
+ 	int b;
+ 
+ 	/*
+ 	 * The first register of the register descriptor is the size of
+-	 * the register descriptor's presense register.
++	 * the register descriptor's presence register.
+ 	 */
+ 	ret = rmi_read(d, addr, &size_presence_reg);
+ 	if (ret)
+ 		return ret;
+ 	++addr;
+ 
+-	if (size_presence_reg < 0 || size_presence_reg > 35)
++	if (size_presence_reg < 1 || size_presence_reg > 35)
+ 		return -EIO;
+ 
+ 	memset(buf, 0, sizeof(buf));
+@@ -596,16 +641,23 @@ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+ 	++addr;
+ 
+ 	if (buf[0] == 0) {
+-		presense_offset = 3;
+-		rdesc->struct_size = buf[1] | (buf[2] << 8);
++		if (size_presence_reg < 3)
++			return -EIO;
++		presence_offset = 3;
++		rdesc->struct_size = get_unaligned_le16(&buf[1]);
+ 	} else {
++		presence_offset = 1;
+ 		rdesc->struct_size = buf[0];
+ 	}
+ 
+-	for (i = presense_offset; i < size_presence_reg; i++) {
++	map_offset = 0;
++	for (i = presence_offset; i < size_presence_reg; i++) {
+ 		for (b = 0; b < 8; b++) {
+-			if (buf[i] & (0x1 << b))
++			if (buf[i] & BIT(b)) {
++				if (map_offset >= RMI_REG_DESC_PRESENSE_BITS)
++					return -EIO;
+ 				bitmap_set(rdesc->presense_map, map_offset, 1);
++			}
+ 			++map_offset;
+ 		}
+ 	}
+@@ -625,7 +677,7 @@ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+ 	 * I'm not using devm_kzalloc here since it will not be retained
+ 	 * after exiting this function
+ 	 */
+-	struct_buf = kzalloc(rdesc->struct_size, GFP_KERNEL);
++	u8 *struct_buf __free(kfree) = kzalloc(rdesc->struct_size, GFP_KERNEL);
+ 	if (!struct_buf)
+ 		return -ENOMEM;
+ 
+@@ -637,56 +689,32 @@ int rmi_read_register_desc(struct rmi_device *d, u16 addr,
+ 	 */
+ 	ret = rmi_read_block(d, addr, struct_buf, rdesc->struct_size);
+ 	if (ret)
+-		goto free_struct_buff;
++		return ret;
+ 
+ 	reg = find_first_bit(rdesc->presense_map, RMI_REG_DESC_PRESENSE_BITS);
++	offset = 0;
+ 	for (i = 0; i < rdesc->num_registers; i++) {
+ 		struct rmi_register_desc_item *item = &rdesc->registers[i];
+-		int reg_size = struct_buf[offset];
+-
+-		++offset;
+-		if (reg_size == 0) {
+-			reg_size = struct_buf[offset] |
+-					(struct_buf[offset + 1] << 8);
+-			offset += 2;
+-		}
++		int item_size;
+ 
+-		if (reg_size == 0) {
+-			reg_size = struct_buf[offset] |
+-					(struct_buf[offset + 1] << 8) |
+-					(struct_buf[offset + 2] << 16) |
+-					(struct_buf[offset + 3] << 24);
+-			offset += 4;
+-		}
++		item_size = rmi_parse_register_desc_item(item,
++							 &struct_buf[offset],
++							 rdesc->struct_size - offset);
++		if (item_size < 0)
++			return item_size;
+ 
+ 		item->reg = reg;
+-		item->reg_size = reg_size;
+-
+-		map_offset = 0;
+-
+-		do {
+-			for (b = 0; b < 7; b++) {
+-				if (struct_buf[offset] & (0x1 << b))
+-					bitmap_set(item->subpacket_map,
+-						map_offset, 1);
+-				++map_offset;
+-			}
+-		} while (struct_buf[offset++] & 0x80);
+-
+-		item->num_subpackets = bitmap_weight(item->subpacket_map,
+-						RMI_REG_DESC_SUBPACKET_BITS);
++		offset += item_size;
+ 
+ 		rmi_dbg(RMI_DEBUG_CORE, &d->dev,
+ 			"%s: reg: %d reg size: %ld subpackets: %d\n", __func__,
+ 			item->reg, item->reg_size, item->num_subpackets);
+ 
+ 		reg = find_next_bit(rdesc->presense_map,
+-				RMI_REG_DESC_PRESENSE_BITS, reg + 1);
++				    RMI_REG_DESC_PRESENSE_BITS, reg + 1);
+ 	}
+ 
+-free_struct_buff:
+-	kfree(struct_buf);
+-	return ret;
++	return 0;
+ }
+ 
+ const struct rmi_register_desc_item *rmi_get_register_desc_item(
 -- 
 2.53.0
 
