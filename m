@@ -1,47 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551F72459CF
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 16:25:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D4C2F8E9F
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 16:25:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782404708; cv=none; b=J7vI3j33HkihdzklOCx8S0qYOayuPzjKsVBwNKTp7kV3UTEfxtFN+Yx8xQSPNchnTH7qiGFKxZLIZeU/Z9FEopIBGeI5CAoRLGUE8g+9APQEqCoC6ZPiRrgsDO6VvBfg+I1bclzKnM2ErQSIwcTSTE4ZZHCnQbq3c9/i4NYRHMw=
+	t=1782404712; cv=none; b=CsabQR0848ODbCTelEQVRBTE7pxfVE9ioPQCTG3YQCkIcZOFRQl2MsQvs/0z/0FNI9vCt9fH5ZpSizUX3H3cDGrcZW5RBQiwZRXoY1sb1eY8R6ua5FLhWBHbQa2oz7Xbu2ci0P47pyvW6azlPAwMswMPLaNRTW2IXxyMZW4j8rM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782404708; c=relaxed/simple;
-	bh=uNfcQCnCwz23gh4KYR3XZWABBgTwEjwnk2qYWvD+30I=;
+	s=arc-20240116; t=1782404712; c=relaxed/simple;
+	bh=CzqoYuS13eMinFbAn+yeEXjLUDbqBK43bF3O26g1Fto=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gexEDZIJoT1Ce/Og902X5mtsVxTwW/gNvn54KKmMfD0S73EExLpCP9wfH2Qrk8w62B+sLhzL0seo43I52zzSfL1vNNNsTJLUX7J9pJybr2OguxvkHri96qjSfUts1Fg0QfKwqFruawvNzDip+PJD1mIAQ+b/F5Mn8PMSDp+sp8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cNml4BvA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iTrnWlUCBSD98LFAsroUV58PSuuyJ/IJ0LNVceoKEtqpEotiLNgVaJdaZOban9nuxX2q6b5dEKVU9d/Gh0x7b7bAty2FNbZ5muiSxGSjV8kjtSuZwrDjUBJcJ2Vy6zFiGOF6S1IUMQlk9MbXgYD02A5Xct1glvW3qZJS7qu0igk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IYrHzsWq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cNml4BvA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 657431F00ADB;
-	Thu, 25 Jun 2026 16:25:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IYrHzsWq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E86D1F000E9;
+	Thu, 25 Jun 2026 16:25:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782404706;
-	bh=LnJpDe3gdj15txRmAysGB4Vta9ufCBZorbM0zQwF+/Q=;
+	s=k20260515; t=1782404710;
+	bh=7zlW33xhl+r6gxQeIX0WBS5GgSJxuCz0f3CmcYkgrfo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cNml4BvArnnriG6yDdIIC0TIH2gyL+3TuTpeLIt0oSNmbseS8Ky27C1zlzyV5O4uw
-	 5wUgC5AzgbwyIWflU7XULRiFu5QHGeLFMaQKwTbvHf65Rg0x1/Z2HCkDZkZ6V1q+oD
-	 BZuH1kSXPBVe+wVvobqBDEo+MuFsDRjp2HO5aRuZxlTfrEag5lJ316gkytoET0cFXN
-	 naaan1ay1/lNI+wbUC1UtKeemGusLs4Jj1eY4tZJDpx5Em2/Xu46uy0/xvcye/cZH1
-	 nXp7E0RdmOHmSHo9ATstjmOgIRYwtg8GlxXjz+a75HpCIohRjioaNNfwmovNj+eGnq
-	 Renes7DNWmqFQ==
+	b=IYrHzsWqPoLeLX9Qc6XSeivNdkWO7w6KBl5Jy8RRiLMD1oM7OxNP4KNsu8LPcA94X
+	 pIB1DN7m53EYwMHtxh8Su3FRj0YUQdHjx5UV0B+na/ViIl63qMYGfZE0fmEApMz3M5
+	 /pHb0DWF3WI/IGmp5WTPhMAnd8SQCqT0fJqwNuMqDg18SVnLi3Jajiv1ffME15qEFf
+	 r9Z7bhwjG6p2dDKEefMfWke1SFpw41cCzy8A7mDHLveSlT7k1Y7BHiFLvXDl42NXo9
+	 I457UYS2fHiASkDpbcfV81/oXzaSFOPQa6PGpnM6+KHnsqEKVJv8wVZt0lchTfDEj6
+	 UsvIp/1KNOvRA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	Zhi Wang <wangzhi@stu.xidian.edu.cn>,
-	Bin Yu <byu@xidian.edu.cn>,
-	MingYu Wang <w15303746062@163.com>,
-	Ahsan Atta <ahsan.atta@intel.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] crypto: qat - remove unused character device and IOCTLs
-Date: Thu, 25 Jun 2026 12:25:01 -0400
-Message-ID: <20260625162501.2500811-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] Input: include export.h in modules using EXPORT_SYMBOL*()
+Date: Thu, 25 Jun 2026 12:25:07 -0400
+Message-ID: <20260625162508.2501015-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260625162501.2500811-1-sashal@kernel.org>
-References: <2026062533-retaliate-surfer-c663@gregkh>
- <20260625162501.2500811-1-sashal@kernel.org>
+In-Reply-To: <2026062528-cyclist-operable-1e2f@gregkh>
+References: <2026062528-cyclist-operable-1e2f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,707 +44,392 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-[ Upstream commit d237230728c567297f2f98b425d63156ab2ed17f ]
+[ Upstream commit df595059d54383c42607b59f1f9ea74dade280fe ]
 
-The QAT driver exposes a character device (qat_adf_ctl) with IOCTLs
-for device configuration, start, stop, status query and enumeration.
-These IOCTLs are not part of any public uAPI header and have no known
-in-tree or out-of-tree users. Device lifecycle is already managed via
-sysfs.
+A number of modules in the input subsystem use EXPORT_SYMBOL() and
+friends without explicitly including the corresponding header
+<linux/export.h>. While the build currently succeeds due to this header
+being pulled in transitively, this is not guaranteed to be the case in
+the future.
 
-The ioctl interface also increases the attack surface and is the
-subject of a number of bug reports.
+Let's add the explicit include to make the dependencies clear and
+prevent future build breakage.
 
-Remove the character device, the IOCTL definitions, and the related
-data structures (adf_dev_status_info, adf_user_cfg_key_val,
-adf_user_cfg_section, adf_user_cfg_ctl_data). Drop the now-unused
-adf_cfg_user.h header and strip adf_ctl_drv.c down to the minimal
-module_init/module_exit hooks for workqueue, AER, and crypto/compression
-algorithm registration.
-
-Clean up leftover dead code that was only reachable from the removed
-IOCTL paths: adf_cfg_del_all(), adf_devmgr_verify_id(),
-adf_devmgr_get_num_dev(), adf_devmgr_get_dev_by_id(),
-adf_get_vf_real_id() and the unused ADF_CFG macros.
-
-Additionally, drop the entry associated to QAT IOCTLs in
-ioctl-number.rst.
-
-Cc: stable@vger.kernel.org
-Fixes: d8cba25d2c68 ("crypto: qat - Intel(R) QAT driver framework")
-Reported-by: Zhi Wang <wangzhi@stu.xidian.edu.cn>
-Reported-by: Bin Yu <byu@xidian.edu.cn>
-Reported-by: MingYu Wang <w15303746062@163.com>
-Closes: https://lore.kernel.org/all/61d6d499.ab89.19b9b7f3186.Coremail.wangzhi_xd@stu.xidian.edu.cn/
-Link: https://lore.kernel.org/all/20260508034841.256794-1-w15303746062@163.com/
-Link: https://lore.kernel.org/all/20260508023542.256299-1-w15303746062@163.com/
-Link: https://lore.kernel.org/all/20260504025120.98242-1-w15303746062@163.com/
-Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Reviewed-by: Ahsan Atta <ahsan.atta@intel.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Stable-dep-of: 0adb483fbf2d ("Input: rmi4 - refactor register descriptor parsing")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../userspace-api/ioctl/ioctl-number.rst      |   1 -
- .../intel/qat/qat_common/adf_cfg_common.h     |  32 --
- .../intel/qat/qat_common/adf_cfg_user.h       |  38 --
- .../intel/qat/qat_common/adf_common_drv.h     |   3 -
- .../crypto/intel/qat/qat_common/adf_ctl_drv.c | 401 +-----------------
- .../crypto/intel/qat/qat_common/adf_dev_mgr.c |  70 ---
- 6 files changed, 1 insertion(+), 544 deletions(-)
- delete mode 100644 drivers/crypto/intel/qat/qat_common/adf_cfg_user.h
+ drivers/input/ff-core.c                        | 2 +-
+ drivers/input/ff-memless.c                     | 1 +
+ drivers/input/gameport/gameport.c              | 1 +
+ drivers/input/input-poller.c                   | 1 +
+ drivers/input/input.c                          | 1 +
+ drivers/input/joystick/iforce/iforce-main.c    | 1 +
+ drivers/input/joystick/iforce/iforce-packets.c | 1 +
+ drivers/input/misc/ad714x.c                    | 1 +
+ drivers/input/misc/adxl34x.c                   | 1 +
+ drivers/input/misc/cma3000_d0x.c               | 1 +
+ drivers/input/rmi4/rmi_2d_sensor.c             | 1 +
+ drivers/input/rmi4/rmi_bus.c                   | 1 +
+ drivers/input/rmi4/rmi_driver.c                | 1 +
+ drivers/input/serio/hil_mlc.c                  | 1 +
+ drivers/input/serio/hp_sdc.c                   | 1 +
+ drivers/input/serio/i8042.c                    | 1 +
+ drivers/input/serio/libps2.c                   | 1 +
+ drivers/input/serio/serio.c                    | 1 +
+ drivers/input/sparse-keymap.c                  | 1 +
+ drivers/input/touchscreen.c                    | 1 +
+ drivers/input/touchscreen/ad7879.c             | 1 +
+ drivers/input/touchscreen/cyttsp_core.c        | 1 +
+ drivers/input/touchscreen/goodix_berlin_core.c | 1 +
+ drivers/input/touchscreen/tsc200x-core.c       | 1 +
+ drivers/input/touchscreen/wm9705.c             | 1 +
+ drivers/input/touchscreen/wm9712.c             | 1 +
+ drivers/input/touchscreen/wm9713.c             | 1 +
+ drivers/input/touchscreen/wm97xx-core.c        | 1 +
+ 28 files changed, 28 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
-index 2f86fd063c5750..264faaa9d7fa35 100644
---- a/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -219,7 +219,6 @@ Code  Seq#    Include File                                             Comments
-                                                                        <mailto:gregkh@linuxfoundation.org>
- 'a'   all    linux/atm*.h, linux/sonet.h                               ATM on linux
-                                                                        <http://lrcwww.epfl.ch/>
--'a'   00-0F  drivers/crypto/qat/qat_common/adf_cfg_common.h            conflict! qat driver
- 'b'   00-FF                                                            conflict! bit3 vme host bridge
-                                                                        <mailto:natalia@nikhefk.nikhef.nl>
- 'b'   00-0F  linux/dma-buf.h                                           conflict!
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_cfg_common.h b/drivers/crypto/intel/qat/qat_common/adf_cfg_common.h
-index 6e5de1dab97b4f..8d8d5d02755e27 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_cfg_common.h
-+++ b/drivers/crypto/intel/qat/qat_common/adf_cfg_common.h
-@@ -4,18 +4,11 @@
- #define ADF_CFG_COMMON_H_
+diff --git a/drivers/input/ff-core.c b/drivers/input/ff-core.c
+index 609a5f01761bd3..de5948c9579833 100644
+--- a/drivers/input/ff-core.c
++++ b/drivers/input/ff-core.c
+@@ -8,9 +8,9 @@
+ 
+ /* #define DEBUG */
+ 
++#include <linux/export.h>
+ #include <linux/input.h>
+ #include <linux/limits.h>
+-#include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/overflow.h>
+ #include <linux/sched.h>
+diff --git a/drivers/input/ff-memless.c b/drivers/input/ff-memless.c
+index c321cdabd21418..ef711bc35f738f 100644
+--- a/drivers/input/ff-memless.c
++++ b/drivers/input/ff-memless.c
+@@ -10,6 +10,7 @@
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
++#include <linux/export.h>
+ #include <linux/slab.h>
+ #include <linux/input.h>
+ #include <linux/module.h>
+diff --git a/drivers/input/gameport/gameport.c b/drivers/input/gameport/gameport.c
+index 10cc95867415a5..3ab0c33bc32a03 100644
+--- a/drivers/input/gameport/gameport.c
++++ b/drivers/input/gameport/gameport.c
+@@ -9,6 +9,7 @@
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
++#include <linux/export.h>
+ #include <linux/stddef.h>
+ #include <linux/module.h>
+ #include <linux/io.h>
+diff --git a/drivers/input/input-poller.c b/drivers/input/input-poller.c
+index 688e3cb1c2a0cb..5f2867bf1e2b9f 100644
+--- a/drivers/input/input-poller.c
++++ b/drivers/input/input-poller.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <linux/device.h>
++#include <linux/export.h>
+ #include <linux/input.h>
+ #include <linux/jiffies.h>
+ #include <linux/mutex.h>
+diff --git a/drivers/input/input.c b/drivers/input/input.c
+index c51858f1cdc556..2a58584c2b504f 100644
+--- a/drivers/input/input.c
++++ b/drivers/input/input.c
+@@ -8,6 +8,7 @@
+ 
+ #define pr_fmt(fmt) KBUILD_BASENAME ": " fmt
+ 
++#include <linux/export.h>
+ #include <linux/init.h>
+ #include <linux/types.h>
+ #include <linux/idr.h>
+diff --git a/drivers/input/joystick/iforce/iforce-main.c b/drivers/input/joystick/iforce/iforce-main.c
+index 55e6321adab9d6..86d09faa685c52 100644
+--- a/drivers/input/joystick/iforce/iforce-main.c
++++ b/drivers/input/joystick/iforce/iforce-main.c
+@@ -6,6 +6,7 @@
+  *  USB/RS232 I-Force joysticks and wheels.
+  */
+ 
++#include <linux/export.h>
+ #include <linux/unaligned.h>
+ #include "iforce.h"
+ 
+diff --git a/drivers/input/joystick/iforce/iforce-packets.c b/drivers/input/joystick/iforce/iforce-packets.c
+index 08c889a72f6c67..4dedc22ee281ca 100644
+--- a/drivers/input/joystick/iforce/iforce-packets.c
++++ b/drivers/input/joystick/iforce/iforce-packets.c
+@@ -6,6 +6,7 @@
+  *  USB/RS232 I-Force joysticks and wheels.
+  */
+ 
++#include <linux/export.h>
+ #include <linux/unaligned.h>
+ #include "iforce.h"
+ 
+diff --git a/drivers/input/misc/ad714x.c b/drivers/input/misc/ad714x.c
+index 1acd8429c56c97..aa271b42f8b442 100644
+--- a/drivers/input/misc/ad714x.c
++++ b/drivers/input/misc/ad714x.c
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <linux/device.h>
++#include <linux/export.h>
+ #include <linux/input.h>
+ #include <linux/interrupt.h>
+ #include <linux/slab.h>
+diff --git a/drivers/input/misc/adxl34x.c b/drivers/input/misc/adxl34x.c
+index 7cafbf8d5f1ad8..ac7674647c0928 100644
+--- a/drivers/input/misc/adxl34x.c
++++ b/drivers/input/misc/adxl34x.c
+@@ -9,6 +9,7 @@
+ 
+ #include <linux/device.h>
+ #include <linux/delay.h>
++#include <linux/export.h>
+ #include <linux/input.h>
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
+diff --git a/drivers/input/misc/cma3000_d0x.c b/drivers/input/misc/cma3000_d0x.c
+index 0c68e924a1ccdc..81235a83c33edd 100644
+--- a/drivers/input/misc/cma3000_d0x.c
++++ b/drivers/input/misc/cma3000_d0x.c
+@@ -6,6 +6,7 @@
+  * Author: Hemanth V <hemanthv@ti.com>
+  */
+ 
++#include <linux/export.h>
+ #include <linux/types.h>
+ #include <linux/interrupt.h>
+ #include <linux/delay.h>
+diff --git a/drivers/input/rmi4/rmi_2d_sensor.c b/drivers/input/rmi4/rmi_2d_sensor.c
+index b7fe6eb35a4ecd..ea3eb87a89af53 100644
+--- a/drivers/input/rmi4/rmi_2d_sensor.c
++++ b/drivers/input/rmi4/rmi_2d_sensor.c
+@@ -4,6 +4,7 @@
+  * Copyright (c) 2011 Unixphere
+  */
+ 
++#include <linux/export.h>
+ #include <linux/kernel.h>
+ #include <linux/device.h>
+ #include <linux/of.h>
+diff --git a/drivers/input/rmi4/rmi_bus.c b/drivers/input/rmi4/rmi_bus.c
+index 3aee0483720533..c32564084a9131 100644
+--- a/drivers/input/rmi4/rmi_bus.c
++++ b/drivers/input/rmi4/rmi_bus.c
+@@ -4,6 +4,7 @@
+  * Copyright (c) 2011 Unixphere
+  */
+ 
++#include <linux/export.h>
+ #include <linux/kernel.h>
+ #include <linux/device.h>
+ #include <linux/irq.h>
+diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
+index 2168b6cd716733..ccd9338a44dbef 100644
+--- a/drivers/input/rmi4/rmi_driver.c
++++ b/drivers/input/rmi4/rmi_driver.c
+@@ -21,6 +21,7 @@
+ #include <linux/irqdomain.h>
+ #include <uapi/linux/input.h>
+ #include <linux/rmi.h>
++#include <linux/export.h>
+ #include "rmi_bus.h"
+ #include "rmi_driver.h"
+ 
+diff --git a/drivers/input/serio/hil_mlc.c b/drivers/input/serio/hil_mlc.c
+index d36e89d6fc546a..d8bd6dae08eb3b 100644
+--- a/drivers/input/serio/hil_mlc.c
++++ b/drivers/input/serio/hil_mlc.c
+@@ -54,6 +54,7 @@
+ 
+ #include <linux/hil_mlc.h>
+ #include <linux/errno.h>
++#include <linux/export.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/init.h>
+diff --git a/drivers/input/serio/hp_sdc.c b/drivers/input/serio/hp_sdc.c
+index 13eacf6ab43100..fa0c097cafb42e 100644
+--- a/drivers/input/serio/hp_sdc.c
++++ b/drivers/input/serio/hp_sdc.c
+@@ -63,6 +63,7 @@
+ 
+ #include <linux/hp_sdc.h>
+ #include <linux/errno.h>
++#include <linux/export.h>
+ #include <linux/init.h>
+ #include <linux/module.h>
+ #include <linux/ioport.h>
+diff --git a/drivers/input/serio/i8042.c b/drivers/input/serio/i8042.c
+index 8ec4872b447145..62814204b84dec 100644
+--- a/drivers/input/serio/i8042.c
++++ b/drivers/input/serio/i8042.c
+@@ -10,6 +10,7 @@
  
  #include <linux/types.h>
--#include <linux/ioctl.h>
- 
- #define ADF_CFG_MAX_STR_LEN 64
- #define ADF_CFG_MAX_KEY_LEN_IN_BYTES ADF_CFG_MAX_STR_LEN
- #define ADF_CFG_MAX_VAL_LEN_IN_BYTES ADF_CFG_MAX_STR_LEN
- #define ADF_CFG_MAX_SECTION_LEN_IN_BYTES ADF_CFG_MAX_STR_LEN
--#define ADF_CFG_BASE_DEC 10
--#define ADF_CFG_BASE_HEX 16
--#define ADF_CFG_ALL_DEVICES 0xFE
--#define ADF_CFG_NO_DEVICE 0xFF
--#define ADF_CFG_AFFINITY_WHATEVER 0xFF
--#define MAX_DEVICE_NAME_SIZE 32
- #define ADF_MAX_DEVICES (32 * 32)
- #define ADF_DEVS_ARRAY_SIZE BITS_TO_LONGS(ADF_MAX_DEVICES)
- 
-@@ -48,29 +41,4 @@ enum adf_device_type {
- 	DEV_C3XXXVF,
- 	DEV_4XXX,
- };
--
--struct adf_dev_status_info {
--	enum adf_device_type type;
--	__u32 accel_id;
--	__u32 instance_id;
--	__u8 num_ae;
--	__u8 num_accel;
--	__u8 num_logical_accel;
--	__u8 banks_per_accel;
--	__u8 state;
--	__u8 bus;
--	__u8 dev;
--	__u8 fun;
--	char name[MAX_DEVICE_NAME_SIZE];
--};
--
--#define ADF_CTL_IOC_MAGIC 'a'
--#define IOCTL_CONFIG_SYS_RESOURCE_PARAMETERS _IOW(ADF_CTL_IOC_MAGIC, 0, \
--		struct adf_user_cfg_ctl_data)
--#define IOCTL_STOP_ACCEL_DEV _IOW(ADF_CTL_IOC_MAGIC, 1, \
--		struct adf_user_cfg_ctl_data)
--#define IOCTL_START_ACCEL_DEV _IOW(ADF_CTL_IOC_MAGIC, 2, \
--		struct adf_user_cfg_ctl_data)
--#define IOCTL_STATUS_ACCEL_DEV _IOW(ADF_CTL_IOC_MAGIC, 3, __u32)
--#define IOCTL_GET_NUM_DEVICES _IOW(ADF_CTL_IOC_MAGIC, 4, __s32)
- #endif
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_cfg_user.h b/drivers/crypto/intel/qat/qat_common/adf_cfg_user.h
-deleted file mode 100644
-index 421f4fb8b4dd2f..00000000000000
---- a/drivers/crypto/intel/qat/qat_common/adf_cfg_user.h
-+++ /dev/null
-@@ -1,38 +0,0 @@
--/* SPDX-License-Identifier: (BSD-3-Clause OR GPL-2.0-only) */
--/* Copyright(c) 2014 - 2020 Intel Corporation */
--#ifndef ADF_CFG_USER_H_
--#define ADF_CFG_USER_H_
--
--#include "adf_cfg_common.h"
--#include "adf_cfg_strings.h"
--
--struct adf_user_cfg_key_val {
--	char key[ADF_CFG_MAX_KEY_LEN_IN_BYTES];
--	char val[ADF_CFG_MAX_VAL_LEN_IN_BYTES];
--	union {
--		struct adf_user_cfg_key_val *next;
--		__u64 padding3;
--	};
--	enum adf_cfg_val_type type;
--} __packed;
--
--struct adf_user_cfg_section {
--	char name[ADF_CFG_MAX_SECTION_LEN_IN_BYTES];
--	union {
--		struct adf_user_cfg_key_val *params;
--		__u64 padding1;
--	};
--	union {
--		struct adf_user_cfg_section *next;
--		__u64 padding3;
--	};
--} __packed;
--
--struct adf_user_cfg_ctl_data {
--	union {
--		struct adf_user_cfg_section *config_section;
--		__u64 padding;
--	};
--	__u8 device_id;
--} __packed;
--#endif
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_common_drv.h b/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-index 05d1402001a1ef..d9255b307c4b2a 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-+++ b/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-@@ -65,11 +65,8 @@ int adf_devmgr_add_dev(struct adf_accel_dev *accel_dev,
- void adf_devmgr_rm_dev(struct adf_accel_dev *accel_dev,
- 		       struct adf_accel_dev *pf);
- struct list_head *adf_devmgr_get_head(void);
--struct adf_accel_dev *adf_devmgr_get_dev_by_id(u32 id);
- struct adf_accel_dev *adf_devmgr_get_first(void);
- struct adf_accel_dev *adf_devmgr_pci_to_accel_dev(struct pci_dev *pci_dev);
--int adf_devmgr_verify_id(u32 id);
--void adf_devmgr_get_num_dev(u32 *num);
- int adf_devmgr_in_reset(struct adf_accel_dev *accel_dev);
- int adf_dev_started(struct adf_accel_dev *accel_dev);
- int adf_dev_restarting_notify(struct adf_accel_dev *accel_dev);
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_ctl_drv.c b/drivers/crypto/intel/qat/qat_common/adf_ctl_drv.c
-index 69e7a41707b552..36d5ebb3efabb9 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_ctl_drv.c
-+++ b/drivers/crypto/intel/qat/qat_common/adf_ctl_drv.c
-@@ -2,407 +2,13 @@
- /* Copyright(c) 2014 - 2020 Intel Corporation */
- 
- #include <crypto/algapi.h>
-+#include <linux/errno.h>
+ #include <linux/delay.h>
++#include <linux/export.h>
  #include <linux/module.h>
--#include <linux/mutex.h>
--#include <linux/slab.h>
--#include <linux/fs.h>
--#include <linux/bitops.h>
--#include <linux/pci.h>
--#include <linux/cdev.h>
--#include <linux/uaccess.h>
+ #include <linux/interrupt.h>
+ #include <linux/ioport.h>
+diff --git a/drivers/input/serio/libps2.c b/drivers/input/serio/libps2.c
+index 6d78a1fe00c1bf..03949187a14e44 100644
+--- a/drivers/input/serio/libps2.c
++++ b/drivers/input/serio/libps2.c
+@@ -8,6 +8,7 @@
  
--#include "adf_accel_devices.h"
- #include "adf_common_drv.h"
--#include "adf_cfg.h"
--#include "adf_cfg_common.h"
--#include "adf_cfg_user.h"
--
--#define ADF_CFG_MAX_SECTION 512
--#define ADF_CFG_MAX_KEY_VAL 256
--
--#define DEVICE_NAME "qat_adf_ctl"
--
--static DEFINE_MUTEX(adf_ctl_lock);
--static long adf_ctl_ioctl(struct file *fp, unsigned int cmd, unsigned long arg);
--
--static const struct file_operations adf_ctl_ops = {
--	.owner = THIS_MODULE,
--	.unlocked_ioctl = adf_ctl_ioctl,
--	.compat_ioctl = compat_ptr_ioctl,
--};
--
--struct adf_ctl_drv_info {
--	unsigned int major;
--	struct cdev drv_cdev;
--	struct class *drv_class;
--};
--
--static struct adf_ctl_drv_info adf_ctl_drv;
--
--static void adf_chr_drv_destroy(void)
--{
--	device_destroy(adf_ctl_drv.drv_class, MKDEV(adf_ctl_drv.major, 0));
--	cdev_del(&adf_ctl_drv.drv_cdev);
--	class_destroy(adf_ctl_drv.drv_class);
--	unregister_chrdev_region(MKDEV(adf_ctl_drv.major, 0), 1);
--}
--
--static int adf_chr_drv_create(void)
--{
--	dev_t dev_id;
--	struct device *drv_device;
--
--	if (alloc_chrdev_region(&dev_id, 0, 1, DEVICE_NAME)) {
--		pr_err("QAT: unable to allocate chrdev region\n");
--		return -EFAULT;
--	}
--
--	adf_ctl_drv.drv_class = class_create(DEVICE_NAME);
--	if (IS_ERR(adf_ctl_drv.drv_class)) {
--		pr_err("QAT: class_create failed for adf_ctl\n");
--		goto err_chrdev_unreg;
--	}
--	adf_ctl_drv.major = MAJOR(dev_id);
--	cdev_init(&adf_ctl_drv.drv_cdev, &adf_ctl_ops);
--	if (cdev_add(&adf_ctl_drv.drv_cdev, dev_id, 1)) {
--		pr_err("QAT: cdev add failed\n");
--		goto err_class_destr;
--	}
--
--	drv_device = device_create(adf_ctl_drv.drv_class, NULL,
--				   MKDEV(adf_ctl_drv.major, 0),
--				   NULL, DEVICE_NAME);
--	if (IS_ERR(drv_device)) {
--		pr_err("QAT: failed to create device\n");
--		goto err_cdev_del;
--	}
--	return 0;
--err_cdev_del:
--	cdev_del(&adf_ctl_drv.drv_cdev);
--err_class_destr:
--	class_destroy(adf_ctl_drv.drv_class);
--err_chrdev_unreg:
--	unregister_chrdev_region(dev_id, 1);
--	return -EFAULT;
--}
--
--static struct adf_user_cfg_ctl_data *adf_ctl_alloc_resources(unsigned long arg)
--{
--	struct adf_user_cfg_ctl_data *cfg_data;
--
--	cfg_data = memdup_user((void __user *)arg, sizeof(*cfg_data));
--	if (IS_ERR(cfg_data))
--		pr_err("QAT: failed to copy from user cfg_data.\n");
--	return cfg_data;
--}
--
--static int adf_add_key_value_data(struct adf_accel_dev *accel_dev,
--				  const char *section,
--				  const struct adf_user_cfg_key_val *key_val)
--{
--	if (key_val->type == ADF_HEX) {
--		long *ptr = (long *)key_val->val;
--		long val = *ptr;
--
--		if (adf_cfg_add_key_value_param(accel_dev, section,
--						key_val->key, (void *)val,
--						key_val->type)) {
--			dev_err(&GET_DEV(accel_dev),
--				"failed to add hex keyvalue.\n");
--			return -EFAULT;
--		}
--	} else {
--		if (adf_cfg_add_key_value_param(accel_dev, section,
--						key_val->key, key_val->val,
--						key_val->type)) {
--			dev_err(&GET_DEV(accel_dev),
--				"failed to add keyvalue.\n");
--			return -EFAULT;
--		}
--	}
--	return 0;
--}
--
--static int adf_copy_key_value_data(struct adf_accel_dev *accel_dev,
--				   struct adf_user_cfg_ctl_data *ctl_data)
--{
--	struct adf_user_cfg_key_val key_val;
--	struct adf_user_cfg_key_val *params_head;
--	struct adf_user_cfg_section section, *section_head;
--	int i, j;
--
--	section_head = ctl_data->config_section;
--
--	for (i = 0; section_head && i < ADF_CFG_MAX_SECTION; i++) {
--		if (copy_from_user(&section, (void __user *)section_head,
--				   sizeof(*section_head))) {
--			dev_err(&GET_DEV(accel_dev),
--				"failed to copy section info\n");
--			goto out_err;
--		}
--
--		if (adf_cfg_section_add(accel_dev, section.name)) {
--			dev_err(&GET_DEV(accel_dev),
--				"failed to add section.\n");
--			goto out_err;
--		}
--
--		params_head = section.params;
--
--		for (j = 0; params_head && j < ADF_CFG_MAX_KEY_VAL; j++) {
--			if (copy_from_user(&key_val, (void __user *)params_head,
--					   sizeof(key_val))) {
--				dev_err(&GET_DEV(accel_dev),
--					"Failed to copy keyvalue.\n");
--				goto out_err;
--			}
--			if (adf_add_key_value_data(accel_dev, section.name,
--						   &key_val)) {
--				goto out_err;
--			}
--			params_head = key_val.next;
--		}
--		section_head = section.next;
--	}
--	return 0;
--out_err:
--	adf_cfg_del_all(accel_dev);
--	return -EFAULT;
--}
--
--static int adf_ctl_ioctl_dev_config(struct file *fp, unsigned int cmd,
--				    unsigned long arg)
--{
--	struct adf_user_cfg_ctl_data *ctl_data;
--	struct adf_accel_dev *accel_dev;
--	int ret = 0;
--
--	ctl_data = adf_ctl_alloc_resources(arg);
--	if (IS_ERR(ctl_data))
--		return PTR_ERR(ctl_data);
--
--	accel_dev = adf_devmgr_get_dev_by_id(ctl_data->device_id);
--	if (!accel_dev) {
--		ret = -EFAULT;
--		goto out;
--	}
--
--	if (adf_dev_started(accel_dev)) {
--		ret = -EFAULT;
--		goto out;
--	}
--
--	if (adf_copy_key_value_data(accel_dev, ctl_data)) {
--		ret = -EFAULT;
--		goto out;
--	}
--	set_bit(ADF_STATUS_CONFIGURED, &accel_dev->status);
--out:
--	kfree(ctl_data);
--	return ret;
--}
--
--static int adf_ctl_is_device_in_use(int id)
--{
--	struct adf_accel_dev *dev;
--
--	list_for_each_entry(dev, adf_devmgr_get_head(), list) {
--		if (id == dev->accel_id || id == ADF_CFG_ALL_DEVICES) {
--			if (adf_devmgr_in_reset(dev) || adf_dev_in_use(dev)) {
--				dev_info(&GET_DEV(dev),
--					 "device qat_dev%d is busy\n",
--					 dev->accel_id);
--				return -EBUSY;
--			}
--		}
--	}
--	return 0;
--}
--
--static void adf_ctl_stop_devices(u32 id)
--{
--	struct adf_accel_dev *accel_dev;
--
--	list_for_each_entry(accel_dev, adf_devmgr_get_head(), list) {
--		if (id == accel_dev->accel_id || id == ADF_CFG_ALL_DEVICES) {
--			if (!adf_dev_started(accel_dev))
--				continue;
--
--			/* First stop all VFs */
--			if (!accel_dev->is_vf)
--				continue;
--
--			adf_dev_down(accel_dev, false);
--		}
--	}
--
--	list_for_each_entry(accel_dev, adf_devmgr_get_head(), list) {
--		if (id == accel_dev->accel_id || id == ADF_CFG_ALL_DEVICES) {
--			if (!adf_dev_started(accel_dev))
--				continue;
--
--			adf_dev_down(accel_dev, false);
--		}
--	}
--}
--
--static int adf_ctl_ioctl_dev_stop(struct file *fp, unsigned int cmd,
--				  unsigned long arg)
--{
--	int ret;
--	struct adf_user_cfg_ctl_data *ctl_data;
--
--	ctl_data = adf_ctl_alloc_resources(arg);
--	if (IS_ERR(ctl_data))
--		return PTR_ERR(ctl_data);
--
--	if (adf_devmgr_verify_id(ctl_data->device_id)) {
--		pr_err("QAT: Device %d not found\n", ctl_data->device_id);
--		ret = -ENODEV;
--		goto out;
--	}
--
--	ret = adf_ctl_is_device_in_use(ctl_data->device_id);
--	if (ret)
--		goto out;
--
--	if (ctl_data->device_id == ADF_CFG_ALL_DEVICES)
--		pr_info("QAT: Stopping all acceleration devices.\n");
--	else
--		pr_info("QAT: Stopping acceleration device qat_dev%d.\n",
--			ctl_data->device_id);
--
--	adf_ctl_stop_devices(ctl_data->device_id);
--
--out:
--	kfree(ctl_data);
--	return ret;
--}
--
--static int adf_ctl_ioctl_dev_start(struct file *fp, unsigned int cmd,
--				   unsigned long arg)
--{
--	int ret;
--	struct adf_user_cfg_ctl_data *ctl_data;
--	struct adf_accel_dev *accel_dev;
--
--	ctl_data = adf_ctl_alloc_resources(arg);
--	if (IS_ERR(ctl_data))
--		return PTR_ERR(ctl_data);
--
--	ret = -ENODEV;
--	accel_dev = adf_devmgr_get_dev_by_id(ctl_data->device_id);
--	if (!accel_dev)
--		goto out;
--
--	dev_info(&GET_DEV(accel_dev),
--		 "Starting acceleration device qat_dev%d.\n",
--		 ctl_data->device_id);
--
--	ret = adf_dev_up(accel_dev, false);
--
--	if (ret) {
--		dev_err(&GET_DEV(accel_dev), "Failed to start qat_dev%d\n",
--			ctl_data->device_id);
--		adf_dev_down(accel_dev, false);
--	}
--out:
--	kfree(ctl_data);
--	return ret;
--}
--
--static int adf_ctl_ioctl_get_num_devices(struct file *fp, unsigned int cmd,
--					 unsigned long arg)
--{
--	u32 num_devices = 0;
--
--	adf_devmgr_get_num_dev(&num_devices);
--	if (copy_to_user((void __user *)arg, &num_devices, sizeof(num_devices)))
--		return -EFAULT;
--
--	return 0;
--}
--
--static int adf_ctl_ioctl_get_status(struct file *fp, unsigned int cmd,
--				    unsigned long arg)
--{
--	struct adf_hw_device_data *hw_data;
--	struct adf_dev_status_info dev_info;
--	struct adf_accel_dev *accel_dev;
--
--	if (copy_from_user(&dev_info, (void __user *)arg,
--			   sizeof(struct adf_dev_status_info))) {
--		pr_err("QAT: failed to copy from user.\n");
--		return -EFAULT;
--	}
--
--	accel_dev = adf_devmgr_get_dev_by_id(dev_info.accel_id);
--	if (!accel_dev)
--		return -ENODEV;
--
--	hw_data = accel_dev->hw_device;
--	dev_info.state = adf_dev_started(accel_dev) ? DEV_UP : DEV_DOWN;
--	dev_info.num_ae = hw_data->get_num_aes(hw_data);
--	dev_info.num_accel = hw_data->get_num_accels(hw_data);
--	dev_info.num_logical_accel = hw_data->num_logical_accel;
--	dev_info.banks_per_accel = hw_data->num_banks
--					/ hw_data->num_logical_accel;
--	strscpy(dev_info.name, hw_data->dev_class->name, sizeof(dev_info.name));
--	dev_info.instance_id = hw_data->instance_id;
--	dev_info.type = hw_data->dev_class->type;
--	dev_info.bus = accel_to_pci_dev(accel_dev)->bus->number;
--	dev_info.dev = PCI_SLOT(accel_to_pci_dev(accel_dev)->devfn);
--	dev_info.fun = PCI_FUNC(accel_to_pci_dev(accel_dev)->devfn);
--
--	if (copy_to_user((void __user *)arg, &dev_info,
--			 sizeof(struct adf_dev_status_info))) {
--		dev_err(&GET_DEV(accel_dev), "failed to copy status.\n");
--		return -EFAULT;
--	}
--	return 0;
--}
--
--static long adf_ctl_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
--{
--	int ret;
--
--	if (mutex_lock_interruptible(&adf_ctl_lock))
--		return -EFAULT;
--
--	switch (cmd) {
--	case IOCTL_CONFIG_SYS_RESOURCE_PARAMETERS:
--		ret = adf_ctl_ioctl_dev_config(fp, cmd, arg);
--		break;
--
--	case IOCTL_STOP_ACCEL_DEV:
--		ret = adf_ctl_ioctl_dev_stop(fp, cmd, arg);
--		break;
--
--	case IOCTL_START_ACCEL_DEV:
--		ret = adf_ctl_ioctl_dev_start(fp, cmd, arg);
--		break;
--
--	case IOCTL_GET_NUM_DEVICES:
--		ret = adf_ctl_ioctl_get_num_devices(fp, cmd, arg);
--		break;
--
--	case IOCTL_STATUS_ACCEL_DEV:
--		ret = adf_ctl_ioctl_get_status(fp, cmd, arg);
--		break;
--	default:
--		pr_err_ratelimited("QAT: Invalid ioctl %d\n", cmd);
--		ret = -EFAULT;
--		break;
--	}
--	mutex_unlock(&adf_ctl_lock);
--	return ret;
--}
  
- static int __init adf_register_ctl_device_driver(void)
- {
--	if (adf_chr_drv_create())
--		goto err_chr_dev;
--
- 	if (adf_init_misc_wq())
- 		goto err_misc_wq;
+ #include <linux/delay.h>
++#include <linux/export.h>
+ #include <linux/module.h>
+ #include <linux/sched.h>
+ #include <linux/interrupt.h>
+diff --git a/drivers/input/serio/serio.c b/drivers/input/serio/serio.c
+index 97d8eacb911276..38ad4794ab95d3 100644
+--- a/drivers/input/serio/serio.c
++++ b/drivers/input/serio/serio.c
+@@ -9,6 +9,7 @@
  
-@@ -434,15 +40,11 @@ static int __init adf_register_ctl_device_driver(void)
- err_aer:
- 	adf_exit_misc_wq();
- err_misc_wq:
--	adf_chr_drv_destroy();
--err_chr_dev:
--	mutex_destroy(&adf_ctl_lock);
- 	return -EFAULT;
- }
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
  
- static void __exit adf_unregister_ctl_device_driver(void)
- {
--	adf_chr_drv_destroy();
- 	adf_exit_misc_wq();
- 	adf_exit_aer();
- 	adf_exit_vf_wq();
-@@ -450,7 +52,6 @@ static void __exit adf_unregister_ctl_device_driver(void)
- 	qat_crypto_unregister();
- 	qat_compression_unregister();
- 	adf_clean_vf_map(false);
--	mutex_destroy(&adf_ctl_lock);
- }
++#include <linux/export.h>
+ #include <linux/stddef.h>
+ #include <linux/module.h>
+ #include <linux/serio.h>
+diff --git a/drivers/input/sparse-keymap.c b/drivers/input/sparse-keymap.c
+index 25bf8be6e71116..6f28fd79ea39d4 100644
+--- a/drivers/input/sparse-keymap.c
++++ b/drivers/input/sparse-keymap.c
+@@ -10,6 +10,7 @@
+  * Copyright (C) 2005 Dmitry Torokhov <dtor@mail.ru>
+  */
  
- module_init(adf_register_ctl_device_driver);
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_dev_mgr.c b/drivers/crypto/intel/qat/qat_common/adf_dev_mgr.c
-index 86ee36feefad34..9bdfa5b1614fe3 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_dev_mgr.c
-+++ b/drivers/crypto/intel/qat/qat_common/adf_dev_mgr.c
-@@ -45,19 +45,6 @@ static struct vf_id_map *adf_find_vf(u32 bdf)
- 	return NULL;
- }
++#include <linux/export.h>
+ #include <linux/input.h>
+ #include <linux/input/sparse-keymap.h>
+ #include <linux/module.h>
+diff --git a/drivers/input/touchscreen.c b/drivers/input/touchscreen.c
+index 4620e20d0190f7..d699b24bb5486c 100644
+--- a/drivers/input/touchscreen.c
++++ b/drivers/input/touchscreen.c
+@@ -6,6 +6,7 @@
+  *  Copyright (c) 2014 Sebastian Reichel <sre@kernel.org>
+  */
  
--static int adf_get_vf_real_id(u32 fake)
--{
--	struct list_head *itr;
--
--	list_for_each(itr, &vfs_table) {
--		struct vf_id_map *ptr =
--			list_entry(itr, struct vf_id_map, list);
--		if (ptr->fake_id == fake)
--			return ptr->id;
--	}
--	return -1;
--}
--
- /**
-  * adf_clean_vf_map() - Cleans VF id mapings
-  *
-@@ -314,63 +301,6 @@ struct adf_accel_dev *adf_devmgr_pci_to_accel_dev(struct pci_dev *pci_dev)
- }
- EXPORT_SYMBOL_GPL(adf_devmgr_pci_to_accel_dev);
++#include <linux/export.h>
+ #include <linux/property.h>
+ #include <linux/input.h>
+ #include <linux/input/mt.h>
+diff --git a/drivers/input/touchscreen/ad7879.c b/drivers/input/touchscreen/ad7879.c
+index e5d69bf2276e0f..991337053edc2a 100644
+--- a/drivers/input/touchscreen/ad7879.c
++++ b/drivers/input/touchscreen/ad7879.c
+@@ -22,6 +22,7 @@
  
--struct adf_accel_dev *adf_devmgr_get_dev_by_id(u32 id)
--{
--	struct list_head *itr;
--	int real_id;
--
--	mutex_lock(&table_lock);
--	real_id = adf_get_vf_real_id(id);
--	if (real_id < 0)
--		goto unlock;
--
--	id = real_id;
--
--	list_for_each(itr, &accel_table) {
--		struct adf_accel_dev *ptr =
--				list_entry(itr, struct adf_accel_dev, list);
--		if (ptr->accel_id == id) {
--			mutex_unlock(&table_lock);
--			return ptr;
--		}
--	}
--unlock:
--	mutex_unlock(&table_lock);
--	return NULL;
--}
--
--int adf_devmgr_verify_id(u32 id)
--{
--	if (id == ADF_CFG_ALL_DEVICES)
--		return 0;
--
--	if (adf_devmgr_get_dev_by_id(id))
--		return 0;
--
--	return -ENODEV;
--}
--
--static int adf_get_num_dettached_vfs(void)
--{
--	struct list_head *itr;
--	int vfs = 0;
--
--	mutex_lock(&table_lock);
--	list_for_each(itr, &vfs_table) {
--		struct vf_id_map *ptr =
--			list_entry(itr, struct vf_id_map, list);
--		if (ptr->bdf != ~0 && !ptr->attached)
--			vfs++;
--	}
--	mutex_unlock(&table_lock);
--	return vfs;
--}
--
--void adf_devmgr_get_num_dev(u32 *num)
--{
--	*num = num_devices - adf_get_num_dettached_vfs();
--}
--
- /**
-  * adf_dev_in_use() - Check whether accel_dev is currently in use
-  * @accel_dev: Pointer to acceleration device.
+ #include <linux/device.h>
+ #include <linux/delay.h>
++#include <linux/export.h>
+ #include <linux/input.h>
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
+diff --git a/drivers/input/touchscreen/cyttsp_core.c b/drivers/input/touchscreen/cyttsp_core.c
+index b8ce6012364cfe..9e729910fbc8d8 100644
+--- a/drivers/input/touchscreen/cyttsp_core.c
++++ b/drivers/input/touchscreen/cyttsp_core.c
+@@ -14,6 +14,7 @@
+  */
+ 
+ #include <linux/delay.h>
++#include <linux/export.h>
+ #include <linux/input.h>
+ #include <linux/input/mt.h>
+ #include <linux/input/touchscreen.h>
+diff --git a/drivers/input/touchscreen/goodix_berlin_core.c b/drivers/input/touchscreen/goodix_berlin_core.c
+index 141c64675997db..218ba7375673cc 100644
+--- a/drivers/input/touchscreen/goodix_berlin_core.c
++++ b/drivers/input/touchscreen/goodix_berlin_core.c
+@@ -24,6 +24,7 @@
+  */
+ 
+ #include <linux/bitfield.h>
++#include <linux/export.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/input.h>
+ #include <linux/input/mt.h>
+diff --git a/drivers/input/touchscreen/tsc200x-core.c b/drivers/input/touchscreen/tsc200x-core.c
+index df39dee13e1ca4..f96108351cf8b8 100644
+--- a/drivers/input/touchscreen/tsc200x-core.c
++++ b/drivers/input/touchscreen/tsc200x-core.c
+@@ -10,6 +10,7 @@
+  * based on TSC2301 driver by Klaus K. Pedersen <klaus.k.pedersen@nokia.com>
+  */
+ 
++#include <linux/export.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/input.h>
+diff --git a/drivers/input/touchscreen/wm9705.c b/drivers/input/touchscreen/wm9705.c
+index 4b55d5e1ea0fb8..96484aae030c89 100644
+--- a/drivers/input/touchscreen/wm9705.c
++++ b/drivers/input/touchscreen/wm9705.c
+@@ -9,6 +9,7 @@
+  *                   Russell King <rmk@arm.linux.org.uk>
+  */
+ 
++#include <linux/export.h>
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+ #include <linux/kernel.h>
+diff --git a/drivers/input/touchscreen/wm9712.c b/drivers/input/touchscreen/wm9712.c
+index 6947714dfefa18..087ece57741a08 100644
+--- a/drivers/input/touchscreen/wm9712.c
++++ b/drivers/input/touchscreen/wm9712.c
+@@ -9,6 +9,7 @@
+  *                   Russell King <rmk@arm.linux.org.uk>
+  */
+ 
++#include <linux/export.h>
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+ #include <linux/kernel.h>
+diff --git a/drivers/input/touchscreen/wm9713.c b/drivers/input/touchscreen/wm9713.c
+index a67fbe304f9291..6f13f46ce6e6f8 100644
+--- a/drivers/input/touchscreen/wm9713.c
++++ b/drivers/input/touchscreen/wm9713.c
+@@ -9,6 +9,7 @@
+  *                   Russell King <rmk@arm.linux.org.uk>
+  */
+ 
++#include <linux/export.h>
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+ #include <linux/kernel.h>
+diff --git a/drivers/input/touchscreen/wm97xx-core.c b/drivers/input/touchscreen/wm97xx-core.c
+index f01f6cc9b59fa8..45d19f6aef5f52 100644
+--- a/drivers/input/touchscreen/wm97xx-core.c
++++ b/drivers/input/touchscreen/wm97xx-core.c
+@@ -29,6 +29,7 @@
+  *       - Support for async sampling control for noisy LCDs.
+  */
+ 
++#include <linux/export.h>
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+ #include <linux/kernel.h>
 -- 
 2.53.0
 
