@@ -1,120 +1,310 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC29176238
-	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 03:42:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782358967; cv=pass; b=BvHNjG60Cva4Q3Txtaci9gZho5fXZPlmIrxTSaKygoQksA/8QAPEDTg1dLlmoIFrsiAO27PBE6ptwBJ7jBBwAqvA+1yviP5tbRy02YjHxYek38/xJBj+UFpkXCVzqpTviFXkIALTLDefch4vz0SrImRRxU/Fw5wovZqBvTKVpts=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782358967; c=relaxed/simple;
-	bh=kHDiEmKDetNI8Z32pwvyr1SW6dqtsj2Q0/SP3U1mtYk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oXspQSYgL3rRJYhkZ8kXUF6ylMjlsa6729uz+kod7fB53GvjIi7tO34V9CMxKpn8PtrHAwq9XwwUgM5wQiGE+0ucF4FHYnsetN56Is50bPRokb4p7GUbOloQNCwNgzAjcA/iyPmQ0WYEeUoxucvoSpEk/s+JRR7YuDNyvT4JmnU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ON4r6+gW; arc=pass smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE082F3600;
+	Thu, 25 Jun 2026 04:16:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782360990; cv=none; b=LIABi2IY5Z5BZ6P8pLk62/6ugOd0jdRbUX7+s3ylC2v1VDkpb647Ri3C+GPVEoTY4gdF7JxP5laIpXs7cAPv1lCC4nxDkzjyZVkJ14iGFH5WumwkN4pCZEtoKVltxtKJWRjV93g8Z0W+FrAdMmEZujswhrPjmstOGhxvhIp6Jt8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782360990; c=relaxed/simple;
+	bh=grocmI2oFWlDxunDXYvQW1yYV5SXqYE7Vk24nZuZr2g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IiiyPJXaYEnKbaGFJIvG8BuYFTeHtWDLShLYyl2vVRs7yopmJTZR4lHU+lesFxtM13aayEb6y+AyM4iD/iPRMI9KZVLa/zsp2dfBqRpTEpROUrZUGPSOWYjXsQG2YWb5rZrZ6BzKagTi1UI4Ir6I/4J2oMmaFv6lo8yIbLsi4cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FpHe8Xbp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ON4r6+gW"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-bec450b950dso336615366b.2
-        for <stable@vger.kernel.org>; Wed, 24 Jun 2026 20:42:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782358964; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KTX6sdirblOCIpHbFcW6B5PMWzr0GpHD+oXdgCcnH7WXlYewksmkllTQP5nvkYKEyu
-         9HmGILMsV1CTqWzVugRz5pmmKwIxVWG7kgSzto9X6PdYO91VvrowuVY6x2WTjq5zpDVJ
-         asCSb/2634cfVcuR+jnFtA/eb1Sa1sqDz5Sq0WrOZAQ1RtKJLZcrsaLi/tbQ/tDL0rYK
-         /D6AxY8OXQnk0sJXMK5uVU9kpeWtBMgLFZV59mz1RTE7qtYvdJ1foIpVTrhj56xWgs/K
-         Xebu74HYgXSJ0KjG+1Y4IwmFJqKY/BMpFD9w3YU7naiPIijy4XBE3Vm+MhpXIusQZyhX
-         lDYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kHDiEmKDetNI8Z32pwvyr1SW6dqtsj2Q0/SP3U1mtYk=;
-        fh=2mP+pJggPNCdSHANLJ91cUFqhCjso7LAPKRkrBNbUSI=;
-        b=QrmypbQdcEar24g60o1DHclFaP10kKZPb6eC98N1wB64G/I4KJoBjPqPJk1Yvb4gG2
-         g6+4pdKR2HJvWfjfYyWrGLlSl9pgK6UbQubWlp09dp5xhZQaa2G65ogX72nQoN1VWFU4
-         kwsTQpVYejSV+kkJOQtsBouW3NWNzYw0olbz0cVnZTffnGPWVCXwcnkv7dmyiw6k5kO2
-         Ph3pYTpnqZ+hcBDqdEB7Et97mZKCIv3Wpt6B8LXFFBeYH0E/8HxsmXomX9GzWFYVQkPE
-         YRG4lbYN/oA+S7IJmd+ziVDecS0BVCuTQd+VWGkiMAfVJrvioG6ah2uTMR6YvUHadH/t
-         sRZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782358964; x=1782963764; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kHDiEmKDetNI8Z32pwvyr1SW6dqtsj2Q0/SP3U1mtYk=;
-        b=ON4r6+gWOvB5NvBBU+kXr/hUA7sLXBCThwp+zsW2dArf3Ty33JtVgz3ZKXbrnJjTJ8
-         xfFOsCkOG7yxW6MiVHFeFZFhNeoTk3+ePwwhQxf8HSgKxtVQVVzBVI+7jt7Lxeydp4Z9
-         uyszKwxFsKor1LqO2QIB+MIPxYxhYgWyLG+vfmiwwt8uyLOimaJvvt0LpUPoUX6TxAqP
-         aPwFzmgE9c4Zm7TWE7cxFX6IuDeqFpoGJEpW+/Y7YXYagYcywy3UBQmXN5DLb0DIcBO2
-         aQZw5BszYkeuN8yUA47uLZfGV/3lHYQgz3F+6ena+4/AiXFRudzcD7kJZauc/kkjsCqh
-         KubQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782358964; x=1782963764;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=kHDiEmKDetNI8Z32pwvyr1SW6dqtsj2Q0/SP3U1mtYk=;
-        b=rBOaUZcIndK3Jzcba3f+0bsUUuqQZBPl79XK7AqmWiUctBN7cQ+LdOmZvKMJlqVLY8
-         hd2CxE26ShhrnAUhESJ+WfnrRYhE0DKvLackOSJzNmQn69Lc74ui2uWG5r0G4o5rPbYW
-         kdG8nu2SHJRsFn/X7D/P0IUZGAlRcxmnO9sZBtbmvPdVWNi2WArYG/5drNK2805L/wS4
-         P33iWzXZtTj4i1bZhY2HkYuzB6k4luYuFL16g0ehf19R/gxoF5TgFukkPQdy38fnG0jE
-         +sAjL6+jquh8BNKscPHI6qnABG/WlmP/6ar9vQmYKZzcNGSqHQk5Nd2LKgo93aqMxzX6
-         +IAQ==
-X-Gm-Message-State: AOJu0Yz2D/yClz3N2QWIr+n5Kd7bx+gX/we8dDqj+cBKELNK2KskjVcu
-	pEIJ9xO8A2tWaDTvDAOGc0znrg9ZvA4RD5ydOCCchOkvgGJNqh8ncb/VTtKjMuxp9IUBaNlgHZK
-	54Wez8AwZT3VIAlwZgdYd9yQkPNgQ8gI=
-X-Gm-Gg: AfdE7cm4Hthh//acRVoKfuRnzLEnib6Wmq0ia/fQM5lLs19VaUZx4uoTTRGZzLGKDSo
-	b+Zt34v0D3CKtJ5l+ZCI+gQPXoFTwyc/A7j4eWEkAbhTpAkbVdUgSDNVldUV2PfUQVezZFw+9FR
-	/O+uDbjnj2oF5aKmWba696EklIqNE2pj80wHkOSvNWwkKZE/pX3gk+KRBIXMT+1uczldqCMv7iY
-	+XPBV4I1IyDuNNbRUMYDjuVj85K/4WVGFeqHErdbF6Fzojo14fLuF/rRcH5NXIXRanwV4k=
-X-Received: by 2002:a17:907:3e82:b0:bf0:550:d9f with SMTP id
- a640c23a62f3a-c1205ef2848mr25751966b.31.1782358963784; Wed, 24 Jun 2026
- 20:42:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FpHe8Xbp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D112E1F000E9;
+	Thu, 25 Jun 2026 04:16:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782360988;
+	bh=AiN5oVYDkvToeVAoDXhpX8L4SOwM6hG76+pNbHn5Akw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FpHe8Xbp6Y5I74KzZO+2qeKc73fP1HBUFJJa0yWbRlq5rqQ5FaHySku1wSFlFUASU
+	 7Uzhxaxbpiq6I8j1tzpjuZS+vvK2FX2V8VuzCwPdrpabgSo4g8EljSeL3WpVNdwH5i
+	 FZDO+1ZhgCkbKTEomAjhYsb47sa/vleBuXCsoIWmp1KeiX5UQQCw6JB/WG1TpoW3t7
+	 HHWs4rPIjqIidmejtqa9TH++f0BZz9AuatlL+x+j7QgqLXXurb1tIpAmdAGBsylh/i
+	 fYuLgaYUodk/EpOfStrc43GPtbfXPXlCxr+66oGupfIN8kT6nnlH0EO0AkeXrB1Wmt
+	 khUS/Ec1AtOPg==
+Message-ID: <b5c85cea-5daa-4690-ac41-a6f5aebd1555@kernel.org>
+Date: Thu, 25 Jun 2026 13:16:19 +0900
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAG9krM_RbUhPgkcP6DFJM=jgDxMCNu8032=pM5OS2Agcxm-UKQ@mail.gmail.com>
- <2026062331-bruising-wimp-74a7@gregkh> <2026062320-backtrack-unusable-96e1@gregkh>
-In-Reply-To: <2026062320-backtrack-unusable-96e1@gregkh>
-From: Faicker Mo <faicker.mo@gmail.com>
-Date: Thu, 25 Jun 2026 11:42:31 +0800
-X-Gm-Features: AVVi8CeLhIYSLwobZAWdl2H4EJBbxqq50KWHcfbh5mAJOsgmHfU0apDfYGJE_xM
-Message-ID: <CAG9krM9398KH27SngNaujagzMz6DYfcSBFYzFaxj8aZMRh7_iQ@mail.gmail.com>
-Subject: Re: need the upstream commit to be merged to stable kernel
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm: mglru: fix stale batch updates after memcg
+ reparenting
+To: Qi Zheng <qi.zheng@linux.dev>, akpm@linux-foundation.org,
+ david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
+ baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+ weixugc@google.com, hannes@cmpxchg.org, muchun.song@linux.dev,
+ peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
+ ljs@kernel.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+References: <20260623024237.45990-1-qi.zheng@linux.dev>
+ <e74b0808-3bcc-414d-a037-41e479210cc0@kernel.org>
+ <d97128c0-7d89-4b5c-b891-84f9af702fee@linux.dev>
+ <8a76aefd-629c-41f3-b365-aefd4cc1411e@kernel.org>
+ <7946da94-dc1d-4cf2-986e-466c378665b6@linux.dev>
+ <dfe5d773-2992-448b-a6cb-ef633714a08f@kernel.org>
+ <1d638906-6d64-4e57-a181-4b77683652b5@linux.dev>
+Content-Language: en-US
+From: Harry Yoo <harry@kernel.org>
+In-Reply-To: <1d638906-6d64-4e57-a181-4b77683652b5@linux.dev>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------LxQQ5OPbtD0ywAOp0mjeioxs"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------LxQQ5OPbtD0ywAOp0mjeioxs
+Content-Type: multipart/mixed; boundary="------------06RF0h870Fk6SH6J3RTvV02N";
+ protected-headers="v1"
+From: Harry Yoo <harry@kernel.org>
+To: Qi Zheng <qi.zheng@linux.dev>, akpm@linux-foundation.org,
+ david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
+ baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+ weixugc@google.com, hannes@cmpxchg.org, muchun.song@linux.dev,
+ peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
+ ljs@kernel.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+Message-ID: <b5c85cea-5daa-4690-ac41-a6f5aebd1555@kernel.org>
+Subject: Re: [PATCH v2] mm: mglru: fix stale batch updates after memcg
+ reparenting
+References: <20260623024237.45990-1-qi.zheng@linux.dev>
+ <e74b0808-3bcc-414d-a037-41e479210cc0@kernel.org>
+ <d97128c0-7d89-4b5c-b891-84f9af702fee@linux.dev>
+ <8a76aefd-629c-41f3-b365-aefd4cc1411e@kernel.org>
+ <7946da94-dc1d-4cf2-986e-466c378665b6@linux.dev>
+ <dfe5d773-2992-448b-a6cb-ef633714a08f@kernel.org>
+ <1d638906-6d64-4e57-a181-4b77683652b5@linux.dev>
+In-Reply-To: <1d638906-6d64-4e57-a181-4b77683652b5@linux.dev>
+
+--------------06RF0h870Fk6SH6J3RTvV02N
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 23, 2026 at 3:06=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org=
-> wrote:
->
-> On Tue, Jun 23, 2026 at 09:03:42AM +0200, Greg KH wrote:
-> > On Tue, Jun 23, 2026 at 02:35:18PM +0800, Faicker Mo wrote:
-> > > Subject: net: net_failover: Fix the deadlock in slave register
-> > > Commit: b84c563
-> > > Reason: wish the upstream commit to be merged to 7.0, because Ubuntu
-> > > 26.04 (LTS) uses this kernel. Thanks.
-> > >
-> >
-> > Sure, but note that 7.0.y will go end-of-life in a matter of days :)
-> >
-> > Also applied to 6.18.y which will not go end-of-life.
->
-> Nope, breaks the build :(
-Hi, I tested it with make defconfig(CONFIG_NET_FAILOVER=3Dy), make
-vmlinux, no errors.
-Both 7.0.y and 6.18.y branches were tested.
 
->
-> Please provide a working backport if you need/want a commit backported.
->
-> thanks,
->
-> greg k-h
+
+On 6/24/26 4:11 PM, Qi Zheng wrote:
+> Hi Harry,
+>=20
+> On 6/24/26 12:29 PM, Harry Yoo wrote:
+>> On 6/23/26 6:14 PM, Qi Zheng wrote:
+>>> Hi Harry,
+>>>
+>>> On 6/23/26 4:18 PM, Harry Yoo wrote:
+>>>> On 6/23/26 4:16 PM, Qi Zheng wrote:
+>>>>> Hi Harry,
+>>>>
+>>>> Hi Qi!
+>>>>
+>>>>> On 6/23/26 2:17 PM, Harry Yoo wrote:
+>>>>>> On 6/23/26 11:42 AM, Qi Zheng wrote:
+>>>>>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>>>>>>
+>>>>>>> The mglru page table walker batches per-generation size deltas in=
+
+>>>>>>> walk->nr_pages while walking page tables without holding the lruv=
+ec
+>>>>>>> lock.
+>>>>>>> The reset_batch_size() later folds those deltas into walk->lruvec=
+
+>>>>>>> under
+>>>>>>> the lruvec lock.
+>>>>>>
+>>>>>> Ouch.
+>>>>>>
+>>>>>> IIRC the user-visible impact of underestimated nr_pages in MGLRU
+>>>>>> was premature OOMs because MGLRU does not try to reclaim memory wh=
+en
+>>>>>> nr_pages reaches zero, but there are still more pages.
+>>>>>>
+>>>>>> Perhaps worth mentioning in the changelog?
+>>>>>
+>>>>> Maybe this should be placed before "To fix it...".
+>>>>
+>>>> Thanks!
+>>>>
+>>>>>>> The page table walker can run concurrently with the memcg
+>>>>>>> reparenting
+>>>>>>> path
+>>>>>>> as follows:
+>>>>>>>
+>>>>>>> CPU0                           CPU1
+>>>>>>> =3D=3D=3D=3D                           =3D=3D=3D=3D
+>>>>>>>
+>>>>>>> walk_mm
+>>>>>>> --> walk_page_range
+>>>>>>>        --> update_batch_size
+>>>>>>>            --> walk->nr_pages +=3D delta
+>>>>>>>
+>>>>>>>                                  mem_cgroup_css_offline
+>>>>>>>                                  --> memcg_reparent_objcgs
+>>>>>>>                                      --> lock lruvec
+>>>>>>>                                          lru_gen_reparent_memcg
+>>>>>>>                                          --> reparent child
+>>>>>>> folios to
+>>>>>>> parent
+>>>>>>>                                          unlock lruvec
+>>>>>>>
+>>>>>>>        lock lruvec
+>>>>>>>        reset_batch_size
+>>>>>>>        --> child lrugen->nr_pages +=3D delta
+>>>>>>
+>>>>>> The problem here is that, while grabbing a reference to memcg
+>>>>>> (via mem_cgroup_iter(), for example) makes sure that the memcg is =
+not
+>>>>>> freed, it does not prevent offlining happening, and
+>>>>>> reset_batch_size()
+>>>>>> doesn't check whether the lruvec has been reparented, or the lruve=
+c
+>>>>>> is going to be reparented.
+>>>>>>
+>>>>>>> This will trigger the following warning in lru_gen_exit_memcg():
+>>>>>>>
+>>>>>>>       VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
+>>>>>>>                      sizeof(lruvec->lrugen.nr_pages)));
+>>>>>>>
+>>>>>>> To fix it, add lrugen->reparented to remember the new owner of a
+>>>>>>> reparented lruvec, and make reset_batch_size() charge pending
+>>>>>>> deltas to
+>>>>>>> that owner.
+>>>>>>
+>>>>>> Could you please explain why it is unavoidable to introduce the ne=
+w
+>>>>>> field and why checking whether the cgroup is dying (and charging
+>>>>>> deltas
+>>>>>> to non-dying parent) doesn't work?
+>>>>>
+>>>>> Peiyang tried doing this [1], but it doesn't work because
+>>>>> ss->css_offline() is called before clearing the CSS_ONLINE flag.
+>>>>
+>>>> Right.
+>>>>
+>>>>> I also considered using mem_cgroup_tryget_online(), but that only
+>>>>> prevent
+>>>>> the memcg from being freed. It's doesn't prevent the offlining.
+>>>>
+>>>> Right.
+>>>>
+>>>> I think checking CSS_DYING under RCU and grabbing the lruvec
+>>>> of the first non-dying memcg should work (this pattern is already
+>>>> used where we use RCU to guarantee memcgs are not freed).
+>>>>
+>>>> If we do not observe CSS_DYING flag, it is safe to charge deltas
+>>>> to the lruvec because RCU guarantees that reparenting cannot happen
+>>>> under us.
+>>>>
+>>>> If we do observe CSS_DYING, we can walk up the hierarchy and charge
+>>>> deltas to the first non-dying memcg.
+>>>
+>>> Checking CSS_DYING looks feasible, but the rcu lock alone cannot prev=
+ent
+>>> reparenting. We should recheck CSS_DYING after acquiring the lruvec
+>>> lock, otherwise we might run into the following race:
+>>
+>> Haha, actually, I was thinking of checking CSS_DYING under both RCU an=
+d
+>> lruvec lock. (because that's the pattern)
+>>
+>>>    CPU0 reset_batch_size              CPU1 memcg teardown
+>>>    =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D   =
+           =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>>>
+>>>    read !CSS_DYING
+>>>
+>>>                                       set CSS_DYING
+>>
+>> Oh, I thought the entire critical section is covered by RCU.
+>> (I see lock_batch_lruvec() you suggested below doesn't do that)
+>>
+>> Isn't RCU enough to prevent reparenting because RCU guarantees that
+>> all readers who read !CSS_DYING complete before reparenting?
+>=20
+> Oh, I think you are right.
+>=20
+> I forgot that offlining is executed in the rcu work context.
+
+It's confusing :)
+
+> Let's walk through this again:
+>=20
+> cgroup_destroy_locked
+> --> kill_css_sync
+>     --> css->flags |=3D CSS_DYING;                    1)
+>     kill_css_finish
+>     --> css_killed_ref_fn
+>         --> css_killed_work_fn  <-- RCU work !!     2)
+>             --> offline_css
+>                 --> reparent memcg
+>=20
+> So while holding the rcu lock, if CSS_DYING is not observed,
+> css_killed_work_fn() will not be called until rcu_read_unlock().
+
+Right.
+
+> So lock_batch_lruvec() can be implemented like this:
+>=20
+> #ifdef CONFIG_MEMCG
+> static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
+> {
+>     struct pglist_data *pgdat =3D lruvec_pgdat(lruvec);
+>     struct mem_cgroup *memcg =3D lruvec_memcg(lruvec);
+>=20
+>     rcu_read_lock();
+>=20
+>     /*
+>      * The memcg can be NULL when the memory controller is disabled.
+>      * Otherwise, the caller keeps the memcg owning @lruvec alive.
+>      */
+>     if (!memcg || !css_is_dying(&memcg->css))
+>         goto lock;
+>=20
+>     do {
+>         memcg =3D parent_mem_cgroup(memcg);
+>     } while (memcg && css_is_dying(&memcg->css));
+>     lruvec =3D mem_cgroup_lruvec(memcg, pgdat);
+>=20
+> lock:
+>     spin_lock_irq(&lruvec->lru_lock);
+>=20
+>     return lruvec;
+> }
+> #else
+> static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
+> {
+>     lruvec_lock_irq(lruvec);
+>=20
+>     return lruvec;
+> }
+> #endif
+>=20
+> Does this make sense?
+
+Yes, looks good to me!
+
+--=20
+Cheers,
+Harry / Hyeonggon
+
+--------------06RF0h870Fk6SH6J3RTvV02N--
+
+--------------LxQQ5OPbtD0ywAOp0mjeioxs
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCajyrkwAKCRCGXBN6rc5S
+1oqlAQDfPXFk35QdbxUI3Bm7GIChdTiZa17jWOW965OuLuKNPgEAiwRuBaHrZiUM
+mfCqJuZfGYrjhjtTFkDDPZtk9GBpGwg=
+=qcnt
+-----END PGP SIGNATURE-----
+
+--------------LxQQ5OPbtD0ywAOp0mjeioxs--
