@@ -1,142 +1,182 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0368332EBC;
-	Thu, 25 Jun 2026 22:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006491C2324
+	for <stable@vger.kernel.org>; Thu, 25 Jun 2026 23:16:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782427988; cv=none; b=WN4+s/SdfPT06cv9wRKiAuxYDtzRZR81UryQ3Qe45LDa2X3RgvRRtBFo/dAiMdzAyCQQDDeYs/l3OVTwv6SwI3weUFrFQ5Re9XoiywblXUgnyDr2VTygcn8dDqANroxAJD74YTmYxluvbPNhB9Se1kAPgnd6DJ1YqUoDiBm8ulU=
+	t=1782429365; cv=none; b=qg5WS3eCzgRgQJQ36qH7mVNF65Ht+E631gPoAShBDsxafQI4eA4/9ri8PlKIzWkyXdTFYpgMKwjtObyqjP1vSIC+i3qPxp526xJYxoV19ptO/TdHR3qBOtEgGVNdoxY3j7kIXlwE5drnyMHWxHpsoJpYvHJdFvYWstNGbhKDhTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782427988; c=relaxed/simple;
-	bh=XjLZN3lDklgtmkPOwZ87MbAnn4N/2RXd3aR3mdyxhFM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=j5ANMgda5TnrevkuQLjAPfm2NHcP/UIQ0eNOB3MHceAa6qB57opmh3JC21SIqZl151o52Tu1dAGlNo7N9F3EyzZrjtC3u5xCHh2CgZ+H4v8ZFoiGnO/pDXvQ7zIbbX9gZLAXlHpwVJ/JRpfbvCU+xkL9QvqoIrt7sSvrDMIXKHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wcswS-004N2n-2l;
-	Thu, 25 Jun 2026 22:53:04 +0000
-Received: from ben by deadeye with local (Exim 4.99.3)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wcswR-00000008lwY-0ktQ;
-	Fri, 26 Jun 2026 00:53:03 +0200
-Message-ID: <72890f3caf368d0e4dcb5d1ec53c083c16ce8b20.camel@decadent.org.uk>
-Subject: Re: [PATCH 5.10 310/342] usb: typec: ucsi: Dont update power_supply
- on power role change if not connected
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, stable <stable@kernel.org>, Myrrh Periwinkle
-	 <myrrhperiwinkle@qtmlabs.xyz>, Sasha Levin <sashal@kernel.org>, Sergey
- Senozhatsky <senozhatsky@chromium.org>
-Date: Fri, 26 Jun 2026 00:52:57 +0200
-In-Reply-To: <20260616145102.909504547@linuxfoundation.org>
-References: <20260616145048.348037099@linuxfoundation.org>
-	 <20260616145102.909504547@linuxfoundation.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Yns9Wed2gkSPmVC12iHj"
-User-Agent: Evolution 3.56.2-9 
+	s=arc-20240116; t=1782429365; c=relaxed/simple;
+	bh=0WHH7Col3y9IOV0d83OQ3IQQGAI8GaK9/S5woTmkW14=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=edP63Cd+PArPYx0JBPLdJCz0VxUDGEGOOIWZiIcMdQsOyM6PIPzvae2Lhu325AUyAN5GXwbYbcOSjWlctQRQKJaUIdCeV72hfI2bZkrmTCiOkRCsqY11S9/uuo8GL7K/54L2Mhloiqirdum//h6EzVxdvDS10fxviCoGwpYW3Jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=C97TdmMY; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="C97TdmMY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1782429363;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xl3px75Nvxza7EusKK6+TYAla9vsm3zzqhoL4GNe8rU=;
+	b=C97TdmMYznDgcypcL94uvsP8Ivjq7Vb/IO83iYwah5QqiyGuiRTipDF1BLGHL9cn3ORURi
+	/iS2EoyMrFytapEukrDDrzzX3JTNX9t38jyoqeZsWg/vKcKIrhFoHxmuLGFbCp6Lb3qHwK
+	Rm/Rl3c/suiYHalhLeHDK5te1epcJTA=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-223-l5U9TBKqNyGGF88jnBKy8w-1; Thu,
+ 25 Jun 2026 19:15:56 -0400
+X-MC-Unique: l5U9TBKqNyGGF88jnBKy8w-1
+X-Mimecast-MFC-AGG-ID: l5U9TBKqNyGGF88jnBKy8w_1782429354
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B449419540F1;
+	Thu, 25 Jun 2026 23:15:53 +0000 (UTC)
+Received: from GoldenWind.lan (unknown [10.22.64.18])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1E51F30A8;
+	Thu, 25 Jun 2026 23:15:51 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	Dave Airlie <airlied@redhat.com>,
+	Kees Cook <kees@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Timur Tabi <ttabi@nvidia.com>,
+	Ben Skeggs <bskeggs@nvidia.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Mel Henning <mhenning@darkrefraction.com>,
+	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+	"Simona Vetter" <simona@ffwll.ch>,
+	"David Airlie" <airlied@gmail.com>,
+	"Thomas Zimmermann" <tzimmermann@suse.de>,
+	"Maxime Ripard" <mripard@kernel.org>,
+	"Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH 1/2] Revert "nouveau/gsp: fix suspend/resume regression on r570 firmware"
+Date: Thu, 25 Jun 2026 19:10:54 -0400
+Message-ID: <20260625231252.89684-2-lyude@redhat.com>
+In-Reply-To: <20260625231252.89684-1-lyude@redhat.com>
+References: <20260625231252.89684-1-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
+This reverts commit 8302d0afeaec0bc57d951dd085e0cffe997d4d18.
 
---=-Yns9Wed2gkSPmVC12iHj
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+It turns out this looked like the right fix on some systems, but it's not -
+as this causes runtime PM to actually fail on many a laptop.
 
-On Tue, 2026-06-16 at 20:30 +0530, Greg Kroah-Hartman wrote:
-> 5.10-stable review patch.  If anyone has any objections, please let me kn=
-ow.
->=20
-> ------------------
->=20
-> From: Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>
->=20
-> [ Upstream commit d98d413ca65d0790a8f3695d0a5845538958ab84 ]
->=20
-> We only need to update the power_supply on power role change if the port
-> is connected, because otherwise the online status should be the same for
-> both cases.
->=20
-> Cc: stable <stable@kernel.org>
-> Fixes: 7616f006db07 ("usb: typec: ucsi: Update power_supply on power role=
- change")
-> Signed-off-by: Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>
-> Reported-and-tested-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-> Link: https://patch.msgid.link/20260519-ucsi-fix-2-v1-2-6f1239535187@qtml=
-abs.xyz
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  drivers/usb/typec/ucsi/ucsi.c |    6 ++++++
->  1 file changed, 6 insertions(+)
->=20
-> --- a/drivers/usb/typec/ucsi/ucsi.c
-> +++ b/drivers/usb/typec/ucsi/ucsi.c
-> @@ -775,6 +775,12 @@ static void ucsi_handle_connector_change
->  	    role !=3D prev_role) {
->  		typec_set_pwr_role(con->port, role);
-> =20
-> +		/* Some power_supply properties vary depending on the power direction =
-when
-> +		 * connected
-> +		 */
-> +		if (con->status.flags & UCSI_CONSTAT_CONNECTED)
-> +			ucsi_port_psy_changed(con);
-> +
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Fixes: 8302d0afeaec ("nouveau/gsp: fix suspend/resume regression on r570 firmware")
+Cc: <stable@vger.kernel.org>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Timur Tabi <ttabi@nvidia.com>
+Cc: Ben Skeggs <bskeggs@nvidia.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Mel Henning <mhenning@darkrefraction.com>
+Cc: <stable@vger.kernel.org> # v6.19+
+---
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 8 ++++----
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h        | 2 +-
+ 4 files changed, 7 insertions(+), 7 deletions(-)
 
-This should be making a call to ucsi_port_psy_changed() conditional, not
-adding a call.
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
+index 700cea5def357..035b575722db7 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
+@@ -208,7 +208,7 @@ r535_fbsr_resume(struct nvkm_gsp *gsp)
+ }
+ 
+ static int
+-r535_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
++r535_fbsr_suspend(struct nvkm_gsp *gsp)
+ {
+ 	struct nvkm_subdev *subdev = &gsp->subdev;
+ 	struct nvkm_device *device = subdev->device;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+index f544afa12b6bb..4a3b771ded255 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+@@ -1749,7 +1749,7 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_suspend_state suspend)
+ 		sr->sysmemAddrOfSuspendResumeData = gsp->sr.radix3.lvl0.addr;
+ 		sr->sizeOfSuspendResumeData = len;
+ 
+-		ret = rm->api->fbsr->suspend(gsp, suspend == NVKM_RUNTIME_SUSPEND);
++		ret = rm->api->fbsr->suspend(gsp);
+ 		if (ret) {
+ 			nvkm_gsp_mem_dtor(&gsp->sr.meta);
+ 			nvkm_gsp_radix3_dtor(gsp, &gsp->sr.radix3);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+index 8ef8b4f655883..2945d5b4e5707 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+@@ -62,7 +62,7 @@ r570_fbsr_resume(struct nvkm_gsp *gsp)
+ }
+ 
+ static int
+-r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size, bool runtime)
++r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size)
+ {
+ 	NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS *ctrl;
+ 	struct nvkm_gsp_object memlist;
+@@ -81,7 +81,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size, bool runtim
+ 	ctrl->hClient = gsp->internal.client.object.handle;
+ 	ctrl->hSysMem = memlist.handle;
+ 	ctrl->sysmemAddrOfSuspendResumeData = gsp->sr.meta.addr;
+-	ctrl->bEnteringGcoffState = runtime ? 1 : 0;
++	ctrl->bEnteringGcoffState = 1;
+ 
+ 	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
+ 	if (ret)
+@@ -92,7 +92,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size, bool runtim
+ }
+ 
+ static int
+-r570_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
++r570_fbsr_suspend(struct nvkm_gsp *gsp)
+ {
+ 	struct nvkm_subdev *subdev = &gsp->subdev;
+ 	struct nvkm_device *device = subdev->device;
+@@ -133,7 +133,7 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
+ 		return ret;
+ 
+ 	/* Initialise FBSR on RM. */
+-	ret = r570_fbsr_init(gsp, &gsp->sr.fbsr, size, runtime);
++	ret = r570_fbsr_init(gsp, &gsp->sr.fbsr, size);
+ 	if (ret) {
+ 		nvkm_gsp_sg_free(device, &gsp->sr.fbsr);
+ 		return ret;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
+index a9af94adf9efc..0fb0e67406c67 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
+@@ -78,7 +78,7 @@ struct nvkm_rm_api {
+ 	} *device;
+ 
+ 	const struct nvkm_rm_api_fbsr {
+-		int (*suspend)(struct nvkm_gsp *, bool runtime);
++		int (*suspend)(struct nvkm_gsp *);
+ 		void (*resume)(struct nvkm_gsp *);
+ 	} *fbsr;
+ 
+-- 
+2.54.0
 
-I think this went wrong because an earlier backport, commit 7a3f8d1a44db
-"usb: typec: ucsi: Update power_supply on power role change", put the
-call to ucsi_port_psy_changed() in the wrong place in this function.
-
-Ben.
-
->  		/* Complete pending power role swap */
->  		if (!completion_done(&con->complete))
->  			complete(&con->complete);
->=20
->=20
-
---=20
-Ben Hutchings
-[W]e found...that it wasn't as easy to get programs right as we had
-thought. I realized that a large part of my life from then on was going
-to be spent in finding mistakes in my own programs.
-                                                 - Maurice Wilkes, 1949
-
---=-Yns9Wed2gkSPmVC12iHj
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmo9sUkACgkQ57/I7JWG
-EQlooQ//RT4Ta4GvcxFaDEAPB1ClNDWyhg96zSAvtwW9piZq5CnIQyqHZfmYirID
-bd/F7wyeG0hjwFJuODDrQI+zZLsQXDoZqid1PFPmmWnfXEKRmk6XMo9E5alGyVbK
-jtuR8fCqx6ydV8XUvNYhoPHOIOO0CL1UfgwtErnOIxmFgQ4NYV+T1HeBVb+ttduA
-W+YLsSpt44FjO/9ubLkoOusTVfQQoGAiMeRTNukYG8792QmVCvzJkaro/2X3csnS
-/JK9r/AoFisCiMTr9aQ9xPNEiKoSg3O+CTQ8IcpOkiqTyQTxm/A/KY10vQcg9o31
-0XAW3jFZnyiLpcBIYedGy/iLSzNNExNFQQ0LY0O+dQouGR9SyxjhutilF2ZS2WmK
-k7M5gRg0hlvWOWapWcmh2bxbq3s/jbgXGB6ZsOhPO54v/ZF2IRVx/6h3iFTgx2Oq
-OrOn+PmBd6Nz3+VenfEMDt3NBkEcgC2czv4MGuwD4p3WH9eiJA/bWYy8/jNbUt8F
-NgRYVR+0ahVk2fKFI+0uhUb62ufx/6M8RiT2bEzATVi+QlvUVIZ63lyy91tpLpZR
-/Z84oOebchs5QVtKVkynyd0pQsUZIc4ar3o1ZBvaLCn8TJRRftWNoIyX1Fa971LI
-J/7c+qM39cRh77NH08cKyy3Y55uhY1TV9hEapVpV1cz+ktwrnxs=
-=2J+P
------END PGP SIGNATURE-----
-
---=-Yns9Wed2gkSPmVC12iHj--
