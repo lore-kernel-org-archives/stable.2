@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5FB3FB7F1
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7643FD956
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490325; cv=none; b=ZbPeDNIB+nvi1fVbg1LOohT1N+0FhkQIJ6syQXTsTdFEhkf3Nja2kykfquGSBKYl1NjEYRS3fak5sZOjdsKr8b9TXJ8MsUbxEsrj+fLcReby6714mu04jGiE+sH5LhSN0i/hQOqs5mDK09yBFOqgySxEBiF3TWRUCixrELg/Piw=
+	t=1782490325; cv=none; b=iW8QtYW87jAnxmd8SXZjmppi1FSBQ5DEhLfS7T+73+FUIRNHPyl/ELeQoSDyEL/GQJ1DSDqTGtyTes+wRF3Fgf+OoSfUNabHmnFFeUMGYYhTeSIwy8FB9kaBOTARd0p37wMRgSRgtcmZ8k0YnBHfMyLmYkSiBqvLtU60u1BsFJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490325; c=relaxed/simple;
-	bh=pFtsL4erAA7g1vBBQD00gt/Hpf24uvOBOQwWcEim+1s=;
+	bh=aSdsrK2/6a/tNUU7dv+thMORcs0EFDtVnYZbVyz9odg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kkfkesRx9teVEpV7a8rqr8vu9EPIkBDGYCMci8GFrpGt0aD5IImn0iMHu23SeGKVmXqS/2aP85kp7TWImysHd9TP8aC+P+BZ2ESfQ9zWBqOt3IcBNqEXivhDPdZGKhLanNuQ0L/c1gkCP39AhucF2nkX9pICRtSl/YcHR8kZ2TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=wD6yFlOB; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=hVmDKZneK5+KpfiyECD3/fClLC1O3MCQ+XqJ/dgVm673gJUz+WNYpAfOUqe3nbJ95gXXoHDnLRWLymUfhsbgr+y7RYd2Rlx0kuChngtwYcc7nhL+tVRhlu1YL8sjlDAldjElQ5/N8pQiDjfZWYoIybHgwN0PpgxuRuE9ddkxpd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=qW42XN+U; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="wD6yFlOB"
-Received: by dvalin.narfation.org (Postfix) id 74F15203FC;
-	Fri, 26 Jun 2026 16:12:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="qW42XN+U"
+Received: by dvalin.narfation.org (Postfix) id 955FC202D1;
+	Fri, 26 Jun 2026 16:11:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490322;
+	s=20121; t=1782490318;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7GKODEEEnuimTqFJi7Yj36JPp8wehXa/46iFAOWda08=;
-	b=wD6yFlOBTPXdyy6tHPKoK6QuHTxNE3GEeyXbA4vd+lQiswAgmMDu5Or6Md6Y7jX0+pugMR
-	RpCt4mZpq5Trj967n3jV+m/YdCcu1NXmvv+i6lyWq7WOOgcmA+ELERNZkCSnQplEK3W1AY
-	EvFrweFPT9Sv1DoIwAl65n8zonccIuY=
+	bh=pDgUNjA2JtgMoIFe0i2GTqIOE3nTZk6bP7m5K0wZj0w=;
+	b=qW42XN+U3ssXuVnZuAMO5Zfc0G/2vfq2Ma82C/4PWosjQm+8U8cMQwdJT6/owHS45vGfgP
+	H5vZYeZAzgFcPN6gN8evMRZZrW4XAcHfM9wk7nk/K/aAJVC1r6skQT5PcY/H8jdeQQsUG4
+	Hy4bfj8pc46cxdW2RnmB7dBKcGLjgt0=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.12 16/25] batman-adv: v: prevent OGM aggregation on disabled hardif
-Date: Fri, 26 Jun 2026 18:11:45 +0200
-Message-ID: <20260626161154.124562-17-sven@narfation.org>
+Subject: [PATCH 6.12 08/25] batman-adv: tp_meter: add only finished tp_vars to lists
+Date: Fri, 26 Jun 2026 18:11:37 +0200
+Message-ID: <20260626161154.124562-9-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161154.124562-1-sven@narfation.org>
 References: <20260626161154.124562-1-sven@narfation.org>
@@ -45,100 +45,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit d11c00b95b2a3b3934007fc003dccc6fdcc061ad upstream.
+commit 15ccbf685222274f5add1387af58c2a41a95f81e upstream.
 
-When an interface gets disabled, the worker is correctly disabled by
-batadv_hardif_disable_interface() -> ... -> batadv_v_ogm_iface_disable().
-In this process, the skb aggr_list is also freed.
+When the receiver variables (aka "session") are initialized, then they are
+added to the list of sessions before the timer is set up. A RCU protected
+reader could therefore find the entry and run mod_setup before
+batadv_tp_init_recv() finished the timer initialization.
 
-But batadv_v_ogm_send_meshif() can still queue new skbs (via
-batadv_v_ogm_queue_on_if()) to the aggr_list. This will only stop after all
-cores can no longer find the RCU protected list of hard interfaces. These
-queued skbs will never be freed or consumed by batadv_v_ogm_aggr_work.
-
-The batadv_v_ogm_iface_disable() function must block
-batadv_v_ogm_queue_on_if() to avoid leak of skbs.
+The same is true for batadv_tp_start(), which must first initialize the
+finish_work and the test_length to avoid a similar problem.
 
 Cc: stable@kernel.org
-Fixes: f89255a02f1d ("batman-adv: BATMAN_V: introduce per hard-iface OGMv2 queues")
-[ Context ]
+Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/bat_v.c     |  1 +
- net/batman-adv/bat_v_ogm.c | 12 ++++++++++++
- net/batman-adv/types.h     |  6 ++++++
- 3 files changed, 19 insertions(+)
+ net/batman-adv/tp_meter.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/net/batman-adv/bat_v.c b/net/batman-adv/bat_v.c
-index d35479c465e2c..e13b39121f2db 100644
---- a/net/batman-adv/bat_v.c
-+++ b/net/batman-adv/bat_v.c
-@@ -819,6 +819,7 @@ void batadv_v_hardif_init(struct batadv_hard_iface *hard_iface)
+diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
+index 089ac7cc9fbeb..2bba53fc6da5c 100644
+--- a/net/batman-adv/tp_meter.c
++++ b/net/batman-adv/tp_meter.c
+@@ -1096,21 +1096,21 @@ void batadv_tp_start(struct batadv_priv *bat_priv, const u8 *dst,
+ 	tp_vars->prerandom_offset = 0;
+ 	spin_lock_init(&tp_vars->prerandom_lock);
  
- 	hard_iface->bat_v.aggr_len = 0;
- 	skb_queue_head_init(&hard_iface->bat_v.aggr_list);
-+	hard_iface->bat_v.aggr_list_enabled = false;
- 	INIT_DELAYED_WORK(&hard_iface->bat_v.aggr_wq,
- 			  batadv_v_ogm_aggr_work);
- }
-diff --git a/net/batman-adv/bat_v_ogm.c b/net/batman-adv/bat_v_ogm.c
-index 8cfc3944dcfd5..48a67705eba85 100644
---- a/net/batman-adv/bat_v_ogm.c
-+++ b/net/batman-adv/bat_v_ogm.c
-@@ -254,11 +254,18 @@ static void batadv_v_ogm_queue_on_if(struct batadv_priv *bat_priv,
- 	}
+-	kref_get(&tp_vars->refcount);
+-	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
+-	spin_unlock_bh(&bat_priv->tp_list_lock);
+-
+ 	tp_vars->test_length = test_length;
+ 	if (!tp_vars->test_length)
+ 		tp_vars->test_length = BATADV_TP_DEF_TEST_LENGTH;
  
- 	spin_lock_bh(&hard_iface->bat_v.aggr_list.lock);
-+	if (!hard_iface->bat_v.aggr_list_enabled) {
-+		kfree_skb(skb);
-+		goto unlock;
-+	}
++	/* init work item for finished tp tests */
++	INIT_DELAYED_WORK(&tp_vars->finish_work, batadv_tp_sender_finish);
 +
- 	if (!batadv_v_ogm_queue_left(skb, hard_iface))
- 		batadv_v_ogm_aggr_send(bat_priv, hard_iface);
- 
- 	hard_iface->bat_v.aggr_len += batadv_v_ogm_len(skb);
- 	__skb_queue_tail(&hard_iface->bat_v.aggr_list, skb);
++	kref_get(&tp_vars->refcount);
++	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
++	spin_unlock_bh(&bat_priv->tp_list_lock);
 +
-+unlock:
- 	spin_unlock_bh(&hard_iface->bat_v.aggr_list.lock);
- }
+ 	batadv_dbg(BATADV_DBG_TP_METER, bat_priv,
+ 		   "Meter: starting throughput meter towards %pM (length=%ums)\n",
+ 		   dst, test_length);
  
-@@ -421,6 +428,10 @@ int batadv_v_ogm_iface_enable(struct batadv_hard_iface *hard_iface)
- {
- 	struct batadv_priv *bat_priv = netdev_priv(hard_iface->soft_iface);
+-	/* init work item for finished tp tests */
+-	INIT_DELAYED_WORK(&tp_vars->finish_work, batadv_tp_sender_finish);
+-
+ 	/* start tp kthread. This way the write() call issued from userspace can
+ 	 * happily return and avoid to block
+ 	 */
+@@ -1430,10 +1430,10 @@ batadv_tp_init_recv(struct batadv_priv *bat_priv,
+ 	INIT_LIST_HEAD(&tp_vars->unacked_list);
  
-+	spin_lock_bh(&hard_iface->bat_v.aggr_list.lock);
-+	hard_iface->bat_v.aggr_list_enabled = true;
-+	spin_unlock_bh(&hard_iface->bat_v.aggr_list.lock);
-+
- 	batadv_v_ogm_start_queue_timer(hard_iface);
- 	batadv_v_ogm_start_timer(bat_priv);
+ 	kref_get(&tp_vars->refcount);
+-	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
++	timer_setup(&tp_vars->timer, batadv_tp_receiver_shutdown, 0);
  
-@@ -436,6 +447,7 @@ void batadv_v_ogm_iface_disable(struct batadv_hard_iface *hard_iface)
- 	cancel_delayed_work_sync(&hard_iface->bat_v.aggr_wq);
+ 	kref_get(&tp_vars->refcount);
+-	timer_setup(&tp_vars->timer, batadv_tp_receiver_shutdown, 0);
++	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
  
- 	spin_lock_bh(&hard_iface->bat_v.aggr_list.lock);
-+	hard_iface->bat_v.aggr_list_enabled = false;
- 	batadv_v_ogm_aggr_list_free(hard_iface);
- 	spin_unlock_bh(&hard_iface->bat_v.aggr_list.lock);
- }
-diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
-index f703d266780d7..3b2a170b1cf18 100644
---- a/net/batman-adv/types.h
-+++ b/net/batman-adv/types.h
-@@ -130,6 +130,12 @@ struct batadv_hard_iface_bat_v {
- 	/** @aggr_list: queue for to be aggregated OGM packets */
- 	struct sk_buff_head aggr_list;
- 
-+	/**
-+	 * @aggr_list_enabled: aggr_list is active and new skbs can be
-+	 * enqueued. Protected by aggr_list.lock after initialization
-+	 */
-+	bool aggr_list_enabled:1;
-+
- 	/** @aggr_len: size of the OGM aggregate (excluding ethernet header) */
- 	unsigned int aggr_len;
+ 	batadv_tp_reset_receiver_timer(tp_vars);
  
 -- 
 2.47.3
