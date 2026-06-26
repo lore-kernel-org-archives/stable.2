@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373D03FB055
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:10:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944E23FA5E7
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:10:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490219; cv=none; b=Mcom4EIwRvYOzJmsn+V5nX4YhwSa/2hNtTiW3M3ZDlZiXNS8KremRywrdMgjyQJa0PQtnAe98jaMDj8ncLiAzVQklBhqrGANJzyVe3uisNHrfgztJc6VBd5A08ey2lH32ttVCD8XYYccmZ3mNMhTCAvsvsWPILgOAyvdCH2JG+M=
+	t=1782490220; cv=none; b=Ur964jhCwUDZ01MF0XAPa7/qvs6oigt/BjzypLIq62bcHAp87HJsa1E65tt2Sj9AfnbQkLlJfBi3n/KpYSo26oddTaxUZ4YOo+jrcO1X1r5byiSlofxWto7azBYSUViK0/s9SL+/E4ol+pUcdLOOSO3XrsXrGSmHn7qltTh1vMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782490219; c=relaxed/simple;
-	bh=llERaE+wwsHTADv3+e1XTcMN7TxgpvAb241U5xOs4Us=;
+	s=arc-20240116; t=1782490220; c=relaxed/simple;
+	bh=UxTgj5N/mB5qKx8Tb2aj5Qkg+TqcQbCWMw4r1BVXqJU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LYeZcvNhMRcTLEsOMdiM+2S+Y0tUhvW1NQkU+gQ4QSjTRbt0WggXmFWblY0q87sMw6s4St3WzPiGPRZZgaNFlBEqJcjUPlADhmeTymAa5YMPHkPVvBXsZFX9ukKyhFX1fJ/DK+vY0ZaW4R8PB7wrGfa/3r7HE4sAG3u/2++pTio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=z+HzOAqz; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=VuM8/umDcB4Uw5kfnbowG+XL9TxiDYffQnIld32ARdtN97vNpKearXr6sD/WwebEkeTqBlYu3bUZK8SM5JMLEbS4MMU7NHiVJ7wNhDB3/B7MO1Yl3OSa2kLrtA6EJ2IlrtxAXytcnH1hodtTOSFZIm1dm+NK/GbHe6CrRydWWRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=dTfXt4Wc; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="z+HzOAqz"
-Received: by dvalin.narfation.org (Postfix) id 0E8EE207F2;
-	Fri, 26 Jun 2026 16:10:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="dTfXt4Wc"
+Received: by dvalin.narfation.org (Postfix) id ACF1420019;
+	Fri, 26 Jun 2026 16:10:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490203;
+	s=20121; t=1782490201;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2HITUKdEP6DKezIdCPbCj/I1RLm0k0qduLzGsI1bawM=;
-	b=z+HzOAqzqL4d8V8WveAzSjzV5RW8aaVapjCSJaXpHcU8mphIZR6/elLR/0n7PDVQQNVDFn
-	hdxfknfLuLhBvKe4VknPBclbZYI1SKe5R80f1E6JiZt7Iyod5FoBYuv58GLFcUcZELp8O2
-	OXpcf/SBXkhEFLx76ursyRlRyswU+4Y=
+	bh=OxA6rr4HU34Qv72JuSfkR5MOi4PzXUjiF6CTnhwYjWk=;
+	b=dTfXt4WcnP1tBtnnRTlJ16toB8C9ewHhA5PWZx08BPpBEnGH5Zco0C+Yq3MJg8lRZcfPNu
+	FT0HtZhitQD4hSwFxwXCJUZz4NyuvMK1nHOWX/ZiZ1ipAvA6MT9y+jewuCrQIuzOwXR35W
+	80zospoW75NwY7oOZBped4/IIIrG4E0=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 5.10 20/23] batman-adv: tt: track roam count per VID
-Date: Fri, 26 Jun 2026 18:09:49 +0200
-Message-ID: <20260626160952.123713-21-sven@narfation.org>
+Subject: [PATCH 5.10 17/23] batman-adv: tp_meter: prevent parallel modifications of last_recv
+Date: Fri, 26 Jun 2026 18:09:46 +0200
+Message-ID: <20260626160952.123713-18-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626160952.123713-1-sven@narfation.org>
 References: <20260626160952.123713-1-sven@narfation.org>
@@ -45,84 +45,152 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 12407d5f61c2653a64f2ff4b22f3c267f8420ef1 upstream.
+commit 6dde0cfcb36e4d5b3de35b75696937478441eed4 upstream.
 
-batadv_tt_check_roam_count() is supposed to track roaming of a TT entry.
-But TT entries are for a MAC + VID. The VID was completely missed and thus
-leads to incorrect detection of ROAM counts when a client MAC exists in
-multiple VLANs.
+When last_recv is updated to store the last receive sequence number, it is
+assuming that nothing is modifying in parallel while:
+
+* check for outdated packets is done
+* out of order check is performed (and packets are stored in out-of-order
+  queue)
+* the out-of-order queue was searched for closed gaps
+* sequence number for next ack is calculated
+
+Nothing of that was actually protected. It could therefore happen that the
+last_recv was updated multiple times in parallel and the final sequence
+number was calculated with deltas which had no connection to the sequence
+number they were added to.
+
+Lock this whole region with the same lock which was already used to protect
+the unacked (out-of-order) list.
 
 Cc: stable@kernel.org
-Fixes: c018ad3de61a ("batman-adv: add the VLAN ID attribute to the TT entry")
-[ Context ]
+Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
+[ Switch to pre-splitted tp_vars structure names ]
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/translation-table.c | 9 +++++++--
- net/batman-adv/types.h             | 3 +++
- 2 files changed, 10 insertions(+), 2 deletions(-)
+ net/batman-adv/tp_meter.c | 22 +++++++++++++---------
+ net/batman-adv/types.h    |  2 +-
+ 2 files changed, 14 insertions(+), 10 deletions(-)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index c323660897d43..4b3f39d6ddaf5 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -3753,6 +3753,7 @@ static void batadv_tt_roam_purge(struct batadv_priv *bat_priv)
-  * batadv_tt_check_roam_count() - check if a client has roamed too frequently
-  * @bat_priv: the bat priv with all the soft interface information
-  * @client: mac address of the roaming client
-+ * @vid: VLAN identifier
-  *
-  * This function checks whether the client already reached the
-  * maximum number of possible roaming phases. In this case the ROAMING_ADV
-@@ -3760,7 +3761,7 @@ static void batadv_tt_roam_purge(struct batadv_priv *bat_priv)
-  *
-  * Return: true if the ROAMING_ADV can be sent, false otherwise
+diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
+index 91392e48514d6..c01ff6e72b5da 100644
+--- a/net/batman-adv/tp_meter.c
++++ b/net/batman-adv/tp_meter.c
+@@ -1303,6 +1303,7 @@ static int batadv_tp_send_ack(struct batadv_priv *bat_priv, const u8 *dst,
   */
--static bool batadv_tt_check_roam_count(struct batadv_priv *bat_priv, u8 *client)
-+static bool batadv_tt_check_roam_count(struct batadv_priv *bat_priv, u8 *client, u16 vid)
+ static bool batadv_tp_handle_out_of_order(struct batadv_tp_vars *tp_vars,
+ 					  const struct sk_buff *skb)
++	__must_hold(&tp_vars->unacked_lock)
  {
- 	struct batadv_tt_roam_node *tt_roam_node;
- 	bool ret = false;
-@@ -3773,6 +3774,9 @@ static bool batadv_tt_check_roam_count(struct batadv_priv *bat_priv, u8 *client)
- 		if (!batadv_compare_eth(tt_roam_node->addr, client))
- 			continue;
+ 	const struct batadv_icmp_tp_packet *icmp;
+ 	struct batadv_tp_unacked *un, *new;
+@@ -1319,12 +1320,11 @@ static bool batadv_tp_handle_out_of_order(struct batadv_tp_vars *tp_vars,
+ 	payload_len = skb->len - sizeof(struct batadv_unicast_packet);
+ 	new->len = payload_len;
  
-+		if (tt_roam_node->vid != vid)
-+			continue;
-+
- 		if (batadv_has_timed_out(tt_roam_node->first_time,
- 					 BATADV_ROAMING_MAX_TIME))
- 			continue;
-@@ -3794,6 +3798,7 @@ static bool batadv_tt_check_roam_count(struct batadv_priv *bat_priv, u8 *client)
- 		atomic_set(&tt_roam_node->counter,
- 			   BATADV_ROAMING_MAX_COUNT - 1);
- 		ether_addr_copy(tt_roam_node->addr, client);
-+		tt_roam_node->vid = vid;
+-	spin_lock_bh(&tp_vars->unacked_lock);
+ 	/* if the list is empty immediately attach this new object */
+ 	if (list_empty(&tp_vars->unacked_list)) {
+ 		list_add(&new->list, &tp_vars->unacked_list);
+ 		tp_vars->unacked_count++;
+-		goto out;
++		return true;
+ 	}
  
- 		list_add(&tt_roam_node->list, &bat_priv->tt.roam_list);
- 		ret = true;
-@@ -3830,7 +3835,7 @@ static void batadv_send_roam_adv(struct batadv_priv *bat_priv, u8 *client,
- 	/* before going on we have to check whether the client has
- 	 * already roamed to us too many times
+ 	/* otherwise loop over the list and either drop the packet because this
+@@ -1373,9 +1373,6 @@ static bool batadv_tp_handle_out_of_order(struct batadv_tp_vars *tp_vars,
+ 		tp_vars->unacked_count--;
+ 	}
+ 
+-out:
+-	spin_unlock_bh(&tp_vars->unacked_lock);
+-
+ 	return true;
+ }
+ 
+@@ -1385,6 +1382,7 @@ static bool batadv_tp_handle_out_of_order(struct batadv_tp_vars *tp_vars,
+  * @tp_vars: the private data of the current TP meter session
+  */
+ static void batadv_tp_ack_unordered(struct batadv_tp_vars *tp_vars)
++	__must_hold(&tp_vars->unacked_lock)
+ {
+ 	struct batadv_tp_unacked *un, *safe;
+ 	u32 to_ack;
+@@ -1392,7 +1390,6 @@ static void batadv_tp_ack_unordered(struct batadv_tp_vars *tp_vars)
+ 	/* go through the unacked packet list and possibly ACK them as
+ 	 * well
  	 */
--	if (!batadv_tt_check_roam_count(bat_priv, client))
-+	if (!batadv_tt_check_roam_count(bat_priv, client, vid))
- 		goto out;
+-	spin_lock_bh(&tp_vars->unacked_lock);
+ 	list_for_each_entry_safe(un, safe, &tp_vars->unacked_list, list) {
+ 		/* the list is ordered, therefore it is possible to stop as soon
+ 		 * there is a gap between the last acked seqno and the seqno of
+@@ -1410,7 +1407,6 @@ static void batadv_tp_ack_unordered(struct batadv_tp_vars *tp_vars)
+ 		kfree(un);
+ 		tp_vars->unacked_count--;
+ 	}
+-	spin_unlock_bh(&tp_vars->unacked_lock);
+ }
  
- 	batadv_dbg(BATADV_DBG_TT, bat_priv,
+ /**
+@@ -1489,6 +1485,7 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
+ 	const struct batadv_icmp_tp_packet *icmp;
+ 	struct batadv_tp_vars *tp_vars;
+ 	size_t packet_size;
++	u32 to_ack;
+ 	u32 seqno;
+ 
+ 	icmp = (struct batadv_icmp_tp_packet *)skb->data;
+@@ -1517,6 +1514,8 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
+ 		WRITE_ONCE(tp_vars->last_recv_time, jiffies);
+ 	}
+ 
++	spin_lock_bh(&tp_vars->unacked_lock);
++
+ 	/* if the packet is a duplicate, it may be the case that an ACK has been
+ 	 * lost. Resend the ACK
+ 	 */
+@@ -1528,8 +1527,10 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
+ 		/* exit immediately (and do not send any ACK) if the packet has
+ 		 * not been enqueued correctly
+ 		 */
+-		if (!batadv_tp_handle_out_of_order(tp_vars, skb))
++		if (!batadv_tp_handle_out_of_order(tp_vars, skb)) {
++			spin_unlock_bh(&tp_vars->unacked_lock);
+ 			goto out;
++		}
+ 
+ 		/* send a duplicate ACK */
+ 		goto send_ack;
+@@ -1543,11 +1544,14 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
+ 	batadv_tp_ack_unordered(tp_vars);
+ 
+ send_ack:
++	to_ack = tp_vars->last_recv;
++	spin_unlock_bh(&tp_vars->unacked_lock);
++
+ 	/* send the ACK. If the received packet was out of order, the ACK that
+ 	 * is going to be sent is a duplicate (the sender will count them and
+ 	 * possibly enter Fast Retransmit as soon as it has reached 3)
+ 	 */
+-	batadv_tp_send_ack(bat_priv, icmp->orig, tp_vars->last_recv,
++	batadv_tp_send_ack(bat_priv, icmp->orig, to_ack,
+ 			   icmp->timestamp, icmp->session, icmp->uid);
+ out:
+ 	if (likely(tp_vars))
 diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
-index 437d651a1cffe..88831374e8174 100644
+index b12b0851df6e7..437d651a1cffe 100644
 --- a/net/batman-adv/types.h
 +++ b/net/batman-adv/types.h
-@@ -2059,6 +2059,9 @@ struct batadv_tt_roam_node {
- 	/** @addr: mac address of the client in the roaming phase */
- 	u8 addr[ETH_ALEN];
+@@ -1505,7 +1505,7 @@ struct batadv_tp_vars {
+ 	/** @unacked_list: list of unacked packets (meta-info only) */
+ 	struct list_head unacked_list;
  
-+	/** @vid: VLAN identifier */
-+	u16 vid;
-+
- 	/**
- 	 * @counter: number of allowed roaming events per client within a single
- 	 * OGM interval (changes are committed with each OGM)
+-	/** @unacked_lock: protect unacked_list */
++	/** @unacked_lock: protect unacked_list + &batadv_tp_receiver.last_recv */
+ 	spinlock_t unacked_lock;
+ 
+ 	/** @unacked_count: number of unacked entries */
 -- 
 2.47.3
 
