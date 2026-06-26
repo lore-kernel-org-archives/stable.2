@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE643FDBFD
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61383FE36A
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490324; cv=none; b=lKAL1UDp82a61eufqrZKm/BInSUQ/fq1knG+N4Xm+ltj9MOqpd+IOaWxWyI0m9s5naLUwVMxBUAgW8G7BK48r+gHtWDKG3t+U82exnm+fbaldGWApl0Zz5WB87jLAbEcZ+oL6P8CISbmOzjhsZA08EUa1+pII8ZPcbE7EDvmwpA=
+	t=1782490325; cv=none; b=ncA4Lr+rhaYbcvsTZyvaxOPIiZYTIbak83CHzcng3X5aTmHoXshewMTHA2X1bfMvyE4THPEo2l89R8WftKUbIB4fq9EEs/+pVLxYu5LPRuZrFKt4ciJtaRoQpCEvs8XhcK97k8i3G71vVyqWllKqT29A1+WOtPgvoUWVjoECZkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782490324; c=relaxed/simple;
-	bh=+n5lFq2bEDvVovsZeU1OKuAD4nIUZiPlndedQq+MIR8=;
+	s=arc-20240116; t=1782490325; c=relaxed/simple;
+	bh=YbSVLK32kaP+lw7unDlfq8N3LautDeR2aq+wjkDWmSA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DLrAJ8Z6omMP2cRzcQKAGQuNzbGF7Co2C4LEAfl9wBNXInbdwOPifXq82ki0YhBEeef6OSLGhEP/BnNiieTWzgnOUaxzMfjXFMjxqJt8LkfkY8/K6fQAg52OOQZVNF5RJEJc6a7lBOnVEQAYpwHZ8rXb4z4lXwyauNRbYSzgkqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=CjK6ZKOZ; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=R1Gz9eBaXPp/WIbmRBdLM3vrCRJYf0EXTKUIbr8zWhijawXcOMCQJoGyvO2jCFlhSx1h7Gks/OExKqBT04XvCHweH1PgSTjGH5Ksaj/KbIgJNGeoB2ZxVFYchRm+8YMJ6GDsQn36iupxKT7h+lOIUTy1EOzbeQ9iFN52VBvJ6Zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=NJtHRSNi; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="CjK6ZKOZ"
-Received: by dvalin.narfation.org (Postfix) id BE65320535;
-	Fri, 26 Jun 2026 16:12:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="NJtHRSNi"
+Received: by dvalin.narfation.org (Postfix) id 0E2192045E;
+	Fri, 26 Jun 2026 16:12:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490320;
+	s=20121; t=1782490322;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=sfp2sPiCTZvhv86H6SUzdV6ctR4NV/LOQ7ikI///V9k=;
-	b=CjK6ZKOZ38bA2vLYtqFwpPz1J0OUWz2ajgcZFklfRazowH0jbNZJ6FXpNqKNdEIeNjm824
-	mTP+EVKbfVIeW6dbN1zcxBYf6NwLXv5Z4DawwkwQ99i4MS1LnXAb3ujtb8LaJZYrm7qBGT
-	+HOsB49W/iCCc1w11lqJsOGkN8EETGA=
+	bh=m2QYfLo7ilMWYAwykgkPMtqfaBCT7RLYlEYdYxQj1Gw=;
+	b=NJtHRSNiL/+1He2Tm9zrpH2WPdbQcDdVOlAhQYXj21r37BHAxUN/JAg/IEE94OgDUimBFf
+	yccgvh5fSUz9COzYGML4w2/DEIjeOitsnmFg7EgHYeBZT8FODZD7AM7xOoeXlxqYogQMkd
+	A+6iNClQHvCgmBl+DWhaTzwnDSwUyzE=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.12 13/25] batman-adv: fix (m|b)cast csum after decrementing TTL
-Date: Fri, 26 Jun 2026 18:11:42 +0200
-Message-ID: <20260626161154.124562-14-sven@narfation.org>
+Subject: [PATCH 6.12 15/25] batman-adv: frag: avoid underflow of TTL
+Date: Fri, 26 Jun 2026 18:11:44 +0200
+Message-ID: <20260626161154.124562-16-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161154.124562-1-sven@narfation.org>
 References: <20260626161154.124562-1-sven@narfation.org>
@@ -45,123 +45,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit e728bbdf32660c8f32b8f5e8d09427a2c131ad60 upstream.
+commit 493d9d2528e1a09b090e4b37f0f553def7bd5ce9 upstream.
 
-The broadcast and multicast packets can be received at the same time by the
-local system and forwarded to other nodes. Both are simply decrementing the
-TTL at the beginning of the receive path - independent of chosen paths
-(receive/forward). But such a modification of the data conflicts with the
-hw csum. This is not a problem when the packet is directly forwarded but
-can cause errors in the local receive path.
+Packets with a TTL are using it to limit the amount of time this packet can
+be forwarded. But for batadv_frag_packet, the TTL was always only reduced
+but it was never evaluated. It could even underflow without any effect.
 
-Such a problem can then trigger a "hw csum failure". The receiver path must
-therefore ensure that the csum is fixed for each modification of the
-payload before batadv_interface_rx() is reached.
-
-Since all batman-adv packet types with a ttl have it as u8 at offset 2, a
-helper can be used for all of them. But it is only used at the moment for
-batadv_bcast_packet and batadv_mcast_packet because they are the only ones
-which deliver the packet locally but unconditionally modify the TTL.
+Check the TTL in batadv_frag_skb_fwd() before attempting to prepare it for
+forwarding. This keeps it in sync with the not fragmented unicast packet.
 
 Cc: stable@kernel.org
-Fixes: 3f69339068f9 ("batman-adv: bcast: queue per interface, if needed")
-Fixes: 07afe1ba288c ("batman-adv: mcast: implement multicast packet reception and forwarding")
-[ Context ]
+Fixes: 610bfc6bc99b ("batman-adv: Receive fragmented packets and merge")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/routing.c | 58 ++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 56 insertions(+), 2 deletions(-)
+ net/batman-adv/fragmentation.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/net/batman-adv/routing.c b/net/batman-adv/routing.c
-index 32a40c1c115c6..85bc2d284a779 100644
---- a/net/batman-adv/routing.c
-+++ b/net/batman-adv/routing.c
-@@ -8,6 +8,7 @@
- #include "main.h"
- 
- #include <linux/atomic.h>
-+#include <linux/build_bug.h>
- #include <linux/byteorder/generic.h>
- #include <linux/compiler.h>
- #include <linux/errno.h>
-@@ -205,6 +206,59 @@ bool batadv_check_management_packet(struct sk_buff *skb,
- 	return true;
- }
- 
-+/**
-+ * batadv_skb_decrement_ttl() - decrement ttl in a batman-adv header, csum-safe
-+ * @skb: the received packet with @skb->data pointing to the batman-adv header
-+ *
-+ * Supports the following packet types, all of which carry the TTL at offset 2:
-+ *
-+ * - batadv_ogm_packet
-+ * - batadv_ogm2_packet
-+ * - batadv_icmp_header
-+ * - batadv_icmp_packet
-+ * - batadv_icmp_tp_packet
-+ * - batadv_icmp_packet_rr
-+ * - batadv_unicast_packet
-+ * - batadv_frag_packet
-+ * - batadv_bcast_packet
-+ * - batadv_mcast_packet
-+ * - batadv_coded_packet
-+ * - batadv_unicast_tvlv_packet
-+ *
-+ * Return: true if the packet may be forwarded (ttl decremented),
-+ *  false if it must be dropped (ttl would expire)
-+ */
-+static bool batadv_skb_decrement_ttl(struct sk_buff *skb)
-+{
-+	static const size_t ttl_offset = 2;
-+	u8 *ttl_pos;
+diff --git a/net/batman-adv/fragmentation.c b/net/batman-adv/fragmentation.c
+index f6714405b0f94..375c949912134 100644
+--- a/net/batman-adv/fragmentation.c
++++ b/net/batman-adv/fragmentation.c
+@@ -415,6 +415,13 @@ bool batadv_frag_skb_fwd(struct sk_buff *skb,
+ 	 */
+ 	total_size = ntohs(packet->total_size);
+ 	if (total_size > neigh_node->if_incoming->net_dev->mtu) {
++		if (packet->ttl < 2) {
++			kfree_skb(skb);
++			*rx_result = NET_RX_DROP;
++			ret = true;
++			goto out;
++		}
 +
-+	BUILD_BUG_ON(offsetof(struct batadv_ogm_packet, ttl) != ttl_offset);
-+	BUILD_BUG_ON(offsetof(struct batadv_ogm2_packet, ttl) != ttl_offset);
-+	BUILD_BUG_ON(offsetof(struct batadv_icmp_header, ttl) != ttl_offset);
-+	BUILD_BUG_ON(offsetof(struct batadv_icmp_packet, ttl) != ttl_offset);
-+	BUILD_BUG_ON(offsetof(struct batadv_icmp_tp_packet, ttl) != ttl_offset);
-+	BUILD_BUG_ON(offsetof(struct batadv_icmp_packet_rr, ttl) != ttl_offset);
-+	BUILD_BUG_ON(offsetof(struct batadv_unicast_packet, ttl) != ttl_offset);
-+	BUILD_BUG_ON(offsetof(struct batadv_frag_packet, ttl) != ttl_offset);
-+	BUILD_BUG_ON(offsetof(struct batadv_bcast_packet, ttl) != ttl_offset);
-+	BUILD_BUG_ON(offsetof(struct batadv_mcast_packet, ttl) != ttl_offset);
-+	BUILD_BUG_ON(offsetof(struct batadv_coded_packet, ttl) != ttl_offset);
-+	BUILD_BUG_ON(offsetof(struct batadv_unicast_tvlv_packet, ttl) != ttl_offset);
-+
-+	ttl_pos = skb->data + ttl_offset;
-+
-+	/* would expire on this hop -> drop, leave header + csum untouched */
-+	if (*ttl_pos < 2)
-+		return false;
-+
-+	skb_postpull_rcsum(skb, ttl_pos, 1);
-+	(*ttl_pos)--;
-+	skb_postpush_rcsum(skb, ttl_pos, 1);
-+
-+	return true;
-+}
-+
- /**
-  * batadv_recv_my_icmp_packet() - receive an icmp packet locally
-  * @bat_priv: the bat priv with all the soft interface information
-@@ -1204,7 +1258,7 @@ int batadv_recv_bcast_packet(struct sk_buff *skb,
- 
- 	bcast_packet = (struct batadv_bcast_packet *)skb->data;
- 
--	if (bcast_packet->ttl-- < 2)
-+	if (!batadv_skb_decrement_ttl(skb))
- 		goto free_skb;
- 
- 	orig_node = batadv_orig_hash_find(bat_priv, bcast_packet->orig);
-@@ -1311,7 +1365,7 @@ int batadv_recv_mcast_packet(struct sk_buff *skb,
- 		goto free_skb;
- 
- 	mcast_packet = (struct batadv_mcast_packet *)skb->data;
--	if (mcast_packet->ttl-- < 2)
-+	if (!batadv_skb_decrement_ttl(skb))
- 		goto free_skb;
- 
- 	tvlv_buff = (unsigned char *)(skb->data + hdr_size);
+ 		if (skb_cow(skb, ETH_HLEN) < 0) {
+ 			kfree_skb(skb);
+ 			*rx_result = NET_RX_DROP;
 -- 
 2.47.3
 
