@@ -1,99 +1,120 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4708718FDDE;
-	Fri, 26 Jun 2026 14:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0AD3F9265
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 14:29:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782484019; cv=none; b=nHvw8MHCHtz7SsTnYFhtT6kvxBMqh5LbCYYAMk3MrwL24qzcw1vOhqSyCBeUMXpPoltU6y2WFnbGs5hcasvHYmT004T+lDzuCJrhJQFQ/NdlbLoRc2GakZrooJ7+LL0wZ5vwrYUooxJldfRAzNNYOwrtJhu/Wufo8Ts21D9Nv+E=
+	t=1782484168; cv=none; b=ugAP7zfF+EZNjGZoFCjdXN2YYOjCJOOhYq/PIAxJgRRTEOz65loQ9T7sq7kA94jApGRyex8qkLk+2vMTTQykwCGxoSQsbZWqToYusVuEPzSxfOJdsWhV3KR9RX7yCbkyQyMIknPSD18jCAS8Bh5ttU8xDIumPu0CP/eZmdeFWW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782484019; c=relaxed/simple;
-	bh=EFke0BSQIh/4Fam93JRrTY0HxLsxmBZ7bkJDrNLNPpc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lYYGDv6sA1ukCbuBy5pH/Ut3KlvjYM3+XD/gA/cr8C9652sCNu9fvAjV7ygr0nFFJTnK2IjT5bD0GucP1w65OtGQzkf76fDLyO9+v6TzatCvaGPaNRLco9Q5WsFO374EXV6lzZWS2iqmXn3y9Iz46O3KT+9qrFuZXCkwGKvLlOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-01 (Coremail) with SMTP id qwCowAD3mtMajD5qiQ1qAw--.16354S2;
-	Fri, 26 Jun 2026 22:26:36 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Ben Skeggs <bskeggs@redhat.com>,
-	nouveau@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH] fix: drm/nouveau: validate_init: break paths after drm_gem_object_lookup   leak GEM reference
-Date: Fri, 26 Jun 2026 22:26:31 +0800
-Message-Id: <20260626142631.48578-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	s=arc-20240116; t=1782484168; c=relaxed/simple;
+	bh=BuiKi8nT3ANJ0o4TFP2alv/b/UPldMGvXxUInb2vRhc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CKEQeoUvKBqfrkn6FxwQJRDWtJc5nEpSw4DqAolTTZcOOZPYrJpSp9Cp1/JmaZVswyr4vitPTVSEHHCoVAVdWR+N0/Z+zzfldlDatwb2CfWXkL7tQVwxWB7dPK4caopndv7/jtNhLK0QM+ix9cSGRALF7xVBDaXulB4OLar0Nfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hS1WJce3; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hS1WJce3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1782484162;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nxjc3mAVcsKzV3pEhXiWe9V3Wg4iCKIdlp1rzL9EcEM=;
+	b=hS1WJce31DTLDKgDiXDnbULlUl+NaDXBOX80GTYp5tHDfX8YyD/HaLmW59jxh1agmttw2l
+	lu5AuZjjpmYArdpeuwQYeKop6IoQg1n8V6gMymfQv2nU39ZX9NO2XtN22LVZF0FdVblKyb
+	2p3xo03fItB0lWL/A5u6Nmc0eBUb9x8=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-467-1w9T0iaePlKv9JowjsO52g-1; Fri,
+ 26 Jun 2026 10:29:16 -0400
+X-MC-Unique: 1w9T0iaePlKv9JowjsO52g-1
+X-Mimecast-MFC-AGG-ID: 1w9T0iaePlKv9JowjsO52g_1782484154
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 04F40195609F;
+	Fri, 26 Jun 2026 14:29:14 +0000 (UTC)
+Received: from fedora (unknown [10.44.33.126])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id D59721956094;
+	Fri, 26 Jun 2026 14:29:08 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Fri, 26 Jun 2026 16:29:13 +0200 (CEST)
+Date: Fri, 26 Jun 2026 16:29:07 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Bradley Morgan <include@grrlz.net>, ebiederm@xmission.com
+Cc: Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Adrian Huang <adrianhuang0701@gmail.com>,
+	Marco Elver <elver@google.com>,
+	Kexin Sun <kexinsun@smail.nju.edu.cn>,
+	Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] signal: avoid shared siginfo namespace rewrites
+Message-ID: <aj6Ms6uygc1vtySn@redhat.com>
+References: <20260622164029.11474-1-include@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowAD3mtMajD5qiQ1qAw--.16354S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cw43XFyUGF4kJFW8Gw43GFg_yoW8GrWrpF
-	ZxKryjvrWUKa17Kr4IyF1DA3WS9a1vgFWxGFySy34S9r1fAF17Xry5Gw15XrWSyFWfC3yY
-	qwnrtasaqFyYyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
-	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
-	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
-	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
-	IxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JUqeHgUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgEKA2o+h0EOmQABsK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260622164029.11474-1-include@grrlz.net>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-drm_gem_object_lookup acquires a GEM object reference at the start of
-  each loop iteration. Two break paths (ttm_bo_reserve failure non-EDEADLK
-  and "vma not found") exit the loop without adding the gem to any cleanup
-  list and without calling drm_gem_object_put, causing a GEM object
-  reference leak.
+To avoid the confusion, let me reply to V1 again.
 
-Cc: stable@vger.kernel.org
-Fixes: 9242829a87e9 ("drm/nouveau: Keep only a single list for validation.")
-Fixes: 19ca10d82e33 ("drm/nouveau/gem: lookup VMAs for buffers referenced by pushbuf ioctl")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/nouveau/nouveau_gem.c | 2 ++
- 1 file changed, 2 insertions(+)
+Acked-by: Oleg Nesterov <oleg@redhat.com>
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
-index 20dba02d6175..c654256f4081 100644
---- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-@@ -513,6 +513,7 @@ validate_init(struct nouveau_channel *chan, struct drm_file *file_priv,
- 			if (unlikely(ret)) {
- 				if (ret != -ERESTARTSYS)
- 					NV_PRINTK(err, cli, "fail reserve\n");
-+				drm_gem_object_put(gem);
- 				break;
- 			}
- 		}
-@@ -523,6 +524,7 @@ validate_init(struct nouveau_channel *chan, struct drm_file *file_priv,
- 			if (!vma) {
- 				NV_PRINTK(err, cli, "vma not found!\n");
- 				ret = -EINVAL;
-+				drm_gem_object_put(gem);
- 				break;
- 			}
- 
--- 
-2.39.5 (Apple Git-154)
+IIUC Eric is fine with this change too.
+
+Andrew, can you take this fix please? We will send more changes on top
+of it.
+
+On 06/22, Bradley Morgan wrote:
+>
+> send_signal_locked() rewrites sender ids for the target namespace.
+> Group sends reuse the same siginfo, so one recipient can affect the
+> next.
+> 
+> Copy the siginfo before changing it.
+> 
+> Fixes: 7a0cf094944e ("signal: Correct namespace fixups of si_pid and si_uid")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bradley Morgan <include@grrlz.net>
+> ---
+>  kernel/signal.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/kernel/signal.c b/kernel/signal.c
+> index b9fc7be1a169..d72d9be3a992 100644
+> --- a/kernel/signal.c
+> +++ b/kernel/signal.c
+> @@ -1181,6 +1181,7 @@ static inline bool has_si_pid_and_uid(struct kernel_siginfo *info)
+>  int send_signal_locked(int sig, struct kernel_siginfo *info,
+>  		       struct task_struct *t, enum pid_type type)
+>  {
+> +	struct kernel_siginfo rewritten;
+>  	/* Should SIGKILL or SIGSTOP be received by a pid namespace init? */
+>  	bool force = false;
+>  
+> @@ -1194,6 +1195,9 @@ int send_signal_locked(int sig, struct kernel_siginfo *info,
+>  		/* SIGKILL and SIGSTOP is special or has ids */
+>  		struct user_namespace *t_user_ns;
+>  
+> +		rewritten = *info;
+> +		info = &rewritten;
+> +
+>  		rcu_read_lock();
+>  		t_user_ns = task_cred_xxx(t, user_ns);
+>  		if (current_user_ns() != t_user_ns) {
+> -- 
+> 2.53.0
+> 
 
