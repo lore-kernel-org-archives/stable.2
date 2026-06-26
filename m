@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714273FF1B8
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682A13FCB13
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490339; cv=none; b=irKteRw/L79I+CV1M/A0XHh/tPg7HU9QPBZeBslYQg9yn+1OpfsiDBdKozU1GYpwbeKzaiJl7sb8Ms7rzuXPiKHS869CWAiVVjfUafauSKDhn2qkKedSt/nm+XQEKV5E7bI1RQfa1IwtBJXUQfgIEyv3SgzyrA+1kTzvFpeubtc=
+	t=1782490340; cv=none; b=XtaPRojnm/2mjqZa+DphMS4/jcfehwdaFJY48Y/j9SYAeT5N+IHIlk/xXcxnQ0+RarFOHNUeLMOVS08ja5XU5DCt/H+UcTCOFcwwLFxaBhUgkDXXtjQ7rJcvY2S7Gf1FPnttx4yqJMDYN7mJrc15sPtdjv8a1VprYMHmQyVy2lA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782490339; c=relaxed/simple;
-	bh=xCUTKS/F8sLQ8bs4qfr3rDsSM4SChJOTmMScZoaV9aI=;
+	s=arc-20240116; t=1782490340; c=relaxed/simple;
+	bh=dTsFAjFJYCMcAOm1KCJHiBvTGW2HPIr8z2aSwx9DtQs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=INhWQqOWUNcqgZtlDPdT2sv+/oCJqPYrbECDQP45TQEJEtHTlpW37hnkjUnZkC2o3ocLsJLlXPJs++qJLlvUCsc7nwC8ENhK5hZa6IZEFlLUwR/P3dwXY0I4g0H/xaOeXndnN+HfoGtz+KNL5mixB9XJCIXidZaGrj31UEF0KSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=zQWtWOEc; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=sipkeYLhbe1QlbF0eLgI7viaka/dNKGJW+eRtW44wNcwbuEaTvl2SkPPzLqStvuyKVycFodNvcAGH2A8cmaBRjFqZONGuESGt/zn4R47k8yivKQ67TVNmvXPtP4VwhclHJRDSVgEM5l5h6VX+OzUBJBLEzoZV6r+F6ybHqDbDDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=HVSE2n9w; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="zQWtWOEc"
-Received: by dvalin.narfation.org (Postfix) id 7971020535;
-	Fri, 26 Jun 2026 16:12:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="HVSE2n9w"
+Received: by dvalin.narfation.org (Postfix) id A7C7F2045E;
+	Fri, 26 Jun 2026 16:12:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490334;
+	s=20121; t=1782490333;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=s3zuOF7cwQ2nHEqRWPNKPfj0Odh5Qm6m2UKbfcz8jPc=;
-	b=zQWtWOEcctu0NkknbyfQTKVwffqLKE8FvKfcSExECzNTP2FIbyhudlqqI3RQNuY+w/VNND
-	PrNFQXay8D3hVmvqrNW9zrlLr00/0RQ7lkTDi5nYzRP7Suk1LRxrHBMQCn1LHhxvt1AvFO
-	7HZnJMmqJphyg0NbY8biPQfFUL5ZZkQ=
+	bh=VUR/e7dJP6L4jXLVz97oRRxyFrNWxMvfjb04Ys73Nrc=;
+	b=HVSE2n9wy4qp92orLCfJD8yQXMOQdE92v+uirEwT4ghxw52+WvJU2k7bFReSwZD9E/Gkbg
+	pt8RnwZSwK/b4LyTGnl9t5ggrnlHOjJETpO969PlCTffSjjXBnHIPrWQJRTdOfQA8Ei0+X
+	hm4s+olGW14SVoMoIPtVPAwdyBOOXbc=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.18 08/26] batman-adv: tp_meter: add only finished tp_vars to lists
-Date: Fri, 26 Jun 2026 18:11:52 +0200
-Message-ID: <20260626161210.124712-9-sven@narfation.org>
+Subject: [PATCH 6.18 06/26] batman-adv: tp_meter: fix fast recovery precondition
+Date: Fri, 26 Jun 2026 18:11:50 +0200
+Message-ID: <20260626161210.124712-7-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161210.124712-1-sven@narfation.org>
 References: <20260626161210.124712-1-sven@narfation.org>
@@ -45,69 +45,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 15ccbf685222274f5add1387af58c2a41a95f81e upstream.
+commit 2b0d08f08ed3b2174f05c43089ec65f3543a025b upstream.
 
-When the receiver variables (aka "session") are initialized, then they are
-added to the list of sessions before the timer is set up. A RCU protected
-reader could therefore find the entry and run mod_setup before
-batadv_tp_init_recv() finished the timer initialization.
+The fast recovery precondition checks if the recover (initialized to
+BATADV_TP_FIRST_SEQ) is bigger than the received ack. But since recover is
+only updated when this check is successful, it will never enter the fast
+recovery mode.
 
-The same is true for batadv_tp_start(), which must first initialize the
-finish_work and the test_length to avoid a similar problem.
+According to RFC6582 Section 3.2 step 2, the check should actually be
+different:
+
+> When the third duplicate ACK is received, the TCP sender first
+> checks the value of recover to see if the Cumulative
+> Acknowledgment field covers more than recover
+
+The precondition must therefore check if recover is smaller than the
+received ack - basically swapping the operands of the current check.
 
 Cc: stable@kernel.org
 Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/tp_meter.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ net/batman-adv/tp_meter.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index 0ebfc4462b8f1..0444aa46b95c2 100644
+index 00d8bb01611f9..a85622267ba65 100644
 --- a/net/batman-adv/tp_meter.c
 +++ b/net/batman-adv/tp_meter.c
-@@ -1096,21 +1096,21 @@ void batadv_tp_start(struct batadv_priv *bat_priv, const u8 *dst,
- 	tp_vars->prerandom_offset = 0;
- 	spin_lock_init(&tp_vars->prerandom_lock);
+@@ -733,7 +733,7 @@ static void batadv_tp_recv_ack(struct batadv_priv *bat_priv,
+ 		if (atomic_read(&tp_vars->dup_acks) != 3)
+ 			goto out;
  
--	kref_get(&tp_vars->refcount);
--	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
--	spin_unlock_bh(&bat_priv->tp_list_lock);
--
- 	tp_vars->test_length = test_length;
- 	if (!tp_vars->test_length)
- 		tp_vars->test_length = BATADV_TP_DEF_TEST_LENGTH;
+-		if (recv_ack >= tp_vars->recover)
++		if (tp_vars->recover >= recv_ack)
+ 			goto out;
  
-+	/* init work item for finished tp tests */
-+	INIT_DELAYED_WORK(&tp_vars->finish_work, batadv_tp_sender_finish);
-+
-+	kref_get(&tp_vars->refcount);
-+	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
-+	spin_unlock_bh(&bat_priv->tp_list_lock);
-+
- 	batadv_dbg(BATADV_DBG_TP_METER, bat_priv,
- 		   "Meter: starting throughput meter towards %pM (length=%ums)\n",
- 		   dst, test_length);
- 
--	/* init work item for finished tp tests */
--	INIT_DELAYED_WORK(&tp_vars->finish_work, batadv_tp_sender_finish);
--
- 	/* start tp kthread. This way the write() call issued from userspace can
- 	 * happily return and avoid to block
- 	 */
-@@ -1430,10 +1430,10 @@ batadv_tp_init_recv(struct batadv_priv *bat_priv,
- 	INIT_LIST_HEAD(&tp_vars->unacked_list);
- 
- 	kref_get(&tp_vars->refcount);
--	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
-+	timer_setup(&tp_vars->timer, batadv_tp_receiver_shutdown, 0);
- 
- 	kref_get(&tp_vars->refcount);
--	timer_setup(&tp_vars->timer, batadv_tp_receiver_shutdown, 0);
-+	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
- 
- 	batadv_tp_reset_receiver_timer(tp_vars);
- 
+ 		/* if this is the third duplicate ACK do Fast Retransmit */
 -- 
 2.47.3
 
