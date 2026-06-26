@@ -1,179 +1,99 @@
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70EB52F3C19;
-	Fri, 26 Jun 2026 15:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.32.30.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582EB2F3C19;
+	Fri, 26 Jun 2026 15:38:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782488297; cv=none; b=M41gu+N7K10wPSY9M25cSdabKQLdC2joE+2Sh30KGtHg0B8fev1a+Y5/Nf+JPVepvjn6CFJvF9jrZMTQ3HwwjGb1+0pxC9+ryyT7nDRlFuA6F8K2MEyswQ8L4ofnAdo7Nm6jl3eSTIw4dWVC+v1mmVPrVoyTyA6K24xzKI3JE0U=
+	t=1782488317; cv=none; b=G/dWlv4sc0TSktX8H0htgXjUkbM1dRUK0DwxuIW+xuVEwxzJKQMp9lWWeOYHG7JaG8IBrZ4kGFTtdU9IteUoGCVtc2WVNQpjYRzyesT7Z5REf7yAy+ig2xD7myXjMs5ZeZ1ZF7Q18oV5pI70o0GC3gv5F2tB0XJxfnEgDBnOfIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782488297; c=relaxed/simple;
-	bh=NeXCoKuDCrshG1g9bcQ9YcGFTAKzOyKZCNufdciKCxg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OMe0Rh79XGOcqDgyBgNZZJBox+irZXX7DQ0szIIb2HiJZoX0gTAdIFbUW8Eb+6IKYymlqTIeIKtZ09enedA8Tvmb8DUwul1gspLEgZK1bO5nrRp+VbhG17rQHJ5Xg3smpwlsksouBEMYEGSpLDoctwqDbHVamrNAEbkfWsXt+Bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk; spf=none smtp.mailfrom=armlinux.org.uk; dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b=Tu+45veW; arc=none smtp.client-ip=78.32.30.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=armlinux.org.uk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b="Tu+45veW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
-	Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=6YpByXEBWhbXWiSsknrsfNoYT0AoTQRyxzLLpnB+y/A=; b=Tu+45veWSCjjZuDd19I5ebk6Hb
-	WzCWY5CJ981i7z5jHhcfFG20UThn7wNnwa8oadRVpw2Jkb2hkEmrWEmVYVgms6DOJrzoYqBENNXGG
-	w3kRGW2jREQ+IhG+mrhdP1chMN0pb50M5tjkDbhaz/6kQJVjHU/EqHVUBsDxCuCDVQ8uAelk22omU
-	joIBVDQYgfkUpgJjWm/qqWwgU4Pi3wlvv5c3v3Gkm3wyUp98BL2/9Q6S63VFew6dJxi6KdYOXed/e
-	PZQtYcKhVHofXBXY8u019bk7Q+LMWA/d9R9rk2G+lXxE40P9wbGdNEdne+xhALbPjEc0m+kfwbcQg
-	X+D7uPqQ==;
-Received: from shell.armlinux.org.uk ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:48114)
-	by pandora.armlinux.org.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <linux@armlinux.org.uk>)
-	id 1wd8d2-000000002Os-3Pib;
-	Fri, 26 Jun 2026 16:38:04 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
-	(envelope-from <linux@shell.armlinux.org.uk>)
-	id 1wd8d0-0000000038o-33NE;
-	Fri, 26 Jun 2026 16:38:02 +0100
-Date: Fri, 26 Jun 2026 16:38:02 +0100
-From: Russell King <linux@armlinux.org.uk>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, slipher <slipher@protonmail.com>,
-	Nathan Chancellor <nathan@kernel.org>, Kees Cook <kees@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	"linus.walleij@linaro.org" <linus.walleij@linaro.org>
-Subject: Re: [REGRESSION] 32-bit ARM's BKPT instruction no longer works
-Message-ID: <aj6c2gW6h7xNwGnh@shell.armlinux.org.uk>
-References: <kJqktbpLphg_Pk5I5SPptgTLjl3E3eq5mN5UzCslyFj7Q1Irp-wDid4mj5eQVd2iZtRGXgeZd8goq195EkXdjyt864YMc8mVb2B9NGH91NQ=@protonmail.com>
- <CAD++jL=YJGFf+9o8KV+OO_61EL+_z3b7P+eLK=6=r+GOuJiWAg@mail.gmail.com>
- <20260626145356.4183d8c5@pumpkin>
+	s=arc-20240116; t=1782488317; c=relaxed/simple;
+	bh=8t+8L8YqOj3smBBVBMzG41TpGVwWtcfLWldgKyBTrQM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J9z7JaJkwq7vweMRrXM/nMx3L+cYPcMhKwmqntuiGovK42kZeAn8gDvdvfwg9L8xT8ou3K4bOVMDg6tFH4P27gZMJuJ7CdGd5zIiByjJlREER7iOgVnIOy97xa1dQHP+5sHZ7R4BATgKx8RZglY/OGdosQ+pgzpNwzdvjJTsZrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-01 (Coremail) with SMTP id qwCowADnjNX1nD5qQI1sAw--.17023S2;
+	Fri, 26 Jun 2026 23:38:30 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	linux-ntb@googlegroups.com
+Cc: stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>
+Subject: [PATCH] fix: ntb: ntb_async_rx_submit: fix tx descriptor leak on dmaengine_submit   failure
+Date: Fri, 26 Jun 2026 23:38:29 +0800
+Message-Id: <20260626153829.53045-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260626145356.4183d8c5@pumpkin>
-Sender: "Russell King,,," <linux@armlinux.org.uk>
+X-CM-TRANSID:qwCowADnjNX1nD5qQI1sAw--.17023S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJF15tr47WrW5Cr15WryUZFb_yoW8Xw4fpa
+	1fX390kr48tF42vrnrGw4UZFyYka15GFy7Aa98KwsxCFs0vr1xGwn3KFyvqr17AFWUGr17
+	tr4qya18uw1DArDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUJuc
+	_UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQKA2o+iCg4HAABsF
 
-On Fri, Jun 26, 2026 at 02:53:56PM +0100, David Laight wrote:
-> On Fri, 26 Jun 2026 14:53:56 +0200
-> Linus Walleij <linusw@kernel.org> wrote:
-> 
-> > [Adding Nathan and Kees so we can figure out how best to deal with this]
-> > 
-> > On Sun, Jun 21, 2026 at 9:15 PM slipher <slipher@protonmail.com> wrote:
-> > 
-> > > Consider the C program for 32-bit ARM architectures:
-> > >
-> > >
-> > > int main() {
-> > >         __asm__ __volatile__ ("BKPT");
-> > >         return 0;
-> > > }
-> > >
-> > > Expected behavior is that this raises SIGTRAP. Since Linux 6.10 this no
-> > > longer happens; instead execution perpetually resumes at the same
-> > > instruction, using 100% of CPU. It does not matter whether GDB is
-> > > attached. I have tested with an armv7l CPU, but I imagine any other
-> > > variants with the BKPT instruction would be equally affected.
-> > >
-> > > I believe the culprit to be commit
-> > > c3f89986fde7bb9ccc86a901bf28e1f7d69fc3b3 "ARM: 9391/2: hw_breakpoint:
-> > > Handle CFI breakpoints".  The commit defines the method-of-entry code 3
-> > > as "ARM_ENTRY_CFI_BREAKPOINT", but this is the code used for any BKPT
-> > > instruction - see
-> > > https://developer.arm.com/documentation/ddi0379/a/Debug-Register-Reference/Control-and-status-registers/Debug-Status-and-Control-Register--DSCR-?lang=en
-> > > "Method of Debug Entry (MOE), bits [5:2]". If the CFI option is disabled
-> > > in the kernel config,  hw_breakpoint_pending() returns 0 indicating the
-> > > breakpoint was handled, but takes no action. So breakpoints cannot be
-> > > used by user-space code, regardless of how CONFIG_CFI is set. The blog
-> > > post
-> > > https://www.jwhitham.org/2015/04/the-mystery-of-fifteen-millisecond.html
-> > > gives a nice overview of the control flow in older, working kernels.  
-> > 
-> > Does simply reverting the patch solve the issue?
-> > 
-> > > The following Systemtap script can be used to demonstrate that the
-> > > ARM_ENTRY_CFI_BREAKPOINT path is used, when running the above C program.  
-> > 
-> > Yeah it's definitely that one causing it.
-> > 
-> > I sent the naive solution to it, and before anyone point it out: no it does
-> > not allow custom breakpoints to be mixed with kernel CFI, but it
-> > probably makes legacy systems work on newer kernels since they
-> > probably don't select CFI.
-> > https://lore.kernel.org/linux-arm-kernel/20260626-arm32-cfi-bug-v1-1-a467b5050c0b@kernel.org/T/#u
-> > 
-> > I understand that this is not solving everything.
-> 
-> I'm confused.
-> Why would building a kernel with CFI (to check kernel indirect calls)
-> change the behaviour of executing anything in userspace?
-> 
-> If userspace is compiled with CFI and gets an equivalent fail then you'd
-> (probably) want a fatal signal - but isn't that entirely unrelated to
-> the kernel code.
-> Do those checks even need kernel support? I know shadow stacks do.
+When dmaengine_submit fails after dma_set_unmap has been called, the
+  error path err_set_unmap only calls dmaengine_unmap_put once, but the
+  unmap object has two references (one from dmaengine_get_unmap_data and
+  one from dma_set_unmap held by the tx descriptor). The tx descriptor
+  itself is never freed, so its reference to unmap is never released,
+  causing a kref leak and a dangling pointer in the freed descriptor.
 
-CFI generates instructions that can check the type of the function
-against the caller. It appears that on 32-bit ARM, Clang close that,
-in the case of a mismatch, it would cause a BKPT instruction to be
-executed.
+Replace dmaengine_unmap_put with dmaengine_desc_put(txd) in the
+  err_set_unmap path to properly release the tx descriptor, which will also
+  drop the unmap reference it holds.
 
-Linus' code in commit c3f89986fde7 ("ARM: 9391/2: hw_breakpoint:
-Handle CFI breakpoints") added code to handle this BKPT use.
+Cc: stable@vger.kernel.org
+Fixes: 282a2feeb9bf ("NTB: Use DMA Engine to Transmit and Receive")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/ntb/ntb_transport.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-However, we now have a regression reported as a result of that commit
-where there is a userspace program that has explicit BKPT instructions
-encoded within it, and the program relies on the kernel behaviour that
-was introduced in f81ef4a920c8 ("ARM: 6356/1: hw-breakpoint: add ARM
-backend for the hw-breakpoint framework") in 2.6.37 - and this "new"
-behaviour is conditional on CONFIG_PERF_EVENTS being enabled - where
-it raises a SIGTRAP.
-
-Prior to this commit, or whenever CONFIG_PERF_EVENTS is disabled, the
-kernel will raise a SIGBUS instead.
-
-Both SIGTRAP and SIGBUS are "forced" signals - the kernel will force
-them to be delivered to the program irrespective of whether the program
-has blocked or ignored these signals, since this is the kernel trying
-to save the system (because it doesn't know how to handle it.)
-
-Moreover, BKPT was only introduced around the ARMv5TE era, and the
-FSR code for it was only added in later architecture reference manuals,
-changing an existing FSR code from an implementation defined "Terminal
-Exception" to an architecturally defined "Debug Exception".
-
-Support for this "Debug Exception" was only added with patch 6356/1,
-but that did not handle the BKPT instruction. Linus' commit above
-(9391/1) added support for the CFI case, but meant that userspace
-would now spin on a BKPT instruction rather than force a signal,
-thereby causing the regression.
-
-We can't fix BKPT handling - this userspace program relies on the fact
-that the kernel doesn't handle this instruction (for example, it relies
-on the PC not being advanced) and advancing the PC by one instruction
-after a SIGTRAP handler returns may not be the correct way to handle
-it anyway. Consider BKPT being used as an "assert" type context, where
-the compiler doesn't expect execution to continue, and a literal pool
-following the instruction.
-
-We are now stuck with the sorry state that BKPT is, and as I have said
-many times now, BKPT should be avoided - it's an utter trainwreck. The
-only sensible use that BKPT has is with a hardware debugger that traps
-the BKPT entry into debug mode (a special hardware debugger mode that
-the CPU enters which software can't see).
-
+diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+index 7cabc82305d6..28091ec5a74e 100644
+--- a/drivers/ntb/ntb_transport.c
++++ b/drivers/ntb/ntb_transport.c
+@@ -1572,7 +1572,7 @@ static int ntb_async_rx_submit(struct ntb_queue_entry *entry, void *offset)
+ 	return 0;
+ 
+ err_set_unmap:
+-	dmaengine_unmap_put(unmap);
++	dmaengine_desc_put(txd);
+ err_get_unmap:
+ 	dmaengine_unmap_put(unmap);
+ err:
+@@ -1896,7 +1896,7 @@ static int ntb_async_tx_submit(struct ntb_transport_qp *qp,
+ 
+ 	return 0;
+ err_set_unmap:
+-	dmaengine_unmap_put(unmap);
++	dmaengine_desc_put(txd);
+ err_get_unmap:
+ 	dmaengine_unmap_put(unmap);
+ err:
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.39.5 (Apple Git-154)
+
