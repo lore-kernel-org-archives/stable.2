@@ -1,53 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9473A7F66;
-	Fri, 26 Jun 2026 17:54:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536D52D0C62;
+	Fri, 26 Jun 2026 17:55:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782496503; cv=none; b=WHFoUYU6IaKcVWxBEV/Ctyd3Ybc4AjSONKVieFX1cAfbeKdyHIbyMqgaDV/EsT7L3lG83xTKYsmiY7BlvGMa822nADMCypWdZqcKUVEq76amZHxwcv0km1ZkFJxjXNtFQDZO1YgDZKL/W+cF7RQkz7PHQYSjFtuMlN+37Ds4iS8=
+	t=1782496504; cv=none; b=a7F0kmEakjm5FZ+A2bvX7/152sbkiCoyNM1BcFFICDvxquUNoTz3GKGCEhNVqKsLDF68KXy37IAPd5N3GReDtvUTVfTu/Afvzb01EVRcokg8n24hhpzJLuAfKxr132T2si2vcylKHy380aq+hm1zBbiM6kWzcoyZHT+oewWLUEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782496503; c=relaxed/simple;
-	bh=LuJz7qmlTF1YJ2xgiYxnz5Dv/hWesqiDlDVM2K3h6HM=;
+	s=arc-20240116; t=1782496504; c=relaxed/simple;
+	bh=T2cdVwjSA/aEFAt9j7QFPSkS0pYq1ySBxxls6IxRF1k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VvAJ22WqpFaw6/g73z2LYxMjOcHkJPPaIH6IwFuqdeahH+lNbzWF1wnYXkqQItVpahAqUotUE2pQQcQynZw4IKo/0dDaKZEFIAvltf3RGo5dfxiZseDWeqPUlsy5iHP0puNTKB+BOealbgQpz+ayliyA3DJT9rr4CtqUAW81mAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EXsICJXM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Tmmz1i/u3u5onmMBUzJiLR33tuD2MkLvFSlVgdlXWegfsqoKB5vbdwgk4Uqbf/jGp7P/OHoBRv5oO3p97FWJx1gvdalNV4wSLhdFPqNsTtYxO3jC50EOVTJY76LUQ4eFaWirhb+9fQjORxke1zrYJif/tNcxowW0TeJGhy1QuZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PSTXcOuY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EXsICJXM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 744951F00A3A;
-	Fri, 26 Jun 2026 17:54:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PSTXcOuY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A858E1F00A3E;
+	Fri, 26 Jun 2026 17:54:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782496494;
-	bh=kCQGmQCiPt8POPSO8VVlYjKlurk3/QBY1u2pmsWTY7M=;
+	s=k20260515; t=1782496500;
+	bh=MzrOXfZCWqUkkLkuCYOMOg0Gw+ZB191BNbhP43mOt04=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EXsICJXMMFRJOyh2ft348yKY5OlcxsssI2rseOwWYc1CCL2kNtttih/e8/uFl3U9h
-	 zk/xfD/T/noozZZFD6CjLmTJWI7yln1etnM70i8E4DR/bDWscPUkVGXPVJUGGpD6uH
-	 WpGLKC4pZKkvDJa1mvGiX9u/6vZZXhaUPOcQXHLLvdJ95RKRrvEwXJlKyiK4L5x/T2
-	 N/COqrGnXjGsBwaaJ88d266TBEasN3x6pCetQKNe0VOKkc8yIblsj/kHVnJiMRenls
-	 1vI5dkddOTpSHrjPtFmMAWF3aICPJ7ESlSokR1YTlu9+2MZcnqapLYHr8eIK/L05xD
-	 xn4lbTGdoc9RA==
+	b=PSTXcOuYzH5YVSNn2YgtnQ0vo17ttcjpmJMNpZ/BLvCpQV93zcqCB/z7QmzZt614H
+	 Mr2jtJkqFox/rkmq5q0zHWlfvTk+pC5fOVy6/3dyog5goA2OTZrRgpodt+HUtdKmk6
+	 mCBqawAttlPtEyr8fYEQ2MN2+NMXAEY+cyr8oYAJU9np1O8Losm9MOz1JWv8d1gzDS
+	 wSk8vN+DV9QZxu6xxln6zLjF5+uyLXBSO6p3ibbPyyXnOYUj9YgzVp7s7fMwPAFdnJ
+	 Il6AbCsiDgbpTz/GNDdZb4grbGEPumqEvsSTuvjW/j8npH16gQcTqkBaEs+7+M1IF0
+	 AVyvT3k8eKgZQ==
 From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	stable@vger.kernel.org
+To: viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	jack@suse.cz,
+	miklos@szeredi.hu,
+	amir73il@gmail.com,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	stephen.smalley.work@gmail.com,
+	omosnace@redhat.com,
+	gregkh@linuxfoundation.org,
+	bboscaccy@linux.microsoft.com,
+	caixinchen1@huawei.com
 Cc: Sasha Levin <sashal@kernel.org>,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	Sean Christopherson <seanjc@google.com>,
-	David Matlack <dmatlack@google.com>,
-	James Houghton <jthoughton@google.com>,
-	Alexander Bulekov <bkov@amazon.com>,
-	Fred Griffoul <fgriffo@amazon.co.uk>,
-	Alexander Graf <graf@amazon.de>,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Filippo Sironi <sironi@amazon.de>,
-	Ivan Orlov <iorlov@amazon.co.uk>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH 6.12.y] KVM: x86/mmu: Ensure hugepage is in by slot before checking max mapping level
-Date: Fri, 26 Jun 2026 13:54:25 -0400
-Message-ID: <stable-reply-item007-hugepage-612-20260626@kernel.org>
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-unionfs@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	selinux@vger.kernel.org,
+	bpf@vger.kernel.org,
+	stable@vger.kernel.org,
+	lujialin4@huawei.com
+Subject: Re: [PATCH v2 stable/linux-6.18.y 0/2] Backport Fix incorrect overlayfs mmap() and mprotect() LSM access controls
+Date: Fri, 26 Jun 2026 13:54:28 -0400
+Message-ID: <stable-reply-item011-lsm-618-20260626@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260626112405.1777340-2-pbonzini@redhat.com>
-References: <20260626112405.1777340-2-pbonzini@redhat.com>
+In-Reply-To: <20260626075035.143419-1-caixinchen1@huawei.com>
+References: <20260626075035.143419-1-caixinchen1@huawei.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,9 +63,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> KVM: x86/mmu: Ensure hugepage is in by slot before checking max mapping level
+> [PATCH v2 stable/linux-6.18.y 0/2] Backport Fix incorrect overlayfs
+> mmap() and mprotect() LSM access controls
 
-Queued for 6.12, thanks.
+Both patches queued for 6.18, thanks.
 
 -- 
 Thanks,
