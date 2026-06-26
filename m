@@ -1,171 +1,166 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282DB3ED3B2
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 10:16:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782469017; cv=pass; b=ftVSo3AAuUVemN03XI3GGYUX/kpm3CC/WmsrCTjhEr3FxY3xsTcE5Z1G0M776NvByrfos/9PdzZlt2zowlim0h9YeSDwseww3hIrjUHHc1PryPxnSGbYL/sY7hE2/e8l+8UjIy7T/62njcuPHUERe+dRnihIJb+jH5gmdjIBpDo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782469017; c=relaxed/simple;
-	bh=Q0VkRyZGMx8Ip+nI1uCNkWg9svwog6B4Nwe9YU0ExFM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MCmqf75epb4/IlpjazGJXvOyl7VvLhTxnFWlcAc4jDAL010SyN2EvkmG/eZIEjp1F7sm/Nuu2aNAoRiAfj3VlcfCCR+V8iGTY4ZnKzehp0hoLC2S263wscS7/cY0LJvLE3J0eRFqo4Z9Fu0wLjcrtqDKy8+MMapamTd/ctPWA2o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=PFif3UjD; arc=pass smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C87C3E832C
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 10:23:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782469434; cv=none; b=BwvMGaFsuzgB5bKRCguFKFAb53cePjwD1PIGZZddy3KTYclqEVT7WCBwELTAe6FYiIbFZFH9usRphwiBTjnDov3BUiB5mTyvIJJhz3zk9ULeawc3CCQVJhkRavKH9zBLot5roJFBjj1SbMMiqcMnLe+4CkM/uR2gMB0C8+uzhz0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782469434; c=relaxed/simple;
+	bh=ffNECExMWsXfqi2yo0S2r8IrBwZRf40yiT2nYi2+6Zo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hSgNvG4q86W48gJ4cpsR8EuObN99kuilQdn7FjA8NP15YQpxzbBHF+5KBeRmrADyT0tdRvPdtXG9bymbv1vFSRe/2uqKbldROEZy4SGaKLZsIOQxZauBAY9p1VCpA4K2yYZekOvM8qtlw9QjTZ1G9R6r4EjM1YHSfWh0GigsNWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cN6A/R4H; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="PFif3UjD"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8454160043aso639959b3a.3
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 03:16:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782469015; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DQeIYnY6oG1DO6sHmCu8JZA2KBaGqVoMQQWlMqINg9/EBmafl7/1gepatrhSeaM2s9
-         bZBXqlS/ud/Ex5135IX8Aqia+tXnuEeahE2SDZPj/AxDMsz55+6T+Vh9AWK3ZC2z1l60
-         QU4jA2Fv49X4DbRVPZm8cicIm29KbKephHoDmEvkazjx7o1ElaaM5ciaTcPCENkqx7u7
-         4czUsVg5gT3No5jr/ZBm5OHd2UrQ1D5jis98Vx/JriKfcTgOUXE2hvGP/O6rEeRFyn4N
-         HyTxVqWMLZQR3OJv8BSDPG7zVb/fk5wQgObIyxbiJJXtRMrje837XTbYYArJjvP6p33Q
-         wORw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Q0VkRyZGMx8Ip+nI1uCNkWg9svwog6B4Nwe9YU0ExFM=;
-        fh=dbOxHXsEMaz65+fLuDr3243AKXsRZWhjHwlnEa19KLQ=;
-        b=hYIux3H+PuR31cVt3gwbeCAqUAvTxvh6Wqpb4IuF5VDbHa6yRfoXSWub1Jm07aGce3
-         Om300h4231/LabdvG8Cwzq6uTcvl5epnGpd3bJT1ISxqnupIOABV9iVTbA+u8KIUTiVH
-         BdsQPT9VBisBlRPwWJC88zMf1zBwKVAVNsGtyisYXGzDWy6mLftf5IQ+OwkPDFyVqX/7
-         fNL4chPAcvQu1Aolec+CyAeJlEqs1YBcfwOdkhPWRjcOszoTnLlrxb7Azqj9ccdRJRAB
-         yMd76j3iZhuCNYrX/Xm+nF2YIJvoM3dFqOO0Z/59PG5BUUxvBBrUHFgrleggjrZMLYlz
-         LjHA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cN6A/R4H"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-46f27bd4c45so408879f8f.2
+        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 03:23:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1782469015; x=1783073815; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Q0VkRyZGMx8Ip+nI1uCNkWg9svwog6B4Nwe9YU0ExFM=;
-        b=PFif3UjDTqdX/mCLhIAN/C9cyGlL9i0cierzz341tur+BTBYQ524X2t8djIlEZWWSf
-         NhddQgXRaxqKG5r0hnFR50m6RR6AQZMulEmghsQKoWEpyJVi2EvpYJpAuYmdR8ENoV7x
-         4y5zwm45kQX0Mgksgw+5494nqoKhqGcL3NqVE=
+        d=suse.com; s=google; t=1782469430; x=1783074230; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=eLFZTGPtRiE8UPhqU4UMjkuV0PbJHe/HCNgoSE+benw=;
+        b=cN6A/R4HtvgBXKGB5A+UHEStNNf7UvH2iFaPP0zH836AXQeyuNgNDcK5vvsCutS4E6
+         vnPQWTm8RvxNsDzHGOsUQ/3C+94OaUUWOYyL17Y/21HGIKORPcfvKeJhmLUK3xa/blLi
+         an3VDrhgnBJm1Q8axUDuEBPceTPf/FUJI3ndg8JEmBQXTaYlS5FJGCAwhBkZrzUY4Zp6
+         1y6KWNw/KedmlKBxoz1KDP/DZ+7HIhGga7pr52Y7b5jQ2I0pj6+95awT8AIp7w9EQDEx
+         T7AGUAzFJefET/quPWKA0S48rdv9+3s0WwUj2MDY7wpRdYB5rHYMXWVorXUrlGx9m4ja
+         R/OA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782469015; x=1783073815;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Q0VkRyZGMx8Ip+nI1uCNkWg9svwog6B4Nwe9YU0ExFM=;
-        b=LSkise7RLMHvlzVydTIrn8802RKJ0XmfmnMzs4TsckHmNJWnwlAIcWLgv4cHtQ015H
-         Ea7jX5hl8YvlgxNXQiLMeRPz/mEsvC9aS4Vls2oCgbux5DcqCR0qbGnrz7PsM/XxahHj
-         /IaHZp1DwA2xArH0T/zgOMVI2+E6R/CUGCm97RLFLGKAFUwv/cSij4mL3RGKeGDnON0d
-         5abFZx7WJaNWveMVWZHWB6AzjKAQjPkjQ52T0hMcCHEJFJlP7qEnot438iRWDHpGc37w
-         uN7gcsr68JTU4Mh9P7JQcNI0zsLilLMrWuvQYLjMbP1EExR3I3U7uwkHaC2mnJMwTXgy
-         h1gQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoyBEQMkFpJFPXRCTwWrB/Qv47U5X4/Ud/LgTy85j5DbLDu1KRKuz5p7mTVYQ9XUOJvTHF87wE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjckcMALd74HLvwMDm6QNp8ktDXo4uskWin/nx5h0BAa9UmNzX
-	Z6jnJT3Q4kXM6s94efPhD64j32BdjAt5aixanSnww781CFJnAvWS51aLeYqDiN+hkKSfdnSx+po
-	cjqyVApo3d5GE8xO4LyQrRhGkhMBE3BO9ywsHkVbb6xqE4Gp849bXhA==
-X-Gm-Gg: AfdE7ckUc+0zSDAYSifFZyZcEIKB9zS1SzraGq0gdZz/v7tzPDiEC9qAmVDzMOtnrLP
-	9SJ3k0ZNkZHYvGW7vSQUwS2QV8fiOkLA2mPmqnEd5ddC/GS2wiFtuLO01bnQx2E5ykejWibRi5F
-	fYzMD/dhIoMZyB0VIXYvcX5A7xhrimoPVF3TennXz617r3R1/jTYhVro3WdOrGeGpiSxsLTvbHc
-	GxstcI6FROrpDL9B6dtxBipmzcrTNRmYhHjGWRASTrow7TRojWfmeOWriXZQano2wogF6uafw==
-X-Received: by 2002:a05:6a00:2389:b0:845:d0d6:b9 with SMTP id
- d2e1a72fcca58-845d0d601bbmr147884b3a.4.1782469015279; Fri, 26 Jun 2026
- 03:16:55 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782469430; x=1783074230;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=eLFZTGPtRiE8UPhqU4UMjkuV0PbJHe/HCNgoSE+benw=;
+        b=I1/c33PUL1DOW5tKPwMoBfrpBZxvh0SJ38Y4QqlnkRjCgwFAhPMYxgCUKwElTbdBYF
+         1RJ7g2t9hhyo7Hqec7rf57gPh6fK6+3J3n2RfDRGYHiPBWMYwuA+tZRwVWYV7xgry4kV
+         utzbrJ+44zo2pRaCmLwCZBdij+gFQ1NqzGuIMJXqjr/Ii1PHvJIrHT02Um8MoUv5FCqk
+         lqgk4eYdNcy1c+NHvVzIdjpQ08BfQqynlIeILZV05JN/B89+XvuW6qRk6KOLNI7dkLd7
+         w3olOpGk7qAwcHlu+2bZtXdoUVts7su8R8BV7vADeNyDLWiHoaibR4j83lZdHTK/O8Uz
+         Dzxg==
+X-Forwarded-Encrypted: i=1; AHgh+RpX6cUPnzdhAGNEftxIyCGmshsPAshHnHRXkPtYAjPNusvWPdyg5qUoMDYdDuTtVIcfNLAgq34=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx5s89w9yiw8E8cOOEfyrN/IjR3BXVjFPl0ROb61tsYbFLybC/8
+	WRMzWQZWPZKwaSIq+t2Ihhf6dBGfvS6iu1ZY2Q1tzkWKSoYccssq5Y85eYKhXTv5FMo=
+X-Gm-Gg: AfdE7cmcel/je5EEtrY4+mB+xcnfJxfKVC4rhKaU1TIsR/NWQlEfiLHwkkvrCIy7Yah
+	YuWzG/SqY2lDlwihhOamR5zVMRgHW1E4uGXp3RBQpsnuAVr+0N30Z9dDG2o7C5pbuLN/bFZDGK+
+	yzWpO29STZKaV2aVEc4dV8Fvruv2tFq6/kaiBylOUFqnOvBA1uuatDbGvuBs/AURkfiQJWf7vzv
+	BnlBFWPPWcaLkPpY9WXk5R27cBivkvCJmc0e6LEY7k4yStCGypoUDHGohdZfXq3COFRf8EUUoMq
+	kXy/cPnPUiHIqFNHF0smuXhxQaSBbuRQt2x7vzGQAynRQW7GzEb3BxYKKm7QTJkYK8R7zxXHsNs
+	22iD0o7QnWvQTcFlGK3c2r1bh76yhofoMOz8k3awq9M0UJmD7LfxVXMEY0zuc8HJhCXn6N4X7Po
+	mFCdBU7sePG1YAdgE=
+X-Received: by 2002:a05:6000:4204:b0:460:30bd:4dca with SMTP id ffacd0b85a97d-46dc12e056fmr9792387f8f.30.1782469430521;
+        Fri, 26 Jun 2026 03:23:50 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46dcbac0c9dsm13650525f8f.19.2026.06.26.03.23.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Jun 2026 03:23:50 -0700 (PDT)
+Date: Fri, 26 Jun 2026 12:23:48 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Bradley Morgan <include@grrlz.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Feng Tang <feng.tang@linux.alibaba.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] panic: use sys_info_with_filter() to avoid
+ duplicate backtraces
+Message-ID: <aj5TNB8cRtMNTtIT@pathway.suse.cz>
+References: <20260625152558.7450-1-include@grrlz.net>
+ <20260625152558.7450-5-include@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260624224016.24018-1-jhs@mojatatu.com>
-In-Reply-To: <20260624224016.24018-1-jhs@mojatatu.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Fri, 26 Jun 2026 06:16:43 -0400
-X-Gm-Features: AVVi8Cf2P7f9br_adTOBaN-EcnhYa4YwGzb1Nua8DRNE1VC5vPu11kXmT85D-_I
-Message-ID: <CAM0EoMmJZxAbOsyW7bBp0DbTTiQKZeGaaBHPEw45D5b6DKDEvg@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/1] net/sched: sch_teql: Introduce slaves_lock to
- avoid race condition and UAF
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, jiri@resnulli.us, victor@mojatatu.com, 
-	security@kernel.org, zdi-disclosures@trendmicro.com, stable@vger.kernel.org, 
-	kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260625152558.7450-5-include@grrlz.net>
 
-"
+On Thu 2026-06-25 15:25:58, Bradley Morgan wrote:
+> panic_other_cpus_shutdown() handles SYS_INFO_ALL_BT before stopping the
+> other CPUs. Do not ask sys_info() to handle that bit again later in the
+> panic path.
+> 
+> Use sys_info_with_filter() so panic_print=all_bt does not request more
+> output after the CPUs are stopped.
+> 
+> Fixes: a9af76a78760 ("watchdog: add sys_info sysctls to dump sys info on system lockup")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bradley Morgan <include@grrlz.net>
+> ---
+>  kernel/panic.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/kernel/panic.c b/kernel/panic.c
+> index 213725b612aa..eb842823df61 100644
+> --- a/kernel/panic.c
+> +++ b/kernel/panic.c
+> @@ -680,7 +680,7 @@ void vpanic(const char *fmt, va_list args)
+>  	 */
+>  	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
+>  
+> -	sys_info(panic_print);
+> +	sys_info_with_filter(panic_print, SYS_INFO_ALL_BT);
 
-On Wed, Jun 24, 2026 at 6:40=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.com>=
- wrote:
->
-> The teql master->slaves singly linked list is not protected against
-> multiple writes. It can be mod'ed concurently from teql_master_xmit(),
-> teql_dequeue(), teql_init() and teql_destroy() without holding any list
-> lock or RCU protection.
->
-> zdi-disclosures@trendmicro.com has demonstrated that the qdisc is freed
-> after an RCU grace period, but teql_master_xmit() running on another
-> CPU can still hold a stale pointer into the list, resulting in a
-> slab-use-after-free:
->
-> BUG: KASAN: slab-use-after-free in teql_destroy+0x3ca/0x440 linux/net/sch=
-ed/sch_teql.c:142
-> Read of size 8 at addr ffff88802923aa80 by task ip/10024
->
-> The zdi-disclosures@trendmicro.com repro created concurrent AF_PACKET
-> senders on a teql device against a thread that repeatedly adds/deletes th=
-e
-> slave qdisc, together with a SLUB spray that reclaims the freed slot; the
-> resulting UAF is controllable enough to be turned into a read/write
-> primitive against the freed qdisc object.
->
-> The fix?
-> Add a per-master slaves_lock spinlock that serializes all mutations of
-> master->slaves and the NEXT_SLAVE() links in teql_destroy() and
-> teql_qdisc_init(). teql_master_xmit() also takes the same slaves_lock
-> around those updates.
-> Annotate master->slaves and the per-slave ->next pointer with __rcu and
-> use the appropriate RCU accessors everywhere they are touched:
-> rcu_assign_pointer() on the writer side (under slaves_lock),
-> rcu_dereference_protected() for the writer-side loads (also under
-> slaves_lock), rcu_dereference_bh() for the loads in teql_master_xmit() an=
-d
-> rtnl_dereference() for the loads in teql_master_open()/teql_master_mtu(),
-> which run under RTNL.
-> Pair this with rcu_read_lock_bh()/rcu_read_unlock_bh() around the list
-> traversal in teql_master_xmit(), so that readers either observe a fully
-> linked list or are deferred until the in-flight mutation completes. The t=
-wo
-> early-return paths in teql_master_xmit() are updated to release the RCU-b=
-h
-> read-side critical section before returning, since leaving it held would
-> disable BH on that CPU for good.
->
+Hmm, this prevents printing backtraces from all CPUs completely.
+But what if they were not printed?
 
-sashiko-gemini's complaints:
-https://sashiko.dev/#/patchset/20260624224016.24018-1-jhs%40mojatatu.com
-seem bogus to me (someone correct me if i am wrong). I am only going
-to address the first claim of "TOCTOU / "resurrection" race in
-teql_master_xmit()"
-teql_master_xmit() holds rcu_read_lock_bh() across the entire
-traversal. teql_destroy() freeing can only proceed once the qdisc's
-RCU grace period has elapsed - so where is this TOCTOU? Let's say this
-were true: both calls hold the slaves_lock.
-The other issues are of similar nature.
+They might be printed by:
 
-OTOH, sashiko-claude
-(https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260624224016.24018-1=
--jhs%40mojatatu.com)
-does make some valid claims which are low value, so not sure a resend
-is worth it.
-For example in claim 1 it says "Should the changelog mention this
-teql_dequeue() site too?" Sure I can - but just because I provided
-extra information in the commit log, which I could have omitted, now I
-have to add more info? ;-> The second claim is "rcu_dereference_bh()
-should be rcu_dereference_protected() on writer side". Sparse didnt
-complain and i dont see this as breakage rather a consistency measure.
+static void panic_other_cpus_shutdown(bool crash_kexec)
+{
+	if (panic_print & SYS_INFO_ALL_BT)
+		panic_trigger_all_cpu_backtrace();
 
-Unless I am missing something ..
+[...]
+}
 
-cheers,
-jamal
+But it checks only "panic_print" variable. It won't do anything
+when (panic_print == 0).
+
+In this case, we might still want to print the backraces when
+SYS_INFO_ALL_BT is set in kernel_si_info.
+
+>  	kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
+
+Of course, we might fix panic_other_cpus_shutdown() to check also
+kernel_si_info.
+
+But it all becomes very hairy. We have several levels:
+
+   + watchdog-all_bt-specific option, e.g. sysctl_hardlockup_all_cpu_backtrace
+
+   + watchdog-specific si_info preferences, e.g. hardlockup_si_mask
+
+   + panic-specific si_info: panic_print
+
+   + universal fallback for any layer: kernel_si_info
+
+Now, we try to check all these variables back and forth to
+trigger all backtraces or to avoid triggering them.
+And it clearly does not work well and the code is more and more
+hairy.
+
+I think about another approach. The word "waterfall" comes to my mind.
+Instead of checking all the settings back and forth, let's process
+each setting one by one and just remember what has been done and
+skip this in the next level.
+
+All the si_info actions seems to dump a global system state.
+So, it would make sense to remember the state in a global variable
+even when it might be modified by more CPUs in parallel.
+
+I am going to think more about it.
+
+Please, do not send v4 until the discussion settles!
+
+Best Regards,
+Petr
