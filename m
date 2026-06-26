@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45173F9F2D
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:11:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C3A3EB81A
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:11:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490273; cv=none; b=m5+Usq03mOvpjvSqS2cuWxGAHfWtLsqLf2jC+ZPXP3ugcS4c4j0gX+0TipBeh6JxLAJWqX9f78vvOtg+SxOfB3Bf/TMN0AZyu9qp+u7sIBaDcCXoyJRiuLi8j7Z3BeD9JOjdnMV2E+EW61OaML63ADudTANoX6mjKWHxchXGQbQ=
+	t=1782490273; cv=none; b=UC3LEAZkgmGcHorKmYva/bfFgmwVa+H1SbQDGpYsPapMDAD7cyqC4194plUmUT2/hPhwhGirnfHygPEfxgGKuMaGQ4KF86oT782E/a4Q8RbmzmvDcROGYZW859WnNlspOuN6kHA6No7TGihDqsS3nWwchM9sb2+8WrnYx9JyrtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490273; c=relaxed/simple;
-	bh=E1UfJhDGChX6ZeFaJV/38mu79SXcUM0iDW0DYO19Nlk=;
+	bh=duNf0OVl43U5AtYWagX7unQs1991m2R6G0sFeIpWXis=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SWQ8pflKdre4VhoWuE2vWYUC9YQq4VTKkJPcBMowU6qR6Ykshq5JmkJMoo8zZDSh5ZRp3AA/y5pl2LfT5ZiFvEOCkLBNfHI3HTykcbxGSGZDwf3FBHA9w0yZrOTmRfTPQMHFHrMTkLshlF27S2U9MxhKIGopZCCxFfCdBEpsdtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=dYUZvMx+; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=CYBWPE3qkc/IOunuaLfZYF404RSWzDCd37kcaeWKcKHU8PM3xXLdHfQv8KvjOmrB5vxb1CwQfX9Zo97LzSA/LgyWKw474BjvqPCyGjCIkFX2Sb1yk61v1Nq+pBmS03sxRst4dSw1UuR5e7Qq0bMKm5oxdk11h2HhlPFfM3EUEhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=ZT6cKMfq; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="dYUZvMx+"
-Received: by dvalin.narfation.org (Postfix) id 73C5C203F3;
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="ZT6cKMfq"
+Received: by dvalin.narfation.org (Postfix) id EE7FA203FC;
 	Fri, 26 Jun 2026 16:11:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490270;
+	s=20121; t=1782490271;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=p8XNY4p4FoLvQMClc/bgfFJq25AOhbXt6kDbuFWrqtA=;
-	b=dYUZvMx+u3OKr3hheY1/mu+16Bls8vhVuOVuLOyzv/EAQtA6BqY2QhIrG0NTerTVWR0Gf4
-	dtqFpPvXeW37/WA5C45j4evga5puSzXmP6m2W3yMBxJn+91VQR9PCJaaLPzSKoJwDa7ZnN
-	lHfP/PGvXPy+rX3iVnuYUNVBcspgeEA=
+	bh=GBQYwZlMffDLgoNK7pxSWrzt1huEa+SAY6YcBJQz59c=;
+	b=ZT6cKMfqrm3VXiod1dTO+q+pS45XCzGSWQNdhoWrd9Wl5Kqnsbf/f4mBNCTaiTVD1fj78K
+	lGEkfSSfDmtCPus9uglFeS8k+IidIVVAh2kA7+9SowX+qXNz0S8HrZmOlicNScEelA99a2
+	Lj3W5yODKfM7gBvSj0OqdqiDueMWv6M=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 5.15 11/25] batman-adv: tp_meter: initialize last_recv_time during init
-Date: Fri, 26 Jun 2026 18:10:50 +0200
-Message-ID: <20260626161105.124113-12-sven@narfation.org>
+Subject: [PATCH 5.15 12/25] batman-adv: ensure bcast is writable before modifying TTL
+Date: Fri, 26 Jun 2026 18:10:51 +0200
+Message-ID: <20260626161105.124113-13-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161105.124113-1-sven@narfation.org>
 References: <20260626161105.124113-1-sven@narfation.org>
@@ -45,63 +45,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 811cb00fa8cdc3f0a7f6eefc000a6888367c8c8f upstream.
+commit 4cd6d3a4b96a8576f1fed8f9f9f17c2dc2978e0c upstream.
 
-The last_recv_time is the most important indicator for a receiver session
-to figure out whether a session timed out or not. But this information was
-only initialized after the session was added to the tp_receiver_list and
-after the timer was started.
+Before batman-adv is allowed to write to an skb, it either has to have its
+own copy of the skb or used skb_cow() to ensure that the data part is not
+shared.
 
-In the worst case, the timer (function) could have tried to access this
-information before the actual initialization was reached. Like rest of the
-variables of the tp_meter receiver session, this field has to be filled out
-before any other (parallel running) context has the chance to access it.
+The old implementation used a shared queue and created copies before
+attempting to write to it. But with the new implementation, the broadcast
+packet is already modified when it gets received. Potentially writing to
+shared buffers in this process.
+
+Adding a skb_cow() right before this operation avoids this and can at the
+same time prepare it for the modifications required to rebroadcast the
+packet.
 
 Cc: stable@kernel.org
-Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
-[ Context ]
+Fixes: 3f69339068f9 ("batman-adv: bcast: queue per interface, if needed")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/tp_meter.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ net/batman-adv/routing.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index 257f8d042d158..9e31d86c4b87f 100644
---- a/net/batman-adv/tp_meter.c
-+++ b/net/batman-adv/tp_meter.c
-@@ -1403,8 +1403,10 @@ batadv_tp_init_recv(struct batadv_priv *bat_priv,
+diff --git a/net/batman-adv/routing.c b/net/batman-adv/routing.c
+index 970d0d7ccc981..503c8c9381ebe 100644
+--- a/net/batman-adv/routing.c
++++ b/net/batman-adv/routing.c
+@@ -1198,6 +1198,12 @@ int batadv_recv_bcast_packet(struct sk_buff *skb,
+ 	if (batadv_is_my_mac(bat_priv, bcast_packet->orig))
+ 		goto free_skb;
  
- 	tp_vars = batadv_tp_list_find_session(bat_priv, icmp->orig,
- 					      icmp->session, BATADV_TP_RECEIVER);
--	if (tp_vars)
-+	if (tp_vars) {
-+		tp_vars->last_recv_time = jiffies;
- 		goto out_unlock;
-+	}
- 
- 	if (!atomic_add_unless(&bat_priv->tp_num, 1, BATADV_TP_MAX_NUM)) {
- 		batadv_dbg(BATADV_DBG_TP_METER, bat_priv,
-@@ -1432,6 +1434,8 @@ batadv_tp_init_recv(struct batadv_priv *bat_priv,
- 	kref_get(&tp_vars->refcount);
- 	timer_setup(&tp_vars->timer, batadv_tp_receiver_shutdown, 0);
- 
-+	tp_vars->last_recv_time = jiffies;
++	/* create a copy of the skb, if needed, to modify it. */
++	if (skb_cow(skb, ETH_HLEN) < 0)
++		goto free_skb;
 +
- 	kref_get(&tp_vars->refcount);
- 	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
++	bcast_packet = (struct batadv_bcast_packet *)skb->data;
++
+ 	if (bcast_packet->ttl-- < 2)
+ 		goto free_skb;
  
-@@ -1480,9 +1484,9 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
- 				   icmp->orig);
- 			goto out;
- 		}
--	}
- 
--	tp_vars->last_recv_time = jiffies;
-+		tp_vars->last_recv_time = jiffies;
-+	}
- 
- 	/* if the packet is a duplicate, it may be the case that an ACK has been
- 	 * lost. Resend the ACK
 -- 
 2.47.3
 
