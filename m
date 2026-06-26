@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B92B3FF1B8
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6D23FCB33
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490344; cv=none; b=DOKwYS2fVSmlr9UC93rtcF+jRuwHeCQviYs4bNIw6otNMlvm0JzIsAvLFpM/XdtAYUZpFSVCAUTb9DnMTK2HYZPt04JnCKxghhkUR3IGETKQ0wJ0iSuvYPfFaw4QIpNG+GpYM6CSLNFAYe7d7JS5NrNP418ToL2JnMVK+ohEZBg=
+	t=1782490344; cv=none; b=faU5V68m22Rf/3sP90VrULNKsP4sm+O6R+drCQYSr2wUWAIm28tjmkMPwxcP0fjMIBJP99qg3EKhZumH5ARtwf0FzEzxjH8m1/re6Do/yamOoFmR7dSeCc5drJVkpWOjysh24uZkz4KBy/G2iRjxVkCqMYfNrzKe0zJeFn7BYXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490344; c=relaxed/simple;
-	bh=KvLaZF3mo3ugUvdnvxBp7qGQYKJOf7TBfffXK1/HgP8=;
+	bh=J/zfiTW8sVR4SrjwOfRQHq2EMuVu0cnD+uHI5ZZrOAI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d5+mKuTm9qM6Q8ZN872ZIFELFelNS8ZanyVpcoo8yvhSnx442qfK4Ib+Rw6EB9GA++9fdB/GC2BGdb8qFG2Oq+sWQWy6vCK+Gs/adRA8l4xxn49HVO0TT/D3w6S40q8UBdK7hc5gWVhJ7h5s50jh7GrxMi1ihq2Fm4qJYfVOZ2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=w64JLBWO; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=dRqDZdZtGd/LzvCvvaySVrrRl0nrdzH2ZYPvqDor0IVpNGkdbR8Lmi1gVs7yEo+twsnlpnDEjcwBRNq6wxgkEOrsR0lInYt0O89MvmAm3SF7hIQ5CG7/dt1kf2SOVZVQRO7kfuKjJJKC5BXe90XpWQNL7xad7gvJC1o8CLQZ9Rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=Q83T5Agd; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="w64JLBWO"
-Received: by dvalin.narfation.org (Postfix) id 61066203FC;
-	Fri, 26 Jun 2026 16:12:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="Q83T5Agd"
+Received: by dvalin.narfation.org (Postfix) id 23D70203F3;
+	Fri, 26 Jun 2026 16:12:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490339;
+	s=20121; t=1782490338;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QMJoya9hBWFAlGjTtdvpazJ4bZLR5zpm1JfhkJ9bsuA=;
-	b=w64JLBWOzDtAmKXb5rqPe6cndFln7RVquHX3vI4/St6jmsUVrsOhTM9tpRpXfaormP/OvC
-	F/7k75SPQJJU6OnkUsT3hwDZW5DD0ZiQH29u1+cDRBlmhj6waOAzFBNfaf8w3eFUcQ6nT2
-	ZZI4DDO7jaxz4FVYvH3N0qEZQ4KJzOE=
+	bh=lGA0J1R1SZCvY6+4XWmkx72VWyQ3SDH293qNeEg8w0o=;
+	b=Q83T5AgdYweurvell4/DSauna9PtLe7r6ACTuQKd208x27cTlNEkT7wiqnbzA6cX3blAYi
+	fnDyKXKFC2oriWdjfCra8CZoGNrnkbyujDnM8iu46Ths1LmFKwJr4iyLRJxP0ckAbEGLEG
+	aFM1R4xPXz2xsdM03kLX5d31c5Pldco=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.18 19/26] batman-adv: tp_meter: annotate last_recv_time access with READ/WRITE_ONCE
-Date: Fri, 26 Jun 2026 18:12:03 +0200
-Message-ID: <20260626161210.124712-20-sven@narfation.org>
+Subject: [PATCH 6.18 16/26] batman-adv: frag: avoid underflow of TTL
+Date: Fri, 26 Jun 2026 18:12:00 +0200
+Message-ID: <20260626161210.124712-17-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161210.124712-1-sven@narfation.org>
 References: <20260626161210.124712-1-sven@narfation.org>
@@ -45,60 +45,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit d67c728f07fca2ee6ffdc6dd4421cf2e8691f4d1 upstream.
+commit 493d9d2528e1a09b090e4b37f0f553def7bd5ce9 upstream.
 
-The last_recv_time field for batadv_tp_receiver tracks the jiffies value of
-the most recent activity and is used to detect timeouts. These accesses are
-not consistently protected by a lock, so READ_ONCE/WRITE_ONCE must be used
-to prevent data races caused by compiler optimizations.
+Packets with a TTL are using it to limit the amount of time this packet can
+be forwarded. But for batadv_frag_packet, the TTL was always only reduced
+but it was never evaluated. It could even underflow without any effect.
+
+Check the TTL in batadv_frag_skb_fwd() before attempting to prepare it for
+forwarding. This keeps it in sync with the not fragmented unicast packet.
 
 Cc: stable@kernel.org
-Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
+Fixes: 610bfc6bc99b ("batman-adv: Receive fragmented packets and merge")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/tp_meter.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ net/batman-adv/fragmentation.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index e5387e8f33244..e69bf10e66ac3 100644
---- a/net/batman-adv/tp_meter.c
-+++ b/net/batman-adv/tp_meter.c
-@@ -1183,7 +1183,7 @@ static void batadv_tp_receiver_shutdown(struct timer_list *t)
- 	bat_priv = tp_vars->bat_priv;
- 
- 	/* if there is recent activity rearm the timer */
--	if (!batadv_has_timed_out(tp_vars->last_recv_time,
-+	if (!batadv_has_timed_out(READ_ONCE(tp_vars->last_recv_time),
- 				  BATADV_TP_RECV_TIMEOUT)) {
- 		/* reset the receiver shutdown timer */
- 		batadv_tp_reset_receiver_timer(tp_vars);
-@@ -1424,7 +1424,7 @@ batadv_tp_init_recv(struct batadv_priv *bat_priv,
- 	tp_vars = batadv_tp_list_find_session(bat_priv, icmp->orig,
- 					      icmp->session, BATADV_TP_RECEIVER);
- 	if (tp_vars) {
--		tp_vars->last_recv_time = jiffies;
-+		WRITE_ONCE(tp_vars->last_recv_time, jiffies);
- 		goto out_unlock;
- 	}
- 
-@@ -1455,7 +1455,7 @@ batadv_tp_init_recv(struct batadv_priv *bat_priv,
- 	kref_get(&tp_vars->refcount);
- 	timer_setup(&tp_vars->timer, batadv_tp_receiver_shutdown, 0);
- 
--	tp_vars->last_recv_time = jiffies;
-+	WRITE_ONCE(tp_vars->last_recv_time, jiffies);
- 
- 	kref_get(&tp_vars->refcount);
- 	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
-@@ -1506,7 +1506,7 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
- 			goto out;
- 		}
- 
--		tp_vars->last_recv_time = jiffies;
-+		WRITE_ONCE(tp_vars->last_recv_time, jiffies);
- 	}
- 
- 	/* if the packet is a duplicate, it may be the case that an ACK has been
+diff --git a/net/batman-adv/fragmentation.c b/net/batman-adv/fragmentation.c
+index ffa5d4b074095..4779741e7273e 100644
+--- a/net/batman-adv/fragmentation.c
++++ b/net/batman-adv/fragmentation.c
+@@ -415,6 +415,13 @@ bool batadv_frag_skb_fwd(struct sk_buff *skb,
+ 	 */
+ 	total_size = ntohs(packet->total_size);
+ 	if (total_size > neigh_node->if_incoming->net_dev->mtu) {
++		if (packet->ttl < 2) {
++			kfree_skb(skb);
++			*rx_result = NET_RX_DROP;
++			ret = true;
++			goto out;
++		}
++
+ 		if (skb_cow(skb, ETH_HLEN) < 0) {
+ 			kfree_skb(skb);
+ 			*rx_result = NET_RX_DROP;
 -- 
 2.47.3
 
