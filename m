@@ -1,123 +1,165 @@
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0D53F7AAB
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 13:56:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8892E1EE0
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 14:02:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782482178; cv=none; b=Jht2cqRuqiHlYT+Yh6kKzq5OrRa/ub9oBVL/XeiltX7dZK0WA0sD+h5vyxTCHxVDuaFPP36YomTvMpbk5NTADFOmku/IXFLzuAiXtTJX8qX8sftkBWnsYFMVStLJVEsFfa/fRMEGo3haPCWJAF/Ll54cpOXd/Ul+QszDiJGZels=
+	t=1782482530; cv=none; b=C0XolvuLHjs6KlpDtj7/8Ka9o8O4Dcmgg/2skXIRAzCRHJAvPaX3YYjYKBeYhiUa07jBGM6RRyOQwSR2Xb6lejhnlCeWHds7ea8Qh8LfBlJv9EpOKKvNTQR2kCe7sqLVGQADA8vO1PFgP+Wp3weJyvVRz1axDd95ZAOBzVPmjHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782482178; c=relaxed/simple;
-	bh=8YjLWx3uGgLTfeLy1uzKCPph1jBGv2rvv9gzx0Sr4DU=;
+	s=arc-20240116; t=1782482530; c=relaxed/simple;
+	bh=t+344il5kS+1UwLrPedrEucQtxevDKH1A2BfGnBb1lw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bv4O1CyF8ipyMVKyinxwtnVz6Z47yrji4nO21mPQh/Af4yQPzlZUGDaCmVSM2UwvdJHuK0TIs1siTTggnk0FN+VsOQ+NPDP+33CcxiEYnGze2w7QfB/2yrVMOTw59w+AJQKsScyaO7O+RwH2guD2T27Zbn4ole7oCaKV59FJUxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YkkxJIrh; arc=none smtp.client-ip=209.85.210.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version:Content-Type; b=OmrmNtqQSMu4DaXaQHg/CiboN8zuoORXUnYFgR9DyRFHE+DHpmbvbFEFzZkzIz6wRKF2i6O2+iUjH5IluF3iLUMxHhegyATOfrg/o+uQ2cgGeI8WGxG2bNOjdZW42QAe3dmUkZ+EGVyf2YVYx6dOIrzJF1fXtonfT0t+ba5GQW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AjFzeoGA; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YkkxJIrh"
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7e93cd4e64bso713076a34.2
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 06:56:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782482174; x=1783086974; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3f5RmGjrL90PeH3JGsX34cT0iH3rBjCVdu823akYB8U=;
-        b=YkkxJIrhmwIasBKM/f9cGBELgpIpZTNv76mCQPbObnKMydo5S3p8yu8z5ZRTewCLpv
-         sbXXewgM+2uHawzAsfj1cVbN7SovNd605HR9+pKdhCTdJ4lsQf2xPnGN3hhle6jv0OZd
-         tjjWDG9q/UVvzrkNPdZ8aVVIYRhKT/cf/5jAfmA53Uc6dS5KYZzcha9jM7CTvR52BSeb
-         o/HWOkXuTHbmLuxQIAwvCT2lW2jIaSNB+KokB+3qHyjtguqBKHbnGLiGXBgKq5LXHJDp
-         PyBX1OwbzCxgdqLuRLqGR1o41bH0Kt7Jelic93D/UVpfwHJ8qNQiaKpwiTqY7tbX2bcM
-         Mb6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782482174; x=1783086974;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=3f5RmGjrL90PeH3JGsX34cT0iH3rBjCVdu823akYB8U=;
-        b=l7IqiL5ekcVx+SA7WOOrE3x0cnh8E3TF+fNPr+5lzakHiAC3df1mcYBEwAClURtHxI
-         dxGIOgBHuCMAalxKaTscvx0dq7QyAyltC8Kpme1ALQQfgaJUXxNpa0raYeE2rpcYA82d
-         9Fh1IMSHdAej5lM5CSN8+eMW5hvEEPfTcc91ULzFOxHkWslppNQ8awQDnrJsxCcvTNSr
-         muURD0ayoXmlSy/TtuN2WlW1hyAa5k8gb4rcdHmPfGcx3NC7g1DBgbYC9NW44vMlCrSQ
-         v3wut2w5pLyDob01xAx5Qt9CLaWD7dzPPHt5h/E07dw5wM3xPig03q4uIX6lPoS1wCmO
-         8p3g==
-X-Forwarded-Encrypted: i=1; AFNElJ9PBrtGbG4gBcCcCQr6LUBE426SAibL+tKqQOuRveUcql8uzwTnW1pphUk8WiB1xPp5n/a7Gng=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz86wq3UeVTt6tyxp1zsUpjjK5KeWObf6ZbSQB5DhM2F0r+ARAs
-	F8RDF4sY7PL6C2eglhNXhBIThaG6GZm+BeXnAf0j5cmO80HyDagiTwua
-X-Gm-Gg: AfdE7cmMT0P8LO/p8Dz0gY35JmPlC7NyAZ198xbDWyg3X5zQnXNRSYf4lvSKs1LUVr0
-	P6zRFniTw5qFetBTty/XS0tRp55f3ocPtnbXtYLBmefDz0UurVPXGlbHfwwDLmasNV0Ajg7f3/W
-	KOcHDB4d1IZcZ1Qkxwh8dqcAwaVYoHKlHxKqSYonmu1uNOxBz+3FSTomJxyufyrefh3Z39KGx0I
-	qgZz2VqfQ1cf6mnOiZM+RbhWv9KlM92693CwukrzWuBJmzFYpP3uBuWg8lbbICW6SB9486Lnyo7
-	2E1qLPr/AnJQhXXfT8wEey5+0yAS3C0YmsbPWOENWpIkFI1ZP/0bV0C5pl8vimbSBh4uSQKJYgW
-	dP+R8xf+SwAiplx6iLLxplFmez5VGdwofkPULp/Hsff9nAp5OkfVpiMKXhPqiHr6zvyE99enRgr
-	yQBEqj8uvAtMVrI/PjYYBZM+sYWWysbZ8mGuPsJY58yJGLynzpFIXdJw==
-X-Received: by 2002:a05:6820:190c:b0:69d:f889:f55c with SMTP id 006d021491bc7-6a135208f39mr5607866eaf.27.1782482174366;
-        Fri, 26 Jun 2026 06:56:14 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:40::])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44748ec8a42sm12948931fac.3.2026.06.26.06.56.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 06:56:13 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: Breno Leitao <leitao@debian.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Michal Hocko <mhocko@suse.com>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm: memcg: initialize *locked in memcg1_oom_prepare() stub
-Date: Fri, 26 Jun 2026 06:56:11 -0700
-Message-ID: <20260626135612.3697893-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260626-memcg-oom-uninit-locked-v1-1-a00175936b39@debian.org>
-References: 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AjFzeoGA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782482529; x=1814018529;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=t+344il5kS+1UwLrPedrEucQtxevDKH1A2BfGnBb1lw=;
+  b=AjFzeoGAM2ALF7fKvvZK1o498PwICmmgTS2bUWfUQuefwb64C/aYh2xr
+   +xbRELCQTwPThcVqb8CEddkFPx7KHmr+8hxbUzJyE8Dm/9pwAYFJUo3KR
+   LuKk5OhW6pAEHAdcFIu/Fuk5fvn8w5oHvBxM1KgmRKBf8sSe8vXOkdOym
+   qBYb40NVQEgzH/AOrkngxdAAIMq/oI2vfGgA48V0Fk50mRfzBobhTk/z6
+   8oo8iRi8BnLIDaxYQPTC6tnDpCvjIPN45+H+hHJkPfFRUuyZZxxJngYg2
+   27mQBFOEU+kz1V2iHLWkA7h7FMKSyUiuVKh4wGyoRJI0JXz4IILRIwQ7H
+   w==;
+X-CSE-ConnectionGUID: 9PkAeMI5RGiXQKsLIxjpew==
+X-CSE-MsgGUID: G642qIMWRfmTf7erCN1ypg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11829"; a="100823943"
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
+   d="scan'208";a="100823943"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 07:02:08 -0700
+X-CSE-ConnectionGUID: LfcSOjl3Rm+NdrhZBErWOQ==
+X-CSE-MsgGUID: 6cZ9xckeTgiQ7DWuFsBjRQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
+   d="scan'208";a="249666229"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.22])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 07:02:06 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>,
+	intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Martin Hodo <martin.hodo@intel.com>,
+	stable@vger.kernel.org,
+	Animesh Manna <animesh.manna@intel.com>,
+	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@intel.com>,
+	=?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
+Subject: [PATCH v2] drm/i915/bios: range check LFP Data Block panel_type2
+Date: Fri, 26 Jun 2026 17:01:55 +0300
+Message-ID: <20260626140155.1389655-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260625135130.1067872-1-jani.nikula@intel.com>
+References: <20260625135130.1067872-1-jani.nikula@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 
-Hi Breno, I hope you are doing well : -)
-Woah, thank you for finding and fixing this bug! 
+While the panel_type from LFP Data Block is range checked, panel_type2
+is not. Add a few helpers for range checking, and use them to not only
+check panel_type2, but also improve clarity and correctness in the panel
+type selection.
 
-> Fixes: e93d4166b40a ("mm: memcg: put cgroup v1-specific code under a config option")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
->  mm/memcontrol-v1.h | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/memcontrol-v1.h b/mm/memcontrol-v1.h
-> index f92f81108d5ed..4fa6e2bc8413f 100644
-> --- a/mm/memcontrol-v1.h
-> +++ b/mm/memcontrol-v1.h
-> @@ -107,7 +107,11 @@ static inline void memcg1_remove_from_trees(struct mem_cgroup *memcg) {}
->  static inline void memcg1_soft_limit_reset(struct mem_cgroup *memcg) {}
->  static inline void memcg1_css_offline(struct mem_cgroup *memcg) {}
->  
-> -static inline bool memcg1_oom_prepare(struct mem_cgroup *memcg, bool *locked) { return true; }
-> +static inline bool memcg1_oom_prepare(struct mem_cgroup *memcg, bool *locked)
-> +{
-> +	*locked = false;
-> +	return true;
-> +}
->  static inline void memcg1_oom_finish(struct mem_cgroup *memcg, bool locked) {}
->  static inline void memcg1_oom_recover(struct mem_cgroup *memcg) {}
+Discovered using AI-assisted static analysis confirmed by Intel Product
+Security.
 
-Part of me wonders if we should just initialize locked = false in the
-caller (mem_cgroup_oom) as to not make the stub have side effects,
-but your chnage looks correct and this is a fix so perhaps that is
-not so important.
+v2:
+- Fix commit message typo (Michał)
+- Add is_panel_type_pnp() (Ville)
 
-Looks good to me! Thank you again Breno : -)
+Reported-by: Martin Hodo <martin.hodo@intel.com>
+Fixes: 6434cf630086 ("drm/i915/bios: calculate panel type as per child device index in VBT")
+Cc: <stable@vger.kernel.org> # v6.0+
+Cc: Animesh Manna <animesh.manna@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@intel.com>
+Reviewed-by: Michał Grzelak <michal.grzelak@intel.com> # v1
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_bios.c | 36 ++++++++++++++++++-----
+ 1 file changed, 28 insertions(+), 8 deletions(-)
 
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 15ebadc72b88..97cbae2e547e 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -623,6 +623,21 @@ get_lfp_data_tail(const struct bdb_lfp_data *data,
+ 		return NULL;
+ }
+ 
++static bool is_panel_type_valid(int panel_type)
++{
++	return panel_type >= 0 && panel_type < 16;
++}
++
++static bool is_panel_type_pnp(int panel_type)
++{
++	return panel_type == 0xff;
++}
++
++static bool is_panel_type_valid_or_pnp(int panel_type)
++{
++	return is_panel_type_valid(panel_type) || is_panel_type_pnp(panel_type);
++}
++
+ static int opregion_get_panel_type(struct intel_display *display,
+ 				   const struct intel_bios_encoder_data *devdata,
+ 				   const struct drm_edid *drm_edid, bool use_fallback)
+@@ -640,15 +655,21 @@ static int vbt_get_panel_type(struct intel_display *display,
+ 	if (!lfp_options)
+ 		return -1;
+ 
+-	if (lfp_options->panel_type > 0xf &&
+-	    lfp_options->panel_type != 0xff) {
++	if (!is_panel_type_valid_or_pnp(lfp_options->panel_type)) {
+ 		drm_dbg_kms(display->drm, "Invalid VBT panel type 0x%x\n",
+ 			    lfp_options->panel_type);
+ 		return -1;
+ 	}
+ 
+-	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2)
++	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2) {
++		if (!is_panel_type_valid_or_pnp(lfp_options->panel_type2)) {
++			drm_dbg_kms(display->drm, "Invalid VBT panel type 2 0x%x\n",
++				    lfp_options->panel_type2);
++			return -1;
++		}
++
+ 		return lfp_options->panel_type2;
++	}
+ 
+ 	drm_WARN_ON(display->drm,
+ 		    devdata && devdata->child.handle != DEVICE_HANDLE_LFP1);
+@@ -762,13 +783,12 @@ static int get_panel_type(struct intel_display *display,
+ 				    panel_types[i].name, panel_types[i].panel_type);
+ 	}
+ 
+-	if (panel_types[PANEL_TYPE_OPREGION].panel_type >= 0)
++	if (is_panel_type_valid(panel_types[PANEL_TYPE_OPREGION].panel_type))
+ 		i = PANEL_TYPE_OPREGION;
+-	else if (panel_types[PANEL_TYPE_VBT].panel_type == 0xff &&
+-		 panel_types[PANEL_TYPE_PNPID].panel_type >= 0)
++	else if (is_panel_type_pnp(panel_types[PANEL_TYPE_VBT].panel_type) &&
++		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID].panel_type))
+ 		i = PANEL_TYPE_PNPID;
+-	else if (panel_types[PANEL_TYPE_VBT].panel_type != 0xff &&
+-		 panel_types[PANEL_TYPE_VBT].panel_type >= 0)
++	else if (is_panel_type_valid(panel_types[PANEL_TYPE_VBT].panel_type))
+ 		i = PANEL_TYPE_VBT;
+ 	else
+ 		i = PANEL_TYPE_FALLBACK;
+-- 
+2.47.3
+
