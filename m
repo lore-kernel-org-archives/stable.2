@@ -1,226 +1,178 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010040.outbound.protection.outlook.com [52.101.46.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86303749F2
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 12:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1953DBD55;
+	Fri, 26 Jun 2026 12:34:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.40
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782477220; cv=pass; b=OuYs9hTna/SJC+fq8kTBUo8r0GyFifTAcfLBh1cHSCb/C0TvzsVXdWmL462XdACI84cpaD+m29YRMzfGq7zEXYovdGIs7zdmg5f13wmFlTDleN0eW2H+9Wpz1rqP+TeTlLDZVSM8/4Kxp8yBBlOW2jhqXegLGOF2elpLG2GrCtc=
+	t=1782477242; cv=fail; b=S1XWg+9578cKSlYIGezQSAFPbXgNU4umIBhIvbThDTjk5dnpkhQp/6iMnFBsfV9m6eFwehSPf3md7WigepU+tSYUHfF0BvKqSHFVaNpU36MLypvL68jr7Oau2rrxyiIaWH4R31LwP+OQ2CPnQAeF7m5MXMcQ0V2HpXAVaiM7CcM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782477220; c=relaxed/simple;
-	bh=Y41+IO+eaKZK+ikeiVajbs+K6G0q11zCVz26+RESpPU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VcO/giS0kv4tN1G7LXJ6XysXvSIs5GAIPOhlBIt0221R9mLIMei2094B0icw/WYpDR09uVzrALyuoEt8W4/8oB2xsv02F1G4zXMrgAP31z0KWFoHkNm1F1cbOxRS1FJsQO/LECk1MNyulzkmBkcliXPiXdJzHjXboFj5NyzIrdE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rMRBKVGV; arc=pass smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782477242; c=relaxed/simple;
+	bh=BxBwedZ4PGPR2LVsBY+BNNDzWCayJwUipkF4htncxXM=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=kT2WzzclVqtLQ6FfQzYJqHqlVkEIBxBAmuYX4OR2FEqyN0xEJmzR/xXeclRBBbIQAr2PRclB4pZWxUsWZrT2qOLq4iRcTvKei0U+LqtH3jlANPyPcBZqCS9i2lMRuh6gyGUAdY/mHODLL+e9trIMkGoD2xweFbjoBxLBtj+jb3E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=wHBfuK9B; arc=fail smtp.client-ip=52.101.46.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rMRBKVGV"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2c821a50615so2021635ad.0
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 05:33:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782477219; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DOZ9uis14l2xyO5K5vq+xAB3VndLfZjeObG9SM3gNQOWFy9TWB7qEYy6w7O5sC0X9K
-         v14qL4WnAtwKmKMFN6ORHM3veyHesCfb5ZCnl3deLj8DRQSS3NLGnHhPwJ0H5Tc2ZiVx
-         y2HwfuQuKK2Jdk+eI7rUMJmBOvjByx8eHaeQ7Yz7l+VG9G5ehwFTGzLo7UONo8un21cZ
-         dtqDeu9PiKMjgHGwadY9W5Y7xNj/RrnAXbaxqszRtQhFd4YkG+ydcBW0gCspAnj1GahJ
-         Pr2paheFdtMpyhoPHTtfiS1fRwx/HktsdZ0iMq6FfPVA6/hZ2aUz3wRLLbuTLumW3qvF
-         lzoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QKiii7sRDy26WbbBkMrjLHRLhE58fHpx4qsa98Lw9do=;
-        fh=/EG8amGD1d+gr6QppXnIZF3SR4Iiq8qGNn2D1QrGzIY=;
-        b=IB9Mj/8pQzUPuNke4poIaLk8S4gcnr2hT86QvVnRRj3kNAoPc+PAK/VCaYISu+zGYS
-         J056BrGTPcfylGnXRe19IGk8UqyQ6j3KSVETSviIPcrk5r2jKc/r5HQpsrG63yCzRgJG
-         Ay7Oak/5+zuqD1TtCk5Qke8QKH5DLdhH4+cUR2PAnVJfjYPC3KEEt6FLufxLgICs+2PZ
-         jbwOEU80f66LKGuV4BxXabhMHLuJvbE1hdxOUVHkhjbKu+yYZaS+cZ3Wz45Bgyv+mItf
-         xvo+Y9ykQuoACxy9ejCAJyw5sY+x+0VOxMqfjbWfjcpmW1VucZ47ob1HlvWptvOeDk/c
-         dWUw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782477219; x=1783082019; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QKiii7sRDy26WbbBkMrjLHRLhE58fHpx4qsa98Lw9do=;
-        b=rMRBKVGVv/UosuGLh1FiIYgG3JKDZBqfkfqhWqinA9npJNxe1jjlBiJQepJHrePHN8
-         3Fd+sHHDAJzhIaLSOGdz1/YABmuqN2fapZn6h2VljdLwNJY8WabbkM80AZDLR5PiHPW9
-         qcLxlKYD6fbArE898xjVP8k7KKXXoo1xTjTxwZraTqxtRs4pgCGfBo/h1gsYdph3PC7b
-         8xt+lTZjxiEg2TdDcqVWyKv0LZn5jUtZ2YXROeV3CmZz+ubt0+kq9iP2UPalSY4p3u3p
-         albUMQdewklduLalORjPUYh5Za30vqQ1BfRltRB1zx5jEJaWXQW7zDicLFQrIMNskitv
-         tvQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782477219; x=1783082019;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=QKiii7sRDy26WbbBkMrjLHRLhE58fHpx4qsa98Lw9do=;
-        b=UZHv8AugagZU82SKH9Uu9JcmYK0Nti2r6m/uf+G4tu2ryALN3CAC1cNS9BvgDqTzor
-         UGtXyHDnOAqBQMwvbmGjUSM1APnN4pP9epuiUltUHHECpWEvIo56HC5pLyqLEyulcfBe
-         kOQ/29w6AGRUH1wVJGm2OofXBt189Rau+pbFqDngfHEdk0LnIPU3deGZfHBlR2rs1dOy
-         X7d2oc2UEGU8C5/O8er6Yr1jrm05k/DYcqje6sLn/Rf/iRRSr0mckmzNqpWFHVYRXUtb
-         +k5l9rTJBV1/rzln76TFfn/cN6vUX73QMU6tFuzJVK5pE2dK4LM0Tw02e59LZSQC9j3X
-         WETg==
-X-Forwarded-Encrypted: i=1; AFNElJ+x3kptflvmcfNMhlAtkHkMlDV3/Wcgzacjml1jvIi18p5CwfoddQH+LyWXxVYyJHZlqxKwGx0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyjuYEzyDh7WRUb2BwSBB4+dnKo4zjHzctmfRd6XStYE0eGEOJ5
-	eeQnc2ktRdgylaSgStDNDZhsepSmY4yDd3fV/JmGU6F7IeZEfMHnLqM+BJ0fgoo52QnPyZyq8EK
-	v30ohhUNwoCdQxAEfiFWNyGU1p7arBd7drA==
-X-Gm-Gg: AfdE7cmFse/9l6TRP/YKtiYcr5M8SpCVt153pCQ3LpOdbbmtM8shv/M/U+BTR4ie+u7
-	luQiVNi9QZ5D9CDOMdj6DraYccr5qFhzEzwLlYaOdpUASJop8p6kWsMJUItuu9DnAXr8gP/ObjK
-	DBb4pTgHHip6WL2sY1VFKfciCEt9zrTSLK4FmyP01HpPk+qkUBQ1BABJwKMgy/59gy5OqImowRN
-	+9laklexnB0LP102F9K3UEQ6f1UyJktxWS/RYgwuWt5e09x19gvsdfzT7nghzVzTvDykI5R
-X-Received: by 2002:a05:6a20:72a2:b0:3bf:6c07:b2ec with SMTP id
- adf61e73a8af0-3bf6c07b6cbmr170450637.47.1782477218795; Fri, 26 Jun 2026
- 05:33:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="wHBfuK9B"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CQZmu5UQVmKwCZFWpE7T0HesLNiL1hhyQhZcX5XwEhWisE+QjhOSN3xZVouo5PYsH3HQwZkJYf5NpFKsAFoRJ6cHLm3F9kfHP+jCveO8jUopPZMZ7JGYo3sLS5QtdhmuCfYj1dxkOmf8zBh00s4n5WQCPVtw6K6P+Oh2Bk1tkUv6p2ubBBooqANC1eqU0fo8GlVkF3drqZVJYGPq6sDuYIH9sNn0iNBMuvOXr3LUv1T3K298EZZ8kyj5BtVYGu/XlF5p6QWLebfZN6n4wVR7K7AKqEqDiHykwMCPBJn5hSgjCnzlwmhYd4iwAMZAlaCTV3c3Yn/e5CY2wkb3IeNK/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uR1mEWNmQzsZX5ybjlcNz5c4f4pT+EKoC36s4D3BbVE=;
+ b=j9QwIiC0d0/478Vs3DM5eF0Eu+ZlM3Us/CIB58VuaCPFZrfcq4vQ7UppD03Q0d6pT7BoJnESQMflgOjdKy2yHpnsyDSPai1eG4BwYVST2ILD1bxHAN7UQRfH1wEXxAyw5Hu/dXBjJStB+vAmVVBNIx2+LG5P63apfDptwH5TpfQS7BmRnCbT9C6qcn0BGb5/rvkBw6x19nWPetWdeXNXBOmQlirKl/9SrAnWOXOTjunchEGg+r6yB/aInGyufIHiB0uOibmf6U6J6qF4BgdonC/7vkw/DvMgvzI/pZTM92qxDXd4RPHdN8Z6iD2M+VS0/50Q0M8xuhnWUunvlzzK0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uR1mEWNmQzsZX5ybjlcNz5c4f4pT+EKoC36s4D3BbVE=;
+ b=wHBfuK9BtbbtGZdTsoNFHnwBxJqi/2UhKCUyx6rLFFaAFnAG3kq//hyp8weHaWX5lK9t+h8mdyGpoaFLREEElMeuT0uZr0li00G7oSqg43BR3QMoZbkw0bjw85wtyT0ajbAxqOrqvg9yAApkPq5v0bFewuFNGux1Fq5SrWNjL6M=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY5PR12MB6372.namprd12.prod.outlook.com (2603:10b6:930:e::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
+ 2026 12:33:58 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
+ 12:33:58 +0000
+Message-ID: <414021d5-e6b2-4219-9ad9-2c342cbbc7f3@amd.com>
+Date: Fri, 26 Jun 2026 14:33:54 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fix: dma-buf: fence_chains_init: error unwind path leaks
+ enable_sw_signaling reference
+To: WenTao Liang <vulab@iscas.ac.cn>, sumit.semwal@linaro.org
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260626121825.35310-1-vulab@iscas.ac.cn>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260626121825.35310-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1P221CA0043.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:208:5b5::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260625235336.3641828-1-tristmd@gmail.com>
-In-Reply-To: <20260625235336.3641828-1-tristmd@gmail.com>
-From: Stephen Smalley <stephen.smalley.work@gmail.com>
-Date: Fri, 26 Jun 2026 08:33:27 -0400
-X-Gm-Features: AVVi8Ccp1iuAyE48UTPXyK784Xo-U5147VxNhSAxuBmnkYfUtw53ymAHJ6hbU2g
-Message-ID: <CAEjxPJ6pneeDyPT6-OL+0S6J4SZwM4XQzSn2zK8JwmNnwNqjCA@mail.gmail.com>
-Subject: Re: [PATCH v3] selinux: avoid sk_socket dereference in selinux_sctp_bind_connect()
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Paul Moore <paul@paul-moore.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
-	Richard Haines <richard_c_haines@btinternet.com>, selinux@vger.kernel.org, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	tristan@talencesecurity.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6372:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6511d4b2-a26e-4e49-3534-08ded37f319b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|22082099003|18002099003|6133799003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	bruDg/mtsJrljz4ebKN2qZsRJFilhrwg/mf4/DjAC+VLKGsl99rqxAnNNcnqC5i9YFrns2Nn2b8SDD5vXZlFjlggHF8gWg4KoU831WdnSXY3cZZPBgcayhxSbRQlL9ESRSBLD2t0EpeKH1m2n84t97iooz2nCJ/IAAdaZbqW49jl7WMotBnOHaHSViGWWXUjLRU9lLzPIj0ivFYc6gaw8QMJTMuxMw2ogHvrXhPtoepfn7a1LzoK4JFaD8UexvQ4S9afM8tS3bcWL7moCAcLrp9Rr01Qk3JRL0awMhfg0rWXhhLGA9hEDmqWF1bYHANKyvtQqb/YV8ZnM2YFER+XAdOR4dxoqXnpx53mXl4QwRlHPnexjI1lFDlDKtVbF9+g7Zaf13Uim6HwatMtAtvf+mKyP++gtYN6BEcednRx98Xv5PL2mq3FH/LoX79AGLTRbOGJtQc5BpgyrpFqYSXEAj1AhCrBNZzUipk87zZ7HaBXbPmS9tUHRI8ttQ6iV91K9Z7N3SHm8uwCD3VA0dbrhqOb38Cy7Kn8TtOHbxUdnkTWAopxTISNtllLuNVy6GKNCxWBURhA0e2sXw9X3+xoLGo8elMqaZoJFj8d3jGV469ylV5RE0OUVViW8DUO/14JPw/2R1y9WfzcBCfBtOSl7XjJaHqa/GYj1xEMwCp5sFs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MXpBL0NNNEJ4NEh5NytmVXhZYWFHeTZPREVKaG5Tb0Q2NDFIN2VrenBWU2l6?=
+ =?utf-8?B?UENHZ0M1d0h0NittbEdFREUwemFGWE14UmZ4d1V2QmxFYjRORmMwU0RqSUFu?=
+ =?utf-8?B?Z1pSUllvbS9WUGxCR2R3QlhOaWlkMkxhV0RtbXJCY1U1L0M5empHdWYvMlZ6?=
+ =?utf-8?B?ZitlZ2R6VWVZaTZtVHRadERSL05HelArdy9zbjB1UENvcWRrT0pLZ0dnbXdV?=
+ =?utf-8?B?TE9VdmRGeUFZajBVd1VJY1Q1YWFGU2cyV0FJK01lWGowT0JHUjZSclRQaktt?=
+ =?utf-8?B?NXVmRXZqZFhubHBLNkhVQjJTVTZhQ2toL1M0MkdpUENmMFkvOVFIdWljamZz?=
+ =?utf-8?B?eGZrb1k3YXlINUlKUmZnTm5YdEFtTWdpQkRwOUhENTRZQWlpNVJTdHJwRmhQ?=
+ =?utf-8?B?UmlXeHJwMkd5UkM5by9wdFppTERIL2FwMjNsZ3FhVHhFdDlraVpoMWh3WmFr?=
+ =?utf-8?B?U1lqeXg5eGR6YlFHMnVSUUtSd0hkL1B1ZUhlYkFZekU1TGxlZ1ZzL2ZJWHBh?=
+ =?utf-8?B?cXZ1WlpUbXFKaTNoNHFEc3NsVTF2T05qWkVRWndUQkN2RjVPT056dG5vVGta?=
+ =?utf-8?B?clh3VC9PcnUxZHlwZjRuS1QvMVNYTjhKaEZZRlBNd0x0RGhtVWk3R3B3Z3Ba?=
+ =?utf-8?B?TzZIVTFxTGx1TGxHcFhmOUkyWWs2UHBZVGlnT0NpYmJkZU9ZVmRNZ2E0Y2cz?=
+ =?utf-8?B?dlBSaDNpOGRuTzdaLzBTTzBwa2pFeG54cE9jNVhCRStBTkRtcitkR2toWFVB?=
+ =?utf-8?B?T0kyWW1CRGptQ2RLaEpzU1JUTDRldk1weVhrRHg0c1ppb3pFaE5ieHhWcUdR?=
+ =?utf-8?B?SmVaTVd1NnJWZ2Y4STJlTHptODA4U0ZFdVdXY2tIeDlkeDZ5amtRT1JmMHpX?=
+ =?utf-8?B?R1ZmQWhGSU5wMFFMVDdHT2ZGVGlWTWhGNVpXVS9EZ1hyU2EzTk5mbU14RGln?=
+ =?utf-8?B?eTRmSXp0UXJSakhoUUxVL3grR1dZd3gzaFVKRlF5QkZla3pQa2pDN0krMkJ4?=
+ =?utf-8?B?M2VUdWpjT1RUY1NYbUFId3VMcDdUcGtLaFRoYlRUbG9tZ3lqVUxyZTgwT3A5?=
+ =?utf-8?B?ZVQ5NXA5TlZoRVZ4S0ZkbCt5TVIyakVQeEsxaHZTTDBzOXF4RmIvd0VFVHdF?=
+ =?utf-8?B?cWVqczJKYlNROXgzR1l3MENZVjd2dU1ZNzA2WkN5dnFYNWI5OWMwYjR1clE0?=
+ =?utf-8?B?NUcwaHNoUEsxTVdqakttZlhPSG5IemwrU0ptcEJ4aG1TQm1OVytlWisvbG40?=
+ =?utf-8?B?WjB6TFh3NkRsK2diK0Rzc0pJeFFIZHZoellMdEwySnU4QmR4TlhrS2hHcERt?=
+ =?utf-8?B?ZW11ZjM4c0JCZEJqQmQxem8wMnVpTFRkSUw5MzE1OVl2WFBqcUpTRGVQZ3Bw?=
+ =?utf-8?B?V2h0alpsdGN0QkV2NXJUNEsxbkgzeHU2OGRpQVAvT0xOSzBDQXd5NURhSURi?=
+ =?utf-8?B?Mnk4L0VoM2phT2pST05mMW80SEJKTytKdWZua2NTeStkSmNjUzhyMnZtcU1D?=
+ =?utf-8?B?VjB1bThlSG1FSklETGg3eklPUGZHKzlHTDQzTVF5dWR6Z3Z3QU1LeW9EVSsv?=
+ =?utf-8?B?eVNqcXpLUWxMMXZQb0ZlYzdpbHBnR2ZRaGxwWjBhL0QwQ2hBOWJmQ09JK0Nn?=
+ =?utf-8?B?MkhteXhnTDhRU0xrRGxOQi9OQWdZb0FjUW4zS0wzdGxmSWhheTFydXpVbHFH?=
+ =?utf-8?B?NExMbm9tV0d6ckRYdnlGUzE5aUZkZ3ZQQTNDdkw4d3VKS2pZOTdCWWt2ckZD?=
+ =?utf-8?B?S3hDOEVlYmpPaCtoZnFLOVZzTWIzVTVjcGlwdlBvekdMTU5uM0FLeXlRdzA0?=
+ =?utf-8?B?UUVWZ25KSlJ0c0ttTHQ3WEc4R0k0VUdZWnppM3pzR1o5cmpJM2hxL2tSeWVR?=
+ =?utf-8?B?UVQyZVB4dHIyMXN3cHgzUGVzWXcvYWFySWFDaE1rcjUybytkZjEzdi9IelAx?=
+ =?utf-8?B?U3paSmdkS09DVFAvZDlRbk1LQ3FrZEJPZ2RFVFY1bmtsQzgzM2U4SS9MRG9r?=
+ =?utf-8?B?b3hOU0dhdVA0S1VHR0tJaXc1S21DWUFqQzdrRXBMYWlqZXpOWUVKR1I1WHJS?=
+ =?utf-8?B?Vlp0WWk4ek1sZTlQOHZHYjFEWHJMamFzbEw1SHpqRXFHcmpGTTVCSFpFZVhV?=
+ =?utf-8?B?Tktic3B6cWVPQzJUY2tYNG1zaDJ1dUVKOFNUcDdkMlFEMkxnZ2lieTF0QTho?=
+ =?utf-8?B?WVNhMVdTTE0yOG5pNDJtc0loVW9ONGtUVjdKOThWbmZ1VnA5QzVEZC9ScTNN?=
+ =?utf-8?B?eWFxUWNDYXgrNUtuSGlDWGFIeG11RVRVUHNDN3NJVSszeDVFejlRL2w3MXBH?=
+ =?utf-8?Q?STSex74g7M+4eG31uR?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6511d4b2-a26e-4e49-3534-08ded37f319b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 12:33:58.1291
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2AOtuVfL4EaQCi7pVRJ6kXw2j9peBELcRDRIqdyFAYcdRsRXZsN+uUUsguCbreEz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6372
 
-On Thu, Jun 25, 2026 at 7:53=E2=80=AFPM Tristan Madani <tristmd@gmail.com> =
-wrote:
->
-> From: Tristan Madani <tristan@talencesecurity.com>
->
-> selinux_sctp_bind_connect() dereferences sk->sk_socket to pass a
-> struct socket * to selinux_socket_bind() and
-> selinux_socket_connect_helper().  However, when the hook is invoked
-> from the ASCONF softirq path (sctp_process_asconf), there is no file
-> reference guaranteeing that sk->sk_socket is non-NULL.  The setsockopt
-> callers (bindx, connectx, set_primary, sendmsg connect) hold a file
-> reference and are not affected.
->
-> Both selinux_socket_bind() and selinux_socket_connect_helper()
-> immediately resolve sock->sk, never using the struct socket * for
-> anything else.  Refactor the inner logic into helpers that take a
-> struct sock * directly so that selinux_sctp_bind_connect() never needs
-> to touch sk->sk_socket at all.
->
-> Suggested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-> Fixes: d452930fd3b9 ("selinux: Add SCTP support")
+On 6/26/26 14:18, WenTao Liang wrote:
+> dma_fence_enable_sw_signaling acquires an extra reference on each chain
+>   fence. The error unwind loop calls dma_fence_put only once per
+>   chain/fence without first signaling the fence to trigger the callback
+>   that releases the signaling reference. This prevents the chain fence kref
+>   from reaching 0, permanently leaking the chain and its contained fence.
+> 
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+> Fixes: dc2f7e67a28a ("dma-buf: Exercise dma-fence-chain under selftests")
 
-Reviewed-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Tested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Please drop that, this is a minor issue in a unit test and not anything which needs backporting.
 
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 > ---
-> Changes in v3:
->   - Keep comment describing IPv4/IPv6 address processing loop
->     (Stephen Smalley).
->
-> Changes in v2:
->   - Refactor selinux_socket_bind() and selinux_socket_connect_helper()
->     into sk-based inner helpers instead of adding a NULL check on
->     sk->sk_socket (Stephen Smalley).
->
->  security/selinux/hooks.c | 19 ++++++++++---------
->  1 file changed, 10 insertions(+), 9 deletions(-)
->
-> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> index fc926d3..1f202f6 100644
-> --- a/security/selinux/hooks.c
-> +++ b/security/selinux/hooks.c
-> @@ -4689,9 +4689,8 @@ static int selinux_socket_socketpair(struct socket =
-*socka,
->     Need to determine whether we should perform a name_bind
->     permission check between the socket and the port number. */
->
-> -static int selinux_socket_bind(struct socket *sock, struct sockaddr *add=
-ress, int addrlen)
-> +static int __selinux_socket_bind(struct sock *sk, struct sockaddr *addre=
-ss, int addrlen)
->  {
-> -       struct sock *sk =3D sock->sk;
->         struct sk_security_struct *sksec =3D selinux_sock(sk);
->         u16 family;
->         int err;
-> @@ -4825,13 +4824,17 @@ err_af:
->         return -EAFNOSUPPORT;
->  }
->
-> +static int selinux_socket_bind(struct socket *sock, struct sockaddr *add=
-ress, int addrlen)
-> +{
-> +       return __selinux_socket_bind(sock->sk, address, addrlen);
-> +}
-> +
->  /* This supports connect(2) and SCTP connect services such as sctp_conne=
-ctx(3)
->   * and sctp_sendmsg(3) as described in Documentation/security/SCTP.rst
->   */
-> -static int selinux_socket_connect_helper(struct socket *sock,
-> +static int selinux_socket_connect_helper(struct sock *sk,
->                                          struct sockaddr *address, int ad=
-drlen)
->  {
-> -       struct sock *sk =3D sock->sk;
->         struct sk_security_struct *sksec =3D selinux_sock(sk);
->         int err;
->
-> @@ -4924,7 +4927,7 @@ static int selinux_socket_connect(struct socket *so=
-ck,
->         int err;
->         struct sock *sk =3D sock->sk;
->
-> -       err =3D selinux_socket_connect_helper(sock, address, addrlen);
-> +       err =3D selinux_socket_connect_helper(sk, address, addrlen);
->         if (err)
->                 return err;
->
-> @@ -5409,13 +5412,11 @@ static int selinux_sctp_bind_connect(struct sock =
-*sk, int optname,
->         int len, err =3D 0, walk_size =3D 0;
->         void *addr_buf;
->         struct sockaddr *addr;
-> -       struct socket *sock;
->
->         if (!selinux_policycap_extsockclass())
->                 return 0;
->
->         /* Process one or more addresses that may be IPv4 or IPv6 */
-> -       sock =3D sk->sk_socket;
->         addr_buf =3D address;
->
->         while (walk_size < addrlen) {
-> @@ -5444,14 +5445,14 @@ static int selinux_sctp_bind_connect(struct sock =
-*sk, int optname,
->                 case SCTP_PRIMARY_ADDR:
->                 case SCTP_SET_PEER_PRIMARY_ADDR:
->                 case SCTP_SOCKOPT_BINDX_ADD:
-> -                       err =3D selinux_socket_bind(sock, addr, len);
-> +                       err =3D __selinux_socket_bind(sk, addr, len);
->                         break;
->                 /* Connect checks */
->                 case SCTP_SOCKOPT_CONNECTX:
->                 case SCTP_PARAM_SET_PRIMARY:
->                 case SCTP_PARAM_ADD_IP:
->                 case SCTP_SENDMSG_CONNECT:
-> -                       err =3D selinux_socket_connect_helper(sock, addr,=
- len);
-> +                       err =3D selinux_socket_connect_helper(sk, addr, l=
-en);
->                         if (err)
->                                 return err;
->
-> --
-> 2.47.3
->
+>  drivers/dma-buf/st-dma-fence-chain.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dma-buf/st-dma-fence-chain.c b/drivers/dma-buf/st-dma-fence-chain.c
+> index 821023dd34df..7dc18e294387 100644
+> --- a/drivers/dma-buf/st-dma-fence-chain.c
+> +++ b/drivers/dma-buf/st-dma-fence-chain.c
+> @@ -152,7 +152,10 @@ static int fence_chains_init(struct fence_chains *fc, unsigned int count,
+>  
+>  unwind:
+>  	for (i = 0; i < count; i++) {
+> -		dma_fence_put(fc->fences[i]);
+> +		if (fc->fences[i]) {
+> +			dma_fence_signal(fc->fences[i]);
+> +			dma_fence_put(fc->fences[i]);
+> +		}
+
+The usual text book idiom for such cleanup cases is:
+
+while (i--) {
+	dma_fence_signal(fc->fences[i]);
+	dma_fence_put(fc->chains[i]);
+}
+
+Additional to that we need a different error handling target for the case that the mock_chain() allocation fails (or just do another dma_fence_put there).
+
+Regards,
+Christian.
+
+>  		dma_fence_put(fc->chains[i]);
+>  	}
+>  	kvfree(fc->fences);
+
