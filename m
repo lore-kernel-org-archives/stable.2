@@ -1,31 +1,32 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A04363C46;
-	Fri, 26 Jun 2026 15:03:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4DA37474E;
+	Fri, 26 Jun 2026 15:04:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782486199; cv=none; b=K04D/MoWRvrNNmFbg97S+kuB1aRNj9/lj68Cx8FQKHRPNT8utHxcOizerncMWsc7d9u5cPVhDpMjjo9rpLVGwF0d3/Emw2EOB4cUlo34h8bV2QmYxyrGeexXLqoZ9tdjGUiwzT+mJdzlJTsMM1hjfwnLpMzvSYRL9bmc1VX2Svc=
+	t=1782486255; cv=none; b=EkLBT93QJDnoL3y68v2w5O/qD0sE9qRO3SMhwSZ24YCkfIxOOMeG3jWWZ5aXEI+QK499ZKiOxL5iDFr996jkSga0ZWVL9G+NiKNtPmpshTB3YKJudoOeK8RGSQjF3yMyit9xkmca2WXB576MR0efmNGXGlfKKgz1kfzFtbUGYZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782486199; c=relaxed/simple;
-	bh=O1G+q5mXYegd2BUhunPhLkRmzlP6u63R2SRS/JAOJjU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QY1YgXGy2sVEK2VThz/OosYhw3843efLqx28iCzFD3r+zduWQEUGBxbDQhJiwn5LJPoYz30cA9z0qY9Tks/l/NcgU7R1mElS6WVF1QI5pB76l7l73L++0X7uZaFXrihur3adufB+P5XIf8zok8oyok/kIL7gl5steDiIoeHEPJg=
+	s=arc-20240116; t=1782486255; c=relaxed/simple;
+	bh=LmsT+8W4InIru9/wUAJmAaqAkEVIU0R5bwNc23vjHm0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LVnW15w+kqK26BP1LOTbtfIaJcPJnJKOXTJc9f2zzlM3Yc2iE8uXlROl8PIusnI3ReuzX6zr6031whJVUk5xZxnHoVIdVtLg9MPQ8k2KTQdrFUp8zgm/qksTiuRgojKBMA8F9eQZttJmmgF7VjW799BJFBdXC4dVOcttH/UmbDE=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-01 (Coremail) with SMTP id qwCowACXOtOulD5qHVdrAw--.53907S2;
-	Fri, 26 Jun 2026 23:03:11 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowAAnzNTolD5qGV1rAw--.16670S2;
+	Fri, 26 Jun 2026 23:04:09 +0800 (CST)
 From: WenTao Liang <vulab@iscas.ac.cn>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-i2c@vger.kernel.org
-Cc: Peter Rosin <peda@lysator.liu.se>,
+To: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+	linux-rdma@vger.kernel.org
+Cc: Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
 	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	WenTao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH] fix: i2c: i2c_mux_add_adapter: fix child device_node reference leak on   adapter registration failure
-Date: Fri, 26 Jun 2026 23:03:10 +0800
-Message-Id: <20260626150310.49875-1-vulab@iscas.ac.cn>
+Subject: [PATCH] fix: infiniband/hfi1: __sdma_process_event: fix refcount underflow on   s00_hw_down + e40_sw_cleaned event path
+Date: Fri, 26 Jun 2026 23:04:08 +0800
+Message-Id: <20260626150408.49976-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -34,11 +35,11 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACXOtOulD5qHVdrAw--.53907S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrur1rArW5XFy3Aw47uw13CFg_yoWDAwc_CF
-	yrX3srWrn8Krs8urZrXFWfuwnakF1kuFZ3Aan7KFW3Aas7XFsrCFWfXrs3Cw45Jw4kKa4D
-	Xw4kWr1xuw17tjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb4AFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+X-CM-TRANSID:qwCowAAnzNTolD5qGV1rAw--.16670S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7XFW5Aw13Ww43Kr45WF4DArb_yoWkuFg_ZF
+	y5Jr97Wr1qyF9YyF98Gr1fZ3ZrtayFqw1kWrn2gw1fA343XFZ8AayvvrW5Xw47XrW8JF4v
+	krn8GrWIyr4YvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb4AFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
 	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
 	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
 	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
@@ -49,37 +50,38 @@ X-Coremail-Antispam: 1UD129KBjvdXoWrur1rArW5XFy3Aw47uw13CFg_yoWDAwc_CF
 	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkG
 	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI
 	0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj2YLD
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUjZNVP
 	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUKA2o+iCgj+QAAs7
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgIKA2o+h0EnlAAAss
 
-When the OF block successfully acquires a child device_node reference and
-  stores it in priv->adap.dev.of_node, but the subsequent
-  i2c_add_numbered_adapter or i2c_add_adapter call fails, the error path
-  jumps to err_free_priv which only kfree's the priv without calling
-  of_node_put on the stored child node, leaking the reference.
+When the SDMA engine is in the s00_hw_down state and receives the
+  e40_sw_cleaned event, the code directly calls sdma_sw_tear_down which
+  unconditionally performs a kref_put via sdma_put. However, no matching
+  sdma_get was ever executed on this path (sdma_get is only called in the
+  e10/e30 event paths). This causes a refcount underflow.
 
-Add of_node_put(priv->adap.dev.of_node) in the err_free_priv error path.
+Skip the sdma_sw_tear_down call in the s00_hw_down + e40_sw_cleaned path
+  since no reference was acquired.
 
 Cc: stable@vger.kernel.org
-Fixes: a7ab72390b77 ("i2c: mux: add common data for every i2c-mux instance")
+Fixes: 7724105686e7 ("IB/hfi1: add driver files")
 Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- drivers/i2c/i2c-mux.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/infiniband/hw/hfi1/sdma.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/i2c/i2c-mux.c b/drivers/i2c/i2c-mux.c
-index 681a201c239b..68a4c34b5987 100644
---- a/drivers/i2c/i2c-mux.c
-+++ b/drivers/i2c/i2c-mux.c
-@@ -408,6 +408,7 @@ int i2c_mux_add_adapter(struct i2c_mux_core *muxc,
- 	return 0;
- 
- err_free_priv:
-+	of_node_put(priv->adap.dev.of_node);
- 	kfree(priv);
- 	return ret;
- }
+diff --git a/drivers/infiniband/hw/hfi1/sdma.c b/drivers/infiniband/hw/hfi1/sdma.c
+index cfd9dd0f7e81..bf35deb8aa6f 100644
+--- a/drivers/infiniband/hw/hfi1/sdma.c
++++ b/drivers/infiniband/hw/hfi1/sdma.c
+@@ -2539,7 +2539,6 @@ static void __sdma_process_event(struct sdma_engine *sde,
+ 		case sdma_event_e25_hw_clean_up_done:
+ 			break;
+ 		case sdma_event_e40_sw_cleaned:
+-			sdma_sw_tear_down(sde);
+ 			break;
+ 		case sdma_event_e50_hw_cleaned:
+ 			break;
 -- 
 2.39.5 (Apple Git-154)
 
