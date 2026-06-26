@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7643FD956
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E893FE34D
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490325; cv=none; b=iW8QtYW87jAnxmd8SXZjmppi1FSBQ5DEhLfS7T+73+FUIRNHPyl/ELeQoSDyEL/GQJ1DSDqTGtyTes+wRF3Fgf+OoSfUNabHmnFFeUMGYYhTeSIwy8FB9kaBOTARd0p37wMRgSRgtcmZ8k0YnBHfMyLmYkSiBqvLtU60u1BsFJo=
+	t=1782490326; cv=none; b=JHQUlg2UzWqJ9uWzfsMxQqTxqbJEMPu9dCF3k5YOt36+/wj32fHKbgt30LC20z3lP9NG4i2NABMWp9ERyfAwPSUiIsgHLeR+wLfr0uLHNDrv1whyNMIGCzQqSiCObPfKJZ8PDHTY+TICA0cYahFgzliDRkJUtuB4HYy4mutxbVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782490325; c=relaxed/simple;
-	bh=aSdsrK2/6a/tNUU7dv+thMORcs0EFDtVnYZbVyz9odg=;
+	s=arc-20240116; t=1782490326; c=relaxed/simple;
+	bh=GUL8yGybeI2Ts18PAUAtSGIOE1BbdL6TY5Q5W1M4c78=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hVmDKZneK5+KpfiyECD3/fClLC1O3MCQ+XqJ/dgVm673gJUz+WNYpAfOUqe3nbJ95gXXoHDnLRWLymUfhsbgr+y7RYd2Rlx0kuChngtwYcc7nhL+tVRhlu1YL8sjlDAldjElQ5/N8pQiDjfZWYoIybHgwN0PpgxuRuE9ddkxpd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=qW42XN+U; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=a+MPaj16RJuErVqrvQQWSe/ixI7fwVjXGHG/c4tNnooCKyaUHRloeDwZcx0+V/iqBMHFmX7NonPB3FPSq3m0xT95igzz7I7tC2PvvGVkmeS3UdDJUq5cgcrjLujOYDLlei1/EYBQwCEckVVoKDYV59k6Ze1WRoZ+MEG4bzo/vEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=z6gDPDjO; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="qW42XN+U"
-Received: by dvalin.narfation.org (Postfix) id 955FC202D1;
-	Fri, 26 Jun 2026 16:11:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="z6gDPDjO"
+Received: by dvalin.narfation.org (Postfix) id 2AC8B20536;
+	Fri, 26 Jun 2026 16:12:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490318;
+	s=20121; t=1782490321;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pDgUNjA2JtgMoIFe0i2GTqIOE3nTZk6bP7m5K0wZj0w=;
-	b=qW42XN+U3ssXuVnZuAMO5Zfc0G/2vfq2Ma82C/4PWosjQm+8U8cMQwdJT6/owHS45vGfgP
-	H5vZYeZAzgFcPN6gN8evMRZZrW4XAcHfM9wk7nk/K/aAJVC1r6skQT5PcY/H8jdeQQsUG4
-	Hy4bfj8pc46cxdW2RnmB7dBKcGLjgt0=
+	bh=Ns9tj+zoJbI+kY0/c3wzt4i80bd08A3jWPqKtharB+k=;
+	b=z6gDPDjOggRdYmvHZ53wQRO4IMlpnah+vzLnsSpOPLNP/1iedfArclGPEi4M9MgIC6zsQq
+	txyIs5uD8xoHuic4l5vbsXra1zgIgUsloDn95u30ReTk8gOZCYwv0KLjDfSTMtDWLB3uWQ
+	yjjHfDF+u0YHZdBJrWcLqAS0hDY5x50=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.12 08/25] batman-adv: tp_meter: add only finished tp_vars to lists
-Date: Fri, 26 Jun 2026 18:11:37 +0200
-Message-ID: <20260626161154.124562-9-sven@narfation.org>
+Subject: [PATCH 6.12 14/25] batman-adv: frag: ensure fragment is writable before modifying TTL
+Date: Fri, 26 Jun 2026 18:11:43 +0200
+Message-ID: <20260626161154.124562-15-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161154.124562-1-sven@narfation.org>
 References: <20260626161154.124562-1-sven@narfation.org>
@@ -45,68 +45,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 15ccbf685222274f5add1387af58c2a41a95f81e upstream.
+commit b7293c6e8c15b2db77809b25cf8389e35331b27a upstream.
 
-When the receiver variables (aka "session") are initialized, then they are
-added to the list of sessions before the timer is set up. A RCU protected
-reader could therefore find the entry and run mod_setup before
-batadv_tp_init_recv() finished the timer initialization.
+Before batman-adv is allowed to write to an skb, it either has to have its
+own copy of the skb or use skb_cow() to ensure that the data part is not
+shared. But batadv_frag_skb_fwd() modifies the TTL even when it is shared.
 
-The same is true for batadv_tp_start(), which must first initialize the
-finish_work and the test_length to avoid a similar problem.
+Adding a skb_cow() right before this operation avoids this and can at the
+same time prepare it for the modifications required to forward the
+fragment.
 
 Cc: stable@kernel.org
-Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
+Fixes: 610bfc6bc99b ("batman-adv: Receive fragmented packets and merge")
+[ Context ]
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/tp_meter.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ net/batman-adv/fragmentation.c | 15 ++++++++++++++-
+ net/batman-adv/fragmentation.h |  3 ++-
+ net/batman-adv/routing.c       |  3 +--
+ 3 files changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index 089ac7cc9fbeb..2bba53fc6da5c 100644
---- a/net/batman-adv/tp_meter.c
-+++ b/net/batman-adv/tp_meter.c
-@@ -1096,21 +1096,21 @@ void batadv_tp_start(struct batadv_priv *bat_priv, const u8 *dst,
- 	tp_vars->prerandom_offset = 0;
- 	spin_lock_init(&tp_vars->prerandom_lock);
- 
--	kref_get(&tp_vars->refcount);
--	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
--	spin_unlock_bh(&bat_priv->tp_list_lock);
--
- 	tp_vars->test_length = test_length;
- 	if (!tp_vars->test_length)
- 		tp_vars->test_length = BATADV_TP_DEF_TEST_LENGTH;
- 
-+	/* init work item for finished tp tests */
-+	INIT_DELAYED_WORK(&tp_vars->finish_work, batadv_tp_sender_finish);
-+
-+	kref_get(&tp_vars->refcount);
-+	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
-+	spin_unlock_bh(&bat_priv->tp_list_lock);
-+
- 	batadv_dbg(BATADV_DBG_TP_METER, bat_priv,
- 		   "Meter: starting throughput meter towards %pM (length=%ums)\n",
- 		   dst, test_length);
- 
--	/* init work item for finished tp tests */
--	INIT_DELAYED_WORK(&tp_vars->finish_work, batadv_tp_sender_finish);
--
- 	/* start tp kthread. This way the write() call issued from userspace can
- 	 * happily return and avoid to block
+diff --git a/net/batman-adv/fragmentation.c b/net/batman-adv/fragmentation.c
+index fd7cb789ae9a6..f6714405b0f94 100644
+--- a/net/batman-adv/fragmentation.c
++++ b/net/batman-adv/fragmentation.c
+@@ -384,6 +384,8 @@ bool batadv_frag_skb_buffer(struct sk_buff **skb,
+  * @skb: skb to forward
+  * @recv_if: interface that the skb is received on
+  * @orig_node_src: originator that the skb is received from
++ * @rx_result: set to NET_RX_SUCCESS when the fragment was forwarded and
++ *  NET_RX_DROP when it was dropped; only valid when true is returned
+  *
+  * Look up the next-hop of the fragments payload and check if the merged packet
+  * will exceed the MTU towards the next-hop. If so, the fragment is forwarded
+@@ -393,7 +395,8 @@ bool batadv_frag_skb_buffer(struct sk_buff **skb,
+  */
+ bool batadv_frag_skb_fwd(struct sk_buff *skb,
+ 			 struct batadv_hard_iface *recv_if,
+-			 struct batadv_orig_node *orig_node_src)
++			 struct batadv_orig_node *orig_node_src,
++			 int *rx_result)
+ {
+ 	struct batadv_priv *bat_priv = netdev_priv(recv_if->soft_iface);
+ 	struct batadv_neigh_node *neigh_node = NULL;
+@@ -412,12 +415,22 @@ bool batadv_frag_skb_fwd(struct sk_buff *skb,
  	 */
-@@ -1430,10 +1430,10 @@ batadv_tp_init_recv(struct batadv_priv *bat_priv,
- 	INIT_LIST_HEAD(&tp_vars->unacked_list);
+ 	total_size = ntohs(packet->total_size);
+ 	if (total_size > neigh_node->if_incoming->net_dev->mtu) {
++		if (skb_cow(skb, ETH_HLEN) < 0) {
++			kfree_skb(skb);
++			*rx_result = NET_RX_DROP;
++			ret = true;
++			goto out;
++		}
++
++		packet = (struct batadv_frag_packet *)skb->data;
++
+ 		batadv_inc_counter(bat_priv, BATADV_CNT_FRAG_FWD);
+ 		batadv_add_counter(bat_priv, BATADV_CNT_FRAG_FWD_BYTES,
+ 				   skb->len + ETH_HLEN);
  
- 	kref_get(&tp_vars->refcount);
--	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
-+	timer_setup(&tp_vars->timer, batadv_tp_receiver_shutdown, 0);
+ 		packet->ttl--;
+ 		batadv_send_unicast_skb(skb, neigh_node);
++		*rx_result = NET_RX_SUCCESS;
+ 		ret = true;
+ 	}
  
- 	kref_get(&tp_vars->refcount);
--	timer_setup(&tp_vars->timer, batadv_tp_receiver_shutdown, 0);
-+	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
+diff --git a/net/batman-adv/fragmentation.h b/net/batman-adv/fragmentation.h
+index dbf0871f87030..51e281027ab63 100644
+--- a/net/batman-adv/fragmentation.h
++++ b/net/batman-adv/fragmentation.h
+@@ -19,7 +19,8 @@ void batadv_frag_purge_orig(struct batadv_orig_node *orig,
+ 			    bool (*check_cb)(struct batadv_frag_table_entry *));
+ bool batadv_frag_skb_fwd(struct sk_buff *skb,
+ 			 struct batadv_hard_iface *recv_if,
+-			 struct batadv_orig_node *orig_node_src);
++			 struct batadv_orig_node *orig_node_src,
++			 int *rx_result);
+ bool batadv_frag_skb_buffer(struct sk_buff **skb,
+ 			    struct batadv_orig_node *orig_node);
+ int batadv_frag_send_packet(struct sk_buff *skb,
+diff --git a/net/batman-adv/routing.c b/net/batman-adv/routing.c
+index 85bc2d284a779..6fd18b69e5f6b 100644
+--- a/net/batman-adv/routing.c
++++ b/net/batman-adv/routing.c
+@@ -1175,10 +1175,9 @@ int batadv_recv_frag_packet(struct sk_buff *skb,
  
- 	batadv_tp_reset_receiver_timer(tp_vars);
+ 	/* Route the fragment if it is not for us and too big to be merged. */
+ 	if (!batadv_is_my_mac(bat_priv, frag_packet->dest) &&
+-	    batadv_frag_skb_fwd(skb, recv_if, orig_node_src)) {
++	    batadv_frag_skb_fwd(skb, recv_if, orig_node_src, &ret)) {
+ 		/* skb was consumed */
+ 		skb = NULL;
+-		ret = NET_RX_SUCCESS;
+ 		goto put_orig_node;
+ 	}
  
 -- 
 2.47.3
