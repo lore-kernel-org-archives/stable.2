@@ -1,115 +1,114 @@
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2DE35F5F8
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 05:13:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F075A1714AA;
+	Fri, 26 Jun 2026 05:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782450793; cv=none; b=Lc5IyxjxfedYXbrUTgGkn6PnCw67FKIfJSFYY4xQsGwvWOAvmiu3EzS/Rune/dxup/mFD85dL7Rnqhz5ZfKpxjW21xHmBS/pEfS/wyZF/7WFuu0dBgQqgDALvnHKhvyHz5hb+fYN9OPTR0jOjkuluaLej5D6HmtYEW6NHg9mXEI=
+	t=1782451057; cv=none; b=oH8xJAE6Bu/bbzuC3HV2TXhVn4q81RAOfNnyAWPWSOW2/uJmX7bp5pPTNpeXEqq86EXnquspSZsyCAcqfMmVqCgj6NqleyBlCI/VsCcm+QxRHtAK09iMagztqn5o5bNSN8X49e4NEzTqOP3b9WI4CUk1nLZUmWEOhUxMba0chxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782450793; c=relaxed/simple;
-	bh=rQBVJxkt8xjk5AoHuaR2wnXRWQMgeu4QozhhbapwxJU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EajZuX5mUma+lBmdue/Io9nZ6+66XUFeAi6ZvFmidVsbcSPHJSrvNIbiPR93rWl/WK491EwiGQsg186oS4jq0J8N3yYjQ0opIZVmZ7va7QtSIdQqga5mdIyKLKaFqahYK8xL4LyI1C/MhHnXbH/b+uXcxXZxHdFDRH/gsadgTkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=MJmzPNYp; arc=none smtp.client-ip=44.202.169.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1782451057; c=relaxed/simple;
+	bh=RgY9J0itKGXfjIELvTkAqHdUDbg8n00R2ervnhnv590=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=YQWmP/g0Ft7AYREpwos/cJX2p0VvNE14NZdAEhszqdAUZuYiuQLKUkmyPBIUU7swt3KjDJuDhTHMHlNH5WLL/K9Iaej0jWxY8YPGluPezjZV08BgL+c2nn4DIAU3lqkKlcdufew2lZRDGcXF41Gc97l9QujOf9cbx3Y7JAGWfuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=BsRvVda1; arc=none smtp.client-ip=43.163.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="MJmzPNYp"
-Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
-	by cmsmtp with ESMTPS
-	id cuQlw5nvwgwLncyqlwfoVp; Fri, 26 Jun 2026 05:11:35 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id cyqkw2ccaJ2u1cyqlww9h9; Fri, 26 Jun 2026 05:11:35 +0000
-X-Authority-Analysis: v=2.4 cv=W+44VQWk c=1 sm=1 tr=0 ts=6a3e0a07
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=Lc18GGwJt_UjcvvaV1cA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=3kf09Z6SzwzXyqPIS+vGO4STEhAMNfUSMyoF+kW41qY=; b=MJmzPNYp8SrqcenrdOoCPhHtpZ
-	c0GjvIPx0QJO6ZS/sSS/wjpsphv8HHgQLB7bfjeG+YS2DCiNn6A83UaURCF/PqFdxGPXsQlfyHx2U
-	q5tNKjRKiCnIFbrQmWYaDpUTgQzfcoIZhu1SLTZPUOPQ8uoQirPqxNRIBef3Sy0ADZJddYgDorjSD
-	lS5ad6X4jAYZ+ofA1EZHC0NUI/5zBdrBU89d/v8objaJb75PdvoluinQ08JFEEz5eYH61hgFMbJ69
-	WUrn1IsqS5mwIz3iMc+Y+s3b/8Bx+BrhoGKO6uEPV4aIIMORI4kA0y8gz0gbpakBp+bEQCeL0LVf+
-	wX3WUL8A==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:33074 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.2)
-	(envelope-from <re@w6rz.net>)
-	id 1wcyqk-00000003qJY-26by;
-	Thu, 25 Jun 2026 23:11:34 -0600
-Message-ID: <07336bed-38e0-403c-b075-68ea59ffc5de@w6rz.net>
-Date: Thu, 25 Jun 2026 22:11:32 -0700
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="BsRvVda1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1782451045; bh=9xyAcodPaIp9fe6Bu4EzeRqI/HdJ58NF1ZQ5P0N7lLI=;
+	h=From:To:Cc:Subject:Date;
+	b=BsRvVda1v9+KXzSC4XCpQ6iAvULR+/wWpOIhjVmP5/2p14lSOmgBa9/bVM/c/Raq6
+	 l2vsXPuPQ0MlKuNzx8Ih1zCjXwy0kOGgiL0hQg4V3QGX9B1gZ1oznEmraWCR6FPQlt
+	 137VC+c7iXJJyJ/vEog0tqAfd3sjhzWtEN9rJQSg=
+Received: from June.localdomain ([123.121.145.35])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 4569DCA8; Fri, 26 Jun 2026 13:17:22 +0800
+X-QQ-mid: xmsmtpt1782451042t5nrby4yv
+Message-ID: <tencent_C982B0201FE8F041BD5B4FC1ED7D646A740A@qq.com>
+X-QQ-XMAILINFO: MO5kPsboTTrq14eCwW8S6usH8slBmt5lDs0fe9ydouHoE74mhd9jQGYakkBYjA
+	 TV5B6EHKPY/4dFPvNexQoETC2SbuwTKkF4WtiPd5Z5bX65thS+0Hsi+vsij+W0UzWMNlnHLQe7Q9
+	 31VzEXe2z3DfTNaKJ4xed+uWF0Y1N5HFNNntO2aDUEoC9f99lOKWZBrI1bH0ymP+j8BAzXzxNntT
+	 1DZKvqdcOAsOLjfbq9WIm63N4dKxy+b3bzIs5Saz7LrNVC5fpTFOUKQHXjfhYN6kR+fo3mMKD9+r
+	 1bp3NLuCZThua8DymvBpoaJF7fSG0pKj0hQRLPjIKZ2nhAkD1VMqd7TQJD2YTbSmvfb/chrPBXyn
+	 vGjC3tnYM03EDlEoz58Tr0Nx2mUJ+GSEGu1qxX8brLtl+JnXMuvwSeROK85wRYeqzlhGhdjzztej
+	 YdMgspOXXQFUHksOs7dRgh4Eimr2yJob0IaTbLsVlDz3GYVcDm9/iYpaWZGJanauPnqkJY7QPNZ+
+	 q1c8J3gVdO2LGDgL4+gTstPdv6sYe0L/v38KSCoZ9GBizZgFASTRpJN+7lT4m3MDRhqezYNi0LHQ
+	 ne30aNbQ/5ZBLSyQ5vLxG/mQQd+1fW33qPAo9vHPAiUaa5TAPRFXv1TAWAwN3BIjFAnop12js4jH
+	 xDIB2DY4g9hwfXyMo3yLA8Wh2wavh4AcRNSNdo4NnDwbI5jQCg4fSM4o9313zhWFqJqMbCbtvSDd
+	 5nzCsHi3ZSQeKa5570KLn2bDbInjJtgQZlV6Byvbzko/HBTAUahmiCSYDScXDYxRLk4y5eelQ1ZO
+	 Lspr8cOh7uSRBBmD1w1oWAzaeDdVzwN/tVR37juPPFyybQ5loPw+rUILVeD5yeaNqx+F3A0GOdB2
+	 MKVRiHL8MqtuTCSI7qb35JMlCKdTNedFDS2f++pUPIUkur60wsU0QGn3pm5HZkWeYMLyV+klN6Df
+	 pId+RIivjphay/J14xzdjqpUAjpIs2h2KVc8KpqbN0KQIAq1OQfkXHg8s9eNlDZ+O8zn1Q/+CYg7
+	 Wqc69YuD+y7Uc5/apN6JtDOSThj1WymB9TAWZczi0UaiXaCcdlmrut4IIFnd7dYoEnGHCvlUU1jW
+	 i4yJ+o5IGET/KF6oGnj9bHDP5Qc4eiE0AxcKjPwF7/Ea3idpTJuCqkf6Ah/JBOy6R7zgp2
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-USESPAMBG: true
+From: Wang Jun <1742789905@qq.com>
+To: tytso@mit.edu
+Cc: adilger.kernel@dilger.ca,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	libaokun1@huawei.com,
+	25125332@bjtu.edu.cn,
+	Wang Jun <1742789905@qq.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Subject: [PATCH] ext4: get rid of ppath in get_ext_path()
+Date: Fri, 26 Jun 2026 13:17:21 +0800
+X-OQ-MSGID: <20260626051721.15264-1-1742789905@qq.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 00/60] 6.18.37-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260625125645.554579168@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260625125645.554579168@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wcyqk-00000003qJY-26by
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:33074
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 39
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfI4DONK3z6if/emSEH3NJ41oGdMdApoq/AqhtxmjCOZbNNYDFl4no7943v6m5flxzLTbUYes1VRrYabOxrzGllFMG+jNTO71DVkhpsbnPaPLpQuZpAxS
- hPg0SEYtpRoIZhkmNuB5McOTqcpirNYyqI6ZQuEAyWGUo8jm8E+f9QrKL32FWnw+RY5qJMgjMwYudg==
+Content-Transfer-Encoding: 8bit
 
-On 6/25/26 06:02, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.37 release.
-> There are 60 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sat, 27 Jun 2026 12:54:50 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.37-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+[ Upstream commit 6b854d552711aa33f59eda334e6d94a00d8825bb ]
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+The use of path and ppath is now very confusing, so to make the code more
+readable, pass path between functions uniformly, and get rid of ppath.
 
-Tested-by: Ron Economos <re@w6rz.net>
+After getting rid of ppath in get_ext_path(), its caller may pass an error
+pointer to ext4_free_ext_path(), so it needs to teach ext4_free_ext_path()
+and ext4_ext_drop_refs() to skip the error pointer. No functional changes.
+
+Without this fix, ext4_ext_insert_extent() returning ERR_PTR(-ENOSPC) in
+ext4_ext_map_blocks() triggers a kernel Oops, observed via SyzKing
+fuzzing on v6.6.142:
+
+  BUG: unable to handle page fault for address: ffffffffffffffec
+  R15: ffffffffffffffe4  (= ERR_PTR(-ENOSPC))
+  RIP: ext4_ext_drop_refs+0x...->ext4_free_ext_path+0x...->
+       ext4_ext_map_blocks+0x509/0x53a0
+
+Signed-off-by: Baokun Li <libaokun1@huawei.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Tested-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Signed-off-by: Wang Jun <1742789905@qq.com>
+---
+ fs/ext4/extents.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index a94798e23..8e23563bb 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -4510,7 +4510,8 @@ int ext4_ext_map_blocks(handle_t *handle, struct inode *inode,
+ 	allocated = map->m_len;
+ 	ext4_ext_show_leaf(inode, path);
+ out:
+-	ext4_free_ext_path(path);
++	if (!IS_ERR(path))
++		ext4_free_ext_path(path);
+ 
+ 	trace_ext4_ext_map_blocks_exit(inode, flags, map,
+ 				       err ? err : allocated);
+-- 
+2.43.0
 
