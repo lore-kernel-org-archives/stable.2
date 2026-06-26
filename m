@@ -1,166 +1,145 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C87C3E832C
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 10:23:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3B23ED3CA
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 10:27:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782469434; cv=none; b=BwvMGaFsuzgB5bKRCguFKFAb53cePjwD1PIGZZddy3KTYclqEVT7WCBwELTAe6FYiIbFZFH9usRphwiBTjnDov3BUiB5mTyvIJJhz3zk9ULeawc3CCQVJhkRavKH9zBLot5roJFBjj1SbMMiqcMnLe+4CkM/uR2gMB0C8+uzhz0=
+	t=1782469667; cv=none; b=denvjyUsDgd5DuIE4qKKC9AmVfLaMnjuPIQ/+K4u7PzPXp2ixxAYVFyExi14C7KTqUioh909u2/kUvq0XjExmRd/gMc0opVtZHOVvmdlHgrtvCX6lFW0lmmoNbK2AUls+8GMVZhgvk+3ssSFf4ErbOuvmqom/239vCmZiLVfnTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782469434; c=relaxed/simple;
-	bh=ffNECExMWsXfqi2yo0S2r8IrBwZRf40yiT2nYi2+6Zo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hSgNvG4q86W48gJ4cpsR8EuObN99kuilQdn7FjA8NP15YQpxzbBHF+5KBeRmrADyT0tdRvPdtXG9bymbv1vFSRe/2uqKbldROEZy4SGaKLZsIOQxZauBAY9p1VCpA4K2yYZekOvM8qtlw9QjTZ1G9R6r4EjM1YHSfWh0GigsNWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cN6A/R4H; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1782469667; c=relaxed/simple;
+	bh=eHH924sR1+BCDOOcFegq9qEd4OO2yfx2DSQfnJoVrDg=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=V+bw/mipTUWnwcHwpwIMvvT4YjTlzZhDKQx49qXBMFabO5vZnP0uVnrFHVaTmrUpYizkbo31oWTz+i9yDY/WdaApwcQBB0Om0EdDePrSVqFWkzcPAP1qNFs2EWXmeHVG6RGbXPs8gTB+zh0irhc7mJu95ZmxMkRszgdW7CNX8+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Geh3s2na; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cN6A/R4H"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-46f27bd4c45so408879f8f.2
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 03:23:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782469430; x=1783074230; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=eLFZTGPtRiE8UPhqU4UMjkuV0PbJHe/HCNgoSE+benw=;
-        b=cN6A/R4HtvgBXKGB5A+UHEStNNf7UvH2iFaPP0zH836AXQeyuNgNDcK5vvsCutS4E6
-         vnPQWTm8RvxNsDzHGOsUQ/3C+94OaUUWOYyL17Y/21HGIKORPcfvKeJhmLUK3xa/blLi
-         an3VDrhgnBJm1Q8axUDuEBPceTPf/FUJI3ndg8JEmBQXTaYlS5FJGCAwhBkZrzUY4Zp6
-         1y6KWNw/KedmlKBxoz1KDP/DZ+7HIhGga7pr52Y7b5jQ2I0pj6+95awT8AIp7w9EQDEx
-         T7AGUAzFJefET/quPWKA0S48rdv9+3s0WwUj2MDY7wpRdYB5rHYMXWVorXUrlGx9m4ja
-         R/OA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782469430; x=1783074230;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=eLFZTGPtRiE8UPhqU4UMjkuV0PbJHe/HCNgoSE+benw=;
-        b=I1/c33PUL1DOW5tKPwMoBfrpBZxvh0SJ38Y4QqlnkRjCgwFAhPMYxgCUKwElTbdBYF
-         1RJ7g2t9hhyo7Hqec7rf57gPh6fK6+3J3n2RfDRGYHiPBWMYwuA+tZRwVWYV7xgry4kV
-         utzbrJ+44zo2pRaCmLwCZBdij+gFQ1NqzGuIMJXqjr/Ii1PHvJIrHT02Um8MoUv5FCqk
-         lqgk4eYdNcy1c+NHvVzIdjpQ08BfQqynlIeILZV05JN/B89+XvuW6qRk6KOLNI7dkLd7
-         w3olOpGk7qAwcHlu+2bZtXdoUVts7su8R8BV7vADeNyDLWiHoaibR4j83lZdHTK/O8Uz
-         Dzxg==
-X-Forwarded-Encrypted: i=1; AHgh+RpX6cUPnzdhAGNEftxIyCGmshsPAshHnHRXkPtYAjPNusvWPdyg5qUoMDYdDuTtVIcfNLAgq34=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx5s89w9yiw8E8cOOEfyrN/IjR3BXVjFPl0ROb61tsYbFLybC/8
-	WRMzWQZWPZKwaSIq+t2Ihhf6dBGfvS6iu1ZY2Q1tzkWKSoYccssq5Y85eYKhXTv5FMo=
-X-Gm-Gg: AfdE7cmcel/je5EEtrY4+mB+xcnfJxfKVC4rhKaU1TIsR/NWQlEfiLHwkkvrCIy7Yah
-	YuWzG/SqY2lDlwihhOamR5zVMRgHW1E4uGXp3RBQpsnuAVr+0N30Z9dDG2o7C5pbuLN/bFZDGK+
-	yzWpO29STZKaV2aVEc4dV8Fvruv2tFq6/kaiBylOUFqnOvBA1uuatDbGvuBs/AURkfiQJWf7vzv
-	BnlBFWPPWcaLkPpY9WXk5R27cBivkvCJmc0e6LEY7k4yStCGypoUDHGohdZfXq3COFRf8EUUoMq
-	kXy/cPnPUiHIqFNHF0smuXhxQaSBbuRQt2x7vzGQAynRQW7GzEb3BxYKKm7QTJkYK8R7zxXHsNs
-	22iD0o7QnWvQTcFlGK3c2r1bh76yhofoMOz8k3awq9M0UJmD7LfxVXMEY0zuc8HJhCXn6N4X7Po
-	mFCdBU7sePG1YAdgE=
-X-Received: by 2002:a05:6000:4204:b0:460:30bd:4dca with SMTP id ffacd0b85a97d-46dc12e056fmr9792387f8f.30.1782469430521;
-        Fri, 26 Jun 2026 03:23:50 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46dcbac0c9dsm13650525f8f.19.2026.06.26.03.23.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 03:23:50 -0700 (PDT)
-Date: Fri, 26 Jun 2026 12:23:48 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Bradley Morgan <include@grrlz.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Feng Tang <feng.tang@linux.alibaba.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] panic: use sys_info_with_filter() to avoid
- duplicate backtraces
-Message-ID: <aj5TNB8cRtMNTtIT@pathway.suse.cz>
-References: <20260625152558.7450-1-include@grrlz.net>
- <20260625152558.7450-5-include@grrlz.net>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Geh3s2na"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782469659; x=1814005659;
+  h=message-id:date:mime-version:subject:from:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=eHH924sR1+BCDOOcFegq9qEd4OO2yfx2DSQfnJoVrDg=;
+  b=Geh3s2natD3u4LbBoCnEp6D8LH3HBaVZBU/7Zk0xjhnoqIjXlhxS/eZU
+   JfUsIdpXkMjJHVK83Og23oHNFGq8yn1WztTOPXhqQXOxu2ncl5qlYXXop
+   YxtKLke3TfeRmX/TiWPXF3LREz1kU6DqdzXxX3X+lqczkuV3/ZwUjKURX
+   QHMEnHHqc2acmANrIv6p1qAhLmwser1KEnBtmB/bsrR3KKs7ticYz9ded
+   ENj1KHhQq3BNj93g/ypUtsPp7axsFa27NgPK3MrSjN7SPSJG3x5pz1oX8
+   nO9jqzewL0KwZXTDtr0lqzBM/HPwRY6qCjY0oKPQuxpL4DxXcDH9VLeTC
+   A==;
+X-CSE-ConnectionGUID: ghwtlE/YQ6y1QyuR/KUcZg==
+X-CSE-MsgGUID: 9FXOn0YkQ6m2eWEHde8LEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11828"; a="106057111"
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
+   d="scan'208";a="106057111"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 03:27:39 -0700
+X-CSE-ConnectionGUID: wJT9KauuRLeoPPlcUAseRA==
+X-CSE-MsgGUID: BK4Ny/TdQAWWrh/B86PXKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
+   d="scan'208";a="255280315"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO [10.245.244.49]) ([10.245.244.49])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 03:27:37 -0700
+Message-ID: <9e04ec82-712d-41b6-9fe8-78aeb015d67c@intel.com>
+Date: Fri, 26 Jun 2026 11:27:34 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625152558.7450-5-include@grrlz.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/xe/display: consider DPT when WA 22019338487 is
+ active
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Nikolay Mikhaylov <sonny@milton.pro>,
+ Uma Shankar <uma.shankar@intel.com>, Jani Nikula <jani.nikula@intel.com>,
+ stable@vger.kernel.org, Maarten Lankhorst <dev@lankhorst.se>
+References: <20260623090155.268763-2-matthew.auld@intel.com>
+Content-Language: en-GB
+In-Reply-To: <20260623090155.268763-2-matthew.auld@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu 2026-06-25 15:25:58, Bradley Morgan wrote:
-> panic_other_cpus_shutdown() handles SYS_INFO_ALL_BT before stopping the
-> other CPUs. Do not ask sys_info() to handle that bit again later in the
-> panic path.
+On 23/06/2026 10:01, Matthew Auld wrote:
+> WA 22019338487 (22019338487_display) indicates that stolen memory should
+> not be used for display allocations on affected platforms (like Lunar
+> Lake). In particular we need to be mindful of not hammering stolen over
+> the BAR from the host side, like with issuing many writes.
 > 
-> Use sys_info_with_filter() so panic_print=all_bt does not request more
-> output after the CPUs are stopped.
+> While the fbdev allocation in xe_display_bo.c properly respected this
+> workaround, the Display Page Table (DPT) allocation in xe_fb_pin.c
+> continued to unconditionally attempt to allocate from stolen memory on
+> all integrated GPUs.
 > 
-> Fixes: a9af76a78760 ("watchdog: add sys_info sysctls to dump sys info on system lockup")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bradley Morgan <include@grrlz.net>
+> Check XE_DEVICE_WA(xe, 22019338487_display) before attempting to
+> allocate the DPT from stolen memory. If the workaround applies, skip the
+> stolen allocation attempt and let the driver naturally fall back to
+> allocating from system memory.
+> 
+> Without this we will end up hammering stolen when programming the DPT on
+> the host side during the normal operation, which seems to be exactly
+> what the WA wants us to avoid.
+> 
+> There are a bunch of users all getting some kind of hard hang in the fb
+> pin programming sequence on LNL, so wondering if this could help there.
+> 
+> v2 (Jani):
+>    - Invert the WA check. No functional change.
+> 
+> Assisted-by: Gemini:gemini-3.1-pro-preview
+> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Fixes: 775d0adc01a5 ("drm/xe/fbdev: Limit the usage of stolen for LNL+")
+> Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Nikolay Mikhaylov <sonny@milton.pro>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Jani Nikula <jani.nikula@intel.com>
+> Cc: <stable@vger.kernel.org> # v6.12+
+
+Ping on this? So far two separate users report this fixes the hard 
+machine hang for them, after several days of testing.
+
+https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513#note_3537314
+
+https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513#note_3531435
+
+Looking through the HSD I think it is clear we need something like this 
+for the WA.
+
 > ---
->  kernel/panic.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/xe/display/xe_fb_pin.c | 5 +++++
+>   1 file changed, 5 insertions(+)
 > 
-> diff --git a/kernel/panic.c b/kernel/panic.c
-> index 213725b612aa..eb842823df61 100644
-> --- a/kernel/panic.c
-> +++ b/kernel/panic.c
-> @@ -680,7 +680,7 @@ void vpanic(const char *fmt, va_list args)
->  	 */
->  	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
->  
-> -	sys_info(panic_print);
-> +	sys_info_with_filter(panic_print, SYS_INFO_ALL_BT);
+> diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> index f93c98bec5b5..8ebb52741ea6 100644
+> --- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> +++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> @@ -20,6 +20,9 @@
+>   #include "xe_pat.h"
+>   #include "xe_pm.h"
+>   #include "xe_vram_types.h"
+> +#include "xe_wa.h"
+> +
+> +#include <generated/xe_device_wa_oob.h>
+>   
+>   static void
+>   write_dpt_rotated(struct xe_bo *bo, struct iosys_map *map, u32 *dpt_ofs, u32 bo_ofs,
+> @@ -172,6 +175,8 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object *obj,
+>   						   XE_BO_FLAG_GGTT |
+>   						   XE_BO_FLAG_PAGETABLE,
+>   						   pin_params->alignment, false);
+> +	else if (XE_DEVICE_WA(xe, 22019338487_display))
+> +		dpt = ERR_PTR(-ENODEV);
+>   	else
+>   		dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+>   						   dpt_size,  ~0ull,
 
-Hmm, this prevents printing backtraces from all CPUs completely.
-But what if they were not printed?
-
-They might be printed by:
-
-static void panic_other_cpus_shutdown(bool crash_kexec)
-{
-	if (panic_print & SYS_INFO_ALL_BT)
-		panic_trigger_all_cpu_backtrace();
-
-[...]
-}
-
-But it checks only "panic_print" variable. It won't do anything
-when (panic_print == 0).
-
-In this case, we might still want to print the backraces when
-SYS_INFO_ALL_BT is set in kernel_si_info.
-
->  	kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
-
-Of course, we might fix panic_other_cpus_shutdown() to check also
-kernel_si_info.
-
-But it all becomes very hairy. We have several levels:
-
-   + watchdog-all_bt-specific option, e.g. sysctl_hardlockup_all_cpu_backtrace
-
-   + watchdog-specific si_info preferences, e.g. hardlockup_si_mask
-
-   + panic-specific si_info: panic_print
-
-   + universal fallback for any layer: kernel_si_info
-
-Now, we try to check all these variables back and forth to
-trigger all backtraces or to avoid triggering them.
-And it clearly does not work well and the code is more and more
-hairy.
-
-I think about another approach. The word "waterfall" comes to my mind.
-Instead of checking all the settings back and forth, let's process
-each setting one by one and just remember what has been done and
-skip this in the next level.
-
-All the si_info actions seems to dump a global system state.
-So, it would make sense to remember the state in a global variable
-even when it might be modified by more CPUs in parallel.
-
-I am going to think more about it.
-
-Please, do not send v4 until the discussion settles!
-
-Best Regards,
-Petr
