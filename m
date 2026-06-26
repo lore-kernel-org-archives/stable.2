@@ -1,170 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1413D3F823E;
-	Fri, 26 Jun 2026 14:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DA813F6C2C
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 14:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782483354; cv=none; b=Fw1ZDTDEkJG/n4HC3MxXeA8Oz2KuAiiZe8DbUcFy+6ZDValN2+xCg/PmPcI3MFxTYenRpq9JFFkrwrNAMWH7ZarAxs2plQY++8adFaYX/NV4Ul4mEi2/ij0HPoFwT+8QHo9tVkRwCUkcAiwc6t3yTm5e/yXkGiTmX9SuJOlP0NE=
+	t=1782483561; cv=none; b=U89kdUNYrUo8lv4hMkO4keTeMzulK7RDFPLRFPn+YX+Hm8J5nT9GpdjV4STj7xPlb0nAp8mVHBp792SadnM8Z0FyKa+NFFOvr287lMpkn+NEKkSFT+8EoQ2cldvtWNILyZGAiFUZFd5ZkuQJPgphKDXlfVUNzSLDsv2qjJG/lxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782483354; c=relaxed/simple;
-	bh=xewFC2Nu7+ukLNb971H6Vy6r7z3RQr1HiiWQVGlGHmQ=;
+	s=arc-20240116; t=1782483561; c=relaxed/simple;
+	bh=B3/FR7sbtfD9VYDuTjqm4dtS7bs4T0ydCkZRUZ16Sqo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CnbLRM+nKk2dU3J1aU+oNBeKGVaM80GATxP3fbwD9ml10xkkPjpsmNbKWlGy39rypSd4BPf9M0HyeBwXPUKiC5mi4qyq1Tz9+evmTOVf2eNDTgPOa1v0gm7qI5u4x+eQpBBzh/yrTeurQzsvJHOeKzAHuGoB1+Q9Jwho3Ul3Pao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/4x+MBP; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=oJyfrQAUpv5+kkU70Amr21wObGJ4+EYMs4cyDnOIOw4sysksxdV6lelM7y2CQOp3mMO7/u31mkLIUiUUQp+ry89JGj1XVKQd6ijJDx037bUElSFGUCYbgyi00jYws1Day9vzqfa9e1sRCdCooiTorIXS7Dxzt5b+7bblTse07X8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=LcApiVHn; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=8plrHN/0; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=LcApiVHn; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=8plrHN/0; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/4x+MBP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46EE71F00A3A;
-	Fri, 26 Jun 2026 14:15:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782483353;
-	bh=QR6xohXjq8QO4I0tR2UKgynxmL8FdNro5f3Q9KrztfY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=X/4x+MBPR7/rhyZCwoplGwbNfusOTZ48Gh6T+TEs3/GbLRK2yBby7aKJuglpJ+ukt
-	 14gPxC5y184HgdwgzkOg9YkDsLurnI+KSXg5CQUGCOZZ+70IKuxRVNsuJYeG7zykLK
-	 n1Jm8h0Sw6AC94jLJ30jeyjCI8k7NaE3r0QWXeFY57zMNzprZPnP7D0CrD0LEgFQbK
-	 YlkZGqq8ekHFXygvQkIOCQ10ly7bDrb71f5JhYRWTp5bQJGPwsCIuKgqRjAJZUfZXo
-	 /ufMGWFGpmqLzWyVFRSAO0gCqWyBS65tACP/yc/wXq3eLlvK3RfQCCjpuEQZ1v3i3X
-	 lLXlWvXexlWdw==
-Date: Fri, 26 Jun 2026 15:15:47 +0100
-From: Simon Horman <horms@kernel.org>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, jiri@resnulli.us,
-	victor@mojatatu.com, security@kernel.org,
-	zdi-disclosures@trendmicro.com, stable@vger.kernel.org,
-	kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH net v2 1/1] net/sched: sch_teql: Introduce slaves_lock to
- avoid race condition and UAF
-Message-ID: <20260626141547.GA1310988@horms.kernel.org>
-References: <20260624224016.24018-1-jhs@mojatatu.com>
- <CAM0EoMmJZxAbOsyW7bBp0DbTTiQKZeGaaBHPEw45D5b6DKDEvg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="LcApiVHn";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="8plrHN/0";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="LcApiVHn";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="8plrHN/0"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 79A0D758FC;
+	Fri, 26 Jun 2026 14:19:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1782483558; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gbMQKiXqfVe8vOZqxCfOqjk0hfDyKNE4OsiYCQtUcUU=;
+	b=LcApiVHn+gVKrWoqaEhQVbIz0Zfyo9dpkPuQ2Ozgyd1CvHJZQZLhznn3W40lcJJoYhKPXX
+	XnHWM4Qwp5gLQLgo/Hi0uuS1ajli0CTyL3T2nBab5PzLOt9od2TNrqR7SjtURvkWXfbBuw
+	RR7H1bO7aGjqzCtHLiubmx/BIuzvmZM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1782483558;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gbMQKiXqfVe8vOZqxCfOqjk0hfDyKNE4OsiYCQtUcUU=;
+	b=8plrHN/0jw3WpXlvF0EUMNASD/VGjmuOTWNRc3Kr8LRxujHnTLSnos7h0ZzEbzHLDC5zRy
+	x/Nl5gth52RcGPCQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=LcApiVHn;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="8plrHN/0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1782483558; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gbMQKiXqfVe8vOZqxCfOqjk0hfDyKNE4OsiYCQtUcUU=;
+	b=LcApiVHn+gVKrWoqaEhQVbIz0Zfyo9dpkPuQ2Ozgyd1CvHJZQZLhznn3W40lcJJoYhKPXX
+	XnHWM4Qwp5gLQLgo/Hi0uuS1ajli0CTyL3T2nBab5PzLOt9od2TNrqR7SjtURvkWXfbBuw
+	RR7H1bO7aGjqzCtHLiubmx/BIuzvmZM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1782483558;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gbMQKiXqfVe8vOZqxCfOqjk0hfDyKNE4OsiYCQtUcUU=;
+	b=8plrHN/0jw3WpXlvF0EUMNASD/VGjmuOTWNRc3Kr8LRxujHnTLSnos7h0ZzEbzHLDC5zRy
+	x/Nl5gth52RcGPCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6BDD4779A8;
+	Fri, 26 Jun 2026 14:19:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id YBxNGmaKPmr3XgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 26 Jun 2026 14:19:18 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 0FFBCA10A3; Fri, 26 Jun 2026 16:19:18 +0200 (CEST)
+Date: Fri, 26 Jun 2026 16:19:18 +0200
+From: Jan Kara <jack@suse.cz>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	David Hildenbrand <david@kernel.org>, Jan Kara <jack@suse.cz>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: do file ownership checks with the proper mount idmap
+Message-ID: <s6mr3j7gew2cgerzrvqzenjctctrtnhvlynmcccxb24uszcauz@5iapd6wnbfxg>
+References: <20260625153853.913949-1-pfalcato@suse.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAM0EoMmJZxAbOsyW7bBp0DbTTiQKZeGaaBHPEw45D5b6DKDEvg@mail.gmail.com>
+In-Reply-To: <20260625153853.913949-1-pfalcato@suse.de>
+X-Spam-Flag: NO
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MISSING_XM_UA(0.00)[];
+	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:email,suse.cz:dkim,suse.de:email,suse.com:email];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 79A0D758FC
+X-Spam-Score: -4.01
 
-On Fri, Jun 26, 2026 at 06:16:43AM -0400, Jamal Hadi Salim wrote:
-> "
+On Thu 25-06-26 16:38:53, Pedro Falcato wrote:
+> Ever since idmapped mounts were introduced, inode ownership checks
+> (for side-channel protection) in mincore() and madvise(MADV_PAGEOUT) were
+> done against the nop_mnt_idmap, which completely ignores the file's mount's
+> idmap. This results in odd edgecases like:
 > 
-> On Wed, Jun 24, 2026 at 6:40 PM Jamal Hadi Salim <jhs@mojatatu.com> wrote:
-> >
-> > The teql master->slaves singly linked list is not protected against
-> > multiple writes. It can be mod'ed concurently from teql_master_xmit(),
-> > teql_dequeue(), teql_init() and teql_destroy() without holding any list
-> > lock or RCU protection.
-> >
-> > zdi-disclosures@trendmicro.com has demonstrated that the qdisc is freed
-> > after an RCU grace period, but teql_master_xmit() running on another
-> > CPU can still hold a stale pointer into the list, resulting in a
-> > slab-use-after-free:
-> >
-> > BUG: KASAN: slab-use-after-free in teql_destroy+0x3ca/0x440 linux/net/sched/sch_teql.c:142
-> > Read of size 8 at addr ffff88802923aa80 by task ip/10024
-> >
-> > The zdi-disclosures@trendmicro.com repro created concurrent AF_PACKET
-> > senders on a teql device against a thread that repeatedly adds/deletes the
-> > slave qdisc, together with a SLUB spray that reclaims the freed slot; the
-> > resulting UAF is controllable enough to be turned into a read/write
-> > primitive against the freed qdisc object.
-> >
-> > The fix?
-> > Add a per-master slaves_lock spinlock that serializes all mutations of
-> > master->slaves and the NEXT_SLAVE() links in teql_destroy() and
-> > teql_qdisc_init(). teql_master_xmit() also takes the same slaves_lock
-> > around those updates.
-> > Annotate master->slaves and the per-slave ->next pointer with __rcu and
-> > use the appropriate RCU accessors everywhere they are touched:
-> > rcu_assign_pointer() on the writer side (under slaves_lock),
-> > rcu_dereference_protected() for the writer-side loads (also under
-> > slaves_lock), rcu_dereference_bh() for the loads in teql_master_xmit() and
-> > rtnl_dereference() for the loads in teql_master_open()/teql_master_mtu(),
-> > which run under RTNL.
-> > Pair this with rcu_read_lock_bh()/rcu_read_unlock_bh() around the list
-> > traversal in teql_master_xmit(), so that readers either observe a fully
-> > linked list or are deferred until the in-flight mutation completes. The two
-> > early-return paths in teql_master_xmit() are updated to release the RCU-bh
-> > read-side critical section before returning, since leaving it held would
-> > disable BH on that CPU for good.
-> >
+> 1) mount/bind-mount with an idmap userA:userB:1
+> 2) userB runs an owner_or_capable() check on file that is owned by userA
+> on-disk/in-memory, but owned by userB after idmap translation
+> 3) owner_or_capable() mysteriously fails as the correct idmap wasn't supplied
 > 
-> sashiko-gemini's complaints:
-> https://sashiko.dev/#/patchset/20260624224016.24018-1-jhs%40mojatatu.com
-> seem bogus to me (someone correct me if i am wrong). I am only going
-> to address the first claim of "TOCTOU / "resurrection" race in
-> teql_master_xmit()"
-> teql_master_xmit() holds rcu_read_lock_bh() across the entire
-> traversal. teql_destroy() freeing can only proceed once the qdisc's
-> RCU grace period has elapsed - so where is this TOCTOU? Let's say this
-> were true: both calls hold the slaves_lock.
-> The other issues are of similar nature.
-
-Hi Jamal,
-
-I think the central question here is about the protection offered by RCU
-in these code paths. And while I agree it protects the use of elements
-of the list, I think the problem flagged relates to the management of
-the list itself.
-
-The example AI gave me when I asked is like this:
-
-    Assume a TEQL master has one slave, `q`.
-    The list is circular: `q->next == q`.
-
-    1. CPU A (Transmitting): Enters `teql_master_xmit()`.
-       It reads `master->sla ves` and gets a local pointer to `q`.
-
-    2.  CPU B (Destroying): Calls `teql_destroy(q)`.
-        It takes the lock, unlinks `q`, and sets `master->slaves = NULL`.
-        The list is now logically empty.
-
-    3.  CPU A: Finishes its work and prepares to rotate the list head
-        to the next slave.
-	It takes the lock.
-
-    4.  CPU A (The "Use" / The Resurrection):
-        It executes: `rcu_assign_pointer(master->slaves, NEXT_SLAVE(q));`
-        Because `q` was circular, `NEXT_SLAVE(q)` is still `q`.
-
-    5.  CPU A: Releases the lock.
-        **The global `master->slaves` is now `q` again.**
-
-    6.  The System: The RCU grace period expires. CPU B finishes
-        `teql_destroy()` and the memory for `q` is freed.
-
-    The global `master->slaves` pointer is now a **dangling pointer**
-    pointing to freed memory.
-
-> OTOH, sashiko-claude
-> (https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260624224016.24018-1-jhs%40mojatatu.com)
-> does make some valid claims which are low value, so not sure a resend
-> is worth it.
-> For example in claim 1 it says "Should the changelog mention this
-> teql_dequeue() site too?" Sure I can - but just because I provided
-> extra information in the commit log, which I could have omitted, now I
-> have to add more info? ;->
-
-FWIIW, I think there is a value in tightening up the commit message.
-E.g. so it's accurate when we look at again in two years time.
-But I also lean towards it not being necessary to post an update
-only to address this.
-
-
-> The second claim is "rcu_dereference_bh()
-> should be rcu_dereference_protected() on writer side". Sparse didnt
-> complain and i dont see this as breakage rather a consistency measure.
-
-I think it would be good to address in the long run.  But as per my comment
-immediately above, I also lean towards it not being necessary to post an
-update only to address this.
-
-> Unless I am missing something ..
+> In the case of mincore/madvise MADV_PAGEOUT, this is usually benign, because
+> file_permission(file, MAY_WRITE) will probably succeed, as it uses the proper
+> idmap internally, but it does not need to be the case on e.g a 0444 file
+> where even the owner itself doesn't have permissions to write to it.
 > 
-> cheers,
-> jamal
+> Since this is clearly not trivial to get right, introduce a
+> file_owner_or_capable() that can carry the correct semantics, and switch
+> the various users in mm to it.
+> 
+> The issue was found by manual code inspection & an off-list discussion with
+> Jan Kara.
+> 
+> Fixes: 9caccd41541a ("fs: introduce MOUNT_ATTR_IDMAP")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Pedro Falcato <pfalcato@suse.de>
+
+This looks good to me. I'm a bit curious why Christian initially (in 2021)
+used init_user_ns here instead of the file namespace... Anyway feel free to
+add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+I'll also note that there are quite some places in fs/ that could be
+simplified with this helper but I'd leave them for later.
+
+								Honza
+
+> ---
+> 
+> I noticed there are a couple of call sites in fs/ that could perhaps be
+> cleaned up with the added helper, but I'm skipping that for now for brevity's
+> sake.
+> 
+>  include/linux/fs.h | 5 +++++
+>  mm/filemap.c       | 2 +-
+>  mm/madvise.c       | 3 +--
+>  mm/mincore.c       | 3 +--
+>  4 files changed, 8 insertions(+), 5 deletions(-)
+> 
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index d10897b3a1e3..50ce731a2b78 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -2444,6 +2444,11 @@ static inline struct mnt_idmap *file_mnt_idmap(const struct file *file)
+>  	return mnt_idmap(file->f_path.mnt);
+>  }
+>  
+> +static inline bool file_owner_or_capable(const struct file *file)
+> +{
+> +	return inode_owner_or_capable(file_mnt_idmap(file), file_inode(file));
+> +}
+> +
+>  /**
+>   * is_idmapped_mnt - check whether a mount is mapped
+>   * @mnt: the mount to check
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index 5af62e6abca5..58eb9d240643 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -4704,7 +4704,7 @@ static inline bool can_do_cachestat(struct file *f)
+>  {
+>  	if (f->f_mode & FMODE_WRITE)
+>  		return true;
+> -	if (inode_owner_or_capable(file_mnt_idmap(f), file_inode(f)))
+> +	if (file_owner_or_capable(f))
+>  		return true;
+>  	return file_permission(f, MAY_WRITE) == 0;
+>  }
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index cd9bb077072c..77552b03d318 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -336,8 +336,7 @@ static inline bool can_do_file_pageout(struct vm_area_struct *vma)
+>  	 * otherwise we'd be including shared non-exclusive mappings, which
+>  	 * opens a side channel.
+>  	 */
+> -	return inode_owner_or_capable(&nop_mnt_idmap,
+> -				      file_inode(vma->vm_file)) ||
+> +	return file_owner_or_capable(vma->vm_file) ||
+>  	       file_permission(vma->vm_file, MAY_WRITE) == 0;
+>  }
+>  
+> diff --git a/mm/mincore.c b/mm/mincore.c
+> index 296f2e3922b5..c8757c5085bf 100644
+> --- a/mm/mincore.c
+> +++ b/mm/mincore.c
+> @@ -227,8 +227,7 @@ static inline bool can_do_mincore(struct vm_area_struct *vma)
+>  	 * for writing; otherwise we'd be including shared non-exclusive
+>  	 * mappings, which opens a side channel.
+>  	 */
+> -	return inode_owner_or_capable(&nop_mnt_idmap,
+> -				      file_inode(vma->vm_file)) ||
+> +	return file_owner_or_capable(vma->vm_file) ||
+>  	       file_permission(vma->vm_file, MAY_WRITE) == 0;
+>  }
+>  
+> -- 
+> 2.54.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
