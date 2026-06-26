@@ -1,485 +1,222 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF123DFC62;
-	Fri, 26 Jun 2026 07:22:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2903DB62F;
+	Fri, 26 Jun 2026 07:34:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782458553; cv=none; b=eopHB2vYjXP9DspCd41PRX/Y5hASCImPSuUaBB1rHPXC+KxOhaiyzmB7+3m+o8GcHIerMY6YRy6F4qYTZb6PvkpPdfaGlT3yfl4DxE97qKrJ0O/U+hjUOp2TAJDiYaNW0kMgX1vc1CeD21vosjpo2ME7gWwHqPPG4Z9bvSGyZCQ=
+	t=1782459285; cv=none; b=fzfFUOCY9hsFLrZcBWYiPnQoA6AEDYsZQA/DpDMrhPAr1he0R+UG+r8Ys00tOSwwv99sxDOCL/xbmW7tvdSrROO13Smv+/yNDkWPueTCCnJUeOOPTLzFkyjGButtVLN8fY0nTbgesUyGO994hSXHtfcypmRZgq0RHVYKHZBEYS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782458553; c=relaxed/simple;
-	bh=+tozrg+0D5yE9+dlOufwYTzFrFJL2NFXHJX655wIIfA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JfZbgYd4KlnAe0JuTQJoM1dtto2YCdGSaJoS3muTGgzhlyhETqM9xUOwvM5DnwDl4Kcw0BkZ2Z0IHuCpx0ZpCN0LeCzeK6QUFdqgkdGnEs+pVefCT8WW691BGjcCoFY6Z5OihdimyeiVNZXWTq7HwjueQPI3crvDWDnP6HCoV8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=qWoP+vs0; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1782459285; c=relaxed/simple;
+	bh=XibRtr3lArfBwIX108UOrQuWbqvLRRJQahUof7b9dK4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P3aTa6PfLR89pJOcZGN5B0HsqrMrveP27uxZeFqlR0dfXdA45kUUswIAmXgvW/F0cyFREp/m+7Pb0Ngg2jcuTE0Xda3yftjdV8jrfC4oxEu5dT5yK1G4qy1cEbjbb1+00T4NKCFodFdMM6fNsOXpQD56bVvQ2WV6ZigdiLiQ2hQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n80+wOrW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="qWoP+vs0"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=KkKfziXQ+YXLWoUfp5dvtPMNeA1OLzRkTEKopOwviQ0=;
-	b=qWoP+vs09sTy0fFz/F0Mf2Be+7C8k9tghTz7EyuNOwcXbsbipllqdX3qfAB7AJOSjfEnpbs02
-	xRLrtGP5NiPLr2giGvyioVN5a4yZoQiJrzawpq+uBXuciIH6C9Lw0whmlVgd2s34Zlr2hTGxuk0
-	TSB45kD/NdAxGpQJQuiCd5c=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4gmn2v4spPz1T4J3;
-	Fri, 26 Jun 2026 15:13:43 +0800 (CST)
-Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
-	by mail.maildlp.com (Postfix) with ESMTPS id 3DCEB40576;
-	Fri, 26 Jun 2026 15:22:27 +0800 (CST)
-Received: from kwepemq200017.china.huawei.com (7.202.195.228) by
- dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Fri, 26 Jun 2026 15:22:17 +0800
-Received: from octopus.huawei.com (10.67.174.191) by
- kwepemq200017.china.huawei.com (7.202.195.228) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Fri, 26 Jun 2026 15:22:16 +0800
-From: Cai Xinchen <caixinchen1@huawei.com>
-To: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
-	<miklos@szeredi.hu>, <amir73il@gmail.com>, <paul@paul-moore.com>,
-	<jmorris@namei.org>, <serge@hallyn.com>, <stephen.smalley.work@gmail.com>,
-	<omosnace@redhat.com>, <gregkh@linuxfoundation.org>,
-	<bboscaccy@linux.microsoft.com>, <caixinchen1@huawei.com>
-CC: <linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-unionfs@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
-	<selinux@vger.kernel.org>, <bpf@vger.kernel.org>, <stable@vger.kernel.org>,
-	<lujialin4@huawei.com>
-Subject: [PATCH v2 stable/linux-6.18.y 2/2] selinux: fix overlayfs mmap() and mprotect() access checks
-Date: Fri, 26 Jun 2026 15:50:35 +0800
-Message-ID: <20260626075035.143419-3-caixinchen1@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
-In-Reply-To: <20260626075035.143419-1-caixinchen1@huawei.com>
-References: <20260626075035.143419-1-caixinchen1@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n80+wOrW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13911F00A3A;
+	Fri, 26 Jun 2026 07:34:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782459284;
+	bh=aY6yBcadbyrJ7uPn7rxhL8zgDn4sJwvT0MNe17nykgQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=n80+wOrW9gYIE+hX25DQBtQnemZCnGh1I5SwOIx3lvE7Td5jTVD1nOu9JpO/8gIYS
+	 iCAxOQS4FhSTgKrlVoKf5pLQrkNXxXXD70pXL+ngSJ1d/vg2SCLsQol8bMojsbpgAk
+	 swY0LOpk0Xi70RKSqObS9S5sQ/Qbe24zv16HVRlIquhEcjIluGtzUzAFeqXLlVh0NY
+	 ljiuJQgANbqABzrazNnwlknWlAbdO1v0CqX/jn3UQVNAlkZJuDaZrjIBfMLdaiXze8
+	 4t2OV9lz4f96TeEv/mv4T1EdrqkEMTA71AKhMJ5OphtkhX18JooVDt9vJ552PuQGWB
+	 08O+QZPfI5g3g==
+Date: Fri, 26 Jun 2026 09:34:38 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Jan Kara <jack@suse.cz>, 
+	linux-xfs@vger.kernel.org, stable@vger.kernel.org, Dave Chinner <david@fromorbit.com>, 
+	Eric Sandeen <sandeen@redhat.com>, "Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>, 
+	linux-fsdevel@vger.kernel.org, Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH] xfs: fix capabily check in xfs_setattr_nonsize
+Message-ID: <aj4qgCpFTXewu6gh@nidhogg.toxiclabs.cc>
+References: <20260624101436.362533-1-cem@kernel.org>
+ <20260624134039.GB5649@lst.de>
+ <qcsdbdpp23fsu3cqhpjdpwusvl6onc2knnrun522ofrutxpz6j@reh3k2ofqjir>
+ <20260625123754.GA19947@lst.de>
+ <aj1CdKwE3A40vQhQ@nidhogg.toxiclabs.cc>
+ <20260625160317.GY6078@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemq200017.china.huawei.com (7.202.195.228)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260625160317.GY6078@frogsfrogsfrogs>
 
-From: Paul Moore <paul@paul-moore.com>
+On Thu, Jun 25, 2026 at 09:03:17AM -0700, Darrick J. Wong wrote:
+> On Thu, Jun 25, 2026 at 05:00:21PM +0200, Carlos Maiolino wrote:
+> > On Thu, Jun 25, 2026 at 02:37:54PM +0200, Christoph Hellwig wrote:
+> > > On Thu, Jun 25, 2026 at 12:43:54PM +0200, Jan Kara wrote:
+> > > > On Wed 24-06-26 15:40:39, Christoph Hellwig wrote:
+> > > > > Adding Jan and Christian for quota and user_ns knowledge.
+> > > > > 
+> > > > > On Wed, Jun 24, 2026 at 12:14:29PM +0200, cem@kernel.org wrote:
+> > > > > > From: Carlos Maiolino <cem@kernel.org>
+> > > > > > 
+> > > > > > An user reported a bug where he managed to evade group's quota
+> > > > > > by changing a file's gid to a different group id the same user
+> > > > > > belonged to, even though quotas were enforced on both gids and the
+> > > > > > file's size was big enough to exceed the quota's hardlimit.
+> > > > > > 
+> > > > > > Commit eba0549bc7d1 replaced a capable() call by a
+> > > > > > has_capability_noaudit() to prevent unnecessary selinux audit messages.
+> > > > > > Turns out that both calls have slightly different semantics even though
+> > > > > > their documentation seems similar. Where in a nutshell:
+> > > > > > 
+> > > > > > capable() - Tests the task's effective credentials
+> > > > > > has_ns_capability_noaudit() - Tests the task's real credentials
+> > > > > 
+> > > > > Eww..
+> > > > 
+> > > > Yeah, that's a catch.
+> 
+> I spent a while trying to figure out how I went wrong in selecting the
+> function name:
+> 
+>  * capable - Determine if the current task has a superior capability in effect
+>  * @cap: The capability to be tested for
+>  *
+>  * Return true if the current task has the given superior capability currently
+>  * available for use, false if not.
+> 
+> vs.
+> 
+>  * has_capability_noaudit - Does a task have a capability (unaudited) in the
+>  * initial user ns
+>  * @t: The task in question
+>  * @cap: The capability to be tested for
+>  *
+>  * Return true if the specified task has the given superior capability
+>  * currently in effect to init_user_ns, false if not.  Don't write an
+>  * audit message for the check.
+> 
+> vs.
+> 
+>  * ns_capable_noaudit - Determine if the current task has a superior capability
+>  * (unaudited) in effect
+>  * @ns:  The usernamespace we want the capability in
+>  * @cap: The capability to be tested for
+>  *
+>  * Return true if the current task has the given superior capability currently
+>  * available for use, false if not.
+> 
+> All three of these sound the same to me.  But what about the call path?
 
-[ Upstream commit 82544d36b1729153c8aeb179e84750f0c085d3b1 ]
+Yup, I reached the same conclusion, they are all the same, so I decided
+to look at the implementation...
 
-The existing SELinux security model for overlayfs is to allow access if
-the current task is able to access the top level file (the "user" file)
-and the mounter's credentials are sufficient to access the lower
-level file (the "backing" file).  Unfortunately, the current code does
-not properly enforce these access controls for both mmap() and mprotect()
-operations on overlayfs filesystems.
+> 
+> capable -> ns_capable -> ns_capable_common
+> 
+> has_capability_noaudit -> has_ns_capability_noaudit
+> 
+> ns_capable_noaudit -> ns_capable_common
+> 
+> Hum, maybe that's the difference -- ns_capable_common vs.
+> has_ns_capability_noaudit?
+> 
+> ns_capable_common calls security_capable() with current_cred(), whereas
+> has_ns_capability_noaudit calls it with __task_cred(t), which is
+> @current in the xfs_trans_alloc_ichange case.
+> 
+> Aha!  current_cred is current->cred, whereas __task_cred(current) is
+> current->real_cred, and these aren't the same thing:
+> 
+> 	/* Objective and real subjective task credentials (COW): */
+> 	const struct cred __rcu		*real_cred;
+> 
+> 	/* Effective (overridable) subjective task credentials (COW): */
+> 	const struct cred __rcu		*cred;
+> 
+> So I guess ns_capable_common (and wrappers) are testing the process'
+> effective credentials, whereas has_ns_capability_noaudit is testing the
+> process' real credentials?
+> 
+> It would have been *really* nice if the documentation for those
+> functions mentioned that distinction!
 
-This patch makes use of the newly created security_mmap_backing_file()
-LSM hook to provide the missing backing file enforcement for mmap()
-operations, and leverages the backing file API and new LSM blob to
-provide the necessary information to properly enforce the mprotect()
-access controls.
+Yup, this is a much more detailed versions from my same findings :)
 
-Cc: stable@vger.kernel.org
-Acked-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
----
- security/selinux/hooks.c          | 242 ++++++++++++++++++++++--------
- security/selinux/include/objsec.h |  11 ++
- 2 files changed, 189 insertions(+), 64 deletions(-)
 
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 3da3017ad2ca..f96ee8f372e3 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -1739,49 +1739,72 @@ static inline int file_path_has_perm(const struct cred *cred,
- static int bpf_fd_pass(const struct file *file, u32 sid);
- #endif
- 
--/* Check whether a task can use an open file descriptor to
--   access an inode in a given way.  Check access to the
--   descriptor itself, and then use dentry_has_perm to
--   check a particular permission to the file.
--   Access to the descriptor is implicitly granted if it
--   has the same SID as the process.  If av is zero, then
--   access to the file is not checked, e.g. for cases
--   where only the descriptor is affected like seek. */
--static int file_has_perm(const struct cred *cred,
--			 struct file *file,
--			 u32 av)
-+static int __file_has_perm(const struct cred *cred, const struct file *file,
-+			   u32 av, bool bf_user_file)
-+
- {
--	struct file_security_struct *fsec = selinux_file(file);
--	struct inode *inode = file_inode(file);
- 	struct common_audit_data ad;
--	u32 sid = cred_sid(cred);
-+	struct inode *inode;
-+	u32 ssid = cred_sid(cred);
-+	u32 tsid_fd;
- 	int rc;
- 
--	ad.type = LSM_AUDIT_DATA_FILE;
--	ad.u.file = file;
-+	if (bf_user_file) {
-+		struct backing_file_security_struct *bfsec;
-+		const struct path *path;
- 
--	if (sid != fsec->sid) {
--		rc = avc_has_perm(sid, fsec->sid,
--				  SECCLASS_FD,
--				  FD__USE,
--				  &ad);
-+		if (WARN_ON(!(file->f_mode & FMODE_BACKING)))
-+			return -EIO;
-+
-+		bfsec = selinux_backing_file(file);
-+		path = backing_file_user_path(file);
-+		tsid_fd = bfsec->uf_sid;
-+		inode = d_inode(path->dentry);
-+
-+		ad.type = LSM_AUDIT_DATA_PATH;
-+		ad.u.path = *path;
-+	} else {
-+		struct file_security_struct *fsec = selinux_file(file);
-+
-+		tsid_fd = fsec->sid;
-+		inode = file_inode(file);
-+
-+		ad.type = LSM_AUDIT_DATA_FILE;
-+		ad.u.file = file;
-+	}
-+
-+	if (ssid != tsid_fd) {
-+		rc = avc_has_perm(ssid, tsid_fd, SECCLASS_FD, FD__USE, &ad);
- 		if (rc)
--			goto out;
-+			return rc;
- 	}
- 
- #ifdef CONFIG_BPF_SYSCALL
--	rc = bpf_fd_pass(file, cred_sid(cred));
-+	/* regardless of backing vs user file, use the underlying file here */
-+	rc = bpf_fd_pass(file, ssid);
- 	if (rc)
- 		return rc;
- #endif
- 
- 	/* av is zero if only checking access to the descriptor. */
--	rc = 0;
- 	if (av)
--		rc = inode_has_perm(cred, inode, av, &ad);
-+		return inode_has_perm(cred, inode, av, &ad);
- 
--out:
--	return rc;
-+	return 0;
-+}
-+
-+/* Check whether a task can use an open file descriptor to
-+   access an inode in a given way.  Check access to the
-+   descriptor itself, and then use dentry_has_perm to
-+   check a particular permission to the file.
-+   Access to the descriptor is implicitly granted if it
-+   has the same SID as the process.  If av is zero, then
-+   access to the file is not checked, e.g. for cases
-+   where only the descriptor is affected like seek. */
-+static inline int file_has_perm(const struct cred *cred,
-+				const struct file *file, u32 av)
-+{
-+	return __file_has_perm(cred, file, av, false);
- }
- 
- /*
-@@ -3799,6 +3822,17 @@ static int selinux_file_alloc_security(struct file *file)
- 	return 0;
- }
- 
-+static int selinux_backing_file_alloc(struct file *backing_file,
-+				      const struct file *user_file)
-+{
-+	struct backing_file_security_struct *bfsec;
-+
-+	bfsec = selinux_backing_file(backing_file);
-+	bfsec->uf_sid = selinux_file(user_file)->sid;
-+
-+	return 0;
-+}
-+
- /*
-  * Check whether a task has the ioctl permission and cmd
-  * operation to an inode.
-@@ -3916,42 +3950,55 @@ static int selinux_file_ioctl_compat(struct file *file, unsigned int cmd,
- 
- static int default_noexec __ro_after_init;
- 
--static int file_map_prot_check(struct file *file, unsigned long prot, int shared)
-+static int __file_map_prot_check(const struct cred *cred,
-+				 const struct file *file, unsigned long prot,
-+				 bool shared, bool bf_user_file)
- {
--	const struct cred *cred = current_cred();
--	u32 sid = cred_sid(cred);
--	int rc = 0;
-+	struct inode *inode = NULL;
-+	bool prot_exec = prot & PROT_EXEC;
-+	bool prot_write = prot & PROT_WRITE;
-+
-+	if (file) {
-+		if (bf_user_file)
-+			inode = d_inode(backing_file_user_path(file)->dentry);
-+		else
-+			inode = file_inode(file);
-+	}
-+
-+	if (default_noexec && prot_exec &&
-+	    (!file || IS_PRIVATE(inode) || (!shared && prot_write))) {
-+		int rc;
-+		u32 sid = cred_sid(cred);
- 
--	if (default_noexec &&
--	    (prot & PROT_EXEC) && (!file || IS_PRIVATE(file_inode(file)) ||
--				   (!shared && (prot & PROT_WRITE)))) {
- 		/*
--		 * We are making executable an anonymous mapping or a
--		 * private file mapping that will also be writable.
--		 * This has an additional check.
-+		 * We are making executable an anonymous mapping or a private
-+		 * file mapping that will also be writable.
- 		 */
--		rc = avc_has_perm(sid, sid, SECCLASS_PROCESS,
--				  PROCESS__EXECMEM, NULL);
-+		rc = avc_has_perm(sid, sid, SECCLASS_PROCESS, PROCESS__EXECMEM,
-+				  NULL);
- 		if (rc)
--			goto error;
-+			return rc;
- 	}
- 
- 	if (file) {
--		/* read access is always possible with a mapping */
-+		/* "read" always possible, "write" only if shared */
- 		u32 av = FILE__READ;
--
--		/* write access only matters if the mapping is shared */
--		if (shared && (prot & PROT_WRITE))
-+		if (shared && prot_write)
- 			av |= FILE__WRITE;
--
--		if (prot & PROT_EXEC)
-+		if (prot_exec)
- 			av |= FILE__EXECUTE;
- 
--		return file_has_perm(cred, file, av);
-+		return __file_has_perm(cred, file, av, bf_user_file);
- 	}
- 
--error:
--	return rc;
-+	return 0;
-+}
-+
-+static inline int file_map_prot_check(const struct cred *cred,
-+				      const struct file *file,
-+				      unsigned long prot, bool shared)
-+{
-+	return __file_map_prot_check(cred, file, prot, shared, false);
- }
- 
- static int selinux_mmap_addr(unsigned long addr)
-@@ -3967,36 +4014,80 @@ static int selinux_mmap_addr(unsigned long addr)
- 	return rc;
- }
- 
--static int selinux_mmap_file(struct file *file,
--			     unsigned long reqprot __always_unused,
--			     unsigned long prot, unsigned long flags)
-+static int selinux_mmap_file_common(const struct cred *cred, struct file *file,
-+				    unsigned long prot, bool shared)
- {
--	struct common_audit_data ad;
--	int rc;
--
- 	if (file) {
-+		int rc;
-+		struct common_audit_data ad;
-+
- 		ad.type = LSM_AUDIT_DATA_FILE;
- 		ad.u.file = file;
--		rc = inode_has_perm(current_cred(), file_inode(file),
--				    FILE__MAP, &ad);
-+		rc = inode_has_perm(cred, file_inode(file), FILE__MAP, &ad);
- 		if (rc)
- 			return rc;
- 	}
- 
--	return file_map_prot_check(file, prot,
--				   (flags & MAP_TYPE) == MAP_SHARED);
-+	return file_map_prot_check(cred, file, prot, shared);
-+}
-+
-+static int selinux_mmap_file(struct file *file,
-+			     unsigned long reqprot __always_unused,
-+			     unsigned long prot, unsigned long flags)
-+{
-+	return selinux_mmap_file_common(current_cred(), file, prot,
-+					(flags & MAP_TYPE) == MAP_SHARED);
-+}
-+
-+/**
-+ * selinux_mmap_backing_file - Check mmap permissions on a backing file
-+ * @vma: memory region
-+ * @backing_file: stacked filesystem backing file
-+ * @user_file: user visible file
-+ *
-+ * This is called after selinux_mmap_file() on stacked filesystems, and it
-+ * is this function's responsibility to verify access to @backing_file and
-+ * setup the SELinux state for possible later use in the mprotect() code path.
-+ *
-+ * By the time this function is called, mmap() access to @user_file has already
-+ * been authorized and @vma->vm_file has been set to point to @backing_file.
-+ *
-+ * Return zero on success, negative values otherwise.
-+ */
-+static int selinux_mmap_backing_file(struct vm_area_struct *vma,
-+				     struct file *backing_file,
-+				     struct file *user_file __always_unused)
-+{
-+	unsigned long prot = 0;
-+
-+	/* translate vma->vm_flags perms into PROT perms */
-+	if (vma->vm_flags & VM_READ)
-+		prot |= PROT_READ;
-+	if (vma->vm_flags & VM_WRITE)
-+		prot |= PROT_WRITE;
-+	if (vma->vm_flags & VM_EXEC)
-+		prot |= PROT_EXEC;
-+
-+	return selinux_mmap_file_common(backing_file->f_cred, backing_file,
-+					prot, vma->vm_flags & VM_SHARED);
- }
- 
- static int selinux_file_mprotect(struct vm_area_struct *vma,
- 				 unsigned long reqprot __always_unused,
- 				 unsigned long prot)
- {
-+	int rc;
- 	const struct cred *cred = current_cred();
- 	u32 sid = cred_sid(cred);
-+	const struct file *file = vma->vm_file;
-+	bool backing_file;
-+	bool shared = vma->vm_flags & VM_SHARED;
-+
-+	/* check if we need to trigger the "backing files are awful" mode */
-+	backing_file = file && (file->f_mode & FMODE_BACKING);
- 
- 	if (default_noexec &&
- 	    (prot & PROT_EXEC) && !(vma->vm_flags & VM_EXEC)) {
--		int rc = 0;
- 		/*
- 		 * We don't use the vma_is_initial_heap() helper as it has
- 		 * a history of problems and is currently broken on systems
-@@ -4010,11 +4101,15 @@ static int selinux_file_mprotect(struct vm_area_struct *vma,
- 		    vma->vm_end <= vma->vm_mm->brk) {
- 			rc = avc_has_perm(sid, sid, SECCLASS_PROCESS,
- 					  PROCESS__EXECHEAP, NULL);
--		} else if (!vma->vm_file && (vma_is_initial_stack(vma) ||
-+			if (rc)
-+				return rc;
-+		} else if (!file && (vma_is_initial_stack(vma) ||
- 			    vma_is_stack_for_current(vma))) {
- 			rc = avc_has_perm(sid, sid, SECCLASS_PROCESS,
- 					  PROCESS__EXECSTACK, NULL);
--		} else if (vma->vm_file && vma->anon_vma) {
-+			if (rc)
-+				return rc;
-+		} else if (file && vma->anon_vma) {
- 			/*
- 			 * We are making executable a file mapping that has
- 			 * had some COW done. Since pages might have been
-@@ -4022,13 +4117,29 @@ static int selinux_file_mprotect(struct vm_area_struct *vma,
- 			 * modified content.  This typically should only
- 			 * occur for text relocations.
- 			 */
--			rc = file_has_perm(cred, vma->vm_file, FILE__EXECMOD);
-+			rc = __file_has_perm(cred, file, FILE__EXECMOD,
-+					     backing_file);
-+			if (rc)
-+				return rc;
-+			if (backing_file) {
-+				rc = file_has_perm(file->f_cred, file,
-+						   FILE__EXECMOD);
-+				if (rc)
-+					return rc;
-+			}
- 		}
-+	}
-+
-+	rc = __file_map_prot_check(cred, file, prot, shared, backing_file);
-+	if (rc)
-+		return rc;
-+	if (backing_file) {
-+		rc = file_map_prot_check(file->f_cred, file, prot, shared);
- 		if (rc)
- 			return rc;
- 	}
- 
--	return file_map_prot_check(vma->vm_file, prot, vma->vm_flags&VM_SHARED);
-+	return 0;
- }
- 
- static int selinux_file_lock(struct file *file, unsigned int cmd)
-@@ -7140,6 +7251,7 @@ struct lsm_blob_sizes selinux_blob_sizes __ro_after_init = {
- 	.lbs_cred = sizeof(struct cred_security_struct),
- 	.lbs_task = sizeof(struct task_security_struct),
- 	.lbs_file = sizeof(struct file_security_struct),
-+	.lbs_backing_file = sizeof(struct backing_file_security_struct),
- 	.lbs_inode = sizeof(struct inode_security_struct),
- 	.lbs_ipc = sizeof(struct ipc_security_struct),
- 	.lbs_key = sizeof(struct key_security_struct),
-@@ -7363,9 +7475,11 @@ static struct security_hook_list selinux_hooks[] __ro_after_init = {
- 
- 	LSM_HOOK_INIT(file_permission, selinux_file_permission),
- 	LSM_HOOK_INIT(file_alloc_security, selinux_file_alloc_security),
-+	LSM_HOOK_INIT(backing_file_alloc, selinux_backing_file_alloc),
- 	LSM_HOOK_INIT(file_ioctl, selinux_file_ioctl),
- 	LSM_HOOK_INIT(file_ioctl_compat, selinux_file_ioctl_compat),
- 	LSM_HOOK_INIT(mmap_file, selinux_mmap_file),
-+	LSM_HOOK_INIT(mmap_backing_file, selinux_mmap_backing_file),
- 	LSM_HOOK_INIT(mmap_addr, selinux_mmap_addr),
- 	LSM_HOOK_INIT(file_mprotect, selinux_file_mprotect),
- 	LSM_HOOK_INIT(file_lock, selinux_file_lock),
-diff --git a/security/selinux/include/objsec.h b/security/selinux/include/objsec.h
-index 816fde5a5896..fcb46793898f 100644
---- a/security/selinux/include/objsec.h
-+++ b/security/selinux/include/objsec.h
-@@ -86,6 +86,10 @@ struct file_security_struct {
- 	u32 pseqno; /* Policy seqno at the time of file open */
- };
- 
-+struct backing_file_security_struct {
-+	u32 uf_sid; /* associated user file fsec->sid */
-+};
-+
- struct superblock_security_struct {
- 	u32 sid; /* SID of file system superblock */
- 	u32 def_sid; /* default SID for labeling */
-@@ -190,6 +194,13 @@ static inline struct file_security_struct *selinux_file(const struct file *file)
- 	return file->f_security + selinux_blob_sizes.lbs_file;
- }
- 
-+static inline struct backing_file_security_struct *
-+selinux_backing_file(const struct file *backing_file)
-+{
-+	void *blob = backing_file_security(backing_file);
-+	return blob + selinux_blob_sizes.lbs_backing_file;
-+}
-+
- static inline struct inode_security_struct *
- selinux_inode(const struct inode *inode)
- {
--- 
-2.18.0.huawei.25
+> 
+> > > > > > This most of the time has no practical difference but in some cases like
+> > > > > > changing attrs (specifically group id in this case) through a NFS client
+> > > > > > this will allow the quota code to use XFS_QMOPT_FORCE_RES, effectively
+> > > > > > bypassing quota accounting checks.
+> > > > > 
+> > > > > Yeah, this does look wrong.  Do the other conversion in the above commit
+> > > > > have tthe same issue?
+> > > > > 
+> > > > > > Using instead ns_capable_noaudit() should fix this issue and prevent
+> > > > > > selinux audit messages.
+> > > > > 
+> > > > > The generic quota code manages to do without either has_capability_noaudit
+> > > > > or ns_capable_noaudit.  I think this might be hidden behind
+> > > > > inode_owner_or_capable calls.  Any idea why we're different?
+> > > > 
+> > > > Actually no. Generic quota code has equivalent checks in ignore_hardlimit()
+> > > > function which does capable(CAP_SYS_RESOURCE) check. I guess the reason why
+> > > > nobody complained about generic quota code is that we call
+> > > > ignore_hardlimit() only if we are above hardlimit whereas XFS calls this
+> > > > for every transaction...
+> > > 
+> > > I guess we should aim for the same to avoid the spurious audit logs.
+> > > 
+> > > I.e. xfs_trans_alloc_ichange is currently always called either with
+> > > force = true or force = this capable check.  So as a first step we can
+> > > move the check into xfs_trans_alloc_ichange for the !force case, and the
+> > > propagate that through XFS_QMOPT_FORCE_RES into xfs_trans_dqresv, i.e.
+> > > only set XFS_QMOPT_FORCE_RES for the real forced case and instead
+> > > have the capable check down in xfs_trans_dqresv.
+> > > 
+> > 
+> > Sounds fair, I'll give it a try tomorrow.
+> 
+> So yeah, I agree we should change that to:
+> 
+> 	ns_capable_noaudit(&init_user_ns, CAP_FOWNER)
+> 
+> Though it's also weird that XFS gates it on CAP_FOWNER whereas the VFS
+> checks CAP_SYS_RESOURCE.  Though I would have added this:
 
+Same to me, I think there is no real reason for us to be using
+CAP_FOWNER? I thought about changing it to CAP_SYS_RESOURCE but honestly
+I'd avoid doing that for LTS and just stick with CAP_FOWNER initially.
+
+> 
+> static inline bool
+> current_may_ignore_quota_limits(void)
+> {
+> 	/*
+> 	 * If the current process' effective credentials include
+> 	 * CAP_FOWNER, then they're allowed to ignore the hard limit.
+> 	 */
+> 	return ns_capable_noaudit(&init_user_ns, CAP_FOWNER);
+> }
+> 
+> and then changed the callsites in xfs_ioctl/xfs_iops.c to:
+> 
+> 	error = xfs_trans_alloc_ichange(ip, udqp, gdqp, NULL,
+> 			current_may_ignore_quota_limits(), &tp);
+> 
+> The has_capability_noaudit call in xfs_fsmap.c should change to
+> ns_capable_noaudit.
+
+I'm working on a version now adding some bits hch suggested. At the end
+I think we should add a new helper in kernel/capabililty, but I want to
+avoid doing that now so LTS can cleanly backport a fix. Then we can
+update it.
+I'm working on both things in parallel and see how it goes. I'll Cc you
+folks.
+
+> 
+> --D
+> 
