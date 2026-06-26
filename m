@@ -1,125 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com [209.85.210.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB72F3BAD80;
-	Fri, 26 Jun 2026 19:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68DB3B1017
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 19:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782500555; cv=none; b=kjsGhsf7T4KWU9E2WHMMa+YDUE7OsteIyOQubEgw2BCzooWNImPugMCuneq0peuNJvM3Gryuf4vknlHwmCk1hzjvW6OsFlZy0z/bALzkZvMqNNCWA5yjqMMtmCwQcLHvdY3C2EkpHjFru/4yidZ5xSC+6sDjCoqRQRtoALxLxto=
+	t=1782501096; cv=none; b=FEAgjcM0AWtauIHzj6VTLtKBh6KYbdCS7QFxQL7NtPdKIe+AnPD9X/TJmMv0YDoJ3Y90ZYkZbwutOmUjse7zbcfX1M9ZAjb85DmCJmBy4gEPOyzJJrfdQWPYNQ8g2vAUiIh6GM5GL78LvH3hRwzoQVup0rPRHUzUo5eByUImI7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782500555; c=relaxed/simple;
-	bh=wYG9vxHJQnok4hRaaItI0c/491Uiob2sFG40NG146XM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LYXlba6yRJHVfr3G4Q0pKHy3ADa40Zpu2M8VPum0VpRs3nqB3T1tSbannoMIsADWO5gVUC8l5a4SNwPuTI7DpOd8QWS53HDoTtNouwSXAD6sIJs9iercaWuoHFoHX38kk+FbazH3kGO+/T0E2ZGD4nA4Mz2/ZwAwEvl2lsD1XuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5bWxkNz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782501096; c=relaxed/simple;
+	bh=SYyGX7CRd59z7RJKo/wpZWXgbmtBMjXEDxJ0dGqicvA=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=dKrtOTZ8+4Lh3JEsEQkSeYi47FdMScgswN3PiJpVvP5WP1LzmDasQ3wvNaXHQLvctPukvgqaweRJ5Efjg1QPOewuQxAMwi7NTSeZ8etMSBeU0SwGZ/dE+VyMhrB0KrH3YHIGWWyc6uPECEW05xlsxJmlRZ+nrMgFbcJ6tcITDgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fzJ9zf3e; arc=none smtp.client-ip=209.85.210.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5bWxkNz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15DC01F000E9;
-	Fri, 26 Jun 2026 19:02:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782500554;
-	bh=zeUUj+anazIq+ujYMyuB6v00pSzE1NMl9SDGFG9i/cI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e5bWxkNzromH2sWRes0RrSGnX0Vu//XBwM+2IApMfir10C/62iPb3QsD66O5KKgc9
-	 veoKE/j/jzGAMBKNZtEs85HBu/zdxuqI23vafnwNaVY8tlPtzkjkfIAxFxcS1Xdn8E
-	 crjyMlTCVVQQU1qOhE7cgFKq6noWYS+OZ3Z8EU4xrQ9Z0vqyGRSeStDw5YWrzekBMl
-	 EPP2vO/r57UPqvB/A4e5FStS+DMAi8vkl2tL85+X4CepdT4ie6ZEDaF0Y4ltgHGOxD
-	 Qi3WyrHUTbkRIDtiEdbHUBCGVgrwXUOihKOymr9+294oV0RibQTe1MJYLbSRGHVXcz
-	 9pAwye1ntFutA==
-Date: Fri, 26 Jun 2026 19:02:32 +0000
-From: Eric Biggers <ebiggers@kernel.org>
-To: Luis Henriques <luis@igalia.com>
-Cc: linux-fscrypt@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Jarkko Sakkinen <jarkko@kernel.org>, linux-fsdevel@vger.kernel.org,
-	keyrings@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzbot+f55b043dacf43776b50c@syzkaller.appspotmail.com,
-	Mohammed EL Kadiri <med08elkadiri@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] fscrypt: Replace mk_users keyring with simple list
-Message-ID: <20260626190232.GA1719948@google.com>
-References: <20260618221921.87896-1-ebiggers@kernel.org>
- <87tsqpd8d8.fsf@wotan.olymp>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fzJ9zf3e"
+Received: by mail-pf1-f201.google.com with SMTP id d2e1a72fcca58-8422ca754d8so719535b3a.1
+        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 12:11:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1782501095; x=1783105895; darn=vger.kernel.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=2knDCK7pRXDoPdThYLEfyiz4oOOQn0caXBXu1bE1oGI=;
+        b=fzJ9zf3eFbhRTnyxIjJgEEg2ykXbV/J3iV8a1rgYlkqK+TT3LxQgvaPqd8nTgRjBDc
+         ZELZL4aSzTGxlV0AOjDYiqtFHd4TzGLJEkOljVgqW5r6GUX/ajvZJomlyRH8CYDQY/d8
+         zIqpt5CTRTBs1gfIBw0lAPGnjmMMkH9R7LcYDR3gQqFUHR/FuEkfzfdhhqiM7UbyLNGG
+         Q8fTg5tyUAAc6NZY/ceg5OYpzpYXPb8OA3yestJZwyCn1xk9ZTccaWhvwOzzeGvkk9bE
+         LxqzbDOuzw4IURnAVgtmc/7FEOm/61s0cLqanR4IsQ0oIqA5eb85gM7HDC4Pe6go3Btq
+         6VGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782501095; x=1783105895;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=2knDCK7pRXDoPdThYLEfyiz4oOOQn0caXBXu1bE1oGI=;
+        b=OjmSc1Ma4RGLy7B/2pi03DX9uBuQb3cTiSdsC8Jq6fFMd6e+6RW09QPVIOL/xboc3G
+         q0NhuTMC1juv00y/QQikmJUUfnIJlVU8+ZxHzc+4UCmpgSe6ADN/Ouh78u1eshXohkNJ
+         0d5aew9QquWx/wAvnKKsYdMpzEW6RyGADDi9/EnV97XibASlPc2a5lGFXq8n52CW32vZ
+         TL6p3iywkiGBVLvDyGd/qMBe4tzP85t7h4Y2pnX8aPOBHDwE1bmqvP+NSBEbgxpbE9/i
+         iNnjviOiU7jmWpQHgEBaZuqN+ccl+4+nPGhmsU+fOcN+Nk/CsrmtDWWL72xmcQg2ZdcP
+         W5GQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8GCvee9+zOLC0zT+4nKgapbr4tFcmod0xfHG18u/6NIQjs+QxcfIwTX7M5bdF8+zrZuJCFEyg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyNxtM5NfkAeXqIzGwlMbf+SznGlX4/ouRLCPaGbC8s5sKrU1NU
+	OMR9sBK1erATbOa7+KBx7PtMIUsLUiMeqiNQJy5AB4I0mqEarrZH6m63ATGFG7U0rfY3F9ZVnAL
+	QhMeSrQ==
+X-Received: from pfbit24.prod.google.com ([2002:a05:6a00:4598:b0:845:cb91:3911])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:84e:b0:845:b5c1:cf62
+ with SMTP id d2e1a72fcca58-845d261fcd6mr1209650b3a.43.1782501094810; Fri, 26
+ Jun 2026 12:11:34 -0700 (PDT)
+Date: Fri, 26 Jun 2026 12:11:34 -0700
+In-Reply-To: <stable-reply-item008-kvm-515-respfn-20260626@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87tsqpd8d8.fsf@wotan.olymp>
+Mime-Version: 1.0
+References: <20260626112606.1778248-9-pbonzini@redhat.com> <stable-reply-item008-kvm-515-respfn-20260626@kernel.org>
+Message-ID: <aj7O5pjLMtgYDHNe@google.com>
+Subject: Re: [PATCH 5.15.y 8/8] KVM: x86/mmu: Ensure hugepage is in by slot
+ before checking max mapping level
+From: Sean Christopherson <seanjc@google.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org, 
+	David Matlack <dmatlack@google.com>, James Houghton <jthoughton@google.com>, 
+	Alexander Bulekov <bkov@amazon.com>, Fred Griffoul <fgriffo@amazon.co.uk>, Alexander Graf <graf@amazon.de>, 
+	David Woodhouse <dwmw@amazon.co.uk>, Filippo Sironi <sironi@amazon.de>, Ivan Orlov <iorlov@amazon.co.uk>, 
+	Paolo Bonzini <pbonzini@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On Fri, Jun 26, 2026 at 09:16:35AM +0100, Luis Henriques wrote:
-> Hi Eric!
+On Fri, Jun 26, 2026, Sasha Levin wrote:
+> >  -	if (sp->role.direct && !kvm_is_reserved_pfn(pfn) &&
+> >  +	if (sp->role.direct && is_gfn_in_memslot(slot, sp->gfn) &&
 > 
-> On Thu, Jun 18 2026, Eric Biggers wrote:
-> 
-> > Change mk_users (the set of user claims to an fscrypt master key) from a
-> > 'struct key' keyring to a simple linked list.
-> >
-> > It's still a collection of 'struct key' for quota tracking.  It was
-> > originally thought to be natural that a collection of 'struct key'
-> > should be held in a 'struct key' keyring.  In reality, it's just been
-> > causing problems, similar to how using 'struct key' for the filesystem
-> > keyring caused problems and was removed in commit d7e7b9af104c
-> > ("fscrypt: stop using keyrings subsystem for fscrypt_master_key").
-> >
-> > Commit d3a7bd420076 ("fscrypt: clear keyring before calling key_put()")
-> > fixed mk_users cleanup to be synchronous.  But that apparently wasn't
-> > enough: the keyring subsystem's redundant locking is still generating
-> > lockdep false positives due to the interaction with filesystem reclaim.
-> >
-> > With the simple list, the redundant locking and lockdep issue goes away.
-> >
-> > Of course, searching a linked list is linear-time whereas the
-> > 'struct key' keyring used a fancy constant-time associative array.  But
-> > that's fine here, since in practice there's just one entry in the list.
-> > In fact the new code is much faster in practice, since it's much smaller
-> > and doesn't have to convert the kuid_t into a string to search for it.
-> >
-> > Reported-by: syzbot+f55b043dacf43776b50c@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=f55b043dacf43776b50c
-> > Reported-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
-> > Closes: https://lore.kernel.org/keyrings/20260614150041.21172-1-med08elkadiri@gmail.com/
-> > Fixes: 23c688b54016 ("fscrypt: allow unprivileged users to add/remove keys for v2 policies")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> > ---
-> >
-> > I'm planning to take this via the fscrypt tree for 7.2
-> 
-> I was hoping to have some more time to test this patch, but I don't think
-> that will happen any time soon.
-> 
-> I've done a review of the patch and couldn't find any obvious problem.
-> Though, again, a more in-depth review would require more time as it has
-> been a while since I took a look into this code.
-> 
-> I just wonder if this is really stable material.  It's a bit intrusive
-> (doesn't even apply cleanly in mainline), but above all it's fixing a
-> lockdep false positive.  Other than syzbot, has this been seen in the
-> wild?
+> This drops the !kvm_is_reserved_pfn(pfn) guard instead of adding
+> is_gfn_in_memslot() alongside it. I think upstream could drop it only because
+> a8ac499bb6ab ("KVM: x86/mmu: Don't require refcounted "struct page" to create
+> huge SPTEs") rewrote host_pfn_mapping_level() to stop touching the struct page
+> but that commit isn't in 5.15. Does it make sense?
 
-Thanks!
-
-It applies on top of
-"[PATCH] fscrypt: Fix key setup in edge case with multiple data unit sizes"
-(https://lore.kernel.org/linux-fscrypt/20260618180652.52742-1-ebiggers@kernel.org/).
-This time I tried just relying on the prerequisite-patch-id footer (as
-generated by 'git format-patch') to express the dependency.  But
-evidently that still doesn't work: for one, 'b4 am' just ignores it.
-
-Since this patch has "Reported-by: syzbot" as well as "Fixes", the
-stable maintainers will apply it anyway.  If I actually wanted to stop
-that, I'd have to actively oppose the backport, likely multiple times
-indefinitely since people will continue to try to backport it.  And
-syzkaller would continue to get the lockdep warning on stable kernels.
-
-So I'd rather just get it out the way and backport it the same time as
-"fscrypt: Fix key setup in edge case with multiple data unit sizes",
-which similarly tweaks some data structures in struct fscrypt_master_key
-and needs to be backported too.  "fscrypt: stop using keyrings subsystem
-for fscrypt_master_key" several years ago was backported too.
-
-- Eric
+Agreed, the kvm_is_reserved_pfn() should be kept for 5.15.
