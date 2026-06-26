@@ -1,367 +1,144 @@
-Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com [91.218.175.185])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012044.outbound.protection.outlook.com [40.107.209.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10EE3E0090
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.185
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782492425; cv=none; b=rpEs9EkIFDy2aDyDmKVYHLn6q8GaRj3po88UoGk+iwENXJTw+u5TeuweIi8Ng/+4BXM4eXjFtq3GXBLM/i8GkGtRQJgpJRfzAthvRMzAX/oPkyc3COpIgismy3iNjE3pCH12zIGReooCMGoCzr2V5NJ/6CdXWtzsaYG1KfjB/7M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782492425; c=relaxed/simple;
-	bh=wSMNEciDDRWSm5PE0aoNHVotpa/kvGu1a84+++tQjNQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Od8FwRLF2G5XNLZ2amNQpL1jqf6sRgeAXgvAM32/C69Int1MG36IrRnnTjeR1uMr5C01pDNb4xUoD3oO2btFutcmBT1e4dxcBO5LqtlQGZGzkeyted+phXAQw+wt8YAY3OeS7sw044w17SYu9pL8lSaJ+Im0/9RXdmEAGNKw6pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HOJOa/Ld; arc=none smtp.client-ip=91.218.175.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09F83FD13F;
+	Fri, 26 Jun 2026 16:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782492481; cv=fail; b=myF+BKoZo27nGugRs2Slqs7Muxk1xritCAR8HPawE8feY3alIgOCMiiBKhJ2ID/hZxYWGol4rkIdawC4Xydolqj/07xpkeg25QSy5DJVysbwCUimyWXEpM5EsvrgdLenCGNTUNQ9GVs4PPENCL/++n9Etk+F/oW2V2LLzRGGOeo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782492481; c=relaxed/simple;
+	bh=OPrL7m+jD0MnjSwzW3v1PCmpRp/bn46nHuWgILOcgzQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=LEegnMMWSGZosKQf/pWV1Qpb26AfTSzU0OBkTFlF6mQ6EY0PLs3SdoN5SNUP7YV/IqMixylNcCt5nRTIOijYlZtkELre3Bp+23cnziuDpRnBNW+FOqd8rqkOOonizVNP0O9P8QqKjeg7rJwrvjMzKRwrwCu8YAu5ptqgKejj6aY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=AyWVh+IX; arc=fail smtp.client-ip=40.107.209.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HOJOa/Ld"
-Message-ID: <edee8461-34c6-41e9-ae0c-076380d92ebb@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782492411;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FGwxxWe+QCDMvLSkrZ/qxbUzFrLihkdj28Ia6nPKpIo=;
-	b=HOJOa/LdmSrgdvreMbVWnSMNdFb3o+bICnC0yutu2zdn9Pkw/GFuSzgPpiz7cM9SE0vUsr
-	r4i94ApppN6XHHe2YJvCDyobhQOU+JcFxBpLHC/Wi56ZjAu0xjJ99caDiEm497lv8B3xAi
-	7wLYeYTMD+L51EkeTu3wuwS97CkpL3k=
-Date: Sat, 27 Jun 2026 00:46:38 +0800
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="AyWVh+IX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nssZprXzn3eR1tJg4u3UAWgqBeKompgISFB2VVkYm8qPh3IXAKD6mahqA4zq/20DQZ6ZYO+3oI2lasgsFU4TM8DAVSE3/APZuXCZr4yVt6JmNa1MZxOldqHnEBN6qMDI+bIGBt/MvjVP0GBj+q8L+l2GVzPnmYg0trixHeM9bwtH8hAdY9z5ADw6ERBPLYkgMOCV9+loNKqcivTYaNdzfDaM+/e9Whz4XHPv4ZCbsMxejHfhiaV9Urh51tO7bKRi3QHUoIxHaF5NNiR/OMTuNTotmC6JbmKGBrlLOLpN/UoahZnI4D/PEj9IRw5XdK57C648dM9qv8K66lu/OaThjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JjU3/0btqkpalm97bPTco8DqFomCTrBe34psB4TOmmE=;
+ b=p0DI4YWPSC/dE9BVLKjRnc2YLHJCPOf9RhkYfeTJQfd3UA6Vpf96GtklHrRj5BpHXB5n37AanlEpcztiHPMn+Fg9TBjm1blrp3Xz3phJ22IppPZ/5dhi73vCHv7BlW2F/w408xflHSghKJYRPu59nddELlh7H0uwVZdXYGM1TwvcMmRA4doZSxfXdiCYoDnPfj2u16hINVLV/vzeLHp/4I9oMEBsRIaup1pzsNrwhQEmWPm+nvFmnk8ogMA9j6VsVTRiPsU72W6E0fevoS3ILmJuNYeaeMoaC3R4saY8kiTgxw/YXEdGSEN9ijn3Ot847FpYBz5UXV/NEeRnKFdlrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=iscas.ac.cn smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JjU3/0btqkpalm97bPTco8DqFomCTrBe34psB4TOmmE=;
+ b=AyWVh+IXDqA0ojcetLWgYdOHI09A4hcq2hlDQcjd7S6etHeNYHKqLTsrNuc3eI5E62Oy2M2YMLJneKOQQUjSt/X2txDBv+FZ4Zo3SXXKYwJ3fJUyj4atJPXCEqYb3GR8fZMWcPeZd+o5Qx6RIZCM/2rDGVkK6yOICd/KJ+VEIhc=
+Received: from CH0PR13CA0015.namprd13.prod.outlook.com (2603:10b6:610:b1::20)
+ by DS7PR12MB6311.namprd12.prod.outlook.com (2603:10b6:8:94::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.15; Fri, 26 Jun
+ 2026 16:47:52 +0000
+Received: from CH3PEPF00000009.namprd04.prod.outlook.com
+ (2603:10b6:610:b1:cafe::94) by CH0PR13CA0015.outlook.office365.com
+ (2603:10b6:610:b1::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Fri, 26
+ Jun 2026 16:47:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF00000009.mail.protection.outlook.com (10.167.244.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Fri, 26 Jun 2026 16:47:50 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 26 Jun
+ 2026 11:47:48 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 26 Jun 2026 11:47:47 -0500
+Message-ID: <cb0d1d74-2be5-8b54-4638-4c9629b15055@amd.com>
+Date: Fri, 26 Jun 2026 09:47:42 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 4/5] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/amdxdna: Fix use-after-free in
+ amdxdna_gem_dmabuf_mmap()
 Content-Language: en-US
-To: Dev Jain <dev.jain@arm.com>, linmiaohe@huawei.com
-Cc: muchun.song@linux.dev, osalvador@suse.de, akpm@linux-foundation.org,
- ljs@kernel.org, david@kernel.org, liam@infradead.org, riel@surriel.com,
- vbabka@kernel.org, harry@kernel.org, jannh@google.com, kas@kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, rcampbell@nvidia.com,
- apopple@nvidia.com, ziy@nvidia.com, matthew.brost@intel.com,
- joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com,
- gourry@gourry.net, ying.huang@linux.alibaba.com, mel@csn.ul.ie,
- nao.horiguchi@gmail.com, ak@linux.intel.com, j-nomura@ce.jp.nec.com,
- pfalcato@suse.de, dave.hansen@intel.com, tglx@kernel.org,
- jpoimboe@kernel.org, ryan.roberts@arm.com, anshuman.khandual@arm.com,
- stable@vger.kernel.org
-References: <e6d1b813-0893-458e-9d58-8d3a9bd979c4@arm.com>
- <20260626141031.14309-1-lance.yang@linux.dev>
- <61e9fcf7-02a5-4285-948b-62fba4dcd69c@arm.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <61e9fcf7-02a5-4285-948b-62fba4dcd69c@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+To: Wentao Liang <vulab@iscas.ac.cn>, <mamin506@gmail.com>,
+	<ogabbay@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260625113239.49764-1-vulab@iscas.ac.cn>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260625113239.49764-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000009:EE_|DS7PR12MB6311:EE_
+X-MS-Office365-Filtering-Correlation-Id: 159acc39-dd7f-411d-ac47-08ded3a2a8c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	3mBgEhSJTt2flkdByd0iveO1DekN3IzF8BXA3XXJb17xpvNSy4foB1WeUvM8qMlCL0SXFx1rmLdm5bcJrMqb9LoK64RLAYSCB923wANgC5TlUpPjC8S64Q33ZEX5y9kI/lC+gtXe2b7h0JUDsgyVTU5odn9dqBuiAguJBB9lzxsynNjAOfe7ravDAD/wrI+fublMv/OtVf2/ESWn0KLs94qf/McKHQASpmxoXeCRzw26yq+nwdIYFg9lcA2fYAUU8FTag5pPWIDyNgHzZzaCXbJSYyuKve9SNyFpUST9n1tERaMxxC6BRnnkhLHRbpqfQ/4/pXnGGWQUKHywDodUuDIv2YxZMfb5vdDSHpGaRF7daiNARxTiMTmMJKqJeNaLAcGsbp0PEbSgaBraz1ooSuKwzj7uTO0Yx1EtvWc3jsPFt6tLbla+6lIzzndvs4DxhpSft8Ho86TSpdqJ548ivj0k3JXhAZWIJviu6YYYmQ54NLY6Y2Si8SsU/cjowP1yF0N+KVPdAMJb0fx+rCqlHePp9PW5ljutJNxo4PYxXBaLrl6zCxrTd/doeCA15DlOWPdlSzGZzSgd7kTaxUDmYZ7oeoO6WJjvb28xmvd//p0ZUHrsmhA4pfVdk1a+xKLeBoHChMvQHt8PtNrLxyRnU/ro2YGP18i9VFdYt0HuQurZ9MWTtcZ1xT7PcHi/Cg9zW+ZLWkdVTTGp/U2uX0v0aw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	D6G3AZ6a9s5dsn+bODynya5O5F9lj8FMvZPcKwjn5nbEhM71wmfTwmsNdeQ0GbWa/hEv9lSDMZ8ZAn3/U75yp4XPF8bFW3DeryKXWyzs7iwZQ4f3sjRM+PYEWE18n4BjkNV5aHUUxCNtlQiZmzFT9Af3pjiqjfc6ozLUsALMVLu/GtosgM4tBHJP+Z5ZftP4bfZrhsliA/m/x9Qi6LNg2cduHFRskSE8JLNd1uPq7QMwl0l90Zbw2epUq5Y5qikxfK4rph3SC7IXPxvUUbVP5Ecbx+i5kE6R0IWIu6JnQsYkk740jNVKmC45XSeF3rehm8P64Dg0O3QcNDLCbxdXiSAX+0L5w7E49OcF0qqKV3Cb8ELAmX3JoZwsq8cieaErIrHZbJhze1VDQftK0ZZ5KfWazXdZukEbuhTa2nHbkbpcsPW+okPZdQcyvjSoJN9o
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 16:47:50.2408
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 159acc39-dd7f-411d-ac47-08ded3a2a8c6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000009.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6311
 
 
-
-On 2026/6/26 23:26, Dev Jain wrote:
-> 
-> 
-> On 26/06/26 7:40 pm, Lance Yang wrote:
->>
->> On Fri, Jun 26, 2026 at 06:53:10PM +0530, Dev Jain wrote:
->>>
->>>
->>> On 26/06/26 1:18 pm, Lance Yang wrote:
->>>>
->>>> On Thu, Jun 25, 2026 at 11:29:53AM +0000, Dev Jain wrote:
->>>>> check_pte() is the final validation step in page_vma_mapped_walk().
->>>>> It reads pvmw->pte with ptep_get() to decide whether the entry maps
->>>>> the PFN range being walked. For hugetlb VMAs, that pointer refers
->>>>> to a hugetlb entry.
->>>>>
->>>>> On arches which provide their own huge_ptep_get() to dereference a huge
->>>>> pte pointer, accessing via ptep_get() would cause pte_pfn(),
->>>>> pte_present() etc to misbehave.
->>>>>
->>>>> It is not clear whether this has a trivially visible effect to userspace.
->>>>>
->>>>> Use huge_ptep_get() to dereference a huge pte pointer.
->>>>>
->>>>> Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
->>>>> Cc: stable@vger.kernel.org
->>>>> Signed-off-by: Dev Jain <dev.jain@arm.com>
->>>>> ---
->>>>> mm/page_vma_mapped.c | 8 +++++++-
->>>>> 1 file changed, 7 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->>>>> index 2ccbabfb2cc17..18e1d341f463c 100644
->>>>> --- a/mm/page_vma_mapped.c
->>>>> +++ b/mm/page_vma_mapped.c
->>>>> @@ -107,7 +107,13 @@ static bool map_pte(struct page_vma_mapped_walk *pvmw, pmd_t *pmdvalp,
->>>>> static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
->>>>> {
->>>>> 	unsigned long pfn;
->>>>> -	pte_t ptent = ptep_get(pvmw->pte);
->>>>> +	pte_t ptent;
->>>>> +
->>>>> +	if (is_vm_hugetlb_page(pvmw->vma))
->>>>> +		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
->>>>> +				      pvmw->pte);
->>>>
->>>> I think check_pte() can pass a wrong address to huge_ptep_get() ...
->>>
->>> Won't this be handled by rmap_walk_anon/rmap_walk_file - they are the ones
->>> performing the rmap traversal and passing address to try_to_unmap_one/folio_referenced_one
->>> etc ...
->>
->> Right, that should cover the rmap callbacks. The bit I was worried about
->> is page_mapped_in_vma() though.
->>
->>>>
->>>> Not sure that is wrong in the first place. For memory failure,
->>>> page_mapped_in_vma() can be called with a poisoned tail page of a hugetlb
->>>> folio. In that case, pvmw->address need not be hugepage-aligned.
->>>>
->>>> @Miaohe
->>
->> For hugetlb memory failure we start with the poisoned PFN:
->>
->> static int try_memory_failure_hugetlb(unsigned long pfn, int flags)
->> {
->> 	...
->> 	struct page *p = pfn_to_page(pfn);
->> 	struct folio *folio;
->> 	...
->>
->> 	folio = page_folio(p);
->>
->> 	...
->>
->> 	if (!hwpoison_user_mappings(folio, p, pfn, flags)) {
->> 		...
->> 	}
->>
->> 	...
->> }
->>
->> and pass the same p down:
->>
->> static bool hwpoison_user_mappings(struct folio *folio, struct page *p,
->> 		unsigned long pfn, int flags)
->> {
->> 	...
->>
->> 	collect_procs(folio, p, &tokill, flags & MF_ACTION_REQUIRED);
->>
->> 	...
->> }
->>
->> static void collect_procs(const struct folio *folio, const struct page *page,
->> 		struct list_head *tokill, int force_early)
->> {
->> 	...
->>
->> 	if (unlikely(folio_test_ksm(folio)))
->> 		...
->> 	else if (folio_test_anon(folio))
->> 		collect_procs_anon(folio, page, tokill, force_early);
->> 	else
->> 		...
->> }
->>
->> So collect_procs_anon() still gets the poisoned page, not &folio->page:
->>
->> static void collect_procs_anon(const struct folio *folio,
->> 		const struct page *page, struct list_head *to_kill,
->> 		int force_early)
->> {
->> 	...
->>
->> 	pgoff = page_pgoff(folio, page);
->> 	rcu_read_lock();
->> 	for_each_process(tsk) {
->> 		...
->> 		
->> 		anon_vma_interval_tree_foreach(vmac, &av->rb_root,
->> 					       pgoff, pgoff) {
->> 			...
->> 			addr = page_mapped_in_vma(page, vma);
->> 			...
->> 		}
->> 	}
->> 	rcu_read_unlock();
->> 	anon_vma_unlock_read(av);
->> }
->>
->> page_mapped_in_vma() then builds pvmw for that page:
->>
->> unsigned long page_mapped_in_vma(const struct page *page,
->> 		struct vm_area_struct *vma)
->> {
->> 	const struct folio *folio = page_folio(page);
->> 	struct page_vma_mapped_walk pvmw = {
->> 		.pfn = page_to_pfn(page),
->> 		.nr_pages = 1,
->> 		.vma = vma,
->> 		.flags = PVMW_SYNC,
->> 	};
->>
->> 	pvmw.address = vma_address(vma, page_pgoff(folio, page), 1);
->> 	...
->> }
->>
->> and page_pgoff() includes the subpage index:
->>
->> static inline pgoff_t page_pgoff(const struct folio *folio,
->> 		const struct page *page)
->> {
->> 	return folio->index + folio_page_idx(folio, page);
->> }
->>
->> So if the poisoned PFN points to a tail page, pvmw->address can be offset
->> from the start of the hugetlb mapping by
->>
->> folio_page_idx(folio, page) << PAGE_SHIFT
->>
->> Should check_pte() pass the hugepage-aligned address to huge_ptep_get()
->> for that case?
-> 
-> Thanks! This looks correct.
-> 
-> I can indeed fix this up in check_pte. But in the memory-failure path
-> it has always been confusing to me for hugetlb folios why we are bothering
-> with the tail page. I am sure that area can also be simplified. But for
-> now I'll just do a simple fix here itself.
-
-Just thinking out loud: given that huge_ptep_get() already assumes that
-addr matches the huge pte, at least on arm64, would it make sense to
-have a small hugetlb wrapper around it that takes hstate and aligns
-the address before calling the arch helper?
-
-Might make the rule clearer, and a bit harder to get wrong again :)
-
-Thanks, Lance
-
-> 
->>
->> Cheers, Lance
->>
->>>>
->>>> For arm64, CONT_PMD_SIZE is one supported HugeTLB size. With such a VMA,
->>>> page_vma_mapped_walk() passes that size to hugetlb_walk():
->>>>
->>>> bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
->>>> {
->>>> 	...
->>>> 	if (unlikely(is_vm_hugetlb_page(vma))) {
->>>> 		...
->>>> 		pvmw->pte = hugetlb_walk(vma, pvmw->address, size);
->>>> 		...
->>>> 	}
->>>> 	...
->>>> }
->>>>
->>>> hugetlb_walk() then calls arm64 huge_pte_offset(mm, addr, sz). For
->>>> sz == CONT_PMD_SIZE, huge_pte_offset() aligns its local addr before
->>>> calculating pmdp:
->>>>
->>>> pte_t *huge_pte_offset(struct mm_struct *mm,
->>>> 		       unsigned long addr, unsigned long sz)
->>>> {
->>>> 	...
->>>> 	if (sz == CONT_PMD_SIZE)
->>>> 		addr &= CONT_PMD_MASK;
->>>>
->>>> 	pmdp = pmd_offset(pudp, addr);
->>>> 	pmd = READ_ONCE(*pmdp);
->>>> 	...
->>>> }
->>>>
->>>> So for that case, pvmw->pte is calculated from the aligned addr, not
->>>> necessarily from the original pvmw->address. But check_pte() passes the
->>>> original address together with pvmw->pte:
->>>>
->>>> +		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
->>>> +				      pvmw->pte);
->>>>
->>>> arm64 then uses that addr again to choose ncontig:
->>>>
->>>> pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
->>>> {
->>>> 	...
->>>> 	ncontig = find_num_contig(mm, addr, ptep, &pgsize);
->>>> 	for (i = 0; i < ncontig; i++, ptep++) {
->>>> 		...
->>>> 	}
->>>> 	return orig_pte;
->>>> }
->>>>
->>>> static int find_num_contig(struct mm_struct *mm, unsigned long addr,
->>>> 			   pte_t *ptep, size_t *pgsize)
->>>> {
->>>> 	pgd_t *pgdp = pgd_offset(mm, addr);
->>>> 	p4d_t *p4dp;
->>>> 	pud_t *pudp;
->>>> 	pmd_t *pmdp;
->>>>
->>>> 	*pgsize = PAGE_SIZE;
->>>> 	p4dp = p4d_offset(pgdp, addr);
->>>> 	pudp = pud_offset(p4dp, addr);
->>>> 	pmdp = pmd_offset(pudp, addr);
->>>> 	if ((pte_t *)pmdp == ptep) {
->>>> 		*pgsize = PMD_SIZE;
->>>> 		return CONT_PMDS;
->>>> 	}
->>>> 	return CONT_PTES;
->>>> }
->>>>
->>>> With a tail address, pmdp may no longer point at pvmw->pte, so
->>>> find_num_contig() can return CONT_PTES for a CONT_PMD HugeTLB mapping.
->>>>
->>>> On 16K arm64, that changes ncontig from 32 to 128. So huge_ptep_get()
->>>> can walk past the CONT_PMD entries, and possibly past the PMD table.
->>>>
->>>> Should check_pte() pass the address matching pvmw->pte, sth like:
->>>>
->>>> ---8<---
->>>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->>>> index 406fd50bbd8f..58463493bd3d 100644
->>>> --- a/mm/page_vma_mapped.c
->>>> +++ b/mm/page_vma_mapped.c
->>>> @@ -109,11 +109,14 @@ static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
->>>>   	unsigned long pfn;
->>>>   	pte_t ptent;
->>>>
->>>> -	if (is_vm_hugetlb_page(pvmw->vma))
->>>> -		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
->>>> -				      pvmw->pte);
->>>> -	else
->>>> +	if (is_vm_hugetlb_page(pvmw->vma)) {
->>>> +		struct hstate *hstate = hstate_vma(pvmw->vma);
->>>> +		unsigned long haddr = pvmw->address & huge_page_mask(hstate);
->>>> +
->>>> +		ptent = huge_ptep_get(pvmw->vma->vm_mm, haddr, pvmw->pte);
->>>> +	} else {
->>>>   		ptent = ptep_get(pvmw->pte);
->>>> +	}
->>>>
->>>>   	if (pvmw->flags & PVMW_MIGRATION) {
->>>>   		const softleaf_t entry = softleaf_from_pte(ptent);
->>>> --
->>>>
->>>> while leaving pvmw->address unchanged for page_mapped_in_vma()?
->>>>
->>>> Cheers, Lance
->>>>
->>>>> +	else
->>>>> +		ptent = ptep_get(pvmw->pte);
->>>>>
->>>>> 	if (pvmw->flags & PVMW_MIGRATION) {
->>>>> 		const softleaf_t entry = softleaf_from_pte(ptent);
->>>>> -- 
->>>>> 2.43.0
->>>>>
->>>>>
->>>
->>>
->>
-> 
-
+On 6/25/26 04:32, Wentao Liang wrote:
+> When vm_insert_pages() fails, the error path calls vma->vm_ops->close(vma)
+> which internally calls drm_gem_vm_close() → drm_gem_object_put(),
+> releasing the GEM object reference acquired at the start of the function.
+> However, the close_vma label then falls through to put_obj, which calls
+> drm_gem_object_put() a second time on the same object.
+>
+> If the first put releases the last reference, the object is freed and the
+> second put accesses freed memory, causing a use-after-free.
+>
+> Fix by returning directly from close_vma instead of falling through to
+> put_obj, since the close handler already performs all necessary cleanup
+> including the object put.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index 6e367ddb9e1b..fec9763c518c 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -469,6 +469,7 @@ static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struc
+>   
+>   close_vma:
+>   	vma->vm_ops->close(vma);
+> +	return ret;
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   put_obj:
+>   	drm_gem_object_put(gobj);
+>   	return ret;
