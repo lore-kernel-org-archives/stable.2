@@ -1,373 +1,89 @@
-Received: from latitanza.investici.org (latitanza.investici.org [185.218.207.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E80926B973;
-	Fri, 26 Jun 2026 12:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.218.207.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71A63E5EC9;
+	Fri, 26 Jun 2026 12:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782476237; cv=none; b=Le6xR23Fir5lurIru5+t/o9cmZHEehaEFJZfyrKHexjAigWbRcqu69UKUTNoTNkE5oVsnMufyA67+BFYtcnX9TqeB+hAnvO6QL8jKwy12/L2A+IkTJKXtjVNpjzY12lxTiWPm2aZhOI0pae5uEsyV8S6WtorWnyoB44b3oaIbgU=
+	t=1782476316; cv=none; b=Rt/H2lyIg4M0ZWCAKkLYz7EMB3/uAW47kzS/kNJQzXT8I7fA+TI8ny8hcgV6sGP0617ES/jiF7sf0cK7A6nnkKD29ReEkN1MtxK+moqlwPk2S0QLWS/cPKGkRxBGrty5gTmSnqTtr8oralp3xOhVcaNz1XmSEIMTLpAZK4o+TRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782476237; c=relaxed/simple;
-	bh=qVtuKbmpRh8cFDr0rWMOA2qdwp+VCQnIrcvAA9swGQQ=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=V6UgYh5URvOz75GbPF2RbL5lRWBPyqOjNCaTFB09eN02Ydk5FkXtRzayQ20WaTYfZHix7/8nfBW7ww2JCZ6/wQ+YGC59dnjHb4ydyr+z1H4nEKyPW77ehGBQX81bdWRpjcyTe+poF/kQTXbIkmDn9OFmwYcu5Mt6BWoUkj79G54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=t1R8MJOS; arc=none smtp.client-ip=185.218.207.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="t1R8MJOS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1782476232;
-	bh=M4clk0iSh/moJmSnehnJ/m6LbSt0/byllGQWKLwjooY=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=t1R8MJOSYE3sRWfodV3pTrJ7KPyGhq2fi+ahoG43wVna6n8qeZfas4AY+jLAc18TU
-	 CplFt9eRtNkZBrsXqOaCRC+UtW3OdjP7dI1x7Ji7KAkMmm9scL3FtFRVLXh594Rlmk
-	 xQBvnw4xGOhbz/6fKKwjLpSUeVBY9erLgfX1+y+A=
-Received: from mx3.investici.org (unknown [127.0.0.1])
-	by latitanza.investici.org (Postfix) with ESMTP id 4gmvn41zdJzGpFK;
-	Fri, 26 Jun 2026 12:17:12 +0000 (UTC)
-Received: by mx3.investici.org (Postfix) id 4gmvn35Cv1zGpF9;
-	Fri, 26 Jun 2026 12:17:11 +0000 (UTC)
-Date: Fri, 26 Jun 2026 13:17:13 +0100
-From: Bradley Morgan <include@grrlz.net>
-To: Petr Mladek <pmladek@suse.com>
-CC: Andrew Morton <akpm@linux-foundation.org>,
- Feng Tang <feng.tang@linux.alibaba.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_4/4=5D_panic=3A_use_sys=5Finfo=5Fwi?=
- =?US-ASCII?Q?th=5Ffilter=28=29_to_avoid_duplicate_backtraces?=
-In-Reply-To: <aj5tFiwhRqPkAkqU@pathway.suse.cz>
-References: <20260625152558.7450-1-include@grrlz.net> <20260625152558.7450-5-include@grrlz.net> <aj5TNB8cRtMNTtIT@pathway.suse.cz> <aj5tFiwhRqPkAkqU@pathway.suse.cz>
-Message-ID: <85F6E30C-EB1B-4BAF-9204-5174FD066EE0@grrlz.net>
+	s=arc-20240116; t=1782476316; c=relaxed/simple;
+	bh=o6Q2eIS9pDEgn2VocqHd66JeSMLwlQBezNr3n/ezLLc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kxVM8TqU416wMXpc5OOroXdISKUQ6+EPMa0COEBDWt1kMVGWjpmzRFgcfSgOm3VS/pCn86ZGcjnuC2UsmKX52L1GyilTrjtDTB2htLI1Nt6iX88bbwzD9AiM4u8UcNqdxL1Hik9/85JrdonmQbQJbu+KnhSwJmz50OtiDD8QuRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-05 (Coremail) with SMTP id zQCowACnMwcTbj5qSbNnFQ--.22821S2;
+	Fri, 26 Jun 2026 20:18:29 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: sumit.semwal@linaro.org,
+	christian.koenig@amd.com
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] fix: dma-buf: fence_chains_init: error unwind path leaks   enable_sw_signaling reference
+Date: Fri, 26 Jun 2026 20:18:25 +0800
+Message-Id: <20260626121825.35310-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACnMwcTbj5qSbNnFQ--.22821S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrKw18XF17GFyUXw45Ary8Grg_yoW8Jryrpa
+	93Kr1UKr98K3WxZayDAF1DtFyFkr4rXry8WF4jka4Sv3s8ZFyUXr4vy3y2qF98Cr97GFZ8
+	J345Cry5WF1rAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjMqcUUUUU
+	U==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAcKA2o+ThJiEgAAs6
 
-On June 26, 2026 1:14:14 PM GMT+01:00, Petr Mladek <pmladek@suse.com>
-wrote:
->On Fri 2026-06-26 12:23:50, Petr Mladek wrote:
->> On Thu 2026-06-25 15:25:58, Bradley Morgan wrote:
->> > panic_other_cpus_shutdown() handles SYS_INFO_ALL_BT before stopping
->the
->> > other CPUs. Do not ask sys_info() to handle that bit again later in
->the
->> > panic path.
->> > 
->> > Use sys_info_with_filter() so panic_print=all_bt does not request more
->> > output after the CPUs are stopped.
->> > 
->> > Fixes: a9af76a78760 ("watchdog: add sys_info sysctls to dump sys info
->on system lockup")
->> > Cc: stable@vger.kernel.org
->> > Signed-off-by: Bradley Morgan <include@grrlz.net>
->> > ---
->> >  kernel/panic.c | 2 +-
->> >  1 file changed, 1 insertion(+), 1 deletion(-)
->> > 
->> > diff --git a/kernel/panic.c b/kernel/panic.c
->> > index 213725b612aa..eb842823df61 100644
->> > --- a/kernel/panic.c
->> > +++ b/kernel/panic.c
->> > @@ -680,7 +680,7 @@ void vpanic(const char *fmt, va_list args)
->> >  	 */
->> >  	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
->> >  
->> > -	sys_info(panic_print);
->> > +	sys_info_with_filter(panic_print, SYS_INFO_ALL_BT);
->> 
->> Hmm, this prevents printing backtraces from all CPUs completely.
->> But what if they were not printed?
->> 
->> They might be printed by:
->> 
->> static void panic_other_cpus_shutdown(bool crash_kexec)
->> {
->> 	if (panic_print & SYS_INFO_ALL_BT)
->> 		panic_trigger_all_cpu_backtrace();
->> 
->> [...]
->> }
->> 
->> But it checks only "panic_print" variable. It won't do anything
->> when (panic_print == 0).
->> 
->> In this case, we might still want to print the backraces when
->> SYS_INFO_ALL_BT is set in kernel_si_info.
->> 
->> >  	kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
->> 
->> Of course, we might fix panic_other_cpus_shutdown() to check also
->> kernel_si_info.
->> 
->> But it all becomes very hairy. We have several levels:
->> 
->>    + watchdog-all_bt-specific option, e.g.
->sysctl_hardlockup_all_cpu_backtrace
->> 
->>    + watchdog-specific si_info preferences, e.g. hardlockup_si_mask
->> 
->>    + panic-specific si_info: panic_print
->> 
->>    + universal fallback for any layer: kernel_si_info
->> 
->> Now, we try to check all these variables back and forth to
->> trigger all backtraces or to avoid triggering them.
->> And it clearly does not work well and the code is more and more
->> hairy.
->> 
->> I think about another approach. The word "waterfall" comes to my mind.
->> Instead of checking all the settings back and forth, let's process
->> each setting one by one and just remember what has been done and
->> skip this in the next level.
->> 
->> All the si_info actions seems to dump a global system state.
->> So, it would make sense to remember the state in a global variable
->> even when it might be modified by more CPUs in parallel.
->> 
->> I am going to think more about it.
->
->I have created a POC using Gemini. I haven't tested it.
->But it looks acceptable. And the logic seems to be more
->straightforward.
->
->One drawback is that it requires adding the _reset()
->call for all sys_info() callers. It is fine in principle
->but it might complicate back-porting because all changes
->have to be done in one patch.
->
->But honestly, this is a nice to have fix. Most people could
->live happily without it.
->
->From 3c66436d9978030845a96bfaedd6b914536e2ac4 Mon Sep 17 00:00:00 2001
->From: Petr Mladek <pmladek@suse.com>
->Date: Fri, 26 Jun 2026 13:55:41 +0200
->Subject: [POC] sys_info: Introduce state-tracking APIs to prevent duplicate
-> backtraces
->
->In watchdog, panic, and hung task detection scenarios, sys_info() can
->be called multiple times or alongside direct backtrace triggers like
->trigger_allbutcpu_cpu_backtrace(). This results in identical backtraces
->being dumped repeatedly from all CPUs, cluttering the kernel log and
->delaying or obscuring critical debug details.
->
->Introduce a state tracking bitmask and associated helpers:
->- sys_info_done(mask): Marks specific sys_info bits as already printed.
->- sys_info_reset(): Resets the tracking state.
->- sys_info_is_done(mask): Checks if all bits in the mask have been printed.
->
->Update sys_info() to automatically filter out already printed bits
->using this state. Integrate these APIs with the generic hardlockup
->and softlockup watchdogs, the PowerPC watchdog, the hung task detector,
->and the panic core. This ensures that each piece of system information
->and backtrace output is printed at most once per lockup/panic event,
->and the state is reset cleanly when a lockup does not trigger a panic.
->
->Races between sys_info() callers are ignored. It should be acceptable
->because the output from various watchdogs has never been synchronized.
->And panic() never returns.
->
->Assisted-by: gemini-1.5-flash ?
+dma_fence_enable_sw_signaling acquires an extra reference on each chain
+  fence. The error unwind loop calls dma_fence_put only once per
+  chain/fence without first signaling the fence to trigger the callback
+  that releases the signaling reference. This prevents the chain fence kref
+  from reaching 0, permanently leaking the chain and its contained fence.
 
-Why not use gemini 3.5 flash?
+Cc: stable@vger.kernel.org
+Fixes: dc2f7e67a28a ("dma-buf: Exercise dma-fence-chain under selftests")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/dma-buf/st-dma-fence-chain.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-I can try if you want. 
+diff --git a/drivers/dma-buf/st-dma-fence-chain.c b/drivers/dma-buf/st-dma-fence-chain.c
+index 821023dd34df..7dc18e294387 100644
+--- a/drivers/dma-buf/st-dma-fence-chain.c
++++ b/drivers/dma-buf/st-dma-fence-chain.c
+@@ -152,7 +152,10 @@ static int fence_chains_init(struct fence_chains *fc, unsigned int count,
+ 
+ unwind:
+ 	for (i = 0; i < count; i++) {
+-		dma_fence_put(fc->fences[i]);
++		if (fc->fences[i]) {
++			dma_fence_signal(fc->fences[i]);
++			dma_fence_put(fc->fences[i]);
++		}
+ 		dma_fence_put(fc->chains[i]);
+ 	}
+ 	kvfree(fc->fences);
+-- 
+2.39.5 (Apple Git-154)
 
-Could I have the prompt you used? :)
-
->Signed-off-by: Petr Mladek <pmladek@suse.com>
->---
-> arch/powerpc/kernel/watchdog.c | 13 ++++++++++---
-> include/linux/sys_info.h       |  3 +++
-> kernel/hung_task.c             |  2 ++
-> kernel/panic.c                 |  4 +++-
-> kernel/watchdog.c              | 10 ++++++++--
-> lib/sys_info.c                 | 30 +++++++++++++++++++++++++++++-
-> 6 files changed, 55 insertions(+), 7 deletions(-)
->
->diff --git a/arch/powerpc/kernel/watchdog.c b/arch/powerpc/kernel/watchdog.c
->index c40c69368476..0eab7894b9dc 100644
->--- a/arch/powerpc/kernel/watchdog.c
->+++ b/arch/powerpc/kernel/watchdog.c
->@@ -239,6 +239,7 @@ static void watchdog_smp_panic(int cpu)
-> 	if (sysctl_hardlockup_all_cpu_backtrace ||
-> 	    (hardlockup_si_mask & SYS_INFO_ALL_BT)) {
-> 		trigger_allbutcpu_cpu_backtrace(cpu);
->+		sys_info_done(SYS_INFO_ALL_BT);
-> 		cpumask_clear(&wd_smp_cpus_ipi);
-> 	} else {
-> 		/*
->@@ -251,10 +252,12 @@ static void watchdog_smp_panic(int cpu)
-> 		}
-> 	}
-> 
->-	sys_info(hardlockup_si_mask & ~SYS_INFO_ALL_BT);
->+	sys_info(hardlockup_si_mask);
-> 	if (hardlockup_panic)
-> 		nmi_panic(NULL, "Hard LOCKUP");
-> 
->+	sys_info_reset();
->+
-> 	wd_end_reporting();
-> 
-> 	return;
->@@ -419,13 +422,17 @@ DEFINE_INTERRUPT_HANDLER_NMI(soft_nmi_interrupt)
-> 		xchg(&__wd_nmi_output, 1); // see wd_lockup_ipi
-> 
-> 		if (sysctl_hardlockup_all_cpu_backtrace ||
->-		    (hardlockup_si_mask & SYS_INFO_ALL_BT))
->+		    (hardlockup_si_mask & SYS_INFO_ALL_BT)) {
-> 			trigger_allbutcpu_cpu_backtrace(cpu);
->+			sys_info_done(SYS_INFO_ALL_BT);
->+		}
-> 
->-		sys_info(hardlockup_si_mask & ~SYS_INFO_ALL_BT);
->+		sys_info(hardlockup_si_mask);
-> 		if (hardlockup_panic)
-> 			nmi_panic(regs, "Hard LOCKUP");
-> 
->+		sys_info_reset();
->+
-> 		wd_end_reporting();
-> 	}
-> 	/*
->diff --git a/include/linux/sys_info.h b/include/linux/sys_info.h
->index a5bc3ea3d44b..ad43548c75dd 100644
->--- a/include/linux/sys_info.h
->+++ b/include/linux/sys_info.h
->@@ -18,6 +18,9 @@
-> #define SYS_INFO_BLOCKED_TASKS		0x00000080
-> 
-> void sys_info(unsigned long si_mask);
->+void sys_info_done(unsigned long si_mask);
->+void sys_info_reset(void);
->+bool sys_info_is_done(unsigned long si_mask);
-> unsigned long sys_info_parse_param(char *str);
-> 
-> #ifdef CONFIG_SYSCTL
->diff --git a/kernel/hung_task.c b/kernel/hung_task.c
->index 6fcc94ce4ca9..dbb6a27770f5 100644
->--- a/kernel/hung_task.c
->+++ b/kernel/hung_task.c
->@@ -354,6 +354,8 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
-> 
-> 	if (hung_task_call_panic)
-> 		panic("hung_task: blocked tasks");
->+
->+	sys_info_reset();
-> }
-> 
-> static long hung_timeout_jiffies(unsigned long last_checked,
->diff --git a/kernel/panic.c b/kernel/panic.c
->index 213725b612aa..86ce17f03da2 100644
->--- a/kernel/panic.c
->+++ b/kernel/panic.c
->@@ -550,8 +550,10 @@ static void panic_trigger_all_cpu_backtrace(void)
->  */
-> static void panic_other_cpus_shutdown(bool crash_kexec)
-> {
->-	if (panic_print & SYS_INFO_ALL_BT)
->+	if ((panic_print & SYS_INFO_ALL_BT) && !sys_info_is_done(SYS_INFO_ALL_BT)) {
-> 		panic_trigger_all_cpu_backtrace();
->+		sys_info_done(SYS_INFO_ALL_BT);
->+	}
-> 
-> 	/*
-> 	 * Note that smp_send_stop() is the usual SMP shutdown function,
->diff --git a/kernel/watchdog.c b/kernel/watchdog.c
->index 87dd5e0f6968..f431087c68a7 100644
->--- a/kernel/watchdog.c
->+++ b/kernel/watchdog.c
->@@ -282,14 +282,17 @@ void watchdog_hardlockup_check(unsigned int cpu, struct pt_regs *regs)
-> 
-> 	if (hardlockup_all_cpu_backtrace) {
-> 		trigger_allbutcpu_cpu_backtrace(cpu);
->+		sys_info_done(SYS_INFO_ALL_BT);
-> 		if (!hardlockup_panic)
-> 			clear_bit_unlock(0, &hard_lockup_nmi_warn);
-> 	}
-> 
->-	sys_info(hardlockup_si_mask & ~SYS_INFO_ALL_BT);
->+	sys_info(hardlockup_si_mask);
-> 	if (hardlockup_panic)
-> 		nmi_panic(regs, "Hard LOCKUP");
-> 
->+	sys_info_reset();
->+
-> 	per_cpu(watchdog_hardlockup_warned, cpu) = true;
-> }
-> 
->@@ -895,16 +898,19 @@ static enum hrtimer_restart watchdog_timer_fn(struct hrtimer *hrtimer)
-> 
-> 		if (softlockup_all_cpu_backtrace) {
-> 			trigger_allbutcpu_cpu_backtrace(smp_processor_id());
->+			sys_info_done(SYS_INFO_ALL_BT);
-> 			if (!softlockup_panic)
-> 				clear_bit_unlock(0, &soft_lockup_nmi_warn);
-> 		}
-> 
-> 		add_taint(TAINT_SOFTLOCKUP, LOCKDEP_STILL_OK);
->-		sys_info(softlockup_si_mask & ~SYS_INFO_ALL_BT);
->+		sys_info(softlockup_si_mask);
-> 		thresh_count = duration / get_softlockup_thresh();
-> 
-> 		if (softlockup_panic && thresh_count >= softlockup_panic)
-> 			panic("softlockup: hung tasks");
->+
->+		sys_info_reset();
-> 	}
-> 
-> 	return HRTIMER_RESTART;
->diff --git a/lib/sys_info.c b/lib/sys_info.c
->index f32a06ec9ed4..f8e6176fae75 100644
->--- a/lib/sys_info.c
->+++ b/lib/sys_info.c
->@@ -160,7 +160,35 @@ static void __sys_info(unsigned long si_mask)
-> 		show_state_filter(TASK_UNINTERRUPTIBLE);
-> }
-> 
->+static unsigned long sys_info_done_mask;
->+
->+void sys_info_done(unsigned long si_mask)
->+{
->+	sys_info_done_mask |= si_mask;
->+}
->+
->+void sys_info_reset(void)
->+{
->+	sys_info_done_mask = 0;
->+}
->+
->+bool sys_info_is_done(unsigned long si_mask)
->+{
->+	return (sys_info_done_mask & si_mask) == si_mask;
->+}
->+
-> void sys_info(unsigned long si_mask)
-> {
->-	__sys_info(si_mask ? : kernel_si_mask);
->+	unsigned long mask;
->+
->+	if (si_mask)
->+		mask = si_mask & ~sys_info_done_mask;
->+	else
->+		mask = kernel_si_mask & ~sys_info_done_mask;
->+
->+	if (!mask)
->+		return;
->+
->+	__sys_info(mask);
->+	sys_info_done(mask);
-> }
->
-
-Thanks!
