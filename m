@@ -1,93 +1,91 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148D22F7EED
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDE939AD39
 	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 17:46:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782496006; cv=none; b=nR95/8uMg+btVvHkEF5qI7yK/JuDXPfpwQle8fvmyddDsSzVj6KryxzEqZYHKO8zpuMwIsW1rKn2zKB3m9k4iIhVpkSPzUGo5KNMNqI1FWbfs/juDUBoOfU7/9MTB/Jqe74uUGV+bzJTLmZ3UqjzzDP2TKfsS8pUeuVQca40TzY=
+	t=1782496006; cv=none; b=fI1JX74WOazmABIDhINA+9aIOFJdS2TrXUZl4lg2vD0GbaDeNwXs08LktSR5w1HR+Vw48SVSBtnQDMrJ20aO+lz7CCp6SATOKWfoe3iGRMW4Hv93OxK1igzmtu8Uh0Njrp/xLmJ2qetGgOAAAJJUlMmT5QNw7g8DQQ1590JnClA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782496006; c=relaxed/simple;
-	bh=pr9hHRFoDK6zdHpI5/umjPgHQzWee7O0TXNLYn6a/sc=;
+	bh=Bn9GqcfmYnlmatsEnDI7YinIXwkuTGmu/BMxuOuybSg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g8hNQf8026fiwMq1LZ/1v96czKclzkCW1kRjUkvy9aN80wEJEj84qdK2FlHIuDX7hj+OTcPs8HFkvuqd4HItubhDGHzc0N9LKLBXkFpuNljdQBJUQBeJr4bOPv3dVAmXG1hM7+usR2BgNy+bvo8mCICSUDRYCqznqvjafVBDdKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=A6lxcskm; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=lhbNkRAv; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version; b=i1aoPLq1wLc15o6rzVgs9ZL4FxCUa0GKzkSGs+34zVzvurkf7AQWJj7qEWMnecvbuBbzYwB+sx8XbdXXa0pqjUyvxbcIlizGSUPttFd1MpXYWwfMyNaCbxS+xzK/GnVOj6KYZYa1WJzYXwJo4X8r5woQZbvUEEA56I+y9kF/Jr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IWzuh93I; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=AT+D4aY+; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="A6lxcskm";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="lhbNkRAv"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IWzuh93I";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="AT+D4aY+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782496001;
+	s=mimecast20190719; t=1782496000;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=HW1A4dPfWYNXrJ3gwDxBImVPF8usp091lzW4s8alceY=;
-	b=A6lxcskmEeL5UYL8riIDuHHP6YRrFU05dVDHAJ/1xcKjy2wWxfmaEcFs4FRzMK3KR3hVfr
-	oE+6XvCIX/yDeJ+LBvPIbrBFkbgYevdk9OtkY2Cr4RorzkjwWf+UNd2iJzG67AUkJOE09L
-	i8kbaTs3QObM0B/DA35A+vlbBHss5VY=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=KTWYGkQfMagiJ9l0zZ4MqOhwkIaxx9WRDrNgyQm3MDw=;
+	b=IWzuh93ItjFhVmvotx+v7kfKWn8hIbmhPNXnuz2FfgkEfOHshmwKvMALjcQMhaZKjqrrbh
+	ijOd3rQG8rY8sk+ErHisd/YnS93FsKRk576gn0nXTo+8PLDUiI0sb/4lcaip4XxbL8sMDh
+	uMOkK5Wa7zzFeeMWU5ULBvCU1lBMQ6w=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-321-un57d-UpNByUTYLOFxdF3A-1; Fri, 26 Jun 2026 13:46:40 -0400
-X-MC-Unique: un57d-UpNByUTYLOFxdF3A-1
-X-Mimecast-MFC-AGG-ID: un57d-UpNByUTYLOFxdF3A_1782495999
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-490b0682d2fso9418995e9.0
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 10:46:39 -0700 (PDT)
+ us-mta-119-OZGsG7g_P62pQZg3SRbHTg-1; Fri, 26 Jun 2026 13:46:39 -0400
+X-MC-Unique: OZGsG7g_P62pQZg3SRbHTg-1
+X-Mimecast-MFC-AGG-ID: OZGsG7g_P62pQZg3SRbHTg_1782495997
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-490e547f3cfso16389035e9.3
+        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 10:46:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1782495999; x=1783100799; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1782495997; x=1783100797; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HW1A4dPfWYNXrJ3gwDxBImVPF8usp091lzW4s8alceY=;
-        b=lhbNkRAvZ0NgvNjJNu7LajcGuu17MQUxVoVHKaUb7JHgNTTb0uFS5SN7dejc1Sa7Lm
-         V+LBr07h3cCVtt7cwOBHHanNaYkK7XPIRDTR3EtN1MHlTDAS+prIc8DWdMYzM1Zt2ZxX
-         Bt3+zH02cvuoFYxqjY9K0giT0nZR/gbnomiV3ijFy/tb+dWq8+kas2kZkis/PS3QPr64
-         NMpcXxPAdECn/AULjqIC7urs8/qfGal0TlxHg6Bu5/jrf2Q24I52dru7YWDwGFQyQI1A
-         DcquNgo6dsHLh7pcZ2JFWnK3yZaAoFLOCW+mhn3YlfbWgqr4Ino+JYa2cRQzbTfwUWUx
-         nCyw==
+         :message-id:reply-to:content-type;
+        bh=KTWYGkQfMagiJ9l0zZ4MqOhwkIaxx9WRDrNgyQm3MDw=;
+        b=AT+D4aY+cs5YeuB2NPjQhvqtzSS/9SueRDXADWQoY5eBF4CS5qPzOwbKv6shKcS53G
+         poIOFHQAoHpvCJ+feVl3n0Xtm3aoDIvm4yauhWa/hS17Wq+22NNliAozAKcU0FapJf+e
+         mN2cvpuN+W5XAAQdcvq0AE5xWjNy4S3pEO8xCd/gtRsoiK1iDzxkE52DYU2vmbNkneXb
+         LHVpCO/ETY8m9ZLQvMcM0fZZjtXB6S+19CQXkd7c8Sioj/bcOVSxyavt5J/wSuvvsgNc
+         mqGewqmo3c0RY4DuyNHQ61BXBR+QriAg+jpWust7VXaDHcPrJNeaVrqVXxKhZPaD/kqd
+         sELQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782495999; x=1783100799;
+        d=1e100.net; s=20251104; t=1782495997; x=1783100797;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HW1A4dPfWYNXrJ3gwDxBImVPF8usp091lzW4s8alceY=;
-        b=pN+qb564VHVwbwSeqsxCUnH85wOMoELvryOx+M9hT+3rHDUofttcheNyCoE4wXIkv3
-         05MS82jprrVmS26akkZTOiyt1KTrLicN4G9WAscE+k/1nDHVzKOPMWYz8NifgjuE8Als
-         LBzAWRabhViffJwpzIS0QM10U5CwmkIbXjzUeGXgats2Ves+Q4OVgc5D7H9TwkkK+BP8
-         hsGKfH10qAhWbXTFiL7h0TDxltPIxwLsoeyw86tBf/rFCHx9bOCvdPFC7BCTz76z40rP
-         4H99IGmzBWvriYnc1UDAN4Yi84W0CppECqB7J3Adru6/TnoxnBYhceM3tZTyXYgnKAPE
-         br/A==
-X-Forwarded-Encrypted: i=1; AFNElJ94rk3HvoHVnEpBUMkfQ/XwlI2q9Xeyqfu46YjDh3xu+LzEoLLaigg/YBJF44zmutuaDDGw5j8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzaLFo5kDZ4mwDkCay2SbG9uLQkb1rikxMzVPTG7AZ26v719c4L
-	B2y8pPN7DEyPsCUeUcu8w9aRRxnQSWVtLOpQXQICcEAoYTTcVopPyMnmcGrabwq6CoYcNFR24Yk
-	FcJLtv5MenUVkVWyOcM+VbUuQdlvvrLSxfXgHQUrhWcX/Ws3TDP/s1XqUt28rXvMSQg==
-X-Gm-Gg: AfdE7cldQgC3ft0ZwmoQnjBP4K7PXG80Bl43CXVsYxlTdFBTAScRuJmxWVauF9RlaRe
-	IVMmcQad6F0vIvC6p34DzcKhJtlL8gq9QKUTT49j1zM+1sqr3Ua7uSsby/vijJx09Mw97oaxbkF
-	vKg0rVU6vfqzDH6z1hLre4U4ZliwITB+93GIctJLctDduUzmhhHJeJmb1rrcPbfNG6Nw5d0BAGO
-	egia7Pi0QDzoMf865XRZktKkCfIlqzWaJm1EBQdnAFhDX4D3K02vg/lI3V0+Q/JhWJvZqBPJoQ+
-	drIDt1EeBJ1k6h/LzjUES2eShQnT45H6j7irbp459VPzH+ZjLsvAk8XmAs8Qy6fUorWbPZAUkpu
-	hbVsnKHBvJXQkLKlhn64+lbd8Qgbnn3z477LO5qglpF4DJ3ZzkpdiYNyhnQy7JS9mshQ+v6cTgm
-	NhR5yEv45AP9U/1Ekh
-X-Received: by 2002:a05:600c:3b19:b0:490:3c15:7146 with SMTP id 5b1f17b1804b1-4926687e6eamr125279755e9.19.1782495998813;
-        Fri, 26 Jun 2026 10:46:38 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b19:b0:490:3c15:7146 with SMTP id 5b1f17b1804b1-4926687e6eamr125279385e9.19.1782495998429;
-        Fri, 26 Jun 2026 10:46:38 -0700 (PDT)
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KTWYGkQfMagiJ9l0zZ4MqOhwkIaxx9WRDrNgyQm3MDw=;
+        b=dByIC7zUAyXmYMXW6Dco7VS2lTGpEVHamXelXDwca6e8hsJ/w3ZUY4MkNdhl3xVl3n
+         CkTwVavCyEFYvnBMtTrHbNJENu0cWvtumPFuyqJKBitpB9FchZ9WJoaj/5N0zd0vV5jx
+         ondFXfBRVdOsQZQZ0dsw1pTY08MfXq2nO/03pyRa2kirL45KyLIMsBZ5qNZCkx1mY5Ef
+         PBWIUaHY00qD8qOOMlYpwm/DQfYJuMnFgHEiSHgzUUCsGMLfeAavkustJnm9c6QWrwGm
+         GAQD+U6V1DeAnt54osAN1hE11Kk3CUaMCsWgwwav572J/lx17ogFY719sfj/BVwVhKBy
+         Qung==
+X-Forwarded-Encrypted: i=1; AFNElJ+QrWVZ+4f7t3Qyd43Ka0/ByQqQ9wEDkQoHy1b5vkhEIsNgmGnVB/n3vAQ47trtpQsJl7bZu4U=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1PqFM2nkV2wsfdQalw+B4un8TLXjvyBOM6EGQlxDAxnTjOsWa
+	SUJGVgAFcMdkqRPFMUSrIktdfl4TxsB0O3bH6G8kkCozzauWPuP/nT45lVLbR9S+sgIUm3j0X8M
+	t+OOrFyKpp0nPFcc/YbFKaHwGBZlVKA0psTAI7rz6bSXi2MOUsTL1O+HDYQ==
+X-Gm-Gg: AfdE7cl3koJlbBsBQhfYUPqA09m51FumesEgOvgMdBRxj+tuao0NoGSA38pzjAIxKDB
+	pS2p9OMp/tTNYouOoJP8hMFvriN7ECfY33fuI+2lgar/HdpJq5skD2W/CqiLUVdzwItJQT6zumq
+	2B8Nl4K3mfxbwN3djrd7FlLKkZm6rHA0LotoSE72clM73gWfR9mORdUjFSMaXIuxvVSAgpxMTbt
+	L+uTy7VccVfa10Mgp2QtWK8rJDrkiG8fMIiTpOCzyJ43wtk1i3rtmbVceOF8hid/gWagMXvU6ZG
+	X8gBaMG4KJTt0GHkU/KxhPPg+DKItboSSZ692I6AbmhDhbagDW0xeTxXjwu5N0DY76f8ZMqZkKH
+	5TFTcbHSWmbB/amzXK1Uig+VjSAlONZ/oKApyEM1Y+Usyrn1WngYfRkNBDC35IKtm2bXDH07OOf
+	oQzU6hgmZB2+dZiQfW
+X-Received: by 2002:a05:600c:3b17:b0:490:b7e6:bd1d with SMTP id 5b1f17b1804b1-49266874055mr120894265e9.16.1782495996649;
+        Fri, 26 Jun 2026 10:46:36 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b17:b0:490:b7e6:bd1d with SMTP id 5b1f17b1804b1-49266874055mr120893985e9.16.1782495996248;
+        Fri, 26 Jun 2026 10:46:36 -0700 (PDT)
 Received: from [192.168.10.48] ([151.95.124.208])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46e3d6ba143sm13847784f8f.33.2026.06.26.10.46.37
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4701835b625sm362275f8f.36.2026.06.26.10.46.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 10:46:37 -0700 (PDT)
+        Fri, 26 Jun 2026 10:46:34 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Alexander Bulekov <bkov@amazon.com>,
-	Fred Griffoul <fgriffo@amazon.co.uk>
-Subject: [PATCH 5.15.y v2 6/8] KVM: x86: Fix shadow paging use-after-free due to unexpected GFN
-Date: Fri, 26 Jun 2026 19:46:17 +0200
-Message-ID: <20260626174620.1819772-7-pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>
+Subject: [PATCH 5.15.y v2 5/8] KVM: x86/mmu: pull call to drop_large_spte() into __link_shadow_page()
+Date: Fri, 26 Jun 2026 19:46:16 +0200
+Message-ID: <20260626174620.1819772-6-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260626174620.1819772-1-pbonzini@redhat.com>
 References: <20260626174620.1819772-1-pbonzini@redhat.com>
@@ -99,150 +97,187 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+commit 0cd8dc739833080aa0813cbd94d907a93e3a14c3 upstream.
 
-commit 0cb2af2ea66ad8ff195c156ea690f11216285bdf upstream.
+Before allocating a child shadow page table, all callers check
+whether the parent already points to a huge page and, if so, they
+drop that SPTE.  This is done by drop_large_spte().
 
-The shadow MMU computes GFNs for direct shadow pages using sp->gfn plus
-the SPTE index. This assumption breaks for shadow paging if the guest
-page tables are modified between VM entries (similar to commit
-aad885e77496, "KVM: x86/mmu: Drop/zap existing present SPTE even
-when creating an MMIO SPTE", 2026-03-27).  The flow is as follows:
+However, dropping the large SPTE is really only necessary before the
+sp is installed.  While the sp is returned by kvm_mmu_get_child_sp(),
+installing it happens later in __link_shadow_page().  Move the call
+there instead of having it in each and every caller.
 
-- a PDE is installed for a 2MB mapping, and a page in that area is
-  accessed.  KVM creates a kvm_mmu_page consisting of 512 4KB pages;
-  the kvm_mmu_page is marked by FNAME(fetch) as direct-mapped because
-  the guest's mapping is a huge page (and thus contiguous).
+To ensure that the shadow page is not linked twice if it was present,
+do _not_ opportunistically make kvm_mmu_get_child_sp() idempotent:
+instead, return an error value if the shadow page already existed.
+This is a bit more verbose, but clearer than NULL.
 
-- the PDE mapping is changed from outside the guest.
+Finally, now that the drop_large_spte() name is not taken anymore,
+remove the two underscores in front of __drop_large_spte().
 
-- the guest accesses another page in the same 2MB area.  KVM installs
-  a new leaf SPTE and rmap entry; the SPTE uses the "correct" GFN
-  (i.e. based on the new mapping, as changed in the previous step) but
-  that GFN is outside of the [sp->gfn, sp->gfn + 511] range; therefore
-  the rmap entry cannot be found and removed when the kvm_mmu_page
-  is zapped.
-
-- the memslot that covers the first 2MB mapping is deleted, and the
-  kvm_mmu_page for the now-invalid GPA is zapped.  However, rmap_remove()
-  only looks at the [sp->gfn, sp->gfn + 511] range established in step 1,
-  and fails to find the rmap entry that was recorded by step 3.
-
-- any operation that causes an rmap walk for the same page accessed
-  by step 3 then walks a stale rmap and dereferences a freed kvm_mmu_page.
-  This includes dirty logging or MMU notifier invalidations (e.g., from
-  MADV_DONTNEED).
-
-The underlying issue is that KVM's walking of shadow PTEs assumes that
-if a SPTE is present when KVM wants to install a non-leaf SPTE, then the
-existing kvm_mmu_page must be for the correct gfn.  Because the only way
-for the gfn to be wrong is if KVM messed up and failed to zap a SPTE...
-which shouldn't happen, but *actually* only happens in response to a
-guest write.
-
-That bug dates back literally forever, as even the first version of KVM
-assumes that the GFN matches and walks into the "wrong" shadow page.
-However, that was only an imprecision until 2032a93d66fa ("KVM: MMU:
-Don't allocate gfns page for direct mmu pages") came along.
-
-Fix it by checking for a target gfn mismatch and zapping the existing
-SPTE.  That way the old SP and rmap entries are gone, KVM installs
-the rmap in the right location, and everyone is happy.
-
-Fixes: 2032a93d66fa ("KVM: MMU: Don't allocate gfns page for direct mmu pages")
-Fixes: 6aa8b732ca01 ("kvm: userspace interface")
-Reported-by: Alexander Bulekov <bkov@amazon.com>
-Reported-by: Fred Griffoul <fgriffo@amazon.co.uk>
-Cc: stable@vger.kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Link: https://patch.msgid.link/20260503201029.106481-1-pbonzini@redhat.com/
+Reviewed-by: Sean Christopherson <seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/mmu/mmu.c  | 33 ++++++++++++++-------------------
- arch/x86/kvm/mmu/spte.h |  5 +++++
- 2 files changed, 19 insertions(+), 19 deletions(-)
+ arch/x86/kvm/mmu/mmu.c         | 49 +++++++++++++++++++---------------
+ arch/x86/kvm/mmu/paging_tmpl.h | 29 +++++++++-----------
+ 2 files changed, 40 insertions(+), 38 deletions(-)
 
 diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index d58be2e698f7..6c9656b8062e 100644
+index dbc18d4cc572..d58be2e698f7 100644
 --- a/arch/x86/kvm/mmu/mmu.c
 +++ b/arch/x86/kvm/mmu/mmu.c
-@@ -188,6 +188,8 @@ static struct percpu_counter kvm_total_used_mmu_pages;
- static void mmu_spte_set(u64 *sptep, u64 spte);
- static union kvm_mmu_page_role
- kvm_mmu_calc_root_page_role(struct kvm_vcpu *vcpu);
-+static int mmu_page_zap_pte(struct kvm *kvm, struct kvm_mmu_page *sp,
-+			    u64 *spte, struct list_head *invalid_list);
- 
- struct kvm_mmu_role_regs {
- 	const unsigned long cr0;
-@@ -1179,18 +1181,6 @@ static void drop_spte(struct kvm *kvm, u64 *sptep)
+@@ -1179,26 +1179,16 @@ static void drop_spte(struct kvm *kvm, u64 *sptep)
  		rmap_remove(kvm, sptep);
  }
  
--static void drop_large_spte(struct kvm *kvm, u64 *sptep)
--{
--	struct kvm_mmu_page *sp;
 -
--	sp = sptep_to_sp(sptep);
--	WARN_ON(sp->role.level == PG_LEVEL_4K);
--
--	drop_spte(kvm, sptep);
--	kvm_flush_remote_tlbs_with_address(kvm, sp->gfn,
--			KVM_PAGES_PER_HPAGE(sp->role.level));
+-static bool __drop_large_spte(struct kvm *kvm, u64 *sptep)
++static void drop_large_spte(struct kvm *kvm, u64 *sptep)
+ {
+-	if (is_large_pte(*sptep)) {
+-		WARN_ON(sptep_to_sp(sptep)->role.level == PG_LEVEL_4K);
+-		drop_spte(kvm, sptep);
+-		return true;
+-	}
++	struct kvm_mmu_page *sp;
+ 
+-	return false;
 -}
++	sp = sptep_to_sp(sptep);
++	WARN_ON(sp->role.level == PG_LEVEL_4K);
+ 
+-static void drop_large_spte(struct kvm_vcpu *vcpu, u64 *sptep)
+-{
+-	if (__drop_large_spte(vcpu->kvm, sptep)) {
+-		struct kvm_mmu_page *sp = sptep_to_sp(sptep);
 -
+-		kvm_flush_remote_tlbs_with_address(vcpu->kvm, sp->gfn,
++	drop_spte(kvm, sptep);
++	kvm_flush_remote_tlbs_with_address(kvm, sp->gfn,
+ 			KVM_PAGES_PER_HPAGE(sp->role.level));
+-	}
+ }
+ 
  /*
-  * Write-protect on the specified @sptep, @pt_protect indicates whether
-  * spte write-protection is caused by protecting shadow page table.
-@@ -2187,7 +2177,8 @@ static struct kvm_mmu_page *kvm_mmu_get_child_sp(struct kvm_vcpu *vcpu,
+@@ -2197,6 +2187,9 @@ static struct kvm_mmu_page *kvm_mmu_get_child_sp(struct kvm_vcpu *vcpu,
  {
  	union kvm_mmu_page_role role;
  
--	if (is_shadow_present_pte(*sptep) && !is_large_pte(*sptep))
-+	if (is_shadow_present_pte(*sptep) && !is_large_pte(*sptep) &&
-+	    spte_to_child_sp(*sptep) && spte_to_child_sp(*sptep)->gfn == gfn)
- 		return ERR_PTR(-EEXIST);
- 
++	if (is_shadow_present_pte(*sptep) && !is_large_pte(*sptep))
++		return ERR_PTR(-EEXIST);
++
  	role = kvm_mmu_child_role(sptep, direct, access);
-@@ -2265,12 +2256,16 @@ static void __link_shadow_page(struct kvm_vcpu *vcpu,
+ 	return kvm_mmu_get_page(vcpu, gfn, role);
+ }
+@@ -2264,13 +2257,21 @@ static void shadow_walk_next(struct kvm_shadow_walk_iterator *iterator)
+ 	__shadow_walk_next(iterator, *iterator->sptep);
+ }
+ 
+-static void link_shadow_page(struct kvm_vcpu *vcpu, u64 *sptep,
+-			     struct kvm_mmu_page *sp)
++static void __link_shadow_page(struct kvm_vcpu *vcpu,
++			       struct kvm_mmu_memory_cache *cache, u64 *sptep,
++			       struct kvm_mmu_page *sp)
+ {
+ 	u64 spte;
  
  	BUILD_BUG_ON(VMX_EPT_WRITABLE_MASK != PT_WRITABLE_MASK);
  
--	/*
--	 * If an SPTE is present already, it must be a leaf and therefore
--	 * a large one.  Drop it and flush the TLB before installing sp.
--	 */
--	if (is_shadow_present_pte(*sptep))
--		drop_large_spte(vcpu->kvm, sptep);
-+	if (is_shadow_present_pte(*sptep)) {
-+		struct kvm_mmu_page *parent_sp;
-+		LIST_HEAD(invalid_list);
++	/*
++	 * If an SPTE is present already, it must be a leaf and therefore
++	 * a large one.  Drop it and flush the TLB before installing sp.
++	 */
++	if (is_shadow_present_pte(*sptep))
++		drop_large_spte(vcpu->kvm, sptep);
 +
-+		parent_sp = sptep_to_sp(sptep);
-+		WARN_ON_ONCE(parent_sp->role.level == PG_LEVEL_4K);
-+
-+		mmu_page_zap_pte(vcpu->kvm, parent_sp, sptep, &invalid_list);
-+		kvm_mmu_remote_flush_or_zap(vcpu->kvm, &invalid_list, true);
-+	}
- 
  	spte = make_nonleaf_spte(sp->spt, sp_ad_disabled(sp));
  
-diff --git a/arch/x86/kvm/mmu/spte.h b/arch/x86/kvm/mmu/spte.h
-index 31d6456d8ac3..31d03d15415c 100644
---- a/arch/x86/kvm/mmu/spte.h
-+++ b/arch/x86/kvm/mmu/spte.h
-@@ -267,6 +267,11 @@ static inline bool is_executable_pte(u64 spte)
- 	return (spte & (shadow_x_mask | shadow_nx_mask)) == shadow_x_mask;
+ 	mmu_spte_set(sptep, spte);
+@@ -2281,6 +2282,12 @@ static void link_shadow_page(struct kvm_vcpu *vcpu, u64 *sptep,
+ 		mark_unsync(sptep);
  }
  
-+static inline struct kvm_mmu_page *spte_to_child_sp(u64 spte)
++static void link_shadow_page(struct kvm_vcpu *vcpu, u64 *sptep,
++			     struct kvm_mmu_page *sp)
 +{
-+	return to_shadow_page(spte & PT64_BASE_ADDR_MASK);
++	__link_shadow_page(vcpu, &vcpu->arch.mmu_pte_list_desc_cache, sptep, sp);
 +}
 +
- static inline kvm_pfn_t spte_to_pfn(u64 pte)
+ static void validate_direct_spte(struct kvm_vcpu *vcpu, u64 *sptep,
+ 				   unsigned direct_access)
  {
- 	return (pte & PT64_BASE_ADDR_MASK) >> PAGE_SHIFT;
+@@ -3039,11 +3046,9 @@ static int __direct_map(struct kvm_vcpu *vcpu, gpa_t gpa, u32 error_code,
+ 		if (it.level == level)
+ 			break;
+ 
+-		drop_large_spte(vcpu, it.sptep);
+-		if (is_shadow_present_pte(*it.sptep))
+-			continue;
+-
+ 		sp = kvm_mmu_get_child_sp(vcpu, it.sptep, base_gfn, true, ACC_ALL);
++		if (sp == ERR_PTR(-EEXIST))
++			continue;
+ 
+ 		link_shadow_page(vcpu, it.sptep, sp);
+ 		if (is_tdp && huge_page_disallowed &&
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index cc70cbb3f261..0f68f5afa642 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -698,15 +698,13 @@ static int FNAME(fetch)(struct kvm_vcpu *vcpu, gpa_t addr,
+ 		gfn_t table_gfn;
+ 
+ 		clear_sp_write_flooding_count(it.sptep);
+-		drop_large_spte(vcpu, it.sptep);
+ 
+-		sp = NULL;
+-		if (!is_shadow_present_pte(*it.sptep)) {
+-			table_gfn = gw->table_gfn[it.level - 2];
+-			access = gw->pt_access[it.level - 2];
+-			sp = kvm_mmu_get_child_sp(vcpu, it.sptep, table_gfn,
+-						  false, access);
++		table_gfn = gw->table_gfn[it.level - 2];
++		access = gw->pt_access[it.level - 2];
++		sp = kvm_mmu_get_child_sp(vcpu, it.sptep, table_gfn,
++					  false, access);
+ 
++		if (sp != ERR_PTR(-EEXIST)) {
+ 			/*
+ 			 * We must synchronize the pagetable before linking it
+ 			 * because the guest doesn't need to flush tlb when
+@@ -735,7 +733,7 @@ static int FNAME(fetch)(struct kvm_vcpu *vcpu, gpa_t addr,
+ 		if (FNAME(gpte_changed)(vcpu, gw, it.level - 1))
+ 			goto out_gpte_changed;
+ 
+-		if (sp)
++		if (sp != ERR_PTR(-EEXIST))
+ 			link_shadow_page(vcpu, it.sptep, sp);
+ 	}
+ 
+@@ -761,15 +759,14 @@ static int FNAME(fetch)(struct kvm_vcpu *vcpu, gpa_t addr,
+ 
+ 		validate_direct_spte(vcpu, it.sptep, direct_access);
+ 
+-		drop_large_spte(vcpu, it.sptep);
++		sp = kvm_mmu_get_child_sp(vcpu, it.sptep, base_gfn,
++					  true, direct_access);
++		if (sp == ERR_PTR(-EEXIST))
++			continue;
+ 
+-		if (!is_shadow_present_pte(*it.sptep)) {
+-			sp = kvm_mmu_get_child_sp(vcpu, it.sptep, base_gfn,
+-						  true, direct_access);
+-			link_shadow_page(vcpu, it.sptep, sp);
+-			if (huge_page_disallowed && req_level >= it.level)
+-				account_huge_nx_page(vcpu->kvm, sp);
+-		}
++		link_shadow_page(vcpu, it.sptep, sp);
++		if (huge_page_disallowed && req_level >= it.level)
++			account_huge_nx_page(vcpu->kvm, sp);
+ 	}
+ 
+ 	ret = mmu_set_spte(vcpu, it.sptep, gw->pte_access, write_fault,
 -- 
 2.54.0
 
