@@ -1,115 +1,134 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BE83F58C7
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 13:40:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A513F8246;
+	Fri, 26 Jun 2026 13:40:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782481238; cv=none; b=O1zILlmbc7q09T0Q8ehYJgWOhGmrL6SXWJWFFJLxMRg5lv4LRvuCM+4m4rN797NmhTz4Ff/w/gtXrUvJ0m+YWcT13yM1VB3m3rz4DLKvhL+H0VYJM2ujX2DqdpNT7mSnL6z0SZ3o/XWCa/n7NJK8oNJ4u0yq23FGYAfBEh1L2dA=
+	t=1782481262; cv=none; b=I1RHeGvNwdGa6Jq1xDcmgKWnaRVA4DpqeaXcZNGQ5zvspM6PFU8JiJNGVpOTAmXtShU/CGBShrtmNdX7NagXI8+OpJ27Av3W1VKsrGRwu405fDTj6a2P56cAhHygxy5NW8hIVGZMrrzax9M9veCkJkJQTyGl+D8e06+WBmBJ8pY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782481238; c=relaxed/simple;
-	bh=48Pim0lMg4gKLMN3rRL4MvTGI1hNae5Mm41LxYs+uF4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ge6NqA3atfINZU6it0Il4AAW01w/fxQccYkrERWbau8ydm17+fGYuxVMaLX1rIHtubH8YcwR+7uX2y+xKd3Dd3+g8AqscGcG98v60ZinEyHqPoSKzwcEqfaboAx5zb33XR10zAgF5xyglrI7s9QgOfpM/Kp1roQG2Tvk4jGuseQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nF+P0lST; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782481262; c=relaxed/simple;
+	bh=U9XtXjILV4z/r7YsvI55jkGXRuUn2jiR5fKts5PVOoI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Zt7h2mqr7U86g8QbbPcSVnkCYPKlq4xTKDA3KPMoeP2XoP2k44DqT6stJ+xMVK4EjdZf7UZJaAsQO+B6OOrURScbJVNE37y4e8JepEzJF6JNqkF4arHF3mUkL6HZdwf+zV4Sxbp73vIB0tRo2dXTzA/FB2USBs6p7H+r/OR50js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=dobFXW+g; arc=none smtp.client-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nF+P0lST"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782481236; x=1814017236;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=48Pim0lMg4gKLMN3rRL4MvTGI1hNae5Mm41LxYs+uF4=;
-  b=nF+P0lST1dtoQePvkbHpbCjmF/Xtmljs7fBOl9QmoktzVCigzv/vKi30
-   B5oxZnu7irtQqX0X1+uhpq879jmINUpjg4BKsRtZwNQM4GDJ01wacYoRQ
-   6uxKQt3QnasPuQtnvDJMQyxDbhJUAU9X9upJfhL1QaINfBbhauxbFNGY9
-   OlbUw4Gi15CmOyVsxrIZrtA0ftMOmJzVSCbR5NEU7/av1e19EbFnTwjgh
-   HSXUzBqMrgDCO8h1IaKnrDBPa/A/DrMHC7SB2IWIknXVwOXuRbrPzSxZT
-   LpbXksdbqa0LJYkqTtvuS/VzWWfedqigBFBoMx+KZbNOKgGw7p73fq/aR
-   w==;
-X-CSE-ConnectionGUID: wCRnhsz5TAW0pRmrRzOnRg==
-X-CSE-MsgGUID: TqFPvyVbRKWQT6X/CD+kLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11829"; a="83407556"
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
-   d="scan'208";a="83407556"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 06:40:36 -0700
-X-CSE-ConnectionGUID: LracXZC9Qk6AejU5egDuDg==
-X-CSE-MsgGUID: cQf+2PfYTruPG7dcR8SvbA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
-   d="scan'208";a="253241652"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.107])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 06:40:34 -0700
-Date: Fri, 26 Jun 2026 16:40:30 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
-	Martin Hodo <martin.hodo@intel.com>, stable@vger.kernel.org,
-	Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: Re: [PATCH] drm/i915/vrr: require valid min/max vfreq for VRR
-Message-ID: <aj6BTiskgYhSUGYd@intel.com>
-References: <20260625131040.1051272-1-jani.nikula@intel.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="dobFXW+g"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1782481239;
+	bh=eAgCopvaldpMGs0k5dZYLTIrr2jo6F+DacT6v9UmDuU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=dobFXW+gNSV4WUaOXSsJ91bIfvTn5Tw94PBjDiHyTr7VqMsogDPpkfvR6BHL9v9Yl
+	 u+HiTRBSKTaGMGLHG7//ElKiEhfvvbiMQSa6eRf8aT7N682TQHKTpf2vcNBimGksN3
+	 9VE9ofBiEQhP4dYC2vi8XeZzkvS26LOl3eTGEhGA=
+X-QQ-mid: zesmtpsz5t1782481232ta0d5bee9
+X-QQ-Originating-IP: S9fkTFrrHKZanZaJvHE8dcVyXNUlA/+yfEfFy3t+Sss=
+Received: from [10.10.73.104] ( [123.114.60.34])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 26 Jun 2026 21:40:30 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 6830464697361593552
+Message-ID: <AE58834B98A995F6+a6737e62-a673-44ad-9285-5e2aef89804d@uniontech.com>
+Date: Fri, 26 Jun 2026 21:40:30 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xfs: release dquot buffer after dqflush failure
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260625131623.3261735-1-gaoyingjie@uniontech.com>
+ <20260625175519.GF6078@frogsfrogsfrogs>
+From: Yingjie Gao <gaoyingjie@uniontech.com>
+Reply-To: 20260625175519.GF6078@frogsfrogsfrogs
+In-Reply-To: <20260625175519.GF6078@frogsfrogsfrogs>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260625131040.1051272-1-jani.nikula@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-1
+X-QQ-XMAILINFO: MMbpVEeDwmsjS33SAXlisjqw1YtcV5D7ndTU0gRelOsy11eYAkEDCuUv
+	ivyVxu2OpICDj/Jz9A9Y2AmDBmwEtA66PwmMYqLyEb487J6SwH+iBDpxzyvVvUp/QmU5jkT
+	0MT30l/JcvRUTJ0HRs6ug7jAYifVzcgam+9yDwfgALNwpe/aAyF/jmI2CYPwrOnGC7O/nLK
+	RJHcLvIx5bRFv89bcIivhFgyVobwfCPLxe4EU+U+RuOoHggUnNNyM1KbFm7o1R5Kqt70kUk
+	fHX4kwzxgn92ne5EAe/4EzxF2T+vKqCYe+7VLMiBqJ366DcXvi4HSaFARokNuKtzhP+jzEF
+	50AInYPOcCMw3rh32L36aM7a/hjRdLmsBRY77ZtuJQZpp24LdGiGIPMZp3KNFaSl5aglh9U
+	B5dgbbFNUl64lXE1b++Rpj8IkB41lPJXJzTb+b5bMLTQN2l0co/oIcKOPifFCbsN1jzpT5y
+	Ge3+5jgSwiMEcJ91qcJ7VKEXqaJtbnHUtv/6rpSC+X+CQ59HbwdCL1FGgYN5+tuYAWHzieb
+	Gtm4Q7DGpp8OdzlU+uJPl2t0GNs8jyhlktQ5YCyQoMV44MuMaE9xDR462qMyGAow0BGvhUP
+	TgNW2SPMrVomrWwXlsYHI5nLmhboj8CCbsUA4llcSw3lkXwVXQSbyUsZ8tt69eCZjkx+HLc
+	+F1qk0qS0TKto5jzjfcIBZK2LTh5HKSV8+7RSv3pHN9t6zibHvEjnwyS+k2ZcIqjWJDlE6f
+	jE9GVnY/AaiT+obgI3iyl1ctwW5vml1qvBamBEwpqJkLeObC+dqQINbncMYeq6qf87WrHM/
+	DxZ2lqqF5DyspPc0efOJo9RrOPAdHFlY158xcJKOBL0IZhxcjZfMCrXB8o3OpObgrOJ0LB/
+	Sl+zj41eaYN3olVi+KLHijQvRbD49Y/+r5cuad/QBK4pxeMdf97DazChDx4JR5LKK4R1iTS
+	h0QHA4WkwkceiQj0nSv/yS1IWOxjz9qO7EOEUiu0azUI42y4uWLv26uBqliSDAVn6MVmc/O
+	3oPFVUQt4nXzeqr9h/vcOQi8l+ZJL4rLBg93k6oUspWcyvZIkV
+X-QQ-XMRINFO: MSVp+SPm3vtSiwei5pTfI2BzaVIKsnG2gw==
+X-QQ-RECHKSPAM: 0
 
-On Thu, Jun 25, 2026 at 04:10:40PM +0300, Jani Nikula wrote:
-> Ensure the EDID provided min/max vfreq are valid. Most scenarios are
-> already covered (by coincidence) through the checks in
-> intel_vrr_is_capable() and intel_vrr_is_in_range(), but be more explicit
-> about it. At worst, a zero min_vfreq could lead to a division by zero in
-> intel_vrr_compute_vmax().
+
+
+åœ¨ 2026/6/26 01:55, Darrick J. Wong å†™é“:
+> On Thu, Jun 25, 2026 at 09:16:23PM +0800, Yingjie Gao wrote:
+>> xfs_qm_dqpurge() gets a locked buffer from xfs_dquot_use_attached_buf().
+>> If xfs_qm_dqflush() fails, the error path skips xfs_buf_relse() and then
+>> calls xfs_dquot_detach_buf(), which tries to lock the same buffer again.
+>>
+>> Release the buffer after xfs_qm_dqflush() returns so the error path drops
+>> the caller hold and unlocks the buffer before the dquot is detached,
+>> matching the other dqflush callers.
+>>
+>> Fixes: a40fe30868ba ("xfs: separate dquot buffer reads from xfs_dqflush")
+>> Cc: stable@vger.kernel.org # v6.13+
+>> Signed-off-by: Yingjie Gao <gaoyingjie@uniontech.com>
 > 
-> Discovered using AI-assisted static analysis confirmed by Intel Product
-> Security.
+> Looks fine, though scanning this function further, I suspect that "goto
+> out_funlock" in the "resurrect the refcount from the dead" isn't quite
+> right either.
+
+Thanks for taking a look.
+
+I checked the "resurrect the refcount from the dead" path and sent a
+separate fix for it:
+
+https://lore.kernel.org/linux-xfs/20260626095253.3445540-1-gaoyingjie@uniontech.com/
+
+Thanks,
+Yingjie
 > 
-> Reported-by: Martin Hodo <martin.hodo@intel.com>
-> Fixes: 117cd09ba528 ("drm/i915/display/dp: Compute VRR state in atomic_check")
-> Cc: <stable@vger.kernel.org> # v5.12+
-> Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_vrr.c | 4 ++++
->  1 file changed, 4 insertions(+)
+> Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-> index 5d9b11185296..bffbdee76ee1 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-> @@ -76,6 +76,10 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
->  		return false;
->  	}
->  
-> +	if (!info->monitor_range.min_vfreq || !info->monitor_range.max_vfreq ||
-> +	    info->monitor_range.min_vfreq > info->monitor_range.max_vfreq)
-> +		return false;
-
-Perhaps it should be the responsibility of the EDID parser to make sure
-the range isn't completely insane?
-
-> +
->  	return info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
-
-I've been tempted to get rid of this completely arbitrary 10Hz thing as well.
-
->  }
->  
-> -- 
-> 2.47.3
-
--- 
-Ville Syrjälä
-Intel
+> --D
+> 
+>> ---
+>>  fs/xfs/xfs_qm.c | 5 ++---
+>>  1 file changed, 2 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/fs/xfs/xfs_qm.c b/fs/xfs/xfs_qm.c
+>> index aa0d2976f1c3..896b24f87ac9 100644
+>> --- a/fs/xfs/xfs_qm.c
+>> +++ b/fs/xfs/xfs_qm.c
+>> @@ -166,10 +166,9 @@ xfs_qm_dqpurge(
+>>  		 * does it on success.
+>>  		 */
+>>  		error = xfs_qm_dqflush(dqp, bp);
+>> -		if (!error) {
+>> +		if (!error)
+>>  			error = xfs_bwrite(bp);
+>> -			xfs_buf_relse(bp);
+>> -		}
+>> +		xfs_buf_relse(bp);
+>>  		xfs_dqflock(dqp);
+>>  	}
+>>  	xfs_dquot_detach_buf(dqp);
+>> -- 
+>> 2.20.1
+>>
+>>
+> 
