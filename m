@@ -1,165 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03E131E857;
-	Fri, 26 Jun 2026 07:15:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18C93DF008;
+	Fri, 26 Jun 2026 07:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782458135; cv=none; b=tdcVmU/SoIcgcMLyjIBfmQj3bls+yyLl4ki3XtkGLJaG1knJtyDzI0hSXSlHcWwtO2uQeJ2Y6VzjcXueLQxVAK5oDHQuqtpcihg38TQ5RfQGVgmxVt4MVdkceOUrlVeMsvkCnj9qpM4kQeuqnq+ZJzsnCm0sOwATQtHL6Ba0Hss=
+	t=1782458544; cv=none; b=n6vZWUsa6zZN6J+d/877Q/RcG+JFjNXaIY6F24B1nzlO1ocPux8S7lCm56Ir6RpM8C+TqPFq1BsfV84bd5uIWFNnRGxM/iJI1WG8raqyB6Gy5SL3W0CJl/T3BFdHEYOxcN8bIe7056/gvz5SPJDu9xaUjFPCmRqv2fAZloV6QHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782458135; c=relaxed/simple;
-	bh=9RR1bBMY56xbcT+FAcSx+2o3Qwm6rpAKLhB42TGTEHI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f4qE7ljkwzaeRRRT3+VZ0t7E3NU6rM2dDCgMjrKuXrr4d1pDVBECG8wV0ehiccaLf1i8OWj+myC9TeEMsvzR7lmX3hJfRMTsWXmGJzZCAF34DcHzw60jUpc9QbpJPZxbceAQVEyWpYDYDQK0Zgj4DSRL+hFdTHFNQxNH14CKnI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OxwOaYpa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782458544; c=relaxed/simple;
+	bh=3bUDTGUuBPkouAcaf6j/ke2Rt4TVx2uL1+k4d7AqZtY=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RXduIYWa/K1hrX1tgXCpv0b6TtUMUvmt9sRHeieURBUAg/PezL5s+8fjGGi0a3Rc25A9W8eZyT1YpEKUYtl4w0Lb85mStp99oGJe9vO/edk2HgJUZrYw7ltpxjYCMY1iH3qt/i+yFsHHRiQiaaADl7KvQdqapi19zc2feJ6Ok7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Tv7pTf4E; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OxwOaYpa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B840A1F000E9;
-	Fri, 26 Jun 2026 07:15:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782458133;
-	bh=3lVxdm0Ep0/M2ZYIKTC77sSAb+8Ja64CITv1+WKNFCo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OxwOaYpaqmr2aOcT0SoHP1REiLiNj80JROVsNPvrfmy/4xobxnTZ8DFNS8aLhzsG2
-	 pc1JYInzhAEN2BaPLK5IIiAOHveUeNvdS1h9ZGykqqnp5ZGjRF3zukUH5/xWpDaG4a
-	 RLnkTDu6Q+3/Z+sAuJ4XlXT4mNqSWDTTOVDsTtQi8inuy+EB/yIT2FcP2ihzw3bZqr
-	 j+iVV5RthEeDUHnj51btEokTNkIRCnngT+INPOu+UcePKVCbVPX4EZKw+Tlt7lv3My
-	 3mwPy1OWlmkE3FxK8W0FsHXg9gLrC5vSd88rLK6Wzytl3VcjKiIyKvITr5gkqr/kZ9
-	 26sUDDbQD9wjA==
-Message-ID: <dc5e47af-1434-4e43-8ca7-f90de3dc3f63@kernel.org>
-Date: Fri, 26 Jun 2026 16:15:24 +0900
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Tv7pTf4E"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=izqAsj70qZfNF1O/YzvFj7uUN5J/lCj7ZHpgxS9ZCVA=;
+	b=Tv7pTf4Ets2kpKcaYLiW3eenpr4XZrE3LHw7uKECF9M+l+KdDPHIVNtzi08S1wJviPUf6N24e
+	TcHh1WU1gvpiZ5/lX8ZXf7HpyR3W5DjgrCGnZGSvhxDDWu4hDnXjeJQ2iHWzKmuwP0k9fFLFHRO
+	NjHaR5J2ir1Xn9Bub70lCZs=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4gmn293jPlz1prL8;
+	Fri, 26 Jun 2026 15:13:05 +0800 (CST)
+Received: from dggemv705-chm.china.huawei.com (unknown [10.3.19.32])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0C8D840537;
+	Fri, 26 Jun 2026 15:22:14 +0800 (CST)
+Received: from kwepemq200017.china.huawei.com (7.202.195.228) by
+ dggemv705-chm.china.huawei.com (10.3.19.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Fri, 26 Jun 2026 15:22:13 +0800
+Received: from octopus.huawei.com (10.67.174.191) by
+ kwepemq200017.china.huawei.com (7.202.195.228) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Fri, 26 Jun 2026 15:22:13 +0800
+From: Cai Xinchen <caixinchen1@huawei.com>
+To: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
+	<miklos@szeredi.hu>, <amir73il@gmail.com>, <paul@paul-moore.com>,
+	<jmorris@namei.org>, <serge@hallyn.com>, <stephen.smalley.work@gmail.com>,
+	<omosnace@redhat.com>, <gregkh@linuxfoundation.org>,
+	<bboscaccy@linux.microsoft.com>, <caixinchen1@huawei.com>
+CC: <linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-unionfs@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
+	<selinux@vger.kernel.org>, <bpf@vger.kernel.org>, <stable@vger.kernel.org>,
+	<lujialin4@huawei.com>
+Subject: [PATCH v2 stable/linux-6.18.y 0/2] Backport Fix incorrect overlayfs mmap() and mprotect() LSM access controls
+Date: Fri, 26 Jun 2026 15:50:33 +0800
+Message-ID: <20260626075035.143419-1-caixinchen1@huawei.com>
+X-Mailer: git-send-email 2.18.0.huawei.25
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm: mglru: fix stale batch updates after memcg
- reparenting
-To: Qi Zheng <qi.zheng@linux.dev>, akpm@linux-foundation.org,
- david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
- baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
- weixugc@google.com, hannes@cmpxchg.org, muchun.song@linux.dev,
- peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
- ljs@kernel.org
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
-References: <20260625151554.55105-1-qi.zheng@linux.dev>
-Content-Language: en-US
-From: Harry Yoo <harry@kernel.org>
-In-Reply-To: <20260625151554.55105-1-qi.zheng@linux.dev>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------m7QUOiwKcAfVY02vm0zfaXUG"
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemq200017.china.huawei.com (7.202.195.228)
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------m7QUOiwKcAfVY02vm0zfaXUG
-Content-Type: multipart/mixed; boundary="------------5KW8ae2yJZ4W4qD8pteHlVMf";
- protected-headers="v1"
-From: Harry Yoo <harry@kernel.org>
-To: Qi Zheng <qi.zheng@linux.dev>, akpm@linux-foundation.org,
- david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
- baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
- weixugc@google.com, hannes@cmpxchg.org, muchun.song@linux.dev,
- peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
- ljs@kernel.org
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
-Message-ID: <dc5e47af-1434-4e43-8ca7-f90de3dc3f63@kernel.org>
-Subject: Re: [PATCH v3] mm: mglru: fix stale batch updates after memcg
- reparenting
-References: <20260625151554.55105-1-qi.zheng@linux.dev>
-In-Reply-To: <20260625151554.55105-1-qi.zheng@linux.dev>
+v2: Add static to struct kmem_cache *lsm_backing_file_cache; and define
+lbs_backing_file as int for keeping the same type as 6.18.
 
---------------5KW8ae2yJZ4W4qD8pteHlVMf
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Backport the patch series
+"Fix incorrect overlayfs mmap() and mprotect() LSM access controls" [1]
+to 6.18 lts
 
+I test selinux-testsuite[2] overlay test, it pass 135 tests.
 
+[1] https://lore.kernel.org/all/20260403030848.731867-5-paul@paul-moore.com/
+[2] https://github.com/SELinuxProject/selinux-testsuite
 
-On 6/26/26 12:15 AM, Qi Zheng wrote:
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
->=20
-> The mglru page table walker batches per-generation size deltas in
-> walk->nr_pages while walking page tables without holding the lruvec loc=
-k.
-> The reset_batch_size() later folds those deltas into walk->lruvec under=
+Paul Moore (2):
+  lsm: add backing_file LSM hooks
+  selinux: fix overlayfs mmap() and mprotect() access checks
 
-> the lruvec lock.
->=20
-> The page table walker can run concurrently with the memcg reparenting p=
-ath
-> as follows:
->=20
-> CPU0                           CPU1
-> =3D=3D=3D=3D                           =3D=3D=3D=3D
->=20
-> walk_mm
-> --> walk_page_range
->     --> update_batch_size
->         --> walk->nr_pages +=3D delta
->=20
->                               mem_cgroup_css_offline
->                               --> memcg_reparent_objcgs
->                                   --> lock lruvec
->                                       lru_gen_reparent_memcg
->                                       --> reparent child folios to pare=
-nt
->                                       unlock lruvec
->=20
->     lock lruvec
->     reset_batch_size
->     --> child lrugen->nr_pages +=3D delta
->=20
-> This will trigger the following warning in lru_gen_exit_memcg():
->=20
-> 	VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
-> 				   sizeof(lruvec->lrugen.nr_pages)));
->=20
-> And the user-visible impact of underestimated nr_pages in MGLRU was
-> premature OOMs because MGLRU does not try to reclaim memory when nr_pag=
-es
-> reaches zero, but there are still more pages.
->=20
-> To fix it, make reset_batch_size() check CSS_DYING under RCU before
-> flushing the pending batch. A non-dying memcg keeps the original lruvec=
+ fs/backing-file.c                 |  17 ++-
+ fs/file_table.c                   |  27 +++-
+ fs/fuse/passthrough.c             |   2 +-
+ fs/internal.h                     |   3 +-
+ fs/overlayfs/dir.c                |   2 +-
+ fs/overlayfs/file.c               |   2 +-
+ include/linux/backing-file.h      |   4 +-
+ include/linux/fs.h                |  13 ++
+ include/linux/lsm_audit.h         |   2 +-
+ include/linux/lsm_hook_defs.h     |   5 +
+ include/linux/lsm_hooks.h         |   1 +
+ include/linux/security.h          |  22 +++
+ security/security.c               | 109 ++++++++++++++
+ security/selinux/hooks.c          | 242 ++++++++++++++++++++++--------
+ security/selinux/include/objsec.h |  11 ++
+ 15 files changed, 383 insertions(+), 79 deletions(-)
 
-> stable against RCU-delayed offlining; a dying memcg redirects the delta=
-s
-> to the first non-dying ancestor.
->=20
-> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a=
--a53a-1e28cc894f0b@smail.nju.edu.cn
-> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios"=
-)
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> ---
+-- 
+2.18.0.huawei.25
 
-besides some nits mentioned elsewhere in the thread,
-the approach looks good to me, so:
-
-Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
-
---=20
-Cheers,
-Harry / Hyeonggon
-
---------------5KW8ae2yJZ4W4qD8pteHlVMf--
-
---------------m7QUOiwKcAfVY02vm0zfaXUG
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCaj4nDAAKCRCGXBN6rc5S
-1vJdAP41DQ/Adn/NHl8DrlVUlhHpdYGNd+BlOc6FRwocVOTrGQEA/zSmKeZqWesI
-TcJfcwrQQoZKB/v7BJGNTnJRLM7YEg0=
-=xY2b
------END PGP SIGNATURE-----
-
---------------m7QUOiwKcAfVY02vm0zfaXUG--
