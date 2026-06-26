@@ -1,249 +1,116 @@
-Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02693DC861
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 07:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080AC3D88E3;
+	Fri, 26 Jun 2026 07:06:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782457510; cv=none; b=unf6/HCmz61c+FwR3fWRceYSOPTM0fotJkYdlrVwPJVndxN25JmoEui94gsM7uQKh8J1tL5Ibo3MIMw7BtkqiB+cMXopaX5Hd2gM4+ZCitI0dKu1vF1787M2waHR00eicgwLV6ZC7WoBYFidAGZ9SBCXyPsgKzkaDggmB2E9CKw=
+	t=1782457617; cv=none; b=etdYcuYSDl1v7nTVlzreN5ucIs/zb1ZGH3DgJNIWJLuuzoy++0Zpnc3S6UskSI6uQyUeoNm3wsrtj1Oe8fIdqnV5GwoO36O9Gptuk+oeVHt43uH9Fsk6LspakYcTSeBfm0s4P5uG69KIOLimh64w5WqMz6YEplrzu8xVmMgaFjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782457510; c=relaxed/simple;
-	bh=H6m4BWksqjGuBsh/huVSQ7T+H0s2iPd+SaoiMUt6NOY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kJ9T1O8R0jrsa8EIdIO8sHxXzPuxJ1VkY2b+9C72y5wejtqalTAecgk4kWC41XrhHdfAAYgIEH5dYERM1ILdwGSGyDjxnxVzRfJAIqTghnfDfCKoWeGuzKTH0fNIVEDWpZA99cpdpYSWbijKMb/osb/dp4K4p7xSowq4n6xXEMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=b8c9dZcU; arc=none smtp.client-ip=95.215.58.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782457617; c=relaxed/simple;
+	bh=Nb9xg8I7O5dI9Quw5ZIkI7Mjl17b1sJ8iAmhI9Cf1tg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uG3iGC5MF7qtjm2V3af/RNqF5L+pTYcZI1TODlm6smbHhaLG+jp5V0ooAEuZTihRcLkin/IjVu/NwgHlzCqYFk5d+F0l4OEdK+kVG5Z145Z5PgSxZjMm+akeddUb+XgXXShsFpjlzlkZUxg3SQ+ZQS22Z8wLxfusn9vcn476YZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=e4nlL3id; arc=none smtp.client-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="b8c9dZcU"
-Message-ID: <c0e366ec-ee5d-42d9-ba33-7c630660e8af@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782457506;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z+bLG5UfpgPjMKqrgsZ8bW9KeIBxng26HYMlgjgCAW8=;
-	b=b8c9dZcUJ81dwTVzshi/HpGfP2I4P05U8G/nHRbW1IMykFToKsM4HP5YTqv8SYOgHWNRlo
-	py1nnHBBimpqvdb1M374AOU511u8l2FGtbmXIXTytfR6NgpZecQavFQSkOvnbf8To8MWhh
-	Pkwt4WyjLFQlCmpa+M34ZHTpXOuepAs=
-Date: Fri, 26 Jun 2026 15:04:17 +0800
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="e4nlL3id"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1782457589;
+	bh=Y4W/r58Q3W/dWz2m7sS0Ii3kXhsGKStDl7s2/hoHkxQ=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=e4nlL3idc29w8pWdKLa025YG9KYcGH+NvY2ybfze5VPZ2Qzb4I2nWKdFveiofatKu
+	 W8L/cGx4RcwrGqdBu7jd+uZ4RTIlC3c7Df0T1ZgOt1VUcuF/+WRz6YAXF168GWUQYo
+	 b0Yaiq9U1vA+O1/v/eJcwh0Sp3EbUMMSHPBj/ZuA=
+X-QQ-mid: esmtpgz12t1782457571ta26b18e1
+X-QQ-Originating-IP: BpomGn1BFIDJ/YTZkQXfR4Y5obiQ7PKkNtMtN8XtDJc=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 26 Jun 2026 15:06:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 11897432787244039745
+EX-QQ-RecipientCnt: 7
+From: raoxu <raoxu@uniontech.com>
+To: stern@rowland.harvard.edu
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org
+Subject: [PATCH] USB: usb-storage: ene_ub6250: restore media-ready check
+Date: Fri, 26 Jun 2026 15:06:07 +0800
+Message-ID: <F42641386E32404F+20260626070607.4119527-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v3] mm: mglru: fix stale batch updates after memcg
- reparenting
-To: Harry Yoo <harry@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>
-Cc: akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com,
- shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
- yuanchu@google.com, weixugc@google.com, muchun.song@linux.dev,
- peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
- ljs@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
-References: <20260625151554.55105-1-qi.zheng@linux.dev>
- <aj12aVq3he6q7b2C@cmpxchg.org>
- <4c7b0c46-14f0-4a62-893e-e50714e09b74@linux.dev>
- <46ac28bf-5be1-4600-b522-0a1aa76c28e6@kernel.org>
- <08cf8972-6cfc-4452-9a3c-88e0368dbbf9@linux.dev>
- <afdaff7c-fe6b-40da-8f54-aeeab8fe8867@kernel.org>
- <90fd5300-1016-42e7-abad-08ad85fb62b4@linux.dev>
- <5a0c6597-6b96-4781-a71b-fd1298b2b7bb@kernel.org>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <5a0c6597-6b96-4781-a71b-fd1298b2b7bb@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NWujniBqiFoNpJH9EpvNOowZ6Rgffau97gsI5BJwYrqety1klK/GGQIa
+	HOwee4ZnABMm00n3nGPxxmd1PiOUaLK0vD0sbHrWE0KuCirpvykIOmiv68ZH5daZsitKVOH
+	ZDE0USsbh+mLyK1uHyGCabi9AzFKisB5f7ixudvjY0N+UGl0BioGtnZfCfD5Y6e24VNfQ6t
+	06LJ8Jgw+5MLTnbcEoeipcHVlib0KYIQV2vB98fc4drybO3G21Y7vrFyq93O6IUgNZEMxyw
+	68mcScDujSu+q4PMpK9m7a2JHNj5+98FuD2DUoxquQp4kRmK98kbz/z4Pflm4R+ChYzYcGV
+	od8cvvwU0F/WOB7vyzmosRXX8zmNu5n8vluMm8rnRot2YJ9aAxgKSnHwqQHjVlQ6Yms/YyG
+	is2p7hirw+zGT1zQ8iKKFWPBHAMK99gU8jl4yt7TwUpMzSpwpIxJrVBHqM8MX2nYlBLScIg
+	IKnSoiPRPXWL1f1wmYL0qq9p330OqOZXtzMj6ITUdr5oh+lvhPDm6ZXtqNrxNy7cqOt53gD
+	MmF7EZMAh/ZJ/N2IoYPflUU0CC9UpSzYmnjbmo52lx/rj2bYF3DDABd8wBqGjrZ2fxg+7nQ
+	DZz16tPklDLZCl+u/6lI7ObwQrn2sULuVjLmaBMK7Y6EtysJsPGB/6XisercGM/Hhw0s55A
+	QgD3abJsUygSjMgYi+QKGN4o9+I8/lvpr4/u57toUlfYXZLOtWvsNaO4Gpdaava+gXmTAEa
+	ukZEOGUZeNW5QuiKIjtjW20hVwZNh0g1K7hh9axmwwV3kKm0YPBCWf4qGY3HB+0TuBBz8PN
+	s9VFNivIiXjY4Cmfp52MW8CeWCmJ9VlkMCrjmUH2po3JjbT+LqNgoQuNG5cn+HnLzPdmE9u
+	jrRanCd48qTtOicfPHHE4gBs5yIqRQJgZ3VwAFhU5iPolorFF3LG975xbbHWpTHin2AJ6m1
+	1boQ75Kcc8JPowNBkYnd8fMZ9iT5LXiHQ/l+30wqG1Q8Oo2MqXQwjwzQ6EAj95s26QZA8hG
+	FZf5QqPQbTIy2mbYT64fX2jBQcmjWUVs6Zn5R7FdheTP7h3c9/yNAccmN3rtM6diyUfOT9X
+	w==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
+From: Xu Rao <raoxu@uniontech.com>
 
+Commit 1892bf90677a ("USB: usb-storage: Fix use of bitfields for
+hardware data in ene_ub6250.c") converted the media status fields from
+bitfields to bit masks.
 
-On 6/26/26 2:48 PM, Harry Yoo wrote:
-> 
-> 
-> On 6/26/26 3:24 PM, Qi Zheng wrote:
->>
->>
->> On 6/26/26 12:59 PM, Harry Yoo wrote:
->>>
->>>
->>> On 6/26/26 1:48 PM, Qi Zheng wrote:
->>>>
->>>>
->>>> On 6/26/26 12:43 PM, Harry Yoo wrote:
->>>>>
->>>>>
->>>>> On 6/26/26 11:27 AM, Qi Zheng wrote:
->>>>>> Hi Johannes,
->>>>>>
->>>>>> On 6/26/26 2:41 AM, Johannes Weiner wrote:
->>>>>>> On Thu, Jun 25, 2026 at 11:15:54PM +0800, Qi Zheng wrote:
->>>>>>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>>>>>>
->>>>>>>> The mglru page table walker batches per-generation size deltas in
->>>>>>>> walk->nr_pages while walking page tables without holding the lruvec
->>>>>>>> lock.
->>>>>>>> The reset_batch_size() later folds those deltas into walk->lruvec
->>>>>>>> under
->>>>>>>> the lruvec lock.
->>>>>>>>
->>>>>>>> The page table walker can run concurrently with the memcg
->>>>>>>> reparenting
->>>>>>>> path
->>>>>>>> as follows:
->>>>>>>>
->>>>>>>> CPU0                           CPU1
->>>>>>>> ====                           ====
->>>>>>>>
->>>>>>>> walk_mm
->>>>>>>> --> walk_page_range
->>>>>>>>         --> update_batch_size
->>>>>>>>             --> walk->nr_pages += delta
->>>>>>>>
->>>>>>>>                                   mem_cgroup_css_offline
->>>>>>>>                                   --> memcg_reparent_objcgs
->>>>>>>>                                       --> lock lruvec
->>>>>>>>                                           lru_gen_reparent_memcg
->>>>>>>>                                           --> reparent child
->>>>>>>> folios to
->>>>>>>> parent
->>>>>>>>                                           unlock lruvec
->>>>>>>>
->>>>>>>>         lock lruvec
->>>>>>>>         reset_batch_size
->>>>>>>>         --> child lrugen->nr_pages += delta
->>>>>>>>
->>>>>>>> This will trigger the following warning in lru_gen_exit_memcg():
->>>>>>>>
->>>>>>>>        VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
->>>>>>>>                       sizeof(lruvec->lrugen.nr_pages)));
->>>>>>>>
->>>>>>>> And the user-visible impact of underestimated nr_pages in MGLRU was
->>>>>>>> premature OOMs because MGLRU does not try to reclaim memory when
->>>>>>>> nr_pages
->>>>>>>> reaches zero, but there are still more pages.
->>>>>>>>
->>>>>>>> To fix it, make reset_batch_size() check CSS_DYING under RCU before
->>>>>>>> flushing the pending batch. A non-dying memcg keeps the original
->>>>>>>> lruvec
->>>>>>>> stable against RCU-delayed offlining; a dying memcg redirects the
->>>>>>>> deltas
->>>>>>>> to the first non-dying ancestor.
->>>>>>>>
->>>>>>>> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
->>>>>>>> Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-
->>>>>>>> efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn
->>>>>>>> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU
->>>>>>>> folios")
->>>>>>>> Cc: <stable@vger.kernel.org>
->>>>>>>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->>>>>>>> ---
->>>>>>>> Changes in v3:
->>>>>>>>      - re-implement lock_batch_lruvec() by checking CSS_DYING
->>>>>>>> under the
->>>>>>>> RCU lock
->>>>>>>>        (suggested by Harry)
->>>>>>>>      - update the commit message (suggested by Harry)
->>>>>>>>      - temporarily drop the previous Reviewed-by tags
->>>>>>>>        (since the sync method has changed)
->>>>>>>>      - rebase onto the next-20260624
->>>>>>>>
->>>>>>>> Changes in v2:
->>>>>>>>      - update the commit message (pointed by Barry)
->>>>>>>>      - collect Reviewed-by
->>>>>>>>
->>>>>>>>      mm/vmscan.c | 45 ++++++++++++++++++++++++++++++++++++++-------
->>>>>>>>      1 file changed, 38 insertions(+), 7 deletions(-)
->>>>>>>>
->>>>>>>> diff --git a/mm/vmscan.c b/mm/vmscan.c
->>>>>>>> index 35c3bb15ae96..1ec8c23c72b9 100644
->>>>>>>> --- a/mm/vmscan.c
->>>>>>>> +++ b/mm/vmscan.c
->>>>>>>> @@ -3262,10 +3262,44 @@ static void update_batch_size(struct
->>>>>>>> lru_gen_mm_walk *walk, struct folio *folio,
->>>>>>>>          walk->nr_pages[new_gen][type][zone] += delta;
->>>>>>>>      }
->>>>>>>>      +#ifdef CONFIG_MEMCG
->>>>>>>> +static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
->>>>>>>> +{
->>>>>>>> +    struct pglist_data *pgdat = lruvec_pgdat(lruvec);
->>>>>>>> +    struct mem_cgroup *memcg = lruvec_memcg(lruvec);
->>>>>>>> +
->>>>>>>> +    rcu_read_lock();
->>>>>>>
->>>>>>> Where is this unlocked?
->>>>>>
->>>>>> The lruvec_unlock_irq() in reset_batch_size() will handle the
->>>>>> unlocking.
->>>>>>
->>>>>>>
->>>>>>>> +    /*
->>>>>>>> +     * The memcg can be NULL when the memory controller is
->>>>>>>> disabled.
->>>>>>>> +     * Otherwise, the caller keeps the memcg owning @lruvec alive.
->>>>>>>> +     */
->>>>>>>> +    if (!memcg || !css_is_dying(&memcg->css))
->>>>>>>> +        goto lock;
->>>>>>>> +
->>>>>>>> +    do {
->>>>>>>> +        memcg = parent_mem_cgroup(memcg);
->>>>>>>> +    } while (memcg && css_is_dying(&memcg->css));
->>>>>>>> +    lruvec = mem_cgroup_lruvec(memcg, pgdat);
->>>>>>>
->>>>>>>        while (unlikely(memcg && css_is_dying(&memcg->css))) {
->>>>>>>            memcg = parent_mem_cgroup(memcg);
->>>>>>>            lruvec = mem_cgroup_lruvec(memcg, pgdat);
->>>>>>
->>>>>> There is no need to acquire the lruvec before finding the first
->>>>>> non-dying memcg.
->>>>>
->>>>> struct pglist_data *pgdat = lruvec_pgdat(lruvec);
->>>>> struct mem_cgroup *memcg = lruvec_memcg(lruvec);
->>>>>
->>>>> rcu_read_lock()
->>>>>
->>>>> while (unlikely(memcg_is_dying(memcg)))
->>>>>            memcg = parent_mem_cgroup(memcg);
->>>>>
->>>>> lruvec = mem_cgroup_lruvec(memcg, pgdat);
->>>>
->>>> If the first memcg is already non-dying, there's no need to re-acquire
->>>> the lruvec. ;)
->>>
->>> Oh, right :)
->>>
->>> Hmm but I still think Johannes' suggestion makes the code cleaner.
->>
->> I don't have a strong preference on which of the two coding styles is
->> more readable. BTW, is there any kernel documentation I could refer to
->> for this?
-> 
-> I don't think there's a coding style guide that specifically
-> mentions this. Just thought it's cleaner because it merges if (...) goto
-> lock; and do-while into a single while loop.
-> 
->>> Observing a dying cgroup should be rare anyway, it's worth focusing
->>> more on readability?
->>
->> While it's rare to encounter consecutive dying memcgs, it can still
->> happen, right?
-> 
-> But is worth saving a few instruction in a basic block that is
-> unlikely() to be executed?
+The original ene_transport() test called ene_init() only when neither
+media type was ready:
 
-I don't have a strong opinion here. Hi Johannes, I'll leave the decision
-up to you. If necessary, I can send out the v4.
+        !(sd_ready || ms_ready)
 
-> 
-> I'm not a memcg maintainer myself, though. just my 2 cents.
+The converted test became:
 
-I'd like to express my gratitude for your reviews, and especially
-for your invaluable help with the earlier dying memcg work!
+        !sd_ready || ms_ready
 
-Thanks,
-Qi
+This is not equivalent. Restore the original semantics by testing that
+both ready bits are clear before calling ene_init().
 
-> 
+Fixes: 1892bf90677a ("USB: usb-storage: Fix use of bitfields for hardware data in ene_ub6250.c")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ drivers/usb/storage/ene_ub6250.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/storage/ene_ub6250.c b/drivers/usb/storage/ene_ub6250.c
+index 8770de01a384..ed49a3bc859c 100644
+--- a/drivers/usb/storage/ene_ub6250.c
++++ b/drivers/usb/storage/ene_ub6250.c
+@@ -2305,7 +2305,8 @@ static int ene_transport(struct scsi_cmnd *srb, struct us_data *us)
+
+ 	/*US_DEBUG(usb_stor_show_command(us, srb)); */
+ 	scsi_set_resid(srb, 0);
+-	if (unlikely(!(info->SD_Status & SD_Ready) || (info->MS_Status & MS_Ready)))
++	if (unlikely(!(info->SD_Status & SD_Ready) &&
++		     !(info->MS_Status & MS_Ready)))
+ 		result = ene_init(us);
+ 	if (result == USB_STOR_XFER_GOOD) {
+ 		result = USB_STOR_TRANSPORT_ERROR;
+--
+2.50.1
 
