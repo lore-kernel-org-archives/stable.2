@@ -1,76 +1,34 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA063812EB
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 10:42:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9AE3812EB;
+	Fri, 26 Jun 2026 10:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782470541; cv=none; b=lfvZkksh+4VS5C1wOaJnE+6KCgfQfYU5IDCCImx/BJUCUzSnn+y39vq2I2ROyDWIPssTStLN0AyctjVLXG6XjKQ2RU2trtWNC7QvVhUpDzgGqrF56pTOACwl9mVFn3bcj8ZtL3pYP18QGLvFrhrbqHNBUNT4Be3JE1VUaHlmTr4=
+	t=1782470706; cv=none; b=fP1qzo/Hf8fGesGO7mnzqlkvpnDKNFlSzcQfZNIneOp/lgNj2I7I4I/Dw5RtmlFzbNYZZHJTHjnSlXra9S4IrlbQZcFW7Q/pOxu47HSKNnKyeg0SuDKmvd7YEgPjwDa07eD9R968NTMiagVqIRQtyFBrV0MH2qB2ZwJRajD8zd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782470541; c=relaxed/simple;
-	bh=vKEWT6O9bP3DpdrhVvIho3UWnDQ9SYmZ2ge7bd0ghi0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=qjO/HRCLCTrNUzlevl9L5vjbn2B8h5vhfLKWM4nhAhjbeazvbidacwaengLWKvEPGV/uMiXUL45xA8yDlkycdTgEqvveqoh64x6OnRrkgRYDlZGYVSCQdQ5O3zWiZAMBxwdKYVpez3SoZK4kYHb1MqFBcua8TD3ojKTJrI9+l6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fHBy03Tu; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fHBy03Tu"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-30bc871ecdfso1100032eec.1
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 03:42:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782470539; x=1783075339; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qP0J1iWyaoP+HLz+xwVairx0bDAZ93dXt6GX/Ei5LK4=;
-        b=fHBy03Tu8aWNwiNoaYzg4OYrJP0AQIjPljRbJNW2ZHM7XRNAwgd/99RgeN1qx/cOlT
-         Omt1uq7m+Z8kGKMbqlv2D+PjxXyZ5XafIf0F9wreEP419/oI5muTPFGv9qPdwHEzGf/N
-         csma4i+FabdXk+Fu5vNUUbrdDHfDSV331lb+yGc7DiQEBuw3mnjxsiC0GXii7OGwLtRi
-         rDMXdgnzDQWW6kMvRLWh2pKt5Gd5CLUHOKpCIY89fKb5D1m0i0Nn+B2yGPEfIq//0ZMI
-         qIXRlHGAfUzLkEldaDZDKNWswOESWCXbv2vHY26GKCQkY7aw7cg4/3YQBSfaBoQjV41Z
-         qtsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782470539; x=1783075339;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=qP0J1iWyaoP+HLz+xwVairx0bDAZ93dXt6GX/Ei5LK4=;
-        b=gg7qo04/xAJiIdM1PW9BvH7D+CDCkaHXZpGKuxxz/kaJXKGVtK8jt1wKgiHPBu/uto
-         4mSGMqHu05mBCo4MWQaOIAJ9dg9k5JMY98a7M2SoSid/woAPi9SmOTfEj1UTnFWZ093W
-         zgWssM1YzWqYwPXeJz4FmttmNkBOa7ekctXU9e2Dx/q/ku2+pEAzGCKF3j7h2+r3SLjv
-         Oqme3aLLV3mnkwIdR5WSn9gkDp4E6f9UQW+9m7O1VEikuP/pv9EBgWn5ETWR3pbeMg5f
-         +YGnX18Bjj2JJvY583og60DcL9nbcCAIs6MtMQ3HjhU1/DNz1ojbz1YHVchrWtydAwOx
-         Rehg==
-X-Forwarded-Encrypted: i=1; AHgh+RrVLirVFaXCz8VnHgnYVncSH2As7jSFf2//NjL29hyIyYYy4VlZAMkczloPs1hfe2x7Nx+AzYs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyUDAyF7x0d1/+lY42QVHX9FsSENFtUDW7GV1bZeLg1BTRBdCOC
-	Tdj0ruJ2l3PxWTRWVoUMvBx9v6sTDSACktXTrmJR7l6OPd5/qnyBIpXO56OXpPA8f9bceA==
-X-Gm-Gg: AfdE7cmSIQxa0+SL+1ZY3D+NUZuiVgMgpH4sDwJFkKymg237v9Mm1fZHftnbam8Ra9c
-	ggKO1RVOrOFkQu3Iv7rWwlLzSCbY83nwEtQNruHocKxf4rOUDWWkDv1BAutmuuuc/4l+ESJfgoh
-	WAazGvwMcg9PXsL+Uaa8v4pIDdUu5ygQ2ZZQXXRcfJFJULvDzBt6M4n7mlmzG/KQCnV7KlIjcmG
-	wh4A3dddoiJE25WKVp0+kQ+kP9iEsnNAmeOZ6+DD2ZLjzPxYRvNhLUupfQsU3X2FgVvRsmm20Wi
-	MiYRIjbI7ZbM4rkw0WbfNMi6IiNReGTZDcRt5FdcPrCUhWBVpBSNpAWyLXurz+Jcwv0W4B9kGMM
-	3n42X8JYlDaYk86LDZfQsaQccbC9s56zd4VuIEzSjEw+BkK3AhjZJeRDAzss3b/IQ7LTbrY6eve
-	NEVO9wczz1O8qvLBa6ss5sUWEYUyBmpPN6SZNJC9OH588ChbiBIB0BTt1JSQ==
-X-Received: by 2002:a05:7300:8b85:b0:304:bce9:25fa with SMTP id 5a478bee46e88-30c84cf58edmr5969617eec.4.1782470539345;
-        Fri, 26 Jun 2026 03:42:19 -0700 (PDT)
-Received: from naduvan.timesys.com ([122.178.167.70])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7c8b1ae5sm18956056eec.16.2026.06.26.03.42.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 03:42:18 -0700 (PDT)
-From: Siva Balasubramanian <sivakumar.bs@gmail.com>
-To: sivakumar.bs@gmail.com
-Cc: sivakumarb82@gmail.com,
-	Tristan Madani <tristan@talencesecurity.com>,
-	stable@vger.kernel.org,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 1/2] Bluetooth: btmtk: validate WMT event SKB length before struct access
-Date: Fri, 26 Jun 2026 16:12:00 +0530
-Message-Id: <20260626104201.3463460-2-sivakumar.bs@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260626104201.3463460-1-sivakumar.bs@gmail.com>
-References: <20260626104201.3463460-1-sivakumar.bs@gmail.com>
+	s=arc-20240116; t=1782470706; c=relaxed/simple;
+	bh=kbgL/77dRi1UkZ1PI/3lHE2ryj4p4DYdnsfs6THkuwk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OM89mDPl9munJiFJZ522Z2/2On5veIE/h/JeeDrNftd1dU2kVy5WwO3Cg62lhdb3m9jwvZSs6YMBNSkOsb1WiZ3HqOwKCvhiTgK7z1OV/ZIP/PWNhkt5BO7vClnV2V2d7nK5t/0//0sv1JyICBv6aIQiIs5sNiVTJFnXuq2eL3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-03 (Coremail) with SMTP id rQCowACni+InWD5qhTzsFQ--.357S2;
+	Fri, 26 Jun 2026 18:44:57 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: koby.elbaz@intel.com,
+	konstantin.sinyuk@intel.com,
+	ogabbay@kernel.org
+Cc: vulab@iscas.ac.cn,
+	kees@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] fix: accel/habanalabs: hl_cs_signal_sob_wraparound_handler: missing   hw_sob_get when need_reset is true and encaps_sig is false
+Date: Fri, 26 Jun 2026 18:44:53 +0800
+Message-Id: <20260626104453.32301-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,64 +36,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACni+InWD5qhTzsFQ--.357S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr17Zr1DWw4fZr1DXw1kXwb_yoW8GFWkpa
+	s8GF4rJF9Fqr9rAFnrCw45ZFyrXa9xKr9F9a1xG395urn8Ga4xJryYkayF9rWj9rs3Xa18
+	XF9Fq3yUC3WrAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbSfO7UUUU
+	U==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYKA2o+ThINvAABs7
 
-From: Tristan Madani <tristan@talencesecurity.com>
+When other_sob->need_reset is true and encaps_sig is false,
+  hw_sob_put(other_sob) decrements the kref to 0, but the matching
+  hw_sob_get(other_sob) is skipped because it is inside the encaps_sig
+  block. The function returns other_sob with kref=0, causing a subsequent
+  kref_put to underflow. Fix by adding hw_sob_get(other_sob) in the else
+  branch.
 
-commit 634a4408c0615c523cf7531790f4f14a422b9206 upstream.
-
-btmtk_usb_hci_wmt_sync() casts the WMT event response SKB data to
-struct btmtk_hci_wmt_evt (7 bytes) and struct btmtk_hci_wmt_evt_funcc
-(9 bytes) without first checking that the SKB contains enough data.
-A short firmware response causes out-of-bounds reads from SKB tailroom.
-
-Use skb_pull_data() to validate and advance past the base WMT event
-header. For the FUNC_CTRL case, pull the additional status field bytes
-before accessing them.
-
-Fixes: d019930b0049 ("Bluetooth: btmtk: move btusb_mtk_hci_wmt_sync to btmtk.c")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-(cherry picked from commit 634a4408c0615c523cf7531790f4f14a422b9206)
-Signed-off-by: Siva Balasubramanian <sivakumar.bs@gmail.com>
+Fixes: dadf17abb724 ("habanalabs: add support for encapsulated signals reservation")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- drivers/bluetooth/btmtk.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/accel/habanalabs/common/command_submission.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
-index ad8753dda826..5c6f4d4b2e7f 100644
---- a/drivers/bluetooth/btmtk.c
-+++ b/drivers/bluetooth/btmtk.c
-@@ -655,8 +655,13 @@ int btmtk_usb_hci_wmt_sync(struct hci_dev *hdev,
- 	if (data->evt_skb == NULL)
- 		goto err_free_wc;
+diff --git a/drivers/accel/habanalabs/common/command_submission.c b/drivers/accel/habanalabs/common/command_submission.c
+index ba4257bda77b..675301dfc0ef 100644
+--- a/drivers/accel/habanalabs/common/command_submission.c
++++ b/drivers/accel/habanalabs/common/command_submission.c
+@@ -1860,11 +1860,10 @@ int hl_cs_signal_sob_wraparound_handler(struct hl_device *hdev, u32 q_idx,
+ 		if (other_sob->need_reset)
+ 			hw_sob_put(other_sob);
  
--	/* Parse and handle the return WMT event */
--	wmt_evt = (struct btmtk_hci_wmt_evt *)data->evt_skb->data;
-+	wmt_evt = skb_pull_data(data->evt_skb, sizeof(*wmt_evt));
-+	if (!wmt_evt) {
-+		bt_dev_err(hdev, "WMT event too short (%u bytes)",
-+			   data->evt_skb->len);
-+		err = -EINVAL;
-+		goto err_free_skb;
-+	}
- 	if (wmt_evt->whdr.op != hdr->op) {
- 		bt_dev_err(hdev, "Wrong op received %d expected %d",
- 			   wmt_evt->whdr.op, hdr->op);
-@@ -672,6 +677,12 @@ int btmtk_usb_hci_wmt_sync(struct hci_dev *hdev,
- 			status = BTMTK_WMT_PATCH_DONE;
- 		break;
- 	case BTMTK_WMT_FUNC_CTRL:
-+		if (!skb_pull_data(data->evt_skb,
-+				   sizeof(wmt_evt_funcc->status))) {
-+			err = -EINVAL;
-+			goto err_free_skb;
-+		}
-+
- 		wmt_evt_funcc = (struct btmtk_hci_wmt_evt_funcc *)wmt_evt;
- 		if (be16_to_cpu(wmt_evt_funcc->status) == 0x404)
- 			status = BTMTK_WMT_ON_DONE;
+-		if (encaps_sig) {
++		if (encaps_sig)
+ 			/* set reset indication for the sob */
+ 			sob->need_reset = true;
+-			hw_sob_get(other_sob);
+-		}
++		hw_sob_get(other_sob);
+ 
+ 		dev_dbg(hdev->dev, "switched to SOB %d, q_idx: %d\n",
+ 				prop->curr_sob_offset, q_idx);
 -- 
-2.34.1
+2.39.5 (Apple Git-154)
 
