@@ -1,222 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2903DB62F;
-	Fri, 26 Jun 2026 07:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D993E1233;
+	Fri, 26 Jun 2026 07:42:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782459285; cv=none; b=fzfFUOCY9hsFLrZcBWYiPnQoA6AEDYsZQA/DpDMrhPAr1he0R+UG+r8Ys00tOSwwv99sxDOCL/xbmW7tvdSrROO13Smv+/yNDkWPueTCCnJUeOOPTLzFkyjGButtVLN8fY0nTbgesUyGO994hSXHtfcypmRZgq0RHVYKHZBEYS0=
+	t=1782459732; cv=none; b=Ijaf3RbGlas6l2YgCQX5TwrHrPN/GzwE6HCuaUD/8HVBavhkAuxIDAf3gi9OnfdwLXjm9/yvqTnUti+7CXD0/T8znWWdXAFaLIvyz/aEhWYmEyFGIkiesSo2E0pTuCpTp3fpA2n6ZOjQV8uEAwG0HNuBFVXs9zLq+k2t6eIVuYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782459285; c=relaxed/simple;
-	bh=XibRtr3lArfBwIX108UOrQuWbqvLRRJQahUof7b9dK4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P3aTa6PfLR89pJOcZGN5B0HsqrMrveP27uxZeFqlR0dfXdA45kUUswIAmXgvW/F0cyFREp/m+7Pb0Ngg2jcuTE0Xda3yftjdV8jrfC4oxEu5dT5yK1G4qy1cEbjbb1+00T4NKCFodFdMM6fNsOXpQD56bVvQ2WV6ZigdiLiQ2hQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n80+wOrW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782459732; c=relaxed/simple;
+	bh=dMXfk3HlwY6A8X7XaGBJbZYq2iAMs1BJMxWHTq3Ios8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=i8zqIT7RX0v4Qy5wzN8sFpAJOvby/QzB2nGcpjL7rK8o3XjFnEar5WmlI1E3OWMwr3iMixAt042YS+0WJHArwRwaIrknn6gC5evUODIaC+TGM5tLygT7eHqqdZEvFi7z1EAxn/Ru7lXXR0meiBcw9KIdTLb9cH5CZylz1eo0GZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Uk8XLpma; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n80+wOrW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13911F00A3A;
-	Fri, 26 Jun 2026 07:34:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782459284;
-	bh=aY6yBcadbyrJ7uPn7rxhL8zgDn4sJwvT0MNe17nykgQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n80+wOrW9gYIE+hX25DQBtQnemZCnGh1I5SwOIx3lvE7Td5jTVD1nOu9JpO/8gIYS
-	 iCAxOQS4FhSTgKrlVoKf5pLQrkNXxXXD70pXL+ngSJ1d/vg2SCLsQol8bMojsbpgAk
-	 swY0LOpk0Xi70RKSqObS9S5sQ/Qbe24zv16HVRlIquhEcjIluGtzUzAFeqXLlVh0NY
-	 ljiuJQgANbqABzrazNnwlknWlAbdO1v0CqX/jn3UQVNAlkZJuDaZrjIBfMLdaiXze8
-	 4t2OV9lz4f96TeEv/mv4T1EdrqkEMTA71AKhMJ5OphtkhX18JooVDt9vJ552PuQGWB
-	 08O+QZPfI5g3g==
-Date: Fri, 26 Jun 2026 09:34:38 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>, Jan Kara <jack@suse.cz>, 
-	linux-xfs@vger.kernel.org, stable@vger.kernel.org, Dave Chinner <david@fromorbit.com>, 
-	Eric Sandeen <sandeen@redhat.com>, "Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>, 
-	linux-fsdevel@vger.kernel.org, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH] xfs: fix capabily check in xfs_setattr_nonsize
-Message-ID: <aj4qgCpFTXewu6gh@nidhogg.toxiclabs.cc>
-References: <20260624101436.362533-1-cem@kernel.org>
- <20260624134039.GB5649@lst.de>
- <qcsdbdpp23fsu3cqhpjdpwusvl6onc2knnrun522ofrutxpz6j@reh3k2ofqjir>
- <20260625123754.GA19947@lst.de>
- <aj1CdKwE3A40vQhQ@nidhogg.toxiclabs.cc>
- <20260625160317.GY6078@frogsfrogsfrogs>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Uk8XLpma"
+X-UUID: 87336378713211f1b1788b6acf885367-20260626
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=+G0uNszBCZbn+pbz/tbwkWd63bDos+8XW4wEVGaz6VI=;
+	b=Uk8XLpma+FIOON+o3in594yLedbj8ygROTeZ1SfcWVO06AtdwS6nmgxxQ+NByji4ub59XAOQ/7Shn4EgHHNcEsY4Q5+S2ZkOJrS2t5noN9klBxLljddyxdUqCQ/NYQG3DavTtV+coccbltwOejUfJiCqyK1Z+t+MLDlqhxVNrKA=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.17,REQID:0eb331d6-a465-4fad-98e8-eaca5d1b4eeb,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:d497b38,CLOUDID:573496da-5eb1-42d4-aa37-265f0625e786,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50,EDM:
+	-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,AV:
+	0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 87336378713211f1b1788b6acf885367-20260626
+Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw01.mediatek.com
+	(envelope-from <shiming.cheng@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1165511524; Fri, 26 Jun 2026 15:42:05 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 26 Jun 2026 15:42:05 +0800
+Received: from mbjsdccf07.gcn.mediatek.inc (10.15.20.246) by
+ mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Fri, 26 Jun 2026 15:42:04 +0800
+From: Shiming Cheng <shiming.cheng@mediatek.com>
+To: <netdev@vger.kernel.org>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <horms@kernel.org>,
+	<matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>,
+	<willemb@google.com>, <imv4bel@gmail.com>, <alice@isovalent.com>,
+	<eilaimemedsnaimel@gmail.com>, <sd@queasysnail.net>
+CC: <lena.wang@mediatek.com>, <stable@vger.kernel.org>, Shiming Cheng
+	<shiming.cheng@mediatek.com>
+Subject: [PATCH] Subject: [PATCH] net: gro: fix double aggregation of flush-marked skbs
+Date: Fri, 26 Jun 2026 15:40:59 +0800
+Message-ID: <20260626074059.25244-1-shiming.cheng@mediatek.com>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625160317.GY6078@frogsfrogsfrogs>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-On Thu, Jun 25, 2026 at 09:03:17AM -0700, Darrick J. Wong wrote:
-> On Thu, Jun 25, 2026 at 05:00:21PM +0200, Carlos Maiolino wrote:
-> > On Thu, Jun 25, 2026 at 02:37:54PM +0200, Christoph Hellwig wrote:
-> > > On Thu, Jun 25, 2026 at 12:43:54PM +0200, Jan Kara wrote:
-> > > > On Wed 24-06-26 15:40:39, Christoph Hellwig wrote:
-> > > > > Adding Jan and Christian for quota and user_ns knowledge.
-> > > > > 
-> > > > > On Wed, Jun 24, 2026 at 12:14:29PM +0200, cem@kernel.org wrote:
-> > > > > > From: Carlos Maiolino <cem@kernel.org>
-> > > > > > 
-> > > > > > An user reported a bug where he managed to evade group's quota
-> > > > > > by changing a file's gid to a different group id the same user
-> > > > > > belonged to, even though quotas were enforced on both gids and the
-> > > > > > file's size was big enough to exceed the quota's hardlimit.
-> > > > > > 
-> > > > > > Commit eba0549bc7d1 replaced a capable() call by a
-> > > > > > has_capability_noaudit() to prevent unnecessary selinux audit messages.
-> > > > > > Turns out that both calls have slightly different semantics even though
-> > > > > > their documentation seems similar. Where in a nutshell:
-> > > > > > 
-> > > > > > capable() - Tests the task's effective credentials
-> > > > > > has_ns_capability_noaudit() - Tests the task's real credentials
-> > > > > 
-> > > > > Eww..
-> > > > 
-> > > > Yeah, that's a catch.
-> 
-> I spent a while trying to figure out how I went wrong in selecting the
-> function name:
-> 
->  * capable - Determine if the current task has a superior capability in effect
->  * @cap: The capability to be tested for
->  *
->  * Return true if the current task has the given superior capability currently
->  * available for use, false if not.
-> 
-> vs.
-> 
->  * has_capability_noaudit - Does a task have a capability (unaudited) in the
->  * initial user ns
->  * @t: The task in question
->  * @cap: The capability to be tested for
->  *
->  * Return true if the specified task has the given superior capability
->  * currently in effect to init_user_ns, false if not.  Don't write an
->  * audit message for the check.
-> 
-> vs.
-> 
->  * ns_capable_noaudit - Determine if the current task has a superior capability
->  * (unaudited) in effect
->  * @ns:  The usernamespace we want the capability in
->  * @cap: The capability to be tested for
->  *
->  * Return true if the current task has the given superior capability currently
->  * available for use, false if not.
-> 
-> All three of these sound the same to me.  But what about the call path?
+The new skb_gro_receive_list() function is missing a critical safety check
+present in the legacy skb_gro_receive() path. Specifically, it does not
+validate NAPI_GRO_CB(skb)->flush before allowing packet aggregation.
 
-Yup, I reached the same conclusion, they are all the same, so I decided
-to look at the implementation...
+This allows already-GRO'd packets with existing frag_list to be
+re-aggregated into a new GRO session, corrupting the frag_list chain
+structure. When skb_segment() attempts to unpack these malformed packets,
+it encounters invalid state and triggers a kernel panic.
 
-> 
-> capable -> ns_capable -> ns_capable_common
-> 
-> has_capability_noaudit -> has_ns_capability_noaudit
-> 
-> ns_capable_noaudit -> ns_capable_common
-> 
-> Hum, maybe that's the difference -- ns_capable_common vs.
-> has_ns_capability_noaudit?
-> 
-> ns_capable_common calls security_capable() with current_cred(), whereas
-> has_ns_capability_noaudit calls it with __task_cred(t), which is
-> @current in the xfs_trans_alloc_ichange case.
-> 
-> Aha!  current_cred is current->cred, whereas __task_cred(current) is
-> current->real_cred, and these aren't the same thing:
-> 
-> 	/* Objective and real subjective task credentials (COW): */
-> 	const struct cred __rcu		*real_cred;
-> 
-> 	/* Effective (overridable) subjective task credentials (COW): */
-> 	const struct cred __rcu		*cred;
-> 
-> So I guess ns_capable_common (and wrappers) are testing the process'
-> effective credentials, whereas has_ns_capability_noaudit is testing the
-> process' real credentials?
-> 
-> It would have been *really* nice if the documentation for those
-> functions mentioned that distinction!
+Scenario (Tethering/Device forwarding):
+  1. Driver: Driver Generated aggregated packet P1 via LRO with frag_list
+  2. Dev A: Receives aggregated fraglist packet and flush flag set
+  2. Dev A: Re-enters GRO, skb_gro_receive_list() is called
+  4. Missing flush check allows re-aggregation despite flush flag
+  5. Frag_list chain becomes corrupted (loops or dangling refs)
+  6. Dev B: TX path calls skb_segment(), crashes on corrupted frag_list
 
-Yup, this is a much more detailed versions from my same findings :)
+Root cause in skb_segment():
+  The check at line ~4891:
+    if (hsize <= 0 && i >= nfrags && skb_headlen(list_skb) &&
+        (skb_headlen(list_skb) == len || sg)) {
 
+  When frag_list is corrupted by double aggregation, when list_skb is
+  a NULL pointer from skb->next, skb_headlen(list_skb) dereference
+  NULL/corrupted pointers occurs.
 
-> 
-> > > > > > This most of the time has no practical difference but in some cases like
-> > > > > > changing attrs (specifically group id in this case) through a NFS client
-> > > > > > this will allow the quota code to use XFS_QMOPT_FORCE_RES, effectively
-> > > > > > bypassing quota accounting checks.
-> > > > > 
-> > > > > Yeah, this does look wrong.  Do the other conversion in the above commit
-> > > > > have tthe same issue?
-> > > > > 
-> > > > > > Using instead ns_capable_noaudit() should fix this issue and prevent
-> > > > > > selinux audit messages.
-> > > > > 
-> > > > > The generic quota code manages to do without either has_capability_noaudit
-> > > > > or ns_capable_noaudit.  I think this might be hidden behind
-> > > > > inode_owner_or_capable calls.  Any idea why we're different?
-> > > > 
-> > > > Actually no. Generic quota code has equivalent checks in ignore_hardlimit()
-> > > > function which does capable(CAP_SYS_RESOURCE) check. I guess the reason why
-> > > > nobody complained about generic quota code is that we call
-> > > > ignore_hardlimit() only if we are above hardlimit whereas XFS calls this
-> > > > for every transaction...
-> > > 
-> > > I guess we should aim for the same to avoid the spurious audit logs.
-> > > 
-> > > I.e. xfs_trans_alloc_ichange is currently always called either with
-> > > force = true or force = this capable check.  So as a first step we can
-> > > move the check into xfs_trans_alloc_ichange for the !force case, and the
-> > > propagate that through XFS_QMOPT_FORCE_RES into xfs_trans_dqresv, i.e.
-> > > only set XFS_QMOPT_FORCE_RES for the real forced case and instead
-> > > have the capable check down in xfs_trans_dqresv.
-> > > 
-> > 
-> > Sounds fair, I'll give it a try tomorrow.
-> 
-> So yeah, I agree we should change that to:
-> 
-> 	ns_capable_noaudit(&init_user_ns, CAP_FOWNER)
-> 
-> Though it's also weird that XFS gates it on CAP_FOWNER whereas the VFS
-> checks CAP_SYS_RESOURCE.  Though I would have added this:
+Call Trace:
+ skb_headlen(NULL skb)
+ skb_segment
+ tcp_gso_segment
+ tcp4_gso_segment
+ inet_gso_segment
+ skb_mac_gso_segment
+ __skb_gso_segment
+ skb_gso_segment
+ validate_xmit_skb
+ validate_xmit_skb_list
+ sch_direct_xmit
+ qdisc_restart
+ __qdisc_run
+ qdisc_run
+ net_tx_action
 
-Same to me, I think there is no real reason for us to be using
-CAP_FOWNER? I thought about changing it to CAP_SYS_RESOURCE but honestly
-I'd avoid doing that for LTS and just stick with CAP_FOWNER initially.
+Fix: Add NAPI_GRO_CB(skb)->flush validation to the early-return check in
+skb_gro_receive_list(), matching the defensive programming pattern of
+skb_gro_receive().
 
-> 
-> static inline bool
-> current_may_ignore_quota_limits(void)
-> {
-> 	/*
-> 	 * If the current process' effective credentials include
-> 	 * CAP_FOWNER, then they're allowed to ignore the hard limit.
-> 	 */
-> 	return ns_capable_noaudit(&init_user_ns, CAP_FOWNER);
-> }
-> 
-> and then changed the callsites in xfs_ioctl/xfs_iops.c to:
-> 
-> 	error = xfs_trans_alloc_ichange(ip, udqp, gdqp, NULL,
-> 			current_may_ignore_quota_limits(), &tp);
-> 
-> The has_capability_noaudit call in xfs_fsmap.c should change to
-> ns_capable_noaudit.
+Fixes: 9dc2c3cd6c11 ("net: add fraglist GRO/GSO support")
+Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
+---
+ net/core/gro.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-I'm working on a version now adding some bits hch suggested. At the end
-I think we should add a new helper in kernel/capabililty, but I want to
-avoid doing that now so LTS can cleanly backport a fix. Then we can
-update it.
-I'm working on both things in parallel and see how it goes. I'll Cc you
-folks.
+diff --git a/net/core/gro.c b/net/core/gro.c
+index 35f2f708f010..076247c1e662 100644
+--- a/net/core/gro.c
++++ b/net/core/gro.c
+@@ -229,7 +229,8 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
+ 
+ int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
+ {
+-	if (unlikely(p->len + skb->len >= 65536))
++	if (unlikely(p->len + skb->len >= 65536 ||
++		     NAPI_GRO_CB(skb)->flush))
+ 		return -E2BIG;
+ 
+ 	if (!pskb_may_pull(skb, skb_gro_offset(skb))) {
+-- 
+2.45.2
 
-> 
-> --D
-> 
