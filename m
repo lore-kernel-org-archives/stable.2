@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6A5403B03
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA553FA5E6
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490377; cv=none; b=Z0m/tgo/D/hb0XSsv7zroqxtWJ0170wLNns0OU9RBPX8eXeM4FExgAg5SujHRfB4LztrCrXBuNo5bmw0K3LH9j5UZP6ONUYP0DvGKokyXm0byEnzNctv2yEwDkqRNd7nO7NnjwnhLoDhcv+htJJNcjoAlyuiLfXipQuun+3kZIQ=
+	t=1782490377; cv=none; b=Tyk9INpZcJpVT76aW02SNGL9k28V8GoDodkeqHkz1fU42aCymfy6Y6+/A4LlGBMnMCdzCqSGzTBrWm5ApdX6rbHUXdlUmuiatK4GN/QJ0att92dYxpfcIhdO8JtTV2zSzjAxCfVgXD6HFKfcPOWu4Lg82FmP6wORzQM+WJpLNYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490377; c=relaxed/simple;
-	bh=Qpj0EmqwDcOOJM5e2SjBqKJr5p7KRIuo2fAU7zRRvqc=;
+	bh=fhx9EKRrKfcVGuGecshKegPEgwbwcuIs7PvFI/uECVw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dR9PGwB8VnJVLm0RRmZDB0cw4diAqCmsT04MAqAtOxKCebkN4HvJmo73axoVY9d+NNsIu/b9aOrkJnFEB1hCFlhAo+cOXxCVOVDH/NJ8pw5f5bZuOtZQzvGOvTKi5987WrmCai3GNRXobUKadbgdZS8Y08MKufvKq3xJR90Bt5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=IFLop87Z; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=XjSPGNDE2o1uH2/wVWGKbOelGx1XugosU53lCGDz79mZBUCxcSq6Pt7r27j+V910twZ3zqNXVgYjd2ali8+F9/rZ/P11NMZdc+ZkUC9XL6ksl0I+q4U5pdlo5F7O6yNVjKGLWybhVdk/6IyRyeyi/DACMmoWeuIT572e5hxn21g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=m1O1iLIJ; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="IFLop87Z"
-Received: by dvalin.narfation.org (Postfix) id 4F56B2045E;
-	Fri, 26 Jun 2026 16:12:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="m1O1iLIJ"
+Received: by dvalin.narfation.org (Postfix) id AC212203FC;
+	Fri, 26 Jun 2026 16:12:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490370;
+	s=20121; t=1782490371;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fUdCZZYQUIYU07HKy3eBdJ1d4wtpy9ToKmw15y8HR2c=;
-	b=IFLop87ZdtuwADhaR3ZBEItPOUOXE9ZKdAIZ9OKYj4YBXr8P+Qowt80OyEUhZnbT5+IAp7
-	Ool+uXmKmqemjk7WTkBslwGcHsn+cxnRBSMF3kS8PrNYXv/jq1rI23Uyby2WgW70WHyaX8
-	uqp71H1YcdqqEujA54O3J0lDrPjATww=
+	bh=UjuYE/TbxJIpqx0QPVAJJTgbAWQGOreE4Qjcy0YXQgY=;
+	b=m1O1iLIJ0wpYUyvq9lZCk6lczZQWCPEpdDTDneU/km2T7eZ7CdIw8BsQrN9Tdgh6ergp0P
+	67FQKxxTZcEJ0GQi846kPIoo5Bin+nTj05kXR18ln2LG1xQs2dG8oB3OL8LhqxATy+36Cv
+	Fxm9RjfTr+A0m0nUNeNCQ3NAxKVLmCU=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 7.1 17/26] batman-adv: v: prevent OGM aggregation on disabled hardif
-Date: Fri, 26 Jun 2026 18:12:32 +0200
-Message-ID: <20260626161241.124988-18-sven@narfation.org>
+Subject: [PATCH 7.1 20/26] batman-adv: tp_meter: prevent parallel modifications of last_recv
+Date: Fri, 26 Jun 2026 18:12:35 +0200
+Message-ID: <20260626161241.124988-21-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161241.124988-1-sven@narfation.org>
 References: <20260626161241.124988-1-sven@narfation.org>
@@ -45,101 +45,152 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit d11c00b95b2a3b3934007fc003dccc6fdcc061ad upstream.
+commit 6dde0cfcb36e4d5b3de35b75696937478441eed4 upstream.
 
-When an interface gets disabled, the worker is correctly disabled by
-batadv_hardif_disable_interface() -> ... -> batadv_v_ogm_iface_disable().
-In this process, the skb aggr_list is also freed.
+When last_recv is updated to store the last receive sequence number, it is
+assuming that nothing is modifying in parallel while:
 
-But batadv_v_ogm_send_meshif() can still queue new skbs (via
-batadv_v_ogm_queue_on_if()) to the aggr_list. This will only stop after all
-cores can no longer find the RCU protected list of hard interfaces. These
-queued skbs will never be freed or consumed by batadv_v_ogm_aggr_work.
+* check for outdated packets is done
+* out of order check is performed (and packets are stored in out-of-order
+  queue)
+* the out-of-order queue was searched for closed gaps
+* sequence number for next ack is calculated
 
-The batadv_v_ogm_iface_disable() function must block
-batadv_v_ogm_queue_on_if() to avoid leak of skbs.
+Nothing of that was actually protected. It could therefore happen that the
+last_recv was updated multiple times in parallel and the final sequence
+number was calculated with deltas which had no connection to the sequence
+number they were added to.
+
+Lock this whole region with the same lock which was already used to protect
+the unacked (out-of-order) list.
 
 Cc: stable@kernel.org
-Fixes: f89255a02f1d ("batman-adv: BATMAN_V: introduce per hard-iface OGMv2 queues")
-[ Context ]
+Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
+[ Switch to pre-splitted tp_vars structure names ]
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/bat_v.c     |  1 +
- net/batman-adv/bat_v_ogm.c | 12 ++++++++++++
- net/batman-adv/types.h     |  6 ++++++
- 3 files changed, 19 insertions(+)
+ net/batman-adv/tp_meter.c | 22 +++++++++++++---------
+ net/batman-adv/types.h    |  2 +-
+ 2 files changed, 14 insertions(+), 10 deletions(-)
 
-diff --git a/net/batman-adv/bat_v.c b/net/batman-adv/bat_v.c
-index de94447142642..17d2a1ccdce67 100644
---- a/net/batman-adv/bat_v.c
-+++ b/net/batman-adv/bat_v.c
-@@ -817,6 +817,7 @@ void batadv_v_hardif_init(struct batadv_hard_iface *hard_iface)
+diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
+index e23b75846ebe1..6a23050f03d89 100644
+--- a/net/batman-adv/tp_meter.c
++++ b/net/batman-adv/tp_meter.c
+@@ -1294,6 +1294,7 @@ static int batadv_tp_send_ack(struct batadv_priv *bat_priv, const u8 *dst,
+  */
+ static bool batadv_tp_handle_out_of_order(struct batadv_tp_vars *tp_vars,
+ 					  const struct sk_buff *skb)
++	__must_hold(&tp_vars->unacked_lock)
+ {
+ 	const struct batadv_icmp_tp_packet *icmp;
+ 	struct batadv_tp_unacked *un, *new;
+@@ -1310,12 +1311,11 @@ static bool batadv_tp_handle_out_of_order(struct batadv_tp_vars *tp_vars,
+ 	payload_len = skb->len - sizeof(struct batadv_unicast_packet);
+ 	new->len = payload_len;
  
- 	hard_iface->bat_v.aggr_len = 0;
- 	skb_queue_head_init(&hard_iface->bat_v.aggr_list);
-+	hard_iface->bat_v.aggr_list_enabled = false;
- 	INIT_DELAYED_WORK(&hard_iface->bat_v.aggr_wq,
- 			  batadv_v_ogm_aggr_work);
- }
-diff --git a/net/batman-adv/bat_v_ogm.c b/net/batman-adv/bat_v_ogm.c
-index d66ca77b1aaa3..6852bf5da8c55 100644
---- a/net/batman-adv/bat_v_ogm.c
-+++ b/net/batman-adv/bat_v_ogm.c
-@@ -252,11 +252,18 @@ static void batadv_v_ogm_queue_on_if(struct batadv_priv *bat_priv,
+-	spin_lock_bh(&tp_vars->unacked_lock);
+ 	/* if the list is empty immediately attach this new object */
+ 	if (list_empty(&tp_vars->unacked_list)) {
+ 		list_add(&new->list, &tp_vars->unacked_list);
+ 		tp_vars->unacked_count++;
+-		goto out;
++		return true;
  	}
  
- 	spin_lock_bh(&hard_iface->bat_v.aggr_list.lock);
-+	if (!hard_iface->bat_v.aggr_list_enabled) {
-+		kfree_skb(skb);
-+		goto unlock;
-+	}
-+
- 	if (!batadv_v_ogm_queue_left(skb, hard_iface))
- 		batadv_v_ogm_aggr_send(bat_priv, hard_iface);
+ 	/* otherwise loop over the list and either drop the packet because this
+@@ -1364,9 +1364,6 @@ static bool batadv_tp_handle_out_of_order(struct batadv_tp_vars *tp_vars,
+ 		tp_vars->unacked_count--;
+ 	}
  
- 	hard_iface->bat_v.aggr_len += batadv_v_ogm_len(skb);
- 	__skb_queue_tail(&hard_iface->bat_v.aggr_list, skb);
-+
-+unlock:
- 	spin_unlock_bh(&hard_iface->bat_v.aggr_list.lock);
+-out:
+-	spin_unlock_bh(&tp_vars->unacked_lock);
+-
+ 	return true;
  }
  
-@@ -417,6 +424,10 @@ int batadv_v_ogm_iface_enable(struct batadv_hard_iface *hard_iface)
+@@ -1376,6 +1373,7 @@ static bool batadv_tp_handle_out_of_order(struct batadv_tp_vars *tp_vars,
+  * @tp_vars: the private data of the current TP meter session
+  */
+ static void batadv_tp_ack_unordered(struct batadv_tp_vars *tp_vars)
++	__must_hold(&tp_vars->unacked_lock)
  {
- 	struct batadv_priv *bat_priv = netdev_priv(hard_iface->mesh_iface);
- 
-+	spin_lock_bh(&hard_iface->bat_v.aggr_list.lock);
-+	hard_iface->bat_v.aggr_list_enabled = true;
-+	spin_unlock_bh(&hard_iface->bat_v.aggr_list.lock);
-+
- 	batadv_v_ogm_start_queue_timer(hard_iface);
- 	batadv_v_ogm_start_timer(bat_priv);
- 
-@@ -432,6 +443,7 @@ void batadv_v_ogm_iface_disable(struct batadv_hard_iface *hard_iface)
- 	cancel_delayed_work_sync(&hard_iface->bat_v.aggr_wq);
- 
- 	spin_lock_bh(&hard_iface->bat_v.aggr_list.lock);
-+	hard_iface->bat_v.aggr_list_enabled = false;
- 	batadv_v_ogm_aggr_list_free(hard_iface);
- 	spin_unlock_bh(&hard_iface->bat_v.aggr_list.lock);
+ 	struct batadv_tp_unacked *un, *safe;
+ 	u32 to_ack;
+@@ -1383,7 +1381,6 @@ static void batadv_tp_ack_unordered(struct batadv_tp_vars *tp_vars)
+ 	/* go through the unacked packet list and possibly ACK them as
+ 	 * well
+ 	 */
+-	spin_lock_bh(&tp_vars->unacked_lock);
+ 	list_for_each_entry_safe(un, safe, &tp_vars->unacked_list, list) {
+ 		/* the list is ordered, therefore it is possible to stop as soon
+ 		 * there is a gap between the last acked seqno and the seqno of
+@@ -1401,7 +1398,6 @@ static void batadv_tp_ack_unordered(struct batadv_tp_vars *tp_vars)
+ 		kfree(un);
+ 		tp_vars->unacked_count--;
+ 	}
+-	spin_unlock_bh(&tp_vars->unacked_lock);
  }
+ 
+ /**
+@@ -1481,6 +1477,7 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
+ 	const struct batadv_icmp_tp_packet *icmp;
+ 	struct batadv_tp_vars *tp_vars;
+ 	size_t packet_size;
++	u32 to_ack;
+ 	u32 seqno;
+ 
+ 	icmp = (struct batadv_icmp_tp_packet *)skb->data;
+@@ -1509,6 +1506,8 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
+ 		WRITE_ONCE(tp_vars->last_recv_time, jiffies);
+ 	}
+ 
++	spin_lock_bh(&tp_vars->unacked_lock);
++
+ 	/* if the packet is a duplicate, it may be the case that an ACK has been
+ 	 * lost. Resend the ACK
+ 	 */
+@@ -1520,8 +1519,10 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
+ 		/* exit immediately (and do not send any ACK) if the packet has
+ 		 * not been enqueued correctly
+ 		 */
+-		if (!batadv_tp_handle_out_of_order(tp_vars, skb))
++		if (!batadv_tp_handle_out_of_order(tp_vars, skb)) {
++			spin_unlock_bh(&tp_vars->unacked_lock);
+ 			goto out;
++		}
+ 
+ 		/* send a duplicate ACK */
+ 		goto send_ack;
+@@ -1535,11 +1536,14 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
+ 	batadv_tp_ack_unordered(tp_vars);
+ 
+ send_ack:
++	to_ack = tp_vars->last_recv;
++	spin_unlock_bh(&tp_vars->unacked_lock);
++
+ 	/* send the ACK. If the received packet was out of order, the ACK that
+ 	 * is going to be sent is a duplicate (the sender will count them and
+ 	 * possibly enter Fast Retransmit as soon as it has reached 3)
+ 	 */
+-	batadv_tp_send_ack(bat_priv, icmp->orig, tp_vars->last_recv,
++	batadv_tp_send_ack(bat_priv, icmp->orig, to_ack,
+ 			   icmp->timestamp, icmp->session, icmp->uid);
+ out:
+ 	batadv_tp_vars_put(tp_vars);
 diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
-index a01ee46d97f34..765ba71fe8c69 100644
+index 4f9f1820e3a92..3f940a201cdf8 100644
 --- a/net/batman-adv/types.h
 +++ b/net/batman-adv/types.h
-@@ -130,6 +130,12 @@ struct batadv_hard_iface_bat_v {
- 	/** @aggr_list: queue for to be aggregated OGM packets */
- 	struct sk_buff_head aggr_list;
+@@ -1423,7 +1423,7 @@ struct batadv_tp_vars {
+ 	/** @unacked_list: list of unacked packets (meta-info only) */
+ 	struct list_head unacked_list;
  
-+	/**
-+	 * @aggr_list_enabled: aggr_list is active and new skbs can be
-+	 * enqueued. Protected by aggr_list.lock after initialization
-+	 */
-+	bool aggr_list_enabled:1;
-+
- 	/** @aggr_len: size of the OGM aggregate (excluding ethernet header) */
- 	unsigned int aggr_len;
+-	/** @unacked_lock: protect unacked_list */
++	/** @unacked_lock: protect unacked_list + &batadv_tp_receiver.last_recv */
+ 	spinlock_t unacked_lock;
  
+ 	/** @unacked_count: number of unacked entries */
 -- 
 2.47.3
 
