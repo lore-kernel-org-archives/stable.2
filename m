@@ -1,38 +1,42 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B9A3F7AB2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C819D3F5BF9
 	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:11:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490317; cv=none; b=NEn4sGCcoRn8dnJ5cRYaAAmhrgTURi2qEGdTmFbGtrm5AZE+vVhoGzT5DBWqk9Vu94RuEuOwX5LnxNIlXT7mdhhYSgZumXD2jBZJxoSYJ6Q7J6+Ijrl4kGiU7Fm286OUE/NuAqVRklrN0LGGeo94x7RQaeKjtpG8JbN410jRGBg=
+	t=1782490318; cv=none; b=b/SXfs80pKXCdCdXdD5WB/jr0DGL6yVXvlzmhxz67qw/l7FoaQ3M3beImA8CCJ0AxNRT3vTWhRbANxGYnMtJOrq3CM/SnpA20XAVg2mpWVYuN0vOgkBWlm+tBOAk+v+CBaIUPDLODCumx/6kCGT82zwAmXtkxCInRrcKD45M65k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782490317; c=relaxed/simple;
-	bh=pvnMXtavQekA9CfvXeyBO2lAX1n1xV278IaMGiqgPSs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o2AgBmDCTufFreK9Xhys5RJ3oryvLj41s74CI0XE1XCHCiy5tz5Kfwq+rq+RNBlz8UM/6yjawA9Ds+/A3IINtdWO0Bbg7cE4IAsNjiqmDbU8vgF/Sjbh4avNqlxsk7Y8B6Z9uCnOaZI4E/JZpTQQr7y06oXfvQ8WlELGdAv2Hkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=vPxJW5R7; arc=none smtp.client-ip=213.160.73.56
+	s=arc-20240116; t=1782490318; c=relaxed/simple;
+	bh=L2M+9OPbU/T9vf1ell0xk7AD592h/Cnb1paszlAnt5g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iV/zqb72CghgaFqoRqNH0tqQ1CgzX6xVA/0OZKqt2IFfWg4hWy5yKyXHrJ9Rjn8uknRdjzxParI9e4hiwHm6QkGy6IR96BFMdBNmN+CApd6Sple1cKPlxpESsujujTusb9adqWt+cw474c6tkUGh7nRgLbAhGeTLhc7c6xakXWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=jD4QUUOC; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="vPxJW5R7"
-Received: by dvalin.narfation.org (Postfix) id EF87A20019;
-	Fri, 26 Jun 2026 16:11:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="jD4QUUOC"
+Received: by dvalin.narfation.org (Postfix) id 81645202D1;
+	Fri, 26 Jun 2026 16:11:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
 	s=20121; t=1782490315;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=TotZjggot/1A5Tx/vl8IyoJrYbFPtnQmnW6hlPeNq0Q=;
-	b=vPxJW5R7MzHiZ2MS7rX/mQx0Z7p3FCFJzQPNvakYlFBM3xSms+ocpGJCu7H8LSLIiaY//t
-	4x4O68+zOt1guHYDieBu8Xgs2QT+keGfFtmUgrUYEcBU4u7oBmh/dlz6pdv83Xs6eSDUtP
-	VvReWdyWnC3j7UJhVxq5WCa/IDVsAus=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rcA6d/miF5KKfaiKm0bT1TQf28+wZAx+1YCRhSDJTa0=;
+	b=jD4QUUOC03jA/5FQqNUeV7fCmVZ7rOqQU96R14szkgFL4nsnvHUPezCQIeKSSqLCOC23Lp
+	05j6ry45cslkDJN67j7un+OUssgSKIQdX+u3nxQ33xT51SPYb4yOWSBrh1eTBwOgfXw3jJ
+	n9buYj7ZMwpGDYu9DB14phPEUKvYtJg=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.12 00/25] batman-adv: 7.2 merge window fixes backports
-Date: Fri, 26 Jun 2026 18:11:29 +0200
-Message-ID: <20260626161154.124562-1-sven@narfation.org>
+Subject: [PATCH 6.12 01/25] batman-adv: tp_meter: keep unacked list in ascending ordered
+Date: Fri, 26 Jun 2026 18:11:30 +0200
+Message-ID: <20260626161154.124562-2-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260626161154.124562-1-sven@narfation.org>
+References: <20260626161154.124562-1-sven@narfation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,71 +45,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Greg & Sasha,
+commit 5aa8651527ea0b610e7a09fb3b8204c1398b9525 upstream.
 
-there were quite some stable targetting fixes in the Linux 7.2 merge
-window. Unfortunately, there will be quiet some conflicts for older
-versions and some order dependencies (often to patches which have
-conflicts with older kernels).
+When batadv_tp_handle_out_of_order inserts a new entry in the list of
+unacked (out of order) packets, it searches from the entry with the newest
+sequence number towards oldest sequence number. If an entry is found which
+is older than the newly entry, the new entry has to be added after the
+found one to keep the ascending order.
 
-I would therefore just submit my backporting branch
-https://git.open-mesh.org/batadv.git/log/?h=batadv/lts/6.12 to directly
-provide the backported version of each patch. If it is completely
-incompatible with your workflow then please ignore it.
+But for this operation list_add_tail() was used. But this function adds an
+entry _before_ another one. As result, the list would contain a lot of
+swapped sequence numbers. The consumer of this list
+(batadv_tp_ack_unordered()) would then fail to correctly ack packets.
 
-There is no urgency for these patches. I just want to reduce the number
-of conflicts and patches which are accidentally missed.
+Cc: stable@kernel.org
+Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
+---
+ net/batman-adv/tp_meter.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Sorry for the noise. I hope to have less stable fixes future (at least
-the ones which have extra dependencies).
-
-Regards,
-  Sven
-
-Sven Eckelmann (25):
-  batman-adv: tp_meter: keep unacked list in ascending ordered
-  batman-adv: tp_meter: initialize dup_acks explicitly
-  batman-adv: tp_meter: initialize dec_cwnd explicitly
-  batman-adv: tp_meter: avoid window underflow
-  batman-adv: tp_meter: avoid divide-by-zero for dec_cwnd
-  batman-adv: tp_meter: fix fast recovery precondition
-  batman-adv: tp_meter: handle seqno wrap-around for fast recovery
-    detection
-  batman-adv: tp_meter: add only finished tp_vars to lists
-  batman-adv: bla: annotate lasttime access with READ/WRITE_ONCE
-  batman-adv: prevent ELP transmission interval underflow
-  batman-adv: tp_meter: initialize last_recv_time during init
-  batman-adv: ensure bcast is writable before modifying TTL
-  batman-adv: fix (m|b)cast csum after decrementing TTL
-  batman-adv: frag: ensure fragment is writable before modifying TTL
-  batman-adv: frag: avoid underflow of TTL
-  batman-adv: v: prevent OGM aggregation on disabled hardif
-  batman-adv: tp_meter: restrict number of unacked list entries
-  batman-adv: tp_meter: annotate last_recv_time access with
-    READ/WRITE_ONCE
-  batman-adv: tp_meter: prevent parallel modifications of last_recv
-  batman-adv: tp_meter: handle overlapping packets
-  batman-adv: tt: don't merge change entries with different VIDs
-  batman-adv: tt: track roam count per VID
-  batman-adv: dat: prevent false sharing between VLANs
-  batman-adv: tvlv: enforce 2-byte alignment
-  batman-adv: tvlv: avoid race of cifsnotfound handler state
-
- net/batman-adv/bat_iv_ogm.c            |  11 ++-
- net/batman-adv/bat_v.c                 |   1 +
- net/batman-adv/bat_v_ogm.c             |  23 ++++-
- net/batman-adv/bridge_loop_avoidance.c |  28 +++---
- net/batman-adv/distributed-arp-table.c |  12 ++-
- net/batman-adv/fragmentation.c         |  22 ++++-
- net/batman-adv/fragmentation.h         |   3 +-
- net/batman-adv/netlink.c               |   6 ++
- net/batman-adv/routing.c               |  73 +++++++++++++++-
- net/batman-adv/tp_meter.c              | 115 ++++++++++++++++---------
- net/batman-adv/translation-table.c     |  12 ++-
- net/batman-adv/tvlv.c                  |  69 +++++++++++++--
- net/batman-adv/types.h                 |  21 +++--
- 13 files changed, 316 insertions(+), 80 deletions(-)
-
+diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
+index dfc3374549921..f350a60e6c76b 100644
+--- a/net/batman-adv/tp_meter.c
++++ b/net/batman-adv/tp_meter.c
+@@ -1325,7 +1325,7 @@ static bool batadv_tp_handle_out_of_order(struct batadv_tp_vars *tp_vars,
+ 		 * one is attached _after_ it. In this way the list is kept in
+ 		 * ascending order
+ 		 */
+-		list_add_tail(&new->list, &un->list);
++		list_add(&new->list, &un->list);
+ 		added = true;
+ 		break;
+ 	}
 -- 
 2.47.3
 
