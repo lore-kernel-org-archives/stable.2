@@ -1,179 +1,96 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10C03E0088
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 09:27:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AE33EAC9F
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 09:38:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782466053; cv=none; b=uDlwNN9KBgtvb7hAwRM7+NmZiIRDNKRDjB7Wrf1pCgAC6kbmeiOkINcxFF581DJ7djsTWIXALaHb6cYrR7zq9mEpAfH1GgQOis6GrXAS038au8E2NvF2vwT8Ha3olk4Now1y1TBLXPqq+B9H+kkTfI7gm9aGvpZ78sqJXjQ8H6I=
+	t=1782466720; cv=none; b=KuCGWqZrwHmQyfQoXx91g2OxfTPC7Mmah4Zhejmwbsc7EiOW81THnZD8u5VNWKMl3dm0WbzLvcDNxPeJda+zqDnsL4G2zWicwgxWe4v+A0qPd97K7fy7tBSx9pUcUd1waHEOVGWWf1Ryu+HiBtyvY+Yl95kzJsTbdfkQ42g5WV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782466053; c=relaxed/simple;
-	bh=qNo/P4aBrivxJDbLRAJAe2Mn+KZ5S3c4NlUn7Gz5y48=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rb7Bk5E0Sf62/om+LMRX8HMb1SrURKJP85vRQZgoFyDboIixrxFeGk4YR6x2EBYAYuNAE8UdNW+Fh3ctwm7a1+iqlV3jMzKH/1Awg7KOKXtf5VZAJJUtfBvPxDeYJmn4jGCBY8pfWN+1ASIp8r1GYqAB9TK1idyoaQzX/aMu8Pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uNbnnCSG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Yi8gbCIK; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uNbnnCSG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Yi8gbCIK; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1782466720; c=relaxed/simple;
+	bh=JLAIROYePggFfJJH59UH4ireJPYPOsIoeVi6uJuUcDg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=maAl9j4IIiL2bmcWA967EWSqmvgYHh4smuY+JwtXVvMNEX4hgJfywAtXys9xHwKJ4lKi6X14Y6EjTVzY1Bc4QTy7AOz9N0b1g/8vzdkxe3CwlRFnAO2mcuhTYmGKBaIGi5lrj9n6eDpGBgtLpaTF9MRVB3z07jcFyBCSorl9VHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KaZbZ040; arc=none smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uNbnnCSG";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Yi8gbCIK";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uNbnnCSG";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Yi8gbCIK"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 248C47202A;
-	Fri, 26 Jun 2026 09:27:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1782466049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Nm9GkPZgMILFXO0HgO0WZxcUbxtpw+aIH3Dw3qsNCSQ=;
-	b=uNbnnCSGjX5hpmGMhLswAOlc4+yp2tZrpYPqhVNeKyF3gfeW4dH6VVmW0mVKZGuunzbiDw
-	8/wlOJMTIKySeaWvBpGP2Sng7T71rCPsrppRMdKPuXQdCArXqr1qAHwT64xaVit25+3N2B
-	R2y0zXHEEVoQoFCD6FfZE40uVdZCtww=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1782466049;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Nm9GkPZgMILFXO0HgO0WZxcUbxtpw+aIH3Dw3qsNCSQ=;
-	b=Yi8gbCIKKgb84pwirQuv5siBaoS1ofZvh9okdEffpJwnKObaQM224qMcZD8LIkrOu/N2++
-	NTsoHslAH4S0r+BA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=uNbnnCSG;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Yi8gbCIK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1782466049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Nm9GkPZgMILFXO0HgO0WZxcUbxtpw+aIH3Dw3qsNCSQ=;
-	b=uNbnnCSGjX5hpmGMhLswAOlc4+yp2tZrpYPqhVNeKyF3gfeW4dH6VVmW0mVKZGuunzbiDw
-	8/wlOJMTIKySeaWvBpGP2Sng7T71rCPsrppRMdKPuXQdCArXqr1qAHwT64xaVit25+3N2B
-	R2y0zXHEEVoQoFCD6FfZE40uVdZCtww=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1782466049;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Nm9GkPZgMILFXO0HgO0WZxcUbxtpw+aIH3Dw3qsNCSQ=;
-	b=Yi8gbCIKKgb84pwirQuv5siBaoS1ofZvh9okdEffpJwnKObaQM224qMcZD8LIkrOu/N2++
-	NTsoHslAH4S0r+BA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 38E2B779A8;
-	Fri, 26 Jun 2026 09:27:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Uvl/CgBGPmqDQAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 26 Jun 2026 09:27:28 +0000
-Date: Fri, 26 Jun 2026 10:27:26 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, linux-fsdevel@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm: do file ownership checks with the proper mount idmap
-Message-ID: <aj45h0NkbToPN_i_@pedro-suse.lan>
-References: <20260625153853.913949-1-pfalcato@suse.de>
- <20260625112903.f961fc41a0b0f8dd1f1a9fdd@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KaZbZ040"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aea4cbeb94so567385e87.1
+        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 02:38:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782466714; x=1783071514; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JLAIROYePggFfJJH59UH4ireJPYPOsIoeVi6uJuUcDg=;
+        b=KaZbZ040pxAKh8WZxDgx4yp9V4lNiyl+iVVJgEfWGPZFj/DjnEnMYvV2Y8bwgOpjxp
+         DSpV4zHeZwAxjXayA7nA63Egupll8AkPjC/WHn328Muot8u1Mw4Bt1ymuslh3DPIyI14
+         vcHiFnVCO3+hjU9a6i9wwWsE/IUjwy4IDSi0woWe3eGdbz0rX1JikbB30AYCb3AT+oNE
+         SnhpvseloeIwY5UPnfYGUFbRrih9XCFoqivD/O4I+qeDpkK+H9We0D24W113PrQ2+XLF
+         t1HJgGs1esDe/Pb6IHRBbscO899huux84H+GMEN87NhwJBTI7G25cpgQ6y1WBblMKNRE
+         Tr4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782466714; x=1783071514;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=JLAIROYePggFfJJH59UH4ireJPYPOsIoeVi6uJuUcDg=;
+        b=F/Uivq9SylLpiuM0fgdYnkULAQ4BZ2pxLwgwvrHrqVuCJKht4fp/uYNgc1FLjj/6GK
+         78rXtrU8BE4bwzw3ET7UnHd3nRLmejBbhsEMNnZG8D0p61yi1POONbc08+cYB/5jvPr/
+         aC96oYMZP7C1qbHsnoqg/wAbZrytYBmtjHYrf1FZjA+0fDW0eE/TH5QbKxrYPE4ksBPB
+         qNl5GyRhng0wqKA6T4bOc45h/tvn3g7MTDCn3HXpZIjN+zGVMJt5GIjdS0U0Iy8ushV2
+         QurYNQynHQoe+6DGQDwcxiAraeLAItvWQKTWiKDjc3DmDvC4kWcGM7jR/dIxttj5680S
+         644g==
+X-Forwarded-Encrypted: i=1; AHgh+Rqx7pDGAuTiWsda62rEXtnzeUQqesfoLRUh4PoLlWTNeMeZFl+lrh+/cVFu4c9VvxyUgcf+iAw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyCyfi0ZIF5NM62rad00JJudccXQ03j33PgFL9PzDsHz+GAPHzi
+	ZnuQz8x3ji/ZzPk6ESTMPTPS7RUtHHuK3+rCR/wdQzzs4/zWmMM1720z
+X-Gm-Gg: AfdE7cnSvLwrMcZ4nH+pAOsE4Gtl8SULBTD80A0lZg8rMwDlxOyhekvsKoV6P9ViieZ
+	iiHkTB8h/ymMhYD+K4klc7JVu/VtRoSk34+LlC1BExrlKMoXptTGxdT0YMQlGxG7gldqBBonK2P
+	EJy8wqGiZJdmWPKx4/cxZi+rWKZNdsFS/LswwZO5ZnME8goocqQtyBBMnx/czhsOceA8arLoF5u
+	kJ0Ud2wwU9IHAebhPsyJ89Y97GVooqDxrkgdaHRBvUhTbOkwtnYU2+F242Hmh2TFIFmrhmB3DZv
+	fdl1YtEk3smNjzDmT/o9A98RvtWFvVw1X5EPIVmy83+35DxKak8JhF96CXXMEo7b3PMzDMBej0E
+	aujFFb3QAeCybGnDz+P8ii/h9+62Ql9RpT0Wpl5OD/O+hmAE1k0hLUWBYWkGo/3G2tFFRANMSMG
+	0yCLX0rCB00UilU7V06SoYe0VcBUuA
+X-Received: by 2002:ac2:51c7:0:b0:5ad:49da:67c9 with SMTP id 2adb3069b0e04-5aea1f48c2fmr1756704e87.18.1782466713996;
+        Fri, 26 Jun 2026 02:38:33 -0700 (PDT)
+Received: from grower.astra-academy.ru ([185.32.135.49])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad6954a5bfsm3270613e87.4.2026.06.26.02.38.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Jun 2026 02:38:33 -0700 (PDT)
+From: Alexander Martyniuk <alexevgmart@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: alexevgmart@gmail.com,
+	bestswngs@gmail.com,
+	coreteam@netfilter.org,
+	davem@davemloft.net,
+	fw@strlen.de,
+	kaber@trash.net,
+	kadlec@netfilter.org,
+	kuba@kernel.org,
+	kuznet@ms2.inr.ac.ru,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	netfilter-devel@vger.kernel,
+	pablo@netfilter.org,
+	sashal@kernel.org,
+	stable@vger.kernel.org,
+	xmei5@asu.edu,
+	yoshfuji@linux-ipv6.org
+Subject: Re: [PATCH v2] netfilter: nf_log: validate MAC header was set before dumping it
+Date: Fri, 26 Jun 2026 12:38:20 +0300
+Message-ID: <20260626093820.196664-1-alexevgmart@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026062658-pregame-buggy-ccbc@gregkh>
+References: <2026062658-pregame-buggy-ccbc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625112903.f961fc41a0b0f8dd1f1a9fdd@linux-foundation.org>
-X-Spam-Flag: NO
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,pedro-suse.lan:mid,suse.de:email,suse.de:dkim]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 248C47202A
-X-Spam-Score: -4.51
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 25, 2026 at 11:29:03AM -0700, Andrew Morton wrote:
-> On Thu, 25 Jun 2026 16:38:53 +0100 Pedro Falcato <pfalcato@suse.de> wrote:
-> 
-> > Ever since idmapped mounts were introduced, inode ownership checks
-> > (for side-channel protection) in mincore() and madvise(MADV_PAGEOUT) were
-> > done against the nop_mnt_idmap, which completely ignores the file's mount's
-> > idmap. This results in odd edgecases like:
-> > 
-> > 1) mount/bind-mount with an idmap userA:userB:1
-> > 2) userB runs an owner_or_capable() check on file that is owned by userA
-> > on-disk/in-memory, but owned by userB after idmap translation
-> > 3) owner_or_capable() mysteriously fails as the correct idmap wasn't supplied
-> > 
-> > In the case of mincore/madvise MADV_PAGEOUT, this is usually benign, because
-> > file_permission(file, MAY_WRITE) will probably succeed, as it uses the proper
-> > idmap internally, but it does not need to be the case on e.g a 0444 file
-> > where even the owner itself doesn't have permissions to write to it.
-> > 
-> > Since this is clearly not trivial to get right, introduce a
-> > file_owner_or_capable() that can carry the correct semantics, and switch
-> > the various users in mm to it.
-> > 
-> > The issue was found by manual code inspection & an off-list discussion with
-> > Jan Kara.
-> 
-> Do our idmap selftests tickle these issues?  If not, is it hard to add?
+> What kernel(s) is this for?
 
-In theory we could add this to tools/testing/selftests/mount_setattr/mount_setattr_test.c, but
-that seems like the wrong place for an mm regression test. And if we add it
-somewhere else, we'll have to deal with the bureaucracy of setting up an idmapped
-mount (including setting up a filesystem image!). I'm taking suggestions :)
-
-> 
-> > I noticed there are a couple of call sites in fs/ that could perhaps be
-> > cleaned up with the added helper, but I'm skipping that for now for brevity's
-> > sake.
-> 
-> You could do this as a 2-patch series, because:
-> 
-> >  include/linux/fs.h | 5 +++++
-> >  mm/filemap.c       | 2 +-
-> >  mm/madvise.c       | 3 +--
-> >  mm/mincore.c       | 3 +--
-> >  4 files changed, 8 insertions(+), 5 deletions(-)
-> 
-> it touches mm/ but ->Christian, please.
-> 
-> (or I can queue it with Christian's ack, of course)
-
-Understood.
-
-
--- 
-Pedro
+5.10
