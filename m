@@ -1,161 +1,184 @@
-Received: from lankhorst.se (unknown [141.105.120.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFD5282F2C
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 14:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.105.120.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DFD19D07A;
+	Fri, 26 Jun 2026 14:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782485561; cv=none; b=QjfX4tBqUAPfqASM3MFaHNm1sfXrgKnKH5fSELFbRvFCirHW683Y+4v0U5rnxjvCwT0nzbGJIgqlT89dvkMVipEBqVma5dhKszPHtbtgo0JFnwczx4tdQ2VQnY8fgGSF/IcVIuSjXQ9I3uCVnHPvYHww+dVnFp320/ZtZWNPw+4=
+	t=1782485663; cv=none; b=QV/qUi5CQ4I/QOoGT0zjQ6k4KJWZDAvnNG1uXWmhcvZh7G+Ckm7e/8BTJIs8xEyozO1qIWGg0IoOaHuxLmiRXz/cNtYVgnP2mDw7MtFAh1da3lT2JTZwFy5A7GM4TXMldiIB9SeXx04jFodYraWZDJmUJIBhTy/tmXs21k1uuHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782485561; c=relaxed/simple;
-	bh=USPurZzrrDYpIfjSdOWZ7MJcWT7IyitKo1aZB1QFgv4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Nu+7LBpn0YqznCPKRAxqb/TVuKjCEUlpFVxXmJ3hYQ6qQgZmF/+HuDArROUkky+HZBE41Yg8LUa8nsQjxCxUOj08GNm1S/yIqi+57ONJaozCUreoNnQMFn8RDLDxs/K/iBUsVMa5QAtX4izHnSrgCpApA3Rw/fNz8T5ytJ4dth0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lankhorst.se; spf=pass smtp.mailfrom=lankhorst.se; dkim=pass (2048-bit key) header.d=lankhorst.se header.i=@lankhorst.se header.b=FPAKAiFo; arc=none smtp.client-ip=141.105.120.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lankhorst.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lankhorst.se
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lankhorst.se header.i=@lankhorst.se header.b="FPAKAiFo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
-	s=default; t=1782485557;
-	bh=USPurZzrrDYpIfjSdOWZ7MJcWT7IyitKo1aZB1QFgv4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FPAKAiFoZNqTReVYB3HoO2jG5/CTCseZWpuqFuWSrdkmtuFe92XI1t5WfZmEJ3Y2H
-	 Y1pMe4fkd4ENgct68muFtNj+kml3VPFhxySAqWyMZ7k0zlZGX9PcNKL8DRhK5q/LrV
-	 iVq+26NBaJJQqHec2mm32sBuBF7JC5MD7sBWyElGKULd0Ta3h9FJ6CpDlGmTbzE4Qd
-	 NEwlyT8FRf1by0E5hY5FumNEP7F3xCTf/mvrKqsRL57IY9K4JDEnn/fBpamNogo0Xh
-	 DapFR+bYtbHqt9/Gmv1Uq7SHXElpoJ4723rrk2RyYE/81HIpr50UpFAbVySuUn41SI
-	 pr1AMrTU27lcA==
-Message-ID: <d6d3687d-3635-45c9-b5fc-42106d8e7019@lankhorst.se>
-Date: Fri, 26 Jun 2026 16:53:06 +0200
+	s=arc-20240116; t=1782485663; c=relaxed/simple;
+	bh=rAe/OfMdGpTGZJcbNZ5Hw6xWXnnkikeI2oDUiqEkSJM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Jqsxz5Ur1Sb+fLbCXsukthIDf9SuJEBJ4nJDJMHf96vArjdMnZ3Kj8m1rJCJipLvTqZ8dzgIc3Y55dWuDdzp6D8cr+W1AIrm4NUwr9XA0Q5XQJzrW2Zj7A5LHsUKVbsUEaS8bMcD3/mdhPfZH66qum3EK4XlJxS94ssXaqLLLgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-01 (Coremail) with SMTP id qwCowAAHrNSSkj5qoPNqAw--.9971S2;
+	Fri, 26 Jun 2026 22:54:11 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: Christian Koenig <christian.koenig@amd.com>,
+	Huang Rui <ray.huang@amd.com>,
+	dri-devel@lists.freedesktop.org
+Cc: Matthew Auld <matthew.auld@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Karolina Stolarek <karolina.stolarek@intel.com>,
+	Amaranath Somalapuram <asomalap@amd.com>,
+	Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>
+Subject: [PATCH] fix: drm/ttm/tests: use KUNIT_ASSERT_EQ for critical error checks to   prevent kref underflow
+Date: Fri, 26 Jun 2026 22:54:09 +0800
+Message-Id: <20260626145409.49370-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/xe/display: consider DPT when WA 22019338487 is
- active
-To: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Nikolay Mikhaylov <sonny@milton.pro>,
- Uma Shankar <uma.shankar@intel.com>, Jani Nikula <jani.nikula@intel.com>,
- stable@vger.kernel.org
-References: <20260623090155.268763-2-matthew.auld@intel.com>
- <9e04ec82-712d-41b6-9fe8-78aeb015d67c@intel.com>
- <9924291e-5108-41b3-9131-12b292e8bcd2@lankhorst.se>
- <dd6a1825-9c22-4c94-9ab5-7ccd24f96990@intel.com>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <dd6a1825-9c22-4c94-9ab5-7ccd24f96990@intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowAAHrNSSkj5qoPNqAw--.9971S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxuw4DGw1kKr1DuryxKrWkXrb_yoW7Zr1UpF
+	WUGFWjkry8JrsFgayUAr1UtFnFk39Y9FZYgrn5Wa1fXFnIv3Z8JFn5tF1fur43XFWjvFsY
+	ka1YyanxX34kXwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
+	nIWIevJa73UjIFyTuYvjfU5iihUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAKA2o+idsWxQAAsQ
 
-Hey,
+Replace KUNIT_EXPECT_EQ with KUNIT_ASSERT_EQ in ttm_bo_validate test cases
+where subsequent ttm_bo_fini would cause a kref underflow if the preceding
+ttm_bo_init_reserved (or ttm_bo_validate) failed. When those functions fail
+they already release their internal references, leaving the refcount at 0.
+Continuing to ttm_bo_fini without aborting performs an extra kref_put.
 
-On 6/26/26 16:32, Matthew Auld wrote:
-> On 26/06/2026 14:37, Maarten Lankhorst wrote:
->> Hey,
->>
->> On 6/26/26 12:27, Matthew Auld wrote:
->>> On 23/06/2026 10:01, Matthew Auld wrote:
->>>> WA 22019338487 (22019338487_display) indicates that stolen memory should
->>>> not be used for display allocations on affected platforms (like Lunar
->>>> Lake). In particular we need to be mindful of not hammering stolen over
->>>> the BAR from the host side, like with issuing many writes.
->>>>
->>>> While the fbdev allocation in xe_display_bo.c properly respected this
->>>> workaround, the Display Page Table (DPT) allocation in xe_fb_pin.c
->>>> continued to unconditionally attempt to allocate from stolen memory on
->>>> all integrated GPUs.
->>>>
->>>> Check XE_DEVICE_WA(xe, 22019338487_display) before attempting to
->>>> allocate the DPT from stolen memory. If the workaround applies, skip the
->>>> stolen allocation attempt and let the driver naturally fall back to
->>>> allocating from system memory.
->>>>
->>>> Without this we will end up hammering stolen when programming the DPT on
->>>> the host side during the normal operation, which seems to be exactly
->>>> what the WA wants us to avoid.
->>>>
->>>> There are a bunch of users all getting some kind of hard hang in the fb
->>>> pin programming sequence on LNL, so wondering if this could help there.
->>>>
->>>> v2 (Jani):
->>>>     - Invert the WA check. No functional change.
->>>>
->>>> Assisted-by: Gemini:gemini-3.1-pro-preview
->>>> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
->>>> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
->>>> Fixes: 775d0adc01a5 ("drm/xe/fbdev: Limit the usage of stolen for LNL+")
->>>> Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
->>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
->>>> Cc: Nikolay Mikhaylov <sonny@milton.pro>
->>>> Cc: Uma Shankar <uma.shankar@intel.com>
->>>> Cc: Jani Nikula <jani.nikula@intel.com>
->>>> Cc: <stable@vger.kernel.org> # v6.12+
->>>
->>> Ping on this? So far two separate users report this fixes the hard machine hang for them, after several days of testing.
->>
->> Can we instead disable stolen entirely so we no longer need this workaround?
-> 
-> I'm not sure. You mean disable it except for fbc etc ? We just need some patch to disable at least this dpt path on LNL, which is also easy to backport. We can take your patch to disable this completely instead and I guess remove the WA, so long as we can easily backport it. Either way we just need to land a fix for this ASAP.
+Cc: stable@vger.kernel.org
+Fixes: 8bd1ff5ddc7b ("drm/ttm/tests: Test simple BO creation and validation")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  | 22 +++++++++----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-There are 3 patches here:
-1. Disable stolen for newly created framebuffers
-2. Disable stolen for DPT
-3. Disable stolen when taking over firmware framebuffers if media_gt exists
-
-First 2 are always safe to backport, last one would need a more intrusive fix to prevent regressions, like copying the stolen framebuffer to system memory.
-
->>
->> https://patchwork.freedesktop.org/patch/735208/?series=159035&rev=19
->> https://patchwork.freedesktop.org/patch/735215/?series=159035&rev=19
->> https://patchwork.freedesktop.org/patch/735223/?series=159035&rev=19
->>
->> Sending a new version soon, I can split out those patches if needed.
->> Ideally we find a way to preserve the initial framebuffer by blitting
->> from the DSB FB to a system memory FB, but this may affect module load time.
->>
->> Kind regards,
->> ~Maarten Lankhorst
->>
->>> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513#note_3537314
->>>
->>> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513#note_3531435
->>>
->>> Looking through the HSD I think it is clear we need something like this for the WA.
->>>
->>>> ---
->>>>    drivers/gpu/drm/xe/display/xe_fb_pin.c | 5 +++++
->>>>    1 file changed, 5 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
->>>> index f93c98bec5b5..8ebb52741ea6 100644
->>>> --- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
->>>> +++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
->>>> @@ -20,6 +20,9 @@
->>>>    #include "xe_pat.h"
->>>>    #include "xe_pm.h"
->>>>    #include "xe_vram_types.h"
->>>> +#include "xe_wa.h"
->>>> +
->>>> +#include <generated/xe_device_wa_oob.h>
->>>>      static void
->>>>    write_dpt_rotated(struct xe_bo *bo, struct iosys_map *map, u32 *dpt_ofs, u32 bo_ofs,
->>>> @@ -172,6 +175,8 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object *obj,
->>>>                               XE_BO_FLAG_GGTT |
->>>>                               XE_BO_FLAG_PAGETABLE,
->>>>                               pin_params->alignment, false);
->>>> +    else if (XE_DEVICE_WA(xe, 22019338487_display))
->>>> +        dpt = ERR_PTR(-ENODEV);
->>>>        else
->>>>            dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
->>>>                               dpt_size,  ~0ull,
->>>
->>
-> 
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+index 2db221f6fc3a..7c4179f6349c 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+@@ -217,7 +217,7 @@ static void ttm_bo_init_reserved_resv(struct kunit *test)
+ 				   &dummy_ttm_bo_destroy);
+ 	dma_resv_unlock(bo->base.resv);
+ 
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	KUNIT_EXPECT_PTR_EQ(test, bo->base.resv, &resv);
+ 
+ 	ttm_resource_free(bo, &bo->resource);
+@@ -249,7 +249,7 @@ static void ttm_bo_validate_basic(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, params->bo_type,
+ 				   fst_placement, PAGE_SIZE, &ctx_init, NULL,
+ 				   NULL, &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	snd_place = ttm_place_kunit_init(test, snd_mem, GPU_BUDDY_TOPDOWN_ALLOCATION);
+ 	snd_placement = ttm_placement_kunit_init(test, snd_place, 1);
+@@ -395,7 +395,7 @@ static void ttm_bo_validate_same_placement(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, params->bo_type,
+ 				   placement, PAGE_SIZE, &ctx_init, NULL,
+ 				   NULL, &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	err = ttm_bo_validate(bo, placement, &ctx_val);
+ 	dma_resv_unlock(bo->base.resv);
+@@ -722,7 +722,7 @@ static void ttm_bo_validate_move_fence_not_signaled(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, bo_type, placement_init,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	ttm_mock_manager_init(priv->ttm_dev, fst_mem, MANAGER_SIZE);
+ 	ttm_mock_manager_init(priv->ttm_dev, snd_mem, MANAGER_SIZE);
+@@ -840,7 +840,7 @@ static void ttm_bo_validate_happy_evict(struct kunit *test)
+ 	err = ttm_bo_validate(bo_val, placement, &ctx_val);
+ 	ttm_bo_unreserve(bo_val);
+ 
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	KUNIT_EXPECT_EQ(test, bos[0].resource->mem_type, mem_type_evict);
+ 	KUNIT_EXPECT_TRUE(test, bos[0].ttm->page_flags & TTM_TT_FLAG_ZERO_ALLOC);
+ 	KUNIT_EXPECT_TRUE(test, bos[0].ttm->page_flags & TTM_TT_FLAG_PRIV_POPULATED);
+@@ -879,7 +879,7 @@ static void ttm_bo_validate_all_pinned_evict(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_big, bo_type, placement,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	ttm_bo_pin(bo_big);
+ 	dma_resv_unlock(bo_big->base.resv);
+@@ -930,7 +930,7 @@ static void ttm_bo_validate_allowed_only_evict(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_pinned, bo_type, placement,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	ttm_bo_pin(bo_pinned);
+ 	dma_resv_unlock(bo_pinned->base.resv);
+ 
+@@ -941,7 +941,7 @@ static void ttm_bo_validate_allowed_only_evict(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_evictable, bo_type, placement,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	dma_resv_unlock(bo_evictable->base.resv);
+ 
+ 	bo = ttm_bo_kunit_init(test, test->priv, BO_SIZE, NULL);
+@@ -995,7 +995,7 @@ static void ttm_bo_validate_deleted_evict(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_big, bo_type, placement,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	KUNIT_EXPECT_EQ(test, ttm_resource_manager_usage(man), big);
+ 
+ 	dma_resv_unlock(bo_big->base.resv);
+@@ -1052,7 +1052,7 @@ static void ttm_bo_validate_busy_domain_evict(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_init, bo_type, placement,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	dma_resv_unlock(bo_init->base.resv);
+ 
+ 	bo_val = ttm_bo_kunit_init(test, test->priv, BO_SIZE, NULL);
+@@ -1096,7 +1096,7 @@ static void ttm_bo_validate_evict_gutting(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_evict, bo_type, placement,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	dma_resv_unlock(bo_evict->base.resv);
+ 
+ 	bo = ttm_bo_kunit_init(test, test->priv, BO_SIZE, NULL);
+-- 
+2.39.5 (Apple Git-154)
 
