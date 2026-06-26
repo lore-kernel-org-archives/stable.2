@@ -1,101 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660613F4134
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 12:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAAF3F411F;
+	Fri, 26 Jun 2026 12:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782475592; cv=none; b=I+nnNAtqCR62ov34XV/qzS8CHEb3fvukFW/AorfS6mdRbljHN3i9/fD0ZWVWqbRqaohcMEFDTzteyF7FUvIACxP9hmQOYM3cTolweizCpuCwAyubR6PaRTmzB7lWgSyCMSEa5PTBqTNqhiPbVRXyq51bUMKIWAdmyBdV+FlythA=
+	t=1782475604; cv=none; b=FIA11OUZpHRf/kq9rfIG5fy7xpLpL7KGMsE7UA5AMIX8B4ioGM9UF4fzaea8+k0FGfMtHIVlEhBG9hANNxZZbbpGf1lNaYIksQRWX7RQJ4/Nwspn33vUi6FeD3BNhUzZ/+SbhQPOm0A+olWBgnewB5SwzWmmxQ9+3NPwvUPzsTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782475592; c=relaxed/simple;
-	bh=oA3l/vucteIpjI/8m54kvsuw6yyKtM+W3WDN4uvfG8s=;
+	s=arc-20240116; t=1782475604; c=relaxed/simple;
+	bh=mcnd45m9iaSfOflkxyHGds0Du5OyNPMd9m09tACMtgo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eqSVYOrFozfD4j1LJvrZgA/o4otCWLPCwCwBpjSHPyPsK1+GsThUlBuXB9OePdqnbvSzk+eaS5SU4e1gYUBvAVY7M0V7Eyqdjqz0XLXl1Ef03lD5SbVcy9Ny/gtMP3CrJBisjshOrWZkFZ62vh7pcipC7Ny+nbz4MWndLSB0wRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HuLiCafF; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gi8rJl5AZa1DFN91e5jsc2KKffIGTmj4l3Rxjn1cj9ZQ8WYNCY27cAoPV+vy3oymscX0+bMR5oAG9gPgCIK2AfgEMYNadaJ9tvtI6IbthK3iwScGeGsS6uzI5IVo8XjBgpq3jJnos4vl8wBfmyML3AcKPzz9Muj3f6oQS5qeBHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=wV7Ngncp; arc=none smtp.client-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HuLiCafF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE9F1F000E9;
-	Fri, 26 Jun 2026 12:06:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782475591;
-	bh=CR/q+u4UxqSX/SXdvCBsFabJIJzu5N3mtpvnRKl9G+s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HuLiCafF27i+a1Hwbe58UcUWXi+RtmTlsiS1578ZPbFvyClVUMajIx4xvQq1Nn9MW
-	 6U9H0QCEquJHo5VesQ4uw/caR8kMCLxe/nFB59OF7KtpZiRUrh0cuf6AOVwt/zP1bJ
-	 sXe63MHAbjGiDG2Nef7mAnwdboy4eJuhMEe5QZJusYZ+4XkVGtrDtnKkodet8xtO31
-	 zUUEh1HFS/oV6/plnRvAFtq8v/w075BqMhU3Sc+KEzY+vTFxFd3uZgAHPVemYOqkrZ
-	 TEm+sXgtZqQN/Jef6Wk7mfhIzzZhNGqRnfFkvJdoHDBShsbePempzC73XGjppHzGVA
-	 F7pI/mUK+NtQw==
-Date: Fri, 26 Jun 2026 13:06:23 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
-	Pedro Falcato <pfalcato@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Alice Ryhl <aliceryhl@google.com>, linux-mm@kvack.org, 
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="wV7Ngncp"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1782475592; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=xh7XI+TiHLJYLAr/894grpqUh7uVtoi8+UIaxKwNZeY=;
+	b=wV7NgncpXJrbs0BMvAsSh8tkGgRO9TUTqmSqn9LMGDt1q0ul38eEE0U0btGoxY8eqzk5Hj/d6JW4w3skh2/p2rwXrb500qbZXDLtMYyQWrVtOjNEs7X/NgU6sIr2f7nxFj89phqtQ3BNWLTFCCUeOkilFCvJLfBZ2xULSXg2P04=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=feng.tang@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0X5et9EI_1782475590;
+Received: from localhost(mailfrom:feng.tang@linux.alibaba.com fp:SMTPD_---0X5et9EI_1782475590 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 26 Jun 2026 20:06:31 +0800
+Date: Fri, 26 Jun 2026 20:06:29 +0800
+From: Feng Tang <feng.tang@linux.alibaba.com>
+To: Petr Mladek <pmladek@suse.com>
+Cc: Bradley Morgan <include@grrlz.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] mm: fix CONFIG_STACK_GROWSUP typo in
- tools/testing/vma/include/dup.h
-Message-ID: <aj5qnsGDPC3nREdT@lucifer>
-References: <20260611012258.432043-1-enelsonmoore@gmail.com>
+Subject: Re: [PATCH v3 4/4] panic: use sys_info_with_filter() to avoid
+ duplicate backtraces
+Message-ID: <aj5rRV14OQact38f@U-2FWC9VHC-2323.local>
+References: <20260625152558.7450-1-include@grrlz.net>
+ <20260625152558.7450-5-include@grrlz.net>
+ <aj5TNB8cRtMNTtIT@pathway.suse.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260611012258.432043-1-enelsonmoore@gmail.com>
+In-Reply-To: <aj5TNB8cRtMNTtIT@pathway.suse.cz>
 
-On Wed, Jun 10, 2026 at 06:22:44PM -0700, Ethan Nelson-Moore wrote:
-> Commit 2b6a3f061f11 ("mm: declare VMA flags by bit") significantly
-> refactored the header file include/linux/mm.h.  In that step, it introduced
-> a typo in an ifdef, referring to a non-existing config option
-> STACK_GROWS_UP, whereas the actual config option is called STACK_GROWSUP.
+On Fri, Jun 26, 2026 at 12:23:48PM +0200, Petr Mladek wrote:
+> On Thu 2026-06-25 15:25:58, Bradley Morgan wrote:
+> > panic_other_cpus_shutdown() handles SYS_INFO_ALL_BT before stopping the
+> > other CPUs. Do not ask sys_info() to handle that bit again later in the
+> > panic path.
+> > 
+> > Use sys_info_with_filter() so panic_print=all_bt does not request more
+> > output after the CPUs are stopped.
+> > 
+> > Fixes: a9af76a78760 ("watchdog: add sys_info sysctls to dump sys info on system lockup")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Bradley Morgan <include@grrlz.net>
+> > ---
+> >  kernel/panic.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/kernel/panic.c b/kernel/panic.c
+> > index 213725b612aa..eb842823df61 100644
+> > --- a/kernel/panic.c
+> > +++ b/kernel/panic.c
+> > @@ -680,7 +680,7 @@ void vpanic(const char *fmt, va_list args)
+> >  	 */
+> >  	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
+> >  
+> > -	sys_info(panic_print);
+> > +	sys_info_with_filter(panic_print, SYS_INFO_ALL_BT);
 > 
-> Commit 40a4af52e047 ("mm: fix CONFIG_STACK_GROWSUP typo in mm.h") fixed
-> this typo in the mm.h header file, but did not update the copy of the
-> code in tools/testing/vma/include/dup.h. Update this copy as well.
+> Hmm, this prevents printing backtraces from all CPUs completely.
+> But what if they were not printed?
 > 
-> Commit message adapted from the above-referenced fix to mm.h.
+> They might be printed by:
 > 
-> Fixes: 2b6a3f061f11 ("mm: declare VMA flags by bit")
-> Cc: stable@vger.kernel.org # 7.0+
-
-Actually since we don't set the config options like the kernel does in
-userland tests, this can't actually be something that you can get to
-happen :P
-
-So drop both Fixes, and the Cc: stable please as per David (Andrew - can
-you make that change? Thanks!)
-
-> Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-
-Thanks for fixing this however! I typo'd this in the actual code but didn't
-update the VMA userland test code. Appreciate the cleanup! So, with the
-fixes, Cc: stable tags dropped:
-
-Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
-
-> ---
->  tools/testing/vma/include/dup.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> static void panic_other_cpus_shutdown(bool crash_kexec)
+> {
+> 	if (panic_print & SYS_INFO_ALL_BT)
+> 		panic_trigger_all_cpu_backtrace();
 > 
-> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-> index 9e0dfd3a85b0..adbc3179085d 100644
-> --- a/tools/testing/vma/include/dup.h
-> +++ b/tools/testing/vma/include/dup.h
-> @@ -243,7 +243,7 @@ enum {
->  #define VM_NOHUGEPAGE	INIT_VM_FLAG(NOHUGEPAGE)
->  #define VM_MERGEABLE	INIT_VM_FLAG(MERGEABLE)
->  #define VM_STACK	INIT_VM_FLAG(STACK)
-> -#ifdef CONFIG_STACK_GROWS_UP
-> +#ifdef CONFIG_STACK_GROWSUP
->  #define VM_STACK_EARLY	INIT_VM_FLAG(STACK_EARLY)
->  #else
->  #define VM_STACK_EARLY	VM_NONE
-> -- 
-> 2.43.0
+> [...]
+> }
 > 
+> But it checks only "panic_print" variable. It won't do anything
+> when (panic_print == 0).
+> 
+> In this case, we might still want to print the backraces when
+> SYS_INFO_ALL_BT is set in kernel_si_info.
 
-Cheers, Lorenzo
+Yep.
+
+> 
+> >  	kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
+> 
+> Of course, we might fix panic_other_cpus_shutdown() to check also
+> kernel_si_info.
+> 
+> But it all becomes very hairy. We have several levels:
+> 
+>    + watchdog-all_bt-specific option, e.g. sysctl_hardlockup_all_cpu_backtrace
+> 
+>    + watchdog-specific si_info preferences, e.g. hardlockup_si_mask
+> 
+>    + panic-specific si_info: panic_print
+> 
+>    + universal fallback for any layer: kernel_si_info
+> 
+> Now, we try to check all these variables back and forth to
+> trigger all backtraces or to avoid triggering them.
+> And it clearly does not work well and the code is more and more
+> hairy.
+
+Agree :)
+ 
+> I think about another approach. The word "waterfall" comes to my mind.
+> Instead of checking all the settings back and forth, let's process
+> each setting one by one and just remember what has been done and
+> skip this in the next level.
+
+When initially reviewing V2's 4th patch, I thought about the
+'panic_this_cpu_backtrace_printed', but it's a local variable which
+records the state.
+
+> All the si_info actions seems to dump a global system state.
+> So, it would make sense to remember the state in a global variable
+> even when it might be modified by more CPUs in parallel.
+
+IIUC, panic case is kind of special, as it has to separate the
+'sys_info()' op in different stage. Can we do a merge in the start
+of vpanic() by:
+
+	panic_print = panic_print ?: kernel_si_mask;
+
+ as a addon patch ?
+
+Thanks,
+Feng
+
+> I am going to think more about it.
+> 
+> Please, do not send v4 until the discussion settles!
+> 
+> Best Regards,
+> Petr
