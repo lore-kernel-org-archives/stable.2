@@ -1,84 +1,92 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB095274FD1;
-	Fri, 26 Jun 2026 11:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3FA3DBD55;
+	Fri, 26 Jun 2026 11:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782474251; cv=none; b=tPKqoNYsOfczsNa18I0GQpDryGcRbTBjSVjUBXkbU03InUvpnyPROsVn0kEXYVxOCx2VctUGVITBSLlfVCD0xpbq8y31CwCTyn1YTYppGjxgFAVvIr6H4vcCAd2qS7GfGeXZ6/kCZDZx9dTgaJ+3F3m9m/F8KIzzeWlDBF8syCU=
+	t=1782474297; cv=none; b=J/hYSGLCISV0N03WbQJYey9aAp49Nn0i0sBK18hT1v5eGucso5VDHsmN+waW/SgZB+SLO9fb9UGQR7S8PONSxopJi3nYoe+ym0xbRHauPrXOLqqfid5XemC62J7mlpyunrrn2NTmI81uJlp0UVPj3eg+tkdb54z/pgqVCWPuF/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782474251; c=relaxed/simple;
-	bh=UGHswoJR+MaQdfHVOnEO2dOfMl/eG0YOzS1FvY6cqnA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LYThsnP26g45iXzUIHOnqd49ztVWglDdTRNv24MvZMEmL9nCiXmR71FGf2DDaYsVqvZDbV4geuAaxkE0SUtqS1S91xhspsljRgbgX/DjlNd+xOWPsuyeK8sQrBeiZfNz7qivo7AX+XmwISwUYRJTHMAgMn1VxZ2I1KF5DNgqGA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-05 (Coremail) with SMTP id zQCowAB3zhEBZj5qj3dmFQ--.22667S2;
-	Fri, 26 Jun 2026 19:44:03 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: jeff.hugo@oss.qualcomm.com,
-	ogabbay@kernel.org
-Cc: carl.vanderlip@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] fix: accel/qaic: qaic_attach_slice_bo_ioctl: success path missing   drm_gem_object_put
-Date: Fri, 26 Jun 2026 19:43:59 +0800
-Message-Id: <20260626114359.32938-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	s=arc-20240116; t=1782474297; c=relaxed/simple;
+	bh=TjOsQk8fELsZW2uj+46KbkV5sOFDaVPfr+7+FHCv6jg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L6a+NOY3AvD8pYkUuiNNJ3h3XmxPcTi9+IIv+EEXRhYwqyqN/E4jRxM65hYB6WjrbarYb7RKYoNZfIG0hG8CBzTUxD5590UuvxAlv0sJS++bZuvXaIR4iMpOnA9+txBVUkLNWyzeTvF4Xewq5O4dvVbhCimgNTunjYvtlAWL5hM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=EcrkmsYH; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="EcrkmsYH"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B28FB117E1E;
+	Fri, 26 Jun 2026 13:44:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1782474292;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=Wt9pwN3xvqQpYzqex9ofgxGr+gijVC/fPTW/JNx/IHo=;
+	b=EcrkmsYHddiAEU70gAqxc3MMKcQoC0/H7Y1HvM3E2QtzxJ7WjfM2EWeEd2wUTkbfE4HGaj
+	WPU+/HaJxy9XL4LhI6PKYtFEBy71xBoq+uoFnp/GLqQwimADVNfz8V8FHG2cwvsJFinqZO
+	VbTL6ikO5LN4M4/f1T19Ta0UKEageZh5WFCBksty8ZcbLMb8h9idbUGu2ODRWNZVd3ip87
+	L7ro0+UKTbr0UVY/KXitP6r5rezsFpdm1VLEeJbqpOZ8ARsqIkHNDXwPUqv5ohDEjAhW6L
+	D1eUFl17Bni2iqCpuZDxrzhtaO6sRRyMQotMks//pjeJdfXe0O7InYpgdnzlLw==
+Date: Fri, 26 Jun 2026 13:44:48 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Pavel Machek <pavel@nabladev.com>, Chris.Paterson2@renesas.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org, akpm@linux-foundation.org,
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+	lkft-triage@lists.linaro.org, jonathanh@nvidia.com,
+	f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+	conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+	achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.0 00/49] 7.0.14-rc1 review
+Message-ID: <aj5mMP6X3NUx5XZM@duo.ucw.cz>
+References: <20260625125637.527552689@linuxfoundation.org>
+ <aj5ho8stx819px0w@duo.ucw.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB3zhEBZj5qj3dmFQ--.22667S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7WryrAF47JFy3Xw1fZryrZwb_yoWkXwc_WF
-	93WF1DWry3Wr1kWrnxZw1fArn2yr9agF1v9rWIqF9xAayrZr1avryku348Aa4kJ3Wxu3sx
-	JFnxtw4FyFnFyjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbcAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
-	1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
-	cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
-	ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_
-	Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxV
-	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
-	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
-	1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI
-	42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUYCJmUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYKA2o+ThJJGwAAsZ
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="2JL0oPREIppCv6AO"
+Content-Disposition: inline
+In-Reply-To: <aj5ho8stx819px0w@duo.ucw.cz>
+X-Last-TLS-Session-Version: TLSv1.3
 
-drm_gem_object_lookup() acquires a GEM object reference on success. All
-  error paths correctly release it via put_bo, but the success path returns
-  without calling drm_gem_object_put(obj). Since list_add_tail does not
-  transfer ownership, the GEM object reference is permanently leaked on
-  each successful call.
 
-Cc: stable@vger.kernel.org
-Fixes: 75af0a585af9 ("accel/qaic: Grab ch_lock during QAIC_ATTACH_SLICE_BO")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- drivers/accel/qaic/qaic_data.c | 1 +
- 1 file changed, 1 insertion(+)
+--2JL0oPREIppCv6AO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/accel/qaic/qaic_data.c b/drivers/accel/qaic/qaic_data.c
-index 1e4c579d2725..b17df7bf565d 100644
---- a/drivers/accel/qaic/qaic_data.c
-+++ b/drivers/accel/qaic/qaic_data.c
-@@ -1084,6 +1084,7 @@ int qaic_attach_slice_bo_ioctl(struct drm_device *dev, void *data, struct drm_fi
- 
- 	bo->sliced = true;
- 	list_add_tail(&bo->bo_list, &bo->dbc->bo_lists);
-+	drm_gem_object_put(obj);
- 	srcu_read_unlock(&dbc->ch_lock, rcu_id);
- 	mutex_unlock(&bo->lock);
- 	kfree(slice_ent);
--- 
-2.39.5 (Apple Git-154)
+On Fri 2026-06-26 13:25:23, Pavel Machek wrote:
+> Hi!
+>=20
+> > This is the start of the stable review cycle for the 7.0.14 release.
+> > There are 49 patches in this series, all will be posted as a response
+> > to this one.  If anyone has any issues with these being applied, please
+> > let me know.
+>=20
+> CIP testing did not find any problems here:
+>=20
+> https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linu=
+x-7.0.y
 
+Disregard this, too. For some reason, this release is not yet tested
+on gitlab. I'm putting Chris on cc, perhaps he has an idea what is
+wrong there.
+
+Best regards,
+								Pavel
+--2JL0oPREIppCv6AO
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCaj5mMAAKCRAw5/Bqldv6
+8mkQAJ92aRgjtp0fJ0vqrTaBBMsbZnesbQCfcDvRlNFKYVT7jllVgxTbH4XKXFQ=
+=4fPg
+-----END PGP SIGNATURE-----
+
+--2JL0oPREIppCv6AO--
