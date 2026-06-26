@@ -1,46 +1,46 @@
-Received: from SEVP216CU002.outbound.protection.outlook.com (mail-koreacentralazon11022089.outbound.protection.outlook.com [40.107.43.89])
+Received: from SEVP216CU002.outbound.protection.outlook.com (mail-koreacentralazon11022102.outbound.protection.outlook.com [40.107.43.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DA42DCF61;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CBF52D47E9;
 	Fri, 26 Jun 2026 01:22:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.43.89
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.43.102
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782436971; cv=fail; b=lpstJW3UAXLbdghxHd0S3nAy4E55nvpyu2rZlMYqhqPj1LflvIZT9Fcjvl7vdrM2nYXpfDboQR/uVqyroVPkUx+JMwKZi3+oJYRQZQhTF0HlNv7JBucC1gAQ7rIVV7G29GrraDN3OAuyUChE/YNVXZTkEFkHAFMs23LH96taaU8=
+	t=1782436971; cv=fail; b=PkXqdGdZlS67P76Qd9FAjprS53Uciv4t+L+f5To9PYOGDwHFOhz0gC98ixmLtj3iGJMXd0NeaC+ht6MKSYSi6SrK1RZX9ZWk6K56MVTDgG3aFLq5ULoRvLe0u3+ZGcwWNvoxBPIzfyWFUp/0M7cYtjwujdVD6AYAKb8oohgLXKI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782436971; c=relaxed/simple;
-	bh=MnSiQLGVYq/GZg3kt9q8pwuqNfJC8jRNFIUBZwl6FUM=;
+	bh=RirNH49UW+bXy5/vMq79LZB6AvkIEvGnQX0UahgYpP8=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Q6h15qcWgr03+gJd9s8drFlNybXecmTkM5gVQsZ0XyK2DgDvV1tYffCVRsw3YxgucaaepuwNoRPSE2bhYola2b6ZBYYDxesSe5wiEHllSeUzkdhHCpeOwLtH4WqJqJgsB1EiNP7DFtxzms0PFI9lXy1OvT6MLQER1soMKYRVrPw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (1024-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=WfvN5cFW; arc=fail smtp.client-ip=40.107.43.89
+	 Content-Type:MIME-Version; b=hTEo2g3oJMyqljFCdRionx3cJh5ok5IuGuPQNLA69wYpC7Jb5xgekTM5DaRuh2SQ+jE0KcFxSYbrQPlqLKBu4tHcribFMtSidGLnhNQX2yFk75w3wfpgc/Mw7vmPwJGrmAFmhNw2Qa4p6ngscO9+rNH8y+XYeskAFsSZpe9KT3E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (1024-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=DnxY7cm+; arc=fail smtp.client-ip=40.107.43.102
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chipsnmedia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="WfvN5cFW"
+	dkim=pass (1024-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="DnxY7cm+"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KejZgMlUQILPq36tBNjvQJepOwuGtH0vIZonsksLSZaIo/9yQaRxjYVotx6bUy8/Bzli/ifbTxftofdVlKksAaCG9p7noUsp1vIprX+wInXbwUca6bq2Roddf+3u9wNfNrea9xIGw3w774j7eQo0cuqyn9NaZ8gGmNfnGk46QcZNIrUM1D63Um6nI+4O0bPl48JiGiccTRioc/MyeCnypf5aoJHYUWiF1M8k+MO6aFcuaSqsvDcoZHvtgmYhQFFjrVsKQ4RUvgZTbVesCnxKav21urZQXzmHKWczRtUpIFAalGxHmoAs9L0Mh9RbPMK5GLYzPAQ8pS7sboTkts5NMQ==
+ b=APPn6tIuRmYFATQQOZRVQ9OziZQ/kuF2x2hwDk7CjMly5NkXbS9C8Kz6cHHx/wKjXvYbyig3B9XWW6W9/4zSGB1ZPLaZmVUU5C4he3TWon2PT7OHFZELv/6Av03Rl9pSPqj0+KtJWLyFLrSNRdLfOQHr9AK/PD1UZM7Q1GTVymAqlCEB8wWlwV+ucaif72VFuC6uaIUcwTcdrdYf58geETwJQUBxKzPudAM/leLW6ov5wdXpWzA2s0+n2VI58XWsn0aqOXz4ww0dplBfGfo77NaSphGbZLSdQXmZb5RzrZcc67IlNgEx5ydQA8sV/78F7TrlFGw/JaytH+Ck7RSgmw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=52hzNNXr1OJBqCiMHJ6atmpWBpwUhb8d5edCLhw/+Io=;
- b=iwXDSr4WhclrBQ9V95RD2+CvCck3uV4jPo1y+yZJG/V+JaSGyErN3N2B6xSG1G9TbNAgJACj40AAdeh+gil5cfhzod+9T5ctg2h0xKu1UvxZ1C00+JKH9hIFXhAxRqD2vOz+79Di3UrkrCdYbFAwzQAlpU9ZhARkoxmpn8m6IGdymIhNk5cst1R6yJzgSlzCQJ/Azim6QS1f7ZkNGsT3edTAPp30arRvtf9PLVraLaw2CqhyaWpZlP3uAJqTxjqeOxbhSMueULS7r3dyzskXo2cDRTS26SX5L6UefquVh9igMmPyjibX/PApZ0jXXUQDImk/xb2PPDGlxnu5HkVtvg==
+ bh=Wn4mRuJ3R8p45Lzzmc1641UusFM5Qf3gGwtwyTAwyuw=;
+ b=H6vIA7kcl7J9CLu6sjhWqPZ7mavZOUTPo86qhJtwXO+Ctavu6SEs8BAt20KVHLehAb+vB/ndpctZY2oWLKCRl+D/MJwTGpc/ejO9ctXV/GhCXNJrZlK9eWCeAOIvH8GqDBrXVqtIeHGma6KYPBeO6GA5Tvc5tLOOf0+9aHtQkfBZEZoj41Rc5AncO9bZ4mehVj9bpnUdHf6bDP5J0vvE+otF8lfnvgh52mWiIjW6CExSOJRyHoAwfqX6AW/4vbxfmyXMjYBow78QW4VmQz/YyO6dojSL2kyW0rrZgoko5on1BatHCWkffyVx7BGi81MDnW078E7kwJzRt6JX+m6xgw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
  header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=52hzNNXr1OJBqCiMHJ6atmpWBpwUhb8d5edCLhw/+Io=;
- b=WfvN5cFWbVASIY6torHuunMDGnR+HGft9yETQ+mbOuhYCdbcR+NOOgtyWOSi35b5am1grKbHeY5MvW0D7gUnNKS0wGP04A7bFZuSJDNpeGc81q0TglbDgz6K1N4PlTu7VB4iqIuGpHvQZynccv++dgbwxZDOMglPN0bAG2+cIe8=
+ bh=Wn4mRuJ3R8p45Lzzmc1641UusFM5Qf3gGwtwyTAwyuw=;
+ b=DnxY7cm+PvoOEATkDXCQiM5Sd5QVmLizyQSfdRWirvbJ63VjknNotJuanZJ8VvrQAarqJJ/AJyEiNIAdvnUW06/igIFe0hKBntZvcg1rmfylNj6bPaLHymQZXdxuQcIRvbG/vujVTcKbw/EusLdYLynks/zDc+8dyV7jDocxOtY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
 Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM (2603:1096:101:f::14) by
- PU4P216MB1949.KORP216.PROD.OUTLOOK.COM (2603:1096:301:10a::8) with Microsoft
+ SEWP216MB2955.KORP216.PROD.OUTLOOK.COM (2603:1096:101:295::7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.13; Fri, 26 Jun 2026 01:22:44 +0000
+ 15.21.159.17; Fri, 26 Jun 2026 01:22:43 +0000
 Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
  ([fe80::8f6c:834c:6cef:7be]) by SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
  ([fe80::8f6c:834c:6cef:7be%4]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
- 01:22:44 +0000
+ 01:22:43 +0000
 From: "Jackson.lee" <jackson.lee@chipsnmedia.com>
 To: mchehab@kernel.org,
 	hverkuil-cisco@xs4all.nl,
@@ -54,9 +54,9 @@ Cc: linux-media@vger.kernel.org,
 	hverkuil@xs4all.nl,
 	nas.chung@chipsnmedia.com,
 	stable@vger.kernel.org
-Subject: [PATCH v1 7/7] media: chips-media: wave5: Resume device before setting EOS flag
-Date: Fri, 26 Jun 2026 10:22:32 +0900
-Message-Id: <20260626012232.111-8-jackson.lee@chipsnmedia.com>
+Subject: [PATCH v1 3/7] media: chips-media: wave5: avoid skipping device_run while VPU has work
+Date: Fri, 26 Jun 2026 10:22:28 +0900
+Message-Id: <20260626012232.111-4-jackson.lee@chipsnmedia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260626012232.111-1-jackson.lee@chipsnmedia.com>
 References: <20260626012232.111-1-jackson.lee@chipsnmedia.com>
@@ -72,132 +72,104 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SLXP216MB1148:EE_|PU4P216MB1949:EE_
-X-MS-Office365-Filtering-Correlation-Id: 468e62e7-1689-4051-0ea1-08ded3216c00
+X-MS-TrafficTypeDiagnostic: SLXP216MB1148:EE_|SEWP216MB2955:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4285d457-a3a3-4df1-444e-08ded3216b41
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|52116014|1800799024|366016|38350700014|56012099006|22082099003|18002099003;
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|52116014|5023799004|22082099003|18002099003|56012099006|3023799007|6133799003|38350700014;
 X-Microsoft-Antispam-Message-Info:
-	qGq+VeEi7mwpJWmr8tKDS8hQMMTQrUTd2A+RJnJtzDWn9kNNd/I3X5xKNs0EAqlJLlfYIeeSKdovwnZLom4BM+l+BalEE5UidMihebdDr8qpUlu8Lmd+eR99W2AODWy3R1yx26zb/B8a2GaoKEELE8i8AKUScnsnsp4rwUxtxvX2NWlWzLdPzx1TPqm8+1XmyA5yBITl2/lDo/IlFfrVlLntJkrV0fxTydqtiYw9TJHn94K3UdzKv3X3QjhmpscfOW0nNMEKU2cnZ98e4YT/gTHEA4/67tkngtuoPN5gYV90ibIv5OeR10A5uboemSozsY+lpoiX/1evzMGNQMODjdIgrKfLSGP8p+wEr3rjQSjYj9iRdHX4mLw6tA3j0AC7en3lXXV66b7Vzo0JBmazv5Alt5Y7zOalcSNaEtWWb4ZGpP7JG89Z6pvsPRU0AC7ex8YC4H+Qr3fsBfCTF8SMFVUd3lnq2tutte+g0ALb1X+1W4YLiZe819giNv91mDYi6ZTdm4e2BP/s3YOthGGwN8SOD757ChXh1dDLIZIyuDXc7jBgYQJgSFnhO5NMsXztD767RR9wLnw7Fk4Ns6uXO7NmuDRvEhML4o8N3hXwIjKjy9mBm3UOuAVP/CwFWJf58vgH1KJZ75fwTl7/V9KmXP0rLO2cc6hKAsp0bX8fSzzwt2CjCFgmh/PtjtdCg4d/CxT416s5hJKRg8zpvMIiwJkbvZgTmiuj0c6Qorqrpec=
+	6v74zJzBZr+YvmgqqqItgztCg/VowD4Jk66HaFdlRDQ6b27RA7yMo6sbn5Nde4bIj2d01PcmstyLtOyOffFrNFNpQ1M9fNlua60uYgmpWxgTZYIE5nJUcgRvPc23wv2dJrhShJ3pNxB+YghCR1+2kkh+BY79BpRBUBdw/7pPOpw8+8nUvO3dV5X4sO0ZiRGqtRmcu0XJGO8Hg3H1WQaS43vfJag41KcpJagKmBvrGAJ+DR90darUWxPDry3rENCdo4O55Oep0EKZW2rjKnlVfBd996Umbqk2u8MqUhQZ9FO0jm7X+7ffqOoOetvT0K6w251OQUc1gkOUwJtdGsFSpaqZ9BEDM9u3As4q3L8WlejhdMz5UhtoRcVFDQndDIYhUsfJv87CiDaU2KV8qqqbmS1v5yt6LZpM5rHfLKMmYJ8CX9dV8fUK5p9LO4iI+qlNoiZAHlIyQFLpY3pnC81lH5PGKeaheSORg09MtpzZkkfsfCvi0IQWnFfq76HmMVtK0kOWWd3jAB3KYg32g+xqrCd2+AsfFq/g2VDcN4BZMDikGrbFVyvL6jpQ3h3wnoR+Ly/DM9oo5Sj9HJF55c9mDeX0I3UKp2jKwojZUdPR39zbhreH6cahLChQftlev+YrR5cN51umOaU8lLEDuhy7TBRSF/hwFHCwCrwTai5RqwoUuwcCVA1D5p0N55EKXACJ1mFFVkimZqPve4isz88UbtOyM5+atsZrH5O3gJJpxm0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SLXP216MB1148.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(52116014)(1800799024)(366016)(38350700014)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SLXP216MB1148.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(52116014)(5023799004)(22082099003)(18002099003)(56012099006)(3023799007)(6133799003)(38350700014);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UnsM118jTfzhc7co00kSXxa3oulqJhlyP28F4NMr5VrmE/oUP+TNZYU+nTEC?=
- =?us-ascii?Q?tFvXcWnzt/coGe69gIqUOSHEmsDBe42BvCIDc4MXN5uLtLIw/am2Gzjje/cQ?=
- =?us-ascii?Q?t3q3VO3F+iCNeygQ+AlvlG5KvEObMKCU/qjnMrrJTXGcLNOGi+XlOxHtR1mo?=
- =?us-ascii?Q?FUCR6WakS4bQGFhYZw7GLPDWRS8sTw13n4m05zyMcr25VuH0ef/nFvpzxVby?=
- =?us-ascii?Q?VQu1SbCTocjxxBpxmUaHTk1+Z8dwJZ/Jgo6sCwByRvKSRLUDnW8mP3NMOrtD?=
- =?us-ascii?Q?cWq903wCFpeGxwoecweVc8XpjS82JGW6WZp49RBIpsXH6rZoO1BqzPzx1cTs?=
- =?us-ascii?Q?ONezwJQ85pcXUiB1imTL5OLJb9hLKicQM/kYjHxQNIsfYLp8UWar49aoBwP0?=
- =?us-ascii?Q?cJ2BHe5+h/yoEt8M6nUoPUT78f+mFt406pV6Mi3YASxA5PFmGwtPRb7a3r4K?=
- =?us-ascii?Q?7f2Jkjix5o6T+oDJZx1nZoHZqWAjxGvmXHajD/lcuAIfecQOSqqNiqUfRfGd?=
- =?us-ascii?Q?5EESN/wm1RVCGrqnFEIJrOf3W4DW2pb8GxoDphMlk+PhCnbHLx7EP1CCAyxY?=
- =?us-ascii?Q?dNqLabhBl+2gi4eybRNWOGob350e/UiGIXZPH3b9zT/0VDy0fXm6fNf8scrg?=
- =?us-ascii?Q?690O7wMjjG1jt6nByhvaSDWWTBosUE7wzGJ2p0flm4xkvsIgv5vePibzPIXh?=
- =?us-ascii?Q?SRrHqHgmKUT+ioqW2Q3WCWApBSWIk/hPxT5FUOqH9+pmJjKPVowVOiQdKVDH?=
- =?us-ascii?Q?NI87poHQJt0lVSbWrrxdkxl3w5WfNhAqi3r/Y1ao2gjMla6nG5TctR3YTm+B?=
- =?us-ascii?Q?uYD+qlWtcPDDdYGWjt5xb0qY/f17GxMuum8V3QRmWJJSfTxJCspvwEwAmlnN?=
- =?us-ascii?Q?Z6rETfq9cAfv73vcYuEAvsBc0uV9vTDPkfxnKHTOxLy6kP3pYfIlHzSaMBXw?=
- =?us-ascii?Q?JgtBgtUbuaTPUB5ankaCaHNWREmd7VYqqmfaPCtKrgdqINLPsTvqhYZw9kur?=
- =?us-ascii?Q?XzP6FBOm36rbZQvEqt+TEERSpWOgbZTQ8dT0kPD/0ZZqX54Tc5I9s8CLXSbM?=
- =?us-ascii?Q?Rs5zAaXGN3bmsQa1/1Rv7eDc+idxg76qNRJnrOfc0W+o62ehbrb76njzTMnz?=
- =?us-ascii?Q?sCzfzt+HURg3qesqgzPhh3s17pXwFkOgcRAPI+MsfbwtZxvE3c3QHmGSlKz/?=
- =?us-ascii?Q?zDpGYVpXENrKH41tqS1Sgn+XgO7+JH8voLC195dm86T32Ai6jq7nJTeNmrwb?=
- =?us-ascii?Q?hLtTTFvn6g0KfQ5y88CekxP8QgyWxynVVzH6I9EutHRMw0cnULLH97PT+shu?=
- =?us-ascii?Q?CB/m0DLCuNqcUBT4OBnPjirYCqllCO7LmGZL0seUb8pXwzvp6Km8Iga/sywV?=
- =?us-ascii?Q?0ULfL8wevNOQiiXe3JX6/RZIq21zY5Msbs07C6ozfItjhTBp350IsImlHzji?=
- =?us-ascii?Q?eXt1fr1SvrU0fpcoxEYV6VI/GK6XqOBfGgl6PICAxNIVwRMoj0JerdbISKZN?=
- =?us-ascii?Q?+QkQNHF8TxJvvNG+YdJLrAnVaFLjeW0hKCxTUIWWQQPjgRqTSPeO5rm6BQ56?=
- =?us-ascii?Q?+WT0RoL7upP3b7OAsLW1/MXQNQbvwulsSOIKS0QbOcdbcuQHS6IXxjFfnIeL?=
- =?us-ascii?Q?pmvy5mMOTCfxcVH5sf220W5f1mTWfTuePZppEj4M0x/g3g60+F//pAcxHztF?=
- =?us-ascii?Q?DwdfQkF2p8UtNzdtk1sDKRfwGnr6VejhgPQ3JeKAuVACLyxiR4DRvGeGOYKN?=
- =?us-ascii?Q?upgFFH7Tlla8yXheDjwrbPbsHKVN+JU=3D?=
+	=?us-ascii?Q?fDt0S/rC5Ygaq0OaMWxqUsms67qRw5L7qw7jgcqGcwjkmIb+RX4w293QsFWQ?=
+ =?us-ascii?Q?A09A81eHL6KXi9IY2wTYv+BMQEawehbURZgwms/Dlyqn48WxgrcYnDB/1q85?=
+ =?us-ascii?Q?AmLp0MiVFPu8FSm5LbkcMICzkG/TVBONasltxjyd6lsJLg4IOWoKVirqgWgC?=
+ =?us-ascii?Q?iS8+lCq0C/f8N8lxx3ErPHb9yIEGpzA2r616JCIaayq17kh5BqNAeyn4YadX?=
+ =?us-ascii?Q?jdXlStdIaSeVaAC1UdJyKJxb5W5xl3c+OFzovpNxj1vhyHc3b56Rl5fszAty?=
+ =?us-ascii?Q?zDGs61IPlSE2njX6YSZUaWoTpOmCcULH/qlZxSJ62cydzAGI+HK2VrOUavbo?=
+ =?us-ascii?Q?zKK2e0yBj5MbYZ9W8l2BlJoTXkkdxrvNxWhvPhyyP57NKfReW6irsW2l1Nnp?=
+ =?us-ascii?Q?9U6BLxYWYczKqfbk4Ow0oHy9ussTkQGbgm4Z/qLMrk6aV/AYB8a3Avfsipnt?=
+ =?us-ascii?Q?PAujwN41AIFDZWb0tIzmn7D1aJr0jL9vslyIBNhBIbngZES5S8LDwLjzRQhA?=
+ =?us-ascii?Q?GBc4FGJvmX04zMo1kwR/n3KEh+LPzUYqzzl5QquvPrZChet5jcGLxctzrGmZ?=
+ =?us-ascii?Q?B1ZyBsMiHccxh8r/xkru/MjbGY/eF9UgYKXxyqi2GCP/DUpOi1x6NCHUX3Ry?=
+ =?us-ascii?Q?oJbBjdskhGxqijLraFOnZeFUeoPq2/RzZxiI95sY1PaBmZPXxpFvOr9wvr+c?=
+ =?us-ascii?Q?Y6lqqbg0atI/L/1qMYWSZN1I1ZIFHMzibkyoR02UDLbFPSiEnvAwUBhNU5UI?=
+ =?us-ascii?Q?dvnwB+kHh2SMhd2xmGSytuoXjrWfIi80OjJTMC4SU0j+gAEqWnRZFueMNH5e?=
+ =?us-ascii?Q?suYqH8sJNG/B+jA3sgELIhQh9dFX7Wmv4FNY4LeohfHYxBVtHGysfSXuzzw0?=
+ =?us-ascii?Q?p0XR46RLdszKphVGWCne2FkawE8nMLvZNS/HPwS9QEcbT7srZGXa6ig1SJrQ?=
+ =?us-ascii?Q?nwtceKLIeeApj8le9yZyGoVF8w134W9WGrOhSoIK6SCGTHWViEjCEvh5oZ1R?=
+ =?us-ascii?Q?gvGngcuJqALxADHZLoJOOlJpnYDXhRbYw7fKpeXlVB+i67/Vz9HdpY9dLEoX?=
+ =?us-ascii?Q?j/QnQKkyf/hwA9HJ0qzY4N/6K5M7QjaUyTjqC1RZdW9N+Q9ENo3/46LNesOz?=
+ =?us-ascii?Q?PfoH+frvfI5y0iQxbiyytVDA2LVotKPRh2K/YOzpk6PyXHq/YJS6nkZrC81i?=
+ =?us-ascii?Q?0v8dei9qVGWPputZIlGsMHl6ugkhr/E/ueIVZ0ibj5F9u9Stl6loAItRcWyA?=
+ =?us-ascii?Q?Y8QXlaxfD6X2q28zCLrUobDbGw0loVpBERNNw981cAB/3+gWWHg2b9tB0EzP?=
+ =?us-ascii?Q?jYn8nK5UmeR3hupjqt+Qx37jKy3WV6QYV6qAcUElT+h5YBPi7LETQDVdtaV6?=
+ =?us-ascii?Q?pfo8jTP4WJo/llEhW2YlAtGYtB+o8YBLpdnwbjGi8N+J1zU5EaEA5GPUtWZ9?=
+ =?us-ascii?Q?6Su789FqN31liteNpo9efH0Tw8iBGkQUGbY89YXFEEhVZtYuR7KGBZoUSBMF?=
+ =?us-ascii?Q?WKfmFpDz4z2VpYQlZ7AteiIPFE2y0uSc/xnx6kONYOcf+wYOxpY3lPu4K3z3?=
+ =?us-ascii?Q?/2AsBR5meknT9JrMne2r75a3NDGrm1RPscALJEx0Gpmla/cbaBIKjDjLcevU?=
+ =?us-ascii?Q?q6sS0v0E5RHs5OBw924Sae6uwmwersbu0S5+tgEU6joQZVpwL41e+gT7RAQq?=
+ =?us-ascii?Q?HxEB2jlsg9382jfvXGu52FL07IG4cxpaqeq+JsMaD9v9L1iryYWgEAdrQBOD?=
+ =?us-ascii?Q?2vokCWEIBDdA2jyruWs3GZ3fMMd++o0=3D?=
 X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 468e62e7-1689-4051-0ea1-08ded3216c00
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4285d457-a3a3-4df1-444e-08ded3216b41
 X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 01:22:43.3355
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 01:22:42.1062
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lCeCsmsTEqNLlLXQSYxPrsB9ZT5qIeUlGN6gQlkmO0a7rG87dB3hVUPPN9JWgzvfSNM6I0IbSUOYJZCUyGIrhsv5OktzZTksdPb1IOINHiI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PU4P216MB1949
+X-MS-Exchange-CrossTenant-UserPrincipalName: I0vZxITZz1dDW8ahONccq8TwyVoiT5S1dHiV2wmRxZbEcZOlEG/JpBhCFmTVxZ2rkPsLR15WXZm7ZASMl93jbbMCqccLSprngx+3Xw8cDNE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEWP216MB2955
 
 From: Jackson Lee <jackson.lee@chipsnmedia.com>
 
-Setting the EOS flag talks to the firmware via send_firmware_command(),
-which accesses VPU registers. Both the STREAMOFF path
-(wave5_vpu_dec_job_abort()) and the V4L2_DEC_CMD_STOP path
-(wave5_vpu_dec_stop()) can run while the device is runtime suspended, so
-those register accesses hit powered-down hardware and the SoC raises an
-asynchronous SError, panicking the kernel:
+The decoder stalls because empty_queue is set to true even when the
+m2m context still has pending commands. As a result, device_run is
+never invoked, the m2m source queue fills up, and userspace (e.g.
+Chromium) can no longer queue new bitstream buffers to the V4L2
+driver.
 
-  SError Interrupt on CPU3, code 0x00000000bf000000 -- SError
-   send_firmware_command+0x2c/0x160 [wave5]
-   wave5_vpu_dec_set_bitstream_flag+0x6c/0x80 [wave5]
-   wave5_vpu_dec_update_bitstream_buffer+0x80/0xec [wave5]
-   wave5_vpu_dec_job_abort+0x44/0xa0 [wave5]
-   v4l2_m2m_cancel_job+0x110/0x19c [v4l2_mem2mem]
-   v4l2_m2m_streamoff+0x24/0x140 [v4l2_mem2mem]
+Fix this by querying the VPU queue status via DEC_GET_QUEUE_STATUS
+before deciding whether to skip device_run. Only skip when the
+VPU's instance_queue_count equals the number of ready source
+buffers in the v4l2-m2m context, which indicates that there is
+genuinely no new work to perform. Otherwise, proceed with issuing
+a decode command so that the VPU can continue draining its internal
+queue.
 
-Resume the device with pm_runtime_resume_and_get() around the EOS
-firmware command and release it with pm_runtime_put_autosuspend(),
-matching the runtime PM handling already done in
-wave5_vpu_dec_device_run().
-
-Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
+Fixes: a176ac5e701f ("media: chips-media: wave5: Improve performance of decoder")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
 Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
 ---
- .../chips-media/wave5/wave5-vpu-dec.c         | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ .../media/platform/chips-media/wave5/wave5-vpu-dec.c   | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-index 1817b83c5884..6564cf3ec739 100644
+index 01d1368b2965..6c6e86b09b40 100644
 --- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
 +++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-@@ -823,7 +823,15 @@ static int wave5_vpu_dec_stop(struct vpu_instance *inst)
- 		 * calls do not block on a mutex while inside this spinlock.
- 		 */
- 		spin_unlock_irqrestore(&inst->state_spinlock, flags);
-+		/*
-+		 * V4L2_DEC_CMD_STOP can arrive while the device is runtime
-+		 * suspended (e.g. on pipeline teardown). Setting the EOS flag
-+		 * accesses VPU registers via send_firmware_command(), so the
-+		 * device must be resumed first to avoid an asynchronous SError.
-+		 */
-+		pm_runtime_resume_and_get(inst->dev->dev);
- 		ret = wave5_vpu_dec_set_eos_on_firmware(inst);
-+		pm_runtime_put_autosuspend(inst->dev->dev);
- 		if (ret)
- 			return ret;
- 
-@@ -1797,11 +1805,22 @@ static void wave5_vpu_dec_job_abort(void *priv)
- 	if (ret)
- 		return;
- 
-+	/*
-+	 * job_abort() runs from the STREAMOFF path and may be called while the
-+	 * device is runtime suspended. Setting the EOS flag talks to the
-+	 * firmware (send_firmware_command() accesses VPU registers), so the
-+	 * device must be resumed first; otherwise the register access faults
-+	 * with an asynchronous SError.
-+	 */
-+	pm_runtime_resume_and_get(inst->dev->dev);
-+
- 	ret = wave5_vpu_dec_set_eos_on_firmware(inst);
- 	if (ret)
- 		dev_warn(inst->dev->dev,
- 			 "Setting EOS for the bitstream, fail: %d\n", ret);
- 
-+	pm_runtime_put_autosuspend(inst->dev->dev);
-+
- 	v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
- }
+@@ -1663,9 +1663,13 @@ static void wave5_vpu_dec_device_run(void *priv)
+ 		} else if (!inst->eos &&
+ 				inst->queuing_num == 0 &&
+ 				inst->state == VPU_INST_STATE_PIC_RUN) {
+-			dev_dbg(inst->dev->dev, "%s: no bitstream for feeding, so skip ", __func__);
+-			inst->empty_queue = true;
+-			goto finish_job_and_return;
++			wave5_vpu_dec_give_command(inst, DEC_GET_QUEUE_STATUS, &q_status);
++			if (q_status.instance_queue_count == v4l2_m2m_num_src_bufs_ready(m2m_ctx)) {
++				dev_dbg(inst->dev->dev, "%s: no bitstream, skip\n",
++					__func__);
++				inst->empty_queue = true;
++				goto finish_job_and_return;
++			}
+ 		}
+ 	}
  
 -- 
 2.43.0
