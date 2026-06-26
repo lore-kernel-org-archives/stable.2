@@ -1,63 +1,63 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7B73B1018
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 19:33:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5E11A9FBD
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 19:33:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782502429; cv=none; b=FhNTv5Zr2+Bue5e1qH8tt9w4dMK+bE+gLYihEdlyK0VrSb4v7A4wEXh7eS0iNIOfJjKlI60v52KoYulXdrJrYBo9rsXgA+l28CGe4KslsBSuhl0Rxkzu4/G64yLQC3rkusTa+fElIOp4fhTU5VP5MJ7DTLxV58BphTUJqO5SZzA=
+	t=1782502429; cv=none; b=Cj/h03M+Nnm4hokEI2U5Ts/fPRO6n+I0KvMAZvmBjTUhFcDDnyYHnr9iZkLudqSTENASDGLxXWnf5TQ2/MGGxvFSdWMzriDQW+QK6YMYmjfU8jMyc/DXOoSMSGjkrSgNKOV1kroqLJukcwuUOLJJZdsZTy+0kJCUQceleOsOwXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782502429; c=relaxed/simple;
-	bh=1aF61pLVwkhyDmxu+y7Jvt4YnNuTW7YTT1kuX0MTdh4=;
+	bh=EgylDGt6REjrv2ohzExmpiUa1ZVDA+4pEPlQpsaDNN8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ByJASUFtyA1dtuwzlJvg47AzFX1VmL0zMYlJroTowgHzhH4QGoAgihlu4mCJaYi2LpYYxYkdMjFkTXgG1C3s2iNJgE80NEpAayHqldh2yUHqx7YVunT+KhmEB31gre+cysTC4uweYReJMtIuaEICAItw50WezpxoXDcfwQUrexo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=ZSLwGIRQ; arc=none smtp.client-ip=209.85.128.47
+	 MIME-Version; b=TeEyQAMU6AADcF7uA02OAyuXWNCzNFZU4shAaC0FKa8DVeaM+H0vG3cg/++6JkvoKxElvFa0dEfylDXaTdal8W83E8BJ487d74VsERL45shTu9r0MnuZ0kBTH1TpEIgjmj/gy4W1iMm17KPtFtXoAzJYH8qt44/POCS93Ac86OA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=bwFrO8Mq; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="ZSLwGIRQ"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490d6730461so1454995e9.3
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 12:33:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="bwFrO8Mq"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-46214219a18so164122f8f.0
+        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 12:33:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1782502426; x=1783107226; darn=vger.kernel.org;
+        d=ionos.com; s=google; t=1782502427; x=1783107227; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tscyMXQH7lQBk6kT/SnymoBViyC3tILcGbLnRKrcFsM=;
-        b=ZSLwGIRQeZF26pFZVm1+bXhuJntHudXqz9wSpZDXmM1jzuTluA6018EjdAbu8zQFWD
-         n4V01WAZAGtVpacm/qA9stjZGbAeWSMmRBhhwbgL4m0OY7+HbUj1ZWneO0wDNhJ04oOm
-         tzmK9ToifCs2gMIn1hvpOVlOxt3nFCSjACH9U9WHwktJkmRpGTnmIq+2rg7pL9fMhWvj
-         MAspyLGZMvtmsZlsfjBD8J1ZLWMlhvyJ1aYa0cAITDaV84kvuLd7I2Pp6zaQd41+zTtH
-         I8d93Lxh7D0oE1EFXDf/SeywtkUKEiF+/Wl6jhQwtRyM2e+P1SW3c3xUyvEd6EYdf/hW
-         W+2w==
+        bh=alpDCrJ/uEx56epV6zIsJxCtfTLLRAHqL/mlvwslCeU=;
+        b=bwFrO8MqMtnhp4Udag+9O/KiGX1B44Fg8T5c6brDs1QTjbV3wWxgER4brBa7+qM7np
+         poZAvERR4TA97i2T/0MEOsh7REyAXgrDU2ZgXjMew+Y9I0msXQQieim+ZQv8a7bTcGV+
+         szuITpw+0cuyNQbfRdKP7Ap1dBd/X/T6k6GDxc7vTFnvv48iO+GtQxYqY8rzDBe3eNjX
+         GsRCLDaB6ZRwVSk33dPJgtwoe6IryZ4IVtyRtadofs6oZf8DzpWMrECnzOICsu+ewFHV
+         c8G2OR/MNL0JI1PZcIlR2db90Qo2RdY6NBAjlyZWXyHi1/qwClU2/m6Bd1xPhjUJRboj
+         WZzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782502426; x=1783107226;
+        d=1e100.net; s=20251104; t=1782502427; x=1783107227;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tscyMXQH7lQBk6kT/SnymoBViyC3tILcGbLnRKrcFsM=;
-        b=YiSINtED3N8N9X4dE1BtnzoriUtC4GZrR694JmvRaL17lYi69zVGuO0Isi4/5v75ZT
-         0EJyYS1fNWve2f+2hBr6yh6O7NEv3AO8X4M/gFVwse9kgLgjXeg6dFMn78MLq1p9kK5X
-         sDehVM1m/rT9L+j1p0AYqQuDqw7jvGnpBFOC2vdAm6dectY2NWEovBBfm0Z4pHcCN7oK
-         8WZKQb/2FfjwkmHf1moAYIm+/tLrYlaZuK+3Bkoe7s2ZYKbuBid2BRvAcDqIs4O0TM8+
-         2fiA7tCluKXJwp7Sfrh8apNR3hqInKYqE1iUlyMbZJgS0Cfuqqyau3WGrSheDCFO/r+/
-         /bug==
-X-Forwarded-Encrypted: i=1; AFNElJ9yGho+3TODqjGMKio6XK/qOK82F1yySWqWdr9WZwaAbmhmQVr8uPsAZTV68J+vdnpT2kbNn/Q=@vger.kernel.org
-X-Gm-Message-State: AOJu0YymkvHZ9yqVsEPv2fwMk1q7j5NfqetjwwGQyLHBf+Btx4k09g4h
-	WdWUMBW7KtTMEW3EgLfrfNK1XH2UeRF/LWXq/yCkx3jHaS+Tus25x7LDJulX87LwkWE=
-X-Gm-Gg: AfdE7clzFStgTwkF3H8HM/5Qw3U5XidC4ItqH9bT+KM9U3KNMYzHuG/knZFoGZqNgzo
-	O91CIC3AC/xERga1sYYsc0nwqy1ADmAlwGfx3uQcsdhTYXLFLPk8YsAaSPT/0VbBzc5CzIK3ZR5
-	95xEk6nenCeP42s0dUgQwE0ip7rzLRvi7PvNT11Xqo5VyG74DiqKExXrgJP6QhIEjmCyXs6ywlJ
-	BIwElUJeQZlC6S97c0HFanTZb8B/x7UgWyP6UnIxPvMRhCpNtGkuQTYrHOq3YoKTdtHB9UFNF9n
-	7sbcL2SHfO5RyOXAM7EPwdCoIn7DbOs+w2HlHXcNHpliMe8IgpEJWaRzaXo6uXnIYz9jYMsIFuf
-	PZ1peVz6SO6bOPWAXKoabYQE3IRzviBGLyspJc1JD1rCX4IqDD/8TnBabJHa7c70oNsno54c8Qj
-	Wr3x2n/dIHH7zBvecAPDAFdFRI+hbq35hGZ4SqdaE3Xezh
-X-Received: by 2002:a05:600c:a00c:b0:492:6e72:eee with SMTP id 5b1f17b1804b1-4926e720f83mr25214315e9.3.1782502426090;
+        bh=alpDCrJ/uEx56epV6zIsJxCtfTLLRAHqL/mlvwslCeU=;
+        b=cnKUuo8vr4sbOJX4BI16rMsatQRgHCsOn0A8O+vUP8U6ikxcfOX2XaNRZniXHaBGNQ
+         tCIPnY2qGl2Fm01PttTp6U5Ub+uzQqtU/H+AAbHILfrCRimCKJON2iyWig7CI4g1fw8R
+         D+UFc8mWoJHW9KCBvwF5ScsUYw4yPJZqFIX8400YLngIA8SMvp674O0hdFB52YrrzBzT
+         CfVjiGEiYPMxft18wZPIyoylclHAlJQso9RVq79SGvARR8Z2NmcYhfTcRdxzjjKCtqNL
+         mET6kXz/NgDCFstvLAo0eS5QrYm6w1qDOP22uxlce1TLLtd9yPoWFhe+GsVdbVjgKX80
+         u7eQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9Vug5ZZc7PkuhseOjqbNNAzeJRFIlruzKQ+6Da7eB6ahWinT7OYCo6UXYgrW7wLVE4gbsHaig=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyH6B5xgG7vVGlew+0O+3YuE89yb+N1gUpqARuTIxbbXHTr7zux
+	pbdqWC+2mPf63IrMZpD4JN4U4KtnGeSZM6j5L8/ci0T08Gb8QtY8HsmIm2kJbvTOwdA=
+X-Gm-Gg: AfdE7cnW7IRIIxoL7SDQIp2EzNTbyEY4e+xWFQP7VepaPDipk9C+mnsWpbbXb3OkgRH
+	4oQu74mLOuPvmmYCAyq9bkw2MzBoWLQXfO95ACqMIJNoVSbddeTl4gVo3KjXdPy+zffJxFEJT20
+	dt+FLWl10qjdA1IGAQYRUW+Ua/wjIi6CpmLkrJtpfYoVA646MJqiWEoOi8iQG5XKtsnGo9Okd7M
+	SZWW0h+otCy/X83NefLeUN36cPAct9RMPTHae1hWtWVGWZMJ0gvAWEiIVY//ruQVZcD2GZd4A0K
+	hFd4nDA5tEftVQTaFWYYM1Vgx/fDM2fIn7wjgUydB2iEJloxOeqZXu/ATTSLK0Pqo26ADUG0QWX
+	Pwn8sJ+wAOMPV9kptktUYs1+rLVeiuZ6FACr8c9vgX8XgDP9+R/HKQ9fjX2+wMKR2EWPdTipQI2
+	5GErmRMhTHm9e4UFc3693scJU7Rzwx4Y1Pjk9ycfSw+ium
+X-Received: by 2002:a05:600c:a208:b0:492:6a5f:7acb with SMTP id 5b1f17b1804b1-4926a5f7b07mr21890895e9.7.1782502426742;
         Fri, 26 Jun 2026 12:33:46 -0700 (PDT)
 Received: from jwang-ThinkPad-T14-Gen-6.fritz.box ([2001:9e8:144d:e00:98f2:1188:3abe:e8d9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49268fde98csm108291345e9.6.2026.06.26.12.33.45
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49268fde98csm108291345e9.6.2026.06.26.12.33.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 12:33:45 -0700 (PDT)
+        Fri, 26 Jun 2026 12:33:46 -0700 (PDT)
 From: Jack Wang <jinpu.wang@ionos.com>
 To: gregkh@linuxfoundation.org,
 	sashal@kernel.org,
@@ -65,9 +65,9 @@ To: gregkh@linuxfoundation.org,
 Cc: Sean Christopherson <seanjc@google.com>,
 	Tom Lendacky <thomas.lendacky@amd.com>,
 	Paolo Bonzini <pbonzini@redhat.com>
-Subject: [stable-6.12 v2 2/3] KVM: SEV: Reject MMIO requests larger than 8 bytes with GHCB v2+
-Date: Fri, 26 Jun 2026 21:28:55 +0200
-Message-ID: <20260626193343.256956-3-jinpu.wang@ionos.com>
+Subject: [stable-6.12 v2 3/3] KVM: SEV: Ignore Port I/O requests of length '0'
+Date: Fri, 26 Jun 2026 21:28:56 +0200
+Message-ID: <20260626193343.256956-4-jinpu.wang@ionos.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260626193343.256956-1-jinpu.wang@ionos.com>
 References: <20260626193343.256956-1-jinpu.wang@ionos.com>
@@ -81,57 +81,50 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-commit dcf1b2d4b0564a27e4ca7c654871aab4f9620046 upstream.
+commit 3988bd2723de407ae90fa7a6f6029b4e60238c58 upstream.
 
-When using GHCB v2+, reject MMIO requests that are larger than 8 bytes.
-Per the GHCB spec:
+Explicitly ignore Port I/O requests of length '0' (or count '0'), so that
+setting up the software scratch area (and other code) doesn't have to
+worry about underflowing the length, and to allow for WARNing on trying
+to configure the scratch area with len==0.
 
-  SW_EXITINFO2 must be less than or equal to 0x7fffffff for version 1 and
-  less than or equal to 0x8 for all other versions.
-
-Fixes: 4af663c2f64a ("KVM: SEV: Allow per-guest configuration of GHCB protocol version")
+Fixes: 291bd20d5d88 ("KVM: SVM: Add initial support for a VMGEXIT VMEXIT")
 Cc: stable@vger.kernel.org
 Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260501202250.2115252-4-seanjc@google.com>
+Message-ID: <20260501202250.2115252-5-seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Signed-off-by: Jack Wang <jinpu.wang@ionos.com>
 ---
- arch/x86/kvm/svm/sev.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ arch/x86/kvm/svm/sev.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 0a01971e33f0..497a6e705135 100644
+index 497a6e705135..73e493177351 100644
 --- a/arch/x86/kvm/svm/sev.c
 +++ b/arch/x86/kvm/svm/sev.c
-@@ -4350,6 +4350,13 @@ int sev_handle_vmgexit(struct kvm_vcpu *vcpu)
- 		if (!control->exit_info_2)
- 			return 1;
- 
-+		if (to_kvm_sev_info(vcpu->kvm)->ghcb_version >= 2 &&
-+		    control->exit_info_2 > 8) {
-+			ghcb_set_sw_exit_info_1(svm->sev_es.ghcb, 2);
-+			ghcb_set_sw_exit_info_2(svm->sev_es.ghcb, GHCB_ERR_INVALID_INPUT);
+@@ -4459,6 +4459,11 @@ int sev_handle_vmgexit(struct kvm_vcpu *vcpu)
+ 			    control->exit_info_1, control->exit_info_2);
+ 		ret = -EINVAL;
+ 		break;
++	case SVM_EXIT_IOIO:
++		if (!((control->exit_info_1 & SVM_IOIO_SIZE_MASK) >> SVM_IOIO_SIZE_SHIFT))
 +			return 1;
-+		}
 +
- 		ret = setup_vmgexit_scratch(svm, true, control->exit_info_2);
- 		if (ret)
- 			break;
-@@ -4363,6 +4370,13 @@ int sev_handle_vmgexit(struct kvm_vcpu *vcpu)
- 		if (!control->exit_info_2)
- 			return 1;
++		fallthrough;
+ 	default:
+ 		ret = svm_invoke_exit_handler(vcpu, exit_code);
+ 	}
+@@ -4479,6 +4484,9 @@ int sev_es_string_io(struct vcpu_svm *svm, int size, unsigned int port, int in)
+ 	if (unlikely(check_mul_overflow(count, size, &bytes)))
+ 		return -EINVAL;
  
-+		if (to_kvm_sev_info(vcpu->kvm)->ghcb_version >= 2 &&
-+		    control->exit_info_2 > 8) {
-+			ghcb_set_sw_exit_info_1(svm->sev_es.ghcb, 2);
-+			ghcb_set_sw_exit_info_2(svm->sev_es.ghcb, GHCB_ERR_INVALID_INPUT);
-+			return 1;
-+		}
++	if (!bytes)
++		return 1;
 +
- 		ret = setup_vmgexit_scratch(svm, false, control->exit_info_2);
- 		if (ret)
- 			break;
+ 	r = setup_vmgexit_scratch(svm, in, bytes);
+ 	if (r)
+ 		return r;
 -- 
 2.43.0
 
