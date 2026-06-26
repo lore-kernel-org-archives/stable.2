@@ -1,38 +1,40 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7504B3CE0AE;
-	Fri, 26 Jun 2026 13:19:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796F3369D64;
+	Fri, 26 Jun 2026 13:23:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782479995; cv=none; b=gOrrTq9tlsatLxi0jhmrQwggojS3dDUOjfTc5WP+cROhrJaDc7mNPRJ9HnELNwhDTNqMCY3HWhaRuUKHADDBh1JUtPD/rqWUg1QLk0ybGyrj0kIvzziI8oNTmzCvsDgC2myzwViGhW1BXynuWboXbWwE19AnyFr2+mM488IiHkY=
+	t=1782480190; cv=none; b=fdxQxEkJABDrgPV01KhvoWONPpfdfoW3XyXTVQUPRJE2gjLXNDD1eSNEXpMmSvCw7CmY0PbsT1n6qYBVin/JTuAjuEqkUMgxrJfDsKsLQnNlbnKYnTUKa8Xx4JApn/ltXXZiIbhvjkxJEXOGUUdoRBaoISXnhboFjAYOxTFLTT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782479995; c=relaxed/simple;
-	bh=4y8wUcGKIweeu0hn0uqjOp8CjSx9yjvRdoPJebgYLuc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CJWbzAGGysrr6/Q/gshX2/pGWQ+NBW8TwiHuMtAznKPhkIAs06dbGENTAldvQamFlJdUwaAepIEMQl25EWCuucRlyTGWs1nC31Nm5GWaDU8lYRQ6PHNJcOD39XJykDUlg2NdxnGRC0VC4ltIv/0djD865d4KH0DwJhZ9xiwlwy4=
+	s=arc-20240116; t=1782480190; c=relaxed/simple;
+	bh=Au/m1wuC5g5C048DzsZASpMRcOg6hzQNcX0wuLCuOjg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mrTlNCSI9k8BVDfR5ev8uQQh2ss1sHTuQ5TNwWfmrfCjXj8qS0tJ1v62TaT+mdCeFfc1fDVmqOQDFopsBGeUFVw73OW9DOf/lrixzKpyFmsCvn3YSu0e4cpGXKurTBo2kwoMxqi5sfooVSKPVdBfjPPs/POfFzPlBN4bLJRl5Ck=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-05 (Coremail) with SMTP id zQCowACX_uFvfD5qFxJqFQ--.11251S2;
-	Fri, 26 Jun 2026 21:19:45 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowABn8QQtfT5qxTFqFQ--.11227S2;
+	Fri, 26 Jun 2026 21:22:54 +0800 (CST)
 From: WenTao Liang <vulab@iscas.ac.cn>
-To: xinliang.liu@linaro.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
+To: jani.nikula@linux.intel.com,
+	joonas.lahtinen@linux.intel.com,
+	rodrigo.vivi@intel.com,
+	tursulin@ursulin.net,
 	airlied@gmail.com,
 	simona@ffwll.ch
-Cc: sumit.semwal@linaro.org,
-	yongqin.liu@linaro.org,
-	jstultz@google.com,
+Cc: vulab@iscas.ac.cn,
+	christian.koenig@amd.com,
+	kees@kernel.org,
+	tzimmermann@suse.de,
+	matthew.brost@intel.com,
+	intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] fix: drm/hisilicon: kirin_drm_crtc_init: premature of_node_put leaves   crtc->port as dangling pointer
-Date: Fri, 26 Jun 2026 21:19:42 +0800
-Message-Id: <20260626131942.38072-1-vulab@iscas.ac.cn>
+Subject: [PATCH] fix: drm/i915: __live_active_setup: kfree bypasses kref_put in early   error path
+Date: Fri, 26 Jun 2026 21:22:52 +0800
+Message-Id: <20260626132252.38377-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -41,52 +43,51 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACX_uFvfD5qFxJqFQ--.11251S2
-X-Coremail-Antispam: 1UD129KBjvJXoWrtFWxur1fKFyrCw17tFWUArb_yoW8JryfpF
-	W7urWayry5A3yftFyjkFy29FWYka1UtFZ7uF1xCw1avrs0vFyUJasIvryvqF98AryxJaya
-	vr4kta13Zr18CFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
-	nIWIevJa73UjIFyTuYvjfU5iihUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwsKA2o+TTuNqAAAsC
+X-CM-TRANSID:zQCowABn8QQtfT5qxTFqFQ--.11227S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruF4kWr1xXw1rtw48Gr4DJwb_yoWkGFcEkr
+	Wjvrn7XrW2yF1q9r1fCrs8XFyak3W8uF4xtwn7Ka43tryIyr4jvrZ3ZF18J3W7WayUtFy2
+	q3WDZF4DAr17WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb3kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUyMKtUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwsKA2o+TTuNwAABsr
 
-of_get_child_by_name acquires a reference on the port node, but
-  of_node_put is called before crtc->port is assigned. This releases the
-  reference while crtc->port still holds the pointer for later use by
-  drm_of_find_possible_crtcs. Fix by moving of_node_put after crtc->port
-  assignment.
+When heap_fence_create fails, the early error path calls kfree(active)
+  directly instead of __live_put(active), bypassing the kref_put path that
+  would call i915_active_fini for proper resource teardown. This skips
+  cleanup of the i915_active state while the initial kref from kref_init
+  remains unbalanced.
 
 Cc: stable@vger.kernel.org
-Fixes: 89a565dba1a0 ("drm: kirin: Move ade drm init to kirin drm drv")
+Fixes: 5361db1a33c7 ("drm/i915: Track i915_active using debugobjects")
 Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c | 2 +-
+ drivers/gpu/drm/i915/selftests/i915_active.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
-index 8a11c2df5b88..cc453b29b22c 100644
---- a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
-+++ b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
-@@ -53,8 +53,8 @@ static int kirin_drm_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
- 		DRM_ERROR("no port node found in %pOF\n", dev->dev->of_node);
- 		return -EINVAL;
- 	}
--	of_node_put(port);
- 	crtc->port = port;
-+	of_node_put(port);
+diff --git a/drivers/gpu/drm/i915/selftests/i915_active.c b/drivers/gpu/drm/i915/selftests/i915_active.c
+index 9fea2fabeac4..8ec7859da762 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_active.c
++++ b/drivers/gpu/drm/i915/selftests/i915_active.c
+@@ -91,7 +91,7 @@ __live_active_setup(struct drm_i915_private *i915)
  
- 	ret = drm_crtc_init_with_planes(dev, crtc, plane, NULL,
- 					driver_data->crtc_funcs, NULL);
+ 	submit = heap_fence_create(GFP_KERNEL);
+ 	if (!submit) {
+-		kfree(active);
++		__live_put(active);
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 
 -- 
 2.39.5 (Apple Git-154)
 
