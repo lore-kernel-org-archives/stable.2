@@ -1,275 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1AD73B6370;
-	Fri, 26 Jun 2026 11:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782473516; cv=none; b=CXrISF6iF7qFngvSxeAk5tyeor/MPyzyiU56BQWaLGt+NvVGKV3GKCib83EjE5cg/skbCclmyNa3k3nI5sfoLPx3nSNf0u1iQ5h6IKn4ZSs6ZgOYE7r4sjHgaMkKK+oV0rm/Bzu0f0nGWTPgN4VjszqJDCKf77ham+72/Jt8QH0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782473516; c=relaxed/simple;
-	bh=XRNLI0fgDANw2J1gCabWdCoiE9Qe2rNgek/+SQQDsQM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mNnx5Sof6QXd6Eto/rwN8GKRQ6RHaudbOGpObwmo3inx90+5Hjcf/GUP5GYl3lGMwgoytMwYw2Km8HhS7X+kQAusWbZ6bI7W+UYSg0meebWo/ALE+wMjHg1HVx5R8A3USdK59eIEu2TpQ8DPgVC9/rAqBhuYg7ZC6z8G6103C0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DASHT9KJ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA5F3E5A11
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 11:35:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782473738; cv=pass; b=odkIPvI+nDb5q0lT4xlIjz2AORKttUUyDokWPw/EB/MqrlgDS9uolwVB3xXicAGWXOUk0hcbaLpHTzddanNm0OVHiEWuvnPLLXgcogcSvHUB53X2M98qfkDtXOXkQeRiGo2kPIoF7zZ5O/orug99DR8OXgNdR3HeUeo3ymCJ6ks=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782473738; c=relaxed/simple;
+	bh=Rxn+mtVvN3Y7QxGK90T8elQRrDVsU9c8naA3aeDQiu0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IgODTm7OZhm3qkVgzZeI3+ms1KfFSl0rAC2MLv+lgQYuYTncwa5c+dn8MFwfeJDikMp20TgU3p8AG4v9QLA7a54Ikva8JGa8ftfcJ6H4JxOZK/iW2Wb9w5328njRcr/9Dh6CiSe6miPxH6ttgKWeZvYJw/0o2VjKIt7DlbTkgw4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VkNkY6L7; arc=pass smtp.client-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DASHT9KJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18F3E1F000E9;
-	Fri, 26 Jun 2026 11:31:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782473515;
-	bh=yXNMlFvQpQEhVOSE6W4KHuY5nfj10CNnD+tcN4AITD8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DASHT9KJdoV1oSrMo9dfIFwRJcr9M/y2wVWgR0pPxmHuHPaEV4U0YMehk9EzZXjZj
-	 ID5wUMJmxBxYC/f0YA4s0hTzql53FvCWOf5Z7K8DMb6mikXt7bEpHr2mn0ICKb7gQN
-	 zbsy+oAtwZd23G/IDzWxcBznyngSU2cx/Ff0Jw9m8BrNabEP6W57YoOV2ICKj5VZn0
-	 JTQyE0Nuo5XGFJk/zDDA/99o5XfPoPm2cEcKgYm2xaz8i1BRZcYtTH6Ypepx5/OlJP
-	 F1bQCC6H+6DyvHXOcEQVW26rXuBOZzAMsd0i7QAMWo7JS/a2+bltrp68yQ9jCgbHSN
-	 I48MO+HIe9X+g==
-Message-ID: <f9290e0c-0841-4b02-baf7-8f03c4cf800e@kernel.org>
-Date: Fri, 26 Jun 2026 13:31:50 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VkNkY6L7"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5aea0fff535so931070e87.3
+        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 04:35:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782473736; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hbgMASps1z4ZGMSRS4yxu/uBwhQjshjcvhevmik6O2dHOsEu+nzS9a7fZq+4BdCBFq
+         SQux0094ZeoD34NHuznrWAozgtQbbX6lduladFhp/bm7HoEFb2CLl5TAeF5EeYHsy+md
+         nkxHZysyYxZmlBxBaoRULgejwagElrOnj3gmwIPEVMZqEIiSeT/fw1RIWeEcra0kgZBa
+         EB/Hgj5xEvavqiEFyT4N797eLxLJJvgPO7oRnXdPriq65UfVc5idfVa11ecXjxFcOUg7
+         aREagLTQusDSxCN2NVO7wUY9lU9lvM1CBuz1B97lJbtzueatNogNKS6PBvfUKz/1Flys
+         cVFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ayvyuM9q4TQVTTnyXokuwNJ9w3R2Smu2UIPkUGwjdlI=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=TNYFDiNEuFJGUmR/hVVyFbQdwjidbwsUNI6mjEYZNysYQf2Ig/7hH1tBiYVNIrGTXY
+         s4Ah4lVMH0Th5LYnL1dFp58YUyEu/1zdyLJuASj3GwX0ZHm9aosy/oFpM9eXIWua29vf
+         6ximK+UwkIGj2yhMu8lRDr+LRiYJdPeD63TJM45L7Kp8PZDB0MsAueJjCusyB7LfCvP7
+         15jKfdZfIhaJU6XiflFchDjW6vAha1eVnT+19PJHf1Ftclxqvf1sUWZezjaPnS2cUo9f
+         NxzzkuO3e7/gPRNWyITVkIS1zkAIhBorOqbP4NGhuTNsC+nJrDyRqB4/P3US6XpMTVl1
+         yZWQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782473736; x=1783078536; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ayvyuM9q4TQVTTnyXokuwNJ9w3R2Smu2UIPkUGwjdlI=;
+        b=VkNkY6L7pM6VXmy6acjKOIn/m3B2XVnygKrkpAeB/nbrh3eDOvTvolvD/Mq8PYQGoU
+         6PiIJlfzzj1/Xi3pPEyCZa3lYYWcuMxPek9EdsT/ZVfu7QjabYIvTwLh5pB1SozQyFce
+         lKn1p7ZU8vN1I4ddgFsxW8mwwE83gc8alKAcRh3vjf3eY8IVN2QEFo0+S3wJXeSh3oRh
+         Iz4XwNkGKrU9DNMqbqRaFhOglmB2VVlklxVGrsy3oOs6Qk2dzR5aQqCLlDY+e0XSiEaA
+         5HZzi+CzEkPJvhOqMy1/lELkBVye3RlR5xcv9i+JqUX5YZDciAHQnFwklJuvutRbPDBK
+         HvHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782473736; x=1783078536;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ayvyuM9q4TQVTTnyXokuwNJ9w3R2Smu2UIPkUGwjdlI=;
+        b=AFWvfc1RTltNGjDcGtzjNFSLS0XuiAbvBoLzU/fGHP5koPWivHG6MUTyRFeErcEyHX
+         RjB/hRv6BSukYQ85Teur3TzRapokmk4YqxUqKW0//wtu4r6J8Pa44ZgtBLRPv9P7dqie
+         bWuoQFZ9tfBdC5hb3xYF+2/vPgtXEfpuQigXsWcrge/sjqzZkqlTwo6UqaMtigo0DDeX
+         fXfGgjdvRRbH6ZYGiw664q07fGhpSHiZXUOCwBYXVHVUuiouyQbtD8A44iadrfPL1u70
+         ykmnXj3f0pUAzCwOswXn5Qu0mNx1m+M5xjD/8oKlt1upoQl8+VpHKC68839oGrKB+167
+         v/zQ==
+X-Gm-Message-State: AOJu0Yxs5Catz1ekVQI1lZfo80H2+WtlNuXE+6iUN2vd/XFwi3AyWtW4
+	QDB7jqdMVDC3Xniz9N7VKt6w/TTFDYrlh/m5l8PJmr6QJ3MIHG8PSCJteh9dQ9vPrLys1H3hDvh
+	50ua+1N6CpyzkFsc5kgbTM2mQ8WqbwLgtskDG
+X-Gm-Gg: AfdE7cn8MfC7cbDHOLO/cjMNeC8D2elqVjFddOJhLeqVnhpLZEopm1YDj1qSuQsyPo/
+	f9aJJoaBxV0saPOoO8+hEUVndAdOFQYRmoDRsh1zUcc7jBRx6gKxKJIZ6R3EhUJbVN2GZo42RRq
+	MNLMYOr7/WcNj7afmcIyPkTxoTSyxTuzki10ZedqrQRvMB/N02w4uohHwCAzm8H2E4zu5F8PxiK
+	z1pn/DdUpj4dODa+ak4UMgOTna1GQbh+xEoE6L0I+92GS/EX4lNxD7w7O2yGxEPgzADKIzdXCG9
+	LWFgbApBNlbGrj2tuXSComEoX7XAOg==
+X-Received: by 2002:a05:6512:8056:10b0:5ad:3035:c2be with SMTP id
+ 2adb3069b0e04-5aea1f564b3mr1482278e87.51.1782473735324; Fri, 26 Jun 2026
+ 04:35:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch mm-hotfixes v4] mm/page_vma_mapped: fix device-private PMD
- handling
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Wei Yang <richard.weiyang@gmail.com>, akpm@linux-foundation.org,
- riel@surriel.com, liam@infradead.org, vbabka@kernel.org, harry@kernel.org,
- jannh@google.com, ziy@nvidia.com, sj@kernel.org, balbirs@nvidia.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Lance Yang <lance.yang@linux.dev>
-References: <20260624065353.1622-1-richard.weiyang@gmail.com>
- <d060cadd-34f8-42da-b7f7-c8d295050436@kernel.org> <aj5XVwsQ4rOLTzr5@lucifer>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <aj5XVwsQ4rOLTzr5@lucifer>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260625125613.243729608@linuxfoundation.org>
+In-Reply-To: <20260625125613.243729608@linuxfoundation.org>
+From: Dileep malepu <dileep.debian@gmail.com>
+Date: Fri, 26 Jun 2026 17:05:21 +0530
+X-Gm-Features: AVVi8CfsdNoBWQSE0v-Hs5YLIHWBrb_3kjwmFWlET_3LOf1qtneq7ecokT3qaT4
+Message-ID: <CAC-m1rq+6Fx3AARN=bDTLQ+oGV74mAdRCtq_iAtw86Qu_c9RUQ@mail.gmail.com>
+Subject: Re: [PATCH 7.1 00/21] 7.1.2-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/26/26 12:42, Lorenzo Stoakes wrote:
-> On Fri, Jun 26, 2026 at 12:07:56PM +0200, David Hildenbrand (Arm) wrote:
->> On 6/24/26 08:53, Wei Yang wrote:
->>> Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
->>> device-private entries") introduced the concept of device-private
->>> PMD entries, but did not correctly update the rmap walk code to
->>> account for them.
->>>
->>> As a result, when page_vma_mapped_walk() encounters device-private
->>> PMD entries, it takes no action other than to acquire the PMD lock
->>> and exit.
->>>
->>> However this is highly problematic for two reasons - firstly,
->>> device private entries possess a PFN so check_pmd() needs to be
->>> called to ensure an overlapping PFN range.
->>>
->>> Secondly, and more importantly, if PVMW_MIGRATION is set the
->>> caller assumes the returned entry is a migration entry, resulting
->>> in memory corruption when the caller tries to interpret the device
->>> private entry as such.
->>>
->>> In addition, commit 146287290023 ("mm/huge_memory: implement
->>> device-private THP splitting") allowed device private PMDs to be
->>> split like THP mappings, but again did not update this code path.
->>>
->>> As a result, we might race a PMD split prior to acquiring the PMD
->>> lock.
->>>
->>> This patch addresses all of these issues by invoking check_pmd(),
->>> ensuring PMVW_MIGRATION is not set and checks whether a split raced
->>> us we do for PMD THP and migration entries.
->>>
->>> Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
->>> Cc: <stable@vger.kernel.org>
->>> Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
->>> Suggested-by: David Hildenbrand <david@kernel.org>
->>> Cc: David Hildenbrand <david@kernel.org>
->>> Cc: Balbir Singh <balbirs@nvidia.com>
->>> Cc: SeongJae Park <sj@kernel.org>
->>> Cc: Zi Yan <ziy@nvidia.com>
->>> Cc: Lorenzo Stoakes <ljs@kernel.org>
->>> Cc: Lance Yang <lance.yang@linux.dev>
->>>
->>> ---
->>> v4:
->>>   * refine subject and commit log based on Lorenzo's suggestion
->>>   * put pmd device-private entry handling in its own if branch,
->>>     suggested by Lorenzo
->>>
->>> v3:
->>>   * remove cleanup part, only fix the issue for device-private entry
->>>   * refine user effect description based on Lorenzo's suggestion
->>>
->>> v2: https://lore.kernel.org/all/20260616063436.20455-1-richard.weiyang@gmail.com/T/#u
->>>   * specify the possible error case of current code and user visible effect
->>>   * besides fix, cleanup the pmd entry handling based on David's suggestion
->>>
->>> v1: https://lore.kernel.org/linux-mm/20260508013728.21285-1-richard.weiyang@gmail.com/
->>> ---
->>>  mm/page_vma_mapped.c | 20 +++++++++++++++-----
->>>  1 file changed, 15 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->>> index 2ccbabfb2cc1..17dff8aab9f9 100644
->>> --- a/mm/page_vma_mapped.c
->>> +++ b/mm/page_vma_mapped.c
->>> @@ -269,14 +269,24 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
->>>  			/* THP pmd was split under us: handle on pte level */
->>>  			spin_unlock(pvmw->ptl);
->>>  			pvmw->ptl = NULL;
->>> -		} else if (!pmd_present(pmde)) {
->>> -			const softleaf_t entry = softleaf_from_pmd(pmde);
->>> +		} else if (pmd_is_device_private_entry(pmde)) {
->>> +			softleaf_t entry;
->>> +
->>> +			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
->>> +			pmde = *pvmw->pmd;
->>> +			entry = softleaf_from_pmd(pmde);
->>>
->>> -			if (softleaf_is_device_private(entry)) {
->>> -				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
->>> +			if (likely(softleaf_is_device_private(entry))) {
->>> +				if (pvmw->flags & PVMW_MIGRATION)
->>> +					return not_found(pvmw);
->>> +				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
->>> +					return not_found(pvmw);
->>>  				return true;
->>>  			}
->>> -
->>> +			/* device-private pmd was split under us: handle on pte level */
->>> +			spin_unlock(pvmw->ptl);
->>> +			pvmw->ptl = NULL;
->>> +		} else if (!pmd_present(pmde)) {
->>>  			if ((pvmw->flags & PVMW_SYNC) &&
->>>  			    thp_vma_suitable_order(vma, pvmw->address,
->>>  						   PMD_ORDER) &&
->>
->> This is extremely hard to review given the existing crap handling here. I'm
->> really sorry, but it makes my head hurt (I'm not kidding :) ).
->>
->> It's completely unclear why we only have to check for a subset of the cases
->> after taking the lock.
->>
->> Could we simply extend the existing migration pmd handling and leave the
->> !pmd_present() case for pmd_none()?
->>
->> That leaves no question to "which transitions are actually allowed", including
->> "could we accidentally assume something is a page table when really it isn't".
->>
->>
->> So what about something like the following?
->>
->> The "thp_migration_supported()" is not required when checking for
->> pmd_is_migration_entry(), as that defaults to "false" when not compiled in.
->>
->> Untested:
->>
->>
->> From 048ecd33673ec649e168fbbb97749a7c0e344fcd Mon Sep 17 00:00:00 2001
->> From: "David Hildenbrand (Arm)" <david@kernel.org>
->> Date: Fri, 26 Jun 2026 12:03:40 +0200
->> Subject: [PATCH] tmp
->>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->>  mm/page_vma_mapped.c | 29 +++++++++++++++++------------
->>  1 file changed, 17 insertions(+), 12 deletions(-)
->>
->> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->> index 2ccbabfb2cc17..ed2a23a90e8dd 100644
->> --- a/mm/page_vma_mapped.c
->> +++ b/mm/page_vma_mapped.c
->> @@ -243,21 +243,31 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
->>  		 */
->>  		pmde = pmdp_get_lockless(pvmw->pmd);
->>
->> -		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
->> +		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
->> +		    pmd_is_device_private_entry(pmde)) {
->>  			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
->>  			pmde = *pvmw->pmd;
->> -			if (!pmd_present(pmde)) {
->> +			if (pmd_is_migration_entry(pmde)) {
->>  				softleaf_t entry;
->>
->> -				if (!thp_migration_supported() ||
-> 
-> Do we care about this? Or is !tmp_migration_supported() -> implies you
-> wouldn't see a migration entry here anyway?
+On Thu, Jun 25, 2026 at 6:45=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.1.2 release.
+> There are 21 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sat, 27 Jun 2026 12:54:50 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.1.2-rc1.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
+> -------------
+Build and Boot Report  7.1.2-rc1
 
-Yeah, I noted above
+I built and tested Linux kernel version 7.1.2 using the default configurati=
+ons
+on both x86_64 and arm64 architectures in a virtualized environment.
 
-"The "thp_migration_supported()" is not required when checking for
-pmd_is_migration_entry(), as that defaults to "false" when not compiled in."
+The kernel compiled successfully on both architectures and booted
+without issues.
+I did not observe any regressions or new warnings in dmesg during boot.
 
-Given that
+Kernel version: 7.1.2-rc1
+Configurations tested: x86_64_defconfig, defconfig
+Architectures tested: x86_64, arm64
+Kernel source: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux=
+-stable-rc.git
+Commit: ecd7772bf73899d9b6c14b7efe6d713949f18e74
 
-tmp_migration_supported() -> IS_ENABLED(CONFIG_ARCH_ENABLE_THP_MIGRATION);$
+Tested-by: Dileep Malepu <dileep.debian@gmail.com>
 
-And
-
-pmd_is_migration_entry() -> softleaf_is_migration(softleaf_from_pmd(pmd));
-
-whereby softleaf_from_pmd() only returns something non-none for
-CONFIG_ARCH_ENABLE_THP_MIGRATION.
-
-> 
-> Maybe worth a VM_WARN_ON_ONCE()?
-
-I think it was primarily a a hack to slightly optimize code generated for
-!CONFIG_ARCH_ENABLE_THP_MIGRATION, not really something for correctness as it seems.
-
-So I think we can safely drop it. :)
-
--- 
-Cheers,
-
-David
+Best regards,
+Dileep Malepu.
