@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0424400E1F
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD054028CA
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490353; cv=none; b=ABmq76YwYBuGJJgn8HEHaeXZUOi4YaCimRMkOoiO3F2cn+QHshY7Z87OQ+AfDZNZnUN8uxQ3Utu5c8AdZazVdG1+oj0mkYWtgBDkOr1aTly6WmsdSs/WvJexep0afVeSGLHuj0U4v5INhVxxWlWugMHK5xzpIOT6w++ts4ejLq8=
+	t=1782490353; cv=none; b=c1IF4142Uc/Cj7bZOuzLWvS3+1CAznjXWzMBcBAxzPjQLFzWHR3kNzQ6jlF2kQINwSgSJKw7zmqCDOcqTvsyOo/2q7AP1MB6K8vlydOz0Oz0MNBAuuHps52OgLcHkyKo4LPqgFUV6cE5D3kaH+/biUcTFrIqgpdc0wK6hxhW6I8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490353; c=relaxed/simple;
-	bh=KwmeOmu8Lve+uiaW9VPxF7SkIhbm2rFnlF99usZi/vo=;
+	bh=PXTFLasdbor8sCU1RD8RI4t04idnaIPVCj4SCtEOxDo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=INcvV34sHMTzLC/oJUzpn6bfZ1qNiqrh/5lEYfR81TN5td8OiOj2z8/gDfNvVO+drcbUU6amjnMBFGf5cBtOBXWhjJ/oEPz8zQeLpAAL+s24WkXLkjljPXW5bR6k++WkD4pJzUzdddcWEX9qUSwA6beH7JkiUd42F8xG8uGSxz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=a4WpboWq; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=pmkHsc2pQIc0qFYAgqTR5j6UeYCKrMRk0a+ydiZ7Zcp0M32hvOEnEpYXwq0y9AwIYirEluZ4obuHNoL2cUt2VCiD1dQ1OrhpXaOXqVTv7FWrgafUhgbGBAQiNncQHSgaeEY85BReD9EH8utFnJmKmQlOhbcAflOBm8etZdo+6Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=TcSVzYHW; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="a4WpboWq"
-Received: by dvalin.narfation.org (Postfix) id AA60C20470;
-	Fri, 26 Jun 2026 16:12:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="TcSVzYHW"
+Received: by dvalin.narfation.org (Postfix) id 1C77C2045E;
+	Fri, 26 Jun 2026 16:12:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490347;
+	s=20121; t=1782490348;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wvonG0xnmHuCw9rlakaRh5ml8ICySUw9CemA8d3SwfQ=;
-	b=a4WpboWqmtqwSQeinS2l0KeJ5rSPpFMHnRzsF2cMjh/KSFVNHLPnSgURD6wpzL2nApittd
-	Tb7l2tXNcwmngC4LreZLtVoLU4ydIwLCvNHndbYaruv4UIImw/L6JzDdtjNGOEzKFv/3t+
-	qAnREeApLBJOKfYJist6eU8HAPnV6eM=
+	bh=9OSopJtj7ppYSjnEhqIsscCBXht2wUAZgGyIq+VEtIk=;
+	b=TcSVzYHWZkAAMg9SS9b8R8I1+7zT+SAcLESluc+crPfefmsRJbrcv2akZV8HY1Ty8/h0eg
+	suK3YDUy/4qHO/IzKhFPSE6geAGnqcJZuShR/c1VOUUqq/Q5ztr/IxiL6pSTA/hD304tvA
+	zZyozPIPcekBrjuOBpWtCNRUDweGhys=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 7.0 05/26] batman-adv: tp_meter: avoid divide-by-zero for dec_cwnd
-Date: Fri, 26 Jun 2026 18:12:04 +0200
-Message-ID: <20260626161225.124839-6-sven@narfation.org>
+Subject: [PATCH 7.0 06/26] batman-adv: tp_meter: fix fast recovery precondition
+Date: Fri, 26 Jun 2026 18:12:05 +0200
+Message-ID: <20260626161225.124839-7-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161225.124839-1-sven@narfation.org>
 References: <20260626161225.124839-1-sven@narfation.org>
@@ -45,59 +45,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 33ccd52f3cc9ed46ce395199f89aa3234dc83314 upstream.
+commit 2b0d08f08ed3b2174f05c43089ec65f3543a025b upstream.
 
-The cwnd is always MSS <= cwnd <= 0x20000000. But the calculation in
-batadv_tp_update_cwnd() assumes unsigned 32 bit arithmetics.
+The fast recovery precondition checks if the recover (initialized to
+BATADV_TP_FIRST_SEQ) is bigger than the received ack. But since recover is
+only updated when this check is successful, it will never enter the fast
+recovery mode.
 
-    ((mss * 8) ** 2) / (cwnd * 8)
+According to RFC6582 Section 3.2 step 2, the check should actually be
+different:
 
-In case cwnd is actually 0x20000000, it will be shifted by 3 bit to the
-left end up at 0x100000000 or U32_MAX + 1. It will therefore wrap around
-and be 0 - resulting in:
+> When the third duplicate ACK is received, the TCP sender first
+> checks the value of recover to see if the Cumulative
+> Acknowledgment field covers more than recover
 
-    ((mss * 8) ** 2) / 0
-
-This is of course invalid and cannot be calculated. The calculation should
-must be simplified to avoid this overflow:
-
-   (mss ** 2) * 8 / cwnd
-
-It will keep the precision enhancement from the scaling (by 8) but avoid
-the overflow in the divisor.
-
-In theory, there could still be an overflow in the dividend. It is at the
-moment fixed to BATADV_TP_PLEN in batadv_tp_recv_ack() - so it is not an
-imminent problem. But allowing it to use the whole u32 bit range, would
-mean that it can still use up to 67 bits. To keep this calculation safe for
-32 bit arithmetic, mss must never use more than floor((32 - 3) / 2) bits -
-or in other words: must never be larger than 16383.
+The precondition must therefore check if recover is smaller than the
+received ack - basically swapping the operands of the current check.
 
 Cc: stable@kernel.org
 Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/tp_meter.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ net/batman-adv/tp_meter.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index d3b8f02ca08b1..e4f76c141af3e 100644
+index e4f76c141af3e..77bc69573a562 100644
 --- a/net/batman-adv/tp_meter.c
 +++ b/net/batman-adv/tp_meter.c
-@@ -154,9 +154,12 @@ static void batadv_tp_update_cwnd(struct batadv_tp_vars *tp_vars, u32 mss)
- 		return;
- 	}
+@@ -733,7 +733,7 @@ static void batadv_tp_recv_ack(struct batadv_priv *bat_priv,
+ 		if (atomic_read(&tp_vars->dup_acks) != 3)
+ 			goto out;
  
-+	/* prevent overflow in (mss * mss) << 3 */
-+	mss = min_t(u32, mss, (1U << 14) - 1);
-+
- 	/* increment CWND at least of 1 (section 3.1 of RFC5681) */
- 	tp_vars->dec_cwnd += max_t(u32, 1U << 3,
--				   ((mss * mss) << 6) / (tp_vars->cwnd << 3));
-+				   ((mss * mss) << 3) / tp_vars->cwnd);
- 	if (tp_vars->dec_cwnd < (mss << 3)) {
- 		spin_unlock_bh(&tp_vars->cwnd_lock);
- 		return;
+-		if (recv_ack >= tp_vars->recover)
++		if (tp_vars->recover >= recv_ack)
+ 			goto out;
+ 
+ 		/* if this is the third duplicate ACK do Fast Retransmit */
 -- 
 2.47.3
 
