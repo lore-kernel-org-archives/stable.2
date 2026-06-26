@@ -1,84 +1,105 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429943E5585;
-	Fri, 26 Jun 2026 15:36:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D94376BEF
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 15:36:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782488186; cv=none; b=MVHMmKZzWF01Me7AGyBFXacr/O6WQodQ+fU6SkpntSZV/A36iHUCZrJs6+yrGNWC2dLYr2dZeyJPcnVmkHGge2KwkWDbiqN+x/lJJdCc1IIAnd8WsyH78G9LjN9FLWUWcIUu0oHIP0h5BEGCi1Kl6Fv7Xo4N1Xi9fV/aiJIjfZI=
+	t=1782488196; cv=none; b=K7TObA9YInCUCTnZuR4aJMFtoxPgIE6N+k4zQsa3AnVEkdSJEJkK4+GoW+5W305JA5Q7gk43wQa1tf/2E8eSzh3Mm+xjjR8qYfC/9fLCsoJgWt/Wk/F9TuyvlQ/YuMI4yCRJEzfx1t9Kz/3XuQGE0E9UIOfU0jgR8zSG4O/7kuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782488186; c=relaxed/simple;
-	bh=/lHn2yo7qKCSiurYaJfJnlNQ96+XtgR0fCTpfvQfz3o=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YyIXKGhHbjDBv4CcT9lBRIBIhE/JTUbU9BeKhkcMtL1GP2sshjU0CD+8iNJXTtCsPXH9iiQ7EWRsxJQ5S1EnMNCEk/p+CGaFlcTu2cXYWcaThqnkhD1s5uOQ0cakg0BFjGZxRyCASiu9u4gE1JEB8CAMArgXu7rUXyJYfYXHo0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-01 (Coremail) with SMTP id qwCowAAnwcl0nD5qZHdsAw--.4527S2;
-	Fri, 26 Jun 2026 23:36:20 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: Kalle Valo <kvalo@kernel.org>,
-	linux-wireless@vger.kernel.org
-Cc: Jeff Johnson <jjohnson@kernel.org>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH] fix: ath11k: ath11k_ahb_fw_resources_init: fix device_node reference leak   on setup failure
-Date: Fri, 26 Jun 2026 23:36:19 +0800
-Message-Id: <20260626153619.52954-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	s=arc-20240116; t=1782488196; c=relaxed/simple;
+	bh=XpErQYep/sEYaSMh6bYN8xvmBlCShL1TZsxRcX0CzMo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ce9y1hNLdr90P71kkTtt6DCkcaBPMV/HsWgVb7kGV6uUxuQ4CCo+RhzPip+rHpqZekSgh6avYRsaDbDgR1THbsHe8oUN5OrVNuiy90ndDOS0qzYwS2KmpzEDv62CgWMdEPTk8r07dtCSztvsJeyMv+UY9DX35aAbFy/qzRE4Mkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e16YmHLA; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e16YmHLA"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-46cbe01d4b6so622372f8f.2
+        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 08:36:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782488194; x=1783092994; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=x3wju1nuJQQNOozjS4LCACsNlNv1GsNdXvUWGNBenTE=;
+        b=e16YmHLAWAnFZBnbC8jGevCEtqszVQqblCDqjau8MfOz7Ys6XiStx0Fuf89XIh+6hs
+         HZVNj54D8E5bld4haWxdNW9RmiNLwmsX+JvwWITHzUlpXXFu0E/NiNQp8sn++Z8sj+ot
+         L7O3rDV8Jb8En7MrC6CMrm8zZcB1NXEfABS59AwlNa0ko5ApJYxs+LXlvA1xocBFqNlU
+         FtBwiY+reNBBDCLpxAOtyqK4bkbIAHNRdzRfyIFtvbcGNenoXUe79zE5kyBcI1UmlLiY
+         b6QlcD8gdO8WCqdNnYE6g2QhMM+Tiy5FQS0PsrdpsG4vUuUaerW7m7Xj/JaFrvVl40Mg
+         DBNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782488194; x=1783092994;
+        h=mime-version:content-transfer-encoding:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=x3wju1nuJQQNOozjS4LCACsNlNv1GsNdXvUWGNBenTE=;
+        b=iUKpNAFE3acraCL23amD0D2pai5LDbwV023MaAKZJzsGYfmT0o9ItQxrnFV1soUEDe
+         b7eJplRcPulhKRsmABtcI1PrsDvbr7nQo38aj0IAVtZfCwCVMqFxIcsEygb/EvAGujFk
+         aPBPlEshoCSx/J6Ii/Bz1h8T8ad+YEs6FYTRzSw0XtC1jW4yzod2msbraE5a/eindMuJ
+         IDYoiqqNV65pE394VLimfVzRnb12nTZAfZ+xqVe9Azgp4kmK8i2c1WVtaVTj2uNNJwrE
+         TlvK01MQBCzaEV4mVss4wa5lNjLByzKghLx8dwby4a+dlIeAUXZKwAfiiNnUIeaQIcgr
+         HA2A==
+X-Forwarded-Encrypted: i=1; AHgh+Rr6H+F1nWg++fOfQ0VpxiIPNUMlr3fAdT1ut5JKT8mah4Cm7o0tpJ+s/8renvSqTALsalgicBY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2azZA8Rb6dsvI14f9p6MvPYUaFywyFRbsvLwYceHAVFDS4lPU
+	iNGpfaOdkQ8qCyg6uNaj4B8l3sM580PJm7EP6FetkYP3r6BUJCHTZVQ=
+X-Gm-Gg: AfdE7cmq5oLc6Yr+9vYktkf4rV6lMLVbMIsslhr590jhTvg2GOUDeTvHqQ3yICqkVnS
+	ue63bSncRZgF9KJu/Re8Zv4mgTRW/O6mQBECqGLpcmx/1EWxT6jtcwVtl21K69VQiwzyhK43ZTF
+	Uw1mVrCHje/W790oEtGch6gT5pWI+q1RQ8BrY4jniReQdDOhhXv5l14rwl9B0e+ewGMVpF+eMov
+	WZfSrSxMiIGWeE/q2mwiJaTW7wnWkzDFqOEHLT7ZH/9OFo3Agimor4oTnSKJIxgQbFWQD0cF78h
+	ew898TyuesUhlFO7Dya3EB0QZJA6AMU3EYvJKq3v/Lm2UIneNPNpfCT2iv0lJ6skDBImfXZP2ZX
+	u6plu5fBzsSBeNUrJpzXmh9LMqadHCgz+uCBMSP++hBYbziY/MguOkhGbvlgyE0mZ4c262jFpnt
+	yZ1bMZLL94EylFrM4sw9LKG/uz2VA=
+X-Received: by 2002:a05:6000:41c9:b0:461:fefc:251 with SMTP id ffacd0b85a97d-46dc263b112mr12847506f8f.29.1782488193544;
+        Fri, 26 Jun 2026 08:36:33 -0700 (PDT)
+Received: from kali (88-170-213-78.subs.proxad.net. [88.170.213.78])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c1b754471sm24974281f8f.0.2026.06.26.08.36.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Jun 2026 08:36:32 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+ Ingo Molnar <mingo@kernel.org>, Dave Hansen <dave@linux.vnet.ibm.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Tristan Madani <tristan@talencesecurity.com>
+Subject: Re: [PATCH v2] profiling: don't free prof_cpu_mask on init failure
+Date: Fri, 26 Jun 2026 15:36:31 -0000
+Message-ID: <178248819183.3242446.8706480116416421586@gmail.com>
+In-Reply-To: <20260624181113.8b2aacf9b1466205c8f2cf05@linux-foundation.org>
+References: <20260621192324.2062795-1-tristmd@gmail.com>
+ <20260622000022.3375262-1-tristmd@gmail.com>
+ <20260624181113.8b2aacf9b1466205c8f2cf05@linux-foundation.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowAAnwcl0nD5qZHdsAw--.4527S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrur4rCF4kXF43Jw1ftw4fZrb_yoWDurg_GF
-	4Sg3Z7Zry2kF4jgrW3GF43ZwsayF9rWF97G3y2qayfGay7CFyDAry5Zr13JrZFkr48Zr15
-	GFnrXry8Zw1q9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb4AFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
-	AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
-	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkG
-	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI
-	0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbPrcD
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQKA2o+iCg4GwAAsD
 
-of_get_child_by_name acquires a device_node reference. When the
-  subsequent ath11k_ahb_setup_msa_resources call fails, the function
-  returns immediately without calling of_node_put, leaking the node
-  reference.
+On Wed, 24 Jun 2026 18:11:13 -0700 Andrew Morton wrote:
+> Confused.  Current mainline has no free_cpumask_var() here?
 
-Add of_node_put before returning on the setup failure error path.
+Correct -- Tetsuo's 7c51f7bbf057 ("profiling: remove prof_cpu_mask")
+removed the variable and all its references in v6.11. This patch is
+for 6.1.y and 6.6.y where the old error-path free is still present.
 
-Cc: stable@vger.kernel.org
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- drivers/net/wireless/ath/ath11k/ahb.c | 1 +
- 1 file changed, 1 insertion(+)
+> If we're to deliberately leak the mask here then let's have a little
+> comment explaining the reasoning, so we don't later receive "profiling:
+> fix memory leak" patches.
 
-diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
-index 08d3a0c8f105..8a08275db40a 100644
---- a/drivers/net/wireless/ath/ath11k/ahb.c
-+++ b/drivers/net/wireless/ath/ath11k/ahb.c
-@@ -996,6 +996,7 @@ static int ath11k_ahb_fw_resources_init(struct ath11k_base *ab)
- 	ret = ath11k_ahb_setup_msa_resources(ab);
- 	if (ret) {
- 		ath11k_err(ab, "failed to setup msa resources\n");
-+		of_node_put(node);
- 		return ret;
- 	}
- 
--- 
-2.39.5 (Apple Git-154)
+Good point. I can send v3 with:
+  - a comment above the return explaining the deliberate leak
+  - corrected Fixes tag (c309b917cab5, per Tetsuo's review)
+  - stable-only framing in the commit message
 
+Alternatively, Cc stable on 7c51f7bbf057 would also fix this, though
+that commit removes prof_cpu_mask entirely, adds mutex serialization
+in ksysfs.c, and drops the hotplug online callback (2 files, +13/-40).
+
+Happy to go either way.
+
+Tristan
