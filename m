@@ -1,159 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA47218B0F;
-	Fri, 26 Jun 2026 10:05:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA053E0088
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 10:07:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782468348; cv=none; b=PjxODKDDrshXPvCIium7EfA0BDQUq11zMWyFxWhog/xcffCdqiNIseG/aqtqtksbIpccuwxHKuPjKPjbXD46ecAOAYjUQBBwC2xgFaPZ745Tby7B4k6BgZHUNPC9DvxJVpfnLx3SAsBQOuIv3bA8dB4PoZ1il9KZmXMddk991QA=
+	t=1782468472; cv=none; b=IB2GGOWfgsh0Fqgz4o9NaA6tIul2NUczLKfs4zCEnFyrWRiO5OuEfWmtRNfNtW/4iWsHYxiYwqWbJ+a1BXJiNOFy0xVlM4ArAlBhS8SIZ2YHq7Jo298ExIJ4S6rpxzq+vHtft1RL0r3v1nMLQ527vjHMEhE5mMOvKm0B9j6Pnr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782468348; c=relaxed/simple;
-	bh=on9Q0e33q3+ivfeVYwsV14w3mzatq3uHmWd8eu5xlJ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eupasVUVyh17EQkyvKeEBLBWBLUG7vv7JOA/frc/lz1oZzJqObUeHxfHtwUdsNjeOoWG3bQK9jAFaDOQ28fOS6MEU4v5S9AdHniF5Wgz1u3UhfAwXF8IMfxnfNW61icWF5QmHYHtLlfK3w1h6sd8JTFcuOdeb1BZZ5Blyr5cpQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZs6rUkY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782468472; c=relaxed/simple;
+	bh=496daIy9Oynkrnkj9PQ6+RVEEu0Tbv+Ca2uKBtp295I=;
+	h=Cc:From:Subject:Date:Content-Type:Mime-Version:To:Message-Id; b=o5Q/FSgwEc8QJNprVdB5e6c6HI1d6pui4Reqx7ONBs5F2jdK3pWyLuFIlHjkngbvXvKYFXjV5lgfAAb/goJRkQvjWcsUqh1Nt9dAmQnBKzKtVkxatlQGRdpBF24vyxnHvhwQHDlI6f7lyKLv8Lsj28wyuTRPw5aysEiSGx2H9Zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=b306XkxQ; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZs6rUkY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B83101F000E9;
-	Fri, 26 Jun 2026 10:05:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782468346;
-	bh=XPOnL3YaXcY5m5ZE7tv6kcrdVXllWoBe5sPRf2jXnF4=;
-	h=From:To:Cc:Subject:Date;
-	b=PZs6rUkYf9rAESRZeLEJuYSARXc9W6t080JPfO71cLYWXcyEgTuFTkHXIYKclq6gG
-	 euJHYHsWp6jtUC8y3lCHYOjKKbyhia1WduFm6BhN3rQxzTUQIYvkAKMeNnseHV8hl6
-	 bsbCOzZzZgga2sfNdrNj21lttW90LocD4TXyKqy5Y+zx1DOxX/5rmUN8YcbZc9pMW9
-	 sMtuu+LOqvFonMMC2nK+Jsih17DBX4ORaR4DrbrCSkN0qbULQ6sH5MmidGqOBqadZu
-	 p8hOYT6WDeHqrnd3lP3LA4fyeVVf4cfm114K50otfqHf4cGHPOrsNb4iEDgcfutswq
-	 26VioYZkSBhCA==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Boqun Feng <boqun@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	Philipp Stanner <phasta@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] dma-buf: dma-fence: Fix potential NULL pointer dereference
-Date: Fri, 26 Jun 2026 12:04:42 +0200
-Message-ID: <20260626100442.2202221-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="b306XkxQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1782468466; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=wbsYFv/aAybDSG7qH0hXOfSoTmIEui7F1AIt3Vyenn8=;
+ b=b306XkxQJFxtsg5iQm1zrJtSr57z67MfuUEKzyizS3JsdlZzPLThnji7TCZkxKYXXIXPSS
+ cbN5TFK074TwnLA+BFs8ytl0xlrx1l8stgiLSenWJvr+TPwDRl496cC+6r5+lYaQfgfwwv
+ aEZXbK/SkB4BnrPbSR4tf5KRNK95MgudaibejLrvNqz0TLHoszT+gdQGB2ghnkPayrPoub
+ TI6kRaFiv9t0QW+7wM5OTZtFRCbpsn5FUP8tezIptw7vPBbjf7S4qzdn4JYx+eXTrJtyUa
+ octFUSFhuhlGv7WNEo51mrhJwxDjsHn6/LRIsueeTwcv/ZNop1TW8D8/uV3heg==
+Cc: <libaokun@linux.alibaba.com>, <jack@suse.cz>, <ojaswin@linux.ibm.com>, 
+	<ritesh.list@gmail.com>, <yi.zhang@huawei.com>, 
+	<linux-ext4@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Zhu Jia" <zhujia.zj@bytedance.com>, <stable@vger.kernel.org>, 
+	"Zhang Yi" <yizhang089@gmail.com>
+From: "Zhu Jia" <zhujia.zj@bytedance.com>
+Subject: [PATCH v2] ext4: cancel dirty accounting for folios without buffers
+Date: Fri, 26 Jun 2026 18:07:40 +0800
+Content-Transfer-Encoding: 7bit
+X-Lms-Return-Path: <lba+26a3e4f70+67c9c1+vger.kernel.org+zhujia.zj@bytedance.com>
+X-Original-From: Zhu Jia <zhujia.zj@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+To: <tytso@mit.edu>, <adilger.kernel@dilger.ca>
+Message-Id: <20260626100740.52455-1-zhujia.zj@bytedance.com>
 
-The commit mentioned in the fixes tag below introduced a mechanism
-through which fence producers can fully decouple from fence consumers.
-This, desirable, mechanism is based on the fence's signaled-bit as the
-"decoupling point".
+Since commit cc5095747edf ("ext4: don't BUG if someone dirty pages
+without asking ext4 first"), mpage_prepare_extent_to_map() handles dirty
+folios without buffer heads by warning, clearing PG_dirty, and skipping
+them. ext4 cannot write these folios because there are no buffer heads to
+map and submit.
 
-A sophisticated interaction between RCU and atomic instructions attempts
-to ensure that fence consumers can still interact with fence producers
-through the dma_fence_ops, callback pointers into the producer.
+That recovery leaves dirty accounting behind: folio_clear_dirty() clears
+PG_dirty but does not undo the accounting charged when the folio was
+dirtied. We have seen this in production as Dirty/nr_dirty staying high
+while Writeback/nr_writeback and device write IO stayed near zero, with
+many writer tasks blocked in balance_dirty_pages() throttling. Thus the
+warning-and-skip recovery can still become a dirty-throttle DoS.
 
-This is the desired behavior: to check for decoupling, the signaled-bit
-is first checked. If it's not yet signaled, RCU ensures that the ops
-pointer cannot yet be NULL.
+Use folio_cancel_dirty() so dropping PG_dirty also cancels the dirty
+accounting. Then cycle the folio through writeback state so the generic
+writeback helpers update the xarray DIRTY/TOWRITE tags.
 
-Hereby, dma_fence_signal_timestamp_locked() first sets the signaled-bit,
-and then sets the ops pointer to NULL. Readers first load the ops
-pointer, and then check through the signaled-bit whether the pointer can
-legally be accessed.
-
-These set and load operations could occur out of order on weakly ordered
-platforms. Hence, we need to enforce strict ordering all the time.
-
-Add the appropriate memory barriers.
-
+Fixes: cc5095747edf ("ext4: don't BUG if someone dirty pages without asking ext4 first")
 Cc: stable@vger.kernel.org
-Fixes: f4cc3ab824d6 ("dma-buf: protected fence ops by RCU v8")
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Suggested-by: Zhang Yi <yizhang089@gmail.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Zhu Jia <zhujia.zj@bytedance.com>
 ---
-Tested with dmabuf and drm_sched unit tests.
+Changes since v1:
+- After folio_cancel_dirty(), cycle the folio through writeback state so
+  generic writeback helpers update PAGECACHE_TAG_DIRTY/TOWRITE, as
+  suggested by Yi and Jan.
 
-Memory barriers are notoriously difficult, so I would appreciate if some
-of the more experienced folks can check this. Notably, I am not sure
-whether the smp_wmb() is necessary.
+ fs/ext4/inode.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-The documentation for test_and_set_bit() makes the mysterious statement
-"This is an atomic fully-ordered operation (implied full memory
-barrier)", but the kcsan_mb() seems to be some sort of debugging
-barrier, and in any case the docu doesn't make it obvious to me whether
-that "full barrier" comes before or after the bit setting takes place.
-
-Moreover, in my opinion we should order dma_fence_is_signaled(), too –
-but if we agree to merge Christian's new series [1] that need should
-disappear.
-
-
-[1] https://lore.kernel.org/dri-devel/20260624122917.2483-1-christian.koenig@amd.com/ 
----
- drivers/dma-buf/dma-fence.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index c7ea1e75d38a..2e80b01499de 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -363,6 +363,18 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
- 				      &fence->flags)))
- 		return;
- 
-+	/*
-+	 * Fully order setting of the bit above with setting of the ops pointer
-+	 * to NULL below, so that all parties can use the signaled flag to
-+	 * detect that the fence decoupled from its ops in a safe manner.
-+	 *
-+	 * The counter parts of this barrier are in dma_fence_timeline_name()
-+	 * and dma_fence_driver_name(). All other future parties that rely on
-+	 * the signaled flag for valid access to the ops pointer will need a
-+	 * memory barrier.
-+	 */
-+	smp_wmb();
-+
- 	trace_dma_fence_signaled(fence);
- 
- 	/*
-@@ -1170,6 +1182,12 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
- 
- 	/* RCU protection is required for safe access to returned string */
- 	ops = rcu_dereference(fence->ops);
-+	/*
-+	 * Fully order the dereference above with the flag check. Otherwise,
-+	 * ops could be dereferenced as a NULL pointer. The barrier's
-+	 * counterpart is in dma_fence_signal_timestamp_locked().
-+	 */
-+	smp_rmb();
- 	if (!dma_fence_test_signaled_flag(fence))
- 		return (const char __rcu *)ops->get_driver_name(fence);
- 	else
-@@ -1203,6 +1221,12 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
- 
- 	/* RCU protection is required for safe access to returned string */
- 	ops = rcu_dereference(fence->ops);
-+	/*
-+	 * Fully order the dereference above with the flag check. Otherwise,
-+	 * ops could be dereferenced as a NULL pointer. The barrier's
-+	 * counterpart is in dma_fence_signal_timestamp_locked().
-+	 */
-+	smp_rmb();
- 	if (!dma_fence_test_signaled_flag(fence))
- 		return (const char __rcu *)ops->get_driver_name(fence);
- 	else
-
-base-commit: cdeb2ccd993ed8647adbbda2c3b103aa717fd6f7
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index c2c2d6ac7f3d1..4c25dcd47fb15 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -2715,7 +2715,15 @@ static int mpage_prepare_extent_to_map(struct mpage_da_data *mpd)
+ 			 */
+ 			if (!folio_buffers(folio)) {
+ 				ext4_warning_inode(mpd->inode, "page %lu does not have buffers attached", folio->index);
+-				folio_clear_dirty(folio);
++				/*
++				 * folio_cancel_dirty() pairs the dropped dirty
++				 * state with dirty accounting. Cycle through
++				 * writeback state so the generic writeback
++				 * helpers update the xarray tags.
++				 */
++				folio_cancel_dirty(folio);
++				folio_start_writeback(folio);
++				folio_end_writeback(folio);
+ 				folio_unlock(folio);
+ 				continue;
+ 			}
 -- 
-2.54.0
-
+2.20.1
