@@ -1,131 +1,361 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from out-179.mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE563A873D
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 14:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA443F4DC0
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 14:10:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782482738; cv=none; b=NgTDF4d0IjJeXZieJHj1jxxH/VNQSkQ/DKgua39mh7zX5oi7q+anB81u6ZsgbRSMfi2nSdAXvxEx27Um7ybTlnegNGOVS7PShg5zfBxHbob2V4jmNXvqwYUkMOKpoqKkQxA45xLfTjtXnXxS2LP7jNcEQAQuKLG4rzBkvd0AZDs=
+	t=1782483048; cv=none; b=MDmgoNBpO9aXACf/pKpzX6tSwKlK0PTgd06y088hQn2acs9FVhQX1MN/YUm6POtfaRlPi6xeQpoYycnf91qCeMqGx9wcFCl1A6oLm3cp+oZOOae8/3DqJYrwZvqP7ebwiCxM80WGjSyT03n3RBnNces6JoeHmeDwsuQMPsbfc9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782482738; c=relaxed/simple;
-	bh=gGeatAbNW1Tyu504ZrnFfEPUli8yfMeLx+6zsAYFJ9U=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=b0vbaIXqBMfFabkLe1Ujo3RFOPERFwZ+BXPcSMTV4lTXL+43P4TnZPbL6sIY5jSF8dsoCul5kcJos8Cp5UBY/sPNbCgqI5EoJ3lWIWUoviRtNf8lvzSX+zogVJ47V3p2Xzfh3Ns0m11uUGEmbLPnKoGgJfRAGK3N8XCunqG38fM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WfPPpFF9; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782483048; c=relaxed/simple;
+	bh=GyXWHcCRlzUinSJe2fCCgkAYaaMz198jlTTl/2UmppY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LEbnIreBJEP7MOl3cvSubBF3uPkiFEf6TMd9hbtV6AGPqygf/ZvcUOM2JXRed4BBNLCDA9mAZw6Yrpna3kNeog889IVDZmAmg4TJtxnXwCGsFoHjORzjEh2p41XCZzGD5p7Jdb0miTedY/rrdoKERgyR6pFbhT2bIzUTegr5VHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PklWBCLq; arc=none smtp.client-ip=91.218.175.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WfPPpFF9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782482735; x=1814018735;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version:content-transfer-encoding;
-  bh=gGeatAbNW1Tyu504ZrnFfEPUli8yfMeLx+6zsAYFJ9U=;
-  b=WfPPpFF9baFKqJ9OIghoIJMTqMH+NulkU/Ht2S7frlIhs3M8igyr94aS
-   Oph7v1Frt4ppi5DTiE+3KT2gNZa66zsq1rAzfQ06mOtb9ej9D1B0Nuy2F
-   ODH2k3gISJL8LPEBuMorHMsGYKsRP6Op9LdHNjL1jivF22hK0Lg6sIwr/
-   gDeNEnqftTSyD8Tc0NBop+plVCSkfAFZF9nwLGH29GBAK8ehF1ZnY445D
-   4u1BE1aipVPTeTGlXLhR7PE7v2cBRqJRI0/ntxbTuPlJ3E00ycFW5NAWq
-   dM7CD0oclGyNVfKchktwId3+nyYOd0hIiHlYcw3tHovsf531Lvtbp9Ztx
-   g==;
-X-CSE-ConnectionGUID: mGa65Ac1SmiCHcf+Q7kOJw==
-X-CSE-MsgGUID: uAvRgGDSSLGytPaUoXAteQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11829"; a="83283954"
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
-   d="scan'208";a="83283954"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 07:05:34 -0700
-X-CSE-ConnectionGUID: e20pPGzvQx+yPzexCcSK7w==
-X-CSE-MsgGUID: exshc02NS/ypqar2jMHPtA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
-   d="scan'208";a="289431826"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.22])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 07:05:32 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Martin
- Hodo <martin.hodo@intel.com>, stable@vger.kernel.org, Ankit Nautiyal
- <ankit.k.nautiyal@intel.com>
-Subject: Re: [PATCH] drm/i915/vrr: require valid min/max vfreq for VRR
-In-Reply-To: <aj6BTiskgYhSUGYd@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260625131040.1051272-1-jani.nikula@intel.com>
- <aj6BTiskgYhSUGYd@intel.com>
-Date: Fri, 26 Jun 2026 17:05:28 +0300
-Message-ID: <a09eda4f6b780c0ac079827d73ef23917974b4e4@intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PklWBCLq"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782483042;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qPOvTRgVK+OIeqo9yXz4qFWfg6EvbVp+C25CpobS7as=;
+	b=PklWBCLqKduGqfOIu/7FEk7C07iknzzmZm1gu0Dxd1LPlF7OU1TLHLxhAWkSu3UlPLTpIb
+	qKKoAAyrIeNwyTksbKqjlRA5VQXCLJEWu6gTDkDGmzkTq3TI3MZ6t32dzWMu336YnKeSt6
+	ANKvT8ikOqH1D1HQwM/dvVZ3+zkP43A=
+From: Lance Yang <lance.yang@linux.dev>
+To: dev.jain@arm.com,
+	linmiaohe@huawei.com
+Cc: lance.yang@linux.dev,
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	akpm@linux-foundation.org,
+	ljs@kernel.org,
+	david@kernel.org,
+	liam@infradead.org,
+	riel@surriel.com,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	kas@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	rcampbell@nvidia.com,
+	apopple@nvidia.com,
+	ziy@nvidia.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	mel@csn.ul.ie,
+	nao.horiguchi@gmail.com,
+	ak@linux.intel.com,
+	j-nomura@ce.jp.nec.com,
+	pfalcato@suse.de,
+	dave.hansen@intel.com,
+	tglx@kernel.org,
+	jpoimboe@kernel.org,
+	ryan.roberts@arm.com,
+	anshuman.khandual@arm.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 4/5] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
+Date: Fri, 26 Jun 2026 22:10:31 +0800
+Message-Id: <20260626141031.14309-1-lance.yang@linux.dev>
+In-Reply-To: <e6d1b813-0893-458e-9d58-8d3a9bd979c4@arm.com>
+References: <e6d1b813-0893-458e-9d58-8d3a9bd979c4@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On Fri, 26 Jun 2026, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
-> wrote:
-> On Thu, Jun 25, 2026 at 04:10:40PM +0300, Jani Nikula wrote:
->> Ensure the EDID provided min/max vfreq are valid. Most scenarios are
->> already covered (by coincidence) through the checks in
->> intel_vrr_is_capable() and intel_vrr_is_in_range(), but be more explicit
->> about it. At worst, a zero min_vfreq could lead to a division by zero in
->> intel_vrr_compute_vmax().
->>=20
->> Discovered using AI-assisted static analysis confirmed by Intel Product
->> Security.
->>=20
->> Reported-by: Martin Hodo <martin.hodo@intel.com>
->> Fixes: 117cd09ba528 ("drm/i915/display/dp: Compute VRR state in atomic_c=
-heck")
->> Cc: <stable@vger.kernel.org> # v5.12+
->> Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->> ---
->>  drivers/gpu/drm/i915/display/intel_vrr.c | 4 ++++
->>  1 file changed, 4 insertions(+)
->>=20
->> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/=
-i915/display/intel_vrr.c
->> index 5d9b11185296..bffbdee76ee1 100644
->> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
->> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
->> @@ -76,6 +76,10 @@ bool intel_vrr_is_capable(struct intel_connector *con=
-nector)
->>  		return false;
->>  	}
->>=20=20
->> +	if (!info->monitor_range.min_vfreq || !info->monitor_range.max_vfreq ||
->> +	    info->monitor_range.min_vfreq > info->monitor_range.max_vfreq)
->> +		return false;
+
+On Fri, Jun 26, 2026 at 06:53:10PM +0530, Dev Jain wrote:
 >
-> Perhaps it should be the responsibility of the EDID parser to make sure
-> the range isn't completely insane?
-
-The min_vfreq/max_vfreq may be 0 if the EDID doesn't have the info, and
-if the EDID has bogus info, leaving them to 0 is pretty much the only
-thing we can do.
-
-Since we need the !0 check here anyway, I decided to start off with
-this.
-
-BR,
-Jani.
-
 >
+>On 26/06/26 1:18 pm, Lance Yang wrote:
+>> 
+>> On Thu, Jun 25, 2026 at 11:29:53AM +0000, Dev Jain wrote:
+>>> check_pte() is the final validation step in page_vma_mapped_walk().
+>>> It reads pvmw->pte with ptep_get() to decide whether the entry maps
+>>> the PFN range being walked. For hugetlb VMAs, that pointer refers
+>>> to a hugetlb entry.
+>>>
+>>> On arches which provide their own huge_ptep_get() to dereference a huge
+>>> pte pointer, accessing via ptep_get() would cause pte_pfn(),
+>>> pte_present() etc to misbehave.
+>>>
+>>> It is not clear whether this has a trivially visible effect to userspace.
+>>>
+>>> Use huge_ptep_get() to dereference a huge pte pointer.
+>>>
+>>> Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Dev Jain <dev.jain@arm.com>
+>>> ---
+>>> mm/page_vma_mapped.c | 8 +++++++-
+>>> 1 file changed, 7 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>>> index 2ccbabfb2cc17..18e1d341f463c 100644
+>>> --- a/mm/page_vma_mapped.c
+>>> +++ b/mm/page_vma_mapped.c
+>>> @@ -107,7 +107,13 @@ static bool map_pte(struct page_vma_mapped_walk *pvmw, pmd_t *pmdvalp,
+>>> static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
+>>> {
+>>> 	unsigned long pfn;
+>>> -	pte_t ptent = ptep_get(pvmw->pte);
+>>> +	pte_t ptent;
+>>> +
+>>> +	if (is_vm_hugetlb_page(pvmw->vma))
+>>> +		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
+>>> +				      pvmw->pte);
+>> 
+>> I think check_pte() can pass a wrong address to huge_ptep_get() ...
+>
+>Won't this be handled by rmap_walk_anon/rmap_walk_file - they are the ones
+>performing the rmap traversal and passing address to try_to_unmap_one/folio_referenced_one
+>etc ...
+
+Right, that should cover the rmap callbacks. The bit I was worried about
+is page_mapped_in_vma() though.
+
+>> 
+>> Not sure that is wrong in the first place. For memory failure,
+>> page_mapped_in_vma() can be called with a poisoned tail page of a hugetlb
+>> folio. In that case, pvmw->address need not be hugepage-aligned.
+>> 
+>> @Miaohe
+
+For hugetlb memory failure we start with the poisoned PFN:
+
+static int try_memory_failure_hugetlb(unsigned long pfn, int flags)
+{
+	...
+	struct page *p = pfn_to_page(pfn);
+	struct folio *folio;
+	...
+
+	folio = page_folio(p);
+
+	...
+
+	if (!hwpoison_user_mappings(folio, p, pfn, flags)) {
+		...
+	}
+
+	...
+}
+
+and pass the same p down:
+
+static bool hwpoison_user_mappings(struct folio *folio, struct page *p,
+		unsigned long pfn, int flags)
+{
+	...
+
+	collect_procs(folio, p, &tokill, flags & MF_ACTION_REQUIRED);
+
+	...
+}
+
+static void collect_procs(const struct folio *folio, const struct page *page,
+		struct list_head *tokill, int force_early)
+{
+	...
+
+	if (unlikely(folio_test_ksm(folio)))
+		...
+	else if (folio_test_anon(folio))
+		collect_procs_anon(folio, page, tokill, force_early);
+	else
+		...
+}
+
+So collect_procs_anon() still gets the poisoned page, not &folio->page:
+
+static void collect_procs_anon(const struct folio *folio,
+		const struct page *page, struct list_head *to_kill,
+		int force_early)
+{
+	...
+
+	pgoff = page_pgoff(folio, page);
+	rcu_read_lock();
+	for_each_process(tsk) {
+		...
+		
+		anon_vma_interval_tree_foreach(vmac, &av->rb_root,
+					       pgoff, pgoff) {
+			...
+			addr = page_mapped_in_vma(page, vma);
+			...
+		}
+	}
+	rcu_read_unlock();
+	anon_vma_unlock_read(av);
+}
+
+page_mapped_in_vma() then builds pvmw for that page:
+
+unsigned long page_mapped_in_vma(const struct page *page,
+		struct vm_area_struct *vma)
+{
+	const struct folio *folio = page_folio(page);
+	struct page_vma_mapped_walk pvmw = {
+		.pfn = page_to_pfn(page),
+		.nr_pages = 1,
+		.vma = vma,
+		.flags = PVMW_SYNC,
+	};
+
+	pvmw.address = vma_address(vma, page_pgoff(folio, page), 1);
+	...
+}
+
+and page_pgoff() includes the subpage index:
+
+static inline pgoff_t page_pgoff(const struct folio *folio,
+		const struct page *page)
+{
+	return folio->index + folio_page_idx(folio, page);
+}
+
+So if the poisoned PFN points to a tail page, pvmw->address can be offset
+from the start of the hugetlb mapping by
+
+folio_page_idx(folio, page) << PAGE_SHIFT
+
+Should check_pte() pass the hugepage-aligned address to huge_ptep_get()
+for that case?
+
+Cheers, Lance
+
+>> 
+>> For arm64, CONT_PMD_SIZE is one supported HugeTLB size. With such a VMA,
+>> page_vma_mapped_walk() passes that size to hugetlb_walk():
+>> 
+>> bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+>> {
+>> 	...
+>> 	if (unlikely(is_vm_hugetlb_page(vma))) {
+>> 		...
+>> 		pvmw->pte = hugetlb_walk(vma, pvmw->address, size);
+>> 		...
+>> 	}
+>> 	...
+>> }
+>> 
+>> hugetlb_walk() then calls arm64 huge_pte_offset(mm, addr, sz). For
+>> sz == CONT_PMD_SIZE, huge_pte_offset() aligns its local addr before
+>> calculating pmdp:
+>> 
+>> pte_t *huge_pte_offset(struct mm_struct *mm,
+>> 		       unsigned long addr, unsigned long sz)
+>> {
+>> 	...
+>> 	if (sz == CONT_PMD_SIZE)
+>> 		addr &= CONT_PMD_MASK;
+>> 
+>> 	pmdp = pmd_offset(pudp, addr);
+>> 	pmd = READ_ONCE(*pmdp);
+>> 	...
+>> }
+>> 
+>> So for that case, pvmw->pte is calculated from the aligned addr, not
+>> necessarily from the original pvmw->address. But check_pte() passes the
+>> original address together with pvmw->pte:
+>> 
+>> +		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
+>> +				      pvmw->pte);
+>> 
+>> arm64 then uses that addr again to choose ncontig:
+>> 
+>> pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
+>> {
+>> 	...
+>> 	ncontig = find_num_contig(mm, addr, ptep, &pgsize);
+>> 	for (i = 0; i < ncontig; i++, ptep++) {
+>> 		...
+>> 	}
+>> 	return orig_pte;
+>> }
+>> 
+>> static int find_num_contig(struct mm_struct *mm, unsigned long addr,
+>> 			   pte_t *ptep, size_t *pgsize)
+>> {
+>> 	pgd_t *pgdp = pgd_offset(mm, addr);
+>> 	p4d_t *p4dp;
+>> 	pud_t *pudp;
+>> 	pmd_t *pmdp;
+>> 
+>> 	*pgsize = PAGE_SIZE;
+>> 	p4dp = p4d_offset(pgdp, addr);
+>> 	pudp = pud_offset(p4dp, addr);
+>> 	pmdp = pmd_offset(pudp, addr);
+>> 	if ((pte_t *)pmdp == ptep) {
+>> 		*pgsize = PMD_SIZE;
+>> 		return CONT_PMDS;
+>> 	}
+>> 	return CONT_PTES;
+>> }
+>> 
+>> With a tail address, pmdp may no longer point at pvmw->pte, so
+>> find_num_contig() can return CONT_PTES for a CONT_PMD HugeTLB mapping.
+>> 
+>> On 16K arm64, that changes ncontig from 32 to 128. So huge_ptep_get()
+>> can walk past the CONT_PMD entries, and possibly past the PMD table.
+>> 
+>> Should check_pte() pass the address matching pvmw->pte, sth like:
+>> 
+>> ---8<---
+>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>> index 406fd50bbd8f..58463493bd3d 100644
+>> --- a/mm/page_vma_mapped.c
+>> +++ b/mm/page_vma_mapped.c
+>> @@ -109,11 +109,14 @@ static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
+>>  	unsigned long pfn;
+>>  	pte_t ptent;
+>> 
+>> -	if (is_vm_hugetlb_page(pvmw->vma))
+>> -		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
+>> -				      pvmw->pte);
+>> -	else
+>> +	if (is_vm_hugetlb_page(pvmw->vma)) {
+>> +		struct hstate *hstate = hstate_vma(pvmw->vma);
+>> +		unsigned long haddr = pvmw->address & huge_page_mask(hstate);
 >> +
->>  	return info->monitor_range.max_vfreq - info->monitor_range.min_vfreq >=
- 10;
+>> +		ptent = huge_ptep_get(pvmw->vma->vm_mm, haddr, pvmw->pte);
+>> +	} else {
+>>  		ptent = ptep_get(pvmw->pte);
+>> +	}
+>> 
+>>  	if (pvmw->flags & PVMW_MIGRATION) {
+>>  		const softleaf_t entry = softleaf_from_pte(ptent);
+>> --
+>> 
+>> while leaving pvmw->address unchanged for page_mapped_in_vma()?
+>> 
+>> Cheers, Lance
+>> 
+>>> +	else
+>>> +		ptent = ptep_get(pvmw->pte);
+>>>
+>>> 	if (pvmw->flags & PVMW_MIGRATION) {
+>>> 		const softleaf_t entry = softleaf_from_pte(ptent);
+>>> -- 
+>>> 2.43.0
+>>>
+>>>
 >
-> I've been tempted to get rid of this completely arbitrary 10Hz thing as w=
-ell.
 >
->>  }
->>=20=20
->> --=20
->> 2.47.3
-
---=20
-Jani Nikula, Intel
