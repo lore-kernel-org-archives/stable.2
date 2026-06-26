@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F45403AF6
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B523403B14
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490377; cv=none; b=HxMbdLVhkM52duKblDcOeNpV1vS3ASCylLFI2OXGcpf1iGFvHJ9qi3edJ/RxQV2KbDRWwJIhcExcmWG0fS2tOX5GzQKX0j6e2OIje9ZuWga4K11aaBpi6pJpOAzPADN6MK5ek+YABXV4afuFYqh40yLbezcTckT6rrAhPU1PkFM=
+	t=1782490377; cv=none; b=f+EUpSQI0ytAppn2gV9ta93ohaZ2g0dfBq0C8zXLVlMaJ8NUIxYpt4Vz9qSldD+ad9yK0/Zt0Qv+7AyLqeghtCqkWqVxeYDdzSyXC86EViRE2Lxm+Az/IAMJ+EPlydbeCryjDtXYlBRoLUFxrvUuGzY0PbjQAPZAq/PIrLX1iKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490377; c=relaxed/simple;
-	bh=IJjLgbgn//4EfLCgE7nZpttIonG4Wyqsc4cFA7lk0uE=;
+	bh=1zdBQLh6VbdNF/qgGFypGmVWcuaJvpJFoXA7NLhzPoM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FIM7vjvVwiGwWU8VlUPqcqv2qUpcLweMdm2iqi3IlBRKRadMCxdG8A3tX1lTgUGlCz6ZsnsvrjxXuRCVOFkegq+JzJKsAKZ3nEB0iBNc28RWyCVu/kiP6hyFF/KKor3c8slsWfKEWJuOKQSb1D4N1JHvGtqUvwZ6w9A6/vRpQ8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=0rGDMRAm; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=Pfu9dWOCL+aHS0d0nlkZg1Qc6hkRiNzzV3LPwsMGZ2CuMGw54kZEjYwzWMiVfyTeApuMEiUzUJgd/n+GWzpYWzf+egd9Dx+jAuipbE5isvSdJbpsRvzn8ZiJ52IiKtag11mtCqDWaJP/e0hZyrqMj2h2jWtq6wgYXPMqAa+83MA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=bvNHIFSz; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="0rGDMRAm"
-Received: by dvalin.narfation.org (Postfix) id 28CB220470;
-	Fri, 26 Jun 2026 16:12:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="bvNHIFSz"
+Received: by dvalin.narfation.org (Postfix) id F025E203E0;
+	Fri, 26 Jun 2026 16:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490372;
+	s=20121; t=1782490369;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ZWrmmhMAjlB4HphxnAITfmyESt6WvrFoC3p9UvQyiyU=;
-	b=0rGDMRAm5N5sFrCXxLXi2XBfGTZHoWh+foQGN8l9P4uDul+F55ob3IpokZeW9yWjfacHwC
-	0rXcAiysYs88XjpXhTN6U9tnqEoLQRolklVAHWajDn0RSQE+D2flu2CdaLTq7WH8/YuzTk
-	HA6WO2D67L6kAWhErbpMDEHINK6UmHU=
+	bh=OqXGrLIE/n7Iu5ho9yEiQfxleYNo/2gumelsQFN5n0c=;
+	b=bvNHIFSziX8T9aWBRCCwGVtZ5KzpYdtqsaKm1yh40/dxdIQopdvLciB9sl9GSDbGINs9z1
+	+0BTeIQLYeDLlXnekjDvjqHxNKd6z0BDqvK+ojH6p12ePrNTZ9MFizbucHinHINAuOtQWp
+	H+OZQctxW1EFwotn0lQY9KrX09wOuUg=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 7.1 21/26] batman-adv: tp_meter: handle overlapping packets
-Date: Fri, 26 Jun 2026 18:12:36 +0200
-Message-ID: <20260626161241.124988-22-sven@narfation.org>
+Subject: [PATCH 7.1 14/26] batman-adv: fix (m|b)cast csum after decrementing TTL
+Date: Fri, 26 Jun 2026 18:12:29 +0200
+Message-ID: <20260626161241.124988-15-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161241.124988-1-sven@narfation.org>
 References: <20260626161241.124988-1-sven@narfation.org>
@@ -45,104 +45,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit cbde75c38b21f022891525078622587ad557b7c1 upstream.
+commit e728bbdf32660c8f32b8f5e8d09427a2c131ad60 upstream.
 
-If the size of the packets would change during the transmission, it could
-happen that some retries of packets are overlapping. In this case, precise
-comparisons of sequence numbers by the receiver would be wrong. It is then
-necessary to check if the start sequence number to the end sequence number
-("seqno + length") would contain a new range.
+The broadcast and multicast packets can be received at the same time by the
+local system and forwarded to other nodes. Both are simply decrementing the
+TTL at the beginning of the receive path - independent of chosen paths
+(receive/forward). But such a modification of the data conflicts with the
+hw csum. This is not a problem when the packet is directly forwarded but
+can cause errors in the local receive path.
 
-If this is the case then this is enough to accept this packet. In all other
-cases, the packet still has to be dropped (and not acked).
+Such a problem can then trigger a "hw csum failure". The receiver path must
+therefore ensure that the csum is fixed for each modification of the
+payload before batadv_interface_rx() is reached.
+
+Since all batman-adv packet types with a ttl have it as u8 at offset 2, a
+helper can be used for all of them. But it is only used at the moment for
+batadv_bcast_packet and batadv_mcast_packet because they are the only ones
+which deliver the packet locally but unconditionally modify the TTL.
 
 Cc: stable@kernel.org
-Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
-[ Switch to pre-splitted tp_vars structure names ]
+Fixes: 3f69339068f9 ("batman-adv: bcast: queue per interface, if needed")
+Fixes: 07afe1ba288c ("batman-adv: mcast: implement multicast packet reception and forwarding")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/tp_meter.c | 25 +++++++++++--------------
- 1 file changed, 11 insertions(+), 14 deletions(-)
+ net/batman-adv/routing.c | 58 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 56 insertions(+), 2 deletions(-)
 
-diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index 6a23050f03d89..dbaae33db0f1f 100644
---- a/net/batman-adv/tp_meter.c
-+++ b/net/batman-adv/tp_meter.c
-@@ -1284,7 +1284,8 @@ static int batadv_tp_send_ack(struct batadv_priv *bat_priv, const u8 *dst,
+diff --git a/net/batman-adv/routing.c b/net/batman-adv/routing.c
+index 0672dc30bed3b..cdcea90db6123 100644
+--- a/net/batman-adv/routing.c
++++ b/net/batman-adv/routing.c
+@@ -8,6 +8,7 @@
+ #include "main.h"
+ 
+ #include <linux/atomic.h>
++#include <linux/build_bug.h>
+ #include <linux/byteorder/generic.h>
+ #include <linux/compiler.h>
+ #include <linux/errno.h>
+@@ -204,6 +205,59 @@ bool batadv_check_management_packet(struct sk_buff *skb,
+ 	return true;
+ }
+ 
++/**
++ * batadv_skb_decrement_ttl() - decrement ttl in a batman-adv header, csum-safe
++ * @skb: the received packet with @skb->data pointing to the batman-adv header
++ *
++ * Supports the following packet types, all of which carry the TTL at offset 2:
++ *
++ * - batadv_ogm_packet
++ * - batadv_ogm2_packet
++ * - batadv_icmp_header
++ * - batadv_icmp_packet
++ * - batadv_icmp_tp_packet
++ * - batadv_icmp_packet_rr
++ * - batadv_unicast_packet
++ * - batadv_frag_packet
++ * - batadv_bcast_packet
++ * - batadv_mcast_packet
++ * - batadv_coded_packet
++ * - batadv_unicast_tvlv_packet
++ *
++ * Return: true if the packet may be forwarded (ttl decremented),
++ *  false if it must be dropped (ttl would expire)
++ */
++static bool batadv_skb_decrement_ttl(struct sk_buff *skb)
++{
++	static const size_t ttl_offset = 2;
++	u8 *ttl_pos;
++
++	BUILD_BUG_ON(offsetof(struct batadv_ogm_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_ogm2_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_icmp_header, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_icmp_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_icmp_tp_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_icmp_packet_rr, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_unicast_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_frag_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_bcast_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_mcast_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_coded_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_unicast_tvlv_packet, ttl) != ttl_offset);
++
++	ttl_pos = skb->data + ttl_offset;
++
++	/* would expire on this hop -> drop, leave header + csum untouched */
++	if (*ttl_pos < 2)
++		return false;
++
++	skb_postpull_rcsum(skb, ttl_pos, 1);
++	(*ttl_pos)--;
++	skb_postpush_rcsum(skb, ttl_pos, 1);
++
++	return true;
++}
++
  /**
-  * batadv_tp_handle_out_of_order() - store an out of order packet
-  * @tp_vars: the private data of the current TP meter session
-- * @skb: the buffer containing the received packet
-+ * @seqno: sequence number of new received packet
-+ * @payload_len: length of the received packet
-  *
-  * Store the out of order packet in the unacked list for late processing. This
-  * packets are kept in this list so that they can be ACKed at once as soon as
-@@ -1293,22 +1294,17 @@ static int batadv_tp_send_ack(struct batadv_priv *bat_priv, const u8 *dst,
-  * Return: true if the packed has been successfully processed, false otherwise
-  */
- static bool batadv_tp_handle_out_of_order(struct batadv_tp_vars *tp_vars,
--					  const struct sk_buff *skb)
-+					  u32 seqno, u32 payload_len)
- 	__must_hold(&tp_vars->unacked_lock)
- {
--	const struct batadv_icmp_tp_packet *icmp;
- 	struct batadv_tp_unacked *un, *new;
--	u32 payload_len;
- 	bool added = false;
+  * batadv_recv_my_icmp_packet() - receive an icmp packet locally
+  * @bat_priv: the bat priv with all the mesh interface information
+@@ -1197,7 +1251,7 @@ int batadv_recv_bcast_packet(struct sk_buff *skb,
  
- 	new = kmalloc_obj(*new, GFP_ATOMIC);
- 	if (unlikely(!new))
- 		return false;
+ 	bcast_packet = (struct batadv_bcast_packet *)skb->data;
  
--	icmp = (struct batadv_icmp_tp_packet *)skb->data;
--
--	new->seqno = ntohl(icmp->seqno);
--	payload_len = skb->len - sizeof(struct batadv_unicast_packet);
-+	new->seqno = seqno;
- 	new->len = payload_len;
+-	if (bcast_packet->ttl-- < 2)
++	if (!batadv_skb_decrement_ttl(skb))
+ 		goto free_skb;
  
- 	/* if the list is empty immediately attach this new object */
-@@ -1476,7 +1472,7 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
- {
- 	const struct batadv_icmp_tp_packet *icmp;
- 	struct batadv_tp_vars *tp_vars;
--	size_t packet_size;
-+	u32 payload_len;
- 	u32 to_ack;
- 	u32 seqno;
+ 	orig_node = batadv_orig_hash_find(bat_priv, bcast_packet->orig);
+@@ -1304,7 +1358,7 @@ int batadv_recv_mcast_packet(struct sk_buff *skb,
+ 		goto free_skb;
  
-@@ -1511,15 +1507,17 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
- 	/* if the packet is a duplicate, it may be the case that an ACK has been
- 	 * lost. Resend the ACK
- 	 */
--	if (batadv_seq_before(seqno, tp_vars->last_recv))
-+	payload_len = skb->len - sizeof(struct batadv_unicast_packet);
-+	to_ack = seqno + payload_len;
-+	if (batadv_seq_before(to_ack, tp_vars->last_recv))
- 		goto send_ack;
+ 	mcast_packet = (struct batadv_mcast_packet *)skb->data;
+-	if (mcast_packet->ttl-- < 2)
++	if (!batadv_skb_decrement_ttl(skb))
+ 		goto free_skb;
  
- 	/* if the packet is out of order enqueue it */
--	if (ntohl(icmp->seqno) != tp_vars->last_recv) {
-+	if (batadv_seq_before(tp_vars->last_recv, seqno)) {
- 		/* exit immediately (and do not send any ACK) if the packet has
- 		 * not been enqueued correctly
- 		 */
--		if (!batadv_tp_handle_out_of_order(tp_vars, skb)) {
-+		if (!batadv_tp_handle_out_of_order(tp_vars, seqno, payload_len)) {
- 			spin_unlock_bh(&tp_vars->unacked_lock);
- 			goto out;
- 		}
-@@ -1529,8 +1527,7 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
- 	}
- 
- 	/* if everything was fine count the ACKed bytes */
--	packet_size = skb->len - sizeof(struct batadv_unicast_packet);
--	tp_vars->last_recv += packet_size;
-+	tp_vars->last_recv = to_ack;
- 
- 	/* check if this ordered message filled a gap.... */
- 	batadv_tp_ack_unordered(tp_vars);
+ 	tvlv_buff = (unsigned char *)(skb->data + hdr_size);
 -- 
 2.47.3
 
