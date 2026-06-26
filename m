@@ -1,111 +1,231 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67AF43CEB8A;
-	Fri, 26 Jun 2026 06:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742E63DB326;
+	Fri, 26 Jun 2026 06:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782456428; cv=none; b=ITjTZNC1dNY6duVprthauUSWGlmIRPXVDVKhaFNahOO1MuMuEgXfv2a6Kn5pGLQvIFD0D1UgQ3klb1iTYvSeWjcO54mH4Mbukl2PC1SK4lJ1DfPx434pBPUDbb4vbX5Yw/BwFQW2/Q2Bzh9MDtv8RXDQgBg5bVBAnrN6NcxfXOQ=
+	t=1782456496; cv=none; b=bBqGU0/7bJTd2AmzcpgvV40Hr4vYSGRsMK17AqBxVGsG44nKrVy3gtDZ4FlOvWhwOSug9zFkiuVMWYMXuitZtXkyqHtpcGU6zHf/y8d8WeMUi4AAWugYL5ipT+xVe4L1BIgb596Z6Ja/dRpJI77gue7N63mW1DME1jZJaYlNxXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782456428; c=relaxed/simple;
-	bh=8V37NypHK7R6XvN+Th5Z4WG2AVo1np0/RNX4wWXKg74=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XFwXZDeAJJvaDVLU2IhhMEKv15ho8UfXMhw5SwUs8muGS0D636JsA3loZ+BvSCy69A94tyOyyPflHvLZdCqWI3E2bXCTygBct98Piqz6zIsaVWohuYqBi6M2dZXobFg7ykMGhsvmKUA3kUW4B/NNJzRaGSiVkbf2PVvdgyOVK54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=fEEpb8/1; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1782456496; c=relaxed/simple;
+	bh=uFlidB/EPvdxjB4gnuihhulpIfPWIs49Y9PSiqC2FTk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PY18B/RYfoRQTBnfNDT1XcQZUbFKERoif/b1+nD9sa5uMmQnZlTV3XvzA+a7xA/v+aYdhINpRqB+Aau3iUyySuquB2pxhCpcDNkXnRdYnAh+6NpD2EvTABbWfWe5fv+AsFUU3nyB3K9Dt0PevPvqRsGhspyDZQfIXJErC0+mAQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A2eJbEqK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="fEEpb8/1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1782456396;
-	bh=tnLnFYCtOzBz6nmdK/bR6bVt53nUxSinAHQUyvhZLsE=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=fEEpb8/1XCYZVTlSKD21snmG7GduqWjOyQKLlrj6SpfPjxBdz+/F6mcrYMTvgSHD0
-	 5gOO8dQFJojJlvqrI+RQjutkT0uquYQ5h/o5yzfQ2mSWZw6im8KMfVF3yHTC1lBiZS
-	 6yiVRsY6dIIpyA2ThbLJBlsZvp1bSgRaTarUaiYM=
-X-QQ-mid: zesmtpgz3t1782456380tc9da7d66
-X-QQ-Originating-IP: DGVO9sqbos913dc5uCpwEpjkfXxzYnQOZ3faqwyBH/E=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 26 Jun 2026 14:46:18 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10800267307979064095
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: kees@kernel.org,
-	raoxu@uniontech.com,
-	christophe.jaillet@wanadoo.fr,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: gadget: f_printer: take kref only for successful open
-Date: Fri, 26 Jun 2026 14:46:17 +0800
-Message-ID: <80295742B820DA9B+20260626064617.4090626-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A2eJbEqK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C7D1F000E9;
+	Fri, 26 Jun 2026 06:48:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782456495;
+	bh=uFlidB/EPvdxjB4gnuihhulpIfPWIs49Y9PSiqC2FTk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=A2eJbEqKVK2R/anS1yDAZ0BvZ34dEvDixOVE4MHj10aWXJmTRIXxr3qXi4KyPovV9
+	 o9xWBLJYJwzqBMTIS2236JeHHWoL/habvU/Q7A9nEvnfMnb3LWgzWdAL4ilbPU/YvT
+	 ZpurofjqDCQwtV7182y/NbfLyB/cWQHwAAh1TmWPVtWse6d11AwWqbwPZ/WAoChZAw
+	 rzEMZ4+5HNvSYyc5DqCTV2qEqnpmuutpptNoKFYDJLPScRnau3WxBGYAuisVWdEz43
+	 5/JYjuHXIc80EOPN9w0xjkMRE/QSgUlSaC4IqHDSZHA9DNC+LPTabab7zavDcSAUir
+	 j8wLt86GIerKA==
+Message-ID: <5a0c6597-6b96-4781-a71b-fd1298b2b7bb@kernel.org>
+Date: Fri, 26 Jun 2026 15:48:06 +0900
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NQPIPhQO7YRQynSLXVtsX6rkqkJzB8l2hjaK47vtkXt9E7RUw33PZ/b8
-	+lOS8r0C8bicHYMTrWYbGc2HAIVnvWpbDlXc7oUaasIWO+97ihdhRzBpunbgWTSx39bbLv5
-	1kjy7nr2l/wb4mpCpaPKuv+K1qhV6ejNTfB6cdVfUIZq43vZ+jB4K9TyMCrCuKIvPsPlyxE
-	as/+Ew/AAa7t2CVjZ8oTxN5APbNRcFN/gAmKEErZ/mQQsrpQPy6d6fgoEyAWVtbLpc4c38O
-	g5zdTCmYfMdEotqT8LKjpns2IshUkULX15Yaz6+JnAWHoP9cv7aGGIJXRSLgN0ICcJtKmTP
-	KcylH8yJCpiAiHzPzmsMibOgaVtbVK0DhWt2/RAvhc+gEYcuulhrAmccbpm7luLuEbt4sPC
-	AqeV8g2w2u2FCzcmSPlLM1F9Z8uwaZY6kbyrIsc1i3BcfZVYrykEt6l0aPR0qsqoLiHV1sv
-	b8uzeU1pcObWsNiYCyhNqaXUR8397qlhnWXVZNayar65DtPM6dpG1nfFUsJWn+2PCz3lsAn
-	MiZgBMYA0qZoYBao6poo9mZL7PMzPX8XUG2BuEvUkzO7D8AvBr1Qqxc42OhNqOcvJ6Cvk0Z
-	BygAWkFW9S/+jotP30uL7nNGY6Dnn2OcX/I0ARL3ml7QbS5dXJd7+6hzAiDdorQou9MYt85
-	oxVCUSDUtKmrZooNxPHVdYDg1bsv3Io3R41N3Eiq/s+o5I5uXPpJXz45m/lVYZ5Xq94J/eM
-	+7byO0tB73WzHuLm3n+Jq5/TTuGyjxmJ51jk0n5TBzjDWFXGEGl/RabEjSAxB5trI/pIa31
-	2k6KKc6ZQFo3t7w+wnWOyCIQJXNjBw0CGsGGZPtY8hwcK9gLhoFC9+/W1cFx7UjaC10+s0w
-	F3NrzluhumAfhtMZUjupAt/okoeS7+WsdX3tCS75Ds3SdGMJjVCqU6Sb4yNPGdim9446Pri
-	9tucC4kyK7mEWbb+9RNlJJX3PjxW2iNhWMPyVB2G5zBaWMImQtSBIDr9ZYSUDkoguDcsWxy
-	/Dguqaqyg3/7WPijaWdxLFbPEfr/oI1sabflBZS4Rkq0GZ8h/BtYAcX61XCXMHSFuREmx8s
-	A==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm: mglru: fix stale batch updates after memcg
+ reparenting
+To: Qi Zheng <qi.zheng@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>
+Cc: akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com,
+ shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, muchun.song@linux.dev,
+ peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
+ ljs@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+References: <20260625151554.55105-1-qi.zheng@linux.dev>
+ <aj12aVq3he6q7b2C@cmpxchg.org>
+ <4c7b0c46-14f0-4a62-893e-e50714e09b74@linux.dev>
+ <46ac28bf-5be1-4600-b522-0a1aa76c28e6@kernel.org>
+ <08cf8972-6cfc-4452-9a3c-88e0368dbbf9@linux.dev>
+ <afdaff7c-fe6b-40da-8f54-aeeab8fe8867@kernel.org>
+ <90fd5300-1016-42e7-abad-08ad85fb62b4@linux.dev>
+Content-Language: en-US
+From: Harry Yoo <harry@kernel.org>
+In-Reply-To: <90fd5300-1016-42e7-abad-08ad85fb62b4@linux.dev>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------cX5ukXFyQlDiVGJNom11010b"
 
-From: Xu Rao <raoxu@uniontech.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------cX5ukXFyQlDiVGJNom11010b
+Content-Type: multipart/mixed; boundary="------------LJvK4Zuc5TCvFT3lxqrCEeNR";
+ protected-headers="v1"
+From: Harry Yoo <harry@kernel.org>
+To: Qi Zheng <qi.zheng@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>
+Cc: akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com,
+ shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, muchun.song@linux.dev,
+ peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
+ ljs@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+Message-ID: <5a0c6597-6b96-4781-a71b-fd1298b2b7bb@kernel.org>
+Subject: Re: [PATCH v3] mm: mglru: fix stale batch updates after memcg
+ reparenting
+References: <20260625151554.55105-1-qi.zheng@linux.dev>
+ <aj12aVq3he6q7b2C@cmpxchg.org>
+ <4c7b0c46-14f0-4a62-893e-e50714e09b74@linux.dev>
+ <46ac28bf-5be1-4600-b522-0a1aa76c28e6@kernel.org>
+ <08cf8972-6cfc-4452-9a3c-88e0368dbbf9@linux.dev>
+ <afdaff7c-fe6b-40da-8f54-aeeab8fe8867@kernel.org>
+ <90fd5300-1016-42e7-abad-08ad85fb62b4@linux.dev>
+In-Reply-To: <90fd5300-1016-42e7-abad-08ad85fb62b4@linux.dev>
 
-printer_open() returns -EBUSY when the character device is already
-open, but it increments dev->kref regardless of the return value. VFS
-does not call ->release() for a failed open, so every rejected second
-open permanently leaks one reference.
+--------------LJvK4Zuc5TCvFT3lxqrCEeNR
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-Move kref_get() into the successful-open branch.
+DQoNCk9uIDYvMjYvMjYgMzoyNCBQTSwgUWkgWmhlbmcgd3JvdGU6DQo+IA0KPiANCj4gT24g
+Ni8yNi8yNiAxMjo1OSBQTSwgSGFycnkgWW9vIHdyb3RlOg0KPj4NCj4+DQo+PiBPbiA2LzI2
+LzI2IDE6NDggUE0sIFFpIFpoZW5nIHdyb3RlOg0KPj4+DQo+Pj4NCj4+PiBPbiA2LzI2LzI2
+IDEyOjQzIFBNLCBIYXJyeSBZb28gd3JvdGU6DQo+Pj4+DQo+Pj4+DQo+Pj4+IE9uIDYvMjYv
+MjYgMTE6MjcgQU0sIFFpIFpoZW5nIHdyb3RlOg0KPj4+Pj4gSGkgSm9oYW5uZXMsDQo+Pj4+
+Pg0KPj4+Pj4gT24gNi8yNi8yNiAyOjQxIEFNLCBKb2hhbm5lcyBXZWluZXIgd3JvdGU6DQo+
+Pj4+Pj4gT24gVGh1LCBKdW4gMjUsIDIwMjYgYXQgMTE6MTU6NTRQTSArMDgwMCwgUWkgWmhl
+bmcgd3JvdGU6DQo+Pj4+Pj4+IEZyb206IFFpIFpoZW5nIDx6aGVuZ3FpLmFyY2hAYnl0ZWRh
+bmNlLmNvbT4NCj4+Pj4+Pj4NCj4+Pj4+Pj4gVGhlIG1nbHJ1IHBhZ2UgdGFibGUgd2Fsa2Vy
+IGJhdGNoZXMgcGVyLWdlbmVyYXRpb24gc2l6ZSBkZWx0YXMgaW4NCj4+Pj4+Pj4gd2Fsay0+
+bnJfcGFnZXMgd2hpbGUgd2Fsa2luZyBwYWdlIHRhYmxlcyB3aXRob3V0IGhvbGRpbmcgdGhl
+IGxydXZlYw0KPj4+Pj4+PiBsb2NrLg0KPj4+Pj4+PiBUaGUgcmVzZXRfYmF0Y2hfc2l6ZSgp
+IGxhdGVyIGZvbGRzIHRob3NlIGRlbHRhcyBpbnRvIHdhbGstPmxydXZlYw0KPj4+Pj4+PiB1
+bmRlcg0KPj4+Pj4+PiB0aGUgbHJ1dmVjIGxvY2suDQo+Pj4+Pj4+DQo+Pj4+Pj4+IFRoZSBw
+YWdlIHRhYmxlIHdhbGtlciBjYW4gcnVuIGNvbmN1cnJlbnRseSB3aXRoIHRoZSBtZW1jZw0K
+Pj4+Pj4+PiByZXBhcmVudGluZw0KPj4+Pj4+PiBwYXRoDQo+Pj4+Pj4+IGFzIGZvbGxvd3M6
+DQo+Pj4+Pj4+DQo+Pj4+Pj4+IENQVTDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIENQVTENCj4+Pj4+Pj4gPT09PcKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPT09PQ0KPj4+Pj4+Pg0K
+Pj4+Pj4+PiB3YWxrX21tDQo+Pj4+Pj4+IC0tPiB3YWxrX3BhZ2VfcmFuZ2UNCj4+Pj4+Pj4g
+wqDCoMKgwqDCoMKgIC0tPiB1cGRhdGVfYmF0Y2hfc2l6ZQ0KPj4+Pj4+PiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCAtLT4gd2Fsay0+bnJfcGFnZXMgKz0gZGVsdGENCj4+Pj4+Pj4NCj4+Pj4+
+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBtZW1fY2dyb3VwX2Nzc19vZmZsaW5lDQo+Pj4+Pj4+IMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgLS0+IG1lbWNnX3JlcGFyZW50X29iamNncw0KPj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgLS0+IGxvY2sgbHJ1dmVjDQo+Pj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGxydV9nZW5fcmVwYXJlbnRfbWVtY2cNCj4+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgLS0+IHJlcGFyZW50IGNoaWxkDQo+Pj4+Pj4+IGZvbGlvcyB0bw0KPj4+Pj4+PiBw
+YXJlbnQNCj4+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5sb2NrIGxydXZl
+Yw0KPj4+Pj4+Pg0KPj4+Pj4+PiDCoMKgwqDCoMKgwqAgbG9jayBscnV2ZWMNCj4+Pj4+Pj4g
+wqDCoMKgwqDCoMKgIHJlc2V0X2JhdGNoX3NpemUNCj4+Pj4+Pj4gwqDCoMKgwqDCoMKgIC0t
+PiBjaGlsZCBscnVnZW4tPm5yX3BhZ2VzICs9IGRlbHRhDQo+Pj4+Pj4+DQo+Pj4+Pj4+IFRo
+aXMgd2lsbCB0cmlnZ2VyIHRoZSBmb2xsb3dpbmcgd2FybmluZyBpbiBscnVfZ2VuX2V4aXRf
+bWVtY2coKToNCj4+Pj4+Pj4NCj4+Pj4+Pj4gwqDCoMKgwqDCoCBWTV9XQVJOX09OX09OQ0Uo
+bWVtY2hyX2ludihscnV2ZWMtPmxydWdlbi5ucl9wYWdlcywgMCwNCj4+Pj4+Pj4gwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzaXplb2YobHJ1dmVjLT5scnVn
+ZW4ubnJfcGFnZXMpKSk7DQo+Pj4+Pj4+DQo+Pj4+Pj4+IEFuZCB0aGUgdXNlci12aXNpYmxl
+IGltcGFjdCBvZiB1bmRlcmVzdGltYXRlZCBucl9wYWdlcyBpbiBNR0xSVSB3YXMNCj4+Pj4+
+Pj4gcHJlbWF0dXJlIE9PTXMgYmVjYXVzZSBNR0xSVSBkb2VzIG5vdCB0cnkgdG8gcmVjbGFp
+bSBtZW1vcnkgd2hlbg0KPj4+Pj4+PiBucl9wYWdlcw0KPj4+Pj4+PiByZWFjaGVzIHplcm8s
+IGJ1dCB0aGVyZSBhcmUgc3RpbGwgbW9yZSBwYWdlcy4NCj4+Pj4+Pj4NCj4+Pj4+Pj4gVG8g
+Zml4IGl0LCBtYWtlIHJlc2V0X2JhdGNoX3NpemUoKSBjaGVjayBDU1NfRFlJTkcgdW5kZXIg
+UkNVIGJlZm9yZQ0KPj4+Pj4+PiBmbHVzaGluZyB0aGUgcGVuZGluZyBiYXRjaC4gQSBub24t
+ZHlpbmcgbWVtY2cga2VlcHMgdGhlIG9yaWdpbmFsDQo+Pj4+Pj4+IGxydXZlYw0KPj4+Pj4+
+PiBzdGFibGUgYWdhaW5zdCBSQ1UtZGVsYXllZCBvZmZsaW5pbmc7IGEgZHlpbmcgbWVtY2cg
+cmVkaXJlY3RzIHRoZQ0KPj4+Pj4+PiBkZWx0YXMNCj4+Pj4+Pj4gdG8gdGhlIGZpcnN0IG5v
+bi1keWluZyBhbmNlc3Rvci4NCj4+Pj4+Pj4NCj4+Pj4+Pj4gUmVwb3J0ZWQtYnk6IFBlaXlh
+bmcgSGUgPHBlaXlhbmdfaGVAc21haWwubmp1LmVkdS5jbj4NCj4+Pj4+Pj4gQ2xvc2VzOiBo
+dHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvNUE5RTkyOUQ4MjcxNzEwMSsxMmZjZjY0My0N
+Cj4+Pj4+Pj4gZWZiOC00YjlhLWE1M2EtMWUyOGNjODk0ZjBiQHNtYWlsLm5qdS5lZHUuY24N
+Cj4+Pj4+Pj4gRml4ZXM6IGYzMDQ2NTI2MDllYSAoIm1tOiB2bXNjYW46IHByZXBhcmUgZm9y
+IHJlcGFyZW50aW5nIE1HTFJVDQo+Pj4+Pj4+IGZvbGlvcyIpDQo+Pj4+Pj4+IENjOiA8c3Rh
+YmxlQHZnZXIua2VybmVsLm9yZz4NCj4+Pj4+Pj4gU2lnbmVkLW9mZi1ieTogUWkgWmhlbmcg
+PHpoZW5ncWkuYXJjaEBieXRlZGFuY2UuY29tPg0KPj4+Pj4+PiAtLS0NCj4+Pj4+Pj4gQ2hh
+bmdlcyBpbiB2MzoNCj4+Pj4+Pj4gwqDCoMKgIC0gcmUtaW1wbGVtZW50IGxvY2tfYmF0Y2hf
+bHJ1dmVjKCkgYnkgY2hlY2tpbmcgQ1NTX0RZSU5HDQo+Pj4+Pj4+IHVuZGVyIHRoZQ0KPj4+
+Pj4+PiBSQ1UgbG9jaw0KPj4+Pj4+PiDCoMKgwqDCoMKgIChzdWdnZXN0ZWQgYnkgSGFycnkp
+DQo+Pj4+Pj4+IMKgwqDCoCAtIHVwZGF0ZSB0aGUgY29tbWl0IG1lc3NhZ2UgKHN1Z2dlc3Rl
+ZCBieSBIYXJyeSkNCj4+Pj4+Pj4gwqDCoMKgIC0gdGVtcG9yYXJpbHkgZHJvcCB0aGUgcHJl
+dmlvdXMgUmV2aWV3ZWQtYnkgdGFncw0KPj4+Pj4+PiDCoMKgwqDCoMKgIChzaW5jZSB0aGUg
+c3luYyBtZXRob2QgaGFzIGNoYW5nZWQpDQo+Pj4+Pj4+IMKgwqDCoCAtIHJlYmFzZSBvbnRv
+IHRoZSBuZXh0LTIwMjYwNjI0DQo+Pj4+Pj4+DQo+Pj4+Pj4+IENoYW5nZXMgaW4gdjI6DQo+
+Pj4+Pj4+IMKgwqDCoCAtIHVwZGF0ZSB0aGUgY29tbWl0IG1lc3NhZ2UgKHBvaW50ZWQgYnkg
+QmFycnkpDQo+Pj4+Pj4+IMKgwqDCoCAtIGNvbGxlY3QgUmV2aWV3ZWQtYnkNCj4+Pj4+Pj4N
+Cj4+Pj4+Pj4gwqDCoMKgIG1tL3Ztc2Nhbi5jIHwgNDUgKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKystLS0tLS0tDQo+Pj4+Pj4+IMKgwqDCoCAxIGZpbGUgY2hhbmdl
+ZCwgMzggaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkNCj4+Pj4+Pj4NCj4+Pj4+Pj4g
+ZGlmZiAtLWdpdCBhL21tL3Ztc2Nhbi5jIGIvbW0vdm1zY2FuLmMNCj4+Pj4+Pj4gaW5kZXgg
+MzVjM2JiMTVhZTk2Li4xZWM4YzIzYzcyYjkgMTAwNjQ0DQo+Pj4+Pj4+IC0tLSBhL21tL3Zt
+c2Nhbi5jDQo+Pj4+Pj4+ICsrKyBiL21tL3Ztc2Nhbi5jDQo+Pj4+Pj4+IEBAIC0zMjYyLDEw
+ICszMjYyLDQ0IEBAIHN0YXRpYyB2b2lkIHVwZGF0ZV9iYXRjaF9zaXplKHN0cnVjdA0KPj4+
+Pj4+PiBscnVfZ2VuX21tX3dhbGsgKndhbGssIHN0cnVjdCBmb2xpbyAqZm9saW8sDQo+Pj4+
+Pj4+IMKgwqDCoMKgwqDCoMKgIHdhbGstPm5yX3BhZ2VzW25ld19nZW5dW3R5cGVdW3pvbmVd
+ICs9IGRlbHRhOw0KPj4+Pj4+PiDCoMKgwqAgfQ0KPj4+Pj4+PiDCoMKgwqAgKyNpZmRlZiBD
+T05GSUdfTUVNQ0cNCj4+Pj4+Pj4gK3N0YXRpYyBzdHJ1Y3QgbHJ1dmVjICpsb2NrX2JhdGNo
+X2xydXZlYyhzdHJ1Y3QgbHJ1dmVjICpscnV2ZWMpDQo+Pj4+Pj4+ICt7DQo+Pj4+Pj4+ICvC
+oMKgwqAgc3RydWN0IHBnbGlzdF9kYXRhICpwZ2RhdCA9IGxydXZlY19wZ2RhdChscnV2ZWMp
+Ow0KPj4+Pj4+PiArwqDCoMKgIHN0cnVjdCBtZW1fY2dyb3VwICptZW1jZyA9IGxydXZlY19t
+ZW1jZyhscnV2ZWMpOw0KPj4+Pj4+PiArDQo+Pj4+Pj4+ICvCoMKgwqAgcmN1X3JlYWRfbG9j
+aygpOw0KPj4+Pj4+DQo+Pj4+Pj4gV2hlcmUgaXMgdGhpcyB1bmxvY2tlZD8NCj4+Pj4+DQo+
+Pj4+PiBUaGUgbHJ1dmVjX3VubG9ja19pcnEoKSBpbiByZXNldF9iYXRjaF9zaXplKCkgd2ls
+bCBoYW5kbGUgdGhlDQo+Pj4+PiB1bmxvY2tpbmcuDQo+Pj4+Pg0KPj4+Pj4+DQo+Pj4+Pj4+
+ICvCoMKgwqAgLyoNCj4+Pj4+Pj4gK8KgwqDCoMKgICogVGhlIG1lbWNnIGNhbiBiZSBOVUxM
+IHdoZW4gdGhlIG1lbW9yeSBjb250cm9sbGVyIGlzDQo+Pj4+Pj4+IGRpc2FibGVkLg0KPj4+
+Pj4+PiArwqDCoMKgwqAgKiBPdGhlcndpc2UsIHRoZSBjYWxsZXIga2VlcHMgdGhlIG1lbWNn
+IG93bmluZyBAbHJ1dmVjIGFsaXZlLg0KPj4+Pj4+PiArwqDCoMKgwqAgKi8NCj4+Pj4+Pj4g
+K8KgwqDCoCBpZiAoIW1lbWNnIHx8ICFjc3NfaXNfZHlpbmcoJm1lbWNnLT5jc3MpKQ0KPj4+
+Pj4+PiArwqDCoMKgwqDCoMKgwqAgZ290byBsb2NrOw0KPj4+Pj4+PiArDQo+Pj4+Pj4+ICvC
+oMKgwqAgZG8gew0KPj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgbWVtY2cgPSBwYXJlbnRfbWVt
+X2Nncm91cChtZW1jZyk7DQo+Pj4+Pj4+ICvCoMKgwqAgfSB3aGlsZSAobWVtY2cgJiYgY3Nz
+X2lzX2R5aW5nKCZtZW1jZy0+Y3NzKSk7DQo+Pj4+Pj4+ICvCoMKgwqAgbHJ1dmVjID0gbWVt
+X2Nncm91cF9scnV2ZWMobWVtY2csIHBnZGF0KTsNCj4+Pj4+Pg0KPj4+Pj4+IMKgwqDCoMKg
+wqAgd2hpbGUgKHVubGlrZWx5KG1lbWNnICYmIGNzc19pc19keWluZygmbWVtY2ctPmNzcykp
+KSB7DQo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIG1lbWNnID0gcGFyZW50X21lbV9jZ3Jv
+dXAobWVtY2cpOw0KPj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBscnV2ZWMgPSBtZW1fY2dy
+b3VwX2xydXZlYyhtZW1jZywgcGdkYXQpOw0KPj4+Pj4NCj4+Pj4+IFRoZXJlIGlzIG5vIG5l
+ZWQgdG8gYWNxdWlyZSB0aGUgbHJ1dmVjIGJlZm9yZSBmaW5kaW5nIHRoZSBmaXJzdA0KPj4+
+Pj4gbm9uLWR5aW5nIG1lbWNnLg0KPj4+Pg0KPj4+PiBzdHJ1Y3QgcGdsaXN0X2RhdGEgKnBn
+ZGF0ID0gbHJ1dmVjX3BnZGF0KGxydXZlYyk7DQo+Pj4+IHN0cnVjdCBtZW1fY2dyb3VwICpt
+ZW1jZyA9IGxydXZlY19tZW1jZyhscnV2ZWMpOw0KPj4+Pg0KPj4+PiByY3VfcmVhZF9sb2Nr
+KCkNCj4+Pj4NCj4+Pj4gd2hpbGUgKHVubGlrZWx5KG1lbWNnX2lzX2R5aW5nKG1lbWNnKSkp
+DQo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBtZW1jZyA9IHBhcmVudF9tZW1fY2dyb3VwKG1l
+bWNnKTsNCj4+Pj4NCj4+Pj4gbHJ1dmVjID0gbWVtX2Nncm91cF9scnV2ZWMobWVtY2csIHBn
+ZGF0KTsNCj4+Pg0KPj4+IElmIHRoZSBmaXJzdCBtZW1jZyBpcyBhbHJlYWR5IG5vbi1keWlu
+ZywgdGhlcmUncyBubyBuZWVkIHRvIHJlLWFjcXVpcmUNCj4+PiB0aGUgbHJ1dmVjLiA7KQ0K
+Pj4NCj4+IE9oLCByaWdodCA6KQ0KPj4NCj4+IEhtbSBidXQgSSBzdGlsbCB0aGluayBKb2hh
+bm5lcycgc3VnZ2VzdGlvbiBtYWtlcyB0aGUgY29kZSBjbGVhbmVyLg0KPiANCj4gSSBkb24n
+dCBoYXZlIGEgc3Ryb25nIHByZWZlcmVuY2Ugb24gd2hpY2ggb2YgdGhlIHR3byBjb2Rpbmcg
+c3R5bGVzIGlzDQo+IG1vcmUgcmVhZGFibGUuIEJUVywgaXMgdGhlcmUgYW55IGtlcm5lbCBk
+b2N1bWVudGF0aW9uIEkgY291bGQgcmVmZXIgdG8NCj4gZm9yIHRoaXM/DQoNCkkgZG9uJ3Qg
+dGhpbmsgdGhlcmUncyBhIGNvZGluZyBzdHlsZSBndWlkZSB0aGF0IHNwZWNpZmljYWxseQ0K
+bWVudGlvbnMgdGhpcy4gSnVzdCB0aG91Z2h0IGl0J3MgY2xlYW5lciBiZWNhdXNlIGl0IG1l
+cmdlcyBpZiAoLi4uKSBnb3RvDQpsb2NrOyBhbmQgZG8td2hpbGUgaW50byBhIHNpbmdsZSB3
+aGlsZSBsb29wLg0KDQo+PiBPYnNlcnZpbmcgYSBkeWluZyBjZ3JvdXAgc2hvdWxkIGJlIHJh
+cmUgYW55d2F5LCBpdCdzIHdvcnRoIGZvY3VzaW5nDQo+PiBtb3JlIG9uIHJlYWRhYmlsaXR5
+Pw0KPiANCj4gV2hpbGUgaXQncyByYXJlIHRvIGVuY291bnRlciBjb25zZWN1dGl2ZSBkeWlu
+ZyBtZW1jZ3MsIGl0IGNhbiBzdGlsbA0KPiBoYXBwZW4sIHJpZ2h0Pw0KDQpCdXQgaXMgd29y
+dGggc2F2aW5nIGEgZmV3IGluc3RydWN0aW9uIGluIGEgYmFzaWMgYmxvY2sgdGhhdCBpcw0K
+dW5saWtlbHkoKSB0byBiZSBleGVjdXRlZD8NCg0KSSdtIG5vdCBhIG1lbWNnIG1haW50YWlu
+ZXIgbXlzZWxmLCB0aG91Z2guIGp1c3QgbXkgMiBjZW50cy4NCg0KLS0gDQpDaGVlcnMsDQpI
+YXJyeSAvIEh5ZW9uZ2dvbg0KDQo=
 
-Fixes: e8d5f92b8d30 ("usb: gadget: function: printer: fix use-after-free in __lock_acquire")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/usb/gadget/function/f_printer.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+--------------LJvK4Zuc5TCvFT3lxqrCEeNR--
 
-diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
-index e4f7828ae75d..837f753d0cae 100644
---- a/drivers/usb/gadget/function/f_printer.c
-+++ b/drivers/usb/gadget/function/f_printer.c
-@@ -363,12 +363,11 @@ printer_open(struct inode *inode, struct file *fd)
- 		ret = 0;
- 		/* Change the printer status to show that it's on-line. */
- 		dev->printer_status |= PRINTER_SELECTED;
-+		kref_get(&dev->kref);
- 	}
+--------------cX5ukXFyQlDiVGJNom11010b
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
- 	spin_unlock_irqrestore(&dev->lock, flags);
+-----BEGIN PGP SIGNATURE-----
 
--	kref_get(&dev->kref);
--
- 	return ret;
- }
+iHUEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCaj4gpgAKCRCGXBN6rc5S
+1rDcAP4ygpzRUkuMkjporBYJzPsnen0DkH09BkvSo7aiybr/HQD/eDhGLFt5NxEM
+eb8EG9w1TyS+gbQJoKUa33njhsKqEwc=
+=ScuO
+-----END PGP SIGNATURE-----
 
---
-2.50.1
-
+--------------cX5ukXFyQlDiVGJNom11010b--
