@@ -1,144 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013056.outbound.protection.outlook.com [40.107.201.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59043FD957;
-	Fri, 26 Jun 2026 14:49:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782485378; cv=none; b=sa02FQiztMTUXEBCv7qo8w6PilO4kDOcmTSDUg57AzUh2e/K3lco+VjNX2pN9QwVQwYasYPXCDWI+OtDmg6lk8auB4ZZ4enRv1c4Czp4+A7+ax1HmmsdmBn0qGopsjJMcVG2pZQ+UCaCquCbqALnEzV/3LI4XoOtcGZGhdjX/nE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782485378; c=relaxed/simple;
-	bh=6kIyebAgV73GN7L9ghWv6l7o8Ekv63QDtQwCnKoxTl8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q4BRHUk3FyGdyaa9h7PysKSdlVT+Zc5HGpWLxQpnL4qcDAlOK6aZzdynLMv36EKQ/5h9UNmd4tj+iD68nE9aMwMYEwfL7jZHAvpAV26AHNFVQRnVK/tHdlHAKxHgQ8Bt+DR/WSJh5C1zfEz5Msex2opHIk/APvt3OMj4mOk/WrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CeqLjBBX; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 400683FD94C;
+	Fri, 26 Jun 2026 14:49:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782485382; cv=fail; b=CtrDJXRX+p5PnDo0esdTzidazUQEzP3X+d396Zw56zaJiKykLg54BBEDCtqsMy62iHNNwbCi5SCZAvO2y6qoTzJud7uSvH6JtPuQYp6ESATe2pXGtFf+pBV6JswwQC81llSY+pbSluIciA884HlGGA5lwRteFTLYi9YhGWht2So=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782485382; c=relaxed/simple;
+	bh=2el/4BSnbCVPGnK6IouuS3pTaumCujWrvsmZu8NMiAE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=d34QIVhoycGNndxzpP9dZ7xaesknjoAysKtVsinSrN4cHh6IuMKTubfDoIb5Y9or9j4WH7PzxrYUc97ryXRba0QhS8hEaiIgvaCB5/eNWwX7SrHulZdomEcUbXX6cjIM/VIl9TaAuOEj7Nt4SpK0e+cn4o4FWrfcrc764Z7UqBo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Lor/uiPk; arc=fail smtp.client-ip=40.107.201.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CeqLjBBX"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id F02561F00A3A;
-	Fri, 26 Jun 2026 14:49:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782485375;
-	bh=k4x2V1Ce5QbMnxtO7thGJ+kYlbTzfX1T4ut1+O2edcw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CeqLjBBXu2zTHHPJmy6hUE+J1HS1rFbndjTE4Xb4fAVDdWsyxmSPAApqg7QV8THiJ
-	 3EwKdppFbnpgD1C05FsXmUmDNB0ZnPFCJpRtWCXAXc5zbGHzB1Ooyi20dj/sG1yzEG
-	 Yj6Tejlum7U+LAGVo9QZRDbg9AK/7CyjaHaxNqCOGeQ3a/5aO3VTT/L7UQoMBUkmfi
-	 n4jSrpslznVawccyvVWlmHqbtlzUB3uR1GIFW52cLFa1TlhzENA8mJg/SNi3zK4Pya
-	 Sy36YY6y4bO2MrHCFG4S9eZ89+Rmd1lXeB1yy5K2lYFsWSeNfG/zy2/cpEqRnHdlJH
-	 ThZB3fZIvmycw==
-Date: Fri, 26 Jun 2026 07:49:34 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: cem@kernel.org
-Cc: linux-xfs@vger.kernel.org, stable@vger.kernel.org,
-	Eric Sandeen <sandeen@redhat.com>, Christoph Hellwig <hch@lst.de>,
-	Jan Kara <jack@suse.cz>, Dave Chinner <david@fromorbit.com>,
-	"Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>
-Subject: Re: [PATCH 1/2] xfs: fix capabily check in xfs
-Message-ID: <20260626144934.GR6078@frogsfrogsfrogs>
-References: <20260626102934.57834-1-cem@kernel.org>
- <20260626102934.57834-2-cem@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Lor/uiPk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZpX77qq/I/pezLliAFF01XBYjOdeXnievymJYR/Aky5n6Gwi9TxjO9XRknsENv4RLIo7eU5/rBBSeNvblie2funwVCPOK7YYZ+BATKFJxh2bXozcay/FEX2aitLqNLjFsipBS723DXzrAM6FIBf1iNeh9SZX+w+rC9Q76GmoLncZ5KZ3rntmwW8wvqqQ0aPrc2u6QFXsksvGghN1/+IqWYpbg4XUPXvZRs+xxoNP30qmolPB06BWLKhyvRICSEwk84LYb/KtlWVGAVtFAm+Zmrtna23ARAZBqg5PLO/XCqRxXulMeqiVG4vPbcdTqL/1eMBSIeec61eMu6qSBVxjzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JF/L9eG6VKLkrq3rC39GxLpPmHsGXz2XN5aKGLq/lh4=;
+ b=glZqK2hdyMg49Ie91tRTJT9bCn+KxJRy/VdEIu/ZrEUpMUcZQVc/N1yfcO+Tco0i9OjHPDmELhLlVWU1dLTukSG5aEa0LiOwt8iYr7rhI1656BKGiUSLWm9Z9QrKTGeFUVJK5oqCUhhjgZJS02M5F2hDQR0P9UnSA+d1yQipOuaCFyOev7FO0wSRLwd99xKcW21qU/zJFdK1yZgGmWE8e2YU35IA8/ieErE/2RMko0SxnZUWisTEPu/lzFd2Ubf5Vh5Q3jPks89eFAXi7pOI1ojb7Ayy8laLy63Bv9zRBGo8qfXVIB6HvHS9uu9L2oK3oD+Hqx9YhlTbbsrjcwAlTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=davemloft.net smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JF/L9eG6VKLkrq3rC39GxLpPmHsGXz2XN5aKGLq/lh4=;
+ b=Lor/uiPkCVRi24JbFpj9pFmAtUQFb3ANTzKNsGIHQpzgOslf7fX1pLfC6nGbIjbsGLLlQpKAh0IkvtkON5ecJsQgSXNChwYAM4hJr6YuwwsVuFg8wrUPwBqTg8oksMHZRu6e35nnobFyeHYbvVfkiNLnzh7KvNyFvh8Xe+yGhJuWJr5kTJ6EOiQ3z8grBuFVix4NMldR91HbkcKlPJZWVYqBVm91bXgU+cl9Iy8oV62baZl4GLmmklrs71PXmelyIwwpDUJV6N0moPI5OFrdr8VuCuNrbIAKkDGS4XOMWwI3iq4Pjm8qnjfWXv3BCE275oavu7dXKWRilLnkvbSRSQ==
+Received: from PH0PR07CA0101.namprd07.prod.outlook.com (2603:10b6:510:4::16)
+ by MW4PR12MB7013.namprd12.prod.outlook.com (2603:10b6:303:218::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
+ 2026 14:49:32 +0000
+Received: from SN1PEPF00036F3D.namprd05.prod.outlook.com
+ (2603:10b6:510:4:cafe::a) by PH0PR07CA0101.outlook.office365.com
+ (2603:10b6:510:4::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.17 via Frontend Transport; Fri,
+ 26 Jun 2026 14:49:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ SN1PEPF00036F3D.mail.protection.outlook.com (10.167.248.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Fri, 26 Jun 2026 14:49:31 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Fri, 26 Jun
+ 2026 07:49:14 -0700
+Received: from 82875d6-lcedt.nvidia.com (10.126.231.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.20; Fri, 26 Jun 2026 07:49:13 -0700
+From: Nirmoy Das <nirmoyd@nvidia.com>
+To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+	<edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Shuah Khan <shuah@kernel.org>
+CC: <netdev@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: [PATCH net] selftests: net: make busywait timeout clock portable
+Date: Fri, 26 Jun 2026 07:49:02 -0700
+Message-ID: <20260626144902.3214350-1-nirmoyd@nvidia.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260626102934.57834-2-cem@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3D:EE_|MW4PR12MB7013:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2766afe5-b29f-463e-7a72-08ded39221a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|13003099007|6133799003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	V7uTBBVskuTK27DeV0tRRPqRRo0svzNotpMolTLbvrPJW6SUyh7X5rIxiPfynPcyt4SoKvjR2XbQIKix3eTdRMfuwNCwRHxeNl8lPAE/Y/3RYrlWaNswCBvyEXi77OUYVUKPs4XU9vFfD8pp40mFKWfYlsHeBsEs6pAKEYVgrtiNkfN066YPxKiMKeX0mjrbFTlwabO8tFtvsQplx6GhKJjEfvajF41R4Azrvfc8R7WnE8sIAR58z6k3KIiJ1MN0c1RztX1fU9CButnA9HljG7qi9+5PGQzt9jhi9Ic+Rtb3AL8mpAPGpUTU/pLDxCgZm0twqbsoGVI/cYsI3C6lQW/xmwGT4SXdnQqYWNVjK863pRadndImoVRXBFHapSbRn/wvbko9wfrIt5KpQEq2WWeL/P6jUjllNmLDOj0qWmmtt+agsEJzpe9xjtuLmJNvWPoq26iFU8fNedri9+5L9Ue9ot0jd3PL/Iw/cZIdqhzFpjU/GjuBGNzo1g72LWsq7XbSSG8zisb2hpvNnNcdArEjGezQICOq7W01O5xhszRppHxDbublkrbfzwamPCo45Zg5LvWDMf/xcrZ5+c/bAKFBDGBAVJfRhEnaW5MeYtOxHyGYFfxaoWVmFuG6gqL0Qx4ag3ojmx5qohf2uEwS8HXttyq1t5ZSCyfFEwdODJB2MfRauOh+cTHuRXtfXz8VZSJ+9o2iw3U0aa9u0j5VEw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(13003099007)(6133799003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Tw9CnNB6YQgySXj8Al9HW79Wq8k+EzQdgLaEZ79darwv8y6sgjfBduZHn37PxzgNxAhqvCB1q5PDI8RyRH4zP2WLvjnDA7ZTjd7THEZryubCXsTYkr/Os8gXH5OFkVQJevONrk3X32MT0PtelS3EF6nmXwQz1/TtsNNN+qAW4IuelZsJGxXXjrbMOODnv7SDsPnc6I++XK32nfdnn37bC98R8cS312k9XfUF7HiO4Gh9q/Kenh63Q+MHPvbO6ogGLe13GzisB9xJ/gl5iDxfbqHAoun5j83YZEgxeB+5C5DBRReEVS84MSeYdvjwtd1uLFhdvy783H06akjY4ao0Bj7o8oI9vAkalJ19/ffon+51rjaFSptxh5r5v0tB3UVC19RT9q8Re1Iin2uiRhzNMDDVNIntulXBR11i7tcTDbhhvPr26sEXJmPDMIzBqd+I
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 14:49:31.4568
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2766afe5-b29f-463e-7a72-08ded39221a1
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF00036F3D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7013
 
-Note: s/capabily/capability/ in the subject line
+loopy_wait() expects millisecond timestamps. However, Ubuntu Resolute
+can use uutils date, where `date -u +%s%3N` returns seconds plus full
+nanoseconds instead of a 3-digit millisecond field. This makes
+busywait expire too early and can make vlan_bridge_binding.sh read a
+stale operstate.
 
-On Fri, Jun 26, 2026 at 12:29:24PM +0200, cem@kernel.org wrote:
-> From: Carlos Maiolino <cem@kernel.org>
-> 
-> An user reported a bug where he managed to evade group's quota
-> by changing a file's gid to a different group id the same user
-> belonged to, even though quotas were enforced on both gids and the
-> file's size was big enough to exceed the quota's hardlimit.
-> 
-> Commit eba0549bc7d1 replaced a capable() call by a
-> has_capability_noaudit() to prevent unnecessary selinux audit messages.
-> Turns out that both calls have slightly different semantics even though
-> their documentation seems similar. Where in a nutshell:
-> 
-> capable() - Tests the task's effective credentials
-> has_ns_capability_noaudit() - Tests the task's real credentials
-> 
-> This most of the time has no practical difference but in some cases like
-> changing attrs (specifically group id in this case) through a NFS client
-> this will allow the quota code to use XFS_QMOPT_FORCE_RES, effectively
-> bypassing quota accounting checks.
-> 
-> Using instead ns_capable_noaudit() should fix this issue and prevent
-> selinux audit messages.
-> 
-> This also fix the remaining calls to has_capability_noaudit()
-> 
-> Fixes: eba0549bc7d1 ("xfs: don't generate selinux audit messages for capability testing")
-> Cc: <stable@vger.kernel.org> # v5.18
-> Cc: Darrick J. Wong <djwong@kernel.org>
-> Cc: Eric Sandeen <sandeen@redhat.com>
-> Cc: Christoph Hellwig <hch@lst.de>
-> Cc: Jan Kara <jack@suse.cz>
-> Cc: Dave Chinner <david@fromorbit.com>
-> Reported-by: Dr. Thomas Orgis <thomas.orgis@uni-hamburg.de>
-> Signed-off-by: Carlos Maiolino <cmaiolino@redhat.com>
-> ---
->  fs/xfs/xfs_fsmap.c | 2 +-
->  fs/xfs/xfs_ioctl.c | 2 +-
->  fs/xfs/xfs_iops.c  | 3 ++-
->  3 files changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/xfs/xfs_fsmap.c b/fs/xfs/xfs_fsmap.c
-> index b6a3bc9f143c..7c79fbe0a74c 100644
-> --- a/fs/xfs/xfs_fsmap.c
-> +++ b/fs/xfs/xfs_fsmap.c
-> @@ -1175,7 +1175,7 @@ xfs_getfsmap(
->  		return -EINVAL;
->  
->  	use_rmap = xfs_has_rmapbt(mp) &&
-> -		   has_capability_noaudit(current, CAP_SYS_ADMIN);
-> +		   ns_capable_noaudit(&init_user_ns, CAP_SYS_ADMIN);
->  	head->fmh_entries = 0;
->  
->  	/* Set up our device handlers. */
-> diff --git a/fs/xfs/xfs_ioctl.c b/fs/xfs/xfs_ioctl.c
-> index 96af6b62ce39..852ff2ab4531 100644
-> --- a/fs/xfs/xfs_ioctl.c
-> +++ b/fs/xfs/xfs_ioctl.c
-> @@ -647,7 +647,7 @@ xfs_ioctl_setattr_get_trans(
->  		goto out_error;
->  
->  	error = xfs_trans_alloc_ichange(ip, NULL, NULL, pdqp,
-> -			has_capability_noaudit(current, CAP_FOWNER), &tp);
-> +			ns_capable_noaudit(&init_user_ns, CAP_FOWNER), &tp);
->  	if (error)
->  		goto out_error;
->  
-> diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
-> index 325c2200c501..9db9ef1d8c3a 100644
-> --- a/fs/xfs/xfs_iops.c
-> +++ b/fs/xfs/xfs_iops.c
-> @@ -835,7 +835,8 @@ xfs_setattr_nonsize(
->  	}
->  
->  	error = xfs_trans_alloc_ichange(ip, udqp, gdqp, NULL,
-> -			has_capability_noaudit(current, CAP_FOWNER), &tp);
-> +				ns_capable_noaudit(&init_user_ns, CAP_FOWNER),
-> +				&tp);
+Fixes: 25ae948b4478 ("selftests/net: add lib.sh")
+Cc: stable@vger.kernel.org # 6.8+
+Link: https://github.com/uutils/coreutils/issues/11658
+Signed-off-by: Nirmoy Das <nirmoyd@nvidia.com>
+---
+ tools/testing/selftests/net/lib.sh | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-Extra indenting of the second and third lines, but otherwise this looks
-good to me.  With the indent fixed,
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+diff --git a/tools/testing/selftests/net/lib.sh b/tools/testing/selftests/net/lib.sh
+index b40694573f4c7..fcaec058be6d0 100644
+--- a/tools/testing/selftests/net/lib.sh
++++ b/tools/testing/selftests/net/lib.sh
+@@ -70,12 +70,27 @@ ksft_exit_status_merge()
+ 		$ksft_xfail $ksft_pass $ksft_skip $ksft_fail
+ }
+ 
++timestamp_ms()
++{
++	local now=$(date -u +%s:%N)
++	local seconds=${now%:*}
++	local nanoseconds=${now#*:}
++
++	if [[ $nanoseconds =~ ^[0-9]+$ ]]; then
++		nanoseconds=${nanoseconds:0:9}
++	else
++		nanoseconds=0
++	fi
++
++	echo $((seconds * 1000 + 10#$nanoseconds / 1000000))
++}
++
+ loopy_wait()
+ {
+ 	local sleep_cmd=$1; shift
+ 	local timeout_ms=$1; shift
+ 
+-	local start_time="$(date -u +%s%3N)"
++	local start_time=$(timestamp_ms)
+ 	while true
+ 	do
+ 		local out
+@@ -84,7 +99,7 @@ loopy_wait()
+ 			return 0
+ 		fi
+ 
+-		local current_time="$(date -u +%s%3N)"
++		local current_time=$(timestamp_ms)
+ 		if ((current_time - start_time > timeout_ms)); then
+ 			echo -n "$out"
+ 			return 1
+-- 
+2.43.0
 
---D
-
-
->  	if (error)
->  		goto out_dqrele;
->  
-> -- 
-> 2.54.0
-> 
-> 
