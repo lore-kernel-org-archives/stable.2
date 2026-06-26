@@ -1,34 +1,71 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9AE3812EB;
-	Fri, 26 Jun 2026 10:45:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8210A3164A9
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 10:46:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782470706; cv=none; b=fP1qzo/Hf8fGesGO7mnzqlkvpnDKNFlSzcQfZNIneOp/lgNj2I7I4I/Dw5RtmlFzbNYZZHJTHjnSlXra9S4IrlbQZcFW7Q/pOxu47HSKNnKyeg0SuDKmvd7YEgPjwDa07eD9R968NTMiagVqIRQtyFBrV0MH2qB2ZwJRajD8zd0=
+	t=1782470773; cv=none; b=rAIZ1/W7Ww9snQsMHvQFo96XPTMRoR5ZoFgKyOTmP+OiyQZtTEV2Km1MzDJnfoaWyMMHgdSTI/5MKu9PIgon50KcOBZ0XKg/NBzXNTw540nB6EyC6cOuDjchBoqnPsAkKsQy9CpZagAdqI1H/g6lA9R8eds08oF/McqjdUYi0Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782470706; c=relaxed/simple;
-	bh=kbgL/77dRi1UkZ1PI/3lHE2ryj4p4DYdnsfs6THkuwk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OM89mDPl9munJiFJZ522Z2/2On5veIE/h/JeeDrNftd1dU2kVy5WwO3Cg62lhdb3m9jwvZSs6YMBNSkOsb1WiZ3HqOwKCvhiTgK7z1OV/ZIP/PWNhkt5BO7vClnV2V2d7nK5t/0//0sv1JyICBv6aIQiIs5sNiVTJFnXuq2eL3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-03 (Coremail) with SMTP id rQCowACni+InWD5qhTzsFQ--.357S2;
-	Fri, 26 Jun 2026 18:44:57 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: koby.elbaz@intel.com,
-	konstantin.sinyuk@intel.com,
-	ogabbay@kernel.org
-Cc: vulab@iscas.ac.cn,
-	kees@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] fix: accel/habanalabs: hl_cs_signal_sob_wraparound_handler: missing   hw_sob_get when need_reset is true and encaps_sig is false
-Date: Fri, 26 Jun 2026 18:44:53 +0800
-Message-Id: <20260626104453.32301-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	s=arc-20240116; t=1782470773; c=relaxed/simple;
+	bh=Kr2B56j+YXQcnhiNkNd5xEnnYZxvJNIH58SRYO83s6Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=b2x6bkA8oZblFUGLgx5UtKcQlHn5S9ac4mUaSGW8PX9edFPtOjOEDy8Ze/NMgpAYuAuNfaf+3HqPjwAXZf5bmjGjcOwLoBWzVLdeTQd/dVIgyJ6GuGsaVPbuQ7EN44rxceSjPHVOhv7TTCbdVA89fftLdF5YOV6bzIOYdce9VtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R4yWOcRu; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R4yWOcRu"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-30c9c8c2697so717126eec.1
+        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 03:46:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782470772; x=1783075572; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ienghRFlOKCrHTVcT7ltXLw6p3FK6RiRmVx7RZAUjMQ=;
+        b=R4yWOcRuSnPL1zhhK4UX6nTRT2rEvUahAVquLzDW6a+sAbDnEnq8vQEIICH+4OM1ya
+         GU+uFo/nrihgSWJmXjSFZ9n7L1toV8ygDL02/4QH3tWWa4dyEe0VnHO0McCPgmG2tZK1
+         JDXLpWp9VK1tXvXxy8qSUWWYTAVE5ZXKcuR0jreSTjFDlLSF+hY1+eKDQ/k+OCudhCCK
+         Mc5O2YV59RqBZV6Po3pcByOsDrAEo8G1XOxBmXdJl9+yCalBLwaCUaE1o4q61UrrIL2c
+         2l22cgHhTEAknJUfa/0AOa7GPjQ6ITj+yvUfIoZKb0Dwv6uV9gdWdo//m8fxiKrrWkIn
+         lDKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782470772; x=1783075572;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ienghRFlOKCrHTVcT7ltXLw6p3FK6RiRmVx7RZAUjMQ=;
+        b=pR0rzmo3Pb0I837/VO6JPLHS99hYlHGnG5eU2vhaAYXoC3gF3OKxQW8OxQbv30wY3e
+         iV4F118S2T289HtToFvjJsWa/f7fd7WGNxokCxsK0hLdJQPGtQDutrpUAIg4SnKLrvn3
+         n1dReEuj04xMH79MxIYozo/yXG0OQOjhmVZHqKKZjBC2Iw17WfMLiBnwQJJvgAfbMZCp
+         Vl9UkoQziLC6E/L8NsdeJf2ea57Zv1YF/0SCbTEYli2QvOddQRPYClU6jexusvJl3kwL
+         DoyqQo6EY21VYZqNLcJ6BkKY23EBU524BUTZpxXVh0OPi07LYCnhVsZ317BISHPUyhQT
+         CteQ==
+X-Gm-Message-State: AOJu0YxynU35QQL2ilmiFilCYmA77afGtNk2m/Tu7P/W7sdeXeCd/1kJ
+	8Yvk/CFc44uVwBph40CHGsZG6rcT+SQtq+W+faPrPxCpyw0d0/Ca5MwYFgyitjCb3g9gQA==
+X-Gm-Gg: AfdE7cmMDjnUc4JsrpeXKczCyoII5+c+m5DrDsU9Yz8orMaQ13QwDm3mSWluUeQ3/tW
+	Vt7WVul/+v9puXRwBfuEGQnbvjalnDZEhBFUcanJ8lh/+pP6UDTHPF3UaM7Ed3LfNI4tpiiFcLB
+	zUtgmHQjXRhyellQgkTXxJkrFwoe7wFqv+u9LFLR8HCI2ToQwrCNRmiu41nrz6EaEMcY6RBDiIN
+	ZPBWk19MrCmWFpZvz055MUjf21dBi3EDBOR0/rw3G5LxWZUWDqpMGxiNHbAgkhmEgmLu1dn9xxY
+	4X86F69fFEJyM+Eu/GFOkXeqCXY8wA43hj97h8koF4HT/WgxxVDMEYZBLDwv+sSKT8nqSC3Z3Lk
+	KNhSQQRMtkiDth4uqnUzP1KAT8MsGZuDhciXannCj+XOzGiaccLxrJOCF5Yrq6WOsyM/oslG+TE
+	qCichD7HHOOCoMtt8bHQu/szj+Th/kimTh8geEwtueSHTWzJEu07qTlJ+Stw==
+X-Received: by 2002:a05:7301:6583:b0:30c:7b76:9047 with SMTP id 5a478bee46e88-30c84d4a202mr6138025eec.17.1782470771484;
+        Fri, 26 Jun 2026 03:46:11 -0700 (PDT)
+Received: from naduvan.timesys.com ([122.178.167.70])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7cab28fasm17823093eec.30.2026.06.26.03.46.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Jun 2026 03:46:10 -0700 (PDT)
+From: Siva Balasubramanian <sivakumar.bs@gmail.com>
+To: stable@vger.kernel.org
+Cc: tristan@talencesecurity.com,
+	pav@iki.fi,
+	luiz.von.dentz@intel.com,
+	linux-bluetooth@vger.kernel.org,
+	Siva Balasubramanian <sivakumar.bs@gmail.com>
+Subject: [PATCH 0/2] Bluetooth: btmtk: WMT event length validation (CVE-2026-46140) - 6.6.y backport
+Date: Fri, 26 Jun 2026 16:16:02 +0530
+Message-Id: <20260626104604.3465124-1-sivakumar.bs@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,57 +73,37 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACni+InWD5qhTzsFQ--.357S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr17Zr1DWw4fZr1DXw1kXwb_yoW8GFWkpa
-	s8GF4rJF9Fqr9rAFnrCw45ZFyrXa9xKr9F9a1xG395urn8Ga4xJryYkayF9rWj9rs3Xa18
-	XF9Fq3yUC3WrAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
-	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
-	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
-	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
-	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
-	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbSfO7UUUU
-	U==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYKA2o+ThINvAABs7
 
-When other_sob->need_reset is true and encaps_sig is false,
-  hw_sob_put(other_sob) decrements the kref to 0, but the matching
-  hw_sob_get(other_sob) is skipped because it is inside the encaps_sig
-  block. The function returns other_sob with kref=0, causing a subsequent
-  kref_put to underflow. Fix by adding hw_sob_get(other_sob) in the else
-  branch.
+Please consider the following two upstream commits for 6.6.y. They are
+present in 6.12.y but missing from 6.6.y (latest checked: v6.6.143),
+which contains the offending commit d019930b0049 ("Bluetooth: btmtk:
+move btusb_mtk_hci_wmt_sync to btmtk.c") and is therefore affected.
 
-Cc: stable@vger.kernel.org
-Fixes: dadf17abb724 ("habanalabs: add support for encapsulated signals reservation")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- drivers/accel/habanalabs/common/command_submission.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+  634a4408c061 ("Bluetooth: btmtk: validate WMT event SKB length before
+                 struct access")  -- CVE-2026-46140, tagged Cc: stable
+  e3ac0d9f1a20 ("Bluetooth: btmtk: accept too short WMT FUNC_CTRL
+                 events")         -- Fixes the above; regression fix for
+                 real MT7925/MT7922 hardware. Both are needed together.
 
-diff --git a/drivers/accel/habanalabs/common/command_submission.c b/drivers/accel/habanalabs/common/command_submission.c
-index ba4257bda77b..675301dfc0ef 100644
---- a/drivers/accel/habanalabs/common/command_submission.c
-+++ b/drivers/accel/habanalabs/common/command_submission.c
-@@ -1860,11 +1860,10 @@ int hl_cs_signal_sob_wraparound_handler(struct hl_device *hdev, u32 q_idx,
- 		if (other_sob->need_reset)
- 			hw_sob_put(other_sob);
- 
--		if (encaps_sig) {
-+		if (encaps_sig)
- 			/* set reset indication for the sob */
- 			sob->need_reset = true;
--			hw_sob_get(other_sob);
--		}
-+		hw_sob_get(other_sob);
- 
- 		dev_dbg(hdev->dev, "switched to SOB %d, q_idx: %d\n",
- 				prop->curr_sob_offset, q_idx);
--- 
-2.39.5 (Apple Git-154)
+The first patch fixes an out-of-bounds read: btmtk_usb_hci_wmt_sync()
+casts the WMT event response SKB data into struct btmtk_hci_wmt_evt /
+struct btmtk_hci_wmt_evt_funcc without checking the SKB length first.
+The second patch is the required follow-up: the strict length check
+breaks devices that legitimately send a shorter FUNC_CTRL event, so it
+must accompany the first.
 
+Both cherry-pick cleanly onto linux-6.6.y at v6.6.143 with no conflicts;
+skb_pull_data() is available in 6.6.y. Compile-tested only
+(CC [M] drivers/bluetooth/btmtk.o) - no affected hardware available.
+
+Pauli Virtanen (1):
+  Bluetooth: btmtk: accept too short WMT FUNC_CTRL events
+
+Tristan Madani (1):
+  Bluetooth: btmtk: validate WMT event SKB length before struct access
+
+ drivers/bluetooth/btmtk.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+--
+2.34.1
