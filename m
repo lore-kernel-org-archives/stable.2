@@ -1,156 +1,90 @@
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAAF3F411F;
-	Fri, 26 Jun 2026 12:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7626B3B52E6;
+	Fri, 26 Jun 2026 12:12:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782475604; cv=none; b=FIA11OUZpHRf/kq9rfIG5fy7xpLpL7KGMsE7UA5AMIX8B4ioGM9UF4fzaea8+k0FGfMtHIVlEhBG9hANNxZZbbpGf1lNaYIksQRWX7RQJ4/Nwspn33vUi6FeD3BNhUzZ/+SbhQPOm0A+olWBgnewB5SwzWmmxQ9+3NPwvUPzsTM=
+	t=1782475942; cv=none; b=jvnv53Pma5qoLJerxaaJhRJddS1v46u0eP631c7sw9PzQBwK+tTd12IB6OMF68z/iaHcIbc+vdcYum7axHSpRMI6d0hO+JnszLWiWZ/Vb48ikeyVmorFOliSk6+qPA5O0a4riCucn59xqE1oKHdjwZgVuuyX9jnMtg4Q0PT8+dE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782475604; c=relaxed/simple;
-	bh=mcnd45m9iaSfOflkxyHGds0Du5OyNPMd9m09tACMtgo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gi8rJl5AZa1DFN91e5jsc2KKffIGTmj4l3Rxjn1cj9ZQ8WYNCY27cAoPV+vy3oymscX0+bMR5oAG9gPgCIK2AfgEMYNadaJ9tvtI6IbthK3iwScGeGsS6uzI5IVo8XjBgpq3jJnos4vl8wBfmyML3AcKPzz9Muj3f6oQS5qeBHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=wV7Ngncp; arc=none smtp.client-ip=115.124.30.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="wV7Ngncp"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1782475592; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=xh7XI+TiHLJYLAr/894grpqUh7uVtoi8+UIaxKwNZeY=;
-	b=wV7NgncpXJrbs0BMvAsSh8tkGgRO9TUTqmSqn9LMGDt1q0ul38eEE0U0btGoxY8eqzk5Hj/d6JW4w3skh2/p2rwXrb500qbZXDLtMYyQWrVtOjNEs7X/NgU6sIr2f7nxFj89phqtQ3BNWLTFCCUeOkilFCvJLfBZ2xULSXg2P04=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=feng.tang@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0X5et9EI_1782475590;
-Received: from localhost(mailfrom:feng.tang@linux.alibaba.com fp:SMTPD_---0X5et9EI_1782475590 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 26 Jun 2026 20:06:31 +0800
-Date: Fri, 26 Jun 2026 20:06:29 +0800
-From: Feng Tang <feng.tang@linux.alibaba.com>
-To: Petr Mladek <pmladek@suse.com>
-Cc: Bradley Morgan <include@grrlz.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	s=arc-20240116; t=1782475942; c=relaxed/simple;
+	bh=BfnQk7iKMOLpA7+Kzvp/fPghSJfqclRFtsLc1FYQ4+o=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OcxEptHdvdeJhahZo7Dpc60exIlfOWyW+muPHplLNVWEXuZfi2ztWjBXAm+y4lC4A9WreCXI1EDleRRNPMnv5DJ50xLPtI05B0eP/CQeCGlv5xRkWsYRxqVOFLaZOc2hGveenByNS5nPEWQ6PlI9ra9gIfTcVJjCpWgosDklLBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-05 (Coremail) with SMTP id zQCowABn8QShbD5q9HhnFQ--.10681S2;
+	Fri, 26 Jun 2026 20:12:18 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: daniel.lezcano@kernel.org,
+	tglx@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] panic: use sys_info_with_filter() to avoid
- duplicate backtraces
-Message-ID: <aj5rRV14OQact38f@U-2FWC9VHC-2323.local>
-References: <20260625152558.7450-1-include@grrlz.net>
- <20260625152558.7450-5-include@grrlz.net>
- <aj5TNB8cRtMNTtIT@pathway.suse.cz>
+Subject: [PATCH] fix: clocksource: timer-nxp-pit: pit_timer_init: cpuhp_setup_state   failure leaks clockevent device
+Date: Fri, 26 Jun 2026 20:12:15 +0800
+Message-Id: <20260626121215.34748-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aj5TNB8cRtMNTtIT@pathway.suse.cz>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABn8QShbD5q9HhnFQ--.10681S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uF1fAry8Gr4xXF18XFyfXrb_yoW8Gw4xpw
+	4xZ343Jrn0gr429r4UtF4DXFykCan5CrWakFy5G343Zrn8JryrXF4UtFWUXFyUGrWrA3ZI
+	vanYyw4UuFyUCFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbhvttUUUU
+	U==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYKA2o+ThJUAAABse
 
-On Fri, Jun 26, 2026 at 12:23:48PM +0200, Petr Mladek wrote:
-> On Thu 2026-06-25 15:25:58, Bradley Morgan wrote:
-> > panic_other_cpus_shutdown() handles SYS_INFO_ALL_BT before stopping the
-> > other CPUs. Do not ask sys_info() to handle that bit again later in the
-> > panic path.
-> > 
-> > Use sys_info_with_filter() so panic_print=all_bt does not request more
-> > output after the CPUs are stopped.
-> > 
-> > Fixes: a9af76a78760 ("watchdog: add sys_info sysctls to dump sys info on system lockup")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Bradley Morgan <include@grrlz.net>
-> > ---
-> >  kernel/panic.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/kernel/panic.c b/kernel/panic.c
-> > index 213725b612aa..eb842823df61 100644
-> > --- a/kernel/panic.c
-> > +++ b/kernel/panic.c
-> > @@ -680,7 +680,7 @@ void vpanic(const char *fmt, va_list args)
-> >  	 */
-> >  	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
-> >  
-> > -	sys_info(panic_print);
-> > +	sys_info_with_filter(panic_print, SYS_INFO_ALL_BT);
-> 
-> Hmm, this prevents printing backtraces from all CPUs completely.
-> But what if they were not printed?
-> 
-> They might be printed by:
-> 
-> static void panic_other_cpus_shutdown(bool crash_kexec)
-> {
-> 	if (panic_print & SYS_INFO_ALL_BT)
-> 		panic_trigger_all_cpu_backtrace();
-> 
-> [...]
-> }
-> 
-> But it checks only "panic_print" variable. It won't do anything
-> when (panic_print == 0).
-> 
-> In this case, we might still want to print the backraces when
-> SYS_INFO_ALL_BT is set in kernel_si_info.
+After pit_clockevent_per_cpu_init succeeds (registering a clockevent
+  device and requesting an IRQ), if cpuhp_setup_state subsequently fails,
+  the error path only unregisters the clocksource but not the clockevent
+  device. This leaves the IRQ handler registered and per-CPU data uncleaned
+  before kfree(pit), causing both a resource leak and potential
+  use-after-free.
 
-Yep.
+Cc: stable@vger.kernel.org
+Fixes: bee33f22d7c3 ("clocksource/drivers/nxp-pit: Add NXP Automotive s32g2 / s32g3 support")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/clocksource/timer-nxp-pit.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-> 
-> >  	kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
-> 
-> Of course, we might fix panic_other_cpus_shutdown() to check also
-> kernel_si_info.
-> 
-> But it all becomes very hairy. We have several levels:
-> 
->    + watchdog-all_bt-specific option, e.g. sysctl_hardlockup_all_cpu_backtrace
-> 
->    + watchdog-specific si_info preferences, e.g. hardlockup_si_mask
-> 
->    + panic-specific si_info: panic_print
-> 
->    + universal fallback for any layer: kernel_si_info
-> 
-> Now, we try to check all these variables back and forth to
-> trigger all backtraces or to avoid triggering them.
-> And it clearly does not work well and the code is more and more
-> hairy.
-
-Agree :)
+diff --git a/drivers/clocksource/timer-nxp-pit.c b/drivers/clocksource/timer-nxp-pit.c
+index bc5157e2ba57..b77966faa112 100644
+--- a/drivers/clocksource/timer-nxp-pit.c
++++ b/drivers/clocksource/timer-nxp-pit.c
+@@ -329,11 +329,12 @@ static int pit_timer_init(struct device_node *np)
+ 		ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "PIT timer:starting",
+ 					pit_clockevent_starting_cpu, NULL);
+ 		if (ret < 0)
+-			goto out_pit_clocksource_unregister;
++			goto out_pit_clockevent_unregister;
+ 	}
  
-> I think about another approach. The word "waterfall" comes to my mind.
-> Instead of checking all the settings back and forth, let's process
-> each setting one by one and just remember what has been done and
-> skip this in the next level.
+ 	return 0;
+-
++out_pit_clockevent_unregister:
++	pit_clockevent_per_cpu_exit(pit, pit_instances - 1);
+ out_pit_clocksource_unregister:
+ 	clocksource_unregister(&pit->cs);
+ out_pit_module_disable:
+-- 
+2.39.5 (Apple Git-154)
 
-When initially reviewing V2's 4th patch, I thought about the
-'panic_this_cpu_backtrace_printed', but it's a local variable which
-records the state.
-
-> All the si_info actions seems to dump a global system state.
-> So, it would make sense to remember the state in a global variable
-> even when it might be modified by more CPUs in parallel.
-
-IIUC, panic case is kind of special, as it has to separate the
-'sys_info()' op in different stage. Can we do a merge in the start
-of vpanic() by:
-
-	panic_print = panic_print ?: kernel_si_mask;
-
- as a addon patch ?
-
-Thanks,
-Feng
-
-> I am going to think more about it.
-> 
-> Please, do not send v4 until the discussion settles!
-> 
-> Best Regards,
-> Petr
