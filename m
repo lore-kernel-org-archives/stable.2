@@ -1,291 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23CA2D0C62;
-	Fri, 26 Jun 2026 14:31:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D383F1AD7
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 14:32:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782484286; cv=none; b=GUyXHz2w2VJJISHjmH24ruhemoUL/R5945P0whURnCgkk2/nHibPF3yRVqNVbJdsaxbhMnSMVosA7OR036+63tdfcES+1WwPUh8XE3IjD+6XXryB5WStdwYjZdpHWVjXyDcBr1HNBorKHcvJ8nwWm5nQHcWt0X81l7Shi545Fto=
+	t=1782484374; cv=none; b=OryT8AgP3ub1zbm9BueW0i+fSHsUb65fHvUw6PiHRPOf1FhVzoI3q+BUCiOOaHR+3KLI6G8EkY5OTBo31oXapYuQMYhI7p6B+ORytGPjTDxhV4zKa4gxzruTC33nXVbOhRNc8biArW7OGV2jK1sgVuE7TMoHotNecVr24cAaIV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782484286; c=relaxed/simple;
-	bh=V1/pvCquSAfD61E3dDguYuTZU5JM7KIVSwqkWlCD7D4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ih1GI04kd7a1fHrT6gHPxqIeR2TvysmWBXQrBZp3MEPuxFtMnDTr0I5rfK3zOMKG4aMqvfrD4J0NAjOp0xOfEKariN2DAx8dWlCl7Yw2i8fZl8Ukzc9nYKKFeqfORL0BKgay+pU9MiTUjSN4EHRCztu7R23e1fEnPSFvc7n6y04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTfpoRa1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782484374; c=relaxed/simple;
+	bh=1CYpYf+FwNEzDZ7W7ESjZCMN6SwZ0Qp80wMrfd5Bqew=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Tbz8CmkSGhHT/DUCyAzIVLXjm3nCucGCmIJfEfsyogf4NYwwweU5g4RH2A8M/yQaAIGbm6lIdtlEk3N05Lso7in+NPKj25SZpoP+ZXzfOVI+vheFYcUJSJuMHVT8O4oTVthPn+f1J/F1ChWnPc6fZoWc/KCynzs1JV2fng72pX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N64Gan4r; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTfpoRa1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4115B1F000E9;
-	Fri, 26 Jun 2026 14:31:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782484284;
-	bh=pLi5c0mP9yP58ZuekrXgp8QlUCb1Y0XlpMIazqJNvcs=;
-	h=From:To:Cc:Subject:Date;
-	b=CTfpoRa1mAs/sgXzB6rZmimCMHpfdvDX4Vi+8XHSTG4J16lf+WJ/js38jECMsfxNJ
-	 L5Jsr+xKY3gOHo8VmdVxix/DrMVwtfX/ORW4wpiyFUnTYSIJyRn8ZTRffezoOfbupY
-	 kD3aiD/gagaVVN9EoAWw8EXC4PLan9GLwolskH0hVhdB6VopQCkw90uZsaMST9KmZ8
-	 podhSE390+QTF1EhWwfUtm3GWx7cHPvMdZkvKqTz0gPrLA8ROHBCzGdaNyVrUDQuwE
-	 0mAKgzxQAG89hCyUZkIazYftmAb6VQG5gXKmU2eql2N5yST0lP6OEoNreEN1+wwzXx
-	 r0QzRsfQfTuTw==
-From: Chuck Lever <cel@kernel.org>
-To: <stable@vger.kernel.org>
-Cc: <linux-nfs@vger.kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Tj <tj.iam.tj@proton.me>,
-	Jeff Layton <jlayton@kernel.org>
-Subject: [PATCH 6.18.y] lockd: fix TEST handling when not all permissions are available.
-Date: Fri, 26 Jun 2026 10:31:22 -0400
-Message-ID: <20260626143122.71386-1-cel@kernel.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N64Gan4r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782484372; x=1814020372;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=1CYpYf+FwNEzDZ7W7ESjZCMN6SwZ0Qp80wMrfd5Bqew=;
+  b=N64Gan4ra2Vi29sEnFc1vjyGIjfe8uemoinHrHwNt56o22HCpDyElFf2
+   Xo2s2qUL7jqfTImt2czWVOrpxyomc94/XylAoKRdiombowOrtj1KTNHG0
+   Hncr4tCgnScYp+A1l8kMJOLq8ZP8kwX5ZHv5izM1DK8oSIHv3dpA2i7zZ
+   2bQf3g1n/cgHdLfh1ToZGDhDJfBQUBGMUG7CgJbQtMzVcc1dAdqwdtPQI
+   CvOTCL4P/jw2J5XU6L1Rq+spv9fMvLFG1hYOjQKRnP9IvfFG8WH+Oy2uV
+   +5chA9k2Lfi4hz9JMJtk89ri/hYmRtGOJyuPkybmH/H24uVZ4jmH2sei8
+   w==;
+X-CSE-ConnectionGUID: 5vWRdBIuRFCouAQpeiT0hw==
+X-CSE-MsgGUID: xFFse0d/SySbict4nSeaiA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11829"; a="93630771"
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
+   d="scan'208";a="93630771"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 07:32:51 -0700
+X-CSE-ConnectionGUID: 8UIJEyHsTF+d2kVDlO7Hjw==
+X-CSE-MsgGUID: 6vuHH5reTdCo1ijrmNP6hA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
+   d="scan'208";a="251988518"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO [10.245.244.49]) ([10.245.244.49])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 07:32:50 -0700
+Message-ID: <dd6a1825-9c22-4c94-9ab5-7ccd24f96990@intel.com>
+Date: Fri, 26 Jun 2026 15:32:46 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/xe/display: consider DPT when WA 22019338487 is
+ active
+To: Maarten Lankhorst <dev@lankhorst.se>, intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Nikolay Mikhaylov <sonny@milton.pro>,
+ Uma Shankar <uma.shankar@intel.com>, Jani Nikula <jani.nikula@intel.com>,
+ stable@vger.kernel.org
+References: <20260623090155.268763-2-matthew.auld@intel.com>
+ <9e04ec82-712d-41b6-9fe8-78aeb015d67c@intel.com>
+ <9924291e-5108-41b3-9131-12b292e8bcd2@lankhorst.se>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <9924291e-5108-41b3-9131-12b292e8bcd2@lankhorst.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: NeilBrown <neil@brown.name>
+On 26/06/2026 14:37, Maarten Lankhorst wrote:
+> Hey,
+> 
+> On 6/26/26 12:27, Matthew Auld wrote:
+>> On 23/06/2026 10:01, Matthew Auld wrote:
+>>> WA 22019338487 (22019338487_display) indicates that stolen memory should
+>>> not be used for display allocations on affected platforms (like Lunar
+>>> Lake). In particular we need to be mindful of not hammering stolen over
+>>> the BAR from the host side, like with issuing many writes.
+>>>
+>>> While the fbdev allocation in xe_display_bo.c properly respected this
+>>> workaround, the Display Page Table (DPT) allocation in xe_fb_pin.c
+>>> continued to unconditionally attempt to allocate from stolen memory on
+>>> all integrated GPUs.
+>>>
+>>> Check XE_DEVICE_WA(xe, 22019338487_display) before attempting to
+>>> allocate the DPT from stolen memory. If the workaround applies, skip the
+>>> stolen allocation attempt and let the driver naturally fall back to
+>>> allocating from system memory.
+>>>
+>>> Without this we will end up hammering stolen when programming the DPT on
+>>> the host side during the normal operation, which seems to be exactly
+>>> what the WA wants us to avoid.
+>>>
+>>> There are a bunch of users all getting some kind of hard hang in the fb
+>>> pin programming sequence on LNL, so wondering if this could help there.
+>>>
+>>> v2 (Jani):
+>>>     - Invert the WA check. No functional change.
+>>>
+>>> Assisted-by: Gemini:gemini-3.1-pro-preview
+>>> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
+>>> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+>>> Fixes: 775d0adc01a5 ("drm/xe/fbdev: Limit the usage of stolen for LNL+")
+>>> Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
+>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>>> Cc: Nikolay Mikhaylov <sonny@milton.pro>
+>>> Cc: Uma Shankar <uma.shankar@intel.com>
+>>> Cc: Jani Nikula <jani.nikula@intel.com>
+>>> Cc: <stable@vger.kernel.org> # v6.12+
+>>
+>> Ping on this? So far two separate users report this fixes the hard machine hang for them, after several days of testing.
+> 
+> Can we instead disable stolen entirely so we no longer need this workaround?
 
-The F_GETLK fcntl can work with either read access or write access or
-both.  It can query F_RDLCK and F_WRLCK locks in either case.
+I'm not sure. You mean disable it except for fbc etc ? We just need some 
+patch to disable at least this dpt path on LNL, which is also easy to 
+backport. We can take your patch to disable this completely instead and 
+I guess remove the WA, so long as we can easily backport it. Either way 
+we just need to land a fix for this ASAP.
 
-However lockd currently treats F_GETLK similar to F_SETLK in that read
-access is required to query an F_RDLCK lock and write access is required
-to query a F_WRLCK lock.
-
-This is wrong and can cause problems - e.g.  when qemu accesses a
-read-only (e.g. iso) filesystem image over NFS (though why it queries
-if it can get a write lock - I don't know.  But it does, and this works
-with local filesystems).
-
-So we need TEST requests to be handled differently.  To do this:
-
-- change nlm_do_fopen() to accept O_RDWR as a mode and in that case
-  succeed if either a O_RDONLY or O_WRONLY file can be opened.
-- change nlm_lookup_file() to accept a mode argument from caller,
-  instead of deducing base on lock time, and pass that on to nlm_do_fopen()
-- change nlm4svc_retrieve_args() and nlmsvc_retrieve_args() to detect
-  TEST requests and pass O_RDWR as a mode to nlm_lookup_file, passing
-  the same mode as before for other requests.  Also set
-   lock->fl.c.flc_file to whichever file is available for TEST requests.
-- change nlmsvc_testlock() to also not calculate the mode, but to use
-  whatever was stored in lock->fl.c.flc_file.
-
-This behaviour of lockd - requesting O_WRONLY access to TEST for
-exclusive locks - has been present at least since git history began.
-However it was hidden until recently because knfsd ignored the access
-requested by lockd and required only READ access for all locking
-requests (unless the underlying filesystem provided an f_op->open
-function which checked access permissions).
-
-The commit mentioned in Fixes: below changed nfsd_permission() to NOT
-override the access request for LOCK requests and this exposed the bug
-that we are now fixing.
-
-Note that there is another issue that this patch does not address.
-The flock(.., LOCK_EX) call is permitted on a read-only file descriptor.
-Linux NFS maps this to NLM locking as whole-file byte-range locks.
-nfsd will see this as though it were fcntl( F_SETLK (F_WRLCK)) and will
-now require write access, which it might not be able to get.
-It is not clear if this is a problem in practice, or what the best
-solution might be.  So no attempt is made to address it.
-
-Reported-by: Tj <tj.iam.tj@proton.me>
-Link: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1128861
-Fixes: 4cc9b9f2bf4d ("nfsd: refine and rename NFSD_MAY_LOCK")
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: NeilBrown <neil@brown.name>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
----
- fs/lockd/svc4proc.c         | 13 ++++++++++---
- fs/lockd/svclock.c          |  4 +---
- fs/lockd/svcproc.c          | 15 ++++++++++++---
- fs/lockd/svcsubs.c          | 35 +++++++++++++++++++++++++----------
- include/linux/lockd/lockd.h |  2 +-
- 5 files changed, 49 insertions(+), 20 deletions(-)
-
-diff --git a/fs/lockd/svc4proc.c b/fs/lockd/svc4proc.c
-index 4b6f18d97734..75e020a8bfd0 100644
---- a/fs/lockd/svc4proc.c
-+++ b/fs/lockd/svc4proc.c
-@@ -26,6 +26,8 @@ nlm4svc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	struct nlm_host		*host = NULL;
- 	struct nlm_file		*file = NULL;
- 	struct nlm_lock		*lock = &argp->lock;
-+	bool			is_test = (rqstp->rq_proc == NLMPROC_TEST ||
-+					   rqstp->rq_proc == NLMPROC_TEST_MSG);
- 	__be32			error = 0;
- 
- 	/* nfsd callbacks must have been installed for this procedure */
-@@ -46,15 +48,20 @@ nlm4svc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	if (filp != NULL) {
- 		int mode = lock_to_openmode(&lock->fl);
- 
-+		if (is_test)
-+			mode = O_RDWR;
-+
- 		lock->fl.c.flc_flags = FL_POSIX;
- 
--		error = nlm_lookup_file(rqstp, &file, lock);
-+		error = nlm_lookup_file(rqstp, &file, lock, mode);
- 		if (error)
- 			goto no_locks;
- 		*filp = file;
--
- 		/* Set up the missing parts of the file_lock structure */
--		lock->fl.c.flc_file = file->f_file[mode];
-+		if (is_test)
-+			lock->fl.c.flc_file = nlmsvc_file_file(file);
-+		else
-+			lock->fl.c.flc_file = file->f_file[mode];
- 		lock->fl.c.flc_pid = current->tgid;
- 		lock->fl.fl_start = (loff_t)lock->lock_start;
- 		lock->fl.fl_end = lock->lock_len ?
-diff --git a/fs/lockd/svclock.c b/fs/lockd/svclock.c
-index d66e82851599..c35ffa1b4b89 100644
---- a/fs/lockd/svclock.c
-+++ b/fs/lockd/svclock.c
-@@ -611,7 +611,6 @@ nlmsvc_testlock(struct svc_rqst *rqstp, struct nlm_file *file,
- 		struct nlm_lock *conflock)
- {
- 	int			error;
--	int			mode;
- 	__be32			ret;
- 
- 	dprintk("lockd: nlmsvc_testlock(%s/%ld, ty=%d, %Ld-%Ld)\n",
-@@ -626,14 +625,13 @@ nlmsvc_testlock(struct svc_rqst *rqstp, struct nlm_file *file,
- 		goto out;
- 	}
- 
--	mode = lock_to_openmode(&lock->fl);
- 	locks_init_lock(&conflock->fl);
- 	/* vfs_test_lock only uses start, end, and owner, but tests flc_file */
- 	conflock->fl.c.flc_file = lock->fl.c.flc_file;
- 	conflock->fl.fl_start = lock->fl.fl_start;
- 	conflock->fl.fl_end = lock->fl.fl_end;
- 	conflock->fl.c.flc_owner = lock->fl.c.flc_owner;
--	error = vfs_test_lock(file->f_file[mode], &conflock->fl);
-+	error = vfs_test_lock(lock->fl.c.flc_file, &conflock->fl);
- 	if (error) {
- 		/* We can't currently deal with deferred test requests */
- 		if (error == FILE_LOCK_DEFERRED)
-diff --git a/fs/lockd/svcproc.c b/fs/lockd/svcproc.c
-index 5817ef272332..d98e8d684376 100644
---- a/fs/lockd/svcproc.c
-+++ b/fs/lockd/svcproc.c
-@@ -55,6 +55,8 @@ nlmsvc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	struct nlm_host		*host = NULL;
- 	struct nlm_file		*file = NULL;
- 	struct nlm_lock		*lock = &argp->lock;
-+	bool			is_test = (rqstp->rq_proc == NLMPROC_TEST ||
-+					   rqstp->rq_proc == NLMPROC_TEST_MSG);
- 	int			mode;
- 	__be32			error = 0;
- 
-@@ -70,15 +72,22 @@ nlmsvc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 
- 	/* Obtain file pointer. Not used by FREE_ALL call. */
- 	if (filp != NULL) {
--		error = cast_status(nlm_lookup_file(rqstp, &file, lock));
-+		mode = lock_to_openmode(&lock->fl);
-+
-+		if (is_test)
-+			mode = O_RDWR;
-+
-+		error = cast_status(nlm_lookup_file(rqstp, &file, lock, mode));
- 		if (error != 0)
- 			goto no_locks;
- 		*filp = file;
- 
- 		/* Set up the missing parts of the file_lock structure */
--		mode = lock_to_openmode(&lock->fl);
- 		lock->fl.c.flc_flags = FL_POSIX;
--		lock->fl.c.flc_file  = file->f_file[mode];
-+		if (is_test)
-+			lock->fl.c.flc_file = nlmsvc_file_file(file);
-+		else
-+			lock->fl.c.flc_file = file->f_file[mode];
- 		lock->fl.c.flc_pid = current->tgid;
- 		lock->fl.fl_lmops = &nlmsvc_lock_operations;
- 		nlmsvc_locks_init_private(&lock->fl, host, (pid_t)lock->svid);
-diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
-index 9103896164f6..7ea204eadfca 100644
---- a/fs/lockd/svcsubs.c
-+++ b/fs/lockd/svcsubs.c
-@@ -82,18 +82,35 @@ int lock_to_openmode(struct file_lock *lock)
-  *
-  * We have to make sure we have the right credential to open
-  * the file.
-+ *
-+ * mode can be O_RDONLY(0), O_WRONLY(1) or O_RDWR(2). The latter
-+ * means success can be achieved with EITHER O_RDONLY or O_WRONLY.
-+ * It does NOT mean both read and write are required.
-  */
- static __be32 nlm_do_fopen(struct svc_rqst *rqstp,
- 			   struct nlm_file *file, int mode)
- {
--	struct file **fp = &file->f_file[mode];
--	__be32	nfserr;
-+	__be32 nfserr = nlm_lck_denied_nolocks;
-+	__be32 deferred = 0;
-+	struct file **fp;
-+	int m;
- 
--	if (*fp)
--		return 0;
--	nfserr = nlmsvc_ops->fopen(rqstp, &file->f_handle, fp, mode);
--	if (nfserr)
--		dprintk("lockd: open failed (error %d)\n", nfserr);
-+	for (m = O_RDONLY ; m <= O_WRONLY ; m++) {
-+		if (mode != O_RDWR && mode != m)
-+			continue;
-+
-+		fp = &file->f_file[m];
-+		if (*fp)
-+			return 0;
-+		nfserr = nlmsvc_ops->fopen(rqstp, &file->f_handle, fp, m);
-+		if (!nfserr)
-+			return 0;
-+		if (nfserr == nlm_drop_reply)
-+			deferred = nfserr;
-+	}
-+	if (deferred)
-+		return deferred;
-+	dprintk("lockd: open failed (error %d)\n", ntohl(nfserr));
- 	return nfserr;
- }
- 
-@@ -103,17 +120,15 @@ static __be32 nlm_do_fopen(struct svc_rqst *rqstp,
-  */
- __be32
- nlm_lookup_file(struct svc_rqst *rqstp, struct nlm_file **result,
--					struct nlm_lock *lock)
-+		struct nlm_lock *lock, int mode)
- {
- 	struct nlm_file	*file;
- 	unsigned int	hash;
- 	__be32		nfserr;
--	int		mode;
- 
- 	nlm_debug_print_fh("nlm_lookup_file", &lock->fh);
- 
- 	hash = file_hash(&lock->fh);
--	mode = lock_to_openmode(&lock->fl);
- 
- 	/* Lock file table */
- 	mutex_lock(&nlm_file_mutex);
-diff --git a/include/linux/lockd/lockd.h b/include/linux/lockd/lockd.h
-index c8f0f9458f2c..d9930fc43ca5 100644
---- a/include/linux/lockd/lockd.h
-+++ b/include/linux/lockd/lockd.h
-@@ -293,7 +293,7 @@ void		  nlmsvc_locks_init_private(struct file_lock *, struct nlm_host *, pid_t);
-  * File handling for the server personality
-  */
- __be32		  nlm_lookup_file(struct svc_rqst *, struct nlm_file **,
--					struct nlm_lock *);
-+				  struct nlm_lock *, int);
- void		  nlm_release_file(struct nlm_file *);
- void		  nlmsvc_put_lockowner(struct nlm_lockowner *);
- void		  nlmsvc_release_lockowner(struct nlm_lock *);
--- 
-2.54.0
+> 
+> https://patchwork.freedesktop.org/patch/735208/?series=159035&rev=19
+> https://patchwork.freedesktop.org/patch/735215/?series=159035&rev=19
+> https://patchwork.freedesktop.org/patch/735223/?series=159035&rev=19
+> 
+> Sending a new version soon, I can split out those patches if needed.
+> Ideally we find a way to preserve the initial framebuffer by blitting
+> from the DSB FB to a system memory FB, but this may affect module load time.
+> 
+> Kind regards,
+> ~Maarten Lankhorst
+> 
+>> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513#note_3537314
+>>
+>> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513#note_3531435
+>>
+>> Looking through the HSD I think it is clear we need something like this for the WA.
+>>
+>>> ---
+>>>    drivers/gpu/drm/xe/display/xe_fb_pin.c | 5 +++++
+>>>    1 file changed, 5 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+>>> index f93c98bec5b5..8ebb52741ea6 100644
+>>> --- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
+>>> +++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+>>> @@ -20,6 +20,9 @@
+>>>    #include "xe_pat.h"
+>>>    #include "xe_pm.h"
+>>>    #include "xe_vram_types.h"
+>>> +#include "xe_wa.h"
+>>> +
+>>> +#include <generated/xe_device_wa_oob.h>
+>>>      static void
+>>>    write_dpt_rotated(struct xe_bo *bo, struct iosys_map *map, u32 *dpt_ofs, u32 bo_ofs,
+>>> @@ -172,6 +175,8 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object *obj,
+>>>                               XE_BO_FLAG_GGTT |
+>>>                               XE_BO_FLAG_PAGETABLE,
+>>>                               pin_params->alignment, false);
+>>> +    else if (XE_DEVICE_WA(xe, 22019338487_display))
+>>> +        dpt = ERR_PTR(-ENODEV);
+>>>        else
+>>>            dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+>>>                               dpt_size,  ~0ull,
+>>
+> 
 
