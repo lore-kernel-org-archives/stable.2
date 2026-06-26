@@ -1,225 +1,115 @@
-Received: from forward100a.mail.yandex.net (forward100a.mail.yandex.net [178.154.239.83])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406CB3F6C25;
-	Fri, 26 Jun 2026 13:40:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BE83F58C7
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 13:40:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782481214; cv=none; b=ebm2MEelUCApZuh27N82CJ22SVkUphn1XdDn/BijY3UovfTHjLq6lrYkzNAmAIDDjxp/vB6QLgIIuDNVz5+9TcAq8+hnNuVCwvHl7jZ0T7Uz3e8ql5cGaPInVeW3s7lwfY+0aok5bKkPvXZUgyYNldlHuFLEDFMyGpRlMdolWf4=
+	t=1782481238; cv=none; b=O1zILlmbc7q09T0Q8ehYJgWOhGmrL6SXWJWFFJLxMRg5lv4LRvuCM+4m4rN797NmhTz4Ff/w/gtXrUvJ0m+YWcT13yM1VB3m3rz4DLKvhL+H0VYJM2ujX2DqdpNT7mSnL6z0SZ3o/XWCa/n7NJK8oNJ4u0yq23FGYAfBEh1L2dA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782481214; c=relaxed/simple;
-	bh=+yIcYd7txG+ZhB7z6YVw2+F3PLGEia3MKLJeXMjyEKE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UAydsiphA+YPhFjVwVegMnJtVdHLkEa3VfAvzT4sZ5GbYLYf8xw6q12d1eE90Eej/fbyUY2awm/c9xoZ8c/TQDbb/nDaTgM4JT+8Tk1/QpGaxjkCWDH2SaV4aDg6L+P0TCa1lGadJBwx5Frv/3IxCFyCt/jtGObwEkr3enYpajs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=LIj3K3Es; arc=none smtp.client-ip=178.154.239.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
+	s=arc-20240116; t=1782481238; c=relaxed/simple;
+	bh=48Pim0lMg4gKLMN3rRL4MvTGI1hNae5Mm41LxYs+uF4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ge6NqA3atfINZU6it0Il4AAW01w/fxQccYkrERWbau8ydm17+fGYuxVMaLX1rIHtubH8YcwR+7uX2y+xKd3Dd3+g8AqscGcG98v60ZinEyHqPoSKzwcEqfaboAx5zb33XR10zAgF5xyglrI7s9QgOfpM/Kp1roQG2Tvk4jGuseQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nF+P0lST; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="LIj3K3Es"
-Received: from mail-nwsmtp-smtp-production-main-55.vla.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-55.vla.yp-c.yandex.net [IPv6:2a02:6b8:c1f:582e:0:640:200:0])
-	by forward100a.mail.yandex.net (Yandex) with ESMTPS id C44DDC0735;
-	Fri, 26 Jun 2026 16:40:01 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-55.vla.yp-c.yandex.net (smtp) with ESMTPSA id rdanEUkf5Gk0-AkfTld3r;
-	Fri, 26 Jun 2026 16:40:00 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1782481200; bh=e9YMAmOw7IfaTS4/uOeKkF1326th313osWzDsbfnnqo=;
-	h=Message-ID:Date:Cc:Subject:To:From;
-	b=LIj3K3EsdqMFaoe1y6wJVJzk0ObBELltGEm3Mf5hqdoomBHz5B2NUaF4Gw2FEtyXT
-	 +n5leGC6MSBb1Zqj9s6SMJcVDK52G/Xo0i5Cm26D73OT6z6W+//x+GXD9n1vD36dcG
-	 0dYGAWirlFQF0LxVv7qo8YNHWpATZ4FaoOM4sLZg=
-Authentication-Results: mail-nwsmtp-smtp-production-main-55.vla.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-From: Evgenii Burenchev <evg28bur@yandex.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Evgenii Burenchev <evg28bur@yandex.ru>,
-	harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	siqueira@igalia.com,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	mario.limonciello@amd.com,
-	alex.hung@amd.com,
-	superm1@kernel.org,
-	timur.kristof@gmail.com,
-	ivan.lipski@amd.com,
-	ray.wu@amd.com,
-	aurabindo.pillai@amd.com,
-	chen-yu.chen@amd.com,
-	mripard@kernel.org,
-	Dillon.Varone@amd.com,
-	mwen@igalia.com,
-	chiahsuan.chung@amd.com,
-	kenneth.feng@amd.com,
-	srinivasan.shanmugam@amd.com,
-	contact@emersion.fr,
-	Alvin.Lee2@amd.com,
-	chaitanya.kumar.borah@intel.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	pierre-eric.pelloux-prayer@amd.com,
-	ekurzinger@gmail.com,
-	HaoPing.Liu@amd.com,
-	Tony.Cheng@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH v2] drm/amd/display: Fix dangling pointers in state reset functions on allocation failure
-Date: Fri, 26 Jun 2026 16:38:49 +0300
-Message-ID: <20260626133859.21492-1-evg28bur@yandex.ru>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nF+P0lST"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782481236; x=1814017236;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=48Pim0lMg4gKLMN3rRL4MvTGI1hNae5Mm41LxYs+uF4=;
+  b=nF+P0lST1dtoQePvkbHpbCjmF/Xtmljs7fBOl9QmoktzVCigzv/vKi30
+   B5oxZnu7irtQqX0X1+uhpq879jmINUpjg4BKsRtZwNQM4GDJ01wacYoRQ
+   6uxKQt3QnasPuQtnvDJMQyxDbhJUAU9X9upJfhL1QaINfBbhauxbFNGY9
+   OlbUw4Gi15CmOyVsxrIZrtA0ftMOmJzVSCbR5NEU7/av1e19EbFnTwjgh
+   HSXUzBqMrgDCO8h1IaKnrDBPa/A/DrMHC7SB2IWIknXVwOXuRbrPzSxZT
+   LpbXksdbqa0LJYkqTtvuS/VzWWfedqigBFBoMx+KZbNOKgGw7p73fq/aR
+   w==;
+X-CSE-ConnectionGUID: wCRnhsz5TAW0pRmrRzOnRg==
+X-CSE-MsgGUID: TqFPvyVbRKWQT6X/CD+kLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11829"; a="83407556"
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
+   d="scan'208";a="83407556"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 06:40:36 -0700
+X-CSE-ConnectionGUID: LracXZC9Qk6AejU5egDuDg==
+X-CSE-MsgGUID: cQf+2PfYTruPG7dcR8SvbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
+   d="scan'208";a="253241652"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.107])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 06:40:34 -0700
+Date: Fri, 26 Jun 2026 16:40:30 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+	Martin Hodo <martin.hodo@intel.com>, stable@vger.kernel.org,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: Re: [PATCH] drm/i915/vrr: require valid min/max vfreq for VRR
+Message-ID: <aj6BTiskgYhSUGYd@intel.com>
+References: <20260625131040.1051272-1-jani.nikula@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260625131040.1051272-1-jani.nikula@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 
-Multiple reset functions in amdgpu_dm free the old state before allocating
-a new one. If kzalloc_obj() fails, the function returns without updating
-the state pointer, leaving a dangling pointer to already freed memory.
+On Thu, Jun 25, 2026 at 04:10:40PM +0300, Jani Nikula wrote:
+> Ensure the EDID provided min/max vfreq are valid. Most scenarios are
+> already covered (by coincidence) through the checks in
+> intel_vrr_is_capable() and intel_vrr_is_in_range(), but be more explicit
+> about it. At worst, a zero min_vfreq could lead to a division by zero in
+> intel_vrr_compute_vmax().
+> 
+> Discovered using AI-assisted static analysis confirmed by Intel Product
+> Security.
+> 
+> Reported-by: Martin Hodo <martin.hodo@intel.com>
+> Fixes: 117cd09ba528 ("drm/i915/display/dp: Compute VRR state in atomic_check")
+> Cc: <stable@vger.kernel.org> # v5.12+
+> Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_vrr.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+> index 5d9b11185296..bffbdee76ee1 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+> @@ -76,6 +76,10 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+>  		return false;
+>  	}
+>  
+> +	if (!info->monitor_range.min_vfreq || !info->monitor_range.max_vfreq ||
+> +	    info->monitor_range.min_vfreq > info->monitor_range.max_vfreq)
+> +		return false;
 
-Fix this by allocating the new state first. If allocation fails, warn and
-return without touching the old state, as it remains valid and the caller
-will handle the error appropriately.
+Perhaps it should be the responsibility of the EDID parser to make sure
+the range isn't completely insane?
 
-This affects three functions:
-- amdgpu_dm_plane_drm_plane_reset()
-- amdgpu_dm_crtc_reset_state()
-- amdgpu_dm_connector_funcs_reset()
+> +
+>  	return info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+I've been tempted to get rid of this completely arbitrary 10Hz thing as well.
 
-Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
-Fixes: 473683a03495 ("drm/amd/display: Create a file dedicated for CRTC")
-Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_types and amdgpu_dm")
-Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
----
-Changes in v2:
-- Also fix amdgpu_dm_crtc_reset_state() and amdgpu_dm_connector_funcs_reset()
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 48 ++++++++++---------
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  8 ++--
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 14 +++---
- 3 files changed, 37 insertions(+), 33 deletions(-)
+>  }
+>  
+> -- 
+> 2.47.3
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 97ab1e83b318..6ef1b07ec251 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8151,33 +8151,35 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
- 
- void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
- {
--	struct dm_connector_state *state =
--		to_dm_connector_state(connector->state);
--
--	if (connector->state)
--		__drm_atomic_helper_connector_destroy_state(connector->state);
--
--	kfree(state);
-+	struct dm_connector_state *state;
- 
-+	/* Allocate new state first */
- 	state = kzalloc_obj(*state);
-+	if (WARN_ON(!state))
-+		return;
- 
--	if (state) {
--		state->scaling = RMX_OFF;
--		state->underscan_enable = false;
--		state->underscan_hborder = 0;
--		state->underscan_vborder = 0;
--		state->base.max_requested_bpc = 8;
--		state->vcpi_slots = 0;
--		state->pbn = 0;
--
--		if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
--			if (amdgpu_dm_abm_level <= 0)
--				state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
--			else
--				state->abm_level = amdgpu_dm_abm_level;
--		}
-+	/* Destroy old state only after successful allocation */
-+	if (connector->state)
-+		__drm_atomic_helper_connector_destroy_state(connector->state);
- 
--		__drm_atomic_helper_connector_reset(connector, &state->base);
-+	/* Let DRM core install the new state */
-+	__drm_atomic_helper_connector_reset(connector, &state->base);
-+
-+	/* Initialize driver-specific fields */
-+	state->scaling = RMX_OFF;
-+	state->underscan_enable = false;
-+	state->underscan_hborder = 0;
-+	state->underscan_vborder = 0;
-+	state->base.max_requested_bpc = 8;
-+	state->vcpi_slots = 0;
-+	state->pbn = 0;
-+
-+	/* eDP-specific initialization */
-+	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
-+		if (amdgpu_dm_abm_level <= 0)
-+			state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
-+		else
-+			state->abm_level = amdgpu_dm_abm_level;
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 3dcedaa67ed8..6146fbc528c3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -437,13 +437,15 @@ static void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc)
- {
- 	struct dm_crtc_state *state;
- 
--	if (crtc->state)
--		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
--
-+	/* Allocate new state first */
- 	state = kzalloc_obj(*state);
- 	if (WARN_ON(!state))
- 		return;
- 
-+	/* Destroy old state only after successful allocation */
-+	if (crtc->state)
-+		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
-+
- 	__drm_atomic_helper_crtc_reset(crtc, &state->base);
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index e957657b06c7..eb1c0a26f20d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1488,17 +1488,17 @@ static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
- 
- static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
- {
--	struct dm_plane_state *amdgpu_state = NULL;
--
--	if (plane->state)
--		plane->funcs->atomic_destroy_state(plane, plane->state);
-+	struct dm_plane_state *amdgpu_state;
- 
-+	/* Allocate new state first */
- 	amdgpu_state = kzalloc_obj(*amdgpu_state);
--	WARN_ON(amdgpu_state == NULL);
--
--	if (!amdgpu_state)
-+	if (WARN_ON(!amdgpu_state))
- 		return;
- 
-+	/* Destroy old state only after successful allocation */
-+	if (plane->state)
-+		plane->funcs->atomic_destroy_state(plane, plane->state);
-+
- 	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
- 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
- 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
 -- 
-2.43.0
-
+Ville Syrjälä
+Intel
