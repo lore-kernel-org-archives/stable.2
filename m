@@ -1,96 +1,171 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012033.outbound.protection.outlook.com [40.107.209.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CF73F39EB;
-	Fri, 26 Jun 2026 12:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782477702; cv=none; b=UeJWo9/7pDID5PW/DqVBdsVr8MO4lJCg81vDo38uL+ztjgdXsoTJvgDrm9mD9vu0VtA0sGqJbpjXN21n7v9810O69OKoq9zrMZjakRUfiJvHC0KOHpjmjWE0U+msdrIBQfVqd+W7/IM/MvD6pqASPa5LFdOx7Em2EdqXXD87jhw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782477702; c=relaxed/simple;
-	bh=Zb5N0CFIuzlNFQ/BZIRjVHgwyG1ejmJk3z8Rm5u09Dw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZIMBJVHTUuZBYf2J90StwdE73MS5A0kXiI1/+Kw2joMwf2qHxJHM6f6GdnuLJh+qN1uoTVLgx1LpuSYZ68QxvWtdyKHbg8HjuwwRtqDBSH+Sr4YqAZwXSE20PI6zJbxPi8tVGqqZ65LxFwGRkMlCi/JvFAi/SDRMO3TsCB4AgNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-05 (Coremail) with SMTP id zQCowADXI8d6cz5qWKRoFQ--.22937S2;
-	Fri, 26 Jun 2026 20:41:31 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: siqueira@igalia.com,
-	mario.limonciello@amd.com,
-	alex.hung@amd.com,
-	superm1@kernel.org,
-	timur.kristof@gmail.com,
-	ivan.lipski@amd.com,
-	aurabindo.pillai@amd.com,
-	chen-yu.chen@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] fix: drm/amd/display: dm_update_crtc_state: skip_modeset path leaves   new_stream dangling, causing double release
-Date: Fri, 26 Jun 2026 20:41:28 +0800
-Message-Id: <20260626124128.36625-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9444B3F54A7;
+	Fri, 26 Jun 2026 12:43:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782477783; cv=fail; b=iRzkJyomHNd2YjBvvXaBgmdKphFmJZepWrU9jb2/AZbkak6v1vpGZyCOqTG3LdqtS+VHiRTeYyDreXwaRmt5+sWeyMeMkfj7Qvv+YbQ/Ikki919OeWTCb4EZryRDLhKjyp6zPAaZTIQnmK13b5866tQyYY0n60a3sDsFlaBQVfo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782477783; c=relaxed/simple;
+	bh=fLEPGKYczTM89SErA0ohgXnP1FIx/XzVb+YpWkGyDhc=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=oKWU53E1Qzie0VrWoWHEsS23aTOxBMgvG8zW5N/Qxx1vvYmWvU4oI0XbRrizurGhtEA04QL6wo8Ztoi6WNuE4TP0rGdH37mCxrjHmvWgPPrR/p0lYGhhhJQKSsLPdjMNYfypY4GOaLRV5jmatgM5CMacS87CgFAQBx1QdBTRx44=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=qnlmyxlc; arc=fail smtp.client-ip=40.107.209.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="qnlmyxlc"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uaGxm+BxWrHr0l834SNGgVHrZ6GXf388Q5RFyeukfLS0gaq79hHPK53zYJsp2VhGOAHdLXKClZrYDugT9/0YdnrZ18Vn98FWRaOGFZoU3cC8idNkXDZ56R/XvVIszcgyU87deZWGXga/vvPUVaOEgVH0jkRvc3R1qGKRX0/w15FXm5IuuYztYaeuJQOzLVw+dkL5u7DMRVXGo6oZhgmPHAT0bTxxGfhZD4CD761FJv26HCxfs72ZFQf+C0bZKlKJHYgsL2Aph4+nXjUJuwIre1zV5qnCTi6QzNd7c968PwgecDpNHaKGY/i89k6qn/S7j87vglv1GL5Z9ZRI6EYK8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BeIKZBoH9QJ9FOobXdjkS2zm5mUreF0cEqUX8n7t3tk=;
+ b=PyPVojkx/PFPbP3D1MHh3J7EM59YjG9u4dpB/zbbqZMQpFa56hBuWvn3D+jkNoPght7bFM8AqemOYWLNb0AgxoWkmg5zLq7nGoWJM/z3x8ZNdFqPblPmJrO59v7PDVD1Ar2MiYzkocV7EJ8RX9vcdEcpCS7sVTtRPeYJ/QIpNPWrKQJM8npYvfKCEt9l/qrmM18rp0tmaWSPicEoj9mSXoNeJPDL2xnV5mrWJmcxzi4TPjxbWD1k2Fu+PpJdyfEa1qaDSj9vVyDQySaHyH5FuQSbl0uicPvgeq3yEqUd6ZVdrm3Gts/zygIGxn6nd6VtwPtVO9x6AIdPBtTUXho59w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BeIKZBoH9QJ9FOobXdjkS2zm5mUreF0cEqUX8n7t3tk=;
+ b=qnlmyxlcjvduZzq80LTUTdt1jcmJBvA6ulX+xOnBoq2w+Ep/XjkvysNd7oYhzm6tWhUVDhI7wXkleYJnqVu3J1UbckHApUM0wA1vTqnnpQ3Yxgo/xRs9nba0D6PBZBCccyD0ULyrphusU+OmIlF7NfJ2yJxK6/0VfHxY1RNEFfE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA1PR12MB8190.namprd12.prod.outlook.com (2603:10b6:208:3f2::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
+ 2026 12:42:55 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
+ 12:42:55 +0000
+Message-ID: <07a4bbee-ade1-4aa9-8d17-c9e57dcfe211@amd.com>
+Date: Fri, 26 Jun 2026 14:42:51 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fix: dma-buf: unwrap_merge_order: success path leaks
+ chain and array fence references
+To: WenTao Liang <vulab@iscas.ac.cn>, sumit.semwal@linaro.org
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260626122145.35549-1-vulab@iscas.ac.cn>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260626122145.35549-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN9PR03CA0854.namprd03.prod.outlook.com
+ (2603:10b6:408:13d::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADXI8d6cz5qWKRoFQ--.22937S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7GF47WFW7Kr1kGF17Xw48tFb_yoWkuFb_GF
-	WUJr9xX3WayFs0qF12yrZ3urs2qFWYvFs7Gr17tFZ3try7JryUAry5Wrs5Wa1rCFnIgF98
-	Za40g3W3AwsIgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb3kFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
-	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
-	17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
-	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
-	IxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0pR-189UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAgKA2o+ThJwSwAAs+
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB8190:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3253b9c3-3869-4c8b-5ba6-08ded38071d3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ewdHgOcBVFtJFNhoeGPY54e9NbZjxiOOjNyTFaTq9zZqxI5R5kEC/+E8/QKSpa5xxTn2l/l3uzO6B1ybIeTvEPx8H0x08i+sc2ExInfmuaGee4nBjFfCJ+gG27/hSdt1oYwYK6n/8Gytzqy70BLhZjl/o1BxHiKpRPW21hRn7Yz4xqKOTsWgMhMQV7k1Bek6s+iJM+qf8ZLG/F/szs0G3UWLuaoK/vMwMlH/8+zWgGuQNvfApScUUXDj6FvS4hLp2yva4LYBD7OBNtfXV/CQfAPUpwXT/teJtTz2kFD9dQx9rA0gHFU01LeaprIw2Zqd6Tk5kDzhBbFVNhT5U1xUk7MOn4Q5X2tr3/YkZ0+osdYxJwI9TgE8Q1ty7ENBOw+StkNaVWhzd2fxoR7sn2WcQzBcHtXYm8G1pYPzdMl7Ie6CF8Pks1016nQdTJvo2DwzYZIXCc03htCgFcsLl8sx8newJakiRciVLfKg+T8UvYFwnUzaTjJwigRsN+6/wfCMjdlq9csKc1UaVJFHov7FTco3v8mEJ/MYToE0mZY+I7i3CdwYOXSHtJS9AwN6fbM6kwQcugMJAODpc/Hc/0U74BRrMa7PoQGzCR5WsP05KVqPYKI1Jxc/FHaxXhYkjPVTnD6h9K1r2joNLlmZc6oPvhuI0FZoY6tFPnCik+rmegI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UXIyd3Q4MWZjMnBmNXlVNVUvTEJ0OWRtazVmZmRqOU9pMEU5cFRDS2l1MElQ?=
+ =?utf-8?B?aHQ1VmhTMlJaeURpbWZ3YjhGSWlmUkdWQ3VwK2FncEdhLzNXZk1TVkZPM0Fu?=
+ =?utf-8?B?MlZNWHhyZUtKV1JWOU1SaVYyOEtwc1JGL0NBeVV3SjMzMllBejJNa1orRlRw?=
+ =?utf-8?B?OEJzc3ZXQml0emxMRk92OHE2OHpyWWwrbzU1b05OYXJZSUU0NU5NdzZLZXRl?=
+ =?utf-8?B?U3NqZUtQMUkybU5FbDhBdno5VEU2b1hob1ZlYTJ4V1JTMmpsRVBBQkVKWnVM?=
+ =?utf-8?B?dUp5ZEFKTmJ2N2E1MGF4Q2FmLzJid2IwaExRckRtaVJVYmtFL3RQOFJPY1pZ?=
+ =?utf-8?B?UHdZczlDc3BBaTZVeWFLRzdTd3AveVgweUNYd0RINDNuVHd6UlZjUGYycEs5?=
+ =?utf-8?B?ZU1YLzE1ZmdqTk5pSGhrdElBY21Fc2kza0tJQktYS2JOdlUxSlVzSFFSM2Yr?=
+ =?utf-8?B?ejAzWmx4N3VmMk81QXA5OXdtYk9UWXdySTVVcVJXL3YrM1JqNEtCblltaTFE?=
+ =?utf-8?B?S3lVTlBKcFNpQXUxdmlhUE01YkVXa0FPc0NlMStNVVlLMmV3UjI0THVCV0lM?=
+ =?utf-8?B?V0JvSWE0cExZd2duTzRZMjJnMWJYb2o3Zyt5OVo5MXFNUE5EeFdTQkdydFdx?=
+ =?utf-8?B?aktvSWUvM1UzYW5TUldQTHFwU2Y3VEdhWEVQVXVOamlONmxUQVpZbFl1MWdN?=
+ =?utf-8?B?cUcxYzF4dU9zNmxkbnVoRmxibU5pSG5RaFpZeFdORWxWbDFwQTZhc244U0J1?=
+ =?utf-8?B?dzNXK1BIak5VVEhQNmZDSDZTUDRCY0oxVERRSmtjSkVMdDJpMlMvWlkveTJN?=
+ =?utf-8?B?c3B3S0J0NnIwZTRYZEJSQ2poVjRPdUU5a2VjRFU2cWdzejIvVmFmVmcxQWZX?=
+ =?utf-8?B?bmRYUjEvMXV1eFRLd2FuT3BDZjl5TndTenlMZGxQaGVNcWo5ZjQ4a29xeExq?=
+ =?utf-8?B?dGlheTJZMHpONi9zdDZSYUkxMlJveUhjMVdXOXlESlFMYTNmWTVBeGc1bGhE?=
+ =?utf-8?B?ZGkzOFE5RHlGZUVBZzBkcmF1YlphM2JyWnNOMEY0ZTI4S0lWeTdXNEpTZVBh?=
+ =?utf-8?B?Zk1vRDdmdml6YUl6RXdtUG5iSlhDTlVBbUNvdWluL0VRbWRyeFY2Ni9HUExJ?=
+ =?utf-8?B?M3M0R3dnWmo3bS8xakNkbGpINHdkWFJ1djBwV2NMalpQT1hUem52MjNjTXpV?=
+ =?utf-8?B?Y2pHaUdMN080MDhaKzFVd0hjdEh3VEtIZ2NjTi9oMmduZGFjY0YyUjVWTGJG?=
+ =?utf-8?B?aU15WGMwKzZybnpCdVlsZGViRGZzRGRGNHFUZWl1V2tGUEJ3RUFoN1UxdGoy?=
+ =?utf-8?B?T0tZY01PSEZOL3NvMVlxZVFtL2p0WnQwV1hJZkdYcnVLd3U5K3J1TlZmVWh4?=
+ =?utf-8?B?Rjlta2VwS2wrOCtoNUtzcmlMMXRZZzVaNVpiK1lNaVFiMko4N0hNVUR2OXBz?=
+ =?utf-8?B?UFBpbEZhZWlGakRiZDVORnRsNHB0Q2dMbVBvMUZ5a3lEamRRVXFUWXFFeEcv?=
+ =?utf-8?B?cG5jNlhMZkVlUUdyQU0zWGVGeUJxYno1VE5kYWdpcHliTUNzOStaMHpPVGxw?=
+ =?utf-8?B?aUQzMGxCb09vUTVRc1AydGpUVjN5U2JDWmxhbHBTZGlqbjNIeDR5dndxamtw?=
+ =?utf-8?B?dE9zWkFWbU5rR1FqMExRN3dKakd1TGIxcG52ZUIvWUdtOGdMK05VQWxBT1pY?=
+ =?utf-8?B?RFdxNnpob2p1L3ZwTGxrZDROMGlISGV6aXdVUnQ5TjFIM0Y0eHgxT2dWZU5R?=
+ =?utf-8?B?MmF2U1RmY1RBOGNselg4ak9KNUpWTkhZTi9yaDJlaGg4NmtrYXZTM1F5RnIr?=
+ =?utf-8?B?RytOcmd3SDF0WlUyOWoyMkh1YVd4QlQ3dUpNZDg0UU8za3lCa1l3L1dpVUY4?=
+ =?utf-8?B?N3lpaFIwM0s2c1BONkFLTHA4bXFlWXZ4ZFl5S21jYzFtWWpGSWRlUDFYQitV?=
+ =?utf-8?B?ZEU2UXNUQksxdk9RS0tQTHE4YzFEM05pZjNmaCt1V1lIdFJHWUM2QjUxMFpp?=
+ =?utf-8?B?TEFiRzJ3dzhjWjN5UU0rV2dvSzV3RTVsdEJzNFR1aTN4TkNZd2x3b0V0UWpu?=
+ =?utf-8?B?MFpBaUxDMFM5L296SWVydDZjLyt3LzdJTzE3VllidFZ2RXh6Q2ZrUnRYN1B1?=
+ =?utf-8?B?TE5palNNVkdwREZPWUtTdi9aVEJRZGRubjIvU3pKME9FOWplOWtSN3dRVW5i?=
+ =?utf-8?B?dFBRSUlGUnlXWGhiL0x4Snc4djFGL3A3eG1jTnJJMDNWSVBtWnpEbVl0emdD?=
+ =?utf-8?B?ditiNklYOFBsV1FEVVJUd0FXak1xU0tEd0ZFZFhCbEpzL3EvWTk5TFI4bkRm?=
+ =?utf-8?Q?bhUuHOJClQwdxsIju+?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3253b9c3-3869-4c8b-5ba6-08ded38071d3
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 12:42:55.4047
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mPDMLfWHV0TRoLtXQvkXoGb5w53JXE4MizysWcMGj3uGa6e2MH1J4AJFOEipN2Bp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8190
 
-The skip_modeset path calls dc_stream_release(new_stream) but does not
-  set new_stream to NULL. If a subsequent error (e.g., color management
-  failure) triggers goto fail, the fail label executes a second
-  dc_stream_release on the same pointer, causing a use-after-free or excess
-  put on the stream reference.
+On 6/26/26 14:21, WenTao Liang wrote:
+> The success path only releases a2 via dma_fence_put but does not release
+>   a1, c1, or c2. The dma_fence_get calls at lines 440 and 445 were intended
+>   to pass references to mock_chain, but mock_chain already acquires its own
+>   references internally, making these extra gets surplus and permanently
+>   leaked.
+> 
 
-Cc: stable@vger.kernel.org
-Fixes: 3ce51649cdf2 ("drm/amdgpu/display: add quirk handling for stutter mode")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
- 1 file changed, 1 insertion(+)
+> Cc: stable@vger.kernel.org
+> Fixes: b1cce631e61f ("dma-buf: add selftest for fence order after merge")
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5fc5d5608506..acf0b01d6f62 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -11708,6 +11708,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- 	/* Release extra reference */
- 	if (new_stream)
- 		dc_stream_release(new_stream);
-+	new_stream = NULL;
- 
- 	/*
- 	 * We want to do dc stream updates that do not require a
--- 
-2.39.5 (Apple Git-154)
+Please drop that, this is a minor issue in a unit test and not anything which needs backporting.
+
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/dma-buf/st-dma-fence-unwrap.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-dma-fence-unwrap.c
+> index 9c74195f47fd..72ca632e3981 100644
+> --- a/drivers/dma-buf/st-dma-fence-unwrap.c
+> +++ b/drivers/dma-buf/st-dma-fence-unwrap.c
+> @@ -472,6 +472,8 @@ static int unwrap_merge_order(void *arg)
+>  	}
+>  
+>  	dma_fence_put(a2);
+> +	dma_fence_put(c2);
+> +	dma_fence_put(a1);
+
+That looks correct to me, but the error handler below is incorrect as well.
+
+When c2 allocation fails we also need to release c1.
+
+Regards,
+Christian.
+
+>  	return err;
+>  
+>  error_put_a1:
 
