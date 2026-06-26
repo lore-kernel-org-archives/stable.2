@@ -1,36 +1,36 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BF4211A14
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 04:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F2D211A14
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 04:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782447328; cv=none; b=fxyS+AbR1GfCpTMRr1E9X/N8o5rEx0JO9I0MyF0T8F98los4QeEwOzQOd7rkC0Knt+50TcZwKp8uBl075wElS86timZm+EaMdRrZfOLWD6i2q90Q5cFKhL7gomi6oSiVcDW2rzleZm4LM2dTm005bm+hoPjFxg7Y1c42tUOKlgk=
+	t=1782447333; cv=none; b=th3SLHk3uFpayH0x4027R9TH7CGkaTMvNBuR0ClGdj9GZYM4cBwIn3qBhjjsiv+3BbBvh0srw3zEHum6pGabzPrpxCHDJ7BQzuuJ1eRWq0whg00r7e7UwWB0B4pwYlYoa+OVoaXbojSWK+NwhfSUXabsRHIy97Z0+w0YlJGhQ2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782447328; c=relaxed/simple;
-	bh=G6RmNTqYROpjt9DlcxGQNALg1UdVD4frTSeaFp6axyk=;
+	s=arc-20240116; t=1782447333; c=relaxed/simple;
+	bh=0C0IjCYWJ6gzo44qxkoSRDofRHrsLyyyjBHkwqfonaw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=a8VBZ7hs8WHCM7da/vx7emi6QDPGG8w53GXSQwXZHhGTxyg49tqsGd4Fjsr0FgR7t6k0VUsT6LfB2kTxjKv3SOCXV/73HjMDXxrlJj0vrHJBqfZ0EyFdA6pAGLBFdtonEIPy24Npfmy6XZ8sKBQPMVwkGcebtpEUiIm1LrahHu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=aXVnmaJp; arc=none smtp.client-ip=54.207.22.56
+	 MIME-Version; b=tZESoeobFvti/6JzRZgyyege4VWzhuAMf/VmdGvURkGW/0T1rLYdQwTfEDoi/o8+t+WHFLAWyMp55EW1LczFWGkljbB3sX5zj6d/8RlTWeQOpOZUp2JqfvNngvlDsQ6P0VBRlPsuVbbnSL27fRWSQVaAjY3R1rCAel9BUIJerfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=RsL3yu/J; arc=none smtp.client-ip=54.243.244.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="aXVnmaJp"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="RsL3yu/J"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1782447283;
-	bh=74Ta1GaJ908LAxiP2HjWHTSJKACbI0XFPiM4M/1j+IU=;
+	s=onoh2408; t=1782447296;
+	bh=MyeGzdWtJPNDd1e6oKLKGjJ49Ouc+aTJc25q+GIkkPQ=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=aXVnmaJpYdDzrtgpa+Meb/qn+yopuIL8LSyqQeehmExh8xxT2ekDu17SNoqUAZ95Z
-	 JFw1eP4PDN/Zv5ZG1BizxiLiipFtuW+S0fpj+VxXTiBa/2n4cvJWyVGrjBj3+iAoXu
-	 k7KjSHoEe2+EtrOGL2urdY8SEj6IrzM7MlO1J6wQ=
-X-QQ-mid: zesmtpgz1t1782447276t27ed3663
-X-QQ-Originating-IP: u/y1TTTPbmRO/CDtTS7gcXP6aFY6x3T/wYLMFTs9Ekg=
+	b=RsL3yu/JHpa4pGXWAuUtWEA+jFAfWiEC5jYTfNrViihNwvxZIvM2PnlvwbUq6w6T4
+	 F2bTvfdwiJ5r+2AtDzcuVJPz0VEs/0ArNuMNOXQtSvHP0I77lQYK5Akr6fLNa5I1iV
+	 ZBm6PcttbK7XoAvTyJodVMOFCx1Ki2lwtccqTsis=
+X-QQ-mid: zesmtpgz1t1782447289tb04409ea
+X-QQ-Originating-IP: qX21DUoW/numuD2+8vi5N7aggvDBEAZYuQlaS4CdUwQ=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 26 Jun 2026 12:14:35 +0800 (CST)
+	id ; Fri, 26 Jun 2026 12:14:47 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 6531825540282112445
+X-BIZMAIL-ID: 8357307985730952757
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org,
 	gregkh@linuxfoundation.org,
@@ -38,9 +38,9 @@ To: sashal@kernel.org,
 Cc: stable@vger.kernel.org,
 	brauner@kernel.org,
 	Quentin Schulz <quentin.schulz@cherry.de>
-Subject: [PATCH 6.6.y 4/8] eventpoll: kill __ep_remove()
-Date: Fri, 26 Jun 2026 12:13:59 +0800
-Message-Id: <20260626041403.85968-5-guanwentao@uniontech.com>
+Subject: [PATCH 6.6.y 7/8] eventpoll: move epi_fget() up
+Date: Fri, 26 Jun 2026 12:14:02 +0800
+Message-Id: <20260626041403.85968-8-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260626041403.85968-1-guanwentao@uniontech.com>
 References: <20260626041403.85968-1-guanwentao@uniontech.com>
@@ -53,150 +53,118 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OYpbVsTx4C81Ea2BKYHQOdiOi50/eEJiIo+toBzWNKSuwokFxeelDKo/
-	obFK0MWvkHTPMWUgz0KhIWA8ijG1MPsCs26vd7bNeMs+8iKWcDAJzEzJ3Uqdn/2qO4INxsP
-	ZOs+BkgAudhYdnaPto9o0Bih7LlLYFir0ugVhhNh3bpNV5hGRWUliq0jufR318xIjSIphPp
-	IkMhWkVFFnfYz7RjQ/0Mwbud9hsfIBtXCYhkWSfs/bRdTMsdi2VYhXjhvx0GYerHE5xEKIg
-	Wong+WoZUAw4QxmTxJopERI1p1hgkLOo05yXc6wXRFVuqBVkW6/bjWFjfiZpN7/6rKW35TC
-	dK0gigt7PF9PYOwxdO47IigspIwlQ9pRKQsRBrlGECcADEgEsQyvQ6/zx174z8nDomMB0Jj
-	DMeeS3OiUt/m3ngJkkZRIml6Zwj16R7SoROQtGUww2Sj0VOIE8EEo9jJhcQkxddfewoGj8d
-	cVdDN3Jkq77T2x7otac7/wb8+wy3tAIDsDm56Kly8Y8enYilhLGZ+bIgyUZuD+aizEb8oGG
-	+rPD71oFxv/sIjdD2os4ZoBO3l39H2+mU2iipVy9PvNjjF687m4mqQujCDO16CpLW2wxlw9
-	MPqNRlDDhm5XJfFXEbT4vRRKAzL+a8S1NUoFFOjd/+NANZX5MHkh38WkOf+B0BAE2jJmubX
-	RjaSMjIK+i1cfihiHHUaAuD4bZDEed/bhjRiNPEZRk2u6VJUDtHqi3FJXKn+pe8Oh3kAa2X
-	c6Wh3XGZl595Zm2z+5RhGQb/vu0v6h9Bevuv3Zc199tE/Hqq4wzDgRCvwzekhMK+UzhZcrd
-	/kM1RiwBOo7A6h1u0duXE2oOXZvCTxc6Ro9cfTTWzpnoi6+77CRpQsRQ8aNxO9KOLf5xlGl
-	JHH1XTePM9VWkZLUuV9eGoPeW4HfBz1VCEP1Hf82B4eFLr3GCJpTj5fANI2ytjIPJFpMRqg
-	TkCrdfx6LetOer3mE7Mbrp18p53OgDXAztEHTGFTqmRbhbcOzsg2K3FBEUthdFCeG3rvj7B
-	TjBOisR6Nyg41NXsWM+achtjYcARv+iWVu6eUgdBKn2Ew2Ugiy9Z6wtkxMjKSTVqqJF0oVQ
-	gYhW/SChg3p
+X-QQ-XMAILINFO: MDnRDgydGgijembCjR1l7znKCI6L56VdL+u6qV8PTNCQju6zkI+kQncF
+	/P0c4lWL+Jqmkqib+JnImv+cQTC74LYwLG9crJNbFleIAbQhpJO3fIb2xeSMPIjmxVYq8eK
+	lb25P/WTNgPsYTQoNNwilC9BO5nVI3GITfvugFbcbHfuEyNiEFnriBlWHpQJ/pHv4rbTiTh
+	AYyJiLi3s5NOWGuBMu/nSM/G9ZsXI+9XoUtjFVPcf8lJJCiHN9LU7CskOzNDaPodzA4F9KQ
+	B2q0Z8JSk+NNWe/CIUjI9ygzpQ9IeTFalxwpI8oLuXbZlrtDSW1VTg05ZO0XbFw74mvNi++
+	Cw8aUvUaSzun77qhqr8EZGngzfE30qgYrnnMhwQCBljlExwrd9QsYoGNuxwlwZirv64S551
+	OZn7O3GopQzkBP3c+7TyFLWM9vrt3xhiebVIWYCbxYV51nU926pRTcwdrDwR3N1/RfPUF1w
+	B9sPqgtZXDTo1Tz26GkrOIsSbvIPxmuAdq+phXiF1UChkJFLr13mD1UwGcZEZxfIfE/6upA
+	WZKlAdO60L2TUUnKvv9L8pAtA2Zm0BWJRLRnbGv/pNuxz1uYSuhWqX3dHjrHR5I0wuKEzXw
+	DEY8d3QTXyCPzIoNyOANa/y9/JMEqeDEgZlcfyAX11e/LHcyHjCx6exLs6tHrLr+ZWBm5P8
+	bKF+u8CyrGygyJouxeKPfN89Mt24QDrDka9j7FPngA5Prx9gJ0s4vav9BTY/DTF2uyOdPdj
+	XrvJDl7lIiBMTbfv0j9QL76K11loeZ/4TOmk0WRujhQSWgrCIwIeochvBPjRjsqqu7eQl8D
+	LIQ3fKDVNSRV6OV0djzml6AKtyNcr6nzfRexGfDJ8HKf7Jmaf5WJvUd2FAix12Xg50ataEY
+	8ErbmiG1BW+4cZP8q6k4EYXEBhXbd5OwBtqe4sFRAg3bR7GEk4pM3EVQYYsruBNkY1uXWIU
+	pqdDaAMVFfB5pgnuN0C70vENssWYlZBaunvKP3gT0xZ76JV2nA3mvJnyhk4Az4jPOmCBzN9
+	ldW0u796rCzuM8RRNMrtJkJY0NSTMPjUK7l/JQssyW5iszKqmTw5ouHIQjEfJhLI29/eeEV
+	URaQoVBFoCY51eTHM1mxQhD2WUMA7dEN+5sL0stT/mhfTe7KB2b5Ps=
 X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 X-QQ-RECHKSPAM: 0
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit e9e5cd40d7c403e19f21d0f7b8b8ba3a76b58330 ]
+[ Upstream commit 86e87059e6d1fd5115a31949726450ed03c1073b ]
 
-Remove the boolean conditional in __ep_remove() and restructure the code
-so the check for racing with eventpoll_release_file() are only done in
-the ep_remove_safe() path where they belong.
+We'll need it when removing files so move it up. No functional change.
 
-Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-3-2470f9eec0f5@kernel.org
+Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-5-2470f9eec0f5@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Stable-dep-of: a6dc643c6931 ("eventpoll: fix ep_remove struct eventpoll / struct file UAF")
+[file_ref_get(&file->f_ref) from original commit left as
+ atomic_long_inc_not_zero(&file->f_count) due to v6.12.y missing commit
+ 90ee6ed776c0 ("fs: port files to file_ref") and its dependent commit
+ 08ef26ea9ab3 ("fs: add file_ref")]
 Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
 ---
- fs/eventpoll.c | 67 ++++++++++++++++++++++----------------------------
- 1 file changed, 30 insertions(+), 37 deletions(-)
+ fs/eventpoll.c | 56 +++++++++++++++++++++++++-------------------------
+ 1 file changed, 28 insertions(+), 28 deletions(-)
 
 diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index ae9cb82764482..766716c2fd92a 100644
+index db5d7c1d726c8..fc4668a403c9d 100644
 --- a/fs/eventpoll.c
 +++ b/fs/eventpoll.c
-@@ -715,49 +715,18 @@ static void ep_free(struct eventpoll *ep)
+@@ -715,6 +715,34 @@ static void ep_free(struct eventpoll *ep)
  	kfree_rcu(ep, rcu);
  }
  
--static void __ep_remove_file(struct eventpoll *ep, struct epitem *epi, struct file *file);
--static bool __ep_remove_epi(struct eventpoll *ep, struct epitem *epi);
--
--/*
-- * Removes a "struct epitem" from the eventpoll RB tree and deallocates
-- * all the associated resources. Must be called with "mtx" held.
-- * If the dying flag is set, do the removal only if force is true.
-- * This prevents ep_clear_and_put() from dropping all the ep references
-- * while running concurrently with eventpoll_release_file().
-- * Returns true if the eventpoll can be disposed.
-- */
--static bool __ep_remove(struct eventpoll *ep, struct epitem *epi, bool force)
--{
--	struct file *file = epi->ffd.file;
--
--	lockdep_assert_irqs_enabled();
--
--	/*
--	 * Removes poll wait queue hooks.
--	 */
--	ep_unregister_pollwait(ep, epi);
--
--	/* Remove the current item from the list of epoll hooks */
--	spin_lock(&file->f_lock);
--	if (epi->dying && !force) {
--		spin_unlock(&file->f_lock);
--		return false;
--	}
--
--	__ep_remove_file(ep, epi, file);
--	return __ep_remove_epi(ep, epi);
--}
--
++/*
++ * The ffd.file pointer may be in the process of being torn down due to
++ * being closed, but we may not have finished eventpoll_release() yet.
++ *
++ * Normally, even with the atomic_long_inc_not_zero, the file may have
++ * been free'd and then gotten re-allocated to something else (since
++ * files are not RCU-delayed, they are SLAB_TYPESAFE_BY_RCU).
++ *
++ * But for epoll, users hold the ep->mtx mutex, and as such any file in
++ * the process of being free'd will block in eventpoll_release_file()
++ * and thus the underlying file allocation will not be free'd, and the
++ * file re-use cannot happen.
++ *
++ * For the same reason we can avoid a rcu_read_lock() around the
++ * operation - 'ffd.file' cannot go away even if the refcount has
++ * reached zero (but we must still not call out to ->poll() functions
++ * etc).
++ */
++static struct file *epi_fget(const struct epitem *epi)
++{
++	struct file *file;
++
++	file = epi->ffd.file;
++	if (!atomic_long_inc_not_zero(&file->f_count))
++		file = NULL;
++	return file;
++}
++
  /*
   * Called with &file->f_lock held,
   * returns with it released
-  */
--static void __ep_remove_file(struct eventpoll *ep, struct epitem *epi, struct file *file)
-+static void __ep_remove_file(struct eventpoll *ep, struct epitem *epi,
-+			     struct file *file)
- {
- 	struct epitems_head *to_free = NULL;
- 	struct hlist_head *head = file->f_ep;
- 
- 	lockdep_assert_held(&ep->mtx);
-+	lockdep_assert_held(&file->f_lock);
- 
- 	if (hlist_is_singular_node(&epi->fllink, head)) {
- 		/* See eventpoll_release() for details. */
-@@ -804,7 +773,25 @@ static bool __ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
-  */
- static void ep_remove_safe(struct eventpoll *ep, struct epitem *epi)
- {
--	if (__ep_remove(ep, epi, false))
-+	struct file *file = epi->ffd.file;
-+
-+	lockdep_assert_irqs_enabled();
-+	lockdep_assert_held(&ep->mtx);
-+
-+	ep_unregister_pollwait(ep, epi);
-+
-+	/* sync with eventpoll_release_file() */
-+	if (unlikely(READ_ONCE(epi->dying)))
-+		return;
-+
-+	spin_lock(&file->f_lock);
-+	if (epi->dying) {
-+		spin_unlock(&file->f_lock);
-+		return;
-+	}
-+	__ep_remove_file(ep, epi, file);
-+
-+	if (__ep_remove_epi(ep, epi))
- 		WARN_ON_ONCE(ep_refcount_dec_and_test(ep));
+@@ -886,34 +914,6 @@ static __poll_t __ep_eventpoll_poll(struct file *file, poll_table *wait, int dep
+ 	return res;
  }
  
-@@ -1013,7 +1000,7 @@ void eventpoll_release_file(struct file *file)
- 	spin_lock(&file->f_lock);
- 	if (file->f_ep && file->f_ep->first) {
- 		epi = hlist_entry(file->f_ep->first, struct epitem, fllink);
--		epi->dying = true;
-+		WRITE_ONCE(epi->dying, true);
- 		spin_unlock(&file->f_lock);
- 
- 		/*
-@@ -1022,7 +1009,13 @@ void eventpoll_release_file(struct file *file)
- 		 */
- 		ep = epi->ep;
- 		mutex_lock(&ep->mtx);
--		dispose = __ep_remove(ep, epi, true);
-+
-+		ep_unregister_pollwait(ep, epi);
-+
-+		spin_lock(&file->f_lock);
-+		__ep_remove_file(ep, epi, file);
-+		dispose = __ep_remove_epi(ep, epi);
-+
- 		mutex_unlock(&ep->mtx);
- 
- 		if (dispose && ep_refcount_dec_and_test(ep))
+-/*
+- * The ffd.file pointer may be in the process of being torn down due to
+- * being closed, but we may not have finished eventpoll_release() yet.
+- *
+- * Normally, even with the atomic_long_inc_not_zero, the file may have
+- * been free'd and then gotten re-allocated to something else (since
+- * files are not RCU-delayed, they are SLAB_TYPESAFE_BY_RCU).
+- *
+- * But for epoll, users hold the ep->mtx mutex, and as such any file in
+- * the process of being free'd will block in eventpoll_release_file()
+- * and thus the underlying file allocation will not be free'd, and the
+- * file re-use cannot happen.
+- *
+- * For the same reason we can avoid a rcu_read_lock() around the
+- * operation - 'ffd.file' cannot go away even if the refcount has
+- * reached zero (but we must still not call out to ->poll() functions
+- * etc).
+- */
+-static struct file *epi_fget(const struct epitem *epi)
+-{
+-	struct file *file;
+-
+-	file = epi->ffd.file;
+-	if (!atomic_long_inc_not_zero(&file->f_count))
+-		file = NULL;
+-	return file;
+-}
+-
+ /*
+  * Differs from ep_eventpoll_poll() in that internal callers already have
+  * the ep->mtx so we need to start from depth=1, such that mutex_lock_nested()
 -- 
 2.30.2
 
