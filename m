@@ -1,265 +1,195 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C04283FD132
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490323; cv=pass; b=UWVzmFJPgMw1TqhHazvVzpRevY5J0mIkATV9EMWAdeA44s/OEmMwlqTIFmxCtLrijOUm/5B8BEb4NpCHizrKnePYg6k9VlnILuXgGZIRVmb2O2WfcxON/7MIIHZX9WwkAd0/0sjLObRec1qmHd0cC+YBAPSlqzr0h6/9ByFTp7g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7917D3A0E85
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782490323; cv=none; b=pgsttjcIWdg6TlgPzwN08BnVUH54mQLeuZxm2A2rtQG0sdLj2IvGTXIlo2VLoiuQMMJzHrWGx1rtZmpBZio9XPHwWyUsPKIxiIHfyNMFrJWCJA5hlDTIChxF4xKab6mQArzHtwYhA7XzaXVqMoCwpL2M9Jd22+PNd910dM+TdAw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490323; c=relaxed/simple;
-	bh=t+bRc5tua2h22UL66WgekbHNR8+kStkdljkjSb9Lf+o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ik37xOCzHfBuc7IdSDlziWUY3lE8ei/O0TAg6MsyTsvGeQaeq8vrXL4juV30Vg92WCNAIZ+wS3iZ/jvRWSLB8VPhgzoT6IFpA2C3sr/1isCvIeJezDso9FKzKrEyD4FPSRLoKE6KiqA8lUsje2MZOjzi+v9f4DEUC5HRaKVr788=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=VHfq9S6C; arc=pass smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	bh=ghw6/CTbfiIbSu00/eWsB92k3n7D1C1tBmwRwzuwumc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qGpLZfK575gHpNEM28+XdqUpsLJgyAFuF8sRQZo8z2N3aK51PBfN8TDAZmlvVk084c7DvjKzHb69Eovp0JeRQ+lcYFAEAiYnuG4xrKIdSJrbV08b1Qhwt8+rDEbntcsI27St1/Z/AB0IdfuWy5dqNRy4eBXN7Y4+7oEPsILl0B4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=D2078B9F; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="VHfq9S6C"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-84236f9b638so521117b3a.2
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 09:11:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782490319; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NRA66fDgrUYR4eIicYYXKpkvyMiHOKOFTZKNQbvRxqxvGK7bIekuDS1yxEHWlHigyh
-         BOadGJWP+jxgU8jTl8q5f9Iz3WhUwnw5mR8y05ZsZ88Vx/Gopirmv9cRWLhPqJ+cgTPw
-         EgIanKCETZ9CBVDYTO6Ktk8IDI5b+IiMce9NbNVIVOVPwEuhposPvEW6AH+fLvv/Bw2o
-         9nQSg5rxWV5+TriasK1WYjfnS01ctEYXtx+bOg2cnngijTRz+Mc/rD+Q41MZBno1tYv8
-         M7Q1PWZn14mGvFjfA5fqfbe8hHgqYKkXOOruafqObcHAVBbgjbt2QP1ZbGMzOyS0xR0p
-         U3Mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qXQEyT7Q4jr5cIIxct5CGj348m6uRo9IrfssmoijES8=;
-        fh=N4LF9dDxAg8iUoOXkbNdz3jygxo/wVMstkDroky06us=;
-        b=d8UX2/XzG/Hle5LnH1vy+upj33P0fZPZrHyc0mHk3eIF/K9dh9d+7Yfg8Z9YMWuwap
-         7YIsg/Lm4aqiOCim6kMO1XU4vvnsZtkIhho3DWxKwPnHis9KsexEkNZaLwRerX1WVVpp
-         //pqoIMr+2BVt0tJjr1wfPkmWgbEkEHT+GSNJ+8pt3VJUeOM9Ij18+Za/FCR8fMX2eod
-         z8d/xslfIOR39Av/R/JlrMTF/rVaQnv2llIRTAGmKzTG/k0sKknuJ26Vq3Dki5FbUVIU
-         OEAFlw68bWaqpZX0EcFT+it/zneM8XXXJBnQxpjy78AYTWGguvlh6SUI1LKLjmJ96LoK
-         m/Mw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1782490319; x=1783095119; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qXQEyT7Q4jr5cIIxct5CGj348m6uRo9IrfssmoijES8=;
-        b=VHfq9S6CQ9kgJFUCRZEWuKKVDsoCUPSxVrtyiRy0YN/CNjEUjQ7efUvjgTCWdW7p04
-         xLuZvNeXcSWR4ue0KStp/o40/DbFc/XCCcgROmxX8+H7V85cpMp5yE82+6hyAY34oKdR
-         DEH2G/TpQ1tmtt42vldKPe73u22dzQyYdZ8uw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782490319; x=1783095119;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=qXQEyT7Q4jr5cIIxct5CGj348m6uRo9IrfssmoijES8=;
-        b=C0NS+4APTbvAXHCGwSGPmIjI7tsaQNwGjGi7pTAE2rVofxX0Jdi5VVfVZg6JBH9aBD
-         5eOaY01A+BBxrZ16Bi1tGqgdLLE8BtlGj9qVfdFC0h83J7A1OrXgpAX6st8FgHnGDdwE
-         poq49O1rjQ8WFCAFCf+OwkyrI9s4UmEcXz9XvvodIL7YDsnZMycKfKENsSKlR1LIsxfF
-         8Pkx/Qg1MfKmacHMvKzKgJpO376ET6pzYK3xN3RHkcXxE0y4ryttMHgkseZ+t3mRQKIM
-         Mk9KYtJhi7JWObZ7+AIxrYPpDZl6xG+1l+N4FWoEE5LCoSaWO7/XMV6qp1rL4TT4isHO
-         O1pA==
-X-Forwarded-Encrypted: i=1; AHgh+RqCtVKL/wL1ciLO3xLEGk9ZvbaOCT00Vd7ZvBLzHQ5FAzGjXEwJj+FqFs2M5eiV6G5Zd9OUNeE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy22QrLGi8ga26OniPusKTv3gcRrvHKLaW37vHBho1OcuWgA1Xs
-	3pW2MU45YQDjGnwcjDiEdC1PHlUMf1yQU65VUfUz15ZoMFJfifU3qfglf2joE6IT1jiNKdAZmGI
-	14n/LH0EK/3VrtMzASV6hwuqICo6ZZFSMGV3qArMY
-X-Gm-Gg: AfdE7clmDChiYtOLGGScWRTMw8TH1M2aR97qcUkPjrElb+d8DYTgm+4rYkJWREZbSN5
-	MwTnQsNkS1xFyRiUBCs8Zdzh9K2BZaS6A475dvEFrdOzg2e+X3NWbKyHoOhn3UOZxU894ZFNo2r
-	/e6DDFvHcIgOxuKjKiAkjvrQyt95/vFYtWm8LZItsg666NUWgOIEqJABpxMDQyfo2vSp1KTMIaX
-	463ipQyizUlCFbL8XSqnrBEMb54OHNguuwWaxLJqw2YaFPratyakfmh20xovTW62ZOY/bZenw==
-X-Received: by 2002:a05:6a00:9a9:b0:845:d284:9e01 with SMTP id
- d2e1a72fcca58-845d284aa06mr879981b3a.59.1782490318736; Fri, 26 Jun 2026
- 09:11:58 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="D2078B9F"
+Received: by dvalin.narfation.org (Postfix) id 06D8D20470;
+	Fri, 26 Jun 2026 16:11:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1782490319;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zHiOwiiM5VjWu23gAsYV6V/psxU5UG8LahWhVJPQnJI=;
+	b=D2078B9F6THUB+BoFJzC+OQi4DS6otnlIBIjeY+KTw3cy7Jfd99fdfsCUPgvJmScZ4AWKS
+	sTGzIrqzQ9aOYqI9pYHVkLJt1X+m+ATe9MQoynhsjZNichhWsD0Ql7s2y/AB5/QazJTsu4
+	vU8uENdk6Dp7VttkWoIz/7bltMPw7k8=
+From: Sven Eckelmann <sven@narfation.org>
+To: stable@vger.kernel.org
+Cc: Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 6.12 09/25] batman-adv: bla: annotate lasttime access with READ/WRITE_ONCE
+Date: Fri, 26 Jun 2026 18:11:38 +0200
+Message-ID: <20260626161154.124562-10-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260626161154.124562-1-sven@narfation.org>
+References: <20260626161154.124562-1-sven@narfation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260624224016.24018-1-jhs@mojatatu.com> <CAM0EoMmJZxAbOsyW7bBp0DbTTiQKZeGaaBHPEw45D5b6DKDEvg@mail.gmail.com>
- <20260626141547.GA1310988@horms.kernel.org>
-In-Reply-To: <20260626141547.GA1310988@horms.kernel.org>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Fri, 26 Jun 2026 12:11:47 -0400
-X-Gm-Features: AVVi8Cecncdcl4VQwa1dstOAibkOpvT8I77lUEklwuWglJcyWzqV1iNugZHWSgI
-Message-ID: <CAM0EoMntFA+fqs_BgT0E_KSsQHyf0W0u7OTngHHB7icrnUiC3A@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/1] net/sched: sch_teql: Introduce slaves_lock to
- avoid race condition and UAF
-To: Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, jiri@resnulli.us, victor@mojatatu.com, 
-	security@kernel.org, zdi-disclosures@trendmicro.com, stable@vger.kernel.org, 
-	kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Simon,
+commit 98b0fb191c878a64cbaebfe231d96d57576acf8c upstream.
 
-On Fri, Jun 26, 2026 at 10:15=E2=80=AFAM Simon Horman <horms@kernel.org> wr=
-ote:
->
-> On Fri, Jun 26, 2026 at 06:16:43AM -0400, Jamal Hadi Salim wrote:
-> > "
-> >
-> > On Wed, Jun 24, 2026 at 6:40=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.=
-com> wrote:
-> > >
-> > > The teql master->slaves singly linked list is not protected against
-> > > multiple writes. It can be mod'ed concurently from teql_master_xmit()=
-,
-> > > teql_dequeue(), teql_init() and teql_destroy() without holding any li=
-st
-> > > lock or RCU protection.
-> > >
-> > > zdi-disclosures@trendmicro.com has demonstrated that the qdisc is fre=
-ed
-> > > after an RCU grace period, but teql_master_xmit() running on another
-> > > CPU can still hold a stale pointer into the list, resulting in a
-> > > slab-use-after-free:
-> > >
-> > > BUG: KASAN: slab-use-after-free in teql_destroy+0x3ca/0x440 linux/net=
-/sched/sch_teql.c:142
-> > > Read of size 8 at addr ffff88802923aa80 by task ip/10024
-> > >
-> > > The zdi-disclosures@trendmicro.com repro created concurrent AF_PACKET
-> > > senders on a teql device against a thread that repeatedly adds/delete=
-s the
-> > > slave qdisc, together with a SLUB spray that reclaims the freed slot;=
- the
-> > > resulting UAF is controllable enough to be turned into a read/write
-> > > primitive against the freed qdisc object.
-> > >
-> > > The fix?
-> > > Add a per-master slaves_lock spinlock that serializes all mutations o=
-f
-> > > master->slaves and the NEXT_SLAVE() links in teql_destroy() and
-> > > teql_qdisc_init(). teql_master_xmit() also takes the same slaves_lock
-> > > around those updates.
-> > > Annotate master->slaves and the per-slave ->next pointer with __rcu a=
-nd
-> > > use the appropriate RCU accessors everywhere they are touched:
-> > > rcu_assign_pointer() on the writer side (under slaves_lock),
-> > > rcu_dereference_protected() for the writer-side loads (also under
-> > > slaves_lock), rcu_dereference_bh() for the loads in teql_master_xmit(=
-) and
-> > > rtnl_dereference() for the loads in teql_master_open()/teql_master_mt=
-u(),
-> > > which run under RTNL.
-> > > Pair this with rcu_read_lock_bh()/rcu_read_unlock_bh() around the lis=
-t
-> > > traversal in teql_master_xmit(), so that readers either observe a ful=
-ly
-> > > linked list or are deferred until the in-flight mutation completes. T=
-he two
-> > > early-return paths in teql_master_xmit() are updated to release the R=
-CU-bh
-> > > read-side critical section before returning, since leaving it held wo=
-uld
-> > > disable BH on that CPU for good.
-> > >
-> >
-> > sashiko-gemini's complaints:
-> > https://sashiko.dev/#/patchset/20260624224016.24018-1-jhs%40mojatatu.co=
-m
-> > seem bogus to me (someone correct me if i am wrong). I am only going
-> > to address the first claim of "TOCTOU / "resurrection" race in
-> > teql_master_xmit()"
-> > teql_master_xmit() holds rcu_read_lock_bh() across the entire
-> > traversal. teql_destroy() freeing can only proceed once the qdisc's
-> > RCU grace period has elapsed - so where is this TOCTOU? Let's say this
-> > were true: both calls hold the slaves_lock.
-> > The other issues are of similar nature.
->
-> Hi Jamal,
->
-> I think the central question here is about the protection offered by RCU
-> in these code paths. And while I agree it protects the use of elements
-> of the list, I think the problem flagged relates to the management of
-> the list itself.
->
-> The example AI gave me when I asked is like this:
->
->     Assume a TEQL master has one slave, `q`.
->     The list is circular: `q->next =3D=3D q`.
->
->     1. CPU A (Transmitting): Enters `teql_master_xmit()`.
->        It reads `master->sla ves` and gets a local pointer to `q`.
->
->     2.  CPU B (Destroying): Calls `teql_destroy(q)`.
->         It takes the lock, unlinks `q`, and sets `master->slaves =3D NULL=
-`.
->         The list is now logically empty.
->
->     3.  CPU A: Finishes its work and prepares to rotate the list head
->         to the next slave.
->         It takes the lock.
->
->     4.  CPU A (The "Use" / The Resurrection):
->         It executes: `rcu_assign_pointer(master->slaves, NEXT_SLAVE(q));`
->         Because `q` was circular, `NEXT_SLAVE(q)` is still `q`.
->
->     5.  CPU A: Releases the lock.
->         **The global `master->slaves` is now `q` again.**
->
->     6.  The System: The RCU grace period expires. CPU B finishes
->         `teql_destroy()` and the memory for `q` is freed.
->
->     The global `master->slaves` pointer is now a **dangling pointer**
->     pointing to freed memory.
->
+The lasttime field for claim, backbone_gw, and loopdetect tracks the
+jiffies value of the most recent activity and is used to detect timeouts.
+These accesses are not consistently protected by a lock, so
+READ_ONCE/WRITE_ONCE must be used to prevent data races caused by compiler
+optimizations.
 
+Cc: stable@kernel.org
+Fixes: 23721387c409 ("batman-adv: add basic bridge loop avoidance code")
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
+---
+ net/batman-adv/bridge_loop_avoidance.c | 28 +++++++++++++-------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
-Yeah, thats the same earlier claim of TOCTOU (what sashiko-gemini
-claimed was "resurrecting the freed q")
-My view is rcu read lock blocks the subsequent call_rcu free - and
-destroy() and xmit() already serialize on slaves_lock.
-I could be totaly wrong, but it's almost like sashiko-gemini thinks
-that the list-mutation lock _alone_ governs the object lifetime.
-The rcu read-side critical section prevents the UAF, not just the
-slaves_lock alone
-Only reason i added slaves_lock was to prevent corrupting the list
-state (whereas the RCU read lock prevents premature free).
+diff --git a/net/batman-adv/bridge_loop_avoidance.c b/net/batman-adv/bridge_loop_avoidance.c
+index 15aeb07285e61..cc6c14cac0628 100644
+--- a/net/batman-adv/bridge_loop_avoidance.c
++++ b/net/batman-adv/bridge_loop_avoidance.c
+@@ -512,7 +512,7 @@ batadv_bla_get_backbone_gw(struct batadv_priv *bat_priv, const u8 *orig,
+ 		return NULL;
+ 
+ 	entry->vid = vid;
+-	entry->lasttime = jiffies;
++	WRITE_ONCE(entry->lasttime, jiffies);
+ 	entry->crc = BATADV_BLA_CRC_INIT;
+ 	entry->bat_priv = bat_priv;
+ 	spin_lock_init(&entry->crc_lock);
+@@ -580,7 +580,7 @@ batadv_bla_update_own_backbone_gw(struct batadv_priv *bat_priv,
+ 	if (unlikely(!backbone_gw))
+ 		return;
+ 
+-	backbone_gw->lasttime = jiffies;
++	WRITE_ONCE(backbone_gw->lasttime, jiffies);
+ 	batadv_backbone_gw_put(backbone_gw);
+ }
+ 
+@@ -714,7 +714,7 @@ static void batadv_bla_add_claim(struct batadv_priv *bat_priv,
+ 		ether_addr_copy(claim->addr, mac);
+ 		spin_lock_init(&claim->backbone_lock);
+ 		claim->vid = vid;
+-		claim->lasttime = jiffies;
++		WRITE_ONCE(claim->lasttime, jiffies);
+ 		kref_get(&backbone_gw->refcount);
+ 		claim->backbone_gw = backbone_gw;
+ 		kref_init(&claim->refcount);
+@@ -736,7 +736,7 @@ static void batadv_bla_add_claim(struct batadv_priv *bat_priv,
+ 			return;
+ 		}
+ 	} else {
+-		claim->lasttime = jiffies;
++		WRITE_ONCE(claim->lasttime, jiffies);
+ 		if (claim->backbone_gw == backbone_gw)
+ 			/* no need to register a new backbone */
+ 			goto claim_free_ref;
+@@ -769,7 +769,7 @@ static void batadv_bla_add_claim(struct batadv_priv *bat_priv,
+ 	spin_lock_bh(&backbone_gw->crc_lock);
+ 	backbone_gw->crc ^= crc16(0, claim->addr, ETH_ALEN);
+ 	spin_unlock_bh(&backbone_gw->crc_lock);
+-	backbone_gw->lasttime = jiffies;
++	WRITE_ONCE(backbone_gw->lasttime, jiffies);
+ 
+ claim_free_ref:
+ 	batadv_claim_put(claim);
+@@ -858,7 +858,7 @@ static bool batadv_handle_announce(struct batadv_priv *bat_priv, u8 *an_addr,
+ 		return true;
+ 
+ 	/* handle as ANNOUNCE frame */
+-	backbone_gw->lasttime = jiffies;
++	WRITE_ONCE(backbone_gw->lasttime, jiffies);
+ 	crc = ntohs(*((__force __be16 *)(&an_addr[4])));
+ 
+ 	batadv_dbg(BATADV_DBG_BLA, bat_priv,
+@@ -1253,7 +1253,7 @@ static void batadv_bla_purge_backbone_gw(struct batadv_priv *bat_priv, int now)
+ 						  head, hash_entry) {
+ 				if (now)
+ 					goto purge_now;
+-				if (!batadv_has_timed_out(backbone_gw->lasttime,
++				if (!batadv_has_timed_out(READ_ONCE(backbone_gw->lasttime),
+ 							  BATADV_BLA_BACKBONE_TIMEOUT))
+ 					continue;
+ 
+@@ -1334,7 +1334,7 @@ static void batadv_bla_purge_claims(struct batadv_priv *bat_priv,
+ 						primary_if->net_dev->dev_addr))
+ 				goto skip;
+ 
+-			if (!batadv_has_timed_out(claim->lasttime,
++			if (!batadv_has_timed_out(READ_ONCE(claim->lasttime),
+ 						  BATADV_BLA_CLAIM_TIMEOUT))
+ 				goto skip;
+ 
+@@ -1494,7 +1494,7 @@ static void batadv_bla_periodic_work(struct work_struct *work)
+ 		eth_random_addr(bat_priv->bla.loopdetect_addr);
+ 		bat_priv->bla.loopdetect_addr[0] = 0xba;
+ 		bat_priv->bla.loopdetect_addr[1] = 0xbe;
+-		bat_priv->bla.loopdetect_lasttime = jiffies;
++		WRITE_ONCE(bat_priv->bla.loopdetect_lasttime, jiffies);
+ 		atomic_set(&bat_priv->bla.loopdetect_next,
+ 			   BATADV_BLA_LOOPDETECT_PERIODS);
+ 
+@@ -1515,7 +1515,7 @@ static void batadv_bla_periodic_work(struct work_struct *work)
+ 						primary_if->net_dev->dev_addr))
+ 				continue;
+ 
+-			backbone_gw->lasttime = jiffies;
++			WRITE_ONCE(backbone_gw->lasttime, jiffies);
+ 
+ 			batadv_bla_send_announce(bat_priv, backbone_gw);
+ 			if (send_loopdetect)
+@@ -1900,7 +1900,7 @@ batadv_bla_loopdetect_check(struct batadv_priv *bat_priv, struct sk_buff *skb,
+ 	/* If the packet came too late, don't forward it on the mesh
+ 	 * but don't consider that as loop. It might be a coincidence.
+ 	 */
+-	if (batadv_has_timed_out(bat_priv->bla.loopdetect_lasttime,
++	if (batadv_has_timed_out(READ_ONCE(bat_priv->bla.loopdetect_lasttime),
+ 				 BATADV_BLA_LOOPDETECT_TIMEOUT))
+ 		return true;
+ 
+@@ -2016,7 +2016,7 @@ bool batadv_bla_rx(struct batadv_priv *bat_priv, struct sk_buff *skb,
+ 
+ 	if (own_claim) {
+ 		/* ... allow it in any case */
+-		claim->lasttime = jiffies;
++		WRITE_ONCE(claim->lasttime, jiffies);
+ 		goto allow;
+ 	}
+ 
+@@ -2118,7 +2118,7 @@ bool batadv_bla_tx(struct batadv_priv *bat_priv, struct sk_buff *skb,
+ 		/* if yes, the client has roamed and we have
+ 		 * to unclaim it.
+ 		 */
+-		if (batadv_has_timed_out(claim->lasttime, 100)) {
++		if (batadv_has_timed_out(READ_ONCE(claim->lasttime), 100)) {
+ 			/* only unclaim if the last claim entry is
+ 			 * older than 100 ms to make sure we really
+ 			 * have a roaming client here.
+@@ -2372,7 +2372,7 @@ batadv_bla_backbone_dump_entry(struct sk_buff *msg, u32 portid,
+ 	backbone_crc = backbone_gw->crc;
+ 	spin_unlock_bh(&backbone_gw->crc_lock);
+ 
+-	msecs = jiffies_to_msecs(jiffies - backbone_gw->lasttime);
++	msecs = jiffies_to_msecs(jiffies - READ_ONCE(backbone_gw->lasttime));
+ 
+ 	if (is_own)
+ 		if (nla_put_flag(msg, BATADV_ATTR_BLA_OWN)) {
+-- 
+2.47.3
 
-In step #4 above this thing somehow leaves out any mention of the rcu
-read lock entirely and places the free in step 6 as if it was
-independent of CPU A's critical section.
-
-I am not sure how to improve it.
-
-> > OTOH, sashiko-claude
-> > (https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260624224016.240=
-18-1-jhs%40mojatatu.com)
-> > does make some valid claims which are low value, so not sure a resend
-> > is worth it.
-> > For example in claim 1 it says "Should the changelog mention this
-> > teql_dequeue() site too?" Sure I can - but just because I provided
-> > extra information in the commit log, which I could have omitted, now I
-> > have to add more info? ;->
->
-> FWIIW, I think there is a value in tightening up the commit message.
-> E.g. so it's accurate when we look at again in two years time.
-> But I also lean towards it not being necessary to post an update
-> only to address this.
->
->
-> > The second claim is "rcu_dereference_bh()
-> > should be rcu_dereference_protected() on writer side". Sparse didnt
-> > complain and i dont see this as breakage rather a consistency measure.
->
-> I think it would be good to address in the long run.  But as per my comme=
-nt
-> immediately above, I also lean towards it not being necessary to post an
-> update only to address this.
-
-I can resend with these two taken care of - but i am skeptical of what
-sashiko-gemini is claiming (and i admit as a human the AI may see
-something i am totally missing).
-
-cheers,
-jamal
->
-> > Unless I am missing something ..
-> >
-> > cheers,
-> > jamal
