@@ -1,48 +1,45 @@
 Received: from latitanza.investici.org (latitanza.investici.org [185.218.207.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0656F3F54BF;
-	Fri, 26 Jun 2026 14:35:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716613859FB;
+	Fri, 26 Jun 2026 14:36:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.218.207.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782484522; cv=none; b=lv85dI5XBgi42dWZM+4+rWVvLhE0+/4aPcPbladUB0SORrPull8UqztkFUk2+77tv2bg+id+s/gmL5503SyXvYPwjJpSb3fl0yc+92BmuuwacI85G/OJf5TvsPdDdFVsS+JJhYmxMGyYRoJo9gi/a6X5iwHhM5JQFbBVF6vX1wE=
+	t=1782484587; cv=none; b=ra9fwbsF6VDikk+pWTSh3sOZ3df/r8AQ1A+r1k1GZ7I8Es9byP7lfTqWFPfAKjnNGPb95osMcHqIo9I8Qx07Ydjkh7YQ4zscg76QnfaEcAWHXZj5Y75sjZR8CbGsjcFYrPuKqd7zhbrAM4S8OJBiVOcrMpUxxE+GeDHuXeIUd+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782484522; c=relaxed/simple;
-	bh=MAidDYpnoKRXaYiLOtTp8yIoojV9aZMnCwhvAQbIFV4=;
+	s=arc-20240116; t=1782484587; c=relaxed/simple;
+	bh=HwoQ7Hc+9baeMVRso79IcDntEW6RNB1kqlni7JORUi0=;
 	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=jANYDxvuNuOVCqAQHcjLKY2h7IRvgbivkeRVKzcRK8Nkn0Piu5vbKCbRXXvTUCwwh3lLvITW0ALsHy1TlW/O6xER/R2rix9BkUZlF64CT4pc2RlanA9nPRzhSGp58GGY4d411b545r/VsBULlyWW+7I/uhfxNy/6ocg3x4yywWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=PP6sQgSr; arc=none smtp.client-ip=185.218.207.228
+	 MIME-Version:Content-Type; b=D0e2Sr8blXAAaJSGL6R6Lpzp4y3gcHV2KNHn4H9rzWXJ16lTw2O83IHpfJcso5X8uOhtUVmJeJFFRMRQbEbv7OgNRIPJ/gI3qjKcpX/g1OgiTBvOIEnYqCxjWEOkb1CRmMVlPu9XHOOI8MP9K15BHf64rDreom3J8CyyDyb6RYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=PBmEcR9S; arc=none smtp.client-ip=185.218.207.228
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="PP6sQgSr"
+	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="PBmEcR9S"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1782484518;
-	bh=1WouP7coA/xMC5AsCpYgMU/VQAQ2GZ2Lo/C5DGW3ELY=;
+	s=stigmate; t=1782484584;
+	bh=2jdgjcMfnHgTvC7vDPfdH7xP3bL+xZK0xbYTZzjQZ5E=;
 	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=PP6sQgSreAsE1hqONJ5G+8E2mrXCmCx8e1NwpUBo7JSXiXZCuqCHnKKrRVs+QYylB
-	 RJrCjh3509vuP5MQTp0kRtNvy2hYbfy6h2q57CLz/h9gGucSNLpYZJm+bWLKBXC0YU
-	 AGCilvAY9852EWXfK+r8wrBZ7+YOqqz4xrED0ALo=
+	b=PBmEcR9SzwbHeKoYzHK82/gSR8eYO9HhntEmOrA30cU0lCaqzaB/k2Qjei2uqwLlA
+	 DZPtx9fTdhdvQU+hQvLMj9oLasQwdfUClwR53Ztb7FtvqmMIz2Ed6MfNWJDdQSPPBJ
+	 vPpRgtr3Rf7AuQSnIhRFr2jceZYLA79a88YymGEc=
 Received: from mx3.investici.org (unknown [127.0.0.1])
-	by latitanza.investici.org (Postfix) with ESMTP id 4gmyrQ1pkYzGpDk;
-	Fri, 26 Jun 2026 14:35:18 +0000 (UTC)
-Received: by mx3.investici.org (Postfix) id 4gmyrP6K8QzGpDg;
-	Fri, 26 Jun 2026 14:35:17 +0000 (UTC)
-Date: Fri, 26 Jun 2026 15:35:19 +0100
+	by latitanza.investici.org (Postfix) with ESMTP id 4gmysh0SDfzGpDl;
+	Fri, 26 Jun 2026 14:36:24 +0000 (UTC)
+Received: by mx3.investici.org (Postfix) id 4gmysg5MQWzGpDh;
+	Fri, 26 Jun 2026 14:36:23 +0000 (UTC)
+Date: Fri, 26 Jun 2026 15:36:25 +0100
 From: Bradley Morgan <include@grrlz.net>
-To: Petr Mladek <pmladek@suse.com>
-CC: Andrew Morton <akpm@linux-foundation.org>,
- Feng Tang <feng.tang@linux.alibaba.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_4/4=5D_panic=3A_use_sys=5Finfo=5Fwi?=
- =?US-ASCII?Q?th=5Ffilter=28=29_to_avoid_duplicate_backtraces?=
-In-Reply-To: <aj6MAxQKpLeK1Mp6@pathway.suse.cz>
-References: <20260625152558.7450-1-include@grrlz.net> <20260625152558.7450-5-include@grrlz.net> <aj5TNB8cRtMNTtIT@pathway.suse.cz> <aj5tFiwhRqPkAkqU@pathway.suse.cz> <85F6E30C-EB1B-4BAF-9204-5174FD066EE0@grrlz.net> <4CF5AE3F-D7ED-47F8-A920-61D0AA078CF9@grrlz.net> <aj6MAxQKpLeK1Mp6@pathway.suse.cz>
-Message-ID: <688433ED-A478-43F7-9103-995398A6BF63@grrlz.net>
+To: Oleg Nesterov <oleg@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
+ ebiederm@xmission.com
+CC: Christian Brauner <brauner@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Adrian Huang <adrianhuang0701@gmail.com>, Marco Elver <elver@google.com>,
+ Kexin Sun <kexinsun@smail.nju.edu.cn>, Thomas Gleixner <tglx@kernel.org>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] signal: avoid shared siginfo namespace rewrites
+In-Reply-To: <aj6Ms6uygc1vtySn@redhat.com>
+References: <20260622164029.11474-1-include@grrlz.net> <aj6Ms6uygc1vtySn@redhat.com>
+Message-ID: <FC7EAB84-0845-4DA3-AD43-3B30B47507E5@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,125 +50,65 @@ Content-Type: text/plain;
  charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On June 26, 2026 3:26:11 PM GMT+01:00, Petr Mladek <pmladek@suse.com>
+On June 26, 2026 3:29:07 PM GMT+01:00, Oleg Nesterov <oleg@redhat.com>
 wrote:
->On Fri 2026-06-26 13:32:38, Bradley Morgan wrote:
->> On June 26, 2026 1:17:13 PM GMT+01:00, Bradley Morgan
-><include@grrlz.net>
->> wrote:
->> >On June 26, 2026 1:14:14 PM GMT+01:00, Petr Mladek <pmladek@suse.com>
->> >wrote:
->> >>On Fri 2026-06-26 12:23:50, Petr Mladek wrote:
->> >>> On Thu 2026-06-25 15:25:58, Bradley Morgan wrote:
->> >>> But it all becomes very hairy. We have several levels:
->> >>> 
->> >>>    + watchdog-all_bt-specific option, e.g.
->> >>sysctl_hardlockup_all_cpu_backtrace
->> >>> 
->> >>>    + watchdog-specific si_info preferences, e.g. hardlockup_si_mask
->> >>> 
->> >>>    + panic-specific si_info: panic_print
->> >>> 
->> >>>    + universal fallback for any layer: kernel_si_info
->> >>> 
->> >>> Now, we try to check all these variables back and forth to
->> >>> trigger all backtraces or to avoid triggering them.
->> >>> And it clearly does not work well and the code is more and more
->> >>> hairy.
->> >>> 
->> >>> I think about another approach. The word "waterfall" comes to my
->mind.
->> >>> Instead of checking all the settings back and forth, let's process
->> >>> each setting one by one and just remember what has been done and
->> >>> skip this in the next level.
->> >>> 
->> >>> All the si_info actions seems to dump a global system state.
->> >>> So, it would make sense to remember the state in a global variable
->> >>> even when it might be modified by more CPUs in parallel.
->> >>> 
->> Hmm.. new idea 
+>To avoid the confusion, let me reply to V1 again.
+>
+>Acked-by: Oleg Nesterov <oleg@redhat.com>
+>
+>IIUC Eric is fine with this change too.
+>
+>Andrew, can you take this fix please? We will send more changes on top
+>of it.
+
+Thanks again oleg.
+
+Andrew did reply to V2. 
+
+>On 06/22, Bradley Morgan wrote:
+>>
+>> send_signal_locked() rewrites sender ids for the target namespace.
+>> Group sends reuse the same siginfo, so one recipient can affect the
+>> next.
 >> 
->> kernel/dump_filter.c ?
+>> Copy the siginfo before changing it.
 >> 
->> What this file could do is to handle a generic lockup state machine
->> so any subsystem can log what it already dumped?
+>> Fixes: 7a0cf094944e ("signal: Correct namespace fixups of si_pid and
+>si_uid")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Bradley Morgan <include@grrlz.net>
+>> ---
+>>  kernel/signal.c | 4 ++++
+>>  1 file changed, 4 insertions(+)
 >> 
->> I know it may bloat, but it's better then cramming fixes in.
+>> diff --git a/kernel/signal.c b/kernel/signal.c
+>> index b9fc7be1a169..d72d9be3a992 100644
+>> --- a/kernel/signal.c
+>> +++ b/kernel/signal.c
+>> @@ -1181,6 +1181,7 @@ static inline bool has_si_pid_and_uid(struct
+>kernel_siginfo *info)
+>>  int send_signal_locked(int sig, struct kernel_siginfo *info,
+>>  		       struct task_struct *t, enum pid_type type)
+>>  {
+>> +	struct kernel_siginfo rewritten;
+>>  	/* Should SIGKILL or SIGSTOP be received by a pid namespace init? */
+>>  	bool force = false;
+>>  
+>> @@ -1194,6 +1195,9 @@ int send_signal_locked(int sig, struct
+>kernel_siginfo *info,
+>>  		/* SIGKILL and SIGSTOP is special or has ids */
+>>  		struct user_namespace *t_user_ns;
+>>  
+>> +		rewritten = *info;
+>> +		info = &rewritten;
+>> +
+>>  		rcu_read_lock();
+>>  		t_user_ns = task_cred_xxx(t, user_ns);
+>>  		if (current_user_ns() != t_user_ns) {
+>> -- 
+>> 2.53.0
+>> 
 >
->I am not sure what exactly you would like to achieve but it sounds
->a bit scary ;-)
 >
->Anyway, we should not synchronize the watchdog reports against
->each other, definitely. They are running in non-compatible contexts
->(task vs interrupt vs NMI). Also we should not add any locking
->because they usually print something when the system has enough
->troubles.
->
->Also I think that it is not worth preventing duplicated backtraces
->or reports from a single CPU. IMHO, it is not a big problem
->in practice.
->
->So, we are down to large reports, like backtraces from all CPUs,
->timers, locks, ... which are handled by sys_info(). So, I think
->that it should be enough to handle this inside the sys_info() API.
->
->I do not want to say that my proposal was the best solution.
->I am sure that there are better ones. But we need to consider
->the gain vs. complexity.
->
->Honestly, I am already a bit scared by the complexity which
->we the sys_info() API added. And it is hard to imagine that
->adding another API would make it easier. But I might be wrong.
->
->Instead, it might make sense to integrate the conflicting
->subsystem-specific calls under the sys_info() API.
->I mean that, for example watchdog_hardlockup_check() won't
->call trigger_allbutcpu_cpu_backtrace() directly but
->it would call it via sys_info() API so that sys_info()
->could keep track of it. Something like:
->
->void sys_info_allbutcpu_bt(int cpu)
->{
->	trigger_allbutcpu_cpu_backtrace(cpu);
->	/*
->	 * The caller likely printed backtrace of the given @cpu
->	 * on its own. Prevent duplicate backtraces from all
->	 * CPUs with potential next sys_info() call.
->	 */
->	sys_info_done(SYS_INFO_ALL_BT);
->}
->
->But I am not sure if it is really easier to follow
->than calling sys_info_done() from the watchdog code.
->
->Some watchdogs try to optimize the output and print backtraces
->only from CPUs which are relevant for the given lockup.
->We should keep the logic for selecting the set of CPUs
->in the watchdog code. We just need to solve how to elegantly
->make sys_info() aware of it or at least about the more massive
->reports.
->
->Anyway, I would prefer to keep it simple until we see some problems
->in practice.
->
->Best Regards,
->Petr
->
-
-
-I understand it's scary. To make a new file in the first place.
-
-But I was a bit vague of what I wanted, and I'm sorry.
-
-So, the reason why I'd suggest a new file, is because if any subsystem
-Theoretically bypasses sys_info to log a lockup, this completely misses
-the filter and duplicates the dump
-
-My file would act as a generic lockless state machine that any
-subsystem can update regardless of how they dump logs.
-
-If you have any questions, feel absolutely free to ask! :)
-
-Discussion is a way to make everyone happy!
 
 Thanks!
