@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CAC23FD96E
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A88D403E88
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490380; cv=none; b=IULh6vyJNToqCxlhO+L1qXRikFrGwiM58mSP2zjngPAtZNdc5+9pZVTq1tnFs0BTu5UHFhSaXEvwh6+pk7zEBVg07pIG8dx5f5UQwMZJhbi5reg57vkfe39X1q9/AYHmtUiK5PAz/2lP1pYdQGoS7Poj1EqENv4O1zHqOWfWFD0=
+	t=1782490380; cv=none; b=Ri55S9xJR3inGwCd6JWwLUK63UyWtuu3m5HwI0IJAK1wz4k44zk3q+tAo580gz6cfkfeN2GDzIDsDpCm5qoabu8WbUDyCYLSJYpAtRgjWC4AP92OunqS9t4eABS6JJAjg3YDSr/P+c82hjimuOr0UnqBpdrz4SPP2/+E4TttJCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490380; c=relaxed/simple;
-	bh=GRO65omu1/eQjNF6zFjJenC/rGTlDh/8UW+xSMwYMCM=;
+	bh=YQ4o3ZiDFg0uZY20GRh45Tc12zssa0lIOUEJywvb6cA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T/ahxXJPKN+/NAhEbp8pJmV1MmN1owzphgUYMku6xunsd0s1Lkz6IMaiVyvqbg17L6aSVLs61BxblRz6gHxPHsfKeyzDQDO7Xs4/1KIDPDH43OqVSBCjaBPID0o130sEqCotA1/JKwh+jfbYzD3m8s1VRLdQEyYtW/7vCSpQTEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=QLaWw2DP; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=URDg6z4L6A/Cg+lVkRrV8NX+07/fZyXFQDWLaYts13qJ6N+LmhI2ajFgZsBAl5HUOqceZEdcll+GpzJX/BmtEp8B14tvaBLhbqkoSFfbU9FYMPgFZknL5XBytnoa7YUsLAQauAul5kDHwVaHAJAFeXy2tkp5DkX2wTal8p5Fmf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=YdRUHMF8; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="QLaWw2DP"
-Received: by dvalin.narfation.org (Postfix) id 79EC5202D1;
-	Fri, 26 Jun 2026 16:12:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="YdRUHMF8"
+Received: by dvalin.narfation.org (Postfix) id 9257620535;
+	Fri, 26 Jun 2026 16:12:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490374;
+	s=20121; t=1782490372;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hjmRnoYm5CG7lzxzBK22wI+gDOMXbx6FEnP6Fa4MuNU=;
-	b=QLaWw2DPv0Jq1LMNv01xNizq7hakcVN7O41LiVzlmJC8UGhrdPwC+JnupU+4vcE6jt74TA
-	NOH1E/vonJwr6KJezVigxuJdjTRK0vvgG5E7vui4QSkBKZkCb6jLRt7m5QvekcAg0pxc5+
-	BLb7HPM9deVGyrjPk2Q/yMxB+qhtygw=
+	bh=jjb3J3pnl0UoZYXnu+0oCd8temxV7aOFimp5ioF5e5U=;
+	b=YdRUHMF8bCxnp966zozkww8JGcejC3TvjxEfDRlrZY/d1wvallyPP9LyjmWr2osSw7DZy/
+	WNU+fKDUG+iPMa2Mtgrl3+7NpvZofr6d/e6zX2/O+j5RKM0mcdT8o15Er8UEc2+QQYJQI5
+	LtBkUYEWlbffBENYCYobprfmK3qScAs=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 7.1 26/26] batman-adv: tvlv: avoid race of cifsnotfound handler state
-Date: Fri, 26 Jun 2026 18:12:41 +0200
-Message-ID: <20260626161241.124988-27-sven@narfation.org>
+Subject: [PATCH 7.1 22/26] batman-adv: tt: don't merge change entries with different VIDs
+Date: Fri, 26 Jun 2026 18:12:37 +0200
+Message-ID: <20260626161241.124988-23-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161241.124988-1-sven@narfation.org>
 References: <20260626161241.124988-1-sven@narfation.org>
@@ -45,149 +45,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit edb557b2ba38fea2c5eb710cf366c797e187218c upstream.
+commit f08e06c2d5c3e2434e7c773f2213f4a7dce6bc1e upstream.
 
-TVLV handlers can have the flag BATADV_TVLV_HANDLER_OGM_CIFNOTFND set to
-signal that the OGM handler should be called (with NULL for data) when the
-specific TVLV container was not found in the OGM. This is used by:
+batadv_tt_local_event() merges/cancels events for the same client which
+would conflict or be duplicates. The matching of the queued events only
+compares the MAC address - the VLAN ID stored in each event is ignored.
 
-* DAT
-* GW
-* Multicast (OGM + Tracker)
+If a MAC would now appear on multiple VID, the two ADD change events (for
+VID 1 and VID 2) would be merged to a single vid event. The remote can
+therefore not calculate the correct TT table and desync. A full translation
+table exchange is required to recover from this state.
 
-The state whether the handler was executed was stored in the struct
-batadv_tvlv_handler. But the TVLV processing is started without any lock.
-Multiple parallel contexts processing TVLVs would therefore overwrite each
-others BATADV_TVLV_HANDLER_OGM_CALLED flag in the shared
-batadv_tvlv_handler.
-
-Drop the shared BATADV_TVLV_HANDLER_OGM_CALLED flag and instead determine,
-per TVLV buffer, whether a matching container was present by scanning the
-packet's buffer.
+A check of VID is therefore necessary to avoid such wrong merges/cancels.
 
 Cc: stable@kernel.org
-Fixes: ef26157747d4 ("batman-adv: tvlv - basic infrastructure")
+Fixes: c018ad3de61a ("batman-adv: add the VLAN ID attribute to the TT entry")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/tvlv.c  | 63 ++++++++++++++++++++++++++++++++++++++----
- net/batman-adv/types.h |  7 -----
- 2 files changed, 57 insertions(+), 13 deletions(-)
+ net/batman-adv/translation-table.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/net/batman-adv/tvlv.c b/net/batman-adv/tvlv.c
-index baadf97f98e5f..afb61a46d7a67 100644
---- a/net/batman-adv/tvlv.c
-+++ b/net/batman-adv/tvlv.c
-@@ -398,7 +398,6 @@ static int batadv_tvlv_call_handler(struct batadv_priv *bat_priv,
- 		tvlv_handler->ogm_handler(bat_priv, orig_node,
- 					  BATADV_NO_FLAGS,
- 					  tvlv_value, tvlv_value_len);
--		tvlv_handler->flags |= BATADV_TVLV_HANDLER_OGM_CALLED;
- 		break;
- 	case BATADV_UNICAST_TVLV:
- 		if (!skb)
-@@ -430,6 +429,48 @@ static int batadv_tvlv_call_handler(struct batadv_priv *bat_priv,
- 	return NET_RX_SUCCESS;
- }
- 
-+/**
-+ * batadv_tvlv_containers_contain() - check if a tvlv buffer holds a container
-+ * @tvlv_value: tvlv content
-+ * @tvlv_value_len: tvlv content length
-+ * @type: tvlv container type to look for
-+ * @version: tvlv container version to look for
-+ *
-+ * Return: true if a container of the given type and version is present in the
-+ * tvlv buffer, false otherwise.
-+ */
-+static bool batadv_tvlv_containers_contain(void *tvlv_value,
-+					   u16 tvlv_value_len, u8 type,
-+					   u8 version)
-+{
-+	struct batadv_tvlv_hdr *tvlv_hdr;
-+	u16 tvlv_value_cont_len;
-+
-+	while (tvlv_value_len >= sizeof(*tvlv_hdr)) {
-+		tvlv_hdr = tvlv_value;
-+		tvlv_value_cont_len = ntohs(tvlv_hdr->len);
-+		tvlv_value = tvlv_hdr + 1;
-+		tvlv_value_len -= sizeof(*tvlv_hdr);
-+
-+		if (tvlv_value_cont_len > tvlv_value_len)
-+			break;
-+
-+		/* the next tvlv header is accessed assuming (at least) 2-byte
-+		 * alignment, so it must start at an even offset.
-+		 */
-+		if (tvlv_value_cont_len & 1)
-+			break;
-+
-+		if (tvlv_hdr->type == type && tvlv_hdr->version == version)
-+			return true;
-+
-+		tvlv_value = (u8 *)tvlv_value + tvlv_value_cont_len;
-+		tvlv_value_len -= tvlv_value_cont_len;
-+	}
-+
-+	return false;
-+}
-+
- /**
-  * batadv_tvlv_containers_process() - parse the given tvlv buffer to call the
-  *  appropriate handlers
-@@ -449,7 +490,9 @@ int batadv_tvlv_containers_process(struct batadv_priv *bat_priv,
- 				   struct sk_buff *skb, void *tvlv_value,
- 				   u16 tvlv_value_len)
- {
-+	u16 tvlv_value_start_len = tvlv_value_len;
- 	struct batadv_tvlv_handler *tvlv_handler;
-+	void *tvlv_value_start = tvlv_value;
- 	struct batadv_tvlv_hdr *tvlv_hdr;
- 	u16 tvlv_value_cont_len;
- 	u8 cifnotfound = BATADV_TVLV_HANDLER_OGM_CIFNOTFND;
-@@ -493,12 +536,20 @@ int batadv_tvlv_containers_process(struct batadv_priv *bat_priv,
- 		if (!tvlv_handler->ogm_handler)
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 9f6e67771ffa8..acd8af4446671 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -446,6 +446,9 @@ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 		if (!batadv_compare_eth(entry->change.addr, common->addr))
  			continue;
  
--		if ((tvlv_handler->flags & BATADV_TVLV_HANDLER_OGM_CIFNOTFND) &&
--		    !(tvlv_handler->flags & BATADV_TVLV_HANDLER_OGM_CALLED))
--			tvlv_handler->ogm_handler(bat_priv, orig_node,
--						  cifnotfound, NULL, 0);
-+		if (!(tvlv_handler->flags & BATADV_TVLV_HANDLER_OGM_CIFNOTFND))
-+			continue;
- 
--		tvlv_handler->flags &= ~BATADV_TVLV_HANDLER_OGM_CALLED;
-+		/* if the corresponding container was present then the handler
-+		 * was already called from the loop above
-+		 */
-+		if (batadv_tvlv_containers_contain(tvlv_value_start,
-+						   tvlv_value_start_len,
-+						   tvlv_handler->type,
-+						   tvlv_handler->version))
++		if (entry->change.vid != tt_change_node->change.vid)
 +			continue;
 +
-+		tvlv_handler->ogm_handler(bat_priv, orig_node,
-+					  cifnotfound, NULL, 0);
- 	}
- 	rcu_read_unlock();
- 
-diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
-index 4dce996f01cce..30c870cacf437 100644
---- a/net/batman-adv/types.h
-+++ b/net/batman-adv/types.h
-@@ -2245,13 +2245,6 @@ enum batadv_tvlv_handler_flags {
- 	 *  will call this handler even if its type was not found (with no data)
- 	 */
- 	BATADV_TVLV_HANDLER_OGM_CIFNOTFND = BIT(1),
--
--	/**
--	 * @BATADV_TVLV_HANDLER_OGM_CALLED: interval tvlv handling flag - the
--	 *  API marks a handler as being called, so it won't be called if the
--	 *  BATADV_TVLV_HANDLER_OGM_CIFNOTFND flag was set
--	 */
--	BATADV_TVLV_HANDLER_OGM_CALLED = BIT(2),
- };
- 
- #endif /* _NET_BATMAN_ADV_TYPES_H_ */
+ 		del_op_entry = entry->change.flags & BATADV_TT_CLIENT_DEL;
+ 		if (del_op_requested != del_op_entry) {
+ 			/* DEL+ADD in the same orig interval have no effect and
 -- 
 2.47.3
 
