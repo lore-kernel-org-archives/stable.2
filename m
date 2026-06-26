@@ -1,64 +1,63 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D543CE0AE
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 12:45:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FEB23DB335
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 12:45:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782477945; cv=none; b=dayacexGuUU18eVSZiZMuIgoFjSlDCb2tKxMyurSYsNsZ0REnQ6B5C0/dCUAnmz6g10I0VNFrxZyCHRUWfmxBh38zX5tFQ0yLHm8liArgKX7r8WqWfipWCclalDbQJf10nqyrkxM7T+zYBXLaoGYFLYGXviDCcmRgpD041JY+qo=
+	t=1782477946; cv=none; b=OtYtVhXMZeb1K0b9hOZDiKxZycFPg7cM/Y77hX+DiPqrzBaRpAI3ZoIoK41C4yzrDBPD8LayIi5TyAk6QxvGt6CSjeLaV36f5f57Hu8YwCbXrvRliNCw1MaiAgaA17qBT3LONqMsw/MnhktBJuh+qltDPCQePAEpyyAzv+utRVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782477945; c=relaxed/simple;
-	bh=FkHjxpGiBuenLLWbujcCQGF4EPJtHSOxZuihQUx1EGE=;
+	s=arc-20240116; t=1782477946; c=relaxed/simple;
+	bh=FjEXsHK7qDjHgIvWppaHndfGta5CCw5KnjTEfIq7sIg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XDZkNcmIkw2yv//hhdpGKROA83vF+nsBluKkCssHFoODfTuuiy46XrStQVJE/6GwR0KWa2IwrDhCeJBCvumHHhoaxTZJL5GEFv9WHAgLP5Zs4RrQy4k9yZFntmby7LhDHirzo5PabCk+D2+L14vwx08lj+XUsjnUx0lbd9o0+o4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=NMTZ0sKL; arc=none smtp.client-ip=209.85.128.43
+	 MIME-Version; b=OGSbk0wFB1ZOfF+Sq4Txi4CCLd0XE2abLXxy5bjkORnRoSWkqlchUlVSTpjDvqT6KSuqYmrIh9fnO9oXATVaA2BeNjBp0DDOn+3/VLcNVB3fFyEYRndnLRcLfPeOzfqEHHOVbRnZmFxdCr7Q0/ncil1mC1O8vYvMPGwSlwjifrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=PczSTtIn; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="NMTZ0sKL"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-490d6730461so934855e9.3
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 05:45:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="PczSTtIn"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4629324e267so76136f8f.0
+        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 05:45:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1782477942; x=1783082742; darn=vger.kernel.org;
+        d=ionos.com; s=google; t=1782477943; x=1783082743; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lMV/un0aP1rvQ3NoyXXiybhIDkcTe8lzMrAhqzhFogg=;
-        b=NMTZ0sKLgIe85FdLRr7cq1TgnEaWGsKL5bXyrWZnIV47kDOQcWeoYiPYz5DKk8Qb13
-         sldYmZRIlZ8ytntxIpekQuew+FZaAy/c+g2ETgGb9oFPD2SlRH/3Gh2MnU6CkAdCpQUv
-         7SJXdmts/uerGJc480Kn754ARM6iwT/vVhv52iLgs7lU2/kjbM4fAttnG7Z6w6WEieaM
-         CEvs2E+QoGyELmSrB0jcVCwBNDylTyUzFItsTMjt2PXLjBwsFxmhjaB3zB7acVy41ruW
-         YC9KBjwKtQKNylbbEmHoZl49KD2895TQw0BJMAPD9PPj16jSVx+1AHNd5ynfkG3pkajD
-         rsSQ==
+        bh=be3nAigUdrHkT9ALFJYv/TSL2IlC3sbCzgwxmwOQFSw=;
+        b=PczSTtInJK2KJmmX/kNuGrhFq3IsqcBYZiBBpnUD0dl6OkAaTrwx2h19+6oAYKz284
+         WsuhQhWaxu8j1pWIissa5NuW07+WdT9D0sJDZIPH/wil4Sw2ly+BMddN+0uqmIaoX8V/
+         l4NkFxzmtLV/4st2S+G039f7OvEwV3QpX6M1rqeVlwZnSHirUT2Fcm1xsHNxfQagA+Fw
+         fDIK+vfinO1MzEGqfOFIay/91RYgFMYw15MwfrP9aeOVdypF64IsmqV8uiCcrzi2WAn6
+         Re9npxzNF/72yWPcc7b+6pijaS81Kwq6CDfQRzVSO/4wYATC+8DTRWtIitk0+ux+Dn0f
+         bJFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782477942; x=1783082742;
+        d=1e100.net; s=20251104; t=1782477943; x=1783082743;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lMV/un0aP1rvQ3NoyXXiybhIDkcTe8lzMrAhqzhFogg=;
-        b=D09eUltZz3CCsIzRSIug3VvIigwHpHaLClKOEifmyS+I1t1XUunTiO5vvEENIcM2+F
-         Y+Lmh3rAtuypJ1uKFFprvbj4RD0uU1x964Nci6NV3J/w0ohAcSQJMet+zaLNDHq2qp2M
-         Y7rJ5ahrbNBB+5JaqN+G965Km/bPX7+IxhG0ixPtqMMqz8iGlsDlp9aaZCy5JxMoL6BB
-         fYivXzDzwppN0SrLbmiSQOlMDUdK8QMF0Jzhbms9Hr2BMR4ZfnsGzMyv6ve2LRIPYf7q
-         CIFAjotig9oZE/gEJCRMVQIZqLwSoNb4UszX4L+KOSPTe1n8Cv+x/gujEkMr4Nd3awCF
-         mkhA==
-X-Forwarded-Encrypted: i=1; AFNElJ882XllgRstsKVynY7v6yp4EPQaqbYQ+qgC7LKzdzIBLOKbAHdnArxUfDwnea16Ab3YzhXJdts=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZKY9FB+/mVgqhqrIYaw+qscv/t46o7FFf7R5fdGLnqJvJCd9P
-	1TdZDZvFExiGyMqikrnxhCJBebKH6TklD6HinlPPpJmN5JvkMh1RFojU70smNZuqrZSEjX+nb/J
-	r0Q8gqBE=
-X-Gm-Gg: AfdE7cmGGZvrCpjCgTh9ny37z9eKa0XliriK72TzqYnIgdEgcIeTxeDWqke/mrP/Sbv
-	UTxG1yXgyihiO2J0MdSpdIYFuzjzexFFqrRFVjwzhiAgEkzGuHiO6NURYuK86vhoGw18Qkp3srQ
-	SwZ5RDKT9upu8D5y+QewwVZLhW3aY83GL5Q1sJwXbFT0X2QqpnE2nQXDNFsNkaoPVyi66BSpgbL
-	BomseaQ0Rs9107vew7yZiFldtknJtYMyHXWrQwJ11ByKt/qkTm43K0igUAgdMOiLY75zwKbRIm6
-	a1gzHBWCeOfClBMnzn5Hs5+S2INc2hYn4iaTD4dhTbu6SxDc5fZd4/Pcrwg3AHVp2Y/hnv3hHTg
-	SF0WFHTSC99c9YIgUDknY0unBSUFGv5r9u3vSIcIIusBHGG7Zw2CmipWUbsuDwfMJY2lHq4QLME
-	8GZUhx7f/Cx7yEqU16ovvn9w5Jcym2+xittPvfi8WtldNo
-X-Received: by 2002:a05:600c:a00c:b0:492:6e72:eee with SMTP id 5b1f17b1804b1-4926e720f83mr11158555e9.3.1782477942131;
+        bh=be3nAigUdrHkT9ALFJYv/TSL2IlC3sbCzgwxmwOQFSw=;
+        b=pdnCHHvE5KATIEAaHgJP58ifNOx+7TCLN4Q6r33KYHXVlzKvBQCmZriYeUFjqQpI4x
+         O07jS5uYO30QTQg7OHrBfVj4xe8AIdqNhLzdRFWzq+/HP2QeO06n9LCME5yTgq0jl2dU
+         7FddCOyJQsd04AkoEzDYRf92exnf786ny7RK5S5oo4K4c/5SG3f4yaBcPR8LG1Y0Vn0a
+         MeJ+oIBqYq/7g/FDLq/o6Kav5AcVSJrcjHuvCIfclqWq8FDX4WAHoqIlFtbF7R5vuOQv
+         r4xtxbh/JZxtVfCiiae9ssha/ITWZAQswvzpu8gb0wzGUvxWB08/S2ruTai97fYml/GE
+         lWOQ==
+X-Forwarded-Encrypted: i=1; AFNElJ84bwrYrFNva7AEk//PfrgYtNZbkdGNeEAX/p3YQU1bzCULcwTu2YQPB64PQ9oP6O9Ljuzv28E=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwQd+2mVY4xNDahFnF+Z0wRXDCuIVlk3+JbTPsiaLSxtliulSzd
+	cCRGZ+E8yLgqTtHdCCkr69TgSY3acQvv5MY8dkpXSehkTrbqMnapwAaC8DtN1SqRBoQ=
+X-Gm-Gg: AfdE7cmjzcsjSziPDmWwr1H5mFtb1xX7J7wn1IxjPW/5JfJFaLv0mZ/aH7rm4BTj8Dy
+	S3p5xTKvokeXdPiYsPkJ3+jLmEy6k89VXpRQvBlEZsQbC+sAtdTY0IFm68vp3jAXT9rArYABG5i
+	kPlaieKnZukURQGTnwKz3GiDgdCpvmN+GTrgXijJTfKpXXTngh5Y/VWNeM64fclgSPsWLx+LbAj
+	HlurAAx6bmW0PSf+Z7FDEQcSSy6gp7PsBII2DFujpG9S+6LDwK9WFwmAWeWv8JJHumyQrBdTv3w
+	bl28Xb/J1VKQ72K2qa+5p1qjnrcsY/5hqQ4quacOrMQ0kZX0hy+XBBM7t5EB08FLHNyDY3h52xB
+	RnuRLmDdtc6R+TPUiRQaIVpnXo6saxsF4Ek1Js1RFGrL3r9wzD73iGxIjStr9w/tWma/6H5//lh
+	AxmkDDRwiuo958bLRgRrusWoB9mOYBU8EeXZ7JsgDxp1/w
+X-Received: by 2002:a05:600c:4714:b0:490:e919:7bba with SMTP id 5b1f17b1804b1-492668b80a8mr47354625e9.8.1782477942897;
         Fri, 26 Jun 2026 05:45:42 -0700 (PDT)
 Received: from jwang-ThinkPad-T14-Gen-6.fritz.box ([2001:9e8:144d:e00:98f2:1188:3abe:e8d9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49269020266sm73981765e9.15.2026.06.26.05.45.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49269020266sm73981765e9.15.2026.06.26.05.45.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 05:45:41 -0700 (PDT)
+        Fri, 26 Jun 2026 05:45:42 -0700 (PDT)
 From: Jack Wang <jinpu.wang@ionos.com>
 To: gregkh@linuxfoundation.org,
 	sashal@kernel.org,
@@ -66,9 +65,9 @@ To: gregkh@linuxfoundation.org,
 Cc: Sean Christopherson <seanjc@google.com>,
 	Tom Lendacky <thomas.lendacky@amd.com>,
 	Paolo Bonzini <pbonzini@redhat.com>
-Subject: [stable-6.12 1/3] KVM: SEV: Ignore MMIO requests of length '0'
-Date: Fri, 26 Jun 2026 14:42:21 +0200
-Message-ID: <20260626124539.201250-2-jinpu.wang@ionos.com>
+Subject: [stable-6.12 2/3] KVM: SEV: Reject MMIO requests larger than 8 bytes with GHCB v2+
+Date: Fri, 26 Jun 2026 14:42:22 +0200
+Message-ID: <20260626124539.201250-3-jinpu.wang@ionos.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260626124539.201250-1-jinpu.wang@ionos.com>
 References: <20260626124539.201250-1-jinpu.wang@ionos.com>
@@ -82,57 +81,42 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-commit 1aa8a6dc7dac8b83234b53518311bf78231f4fa5 upstream.
+commit dcf1b2d4b0564a27e4ca7c654871aab4f9620046 upstream.
 
-Explicitly ignore MMIO requests of length '0', so that setting up the
-software scratch area (and other code) doesn't have to worry about
-underflowing the length, and to allow for special casing '0' in the
-future.
+When using GHCB v2+, reject MMIO requests that are larger than 8 bytes.
+Per the GHCB spec:
 
-Fixes: 8f423a80d299 ("KVM: SVM: Support MMIO for an SEV-ES guest")
+  SW_EXITINFO2 must be less than or equal to 0x7fffffff for version 1 and
+  less than or equal to 0x8 for all other versions.
+
+Fixes: 4af663c2f64a ("KVM: SEV: Allow per-guest configuration of GHCB protocol version")
 Cc: stable@vger.kernel.org
 Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260501202250.2115252-3-seanjc@google.com>
+Message-ID: <20260501202250.2115252-4-seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Signed-off-by: Jack Wang <jinpu.wang@ionos.com>
 ---
- arch/x86/kvm/svm/sev.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ arch/x86/kvm/svm/sev.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 115c59c86f44..9374b1a93df8 100644
+index 9374b1a93df8..82b26899b9a4 100644
 --- a/arch/x86/kvm/svm/sev.c
 +++ b/arch/x86/kvm/svm/sev.c
-@@ -4356,16 +4356,22 @@ int sev_handle_vmgexit(struct kvm_vcpu *vcpu)
- 					   control->exit_info_2,
- 					   svm->sev_es.ghcb_sa);
- 		break;
--	case SVM_VMGEXIT_MMIO_WRITE:
--		ret = setup_vmgexit_scratch(svm, false, control->exit_info_2);
-+			break;
-+
-+	case SVM_VMGEXIT_MMIO_WRITE: {
-+		u64 len = control->exit_info_2;
-+
-+		if (!len)
+@@ -4364,6 +4364,12 @@ int sev_handle_vmgexit(struct kvm_vcpu *vcpu)
+ 		if (!len)
+ 			return 1;
+ 
++		if (to_kvm_sev_info(vcpu->kvm)->ghcb_version >= 2 && len > 8) {
++			ghcb_set_sw_exit_info_1(svm->sev_es.ghcb, 2);
++			ghcb_set_sw_exit_info_2(svm->sev_es.ghcb, GHCB_ERR_INVALID_INPUT);
 +			return 1;
++		}
 +
-+		ret = setup_vmgexit_scratch(svm, false, len);
+ 		ret = setup_vmgexit_scratch(svm, false, len);
  		if (ret)
  			break;
- 
--		ret = kvm_sev_es_mmio_write(vcpu,
--					    control->exit_info_1,
--					    control->exit_info_2,
--					    svm->sev_es.ghcb_sa);
-+		ret = kvm_sev_es_mmio_write(vcpu, control->exit_info_1, len,
-+				      svm->sev_es.ghcb_sa);
- 		break;
-+		}
- 	case SVM_VMGEXIT_NMI_COMPLETE:
- 		++vcpu->stat.nmi_window_exits;
- 		svm->nmi_masked = false;
 -- 
 2.43.0
 
