@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF073FD14F
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0613FC5D8
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490356; cv=none; b=dNb+5uYJ6wLMoX1jWRPjUV9hoz1EP01JJMbrOTI2OD2hAPZ69vuAkV+HyfNfxK2v5eqJaUgNCouTeMZZfHLnHidl5/+jubYZYF7lARWLKZfOvwUHSXd01rXmD/NgCHgwsf/vZPwLTOnwmyBLoA2W796JofvDOQB9jGBaW09Fu4E=
+	t=1782490357; cv=none; b=vCQqUmGwX0Ojaa1dzfr7gM4WMmuC/1KUmM2pTuqHoCR4i0GDFaQHYWl3xsmrbK4Sv4GQQCYQKYDAIAE8IQFcJeZJD5fwO4bHmV80VnbDGCogNAXWlvVPvm8JaVRNmz1uXsbZfX+LBCJ9r1WYWijw39npVjj7mHwOwDGpD5cDGlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782490356; c=relaxed/simple;
-	bh=AVBnUsvppe1nl3U+wKR4KaDwfr9ajUCmH5foOd/d08Q=;
+	s=arc-20240116; t=1782490357; c=relaxed/simple;
+	bh=1zdBQLh6VbdNF/qgGFypGmVWcuaJvpJFoXA7NLhzPoM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bSeGIX+S6AoDOW/58vf4oQUiv/qMLLF9zQYp01tWH7pWKhLD38Mq9l23TLUz0LpU4OU2Uxf97ljJRt7YeSU6RZaMlwzl3h9tC56uAeuZ7fvF6qzFmfDG7dJRqANBW0XxZOAW8qrZNKoIOoKg1GRmDf/4YPU+xpzPruVFwDEB1Jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=0r8cjGFS; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=nthuojfWL69mDKyak5UF01Y5DamwpQ9Vo+QjLXLCw20TwIQ/vitRyniE7zRKk8duZPWdzoWVrdUaYC3xbgQSbslGQ0PPlMUjUkpfTFeFrCr2m5DyPntHPZ5YVFSSPCaesyPMK3cwUZv0xK1VFaDf1B/Dm8XCP67sQNvtM89zHOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=L1BkzDWD; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="0r8cjGFS"
-Received: by dvalin.narfation.org (Postfix) id 3276D203D3;
-	Fri, 26 Jun 2026 16:12:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="L1BkzDWD"
+Received: by dvalin.narfation.org (Postfix) id 72F60203F3;
+	Fri, 26 Jun 2026 16:12:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490351;
+	s=20121; t=1782490352;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2+LUyL2is44G0RqZTxGaJmna5RtNBKr4/nOs5HPtErc=;
-	b=0r8cjGFS2vfDVJvtLakOAwWQWIxijWhXyQwov6tCROy+9v5LkysCtEA8cLuabfWmzgYrLV
-	Tp97spluCQTmcZTdHN4ItvbgUx5iWm2HO94lGwiljdegBI8eZjns+o5JR0axfz5YFidCku
-	gX6tq8mdMx7IEUv7omdOINBpLaz9qSw=
+	bh=OqXGrLIE/n7Iu5ho9yEiQfxleYNo/2gumelsQFN5n0c=;
+	b=L1BkzDWDV7j+eNVpR8StuGzL9a5GQmZWBP+ezEZ3T0CYX9WZPUJqPea/1MM/AYhgZ3ZTU9
+	7Lgoh6DYpcaFn+/M5Xmnt0xfV+ZOuRychkLvQeN4YJMyxq4qnyVBTmDF38bdK3ePh26NXz
+	gINKVL10veRDjr/R81wmjTm8UHpRLtw=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 7.0 12/26] batman-adv: gw: don't deselect gateway with active hardif
-Date: Fri, 26 Jun 2026 18:12:11 +0200
-Message-ID: <20260626161225.124839-13-sven@narfation.org>
+Subject: [PATCH 7.0 14/26] batman-adv: fix (m|b)cast csum after decrementing TTL
+Date: Fri, 26 Jun 2026 18:12:13 +0200
+Message-ID: <20260626161225.124839-15-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161225.124839-1-sven@narfation.org>
 References: <20260626161225.124839-1-sven@narfation.org>
@@ -45,79 +45,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit df97a7107b16375a10a36d7a63e9b4291a8ac680 upstream.
+commit e728bbdf32660c8f32b8f5e8d09427a2c131ad60 upstream.
 
-The batadv_hardif_cnt() was previously checking if there is an
-batadv_hard_iface->mesh_iface which is has the same mesh_iface. And since
-batadv_hardif_disable_interface() was resetting the
-batadv_hard_iface->mesh_iface after this check, it had to verify whether
-*1* interface was still part of the mesh_iface before it started the
-gateway deselection.
+The broadcast and multicast packets can be received at the same time by the
+local system and forwarded to other nodes. Both are simply decrementing the
+TTL at the beginning of the receive path - independent of chosen paths
+(receive/forward). But such a modification of the data conflicts with the
+hw csum. This is not a problem when the packet is directly forwarded but
+can cause errors in the local receive path.
 
-But after batadv_hardif_cnt() is now checking the lower interfaces of
-mesh_iface and batadv_hardif_disable_interface() already removed the
-interface via netdev_upper_dev_unlink() earlier in this function, the check
-must now make sure that *0* interfaces can be found by batadv_hardif_cnt()
-before selected gateway must be deselected. Otherwise the deselection would
-already happen one batadv_hard_iface too early.
+Such a problem can then trigger a "hw csum failure". The receiver path must
+therefore ensure that the csum is fixed for each modification of the
+payload before batadv_interface_rx() is reached.
 
-Because a 0 hardif count from batadv_hardif_cnt() is equal to an empty
-list, it is possible to replace the counting with a simple list_empty().
+Since all batman-adv packet types with a ttl have it as u8 at offset 2, a
+helper can be used for all of them. But it is only used at the moment for
+batadv_bcast_packet and batadv_mcast_packet because they are the only ones
+which deliver the packet locally but unconditionally modify the TTL.
 
 Cc: stable@kernel.org
-Fixes: 7dc284702bcd ("batman-adv: store hard_iface as iflink private data")
-Reviewed-by: Nora Schiffer <neocturne@universe-factory.net>
+Fixes: 3f69339068f9 ("batman-adv: bcast: queue per interface, if needed")
+Fixes: 07afe1ba288c ("batman-adv: mcast: implement multicast packet reception and forwarding")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/hard-interface.c | 28 ++--------------------------
- 1 file changed, 2 insertions(+), 26 deletions(-)
+ net/batman-adv/routing.c | 58 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 56 insertions(+), 2 deletions(-)
 
-diff --git a/net/batman-adv/hard-interface.c b/net/batman-adv/hard-interface.c
-index d6732c34aeafc..c7dbd24ea1998 100644
---- a/net/batman-adv/hard-interface.c
-+++ b/net/batman-adv/hard-interface.c
-@@ -786,30 +786,6 @@ int batadv_hardif_enable_interface(struct batadv_hard_iface *hard_iface,
- 	return ret;
+diff --git a/net/batman-adv/routing.c b/net/batman-adv/routing.c
+index 0672dc30bed3b..cdcea90db6123 100644
+--- a/net/batman-adv/routing.c
++++ b/net/batman-adv/routing.c
+@@ -8,6 +8,7 @@
+ #include "main.h"
+ 
+ #include <linux/atomic.h>
++#include <linux/build_bug.h>
+ #include <linux/byteorder/generic.h>
+ #include <linux/compiler.h>
+ #include <linux/errno.h>
+@@ -204,6 +205,59 @@ bool batadv_check_management_packet(struct sk_buff *skb,
+ 	return true;
  }
  
--/**
-- * batadv_hardif_cnt() - get number of interfaces enslaved to mesh interface
-- * @mesh_iface: mesh interface to check
-- *
-- * This function is only using RCU for locking - the result can therefore be
-- * off when another function is modifying the list at the same time. The
-- * caller can use the rtnl_lock to make sure that the count is accurate.
-- *
-- * Return: number of connected/enslaved hard interfaces
-- */
--static size_t batadv_hardif_cnt(struct net_device *mesh_iface)
--{
--	struct batadv_hard_iface *hard_iface;
--	struct list_head *iter;
--	size_t count = 0;
--
--	rcu_read_lock();
--	netdev_for_each_lower_private_rcu(mesh_iface, hard_iface, iter)
--		count++;
--	rcu_read_unlock();
--
--	return count;
--}
--
++/**
++ * batadv_skb_decrement_ttl() - decrement ttl in a batman-adv header, csum-safe
++ * @skb: the received packet with @skb->data pointing to the batman-adv header
++ *
++ * Supports the following packet types, all of which carry the TTL at offset 2:
++ *
++ * - batadv_ogm_packet
++ * - batadv_ogm2_packet
++ * - batadv_icmp_header
++ * - batadv_icmp_packet
++ * - batadv_icmp_tp_packet
++ * - batadv_icmp_packet_rr
++ * - batadv_unicast_packet
++ * - batadv_frag_packet
++ * - batadv_bcast_packet
++ * - batadv_mcast_packet
++ * - batadv_coded_packet
++ * - batadv_unicast_tvlv_packet
++ *
++ * Return: true if the packet may be forwarded (ttl decremented),
++ *  false if it must be dropped (ttl would expire)
++ */
++static bool batadv_skb_decrement_ttl(struct sk_buff *skb)
++{
++	static const size_t ttl_offset = 2;
++	u8 *ttl_pos;
++
++	BUILD_BUG_ON(offsetof(struct batadv_ogm_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_ogm2_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_icmp_header, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_icmp_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_icmp_tp_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_icmp_packet_rr, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_unicast_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_frag_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_bcast_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_mcast_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_coded_packet, ttl) != ttl_offset);
++	BUILD_BUG_ON(offsetof(struct batadv_unicast_tvlv_packet, ttl) != ttl_offset);
++
++	ttl_pos = skb->data + ttl_offset;
++
++	/* would expire on this hop -> drop, leave header + csum untouched */
++	if (*ttl_pos < 2)
++		return false;
++
++	skb_postpull_rcsum(skb, ttl_pos, 1);
++	(*ttl_pos)--;
++	skb_postpush_rcsum(skb, ttl_pos, 1);
++
++	return true;
++}
++
  /**
-  * batadv_hardif_disable_interface() - Remove hard interface from mesh interface
-  * @hard_iface: hard interface to be removed
-@@ -850,8 +826,8 @@ void batadv_hardif_disable_interface(struct batadv_hard_iface *hard_iface)
- 	netdev_upper_dev_unlink(hard_iface->net_dev, hard_iface->mesh_iface);
- 	batadv_hardif_recalc_extra_skbroom(hard_iface->mesh_iface);
+  * batadv_recv_my_icmp_packet() - receive an icmp packet locally
+  * @bat_priv: the bat priv with all the mesh interface information
+@@ -1197,7 +1251,7 @@ int batadv_recv_bcast_packet(struct sk_buff *skb,
  
--	/* nobody uses this interface anymore */
--	if (batadv_hardif_cnt(hard_iface->mesh_iface) <= 1)
-+	/* nobody uses this mesh interface anymore */
-+	if (list_empty(&hard_iface->mesh_iface->adj_list.lower))
- 		batadv_gw_check_client_stop(bat_priv);
+ 	bcast_packet = (struct batadv_bcast_packet *)skb->data;
  
- 	hard_iface->mesh_iface = NULL;
+-	if (bcast_packet->ttl-- < 2)
++	if (!batadv_skb_decrement_ttl(skb))
+ 		goto free_skb;
+ 
+ 	orig_node = batadv_orig_hash_find(bat_priv, bcast_packet->orig);
+@@ -1304,7 +1358,7 @@ int batadv_recv_mcast_packet(struct sk_buff *skb,
+ 		goto free_skb;
+ 
+ 	mcast_packet = (struct batadv_mcast_packet *)skb->data;
+-	if (mcast_packet->ttl-- < 2)
++	if (!batadv_skb_decrement_ttl(skb))
+ 		goto free_skb;
+ 
+ 	tvlv_buff = (unsigned char *)(skb->data + hdr_size);
 -- 
 2.47.3
 
