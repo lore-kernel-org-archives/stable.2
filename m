@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE99401A00
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4D53FD14D
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490358; cv=none; b=ru5uIBMhHgCoK1MOkW99/6cBWwA+nj66btm25yYvpBLKmjx9tg/MlSIgYtPJSqBaeQF13szmudwNWQeS1oV1jB6H2cKLm1qooz4oDStzka240yxYQxRlpnsUJQylwVkAFeRXieoTNT8vojv3FHdVZsHLthnxA8F14SSlo3IkViE=
+	t=1782490359; cv=none; b=muynUQ8sxFawmo0c+OjsKvZ7M+YYc5NuEFBEjsMcaFnj+96Y//GXru1qTL0FwsdahREPZHgYHokpu5UFz5hWjeBTtc7xe2qtBwpfuA5Z88LGbT7ALAP/1OCG3AIwrNZu5LZFSMsrx66rKTfQ6oiZOe4+iaDhPe2gCEWUh/Xle+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782490358; c=relaxed/simple;
-	bh=Qpj0EmqwDcOOJM5e2SjBqKJr5p7KRIuo2fAU7zRRvqc=;
+	s=arc-20240116; t=1782490359; c=relaxed/simple;
+	bh=sOqHawFVuOx80G/YsxtDTXP+HCtbjEPJ1VShrCbHovc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nGMh5pW9euxhfhuM5uN6e/PukMP2RlprGxc9lzl+XIS2fkJ/jjshPBEicsBfvXaZZ6Lly6q7zOJmToGvZsLqLpVV98UNQPsEvBd6g8doKnTA4kmoOlJcBTM0eqw0g4CKZcMKF8rClFqylbOEg1v5AmyIzIMBOoarx0iM4r49nos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=vJnlkTgL; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=WxV6H9CI3UWw4dHMQjHe+apFJkT1JgDpC1F7XXxBiGlEytY9jdItY2v9fIShl5700VMpSohsTsVBkAR+vwK2Hc2eFP+I2Qf8eIhNTJiHSjpkmUU6vQuxSO9hn6MlsRKUWOQvjnvADrMjOhXGN9VjPMfr7zwXs3I3JFvxLmeIZ4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=lNfcnhC2; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="vJnlkTgL"
-Received: by dvalin.narfation.org (Postfix) id D1AD82045E;
-	Fri, 26 Jun 2026 16:12:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="lNfcnhC2"
+Received: by dvalin.narfation.org (Postfix) id ABB7C20539;
+	Fri, 26 Jun 2026 16:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490353;
+	s=20121; t=1782490354;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fUdCZZYQUIYU07HKy3eBdJ1d4wtpy9ToKmw15y8HR2c=;
-	b=vJnlkTgLRGFfO3xvPVfYKzofnussXtlo0Ad7UulfmotA74w4zv6f8m3pKVc9WLNTfpxh3E
-	GV/b9EXr0D6ggI2RAsnR0DzMlX4oOW4bpfE8Ej5jknzCzHnoYHVrzg5RMJsxEiWd12EYOh
-	QHvfVF5dpi0MwY8fklRFdYm4f0cdl5c=
+	bh=VHJiqhmqyh6fkHEF1vuN6D6jkOru0vMnpwaIvD5ZiUE=;
+	b=lNfcnhC2zNf7PaztdHYUr+Ies4d7VWbbkA7pdnCov4BQAf8Jd9TM4kwYwdQIKbSR7S9ROk
+	nsvOa2qqFmkxJiWk3FpJEa3NCm+q8oB/Z8qIJZSuUW0ymOgOLjC3RlTYa9R11Sn/dptWQQ
+	6dlbXCOJFCxXhXudehC7WMxRaCTIGC4=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 7.0 17/26] batman-adv: v: prevent OGM aggregation on disabled hardif
-Date: Fri, 26 Jun 2026 18:12:16 +0200
-Message-ID: <20260626161225.124839-18-sven@narfation.org>
+Subject: [PATCH 7.0 19/26] batman-adv: tp_meter: annotate last_recv_time access with READ/WRITE_ONCE
+Date: Fri, 26 Jun 2026 18:12:18 +0200
+Message-ID: <20260626161225.124839-20-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161225.124839-1-sven@narfation.org>
 References: <20260626161225.124839-1-sven@narfation.org>
@@ -45,101 +45,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit d11c00b95b2a3b3934007fc003dccc6fdcc061ad upstream.
+commit d67c728f07fca2ee6ffdc6dd4421cf2e8691f4d1 upstream.
 
-When an interface gets disabled, the worker is correctly disabled by
-batadv_hardif_disable_interface() -> ... -> batadv_v_ogm_iface_disable().
-In this process, the skb aggr_list is also freed.
-
-But batadv_v_ogm_send_meshif() can still queue new skbs (via
-batadv_v_ogm_queue_on_if()) to the aggr_list. This will only stop after all
-cores can no longer find the RCU protected list of hard interfaces. These
-queued skbs will never be freed or consumed by batadv_v_ogm_aggr_work.
-
-The batadv_v_ogm_iface_disable() function must block
-batadv_v_ogm_queue_on_if() to avoid leak of skbs.
+The last_recv_time field for batadv_tp_receiver tracks the jiffies value of
+the most recent activity and is used to detect timeouts. These accesses are
+not consistently protected by a lock, so READ_ONCE/WRITE_ONCE must be used
+to prevent data races caused by compiler optimizations.
 
 Cc: stable@kernel.org
-Fixes: f89255a02f1d ("batman-adv: BATMAN_V: introduce per hard-iface OGMv2 queues")
-[ Context ]
+Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/bat_v.c     |  1 +
- net/batman-adv/bat_v_ogm.c | 12 ++++++++++++
- net/batman-adv/types.h     |  6 ++++++
- 3 files changed, 19 insertions(+)
+ net/batman-adv/tp_meter.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/net/batman-adv/bat_v.c b/net/batman-adv/bat_v.c
-index de94447142642..17d2a1ccdce67 100644
---- a/net/batman-adv/bat_v.c
-+++ b/net/batman-adv/bat_v.c
-@@ -817,6 +817,7 @@ void batadv_v_hardif_init(struct batadv_hard_iface *hard_iface)
+diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
+index 4f8af909893ab..e23b75846ebe1 100644
+--- a/net/batman-adv/tp_meter.c
++++ b/net/batman-adv/tp_meter.c
+@@ -1183,7 +1183,7 @@ static void batadv_tp_receiver_shutdown(struct timer_list *t)
+ 	bat_priv = tp_vars->bat_priv;
  
- 	hard_iface->bat_v.aggr_len = 0;
- 	skb_queue_head_init(&hard_iface->bat_v.aggr_list);
-+	hard_iface->bat_v.aggr_list_enabled = false;
- 	INIT_DELAYED_WORK(&hard_iface->bat_v.aggr_wq,
- 			  batadv_v_ogm_aggr_work);
- }
-diff --git a/net/batman-adv/bat_v_ogm.c b/net/batman-adv/bat_v_ogm.c
-index d66ca77b1aaa3..6852bf5da8c55 100644
---- a/net/batman-adv/bat_v_ogm.c
-+++ b/net/batman-adv/bat_v_ogm.c
-@@ -252,11 +252,18 @@ static void batadv_v_ogm_queue_on_if(struct batadv_priv *bat_priv,
+ 	/* if there is recent activity rearm the timer */
+-	if (!batadv_has_timed_out(tp_vars->last_recv_time,
++	if (!batadv_has_timed_out(READ_ONCE(tp_vars->last_recv_time),
+ 				  BATADV_TP_RECV_TIMEOUT)) {
+ 		/* reset the receiver shutdown timer */
+ 		batadv_tp_reset_receiver_timer(tp_vars);
+@@ -1424,7 +1424,7 @@ batadv_tp_init_recv(struct batadv_priv *bat_priv,
+ 	tp_vars = batadv_tp_list_find_session(bat_priv, icmp->orig,
+ 					      icmp->session, BATADV_TP_RECEIVER);
+ 	if (tp_vars) {
+-		tp_vars->last_recv_time = jiffies;
++		WRITE_ONCE(tp_vars->last_recv_time, jiffies);
+ 		goto out_unlock;
  	}
  
- 	spin_lock_bh(&hard_iface->bat_v.aggr_list.lock);
-+	if (!hard_iface->bat_v.aggr_list_enabled) {
-+		kfree_skb(skb);
-+		goto unlock;
-+	}
-+
- 	if (!batadv_v_ogm_queue_left(skb, hard_iface))
- 		batadv_v_ogm_aggr_send(bat_priv, hard_iface);
+@@ -1455,7 +1455,7 @@ batadv_tp_init_recv(struct batadv_priv *bat_priv,
+ 	kref_get(&tp_vars->refcount);
+ 	timer_setup(&tp_vars->timer, batadv_tp_receiver_shutdown, 0);
  
- 	hard_iface->bat_v.aggr_len += batadv_v_ogm_len(skb);
- 	__skb_queue_tail(&hard_iface->bat_v.aggr_list, skb);
-+
-+unlock:
- 	spin_unlock_bh(&hard_iface->bat_v.aggr_list.lock);
- }
+-	tp_vars->last_recv_time = jiffies;
++	WRITE_ONCE(tp_vars->last_recv_time, jiffies);
  
-@@ -417,6 +424,10 @@ int batadv_v_ogm_iface_enable(struct batadv_hard_iface *hard_iface)
- {
- 	struct batadv_priv *bat_priv = netdev_priv(hard_iface->mesh_iface);
+ 	kref_get(&tp_vars->refcount);
+ 	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
+@@ -1506,7 +1506,7 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
+ 			goto out;
+ 		}
  
-+	spin_lock_bh(&hard_iface->bat_v.aggr_list.lock);
-+	hard_iface->bat_v.aggr_list_enabled = true;
-+	spin_unlock_bh(&hard_iface->bat_v.aggr_list.lock);
-+
- 	batadv_v_ogm_start_queue_timer(hard_iface);
- 	batadv_v_ogm_start_timer(bat_priv);
+-		tp_vars->last_recv_time = jiffies;
++		WRITE_ONCE(tp_vars->last_recv_time, jiffies);
+ 	}
  
-@@ -432,6 +443,7 @@ void batadv_v_ogm_iface_disable(struct batadv_hard_iface *hard_iface)
- 	cancel_delayed_work_sync(&hard_iface->bat_v.aggr_wq);
- 
- 	spin_lock_bh(&hard_iface->bat_v.aggr_list.lock);
-+	hard_iface->bat_v.aggr_list_enabled = false;
- 	batadv_v_ogm_aggr_list_free(hard_iface);
- 	spin_unlock_bh(&hard_iface->bat_v.aggr_list.lock);
- }
-diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
-index a01ee46d97f34..765ba71fe8c69 100644
---- a/net/batman-adv/types.h
-+++ b/net/batman-adv/types.h
-@@ -130,6 +130,12 @@ struct batadv_hard_iface_bat_v {
- 	/** @aggr_list: queue for to be aggregated OGM packets */
- 	struct sk_buff_head aggr_list;
- 
-+	/**
-+	 * @aggr_list_enabled: aggr_list is active and new skbs can be
-+	 * enqueued. Protected by aggr_list.lock after initialization
-+	 */
-+	bool aggr_list_enabled:1;
-+
- 	/** @aggr_len: size of the OGM aggregate (excluding ethernet header) */
- 	unsigned int aggr_len;
- 
+ 	/* if the packet is a duplicate, it may be the case that an ACK has been
 -- 
 2.47.3
 
