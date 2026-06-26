@@ -1,193 +1,114 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011066.outbound.protection.outlook.com [52.101.52.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695503E4C87;
-	Fri, 26 Jun 2026 12:47:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782478080; cv=fail; b=UgjskUEHsXk6VkR6kncHh39NgbbgYkt6LcN+Op6g+B1DPqRyBH2ERCHJVKcFrJaJXZTMj7hQb6m9vSblT5mY3L+sqwPNPR7l3LFP7yPQFr14shSHkgeMCaMMRSDdnzGxLMvPS80D48wSovcycZn81n20HJ7NrUnr9n604RuWuPk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782478080; c=relaxed/simple;
-	bh=Q8xFtsb5mxnTEwRkJdomwc+jgVXRCiUnvfvp2yh2Pvo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=JAmvLuKmiMC4uHf6DIEwC1/4R4gbuoIVUDPwV1dl7nzkn9lFFbKKyMqPX4GqhEgDTQ4IsnbghjUAGdeXRMUmjQrjrwr0U1g5TWyz0Ej8W81p8hMcFL/vLfC7B859xIDkEc3IykaQLbgLavO/Qqxniev9AnpOBDfEvD6iksgp1Cg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=QEsM/T5N; arc=fail smtp.client-ip=52.101.52.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0843E4C87;
+	Fri, 26 Jun 2026 12:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782478107; cv=none; b=aWjgJLTk4KSAsJ4+kZc+P9JXWHCL9AKfHKAmoVJIZOSddwiW0Bh0DeredBvpTGToJHYjTOBv6JJL/93DqYuRu+5ZRKl92LKJDrGbFPC0W55Ipzw3A3NV+byPawN2UN2zwWhpXe+Rx7I1nLV3AKG8p9eThoS8lnfKPhqHqBqBXVM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782478107; c=relaxed/simple;
+	bh=PA80dt2xYrNoJk4Xe8b2EGm9HbRXb8OAlk/dIonJtk4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dbgd1ytggq+bAemjZEt0T2EGHa20maRso1e78T27ohTbInbdsk+9deYOswaQxoJmUbV9qks00nAf4xPnOCSA+BRf5o5xN1GCmVGmZVz3qdNELIH6r7QLlVblPLljPDHu9qiY8rEHvBwVP+cxSqHBrdsW3yUryBhdt3Wb3Z+cb3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=COwRB3bH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="QEsM/T5N"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gfrh1rt5NtjOYn5ra0qo9ayqwGvMu6ty8ffz/QGWdytYFbCdAgy7EnXBqihYfrT8t9kel3Lu89ycYLF5fUXNTTql1kJyC6GXSE6xRMwXxOrF6jpqaw+o6PC9E1hs8v4MQSYT2nWfWoDuHqKskgEQ/dUaqA6xxynBgmHUk2GKU9TUcjuq+SKnBiJTHlFQF5TumXIeYjHpWd9YC5j3BRDbS3W83qLJ3lKosZClBkoT5VmvsAiPMMiW+ecKsjI7flIcQNWMFbUvcimDsDMmjHCOAeA8xASMXyQJoyoU/XZ/BANjceG6xPM9kTw/1tViMmHDSP535wjz+DGKY7MuQRdzuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z9AUdNGNKupZUUBrcI+nBGbrh6vdXHBFVgrpJjCDwCg=;
- b=j1MvD19mS7SlmJF/T+1CdhB3p/45gxmpd5fFnntcbbh0o8aeKY2rns1w458R9MFI3VbqSXXjNZNaKchU8D0O330+1nS8IXa/yQTo9HmluJUz2vjUcEDIoTfetYkHr42p2b/SIi9tGV1icB8KWMZiXJSeYnSBJ9JaDuxBLCsCUr9Dr2mjiRvSeowh71SAHsBCqo7wsKFqZykOzMISUBv4vs12Th//a+xGuM7KDlrspzKu5NmI3xis/chQLrSRAQ/pveVECx9w9XdignsozSCPEiiRW0h2tOi53VBQQPpqbsjEuxrIla6PAFYQECvLsidK8pf81QEbPgg2ap9CH5jrWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z9AUdNGNKupZUUBrcI+nBGbrh6vdXHBFVgrpJjCDwCg=;
- b=QEsM/T5NknEmWfFhKOv7OSBJ86r+EGIPujDOOVIEh1T3Xln/hdoexIKqY9xLtdtvrEUZoN76STCxQORY8DqCktyzSx59nPJoLnnaECCzDk9vl0NZ3R9ulgq60GMIKzZc8QFYLT1p3ucXGsRrIvzhFsIBnTGXCPmKT3nLSn2NN/I=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA1PR12MB8190.namprd12.prod.outlook.com (2603:10b6:208:3f2::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
- 2026 12:47:52 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
- 12:47:52 +0000
-Message-ID: <5180c887-c879-440f-a58b-1cad96b7abb1@amd.com>
-Date: Fri, 26 Jun 2026 14:47:47 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fix: dma-buf: unwrap_merge_complex: dma_fence_get_stub
- reference leaked on all paths
-To: WenTao Liang <vulab@iscas.ac.cn>, sumit.semwal@linaro.org
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260626122836.35856-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260626122836.35856-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0422.namprd13.prod.outlook.com
- (2603:10b6:208:2c3::7) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="COwRB3bH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C2181F000E9;
+	Fri, 26 Jun 2026 12:48:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782478101;
+	bh=8P/TDVoY9rLolsMoac+hbxM6rYfibWe7vkJCayuCM5Y=;
+	h=From:Date:Subject:To:Cc;
+	b=COwRB3bHX7JbzfEIqHNm5i6LDtPiGuuXL2YxJ7np25HxrHbhL+zI8lar7sEOIb9sU
+	 mdzb6UR6tlfMQbGbzS/SRWiJWiX1wXKzqM4fDj+UNRcoECO/KxAcdiyXKAk+d3mlca
+	 aVWG0euHCIcCjL+EtZNVXTEsco3861e7yI+YA9loqGf6MABg3MeHGFm/Ab1Q8GEmEl
+	 TmOxc/F7En4/KVpRoqF3FFfyMPsEqLzc+GUEFpCTJVRiyGNFpq7TArX8eul9+K9dKx
+	 9kAC2dV8R1qWc2qcOfa7e+Yj4zMRnY1dKT0gd1h6kKR1c5fskNa/NxLhsQvKUxr8xy
+	 jN17KC/2ipyYQ==
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 26 Jun 2026 14:48:15 +0200
+Subject: [PATCH] RFC: ARM: breakpoint: CFI breakpoints only on demand
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB8190:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0205992c-ea4e-4deb-9603-08ded38122a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	r+a1zf7U/g2g2OmnsX4wwBE2n4Hc9NRTulSF5m5xCUJB7gF34TkRqX1W5PJDpDL1WU7sKHS3FTvRbI/RAOouAFQKwgSDdM74YvkML26omvCUr287CFUNUyOiEdeQHzfX2s+3/jNlVA3N+W7CCKTwhA4mXL1eSv6OwP8pRBH4FOxhUz/uT8pBvbO981fyZLvvBqk2PvbutHGxzxETdF3aDFh/oqRzuseoCcUCvRPXXRy3tCrRl0gFvBx4AYMpzBlXP6NW5o4c6dcIh6n1LGTpDfCywAXVrjsh2YFDN/TTMzqpzFfG0vX7LOEKZiAq5h16C/85z8o+RHE1Fg1Og5AsjKv+xuvxzauZ1IowOSMr7C+Lvo+qQzwUy8wpQADTRGhOZrNM8t/c/GhfyZ6H7xR2lxv/sva5cIVtNEryp+W4TKqbVt3/lmDFzPmq/DuUqD9KiQ5BupHPZRG1bTPw/k0/DCVO4/sHEM2HZNnvSLh3+uLJI+ok2+3FRsTqwfHqKQypbl9EM4CloAc6UkCip0EdgezefMrwsCQcUpKPhP47WiVPkI4Lb6CFuYBOj+mtcowsAY/l2iEzez8VV+HZN8SMz8YytmCq+e+bLXfyVG39+CSnQgYFb5Z5dgnv/f6VrOxOV1/eRXtsPRShCJwIy+uCwhy86SaeMxkFax6WBr5ItUM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Vk41azdEUTFtRVJXNTZxTk5oZSsyNkdpWVF3aUZOTGtUQ0tyZDN3MUMvQkFB?=
- =?utf-8?B?WHZXalAvdlg0Nk9QNzZHYllwQldjMDBFNmdyTEdZYkJNUXZ4aDA2a0plblRF?=
- =?utf-8?B?SWlkbTUvR3lOVzdyZm8zZmIyUHZrOG9zYTBCL0tVaXRjTmgvSjEwaTB5alFw?=
- =?utf-8?B?M1B0c2NIQTdGUTJBaXlMOGVlWHd3NW4zYXgwTm1BbTRyc0VoNk0xeHZiQ29B?=
- =?utf-8?B?bTY3S09scGhaemZyM1A3aVVhWGJ2NzdDZXk1K1ZXYURKQk1aMEZhMHBkRDRo?=
- =?utf-8?B?WDU3M1YxRXFlYmJlR2YzcWhiQjFSdElLRVQwNE1aT0RLRk4ySTNGdWtDa01o?=
- =?utf-8?B?djBxamFnZXV4OS9VeUN3TXZzNWdMZndnZXRlR1NFMTQycWV4RERLSytmU0xM?=
- =?utf-8?B?QjJPUHN0eno1ZWVHRVdPSWpTalBFZHMycGowaHJFRHIyYkxxcS9SZGtDTmhK?=
- =?utf-8?B?dEEwK3kyZ29nTm1VdjZLTk5ncFpncXowZ013eHl2MTNSSU1YZHozNFF5MUpK?=
- =?utf-8?B?TUQvWVBwZVVHUkd1VklFdWpBbmdhR2lBaDRQQlluMUprSnc1b0NLbGhYeUhK?=
- =?utf-8?B?bmdsdXpTcEZId1FjZnMydGJKWjVKdFVhRXpyTExCQjZXSmovcFlkVmIxRzU1?=
- =?utf-8?B?bmdFSG5XdTV6cFRoYjZFUjgyejBPSXlTdUhqUUthMGhuTHlSS3ExVFpxNTNI?=
- =?utf-8?B?L2paOWYzUXp0OHpnMml1NGRsQkp5NkRsWlBUNHE0aEQzdElQYWlLeEl3ZEFq?=
- =?utf-8?B?NEo5MDlrcFVpWTNsWnFtNEpuWVZraXJpeGRYSEIxa1lHU3JKNFNDamt1d3Vp?=
- =?utf-8?B?a1NHM0x3enp3OEVEczBWbzMrQ1JOeHhpMEN6TGl0TklndmtVaVc3MHpFeVJx?=
- =?utf-8?B?eWFQZWRBbE8wNldnQXZoTlgyZitsNFYvVEprSHpjLzRkWDlQWS9QU3BDaFBo?=
- =?utf-8?B?T3R6QlJkNDBzWEMrdUZiOTA1WW1rNVRnRHhvN0dUdjF0RGVCaXowUXRnWVdF?=
- =?utf-8?B?N0JKNXAxeHlWNnVpSVl5QzQwUkRjaFZxV3lCTklKd2VvNFRRRkpIenBlQjJW?=
- =?utf-8?B?ekhZTzdFYkhOVUR6czhVT0RlRWlvalZMV0lod3FzV2pLdjQ3UGs4dUhudEdN?=
- =?utf-8?B?T2JEeURjSDdFM2VxOTdJcFdqUUhBUG5CQlAxR3Zmb1orbkpyWEQzcUhMQW5x?=
- =?utf-8?B?ZUtqWUV4a1dkMVNOTGNxNFRuc1N1Z2FIeDJBZVAvUmhzM2hRMC9MQ3BYQjBY?=
- =?utf-8?B?WUFTbmxtRGdJa0JGY3RrNVpiOVErZ3QvWisvNU9nY2Y0NEN6S05JRDFzeXox?=
- =?utf-8?B?d0dsdk9ubEg3SWsvMUFybEVXeHM2c0pzQ2FBeHFabmc5bGlCVmFPcHNPby92?=
- =?utf-8?B?ekN5T2FhUWJuRzdISml0RFNMbVVTNjlGSXo0d1VhaXUzYkdIQ1NMQWpWT01H?=
- =?utf-8?B?M1JOM2ZCY2JHM01MN1A2cWorWEQ4TXF1YllQc2JVYXVIc3ErZnVZcHN2L2lt?=
- =?utf-8?B?R2tiV2ZUNUZtc2M5c3N3N0J4Qm92LzhuUG4vbEFmejF1TncyTndLSFNqcXVO?=
- =?utf-8?B?b1NWTGVLbE9rRUJmRUZqQXluSEdWZy9pUU5BWCt3YndKSGVQNDI4bXBjdFpF?=
- =?utf-8?B?RTYvOUJ2dTNQaHgzbEtKNitabGgxUEYrSWYxbldScU54OC95YVFBdGtBSUJM?=
- =?utf-8?B?d1RhLzdXbWxJd1Z2cHY5cW5DZndRUGhvaDV3elFCcWR0c05kMm54NkxBb2xP?=
- =?utf-8?B?bWFOQjFLNTV0SUJMY2g4NHFTbU4zcFliRUJleEpFeFcyUEIzRUYxMnNYaEh4?=
- =?utf-8?B?bDZ2MnQrUmZJOEdZSFRzWXZtaldJMzM3MjFVZHF6UWV2ak9sWlJNS1pyR09y?=
- =?utf-8?B?Tm5ualdteS9PaWdXd1VHNEZ2QVdXMUlRbUJ0dkdJZnpxUEhrVHdMbnUwMnF1?=
- =?utf-8?B?aHlXWkZqS2NJakFIL3FTSGpDRFlDMEtveTE5SEp5Zm5PZFNpcXZVWmFiWmd5?=
- =?utf-8?B?ZzQrNk1yTWMyR2FacmpZSGxKNEVNM3UwWS9ucUIvV2ExWFcxREprbzcxNWQw?=
- =?utf-8?B?T1hKd3JtNy82SmQ1b1FJNzBiV3YzK3JBdTJLWEt4Ty9URGFRRlRuTzNRT1J5?=
- =?utf-8?B?cVpNbENLVmRWV1YxcElZdXljTm1kMWIvWnZOLzRRUHJLaTFCMzBnVFVkNk45?=
- =?utf-8?B?VENVcUdFQjFOWnlMV2NIYUZFc3hMR0cvQVdId2F4ZjNrQ3pNcnpPNkxvZjVC?=
- =?utf-8?B?WityK1VINUlBdWpLSnJkc2czS2hQQVN5NklPWkZjU0lkcUdpVklTT0NscGs4?=
- =?utf-8?Q?BeMVp4kIr1lpkTxYoD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0205992c-ea4e-4deb-9603-08ded38122a5
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 12:47:52.0013
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jWwoNMEPf/qfC0KdJEV1qogXMRd4brK28gt64RcFe0u7J3kE9PC21ZK5yJTc+/8g
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8190
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260626-arm32-cfi-bug-v1-1-a467b5050c0b@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrE1SJRWuIhZaU0biJ62KRNxds
+ fwW713gyTF5qJMLHB3seV0isjQBM3bLQMh9NEghlVBSYefmXKKxjDoMmAmrKyXKojIFxGZzZPn
+ 8fk372wc9kdnfCdz3A7MJL+pxAAAA
+X-Change-ID: 20260626-arm32-cfi-bug-10fb960749c4
+To: Russell King <linux@armlinux.org.uk>, 
+ Nathan Chancellor <nathan@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, 
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, slipher <slipher@protonmail.com>, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.15.2
 
-On 6/26/26 14:28, WenTao Liang wrote:
-> dma_fence_get_stub() acquires an extra reference on the global stub
->   fence, but this reference is never released on any execution path. The
->   stub fence is filtered out inside dma_fence_unwrap_merge (already
->   signaled), so the extra reference is never consumed. Both success and
->   error paths fail to call dma_fence_put on the stub.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 245a4a7b531c ("dma-buf: generalize dma_fence unwrap & merging v3")
+This removes the stub hw_breakpoint_cfi_handler() from ARM, making
+it not steal breakpoint type 0x03 (ARM_ENTRY_CFI_BREAKPOINT) unless
+CFI is actively used in the kernel.
 
-Just drop that, the stub fence is a global dummy and leaking reference to it is harmless.
+When not instrumenting with CFI, we fall through to return 1 from
+hw_breakpoint_pending() "unhandled fault" so userspace can make use
+of this breakpoint.
 
-But just in case somebody uses this code as blueprint for this own implementation we should probably clean it up.
+This of course does not work if userspace want to use CFI and custom
+breakpoints at the same time, and CONFIG_CFI does exist as something
+users might want to select for their kernel. If this is not good
+acceptable we need to think about other ways for CFI to interfer, such
+as not using BKPT at all (rather something like BUG()) and back out
+the offending patch until the compiler behaviour has changed.
 
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+Fixes: c3f89986fde7 ("ARM: 9391/2: hw_breakpoint: Handle CFI breakpoints")
+Reported-by: slipher <slipher@protonmail.com>
+Closes: https://lore.kernel.org/lkml/kJqktbpLphg_Pk5I5SPptgTLjl3E3eq5mN5UzCslyFj7Q1Irp-wDid4mj5eQVd2iZtRGXgeZd8goq195EkXdjyt864YMc8mVb2B9NGH91NQ=@protonmail.com/
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Trying to solve the CFI bug. Let's see of this first
+approach is acceptable for the reporter.
+---
+ arch/arm/kernel/hw_breakpoint.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+diff --git a/arch/arm/kernel/hw_breakpoint.c b/arch/arm/kernel/hw_breakpoint.c
+index cd4b34c96e35..007023db6a5d 100644
+--- a/arch/arm/kernel/hw_breakpoint.c
++++ b/arch/arm/kernel/hw_breakpoint.c
+@@ -929,10 +929,6 @@ static void hw_breakpoint_cfi_handler(struct pt_regs *regs)
+ 		break;
+ 	}
+ }
+-#else
+-static void hw_breakpoint_cfi_handler(struct pt_regs *regs)
+-{
+-}
+ #endif
+ 
+ /*
+@@ -964,9 +960,11 @@ static int hw_breakpoint_pending(unsigned long addr, unsigned int fsr,
+ 	case ARM_ENTRY_SYNC_WATCHPOINT:
+ 		watchpoint_handler(addr, fsr, regs);
+ 		break;
++#ifdef CONFIG_CFI
+ 	case ARM_ENTRY_CFI_BREAKPOINT:
+ 		hw_breakpoint_cfi_handler(regs);
+ 		break;
++#endif
+ 	default:
+ 		ret = 1; /* Unhandled fault. */
+ 	}
 
-> ---
->  drivers/dma-buf/st-dma-fence-unwrap.c | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-dma-fence-unwrap.c
-> index 72ca632e3981..b9ed85570211 100644
-> --- a/drivers/dma-buf/st-dma-fence-unwrap.c
-> +++ b/drivers/dma-buf/st-dma-fence-unwrap.c
-> @@ -483,7 +483,7 @@ static int unwrap_merge_order(void *arg)
->  
->  static int unwrap_merge_complex(void *arg)
->  {
-> -	struct dma_fence *fence, *f1, *f2, *f3, *f4, *f5;
-> +	struct dma_fence *fence, *f1, *f2, *f3, *f4, *f5, *stub;
->  	struct dma_fence_unwrap iter;
->  	int err = -ENOMEM;
->  
-> @@ -508,10 +508,11 @@ static int unwrap_merge_complex(void *arg)
->  	if (!f4)
->  		goto error_put_f3;
->  
-> +	stub = dma_fence_get_stub();
->  	/* Signaled fences should be filtered, the two arrays merged. */
-> -	f5 = dma_fence_unwrap_merge(f3, f4, dma_fence_get_stub());
-> +	f5 = dma_fence_unwrap_merge(f3, f4, stub);
->  	if (!f5)
-> -		goto error_put_f4;
-> +		goto error_put_stub;
->  
->  	err = 0;
->  	dma_fence_unwrap_for_each(fence, &iter, f5) {
-> @@ -532,8 +533,10 @@ static int unwrap_merge_complex(void *arg)
->  		err = -EINVAL;
->  	}
->  
-> +	dma_fence_put(stub);
->  	dma_fence_put(f5);
-> -error_put_f4:
-> +error_put_stub:
-> +	dma_fence_put(stub);
->  	dma_fence_put(f4);
->  error_put_f3:
->  	dma_fence_put(f3);
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260626-arm32-cfi-bug-10fb960749c4
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
