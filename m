@@ -1,149 +1,235 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532333E92A9
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 09:03:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8403E866B
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 09:14:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782464613; cv=none; b=dYBZWu3aw42+wMVIF5RdworT1LVS5UMF3jjaMfZZWL/YhkgosifnjhOfLH3k0uPYRKnVbgKMzNEmJttveEz+x1XTpgS87gUa+PihozE7jNmnsHyl4pbwsrByPyXScbOhRBuvf0N5dKp/YvcT/cMD6LNq2kntAbfOlXBcBZih560=
+	t=1782465289; cv=none; b=M6Ai/tH78EWiVwCJYWhzzTjVR4Az46qFW53AZMyUYx2xdGX1gIwF3QZkKWXmvuqWV9fS0CYDbW60VLMQykKWvVvgifutJw7PWPb6Mr4N2FnNUFlRwwfWPK8JvXxTUYsNfDfP7WxzWgVCb7qS7PFxjH0zUOZ/mXQiFTBoKBtEPhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782464613; c=relaxed/simple;
-	bh=0M0mxNXpHFTkb8lNX2bKAWdZx27Ftz5ouO/m70GPZoE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F/MyxFrdq0nKEQ2+xZXb5KWJmOavze+cmLhIJZMsDbBb1FXQuTA2o2Jqph/ohIPFfv17VjNDeafgYHc4R2mo7plZ6BBEhAsxYg5ZuMDDLQ5gbLI/pDMimnPmr93iHB2FN8Ym2m4ntcB7SprxRy6HVX2SQ5zq1NpuR+yDxNBY2mI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=Aol9WYie; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
+	s=arc-20240116; t=1782465289; c=relaxed/simple;
+	bh=7L2ILT5M0bKLh7hfol0ELC0DSd6JHL3nT7d253fBrSA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R0lklSfiLriFKKBPzpebavjsFFAe0LLpGdtzbvzkKtx4avDeg7Ru+PR5AyV7AUAwF/5Z2azxVkpWEe9cvb5HNBtyBCzkU+EaJlZTPIPqIFc1acQi+qDhLTm1gpv7tofU1TpBjunh8zr1HcBkOZ8bBnKhhbSajepjVMcFTeLReA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=T7Moi+hM; arc=none smtp.client-ip=95.215.58.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="Aol9WYie"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c122d85eae1so43399666b.1
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 02:03:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bynar.io; s=google; t=1782464606; x=1783069406; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=/NKt0Mt/SHh0nM9NlYpItPXQZdY1JVeNAiPrcQ3UdMg=;
-        b=Aol9WYiefrjy088K1Bt00UB8GORivLX9aWW+dILVDntGQwhjV41mJBHefvKstm4Cyq
-         wZvLt22PzMVZerpOFOU+qZTOMTsXi0m43i/zfzTfvgy/Mw/FufT2b1RDXs4swlfINkLB
-         Eu/Nl5uhjh+lRWC2vqwceUHKp00LtPB4H94wGHGhdjS7S8BNJpX7etOKvuzXqpA7LyrP
-         G+PZV1xl1ZGeNaj+cCdJN4ml9jM/QF9ib06ibAV/ApBpsuUOyzIuGmjEKbporcrRlLxG
-         CNUuLNIlgtpiJQCNIhiZdxN/x2oOCdLCvMUlgz+ixuvYOS5UpnXKEOQCzFwtJc7BTU/o
-         BWEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782464606; x=1783069406;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/NKt0Mt/SHh0nM9NlYpItPXQZdY1JVeNAiPrcQ3UdMg=;
-        b=sv6biuMjmvhA1xzv0m7b7lXJ5fHltbpr21ovs3FZ1yBK4Fqf39LsDhdW5XWMfhTiT6
-         Ph62CZsa+cZ63wSkj9LBznrCpru0rG8u3p5ohFZoUZDl8W/sk8rPpZHnYvSc2AOesLNX
-         SMyhYwqAl+1ddI+umq3YJqtLT3mppM//9JwKe5ShoFgb/793r1EvXLOZU4396l1A0FMN
-         0q6c0mGXdyP/NuEyZUUF6AMNFwa+QvhiR1f9f/1rkAnm/ecGeGPssft4NcIAQwO4tqCk
-         JJ70UdYQKgzNKIek9WaPSI22AThNIeDkzV/c7jQ5qJdBzdx3k6eJ1C96zv7vXZo/uJHq
-         xFhQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrh0uFOEQTNzWX9uM8Iu5gxjGbCqxfBSXxEyAKIYku43Stz0dbvoR3cY9/ioAFzt2vLZcjT31A=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyWLmyYa63U+CTseROtojYTRBCE0n9CgKqsC5kuMPfgD9rPMuzm
-	zi9cuQ6UqbwFtV9NF71Hk2uFMqTiAXNMJiu7Q+i9D5Ot5fkcnkWWTK/rYc6f9w0dCFU5
-X-Gm-Gg: AfdE7cks4k+zgBpOFfbrPifvElCIOk1g9xG4ZXuIwSAbXVQ7di7gztkEBcKDaIqohdq
-	brBzutWpzH7H74m4bGEU8KHKU/6wm+/kRNGy31vYwQqG/WtL+OU1HfLmkhKbb8cEDhX4MQmrxc9
-	qnFSCax1bqkDTx50aIxh881SL8aMpjGTO/uVPIU9DpWNpbPeH2qSlSRL4aqAMd+A4kYcPc/2lB3
-	CYEAit7D+ftZsRoJVZlD3qeWVD6WlGFoI/pNTxPnqlG5c2v2uRrwyv4ofZ3u6YO/OWKQeZgcZNe
-	Mi/NrpxOEgnsYTyR8vLqPP7peYHkCXOcs+Xl2syy8w3NhxUKZOFwzu8b6Z8Xb3dFJ5iielw55mt
-	z/OlTchg+hse34PEUPIW2jc2tnDmuPJ1wA8W9LX55yOd2I4vPGiIas1gpo5ZNP2wNpW5zYVipfV
-	vq
-X-Received: by 2002:a17:907:26c4:b0:c12:15b5:8773 with SMTP id a640c23a62f3a-c1215b5a71amr250832366b.6.1782464605602;
-        Fri, 26 Jun 2026 02:03:25 -0700 (PDT)
-Received: from localhost ([2a06:61c2:d427:0:b321:1c7a:b072:326e])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c11fbe05b6dsm317589066b.37.2026.06.26.02.03.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 02:03:25 -0700 (PDT)
-From: Samuel Page <sam@bynar.io>
-To: David Heidelberg <david@ixit.cz>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] nfc: nci: fix uninit-value in the RF discover/activated NTF handlers
-Date: Fri, 26 Jun 2026 10:03:01 +0100
-Message-ID: <20260626090301.2139500-1-sam@bynar.io>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="T7Moi+hM"
+Message-ID: <6adeecc1-7204-4d2b-8381-45e13633be57@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782465275;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wGkNXoDW7vkQPBFhvgku7f4WZ/LdspfionMDkNs4wus=;
+	b=T7Moi+hM7BpfWhMpIMJR9KVAP0rdMWWq1CBE6ZzZhxMG6sqFmMpykRL2sHculkidiIlFhD
+	aVrhifHc069IM7bStV5KZT3EheUxNmdM+QPc4fhmjhzNIj3+Ii7AeTez66Q0mZwiZMWXsw
+	iqz+Mz1SHIRdfvtcxiXwpqAmVY9TigY=
+Date: Fri, 26 Jun 2026 17:14:12 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 4/5] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
+Content-Language: en-US
+To: dev.jain@arm.com, linmiaohe@huawei.com
+Cc: muchun.song@linux.dev, osalvador@suse.de, akpm@linux-foundation.org,
+ ljs@kernel.org, david@kernel.org, liam@infradead.org, riel@surriel.com,
+ vbabka@kernel.org, harry@kernel.org, jannh@google.com, kas@kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, rcampbell@nvidia.com,
+ apopple@nvidia.com, ziy@nvidia.com, matthew.brost@intel.com,
+ joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com,
+ gourry@gourry.net, ying.huang@linux.alibaba.com, mel@csn.ul.ie,
+ nao.horiguchi@gmail.com, ak@linux.intel.com, j-nomura@ce.jp.nec.com,
+ pfalcato@suse.de, dave.hansen@intel.com, tglx@kernel.org,
+ jpoimboe@kernel.org, ryan.roberts@arm.com, anshuman.khandual@arm.com,
+ stable@vger.kernel.org
+References: <20260625112955.3254283-5-dev.jain@arm.com>
+ <20260626074855.97652-1-lance.yang@linux.dev>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <20260626074855.97652-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-nci_rf_discover_ntf_packet() and nci_rf_intf_activated_ntf_packet() each
-parse a notification into an on-stack struct (nci_rf_discover_ntf /
-nci_rf_intf_activated_ntf) that is not initialised. The RF
-technology-specific parameters are only extracted when
-rf_tech_specific_params_len is non-zero, so a notification that reports a
-zero length leaves the rf_tech_specific_params union uninitialised - and
-both handlers then pass it to nci_add_new_protocol(), which reads it:
 
- - discover:  nci_add_new_target() -> nci_add_new_protocol();
- - activated: nci_target_auto_activated() -> nci_add_new_protocol().
 
-nci_add_new_protocol() uses nfca_poll->nfcid1_len as both a branch
-condition and a memcpy() length and copies nfcid1/sens_res/sel_res into
-ndev->targets, which is later exposed to user space via NFC_CMD_GET_TARGET.
+On 2026/6/26 15:48, Lance Yang wrote:
+> 
+> On Thu, Jun 25, 2026 at 11:29:53AM +0000, Dev Jain wrote:
+>> check_pte() is the final validation step in page_vma_mapped_walk().
+>> It reads pvmw->pte with ptep_get() to decide whether the entry maps
+>> the PFN range being walked. For hugetlb VMAs, that pointer refers
+>> to a hugetlb entry.
+>>
+>> On arches which provide their own huge_ptep_get() to dereference a huge
+>> pte pointer, accessing via ptep_get() would cause pte_pfn(),
+>> pte_present() etc to misbehave.
+>>
+>> It is not clear whether this has a trivially visible effect to userspace.
+>>
+>> Use huge_ptep_get() to dereference a huge pte pointer.
+>>
+>> Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Dev Jain <dev.jain@arm.com>
+>> ---
+>> mm/page_vma_mapped.c | 8 +++++++-
+>> 1 file changed, 7 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>> index 2ccbabfb2cc17..18e1d341f463c 100644
+>> --- a/mm/page_vma_mapped.c
+>> +++ b/mm/page_vma_mapped.c
+>> @@ -107,7 +107,13 @@ static bool map_pte(struct page_vma_mapped_walk *pvmw, pmd_t *pmdvalp,
+>> static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
+>> {
+>> 	unsigned long pfn;
+>> -	pte_t ptent = ptep_get(pvmw->pte);
+>> +	pte_t ptent;
+>> +
+>> +	if (is_vm_hugetlb_page(pvmw->vma))
+>> +		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
+>> +				      pvmw->pte);
+> 
+> I think check_pte() can pass a wrong address to huge_ptep_get() ...
+> 
+> Not sure that is wrong in the first place. For memory failure,
+> page_mapped_in_vma() can be called with a poisoned tail page of a hugetlb
+> folio. In that case, pvmw->address need not be hugepage-aligned.
+> 
+> @Miaohe
+> 
+> For arm64, CONT_PMD_SIZE is one supported HugeTLB size. With such a VMA,
+> page_vma_mapped_walk() passes that size to hugetlb_walk():
+> 
+> bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+> {
+> 	...
+> 	if (unlikely(is_vm_hugetlb_page(vma))) {
+> 		...
+> 		pvmw->pte = hugetlb_walk(vma, pvmw->address, size);
+> 		...
+> 	}
+> 	...
+> }
+> 
+> hugetlb_walk() then calls arm64 huge_pte_offset(mm, addr, sz). For
+> sz == CONT_PMD_SIZE, huge_pte_offset() aligns its local addr before
+> calculating pmdp:
+> 
+> pte_t *huge_pte_offset(struct mm_struct *mm,
+> 		       unsigned long addr, unsigned long sz)
+> {
+> 	...
+> 	if (sz == CONT_PMD_SIZE)
+> 		addr &= CONT_PMD_MASK;
+> 
+> 	pmdp = pmd_offset(pudp, addr);
+> 	pmd = READ_ONCE(*pmdp);
+> 	...
+> }
+> 
+> So for that case, pvmw->pte is calculated from the aligned addr, not
+> necessarily from the original pvmw->address. But check_pte() passes the
+> original address together with pvmw->pte:
+> 
+> +		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
+> +				      pvmw->pte);
 
-  BUG: KMSAN: uninit-value in nci_add_new_protocol+0x624/0x6c0
-   nci_add_new_protocol+0x624/0x6c0
-   nci_ntf_packet+0x25b2/0x3c30
-   nci_rx_work+0x318/0x5d0
-   process_scheduled_works+0x84b/0x17a0
-   worker_thread+0xc10/0x11b0
-   kthread+0x376/0x500
-  Local variable ntf.i created at:
-   nci_ntf_packet+0xbc2/0x3c30
+In addition:
 
-Zero-initialise both on-stack notifications so the union reads back as
-zero when no technology-specific parameters are present.
+Went through all arch code that has its own huge_ptep_get(); only
+arm64 and powerpc actually use addr, and there addr has to match the
+ptep, IIUC.
 
-Fixes: 019c4fbaa790 ("NFC: Add NCI multiple targets support")
-Fixes: e8c0dacd9836 ("NFC: Update names and structs to NCI spec 1.0 d18")
-Link: https://lore.kernel.org/netdev/20260623172109.1105965-2-horms@kernel.org/
-Cc: stable@vger.kernel.org
-Assisted-by: Bynario AI
-Signed-off-by: Samuel Page <sam@bynar.io>
----
-v2: Drop the inaccurate activation_params / NFC_ATTR_TARGET_ATS scenario
-    from the commit message. No code change; the ntf = {} fix is unchanged.
+So I am wondering whether all huge_ptep_get() callers satisfy that
+requirement.
 
- net/nfc/nci/ntf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Cheers, Lance
 
-diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-index c96512bb8653..274d9a4202c9 100644
---- a/net/nfc/nci/ntf.c
-+++ b/net/nfc/nci/ntf.c
-@@ -440,7 +440,7 @@ void nci_clear_target_list(struct nci_dev *ndev)
- static int nci_rf_discover_ntf_packet(struct nci_dev *ndev,
- 				      const struct sk_buff *skb)
- {
--	struct nci_rf_discover_ntf ntf;
-+	struct nci_rf_discover_ntf ntf = {};
- 	const __u8 *data;
- 	bool add_target = true;
- 
-@@ -688,7 +688,7 @@ static int nci_rf_intf_activated_ntf_packet(struct nci_dev *ndev,
- 					    const struct sk_buff *skb)
- {
- 	struct nci_conn_info *conn_info;
--	struct nci_rf_intf_activated_ntf ntf;
-+	struct nci_rf_intf_activated_ntf ntf = {};
- 	const __u8 *data;
- 	int err = NCI_STATUS_OK;
- 
-
-base-commit: 02f144fbb4c86c360495d33debe307cb46a57f95
--- 
-2.54.0
+> 
+> arm64 then uses that addr again to choose ncontig:
+> 
+> pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
+> {
+> 	...
+> 	ncontig = find_num_contig(mm, addr, ptep, &pgsize);
+> 	for (i = 0; i < ncontig; i++, ptep++) {
+> 		...
+> 	}
+> 	return orig_pte;
+> }
+> 
+> static int find_num_contig(struct mm_struct *mm, unsigned long addr,
+> 			   pte_t *ptep, size_t *pgsize)
+> {
+> 	pgd_t *pgdp = pgd_offset(mm, addr);
+> 	p4d_t *p4dp;
+> 	pud_t *pudp;
+> 	pmd_t *pmdp;
+> 
+> 	*pgsize = PAGE_SIZE;
+> 	p4dp = p4d_offset(pgdp, addr);
+> 	pudp = pud_offset(p4dp, addr);
+> 	pmdp = pmd_offset(pudp, addr);
+> 	if ((pte_t *)pmdp == ptep) {
+> 		*pgsize = PMD_SIZE;
+> 		return CONT_PMDS;
+> 	}
+> 	return CONT_PTES;
+> }
+> 
+> With a tail address, pmdp may no longer point at pvmw->pte, so
+> find_num_contig() can return CONT_PTES for a CONT_PMD HugeTLB mapping.
+> 
+> On 16K arm64, that changes ncontig from 32 to 128. So huge_ptep_get()
+> can walk past the CONT_PMD entries, and possibly past the PMD table.
+> 
+> Should check_pte() pass the address matching pvmw->pte, sth like:
+> 
+> ---8<---
+> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+> index 406fd50bbd8f..58463493bd3d 100644
+> --- a/mm/page_vma_mapped.c
+> +++ b/mm/page_vma_mapped.c
+> @@ -109,11 +109,14 @@ static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
+>   	unsigned long pfn;
+>   	pte_t ptent;
+> 
+> -	if (is_vm_hugetlb_page(pvmw->vma))
+> -		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
+> -				      pvmw->pte);
+> -	else
+> +	if (is_vm_hugetlb_page(pvmw->vma)) {
+> +		struct hstate *hstate = hstate_vma(pvmw->vma);
+> +		unsigned long haddr = pvmw->address & huge_page_mask(hstate);
+> +
+> +		ptent = huge_ptep_get(pvmw->vma->vm_mm, haddr, pvmw->pte);
+> +	} else {
+>   		ptent = ptep_get(pvmw->pte);
+> +	}
+> 
+>   	if (pvmw->flags & PVMW_MIGRATION) {
+>   		const softleaf_t entry = softleaf_from_pte(ptent);
+> --
+> 
+> while leaving pvmw->address unchanged for page_mapped_in_vma()?
+> 
+> Cheers, Lance
+> 
+>> +	else
+>> +		ptent = ptep_get(pvmw->pte);
+>>
+>> 	if (pvmw->flags & PVMW_MIGRATION) {
+>> 		const softleaf_t entry = softleaf_from_pte(ptent);
+>> -- 
+>> 2.43.0
+>>
+>>
 
