@@ -1,36 +1,36 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875C13A8755
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E42D23AEF3E
 	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 18:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782497325; cv=none; b=UXfdoXKDuWjM5dtxiCUNAWTMx5yJeYOIIeIwa4iCD4N/4JemB2h1JMhoR22EyJtxTXHQ3KmBuQUTcrPFY9vvEPfVmPa4RZ2aYmd1SVK1e77grPVtTbfPbsbtEuS8afYGSVFMP70XURMxl6MX+4o7ZcLiF64a5V84RRuS+P42PXg=
+	t=1782497325; cv=none; b=t8LuK1BEHU/UmtAvyq9XdTpwCilHXHOR1GQFKeUjHwT2XweNl54M3e2kGDk+8+ZhvKRy8npLlyOn1Dc4tdzqYYz5blU8ul6FrYIA31c5T5IlYXms4xX4leckhEOyPmtmuEC0LoyERJP8O406ASPQXrZ3HAM1aWTrZeT95bOvM6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782497325; c=relaxed/simple;
-	bh=lf7gCt4JvwgPZLAIcz+/BuuF8UKNLHkFcmNnzYnIibQ=;
+	bh=5IMepZ/Da3Y91Digr8egqHe4xMwDE3MqQTLyJVBWVpo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Zx6c1e3batujw6QUgT5KcJKC/2mRKSPLnLu1z3dByF5qHRWyAUCmbfCZPqYjhqVzJoDzm0N76BqRW4tRgy8RW9YFbdbG9Z/M5lpzoju8ntpq32i4JiQcmG8nodOAziyZOr1nQQTS24upaIJcdrTx/9j2iGDEjiiHAovIx2B8jz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=FrNHXWa0; arc=none smtp.client-ip=54.206.34.216
+	 MIME-Version:Content-Type; b=mxz7Sd/nFd5AFqmxWwUgFlcnVWkCSYuLb1NJg0M2oBd8FGa/8YH3+1rb4xsiYxp5ZuGnWrnW3iy6SXNio698JTMbv6ullBR4L8n6u4bx8Mka1aOEUVpUCWq5m6FWXwl46t+0a8XwT/lIQhrvTZhLLLcD84bVznQTfefo+mZsg9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=gUrG8Dow; arc=none smtp.client-ip=54.207.19.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="FrNHXWa0"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="gUrG8Dow"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1782497302;
-	bh=XHZDzlXJFPduKF5+7NaJ9ixoUF88W9Qnjgr+DXyETOA=;
+	s=onoh2408; t=1782497282;
+	bh=aN0VHnpgeIuDDuBFVLSyfGxovRoghhsjJFX244cZt1Y=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=FrNHXWa0Aoie5qjmV+1015OD5Ic4UOxQ+G65n3L9u2O1rXpiNqDvwOdYi0PvZ/jnR
-	 OQijI9COeHchz6gl4nmhWXQ43RQj5XJFePhfiy4t6ud22POIv3wCJ/5mNbkYk0ltoZ
-	 +gFIjEgObq83MOUd52psi2ovNHU2zN1PntODrWt4=
-X-QQ-mid: zesmtpgz6t1782497283t382e25b4
-X-QQ-Originating-IP: oUnkhoqAzq+GfIeMtddsZyDpGZLxVOHrF3aUiGKqTy0=
+	b=gUrG8Dowine10zSg4XNnadED4Yzq0QyilYBQOaeT5grC1Y+eW7CuUWAeya3yajEp6
+	 4jTVOVtRsSg3dfqFOoLE2wOjYWhqjP75QuC6zIU+8uWqnC3clw2tT7G1HNKX4Ddj/7
+	 1Us+/drZTxetegGUbh4BHDb/YcNHLjfoK5PtmHP8=
+X-QQ-mid: zesmtpgz6t1782497260tcdb310cb
+X-QQ-Originating-IP: IwmEtnmR2j5k3hfK2Sm5PoBjKg4pwKzgE1/RnZ9N8Mo=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sat, 27 Jun 2026 02:08:00 +0800 (CST)
+	id ; Sat, 27 Jun 2026 02:07:38 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11786072418164360325
+X-BIZMAIL-ID: 4986354597952941750
 EX-QQ-RecipientCnt: 17
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org
@@ -50,131 +50,76 @@ Cc: 2045gemini@gmail.com,
 	toke@redhat.com,
 	victor@mojatatu.com,
 	yimingqian591@gmail.com
-Subject: [PATCH 5.10.y v3 04/10] net/sched: act_pedit: remove extra check for key type
-Date: Sat, 27 Jun 2026 02:07:29 +0800
-Message-Id: <20260626180735.297017-5-guanwentao@uniontech.com>
+Subject: [PATCH 5.10.y v3 00/10] net/sched: fix pedit partial COW leading to page cache corruption
+Date: Sat, 27 Jun 2026 02:07:25 +0800
+Message-Id: <20260626180735.297017-1-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260626180735.297017-1-guanwentao@uniontech.com>
+In-Reply-To: <stable-reply-item001-act-pedit-510-20260626@kernel.org>
 References: <stable-reply-item001-act-pedit-510-20260626@kernel.org>
- <20260626180735.297017-1-guanwentao@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: ObFHHlrAm440e6KhvyZdyOTeX9Q6mXEh9CyKBUqjXuYmCe4yps9nSO04
-	k9V/FBx6M9KtOmxkROMOqN6JmKx/OQfe0PP2qC1yy9B8frCbJDAuB9yIn40HVKF0J6s8aSr
-	G11GmKW9ROhGTdexh5Y5QWfRKBqNCLPan79QkrQSzcHHjlCcZSsC2UKCa9LZd+LX1VDdIb+
-	d0yPK85qiL3lP/Z8vj4JI0gaRc1r7pUsWqtHuhhnZ0AAwZpiaK08kWyok91IjH/syrfW4dY
-	rk3rqcytdZqb4sJSX8KK0+lv/mfVRvye9Cq5yNDLx1USm/YftFFmF0Pov/5mUcvZHquNUkt
-	uvE4dEbPP8dE5j7qDM1Tu/JRKFY2xTnJ3zfkDRDoLlFyN3kDHnT4t8+YeqsTZ6o2cjnXMLd
-	P0+wu/jSXJ7q8Sa5eft8ns7+Pd2PXJ2T2fQLkERgiq5WCWTJOdwydQxYFaZAXqkMmHjY9Le
-	5TZ7eLFzQkfTKJSKIg/zS886BICsnHqWVAQlM8X+Lkm0rV9+9CO/27MsGLIM4RHclARthi7
-	qBxLxL9fJsyCY8REDpWbBcl7ZWDUuSAgzBs2Hme16tYJWxPLL9eqjH7yv6pUpaWzcouMX8g
-	vY3Ovw0mmDJM/YOiUggwxglSbZ2DkENlYeDuGZiFLX3uoqN/gzUZ9vvkHnfIdINMGS6m1h6
-	lNCg9tx7WVpWDdN0kSHTQTNC06n/7guej6Gd9AsOyhbAo9O0bhhTP9Vw+kBMR9sMykPrtF7
-	QS/JwWpOMdibcWQkz3DjHMV6z616ihZfzVL4UYCNl75x9YCGGsmcCGESeaLk2IXP6looogP
-	jancSNvHN6/HIRqG1JgTvq6ZQgAbA7w+u3MI1pxYF3v+czkwtCqcYZ/T/Sx/f9uxBWVZdVV
-	LObHJ/3F7POP0zZZFYNZgy8EnZFRIaUGeXR3jzR0zuJo7dFVH14ZgL0/Yb9ln6cKLJiU7vJ
-	tA2nT+Fadze6ryEl+AFOdR6I6rINBNJ3PQwZIWqUxNinSxiPUh+KH78DKeS+PJEGhKxhi/L
-	xrnfg+9JARMEojXbgaC7F6hiu4pu46J4zGql3INgqYDqmgAn7TlQWO/LN26gtzmPtnV6IGP
-	E3vn1SRE9IaJTPDtFZL5jU=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-XMAILINFO: MOfwHzgDpc8I6vAMhILsjXzxJha5Rprv3r0adgB5OdibKAlf+J77eAU4
+	moHd6qkZwRrQwUlqPgp2pqMR+rtJritZF+k3PW7OwgS2GcV0KL2e4Mz4m10HgAmfaPBKAIC
+	cUO+q361p7rq2Me9/s/e+qYApsP6JpnAjOt+VzO7BwJTynPYM1qyCveO6KwNuwxU3wYqH0L
+	OpGnQjX8ffwl0v5uT3ccr5mdUhV1I2dqJDEtmZK4TxhYfOIwqCJNaHgrwACJZ3vLyZvRF1P
+	nC3wMh0moTYwKq/HcjmAugRL+29taPFPXNw0uUiQKLciwvscR75pW3ZPqzZsxRl4IuetJ9o
+	IGUeyHefb5Cghs1aku26yB5928Aa4eBJ9j0LXLKYDZH9mKJjrIpI8EbSlilmVJKtIQaepcU
+	jqNFRaEOyvlo02AA4xEIR7UEqEwlXrRqYWIYH0lOTMHLX11NBqKLzkxD03NG9DTwPmHPEDy
+	lKMNYs/+ucz5/qB7qP3z1PuBG8kSGqki137+HbelGlAoTUZj2N33cMbDU2GvSYJKU78RB5h
+	VMtGMy7gvQNdHSFt7jUjJ6sV5gdUdjuziRfI5CGaFjducTd1JuBZu7C5coKmMaFq6CNfXZv
+	ymAnNuKQr5pnm+aW32LTlY5jtLPwhnyeMKxjagU7Th2m8BMPNUhZvywib/08XK3LSCPBjlN
+	Sq+Upb3tOhEJuUrhc+jM+VzrOxneMQ4gItYIYhD26h/IWRWarZvRUZgbd3a+EmTdNNcua7u
+	dHEm8myHXyTYnqWTqP2foQB7PO15lK9sxEv9MRiZnRi1azNITcZjbz7fElCYL20+MZ4e9Li
+	vN4Jt8tjmTew3DIVETZ1s1E8TIMnhUGx+dQQBDoAVlrgzo3+Y3AlE2Nuer3+OMmLEJCkCc/
+	kbJ0vemiQl2vhaCkYf4lAciLlhduq+Fd9TEwPDlj18FdsCDc/WvWZolBgkS99l49c0W/+6z
+	mLkYcUUdG7N/ee0MAFD7N/hJLOSbFqRr2ZyLu3vIuv3+pI8P2caefQGJPlQBa1RITyldN/o
+	4G+a6i46um8ZlY7RMi1qMmDKm/Ht2RFT24Q1didH93476enLwGVwrkilQsRXU7rwOHpOb9S
+	rByEfgnOWD7obGWehziDa4=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
 X-QQ-RECHKSPAM: 0
 
-From: Pedro Tammela <pctammela@mojatatu.com>
+Fixes CVE-2026-46331: net/sched: fix pedit partial COW leading to page cache corruption
 
-[ Upstream commit 577140180ba28d0d37bc898c7bd6702c83aa106f ]
+Link: https://lore.kernel.org/all/2026061625-CVE-2026-46331-47be@gregkh/
 
-The netlink parsing already validates the key 'htype'.
-Remove the datapath check as it's redundant.
+changelog v3:
+    Add ("net/sched: act_pedit: fix action bind logic") commit,
+    it also fixed the memleak in tcf_pedit_init() -> if (bind) -> tcfp_keys_ex leak.
 
-Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Reviewed-by: Simon Horman <simon.horman@corigine.com>
-Signed-off-by: Pedro Tammela <pctammela@mojatatu.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
- net/sched/act_pedit.c | 29 +++++++----------------------
- 1 file changed, 7 insertions(+), 22 deletions(-)
+v2 Link: https://lore.kernel.org/stable/20260618075342.1599593-1-guanwentao@uniontech.com/
 
-diff --git a/net/sched/act_pedit.c b/net/sched/act_pedit.c
-index 84152d3a49246..957ce9017c3f7 100644
---- a/net/sched/act_pedit.c
-+++ b/net/sched/act_pedit.c
-@@ -305,37 +305,28 @@ static bool offset_valid(struct sk_buff *skb, int offset)
- 	return true;
- }
- 
--static int pedit_skb_hdr_offset(struct sk_buff *skb,
--				enum pedit_header_type htype, int *hoffset)
-+static void pedit_skb_hdr_offset(struct sk_buff *skb,
-+				 enum pedit_header_type htype, int *hoffset)
- {
--	int ret = -EINVAL;
--
-+	/* 'htype' is validated in the netlink parsing */
- 	switch (htype) {
- 	case TCA_PEDIT_KEY_EX_HDR_TYPE_ETH:
--		if (skb_mac_header_was_set(skb)) {
-+		if (skb_mac_header_was_set(skb))
- 			*hoffset = skb_mac_offset(skb);
--			ret = 0;
--		}
- 		break;
- 	case TCA_PEDIT_KEY_EX_HDR_TYPE_NETWORK:
- 	case TCA_PEDIT_KEY_EX_HDR_TYPE_IP4:
- 	case TCA_PEDIT_KEY_EX_HDR_TYPE_IP6:
- 		*hoffset = skb_network_offset(skb);
--		ret = 0;
- 		break;
- 	case TCA_PEDIT_KEY_EX_HDR_TYPE_TCP:
- 	case TCA_PEDIT_KEY_EX_HDR_TYPE_UDP:
--		if (skb_transport_header_was_set(skb)) {
-+		if (skb_transport_header_was_set(skb))
- 			*hoffset = skb_transport_offset(skb);
--			ret = 0;
--		}
- 		break;
- 	default:
--		ret = -EINVAL;
- 		break;
- 	}
--
--	return ret;
- }
- 
- static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
-@@ -367,10 +358,9 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
- 
- 	for (i = parms->tcfp_nkeys; i > 0; i--, tkey++) {
- 		int offset = tkey->off;
-+		int hoffset = 0;
- 		u32 *ptr, hdata;
--		int hoffset;
- 		u32 val;
--		int rc;
- 
- 		if (tkey_ex) {
- 			htype = tkey_ex->htype;
-@@ -379,12 +369,7 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
- 			tkey_ex++;
- 		}
- 
--		rc = pedit_skb_hdr_offset(skb, htype, &hoffset);
--		if (rc) {
--			pr_info("tc action pedit bad header type specified (0x%x)\n",
--				htype);
--			goto bad;
--		}
-+		pedit_skb_hdr_offset(skb, htype, &hoffset);
- 
- 		if (tkey->offmask) {
- 			u8 *d, _d;
+changelog v2:
+    Add ("net/sched: act_pedit: Parse L3 Header for L4 offset") commit.
+v1 Link: https://lore.kernel.org/stable/20260618043539.1557035-1-guanwentao@uniontech.com/T/#ma9ef6d260833405f60ae88a1686e967b1416d80c
+
+Max Tottenham (1):
+  net/sched: act_pedit: Parse L3 Header for L4 offset
+
+Pedro Tammela (8):
+  net/sched: act_pedit: use NLA_POLICY for parsing 'ex' keys
+  net/sched: transition act_pedit to rcu and percpu stats
+  net/sched: simplify tcf_pedit_act
+  net/sched: act_pedit: remove extra check for key type
+  net/sched: act_pedit: check static offsets a priori
+  net/sched: act_pedit: rate limit datapath messages
+  net/sched: act_pedit: free pedit keys on bail from offset check
+  net/sched: act_pedit: fix action bind logic
+
+Rajat Gupta (1):
+  net/sched: fix pedit partial COW leading to page cache corruption
+
+ include/net/tc_act/tc_pedit.h |  80 +++++--
+ net/sched/act_pedit.c         | 390 +++++++++++++++++++---------------
+ 2 files changed, 289 insertions(+), 181 deletions(-)
+
 -- 
 2.30.2
 
