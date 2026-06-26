@@ -1,73 +1,81 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D393FFAAA;
-	Fri, 26 Jun 2026 16:12:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F29A83FF891
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490338; cv=none; b=GYRn9/0rebUkpj1oWoLdIxTT6mKIu550QBf2n9tmb7g+W331gvXIOhIHO50J+/C+cPEYbiQyvKyHUPmU2KWoAdK+Q3eaOq28+QAwxwLDWbFIdfJP07uIhPGFrDatToSTf7PzcUGr1RdTudBi/5hDTDK/RbmbUXFZ48aeJyhP/AE=
+	t=1782490338; cv=none; b=Bgeym73rJ/OQ+Q/vK8HGCZ2752rY3i/ThLrMDbhMVtcw3rAEQGbXcE/4pR8yW8w7xH4fz63AbiDXfb6dpJqDyU7GrQgoGsEMg8iTu82s9e+Oy9OxdiG7I+il6WAhMqAwmgP0YeonMbFamIXCAhLc7CIoIqrZ3JleHG9kRpzW4z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490338; c=relaxed/simple;
-	bh=UnfWeBJE9qWardTh3ZWICGyqoW933As04tJPSFuFgU0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vAX8f0wShWMjtdB3nKJfTUAXg8y4gQip3Nqyu/V9Slu8ULJfxMAQ5TgvYPyruLQk6D3enJ0URJjlndcy4c1Hhwd8Ek/bEneO81fq5Zk6hajlA5w2ugJ4oDIU3hIW0rM7406JtslAf49QjKk6L0tHVVunf1OajLQtr4r7cEEA6nU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Cupxrwo3; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	bh=/M2LSQ9/Tu4jhaK5HlezaQBpMboiP4RW0fx4VhdeeJU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Jr5f0HB6/uNlHd3P2MvYAkuK5Sfev7nebqVyyiCpHMxtpHyYRlY9EdnTjcMrOREDg/uR5dZoK6rq6WplfB0s9rpfMZtILsXygOXFgVT2odPgO7tVsn54fTOUMewINORlVgofO3NtPVHaob0zwjLD3N43K7xytun4YxwhyyfqRrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=foARyhp1; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Cupxrwo3"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=o9Rylrd0yB6wm96yBWqeZ1NB9Ha5dTiEZdM6gjx8KlQ=; b=Cupxrwo3q7HKxXah4HMTaNSDk2
-	UiRrCC1HNnqRaQ0kBIcIo3cKEAcVoaJg6J2cZHwN8sT9SkfJXUaAwbdrfpZpFyzXe6QUnWpr0TDWf
-	UOVpKhqgbe74dR9tntbivbYuf8dtvExDMznQtzwHO9eFkAtf8inCye4SfYbDz+euXjmg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wd99x-009OGv-MF; Fri, 26 Jun 2026 18:12:05 +0200
-Date: Fri, 26 Jun 2026 18:12:05 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: WenTao Liang <vulab@iscas.ac.cn>
-Cc: Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Roger Quadros <rogerq@kernel.org>, netdev@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-omap@vger.kernel.org, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fix: net: ti: cpsw_init_common: fix excess of_node_put
- on parent node when   cpts child not found
-Message-ID: <52d1d43a-efff-40f4-b111-a90f0cdc2ffa@lunn.ch>
-References: <20260626152945.52192-1-vulab@iscas.ac.cn>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="foARyhp1"
+Received: by dvalin.narfation.org (Postfix) id F2AC21FDCC;
+	Fri, 26 Jun 2026 16:12:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1782490332;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CiRnwruOtFW/Mt9gcW5oNBrEBVlXVHddrKt/KFH4+Oc=;
+	b=foARyhp1PXrrQ7PxlopNlgLDng5NW+bSkGwhE4/zNfMsHukvC0N8rm0v/OWL+uxJXeGcIl
+	qTUVuuof2qnj4nfKtpTkZvL7/5GDw8fUCL+fokH3grtmN5NZiDPlTAPQfLgrT46+RvNpEu
+	KjevKMdf/WSWwXMe9Qbg+XR2bnbZkk8=
+From: Sven Eckelmann <sven@narfation.org>
+To: stable@vger.kernel.org
+Cc: Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 6.18 02/26] batman-adv: tp_meter: initialize dup_acks explicitly
+Date: Fri, 26 Jun 2026 18:11:46 +0200
+Message-ID: <20260626161210.124712-3-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260626161210.124712-1-sven@narfation.org>
+References: <20260626161210.124712-1-sven@narfation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260626152945.52192-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jun 26, 2026 at 11:29:45PM +0800, WenTao Liang wrote:
-> When no "cpts" child node exists in the device tree, cpts_node is
->   assigned cpsw->dev->of_node without taking a reference via of_node_get.
->   The function then unconditionally calls of_node_put(cpts_node) at the
->   end, causing an excess put on the parent device node which can lead to a
->   refcount underflow.
-> 
-> Use of_node_get when falling back to the parent node to ensure the
->   reference count is properly balanced with the subsequent of_node_put.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: ed3525eda4c4 ("net: ethernet: ti: introduce cpsw switchdev based driver part 1 - dual-emac")
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+commit b2b68b32a715e0328662801576974aa37b942b00 upstream.
 
+When an ack with a sequence number equal to the last_acked is received, the
+dup_acks counter is increased to decide whether fast retransmit should be
+performed. Only when the sequence numbers are not equal, the dup_acks is
+set to the initial value (0).
 
-    Andrew
+But if the initial packet would have the sequence number
+BATADV_TP_FIRST_SEQ, dup_acks would not be initialized and atomic_inc would
+operate on an undefined starting value. It is therefore required to have it
+explicitly initialized during the start of the sender session.
 
+Cc: stable@kernel.org
+Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
-pw-bot: cr
+ net/batman-adv/tp_meter.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
+index f222c5093b647..fe9a447643074 100644
+--- a/net/batman-adv/tp_meter.c
++++ b/net/batman-adv/tp_meter.c
+@@ -1045,6 +1045,7 @@ void batadv_tp_start(struct batadv_priv *bat_priv, const u8 *dst,
+ 	tp_vars->icmp_uid = icmp_uid;
+ 
+ 	tp_vars->last_sent = BATADV_TP_FIRST_SEQ;
++	atomic_set(&tp_vars->dup_acks, 0);
+ 	atomic_set(&tp_vars->last_acked, BATADV_TP_FIRST_SEQ);
+ 	tp_vars->fast_recovery = false;
+ 	tp_vars->recover = BATADV_TP_FIRST_SEQ;
+-- 
+2.47.3
+
