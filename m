@@ -1,86 +1,165 @@
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECC63D891B;
-	Fri, 26 Jun 2026 07:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.252
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03E131E857;
+	Fri, 26 Jun 2026 07:15:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782457783; cv=none; b=Yu1gjL+6Ws70w1LlktUvtw2h+7l0iSS2/pR0+QeYTvNyudrxchE3cvOD4DnHGdy3WYHJ4WsYw9/mgJk6DK3WT76fXXWjwYqk2wMaHPrnKJQpf3h5lUejSmsu2kh9VzmVk32mX+ggtMkOeV5okRiQguPzhvO6VLy2e86pyATJB5Q=
+	t=1782458135; cv=none; b=tdcVmU/SoIcgcMLyjIBfmQj3bls+yyLl4ki3XtkGLJaG1knJtyDzI0hSXSlHcWwtO2uQeJ2Y6VzjcXueLQxVAK5oDHQuqtpcihg38TQ5RfQGVgmxVt4MVdkceOUrlVeMsvkCnj9qpM4kQeuqnq+ZJzsnCm0sOwATQtHL6Ba0Hss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782457783; c=relaxed/simple;
-	bh=H0rIl8IMroax6WrZL4md7RY9Ay+Hp5SuVhxcFaXxkcQ=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=jLlD6h8u+FQaCLKU3VZ+tVzEKUQ2dtK+C0rngLLuYZR+i/GZmRfiT2++d0TzGdRMkdknKvtAsmOq+Hy5dYABlPqUT9F+hq/zu6kudthl9bFg2dYCUMoh9i4W/Af8tDtUHxOF6nmu2J6K42oKCX+fR5w5+jwLKEbqcQusAyUH7zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=Q4uD/o4j; arc=none smtp.client-ip=162.62.57.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1782458135; c=relaxed/simple;
+	bh=9RR1bBMY56xbcT+FAcSx+2o3Qwm6rpAKLhB42TGTEHI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f4qE7ljkwzaeRRRT3+VZ0t7E3NU6rM2dDCgMjrKuXrr4d1pDVBECG8wV0ehiccaLf1i8OWj+myC9TeEMsvzR7lmX3hJfRMTsWXmGJzZCAF34DcHzw60jUpc9QbpJPZxbceAQVEyWpYDYDQK0Zgj4DSRL+hFdTHFNQxNH14CKnI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OxwOaYpa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="Q4uD/o4j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1782457771; bh=H0rIl8IMroax6WrZL4md7RY9Ay+Hp5SuVhxcFaXxkcQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q4uD/o4j0PZj6eT4cS3gNY94ZMMslIIMKjyGlM+M0l8x/qLMKZgMvTnA0s0VB8RWx
-	 iaF7mbRwVgVm+hg0gnSgHNVoE7pnDPPMKBxx/zZSQy1v1jdPK2DZP5vVPk0PB0xZ2z
-	 0maVXWXVWUxiVrIYehLKvI3likQgtYjBK9Sw+pAY=
-Received: from June.localdomain ([123.121.145.35])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 21586E06; Fri, 26 Jun 2026 15:08:21 +0800
-X-QQ-mid: xmsmtpt1782457701tpq07hp1i
-Message-ID: <tencent_E1AD8BE1AA3FE434224010902B7526A0BC09@qq.com>
-X-QQ-XMAILINFO: MiFcTO7j4Hd/Xgi7YcbabokbXn9GjppQ2RnQR43i//0mq+NZIZK51I7PnjSnHC
-	 LIFBA60+NkhD0AbOhwf5N2Xb8UQSY9RrFEnqkEyzGDNafKKc7tWyI0XT97ga4qiofSpJGoFUJtWY
-	 ZqyQqGado9juaw8kVYXof3gTWy+pIQdukJzkUdjCgczmJcclkPC0RpuUeYNO1LWzIoUZwMdFfr6p
-	 q9oWDfAG5erWFksyZZO65r3hZIQvQT6V75uZ8wmXe6P8HkeUihedmhBSRV1itgzlM9U+jXXeNfOI
-	 7R/78D5SKaxiJQ7gSma7qoOTkiFiy3wHnpNCIF3tleX5A3FDAkuQK4pgCOtsnd2My54SQbWP4pjp
-	 Lg/VXC184RbZ12a73UoJCOtVu+budkE2JyuiED4FvUFw0Lnc1SGtLsNboRw37CLBJQVE7hDl8hs4
-	 kYVoRFz3kTrfDX3fQgKBUTrlQAXbB3HqcP/k7Lf5aG6ezTolGFIxstThIy/j0xz501/vFevW2Egm
-	 +x0cJGyS5TYkbcIB/QbxNMtE2jPnpclYTcZptY1HFds68s9c4joEgrtrM2n1KCxdTgld8Lil4D1I
-	 1XUTO0+o6cNGdPLd54BcM33NtaMUBocQXClv1JcGaBaqmwYISDDWT2XoKFiLM3XTYwvlVNh6XxJX
-	 CKT55KtZfz1uFqQW+qJ1aRwpjgIq6DtSomWzYcgPmILQAhRnRKK/3RCoROfMgHR43bHAfmtnFwo4
-	 spCKWaQQ1p5rlHgMEXTZimxX4fxwD4q9dZe4qqt5VUCs4gLnrmsdwxLz1BhearwcnUEyVkJvGDXT
-	 WbkbDObX6EurS7YjUTFolf/Ham3kQ/VnL0Fj/TedhOUVBp2L6tE8T7QeslVtUjXUvn5y2Ougw3g+
-	 eJ1hJOGN4vFnT2zK7I+rwFSmU8bT3cE+ffcdTeNHSyjdB6dYJxa2uD8N2JQ21Q+Idad4ME73iGrr
-	 89U7Blb5Jt+do5BwAbmJQmEhhz7jScQSilgcnSGwlXmO4YfT3DI8Nf75/O/DkW+i7SpspuOJnxNH
-	 UOpSUq9A8fEDhDowhK4OC+KsiKnHaqrXV1GG4bOlnLZztg6OSkRpRIVt4TDLfRK5HqHJmzylQggK
-	 ivd88gZ2LCT3LYBI75b44TYJRVGRkabKqMdgH7
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: Wang Jun <1742789905@qq.com>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	libaokun1@huawei.com,
-	25125332@bjtu.edu.cn
-Subject: Re: [PATCH] ext4: fix crash when ext4_ext_insert_extent() returns error
-Date: Fri, 26 Jun 2026 15:08:21 +0800
-X-OQ-MSGID: <20260626070821.15979-1-1742789905@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026062643-tamer-limes-a320@gregkh>
-References: <2026062643-tamer-limes-a320@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OxwOaYpa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B840A1F000E9;
+	Fri, 26 Jun 2026 07:15:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782458133;
+	bh=3lVxdm0Ep0/M2ZYIKTC77sSAb+8Ja64CITv1+WKNFCo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OxwOaYpaqmr2aOcT0SoHP1REiLiNj80JROVsNPvrfmy/4xobxnTZ8DFNS8aLhzsG2
+	 pc1JYInzhAEN2BaPLK5IIiAOHveUeNvdS1h9ZGykqqnp5ZGjRF3zukUH5/xWpDaG4a
+	 RLnkTDu6Q+3/Z+sAuJ4XlXT4mNqSWDTTOVDsTtQi8inuy+EB/yIT2FcP2ihzw3bZqr
+	 j+iVV5RthEeDUHnj51btEokTNkIRCnngT+INPOu+UcePKVCbVPX4EZKw+Tlt7lv3My
+	 3mwPy1OWlmkE3FxK8W0FsHXg9gLrC5vSd88rLK6Wzytl3VcjKiIyKvITr5gkqr/kZ9
+	 26sUDDbQD9wjA==
+Message-ID: <dc5e47af-1434-4e43-8ca7-f90de3dc3f63@kernel.org>
+Date: Fri, 26 Jun 2026 16:15:24 +0900
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm: mglru: fix stale batch updates after memcg
+ reparenting
+To: Qi Zheng <qi.zheng@linux.dev>, akpm@linux-foundation.org,
+ david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
+ baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+ weixugc@google.com, hannes@cmpxchg.org, muchun.song@linux.dev,
+ peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
+ ljs@kernel.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+References: <20260625151554.55105-1-qi.zheng@linux.dev>
+Content-Language: en-US
+From: Harry Yoo <harry@kernel.org>
+In-Reply-To: <20260625151554.55105-1-qi.zheng@linux.dev>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------m7QUOiwKcAfVY02vm0zfaXUG"
 
-Hi,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------m7QUOiwKcAfVY02vm0zfaXUG
+Content-Type: multipart/mixed; boundary="------------5KW8ae2yJZ4W4qD8pteHlVMf";
+ protected-headers="v1"
+From: Harry Yoo <harry@kernel.org>
+To: Qi Zheng <qi.zheng@linux.dev>, akpm@linux-foundation.org,
+ david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
+ baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+ weixugc@google.com, hannes@cmpxchg.org, muchun.song@linux.dev,
+ peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev,
+ ljs@kernel.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+Message-ID: <dc5e47af-1434-4e43-8ca7-f90de3dc3f63@kernel.org>
+Subject: Re: [PATCH v3] mm: mglru: fix stale batch updates after memcg
+ reparenting
+References: <20260625151554.55105-1-qi.zheng@linux.dev>
+In-Reply-To: <20260625151554.55105-1-qi.zheng@linux.dev>
 
-This patch fixes a NULL/error pointer dereference issue that I triggered
-and verified on the v6.6.142 kernel using syzkaller.
+--------------5KW8ae2yJZ4W4qD8pteHlVMf
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Based on this, I believe this fix should be backported to the **v6.6.y**
-stable kernel series.
 
-For other currently supported stable series (e.g., v6.1.y, v5.15.y,
-v5.10.y, etc.), I have not yet verified if they contain the same
-vulnerable code path. It would be prudent to check and potentially
-backport the fix there as well, if applicable.
 
-Please let me know if you need any further information or testing.
+On 6/26/26 12:15 AM, Qi Zheng wrote:
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>=20
+> The mglru page table walker batches per-generation size deltas in
+> walk->nr_pages while walking page tables without holding the lruvec loc=
+k.
+> The reset_batch_size() later folds those deltas into walk->lruvec under=
 
-Thanks,
-Wang Jun
+> the lruvec lock.
+>=20
+> The page table walker can run concurrently with the memcg reparenting p=
+ath
+> as follows:
+>=20
+> CPU0                           CPU1
+> =3D=3D=3D=3D                           =3D=3D=3D=3D
+>=20
+> walk_mm
+> --> walk_page_range
+>     --> update_batch_size
+>         --> walk->nr_pages +=3D delta
+>=20
+>                               mem_cgroup_css_offline
+>                               --> memcg_reparent_objcgs
+>                                   --> lock lruvec
+>                                       lru_gen_reparent_memcg
+>                                       --> reparent child folios to pare=
+nt
+>                                       unlock lruvec
+>=20
+>     lock lruvec
+>     reset_batch_size
+>     --> child lrugen->nr_pages +=3D delta
+>=20
+> This will trigger the following warning in lru_gen_exit_memcg():
+>=20
+> 	VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
+> 				   sizeof(lruvec->lrugen.nr_pages)));
+>=20
+> And the user-visible impact of underestimated nr_pages in MGLRU was
+> premature OOMs because MGLRU does not try to reclaim memory when nr_pag=
+es
+> reaches zero, but there are still more pages.
+>=20
+> To fix it, make reset_batch_size() check CSS_DYING under RCU before
+> flushing the pending batch. A non-dying memcg keeps the original lruvec=
 
+> stable against RCU-delayed offlining; a dying memcg redirects the delta=
+s
+> to the first non-dying ancestor.
+>=20
+> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+> Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a=
+-a53a-1e28cc894f0b@smail.nju.edu.cn
+> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios"=
+)
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> ---
+
+besides some nits mentioned elsewhere in the thread,
+the approach looks good to me, so:
+
+Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
+
+--=20
+Cheers,
+Harry / Hyeonggon
+
+--------------5KW8ae2yJZ4W4qD8pteHlVMf--
+
+--------------m7QUOiwKcAfVY02vm0zfaXUG
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCaj4nDAAKCRCGXBN6rc5S
+1vJdAP41DQ/Adn/NHl8DrlVUlhHpdYGNd+BlOc6FRwocVOTrGQEA/zSmKeZqWesI
+TcJfcwrQQoZKB/v7BJGNTnJRLM7YEg0=
+=xY2b
+-----END PGP SIGNATURE-----
+
+--------------m7QUOiwKcAfVY02vm0zfaXUG--
