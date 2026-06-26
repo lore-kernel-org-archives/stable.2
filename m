@@ -1,319 +1,308 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2660630D3FA
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 13:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98EB93E1D05;
+	Fri, 26 Jun 2026 13:51:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782481716; cv=none; b=LENBhWJAwBrA6OJKBYUItKPSwrq87IYnkyuYcSsNeUC/JcPzcAM3IqJuAOHuB5zC1PAOagyB/G9SbQbyayp6L2Nv8JxSs6DI6IGpa3jQ3RB4IgH6aRO+66F40JWMzHkAeMk4F+Jk/MX31Y0Q2Hq5IjnOswK15ObMH+sAsYCodjg=
+	t=1782481903; cv=none; b=kDWfYMp/bkJpdAhAdMBGgLIYRZkHoYVgIJjsSOVPpU2wOBW/JjS/+Vf5Uab/eAD6Hxgvfd6KI1IDrK5PSLeOBZX2bE9/HZwxFCMy0XgQEDg42AAwS5+jVjTTsvyV/lYG78t6S7raGdRRqSV783wa6DLm4yR0RwYysTsZwj3gWVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782481716; c=relaxed/simple;
-	bh=kSmbivb2F6tEki0ZApRG80IjPIDJaaZr+UzUkrZmWM0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LNWW8ZqOUEqx0Sih0TpU1gXLss6+kHxTC5nkgb5g5Dhhm6frOLJn6F2bTUQyHHGQUhkzALeOTh5KEDSxC3a2brQqhPVVOZxX24G9Wu3rkaPygkmvIFg2ewybX0Nt4ueUA5XaTgipSCwcfEb+IhcN60m/K4Rr0JYWuB4Dw0nL8Ic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YETV/LOX; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=sHVioXrf; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1782481903; c=relaxed/simple;
+	bh=0+hdvQLnAun10bg+4oAwwrNyo9ZCNRCyl1/B6sdkJeg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kmLIYlNpYF3PGJtA2Y9KpuYhoW6ksKpNpexxDBZPCMsWdNRocayAvnUchMnMdiBh5sVo35FrsuA2lvN93oQvVbtjQ1Fhu9l2MKl1GMiWdEMm7JX0D5RRHd6r/jsvKHKfA04/xbuR6aSGFT/9K4HTB1QTDzmjl8QDw/s7IBhsI0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HK/Zrlu0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YETV/LOX";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="sHVioXrf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782481714;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tejkhLdr0HnxxaNJljV7nQeGEFCdocArjm/M5aIQb7c=;
-	b=YETV/LOX5srEfEoyBmdhBD/WGKCseugatTBEH4GnhVIxTzffLOjkDA2EW0TAoFtMvat5JW
-	xXC1sbp6FM5P0Go42LoxL/6Z1CSfN1jI++XYRT/kJoxYSoKidRfK6HeFflEcXaIA/fG58f
-	ef7/Ecj9EtGuBwoeShqCYeW6WRVsFdI=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-368-D1QFQgWsObSHYv1oO5wGxA-1; Fri, 26 Jun 2026 09:48:32 -0400
-X-MC-Unique: D1QFQgWsObSHYv1oO5wGxA-1
-X-Mimecast-MFC-AGG-ID: D1QFQgWsObSHYv1oO5wGxA_1782481712
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-46cd34a159fso172020f8f.3
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 06:48:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1782481711; x=1783086511; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tejkhLdr0HnxxaNJljV7nQeGEFCdocArjm/M5aIQb7c=;
-        b=sHVioXrfvlTjKJRSiyXEOBDhWbGBfjUTtuiMUL3+XC+w/SeuftPpAaMP8FQi3aRgTc
-         bwGMditapjsgKcbxeIPOBogVhra3rq7SlRD91OSnH/CotKbRlOojPlyg3MZwWJwB9ANc
-         xncASz5DNkGGkUNGFPmm8h5lWPULK7cEjnxJ5Ru3R3aUPf79ZG03QG36yOG4tI7Tdg9O
-         OKBgW1uSjG31gwKvDxaiZzhOgKmLGQTwaDY6+ek+0qKU7n5V9AEDnBiGTpFqLz1AwLzm
-         fTovBIytl8v52wUaEJOkUA2kAsvUn4Gbcd6kW1F104agk4ZC+cVvDe61K3FqLFb9uCrC
-         nfTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782481711; x=1783086511;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=tejkhLdr0HnxxaNJljV7nQeGEFCdocArjm/M5aIQb7c=;
-        b=bJdrR0Y/zYIIPQ9YBcL/ZCexWx8IIhitIUib4ZWr4ggEhVf2n0U+hRd8ToHCOD4dV6
-         RRueoVUGxF3mmGNy6IdJauXWWrSWDRHUY9Z6fm6psNEtwOXAzZoeVtShdQ9sFzVNCY+p
-         57DfJL3EwlFL5w9OKSZdQAp+dTWyXWisGfPz5e4CLF2ZIqJu6TiaxQrB4lXgRuFKf2gj
-         4q4ZSUgozn48LOpQx0694YBUsW672TDWpL+8pniY/u5LhuhIY07WmBh16KJNjy00Frza
-         obiRc60bbpjZ3gl3i/7fM36ueEAyOLs5Vkss4NDVo9IYSmWI602hNgPcysHdXL4k6Mhd
-         Edgg==
-X-Forwarded-Encrypted: i=1; AHgh+RpyKdnu9eKib/JIFXmEUi8pxx3ZuxEmCMtozHeWRpzIeZicCbUBEHJHFbREUKn5UrOLwRq/OLM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPgsaVqTPqUgPfU0tZdI7Sumcs983zETZI7QnWHuxBNbVbDziE
-	raMkPzRtsjstZkDPzTz7ThSuc1k1nU1zasQyphc2nCWLeNYxShCiOhiAUXbFpEJwmQrpAO6mMP0
-	zuSHj0HoAMBkhCf85tkkfpUA/VZRWCFaAOy8UA3yAoWAmPzgi6J//iOhLTQ==
-X-Gm-Gg: AfdE7cnP9LbpxKXdfQaF5JnpdGJ6398vwWBwudbsgd6A6cAIPWZVgrh5gxv+q4Yh+Lh
-	D4I4UnhzGV56uQVO7NSt1eaQu+b3w2uID3j354K1/JRxRaliNoj/0tkzfWcqcUNX6OIXNY2npF+
-	sOzUdGDJwEm7c2y700ejKAmyiYoTKL+DDg6+ijcTgwuhVpkV7oxvlTSTE4sy99BXcOUWzUeApwZ
-	Eo1w1lC5RVFb2WyIGVhwq9v1TIb2qf1ozVUpL0OF+2/I037x/l+BmMU0ZGLzzqScV+fZ6ctpKL0
-	MhFjIzm6r5mndumkfeFz2LlLj7eioMqewZLSFvTCdNegoN866XvmLn8/tKWsD1zkuOoRhCrM+l+
-	zE15qghnN079KW2WoJzE1hupLDZpzZFm0QWsysIJZk5tv2C8=
-X-Received: by 2002:a05:6000:4552:b0:46d:cc92:e00d with SMTP id ffacd0b85a97d-46dcc92e132mr8992591f8f.43.1782481711427;
-        Fri, 26 Jun 2026 06:48:31 -0700 (PDT)
-X-Received: by 2002:a05:6000:4552:b0:46d:cc92:e00d with SMTP id ffacd0b85a97d-46dcc92e132mr8992542f8f.43.1782481710846;
-        Fri, 26 Jun 2026 06:48:30 -0700 (PDT)
-Received: from stex1 (host-79-34-22-35.business.telecomitalia.it. [79.34.22.35])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46dd5f9da4fsm16443364f8f.23.2026.06.26.06.48.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 06:48:29 -0700 (PDT)
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: netdev@vger.kernel.org
-Cc: Jason Wang <jasowang@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	kvm@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Simon Horman <horms@kernel.org>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	stable@vger.kernel.org,
-	Brien Oberstein <brienpub@gmail.com>
-Subject: [PATCH net 1/2] vsock/virtio: collapse receive queue under memory pressure
-Date: Fri, 26 Jun 2026 15:48:22 +0200
-Message-ID: <20260626134823.206676-2-sgarzare@redhat.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260626134823.206676-1-sgarzare@redhat.com>
-References: <20260626134823.206676-1-sgarzare@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HK/Zrlu0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597461F00A3A;
+	Fri, 26 Jun 2026 13:51:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782481902;
+	bh=A4JY5U7hgmMwmoYLuJcVV6eGF+fJGev5ufEFJmKZ3vg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HK/Zrlu0y/MbzFC1mzYqzA8l0ppdQsn5y3xuhlmR48qIl47dGPgiXM21LroMDBlXU
+	 EeoHu3qy7U2KKHnCmAvF0Cvg225munY7Z3aBSweQZCsu1q7cQfofJa2udVveiA4YRi
+	 uDAMX6CBowecIbvyBe58c4uVh7HINM4IdhRZvt/tws5BnVHLIYdwryO71J2TYD08hQ
+	 f5V+srAVFQI2gIclGKGritudWDZbcSbAuNXBDJANT+yur8OWEiUUzgaq9sUAm2vVEt
+	 zY9na4k8Pt1xx/Yvw+QBWzG+8wXh4hcg+CxLu58N2Q02wRH3P2e+h+4u8pyHFrT1sm
+	 6/C10xF457MUw==
+Message-ID: <6feb9042-f9c0-4762-bd71-068d6ef5307c@kernel.org>
+Date: Fri, 26 Jun 2026 15:51:37 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Patch mm-hotfixes v4] mm/page_vma_mapped: fix device-private PMD
+ handling
+To: Lance Yang <lance.yang@linux.dev>
+Cc: richard.weiyang@gmail.com, akpm@linux-foundation.org, ljs@kernel.org,
+ riel@surriel.com, liam@infradead.org, vbabka@kernel.org, harry@kernel.org,
+ jannh@google.com, ziy@nvidia.com, sj@kernel.org, balbirs@nvidia.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <d060cadd-34f8-42da-b7f7-c8d295050436@kernel.org>
+ <20260626132728.77436-1-lance.yang@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260626132728.77436-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Stefano Garzarella <sgarzare@redhat.com>
+On 6/26/26 15:27, Lance Yang wrote:
+> 
+> On Fri, Jun 26, 2026 at 12:07:56PM +0200, David Hildenbrand (Arm) wrote:
+>> On 6/24/26 08:53, Wei Yang wrote:
+>>> Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
+>>> device-private entries") introduced the concept of device-private
+>>> PMD entries, but did not correctly update the rmap walk code to
+>>> account for them.
+>>>
+>>> As a result, when page_vma_mapped_walk() encounters device-private
+>>> PMD entries, it takes no action other than to acquire the PMD lock
+>>> and exit.
+>>>
+>>> However this is highly problematic for two reasons - firstly,
+>>> device private entries possess a PFN so check_pmd() needs to be
+>>> called to ensure an overlapping PFN range.
+>>>
+>>> Secondly, and more importantly, if PVMW_MIGRATION is set the
+>>> caller assumes the returned entry is a migration entry, resulting
+>>> in memory corruption when the caller tries to interpret the device
+>>> private entry as such.
+>>>
+>>> In addition, commit 146287290023 ("mm/huge_memory: implement
+>>> device-private THP splitting") allowed device private PMDs to be
+>>> split like THP mappings, but again did not update this code path.
+>>>
+>>> As a result, we might race a PMD split prior to acquiring the PMD
+>>> lock.
+>>>
+>>> This patch addresses all of these issues by invoking check_pmd(),
+>>> ensuring PMVW_MIGRATION is not set and checks whether a split raced
+>>> us we do for PMD THP and migration entries.
+>>>
+>>> Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
+>>> Cc: <stable@vger.kernel.org>
+>>> Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
+>>> Suggested-by: David Hildenbrand <david@kernel.org>
+>>> Cc: David Hildenbrand <david@kernel.org>
+>>> Cc: Balbir Singh <balbirs@nvidia.com>
+>>> Cc: SeongJae Park <sj@kernel.org>
+>>> Cc: Zi Yan <ziy@nvidia.com>
+>>> Cc: Lorenzo Stoakes <ljs@kernel.org>
+>>> Cc: Lance Yang <lance.yang@linux.dev>
+>>>
+>>> ---
+>>> v4:
+>>>   * refine subject and commit log based on Lorenzo's suggestion
+>>>   * put pmd device-private entry handling in its own if branch,
+>>>     suggested by Lorenzo
+>>>
+>>> v3:
+>>>   * remove cleanup part, only fix the issue for device-private entry
+>>>   * refine user effect description based on Lorenzo's suggestion
+>>>
+>>> v2: https://lore.kernel.org/all/20260616063436.20455-1-richard.weiyang@gmail.com/T/#u
+>>>   * specify the possible error case of current code and user visible effect
+>>>   * besides fix, cleanup the pmd entry handling based on David's suggestion
+>>>
+>>> v1: https://lore.kernel.org/linux-mm/20260508013728.21285-1-richard.weiyang@gmail.com/
+>>> ---
+>>>  mm/page_vma_mapped.c | 20 +++++++++++++++-----
+>>>  1 file changed, 15 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>>> index 2ccbabfb2cc1..17dff8aab9f9 100644
+>>> --- a/mm/page_vma_mapped.c
+>>> +++ b/mm/page_vma_mapped.c
+>>> @@ -269,14 +269,24 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+>>>  			/* THP pmd was split under us: handle on pte level */
+>>>  			spin_unlock(pvmw->ptl);
+>>>  			pvmw->ptl = NULL;
+>>> -		} else if (!pmd_present(pmde)) {
+>>> -			const softleaf_t entry = softleaf_from_pmd(pmde);
+>>> +		} else if (pmd_is_device_private_entry(pmde)) {
+>>> +			softleaf_t entry;
+>>> +
+>>> +			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+>>> +			pmde = *pvmw->pmd;
+>>> +			entry = softleaf_from_pmd(pmde);
+>>>  
+>>> -			if (softleaf_is_device_private(entry)) {
+>>> -				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+>>> +			if (likely(softleaf_is_device_private(entry))) {
+>>> +				if (pvmw->flags & PVMW_MIGRATION)
+>>> +					return not_found(pvmw);
+>>> +				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+>>> +					return not_found(pvmw);
+>>>  				return true;
+>>>  			}
+>>> -
+>>> +			/* device-private pmd was split under us: handle on pte level */
+>>> +			spin_unlock(pvmw->ptl);
+>>> +			pvmw->ptl = NULL;
+>>> +		} else if (!pmd_present(pmde)) {
+>>>  			if ((pvmw->flags & PVMW_SYNC) &&
+>>>  			    thp_vma_suitable_order(vma, pvmw->address,
+>>>  						   PMD_ORDER) &&
+>>
+>> This is extremely hard to review given the existing crap handling here. I'm
+>> really sorry, but it makes my head hurt (I'm not kidding :) ).
+>>
+>> It's completely unclear why we only have to check for a subset of the cases
+>> after taking the lock.
+>>
+>> Could we simply extend the existing migration pmd handling and leave the
+>> !pmd_present() case for pmd_none()?
+>>
+>> That leaves no question to "which transitions are actually allowed", including
+>> "could we accidentally assume something is a page table when really it isn't".
+>>
+>>
+>> So what about something like the following?
+>>
+>> The "thp_migration_supported()" is not required when checking for
+>> pmd_is_migration_entry(), as that defaults to "false" when not compiled in.
+>>
+>> Untested:
+>>
+>>
+>> >From 048ecd33673ec649e168fbbb97749a7c0e344fcd Mon Sep 17 00:00:00 2001
+>> From: "David Hildenbrand (Arm)" <david@kernel.org>
+>> Date: Fri, 26 Jun 2026 12:03:40 +0200
+>> Subject: [PATCH] tmp
+>>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>> mm/page_vma_mapped.c | 29 +++++++++++++++++------------
+>> 1 file changed, 17 insertions(+), 12 deletions(-)
+>>
+>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>> index 2ccbabfb2cc17..ed2a23a90e8dd 100644
+>> --- a/mm/page_vma_mapped.c
+>> +++ b/mm/page_vma_mapped.c
+>> @@ -243,21 +243,31 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+>> 		 */
+>> 		pmde = pmdp_get_lockless(pvmw->pmd);
+>>
+>> -		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
+>> +		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+>> +		    pmd_is_device_private_entry(pmde)) {
+>> 			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+>> 			pmde = *pvmw->pmd;
+>> -			if (!pmd_present(pmde)) {
+>> +			if (pmd_is_migration_entry(pmde)) {
+>> 				softleaf_t entry;
+>>
+>> -				if (!thp_migration_supported() ||
+>> -				    !(pvmw->flags & PVMW_MIGRATION))
+>> +				if (!(pvmw->flags & PVMW_MIGRATION))
+>> 					return not_found(pvmw);
+>> 				entry = softleaf_from_pmd(pmde);
+>> +				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+>> +					return not_found(pvmw);
+>> +				return true;
+>> +			} else if (pmd_is_device_private_entry(pmde)) {
+>> +				softleaf_t entry;
+>>
+>> -				if (!softleaf_is_migration(entry) ||
+>> -				    !check_pmd(softleaf_to_pfn(entry), pvmw))
+>> +				if (pvmw->flags & PVMW_MIGRATION)
+>> +					return not_found(pvmw);
+>> +				entry = softleaf_from_pmd(pmde);
+>> +				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+>> 					return not_found(pvmw);
+>> 				return true;
+>> +			} else if (!pmd_present(pmde) ){
+>> +				return not_found(pvmw);
+>> 			}
+>> 			if (likely(pmd_trans_huge(pmde))) {
+>> 				if (pvmw->flags & PVMW_MIGRATION)
+>> @@ -270,12 +280,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+>> 			spin_unlock(pvmw->ptl);
+>> 			pvmw->ptl = NULL;
+>> 		} else if (!pmd_present(pmde)) {
+>> -			const softleaf_t entry = softleaf_from_pmd(pmde);
+>> -
+>> -			if (softleaf_is_device_private(entry)) {
+>> -				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+>> -				return true;
+>> -			}
+>>
+>> 			if ((pvmw->flags & PVMW_SYNC) &&
+>> 			    thp_vma_suitable_order(vma, pvmw->address,
+>> -- 
+> 
+> Might be good with this on top:
+> 
+> ---8<---
+> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+> index cfa1230c87bb..8b7c062bd81d 100644
+> --- a/mm/page_vma_mapped.c
+> +++ b/mm/page_vma_mapped.c
+> @@ -281,7 +281,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+>  					return not_found(pvmw);
+>  				return true;
+>  			}
+> -			/* THP pmd was split under us: handle on pte level */
+> +			/* THP/device-private pmd was split under us: handle on pte level */
+>  			spin_unlock(pvmw->ptl);
+>  			pvmw->ptl = NULL;
+>  		} else if (!pmd_present(pmde)) {
+> --
+> 
+> Looks good to me as well, thanks!
 
-When many small packets accumulate in the receive queue, the skb overhead
-can exceed buf_alloc even while the payload is within bounds. This causes
-virtio_transport_inc_rx_pkt() to reject packets, leading to connection
-resets during large transfers under backpressure.
+Makes sense, thanks!
 
-The issue was reported by Brien, who has a reproducer, but it is also
-easily reproducible with iperf-vsock [1] using a small packet size:
 
-  iperf3 --vsock -c $CID -l 129
-
-which fails immediately without this patch but with commit 059b7dbd20a6
-("vsock/virtio: fix potential unbounded skb queue").
-
-Inspired by TCP's tcp_collapse() which solves a similar problem, add
-virtio_transport_collapse_rx_queue() that walks the receive queue and
-re-copies data into compact linear skbs to reduce the overhead.
-
-The collapse is triggered from virtio_transport_recv_enqueue() when
-virtio_transport_inc_rx_pkt() fails. A pre-scan counts the eligible bytes
-to size each allocation precisely, avoiding waste for isolated small
-packets. Partially consumed skbs are kept as-is to preserve
-buf_used/fwd_cnt accounting, EOM-marked skbs to maintain SEQPACKET
-message boundaries, and skbs already larger than the collapse target
-because they already have a good data-to-overhead ratio.
-
-[1] https://github.com/stefano-garzarella/iperf-vsock
-
-Fixes: 059b7dbd20a6 ("vsock/virtio: fix potential unbounded skb queue")
-Cc: stable@vger.kernel.org
-Reported-by: Brien Oberstein <brienpub@gmail.com>
-Closes: https://lore.kernel.org/netdev/618701dd023e$063de350$12b9a9f0$@gmail.com/
-Tested-by: Brien Oberstein <brienpub@gmail.com>
-Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
----
- net/vmw_vsock/virtio_transport_common.c | 148 +++++++++++++++++++++++-
- 1 file changed, 146 insertions(+), 2 deletions(-)
-
-diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-index 09475007165b..304ea424995d 100644
---- a/net/vmw_vsock/virtio_transport_common.c
-+++ b/net/vmw_vsock/virtio_transport_common.c
-@@ -420,6 +420,137 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
- 	return ret;
- }
- 
-+static bool virtio_transport_can_collapse(struct sk_buff *skb,
-+					  unsigned int size)
-+{
-+	/* skbs that are partially consumed, mark a SEQPACKET message boundary,
-+	 * or are already large enough should not be collapsed: they either
-+	 * need special accounting, carry protocol state, or already have a
-+	 * good data-to-overhead ratio.
-+	 */
-+	if (VIRTIO_VSOCK_SKB_CB(skb)->offset)
-+		return false;
-+	if (le32_to_cpu(virtio_vsock_hdr(skb)->flags) & VIRTIO_VSOCK_SEQ_EOM)
-+		return false;
-+	if (skb->len >= size)
-+		return false;
-+	return true;
-+}
-+
-+/* Iterate through the packets in the queue starting from the current skb to
-+ * count the number of bytes we can collapse.
-+ */
-+static unsigned int
-+virtio_transport_collapse_size(struct sk_buff *skb,
-+			       struct sk_buff_head *queue,
-+			       unsigned int max_size)
-+{
-+	unsigned int target = skb->len - VIRTIO_VSOCK_SKB_CB(skb)->offset;
-+
-+	while ((skb = skb_peek_next(skb, queue)) &&
-+	       virtio_transport_can_collapse(skb, max_size)) {
-+		unsigned int len = skb->len - VIRTIO_VSOCK_SKB_CB(skb)->offset;
-+
-+		if (len > max_size - target)
-+			return target;
-+
-+		target += len;
-+	}
-+
-+	return target;
-+}
-+
-+/* Called under lock_sock when skb overhead exceeds the budget. */
-+static void virtio_transport_collapse_rx_queue(struct virtio_vsock_sock *vvs)
-+{
-+	/* Use the same linear allocation threshold as virtio_vsock_alloc_skb()
-+	 * to avoid adding pressure on the page allocator.
-+	 */
-+	unsigned int collapse_max = SKB_MAX_ORDER(VIRTIO_VSOCK_SKB_HEADROOM,
-+						  PAGE_ALLOC_COSTLY_ORDER);
-+	struct sk_buff *skb, *next_skb, *new_skb = NULL;
-+	struct sk_buff_head new_queue;
-+
-+	__skb_queue_head_init(&new_queue);
-+
-+	skb_queue_walk_safe(&vvs->rx_queue, skb, next_skb) {
-+		struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-+		u32 src_off = VIRTIO_VSOCK_SKB_CB(skb)->offset;
-+		u32 src_len = skb->len - src_off;
-+		bool keep = false;
-+
-+		if (!virtio_transport_can_collapse(skb, collapse_max)) {
-+			/* Finalize pending collapsed skb to preserve packet
-+			 * ordering.
-+			 */
-+			if (new_skb) {
-+				__skb_queue_tail(&new_queue, new_skb);
-+				new_skb = NULL;
-+			}
-+			keep = true;
-+			goto next;
-+		}
-+
-+		/* Finalize if this packet won't fit in the remaining tailroom,
-+		 * so we can allocate a right-sized new_skb.
-+		 */
-+		if (new_skb && src_len > skb_tailroom(new_skb)) {
-+			__skb_queue_tail(&new_queue, new_skb);
-+			new_skb = NULL;
-+		}
-+
-+		if (!new_skb) {
-+			unsigned int alloc_size;
-+
-+			alloc_size = virtio_transport_collapse_size(skb, &vvs->rx_queue,
-+								    collapse_max);
-+
-+			/* Only this skb's data is eligible, nothing to merge
-+			 * with. Keep as-is.
-+			 */
-+			if (alloc_size <= src_len) {
-+				keep = true;
-+				goto next;
-+			}
-+
-+			new_skb = virtio_vsock_alloc_linear_skb(alloc_size +
-+					VIRTIO_VSOCK_SKB_HEADROOM, GFP_KERNEL);
-+			if (!new_skb)
-+				goto out;
-+
-+			memcpy(virtio_vsock_hdr(new_skb), hdr,
-+			       sizeof(struct virtio_vsock_hdr));
-+			virtio_vsock_hdr(new_skb)->len = 0;
-+		}
-+
-+		/* Cannot fail since src_off/src_len are within bounds, but if
-+		 * it does, discard new_skb to avoid queuing corrupted data.
-+		 */
-+		if (WARN_ON_ONCE(skb_copy_bits(skb, src_off,
-+					       skb_put(new_skb, src_len),
-+					       src_len))) {
-+			kfree_skb(new_skb);
-+			new_skb = NULL;
-+			goto out;
-+		}
-+
-+		le32_add_cpu(&virtio_vsock_hdr(new_skb)->len, src_len);
-+		virtio_vsock_hdr(new_skb)->flags |= hdr->flags;
-+
-+next:
-+		__skb_unlink(skb, &vvs->rx_queue);
-+		if (keep)
-+			__skb_queue_tail(&new_queue, skb);
-+		else
-+			consume_skb(skb);
-+	}
-+out:
-+	if (new_skb)
-+		__skb_queue_tail(&new_queue, new_skb);
-+
-+	skb_queue_splice(&new_queue, &vvs->rx_queue);
-+}
-+
- static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
- 					u32 len)
- {
-@@ -1363,8 +1494,21 @@ virtio_transport_recv_enqueue(struct vsock_sock *vsk,
- 	spin_lock_bh(&vvs->rx_lock);
- 
- 	can_enqueue = virtio_transport_inc_rx_pkt(vvs, len);
--	if (!can_enqueue)
--		goto out;
-+	if (!can_enqueue) {
-+		/* Try to collapse the receive queue to reduce skb overhead and
-+		 * make room for this packet.
-+		 * Unlock rx_lock since the collapse may sleep or, in any case,
-+		 * take some time to collapse the skbs, but this is safe, since
-+		 * sk_lock is held by caller so no one else can enqueue or
-+		 * dequeue.
-+		 */
-+		spin_unlock_bh(&vvs->rx_lock);
-+		virtio_transport_collapse_rx_queue(vvs);
-+		spin_lock_bh(&vvs->rx_lock);
-+		can_enqueue = virtio_transport_inc_rx_pkt(vvs, len);
-+		if (!can_enqueue)
-+			goto out;
-+	}
- 
- 	if (le32_to_cpu(hdr->flags) & VIRTIO_VSOCK_SEQ_EOM)
- 		vvs->msg_count++;
 -- 
-2.54.0
+Cheers,
 
+David
