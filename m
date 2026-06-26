@@ -1,137 +1,203 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D993E1233;
-	Fri, 26 Jun 2026 07:42:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CC730F52B;
+	Fri, 26 Jun 2026 07:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782459732; cv=none; b=Ijaf3RbGlas6l2YgCQX5TwrHrPN/GzwE6HCuaUD/8HVBavhkAuxIDAf3gi9OnfdwLXjm9/yvqTnUti+7CXD0/T8znWWdXAFaLIvyz/aEhWYmEyFGIkiesSo2E0pTuCpTp3fpA2n6ZOjQV8uEAwG0HNuBFVXs9zLq+k2t6eIVuYY=
+	t=1782460020; cv=none; b=Yn95mbp/BAvzyxQeksfCOi47v3WJGocwdp8b98mKeAjOVrfhXFMKAVOVwJi+soc5vtOthhvw+332IaeQIToofm0BoKRzSSUSgP587vKlXwsV0y08r7rQBITn36IxWguKl8mNsK3M8cL4WtypYoxTN1l5oTJS8j/BukVwI1BIyjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782459732; c=relaxed/simple;
-	bh=dMXfk3HlwY6A8X7XaGBJbZYq2iAMs1BJMxWHTq3Ios8=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=i8zqIT7RX0v4Qy5wzN8sFpAJOvby/QzB2nGcpjL7rK8o3XjFnEar5WmlI1E3OWMwr3iMixAt042YS+0WJHArwRwaIrknn6gC5evUODIaC+TGM5tLygT7eHqqdZEvFi7z1EAxn/Ru7lXXR0meiBcw9KIdTLb9cH5CZylz1eo0GZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Uk8XLpma; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1782460020; c=relaxed/simple;
+	bh=e3IG+R5dVcnKL4ygLKeL0m2vEuU45wiOiGT8SBpf4eY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=TIzGrkssUMCAxMbZLYSgp3Vi5WS6c/IMkXE+qA5j79uDijnRaVdu5I0tSEMXLq1Ei77M31eBgeHi5GA09G4KRbFyf0jTk7Kn6deRNYVeZY57FGoF4GYwZuL+xfGUkqQh9S95bqwnnG8ba2W132+NfhZC4RIAi3EiV2cELT9p7Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UQktW/sG; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Uk8XLpma"
-X-UUID: 87336378713211f1b1788b6acf885367-20260626
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=+G0uNszBCZbn+pbz/tbwkWd63bDos+8XW4wEVGaz6VI=;
-	b=Uk8XLpma+FIOON+o3in594yLedbj8ygROTeZ1SfcWVO06AtdwS6nmgxxQ+NByji4ub59XAOQ/7Shn4EgHHNcEsY4Q5+S2ZkOJrS2t5noN9klBxLljddyxdUqCQ/NYQG3DavTtV+coccbltwOejUfJiCqyK1Z+t+MLDlqhxVNrKA=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.17,REQID:0eb331d6-a465-4fad-98e8-eaca5d1b4eeb,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:d497b38,CLOUDID:573496da-5eb1-42d4-aa37-265f0625e786,B
-	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50,EDM:
-	-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,AV:
-	0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 87336378713211f1b1788b6acf885367-20260626
-Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw01.mediatek.com
-	(envelope-from <shiming.cheng@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1165511524; Fri, 26 Jun 2026 15:42:05 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 26 Jun 2026 15:42:05 +0800
-Received: from mbjsdccf07.gcn.mediatek.inc (10.15.20.246) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 26 Jun 2026 15:42:04 +0800
-From: Shiming Cheng <shiming.cheng@mediatek.com>
-To: <netdev@vger.kernel.org>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <horms@kernel.org>,
-	<matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>,
-	<willemb@google.com>, <imv4bel@gmail.com>, <alice@isovalent.com>,
-	<eilaimemedsnaimel@gmail.com>, <sd@queasysnail.net>
-CC: <lena.wang@mediatek.com>, <stable@vger.kernel.org>, Shiming Cheng
-	<shiming.cheng@mediatek.com>
-Subject: [PATCH] Subject: [PATCH] net: gro: fix double aggregation of flush-marked skbs
-Date: Fri, 26 Jun 2026 15:40:59 +0800
-Message-ID: <20260626074059.25244-1-shiming.cheng@mediatek.com>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UQktW/sG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782460020; x=1813996020;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=e3IG+R5dVcnKL4ygLKeL0m2vEuU45wiOiGT8SBpf4eY=;
+  b=UQktW/sGUsk4kf+l4f9iToYF/ur+JcVeoL2MdA8PkSACmyzEe5qmSlPR
+   +2p/VWxzQ4avlrkCka55xv4ZmheSmcyUFjgbOxLZfUrobnbaiNkeI/oEF
+   n4P9SWkt7W8JyE/FWBUbl0AWfw5HAJNkKRKhUnfp2tl9RGymjpujf14Y/
+   CANap0WtzdfuHjl1ZyfDdVIlq7ETyfusuL3gZ0OFiJafsd2XT032A4fFf
+   266uaMwxvWg0JrhL+abBlEB3Svo3+hPJfe++CG+O00g8oWcKCPmoJS67a
+   NqZwJCxqvt09DKZTj17IY79y7UVq/jT/LTAl/Cx6TTc7rr4tfjRh8B5FP
+   A==;
+X-CSE-ConnectionGUID: 9UQN9HZORvCOOBXd30fZrg==
+X-CSE-MsgGUID: FESa2F5KRH2eW3E1r2ji8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11828"; a="83022639"
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
+   d="scan'208";a="83022639"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 00:46:59 -0700
+X-CSE-ConnectionGUID: NdUpLxY3SBWPzMmklOKPQw==
+X-CSE-MsgGUID: HBLSC6LcQ+GSKqajZFZ5BQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
+   d="scan'208";a="247304328"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 00:46:58 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>,
+	Huang Rui <ray.huang@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/ttm: Account for NULL pages in ttm_pool_backup
+Date: Fri, 26 Jun 2026 00:46:53 -0700
+Message-Id: <20260626074653.1326683-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
 
-The new skb_gro_receive_list() function is missing a critical safety check
-present in the legacy skb_gro_receive() path. Specifically, it does not
-validate NAPI_GRO_CB(skb)->flush before allowing packet aggregation.
+Pages in ttm_pool_backup can be NULL, and set_pages_array_wb() cannot
+handle NULL entries. Switch to set_pages_wb() after checking for NULL
+pages.
 
-This allows already-GRO'd packets with existing frag_list to be
-re-aggregated into a new GRO session, corrupting the frag_list chain
-structure. When skb_segment() attempts to unpack these malformed packets,
-it encounters invalid state and triggers a kernel panic.
+Fixes the following oops:
 
-Scenario (Tethering/Device forwarding):
-  1. Driver: Driver Generated aggregated packet P1 via LRO with frag_list
-  2. Dev A: Receives aggregated fraglist packet and flush flag set
-  2. Dev A: Re-enters GRO, skb_gro_receive_list() is called
-  4. Missing flush check allows re-aggregation despite flush flag
-  5. Frag_list chain becomes corrupted (loops or dangling refs)
-  6. Dev B: TX path calls skb_segment(), crashes on corrupted frag_list
-
-Root cause in skb_segment():
-  The check at line ~4891:
-    if (hsize <= 0 && i >= nfrags && skb_headlen(list_skb) &&
-        (skb_headlen(list_skb) == len || sg)) {
-
-  When frag_list is corrupted by double aggregation, when list_skb is
-  a NULL pointer from skb->next, skb_headlen(list_skb) dereference
-  NULL/corrupted pointers occurs.
-
+Oops: general protection fault, kernel NULL pointer dereference 0x0: 0000 [#1] SMP NOPTI
+RIP: 0010:__cpa_process_fault+0xf8/0x770
+RSP: 0018:ffffc90000a87718 EFLAGS: 00010287
+RAX: 0000000000000000 RBX: ffffc90000a87868 RCX: 0000000000000000
+RDX: 0000000000001000 RSI: 0005088000000000 RDI: ffffffff827c5f34
+RBP: 0005088000000000 R08: ffffc90000a877cb R09: ffffc90000a877d0
+R10: 0000000000000000 R11: 000000000000001b R12: 000ffffffffff000
+R13: ffffc90000a87868 R14: ffffc90000a87868 R15: ffff88815b882ae0
+FS:  0000000000000000(0000) GS:ffff8884ec840000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f930b844000 CR3: 000000000262e003 CR4: 0000000008f70ef0
+PKRU: 55555554
 Call Trace:
- skb_headlen(NULL skb)
- skb_segment
- tcp_gso_segment
- tcp4_gso_segment
- inet_gso_segment
- skb_mac_gso_segment
- __skb_gso_segment
- skb_gso_segment
- validate_xmit_skb
- validate_xmit_skb_list
- sch_direct_xmit
- qdisc_restart
- __qdisc_run
- qdisc_run
- net_tx_action
+ <TASK>
+ __change_page_attr_set_clr+0x989/0xe90
+ ? __purge_vmap_area_lazy+0x6c/0x3a0
+ ? _vm_unmap_aliases+0x250/0x2a0
+ set_pages_array_wb+0x7f/0x120
+ ttm_pool_backup+0x4c9/0x5b0 [ttm]
+ ? dma_resv_wait_timeout+0x3b/0xf0
+ ttm_tt_backup+0x32/0x60 [ttm]
+ ttm_bo_shrink+0x66/0x110 [ttm]
+ xe_bo_shrink_purge+0x12b/0x1b0 [xe]
+ xe_bo_shrink+0xbb/0x270 [xe]
+ __xe_shrinker_walk+0xf7/0x160 [xe]
+ xe_shrinker_walk+0x9d/0xc0 [xe]
+ xe_shrinker_scan+0x11f/0x210 [xe]
+ do_shrink_slab+0x13b/0x270
+ shrink_slab+0xf1/0x400
+ shrink_node+0x352/0x8a0
+ balance_pgdat+0x32c/0x700
+ kswapd+0x205/0x2f0
+ ? __pfx_autoremove_wake_function+0x10/0x10
+ ? __pfx_kswapd+0x10/0x10
+ kthread+0xd1/0x110
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork+0x1b1/0x200
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
 
-Fix: Add NAPI_GRO_CB(skb)->flush validation to the early-return check in
-skb_gro_receive_list(), matching the defensive programming pattern of
-skb_gro_receive().
-
-Fixes: 9dc2c3cd6c11 ("net: add fraglist GRO/GSO support")
-Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- net/core/gro.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/ttm/ttm_pool.c | 49 +++++++++++++++++-----------------
+ 1 file changed, 24 insertions(+), 25 deletions(-)
 
-diff --git a/net/core/gro.c b/net/core/gro.c
-index 35f2f708f010..076247c1e662 100644
---- a/net/core/gro.c
-+++ b/net/core/gro.c
-@@ -229,7 +229,8 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 682ae4f40424..ea14447411a6 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -1064,34 +1064,33 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
+ 	    ttm_pool_uses_dma_alloc(pool) || ttm_tt_is_backed_up(tt))
+ 		return -EBUSY;
  
- int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
- {
--	if (unlikely(p->len + skb->len >= 65536))
-+	if (unlikely(p->len + skb->len >= 65536 ||
-+		     NAPI_GRO_CB(skb)->flush))
- 		return -E2BIG;
+-#ifdef CONFIG_X86
+-	/* Anything returned to the system needs to be cached. */
+-	if (tt->caching != ttm_cached)
+-		set_pages_array_wb(tt->pages, tt->num_pages);
+-#endif
++	for (i = 0; i < tt->num_pages; i += num_pages) {
++		unsigned int order;
  
- 	if (!pskb_may_pull(skb, skb_gro_offset(skb))) {
+-	if (tt->dma_address || flags->purge) {
+-		for (i = 0; i < tt->num_pages; i += num_pages) {
+-			unsigned int order;
++		page = tt->pages[i];
++		if (unlikely(!page)) {
++			num_pages = 1;
++			continue;
++		}
+ 
+-			page = tt->pages[i];
+-			if (unlikely(!page)) {
+-				num_pages = 1;
+-				continue;
+-			}
++		order = ttm_pool_page_order(pool, page);
++		num_pages = 1UL << order;
+ 
+-			order = ttm_pool_page_order(pool, page);
+-			num_pages = 1UL << order;
+-			if (tt->dma_address)
+-				ttm_pool_unmap(pool, tt->dma_address[i],
+-					       num_pages);
+-			if (flags->purge) {
+-				shrunken += num_pages;
+-				page->private = 0;
+-				__free_pages_gpu_account(page, order, false);
+-				memset(tt->pages + i, 0,
+-				       num_pages * sizeof(*tt->pages));
+-			}
++#ifdef CONFIG_X86
++		/* Anything returned to the system needs to be cached. */
++		if (tt->caching != ttm_cached)
++			set_pages_wb(page, 1 << order);
++#endif
++
++		if (tt->dma_address)
++			ttm_pool_unmap(pool, tt->dma_address[i],
++				       num_pages);
++		if (flags->purge) {
++			shrunken += num_pages;
++			page->private = 0;
++			__free_pages_gpu_account(page, order, false);
++			memset(tt->pages + i, 0,
++			       num_pages * sizeof(*tt->pages));
+ 		}
+ 	}
+ 
 -- 
-2.45.2
+2.34.1
 
