@@ -1,47 +1,46 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE83D175A66
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 04:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1385E2571D7
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 04:15:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782447334; cv=none; b=HnaMNtny2C6JHMiR7CYa9Xt7K3DmPvynWh0KniDex1h87MPnZH2I899aJSDVtuwY/lyV/yyEcqTbouEc4f7L+Bl8yo4JUgJ13ES1ajKnqm4gMngSsH+aZ+5CzcEfmpiOJUg6viH3TaNYLK1RkMicwpCyXV1lYEMBT9sUv5lA6Ik=
+	t=1782447335; cv=none; b=O64eX8zYSTukR+ZrzdcNmP8vodcsOcnZ5Pm7ZZNY7JOu6RG8uf0DsFcasLvsSQIchmzK9Ghq0kOQePDrgYGseUdsk8inyTvL4p4EJo5MBK1JXvFhpk1R2yNzOZu1qG6v6eAfSSuvH1r03lL0ccki0Wzqq8NiYUuklMYTLRVVQFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782447334; c=relaxed/simple;
-	bh=tGr1XVCj+1ijt3qB6qRf0NKuWl5+B3+kUFyoONdCMn4=;
+	s=arc-20240116; t=1782447335; c=relaxed/simple;
+	bh=F8ZVhFjGUtKIaRj3F41eP0fPctRQDbknKoKt+EhQdzU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=B3+oMk6PtJGwI+y67OeX/9kjuma6U/HwBmhHml3qWuFysp85CUR78yAAOLs7zQOQ17TWEADb8wBYbKWYdiB1wlMlnN83+BAPcG6H/fZarvlbhVk2wgbEQv+TToeilAEZC+GRs4+L9AQ8EARFpwSTMjsKPoUShhI432TVnUlYT9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=SuEfzjrA; arc=none smtp.client-ip=54.254.200.128
+	 MIME-Version; b=TiFUCME8qnBrnxu7n/TXWw3ghpHWWcHD1nMGU5C9JsdaCa2FML5RR+Vd2GE+XJ2U0B9uy4YM0QEud8m/+uZwPH41dVH1CFUDFAPINtcAQ2fnBYa0EmdYyyWChSsbeOIF8CHkZAwQWoWvfVIH9obCG9z8iX7Kb3DIuCQ10I5dz0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=CqSR/2zY; arc=none smtp.client-ip=54.206.16.166
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="SuEfzjrA"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="CqSR/2zY"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1782447275;
-	bh=BA7vdXf55dDOr7FQv2tGiUfuTD8Cf/dE2Nvj3fUyp0c=;
+	s=onoh2408; t=1782447293;
+	bh=lpY3Zdfgcu8mc5g0PD2RAWWrMsmuSFhHEbciJOzp5JE=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=SuEfzjrALjlGWEOaa93n525qNnGXK3unbbLwCQJMN+8wk9N3sfEHga0r0ScY/VDWb
-	 paWgV1tBbUoSMPC8hiCuPh8uXV0XpXkz0+v/CSivUxrciezk1rzNHT12OqR5MhjtmY
-	 p3Z4VtycZ5KiR6HGTubKtgdXNQlpyl/3VPmR/OBc=
-X-QQ-mid: zesmtpgz1t1782447272t53b6348b
-X-QQ-Originating-IP: jZvK+8v8fzE22D2FWZPclg7CHCI4guiH2PgHftld8qo=
+	b=CqSR/2zY1+0LGiTU4SVhR9b+e13AzQW9Re0BdCgXOq5eAMBwwUUTe+lA1tT9vLG+3
+	 /w9utK47PUOIw7foGAEMCS8TVPNYXLDhZ1TeatXqpebsokoakruZiLNItVTmnpNbrv
+	 1UNn7Nj+nK3CSDoXtRMeyXVZ+1FzEmTGKU3lWu7g=
+X-QQ-mid: zesmtpgz1t1782447285tfc9bfe49
+X-QQ-Originating-IP: TgENz+557nXNohvmDXMmw/pvES+RFQhxmVeO5/XpUXw=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 26 Jun 2026 12:14:30 +0800 (CST)
+	id ; Fri, 26 Jun 2026 12:14:43 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11950418412262077908
+X-BIZMAIL-ID: 6289407196931923603
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org,
 	gregkh@linuxfoundation.org,
 	foss+kernel@0leil.net
 Cc: stable@vger.kernel.org,
 	brauner@kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
 	Quentin Schulz <quentin.schulz@cherry.de>
-Subject: [PATCH 6.6.y 3/8] eventpoll: split __ep_remove()
-Date: Fri, 26 Jun 2026 12:13:58 +0800
-Message-Id: <20260626041403.85968-4-guanwentao@uniontech.com>
+Subject: [PATCH 6.6.y 6/8] eventpoll: rename ep_remove_safe() back to ep_remove()
+Date: Fri, 26 Jun 2026 12:14:01 +0800
+Message-Id: <20260626041403.85968-7-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260626041403.85968-1-guanwentao@uniontech.com>
 References: <20260626041403.85968-1-guanwentao@uniontech.com>
@@ -54,101 +53,114 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NIdmeS6o+CORWMS6ANDNY5kR0D7E7GrIDhcONXJSUymoJWbrkxmQyTVk
-	2gLxFARTqMUweh7wT8j4Gy3qpHbitedJpCQBb05s7+Bi32DMqyflbOD1im3evwb/7agiBLg
-	PgIlssT8drWehC+V8YewoVreHZ3XpB7XwT4i2Au1P+qmXx00CRQ0YHepYGV10Vu8PdGw4JQ
-	hvy1qqIHX7d9L9MC5tZk3ZLAhYF0kQPmbHQ32uepz/FGgVpoDT9MjSydIUITxjzXnrwP32/
-	fqXdTxW7qkoKS5Qj4zrG/mzZl83dw1EgG+yp/3bLV7fOyX9u0r4Prts12edspItkuhBsdcu
-	C9gcdlLQWpRayEmX3RpYem8hSE/WWGhojjzce99NAgZRM+iUJbPjwD5vXVcuGAgxUX59w5N
-	bHtuWlxjeU4iu/3IAZ6tevtATvEAJaYgv8Nw4RhYO5SwSrkjoEzBNGB7nRLfckq2sLEa071
-	CIUyiGnYOQGRmYtRyfMOqWqHuP4RDWvG7KMOOCWQZAFyotxi2SolYH+1vcb0Brf8KUklOrx
-	c29sQMQjoPNoAe5zZiTowHAdSSqi45iXQimnDbIIIAI1P6X++xjqixm8jntYV8uBVVgRdMq
-	T1b1whVtkHubWhVsBvkAjqqGo6U9+6cw07YqTv6nPcmz77B27pGGIPCKXT/5EfZ/gdAcWzw
-	llU7wkBf1PTBpaDGwHdduX7mVCnA0iuvXW/qu38C2LBiCAD+UMabftoyCAkxKvMsYzt/DR/
-	1WQJmsD+99TIU80bywtKGnGLVO1y0LBDAycZjvtlS3p8x/rj9UIvQ3NdSfRDvSewL8dg1Qc
-	8q2rDuvMXJXvysO8IOzooG/HIoJzDcPJqqpNU7Uja6C6CL3R6w9gGfrzCaxjBxmFkD4U47t
-	yqKKp9Ns900PqOcyTduJWs3FBQHkWi41ztN2eM59ItpbEqxwnHiOrhyzxpU/g5+AzmaDyoX
-	TyZus6b5z63xvcAGNZE247QGL/tgyUuKQNGomny9lTYgorWTzE25db1Y5buPcpk5t06dcu1
-	pTi/ap4zlHubh4bhBhIR8x2uvps9+pAk1+dSyTRp53x1wE6luP0IUBILCqRTtzvIhlgzUgN
-	w45etDQUrcZULSbEgSzFg+f1GSnbuUvzWHowJEacUCp
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-XMAILINFO: MuQi2Rc0Jry0nl2LxFuAoV7k+Z1QQdy94Gxda0vyAwDBuGpsvLBYnqNf
+	4OD6zxdIECZoKJvEOyTuN5QIlIXleQtk2HJh5SKDGT2FIx6zo0yTg3ExXaFmZEJJUpH30Ha
+	hWh+qgqnNcr5cXeuDlSsfETbFGVO4A/qVHwF3r8Q+OSdle6LdaWGFq+p+PAVbEF46Kn+ame
+	OF4vi4vbw9ALxXOghsGA1SCwTxcDbQWaVd0QJV/70JgkmwbNzPL87R3I2/NFMY/KnRXtqL3
+	E0eTkYU5of7xSWX1i5Exn3/ran3kMfanJlXwe64iT75q0R7aCVn/Lj0G5S9ExDjTiHcWvyK
+	E9KNvWABk8KWDKXz6Y13X1FcpSvN2zXfx9O4FNhJHwVyT2fpKZlV79Yj0xJpJBAjCDXdvZb
+	ddpeBiZvYbvOkeGMGQmF1U8yMK3PWDzAQePH6+3PB1i2kwZxIZiNnri69B+g49QmsLJD8cV
+	dbJbaYekL8qMKNaiWL0OsWee/YZAOImOKyRAbO3gI3uYx/M0UvSmMOXmRw9C81AwWEUGcLf
+	RfXpvRoBvsNOqIGyG/fuULGkmWUtlcTExohP4BbcrgHPfLjPPuOuEP059ddJNVFVnVRIc+S
+	76yrsLTxjychUtGTn+SsRIcLnZz6gmvnLfh5gAUqAhox4Z4Fm9Th+A3YQBID3K+M9eWF6CS
+	5EM0b1fdjeYpKlABEqbXkZnYheNBf6K/fiWi1KtNQ1fNdCITw33EaPUrarwz6TTHvsEong8
+	O7WvAg3YpiD2+3lm4HFjzaWB4V0H8RLObmRttdlwdJ6RFtaOZYiqQ5i/ZZKkjHjFP1WbMr1
+	YKLlCUE+f1uapV+fkDcyGQeMxM0E07ya101wb2tlZBWoqYdj8TtDe6++djf97FxBA+2ywVw
+	PeGEyUqLEv+U6NlgRtxJPlXhrKQmncqGuE6z0HpU1OqnsaC2sKkOPZ7WaAaWmysj9oVeBoE
+	sUVVg+V1pD3QhN4bFNsewv1S5S9dXbxr+rsF8RdyLC1j9qrglFhZFRXH+jXIgKZFTCySkJ1
+	gQ5jP7+7/1rrb/9qK+pMIMFvIzC1App7Brf1/i1YXiRiaPIWApbv5vjg4hx8UL2rYtkxXMZ
+	uXPdVPk9pm75U8cmV3UqJOqpzUb28dibld2SKFN1VkY8UlUd4sChvI=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
 X-QQ-RECHKSPAM: 0
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 0f7bdfd413000985de09fc39eb9efa1e091a3ce0 ]
+[ Upstream commit 0bade234723e40e4937be912e105785d6a51464e ]
 
-Split __ep_remove() to delineate file removal from epoll item removal.
+The current name is just confusing and doesn't clarify anything.
 
-Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-2-2470f9eec0f5@kernel.org
+Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-4-2470f9eec0f5@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Stable-dep-of: a6dc643c6931 ("eventpoll: fix ep_remove struct eventpoll / struct file UAF")
 Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
 ---
- fs/eventpoll.c | 27 +++++++++++++++++++++++----
- 1 file changed, 23 insertions(+), 4 deletions(-)
+ fs/eventpoll.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index 4f05d12a05031..ae9cb82764482 100644
+index 0a54a42263575..db5d7c1d726c8 100644
 --- a/fs/eventpoll.c
 +++ b/fs/eventpoll.c
-@@ -715,6 +715,9 @@ static void ep_free(struct eventpoll *ep)
- 	kfree_rcu(ep, rcu);
- }
- 
-+static void __ep_remove_file(struct eventpoll *ep, struct epitem *epi, struct file *file);
-+static bool __ep_remove_epi(struct eventpoll *ep, struct epitem *epi);
-+
+@@ -771,7 +771,7 @@ static bool ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
  /*
-  * Removes a "struct epitem" from the eventpoll RB tree and deallocates
-  * all the associated resources. Must be called with "mtx" held.
-@@ -726,8 +729,6 @@ static void ep_free(struct eventpoll *ep)
- static bool __ep_remove(struct eventpoll *ep, struct epitem *epi, bool force)
+  * ep_remove variant for callers owing an additional reference to the ep
+  */
+-static void ep_remove_safe(struct eventpoll *ep, struct epitem *epi)
++static void ep_remove(struct eventpoll *ep, struct epitem *epi)
  {
  	struct file *file = epi->ffd.file;
--	struct epitems_head *to_free;
--	struct hlist_head *head;
  
- 	lockdep_assert_irqs_enabled();
+@@ -818,7 +818,7 @@ static void ep_clear_and_put(struct eventpoll *ep)
  
-@@ -743,8 +744,21 @@ static bool __ep_remove(struct eventpoll *ep, struct epitem *epi, bool force)
- 		return false;
+ 	/*
+ 	 * Walks through the whole tree and try to free each "struct epitem".
+-	 * Note that ep_remove_safe() will not remove the epitem in case of a
++	 * Note that ep_remove() will not remove the epitem in case of a
+ 	 * racing eventpoll_release_file(); the latter will do the removal.
+ 	 * At this point we are sure no poll callbacks will be lingering around.
+ 	 * Since we still own a reference to the eventpoll struct, the loop can't
+@@ -827,7 +827,7 @@ static void ep_clear_and_put(struct eventpoll *ep)
+ 	for (rbp = rb_first_cached(&ep->rbr); rbp; rbp = next) {
+ 		next = rb_next(rbp);
+ 		epi = rb_entry(rbp, struct epitem, rbn);
+-		ep_remove_safe(ep, epi);
++		ep_remove(ep, epi);
+ 		cond_resched();
  	}
  
--	to_free = NULL;
--	head = file->f_ep;
-+	__ep_remove_file(ep, epi, file);
-+	return __ep_remove_epi(ep, epi);
-+}
-+
-+/*
-+ * Called with &file->f_lock held,
-+ * returns with it released
-+ */
-+static void __ep_remove_file(struct eventpoll *ep, struct epitem *epi, struct file *file)
-+{
-+	struct epitems_head *to_free = NULL;
-+	struct hlist_head *head = file->f_ep;
-+
-+	lockdep_assert_held(&ep->mtx);
-+
- 	if (hlist_is_singular_node(&epi->fllink, head)) {
- 		/* See eventpoll_release() for details. */
- 		WRITE_ONCE(file->f_ep, NULL);
-@@ -758,6 +772,11 @@ static bool __ep_remove(struct eventpoll *ep, struct epitem *epi, bool force)
- 	hlist_del_rcu(&epi->fllink);
- 	spin_unlock(&file->f_lock);
- 	free_ephead(to_free);
-+}
-+
-+static bool __ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
-+{
-+	lockdep_assert_held(&ep->mtx);
+@@ -1497,21 +1497,21 @@ static int ep_insert(struct eventpoll *ep, const struct epoll_event *event,
+ 		mutex_unlock(&tep->mtx);
  
- 	rb_erase_cached(&epi->rbn, &ep->rbr);
+ 	/*
+-	 * ep_remove_safe() calls in the later error paths can't lead to
++	 * ep_remove() calls in the later error paths can't lead to
+ 	 * ep_free() as the ep file itself still holds an ep reference.
+ 	 */
+ 	ep_get(ep);
  
+ 	/* now check if we've created too many backpaths */
+ 	if (unlikely(full_check && reverse_path_check())) {
+-		ep_remove_safe(ep, epi);
++		ep_remove(ep, epi);
+ 		return -EINVAL;
+ 	}
+ 
+ 	if (epi->event.events & EPOLLWAKEUP) {
+ 		error = ep_create_wakeup_source(epi);
+ 		if (error) {
+-			ep_remove_safe(ep, epi);
++			ep_remove(ep, epi);
+ 			return error;
+ 		}
+ 	}
+@@ -1535,7 +1535,7 @@ static int ep_insert(struct eventpoll *ep, const struct epoll_event *event,
+ 	 * high memory pressure.
+ 	 */
+ 	if (unlikely(!epq.epi)) {
+-		ep_remove_safe(ep, epi);
++		ep_remove(ep, epi);
+ 		return -ENOMEM;
+ 	}
+ 
+@@ -2227,7 +2227,7 @@ int do_epoll_ctl(int epfd, int op, int fd, struct epoll_event *epds,
+ 			 * The eventpoll itself is still alive: the refcount
+ 			 * can't go to zero here.
+ 			 */
+-			ep_remove_safe(ep, epi);
++			ep_remove(ep, epi);
+ 			error = 0;
+ 		} else {
+ 			error = -ENOENT;
 -- 
 2.30.2
-
 
