@@ -1,47 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D453A83AC
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 17:55:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9473A7F66;
+	Fri, 26 Jun 2026 17:54:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782496504; cv=none; b=m3n2i0u6HFphiUROkHEiOWtg+rJRWiXeNxkjPKICmJLVQ34guOc2obEg28f4vPWJ4yb6VkLu1yytE1E2MHNYBewB4GMrbRe+suFF3tPj6dHB1aT1v04wWlObU/dBU5E4wfIc1YKhcTYUh2Io3dZYqhOR5KN+m5gEyC/zis1ukDs=
+	t=1782496503; cv=none; b=WHFoUYU6IaKcVWxBEV/Ctyd3Ybc4AjSONKVieFX1cAfbeKdyHIbyMqgaDV/EsT7L3lG83xTKYsmiY7BlvGMa822nADMCypWdZqcKUVEq76amZHxwcv0km1ZkFJxjXNtFQDZO1YgDZKL/W+cF7RQkz7PHQYSjFtuMlN+37Ds4iS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782496504; c=relaxed/simple;
-	bh=rzv89d7x0CS/lgx+sOybxv2ybeQTLerIGI9OP9tctMI=;
+	s=arc-20240116; t=1782496503; c=relaxed/simple;
+	bh=LuJz7qmlTF1YJ2xgiYxnz5Dv/hWesqiDlDVM2K3h6HM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DWkQkO1ZiEO1lieAobesyQjfB5K1muPsjdM8Il0hmadTpDK52E3gtZSmBVpcr9PRySwp4uw4Zhl3zOyffK5kNM9gAI4UObltSEU1qXdKcHMFiQDr4ru34DaAyJOh1uiSVsrca1e8wKVu331e2z5J59paStklcDydOMPgXqaxGQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BucADCAB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VvAJ22WqpFaw6/g73z2LYxMjOcHkJPPaIH6IwFuqdeahH+lNbzWF1wnYXkqQItVpahAqUotUE2pQQcQynZw4IKo/0dDaKZEFIAvltf3RGo5dfxiZseDWeqPUlsy5iHP0puNTKB+BOealbgQpz+ayliyA3DJT9rr4CtqUAW81mAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EXsICJXM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BucADCAB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ACF21F00ACF;
-	Fri, 26 Jun 2026 17:55:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EXsICJXM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 744951F00A3A;
+	Fri, 26 Jun 2026 17:54:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782496502;
-	bh=qIDhNn27LtiZ78FO/Hnj+1740GHIkWRZOms0c1Rzsx8=;
+	s=k20260515; t=1782496494;
+	bh=kCQGmQCiPt8POPSO8VVlYjKlurk3/QBY1u2pmsWTY7M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BucADCABOCDh2uX0z3LDDOSiwSZVqi3vQh8ftDfm9LVNImPw5aSoLIOWQ5sfu3jbE
-	 jdP345fJFQ5phqNuU47plYQJQXYXGrqi5k404nK5Pp3RIOCAovTojSHGOhP1tjRzKl
-	 KpjT9G4xwd1gNQxlf+iWQ4uLIZk2Pless73vVEETOWhF4JyBU6rcy5z0KK3tiPKoau
-	 hB7iTRNmbpvDM4cBnlqylWoTvApp3hIX1ttowd3OjPsoWZHQGTQurb7rC2Lf/F9+Y+
-	 O7BiDNps9fytB+6ET0ywxPo7gFR0SRWQa9rJlsCkjaYShkfDTryxnN/aiZpD5hiNQl
-	 YfjXRipy9KCgw==
+	b=EXsICJXMMFRJOyh2ft348yKY5OlcxsssI2rseOwWYc1CCL2kNtttih/e8/uFl3U9h
+	 zk/xfD/T/noozZZFD6CjLmTJWI7yln1etnM70i8E4DR/bDWscPUkVGXPVJUGGpD6uH
+	 WpGLKC4pZKkvDJa1mvGiX9u/6vZZXhaUPOcQXHLLvdJ95RKRrvEwXJlKyiK4L5x/T2
+	 N/COqrGnXjGsBwaaJ88d266TBEasN3x6pCetQKNe0VOKkc8yIblsj/kHVnJiMRenls
+	 1vI5dkddOTpSHrjPtFmMAWF3aICPJ7ESlSokR1YTlu9+2MZcnqapLYHr8eIK/L05xD
+	 xn4lbTGdoc9RA==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Petr Machata <petrm@nvidia.com>,
-	stable@vger.kernel.org,
-	Wojtek Wasko <wwasko@nvidia.com>,
-	Mahesh Bandewar <maheshb@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Yong Wang <yongwang@nvidia.com>
-Subject: Re: [PATCH 6.6.y] Revert "ptp: add testptp mask test"
-Date: Fri, 26 Jun 2026 13:54:29 -0400
-Message-ID: <stable-reply-item013-ptp-revert-66-20260626@kernel.org>
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	Sean Christopherson <seanjc@google.com>,
+	David Matlack <dmatlack@google.com>,
+	James Houghton <jthoughton@google.com>,
+	Alexander Bulekov <bkov@amazon.com>,
+	Fred Griffoul <fgriffo@amazon.co.uk>,
+	Alexander Graf <graf@amazon.de>,
+	David Woodhouse <dwmw@amazon.co.uk>,
+	Filippo Sironi <sironi@amazon.de>,
+	Ivan Orlov <iorlov@amazon.co.uk>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Subject: Re: [PATCH 6.12.y] KVM: x86/mmu: Ensure hugepage is in by slot before checking max mapping level
+Date: Fri, 26 Jun 2026 13:54:25 -0400
+Message-ID: <stable-reply-item007-hugepage-612-20260626@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <3651ff8e1f7ef3a6e8f40592a1759e494d7b3a6d.1782385355.git.petrm@nvidia.com>
-References: <3651ff8e1f7ef3a6e8f40592a1759e494d7b3a6d.1782385355.git.petrm@nvidia.com>
+In-Reply-To: <20260626112405.1777340-2-pbonzini@redhat.com>
+References: <20260626112405.1777340-2-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,9 +56,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [PATCH 6.6.y] Revert "ptp: add testptp mask test"
+> KVM: x86/mmu: Ensure hugepage is in by slot before checking max mapping level
 
-Queued for 6.6, thanks.
+Queued for 6.12, thanks.
 
 -- 
 Thanks,
