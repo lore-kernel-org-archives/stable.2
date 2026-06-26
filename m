@@ -1,85 +1,79 @@
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6F13BB10D
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 09:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153E02FD69E
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 09:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782466800; cv=none; b=mVcStFw9PwBwygd1p9/Tut0yoEHZf9wW6CZpL2dNFVBrFjidGZXwB998Q2IulAH3xUDl/hIzgJz5VJeYUKdOX7XcIdm+XWJIY1GFtr3kwyl5UtkN8Kx5dwZqsJpgdcux+SDIUn4Kw0ZXsiRAaRE6jvROxbkx1a2hsvVedtPPJsU=
+	t=1782466933; cv=none; b=By9UEq1wrySD9bgHasG586wubO+5z+ez2qBENVwHDfz13qJW6uxGIcODQIfMRTNnlONBI8W1IRaN9RLRfJ6PmlOb5rQYXZBEDpkvzc3NL3zRkMsSq5TcMTq3PdUDU1KHGnXNvhkjwbAhQDv7q8INHygNwXhbNU9wAD4ipUSXa0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782466800; c=relaxed/simple;
-	bh=9XEkSyx4rpuWC/zLRuDgN3PFQFALOZecikzTfjtec/c=;
+	s=arc-20240116; t=1782466933; c=relaxed/simple;
+	bh=xChD5ko7xj9WKHYq63ZmwYEcWbmEkWAXhQ5x+ZVZ8Y4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qcu1DI1Rfm6tPqkIMi73u0yvMk1wf8UxcOle8cMGdR2Gi5sxCE23FPfZTTzQX9QwfKN0FZi+WHtdltXcndBx0ex5nXSc3EAGoUyuhlsfbTMfJ3tedMtoMW6z0xu/FkkNFVe/BCtWE3mrdZcLSvHx0RFqiWa6wxLwfrFXcfKFNQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=hOVShjV6; arc=none smtp.client-ip=209.85.222.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ef+sSQd+7DC9ZgSQeBRbBT3pec6aMIYlnR7z9r9bnVoEen1ZpGjnGlneq3905AvsYseysG7cGOu01E37MMTIPTrtpWe6MBu/076/A46KdKQJMJMtABCAOmxcXq4lIJUfdexKoB7NLscegExyJQi9nTJOcVUW95/WxXmO94dbMIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Ga2ay2ev; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="hOVShjV6"
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-915b5ce94c7so73485985a.2
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 02:39:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Ga2ay2ev"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-46f8562013bso199660f8f.1
+        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 02:42:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1782466797; x=1783071597; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1782466930; x=1783071730; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=rbYFlDOdrRKL62BQTd9+XWo+imzEYyLX5XadmB2EubY=;
-        b=hOVShjV60QH/eoDP8knLL7NSLULzmaWYTo9I+DNSVCI6GNNNfwS2izxk8lml+MhQz8
-         08Hj+zFhXkXNKGID1+P8Uzs8H+5hRBZ8JScyija1mli22sYmy6o5WoKsjTfBpZXIDKNu
-         g05svHcQFli1+lJ0c4pxhaTStLREG91gj+6RX22HGVErXF9pu+wxj+4TRtetsAoghHIL
-         Onpss8D3UQx2G4mV6usvf1ywa2f2xakXfDhjgb6uPXyxFFvilboDG1VyZ8k2stmhRne+
-         uqSngmzU9aP7DLIuao63USjZuKHaPc328PYDhJqw1Ue5DYVdNTsuGA5CkDSKAQL82ish
-         uUZg==
+        bh=i57MYdMXpilBWj0slexli9uFmzGeK180L7PM67C9CYU=;
+        b=Ga2ay2evjcb46l2x/sQbH1EfMH4VBvZigfqGdL9AAaJcWkpBETNryoP8sYi0+suSnu
+         ddTvC/P5ZoCjuLewhlOWiWS8SyRlhzMC68JqVm6LpBw18REftY03G4AGr48vSpJN+F+p
+         mXJUtjUKD9vZxdBiBylMmoKtE64gIG2Xvrc8nA4KfgjiTCAq4jIzYXAmgSkN46ImmQaR
+         iuTsBShNuETBUP5M3KmKZIFHcJd/F8pdS4uQAeFLLd4EmBp7iH2xG7YIq5eMX7Cx3jhd
+         ZmgxG4cdhHA2QRbpfS89HfBbom2tZPreQGG8cdkg4t9ulNjBS+NCCg9tzjlS0nJ+7NAl
+         3oMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782466797; x=1783071597;
+        d=1e100.net; s=20251104; t=1782466930; x=1783071730;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=rbYFlDOdrRKL62BQTd9+XWo+imzEYyLX5XadmB2EubY=;
-        b=F4OZGrVB3KY9jO+HEuj4EJPrUj7Kba3pY8JjI6mNQdfuw2G8nUwZK+2DaRGBzaB6rz
-         wjp3zK4NhEFxlqawYE6e6aCcknORnneUDJp9pxkaGzyl1tn+JpuwVEyHBLZ7Jy6VLhZx
-         4rIrHjq3whzwDhiNaHvuJcTh62sESLxQQQbb1Yu4IvDe6WGjx2uja8zdlrxVvGA6OZNN
-         ibobiKDGshRV3XEn/HesXSzlvHR2ChDXIOuK5eKAYdrV5Px92ewCnVGuD471LETJ4jaD
-         D4vQBPGYzKA7LMFsvQbewn7HSVX1G3W7OcOXPDI3hjnq3sSvFDNetyVVGnXKblFUnsxb
-         FFwA==
-X-Forwarded-Encrypted: i=1; AFNElJ+7QY2lop5SD73cB5jcjhz/WAzjoh5/xfr3RL3ZD4LZrKeci76pVfXxQM3k8XPyG4FNUz6iGSI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxLtOplmg17nI2TkGxPL9YmfPFXFAawdCWRiWyfxLZEWRdPpARN
-	tpSctBHTSYp4JZNt5eXPa42+e7WsoUxpImEtW5WveOv2QeUl8JFGpAH9vnK7Jrod84I=
-X-Gm-Gg: AfdE7ckx49LedSqol6UzGetxErH0hHqK8U0vzwfT72fnaOd1FRfeNCZBexAqpX5Odq5
-	wDLs6xKsJaq8ljtW94LIVR5I+6GV4Zw4+u94qBfQQ8+jGxLQx8lw10HhjoG83CQnIVAYybU7N0Y
-	c84+7qn0jB1NzUbNoIROI4HU0tbZR3DPZzdLPUXxKvfxFDNCgPEMEBUePWIa1jAhC/jrrci5vb/
-	QQtmm+wWMFhGheEPP6pWl7sp7SIgcA7YFkYe8KWzBkgmO3eQp4H0ddJ/pIIUGs7kncTV77QI5SB
-	De42ycIM4wa9PIueP4cv7rus13axM7k92/f7HLY6WGusosgwJix6sXNb4OBESJ8kVzNFpjO6oBD
-	Q5B6BYvQxUZfUi+9l4ToaIi85O31mVNYNPGq1XqM0dgee/JB4Fc1FsY2qC7XZlmSfUq/NvHfTvr
-	BK5QWHtdekDRI=
-X-Received: by 2002:a05:620a:4056:b0:915:8f76:8005 with SMTP id af79cd13be357-9293cadf811mr996276785a.47.1782466797609;
-        Fri, 26 Jun 2026 02:39:57 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-925fd391b22sm1107164385a.2.2026.06.26.02.39.56
+        bh=i57MYdMXpilBWj0slexli9uFmzGeK180L7PM67C9CYU=;
+        b=NEC9FrwpnC27o8k1WytKMBl2FhxVSXEXr0C9xN9ADlI24Qhcwle3v11lferIH0Oq1M
+         Oh6xquSCZJFdG5tHuv6K30DaXpl3buSxLo0vLe0piEttjm9ev4+t3Q6MgjQLHKv1ey9q
+         QWewmzm/asIK+01AKKgL8gnoNFxjgp+KFQ2/vpPDY2/dDiTXH5RTQwJtAhaNSpKyU08a
+         +cnJnI48GSywsXoh5qnPCVOgh/a1Iq7dPNcNdsxy+mHT7XjroCvkW/JgKe/l4ae/fYol
+         umT7a0oovxak/pKqhMHDEiDAdWyqLqy+aOvYEChZQvvNbcBOMHxsbTwv5/lEkZANZGLT
+         xKBg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/kZNFO06byMBNz+tp2psfQGAU57GgvJKxc9VmDi37zrLovCoBEZW+htb9q537wENfAkBBDjU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywkxd42g65N6qltamYo1PkXV0T70EqVs1CSARxZqnWBm/U79x1b
+	WxkOnOEro0/GkgXu9VncAXy2iEd8Zpt3paGWfd4/BvNSI+jU3KASosT9l0OHJSerp4s=
+X-Gm-Gg: AfdE7ck+nYG2deLaatMlqwFeb/Z3qwgEo16IAlhts8mhg120IcXznBiOXcQ68LRqc7v
+	x/cLN13UkasMG39IUK/NkzcbraIJraMNY8Hwu/4bnmj4PWKCtr3ckpMlpJK6skXqMPTD+FXVydf
+	9K08Y7lN7L+Aih1C6yAE4jwjeo9yI0WV/K25FhTe7V/dLtsKuCH9tIv5llDCL6dbK9bl2dnEr+V
+	Eie19wrM7fzh8ChKgZizlv/ZvL2AbMap5MhxcxJE0gla50Pz9R7kWABlTn91dze1jylNEcQlP7Q
+	i6C1xNO5Hk+9KEL7oiqW46CFWFtsGLN8HrorNzU3VyE+v7co3P6w/w9V/tO+m8cmchIgrZr/JbS
+	2HnFgpMQP6pjAIZ0NIP6yS6LbAzL4srCbkDRrVh7HO8K+xF5yhu6R1q9Vu9RCBGp5M91bCwNSmW
+	MdDmt79nm/PJnRxyE=
+X-Received: by 2002:a05:6000:461d:b0:446:db72:e8ec with SMTP id ffacd0b85a97d-46dc1a9181amr10448749f8f.23.1782466930592;
+        Fri, 26 Jun 2026 02:42:10 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c2279b734sm24794053f8f.30.2026.06.26.02.42.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 02:39:56 -0700 (PDT)
-Date: Fri, 26 Jun 2026 05:39:56 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Qi Zheng <qi.zheng@linux.dev>
-Cc: Harry Yoo <harry@kernel.org>, akpm@linux-foundation.org,
-	david@kernel.org, kasong@tencent.com, shakeel.butt@linux.dev,
-	baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
-	weixugc@google.com, muchun.song@linux.dev,
-	peiyang_he@smail.nju.edu.cn, mhocko@kernel.org,
-	roman.gushchin@linux.dev, ljs@kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>,
+        Fri, 26 Jun 2026 02:42:10 -0700 (PDT)
+Date: Fri, 26 Jun 2026 11:42:07 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Bradley Morgan <include@grrlz.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Feng Tang <feng.tang@linux.alibaba.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm: mglru: fix stale batch updates after memcg
- reparenting
-Message-ID: <aj5I7JAXWlTHRyEW@cmpxchg.org>
-References: <20260625151554.55105-1-qi.zheng@linux.dev>
- <aj12aVq3he6q7b2C@cmpxchg.org>
- <4c7b0c46-14f0-4a62-893e-e50714e09b74@linux.dev>
- <46ac28bf-5be1-4600-b522-0a1aa76c28e6@kernel.org>
- <08cf8972-6cfc-4452-9a3c-88e0368dbbf9@linux.dev>
- <afdaff7c-fe6b-40da-8f54-aeeab8fe8867@kernel.org>
- <90fd5300-1016-42e7-abad-08ad85fb62b4@linux.dev>
- <5a0c6597-6b96-4781-a71b-fd1298b2b7bb@kernel.org>
- <c0e366ec-ee5d-42d9-ba33-7c630660e8af@linux.dev>
+Subject: Re: [PATCH v3 3/4] powerpc/watchdog: use sys_info_with_filter() to
+ avoid duplicate backtraces
+Message-ID: <aj5Jb1VPqfOLlCBQ@pathway.suse.cz>
+References: <20260625152558.7450-1-include@grrlz.net>
+ <20260625152558.7450-4-include@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,30 +82,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <c0e366ec-ee5d-42d9-ba33-7c630660e8af@linux.dev>
+In-Reply-To: <20260625152558.7450-4-include@grrlz.net>
 
-On Fri, Jun 26, 2026 at 03:04:17PM +0800, Qi Zheng wrote:
-> On 6/26/26 2:48 PM, Harry Yoo wrote:
-> > On 6/26/26 3:24 PM, Qi Zheng wrote:
-> >> On 6/26/26 12:59 PM, Harry Yoo wrote:
-> >>> Observing a dying cgroup should be rare anyway, it's worth focusing
-> >>> more on readability?
-> >>
-> >> While it's rare to encounter consecutive dying memcgs, it can still
-> >> happen, right?
-> > 
-> > But is worth saving a few instruction in a basic block that is
-> > unlikely() to be executed?
+On Thu 2026-06-25 15:25:57, Bradley Morgan wrote:
+> The powerpc watchdog prints all CPU backtraces itself. When the watchdog
+> mask contains only SYS_INFO_ALL_BT, stripping that bit leaves zero and
+> sys_info(0) falls back to kernel_sys_info.
 > 
-> I don't have a strong opinion here. Hi Johannes, I'll leave the decision
-> up to you. If necessary, I can send out the v4.
+> Use sys_info_with_filter() so an explicit all_bt mask does not request
+> the global default.
+> 
+> --- a/arch/powerpc/kernel/watchdog.c
+> +++ b/arch/powerpc/kernel/watchdog.c
+> @@ -418,11 +421,12 @@ DEFINE_INTERRUPT_HANDLER_NMI(soft_nmi_interrupt)
+>  
+>  		xchg(&__wd_nmi_output, 1); // see wd_lockup_ipi
+>  
+> +		si_mask = READ_ONCE(hardlockup_si_mask);
+>  		if (sysctl_hardlockup_all_cpu_backtrace ||
+> -		    (hardlockup_si_mask & SYS_INFO_ALL_BT))
+> +		    (si_mask & SYS_INFO_ALL_BT))
+>  			trigger_allbutcpu_cpu_backtrace(cpu);
+>  
+> -		sys_info(hardlockup_si_mask & ~SYS_INFO_ALL_BT);
+> +		sys_info_with_filter(si_mask, SYS_INFO_ALL_BT);
+>  		if (hardlockup_panic)
+>  			nmi_panic(regs, "Hard LOCKUP");
 
-Yes, I was thinking what Harry actually bothered to spell out ;)
+I thought more about it and it is even more complicated.
 
-The race is rare, multiple levels even rarer, and even *then*
-mem_cgroup_lruvec() is a quick inline.
+Even if we prevent the duplicated output with sys_info_with_filter()
+here. Then nmi_panic() might still trigger it once again.
 
-This way you have one block to handle that one rare race
-condition. One place to put the comment. No labels, no goto.
+We could say that this patch is a step in the right direction and
+fix the other problem later. But I am not sure. We might need
+a completely different approach and this is just a step aside.
 
-Simplicity wins :)
+And there is another problem in the panic() code. I am going to
+comment in it in the 4th patch.
+
+Best Regards,
+Petr
