@@ -1,116 +1,168 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6699A1419A4;
-	Fri, 26 Jun 2026 02:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD722FD1B5
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 02:27:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782440845; cv=none; b=Nz0Y4rnyyWywRC8nXARgAOyddbOX1ZYzZy76updPGimX4jNmjq+gT2PNbElOVB14dZuyycxwo5d0pw+eM0OrIQPkRtSSt++rBglLTVzUEzS/4j+8IlUnQmcEWVCSEYpCbDeImjsc77tn16ToFv0zBysWhxAeds6W65xQtLQg4A0=
+	t=1782440874; cv=none; b=MVIO2QieUazzI2SWiL7C0d2jbxHzcWIYCtxva6aZZPKT7HikH++FpZoI6FX6/PTzQ2+ZCeQ+h0Z4uwbRIte7625un3W0/eTwOixJLT/BaPsHTIvSnr2jvG+VcnBjUyfX58ZoLPDc7WJ5/QUXq5VKqokCB+DJCtyV7Zac9FBfAPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782440845; c=relaxed/simple;
-	bh=pucuPKYeEQsDEIUZdJKJOC9pWrmnuAkB6Se8YHDWU8U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RAqxbSMgNRjhSpvDncNlmSsKkxd8iqx0fRb7FXhaA05HKsJMcdNySGKXZFD9F/ZsqMjtH1rJ+7CcMHX9vhCdNXsYegcgZY02NJCKEC8uXKDZaQcnHBtyE1kQVz4JGdnGmzBdMG268r5uj4GKS5a7pDSiL28HkbNVsIf/okXozG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.68.155])
-	by gateway (Coremail) with SMTP id _____8Bx+HiJ4z1qvzAYAA--.37489S3;
-	Fri, 26 Jun 2026 10:27:21 +0800 (CST)
-Received: from kernelserver (unknown [223.64.68.155])
-	by front1 (Coremail) with SMTP id qMiowJBxSeCC4z1qim2zAA--.12873S3;
-	Fri, 26 Jun 2026 10:27:18 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Keguang Zhang <keguang.zhang@gmail.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>,
-	loongarch@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v3 1/9] ASoC: loongson: Fix error handling in ACPI property parsing
-Date: Fri, 26 Jun 2026 10:27:03 +0800
-Message-ID: <08e44a54708eae053be148524346bb8dfcd55b03.1782439646.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1782439646.git.zhoubinbin@loongson.cn>
-References: <cover.1782439646.git.zhoubinbin@loongson.cn>
+	s=arc-20240116; t=1782440874; c=relaxed/simple;
+	bh=BPtwj9Nq/fn+q0eghUUBQ4zTBLtIhafU+HsvhuDE1js=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g3y43ZjHTfQNgrdPmDdMlI6yw8JKVYAMzu9sEnZKc0Hd3QhLZp3vrG4jqRes1L4uwEGmZowpg29YM7u9r56Jt9lGPVBlevtRpCt9znpDT0xfg3vpywV5RK4f/unhtvWivY7Kvk4jIHyNz8CAZlvtbqIFU3Z7gQnVGE05BjmIEyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dvmQTEAx; arc=none smtp.client-ip=95.215.58.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dvmQTEAx"
+Message-ID: <4c7b0c46-14f0-4a62-893e-e50714e09b74@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782440870;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=h48iMyZJeOBo8mJP1NqWzlLxC6G6uq5RUz9cl4e400U=;
+	b=dvmQTEAxG5XVvmLYAb9HPsG9G5ggSSpuxSDd7nJhF49Q3rVYDso9H+zUiwWAzS6atUFeTa
+	qZuLIm3ICeB8mEy2FSb0+fsLykYl2eJo+gz4kNIXZ+dkof0bMk05AS39jZVd0ZHrPMV5tr
+	T2tb07g13wox1UbYqeJLskElVUNfOFs=
+Date: Fri, 26 Jun 2026 10:27:36 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBxSeCC4z1qim2zAA--.12873S3
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEKCGo8wzAaFAAAsq
-X-Coremail-Antispam: 1Uk129KBj93XoW7CFy3CFyrAFy8GF17Kw13ZFc_yoW8CF4UpF
-	nxAa90grW5trn2ywn5XryrAFyay34ruwsrJFZrGwn7K3s7Awn8ury3KF1YqF4SyFy0yFyj
-	vFW8GFZ5Ka4UGFcCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
-	8JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
-	6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
-	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
-	0xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
-	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
-	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8EPfPUUUUU==
+Subject: Re: [PATCH v3] mm: mglru: fix stale batch updates after memcg
+ reparenting
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com,
+ shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, harry@kernel.org,
+ muchun.song@linux.dev, peiyang_he@smail.nju.edu.cn, mhocko@kernel.org,
+ roman.gushchin@linux.dev, ljs@kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>,
+ stable@vger.kernel.org
+References: <20260625151554.55105-1-qi.zheng@linux.dev>
+ <aj12aVq3he6q7b2C@cmpxchg.org>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <aj12aVq3he6q7b2C@cmpxchg.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-In loongson_card_parse_acpi(), the return value of
-device_property_read_string() for the `codec-dai-name` property was
-ignored. If the property is missing or invalid, an uninitialized pointer
-would be used later, potentially leading to undefined behavior.
+Hi Johannes,
 
-Fix this by checking the return value and propagating the error
-appropriately.
+On 6/26/26 2:41 AM, Johannes Weiner wrote:
+> On Thu, Jun 25, 2026 at 11:15:54PM +0800, Qi Zheng wrote:
+>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>
+>> The mglru page table walker batches per-generation size deltas in
+>> walk->nr_pages while walking page tables without holding the lruvec lock.
+>> The reset_batch_size() later folds those deltas into walk->lruvec under
+>> the lruvec lock.
+>>
+>> The page table walker can run concurrently with the memcg reparenting path
+>> as follows:
+>>
+>> CPU0                           CPU1
+>> ====                           ====
+>>
+>> walk_mm
+>> --> walk_page_range
+>>      --> update_batch_size
+>>          --> walk->nr_pages += delta
+>>
+>>                                mem_cgroup_css_offline
+>>                                --> memcg_reparent_objcgs
+>>                                    --> lock lruvec
+>>                                        lru_gen_reparent_memcg
+>>                                        --> reparent child folios to parent
+>>                                        unlock lruvec
+>>
+>>      lock lruvec
+>>      reset_batch_size
+>>      --> child lrugen->nr_pages += delta
+>>
+>> This will trigger the following warning in lru_gen_exit_memcg():
+>>
+>> 	VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
+>> 				   sizeof(lruvec->lrugen.nr_pages)));
+>>
+>> And the user-visible impact of underestimated nr_pages in MGLRU was
+>> premature OOMs because MGLRU does not try to reclaim memory when nr_pages
+>> reaches zero, but there are still more pages.
+>>
+>> To fix it, make reset_batch_size() check CSS_DYING under RCU before
+>> flushing the pending batch. A non-dying memcg keeps the original lruvec
+>> stable against RCU-delayed offlining; a dying memcg redirects the deltas
+>> to the first non-dying ancestor.
+>>
+>> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+>> Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn
+>> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+>> Cc: <stable@vger.kernel.org>
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+>> ---
+>> Changes in v3:
+>>   - re-implement lock_batch_lruvec() by checking CSS_DYING under the RCU lock
+>>     (suggested by Harry)
+>>   - update the commit message (suggested by Harry)
+>>   - temporarily drop the previous Reviewed-by tags
+>>     (since the sync method has changed)
+>>   - rebase onto the next-20260624
+>>
+>> Changes in v2:
+>>   - update the commit message (pointed by Barry)
+>>   - collect Reviewed-by
+>>
+>>   mm/vmscan.c | 45 ++++++++++++++++++++++++++++++++++++++-------
+>>   1 file changed, 38 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/mm/vmscan.c b/mm/vmscan.c
+>> index 35c3bb15ae96..1ec8c23c72b9 100644
+>> --- a/mm/vmscan.c
+>> +++ b/mm/vmscan.c
+>> @@ -3262,10 +3262,44 @@ static void update_batch_size(struct lru_gen_mm_walk *walk, struct folio *folio,
+>>   	walk->nr_pages[new_gen][type][zone] += delta;
+>>   }
+>>   
+>> +#ifdef CONFIG_MEMCG
+>> +static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
+>> +{
+>> +	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+>> +	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
+>> +
+>> +	rcu_read_lock();
+> 
+> Where is this unlocked?
 
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/cover.1780538113.git.zhoubinbin@loongson.cn?part=5
-Fixes: ddb538a3004b ("ASoC: loongson: Factor out loongson_card_acpi_find_device() function")
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
----
- sound/soc/loongson/loongson_card.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+The lruvec_unlock_irq() in reset_batch_size() will handle the unlocking.
 
-diff --git a/sound/soc/loongson/loongson_card.c b/sound/soc/loongson/loongson_card.c
-index 7910d5d9ac4f..ea895fe6b5e9 100644
---- a/sound/soc/loongson/loongson_card.c
-+++ b/sound/soc/loongson/loongson_card.c
-@@ -91,7 +91,7 @@ static int loongson_card_parse_acpi(struct loongson_card_data *data)
- 	const char *codec_dai_name;
- 	struct acpi_device *adev;
- 	struct device *phy_dev;
--	int i;
-+	int i, ret;
- 
- 	/* fixup platform name based on reference node */
- 	adev = loongson_card_acpi_find_device(card, "cpu");
-@@ -108,7 +108,9 @@ static int loongson_card_parse_acpi(struct loongson_card_data *data)
- 		return -ENOENT;
- 	snprintf(codec_name, sizeof(codec_name), "i2c-%s", acpi_dev_name(adev));
- 
--	device_property_read_string(card->dev, "codec-dai-name", &codec_dai_name);
-+	ret = device_property_read_string(card->dev, "codec-dai-name", &codec_dai_name);
-+	if (ret)
-+		return ret;
- 
- 	for (i = 0; i < card->num_links; i++) {
- 		loongson_dai_links[i].platforms->name = dev_name(phy_dev);
--- 
-2.52.0
+> 
+>> +	/*
+>> +	 * The memcg can be NULL when the memory controller is disabled.
+>> +	 * Otherwise, the caller keeps the memcg owning @lruvec alive.
+>> +	 */
+>> +	if (!memcg || !css_is_dying(&memcg->css))
+>> +		goto lock;
+>> +
+>> +	do {
+>> +		memcg = parent_mem_cgroup(memcg);
+>> +	} while (memcg && css_is_dying(&memcg->css));
+>> +	lruvec = mem_cgroup_lruvec(memcg, pgdat);
+> 
+> 	while (unlikely(memcg && css_is_dying(&memcg->css))) {
+> 		memcg = parent_mem_cgroup(memcg);
+> 		lruvec = mem_cgroup_lruvec(memcg, pgdat);
+
+There is no need to acquire the lruvec before finding the first
+non-dying memcg.
+
+Thanks,
+Qi
+
+> 	}
 
