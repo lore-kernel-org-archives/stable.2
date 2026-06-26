@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC7C39DBEF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27E73A0E85
 	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:11:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490268; cv=none; b=nBXcIR4CJa2BbUEjYxrd60gQWjqTwTbKb/9+SmSridO7rxiE7RGWz5Su0Z4Ehk4JC/Of2F9ZLIuKoCaR7qRofoSIH2eCRhVULQG95LaQ9f4Di/3WvA6Im5TqZcHstpi87dA1MfRnY2WEvK2sUFlxcOmsltbvhwBXhLehd8AF0xM=
+	t=1782490268; cv=none; b=jihlK/S0Ijmm3+7roXuHPccqgo9kkFmg0tDHEiTOJG004ZbxMVSBTgo6Vi1Ez1u4PDzLDnsJk0Rj6W69mgDnVPqdK1F0Nvy+UeGyAGWr3jAGcQk6KRpZaPmSxT8XuiaMW9YaYDgsd401MxDrdcdNrPTusIkAQts+DjoGBfKchEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490268; c=relaxed/simple;
-	bh=5UHSSOM/f3sKakmI5Zb+UyToSw+5Vtc8pYWrXlMAYMI=;
+	bh=fHedZZIgOxqjZePsvInkvl6RTfYLUYI4gGLYqbyGuAk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fluUbJgUSaVQud67yZO1clUtprpOg9CS0AjpDAKIQCzpRUMrzUwqAAMT/cYkScrHUfK8mTDNbw32leH8bhpurZfZnPvsVA52mF191MNdUpi4HI+EnJ28XqN/bQi3PnboDzmjksxxra2Ofa7C6UT7jF1fAfmD/sVlMoIe2YePFPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=VZSVJzgt; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=uO1kNbzxzLo6kTUMT0iqfnFRtFipfpnfR1P3jKFUe8/NcNb4yQ/D7EULZ0n4UKKY9zUXI1QpJgGaarM7N4eQQQGlxkQoUhCBBPmIIqTg+XsIguLhnwilcbWCI7BK8mlV5Ti1pyXrb0dyMOBzbwg7wGXGlKdTGlnczbo4zOvuMZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=LQvMVgOT; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="VZSVJzgt"
-Received: by dvalin.narfation.org (Postfix) id EAE5A202D1;
-	Fri, 26 Jun 2026 16:11:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="LQvMVgOT"
+Received: by dvalin.narfation.org (Postfix) id 70F95203D3;
+	Fri, 26 Jun 2026 16:11:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
 	s=20121; t=1782490266;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=WliH8XIN6WTG216DAT6ibeSbit/liJheXXP4kYdlpcM=;
-	b=VZSVJzgt8vRN9AjoGdTaYlDLjpiURp0G2Co+XrJhV9ZWGGPr6hWS5IvzOlohdaotb0Azxi
-	cBG4LSbWU8gQRAgS4i61NRR/NynehAc2atqLPYx7g4gosj1PHWyhMUttzLmEXBm8A3tfkW
-	skC8pLaRnWYHXjKxLfMHeeTj2XEYS5I=
+	bh=vNov5R06UwRdlNR5kaJT1cJEl1vWNiMWFmHkTieVIvE=;
+	b=LQvMVgOTpcMnOf8A5VRwLbnTIjlPiC1u8MRJZjDabMhTe3RtM5aRcyRbI9srwkM8eyr/y2
+	KEy5a5tee3s/5ytfXxafkHV1xkFWSQUh+NdfotI6sxsfQvtfSFrgfGyBX3/lZLOybXTAnv
+	QV0VvnrtqQYS4pE4UK/O5Cm7WJE12R0=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 5.15 01/25] batman-adv: tp_meter: keep unacked list in ascending ordered
-Date: Fri, 26 Jun 2026 18:10:40 +0200
-Message-ID: <20260626161105.124113-2-sven@narfation.org>
+Subject: [PATCH 5.15 02/25] batman-adv: tp_meter: initialize dup_acks explicitly
+Date: Fri, 26 Jun 2026 18:10:41 +0200
+Message-ID: <20260626161105.124113-3-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161105.124113-1-sven@narfation.org>
 References: <20260626161105.124113-1-sven@narfation.org>
@@ -45,39 +45,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 5aa8651527ea0b610e7a09fb3b8204c1398b9525 upstream.
+commit b2b68b32a715e0328662801576974aa37b942b00 upstream.
 
-When batadv_tp_handle_out_of_order inserts a new entry in the list of
-unacked (out of order) packets, it searches from the entry with the newest
-sequence number towards oldest sequence number. If an entry is found which
-is older than the newly entry, the new entry has to be added after the
-found one to keep the ascending order.
+When an ack with a sequence number equal to the last_acked is received, the
+dup_acks counter is increased to decide whether fast retransmit should be
+performed. Only when the sequence numbers are not equal, the dup_acks is
+set to the initial value (0).
 
-But for this operation list_add_tail() was used. But this function adds an
-entry _before_ another one. As result, the list would contain a lot of
-swapped sequence numbers. The consumer of this list
-(batadv_tp_ack_unordered()) would then fail to correctly ack packets.
+But if the initial packet would have the sequence number
+BATADV_TP_FIRST_SEQ, dup_acks would not be initialized and atomic_inc would
+operate on an undefined starting value. It is therefore required to have it
+explicitly initialized during the start of the sender session.
 
 Cc: stable@kernel.org
 Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/tp_meter.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/batman-adv/tp_meter.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index c7b48d51e2aed..e8792e1e4eedf 100644
+index e8792e1e4eedf..2b68eacd7bf51 100644
 --- a/net/batman-adv/tp_meter.c
 +++ b/net/batman-adv/tp_meter.c
-@@ -1325,7 +1325,7 @@ static bool batadv_tp_handle_out_of_order(struct batadv_tp_vars *tp_vars,
- 		 * one is attached _after_ it. In this way the list is kept in
- 		 * ascending order
- 		 */
--		list_add_tail(&new->list, &un->list);
-+		list_add(&new->list, &un->list);
- 		added = true;
- 		break;
- 	}
+@@ -1045,6 +1045,7 @@ void batadv_tp_start(struct batadv_priv *bat_priv, const u8 *dst,
+ 	tp_vars->icmp_uid = icmp_uid;
+ 
+ 	tp_vars->last_sent = BATADV_TP_FIRST_SEQ;
++	atomic_set(&tp_vars->dup_acks, 0);
+ 	atomic_set(&tp_vars->last_acked, BATADV_TP_FIRST_SEQ);
+ 	tp_vars->fast_recovery = false;
+ 	tp_vars->recover = BATADV_TP_FIRST_SEQ;
 -- 
 2.47.3
 
