@@ -1,75 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBC532E128;
-	Fri, 26 Jun 2026 15:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0D7387361;
+	Fri, 26 Jun 2026 15:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782487353; cv=none; b=akPR6xHkGH6OGzzKIqk2QoiGEfWLJWB8om1zZbb4WUXMolOkiFm4pKfE/s0139djShGNmn3iKkzoDe1yOIe3sl9LOifQHLIkMO78UZHrFGsFXMbjXW3IQBN1eMI5WcBw/Gb/f6wJr/TR2k+1DNtwj5cY2D5gvygaPo2Bn7Gs9oo=
+	t=1782487480; cv=none; b=pf1pqHpzX46X6KEbMc/2JBU/OCtofSvzuQ3SZ0hzrGUmRnsrOPHdAgRSuTzGx0jluCdZMmzzG1+6Daeg3sMDKscEampIk3e2qqCANH5SRPpMKQmUXi1tce4jpxc1UWXP+VX0KRbznuLgueFbkAnmTf3ZzgkzJPxz57Kt8ethyN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782487353; c=relaxed/simple;
-	bh=a+PmPZy77MT0l0MsmzX289TBUK2qqpVAaGxjL7fADHg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LzC9dKUkBQEpck9x8yIhzLNFUj9B6qr6uoyplV1Is9j7rTdgsprf08RItqYpd/Aa58bf+ttH13deR5NBw7XcNKezNVu3BroyzYeR9tuvnuIl+5oI8ISJY3VxTyEJpUjFRbgEjjEvO7ZP3wCVb/gdnk5WylFOVp9a8rNUsr0bEUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dHiBFbm0; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dHiBFbm0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C2131F00A3A;
-	Fri, 26 Jun 2026 15:22:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782487351;
-	bh=a1xj1TG/PfyEbhWtltQ6KeqTCcGTiLODcOSnoEj/Dr8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dHiBFbm0/zrKL7Y+MqfOSUeJEg6ahiCxi5m8fPPrDIC37t5fGJ6Km2LIZNcSZWvgQ
-	 NAoE1MUslSg7FM544ZvX8XFhAVAuUUr1wrcj+LCcNA9nV7w0PD053bFpxGbRSkB/+C
-	 ZEqvWuPkuN/2RL+0irsgVIDAKVjde2dlI3KXRFjS+xleSG7hJAaSrh8kta/T5EwhwF
-	 qF3EQxve/6N8xslFWMkHs3Kkpc4crhdQIyaOH+i80MEkjvvO10MDquTYLBme1zeAgl
-	 tZal3TWalWMgWqxUgV2Z4aDfM1alPpOkm6r/q4o9rNJZ15Ci+gDwy+sgA/eb6AlbTE
-	 M4WKVs/fN3oGw==
-Date: Fri, 26 Jun 2026 16:22:26 +0100
-From: Simon Horman <horms@kernel.org>
-To: haoxiang_li2024 <haoxiang_li2024@163.com>
-Cc: sgoutham@marvell.com, lcherian@marvell.com, gakula@marvell.com,
-	hkelam@marvell.com, sbhatta@marvell.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] octeontx2-af: Free BPID bitmap on setup failure
-Message-ID: <20260626152226.GC1310988@horms.kernel.org>
-References: <20260623114316.2182271-1-haoxiang_li2024@163.com>
- <20260624170930.GB1131256@horms.kernel.org>
- <78397a8d.5bc.19efc3325e6.Coremail.haoxiang_li2024@163.com>
+	s=arc-20240116; t=1782487480; c=relaxed/simple;
+	bh=UaKX2v8Zde1/mEnCpoQ6ZNmMmzXgbSJt9HixAlTWVdM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Hiux/KzcISrLh6f8VxphRclLBN0d1uM8f5YiMNi4ggjn+26GNbS0lopecGvtPbQq0BInBnA8fp+6Ei8AZADN/PyFl7ev6DuY7r24Twd7E/tt0g4FKl1R4DmTQRfvatGLaN1CsX5gEbEpafETtW7AyvxA9jB9ZfsryFGWei7/Nhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-01 (Coremail) with SMTP id qwCowABnB9CumT5qmQxsAw--.185S2;
+	Fri, 26 Jun 2026 23:24:31 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: netdev@vger.kernel.org
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>
+Subject: [PATCH] fix: net: renesas: rswitch_mii_register: fix double of_node_put after   of_mdiobus_register
+Date: Fri, 26 Jun 2026 23:24:30 +0800
+Message-Id: <20260626152430.51835-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <78397a8d.5bc.19efc3325e6.Coremail.haoxiang_li2024@163.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowABnB9CumT5qmQxsAw--.185S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1rur15AFWkJFyDXr43Wrg_yoW8GF4rpr
+	Z8KrW7ZrykXr42qa1kGa1UuF9YyayFkrW5uF1jka9Y9anYyF98Ary0ga45ur45GFW8C3W3
+	tr1jyw18uas8AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
+	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
+	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4U
+	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUeTmhDU
+	UUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgUKA2o+h0E05AAAsI
 
-On Thu, Jun 25, 2026 at 08:34:31AM +0800, haoxiang_li2024 wrote:
-> 
-> 
-> At 2026-06-25 01:09:30, "Simon Horman" <horms@kernel.org> wrote:
-> >On Tue, Jun 23, 2026 at 07:43:16PM +0800, Haoxiang Li wrote:
-> >> nix_setup_bpids() allocates bp->bpids with rvu_alloc_bitmap(), which uses
-> >> a plain kcalloc(). If any of the following devm_kcalloc() allocations for
-> >> the BPID mapping arrays fails, the function returns without freeing the
-> >> bitmap. Free the BPID bitmap before returning from those error paths.
-> >> 
-> >> Fixes: d6212d2e41a0 ("octeontx2-af: Create BPIDs free pool")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-> >
-> >Reviewed-by: Simon Horman <horms@kernel.org>
-> >
-> >I am wondering if you did a pass for any other similar problems
-> >with users of rvu_alloc_bitmap.
-> 
-> Thanks for your review! Yes, I did. I found similar issues in
-> nix_setup_ipolicers() and rvu_setup_msix_resources(), and
-> I will address them in follow-up patches.
+After of_mdiobus_register succeeds, the mdio_np reference ownership is
+  transferred to the mii_bus device (released via fwnode_handle_put during
+  mdiobus_release). The success path calls of_node_put(mdio_np) which,
+  combined with the automatic release via bus teardown, results in a double
+  put and refcount underflow.
 
-Likewise, thanks.
+Move of_node_put so it is only called in the error path where
+  of_mdiobus_register failed. On success, the bus driver manages the
+  reference lifecycle.
+
+Cc: stable@vger.kernel.org
+Fixes: 3590918b5d07 ("net: ethernet: renesas: Add support for Ethernet Switch")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/ethernet/renesas/rswitch_main.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/renesas/rswitch_main.c b/drivers/net/ethernet/renesas/rswitch_main.c
+index 6fe964816322..c33add28a70c 100644
+--- a/drivers/net/ethernet/renesas/rswitch_main.c
++++ b/drivers/net/ethernet/renesas/rswitch_main.c
+@@ -1387,13 +1387,13 @@ static int rswitch_mii_register(struct rswitch_device *rdev)
+ 	err = of_mdiobus_register(mii_bus, mdio_np);
+ 	if (err < 0) {
+ 		mdiobus_free(mii_bus);
+-		goto out;
++		of_node_put(mdio_np);
++		return err;
+ 	}
+ 
+ 	rdev->etha->mii = mii_bus;
+ 
+-out:
+-	of_node_put(mdio_np);
++	return 0;
+ 
+ 	return err;
+ }
+-- 
+2.39.5 (Apple Git-154)
+
