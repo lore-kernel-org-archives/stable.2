@@ -1,93 +1,108 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98ACF165F16;
-	Fri, 26 Jun 2026 12:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B883CC330
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 12:03:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782475308; cv=none; b=rfrjqt0qU4hIa7AY44JPDUawHg73VN6FELVZJ0VI6Jr534De5QqMWFJQvPsxYmYy2rW8mVRpLDDbaWb9Jlc5cUdzm7SHM24Z1pMzwCIgMCneDRyutfrvoMkDlLftYsl1cR5gJDReMBhzmrlK5D8jHAmTiX/6qlGigfCGFlCds+4=
+	t=1782475422; cv=none; b=lUCA5nSzIW8YFUA22RrEuqPFuXXag9MetSdzgs7FZwGEX//u93Ihnpiwvt+JvTqTh23LVRyxJvkvv3QHN7OLTQ50C89R5rI5qg+SIjRivPBumFqTUYOVPnph78Sj11NjZNlyl82BQqCPQHjeMYU7iYQt+4F9yREl8cmHmgXPk+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782475308; c=relaxed/simple;
-	bh=mf38q0Ou23iUnjIUG+hZxNzkSfFNlrRSz4KKGcq13Tk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=I72usuHWckhqIftsP9WaAQU8EhMO0za5/zUavsCYCS/4/Z51Dec1hxy2cWbMzGSVhIFkZQQLF3laO5upzWu2Y2Fn4vLUFkO/N4sXkYeQ3RHr79Lzc1k9lu2JZydExg1jHM39wj+GdcLqxO4RAS5sVlekqMV7h61/N3QkCBeNIrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-05 (Coremail) with SMTP id zQCowAAngNMgaj5q5xZnFQ--.22291S2;
-	Fri, 26 Jun 2026 20:01:39 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: krzk@kernel.org,
-	s.nawrocki@samsung.com,
-	cw00.choi@samsung.com,
-	mturquette@baylibre.com,
-	sboyd@kernel.org
-Cc: alim.akhtar@samsung.com,
-	bmasney@redhat.com,
-	linux-samsung-soc@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] fix: clk/samsung: exynos_clkout_probe: success path leaks parent clock   references from of_clk_get_by_name
-Date: Fri, 26 Jun 2026 20:01:35 +0800
-Message-Id: <20260626120135.34173-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	s=arc-20240116; t=1782475422; c=relaxed/simple;
+	bh=CWXb+4thCgNlHUqML3azUtSDuVlrACHoggD+fOCUJeA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LaSHkVxxX3zItBWyaNTLnYMhnwnBgoqYiqGerJc3J1d7e7yhkP5D5/J3KT9v+GsEqFf/vOzWeiaf0nh0zyi4le1TiUy8n4h2IVHPz8zo4YV+L4KikU/4fX5cGcRx8NHNPb7uvLvPbAoxhaSX8zKm3v1WYYkfkfKRYIVMV5oOqNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lrjUtRkm; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lrjUtRkm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2C7A1F000E9;
+	Fri, 26 Jun 2026 12:03:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782475421;
+	bh=M+O8tsJQndsfmCOxVs6WQWK/G9XK0qBCLMq98dP4CqY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lrjUtRkmeDylsGTxNEHtOePh1aCK2XrzEsz80+cPPLy//PrX/DOiRdcA9ztD8Md/w
+	 NfAcljoHZ3BdbxP/RVqVi7l6WlnDXuA9nZbKjUogzfnNjGBib0WzuEL+0A410/6UVZ
+	 7I8GeVMpXxsd8ax4WXlp3mHW4kT8l1REahR0Q/EU2oQaX9MNYdAt/J3DKZWYPRMZ1w
+	 cZ1QBH5Z4Kdcs4TBL9IATQLTEwfoCFrByobdGBp1r6MwR7HU0v0qi0r3G2wF+ygXV3
+	 yvYSTl77eWn6mjhm3HY5KO8EtxnhGEQKt31LOS8VXaBi7kMwhpHoF21ht+TvHzo39B
+	 zFLEFRJu9KeIg==
+Date: Fri, 26 Jun 2026 13:03:33 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Alice Ryhl <aliceryhl@google.com>, linux-mm@kvack.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: fix CONFIG_STACK_GROWSUP typo in
+ tools/testing/vma/include/dup.h
+Message-ID: <aj5qQA1Hj_M8sEb3@lucifer>
+References: <20260611012258.432043-1-enelsonmoore@gmail.com>
+ <8fc34141-b8a7-43fd-8c84-f843bd34fb9f@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAngNMgaj5q5xZnFQ--.22291S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7GrWxAFy3JrWkGrW3CF45KFg_yoWkAFg_CF
-	1FgFnrCry5GrnrCF1kCry5CFZIkr9a9Fn5XFWIy398A347uF17Zr4F9wnIyw1jgw48XFZ8
-	G3Zrur48ur1SvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb38FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
-	1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
-	cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
-	ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
-	0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
-	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
-	1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
-	AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
-	42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWI
-	evJa73UjIFyTuYvjfUoWlkDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCREKA2o+TZNWugAAs3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8fc34141-b8a7-43fd-8c84-f843bd34fb9f@kernel.org>
 
-of_clk_get_by_name() acquires clock references stored in the local
-  parents[] array. All error paths correctly release these via the clks_put
-  label, but the success path returns 0 without releasing the parent
-  references. The references were only needed to obtain clock names for
-  registration and are permanently leaked after probe completes.
+On Wed, Jun 17, 2026 at 01:09:26PM +0200, David Hildenbrand (Arm) wrote:
+> On 6/11/26 03:22, Ethan Nelson-Moore wrote:
+> > Commit 2b6a3f061f11 ("mm: declare VMA flags by bit") significantly
+> > refactored the header file include/linux/mm.h.  In that step, it introduced
+> > a typo in an ifdef, referring to a non-existing config option
+> > STACK_GROWS_UP, whereas the actual config option is called STACK_GROWSUP.
+> > 
+> > Commit 40a4af52e047 ("mm: fix CONFIG_STACK_GROWSUP typo in mm.h") fixed
+> > this typo in the mm.h header file, but did not update the copy of the
+> > code in tools/testing/vma/include/dup.h. Update this copy as well.
+> > 
+> > Commit message adapted from the above-referenced fix to mm.h.
+> > 
+> > Fixes: 2b6a3f061f11 ("mm: declare VMA flags by bit")
+> > Cc: stable@vger.kernel.org # 7.0+
+> 
+> This is in tools/testing/vma. Why does this require a stable tag?
+> 
+> What is the resulting problem (in the test!) that we even care about the Fixes: tag?
 
-Cc: stable@vger.kernel.org
-Fixes: 9484f2cb8332 ("clk: samsung: exynos-clkout: convert to module driver")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- drivers/clk/samsung/clk-exynos-clkout.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Yeah I doubt very much that stable users are running VMA userland tests on
+parisc :))
 
-diff --git a/drivers/clk/samsung/clk-exynos-clkout.c b/drivers/clk/samsung/clk-exynos-clkout.c
-index 5b21025338bd..ee3048d36040 100644
---- a/drivers/clk/samsung/clk-exynos-clkout.c
-+++ b/drivers/clk/samsung/clk-exynos-clkout.c
-@@ -190,6 +190,10 @@ static int exynos_clkout_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_clk_unreg;
- 
-+	for (i = 0; i < EXYNOS_CLKOUT_PARENTS; ++i)
-+		if (!IS_ERR(parents[i]))
-+			clk_put(parents[i]);
-+
- 	return 0;
- 
- err_clk_unreg:
--- 
-2.39.5 (Apple Git-154)
+> 
+> If there is no user visible (test!) problem, then this is merely a cleanup, not
+> a bugfix.
 
+Yeah I think moreso this.
+
+> 
+> Change itself LGTM.
+> 
+> > Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+> > ---
+> >  tools/testing/vma/include/dup.h | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+> > index 9e0dfd3a85b0..adbc3179085d 100644
+> > --- a/tools/testing/vma/include/dup.h
+> > +++ b/tools/testing/vma/include/dup.h
+> > @@ -243,7 +243,7 @@ enum {
+> >  #define VM_NOHUGEPAGE	INIT_VM_FLAG(NOHUGEPAGE)
+> >  #define VM_MERGEABLE	INIT_VM_FLAG(MERGEABLE)
+> >  #define VM_STACK	INIT_VM_FLAG(STACK)
+> > -#ifdef CONFIG_STACK_GROWS_UP
+> > +#ifdef CONFIG_STACK_GROWSUP
+> >  #define VM_STACK_EARLY	INIT_VM_FLAG(STACK_EARLY)
+> >  #else
+> >  #define VM_STACK_EARLY	VM_NONE
+> 
+> 
+> -- 
+> Cheers,
+> 
+> David
+
+Thanks, Lorenzo
