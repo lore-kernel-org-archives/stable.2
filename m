@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D18B3EB0E6
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:10:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594B739E6FD
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:10:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490215; cv=none; b=NPeecNh2kt6O8C1F4fTS71A0763c2f1nvC0pxTbyT0whcdLjcIVQLjHrohLRi+p6RF0uIlJX+Jjqy45diyPgt35zP9xdQNBQ//mxgmtLr9Jnl+cvQ0kdf1CMd0eASqx2eXbQkkDbTKZbgSBcFvqziEvey//zWV0grFSxwmMD9p8=
+	t=1782490215; cv=none; b=hHaf12mxIoPYL3ijS1luNn9GMCiP6GsmzklVib8gsrRKxJc5JQpedyZpSdSu8z+EEknxgnvBnx/8AMKziZaRarZBmkmCnS/7YKAvmw/3Wp4un37LTaC2Y2TRvkRXjblvUxnshQngjUGJ0NddGaiNP+VxnpiU+A6D/VWGEkOIq3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490215; c=relaxed/simple;
-	bh=2jChVqF4oU2q6y12zsTHpP0+ZuCnYLhyPY96OCV8NPI=;
+	bh=h0IyZK4MowQwznVSbbCgg8e/S2eqMhh5BzI61gwu2sg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sr9/iNcFpcF399+I8TDfnU1m0vJ8DMBHqu8Gt17AjQPDJL1Viy1XW2k2Op8Tp9yAiwnGNEiO2IhGHjgj+Rrn8OY4AiCFWkGhRX+yKGT8gCdTQLW59VOY3+8kYHqTr9S/1TT1fFtzEiC2Y2GVTLuq86DlcjamXTZrovFIscHV8g8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=NCn3tQQy; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=m1oMzF4+iirqJq2WSTClfCrcvEmLuXrt+v+2GyXX6PHdZiAzgO4ipR/57LhRaGUU6GqsyfYQ2PvkIKviOmMQEXXezektyNERBDJf2DjP7gb3YLJe9Zpiye1rplOJHxIJ4Y1e5Wq4kWiagVpsTT+fWQgJs+WhtaE0oP4i7hjZbas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=XX0Z1lug; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="NCn3tQQy"
-Received: by dvalin.narfation.org (Postfix) id 4A6FF20536;
-	Fri, 26 Jun 2026 16:09:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="XX0Z1lug"
+Received: by dvalin.narfation.org (Postfix) id 89EED20560;
+	Fri, 26 Jun 2026 16:09:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490197;
+	s=20121; t=1782490199;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=IFGTsz4HRr7mGSTewKM7+fqVr4RDf7qIJ52QSojv59s=;
-	b=NCn3tQQyfEbsKHu/DYqjM2RXAd+R/+f7cr9sWo10JyQaDI3ys8g7a4i8/9Nr8+zHRZVnE4
-	T/fVzjMDxRka46boOnc+fs7mylSG/nE22aEOhaAUsgVIp330UWvidzUowROKrYJmYhVpaO
-	sdzuKgbJhQ1wbrqfQnJzA1X8v6qCSH4=
+	bh=EGPyTioGeFr4dkXDmYolPSTgpGfV2+p+ggX0cWuN1EY=;
+	b=XX0Z1lugxZidSh748wWenR61iTeA3K7dzEjHmEZpkpSj4PdxDsZ/Xt+Z/E+4vS7+4QVwqB
+	JSBYlvUI0aV3EBOwNtJlmBZ4m6A3QsFGcLcS3AEME+8owC23ZP6ER2u3WV45m0vSibygXX
+	famicG8bQGOen10tegkEFrZEUpUCvas=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 5.10 07/23] batman-adv: tp_meter: handle seqno wrap-around for fast recovery detection
-Date: Fri, 26 Jun 2026 18:09:36 +0200
-Message-ID: <20260626160952.123713-8-sven@narfation.org>
+Subject: [PATCH 5.10 12/23] batman-adv: frag: ensure fragment is writable before modifying TTL
+Date: Fri, 26 Jun 2026 18:09:41 +0200
+Message-ID: <20260626160952.123713-13-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626160952.123713-1-sven@narfation.org>
 References: <20260626160952.123713-1-sven@narfation.org>
@@ -45,34 +45,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit f54c85ed42a1b27a516cf2a4728f5a612b799e07 upstream.
+commit b7293c6e8c15b2db77809b25cf8389e35331b27a upstream.
 
-The recover variable and the last_sent sequence number are initialized on
-purpose as a really high value which will wrap-around after the first 2000
-bytes. The fast recovery precondition must therefore not use simple integer
-comparisons but use helpers which are aware of the sequence number
-wrap-arounds.
+Before batman-adv is allowed to write to an skb, it either has to have its
+own copy of the skb or use skb_cow() to ensure that the data part is not
+shared. But batadv_frag_skb_fwd() modifies the TTL even when it is shared.
+
+Adding a skb_cow() right before this operation avoids this and can at the
+same time prepare it for the modifications required to forward the
+fragment.
 
 Cc: stable@kernel.org
-Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
+Fixes: 610bfc6bc99b ("batman-adv: Receive fragmented packets and merge")
+[ Context ]
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/tp_meter.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/batman-adv/fragmentation.c | 15 ++++++++++++++-
+ net/batman-adv/fragmentation.h |  3 ++-
+ net/batman-adv/routing.c       |  3 +--
+ 3 files changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index cd19684247868..a4df826e4ece7 100644
---- a/net/batman-adv/tp_meter.c
-+++ b/net/batman-adv/tp_meter.c
-@@ -738,7 +738,7 @@ static void batadv_tp_recv_ack(struct batadv_priv *bat_priv,
- 		if (atomic_read(&tp_vars->dup_acks) != 3)
- 			goto out;
+diff --git a/net/batman-adv/fragmentation.c b/net/batman-adv/fragmentation.c
+index 724e06e3e799f..95c88bbdbcbee 100644
+--- a/net/batman-adv/fragmentation.c
++++ b/net/batman-adv/fragmentation.c
+@@ -386,6 +386,8 @@ bool batadv_frag_skb_buffer(struct sk_buff **skb,
+  * @skb: skb to forward
+  * @recv_if: interface that the skb is received on
+  * @orig_node_src: originator that the skb is received from
++ * @rx_result: set to NET_RX_SUCCESS when the fragment was forwarded and
++ *  NET_RX_DROP when it was dropped; only valid when true is returned
+  *
+  * Look up the next-hop of the fragments payload and check if the merged packet
+  * will exceed the MTU towards the next-hop. If so, the fragment is forwarded
+@@ -395,7 +397,8 @@ bool batadv_frag_skb_buffer(struct sk_buff **skb,
+  */
+ bool batadv_frag_skb_fwd(struct sk_buff *skb,
+ 			 struct batadv_hard_iface *recv_if,
+-			 struct batadv_orig_node *orig_node_src)
++			 struct batadv_orig_node *orig_node_src,
++			 int *rx_result)
+ {
+ 	struct batadv_priv *bat_priv = netdev_priv(recv_if->soft_iface);
+ 	struct batadv_orig_node *orig_node_dst;
+@@ -418,12 +421,22 @@ bool batadv_frag_skb_fwd(struct sk_buff *skb,
+ 	 */
+ 	total_size = ntohs(packet->total_size);
+ 	if (total_size > neigh_node->if_incoming->net_dev->mtu) {
++		if (skb_cow(skb, ETH_HLEN) < 0) {
++			kfree_skb(skb);
++			*rx_result = NET_RX_DROP;
++			ret = true;
++			goto out;
++		}
++
++		packet = (struct batadv_frag_packet *)skb->data;
++
+ 		batadv_inc_counter(bat_priv, BATADV_CNT_FRAG_FWD);
+ 		batadv_add_counter(bat_priv, BATADV_CNT_FRAG_FWD_BYTES,
+ 				   skb->len + ETH_HLEN);
  
--		if (tp_vars->recover >= recv_ack)
-+		if (!batadv_seq_before(tp_vars->recover, recv_ack))
- 			goto out;
+ 		packet->ttl--;
+ 		batadv_send_unicast_skb(skb, neigh_node);
++		*rx_result = NET_RX_SUCCESS;
+ 		ret = true;
+ 	}
  
- 		/* if this is the third duplicate ACK do Fast Retransmit */
+diff --git a/net/batman-adv/fragmentation.h b/net/batman-adv/fragmentation.h
+index 881ef328b6cd7..aba6eecb7d0e7 100644
+--- a/net/batman-adv/fragmentation.h
++++ b/net/batman-adv/fragmentation.h
+@@ -19,7 +19,8 @@ void batadv_frag_purge_orig(struct batadv_orig_node *orig,
+ 			    bool (*check_cb)(struct batadv_frag_table_entry *));
+ bool batadv_frag_skb_fwd(struct sk_buff *skb,
+ 			 struct batadv_hard_iface *recv_if,
+-			 struct batadv_orig_node *orig_node_src);
++			 struct batadv_orig_node *orig_node_src,
++			 int *rx_result);
+ bool batadv_frag_skb_buffer(struct sk_buff **skb,
+ 			    struct batadv_orig_node *orig_node);
+ int batadv_frag_send_packet(struct sk_buff *skb,
+diff --git a/net/batman-adv/routing.c b/net/batman-adv/routing.c
+index 9e5c71e406ffc..f6df66a534c41 100644
+--- a/net/batman-adv/routing.c
++++ b/net/batman-adv/routing.c
+@@ -1143,10 +1143,9 @@ int batadv_recv_frag_packet(struct sk_buff *skb,
+ 
+ 	/* Route the fragment if it is not for us and too big to be merged. */
+ 	if (!batadv_is_my_mac(bat_priv, frag_packet->dest) &&
+-	    batadv_frag_skb_fwd(skb, recv_if, orig_node_src)) {
++	    batadv_frag_skb_fwd(skb, recv_if, orig_node_src, &ret)) {
+ 		/* skb was consumed */
+ 		skb = NULL;
+-		ret = NET_RX_SUCCESS;
+ 		goto put_orig_node;
+ 	}
+ 
 -- 
 2.47.3
 
