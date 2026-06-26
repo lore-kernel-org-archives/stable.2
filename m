@@ -1,22 +1,22 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342823FFFB5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379163FCB0E
 	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490349; cv=none; b=EE5AAUjyXBAlVEEHh9BWxYJds7oNBVoewFONsg6Gp0XVgAnRzKRwEsNHEPZ2UDXORbw/E8C5cZZf70bwxwx1asBaKUDd7jijqyzJcqy3Kv38cYNGRCRTu/KQODWRR8tlBuInzlwZZw+0B5TSY3v2jFBoLjPmm0miODMrusitvQw=
+	t=1782490349; cv=none; b=aUNHZsm4xE64vLU8tK1bTZ6X88Au67gEizrVbYzebuSPWVDiuF8vY/TJ4UJmvbY8TKXzYyRNcsuhUhQldrkN7UG+HoxLwV/H+15Lb5ioYtCKpc1cmiVJUdYJaiBiOItiH9GY66I+EZwebctTdIWAW/0iElgeMolKML+5r6j93Co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490349; c=relaxed/simple;
-	bh=ZJ99bHUa/88zbXff+SPwLQGzU199j8KZtjjGbehrd+Y=;
+	bh=0sCLhOyGNhmpgKXjIUn/i4ynzg6HGvOatbpSOZiNElc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TZDB8oeD8AT3R3Rp3JuqXb6Cpic58Woz8v76r16PZeNvjv2bf8rgaKHzr84XwtpGK7JSNS99C/Z4Z09vqutTaWNwqJDlNdmizJNUBnHB74c6CT8gemPpOG26DjE/9z9Amzmr7m2610r3HEaT8fBqMtQ4Jj1KWi9mWnldjIPAV0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=pD6GtuWo; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=VQ4y/MrGh59wqjQsZqM8SAPpLNdNNQphsf7TdfTra+fmAHzk/AlLtCmvZCACpyLoYt5qPOcDMJ3qzV3K5KQX/e0ZwKrTpJc0bBiwDXnn6UzumGPhTXfRDTPxZnQr8gsG9PXXjKVBFC6zmFjIptyU679s1AI7Mwr92KAHrxO8MOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=HuOUDeWY; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="pD6GtuWo"
-Received: by dvalin.narfation.org (Postfix) id 97B4320541;
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="HuOUDeWY"
+Received: by dvalin.narfation.org (Postfix) id 224A22053A;
 	Fri, 26 Jun 2026 16:12:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
 	s=20121; t=1782490342;
@@ -24,16 +24,16 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=J8EISdNrouSM4rjnSAT3ezb+To8jTsXeC0bQto2Gt/c=;
-	b=pD6GtuWoxFHn1ZzBmrfTyo4ajtJ7vEn1lj0R2pyhblrDQdjcgyVqHJqdxt1YlCNGt8r9U1
-	pURfWAywXU2Lri+pLV0udfGokS58eoy3j6nSh1Fi8Nykl5um4DWfU39SkpM91Z7vQi2eXy
-	hBMLNBebAuLVj4gcdlc9u8pD6skPxs4=
+	bh=kMzRjztIH48QTrBXze97BbIbRlkhe+hAr8mXT4eYbkg=;
+	b=HuOUDeWYC34+bqSWm7vRuOBBm5Xji6i5vaMFGZAJvBpDWAHr8PCir1ka/lmOqRXHMovV6M
+	Dm/tJLT31A6vr9/eLCPyn6gb8HVs2M6/qaX3v/f6YwW6dHNO7Ar3mN1TTJ12Prjh+ILPgz
+	gl6n+ZxrwePhgYUFWWTgpvWaRgH77s4=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.18 26/26] batman-adv: tvlv: avoid race of cifsnotfound handler state
-Date: Fri, 26 Jun 2026 18:12:10 +0200
-Message-ID: <20260626161210.124712-27-sven@narfation.org>
+Subject: [PATCH 6.18 25/26] batman-adv: tvlv: enforce 2-byte alignment
+Date: Fri, 26 Jun 2026 18:12:09 +0200
+Message-ID: <20260626161210.124712-26-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161210.124712-1-sven@narfation.org>
 References: <20260626161210.124712-1-sven@narfation.org>
@@ -45,149 +45,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit edb557b2ba38fea2c5eb710cf366c797e187218c upstream.
+commit 32a6799255525d6ea4da0f7e9e0e521ad9560a46 upstream.
 
-TVLV handlers can have the flag BATADV_TVLV_HANDLER_OGM_CIFNOTFND set to
-signal that the OGM handler should be called (with NULL for data) when the
-specific TVLV container was not found in the OGM. This is used by:
+The fields of an aggregated OGM(v2) are accessed assuming (at least) 2-byte
+alignment, so a following OGM must start at an even offset. As the header
+length is even, an odd tvlv_len would misalign it and trigger unaligned
+accesses on strict-alignment architectures.
 
-* DAT
-* GW
-* Multicast (OGM + Tracker)
-
-The state whether the handler was executed was stored in the struct
-batadv_tvlv_handler. But the TVLV processing is started without any lock.
-Multiple parallel contexts processing TVLVs would therefore overwrite each
-others BATADV_TVLV_HANDLER_OGM_CALLED flag in the shared
-batadv_tvlv_handler.
-
-Drop the shared BATADV_TVLV_HANDLER_OGM_CALLED flag and instead determine,
-per TVLV buffer, whether a matching container was present by scanning the
-packet's buffer.
+Such a misaligned TVLV/OGM/OGMv2 is not created by a normal participant in
+the mesh. Therefore, reject such malformed packets.
 
 Cc: stable@kernel.org
 Fixes: ef26157747d4 ("batman-adv: tvlv - basic infrastructure")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/tvlv.c  | 63 ++++++++++++++++++++++++++++++++++++++----
- net/batman-adv/types.h |  7 -----
- 2 files changed, 57 insertions(+), 13 deletions(-)
+ net/batman-adv/bat_iv_ogm.c | 11 ++++++++++-
+ net/batman-adv/bat_v_ogm.c  | 11 ++++++++++-
+ net/batman-adv/routing.c    |  6 ++++++
+ net/batman-adv/tvlv.c       |  6 ++++++
+ 4 files changed, 32 insertions(+), 2 deletions(-)
 
+diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
+index b8b1b997960a9..6e79f69c2fede 100644
+--- a/net/batman-adv/bat_iv_ogm.c
++++ b/net/batman-adv/bat_iv_ogm.c
+@@ -311,14 +311,23 @@ batadv_iv_ogm_aggr_packet(int buff_pos, int packet_len,
+ 			  const struct batadv_ogm_packet *ogm_packet)
+ {
+ 	int next_buff_pos = 0;
++	u16 tvlv_len;
+ 
+ 	/* check if there is enough space for the header */
+ 	next_buff_pos += buff_pos + sizeof(*ogm_packet);
+ 	if (next_buff_pos > packet_len)
+ 		return false;
+ 
++	tvlv_len = ntohs(ogm_packet->tvlv_len);
++
++	/* the fields of an aggregated OGM are accessed assuming (at least)
++	 * 2-byte alignment, so a following OGM must start at an even offset.
++	 */
++	if (tvlv_len & 1)
++		return false;
++
+ 	/* check if there is enough space for the optional TVLV */
+-	next_buff_pos += ntohs(ogm_packet->tvlv_len);
++	next_buff_pos += tvlv_len;
+ 
+ 	return next_buff_pos <= packet_len;
+ }
+diff --git a/net/batman-adv/bat_v_ogm.c b/net/batman-adv/bat_v_ogm.c
+index 6852bf5da8c55..1f9b2d2b4831c 100644
+--- a/net/batman-adv/bat_v_ogm.c
++++ b/net/batman-adv/bat_v_ogm.c
+@@ -849,14 +849,23 @@ batadv_v_ogm_aggr_packet(int buff_pos, int packet_len,
+ 			 const struct batadv_ogm2_packet *ogm2_packet)
+ {
+ 	int next_buff_pos = 0;
++	u16 tvlv_len;
+ 
+ 	/* check if there is enough space for the header */
+ 	next_buff_pos += buff_pos + sizeof(*ogm2_packet);
+ 	if (next_buff_pos > packet_len)
+ 		return false;
+ 
++	tvlv_len = ntohs(ogm2_packet->tvlv_len);
++
++	/* the fields of an aggregated OGMv2 are accessed assuming (at least)
++	 * 2-byte alignment, so a following OGMv2 must start at an even offset.
++	 */
++	if (tvlv_len & 1)
++		return false;
++
+ 	/* check if there is enough space for the optional TVLV */
+-	next_buff_pos += ntohs(ogm2_packet->tvlv_len);
++	next_buff_pos += tvlv_len;
+ 
+ 	return next_buff_pos <= packet_len;
+ }
+diff --git a/net/batman-adv/routing.c b/net/batman-adv/routing.c
+index 4483f8d9c7583..41951c7a1c50b 100644
+--- a/net/batman-adv/routing.c
++++ b/net/batman-adv/routing.c
+@@ -1366,6 +1366,12 @@ int batadv_recv_mcast_packet(struct sk_buff *skb,
+ 	if (tvlv_buff_len > skb->len - hdr_size)
+ 		goto free_skb;
+ 
++	/* the fields of an multicast payload are accessed assuming (at least)
++	 * 2-byte alignment, so a following packet must start at an even offset.
++	 */
++	if (tvlv_buff_len & 1)
++		goto free_skb;
++
+ 	ret = batadv_tvlv_containers_process(bat_priv, BATADV_MCAST, NULL, skb,
+ 					     tvlv_buff, tvlv_buff_len);
+ 	if (ret >= 0) {
 diff --git a/net/batman-adv/tvlv.c b/net/batman-adv/tvlv.c
-index 63fb54024d154..a91f1891747c0 100644
+index cde798c82dcf1..63fb54024d154 100644
 --- a/net/batman-adv/tvlv.c
 +++ b/net/batman-adv/tvlv.c
-@@ -398,7 +398,6 @@ static int batadv_tvlv_call_handler(struct batadv_priv *bat_priv,
- 		tvlv_handler->ogm_handler(bat_priv, orig_node,
- 					  BATADV_NO_FLAGS,
- 					  tvlv_value, tvlv_value_len);
--		tvlv_handler->flags |= BATADV_TVLV_HANDLER_OGM_CALLED;
- 		break;
- 	case BATADV_UNICAST_TVLV:
- 		if (!skb)
-@@ -430,6 +429,48 @@ static int batadv_tvlv_call_handler(struct batadv_priv *bat_priv,
- 	return NET_RX_SUCCESS;
- }
+@@ -464,6 +464,12 @@ int batadv_tvlv_containers_process(struct batadv_priv *bat_priv,
+ 		if (tvlv_value_cont_len > tvlv_value_len)
+ 			break;
  
-+/**
-+ * batadv_tvlv_containers_contain() - check if a tvlv buffer holds a container
-+ * @tvlv_value: tvlv content
-+ * @tvlv_value_len: tvlv content length
-+ * @type: tvlv container type to look for
-+ * @version: tvlv container version to look for
-+ *
-+ * Return: true if a container of the given type and version is present in the
-+ * tvlv buffer, false otherwise.
-+ */
-+static bool batadv_tvlv_containers_contain(void *tvlv_value,
-+					   u16 tvlv_value_len, u8 type,
-+					   u8 version)
-+{
-+	struct batadv_tvlv_hdr *tvlv_hdr;
-+	u16 tvlv_value_cont_len;
-+
-+	while (tvlv_value_len >= sizeof(*tvlv_hdr)) {
-+		tvlv_hdr = tvlv_value;
-+		tvlv_value_cont_len = ntohs(tvlv_hdr->len);
-+		tvlv_value = tvlv_hdr + 1;
-+		tvlv_value_len -= sizeof(*tvlv_hdr);
-+
-+		if (tvlv_value_cont_len > tvlv_value_len)
-+			break;
-+
 +		/* the next tvlv header is accessed assuming (at least) 2-byte
 +		 * alignment, so it must start at an even offset.
 +		 */
 +		if (tvlv_value_cont_len & 1)
 +			break;
 +
-+		if (tvlv_hdr->type == type && tvlv_hdr->version == version)
-+			return true;
-+
-+		tvlv_value = (u8 *)tvlv_value + tvlv_value_cont_len;
-+		tvlv_value_len -= tvlv_value_cont_len;
-+	}
-+
-+	return false;
-+}
-+
- /**
-  * batadv_tvlv_containers_process() - parse the given tvlv buffer to call the
-  *  appropriate handlers
-@@ -449,7 +490,9 @@ int batadv_tvlv_containers_process(struct batadv_priv *bat_priv,
- 				   struct sk_buff *skb, void *tvlv_value,
- 				   u16 tvlv_value_len)
- {
-+	u16 tvlv_value_start_len = tvlv_value_len;
- 	struct batadv_tvlv_handler *tvlv_handler;
-+	void *tvlv_value_start = tvlv_value;
- 	struct batadv_tvlv_hdr *tvlv_hdr;
- 	u16 tvlv_value_cont_len;
- 	u8 cifnotfound = BATADV_TVLV_HANDLER_OGM_CIFNOTFND;
-@@ -493,12 +536,20 @@ int batadv_tvlv_containers_process(struct batadv_priv *bat_priv,
- 		if (!tvlv_handler->ogm_handler)
- 			continue;
- 
--		if ((tvlv_handler->flags & BATADV_TVLV_HANDLER_OGM_CIFNOTFND) &&
--		    !(tvlv_handler->flags & BATADV_TVLV_HANDLER_OGM_CALLED))
--			tvlv_handler->ogm_handler(bat_priv, orig_node,
--						  cifnotfound, NULL, 0);
-+		if (!(tvlv_handler->flags & BATADV_TVLV_HANDLER_OGM_CIFNOTFND))
-+			continue;
- 
--		tvlv_handler->flags &= ~BATADV_TVLV_HANDLER_OGM_CALLED;
-+		/* if the corresponding container was present then the handler
-+		 * was already called from the loop above
-+		 */
-+		if (batadv_tvlv_containers_contain(tvlv_value_start,
-+						   tvlv_value_start_len,
-+						   tvlv_handler->type,
-+						   tvlv_handler->version))
-+			continue;
-+
-+		tvlv_handler->ogm_handler(bat_priv, orig_node,
-+					  cifnotfound, NULL, 0);
- 	}
- 	rcu_read_unlock();
- 
-diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
-index ef712ba4fff2c..ac4494f1b8e2a 100644
---- a/net/batman-adv/types.h
-+++ b/net/batman-adv/types.h
-@@ -2245,13 +2245,6 @@ enum batadv_tvlv_handler_flags {
- 	 *  will call this handler even if its type was not found (with no data)
- 	 */
- 	BATADV_TVLV_HANDLER_OGM_CIFNOTFND = BIT(1),
--
--	/**
--	 * @BATADV_TVLV_HANDLER_OGM_CALLED: interval tvlv handling flag - the
--	 *  API marks a handler as being called, so it won't be called if the
--	 *  BATADV_TVLV_HANDLER_OGM_CIFNOTFND flag was set
--	 */
--	BATADV_TVLV_HANDLER_OGM_CALLED = BIT(2),
- };
- 
- #endif /* _NET_BATMAN_ADV_TYPES_H_ */
+ 		tvlv_handler = batadv_tvlv_handler_get(bat_priv,
+ 						       tvlv_hdr->type,
+ 						       tvlv_hdr->version);
 -- 
 2.47.3
 
