@@ -1,82 +1,236 @@
-Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com [209.85.210.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from forward103d.mail.yandex.net (forward103d.mail.yandex.net [178.154.239.214])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68DB3B1017
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 19:11:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB0236B05E;
+	Fri, 26 Jun 2026 19:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.214
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782501096; cv=none; b=FEAgjcM0AWtauIHzj6VTLtKBh6KYbdCS7QFxQL7NtPdKIe+AnPD9X/TJmMv0YDoJ3Y90ZYkZbwutOmUjse7zbcfX1M9ZAjb85DmCJmBy4gEPOyzJJrfdQWPYNQ8g2vAUiIh6GM5GL78LvH3hRwzoQVup0rPRHUzUo5eByUImI7M=
+	t=1782501233; cv=none; b=Ts4uKngrAISEOR7Ms3S5Y3BXKDLIl7T8YyRdA18hfHaaxoNdQnUPmAPfJojOxASboreU4gEyFNS297vqqvLYc6d2cfrB/JZUIgcmRAD3BHb3LOizuFybYRuVo22L/9TAutuRiTEyqPFxPVn3gJd6lYJashiMS39lWHKe/mIH94g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782501096; c=relaxed/simple;
-	bh=SYyGX7CRd59z7RJKo/wpZWXgbmtBMjXEDxJ0dGqicvA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=dKrtOTZ8+4Lh3JEsEQkSeYi47FdMScgswN3PiJpVvP5WP1LzmDasQ3wvNaXHQLvctPukvgqaweRJ5Efjg1QPOewuQxAMwi7NTSeZ8etMSBeU0SwGZ/dE+VyMhrB0KrH3YHIGWWyc6uPECEW05xlsxJmlRZ+nrMgFbcJ6tcITDgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fzJ9zf3e; arc=none smtp.client-ip=209.85.210.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1782501233; c=relaxed/simple;
+	bh=JlC+TRGJIZL8ljFJ21ScvQFLhWMH7gX475BoHYb8aN0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tvnaXPl75KLD4FI8+w4xMeq8qPLVLoPY6NcPM6LitEzffrSPamvXf2MB98tAzdDlUb5TNpQb0bLCu0jFm6dieP5fmx17mEhlyJ7/V2DRFNh+HLpSkoCe4Joaz23sumy1xi5blrfgPCPAmwXASouFktFwvJmUUUs8AJ8JL0cW1Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=V3Yc3L7o; arc=none smtp.client-ip=178.154.239.214
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fzJ9zf3e"
-Received: by mail-pf1-f201.google.com with SMTP id d2e1a72fcca58-8422ca754d8so719535b3a.1
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 12:11:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782501095; x=1783105895; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=2knDCK7pRXDoPdThYLEfyiz4oOOQn0caXBXu1bE1oGI=;
-        b=fzJ9zf3eFbhRTnyxIjJgEEg2ykXbV/J3iV8a1rgYlkqK+TT3LxQgvaPqd8nTgRjBDc
-         ZELZL4aSzTGxlV0AOjDYiqtFHd4TzGLJEkOljVgqW5r6GUX/ajvZJomlyRH8CYDQY/d8
-         zIqpt5CTRTBs1gfIBw0lAPGnjmMMkH9R7LcYDR3gQqFUHR/FuEkfzfdhhqiM7UbyLNGG
-         Q8fTg5tyUAAc6NZY/ceg5OYpzpYXPb8OA3yestJZwyCn1xk9ZTccaWhvwOzzeGvkk9bE
-         LxqzbDOuzw4IURnAVgtmc/7FEOm/61s0cLqanR4IsQ0oIqA5eb85gM7HDC4Pe6go3Btq
-         6VGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782501095; x=1783105895;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2knDCK7pRXDoPdThYLEfyiz4oOOQn0caXBXu1bE1oGI=;
-        b=OjmSc1Ma4RGLy7B/2pi03DX9uBuQb3cTiSdsC8Jq6fFMd6e+6RW09QPVIOL/xboc3G
-         q0NhuTMC1juv00y/QQikmJUUfnIJlVU8+ZxHzc+4UCmpgSe6ADN/Ouh78u1eshXohkNJ
-         0d5aew9QquWx/wAvnKKsYdMpzEW6RyGADDi9/EnV97XibASlPc2a5lGFXq8n52CW32vZ
-         TL6p3iywkiGBVLvDyGd/qMBe4tzP85t7h4Y2pnX8aPOBHDwE1bmqvP+NSBEbgxpbE9/i
-         iNnjviOiU7jmWpQHgEBaZuqN+ccl+4+nPGhmsU+fOcN+Nk/CsrmtDWWL72xmcQg2ZdcP
-         W5GQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8GCvee9+zOLC0zT+4nKgapbr4tFcmod0xfHG18u/6NIQjs+QxcfIwTX7M5bdF8+zrZuJCFEyg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNxtM5NfkAeXqIzGwlMbf+SznGlX4/ouRLCPaGbC8s5sKrU1NU
-	OMR9sBK1erATbOa7+KBx7PtMIUsLUiMeqiNQJy5AB4I0mqEarrZH6m63ATGFG7U0rfY3F9ZVnAL
-	QhMeSrQ==
-X-Received: from pfbit24.prod.google.com ([2002:a05:6a00:4598:b0:845:cb91:3911])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:84e:b0:845:b5c1:cf62
- with SMTP id d2e1a72fcca58-845d261fcd6mr1209650b3a.43.1782501094810; Fri, 26
- Jun 2026 12:11:34 -0700 (PDT)
-Date: Fri, 26 Jun 2026 12:11:34 -0700
-In-Reply-To: <stable-reply-item008-kvm-515-respfn-20260626@kernel.org>
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="V3Yc3L7o"
+Received: from mail-nwsmtp-smtp-production-main-81.klg.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-81.klg.yp-c.yandex.net [IPv6:2a02:6b8:c43:1743:0:640:287f:0])
+	by forward103d.mail.yandex.net (Yandex) with ESMTPS id D03C8C005D;
+	Fri, 26 Jun 2026 22:13:40 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-81.klg.yp-c.yandex.net (smtp) with ESMTPSA id VDgZvirmX8c0-CwsHMUqk;
+	Fri, 26 Jun 2026 22:13:39 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1782501219; bh=jNeglCViEBka8yVtR4z5raXj3iuBh/ECJABlpgTpemQ=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=V3Yc3L7oLn1exA8LeYfoQtfnj8/pVwN991YkA4uX0bX/F4bCEtKyyEWA8yZ1Xig8U
+	 IoHAfosCeg281DD+G8MtnSgQntE1iWpso+GSozZ91pxSPZbsrH8kUolwUZ6p7ANXLX
+	 6ELXikKk032hyzfftzeWqSnzUmgWenfzGRpDshOI=
+Authentication-Results: mail-nwsmtp-smtp-production-main-81.klg.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+From: Evgenii Burenchev <evg28bur@yandex.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Evgenii Burenchev <evg28bur@yandex.ru>,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com,
+	siqueira@igalia.com,
+	alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	mario.limonciello@amd.com,
+	alex.hung@amd.com,
+	superm1@kernel.org,
+	timur.kristof@gmail.com,
+	ivan.lipski@amd.com,
+	ray.wu@amd.com,
+	aurabindo.pillai@amd.com,
+	chen-yu.chen@amd.com,
+	mripard@kernel.org,
+	Dillon.Varone@amd.com,
+	mwen@igalia.com,
+	chiahsuan.chung@amd.com,
+	kenneth.feng@amd.com,
+	srinivasan.shanmugam@amd.com,
+	tzimmermann@suse.de,
+	Alvin.Lee2@amd.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	chaitanya.kumar.borah@intel.com,
+	ekurzinger@gmail.com,
+	pierre-eric.pelloux-prayer@amd.com,
+	HaoPing.Liu@amd.com,
+	Tony.Cheng@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH v3] drm/amd/display: Fix dangling pointers in state reset functions on allocation failure
+Date: Fri, 26 Jun 2026 22:13:03 +0300
+Message-ID: <20260626191314.29933-1-evg28bur@yandex.ru>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260626112606.1778248-9-pbonzini@redhat.com> <stable-reply-item008-kvm-515-respfn-20260626@kernel.org>
-Message-ID: <aj7O5pjLMtgYDHNe@google.com>
-Subject: Re: [PATCH 5.15.y 8/8] KVM: x86/mmu: Ensure hugepage is in by slot
- before checking max mapping level
-From: Sean Christopherson <seanjc@google.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org, 
-	David Matlack <dmatlack@google.com>, James Houghton <jthoughton@google.com>, 
-	Alexander Bulekov <bkov@amazon.com>, Fred Griffoul <fgriffo@amazon.co.uk>, Alexander Graf <graf@amazon.de>, 
-	David Woodhouse <dwmw@amazon.co.uk>, Filippo Sironi <sironi@amazon.de>, Ivan Orlov <iorlov@amazon.co.uk>, 
-	Paolo Bonzini <pbonzini@redhat.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jun 26, 2026, Sasha Levin wrote:
-> >  -	if (sp->role.direct && !kvm_is_reserved_pfn(pfn) &&
-> >  +	if (sp->role.direct && is_gfn_in_memslot(slot, sp->gfn) &&
-> 
-> This drops the !kvm_is_reserved_pfn(pfn) guard instead of adding
-> is_gfn_in_memslot() alongside it. I think upstream could drop it only because
-> a8ac499bb6ab ("KVM: x86/mmu: Don't require refcounted "struct page" to create
-> huge SPTEs") rewrote host_pfn_mapping_level() to stop touching the struct page
-> but that commit isn't in 5.15. Does it make sense?
+Multiple reset functions in amdgpu_dm free the old state before allocating
+a new one. If kzalloc_obj() fails, the function returns without updating
+the state pointer, leaving a dangling pointer to already freed memory.
 
-Agreed, the kvm_is_reserved_pfn() should be kept for 5.15.
+Fix this by allocating the new state first. In case of allocation failure,
+the old state remains untouched and the function safely returns, preserving
+the existing state.
+
+For amdgpu_dm_connector_funcs_reset(), additionally restore the explicit
+kfree(old_state) which was lost when the function was refactored, as
+__drm_atomic_helper_connector_destroy_state() only frees resources but not
+the state structure itself.
+
+This affects three functions:
+- amdgpu_dm_plane_drm_plane_reset()
+- amdgpu_dm_crtc_reset_state()
+- amdgpu_dm_connector_funcs_reset()
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
+Fixes: 473683a03495 ("drm/amd/display: Create a file dedicated for CRTC")
+Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_types and amdgpu_dm")
+Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
+---
+Changes in v3:
+- Restore explicit kfree(old_state) in amdgpu_dm_connector_funcs_reset()
+  to prevent memory leak (reviewer Mario Limonciello <mario.limonciello@amd.com>)
+
+Changes in v2:
+- Also fix amdgpu_dm_crtc_reset_state() and amdgpu_dm_connector_funcs_reset()
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 46 +++++++++++--------
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  8 ++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 14 +++---
+ 3 files changed, 39 insertions(+), 29 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 97ab1e83b318..8829e884167b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8151,33 +8151,41 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
+ 
+ void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
+ {
+-	struct dm_connector_state *state =
++	/* Remember the old state */
++	struct dm_connector_state *old_state =
+ 		to_dm_connector_state(connector->state);
+ 
++	struct dm_connector_state *state;
++
++	/* Allocate new state */
++	state = kzalloc_obj(*state);
++	if (WARN_ON(!state))
++		return;
++
++	/* Release resources owned by the previous state and free memory */
+ 	if (connector->state)
+ 		__drm_atomic_helper_connector_destroy_state(connector->state);
+ 
+-	kfree(state);
++	kfree(old_state);
+ 
+-	state = kzalloc_obj(*state);
++	/* Install and initialize the new DRM connector state */
++	__drm_atomic_helper_connector_reset(connector, &state->base);
+ 
+-	if (state) {
+-		state->scaling = RMX_OFF;
+-		state->underscan_enable = false;
+-		state->underscan_hborder = 0;
+-		state->underscan_vborder = 0;
+-		state->base.max_requested_bpc = 8;
+-		state->vcpi_slots = 0;
+-		state->pbn = 0;
+-
+-		if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
+-			if (amdgpu_dm_abm_level <= 0)
+-				state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
+-			else
+-				state->abm_level = amdgpu_dm_abm_level;
+-		}
++	/* Initialize AMD-specific connector state */
++	state->scaling = RMX_OFF;
++	state->underscan_enable = false;
++	state->underscan_hborder = 0;
++	state->underscan_vborder = 0;
++	state->base.max_requested_bpc = 8;
++	state->vcpi_slots = 0;
++	state->pbn = 0;
+ 
+-		__drm_atomic_helper_connector_reset(connector, &state->base);
++	/* Initialize eDP-specific defaults */
++	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
++		if (amdgpu_dm_abm_level <= 0)
++			state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
++		else
++			state->abm_level = amdgpu_dm_abm_level;
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 3dcedaa67ed8..6146fbc528c3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -437,13 +437,15 @@ static void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc)
+ {
+ 	struct dm_crtc_state *state;
+ 
+-	if (crtc->state)
+-		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
+-
++	/* Allocate new state first */
+ 	state = kzalloc_obj(*state);
+ 	if (WARN_ON(!state))
+ 		return;
+ 
++	/* Destroy old state only after successful allocation */
++	if (crtc->state)
++		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
++
+ 	__drm_atomic_helper_crtc_reset(crtc, &state->base);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index e957657b06c7..eb1c0a26f20d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1488,17 +1488,17 @@ static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
+ 
+ static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
+ {
+-	struct dm_plane_state *amdgpu_state = NULL;
+-
+-	if (plane->state)
+-		plane->funcs->atomic_destroy_state(plane, plane->state);
++	struct dm_plane_state *amdgpu_state;
+ 
++	/* Allocate new state first */
+ 	amdgpu_state = kzalloc_obj(*amdgpu_state);
+-	WARN_ON(amdgpu_state == NULL);
+-
+-	if (!amdgpu_state)
++	if (WARN_ON(!amdgpu_state))
+ 		return;
+ 
++	/* Destroy old state only after successful allocation */
++	if (plane->state)
++		plane->funcs->atomic_destroy_state(plane, plane->state);
++
+ 	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
+ 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
+-- 
+2.43.0
+
