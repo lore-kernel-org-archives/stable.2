@@ -1,22 +1,22 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AFB33993
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:11:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7D238B146
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:11:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490288; cv=none; b=t8N9nnXCS/QgfGGEIMniXvYlZxhTQ2NiAr8iwxw0jbaqruZvR91YMnAnUnBBZ2OZ/k2Axi1jOg/OVQe2TYinlABAK/aN2ab69UZpK1C9V13O88jNexbZXUfUq92JTumsGmkedf0Y1j3O/FO/depSvdgsIqZJfzNtAbDxWAXnTCE=
+	t=1782490289; cv=none; b=uw2NiXeOrra5txtRb17tsexZbjZZVFRB+asNLSw0XOCEQVIPcE5exrsj3sTL0pzPYU5XcXGnkrr0teOc2aUgW3dufqeed3IPAFp6n1ujU1nQ3X7lR85910xP9uHI8YZT02YpfMbyonkTJrtparxBBkgK0geqcvfjT32URavTWLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782490288; c=relaxed/simple;
-	bh=zwAThkbUo7uLI085bpnJZYNkhWQl2aIAz6Cbp/faPm4=;
+	s=arc-20240116; t=1782490289; c=relaxed/simple;
+	bh=44zC080o2feE4lXK5+Ws4oC9VoaMk5L5HGfIv6FZxeY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gpoyXOLeyQqk0hjubsTuVUeathsXepODFxC03Yz3IGRiy46VMFWwbAt8NVv7NNOsNvlWU68PEPpoNj7r8favyKp9idwb9UWn9rxGxutGSp0REbfMb+d0RAMK33I7uK7ACQ6F3JE+Mbn0ePCymluT0tAcYj+RF5eCL0u0epuBktc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=UZ0NceFh; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=Mpds+adk+QiRHi+y2Ny02oVqZhEvzpd9Y5zHDXDa33Ne5/kVxEn64nkVaUyutrEiK2Zgeg9X1frqKlLEgcI/lWXhF2EHqgQKyn//2LLE+FoJ7sVYUD3DLg6mvl+1vsD4TLqRMCFqn0P8c+zjyvwXIwUF+owOOJZa6VuTPxplA58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=XB7Jp+sE; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="UZ0NceFh"
-Received: by dvalin.narfation.org (Postfix) id 177E8203F3;
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="XB7Jp+sE"
+Received: by dvalin.narfation.org (Postfix) id 8D31C203FC;
 	Fri, 26 Jun 2026 16:11:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
 	s=20121; t=1782490286;
@@ -24,16 +24,16 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YsN9N4Ncr1XBwBc+jSexSwkY0AGyzatpp6r9NLB28q8=;
-	b=UZ0NceFhOxyu74LJvwp7o3DlJis4iWbZXsBgz1TFe78eVp2mjpKCatCwN/uJqd1ukfBtOj
-	AVNw3mjVvozHeEtKLw+QGGhlZWnUcd/lyqfTGfBl0+TUhUcX+O4COLZ4WT4dvHiJzSDpAB
-	IgcAtuIoh7Xz0X6eKjdu3DM7sxC4zeo=
+	bh=8xSdkX64CvI5SFX38RxDskz1mseUxr/uCS8oHCOhrp8=;
+	b=XB7Jp+sE5yAYZZtQ63xWfeARSiGjdDO9wa6PmUuNyBPgc6HsSjdgdIrIswyvvywzRispVA
+	7lEC8Z4CqpecN7AlaJOEYJ+6h7gSLjuEZS47hJpueALazBZfOOHDjoNiXlfnSpyWyvmeGI
+	wlVXEFL1qUQfMbdVrXpwpkSaa6EHG3Y=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.1 04/25] batman-adv: tp_meter: avoid window underflow
-Date: Fri, 26 Jun 2026 18:11:02 +0200
-Message-ID: <20260626161123.124273-5-sven@narfation.org>
+Subject: [PATCH 6.1 05/25] batman-adv: tp_meter: avoid divide-by-zero for dec_cwnd
+Date: Fri, 26 Jun 2026 18:11:03 +0200
+Message-ID: <20260626161123.124273-6-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626161123.124273-1-sven@narfation.org>
 References: <20260626161123.124273-1-sven@narfation.org>
@@ -45,51 +45,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 765947b81fb54b6ebb0bc1cfe55c0fa399e002b8 upstream.
+commit 33ccd52f3cc9ed46ce395199f89aa3234dc83314 upstream.
 
-In batadv_tp_avail(), win_left is calculated with 32-bit unsigned
-arithmetic: win_left = win_limit - tp_vars->last_sent;
+The cwnd is always MSS <= cwnd <= 0x20000000. But the calculation in
+batadv_tp_update_cwnd() assumes unsigned 32 bit arithmetics.
 
-During Fast Recovery, cwnd is inflated and last_sent advances rapidly. When
-Fast Recovery ends, cwnd drops abruptly back to ss_threshold. If the newly
-shrunk win_limit is less than last_sent, the unsigned subtraction will
-underflow, wrapping to a massive positive value. Instead of returning that
-the window is full (unavailable), it returns that the sender can continue
-sending.
+    ((mss * 8) ** 2) / (cwnd * 8)
 
-To handle this situation, it must be checked whether the windows end
-sequence number (win_limit) has to be compared with the last sent sequence
-number. If it would be before the last sent sequence number, then more acks
-are needed before the transmission can be started again.
+In case cwnd is actually 0x20000000, it will be shifted by 3 bit to the
+left end up at 0x100000000 or U32_MAX + 1. It will therefore wrap around
+and be 0 - resulting in:
+
+    ((mss * 8) ** 2) / 0
+
+This is of course invalid and cannot be calculated. The calculation should
+must be simplified to avoid this overflow:
+
+   (mss ** 2) * 8 / cwnd
+
+It will keep the precision enhancement from the scaling (by 8) but avoid
+the overflow in the divisor.
+
+In theory, there could still be an overflow in the dividend. It is at the
+moment fixed to BATADV_TP_PLEN in batadv_tp_recv_ack() - so it is not an
+imminent problem. But allowing it to use the whole u32 bit range, would
+mean that it can still use up to 67 bits. To keep this calculation safe for
+32 bit arithmetic, mss must never use more than floor((32 - 3) / 2) bits -
+or in other words: must never be larger than 16383.
 
 Cc: stable@kernel.org
 Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/tp_meter.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ net/batman-adv/tp_meter.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index f6ccb639744a2..0fdcafca3aa02 100644
+index 0fdcafca3aa02..4ff80e4214ff0 100644
 --- a/net/batman-adv/tp_meter.c
 +++ b/net/batman-adv/tp_meter.c
-@@ -817,10 +817,15 @@ static void batadv_tp_recv_ack(struct batadv_priv *bat_priv,
- static bool batadv_tp_avail(struct batadv_tp_vars *tp_vars,
- 			    size_t payload_len)
- {
-+	u32 last_sent = READ_ONCE(tp_vars->last_sent);
- 	u32 win_left, win_limit;
+@@ -154,9 +154,12 @@ static void batadv_tp_update_cwnd(struct batadv_tp_vars *tp_vars, u32 mss)
+ 		return;
+ 	}
  
- 	win_limit = atomic_read(&tp_vars->last_acked) + tp_vars->cwnd;
--	win_left = win_limit - tp_vars->last_sent;
++	/* prevent overflow in (mss * mss) << 3 */
++	mss = min_t(u32, mss, (1U << 14) - 1);
 +
-+	if (batadv_seq_before(last_sent, win_limit))
-+		win_left = win_limit - last_sent;
-+	else
-+		win_left = 0;
- 
- 	return win_left >= payload_len;
- }
+ 	/* increment CWND at least of 1 (section 3.1 of RFC5681) */
+ 	tp_vars->dec_cwnd += max_t(u32, 1U << 3,
+-				   ((mss * mss) << 6) / (tp_vars->cwnd << 3));
++				   ((mss * mss) << 3) / tp_vars->cwnd);
+ 	if (tp_vars->dec_cwnd < (mss << 3)) {
+ 		spin_unlock_bh(&tp_vars->cwnd_lock);
+ 		return;
 -- 
 2.47.3
 
