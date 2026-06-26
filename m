@@ -1,97 +1,85 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07AC3EBF04;
-	Fri, 26 Jun 2026 10:00:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632A63EA953
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 10:05:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782468058; cv=none; b=MZObO2rgfoOuMvqLuE4G2dVTretEuo+TaJKkvTDk58k9rOBnygy//cTJpOsOFGH3E/dG5ndxZmq5EvIG7BEtmLrt0c1Mj4h79R3gdBs0qvLgEJrwYVwnJY98RWNDqEtBPeGxNazjzHhM9VWnvHP+OwEnkXgRNONdIQ26F1e3HlM=
+	t=1782468332; cv=none; b=WjBm9t3yGFd+6ht5ucVzwYLl2MFRQnMKhweW4ysgakz6FXITDSvDp9N/bnY+bnyIE2s5MOlfTMBbas8NG0XIoi5jzMPYdgSMHTwKLOYN+KtJk3C8+NbQF23qkcdfpZID8cu8lNnpFNZn+2Y8UZm+cf7gf8hm3/nqqYYUmndk6is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782468058; c=relaxed/simple;
-	bh=UQVMOzVSc1P4F67Vk3YGL4CKtzNcOICf4bkwy2cjU/M=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qYdF1/PeownP+r0qiSdQrtpvznM75nPT2cujg4uQHYvN0GIKdwu/i0lT1uGyqlSTmaMWPc4AAoQJ1nlEXMu+ElaPl0MfEs8BgzgWwXo8iaV2Pz7nO9jY/BDsZ3n90EwPWeVUjl4pHVyiXrI6hPISmQNp5ACYc3h5JFkqUjri0Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-03 (Coremail) with SMTP id rQCowACXaZDBTT5qhSXrFQ--.21S2;
-	Fri, 26 Jun 2026 18:00:35 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	tglx@kernel.org,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org
-Cc: mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org,
-	irogers@google.com,
-	adrian.hunter@intel.com,
-	james.clark@linaro.org,
-	hpa@zytor.com,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] fix: x86/events/intel/uncore: discover_upi_topology: inner loop leaks PCI   device references from pci_get_domain_bus_and_slot
-Date: Fri, 26 Jun 2026 18:00:31 +0800
-Message-Id: <20260626100031.31494-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	s=arc-20240116; t=1782468332; c=relaxed/simple;
+	bh=C6g3oSTRv01LcmdPXswFH3AfN8+ZBuwOKaByhSZrN6o=;
+	h=References:Mime-Version:To:Cc:From:Message-Id:Subject:In-Reply-To:
+	 Date:Content-Type; b=nAQ97M4WDtx00Y8/4x1vkpDUGKn611MWdO8MAH425d/erjojW/DUS1j5n1P7N9TqX/zeH6WgVY588nI0XJ/Ii2Aiy/R5AiwZsgY7HXHgbXB8PjL+KzWns7bpR2ftlQhknXmY7FHsvZf8qKTmp+q4EyaPe9xpUqCxzNWL6pPGxm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=JE4g0LCy; arc=none smtp.client-ip=209.127.230.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="JE4g0LCy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1782468319; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=vrWJEdeaP+BWIo9pqHkAnAToTeZrL9b56uLfVI+0FFw=;
+ b=JE4g0LCyQ3qb74xBJGriRR4hLPlC4XEf5BqV6mY13ZRAeZzIzjHHbsWb7rU2J5hqQN/+Xc
+ E7r8alvuKMEZ3kfnoRrupPr5ZcRV21wOkV6/ndzU0jXx4rSOBwGmitxJYzzzwNqqV/E52T
+ 3GXpY2sG94I9O/333tZJdcndXRYmRYf9ds9lGg0zPtpnCcCNAeVB10PeixKcWNMe1vN2dd
+ Z5OzUeYAWWMbblQAKtP9uAZcUKNzMTr4tO3Xmj9xza8F/nIVPxRnR28FFgym0Aebz91ugX
+ XBkGr8IJOcK7vh/TfnhqAvRC8vVhEmqWNKqR/+gEX6v+F7kjo8RfQ9tdCdxi8A==
+References: <20260623094947.7853-1-zhujia.zj@bytedance.com> <81ed36cc-b5c8-41cf-8b7d-16611e61e294@huaweicloud.com> <20260624094535.1-zhujia.zj@bytedance.com> <x3jm3mhgsr7zx4hvfgdvmwoqyz5vxx2fjyxy6gs6him46767f6@dkkirnw54x6x> <7471b9cb-158a-4ed4-a1ce-95270ef38974@gmail.com> <qwe3wrfaoqoowiywhskhewfcjbh5aolmgeoy7am6xcl7id4fam@zxqmz7266uaq>
+X-Original-From: Zhu Jia <zhujia.zj@bytedance.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXaZDBTT5qhSXrFQ--.21S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KrykuFWfGw1fKw1ktFWUJwb_yoW8JF4fpF
-	WaqFy7Kr1fWas2ga98u3WS9rZFvF4kGF9Yg3yIg34I9wn8Xr17JFW2g3WYga48CrykXr1a
-	y3W2vw48X34UAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
-	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
-	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
-	nIWIevJa73UjIFyTuYvjTRNJ5oDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgoKA2o+SxkLIQAAsp
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+To: "Jan Kara" <jack@suse.cz>, "Zhang Yi" <yizhang089@gmail.com>
+Cc: "Zhu Jia" <zhujia.zj@bytedance.com>, 
+	"Zhang Yi" <yi.zhang@huaweicloud.com>, "Theodore Ts'o" <tytso@mit.edu>, 
+	"Andreas Dilger" <adilger.kernel@dilger.ca>, 
+	"Baokun Li" <libaokun@linux.alibaba.com>, 
+	"Ojaswin Mujoo" <ojaswin@linux.ibm.com>, 
+	"Ritesh Harjani" <ritesh.list@gmail.com>, <linux-ext4@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+From: "Zhu Jia" <zhujia.zj@bytedance.com>
+Message-Id: <20260626095734.1-zhujia.zj@bytedance.com>
+Subject: Re: [PATCH] ext4: cancel dirty accounting for folios without buffers
+In-Reply-To: <qwe3wrfaoqoowiywhskhewfcjbh5aolmgeoy7am6xcl7id4fam@zxqmz7266uaq>
+Date: Fri, 26 Jun 2026 18:05:12 +0800
+Content-Type: text/plain; charset=UTF-8
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+X-Lms-Return-Path: <lba+26a3e4edd+cf508d+vger.kernel.org+zhujia.zj@bytedance.com>
 
-In the inner for loop, dev is repeatedly overwritten by
-  pci_get_domain_bus_and_slot() without first releasing the previous dev 
-  via pci_dev_put(). The err label only releases the last ubox and dev
-  references, while the references from earlier loop iterations are
-  permanently leaked. Fix by adding pci_dev_put(dev) before the overwriting
-  assignment.
+On Thu, Jun 25, 2026 at 01:18:31PM +0200, Jan Kara wrote:
+> On Wed 24-06-26 21:29:58, Zhang Yi wrote:
+> > On 6/24/2026 8:32 PM, Jan Kara wrote:
+> > > On Wed 24-06-26 17:52:06, Zhu Jia wrote:
+> > > > The reason I left the tags unchanged in this version is that I was not sure
+> > > > whether it is appropriate for ext4 to open-code xarray tag cleanup directly.
+> > > > 
+> > > > If you think this is the right direction, I can add the helper back and
+> > > > send a v2.
+> > > 
+> > > That was a good judgement! Playing with xarray tags like this in filesystem
+> > > code is certainly not a good thing. For now, I'd leave the xarray tags
+> > > dangling - they will be eventually synced with reality on next writeback
+> > > attempt. If this inconsistency of tags needs to be fixed, the fix belongs
+> > > to the generic code (so that it can be used in other places as well).
+> > 
+> > Yes, I agree. Directly clearing the tag via open code is not a good
+> > approach. However, I took a look at the !nr_to_submit branch in
+> > ext4_bio_write_folio(), and it seems to have a similar simple handling
+> > pattern - it directly calls __folio_start_writeback() and
+> > folio_end_writeback(), which appears to be an elegant way to clear them.
+> > Could we also call these two helpers just after folio_cancel_dirty()
+> > here?
+>
+> Right, that would be actually doable there and would keep things more
+> consistent so I think that's a good idea! Thanks!
 
-Cc: stable@vger.kernel.org
-Fixes: fdd041028f22 ("perf/x86/intel/uncore: Factor out topology_gidnid_map()")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- arch/x86/events/intel/uncore_snbep.c | 1 +
- 1 file changed, 1 insertion(+)
+Thanks Jan and Yi, your discussion makes sense. I will send v2 shortly.
 
-diff --git a/arch/x86/events/intel/uncore_snbep.c b/arch/x86/events/intel/uncore_snbep.c
-index 215d33e260ed..cecc1ce0a248 100644
---- a/arch/x86/events/intel/uncore_snbep.c
-+++ b/arch/x86/events/intel/uncore_snbep.c
-@@ -5494,6 +5494,7 @@ static int discover_upi_topology(struct intel_uncore_type *type, int ubox_did, i
- 		for (idx = 0; idx < type->num_boxes; idx++) {
- 			upi = &type->topology[lgc_pkg][idx];
- 			devfn = PCI_DEVFN(dev_link0 + idx, ICX_UPI_REGS_ADDR_FUNCTION);
-+			pci_dev_put(dev);
- 			dev = pci_get_domain_bus_and_slot(pci_domain_nr(ubox->bus),
- 							  ubox->bus->number,
- 							  devfn);
--- 
-2.39.5 (Apple Git-154)
-
+Thanks,
+Jia
