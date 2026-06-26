@@ -1,85 +1,159 @@
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632A63EA953
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 10:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA47218B0F;
+	Fri, 26 Jun 2026 10:05:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782468332; cv=none; b=WjBm9t3yGFd+6ht5ucVzwYLl2MFRQnMKhweW4ysgakz6FXITDSvDp9N/bnY+bnyIE2s5MOlfTMBbas8NG0XIoi5jzMPYdgSMHTwKLOYN+KtJk3C8+NbQF23qkcdfpZID8cu8lNnpFNZn+2Y8UZm+cf7gf8hm3/nqqYYUmndk6is=
+	t=1782468348; cv=none; b=PjxODKDDrshXPvCIium7EfA0BDQUq11zMWyFxWhog/xcffCdqiNIseG/aqtqtksbIpccuwxHKuPjKPjbXD46ecAOAYjUQBBwC2xgFaPZ745Tby7B4k6BgZHUNPC9DvxJVpfnLx3SAsBQOuIv3bA8dB4PoZ1il9KZmXMddk991QA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782468332; c=relaxed/simple;
-	bh=C6g3oSTRv01LcmdPXswFH3AfN8+ZBuwOKaByhSZrN6o=;
-	h=References:Mime-Version:To:Cc:From:Message-Id:Subject:In-Reply-To:
-	 Date:Content-Type; b=nAQ97M4WDtx00Y8/4x1vkpDUGKn611MWdO8MAH425d/erjojW/DUS1j5n1P7N9TqX/zeH6WgVY588nI0XJ/Ii2Aiy/R5AiwZsgY7HXHgbXB8PjL+KzWns7bpR2ftlQhknXmY7FHsvZf8qKTmp+q4EyaPe9xpUqCxzNWL6pPGxm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=JE4g0LCy; arc=none smtp.client-ip=209.127.230.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1782468348; c=relaxed/simple;
+	bh=on9Q0e33q3+ivfeVYwsV14w3mzatq3uHmWd8eu5xlJ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eupasVUVyh17EQkyvKeEBLBWBLUG7vv7JOA/frc/lz1oZzJqObUeHxfHtwUdsNjeOoWG3bQK9jAFaDOQ28fOS6MEU4v5S9AdHniF5Wgz1u3UhfAwXF8IMfxnfNW61icWF5QmHYHtLlfK3w1h6sd8JTFcuOdeb1BZZ5Blyr5cpQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZs6rUkY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="JE4g0LCy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1782468319; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=vrWJEdeaP+BWIo9pqHkAnAToTeZrL9b56uLfVI+0FFw=;
- b=JE4g0LCyQ3qb74xBJGriRR4hLPlC4XEf5BqV6mY13ZRAeZzIzjHHbsWb7rU2J5hqQN/+Xc
- E7r8alvuKMEZ3kfnoRrupPr5ZcRV21wOkV6/ndzU0jXx4rSOBwGmitxJYzzzwNqqV/E52T
- 3GXpY2sG94I9O/333tZJdcndXRYmRYf9ds9lGg0zPtpnCcCNAeVB10PeixKcWNMe1vN2dd
- Z5OzUeYAWWMbblQAKtP9uAZcUKNzMTr4tO3Xmj9xza8F/nIVPxRnR28FFgym0Aebz91ugX
- XBkGr8IJOcK7vh/TfnhqAvRC8vVhEmqWNKqR/+gEX6v+F7kjo8RfQ9tdCdxi8A==
-References: <20260623094947.7853-1-zhujia.zj@bytedance.com> <81ed36cc-b5c8-41cf-8b7d-16611e61e294@huaweicloud.com> <20260624094535.1-zhujia.zj@bytedance.com> <x3jm3mhgsr7zx4hvfgdvmwoqyz5vxx2fjyxy6gs6him46767f6@dkkirnw54x6x> <7471b9cb-158a-4ed4-a1ce-95270ef38974@gmail.com> <qwe3wrfaoqoowiywhskhewfcjbh5aolmgeoy7am6xcl7id4fam@zxqmz7266uaq>
-X-Original-From: Zhu Jia <zhujia.zj@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZs6rUkY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B83101F000E9;
+	Fri, 26 Jun 2026 10:05:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782468346;
+	bh=XPOnL3YaXcY5m5ZE7tv6kcrdVXllWoBe5sPRf2jXnF4=;
+	h=From:To:Cc:Subject:Date;
+	b=PZs6rUkYf9rAESRZeLEJuYSARXc9W6t080JPfO71cLYWXcyEgTuFTkHXIYKclq6gG
+	 euJHYHsWp6jtUC8y3lCHYOjKKbyhia1WduFm6BhN3rQxzTUQIYvkAKMeNnseHV8hl6
+	 bsbCOzZzZgga2sfNdrNj21lttW90LocD4TXyKqy5Y+zx1DOxX/5rmUN8YcbZc9pMW9
+	 sMtuu+LOqvFonMMC2nK+Jsih17DBX4ORaR4DrbrCSkN0qbULQ6sH5MmidGqOBqadZu
+	 p8hOYT6WDeHqrnd3lP3LA4fyeVVf4cfm114K50otfqHf4cGHPOrsNb4iEDgcfutswq
+	 26VioYZkSBhCA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Boqun Feng <boqun@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	Philipp Stanner <phasta@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] dma-buf: dma-fence: Fix potential NULL pointer dereference
+Date: Fri, 26 Jun 2026 12:04:42 +0200
+Message-ID: <20260626100442.2202221-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-To: "Jan Kara" <jack@suse.cz>, "Zhang Yi" <yizhang089@gmail.com>
-Cc: "Zhu Jia" <zhujia.zj@bytedance.com>, 
-	"Zhang Yi" <yi.zhang@huaweicloud.com>, "Theodore Ts'o" <tytso@mit.edu>, 
-	"Andreas Dilger" <adilger.kernel@dilger.ca>, 
-	"Baokun Li" <libaokun@linux.alibaba.com>, 
-	"Ojaswin Mujoo" <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani" <ritesh.list@gmail.com>, <linux-ext4@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-From: "Zhu Jia" <zhujia.zj@bytedance.com>
-Message-Id: <20260626095734.1-zhujia.zj@bytedance.com>
-Subject: Re: [PATCH] ext4: cancel dirty accounting for folios without buffers
-In-Reply-To: <qwe3wrfaoqoowiywhskhewfcjbh5aolmgeoy7am6xcl7id4fam@zxqmz7266uaq>
-Date: Fri, 26 Jun 2026 18:05:12 +0800
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-X-Lms-Return-Path: <lba+26a3e4edd+cf508d+vger.kernel.org+zhujia.zj@bytedance.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 25, 2026 at 01:18:31PM +0200, Jan Kara wrote:
-> On Wed 24-06-26 21:29:58, Zhang Yi wrote:
-> > On 6/24/2026 8:32 PM, Jan Kara wrote:
-> > > On Wed 24-06-26 17:52:06, Zhu Jia wrote:
-> > > > The reason I left the tags unchanged in this version is that I was not sure
-> > > > whether it is appropriate for ext4 to open-code xarray tag cleanup directly.
-> > > > 
-> > > > If you think this is the right direction, I can add the helper back and
-> > > > send a v2.
-> > > 
-> > > That was a good judgement! Playing with xarray tags like this in filesystem
-> > > code is certainly not a good thing. For now, I'd leave the xarray tags
-> > > dangling - they will be eventually synced with reality on next writeback
-> > > attempt. If this inconsistency of tags needs to be fixed, the fix belongs
-> > > to the generic code (so that it can be used in other places as well).
-> > 
-> > Yes, I agree. Directly clearing the tag via open code is not a good
-> > approach. However, I took a look at the !nr_to_submit branch in
-> > ext4_bio_write_folio(), and it seems to have a similar simple handling
-> > pattern - it directly calls __folio_start_writeback() and
-> > folio_end_writeback(), which appears to be an elegant way to clear them.
-> > Could we also call these two helpers just after folio_cancel_dirty()
-> > here?
->
-> Right, that would be actually doable there and would keep things more
-> consistent so I think that's a good idea! Thanks!
+The commit mentioned in the fixes tag below introduced a mechanism
+through which fence producers can fully decouple from fence consumers.
+This, desirable, mechanism is based on the fence's signaled-bit as the
+"decoupling point".
 
-Thanks Jan and Yi, your discussion makes sense. I will send v2 shortly.
+A sophisticated interaction between RCU and atomic instructions attempts
+to ensure that fence consumers can still interact with fence producers
+through the dma_fence_ops, callback pointers into the producer.
 
-Thanks,
-Jia
+This is the desired behavior: to check for decoupling, the signaled-bit
+is first checked. If it's not yet signaled, RCU ensures that the ops
+pointer cannot yet be NULL.
+
+Hereby, dma_fence_signal_timestamp_locked() first sets the signaled-bit,
+and then sets the ops pointer to NULL. Readers first load the ops
+pointer, and then check through the signaled-bit whether the pointer can
+legally be accessed.
+
+These set and load operations could occur out of order on weakly ordered
+platforms. Hence, we need to enforce strict ordering all the time.
+
+Add the appropriate memory barriers.
+
+Cc: stable@vger.kernel.org
+Fixes: f4cc3ab824d6 ("dma-buf: protected fence ops by RCU v8")
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+Tested with dmabuf and drm_sched unit tests.
+
+Memory barriers are notoriously difficult, so I would appreciate if some
+of the more experienced folks can check this. Notably, I am not sure
+whether the smp_wmb() is necessary.
+
+The documentation for test_and_set_bit() makes the mysterious statement
+"This is an atomic fully-ordered operation (implied full memory
+barrier)", but the kcsan_mb() seems to be some sort of debugging
+barrier, and in any case the docu doesn't make it obvious to me whether
+that "full barrier" comes before or after the bit setting takes place.
+
+Moreover, in my opinion we should order dma_fence_is_signaled(), too –
+but if we agree to merge Christian's new series [1] that need should
+disappear.
+
+
+[1] https://lore.kernel.org/dri-devel/20260624122917.2483-1-christian.koenig@amd.com/ 
+---
+ drivers/dma-buf/dma-fence.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index c7ea1e75d38a..2e80b01499de 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -363,6 +363,18 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+ 				      &fence->flags)))
+ 		return;
+ 
++	/*
++	 * Fully order setting of the bit above with setting of the ops pointer
++	 * to NULL below, so that all parties can use the signaled flag to
++	 * detect that the fence decoupled from its ops in a safe manner.
++	 *
++	 * The counter parts of this barrier are in dma_fence_timeline_name()
++	 * and dma_fence_driver_name(). All other future parties that rely on
++	 * the signaled flag for valid access to the ops pointer will need a
++	 * memory barrier.
++	 */
++	smp_wmb();
++
+ 	trace_dma_fence_signaled(fence);
+ 
+ 	/*
+@@ -1170,6 +1182,12 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
+ 
+ 	/* RCU protection is required for safe access to returned string */
+ 	ops = rcu_dereference(fence->ops);
++	/*
++	 * Fully order the dereference above with the flag check. Otherwise,
++	 * ops could be dereferenced as a NULL pointer. The barrier's
++	 * counterpart is in dma_fence_signal_timestamp_locked().
++	 */
++	smp_rmb();
+ 	if (!dma_fence_test_signaled_flag(fence))
+ 		return (const char __rcu *)ops->get_driver_name(fence);
+ 	else
+@@ -1203,6 +1221,12 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
+ 
+ 	/* RCU protection is required for safe access to returned string */
+ 	ops = rcu_dereference(fence->ops);
++	/*
++	 * Fully order the dereference above with the flag check. Otherwise,
++	 * ops could be dereferenced as a NULL pointer. The barrier's
++	 * counterpart is in dma_fence_signal_timestamp_locked().
++	 */
++	smp_rmb();
+ 	if (!dma_fence_test_signaled_flag(fence))
+ 		return (const char __rcu *)ops->get_driver_name(fence);
+ 	else
+
+base-commit: cdeb2ccd993ed8647adbbda2c3b103aa717fd6f7
+-- 
+2.54.0
+
