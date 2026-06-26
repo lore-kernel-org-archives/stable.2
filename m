@@ -1,194 +1,90 @@
-Received: from SEVP216CU002.outbound.protection.outlook.com (mail-koreacentralazon11022102.outbound.protection.outlook.com [40.107.43.102])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4961C2FC898;
-	Fri, 26 Jun 2026 01:22:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.43.102
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782436975; cv=fail; b=HE1PJmbXIUVyilGKyxQVuGyqlbHsG+1l98jNbo9N7edCtSgsFkEEFKZGwqTIxDDi6e7+baL7c+iS56YPakCLvAZLx3XJKkqHlsNCJ0Nf5JokLOPKCGF8zfHUjfwOEtZ1s6rz1X38xBIH7/WeBLrr9g/qtM3vMX3BNpW0YNZF9A8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782436975; c=relaxed/simple;
-	bh=aEWgAUbsrst32wonlcrT/0NkaAG6lpgUV4IJ21ODXnc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=u49jflgiZY9cTBge6MAQ4PEnbRwJ09Q+8qVh1a+f6ZOrTTUgGn/bros98JoNLs6CFBZcpLzMeW43Vq/+AOM3x0q3f5CAC0BzQYPb1iqdF2CerYIR4SXtL6MrAx7Jlp6csKIsNxh6RP6TiI/1cFn8gDaV+YPXdA9YHE0Zivr++/8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (1024-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=GyI/1w/v; arc=fail smtp.client-ip=40.107.43.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chipsnmedia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0346E1714AA;
+	Fri, 26 Jun 2026 01:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782437033; cv=none; b=K8UT9vlRMiJ1AFshVmpcwCPIbFCf0HQqmfS+Ur2O3kSH+5/Zyy8agL3r/aU+yZ8jD8BisN6/H9Xn3szT7fSD4/TZ0PiODLOAenIfKhHv1c15woGGD4h33FndZ2ynqFf+3hKDdGNcYmAF+3RgH3b3lCu98qUCqebzV9sPVPMrWro=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782437033; c=relaxed/simple;
+	bh=SsYxHWPbdIEw6QfLicKn+5LbSINSJo7vhdttkm3+c5M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=csSsxSnY4N403N1Q2etWuOFgeGr7C1pZvsZTAjP5g0+T8/wS65gK2p2P2Aztsf0Pyhn8DBiDGjMNcNugecP1OdQzfFsKbJtcSjILzXB/tysk7VbTpi9TfQVdDH4ov5rzOW3s5SPXR8oAhYGxTTTkfe+57d1PfZkedNgQLNAA5W0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kcsT0lYn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="GyI/1w/v"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MIwIifbtaKiAUspMT7DJEY+J4cAzSDEnxK3K5SSw3DWhjiBBySrX3Quaz0y1mB1whQBJ9/au1NvY5ms/jJMrA4QqFHfajhCIp0ycwTGcjFatLDXKK1dlFXg0okhC82NwcAtg2kxTHz+6vU6QwzFNXC1bywrJWZ7WZr+myY1vF2udvGJKrlLri4veOWKoJtxkNSkdjHTMIOG3jwaS7wiiiK+Y6eZQXWnnEgvaSbnBkAsgyPQD+JZdDfh3OvCAsxlQisdxU07v0AAvPyYFyHWagZu5R7EEX76wScmBzwaWGJDkZqBp+uG9H08Nf9x5Xw97MpzCOxi7D5V54EqR+hAd+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M6C6FRkdghIFvVVY+8+GmZTOlmQz91ChPjgpgBu3jBk=;
- b=oUQ8qG2IQwWu6/anrRZAdlPJUGnel3BKwSyVCtI+7SYg84hYlEP4Dn/x8gLBtYfs0FrWKliZNBSRU5DYWvYw/HV2p/lrd88H32NIj6w71Mh/jx4287ECo7WKfDtyphLomEzxcDtnWuGIA3AkvAoR80zRhfsQmQPFWYQsuE55n/yVWNeYwIWXhRSnf0KeUSDauaRBe32pAqtDmaaI6aAVX3iNOn8soTZ6jy7NxHhKBAVykC4rx1mMlmMDJa4tvvtqNwIZKmhBXojEWDAdKja6fE6Cm12bEhsa7vnztwxD09gt/WoV8H4d533DB5ApyiGsAEFCcgNq75ZO+dFJvYfS2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
- header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M6C6FRkdghIFvVVY+8+GmZTOlmQz91ChPjgpgBu3jBk=;
- b=GyI/1w/vrCCk96Mj1z2GL0AXQ3t+fQU/k7irFEuGgs61rusmmWlj8s11P50ykA20ysE+X+clCd5y9v0eUxrWVJ5JoZLg0QeSrTiNch3WySNSdX/kUUwjVad5/N9jiXRuSpGeGDfrUPGdW9bjUhgvEZelD/lR11g28y27Q22Cox4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
-Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM (2603:1096:101:f::14) by
- SEWP216MB2955.KORP216.PROD.OUTLOOK.COM (2603:1096:101:295::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.17; Fri, 26 Jun 2026 01:22:43 +0000
-Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- ([fe80::8f6c:834c:6cef:7be]) by SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- ([fe80::8f6c:834c:6cef:7be%4]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
- 01:22:43 +0000
-From: "Jackson.lee" <jackson.lee@chipsnmedia.com>
-To: mchehab@kernel.org,
-	hverkuil-cisco@xs4all.nl,
-	nicolas.dufresne@collabora.com,
-	bob.beckett@collabora.com
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jackson.lee@chipsnmedia.com,
-	lafley.kim@chipsnmedia.com,
-	b-brnich@ti.com,
-	hverkuil@xs4all.nl,
-	nas.chung@chipsnmedia.com,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kcsT0lYn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17B61F00A3A;
+	Fri, 26 Jun 2026 01:23:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782437032;
+	bh=sq6HmXyYHpEL/wxH+ruD00RarkGUJyQnwZk/nxXZDS0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kcsT0lYnqxymaQCCUDxBuLRSaWnUWHBdGxuzeQeK6ufU6Ss72b6APJaRoQbwHQgFJ
+	 EcNE22Sna/1i8JioJ5lLCZafMI6nUXQhiVtAYQa8FaVPohRGKy7CdNy0xdIYJttJGZ
+	 LK2IKaCGKmDU2sVrjCxDWvVRigYFg706rl3TsUOPwZr28mjc4/+KoLgmpaOkPD+UYC
+	 znrusKNH/V7wNj2+sng7gvSDKZ3p/n7jg4zqXyuqt9pT9qia2bu6pnTWvA/Ha+1eh3
+	 YWJg8OJyDfwwYurb48UldkF+IczMX3x2AErduye2Z6cMy0SE6ckebAhmbUxUX+Jjmx
+	 lpCifvtJCbWqQ==
+Date: Fri, 26 Jun 2026 09:23:47 +0800
+From: Peter Chen <peter.chen@kernel.org>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: gregkh@linuxfoundation.org, thierry.reding@kernel.org,
+	jonathanh@nvidia.com, linux-usb@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v1 5/7] media: chips-media: wave5: Defer job_finish() only when a DEC_PIC was queued
-Date: Fri, 26 Jun 2026 10:22:30 +0900
-Message-Id: <20260626012232.111-6-jackson.lee@chipsnmedia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260626012232.111-1-jackson.lee@chipsnmedia.com>
-References: <20260626012232.111-1-jackson.lee@chipsnmedia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SL2P216CA0149.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:35::9) To SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:f::14)
+Subject: Re: [PATCH] usb: chipidea: tegra: fix refcount leak in
+ tegra_usb_reset_controller()
+Message-ID: <aj3Uo2P0LJp1KSPZ@QCOM-gEdNzOMOFu.na.qualcomm.com>
+References: <20260611124940.80010-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SLXP216MB1148:EE_|SEWP216MB2955:EE_
-X-MS-Office365-Filtering-Correlation-Id: 72ce7ed2-7d22-49d5-c4cf-08ded3216b9a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|52116014|22082099003|18002099003|56012099006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	NxiInuazcVx1wGeZHmZHlWUoZFqVUK837KC5Uo7p8/p6bokNFc8L19/ByPuEpQGjOVeKob5Lkyd9PeU/E6ZzxZCgznSnkDPTuk+hawnF6z4qY9aeT4v7W148o7EAbZx9BcqYiqOPcyQ5LN9/rR23StAQdPeCR36gXNJz7PyhILcg0UuAYXgcJGdVARZTNehaOTuiH+4bXJasLLT7n8yiA88YyWQknMua/uasXCPsHmDmUBoMZlBrbrR0/VkG68Z2KeTzv7vNvxyxBILVEcYPO7T/ipqfr3e7KTLO7pyE+4dr+1RVwe3PQ3iS1u5fgDYUUt/sKUtm0COUFpqbyGMi4aq83prEEygQOmk4j9sWHhMnxq7gGyyi5uLU4lyfrUUXxvHd7ZMGHXta48tkDodE1m37LYgWCwDGeMZ7GIXaGgwyHtapey15rizfXDlYI8NXqutUfY1vuB/K8qE3Tbarznnc36upGJTxi1CzGqDZfDaq2eMD/jctdSN99E6FDWPTSxqj5DA3zqZpLdtt3ht5sI41X2a8WcUb5Va6sUw69wo+LGBePqds8g80hqBohhgyIbJ2u41aOi0CiWKDCJeVFIw7AdsRn1M1RMUexABl8j6i58ragGbhN7vpqgQqk+KiVMvuFGPxN9w5sPNOXeuovAKSZ2FDVaUc+rxGEgXit64mr50+YWQXDmgbc0FTTWjOq8rOma5vxrtE5ap/+y4qaYb1+Y6ZlN3bitcPLn7zXR0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SLXP216MB1148.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(52116014)(22082099003)(18002099003)(56012099006)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1dVYEjL+cHYl7a8CHQp3qg0zOWjVho2+5nFr+eY5SlKUSZn2FO3WIgVsMYnx?=
- =?us-ascii?Q?1BuRPL0lFCFSvhSGR+WGkIOG7WlcMjPy0WLBPmsMFktU/tRuv0hlxMmd5EDH?=
- =?us-ascii?Q?HtXc2fXgDM00OQ0/N+MpWrujrZYDObBqmvWy9gXL2F/k0jcDBzbTmX7boycO?=
- =?us-ascii?Q?WP8E4qGTppcRYzfXzwm+s/Ly8qa0dQwieGd4pJC33bb3PoS21ritu6eglbU+?=
- =?us-ascii?Q?Lb4B1jyJKkRwRl+uJVruUDpwgL85/E+skn4nA+UThblbJrKzmBiQPoBLjtic?=
- =?us-ascii?Q?a4dDtsgkTRFckiVFe9dh80CsYtj2BXM6vKfLtEnAA60wZju5PIMVOBEeOk2F?=
- =?us-ascii?Q?xcEcokPvMhaHPmpokT3vAdMuYNTpspdUmR9zrVA8xw19ITMLIRnQOGDDctIp?=
- =?us-ascii?Q?57mUAiBUMDFPJAokEnTbTXr4kYsshOhyF5rYvdjBv8DxfmX0OyuRwYwsa6pr?=
- =?us-ascii?Q?PGOFKeZVm2gFvTwtEzEeotaxi+jKCG+NmM4G0vO/clp7NpUv5kq/7CZxocHH?=
- =?us-ascii?Q?aDcbuNyI2hPczmZNh5MR0go3U9EdDfcrr3pF+Ra3LZJWs109SU1P/A5Hpizm?=
- =?us-ascii?Q?kjCtjyr2Rh04Nb5SycILhvodlDunqyJgvU5Rg/+ByWNY2MyBLf8aJgMlllh9?=
- =?us-ascii?Q?xEYtEzyCAF6OIrV71Qktf/IUHy1U1vcu+oHWCSTfy6cGAT0VWV//bCy0cRO7?=
- =?us-ascii?Q?ZuBWFFTsMkq1WJfDcyzl+udNC4JyFAhpUreJCYApGcHszvlL4RzNDQp/YFpJ?=
- =?us-ascii?Q?q+CTjFvXqGpRFd5XnqMbsbjDuq+HuNQvH/CwdyUlr7bL+foIMbRCvVEqnXbv?=
- =?us-ascii?Q?a4KIcNJic6nSuMJAC5VUsXaz4xNv0mqdClHoZ5MF9Xd+vl5tepfpzr10k8BL?=
- =?us-ascii?Q?Bv2eofuVekTnZHTXD/kPyP2rh/7T68E881AM/si2ARUawq4Oi4h3+CAVVj6A?=
- =?us-ascii?Q?q5LFQABSvRjdDT5uhf+/5aVxzqb61doCZFGQ1jCs/6w5F/ZmSFX+Tzra7ktH?=
- =?us-ascii?Q?3IfTKenbooXJ8zkodd1EfJGl4gAy/f1Xb+D5m/AldrQFXLkjrPclfoZWdF6e?=
- =?us-ascii?Q?lbTK7GpeIWVKR7INyJwkFNb9PwtrZsXN+4pLC+EokOtmLxKBSiCg4gO9ESs9?=
- =?us-ascii?Q?V5owBFL4x02Mf9OQczhuLgSKc8GqfhIgtmMXo0/XTfGUuVHy17n4GCQwXTg0?=
- =?us-ascii?Q?TsOdUCaROZvGwU2UtmbU0iX6D7E0Fv3HVxtFS6ct0dPo64zVUshPg7zxYp/G?=
- =?us-ascii?Q?z27x+BU/GJzs6mbuclnKtStAWwk2Bj83XzebDbh20lM636N8Hv8rDB2kK5C3?=
- =?us-ascii?Q?CHqg/xFkgcrm2n35wO2y0gO/DTrOxAXc3FDqQO4/eX0rsmuQakSDD2I3xpLw?=
- =?us-ascii?Q?+elfeA+RXHiLTRSovXCeIDZnz8F4/N2h7E4R66M7hjT8f8GPciLg5RXT1kOU?=
- =?us-ascii?Q?8QXIB22SF0nr32vEuBPf6QiuCKhFj4am5BOBJ3xmEaxXKmGH/5cEc4Et+PK4?=
- =?us-ascii?Q?sh+lJoIAE71+y+2bXa2EK91NgBcg4UPvBtKt5MjTxMGkYuxBnTmcYINpen3y?=
- =?us-ascii?Q?ZNbvDVlqP2srKUmq+xj45HkzKJv1Jrj6Gbm4BQ/nVXPmxZZHN68lJD0kJfKc?=
- =?us-ascii?Q?gjAnveolDMFWf19YmIKT7OkY8iMiZb8+iXZV8ZwDOku6zYgcBuJ+os6W1bgz?=
- =?us-ascii?Q?k3C1+sL59tx9VbTbun06pKJOHO9j+Gf5Y620KQmBntiuRKRdzXMA6c5HR+qz?=
- =?us-ascii?Q?XYUpkxLZEIZ2SluQJgG3KRayv7uIiok=3D?=
-X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72ce7ed2-7d22-49d5-c4cf-08ded3216b9a
-X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 01:22:42.7185
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XUN0Y3SD70M+hf3oTmhWyDXFkavd41Z9dafghuXf3X6a477ckrv/VGCEAs4U026paHBBj5Na6FywfY0O9e7juE1uyyg4XHzoHG010qbv5Ww=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEWP216MB2955
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260611124940.80010-1-vulab@iscas.ac.cn>
 
-From: Jackson Lee <jackson.lee@chipsnmedia.com>
+On 26-06-11 20:49:40, WenTao Liang wrote:
+> In tegra_usb_reset_controller(), reset_control_deassert() is called on
+> a shared reset control to increment its deassert_count before toggling
+> the reset line.  If the subsequent reset_control_assert() call fails
+> (e.g. due to a missing reset controller device or an invalid internal
+> state), the function returns an error without ever balancing the prior
+> deassert.  Since the reset control is shared, the leaked deassert_count
+> remains elevated, preventing future reset_control_assert() calls from
+> taking effect on the reset line and leaving the USB controller in an
+> inconsistent state.
+> 
+> Fix the leak by calling reset_control_deassert() in the error path of
+> reset_control_assert(), ensuring the usage counter is properly balanced
+> before returning the error.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: fc53d5279094 ("usb: chipidea: tegra: Support host mode")
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/usb/chipidea/ci_hdrc_tegra.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/chipidea/ci_hdrc_tegra.c b/drivers/usb/chipidea/ci_hdrc_tegra.c
+> index 372788f0f970..8d313345665c 100644
+> --- a/drivers/usb/chipidea/ci_hdrc_tegra.c
+> +++ b/drivers/usb/chipidea/ci_hdrc_tegra.c
+> @@ -138,8 +138,10 @@ static int tegra_usb_reset_controller(struct device *dev)
+>  		return err;
+>  
+>  	err = reset_control_assert(rst);
+> -	if (err)
+> +	if (err) {
+> +		reset_control_deassert(rst);
 
-Decoder instances sharing a VPU also share one v4l2_m2m job slot, released
-when the running context calls v4l2_m2m_job_finish(). While draining,
-device_run() defers job_finish() once EOS is sent (sent_eos), expecting a
-later finish_decode() (from a DEC_PIC completion IRQ) to release the slot.
+Could not understand why doing that, there is already a reset_control_deassert
+calling before that.
 
-But the m2m core checks job_ready() only when a job is queued, not when it
-is dispatched. A job queued while draining can run after finish_decode()
-has already moved the instance to STOP and sent EOS. device_run() then runs
-in STOP, issues no DEC_PIC, yet still skips job_finish() - so no IRQ, no
-finish_decode(), and the shared slot is leaked, stalling every instance.
-With several v4l2h264dec instances in parallel, GStreamer hangs at EOS.
-
-Track whether the run actually queued a DEC_PIC (cmd_issued) and defer
-job_finish() only then. Otherwise finish the job immediately
-
-Fixes: a176ac5e701f ("media: chips-media: wave5: Improve performance of decoder")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
----
- .../media/platform/chips-media/wave5/wave5-vpu-dec.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-index 93f7b724d86c..f33c00cb801b 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-@@ -1655,6 +1655,7 @@ static void wave5_vpu_dec_device_run(void *priv)
- 	struct queue_status_info q_status;
- 	u32 fail_res = 0;
- 	int ret = 0;
-+	bool cmd_issued = false;
- 
- 	dev_dbg(inst->dev->dev, "%s: Fill the ring buffer with new bitstream data", __func__);
- 	pm_runtime_resume_and_get(inst->dev->dev);
-@@ -1752,6 +1753,7 @@ static void wave5_vpu_dec_device_run(void *priv)
- 			inst->retry = false;
- 			if (!inst->eos)
- 				inst->queuing_num--;
-+			cmd_issued = true;
- 		}
- 		break;
- 	default:
-@@ -1769,8 +1771,16 @@ static void wave5_vpu_dec_device_run(void *priv)
- 	 * in power and CPU time.
- 	 * If EOS is passed, device_run will not call job_finish no more, it is called
- 	 * only if HW is idle status in order to reduce overhead.
-+	 *
-+	 * Deferring job_finish() is only safe when this run actually queued a
-+	 * DEC_PIC command (cmd_issued): that guarantees a completion IRQ, and
-+	 * thus a later finish_decode(), will release the shared job slot. When
-+	 * device_run() is entered with no command to issue (e.g. a job that was
-+	 * queued while draining but reached the STOP state by the time it ran),
-+	 * no IRQ follows, so finish the job here to avoid leaking the slot and
-+	 * stalling every instance sharing the VPU.
- 	 */
--	if (!inst->sent_eos)
-+	if (!inst->sent_eos || !cmd_issued)
- 		v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
- }
- 
 -- 
-2.43.0
 
+Thanks,
+Peter Chen
