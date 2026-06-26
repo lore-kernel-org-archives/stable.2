@@ -1,39 +1,39 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9907D3FAE1F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AADD3F7AB2
 	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:10:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490220; cv=none; b=jNBOA3Ilq8ekqpakKlT6+tzfXBf9VKAbcT8HhZrF5BUWfOwNWRMQUjszgbeB+dLSZfNJifcTgyzJg7xlyrPyaJw9C/jisMQpqVVQlsCM2VAz5YBnokLpJzSkX4WyDHrqm+u5cpKNudA6qxddWrRUgW8EzTrdQBC96fhBzdyyjcI=
+	t=1782490220; cv=none; b=uKX+amdaAqdPMn7QZXHX1J7hXZMB2NoYqy8O5lRW6XcqTxtCXKTdWQc/L1lklxKcxCQvxB4YxqcmD8Km3vHysWp+jeJ+IcRQu1gs7vew43AE52G3JYkShXSKc2gAQq68ketly5WY6H0Kr2P/rGaHJxr7vPBSauf0z5T+X+gXNLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782490220; c=relaxed/simple;
-	bh=5CN2jRqNNWQOuIlLUjJ1unQSD/IhU6hM5x/A5+m9FlQ=;
+	bh=XG0jeXA8nsGHh0Oc2PJNJKUHcL5n/Euh+/NeBpgtqdE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uCy+GLcIMMGX4KfZ335bac0ZMSF96rKYksWDQsDfvcrQa+Q1NJnhDmXXkm7RVnSOg5lhbIgoxTzKiSAP9JzRvhA5ZnupWYu2+OxiKbqMUAldsC3Ae6GfP9DhAIvj2Wh/Z6gxLEEdL+fuWwar34E+lpEeQWy5hfU3Io5MYRfe2RQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=Y7Rd3Y16; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=iNk79v7sgOyZUIgB9DAkQQL6PC/voMLNayem0QjtORdm2Iix/v0Kx9/A0j7wEcOpJQFo1ItsZIRiKvi8tyjcUUaqf6UyJbHsXP7p1NZ+gj5tFrgL+BEI26nxzz2iKrO+rQZPCB5z/7ZALiDMIDn5BgqRejEXM1bIjtgH9PfZ7Ck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=bxB0ebHM; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="Y7Rd3Y16"
-Received: by dvalin.narfation.org (Postfix) id 43F352067E;
-	Fri, 26 Jun 2026 16:10:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="bxB0ebHM"
+Received: by dvalin.narfation.org (Postfix) id 21F9F20722;
+	Fri, 26 Jun 2026 16:10:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490201;
+	s=20121; t=1782490202;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3ZLe50prq9jA4UGuYX0Xg4ynWUOcfKOBhUiaKGbEmXo=;
-	b=Y7Rd3Y16MQGqenk7M3SikEubNlRq+hXb677ZRHT1UggT9ByxvfB1jDo2ImZRcoRP8hOOw0
-	UysMo8rtXqfO3/5znrZDW147A+v1b1G32WUCSaoq2ae9i7apuMjC5E/KqnPRf6JOBLOvtF
-	Hp0gXvfIN+nRSQLdF7czOZXjsw1Lnrc=
+	bh=EQdBn7IARfQuiHCHI/41yBrYtv+nbGNI+lUTauKkcdk=;
+	b=bxB0ebHMYWfTuz8KGWS7Ei0/zJ9HYJe+UC+FxhzYFGzu35ajhYhXC20vq38XGju5Fef6fq
+	t1yaf3jQD1s9WV6z44puJIJANbMqF/a36UNK4HOaO1+hBM2WPyMud3v/EAQRBvY11TwWL3
+	IwwZh/uEnzCRWaC8uzTUAn/QJpZN60I=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 5.10 16/23] batman-adv: tp_meter: annotate last_recv_time access with READ/WRITE_ONCE
-Date: Fri, 26 Jun 2026 18:09:45 +0200
-Message-ID: <20260626160952.123713-17-sven@narfation.org>
+Subject: [PATCH 5.10 18/23] batman-adv: tp_meter: handle overlapping packets
+Date: Fri, 26 Jun 2026 18:09:47 +0200
+Message-ID: <20260626160952.123713-19-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260626160952.123713-1-sven@narfation.org>
 References: <20260626160952.123713-1-sven@narfation.org>
@@ -45,60 +45,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit d67c728f07fca2ee6ffdc6dd4421cf2e8691f4d1 upstream.
+commit cbde75c38b21f022891525078622587ad557b7c1 upstream.
 
-The last_recv_time field for batadv_tp_receiver tracks the jiffies value of
-the most recent activity and is used to detect timeouts. These accesses are
-not consistently protected by a lock, so READ_ONCE/WRITE_ONCE must be used
-to prevent data races caused by compiler optimizations.
+If the size of the packets would change during the transmission, it could
+happen that some retries of packets are overlapping. In this case, precise
+comparisons of sequence numbers by the receiver would be wrong. It is then
+necessary to check if the start sequence number to the end sequence number
+("seqno + length") would contain a new range.
+
+If this is the case then this is enough to accept this packet. In all other
+cases, the packet still has to be dropped (and not acked).
 
 Cc: stable@kernel.org
 Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
+[ Switch to pre-splitted tp_vars structure names ]
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/tp_meter.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ net/batman-adv/tp_meter.c | 25 +++++++++++--------------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
 diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index c7de8dfe9b65b..91392e48514d6 100644
+index c01ff6e72b5da..3a1561f579198 100644
 --- a/net/batman-adv/tp_meter.c
 +++ b/net/batman-adv/tp_meter.c
-@@ -1193,7 +1193,7 @@ static void batadv_tp_receiver_shutdown(struct timer_list *t)
- 	bat_priv = tp_vars->bat_priv;
+@@ -1293,7 +1293,8 @@ static int batadv_tp_send_ack(struct batadv_priv *bat_priv, const u8 *dst,
+ /**
+  * batadv_tp_handle_out_of_order() - store an out of order packet
+  * @tp_vars: the private data of the current TP meter session
+- * @skb: the buffer containing the received packet
++ * @seqno: sequence number of new received packet
++ * @payload_len: length of the received packet
+  *
+  * Store the out of order packet in the unacked list for late processing. This
+  * packets are kept in this list so that they can be ACKed at once as soon as
+@@ -1302,22 +1303,17 @@ static int batadv_tp_send_ack(struct batadv_priv *bat_priv, const u8 *dst,
+  * Return: true if the packed has been successfully processed, false otherwise
+  */
+ static bool batadv_tp_handle_out_of_order(struct batadv_tp_vars *tp_vars,
+-					  const struct sk_buff *skb)
++					  u32 seqno, u32 payload_len)
+ 	__must_hold(&tp_vars->unacked_lock)
+ {
+-	const struct batadv_icmp_tp_packet *icmp;
+ 	struct batadv_tp_unacked *un, *new;
+-	u32 payload_len;
+ 	bool added = false;
  
- 	/* if there is recent activity rearm the timer */
--	if (!batadv_has_timed_out(tp_vars->last_recv_time,
-+	if (!batadv_has_timed_out(READ_ONCE(tp_vars->last_recv_time),
- 				  BATADV_TP_RECV_TIMEOUT)) {
- 		/* reset the receiver shutdown timer */
- 		batadv_tp_reset_receiver_timer(tp_vars);
-@@ -1433,7 +1433,7 @@ batadv_tp_init_recv(struct batadv_priv *bat_priv,
- 	tp_vars = batadv_tp_list_find_session(bat_priv, icmp->orig,
- 					      icmp->session, BATADV_TP_RECEIVER);
- 	if (tp_vars) {
--		tp_vars->last_recv_time = jiffies;
-+		WRITE_ONCE(tp_vars->last_recv_time, jiffies);
- 		goto out_unlock;
- 	}
+ 	new = kmalloc(sizeof(*new), GFP_ATOMIC);
+ 	if (unlikely(!new))
+ 		return false;
  
-@@ -1463,7 +1463,7 @@ batadv_tp_init_recv(struct batadv_priv *bat_priv,
- 	kref_get(&tp_vars->refcount);
- 	timer_setup(&tp_vars->timer, batadv_tp_receiver_shutdown, 0);
+-	icmp = (struct batadv_icmp_tp_packet *)skb->data;
+-
+-	new->seqno = ntohl(icmp->seqno);
+-	payload_len = skb->len - sizeof(struct batadv_unicast_packet);
++	new->seqno = seqno;
+ 	new->len = payload_len;
  
--	tp_vars->last_recv_time = jiffies;
-+	WRITE_ONCE(tp_vars->last_recv_time, jiffies);
+ 	/* if the list is empty immediately attach this new object */
+@@ -1484,7 +1480,7 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
+ {
+ 	const struct batadv_icmp_tp_packet *icmp;
+ 	struct batadv_tp_vars *tp_vars;
+-	size_t packet_size;
++	u32 payload_len;
+ 	u32 to_ack;
+ 	u32 seqno;
  
- 	kref_get(&tp_vars->refcount);
- 	hlist_add_head_rcu(&tp_vars->list, &bat_priv->tp_list);
-@@ -1514,7 +1514,7 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
+@@ -1519,15 +1515,17 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
+ 	/* if the packet is a duplicate, it may be the case that an ACK has been
+ 	 * lost. Resend the ACK
+ 	 */
+-	if (batadv_seq_before(seqno, tp_vars->last_recv))
++	payload_len = skb->len - sizeof(struct batadv_unicast_packet);
++	to_ack = seqno + payload_len;
++	if (batadv_seq_before(to_ack, tp_vars->last_recv))
+ 		goto send_ack;
+ 
+ 	/* if the packet is out of order enqueue it */
+-	if (ntohl(icmp->seqno) != tp_vars->last_recv) {
++	if (batadv_seq_before(tp_vars->last_recv, seqno)) {
+ 		/* exit immediately (and do not send any ACK) if the packet has
+ 		 * not been enqueued correctly
+ 		 */
+-		if (!batadv_tp_handle_out_of_order(tp_vars, skb)) {
++		if (!batadv_tp_handle_out_of_order(tp_vars, seqno, payload_len)) {
+ 			spin_unlock_bh(&tp_vars->unacked_lock);
  			goto out;
  		}
- 
--		tp_vars->last_recv_time = jiffies;
-+		WRITE_ONCE(tp_vars->last_recv_time, jiffies);
+@@ -1537,8 +1535,7 @@ static void batadv_tp_recv_msg(struct batadv_priv *bat_priv,
  	}
  
- 	/* if the packet is a duplicate, it may be the case that an ACK has been
+ 	/* if everything was fine count the ACKed bytes */
+-	packet_size = skb->len - sizeof(struct batadv_unicast_packet);
+-	tp_vars->last_recv += packet_size;
++	tp_vars->last_recv = to_ack;
+ 
+ 	/* check if this ordered message filled a gap.... */
+ 	batadv_tp_ack_unordered(tp_vars);
 -- 
 2.47.3
 
