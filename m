@@ -1,80 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A5FE1C84A6;
-	Fri, 26 Jun 2026 11:10:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC29249E5;
+	Fri, 26 Jun 2026 11:14:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782472230; cv=none; b=ISm73jou+64RxkfUsHOn3tc5Lelrj+aHNnBc1Prq3Y7moZSWZpoBvgngv5v8DM2Y/cCaEMizgB0fea3Q5N0npCIwxNfqmFAtMW9vU/0n4UHFfL+HTYNw/uYaeqGhBFRKxh6BO4LlmjVs6t4Pw8jkCkfMI+vA++9uicmTUtl/LGQ=
+	t=1782472449; cv=none; b=cAKnBKXzxSVi5pRHPWgSS+H4dAeAJKbCWBghPmDELShluq/ZWCY2owxyF1n0ln72YuU9ZQb+VOT9vRB1q5/54qsTLWAjLpGC/mtMKdew84ectf2WqexWSZ7TfOWQ9McajhgIVZSbMmK49VXo4+NCzja9WfJH+83y0H2Qn9r+YYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782472230; c=relaxed/simple;
-	bh=BcOwHJCBoHCD/nt/jx+PVcrmEB7h8PTVijZIhVv3P34=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DqHbdL1yYq7qAZlsQOjKlWrKlJ6WD1L+Iitjp8KvUvVkKY8sylgQ+VPUrzqE/7JjGJT+LCHGm8Evwn+g29UNfsXrxvWj6Le7uSGxXDDF8CEKZ0ASGMhQw0ITficVvXObL+gFhknRjqeIyZeomIQv8TSCQJLDcTB/z4bcFIJqStw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=orM0BkuR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782472449; c=relaxed/simple;
+	bh=FKSRA4QIkdSVuuKM8frxdcVN/2HixuGr174Q8BfV66M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=figIAWfUD0F2rE8AsmvrlLSPhcVTF3gHDGpi0wmcCBmBCxy2Vu2YaVWm+9ETfyj4GwqlDDfQJ2cDfPXFFHimbdV7uShzLKs8wcv31PKSLwVVUlMkQdCT8qETAoPulL5+OLeVKnc4DyDuGgVryb5OeZmsPN2myp3EOAERkTdr7no=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gz6urgNF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="orM0BkuR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E2B61F000E9;
-	Fri, 26 Jun 2026 11:10:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gz6urgNF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E09C71F000E9;
+	Fri, 26 Jun 2026 11:14:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782472229;
-	bh=AUAlvBxMc4bt39AC/sKnSSFnKSzDSItRNQY9EFsMK8s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=orM0BkuRMVNu0xg5QM0Qz3nJn7sG/5q9c8yQHGAYSEMgq2ZwuHw5D3SIT+gh+NhNO
-	 NGIW+AYjUQFDt2KcAGfafHF44nmxOJyvHq73WLrfWTClCjpb/uw0BkwJdLS2S1ujE1
-	 sz3N1ICe7QfgsfEafH5CivH1u6UjxsIJ5py8xTXSen9hES8/o8SwcF4FX8cIiEk/OZ
-	 ss/DTt6OEgDaMfo+Oqg0IZjMVZYtjhUJ3V2AQwod3baRgRAhTs0cXGr2BS/SqlT3vh
-	 p6cKiJIWtup8MdD5ERyKyOmSLgUPMr4eHj0sV/i742eDSOSZk6AjXQBnAETJ2M83NY
-	 GRrTvUVIwaabQ==
-Date: Fri, 26 Jun 2026 13:10:25 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: dlemoal@kernel.org, linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ata: pata_pxa: Fix DMA channel leak on probe error
-Message-ID: <aj5eIWnpbLDxzK40@ryzen>
-References: <20260625141837.62362-1-vulab@iscas.ac.cn>
+	s=k20260515; t=1782472447;
+	bh=GOtd/Q5jMBs1nKTaCUlK0pT1uV18NzvSg8sXipKGWEo=;
+	h=From:To:Cc:Subject:Date;
+	b=gz6urgNFMazzIa1K0HLHL8V5gBEOv+F5aYHIYBaGoczUHMBBWHSmYPm8Nu9rHJykq
+	 pI1qLCl3vY/xc0XiLWe+VU2FY3sw4YxvB+bDMrySux0CTSQYhwnm3jml541MGDbjtW
+	 Zfo+PDmC7pKPyoZYMfCz/wYy4EAJ7alTmhR0+6EgD6k0KZJ/tp4hrsf1v9kKeeNSqo
+	 AVu0caXKFR6ynQHx9eH7gBKeo0qraHt92pFv0xJqSQlKX4Rc20p7yEtbtoB9YnP1wk
+	 Db3mix8fdfGVZwK1qhBSfKzJru4bHEuPso3uRhG32CBRvQX8NPxfjZEAujGuh6GSS1
+	 2d2/DaHuHOXUQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wd4VZ-0000000GJ9y-2AOO;
+	Fri, 26 Jun 2026 11:14:05 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: Steffen Eiden <seiden@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] KVM: Make kvm_io_bus_get_dev() filter devices by ops
+Date: Fri, 26 Jun 2026 12:13:44 +0100
+Message-ID: <20260626111344.802555-1-maz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625141837.62362-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: kvm@vger.kernel.org, kvmarm@lists.linux.dev, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, pbonzini@redhat.com, will@kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Thu, Jun 25, 2026 at 10:18:37PM +0800, Wentao Liang wrote:
-> When dmaengine_slave_config() fails, the DMA channel acquired by
-> dma_request_chan() is not released before returning the error,
-> leaking the channel reference.
-> 
-> Fix by adding dma_release_channel() in the error path.
-> 
-> The ata_host_activate() error path already correctly releases the
-> DMA channel.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 88622d80af82 ("ata: pata_pxa: dmaengine conversion")
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/ata/pata_pxa.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/ata/pata_pxa.c b/drivers/ata/pata_pxa.c
-> index 03dbaf4a13a7..9f63bdfb8576 100644
-> --- a/drivers/ata/pata_pxa.c
-> +++ b/drivers/ata/pata_pxa.c
-> @@ -286,6 +286,7 @@ static int pxa_ata_probe(struct platform_device *pdev)
->  	ret = dmaengine_slave_config(data->dma_chan, &config);
->  	if (ret < 0) {
->  		dev_err(&pdev->dev, "dma configuration failed: %d\n", ret);
-> +		dma_release_channel(data->dma_chan);
->  		return ret;
->  	}
->  
-> -- 
-> 2.39.5 (Apple Git-154)
-> 
+kvm_io_bus_get_dev() returns a device that is only matched by the
+address, and nothing else. This can cause a lifetime issue if
+the matched device is not the expected type, as by the time
+the caller can introspect the object, it might be gone (the srcu
+lock having been dropped).
 
-Reviewed-by: Niklas Cassel <cassel@kernel.org>
+Add an kvm_io_device_ops pointer to the list of things that this
+helper must check before dropping the lock and returning the pointer,
+and update the sole user to pass its own ops.
+
+Reported-by: Will Deacon <will@kernel.org>
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+Fixes: 8a39d00670f07 ("KVM: kvm_io_bus: Add kvm_io_bus_get_dev() call")
+Cc: stable@vger.kernel.org
+---
+ arch/arm64/kvm/vgic/vgic-its.c | 5 +----
+ include/linux/kvm_host.h       | 1 +
+ virt/kvm/kvm_main.c            | 5 ++++-
+ 3 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index 4477f870c7b36..1c1bdd420c40d 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -508,13 +508,10 @@ static struct vgic_its *__vgic_doorbell_to_its(struct kvm *kvm, gpa_t db)
+ 	struct kvm_io_device *kvm_io_dev;
+ 	struct vgic_io_device *iodev;
+ 
+-	kvm_io_dev = kvm_io_bus_get_dev(kvm, KVM_MMIO_BUS, db);
++	kvm_io_dev = kvm_io_bus_get_dev(kvm, KVM_MMIO_BUS, &kvm_io_gic_ops, db);
+ 	if (!kvm_io_dev)
+ 		return ERR_PTR(-EINVAL);
+ 
+-	if (kvm_io_dev->ops != &kvm_io_gic_ops)
+-		return ERR_PTR(-EINVAL);
+-
+ 	iodev = container_of(kvm_io_dev, struct vgic_io_device, dev);
+ 	if (iodev->iodev_type != IODEV_ITS)
+ 		return ERR_PTR(-EINVAL);
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index 4c14aee1fb063..4c195a8723c40 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -231,6 +231,7 @@ int kvm_io_bus_register_dev(struct kvm *kvm, enum kvm_bus bus_idx, gpa_t addr,
+ int kvm_io_bus_unregister_dev(struct kvm *kvm, enum kvm_bus bus_idx,
+ 			      struct kvm_io_device *dev);
+ struct kvm_io_device *kvm_io_bus_get_dev(struct kvm *kvm, enum kvm_bus bus_idx,
++					 const struct kvm_io_device_ops *ops,
+ 					 gpa_t addr);
+ 
+ #ifdef CONFIG_KVM_ASYNC_PF
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 881f92d7a469e..26c34d500ea18 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -6066,6 +6066,7 @@ int kvm_io_bus_unregister_dev(struct kvm *kvm, enum kvm_bus bus_idx,
+ }
+ 
+ struct kvm_io_device *kvm_io_bus_get_dev(struct kvm *kvm, enum kvm_bus bus_idx,
++					 const struct kvm_io_device_ops *ops,
+ 					 gpa_t addr)
+ {
+ 	struct kvm_io_bus *bus;
+@@ -6082,7 +6083,9 @@ struct kvm_io_device *kvm_io_bus_get_dev(struct kvm *kvm, enum kvm_bus bus_idx,
+ 	if (dev_idx < 0)
+ 		goto out_unlock;
+ 
+-	iodev = bus->range[dev_idx].dev;
++	if (bus->range[dev_idx].dev &&
++	    bus->range[dev_idx].dev->ops == ops)
++		iodev = bus->range[dev_idx].dev;
+ 
+ out_unlock:
+ 	srcu_read_unlock(&kvm->srcu, srcu_idx);
+-- 
+2.47.3
+
