@@ -1,46 +1,49 @@
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C2924E4C6
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 04:15:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C12024E4C6
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 04:15:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782447320; cv=none; b=YTJFACuR3QbXQqNkr5JIWRMHdO3QQPYcykdlqG/spkFBRBsffgn2doWU+9AYSg4Xui+oxEzuyycaMzWDDPbzA7FP5A20ysetlX91zSNio+ywlGWN0HW0CR8SCSe/NcytuPmrI54DVEqJ3OoI3fCMFj5xoAg5T2IACeMuZHvJsbQ=
+	t=1782447328; cv=none; b=jueJ3B2RQTn06M1vgITovcvctXdkB4kud3uRisEBu07bKycNi+aNW6cmCQZAKIrs/XyLq60+NeKBCh6K3FvchNZaTPEPoi6cZX3pXpdrS6EjaEKGuyHrqn64/lSjeQs6vrPohR3kEDdoSFo3ecuoN4q7INSAS8AN65HkkRmST9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782447320; c=relaxed/simple;
-	bh=IqP1imwtGz7a9K3TiEfZoU4AQjH78AshTYm8QenVp84=;
+	s=arc-20240116; t=1782447328; c=relaxed/simple;
+	bh=b0hwOyHZBQXBuXPleLjrOyffa6xRckVe1PzWDbLAWrQ=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kNZoSDcTbWm4DvDTdQnBMdQ4/6YF2QanldfDlr9uTKhz3rhAF0/4NoiQKi5qmaHSyK+dnXFhjEyNpFPDv8FA2+hiVqpwCiycaEp/3YYcUfUu6nfqQK8lPQWgmmBNmeD0SpkYrANihF85qmB+k0Ltzhuh7NUx3Jm7n4tRJTB/ao8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=IOdrQv0+; arc=none smtp.client-ip=54.254.200.92
+	 MIME-Version; b=XozGO5fMjEiCcpDczJjpifP4+672OMvvQVttI2113RVLw5B2miA4XLTCcn4ujUWjeBheFFIdfxYEudjGUlR542SiwWoQKHV8vUlTir3PftvJe2EBXoJCGYm2tK46+jm6cZa1BsfOytxiZG/HqjkBE3iWoBgfU5AiXAoFTRWKoig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=e9yBbd5h; arc=none smtp.client-ip=54.207.22.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="IOdrQv0+"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="e9yBbd5h"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1782447289;
-	bh=59XJiLVicORzxorjhxIXX4TlshkHuTgFbEEKmjOzDfo=;
+	s=onoh2408; t=1782447282;
+	bh=ZO0vYdG8+zInot9nuVfLo2AsAw1+BulTmqCbYLPKuCY=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=IOdrQv0+y4g/vDErST2dDIlG3xn2ARVbg0XYwX99hdBt6tLb4hX5uku0ySsVCUh63
-	 fZnnefEGfnpZYxxcppf+uV8CwPTJ4pHNhjecIsj6/WpqlwWbBT36v8GkFmfRPlOUUA
-	 a3aRT3Vi8FkUA6fI0rgKJIy2Ckge7xr8O7WKkPnM=
-X-QQ-mid: zesmtpgz1t1782447280t18d49495
-X-QQ-Originating-IP: dpiBTTg75hHq/RchncxkOYd9olGUHr2zgznJq0Uijig=
+	b=e9yBbd5ho0S3UJ+9+64Zin8wr9O7ardhywAIY3tngtcuEaW5ICfgXGmix3tSh443M
+	 amiR+nJLdohGVvUD1oiZzWUO6yBTXL9+sVRWkyJQRdUjL6BWlTpw1usmat6JSn1HMf
+	 k00JsUuLXiyl65gbHwFgK5kxkQpzvJ4yWmIjC01w=
+X-QQ-mid: zesmtpgz1t1782447263t0acdc1f9
+X-QQ-Originating-IP: PF6cpuBJGM44mDSwuuqFk91hSuRF5oj+Z8gGBBuAnvQ=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 26 Jun 2026 12:14:39 +0800 (CST)
+	id ; Fri, 26 Jun 2026 12:14:13 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 317284540912012364
+X-BIZMAIL-ID: 4374435766956898301
+EX-QQ-RecipientCnt: 8
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org,
 	gregkh@linuxfoundation.org,
 	foss+kernel@0leil.net
 Cc: stable@vger.kernel.org,
 	brauner@kernel.org,
-	Quentin Schulz <quentin.schulz@cherry.de>
-Subject: [PATCH 6.6.y 5/8] eventpoll: drop vestigial __ prefix from ep_remove_{file,epi}()
-Date: Fri, 26 Jun 2026 12:14:00 +0800
-Message-Id: <20260626041403.85968-6-guanwentao@uniontech.com>
+	Josef Bacik <josef@toxicpanda.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: [PATCH 6.6.y 1/8] file: add fput() cleanup helper
+Date: Fri, 26 Jun 2026 12:13:56 +0800
+Message-Id: <20260626041403.85968-2-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260626041403.85968-1-guanwentao@uniontech.com>
 References: <20260626041403.85968-1-guanwentao@uniontech.com>
@@ -53,86 +56,61 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NsgcCu4W/TOEZ8HpBwers9IgaiO1hPuM+T41TYfx1SaAXeoINfNtyzWF
-	ooZeC3HG/6N8o3EFAimkfjQDNWikCDskZwo1hqoAUhC1E9eGKoyWs0hkwWxdbeu/Ui5WjiL
-	dNIZIEk/S6G8In/Ti81l7bUwltqxyHKyJTk/m8HdNkDHNO+e7OuYESNqnnRbphaYQS4xxtZ
-	AdmYirbz6rjVULIj8zSVaOhrG+YpydUX3ooPumruL6GFedlALu6ArBoFYlquub5RtpR9vog
-	QBhJKYGAtUISWiSuE7+zjfIlzR1QGbp2V923zjwvoMoDfp4jSGkg/GYXhEs8tES6ZFHy/5i
-	KVDZ/A4tGxCTtMv6DOgeKeway+riXDZ2Cb6Zpp4ghkckI2xg7mSWNw/cCEOqAP91iF1ghR4
-	JE9VfwtXIVzO/DL8Np6Kbx8jkpQQfJd0kwT8kASCKWCsmb/nHKn5PjVOveAod30zwotUQZp
-	oGe+dVB8ycf75Fz87x0NeDHZrLEpRAGft7pECRpgoR51kkI7zE2pds8HGYBP73z/JJ3dYtQ
-	WK47sLx1QTyE3PIj1PRnnM/FRTgS1rr4Ex2ln+l9aPtYkKMKtnarOg5/GzjVYHy3Nucu3U+
-	4KlVZdHVrDd7XrBhgqScSPjsY23coeMhS1spMsV+tCUC6kCsFNj2RG5Bx/hAadRO45S9MHv
-	BWZY8PGY5Smw3MdDfi3hPhmLqMHc77fTBRGnhGKap49CfL09T2fEvO8iHnwxYXqjmmUkuqV
-	t6uIUND8K4RI8OwdYN00/DSKLtgpYlkb+IhHTXZOoIQdOPFJGzXRcdmoIqf/w2L/KbP+wAx
-	Q9lIx8lMqi1axSIUQDspuHcE0sievqZ7St7Swdn4/TXvqcWGWc44k/RWgrZXPkCkkEG7RaM
-	ZVa7nhO8FoJJpfVkFTKlruIR+orFe3G79KfkEDWpHA7m7dGSBy6gKIQ+8yIdN7ZSJvc5AGA
-	lBQPqSj7z5P5uIJTVfhvn9GlK+NqCOgbk6Cp/E5FgAGvIlNxX8HbKJ9J2gUdxXjZyFDS673
-	QSPRj92S2UHRQXlR6hjtOBTkP7kMAzzjIGIGWLKeNzu/RehskBIB5WUT7snDJaCUUnwudIn
-	HEbJm1pQmJg
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-XMAILINFO: OcJU98wqb2Ke9iBTwsHPFiCiFNJHuyzXfRbLZac/qSrzsd9+M9PqSoH2
+	OpR/Sn7MAk3847uiT3snYfabC4POn4CnawHsrrR09gPvnXLEYqUHCa4DEZt1lyJ3z6A2tHU
+	IrG6Ai0niX5nRi97DDNh+HVy9hByGcXyPDnl4RdLv0v+5oIu+d1wLN8PnNwC/ILGfAiGv/P
+	XQpQ4n9H+ROKpLN+mqkAAAbcvYEQbQQRdOm8ivKh2rT2H7sEv/BdTQz5WAyoc04zIbgQEWk
+	M6HoeKiQJDQu8TFDmagUAQlxKR5KoO8Erl8fqwsBEUnkFcHqNPvc+lNk4LFdTRi1fXp6A+s
+	N9U/2fRXSO93LieCtgYN6Doyyx0vsdRebVearR1chVDEEyJ+348IcULH8p7yESHN8m2i91+
+	lPv1xT1oRI8it9RSRFFXMEe+Mb9kA0KhuAJmodHCxFeXdbQkGDyiiSfTTDJGaQ9Ply29heH
+	Iu9y13sGg3xc6huq0iTlkUQtH4FzjsShLc/5mUdDNqmj+y6AEIjapKiUbG6Mns5K8FURMmS
+	YKv2lsoYuXoX7GDfuVH5qAqD6xsSv4nn+W86KWhgLrIkxaK70grDOP3MmyrQJMsOOz7X6sN
+	empmyorrRNLABObSbP/6+gON/MTsstU3pZoudpWwzRuIeDXw9ZEVkKN2SVCulc6Q0ROUnEu
+	2mxDooC8ILegogK+25umcpFpTCVRggDGFJJbMJ9yVeOP0vGXsS81pwbfFBD/SbE1VEP5oqy
+	pAywNe3RpaEtyRYBKtB7l9FZkdCYTx4ugCVmU2Y5jxer6x/7/AyE4UEgIo14oWxAR5NA67A
+	guHRY5cprLP+7utF6PvyG32BaNkQzGDdru2QPuRqQ9IBbd+7L/Swmwe54oMVOqMJm8PZX8G
+	dEG10rvLXy3gm6OWH4+c5PwwBKmRuIQAFp+SHyjSIq9P581JkYIg3WKBLwocwNMwIHrrPGT
+	QtS4vuTQrzawLpFYDcHgoR4uykGoYiPKWohW1WiBEMXkN2Ebd+taWDFI0ehzcQfjY0NT5Rn
+	OgVbQ9YAkTQwRhx+NXZs7gseMbhgDEAjIAOubLpWkG4gBYevQMEXnNfpjAO+JRW/YJVlI2W
+	3HGD4p+h8pZ6RKHFIerX8c97ovaNSVFu//8aX2ve6o3
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
 X-QQ-RECHKSPAM: 0
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 0feaf644f7180c4a91b6b405a881afbfd958f1cf ]
+[ Upstream commit 257b1c2c78c25643526609dee0c15f1544eb3252 ]
 
-With __ep_remove() gone, the double-underscore on __ep_remove_file()
-and __ep_remove_epi() no longer contrasts with a __-less parent and
-just reads as noise. Rename both to ep_remove_file() and
-ep_remove_epi(). No functional change.
+Add a simple helper to put a file reference.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Stable-dep-of: a6dc643c6931 ("eventpoll: fix ep_remove struct eventpoll / struct file UAF")
-Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+Link: https://lore.kernel.org/r/20240719-work-mount-namespace-v1-4-834113cab0d2@kernel.org
+Reviewed-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+(cherry picked from commit 257b1c2c78c25643526609dee0c15f1544eb3252)
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- fs/eventpoll.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ include/linux/file.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index 766716c2fd92a..0a54a42263575 100644
---- a/fs/eventpoll.c
-+++ b/fs/eventpoll.c
-@@ -719,7 +719,7 @@ static void ep_free(struct eventpoll *ep)
-  * Called with &file->f_lock held,
-  * returns with it released
-  */
--static void __ep_remove_file(struct eventpoll *ep, struct epitem *epi,
-+static void ep_remove_file(struct eventpoll *ep, struct epitem *epi,
- 			     struct file *file)
- {
- 	struct epitems_head *to_free = NULL;
-@@ -743,7 +743,7 @@ static void __ep_remove_file(struct eventpoll *ep, struct epitem *epi,
- 	free_ephead(to_free);
- }
+diff --git a/include/linux/file.h b/include/linux/file.h
+index 6e9099d293436..221ba0888107a 100644
+--- a/include/linux/file.h
++++ b/include/linux/file.h
+@@ -11,6 +11,7 @@
+ #include <linux/posix_types.h>
+ #include <linux/errno.h>
+ #include <linux/cleanup.h>
++#include <linux/err.h>
  
--static bool __ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
-+static bool ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
- {
- 	lockdep_assert_held(&ep->mtx);
+ struct file;
  
-@@ -789,9 +789,9 @@ static void ep_remove_safe(struct eventpoll *ep, struct epitem *epi)
- 		spin_unlock(&file->f_lock);
- 		return;
- 	}
--	__ep_remove_file(ep, epi, file);
-+	ep_remove_file(ep, epi, file);
+@@ -93,6 +94,7 @@ extern void put_unused_fd(unsigned int fd);
  
--	if (__ep_remove_epi(ep, epi))
-+	if (ep_remove_epi(ep, epi))
- 		WARN_ON_ONCE(ep_refcount_dec_and_test(ep));
- }
+ DEFINE_CLASS(get_unused_fd, int, if (_T >= 0) put_unused_fd(_T),
+ 	     get_unused_fd_flags(flags), unsigned flags)
++DEFINE_FREE(fput, struct file *, if (!IS_ERR_OR_NULL(_T)) fput(_T))
  
-@@ -1013,8 +1013,8 @@ void eventpoll_release_file(struct file *file)
- 		ep_unregister_pollwait(ep, epi);
- 
- 		spin_lock(&file->f_lock);
--		__ep_remove_file(ep, epi, file);
--		dispose = __ep_remove_epi(ep, epi);
-+		ep_remove_file(ep, epi, file);
-+		dispose = ep_remove_epi(ep, epi);
- 
- 		mutex_unlock(&ep->mtx);
+ extern void fd_install(unsigned int fd, struct file *file);
  
 -- 
 2.30.2
