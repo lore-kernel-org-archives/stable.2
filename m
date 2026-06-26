@@ -1,71 +1,30 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1710B377EB0
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 15:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B865A37B02A;
+	Fri, 26 Jun 2026 15:11:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782486596; cv=none; b=uhFy0G1JsXe+4JNno1izkrZIbsDBvwgMdnLJYrpUgUuyDwAK9EjXhDWF9zEyM/bsbsBUr8jDB+r7sqU4rXKvOIFsdGRMwFzNUJgUKdoJc6XDOthRwf2uKW/V6JZhqOEiXDAkqNxPexbVdLnA2kB1U1CRolcaIk/qphQIt3rcrVE=
+	t=1782486695; cv=none; b=o2twS0YVgfm5JfnGUQ6Ra+JIk10UbfO4skJ+jBpIHo6dqsgdAM9xbQkkMDcJU3LOZ3KOHwohq9cLasVxvcqC3gDdKIdg86iitwcFPRNHgZN2uBOeJejjvUDg6it5ZQ6LHGcyeOfVbYCTw5A8Dxnpz0hGLtPYT02HLPn5REJLarg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782486596; c=relaxed/simple;
-	bh=HLN8jh5FjMttL87tuGfBQWgkWd2nJLaWeRsgpBwqTM8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hnDnTrUaeiUr6j5Hyc80fcy7VDmSX9dt5mAtfaf1bzmsrEbTvUKHGRFTtmO7wnj+bcVYngnwSmbHz8sjkG1l8GEY4H+wcFbPLusowZWYPxjLj79qxNgOJDI133AcIL2roB8Zm4iHwbw49lAcDAQOFM2BdQez1jI/FB/DNrJfN54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VGEdF35x; arc=none smtp.client-ip=209.85.128.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VGEdF35x"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-80bb578d58bso7987737b3.0
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 08:09:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782486592; x=1783091392; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Uwg4ScW9rTxeyxnBOcB3H4RQQ1Dm/pdUs5X3AGEG4BY=;
-        b=VGEdF35xq1T0kCsJB9HoviASkhvHj1r6ZS1DHQ5cc6yUmXsIQiNxebxcnp6wfFlkxr
-         r5WMa0mr5AvTEaNaTqAZkvh09vRvNjEFQ6aSM6l9k2E7zDJ/F7bZSjH7HB+Uxb/3/Sy0
-         /Q9fYb8YqltNGOHgawgkRr8I8Eb0CvFovsF0Xrw3zP/zRYjn/x5jTPIIvd4V4/NnC7KF
-         AqjfHM8KPLXFJMsgHxZ1CMTcstSMalC/XhwGNW/Sw6bnJXMIbTxKf8gzfag563Rn4Vpo
-         vqguFOSXsSjIlE3d3l/OsWLtxoBK06e3jyogHDbrpj+3kVzegIgpIdIdnqxdaLo6QtA9
-         dOHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782486592; x=1783091392;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Uwg4ScW9rTxeyxnBOcB3H4RQQ1Dm/pdUs5X3AGEG4BY=;
-        b=hSiC0C1UT7ZB0dSUWRNh/SmACTA2ttpsDvwyy34CUIleKA59+BuXBz7Mf12v5x3ERz
-         TLZM6F6/vX5qVOhsmqQgQpSHyzARkWuj9WlNNPPK2bmAkcuKz+Qga+Y+Y5Fe4xFiFSTv
-         rBmunTKQE2yP2Q+VpoBTOe1cnT4eZMRBZ6dOWWobHYLgke9L7BT1qxnRiLutapm0Nal6
-         H7dwmMzzhDWEfSCfSowp6GE1V5C/BGfaBkMZisDR7mihfaWUW9cQSA5wXscoDhSrFENT
-         51FNp76lviv0y6AOweNPi4cR7y38xP5Divbq9Dls7y0Km2DwWWRsXJEdc+XK4IQCYPqQ
-         ckvw==
-X-Forwarded-Encrypted: i=1; AHgh+RpIHdXv0Y+oCwR5nBSS7iMiTFM8cbou/aNylSYAatCuh3VLOPOWIcojU846OPLBY05YP/B5zbw=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxw3yvuOfLJw6eZWxJhXBUdzpIIwihS3M8ogTUniL50m0vuJZIy
-	Yk8r0sCyeFKx85JPFOBTubH/gq1Wd8Vf0wxeyjuJ8C0ldHPddE9rjlXLmuCZ25lOFUg=
-X-Gm-Gg: AfdE7cnQyL9RxyDXSumuKcHQ6ygQ2+kItqXmFVKxML04lMUesbVA6DVEFYk/m1sNfMU
-	hBfQYNSMOUnm/ZZ+4s2XIyN0ivTKotRoKgOF8cDfZNEAHtQ/JdMk0S+NPpifASj4SkilFvurmXg
-	I7xsSdpqfJqOQxMu7nQIUyVCNbSctqHwuQLNbRhN9u8fXKfmsGGTvs5iS/fmUMWzzWFZlLPHxo+
-	pa7af+IqL3NppY4hgzgtka0DL5jZPzYxugVCO9caQmF4IDl3UZspX/E2uSb/Yvf+UdZ732ylLi7
-	yakFu4mZb3ZJGxanmZEljB2Vco5LENUmCCgxOMvYbhXHB7jq2QhJc3Z6Cj9n9+UBFi1nRumymL2
-	09Say7rOH7GOHfUt2P4aItDdRkjWi/KIY8v+9HLhUtnT+Ywj+NwhVMCD1LcLhVbEtEinls5lS5l
-	i58P9G5ELbnR9e0I81pQ6lPeNuG6/hz3qizonRBmHcVvOF6WVCsfJQEBXFq8iCGQ8IuinFsg==
-X-Received: by 2002:a05:690c:3682:b0:80c:85b6:7652 with SMTP id 00721157ae682-80c85b6852emr7292727b3.71.1782486591487;
-        Fri, 26 Jun 2026 08:09:51 -0700 (PDT)
-Received: from rivendell ([76.78.230.49])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-80c211137bdsm5379197b3.12.2026.06.26.08.09.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 08:09:51 -0700 (PDT)
-From: Ben Carey <benjamin.james.carey3@gmail.com>
-To: io-uring@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	axboe@kernel.dk,
-	stable@vger.kernel.org,
-	benjamin.james.carey3@gmail.com
-Subject: [BUG] RCU hang with io_uring nvme polling
-Date: Fri, 26 Jun 2026 11:09:46 -0400
-Message-ID: <20260626150946.287781-1-benjamin.james.carey3@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	s=arc-20240116; t=1782486695; c=relaxed/simple;
+	bh=AYzFMBFNeQefBFbatCJZ+ndY89ePDFGnI2FN7s7QDKY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=S7z9bRJYGlLAO+Psyz6EHwwmU0utljI8H4wJR/b4NYoXv4+D1Ki2/2b+JTc57N8wssdssukE4bvQDp1+DjKTAm6PtvR48Oq/y9o1L5zCB0DhrWESyNC2Mu79SoUTqTWq5z/SbTl0ptRoTA8JpB3myjprMo+vR2ze/fIiXouUXco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-01 (Coremail) with SMTP id qwCowAB3Hteelj5qs55rAw--.50734S2;
+	Fri, 26 Jun 2026 23:11:27 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: Lee Jones <lee@kernel.org>,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>
+Subject: [PATCH] fix: mfd: of_syscon_register: fix reset_control reference leak on success   path
+Date: Fri, 26 Jun 2026 23:11:25 +0800
+Message-Id: <20260626151125.50780-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,167 +32,51 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowAB3Hteelj5qs55rAw--.50734S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtrW8Jw47GFW8tryUXrW3trb_yoWDAFX_Wr
+	yrXF9xX347GrWUGrW8Xr4fuFZ3CayDuw1xGw1j9FZ3JFy5XF13XrykurWUZ34DXr4xur9a
+	k3WDX3yfuwn2qjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbz8FF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxAIw28IcxkI7VAKI48J
+	MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+	0xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUna9aUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIKA2o+idskQgAAsn
 
-From: benjamin.james.carey3@gmail.com
+of_reset_control_get_optional_exclusive acquires a reset control
+  reference. On the success path, the function stores regmap and np but
+  does not store or release the reset handle. Only error paths call
+  reset_control_put to release it. This leaks the reset control reference
+  on the success path.
 
-Hello, whomever this may concern.
+Store the reset handle in syscon->reset so it can be properly managed.
 
-I am working in a lab researching energy efficiency of I/O servicing and
-completion mechanisms, and we have encountered an issue when using io_uring and
-completing I/O requests while polling NVMe drives.
+Cc: stable@vger.kernel.org
+Fixes: 7d1e3bd94828 ("mfd: syscon: Allow reset control for syscon devices")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/mfd/syscon.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Description
-===========
+diff --git a/drivers/mfd/syscon.c b/drivers/mfd/syscon.c
+index 21a7fcdd2737..28576a3c02fd 100644
+--- a/drivers/mfd/syscon.c
++++ b/drivers/mfd/syscon.c
+@@ -148,6 +148,7 @@ static struct syscon *of_syscon_register(struct device_node *np, bool check_res)
+ 
+ 	syscon->regmap = regmap;
+ 	syscon->np = np;
++	syscon->reset = reset;
+ 
+ 	list_add_tail(&syscon->list, &syscon_list);
+ 
+-- 
+2.39.5 (Apple Git-154)
 
-When using fio to run io_uring test benches for energy consumption analysis
-on our lab server, we're encountering strange kernel locking behaviors as
-numjobs increases.
-
-This issue occurs on our workloads the poll for I/O completion. Specifically,
-whenever the numjobs parameter scales to beyond the nvme.poll_queues
-parameter, the job takes much longer to complete or doesn't complete at all.
-
-Notably, this issue occurs also on a QEMU image mimicking our setup. Using GDB
-to read dmesg output we get the following:
-
-...
-rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-rcu: 	Tasks blocked on level-0 rcu_node (CPUs 0-7): P1070
-rcu: 	(detected by 7, t=252035 jiffies, g=1985, q=25149 ncpus=8)
-task:fio             state:R  running task     stack:13296 pid:1070  tgid:1070  ppid:1068   task_flags:0x400140 flags:0x00080000
-Call Trace:
-...
-? blk_hctx_poll+0x34/0x80
-blk_mq_poll+0x2b/0x40
-bio_poll+0x94/0x180
-iocb_bio_iopoll+0x31/0x50
-io_uring_classic_poll+0x20/0x40
-io_do_iopoll+0x233/0x430
-? io_issue_sqe+0x2f/0x560
-? io_submit_sqes+0x270/0x820
-__do_sys_io_uring_enter+0x228/0x770
-? handle_softirqs+0xc7/0x250
-__x64_sys_io_uring_enter+0x21/0x30
-x64_sys_call+0x17c8/0x1dd0
-do_syscall_64+0xe0/0x5a0
-entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Expected behavior
-=================
-
-fio job completes after specified runtime.
-
-Actual behavior
-===============
-
-fio job never completes, system becomes less responsive (if the number of poll
-queues and jobs are high) and RCU stall checker detects stalls.
-
-Observations
-============
-
-After some minimal investigation we found this notable function being called as
-the callback for q->mq_ops->poll:
-
-static int nvme_poll(struct blk_mq_hw_ctx *hctx, struct io_comp_batch *iob)
-{
-	struct nvme_queue *nvmeq = hctx->driver_data;
-	bool found;
-
-	if (!test_bit(NVMEQ_POLLED, &nvmeq->flags) ||
-	    !nvme_cqe_pending(nvmeq))
-		return 0;
-
-	spin_lock(&nvmeq->cq_poll_lock);
-	found = nvme_poll_cq(nvmeq, iob);
-	spin_unlock(&nvmeq->cq_poll_lock);
-
-	return found;
-}
-
-This function, when stuck on the RCU loop, always returns 0. It also always
-calls the helper function nvme_cqe_pending.
-
-Following this are some items that may help in reproducing this issue.
-
-Steps to reproduce
-==================
-From a running QEMU image with the latest kernel:
-1. Attach GDB to the running instance.
-2. Enable io polling via sysfs (echo 1 > /sys/block/nvme0n1/queue/io_poll).
-3. Execute the fio job below.
-4. After 1-2 minutes, observe RCU stalls.
-
-Offending fio job
-=================
-
-fio --bs=1K --direct=1 --iodepth=1 --runtime=1 --rw=randread --time_based \
-  --ioengine=io_uring --hipri=1 --fixedbufs=0 --registerfiles=0 \
-    --sqthread_poll=0 \
-  --numjobs=2 --name=job0 --output-format=json --clocksource=clock_gettime \
-  --filename=/dev/nvme0n1
-
-Kernel config
-=============
-
-Start with x86_defconfig
-
-The following options are enabled for ease of debugging with GDB and QEMU.
-
-In "Kernel Hacking" do the following:
-- Set "Compile-time checks and compiler options -> Debug options" to "Rely on
-  the toolchain's implicit default DWARF version."
-- Set "Compile-time checks and compiler options -> Provide GDB scripts for
-  debugging" to Yes.
-- Set "x86 Debugging -> Choose kernel unwinder" to "Frame pointer unwinder."
-
-In "Processor types and features" do the following:
-- Set "Randomize the address of the kernel image (KASLR)" to No.
-
-The following options are enabled to support NVMe over PCIe.
-
-In "Device Drivers" do the following:
-- Set "PCI Support -> PCI Endpoint support" to Yes.
-- Set "NVMe Support -> NVM Express block device" to Module.
-- Set "NVMe Support -> NVMe Target Support" to Module.
-- Set "NVMe Support -> NVMe PCI Endpoint Function target support" to Module.
-
-Kernel command line
-===================
-
-BOOT_IMAGE=/vmlinuz-7.1.0-g3996771b8f75 root=/dev/mapper/ubuntu--vg-ubuntu--lv \
-ro nvme.poll_queues=1 nokaslr \
-crashkernel=2G-4G:320M,4G-32G:512M,32G-64G:1024M,64G-128G:2048M,128G-:4096M
-
-(nokaslr may be unneeded.)
-
-QEMU command line
-=================
-qemu-system-x86_64 \
-  -m 4G -enable-kvm -monitor stdio -s -S -smp 8 \
-  -device nvme,serial=deadbeef,drive=nvm \
-  -drive file=disk.img,index=0,media=disk,if=virtio \
-  -drive file=nvme.img,index=1,media=disk,if=none,id=nvm \
-  -chardev socket,path=/tmp/port1,server=on,wait=off,id=port1-char \
-  -device virtio-serial \
-  -device virtserialport,id=port1,chardev=port1-char,name=org.fedoraproject.port.0 \
-  -net user,hostfwd=tcp::10022-:22,hostfwd=tcp::45455-:45455 \
-  -net nic
-
-For us, disk.img and nvme.img are created via:
-dd if=/dev/zero of=disk.img bs=4K count=5000000
-dd if=/dev/zero of=nvme.img bs=4K count=2000000
-
-We then format disk.img with ext4.
-
-To install a test userspace we download an ISO of Ubuntu Server 26.04 and
-append the filename as a parameter to the QEMU task. After installing it.
-
-
-If you all think there's a better mailing list to which this should be sent,
-please let me know. Also, please let me know if there are other details about
-how to reproduce this issue or the system on which this issue appears, or if
-you have any other questions.
-
-Best wishes,
-Benjamin Carey
