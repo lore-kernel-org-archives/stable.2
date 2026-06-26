@@ -1,92 +1,93 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E513F58CD
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 11:26:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3783F65FB
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 11:26:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782473213; cv=none; b=RaHqeQxhJNObFTpREqI0zftRM7KQc/JPDKiLH6z/A8rQyknTv2OhV8sV1wHMYTQW3BcIot9iUFbU9iwoOEciYKf+y5HR5w32+v4NbU0GFCEn82I7+lIfWHSxnc2cb2WqgXnALep9KKdJVcEleFdqdHgTcFXrroKZ9Nb6UZNHbZU=
+	t=1782473217; cv=none; b=FXRmUOgpGtXPScmVcp6jel4v60SM4njC6HW8TYVnhclQ4XcBzenkN+dPODF3NBXRF4xsujmCit/8I/RFoZGcFJAoIlrgolPjV3JicDqnd2/3oZzPopWT3aUoLu1p3Jh7ukI60RgK1myR/MbUIaxIY4LSI5HcIuL89DJf7m40qdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782473213; c=relaxed/simple;
-	bh=hm1d5HfYmLvZEG3jBh5ZSp16HGGdwgQTufSKNBQkAjo=;
+	s=arc-20240116; t=1782473217; c=relaxed/simple;
+	bh=kCOzpLNhrAwmd2Cv0+NBTKi/WyuAD0zGKc/AN655oTE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pMVLjiuJHKVmycKRehrTXPJFgd2xAG2S/xXaRFnCU5e5jb9pGejQ2PvJ/AmLevdmgOG1gjBh+Atb7SQ2YJHaixCIkxGMlGWs3n66OTUk7IC5XTW2QxNP0sWps+MyOKNGP+mZxAg3MauW/coc7luXdLsXdK2sABaYP3YRDL/7Znw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=agWY2bFG; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Suacvc0x; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=RCJXhViODLdW9vwjlqZGpVrtgsOZPsfcFNFDMHS8tBxmLeLmIC3O6RkPU2M8xw5t/u+IUgI6SKiq7zm8G0BuBU6QK6fN0qNmeUz9U7dnkTLEflH78BI5h5DB7jAmmJu3OW4aEWtJ2njyS2debjYHPoibPFjV/u9PYYA/afI9P+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Fbl9XItl; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ljWmfTdt; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="agWY2bFG";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Suacvc0x"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Fbl9XItl";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ljWmfTdt"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782473208;
+	s=mimecast20190719; t=1782473212;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=M7jUj/WYhpwqBuo+wix2BnJk6EgwJ/lk0dvKuGJAH7g=;
-	b=agWY2bFG7hUGX57+G51NKAPRphoPctx4rRuRpcVQ+j69Qq7GI8LoMoEQ1SR6l3FC4V/pjc
-	P99HF+tRfWaxP3UaWgGmROk8TjJvkBFrgZgPvl43tHKvb1gjo5MaTU0soeJgttbCERGqIq
-	IS+J6oHsvcjgqxSPpT1Z0+uJUPK2ceU=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=dznzUVwUlTSqGKVWxKqmfbKjaj0U1/q+DV4m+Rrd8gw=;
+	b=Fbl9XItlyQTUHXra4smY5lhPa2no17JYo0NaafP775amVGErHDfUmN6yY+69PAkxF+uMO3
+	NJ+gtJ+Pd3gwsnUNDFUWWg6s0oQN9USWbhisnDxXcRZqwZN0ekQTKk6luiFaqyf5GsB3qc
+	QtdiH9RFp2rCwGOcD0Bi9mupAuPMMUo=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-424-FTjjKzK-PMuI2PHNUy4xoQ-1; Fri, 26 Jun 2026 07:26:47 -0400
-X-MC-Unique: FTjjKzK-PMuI2PHNUy4xoQ-1
-X-Mimecast-MFC-AGG-ID: FTjjKzK-PMuI2PHNUy4xoQ_1782473206
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49245e10b73so5153525e9.3
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 04:26:46 -0700 (PDT)
+ us-mta-519-ZZ123iOANzeM58pTq-05sg-1; Fri, 26 Jun 2026 07:26:50 -0400
+X-MC-Unique: ZZ123iOANzeM58pTq-05sg-1
+X-Mimecast-MFC-AGG-ID: ZZ123iOANzeM58pTq-05sg_1782473209
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4642a5651d4so711685f8f.2
+        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 04:26:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1782473206; x=1783078006; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1782473209; x=1783078009; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=M7jUj/WYhpwqBuo+wix2BnJk6EgwJ/lk0dvKuGJAH7g=;
-        b=Suacvc0xXWW9xTg5ENJmYkLRpZUBmKbztwr3fks4P+LcgHliCQEi91Ey1kmN/uRJS/
-         PIenF56olbNTRyHqxlDm5bo+Nte3e+k3fqrWsMi65jA6IQ/zLPHH139tltGRtyP5U7DA
-         QB8yqdS4tsTHrjveLOmj1wj7ZNFFqeKdtY54iFG1G5R4/wwm2CizJpQjOZxKdOMGbkuI
-         0g0Q7w6UYG13GnX+g0xyMJf8dEvo+orQFWrx9Zr9CvX6yIOAUIb+6sf8AXBrwZSxFIXZ
-         rLTbE9Zblasxo60ZpxhRNZfFFgTFA7p4Nkg8+9zXGOWUTTsLvoMJoXgZyF67SuVglNZl
-         NKvw==
+        bh=dznzUVwUlTSqGKVWxKqmfbKjaj0U1/q+DV4m+Rrd8gw=;
+        b=ljWmfTdtPeDfU2XKxNUYTKSJtVvyEj09QBiisIRRcD9fmWOdKIXiLt/BB0U+wXQCU3
+         HceUrF1syo/G6y2owCrbQGySNKvZx5zRYJpjNqV0uvTE/0r0U/KHDyIm7602HvJh73wd
+         bjIjJYiB6I/pqUalR/RFq8KJXVdsrpTzDlmvaQawB/aqSUk0eEbYZRCstvlGkxuZt/lH
+         uaAXgdF/ZfvnHFrEXjCllYBMTjkT9YoMmnrCGAPhNTyzOO1M0f+6QKSIES/0tK/M4H8Z
+         ImpwQ095nHOQAnSxFDT/Vw2QTv704hJwIAFYEPsN1sIdHHYbE3i1ojbOvoqfyvSciFH3
+         iolg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782473206; x=1783078006;
+        d=1e100.net; s=20251104; t=1782473209; x=1783078009;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=M7jUj/WYhpwqBuo+wix2BnJk6EgwJ/lk0dvKuGJAH7g=;
-        b=AgaNhfi+aNjSADB2IrYEhbHDv/z2ERqaHJg4tDH2Rmh0GJauKMHoKPxFIbcll42IPV
-         qLBLIhosXJKZmxeSYiEXHda8RZns7JpvFis+qlzb/aWvxJEKr8waKpIeEGC290mU5/1L
-         yIxf8wMeOb2p8NGG9fgLX+sEmloqVQ9YTkCeX1iu+bFrcE85nXX1gGr6lZS8jq+UEhNd
-         BIEpAYfmKKgdAIdVjNe9MZ1+bKHHQBhsNk0SuwsxAX/hrQvtJoS6T3ptWs1aWFCpNTgq
-         tm+uFuqzEbvbUdnx1D9vokcHwbuO61JfiyQOM7XEcuQaRNmbnmVA4krkKwINlm2FjEC3
-         UNwQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+jhyWRAPxmd7JxPxmr7FIzwfRON/o2tFNeG8admQtVPFc4ndp+G1blz8AOIIDXYawNqM7o0qs=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+JqbBcn0Cr+A3fHU5tNP+jXX52q3sgwJTYbx4LLTz9zS+IHzl
-	S/En4te9PJ94ZAJYrtjIVlR37wmZUi+v7Dq4+A0aNokQPioQpkxk3Crt2uhHKOS43HpmjAtlpvj
-	Vq7W6nGtSNKAtsfkYmiORiWzLQmQ+ryCptXoEUJBKHG1iC0gW3QBeZR34zA==
-X-Gm-Gg: AfdE7cncQJurRblFNarc2xAqrUyP37MGZEmaaSil5m9Qv+VKpPBldjhjXqaFHJcHc+S
-	SocXx7gWSsPvS5arfuxtO3o0PdNVmDXEuTZYmLuprz7QJXNMfskKRIquGG8D7gD6lqqn1MOdpXn
-	YBUf/1X57miKidiT9Ylo4HLM1mRVSW3c9LfuOW2tkOosLmbzy2UdqxuCxwWrQXZm1huwO9q4lSC
-	Fo7VhVYCwGMdzU+40hMsfBwwaJdFxkitAX092JRISG5Zw8dbGB/4Eg1ZQXhb2jQwiziHBLf/jXr
-	S8JgDuif4j4z+sasU/GAETeYLageBA8qdclZ8/NRlj9q58lvXVo9D6NF/gfp4VKcuc78IS7jTPx
-	VivATwD8MEx+WaHRwLXbLBYHOMui8I3Q4GFx2FVpd0cc2+rOaHP9sR+aBnRcr0OUeCzs5uOsDDL
-	2zGGmxhZF8P5vO+9vz
-X-Received: by 2002:a05:600c:c04b:10b0:492:418b:b5e1 with SMTP id 5b1f17b1804b1-492668b02damr73052485e9.37.1782473205630;
-        Fri, 26 Jun 2026 04:26:45 -0700 (PDT)
-X-Received: by 2002:a05:600c:c04b:10b0:492:418b:b5e1 with SMTP id 5b1f17b1804b1-492668b02damr73052005e9.37.1782473205153;
-        Fri, 26 Jun 2026 04:26:45 -0700 (PDT)
+        bh=dznzUVwUlTSqGKVWxKqmfbKjaj0U1/q+DV4m+Rrd8gw=;
+        b=QI0xJac7ALH2ZbhdOzMBbqaJGR7hgU0wGA4+HjnK0AltCYf6u+ocPqqPrs5RdqHzrj
+         oQJF8GpkYzq7MdmbRz7Ztj++HSdK5gzLH77ktBiuRGWWa+WnHPoWjYG2v4BjPiGjtb4x
+         YmIg7FSjk2pjt0UD86bGjq8KN6SDrVs1ZY0FLjVSj78Yh17IMja8uVjJAKhEuRkfgvrY
+         rni+d22D2e6+S10goHjXS5MiRu7MfMSkbzPwNLkB0p2nsLxHasboUrH557ryehjaxx5k
+         aMhR1r1zqASFvSMAfIP4ctxG1Z7/iJXnNWTcGBK4MXpmE4E9CEhZDUlyg0zFzgrYC4Or
+         lSHw==
+X-Forwarded-Encrypted: i=1; AHgh+RrEdA0ig6Iq5S95b8GxdNygyTYQV9gdLkwMN14brPO4D9DMsNijMQ2TZLMU0wF96Iqpc7JHbrU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyo0KIhk7IO4KQdbrsCbItjQDBVELqBT4vHBm5gXjPTSg62fpIO
+	yc9fe9d6+sAXrw6sKTPjbU2S2KecFLmT1/lvMUkzVpgnw1iis8Xe7f0gAoklGudA7E0qHKocwjJ
+	NyHBEzAIujN74IA+kMIz9T9vDTsS/Dum+GPyP77fYuTuUo9OSICAK3bk4Vg==
+X-Gm-Gg: AfdE7cn14DOMV0XB9LZy/HzjuGNipxYvupbBpizV5mpI8RfUyAi7YMXNB922j1cfQ3f
+	OC04AXSKAQ4khYBV6PWQsFJGVPB4dHpWpLvEufXD+kuNVH2BWCGRTBppgE0uosE/ckmmtqZ8O94
+	4nUoC9wNl4YozEV5lA1ZnCzOl+isXibqeFtKqXSyYn49bkIAJM/tzvpNAQUMyaUlJX3VS36L5ti
+	gCqu52jcMCQiyKfS3U2OCt/7pdS3H6Cm6JH1GF754ndJSzprHp4ah0iNxJ1FdoJzax2Pbdxw6tV
+	869kJn3iMcTHRE5lWVClXre2XZmEuwBK5mUzQ8NMONAPJss06kPPDMDoEEYBWezJeX9nwjPsBMi
+	w+oqfwzlcxE/3QswAtFVwhYQ6BwZzGa9rg5MaDBjmPl4ktjtE13cGBZ9aW+1cgjucy0vUppTUo0
+	JiEqJd/nRV5cEEg5fT
+X-Received: by 2002:a5d:64e4:0:b0:468:b71a:6efe with SMTP id ffacd0b85a97d-46dbf117b6fmr10461193f8f.6.1782473209417;
+        Fri, 26 Jun 2026 04:26:49 -0700 (PDT)
+X-Received: by 2002:a5d:64e4:0:b0:468:b71a:6efe with SMTP id ffacd0b85a97d-46dbf117b6fmr10461139f8f.6.1782473208986;
+        Fri, 26 Jun 2026 04:26:48 -0700 (PDT)
 Received: from [192.168.10.48] ([151.95.124.208])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49269071e49sm71464395e9.10.2026.06.26.04.26.43
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c1b754471sm23396909f8f.0.2026.06.26.04.26.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 04:26:44 -0700 (PDT)
+        Fri, 26 Jun 2026 04:26:47 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Ben Gardon <bgardon@google.com>
-Subject: [PATCH 5.10.y 04/17] KVM: x86/mmu: Ensure MMU pages are available when allocating roots
-Date: Fri, 26 Jun 2026 13:26:21 +0200
-Message-ID: <20260626112634.1778506-5-pbonzini@redhat.com>
+Cc: David Matlack <dmatlack@google.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Sean Christopherson <seanjc@google.com>
+Subject: [PATCH 5.10.y 05/17] KVM: x86/mmu: Use a bool for direct
+Date: Fri, 26 Jun 2026 13:26:22 +0200
+Message-ID: <20260626112634.1778506-6-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260626112634.1778506-1-pbonzini@redhat.com>
 References: <20260626112634.1778506-1-pbonzini@redhat.com>
@@ -98,207 +99,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+From: David Matlack <dmatlack@google.com>
 
-commit 6e6ec58485746eb64487bd49bf5cd90ded3d2cf6 upstream.
+commit 27a59d57f073f21f029df1517c2c0a1abea5b0ce upstream.
 
-Hold the mmu_lock for write for the entire duration of allocating and
-initializing an MMU's roots.  This ensures there are MMU pages available
-and thus prevents root allocations from failing.  That in turn fixes a
-bug where KVM would fail to free valid PAE roots if a one of the later
-roots failed to allocate.
+The parameter "direct" can either be true or false, and all of the
+callers pass in a bool variable or true/false literal, so just use the
+type bool.
 
-Add a comment to make_mmu_pages_available() to call out that the limit
-is a soft limit, e.g. KVM will temporarily exceed the threshold if a
-page fault allocates multiple shadow pages and there was only one page
-"available".
+No functional change intended.
 
-Note, KVM _still_ leaks the PAE roots if the guest PDPTR checks fail.
-This will be addressed in a future commit.
-
-Cc: Ben Gardon <bgardon@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-Id: <20210305011101.3597423-7-seanjc@google.com>
+Reviewed-by: Lai Jiangshan <jiangshanlai@gmail.com>
+Reviewed-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: David Matlack <dmatlack@google.com>
+Message-Id: <20220516232138.1783324-3-dmatlack@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/mmu/mmu.c     | 50 +++++++++++++++-----------------------
- arch/x86/kvm/mmu/tdp_mmu.c | 23 ++++--------------
- 2 files changed, 25 insertions(+), 48 deletions(-)
+ arch/x86/kvm/mmu/mmu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index a506c0818e77..9b1f63b5e86e 100644
+index 9b1f63b5e86e..97705c28a97e 100644
 --- a/arch/x86/kvm/mmu/mmu.c
 +++ b/arch/x86/kvm/mmu/mmu.c
-@@ -2440,6 +2440,15 @@ static int make_mmu_pages_available(struct kvm_vcpu *vcpu)
+@@ -1659,7 +1659,7 @@ static void drop_parent_pte(struct kvm_mmu_page *sp,
+ 	mmu_spte_clear_no_track(parent_pte);
+ }
  
- 	kvm_mmu_zap_oldest_mmu_pages(vcpu->kvm, KVM_REFILL_PAGES - avail);
- 
-+	/*
-+	 * Note, this check is intentionally soft, it only guarantees that one
-+	 * page is available, while the caller may end up allocating as many as
-+	 * four pages, e.g. for PAE roots or for 5-level paging.  Temporarily
-+	 * exceeding the (arbitrary by default) limit will not harm the host,
-+	 * being too agressive may unnecessarily kill the guest, and getting an
-+	 * exact count is far more trouble than it's worth, especially in the
-+	 * page fault paths.
-+	 */
- 	if (!kvm_mmu_available_pages(vcpu->kvm))
- 		return -ENOSPC;
- 	return 0;
-@@ -3219,16 +3228,9 @@ static hpa_t mmu_alloc_root(struct kvm_vcpu *vcpu, gfn_t gfn, gva_t gva,
+-static struct kvm_mmu_page *kvm_mmu_alloc_page(struct kvm_vcpu *vcpu, int direct)
++static struct kvm_mmu_page *kvm_mmu_alloc_page(struct kvm_vcpu *vcpu, bool direct)
  {
  	struct kvm_mmu_page *sp;
  
--	spin_lock(&vcpu->kvm->mmu_lock);
--
--	if (make_mmu_pages_available(vcpu)) {
--		spin_unlock(&vcpu->kvm->mmu_lock);
--		return INVALID_PAGE;
--	}
- 	sp = kvm_mmu_get_page(vcpu, gfn, gva, level, direct, ACC_ALL);
- 	++sp->root_count;
- 
--	spin_unlock(&vcpu->kvm->mmu_lock);
- 	return __pa(sp->spt);
- }
- 
-@@ -3241,16 +3243,9 @@ static int mmu_alloc_direct_roots(struct kvm_vcpu *vcpu)
- 
- 	if (vcpu->kvm->arch.tdp_mmu_enabled) {
- 		root = kvm_tdp_mmu_get_vcpu_root_hpa(vcpu);
--
--		if (!VALID_PAGE(root))
--			return -ENOSPC;
- 		mmu->root_hpa = root;
- 	} else if (shadow_root_level >= PT64_ROOT_4LEVEL) {
--		root = mmu_alloc_root(vcpu, 0, 0, shadow_root_level,
--				      true);
--
--		if (!VALID_PAGE(root))
--			return -ENOSPC;
-+		root = mmu_alloc_root(vcpu, 0, 0, shadow_root_level, true);
- 		mmu->root_hpa = root;
- 	} else if (shadow_root_level == PT32E_ROOT_LEVEL) {
- 		for (i = 0; i < 4; ++i) {
-@@ -3258,8 +3253,6 @@ static int mmu_alloc_direct_roots(struct kvm_vcpu *vcpu)
- 
- 			root = mmu_alloc_root(vcpu, i << (30 - PAGE_SHIFT),
- 					      i << 30, PT32_ROOT_LEVEL, true);
--			if (!VALID_PAGE(root))
--				return -ENOSPC;
- 			mmu->pae_root[i] = root | PT_PRESENT_MASK;
- 		}
- 		mmu->root_hpa = __pa(mmu->pae_root);
-@@ -3295,8 +3288,6 @@ static int mmu_alloc_shadow_roots(struct kvm_vcpu *vcpu)
- 
- 		root = mmu_alloc_root(vcpu, root_gfn, 0,
- 				      mmu->shadow_root_level, false);
--		if (!VALID_PAGE(root))
--			return -ENOSPC;
- 		mmu->root_hpa = root;
- 		goto set_root_pgd;
- 	}
-@@ -3315,6 +3306,7 @@ static int mmu_alloc_shadow_roots(struct kvm_vcpu *vcpu)
- 
- 	for (i = 0; i < 4; ++i) {
- 		MMU_WARN_ON(VALID_PAGE(mmu->pae_root[i]));
-+
- 		if (mmu->root_level == PT32E_ROOT_LEVEL) {
- 			pdptr = mmu->get_pdptr(vcpu, i);
- 			if (!(pdptr & PT_PRESENT_MASK)) {
-@@ -3328,8 +3320,6 @@ static int mmu_alloc_shadow_roots(struct kvm_vcpu *vcpu)
- 
- 		root = mmu_alloc_root(vcpu, root_gfn, i << 30,
- 				      PT32_ROOT_LEVEL, false);
--		if (!VALID_PAGE(root))
--			return -ENOSPC;
- 		mmu->pae_root[i] = root | pm_mask;
- 	}
- 
-@@ -3393,14 +3383,6 @@ static int mmu_alloc_special_roots(struct kvm_vcpu *vcpu)
- 	return 0;
- }
- 
--static int mmu_alloc_roots(struct kvm_vcpu *vcpu)
--{
--	if (vcpu->arch.mmu->direct_map)
--		return mmu_alloc_direct_roots(vcpu);
--	else
--		return mmu_alloc_shadow_roots(vcpu);
--}
--
- void kvm_mmu_sync_roots(struct kvm_vcpu *vcpu)
+@@ -2021,7 +2021,7 @@ static struct kvm_mmu_page *kvm_mmu_get_page(struct kvm_vcpu *vcpu,
+ 					     gfn_t gfn,
+ 					     gva_t gaddr,
+ 					     unsigned level,
+-					     int direct,
++					     bool direct,
+ 					     unsigned int access)
  {
- 	int i;
-@@ -4872,7 +4854,15 @@ int kvm_mmu_load(struct kvm_vcpu *vcpu)
- 	r = mmu_alloc_special_roots(vcpu);
- 	if (r)
- 		goto out;
--	r = mmu_alloc_roots(vcpu);
-+	spin_lock(&vcpu->kvm->mmu_lock);
-+	if (make_mmu_pages_available(vcpu))
-+		r = -ENOSPC;
-+	else if (vcpu->arch.mmu->direct_map)
-+		r = mmu_alloc_direct_roots(vcpu);
-+	else
-+		r = mmu_alloc_shadow_roots(vcpu);
-+	spin_unlock(&vcpu->kvm->mmu_lock);
-+
- 	kvm_mmu_sync_roots(vcpu);
- 	if (r)
- 		goto out;
-diff --git a/arch/x86/kvm/mmu/tdp_mmu.c b/arch/x86/kvm/mmu/tdp_mmu.c
-index 073514bbb5f7..5cba2e85ce04 100644
---- a/arch/x86/kvm/mmu/tdp_mmu.c
-+++ b/arch/x86/kvm/mmu/tdp_mmu.c
-@@ -152,22 +152,21 @@ static struct kvm_mmu_page *alloc_tdp_mmu_page(struct kvm_vcpu *vcpu, gfn_t gfn,
- 	return sp;
- }
- 
--static struct kvm_mmu_page *get_tdp_mmu_vcpu_root(struct kvm_vcpu *vcpu)
-+hpa_t kvm_tdp_mmu_get_vcpu_root_hpa(struct kvm_vcpu *vcpu)
- {
- 	union kvm_mmu_page_role role;
- 	struct kvm *kvm = vcpu->kvm;
- 	struct kvm_mmu_page *root;
- 
--	role = page_role_for_level(vcpu, vcpu->arch.mmu->shadow_root_level);
-+	lockdep_assert_held_write(&kvm->mmu_lock);
- 
--	spin_lock(&kvm->mmu_lock);
-+	role = page_role_for_level(vcpu, vcpu->arch.mmu->shadow_root_level);
- 
- 	/* Check for an existing root before allocating a new one. */
- 	for_each_tdp_mmu_root(kvm, root) {
- 		if (root->role.word == role.word) {
- 			kvm_mmu_get_root(kvm, root);
--			spin_unlock(&kvm->mmu_lock);
--			return root;
-+			goto out;
- 		}
- 	}
- 
-@@ -176,19 +175,7 @@ static struct kvm_mmu_page *get_tdp_mmu_vcpu_root(struct kvm_vcpu *vcpu)
- 
- 	list_add(&root->link, &kvm->arch.tdp_mmu_roots);
- 
--	spin_unlock(&kvm->mmu_lock);
--
--	return root;
--}
--
--hpa_t kvm_tdp_mmu_get_vcpu_root_hpa(struct kvm_vcpu *vcpu)
--{
--	struct kvm_mmu_page *root;
--
--	root = get_tdp_mmu_vcpu_root(vcpu);
--	if (!root)
--		return INVALID_PAGE;
--
-+out:
- 	return __pa(root->spt);
- }
- 
+ 	bool direct_mmu = vcpu->arch.mmu->direct_map;
 -- 
 2.54.0
 
