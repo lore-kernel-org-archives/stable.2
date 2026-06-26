@@ -1,127 +1,73 @@
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027654014A1
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:12:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CFF400E0D;
+	Fri, 26 Jun 2026 16:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490347; cv=none; b=ktCOTDYab0ByXZv1TuKUbFUR8gqzSqF5GQPY7leHihL2FoHrORVo8m8DxpVftC7VXxpf4jM/wuWWtvEM/kppAQ7DMIQZKEIb1u4aG+wnJNzEbDIC2IrhjmtNgPNcuK1JQTZVxAZZPtjZvB3XT6RUmzQ7oxEsqeLitVWnsVgyLlg=
+	t=1782490348; cv=none; b=tlwvmp55H6TtQO/0MwMMXmB281KqJfQiipLB6cMoAR39zhUh0CUy+Yv4xgHoSj+drk41dxvH1kRtzCYEdbL4OVkSchL0bY4A5cZLjP4Q5/lWdLfqDWIaVTOs2r1+MnWwRqRrqPlLdDPA5YOUNUDHJZhn2/8K1jjmWJ/lBsP9cPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782490347; c=relaxed/simple;
-	bh=IhGr1Urjh2zeY6GxLIf/Cj8hEzQjEGhcbIeDlu/nbfo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I89ardEHvo2wrozCOV2YMgp4Wt/XhBTCnrKnqv56tEb1A/uRYxgjt/nQps/jbwImSre9TYkRntiyUvHk0+fksI6mmjsRKadOM9Pdt1YIWePyzvDF1pF55BBL/X/Rt1q+WuSjM1w7OWmmMyMlvCQyr089IEv+4LaTHS+9sZHQSKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=A8QagHnZ; arc=none smtp.client-ip=213.160.73.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	s=arc-20240116; t=1782490348; c=relaxed/simple;
+	bh=ISwVEgvPeIhpSVRDPum/uCO7UKaxWvF5D0mY18XDJa4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XoCqOciEnkZzb++9tvwVymXeHbgc71g3Mib02I+dlibPk2ltJLSleuEQugYNXiZiresI4v3drEuoCZ20VvejCDicuCQHsCTJuwDXaUJn8wkseQKaGabajuh9bzyOq2Vq/h6LNQ2tQGyL6YAnQbEWtg+sLGb/hcX7p+wxg1rAifw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=blSyQ+/9; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="A8QagHnZ"
-Received: by dvalin.narfation.org (Postfix) id 441782045E;
-	Fri, 26 Jun 2026 16:12:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490341;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NZ8uq1CecCQDMRO2uxtaCX3IvuF52vn+dSbi27x+whw=;
-	b=A8QagHnZnHEwSvVF/5dqdbiQWqai48xgM11lmXxGp0YxY2WeXq2U851tTCAy0L/KKz1Ea0
-	r/OBTj/fP6D2jR4syh7szWY5ih/hEco63kfz1jQtaoNJKdiC0/fb1iWz4+Qsdo7kuG0zM4
-	JLynYpLCOCElwLO5yvowOHWPHR7lWFo=
-From: Sven Eckelmann <sven@narfation.org>
-To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.18 23/26] batman-adv: tt: track roam count per VID
-Date: Fri, 26 Jun 2026 18:12:07 +0200
-Message-ID: <20260626161210.124712-24-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260626161210.124712-1-sven@narfation.org>
-References: <20260626161210.124712-1-sven@narfation.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="blSyQ+/9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=ZbRZRFSGqO+LRDzsnXP4Xb9np6R1yKu/VFJITsVvY2k=; b=blSyQ+/9WHCKWgzE9GoTW0lJDP
+	CxAsS3MbtWNmaALGkmdOfHHud3lg2NRZvdDpj7Ut5arvEIY185Waf45/4MOYByrolsrnGzwiVJhHk
+	XyxdegZNnW7+cYpAVC/Igpt3ieHFSvQK8l3Sse/vNOrN41gVxJQmPaJ8zaNeqcRJV36w=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wd9A7-009OHV-LM; Fri, 26 Jun 2026 18:12:15 +0200
+Date: Fri, 26 Jun 2026 18:12:15 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Roger Quadros <rogerq@kernel.org>, netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-omap@vger.kernel.org, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] fix: net: ti: cpsw_probe_dt: fix phy_node reference leak
+ on error paths
+Message-ID: <e5562d13-eedf-4e18-8adf-1665d6a9e77a@lunn.ch>
+References: <20260626152906.52112-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260626152906.52112-1-vulab@iscas.ac.cn>
 
-commit 12407d5f61c2653a64f2ff4b22f3c267f8420ef1 upstream.
+On Fri, Jun 26, 2026 at 11:29:06PM +0800, WenTao Liang wrote:
+> After slave_data->phy_node is assigned (via of_node_get or
+>   of_parse_phandle), if subsequent calls like of_get_phy_mode or
+>   ti_cm_get_macid fail, the error path jumps to err_node_put which only
+>   releases the loop's port_np reference but not the phy_node reference.
+>   This causes a device_node reference leak.
+> 
+> Release slave_data->phy_node via of_node_put before jumping to
+>   err_node_put on error paths after phy_node has been acquired.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: ed3525eda4c4 ("net: ethernet: ti: introduce cpsw switchdev based driver part 1 - dual-emac")
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 
-batadv_tt_check_roam_count() is supposed to track roaming of a TT entry.
-But TT entries are for a MAC + VID. The VID was completely missed and thus
-leads to incorrect detection of ROAM counts when a client MAC exists in
-multiple VLANs.
 
-Cc: stable@kernel.org
-Fixes: c018ad3de61a ("batman-adv: add the VLAN ID attribute to the TT entry")
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+    Andrew
+
 ---
- net/batman-adv/translation-table.c | 9 +++++++--
- net/batman-adv/types.h             | 3 +++
- 2 files changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index acd8af4446671..83dfd804a143a 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -3442,6 +3442,7 @@ static void batadv_tt_roam_purge(struct batadv_priv *bat_priv)
-  * batadv_tt_check_roam_count() - check if a client has roamed too frequently
-  * @bat_priv: the bat priv with all the mesh interface information
-  * @client: mac address of the roaming client
-+ * @vid: VLAN identifier
-  *
-  * This function checks whether the client already reached the
-  * maximum number of possible roaming phases. In this case the ROAMING_ADV
-@@ -3449,7 +3450,7 @@ static void batadv_tt_roam_purge(struct batadv_priv *bat_priv)
-  *
-  * Return: true if the ROAMING_ADV can be sent, false otherwise
-  */
--static bool batadv_tt_check_roam_count(struct batadv_priv *bat_priv, u8 *client)
-+static bool batadv_tt_check_roam_count(struct batadv_priv *bat_priv, u8 *client, u16 vid)
- {
- 	struct batadv_tt_roam_node *tt_roam_node;
- 	bool ret = false;
-@@ -3462,6 +3463,9 @@ static bool batadv_tt_check_roam_count(struct batadv_priv *bat_priv, u8 *client)
- 		if (!batadv_compare_eth(tt_roam_node->addr, client))
- 			continue;
- 
-+		if (tt_roam_node->vid != vid)
-+			continue;
-+
- 		if (batadv_has_timed_out(tt_roam_node->first_time,
- 					 BATADV_ROAMING_MAX_TIME))
- 			continue;
-@@ -3483,6 +3487,7 @@ static bool batadv_tt_check_roam_count(struct batadv_priv *bat_priv, u8 *client)
- 		atomic_set(&tt_roam_node->counter,
- 			   BATADV_ROAMING_MAX_COUNT - 1);
- 		ether_addr_copy(tt_roam_node->addr, client);
-+		tt_roam_node->vid = vid;
- 
- 		list_add(&tt_roam_node->list, &bat_priv->tt.roam_list);
- 		ret = true;
-@@ -3519,7 +3524,7 @@ static void batadv_send_roam_adv(struct batadv_priv *bat_priv, u8 *client,
- 	/* before going on we have to check whether the client has
- 	 * already roamed to us too many times
- 	 */
--	if (!batadv_tt_check_roam_count(bat_priv, client))
-+	if (!batadv_tt_check_roam_count(bat_priv, client, vid))
- 		goto out;
- 
- 	batadv_dbg(BATADV_DBG_TT, bat_priv,
-diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
-index 84de2570eac3e..ef712ba4fff2c 100644
---- a/net/batman-adv/types.h
-+++ b/net/batman-adv/types.h
-@@ -1912,6 +1912,9 @@ struct batadv_tt_roam_node {
- 	/** @addr: mac address of the client in the roaming phase */
- 	u8 addr[ETH_ALEN];
- 
-+	/** @vid: VLAN identifier */
-+	u16 vid;
-+
- 	/**
- 	 * @counter: number of allowed roaming events per client within a single
- 	 * OGM interval (changes are committed with each OGM)
--- 
-2.47.3
-
+pw-bot: cr
