@@ -1,73 +1,74 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24AC43A1A55
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 05:18:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8013D39524E
+	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 05:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782451095; cv=none; b=DIBpXKfEN9e74QqP2F27TqTVCFCOey8Pj3+GsGMy4xVtnhfUcuz5H+sScO48V5poyD8j3RIacKw1aBkQqOAuwlcaRFHySfvkTHcTH//v1Z1CxftJbCMH3b1g34MO2CxkTxt10h0Zw3e5xv7QQXaVoBXXP+zHu6j4DjdhntUFu/0=
+	t=1782451095; cv=none; b=mOWRg3thkDoUbotr9ypMyNbj1my5zh0F+ooXYeuzDWaWgF/KrogEDvE9/55uy2h0VLr8jmgFlByU6ApyvvLqb4tqPWdbQIFWIeD2nsHq/sgiFsn/uRa0iDalV28MwZewE4gSQa6rGzGSAZkxQfYM3NkNdTzp0E5zbsBoYLNfjAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782451095; c=relaxed/simple;
-	bh=oI305MqoOf4OcBFfWfvo2q/rW61nNlADLsX9gv75Y20=;
+	bh=zgJ9AtTdSIkQ90Om/CXas7Dimf0BgqPsiJZ4DNoz7BM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HRaY1bedIUmJ1yGGG28Gvd+y7mdVOQpfNCV2iEESHSfNkN7Oa60g8SsVWKEKBJ9jeUQ/aaotrR/KgCXaB4+4KWoTKaPkIrkHbtsOFJjuoR9HHDoJYYsvIiUCNl3JZxwl8zphXCMXmv/cTMz9Cm00gTVxwPp12+r+LAiNzSQkOXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rg5epz9C; arc=none smtp.client-ip=74.125.82.172
+	 MIME-Version; b=Rg3NnhdCGCQ0oA3YIuWoATWPKwRj49lCJj5Zu81xGC4h9EQhC1XK9LlHr90aTxjiuffvUlBY3LDEd6fU1vowKXYShy2DHvE8po7ig2vIeGYDcMyn7CbcrMNNOAzlQwN+SZQaihC8sdkiB/6LfGvCkVPoVZLzlETKUo+9o6nBLAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j14dNrE5; arc=none smtp.client-ip=74.125.82.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rg5epz9C"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-30ca1b4b278so268708eec.0
-        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 22:18:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j14dNrE5"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-30b6dad2382so1285040eec.0
+        for <stable@vger.kernel.org>; Thu, 25 Jun 2026 22:18:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782451092; x=1783055892; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782451094; x=1783055894; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=D9f5K0F89CIVZXgY481pC2XHEuVEtLfkjz9FoRFy/os=;
-        b=rg5epz9ClOHBKynSxajNKm8CtwuG9za0SM4YheYjsiHpY94kFPBOb7q96mQMl28Tdg
-         yFcln44B5px8dKDFKF9eBhPiwazL6xlzcY/HzZQ+62tEtO+AMDdG7Omv7q5O0EO4Lg8a
-         3+LATSJC+CLg7eebTwp43fkeeOw5cKX2BxWcq7K4izKzbyz8Lnvtkglw+iOsWaCMfjyi
-         /w/KoFwlYA5dH1MlvOdLKmIBqNZwbla6twUKaHy8pLzYEPQSh7A4GNUwkFLuZYDMI9pd
-         R9vi4gCKpX2Pd5KTHtEq5bdQdwVzeSNoe/4Qg2xvdoDgNPuvrXCXhbDD4aMCfB/uFWbp
-         PHrA==
+        bh=3Qxi0SvECdeeSU5h+tXAOyWZUcGzGjMbcI09ZL3GmHI=;
+        b=j14dNrE55HWrb7y4itIyEIo3viNAlqHSI+3E03wVpdcJkHPu7nB1Inh/E0VdaZFwy8
+         EEq3I0Jf4tCgYl9KMRQuzSQI2F2msuAcDfLcXfVCkoYhoXDoQa4vGLZgffFQDnbqmWYf
+         n/FK4ZvKFSATRldWJ1H4SUi9dVAYZB3IQFfEuXN3F9lK+LkZbSuIDMFeIBDqsC7Y8BTl
+         sHyQ/p+I901qBahedP8l8mVEph5ogNJHLYjeC+4mSmKWeFeZAtq0JADWRlOxQMyszYC9
+         DRkiKpJa+8MtxPiPPTjbB9TR9PKB1nd7WwuS37VkQrjgwGwwaENu1Jw49Jp0P2iFgsKH
+         uTWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782451092; x=1783055892;
+        d=1e100.net; s=20251104; t=1782451094; x=1783055894;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=D9f5K0F89CIVZXgY481pC2XHEuVEtLfkjz9FoRFy/os=;
-        b=Y5GW2JeF5a9hUQQYsfwigp7WvC0CX8nINjJ6cGqxQHURN2XU6C5ASVFbtufbkf8WMT
-         kWvLv7M/0hEXIo1auNvgrXojrUUAFuBf0pnuxrLQi/OYMTRgfmSuQT2/iDoCoP0hi0Hm
-         52Y6huK3D16FrHQ0uLN9UM719eWgKzLf27YlRF/SqhfjgotYVfj1cNrIYUjj0LyU2Xyc
-         3znYCvmK278TDSa9vttiCVAhAuc8QX658HygdXijdgNWi5i/8kgFYdwt8PMlfaNe1gdW
-         oW1dYErZxKioMk6zaFF65KeRqyk3xKzJuDa+o2MA6BsgYYfCnaOZgt+/IuSWmyVm7v1k
-         L7hQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqAboBn5EJ+5d1fN/XRIhQ/GPssM3FfDq36INXNWMfwvZeGLxgYc417m9Ve53j5jrF99WhiifM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzrRRak7hMxnWC124aRW1Iw/q5CId2rIsSyBYRgPbYXboECsbev
-	MEMVKPw1NXWIATtzSsV7T/cU8eXHI1Rp0pPv0HR3zWKw2tk8v0M7LD0F
-X-Gm-Gg: AfdE7clmReLOIypWEXLVgra76iWdkI2HnQkumFw3ObBl/0WGdZYDA8jijgcDj1I2jNv
-	pcXqPP1WQVOprpbUdcxo1uY+YeQ3UpjcZKWWF6jBfos/SbIl0NAogK0rM9PKumA7YOOad7hrOJt
-	4Ut56MIxshKvezfQFzQTUuW2f61hlkwytunJQfKJxOW+1YOhOuLb2BmFPeGDlmTHb2FJ5ciPSKo
-	e0fL/me0HwQFhF3I5ZONVv6VSeZoBAtg0k+L6JYCC1A23e41e1eQ/20562pDldJ/WeBZA0EIWEE
-	cxCJzVBW90ENiMiZNowZ7/MatJZkPFCCwuGxgCXGNCzj6dYjc5h4K7vRRP5BmAptsf38XCJlYNs
-	Qrqw3T2cAW6fBk5DuMxTLkj7wMLQylHgALryDMa2jgP2fN2+itY83rX9vV0IwaZNkHgBaVrk8nc
-	n7XgL1Ljql2JWJVcoI9ktHwOKGLwzlu1NJbP9S2RGeA+axC41bEk6I6iqkVtjhsCK/hQF0XAHzQ
-	30a
-X-Received: by 2002:a05:7300:7fac:b0:304:2176:a871 with SMTP id 5a478bee46e88-30c84a265a1mr5890749eec.0.1782451092285;
-        Thu, 25 Jun 2026 22:18:12 -0700 (PDT)
+        bh=3Qxi0SvECdeeSU5h+tXAOyWZUcGzGjMbcI09ZL3GmHI=;
+        b=XuSJXzQBRKPCs4XvBDqG6yIYO3dcdjzQzYoWaqK5qSlWW1wytISCgMON+w2N56u9t3
+         QbwRjtc1aPeJMnV24caAJN7PDmS0MZzlcqpQgtRGTf11dAfAtdMh9oFu7PnR7iPpJ43w
+         kwrwbDQffFtV1tEKLC63ld9mBqs2FaSv9eW5eY0Eal6MF58sOe4cVyL1nrMGEZPOMz3t
+         e0BadmwiSl9WBAp+YN0OIqWBrq9VQVA0/s9eBa38vwLn0h1f+rkZFtbYIE8zqltUXQyG
+         xNwmrHj4MK4Xl7xPsVOz+1i6IXq+tO7645aJz1ICDZ8nqm8LcDUgEObmZdftuUuLfVJX
+         VSbQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr/vsP7RXEj/lzclaxo9Ct7SzwcQWHziW/ZLoAo7Y8PqLjlsiEpDOntangZDmpjSJ+9Qf6csAc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyqbrHmR/YZsLsP0HnA2wazQj7qHnaO/pcjbc5+Jdwq09UJ7Lfq
+	AE0JjDgFvhZ8/DT32VfuU0seynubldF0Sa2ClJJP3OJrJvL4KhfDDCZN
+X-Gm-Gg: AfdE7cnYxO+6hQJ9DnkZBNB7iG/PNAaJ5f7tMe0TymUL+ldI+LG9XYq2Oy47LvE+k9I
+	6VdERyo+q3lz5tZDgxPXrABjlsqR1xN3C7ib39lRpFwMlnQiml1F8QHmw4DebnC+XFWGZSUtHpb
+	3kNXUREO+3Xenp28qqdoT9Y0yl8NBh2NRWJCJK7hRfqA7OaRJoQUVDlUT5kgNQpkhAdpTYo9wvr
+	AOxEWRYGHx3ybESPx8+QTsXm/ljVVOKJUjZs5vSPMFMvxYMSLE05lUmZp4loKRHY3Bevdg4a2qh
+	bXPfNTVRe8Zs2fJTSrkBld7Zbvh9Gsyi6N5wRsifgSGznaWpi/UoEe49o3T6WUWhFJqzMZ0ESms
+	nYA21hNmbzHzkBN8vouLRLyP2wWJuaopEy7G1te8jssBSPndPtTlztq5Iz5vymnF2e76nIJi2KV
+	ujeqfGYEqH/7K1A+jJh7smqk6INwU7IiFtYMTr1ROG3XtabaHAoFCrl92Kl1RawAi/y/CvHobGA
+	gw6
+X-Received: by 2002:a05:7300:e6c6:b0:2be:833c:149d with SMTP id 5a478bee46e88-30c84d46fcfmr5444139eec.28.1782451093588;
+        Thu, 25 Jun 2026 22:18:13 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:a474:bf4a:4966:8d97])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7c9e9214sm14804188eec.20.2026.06.25.22.18.10
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7c9e9214sm14804188eec.20.2026.06.25.22.18.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 22:18:11 -0700 (PDT)
+        Thu, 25 Jun 2026 22:18:12 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 To: Bryam Vargas <hexlabsecurity@proton.me>,
 	Hans Verkuil <hverkuil@kernel.org>
 Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	sashiko-bot@kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 05/10] Input: synaptics-rmi4 - block s_input when F54 queue is busy
-Date: Thu, 25 Jun 2026 22:17:54 -0700
-Message-ID: <20260626051802.4033172-5-dmitry.torokhov@gmail.com>
+Subject: [PATCH 06/10] Input: synaptics-rmi4 - propagate F54 worker errors to V4L2 queue
+Date: Thu, 25 Jun 2026 22:17:55 -0700
+Message-ID: <20260626051802.4033172-6-dmitry.torokhov@gmail.com>
 X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
 In-Reply-To: <20260626051802.4033172-1-dmitry.torokhov@gmail.com>
 References: <20260626051802.4033172-1-dmitry.torokhov@gmail.com>
@@ -79,41 +80,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Changing the input (diagnostic report type) mid-stream changes the
-report size. Since V4L2 buffers are allocated based on the size at
-stream start, changing the input while streaming could lead to a
-heap buffer overflow if the new size is larger than the allocated
-buffers.
+Previously, rmi_f54_buffer_queue() waited for the worker thread to
+finish but ignored whether it succeeded. If the worker failed (e.g.,
+due to a timeout or register read failure), the queue thread would
+silently return success, delivering stale or uninitialized memory to
+userspace.
 
-Prevent this by blocking VIDIOC_S_INPUT with -EBUSY if the V4L2 queue
-is busy (streaming).
+Add a 'report_error' field to struct f54_data to store the worker's exit
+status. Check this field in rmi_f54_buffer_queue() after the worker
+finishes, and mark the buffer as VB2_BUF_STATE_ERROR if an error
+occurred.
 
-Fixes: 3a762dbd5347 ("[media] Input: synaptics-rmi4 - add support for F54 diagnostics")
+Fixes: 3a762dbd5347 ("Input: synaptics-rmi4 - add support for F54 diagnostics")
+Reported-by: sashiko-bot@kernel.org
 Cc: stable@vger.kernel.org
 Assisted-by: Antigravity:gemini-3.5-flash
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/input/rmi4/rmi_f54.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/input/rmi4/rmi_f54.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/input/rmi4/rmi_f54.c b/drivers/input/rmi4/rmi_f54.c
-index aebe74d2032c..e86dfc9ce7d9 100644
+index e86dfc9ce7d9..c86bc81845bb 100644
 --- a/drivers/input/rmi4/rmi_f54.c
 +++ b/drivers/input/rmi4/rmi_f54.c
-@@ -445,7 +445,12 @@ static int rmi_f54_set_input(struct f54_data *f54, unsigned int i)
+@@ -106,6 +106,7 @@ struct f54_data {
+ 	u8 *report_data;
+ 	size_t max_report_size;
+ 	int report_size;
++	int report_error;
  
- static int rmi_f54_vidioc_s_input(struct file *file, void *priv, unsigned int i)
- {
--	return rmi_f54_set_input(video_drvdata(file), i);
-+	struct f54_data *f54 = video_drvdata(file);
-+
-+	if (vb2_is_busy(&f54->queue))
-+		return -EBUSY;
-+
-+	return rmi_f54_set_input(f54, i);
- }
+ 	bool is_busy;
+ 	struct mutex status_mutex;
+@@ -340,6 +341,12 @@ static void rmi_f54_buffer_queue(struct vb2_buffer *vb)
+ 		mutex_lock(&f54->data_mutex);
+ 	}
  
- static int rmi_f54_vidioc_g_input(struct file *file, void *priv,
++	if (f54->report_error) {
++		dev_err(&f54->fn->dev, "Error acquiring report: %d\n", f54->report_error);
++		state = VB2_BUF_STATE_ERROR;
++		goto data_done;
++	}
++
+ 	ptr = vb2_plane_vaddr(vb, 0);
+ 	if (!ptr) {
+ 		dev_err(&f54->fn->dev, "Error acquiring frame ptr\n");
+@@ -610,6 +617,7 @@ static void rmi_f54_work(struct work_struct *work)
+ 		report_size = 0;
+ 
+ 	f54->report_size = report_size;
++	f54->report_error = error;
+ 
+ 	if (report_size == 0 && !error) {
+ 		queue_delayed_work(f54->workqueue, &f54->work,
 -- 
 2.55.0.rc0.799.gd6f94ed593-goog
 
