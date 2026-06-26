@@ -1,42 +1,32 @@
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E67F3EB0E6
-	for <stable@vger.kernel.org>; Fri, 26 Jun 2026 16:11:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782490303; cv=none; b=EMXDJgo9xQURRzG3P8V+1GxGeewGaE+7Mbd3G6X3mBZ91CJXKTVcXLo5Yt7iT7I+85Z9gjlDKXmlZ6D7bEsYTdx7SN/L3xU4L643Xsac8QsImo3zc+fm7cxUkAWwlgIYc9KReTb4/gNrTm57CehA81acNhaI9rYJawCTuQ4L7ZA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782490303; c=relaxed/simple;
-	bh=8HIKyq4BSb8qVt3HqOP7c9x5E1T7lWQcfvTnjkEPCmY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R2Y96FIPD7Be8Seej0fUWXqg9q9AkW6drrtVSuXczXycgz4BWEKD+ckh0ScexkUVjhWIr2DxfHxlB/QcleVAWwzhrJQe9/jnhBpHX1rQtlJzKNR/OICqEpA/CRPH/SFM4bj5isammQiN8YmuKuvr5x3UQOeIGpJWHhC3yLcTY9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=XJmBAu06; arc=none smtp.client-ip=213.160.73.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="XJmBAu06"
-Received: by dvalin.narfation.org (Postfix) id 1224E203E0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054B43E2745;
 	Fri, 26 Jun 2026 16:11:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1782490301;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l2Z+W0DL4p3ivSDcSwcRqMFiAbkqyH2J0VIzY3641l8=;
-	b=XJmBAu06Ec3JNXd7WvlXKD/xHYcbwOclA2s5v3ieb/kwpNmCF2lJgBFmQDEZwlT8Ulos2y
-	PZd9Qru4srvFZJXur673PnIy7zc5zMp44dTXaazh2ToBXrPdBDnHZfz/C3xvSk3gtkdgOL
-	3LQSe7sh2O3rkpeFEXs5KXVD8ErWaAU=
-From: Sven Eckelmann <sven@narfation.org>
-To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.6 03/25] batman-adv: tp_meter: initialize dec_cwnd explicitly
-Date: Fri, 26 Jun 2026 18:11:17 +0200
-Message-ID: <20260626161139.124425-4-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260626161139.124425-1-sven@narfation.org>
-References: <20260626161139.124425-1-sven@narfation.org>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782490304; cv=none; b=bgJ6039DqGdHr6NunT1Bnv88eP5143clnBEg3m6mNk8pA0j/A/hPSGTl89tXdFII4sUsKcTUq8GXUUgNuIebLgXcZnmkNqjl8KxuJ0vmzLW36z9hknm8IwHB4TexCFOaawRQYR9L1V4ik0BGMdlggjxXusSMg/muHq71XXa6XPo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782490304; c=relaxed/simple;
+	bh=JhYCIuPqpzsROBRMborDo+zF5VZEt7e4OKOmSwIMt6o=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=N2ICbOjiC/D+NwS4lR2eH+4WG1ZsXUkmu5oqHcDQwnB6+8wL+KK9UJPUz9PcANBPDXBV41H0VDcOZdKozf9dC7E8LqAl/BhMRCHGf/9iizxMaB54o9oZXHC47H50wuRV8H3S3no2o9qjJ+gnopOkNjlb+nSDsp/HrpxWsVmGVPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-01 (Coremail) with SMTP id qwCowACXO9S6pD5q2JFtAw--.4844S2;
+	Sat, 27 Jun 2026 00:11:39 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: James Bottomley <jejb@linux.ibm.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	linux-scsi@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>
+Subject: [PATCH] fix: scsi: cxgbi: cxgbi_ep_connect: remove extra cxgbi_sock_get leading   to reference leak
+Date: Sat, 27 Jun 2026 00:11:38 +0800
+Message-Id: <20260626161138.54852-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,36 +34,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowACXO9S6pD5q2JFtAw--.4844S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJrW5trW5Kw1DJFyUKr17KFg_yoW8JFyxpw
+	4vkrWfKr18Jr4Fkr4kJr4rCF1a9a1a9FWDG3yxC34Sv398WFy5GFy8Kry2vFykCr1ktrW7
+	Xa1DAa40va15CwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkG14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
+	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkG
+	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4U
+	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUDpnQUUU
+	UU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgkKA2o+h0FO3AAAsG
 
-commit febfb1b86224489535312296ecfa3d4bf467f339 upstream.
+In cxgbi_ep_connect(), an explicit cxgbi_sock_get(csk) is called before
+sock_get_port(csk), which internally calls cxgbi_sock_get(csk) again.
+After sock_get_port, all error paths release only one reference via
+release_conn, while the success path returns without releasing any. This
+results in one leaked reference on every code path.
 
-When batadv_tp_update_cwnd() is called, dec_cwnd is increased. But dec_cwnd
-is only initialixed (to 0) when a duplicate Ack was received or when cwnd
-is below the ss_threshold.
+Remove the redundant cxgbi_sock_get(csk) call, letting sock_get_port's
+internal get serve as the sole reference acquisition.
 
-Just initialize the cwnd during the initialization to avoid any potential
-access of uninitialized data.
-
-Cc: stable@kernel.org
-Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- net/batman-adv/tp_meter.c | 2 ++
+ drivers/scsi/cxgbi/libcxgbi.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index 750e5e9d3dc9d..f6ccb639744a2 100644
---- a/net/batman-adv/tp_meter.c
-+++ b/net/batman-adv/tp_meter.c
-@@ -1055,6 +1055,8 @@ void batadv_tp_start(struct batadv_priv *bat_priv, const u8 *dst,
- 	 * soft_interface, hence its MTU
- 	 */
- 	tp_vars->cwnd = BATADV_TP_PLEN * 3;
-+	tp_vars->dec_cwnd = 0;
+diff --git a/drivers/scsi/cxgbi/libcxgbi.c b/drivers/scsi/cxgbi/libcxgbi.c
+index 6a109269c68c..d2e8c8b8a138 100644
+--- a/drivers/scsi/cxgbi/libcxgbi.c
++++ b/drivers/scsi/cxgbi/libcxgbi.c
+@@ -2891,10 +2891,12 @@ struct iscsi_endpoint *cxgbi_ep_connect(struct Scsi_Host *shost,
+ 
+ 	if (IS_ERR(csk))
+ 		return (struct iscsi_endpoint *)csk;
 +
- 	/* at the beginning initialise the SS threshold to the biggest possible
- 	 * window size, hence the AWND size
- 	 */
+ 	if (!hba)
+ 		hba = csk->cdev->hbas[csk->port_id];
+ 	else if (hba != csk->cdev->hbas[csk->port_id]) {
+ 		if (ifindex != hba->ndev->ifindex) {
++			cxgbi_sock_put(csk);
+ 			cxgbi_sock_closed(csk);
+ 			ifindex = hba->ndev->ifindex;
+ 			goto check_route;
 -- 
-2.47.3
+2.39.5 (Apple Git-154)
 
