@@ -1,94 +1,144 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C77A3E3140;
-	Fri, 26 Jun 2026 14:47:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59043FD957;
+	Fri, 26 Jun 2026 14:49:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782485250; cv=none; b=SeN/xyCC0Wmc1eQUk4+2tlnds0lKmi8C9IzZnyKGXAoQdB3kuhzvzmICj9goUFLu7Tll8Ir+pGnUyoG9NTsVJiRujzbpWTXOMLKZJSaNtJ3b/qWutl97AYCDAb1TabNlq9dsZnsh/EJcI4ievnkTq/NqO05PDPla5YHLpROBVw4=
+	t=1782485378; cv=none; b=sa02FQiztMTUXEBCv7qo8w6PilO4kDOcmTSDUg57AzUh2e/K3lco+VjNX2pN9QwVQwYasYPXCDWI+OtDmg6lk8auB4ZZ4enRv1c4Czp4+A7+ax1HmmsdmBn0qGopsjJMcVG2pZQ+UCaCquCbqALnEzV/3LI4XoOtcGZGhdjX/nE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782485250; c=relaxed/simple;
-	bh=1vjQHuX9PQnCY8FWRqMVwwefR+USU0fT39QjDUBfKnU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=STkwaptn0qoC+BJrEN8soShc/t4SnNvAB4qw8jhmJDiRO4St+MEC6p3/tlyco6mQu2ERfHQxDsZQ1NSUWHj/m28MhmXD5jrrOMi5xn/VYd5O8NuUu11eOXB99y7zTHE/iEKrNnYpTtv7TXZSjhhCTY515SUU4EOUOEDNarMtxPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-01 (Coremail) with SMTP id qwCowACXO9T1kD5qibBqAw--.4140S2;
-	Fri, 26 Jun 2026 22:47:20 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Ben Skeggs <bskeggs@redhat.com>,
-	nouveau@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH] fix: drm/nouveau: nvkm_ucgrp_new: nvkm_cgrp_new failure leaks ucgrp   object and engine reference
-Date: Fri, 26 Jun 2026 22:47:17 +0800
-Message-Id: <20260626144717.49109-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	s=arc-20240116; t=1782485378; c=relaxed/simple;
+	bh=6kIyebAgV73GN7L9ghWv6l7o8Ekv63QDtQwCnKoxTl8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q4BRHUk3FyGdyaa9h7PysKSdlVT+Zc5HGpWLxQpnL4qcDAlOK6aZzdynLMv36EKQ/5h9UNmd4tj+iD68nE9aMwMYEwfL7jZHAvpAV26AHNFVQRnVK/tHdlHAKxHgQ8Bt+DR/WSJh5C1zfEz5Msex2opHIk/APvt3OMj4mOk/WrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CeqLjBBX; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CeqLjBBX"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id F02561F00A3A;
+	Fri, 26 Jun 2026 14:49:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782485375;
+	bh=k4x2V1Ce5QbMnxtO7thGJ+kYlbTzfX1T4ut1+O2edcw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CeqLjBBXu2zTHHPJmy6hUE+J1HS1rFbndjTE4Xb4fAVDdWsyxmSPAApqg7QV8THiJ
+	 3EwKdppFbnpgD1C05FsXmUmDNB0ZnPFCJpRtWCXAXc5zbGHzB1Ooyi20dj/sG1yzEG
+	 Yj6Tejlum7U+LAGVo9QZRDbg9AK/7CyjaHaxNqCOGeQ3a/5aO3VTT/L7UQoMBUkmfi
+	 n4jSrpslznVawccyvVWlmHqbtlzUB3uR1GIFW52cLFa1TlhzENA8mJg/SNi3zK4Pya
+	 Sy36YY6y4bO2MrHCFG4S9eZ89+Rmd1lXeB1yy5K2lYFsWSeNfG/zy2/cpEqRnHdlJH
+	 ThZB3fZIvmycw==
+Date: Fri, 26 Jun 2026 07:49:34 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: cem@kernel.org
+Cc: linux-xfs@vger.kernel.org, stable@vger.kernel.org,
+	Eric Sandeen <sandeen@redhat.com>, Christoph Hellwig <hch@lst.de>,
+	Jan Kara <jack@suse.cz>, Dave Chinner <david@fromorbit.com>,
+	"Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>
+Subject: Re: [PATCH 1/2] xfs: fix capabily check in xfs
+Message-ID: <20260626144934.GR6078@frogsfrogsfrogs>
+References: <20260626102934.57834-1-cem@kernel.org>
+ <20260626102934.57834-2-cem@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACXO9T1kD5qibBqAw--.4140S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KrW5Gw45WF15trWkKr45KFg_yoW8JFW8pr
-	s3Jw1avrW5JF4rtF48A3W8uFyfZan0qFyFkas0y343Zrn8ZrW8Cr4Fy34qqFyrZr47Ga1Y
-	yFn2yrZYqF1YyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
-	nIWIevJa73UjIFyTuYvjfUOlkVUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcKA2o+h0EXvAABsw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260626102934.57834-2-cem@kernel.org>
 
-nvkm_object_ctor initializes ucgrp with an embedded kref and increments
-  the engine's reference count. When nvkm_cgrp_new subsequently fails, the
-  function jumps to done without calling nvkm_object_del to release ucgrp.
-  The caller ignores *pobject on error, so the ucgrp object and its engine
-  reference are permanently leaked.
+Note: s/capabily/capability/ in the subject line
 
-Cc: stable@vger.kernel.org
-Fixes: 06db7fded6de ("drm/nouveau/fifo: add new channel classes")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+On Fri, Jun 26, 2026 at 12:29:24PM +0200, cem@kernel.org wrote:
+> From: Carlos Maiolino <cem@kernel.org>
+> 
+> An user reported a bug where he managed to evade group's quota
+> by changing a file's gid to a different group id the same user
+> belonged to, even though quotas were enforced on both gids and the
+> file's size was big enough to exceed the quota's hardlimit.
+> 
+> Commit eba0549bc7d1 replaced a capable() call by a
+> has_capability_noaudit() to prevent unnecessary selinux audit messages.
+> Turns out that both calls have slightly different semantics even though
+> their documentation seems similar. Where in a nutshell:
+> 
+> capable() - Tests the task's effective credentials
+> has_ns_capability_noaudit() - Tests the task's real credentials
+> 
+> This most of the time has no practical difference but in some cases like
+> changing attrs (specifically group id in this case) through a NFS client
+> this will allow the quota code to use XFS_QMOPT_FORCE_RES, effectively
+> bypassing quota accounting checks.
+> 
+> Using instead ns_capable_noaudit() should fix this issue and prevent
+> selinux audit messages.
+> 
+> This also fix the remaining calls to has_capability_noaudit()
+> 
+> Fixes: eba0549bc7d1 ("xfs: don't generate selinux audit messages for capability testing")
+> Cc: <stable@vger.kernel.org> # v5.18
+> Cc: Darrick J. Wong <djwong@kernel.org>
+> Cc: Eric Sandeen <sandeen@redhat.com>
+> Cc: Christoph Hellwig <hch@lst.de>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: Dave Chinner <david@fromorbit.com>
+> Reported-by: Dr. Thomas Orgis <thomas.orgis@uni-hamburg.de>
+> Signed-off-by: Carlos Maiolino <cmaiolino@redhat.com>
+> ---
+>  fs/xfs/xfs_fsmap.c | 2 +-
+>  fs/xfs/xfs_ioctl.c | 2 +-
+>  fs/xfs/xfs_iops.c  | 3 ++-
+>  3 files changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/xfs/xfs_fsmap.c b/fs/xfs/xfs_fsmap.c
+> index b6a3bc9f143c..7c79fbe0a74c 100644
+> --- a/fs/xfs/xfs_fsmap.c
+> +++ b/fs/xfs/xfs_fsmap.c
+> @@ -1175,7 +1175,7 @@ xfs_getfsmap(
+>  		return -EINVAL;
+>  
+>  	use_rmap = xfs_has_rmapbt(mp) &&
+> -		   has_capability_noaudit(current, CAP_SYS_ADMIN);
+> +		   ns_capable_noaudit(&init_user_ns, CAP_SYS_ADMIN);
+>  	head->fmh_entries = 0;
+>  
+>  	/* Set up our device handlers. */
+> diff --git a/fs/xfs/xfs_ioctl.c b/fs/xfs/xfs_ioctl.c
+> index 96af6b62ce39..852ff2ab4531 100644
+> --- a/fs/xfs/xfs_ioctl.c
+> +++ b/fs/xfs/xfs_ioctl.c
+> @@ -647,7 +647,7 @@ xfs_ioctl_setattr_get_trans(
+>  		goto out_error;
+>  
+>  	error = xfs_trans_alloc_ichange(ip, NULL, NULL, pdqp,
+> -			has_capability_noaudit(current, CAP_FOWNER), &tp);
+> +			ns_capable_noaudit(&init_user_ns, CAP_FOWNER), &tp);
+>  	if (error)
+>  		goto out_error;
+>  
+> diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
+> index 325c2200c501..9db9ef1d8c3a 100644
+> --- a/fs/xfs/xfs_iops.c
+> +++ b/fs/xfs/xfs_iops.c
+> @@ -835,7 +835,8 @@ xfs_setattr_nonsize(
+>  	}
+>  
+>  	error = xfs_trans_alloc_ichange(ip, udqp, gdqp, NULL,
+> -			has_capability_noaudit(current, CAP_FOWNER), &tp);
+> +				ns_capable_noaudit(&init_user_ns, CAP_FOWNER),
+> +				&tp);
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
-index dfa3c7dbdf34..7d11b92f946b 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
-@@ -113,8 +113,10 @@ nvkm_ucgrp_new(struct nvkm_fifo *fifo, const struct nvkm_oclass *oclass, void *a
- 	*pobject = &ucgrp->object;
- 
- 	ret = nvkm_cgrp_new(runl, args->v0.name, vmm, true, &ucgrp->cgrp);
--	if (ret)
-+	if (ret) {
-+		nvkm_object_del(pobject);
- 		goto done;
-+	}
- 
- 	/* Return channel group info to caller. */
- 	args->v0.cgid = ucgrp->cgrp->id;
--- 
-2.39.5 (Apple Git-154)
+Extra indenting of the second and third lines, but otherwise this looks
+good to me.  With the indent fixed,
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
 
+--D
+
+
+>  	if (error)
+>  		goto out_dqrele;
+>  
+> -- 
+> 2.54.0
+> 
+> 
