@@ -1,90 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B183812DA;
-	Sat, 27 Jun 2026 22:50:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D6D81ACD;
+	Sat, 27 Jun 2026 23:10:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782600650; cv=none; b=mMbe9SOKSVkgkAResHjyFHPBtzEgcIEX/pp2hIs902hiIjOWtOEVvdZAt0OcOZcoYe5DjK8ILdjXW6LDLBMlIkC/yTbSlvJa4Ey3dQXPUv7/kQRNybaZeJ8qQpCV9NrYS9j7F0XSJ74xq5jGWK0+rFmmNLswsyczbtbGwIEmMJY=
+	t=1782601809; cv=none; b=WwSZhQTe1QfxGSt1QUPhokb6aECcAgNyYnGjX9ArrFmiar7JCtgoi8d3NkLN3wpnkR3/2vjo3Mo+wLuo59/hXowTl1mmNOwL1eTwm+EVRXdi0kTC6O9r2TapZ7fGpLiCOXzPp5cndPBSG+lYNnjPQg/OGxBRXshFcUvwN9LfB/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782600650; c=relaxed/simple;
-	bh=C+NG5QQa4hOLhinEOftJWLkyUGE6/PCuJbIe+d6jj88=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=ghkGmKIermQqgERCa+olj0aJS8ESuT0V7oyQ5PEaSxNkr7X5k9e1elr6tUdmOtyq5v5Di2hHUeixgEhXHdz1d1iV800Yd7dzqN3+3uq9VucPqAQjvkNu4pGdyclrCVMlPtgl/os60kOrnKAPHhMiYzQzKzy1MwJOFwwww6dGFvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lugLdlzx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782601809; c=relaxed/simple;
+	bh=WdwYo/UyB+hRWCV4QsPYStri1u0uQFQDmrNTN1mznEI=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=KEO1EcgmIUe0e1TkjWkz9z8tCybIaBmyMyYWfmbNRwmJGmUK+YqMPI2JeMy9+rtooA1DvNaaP+9Brede7+AAhynOGpm/6ErmfbblSs5maYyT+fySHMiEUuCKrlYVyvW0FgC0rYhulX/gyHEaZ4EPRAm5IGlFW9uJ/QbwTcuZFEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=XPjgvX6y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lugLdlzx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146841F000E9;
-	Sat, 27 Jun 2026 22:50:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782600646;
-	bh=kZWjOiSImPrfh80sKo7yeGE91rVFd7WvXtigqP3CJC4=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=lugLdlzxZ9Aosx77zfBgZmZ7ReTImSIcanXbGjA93UdeuxF1rUYqGyWXRMVMR7Ca3
-	 gKB46qN+JWKd54frifVcgbS6NqmO9zRXhEIKMBY9CrdRPFyO2+hZy9z11XD6oEdtI+
-	 j6rGFrIZ0XpepY+xemRol5xUNrUrOPVFT+pK7kKwseQyow6/1jzE8ZNetQNQEK3Tfi
-	 /1JYMhIjZVdLrMlGr/wSU7kqDnT9p3RvS7ArRUZVaVimK6/X4x6BQrIYRWxGozJa6P
-	 7V/NufDb3O9YDbdl+huOGaY2Rw/WKZJXA94dD+s4hbc8745RTQQbZfTjPieNVHJW1M
-	 duBQj7wPPGpnQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198673938452;
-	Sat, 27 Jun 2026 22:50:33 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="XPjgvX6y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EABA91F000E9;
+	Sat, 27 Jun 2026 23:10:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1782601808;
+	bh=5D6v0GXcAFL77pAcQTrYWtPV+T9YBufpS6c20apcpxQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XPjgvX6ycSUd9Pjzv07W94UUP0I2rXBsMn1XGQ1TtVVprC6RaHbLLOlm8YRdyA82Y
+	 gjAuEtnZwvYXdnZ2FS0zk9vkPz9y4ULh4V4ZNZ2hhggC1WwyU+AJXPnrrYwlTlN2Vc
+	 ntMsz8r1/oJhB4GpC55pla69W3RJZN1NpPWFYtwk=
+Date: Sat, 27 Jun 2026 16:10:07 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ rppt@kernel.org, vbabka@kernel.org, mgorman@techsingularity.net,
+ hannes@cmpxchg.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/vmstat: fold stranded per-cpu node stats when a
+ node comes online
+Message-Id: <20260627161007.81e4533ce561c2951a69f927@linux-foundation.org>
+In-Reply-To: <20260627202243.758289-1-gourry@gourry.net>
+References: <20260627202243.758289-1-gourry@gourry.net>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] netpoll: fix a use-after-free on shutdown path
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178260063154.1451849.16906699436504289458.git-patchwork-notify@kernel.org>
-Date: Sat, 27 Jun 2026 22:50:31 +0000
-References: <20260625-netpoll_rcu_fix-v2-1-0748ffac1e98@debian.org>
-In-Reply-To: <20260625-netpoll_rcu_fix-v2-1-0748ffac1e98@debian.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, amwang@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, vlad.wing@gmail.com,
- asantostc@gmail.com, paulmck@kernel.org, kernel-team@meta.com,
- stable@vger.kernel.org, pavan.chebbi@broadcom.com
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello:
+On Sat, 27 Jun 2026 16:22:43 -0400 Gregory Price <gourry@gourry.net> wrote:
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu, 25 Jun 2026 05:03:18 -0700 you wrote:
-> There is a use-after-free error on netpoll, which is clearly detected by
-> KASAN.
+> A per-node vmstat counter is pgdat->vm_stat[] plus per-cpu deltas.
+> A balanced counter can sit split as global=+N / per-cpu=-N.
 > 
->       BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x3b/0x80
->       Read of size 1 at addr ... by task kworker/9:1
->       Workqueue: events queue_process
->       Call Trace:
->        skb_dequeue+0x1e/0xb0
->        queue_process+0x2c/0x600
->        process_scheduled_works+0x4b6/0x850
->        worker_thread+0x414/0x5a0
->       Allocated by task 242:
->        __netpoll_setup+0x201/0x4a0
->        netpoll_setup+0x249/0x550
->        enabled_store+0x32f/0x380
->       Freed by task 0:
->        kfree+0x1b7/0x540
->        rcu_core+0x3f8/0x7a0
+> The folds reconciling the split only walk online nodes, so when
+> try_offline_node() marks a node offline the per-cpu deltas are stranded.
 > 
-> [...]
+> A subsequent online resets the per-cpu area but not pgdat->vm_stat[],
+> orphaning the +N permanently.  All NR_VM_NODE_STAT_ITEMS are affected.
 
-Here is the summary with links:
-  - [net,v2] netpoll: fix a use-after-free on shutdown path
-    https://git.kernel.org/netdev/net/c/45f1458a8501
+Geeze, simple mistake, been there ten years...
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+> The existing code zeroes the per-cpu counters and causes a permanent
+> skew. Fold the stranded deltas instead, before the node rejoins the
+> online set. The node is not online yet and the hotplug lock is held,
+> so the remote access to per-cpu values is safe.
 
+Oh.  Shouldn't we be doing this during offlining?
+
+> Discovered when node compaction hung for a nearly empty node, as the
+> math to determine throttling broke.  Reproduced by repeated memory
+> hotplug/unplug cycles on a node under pressure: NR_ISOLATED_ANON
+> ratchets up and never returns to zero.
+> 
+> ...
+>
+> --- a/mm/mm_init.c
+> +++ b/mm/mm_init.c
+> @@ -1536,7 +1536,7 @@ void __ref free_area_init_core_hotplug(struct pglist_data *pgdat)
+>  {
+>  	int nid = pgdat->node_id;
+>  	enum zone_type z;
+> -	int cpu;
+> +	int cpu, i;
+>  
+>  	pgdat_init_internals(pgdat);
+>  
+> @@ -1554,10 +1554,17 @@ void __ref free_area_init_core_hotplug(struct pglist_data *pgdat)
+>  	pgdat->node_start_pfn = 0;
+>  	pgdat->node_present_pages = 0;
+>  
+> -	for_each_online_cpu(cpu) {
+> -		struct per_cpu_nodestat *p;
+> +	/*
+> +	 * Hot-unplug can leave per-cpu vmstat deltas unfolded (folders skip
+> +	 * offline nodes) - reconcile this at online. Foreign access to counters
+> +	 * is safe: the node is not online yet and we hold the hotplug lock.
+> +	 */
+> +	for_each_possible_cpu(cpu) {
+
+That's a lot of CPUs
+
+> +		struct per_cpu_nodestat *p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
+>  
+> -		p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
+> +		for (i = 0; i < NR_VM_NODE_STAT_ITEMS; i++)
+
+and that's a lot of items.
+
+I guess the overall loop count won't be large enough to cause issues,
+but it's large!
+
+Perhaps there's some simple test we can do on the per_cpu_nodestat to
+avoid the inner loop?  Perhaps might need to add a field for this?
+
+btw, "for(int i..." is allowed nowadays.  It'll make this code nicer, IMO.
+
+And... Sashiko seems to have found a pre-existing issue:
+	https://sashiko.dev/#/patchset/20260627202243.758289-1-gourry@gourry.net
+
+> +			if (p->vm_node_stat_diff[i])
+> +				node_page_state_add(p->vm_node_stat_diff[i], pgdat, i);
+>  		memset(p, 0, sizeof(*p));
+>  	}
 
