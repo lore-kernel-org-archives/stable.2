@@ -1,114 +1,124 @@
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8323AD51F;
-	Sat, 27 Jun 2026 12:20:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.132.67.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7338D3A59BC
+	for <stable@vger.kernel.org>; Sat, 27 Jun 2026 13:13:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782562812; cv=none; b=e2FDiZ27oS4RpEprqEftde0cOZnilzPRp9CeL9n33THZfCZZysLLZewvK3z2uv0Qct24WOh3pm0KG4YxNI+raCGD7bZGMCMHeZYH7vfz6iVwyX61d+kJ9W0H6XOm5RIEdpquKhTo0PbdcHjQE5BxDoZ7hk2YAbl+4M231zcPSjY=
+	t=1782566000; cv=none; b=A/MrH8NK5e4uiGtcuzZI2C7LM66fmI2wy+vsOUE5nbHXA3thOVUdgb5R2YwzeFjviFwVqZvvBP47LTrL6CinTIPkU+gBCmOzjL2PBQc/4trW55eZHFaeDRZymYVe4G7PUiw6g7mcDLc0/lkkrYJsIZybN7Pazbowp6KZiaRZkTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782562812; c=relaxed/simple;
-	bh=t8dpMT17hkzMMN+PsIDonumo4SS2Hi0jPaf3p9pBhvk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SBgRuJBeBU6X8o9YAHdzmIqQGeHbhuZ2emgU4tFAjtx41NRMnqAboMxBMpAaAIOT4+3RLYx/53N7dPQ+zcgCq1zk8+bBERyJk57yw6YXEpUfSlMbR7NTNdbZjibs02BAQ3+eAeNi/6B9JrVleVt2MbeRWiWFwE2gHOzkj0AE5NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=114.132.67.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpsz4t1782562789t7a7c9406
-X-QQ-Originating-IP: MMcO3H5Updz/13KjiVzaiYci4ttABBAs/FU7yjHTTeM=
-Received: from [127.0.0.1] ( [119.98.234.251])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sat, 27 Jun 2026 20:19:47 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 16511041071073179787
-Message-ID: <B5AFFA6368F94E1A+32e72222-ece6-42bf-8191-518165c1ae0d@radxa.com>
-Date: Sat, 27 Jun 2026 20:19:46 +0800
+	s=arc-20240116; t=1782566000; c=relaxed/simple;
+	bh=f2ywcAbauLIdDjioz7BzOI400RSnqiFwtqHAuTE1ASM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WYGLITjuMY7rKQqEQQ2sznhc/x7o6uRwhYTE729ZdH2Y3H9PCIAaK4IkhipyMuci+DTSVWz3RM0erLcKn992wNOt40duFFJ5jBpjADY3X/HPsteDt4uHeUT63Fy6vRpQ3QxNTs4aDXBL90mM+CDhYXLMO3cFjKrg97n2bhUTJMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cr3weZJr; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cr3weZJr"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-37e0a189b0bso926379a91.1
+        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 06:13:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782565999; x=1783170799; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ffzVDWTdghBqGnNg+yPYLtmRZ4dadK7EfCKOcmYolsQ=;
+        b=Cr3weZJrMKarV5gFKU/2wS7rVvRN4rBYWtaDggoTVx/0xzmEO7ljZppfS0yM8JwQ+v
+         5L3zZmuKC1/T0G/owBlXzek5Q+pm7et33uwibrGc8XwS9jOUoGd5y5Fmt88R9tU9WDrQ
+         Zd/ZdX9RM/HI1M05XV73mdupsLJdiSEGP5IErFzd19QaHtFjJidwdOCYWOvHGUUR1PZp
+         a63txWNAtZE9BXfTKHlkFaOqJQcpebOWLLKiDBwa6KFxzz4eWoXQ8F8ptyYxS/jeH83d
+         e8ITR31eQ5Q9XHjCKVujnuTf6BBXpQqY25hTwsb48ldpv2yFevt6+FmmlJGLF9h5z7Hn
+         2FJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782565999; x=1783170799;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ffzVDWTdghBqGnNg+yPYLtmRZ4dadK7EfCKOcmYolsQ=;
+        b=AsROgxrZMTNVkcZ9ODXGsoWa0sBuxT2LN3pbEhOKN8+pu05nEMt9/QulfdKPjlS/4L
+         zQ3Y4KW7HmH+Ly6lB2iGdcP/TDqnzAVaoM0S1eISiBv9H6+lv80bH/M3rxEkIJsfSXfh
+         g962JYVS7RdpRq3TWKBi6EYmlVFTaMYaNzixD/TI9x9I7GTLTr1Zi0gghP+UQT/na7WD
+         4c72AsuCYfRL0WZ8wi85MW4AA0DfYgoLmSwg4X85mGQG0AO1QVzW2nWqgXg1pptdVrW2
+         MzbToz4lPLnLoSC9eqMDyT/YzGzOYo8XngVFcyEA8H9JCWIpupy99Bu5T+SaVLdVVqQw
+         yiHg==
+X-Forwarded-Encrypted: i=1; AHgh+Roag0Iz6xGrI1YKyxROv2H972+3jrTyXy67w5WMNrayUFqbuXREgMlJvUSdS1hMIQyv+/nwnBs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywrw+2z3vJ1lv+PiB/mpUQ+cd0TPDnPaFokTBRz91Soev8b58dF
+	nWpiDqinAQZalAvjK7vvxYcg3YxdNPeI2F7zOA8+PyryrlZtw99kQWdn
+X-Gm-Gg: AfdE7cmYDaLR6ggMculgQ2aTenxOhbvk4wdBDMa+GEPX3vf4rSs3H0gtMy5wnC5IZdq
+	mK0U0IaKZPX+kjxoRkSlelcQcZPIM1BMgPr8FLY6oqSlu154lkfCQShyQLskTwZAodq9U6VLs82
+	AgG+KSG0G2geA9HtFK6eV0IIfLpOOJfxqJZE3Wo/L021BszhSp69fTCDyE58cVNY85pc7i99nig
+	4Xr8EujygIzbliyXqwBD6OaPA5e05naJXLoDr4Lz1MnM8+zH58W/GOBusILGHcbSBazUg+MYMnh
+	jjAS/QjM+X6Y37obKBMEWSt9E9a5Ho69Dy4gcmJGHR3yvc0uNIte//BzVQuJx1l+dypNh82ZjqK
+	DxOlQ35h0Xe5WQE4qJTYL1R/NP5daWvL/T1WKNVwMBrIFFJEW/J6vGH7GhFPXQBN9U+tHH+YF5F
+	BMIWFRMf3TxiG/FbHU1nXR/Y6Wm7HzMzi09RY7V506c+J40cTY
+X-Received: by 2002:a17:90b:2244:b0:37f:df85:272f with SMTP id 98e67ed59e1d1-37fdf853de2mr240302a91.19.1782565998696;
+        Sat, 27 Jun 2026 06:13:18 -0700 (PDT)
+Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37e1c93272fsm2598840a91.14.2026.06.27.06.13.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 27 Jun 2026 06:13:17 -0700 (PDT)
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Kaixuan Li <kaixuan.li@ntu.edu.sg>,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: brcmfmac: cyw: fix heap overflow on a short auth frame
+Date: Sat, 27 Jun 2026 21:13:13 +0800
+Message-Id: <20260627131313.3878893-1-maoyixie.tju@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: Fix DWC3 core register size
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Johan Hovold <johan+linaro@kernel.org>,
- Krishna Kurapati <quic_kriskura@quicinc.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260626-sc8280xp-fix-dwc3-reg-size-v1-1-ddcba897b19d@radxa.com>
- <f07dce35-f807-48bd-a04d-76d69ae74f37@oss.qualcomm.com>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <f07dce35-f807-48bd-a04d-76d69ae74f37@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: OW3qjH3bC/TAM0qq7Xz5O0C3MwjGIodO9xyC32ek8j/8rfjvTnxSiL4F
-	vJE9emgdAkTMUQLrXbBZFAFG0W90iI7ZuW+qFEZsQPShjtmpVnOEKqE6/rNLWnRBw7Scvv8
-	PP3SYf8Xj5ZgLTt4KgVZBjxHvEKp0LQzumepgeKnsZ1OpD3wOQx7U/WLItHjESgGAAJn0H6
-	XhQFXK/AHRktSF8dAMe8MKZ9+KjHIxnZWswTY6BQBTMdyLwee01/7MU3vrWmqsLoNMW18mb
-	raSqK9VtZEnrvq6BCvdjK1JO4yP60vKElJ15Kg7aR8JdeLBVvnUGRpre0dLzgg6+C0H+bLN
-	1coqPBiM2zxdHjd28Z7sgCN2Gc//97XNNO0Q4vAbxHENNv25+qAMz0TDn5oHZC5sRBUszL4
-	QYJXceAaeFSoVNHsbeN0FyCmiOP24WxonMCq1NyPg84aZV3zuM4uwAHKrzFeesUE15XgrD9
-	8JJGlvH5bKgfQ6/Lr2YMqnMxYk4whHvDO3+rbLhJd7vtuUdgY81rvZy0gQOfK/fV+lG2mXX
-	6P+BCq8XtJqVbzePhiSS0Efmmshmk0gEj2sBK6sT33FwxjSZE5JAEgu2wQXyCshK1Oc1a0Q
-	rrACn+B+KgDUYNLpOoEVp4RqKvYpkojV3v+3SmUkhV2bI5vyPTVZyMHS89r4ZKa4mXE3mlB
-	vHUVY5RcFSLj8m7dz6RKm7SChmU7zWZRS7ArC3k9rn/3Yl6V0ubW6uAvNWzdSu4lyhbhVCm
-	JKDMEbcvAprWMedf7+PpgtWiWRa8AiteB+4OJvogFMxvhXfGFgF+xKIvox/jlHhXLHa7zAl
-	tWEqrGdiM+REpWWO8JZWB8Eud3w7MRGAHw7n2nVO3VMlA1eXAqmmhqMABpSxwXe4bWKphPs
-	jyHkuDnylty48q4CibYvU077hJLcXQjR6XTaK4DC9XfS+X75qg4Hvsce8RCl7O0/KFP1krG
-	PVXvcP6gGzGe6L0nTCTMGbqIiK42KpJdXzJPVgoKaIQbA8QTBDa9+D/p9aYzlz1bUc9CO1M
-	ltHEq9F8DpFssiZl/oTJPh+TUscId82eqsizSSFFW7eTkkQQ3/xIF1QfW+Gn4=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-On 6/26/2026 11:21 PM, Konrad Dybcio wrote:
-> On 6/26/26 5:07 PM, Xilin Wu wrote:
->> The SC8280XP DWC3 core register regions are currently described as 0xcd00
->> bytes, but the hardware register block extends further. In particular, the
->> DWC_usb31 LLUCTL registers start at 0xd024 and are accessed by the DWC3
->> driver when a controller is limited to SuperSpeed using
->> maximum-speed = "super-speed".
->>
->> With the shorter resource, probing such a controller can fault when the
->> driver programs LLUCTL.FORCE_GEN1. Use the correct 0xd950-byte register
->> size for all SC8280XP DWC3 core instances.
->>
->> Fixes: 152d1faf1e2f ("arm64: dts: qcom: add SC8280XP platform")
->> Fixes: 3170a2c906c6 ("arm64: dts: qcom: sc8280xp: Add USB DWC3 Multiport controller")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Xilin Wu <sophon@radxa.com>
->> ---
->>   arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 6 +++---
->>   1 file changed, 3 insertions(+), 3 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
->> index a2bd6b10e475..d06f79b7680c 100644
->> --- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
->> @@ -4034,7 +4034,7 @@ usb_2: usb@a4f8800 {
->>   
->>   			usb_2_dwc3: usb@a400000 {
->>   				compatible = "snps,dwc3";
->> -				reg = <0 0x0a400000 0 0xcd00>;
->> +				reg = <0 0x0a400000 0 0xd950>;
-> 
-> Let's do 0xfc100, the QC glue driver already does out-of-bounds
-> accesses into the base+0xfxxx space..
-> 
-> Konrad
-> 
+brcmf_notify_auth_frame_rx() takes the frame length from the firmware
+event and copies the frame body with the management header offset
+subtracted:
 
-sc8280xp dwc3 doesn't use the flattened binding. Using 0xfc100 would 
-make it overlap with the parent glue resource.
+	u32 mgmt_frame_len = e->datalen - sizeof(struct brcmf_rx_mgmt_data);
+	...
+	memcpy(&mgmt_frame->u, frame,
+	       mgmt_frame_len - offsetof(struct ieee80211_mgmt, u));
 
--- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+The only length check is e->datalen >= sizeof(*rxframe), so mgmt_frame_len
+can be anything from 0 up. offsetof(struct ieee80211_mgmt, u) is 24. When
+mgmt_frame_len is below that, the subtraction wraps as an unsigned value to
+a huge length. The memcpy then runs far past the kzalloc'd buffer. A
+malicious or malfunctioning AP can make the frame short during the
+external SAE auth exchange, so this is a remotely triggered heap overflow.
+
+Reject frames shorter than the management header offset before the copy.
+
+Fixes: 66f909308a7c ("wifi: brcmfmac: cyw: support external SAE authentication in station mode")
+Link: https://lore.kernel.org/r/178214417708.2368577.16740907093694208834@maoyixie.com
+Cc: stable@vger.kernel.org
+Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+---
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
+index ce09d44fa73cf..873754be5174b 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
+@@ -293,6 +293,12 @@ brcmf_notify_auth_frame_rx(struct brcmf_if *ifp,
+ 		return -EINVAL;
+ 	}
+
++	if (mgmt_frame_len < offsetof(struct ieee80211_mgmt, u)) {
++		bphy_err(drvr, "Event %s (%d) frame too small. Ignore\n",
++			 brcmf_fweh_event_name(e->event_code), e->event_code);
++		return -EINVAL;
++	}
++
+ 	wdev = &ifp->vif->wdev;
+ 	WARN_ON(!wdev);
+
