@@ -1,307 +1,227 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E61033A9E8
-	for <stable@vger.kernel.org>; Sat, 27 Jun 2026 21:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782594243; cv=pass; b=nTu14QLNt1UeEI/15Ham73Fp8VBd4n7QUIn+mRLyZl36sAAR0FLF1Ik7sqQ/Yu15ty/0ENFJMR+FXHrZy2RKLOMzc/VPeIyT77hMy6b9EG4fCYJWg5iZ0BKDHGLoEsa0VyfWxVzTVJpN8AAdTSmGWFwAWT1JO7yVGi/lwo8UjNo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782594243; c=relaxed/simple;
-	bh=MFPTZmygDB5eIaofxE2nBy2zz3SCsiq382k9t8M2MvA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OElbWJcMzWW0oKaS8P7+R0bcGVC4ZI0ilNljB6jkcmI+SzN5vo+lDrG2P4HBrfyBRgJW2lqpKkhfFlL9KKABWjsbcpwhCsVEFDHWFnjmVK5BiLNf7RdzOXOcJGooPObWbKi7Zusz6s+mHSt39q91MZUST7hPCURYu/5VYvhquzU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=v6SKBx+A; arc=pass smtp.client-ip=209.85.210.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1187613AA2F
+	for <stable@vger.kernel.org>; Sat, 27 Jun 2026 22:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782599465; cv=none; b=e0tiFkV4loF62qmwH0lsTDlNwGUK0yeqdfCdMn3xMJze+1cD6ybOavCLF9jEiYE1jey9qSctAxbGhcu3o+r4QMkdE3rhkl63Rpe9CTD7f9X4OlJfs3d7OWi7UsKXsBkKCcgWA5fF9n65cyEAzGqbuGCma85taD+KJsg7SitI03g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782599465; c=relaxed/simple;
+	bh=GgrIpowPt0gYM+hInsqIaEhdI36x5tUL6UzdU2OHJBY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fte9EOWmlJfMhWc2sZwW8HuPLzlI+fvkcT5XH+YVctwfgRTIdMao+wim8QmdkJN1bzadGl+4w+Zf+B8g8QkKpU0TOEtXVF+hQS8jVkswLJemJWjCpC1vDTlkTEARDPspR3vkLFLVdNUU47oVNsmiqTbxEdDoo48X3aECl//wC9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=hmXnvMhF; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="v6SKBx+A"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-845b8193c52so1647289b3a.2
-        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 14:04:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782594241; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ybs4pM2SssU+GUu01Y3nHbZuprZdACC6kql0l0UClRJ1OZI4Qr3PbQ6xNdzNbfkKaa
-         jswzMRUeJCWh2fGxu7WkqSJ+B/IsKA5ySSnj0aLeSObLo6gFeb0+hP0FrI0T7A14T3lg
-         dC5TnneG6fTYIgZBB9kNnA6Krd3XulkkEgP/5YyuPKU+wQHLyu3+M84NIqOr9Q9LYJmf
-         wiWwjrCk6p0KJDFhz5rpj3wLPbtpWYQAQm5WuvTocMdbwhtub7PGRTCRqpx4A0J1CKKW
-         56t+HtrlrjAdBearOf2l/ff9JZO0sTCpsDDm4PJRlMxqf9LIuHqey841hVpYDKhAfMjf
-         sdWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Aw09dR/Zs90zrBnlxdIxEMTCBzgnoxukuT5GWdKhK6w=;
-        fh=ghYX3FDqXIZfiYbNEX+FmVzPpAcRuC2h4p+jQ/Jxt5c=;
-        b=sUus9ThiqG1tX+A+psBUR7ws5AYQewBGbwIfe4HbkcRugcDQX+K7SbULZKMdR67bUu
-         VSVvCpSni1L/9QD+sBIpqUK7f1GcGiAJ7u2VNxsQscNf7LTFOccvO3SqBXkZqLnuvW7V
-         c0Ugds88cFxeW1wtlrJYJ1DXss1QtdpGfNiA+r35YIxEK5GKmDX4cnAKu7KCivWKz3Z4
-         zP949TF52uWsf/d5CMLbcB9L4MNww8moXtBMYKHU11pcxom/0t1xXJTTcNIXYv37PRwA
-         KGEKOBjNoEc3IML8TQa3n9inry3i0EFWKJvjsLKil0iRwLyQLnqWoW+ddk3jiI+1AIhU
-         iEoQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="hmXnvMhF"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49270caa5c0so12793955e9.3
+        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 15:31:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1782594241; x=1783199041; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Aw09dR/Zs90zrBnlxdIxEMTCBzgnoxukuT5GWdKhK6w=;
-        b=v6SKBx+A1QrtP5hOa/+roT9UueRthHofkTXS3BfDJeFN3Ymq3nQohN6WjMDMuEuoCE
-         viRPaCQMgYwuysjMIuAvFx7pvzvGnI94+zYcQiXTIcLVfiWgDPSROgNfHNnj/wiwP7Oj
-         Sket+QH9klEprsv1JES9AV6iawBgQ+eyw3518=
+        d=0sec.ai; s=google; t=1782599462; x=1783204262; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wfQpUHY0GFJWX8Gxj2L7x91zN6hrfhBDwHrlwXgs7Dc=;
+        b=hmXnvMhFLaA1yev6v9KNx1iZStfaRRHgv4yRPB4/2qXYwAMA2k+VIlExkTo2Vw5ncg
+         G1M774JKc096b22dZMuGM68Ht0E3cc6NklCCX5PPEDGDx1PnW9fIjSdenO35iApdKGb0
+         2aedqKrhrmu1PWsvFRjg7bwQKkEUBZV8dvA0gL3VNo93qIy0jJ+SWxvEGNJFExEM7g+1
+         0kFEY1qG3bnTMM9g85ag4YTKdruFSFEtlNgOQ+2Bawah2jVT2AesZOiqBYcrAVqSLanX
+         a/Vj4Q7nD1rOkgVH0Ft+xcMIG2m7WWz20uSI3OKx2n1gsiMxjsc3Qdgv3u9B/Nz60KYl
+         7KXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782594241; x=1783199041;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Aw09dR/Zs90zrBnlxdIxEMTCBzgnoxukuT5GWdKhK6w=;
-        b=OgcucJgYEfPSolY1gdbb+XB3DF4H7oUjj4gTRz/jGTZTQLzR0TFWOzP/jIZxXlylhw
-         5ZlhV8q+g1vOuEIGW1QTcKNwuga5wsDXjftHMEV+2OwMtBjCnqam+udIuTp+yEg/W3j6
-         n+U3SBtT8TUpaUHZf20xHGyBlZKQGFg+a6UDtXT8UuOa8rKUTXqso5skDlM3jFnNqWU/
-         mhcSsRQ0oI6vqy9GZGumbrvIhwHanpzPlw7A5GkjN407pnfIgXaRIc0DHnBRgOGJDkct
-         /POCLd58uT+DmM88/dRJMBsKBfDbY/6bF1S16u08sDflmF6heK4+Y4IdwqhxtB3hNxN3
-         xVtg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpept8wxf5mMYEd3JvAxneqbvEylcE5q34AjYgqxMcYpTVosVCqpfxh+IGMO3p0Esk3lh8TxVU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXoz2/EQCVqERMAB4o/Cy2UyicHebkIdmZpBOH5cmjMVrDVeKf
-	YfYQlzEGjdYh0rPyadUe1rH/vsYXaNoXuqJYje0/7Fz8U0C0mYO0MuW9u46JmcU+NCSTXE7ecWF
-	XM+64ry7lCryM5yb66VDircsBKrjNrZrb3p+nVP27
-X-Gm-Gg: AfdE7cnDenCnMF9qSMegZFmYfGMCt0jL+KvaAo6q54sT9nrQXRmONY1sTFN3oZbXZLy
-	1rhQoJMRdH5pCh7jpkCZwtkk8lAlZEaEJXW71XmhJz/WIuF2zz3l/PSkWnKBzGck4mHL0nS9O7T
-	zcO/uFHyI7x0FQdyboOEDcrf9KihFRpq0QkV0+BftllGKQZ6PlpJ4qNVbK974SQL8rA8S9DFX3S
-	SkzTg2W4wUtmFBrmkPxWXtyEEdaIrDN6Lzbd0sX9YyRUkV/QWUndmNv/9PtZWaaSlLBVQR5rjbP
-	Cpb0odx3
-X-Received: by 2002:a05:6a00:22d1:b0:845:e08c:a4eb with SMTP id
- d2e1a72fcca58-845e08ca873mr2238300b3a.58.1782594240806; Sat, 27 Jun 2026
- 14:04:00 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782599462; x=1783204262;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wfQpUHY0GFJWX8Gxj2L7x91zN6hrfhBDwHrlwXgs7Dc=;
+        b=PcomtKH1bnVd8lU29LkX3BBDtA9kjPSdyiqwFuz6e2f2FgOzU9Y3TM0o9cgv1FT3sj
+         VplyRv99cZkqv8NgxOLV0uU1PopTNFOSf8VS8l5lDVK3JrdHuFYTlUU7s1kPqp44nni0
+         717yC4zqXtQv56U03gDj0ux65D7GdLqXftgEiK/nqtns7g2NWkCfEgBJiFsTKqpZY3Is
+         H7jfLqZwKlutizsdXnpcoikUvT0y1VeGcas+tYiHhiDeKi0xpOuCIZBxXdD3oLIhGeHc
+         4+tQJqxOyHzwDjtjcqtIf1m5A3ahKDyj5Wu28WleCVDTU+4ZFusIW5JxEySASfVXKdLk
+         dyvA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3/ndoUFyn65tjUYb5HG7D+kklKdOkvw+/WzEI1k/eazqY/VpSPM6n6PEr1XXQVwOqwl/Ck8U=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy0LQRDquyTZ/E1BOHrRDFL6YmqvbHJzYjUUCFheWKcEPPmCoSO
+	UzClQLVfoER91yuMi2ptrePt7T4kJWYjYFBir5zNRSoiQhznONIqBTd4zmn1Dj03BiU5
+X-Gm-Gg: AfdE7cmWeQkKEwDn1iZ113iFW9rePt1CXgJpJRoX1eKJMhZroOa3ti0U7c5EKLgOoq9
+	mNjU52XMdtTU+1GO83FICBQrCv2JpDq1WnHfhpgUT8W6Ox1y5WZ98Jy7M0R9MiZdsmXfukfHWaQ
+	5TSCvtLefmJrvfrglhPb0XMaFW1OSED1iEndURUmVQxb4dDKIw9sCilDtro5VoKaums7HnwvloB
+	z0sgUQLIYjP/ZGOTTl1nxPjYd9iGwbFw1uoFR+SwC0FufFZUAZWaIzpoJi6X13lg2hWBXwrCYR2
+	3/5xJXSNpUD2QxPG/Vtf9u2L2O+jXV5UMTj1mA9wS04F026LCo6lP7FBTlGBpNg1o3OZI9E0J/Y
+	pXxLPbVYQ8vpbcRhYHzp5/lFsztaeaSGoUsuSLfNRCe//LuCCg6MMsr/iY4jrf04VeFGlLmp2OU
+	oPRItfGV3DVtqJEtyEkszI28nmvXCJYuJm73kQxUfQ542+LPgZj1QVTwE//lcfbcr9QrQOBYZgB
+	JwV3K3rVYDyA/ynFcevz5HHrd9t3FpmiIUPe7pqj92pww==
+X-Received: by 2002:a05:600d:6454:10b0:490:e243:4806 with SMTP id 5b1f17b1804b1-49266866378mr141283065e9.9.1782599462338;
+        Sat, 27 Jun 2026 15:31:02 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.209])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4926c291489sm134368885e9.2.2026.06.27.15.31.00
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 27 Jun 2026 15:31:01 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: saeedm@nvidia.com,
+	leon@kernel.org,
+	tariqt@nvidia.com,
+	mbloch@nvidia.com,
+	sd@queasysnail.net,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	borisp@nvidia.com,
+	raeds@nvidia.com,
+	ehakim@nvidia.com,
+	netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Doruk Tan Ozturk <doruk@0sec.ai>
+Subject: [PATCH net v4] net/mlx5e: macsec: fix use-after-free of metadata_dst on RX SC delete
+Date: Sun, 28 Jun 2026 00:30:59 +0200
+Message-ID: <20260627223059.29917-1-doruk@0sec.ai>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260624224016.24018-1-jhs@mojatatu.com> <CAM0EoMmJZxAbOsyW7bBp0DbTTiQKZeGaaBHPEw45D5b6DKDEvg@mail.gmail.com>
- <20260626141547.GA1310988@horms.kernel.org> <CAM0EoMntFA+fqs_BgT0E_KSsQHyf0W0u7OTngHHB7icrnUiC3A@mail.gmail.com>
- <20260627163602.GG1310988@horms.kernel.org>
-In-Reply-To: <20260627163602.GG1310988@horms.kernel.org>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Sat, 27 Jun 2026 17:03:48 -0400
-X-Gm-Features: AVVi8CcrCffzgUXXJ-TShlgaYV3gjj8Lvxm4KD3V_maA6P8aE4SdQzXXyB8yS8s
-Message-ID: <CAM0EoMkr=1qj6LQGsi6JHnEneiycyZ5_aLCr5DLSy2cCp9Xqdw@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/1] net/sched: sch_teql: Introduce slaves_lock to
- avoid race condition and UAF
-To: Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, jiri@resnulli.us, victor@mojatatu.com, 
-	security@kernel.org, zdi-disclosures@trendmicro.com, stable@vger.kernel.org, 
-	kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Jun 27, 2026 at 12:36=E2=80=AFPM Simon Horman <horms@kernel.org> wr=
-ote:
->
-> On Fri, Jun 26, 2026 at 12:11:47PM -0400, Jamal Hadi Salim wrote:
-> > Hi Simon,
-> >
-> > On Fri, Jun 26, 2026 at 10:15=E2=80=AFAM Simon Horman <horms@kernel.org=
-> wrote:
-> > >
-> > > On Fri, Jun 26, 2026 at 06:16:43AM -0400, Jamal Hadi Salim wrote:
-> > > > "
-> > > >
-> > > > On Wed, Jun 24, 2026 at 6:40=E2=80=AFPM Jamal Hadi Salim <jhs@mojat=
-atu.com> wrote:
-> > > > >
-> > > > > The teql master->slaves singly linked list is not protected again=
-st
-> > > > > multiple writes. It can be mod'ed concurently from teql_master_xm=
-it(),
-> > > > > teql_dequeue(), teql_init() and teql_destroy() without holding an=
-y list
-> > > > > lock or RCU protection.
-> > > > >
-> > > > > zdi-disclosures@trendmicro.com has demonstrated that the qdisc is=
- freed
-> > > > > after an RCU grace period, but teql_master_xmit() running on anot=
-her
-> > > > > CPU can still hold a stale pointer into the list, resulting in a
-> > > > > slab-use-after-free:
-> > > > >
-> > > > > BUG: KASAN: slab-use-after-free in teql_destroy+0x3ca/0x440 linux=
-/net/sched/sch_teql.c:142
-> > > > > Read of size 8 at addr ffff88802923aa80 by task ip/10024
-> > > > >
-> > > > > The zdi-disclosures@trendmicro.com repro created concurrent AF_PA=
-CKET
-> > > > > senders on a teql device against a thread that repeatedly adds/de=
-letes the
-> > > > > slave qdisc, together with a SLUB spray that reclaims the freed s=
-lot; the
-> > > > > resulting UAF is controllable enough to be turned into a read/wri=
-te
-> > > > > primitive against the freed qdisc object.
-> > > > >
-> > > > > The fix?
-> > > > > Add a per-master slaves_lock spinlock that serializes all mutatio=
-ns of
-> > > > > master->slaves and the NEXT_SLAVE() links in teql_destroy() and
-> > > > > teql_qdisc_init(). teql_master_xmit() also takes the same slaves_=
-lock
-> > > > > around those updates.
-> > > > > Annotate master->slaves and the per-slave ->next pointer with __r=
-cu and
-> > > > > use the appropriate RCU accessors everywhere they are touched:
-> > > > > rcu_assign_pointer() on the writer side (under slaves_lock),
-> > > > > rcu_dereference_protected() for the writer-side loads (also under
-> > > > > slaves_lock), rcu_dereference_bh() for the loads in teql_master_x=
-mit() and
-> > > > > rtnl_dereference() for the loads in teql_master_open()/teql_maste=
-r_mtu(),
-> > > > > which run under RTNL.
-> > > > > Pair this with rcu_read_lock_bh()/rcu_read_unlock_bh() around the=
- list
-> > > > > traversal in teql_master_xmit(), so that readers either observe a=
- fully
-> > > > > linked list or are deferred until the in-flight mutation complete=
-s. The two
-> > > > > early-return paths in teql_master_xmit() are updated to release t=
-he RCU-bh
-> > > > > read-side critical section before returning, since leaving it hel=
-d would
-> > > > > disable BH on that CPU for good.
-> > > > >
-> > > >
-> > > > sashiko-gemini's complaints:
-> > > > https://sashiko.dev/#/patchset/20260624224016.24018-1-jhs%40mojatat=
-u.com
-> > > > seem bogus to me (someone correct me if i am wrong). I am only goin=
-g
-> > > > to address the first claim of "TOCTOU / "resurrection" race in
-> > > > teql_master_xmit()"
-> > > > teql_master_xmit() holds rcu_read_lock_bh() across the entire
-> > > > traversal. teql_destroy() freeing can only proceed once the qdisc's
-> > > > RCU grace period has elapsed - so where is this TOCTOU? Let's say t=
-his
-> > > > were true: both calls hold the slaves_lock.
-> > > > The other issues are of similar nature.
-> > >
-> > > Hi Jamal,
-> > >
-> > > I think the central question here is about the protection offered by =
-RCU
-> > > in these code paths. And while I agree it protects the use of element=
-s
-> > > of the list, I think the problem flagged relates to the management of
-> > > the list itself.
-> > >
-> > > The example AI gave me when I asked is like this:
-> > >
-> > >     Assume a TEQL master has one slave, `q`.
-> > >     The list is circular: `q->next =3D=3D q`.
-> > >
-> > >     1. CPU A (Transmitting): Enters `teql_master_xmit()`.
-> > >        It reads `master->sla ves` and gets a local pointer to `q`.
-> > >
-> > >     2.  CPU B (Destroying): Calls `teql_destroy(q)`.
-> > >         It takes the lock, unlinks `q`, and sets `master->slaves =3D =
-NULL`.
-> > >         The list is now logically empty.
-> > >
-> > >     3.  CPU A: Finishes its work and prepares to rotate the list head
-> > >         to the next slave.
-> > >         It takes the lock.
-> > >
-> > >     4.  CPU A (The "Use" / The Resurrection):
-> > >         It executes: `rcu_assign_pointer(master->slaves, NEXT_SLAVE(q=
-));`
-> > >         Because `q` was circular, `NEXT_SLAVE(q)` is still `q`.
-> > >
-> > >     5.  CPU A: Releases the lock.
-> > >         **The global `master->slaves` is now `q` again.**
-> > >
-> > >     6.  The System: The RCU grace period expires. CPU B finishes
-> > >         `teql_destroy()` and the memory for `q` is freed.
-> > >
-> > >     The global `master->slaves` pointer is now a **dangling pointer**
-> > >     pointing to freed memory.
-> > >
-> >
-> >
-> > Yeah, thats the same earlier claim of TOCTOU (what sashiko-gemini
-> > claimed was "resurrecting the freed q")
-> > My view is rcu read lock blocks the subsequent call_rcu free - and
-> > destroy() and xmit() already serialize on slaves_lock.
->
-> The read of master->slaves is outside of the slaves_lock critical
-> section(s) in teql_master_xmit(). This is possibly the nub of this issue.
->
+When an offloaded MACsec RX SC is deleted, macsec_del_rxsc_ctx() freed
+the per-SC metadata_dst with metadata_dst_free(), which kfree()s the
+object unconditionally and ignores the dst reference count. The RX
+datapath in mlx5e_macsec_offload_handle_rx_skb() looks up the SC under
+rcu_read_lock() via xa_load(), takes a reference with dst_hold() and
+attaches the dst to the skb with skb_dst_set(). A reader that already
+obtained the rx_sc pointer can race with the delete path and operate on
+freed memory.
 
-Yes, i think this could cause an issue on a second run of xmit() ;->
-Let me ponder on it. I will probably have something tommorow..
+Fix the owner side by dropping the reference with dst_release() instead
+of freeing unconditionally, and convert the RX datapath to
+dst_hold_safe() so a reader racing the SC delete cannot attach a dst
+whose last reference was just dropped; only attach it when a reference
+was actually taken.
 
-cheers,
-jamal
-> > I could be totaly wrong, but it's almost like sashiko-gemini thinks
-> > that the list-mutation lock _alone_ governs the object lifetime.
-> > The rcu read-side critical section prevents the UAF, not just the
-> > slaves_lock alone
-> > Only reason i added slaves_lock was to prevent corrupting the list
-> > state (whereas the RCU read lock prevents premature free).
-> >
-> > In step #4 above this thing somehow leaves out any mention of the rcu
-> > read lock entirely and places the free in step 6 as if it was
-> > independent of CPU A's critical section.
->
-> I see what you are saying regarding the free not occurring at step 4
-> because CPU A is in an RCU read-side critical section.
->
-> But once CPU A has assigned master->slaves as q (again) it exits
-> the RCU read-side critical section. Then the free of q can occur.
-> And master->slaves will point to memory that has been been freed.
->
-> So the access to q is safe when teql_master_xmit is invoked, due to RCU
-> protecting object lifetime.  But it is unsafe when teql_master_xmit is
-> invoked again because by then master->slaves is a dangling pointer.
->
-> >
-> > I am not sure how to improve it.
-> >
-> > > > OTOH, sashiko-claude
-> > > > (https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260624224016=
-.24018-1-jhs%40mojatatu.com)
-> > > > does make some valid claims which are low value, so not sure a rese=
-nd
-> > > > is worth it.
-> > > > For example in claim 1 it says "Should the changelog mention this
-> > > > teql_dequeue() site too?" Sure I can - but just because I provided
-> > > > extra information in the commit log, which I could have omitted, no=
-w I
-> > > > have to add more info? ;->
-> > >
-> > > FWIIW, I think there is a value in tightening up the commit message.
-> > > E.g. so it's accurate when we look at again in two years time.
-> > > But I also lean towards it not being necessary to post an update
-> > > only to address this.
-> > >
-> > >
-> > > > The second claim is "rcu_dereference_bh()
-> > > > should be rcu_dereference_protected() on writer side". Sparse didnt
-> > > > complain and i dont see this as breakage rather a consistency measu=
-re.
-> > >
-> > > I think it would be good to address in the long run.  But as per my c=
-omment
-> > > immediately above, I also lean towards it not being necessary to post=
- an
-> > > update only to address this.
-> >
-> > I can resend with these two taken care of - but i am skeptical of what
-> > sashiko-gemini is claiming (and i admit as a human the AI may see
-> > something i am totally missing).
-> >
-> > cheers,
-> > jamal
-> > >
-> > > > Unless I am missing something ..
-> > > >
-> > > > cheers,
-> > > > jamal
+mlx5e_macsec_add_rxsc() also published sc_xarray_element via xa_alloc()
+before rx_sc->md_dst was allocated and initialised, so a datapath reader
+that looked the SC up by fs_id could observe rx_sc with md_dst still
+NULL or, on weakly-ordered architectures, a non-NULL md_dst pointer
+whose contents were not yet visible. NULL-check the xa_load() result and
+md_dst on the datapath, and reorder add_rxsc() so the xa_alloc() publish
+happens only after md_dst is fully initialised; the xarray RCU publish
+then pairs with the rcu_read_lock()/xa_load() in the datapath.
+
+Note: macsec_del_rxsc_ctx() also kfree()s rx_sc->sc_xarray_element
+without an RCU grace period while the same datapath reads it under
+rcu_read_lock(); that is a separate pre-existing issue left to a
+follow-up patch.
+
+Found by 0sec automated security-research tooling (https://0sec.ai).
+
+Fixes: b7c9400cbc48 ("net/mlx5e: Implement MACsec Rx data path using MACsec skb_metadata_dst")
+Cc: stable@vger.kernel.org
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+---
+v4:
+ - Reorder mlx5e_macsec_add_rxsc() so xa_alloc() publishes the SC only
+   after rx_sc->md_dst is allocated and initialised; a datapath reader
+   could otherwise observe a non-NULL md_dst with uninitialised contents
+   (raised by the automated review forwarded by Simon Horman). Error
+   paths adjusted (no xa_erase before the publish).
+v3: NULL-check the xa_load() result and rx_sc->md_dst on the datapath.
+v2: convert the datapath dst_hold() to dst_hold_safe().
+v1: https://lore.kernel.org/netdev/20260615140534.52691-1-doruk@0sec.ai/
+ .../mellanox/mlx5/core/en_accel/macsec.c      | 47 +++++++++++--------
+ 1 file changed, 28 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
+index 71b3a059c..daff53ba7 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
+@@ -714,34 +714,43 @@ static int mlx5e_macsec_add_rxsc(struct macsec_context *ctx)
+ 	}
+ 
+ 	sc_xarray_element->rx_sc = rx_sc;
+-	err = xa_alloc(&macsec->sc_xarray, &sc_xarray_element->fs_id, sc_xarray_element,
+-		       XA_LIMIT(1, MLX5_MACEC_RX_FS_ID_MAX), GFP_KERNEL);
+-	if (err) {
+-		if (err == -EBUSY)
+-			netdev_err(ctx->netdev,
+-				   "MACsec offload: unable to create entry for RX SC (%d Rx SCs already allocated)\n",
+-				   MLX5_MACEC_RX_FS_ID_MAX);
+-		goto destroy_sc_xarray_elemenet;
+-	}
+ 
+ 	rx_sc->md_dst = metadata_dst_alloc(0, METADATA_MACSEC, GFP_KERNEL);
+ 	if (!rx_sc->md_dst) {
+ 		err = -ENOMEM;
+-		goto erase_xa_alloc;
++		goto destroy_sc_xarray_elemenet;
+ 	}
+ 
+ 	rx_sc->sci = ctx_rx_sc->sci;
+ 	rx_sc->active = ctx_rx_sc->active;
+-	list_add_rcu(&rx_sc->rx_sc_list_element, rx_sc_list);
+-
+ 	rx_sc->sc_xarray_element = sc_xarray_element;
+ 	rx_sc->md_dst->u.macsec_info.sci = rx_sc->sci;
++
++	/*
++	 * Publish the fully-initialised SC last: xa_alloc() makes
++	 * sc_xarray_element->rx_sc (and rx_sc->md_dst) reachable from the RX
++	 * datapath via xa_load().  Doing it only after md_dst is allocated and
++	 * initialised pairs with the rcu_read_lock()/xa_load() in
++	 * mlx5e_macsec_offload_handle_rx_skb(), so a reader can never observe
++	 * a non-NULL md_dst with uninitialised contents.
++	 */
++	err = xa_alloc(&macsec->sc_xarray, &sc_xarray_element->fs_id, sc_xarray_element,
++		       XA_LIMIT(1, MLX5_MACEC_RX_FS_ID_MAX), GFP_KERNEL);
++	if (err) {
++		if (err == -EBUSY)
++			netdev_err(ctx->netdev,
++				   "MACsec offload: unable to create entry for RX SC (%d Rx SCs already allocated)\n",
++				   MLX5_MACEC_RX_FS_ID_MAX);
++		goto destroy_md_dst;
++	}
++
++	list_add_rcu(&rx_sc->rx_sc_list_element, rx_sc_list);
+ 	mutex_unlock(&macsec->lock);
+ 
+ 	return 0;
+ 
+-erase_xa_alloc:
+-	xa_erase(&macsec->sc_xarray, sc_xarray_element->fs_id);
++destroy_md_dst:
++	dst_release(&rx_sc->md_dst->dst);
+ destroy_sc_xarray_elemenet:
+ 	kfree(sc_xarray_element);
+ destroy_rx_sc:
+@@ -829,7 +838,7 @@ static void macsec_del_rxsc_ctx(struct mlx5e_macsec *macsec, struct mlx5e_macsec
+ 	 */
+ 	list_del_rcu(&rx_sc->rx_sc_list_element);
+ 	xa_erase(&macsec->sc_xarray, rx_sc->sc_xarray_element->fs_id);
+-	metadata_dst_free(rx_sc->md_dst);
++	dst_release(&rx_sc->md_dst->dst);
+ 	kfree(rx_sc->sc_xarray_element);
+ 	kfree_rcu_mightsleep(rx_sc);
+ }
+@@ -1695,10 +1704,10 @@ void mlx5e_macsec_offload_handle_rx_skb(struct net_device *netdev,
+ 
+ 	rcu_read_lock();
+ 	sc_xarray_element = xa_load(&macsec->sc_xarray, fs_id);
+-	rx_sc = sc_xarray_element->rx_sc;
+-	if (rx_sc) {
+-		dst_hold(&rx_sc->md_dst->dst);
+-		skb_dst_set(skb, &rx_sc->md_dst->dst);
++	rx_sc = sc_xarray_element ? sc_xarray_element->rx_sc : NULL;
++	if (rx_sc && rx_sc->md_dst) {
++		if (dst_hold_safe(&rx_sc->md_dst->dst))
++			skb_dst_set(skb, &rx_sc->md_dst->dst);
+ 	}
+ 
+ 	rcu_read_unlock();
+-- 
+2.43.0
+
