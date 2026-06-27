@@ -1,116 +1,113 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088A0319852
-	for <stable@vger.kernel.org>; Sat, 27 Jun 2026 06:48:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77EAB37C103
+	for <stable@vger.kernel.org>; Sat, 27 Jun 2026 06:57:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782542913; cv=none; b=UCh19qlv0t6eeAXHJZOIV1IaFVD8gCYl6owma2miKOujuWAH+kb06nCevtUngQPNC5eSQb/oDZc3dfxDoQYz1mBVD4wZQBNYlxKrWfVDperZYAsvnD69ozjq3kDQSh97iQRZ7iy20CKPlDuCS5V8On/9YWUpGLPv9m1dT0N/D50=
+	t=1782543454; cv=none; b=VNAzEndd911fMsAsyOshWsSfcL/P3dpb2AWABDU6sWIHhG3CUKjgUzimWSlF2LYL0Cq+QWabwf/euuYf+ZMGy4UZCUnGwkGCZw98q0P8TGuJC8XcUEh2OgjsObHk79GYhlMZ6p71knj3LoLxqcaCg5P5PX7bAM26PP7VF+MoiMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782542913; c=relaxed/simple;
-	bh=+rYfEs2pvBhx7gYc578DZEus3ro6qJzWud0f6V2w20U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=i7m8PdbmpctNN4P4G1yGheGI6gfi4i/FZRITDHZqVMUgGthZ7ICnP01Z3dTx7mOzMGUGzV7ZqjuqlxZXoHXX4lpDnuz8/ZvCyQIP6NoZGLL99bfJvvUF8I81vOjb0MZ0meEO4EFlUMxKTvyBqSiJaWqj+e2DUgTehwwHBNcHiU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EFm4Ws/5; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782543454; c=relaxed/simple;
+	bh=UViHE7El+llJt2SvZFHiYmDEZrpzSBqQ5B6s57rJRos=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jhgHEV3DghDcThz8S6nc9OZcSCLdT2GkhQsA6QtUhnarCuSiSju0dE8qWKkwNJd43QHCofakogGNZvvztK/rLTl2ZWt9BZxnqSxXdopVcGSOgRitnzKcLeaBm5iT4cDv5f0idBTrXu7LjiOn3onkJAr+HXZ9Kef4PfMXyuycTqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mIKjcWkp; arc=none smtp.client-ip=95.215.58.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EFm4Ws/5"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4926d6b177eso6437005e9.1
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 23:48:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782542910; x=1783147710; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+rYfEs2pvBhx7gYc578DZEus3ro6qJzWud0f6V2w20U=;
-        b=EFm4Ws/5scY0b1v8Z4xmoZAHLhNMqSbVFFsDlQNMiMiIBpeSbw8m5XrZFiSenwhg0q
-         IFRxPWXojhf4bh+s0YHVoB9SKZW9ykL2qmeg3041EMLJN6jidDFbAv2ajV49K7b1LWdc
-         jZM+DzuCNZhm8xqcx9h8/1/MqLkCrfNHGb7HexUid1vlo3Bcwo4pyuCtITMbZFSjlej0
-         tFQ6uWgm59A1eBks/lht6JpCi/BcxDRloYhF0FF8Mq6+NYud1K74SzPqEZjZMRPDcDNn
-         QVVTP4Li0Outs7Zsy9eKggnlKpQCYAAD/GLcMELb9D0XFJfRrOqnHQpxGtHEfjw6+fcr
-         NurQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782542910; x=1783147710;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=+rYfEs2pvBhx7gYc578DZEus3ro6qJzWud0f6V2w20U=;
-        b=ALOrUAcGyksp/J0KsDFz+f0e/nJON+7ELFtnc/6q7TldOFouWOSPQtnDzmr2s79v56
-         BRC3xiIAfRHso1VtKOEKCFa61Fuvw5Tpa/Geyf7pQrHYntMLhZIobTlYdzUKj/sqpDxT
-         ZH390wUKCyDsdU1DkKX2qNv1lFgTjRiW0kzadZ3Rz5H6jXvLbdPYOyN18Cr2loffL6b+
-         h01zChuFWUNKE51zeS54gTW9Fw3+IXauLlGBrAuhdnOAYoxurnDBHRByFhwLvEGhF7gn
-         Ucqr3P7+W7QhahdzgqnTooBrUtdAfxKZiZHcZ1GitXBpEq0HhYW9lP3SJmk5qAgw/S3C
-         IPnA==
-X-Forwarded-Encrypted: i=1; AFNElJ9b40vCOgMbOHRMxza9Xikz8B7sKBMVfoYGTZ+MU4QSfteS32/fINJV6U97a6OnZC8AKMTOfw0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzX+4nt0NumZmaXy4nNCRxJcHaObVuFrRNOmj41eZ7NW0OpyajL
-	Ij+4QuI0qQuIsBWTISCKlGi6kBhZvfn6cJ2u0qaLI+UwH3Jyl7Jr8i19
-X-Gm-Gg: AfdE7cnoo3ZAETUFbPAaBipulDhqBlNkR6ac0GvGgEs374Md1Z6+BXU9k6RcWqxMwe7
-	kcPa3JylNxe0Vr7vGJj8kG9Zras3amFCHWAtrVpl6Xqcn2qzFlpk2p6S499Rg0zZXlHTAsbcEGn
-	dDM3PF9f5lXjGC5Jzd555hHNZWKwHMCTyJuq5xSXwLsjU1upIrgtgJRlktirmbAXJMeS5QgOlNi
-	mXpzrd4oHY8lfavkOtcKAMgMEhNo41kZexkLrkOWmKNGjKHMEjbVfpuXNMHlMB4UQlZJqltgStx
-	jBF/ZMov3lnYvanemmbbYcuKTBTXsYIl672WDgj/v8eBu8qNWC86GaL8qFi/AjERUYWISNWE/fz
-	S4Y8Y6GJ1Q/JXG7dD1kxq8FvcCdlfMixrTpQ7JjJDvwcf4R1kZJc2YoDQVfC8bgCBSDjgmTHnyo
-	rnBqlUSEnAjU7Bpi1uFoglTlTv9QbcMC7jZgt7I31J9NSLBCg1Ks+IwSlLJRMoP3Jznw==
-X-Received: by 2002:a05:600c:1c17:b0:492:7019:caca with SMTP id 5b1f17b1804b1-4927019cb17mr63681665e9.26.1782542910213;
-        Fri, 26 Jun 2026 23:48:30 -0700 (PDT)
-Received: from jernej-laptop.localnet ([188.159.248.16])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46dcbac0c9dsm22289931f8f.19.2026.06.26.23.48.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 23:48:29 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: daniel.lezcano@kernel.org, tglx@kernel.org,
- Felix Yan <felixonmars@archlinux.org>
-Cc: wens@kernel.org, samuel@sholland.org, indrek.kruusa@gmail.com,
- linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-riscv@lists.infradead.org, Felix Yan <felixonmars@archlinux.org>,
- stable@vger.kernel.org
-Subject:
- Re: [PATCH] clocksource/drivers/timer-sun4i: Advertise a real minimum delta
-Date: Sat, 27 Jun 2026 08:48:28 +0200
-Message-ID: <cyKZfOi8QVGppYlWqaO5QA@gmail.com>
-In-Reply-To: <20260624220434.4183732-1-felixonmars@archlinux.org>
-References:
- <CA+fTLhgLmTY+exGujKf8OYYQvcEW5X5NJ_5sLq2AYL6zER2c0A@mail.gmail.com>
- <20260624220434.4183732-1-felixonmars@archlinux.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mIKjcWkp"
+Message-ID: <fba044ed-43c7-428c-89e9-89f35b789dab@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782543448;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/mXf9uzTDMtYNiYQq1kgu0qq3btevTgKJtXOPMqdv7s=;
+	b=mIKjcWkpmuPo2qiO2D12sMuwXdhxvyAlAzEDqAl0qeA9PgmtgnOZ6k2wn5iHzMQPefoS35
+	dHgpNPzCs6W8+WARZb/MIRrHt0uZ6i1bjxbAbuGGiLAHLaVPo4C6MEKTyx+UI3D3okabRG
+	uRQ4ADOtOgHOvyg0Vw9jqilKXKNM058=
+Date: Sat, 27 Jun 2026 14:57:00 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Subject: Re: [PATCH v3] mm: mglru: fix stale batch updates after memcg
+ reparenting
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Harry Yoo <harry@kernel.org>,
+ akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com,
+ baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+ weixugc@google.com, muchun.song@linux.dev, peiyang_he@smail.nju.edu.cn,
+ mhocko@kernel.org, roman.gushchin@linux.dev, ljs@kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+References: <aj12aVq3he6q7b2C@cmpxchg.org>
+ <4c7b0c46-14f0-4a62-893e-e50714e09b74@linux.dev>
+ <46ac28bf-5be1-4600-b522-0a1aa76c28e6@kernel.org>
+ <08cf8972-6cfc-4452-9a3c-88e0368dbbf9@linux.dev>
+ <afdaff7c-fe6b-40da-8f54-aeeab8fe8867@kernel.org>
+ <90fd5300-1016-42e7-abad-08ad85fb62b4@linux.dev>
+ <5a0c6597-6b96-4781-a71b-fd1298b2b7bb@kernel.org>
+ <c0e366ec-ee5d-42d9-ba33-7c630660e8af@linux.dev>
+ <aj5I7JAXWlTHRyEW@cmpxchg.org>
+ <57c18afd-e2a3-4b37-90b6-f2a4c758e8aa@linux.dev> <aj6xzyqtwd4it0kZ@linux.dev>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <aj6xzyqtwd4it0kZ@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-Dne =C4=8Detrtek, 25. junij 2026 ob 00:04:34 Srednjeevropski poletni =C4=8D=
-as je Felix Yan napisal(a):
-> sun4i_clkevt_next_event() compensates for the timer stop/start
-> synchronization delay by programming evt - TIMER_SYNC_TICKS into the
-> hardware interval register. The clockevent device currently advertises
-> TIMER_SYNC_TICKS as min_delta_ticks, so the clockevents core is allowed
-> to call set_next_event() with evt =3D=3D TIMER_SYNC_TICKS.
->=20
-> That programs a zero-tick interval. With oneshot/highres/nohz timer
-> operation this can leave the next event stuck, which was observed as a
-> boot hang on Allwinner D1 after the clockevents core started reusing
-> forced minimum-delta events.
->=20
-> Advertise one extra tick instead, so the smallest event accepted by the
-> core still programs at least one hardware tick after the synchronization
-> compensation.
->=20
-> Fixes: 12e1480bcb49 ("clocksource: sun4i: Report the minimum tick that we=
- can program")
-> Cc: stable@vger.kernel.org
-> Reported-by: Indrek Kruusa <indrek.kruusa@gmail.com>
-> Closes: https://lore.kernel.org/linux-riscv/CA+fTLhgLmTY+exGujKf8OYYQvcEW=
-5X5NJ_5sLq2AYL6zER2c0A@mail.gmail.com/
-> Assisted-by: Codex:gpt-5.5
-> Signed-off-by: Felix Yan <felixonmars@archlinux.org>
 
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Best regards,
-Jernej
+On 6/27/26 1:08 AM, Shakeel Butt wrote:
+> On Fri, Jun 26, 2026 at 07:21:28PM +0800, Qi Zheng wrote:
+>>
+>>
+>> On 6/26/26 5:39 PM, Johannes Weiner wrote:
+>>> On Fri, Jun 26, 2026 at 03:04:17PM +0800, Qi Zheng wrote:
+>>>> On 6/26/26 2:48 PM, Harry Yoo wrote:
+>>>>> On 6/26/26 3:24 PM, Qi Zheng wrote:
+>>>>>> On 6/26/26 12:59 PM, Harry Yoo wrote:
+>>>>>>> Observing a dying cgroup should be rare anyway, it's worth focusing
+>>>>>>> more on readability?
+>>>>>>
+>>>>>> While it's rare to encounter consecutive dying memcgs, it can still
+>>>>>> happen, right?
+>>>>>
+>>>>> But is worth saving a few instruction in a basic block that is
+>>>>> unlikely() to be executed?
+>>>>
+>>>> I don't have a strong opinion here. Hi Johannes, I'll leave the decision
+>>>> up to you. If necessary, I can send out the v4.
+>>>
+>>> Yes, I was thinking what Harry actually bothered to spell out ;)
+>>>
+>>> The race is rare, multiple levels even rarer, and even *then*
+>>> mem_cgroup_lruvec() is a quick inline.
+>>>
+>>> This way you have one block to handle that one rare race
+>>> condition. One place to put the comment. No labels, no goto.
+>>>
+>>> Simplicity wins :)
+>>
+>> Okay, I will update it as you suggested and send out the v4.
+>>
+>> Hi Shakeel, do we really need to move lock_batch_lruvec() to
+>> memcontrol.h? It's currently only used by reset_batch_size().
+> 
+> This function is very specific to memcg therefore I asked it move to
+> memcontrol.h and not to keep in vmscan.c but we can always do the cleanup later,
+> so proceed however you want.
 
+Got it. I'll keep lock_batch_lruvec() in vmscan.c for now. Once there is
+a second caller, we can clean it up and move it to memcontrol.h.
+
+Thanks,
+Qi
+
+> 
 
