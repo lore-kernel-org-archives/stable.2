@@ -1,124 +1,138 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7338D3A59BC
-	for <stable@vger.kernel.org>; Sat, 27 Jun 2026 13:13:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EF32D12EC;
+	Sat, 27 Jun 2026 13:46:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782566000; cv=none; b=A/MrH8NK5e4uiGtcuzZI2C7LM66fmI2wy+vsOUE5nbHXA3thOVUdgb5R2YwzeFjviFwVqZvvBP47LTrL6CinTIPkU+gBCmOzjL2PBQc/4trW55eZHFaeDRZymYVe4G7PUiw6g7mcDLc0/lkkrYJsIZybN7Pazbowp6KZiaRZkTE=
+	t=1782567999; cv=none; b=qBecJv9JzS+HC/q9aO01FLWlj8zJDvhjr6bhCKzgGHYa/3QQqah0TUhGY7snprDNg78x76IPTQPTLLB3lwCmBakRfJpv0QAtamKk5mlWF8Hv34VaCtqajahli/pO/kqfZ4WMaC1w8F1opDdv1tENHhNN2s0LpnD2Uf1cmffh8Ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782566000; c=relaxed/simple;
-	bh=f2ywcAbauLIdDjioz7BzOI400RSnqiFwtqHAuTE1ASM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WYGLITjuMY7rKQqEQQ2sznhc/x7o6uRwhYTE729ZdH2Y3H9PCIAaK4IkhipyMuci+DTSVWz3RM0erLcKn992wNOt40duFFJ5jBpjADY3X/HPsteDt4uHeUT63Fy6vRpQ3QxNTs4aDXBL90mM+CDhYXLMO3cFjKrg97n2bhUTJMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cr3weZJr; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782567999; c=relaxed/simple;
+	bh=rymbKOINyVPQ9fM+uUWBtNeWQtOucy4Bg6SaeBViOoM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RxtQ94kD2LaDKiW5CB71bsLn9nqgUdi+QDLDXceJ/yI73BH9Ry8MDdJrxW4FPQLUlaamuSUf/whxBO2hvpQAufqt+0TqW71MrKiAYunQcbfQJwMKoVXRAMoIN++ntUEKfCxpy2zfeN5SggwuYC1NUtiVfINWIuxY7wGaEH7Cwrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=rRZokglB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=O0J5DExq; arc=none smtp.client-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cr3weZJr"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-37e0a189b0bso926379a91.1
-        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 06:13:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782565999; x=1783170799; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ffzVDWTdghBqGnNg+yPYLtmRZ4dadK7EfCKOcmYolsQ=;
-        b=Cr3weZJrMKarV5gFKU/2wS7rVvRN4rBYWtaDggoTVx/0xzmEO7ljZppfS0yM8JwQ+v
-         5L3zZmuKC1/T0G/owBlXzek5Q+pm7et33uwibrGc8XwS9jOUoGd5y5Fmt88R9tU9WDrQ
-         Zd/ZdX9RM/HI1M05XV73mdupsLJdiSEGP5IErFzd19QaHtFjJidwdOCYWOvHGUUR1PZp
-         a63txWNAtZE9BXfTKHlkFaOqJQcpebOWLLKiDBwa6KFxzz4eWoXQ8F8ptyYxS/jeH83d
-         e8ITR31eQ5Q9XHjCKVujnuTf6BBXpQqY25hTwsb48ldpv2yFevt6+FmmlJGLF9h5z7Hn
-         2FJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782565999; x=1783170799;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ffzVDWTdghBqGnNg+yPYLtmRZ4dadK7EfCKOcmYolsQ=;
-        b=AsROgxrZMTNVkcZ9ODXGsoWa0sBuxT2LN3pbEhOKN8+pu05nEMt9/QulfdKPjlS/4L
-         zQ3Y4KW7HmH+Ly6lB2iGdcP/TDqnzAVaoM0S1eISiBv9H6+lv80bH/M3rxEkIJsfSXfh
-         g962JYVS7RdpRq3TWKBi6EYmlVFTaMYaNzixD/TI9x9I7GTLTr1Zi0gghP+UQT/na7WD
-         4c72AsuCYfRL0WZ8wi85MW4AA0DfYgoLmSwg4X85mGQG0AO1QVzW2nWqgXg1pptdVrW2
-         MzbToz4lPLnLoSC9eqMDyT/YzGzOYo8XngVFcyEA8H9JCWIpupy99Bu5T+SaVLdVVqQw
-         yiHg==
-X-Forwarded-Encrypted: i=1; AHgh+Roag0Iz6xGrI1YKyxROv2H972+3jrTyXy67w5WMNrayUFqbuXREgMlJvUSdS1hMIQyv+/nwnBs=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywrw+2z3vJ1lv+PiB/mpUQ+cd0TPDnPaFokTBRz91Soev8b58dF
-	nWpiDqinAQZalAvjK7vvxYcg3YxdNPeI2F7zOA8+PyryrlZtw99kQWdn
-X-Gm-Gg: AfdE7cmYDaLR6ggMculgQ2aTenxOhbvk4wdBDMa+GEPX3vf4rSs3H0gtMy5wnC5IZdq
-	mK0U0IaKZPX+kjxoRkSlelcQcZPIM1BMgPr8FLY6oqSlu154lkfCQShyQLskTwZAodq9U6VLs82
-	AgG+KSG0G2geA9HtFK6eV0IIfLpOOJfxqJZE3Wo/L021BszhSp69fTCDyE58cVNY85pc7i99nig
-	4Xr8EujygIzbliyXqwBD6OaPA5e05naJXLoDr4Lz1MnM8+zH58W/GOBusILGHcbSBazUg+MYMnh
-	jjAS/QjM+X6Y37obKBMEWSt9E9a5Ho69Dy4gcmJGHR3yvc0uNIte//BzVQuJx1l+dypNh82ZjqK
-	DxOlQ35h0Xe5WQE4qJTYL1R/NP5daWvL/T1WKNVwMBrIFFJEW/J6vGH7GhFPXQBN9U+tHH+YF5F
-	BMIWFRMf3TxiG/FbHU1nXR/Y6Wm7HzMzi09RY7V506c+J40cTY
-X-Received: by 2002:a17:90b:2244:b0:37f:df85:272f with SMTP id 98e67ed59e1d1-37fdf853de2mr240302a91.19.1782565998696;
-        Sat, 27 Jun 2026 06:13:18 -0700 (PDT)
-Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37e1c93272fsm2598840a91.14.2026.06.27.06.13.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 27 Jun 2026 06:13:17 -0700 (PDT)
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Kaixuan Li <kaixuan.li@ntu.edu.sg>,
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="rRZokglB";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="O0J5DExq"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 0F7FC1400166;
+	Sat, 27 Jun 2026 09:46:36 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-09.internal (MEProxy); Sat, 27 Jun 2026 09:46:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1782567996; x=
+	1782654396; bh=4U+xzYlqXfBGdhw//87pX4ghLmWw+sSYwJKgqsTTFLE=; b=r
+	RZokglB1ky35FN1fErw6rV3slmuYyVa9c84XbE6jxFzspEafxglOQuXgsfydEWrt
+	gCgJsU7WmB9I0Kei2/7yzWkSgZFCNwVQKNE0v6nRXDX5/SxzhhIB1YeBzWPXNLas
+	LIKdPlfnQDSHKkirgc1i3kGAijl8MJ9279QoFlDdVCTSaXFs8xHL+CN9b+xjtOet
+	y/vSm6uHKGeuRq6RpRPcvAb6C5+LW9QrFOFmjPALGTxUr6O1odEk02KJnKG5qP8I
+	3yhBVMzCB7rq1G0pBGLK/frhnTPl/i2tA8pYBTL+NQrsm+JXBH4tqSRCaaHDf2wY
+	sQUMvSqCF4OTa2yroU68w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1782567996; x=1782654396; bh=4U+xzYlqXfBGdhw//87pX4ghLmWw+sSYwJK
+	gqsTTFLE=; b=O0J5DExq6GUW/eWfYNQwsmSxGn5AAG/e+v7M90KPUT5Z6YDWWmG
+	Q5LQBB3JXG40iMGMMWuXb35GkMUV3BXMYDjtN/oxL7pad8zK/aDE5+ejbZBs/PLy
+	h5TcDeRjogazAK3onUITrlcwhaw9WRTpkFB8Ao8gAINx1LUnJY9qNjYwCeaYY8Ya
+	D9BearFTuyqVjDlPDTyaJWBQjlQF3je9PNTwi8k/Qn/VGTKDc3kEhMv+KO1BHR+g
+	zRhbWBQ7leeXAPW5lQJuVLLfDOY3tXMP5qDgtmgTP41XRwVgLI5WAm2xk4C3/DaT
+	XhW/RFeIREWU6hH9etgsZTDtanOF5t57OTQ==
+X-ME-Sender: <xms:O9Q_ajA-u4PtHR3aWbgAm04qNNsRCvuhcBWaRwKO-rY2KWSRJkCupg>
+    <xme:O9Q_agaBBWBrbxGo7MCrz1z7FoRVuMbpCinBD7lyNr38rVCsxXFU0eCmoqjBgXcWm
+    BrFRylHZFlYxUXFynfT6MUKyPL2K_qfhHNv2IaQWmEde9SUNOCCfuM>
+X-ME-Received: <xmr:O9Q_am7m3ZzFLrW7917aUmNupe452yk3Nk3c7Jy3NserPC2cpR6z0V6DD0u1xTIdmdj6haC80-dHotJKDH1TxbtpNG72>
+X-ME-Proxy-Cause: dmFkZTFVpxvSKS0iE+mrp2cBuQSPqyU8pC595P1qxeUX3zOujVYsyOWMGWjg/CbyBCbIvl
+    dH+rlY7Jy07O3qCUjjCZKT3vYbagcRm+CjIGVYSWUzI1jz9df26koAMZEe+CUVJL4shqMv
+    f/zAfTMVsHyCot14PC85nZjeDvnFCyHtZhEDxCe0m7/S3elQC+6TLWKx5Y7kPo0T3BdSjf
+    IpklRRHFe/BaYg0/k3pQeA5A38b0PkBcOaBVwUTiJjWAvemgQ7kcTC/jG7tixQRc87Z2f4
+    o2zVLygyu4RsBbjXbt8orPvGEDdRR4bbpBhLuyNr5SJ1jHUZf8zFnxKKPW227vY08ZTjo5
+    04dgMwewWRUJkBFTzJM6zbE9LIj08veBwBnsN9bcjxhr/M2W4IhvE1Kc7qHWiFTknXPxcW
+    IRXH2brRmWzk+6Sl7TCgGC5Ey2tyf5RxHw9GqbCHLI/8xPfModK5OGPVFi4UkAAQjYM2MM
+    dQZ7zXUwvis/2HpZbHLYit3U+4V1Q5n3XIHhYCy9HVVWmWSmbfD5J5ZR3eZZL0+OSJOmP/
+    GcQWtiAVApe4HwJl7pKmaL6iYrsqocMf8uJrDICdpJ9nw4OPqwvTbMnyzzcIwxW1TgChhi
+    s7B4QZoSq0v10fq+BINR9gJiAFjlIt5F0dXPd9DGATvL+DwR7ZFp1EKDaleA
+X-ME-Proxy: <xmx:O9Q_ahYbi34hCZTdjhAd6eCGABHmZj2hWWyqkAcKJ9HZ9yZ6KUVpQQ>
+    <xmx:O9Q_algJ7hw94ljlY9fr-goJJb4EEwIDlcLwIfwdejWDgw0Wry-PXQ>
+    <xmx:O9Q_ai9k2x4_R1s0o_DonLjAKWR_8fmMFWABeMnsXMvnc3nWEroUUQ>
+    <xmx:O9Q_agoq-bITYVpZZcJPcV7YD6vnmvcLuuFruqGlpu-s2YerMU7RKw>
+    <xmx:PNQ_avjz0LrE5SZ8si-Ck3ZJ2bUYukYBwvyKn1Jjqz2j8iHZ61xmXZ_N>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 27 Jun 2026 09:46:33 -0400 (EDT)
+Date: Sat, 27 Jun 2026 22:46:31 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] wifi: brcmfmac: cyw: fix heap overflow on a short auth frame
-Date: Sat, 27 Jun 2026 21:13:13 +0800
-Message-Id: <20260627131313.3878893-1-maoyixie.tju@gmail.com>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH] fix: firewire: report_lost_node: unconditional
+ fw_node_put after   conditional fw_node_event causes excess put
+Message-ID: <20260627134631.GA386463@sakamocchi.jp>
+Mail-Followup-To: WenTao Liang <vulab@iscas.ac.cn>,
+	linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+References: <20260626123743.36388-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260626123743.36388-1-vulab@iscas.ac.cn>
 
-brcmf_notify_auth_frame_rx() takes the frame length from the firmware
-event and copies the frame body with the management header offset
-subtracted:
+Hi,
 
-	u32 mgmt_frame_len = e->datalen - sizeof(struct brcmf_rx_mgmt_data);
-	...
-	memcpy(&mgmt_frame->u, frame,
-	       mgmt_frame_len - offsetof(struct ieee80211_mgmt, u));
+Thanks for the patch.
 
-The only length check is e->datalen >= sizeof(*rxframe), so mgmt_frame_len
-can be anything from 0 up. offsetof(struct ieee80211_mgmt, u) is 24. When
-mgmt_frame_len is below that, the subtraction wraps as an unsigned value to
-a huge length. The memcpy then runs far past the kzalloc'd buffer. A
-malicious or malfunctioning AP can make the frame short during the
-external SAE auth exchange, so this is a remotely triggered heap overflow.
+On Fri, Jun 26, 2026 at 08:37:43PM +0800, WenTao Liang wrote:
+> report_lost_node unconditionally calls fw_node_put after fw_node_event,
+>   but fw_node_event does not unconditionally acquire a reference. Since
+>   for_each_fw_node already holds a reference on the node during traversal,
+>   the extra fw_node_put over-decrements the refcount. The sibling callback
+>   report_found_node does not call fw_node_put, confirming the extra put is
+>   erroneous.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 3038e353cfaf ("firewire: Add core firewire stack.")
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/firewire/core-topology.c | 1 -
+>  1 file changed, 1 deletion(-)
+ 
+As you note, in for_each_fw_node(), the reference count is incremented
+for safe traversing over the topology tree once, and it is decremented
+surely at the end. So the decrement of reference count in report_lost_node()
+is the different purpose.
 
-Reject frames shorter than the management header offset before the copy.
+> diff --git a/drivers/firewire/core-topology.c b/drivers/firewire/core-topology.c
+> index bb2d2db30795..49820e4a34ff 100644
+> --- a/drivers/firewire/core-topology.c
+> +++ b/drivers/firewire/core-topology.c
+> @@ -298,7 +298,6 @@ static void report_lost_node(struct fw_card *card,
+>  			     struct fw_node *node, struct fw_node *parent)
+>  {
+>  	fw_node_event(card, node, FW_NODE_DESTROYED);
+> -	fw_node_put(node);
+ 
+It corresponds to the initial increment of reference count when creating
+the node instance. It is the part of node removal process in the tree,
+and is required just in the line.
+  
+>  	/* Topology has changed - reset bus manager retry counter */
+>  	card->bm_retries = 0;
+> -- 
+> 2.39.5 (Apple Git-154)
 
-Fixes: 66f909308a7c ("wifi: brcmfmac: cyw: support external SAE authentication in station mode")
-Link: https://lore.kernel.org/r/178214417708.2368577.16740907093694208834@maoyixie.com
-Cc: stable@vger.kernel.org
-Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
----
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c | 6 ++++++
- 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
-index ce09d44fa73cf..873754be5174b 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
-@@ -293,6 +293,12 @@ brcmf_notify_auth_frame_rx(struct brcmf_if *ifp,
- 		return -EINVAL;
- 	}
+Thanks
 
-+	if (mgmt_frame_len < offsetof(struct ieee80211_mgmt, u)) {
-+		bphy_err(drvr, "Event %s (%d) frame too small. Ignore\n",
-+			 brcmf_fweh_event_name(e->event_code), e->event_code);
-+		return -EINVAL;
-+	}
-+
- 	wdev = &ifp->vif->wdev;
- 	WARN_ON(!wdev);
-
+Takashi Sakamoto
