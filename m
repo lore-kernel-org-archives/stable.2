@@ -1,31 +1,39 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102DB137923;
-	Sat, 27 Jun 2026 03:44:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51F229430;
+	Sat, 27 Jun 2026 03:47:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782531875; cv=none; b=p79A01xhQhBcguTmcBj4U/tz9zC5i0RW/Y7KQRPrImzZMMxTE+k+WyvX/sOsEaCX1rX6fMh6yU5uiiJTFTDah2jNs9rjVh5awIhKWQccBn7UeZdRWvvMe2cIn63e06BMTK+9ENFSig+347rP4UStM2OZ0AiVUaQQYvLI7H2HSYI=
+	t=1782532028; cv=none; b=m/a7GBWpZP/2GWDm6LF4Qb/pNbwXT6bDwWRXQgemceO28HyY54tcuioXxol+WOna8z2vQ8YVXwN5Bh4n9BipMsRdD5rmqwZRJ8jOGNe2rVnAznEaC3XoRByk5aFo7LLQY8VhO2kGsxhO6VMkPW1gUZ8eCPkeXJHLYQcgw+a1q5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782531875; c=relaxed/simple;
-	bh=H22b1DXAepBmGTA3ko0ruPqwWcSCVZqUBYYG8Mf80U0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cDjixoSX+iuXnEbBQGwtddNRQ3EDdDjkkWytaQXe0TzpXKXqE+pR5LbNczHAhJd8Ne8c7F4gtCGxmPo5k7HEhGmgDHPxwqgHon2UQtQw4d9VmHQmsjcC7+mUTHdLy5EXPbWGSEIJmbjcxRanjx8iojFOMVHI+ajKgVwpzgUOlzo=
+	s=arc-20240116; t=1782532028; c=relaxed/simple;
+	bh=gQ0RbR3FGcTCoRtoAbCoSzf2mGy8bhuwekFxLlzuB+A=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=okdImaMGSz9m6+v0C0V9XNn4vmyqpEK73rLMRIIAzUsP01h6nTfQidqyOcnrebwZkGzUhU8KwKuFuPJsLhOmuVRkRQ2rJ4erLXgVjFHN2XDY4R7sLn33pPTKZa7GLMEOFSH56oC2wehtybVFdfRgGIzFwXi+afx5OKye4vK40cE=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-01 (Coremail) with SMTP id qwCowAD3kMkeRz9qYW2BAw--.26715S2;
-	Sat, 27 Jun 2026 11:44:30 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowAD3mtOeRz9qhH+BAw--.22948S2;
+	Sat, 27 Jun 2026 11:46:39 +0800 (CST)
 From: WenTao Liang <vulab@iscas.ac.cn>
-To: deller@gmx.de
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
+To: marek.lindner@mailbox.org,
+	sw@simonwunderlich.de,
+	antonio@mandelbit.com,
+	sven@narfation.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	b.a.t.m.a.n@lists.open-mesh.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	WenTao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] fix: drivers/video: __screen_info_pci_dev: leaked pci_dev references in pci_get_base_class loop
-Date: Sat, 27 Jun 2026 11:44:28 +0800
-Message-Id: <20260627034428.59479-1-vulab@iscas.ac.cn>
+Subject: [PATCH] fix: net/batman-adv: batadv_interface_kill_vid: extra batadv_meshif_vlan_put after destroy
+Date: Sat, 27 Jun 2026 11:46:36 +0800
+Message-Id: <20260627034636.59693-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -34,55 +42,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowAD3kMkeRz9qYW2BAw--.26715S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7GFyUAFyktryUKw4rJr4Dtwb_yoW8Jr1kpF
-	Z3GFWayF45XFWxGw1DuryDuFyfua15C3yfKFZ2kw15uayfZa4avr1xuryDur1fArW8Jr1S
-	qw4Ut3W8uFy5uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
-	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjIJmU
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgLA2o-ErFs-AAAsh
+X-CM-TRANSID:qwCowAD3mtOeRz9qhH+BAw--.22948S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Xw1rGr4xXw4fGrW3uryfJFb_yoWkKrc_Wr
+	n7ua4kGa4I9F4v93W8ZrW3Arn7KFs7Xwn7Z397Kry7t3WjvFZ5ZrZ7X3Z8C3yxur4kAw1U
+	Gr12vF1Fyw1rWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb3AFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
+	nIWIevJa73UjIFyTuYvjfU5dgADUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgILA2o-DDp59AAAsi
 
-In __screen_info_pci_dev(), the loop uses pci_get_base_class() with a
-non-NULL starting device pdev. Each iteration returns a new device
-reference but does not release the previous one. When a non-matching
-device is found, pdev is overwritten and the previous reference leaks.
-When no match is found, all acquired references are leaked.
+In batadv_interface_kill_vid(), batadv_meshif_vlan_get() acquires a
+reference on the vlan object. batadv_meshif_destroy_vlan() internally
+calls batadv_meshif_vlan_put() which balances that reference. However, an
+additional batadv_meshif_vlan_put(vlan) is called after
+batadv_meshif_destroy_vlan(), causing a refcount underflow and potential
+use-after-free of the vlan object.
 
-Add pci_dev_put(pdev) for non-matching devices before continuing the loop.
+Remove the extra batadv_meshif_vlan_put(vlan) call.
 
 Cc: stable@vger.kernel.org
-Fixes: 036105e3a776 ("video: Provide screen_info_get_pci_dev() to find screen_info's PCI device")
+Fixes: 5d2c05b21337 ("batman-adv: add per VLAN interface attribute framework")
 Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- drivers/video/screen_info_pci.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ net/batman-adv/mesh-interface.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/video/screen_info_pci.c b/drivers/video/screen_info_pci.c
-index 8f34d8a74f09..c821101e9304 100644
---- a/drivers/video/screen_info_pci.c
-+++ b/drivers/video/screen_info_pci.c
-@@ -123,6 +123,10 @@ static struct pci_dev *__screen_info_pci_dev(struct resource *res)
+diff --git a/net/batman-adv/mesh-interface.c b/net/batman-adv/mesh-interface.c
+index e7aa45bc6b7a..cc974f243200 100644
+--- a/net/batman-adv/mesh-interface.c
++++ b/net/batman-adv/mesh-interface.c
+@@ -691,9 +691,6 @@ static int batadv_interface_kill_vid(struct net_device *dev, __be16 proto,
  
- 	while (!r && (pdev = pci_get_base_class(PCI_BASE_CLASS_DISPLAY, pdev))) {
- 		r = pci_find_resource(pdev, res);
-+		if (!r) {
-+			pci_dev_put(pdev);
-+			pdev = NULL;
-+		}
- 	}
+ 	batadv_meshif_destroy_vlan(bat_priv, vlan);
  
- 	return pdev;
+-	/* finally free the vlan object */
+-	batadv_meshif_vlan_put(vlan);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.39.5 (Apple Git-154)
 
