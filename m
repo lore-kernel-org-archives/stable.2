@@ -1,35 +1,34 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2B723AB87;
-	Sat, 27 Jun 2026 03:49:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE8C26FD9B;
+	Sat, 27 Jun 2026 03:52:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782532167; cv=none; b=S5AFSKDI9rSyfDgHNZ5LATnayn1Fv3jbiFC6wDg32WxU2vRzyJgmvE7zOv2np017iBViS9YdOxRkWLm+o8YeCU/BsgXhOuc5JGHhJsuUAXYCRxApT4zyZY92vljDJ6D7Zr9L6UNDRI80ucBqr5gOsmDIQRR86U3l7sZKNvGnQsw=
+	t=1782532382; cv=none; b=FmYoE2GWnFU2vb/oHBkqOl87s1iH9PckX5McofBD7zrEssv3jjfTje7HqGn2RaFfW3F1gUnwPjy9TULvZ1CJKcwMmXDprLcwh2VITAhyL5gX+4D1LhI3BPQeol0ZLh58Ys4YLGyF75rPq9ob4+SuCIzN3jPG6WOFlJtcFo+JgVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782532167; c=relaxed/simple;
-	bh=WAXo3Bw2g5YvPIej6BhH2rh+CYBSLOWkzcv1lhCgeSE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OMuuFSIQBekvehQn8jDQJkXRO8TL2cGEV8+kEXAysapYsikBMh7/2lLNU3ZfwoOXsROh2KYACFvbaRWFLqCqn0cQbOcgGJ6PeqgCIASC9R3TU7o5vaW1WWfRmryU50BziYmvy5eJ136ALoE0U/fHCH54DHXyFGDQRxhaJcX9qc4=
+	s=arc-20240116; t=1782532382; c=relaxed/simple;
+	bh=hQiWtljgC0LgnNQ1WNrb5iXXjYhkk0fgSeaBF3Z9AL4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PCRipTC2JdAwiHq4WVanAZEHcsYBJBQ443uqOLto0C8v97ZXa9wQxQJsrEP41mJLaqN5m/FwoBnGQWxsMcH8pQmeDewG1dGRGpI7xFeQ9J9gGOJxqu95Joh25Ka/vVsCyVW43N2H/m0FeO3FNajJqEWY6AEHzpais7C3+ihFw/8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [117.182.75.66])
-	by APP-01 (Coremail) with SMTP id qwCowADnjNU8SD9qBZSBAw--.23128S2;
-	Sat, 27 Jun 2026 11:49:18 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowACnQMkVST9qjK2BAw--.15669S2;
+	Sat, 27 Jun 2026 11:52:54 +0800 (CST)
 From: WenTao Liang <vulab@iscas.ac.cn>
-To: srini@kernel.org,
+To: s.nawrocki@samsung.com,
 	lgirdwood@gmail.com,
 	broonie@kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com
 Cc: linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	WenTao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] fix: sound/soc/qcom: qcom_snd_parse_of: leaked device_node reference from of_parse_phandle on error path
-Date: Sat, 27 Jun 2026 11:49:15 +0800
-Message-Id: <20260627034915.59929-1-vulab@iscas.ac.cn>
+Subject: [PATCH] fix: sound/soc/samsung: aries_audio_probe: double of_node_put due to direct assignment without of_node_get
+Date: Sat, 27 Jun 2026 11:52:51 +0800
+Message-Id: <20260627035251.60172-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -38,53 +37,53 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADnjNU8SD9qBZSBAw--.23128S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Gr1kWF1rWw43CFW3ury7Awb_yoWkXFb_tF
-	ykuasYqrykGFs3twsxtr4a9wn3Ar9rua4jywsFqrsrt345XFW5tFn8XF4fZas8ZrW8t3Zx
-	Wrn0vFWYkrWaqjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb3AFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+X-CM-TRANSID:qwCowACnQMkVST9qjK2BAw--.15669S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtr4UWr17Ar4UJr1ktr15XFb_yoWktrb_K3
+	s5WanxWryrJF4vqrs7XryUuan8trnrKFyUCF4jkFW3Kw13Ja13A34fZr18KasrurW8AryD
+	ZFsrZaySk3yYkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb4AFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
 	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
 	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
 	Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
 	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
 	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
-	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
-	CwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
-	nIWIevJa73UjIFyTuYvjfU5dgADUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQLA2o-EqFvJgAAsv
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbo5l5
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMLA2o-DxB2sQABse
 
-In qcom_snd_parse_of(), of_parse_phandle() at line 124 acquires a
-reference on the platform's sound-dai node, stored in
-link->platforms->of_node. When codec initialization fails (goto err), the
-err label releases cpu, codec, and platform from of_get_child_by_name(),
-but does not release link->platforms->of_node from of_parse_phandle(),
-causing a device_node reference leak.
+In aries_audio_probe(), aries_dai[0].platforms->of_node is assigned the
+same pointer as aries_dai[0].cpus->of_node (from of_parse_phandle)
+without calling of_node_get(). When the sound card is deregistered, the
+ASoC framework calls of_node_put() on both cpus->of_node and
+platforms->of_node, causing a double put on the same node and a refcount
+underflow.
 
-Add of_node_put(link->platforms->of_node) in the err label.
+Add of_node_get(aries_dai[0].cpus->of_node) before the assignment.
 
 Cc: stable@vger.kernel.org
-Fixes: c25e295cd77b ("ASoC: qcom: Add support to parse common audio device nodes")
+Fixes: 7a3a7671fa6c ("ASoC: samsung: Add driver for Aries boards")
 Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- sound/soc/qcom/common.c | 1 +
+ sound/soc/samsung/aries_wm8994.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index cf1f3a767cee..8f7498290f81 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -180,6 +180,7 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+diff --git a/sound/soc/samsung/aries_wm8994.c b/sound/soc/samsung/aries_wm8994.c
+index 48ccc1d1854b..6db91b73f25c 100644
+--- a/sound/soc/samsung/aries_wm8994.c
++++ b/sound/soc/samsung/aries_wm8994.c
+@@ -658,6 +658,7 @@ static int aries_audio_probe(struct platform_device *pdev)
+ 		goto out;
+ 	}
  
- 	return 0;
- err:
-+	of_node_put(link->platforms->of_node);
- 	of_node_put(cpu);
- 	of_node_put(codec);
- 	of_node_put(platform);
++	of_node_get(aries_dai[0].cpus->of_node);
+ 	aries_dai[0].platforms->of_node = aries_dai[0].cpus->of_node;
+ 
+ 	/* Set CPU of_node for BT DAI */
 -- 
 2.39.5 (Apple Git-154)
 
