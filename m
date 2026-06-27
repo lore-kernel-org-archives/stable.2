@@ -1,112 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FD4227EA4;
-	Sat, 27 Jun 2026 17:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D1B33B97B
+	for <stable@vger.kernel.org>; Sat, 27 Jun 2026 17:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782581200; cv=none; b=W04g9EQzlcLajJJBZw18f0SRxp/pzOv+c18nBWZWJzBqpW6SJeyzYMrtYZbkdbIbKOF/mNlddyQYFEU1vzBe70ecSZoOk7zZ00xbgn+1+CKF6dk5H1tfiAxT15xn5DMFi/oLfmH1YqINVfAsKzarKwsPWJ7TOYiBHzReTzGGUKY=
+	t=1782581203; cv=none; b=gtsp5ibvCekJKu1IPpPHXn0a9t1U9/Pr2zAW/1KgeyyEJtGSvK83/DkXyrBFW7VklLuHi8XmgXIAOjO+ALFyMeZfj2wXYxX+1eXOVf3ox+h5KtdWkKN1TASpuh1fj3lCBo7uKUa96hWLtN0Lgx4b2zqkW44wCP90xa3wOKv2+1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782581200; c=relaxed/simple;
-	bh=qX6NZ+okwh2mZnH7WQDx5tvtSGr+dLkueoTmpTwKr2k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hdmpsCNw3jXRsrn361IyrVSpWXeCmCwd6cMsWCv/LIipidI6o4n/4ZwZLw9lX+UWWrUpPe06VUyvJyDsmTes4Fu7x2rObWU7/MJskg77ZcU/XlAEhuq0x7T+BnD7XAGPa1HZDzvCVhW71ZeJg/CgTZ10qpq0OHWilC3B0j/8u5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qmc6DOAw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782581203; c=relaxed/simple;
+	bh=4P+AxRu+aP0P/lZrxKgWWxmE5YAZHis7WqiS/V5axvE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lW/41rmaBS+2egPAV6ckwilHjJyvKw+MhtjMFceLr68+XgDT6W0AX3UnhNVHw8/W7HZPhdq8w6+0mVLFvzS2CCo5cElEhfq+bS8aCoyjxobrtyvaNiwDDavQBLzfs6lLqBA1Ved91gXuAvLx4rFVV7Xxph8YtdVTL+rv1iW8Uo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nNflKD2c; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qmc6DOAw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0E7D1F000E9;
-	Sat, 27 Jun 2026 17:26:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782581198;
-	bh=FQEZdzMR4S9EJURSnXOi0A7QXVE9gI14e3OGLriAsys=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qmc6DOAwKXcAP+pOtkC6rejUGyAHxjO/U5tybrHEyTyFKTp/3VjGhisml9GONUBhi
-	 emVNvUHwnVMSMfFdCRgYE8hWnnt8EYcJvfjfll5iFqw97elZpbMJIvcFvmoUF+T6Nu
-	 jNBi3Xpqv6fgwcTryQZ47RXt6hbbVWEAYReckGFTfyhOzFmy8/NrWM/yoqsJw1rqYU
-	 YeadqQfyZnrcsrlRp6Y9Yejto0hw9Y4nGfoimiAVXW+PQj+LAoA4yYOmy5lwwynmJD
-	 HSKqqg0MWiEYBeOAvxHpAomZGuvRX7AB5XqMMkwH7pPdij3KwDvM7M/fGH5jiVCdqN
-	 acnSntl1VPKug==
-From: SeongJae Park <sj@kernel.org>
-To: SeongJae Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Yang Yingliang <yangyingliang@huawei.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [RFC PATCH] mm/damon/core: validate ranges in damon_set_regions()
-Date: Sat, 27 Jun 2026 10:26:31 -0700
-Message-ID: <20260627172631.3923-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260627170057.1867-1-sj@kernel.org>
-References: 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nNflKD2c"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49249707788so16161965e9.2
+        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 10:26:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782581200; x=1783186000; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QDQP8mnP+Jn71ABEIP8xYOjy07PIL00ezJXXjBMJLS0=;
+        b=nNflKD2cbAh8+nXjj8nFF5N7LBT8EL1im+xl2YmyrdJFtugAIy+fj9OVGZf1JROvQA
+         q8kKMUBuaAZEaqKSlSsRZtUKMNz9qwFqP/tdtzl4T1qZ4ZLFd4+6cQaP6Sbr5XnGBx6N
+         wYBJhK68ob5P3wuWW++AuJfG8WHnqvZyVXs+stbT+aoup7DO2ht6XyPy3NeepiQCTPbR
+         KIAbamcdSGJd3k857v7rV0Vjr7uk1j/4DV0gX6ExjWqa7nIi8vnB7wQL+yQ6VjmqVka1
+         /RJgs9Xv1z+0Ng+UIuDPoGU9a2BF3QP04stBq1qQsrVEYXDbxkR6vy/ACXOk1skBoTdD
+         P5jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782581200; x=1783186000;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=QDQP8mnP+Jn71ABEIP8xYOjy07PIL00ezJXXjBMJLS0=;
+        b=eMrtYV1Z9Ub6LGr1DpUTWl7RGeQ1DRpuN19dOUYkQoKRkONzEar6NH5qP8XLEKdQNe
+         DCS5dKYO8wQlbby/56SpY5qi8k1RiOwO6O4k+TyV4ErwIf79U6iJiecKh8d+/LC6bpAS
+         H4IR8lADodfhhzHScU4kOk1oc1maQMw10GCmofBmbUhh3zfGHVm+esaSFQMqmLFaGyMY
+         vhVgbXiV5nfjIrG9ihPTUtyyKyraCc/aBuYdsbgwvdjo1y7SEPKkILgoHA0tKkgZksAl
+         mHMf4GwMuzOj2Brajs8xS/mnAKjf7ycYyDf6iDsKTggOWoa5uaB4bSjR7827iDPygPZB
+         +7EA==
+X-Forwarded-Encrypted: i=1; AFNElJ/vhh95J0cAISxyNPopns94wYuTgf8pG3bonny+PB4UO4ZlkR4tdc5JpnKKeB2aHVeG856RthA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIBuRZSNM9PFridUpMaWZuuUHld7UDtO+/ISKp34YK6n2VP9N2
+	yKhXT6wtBckWsW9Wmm0WXMUhaLWDw5BoXJHkb7l8p5FKDqU0t4uxZHGgbxc+sg==
+X-Gm-Gg: AfdE7cnnIujMYuqax5CSumyWIQMg+o5Ohs0KF4wJg7mCKuZd4zl6jMJZl8zPHbkOP6S
+	JS8jIrWDzjp4h8DWRTMZQgiWKeyx2JCmB2zTF8dPxdGgbfwLfw5RHNiautEkcpClei1swCSr3LC
+	KDZOnGAyfZxlO6KtVBXRHw5lhj35KmieefvtKxGR0g/4Igyie+X0aF4Fd/M4IiVi0EJp0DKpv2v
+	0WKyh79B1zUVaSTyj2aCjcY2063uU3I4xOCN0mc/7raMUzXoWj2EU3CsPR6ywObkseu2XAH9nDw
+	JMCt5K2OQT51eJtpSnyiyYHYo1m69aQt7Zo9t98CCn20GwukVuA/Arh5CQhlCcLwLUqct8sOm+e
+	FdmJtgOEMZLDoL7cZioFoRa/01ciHq2TemN0Ursn+F9oZr/vSs82N6zu4xA8MrnwdHdE+Wy7GzQ
+	dh+OkEyZ93Skei9ExSelzLB1VT2mXxtsM82sTVNDvXqW+NccLoKdpzStoKKaGdY+JBrqv2T+AbS
+	Vt27Y2LfCEABV8XuJGRF1Hd4eJcKIyxcPMiiDS8KpemW5sDNEvkEo0Gv95CZ1lnDo0+y6hoDlU5
+	renlgUPRXa1takCh
+X-Received: by 2002:a05:600c:4e0b:b0:490:44eb:c1ea with SMTP id 5b1f17b1804b1-4926fc78e30mr87904095e9.24.1782581200242;
+        Sat, 27 Jun 2026 10:26:40 -0700 (PDT)
+Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49269071c9esm170020025e9.9.2026.06.27.10.26.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 27 Jun 2026 10:26:40 -0700 (PDT)
+Date: Sat, 27 Jun 2026 19:26:38 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Moksh Panicker <mokshpanicker.7@gmail.com>
+Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+ dlechner@baylibre.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ skhan@linuxfoundation.org
+Subject: Re: [PATCH] iio: adc: ad7779: Initialize completion before
+ requesting IRQ
+Message-ID: <20260627192638.5623df0e@systembl0wer>
+In-Reply-To: <20260627112205.31409-1-mokshpanicker.7@gmail.com>
+References: <20260627112205.31409-1-mokshpanicker.7@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, 27 Jun 2026 10:00:56 -0700 SeongJae Park <sj@kernel.org> wrote:
+On Sat, 27 Jun 2026 11:22:05 +0000
+Moksh Panicker <mokshpanicker.7@gmail.com> wrote:
 
-> DAMON core logic assumes zero length regions don't exist.  However, a
-> few DAMON API callers including DAMON_SYSFS, DAMON_RECLAIM and
-> DAMON_LRU_SORT allow users to set empty monitoring target regions.  This
-> could result in WARN_ONCE() on CONFIG_DAMON_DEBUG_SANITY enabled kernel,
-> and divide-by-zero from damon_merge_two_regions().
-> 
-> For example, the WANR_ONCE() can be triggered like below.
-> 
->     # grep DAMON_DEBUG_SANITY /boot/config-$(uname -r)
->     # CONFIG_DAMON_DEBUG_SANITY=y
->     # damo start
->     # cd /sys/kernel/mm/damon/admin/kdamonds/0
->     # echo 0 > contexts/0/targets/0/regions/0/start
->     # echo 0 > contexts/0/targets/0/regions/0/end
->     # echo commit > state
->     # dmesg
->     [....]
->     [   73.705780] ------------[ cut here ]------------
->     [   73.707552] start 0 >= end 0
->     [   73.708452] WARNING: mm/damon/core.c:359 at damon_new_region+0x6e/0x80, CPU#1: kdamond.0/758
->     [...]
-> 
-> Disallow empty region user inputs by updating the validation logic.
+> init_completion() is called after devm_request_irq() in
+> ad7779_setup_trigger(). If the IRQ fires before init_completion()
+> runs, the completion is in an undefined state.
 
-The above description is wrong, since this is not updating an existing
-validation but adding a new validation.
+This is probably impossible, as devm_request_irq() is called with
+IRQF_NO_AUTOEN as a parameter, therefore IRQs are enabled manually
+in the code.
 
+> Move init_completion() before devm_request_irq() to ensure the
+> completion is ready before the IRQ handler can signal it.
 > 
-> Fixes: 43b0536cb471 ("mm/damon: introduce DAMON-based Reclamation (DAMON_RECLAIM)")
-> Cc: <stable@vger.kernel.org> # 5.16.x
-> Signed-off-by: SeongJae Park <sj@kernel.org>
+> Fixes: c9a3f8c7bfcb ("drivers: iio: adc: add support for ad777x family")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Moksh Panicker <mokshpanicker.7@gmail.com>
 > ---
->  mm/damon/core.c | 5 +++++
->  1 file changed, 5 insertions(+)
+>  drivers/iio/adc/ad7779.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/mm/damon/core.c b/mm/damon/core.c
-> index 7e4b9affc5b06..b3100d7fa5596 100644
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -358,6 +358,11 @@ int damon_set_regions(struct damon_target *t, struct damon_addr_range *ranges,
->  	unsigned int i;
->  	int err;
+> diff --git a/drivers/iio/adc/ad7779.c b/drivers/iio/adc/ad7779.c
+> index 695cc79e78da..db8f5f4c6d6a 100644
+> --- a/drivers/iio/adc/ad7779.c
+> +++ b/drivers/iio/adc/ad7779.c
+> @@ -838,6 +838,8 @@ static int ad7779_setup_without_backend(struct ad7779_state *st, struct iio_dev
+>  	st->trig->ops = &ad7779_trigger_ops;
 >  
-> +	for (i = 0; i < nr_ranges; i++) {
-> +		if (ranges[i].start >= ranges[i].end)
-> +			return -EINVAL;
-> +	}
+>  	iio_trigger_set_drvdata(st->trig, st);
+> +	init_completion(&st->completion);
+
+Is there really any point in having this when st->completion isn't
+used anywhere in the driver? I'd rather be for removing this function
+call and the struct completion from struct ad7779_state.
+
 > +
+>  
+>  	ret = devm_request_irq(dev, st->spi->irq, iio_trigger_generic_data_rdy_poll,
+>  			       IRQF_NO_THREAD | IRQF_NO_AUTOEN, indio_dev->name,
 
-Sashiko found [1] this is not complete, since eventually this function uses
-aligned addresses.  I will address that in the next revision by doing the
-validation with the aligned addresses.
+Unrelated, however the dev_err_probe() call below this is unnecessary,
+as devm_request_irq already returns a dev_err_probe on failure. Consider
+sending a patch for this as well.
 
-[1] https://lore.kernel.org/20260627172406.3794-1-sj@kernel.org
+-- 
+Kind regards
 
-
-Thanks,
-SJ
-
-[...]
+CJD
