@@ -1,113 +1,109 @@
-Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77EAB37C103
-	for <stable@vger.kernel.org>; Sat, 27 Jun 2026 06:57:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9602617D6;
+	Sat, 27 Jun 2026 07:07:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782543454; cv=none; b=VNAzEndd911fMsAsyOshWsSfcL/P3dpb2AWABDU6sWIHhG3CUKjgUzimWSlF2LYL0Cq+QWabwf/euuYf+ZMGy4UZCUnGwkGCZw98q0P8TGuJC8XcUEh2OgjsObHk79GYhlMZ6p71knj3LoLxqcaCg5P5PX7bAM26PP7VF+MoiMY=
+	t=1782544073; cv=none; b=bRXnYg/Vtl+7usdu/WesRlj7YaS0zTJIkbVTOfiZOaG6lJYHYRkqHunIQZ+9sRfrtN1PmpzmXcff7BoTZocvfU/Fb1Oio4XCDX3rRQxWeB+0V6TgMbTW0NyFkZ+1sqc5MBGJ2MWz8sHSdBw1WUFxHuhoJCROklvJ9TIaibM8/7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782543454; c=relaxed/simple;
-	bh=UViHE7El+llJt2SvZFHiYmDEZrpzSBqQ5B6s57rJRos=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jhgHEV3DghDcThz8S6nc9OZcSCLdT2GkhQsA6QtUhnarCuSiSju0dE8qWKkwNJd43QHCofakogGNZvvztK/rLTl2ZWt9BZxnqSxXdopVcGSOgRitnzKcLeaBm5iT4cDv5f0idBTrXu7LjiOn3onkJAr+HXZ9Kef4PfMXyuycTqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mIKjcWkp; arc=none smtp.client-ip=95.215.58.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782544073; c=relaxed/simple;
+	bh=tn4s73pHxp4rEwFZwUjfRqZCNaTlu+S3OPocY77PtJo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MY2bx+VjDwWBGUF5sQG4/q92D8NDNv60CdZ0cKogXqkfJ4Sp5JX+0hCunBfwTNRMCx9nnhytJMlDrtyziSkC6mZ8pWLZ0GD9tJmyTuxr+hSiRqRIgJmkgi6BUN8eApS6f0PiVPG/OooFK/bkXqKhmO2amCEjKaosTQnXYV3IukI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=xU/S7FRM; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mIKjcWkp"
-Message-ID: <fba044ed-43c7-428c-89e9-89f35b789dab@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782543448;
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="xU/S7FRM"
+Received: by dvalin.narfation.org (Postfix) id E83341FECA;
+	Sat, 27 Jun 2026 07:07:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1782544070;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/mXf9uzTDMtYNiYQq1kgu0qq3btevTgKJtXOPMqdv7s=;
-	b=mIKjcWkpmuPo2qiO2D12sMuwXdhxvyAlAzEDqAl0qeA9PgmtgnOZ6k2wn5iHzMQPefoS35
-	dHgpNPzCs6W8+WARZb/MIRrHt0uZ6i1bjxbAbuGGiLAHLaVPo4C6MEKTyx+UI3D3okabRG
-	uRQ4ADOtOgHOvyg0Vw9jqilKXKNM058=
-Date: Sat, 27 Jun 2026 14:57:00 +0800
+	bh=rNYYePDvpTYtK8SFepELEAwsSYVLkoYEB6ceWPvctuU=;
+	b=xU/S7FRMIcBIxxOSODQ+3Ef91zyv84NTqUiec1VYqN2+CMkERDDQoGi3WYivN99W7HRPZN
+	QxkhFp+L6S3pvtsxyM+xpNfo//17XYVPSjnjtPJzJa4FH1Vu3gNqTMsHoTcr66z8/4cG2w
+	saVkbm+DCyQhztbSbUTvrOschb/O79o=
+From: Sven Eckelmann <sven@narfation.org>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: marek.lindner@mailbox.org, sw@simonwunderlich.de, antonio@mandelbit.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, b.a.t.m.a.n@lists.open-mesh.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject:
+ Re: [PATCH] fix: net/batman-adv: batadv_interface_kill_vid: extra
+ batadv_meshif_vlan_put after destroy
+Date: Sat, 27 Jun 2026 09:07:43 +0200
+Message-ID: <2365693.iZASKD2KPV@sven-desktop>
+In-Reply-To: <178254092045.4739.1497464106445743950.b4-review@b4>
+References:
+ <20260627034636.59693-1-vulab@iscas.ac.cn>
+ <178254092045.4739.1497464106445743950.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v3] mm: mglru: fix stale batch updates after memcg
- reparenting
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Harry Yoo <harry@kernel.org>,
- akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com,
- baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
- weixugc@google.com, muchun.song@linux.dev, peiyang_he@smail.nju.edu.cn,
- mhocko@kernel.org, roman.gushchin@linux.dev, ljs@kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
-References: <aj12aVq3he6q7b2C@cmpxchg.org>
- <4c7b0c46-14f0-4a62-893e-e50714e09b74@linux.dev>
- <46ac28bf-5be1-4600-b522-0a1aa76c28e6@kernel.org>
- <08cf8972-6cfc-4452-9a3c-88e0368dbbf9@linux.dev>
- <afdaff7c-fe6b-40da-8f54-aeeab8fe8867@kernel.org>
- <90fd5300-1016-42e7-abad-08ad85fb62b4@linux.dev>
- <5a0c6597-6b96-4781-a71b-fd1298b2b7bb@kernel.org>
- <c0e366ec-ee5d-42d9-ba33-7c630660e8af@linux.dev>
- <aj5I7JAXWlTHRyEW@cmpxchg.org>
- <57c18afd-e2a3-4b37-90b6-f2a4c758e8aa@linux.dev> <aj6xzyqtwd4it0kZ@linux.dev>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <aj6xzyqtwd4it0kZ@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: multipart/signed; boundary="nextPart2053576.PYKUYFuaPT";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
 
+--nextPart2053576.PYKUYFuaPT
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Sven Eckelmann <sven@narfation.org>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Date: Sat, 27 Jun 2026 09:07:43 +0200
+Message-ID: <2365693.iZASKD2KPV@sven-desktop>
+In-Reply-To: <178254092045.4739.1497464106445743950.b4-review@b4>
+MIME-Version: 1.0
 
-
-On 6/27/26 1:08 AM, Shakeel Butt wrote:
-> On Fri, Jun 26, 2026 at 07:21:28PM +0800, Qi Zheng wrote:
->>
->>
->> On 6/26/26 5:39 PM, Johannes Weiner wrote:
->>> On Fri, Jun 26, 2026 at 03:04:17PM +0800, Qi Zheng wrote:
->>>> On 6/26/26 2:48 PM, Harry Yoo wrote:
->>>>> On 6/26/26 3:24 PM, Qi Zheng wrote:
->>>>>> On 6/26/26 12:59 PM, Harry Yoo wrote:
->>>>>>> Observing a dying cgroup should be rare anyway, it's worth focusing
->>>>>>> more on readability?
->>>>>>
->>>>>> While it's rare to encounter consecutive dying memcgs, it can still
->>>>>> happen, right?
->>>>>
->>>>> But is worth saving a few instruction in a basic block that is
->>>>> unlikely() to be executed?
->>>>
->>>> I don't have a strong opinion here. Hi Johannes, I'll leave the decision
->>>> up to you. If necessary, I can send out the v4.
->>>
->>> Yes, I was thinking what Harry actually bothered to spell out ;)
->>>
->>> The race is rare, multiple levels even rarer, and even *then*
->>> mem_cgroup_lruvec() is a quick inline.
->>>
->>> This way you have one block to handle that one rare race
->>> condition. One place to put the comment. No labels, no goto.
->>>
->>> Simplicity wins :)
->>
->> Okay, I will update it as you suggested and send out the v4.
->>
->> Hi Shakeel, do we really need to move lock_batch_lruvec() to
->> memcontrol.h? It's currently only used by reset_batch_size().
+On Saturday, 27 June 2026 08:15:20 CEST Sven Eckelmann wrote:
+> On Sat, 27 Jun 2026 11:46:36 +0800, WenTao Liang <vulab@iscas.ac.cn> wrote:
 > 
-> This function is very specific to memcg therefore I asked it move to
-> memcontrol.h and not to keep in vmscan.c but we can always do the cleanup later,
-> so proceed however you want.
-
-Got it. I'll keep lock_batch_lruvec() in vmscan.c for now. Once there is
-a second caller, we can clean it up and move it to memcontrol.h.
-
-Thanks,
-Qi
-
+> Hi,
 > 
+> not-acked
+
+Just noticed that we already have another odd patch from you [1] (and you 
+never answered after my reply). Could it be that you just try to spread AI/
+LLM(?) generated patches in stable@vger.kernel.org and hope that something 
+sticks?
+
+I see a lot more patch bombs and complains all over the place when searching 
+the whole lore.kernel.org [2] and only checking the last couple of days.
+
+If this is really the case - please don't do this. We already stress them (and 
+other maintainers) enough by dumping large amounts of legitimate patches on 
+them. Sending patches shutgun-style all over the place without any 
+recognizable QA or oversight might just cause an overload. And when you then 
+don't even take the time to react to the review of the patches or apply the 
+requests they had to you (and instead invent new things to annoy them)... At 
+least I will not spend an hour writing a reply to you anymore but directly 
+reject your patch.
+
+Regards,
+	Sven
+
+[1] https://lore.kernel.org/batman/20250401083901.2261-1-vulab@iscas.ac.cn/
+[2] https://lore.kernel.org/all/?q=vulab@iscas.ac.cn
+--nextPart2053576.PYKUYFuaPT
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQS81G/PswftH/OW8cVND3cr0xT1ywUCaj92vwAKCRBND3cr0xT1
+y5/WAP92yVp2I7/TSTgNIsYCekkMLPcxg+GxSX4T1259xtOaYQEA21CF2Gh1h5bk
+Y9GzKjpEPYKSTb7JCwzHtF70D6c4WAk=
+=hJlZ
+-----END PGP SIGNATURE-----
+
+--nextPart2053576.PYKUYFuaPT--
+
+
 
