@@ -1,75 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [185.100.197.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD5A19E96D;
-	Sat, 27 Jun 2026 18:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3615F274FD0;
+	Sat, 27 Jun 2026 18:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782584059; cv=none; b=javVV8tCBecz+ci62MdjqtVliVD6ch54LxSYKbCfe2VY9NQAtN8acpf2S6fPurSq0GypgPlfHktfh+WpaJKNq67NoNcdfDpp7Qnf4QxMKc1cE4I2hbN9wluO4g5DjLM8/bNQRgQgk+1VBiAwyneS2M0LFYwzVM3zX+Gr3hxNd/0=
+	t=1782584158; cv=none; b=nl9+df/DH3pSFVYvmwd6peZxkktr7RCrwuI0gmtc5hFml9dsRJbGxCRwZUIukYTxzaAyf9WtxTrN2BDmmJhDDS4/gQ33tFh+8pLIDfXZ6BYath/C2gOxXHt7zV1Qp2jOtWjebXOPbD0mrBC1W4GtPxGniLqVNi7+u9AUmczFBTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782584059; c=relaxed/simple;
-	bh=VLytSmv76aAtmvOH4sOQyjPk/l3NyF8qD/q6hgZZ37E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dZ+yb7uAL2zHRqOlbih4BroLb4JATVWLu95oBU10pV/MF788BuY25iIEswINZIqMb46nhEA+1laoTJLQZNN8IwY1GuhGTv9FEF/XrNEjt8OBgXvBqTN1oEeOPiE9BIJw7xgZGxw1LVEK7gpkxa/1PFUcBM1jd4809KpkAHbx1rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=APO/n1Yi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782584158; c=relaxed/simple;
+	bh=YdXT8d9HZM7ftd6dZcHIQSZOZIfHESE0LumULEoQkrg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kRRrkVAKTQRS1mVQNAonRj/O7ZQf4EDVVFrlCa4ZCwf8ndh0J/IIBSSHJcbRqrJRiFUidFF/qspgK7fG2YDVimSPmGNSAJb0a1X73K94CjDdxg+10Wx3/9V45lieI2/9Lius9O6PJM4UBQ4QPs2zuumKUhk7harihPV+tSfveeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=RAYZJFRE; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="APO/n1Yi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75ED11F000E9;
-	Sat, 27 Jun 2026 18:14:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782584057;
-	bh=NCFBk4z1YdNB5CVZ8KnAPTlpBzRh0FzV5le6Diwn4J8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=APO/n1Yie1DJOoHiEh3PHnZKJaDxiKeBnXG3mCW4hU2hfInX5KM9w+oxNPkNzOgf8
-	 GJ1kjU2jw6KbofMQaCdX9OxrG+opwbCtAJt9r5Gc0q1+8+P1M2iYecpShEl/iR9uME
-	 kpAdB7yOL6g2O7FxMSll3QUs12QaZa3sDJFYWwst50QZkDWxPbctcqrS4Zpc2FHanY
-	 7agH9nQpSzt3OXFSZylcj7Ora+wKMS63XVsUhRbmuw46VRk0/Bk3boqH+vk7n04r4u
-	 umzWxlRF02l8nVmTh2lDL3EYiy2ubaeTGDF5ZcaHNlvlVylM12F7XpyUAh0SrJveR7
-	 gbd+KDzm7S3wg==
-Date: Sat, 27 Jun 2026 11:14:16 -0700
-From: Oliver Upton <oupton@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>, Will Deacon <will@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] KVM: Move kvm_io_bus_get_dev() locking
- responsibilities to callers
-Message-ID: <akAS-LN7XZMaZdAQ@kernel.org>
-References: <20260627105105.1005990-1-maz@kernel.org>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="RAYZJFRE"
+Received: from [10.0.0.200] (unknown [10.88.125.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 181F0534058D;
+	Sat, 27 Jun 2026 20:15:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1782584152;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=oEE0s9z2KUkGFMtiVRxqelZcjlSqtQUIHE3wkMUwk/g=;
+	b=RAYZJFREThD6TR5SsyDJtPe+enhZtmUriURm+AvAB5SeY0KKzQTlPgjUVx2n1B5qNtNqYk
+	zK+REKMxFCt3743JEuIqjo+G5Fg1hRziHYEfQnpxi+oVIlCMQUusuFmfl45IRwnxrLQpIJ
+	i1Hj8188bBH41EoMXdopE5M8vh51ncY=
+Message-ID: <6a1705f7-32a3-4c96-9f26-c76de72026b5@ixit.cz>
+Date: Sat, 27 Jun 2026 20:15:51 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260627105105.1005990-1-maz@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] nfc: nci: fix uninit-value in
+ nci_core_init_rsp_packet()
+To: Samuel Page <sam@bynar.io>
+Cc: "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260624224455.999374-1-sam@bynar.io>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260624224455.999374-1-sam@bynar.io>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Jun 27, 2026 at 11:51:05AM +0100, Marc Zyngier wrote:
-> kvm_io_bus_get_dev() returns a device that is only matched by the
-> address, and nothing else. This can cause a lifetime issue if
-> the matched device is not the expected type, as by the time
-> the caller can introspect the object, it might be gone (the srcu
-> lock having been dropped).
-> 
-> Given that there is only a single user of this helper, the simplest
-> option is to move the locking responsibility to the caller, which
-> can keep the srcu lock held for as long as it wants.
-> 
-> Note that this aligns with other kvm_io_bus*() helpers, which
-> already require the srcu lock to be held by the callers.
-> 
-> Reported-by: Will Deacon <will@kernel.org>
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> Fixes: 8a39d00670f07 ("KVM: kvm_io_bus: Add kvm_io_bus_get_dev() call")
-> Link: https://lore.kernel.org/all/20260626111344.802555-1-maz@kernel.org
-> Cc: stable@vger.kernel.org
 
-Thanks for respinning.
+On Wed, 24 Jun 2026 23:44:55 +0100, Samuel Page wrote:
+ > nfc: nci: fix uninit-value in nci_core_init_rsp_packet()
 
-Reviewed-by: Oliver Upton <oupton@kernel.org>
+Applied, thanks!
+
+[1/1] nfc: nci: fix uninit-value in nci_core_init_rsp_packet()
+       commit: 27d431711a3a6e23e7f961ec2934de20e2ed7cac
+
+Best regards,
+-- 
+David Heidelberg <david@ixit.cz>
