@@ -1,28 +1,28 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A303A7F79;
-	Sat, 27 Jun 2026 10:21:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766F03A6F1C;
+	Sat, 27 Jun 2026 10:22:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782555720; cv=none; b=dACONJ/tH0GJmHRqyqy22cUGFFG2ZIUnnhw6cf9vSWGxy6MpvwWj7vu0vhijffwz3KxU7stwRGDcYykOZ+/Fl4lO2yZ9UXqHuaQU7ne5IJd+US3U7+aKpW4Ouexp4tEYOq21fT/DzU7Zmj42BrcPrS37SScaAyWaIVH/Q/J0goE=
+	t=1782555725; cv=none; b=UYTYTjnFfA1HbSyvlss6dc1/+rCTeXFelZV9alKfLxGRHw3j1FK3INgNr/n/uTpMEYDENYf1JfEtE2Kbu+AHONGpi0eM9dYBRMQts5MRMKMjB95zWmZdoNfhZZFOm79PDjjR06WD/R0gO4bLjTau0sROmSfflpEWie17bDgSknU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782555720; c=relaxed/simple;
-	bh=pEP3kF7SdJ4CO2lVhucW4ZTA1TkV20tJZJE6djemTmY=;
+	s=arc-20240116; t=1782555725; c=relaxed/simple;
+	bh=CrqL5zn7yI4MCRYIaLzw2lJUhaUoXewXoyUyshgOgcc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U21pjmVXQVpkIRUgpjjgxGVYwJE5Q6SwZpA9uctZWLp8XDZCFXBogTQeuNxwo2+/RYyUaIfqe/PMxa7KXXGnWpix0Au6U2Oo19HXgAvj2dfgiQpbNXPynvJVnH82gvlI/kujvFDrXtgwiKYmTnBF21lv9yRVOLM/ZjYB9+wgWkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zTJrEDkK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=c/Pi+0/4KiqOUWSZKRr+v7EXCAg4d3KAuWZBB+kHQRADqBSy+VMWzfgJ/Ic9L8ktV05Ytd2YNdVLgzxUZrVCxwYNRljltNpRBozfFu9OyIbNOrrbOWww5aBS0nAeiE83eevgy87FF7ANmIa0AdyZ1Gb9PnlcFpUtozkjxvmJY7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PnBZ2HMP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zTJrEDkK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAAA31F000E9;
-	Sat, 27 Jun 2026 10:21:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PnBZ2HMP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967811F00A3A;
+	Sat, 27 Jun 2026 10:21:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782555709;
-	bh=yK4x30XJSr7JYVr3Mj2HSRpzyQElYqAmukIQqXFhpi4=;
+	s=korg; t=1782555719;
+	bh=Q899v03ZWXfCVkSxO59/VGpQ8Uz+6O2Ls/+ikiowuag=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zTJrEDkKloIPXNZ1FzOXlP/hVS5q5As2PUBPvm3+V3ofEnf21kiDVX3kCgThJuK3r
-	 L3Ag1RQgdnAhgrSJBz+NAmys1VoBJqL13sJ9e+glXHyptTL6ObjOqOi/oi8CQxCPIO
-	 Xdy6bSM2/Uf4W6BmZeqfxQ/GGlaCJ1LcrvNZeH34=
+	b=PnBZ2HMPuN0PU4nAoFVlJ70jrWu6cxqkEavk15dhCCus/aqa1L4WcxhixH/a1oW/V
+	 z3kV5LIbRygzgJ7zZFXg2Q5tyFmYLXEGh4QY8DRu1YEychDobog3AUb2wryEQnFsTn
+	 cuXyt7h32BvCQh2FooKm6pdXzEm0AeAve8JlNgN0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	akpm@linux-foundation.org,
@@ -31,12 +31,12 @@ To: linux-kernel@vger.kernel.org,
 Cc: lwn@lwn.net,
 	jslaby@suse.cz,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: Linux 6.18.37
-Date: Sat, 27 Jun 2026 11:20:26 +0100
-Message-ID: <2026062726-gizzard-drudge-389c@gregkh>
+Subject: Re: Linux 7.1.2
+Date: Sat, 27 Jun 2026 11:20:36 +0100
+Message-ID: <2026062736-vagrancy-oversight-7052@gregkh>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2026062726-cytoplasm-coming-52b2@gregkh>
-References: <2026062726-cytoplasm-coming-52b2@gregkh>
+In-Reply-To: <2026062736-truffle-storeroom-8dbb@gregkh>
+References: <2026062736-truffle-storeroom-8dbb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,31 +45,8 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-diff --git a/Documentation/filesystems/proc.rst b/Documentation/filesystems/proc.rst
-index 0b86a8022fa1..8256e857e2d7 100644
---- a/Documentation/filesystems/proc.rst
-+++ b/Documentation/filesystems/proc.rst
-@@ -553,7 +553,7 @@ otherwise.
- kernel flags associated with the particular virtual memory area in two letter
- encoded manner. The codes are the following:
- 
--    ==    =======================================
-+    ==    =============================================================
-     rd    readable
-     wr    writeable
-     ex    executable
-@@ -591,7 +591,8 @@ encoded manner. The codes are the following:
-     sl    sealed
-     lf    lock on fault pages
-     dp    always lazily freeable mapping
--    ==    =======================================
-+    gu    maybe contains guard regions (if not set, definitely doesn't)
-+    ==    =============================================================
- 
- Note that there is no guarantee that every flag and associated mnemonic will
- be present in all further kernel releases. Things get changed, the flags may
 diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
-index 7c527a01d1cf..d896b9991a4f 100644
+index 331223761fff..29a08bc059dd 100644
 --- a/Documentation/userspace-api/ioctl/ioctl-number.rst
 +++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
 @@ -229,7 +229,6 @@ Code  Seq#    Include File                                             Comments
@@ -81,96 +58,23 @@ index 7c527a01d1cf..d896b9991a4f 100644
                                                                         <mailto:natalia@nikhefk.nikhef.nl>
  'b'   00-0F  linux/dma-buf.h                                           conflict!
 diff --git a/Makefile b/Makefile
-index 7f5abef39fd3..9c16001ccdcd 100644
+index 39baa3275447..78662694be58 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,7 +1,7 @@
  # SPDX-License-Identifier: GPL-2.0
- VERSION = 6
- PATCHLEVEL = 18
--SUBLEVEL = 36
-+SUBLEVEL = 37
+ VERSION = 7
+ PATCHLEVEL = 1
+-SUBLEVEL = 1
++SUBLEVEL = 2
  EXTRAVERSION =
  NAME = Baby Opossum Posse
  
-diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-index 50f60da6cf27..16704c2a730c 100644
---- a/drivers/acpi/scan.c
-+++ b/drivers/acpi/scan.c
-@@ -5,6 +5,7 @@
- 
- #define pr_fmt(fmt) "ACPI: " fmt
- 
-+#include <linux/async.h>
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/slab.h>
-@@ -2360,46 +2361,34 @@ static int acpi_dev_get_next_consumer_dev_cb(struct acpi_dep_data *dep, void *da
- 	return 0;
- }
- 
--struct acpi_scan_clear_dep_work {
--	struct work_struct work;
--	struct acpi_device *adev;
--};
--
--static void acpi_scan_clear_dep_fn(struct work_struct *work)
-+static void acpi_scan_clear_dep_fn(void *dev, async_cookie_t cookie)
- {
--	struct acpi_scan_clear_dep_work *cdw;
--
--	cdw = container_of(work, struct acpi_scan_clear_dep_work, work);
-+	struct acpi_device *adev = to_acpi_device(dev);
- 
- 	acpi_scan_lock_acquire();
--	acpi_bus_attach(cdw->adev, (void *)true);
-+	acpi_bus_attach(adev, (void *)true);
- 	acpi_scan_lock_release();
- 
--	acpi_dev_put(cdw->adev);
--	kfree(cdw);
-+	acpi_dev_put(adev);
- }
- 
- static bool acpi_scan_clear_dep_queue(struct acpi_device *adev)
- {
--	struct acpi_scan_clear_dep_work *cdw;
--
- 	if (adev->dep_unmet)
- 		return false;
- 
--	cdw = kmalloc(sizeof(*cdw), GFP_KERNEL);
--	if (!cdw)
--		return false;
--
--	cdw->adev = adev;
--	INIT_WORK(&cdw->work, acpi_scan_clear_dep_fn);
- 	/*
--	 * Since the work function may block on the lock until the entire
--	 * initial enumeration of devices is complete, put it into the unbound
--	 * workqueue.
-+	 * Async schedule the deferred acpi_scan_clear_dep_fn() since:
-+	 * - acpi_bus_attach() needs to hold acpi_scan_lock which cannot
-+	 *   be acquired under acpi_dep_list_lock (held here)
-+	 * - the deferred work at boot stage is ensured to be finished
-+	 *   before userspace init task by the async_synchronize_full()
-+	 *   barrier
-+	 *
-+	 * Use _nocall variant since it'll return on failure instead of
-+	 * run the function synchronously.
- 	 */
--	queue_work(system_unbound_wq, &cdw->work);
--
--	return true;
-+	return async_schedule_dev_nocall(acpi_scan_clear_dep_fn, &adev->dev);
- }
- 
- static void acpi_scan_delete_dep_data(struct acpi_dep_data *dep)
 diff --git a/drivers/base/memory.c b/drivers/base/memory.c
-index 0ecb43556736..fdbec49f5f5b 100644
+index 6981b55d582a..843f85d3e3f9 100644
 --- a/drivers/base/memory.c
 +++ b/drivers/base/memory.c
-@@ -828,7 +828,6 @@ static int add_memory_block(unsigned long block_id, int nid, unsigned long state
+@@ -807,7 +807,6 @@ static int add_memory_block(unsigned long block_id, int nid, unsigned long state
  	mem->start_section_nr = block_id * sections_per_block;
  	mem->state = state;
  	mem->nid = nid;
@@ -178,7 +82,7 @@ index 0ecb43556736..fdbec49f5f5b 100644
  	INIT_LIST_HEAD(&mem->group_next);
  
  #ifndef CONFIG_NUMA
-@@ -846,6 +845,8 @@ static int add_memory_block(unsigned long block_id, int nid, unsigned long state
+@@ -825,6 +824,8 @@ static int add_memory_block(unsigned long block_id, int nid, unsigned long state
  	if (ret)
  		return ret;
  
@@ -201,7 +105,7 @@ index 2505df1f4e69..6741270e0a98 100644
  		return -ENODEV;
  	}
 diff --git a/drivers/crypto/intel/qat/qat_common/adf_cfg.c b/drivers/crypto/intel/qat/qat_common/adf_cfg.c
-index b0fc453fa3fb..97273da40b43 100644
+index c202209f17d5..ea5d72d5090c 100644
 --- a/drivers/crypto/intel/qat/qat_common/adf_cfg.c
 +++ b/drivers/crypto/intel/qat/qat_common/adf_cfg.c
 @@ -103,16 +103,6 @@ static void adf_cfg_section_del_all(struct list_head *head);
@@ -331,7 +235,7 @@ index 421f4fb8b4dd..000000000000
 -} __packed;
 -#endif
 diff --git a/drivers/crypto/intel/qat/qat_common/adf_common_drv.h b/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-index 6cf3a95489e8..c625324bd47f 100644
+index 7b8b295ac459..8ff35dd840f3 100644
 --- a/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
 +++ b/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
 @@ -68,10 +68,7 @@ int adf_devmgr_add_dev(struct adf_accel_dev *accel_dev,
@@ -786,7 +690,7 @@ index c2e6f0cb7480..f01f2946de6e 100644
  
  module_init(adf_register_ctl_device_driver);
 diff --git a/drivers/crypto/intel/qat/qat_common/adf_dev_mgr.c b/drivers/crypto/intel/qat/qat_common/adf_dev_mgr.c
-index 34b9f7731c78..81dd22d2083f 100644
+index e050de16ab5d..161863841a52 100644
 --- a/drivers/crypto/intel/qat/qat_common/adf_dev_mgr.c
 +++ b/drivers/crypto/intel/qat/qat_common/adf_dev_mgr.c
 @@ -45,19 +45,6 @@ static struct vf_id_map *adf_find_vf(u32 bdf)
@@ -873,208 +777,6 @@ index 34b9f7731c78..81dd22d2083f 100644
  /**
   * adf_dev_in_use() - Check whether accel_dev is currently in use
   * @accel_dev: Pointer to acceleration device.
-diff --git a/drivers/firmware/samsung/exynos-acpm.c b/drivers/firmware/samsung/exynos-acpm.c
-index d3bd4bafe281..b19f9a91a5ec 100644
---- a/drivers/firmware/samsung/exynos-acpm.c
-+++ b/drivers/firmware/samsung/exynos-acpm.c
-@@ -103,12 +103,12 @@ struct acpm_queue {
-  *
-  * @cmd:	pointer to where the data shall be saved.
-  * @n_cmd:	number of 32-bit commands.
-- * @response:	true if the client expects the RX data.
-+ * @rxcnt:	expected length of the response in 32-bit words.
-  */
- struct acpm_rx_data {
- 	u32 *cmd;
- 	size_t n_cmd;
--	bool response;
-+	size_t rxcnt;
- };
- 
- #define ACPM_SEQNUM_MAX    64
-@@ -196,7 +196,7 @@ static void acpm_get_saved_rx(struct acpm_chan *achan,
- 	const struct acpm_rx_data *rx_data = &achan->rx_data[tx_seqnum - 1];
- 	u32 rx_seqnum;
- 
--	if (!rx_data->response)
-+	if (!rx_data->rxcnt)
- 		return;
- 
- 	rx_seqnum = FIELD_GET(ACPM_PROTOCOL_SEQNUM, rx_data->cmd[0]);
-@@ -253,7 +253,7 @@ static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
- 		seqnum = rx_seqnum - 1;
- 		rx_data = &achan->rx_data[seqnum];
- 
--		if (rx_data->response) {
-+		if (rx_data->rxcnt) {
- 			if (rx_seqnum == tx_seqnum) {
- 				__ioread32_copy(xfer->rxd, addr,
- 						xfer->rxlen / 4);
-@@ -267,7 +267,7 @@ static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
- 				 * after the response is copied to the request.
- 				 */
- 				__ioread32_copy(rx_data->cmd, addr,
--						xfer->rxlen / 4);
-+						rx_data->rxcnt);
- 			}
- 		} else {
- 			clear_bit(seqnum, achan->bitmap_seqnum);
-@@ -379,8 +379,8 @@ static void acpm_prepare_xfer(struct acpm_chan *achan,
- 	/* Clear data for upcoming responses */
- 	rx_data = &achan->rx_data[achan->seqnum - 1];
- 	memset(rx_data->cmd, 0, sizeof(*rx_data->cmd) * rx_data->n_cmd);
--	if (xfer->rxd)
--		rx_data->response = true;
-+	/* zero means no response expected */
-+	rx_data->rxcnt = xfer->rxlen / 4;
- 
- 	/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
- 	set_bit(achan->seqnum - 1, achan->bitmap_seqnum);
-diff --git a/drivers/hv/hv_kvp.c b/drivers/hv/hv_kvp.c
-index 62795f6cbb00..8b409a3d41f0 100644
---- a/drivers/hv/hv_kvp.c
-+++ b/drivers/hv/hv_kvp.c
-@@ -93,7 +93,7 @@ static void kvp_send_key(struct work_struct *dummy);
- static void kvp_respond_to_host(struct hv_kvp_msg *msg, int error);
- static void kvp_timeout_func(struct work_struct *dummy);
- static void kvp_host_handshake_func(struct work_struct *dummy);
--static void kvp_register(int);
-+static int kvp_register(int);
- 
- static DECLARE_DELAYED_WORK(kvp_timeout_work, kvp_timeout_func);
- static DECLARE_DELAYED_WORK(kvp_host_handshake_work, kvp_host_handshake_func);
-@@ -127,24 +127,26 @@ static void kvp_register_done(void)
- 	hv_poll_channel(kvp_transaction.recv_channel, kvp_poll_wrapper);
- }
- 
--static void
-+static int
- kvp_register(int reg_value)
- {
- 
- 	struct hv_kvp_msg *kvp_msg;
- 	char *version;
-+	int ret;
- 
- 	kvp_msg = kzalloc(sizeof(*kvp_msg), GFP_KERNEL);
-+	if (!kvp_msg)
-+		return -ENOMEM;
- 
--	if (kvp_msg) {
--		version = kvp_msg->body.kvp_register.version;
--		kvp_msg->kvp_hdr.operation = reg_value;
--		strcpy(version, HV_DRV_VERSION);
-+	version = kvp_msg->body.kvp_register.version;
-+	kvp_msg->kvp_hdr.operation = reg_value;
-+	strcpy(version, HV_DRV_VERSION);
- 
--		hvutil_transport_send(hvt, kvp_msg, sizeof(*kvp_msg),
--				      kvp_register_done);
--		kfree(kvp_msg);
--	}
-+	ret = hvutil_transport_send(hvt, kvp_msg, sizeof(*kvp_msg),
-+				    kvp_register_done);
-+	kfree(kvp_msg);
-+	return ret;
- }
- 
- static void kvp_timeout_func(struct work_struct *dummy)
-@@ -186,9 +188,8 @@ static int kvp_handle_handshake(struct hv_kvp_msg *msg)
- 	 */
- 	pr_debug("KVP: userspace daemon ver. %d connected\n",
- 		 msg->kvp_hdr.operation);
--	kvp_register(dm_reg_value);
- 
--	return 0;
-+	return kvp_register(dm_reg_value);
- }
- 
- 
-diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-index 8a090e2a28f9..137cf82e2292 100644
---- a/drivers/hv/vmbus_drv.c
-+++ b/drivers/hv/vmbus_drv.c
-@@ -2291,8 +2291,8 @@ static acpi_status vmbus_walk_resources(struct acpi_resource *res, void *ctx)
- 		return AE_NO_MEMORY;
- 
- 	/* If this range overlaps the virtual TPM, truncate it. */
--	if (end > VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
--		end = VTPM_BASE_ADDRESS;
-+	if (end >= VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
-+		end = VTPM_BASE_ADDRESS - 1;
- 
- 	new_res->name = "hyperv mmio";
- 	new_res->flags = IORESOURCE_MEM;
-@@ -2359,6 +2359,7 @@ static void vmbus_mmio_remove(void)
- static void __maybe_unused vmbus_reserve_fb(void)
- {
- 	resource_size_t start = 0, size;
-+	resource_size_t low_mmio_base;
- 	struct pci_dev *pdev;
- 
- 	if (efi_enabled(EFI_BOOT)) {
-@@ -2366,6 +2367,24 @@ static void __maybe_unused vmbus_reserve_fb(void)
- 		if (IS_ENABLED(CONFIG_SYSFB)) {
- 			start = screen_info.lfb_base;
- 			size = max_t(__u32, screen_info.lfb_size, 0x800000);
-+
-+			low_mmio_base = hyperv_mmio->start;
-+			if (!low_mmio_base || upper_32_bits(low_mmio_base) ||
-+			    (start && start < low_mmio_base)) {
-+				pr_warn("Unexpected low mmio base %pa\n", &low_mmio_base);
-+			} else {
-+				/*
-+				 * If the kdump/kexec or CVM kernel's lfb_base
-+				 * is 0, fall back to the low mmio base.
-+				 */
-+				if (!start)
-+					start = low_mmio_base;
-+				/*
-+				 * Reserve half of the space below 4GB for high
-+				 * resolutions, but cap the reservation to 128MB.
-+				 */
-+				size = min((SZ_4G - start) / 2, SZ_128M);
-+			}
- 		}
- 	} else {
- 		/* Gen1 VM: get FB base from PCI */
-@@ -2386,8 +2405,10 @@ static void __maybe_unused vmbus_reserve_fb(void)
- 		pci_dev_put(pdev);
- 	}
- 
--	if (!start)
-+	if (!start) {
-+		pr_warn("Unexpected framebuffer mmio base of zero\n");
- 		return;
-+	}
- 
- 	/*
- 	 * Make a claim for the frame buffer in the resource tree under the
-@@ -2397,6 +2418,8 @@ static void __maybe_unused vmbus_reserve_fb(void)
- 	 */
- 	for (; !fb_mmio && (size >= 0x100000); size >>= 1)
- 		fb_mmio = __request_region(hyperv_mmio, start, size, fb_mmio_name, 0);
-+
-+	pr_info("hv_mmio=%pR,%pR fb=%pR\n", hyperv_mmio, hyperv_mmio->sibling, fb_mmio);
- }
- 
- /**
-diff --git a/drivers/i2c/i2c-stub.c b/drivers/i2c/i2c-stub.c
-index 09e7b7bf4c5f..a6e2ce4360ca 100644
---- a/drivers/i2c/i2c-stub.c
-+++ b/drivers/i2c/i2c-stub.c
-@@ -214,6 +214,11 @@ static s32 stub_xfer(struct i2c_adapter *adap, u16 addr, unsigned short flags,
- 		 * We ignore banks here, because banked chips don't use I2C
- 		 * block transfers
- 		 */
-+		if (data->block[0] == 0 ||
-+		    data->block[0] > I2C_SMBUS_BLOCK_MAX) {
-+			ret = -EINVAL;
-+			break;
-+		}
- 		if (data->block[0] > 256 - command)	/* Avoid overrun */
- 			data->block[0] = 256 - command;
- 		len = data->block[0];
 diff --git a/drivers/iio/adc/ti-ads1298.c b/drivers/iio/adc/ti-ads1298.c
 index ae30b47e4514..731792f06993 100644
 --- a/drivers/iio/adc/ti-ads1298.c
@@ -1126,21 +828,8 @@ index edbb43407054..f7eb159e5cb4 100644
  	msleep(int_time + (int_time / 2));
  
  	/* shutdown again, data registers are still accessible */
-diff --git a/drivers/infiniband/hw/bnxt_re/ib_verbs.c b/drivers/infiniband/hw/bnxt_re/ib_verbs.c
-index ff91511bd338..c1645de495a7 100644
---- a/drivers/infiniband/hw/bnxt_re/ib_verbs.c
-+++ b/drivers/infiniband/hw/bnxt_re/ib_verbs.c
-@@ -4350,7 +4350,7 @@ int bnxt_re_alloc_ucontext(struct ib_ucontext *ctx, struct ib_udata *udata)
- 
- 	uctx->rdev = rdev;
- 
--	uctx->shpg = (void *)__get_free_page(GFP_KERNEL);
-+	uctx->shpg = (void *)get_zeroed_page(GFP_KERNEL);
- 	if (!uctx->shpg) {
- 		rc = -ENOMEM;
- 		goto fail;
 diff --git a/drivers/media/test-drivers/vidtv/vidtv_mux.c b/drivers/media/test-drivers/vidtv/vidtv_mux.c
-index 7dad97881fdb..00ae52dbc96e 100644
+index f0134e38a1fb..ea2ea53102f9 100644
 --- a/drivers/media/test-drivers/vidtv/vidtv_mux.c
 +++ b/drivers/media/test-drivers/vidtv/vidtv_mux.c
 @@ -101,7 +101,8 @@ static int vidtv_mux_pid_ctx_init(struct vidtv_mux *m)
@@ -1172,134 +861,27 @@ index 7dad97881fdb..00ae52dbc96e 100644
  
  		pmt_args.offset             = m->mux_buf_offset;
  		pmt_args.pmt                = m->si.pmt_secs[i];
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-index ba8763cac9d9..3a132633c066 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-@@ -213,8 +213,8 @@ static void rmnet_dellink(struct net_device *dev, struct list_head *head)
- 	ep = rmnet_get_endpoint(real_port, mux_id);
- 	if (ep) {
- 		hlist_del_init_rcu(&ep->hlnode);
--		rmnet_vnd_dellink(mux_id, real_port, ep);
--		kfree(ep);
-+		real_port->nr_rmnet_devs--;
-+		kfree_rcu(ep, rcu);
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index 2af0c4d0ad82..035b46e13666 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -850,8 +850,10 @@ static int dw8250_probe(struct platform_device *pdev)
+ 	 */
+ 	if (data->clk) {
+ 		err = clk_notifier_register(data->clk, &data->clk_notifier);
+-		if (err)
++		if (err) {
++			serial8250_unregister_port(data->data.line);
+ 			return dev_err_probe(dev, err, "Failed to set the clock notifier\n");
++		}
+ 		queue_work(system_dfl_wq, &data->clk_work);
  	}
  
- 	netdev_upper_dev_unlink(real_dev, dev);
-@@ -238,9 +238,9 @@ static void rmnet_force_unassociate_device(struct net_device *real_dev)
- 		hash_for_each_safe(port->muxed_ep, bkt_ep, tmp_ep, ep, hlnode) {
- 			unregister_netdevice_queue(ep->egress_dev, &list);
- 			netdev_upper_dev_unlink(real_dev, ep->egress_dev);
--			rmnet_vnd_dellink(ep->mux_id, port, ep);
- 			hlist_del_init_rcu(&ep->hlnode);
--			kfree(ep);
-+			port->nr_rmnet_devs--;
-+			kfree_rcu(ep, rcu);
- 		}
- 		rmnet_unregister_real_device(real_dev);
- 		unregister_netdevice_many(&list);
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.h b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.h
-index ed112d51ac5a..f50fae1c6bdd 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.h
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.h
-@@ -18,6 +18,7 @@ struct rmnet_endpoint {
- 	u8 mux_id;
- 	struct net_device *egress_dev;
- 	struct hlist_node hlnode;
-+	struct rcu_head rcu;
- };
- 
- struct rmnet_egress_agg_params {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 41b270a48630..1ceedd74e429 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7760,7 +7760,7 @@ int stmmac_suspend(struct device *dev)
- 	u32 chan;
- 
- 	if (!ndev || !netif_running(ndev))
--		return 0;
-+		goto suspend_bsp;
- 
- 	mutex_lock(&priv->lock);
- 
-@@ -7803,6 +7803,7 @@ int stmmac_suspend(struct device *dev)
- 	if (stmmac_fpe_supported(priv))
- 		ethtool_mmsv_stop(&priv->fpe_cfg.mmsv);
- 
-+suspend_bsp:
- 	if (priv->plat->suspend)
- 		return priv->plat->suspend(dev, priv->plat->bsp_priv);
- 
-diff --git a/drivers/net/net_failover.c b/drivers/net/net_failover.c
-index 5b50d9186f12..cd16b3dd7720 100644
---- a/drivers/net/net_failover.c
-+++ b/drivers/net/net_failover.c
-@@ -502,7 +502,7 @@ static int net_failover_slave_register(struct net_device *slave_dev,
- 
- 	/* Align MTU of slave with failover dev */
- 	orig_mtu = slave_dev->mtu;
--	err = dev_set_mtu(slave_dev, failover_dev->mtu);
-+	err = netif_set_mtu(slave_dev, failover_dev->mtu);
- 	if (err) {
- 		netdev_err(failover_dev, "unable to change mtu of %s to %u register failed\n",
- 			   slave_dev->name, failover_dev->mtu);
-@@ -512,11 +512,11 @@ static int net_failover_slave_register(struct net_device *slave_dev,
- 	dev_hold(slave_dev);
- 
- 	if (netif_running(failover_dev)) {
--		err = dev_open(slave_dev, NULL);
-+		err = netif_open(slave_dev, NULL);
- 		if (err && (err != -EBUSY)) {
- 			netdev_err(failover_dev, "Opening slave %s failed err:%d\n",
- 				   slave_dev->name, err);
--			goto err_dev_open;
-+			goto err_netif_open;
- 		}
- 	}
- 
-@@ -562,10 +562,10 @@ static int net_failover_slave_register(struct net_device *slave_dev,
- err_vlan_add:
- 	dev_uc_unsync(slave_dev, failover_dev);
- 	dev_mc_unsync(slave_dev, failover_dev);
--	dev_close(slave_dev);
--err_dev_open:
-+	netif_close(slave_dev);
-+err_netif_open:
- 	dev_put(slave_dev);
--	dev_set_mtu(slave_dev, orig_mtu);
-+	netif_set_mtu(slave_dev, orig_mtu);
- done:
- 	return err;
- }
-diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 765bd1b5deb3..761a3f905859 100644
---- a/drivers/regulator/core.c
-+++ b/drivers/regulator/core.c
-@@ -2159,8 +2159,16 @@ static int regulator_resolve_supply(struct regulator_dev *rdev)
- 	if (rdev->use_count) {
- 		ret = regulator_enable(rdev->supply);
- 		if (ret < 0) {
--			_regulator_put(rdev->supply);
-+			struct regulator *supply;
-+
-+			regulator_lock_two(rdev, rdev->supply->rdev, &ww_ctx);
-+
-+			supply = rdev->supply;
- 			rdev->supply = NULL;
-+
-+			regulator_unlock_two(rdev, supply->rdev, &ww_ctx);
-+
-+			regulator_put(supply);
- 			goto out;
- 		}
- 	}
 diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
-index 337fa3261ac7..a34817a4428c 100644
+index 17da115b1e78..3b0f836a9822 100644
 --- a/drivers/tty/serial/qcom_geni_serial.c
 +++ b/drivers/tty/serial/qcom_geni_serial.c
-@@ -896,12 +896,9 @@ static void qcom_geni_serial_handle_rx_dma(struct uart_port *uport, bool drop)
+@@ -905,12 +905,9 @@ static void qcom_geni_serial_handle_rx_dma(struct uart_port *uport, bool drop)
  	port->rx_dma_addr = 0;
  
  	rx_in = readl(uport->membase + SE_DMA_RX_LEN_IN);
@@ -1316,7 +898,7 @@ index 337fa3261ac7..a34817a4428c 100644
  
  	ret = geni_se_rx_dma_prep(&port->se, port->rx_buf,
 diff --git a/drivers/tty/vt/vc_screen.c b/drivers/tty/vt/vc_screen.c
-index c814644ef4ee..60b12d40724c 100644
+index 4d2d46c95fef..7d40eacc21b3 100644
 --- a/drivers/tty/vt/vc_screen.c
 +++ b/drivers/tty/vt/vc_screen.c
 @@ -686,7 +686,7 @@ vcs_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
@@ -1329,7 +911,7 @@ index c814644ef4ee..60b12d40724c 100644
  
  	return ret;
 diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 8bd6cf17355f..527f60f7ad7b 100644
+index c105aaf9ff5d..71f9fcefc0eb 100644
 --- a/fs/fuse/dev.c
 +++ b/fs/fuse/dev.c
 @@ -1037,6 +1037,10 @@ static int fuse_try_move_folio(struct fuse_copy_state *cs, struct folio **foliop
@@ -1366,10 +948,10 @@ index 8bd6cf17355f..527f60f7ad7b 100644
  	/* Drop ref for ap->pages[] array */
  	folio_put(oldfolio);
 diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index 782178124512..79d1b502e731 100644
+index f94f3dc082c6..b31d0dffaf4c 100644
 --- a/fs/fuse/file.c
 +++ b/fs/fuse/file.c
-@@ -374,8 +374,14 @@ void fuse_file_release(struct inode *inode, struct fuse_file *ff,
+@@ -380,8 +380,14 @@ void fuse_file_release(struct inode *inode, struct fuse_file *ff,
  	 * aio and closes the fd before the aio completes.  Since aio takes its
  	 * own ref to the file, the IO completion has to drop the ref, which is
  	 * how the fuse server can end up closing its clients' files.
@@ -1386,7 +968,7 @@ index 782178124512..79d1b502e731 100644
  
  void fuse_release_common(struct file *file, bool isdir)
 diff --git a/fs/nfsd/export.c b/fs/nfsd/export.c
-index 18933ca407be..2a1499f2ad19 100644
+index 665153f1720e..0baa58d1dbfc 100644
 --- a/fs/nfsd/export.c
 +++ b/fs/nfsd/export.c
 @@ -36,30 +36,19 @@
@@ -1452,7 +1034,7 @@ index 18933ca407be..2a1499f2ad19 100644
  }
  
  static int svc_export_upcall(struct cache_detail *cd, struct cache_head *h)
-@@ -1490,36 +1478,6 @@ const struct seq_operations nfs_exports_op = {
+@@ -1492,36 +1480,6 @@ const struct seq_operations nfs_exports_op = {
  	.show	= e_show,
  };
  
@@ -1489,7 +1071,7 @@ index 18933ca407be..2a1499f2ad19 100644
  /*
   * Initialize the exports module.
   */
-@@ -1581,9 +1539,6 @@ nfsd_export_shutdown(struct net *net)
+@@ -1583,9 +1541,6 @@ nfsd_export_shutdown(struct net *net)
  
  	cache_unregister_net(nn->svc_expkey_cache, net);
  	cache_unregister_net(nn->svc_export_cache, net);
@@ -1539,10 +1121,10 @@ index b05399374574..d2b09cd76145 100644
  void			nfsd_export_shutdown(struct net *);
  void			nfsd_export_flush(struct net *);
 diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
-index 4ed19d81577b..1da5c40d6722 100644
+index 04e3954d54bd..7cb8f9506745 100644
 --- a/fs/nfsd/nfsctl.c
 +++ b/fs/nfsd/nfsctl.c
-@@ -2262,12 +2262,9 @@ static int __init init_nfsd(void)
+@@ -2320,12 +2320,9 @@ static int __init init_nfsd(void)
  	if (retval)
  		goto out_free_pnfs;
  	nfsd_lockd_init();	/* lockd->nfsd callbacks */
@@ -1556,7 +1138,7 @@ index 4ed19d81577b..1da5c40d6722 100644
  	retval = register_cld_notifier();
  	if (retval)
  		goto out_free_subsys;
-@@ -2296,8 +2293,6 @@ static int __init init_nfsd(void)
+@@ -2354,8 +2351,6 @@ static int __init init_nfsd(void)
  	unregister_cld_notifier();
  out_free_subsys:
  	unregister_pernet_subsys(&nfsd_net_ops);
@@ -1565,7 +1147,7 @@ index 4ed19d81577b..1da5c40d6722 100644
  out_free_lockd:
  	nfsd_lockd_shutdown();
  	nfsd_drc_slab_free();
-@@ -2318,7 +2313,6 @@ static void __exit exit_nfsd(void)
+@@ -2376,7 +2371,6 @@ static void __exit exit_nfsd(void)
  	nfsd4_destroy_laundry_wq();
  	unregister_cld_notifier();
  	unregister_pernet_subsys(&nfsd_net_ops);
@@ -1573,20 +1155,8 @@ index 4ed19d81577b..1da5c40d6722 100644
  	nfsd_drc_slab_free();
  	nfsd_lockd_shutdown();
  	nfsd4_free_slabs();
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index b490245ff9be..4c5adfd4fc1f 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -1159,6 +1159,7 @@ static void show_smap_vma_flags(struct seq_file *m, struct vm_area_struct *vma)
- 		[ilog2(VM_MAYSHARE)]	= "ms",
- 		[ilog2(VM_GROWSDOWN)]	= "gd",
- 		[ilog2(VM_PFNMAP)]	= "pf",
-+		[ilog2(VM_MAYBE_GUARD)]	= "gu",
- 		[ilog2(VM_LOCKED)]	= "lo",
- 		[ilog2(VM_IO)]		= "io",
- 		[ilog2(VM_SEQ_READ)]	= "sr",
 diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index c21bca5a34c4..c012c5a93cc6 100644
+index 3eb3b1711acb..95d0ea045cfb 100644
 --- a/fs/smb/server/smb2pdu.c
 +++ b/fs/smb/server/smb2pdu.c
 @@ -613,6 +613,11 @@ int smb2_check_user_session(struct ksmbd_work *work)
@@ -1601,188 +1171,11 @@ index c21bca5a34c4..c012c5a93cc6 100644
  		return 1;
  	}
  
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index d905cf528b23..92ba2489f237 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -269,6 +269,8 @@ extern struct rw_semaphore nommu_region_sem;
- extern unsigned int kobjsize(const void *objp);
- #endif
- 
-+#define VM_MAYBE_GUARD_BIT 11
-+
- /*
-  * vm_flags in vm_area_struct, see mm_types.h.
-  * When changing, update also include/trace/events/mmflags.h
-@@ -294,6 +296,7 @@ extern unsigned int kobjsize(const void *objp);
- #define VM_UFFD_MISSING	0
- #endif /* CONFIG_MMU */
- #define VM_PFNMAP	0x00000400	/* Page-ranges managed without "struct page", just pure PFN */
-+#define VM_MAYBE_GUARD	BIT(VM_MAYBE_GUARD_BIT)	/* The VMA maybe contains guard regions. */
- #define VM_UFFD_WP	0x00001000	/* wrprotect pages tracking */
- 
- #define VM_LOCKED	0x00002000
-@@ -498,12 +501,72 @@ extern unsigned int kobjsize(const void *objp);
- /* This mask represents all the VMA flag bits used by mlock */
- #define VM_LOCKED_MASK	(VM_LOCKED | VM_LOCKONFAULT)
- 
-+/* These flags can be updated atomically via VMA/mmap read lock. */
-+#define VM_ATOMIC_SET_ALLOWED VM_MAYBE_GUARD
-+
- /* Arch-specific flags to clear when updating VM flags on protection change */
- #ifndef VM_ARCH_CLEAR
- # define VM_ARCH_CLEAR	VM_NONE
- #endif
- #define VM_FLAGS_CLEAR	(ARCH_VM_PKEY_FLAGS | VM_ARCH_CLEAR)
- 
-+/*
-+ * Flags which should be 'sticky' on merge - that is, flags which, when one VMA
-+ * possesses it but the other does not, the merged VMA should nonetheless have
-+ * applied to it:
-+ *
-+ *   VM_SOFTDIRTY - if a VMA is marked soft-dirty, that is has not had its
-+ *                  references cleared via /proc/$pid/clear_refs, any merged VMA
-+ *                  should be considered soft-dirty also as it operates at a VMA
-+ *                  granularity.
-+ *
-+ * VM_MAYBE_GUARD - If a VMA may have guard regions in place it implies that
-+ *                  mapped page tables may contain metadata not described by the
-+ *                  VMA and thus any merged VMA may also contain this metadata,
-+ *                  and thus we must make this flag sticky.
-+ */
-+#define VM_STICKY (VM_SOFTDIRTY | VM_MAYBE_GUARD)
-+
-+/*
-+ * VMA flags we ignore for the purposes of merge, i.e. one VMA possessing one
-+ * of these flags and the other not does not preclude a merge.
-+ *
-+ *    VM_STICKY - When merging VMAs, VMA flags must match, unless they are
-+ *                'sticky'. If any sticky flags exist in either VMA, we simply
-+ *                set all of them on the merged VMA.
-+ */
-+#define VM_IGNORE_MERGE VM_STICKY
-+
-+/*
-+ * Flags which should result in page tables being copied on fork. These are
-+ * flags which indicate that the VMA maps page tables which cannot be
-+ * reconsistuted upon page fault, so necessitate page table copying upon fork.
-+ *
-+ * Note that these flags should be compared with the DESTINATION VMA not the
-+ * source, as VM_UFFD_WP may not be propagated to destination, while all other
-+ * flags will be.
-+ *
-+ * VM_PFNMAP / VM_MIXEDMAP - These contain kernel-mapped data which cannot be
-+ *                           reasonably reconstructed on page fault.
-+ *
-+ *              VM_UFFD_WP - Encodes metadata about an installed uffd
-+ *                           write protect handler, which cannot be
-+ *                           reconstructed on page fault.
-+ *
-+ *                           We always copy pgtables when dst_vma has uffd-wp
-+ *                           enabled even if it's file-backed
-+ *                           (e.g. shmem). Because when uffd-wp is enabled,
-+ *                           pgtable contains uffd-wp protection information,
-+ *                           that's something we can't retrieve from page cache,
-+ *                           and skip copying will lose those info.
-+ *
-+ *          VM_MAYBE_GUARD - Could contain page guard region markers which
-+ *                           by design are a property of the page tables
-+ *                           only and thus cannot be reconstructed on page
-+ *                           fault.
-+ */
-+#define VM_COPY_ON_FORK (VM_PFNMAP | VM_MIXEDMAP | VM_UFFD_WP | VM_MAYBE_GUARD)
-+
- /*
-  * mapping from the currently active vm_flags protection bits (the
-  * low four bits) to a page protection mask..
-@@ -840,6 +903,47 @@ static inline void vm_flags_mod(struct vm_area_struct *vma,
- 	__vm_flags_mod(vma, set, clear);
- }
- 
-+static inline bool __vma_flag_atomic_valid(struct vm_area_struct *vma,
-+				       int bit)
-+{
-+	const vm_flags_t mask = BIT(bit);
-+
-+	/* Only specific flags are permitted */
-+	if (WARN_ON_ONCE(!(mask & VM_ATOMIC_SET_ALLOWED)))
-+		return false;
-+
-+	return true;
-+}
-+
-+/*
-+ * Set VMA flag atomically. Requires only VMA/mmap read lock. Only specific
-+ * valid flags are allowed to do this.
-+ */
-+static inline void vma_flag_set_atomic(struct vm_area_struct *vma, int bit)
-+{
-+	/* mmap read lock/VMA read lock must be held. */
-+	if (!rwsem_is_locked(&vma->vm_mm->mmap_lock))
-+		vma_assert_locked(vma);
-+
-+	if (__vma_flag_atomic_valid(vma, bit))
-+		set_bit(bit, &ACCESS_PRIVATE(vma, __vm_flags));
-+}
-+
-+/*
-+ * Test for VMA flag atomically. Requires no locks. Only specific valid flags
-+ * are allowed to do this.
-+ *
-+ * This is necessarily racey, so callers must ensure that serialisation is
-+ * achieved through some other means, or that races are permissible.
-+ */
-+static inline bool vma_flag_test_atomic(struct vm_area_struct *vma, int bit)
-+{
-+	if (__vma_flag_atomic_valid(vma, bit))
-+		return test_bit(bit, &vma->vm_flags);
-+
-+	return false;
-+}
-+
- static inline void vma_set_anonymous(struct vm_area_struct *vma)
- {
- 	vma->vm_ops = NULL;
-diff --git a/include/net/rose.h b/include/net/rose.h
-index 2b5491bbf39a..95d1f9c582dc 100644
---- a/include/net/rose.h
-+++ b/include/net/rose.h
-@@ -160,6 +160,18 @@ static inline void rose_neigh_hold(struct rose_neigh *rose_neigh)
- static inline void rose_neigh_put(struct rose_neigh *rose_neigh)
- {
- 	if (refcount_dec_and_test(&rose_neigh->use)) {
-+		/* We are dropping the last reference, so we are about to free the
-+		 * neighbour.  Its timers may still be armed -- t0timer in particular
-+		 * re-arms itself in rose_t0timer_expiry().  rose_remove_neigh()
-+		 * cancels them before its own put, but callers that drop the final
-+		 * reference without first calling rose_remove_neigh() (the socket
-+		 * heartbeat reaping path) would otherwise kfree() a neighbour with a
-+		 * live timer -> use-after-free.  timer_delete_sync() (not the async
-+		 * variant) is required: it waits out a concurrently running handler
-+		 * and loops until the self-rearming timer stays stopped.
-+		 */
-+		timer_delete_sync(&rose_neigh->ftimer);
-+		timer_delete_sync(&rose_neigh->t0timer);
- 		if (rose_neigh->ax25)
- 			ax25_cb_put(rose_neigh->ax25);
- 		kfree(rose_neigh->digipeat);
-diff --git a/include/trace/events/mmflags.h b/include/trace/events/mmflags.h
-index aa441f593e9a..a6e5a44c9b42 100644
---- a/include/trace/events/mmflags.h
-+++ b/include/trace/events/mmflags.h
-@@ -213,6 +213,7 @@ IF_HAVE_PG_ARCH_3(arch_3)
- 	{VM_UFFD_MISSING,		"uffd_missing"	},		\
- IF_HAVE_UFFD_MINOR(VM_UFFD_MINOR,	"uffd_minor"	)		\
- 	{VM_PFNMAP,			"pfnmap"	},		\
-+	{VM_MAYBE_GUARD,		"maybe_guard"	},		\
- 	{VM_UFFD_WP,			"uffd_wp"	},		\
- 	{VM_LOCKED,			"locked"	},		\
- 	{VM_IO,				"io"		},		\
 diff --git a/io_uring/net.c b/io_uring/net.c
-index a46c7e817040..3ab2bfca1bd5 100644
+index ee848eb65ec9..bf60cd393b11 100644
 --- a/io_uring/net.c
 +++ b/io_uring/net.c
-@@ -1771,7 +1771,7 @@ int io_socket(struct io_kiocb *req, unsigned int issue_flags)
+@@ -1733,7 +1733,7 @@ int io_socket(struct io_kiocb *req, unsigned int issue_flags)
  int io_connect_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
  {
  	struct io_connect *conn = io_kiocb_to_cmd(req, struct io_connect);
@@ -1791,7 +1184,7 @@ index a46c7e817040..3ab2bfca1bd5 100644
  
  	if (sqe->len || sqe->buf_index || sqe->rw_flags || sqe->splice_fd_in)
  		return -EINVAL;
-@@ -1780,17 +1780,17 @@ int io_connect_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+@@ -1742,17 +1742,17 @@ int io_connect_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
  	conn->addr_len =  READ_ONCE(sqe->addr2);
  	conn->in_progress = conn->seen_econnaborted = false;
  
@@ -1813,7 +1206,7 @@ index a46c7e817040..3ab2bfca1bd5 100644
  	unsigned file_flags;
  	int ret;
  	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
-@@ -1804,8 +1804,7 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+@@ -1766,8 +1766,7 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
  
  	file_flags = force_nonblock ? O_NONBLOCK : 0;
  
@@ -1823,7 +1216,7 @@ index a46c7e817040..3ab2bfca1bd5 100644
  	if ((ret == -EAGAIN || ret == -EINPROGRESS || ret == -ECONNABORTED)
  	    && force_nonblock) {
  		if (ret == -EINPROGRESS) {
-@@ -1834,7 +1833,6 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+@@ -1796,7 +1795,6 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
  out:
  	if (ret < 0)
  		req_set_fail(req);
@@ -1831,7 +1224,7 @@ index a46c7e817040..3ab2bfca1bd5 100644
  	io_req_set_res(req, ret, 0);
  	return IOU_COMPLETE;
  }
-@@ -1844,15 +1842,15 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+@@ -1806,15 +1804,15 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
   * which in turn end up in mnt_want_write() which will grab the fs
   * percpu start write sem. This can trigger a lockdep warning.
   */
@@ -1850,7 +1243,7 @@ index a46c7e817040..3ab2bfca1bd5 100644
  	return sun->sun_path[0] != '\0';
  }
  
-@@ -1860,7 +1858,7 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+@@ -1822,7 +1820,7 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
  {
  	struct io_bind *bind = io_kiocb_to_cmd(req, struct io_bind);
  	struct sockaddr __user *uaddr;
@@ -1859,7 +1252,7 @@ index a46c7e817040..3ab2bfca1bd5 100644
  	int ret;
  
  	if (sqe->len || sqe->buf_index || sqe->rw_flags || sqe->splice_fd_in)
-@@ -1869,21 +1867,23 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+@@ -1831,21 +1829,23 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
  	uaddr = u64_to_user_ptr(READ_ONCE(sqe->addr));
  	bind->addr_len =  READ_ONCE(sqe->addr2);
  
@@ -1888,7 +1281,7 @@ index a46c7e817040..3ab2bfca1bd5 100644
  	struct socket *sock;
  	int ret;
  
-@@ -1891,7 +1891,7 @@ int io_bind(struct io_kiocb *req, unsigned int issue_flags)
+@@ -1853,7 +1853,7 @@ int io_bind(struct io_kiocb *req, unsigned int issue_flags)
  	if (unlikely(!sock))
  		return -ENOTSOCK;
  
@@ -1898,10 +1291,10 @@ index a46c7e817040..3ab2bfca1bd5 100644
  		req_set_fail(req);
  	io_req_set_res(req, ret, 0);
 diff --git a/io_uring/opdef.c b/io_uring/opdef.c
-index 932319633eac..a57c820567f7 100644
+index c3ef52b70811..34cd320a427b 100644
 --- a/io_uring/opdef.c
 +++ b/io_uring/opdef.c
-@@ -207,7 +207,7 @@ const struct io_issue_def io_issue_defs[] = {
+@@ -203,7 +203,7 @@ const struct io_issue_def io_issue_defs[] = {
  		.unbound_nonreg_file	= 1,
  		.pollout		= 1,
  #if defined(CONFIG_NET)
@@ -1910,7 +1303,7 @@ index 932319633eac..a57c820567f7 100644
  		.prep			= io_connect_prep,
  		.issue			= io_connect,
  #else
-@@ -504,7 +504,7 @@ const struct io_issue_def io_issue_defs[] = {
+@@ -503,7 +503,7 @@ const struct io_issue_def io_issue_defs[] = {
  		.needs_file		= 1,
  		.prep			= io_bind_prep,
  		.issue			= io_bind,
@@ -1919,1320 +1312,3 @@ index 932319633eac..a57c820567f7 100644
  #else
  		.prep			= io_eopnotsupp_prep,
  #endif
-diff --git a/lib/debugobjects.c b/lib/debugobjects.c
-index e4b7f77ece3b..17f116247bb4 100644
---- a/lib/debugobjects.c
-+++ b/lib/debugobjects.c
-@@ -711,6 +711,50 @@ static struct debug_obj *lookup_object_or_alloc(void *addr, struct debug_bucket
- 	return NULL;
- }
- 
-+static inline bool debug_objects_is_pi_blocked_on(void)
-+{
-+#ifdef CONFIG_RT_MUTEXES
-+	return current->pi_blocked_on != NULL;
-+#else
-+	return false;
-+#endif
-+}
-+
-+static inline bool can_fill_pool(void)
-+{
-+	/*
-+	 * On !RT enabled kernels there are no restrictions and spinlock_t and
-+	 * raw_spinlock_t are the same types.
-+	 */
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+		return true;
-+
-+	/*
-+	 * On RT enabled kernels, the task must not be blocked on a lock as
-+	 * that could corrupt the PI state when blocking on a lock in the
-+	 * allocation path.
-+	 */
-+	if (debug_objects_is_pi_blocked_on())
-+		return false;
-+
-+	/*
-+	 * On RT enabled kernels the pool refill should happen in preemptible
-+	 * context.
-+	 */
-+	if (preemptible())
-+		return true;
-+
-+	/*
-+	 * Though during system boot before scheduling is set up, preemption is
-+	 * disabled and the pool can get exhausted. Before scheduling is active
-+	 * a task cannot be blocked on a sleeping lock, but it might hold a lock
-+	 * and if interrupted then hard interrupt context might run into a lock
-+	 * inversion. So exclude hard interrupt context from allocations before
-+	 * scheduling is active.
-+	 */
-+	return system_state < SYSTEM_SCHEDULING && !in_hardirq();
-+}
-+
- static void debug_objects_fill_pool(void)
- {
- 	if (!static_branch_likely(&obj_cache_enabled))
-@@ -725,19 +769,13 @@ static void debug_objects_fill_pool(void)
- 	if (likely(!pool_should_refill(&pool_global)))
- 		return;
- 
--	/*
--	 * On RT enabled kernels the pool refill must happen in preemptible
--	 * context -- for !RT kernels we rely on the fact that spinlock_t and
--	 * raw_spinlock_t are basically the same type and this lock-type
--	 * inversion works just fine.
--	 */
--	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || preemptible()) {
-+	if (can_fill_pool()) {
- 		/*
- 		 * Annotate away the spinlock_t inside raw_spinlock_t warning
--		 * by temporarily raising the wait-type to WAIT_SLEEP, matching
--		 * the preemptible() condition above.
-+		 * by temporarily raising the wait-type to LD_WAIT_CONFIG, matching
-+		 * the preemptible() condition in can_fill_pool().
- 		 */
--		static DEFINE_WAIT_OVERRIDE_MAP(fill_pool_map, LD_WAIT_SLEEP);
-+		static DEFINE_WAIT_OVERRIDE_MAP(fill_pool_map, LD_WAIT_CONFIG);
- 		lock_map_acquire_try(&fill_pool_map);
- 		fill_pool();
- 		lock_map_release(&fill_pool_map);
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index abe54f0043c7..3dcd884c844e 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1715,6 +1715,43 @@ int collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr,
- 	return result;
- }
- 
-+/* Can we retract page tables for this file-backed VMA? */
-+static bool file_backed_vma_is_retractable(struct vm_area_struct *vma)
-+{
-+	/*
-+	 * Check vma->anon_vma to exclude MAP_PRIVATE mappings that
-+	 * got written to. These VMAs are likely not worth removing
-+	 * page tables from, as PMD-mapping is likely to be split later.
-+	 */
-+	if (READ_ONCE(vma->anon_vma))
-+		return false;
-+
-+	/*
-+	 * When a vma is registered with uffd-wp, we cannot recycle
-+	 * the page table because there may be pte markers installed.
-+	 * Other vmas can still have the same file mapped hugely, but
-+	 * skip this one: it will always be mapped in small page size
-+	 * for uffd-wp registered ranges.
-+	 */
-+	if (userfaultfd_wp(vma))
-+		return false;
-+
-+	/*
-+	 * If the VMA contains guard regions then we can't collapse it.
-+	 *
-+	 * This is set atomically on guard marker installation under mmap/VMA
-+	 * read lock, and here we may not hold any VMA or mmap lock at all.
-+	 *
-+	 * This is therefore serialised on the PTE page table lock, which is
-+	 * obtained on guard region installation after the flag is set, so this
-+	 * check being performed under this lock excludes races.
-+	 */
-+	if (vma_flag_test_atomic(vma, VM_MAYBE_GUARD_BIT))
-+		return false;
-+
-+	return true;
-+}
-+
- static void retract_page_tables(struct address_space *mapping, pgoff_t pgoff)
- {
- 	struct vm_area_struct *vma;
-@@ -1729,14 +1766,6 @@ static void retract_page_tables(struct address_space *mapping, pgoff_t pgoff)
- 		spinlock_t *ptl;
- 		bool success = false;
- 
--		/*
--		 * Check vma->anon_vma to exclude MAP_PRIVATE mappings that
--		 * got written to. These VMAs are likely not worth removing
--		 * page tables from, as PMD-mapping is likely to be split later.
--		 */
--		if (READ_ONCE(vma->anon_vma))
--			continue;
--
- 		addr = vma->vm_start + ((pgoff - vma->vm_pgoff) << PAGE_SHIFT);
- 		if (addr & ~HPAGE_PMD_MASK ||
- 		    vma->vm_end < addr + HPAGE_PMD_SIZE)
-@@ -1748,14 +1777,8 @@ static void retract_page_tables(struct address_space *mapping, pgoff_t pgoff)
- 
- 		if (hpage_collapse_test_exit(mm))
- 			continue;
--		/*
--		 * When a vma is registered with uffd-wp, we cannot recycle
--		 * the page table because there may be pte markers installed.
--		 * Other vmas can still have the same file mapped hugely, but
--		 * skip this one: it will always be mapped in small page size
--		 * for uffd-wp registered ranges.
--		 */
--		if (userfaultfd_wp(vma))
-+
-+		if (!file_backed_vma_is_retractable(vma))
- 			continue;
- 
- 		/* PTEs were notified when unmapped; but now for the PMD? */
-@@ -1782,15 +1805,15 @@ static void retract_page_tables(struct address_space *mapping, pgoff_t pgoff)
- 			spin_lock_nested(ptl, SINGLE_DEPTH_NESTING);
- 
- 		/*
--		 * Huge page lock is still held, so normally the page table
--		 * must remain empty; and we have already skipped anon_vma
--		 * and userfaultfd_wp() vmas.  But since the mmap_lock is not
--		 * held, it is still possible for a racing userfaultfd_ioctl()
--		 * to have inserted ptes or markers.  Now that we hold ptlock,
--		 * repeating the anon_vma check protects from one category,
--		 * and repeating the userfaultfd_wp() check from another.
-+		 * Huge page lock is still held, so normally the page table must
-+		 * remain empty; and we have already skipped anon_vma and
-+		 * userfaultfd_wp() vmas.  But since the mmap_lock is not held,
-+		 * it is still possible for a racing userfaultfd_ioctl() or
-+		 * madvise() to have inserted ptes or markers.  Now that we hold
-+		 * ptlock, repeating the retractable checks protects us from
-+		 * races against the prior checks.
- 		 */
--		if (likely(!vma->anon_vma && !userfaultfd_wp(vma))) {
-+		if (likely(file_backed_vma_is_retractable(vma))) {
- 			pgt_pmd = pmdp_collapse_flush(vma, addr, pmd);
- 			pmdp_get_lockless_sync();
- 			success = true;
-diff --git a/mm/madvise.c b/mm/madvise.c
-index fb1c86e630b6..5dbe40be7c65 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -167,7 +167,7 @@ static int madvise_update_vma(vm_flags_t new_flags,
- 			range->start, range->end, anon_name);
- 	else
- 		vma = vma_modify_flags(&vmi, madv_behavior->prev, vma,
--			range->start, range->end, new_flags);
-+			range->start, range->end, &new_flags);
- 
- 	if (IS_ERR(vma))
- 		return PTR_ERR(vma);
-@@ -1141,15 +1141,21 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
- 		return -EINVAL;
- 
- 	/*
--	 * If we install guard markers, then the range is no longer
--	 * empty from a page table perspective and therefore it's
--	 * appropriate to have an anon_vma.
--	 *
--	 * This ensures that on fork, we copy page tables correctly.
-+	 * Set atomically under read lock. All pertinent readers will need to
-+	 * acquire an mmap/VMA write lock to read it. All remaining readers may
-+	 * or may not see the flag set, but we don't care.
-+	 */
-+	vma_flag_set_atomic(vma, VM_MAYBE_GUARD_BIT);
-+
-+	/*
-+	 * If anonymous and we are establishing page tables the VMA ought to
-+	 * have an anon_vma associated with it.
- 	 */
--	err = anon_vma_prepare(vma);
--	if (err)
--		return err;
-+	if (vma_is_anonymous(vma)) {
-+		err = anon_vma_prepare(vma);
-+		if (err)
-+			return err;
-+	}
- 
- 	/*
- 	 * Optimistically try to install the guard marker pages first. If any
-diff --git a/mm/memory.c b/mm/memory.c
-index 42b733b78523..9b071e269d1e 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -1480,17 +1480,15 @@ static bool
- vma_needs_copy(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma)
- {
- 	/*
--	 * Always copy pgtables when dst_vma has uffd-wp enabled even if it's
--	 * file-backed (e.g. shmem). Because when uffd-wp is enabled, pgtable
--	 * contains uffd-wp protection information, that's something we can't
--	 * retrieve from page cache, and skip copying will lose those info.
-+	 * We check against dst_vma as while sane VMA flags will have been
-+	 * copied, VM_UFFD_WP may be set only on dst_vma.
- 	 */
--	if (userfaultfd_wp(dst_vma))
-+	if (dst_vma->vm_flags & VM_COPY_ON_FORK)
- 		return true;
--
--	if (src_vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP))
--		return true;
--
-+	/*
-+	 * The presence of an anon_vma indicates an anonymous VMA has page
-+	 * tables which naturally cannot be reconstituted on page fault.
-+	 */
- 	if (src_vma->anon_vma)
- 		return true;
- 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index f59c6d8d376f..73551c71cebf 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -480,7 +480,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 		 */
- 		goto out;
- 
--	vma = vma_modify_flags(vmi, *prev, vma, start, end, newflags);
-+	vma = vma_modify_flags(vmi, *prev, vma, start, end, &newflags);
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
- 		goto out;
-diff --git a/mm/mprotect.c b/mm/mprotect.c
-index 988c366137d5..fa818cd58201 100644
---- a/mm/mprotect.c
-+++ b/mm/mprotect.c
-@@ -813,7 +813,7 @@ mprotect_fixup(struct vma_iterator *vmi, struct mmu_gather *tlb,
- 		newflags &= ~VM_ACCOUNT;
- 	}
- 
--	vma = vma_modify_flags(vmi, *pprev, vma, start, end, newflags);
-+	vma = vma_modify_flags(vmi, *pprev, vma, start, end, &newflags);
- 	if (IS_ERR(vma)) {
- 		error = PTR_ERR(vma);
- 		goto fail;
-diff --git a/mm/mseal.c b/mm/mseal.c
-index c561f0ea93e8..3d2f06046e90 100644
---- a/mm/mseal.c
-+++ b/mm/mseal.c
-@@ -69,9 +69,10 @@ static int mseal_apply(struct mm_struct *mm,
- 		const unsigned long curr_end = MIN(vma->vm_end, end);
- 
- 		if (!(vma->vm_flags & VM_SEALED)) {
--			vma = vma_modify_flags(&vmi, prev, vma,
--					curr_start, curr_end,
--					vma->vm_flags | VM_SEALED);
-+			vm_flags_t vm_flags = vma->vm_flags | VM_SEALED;
-+
-+			vma = vma_modify_flags(&vmi, prev, vma, curr_start,
-+					       curr_end, &vm_flags);
- 			if (IS_ERR(vma))
- 				return PTR_ERR(vma);
- 			vm_flags_set(vma, VM_SEALED);
-diff --git a/mm/vma.c b/mm/vma.c
-index eeb6a187c3d8..30148e6af775 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -82,15 +82,7 @@ static inline bool is_mergeable_vma(struct vma_merge_struct *vmg, bool merge_nex
- 
- 	if (!mpol_equal(vmg->policy, vma_policy(vma)))
- 		return false;
--	/*
--	 * VM_SOFTDIRTY should not prevent from VMA merging, if we
--	 * match the flags but dirty bit -- the caller should mark
--	 * merged VMA as dirty. If dirty bit won't be excluded from
--	 * comparison, we increase pressure on the memory system forcing
--	 * the kernel to generate new VMAs when old one could be
--	 * extended instead.
--	 */
--	if ((vma->vm_flags ^ vmg->vm_flags) & ~VM_SOFTDIRTY)
-+	if ((vma->vm_flags ^ vmg->vm_flags) & ~VM_IGNORE_MERGE)
- 		return false;
- 	if (vma->vm_file != vmg->file)
- 		return false;
-@@ -810,6 +802,7 @@ static bool can_merge_remove_vma(struct vm_area_struct *vma)
- static __must_check struct vm_area_struct *vma_merge_existing_range(
- 		struct vma_merge_struct *vmg)
- {
-+	vm_flags_t sticky_flags = vmg->vm_flags & VM_STICKY;
- 	struct vm_area_struct *middle = vmg->middle;
- 	struct vm_area_struct *prev = vmg->prev;
- 	struct vm_area_struct *next;
-@@ -904,11 +897,13 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
- 	if (merge_right) {
- 		vma_start_write(next);
- 		vmg->target = next;
-+		sticky_flags |= (next->vm_flags & VM_STICKY);
- 	}
- 
- 	if (merge_left) {
- 		vma_start_write(prev);
- 		vmg->target = prev;
-+		sticky_flags |= (prev->vm_flags & VM_STICKY);
- 	}
- 
- 	if (merge_both) {
-@@ -978,6 +973,7 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
- 	if (err || commit_merge(vmg))
- 		goto abort;
- 
-+	vm_flags_set(vmg->target, sticky_flags);
- 	khugepaged_enter_vma(vmg->target, vmg->vm_flags);
- 	vmg->state = VMA_MERGE_SUCCESS;
- 	return vmg->target;
-@@ -1156,14 +1152,20 @@ int vma_expand(struct vma_merge_struct *vmg)
- 	struct vm_area_struct *target = vmg->target;
- 	struct vm_area_struct *next = vmg->next;
- 	int ret = 0;
-+	vm_flags_t sticky_flags;
-+
-+	sticky_flags = vmg->vm_flags & VM_STICKY;
-+	sticky_flags |= target->vm_flags & VM_STICKY;
- 
- 	VM_WARN_ON_VMG(!target, vmg);
- 
- 	mmap_assert_write_locked(vmg->mm);
- 	vma_start_write(target);
- 
--	if (next && target != next && vmg->end == next->vm_end)
-+	if (next && target != next && vmg->end == next->vm_end) {
-+		sticky_flags |= next->vm_flags & VM_STICKY;
- 		remove_next = true;
-+	}
- 
- 	/* We must have a target. */
- 	VM_WARN_ON_VMG(!target, vmg);
-@@ -1197,6 +1199,7 @@ int vma_expand(struct vma_merge_struct *vmg)
- 	if (commit_merge(vmg))
- 		goto nomem;
- 
-+	vm_flags_set(target, sticky_flags);
- 	return 0;
- 
- nomem:
-@@ -1676,25 +1679,35 @@ static struct vm_area_struct *vma_modify(struct vma_merge_struct *vmg)
- 	return vma;
- }
- 
--struct vm_area_struct *vma_modify_flags(
--	struct vma_iterator *vmi, struct vm_area_struct *prev,
--	struct vm_area_struct *vma, unsigned long start, unsigned long end,
--	vm_flags_t vm_flags)
-+struct vm_area_struct *vma_modify_flags(struct vma_iterator *vmi,
-+		struct vm_area_struct *prev, struct vm_area_struct *vma,
-+		unsigned long start, unsigned long end,
-+		vm_flags_t *vm_flags_ptr)
- {
- 	VMG_VMA_STATE(vmg, vmi, prev, vma, start, end);
-+	const vm_flags_t vm_flags = *vm_flags_ptr;
-+	struct vm_area_struct *ret;
- 
- 	vmg.vm_flags = vm_flags;
- 
--	return vma_modify(&vmg);
-+	ret = vma_modify(&vmg);
-+	if (IS_ERR(ret))
-+		return ret;
-+
-+	/*
-+	 * For a merge to succeed, the flags must match those
-+	 * requested. However, sticky flags may have been retained, so propagate
-+	 * them to the caller.
-+	 */
-+	if (vmg.state == VMA_MERGE_SUCCESS)
-+		*vm_flags_ptr = ret->vm_flags;
-+	return ret;
- }
- 
--struct vm_area_struct
--*vma_modify_name(struct vma_iterator *vmi,
--		       struct vm_area_struct *prev,
--		       struct vm_area_struct *vma,
--		       unsigned long start,
--		       unsigned long end,
--		       struct anon_vma_name *new_name)
-+struct vm_area_struct *vma_modify_name(struct vma_iterator *vmi,
-+		struct vm_area_struct *prev, struct vm_area_struct *vma,
-+		unsigned long start, unsigned long end,
-+		struct anon_vma_name *new_name)
- {
- 	VMG_VMA_STATE(vmg, vmi, prev, vma, start, end);
- 
-@@ -1703,12 +1716,10 @@ struct vm_area_struct
- 	return vma_modify(&vmg);
- }
- 
--struct vm_area_struct
--*vma_modify_policy(struct vma_iterator *vmi,
--		   struct vm_area_struct *prev,
--		   struct vm_area_struct *vma,
--		   unsigned long start, unsigned long end,
--		   struct mempolicy *new_pol)
-+struct vm_area_struct *vma_modify_policy(struct vma_iterator *vmi,
-+		struct vm_area_struct *prev, struct vm_area_struct *vma,
-+		unsigned long start, unsigned long end,
-+		struct mempolicy *new_pol)
- {
- 	VMG_VMA_STATE(vmg, vmi, prev, vma, start, end);
- 
-@@ -1717,14 +1728,10 @@ struct vm_area_struct
- 	return vma_modify(&vmg);
- }
- 
--struct vm_area_struct
--*vma_modify_flags_uffd(struct vma_iterator *vmi,
--		       struct vm_area_struct *prev,
--		       struct vm_area_struct *vma,
--		       unsigned long start, unsigned long end,
--		       vm_flags_t vm_flags,
--		       struct vm_userfaultfd_ctx new_ctx,
--		       bool give_up_on_oom)
-+struct vm_area_struct *vma_modify_flags_uffd(struct vma_iterator *vmi,
-+		struct vm_area_struct *prev, struct vm_area_struct *vma,
-+		unsigned long start, unsigned long end, vm_flags_t vm_flags,
-+		struct vm_userfaultfd_ctx new_ctx, bool give_up_on_oom)
- {
- 	VMG_VMA_STATE(vmg, vmi, prev, vma, start, end);
- 
-@@ -1955,7 +1962,7 @@ static int anon_vma_compatible(struct vm_area_struct *a, struct vm_area_struct *
- 	return a->vm_end == b->vm_start &&
- 		mpol_equal(vma_policy(a), vma_policy(b)) &&
- 		a->vm_file == b->vm_file &&
--		!((a->vm_flags ^ b->vm_flags) & ~(VM_ACCESS_FLAGS | VM_SOFTDIRTY)) &&
-+		!((a->vm_flags ^ b->vm_flags) & ~(VM_ACCESS_FLAGS | VM_IGNORE_MERGE)) &&
- 		b->vm_pgoff == a->vm_pgoff + ((b->vm_start - a->vm_start) >> PAGE_SHIFT);
- }
- 
-diff --git a/mm/vma.h b/mm/vma.h
-index d73e1b324bfd..4c7ea8b893ab 100644
---- a/mm/vma.h
-+++ b/mm/vma.h
-@@ -266,47 +266,113 @@ void remove_vma(struct vm_area_struct *vma);
- void unmap_region(struct ma_state *mas, struct vm_area_struct *vma,
- 		struct vm_area_struct *prev, struct vm_area_struct *next);
- 
--/* We are about to modify the VMA's flags. */
--__must_check struct vm_area_struct
--*vma_modify_flags(struct vma_iterator *vmi,
-+/**
-+ * vma_modify_flags() - Peform any necessary split/merge in preparation for
-+ * setting VMA flags to *@vm_flags in the range @start to @end contained within
-+ * @vma.
-+ * @vmi: Valid VMA iterator positioned at @vma.
-+ * @prev: The VMA immediately prior to @vma or NULL if @vma is the first.
-+ * @vma: The VMA containing the range @start to @end to be updated.
-+ * @start: The start of the range to update. May be offset within @vma.
-+ * @end: The exclusive end of the range to update, may be offset within @vma.
-+ * @vm_flags_ptr: A pointer to the VMA flags that the @start to @end range is
-+ * about to be set to. On merge, this will be updated to include sticky flags.
-+ *
-+ * IMPORTANT: The actual modification being requested here is NOT applied,
-+ * rather the VMA is perhaps split, perhaps merged to accommodate the change,
-+ * and the caller is expected to perform the actual modification.
-+ *
-+ * In order to account for sticky VMA flags, the @vm_flags_ptr parameter points
-+ * to the requested flags which are then updated so the caller, should they
-+ * overwrite any existing flags, correctly retains these.
-+ *
-+ * Returns: A VMA which contains the range @start to @end ready to have its
-+ * flags altered to *@vm_flags.
-+ */
-+__must_check struct vm_area_struct *vma_modify_flags(struct vma_iterator *vmi,
-+		struct vm_area_struct *prev, struct vm_area_struct *vma,
-+		unsigned long start, unsigned long end,
-+		vm_flags_t *vm_flags_ptr);
-+
-+/**
-+ * vma_modify_name() - Peform any necessary split/merge in preparation for
-+ * setting anonymous VMA name to @new_name in the range @start to @end contained
-+ * within @vma.
-+ * @vmi: Valid VMA iterator positioned at @vma.
-+ * @prev: The VMA immediately prior to @vma or NULL if @vma is the first.
-+ * @vma: The VMA containing the range @start to @end to be updated.
-+ * @start: The start of the range to update. May be offset within @vma.
-+ * @end: The exclusive end of the range to update, may be offset within @vma.
-+ * @new_name: The anonymous VMA name that the @start to @end range is about to
-+ * be set to.
-+ *
-+ * IMPORTANT: The actual modification being requested here is NOT applied,
-+ * rather the VMA is perhaps split, perhaps merged to accommodate the change,
-+ * and the caller is expected to perform the actual modification.
-+ *
-+ * Returns: A VMA which contains the range @start to @end ready to have its
-+ * anonymous VMA name changed to @new_name.
-+ */
-+__must_check struct vm_area_struct *vma_modify_name(struct vma_iterator *vmi,
- 		struct vm_area_struct *prev, struct vm_area_struct *vma,
- 		unsigned long start, unsigned long end,
--		vm_flags_t vm_flags);
--
--/* We are about to modify the VMA's anon_name. */
--__must_check struct vm_area_struct
--*vma_modify_name(struct vma_iterator *vmi,
--		 struct vm_area_struct *prev,
--		 struct vm_area_struct *vma,
--		 unsigned long start,
--		 unsigned long end,
--		 struct anon_vma_name *new_name);
--
--/* We are about to modify the VMA's memory policy. */
--__must_check struct vm_area_struct
--*vma_modify_policy(struct vma_iterator *vmi,
--		   struct vm_area_struct *prev,
--		   struct vm_area_struct *vma,
-+		struct anon_vma_name *new_name);
-+
-+/**
-+ * vma_modify_policy() - Peform any necessary split/merge in preparation for
-+ * setting NUMA policy to @new_pol in the range @start to @end contained
-+ * within @vma.
-+ * @vmi: Valid VMA iterator positioned at @vma.
-+ * @prev: The VMA immediately prior to @vma or NULL if @vma is the first.
-+ * @vma: The VMA containing the range @start to @end to be updated.
-+ * @start: The start of the range to update. May be offset within @vma.
-+ * @end: The exclusive end of the range to update, may be offset within @vma.
-+ * @new_pol: The NUMA policy that the @start to @end range is about to be set
-+ * to.
-+ *
-+ * IMPORTANT: The actual modification being requested here is NOT applied,
-+ * rather the VMA is perhaps split, perhaps merged to accommodate the change,
-+ * and the caller is expected to perform the actual modification.
-+ *
-+ * Returns: A VMA which contains the range @start to @end ready to have its
-+ * NUMA policy changed to @new_pol.
-+ */
-+__must_check struct vm_area_struct *vma_modify_policy(struct vma_iterator *vmi,
-+		   struct vm_area_struct *prev, struct vm_area_struct *vma,
- 		   unsigned long start, unsigned long end,
- 		   struct mempolicy *new_pol);
- 
--/* We are about to modify the VMA's flags and/or uffd context. */
--__must_check struct vm_area_struct
--*vma_modify_flags_uffd(struct vma_iterator *vmi,
--		       struct vm_area_struct *prev,
--		       struct vm_area_struct *vma,
--		       unsigned long start, unsigned long end,
--		       vm_flags_t vm_flags,
--		       struct vm_userfaultfd_ctx new_ctx,
--		       bool give_up_on_oom);
--
--__must_check struct vm_area_struct
--*vma_merge_new_range(struct vma_merge_struct *vmg);
--
--__must_check struct vm_area_struct
--*vma_merge_extend(struct vma_iterator *vmi,
--		  struct vm_area_struct *vma,
--		  unsigned long delta);
-+/**
-+ * vma_modify_flags_uffd() - Peform any necessary split/merge in preparation for
-+ * setting VMA flags to @vm_flags and UFFD context to @new_ctx in the range
-+ * @start to @end contained within @vma.
-+ * @vmi: Valid VMA iterator positioned at @vma.
-+ * @prev: The VMA immediately prior to @vma or NULL if @vma is the first.
-+ * @vma: The VMA containing the range @start to @end to be updated.
-+ * @start: The start of the range to update. May be offset within @vma.
-+ * @end: The exclusive end of the range to update, may be offset within @vma.
-+ * @vm_flags: The VMA flags that the @start to @end range is about to be set to.
-+ * @new_ctx: The userfaultfd context that the @start to @end range is about to
-+ * be set to.
-+ * @give_up_on_oom: If an out of memory condition occurs on merge, simply give
-+ * up on it and treat the merge as best-effort.
-+ *
-+ * IMPORTANT: The actual modification being requested here is NOT applied,
-+ * rather the VMA is perhaps split, perhaps merged to accommodate the change,
-+ * and the caller is expected to perform the actual modification.
-+ *
-+ * Returns: A VMA which contains the range @start to @end ready to have its VMA
-+ * flags changed to @vm_flags and its userfaultfd context changed to @new_ctx.
-+ */
-+__must_check struct vm_area_struct *vma_modify_flags_uffd(struct vma_iterator *vmi,
-+		struct vm_area_struct *prev, struct vm_area_struct *vma,
-+		unsigned long start, unsigned long end, vm_flags_t vm_flags,
-+		struct vm_userfaultfd_ctx new_ctx, bool give_up_on_oom);
-+
-+__must_check struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg);
-+
-+__must_check struct vm_area_struct *vma_merge_extend(struct vma_iterator *vmi,
-+		  struct vm_area_struct *vma, unsigned long delta);
- 
- void unlink_file_vma_batch_init(struct unlink_vma_file_batch *vb);
- 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 681d7de89c50..5853aada258c 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -1724,6 +1724,7 @@ int netif_open(struct net_device *dev, struct netlink_ext_ack *extack)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL(netif_open);
- 
- static void __dev_close_many(struct list_head *head)
- {
-diff --git a/net/core/failover.c b/net/core/failover.c
-index 2a140b3ea669..7fc3b9d8ab2a 100644
---- a/net/core/failover.c
-+++ b/net/core/failover.c
-@@ -12,6 +12,7 @@
- #include <uapi/linux/if_arp.h>
- #include <linux/rtnetlink.h>
- #include <linux/if_vlan.h>
-+#include <net/netdev_lock.h>
- #include <net/failover.h>
- 
- static LIST_HEAD(failover_list);
-@@ -221,8 +222,11 @@ failover_existing_slave_register(struct net_device *failover_dev)
- 	for_each_netdev(net, dev) {
- 		if (netif_is_failover(dev))
- 			continue;
--		if (ether_addr_equal(failover_dev->perm_addr, dev->perm_addr))
-+		if (ether_addr_equal(failover_dev->perm_addr, dev->perm_addr)) {
-+			netdev_lock_ops(dev);
- 			failover_slave_register(dev);
-+			netdev_unlock_ops(dev);
-+		}
- 	}
- 	rtnl_unlock();
- }
-diff --git a/net/rose/af_rose.c b/net/rose/af_rose.c
-index 53c9bc71f813..38bfe60665c0 100644
---- a/net/rose/af_rose.c
-+++ b/net/rose/af_rose.c
-@@ -211,8 +211,21 @@ static void rose_kill_by_device(struct net_device *dev)
- 		spin_lock_bh(&rose_list_lock);
- 		if (rose->device == dev) {
- 			rose_disconnect(sk, ENETUNREACH, ROSE_OUT_OF_ORDER, 0);
--			if (rose->neighbour)
-+			/* Mark for destruction so rose_heartbeat_expiry()
-+			 * cleans up the socket at its next tick rather than
-+			 * looping forever in ROSE_STATE_0 with no owner.
-+			 */
-+			sock_set_flag(sk, SOCK_DESTROY);
-+			if (rose->neighbour) {
- 				rose_neigh_put(rose->neighbour);
-+				/* Clear the pointer after dropping the reference, as
-+				 * every other rose_neigh_put() site does.  Otherwise
-+				 * rose_heartbeat_expiry() (STATE_0 reaping) sees a stale
-+				 * rose->neighbour and puts it a second time -> rose_neigh
-+				 * refcount underflow / use-after-free.
-+				 */
-+				rose->neighbour = NULL;
-+			}
- 			netdev_put(rose->device, &rose->dev_tracker);
- 			rose->device = NULL;
- 		}
-@@ -358,6 +371,7 @@ static void rose_destroy_timer(struct timer_list *t)
-  */
- void rose_destroy_socket(struct sock *sk)
- {
-+	struct rose_sock *rose = rose_sk(sk);
- 	struct sk_buff *skb;
- 
- 	rose_remove_socket(sk);
-@@ -365,6 +379,14 @@ void rose_destroy_socket(struct sock *sk)
- 	rose_stop_idletimer(sk);
- 	rose_stop_timer(sk);
- 
-+	/* Drop any device reference not already released by rose_kill_by_device()
-+	 * or rose_release() -- e.g. incoming sockets that were never accepted.
-+	 */
-+	if (rose->device) {
-+		netdev_put(rose->device, &rose->dev_tracker);
-+		rose->device = NULL;
-+	}
-+
- 	rose_clear_queues(sk);		/* Flush the queues */
- 
- 	while ((skb = skb_dequeue(&sk->sk_receive_queue)) != NULL) {
-@@ -626,9 +648,7 @@ static struct sock *rose_make_new(struct sock *osk)
- 	rose->hb	= orose->hb;
- 	rose->idle	= orose->idle;
- 	rose->defer	= orose->defer;
--	rose->device	= orose->device;
--	if (rose->device)
--		netdev_hold(rose->device, &rose->dev_tracker, GFP_ATOMIC);
-+	rose->device	= NULL;  /* rose_rx_call_request() sets this */
- 	rose->qbitincl	= orose->qbitincl;
- 
- 	return sk;
-@@ -1078,9 +1098,11 @@ int rose_rx_call_request(struct sk_buff *skb, struct net_device *dev, struct ros
- 		make_rose->source_digis[n] = facilities.source_digis[n];
- 	make_rose->neighbour     = neigh;
- 	make_rose->device        = dev;
--	/* Caller got a reference for us. */
--	netdev_tracker_alloc(make_rose->device, &make_rose->dev_tracker,
--			     GFP_ATOMIC);
-+	/* Take an independent reference for this socket; callers keep their
-+	 * own reference (from rose_dev_get / dev_hold) and will release it
-+	 * themselves via dev_put().
-+	 */
-+	netdev_hold(make_rose->device, &make_rose->dev_tracker, GFP_ATOMIC);
- 	make_rose->facilities    = facilities;
- 
- 	rose_neigh_hold(make_rose->neighbour);
-@@ -1667,19 +1689,28 @@ static void __exit rose_exit(void)
- #ifdef CONFIG_SYSCTL
- 	rose_unregister_sysctl();
- #endif
--	unregister_netdevice_notifier(&rose_dev_notifier);
--
- 	sock_unregister(PF_ROSE);
- 
- 	for (i = 0; i < rose_ndevs; i++) {
- 		struct net_device *dev = dev_rose[i];
- 
- 		if (dev) {
-+			/* unregister_netdev() fires NETDEV_DOWN, which -- while the
-+			 * notifier is still registered below -- invokes
-+			 * rose_kill_by_device(dev).  That releases every socket's
-+			 * netdev reference and disconnects all active circuits.
-+			 * Unregistering the notifier before this loop was the
-+			 * original bug: NETDEV_DOWN was never delivered, leaving
-+			 * 165 netdev_tracker entries leaked and stale timers live.
-+			 */
- 			unregister_netdev(dev);
- 			free_netdev(dev);
- 		}
- 	}
- 
-+	/* Now safe to remove the notifier -- all ROSE devices are gone. */
-+	unregister_netdevice_notifier(&rose_dev_notifier);
-+
- 	kfree(dev_rose);
- 	proto_unregister(&rose_proto);
- }
-diff --git a/net/rose/rose_in.c b/net/rose/rose_in.c
-index 0276b393f0e5..622527f1354f 100644
---- a/net/rose/rose_in.c
-+++ b/net/rose/rose_in.c
-@@ -57,6 +57,7 @@ static int rose_state1_machine(struct sock *sk, struct sk_buff *skb, int framety
- 		rose_write_internal(sk, ROSE_CLEAR_CONFIRMATION);
- 		rose_disconnect(sk, ECONNREFUSED, skb->data[3], skb->data[4]);
- 		rose_neigh_put(rose->neighbour);
-+		rose->neighbour = NULL;
- 		break;
- 
- 	default:
-@@ -80,11 +81,13 @@ static int rose_state2_machine(struct sock *sk, struct sk_buff *skb, int framety
- 		rose_write_internal(sk, ROSE_CLEAR_CONFIRMATION);
- 		rose_disconnect(sk, 0, skb->data[3], skb->data[4]);
- 		rose_neigh_put(rose->neighbour);
-+		rose->neighbour = NULL;
- 		break;
- 
- 	case ROSE_CLEAR_CONFIRMATION:
- 		rose_disconnect(sk, 0, -1, -1);
- 		rose_neigh_put(rose->neighbour);
-+		rose->neighbour = NULL;
- 		break;
- 
- 	default:
-@@ -122,6 +125,7 @@ static int rose_state3_machine(struct sock *sk, struct sk_buff *skb, int framety
- 		rose_write_internal(sk, ROSE_CLEAR_CONFIRMATION);
- 		rose_disconnect(sk, 0, skb->data[3], skb->data[4]);
- 		rose_neigh_put(rose->neighbour);
-+		rose->neighbour = NULL;
- 		break;
- 
- 	case ROSE_RR:
-@@ -235,6 +239,7 @@ static int rose_state4_machine(struct sock *sk, struct sk_buff *skb, int framety
- 		rose_write_internal(sk, ROSE_CLEAR_CONFIRMATION);
- 		rose_disconnect(sk, 0, skb->data[3], skb->data[4]);
- 		rose_neigh_put(rose->neighbour);
-+		rose->neighbour = NULL;
- 		break;
- 
- 	default:
-@@ -255,6 +260,7 @@ static int rose_state5_machine(struct sock *sk, struct sk_buff *skb, int framety
- 		rose_write_internal(sk, ROSE_CLEAR_CONFIRMATION);
- 		rose_disconnect(sk, 0, skb->data[3], skb->data[4]);
- 		rose_neigh_put(rose_sk(sk)->neighbour);
-+		rose_sk(sk)->neighbour = NULL;
- 	}
- 
- 	return 0;
-diff --git a/net/rose/rose_loopback.c b/net/rose/rose_loopback.c
-index b538e39b3df5..fd4e4795776a 100644
---- a/net/rose/rose_loopback.c
-+++ b/net/rose/rose_loopback.c
-@@ -12,13 +12,15 @@
- #include <net/rose.h>
- #include <linux/init.h>
- 
--static struct sk_buff_head loopback_queue;
- #define ROSE_LOOPBACK_LIMIT 1000
--static struct timer_list loopback_timer;
- 
-+static struct timer_list loopback_timer;
-+static struct sk_buff_head loopback_queue;
- static void rose_set_loopback_timer(void);
- static void rose_loopback_timer(struct timer_list *unused);
- 
-+static atomic_t loopback_stopping = ATOMIC_INIT(0);
-+
- void rose_loopback_init(void)
- {
- 	skb_queue_head_init(&loopback_queue);
-@@ -66,10 +68,25 @@ static void rose_loopback_timer(struct timer_list *unused)
- 	unsigned int lci_i, lci_o;
- 	int count;
- 
-+	if (atomic_read(&loopback_stopping))
-+		return;
-+
-+	if (rose_loopback_neigh)
-+		rose_neigh_hold(rose_loopback_neigh);
-+	else
-+		return;
-+
- 	for (count = 0; count < ROSE_LOOPBACK_LIMIT; count++) {
- 		skb = skb_dequeue(&loopback_queue);
- 		if (!skb)
--			return;
-+			goto out;
-+
-+		if (atomic_read(&loopback_stopping)) {
-+			kfree_skb(skb);
-+			skb_queue_purge(&loopback_queue);
-+			goto out;
-+		}
-+
- 		if (skb->len < ROSE_MIN_LEN) {
- 			kfree_skb(skb);
- 			continue;
-@@ -96,27 +113,34 @@ static void rose_loopback_timer(struct timer_list *unused)
- 		}
- 
- 		if (frametype == ROSE_CALL_REQUEST) {
--			if (!rose_loopback_neigh->dev &&
--			    !rose_loopback_neigh->loopback) {
--				kfree_skb(skb);
--				continue;
--			}
--
- 			dev = rose_dev_get(dest);
- 			if (!dev) {
- 				kfree_skb(skb);
- 				continue;
- 			}
--
--			if (rose_rx_call_request(skb, dev, rose_loopback_neigh, lci_o) == 0) {
-+			/* rose_kill_by_device() runs on NETDEV_DOWN (IFF_UP cleared)
-+			 * before the device is unregistered.  If we create a new
-+			 * socket here after that cleanup, the ref never gets released
-+			 * because NETDEV_DOWN fires only once.  Drop the call instead.
-+			 */
-+			if (!netif_running(dev)) {
- 				dev_put(dev);
- 				kfree_skb(skb);
-+				continue;
- 			}
-+
-+			if (rose_rx_call_request(skb, dev, rose_loopback_neigh, lci_o) == 0)
-+				kfree_skb(skb);
-+			dev_put(dev);
- 		} else {
- 			kfree_skb(skb);
- 		}
- 	}
--	if (!skb_queue_empty(&loopback_queue))
-+
-+out:
-+	rose_neigh_put(rose_loopback_neigh);
-+
-+	if (!atomic_read(&loopback_stopping) && !skb_queue_empty(&loopback_queue))
- 		mod_timer(&loopback_timer, jiffies + 1);
- }
- 
-@@ -124,10 +148,15 @@ void __exit rose_loopback_clear(void)
- {
- 	struct sk_buff *skb;
- 
--	timer_delete(&loopback_timer);
-+	atomic_set(&loopback_stopping, 1);
-+	/* Pairs with atomic_read() in rose_loopback_timer(): ensure the
-+	 * stopping flag is visible before we cancel, so a concurrent
-+	 * callback aborts its loop early rather than re-arming the timer.
-+	 */
-+	smp_mb();
- 
--	while ((skb = skb_dequeue(&loopback_queue)) != NULL) {
--		skb->sk = NULL;
-+	timer_delete_sync(&loopback_timer);
-+
-+	while ((skb = skb_dequeue(&loopback_queue)) != NULL)
- 		kfree_skb(skb);
--	}
- }
-diff --git a/net/rose/rose_timer.c b/net/rose/rose_timer.c
-index bb60a1654d61..d967cbc1db3d 100644
---- a/net/rose/rose_timer.c
-+++ b/net/rose/rose_timer.c
-@@ -126,12 +126,68 @@ static void rose_heartbeat_expiry(struct timer_list *t)
- 		sk_reset_timer(sk, &sk->sk_timer, jiffies + HZ/20);
- 		goto out;
- 	}
-+
-+	/* The bound device went down while we still hold a reference on it.
-+	 * This catches the narrow race where rose_loopback_timer() created a
-+	 * socket in the window after rose_kill_by_device()'s NETDEV_DOWN sweep
-+	 * but before rose_insert_socket() -- leaving a STATE_3 socket that no
-+	 * other branch reaps.  A down device means the link is dead, so tear
-+	 * the socket down regardless of state.  rose_destroy_socket() releases
-+	 * the held netdev reference (rose->device still set).
-+	 */
-+	if (rose->device && !netif_running(rose->device)) {
-+		if (rose->neighbour) {
-+			rose_neigh_put(rose->neighbour);
-+			rose->neighbour = NULL;
-+		}
-+		rose_disconnect(sk, ENETDOWN, -1, -1);
-+
-+		/* Only reap the socket if userspace no longer holds it.  A socket
-+		 * still attached to a struct socket (sk->sk_socket != NULL -- e.g.
-+		 * a connection an fpad client has accepted and kept open) is owned
-+		 * by that fd: rose_release() will destroy it on close().  Dropping
-+		 * the last reference here leaves the open fd dangling, so the
-+		 * eventual close() touches freed memory -> slab-use-after-free in
-+		 * rose_release().  Unaccepted incoming sockets and post-close
-+		 * orphans have sk->sk_socket == NULL and stay safe to reap here.
-+		 */
-+		if (!sk->sk_socket) {
-+			sock_set_flag(sk, SOCK_DESTROY);
-+			bh_unlock_sock(sk);
-+			rose_destroy_socket(sk);
-+			sock_put(sk);
-+			return;
-+		}
-+
-+		/* Owned by userspace: the link is down and the socket is now
-+		 * disconnected (rose_disconnect() moved it to STATE_0).  Fall
-+		 * through to the switch, which re-arms the heartbeat; the close()
-+		 * will tear the socket down. */
-+	}
-+
- 	switch (rose->state) {
- 	case ROSE_STATE_0:
--		/* Magic here: If we listen() and a new link dies before it
--		   is accepted() it isn't 'dead' so doesn't get removed. */
--		if (sock_flag(sk, SOCK_DESTROY) ||
--		    (sk->sk_state == TCP_LISTEN && sock_flag(sk, SOCK_DEAD))) {
-+		/* Destroy any orphaned STATE_0 socket: either explicitly
-+		 * flagged SOCK_DESTROY, or SOCK_DEAD (covers both unaccepted
-+		 * incoming connections and listening sockets whose link died).
-+		 */
-+		if ((sock_flag(sk, SOCK_DESTROY) || sock_flag(sk, SOCK_DEAD)) &&
-+		    !sk->sk_socket) {
-+			/* Reap only orphaned sockets (sk->sk_socket == NULL).  A
-+			 * socket still owned by a userspace fd reaches here via the
-+			 * STATE_2 device-gone branch, which sets SOCK_DESTROY without
-+			 * knowing about the fd; freeing it would race rose_release()
-+			 * at close() -> use-after-free.  Leave it for close().
-+			 *
-+			 * Orphaned incoming sockets (rose_rx_call_request) hold a
-+			 * neighbour reference; release it before teardown, as the
-+			 * STATE_2 and device-down branches do.  rose_destroy_socket()
-+			 * does not drop it.
-+			 */
-+			if (rose->neighbour) {
-+				rose_neigh_put(rose->neighbour);
-+				rose->neighbour = NULL;
-+			}
- 			bh_unlock_sock(sk);
- 			rose_destroy_socket(sk);
- 			sock_put(sk);
-@@ -139,6 +195,20 @@ static void rose_heartbeat_expiry(struct timer_list *t)
- 		}
- 		break;
- 
-+	case ROSE_STATE_2:
-+		/* Device gone before CLEAR CONFIRM arrived: stop waiting for T3
-+		 * and disconnect now instead of blocking rmmod for up to 180s. */
-+		if (!rose->device) {
-+			rose_stop_timer(sk);
-+			if (rose->neighbour) {
-+				rose_neigh_put(rose->neighbour);
-+				rose->neighbour = NULL;
-+			}
-+			rose_disconnect(sk, ENETDOWN, -1, -1);
-+			sock_set_flag(sk, SOCK_DESTROY);
-+		}
-+		break;
-+
- 	case ROSE_STATE_3:
- 		/*
- 		 * Check for the state of the receive buffer.
-@@ -180,7 +250,10 @@ static void rose_timer_expiry(struct timer_list *t)
- 		break;
- 
- 	case ROSE_STATE_2:	/* T3 */
--		rose_neigh_put(rose->neighbour);
-+		if (rose->neighbour) {
-+			rose_neigh_put(rose->neighbour);
-+			rose->neighbour = NULL;
-+		}
- 		rose_disconnect(sk, ETIMEDOUT, -1, -1);
- 		break;
- 
-diff --git a/net/sctp/ipv6.c b/net/sctp/ipv6.c
-index d725b2158758..7434309785cc 100644
---- a/net/sctp/ipv6.c
-+++ b/net/sctp/ipv6.c
-@@ -261,9 +261,11 @@ static int sctp_v6_xmit(struct sk_buff *skb, struct sctp_transport *t)
- 	skb_set_inner_ipproto(skb, IPPROTO_SCTP);
- 	label = ip6_make_flowlabel(sock_net(sk), skb, fl6->flowlabel, true, fl6);
- 
-+	local_bh_disable();
- 	udp_tunnel6_xmit_skb(dst, sk, skb, NULL, &fl6->saddr, &fl6->daddr,
- 			     tclass, ip6_dst_hoplimit(dst), label,
- 			     sctp_sk(sk)->udp_port, t->encap_port, false, 0);
-+	local_bh_enable();
- 	return 0;
- }
- 
-diff --git a/net/sctp/protocol.c b/net/sctp/protocol.c
-index 9dbc24af749b..6ce58fc95ef5 100644
---- a/net/sctp/protocol.c
-+++ b/net/sctp/protocol.c
-@@ -1102,10 +1102,12 @@ static inline int sctp_v4_xmit(struct sk_buff *skb, struct sctp_transport *t)
- 	skb_reset_inner_mac_header(skb);
- 	skb_reset_inner_transport_header(skb);
- 	skb_set_inner_ipproto(skb, IPPROTO_SCTP);
-+	local_bh_disable();
- 	udp_tunnel_xmit_skb(dst_rtable(dst), sk, skb, fl4->saddr,
- 			    fl4->daddr, dscp, ip4_dst_hoplimit(dst), df,
- 			    sctp_sk(sk)->udp_port, t->encap_port, false, false,
- 			    0);
-+	local_bh_enable();
- 	return 0;
- }
- 
-diff --git a/tools/testing/selftests/mm/soft-dirty.c b/tools/testing/selftests/mm/soft-dirty.c
-index 4ee4db3750c1..c3a9585de98c 100644
---- a/tools/testing/selftests/mm/soft-dirty.c
-+++ b/tools/testing/selftests/mm/soft-dirty.c
-@@ -184,6 +184,130 @@ static void test_mprotect(int pagemap_fd, int pagesize, bool anon)
- 		close(test_fd);
- }
- 
-+static void test_merge(int pagemap_fd, int pagesize)
-+{
-+	char *reserved, *map, *map2;
-+
-+	/*
-+	 * Reserve space for tests:
-+	 *
-+	 *   ---padding to ---
-+	 *   |   avoid adj.  |
-+	 *   v     merge     v
-+	 * |---|---|---|---|---|
-+	 * |   | 1 | 2 | 3 |   |
-+	 * |---|---|---|---|---|
-+	 */
-+	reserved = mmap(NULL, 5 * pagesize, PROT_NONE,
-+			MAP_ANON | MAP_PRIVATE, -1, 0);
-+	if (reserved == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap failed\n");
-+	munmap(reserved, 4 * pagesize);
-+
-+	/*
-+	 * Establish initial VMA:
-+	 *
-+	 *      S/D
-+	 * |---|---|---|---|---|
-+	 * |   | 1 |   |   |   |
-+	 * |---|---|---|---|---|
-+	 */
-+	map = mmap(&reserved[pagesize], pagesize, PROT_READ | PROT_WRITE,
-+		   MAP_ANON | MAP_PRIVATE | MAP_FIXED, -1, 0);
-+	if (map == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap failed\n");
-+
-+	/* This will clear VM_SOFTDIRTY too. */
-+	clear_softdirty();
-+
-+	/*
-+	 * Now place a new mapping which will be marked VM_SOFTDIRTY. Away from
-+	 * map:
-+	 *
-+	 *       -      S/D
-+	 * |---|---|---|---|---|
-+	 * |   | 1 |   | 2 |   |
-+	 * |---|---|---|---|---|
-+	 */
-+	map2 = mmap(&reserved[3 * pagesize], pagesize, PROT_READ | PROT_WRITE,
-+		    MAP_ANON | MAP_PRIVATE | MAP_FIXED, -1, 0);
-+	if (map2 == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap failed\n");
-+
-+	/*
-+	 * Now remap it immediately adjacent to map, if the merge correctly
-+	 * propagates VM_SOFTDIRTY, we should then observe the VMA as a whole
-+	 * being marked soft-dirty:
-+	 *
-+	 *       merge
-+	 *        S/D
-+	 * |---|-------|---|---|
-+	 * |   |   1   |   |   |
-+	 * |---|-------|---|---|
-+	 */
-+	map2 = mremap(map2, pagesize, pagesize, MREMAP_FIXED | MREMAP_MAYMOVE,
-+		      &reserved[2 * pagesize]);
-+	if (map2 == MAP_FAILED)
-+		ksft_exit_fail_msg("mremap failed\n");
-+	ksft_test_result(pagemap_is_softdirty(pagemap_fd, map) == 1,
-+			 "Test %s-anon soft-dirty after remap merge 1st pg\n",
-+			 __func__);
-+	ksft_test_result(pagemap_is_softdirty(pagemap_fd, map2) == 1,
-+			 "Test %s-anon soft-dirty after remap merge 2nd pg\n",
-+			 __func__);
-+
-+	munmap(map, 2 * pagesize);
-+
-+	/*
-+	 * Now establish another VMA:
-+	 *
-+	 *      S/D
-+	 * |---|---|---|---|---|
-+	 * |   | 1 |   |   |   |
-+	 * |---|---|---|---|---|
-+	 */
-+	map = mmap(&reserved[pagesize], pagesize, PROT_READ | PROT_WRITE,
-+		   MAP_ANON | MAP_PRIVATE | MAP_FIXED, -1, 0);
-+	if (map == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap failed\n");
-+
-+	/* Clear VM_SOFTDIRTY... */
-+	clear_softdirty();
-+	/* ...and establish incompatible adjacent VMA:
-+	 *
-+	 *       -  S/D
-+	 * |---|---|---|---|---|
-+	 * |   | 1 | 2 |   |   |
-+	 * |---|---|---|---|---|
-+	 */
-+	map2 = mmap(&reserved[2 * pagesize], pagesize,
-+	PROT_READ | PROT_WRITE | PROT_EXEC,
-+		   MAP_ANON | MAP_PRIVATE | MAP_FIXED, -1, 0);
-+	if (map2 == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap failed\n");
-+
-+	/*
-+	 * Now mprotect() VMA 1 so it's compatible with 2 and therefore merges:
-+	 *
-+	 *       merge
-+	 *        S/D
-+	 * |---|-------|---|---|
-+	 * |   |   1   |   |   |
-+	 * |---|-------|---|---|
-+	 */
-+	if (mprotect(map, pagesize, PROT_READ | PROT_WRITE | PROT_EXEC))
-+		ksft_exit_fail_msg("mprotect failed\n");
-+
-+	ksft_test_result(pagemap_is_softdirty(pagemap_fd, map) == 1,
-+			 "Test %s-anon soft-dirty after mprotect merge 1st pg\n",
-+			 __func__);
-+	ksft_test_result(pagemap_is_softdirty(pagemap_fd, map2) == 1,
-+			 "Test %s-anon soft-dirty after mprotect merge 2nd pg\n",
-+			 __func__);
-+
-+	munmap(map, 2 * pagesize);
-+}
-+
- static void test_mprotect_anon(int pagemap_fd, int pagesize)
- {
- 	test_mprotect(pagemap_fd, pagesize, true);
-@@ -204,7 +328,7 @@ int main(int argc, char **argv)
- 	if (!softdirty_supported())
- 		ksft_exit_skip("soft-dirty is not support\n");
- 
--	ksft_set_plan(15);
-+	ksft_set_plan(19);
- 	pagemap_fd = open(PAGEMAP_FILE_PATH, O_RDONLY);
- 	if (pagemap_fd < 0)
- 		ksft_exit_fail_msg("Failed to open %s\n", PAGEMAP_FILE_PATH);
-@@ -216,6 +340,7 @@ int main(int argc, char **argv)
- 	test_hugepage(pagemap_fd, pagesize);
- 	test_mprotect_anon(pagemap_fd, pagesize);
- 	test_mprotect_file(pagemap_fd, pagesize);
-+	test_merge(pagemap_fd, pagesize);
- 
- 	close(pagemap_fd);
- 
-diff --git a/tools/testing/vma/vma.c b/tools/testing/vma/vma.c
-index 656e1c75b711..fd37ce3b2628 100644
---- a/tools/testing/vma/vma.c
-+++ b/tools/testing/vma/vma.c
-@@ -339,6 +339,7 @@ static bool test_simple_modify(void)
- 	struct mm_struct mm = {};
- 	struct vm_area_struct *init_vma = alloc_vma(&mm, 0, 0x3000, 0, vm_flags);
- 	VMA_ITERATOR(vmi, &mm, 0x1000);
-+	vm_flags_t flags = VM_READ | VM_MAYREAD;
- 
- 	ASSERT_FALSE(attach_vma(&mm, init_vma));
- 
-@@ -347,7 +348,7 @@ static bool test_simple_modify(void)
- 	 * performs the merge/split only.
- 	 */
- 	vma = vma_modify_flags(&vmi, init_vma, init_vma,
--			       0x1000, 0x2000, VM_READ | VM_MAYREAD);
-+			       0x1000, 0x2000, &flags);
- 	ASSERT_NE(vma, NULL);
- 	/* We modify the provided VMA, and on split allocate new VMAs. */
- 	ASSERT_EQ(vma, init_vma);
-diff --git a/tools/testing/vma/vma_internal.h b/tools/testing/vma/vma_internal.h
-index 9f724954a0f6..f64064ee4858 100644
---- a/tools/testing/vma/vma_internal.h
-+++ b/tools/testing/vma/vma_internal.h
-@@ -56,6 +56,7 @@ extern unsigned long dac_mmap_min_addr;
- #define VM_MAYEXEC	0x00000040
- #define VM_GROWSDOWN	0x00000100
- #define VM_PFNMAP	0x00000400
-+#define VM_MAYBE_GUARD	0x00000800
- #define VM_LOCKED	0x00002000
- #define VM_IO           0x00004000
- #define VM_SEQ_READ	0x00008000	/* App will access data sequentially */
-@@ -116,6 +117,54 @@ extern unsigned long dac_mmap_min_addr;
- #define VM_SEALED	VM_NONE
- #endif
- 
-+/*
-+ * Flags which should be 'sticky' on merge - that is, flags which, when one VMA
-+ * possesses it but the other does not, the merged VMA should nonetheless have
-+ * applied to it:
-+ *
-+ *   VM_SOFTDIRTY - if a VMA is marked soft-dirty, that is has not had its
-+ *                  references cleared via /proc/$pid/clear_refs, any merged VMA
-+ *                  should be considered soft-dirty also as it operates at a VMA
-+ *                  granularity.
-+ */
-+#define VM_STICKY (VM_SOFTDIRTY | VM_MAYBE_GUARD)
-+
-+/*
-+ * VMA flags we ignore for the purposes of merge, i.e. one VMA possessing one
-+ * of these flags and the other not does not preclude a merge.
-+ *
-+ *    VM_STICKY - When merging VMAs, VMA flags must match, unless they are
-+ *                'sticky'. If any sticky flags exist in either VMA, we simply
-+ *                set all of them on the merged VMA.
-+ */
-+#define VM_IGNORE_MERGE VM_STICKY
-+
-+/*
-+ * Flags which should result in page tables being copied on fork. These are
-+ * flags which indicate that the VMA maps page tables which cannot be
-+ * reconsistuted upon page fault, so necessitate page table copying upon
-+ *
-+ * VM_PFNMAP / VM_MIXEDMAP - These contain kernel-mapped data which cannot be
-+ *                           reasonably reconstructed on page fault.
-+ *
-+ *              VM_UFFD_WP - Encodes metadata about an installed uffd
-+ *                           write protect handler, which cannot be
-+ *                           reconstructed on page fault.
-+ *
-+ *                           We always copy pgtables when dst_vma has uffd-wp
-+ *                           enabled even if it's file-backed
-+ *                           (e.g. shmem). Because when uffd-wp is enabled,
-+ *                           pgtable contains uffd-wp protection information,
-+ *                           that's something we can't retrieve from page cache,
-+ *                           and skip copying will lose those info.
-+ *
-+ *          VM_MAYBE_GUARD - Could contain page guard region markers which
-+ *                           by design are a property of the page tables
-+ *                           only and thus cannot be reconstructed on page
-+ *                           fault.
-+ */
-+#define VM_COPY_ON_FORK (VM_PFNMAP | VM_MIXEDMAP | VM_UFFD_WP | VM_MAYBE_GUARD)
-+
- #define FIRST_USER_ADDRESS	0UL
- #define USER_PGTABLES_CEILING	0UL
- 
