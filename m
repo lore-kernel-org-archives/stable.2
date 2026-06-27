@@ -1,105 +1,103 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF423749FF
-	for <stable@vger.kernel.org>; Sat, 27 Jun 2026 05:43:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CFF13AA2D;
+	Sat, 27 Jun 2026 05:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782538990; cv=none; b=KwySDFCKEYmX1Z+dnusKizwQ2Mt7qarnSQlZPacY/OU5FAjXr9fITv9EOsIwqcTBLK3CzOD4fOag5X7vz0hZg6YBOj2xukaQkvd0wXQ980ERcEXBgFE0UyCwEEPNea2cNYpCav2TobY2P58RQw0/kcyE1tcNtXcpnTuZTwqOaKc=
+	t=1782539634; cv=none; b=efr5574ssjbTtlDwEQSa/6baXqJ6HhSoEsJod8gO3KcmlMu+6bwREjk0HkWejTdM4m0aoH5Djm3pbqsruFLo3lCpX4RT2/S8Qhb0P1oo2sJ47ji6YTuN0wsmiNsNfh25EwImOM9UHKtDJiEbRJStD+434UJUUOEfwdfycVysqJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782538990; c=relaxed/simple;
-	bh=1AlcacmmfGnLSGC42haB1KmCNL6YGKCWUowghp+cB7M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r9P0SqkIJCnRQW+pVmUGZvxB/0btEYXxqQ5EI6VyxUUYfj1FT4rZzsFTifAmkFrhnQKGLn0XmimbmBMYC+SMqDNTgRxMBXvy3XO0JIoCjQP9fRtckHmGN9DE98NVjlVsLLPSR3tREme5rxfADAs0ilJxPxNd5bVvZAm8bcNZxvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MA8ZqyQ6; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782539634; c=relaxed/simple;
+	bh=G0FkXdJLzyYIoHCSWSwOw2xpQzbT5rcDjYOazbKiTCM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RoZjZy7UPs+OgIv6D06XzWLf4b/KJ0hfIGsQLAfHfQF3QqXuho3epridEMHxIp4WKyownKkYjhITkLanncTDwhPMaZNzbxyvPMFD3sAYD2RjhaVD2VK5q10WNC6sywFFiD5mtCTZSmNnVGoCsJarWsoMPLpFuLx+yhjbZDSvfZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tz1GJq1X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MA8ZqyQ6"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-30e18c3e0b8so52969eec.0
-        for <stable@vger.kernel.org>; Fri, 26 Jun 2026 22:43:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782538987; x=1783143787; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=iqXoMKna19xGBHDnSKCZr4IKhjs+v6dxb7RGvIkniRE=;
-        b=MA8ZqyQ6PSrWjZtMEprM1wH20EjXeNvxAFgNqRNBcapuRta7nxP1lFLjGyWF9qZqAv
-         NR0qtZ7HQliE7M6kDc/aGIqbl7cc34kVdWralB6ny11f4nJ1ybp12BwerMX6Sd1Ws7vL
-         2gKmoD47O95Jun/dLQdID7u6+QkyzLYriJADS2gpTfF7k8xUUciCXOp/iephx8dls+Np
-         io1opYnfT71DmO3idkAYJ8rVUIO5HM5cPWD4wI8FILntjaenznB+XmljNEjVdjdWnkMG
-         zrrvNAar38KQqLaO37l5R8pJEsxlEKDdwwuHxIGca5sNm6VCx0tVIBVQ1WxaDuOxIyRk
-         eW/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782538987; x=1783143787;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=iqXoMKna19xGBHDnSKCZr4IKhjs+v6dxb7RGvIkniRE=;
-        b=SLMFFEF1uOTXeZxJ0mYbbSly9mMpdQ+Km6pBGK5jVdekiMxCBc4J16qaOWU651elD9
-         GDlOLTSRqj1vUzk1ZW2qVMtgx1QrDHArgvjqP91+Dv1Xh8eC9H9C2ubLGgukJtKeeKkJ
-         3XKGZcf9zpPmj/NoFOZ5zBmhPXNIHa5TKlSuFpZ0wA/3VfUU+n02PgNYD7A6cA/nxXWD
-         MIfQ0CNRHjvQubEwGRFWvMW6jj3TC18FIZwCMvNVHMfmHNs828wQjUgjJg6LZVEPTix7
-         O6Iifg1N8/Z1/KRs0nYS90yrpyStwGSzZDcp3J1AJjh+FEQqfglNDkuDdLIZCtcsHduO
-         YGBA==
-X-Forwarded-Encrypted: i=1; AHgh+RpiCH473GBu9QT33GDwKIFO7RMiLc7VS3qM7FmyHW0HkgBuemgY4N8E5D/7R0eryMfS6KSnTwI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzId8L98Ls8wiZn3idYq1xA8tX14WPzuiReLACJKVFod9+3FiWO
-	u2cV8zV6Q3hEToVOe2NlPa2t/jHMEvcHsMbayLheP6GGpOal0hIPiEHH
-X-Gm-Gg: AfdE7ckD2P/wzQhrEMZzL+zaFtVbap5bGhncRtyGwcDWUMyyPb9gpy0Le4l6gqOIZga
-	Kha8MH0pk64joQ9L0oIB5djNpqD+Fcpv6UvWO6EiRDZbftk8yl2ZQEMsCsLr7HSKigB+DItAIC2
-	rEuxtV9cZObZbN2KWKq9INB6Kxs6+hDufCESVZAGopjQ1L6zfilJ4gIJzub2YxqtH0jQ9vaLKs/
-	QE7xxnWbaB+imP76L8ZnBh2Id+8vc/e2kyKbPI1PSUmHa51BNBqT/mhlF2kxGp8Cdb3i7DXmAMn
-	rzOB1CGeM+ChzPzej4ap7d35hIeBzeh1MXHP/Q/ozd4/cWziLdSQI2IC44Tgk4WmZAlQBcuuFao
-	F8PHaSIaFCsdUlYS2UK0KVPiMzaEVwtNQcrenV71ccklII0aVPZFQvFa1uMN78+YqpYFehNbcba
-	UK8DFytfTMO3sS/nej8MicwzBxdyfhW0Ltdqes0pdYSBhNz1RjsqJ/
-X-Received: by 2002:a05:7301:9e44:b0:2f5:5907:3a48 with SMTP id 5a478bee46e88-30c84d14053mr8966083eec.1.1782538986692;
-        Fri, 26 Jun 2026 22:43:06 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:e062:ec60:2d87:502])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30ca5f15024sm11181432eec.17.2026.06.26.22.43.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 22:43:05 -0700 (PDT)
-Date: Fri, 26 Jun 2026 22:43:03 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: raoxu <raoxu@uniontech.com>
-Cc: James.Bottomley@hansenpartnership.com, deller@gmx.de, 
-	linux-parisc@vger.kernel.org, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] Input: gscps2 - advance receive buffer write index
-Message-ID: <aj9i44uye8mHGjR2@google.com>
-References: <460B5655BA580C60+20260624094739.850306-1-raoxu@uniontech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tz1GJq1X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6302D1F000E9;
+	Sat, 27 Jun 2026 05:53:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782539633;
+	bh=y2XSyq3zGZGOpkJqqW0NdquWFNvEnloCi4JZ+AgNhN4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Tz1GJq1XTI30zHIi88et+AM4I5pSenf2DsPEkrTQaTh7PptDGh+k+TRHA+vkeoT3B
+	 J0EnHmsMF5S7e4La7BnaYTv7FIRw689k0zwzHDhMx9gR6r4+yhhunojdvy/TgmSeFZ
+	 XqgX0+ZJDmVjvbRJZZquJqEdQ48mM3XaGIJTnEtCJckQgtPaWe3g74hn5JNeFhyzCM
+	 Rt7ZF6yqF1vVi6pf9qLa0NCNG3zagR2N5Drh/AmHldyo2TGn5IesjxYRBi9l3GwrvY
+	 A68J5YCCcG1onvar6Xu7B8BMTWC4mXkVVZmZWV4mIvS7f/9bAwrMrF2rhGjolDoajg
+	 ZpoNLhB4BsD7w==
+Message-ID: <9f91ba0b-519b-48f3-822e-a2b08d7e6feb@kernel.org>
+Date: Sat, 27 Jun 2026 00:53:51 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <460B5655BA580C60+20260624094739.850306-1-raoxu@uniontech.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drm/amdgpu: Fix resource leak in
+ amdgpu_gfx_run_cleaner_shader_job()
+Content-Language: en-US
+To: Wentao Liang <vulab@iscas.ac.cn>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Lijo Lazar <lijo.lazar@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Xiaogang Chen <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260624124731.37479-1-vulab@iscas.ac.cn>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260624124731.37479-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 24, 2026 at 05:47:39PM +0800, raoxu wrote:
-> From: Xu Rao <raoxu@uniontech.com>
+On 6/24/26 07:47, Wentao Liang wrote:
+> When amdgpu_job_alloc_with_ib() fails in
+> amdgpu_gfx_run_cleaner_shader_job(), the function returns directly
+> without destroying the scheduler entity, causing a resource leak.
 > 
-> Commit 44f920069911 ("Input: gscps2 - use guard notation when
-> acquiring spinlock") moved the receive loop into gscps2_read_data()
-> and gscps2_report_data().
+> Fix this by moving the entity cleanup to a common error path. Set r = 0
+> on success and use a single cleanup point at the err label to ensure the
+> entity is always destroyed regardless of whether the function succeeds
+> or fails.
 > 
-> While moving the code, it preserved the writes to
-> buffer[ps2port->append], but omitted the following producer index
-> update from the original loop:
+> Also remove the unnecessary error check for dma_fence_wait() since it
+> never fails with intr=false and infinite timeout.
 > 
-> 	ps2port->append = (ps2port->append + 1) & BUFFER_SIZE;
+> Cc: stable@vger.kernel.org
+> Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with 'drm_sched_entity' in cleaner shader")
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
 > 
-> As a result, append never advances. Since gscps2_report_data() only
-> reports bytes while act != append, the receive buffer always appears
-> empty and no keyboard or mouse data reaches the serio core.
-> 
-> Restore the omitted index update.
-> 
-> Fixes: 44f920069911 ("Input: gscps2 - use guard notation when acquiring spinlock")
-> Cc: stable@vger.kernel.org # 6.13+
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index 523b681d0da9..29a07af6f5f4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1689,9 +1689,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+>   
+>   	dma_fence_put(f);
+>   
+> -	/* Clean up the scheduler entity */
+> -	drm_sched_entity_destroy(&entity);
+> -	return 0;
+> +	r = 0;
+>   
+>   err:
+>       /* Clean up the scheduler entity */
 
-Applied, thank you.
+What tree is this against?  It doesn't apply against amd-staging-drm-next.
 
--- 
-Dmitry
+Applying: drm/amdgpu: Fix resource leak in 
+amdgpu_gfx_run_cleaner_shader_job()
+Patch failed at 0001 drm/amdgpu: Fix resource leak in 
+amdgpu_gfx_run_cleaner_shader_job()
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+error: patch failed: drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1689
+error: drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c: patch does not apply
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
