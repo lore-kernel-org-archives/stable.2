@@ -1,102 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8EA227EA4;
-	Sat, 27 Jun 2026 17:28:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD5A19E96D;
+	Sat, 27 Jun 2026 18:14:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782581285; cv=none; b=Kg2XPBvwbhP652iBH+MAzTaNXG9ZF7z9AywCCQYVQLVGl5169QXMSlsKiVZoi9VYBAY5NzgF91Ve86BUi9Xc++NS5nWKIJf1D9e7uAnANc1SnZI9UwAHkwWkf7HdbUcjS6LN+A90Jr9kHeOdAl/CwhH6RQwPZArwDDLaay64IYY=
+	t=1782584059; cv=none; b=javVV8tCBecz+ci62MdjqtVliVD6ch54LxSYKbCfe2VY9NQAtN8acpf2S6fPurSq0GypgPlfHktfh+WpaJKNq67NoNcdfDpp7Qnf4QxMKc1cE4I2hbN9wluO4g5DjLM8/bNQRgQgk+1VBiAwyneS2M0LFYwzVM3zX+Gr3hxNd/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782581285; c=relaxed/simple;
-	bh=DmZDPPqhhkvHZLZb6YokbPqUR4ydJKbf0IXnVNJ1PUE=;
+	s=arc-20240116; t=1782584059; c=relaxed/simple;
+	bh=VLytSmv76aAtmvOH4sOQyjPk/l3NyF8qD/q6hgZZ37E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nsJe8CyRp5QcGlqm1vusuzajEcLacXCnCaObQ8cQT5l8v0eCED4Uxyy0zQzVorNZSf8zD0M52r97g9pnMPniFgLtIHIwOUKG8KzB0Unw2yihBcemloiylyzNIOpzJ5CjKPjfz0IfK1XEY7VHbp/iOTgYvuFIbjfuAZq/ViIumss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Xn9DlXaG; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=dZ+yb7uAL2zHRqOlbih4BroLb4JATVWLu95oBU10pV/MF788BuY25iIEswINZIqMb46nhEA+1laoTJLQZNN8IwY1GuhGTv9FEF/XrNEjt8OBgXvBqTN1oEeOPiE9BIJw7xgZGxw1LVEK7gpkxa/1PFUcBM1jd4809KpkAHbx1rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=APO/n1Yi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Xn9DlXaG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BC2B1F000E9;
-	Sat, 27 Jun 2026 17:28:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782581283;
-	bh=nH9xtVPzbPWocfOAVQI1VzHO7nyVTdC36kSsc9UTgzg=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="APO/n1Yi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75ED11F000E9;
+	Sat, 27 Jun 2026 18:14:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782584057;
+	bh=NCFBk4z1YdNB5CVZ8KnAPTlpBzRh0FzV5le6Diwn4J8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Xn9DlXaG3KC9wdc99i+Ulwez0X/m1yy5C/uOxFiGfNqxy41v8TKKh5zKWRcSxVvW0
-	 Ou7BlXKIvzKdvg3hc/Zqx/N4Fnoqfm87Pfaa0DJpzyoDJQvG22p5ZpZdeHx4rNiLgh
-	 /qLeQn9iOUdH8/k7AwWwMMuB5Iydro53kKGXn7DM=
-Date: Sat, 27 Jun 2026 18:26:45 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: WenTao Liang <vulab@iscas.ac.cn>
-Cc: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
-	mturquette@baylibre.com, sboyd@kernel.org, alim.akhtar@samsung.com,
-	bmasney@redhat.com, linux-samsung-soc@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] fix: clk/samsung: exynos_clkout_probe: success path
- leaks parent clock   references from of_clk_get_by_name
-Message-ID: <2026062704-detail-machine-270f@gregkh>
-References: <20260626120135.34173-1-vulab@iscas.ac.cn>
- <2026062612-twiddling-lagged-62ac@gregkh>
- <10D15C29-89E4-4A0B-BB89-F03A86963DDA@iscas.ac.cn>
+	b=APO/n1Yie1DJOoHiEh3PHnZKJaDxiKeBnXG3mCW4hU2hfInX5KM9w+oxNPkNzOgf8
+	 GJ1kjU2jw6KbofMQaCdX9OxrG+opwbCtAJt9r5Gc0q1+8+P1M2iYecpShEl/iR9uME
+	 kpAdB7yOL6g2O7FxMSll3QUs12QaZa3sDJFYWwst50QZkDWxPbctcqrS4Zpc2FHanY
+	 7agH9nQpSzt3OXFSZylcj7Ora+wKMS63XVsUhRbmuw46VRk0/Bk3boqH+vk7n04r4u
+	 umzWxlRF02l8nVmTh2lDL3EYiy2ubaeTGDF5ZcaHNlvlVylM12F7XpyUAh0SrJveR7
+	 gbd+KDzm7S3wg==
+Date: Sat, 27 Jun 2026 11:14:16 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, Will Deacon <will@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] KVM: Move kvm_io_bus_get_dev() locking
+ responsibilities to callers
+Message-ID: <akAS-LN7XZMaZdAQ@kernel.org>
+References: <20260627105105.1005990-1-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <10D15C29-89E4-4A0B-BB89-F03A86963DDA@iscas.ac.cn>
+In-Reply-To: <20260627105105.1005990-1-maz@kernel.org>
 
-On Sat, Jun 27, 2026 at 07:42:36PM +0800, WenTao Liang wrote:
+On Sat, Jun 27, 2026 at 11:51:05AM +0100, Marc Zyngier wrote:
+> kvm_io_bus_get_dev() returns a device that is only matched by the
+> address, and nothing else. This can cause a lifetime issue if
+> the matched device is not the expected type, as by the time
+> the caller can introspect the object, it might be gone (the srcu
+> lock having been dropped).
 > 
+> Given that there is only a single user of this helper, the simplest
+> option is to move the locking responsibility to the caller, which
+> can keep the srcu lock held for as long as it wants.
 > 
-> > 2026年6月26日 22:24，Greg KH <gregkh@linuxfoundation.org> 写道：
-> > 
-> > On Fri, Jun 26, 2026 at 08:01:35PM +0800, WenTao Liang wrote:
-> >> of_clk_get_by_name() acquires clock references stored in the local
-> >>  parents[] array. All error paths correctly release these via the clks_put
-> >>  label, but the success path returns 0 without releasing the parent
-> >>  references. The references were only needed to obtain clock names for
-> >>  registration and are permanently leaked after probe completes.
-> >> 
-> >> Cc: stable@vger.kernel.org
-> >> Fixes: 9484f2cb8332 ("clk: samsung: exynos-clkout: convert to module driver")
-> >> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-> >> ---
-> >> drivers/clk/samsung/clk-exynos-clkout.c | 4 ++++
-> >> 1 file changed, 4 insertions(+)
-> > 
-> > For all of these, you are not using the normal kernel style, which means
-> > a LLM is generating them, which implies that you did not properly
-> > document what tool found/fixed all of these.  So please go back and fix
-> > them all up and resend them properly, after telling the
-> > maintainers/developers that the originals should be ignored.
-> > 
-> > thanks,
-> > 
-> > greg k-h
+> Note that this aligns with other kvm_io_bus*() helpers, which
+> already require the srcu lock to be held by the callers.
 > 
-> 
-> 
-> Thank you for the review and guidance. I understand the issues now.
-> 
-> I will:
-> 1. Study the proper kernel coding style
-> 2. If using any automated tools, document them properly in the commit
->    message
-> 3. Fix all the patches following the correct style
-> 4. Send a v2 series with proper version history
-> 5. Inform all maintainers that the original patches should be ignored
+> Reported-by: Will Deacon <will@kernel.org>
+> Signed-off-by: Marc Zyngier <maz@kernel.org>
+> Fixes: 8a39d00670f07 ("KVM: kvm_io_bus: Add kvm_io_bus_get_dev() call")
+> Link: https://lore.kernel.org/all/20260626111344.802555-1-maz@kernel.org
+> Cc: stable@vger.kernel.org
 
-Do this right now please!
+Thanks for respinning.
 
-> I apologize for the inconvenience and will ensure future submissions
-> follow all kernel submission guidelines properly.
-
-Also try learning this by doing just a few patches first, not hundreds,
-otherwise you run the risk of being outright banned from development.
-
-good luck!
-
-greg k-h
+Reviewed-by: Oliver Upton <oupton@kernel.org>
