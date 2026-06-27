@@ -1,163 +1,144 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C301A3161A1
-	for <stable@vger.kernel.org>; Sat, 27 Jun 2026 19:06:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF91343895
+	for <stable@vger.kernel.org>; Sat, 27 Jun 2026 20:22:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782587165; cv=none; b=bf9Ni/DiQqLMypy7Lt8/KArUoTTuLhaDA7YZTchNrjaUyJUQsl3klI2RmN+Kr73P4W51kKq3+oqZNsgaUfNqfS8LYr1uvKiwUcPNlHvhh+Ot2OWmeEsuVrF7CUbknR1DeEcrl3wvmbasglMkS64rM6Vdb5gkG2ZVdvGeLRIR4mU=
+	t=1782591773; cv=none; b=Vh6opWodIaS9Lh9vx8xIWui1i4y0P+APP/IptAO0o90c/eJgh4tDdlK+stuji55s/aiMql5wv1S/OY7FKxFQbMmLXYdgmObuYgTwdc1kDcFfBNIsroQ5U5PkJFasyrBWgRYo0y24PT1uYFNcifRfFNR17ev0NklQ+4k/UefGg+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782587165; c=relaxed/simple;
-	bh=89Zjr3sigTpNO+YBK0fIaiyL/mTz7iHfnKZeTYd4owc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hF4d9bHRHR/12X+bcSNwCqZnkLD92tRU1OEb93N1/L3ljxqVOhNiBbfgO2IK8NLemE0QHxarCuvyNtiSn6C6a02791dlLrX4vIMSxTGv3MUY9ra147J+aVatSkYG8587ex5K2K78lPBrfURZrX1fAB7cRmjh1reZRR67HuZ3d80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=Xy4i3pxx; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1782591773; c=relaxed/simple;
+	bh=1Dx/SN13LaO4YOQJBrAbaMZKNnc5ymRZr+kDWIebbVM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eRlBuL2dE7Yt+4FAnMMKT/1QNfluLL+yZ1bJdQzclOEeY/FWmiICrisBZyEMzzvz+EPqdW44Lf7D1GYLTRnCvCneGaxT005cd3TwNQIy9KIr2hPKP/3dR4/YIQV4d2QObd83vUov3q7xwwsOaGYAMptTmSR/fa9MsLxfgOU4avQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=hOuPGOhO; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="Xy4i3pxx"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-8ee88fce536so2665246d6.1
-        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 12:06:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="hOuPGOhO"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-92213351918so281401685a.0
+        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 13:22:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1782587162; x=1783191962; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=tmvmjt9spbKklkKa1+k5Z+7yo+q1XUSyyWvIpAb5/rY=;
-        b=Xy4i3pxxx5BLnN9jW+L7GFwFPCm+ws8NXbyI5R9t/wVDvCMvy1OnSiiWn+DnDWNwSK
-         PSelaD0UAy/P+wYxcnNcImBmORTH3tCbQ5ziIQXgrdIoofPzL03JCUT3bnmc981Zl577
-         GGKsQqF/PZFTTsOamjP5srY6VEqXtcMe7KcddatfSomRn7QuB9bzTSVVZDikTND+h2YF
-         emLSZ2WMBaSuN6hmZreOpizHpxS/r1xZO6NH9N1u/KzY6rSSWYsKN4q4hC872Ln1ojOE
-         lGLSHOGc/ZjPxMXrF/f5LSsDXKHP2ovrfFf7gCDKUjosajtKycJYa8UiKHGKRceHP4xj
-         za7Q==
+        d=gourry.net; s=google; t=1782591771; x=1783196571; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=WwSxUHfK3Ujh5X+1LGpk4GjnutPBz0h9+pc9vXkph2E=;
+        b=hOuPGOhOBfrVKC6vlTM0WwPDLDOVWtYmkAYw6unoy475wmw5DvfBR8oJhmRh/fCE5A
+         Vw0EWwAI6tg8ImbLhncfFbkjfk2ZZUzU/cR1k80hHfp+IdmA6w8a2ArLFkPEjeIpNarh
+         tj6WyOwpSgZ1aDEjffA5oelhufouyyFl0zfQEUzGA7NKpn0Bm+SbqQipGqmVuRMg0xjG
+         KjyqH5pjJSW1JugGAWEgW+u5yzQORSf0rq0b0v2q5MxJ9ppWmw15xoaW0N8xP4SsP/DF
+         zRjf3Sd3cIlwnMpjT5UXFT0T6TX4Mj9+L3C4Pz2dZnF8cbYUtvvroUG6bo3+HuKRSqay
+         KlyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782587162; x=1783191962;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=tmvmjt9spbKklkKa1+k5Z+7yo+q1XUSyyWvIpAb5/rY=;
-        b=pUsnCOk6RzPZggylkx/7lBuaYPTDuk0hY1OH1KnsCPZ2XGGoOQ2SuKgL2WNPEVyUdR
-         3Jf78nu40sFsnS+h2jq/0b+pe+6C9KyMfm5AN4X72juMv2IR6RL/XK/3fhtwWQR64b1k
-         L5g3mwl9u/FJWC/+U7E3hBUnltl7pZIIAj+brN6+nMiguUx92HD+z+Foe0RoFTAMAAAz
-         EnpCrrxaq1Zzd64DDtqRFtQCc4SsAhTHfyhlFK0Qwcx0q9BgUldUDD840iVyPj6V/3Gg
-         TPvGY22lLOJaEbhQ71saFg6U1IvC5zV/7JvyA+sBfomsqoI8f+zENczpcVGGI5jdWYdq
-         GrAg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrvxirsqf5kP/W7HGVM71uKG5WG4ix+TAUcWbIH+U2MzgUncoYr18+xbpiW9AZ1AQXg+c88VMM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyhZQP738dlkh8M1HscYUZEcBi/50uW8TzOcm3U861+LRZSEHWP
-	DAX7Wqxpep1E/CYTi270GfcZjaPuG+UpeJgoY0Gv9gcJTYWBEp6NnKlTQbu+SmFTWg==
-X-Gm-Gg: AfdE7clD73QSYWSqb1SnS3wthENaJSwBQDueViuTpOYFchG399nfZFxOZ0RH1kp3MV4
-	txXUqfFWwyeBVntB4DsDy5dVGOGDHketU8jJyUOuFOLM4NmNHJ2Ty4V+VDn8GZfc+w1zCslAEUB
-	mipRx2onLuFBhlUR5NwbvYp71d/oUgRhkttffC8+/u+MCouOJH+/7NuSlQp6eiKMIvmjzQs81HO
-	KrY5MAAmrtTbb7C0+AAV29FJdcJZXdvygtgS4NonPRHnNtYiPmVp0um4xbybNHzeHhpvGCOW0Qo
-	7QS56T+rd7M4jg+TmsLzCdMRw+itHRMQmbQDWTcmIW1fUZ4Dhlaz9x2HpzRkQ0DWlE0gJfTm7h7
-	sNpxnCsR2K7yG13TYk39HhgUzAm2l3Y4qAaxv0jKp+48KmCjZjeu8YWDmNogNfNpaCiWSqm3Ep3
-	y6wHwkukGIW6+MrO7SUqrPXs8M4EYTPbOa
-X-Received: by 2002:ad4:5aeb:0:b0:8ed:a980:6b2c with SMTP id 6a1803df08f44-8eda980739bmr31745426d6.30.1782587161596;
-        Sat, 27 Jun 2026 12:06:01 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210:d62f:1911:f952:16ba])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8df82693f73sm251673806d6.44.2026.06.27.12.05.59
+        d=1e100.net; s=20251104; t=1782591771; x=1783196571;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WwSxUHfK3Ujh5X+1LGpk4GjnutPBz0h9+pc9vXkph2E=;
+        b=FWnZnBR0T55priXMXQ1uh13wA/k1nLm+t+FM+FNa7N33CK8ZOmRAm8d3NZJ9JKcpsa
+         h/K5xRDb/p+TC3bAbiYQXkErANNmYdC8/tftFQN+IEqoKRm/+vx4nMWGtqGF7+Mb9TLN
+         bgWxuP7IE8jxUI+V0svdtlGdbCbTid4kg+TBTmyvlJ/HUFXR/LO9K9Sy9CODYEZpZ4Y9
+         YEgp5Jq4qeFTOLOCA5ZUic2EcsixX6sbEteIKQ0Av/sLaj1EE8rrup3e+hLxUulJeS7c
+         aanudT94CrxXfH+5rNXbvEJFaKL44awhcTnRaNgMtDOB419zkmKswKTnD3cpkVb4pUXY
+         6Ubw==
+X-Forwarded-Encrypted: i=1; AFNElJ8ZXnjAFi4zxo+IfuURTplSGQ2xDe1WxwgnJDrv3t9iRs2FD/6lW5ey2g1pxbAN5EnRszqc/Y0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YymLQcV8DOwlXw0Ojuh17rDxUH3BrSVCvz0nQGBS8cnOvTqoJQF
+	0YM/meVqWFP+V88thdsPMIyhu/71KE5s1ppoaYZo2BEyVn7t6Xb4mdw6DRMH1O3ru80=
+X-Gm-Gg: AfdE7cnZuaPltY95mYyG9MH0drpq/trLQWFCgyWNv/e7EvrOwJSUUrgGdzs3p0bKuFN
+	ov31pZi98PagqdVNtgJvaR/7YSUslwqO5z+kHEo1/LBDUUxHTWvom9xUJdOkEHacoOspFuSlUpL
+	Zns33xbkqeSuo5DOsmjMhFLrchAdlMRD6xqpzTtj3U0zXKXtNnwqrE/f7YS8Z55d3Kn/WPaPFET
+	bO6Yo+RVQtagBt1M0skbnmdzQn8oAZ35E2Tl852lk8pyYGDaEHbAmAazLq1gf5OyqUGB4Kad6TE
+	kP5AgOUvDX8hU5ecHhzQJd4VGEwYudpZL0xT1XfP6MB9GoGIPEsJCDKnIi88SzUJzF1wUw/VYwS
+	wTqja0/qHWucr+/VScffUptdsNqpoD8MNoY7YjLPYXJCHr6S0/s0a/LmAQB+pgbgE6rwOPQSxgB
+	bBKx+j8gByv8qc8GBtd3kMqWgfzGlklx7DwnizaDGDSzq+jbr2n+i4nowLQQr+ZYsR6y4SN9RFX
+	g==
+X-Received: by 2002:a05:620a:2892:b0:915:9fba:878b with SMTP id af79cd13be357-9293a0dc1fdmr1634247985a.9.1782591770824;
+        Sat, 27 Jun 2026 13:22:50 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92600c7bf55sm1540125485a.46.2026.06.27.13.22.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 27 Jun 2026 12:06:00 -0700 (PDT)
-Date: Sat, 27 Jun 2026 15:05:57 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Dawei Feng <dawei.feng@seu.edu.cn>
-Cc: gregkh@linuxfoundation.org, linusw@kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn, zilin@seu.edu.cn, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: free iso schedules on failed submit
-Message-ID: <1b80afec-0263-4e7a-8f9f-94abf15ae239@rowland.harvard.edu>
-References: <20260627060207.2543749-1-dawei.feng@seu.edu.cn>
+        Sat, 27 Jun 2026 13:22:50 -0700 (PDT)
+From: Gregory Price <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	rppt@kernel.org,
+	akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	mgorman@techsingularity.net,
+	hannes@cmpxchg.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] mm/vmstat: fold stranded per-cpu node stats when a node comes online
+Date: Sat, 27 Jun 2026 16:22:43 -0400
+Message-ID: <20260627202243.758289-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260627060207.2543749-1-dawei.feng@seu.edu.cn>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Jun 27, 2026 at 02:02:07PM +0800, Dawei Feng wrote:
-> EHCI and FOTG210 isochronous submits build an ehci_iso_sched before
-> linking the URB to the endpoint queue, and keep the staged schedule in
-> urb->hcpriv until iso_stream_schedule() and the link helpers consume it.
-> If the controller is no longer accessible, or usb_hcd_link_urb_to_ep()
-> fails, submit jumps to done_not_linked before that handoff happens and
-> leaks the staged schedule still attached to urb->hcpriv.
-> 
-> Free the staged schedule from done_not_linked when submit fails before
-> the URB is linked and clear urb->hcpriv after the free.
-> 
-> The bug was first flagged by an experimental analysis tool we are
-> developing for kernel memory-management bugs while analyzing
-> v6.13-rc1. The tool is still under development and is not yet publicly
-> available. Manual inspection confirms that the bug is still
-> present in v7.1.1.
-> 
-> An x86_64 allyesconfig build showed no new warnings. As we do not have an
-> EHCI host controller with a USB isochronous device to test with, no
-> runtime testing was able to be performed.
-> 
-> Fixes: 8de98402652c ("[PATCH] USB: Fix USB suspend/resume crasher (#2)")
-> Fixes: e9df41c5c589 ("USB: make HCDs responsible for managing endpoint queues")
-> Fixes: 7d50195f6c50 ("usb: host: Faraday fotg210-hcd driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
-> ---
->  drivers/usb/fotg210/fotg210-hcd.c | 4 ++++
->  drivers/usb/host/ehci-sched.c     | 8 ++++++++
->  2 files changed, 12 insertions(+)
-> 
-> diff --git a/drivers/usb/fotg210/fotg210-hcd.c b/drivers/usb/fotg210/fotg210-hcd.c
-> index 1a48329a4e08..d92b11d488a5 100644
-> --- a/drivers/usb/fotg210/fotg210-hcd.c
-> +++ b/drivers/usb/fotg210/fotg210-hcd.c
-> @@ -4562,6 +4562,10 @@ static int itd_submit(struct fotg210_hcd *fotg210, struct urb *urb,
->  	else
->  		usb_hcd_unlink_urb_from_ep(fotg210_to_hcd(fotg210), urb);
->  done_not_linked:
-> +	if (status < 0) {
-> +		iso_sched_free(stream, urb->hcpriv);
-> +		urb->hcpriv = NULL;
-> +	}
->  	spin_unlock_irqrestore(&fotg210->lock, flags);
->  done:
->  	return status;
-> diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
-> index a241337c9af8..33a0111cfb37 100644
-> --- a/drivers/usb/host/ehci-sched.c
-> +++ b/drivers/usb/host/ehci-sched.c
-> @@ -1966,6 +1966,10 @@ static int itd_submit(struct ehci_hcd *ehci, struct urb *urb,
->  		usb_hcd_unlink_urb_from_ep(ehci_to_hcd(ehci), urb);
->  	}
->   done_not_linked:
-> +	if (status < 0) {
-> +		iso_sched_free(stream, urb->hcpriv);
-> +		urb->hcpriv = NULL;
-> +	}
+A per-node vmstat counter is pgdat->vm_stat[] plus per-cpu deltas.
+A balanced counter can sit split as global=+N / per-cpu=-N.
 
-That's not quite optimal, because iso_stream_schedule() already calls 
-iso_sched_free() whenever its return value is < 0.  You should remove 
-that call now that the deallocation is being done down here.  And also 
-have iso_stream_schedule() clear urb->hcpriv in the other place where it 
-calls iso_sched_free().
+The folds reconciling the split only walk online nodes, so when
+try_offline_node() marks a node offline the per-cpu deltas are stranded.
 
-Aside from that, this looks good.
+A subsequent online resets the per-cpu area but not pgdat->vm_stat[],
+orphaning the +N permanently.  All NR_VM_NODE_STAT_ITEMS are affected.
 
-Alan Stern
+The existing code zeroes the per-cpu counters and causes a permanent
+skew. Fold the stranded deltas instead, before the node rejoins the
+online set. The node is not online yet and the hotplug lock is held,
+so the remote access to per-cpu values is safe.
 
->  	spin_unlock_irqrestore(&ehci->lock, flags);
->   done:
->  	return status;
-> @@ -2343,6 +2347,10 @@ static int sitd_submit(struct ehci_hcd *ehci, struct urb *urb,
->  		usb_hcd_unlink_urb_from_ep(ehci_to_hcd(ehci), urb);
->  	}
->   done_not_linked:
-> +	if (status < 0) {
-> +		iso_sched_free(stream, urb->hcpriv);
-> +		urb->hcpriv = NULL;
-> +	}
->  	spin_unlock_irqrestore(&ehci->lock, flags);
->   done:
->  	return status;
-> -- 
-> 2.34.1
+Discovered when node compaction hung for a nearly empty node, as the
+math to determine throttling broke.  Reproduced by repeated memory
+hotplug/unplug cycles on a node under pressure: NR_ISOLATED_ANON
+ratchets up and never returns to zero.
+
+Fixes: 75ef71840539 ("mm, vmstat: add infrastructure for per-node vmstats")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gregory Price <gourry@gourry.net>
+---
+ mm/mm_init.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index f5301d4de91a..c119f6f1497d 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -1536,7 +1536,7 @@ void __ref free_area_init_core_hotplug(struct pglist_data *pgdat)
+ {
+ 	int nid = pgdat->node_id;
+ 	enum zone_type z;
+-	int cpu;
++	int cpu, i;
+ 
+ 	pgdat_init_internals(pgdat);
+ 
+@@ -1554,10 +1554,17 @@ void __ref free_area_init_core_hotplug(struct pglist_data *pgdat)
+ 	pgdat->node_start_pfn = 0;
+ 	pgdat->node_present_pages = 0;
+ 
+-	for_each_online_cpu(cpu) {
+-		struct per_cpu_nodestat *p;
++	/*
++	 * Hot-unplug can leave per-cpu vmstat deltas unfolded (folders skip
++	 * offline nodes) - reconcile this at online. Foreign access to counters
++	 * is safe: the node is not online yet and we hold the hotplug lock.
++	 */
++	for_each_possible_cpu(cpu) {
++		struct per_cpu_nodestat *p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
+ 
+-		p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
++		for (i = 0; i < NR_VM_NODE_STAT_ITEMS; i++)
++			if (p->vm_node_stat_diff[i])
++				node_page_state_add(p->vm_node_stat_diff[i], pgdat, i);
+ 		memset(p, 0, sizeof(*p));
+ 	}
+ 
+-- 
+2.53.0-Meta
+
