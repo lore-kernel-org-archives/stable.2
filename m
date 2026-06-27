@@ -1,134 +1,84 @@
-Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com [91.218.175.185])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B81581ACD
-	for <stable@vger.kernel.org>; Sat, 27 Jun 2026 02:59:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCBB2566D3;
+	Sat, 27 Jun 2026 03:01:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782529167; cv=none; b=pupwHKbhJefBTmCEsJfDLpqet72O+xNaVudHP35cno6PI992EA6iVLjZytqJZF/NMOna/pUWU3JJSVvclHRH4P9FV+touesVmRYic6FPetIzjj9u7yGLWUu6Y8PNQze9DQRCUe54PcLK7SgvQXYw5YELQVAEU+txI9nGyOqq7Rs=
+	t=1782529322; cv=none; b=dlWyvyOxfne/26nD9fyW7tQVu1NzBP/+NJ5I8UAOh8yTiY6CdGZDLqWbS/2hoBtVsCxRRPqqdUYoenMDt2/A6VEthx/ov3X+zXCch2n/Op7EknV4ZpQuRCEapFI5jnbpR51ub4ePy0QQ3vNkB+a0XgkYgIKh7/XiFNrN6E4FVWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782529167; c=relaxed/simple;
-	bh=r9Q75OphY5MVzASjBnbo0wibhw8YfM7UaaE8mUUkTxo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qfgsj1BwOvL3tMceHsrdomCEMBKqtjcFKItCyjm8VUV225d8X2B1pQ9FbUqSAQexvczZLCFibO3/hPnYHbR39OQ/N2lw6W+Vj+gUwyOq5wUM/YYcaOXyq6fANLLx5mNwSleLTus3D1U7nnZs0JtJkdeRR63wz02beABi4196xsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HUNDZz1I; arc=none smtp.client-ip=91.218.175.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HUNDZz1I"
-Message-ID: <b7cfc04e-7a57-489e-9459-82d7eb818675@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782529163;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xIG1WH1JHTR3E2pytb6E4uisyr919RG1wajEmDiA1og=;
-	b=HUNDZz1I1zmsm2yvEdpByTZMAD4cmxX9cV8oH6VsWDhD/ii4iFw87sOrhG8+S4Hq2H68JI
-	t1A+5d3yUd77doQ7ZKSVyjdJa6K1QL2hZMEPMQzgZiN0YN7NYIZdWsOzw3KTWHJvIIk3qy
-	xzFNuuzfeEJ43OS7b/YmR+vy3EmV3+I=
-Date: Sat, 27 Jun 2026 10:59:16 +0800
+	s=arc-20240116; t=1782529322; c=relaxed/simple;
+	bh=KVeztTHdJ7/0E+mYjiYMnMBBSoY1HiIX6lOCudzujKM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=C2coaFWeDqoSqIEdhV38wkEUth+XNLRFFX2umW0TIsUZcWMhekqwJO4ISJMudO21tME+z1V564AqLIjGv6cyfQVTFFoLzVJYGwoezCO7xdv2giRdDPcrMcbpMmFSSgCgv/sdMoCbpu9sokO0Ueq44YHhLzrs6c3C/hohBFl1IA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-03 (Coremail) with SMTP id rQCowABngNcfPT9qBfcAFg--.1157S2;
+	Sat, 27 Jun 2026 11:01:52 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: pawell@cadence.com,
+	gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] fix: drivers/usb/cdns3: cdnsp_pci_probe: missing pci_dev_put for func on success path
+Date: Sat, 27 Jun 2026 11:01:48 +0800
+Message-Id: <20260627030148.57607-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [Patch mm-hotfixes v4] mm/page_vma_mapped: fix device-private PMD
- handling
-Content-Language: en-US
-To: Wei Yang <richard.weiyang@gmail.com>
-Cc: akpm@linux-foundation.org, ljs@kernel.org, riel@surriel.com,
- liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
- ziy@nvidia.com, sj@kernel.org, balbirs@nvidia.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- "David Hildenbrand (Arm)" <david@kernel.org>
-References: <20260624065353.1622-1-richard.weiyang@gmail.com>
- <d060cadd-34f8-42da-b7f7-c8d295050436@kernel.org>
- <20260627020719.ipzfrlhfbvr6ac35@master>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <20260627020719.ipzfrlhfbvr6ac35@master>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABngNcfPT9qBfcAFg--.1157S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7XF1xZry5Cw4rJF1kZw4fXwb_yoWDAFg_u3
+	yruFs2qFWUZFyDJw1xCryfZrZ7K3ZIvF1kWan7tr43Cayakr1kAry3Zw1kGr17uw4UKF1D
+	Kr1kKr4S9rs2vjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb4xFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F4UJV
+	W0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
+	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkG
+	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4U
+	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUSNtxUUU
+	UU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwULA2o-ErFazQAAsr
 
+In cdnsp_pci_probe(), cdnsp_get_second_fun() acquires a reference on func
+via pci_get_device(). All error paths correctly jump to put_pci label
+which calls pci_dev_put(func). However, the success path returns 0
+directly without releasing the func reference, leaking it.
 
+Add pci_dev_put(func) before returning 0 on the success path.
 
-On 2026/6/27 10:07, Wei Yang wrote:
-[...]
-> 
-> Hi David
-> 
-> I did a little adjustment like below. Want to check with you at first.
-> 
->>
->> >From 048ecd33673ec649e168fbbb97749a7c0e344fcd Mon Sep 17 00:00:00 2001
->> From: "David Hildenbrand (Arm)" <david@kernel.org>
->> Date: Fri, 26 Jun 2026 12:03:40 +0200
->> Subject: [PATCH] tmp
->>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->> mm/page_vma_mapped.c | 29 +++++++++++++++++------------
->> 1 file changed, 17 insertions(+), 12 deletions(-)
->>
->> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->> index 2ccbabfb2cc17..ed2a23a90e8dd 100644
->> --- a/mm/page_vma_mapped.c
->> +++ b/mm/page_vma_mapped.c
->> @@ -243,21 +243,31 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
->> 		 */
->> 		pmde = pmdp_get_lockless(pvmw->pmd);
->>
->> -		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
->> +		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
->> +		    pmd_is_device_private_entry(pmde)) {
->> 			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
->> 			pmde = *pvmw->pmd;
->> -			if (!pmd_present(pmde)) {
->> +			if (pmd_is_migration_entry(pmde)) {
->> 				softleaf_t entry;
->>
-> 
-> How about:
-> 				const softleaf_t entry = softleaf_from_pmd(pmde);
-> 
->> -				if (!thp_migration_supported() ||
->> -				    !(pvmw->flags & PVMW_MIGRATION))
->> +				if (!(pvmw->flags & PVMW_MIGRATION))
->> 					return not_found(pvmw);
->> 				entry = softleaf_from_pmd(pmde);
-> 
-> could be removed.
-> 
->> +				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
->> +					return not_found(pvmw);
->> +				return true;
->> +			} else if (pmd_is_device_private_entry(pmde)) {
->> +				softleaf_t entry;
-> 
-> The same.
-> 
->>
->> -				if (!softleaf_is_migration(entry) ||
->> -				    !check_pmd(softleaf_to_pfn(entry), pvmw))
->> +				if (pvmw->flags & PVMW_MIGRATION)
->> +					return not_found(pvmw);
->> +				entry = softleaf_from_pmd(pmde);
->> +				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
->> 					return not_found(pvmw);
->> 				return true;
->> +			} else if (!pmd_present(pmde) ){
->> +				return not_found(pvmw);
->> 			}
->> 			if (likely(pmd_trans_huge(pmde))) {
->> 				if (pvmw->flags & PVMW_MIGRATION)
-> 
-> How about merge this with above? And put at the first case?
-> 
-> Below is what it looks like:
+Cc: stable@vger.kernel.org
+Fixes: 3d82904559f4 ("usb: cdnsp: cdns3 Add main part of Cadence USBSSP DRD Driver")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/usb/cdns3/cdnsp-pci.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Why add more churn to a fix with a stable tag? Cleanup can come later no?
+diff --git a/drivers/usb/cdns3/cdnsp-pci.c b/drivers/usb/cdns3/cdnsp-pci.c
+index 566d94e49102..9c0feaec282d 100644
+--- a/drivers/usb/cdns3/cdnsp-pci.c
++++ b/drivers/usb/cdns3/cdnsp-pci.c
+@@ -162,6 +162,7 @@ static int cdnsp_pci_probe(struct pci_dev *pdev,
+ 	if (pci_dev_run_wake(pdev))
+ 		pm_runtime_put_noidle(&pdev->dev);
+ 
++	pci_dev_put(func);
+ 	return 0;
+ 
+ free_cdnsp:
+-- 
+2.39.5 (Apple Git-154)
 
-[...]
