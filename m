@@ -1,22 +1,22 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE491343895;
-	Sun, 28 Jun 2026 04:02:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC1234405C;
+	Sun, 28 Jun 2026 04:02:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782619349; cv=none; b=FHl5aJvZn5YShItaNEC/gRm++vl3cWbXTcu2YErEaL9Oih+ezONOFoqFnZibip++eGmhvemVW2uz7BlRhfPYv2yLUHTbyCcotH5FT3b9Zy7KLbgis9w39bYt9QwOpgYLpfGflJ+MIBiOXnuYcsWeGz5Nt85UHiJmUz4s1bgXYfg=
+	t=1782619354; cv=none; b=liq7PhfEAfO5safbbhi8oei71XAQzZrg87Hb/Aj8QtLS5j/oMw6Fb+R/aNqMjs1OtEeG72qacV4QLWwL6h7FBIjkipR8OQFDtfywALIOVmqO0Yf60nbLJYosDa79hC7U5qjTFGVzGfRede5Jw8CNEhzR2ZNnWN0VJB+u/nOXZf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782619349; c=relaxed/simple;
-	bh=MuDvmcmmgPKtqdnqO2VvaY2OuorH7GlUaG/MEVEWbJ8=;
+	s=arc-20240116; t=1782619354; c=relaxed/simple;
+	bh=vc4XTNmJz1rEpHrXNp2XuTBwKB28ZOC8/y8X5mdNf1E=;
 	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=S3nneInLIx16uwQNVLUxkecVlzuCFk1nh26lJrrUVK9fZSPrIu8wepdpOozkFky6em+7kMod29lFVmDlSvVEFQVhJnT24mA4S09WB3K4lAZg0jWEC1kItggerVqWJEFZVO4oaqz2GzWPaJ1bqxuh92VxS2CWkg+DhdAkAkZVFJ4=
+	 Message-Id:References:To; b=Rzc0Iv6a6ZgTiuMEMxZRfvuOTTIOFrJJQsyYTQ13j6vwWFfHAhSf1d7CRnCMSPBYq1oKwCmZHCRkyyNQ1OB67dCErBrgPq+pJrkfVZkPZf1k91b4+jTlQuBqDqLUZYT+yX9B3os7KHTwYXzfRUhqP3QUtpN15DH42g2yd0uLoF4=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from smtpclient.apple (unknown [117.182.74.7])
-	by APP-01 (Coremail) with SMTP id qwCowAD3j8h4nEBq+V6qAw--.55335S7;
-	Sun, 28 Jun 2026 12:02:15 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowAD3j8h4nEBq+V6qAw--.55335S8;
+	Sun, 28 Jun 2026 12:02:25 +0800 (CST)
 Content-Type: text/plain;
 	charset=utf-8
 Precedence: bulk
@@ -25,26 +25,25 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH] fix: nvmet: nvmet_sq_create: fix ctrl reference leak on
- nvmet_check_sqid   failure
+Subject: Re: [PATCH] fix: ath11k: ath11k_ahb_fw_resources_init: fix
+ device_node reference leak   on setup failure
 From: WenTao Liang <vulab@iscas.ac.cn>
-In-Reply-To: <20260626154043.53241-1-vulab@iscas.ac.cn>
-Date: Sun, 28 Jun 2026 12:02:05 +0800
-Cc: Keith Busch <kbusch@kernel.org>,
+In-Reply-To: <20260626153619.52954-1-vulab@iscas.ac.cn>
+Date: Sun, 28 Jun 2026 12:02:14 +0800
+Cc: Jeff Johnson <jjohnson@kernel.org>,
  stable@vger.kernel.org,
  linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <E4DA546F-94F7-4B5C-975C-1BC3BE622F7F@iscas.ac.cn>
-References: <20260626154043.53241-1-vulab@iscas.ac.cn>
-To: Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>,
- linux-nvme@lists.infradead.org
+Message-Id: <8107F859-E8FF-4A06-BAB9-51FE11249930@iscas.ac.cn>
+References: <20260626153619.52954-1-vulab@iscas.ac.cn>
+To: Kalle Valo <kvalo@kernel.org>,
+ linux-wireless@vger.kernel.org
 X-Mailer: Apple Mail (2.3826.700.81.1.8)
-X-CM-TRANSID:qwCowAD3j8h4nEBq+V6qAw--.55335S7
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cw1rZF4DGF17JryfWFy3Arb_yoW8GFWrpF
-	s8Kr4jyrZxGFZ7ta1xAw4Y9FyF9w45KryUCwn5Kw1xZrn0q3y3Ar4DW3Wjvr15GrWrGry3
-	JF4jyFy0ga45ZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBEb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+X-CM-TRANSID:qwCowAD3j8h4nEBq+V6qAw--.55335S8
+X-Coremail-Antispam: 1UD129KBjvJXoW7AF1UWFyfGFWUZFy8tr4Dtwb_yoW8Jw43pr
+	4xGa9FyFy5Aa1xJa1xZr4fZFy09a4ayrWYkrsYy34furs5AFy3tF15XFyUXr1rJF48CF4U
+	Xr42yry5GF90vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBEb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
 	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
 	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI
@@ -56,48 +55,44 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Cw1rZF4DGF17JryfWFy3Arb_yoW8GFWrpF
 	6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64
 	vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j
 	6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIx
-	AIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07jedgAUUUUU
+	AIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07j5zVbUUUUU
 	=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIMA2pAixEc0gAAs0
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwEMA2pAixEc4AAAsF
 
 
 
-> 2026=E5=B9=B46=E6=9C=8826=E6=97=A5 23:40=EF=BC=8CWenTao Liang =
+> 2026=E5=B9=B46=E6=9C=8826=E6=97=A5 23:36=EF=BC=8CWenTao Liang =
 <vulab@iscas.ac.cn> =E5=86=99=E9=81=93=EF=BC=9A
 >=20
-> After kref_get_unless_zero successfully acquires a ctrl reference, the
->  nvmet_check_sqid failure path returns the status directly without =
-calling
->  nvmet_ctrl_put, leaving the ctrl reference permanently leaked.
+> of_get_child_by_name acquires a device_node reference. When the
+>  subsequent ath11k_ahb_setup_msa_resources call fails, the function
+>  returns immediately without calling of_node_put, leaking the node
+>  reference.
 >=20
-> Add nvmet_ctrl_put before returning on the nvmet_check_sqid error path =
-to
->  properly release the acquired reference.
+> Add of_node_put before returning on the setup failure error path.
 >=20
 > Cc: stable@vger.kernel.org
-> Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
+> Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax =
+devices")
 > Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 > ---
-> drivers/nvme/target/core.c | 4 +++-
-> 1 file changed, 3 insertions(+), 1 deletion(-)
+> drivers/net/wireless/ath/ath11k/ahb.c | 1 +
+> 1 file changed, 1 insertion(+)
 >=20
-> diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-> index 62dd59b9aa4f..52fc2dade4ea 100644
-> --- a/drivers/nvme/target/core.c
-> +++ b/drivers/nvme/target/core.c
-> @@ -943,8 +943,10 @@ u16 nvmet_sq_create(struct nvmet_ctrl *ctrl, =
-struct nvmet_sq *sq,
-> 		return NVME_SC_INTERNAL | NVME_STATUS_DNR;
->=20
-> 	status =3D nvmet_check_sqid(ctrl, sqid, true);
-> -	if (status !=3D NVME_SC_SUCCESS)
-> +	if (status !=3D NVME_SC_SUCCESS) {
-> +		nvmet_ctrl_put(ctrl);
-> 		return status;
-> +	}
->=20
-> 	ret =3D nvmet_sq_init(sq, cq);
+> diff --git a/drivers/net/wireless/ath/ath11k/ahb.c =
+b/drivers/net/wireless/ath/ath11k/ahb.c
+> index 08d3a0c8f105..8a08275db40a 100644
+> --- a/drivers/net/wireless/ath/ath11k/ahb.c
+> +++ b/drivers/net/wireless/ath/ath11k/ahb.c
+> @@ -996,6 +996,7 @@ static int ath11k_ahb_fw_resources_init(struct =
+ath11k_base *ab)
+> 	ret =3D ath11k_ahb_setup_msa_resources(ab);
 > 	if (ret) {
+> 		ath11k_err(ab, "failed to setup msa resources\n");
+> +		of_node_put(node);
+> 		return ret;
+> 	}
+>=20
 > --=20
 > 2.39.5 (Apple Git-154)
 
