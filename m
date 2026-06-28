@@ -1,132 +1,148 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643231EB5FD
-	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 17:22:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFF523BD1B;
+	Sun, 28 Jun 2026 17:24:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.250.56.165
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782667331; cv=none; b=eB0rGQPUP7plsFbtxQrfUvfQYNwANXqnkcHgHhzL1m0dKpCBVwtfLtGflbKz8NRC4KIMCGVJln0pyZ9rGxMEnBPU0p5UM247yMtSofPlrpz+ZM3XeFtIYuzD2razSRs1iiYjw9qY5nGy6pKsrPU/gyPML67nG27r81zz4q6y2qQ=
+	t=1782667446; cv=none; b=g33qAI2nkFOzjbsn4+YkLbWwTGXj1yqHe2xi3km24hdVnZf7IsaIuMhDDhNasHuXGPJsoJdosgRPqQtp6mgkFxGOX9CJwbiwsBkf1iYQZXSwLi5qq0G3LWFxNpMkkNqeug1TLFzgtTq80pWxotN8db14SLXYhDRaec9jFFlWVqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782667331; c=relaxed/simple;
-	bh=K3EOnm1FTPPIVgm7ZBKpbKmC5oI+YrXDEzBB1/dVpHY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QEaJdRcdubIgkEbixU8ZTbOZx7KLzlDsXCjXFrMdsVCdHV3rQB6E4/26sNRYNDwi1I2QU2VGxzozEF6F6lNpnaLDDw75agMFbmssZ2RZyHDRMRE2q8BQMqeETmZAFAoZeF4Al5r7O5tGCpRYtqCoHrjNA+UhsO7hXkgYoSMgNHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p9ZMZPeK; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782667446; c=relaxed/simple;
+	bh=m/JFcdNqXAlOb67qP11H0qB+sU69+zhGRiDPVdVITes=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P7FB0EQ1GkjF6a9RUJjShhBLMuY3VThfX+OpbIJYh4nT2cvg7W9TEYb2CjTTk/4FUFZj5bse6hBQU0bUMR0sPAVVGzXA9GtrCk8fV3caQwEJjIy70RCJG3Yh4ybrde+DOzXD1SgqLWVJFqy7sFcMec+VfADhstiu0MVAsNELelg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru; spf=pass smtp.mailfrom=ideco.ru; dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.b=bypqMA9Y; arc=none smtp.client-ip=51.250.56.165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p9ZMZPeK"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-46cbe01d4b6so1433450f8f.2
-        for <stable@vger.kernel.org>; Sun, 28 Jun 2026 10:22:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782667328; x=1783272128; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BBABlV/y3tcVRj6J4pCvx1ErOlS8DPYAimesttySdoE=;
-        b=p9ZMZPeKYklW9y9bTUWZv3xL6SxinrYKC5qxU3P6Z7EqCWdR8yfWyWcsx4c4uga1cS
-         aqSPWK32B7VKgYG0SbA1DKqWFF4SvPv9n+/PKDkyEzkHFDjPJ3IsmHjP/OZhmjsyLmYC
-         /kGnBW3J+e62qCJiqiTZ/KOPwYF6x+P8OLWnJKDqDpYhglZp68xomAami1etPoSCVcs3
-         AEH4SIKd70Sv8N0g6Csgxpi6OY4yn+VBPMprnCVb7DoJI+FIbJEAZ24qSCFhw7cqUbSB
-         +95cB+MjtzRMKa4aDrWNVLpo+LRybZd1wwMXxcx2zaoaiOA0RhvbBQgyZegVuyJ7uygk
-         oLCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782667328; x=1783272128;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=BBABlV/y3tcVRj6J4pCvx1ErOlS8DPYAimesttySdoE=;
-        b=fAVY/fTnkYv5U8PyjKzn6EepDa7GICHgxehj4/w9/ge9aPp4qReKWtuwX8A8bVKpoy
-         e1app2kJ1/l35wnLwkgEklESDqbRXqGyCqGcX6TDXK2/zCTeDX65VlBMy0xBuKUZOCym
-         uO5mknH7ZogfkYbF/VPU7JHO0JzzoSUm5WnqWKn/8xee8l1htnoK+G7cuKNGqp5bU+CG
-         jOh9AXsrv2k/MtcvvKwCP/iq3f9jiz/iIvCpRXr8qytEK28Yog+YsL6zDiScluUnzgAR
-         diVTqjbAt0rrhh80hGdebXn1am/xadgeWA8L406YSR+yQQuUCYXNmtxYTC6wKkZ6Yv1f
-         jv3A==
-X-Forwarded-Encrypted: i=1; AHgh+RrmvkuPvXgT2ekLl14wo4/Q/6GmOIqWiE28YfkIsGlbuBdEMKrsRcc3UpARb3YU+Nj07TBzTHE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwdpVo8VGjBsCWgDxugZN5SrLOxRCzjnDCNjDP5NT1YOgEra4zN
-	H+FctLqnWIGMaa0kOuwqgbimfEQTm46VQupi6jtzWRLp9PVLdME0DqGM
-X-Gm-Gg: AfdE7cm6FY77XwzgR2n1bhei3esPLDXz0zQS4AKlGgctlez30aJoK0e9qXiHKLC8UJV
-	a7fA2PZG2mRPt80JVVmXAuPdlihHjK8ymCCBXOssNHFG1a6USUrreVMa4cbDdzd1uv9v2dF7xXe
-	1BLElYBGY44OIYPjfelEH6Oy4E7vzPamKbnfTKlCHXOg7obGjaZ+/v7zVsjxGi8YqT1YLbCgMzr
-	6aqlmNe120krYHIlxoYtvsSzBtqkJ47JadJU1BXUH6HXd7Vvou/xkRmVj2Qi0cXDfFfe63lZM6P
-	oqzU9KwKVnSYjJzFFppaFNMU/tgpkmTEt3KAb12CN0ETig5SEeGW/7UXUXwnRZc7R062GhUwR8U
-	YAFluiAF28r/rVcGolfKIyIkGooUYVt8hR0c6/zjZYA+WynZpEJ4czMRNwV/juJhU99OCTvRCqZ
-	3sAnp6hzIc3EalzidDrsm7totg
-X-Received: by 2002:a05:6000:1867:b0:46d:8695:f49d with SMTP id ffacd0b85a97d-46dc2a1614cmr23514992f8f.34.1782667327708;
-        Sun, 28 Jun 2026 10:22:07 -0700 (PDT)
-Received: from foxbook (bgu190.neoplus.adsl.tpnet.pl. [83.28.84.190])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-472c7bec9c2sm7927088f8f.12.2026.06.28.10.22.06
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Sun, 28 Jun 2026 10:22:07 -0700 (PDT)
-Date: Sun, 28 Jun 2026 19:22:03 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Nikhil Solanke <nikhilsolanke5@gmail.com>, linux-usb@vger.kernel.org,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2] usbcore: Add quirk for 255-bytes initial config read
-Message-ID: <20260628192203.5fb9daac.michal.pecio@gmail.com>
-In-Reply-To: <20260628190201.00afdccf.michal.pecio@gmail.com>
-References: <20260623161035.5792-1-nikhilsolanke5@gmail.com>
-	<567e8866-4308-4e5f-819c-fe778dbf74f8@rowland.harvard.edu>
-	<CAFgddhJk0EYG71fnKdio=RHC-cH+JmL-EZ7-oVD-LdHoa2TBSA@mail.gmail.com>
-	<5159fd69-dddf-4073-a8e7-95fa77de0b7f@rowland.harvard.edu>
-	<CAFgddhJ2HeJ=oTBX_axMJcgJq7GXH9abe+LH+x9NGekGO4BMyw@mail.gmail.com>
-	<eb0dfd45-91c5-49ba-a297-b183dbc52c8c@rowland.harvard.edu>
-	<CAFgddhLZ9SuOzG_6mW09j9aDkCp6TedpNkzJ6TUD+DnR3TDLKA@mail.gmail.com>
-	<02060df3-b8c5-4a86-b3ab-3a28eea8a562@rowland.harvard.edu>
-	<20260628165040.76fd608d.michal.pecio@gmail.com>
-	<62e1fab3-1045-41f3-bc74-4c7624011619@rowland.harvard.edu>
-	<20260628190201.00afdccf.michal.pecio@gmail.com>
+	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.b="bypqMA9Y"
+Received: from [169.254.254.254] (localhost [127.0.0.1])
+	by smtp.ideco.ru (Postfix) with ESMTP id C04EB10118D6;
+	Sun, 28 Jun 2026 22:14:05 +0500 (+05)
+Received: from fedora.. (unknown [193.168.176.213])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.ideco.ru (Postfix) with ESMTPSA id 7E11D1011629;
+	Sun, 28 Jun 2026 22:13:59 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 7E11D1011629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
+	t=1782666844; bh=w8+eO+UV6N5/meMNXwHwUho8i2+aCYEdL8tBame8cA0=;
+	h=From:To:Cc:Subject:Date;
+	b=bypqMA9YCHJYScmxlhE1yBy4UtBmfJBR77B+e4CSPpb3tGceF29D8tqiNZ7XnVKfu
+	 XVwYF/lGtHlYvHnW0RCZkz9HQ7f2RUIfU/RLoOP6g9mkF8bdPwH8esrn73jO6ut0dJ
+	 6GdsGpJR42npJG1MgzlSjf/dPpumolYhEHdEbfXie6+zINSn+DvWhwTwZoFvRCbl2M
+	 ZJDXbzzA/BH3k9FVkxqcWKDJAh1ktsKEMHq6so33s3+xj97Ktkn6G6y8CBwDhO81vH
+	 i8wEusJhSewsoKSuolQG5kTZ4ilCEnJP+1iEqW6LDppWlYj4GTRjKIxMsb1KxQySi+
+	 KqciT4+HRi/BA==
+From: Petr Vaganov <p.vaganov@ideco.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Petr Vaganov <p.vaganov@ideco.ru>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Tejun Heo <htejun@gmail.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH v3] scsi: fill in DMA padding bytes in scsi_alloc_sgtables
+Date: Mon, 29 Jun 2026 00:13:44 +0700
+Message-ID: <20260628171348.8613-1-p.vaganov@ideco.ru>
+X-Mailer: git-send-email 2.49.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-I really think it could (and should) be a simple patch.
+During fuzz testing, the following issue was discovered:
 
-This is what I wrote a few weeks ago. It's an unconditional change
-for all devices, but it would be easy to turn it into a quirk.
+BUG: KMSAN: uninit-value in __dma_map_sg_attrs+0x217/0x310
+ __dma_map_sg_attrs+0x217/0x310
+ dma_map_sg_attrs+0x4a/0x70
+ ata_qc_issue+0x9f8/0x1420
+ __ata_scsi_queuecmd+0x1657/0x1740
+ ata_scsi_queuecmd+0x79a/0x920
+ scsi_queue_rq+0x4472/0x4f40
+ blk_mq_dispatch_rq_list+0x1cca/0x3ee0
+ __blk_mq_sched_dispatch_requests+0x458/0x630
+ blk_mq_sched_dispatch_requests+0x15b/0x340
+ __blk_mq_run_hw_queue+0xe5/0x250
+ __blk_mq_delay_run_hw_queue+0x138/0x780
+ blk_mq_run_hw_queue+0x4bb/0x7e0
+ blk_mq_sched_insert_request+0x2a7/0x4c0
+ blk_execute_rq+0x497/0x8a0
+ sg_io+0xbe0/0xe20
+ scsi_ioctl+0x2b36/0x3c60
+ sr_block_ioctl+0x319/0x440
+ blkdev_ioctl+0x80f/0xd70
+ __se_sys_ioctl+0x219/0x420
+ __x64_sys_ioctl+0x93/0xe0
+ x64_sys_call+0x1d6c/0x3ad0
+ do_syscall_64+0x4c/0xa0
+ entry_SYSCALL_64_after_hwframe+0x6e/0xd8
 
+Uninit was created at:
+ __alloc_pages+0x5c0/0xc80
+ alloc_pages+0xe0e/0x1050
+ blk_rq_map_user_iov+0x2b77/0x6100
+ blk_rq_map_user_io+0x2fa/0x4d0
+ sg_io+0xad6/0xe20
+ scsi_ioctl+0x2b36/0x3c60
+ sr_block_ioctl+0x319/0x440
+ blkdev_ioctl+0x80f/0xd70
+ __se_sys_ioctl+0x219/0x420
+ __x64_sys_ioctl+0x93/0xe0
+ x64_sys_call+0x1d6c/0x3ad0
+ do_syscall_64+0x4c/0xa0
+ entry_SYSCALL_64_after_hwframe+0x6e/0xd8
 
---- a/drivers/usb/core/config.c
-+++ b/drivers/usb/core/config.c
-@@ -938,15 +938,14 @@ int usb_get_configuration(struct usb_device *dev)
- 	if (!dev->rawdescriptors)
- 		return -ENOMEM;
+Bytes 14-15 of 16 are uninitialized
+Memory access of size 16 starts at ffff88800cbdb000
+
+When processing the last unaligned element of the scatterlist,
+it is supplemented with missing bytes in the amount of pad_len.
+These bytes remain uninitialized, which leads to a problem.
+
+Add zeroing pad_len bytes of padding by pad_offset offset before
+increasing its length. This ensures that the DMA does not receive
+uninitialized data and eliminates the KMSAN warning.
+
+In this case, the pages are not located in highmem, but in the
+general case they might be, so kmap_local_page() is used for mapping.
+
+Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
+
+Fixes: 40b01b9bbdf5 ("block: update bio according to DMA alignment padding")
+Cc: stable@vger.kernel.org
+Signed-off-by: Petr Vaganov <p.vaganov@ideco.ru>
+---
+v2: Added tag "Cc: stable@vger.kernel.org".
+v3: Resending this patch as the issue is still present in the current
+kernel and the previous submission did not receive review.
+---
+ drivers/scsi/scsi_lib.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/scsi/scsi_lib.c b/drivers/scsi/scsi_lib.c
+index 22e2e3223..c75b86059 100644
+--- a/drivers/scsi/scsi_lib.c
++++ b/drivers/scsi/scsi_lib.c
+@@ -1187,6 +1187,11 @@ blk_status_t scsi_alloc_sgtables(struct scsi_cmnd *cmd)
+ 	if (blk_rq_bytes(rq) & rq->q->limits.dma_pad_mask) {
+ 		unsigned int pad_len =
+ 			(rq->q->limits.dma_pad_mask & ~blk_rq_bytes(rq)) + 1;
++		unsigned int pad_offset = last_sg->offset + last_sg->length;
++		void *vaddr = kmap_local_page(sg_page(last_sg));
++
++		memset(vaddr + pad_offset, 0, pad_len);
++		kunmap_local(vaddr);
  
--	desc = kmalloc(USB_DT_CONFIG_SIZE, GFP_KERNEL);
-+	desc = kmalloc(255, GFP_KERNEL);
- 	if (!desc)
- 		return -ENOMEM;
- 
- 	for (cfgno = 0; cfgno < ncfg; cfgno++) {
--		/* We grab just the first descriptor so we know how long
--		 * the whole configuration is */
-+		/* Try 255 bytes first because that's what Windows does */
- 		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
--		    desc, USB_DT_CONFIG_SIZE);
-+		    desc, 255);
- 		if (result < 0) {
- 			dev_err(ddev, "unable to read config index %d "
- 			    "descriptor/%s: %d\n", cfgno, "start", result);
-@@ -975,8 +974,12 @@ int usb_get_configuration(struct usb_device *dev)
- 		if (dev->quirks & USB_QUIRK_DELAY_INIT)
- 			msleep(200);
- 
--		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
--		    bigbuffer, length);
-+		/* Don't bother if we already have it all */
-+		if (length <= result)
-+			memcpy(bigbuffer, desc, length);
-+		else
-+			result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
-+					bigbuffer, length);
- 		if (result < 0) {
- 			dev_err(ddev, "unable to read config index %d "
- 			    "descriptor/%s\n", cfgno, "all");
+ 		last_sg->length += pad_len;
+ 		cmd->extra_len += pad_len;
+-- 
+2.49.0
+
+
