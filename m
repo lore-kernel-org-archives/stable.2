@@ -1,64 +1,64 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCE329994B
-	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 17:02:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643231EB5FD
+	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 17:22:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782666129; cv=none; b=VOEnQF8RczFSwmYqGsJSGRZrPZq/f0IVNtZ2+Bl7/VtBFjq0GJrRPMBI7gU5OCkIX6D2PAMavBOdXuz5IraV0XFdCbdAqy7DLStvbRSeeOYcaPW+ml/qALK0HV4Ef+Z2qekuyxaZ5Fk+/9M3oi99iV7Ibbt+RB5rJbM+E7cXq+Q=
+	t=1782667331; cv=none; b=eB0rGQPUP7plsFbtxQrfUvfQYNwANXqnkcHgHhzL1m0dKpCBVwtfLtGflbKz8NRC4KIMCGVJln0pyZ9rGxMEnBPU0p5UM247yMtSofPlrpz+ZM3XeFtIYuzD2razSRs1iiYjw9qY5nGy6pKsrPU/gyPML67nG27r81zz4q6y2qQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782666129; c=relaxed/simple;
-	bh=3OsNKGn84AmZ7EpZHONA4D/sDqC0/NfOYHvlRuLYVb0=;
+	s=arc-20240116; t=1782667331; c=relaxed/simple;
+	bh=K3EOnm1FTPPIVgm7ZBKpbKmC5oI+YrXDEzBB1/dVpHY=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=C3SUYBCKeAYGldQg9XcFgDGaxmYqv+NVnbRMcK2a18P+pTdHLBqU9kqU68f4xOC4K/KmpzJY/xv85cmUZjx15XlHT9o97zY/g3xaCUJgERq5/dkFUQkoSJIF39ZsZXhX6FSgHT5fgYDXPrlf5G2ahmXgJ+1quytLyqKd78Ly10g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pEOUIvb/; arc=none smtp.client-ip=209.85.128.51
+	 MIME-Version:Content-Type; b=QEaJdRcdubIgkEbixU8ZTbOZx7KLzlDsXCjXFrMdsVCdHV3rQB6E4/26sNRYNDwi1I2QU2VGxzozEF6F6lNpnaLDDw75agMFbmssZ2RZyHDRMRE2q8BQMqeETmZAFAoZeF4Al5r7O5tGCpRYtqCoHrjNA+UhsO7hXkgYoSMgNHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p9ZMZPeK; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pEOUIvb/"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4903d730b1fso33271215e9.2
-        for <stable@vger.kernel.org>; Sun, 28 Jun 2026 10:02:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p9ZMZPeK"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-46cbe01d4b6so1433450f8f.2
+        for <stable@vger.kernel.org>; Sun, 28 Jun 2026 10:22:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782666127; x=1783270927; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782667328; x=1783272128; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:subject:cc:to:from:date:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aVQvFBwvnO1RdffMStECk4dJQSfRULIl6EHx460540M=;
-        b=pEOUIvb/4MIZkIuL+pC95YgEKqOE62Ma0vBd6s+iBvLfa4aFcauDFP3TOK8NtSvGUZ
-         BsbIp2vR3PdopNLUsJLT/zMjgai8EU709ZC0npyt2918w53PA7OBXsPZKo5KjtiOoLbs
-         zJrcloJG42z+LzTu1ns6hXqIcI+o9dSrwujg2oyeOMl263JyOwnnAJ6eAJz+xvxTBMgq
-         iyLq6Cw4Ao76/hK9xS/Av8cNk+2yXcjfwo9fnQ5pjL5h4CSwH4GUIGPt6BcPIJTRr/o2
-         K8T7FU9Z6+4xhLBFB59bLLzSmXxJ4pSWCrDYX6j0i40+4aSnqtZjxR6+5R/xQATe7UR7
-         v2nQ==
+        bh=BBABlV/y3tcVRj6J4pCvx1ErOlS8DPYAimesttySdoE=;
+        b=p9ZMZPeKYklW9y9bTUWZv3xL6SxinrYKC5qxU3P6Z7EqCWdR8yfWyWcsx4c4uga1cS
+         aqSPWK32B7VKgYG0SbA1DKqWFF4SvPv9n+/PKDkyEzkHFDjPJ3IsmHjP/OZhmjsyLmYC
+         /kGnBW3J+e62qCJiqiTZ/KOPwYF6x+P8OLWnJKDqDpYhglZp68xomAami1etPoSCVcs3
+         AEH4SIKd70Sv8N0g6Csgxpi6OY4yn+VBPMprnCVb7DoJI+FIbJEAZ24qSCFhw7cqUbSB
+         +95cB+MjtzRMKa4aDrWNVLpo+LRybZd1wwMXxcx2zaoaiOA0RhvbBQgyZegVuyJ7uygk
+         oLCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782666127; x=1783270927;
+        d=1e100.net; s=20251104; t=1782667328; x=1783272128;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=aVQvFBwvnO1RdffMStECk4dJQSfRULIl6EHx460540M=;
-        b=MYSSGQY23wpHHvYLcyBz1DxlGkYJQCAspC2EeDWQ4pNaZZ49Wf5lSphcPDTNemkmgo
-         uiOp59AvW3slpBi3RS9qF+i71hJRbw3/JgZtr+X4V/gbmQi1nkRhsEFAzv+2cgNFEcNt
-         FKowIyZWcelHG0k9ookhlPFqF1y2QpWRYJLWKfkWnAJEHkjicW3rYIw569aHpxJqL0DO
-         pNZmwiLGxtsxEHxdgZZo34IR13FDrVkCUYn5XjbhL5RtGrAO/1BJKWspbGTRVaKOnwWk
-         9JJ6wS4IGX/9BeCYFVpPIIr0ob7D9Ak+wASp0ENakHXC/73U4wmWpQVdLW6FSC4OAOMt
-         LR2A==
-X-Forwarded-Encrypted: i=1; AFNElJ9Q49Eq7cmussHdLcbtctiJ0LHAUqQDnOkQb55xfsVYg7B9ox3af0A6eyLPhEcBbuCOccgeAi0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzzgQOrzAE2OhIKJzDILkVB5Y9I4DTrGV4/euzcRShiAjnVEyby
-	WdDSfvVwx52l1olhzh7qnw4oFC8IdToAyKXxXb950U2T1fMZsPh7syYSCAFE5Q==
-X-Gm-Gg: AfdE7ckJ2b/dBSHymWOyYerYKltqIUkp01rNOy9xWvW9G4tSz/b4QirgJHHLam15KSy
-	7x5Rmw5ntipYDWEq74M18kH7ByDsYIrgrHPdRKYTgT802jaKLMWxdb4eGaiRUPzX/PUKJDktmIy
-	e8k/ZwatgKMwWOdCfOfuO3hcMu7iFzWskAm4wcvhtQF/w/EG22lmJKuUQNjOvVcfWt3Tq05/viQ
-	chE0bctZhizvR+iQKN0kUPK87551bQnAFfIUoUcFPt62M9j4VoL3OPa9N2NxXCNn3aW9w/EcYF4
-	Dstk6Tb14SJJp/r13hftLM1k/v2kF36mjlrcgoGP2LBPNkzT2QogPTliIUvvyvKo0HCunD4fNUe
-	36mnx4+rpN56hKMMraO8K4j2E96fMgSmeIwcJP7e/K2sWqezuKEQqX0Qj2t+VWz/dcTPZgHsFlY
-	1NV7JshA5u/Q0T96DJG+367EtF
-X-Received: by 2002:a05:600c:c16f:b0:493:a7fd:15d6 with SMTP id 5b1f17b1804b1-493a7fd1852mr32215115e9.9.1782666126285;
-        Sun, 28 Jun 2026 10:02:06 -0700 (PDT)
+        bh=BBABlV/y3tcVRj6J4pCvx1ErOlS8DPYAimesttySdoE=;
+        b=fAVY/fTnkYv5U8PyjKzn6EepDa7GICHgxehj4/w9/ge9aPp4qReKWtuwX8A8bVKpoy
+         e1app2kJ1/l35wnLwkgEklESDqbRXqGyCqGcX6TDXK2/zCTeDX65VlBMy0xBuKUZOCym
+         uO5mknH7ZogfkYbF/VPU7JHO0JzzoSUm5WnqWKn/8xee8l1htnoK+G7cuKNGqp5bU+CG
+         jOh9AXsrv2k/MtcvvKwCP/iq3f9jiz/iIvCpRXr8qytEK28Yog+YsL6zDiScluUnzgAR
+         diVTqjbAt0rrhh80hGdebXn1am/xadgeWA8L406YSR+yQQuUCYXNmtxYTC6wKkZ6Yv1f
+         jv3A==
+X-Forwarded-Encrypted: i=1; AHgh+RrmvkuPvXgT2ekLl14wo4/Q/6GmOIqWiE28YfkIsGlbuBdEMKrsRcc3UpARb3YU+Nj07TBzTHE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdpVo8VGjBsCWgDxugZN5SrLOxRCzjnDCNjDP5NT1YOgEra4zN
+	H+FctLqnWIGMaa0kOuwqgbimfEQTm46VQupi6jtzWRLp9PVLdME0DqGM
+X-Gm-Gg: AfdE7cm6FY77XwzgR2n1bhei3esPLDXz0zQS4AKlGgctlez30aJoK0e9qXiHKLC8UJV
+	a7fA2PZG2mRPt80JVVmXAuPdlihHjK8ymCCBXOssNHFG1a6USUrreVMa4cbDdzd1uv9v2dF7xXe
+	1BLElYBGY44OIYPjfelEH6Oy4E7vzPamKbnfTKlCHXOg7obGjaZ+/v7zVsjxGi8YqT1YLbCgMzr
+	6aqlmNe120krYHIlxoYtvsSzBtqkJ47JadJU1BXUH6HXd7Vvou/xkRmVj2Qi0cXDfFfe63lZM6P
+	oqzU9KwKVnSYjJzFFppaFNMU/tgpkmTEt3KAb12CN0ETig5SEeGW/7UXUXwnRZc7R062GhUwR8U
+	YAFluiAF28r/rVcGolfKIyIkGooUYVt8hR0c6/zjZYA+WynZpEJ4czMRNwV/juJhU99OCTvRCqZ
+	3sAnp6hzIc3EalzidDrsm7totg
+X-Received: by 2002:a05:6000:1867:b0:46d:8695:f49d with SMTP id ffacd0b85a97d-46dc2a1614cmr23514992f8f.34.1782667327708;
+        Sun, 28 Jun 2026 10:22:07 -0700 (PDT)
 Received: from foxbook (bgu190.neoplus.adsl.tpnet.pl. [83.28.84.190])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4926c2954efsm160059395e9.2.2026.06.28.10.02.05
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-472c7bec9c2sm7927088f8f.12.2026.06.28.10.22.06
         (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Sun, 28 Jun 2026 10:02:05 -0700 (PDT)
-Date: Sun, 28 Jun 2026 19:02:01 +0200
+        Sun, 28 Jun 2026 10:22:07 -0700 (PDT)
+Date: Sun, 28 Jun 2026 19:22:03 +0200
 From: Michal Pecio <michal.pecio@gmail.com>
 To: Alan Stern <stern@rowland.harvard.edu>
 Cc: Nikhil Solanke <nikhilsolanke5@gmail.com>, linux-usb@vger.kernel.org,
@@ -66,8 +66,8 @@ Cc: Nikhil Solanke <nikhilsolanke5@gmail.com>, linux-usb@vger.kernel.org,
  stable@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
  linux-doc@vger.kernel.org
 Subject: Re: [PATCH v2] usbcore: Add quirk for 255-bytes initial config read
-Message-ID: <20260628190201.00afdccf.michal.pecio@gmail.com>
-In-Reply-To: <62e1fab3-1045-41f3-bc74-4c7624011619@rowland.harvard.edu>
+Message-ID: <20260628192203.5fb9daac.michal.pecio@gmail.com>
+In-Reply-To: <20260628190201.00afdccf.michal.pecio@gmail.com>
 References: <20260623161035.5792-1-nikhilsolanke5@gmail.com>
 	<567e8866-4308-4e5f-819c-fe778dbf74f8@rowland.harvard.edu>
 	<CAFgddhJk0EYG71fnKdio=RHC-cH+JmL-EZ7-oVD-LdHoa2TBSA@mail.gmail.com>
@@ -78,6 +78,7 @@ References: <20260623161035.5792-1-nikhilsolanke5@gmail.com>
 	<02060df3-b8c5-4a86-b3ab-3a28eea8a562@rowland.harvard.edu>
 	<20260628165040.76fd608d.michal.pecio@gmail.com>
 	<62e1fab3-1045-41f3-bc74-4c7624011619@rowland.harvard.edu>
+	<20260628190201.00afdccf.michal.pecio@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,41 +88,45 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sun, 28 Jun 2026 11:48:36 -0400, Alan Stern wrote:
-> > How about "keep unrelated changes out of a stable patch", i.e. always
-> > do the delay (if any) after the first request, regardless of size?  
-> 
-> This is not an unrelated change.  Rather, it's deciding on how to behave 
-> in an entirely new control pathway -- the one where the 255-byte quirk 
-> flag is set.  The old pathway is completely unaffected.
-> 
-> I suspect no devices will have both this quirk flag and the DELAY_INIT 
-> flag set, which means the location of any delays in the new pathway 
-> won't matter at all since they will never be used.
+I really think it could (and should) be a simple patch.
 
-If no devices will have both quirks then new delay added before the
-first configuration request will never execute.
+This is what I wrote a few weeks ago. It's an unconditional change
+for all devices, but it would be easy to turn it into a quirk.
 
-If such devices will exist, then it probably won't matter whether the
-delay comes after or before the first request. Purpose isn't known,
-but it appears to be rate limiting configuration descriptor requests
-or delaying other requests after this function returns.
 
-Either way, no known need exists to add another delay before the first
-request or alter the existing delay (or its conditions) in any way.
-
-In general, I always object to code which serves no purpose because
-such code is easy to add but very hard to remove when it gets in the
-way. There are no known users, no test cases, only paranoia.
-
-So I would keep the delay code completely unchaged.
-
-And skip other random changes like error string nitpicking. Reliable
-and up to date information about how many bytes are requested,
-"expected" (what does it even mean, to somebody reading dmesg?),
-received or verified to exist can be gained from source and usbmon.
-
-A stable patch is supposedly supposed to be 100 lines with context ;)
-
-Regards,
-Michal
+--- a/drivers/usb/core/config.c
++++ b/drivers/usb/core/config.c
+@@ -938,15 +938,14 @@ int usb_get_configuration(struct usb_device *dev)
+ 	if (!dev->rawdescriptors)
+ 		return -ENOMEM;
+ 
+-	desc = kmalloc(USB_DT_CONFIG_SIZE, GFP_KERNEL);
++	desc = kmalloc(255, GFP_KERNEL);
+ 	if (!desc)
+ 		return -ENOMEM;
+ 
+ 	for (cfgno = 0; cfgno < ncfg; cfgno++) {
+-		/* We grab just the first descriptor so we know how long
+-		 * the whole configuration is */
++		/* Try 255 bytes first because that's what Windows does */
+ 		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
+-		    desc, USB_DT_CONFIG_SIZE);
++		    desc, 255);
+ 		if (result < 0) {
+ 			dev_err(ddev, "unable to read config index %d "
+ 			    "descriptor/%s: %d\n", cfgno, "start", result);
+@@ -975,8 +974,12 @@ int usb_get_configuration(struct usb_device *dev)
+ 		if (dev->quirks & USB_QUIRK_DELAY_INIT)
+ 			msleep(200);
+ 
+-		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
+-		    bigbuffer, length);
++		/* Don't bother if we already have it all */
++		if (length <= result)
++			memcpy(bigbuffer, desc, length);
++		else
++			result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
++					bigbuffer, length);
+ 		if (result < 0) {
+ 			dev_err(ddev, "unable to read config index %d "
+ 			    "descriptor/%s\n", cfgno, "all");
