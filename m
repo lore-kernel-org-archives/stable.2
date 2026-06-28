@@ -1,98 +1,102 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1E236492A
-	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 14:20:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0BE190462;
+	Sun, 28 Jun 2026 14:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782656439; cv=none; b=Ut1o4nWxlJwHqdldBkTLy7iIm33NUdInjf4ZBPsDfaOiJp3auYDAOcX/T57ri+7ogQPlhroVHL1Xvc/tRvgVDFmsgDIRwf5USp9sBFLaPgTgaoc1+j9bKs3dVc5rSZVQMJHxcKdvVm2E0qDpLo1ZjY+cS7Jy02PE4oI0XkC61g4=
+	t=1782656587; cv=none; b=N5we6YWIqy3p7cI9G0nHP3GqIHtrdUt3wsedndEjCQSp+lJuUZXhqStpkh0v+26LJhQZvHdQ3i3F6o+oA4vO5tWPJ8KDq+x0FmJ+OBSjvRWIQUlfVKe/Yde0DSNNXs/0vhV2g0KissQgfKrzXtebkRu4yiZ093OKTBsP2ZOl3Nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782656439; c=relaxed/simple;
-	bh=Z+H/Kvc8XpNDcHZToc3a5fD/T+1alr+DVjRmlYJSPuc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ATi0qYTTQq/ROFEYaaaRJ51W/fMTXhV95MjJwRAaSHwAAoy9BmvSCLkLB2NVF7fN7msAmtpN84EYdniyoBGz39VqTEzvPXvbL+QvExtfZuMmvaCrFCy4CZPc3pcMlzukoImn4VOVb8j0xGftWHYDy/P0V6vfeF9XZSDDlFrI6yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hGK9mmJ6; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hGK9mmJ6"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-493a287b8c1so4901945e9.0
-        for <stable@vger.kernel.org>; Sun, 28 Jun 2026 07:20:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782656436; x=1783261236; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lY2JA6iotpdc+Vj9khkxAw9AXIsRn+8IkOqa0Zg06mc=;
-        b=hGK9mmJ6K4ioN9zfTCErTa/Tun7o55rOKwbcISRI8cmqBTtiINtxo+M+X9xBXDBv5N
-         ZrK/gSL0IEAV3+m4EisqVmGSKu2XMwJLA4jNl5lahE5ASHE/54s0bedILp7lEscbFqS7
-         WmpXeOxjHIXwwyIf1XgXClY/GXf+nv8Jf973lhrqQ/9L42kfmt9rwMVrPcC80dXzFN85
-         ZgolDg440Y3gqRy25VOWn2jxS2MdDVbj+v200KH9Yi9v3VTUM8WtXYuEJzr/XYWS0kmd
-         DovfYGBe+7Mtomi1n779MhGLIUOg+GdENGcJCr9R7flQTq0ugnbCbmgG14CXBL+9o0HL
-         cvUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782656436; x=1783261236;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=lY2JA6iotpdc+Vj9khkxAw9AXIsRn+8IkOqa0Zg06mc=;
-        b=JZOZii6RWzXgKLJ41slez+QRyG5i6l3X+SxAcehy5KLh5Q+dfJK44RxJDWl+K5TlUC
-         iZN7VgRdEhRLH9MumC8McDyjNWEk6zZ87SqweIfPjVJpwMpBWnNemeAd1tDseqN7CucO
-         WAkrtBC8RBz+Z4qMsAdQfyT0yuVpMQOhV4dQanj8ajvmHAm7w3QgEqwy4qWRRmUPFyNj
-         9LwxutZ2P86XT93UZFTI6dM6IISMUyAVQNzcBV04STu9fohx/9YPuA+ZCbP+5KvT9pdi
-         81NkV3S39el7FqAbf2/0yvEuVMB9KEuOTERe23cyJ13rxdeb5/k0r4ZpC88Uu9VlMKio
-         2nWw==
-X-Forwarded-Encrypted: i=1; AFNElJ+t3wYPjaZaE3I7OVMZ+Ht/WemXAgPAHapLSX+5zxGJHPjZqQsRCns8eZQJrcKq+qoaifFNF9c=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyEaLy4WTtyosrsiyqP3cWGWthsKR9Q6vv6nciI1+bMaZm3N9Tk
-	wKRUfxGox7HlryMTrZRym1ogL/4ZV/yhSNJj1aCbrYugfbm0aJD3EeqV
-X-Gm-Gg: AfdE7clLATpb5MQ0qOCrMA4BQUx/p36bMLljkXcCvaNxDP2YxdouJFHA+RNPjU3FpHg
-	kCmJkIooMFACrsnIZeLkBPwd4s9OE1/Yb14DNst4376zZS7bcuPd+0427NqRKRpS5g0nSJkAN93
-	HQ0Uu8ueH152v7+OZ9OcBoiU4APRn3aHWZ2qmGpE02dHDQE2Z0z0FVMyQx4me1D8D1kB8t5qxhW
-	MGp90JVLx8isdTchN2gqCV/lywchJruyVkQZCsjERUETqIRGi1Kvl4yJCeTyBkek+b0vsIUyOLQ
-	RVjh0nBkIFGDmiwOKx3CRhjrmOI3Msm4OmatXWN6aVW5TZk4pA8XAarbNQvsEZREOtW4OBGrcJv
-	g14iktjNMvjaCSbNSbfEXH2lI78xqBguvFWXVSRSYaVz5W1hBy2y6ZR7G/w/eZxP5hx++AdqHeA
-	Ji4vjedZtrHEqta20jVBBGdtd1MbC1klpp1vMPoEH/H1wOUp7DdMo9Pa0UW1Q=
-X-Received: by 2002:a05:600c:828e:b0:493:a525:f4c with SMTP id 5b1f17b1804b1-493a52510a7mr56041405e9.17.1782656435727;
-        Sun, 28 Jun 2026 07:20:35 -0700 (PDT)
-Received: from eldamar.lan (c-82-192-247-196.customer.ggaweb.ch. [82.192.247.196])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493a4cc6659sm84430425e9.13.2026.06.28.07.20.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 07:20:34 -0700 (PDT)
-Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
-Received: by eldamar.lan (Postfix, from userid 1000)
-	id 5650DBE2EE7; Sun, 28 Jun 2026 16:20:33 +0200 (CEST)
-Date: Sun, 28 Jun 2026 16:20:33 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: Sasha Levin <sashal@kernel.org>, Wentao Guan <guanwentao@uniontech.com>
-Cc: gregkh@linuxfoundation.org, foss+kernel@0leil.net,
-	stable@vger.kernel.org, brauner@kernel.org,
-	Ben Hutchings <benh@debian.org>
-Subject: Re: [PATCH 6.6.y 0/8] eventpoll: fix ep_remove struct eventpoll /
- struct file UAF
-Message-ID: <akEtsUNOcuws0xPC@eldamar.lan>
-References: <20260626041403.85968-1-guanwentao@uniontech.com>
- <stable-reply-item005-eventpoll-66-20260626@kernel.org>
+	s=arc-20240116; t=1782656587; c=relaxed/simple;
+	bh=65Ql2KUq7jW4vofmyKLRkuByMJ/5kZJQVrd8+qcqvAI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jh/2wbqndN9fgKHuA8jMDT/6vE4J/96SjcAyuO3RRWycqyY8iQ73IM8sBeJB7y5FL2Dftf98zK1JZp6zdNQpSm9LJxxgyfr0NfrglDQ1/bBT1yKoMx9Y/dTU0Ikym6lsHAgTCx4E9yT/vqPqZWPAOf4ewVikox35RGitnUUR3SQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.74.7])
+	by APP-05 (Coremail) with SMTP id zQCowAAXnP8_LkFquD7IFQ--.8366S2;
+	Sun, 28 Jun 2026 22:22:56 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: chunkuang.hu@kernel.org,
+	p.zabel@pengutronix.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/mediatek: fix of_node leak in mtk_drm_probe loop
+Date: Sun, 28 Jun 2026 22:17:51 +0800
+Message-Id: <20260628141751.47090-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <stable-reply-item005-eventpoll-66-20260626@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAXnP8_LkFquD7IFQ--.8366S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AFy8ur4ktF43Ar4xKw1kuFg_yoW8Wr45pF
+	WDKFWYyrW0qr4xKFyvyFyUury3A3WSqayxWr4Yg3WxZwn8tFy7XFyFqay7KFZ7AFyxC3Wa
+	q3Z8AFyfury7AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
+	nIWIevJa73UjIFyTuYvjfUOlkVUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMMA2pBKkEGVwAAsb
 
-Hi Sasha, hi Wentao,
+In the for_each_child_of_node loop, private->comp_node[comp_id] and
+private->mutex_node are assigned via of_node_get without first releasing
+any previously stored reference for the same index. When the same comp_id
+or mmsys_id matches multiple nodes, earlier node references are
+overwritten and permanently leaked.
 
-On Fri, Jun 26, 2026 at 01:54:18PM -0400, Sasha Levin wrote:
-> > [PATCH 6.6.y 0/8] eventpoll: fix ep_remove struct eventpoll /
-> > struct file UAF (CVE-2026-46242)
-> 
-> Whole series queued for 6.6, thanks.
+Suggested-by: Greg KH <gregkh@linuxfoundation.org>
+Fixes: 1ef7ed48356c ("drm/mediatek: Modify mediatek-drm for mt8195 multi mmsys support")
+Cc: stable@vger.kernel.org
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+Changes in v2:
+- Fix patch format based on reviewer feedback
+---
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-58c9b016e128 ("epoll: use refcount to reduce ep_mutex contention") got
-backported as well to v6.1.175 and v5.15.209, will you provide
-backports for the 6.1.y and 5.15.y series as well?
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index c86a3f54f35b..58860f7071a9 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -1138,6 +1138,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ 
+ 			id = of_alias_get_id(node, "mutex");
+ 			if (id < 0 || id == private->data->mmsys_id) {
++				of_node_put(private->mutex_node);
+ 				private->mutex_node = of_node_get(node);
+ 				dev_dbg(dev, "get mutex for mmsys %d", private->data->mmsys_id);
+ 			}
+@@ -1154,6 +1155,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ 		if (!mtk_drm_find_mmsys_comp(private, comp_id))
+ 			continue;
+ 
++		of_node_put(private->comp_node[comp_id]);
+ 		private->comp_node[comp_id] = of_node_get(node);
+ 
+ 		/*
+-- 
+2.39.5 (Apple Git-154)
 
-Regards,
-Salvatore
