@@ -1,75 +1,36 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2B03A6418
-	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 13:37:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DC53A6B9D;
+	Sun, 28 Jun 2026 13:48:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782653849; cv=none; b=QNs9bOUmVx0L/rebUmb6zv5R5jXoGulZb7MFInmanNnJn1zeVSqSeRZsMsNgDuG0a+ezwf9DFLWtT5ZAFyXtWV5RJSpSvVbJrtJ4todKtrEml0hoDWEAdrRJypVBUX6IekbyragpDebZz90KX1iCuPdDMHX/+MRDFtnw/5CW+XQ=
+	t=1782654496; cv=none; b=jtONk8rNoWyct+neECc/Egr5Ws1T3hfzp8+cPRODZE+sU6JOgt8Wt0BFEZLaxyAfShHMqU93aJtfYlTzRx0Vpxpap2Z++UJuLPjcnKUgsqn+u3wEKe/OAC45BrOIpQiHqbzFUXrPJAkjIdCxM+39VKJc3Ls85EjFo6fLqzjmIRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782653849; c=relaxed/simple;
-	bh=APeQAyYxz2gOaufxE9Y/rggiGKFvWex60lbtGRy4358=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Eg4+jlavwPCOt71kHyYNn6qGqwnYHBfl8dMPEz3pEoqO3RpjGAzJ9sOaggjPbka/lKL0ikeb9WAq8NGWW4zrotSOUj74PQ/hi9H0oGvvqxlJHN5Mdv/5IAMMBNsIenwRUhJ8tbjxSX/VkLJFjRng3JQ5nG9euHOAoo8NFZDpUy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y0dB8ZEO; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y0dB8ZEO"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2c7ebfb63c6so15141825ad.3
-        for <stable@vger.kernel.org>; Sun, 28 Jun 2026 06:37:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782653846; x=1783258646; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+/ERgMpgZ/aBHq6dAj6hhrHv3kdwwLXAdxeqFG4lEq0=;
-        b=Y0dB8ZEOidzMJfdk1+U47Q+7NOTG6Qkf6vAYdnCSMATZ7MHyzBjRSCOuzE93vSweQS
-         G9uN9V1PyJqpjjj073XZnZE7y3T2fjYz9PAk17lKc3XXsn/Oi5UjJ2HwviZfn7tWziAk
-         eVcZCoW4odUhCG+9L5jY0Pk/8Ax6hkvT/BrkTHFcU7P9lDyI+HEd+i7IYRcERpHneFgU
-         FSpY2D/ttLkLJQ2v5BJKa5lNqys1zsoDywxjzwaWXsXjFI3gYxh7oeEkZQ5Oo7S9CshX
-         uGOGBH+wTUJa805lWdzYX2S/tjW6aQHjO04dqSi/icuyOIUPSOw2k4czQFuBmOQnANNA
-         hFLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782653846; x=1783258646;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+/ERgMpgZ/aBHq6dAj6hhrHv3kdwwLXAdxeqFG4lEq0=;
-        b=W9RIdTnw6q5Z1lNkFRVr+bBtsnkPnRQMSZVFFMZ6ebeC+jqiaTMmtK9WopRGjUR6Hu
-         RJr1Grm03f+n7RVeAcov56ujA1wZm+61h6aM3KIvsiJ9Q0zgX5qW+QBvxfl9mJ3ewVPz
-         +PBCknVWduSHDbpsVnSNq+/4MBwnXyPGhgettEYD8uV/FHY1h8WUbRTWtsTIYh8zOrCk
-         XesnX8hWeDteVnHRCLwRTW52WpzD0u6H84sY4GCdYqlT6TTKaJENE6ue2DiZMw/gh4WW
-         Ub5uKycp7pc48J/Z4pT66ZsgQ0GDFTg2EvCseUSy1fgVZjNmc4IDbAexdPcgfyTB4+cU
-         GGaQ==
-X-Forwarded-Encrypted: i=1; AHgh+RryafBOH4FflQyEYnHw7/IlmRV2R9+9Ua4Ujhps13doVnq5aECYzmV+PXE0iIu17YjX+5JXAKI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwqGZ5nQ3P2huWrRHWVjcQyT8cNhv7Kery9jE4rKfJYyoTf/mL/
-	AjC6+RTJd5YKrWAVNZ5wARB0RVgr5lmLKNckwK01Cl3LuxgRZ3RUw7Ch
-X-Gm-Gg: AfdE7cnDK+ne2HKgc/NeQmAGr0l4s1DV2hsyP2z60wolpZgt6/JuuCJjt1mCb+C732E
-	M9uuBApgh4ibuu2iDo+E++MzqS6c3scCfBsD+kiA+DPYQYgNrl+fOBhUorglxSz16MvLCIcAMt0
-	kUdGbc7596T9BYrBnQbQ1cub6LJ6hmT2/uXoyQmRQsF3XfXatG3FA4rpVfin1AG2tjdLeKWPOdm
-	Cquf4kx/5D1JTzMEXANANzDhCPygp7PR46f2HyQEhvKNYrmG+fPyS/+r8Q5N3yxtsTzdHvRuIkh
-	ie/tZZAFvPjXHytaCAESp1yOuxL/3upowqujpKFaTJWdSejJaVdABB7vKSU1/SqVr6eeyJTgzem
-	/pmvEblhKqd+GgPqWdLuh0GsyWihjt0kstG17t2wDb1qd05dSlLpa+A3yG1TDytK8O+0YRpJxV7
-	Dkqr1D0aaytYepRsYZTgAQnHBV/qPCnOeBM120x2eiwooO2PajG2WvgpsArc3DtYFpaS1FjOdSK
-	+a5jw==
-X-Received: by 2002:a17:903:2305:b0:2c9:e266:e32e with SMTP id d9443c01a7336-2c9e266e610mr19470105ad.47.1782653846132;
-        Sun, 28 Jun 2026 06:37:26 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c9dbd09695sm14537525ad.81.2026.06.28.06.37.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 06:37:25 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
+	s=arc-20240116; t=1782654496; c=relaxed/simple;
+	bh=/YN62ao2dIenIsEZhucux6/qiLA1asEH4vy5SDmO68s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iUZpQaGvXXs/0lPg/xbb7d4yGw0T5Tjw1XNho6/lp44XAWcprsvd853P0+k2Ba7tYS/P8vhDgPUFqGwutpcoquEI2u8FERM5CHkzygGpT12HL14vbkckOjhSUjSjPBpxg+5qyA3i1D+2bNt0uJaVTyKrzBGA4PHeA2cybrC6sCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.74.7])
+	by APP-05 (Coremail) with SMTP id zQCowABHkcQTJkFqQQvHFQ--.45986S2;
+	Sun, 28 Jun 2026 21:48:05 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	Greg KH <gregkh@linuxfoundation.org>,
 	stable@vger.kernel.org
-Subject: [PATCH] HID: intel-thc-hid: intel-quickspi: validate report size before copy
-Date: Sun, 28 Jun 2026 22:37:17 +0900
-Message-ID: <20260628133717.941389-1-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH v2] drm: fix syncobj reference leak on invalid flags check
+Date: Sun, 28 Jun 2026 21:48:01 +0800
+Message-Id: <20260628134801.46450-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,73 +38,63 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABHkcQTJkFqQQvHFQ--.45986S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zw1xurW3AFy8ZF18KF1xZrb_yoW8XrWrpF
+	sxKr9FvFy8Ka1Ivr1IyFyDuF4Fya1xtFW0krWDJ3W5ZF4ktw1UJ3y5Ka4YgFyDArn7Cr17
+	X3sFyFW5ZFnrCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
+	nIWIevJa73UjIFyTuYvjfUOlkVUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgMA2pAixH-bQABsj
 
-write_cmd_to_txdma() builds an output report in qsdev->report_buf, a heap
-buffer allocated in quickspi_alloc_report_buf() to the device-descriptor
-derived max_report_len (a few hundred bytes for a touch controller).  It
-copies the caller-supplied report into that buffer:
+drm_syncobj_find() acquires a syncobj reference on success. The invalid
+flags check returns -EINVAL without calling drm_syncobj_put, bypassing
+the out label where the reference would be released. Move the flags check
+after the NULL check to ensure the reference is properly released.
 
-	memcpy(write_buf->content, report_buf, report_buf_len);
-
-The HID core caps a report at HID_MAX_BUFFER_SIZE (16384) by default, and
-quickspi_hid_ll_driver does not set max_buffer_size, so the length reaches
-the driver unbounded.  A hidraw SET_REPORT/SET_FEATURE ioctl carrying a
-report larger than max_report_len therefore overflows report_buf with
-attacker-controlled length and content.
-
-Record the report_buf allocation size and reject reports that do not fit
-before copying, matching the equivalent guard in the intel-quicki2c
-sibling (quicki2c_init_write_buf()) and the hid-goodix-spi fix.
-
-Fixes: 9d8d51735a3a ("HID: intel-thc-hid: intel-quickspi: Add HIDSPI protocol implementation")
+Suggested-by: Greg KH <gregkh@linuxfoundation.org>
+Fixes: 18226ba52159 ("drm/syncobj: reject invalid flags in drm_syncobj_find_fence")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c      | 2 ++
- drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h      | 1 +
- drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c | 3 +++
- 3 files changed, 6 insertions(+)
+Changes in v2:
+- Fix patch format based on reviewer feedback
+---
+ drivers/gpu/drm/drm_syncobj.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-index 4ae2e1718b30..1695efd5961d 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-@@ -559,6 +559,8 @@ static int quickspi_alloc_report_buf(struct quickspi_device *qsdev)
- 	if (!qsdev->report_buf)
- 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+index 8d9fd1917c6e..e40e2d92d5ef 100644
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@ -442,12 +442,14 @@ int drm_syncobj_find_fence(struct drm_file *file_private,
+ 	u64 timeout = nsecs_to_jiffies64(DRM_SYNCOBJ_WAIT_FOR_SUBMIT_TIMEOUT);
+ 	int ret;
  
-+	qsdev->report_buf_size = max_report_len;
-+
- 	return 0;
- }
+-	if (flags & ~DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT)
+-		return -EINVAL;
+-
+ 	if (!syncobj)
+ 		return -ENOENT;
  
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
-index bf5e18f5a5f4..0ed964bfe3dd 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
-@@ -157,6 +157,7 @@ struct quickspi_device {
- 	u8 *report_descriptor;
- 	u8 *input_buf;
- 	u8 *report_buf;
-+	u32 report_buf_size;
- 	u32 report_len;
- 
- 	wait_queue_head_t reset_ack_wq;
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-index cb19057f1191..db6054843e77 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-@@ -30,6 +30,9 @@ static int write_cmd_to_txdma(struct quickspi_device *qsdev,
- 
- 	write_buf = (struct output_report *)qsdev->report_buf;
- 
-+	if (HIDSPI_OUTPUT_REPORT_SIZE(report_buf_len) > qsdev->report_buf_size)
++	if (flags & ~DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT) {
++		drm_syncobj_put(syncobj);
 +		return -EINVAL;
++	}
 +
- 	write_buf->output_hdr.report_type = report_type;
- 	write_buf->output_hdr.content_len = cpu_to_le16(report_buf_len);
- 	write_buf->output_hdr.content_id = report_id;
+ 	/* Waiting for userspace with locks help is illegal cause that can
+ 	 * trivial deadlock with page faults for example. Make lockdep complain
+ 	 * about it early on.
 -- 
-2.43.0
+2.39.5 (Apple Git-154)
 
