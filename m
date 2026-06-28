@@ -1,113 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF05914A60F;
-	Sun, 28 Jun 2026 00:57:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2DFEEC0;
+	Sun, 28 Jun 2026 01:36:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782608249; cv=none; b=LwuLLkZYZqIDUXbjC63P/P845Dr74bJ8tHVOgbtVpPRZF6UMdt2YILj27CPxl5L3DTZHgbG4JEm7WvubEWUsNfITl3ylwXv8WeQkEEAeLqokTO/FlQxxfoyVpW+5nLwBNy6AjvBmPWFsnkCWBJtotHWthonysESyPhTG7MtTVBU=
+	t=1782610614; cv=none; b=HoI3ApRRe6HScxckgQmNbNRdSH1w5i/D8PX+U5HimLC2jrAdmEJs6UJxd/dOp/ibfqL9QxZ6GjEoH65hVXoMQD5nhQ2kw5GnFCsBpwWoZX+SjfFrK6JZavpENK+2pLEFA08thNdXqKKGxQqmEQbOiS+jx47GPSiCPqDsChtOmZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782608249; c=relaxed/simple;
-	bh=K1cEz/iitud3LvmFxGB0jbqbtJ/55PTUSVs/uhRx8IQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YsFKarBj3eIHePNgxxkTiOw6HV1M9wtCFa8zUMyJ+Flgfu2Rv0KzYw8tRRoCejpdNbsWcrus/PBJ586V2lYVbwyvZ1IwL/0cB7uHV1q+9Kc5ZlTCIaciiFy7gCZRhoI8xQ8QMyJ+KSlpsF4KqDh2PF7NSDz8AyeLeseNbAW2ztM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZQoWwsCX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782610614; c=relaxed/simple;
+	bh=qcyT18ycfgs67qeBeGLSw680gcNmqxnv+2QGvTVVH64=;
+	h=Date:To:From:Subject:Message-Id; b=iDWIeIecvhRpNHr6pAuNPqPjWNtqt/2eJSlBOYGTXOjMiyM6ggXDfeB8krHGItSWQtWAidsmUZpMIEc9dQtY3revyParJr+u0hUjxudHaTRNQVAWkPT4AMci3dxCykBI/A5fw77z6cHHs0mukXMumq5b6hLahMX2gP5qzDOmmiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ubSpsty6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZQoWwsCX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C04AA1F000E9;
-	Sun, 28 Jun 2026 00:57:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782608248;
-	bh=tznSpU7jKgoi/IAc701RjRwzUrhhlndb6N0yCpqUF6Y=;
-	h=From:To:Cc:Subject:Date;
-	b=ZQoWwsCX3UlTCy9mLO8MoRulCOcTI/rsGY6DC+7jYEDPeCSwHh3DuH6UUYn/qvglO
-	 QeTKbLss8rNnaeU7rPAlafnix+x2kEETjfv6ZqkZfHogiEnIagnXH0I1FEVVrIMMhf
-	 HzmndrWiHEBMFTQrKyHNCkgozfwLjTCNvtzjD8Q7+7twokBaA8NWh8dxk8dBE+PVcN
-	 SLPWtrgdbrBfurx9a9mfbbpRmiijXXK3T0Uw0gQowPODmqJgobSD8x+36sikkGjeLR
-	 ebX3SI80TknbXFhnECtX10/IvQbWBqpRjjcbslINxKkY3KLhGNVea6YHrac4Tbvb4o
-	 ZRRkqzqVJRy3Q==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Yang Yingliang <yangyingliang@huawei.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: [RFC PATCH v1.1] mm/damon/core: validate ranges in damon_set_regions()
-Date: Sat, 27 Jun 2026 17:57:22 -0700
-Message-ID: <20260628005723.28549-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ubSpsty6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EBDE1F000E9;
+	Sun, 28 Jun 2026 01:36:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1782610612;
+	bh=4ayx45IuqpUBVfUPNG6TijbKmA66iUihHOUZXkkdfuE=;
+	h=Date:To:From:Subject;
+	b=ubSpsty6vaTEh9LRYanM1L+PH9qAIcXBto8YuabribI0/FkkqGCmZLKCTO4Ga5vc1
+	 yut3JUzuBDd0b9CdpghlmQnKtILhkq7qh9NQl/1obqOPvOafWqdpSEA1wcZXxgaZ1Z
+	 QDHeUTz4yDNOr8GhDYT2Aixg9xzYQ9EYSjlmPxB0=
+Date: Sat, 27 Jun 2026 18:36:51 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,hughd@google.com,baolin.wang@linux.alibaba.com,alhouseenyousef@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + tmpfs-zero-unused-folio-tail-for-long-symlinks.patch added to mm-new branch
+Message-Id: <20260628013652.3EBDE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-DAMON core logic assumes zero length regions don't exist.  However, a
-few DAMON API callers including DAMON_SYSFS, DAMON_RECLAIM and
-DAMON_LRU_SORT allow users to set empty monitoring target regions.  This
-could result in WARN_ONCE() on CONFIG_DAMON_DEBUG_SANITY enabled kernel,
-and divide-by-zero from damon_merge_two_regions().
 
-For example, the WANR_ONCE() can be triggered like below.
+The patch titled
+     Subject: tmpfs: zero unused folio tail for long symlinks
+has been added to the -mm mm-new branch.  Its filename is
+     tmpfs-zero-unused-folio-tail-for-long-symlinks.patch
 
-    # grep DAMON_DEBUG_SANITY /boot/config-$(uname -r)
-    # CONFIG_DAMON_DEBUG_SANITY=y
-    # damo start
-    # cd /sys/kernel/mm/damon/admin/kdamonds/0
-    # echo 0 > contexts/0/targets/0/regions/0/start
-    # echo 0 > contexts/0/targets/0/regions/0/end
-    # echo commit > state
-    # dmesg
-    [....]
-    [   73.705780] ------------[ cut here ]------------
-    [   73.707552] start 0 >= end 0
-    [   73.708452] WARNING: mm/damon/core.c:359 at damon_new_region+0x6e/0x80, CPU#1: kdamond.0/758
-    [...]
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/tmpfs-zero-unused-folio-tail-for-long-symlinks.patch
 
-All DAMON API callers eventually use damon_set_regions() to setup the
-regions.  Add the validation logic in the function.
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Fixes: 43b0536cb471 ("mm/damon: introduce DAMON-based Reclamation (DAMON_RECLAIM)")
-Cc: <stable@vger.kernel.org> # 5.16.x
-Signed-off-by: SJ Park <sj@kernel.org>
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Subject: tmpfs: zero unused folio tail for long symlinks
+Date: Sun, 28 Jun 2026 02:43:14 +0200
+
+shmem_symlink() marks the entire folio uptodate after copying only the
+NUL-terminated link target.  The remainder of the freshly allocated folio
+is left uninitialized.
+
+Reclaim may pass the whole folio to a swap compressor.  KMSAN observed
+sw842_compress() computing a checksum over the uninitialized tail.  If the
+folio is written to a swap device, those bytes can also leave the kernel.
+
+Zero the remainder of the folio before marking it uptodate and dirty.
+
+Link: https://lore.kernel.org/20260628004314.27370-1-alhouseenyousef@gmail.com
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+bf5586280a66e9ccdfa9@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=bf5586280a66e9ccdfa9
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
-Changes from RFC v1
-- RFC v1: https://lore.kernel.org/20260627170057.1867-1-sj@kernel.org
-- Fixup the commit message for how the fix is made.
-- Do the validation with min_region_sz-aligned addresses.
 
-FYI, this fix cannot be applied as is to the commit that introduced this
-class of bugs, because damon_set_regions() was introduced after the bug.
-I considered making three fixes for each caller to make the backporting
-on the old kernels easy.  However, the first LTS kernel having the bug
-is 6.1.y, which has damon_set_regions() and all the callers are using
-it.  So porting this to necessary stable kernels should be easy enough.
+ mm/shmem.c |    1 +
+ 1 file changed, 1 insertion(+)
 
- mm/damon/core.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+--- a/mm/shmem.c~tmpfs-zero-unused-folio-tail-for-long-symlinks
++++ a/mm/shmem.c
+@@ -4057,6 +4057,7 @@ static int shmem_symlink(struct mnt_idma
+ 			goto out_remove_offset;
+ 		inode->i_op = &shmem_symlink_inode_operations;
+ 		memcpy(folio_address(folio), symname, len);
++		folio_zero_range(folio, len, folio_size(folio) - len);
+ 		folio_mark_uptodate(folio);
+ 		folio_mark_dirty(folio);
+ 		folio_unlock(folio);
+_
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index d99f7a297fdde..df0cc699494fe 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -356,6 +356,12 @@ int damon_set_regions(struct damon_target *t, struct damon_addr_range *ranges,
- 	unsigned int i;
- 	int err;
- 
-+	for (i = 0; i < nr_ranges; i++) {
-+		if (ALIGN_DOWN(ranges[i].start, min_region_sz) >=
-+				ALIGN_DOWN(ranges[i].end, min_region_sz))
-+			return -EINVAL;
-+	}
-+
- 	/* Remove regions which are not in the new ranges */
- 	damon_for_each_region_safe(r, next, t) {
- 		for (i = 0; i < nr_ranges; i++) {
+Patches currently in -mm which might be from alhouseenyousef@gmail.com are
 
-base-commit: 7c001190b88a32f80c93a6ac302af59a9756309c
--- 
-2.47.3
+tmpfs-zero-unused-folio-tail-for-long-symlinks.patch
+
