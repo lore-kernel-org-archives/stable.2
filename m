@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E643B8BC1;
-	Sun, 28 Jun 2026 21:54:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E32139023A;
+	Sun, 28 Jun 2026 21:54:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782683694; cv=none; b=H8H94G0y50v2T4Z30CZSzbBoMQ4YZAmR5HqokQoKRQQgxrNIE2hpUejQSERf3be/fsuwOHFJJt4SeVHs9pvFu+J263bVLB+FBvGngiYb9qdAgR1ALerp/1oxDPCrCdMnVyBzDGWERSmDCir+qGoO4SC0smK+QaOsr+P3e3zsvQg=
+	t=1782683695; cv=none; b=oZ3A8aeItGUIsRQqryL7Zzp4HOiUn+ySHS4tI/r6Zf3O8eqdZYxNr9xRSjywkam5tEKwcnGoBY7SnAjsovbJKqmIc3MpRH7b6sww6xnyBILAP/atGIQV1IbGA88I6ICc+dBgiSn7hjsV16NIdC880BK8lIP3/No/3Vgy7dLkJ4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782683694; c=relaxed/simple;
-	bh=7fVm9icn6sKU/rKHJWCkZo6ETFPuyGhj+szQjYMHi24=;
+	s=arc-20240116; t=1782683695; c=relaxed/simple;
+	bh=xAVYRplGu1gtvrDRKFrta0V6Pz5BBo7sK7WZMFvNYsk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sVG0pYrs3bPF9VOfvkW3dTNBNbRx/VOnDqzGzv1rdMLR9k3jGcukmqM5URzg7iGNq8dG/Lw8e9pIV1r2aJ6vf3wat6qffz8NFpyw7Z2qfq2VxqZRVwrgdWxDBptnHW8388GuV9OkEyRs541XNPkFrfosibdK7ZF+rRKIF1BeBf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKTtMy9Y; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=K1yx08TRXvqdEhxha7xH9NbX+6aebmBOkLtqoSpY59yvRt7a80x4YDZeyl9M1LT4I4PW8R+KqBAc8eUwei7Nq63TTq5JCxud3vKhcX9R1brQHmTUPd6ezeYDR/XZGpsuEdaZfYwsDWYZbDbqtbOCOS8+U3v+5MUSGR3PalrsItM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kbd6cSN8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKTtMy9Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45BCD1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kbd6cSN8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1A711F00A3E;
 	Sun, 28 Jun 2026 21:54:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1782683693;
-	bh=6LhATUSGD9m/hcobL+nNhDihLIC7y6gv8GROPInzLpc=;
+	bh=Byrg2i188f412iRZE4Bba2jB83L3ezRqbLbUNLGyb8o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZKTtMy9YQwzoIIXw6bWxoHKkXepftHvlvWAIKn640TsyYsJnqSFrUaNega3+rheZh
-	 limtahpHqTOS5bSRny8jkRsw6FRXXEaF0+3ARkqAQp68Yt9xSAfbQkx7Ur1f0vwHJ8
-	 kIyp8fJvw1lwqp4LUuLQwT71qZFS0DtIIzZwmQlI9Rpoalvj0zdSsEaWN3gnACFGwV
-	 0g4cNSE24Sgw59JlmeMKrfdpOzrcJeVEIVYsmNkBNMy6nEpsXDX4v1Vpd74PPynpDf
-	 rFL1e0++Il5f8P8CiCZPV1SiXr3RSwnOFSkxS3xeEZLC5Jy8cnQCILeXQv4m5WqsNP
-	 2zOUYL4N4PG1w==
+	b=kbd6cSN8YdZjPzpL51S+hGL4yt/obQJp5BgKsrEj4CdnuShWpJZ5bWg/SFyRLmevt
+	 o1TfDpPMqXJ0YbcHOnn4oBLAkQzrtH+pOnGXlKQNEzNhc+na/5bRNrB14fm9zaJcFR
+	 AcsqJlogqySFwXN05PTfKLmn9FlpxfUIG5roVkAAxE9qjn3NR1AR6vbtwAcloHjtwf
+	 Re0qsnnwAOwTkKo7SjN/AdRZz06DbUkMD30r7VotIA1zedEO2JA5oRkPHb6vbquUOd
+	 4Yv0p8qFpYxG4U/YhLb3ITTbh2RGkfWelyKco8PAEbCisokq5xfWum2u1M2JjhAFmN
+	 pKxLt/+T8X41A==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
@@ -34,9 +34,9 @@ Cc: SJ Park <sj@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
 	Zenghui Yu <zenghui.yu@linux.dev>
-Subject: [PATCH 1/6] samples/damon/wsse: handle damon_start() failure
-Date: Sun, 28 Jun 2026 14:54:40 -0700
-Message-ID: <20260628215447.96166-2-sj@kernel.org>
+Subject: [PATCH 2/6] samples/damon/prcl: handle damon_start() failure
+Date: Sun, 28 Jun 2026 14:54:41 -0700
+Message-ID: <20260628215447.96166-3-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260628215447.96166-1-sj@kernel.org>
 References: <20260628215447.96166-1-sj@kernel.org>
@@ -48,7 +48,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-damon_sample_wsse_start() callers assume it will clean up resources when
+damon_sample_prcl_start() callers assume it will clean up resources when
 it fails.  And the function does the cleanup for context buildup
 failures.  However, it is not doing the cleanup for damon_start()
 failure.  As a result, when damon_start() fails, it leaks the memory for
@@ -59,8 +59,8 @@ Note that the issue can reliably be reproduced because the module calls
 damon_start() in the exclusive mode.  For example,
 
     $ sudo damo start
-    $ echo $$ | sudo tee /sys/module/damon_sample_wsse/parameters/target_pid
-    $ echo Y | sudo tee /sys/module/damon_sample_wsse/parameters/enabled
+    $ echo $$ | sudo tee /sys/module/damon_sample_prcl/parameters/target_pid
+    $ echo Y | sudo tee /sys/module/damon_sample_prcl/parameters/enabled
     $ sudo cat /proc/allocinfo | grep damon_new_ctx
 
 Because the first command is running another DAMON instance, the third
@@ -74,20 +74,20 @@ The issue was discovered [1] by Sashiko.
 
 [1] https://lore.kernel.org/20260609145814.70163-1-sj@kernel.org
 
-Fixes: b757c6cfc696 ("samples/damon/wsse: start and stop DAMON as the user requests")
+Fixes: 2aca254620a8 ("samples/damon: introduce a skeleton of a smaple DAMON module for proactive reclamation")
 Cc: <stable@vger.kernel.org> # 6.14.x
 Reviewed-by: Zenghui Yu <zenghui.yu@linux.dev>
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- samples/damon/wsse.c | 4 +++-
+ samples/damon/prcl.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/samples/damon/wsse.c b/samples/damon/wsse.c
-index 799ad44439434..bbd9392ab5b36 100644
---- a/samples/damon/wsse.c
-+++ b/samples/damon/wsse.c
-@@ -87,8 +87,10 @@ static int damon_sample_wsse_start(void)
- 	target->pid = target_pidp;
+diff --git a/samples/damon/prcl.c b/samples/damon/prcl.c
+index b7c50f2656ce7..0db2598946911 100644
+--- a/samples/damon/prcl.c
++++ b/samples/damon/prcl.c
+@@ -106,8 +106,10 @@ static int damon_sample_prcl_start(void)
+ 	damon_set_schemes(ctx, &scheme, 1);
  
  	err = damon_start(&ctx, 1, true);
 -	if (err)
@@ -95,8 +95,8 @@ index 799ad44439434..bbd9392ab5b36 100644
 +		damon_destroy_ctx(ctx);
  		return err;
 +	}
+ 
  	repeat_call_control.data = ctx;
  	return damon_call(ctx, &repeat_call_control);
- }
 -- 
 2.47.3
