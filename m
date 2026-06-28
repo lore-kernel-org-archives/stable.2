@@ -1,69 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C8231716A;
-	Sun, 28 Jun 2026 07:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1249C1632DD
+	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 07:43:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782632086; cv=none; b=u3yPUOoMp5ZYXIHL8uLBtHVZglpamD3yPLkS4Y1LimgZAJ8J06GiVTiT2Uz3rOWpVrjkBmKzSOEimZHHNzM2ygxSCWVogkhFK0GEJ0IG9YnVhySIewrYxbAVsgilOBVTtshR8YJkXkndqwBrGesPTdszdW5jEt/6usdoO82ptIA=
+	t=1782632590; cv=none; b=goj7GfrCkO8xIpy/F9BY2eAtCZli4kE3dw1eWovyuY3B4+pjCJKHeuYEgm7orQWC9YdiyaNK1plvIOD+hGWoabxPD3CiqegK0sXopMLYB7IQ+1B3xEX6A9DfnaBo3MdcgIx4kX/GMu/qsmlqmJnwXIuU5ljFO60jnaAhwink4wM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782632086; c=relaxed/simple;
-	bh=OkaeamBGsVLAuYRbIgqS1XrmemmCfSeAVuk86wku4L8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pP47g9n7mqUnYK9oPrT5O0swjGOTMMrgA9phcXVVngnRT9+3ibNLX3q7y7tUCuJrK38Refn82HAt2Ho+IkfXgs2C7cHpbpDrzNfJCDoq/NDCvtKpXI2JgXIN5n/1f/ERIPBT3F0+i5tLBsnuMUeIu/PB8T3HuRHdioUuPI2+aWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Afr0EmOa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782632590; c=relaxed/simple;
+	bh=i5CgBVtWKAWoD38X4fXX+bQ6nqvrE/YZp5mGApIHbTs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ipe6mAJ3tkUXPMqATetjm2gApeJ+Jbz20nIpZE3TkV9DlwwM3dpvBJRwnBBt9sAeX5IcHANlejcGnirCRGPK0b6R8lELQMxPwT21ldoFPqXVlqu1+f1wqL8qJlWPoRDaFWmLnNIdTk6OoPzUrEr8ndtjn+5YIVGZHSZELWElJNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chenxiaosong.com; spf=pass smtp.mailfrom=chenxiaosong.com; dkim=pass (2048-bit key) header.d=chenxiaosong.com header.i=@chenxiaosong.com header.b=ZyuThpLu; arc=none smtp.client-ip=95.215.58.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chenxiaosong.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chenxiaosong.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Afr0EmOa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90F061F000E9;
-	Sun, 28 Jun 2026 07:34:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782632084;
-	bh=Ln2Tw+sGy7ydx3N8w0OkVCZpqvk/JGyFu6srxkz+XKI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Afr0EmOa6NBBjm3Xh270RvPlky6vA6jlGxZXo7PE0y/xZUUsuNbJz84uzMsThfL/J
-	 bF7+54lJR1rxvyTr7aW4T1SvwPGMDe6Ehat6J9FOAsrrK3twV7tu8GanRDy3aPwPKn
-	 x3Zk+L4JHEeYovpICqR9MCQB9G0COGKtAEwy/OgY=
-Date: Sun, 28 Jun 2026 09:33:30 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: WenTao Liang <vulab@iscas.ac.cn>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Alex Hung <alex.hung@amd.com>,
-	Aurabindo Pillai <aurabindo.pillai@amd.com>,
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] drm/amd/display: set new_stream to NULL after release
-Message-ID: <2026062816-contour-womankind-1646@gregkh>
-References: <20260628072740.8884-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=chenxiaosong.com header.i=@chenxiaosong.com header.b="ZyuThpLu"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chenxiaosong.com;
+	s=key1; t=1782632584;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=pjGABgNPVjaNKjIE/S3mwWMX6HndcGe2takmIDDRUzA=;
+	b=ZyuThpLuNqgAcuQDt3qUH+ynLTZzD0lalWT52nA0/eMM36j551Ml/cUaHYqDGKW/wwRyhF
+	PBI++QxX1UCu+rnPmVLxvG6QxPy3vhdRL/r0MkBUbNZGzu3SC/FFTd8bpE62SDx8LaYKaM
+	DPL/MY34rBhkpZ22py+nScIctHN9zLKfassMdau0GHi7xRS+j+oQx7hHzsBoATlQZ/YMcC
+	6Jcs9HET3nuJlv7ubzkT6ry6Wv8fZttCEw60Ing0w9MqwGUTrirAeAFvvwBkqebdguH51a
+	cRo3C8NLVj+bS/UpXqCmQlwPpB+M6gzfkerCPKhztNNs0g1YuDIxnajN1c4k5g==
+From: ChenXiaoSong <chenxiaosong@chenxiaosong.com>
+To: smfrench@gmail.com,
+	linkinjeon@kernel.org,
+	pc@manguebit.org,
+	ronniesahlberg@gmail.com,
+	sprasad@microsoft.com,
+	tom@talpey.com,
+	bharathsm@microsoft.com,
+	senozhatsky@chromium.org,
+	dhowells@redhat.com,
+	metze@samba.org
+Cc: linux-cifs@vger.kernel.org,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] smb/server: do not require delete access for non-replacing links
+Date: Sun, 28 Jun 2026 07:42:43 +0000
+Message-ID: <20260628074243.629589-1-chenxiaosong@chenxiaosong.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260628072740.8884-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On Sun, Jun 28, 2026 at 03:27:40PM +0800, WenTao Liang wrote:
-> In dm_update_crtc_state(), the skip_modeset path releases new_stream
-> via dc_stream_release() but does not set the pointer to NULL.
-> 
-> If a later error (e.g., color management failure) triggers the fail
-> label, the error path calls dc_stream_release() again on the same
-> dangling pointer, causing a double release and potential use-after-free.
-> 
-> Fix this by setting new_stream to NULL after the initial release.
-> 
-> Fixes: 9b690ef3c7042 ("drm/amd/display: Avoid full modeset when not required")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-> ---
-> Changes in v2:
-> - Correct Fixes hash based on reviewer feedback
+From: ChenXiaoSong <chenxiaosong@kylinos.cn>
 
-Did you forget to include an Assisted-by: tag?
+Reproducer:
+
+  1. server: systemctl start ksmbd
+  2. client: mount -t cifs //${server_ip}/export /mnt
+  3. client: touch /mnt/file; ln /mnt/file /mnt/hardlink
+  4. client err log: ln: failed to create hard link 'hardlink' => 'file': Permission denied
+  5. server err log: ksmbd: no right to delete : 0x80
+
+Fixes: 13f3942f2bf4 ("ksmbd: add per-handle permission check to FILE_LINK_INFORMATION")
+Cc: stable@vger.kernel.org
+Signed-off-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+---
+ fs/smb/server/smb2pdu.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 727ba86ede36..097f51fc7ed6 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -6921,16 +6921,18 @@ static int smb2_set_info_file(struct ksmbd_work *work, struct ksmbd_file *fp,
+ 	}
+ 	case FILE_LINK_INFORMATION:
+ 	{
+-		if (!(fp->daccess & FILE_DELETE_LE)) {
+-			pr_err("no right to delete : 0x%x\n", fp->daccess);
+-			return -EACCES;
+-		}
++		struct smb2_file_link_info *file_info;
+ 
+ 		if (buf_len < sizeof(struct smb2_file_link_info))
+ 			return -EMSGSIZE;
+ 
+-		return smb2_create_link(work, work->tcon->share_conf,
+-					(struct smb2_file_link_info *)buffer,
++		file_info = (struct smb2_file_link_info *)buffer;
++		if (file_info->ReplaceIfExists && !(fp->daccess & FILE_DELETE_LE)) {
++			pr_err("no right to delete : 0x%x\n", fp->daccess);
++			return -EACCES;
++		}
++
++		return smb2_create_link(work, work->tcon->share_conf, file_info,
+ 					buf_len, fp->filp,
+ 					work->conn->local_nls);
+ 	}
+-- 
+2.54.0
+
