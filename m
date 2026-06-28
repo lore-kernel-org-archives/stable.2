@@ -1,141 +1,128 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from endrift.com (endrift.com [173.255.198.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7EE1C68F
-	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 00:47:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C212110E;
+	Sun, 28 Jun 2026 00:47:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=173.255.198.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782607625; cv=none; b=n7WKbs/AAGyRA802T3eQlO8q8K5ANdA/jbvyX3kR7qQwsIKqPH9N7j341+O1iOArQ1kHH5ixlTprJo3Z4jmadcXFYVlXPyMtVNlWER2kV7A+jSkmSU7xQo0cvcaKJX4KiHR/qqsnSh8nbgoUXTG0013NgFjwkZGQcCXamuMaG5c=
+	t=1782607665; cv=none; b=A/3HecQsmXglM2U3YQO+NCmmg3nInAmAgdfNDuGPduPrtswfRzHa3xHjuwlBxTuINEyEG+sDnkHJy6+vb/lDioE5ZOznc6DuZLLuNJ2TzGpLcQGSc/OXbye+OD/b24nMDkdGoLGvYef2Zi3YXm+GH32FhrXQsFyLCeiuL84uFAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782607625; c=relaxed/simple;
-	bh=JWA380ctDhP6cb9yiDI+v1kSZBNiU/P0ELQGPGUNjQA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SfBxpdWBCQwW5Py/BtaHQMkkzyvH20JOn+3iH7KOX/iGcKvKKf3MH+IZ2irDwapb+M6xjlZ+HjzjG3EKnD+TShmFw6WwgNHSvYMzDGyTDpSgE6WhJMrph1ooJbop6V9tqgvTRCh0EFxG2CUohzOg24g+rV814MQNt6CCUsdPl60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zg4yAB+y; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782607665; c=relaxed/simple;
+	bh=NZ6j1BGDC9khMPyNVssQOx57nEoS2+yQQkNDQcqJqRA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PFH0O367FBKRbunr4O1qHG6ZWZjBYePrNb8jmmz1cJDHgZV9xwfxcy+QDL0y9UXbs/dFUb09IYicsHXNc5sb8yNNEdt7UNNVVj2KIWqMNGGFoWyYo4yWydfz12IYWcxGi1vv/Ud0XlrCJt627cVciEEI11w27ynSz3zBqZpvxjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=endrift.com; spf=pass smtp.mailfrom=endrift.com; dkim=pass (2048-bit key) header.d=endrift.com header.i=@endrift.com header.b=nGQHXzZ5; arc=none smtp.client-ip=173.255.198.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=endrift.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=endrift.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zg4yAB+y"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so15608955e9.0
-        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 17:47:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782607623; x=1783212423; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=lr5H8TFwybM+AlW1rdMOQH0Q1+oaaC7QfC19uDCbRGc=;
-        b=Zg4yAB+yK5jIxwbJPoV0JS6WvmmpFKbf1j3pzVfrwKvj6j+pscPkCq27rGXLNlKiBO
-         Y1TQKMLv/7K2r/eibKqN4pTRDHwSzizbEcqOt0YDKrGiEyHIg6F2vjPZD9/+Pj7QSjYR
-         YdfpC27SXtq44wmH7IhX49Zs880oEMSTwd7cW6brOGvpQDk1uabvLf1EHYtU819x/Vp8
-         h+6mKKwW//IkzltaKRj7iMoPi6xOlCMSzq6mnsAWWuUzkEsKIc7CfCOtQe2FFX4mDvVq
-         1YrQ3IGVhCfzg9fJRq1Qt0IJkegd48wmO8El56e5zeds1b0vMH/3PqiTxFDxbfS+bLaO
-         sxFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782607623; x=1783212423;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lr5H8TFwybM+AlW1rdMOQH0Q1+oaaC7QfC19uDCbRGc=;
-        b=Qi9uUqjcd1AMVP7qXMPRbJlVexKoWsfnU/i1oAbRtldKieBr37JuSXNqxZd3wFcnc9
-         I95vESyznWL+LoITlXAd7uurMBhAsbaCXeQa+L04h+HnPOK+ao4+S2+Th4mEZ8Yut9Jf
-         Cw+2eTptGoM4KCST2ph6dFO8eeIXI2Fuf7cGRXT/U4UMbD/xTO+Fw6CvvYL5jbv4X1rv
-         NjbwuYSoJCiU7GvaQjpbhpuDDTXxJzFQXo0SB3fOyULjctZMQSJ61ApePFX/OKo9soDy
-         I5VE2/5GVa3n7ioTSdtcjcsfOhB1zdo5X8x5B3vYjFfpzqTcuGzFqW+ouOhRayItZLa3
-         0SOA==
-X-Forwarded-Encrypted: i=1; AFNElJ/rvxRks1LdXbkuNQbi8ICCG/yUMpHhzIo60U41pt8WtxvGa8puSeTLo7Loi8uiCs5InSBA1Hw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnVvAsCbHwhJORwhLvtNzY/N7YGfHikbbW8L9z9jYFNRViB0mf
-	ISTaWmONyOnTIJOTT0Hll+JxVq2G/oYaFpE2lQqoHewj35oXKpT8otPb
-X-Gm-Gg: AfdE7cmJ3BnPJ4TKyULt2SK0Ql3qQaDZFhvAu5Ae3gHG2bTvgZ1cKzJVk7EkDc0NOmj
-	th6szbt2/wXjLft3YtUHQegnUZ2RA+c1JU/dlGnPV9Np6ON6b0as92h1SyvmDLBjidECg7uzcJ/
-	TYLweveiJNHQNpQaALOJFZZvtni4X8SuOFWR3aBvVH87SQYBKsNFYTL56vBX4fdKegZI3SD1jfn
-	etIlMUirFoQuqWj6PpGNj6JfFpVKYOp5CHXdIewrMSsLzcj8oPTRvb7jsuOhmaTYA+dGe+OMdxk
-	aIUpJiC3QKA2qLabhpGv7U+00as2Gm3iUDRT5VdkF8ut4VMZrIHvH254t+9e4qelnDROO9rZrZn
-	OW/0UAWGCDlh0oISHDF440tLiSTuaZPAfEqNU4grWhasajep9ojD03QH7+mhxWP1x62lKzkoSio
-	z7AkBP5HwKRNcpK1SAT2aX3wd55Q==
-X-Received: by 2002:a05:600c:1d08:b0:493:a607:f3b8 with SMTP id 5b1f17b1804b1-493a607f49amr14531755e9.0.1782607622662;
-        Sat, 27 Jun 2026 17:47:02 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46e6167c05fsm24063111f8f.25.2026.06.27.17.47.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 27 Jun 2026 17:47:01 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+2dd9d02f60775ce5c1fb@syzkaller.appspotmail.com,
-	Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH] ring-buffer: serialize read-page order with subbuffer resize
-Date: Sun, 28 Jun 2026 02:46:53 +0200
-Message-ID: <20260628004653.28065-1-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=endrift.com header.i=@endrift.com header.b="nGQHXzZ5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=endrift.com; s=2020;
+	t=1782607663; bh=NZ6j1BGDC9khMPyNVssQOx57nEoS2+yQQkNDQcqJqRA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=nGQHXzZ5z1lH9Yebemdo2dz69YvC6Dfgg+avB43BPjrAQaZbGvE10J6tZkECtNeki
+	 j/8kfFWWBbcmb4YjHpyRMQU8B3Ki3zhmqj6D67Yv+9RxywZQpv9SUgy+Yn+n/GXBvl
+	 SYIC+R57ELXlw7TQZ6ioQeAkxz26EQuzA8eOQa5MTTv6PU0H1xIFdqcf1OlW/JNbgU
+	 qT/G9yUU6bRiL/yVTAvFRvHQyXBRok6nlOFb6J3LUG2i/tR9vhF5v7vZ42IelHimNC
+	 2aGIPBoELTp/WStn77mx+AW/mDzAGgud77qzKymrPS0hXnAYqESMIJTBKams/EV4zn
+	 qikWfxC8N4sjA==
+Received: from [192.168.0.27] (71-212-73-87.tukw.qwest.net [71.212.73.87])
+	by endrift.com (Postfix) with ESMTPSA id A81A6132022;
+	Sat, 27 Jun 2026 17:47:42 -0700 (PDT)
+Message-ID: <612b5987-1bc6-4b42-bfba-9c72ee5d51dc@endrift.com>
+Date: Sat, 27 Jun 2026 17:47:40 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] HID: steam: reject short serial number reports
+To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
+ Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, syzbot+75f3f9bff8c510602d36@syzkaller.appspotmail.com
+References: <20260628004106.26920-1-alhouseenyousef@gmail.com>
+Content-Language: en-US
+From: Vicki Pfau <vi@endrift.com>
+Autocrypt: addr=vi@endrift.com; keydata=
+ xsBNBFtJAmYBCADmRIN9O/aBbYc93lUMvG2hPip++otLit+65EwNHB1y9BmbVr0Q8Tz7rbAM
+ K2mB0EiA4Z3DesoLIOzlJq0E4fgDsAi8ok/i7aTx35d0Qeab95GEdkCMcL98xNJE0agq+KYk
+ pnvFlhdyC23K32KdOijsUqqbd86GgxRZmuf/Yf932KxKAj+n0aFBw5y6i0ep7WQBF6ytpqah
+ Uzy04D//smiTr6rrXg+C09MX0XZ2Fvcv3gmimnoV6C/ZCO1Zecqyhrs0YFfdIhFEBp2ItYim
+ MoeU4g6y726gyRO/+wwzZkryJMU8hHootzW1gUylZeELSwx8uIJSHFiLE7AK+M5soPtDABEB
+ AAHNG1ZpY2tpIFBmYXUgPHZpQGVuZHJpZnQuY29tPsLAjgQTAQoAOBYhBNj+0QMp9OPSosB4
+ 6X72E7X7Nb0rBQJbSQJmAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEH72E7X7Nb0r
+ WIcH/0GnIOkmAyy2UlgS/VKi193ZRWYJjBfUncIBf57gLt1KYY0PvUoR9MVvkLqcx8vaCxWh
+ bVSqzxT6WU1ECp/URdQV2W4IGB6W4B8rT3VGw0QzbVVQRmt6vReEMFVL+vBfgHKTRBItiy7x
+ Bd+JZDusiyrrGok9TqqkBYlZPWE29ajiOAe05N1UhuRq7y8w/bOkzFD36ohMtfqV4hByWV+q
+ d0LujqgZm1AkM1FqpJ4j8h1Gox5rpmWfaHJmBQ8HcKqQfwACQCvDNHS2vlTXJYfxlh+mVerL
+ YKZgWnyvqx4pLKqJOXQKssIaDjnDfTu6bQgXvhaKb1+piBUYuoe9/+3E15TOwE0EW0kCZgEI
+ AL/KzT+NR1/LbJ7Kuv3gAHFp+S7cfyyPSamN6i6/X135vNSawG7g81iWUweAW6YahFA2haqw
+ t+8/Bm9Dzc8rF6RHCElK1GoHiF4SIYQxjqPo2wwqvTad9FblWTfaYRKfVDvNz2Rz4i681JrR
+ 8gizvzJPX+gocH7FMzPwb1DAwL2kKA5wilgAGSv8nZqeG55hNt2t/XiT6Yd97DJv86D24UUP
+ BetLTq2jUWtX+omt+JhF3QzMjnyGQYKHNXUB/ipBxNSkwnDrWg/f1EjDtNzuOHManJDC9Bqi
+ qhi1abiTNlmmewI5iLEnnxzfSKS5HO9nCC1szl229DHwIMH7jA+G+z0AEQEAAcLAdgQYAQoA
+ IBYhBNj+0QMp9OPSosB46X72E7X7Nb0rBQJbSQJmAhsMAAoJEH72E7X7Nb0roioIAM0oDKEU
+ QH7Og4+AXm35uklIiCX6cFQPgDVlQn7M/QFLnEhhCfPTt8PkIIN4dLgs4lIJxExpgQWgOLUX
+ h+ZLLupzZXoysAXfdwNLf/RqRed/zTZbUjssy4D7yeNIJThzU32kDy0Hx3pMNM/Hd9yaXmHL
+ LDkfwcyQuqA9+eeOogkDC8inLNLfYQ8JtVQZuWppNcbOZkBxfMVAmPHg6C9fe2biQFojoLPe
+ 4nQheprKfBp5QsY2cIjP8kaWPpfJEJ5i2aNgtrfebEzjYoWWLkK78Lo8qABdxkVhH6rhAlw2
+ rVf41cHNCfHF7ddvOb9IItWacXxYn7ql+dI/Se3+ISWDboQ=
+In-Reply-To: <20260628004106.26920-1-alhouseenyousef@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-ring_buffer_read_page() checks that its spare page has the current
-subbuffer order before taking cpu_buffer->reader_lock. A concurrent
-ring_buffer_subbuf_order_set() can change the order and replace the
-reader page after that check. The reader then copies a larger subbuffer
-into the old allocation, causing an out-of-bounds write.
+Hi Yousef,
 
-Keep spare-page allocation and release under buffer->mutex, which already
-serializes order changes. Move the read-side order check under
-reader_lock, the lock used by resize when replacing per-CPU pages.
+On 6/27/26 5:41 PM, Yousef Alhouseen wrote:
+> steam_recv_report() may return a short positive response and copies
+> only the bytes actually received. steam_get_serial() nevertheless reads
+> the full three-byte header and trusts its length without checking that
+> the serial payload was returned.
+> 
+> A malformed USB device can therefore make the driver read uninitialized
+> stack bytes. With a complete-looking short header, those bytes can also
+> be copied into steam->serial_no and printed.
+> 
+> Account for the stripped report ID in the return value and reject replies
+> that do not contain both the header and its declared payload.
+> 
+> Fixes: c164d6abf384 ("HID: add driver for Valve Steam Controller")
+> Reported-by: syzbot+75f3f9bff8c510602d36@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=75f3f9bff8c510602d36
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+> ---
+>  drivers/hid/hid-steam.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/hid/hid-steam.c b/drivers/hid/hid-steam.c
+> index 197126d6e081..8c8bfb10e8b8 100644
+> --- a/drivers/hid/hid-steam.c
+> +++ b/drivers/hid/hid-steam.c
+> @@ -454,11 +454,20 @@ static int steam_get_serial(struct steam_device *steam)
+>  	ret = steam_recv_report(steam, reply, sizeof(reply));
+>  	if (ret < 0)
+>  		goto out;
+> +	/* hid_hw_raw_request() counts the stripped report ID byte. */
+> +	if (ret < 4) {
+> +		ret = -EIO;
+> +		goto out;
+> +	}
+>  	if (reply[0] != ID_GET_STRING_ATTRIBUTE || reply[1] < 1 ||
+>  	    reply[1] > sizeof(steam->serial_no) || reply[2] != ATTRIB_STR_UNIT_SERIAL) {
+>  		ret = -EIO;
+>  		goto out;
+>  	}
+> +	if (ret - 1 < 3 + reply[1]) {
+> +		ret = -EIO;
+> +		goto out;
+> +	}
+>  	reply[3 + STEAM_SERIAL_LEN] = 0;
+>  	strscpy(steam->serial_no, reply + 3, reply[1]);
+>  out:
 
-Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
-Reported-by: syzbot+2dd9d02f60775ce5c1fb@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=2dd9d02f60775ce5c1fb
-Cc: stable@vger.kernel.org
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
----
- kernel/trace/ring_buffer.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+I already have locally a patch that fixes this as part of my pending Steam Controller 2 support. However, it chooses to fix it in a different way that would affect all uses of steam_recv_report instead of per-callsite (with only one callsite fixed). I am hoping to get this patchset submitted soon, once more widescale testing is done, but if you want in the meantime I can pull out that single fix and submit it separately; it's a bit more sprawling and involves adding a new function for combined send/recv.
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 56a328e94395..eed5d7cffdee 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -6950,6 +6950,8 @@ ring_buffer_alloc_read_page(struct trace_buffer *buffer, int cpu)
- 	if (!cpumask_test_cpu(cpu, buffer->cpumask))
- 		return ERR_PTR(-ENODEV);
- 
-+	guard(mutex)(&buffer->mutex);
-+
- 	bpage = kzalloc_obj(*bpage);
- 	if (!bpage)
- 		return ERR_PTR(-ENOMEM);
-@@ -7000,6 +7002,8 @@ void ring_buffer_free_read_page(struct trace_buffer *buffer, int cpu,
- 	if (!buffer || !buffer->buffers || !buffer->buffers[cpu])
- 		return;
- 
-+	guard(mutex)(&buffer->mutex);
-+
- 	cpu_buffer = buffer->buffers[cpu];
- 
- 	/*
-@@ -7091,14 +7095,13 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
- 	if (!data_page || !data_page->data)
- 		return -1;
- 
--	if (data_page->order != buffer->subbuf_order)
--		return -1;
--
- 	dpage = data_page->data;
- 	if (!dpage)
- 		return -1;
- 
- 	guard(raw_spinlock_irqsave)(&cpu_buffer->reader_lock);
-+	if (data_page->order != buffer->subbuf_order)
-+		return -1;
- 
- 	reader = rb_get_reader_page(cpu_buffer);
- 	if (!reader)
--- 
-2.54.0
-
+Vicki
