@@ -1,35 +1,39 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C80B2BEC45;
-	Sun, 28 Jun 2026 12:28:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D7337106D;
+	Sun, 28 Jun 2026 12:54:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782649703; cv=none; b=d0fQXVcrB8JCDGcmtZUg/Q8pxyYuMXHRxTTse0Wi2RkrRDnmxgVyacYB//GU2yBOQCxS7iD5h8Px7RR27NRVeuD6WOuodAcIziuwfZnZissCI62hkGi9A71Gsz+lbh4Q79cITDbBmkJ6OiEesF2Op0ogQZrOu317adZlMfTFY/Q=
+	t=1782651277; cv=none; b=XXZP65Eu+Ioxz9uU4EXXJlhL8k62W8I0lisilEU3cPaBex92DPMH9y5EN22ltvPfZnNnrZDgnYhAnDBKUjf1m/adsVSd2iAttQOrUKQXxTxjG0i7nZkUxfyZG9MmVdOjjrzn24XzGhMzgA2/dzv0IeXJm9NNhxUnZAJ59Jpn+0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782649703; c=relaxed/simple;
-	bh=cv8g4RrGYUNj5js/jIF60hmga11q/SlDxhgYukElUBw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mMbr105KESHp3x0LkpIEwph3QJcCEGTp/G1oXk3davHyz79+zO+9vOIESZIewHNALHoDrhn+jtPczteMMGNXjM/Yg1oxIxEOmCQwwY2hkgTXeFJPTCRw1NWQzSJi4LN10rcoPqjrvpUFaMbTP0uRxH/6EudT4YSDrUxIv41YD04=
+	s=arc-20240116; t=1782651277; c=relaxed/simple;
+	bh=jjYq3FzpwqS/cc9I5YLN/y+qNA8iRuup+f4ZOBC3thw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=E89rYYwR2Qf4j5kZroOc86tZjGOVgZBQ4L34SkiDvhW3G46y2YPA5sfRjWRG079e65Xh0KI8IvOAcwh43Hhq73wLcDxisoBmUUEV7MXZHNnGcneskP34cZhpQXjbHAG8Sp9utP6sc5oKdAtDfzC2QJlmuQs3Kfvb1MkQn4IYtxE=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [117.182.74.7])
-	by APP-05 (Coremail) with SMTP id zQCowAAXXcBcE0FqX0rEFQ--.64351S2;
-	Sun, 28 Jun 2026 20:28:13 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowABn8QR_GUFqTy_FFQ--.33510S2;
+	Sun, 28 Jun 2026 20:54:25 +0800 (CST)
 From: WenTao Liang <vulab@iscas.ac.cn>
-To: paul@crapouillou.net,
+To: krzk@kernel.org,
+	s.nawrocki@samsung.com,
+	cw00.choi@samsung.com,
 	mturquette@baylibre.com,
 	sboyd@kernel.org
-Cc: bmasney@redhat.com,
-	linux-mips@vger.kernel.org,
+Cc: alim.akhtar@samsung.com,
+	bmasney@redhat.com,
+	linux-samsung-soc@vger.kernel.org,
 	linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	WenTao Liang <vulab@iscas.ac.cn>,
 	Greg KH <gregkh@linuxfoundation.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] clk/ingenic: fix clock leak on clk_register_clkdev failure
-Date: Sun, 28 Jun 2026 20:28:11 +0800
-Message-Id: <20260628122811.44799-1-vulab@iscas.ac.cn>
+Subject: [PATCH v2] clk/samsung: fix parent clock refcount leak in exynos_clkout_probe
+Date: Sun, 28 Jun 2026 20:54:22 +0800
+Message-Id: <20260628125422.45267-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -38,58 +42,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXXcBcE0FqX0rEFQ--.64351S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7XrWUuw4kWr45ZFyrJw43Wrg_yoWkZFX_Wr
-	W0v3429Fn8Gr4Skw1UAF1Fv3sYkFnrur1fWFyUtasxJ34UZrs5ur4UZwn7Ar1UWFW09Fyq
-	qry8Gr48Zr17ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb3xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
-	1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
-	cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
-	ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
-	0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
-	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
-	1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
-	AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
-	42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvf
-	C2KfnxnUUI43ZEXa7VUbHa0JUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMMA2pAixHjDQAAsV
+X-CM-TRANSID:zQCowABn8QR_GUFqTy_FFQ--.33510S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7GrWxAFy3JrWkGrW3AF15twb_yoW8JrWfpF
+	W7KwsIyF45Jr4jyF4Dta1UZF4S9a1Yva4jgry3C3WFqFn8JFy7Aay0ga4qv3WDJ3ykGrWS
+	qr12kF48GFyjva7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUqeHgUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIMA2pAixHs6wAAs9
 
-clk_register() succeeds but clk_register_clkdev() fails, and the error
-path jumps to out without calling clk_unregister or clk_put to release
-the registered clock. This leaks the clock object within the common clock
-framework, contrasting with the CGU_CLK_EXT type path which correctly
-calls clk_put on error.
+of_clk_get_by_name() acquires clock references stored in the local
+parents[] array. All error paths correctly release these via the clks_put
+label, but the success path returns 0 without releasing the parent
+references. The references were only needed to obtain clock names for
+registration and are permanently leaked after probe completes.
 
 Suggested-by: Greg KH <gregkh@linuxfoundation.org>
-Fixes: b066303fb3e7 ("clk: ingenic: add driver for Ingenic SoC CGU clocks")
+Fixes: 9484f2cb8332 ("clk: samsung: exynos-clkout: convert to module driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
 Changes in v2:
 - Fix patch format based on reviewer feedback
 ---
- drivers/clk/ingenic/cgu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/clk/samsung/clk-exynos-clkout.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/clk/ingenic/cgu.c b/drivers/clk/ingenic/cgu.c
-index 41e4c69131bd..b59b24d0e3cf 100644
---- a/drivers/clk/ingenic/cgu.c
-+++ b/drivers/clk/ingenic/cgu.c
-@@ -774,8 +774,10 @@ static int ingenic_register_clock(struct ingenic_cgu *cgu, unsigned idx)
- 	}
+diff --git a/drivers/clk/samsung/clk-exynos-clkout.c b/drivers/clk/samsung/clk-exynos-clkout.c
+index 5b21025338bd..71724b56de69 100644
+--- a/drivers/clk/samsung/clk-exynos-clkout.c
++++ b/drivers/clk/samsung/clk-exynos-clkout.c
+@@ -190,6 +190,10 @@ static int exynos_clkout_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_clk_unreg;
  
- 	err = clk_register_clkdev(clk, clk_info->name, NULL);
--	if (err)
-+	if (err) {
-+		clk_unregister(clk);
- 		goto out;
-+	}
++	for (i = 0; i < parent_count; ++i)
++		if (!IS_ERR(parents[i]))
++			clk_put(parents[i]);
++
+ 	return 0;
  
- 	cgu->clocks.clks[idx] = clk;
- out:
+ err_clk_unreg:
 -- 
 2.39.5 (Apple Git-154)
 
