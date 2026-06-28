@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40423B993B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2813B9D8D;
 	Sun, 28 Jun 2026 22:01:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782684088; cv=none; b=jhPoK0qQkzmOeIm94mFjt6mY931pfwT2VymAM2LzYYz/OkGCwhvjYJvv6M3RNsohOrRcZCgzeOhOnAtuLHNdsU9ua+43ZqxEAOQUBkxG6MIqmcRpNjoW/b1AuoNz5LVxJXz11JGJMrD4J7EuyyVB5bryjJdd9Pn2q6YhW2K3/eo=
+	t=1782684088; cv=none; b=jx5ijCGTlbp1Y37lqnlMOvNlER/j5CoFhefwxED/lWv4Y7cXpWq/mstpA1S7HeHF6WnGRDnPlGh/BRQNQILqGxVEOq1LqDTUoYWGhekRAPdlQD1VH6WCTrx4lrIAeMSOzz3ensWSwahpFixlwJML5LTizPfZv5Bt1UUezw2Oiyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782684088; c=relaxed/simple;
-	bh=+HqDYSfJRqMjE30x6P+7tsUTx5xC+f6+iwrRC3CA6TQ=;
+	bh=ZnXqNwQn4NOhICKXiLGzWbtrTA7bM+VcKALZyUJC9K4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y5WcY47OGgC1pOrSmCjdYgUoaS/NSomzDUwo6O82gwMDxaMdU7h5ng+6bS2YgIsM/y4qC7VUkzxAk7hybSsArHvG7BRAttA7bgqCEP5kqHr8P3yHqrL/GMOCwutjSZCXNzxxzboNiRX8Zhplx7ts5v6rc1Jvy9oQ8jhojN29ij0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k7snI7ds; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rew8w0+nxLr1v0fvzS5IGW6bWFlhDCgJs/dCADJo0fC6iZ6DglHDW56j1TVePqcKit2fn5DKJyxJei9/om0wgCl8bzQLQlzwmbSALv3nYZWi/7rNEgxE+J0Px9bRoyZ0CjAHt5QGWAL0p3HYTckamXSNFO8T+PIbBuFvePGP1As=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k8fNx9yh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k7snI7ds"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C9C31F00A3E;
-	Sun, 28 Jun 2026 22:01:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k8fNx9yh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74F791F00ACA;
+	Sun, 28 Jun 2026 22:01:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1782684086;
-	bh=NXkhSNQJNDKDyNoOpZwIsSL2pL1PP1RKf/KNfR1efPU=;
+	bh=OLnT+m7jG25ig3bUBCku5CL8OxagQ/I+mp73IyUAGbg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k7snI7dsYQUBKz+sEXAwEJ0jGoB9h7VmSZbnukrtFhNlKgg15CBOgF4ez3l7Yz1zZ
-	 UhN6WecoYgfpASxnzeLpWiE0xxUi2Xtzu+qd8iNdgnbe4o0GvWz23YEU4USNP+uyb4
-	 dLdMpwRVQUFQhu8qVbN4Zwp4Lo2nkfOo8DQikfnNwcZAH/U+cfiQq+Zw4V3g1QZfkj
-	 QvDnc6khpqr0OygI0Pjlr/sOB9zPGiwuhXI/honAzHMywIJyoofAafC1Ud+qf1PiVA
-	 tBf/BzCaWvCTsTDlNQ9wQyt5zMyczTsXLhkjl5bLV4B7RLUK+ZStT5ohRolTSRJYSn
-	 cBz4JzhrUw6IQ==
+	b=k8fNx9yh4m8RKU4k+e7B4NxvXXng6Q4+c/r0GzRqXQOlDmd2tVJKsG/wnkV1tnYrX
+	 Tj4EQ2QqE2MX8/iTZcKoaMwq7xVT+YEejajrWHdbqGchHdOoAOW1XXQxtY9x9cRydY
+	 jGYtB/CmiCgkstBQUiV0o19rEacJPUqrZdEBk792caHhu+GlrYSNxkBmmDZfdlgXKq
+	 7YFOhaMToUe07EZOXnyqlThz7fToCed3wSW0cvqxqJm7/5JUkFtwVlZEDaTePz0rir
+	 SNitKVgXeJixCodp2JlRDEvpkAeEbdl1EDLO1LEKfwQhQhcIBznf6IxdQlOr673+Kw
+	 JnobUstpcbTqg==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
-	"# 5 . 18 . x" <stable@vger.kernel.org>,
+	"# 6 . 2 . x" <stable@vger.kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 03/11] mm/damon/sysfs-schemes: kobject_del() scheme dirs
-Date: Sun, 28 Jun 2026 15:01:12 -0700
-Message-ID: <20260628220121.97360-4-sj@kernel.org>
+Subject: [PATCH 04/11] mm/damon/sysfs-schemes: kobject_del() scheme region dirs
+Date: Sun, 28 Jun 2026 15:01:13 -0700
+Message-ID: <20260628220121.97360-5-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260628220121.97360-1-sj@kernel.org>
 References: <20260628220121.97360-1-sj@kernel.org>
@@ -49,43 +49,32 @@ Content-Transfer-Encoding: 8bit
 
 On CONFIG_DEBUG_KOBJECT_RELEASE enabled kernel, lack of kobject_del()
 could cause directories creation failures due to the name conflicts. Fix
-those issues for scheme directories by adding kobject_del() calls.
+those issues for scheme region directories by adding kobject_del()
+calls.
 
-Fixes: 7e84b1f8212a ("mm/damon/sysfs: support DAMON-based Operation Schemes")
-Cc: <stable@vger.kernel.org> # 5.18.x
+This issue was discovered [1] by Sashiko, though its analysis was
+partially incorrect.
+
+[1] https://lore.kernel.org/20260517205828.6204-1-sj@kernel.org
+
+Fixes: 9277d0367ba1 ("mm/damon/sysfs-schemes: implement scheme region directory")
+Cc: <stable@vger.kernel.org> # 6.2.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/sysfs-schemes.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ mm/damon/sysfs-schemes.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 3cbeccd436e40..db496d2e493a4 100644
+index db496d2e493a4..9eb28fe77b5b0 100644
 --- a/mm/damon/sysfs-schemes.c
 +++ b/mm/damon/sysfs-schemes.c
-@@ -2681,6 +2681,7 @@ void damon_sysfs_schemes_rm_dirs(struct damon_sysfs_schemes *schemes)
- 
- 	for (i = 0; i < schemes->nr; i++) {
- 		damon_sysfs_scheme_rm_dirs(schemes_arr[i]);
-+		kobject_del(&schemes_arr[i]->kobj);
- 		kobject_put(&schemes_arr[i]->kobj);
+@@ -332,6 +332,7 @@ static void damon_sysfs_scheme_regions_rm_dirs(
+ 	list_for_each_entry_safe(r, next, &regions->regions_list, list) {
+ 		damos_sysfs_region_rm_dirs(r);
+ 		list_del(&r->list);
++		kobject_del(&r->kobj);
+ 		kobject_put(&r->kobj);
+ 		regions->nr_regions--;
  	}
- 	schemes->nr = 0;
-@@ -2722,13 +2723,15 @@ static int damon_sysfs_schemes_add_dirs(struct damon_sysfs_schemes *schemes,
- 			goto out;
- 		err = damon_sysfs_scheme_add_dirs(scheme);
- 		if (err)
--			goto out;
-+			goto del_out;
- 
- 		schemes_arr[i] = scheme;
- 		schemes->nr++;
- 	}
- 	return 0;
- 
-+del_out:
-+	kobject_del(&scheme->kobj);
- out:
- 	damon_sysfs_schemes_rm_dirs(schemes);
- 	kobject_put(&scheme->kobj);
 -- 
 2.47.3
