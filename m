@@ -1,72 +1,75 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1397034CDD
-	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 00:25:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160F31531C8
+	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 00:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782606346; cv=none; b=REQItUS8G7g35u92lAmt5qYu35yjg70QJYklJUnRSSjurkdQKx5ZcYZKuPuZf57UD/QWOyNo3Jx7FkR+rglLwlaBZjg4tGJfCbPi8GaSPIguBIa5GTSrWfB/YWksHxb6uJKUNOWBbJcn+arLFYaTCogpIjz6jBKSQznFXAOSlGM=
+	t=1782606495; cv=none; b=gTthSgP/Ftomf1Y9FZQCrz7qOoa/jDH41BdgEVZDYZ8GAF9HXtwiiPd1scwTXGnn59v5UD2WSXpKJ/Jzoc/rdEBVgnslEGSRvlzbQFViSCd+H7aEoOItW6X/QXu9A3Lv06hKbgAhetgmYZ0Jrjaq+tPnez0HCjxL0w0J6ogV6I4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782606346; c=relaxed/simple;
-	bh=Gp9heeZl8YOVXLS81sRHuvkbEUIKeicfYWTiUjTKSBE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DgMZRDwileaG4fQQkeJolIZGfnWyJwuv43Bu1JxwMvSIhd9b/LYt5wL8hXCMJ4agtMVDlS+o476Gzb36AlnwBrs+t4XxLB2nDBkzrpFSXLWJvMeoBWxCCbwOg5rw3MnXONHzU57z9mIczRtnBmc7xnMcaNwMlY24GI9Wu8w6U6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yy5/MvoO; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1782606495; c=relaxed/simple;
+	bh=ukach6//OujD9p6sL3XrO28ru0ezc2TX7FIoyJAK1To=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X7RZTy81BQv/+N8r+wCt4j5zvC3Txbp7ojAWis3uPpe9l4iiWzznA3YbVo7CKquDeXRLCr0bWk75HsGZj0s/ui2kSoWeOE/4KQw8mS//fbOaUCcsV+3eA4iBGNZJWdyzhieIoy27/swgv13wOXKllE6WVtKRE9OHIeCfl7/kNE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xzv1LjUO; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yy5/MvoO"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so15547425e9.0
-        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 17:25:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xzv1LjUO"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so15552575e9.0
+        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 17:28:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782606343; x=1783211143; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782606491; x=1783211291; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=w+ggCHBmTIi4iroEDf3wYeBaqmZKkqX7ae5VYLvC2Dk=;
-        b=Yy5/MvoOFUCHwQQi3KX9W+0IZlV5baCQ2HyMk8lARPWRP2fkJZsbAMDKPLnEJAb1s+
-         O/JBp10mly4ZQR801vCxhpgstqA+uOys8Tz4rQQuFkuEojiNGsIYBnhnKF/JoYvP0BfM
-         x9t1JlN/DeX8oXXdg2H4C6qyuJbXrfqfkWfJEEfIx2c+V6VgjWB7mmvoSziKXefekkue
-         IcOFSJwJF2T1MpC7Ol8UFb3VSIwFI3ihxnE1ggSs5YB/YDDJ8n4c16ZUS+/5sv5LmBsz
-         vAh8iu5MMKQVHEUDuRcjeiTmQ9yckZBbhDHYMSomD2Wq6/l/gZE0HBQjXSiwcNTtWe6m
-         rNhQ==
+        bh=5Vt5aQ4hA6sI9gKzTAa2Ur+vxC2MjfYGoremwvMSA+g=;
+        b=Xzv1LjUO/ViLvu0+GqH0l0zHUESUWka55oU3oXkrjzY4PrwtShfhEa78ZjP/TYtemm
+         PRlMwM6lbV6IdzyYEu/om/eL09WIMt8SEhEp7UncSr4X6TyVHhvDOYajl9Wi4jPVyvDZ
+         p3OrwWBF41ACf3ZWodW37u5p6lgpgWJFmIbZh/v9P9sTjLRg/kDXSsDuouQs/RHYtx55
+         GmF+blWLXs3aGqcFqfYwEKvmLLnEMNTP603MvjbgDwCrMYH4xWKjfueDkKyVTVne9VEl
+         JftMEpiqTWpRF1wf/UbqjCih1zFEmm/GEF00OgqW2tVoi2bSZzv1HkMjLDnPpAYOUZUi
+         0rnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782606343; x=1783211143;
+        d=1e100.net; s=20251104; t=1782606491; x=1783211291;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=w+ggCHBmTIi4iroEDf3wYeBaqmZKkqX7ae5VYLvC2Dk=;
-        b=hZGqK9q82J00Llb+wDzJT69ehQrN1avxKbj/p4pA/nRfvsL4Wv2h6EV752ZIJ70OcK
-         C0phNiNh5GWBT0M/aoVRdLs9rYCZD3YSG5JnEPTJPOcqc4FW9aGZrMtwI7gv5N9tuG3N
-         UA6ggKVmuSzVugOcQ3+umbTXiOh/Ci7j2jn9YuWn99L5faSgBP2kE4oVrR/qmXYwFIsd
-         eG03TSimSmYKsKSdZ48BiG1HLIwVjhCE83JzelrVkTHVrmiHnq8W0t7dUYhePBj80ztB
-         GnR3ZjgBtyDNDBt08cyE45yKcMsydqzbeZDyCNN0gfZ5NjoWDJTx19lbGn7iA32vEDHs
-         jsaQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/NKTQn3Mbmy0qzZeZr9R1XriNKh/RQevo609qzb7Oy4A33vczlQGvPhWzkOhoZtCyqnv95u18=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwcCk9Vg/JsyeehxzPTI5MTNa+UQ/VZU1ifZyY+JcQ3e/U83Enn
-	7M2/r+ofIkp6hl9yThiH9JfyAJnvlZIyYCkag/EYMGrxg5NymnWP/zae
-X-Gm-Gg: AfdE7cky12uI42KUR+z7oKMt+r+vKHkr6YV80S7Le/nNZi+AaFKN4+iOYoM0yEKITXY
-	SiXpMSE/qRAeSO8wcCG94VtfPkWLNR2fSOSx0MQNAAP59jxlH+B6mCpT9ZkXHLEbhx0rny0aDUU
-	KboxRrXhVpgfBH6F+M3oOC4056IMCocJ6jNF7JgTwWuQxBHa/SYBI8sjii9F8i47LmqKkd3Fsy2
-	cuz02C2BNYmlqmsBCQWLS0A1oSIUfMqYRUi+/UoD49PHtXtftZGolyDpla6cC9ezJNkohexw84y
-	C0u3i2AGH30U/vxmIVd1h5Wg+srvlRnjadhNCWfDOLmzqMurtJ9VxoCtL44oYRHZF2eoNbApXt3
-	Vv/JIGU/+xaq7Il0DQ4FpmZb0Sw9LpqhOBsfgq3IZIMOxAUKaE2IHuw83RNTZ5FSVbsjeOq42Tr
-	HwjanDoT7waii74LPawVzYP5YJUA==
-X-Received: by 2002:a05:600c:6792:b0:492:7187:aa67 with SMTP id 5b1f17b1804b1-4927187aa7dmr68432665e9.30.1782606343532;
-        Sat, 27 Jun 2026 17:25:43 -0700 (PDT)
+        bh=5Vt5aQ4hA6sI9gKzTAa2Ur+vxC2MjfYGoremwvMSA+g=;
+        b=H3911I3fbkKm87p/1gLCD4GixeFng15bgUSpKM9pZIvRbu5EHzlJNHMrMw6nrhkMkV
+         rRcNIuEkmu0HeIziYy58basnI+WBTgquExpJudL6M1bfM77F13PGmTFG7x0w/VwYIyaB
+         BciuywQobEBtqcNwAhrmAU8lXc6Vicdjt8XpfqQR+TVDGX9nPV5Kbx5bX4sDQSsZB+PA
+         4csyu4wcNXCGnEDHLG8g/zn61mb8HCTXzDqgdn5KBxCT+VHBT/ofVHADKYOCgPG77uiI
+         uZ/CPwpDhfJkJOzfJoNWCWJ9HrBs1Vr79g2u++gg7QUaZddVXoBDXxGdtYt65SprX0xp
+         KNWw==
+X-Forwarded-Encrypted: i=1; AFNElJ9ay0yvt5f/pdJ+47bm2k359iQJCu1KlXfiy7Pk4uaIn1fj/tjrgUPPLCaxYOL3H9AFReclP7M=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzsn78S12iKBN03I4BpnAVGcE2O7ofVbIRaBPlqro7FzH0aFLd4
+	CNjBAuR0MDnpDTBbIQ4gPzRgZDEUxlIDmYrSIoy+egof2GG4LnM1PwyJ
+X-Gm-Gg: AfdE7ckxHz9Dmx0woxNxIiN5FNX8P8yem+kp5PCb0tXCkS6YeJtkDEWkq8zv4ija67t
+	dYvrKhhVm9Qra6NfS37V9iiI2Sp3Hf22RULoRzrqdd9DqNXkgfrHu4dx6eO9L6gTpVb5Q2Art8K
+	i9OiC2HdRJm2qINvHHFU8zlsXCUF5v/hZ+c5BNOBkxRo2V+B+kAQyf/KzOaWRSMTVevYQRxJ4/5
+	KgnYROFAdZaPtMYpJb1cj9lIBskGaLOxPOFZJRrQSUcQWJsYidw113RAAiL6WSNMo12msM5EqMZ
+	pDm4kt1HfhzcWH6XbpxvQjEwxQ4W1u85qiLMs+cWWCfjBJJQzb/OiIDPHNVVQHRiMnhqXZYLoPe
+	So+seUkZ3ueHnSlAoZ8wsp1Zd4DUW4PGsbY0rNYcQ5BlreenJHCSeKarPBX/A8ZVFHsqcIyivsP
+	IEfpjXktPLQ1qRLOygkvMYpHGYkfNs0bxqQzUX
+X-Received: by 2002:a05:600c:6215:b0:492:463c:48b7 with SMTP id 5b1f17b1804b1-492668985c2mr161633475e9.22.1782606491518;
+        Sat, 27 Jun 2026 17:28:11 -0700 (PDT)
 Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4926f94f213sm145611055e9.12.2026.06.27.17.25.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492690100c7sm216713895e9.12.2026.06.27.17.28.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 27 Jun 2026 17:25:43 -0700 (PDT)
+        Sat, 27 Jun 2026 17:28:10 -0700 (PDT)
 From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
+To: Jakub Kicinski <kuba@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Benjamin Berg <benjamin.berg@intel.com>,
 	stable@vger.kernel.org,
-	syzbot+21629c14aa749636db9d@syzkaller.appspotmail.com,
+	syzbot+6c25f4750230faf70be9@syzkaller.appspotmail.com,
 	Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH] wifi: mac80211_hwsim: avoid treating MCS as legacy rate index
-Date: Sun, 28 Jun 2026 02:25:37 +0200
-Message-ID: <20260628002537.23550-1-alhouseenyousef@gmail.com>
+Subject: [PATCH] netdevsim: remove ethtool debugfs files before freeing netdev
+Date: Sun, 28 Jun 2026 02:28:04 +0200
+Message-ID: <20260628002804.24214-1-alhouseenyousef@gmail.com>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -76,68 +79,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Injected HT and VHT rates store an MCS value in rates[0].idx rather
-than an index into the legacy bitrate table. hwsim nevertheless passes
-these rates to ieee80211_get_tx_rate() while generating monitor frames
-and timestamps.
+The ethtool debugfs files point directly into struct netdevsim, which is
+allocated as net_device private data. Their containing port directory is
+removed only after nsim_destroy() calls free_netdev().
 
-A crafted injected frame can therefore read beyond the bitrate table.
-If the resulting bitrate is zero, mac80211_hwsim_write_tsf() also
-divides by zero, as observed by syzbot.
+An open simple-attribute file can consequently dereference the freed
+private data before the directory is removed. KASAN observed this in
+debugfs_u32_get() during network namespace teardown.
 
-Use ieee80211_get_tx_rate() only for legacy rates. The existing fallback
-continues to supply a conservative bitrate where hwsim does not yet
-calculate MCS rates.
+Track and remove the ethtool subtree before free_netdev() on both the
+normal and registration-failure paths. debugfs removal drains active
+file users before returning.
 
-Fixes: e75129031f1c ("wifi: mac80211_hwsim: move timestamp writing later in the datapath")
-Reported-by: syzbot+21629c14aa749636db9d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=21629c14aa749636db9d
+Fixes: ff1f7c17fb20 ("netdevsim: add pause frame stats")
+Reported-by: syzbot+6c25f4750230faf70be9@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6c25f4750230faf70be9
 Cc: stable@vger.kernel.org
 Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 ---
- .../net/wireless/virtual/mac80211_hwsim_main.c    | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/net/netdevsim/ethtool.c   | 6 ++++++
+ drivers/net/netdevsim/netdev.c    | 2 ++
+ drivers/net/netdevsim/netdevsim.h | 2 ++
+ 3 files changed, 10 insertions(+)
 
-diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-index 0dd8a6c85953..4a66272526f3 100644
---- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-+++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-@@ -1324,6 +1324,17 @@ static void mac80211_hwsim_set_tsf(struct ieee80211_hw *hw,
- 	}
+diff --git a/drivers/net/netdevsim/ethtool.c b/drivers/net/netdevsim/ethtool.c
+index 9350ba48eb81..025ea79879f3 100644
+--- a/drivers/net/netdevsim/ethtool.c
++++ b/drivers/net/netdevsim/ethtool.c
+@@ -252,6 +252,7 @@ void nsim_ethtool_init(struct netdevsim *ns)
+ 	ns->ethtool.channels = ns->nsim_bus_dev->num_queues;
+ 
+ 	ethtool = debugfs_create_dir("ethtool", ns->nsim_dev_port->ddir);
++	ns->ethtool_ddir = ethtool;
+ 
+ 	debugfs_create_u32("get_err", 0600, ethtool, &ns->ethtool.get_err);
+ 	debugfs_create_u32("set_err", 0600, ethtool, &ns->ethtool.set_err);
+@@ -272,3 +273,8 @@ void nsim_ethtool_init(struct netdevsim *ns)
+ 	debugfs_create_u32("tx_max_pending", 0600, dir,
+ 			   &ns->ethtool.ring.tx_max_pending);
  }
- 
-+static struct ieee80211_rate *
-+mac80211_hwsim_get_tx_rate(struct ieee80211_hw *hw,
-+			   struct ieee80211_tx_info *info)
++
++void nsim_ethtool_fini(struct netdevsim *ns)
 +{
-+	if (info->control.rates[0].flags &
-+	    (IEEE80211_TX_RC_MCS | IEEE80211_TX_RC_VHT_MCS))
-+		return NULL;
-+
-+	return ieee80211_get_tx_rate(hw, info);
++	debugfs_remove(ns->ethtool_ddir);
 +}
-+
- static void mac80211_hwsim_monitor_rx(struct ieee80211_hw *hw,
- 				      struct sk_buff *tx_skb,
- 				      struct ieee80211_channel *chan)
-@@ -1333,7 +1344,7 @@ static void mac80211_hwsim_monitor_rx(struct ieee80211_hw *hw,
- 	struct hwsim_radiotap_hdr *hdr;
- 	u16 flags, bitrate;
- 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx_skb);
--	struct ieee80211_rate *txrate = ieee80211_get_tx_rate(hw, info);
-+	struct ieee80211_rate *txrate = mac80211_hwsim_get_tx_rate(hw, info);
+diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
+index 27e5f109f933..4e9d7e10b527 100644
+--- a/drivers/net/netdevsim/netdev.c
++++ b/drivers/net/netdevsim/netdev.c
+@@ -1165,6 +1165,7 @@ struct netdevsim *nsim_create(struct nsim_dev *nsim_dev,
+ 	return ns;
  
- 	if (!txrate)
- 		bitrate = 0;
-@@ -1603,7 +1614,7 @@ static void mac80211_hwsim_write_tsf(struct mac80211_hwsim_data *data,
+ err_free_netdev:
++	nsim_ethtool_fini(ns);
+ 	free_netdev(dev);
+ 	return ERR_PTR(err);
+ }
+@@ -1178,6 +1179,7 @@ void nsim_destroy(struct netdevsim *ns)
+ 	debugfs_remove(ns->vlan_dfs);
+ 	debugfs_remove(ns->qr_dfs);
+ 	debugfs_remove(ns->pp_dfs);
++	nsim_ethtool_fini(ns);
  
- 	spin_lock_bh(&data->tsf_offset_lock);
+ 	if (ns->nb.notifier_call)
+ 		unregister_netdevice_notifier_dev_net(ns->netdev, &ns->nb,
+diff --git a/drivers/net/netdevsim/netdevsim.h b/drivers/net/netdevsim/netdevsim.h
+index 4c9cc96dcec3..64f77f93d937 100644
+--- a/drivers/net/netdevsim/netdevsim.h
++++ b/drivers/net/netdevsim/netdevsim.h
+@@ -154,6 +154,7 @@ struct netdevsim {
+ 	struct dentry *pp_dfs;
+ 	struct dentry *qr_dfs;
+ 	struct dentry *vlan_dfs;
++	struct dentry *ethtool_ddir;
  
--	txrate = ieee80211_get_tx_rate(data->hw, info);
-+	txrate = mac80211_hwsim_get_tx_rate(data->hw, info);
- 	if (txrate)
- 		bitrate = txrate->bitrate;
+ 	struct nsim_ethtool ethtool;
+ 	struct netdevsim __rcu *peer;
+@@ -169,6 +170,7 @@ void nsim_destroy(struct netdevsim *ns);
+ bool netdev_is_nsim(struct net_device *dev);
  
+ void nsim_ethtool_init(struct netdevsim *ns);
++void nsim_ethtool_fini(struct netdevsim *ns);
+ 
+ void nsim_udp_tunnels_debugfs_create(struct nsim_dev *nsim_dev);
+ int nsim_udp_tunnels_info_create(struct nsim_dev *nsim_dev,
 -- 
 2.54.0
 
