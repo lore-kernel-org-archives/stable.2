@@ -1,100 +1,115 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DC53A6B9D;
-	Sun, 28 Jun 2026 13:48:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB6D3A6B66
+	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 13:55:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782654496; cv=none; b=jtONk8rNoWyct+neECc/Egr5Ws1T3hfzp8+cPRODZE+sU6JOgt8Wt0BFEZLaxyAfShHMqU93aJtfYlTzRx0Vpxpap2Z++UJuLPjcnKUgsqn+u3wEKe/OAC45BrOIpQiHqbzFUXrPJAkjIdCxM+39VKJc3Ls85EjFo6fLqzjmIRM=
+	t=1782654914; cv=none; b=B07Ywe9NeAdOw3UVQqos3u7d3/GBAYSqt3AG9nVYuCbD/81ITB2Y6rkb1Mf/0hQW/YCYqSFvIwj0tADYs4+ngxGmR8sk9UqBsMkrlowzG8DjVZFmEWnqBiMOEG8Cls75eEbcoaf+e87MxMgY0F31TxdRdRpYMiQbVfq8VAP24CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782654496; c=relaxed/simple;
-	bh=/YN62ao2dIenIsEZhucux6/qiLA1asEH4vy5SDmO68s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iUZpQaGvXXs/0lPg/xbb7d4yGw0T5Tjw1XNho6/lp44XAWcprsvd853P0+k2Ba7tYS/P8vhDgPUFqGwutpcoquEI2u8FERM5CHkzygGpT12HL14vbkckOjhSUjSjPBpxg+5qyA3i1D+2bNt0uJaVTyKrzBGA4PHeA2cybrC6sCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.74.7])
-	by APP-05 (Coremail) with SMTP id zQCowABHkcQTJkFqQQvHFQ--.45986S2;
-	Sun, 28 Jun 2026 21:48:05 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm: fix syncobj reference leak on invalid flags check
-Date: Sun, 28 Jun 2026 21:48:01 +0800
-Message-Id: <20260628134801.46450-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	s=arc-20240116; t=1782654914; c=relaxed/simple;
+	bh=G/Jtpz2dyjwRZd8CQBnGefINIJsyzwvfZ4xUAeMXeAw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PpER5XaK4IFGIQ1bzPvQpL1cctcQ8VSIqpL4N7Dzt8KfE8N6sKgkUAZmuYaxBds0pMi1AQLRWjnmfaPEhlkfhZemVhDhZMI3ooR4UgrZes+Of8WRWxnl2fxuoYETjsTgT55JohUFZuQ4utphrx4lztEu/UyjiesRNZ5kcul0uyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=kCyY0u2p; arc=none smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="kCyY0u2p"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-51a868b6962so30119341cf.2
+        for <stable@vger.kernel.org>; Sun, 28 Jun 2026 06:55:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1782654912; x=1783259712; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=DNV/A7emqW06YSeGh0bw5IhKLR9YF/fHiPtbm8SqJPY=;
+        b=kCyY0u2phgACkIT5UOY80q1vsTHAJQDit1ezltfbcrwIps1AXXDVt+J3/LtHnIhMpY
+         UO/ZUa83LXtyMhMXXyeM57ojNJHAnpTbQ3oQjbbqAGMRg7jELULe92UQGG+U8ddCd1It
+         JFuVVMWm1VQexfu5wN4n9XSbRepM71K7PcJFaAi81Fo6BkjfX+/yjz+RPDggF2l3Mnjv
+         JLFsT1SXdtBoEVj5Vu+BwrWv2/eV1PiIbqyrrHRS3e4HVv66PEZj5KITNpfjf08FY9Or
+         zZrkmVNPCpL4r834jgM2K87cHRZWmuGJ8+KsOCNf+KlQFcVXSFhv0TgLqKmToCgLX/LP
+         KaVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782654912; x=1783259712;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=DNV/A7emqW06YSeGh0bw5IhKLR9YF/fHiPtbm8SqJPY=;
+        b=EjhJCB7UN18Eadg2TmudYTuzgckl3cTRw3J9t3fRsTO5ieGn4dYMvXWmJydd/J/aXi
+         rSgsZzBU0uWia2RJMNMRUXSAYWBOgklbDEhbYwvKZaD6d8O+b6fQsaPvO20BC4cxzqJ2
+         7Vka/6Ry1ayLGclwmX5XtDIuo2qvL+fIfNzXBbfwZofYDNoPYX5TheF/b8dpsbzP7+uy
+         xV7pogNfOMjb9bn2RS2XkA4ug045kg+xO4x1aUfy6/2CvTtxOp5KyVpA2upNGOnaWA/M
+         hmF0T/CnJOIg63ptwbZ5A22hSmi5bsKdbkuAjyPlFTEN67EDAFtKd+GfeL9579Jmc3Na
+         Nj2g==
+X-Forwarded-Encrypted: i=1; AFNElJ/LmBYCvqi3ovezvi6uz8xXCUbFjlPt2opnmOPWHb3D2XvRM59Ickr22zJci3Qr6dlySlaXRk4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyok4VIGg0UYmo2KrzPWRZLxy/BIKk8jGglKD6se+UmNI3FxAza
+	MnqMTqRvpYXe1IEX1hdtX8UJrYX47BsdaIqit1+bH5JdH9K/FO3Qq2H/YCbWzdmNlQ==
+X-Gm-Gg: AfdE7ckStWhtYfP1S8XCTlhb7KDj5xMzmk5M3uxiUtIhFuLrSS8mfnDugssjbt5zekV
+	EPlvaAKVRS5/DpDKHuxauhFyLWq+j+qx7EwYI2CZlWpZsLUxcl0aHjTKQ4kCvxlyBaMVBIaj919
+	Oc82OHk/sN8Un58/MDVDT0jWJUbGzK1kpNsgz5ryqZqkFDjxkXFUx1kK+Oe9R08rS963Cg2k5JI
+	JddKaL24M1mHdwM/8iMschzLlaJFpoDhafVa2iP5bkL7JoJpiIKTzJuJZnmG2zqIzSeipvIgov2
+	xv5HQUhxEwZnVEpHa+m2qyeACOyUk1eroQnnjr7MvIhPXAJmlz5C6NdSXkdFc8Dx7h6qfFsY37h
+	52fvO/PE/kk0o7e8etISW//MMr5BugTIPAyxPIDzS7msQTiq4+PZ+cKP+QcZry9CWGhf3jSmNTg
+	TCouvaXjFyKLDo7zMxK1dTxpsUl0OHE2w6
+X-Received: by 2002:a05:622a:4010:b0:51a:8dcb:d9ff with SMTP id d75a77b69052e-51be5ed80camr62533671cf.51.1782654912134;
+        Sun, 28 Jun 2026 06:55:12 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210:d62f:1911:f952:16ba])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51a514b50b9sm140835361cf.3.2026.06.28.06.55.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 28 Jun 2026 06:55:10 -0700 (PDT)
+Date: Sun, 28 Jun 2026 09:55:07 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Nikhil Solanke <nikhilsolanke5@gmail.com>
+Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org, michal.pecio@gmail.com,
+	stable@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2] usbcore: Add quirk for 255-bytes initial config read
+Message-ID: <02060df3-b8c5-4a86-b3ab-3a28eea8a562@rowland.harvard.edu>
+References: <20260623161035.5792-1-nikhilsolanke5@gmail.com>
+ <567e8866-4308-4e5f-819c-fe778dbf74f8@rowland.harvard.edu>
+ <CAFgddhJk0EYG71fnKdio=RHC-cH+JmL-EZ7-oVD-LdHoa2TBSA@mail.gmail.com>
+ <5159fd69-dddf-4073-a8e7-95fa77de0b7f@rowland.harvard.edu>
+ <CAFgddhJ2HeJ=oTBX_axMJcgJq7GXH9abe+LH+x9NGekGO4BMyw@mail.gmail.com>
+ <eb0dfd45-91c5-49ba-a297-b183dbc52c8c@rowland.harvard.edu>
+ <CAFgddhLZ9SuOzG_6mW09j9aDkCp6TedpNkzJ6TUD+DnR3TDLKA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHkcQTJkFqQQvHFQ--.45986S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zw1xurW3AFy8ZF18KF1xZrb_yoW8XrWrpF
-	sxKr9FvFy8Ka1Ivr1IyFyDuF4Fya1xtFW0krWDJ3W5ZF4ktw1UJ3y5Ka4YgFyDArn7Cr17
-	X3sFyFW5ZFnrCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
-	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
-	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
-	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
-	IxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
-	nIWIevJa73UjIFyTuYvjfUOlkVUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgMA2pAixH-bQABsj
+In-Reply-To: <CAFgddhLZ9SuOzG_6mW09j9aDkCp6TedpNkzJ6TUD+DnR3TDLKA@mail.gmail.com>
 
-drm_syncobj_find() acquires a syncobj reference on success. The invalid
-flags check returns -EINVAL without calling drm_syncobj_put, bypassing
-the out label where the reference would be released. Move the flags check
-after the NULL check to ensure the reference is properly released.
+On Sun, Jun 28, 2026 at 11:53:09AM +0530, Nikhil Solanke wrote:
+> I need some help with the USB_QUIRK_DELAY_INIT part. I can't figure
+> out how to make it properly work with my patch because of the
+> following reasons:
+> 
+> 1. I don't want to move it to the top because, from my pov, there must
+> have been some reason for placing that quirk where it is now. so i
+> don't want to mess with it.
+> 
+> 2. Regarding my idea of adding a condition — so that it doesn't change
+> the behavior when the quirk isn't set — if the full configuration set
+> exceeds 255 bytes, we would have to issue a 2nd request. In this case
+> the existing behavior would be more justified.
+> 
+> So, I'm a bit confused about how to implement this properly. Adding
+> yet another condition to fix the second case doesn't feel right to me.
+> It would look unnecessarily complicated. I would appreciate a bit of
+> help and advice.
 
-Suggested-by: Greg KH <gregkh@linuxfoundation.org>
-Fixes: 18226ba52159 ("drm/syncobj: reject invalid flags in drm_syncobj_find_fence")
-Cc: stable@vger.kernel.org
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
-- Fix patch format based on reviewer feedback
----
- drivers/gpu/drm/drm_syncobj.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+If the 255-byte quirk flag isn't set, do the delay before the second 
+transfer just as it is now.
 
-diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index 8d9fd1917c6e..e40e2d92d5ef 100644
---- a/drivers/gpu/drm/drm_syncobj.c
-+++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -442,12 +442,14 @@ int drm_syncobj_find_fence(struct drm_file *file_private,
- 	u64 timeout = nsecs_to_jiffies64(DRM_SYNCOBJ_WAIT_FOR_SUBMIT_TIMEOUT);
- 	int ret;
- 
--	if (flags & ~DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT)
--		return -EINVAL;
--
- 	if (!syncobj)
- 		return -ENOENT;
- 
-+	if (flags & ~DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT) {
-+		drm_syncobj_put(syncobj);
-+		return -EINVAL;
-+	}
-+
- 	/* Waiting for userspace with locks help is illegal cause that can
- 	 * trivial deadlock with page faults for example. Make lockdep complain
- 	 * about it early on.
--- 
-2.39.5 (Apple Git-154)
+If the 255-byte quirk flag is set, do the delay before the first 
+transfer.  If a second transfer is needed, you can do a second delay 
+before it or not -- I suspect it doesn't matter.  If you want to be 
+safe, add the second delay.
 
+Alan Stern
