@@ -1,171 +1,122 @@
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADE5194C95
-	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 16:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782663831; cv=pass; b=pR6JkDhEU9hAQXZj5Yfxi32Q4ptST2Hz7+kVAt7ksTF1OSvYy1GY+8qb9+IRhPRSxOuWStomKFPWkgwrho1EBAiZ00B3kuSJK0fyNLuYX3CavfODupCMpq8VEsUgjebB52QMc2DRFMctllcFBReEcaTbsvw/zQGLI59VZhfU6p4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782663831; c=relaxed/simple;
-	bh=5OLImKYP/mPH8qI5V/oFbG+GvYL5S1bGpUq89sWRLyo=;
-	h=In-Reply-To:References:MIME-Version:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tMn86bA7KK/mFMOJ5znSiBkIenBsznvZW+MrTwfGIbaXrJAHBoAJnE3jW6jtd97MHAIpPpXxc4VqXpVAMptefF94ew65qN6heetBGJJ+t8AOlNA5lXqZbjqMrqZvSoCvPYhGqz1pIdpEWrp/d8+a8x1b5OwK+z13OFqKXWfbwRw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FNdUWzHL; arc=pass smtp.client-ip=209.85.128.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1C2246BC0
+	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 16:25:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782663960; cv=none; b=e1Ktk6A1c89nNr2MEC2HFV+Xr3UdDK/FQB2YRpAYo/myYR8yf+dpOrpWxfh/RdiBkuRZNE+X44nNVYvrvicoWDV+Jp8cdLI9e/+3CnqSK6/WdNSUtAECw/ze1zMO3Kdk8K2M4Cr9hyTJEeFQ3xuq+yXz/OOX4uCiMa9LQl+8lcc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782663960; c=relaxed/simple;
+	bh=g2UA5Nh4NURnQU5YTpPXu2g0qAmphQXzC4iKtTM9Trg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uHgQX+NtL8sUKvikZiIi1QGFRFcw+FQeiVIVtAuKtCR1DXSAmBFb/iqgABdaU3r4qdbw5uMfPSOoPMiYMl5Ej/qipYGIB4np6iGy0joZ9yCKK39TGOoQF7cf4KaiLn47X4LpwTknfKlxIRQuGaRsIvkxWAskCpFAvt5/o1sLPi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JKL0oaxE; arc=none smtp.client-ip=209.85.128.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FNdUWzHL"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-80bab6cf5ebso22552627b3.1
-        for <stable@vger.kernel.org>; Sun, 28 Jun 2026 09:23:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782663829; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QnWLowHRLBNP8UjNNBodqSayvkSftWWS6nJXpz8g3FjASEEcrnXQHcZVv+4J+yIHoH
-         yPNIeIChptooakP1EdgZ63yVDwNU8on62197AwBbDKZxVnkfcyE2fc6KWkYRFuiBNxUb
-         +idb+khnVGNe3W6Cfn0xgRpsVZOf3cfs8G1gMqUbhrQNFNFEeQW9y2l+C3kpvv2Aa0JZ
-         GUksEPTbfeyP/n4MB8ub3whPSBPptRjrbrqzF4RAJ42zHHA6DjQx/a2fN6eAYSmGHVVv
-         UffC9fZ3a3wk9kI4ODykTcJg7gwucVlW6GgW9WG7AzooVevn24g19FhUbOE3kV8u0wo1
-         5/AA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:references:in-reply-to:dkim-signature;
-        bh=5OLImKYP/mPH8qI5V/oFbG+GvYL5S1bGpUq89sWRLyo=;
-        fh=s41zdAKEd7Luy5u7U20CqptgXSRTDQU7SfOLsGMen4U=;
-        b=o/uh47qGvK2xkhOUz0qgv8XTVlZKdLqEpy/z8SlN4tB3zAyiM87+niUh9UrMITDYo6
-         WIM8YO176haKybhOnDthQTx8DQ7p2bqm5C0/ygKB0TpAVuKvAQUQCAW13GnQGtN/RILG
-         rxZ+/zWJOy/ZdTqEh9WcVMCRLRgtxFOYIQvyd8eUcCN+B8pi03TqJxieprmZzEx4B+SJ
-         cXLo1smvVklb3QvHxHWmJ7Rtjdv63XcfKsFAlnS25oont1kPdQAtMEQ5wpvwflO9ln+E
-         lZQkBVTctlGGid7pp3tDVlGuF6aTg3cSinALxS6vZPJ86xwgEgEe42DhumlO+Ee8BGcU
-         2q5w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JKL0oaxE"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-7dbcb505578so27265687b3.3
+        for <stable@vger.kernel.org>; Sun, 28 Jun 2026 09:25:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782663829; x=1783268629; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:references:in-reply-to:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1782663958; x=1783268758; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5OLImKYP/mPH8qI5V/oFbG+GvYL5S1bGpUq89sWRLyo=;
-        b=FNdUWzHL+JaJMuq4NFFdca+2lRDsUd5oSMptFzGAD1BUSEOu9BVroXtMfz3SIQHj8G
-         6NPl1X4nqio2fwqFm2mj3w+wkZsBY2dv0aZ6cWhTesxgsf242j/+lVpv8A2FZ0nPXpwt
-         9aGqLT80AGAazqi7gkIUWpQwtLtLx5ZmM7wyVNbE6ZdjHVWvGsHI1lVrnvJUztdqDes3
-         YCvQBk0r9DNf/3FndsRzdYrxFQOJdS2pnO1CuDVn0hTYAKWHUV6/Yr681+fT2flyzkgw
-         SvWfGJS0VpGSgMfYMsEm0sh6uZOKvpLirGYITBeNBNR75m+FZ8jlip04UQrZzxB/HUW4
-         YUCg==
+        bh=7van/FF1WCavCF+DOAc6ZN9nL2beTOurDM/vGTwpdMI=;
+        b=JKL0oaxEiINbu1DR3+UgnHxBeii6/FkKYzrTKvU22+fk/ChTSA9jy4eXhj4jc7Gpg2
+         w8iShpVkpWTw+VJMXd0bvzw1dac5s7uJYNjwhJR+yvxqbkEyzYHPLZcoX1vIyHvL0qM5
+         Zeqz+0XIHZNyMZA/4gNAJx/ufqauTdTSGhhqWaVmEyjCoazpVp6NYmlgdlN2N7egKt12
+         Bz6kccKKyd7hXyyOiMlBPGb5hSfPRnYntMwytSBFoXanRyeFCutJJyep1DeqmHIS45St
+         MHvDrxjk5Qox3p+bJl9ydS8yzcYjbQZs7sVmlLS0vuZoiB32n6o196YZ2/3IxHWBjoQX
+         itrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782663829; x=1783268629;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:references:in-reply-to:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20251104; t=1782663958; x=1783268758;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=5OLImKYP/mPH8qI5V/oFbG+GvYL5S1bGpUq89sWRLyo=;
-        b=tDkshKjm/hm25QL8vg7LzT2Iohwise7DHjABfjIFNDw5KfPCKA9vnUQib2ImxrgkC5
-         GPWm+BSXSck+TyGblrU/RqbkeGTz0T9Jmxx+vQxk4Taf4bpNC30RwOAX+ipUYlzBDgku
-         5qGZ6ZVxQYRi+KiM2fz+Jyo3m+XcJWS/mBwggJUOPc50ihAgMZbENyM9vxh59Ks4qlwk
-         4WSFJJKoY289r9pZg4oMwlvNIb8jjWzC/VsAGmX6Wmt/QBrcTKtyEqF+rBP5YHMqbVIm
-         t7ai79lGqROxp7AxbPnlYZ8nQsyAEVxmMSgyc/il+DuRY5a6eVDtrleVuC4kFdMRbB4v
-         HWMw==
-X-Forwarded-Encrypted: i=1; AHgh+RqhY14IcsWlwQgX7l3Mj6hNgGaVTxcQeT5iVCyCnfPXv5+EuerWjm/D/RSxwSaIqozBrpi/kzo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxcjUvJ/JDFrWpjbvoE2KwaDeoAAuDdErwSVa43ZF0/vWYJOCvU
-	lgSTXY6JJHsMMEZcmdmtbxQ46rkg8Evjr45il4zDqUPzSWIPJVdPDSOxNpCT7Vnf4RzytwAsXOg
-	E76KvfmlH98Hs6U3UHb6o4BcdWGiWd5w=
-X-Gm-Gg: AfdE7ckS0IllZoQFnj2nzCla2HiGrzP3oC+0qFAfV0Ehdnjedcd6+mi6r7JZmkJreiY
-	5k2IFS09m07wjcUOY8XSsdupc52WEz22Vm985983Ir/xHZmUUrlvuoskO4Nc0V4zvmAqrhifq0n
-	xxJPibR/Av7PiOxYvmCrYwKJ5FkICSwCjtt5Q82zSAUwvYzMOySiYjpLl+isKzzypSh2H2e8UNc
-	13p+jZrj1EKMF6aeIiITFWyNStFXUPZMTxed13camnZ6dAd0gt3tjzHOABntXx1Ojqm9dNlhw==
-X-Received: by 2002:a05:690c:112:b0:7ea:3cda:4246 with SMTP id
- 00721157ae682-80670e4828dmr202936807b3.3.1782663828777; Sun, 28 Jun 2026
- 09:23:48 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sun, 28 Jun 2026 09:23:47 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sun, 28 Jun 2026 09:23:47 -0700
-In-Reply-To: <612b5987-1bc6-4b42-bfba-9c72ee5d51dc@endrift.com>
-References: <20260628004106.26920-1-alhouseenyousef@gmail.com> <612b5987-1bc6-4b42-bfba-9c72ee5d51dc@endrift.com>
+        bh=7van/FF1WCavCF+DOAc6ZN9nL2beTOurDM/vGTwpdMI=;
+        b=bhUc+pMMdHtX+AJyLCmlP1jMYfmxsdnV6RloH0k+YM6qlGplupoNomJ7dSMycpOxoj
+         XQ2I0Nktzae4h4cNxF0LRH2L23t9lgSY8bBKUa9Uq5DF4f9OHK2iCkAY8H2mi9u4mP24
+         MaFT+qWtXuKy55lDTP5CeV4MM3wWxLNgf1EzFqzSeqxNc4sCUUOA9mJ8GeFH7uGCy1le
+         pHBgNm32wDm+r4NLEZe3fdw0Anku9EH8h41x/TVsmaLPoSw2Do4/ukRQnKtVX/jDIr0W
+         xKc4pYu4XGQAYMb1vDpr6ndw080yUeM6OaJHrE1jSvVLmAG1zhSKl58FbjSGCNzUrngD
+         0yAQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq5D/JD4SZNUEHokaUFml1Oe7TJJ2OtlfjJxegAPUa7mv/uCNz3hhEQ3nqmAs1Vxze13nrQ4QU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGxD/o0gkOOb3gF5sgDmRHCM3KtHBvmZUp/q2U46Taw6QSKqR3
+	TMKxNXghzREN91TpzejnQe/R0tWYmEjufkI50Yyb81oa3w0KqmYfAOG1
+X-Gm-Gg: AfdE7ckVzRt3wSb2sH23eX9QWFycYkuyXgoGTNzJbQwg7NRimcvfDT38bWrhCIkn180
+	NVyFABlgXk0n0l9XZKUD2ga7WgeVX6hbDDkdS5H8blPPRZ0SQW8koL1SbF7hpKjS4vtVXPhOY2O
+	Aj8EmeuVbwPm7lPrx8RnvtoJX8BaRNcolXeIL1Q3qx+9eETVJ8EMqC0dhYAHtFFO3oGkKjdukcL
+	AfT+otCT/Zwj0tGTJqEitOLMhpyJP5nZ5VvV9X8UzO7liXswHfGxMCSJfI6Qs3Nw7s2uPcWdAlk
+	nChIR2TG/KeGtGCpDqXOvpMVycssei3gauW+pmdUpedKX2e04bBobB0U4M7b1wh21BVHHuT9HB9
+	ETbPOTu2xHRXDGiAInvzFYO7YpAoFHRff8pnTvQy+chcXm8F3vqhnijd+zkRC+2j/9C/4kmF7i/
+	x8kYbPKCoMRVxPU2joKF0WXFLhbw==
+X-Received: by 2002:a05:690c:6185:b0:80c:85b6:764a with SMTP id 00721157ae682-80c85b69188mr75232687b3.63.1782663958305;
+        Sun, 28 Jun 2026 09:25:58 -0700 (PDT)
+Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-80259d20d84sm106446247b3.0.2026.06.28.09.25.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 28 Jun 2026 09:25:57 -0700 (PDT)
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+To: Petko Manolov <petkan@nucleusys.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+9db6c624635564ad813c@syzkaller.appspotmail.com,
+	Yousef Alhouseen <alhouseenyousef@gmail.com>
+Subject: [PATCH v2] net: usb: rtl8150: handle link status read failures
+Date: Sun, 28 Jun 2026 18:25:28 +0200
+Message-ID: <20260628162528.8273-1-alhouseenyousef@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260628151835.GC14404@carbon.k.g>
+References: <20260628151835.GC14404@carbon.k.g>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Date: Sun, 28 Jun 2026 09:23:47 -0700
-X-Gm-Features: AVVi8Cf_Hsynpd7VFdZCCXNQws45bnaGAsdX41yi79mlGX0Szrz_YJ4WDc7NEQE
-Message-ID: <CAMuQ4bUX-jpuX8LcCpAwb1b+OoK+jP2TtpU3BY4HvERM69iG+A@mail.gmail.com>
-Subject: Re: [PATCH] HID: steam: reject short serial number reports
-To: Vicki Pfau <vi@endrift.com>, Jiri Kosina <jikos@kernel.org>, 
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, syzbot+75f3f9bff8c510602d36@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Vicki,
+set_carrier() ignores the result of the USB control transfer and tests
+the stack variable supplied as its receive buffer. If the device rejects
+or aborts the request, that variable remains uninitialized and the driver
+chooses an arbitrary carrier state.
 
-That broader fix sounds preferable. Please go ahead and split it out
-and submit it; I will drop this version to avoid overlapping work.
+Leave the existing carrier state unchanged when the link status cannot be
+read. A transient USB error should not be treated as link loss.
 
-Thanks,
-Yousef
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+9db6c624635564ad813c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9db6c624635564ad813c
+Cc: stable@vger.kernel.org
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+---
+ drivers/net/usb/rtl8150.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-On Sat, 27 Jun 2026 17:47:40 -0700, Vicki Pfau <vi@endrift.com> wrote:
-> Hi Yousef,
->
-> On 6/27/26 5:41 PM, Yousef Alhouseen wrote:
-> > steam_recv_report() may return a short positive response and copies
-> > only the bytes actually received. steam_get_serial() nevertheless reads
-> > the full three-byte header and trusts its length without checking that
-> > the serial payload was returned.
-> >
-> > A malformed USB device can therefore make the driver read uninitialized
-> > stack bytes. With a complete-looking short header, those bytes can also
-> > be copied into steam->serial_no and printed.
-> >
-> > Account for the stripped report ID in the return value and reject repli=
-es
-> > that do not contain both the header and its declared payload.
-> >
-> > Fixes: c164d6abf384 ("HID: add driver for Valve Steam Controller")
-> > Reported-by: syzbot+75f3f9bff8c510602d36@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3D75f3f9bff8c510602d36
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-> > ---
-> > drivers/hid/hid-steam.c | 9 +++++++++
-> > 1 file changed, 9 insertions(+)
-> >
-> > diff --git a/drivers/hid/hid-steam.c b/drivers/hid/hid-steam.c
-> > index 197126d6e081..8c8bfb10e8b8 100644
-> > --- a/drivers/hid/hid-steam.c
-> > +++ b/drivers/hid/hid-steam.c
-> > @@ -454,11 +454,20 @@ static int steam_get_serial(struct steam_device *=
-steam)
-> > ret =3D steam_recv_report(steam, reply, sizeof(reply));
-> > if (ret < 0)
-> > goto out;
-> > + /* hid_hw_raw_request() counts the stripped report ID byte. */
-> > + if (ret < 4) {
-> > + ret =3D -EIO;
-> > + goto out;
-> > + }
-> > if (reply[0] !=3D ID_GET_STRING_ATTRIBUTE || reply[1] < 1 ||
-> > reply[1] > sizeof(steam->serial_no) || reply[2] !=3D ATTRIB_STR_UNIT_SE=
-RIAL) {
-> > ret =3D -EIO;
-> > goto out;
-> > }
-> > + if (ret - 1 < 3 + reply[1]) {
-> > + ret =3D -EIO;
-> > + goto out;
-> > + }
-> > reply[3 + STEAM_SERIAL_LEN] =3D 0;
-> > strscpy(steam->serial_no, reply + 3, reply[1]);
-> > out:
->
-> I already have locally a patch that fixes this as part of my pending Stea=
-m Controller 2 support. However, it chooses to fix it in a different way th=
-at would affect all uses of steam_recv_report instead of per-callsite (with=
- only one callsite fixed). I am hoping to get this patchset submitted soon,=
- once more widescale testing is done, but if you want in the meantime I can=
- pull out that single fix and submit it separately; it's a bit more sprawli=
-ng and involves adding a new function for combined send/recv.
->
-> Vicki
+diff --git a/drivers/net/usb/rtl8150.c b/drivers/net/usb/rtl8150.c
+index c880c95c41a5..d51e43170e03 100644
+--- a/drivers/net/usb/rtl8150.c
++++ b/drivers/net/usb/rtl8150.c
+@@ -732,7 +732,9 @@ static void set_carrier(struct net_device *netdev)
+ 	rtl8150_t *dev = netdev_priv(netdev);
+ 	short tmp;
+ 
+-	get_registers(dev, CSCR, 2, &tmp);
++	if (get_registers(dev, CSCR, 2, &tmp))
++		return;
++
+ 	if (tmp & CSCR_LINK_STATUS)
+ 		netif_carrier_on(netdev);
+ 	else
+-- 
+2.54.0
+
