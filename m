@@ -1,37 +1,37 @@
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F034F507
-	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 16:22:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A12FBE63
+	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 16:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782663728; cv=none; b=ZGulg0zX2c8KrQ6OVbSl+49Q9fsCtaROQDREaXR0Y/yeK9X02FcmXY9jxhc4exXlqXptpMknhwlW/majzSVdpJTTNXR6VxAOWIREsb5xS++QAwUP8wKbO3ZKOBkJYfctHLw9XAOd2oUPt5QgNe5orEcNZl18XUKkErqdk2nT51M=
+	t=1782663741; cv=none; b=YBuBY6bgKcoEEYKRrni65OZp0VheGNB8Ip3pQCA0lbMgCEwq0IpC5fHpb1w+fbkYeoHciceQrV1pv8tkvOCnbvOcaULZdEtRqPsiYcI+3/RP38Ki6h+CnYJpQjn3ko3IpdnEp7t4ejN7/bqZ5QGPvS0lKe+1Ig1NM4qtFQIcnsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782663728; c=relaxed/simple;
-	bh=b0hwOyHZBQXBuXPleLjrOyffa6xRckVe1PzWDbLAWrQ=;
+	s=arc-20240116; t=1782663741; c=relaxed/simple;
+	bh=SyO52oEdfQxgiRa+CHW5k7K2oKaIRSygP3XK/Gxcw2s=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=OrN4mQ7qMP9yFXZocg//s4xa2g4Q+BAEMiReTbmseoRhmAWJfXF3F+jQn03Nq/BZUVHYOXgRjx2dqAbkXXn4rHbLqJdNmaizMSCw6Xp/Y5HOpvbotNYNrrtn40JIcUTsdGLGmSNd4ncDoKj/IaYACwB1jzYzwHA6IlmB3BUqc9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=HRcVI4qn; arc=none smtp.client-ip=18.194.254.142
+	 MIME-Version; b=WXiz0gvjv/wiyQjEpm4BAe816bTBcEKhY27JhJAH6R4dKYNEOTbm9bGri3ceBdjCCtxevRhGucLW5QZg11sgkLKyr/B5MT9zwch3tezSrsqVOHJq2qW/+tmHPBg9CuTCP2BQ2zbrB4J0Y/+zK1VkoreEe0B61bUQ+7tNhnGJV7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=BUAnSBVH; arc=none smtp.client-ip=54.207.19.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="HRcVI4qn"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="BUAnSBVH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1782663627;
-	bh=ZO0vYdG8+zInot9nuVfLo2AsAw1+BulTmqCbYLPKuCY=;
+	s=onoh2408; t=1782663616;
+	bh=YwOpjHlkjEKGh3HVY41PKAPNuBw7M9OFBiqUuoBEI9s=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=HRcVI4qnjb1AkVrH34BUR/rHo8kIYsddlEFWv7i6xj9cJanrCwGp/n3KXgAERWgd6
-	 ImWMkUFboXNhZO/p5FvGqeTnTHjv+b2qkDnOaQ7SjY8rNYwT3lxEblU/crri5GlAZf
-	 XDnAWHslzUub/pD1Mvyto2/H6mw0C8bDgmxrak2U=
-X-QQ-mid: esmtpgz10t1782663602t210c06b1
-X-QQ-Originating-IP: jvb42HwQiXkxxrDYUZA72+tDq9XqUQnubZE1FlAWL6c=
+	b=BUAnSBVHD1TduDHMD5BwQDkNtmUrq4kc9JocRboGMnGOdXiHo5KwRxK7ZyiLkWcyF
+	 8vaPnv/VLIMDcOezHAMwmaGk1iYcHwwry2D0wp1yrX2ULZ1XCs9bmJgAoHuJ/1/DkD
+	 thf6bc6dXsxg766imDI37KgegoXn8wYu1kBv7k1A=
+X-QQ-mid: esmtpgz10t1782663591t2d475ce5
+X-QQ-Originating-IP: 8g9jK+n5HdNhPKDlb8Wcpcr5yHFhW8v8IBR+W+u/7CQ=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 29 Jun 2026 00:19:54 +0800 (CST)
+	id ; Mon, 29 Jun 2026 00:19:45 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 7245329537163941116
-EX-QQ-RecipientCnt: 10
+X-BIZMAIL-ID: 17640922023262748992
+EX-QQ-RecipientCnt: 12
 From: Wentao Guan <guanwentao@uniontech.com>
 To: carnil@debian.org
 Cc: benh@debian.org,
@@ -41,11 +41,13 @@ Cc: benh@debian.org,
 	guanwentao@uniontech.com,
 	sashal@kernel.org,
 	stable@vger.kernel.org,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jeff Layton <jlayton@kernel.org>
-Subject: [PATCH 6.1.y 2/9] file: add fput() cleanup helper
-Date: Mon, 29 Jun 2026 00:19:29 +0800
-Message-Id: <20260628161933.532572-3-guanwentao@uniontech.com>
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>
+Subject: [PATCH 6.1.y 1/9] eventpoll: don't decrement ep refcount while still holding the ep mutex
+Date: Mon, 29 Jun 2026 00:19:27 +0800
+Message-Id: <20260628161933.532572-2-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <akEtsUNOcuws0xPC@eldamar.lan>
 References: <akEtsUNOcuws0xPC@eldamar.lan>
@@ -58,62 +60,136 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NRN3UPsLzYKVYOy9VnnPe8YXmgBztWD7i2c2LnUN35CVK5M5zLyoFgjb
-	Ry6zX1TEYqeY8KCigLR7s95H8jyHbcv/5d8kuUrPv3G6j1joUM7g/fo4MJWDaO4cMMFbKUb
-	sfoFYDjHy1q7Tss3XlUMtbiOH3uFNiebkn4wO2GV/LP8PJBr7dXNK4E2ZgjVu8PzC9WY6SF
-	T/JRLLK0Jh2hw9d91wCHeWNsZKxK6DybNS3QsyEtsYL6Yr3zCe1t438x0UXnPt4uUeSkPZx
-	cV2TEscaEJEGNmSBbSfIBkwYqn+JKaFohlmP7ITjfRI5vFjxH3lDUMKZnQj9Np/K3arngMm
-	sta9TOCBZaMqGm7LC5k7NSMcdE1ZvgD5eyAKrfBAwoUnci1ADTmkI/xvItrNCXfa8oSt4OV
-	EVS18JhRy8Tw84Uj5M6imRP6x99ZsJ7HTbEAQyj3tghJ6p3IHtTyhlYP8g2TgM25pC/6WUH
-	F+F5zNh+s8exr5VTBeh5eJNbGsWjbeyHseQ9zi0X+vRyKO4vldxBhdVPeCLwF/xd8uM7J8V
-	KgvFUkxXo9bZbi5EvZoZP8ZYmbGvkPrl8WKt29uz3ib9fZYacHxeFuLY9L+3amaWJhMtrwc
-	q1+O9io1RVDzMwrODzWttCPKTsYRfTdvfNIhxb4/4YFQswbndAre20vs0t74NFvNA2tLdnA
-	jkbckjKuLSlq8EuteXqDMzIa18FpzrV2wff19WHHZtISQ6MjlLdrWL6wmEpD7oADMCdw6Ci
-	ORmq80YvZpqNjabiHnhBJuR/2f/nAoHjadj0PxKsT4Y1Wtd/HDO2dIwPZSIhgaqYzgHTy8/
-	OBhB67Vx2Hw8ORgBDGkirhWQ/4q2B/HXonPcBgEGIrckPnPjgmAzegDr+LinRlwfOs96z7U
-	BPjV5KUNyhXzbhQUGbYl9LjURHVX4doJbKX2C0Y39/29g0LgbMQsPt6O4kItkhkgQBts+ad
-	VuzkbZEuYhP7QXgwHRC1Q0nWTRZZURT/f2/ewVOWlbmKPGQ8VskAA4hlTVgqar19tJ1AZMR
-	GY0ihdBUVDeAF+V7O26faE41+BvTxYuuxOr2jhmQ+cPFxx5DaX1gYK1zksJj1QVK6nX7TJM
-	bLPJCaoNw38IlLDV27+Urc=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-XMAILINFO: MjQ00mYXMHtuRQZDozm0ze1ybe2xRBSrNqt4vU8X+tlScuYUEOW3e1kJ
+	IawMlPrOTKI/hYa7MmhT2vYPgBRMLPAp05dLbEh1EZRcKIiBGMfaNKgV3wYM7hfuLu8m9DR
+	TAd/wTapOcmHf25fFUrKygxzjZDXafG7w87ZFMF9Udgu4zOsjrAynBYiOwH5fY5DRBCQFZ0
+	crtAblTOUFHoM4gk7R1OWHM/tCGaoSIQ94iT6h4DKjB3tQIllRotp+2rN0fs4XM9ENsOYyd
+	dH3fl1XbpMu1sSDqaRZn7kivAYQ+sPiJr7NKe1z7HsbYsAtd0AQwfdzBJm0F7hQ4VwvoC7q
+	+PqlVhrQoqRZDq76xCOZ6P/E61fcUkQHLIu9gYRYWV+bbtHg9dWLKevIUGkrzVIgZo9E3+b
+	lTIxCbZ1glZjr9ZB0s4buSudvUFLzo/Ml7dbTz+Y68kezeqAEuuGC2c3G5XR9W/gKFFgvT9
+	OCbsVjhTTmOkh9n1mfVEuj9vHZwRjcZY3iJlu6lDOw3vSsa09Z4YLO3ZrNWr6kECl/szz8L
+	ymBar9+8f4l01oPTES6rfueuycbgTeSvBQKZrKFCAn8Wzf0VfcZJYD9kS+RrxovfRkaMBxs
+	RACv3dbdRY5h24HlS0h67QVKyMDiSXbrL0C1TXNBVPN9zEcRCezp5qGY0rup/jjJTVYE2CD
+	Wk6e55dPuK0g1sYcD24Df3U1ZPBK/MExlrhbzXAEJ6SNU9Ja71baY8l/nBSF8BZKpsrXeBt
+	K7VCCfzWqXx1Sz3f0zCei/f9Ss4jNzuPtXFc7zzP3UUL35uEULeO3QSpk6mi+0LZ8P8hL0e
+	mo36ppPMU/vJvOueE4yNVwCWiwk9u0OJNc44fg2SBCTyu/Y8LU0+h9wXSshoIq5/7rjtt7c
+	Bwrs/qkqMxx4ThxBTlcXr2XgvsYcbToFnvPI3TjPtcHyFbR561jXkNOQ5Cfn9vhhifA6slh
+	kSOGwIJSgLKebCQMpOyng+73lDdOm5SxWvNWHFnpYhgZ/5B1EtpJpBrv0UKKPHIRPoYCkb7
+	ifLE6F5/oPI+8zRg6kB7QHNuZPbqq1jok7mvAIuL7a+swZOs/8zrcsPYSd1vjpM7Lbpa7+9
+	2hbMp0GPOZ8KFcKyCembmY=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 X-QQ-RECHKSPAM: 0
 
-From: Christian Brauner <brauner@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-[ Upstream commit 257b1c2c78c25643526609dee0c15f1544eb3252 ]
+commit 8c2e52ebbe885c7eeaabd3b7ddcdc1246fc400d2 upstream.
 
-Add a simple helper to put a file reference.
+Jann Horn points out that epoll is decrementing the ep refcount and then
+doing a
 
-Link: https://lore.kernel.org/r/20240719-work-mount-namespace-v1-4-834113cab0d2@kernel.org
-Reviewed-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-(cherry picked from commit 257b1c2c78c25643526609dee0c15f1544eb3252)
+    mutex_unlock(&ep->mtx);
+
+afterwards. That's very wrong, because it can lead to a use-after-free.
+
+That pattern is actually fine for the very last reference, because the
+code in question will delay the actual call to "ep_free(ep)" until after
+it has unlocked the mutex.
+
+But it's wrong for the much subtler "next to last" case when somebody
+*else* may also be dropping their reference and free the ep while we're
+still using the mutex.
+
+Note that this is true even if that other user is also using the same ep
+mutex: mutexes, unlike spinlocks, can not be used for object ownership,
+even if they guarantee mutual exclusion.
+
+A mutex "unlock" operation is not atomic, and as one user is still
+accessing the mutex as part of unlocking it, another user can come in
+and get the now released mutex and free the data structure while the
+first user is still cleaning up.
+
+See our mutex documentation in Documentation/locking/mutex-design.rst,
+in particular the section [1] about semantics:
+
+	"mutex_unlock() may access the mutex structure even after it has
+	 internally released the lock already - so it's not safe for
+	 another context to acquire the mutex and assume that the
+	 mutex_unlock() context is not using the structure anymore"
+
+So if we drop our ep ref before the mutex unlock, but we weren't the
+last one, we may then unlock the mutex, another user comes in, drops
+_their_ reference and releases the 'ep' as it now has no users - all
+while the mutex_unlock() is still accessing it.
+
+Fix this by simply moving the ep refcount dropping to outside the mutex:
+the refcount itself is atomic, and doesn't need mutex protection (that's
+the whole _point_ of refcounts: unlike mutexes, they are inherently
+about object lifetimes).
+
+Reported-by: Jann Horn <jannh@google.com>
+Link: https://docs.kernel.org/locking/mutex-design.html#semantics [1]
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit 521e9ff0b67c66a17d6f9593dfccafaa984aae4c)
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- include/linux/file.h | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/eventpoll.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/file.h b/include/linux/file.h
-index 6e9099d293436..221ba0888107a 100644
---- a/include/linux/file.h
-+++ b/include/linux/file.h
-@@ -11,6 +11,7 @@
- #include <linux/posix_types.h>
- #include <linux/errno.h>
- #include <linux/cleanup.h>
-+#include <linux/err.h>
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index f6038819fe79f..7ca1b5931480c 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -777,7 +777,7 @@ static bool __ep_remove(struct eventpoll *ep, struct epitem *epi, bool force)
+ 	call_rcu(&epi->rcu, epi_rcu_free);
  
- struct file;
+ 	percpu_counter_dec(&ep->user->epoll_watches);
+-	return ep_refcount_dec_and_test(ep);
++	return true;
+ }
  
-@@ -93,6 +94,7 @@ extern void put_unused_fd(unsigned int fd);
+ /*
+@@ -785,14 +785,14 @@ static bool __ep_remove(struct eventpoll *ep, struct epitem *epi, bool force)
+  */
+ static void ep_remove_safe(struct eventpoll *ep, struct epitem *epi)
+ {
+-	WARN_ON_ONCE(__ep_remove(ep, epi, false));
++	if (__ep_remove(ep, epi, false))
++		WARN_ON_ONCE(ep_refcount_dec_and_test(ep));
+ }
  
- DEFINE_CLASS(get_unused_fd, int, if (_T >= 0) put_unused_fd(_T),
- 	     get_unused_fd_flags(flags), unsigned flags)
-+DEFINE_FREE(fput, struct file *, if (!IS_ERR_OR_NULL(_T)) fput(_T))
+ static void ep_clear_and_put(struct eventpoll *ep)
+ {
+ 	struct rb_node *rbp, *next;
+ 	struct epitem *epi;
+-	bool dispose;
  
- extern void fd_install(unsigned int fd, struct file *file);
+ 	/* We need to release all tasks waiting for these file */
+ 	if (waitqueue_active(&ep->poll_wait))
+@@ -825,10 +825,8 @@ static void ep_clear_and_put(struct eventpoll *ep)
+ 		cond_resched();
+ 	}
  
+-	dispose = ep_refcount_dec_and_test(ep);
+ 	mutex_unlock(&ep->mtx);
+-
+-	if (dispose)
++	if (ep_refcount_dec_and_test(ep))
+ 		ep_free(ep);
+ }
+ 
+@@ -1008,7 +1006,7 @@ void eventpoll_release_file(struct file *file)
+ 		dispose = __ep_remove(ep, epi, true);
+ 		mutex_unlock(&ep->mtx);
+ 
+-		if (dispose)
++		if (dispose && ep_refcount_dec_and_test(ep))
+ 			ep_free(ep);
+ 		goto again;
+ 	}
 -- 
 2.30.2
 
