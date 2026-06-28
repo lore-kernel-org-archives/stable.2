@@ -1,118 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637F9285CB4;
-	Sun, 28 Jun 2026 15:00:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1395823D2A4;
+	Sun, 28 Jun 2026 15:02:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782658827; cv=none; b=lY9EsozfGAFXDKgtgJklPN1ljdy++BgxIiFBAZlCqJAmTOmOuUNxDgObNpGonkRsA8fW3eHFIjRVa3r5eLi9ZsdvGnSe2vW/elaKZurXG7zlpJzh0XXp/QTuiH3y9Ru0rypWxvIn50zYr5zrBpfwhw6QTbmcFpvJBRKMOZvs8S0=
+	t=1782658962; cv=none; b=n6/MM6aHM/qg0/OJ/UaPZQHmfrM0riSZpPB9xf8CnsRFtqAOX2V4lTou8Za1qrc3/Lq6vWTK0+P96EBpRwt+GwwOYt3KHgahQet9IZ2ZnkVpvkNTvKqGUMzNG0obTXr7NNH63O6EfvpLJ1+kjIMpwZX4POmsSJHdfyAPq470H6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782658827; c=relaxed/simple;
-	bh=3nb9x50QeQukZeepbU840NET0fs+dg7PIwaau3wNlE8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xgg9+4AiDuyLD5UGH/RKCjY2/z+8lJk/mbivJRSqEk5hXkR2XsL9INo2yvuQioT/LgpZDsaEzCKyueHzDZBsARQ8Q8pj9DFgVnPluc8Hh5eCUqeNwl4JbKwuB61VG5g1gtN96A+vI4DFuVhdDfX/J7/J8isybmZ5LVAirE7Km7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HitqphoV; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HitqphoV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C503F1F000E9;
-	Sun, 28 Jun 2026 15:00:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782658826;
-	bh=v3wY4QK+cvFJBzhQbi9vqDdJNzGAUNzTTPvyQRTv9DE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HitqphoVUdspjJgIJz8jcBA7ODQxDzrUQuopb0sGPYESnzimlYud0GzOq39/gNG1I
-	 HqxIy2ic6ku7BYJpoJwcDf6joo16R12sUEO5z8iv9BZnl13w/hoyk/tDZJrCi1PyMk
-	 /iUnwIW1t13mdQ6aD/Ot1g2bylKN8VHXe1TDS1wQObFhasky6zLsSBI57RAqfDxx6y
-	 hZg4Tz55me4wh9rFX3NzAReGX9hkVNT5iWYo2IW0ljptQ6sUEnklxM1s+QmTUalFv1
-	 scItLherAM3TL8JchPyk8gUglqIzIQPjUaDBQ2N5ZM3mJ622O4xi4gcalNzG9/fI4J
-	 XnrDTM1FOuZRw==
-Message-ID: <52e21bac-b560-4bcf-b78a-9ae482837450@kernel.org>
-Date: Sun, 28 Jun 2026 17:00:19 +0200
+	s=arc-20240116; t=1782658962; c=relaxed/simple;
+	bh=hzK4i6G98Ni6u8lkrPFC2md3TaxFQt0rfkLlx0Xq2SQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WhUI+4Vkpgqnln2vafWPMFIyKjeJPjLRrQF+7yxKe20zppWUBR8aN/GG0S+uDLx54e1nmJgzwqmVsVrmoi1F4DpWgXdl1XoKPBf7xmHCBv+ffDZKSrW/9yafqysJ9Uvzb4Mt1jiS8l4khBfNgXqAwQtM5ZhWc2djXv8B7ICrBXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.74.7])
+	by APP-05 (Coremail) with SMTP id zQCowADHNemFN0FqF5TJFQ--.35071S2;
+	Sun, 28 Jun 2026 23:02:31 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: thierry.reding@kernel.org,
+	mperttunen@nvidia.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	jonathanh@nvidia.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/tegra: fix host1x_bo_pin leak in tegra_dc_pin error path
+Date: Sun, 28 Jun 2026 23:02:28 +0800
+Message-Id: <20260628150228.47948-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] clk/samsung: fix parent clock refcount leak in
- exynos_clkout_probe
-To: WenTao Liang <vulab@iscas.ac.cn>, s.nawrocki@samsung.com,
- cw00.choi@samsung.com, mturquette@baylibre.com, sboyd@kernel.org
-Cc: alim.akhtar@samsung.com, bmasney@redhat.com,
- linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Greg KH <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-References: <20260628125422.45267-1-vulab@iscas.ac.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260628125422.45267-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADHNemFN0FqF5TJFQ--.35071S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruFW8trWxuF1UZF1UJr4xWFg_yoWDtFb_u3
+	4kXrykGwnrWFyq9r17ZrWavFyS9a4kuF48X340ka93G3s8XF1UW3y8urnY9w1UGF4rKFn8
+	Gwn7Ga10v3ZF9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb3xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
+	1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
+	cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
+	ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
+	0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
+	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+	1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
+	AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
+	42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvf
+	C2KfnxnUUI43ZEXa7VUb8hL5UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMMA2pBLNsO9gABsl
 
-On 28/06/2026 14:54, WenTao Liang wrote:
-> of_clk_get_by_name() acquires clock references stored in the local
-> parents[] array. All error paths correctly release these via the clks_put
-> label, but the success path returns 0 without releasing the parent
-> references. The references were only needed to obtain clock names for
-> registration and are permanently leaked after probe completes.
-> 
-> Suggested-by: Greg KH <gregkh@linuxfoundation.org>
+When map->chunks > 1 triggers an error, the function jumps to unpin
+before storing the current map in state->map[i]. The unpin loop only
+cleans up previously pinned planes (indices 0 through i-1), so the
+current mapping returned by host1x_bo_pin is never released via
+host1x_bo_unpin.
 
-What was suggested by Greg?
+Suggested-by: Greg KH <gregkh@linuxfoundation.org>
+Fixes: c6aeaf56f468 ("drm/tegra: Implement correct DMA-BUF semantics")
+Cc: stable@vger.kernel.org
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+Changes in v2:
+- Fix patch format based on reviewer feedback
+---
+ drivers/gpu/drm/tegra/plane.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> Fixes: 9484f2cb8332 ("clk: samsung: exynos-clkout: convert to module driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-> ---
-> Changes in v2:
-> - Fix patch format based on reviewer feedback
+diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/plane.c
+index 0cb30910773f..e61485ee58f6 100644
+--- a/drivers/gpu/drm/tegra/plane.c
++++ b/drivers/gpu/drm/tegra/plane.c
+@@ -161,6 +161,7 @@ static int tegra_dc_pin(struct tegra_dc *dc, struct tegra_plane_state *state)
+ 			 */
+ 			if (map->chunks > 1) {
+ 				err = -EINVAL;
++				host1x_bo_unpin(map);
+ 				goto unpin;
+ 			}
+ 
+-- 
+2.39.5 (Apple Git-154)
 
-So what is happening here with LLM?
-
-
-Best regards,
-Krzysztof
