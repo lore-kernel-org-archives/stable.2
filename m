@@ -1,188 +1,152 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF33EEC0
-	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 00:31:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1015EEC0
+	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 00:31:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782606674; cv=none; b=N0awrN15psLhm39EuRk58vIJPJh2l83y8DhIlnICkZ23VLNY0hVl/hCvJV+aph0/9hfxL8YWDSDZN4OF4pchy3Uxnj8kcWDG4GHmeHLBvFeoltEeindFWU+wtaczL27RDuSUyTJw5u93w/O2MsQoSTvEjd5wSZZoPoTgBWGaReo=
+	t=1782606687; cv=none; b=PLIRtb4kXYXZT1WHafTa/+Q3gPYACVl7geGGP3UNJjOrOXUCSglq+6uyV2FGx5N5E3YQIZiHr/JSGZl8guhqO3vf269YA+r7v/6bf6PwgBG2Wil0fVZzU156kSbhS28OnLIE+gPE0h/3hk0nA/jeLUKJrYLWQLvatAdlyf5l/IU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782606674; c=relaxed/simple;
-	bh=YCurl51Wd9up5XqC1lcIyo6fi0heIKeRJH9GNK+mSLg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=StasxqZUMbMBDvrYbnTiPJmMJApk4WZapPF4DQPCdIZ4s1Ip/R3KbeOu5Kid53opuWWwh3NOsYCnaNbGG/P1i5wtymR5VDMEGCG1z+6bY9ziSQ5BSK2mhTcTLGlheEq6bO5kmQyLiRERwvH48pG1cR6tci/LQhEWRaHOF5+2zrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bw7N4Ktu; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782606687; c=relaxed/simple;
+	bh=s+Y9WU5DlLmpv9cAOgVfG446Lpq8V5LIwHPuEJ5FUkY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RX75hshBU9tpj7Rnl19iRDYNHL2lFfXILDs0BPH2TpIbQn0Gc7fsseGVOGfSUUlvHx8C5jcLeFoqqtX9nq6uwjaCPJ/VaVvRXZuwItKOg9Oz9c73zXzNJpZ3G9O/Vd5tkwzZ7J0DmCo3DqYO/sPNvKQTGzb9a7XlKHiJQQezLPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=awWgUufr; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bw7N4Ktu"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4927014c0deso7867385e9.2
-        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 17:31:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="awWgUufr"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-9217d13c276so163560885a.1
+        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 17:31:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782606671; x=1783211471; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=KOz501n904lvdLTm47kCJmdYhlDM6NLfGSeUIVVTmrQ=;
-        b=bw7N4KtumtpGsZZMwFPL7DAaM9HLBW5vDq/uZ+gWejrhf50XRyGgqiVYGWzHitCZDO
-         0+YhGEU4jVqxzgdsUQl1+u7hPE4VJ5hH1UhAlcKO5ULzb2bK2fH0jiVoCA33vVRzaM4O
-         Sodm4s3hSJhTImueqVYD0lkgGE66+ClwOkzIcSnLTwknTpYffmRnAyUGYyJyUzoMOszs
-         MNxfqa+Gr4EP1uSeARwuGCo5l54f1P7yQIO3TJQX5jOVwqXKpOKV4IulE9Zo/6ZD+c5O
-         u1AghjAR+ymLABBzKCRLy61VE7m+82cJZPNWf1NReiOdEC/oVb15/xhaEkd5BCOM1tcV
-         t/HQ==
+        d=gourry.net; s=google; t=1782606685; x=1783211485; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=wkN+srl6wjGtNu7iwo0FYJ4HSQUHdkfF1SLjXCC02H4=;
+        b=awWgUufrjZ7rMswnM+3waZLxOEPEGf9h4MGeLZ732IDx/hoxL8hBL0L/S6ssH+UeKq
+         3ESUQ2s5gRUqkVSDxaxxBQC/2zAQcKy5XtSnVHuED/T+1nGuGbtdBpHlL1Z92uQeS4jn
+         eXRlBsJ//AOWfjZL0ZXc0zeb+5g/UnNoyp2Ko8UI9xlmLHs7mgPgJFbbEs6oeBM/JOvF
+         nphmdGct+eNkPvhnBAbAE4YHNqPr97OMxL5TYrli2bx57cmV0+C9fUr7znorPYjuuNrb
+         ZfuWGtkzXd2cfRpTN4kGmpbV0aBCQ+IKtyaFYUgkeZIu59wa2H7PiRMXrkPRtNIJwzqL
+         kApw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782606671; x=1783211471;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KOz501n904lvdLTm47kCJmdYhlDM6NLfGSeUIVVTmrQ=;
-        b=ieKC4HA9GHGlEB7odIo7YxKArtcF8dbw+oMQd87KzSXzxGYO9iZEnfqOYA7xCbvm9k
-         RyVmE5lYCW56Mi11JMTo0AWvw9l/aPFXeznFrZfgjvW0qTmCxdGPcOdF6ksopWpJOqCI
-         tX9zCi9pX/0ejQp0KEnf1bNqKM9ishbYvBzXDTdbAjWZ4vJAD8Ppv2MfxZzGtpPjNLdQ
-         SA8Be2Wfz+zmInpP4LTKgw4xAZVfiBELFkf/a3lOqYkloJF9RJRRtmpjsnZD611Cn28W
-         IDkLtjy3dTFR2HTAWDnSyTr3f4ztapJjnBvjxZ/A13W7BFzvVaK0oPKmFZEjuTp5O2Dw
-         u7/w==
-X-Forwarded-Encrypted: i=1; AFNElJ+nivIRAJ2Kwl1uMCv+b76ojtbS5SJvj9c/T/01icA8qNSxvY/SPpkYkluz4W0atxMdxCms7as=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZqr2hNX4covQkdegdRC9683gm9G9jvjEIarmUyu3p89blZdV0
-	2kxILa+aGLVvw8wZFqKG0+AjEzBNh1gJbQL/mzDURiKCfkh3PbBncBC6
-X-Gm-Gg: AfdE7ckYW/iURP0cSiLQqGGUVdkGqCy0e5YgWmwLbO/ov69+ztUYp9r0nzntVovzLis
-	szUUx4PpsivU77UHc/c7Ha2jZJGSAboqU5rJMxTMcLQtg84Y5rug6rCZ9TiWFSAsh+gRhqcz/4f
-	4+BdQgNiQinAW0LNYUcJIemlzn1FsFJ4Rf2ZyRWhabD+ekGs3Jiq8QyJL8JJ1bohvrpwgrMEcHU
-	ddN7s+GxDF4u+1o469ur25SwURU7pOYwqKy7iTKJv3d9dnwelSbf3j7uSxoX1BrbGHf0uUvnwj6
-	y8J77tpubPInLjC0FYe8RfTxtsx/++yCb9cka1KfzqcQee4I2e/8/9oEV92OQWy+9TUyN+VaUYB
-	zLE+5+Wzp3zA+bG7wUNK0Z/4trqBxHShfSVXLMjm/PxgeHXYyraBK3swjI1r7aH46+Va0kuyBPs
-	vLwEWrWENwZdHSWUfSVLvtlCqz0Q==
-X-Received: by 2002:a05:600c:6b70:b0:490:b06a:649e with SMTP id 5b1f17b1804b1-49266893253mr130977045e9.25.1782606671052;
-        Sat, 27 Jun 2026 17:31:11 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49268f7670bsm192987435e9.0.2026.06.27.17.31.09
+        d=1e100.net; s=20251104; t=1782606685; x=1783211485;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wkN+srl6wjGtNu7iwo0FYJ4HSQUHdkfF1SLjXCC02H4=;
+        b=glcIYEgjzy74lPCTH1ebGeg2F3BdF6zBxNkO3Sz5112eGzDzB3evXST17CS90j2Fk5
+         jd5d9VudYCNVXkvLWv1ttu7tYOB2kahON+M0BvOe+R1x2Di7fMAOIH1vy8qsCcSVzu5Q
+         VXZCNJa04S+aZ2/xVnjwkKJrSsiqoFgVYzIyRdu4jRT2v9betoxrmpJlqcjx8MP04JB2
+         2CloSbTkMBQsHZyc8Jy323Py8F0TulTpWKs83emd+tgZmBAdoQgEfFTjV1BgJZeG9vxy
+         G3T7S5s3YIRTBMTKqgZ5h8Iavvt/OZwfpIZh2UlMGHMAeWajKYuN3DTMxiU2QHoEPulM
+         XHpw==
+X-Forwarded-Encrypted: i=1; AFNElJ/G1sNDWJVfmZMnzOyVFflYfHxMXOmvbMwGE66Dq0j3ou59s3TC1HhrzKpml9XgRwg3TKUAiyY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxWuWZrDqhNjuZGpubK6SxTp0NKLutXGpd35KDW2yLu5ajqCX3w
+	2hhoRPfqK3A2aq/C1h0Oi1f1c44pnA83EHF1tJXeMlw18jYwPT9b8KCajBw2DIydfp8=
+X-Gm-Gg: AfdE7cnS6j+XZE8f2pCbu/IANJQgRsHwQEI3GHbNGR/h9nrAjXc3bPPaFnVmPBJZK7I
+	kJYXMJho3CWBYh5e31xBpcpu5vyvupHQsN4lUx9wT7UHWUuDXxfjUGAFhVGQ2iqhl/ewYOkrk1p
+	jx1VtUV3XRLc5xpgj4tV2KRdT4QVVlBCntlqeIwQDuIxJytPXXABvj7pRQTajhdxc+iqUEL9seg
+	MZuR9rt1+z8bNVcJGjIDa9nZtQBV8wIWZMFasLznd06tJbMH5jvKZoOPxyY9VCEvtYWj4K//aPX
+	OHRvnlnNf18qaxsP1WyeAuO9LmJXYVVpgzzXCvOb7/sUk4MP2T7/CVAk8FWLCQHbI/KtOn3AbTt
+	Wki9i/iNDX4SmwPwCwOqv4T/Mi+4MmHyOFQI9BxGr8av5Dm3vISgtVcYUok7P0BzEMRawttwSL/
+	XKgZaLoKkMYUNfAxLnM1XFGDpMr8Z+cQuHWq1lEA5H0pAGVGPV45OIaAwOn5OCXYBErcHv
+X-Received: by 2002:a05:620a:2b90:b0:915:7fe4:cac5 with SMTP id af79cd13be357-92b3e96cd68mr914439085a.49.1782606684710;
+        Sat, 27 Jun 2026 17:31:24 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-926000c31b4sm1637191585a.23.2026.06.27.17.31.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 27 Jun 2026 17:31:09 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
-	Abhishek Kumar <abhishek_sts8@yahoo.com>,
-	stable@vger.kernel.org,
-	syzbot+39ff299961a7c07f00f0@syzkaller.appspotmail.com,
-	Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH] media: em28xx: keep device state alive for registered video nodes
-Date: Sun, 28 Jun 2026 02:31:03 +0200
-Message-ID: <20260628003103.24832-1-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        Sat, 27 Jun 2026 17:31:24 -0700 (PDT)
+Date: Sat, 27 Jun 2026 20:31:18 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	rppt@kernel.org, vbabka@kernel.org, mgorman@techsingularity.net,
+	hannes@cmpxchg.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/vmstat: fold stranded per-cpu node stats when a
+ node comes online
+Message-ID: <akBrVoku9tKstb9n@gourry-fedora-PF4VCD3F>
+References: <20260627202243.758289-1-gourry@gourry.net>
+ <20260627161007.81e4533ce561c2951a69f927@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260627161007.81e4533ce561c2951a69f927@linux-foundation.org>
 
-The V4L2 core takes a video_device reference before invoking the
-driver open callback. That reference does not protect em28xx state
-because all three video_device objects are embedded in em28xx_v4l2 and
-use video_device_release_empty().
+On Sat, Jun 27, 2026 at 04:10:07PM -0700, Andrew Morton wrote:
+> 
+> > The existing code zeroes the per-cpu counters and causes a permanent
+> > skew. Fold the stranded deltas instead, before the node rejoins the
+> > online set. The node is not online yet and the hotplug lock is held,
+> > so the remote access to per-cpu values is safe.
+> 
+> Oh.  Shouldn't we be doing this during offlining?
+>
 
-If initialization fails after registering a node, the error path can
-unregister it and drop the last em28xx_v4l2 reference while a concurrent
-open has passed the core registration check. The open callback then
-dereferences the freed video_device in video_drvdata(), as observed by
-KASAN. A disconnect has the same lifetime gap.
+I tried this first.  I was unable to convince myself there was a 
+safe way to accomplish this.
 
-Give each successfully registered video node references to both the
-enclosing V4L2 state and the parent em28xx device. Release those
-references from the video_device release callback, after the core has
-drained pending opens and existing file references.
+1) sashiko pointed out we can't schedule_on_each_cpu while holding
+   the hotplug lock because we'll re-take cpus_read_lock and cause
+   a deadlock condition with cpu-hotplug.
 
-Fixes: ef74a0b9ff56 ("[media] em28xx: move video_device structs from struct em28xx to struct v4l2")
-Reported-by: syzbot+39ff299961a7c07f00f0@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=39ff299961a7c07f00f0
-Cc: stable@vger.kernel.org
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
----
- drivers/media/usb/em28xx/em28xx-video.c | 35 +++++++++++++++++++++++--
- 1 file changed, 33 insertions(+), 2 deletions(-)
+2) I'm not sure we can do it after the hotplug lock as been dropped,
+   at least not safely.  At the very least another hot-plug re-adding
+   the node could start.  That just seemed like a bad path.
 
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index da0422c65e5f..4274a9bcb432 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -2289,6 +2289,31 @@ static void em28xx_free_v4l2(struct kref *ref)
- 	kfree(v4l2);
- }
- 
-+static void em28xx_vdev_release(struct video_device *vdev)
-+{
-+	struct em28xx_v4l2 *v4l2;
-+	struct em28xx *dev;
-+
-+	switch (vdev->vfl_type) {
-+	case VFL_TYPE_VIDEO:
-+		v4l2 = container_of(vdev, struct em28xx_v4l2, vdev);
-+		break;
-+	case VFL_TYPE_VBI:
-+		v4l2 = container_of(vdev, struct em28xx_v4l2, vbi_dev);
-+		break;
-+	case VFL_TYPE_RADIO:
-+		v4l2 = container_of(vdev, struct em28xx_v4l2, radio_dev);
-+		break;
-+	default:
-+		WARN_ON_ONCE(1);
-+		return;
-+	}
-+
-+	dev = v4l2->dev;
-+	kref_put(&v4l2->ref, em28xx_free_v4l2);
-+	kref_put(&dev->ref, em28xx_free_device);
-+}
-+
- /*
-  * em28xx_v4l2_open()
-  * inits the device and starts isoc transfer
-@@ -2554,7 +2579,7 @@ static const struct v4l2_ioctl_ops video_ioctl_ops = {
- static const struct video_device em28xx_video_template = {
- 	.fops		= &em28xx_v4l_fops,
- 	.ioctl_ops	= &video_ioctl_ops,
--	.release	= video_device_release_empty,
-+	.release	= em28xx_vdev_release,
- 	.tvnorms	= V4L2_STD_ALL,
- };
- 
-@@ -2583,7 +2608,7 @@ static const struct v4l2_ioctl_ops radio_ioctl_ops = {
- static struct video_device em28xx_radio_template = {
- 	.fops		= &radio_fops,
- 	.ioctl_ops	= &radio_ioctl_ops,
--	.release	= video_device_release_empty,
-+	.release	= em28xx_vdev_release,
- };
- 
- /* I2C possible address to saa7115, tvp5150, msp3400, tvaudio */
-@@ -2965,6 +2990,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 			"unable to register video device (error=%i).\n", ret);
- 		goto unregister_dev;
- 	}
-+	kref_get(&v4l2->ref);
-+	kref_get(&dev->ref);
- 
- 	/* Allocate and fill vbi video_device struct */
- 	if (em28xx_vbi_supported(dev) == 1) {
-@@ -2999,6 +3026,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 				"unable to register vbi device\n");
- 			goto unregister_dev;
- 		}
-+		kref_get(&v4l2->ref);
-+		kref_get(&dev->ref);
- 	}
- 
- 	if (em28xx_boards[dev->model].radio.type == EM28XX_RADIO) {
-@@ -3012,6 +3041,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 				"can't register radio device\n");
- 			goto unregister_dev;
- 		}
-+		kref_get(&v4l2->ref);
-+		kref_get(&dev->ref);
- 		dev_info(&dev->intf->dev,
- 			 "Registered radio device as %s\n",
- 			 video_device_node_name(&v4l2->radio_dev));
--- 
-2.54.0
+3) foreign cpu access to the per-cpu values are not atomic with
+   respect to in-flight folds on the target cpu.  this_cpu_xchg
+   and this_cpu_add are (i believe) only atomic wrt the cpu itself
+   (can't be interrupted mid-exchange).
 
+doing it before node_offline() has problems (in-flight folds),
+doing it after node_offline() still *technically* carries the same
+in-flight fold risk - just narrower (fold has to have started already).
+
+I couldn't convince myself there wasn't still a race, so here we are.
+
+> > +	for_each_possible_cpu(cpu) {
+> 
+> That's a lot of CPUs
+> 
+
+Unfortunately - cpus may have gone offline while the node was offline,
+so we legitimately have to visit every *possible* cpu :[
+
+> > +		struct per_cpu_nodestat *p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
+> >  
+> > -		p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
+> > +		for (i = 0; i < NR_VM_NODE_STAT_ITEMS; i++)
+> 
+> and that's a lot of items.
+
+I am aware :[.  I suppose we could vectorize the collection here on some
+archs, but I try to avoid being clever where I can.
+
+> 
+> I guess the overall loop count won't be large enough to cause issues,
+> but it's large!
+> 
+> Perhaps there's some simple test we can do on the per_cpu_nodestat to
+> avoid the inner loop?  Perhaps might need to add a field for this?
+
+Hadn't considered this, but maybe.  Will take a look.
+
+> 
+> btw, "for(int i..." is allowed nowadays.  It'll make this code nicer, IMO.
+> 
+
+aye aye o7
+
+> And... Sashiko seems to have found a pre-existing issue:
+> 	https://sashiko.dev/#/patchset/20260627202243.758289-1-gourry@gourry.net
+> 
+
+Will take a look, thanks!
+
+~Gregory
