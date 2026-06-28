@@ -1,82 +1,73 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1C2246BC0
-	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 16:25:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1C72877DA
+	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 16:28:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782663960; cv=none; b=e1Ktk6A1c89nNr2MEC2HFV+Xr3UdDK/FQB2YRpAYo/myYR8yf+dpOrpWxfh/RdiBkuRZNE+X44nNVYvrvicoWDV+Jp8cdLI9e/+3CnqSK6/WdNSUtAECw/ze1zMO3Kdk8K2M4Cr9hyTJEeFQ3xuq+yXz/OOX4uCiMa9LQl+8lcc=
+	t=1782664106; cv=none; b=KpAvpgUeh8XB9UI1KJW6S6Ge5ppJjQ9Cnn47c0sH13kALV9T76bDsyxONDbLlAXNSEmP/wUtxQSWznCrkubnZVN/Q6gxRteEu9SciOwOu40rlQR73tzVeRSU7+mklsER5ufH7tAsIfeE36Js5TG/Vnpf52UGb4OqeyuqjsO7Uo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782663960; c=relaxed/simple;
-	bh=g2UA5Nh4NURnQU5YTpPXu2g0qAmphQXzC4iKtTM9Trg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uHgQX+NtL8sUKvikZiIi1QGFRFcw+FQeiVIVtAuKtCR1DXSAmBFb/iqgABdaU3r4qdbw5uMfPSOoPMiYMl5Ej/qipYGIB4np6iGy0joZ9yCKK39TGOoQF7cf4KaiLn47X4LpwTknfKlxIRQuGaRsIvkxWAskCpFAvt5/o1sLPi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JKL0oaxE; arc=none smtp.client-ip=209.85.128.174
+	s=arc-20240116; t=1782664106; c=relaxed/simple;
+	bh=shtM5XCTx4SGM85hK2Tv+8aoAAmj6dlcxkHRo0n8yxI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gX+CSLmCROJ1CYuEkEjXtUk1ZiX0GNLFPw8Z3/dEdXimMKikbpkOXTPSzNcQuT1uwrHaDa2a5DJWjgkoMa2gA/s/lzKIL2UFBN6pKeoa/U3oIPmH0jIef82UkD+PMQEiLt7uUJKUSKxyWQHaYLm/wgkk0pyiNG5VYY0PND5dBPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o93rYg4c; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JKL0oaxE"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-7dbcb505578so27265687b3.3
-        for <stable@vger.kernel.org>; Sun, 28 Jun 2026 09:25:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o93rYg4c"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493a97fad2fso5410345e9.0
+        for <stable@vger.kernel.org>; Sun, 28 Jun 2026 09:28:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782663958; x=1783268758; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7van/FF1WCavCF+DOAc6ZN9nL2beTOurDM/vGTwpdMI=;
-        b=JKL0oaxEiINbu1DR3+UgnHxBeii6/FkKYzrTKvU22+fk/ChTSA9jy4eXhj4jc7Gpg2
-         w8iShpVkpWTw+VJMXd0bvzw1dac5s7uJYNjwhJR+yvxqbkEyzYHPLZcoX1vIyHvL0qM5
-         Zeqz+0XIHZNyMZA/4gNAJx/ufqauTdTSGhhqWaVmEyjCoazpVp6NYmlgdlN2N7egKt12
-         Bz6kccKKyd7hXyyOiMlBPGb5hSfPRnYntMwytSBFoXanRyeFCutJJyep1DeqmHIS45St
-         MHvDrxjk5Qox3p+bJl9ydS8yzcYjbQZs7sVmlLS0vuZoiB32n6o196YZ2/3IxHWBjoQX
-         itrA==
+        d=gmail.com; s=20251104; t=1782664102; x=1783268902; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1o26rsuYGHIm4JTny2vvEweN2Wwm6Ey6adKNcY+/Ctk=;
+        b=o93rYg4cVtjQttUp19UKd9Lcx5rUX1RC5EcI6WV2HIaCpa2NMPSq2+Qczh2cuoqMvD
+         TlF+c2eWpzJ2K6Nl3C0X6ge1MvUYlZk/trMlOLpbxd8vkc75X/xynXY5Js+A/xcmjBNz
+         QJY5LgSS+H8TtUMuZI4vH3ReP2L9KQ2MmawwSHHMPM+psbXEVPI8MhxYnbE2lFJcniVd
+         SwAvaGJ3cocWQiBokGV4WzrsbG2HcXyES8XuosVQS39Yqr80N2VGsywQIyk8ecGrbLZb
+         qOf9dgMhz8BoGni5D3KDj2uMNgO5AXF2Yfmb5wR6U/NvcaxLy3SGFbGpCwpXjYr/D2V5
+         Td4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782663958; x=1783268758;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=7van/FF1WCavCF+DOAc6ZN9nL2beTOurDM/vGTwpdMI=;
-        b=bhUc+pMMdHtX+AJyLCmlP1jMYfmxsdnV6RloH0k+YM6qlGplupoNomJ7dSMycpOxoj
-         XQ2I0Nktzae4h4cNxF0LRH2L23t9lgSY8bBKUa9Uq5DF4f9OHK2iCkAY8H2mi9u4mP24
-         MaFT+qWtXuKy55lDTP5CeV4MM3wWxLNgf1EzFqzSeqxNc4sCUUOA9mJ8GeFH7uGCy1le
-         pHBgNm32wDm+r4NLEZe3fdw0Anku9EH8h41x/TVsmaLPoSw2Do4/ukRQnKtVX/jDIr0W
-         xKc4pYu4XGQAYMb1vDpr6ndw080yUeM6OaJHrE1jSvVLmAG1zhSKl58FbjSGCNzUrngD
-         0yAQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq5D/JD4SZNUEHokaUFml1Oe7TJJ2OtlfjJxegAPUa7mv/uCNz3hhEQ3nqmAs1Vxze13nrQ4QU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGxD/o0gkOOb3gF5sgDmRHCM3KtHBvmZUp/q2U46Taw6QSKqR3
-	TMKxNXghzREN91TpzejnQe/R0tWYmEjufkI50Yyb81oa3w0KqmYfAOG1
-X-Gm-Gg: AfdE7ckVzRt3wSb2sH23eX9QWFycYkuyXgoGTNzJbQwg7NRimcvfDT38bWrhCIkn180
-	NVyFABlgXk0n0l9XZKUD2ga7WgeVX6hbDDkdS5H8blPPRZ0SQW8koL1SbF7hpKjS4vtVXPhOY2O
-	Aj8EmeuVbwPm7lPrx8RnvtoJX8BaRNcolXeIL1Q3qx+9eETVJ8EMqC0dhYAHtFFO3oGkKjdukcL
-	AfT+otCT/Zwj0tGTJqEitOLMhpyJP5nZ5VvV9X8UzO7liXswHfGxMCSJfI6Qs3Nw7s2uPcWdAlk
-	nChIR2TG/KeGtGCpDqXOvpMVycssei3gauW+pmdUpedKX2e04bBobB0U4M7b1wh21BVHHuT9HB9
-	ETbPOTu2xHRXDGiAInvzFYO7YpAoFHRff8pnTvQy+chcXm8F3vqhnijd+zkRC+2j/9C/4kmF7i/
-	x8kYbPKCoMRVxPU2joKF0WXFLhbw==
-X-Received: by 2002:a05:690c:6185:b0:80c:85b6:764a with SMTP id 00721157ae682-80c85b69188mr75232687b3.63.1782663958305;
-        Sun, 28 Jun 2026 09:25:58 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782664102; x=1783268902;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1o26rsuYGHIm4JTny2vvEweN2Wwm6Ey6adKNcY+/Ctk=;
+        b=dJiBkszGsWp2s/3khMvhaC3407SoGvlx7ix5LT9bA+XAFp5d0ynP+2XjQOL+RavwEW
+         bUfA2JsjEPG8gMN/EWa8NuPoZXiniJVjjwFdeKxCAKfSh4dbPoMB+/Pq9XPhQUkfLjX4
+         1AUmHowecf218xpr8myb69qSSqu2FcudjT3XbAme5cTTGLJJw1u27jwoUtjdyf5us/5l
+         s7Gb5xY5nvYr3tPk+qjBfcti78pmCmqofAGqEflTvHMQvzATihILYOmvkiqGfltJmadR
+         h1e4vzWfisrqsXSnIzkf3nqRUKZEynfMRdXoKf8ZUJ6Oiih8YYdXvoolE/rKLm9vltNl
+         nw9Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/fG+sEQ8e97tc+JJ4ow6zzGdGrOlDtBD+sVxDzLZK8QgnzVzEf+3U7dgg71yVbxdMyaE2Qm4o=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwD6nB1JhIt3tGXH7Kn7KqoR8pcx+0CJIYkimIqrSdhxBoByhCw
+	uUxUXsHPyq7bLnOxb1jFOPVqxO+8vetLDVnwGLR6z/HSDucgFSDTv9XMkJd9GurPnwHWpg==
+X-Gm-Gg: AfdE7ckTn2geax051BUF+rt53K0LdN9wFFH8Gp6NqIAbYSPOaR5HbVPZmFZDmAOn4dr
+	2zdC0WX+i4q0hN+n2pgs7Z6nt40PoxrMjP2lWCrXuX/hrbzND2fhsLVMHIQG5BWTIH/cqZztHny
+	g2cvthpfoP8LInkLgy/nyw75ruj1TOqtQv64Cnr37wluz/hv8HUTaQgtrluhWpKFdheR4QGELlf
+	gbZuT+vGt2bqj6yLb2uCWPP12Uk5kBmpoWBuokyf75W+Fw/5OZcsTBo8FwsHmG7bGXo4in1wFLr
+	wzaBS6BQkOSJIifQcF7RmjcN91FO3SLmjJDZUbZdGnQaIWT5oKiUlMXZY4tWZ9CZPRFeVopVdrN
+	SQ2vGRB5hxv+LYVTxCCCleEm70zSKASGzO0d1fWpLGcTM+XgBy+NShFj8ogu2uRCl7mf58ofNxu
+	EggrMo9NkMeX3WNXtW/nXWb/F85Q==
+X-Received: by 2002:a05:600c:a49:b0:492:5bb6:6d4b with SMTP id 5b1f17b1804b1-4926689abd5mr204625455e9.34.1782664102439;
+        Sun, 28 Jun 2026 09:28:22 -0700 (PDT)
 Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-80259d20d84sm106446247b3.0.2026.06.28.09.25.55
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4926c278ab2sm140353845e9.1.2026.06.28.09.28.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 09:25:57 -0700 (PDT)
+        Sun, 28 Jun 2026 09:28:22 -0700 (PDT)
 From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Petko Manolov <petkan@nucleusys.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org,
+To: Marcus Folkesson <marcus.folkesson@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	syzbot+9db6c624635564ad813c@syzkaller.appspotmail.com,
 	Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH v2] net: usb: rtl8150: handle link status read failures
-Date: Sun, 28 Jun 2026 18:25:28 +0200
-Message-ID: <20260628162528.8273-1-alhouseenyousef@gmail.com>
+Subject: [PATCH] HID: pxrc: reject short input reports
+Date: Sun, 28 Jun 2026 18:28:06 +0200
+Message-ID: <20260628162806.10675-1-alhouseenyousef@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260628151835.GC14404@carbon.k.g>
-References: <20260628151835.GC14404@carbon.k.g>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,37 +76,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-set_carrier() ignores the result of the USB control transfer and tests
-the stack variable supplied as its receive buffer. If the device rejects
-or aborts the request, that variable remains uninitialized and the driver
-chooses an arbitrary carrier state.
+pxrc_raw_event() unconditionally reads and writes data[7], although a
+malformed USB device can submit a shorter input report. The raw-event
+callback runs before the HID core expands short reports to the size from
+the report descriptor, so this accesses beyond the received buffer.
 
-Leave the existing carrier state unchanged when the link status cannot be
-read. A transient USB error should not be treated as link loss.
+Ignore reports that do not contain all eight controller axes.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+9db6c624635564ad813c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=9db6c624635564ad813c
+Fixes: acc3e34613da ("HID: Add driver for PhoenixRC Flight Controller")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 ---
- drivers/net/usb/rtl8150.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/hid/hid-pxrc.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/net/usb/rtl8150.c b/drivers/net/usb/rtl8150.c
-index c880c95c41a5..d51e43170e03 100644
---- a/drivers/net/usb/rtl8150.c
-+++ b/drivers/net/usb/rtl8150.c
-@@ -732,7 +732,9 @@ static void set_carrier(struct net_device *netdev)
- 	rtl8150_t *dev = netdev_priv(netdev);
- 	short tmp;
+diff --git a/drivers/hid/hid-pxrc.c b/drivers/hid/hid-pxrc.c
+index 71fe0c06ddcd..e3755d8b85c2 100644
+--- a/drivers/hid/hid-pxrc.c
++++ b/drivers/hid/hid-pxrc.c
+@@ -55,6 +55,9 @@ static int pxrc_raw_event(struct hid_device *hdev, struct hid_report *report,
+ {
+ 	struct pxrc_priv *priv = hid_get_drvdata(hdev);
  
--	get_registers(dev, CSCR, 2, &tmp);
-+	if (get_registers(dev, CSCR, 2, &tmp))
-+		return;
++	if (size < 8)
++		return 0;
 +
- 	if (tmp & CSCR_LINK_STATUS)
- 		netif_carrier_on(netdev);
+ 	if (priv->alternate)
+ 		priv->slider = data[7];
  	else
 -- 
 2.54.0
