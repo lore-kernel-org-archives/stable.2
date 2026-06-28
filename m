@@ -1,123 +1,98 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3B0331EBA
-	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 06:23:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782627806; cv=pass; b=QLjqL/sPSVa86P1A+v86UOyCrQ0OMJWH3MmgyrKXv7hWKwcZWK4c7FpGBC098LdlLrQFzRT0zb6J/xAvDa3awLvXGvpA1W9cXb0WA6nzJP1J2wQnODjM6F+ZGaHrAmw9tbnhqkmPlDd6vnskBZ5xipavbRM6aj+LK43O8Ehsdj8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782627806; c=relaxed/simple;
-	bh=vTzRYgBgZOamBxw1WiYenNhfQ94/nUWzB9wfTPJ1rsQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bXsWyQasjp60W5g0bm8ZslqHqddQ5U15v7bUrmVpXOfnVmWrfpFalqQIBAuj5cnC++GBY+p7Woe4vYBZNfi6hws7kI4gMo0rWjXFSpzSrIuL23TrUGa/+TYwWh4oPPMXyw+TtYSy6snWVNSp4IKdot8zQrMEqk57k3dbMwREMBA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EPNoA4iQ; arc=pass smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EPNoA4iQ"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c1237aa9315so118242766b.3
-        for <stable@vger.kernel.org>; Sat, 27 Jun 2026 23:23:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782627803; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OS+NcppR6EDIc8yOcsLU3YhjRG3efSm3zk6AxWIjOBNniF2+SbchXau9Kqk/pfjQQL
-         SFR6h7SkIda4ZZNYRGGa0MEKn48tJxgPgIgx9hJMqCBRTxKeFYpqXwH6kRq5r4VGMAng
-         ao/Qz4bOH4ezx85/rjzCrPceuWGnnCBmMN88UpIfmVHFL6Z/7uI/xmE5Yv7sMP/fapQt
-         TeUXHv818foLZb5Zs2VzVQ2KhIUDv9pcafK7lTpY00OwjSQIvIQo4JfpYtZyk0qWCpxj
-         7WzXSZNn9mT7C2sPpBI7cV1WCXdoa8u97b+I4kYQ8SmyA+7P/eNTRejTSLkOV/ZJSGTk
-         peIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vTzRYgBgZOamBxw1WiYenNhfQ94/nUWzB9wfTPJ1rsQ=;
-        fh=q63LYJyuuQI7Qn/6uLzV3i6ovmb30ifL/Oes9y4ptx4=;
-        b=Y9McU7AfhjJl5ssWFPxSnJoQ8Lw8zHcnKrI2FqTtjXWYg/KyzZDpt8Tlh+0KA/mpLj
-         lbnQ/wXLX22fEB6HAM7fCQFd7I89oXxOoFIfs2ImonPsSGvGPfwFbswLsqodWfjuYQNO
-         ztT+9rc9QjD41biFiIKeFuqk/1LeHBd3HuO2ChFv9z2DllMj35Pgj9KKsDS13sbDdIGE
-         21sUgJ+Dd6ZE1SSVKS+9T0StLgJ9BTTATVT+3ADWcOc+TZI0GpYlJcmukoCt3jiHQnQt
-         gGbp3tdP5rFh6Ga/Zcv+9Pqn4e6qhEdSmzdk/Bh9KWN4cS+6oc+hps0V3s4DGhCWAF0U
-         fq/g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782627803; x=1783232603; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vTzRYgBgZOamBxw1WiYenNhfQ94/nUWzB9wfTPJ1rsQ=;
-        b=EPNoA4iQlIzz9NigehdKIO7AMaJMUw0QzNlWS1vlbWdOdFHpW7M2PSJzvBNlZMYCZ8
-         BWukGH8w5kvrwt+DZwyMdnHLJkkmFQaPIfpVntipk8PHVsN51Gqb/KhBHzuznggYyS1w
-         zAcBmcfyLPtQN99HcTfOTse/4Xe434Y+QyaLDGqMBRLb0nuiq7Ps/UnErKc4+auyBj6x
-         hb+WZsIVuc2ujVZc4fASPRLdig/MCxW6S+AURcfiYien3/iIQ2wICPb7fo3HekdNCoVd
-         eFBZ7rn0pl5ZOUhcYRVNzKOGy4McSm5KpmmWSDCVWTRZ7/xv+jqekHj8Jy/0KlaTm89u
-         Mvnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782627803; x=1783232603;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=vTzRYgBgZOamBxw1WiYenNhfQ94/nUWzB9wfTPJ1rsQ=;
-        b=tELqdwrGbVfgq8wypusiOtqsluP7JNnKsXpDmapmBPF1cL/2qTPC8Fz+gk294N+g9P
-         qZjzrO0fJme9EkqVyrL+JCC+JJF0ZRlBeFjBFxiFYvKzmb77CYQfnGLK7sSGcDztpb9L
-         s+hqEuylYgeEQ410AeMoUwmc+KCSOrKSLYj+qdFv2e7tZgrbVrAweGivoV+SxnJQsTy2
-         o4i8gj60ttbnjHzzN7t5xUj33zE43PkX2UlM9kPrAAH57TGpOC5XbXiXHfCF8l8mvWd3
-         oSAKJRFwN3J0uOLLd2YkiliR2Z2Zb2fLYYHubSEtkR+nHyhw13XeWJOMnIXicyuYb50d
-         2tzQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrlYrN5ClVNwZ867VtecrsP0GBHq73qjXDJ17SDEUAed3r8wSVOwHOYAnNt3KPwxeprA6uVa2k=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlFcru3MBGhJooCsxz1We+5iXPzjsgrdKq2N1m2mAiTM1UgY4U
-	XKCwo59J+ux79Sb4v6XWxQWasyQZwTJjLML5bA0l7D3ndQstOdMg8O8Vn7F+A/7svqJwxBbZotv
-	CsLwoxbRwlytT313AlAen+vig7DuJeHQ=
-X-Gm-Gg: AfdE7cmycQLqIvu2NPWKHv6QQ/QCEJooG4vBCbtyzB1/RjSKmDeGdmTG77EQtrMwsgu
-	3d50cVYpyR6C6PemXWnvtkn2Zfnu6WiRwneizy9k9U2vDnT6UWY1tsUeKJ27Ct72xnOvG5f/jZD
-	ya5J3gpPMH3LVvvqwQC1YEAaHDY66VlJS0AHZ2sqOMSKqnEB7Lyp4p2LVKg9+ETEj7fZrFCMmch
-	7EG2nP+1GkrPVLyg+C3j8L3Ea/sAij2Qp0O1pnm4jR0i6XTMx+oYz/toEQo3CS1oKxw/G+LHJUh
-	0LtfJSg=
-X-Received: by 2002:a17:907:7b99:b0:c12:1d42:6cd1 with SMTP id
- a640c23a62f3a-c121d426fc1mr437953166b.9.1782627802896; Sat, 27 Jun 2026
- 23:23:22 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F1C3BB4A;
+	Sun, 28 Jun 2026 07:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782631675; cv=none; b=Ap5T3196K2IfPjDIwU3+5R9sKRFDf/fpV5LiK7WekHSonD2aOyhmDr3slYk5DaX/8AhDUZqZZCLKGswDdFuhvoiYA0d9DTLyxesyujdf3O7yH4yQozodYM15xX1cnjlzmN1zXuzcSknW8fa0VsGuKFENwsu/eJiL7Hp5I5yk/uw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782631675; c=relaxed/simple;
+	bh=jpEZg6i6wlyNH17xBwUde6LbkKa+If5T5TPOA88bF1U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=s165oQiZOI22i3smw5viNRbvhcS+mkxibH1GKO8MfqP7gZMb7iDT7jyHwvrgvgZCDpR6YlMqKXhi8EPj1Ps+M0lkvBCa7mZbaoyMdEW8VTmKEd10E+MvVUaYsQvYktNvYWyHfzs1ZCN513uTwHVDNd94hyzx/uYrUC6TGYQYE2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.74.7])
+	by APP-01 (Coremail) with SMTP id qwCowADHatPuzEBqFGuwAw--.3190S2;
+	Sun, 28 Jun 2026 15:27:44 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Aurabindo Pillai <aurabindo.pillai@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/amd/display: set new_stream to NULL after release
+Date: Sun, 28 Jun 2026 15:27:40 +0800
+Message-Id: <20260628072740.8884-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260623161035.5792-1-nikhilsolanke5@gmail.com>
- <567e8866-4308-4e5f-819c-fe778dbf74f8@rowland.harvard.edu>
- <CAFgddhJk0EYG71fnKdio=RHC-cH+JmL-EZ7-oVD-LdHoa2TBSA@mail.gmail.com>
- <5159fd69-dddf-4073-a8e7-95fa77de0b7f@rowland.harvard.edu>
- <CAFgddhJ2HeJ=oTBX_axMJcgJq7GXH9abe+LH+x9NGekGO4BMyw@mail.gmail.com> <eb0dfd45-91c5-49ba-a297-b183dbc52c8c@rowland.harvard.edu>
-In-Reply-To: <eb0dfd45-91c5-49ba-a297-b183dbc52c8c@rowland.harvard.edu>
-From: Nikhil Solanke <nikhilsolanke5@gmail.com>
-Date: Sun, 28 Jun 2026 11:53:09 +0530
-X-Gm-Features: AVVi8CdvfZ8_HcAxzQ6YMXiRMTaitnhhJ0mCfb8fG-r-MuhUVjsbTL_143EGKF0
-Message-ID: <CAFgddhLZ9SuOzG_6mW09j9aDkCp6TedpNkzJ6TUD+DnR3TDLKA@mail.gmail.com>
-Subject: Re: [PATCH v2] usbcore: Add quirk for 255-bytes initial config read
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org, michal.pecio@gmail.com, stable@vger.kernel.org, 
-	corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowADHatPuzEBqFGuwAw--.3190S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZrWxWw15uw17XFyDWrW3ZFb_yoW8Gr45pr
+	4fJr1Ygr9rZFn2v34UA3WF9Fy0k34fXa4Fkr45Aw1Svw45Arn8Ja4rAw40grZ7WF4UCaya
+	qa4DA3y7ZF1qv3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
+	nIWIevJa73UjIFyTuYvjfUonmRUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2pAiNlxPQAAsj
 
-I need some help with the USB_QUIRK_DELAY_INIT part. I can't figure
-out how to make it properly work with my patch because of the
-following reasons:
+In dm_update_crtc_state(), the skip_modeset path releases new_stream
+via dc_stream_release() but does not set the pointer to NULL.
 
-1. I don't want to move it to the top because, from my pov, there must
-have been some reason for placing that quirk where it is now. so i
-don't want to mess with it.
+If a later error (e.g., color management failure) triggers the fail
+label, the error path calls dc_stream_release() again on the same
+dangling pointer, causing a double release and potential use-after-free.
 
-2. Regarding my idea of adding a condition =E2=80=94 so that it doesn't cha=
-nge
-the behavior when the quirk isn't set =E2=80=94 if the full configuration s=
-et
-exceeds 255 bytes, we would have to issue a 2nd request. In this case
-the existing behavior would be more justified.
+Fix this by setting new_stream to NULL after the initial release.
 
-So, I'm a bit confused about how to implement this properly. Adding
-yet another condition to fix the second case doesn't feel right to me.
-It would look unnecessarily complicated. I would appreciate a bit of
-help and advice.
+Fixes: 9b690ef3c7042 ("drm/amd/display: Avoid full modeset when not required")
+Cc: stable@vger.kernel.org
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+Changes in v2:
+- Correct Fixes hash based on reviewer feedback
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks,
-Nikhil Solanke
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5fc5d5608506..acf0b01d6f62 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -11708,6 +11708,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	/* Release extra reference */
+ 	if (new_stream)
+ 		dc_stream_release(new_stream);
++	new_stream = NULL;
+ 
+ 	/*
+ 	 * We want to do dc stream updates that do not require a
+-- 
+2.39.5 (Apple Git-154)
+
