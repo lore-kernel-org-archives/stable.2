@@ -1,113 +1,84 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CF135A398;
-	Sun, 28 Jun 2026 04:04:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D312C40D569
+	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 04:37:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782619468; cv=none; b=kQaQLb06DRA5XYMvG/2o3A37Ib6hVbdSRanDFYdp9kdIhiCnzmILAT0ww/PGodOfonUxVbMDlszqXX46nBj0uutrD8hN93cySDDRxWktAwnDeARtP1crvd9v9ggbLidRSYSszgH0k5/Vs5hocdX2vGJ9L7Qzl14/Mk6l4fjpxvg=
+	t=1782621424; cv=none; b=gJu7zd7OoDJxCV4GkhNDnlo0PcRR5I1b/r4v4hCyDtCi0D1Hs7L5MCl+HYdhVkiDEskGnQtZG58VjHdUrWqOYV6QH5i1/tOuea9aLeSkAoEWno9qeQVf3S+5EGMIu8a6ehp+dgOr61FzoUUEpIuvVy5yzwONRxLc7ke22E9Ygsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782619468; c=relaxed/simple;
-	bh=w5avZ3EhGzBAg2no0Km5j8U6/EuHqB9FmN7RAsBv7VA=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=KEqGt0mJF3YDO3ZUHd/t36PBvwAbWiNaH7tBWuWM6rWboar+mofeM3eSRlTe0oLT6N9Yle16ZUpFTvjW9fHjWS9UD/2iuEZqF21R2MHxDDoDvNxQ7ejalpK/OMHwVUpkuYZ3qA/h5bQepk25XylkR6GiiM9I3MLJh+ZodVameUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from smtpclient.apple (unknown [117.182.74.7])
-	by APP-01 (Coremail) with SMTP id qwCowAD3j8h4nEBq+V6qAw--.55335S17;
-	Sun, 28 Jun 2026 12:04:15 +0800 (CST)
-Content-Type: text/plain;
-	charset=utf-8
+	s=arc-20240116; t=1782621424; c=relaxed/simple;
+	bh=osiFwRs5hcozOwGIwTB9Ue6kC2NoziHe8ozeoRvPrm0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VwrR0XDrRlDeXBKF8vkZ84FF8jdu4WA+MWFrS/Ts2cAL0qEONTxhSUQASpZuc8zo049EQVs5CO26oLtCYtJnZLsUOZa+xMkeqP+RU0ZhcFbHgOmHC6ceDlkVyHt8rTnqutRygI72PI43fuw4c885hq7x5jQsEjL0OPPtx06G8gI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=TZwE37pO; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="TZwE37pO"
+Received: by dvalin.narfation.org (Postfix) id 664F41FEF7;
+	Sun, 28 Jun 2026 04:36:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1782621414;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UO1X4md2YCOfX2DvdPc01Q2k2MNAJvagKZJHgX02ViU=;
+	b=TZwE37pOfKZN0vW1pWgf25EOHiLAy/78FcGCr6LEa2udanaPsVsIV+zDYuj32C+QsVJODt
+	OBnZLS43OH460qVpg3Nt7ih+9uUfLeE1pACEnVkwhAR9/BhChKFl4wDxF4zqRCB3Zp08Z8
+	8g5vfExgDUUP2Ipw4Q8aK2Gf9mFQVXY=
+From: Sven Eckelmann <sven@narfation.org>
+To: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 7.1 00/26] batman-adv: 7.2 merge window fixes backports
+Date: Sun, 28 Jun 2026 06:36:44 +0200
+Message-ID: <2075326.PYKUYFuaPT@sven-l14>
+In-Reply-To: <20260628032401.0002-1-sashal@kernel.org>
+References:
+ <20260626161241.124988-1-sven@narfation.org>
+ <20260628032401.0002-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH] fix: md: kset_replay: fix use-after-free after
- cache_key_put
-From: WenTao Liang <vulab@iscas.ac.cn>
-In-Reply-To: <20260626150845.50456-1-vulab@iscas.ac.cn>
-Date: Sun, 28 Jun 2026 12:04:05 +0800
-Cc: Mikulas Patocka <mpatocka@redhat.com>,
- stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <BDB2CB1F-6FC1-4A44-A6AB-F12F7CD625CE@iscas.ac.cn>
-References: <20260626150845.50456-1-vulab@iscas.ac.cn>
-To: Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>,
- dm-devel@lists.linux.dev
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
-X-CM-TRANSID:qwCowAD3j8h4nEBq+V6qAw--.55335S17
-X-Coremail-Antispam: 1UD129KBjvJXoW7WF17Cw1fur17Jw4kCF1rJFb_yoW8Wr1UpF
-	W7XryYg3yfXrWIkanrXw10vFyFv398Jayvgw4xtw1kuwn3uryjvrW2vrWagry7Xr1fGr43
-	AF1UtFs8Wr1qvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBEb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
-	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI
-	8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2
-	z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2
-	IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4U
-	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtw
-	CF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j
-	6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64
-	vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIx
-	AIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07j5zVbUUUUU
-	=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAMA2pAiooeMgABsE
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="nextPart23186641.EfDdHjke4D";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
+
+--nextPart23186641.EfDdHjke4D
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Sven Eckelmann <sven@narfation.org>
+To: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>
+Date: Sun, 28 Jun 2026 06:36:44 +0200
+Message-ID: <2075326.PYKUYFuaPT@sven-l14>
+In-Reply-To: <20260628032401.0002-1-sashal@kernel.org>
+MIME-Version: 1.0
+
+On Sunday, 28 June 2026 05:33:32 CEST Sasha Levin wrote:
+> I just fixed up the backport on patch 10 (and for all other trees).
+> 
+
+You are awesome. Thank you.
+
+Regards,
+	Sven
+--nextPart23186641.EfDdHjke4D
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQS81G/PswftH/OW8cVND3cr0xT1ywUCakCk3AAKCRBND3cr0xT1
+y96wAQDAEjrN9ENEElWqq47N6Z71hpaE6XObBcvviW4Nl8bKKgD/ZSJrJEtZkeio
+HJzgJ+mo6tdcco2VzGIT/+0/A8r5Rwc=
+=olgh
+-----END PGP SIGNATURE-----
+
+--nextPart23186641.EfDdHjke4D--
 
 
-
-> 2026=E5=B9=B46=E6=9C=8826=E6=97=A5 23:08=EF=BC=8CWenTao Liang =
-<vulab@iscas.ac.cn> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> When key->seg_gen is less than cache_seg->gen, the code calls
->  cache_key_put(key) which decrements the refcount to 0 and frees the =
-key
->  via cache_key_destroy. However, execution falls through to
->  cache_seg_get(key->cache_pos.cache_seg) which accesses the freed =
-key's
->  memory, causing a use-after-free.
->=20
-> Add a continue statement after cache_key_put to skip the subsequent
->  operations on the freed key.
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: 1d57628ff95b ("dm-pcache: add persistent cache target in =
-device-mapper")
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-> ---
-> drivers/md/dm-pcache/cache_key.c | 1 +
-> 1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/md/dm-pcache/cache_key.c =
-b/drivers/md/dm-pcache/cache_key.c
-> index e068e878231b..c33d6b37f58d 100644
-> --- a/drivers/md/dm-pcache/cache_key.c
-> +++ b/drivers/md/dm-pcache/cache_key.c
-> @@ -733,6 +733,7 @@ static int kset_replay(struct pcache_cache *cache, =
-struct pcache_cache_kset_onme
-> 		/* Check if the segment generation is valid for =
-insertion. */
-> 		if (key->seg_gen < key->cache_pos.cache_seg->gen) {
-> 			cache_key_put(key);
-> +			continue;
-> 		} else {
-> 			cache_subtree =3D =
-get_subtree(&cache->req_key_tree, key->off);
-> 			spin_lock(&cache_subtree->tree_lock);
-> --=20
-> 2.39.5 (Apple Git-154)
-
-Please ignore this patch. I will resend a proper version after
-learning the kernel submission process.
-
-Apologies for the noise.
-
-Best regards,
-WenTao Liang=
 
