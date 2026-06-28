@@ -1,72 +1,43 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB79C23ED5B
-	for <stable@vger.kernel.org>; Sun, 28 Jun 2026 16:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15D5148850;
+	Sun, 28 Jun 2026 16:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782665309; cv=none; b=Blcjk2DyYjDKWhKPMUusbCsa6+KKy8uOYms9YCzLlnlky+36bL+zeCNkD2+a4C35dNyaMgX0sqQpFcdyMcoltgnJZlR6GFszkh2uwkUHx5Nf0kxKRdAQ6YIIyyyQzTlCzcA8DsvWzlrpdf0C+6liwx3bA+3OfBHICoMeZ7l8PSQ=
+	t=1782665706; cv=none; b=MRqptSVVU+8ZMUlhDJqdKT8VgE24HUT9htM4mEoPy+YXypDj1iwOOjDl8ffajXhemwwKaYrIrVIzt9Qty8xBD8qrd0e3yv47im5EwFvK2wgZCiJgt9JkfGIU7VDxe1+2MP3mvtETpQuVla4g9ZlweImHjgb8xabl6xYr0kLjHTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782665309; c=relaxed/simple;
-	bh=cf6yj5xifZFmTr357rW0WbouH8QTIDIjipjpL5fIZzw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HyswIhpjTbgs8Xd93JnjwVj2uwbUJCsP6dGSKOq38FsMbhmf0SbiDEJFab6DI/tR2Xw7Ghu+X2t3/mmUDdo+MnBsGZ4VCNQ9BNh8wAOEdSv4uKSyi7MInQVGFmLucKnoZFQPR9d3FyNJWXSVM6P85JB4F17JNHZLZBnzWKsljCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=drAefT3a; arc=none smtp.client-ip=74.125.224.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782665706; c=relaxed/simple;
+	bh=amVSJ/GVsC1ebNfCxl39jJ2vXx6oRDIzstnIJPSgnHo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d8XZhnJCPwALRzzpNSAYK4jQDClXrn1RuwGxWVRzOhNyHqp8x81ynHGuqQiHdliP+eiPhx6PO6qhZ9x2IEbmLeM+gkCr/Z5llqMYHDWH7PVAAdZjNBN11j1FeG5hPf5pBMDlSBg0x+p1PLAm/Em6rsN2x76yPpiYft7uxN2wirg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IvUnhp7n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="drAefT3a"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-664c6304683so569698d50.2
-        for <stable@vger.kernel.org>; Sun, 28 Jun 2026 09:48:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782665307; x=1783270107; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=VUvNQVwVpofTw7oTT69Ez1d4kozO3VZdDLOAGHgGSy4=;
-        b=drAefT3aoUUPqnd0OPz4nFF4gCSGGxt2xVYxfCETmLnyrGUDpNuTt6wjZVkhaAime/
-         2l/zP82VjyG1iiDHKlBw7/xfpFR32a3PtIkVhYdfjyp38aVDuFZGZpDnSNMlQLupYM9M
-         TTHVdFpLFegYXi2YEaKg0ZHAQ+IX2utQHqSyi2pDc0R72+NI3xXmZbM0oKrP20kDo5sm
-         6T7pI/vLvVokGOI+TKIeNvjTOq+XLTq63sGyDvlM8JMCu6VkO9YVukI5LB2KFyhXty/o
-         XY0Q6Gx5tktc6S/zLHhsQfddTEzG0yYkPY3VFqYl2TzHDDPSYQWc8i1aAdTHeM85UuPa
-         7i4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782665307; x=1783270107;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VUvNQVwVpofTw7oTT69Ez1d4kozO3VZdDLOAGHgGSy4=;
-        b=i4plB6scBInj07O3q+vjNXoNLzkJ/P/JPlH0yzZ0VtE9RD75o2EDuPM8bg7Y6Pqik8
-         p2Nr+2lwkuJwF2aGXNmXLg6Y+CLoPAA1ydV5oOa9gtmySCta7xAA1TusPNYE4uPSiPJ7
-         kxSOqtxEoO6fg48g43Dp4XE+rkJ/3laZGQsD4pV4mKVI4L3tJOwWEdjCeZKTFbqUvGbP
-         LgLUKCDuQjWGG4Ex1qVpvcLEnxrYLRQp/5TTv8F3HN2FZY9uoOrUNz96cOFt8FGnwp3T
-         a6PRE5vjIw08HuaTkmHWj2w+IpB4um9ZBKOpq0Tnv3rQ4u2dsu7RBSQfSDnhafdfFkmg
-         phZg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpf7HZ5yVWJnwDKGbHBelq0iGzww+XXzYH0RuX59S+7gmPCacG15XCko54n7dzSWBXr9PY7b+c=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnDtHFiw+g9C/T5mYhiP4xLH/gRGYLb+brX7uGbVt5gKrIuLuy
-	IEeGo0dEhQ2kSiodJgnQsR7MDj3V2r0QiyZUjBw69Vq7Uvu8JyvJJyzv
-X-Gm-Gg: AfdE7clIhokZl6hjpKlQTijhXQ6MBEmadcwDQtMVaUTrXEKJ+tywA9W48as9+w+mXFi
-	G/3/3pWGY8Qz9bMbrrkDS2jwnH3DoDQFRwwdZ263vuyddWLR7C7jUTgplmw9dNbk2dT/Qo/svUd
-	6wqH4UnyKN+Xu7YAWHNn0yc+t+V6Ot/SQfZLBGjhRfBuVktW4Sp5HNHaSP22W53QPp9frYFef9G
-	GFGQtNUbs94SdX7P7hnOip/9WA1gZPahDsAy7ASxCUsNM6k+A7lHdhl6JvsNrRAQ17clLKYaomp
-	SjtBq88prVzpObt9Nf33175YZPgp9jW5oOGgpBMUFF7pzxsAClL5oTNWgBPRZh0WGgkDVZT/Ynz
-	2GyWTZAPFfly6IcA52d+NEP81Gwnj+eMRENDbkPhaQ6/Y5qHNBkVhLNugAY5CXtdyMlbKBlF42W
-	0aINoY4lpnZ4iJ9Oj9Cfx+VF+SebrxPTuTM2xm
-X-Received: by 2002:a05:690e:120d:b0:660:5bb0:7ff0 with SMTP id 956f58d0204a3-6648801f1d4mr12732204d50.53.1782665306986;
-        Sun, 28 Jun 2026 09:48:26 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6647f785f6bsm5980279d50.6.2026.06.28.09.48.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 09:48:26 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IvUnhp7n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11CA61F000E9;
+	Sun, 28 Jun 2026 16:55:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782665705;
+	bh=WnNx7JGiiiPZrlprnXcKYwyKhDFTWq0vvPCdgz5lwaQ=;
+	h=From:To:Cc:Subject:Date;
+	b=IvUnhp7nb/iw/yn1ckX19zJmPsB3c5cYpg6Or5AuCQnNUIccZVZJcrYXoAPHVo9we
+	 ZWcXaoKKiGXDgUva+BaJ8w807AdfgsE+NaPBclzG8+8+nXoMa8ZucaZJXbcQqVqcGp
+	 p8OBzAgpAr3NYVFoDe+Xlxw8xajgJ4BVduxORZQJO1Z/UI0CB25jUlxQ5/zT4eVcnn
+	 n9ereCDbVxOukVLLp0CJxVpFn/7sjnPLKkX1DFO7FtBPqH+1ObU4GXbPh3cP8iH1G9
+	 xByqjDst/Ky+ElD5Xq6NLB/z/VV5j3C6dRxme201bs9XCaiR5GURBlYypn8X3q3QkR
+	 MgyGI9ZY5T32A==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Yang Yingliang <yangyingliang@huawei.com>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH] HID: cp2112: validate input response lengths
-Date: Sun, 28 Jun 2026 18:47:31 +0200
-Message-ID: <20260628164731.17614-1-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: [RFC PATCH v1.2] mm/damon/core: validate ranges in damon_set_regions()
+Date: Sun, 28 Jun 2026 09:54:41 -0700
+Message-ID: <20260628165447.86217-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,58 +46,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cp2112_raw_event() parses transfer-status responses as a fixed seven-byte
-structure without checking the report size. It also trusts the length in
-data-read responses and copies that many bytes even when the received
-report is shorter. A malformed USB device can use either path to trigger
-out-of-bounds reads from the HID input buffer.
+DAMON core logic assumes zero length regions don't exist.  However, a
+few DAMON API callers including DAMON_SYSFS, DAMON_RECLAIM and
+DAMON_LRU_SORT allow users to set empty monitoring target regions.  This
+could result in WARN_ONCE() on CONFIG_DAMON_DEBUG_SANITY enabled kernel,
+and divide-by-zero from damon_merge_two_regions().
 
-Reject short status responses with -EMSGSIZE. Treat truncated data
-responses as zero-length reads so the waiting transfer fails instead of
-timing out or copying beyond the report.
+For example, the WANR_ONCE() can be triggered like below.
 
-Fixes: e932d8178667 ("HID: add hid-cp2112 driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+    # grep DAMON_DEBUG_SANITY /boot/config-$(uname -r)
+    # CONFIG_DAMON_DEBUG_SANITY=y
+    # damo start
+    # cd /sys/kernel/mm/damon/admin/kdamonds/0
+    # echo 0 > contexts/0/targets/0/regions/0/start
+    # echo 0 > contexts/0/targets/0/regions/0/end
+    # echo commit > state
+    # dmesg
+    [....]
+    [   73.705780] ------------[ cut here ]------------
+    [   73.707552] start 0 >= end 0
+    [   73.708452] WARNING: mm/damon/core.c:359 at damon_new_region+0x6e/0x80, CPU#1: kdamond.0/758
+    [...]
+
+All DAMON API callers eventually use damon_set_regions() to setup the
+regions.  Add the validation logic in the function.
+
+Fixes: 43b0536cb471 ("mm/damon: introduce DAMON-based Reclamation (DAMON_RECLAIM)")
+Cc: <stable@vger.kernel.org> # 5.16.x
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- drivers/hid/hid-cp2112.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+Changes from RFC v1.1
+- RFC v1.1: https://lore.kernel.org/20260628005723.28549-1-sj@kernel.org
+- Use ALIGN() for end address.
+Changes from RFC v1
+- RFC v1: https://lore.kernel.org/20260627170057.1867-1-sj@kernel.org
+- Fixup the commit message for how the fix is made.
+- Do the validation with min_region_sz-aligned addresses.
 
-diff --git a/drivers/hid/hid-cp2112.c b/drivers/hid/hid-cp2112.c
-index 04379db93571..f2988659a5cb 100644
---- a/drivers/hid/hid-cp2112.c
-+++ b/drivers/hid/hid-cp2112.c
-@@ -1430,6 +1430,12 @@ static int cp2112_raw_event(struct hid_device *hdev, struct hid_report *report,
+FYI, this fix cannot be applied as is to the commit that introduced this
+class of bugs, because damon_set_regions() was introduced after the bug.
+I considered making three fixes for each caller to make the backporting
+on the old kernels easy.  However, the first LTS kernel having the bug
+is 6.1.y, which has damon_set_regions() and all the callers are using
+it.  So porting this to necessary stable kernels should be easy enough.
+
+ mm/damon/core.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index d99f7a297fdde..949d5309d54d3 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -356,6 +356,12 @@ int damon_set_regions(struct damon_target *t, struct damon_addr_range *ranges,
+ 	unsigned int i;
+ 	int err;
  
- 	switch (data[0]) {
- 	case CP2112_TRANSFER_STATUS_RESPONSE:
-+		if (size < sizeof(*xfer)) {
-+			dev->xfer_status = -EMSGSIZE;
-+			atomic_set(&dev->xfer_avail, 1);
-+			break;
-+		}
++	for (i = 0; i < nr_ranges; i++) {
++		if (ALIGN_DOWN(ranges[i].start, min_region_sz) >=
++				ALIGN(ranges[i].end, min_region_sz))
++			return -EINVAL;
++	}
 +
- 		hid_dbg(hdev, "xfer status: %02x %02x %04x %04x\n",
- 			xfer->status0, xfer->status1,
- 			be16_to_cpu(xfer->retries), be16_to_cpu(xfer->length));
-@@ -1463,6 +1469,12 @@ static int cp2112_raw_event(struct hid_device *hdev, struct hid_report *report,
- 		atomic_set(&dev->xfer_avail, 1);
- 		break;
- 	case CP2112_DATA_READ_RESPONSE:
-+		if (size < 3 || data[2] > size - 3) {
-+			dev->read_length = 0;
-+			atomic_set(&dev->read_avail, 1);
-+			break;
-+		}
-+
- 		hid_dbg(hdev, "read response: %02x %02x\n", data[1], data[2]);
- 
- 		dev->read_length = data[2];
-@@ -1494,4 +1506,3 @@ module_hid_driver(cp2112_driver);
- MODULE_DESCRIPTION("Silicon Labs HID USB to SMBus master bridge");
- MODULE_AUTHOR("David Barksdale <dbarksdale@uplogix.com>");
- MODULE_LICENSE("GPL");
--
+ 	/* Remove regions which are not in the new ranges */
+ 	damon_for_each_region_safe(r, next, t) {
+ 		for (i = 0; i < nr_ranges; i++) {
+
+base-commit: a5e5bb743e4c174689e5d57b25fa8c78c49546e8
 -- 
-2.54.0
-
+2.47.3
