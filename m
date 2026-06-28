@@ -1,22 +1,22 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60C926A1C4;
-	Sun, 28 Jun 2026 03:53:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18956246BD6;
+	Sun, 28 Jun 2026 03:55:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782618837; cv=none; b=KNJvTwP3G0R8rmwxruxyKc6/SqBMTwuqe+O7iNsuOO+CuQBtKe82yj9hlkNIJtcn1M8D962NmDS3IhCD5kj/V19jM4iRaIAoLM6OQ8QKu1daVzmbQsU2KFo2gYnb1RNqZcp/1tWuzd0s+hz9JnuqsOYwmHcU8khGSbTt4PRIV20=
+	t=1782618903; cv=none; b=uWgythBsyiilide1+njwtFW7/f/Yay9sxeir9ndg4QabA6yhZvaacKZFpFdywkFarG1RFJh20Pge+Mag8LV5EjPNKfguoVROeo3FI9Xdy4CtJbMCHmY9d/kZMSSeCqcqn2bP/pUNGj6XWUmUdPf96aJptLxj6YKAnxKkgMLOaAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782618837; c=relaxed/simple;
-	bh=9igWnYevIDt9qipy/yI1lZQ4qtJOMWjzGwopn0a5yhQ=;
+	s=arc-20240116; t=1782618903; c=relaxed/simple;
+	bh=ZBWsD4DBFr8YBhC5UscRyxSTFoMhf1X4utlgF5zm6d4=;
 	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=TR2wCOQCSuwDasZX4eVo+MIax4j4EE6YbFJXdKckFPQmZNr5aE93pFHdhtCNiKW3Qw2kkMDcin1bZC6LGtRxyI93gSER3ZpGIeV68LPTh59SrWOPK+5TaeCG/4yWp0ZSzy0q++9MUSKaw870wGioP9IrhGxvT7+KWhgDmdI77cY=
+	 Message-Id:References:To; b=EdkYkjjBgoAdxKXn9xBPM/skUd7qjojwlkvGPKs9DJHBUQj5RbXK257giE575b9/j65zaslYaNcplZzZqi4w8lczEhda38BDKKbVDNrBA1F/UAh/VWl24YEMiLI3+v0Bc+3H0EO9HsJ8HkPHl+yUn8inwm9Nw44tuorERzZyKhA=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from smtpclient.apple (unknown [117.182.74.7])
-	by APP-01 (Coremail) with SMTP id qwCowAA33NRbmkBqExKqAw--.34181S9;
-	Sun, 28 Jun 2026 11:53:52 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowADXfdYKm0BqqCuqAw--.7249S2;
+	Sun, 28 Jun 2026 11:54:51 +0800 (CST)
 Content-Type: text/plain;
 	charset=utf-8
 Precedence: bulk
@@ -25,74 +25,85 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH] fix: edac: edac_device_create_instance: main_kobj
- reference leaked on   success and block-creation error paths
+Subject: Re: [PATCH] fix: drm/display: drm_dp_mst_topology_mgr_set_mst: error
+ path after DPCD   write failure leaks MST branch device reference
 From: WenTao Liang <vulab@iscas.ac.cn>
-In-Reply-To: <20260626123523.36166-1-vulab@iscas.ac.cn>
-Date: Sun, 28 Jun 2026 11:53:42 +0800
-Cc: linux-edac@vger.kernel.org,
+In-Reply-To: <20260626125117.37153-1-vulab@iscas.ac.cn>
+Date: Sun, 28 Jun 2026 11:54:40 +0800
+Cc: dmitry.baryshkov@oss.qualcomm.com,
+ kees@kernel.org,
+ liviu.dudau@arm.com,
+ suraj.kandpal@intel.com,
+ dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <74C6D5CB-0855-4996-AB54-50B38B2681FE@iscas.ac.cn>
-References: <20260626123523.36166-1-vulab@iscas.ac.cn>
-To: bp@alien8.de,
- tony.luck@intel.com
+Message-Id: <74B9C429-5BBD-492D-B4D1-ABE168D68D14@iscas.ac.cn>
+References: <20260626125117.37153-1-vulab@iscas.ac.cn>
+To: maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org,
+ tzimmermann@suse.de,
+ airlied@gmail.com,
+ simona@ffwll.ch
 X-Mailer: Apple Mail (2.3826.700.81.1.8)
-X-CM-TRANSID:qwCowAA33NRbmkBqExKqAw--.34181S9
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFy3XF47GryfGFWkur4kZwb_yoW8GrW5pr
-	43Jw47AFW7Kw4Ika1DAF48WFyFg39Ik3y8CF1Fy3yIgr1DJFy7XryvqFZrWF1rArZ7Ca1a
-	qanrGw1rJFs8uFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBCb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
-	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI
-	8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2
-	z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2
-	IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4U
-	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtw
-	CF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j
-	6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64
-	vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42
-	IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcl1vUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggMA2pAhrYhmgAAsg
+X-CM-TRANSID:qwCowADXfdYKm0BqqCuqAw--.7249S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uF4DKw17WFWkKF4ftF4fXwb_yoW8Xw47pr
+	W2kry2yr93JanFyr4UZF18WFWUKa9xAryrGF4UWw4fWw1UAr18Wa48tF1aqF17ArW2kr1f
+	twsrCF18GF1qkaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9jb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4
+	vEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJV
+	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka
+	0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
+	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+	1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIx
+	AIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7IU8Y2NJUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUMA2pAixEZuAACse
 
 
 
-> 2026=E5=B9=B46=E6=9C=8826=E6=97=A5 20:35=EF=BC=8CWenTao Liang =
+> 2026=E5=B9=B46=E6=9C=8826=E6=97=A5 20:51=EF=BC=8CWenTao Liang =
 <vulab@iscas.ac.cn> =E5=86=99=E9=81=93=EF=BC=9A
 >=20
-> kobject_get(&edac_dev->kobj) acquires a reference on main_kobj, but it =
-is
->  only released when kobject_init_and_add fails. The success path and =
-the
->  block-creation error path both return without calling
->  kobject_put(main_kobj), leaking the edac_dev kobject reference. The
->  main_kobj pointer is local and lost after function return.
+> drm_dp_add_mst_branch_device initializes mstb with refcount 1, and
+>  drm_dp_mst_topology_get_mstb increments it to 2. When
+>  drm_dp_dpcd_write_byte fails, out_unlock performs only one
+>  drm_dp_mst_topology_put_mstb, leaving the other reference stored in
+>  mgr->mst_primary. Since MST was not successfully enabled, no disable =
+path
+>  will clean it up.
 >=20
 > Cc: stable@vger.kernel.org
-> Fixes: c10997f6575f ("Kobject: convert drivers/* from =
-kobject_unregister() to kobject_put()")
+> Fixes: 7a3cbf590e63 ("drm/mst: Some style improvements in =
+drm_dp_mst_topology_mgr_set_mst()")
 > Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 > ---
-> drivers/edac/edac_device_sysfs.c | 1 +
-> 1 file changed, 1 insertion(+)
+> drivers/gpu/drm/display/drm_dp_mst_topology.c | 4 +++-
+> 1 file changed, 3 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/drivers/edac/edac_device_sysfs.c =
-b/drivers/edac/edac_device_sysfs.c
-> index b1c2717cd023..72b06d608b98 100644
-> --- a/drivers/edac/edac_device_sysfs.c
-> +++ b/drivers/edac/edac_device_sysfs.c
-> @@ -647,6 +647,7 @@ static int edac_device_create_instance(struct =
-edac_device_ctl_info *edac_dev,
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c =
+b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> index 8757972e8e24..db9441c80cd5 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -3679,8 +3679,10 @@ int drm_dp_mst_topology_mgr_set_mst(struct =
+drm_dp_mst_topology_mgr *mgr, bool ms
+> 					     DP_MST_EN |
+> 					     DP_UP_REQ_EN |
+> 					     DP_UPSTREAM_IS_SRC);
+> -		if (ret < 0)
+> +		if (ret < 0) {
+> +			mgr->mst_primary =3D NULL;
+> 			goto out_unlock;
+> +		}
 >=20
-> 	/* error unwind stack */
-> err_release_instance_kobj:
-> +	kobject_put(main_kobj);
-> 	kobject_put(&instance->kobj);
->=20
-> err_out:
+> 		/* Write reset payload */
+> 		drm_dp_dpcd_clear_payload(mgr->aux);
 > --=20
 > 2.39.5 (Apple Git-154)
 
