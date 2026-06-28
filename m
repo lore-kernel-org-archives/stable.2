@@ -1,54 +1,43 @@
-Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFF523BD1B;
-	Sun, 28 Jun 2026 17:24:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.250.56.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 396DD1531E8;
+	Sun, 28 Jun 2026 17:45:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782667446; cv=none; b=g33qAI2nkFOzjbsn4+YkLbWwTGXj1yqHe2xi3km24hdVnZf7IsaIuMhDDhNasHuXGPJsoJdosgRPqQtp6mgkFxGOX9CJwbiwsBkf1iYQZXSwLi5qq0G3LWFxNpMkkNqeug1TLFzgtTq80pWxotN8db14SLXYhDRaec9jFFlWVqo=
+	t=1782668715; cv=none; b=VzYSYZwlp4FGLj/LXIjH9qZG72ynUDAbFD7lR/swKQwW83EjKU+JjkFaNVEJHuSvHBnd7Ks7ygSIfUyAVW2XWEa2t9aYw5K/2G5J7mpWEJXCIc3nmCCYrEhioTzwA5iq1NzVptNNYXBZiyEtwdcymlWqhoRvw0zqeJ6RapyYRwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782667446; c=relaxed/simple;
-	bh=m/JFcdNqXAlOb67qP11H0qB+sU69+zhGRiDPVdVITes=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P7FB0EQ1GkjF6a9RUJjShhBLMuY3VThfX+OpbIJYh4nT2cvg7W9TEYb2CjTTk/4FUFZj5bse6hBQU0bUMR0sPAVVGzXA9GtrCk8fV3caQwEJjIy70RCJG3Yh4ybrde+DOzXD1SgqLWVJFqy7sFcMec+VfADhstiu0MVAsNELelg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru; spf=pass smtp.mailfrom=ideco.ru; dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.b=bypqMA9Y; arc=none smtp.client-ip=51.250.56.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.b="bypqMA9Y"
-Received: from [169.254.254.254] (localhost [127.0.0.1])
-	by smtp.ideco.ru (Postfix) with ESMTP id C04EB10118D6;
-	Sun, 28 Jun 2026 22:14:05 +0500 (+05)
-Received: from fedora.. (unknown [193.168.176.213])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.ideco.ru (Postfix) with ESMTPSA id 7E11D1011629;
-	Sun, 28 Jun 2026 22:13:59 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 7E11D1011629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
-	t=1782666844; bh=w8+eO+UV6N5/meMNXwHwUho8i2+aCYEdL8tBame8cA0=;
-	h=From:To:Cc:Subject:Date;
-	b=bypqMA9YCHJYScmxlhE1yBy4UtBmfJBR77B+e4CSPpb3tGceF29D8tqiNZ7XnVKfu
-	 XVwYF/lGtHlYvHnW0RCZkz9HQ7f2RUIfU/RLoOP6g9mkF8bdPwH8esrn73jO6ut0dJ
-	 6GdsGpJR42npJG1MgzlSjf/dPpumolYhEHdEbfXie6+zINSn+DvWhwTwZoFvRCbl2M
-	 ZJDXbzzA/BH3k9FVkxqcWKDJAh1ktsKEMHq6so33s3+xj97Ktkn6G6y8CBwDhO81vH
-	 i8wEusJhSewsoKSuolQG5kTZ4ilCEnJP+1iEqW6LDppWlYj4GTRjKIxMsb1KxQySi+
-	 KqciT4+HRi/BA==
-From: Petr Vaganov <p.vaganov@ideco.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Petr Vaganov <p.vaganov@ideco.ru>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Tejun Heo <htejun@gmail.com>,
-	linux-scsi@vger.kernel.org,
+	s=arc-20240116; t=1782668715; c=relaxed/simple;
+	bh=k+F/+3LgpveYbZ7cPWi4gj6oKSTw1m+Vdzon0wGmV/Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U9tGbsgiegMq6f+pIHkVIeFGyFuc1WQyka/eCCIUfcFe8jaj7CFpoWplRFieTW39GWoBaoIwNYo4AcVwsGOdfJSrTin820QkhC3OM1ANyz9DiMc7MZr3idaWuo8DirMu0nSx1Ie9wdCyEZErcdkQBxqn13oXzDDsw6kkS8AKMeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFDA41F000E9;
+	Sun, 28 Jun 2026 17:45:09 +0000 (UTC)
+From: Danilo Krummrich <dakr@kernel.org>
+To: gregkh@linuxfoundation.org,
+	rafael@kernel.org,
+	dakr@kernel.org,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	lyude@redhat.com
+Cc: driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH v3] scsi: fill in DMA padding bytes in scsi_alloc_sgtables
-Date: Mon, 29 Jun 2026 00:13:44 +0700
-Message-ID: <20260628171348.8613-1-p.vaganov@ideco.ru>
-X-Mailer: git-send-email 2.49.0
+	rust-for-linux@vger.kernel.org,
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] rust: devres: fix race between concurrent revokers
+Date: Sun, 28 Jun 2026 19:44:38 +0200
+Message-ID: <20260628174451.2275679-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,92 +46,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-During fuzz testing, the following issue was discovered:
+There is a potential race condition when two paths try to revoke a
+Devres concurrently.
 
-BUG: KMSAN: uninit-value in __dma_map_sg_attrs+0x217/0x310
- __dma_map_sg_attrs+0x217/0x310
- dma_map_sg_attrs+0x4a/0x70
- ata_qc_issue+0x9f8/0x1420
- __ata_scsi_queuecmd+0x1657/0x1740
- ata_scsi_queuecmd+0x79a/0x920
- scsi_queue_rq+0x4472/0x4f40
- blk_mq_dispatch_rq_list+0x1cca/0x3ee0
- __blk_mq_sched_dispatch_requests+0x458/0x630
- blk_mq_sched_dispatch_requests+0x15b/0x340
- __blk_mq_run_hw_queue+0xe5/0x250
- __blk_mq_delay_run_hw_queue+0x138/0x780
- blk_mq_run_hw_queue+0x4bb/0x7e0
- blk_mq_sched_insert_request+0x2a7/0x4c0
- blk_execute_rq+0x497/0x8a0
- sg_io+0xbe0/0xe20
- scsi_ioctl+0x2b36/0x3c60
- sr_block_ioctl+0x319/0x440
- blkdev_ioctl+0x80f/0xd70
- __se_sys_ioctl+0x219/0x420
- __x64_sys_ioctl+0x93/0xe0
- x64_sys_call+0x1d6c/0x3ad0
- do_syscall_64+0x4c/0xa0
- entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+The driver core's devres_release_all() calls Revocable::revoke() via the
+release callback, while Devres::drop() calls revoke_nosync() on another
+CPU.
 
-Uninit was created at:
- __alloc_pages+0x5c0/0xc80
- alloc_pages+0xe0e/0x1050
- blk_rq_map_user_iov+0x2b77/0x6100
- blk_rq_map_user_io+0x2fa/0x4d0
- sg_io+0xad6/0xe20
- scsi_ioctl+0x2b36/0x3c60
- sr_block_ioctl+0x319/0x440
- blkdev_ioctl+0x80f/0xd70
- __se_sys_ioctl+0x219/0x420
- __x64_sys_ioctl+0x93/0xe0
- x64_sys_call+0x1d6c/0x3ad0
- do_syscall_64+0x4c/0xa0
- entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+The revoker that does not claim the is_available swap returns
+immediately, but the revoker that did may still be executing
+drop_in_place() on the inner data. This can cause a use-after-free when
+the other revoker's caller proceeds to drop adjacent resources that
+drop_in_place() still references (e.g., Devres<DmaMappedSgt> racing with
+SGTable freeing the backing sg_table and pages).
 
-Bytes 14-15 of 16 are uninitialized
-Memory access of size 16 starts at ffff88800cbdb000
+Fix this by adding a Completion. The release callback signals the
+Completion after revoke() finishes, and Devres::drop() waits for it when
+it loses the is_available swap. This ensures the wrapped object is fully
+torn down before Devres::drop() returns.
 
-When processing the last unaligned element of the scatterlist,
-it is supplemented with missing bytes in the amount of pad_len.
-These bytes remain uninitialized, which leads to a problem.
-
-Add zeroing pad_len bytes of padding by pad_offset offset before
-increasing its length. This ensures that the DMA does not receive
-uninitialized data and eliminates the KMSAN warning.
-
-In this case, the pages are not located in highmem, but in the
-general case they might be, so kmap_local_page() is used for mapping.
-
-Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
-
-Fixes: 40b01b9bbdf5 ("block: update bio according to DMA alignment padding")
 Cc: stable@vger.kernel.org
-Signed-off-by: Petr Vaganov <p.vaganov@ideco.ru>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/dri-devel/20260612202841.2577C1F000E9@smtp.kernel.org/
+Fixes: 05aa6fb1c21d ("rust: scatterlist: Add abstraction for sg_table")
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
-v2: Added tag "Cc: stable@vger.kernel.org".
-v3: Resending this patch as the issue is still present in the current
-kernel and the previous submission did not receive review.
----
- drivers/scsi/scsi_lib.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ rust/kernel/devres.rs | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/scsi/scsi_lib.c b/drivers/scsi/scsi_lib.c
-index 22e2e3223..c75b86059 100644
---- a/drivers/scsi/scsi_lib.c
-+++ b/drivers/scsi/scsi_lib.c
-@@ -1187,6 +1187,11 @@ blk_status_t scsi_alloc_sgtables(struct scsi_cmnd *cmd)
- 	if (blk_rq_bytes(rq) & rq->q->limits.dma_pad_mask) {
- 		unsigned int pad_len =
- 			(rq->q->limits.dma_pad_mask & ~blk_rq_bytes(rq)) + 1;
-+		unsigned int pad_offset = last_sg->offset + last_sg->length;
-+		void *vaddr = kmap_local_page(sg_page(last_sg));
-+
-+		memset(vaddr + pad_offset, 0, pad_len);
-+		kunmap_local(vaddr);
+diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+index 11ce500e9b76..11d862f1e6de 100644
+--- a/rust/kernel/devres.rs
++++ b/rust/kernel/devres.rs
+@@ -21,7 +21,8 @@
+     sync::{
+         aref::ARef,
+         rcu,
+-        Arc, //
++        Arc,
++        Completion, //
+     },
+     types::{
+         ForeignOwnable,
+@@ -37,6 +38,8 @@ struct Inner<T> {
+     node: Opaque<bindings::devres_node>,
+     #[pin]
+     data: Revocable<T>,
++    #[pin]
++    revocation: Completion,
+ }
  
- 		last_sg->length += pad_len;
- 		cmd->extra_len += pad_len;
--- 
-2.49.0
+ /// This abstraction is meant to be used by subsystems to containerize [`Device`] bound resources to
+@@ -53,6 +56,10 @@ struct Inner<T> {
+ /// After the [`Devres`] has been unbound it is not possible to access the encapsulated resource
+ /// anymore.
+ ///
++/// When a [`Devres`] is dropped, it is guaranteed that `T` has been fully dropped by the time
++/// [`Devres::drop`] returns, even if a concurrent revocation through the release callback is in
++/// progress.
++///
+ /// [`Devres`] users should make sure to simply free the corresponding backing resource in `T`'s
+ /// [`Drop`] implementation.
+ ///
+@@ -217,6 +224,7 @@ pub fn new<E>(dev: &Device<Bound>, data: impl PinInit<T, E>) -> Result<Self>
+                     };
+                 }),
+                 data <- Revocable::new(data),
++                revocation <- Completion::new(),
+             }),
+             GFP_KERNEL,
+         )?;
+@@ -254,7 +262,9 @@ fn data(&self) -> &Revocable<T> {
+         // SAFETY: `inner` is a valid `Inner<T>` pointer.
+         let inner = unsafe { &*inner };
+ 
+-        inner.data.revoke();
++        if inner.data.revoke() {
++            inner.revocation.complete_all();
++        }
+     }
+ 
+     #[allow(clippy::missing_safety_doc)]
+@@ -361,6 +371,10 @@ fn drop(&mut self) {
+                 // this additional reference count.
+                 drop(unsafe { Arc::from_raw(Arc::as_ptr(&self.inner)) });
+             }
++        } else {
++            // The release callback is concurrently revoking; wait for it to finish
++            // `drop_in_place()` of the wrapped object before returning.
++            self.inner.revocation.wait_for_completion();
+         }
+     }
+ }
 
+base-commit: 0716f9b9338a86dd27796e00ed0fd560c653323a
+-- 
+2.54.0
 
