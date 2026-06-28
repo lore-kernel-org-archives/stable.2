@@ -1,154 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6163B2FF7;
-	Sun, 28 Jun 2026 14:55:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637F9285CB4;
+	Sun, 28 Jun 2026 15:00:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782658523; cv=none; b=dQOEH8cgoJet6cyquhh23npkEWTh2typ3MGTKscXJM4oEgkeNMEMZ7yil2/gaklORaPpexd08ZMBFG2+8FAJ0fKgg7bAl6BJYwua+te3qNcXHPxU8Tzql7F8iR97GLdjoh3XHamdN5xXUvER2/NRppHmWnbTCDXXkFu9HHg5EMo=
+	t=1782658827; cv=none; b=lY9EsozfGAFXDKgtgJklPN1ljdy++BgxIiFBAZlCqJAmTOmOuUNxDgObNpGonkRsA8fW3eHFIjRVa3r5eLi9ZsdvGnSe2vW/elaKZurXG7zlpJzh0XXp/QTuiH3y9Ru0rypWxvIn50zYr5zrBpfwhw6QTbmcFpvJBRKMOZvs8S0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782658523; c=relaxed/simple;
-	bh=xpCmf38i1pBhocoiA/RjuZiHG5Vq4rHQ+04hm0s8gMU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ao1iVl4fgjwT3b00QbxWDDCTQ3cfQzF67YlKweO0ad7JGtdQxH2vcjFUJxahkkLMfDrW0cIQuOQnAVJYRFT9mccR9nhGbepZnqJ3yOh2ZVjLVWp9MhCZrwAs70LV8ej5/jFenyxHWRZSSdPWxHsWMHCIpFBf2XvuZOlLLhXCMyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kJfRY9o5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782658827; c=relaxed/simple;
+	bh=3nb9x50QeQukZeepbU840NET0fs+dg7PIwaau3wNlE8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Xgg9+4AiDuyLD5UGH/RKCjY2/z+8lJk/mbivJRSqEk5hXkR2XsL9INo2yvuQioT/LgpZDsaEzCKyueHzDZBsARQ8Q8pj9DFgVnPluc8Hh5eCUqeNwl4JbKwuB61VG5g1gtN96A+vI4DFuVhdDfX/J7/J8isybmZ5LVAirE7Km7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HitqphoV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kJfRY9o5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A69D1F00A3A;
-	Sun, 28 Jun 2026 14:55:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HitqphoV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C503F1F000E9;
+	Sun, 28 Jun 2026 15:00:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782658522;
-	bh=pK3wmBFyvbIR4po+L1VPow88KO+kJdxcXPWuOXcUG7w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kJfRY9o5wU2Z6uYCKD+Qn/003m+rkRzr8vIijbk1ooMgkVZovQ/LJ6sztnGUPZsVS
-	 umRCGXauMKUTc3LghmNRpbGIzuDYw5aX85bEomiW678ZrAAJqABddf9DoWp3WR3Dbn
-	 B2d9hLbr3TZHX0zFXK5O1/EwBziS65Gw9JJvpZlSArjFUpKTcG7U8T8alHQ4XYYKqB
-	 u4gJdsuG/w+UC4HBhgKAad18hFyMa0EhoerDDmYb9OWFCnwHUfpucyv2B8LkN2T/wY
-	 uIMS3Ercu2YEVrPghhVCXwI5xYaDWt3QHtG47VcadZRMKy8lO95Ag1W7xSJXCIpx/z
-	 iMfwQbOpMK0AQ==
-From: Danilo Krummrich <dakr@kernel.org>
-To: dakr@kernel.org,
-	aliceryhl@google.com,
-	daniel.almeida@collabora.com,
-	acourbot@nvidia.com,
-	ecourtney@nvidia.com,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	tmgross@umich.edu,
-	deborah.brouwer@collabora.com,
-	boris.brezillon@collabora.com,
-	lyude@redhat.com
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org,
-	stable@vger.kernel.org,
-	sashiko-bot@kernel.org
-Subject: [PATCH v5 16/19] drm: fix race between partial drm_dev_register() failure and ioctl
-Date: Sun, 28 Jun 2026 16:53:36 +0200
-Message-ID: <20260628145406.2107056-17-dakr@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260628145406.2107056-1-dakr@kernel.org>
-References: <20260628145406.2107056-1-dakr@kernel.org>
+	s=k20260515; t=1782658826;
+	bh=v3wY4QK+cvFJBzhQbi9vqDdJNzGAUNzTTPvyQRTv9DE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HitqphoVUdspjJgIJz8jcBA7ODQxDzrUQuopb0sGPYESnzimlYud0GzOq39/gNG1I
+	 HqxIy2ic6ku7BYJpoJwcDf6joo16R12sUEO5z8iv9BZnl13w/hoyk/tDZJrCi1PyMk
+	 /iUnwIW1t13mdQ6aD/Ot1g2bylKN8VHXe1TDS1wQObFhasky6zLsSBI57RAqfDxx6y
+	 hZg4Tz55me4wh9rFX3NzAReGX9hkVNT5iWYo2IW0ljptQ6sUEnklxM1s+QmTUalFv1
+	 scItLherAM3TL8JchPyk8gUglqIzIQPjUaDBQ2N5ZM3mJ622O4xi4gcalNzG9/fI4J
+	 XnrDTM1FOuZRw==
+Message-ID: <52e21bac-b560-4bcf-b78a-9ae482837450@kernel.org>
+Date: Sun, 28 Jun 2026 17:00:19 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] clk/samsung: fix parent clock refcount leak in
+ exynos_clkout_probe
+To: WenTao Liang <vulab@iscas.ac.cn>, s.nawrocki@samsung.com,
+ cw00.choi@samsung.com, mturquette@baylibre.com, sboyd@kernel.org
+Cc: alim.akhtar@samsung.com, bmasney@redhat.com,
+ linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Greg KH <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+References: <20260628125422.45267-1-vulab@iscas.ac.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260628125422.45267-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-If drm_dev_register() fails after registering a minor (e.g. render minor
-registered, primary minor fails), userspace could have opened the first
-minor and entered a drm_dev_enter() critical section. Since the
-unplugged flag was never set, the ioctl proceeds while the error path
-tears down device resources.
+On 28/06/2026 14:54, WenTao Liang wrote:
+> of_clk_get_by_name() acquires clock references stored in the local
+> parents[] array. All error paths correctly release these via the clks_put
+> label, but the success path returns 0 without releasing the parent
+> references. The references were only needed to obtain clock names for
+> registration and are permanently leaked after probe completes.
+> 
+> Suggested-by: Greg KH <gregkh@linuxfoundation.org>
 
-Fix this by introducing drm_dev_synchronize_unplug(), which sets the
-unplugged flag and waits for the SRCU barrier, ensuring all in-flight
-drm_dev_enter() critical sections complete before cleanup proceeds; call
-it on the error path of drm_dev_register().
+What was suggested by Greg?
 
-Fixes: bee330f3d672 ("drm: Use srcu to protect drm_device.unplugged")
-Cc: stable@vger.kernel.org
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260620190648.2E9F61F000E9@smtp.kernel.org/
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- drivers/gpu/drm/drm_drv.c | 34 +++++++++++++++++++++++++---------
- 1 file changed, 25 insertions(+), 9 deletions(-)
+> Fixes: 9484f2cb8332 ("clk: samsung: exynos-clkout: convert to module driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+> ---
+> Changes in v2:
+> - Fix patch format based on reviewer feedback
 
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 675675480da4..e890052061f3 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -473,6 +473,22 @@ void drm_dev_exit(int idx)
- }
- EXPORT_SYMBOL(drm_dev_exit);
- 
-+/*
-+ * Mark the device as unplugged and wait for any in-flight drm_dev_enter()
-+ * critical sections to complete.
-+ */
-+static void drm_dev_synchronize_unplug(struct drm_device *dev)
-+{
-+	/*
-+	 * After synchronizing any critical read section is guaranteed to see
-+	 * the new value of ->unplugged, and any critical section which might
-+	 * still have seen the old value of ->unplugged is guaranteed to have
-+	 * finished.
-+	 */
-+	dev->unplugged = true;
-+	synchronize_srcu(&drm_unplug_srcu);
-+}
-+
- /**
-  * drm_dev_unplug - unplug a DRM device
-  * @dev: DRM device
-@@ -485,15 +501,7 @@ EXPORT_SYMBOL(drm_dev_exit);
-  */
- void drm_dev_unplug(struct drm_device *dev)
- {
--	/*
--	 * After synchronizing any critical read section is guaranteed to see
--	 * the new value of ->unplugged, and any critical section which might
--	 * still have seen the old value of ->unplugged is guaranteed to have
--	 * finished.
--	 */
--	dev->unplugged = true;
--	synchronize_srcu(&drm_unplug_srcu);
--
-+	drm_dev_synchronize_unplug(dev);
- 	drm_dev_unregister(dev);
- 
- 	/* Clear all CPU mappings pointing to this device */
-@@ -1091,6 +1099,7 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
- 		goto err_minors;
- 
- 	dev->registered = true;
-+	dev->unplugged = false;
- 
- 	if (driver->load) {
- 		ret = driver->load(dev, flags);
-@@ -1118,6 +1127,13 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
- 	if (dev->driver->unload)
- 		dev->driver->unload(dev);
- err_minors:
-+	/*
-+	 * If a minor was registered before the failure, userspace could have
-+	 * opened it and entered a drm_dev_enter() critical section. Ensure all
-+	 * such sections complete before we clean up.
-+	 */
-+	drm_dev_synchronize_unplug(dev);
-+
- 	remove_compat_control_link(dev);
- 	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
- 	drm_minor_unregister(dev, DRM_MINOR_PRIMARY);
--- 
-2.54.0
+So what is happening here with LLM?
 
+
+Best regards,
+Krzysztof
