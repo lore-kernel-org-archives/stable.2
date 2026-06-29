@@ -1,68 +1,72 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013015.outbound.protection.outlook.com [40.107.162.15])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013068.outbound.protection.outlook.com [40.107.159.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E560837207F;
-	Mon, 29 Jun 2026 14:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608BB3BED7F;
+	Mon, 29 Jun 2026 14:34:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.68
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782742509; cv=fail; b=s9qtFwjgnwr1WNa1E/Km0EBmShHN7z4M485KzJGdZ7g9nBvScVwlXhHZ+1NJxR5i7z2//PJyuXBxoIKtNkumrQxllcTaqiWYNgGzoU6T6z6U8gBGOtY9q1YfZyxkjQu9Z1bM8LpJTu6VQTA6rICmjzoiAUIwNPnoNmS9slEAWBQ=
+	t=1782743643; cv=fail; b=coRX0SRFXM4FjwRA5HZ7VvNV7eyHsgFdrlCSZs45eY8ItedyQ98BAveWuTwcfDpbVCJ5DTnY3Bo/Vs+mJslRGZUA/y2nRS4CRrPIlQw4B2ojGQrIL1sTzVih6YKB2BWMDNE1yLD9qz8MZIBlv6Y79jMIcA9cYeRlbz5Av4JgyI8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782742509; c=relaxed/simple;
-	bh=W2Ygi4IwIqUboPeTl2bOt7w9PbnZf6x8a4Dvargf1Bk=;
+	s=arc-20240116; t=1782743643; c=relaxed/simple;
+	bh=n/C8dwd6ucTluWwkibjtT8qzowRF9OrsVmVpQTLzqZE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=S12zSzpQM61qhIj1I7qALCb3eUgVxX6M5rKtwx66+R0J6IHChkWKmk0TayjjLt7c3aKg6B3oBB5HNKIU9UdN9xGwH2DoOYZS4X2gcwoVL9f9IJIqXyO1hJ7bmWuFCU3G4nmL9SWWHH1HvAvUz+KeZHun9x3pmcCJiU+XzgBLurY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=rebjZIY/; arc=fail smtp.client-ip=40.107.162.15
+	 Content-Disposition:In-Reply-To:MIME-Version; b=PrlLnRWl1sVOQXV/wijyV95Y5k+0YkwAnjdSooBT2OuEeYcFDEvX/UZSanj67MVeUwNPtb5s12J0jmszhZdVWW8DYcY2k4VTB60N7mxQQz4Sd0p863RM85Ead39vAH1XCTt52ISyxvGi+5JvCM9pcIGWwKoB7FXNloVwwgkjdLc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=jh2potoc; arc=fail smtp.client-ip=40.107.159.68
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="rebjZIY/"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="jh2potoc"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eZeNNqtph8V0foAUVZOZE3TA/IUtIR7jhR1hnxPQjZXsJk9As9z73S1a+bj+q1dujTZTtu+LP4PRmSKPc+W1bTVbxJ0XKrUBaInGpSj0SDCacu1A0Bq089X28C5vvjp2+Qo0GKMmDGj9o/m0GLtwJnbRgbVtqrg5f0ON+6j2KcwgqdimF/Mwp/ThvUuBHtyqK7VMLkZ1JzzePo3Jf2koNWd56QUoFMCreTydaVDFHEpMrCJfqFx2hSj1nHLtKegiL97c8JDw4cKHZfeJzpT4zyC5O8W93fkxSCvY3hQyG/x92K9UCH/FLkaz31sqU0vnMlzcLA9Rjik7zWkz6mSRYA==
+ b=ankFUUDd2zVDXSysJ1RLQmLDcKsLetUA+xPEL6Obo21Hg5y4g16dFkziNBFulSp2IhYzR4MDbIR9WG9X+gr0MAxvalWXRc+CBe9d9qnai4Gk0EGBMEWu6rOf5QKnlNIv9aF3RlKvx9rluQblpn6n44TLH7AlpMm+h40v0WiLbrrG0+tYGbkubJkfZP41mIu9pEr67h19itCwtj4kNHIW7L9bATMmCDhLXNerJ1vXu5+4BKVogiOyUgAq9TkdeABBtAaCrtdB79joukOHLfCJDqKnWYkGZQYjvAfLCwLSOc34tYvCYWroxXkPday4azdbM2VbOdWO6TvXu4ChG4OEFw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AqQwvJZ7qa7PjIiEfI3D98kQxmbMHLEHz+JGvfbd088=;
- b=sNMwRGxcoogVZUgLEnqst4vS0soZ5m3H53E1QHqkATKYi2CgoCyxtPNgM+SHe87BNFbX+W0Bwtw4tgHREQMZDt5C9C+bJHQwbjAUoPLwGAhfIlroH0IuvxFfOZvwmTDxI8YABfjNuRN8MnD/kEuaawzjLma/7WUbZC5G8lnjxKMw0IlW5+JdR8QeyHfvv94mkAD4UM/KvfYvjOqLbwljxyDQ5x89SIQVyvVx72bu4Hnms2frS8OD1SGJ+4Of+PJrKIDO6YCq+DQyMKkWEkQJ/BlJoO19stOL1K40IUFNvtX4yKnCJEr5IqKMRyuJ6P+woasrG+LikAsbuddEbD7UGg==
+ bh=vOG08ktp7wHkzoKL7az/48HqMHIEBrltDzRccUL2f44=;
+ b=zNWcBwswrgsGInZtO9Uwi0DYhZI36ERtAPK5y/jM0edqBvpSyUsH5HJua1S9Ab+CABhWIclOnXcCkSHFi/o/C6dcmUzkwMZCDUc/+d1w03rJa9wq9CtUbupmC4gYmt18Gy8kNFj0+H86DBHKpRM3wLYvNqJcJhDliMXMFKjtOzBF7W6lmZEzd0CP06stXIFrHn/mEOQVkmH70lyQIqYjkPgcW7hgRlKUjdAGdrGXUF9B831Uc6DCQxNvDi8kLBH3fCuinhh/oc3eXuIpDFgDH/ABR/a59B2XqGuxDvjT3uHYjqLPepi+gKJIUkXJtKe5NQKuMz5iGM1PIBlvbrslSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AqQwvJZ7qa7PjIiEfI3D98kQxmbMHLEHz+JGvfbd088=;
- b=rebjZIY/q7UFPvrX68XHBvzDfjWYF20TZAvYgU33r8U4pd7ockKRKs0EihQp8kFFOHYCadKKVkgvieYaNLUDtDNbwlnQr6mXeEZ3Q3iGT0UhKu+APHKVIVFbz2+JuWZUXI7j8jLDabPnCSMPtGayoVajP7xfwmDPO25wQeoUOSgYLy2BEI4aJmLiGKpFB4TdN+IkxyyVBYs7/NZKZNoOMPjaIW2gD0eBOnuiLPgEnEqEzJKpsHs4VNLr+d1so2B4RhTGhvHWKao/E1Ebw0/WNs9LctGlhCdrm3y9Ar1+9HlUCwmJqYG5LnM/B0qBkCljgHBO33974QJfPBkcgGudfQ==
+ bh=vOG08ktp7wHkzoKL7az/48HqMHIEBrltDzRccUL2f44=;
+ b=jh2potoc5WP67ouM9sdTU+qLyeG7H+sbsnK/j5TehkszMF78+ZUqtBqXJCgbOhPoXYnZCuzZVaBztddbd4J72eFtOF3MmGZsIOGk1Sy4nDpca3HigiyuTdKVUeN0E/zHHL8gatYX9NxHv/nWXtJ7BXDxFAhIEV8enugoi0HqUhhdOQOkPDK4kQKFWY5/qdfTKPFzFqSHNzlzH9w1cMnwguVuND2OuEB82W5e4qrNPgd8hphsUgiR8oKbUFlVSixSi0m1SaZveKvim4a6dnlRb490OMnzbpk5q8jLIrDJ6QYDxR9AUh5RABJUat6MjuEUQZLjaM9YUWDZJZllDLP5Dw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM8PR04MB7217.eurprd04.prod.outlook.com (2603:10a6:20b:1db::19) with
+ by PA1PR04MB10627.eurprd04.prod.outlook.com (2603:10a6:102:48b::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 14:15:05 +0000
+ 2026 14:33:58 +0000
 Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
  ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
  ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 29 Jun 2026
- 14:15:04 +0000
-Date: Mon, 29 Jun 2026 09:14:53 -0500
+ 14:33:58 +0000
+Date: Mon, 29 Jun 2026 09:33:46 -0500
 From: Frank Li <Frank.li@oss.nxp.com>
-To: Liem <liem16213@gmail.com>
-Cc: carlos.song@oss.nxp.com, andi.shyti@kernel.org, biwen.li@nxp.com,
-	festevam@gmail.com, frank.li@nxp.com, imx@lists.linux.dev,
-	kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
-	o.rempel@pengutronix.de, s.hauer@pengutronix.de,
-	stable@vger.kernel.org, wsa@kernel.org,
-	Carlos Song <carlos.song@nxp.com>
-Subject: Re: [PATCH v4 2/2] i2c: imx: Cancel hrtimer before clearing slave
- pointer
-Message-ID: <akJ93egAq-F-t1xx@SMW015318>
-References: <AM0PR04MB6802B863CD9B9AE1609C1785E8EB2@AM0PR04MB6802.eurprd04.prod.outlook.com>
- <20260629023829.152651-1-liem16213@gmail.com>
- <20260629023829.152651-3-liem16213@gmail.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Christian Hemp <c.hemp@phytec.de>,
+	Stefan Riedmueller <s.riedmueller@phytec.de>,
+	Jacopo Mondi <jacopo@jmondi.org>,
+	Dong Aisheng <aisheng.dong@nxp.com>,
+	Guoniu Zhou <guoniu.zhou@nxp.com>, linux-media@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/5] media: nxp: imx8-isi: Fix stream ID validation
+ bypass in crossbar routing
+Message-ID: <akKCSo-vZX9DF9lO@SMW015318>
+References: <20260629-isi-v1-0-deebfdb1b07b@oss.nxp.com>
+ <20260629-isi-v1-1-deebfdb1b07b@oss.nxp.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260629023829.152651-3-liem16213@gmail.com>
-X-ClientProxiedBy: PH1PEPF000132E4.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:518:1::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
+In-Reply-To: <20260629-isi-v1-1-deebfdb1b07b@oss.nxp.com>
+X-ClientProxiedBy: SA9P223CA0007.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:806:26::12) To GV2PR04MB11799.eurprd04.prod.outlook.com
  (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -71,97 +75,137 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7217:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85564bb0-6c68-4c83-62ef-08ded5e8d0b4
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB10627:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2057342-e861-4ea1-0521-08ded5eb7463
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|19092799006|23010399003|7416014|22082099003|18002099003|56012099006|11063799006|4143699003;
+ BCL:0;ARA:13230040|376014|19092799006|7416014|1800799024|366016|23010399003|3023799007|6133799003|5023799004|11063799006|4143699003|22082099003|18002099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	IMTTcNjvm0k+U2E0Rru94awp8ITAo/Gvfym70vz05pyDv5+n4DJCPmW3LrksZ7TIzBYXx2sAQbDV/eVXJ4kE01terKYvSlezWTmtsNFKz+022HKm7mDaI9tfIT7t42Ku7oPre1DCRwxAvW1//qxjCVtm49LD1dir5CmbOvWdA1II3oOHuHT/s/juPxmbeN9LVXYZtDC2RPh/E17ggnTt24XlptMQjWrH5b7N8wIKxY1peVuqsqteyUOY06iJtbZnSFIYj35Xu6zS4pttIovTpLC5Kddvk4UQFytOPh7jvmtrTxz2Tg+Z+/P/bSiTi6VoSZjd77JWudtHoh5nT4Cp3P4LXUGlvsxbAgepN9+aQrr1eTIxkQVbHakdMo3kazIAo9rCdqcvaYV812TtjAA5a3sxXpV+tFyEq22lQ+CweaBRLQZTDNcXShk2WvWtmAW3caXe4X/MQlCiz9/xEiRUzVF2BZZ7wVdEBfc2+H1u7g9m/CPXx9cy1Wdsw4EMUfYIsVjKoNO+XABIp1sRyTZx4X7drlQedH2iSAQMfl8Wts1R2VPIiXY88CuGnpP8iUNV5TXZnXBPoCXVpvyhdYy6oH7sJJydoCESALuR9N62Us8X2NO1Azx3c5JHbMGKYaMyJ2mhpq2PGQfGj25f8CKbzuTNc83VHgj1TD0aeAKIaKw=
+ +hS1d8h+FDaoYbgfTze4EtOCGMMnjs9jgOV9Wyof0rGIQaxo6aVQsrPfeYurpHcY9Bz5F2OcTpLkj5NiAqWRUvtPvE/tbbcI3NOGy8EtZdvnR2MUzJSoloAOiG0XOshChyu8VnaxPKYQl5CxgqH4xQCk+eHP6M2SpAGIC8ywsF7k4LM4UyhKspb98yOJj3dCpLifvlTTkuUONLTgqHVyLBVxZI5IzFNunSuTHlAoEEdsOl69XQ7GGZHHk2r0BLoIuypQXVH5Zpxn6g/AhjylypXxpXwDa0wliXMXODm5U33mom/00qeZUBf0shTj/puyqznRjwtzUQVLwcXwkNfKHQvoJ/yoa9XPvLQw+TIUGXKkFQyafGWBtn8X9XwQ+T4Q3fENks0rbsLmTA65nBou1Ra/GQoU+yloXv5U/KbAEP3rDllog6EEnQqxwEm1/dGB3JlPJnkeub3iwcJImceA+sWRuaU517KTU9q7OMA+GhqHnhpvdr8bUnGOKOJdJcGvCxybFxwyuYlhqLxArraL0KHAR9lZ9zUyx2tdZFZOgELhbYQaurgiDqMKJj4PGlGbjgYKrsJvwpbOz7t51nzzMYdnIHUEYxU8ZDN6XIl79EKf+IZktGUvI5Frw9vAxWx4zRmtAcuFFniURjsxsLm+bVIOUMo41r6Rk5s+eQcyP/8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(19092799006)(23010399003)(7416014)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(7416014)(1800799024)(366016)(23010399003)(3023799007)(6133799003)(5023799004)(11063799006)(4143699003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?BCJZnQ5YNvus81dGslMUYLvwFqGeuGgNHnj4TINx/73X0vK3ElqGtMjBpeWT?=
- =?us-ascii?Q?Jz+B3o9brPGdXw91QQV5LCFLE7RMvqAqqMsyo+QLFnzLr4EhZsNULtNtQ+rM?=
- =?us-ascii?Q?OZFoR6rwLckF0JZ3f68opryglYvORMYRY+WXikjaQjc2vC67nRVaRMcI6qfN?=
- =?us-ascii?Q?xfFzS9jJeRc3p1dRs1Pe4NAul39Oq4PT2wEuUPjTgviDczKVtjZFnw8fAjDc?=
- =?us-ascii?Q?2s/Ub1QxAuroLgT9Ep+1wpk+eYJpRjrlrtChjLWovyQ0A4qZaLn1adtMTDIA?=
- =?us-ascii?Q?nbppEQ8TcInXdDcPFE0ABiElu2f2o4z/wbNBCVFDPWAD57ejHg4IAz5tKwpi?=
- =?us-ascii?Q?F0RFiUbVGIcI8pQADqnyTLXlZwIVlnh5twcRCWwPfrojLh1ddRmK4vMr5Vyq?=
- =?us-ascii?Q?zrp7852hPOeeaixBqVi3D2gRs7P56/do4tbfgxamxABBkrq/oQxSzqJzjIWS?=
- =?us-ascii?Q?0YaJEW/G1npkpH+yriIv3aCpx2dPKOskZx0CXI1qQX9oepF6JoI9fEu52i76?=
- =?us-ascii?Q?Bv6xhQfbcwBEasfIWKBok9aY+CuSq4SDA7RRGmayH+FZ5FElBzn9PX+5wWiq?=
- =?us-ascii?Q?OPTDeNyiT4iBN60j7sV2tER2dCThtkxhU3nOdBUmum9akKqgjaGJc27nyuRG?=
- =?us-ascii?Q?Yiu8itzMy2l3XwfwEXJs+qRrWVsdgBb+iuETVrajtRJJkTYDDCs5XWrvJ+mq?=
- =?us-ascii?Q?GsRKxuG8a4HO1oqQ13RZr/opsnM4UybY5srlGjbN5gwHMqvlp7CyD2FAO5R0?=
- =?us-ascii?Q?3Wq5WyaZuaM/cUDDKkHi2yxp0ekZZ7qthRsJNFadO+YdfkpNh1HuoA0IeiAF?=
- =?us-ascii?Q?jjotbgTrezEuc7SPSnCLe4ecXuXYZyMKz1/JcqZ9ltmu/jlaNizyx6s8F8uA?=
- =?us-ascii?Q?rriYS9IgpvT5MKY0CrIf1NsMiu/4WftrS5LdHTQkpQifjKn+SGxEi5UhWYTq?=
- =?us-ascii?Q?0V5CB1+ZL17DguEEdLG2JnULWjivnxq8Qi+ab82RQv7ZbdkASLvDLWvQDEyr?=
- =?us-ascii?Q?iEkL5UATYkL/miEtlUrb9hnur0VJbu7k2OVdYmpO5aXQgEDxVzEH5yfMfbnY?=
- =?us-ascii?Q?s6TwXUpfqdAV37l6o0zXDdIwV5ve5bn57pzXR58fzy3OW0kYeceugmEws/kF?=
- =?us-ascii?Q?96nuOqrpIYKFD8EUCLV79aDw1alXahy/JYgXjl4rGCkRo/ZW4TyJ0Ch8jxSf?=
- =?us-ascii?Q?2ngSOMMViJcaG1xouORVheTrLgYElXYpwmF85ZcxIu6XvU2Fp+Y8safUZ5jP?=
- =?us-ascii?Q?QRN7L5hiGJ4aIppxu5bsaKQ1vvr6b0KUxZXQn07pfeZ0if9Uj+uZ/cqaFuTp?=
- =?us-ascii?Q?lm7nmdQ0EagLmh0z63TtNnXsMxlJmjb+F/QQdU/FDXigDQ7wm3aQxIhMpiVO?=
- =?us-ascii?Q?4zMPMbhvGSffrOlC7TV6N7GZ5KhZYyM0dvW3lfAposIrFL1g9OPCwpcH+Fxz?=
- =?us-ascii?Q?nzUiIlYajKf0Vfoq3Y+QnI0bWmRIAOGBUKlBiJtkC86nsc7dhGmfK42/6ITq?=
- =?us-ascii?Q?MSrJQu/kQc7RTHlJyhtVoYzDelHy797LY+eZM2fTchM/7SIOrULkOrHSVx36?=
- =?us-ascii?Q?1OyhPso+JK6yzrg8bxPGGvQkx7TK6iLhdhCBfni6PCGS288W1cA7fEKcvY05?=
- =?us-ascii?Q?UTgb/lzDqZhi2j4F0IrsuNrHQf3VQ6RInPzvOHoJrmd3BRriRxF+6spr35RA?=
- =?us-ascii?Q?rOx8dxKLm8fuHtz5zWETVELmMvkGfSWk1quOJ0tfzDPrbNB7iwBghsdqZA/L?=
- =?us-ascii?Q?NTY4BMlSCRibrXJmrRbNMEq1FWN1kCPuq9W98JAry0wTxr7CH/p1?=
+ =?us-ascii?Q?mDh3p8zVRTTtGmZaNFA5zASIMa+i60iKqnzw8Zy+DAuPsfOht40iPwait6dE?=
+ =?us-ascii?Q?wj6dB+9VLnTC2f5eWGECMskG8thU929HLxRRKRuhaE+/fi8k7UDoBK77U9fx?=
+ =?us-ascii?Q?kJUAQ4MdSTA0h1iqVW67z3Cn+QuagubnNA3Um/FGi/iTA3sDStoJmLyC22+F?=
+ =?us-ascii?Q?gtG0GVN3DeCY/wOO3sOzIs5DGwQv6zDd3zbKysAcS+ltqNfZByGbS2m2aQfg?=
+ =?us-ascii?Q?mpjV4as64oXp57q2HJ94gPEfqocvFFDKTvQZq5Fve3GUiz0B2XJnsXx1cbUt?=
+ =?us-ascii?Q?PTCaqr/a7bSg5LcCiKyeMAxu+XqhNFRzUedPUf5286UXPUic2BPcYJgYfYrK?=
+ =?us-ascii?Q?a752eO/ZtM2xLlcGf10KsFSSCfKJ1Z0J2KBQ0bhxdaEIbYu1gMj7BWyNRW9B?=
+ =?us-ascii?Q?ShuirgY8VMAnqN5e736/S/HphtB7zKccapLUCs18zZowcZKqjCV/CV69gneP?=
+ =?us-ascii?Q?QF3vqApAmEEngnvcJGSiTM7Xem5gWl2/P+tk0DsF+9wJ2qNShbEcoa6RLiA4?=
+ =?us-ascii?Q?LKX/RIP7G9HuvzLiNIqlP9caJq76VTXEoV4S0ukqyXKBg4K1RAbM6U/pHdv1?=
+ =?us-ascii?Q?BLG82647eiqRAO+fhe001xYv3XjQXgYr1BpCEmYy4uRiqosvMRBj8rRmQyXR?=
+ =?us-ascii?Q?3eja/U/gr2Ph+I5cl2kk8xfJ5lUcRSyel4Fk83cN+52ag0BL38utrFpy5sj3?=
+ =?us-ascii?Q?AJ7FQnG6k3mxlnbimuAUqTNjko34w+jAopGFmVFiMHsNySx9MATzcx++Z9r3?=
+ =?us-ascii?Q?w3n34K49O8g9NWpyw6fqgXaUdSdIcy/f8mnZjm6hTaZ0MliNEklGZbY2ySIJ?=
+ =?us-ascii?Q?akbBzooP9tkwsRrB3uoeMR1efLU49mkF8O0dmShIS8cFj6UqccvHwMf+OETS?=
+ =?us-ascii?Q?48qDZvLvXnDw6E+blN34Ia8/uRkYPJDgMzpNSKD6k3N0OjlJLbFiXAz9IAtI?=
+ =?us-ascii?Q?aHZggCbCm/tMjcZii6WmxZiv2lH6pYcJKmgFIqZDQNSs4KjL62RxfjNRx7ye?=
+ =?us-ascii?Q?JQ+Tv5Dx+7R1/qOqXSehoPM7aenrsUb3JB3eq8iJDAYKLReI5iQiosF+YQzj?=
+ =?us-ascii?Q?UmNw065qzeAWG0KlwJPIH75thrRWQ9Gk8DdjItYSDLisx+y14IZOqU52fKt5?=
+ =?us-ascii?Q?ruEPPSIhr0OSD4ecCmAQ6cZhMvhMyoruKtH+RO3QC/WbPTNexIOFBwq0saNg?=
+ =?us-ascii?Q?V/Oo4v6QAD1Vru4YY1PjpsflcpaxwoRVkZc31Gp2ohmvfH8hWZ0Y6IA/88Aq?=
+ =?us-ascii?Q?qUUsSx4wM9LBqLgnup2FR1LAtmQOntT2GIemHw0ZilELHZ8Dnh70qr/hbmrb?=
+ =?us-ascii?Q?P9Cyk+Ke3sp3aAyc5WQH5j8qBjiquPE6qo+yDxsq4y11MniJlk6LHyzHm9Xp?=
+ =?us-ascii?Q?B9+XEB8yerKPC2nnbvgXug/DyBLjVuJqep4bEoNOOQNszJw2qVsY+4NfmzVf?=
+ =?us-ascii?Q?p702mHB+Ja1CTNfWnD3UBE/5Nh4pSL80743MiPcwcz41op0WXL5xChFnxt/T?=
+ =?us-ascii?Q?J37ZvGnW/pyTBtWs4h0xUt6cqUoGqKYbG/nnF1qecTY4sIFJkn0W7oeWbmnb?=
+ =?us-ascii?Q?sqWbYwhp9B+VUS1hORBLqIlHgWrEwn48Pr4sJtg/vgSXOQaPrlodTH9jbo86?=
+ =?us-ascii?Q?ersTWOt1bv2MbyTZ93ecf0u7gQgFCXosDkluqwULTB1ZLgp4gjako55Vt1Ao?=
+ =?us-ascii?Q?s05PHsUB6WB+7Mcbvim/C7YTj74TFm9V1inPssJZkLZ2hGs0Q0wx8A1umtN7?=
+ =?us-ascii?Q?+o0OPGR0M1lw1FzzjWiSkTpHHowBZppIYXzKY+RzudYgcQ/Yoh4C?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85564bb0-6c68-4c83-62ef-08ded5e8d0b4
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2057342-e861-4ea1-0521-08ded5eb7463
 X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 14:15:04.7097
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 14:33:58.3264
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DOeAmMNQre6KxSwfnvxUtsqHX5ekYdWnXMm5Q6NwurVFWiAk3UE7OMsHaoIHJTbc5NPniNB6805Xv2KijwOr+VIuhOSg++bJEyVjGCeaUUjH0ilskIfSoYy1BcIO3o65
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7217
+X-MS-Exchange-CrossTenant-UserPrincipalName: VVNB22I/Y0Qm6zKxkOrZGUitIihaa0JlSSl0OFylIpvlx/f3p1oy8JzVkzQN22Ch4nnZElqLWk9JtSoH1jcKTGX/lE+Ibl51E3BQe4QxIouUaP8NNNs0ox3NtFVLHSYP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10627
 
-On Mon, Jun 29, 2026 at 10:38:29AM +0800, Liem wrote:
-> In i2c_imx_unreg_slave(), the slave pointer is set to NULL after
-> disabling interrupts.  However, a pending interrupt might already
-> have started the hrtimer (i2c_imx_slave_timeout) before the pointer
-> was cleared.  If the hrtimer fires after i2c_imx->slave is set to
-> NULL, the timer callback i2c_imx_slave_finish_op() will call
-> i2c_imx_slave_event() with a NULL slave pointer, which results in a
-> use-after-free / NULL pointer dereference.
+On Mon, Jun 29, 2026 at 03:44:55PM +0800, Guoniu Zhou wrote:
+> The crossbar routing validation has a critical bug where it validates
+> the wrong routing table, allowing userspace to bypass validation entirely.
 >
-> Fix by canceling the hrtimer and waiting for it to complete after
-> disabling interrupts, before clearing the slave pointer.
+> The __mxc_isi_crossbar_set_routing() function is called to validate and
+> apply a new routing table from userspace. However, the validation loop
+> iterates over state->routing (the currently active routing table) instead
+> of the routing parameter (the new table being validated):
 >
-> Fixes: f7414cd6923f ("i2c: imx: support slave mode for imx I2C driver")
+>     for_each_active_route(&state->routing, route) {
+>
+> This means userspace can submit any invalid routing configuration and it
+> will pass validation as long as the currently active routing is valid.
+> This is a security issue as it allows userspace to configure routes that
+> violate hardware constraints, potentially causing undefined hardware
+> behavior.
+>
+> Fix by validating the routing table that will actually be applied:
+>
+>     for_each_active_route(routing, route) {
+>
+> Additionally, add validation to enforce hardware constraints that were
+> previously missing:
+> - SOURCE stream must be 0 (ISI pipes are hardcoded to stream 0)
+> - SINK stream must be less than the ISI channel count
+> - Memory input can only route to the first pipeline (existing check)
+
+Please use two patches to fix one, one fix for_each_active_route()
+other other fix others.
+
+Frank
+>
+> Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
 > Cc: stable@vger.kernel.org
-> Acked-by: Carlos Song <carlos.song@nxp.com>
-> Signed-off-by: Liem <liem16213@gmail.com>
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 > ---
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
-> v3 -> v4: No changes, added Acked-by from Carlos Song.
-> ---
->  drivers/i2c/busses/i2c-imx.c | 1 +
->  1 file changed, 1 insertion(+)
+>  .../platform/nxp/imx8-isi/imx8-isi-crossbar.c      | 24 ++++++++++++++++++++--
+>  1 file changed, 22 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-> index 2398c406e913..b1c6581db774 100644
-> --- a/drivers/i2c/busses/i2c-imx.c
-> +++ b/drivers/i2c/busses/i2c-imx.c
-> @@ -960,6 +960,7 @@ static int i2c_imx_unreg_slave(struct i2c_client *client)
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+> index c580c831972e..29f14d30dbbb 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+> @@ -106,8 +106,28 @@ static int __mxc_isi_crossbar_set_routing(struct v4l2_subdev *sd,
+>  	if (ret)
+>  		return ret;
 >
->  	i2c_imx_reset_regs(i2c_imx);
+> -	/* The memory input can be routed to the first pipeline only. */
+> -	for_each_active_route(&state->routing, route) {
+> +	/*
+> +	 * Validate routes against hardware constraints:
+> +	 * - SOURCE stream must be 0 (pipes are hardcoded to stream 0)
+> +	 * - SINK stream must be < ISI channel count
+> +	 * - Memory input can only route to the first pipeline
+> +	 */
+> +	for_each_active_route(routing, route) {
+> +		if (route->source_stream != 0) {
+> +			dev_dbg(xbar->isi->dev,
+> +				"route to pipe %u must use source_stream=0, got %u\n",
+> +				route->source_pad - xbar->num_sinks,
+> +				route->source_stream);
+> +			return -ENXIO;
+> +		}
+> +
+> +		if (route->sink_stream >= xbar->num_sources) {
+> +			dev_dbg(xbar->isi->dev,
+> +				"sink_stream %u exceeds hardware limit %u\n",
+> +				route->sink_stream, xbar->num_sources - 1);
+> +			return -ENXIO;
+> +		}
+> +
+>  		if (route->sink_pad == xbar->num_sinks - 1 &&
+>  		    route->source_pad != xbar->num_sinks) {
+>  			dev_dbg(xbar->isi->dev,
 >
-> +	hrtimer_cancel(&i2c_imx->slave_timer);
->  	i2c_imx->slave = NULL;
->
->  	/* Suspend */
 > --
 > 2.34.1
+>
 >
