@@ -1,173 +1,235 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013015.outbound.protection.outlook.com [40.107.162.15])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010069.outbound.protection.outlook.com [52.101.201.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7481A3E1CF4;
-	Mon, 29 Jun 2026 07:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8417E3CCFDB
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 07:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.69
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782718973; cv=fail; b=j5Q6mopw6u7XvBR23B8qmtku1QzZN8TfyA9wBj2KGJ7DRMO7EpXUN0ZF19Y5jqXwTWaTUwG4iiQBzazR7F8GdOJI3uNOLrhg0QoKjKmuMmzhrnVR4SuW5xnFQAaOuiRCEgMijEpuagpk+WRMve4i16+uMfnnjoJc5/od/RQImVI=
+	t=1782719030; cv=fail; b=hukF1R1g16ShRxbEu0heXKOL+G+cgzKFYDuQ3iNotr1BQoZgYsScx6F2dgizhcCHYVRkGHOuSyWlqeR21WM9cI27HO5Jxd/15n0ZQRJSi1VerVIhgilgs8pp8UW3+Dy1fFNIWgNehlhQ0sYloyoWarMJGfPWPBLxH2qFyaIKxwk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782718973; c=relaxed/simple;
-	bh=Z+SMz/vj3cHr+jhqrLw5NM63oyPEqQyiDxD/GT32hVE=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=KXuQ8PlenCrbVDc0BOf+UddSdvALPOymTn/HoFI8YozFpB7MaXbGG+XOTMbyxTy8t39A/N/t/HVW4SNN5vPD9VqYK5H9WITr2sKyJV2glEooy3QLHAbZyUCriY1qtErUs8tP0uqfa+uqHcA7NmEBrFbNxHRDOg1S+NkB5fvJw4M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=NNgk0/l2; arc=fail smtp.client-ip=40.107.162.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1782719030; c=relaxed/simple;
+	bh=rNKO1wPCSsfKkUXdkz2u7HZpw8vOW8osh3f7Jk8gQTc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fxX+31++dClSB5dBo8u2ZOugBBHJ4PNiXJTiqInVDJFyUJAz4ozE07ATaGP0eBowJmNtrx0K48B+p0h1ytPjjxe70dP++dlP0fqwsXGSkBXSUsXd3hxYNx/bIHHC+G78bQVUNAv6QR0ZHI1UrbffLd7WcQQvYKEMHkCCSK/ytBw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=z2WmSo0d; arc=fail smtp.client-ip=52.101.201.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="NNgk0/l2"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="z2WmSo0d"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m1VNFmOf+5Vf/npluJx4U34NMziwWkyNM18SE7+Q8GAgD6Y+yiW0qb1xZDmlcAuOL/kDqC+H7LNq/JwWthI85ULMI7BeUMp1Gq/9sbd/zWdTkLJ+LhqB5qOopbZflsR5yA1nf+aC/EVj+wEZMbMN4ZjrOYCajvSOLKDPSgv2xYjeAE/Di/oRRmWFtufNEJa370bwgUW2xIIzodjdhs9k8ESeDsgu6kOp5htX2IxinKsh/xKNjM4NLewXC3VNTjzPiYL3YiiGcUUmuzWjxKNH+hDMOB7cQEf/FGu9vG9gMmWzCcUvbk0XFTHUgZs3YhyiIfAn6iplisEDOcDoexY/SA==
+ b=oyotn+Hy2/TdkjYUxyPmyt2m1V0L0VujpCiO7ZA3qHeHEQjqPh5q7WwpyUmz52l0YXqCkZyyRiDJPbTdq34EOx8xtgYCzt3eT9ELoBFXtZyVW4t/ttSQDMDVYqheuy+ig4Zd84IHCAvuPYgRph/Pw0MRP/2Xu0yLAmyNgOtnK+Fk3NSOGPpJAFTaDK+47MnADYaPs8aryd7YJyuOJbAnUCgnasbZGz02QwObCw9GhyUhyk8buGh3PvSFMVEccTfOVuOYPDMW5yUPAkxo7SJEnRa49GTCKMydpyDmtbBeldC1+OCCdOkUys3rCpo+Vug6uA6UKon/bvT/IM+9vanBnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tk/ajo1oHzz1CeHSiWfx900kkhjKm9icWgg0KFJFFuo=;
- b=IMYvw7+e+VrDzpTkm/dkENjSBAPmtzIzwdXThij/q4O1rX5soYiNf5k67uTxE8Omq5y7THdM1wIWSqsT+IBs6N6Pn19TnnEh5wT1VVKBBjt/i/3WsUxxU5ygon+Lxi5C3CdituejUwvVkWweHubgNmJraRvclWr1cYMyBSe8gPg6iFlMvYhpfCaHU2gKYlG1N86qPnSUz5Z449cJutG7BTpeuPdPSVaMpPDZDnUbICVZu6pqw3O7I+Z/UKJKLAYgn3nP2l19f+arultNvP+7xZx/euZoDZYcXLZftIDiEqubRJGiFJO3CDRfoMxIJpnGq2ZyfO+e+I0fEaJwfaRDXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ bh=eGI/vVqlZHJz4JlzpwIrut/PT3weaDmCXgB/ZgDr4uA=;
+ b=kjw8Q0XgeWRy7gEVWvKRrvFhTQN0HQfPMbVlYvN8JdmU5dj1GrU51P0wji0FZrcBphJzO5uRTXg6CK27pEZT/QRBTnIi0qfOworVN7un3m2gHlrTMCVxOPy+I1LYdJzwBJRkdrm5CDYGfslZ7Eifsr3c6yki+gJ1s8fGWtGhGIsAAkei3Y0o/sPNaZ4a4yLBHww7WDrDgvQQMalMppFFU1lIW/Fx67bGKWd1aBAq28XWzr5wyHKeYUtY0dqqJt38wBu43v+csEDNkbdAFfWucnB03fBdLXL9hKMCA3h9rr/0syQ1TesKtyT0vGwodWMKBqowYLMOq23P+3TJVCapTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tk/ajo1oHzz1CeHSiWfx900kkhjKm9icWgg0KFJFFuo=;
- b=NNgk0/l2zHGPTV+U8uuMhruOFIzFrnZu+5fBNMv0x2SSsEg3S4OSvNTKGUs9XsIAPLdIE6XDuz5hbOeEXGtnBXfQcT5HW+E1zCEx/ExTCHS3x47+2fVdGBMHpgmDKAXJG6zm85obBCFS2q4UyRiNmdJiDNBaYrh6qDCmHcOL57QE3P29Elqv79WkTq0FabGLAKJHfahp77kCXVs2MOKFaSw+kS2jAAPkZ1JRH8f8OpiD+HVk5m70Sup14o8erV2vltLhf+Ps5Wnrnnrae6aDev8DJz+1+ecihvgGPP2Vpd/8RqGB955thTd9it1x8PwrQ87TTH+fsbw5iyQsv2L5MA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV1PR04MB11513.eurprd04.prod.outlook.com (2603:10a6:150:284::9)
- by AM0PR04MB11932.eurprd04.prod.outlook.com (2603:10a6:20b:6fe::15) with
+ bh=eGI/vVqlZHJz4JlzpwIrut/PT3weaDmCXgB/ZgDr4uA=;
+ b=z2WmSo0d3c7vPExjZm1/aE72ohZ+WSc6IggLzjOxg9rNesL9PW8r787JAc722fEaGCd51oCD/ITGdt2SiTV72WvuqqPg3Thjkf40xOwv98/slhpez79OiWtdz+YbUT/rSWEZUPeq8CJf3QEcRQU1l9p8l1OMZgeLv7Q1JwrbF/U=
+Received: from CH0PR03CA0051.namprd03.prod.outlook.com (2603:10b6:610:b3::26)
+ by MW4PR12MB6898.namprd12.prod.outlook.com (2603:10b6:303:207::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Mon, 29 Jun
- 2026 07:42:41 +0000
-Received: from GV1PR04MB11513.eurprd04.prod.outlook.com
- ([fe80::29e0:98a1:4577:2cc7]) by GV1PR04MB11513.eurprd04.prod.outlook.com
- ([fe80::29e0:98a1:4577:2cc7%3]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 07:42:41 +0000
-From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Date: Mon, 29 Jun 2026 15:44:58 +0800
-Subject: [PATCH 4/5] media: nxp: imx8-isi: Correct color map between V4L2
- and ISI
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-isi-v1-4-deebfdb1b07b@oss.nxp.com>
-References: <20260629-isi-v1-0-deebfdb1b07b@oss.nxp.com>
-In-Reply-To: <20260629-isi-v1-0-deebfdb1b07b@oss.nxp.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Christian Hemp <c.hemp@phytec.de>, 
- Stefan Riedmueller <s.riedmueller@phytec.de>, 
- Jacopo Mondi <jacopo@jmondi.org>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Guoniu Zhou <guoniu.zhou@nxp.com>, 
- linux-media@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Guoniu Zhou <guoniu.zhou@oss.nxp.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782719134; l=1078;
- i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
- bh=Z+SMz/vj3cHr+jhqrLw5NM63oyPEqQyiDxD/GT32hVE=;
- b=xok4ORyim6msiDs8uff+KbDT2eWk/3iw5RPOrTHCu8nI5cvsjog7M65i4hRHxnJMkOgogwEvb
- f7TjaPZxoQ1DgxdiPuxMqM72ujpI5BPXJtmrFopd7lhlc68yKHSTolU
-X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
- pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
-X-ClientProxiedBy: SG2P153CA0041.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c6::10)
- To GV1PR04MB11513.eurprd04.prod.outlook.com (2603:10a6:150:284::9)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 07:43:36 +0000
+Received: from CH1PEPF0000AD7B.namprd04.prod.outlook.com
+ (2603:10b6:610:b3:cafe::ab) by CH0PR03CA0051.outlook.office365.com
+ (2603:10b6:610:b3::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
+ 29 Jun 2026 07:43:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7B.mail.protection.outlook.com (10.167.244.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 07:43:36 +0000
+Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 29 Jun
+ 2026 02:43:32 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
+	<dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+	<intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
+	<Arunpravin.PaneerSelvam@amd.com>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
+	<timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH v2] gpu/buddy: bail out of try_harder when alignment cannot be honoured
+Date: Mon, 29 Jun 2026 13:13:11 +0530
+Message-ID: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV1PR04MB11513:EE_|AM0PR04MB11932:EE_
-X-MS-Office365-Filtering-Correlation-Id: 844e1515-e2fe-4718-2c0d-08ded5b1ff8f
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7B:EE_|MW4PR12MB6898:EE_
+X-MS-Office365-Filtering-Correlation-Id: e23fe91c-890b-4e4d-a886-08ded5b220b4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|376014|1800799024|19092799006|23010399003|7416014|18002099003|22082099003|11063799006|56012099006;
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|18002099003|11063799006|56012099006|6133799003;
 X-Microsoft-Antispam-Message-Info:
- PKRHTa+uO9wwQoYlEUCmQyOFN8uQi8b01jB0Vm5Ad1lSejspRi+p45AwITFiAY2iJSui17B5IaMvCFL/etyWUO242YkXQUQ90i6j9lHTamTCJvFPIWEF3TSlkrd//L0VQ1ErJqcaCl/6KCQJizvihmaOwqxGwxy2jlIroTjzV025X/H2tVfQ4X4+8pNzM7cNFTWwojiMvEhKQXWxxjqBgw4AnFXDYEZQdcJqTWCHUNQHUXvF+SEiKlpymjfRSBw2RSNmKlDwEJe7H4m+HU9R4lP2RzpJZoP+0d/4eUtu7HuHJIn/9FbBf7Oj+XmYE0UVQJiIiuy36JczyjW23aXvXdowx6wJheXyhiB2uka+Rfa7UmG2AuDP2rfJBV8kFWAQKwysMpd/AtHN5hpx0Uya3XwA9g6gRuCr58MXXtYx11E1ySNKxSeBAfDeT1abZUU3fKxCEp+2qXf2uDsFNdaUagaihgpS6jiEViIf/7KecyLq7Ffj9QvEkBB5kGq3BJZXrT6JiQPI6y8u1HxLW6pHi4+LgCeNJqHnjHBvWV6MSVkWp5U+++9Yv/xKf+DrUa/1OvDGAxSY3Upx6Qt026PixW0qzHlLD6xg4ueJqJfNgDvGrdT4KIFObdvIgw8zAllFfNoiuF1W1GqWMO3v8P4CQoh0vNcyDQjdoBd0IVlLLrY=
+	ji9fu/TSOMhQzh5ZuLSwejICE5xkb6SrcR7lluwuNTNNijHFn302K1hBhpbQWDO2WJ9AO33hlQ+9IPrYYBvxKDwvfmESUYRWL78W8PRWXrF9GIisQyGBKXucLj4hm0wejZO3h0mfMF6MFkstqJlbtn8XDIf+E2FVTGZz6bDYxxGvU1UQ0tCYhhFDGL4DrEtrx6sOVaOxGAerUUppxj12xWblrDEEhAWg6JjG7Zl6iI5MrUqazMiACeweiqODJojaDzc7/zOqO3YzvHqeLCQccEIt9CuyaWYD+61iRJtvuT71QITvPY4ojjg4imwTlLJqCyOH2CXSerpeugy7b45igbC4MjJ629TPkVorU2/IIjcpfSfS5IFYmEfCPaRSWWLlIPNZv5N527Yg4A3dQj0T8OKR7QviLr5CJdhWwp9Lu5UAcwwllny0Hy4IXFS8SN7WIV/Ab+sgjQMCLqBxfbjiHbvTSeDx+cjSNNNxwHsGFfKHMusT2Cl6JkSDOhnIuyxq/sSA9sjvhOhwskrFyiMFhzvfJxCwK0Zgd+20y8Ed/tpDpz/gdrTEP6R3zGO8bIF2dRdcVdHIFCZA3eV54XwvwJTg3EwHxQ66tW5ZB+kbVg2VY45GAJyboeYKifuPEfHy8x6GIw4iv7nudXkUPaR/0QpkKATFg0jFe5SyGI3Ce3trQN1gef+NJAEZWVy7A2+jSWZEX+43qBXKATAk1dnang==
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR04MB11513.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(19092799006)(23010399003)(7416014)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?MG5DbStwbHRFU3I4eWdBd2hnaFJpdjd6RWZzOHRCYmZjSkZZT0VaMzNHNVo5?=
- =?utf-8?B?Ui9oR1FtOHRMYm8vcUhWMTRhK0hTbFJqUVJLTnp3cWMyZm8vb0taa1hSTUEy?=
- =?utf-8?B?V1hJcGxWampNOVdBaHZRZk9neno0Q2FFcTV0c0hzeXlhOWxkem84V3BjUi9I?=
- =?utf-8?B?Z29yK3YyVHBXWnRZb2syZ21nY3VFTHBFSEdmVWFIUXFDUlIvVFhsTGl6U1lj?=
- =?utf-8?B?N0pWM2YvUnBUYzlVMXRaQkQwbW1sN0R2enFCclgzOTU5dUFhRkRNWHAzbWc1?=
- =?utf-8?B?R3ZqTWJlNXhNeGlFOEs5SWFXcVhndDZkaklha1k0dXNVRmVwQ0pqVlhudEEv?=
- =?utf-8?B?azBoK3pGK2cxNVJtY3kxdUhPalp0ZE90K2R5Z2psaCtBbHdKa21IelhIZ0lB?=
- =?utf-8?B?VTRkNWFGUVgwUTE0QzFvRDR6bEhmbFZ1SkhIRkhoS0lXU1pnVUxrOTFRbEdS?=
- =?utf-8?B?cG9XOG1yWmdRTzBuRHRjYWR4QVlkcUkvQ3pVYlV6NXdENThDMVgvWUFiVW9i?=
- =?utf-8?B?bXZ5MmNBTnNWVjNZenR4VDRiK1RkSElDTG4wZFJNQThXMFpnV0lsNWs0YWRs?=
- =?utf-8?B?YUowWG1kV2Z3dVY0S2QxQ3dYejhIM0pZczgvcDUrMFFuM2pvdWdwZHFMZUpG?=
- =?utf-8?B?ZEhQbXRjVTZ4L1F0TEdXajFKRzlpVDZNSWdyUng5ZnUzTk5VWThDVmxOSDMr?=
- =?utf-8?B?R2x0VldSMHMxUTkrTmtsR1lSNnZUL3E1SStRTzc1Ym83Z0pzZ0dzVWdDZUI1?=
- =?utf-8?B?bGhRWmlTMWI3WGZxdUl4Y3ZhQ29uVHZzcS9ickZxYWV6ckpPVTFWaVM5TUVm?=
- =?utf-8?B?bWZmU3dROFc5aE9EbUhReWVrQnVIQ3JndDBHMS9Wa1I2MnJOZythMHQ4ejNR?=
- =?utf-8?B?QmxMNW1TWjVneDFOc0ZiRjU1MDNYaWRMU3l4TTZkazdFd2pUTzNyQmI2VlQ0?=
- =?utf-8?B?eERVM3pXTWhiS1V4VldTSUNxd2h5NlpKSGcxZDBqNlNHOTJwc2RDOGk2cWlI?=
- =?utf-8?B?UHhGZTNvUjZwWmJ2Wi9rcHUvQXpzd0FIS01OS0ZadlRRZUphV2VQWXM1RmVF?=
- =?utf-8?B?QWRJL2t0RDhJRU15MXFUckN5OVJvd1hZcDg1RlkyTnpwZlJjNzNNRy85VURq?=
- =?utf-8?B?Z1ViV0dWUHErVE5EQnhNR283cENkdTFUNU8rRktkRlV3QUZuN3NsRm5oUXFQ?=
- =?utf-8?B?YUY3UUsrc1JkMk1sdXN2cEN5Yi9qNWZVMGF5Y0NDck1NMStOR21qQ1o2b1J5?=
- =?utf-8?B?cG5zNGF1blVnb2p0djZhSm1HRmlFY2RSNDBWbmV3WjM2d05MZjZOdDJLVEdx?=
- =?utf-8?B?RGJ2Tk4zQ0hjVmRWdVlVa0RLNFBuSXkveE5JRXZyWUhZajE0NHJLSmdLSTZh?=
- =?utf-8?B?QVdsSWIzcFgwc3MrUXdRUDlGOGNRSGplVzd6dlM4UHZOTHMxOGFpSHZENU5m?=
- =?utf-8?B?bWZteDZpajZhcGdVbjZyQ0pLNitybGdEbUowL0k5NmlNRzJuWnl6YXpJcGRl?=
- =?utf-8?B?SVF3ejc2aUFrNmtwNkFJbDVtb3RZenpmZVZRTEg4L2x6VnRBMytuNmhXZURj?=
- =?utf-8?B?Rlovdkd5eSs3OWZpL0tPc3QxUTgya3JoSm12N3oyTlN4NWFLaFd2R1JsSkIx?=
- =?utf-8?B?NjU0NkhWNjRKNSs5dU1vVm5VcFIwMzdwcGc1ejR2ZG53NHJOMUZ5b2lISkVo?=
- =?utf-8?B?QlhOTHA3bHVHZDM0WEF2VW1hOVoxWlpRWng5eWx4YllTdFY3RmVvSjRhY1ZY?=
- =?utf-8?B?N3d4bkVwUnRVV3Vham9PUWNmRW9iM2tZcjZhZ0pkcjN5d3pWUjl0d2hUY0FI?=
- =?utf-8?B?TGNwa1pHelJEVHBqK3lPUGhTeEFVQ3N0RGlZdGRUaDgyQ2k4SEVQN3VzbVJl?=
- =?utf-8?B?QnA1VkRobkVITVlHalh1NWNMcnFNcHl2ajRoT0VCTmdtcGdaOEl0SHRFdE5H?=
- =?utf-8?B?R3Nwby90NnV2bEF1M2FkYUdzQTdmbVh3NG5PK2s3TVlIOFp4S1NiL0V6QTJS?=
- =?utf-8?B?MHNnUEdMNGR0Q1YrbC9oVU5TZWl4MFlRZVFwUjdkcW9zdGVHK3Yrdy9xeTRE?=
- =?utf-8?B?cnZJTERFMkVZeWx1VWE2cWNEZzVtK0NOcDdMUXJuMmRwd0RWQW1halhJNGsy?=
- =?utf-8?B?TnNmT1hjYXJNYVQ0bW9KemEvdHZUT1JVNG1IMytzK05JTW5US2RzTW1LWDlI?=
- =?utf-8?B?YlQ4SVEvM28rTVNvQms1clA0YmhOTlgzcmZXZnJOc0xGaGMzNnBaZGJxYTlT?=
- =?utf-8?B?ZHdUcld5L2lheXg0Mk5wQTZ2bHlvUTZHakdGdWNRTUU4NnBuMVpwYmhWbzZp?=
- =?utf-8?B?VWQ4YWdWY2RVYS83R0o3Rk5MRFp5b3BpUjVxOWlMdzN5TWViVW4wYXNYYnJq?=
- =?utf-8?Q?pcOppvhELbSKfB8L9mOYO0q+3WyqE3wXehGJr?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 844e1515-e2fe-4718-2c0d-08ded5b1ff8f
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB11513.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 07:42:41.1093
+	3Qr12JGewYSbtEpcpOVuwNau5xyIsIs4wq3i/hM7V+ovrmJINrgXFtoAYLd+zb+ItqshqnbEF6meB0tqZHbUlyOpYaPEOwWlLL8v35htORzjaQ5jIdmSfTxwqWYVTo3CWsfjZEzbsYwvB6+7pYWtEGqolJxE4rGMwnoigK/B2Jebo7+UjZFGLhInT8mfufR7mHSYpBEO/zEDfHoXMjbicu/bjxNe4623iOh54ykOVeXe/p0qQV9AZJdgobANIhp5R+rUh5G++TelWck6ckkm8htlCVVs8oooh3wNBT5kCzPwyb+LZ+WRf8sVmcwUOoTNJXJd13MqTqmdJrh8lR4JLLAVl9xl1aM7jM+F9Mddh7CwSOojz8ZWSHadXkOv6NDzxp0b5WloeSnzGrkvIc+ZSIQEMcp99caWYAytwz+0HKPS0wF56JT80pTi1Pa6Q94O
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 07:43:36.2528
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nJEKaAfenRhCY2P8qsPCL1hKDO9RqyRzbJKXf+DSa5owKoAd5tpOxcDVd/L8ThZn0Mp2wXfXGcQf3JvFLWzfQa7KUbV1pN/LApSOdXpWNrgU17o7j4mvoblZPrwPUKkN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB11932
+X-MS-Exchange-CrossTenant-Network-Message-Id: e23fe91c-890b-4e4d-a886-08ded5b220b4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD7B.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6898
 
-Correct color map between V4L2_PIX_FMT_XBGR32 and ISI input
-format XRGB8 when ISI works at memory to memory mode.
+The try_harder contiguous fallback could return a range whose start
+offset did not match the caller's min_block_size. When a candidate's
+start is misaligned, realign it: free the misaligned run and reallocate
+exactly @size at the next lower min_block_size boundary. This keeps the
+returned size unchanged with no surplus to trim, and rejects the request
+only when no aligned candidate fits.
 
-Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
+v2: align misaligned candidates down to min_block_size instead of
+    bailing out, for both the RHS and LHS paths (Matthew).
+
+Suggested-by: Christian König <christian.koenig@amd.com>
+Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Timur Kristóf <timur.kristof@gmail.com>
+Cc: John Olender <john.olender@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 ---
- drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/buddy.c | 63 +++++++++++++++++++++++++++++++--------------
+ 1 file changed, 44 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-index 5eb448f4c26f..05b51b98344b 100644
---- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-+++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-@@ -151,7 +151,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.fourcc		= V4L2_PIX_FMT_XBGR32,
- 		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_OUT
- 				| MXC_ISI_VIDEO_M2M_CAP,
--		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_XBGR8,
-+		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_XRGB8,
- 		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_XRGB888,
- 		.mem_planes	= 1,
- 		.color_planes	= 1,
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index dc81fe0301ce..3c73ae87f3c5 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -1118,22 +1118,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
+ 			     blocks, total_allocated_on_err);
+ }
+ 
++static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
++					u64 unaligned_offset,
++					u64 size,
++					u64 min_block_size,
++					struct list_head *blocks)
++{
++	u64 aligned_offset = round_down(unaligned_offset, min_block_size);
++
++	return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
++}
++
+ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+ 				     u64 size,
+ 				     u64 min_block_size,
+ 				     struct list_head *blocks)
+ {
+-	u64 rhs_offset, lhs_offset, lhs_size, filled;
++	u64 rhs_offset, lhs_offset, filled;
+ 	struct gpu_buddy_block *block;
+ 	unsigned int tree, order;
+-	LIST_HEAD(blocks_lhs);
+-	unsigned long pages;
+ 	u64 modify_size;
+ 	int err;
+ 
+ 	modify_size = rounddown_pow_of_two(size);
+-	pages = modify_size >> ilog2(mm->chunk_size);
+-	order = fls(pages) - 1;
++	order = ilog2(modify_size) - ilog2(mm->chunk_size);
+ 	if (order == 0)
+ 		return -ENOSPC;
+ 
+@@ -1149,31 +1157,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+ 		while (iter) {
+ 			block = rbtree_get_free_block(iter);
+ 
+-			/* Allocate blocks traversing RHS */
+ 			rhs_offset = gpu_buddy_block_offset(block);
++
++			/* Allocate blocks traversing RHS */
+ 			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+ 						       &filled, blocks);
+-			if (!err || err != -ENOSPC)
++			if (err && err != -ENOSPC)
+ 				return err;
++			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
++				return 0;
++			if (!err) {
++				/* Allocate the unaligned RHS offset using round_down */
++				gpu_buddy_free_list_internal(mm, blocks);
++				err = __alloc_contig_aligned_retry(mm, rhs_offset,
++								   size,
++								   min_block_size,
++								   blocks);
++				if (!err)
++					return 0;
++				if (err != -ENOSPC) {
++					gpu_buddy_free_list_internal(mm, blocks);
++					return err;
++				}
++				goto next;
++			}
+ 
+-			lhs_size = max((size - filled), min_block_size);
+-			if (!IS_ALIGNED(lhs_size, min_block_size))
+-				lhs_size = round_up(lhs_size, min_block_size);
++			if (size - filled > rhs_offset)
++				goto next;
+ 
+-			/* Allocate blocks traversing LHS */
+-			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
+-			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
+-						       NULL, &blocks_lhs);
+-			if (!err) {
+-				list_splice(&blocks_lhs, blocks);
++			lhs_offset = rhs_offset - (size - filled);
++
++			/* Allocate the unaligned LHS offset using round_down */
++			gpu_buddy_free_list_internal(mm, blocks);
++			err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
++							   min_block_size, blocks);
++			if (!err)
+ 				return 0;
+-			} else if (err != -ENOSPC) {
++			if (err != -ENOSPC) {
+ 				gpu_buddy_free_list_internal(mm, blocks);
+ 				return err;
+ 			}
+-			/* Free blocks for the next iteration */
++next:
+ 			gpu_buddy_free_list_internal(mm, blocks);
+-
+ 			iter = rb_prev(iter);
+ 		}
+ 	}
 
+base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
 -- 
 2.34.1
 
