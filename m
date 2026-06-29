@@ -1,200 +1,404 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013002.outbound.protection.outlook.com [52.101.83.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B5A426ECA
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 14:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782744564; cv=none; b=lwwdhanmYuq4uTct/9zn3SybKbif+jyDt0PHPkrRsf5EOJkI5ySLV7/6hd0ZfKPwKacQSzDdvXZibTfv2SUC3EmH2zk2Q7MPlOKZXmChxkQ+JYMxeNuik3Ok43Fn7SJ8azeyNqPtENre4W3YyeoHDIgd9BfUQovsm8N+xKCsmAs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782744564; c=relaxed/simple;
-	bh=WRvszeiPBO/Fb5FiI/vE/FGwK3nriHHDLWyvTKu4jxY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OHrQru9LmaU0yNhFrMdtqCQcNxVyVPHw+m3N6E1pc2hUhc1K67vTnMKgTKSHgNwBAKoWHdMgp0bLgYXB6x41ketfd+wwmg7wM0mkBkNMts5yOl7hLG+IEMwyZzKiCXfpgwae9XDoVx9ug5vhgOFVuifKEQEsRcyq9IjSxZddEcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WJoPUHcO; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1AE3BB12D;
+	Mon, 29 Jun 2026 14:55:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782744933; cv=fail; b=Iv1CfGqXgZF670bvITQSOP3+8/meU/WWc6kYbd112iY9Hk8q75hu4Cqf0RYyoU4Bska5IPCzOgKvECd6e4Q8eaIYBIGMuOKbc0KHdWUE1eRzSxWRlnn0bXWKSXK6tZ4QMGA9B9KgEEzvpQ/bWgVTzEbksjPybY8C0iOKcIYm3Yw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782744933; c=relaxed/simple;
+	bh=+Y99TOdvWC+MGo5X9po/JsKB7l2pV5+s5J3Vu3xEPXE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=jnSEl3eYmVHS06O5n8E1PDoCwqeUjl6J+eJtAaP5PGsukFw3mgsvm6sCr8qmR3e6U5CX2xMTjI630g6msEbqoTJf0xVkFAmnolF8f0qA+q/ZPExAL0bf3PG8vwrVCyOCo6Vj+1scvrSjau/jVNw9LPSsvvAPsF1C4VCBtcJs3EI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=LfWDRjJN; arc=fail smtp.client-ip=52.101.83.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WJoPUHcO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782744560;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=TT8DezCMCkGl2L1G18lDfniaKuva6//NVtalZcejz24=;
-	b=WJoPUHcOueIXWo/eRavEby0nNNWN0kvYwuCi1da10uBKKWCSCIgXqC9pPxr5M89BQE9hZB
-	H6Pf9lcXvxS28YR2O6Ams88MpDRxAvM3sVBsvSHtbU0DS5Jnt3PDdJ4d1cALGn81wTkmvZ
-	47N2e8fLm55d23oS5caP3pzhoggxbII=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-501-m58T3XVhPY6ALAcZ2BpU0w-1; Mon,
- 29 Jun 2026 10:49:16 -0400
-X-MC-Unique: m58T3XVhPY6ALAcZ2BpU0w-1
-X-Mimecast-MFC-AGG-ID: m58T3XVhPY6ALAcZ2BpU0w_1782744555
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 132EB19235F6;
-	Mon, 29 Jun 2026 14:48:50 +0000 (UTC)
-Received: from desnesn-thinkpadp16vgen1.rmtbr.csb (unknown [10.96.134.92])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6D65C18007F8;
-	Mon, 29 Jun 2026 14:48:46 +0000 (UTC)
-From: Desnes Nunes <desnesn@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: baolu.lu@linux.intel.com,
-	dwmw2@infradead.org,
-	Desnes Nunes <desnesn@redhat.com>
-Subject: [PATCH v2] iommu/vt-d: Fix UCTP context table slot when copying root entries
-Date: Mon, 29 Jun 2026 11:48:37 -0300
-Message-ID: <20260629144837.3244851-1-desnesn@redhat.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="LfWDRjJN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q0nFMQqu0kSwfs+KLuNA7MrEZpYn1ko6btkT9bt0Ca2cu1PITCzd2U086HC8+gugVDpK5Tel0HkkSYLfYKGFJlp7Jbu+YBc3IavNmysJAUSrjNNvAftIdhvYXI8TpE8tmMrt5TEPg0jTbCv2lKCpnE8y43guyA8WLorcR81fj0rGv31lCZKsBJ0XfRNxtP5H6tfOGBBATmapxd9ql26oFApo4Bjp2b+dS23b/vc6rMPQ/iX8J8+4WQbojaYrDj4ozwXmduTmXmDwrRUw07/D/aJ5GgXsIUan8O1gzWlmSMfaYZtFIPG8D6zu1lfWQ+rCGczKiPjtph5RDsO2Vq0xYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C7sypIWpfrbckmpFwZe0rtgqz/X36rJYVjvWXWwxSrs=;
+ b=yFaipZcLBDXRRiOCcaSzzqwNe5U1RpTREMufBQ5ooHHWV+VRJIdI/9O3ZsO62As6H/dXmexwEg1ng7NuMo4eDnqvTqA328vtvPBY0Xyps8k1IbrjeLpZErVZb2SULLpjuwRsJP2+dV72kJTna5aIRU1T/zPtgcuaqrcey4o9jDizq/1+EZh1591ObWArGsysf4BoJObJ1yXz2el9l8Oc8smtOqG0qZ4GfZ54sWf9xyamtP5Xzta+3MuZN1OBaTaEn4/PFcEJcmvPbGxRR4LlryG3DBGKK7m1MViRYK3/PGznmhYDNrfUN/NuYEFr3frTHsNslLN6xMqFesoJ2yEMvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C7sypIWpfrbckmpFwZe0rtgqz/X36rJYVjvWXWwxSrs=;
+ b=LfWDRjJNMIFcdycVFlYJPr8uBM05VMfsQ04ddjwtjFmwqKqxUTWNM4P7Cddaq0t3wMjxShKATdfqER3R37gj4mevotNxFZhHVdhf2P0NIwy632N/XhMZVHulz4pxO1TYOcCbpRJhSVlrbcjA53GR3+MMr5gpo3ajFsB0GlyIs+fm29lxaE8iVfdARfHMfXbPe3Q9MKVszmjtoMthK2gkg8ZOGrSX1EEC3Fb1HF/MJvJ/8Z4Um+nMEncEIlnBbEhP0JXBsbbudOoJYB+AMyGBOZtsrpwfZe61nIHhM2YWWeSQEXdoEfvjlYukLj4HUYRiC+MX27qUpWcuvqDiYr6lJA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DB5PR04MB12228.eurprd04.prod.outlook.com (2603:10a6:10:64a::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Mon, 29 Jun
+ 2026 14:55:27 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 29 Jun 2026
+ 14:55:27 +0000
+Date: Mon, 29 Jun 2026 09:55:16 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Christian Hemp <c.hemp@phytec.de>,
+	Stefan Riedmueller <s.riedmueller@phytec.de>,
+	Jacopo Mondi <jacopo@jmondi.org>,
+	Dong Aisheng <aisheng.dong@nxp.com>,
+	Guoniu Zhou <guoniu.zhou@nxp.com>, linux-media@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/5] media: nxp: imx8-isi: Fix per-stream reference
+ counting for multiplexed streams
+Message-ID: <akKHVAcjsotmIRad@SMW015318>
+References: <20260629-isi-v1-0-deebfdb1b07b@oss.nxp.com>
+ <20260629-isi-v1-2-deebfdb1b07b@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260629-isi-v1-2-deebfdb1b07b@oss.nxp.com>
+X-ClientProxiedBy: SA0PR11CA0006.namprd11.prod.outlook.com
+ (2603:10b6:806:d3::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DB5PR04MB12228:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f126ad8-fafd-4f1c-6b56-08ded5ee74ce
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|19092799006|7416014|23010399003|376014|1800799024|366016|22082099003|18002099003|4143699003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+ aXdG0hH2O9z+Iy3cf7UyHVp8j5fPEzLMQ7VQbSyCpi4mmgvbyXDPYTHOitAhqrQCCxMyJCTYSiWAAyqJuzL/efAPRYbCYvni3tQL5/qpivoFA936pKLBodpsmG1LQsi9DPhELgrvIKQfsy7QZ1M1iYeBsoW05lbCDz9Xw1jR0sYao+vJxqwx5uSRAmhLHX0gwq3E+43euhBlBDvdoOvd3zwR1cRoU6vaCvxC2w5QVOlSwSI1L5xkWuNuHa+swdFJ4shBijEaNkW8X0JFtmt/uRT13wK9ppRYrCBn6LeZ81HSWiFRhkBeytC4rPiDujx6b3wjnVNYvqfFr2oqVmvtHWNeBuu+lu5w9wPlS3wwnSue3vS3XsP7nBQONpuLl2EA5GDJkKaq5CKyhWWcOchxs52Zv/jOSIOnJ1rrX1U3bNWz1aOIcVVIkHO3dG7ykSoyy1eCkIVcoPJgBvgi9th5vHKHJSkvhVhp0SEvE6mMEYq7otyuVL6V9terKl/z67sRiBcBvusOoPTiyRNOynHMtPSjDAXuhYf+3QEKZPLy2W0Mc+XJRp5YHPEetyNY6Y8Tvn2vgyMCodTrenq/WmdGVTSW04JAmDr7HchH3lluBOkxizag5kP/fK55U8lYKS2IH0oX87uLLZH5VEC3X3TMLa5v18+XgSW3GeNWPYRPYcs=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(23010399003)(376014)(1800799024)(366016)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?DHa3zKTqzlLgzFHY+sj3H9upI1eZnNtQQa++IHPAXVtwrm6hkK58B6xjWm06?=
+ =?us-ascii?Q?LWEbfNpy81XgkvW6hwYCDgflTjzPxZLW8SJsrBqU1o1JMgdKGO+s+YLarpmL?=
+ =?us-ascii?Q?gCF3PD5xhKRxlG8pwKUDC+bGioOGbNaafTCmlcjWOC5IbirvY/OVgzWs9zAj?=
+ =?us-ascii?Q?90Nvsuz0fc263hGEzWADgvm5bsJPIu2j7YRAQrn9wk9eD9TOBiuWCECIF/qK?=
+ =?us-ascii?Q?eOk8r0Ye+ej1lS2fVxWkxfbpvxDkbCB9FDrTze856oOK2egDXCSaYSfRpNrZ?=
+ =?us-ascii?Q?gukSWNnce7nigH2trbJ8NhilH7Wo+vgtQR8OOqu3QtKdOfpeEJgwPx4nwKfH?=
+ =?us-ascii?Q?STxEA3+uO0m7XlBA1d2mmTBrkNGzcdafiFiDUvrVbjGpBNC7ayMKH+fmjguX?=
+ =?us-ascii?Q?SIQfqWk9l2TN8PKXmdaQvjbhBbFEmUxhYtJSzWFH65esa2v1GzGu83ntXVLD?=
+ =?us-ascii?Q?9FtYR8DHj1aCd4iDY8bhZD38GSW6bjo32NRh0jU7n2AJuHVvuj6z/VHKvIk7?=
+ =?us-ascii?Q?knBG9PAEBJ2D+PnesZPaMAorF3znxs8eL1U64SiDsdzItqy3uEn3DY/yaLrC?=
+ =?us-ascii?Q?hJ13e09H5x0/MvE0/SasBi1q/tx6hmlNhIm4j3Eymh/FEEQMzN6QydgomjCX?=
+ =?us-ascii?Q?tp6bEY27GZYDGqiUOXFWA7y9LBbdR7ZoCYHDvaKqOrx0KZpcRMBfekSvuQz+?=
+ =?us-ascii?Q?Kxar9ad2sHAyUyYrLp1XozvPo0dwMEn8ckWxrnd0q88j7JdaGzZA+Nke+ODM?=
+ =?us-ascii?Q?TLR4TEt3iwyObEb1Azt6eXs1C/N2D0QSPQPgyvDEXJW8QkhJ4MbSf96UjGfw?=
+ =?us-ascii?Q?WosOXXSG86TW3YgsoHjUJeM8DTCvWmoxAyASu96XxXMtjlAPd4svd8LhjRcs?=
+ =?us-ascii?Q?s2jIzw0aM6jYVhdx2I0uPwr07ZPmop+e3P9IZM0E3JssroB+5wlPzfI6hFUc?=
+ =?us-ascii?Q?Y27+O+1LX5HbJgEewXQzCqPs9gY/M6Ph+4WttLyaYKi8UgqstmAoFY7B2W+4?=
+ =?us-ascii?Q?JYCvL4tCf28B8rJnXsCM5oEERscugBYqqOBkJZD4YTyN/8As2m1Ow2SCyKHZ?=
+ =?us-ascii?Q?DRyRzbncmPWvXf+Cki4ih4NseIaw4qAsfSumqJby8r0y6Ux/d1Iv/Ud8S0Ol?=
+ =?us-ascii?Q?TP/Ufj9LY9s0bdH/SqV72PpTOEtTEfi/GMnRZ9GkDl3dM17CTlsruMSHpz0s?=
+ =?us-ascii?Q?YBKpX9s24JGFauaxBj/nIhcD6H/i2d8JbjQZtfDIguzHupAKBzVIE8rpANG6?=
+ =?us-ascii?Q?7ugK0WrYFL3D1XwYEgIqhW7o0wmyokfPda/z0pzyezGugtwxAzk4qjnXAspn?=
+ =?us-ascii?Q?wjrFvl9Od4WUTr+az+gIP+FbWu0quuXlq4QhaiJ89W+s7AsgSkiC1zZXA6OC?=
+ =?us-ascii?Q?lTCOd2w4ZvUPuubAm/k3HrUebR8DfO0oS2urZaTgnU6Cgl01DbLgXOZ9c32/?=
+ =?us-ascii?Q?MZStbuNuPBOdpLLJrk7emPQTwSzjHrb8/M5NUwhDn844gYKH3z2i41vh/y1O?=
+ =?us-ascii?Q?E/fxAbdYgCq5My7ivoDmYCsD+wqutFIV/C01uGDhQJvs8CXJDCmWhAiJGh+K?=
+ =?us-ascii?Q?FBZJ5TcwLI1Akxzn681g7agmPno5Abra2NJNPyxv3dN7xctQJz1XS9cp3FLw?=
+ =?us-ascii?Q?ZRo5Mim1CoV6kijofkLKSZpwmzvQ0/wgMNEDyXe1XpSkeCsPV6uBa3/75EKl?=
+ =?us-ascii?Q?SQ4MUia//G9Pc6hT2diGJ2aEIA6z8Cwl88lkKKbypEstgrUJWAktI0xuh6VS?=
+ =?us-ascii?Q?DYxRscpry3qur7egU9glev1VYq0WAzGbwTf+JO+2lBU2mYy8voDJ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f126ad8-fafd-4f1c-6b56-08ded5ee74ce
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 14:55:27.4042
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: F6900f53WnB0/P5ttl6tNUe0ikipzOdgKnukgC+gIxm5JZ4HMSB1kvO4Gi0zRpK00784DJfbhqCq3iSiZxfa3nGu6hlplK+sL77u99VRzxeHMRiarSBlvu0+fbW824xO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR04MB12228
 
-When translation is already enabled at boot (e.g. kdump), the vt-d driver
-copies context tables from the previous kernel's root table. In scalable
-mode, buses that only populate the upper root half (UCTP, devfn >= 0x80)
-should be written to ctxt_tbls[tbl_idx + 1] through copy_context_table().
-However, the current copy path always uses tbl[tbl_idx + 0] in this situa-
-tion. Since idx wraps to 0 at devfn 0x80 due to a zeroed LCTP, new_ce for
-LCTP will be NULL and keep pos equals to 0. Thus, UCTP entries will be co-
-pied into tbl[tbl_idx + 0] instead of tbl[tbl_idx + 1], and written after-
-wards to root_entry[bus].lo instead of .hi in copy_translation_tables().
+On Mon, Jun 29, 2026 at 03:44:56PM +0800, Guoniu Zhou wrote:
 
-In short, devices on bus 0x80 with devfn >= 0x80 fail DMA with fault 0x39,
-which will break drivers running in kernels with translation pre-enabled.
-This fixes NO_PASID DMAR faults for UCTP-only buses such as:
+subject: use per-stream state to fix ...
 
-DMAR: [DMA Read NO_PASID] Request device [80:14.0] fault addr 0xe81759000 [fault reason 0x39] SM: Present bit in Root Entry is clear
+> The ISI crossbar fails to properly enable multiple streams from different
+> virtual channels on the same input pad. Only the first stream gets enabled
+> in hardware, subsequent streams are silently ignored.
+>
+> The driver uses a single enable_count per input to track the input state.
+> When enable_count is non-zero, the code assumes the input is already active
+> and skips calling v4l2_subdev_enable_streams() for additional streams:
+>
+>   Call 1: enable_streams(stream 0)
+>     -> enable_count == 0, enable gasket and stream 0 in hardware
+>     -> enable_count = 1
+>
+>   Call 2: enable_streams(stream 1)
+>     -> enable_count == 1, skip hardware enable (BUG!)
+>     -> enable_count = 2
+>     -> stream 1 never gets enabled
+>
+> Similarly on disable, when enable_count reaches zero, ALL streams are
+> disabled regardless of which streams are actually still active.
+>
+> Fix this by tracking per-stream state using:
+> - enabled_streams (u64 bitmask): tracks which streams are currently enabled
+> - enabled_count[] (array): per-stream reference counter to support the same
+>   stream being enabled/disabled multiple times
+>
+> Now each stream is independently enabled/disabled in hardware based on the
+> enabled_streams bitmask, while enabled_count[] provides reference counting
+> for scenarios where the same stream is enabled multiple times,  such as
+> duplicate cases in the ISI stream.
+>
+> Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> ---
+>  .../media/platform/nxp/imx8-isi/imx8-isi-core.h    |   4 +-
+>  .../platform/nxp/imx8-isi/imx8-isi-crossbar.c      | 121 +++++++++++++++++----
+>  2 files changed, 104 insertions(+), 21 deletions(-)
+>
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> index 7547a6559d4c..bb2cfba27e20 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> @@ -185,7 +185,9 @@ struct mxc_isi_dma_buffer {
+>  };
+>
+>  struct mxc_isi_input {
+> -	unsigned int			enable_count;
+> +	u64				enabled_streams;
+> +	/* Counter per stream */
+> +	unsigned int			*enabled_count;
+>  };
+>
+>  struct mxc_isi_crossbar {
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+> index 29f14d30dbbb..a4a063c60c76 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+> @@ -345,6 +345,8 @@ static int mxc_isi_crossbar_enable_streams(struct v4l2_subdev *sd,
+>  	struct mxc_isi_crossbar *xbar = to_isi_crossbar(sd);
+>  	struct v4l2_subdev *remote_sd;
+>  	struct mxc_isi_input *input;
+> +	u64 streams_to_enable;
+> +	unsigned long stream;
+>  	u64 sink_streams;
+>  	u32 sink_pad;
+>  	u32 remote_pad;
+> @@ -358,30 +360,47 @@ static int mxc_isi_crossbar_enable_streams(struct v4l2_subdev *sd,
+>
+>  	input = &xbar->inputs[sink_pad];
+>
+> -	/*
+> -	 * TODO: Track per-stream enable counts to support multiplexed
+> -	 * streams.
+> -	 */
+> -	if (!input->enable_count) {
+> +	if (!input->enabled_streams) {
+>  		ret = mxc_isi_crossbar_gasket_enable(xbar, state, remote_sd,
+>  						     remote_pad, sink_pad);
+>  		if (ret)
+>  			return ret;
+> +	}
+> +
+> +	/*
+> +	 * Track per-stream enable counts to support multiplexed streams.
+> +	 * Only enable streams that are not already enabled.
+> +	 */
+> +	streams_to_enable = sink_streams & ~input->enabled_streams;
+>
+> +	if (streams_to_enable) {
+>  		ret = v4l2_subdev_enable_streams(remote_sd, remote_pad,
+> -						 sink_streams);
+> +						 streams_to_enable);
+>  		if (ret) {
+>  			dev_err(xbar->isi->dev,
+>  				"failed to enable streams 0x%llx on '%s':%u: %d\n",
+> -				sink_streams, remote_sd->name, remote_pad, ret);
+> -			mxc_isi_crossbar_gasket_disable(xbar, sink_pad);
+> -			return ret;
+> +				streams_to_enable, remote_sd->name, remote_pad, ret);
+> +			goto err_gasket_disable;
+>  		}
+> +
+> +		input->enabled_streams |= streams_to_enable;
+>  	}
+>
+> -	input->enable_count++;
+> +	/* Increment reference count for all requested streams */
+> +	for (stream = 0; stream < xbar->num_sources; stream++) {
+> +		if (!(sink_streams & BIT(stream)))
+> +			continue;
+> +
+> +		input->enabled_count[stream]++;
+> +	}
+>
+>  	return 0;
+> +
+> +err_gasket_disable:
+> +	if (!input->enabled_streams)
+> +		mxc_isi_crossbar_gasket_disable(xbar, sink_pad);
+> +
+> +	return ret;
+>  }
+>
+>  static int mxc_isi_crossbar_disable_streams(struct v4l2_subdev *sd,
+> @@ -391,6 +410,8 @@ static int mxc_isi_crossbar_disable_streams(struct v4l2_subdev *sd,
+>  	struct mxc_isi_crossbar *xbar = to_isi_crossbar(sd);
+>  	struct v4l2_subdev *remote_sd;
+>  	struct mxc_isi_input *input;
+> +	u64 streams_to_disable = 0;
+> +	unsigned long stream;
+>  	u64 sink_streams;
+>  	u32 sink_pad;
+>  	u32 remote_pad;
+> @@ -404,19 +425,36 @@ static int mxc_isi_crossbar_disable_streams(struct v4l2_subdev *sd,
+>
+>  	input = &xbar->inputs[sink_pad];
+>
+> -	input->enable_count--;
+> +	/*
+> +	 * Decrease the enable count for each stream. Only disable streams
+> +	 * whose count reaches zero.
+> +	 */
+> +	for (stream = 0; stream < xbar->num_sources; stream++) {
+> +		if (!(sink_streams & BIT(stream)))
+> +			continue;
+>
+> -	if (!input->enable_count) {
+> -		ret = v4l2_subdev_disable_streams(remote_sd, remote_pad,
+> -						  sink_streams);
+> -		if (ret)
+> -			dev_err(xbar->isi->dev,
+> -				"failed to disable streams 0x%llx on '%s':%u: %d\n",
+> -				sink_streams, remote_sd->name, remote_pad, ret);
+> +		if (!(input->enabled_streams & BIT(stream)))
+> +			continue;
+>
+> -		mxc_isi_crossbar_gasket_disable(xbar, sink_pad);
+> +		if (--input->enabled_count[stream] == 0)
+> +			streams_to_disable |= BIT(stream);
+>  	}
+>
+> +	if (!streams_to_disable)
+> +		return 0;
+> +
+> +	ret = v4l2_subdev_disable_streams(remote_sd, remote_pad,
+> +					  streams_to_disable);
+> +	if (ret)
+> +		dev_err(xbar->isi->dev,
+> +			"failed to disable streams 0x%llx on '%s':%u: %d\n",
+> +			streams_to_disable, remote_sd->name, remote_pad, ret);
+> +
+> +	input->enabled_streams &= ~streams_to_disable;
+> +
+> +	if (!input->enabled_streams)
+> +		mxc_isi_crossbar_gasket_disable(xbar, sink_pad);
+> +
+>  	return ret;
+>  }
+>
+> @@ -447,6 +485,42 @@ static const struct media_entity_operations mxc_isi_cross_entity_ops = {
+>   * Init & cleanup
+>   */
+>
+> +static int mxc_isi_stream_counters_alloc(struct mxc_isi_crossbar *xbar)
+> +{
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	for (i = 0; i < xbar->num_sinks; ++i) {
+> +		struct mxc_isi_input *input = &xbar->inputs[i];
+> +
+> +		input->enabled_count = kcalloc(xbar->num_sources,
+> +					       sizeof(*input->enabled_count),
+> +					       GFP_KERNEL);
 
-For instance, this fault yielded to locking issues between systemd and
-xHCI, blocking a system's reboot after a vmcore was captured with kdump:
+kzalloc_objs();
 
-[   72.987601] systemd-udevd[246]: usb3: Worker [255] processing SEQNUM=2193 is taking a long time
-[  132.237566] dracut-initqueue[277]: Timed out while waiting for udev queue to empty.
-[  202.988014] systemd-udevd[246]: usb3: Worker [255] processing SEQNUM=2193 killed
-[  202.998059] systemd-udevd[246]: usb3: Worker [255] terminated by signal 9 (KILL).
-...
-[  206.288378] kdump[569]: saving vmcore complete
-...
-[  206.821258] systemd-shutdown[1]: Rebooting.
-[  246.858495] INFO: task kworker/0:1:11 blocked for more than 122 seconds.
-[  246.865319]       Not tainted 7.0.0-clean #1
-[  246.869663] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-[  246.877623] task:kworker/0:1     state:D stack:0     pid:11 tgid:11    ppid:2      task_flags:0x4208160 flags:0x00080000
-[  246.888942] Workqueue: usb_hub_wq hub_event
-[  246.893202] Call Trace:
-[  246.895690]  <TASK>
-[  246.897828]  __schedule+0x299/0x5c0
-[  246.901378]  schedule+0x27/0x80
-[  246.904572]  schedule_timeout+0xbd/0x100
-[  246.908565]  __wait_for_common+0x97/0x1b0
-[  246.912644]  ? __pfx_schedule_timeout+0x10/0x10
-[  246.917252]  xhci_alloc_dev+0x9e/0x2b0
-[  246.921068]  usb_alloc_dev+0x7a/0x3b0
-[  246.924795]  hub_port_connect+0x285/0x960
-[  246.928873]  hub_port_connect_change+0x94/0x290
-[  246.933482]  port_event+0x4bb/0x840
-[  246.937030]  hub_event+0x141/0x460
-[  246.940489]  process_one_work+0x196/0x390
-[  246.944569]  worker_thread+0x1af/0x320
-[  246.948383]  ? __pfx_worker_thread+0x10/0x10
-[  246.952724]  kthread+0xe3/0x120
-[  246.955921]  ? __pfx_kthread+0x10/0x10
-[  246.959736]  ret_from_fork+0x199/0x260
-[  246.963550]  ? __pfx_kthread+0x10/0x10
-[  246.967362]  ret_from_fork_asm+0x1a/0x30
-[  246.971355]  </TASK>
-[  369.738508] INFO: task systemd-shutdow:1 blocked for more than 122 seconds.
-[  369.745593]       Not tainted 7.0.0-clean #1
-[  369.749935] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-[  369.757897] task:systemd-shutdow state:D stack:0     pid:1 tgid:1   ppid:0      task_flags:0x400100 flags:0x00080000
-[  369.769128] Call Trace:
-[  369.771616]  <TASK>
-[  369.773752]  __schedule+0x299/0x5c0
-[  369.777299]  schedule+0x27/0x80
-[  369.780493]  schedule_preempt_disabled+0x15/0x30
-[  369.785188]  __mutex_lock.constprop.0+0x547/0xac0
-[  369.789974]  device_shutdown+0xac/0x1b0
-[  369.793877]  kernel_restart+0x3a/0x70
-[  369.797603]  __do_sys_reboot+0x147/0x240
-[  369.801595]  do_syscall_64+0x11b/0x6a0
-[  369.805407]  ? handle_mm_fault+0x110/0x350
-[  369.809574]  ? do_user_addr_fault+0x206/0x680
-[  369.814006]  ? irqentry_exit+0x7a/0x4d0
-[  369.817907]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[  369.823046] RIP: 0033:0x7fe2958da917
-[  369.826684] RSP: 002b:00007ffc5c458618 EFLAGS: 00000206 ORIG_RAX: 00000000000000a9
-[  369.834383] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fe2958da917
-[  369.841639] RDX: 0000000001234567 RSI: 0000000028121969 RDI: 00000000fee1dead
-[  369.848893] RBP: 00007ffc5c458790 R08: 0000000000000069 R09: 00000000ffffffff
-[  369.856148] R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
-[  369.863402] R13: 0000000000000000 R14: 00007ffc5c4588b8 R15: 0000000000000000
-[  369.870659]  </TASK>
-[  369.872888] INFO: task systemd-shutdow:1 is blocked on a mutex likely owned by task kworker/0:1:11.
-
-Fixes: 091d42e43d21 ("iommu/vt-d: Copy translation tables from old kernel")
-Signed-off-by: Desnes Nunes <desnesn@redhat.com>
----
-V1 -> V2: Updated commit message and added xHCI stack trace as requested
-
-v1: https://lore.kernel.org/linux-iommu/ajnlKDglN6wEBBrS@google.com/T/#t
-
- drivers/iommu/intel/iommu.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 4d0e65bc131d..737936f942a0 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -1443,7 +1443,7 @@ static int copy_context_table(struct intel_iommu *iommu,
- 			      struct context_entry **tbl,
- 			      int bus, bool ext)
- {
--	int tbl_idx, pos = 0, idx, devfn, ret = 0, did;
-+	int tbl_idx, tbl_slot = 0, idx, devfn, ret = 0, did;
- 	struct context_entry *new_ce = NULL, ce;
- 	struct context_entry *old_ce = NULL;
- 	struct root_entry re;
-@@ -1459,10 +1459,9 @@ static int copy_context_table(struct intel_iommu *iommu,
- 		if (idx == 0) {
- 			/* First save what we may have and clean up */
- 			if (new_ce) {
--				tbl[tbl_idx] = new_ce;
-+				tbl[tbl_idx + tbl_slot] = new_ce;
- 				__iommu_flush_cache(iommu, new_ce,
- 						    VTD_PAGE_SIZE);
--				pos = 1;
- 			}
- 
- 			if (old_ce)
-@@ -1484,6 +1483,9 @@ static int copy_context_table(struct intel_iommu *iommu,
- 				}
- 			}
- 
-+			/* Track if saving UCTP or LCTP entries in scalable mode */
-+			tbl_slot = ext && devfn >= 0x80 ? 1 : 0;
-+
- 			ret = -ENOMEM;
- 			old_ce = memremap(old_ce_phys, PAGE_SIZE,
- 					MEMREMAP_WB);
-@@ -1512,7 +1514,7 @@ static int copy_context_table(struct intel_iommu *iommu,
- 		new_ce[idx] = ce;
- 	}
- 
--	tbl[tbl_idx + pos] = new_ce;
-+	tbl[tbl_idx + tbl_slot] = new_ce;
- 
- 	__iommu_flush_cache(iommu, new_ce, VTD_PAGE_SIZE);
- 
--- 
-2.54.0
-
+Frank
+> +		if (!input->enabled_count) {
+> +			dev_err(xbar->isi->dev,
+> +				"failed to alloc memory for ISI input(%d)\n", i);
+> +			ret = -ENOMEM;
+> +			goto err_free;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +
+> +err_free:
+> +	while (i--)
+> +		kfree(xbar->inputs[i].enabled_count);
+> +
+> +	return ret;
+> +}
+> +
+> +static void mxc_isi_stream_counters_free(struct mxc_isi_crossbar *xbar)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < xbar->num_sinks; ++i)
+> +		kfree(xbar->inputs[i].enabled_count);
+> +}
+> +
+>  int mxc_isi_crossbar_init(struct mxc_isi_dev *isi)
+>  {
+>  	struct mxc_isi_crossbar *xbar = &isi->crossbar;
+> @@ -484,6 +558,10 @@ int mxc_isi_crossbar_init(struct mxc_isi_dev *isi)
+>  		goto err_free;
+>  	}
+>
+> +	ret = mxc_isi_stream_counters_alloc(xbar);
+> +	if (ret)
+> +		goto err_free;
+> +
+>  	for (i = 0; i < xbar->num_sinks; ++i)
+>  		xbar->pads[i].flags = MEDIA_PAD_FL_SINK
+>  				    | MEDIA_PAD_FL_MUST_CONNECT;
+> @@ -492,7 +570,7 @@ int mxc_isi_crossbar_init(struct mxc_isi_dev *isi)
+>
+>  	ret = media_entity_pads_init(&sd->entity, num_pads, xbar->pads);
+>  	if (ret)
+> -		goto err_free;
+> +		goto err_free_cnt;
+>
+>  	ret = v4l2_subdev_init_finalize(sd);
+>  	if (ret < 0)
+> @@ -502,6 +580,8 @@ int mxc_isi_crossbar_init(struct mxc_isi_dev *isi)
+>
+>  err_entity:
+>  	media_entity_cleanup(&sd->entity);
+> +err_free_cnt:
+> +	mxc_isi_stream_counters_free(xbar);
+>  err_free:
+>  	kfree(xbar->pads);
+>  	kfree(xbar->inputs);
+> @@ -512,6 +592,7 @@ int mxc_isi_crossbar_init(struct mxc_isi_dev *isi)
+>  void mxc_isi_crossbar_cleanup(struct mxc_isi_crossbar *xbar)
+>  {
+>  	v4l2_subdev_cleanup(&xbar->sd);
+> +	mxc_isi_stream_counters_free(xbar);
+>  	media_entity_cleanup(&xbar->sd.entity);
+>  	kfree(xbar->pads);
+>  	kfree(xbar->inputs);
+>
+> --
+> 2.34.1
+>
+>
