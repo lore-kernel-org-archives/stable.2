@@ -1,82 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE19D3314AE
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 08:32:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7ECD3F0747
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 08:37:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782721933; cv=none; b=NjdB1eslYQhw67E3wQUyGYMwNYMqFIjKW4pndvBdgtyutJ4zjJ38ooZIVM2eED/rOzVde970vKkAVtVrLdmXD/HTXIJo7DgDw73dNdEWkourabV8fz56O6OJOiKRM9/KjLQstzh66UE5z8vMQX9C6kc8fRVtxG5W5FgwKxqCoRI=
+	t=1782722224; cv=none; b=QU5py+Lttq3SrQQfEaETwqZU24K5Fp69Z/d7qetbGR6+6nO9UthNaPxTNbA7LTAfHBXaKEEhsy6+h0HzapyubZyMeQsAoFzQpH2bWm05+UYjaKv2mIjRmtlfpjJgqX0mIicDigfJeUTKBZJBn9fmaKNSRGz7T+KdWxENFczKP5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782721933; c=relaxed/simple;
-	bh=tUuN591Y6fPtcNAmuZEe8Av3aatfOQw1bSLMTeoh7UI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R/iJ9jK7K1F8Uq9dOsFadvOn8W4A50XTFzWt/F0l3PjHGXPhQS17Os86N9ZxGYQo7HzRzufxHSbE/gg4jIUHhuFttKOtt2AYOEfmcK8j3BbV3tY/Ahw62l6uDl2+ClgZao2w+KbiN1Oryh9FR1RNCNg7lhdbo9R9e8ZXBxMWeZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DuMM4zeD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782722224; c=relaxed/simple;
+	bh=yW4rE5Zr+InFVrJyY8OysXZwP625ZaE3tG8JAi/w1KE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=YfsL/r5wSOGVDJwmHHHq/jFb4M706Tg8dxe4k3Lk2gnDOJ6N+6Ti8EaUc5ot0dOcDVPV9P3IgDRxpwBxDmpUKFcBJYkm7QuK21KhWWZEX0Pi9R7xvhfQ0sOsEDlYDY5wuWchkhPrywHHiwWVQgtSmG1SoUlVO34lx7xjVwvOhB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JOUnnggC; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DuMM4zeD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1FA11F000E9
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 08:32:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782721932;
-	bh=tUuN591Y6fPtcNAmuZEe8Av3aatfOQw1bSLMTeoh7UI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DuMM4zeDirHLDXbGO0dvNYyCS1KEFK/bqfKODIPJf1ksB28atCJWMSU85HvG67HTk
-	 roI5WF7SsRqbv7RRkfW+umO2Xz41tGfPAmEleNpPWFeqNxtT64LjWj7dByPsr7b79d
-	 1m/XQUnE4QGWwZFqvmPqqiIVPB8ANm45+L5DM3pj+xo//4M5HUd78e12yvtn8pMjOQ
-	 1t1UK/WuYq/xVAPYf6Q9Z4TTmvh8DGQ0xoLCstzTqUEZPg4ceQLbOadJagU82+mEUu
-	 OWld2aR0aRTpCL+i9mUPJ8exAgW9WVdhoy1DsLadZNFvWy8JblhmmdAMUneypncW1Y
-	 lbZjnoPlja59Q==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-39ad656869bso25834711fa.0
-        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 01:32:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RotxaY6vctHYv7SZcOk4vtvaUBx1TYR03H0pj4SBGzng1yiJGN3hjDjnrau0oB3bshW2/yNSJw=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyz7Z1GwvdJrQltfiYTb2Mv3CwMBemSvzKSvuUTu9dlYoMq5L1f
-	HikN+7H+cC+aO199ZYeOKm2uLcf/3eDcIk2rReiClmMxOV0jag025gyFi/6ntT4rD5Uuu3CSSsU
-	zyukqkiROeOknOmFs8SLMMf9tMkMQ4Rg=
-X-Received: by 2002:ac2:5de5:0:b0:5aa:8823:e311 with SMTP id
- 2adb3069b0e04-5aea1f55e73mr2561045e87.47.1782721931064; Mon, 29 Jun 2026
- 01:32:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JOUnnggC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782722221; x=1814258221;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=yW4rE5Zr+InFVrJyY8OysXZwP625ZaE3tG8JAi/w1KE=;
+  b=JOUnnggC8fER4tptQj39CIdRUiQj6cqwdUtwIKFXLQBZ1SOGNP/Du0Gw
+   rBB3lsxr+yWsOHeawWazRYylwOZWgxcccExLXWnJV/Sey4aaHvIPCRzSq
+   g37c2q0H7f3stZ3ba751vDPu/O9QJRFGO+SDOMZX0Q56NOgSgQUyWAroE
+   oZ+ubZT2FkTPmUC5L8fu4ZfuocNRuLPaIMy3O1m4b1Oetvp46jSD1P5rl
+   YtIerCWWjrNikR4N+0E390G03Y8Ctv2OVrgF0Ol1sTB0tyPgo4SsdNgzH
+   Y85lHK4OsCHqg3v8/qAQx+FoES/8SlMRXgsagoax1UhR13U5ScB4HdkL2
+   w==;
+X-CSE-ConnectionGUID: 1CBEbH/TQhKt5ik2Wk1AwQ==
+X-CSE-MsgGUID: PdvYU/4dSJOPDA4SS0GoYw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="83174856"
+X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
+   d="scan'208";a="83174856"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 01:37:01 -0700
+X-CSE-ConnectionGUID: cThrWzkYToKtCL0Q7jJf5Q==
+X-CSE-MsgGUID: ZTqd1/pyQK2hsN7TA3cjmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
+   d="scan'208";a="250209467"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.253])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 01:36:59 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Cc: "Hodo, Martin" <martin.hodo@intel.com>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: RE: [PATCH] drm/i915/hdcp: require monotonically increasing seq_num_v
+In-Reply-To: <DS4PPFE901A304F2E6AD5691A968A6BA2ECE3EA2@DS4PPFE901A304F.namprd11.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260625104407.1025614-1-jani.nikula@intel.com>
+ <DS4PPFE901A304F2E6AD5691A968A6BA2ECE3EA2@DS4PPFE901A304F.namprd11.prod.outlook.com>
+Date: Mon, 29 Jun 2026 11:36:56 +0300
+Message-ID: <6bfadde9120c6203f01a3b29fa2a1350b5a47904@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260618195254.139712-1-devnexen@gmail.com>
-In-Reply-To: <20260618195254.139712-1-devnexen@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 29 Jun 2026 10:31:57 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnukur1VqeSurPgCTEQn9BQmgBVOD1Zivsaa1BDnE6Lyw@mail.gmail.com>
-X-Gm-Features: AVVi8Cf2Zm9cQlf0-6MUONGs-3PVu60eg84J8Jx2A_aHPmENqBIdJmOC0tvxgVY
-Message-ID: <CAD++jLnukur1VqeSurPgCTEQn9BQmgBVOD1Zivsaa1BDnE6Lyw@mail.gmail.com>
-Subject: Re: [PATCH v2] media: mali-c55: Fix scaler factor overflow for large
- crop sizes
-To: David Carlier <devnexen@gmail.com>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Thu, Jun 18, 2026 at 9:53=E2=80=AFPM David Carlier <devnexen@gmail.com> =
-wrote:
-
-> The horizontal and vertical scaling factors multiply the crop dimensions
-> by MALI_C55_RSZ_SCALER_FACTOR, a Q4.20 factor of (1 << 20). Both operands
-> are 32-bit, so the multiplication wraps before the result is stored in
-> the u64 scale variables. For any crop dimension of 4096 or more (the
-> maximum is 8192) the value overflows; an 8192 to 4096 downscale yields a
-> TINC of zero, so the scaler never advances and the output is corrupted.
+On Sat, 27 Jun 2026, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
+>> Subject: [PATCH] drm/i915/hdcp: require monotonically increasing seq_num_v
+>> 
+>> The HDCP 2.2 specification requires the seq_num_v to be monotonically
+>> increasing, and repeated seq_num_v needs to be treated as an integrity failure.
+>> Make it so.
+>> 
+>> For the first message, seq_num_v must be zero, and is already checked. We can
+>> only check for less-than-or-equal for the subsequent messages, where
+>> hdcp2_encrypted is true.
+>> 
+>> Discovered using AI-assisted static analysis confirmed by Intel Product Security.
+>> 
+>> Reported-by: Martin Hodo <martin.hodo@intel.com>
+>> Fixes: d849178e2c9e ("drm/i915: Implement HDCP2.2 repeater authentication")
+>> Cc: <stable@vger.kernel.org> # v5.2+
+>> Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 >
-> Define MALI_C55_RSZ_SCALER_FACTOR as a 64-bit constant so the
-> multiplication is performed in 64-bit.
+> LGTM,
+> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+
+Thanks for the review, pushed to din.
+
+BR,
+Jani.
+
 >
-> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Carlier <devnexen@gmail.com>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_hdcp.c | 7 ++++---
+>>  1 file changed, 4 insertions(+), 3 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c
+>> b/drivers/gpu/drm/i915/display/intel_hdcp.c
+>> index e88fec24af49..d097b478d010 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+>> @@ -1798,9 +1798,10 @@ int hdcp2_authenticate_repeater_topology(struct
+>> intel_connector *connector)
+>>  		return -EINVAL;
+>>  	}
+>> 
+>> -	if (seq_num_v < hdcp->seq_num_v) {
+>> -		/* Roll over of the seq_num_v from repeater. Reauthenticate.
+>> */
+>> -		drm_dbg_kms(display->drm, "Seq_num_v roll over.\n");
+>> +	if (hdcp->hdcp2_encrypted && seq_num_v <= hdcp->seq_num_v) {
+>> +		/* Reauthenticate on Seq_num_v repeat or rollover */
+>> +		drm_dbg_kms(display->drm, "Seq_num_v %s\n",
+>> +			    seq_num_v == hdcp->seq_num_v ? "repeat" :
+>> "rollover");
+>>  		return -EINVAL;
+>>  	}
+>> 
+>> --
+>> 2.47.3
+>
 
-LGTM
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Yours,
-Linus Walleij
+-- 
+Jani Nikula, Intel
