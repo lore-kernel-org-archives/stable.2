@@ -1,262 +1,168 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012018.outbound.protection.outlook.com [40.107.209.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965373C1F5B
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 07:17:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782717448; cv=fail; b=OjSF3yPhWKs9DcC3jqzyAJo4FTpZwxlPzbJukPWlzsouGM8PCB+BEA4qElyslesqvmFsXyG6iIEfBnBorCmiRFeaPw/cnLRZfJ5b02cg3wpKRlyk5pXnlyEV1/GpDtYnD3a6nxMNY+9XP74BFRqPSp1STfkcCiWZ/3Rt4i+r9ws=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782717448; c=relaxed/simple;
-	bh=vCTUGJoofDpOksU2zuZaEtR57fzzStyOWMEj2BIqsA0=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=rmFfn8XHK48gO2qDxZtRShX2iYme+RUKNiLQN6p7OuCoLRXlU4SL9f/xpVR6pDTpKWE3Tidjn534CIACGg0qrNaiFL9nJE1TNgw3RFC0YSaCpHepRiZWFviK5YxohywOid2f78NdpPFjwa9dzZsEjMgpsf3a7Ur+4aQ7vydX7gk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=CZgU6lYS; arc=fail smtp.client-ip=40.107.209.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="CZgU6lYS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dAIJH77FUedHUCFENHteeKzAS5MGydDedJirRvvl0nCQK+jN/CFjgLd23OXKdFRGthXk3gIbtiCGE2Gcw5uVy98FQOww5lD1w93gR8BgXOXNiyrXQMjPsh9YqKnl1G8GTDzanlcK7S33C0f/nV5lyt1e+SUKc0u6uIKG7Dyb/H+tp9y6HVhFSFm+zyVH6RF8zvYj+BpUUB8v5SqSKdBL4Z5Fmc+FbGlSqR30SWghU6Igh3c6cmLEAYBzi3VYfT/7/78GBvNWoY3JWyn2HWz9mIM14jlsjUX4cuYwl1XNWXap0e8ddVrD91Soi8hvBS+Y/nVxWjwVci+PEFMc7j4L0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m8Ue8ruBUM3So0yR+Ftgl8cKq6bqCTwNlWBnLd6sjRY=;
- b=b5YOqTu49CuGlYaerhx5Y7HHzkXOmq6BpFghi3OeNPL/8MbrpO17XWiEfLqluZP0e08b9YgOx4Kn30D53dDr9bHNPmCfSx2j326dckwwIDNgNvk9+bwWq9dyEDHlEd863vhQKTnSv1ihnNgwqsVLtJYRsofS52gurljAyjEBTd6vIhzg5jXEJt1UwPBkNUVvYNI1y+DrAfU9Hg6R6NOD9YYFNtmosaPODwT0+1sIv7+FIP4sWYZ11G2wz7DBtnNINQ0NbI8t8W7IYE8JkGPR4v2sIqhgnsU75Gmb1UvvUKqLeG5gjGcWf6OIsNFmfcubMeS/A5txlmDrbMxt+nO4kg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m8Ue8ruBUM3So0yR+Ftgl8cKq6bqCTwNlWBnLd6sjRY=;
- b=CZgU6lYSKbXR0NWc8/xlopmBw9AOheJrB5kg0Wa9lGUEVxlOBtSTovVX1GnxE1/AkMKtalmLUdjlUjkGGxz2DUSD6VEbaBHKiCM0u/KV2tIYP4d7aob2N/z9QCyW0W1sk6XB8lu+RIKnTy10I6s4irvjCNV1qkrn5hZ8NaWzcFc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from EAYPR12MB999132.namprd12.prod.outlook.com
- (2603:10b6:303:2c2::11) by SJ2PR12MB8956.namprd12.prod.outlook.com
- (2603:10b6:a03:53a::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Mon, 29 Jun
- 2026 07:17:21 +0000
-Received: from EAYPR12MB999132.namprd12.prod.outlook.com
- ([fe80::7798:60c4:e3f0:d3f8]) by EAYPR12MB999132.namprd12.prod.outlook.com
- ([fe80::7798:60c4:e3f0:d3f8%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 07:17:19 +0000
-Message-ID: <c930b53d-6cb2-4d0c-9d3d-f895377649a8@amd.com>
-Date: Mon, 29 Jun 2026 12:47:13 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] gpu/buddy: bail out of try_harder when alignment cannot
- be honoured
-To: Matthew Auld <matthew.auld@intel.com>, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
- stable@vger.kernel.org
-References: <20260618124755.2751205-1-Arunpravin.PaneerSelvam@amd.com>
- <4c7300dc-ab5e-464f-9704-d8da378ee1af@intel.com>
-Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <4c7300dc-ab5e-464f-9704-d8da378ee1af@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0244.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1ae::10) To EAYPR12MB999132.namprd12.prod.outlook.com
- (2603:10b6:303:2c2::11)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B343D75BF;
+	Mon, 29 Jun 2026 07:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782717967; cv=none; b=dpQn444J7r5KoRiI8yjohQ4ed9RVNf5ndKMBN33GETkR6I7+II1er4x4Jl6Ao3g7U2PU2bPi/b9ldNN5qV68gDIjEBATOZLCMNmunY/svzv61E7DWlJLqrCTXK/JMdhE0SSyxzhE8Ih1Ir9BahepiuvdUBycYIdsC73/ihYyC1E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782717967; c=relaxed/simple;
+	bh=Oc7p5naKI0aOY2n1SYhKEhitfUgn/oCcQP0I1lHF55k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OaxNeoPIv73NiyU0pSWl13Jc/v1SlMoX6KUmAZmdMCbDX/PraVI30XbmHOQk4CS2lcuyp7PdTJ7EjnOe6w08KLKkzC4gfh3eDQ4s8xug9FV/BAArBcX5IbXDYxFrgMBZLzoJFBctLSmxK0l7eHpAIx22Jq21AG+CaYqANaJm4SI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 952701F000E9;
+	Mon, 29 Jun 2026 07:25:53 +0000 (UTC)
+Message-ID: <0fabee2a-edb7-41c8-91ec-8cf0646c9e83@kernel.org>
+Date: Mon, 29 Jun 2026 09:25:48 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EAYPR12MB999132:EE_|SJ2PR12MB8956:EE_
-X-MS-Office365-Filtering-Correlation-Id: 920b7734-c32d-41c8-272b-08ded5ae7497
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|6133799003|4143699003|22082099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	wUq/JbFb6IIZIEmK0+dQC1g8zxYTlmpt04UWgHwvlreCxOD1sKgtx7n/l9/1XVOjmibB2M7d4OHFin77eXuKfCIJQKfgj5/uuU8zx1TRL4ds3ib7VZc2W49tnE9vsTnCGn2tB2R/Iq0EW2nO7PaOahn1g6meTjleU4+6La/pXhRWcxWyYLtyrNZM++nFrkTH/rdOxiKZxzY7NZePH1EuTsiM3OM++5yZTF/zZ20OiAJ7Ak+XO17ILFcD+GykRRGvzHandc1O9n1iM7JZm4IkAnjDxLGE9tmv5Y0Er41ppCm3QMZkNvOo9AQvA9k3pn9OfdLr4o9jIhJg5kXJSAX80Y5HsjHmtdAuzSmRVhLew2d0emM7oUjXgzThUdsWVP8C20YHCKrtjWIjlMT7v40w5nv3+FsW51rOyoTma5te+DfVkJdgzX4Z8XtsKEmR9xg2dWs/K2ALiDc4q0+oT852fjbViTNQb3Z7O6JQrWTBWPiaKmZUpRpBFHc/9b6qYNGbvTgBIfKR4z98MNhDuNMnvts/a5+KwWxglPzcslTfPO8kKRniTO1iqomnpQAreeHD8NMP0qtgauSuNUfeLec9mFC4zPncOTTVFaURV/hktztZlXmFHNZ4hke8GaHgtFlSzeq07k8HUlpEjteoJqom75V7jlsnYuP7CuAX0Jk5NSY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:EAYPR12MB999132.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(6133799003)(4143699003)(22082099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Qjl0RTVlMzZpL2JFbytnWlBrZFlYSTQ0azRpK0dzVVVNZmhRTnk1dUZPQjdk?=
- =?utf-8?B?bWsydENzZTBabHpOMWRsZEJ6SmJCelA1ejRkVGkrbWV1cXRlVTZTMllwUGlp?=
- =?utf-8?B?dGNmSUd0Nk5XODgxeVM5Y2RpZStVZ2UyVHEySzFsVW1jUlZvRmlLMWVUeTlR?=
- =?utf-8?B?RG9BUG44ODc3aVBNbnlvY1lHSE83UENHSDlPT29NNW9COEZiTTNnZk9yWHBa?=
- =?utf-8?B?SDNIaURXeUNqUVErZ0kyV0RKeTBVUjZsSEFaY204dm85amE3RVV5TVpLdVBz?=
- =?utf-8?B?d21mMTlqMUZET2ErZk5QZENyTG96QUgyOGl4RFNYZUVFYWJzK3BhdDAwemFa?=
- =?utf-8?B?TjIzVHlIY0FSaXJxcDBlWVhhalo2clZMcDFIT1p6ZTcwNnpBVE0xamo3WUtS?=
- =?utf-8?B?TldQYnFxeHBxWFZOSnRMN3IyWno5NEg5NUtDa05XL01PUm05RGk2aERkaTNT?=
- =?utf-8?B?SjV0aTZyQVdyY1BWSTI4Q2JkajZQWTFtR1M4VWVQNW5YKzl1M1l6YjhaWWdi?=
- =?utf-8?B?Sm9rRmhDTTRMYnB0SUJiTTBBUXVoM0ZzTUowQjEzamJmTzNGOVBLcEYyS1hD?=
- =?utf-8?B?ald6K2loM1F5N2F0c0YrZEJQZWY3YU9pamNaVDdzMTNxbzJ3TUVuQ0FwdEFK?=
- =?utf-8?B?VWtYdm1IVU9mV3MvMW5ualhCT3hCYUxNeTl4eXpLV2I4WnZhaHN0TFZyVFNw?=
- =?utf-8?B?Umx0WlNJbGRvblEyTjJMSlJtZVpEdXRBVXBFamt4WjR3QUkzeUozL2g0bm9z?=
- =?utf-8?B?SEMzdUxMbXEvMmt2VGRyTUNER3pnUzhSSWlzYkpmNTFEbGViV01yYTg4ekRi?=
- =?utf-8?B?TmdlRkc4bkxUV1VEWkt6RUlhVCtqQlZDK0FxaFJzaUFWMG5XZndVMEVHOXFk?=
- =?utf-8?B?TGJFNjMvRnRUVGdGVkpZcThWajZMOVdCVDZ0TzNTSFV4U0R6U2J3U1I1YkEz?=
- =?utf-8?B?WStRcG5JYVRnNXFoS0w2R0lCWWhNSnJhSjRkWVdXOFBiTE9yZGNYVnkvOXZl?=
- =?utf-8?B?dVFTVzVwNUhtOGU4aGRzU3lvemVaSUNZUFNnODVuOUNhT2F0NHBMcUhIWGVV?=
- =?utf-8?B?SE1kNkJ3ZXJrQWJLVXRXcitKaFhKdFd3MEk4eERQN0xNMGI1YVRsRkMzTmFR?=
- =?utf-8?B?aEw5K1F0ckREY0liTlNjRlVlYytScFdySXNjSG1ybjlhTmgzRVRFM1JuQ0to?=
- =?utf-8?B?TnRhQ2R2bTVpN2c3WDROTEltU3ZVR2c4V1VkYVVDRE84T2NMUzQ2NWJGQTFK?=
- =?utf-8?B?dnhVSXU3R2tNaGJuSURKSFUrQUZkanhNejZsQittRGRSejd2dEF5TTUwYUlp?=
- =?utf-8?B?SHBudy9GbGxlNUZUL3pFUFd2NGhFa1MxQ0tUR1V2TzhVb2N3Sis3TUFuV081?=
- =?utf-8?B?VzVyT0FIaG9XNndDemg3QWdONEdva1VVYkRvTm5HZWQ2d1VmMkxOQnBiSHpq?=
- =?utf-8?B?bU1RbFZwbUZrVkVobGd4R2ZpRUZDcHErUnNVOU01VU50OW1qTzhPVFVzOGpp?=
- =?utf-8?B?OGNsaVhwL3N5Y1RrM2RwTmdVWWhNT285eEZyYnBXS1JjUUxuQTlvbndtSHJq?=
- =?utf-8?B?RFp0WkhEcWpHcmp1TVcydm5XK3loL0s3WGtwSCtoYWhvTCs2MnR3dVplQ2p0?=
- =?utf-8?B?dERtN285UFpLYXpVeHByVXF4ZjZTNVBIc1VKVW1mUWVHTi9SblFLaEVMZ3M0?=
- =?utf-8?B?V1lUMmNhVVhpQ2laSXFTcWRubXd5R1pDamtiOEtmVXJ0M1UyUXpFTW1ueDRC?=
- =?utf-8?B?a2NOamtONkNEL2tjRDhQVStENW5ZY3NYUm9GcGdqb2xWYm8zOW1rd0ZNaHZ1?=
- =?utf-8?B?c3lBeWg2YXVhcjVSN0tRczE4TjRWaVE4TEM4bTdHWFZpU25wK0U4MUVIV2di?=
- =?utf-8?B?MU1yWFNOR2RXWHkyV2JpS3lIQytCSDA3SFJVNGxHeU9QQ1NOTkdpdlVPbFVU?=
- =?utf-8?B?U1FkMHZoUkpsOFBPd1pOd2xhSDB5MEkrZWpqNTZqRTdONERuUWpyMGJ1L2kv?=
- =?utf-8?B?UFI0b3hPczFpTm9ibUtITGl5TU0vaVJ1RkZ6S0pDYnlhcFdMY016ZDJxVVl1?=
- =?utf-8?B?dXVVU2tsMks3Tk8yUTdKNFdkaXUyR3pnWFFPa1dxeWV0d3JOTEYxSFZzUzB2?=
- =?utf-8?B?SWNDYTViT0o5QjNxVWZzU1FwVXZCQzZheEI1NmpDWmF1VVVjcTN6NjlWaFZz?=
- =?utf-8?B?MWR2dEEyN3NyNmprcURBVFpLb0ovZnBFTlozTTFPS1FLN05aSEQ5emY3NWVT?=
- =?utf-8?B?cEJKbGQ2ZlEzN3RzWVZ2dG9zWEZhKzdFb2pXY1BBb1M4dld2SkZuQ2R6cEtP?=
- =?utf-8?B?a0RxSklvNGZKWGdMNVczTVdKYytGM3RIY21rYTh5akJES2NwNS9udz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 920b7734-c32d-41c8-272b-08ded5ae7497
-X-MS-Exchange-CrossTenant-AuthSource: EAYPR12MB999132.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 07:17:19.7412
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NfcoEhYbSogxb+TdjUBEnQwETsWchXFangtRqu5fkUct+EBraYeTVmzPnr/W7r9BhZOSle7J7Xuhu8+Sx+4B+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8956
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
+To: Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>
+Cc: linmiaohe@huawei.com, muchun.song@linux.dev, osalvador@suse.de,
+ akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
+ riel@surriel.com, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
+ kas@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ rcampbell@nvidia.com, apopple@nvidia.com, ziy@nvidia.com,
+ matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ byungchul@sk.com, gourry@gourry.net, ying.huang@linux.alibaba.com,
+ mel@csn.ul.ie, nao.horiguchi@gmail.com, ak@linux.intel.com,
+ j-nomura@ce.jp.nec.com, pfalcato@suse.de, dave.hansen@intel.com,
+ tglx@kernel.org, jpoimboe@kernel.org, ryan.roberts@arm.com,
+ anshuman.khandual@arm.com, stable@vger.kernel.org
+References: <82395f5a-31d4-406b-b7ec-10d1a9d067d4@arm.com>
+ <20260628054402.76978-1-lance.yang@linux.dev>
+ <98f3aedd-de11-4a83-81b8-f3e3c9380e49@kernel.org>
+ <1d6d699e-62e5-424f-a147-b7a75b966957@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <1d6d699e-62e5-424f-a147-b7a75b966957@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-
-On 6/19/2026 6:15 PM, Matthew Auld wrote:
-> On 18/06/2026 13:47, Arunpravin Paneer Selvam wrote:
->> The try_harder contiguous fallback could return a range whose start
->> offset did not match the caller's min_block_size. Check each candidate
->> against the requested alignment and reject the allocation when no
->> candidate satisfies it, instead of handing back a misaligned range.
+On 6/29/26 08:48, Dev Jain wrote:
+> 
+> 
+> On 29/06/26 12:09 pm, David Hildenbrand (Arm) wrote:
+>> On 6/28/26 07:44, Lance Yang wrote:
+>>>
+>>> [...]
+>>>
+>>> Yes, that's what I had in mind :) thanks!
+>>>
+>>>
+>>> Maybe worth spelling out the rule as well: 
+>>>
+>>> For arch helpers that use addr, huge_ptep_get() assumes addr is the
+>>> address for the hugetlb entry ptep points to. arm64 already makes that
+>>> assumption.
+>>>
+>>> Callers where addr may not be hugepage-aligned should use
+>>> hugetlb_ptep_get() instead.
 >>
->> Suggested-by: Christian König <christian.koenig@amd.com>
->> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
->> Cc: Matthew Auld <matthew.auld@intel.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Timur Kristóf <timur.kristof@gmail.com>
->> Cc: John Olender <john.olender@gmail.com>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Arunpravin Paneer Selvam 
->> <Arunpravin.PaneerSelvam@amd.com>
->> ---
->>   drivers/gpu/buddy.c | 33 +++++++++++++++++++++------------
->>   1 file changed, 21 insertions(+), 12 deletions(-)
->>
->> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
->> index dc81fe0301ce..28ed3250ac57 100644
->> --- a/drivers/gpu/buddy.c
->> +++ b/drivers/gpu/buddy.c
->> @@ -1127,13 +1127,11 @@ static int __alloc_contig_try_harder(struct 
->> gpu_buddy *mm,
->>       struct gpu_buddy_block *block;
->>       unsigned int tree, order;
->>       LIST_HEAD(blocks_lhs);
->> -    unsigned long pages;
->>       u64 modify_size;
->>       int err;
->>         modify_size = rounddown_pow_of_two(size);
->> -    pages = modify_size >> ilog2(mm->chunk_size);
->> -    order = fls(pages) - 1;
->> +    order = ilog2(modify_size) - ilog2(mm->chunk_size);
->>       if (order == 0)
->>           return -ENOSPC;
->>   @@ -1149,31 +1147,42 @@ static int __alloc_contig_try_harder(struct 
->> gpu_buddy *mm,
->>           while (iter) {
->>               block = rbtree_get_free_block(iter);
->>   -            /* Allocate blocks traversing RHS */
->>               rhs_offset = gpu_buddy_block_offset(block);
->> +
->> +            /* Allocate blocks traversing RHS */
->>               err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
->>                                  &filled, blocks);
->> -            if (!err || err != -ENOSPC)
->> +            if (err && err != -ENOSPC)
->>                   return err;
->> +            if (!err && IS_ALIGNED(rhs_offset, min_block_size))
->> +                return 0;
->> +            if (!err)
->
-> Should we do some kind of rhs = round_down(rhs, min_block_size) at the 
-> start? Just wondering if we can get something misaligned here, that 
-> should have succeeded if we just applied the round_down first, in some 
-> edge case?
-  Done - when the whole size fits at rhs_offset but the start is 
-misaligned, we drop it and realign to the min_block_size boundary below 
-instead of bailing.
->
->> +                goto next;
->>   -            lhs_size = max((size - filled), min_block_size);
->> -            if (!IS_ALIGNED(lhs_size, min_block_size))
->> -                lhs_size = round_up(lhs_size, min_block_size);
->> +            lhs_size = round_up(max((size - filled), min_block_size),
->> +                        min_block_size);
->
-> Can this be simplified as: round_up(size - filled, min_block_size) ?
-Dropped round_up/lhs_size entirely, we realign and allocate exactly 
-size, so the max/round_up is gone.
->
->> +
->> +            if (lhs_size > rhs_offset)
->
-> What is the idea with this check?
-We reach here only on a partial RHS fill, so the leftover size - filled 
-must be taken from the space left of rhs_offset;
-if that leftover exceeds rhs_offset there isn't room, so we skip.
-It also prevents the next line's u64 rhs_offset - (size - filled) from 
-underflowing.
+>> Do we have any examples where code would do that? I would think that all code
+>> must properly align addr ahead of times.
+> 
+> Sashiko notes other places:
+> 
+> https://sashiko.dev/#/patchset/20260625112955.3254283-1-dev.jain%40arm.com
 
->
->> +                goto next;
->>                 /* Allocate blocks traversing LHS */
->> -            lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
->> +            lhs_offset = rhs_offset - lhs_size;
->> +
->> +            if (!IS_ALIGNED(lhs_offset, min_block_size))
->> +                goto next;
->
-> Would it make sense to just align the lhs down, if misaligned, instead 
-> of baling? If the final size we get back is slightly too large, we can 
-> just apply a trim at the end?
-Done -  we realign lhs_offset (round_down) and request exactly size, so 
-there is no surplus to trim.
-Please review the v2.
+Yeah, that looks shaky. We do seem to have a bunch of these cases, primarily
+from pagewalk code (where some users like pagemap need the actual address).
 
-Regards,
-Arun.
->
->> +
->>               err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
->>                                  NULL, &blocks_lhs);
->>               if (!err) {
->>                   list_splice(&blocks_lhs, blocks);
->>                   return 0;
->> -            } else if (err != -ENOSPC) {
->> +            }
->> +            if (err != -ENOSPC) {
->>                   gpu_buddy_free_list_internal(mm, blocks);
->>                   return err;
->>               }
->> -            /* Free blocks for the next iteration */
->> +next:
->>               gpu_buddy_free_list_internal(mm, blocks);
->> -
->>               iter = rb_prev(iter);
->>           }
->>       }
->>
->> base-commit: b9e2d5cdaab05c997be3a69d9b372d7676683e1b
->
+I think we have two options
 
+1) To prevent any (further) issues, make huge_ptep_get() always consume the
+hstate, and let the arch code deal with aligning it. Invasive.
+
+2) Make the arch code handle aligning without the hstate.
+
+diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
+index 30772a909aea3..303a1b74796c9 100644
+--- a/arch/arm64/mm/hugetlbpage.c
++++ b/arch/arm64/mm/hugetlbpage.c
+@@ -126,6 +126,9 @@ pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
+                return orig_pte;
+ 
+        ncontig = find_num_contig(mm, addr, ptep, &pgsize);
++       ptep = PTR_ALIGN_DOWN(ptep, sizeof(*ptep) * ncontig);
++       orig_pte = __ptep_get(ptep);
++
+        for (i = 0; i < ncontig; i++, ptep++) {
+                pte_t pte = __ptep_get(ptep);
+ 
+(nshift/order instead of ncontig might avoid a multiplication, but not sure if that matters in practice)
+
+IIUC, that's similar to what huge_ptep_get() does on ppc.
+
+
+static inline pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
+{
+	if (ptep_is_8m_pmdp(mm, addr, ptep))
+		ptep = pte_offset_kernel((pmd_t *)ptep, ALIGN_DOWN(addr, SZ_8M));
+	return ptep_get(ptep);
+}
+
+I'd assume we could do the same on riscv. Besides that, I don't think any arch has cont
+entries.
+
+
+Interestingly, huge_pte_clear() / huge_ptep_get_and_clear() and friends would be all
+wrong when the wrong address is passed. But that code really is called from hugetlb.c
+where we should take better care of that. (e.g., partially zapping a hugetlb page is not
+possible)
+
+-- 
+Cheers,
+
+David
