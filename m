@@ -1,225 +1,221 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FA53254B3
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 13:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782741425; cv=pass; b=GPSm/bmHYSGKbEraYb2ei5rGhepBiJHZD0vPoV2D3KXvtIHpWoQjaAjxhgX+M0dPT2okY8m1ixqV3TbGWOGHh8n9cmAM7140Du1AIVTu5BR2AJXvzxJcUgzXTpeI4VKbC8d92HnXgyHnFyaEDgjjb5vpTnmY2n8n3ao8XbZgbGM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782741425; c=relaxed/simple;
-	bh=dKZ/kI3igm+Uf0v6Mfx5oJ0dXQBWLZQZ22xBHXjULZE=;
-	h=In-Reply-To:References:MIME-Version:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q9v25PmR15sWzCWvli//B6bNCJuiEbMr+5mzbuQKR4zWtIosx2SfkBH3bX8+E63zOnbTV5ZfN6YsohGcaK5DTnmclPO/Dp2S2jAOS7ZJ9c4bCwgDOV7zyEBGbF3flhFLdatAj6r1cUeEsRuOtAl6fkO1G+tOXwKWRR3QccKoDaU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RGmfbFuz; arc=pass smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0471EB9E3;
+	Mon, 29 Jun 2026 14:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782741669; cv=none; b=igapxZLSSBLM2HTinH5JJ0EDcCCPxoKwj/XSWcaN6EShyrE2TdWEYgvlIW3kNE8cWRNjvcuSD3h7Kun4nkJk8WTC6RKQUWSp70pRr+QnyuOttAfJzEIe5N0YUxfmNwxWmwSAN6rWlgQ5ksV5h5qTcQ9NAgrqiDpuAmV6Gp0Zi48=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782741669; c=relaxed/simple;
+	bh=hSN7TvGACiX/VENRWbwYtdmD1cWJQWAUeY+mVYJi3/k=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=jXCu+Gl08s3+NJfuSaNXRhT7KtbL84mCUJ92180IRxebf7MhOaKQyjk7Hx5YhKuApPMiglKaEDLY0hqFdc/HYWQEa3eOT9WCq5Pf0tpaVr30uBvtplGsrO7UkXmGFqJbofbY7TgeHd1ZTRq8MjjVtfWVb87A9cIigkavL/EAgX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=Cg/gmrxA; arc=none smtp.client-ip=213.133.104.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RGmfbFuz"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-80dc4a68e4aso11338337b3.0
-        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 06:57:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782741421; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ft+1sp5Nh+lLUWntbvo0QS9oQwE9ozM8JLzgdsmcEVupATHGFYZZEDfnpVup9rrzuh
-         E8TdGEQV7MSfb+420xPitoRw+PYuutH/HFTFQqjFsHUQdT6XQJvq/GZJ8WPR8aDCLWo8
-         a1hGnoWWqKCKnromFd9vFFLCeD70QTSZ4YkfzBnlR9DiGTUQuZSYB20AZ9Obq6rYYfJG
-         to+UDXm79vNTwN3Sab7kZIEzSfPuQmKEiUT1NVtMm5w0PiWJg3QBEyTzMky4ci/1gG4I
-         TKau/KkMKCKIQb6ed7Tdr4ZpkyJaB38pKVDhmXvD0WWg6HJtpOIsgee1zPYUXn1mcerC
-         9HtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:references
-         :in-reply-to:dkim-signature;
-        bh=dKZ/kI3igm+Uf0v6Mfx5oJ0dXQBWLZQZ22xBHXjULZE=;
-        fh=dhLHnaQ6D7ltDxITbVBZYQ13s/6eIVQPRK2wKbgI7Gk=;
-        b=qpAQeBIiqNhGii1FUkwQ/CPrLnEW0lfUcY17zBnF90COuWfDGnXKlU9Xuv7KMkwvds
-         WY+VE+SJsUC0CYfRqigyQh3JhnQZvWSeYUGsGJTy1EZIjyVeNWEtnnn/C7+SnbYqAcrE
-         XO4Bgco+0zthuiUBc1/i3JSS1YbeDR8gfdci93gtENbTxFqpwXyxD6wXxGh7Lk8p60/Z
-         T9WTOeB52Rk8qzH73wOPycNqhXh6arci2JyD4MYNyH2J9peA0rhO+ylHX7Tkr3zn3DY/
-         POvT8wcg+Wrj0TvrcUrs/E4MJFgUoc8dxWqnB9qeskKVcDU1BINqdySzO0XbKhyY/U7r
-         ipUQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782741421; x=1783346221; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:mime-version:references
-         :in-reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=dKZ/kI3igm+Uf0v6Mfx5oJ0dXQBWLZQZ22xBHXjULZE=;
-        b=RGmfbFuzXvf+0pI50i7A1LVIEwtbHPW4Wqx5kMZ9//669OjPsbOPDSJCIgArU6XT3N
-         KyUa8rjxJDctt3B4k3YLi2kWDZPamnTBbekw+EeHmHwaEgv/H7JMqrsA7gZQijKxsbv3
-         NJ/Y1wEUuuTFDdiPOd+cWwkwidAFr0l5RU5ekUiinSUKUsbxXCPcTvH6OxYS1YWPzlZe
-         2ZZf7kjQQSshkmldWh6WWBi49DTgjg89XrCILK+rJIHMNfuRpPJjUBw6NhBkAxUbLnXt
-         JtfY1z2DxeiOMvOntmF7qrAV60AJxbeIBnYt33iT+MJWOABSnNgHHKWgXsM5cuprkK/8
-         Tb5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782741421; x=1783346221;
-        h=cc:to:subject:message-id:date:from:mime-version:references
-         :in-reply-to:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dKZ/kI3igm+Uf0v6Mfx5oJ0dXQBWLZQZ22xBHXjULZE=;
-        b=lECyQ8IF9CGRj7yvn5k9pg7pEbMgONQZH4cgzL9hmc26qF0jRO76pLCk3AKpxGBuzS
-         s6xgDIQYyUStG0ow99aYj9QscCBEJfgfQXXyq3ruqfjsk7AlGhEltayMa3Yog2ezv9bY
-         S2Kt7yrhLb2q7D+Fnn3vrjN1WHxC5VoePGkkR8s3d7GhqEpgtYlw7H7KbiUYJyl7X8Ao
-         L9MLR9nUOg2EshVV213cVY6ByOgZybMcZvO+1Ni8zEmtIaXhqag70mBj9S/HGEmn8vD6
-         AuOg5R3EKp1/ca84v62BSOzxI8seLR3v1zZ+AgD0Vm65NmmF8ZVswvAdjno+n0/GkVYC
-         YzCQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rro4Byp75LkBVPMSOdrdIvPtmQpWfEqHgpF23NDdbScwlfL5Q4ehFMGGdM/HclxCUNxIkSByhI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz0pSFumBtn7XasvfMOt67sUGNgurcswbsD7mZuCCejTES4pqkt
-	ym4a0lY/Tdt8nz3Nfc4K1azb+AgzjRDxi2XVwPAVZ4cnMww0xTtcAOONvV3Ac0y4/JyvOq5Y1lT
-	DEN45jnbQi1zBm6/sChW0PNBG/QkyBJU=
-X-Gm-Gg: AfdE7cknzJBn6rkPqcV7t7ZTWKmKqGUOpxWNf/7whBVgwYj0a6BrnbzoX9MkESVhqDz
-	NxOSXpWVhfePNcFmF/19JqnUYS/pjF0RCJ3T4tXou43Z5HA5FEs6bi3UwVnIvqQDqTa8K6N5lZ9
-	F0oRyCezFHQ/U5m1x6j3sScbTqoWKv3JiC+9mE/MRDKlOHG299MFDSqjj2DzC6Y6a6TjYxuVWhQ
-	FloFs307RFfidKovmVfWzY2nBabifxv4Ec2I6aM1wNms08BQijC18mTIrbojj47B1AkCtrf
-X-Received: by 2002:a05:690c:4911:b0:80e:46c0:68b with SMTP id
- 00721157ae682-80e46c00f8fmr44749937b3.56.1782741421163; Mon, 29 Jun 2026
- 06:57:01 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Mon, 29 Jun 2026 08:57:00 -0500
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Mon, 29 Jun 2026 08:57:00 -0500
-In-Reply-To: <e0c25e65-8e07-41bc-a165-ae5e770a71a2@kernel.org>
-References: <20260628003103.24832-1-alhouseenyousef@gmail.com> <e0c25e65-8e07-41bc-a165-ae5e770a71a2@kernel.org>
+	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="Cg/gmrxA"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=kdEWjGMOYnlDAfLALUWtqU5J62xF5F+MXIBCeOFyv+E=; b=Cg/gmrxA1R21oc7TtzY60RfYsK
+	bBkPinVh+2ZQGpaf4kakheD9OKOCDYi4cAIml4tj0C/wVEgThjEpIIZosDSfCfKNXAmWMTTuOtlLo
+	PBDfEbHTOtew/TOKakvSoEog8OW5DeumWkqr/ShfyiF+fuG4enhECalMZdJIhienyFgk0IS2LA6z9
+	h3uR2fnYQkKAlYaB+E6y2rsIxW2HkWOA5o9E/GJsFWFKhmu7NHXf5n/dS/KWuWAVYquKeuBHX5s6I
+	dIcWAVO+d7GsmZ4hnOCjg9eI6ZKUJCddR9z05CL/yyXzR28gfvZdkPKj72N6l1HdjC2eHwma7gZ10
+	27+O4Irw==;
+Received: from sslproxy07.your-server.de ([78.47.199.104])
+	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1weCXl-0007pj-2O;
+	Mon, 29 Jun 2026 16:01:01 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1weCXk-000A9O-2B;
+	Mon, 29 Jun 2026 16:01:00 +0200
+Message-ID: <067ffbd7-0ed8-47e8-9541-daae18249a9b@iogearbox.net>
+Date: Mon, 29 Jun 2026 16:00:59 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Date: Mon, 29 Jun 2026 08:57:00 -0500
-X-Gm-Features: AVVi8CfWrtuoNArMwAL3BnQ6SsE9tzXzho3wecw4lTja28mSW2h27OdwFScYINU
-Message-ID: <CAMuQ4bVtXU8pEzc39GfGXvxAxJTUgZpMOZd-V0Y4ncgbTj43eQ@mail.gmail.com>
-Subject: Re: [PATCH] media: em28xx: keep device state alive for registered
- video nodes
-To: Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Abhishek Kumar <abhishek_sts8@yahoo.com>, 
-	stable@vger.kernel.org, syzbot+39ff299961a7c07f00f0@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 1/3 v2] net: Extend bpf_net_context lifetime to cover
+ qdisc enqueue
+From: Daniel Borkmann <daniel@iogearbox.net>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ toke@toke.dk, Steven Rostedt <rostedt@goodmis.org>,
+ Petr Machata <petrm@nvidia.com>, Alexei Starovoitov <ast@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, linux-rt-devel@lists.linux.dev,
+ bpf@vger.kernel.org, security@kernel.org, stable@vger.kernel.org,
+ Victor Nogueira <victor@mojatatu.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+References: <20260629102157.737306-1-jhs@mojatatu.com>
+ <20260629102157.737306-2-jhs@mojatatu.com>
+ <a1a31c1e-b5bf-458f-a80a-bc324fc7a07c@iogearbox.net>
+ <CAM0EoM=QsOZ+mbWk7Ysv8-UNMzbmzbYiNXvF9fjEnG1-bDv6YQ@mail.gmail.com>
+ <8a462b1c-b79b-42c5-8409-a36ad727f994@iogearbox.net>
+Content-Language: en-US
+Autocrypt: addr=daniel@iogearbox.net; keydata=
+ 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
+In-Reply-To: <8a462b1c-b79b-42c5-8409-a36ad727f994@iogearbox.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28046/Mon Jun 29 08:27:20 2026)
 
-Understood. I had not found that series. Please drop my patch; I will
-defer to the broader lifetime fix in series 26968.
+On 6/29/26 3:48 PM, Daniel Borkmann wrote:
+> On 6/29/26 3:36 PM, Jamal Hadi Salim wrote:
+>> On Mon, Jun 29, 2026 at 9:01 AM Daniel Borkmann <daniel@iogearbox.net> wrote:
+>>> On 6/29/26 12:21 PM, Jamal Hadi Salim wrote:
+>>>> The bpf_net_context used by sch_handle_egress() is stack-allocated and torn
+>>>> down in that function returned. By the time tcf_qevent_handle() runs
+>>>> current->bpf_net_context is NULL.
+>>>>
+>>>> When a filter attached to a qevent block (e.g. RED's early_drop or mark
+>>>> qevents, which always use shared blocks) returns TC_ACT_REDIRECT,
+>>>> tcf_qevent_handle() calls skb_do_redirect(), which in turn calls bpf helper
+>>>> bpf_net_ctx_get_ri().  That helper unconditionally dereferences
+>>>> current->bpf_net_context resulting in a NULL pointer dereference.
+>>>>
+>>>> Note: The same holds for actions that invoke BPF redirect helpers
+>>>> (e.g. act_bpf running a program that calls bpf_redirect()) during qevent
+>>>> classification itself.
+>>>>
+>>>> Fix:
+>>>> Move the bpf_net_context lifecycle out of sch_handle_egress() into
+>>>> __dev_queue_xmit(), so that it spans both the egress TC fast path and the
+>>>> qdisc enqueue.
+>>>> Note: The call is placed outside the egress_needed_key static branch
+>>>> to cover the case where clsact static key is disabled. Unfortunately this
+>>>> adds a small unconditional penalty to the code path _per packet_ only
+>>>> guarded by CONFIG_NET_XGRESS (two writes and one read).
+>>>>
+>>>> As pointed by sashiko [1]:
+>>>> The same context must also be set up in net_tx_action()'s qdisc drain
+>>>> path, since qdisc_run() -> netem_dequeue() -> qdisc_enqueue( RED child)
+>>>> can trigger qevent classification asynchronously from softirq context.
+>>>>
+>>>> This keeps all bpf_net_context management in net/core/dev.c i.e the
+>>>> existing boundary between tc core and BPF without requiring any net/sched/
+>>>> code to know about BPF plumbing.
+>>>>
+>>>> Reproducer:
+>>>>
+>>>>     tc qdisc add dev eth0 root handle 1: red limit 1MB min 10KB max 20KB \
+>>>>         avpkt 1000 burst 100 qevent early_drop block 10
+>>>>     tc filter add block 10 pref 1 bpf obj redirect.o
+>>>>
+>>>>     traffic through eth0 triggers red_enqueue() -> tcf_qevent_handle() and,
+>>>>     on a redirect verdict, a NULL deref in skb_do_redirect().
+>>>>
+>>>> Fixes: 3625750f05ec ("net: sched: Introduce helpers for qevent blocks")
+>>>> Tested-by: Victor Nogueira <victor@mojatatu.com>
+>>>> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+>>> Could we simplify patch 1 & 2 by just moving the bpf_net_ctx_set() and
+>>> bpf_net_ctx_clear() into a tcf_classify_qdisc() wrapper where we don't
+>>> end up having to touch the core TX code?
+>>>
+>>> Untested diff :
+>>
+>> This is bpf plumbing which doesnt belong in tc really. You already
+>> moved most ebpf/clsact stuff into dev.c - let's just keep it there.
+>>
+>> As a side note: calling a hierachy of N qdiscs we would incur N
+>> set/clear cycles for N levels — and worse, qdiscs like HTB and HFSC
+>> iterate filters while loop calling tcf_classify_qdisc() per iteration,
+>> so each filter chain traversal does set/clear per proto.
+> I'm just saying that this is a lot simpler and taken out of the core fast
+> path. Also, I think you forgot to Cc Sebastian on the whole v2 given the
+> bpf_net_ctx_{set,clear} dance. Imho, having them via tcf_classify_qdisc or
+> something similar would be the much better choice compared to sprinkling
+> ifdefs since you want to block the TC_ACT_REDIRECT from classifiers attached
+> to qdiscs.
 
-Thanks,
-Yousef
 
-On Mon, 29 Jun 2026 09:45:34 +0200, Hans Verkuil
-<hverkuil+cisco@kernel.org> wrote:
-> On 28/06/2026 02:31, Yousef Alhouseen wrote:
-> > The V4L2 core takes a video_device reference before invoking the
-> > driver open callback. That reference does not protect em28xx state
-> > because all three video_device objects are embedded in em28xx_v4l2 and
-> > use video_device_release_empty().
-> >
-> > If initialization fails after registering a node, the error path can
-> > unregister it and drop the last em28xx_v4l2 reference while a concurrent
-> > open has passed the core registration check. The open callback then
-> > dereferences the freed video_device in video_drvdata(), as observed by
-> > KASAN. A disconnect has the same lifetime gap.
-> >
-> > Give each successfully registered video node references to both the
-> > enclosing V4L2 state and the parent em28xx device. Release those
-> > references from the video_device release callback, after the core has
-> > drained pending opens and existing file references.
->
-> This patch series should fix this issue properly:
->
-> https://patchwork.linuxtv.org/project/linux-media/list/?series=26968
->
-> Rejecting this patch, manually manipulating refcounts is not the way to go.
->
-> Regards,
->
-> Hans
->
-> >
-> > Fixes: ef74a0b9ff56 ("[media] em28xx: move video_device structs from struct em28xx to struct v4l2")
-> > Reported-by: syzbot+39ff299961a7c07f00f0@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=39ff299961a7c07f00f0
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-> > ---
-> > drivers/media/usb/em28xx/em28xx-video.c | 35 +++++++++++++++++++++++--
-> > 1 file changed, 33 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-> > index da0422c65e5f..4274a9bcb432 100644
-> > --- a/drivers/media/usb/em28xx/em28xx-video.c
-> > +++ b/drivers/media/usb/em28xx/em28xx-video.c
-> > @@ -2289,6 +2289,31 @@ static void em28xx_free_v4l2(struct kref *ref)
-> > kfree(v4l2);
-> > }
-> >
-> > +static void em28xx_vdev_release(struct video_device *vdev)
-> > +{
-> > + struct em28xx_v4l2 *v4l2;
-> > + struct em28xx *dev;
-> > +
-> > + switch (vdev->vfl_type) {
-> > + case VFL_TYPE_VIDEO:
-> > + v4l2 = container_of(vdev, struct em28xx_v4l2, vdev);
-> > + break;
-> > + case VFL_TYPE_VBI:
-> > + v4l2 = container_of(vdev, struct em28xx_v4l2, vbi_dev);
-> > + break;
-> > + case VFL_TYPE_RADIO:
-> > + v4l2 = container_of(vdev, struct em28xx_v4l2, radio_dev);
-> > + break;
-> > + default:
-> > + WARN_ON_ONCE(1);
-> > + return;
-> > + }
-> > +
-> > + dev = v4l2->dev;
-> > + kref_put(&v4l2->ref, em28xx_free_v4l2);
-> > + kref_put(&dev->ref, em28xx_free_device);
-> > +}
-> > +
-> > /*
-> > * em28xx_v4l2_open()
-> > * inits the device and starts isoc transfer
-> > @@ -2554,7 +2579,7 @@ static const struct v4l2_ioctl_ops video_ioctl_ops = {
-> > static const struct video_device em28xx_video_template = {
-> > .fops = &em28xx_v4l_fops,
-> > .ioctl_ops = &video_ioctl_ops,
-> > - .release = video_device_release_empty,
-> > + .release = em28xx_vdev_release,
-> > .tvnorms = V4L2_STD_ALL,
-> > };
-> >
-> > @@ -2583,7 +2608,7 @@ static const struct v4l2_ioctl_ops radio_ioctl_ops = {
-> > static struct video_device em28xx_radio_template = {
-> > .fops = &radio_fops,
-> > .ioctl_ops = &radio_ioctl_ops,
-> > - .release = video_device_release_empty,
-> > + .release = em28xx_vdev_release,
-> > };
-> >
-> > /* I2C possible address to saa7115, tvp5150, msp3400, tvaudio */
-> > @@ -2965,6 +2990,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
-> > "unable to register video device (error=%i).\n", ret);
-> > goto unregister_dev;
-> > }
-> > + kref_get(&v4l2->ref);
-> > + kref_get(&dev->ref);
-> >
-> > /* Allocate and fill vbi video_device struct */
-> > if (em28xx_vbi_supported(dev) == 1) {
-> > @@ -2999,6 +3026,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
-> > "unable to register vbi device\n");
-> > goto unregister_dev;
-> > }
-> > + kref_get(&v4l2->ref);
-> > + kref_get(&dev->ref);
-> > }
-> >
-> > if (em28xx_boards[dev->model].radio.type == EM28XX_RADIO) {
-> > @@ -3012,6 +3041,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
-> > "can't register radio device\n");
-> > goto unregister_dev;
-> > }
-> > + kref_get(&v4l2->ref);
-> > + kref_get(&dev->ref);
-> > dev_info(&dev->intf->dev,
-> > "Registered radio device as %s\n",
-> > video_device_node_name(&v4l2->radio_dev));
+Q @ Sebastian, we could probably also do sth like this, wdyt between the
+two options :
+
+diff --git a/net/core/filter.c b/net/core/filter.c
+index b446aa8be5c3..04683569ee0c 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -2554,7 +2554,7 @@ BPF_CALL_2(bpf_redirect, u32, ifindex, u64, flags)
+  {
+         struct bpf_redirect_info *ri = bpf_net_ctx_get_ri();
+  
+-       if (unlikely(flags & (~(BPF_F_INGRESS) | BPF_F_REDIRECT_INTERNAL)))
++       if (unlikely(!ri || (flags & (~(BPF_F_INGRESS) | BPF_F_REDIRECT_INTERNAL))))
+                 return TC_ACT_SHOT;
+  
+         ri->flags = flags;
+@@ -2575,7 +2575,7 @@ BPF_CALL_2(bpf_redirect_peer, u32, ifindex, u64, flags)
+  {
+         struct bpf_redirect_info *ri = bpf_net_ctx_get_ri();
+  
+-       if (unlikely(flags))
++       if (unlikely(!ri || flags))
+                 return TC_ACT_SHOT;
+  
+         ri->flags = BPF_F_PEER;
+@@ -2597,7 +2597,7 @@ BPF_CALL_4(bpf_redirect_neigh, u32, ifindex, struct bpf_redir_neigh *, params,
+  {
+         struct bpf_redirect_info *ri = bpf_net_ctx_get_ri();
+  
+-       if (unlikely((plen && plen < sizeof(*params)) || flags))
++       if (unlikely((plen && plen < sizeof(*params)) || !ri || flags))
+                 return TC_ACT_SHOT;
+  
+         ri->flags = BPF_F_NEIGH | (plen ? BPF_F_NEXTHOP : 0);
