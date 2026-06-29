@@ -1,185 +1,235 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCD23FD15F
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 09:18:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 659593F8EDE;
+	Mon, 29 Jun 2026 09:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782724717; cv=none; b=ZXfZGgBK6ICJI3Na5IjrzWrWIkZbyN42VEuSyN/84A70vW2sHJCzCrnCvmA8rJDx+0vVMAGmM/95cMIPqw+LXeg3DJt43z/rQ+rlj2RAa4EyANjh6qpFHvGNYtEeCv00/ofA6GxRqi3C19SW3ZaFeNiNa5al/EoqFnmreeCzMjI=
+	t=1782725020; cv=none; b=i219GvF+LiJtE5toHZJyIsYIZJKMC4qKo3MjcYWe/+BM4Zm55VzOuTXG4zYNPAeUbPDzYcN77HA1hjlRU5u9ZRD+BE3X1Eyuk6MIM066EmlswIKJiTRH7SCG9s8AIjlBLYBLzuiZBEUa4uPYQZhNkeD8XyW5gTgacf3Oh0/oe20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782724717; c=relaxed/simple;
-	bh=VXGReo7ab2OKkmaZ2FbFu+urBDyiDuPMgysRMWQylX4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=L5Cy5cNy1F/iTrmMq05YeCJu8r3OoaCOzG91SIActQ0wSBWPlM7Ct+A4brbHzAEVJ2A2gcOyg7lMoj3rdmuH/npopfXY0ipArFl9IGD5FyCuZ3yblhEdeZOmlD47VhYIwR2iYCbbOosrQ0F/DV0ZUZnJ1EBib33tV34g4xoqF6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LzGQnWFG; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1782725020; c=relaxed/simple;
+	bh=NOinlIUHK1O7KsV8/Sws+CeKyYdx2R8D9bQpxtImFts=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZcMbnGtE8E8Ot+Fz2WpwJ8iouEq9odDP60tjdIOimugy8f4cU7OMGetsnNCmhTAkbhUyNb7zF+p1jwpyi56YSgu7NR+NVc80hNlfpYinkBhlmH+GJJzuwqMNnqf+qcScV9Zp0eAhSpbnFPeBLr05jrtisiGcm7tOx22magRu5cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=jeUP7WDj; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LzGQnWFG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782724715; x=1814260715;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=VXGReo7ab2OKkmaZ2FbFu+urBDyiDuPMgysRMWQylX4=;
-  b=LzGQnWFG7JWyJo3kF0FhzdIX4CkARFxvkLWXa4AmdM1AbDRo8rHAlHTG
-   r2Ic0f7jpMZ4jsGI4AiIbJ7Vzmf+EfuIBVQIQsWn7mrOwJoPC3UmBv6UA
-   wIh44pkc4VeGaca16WUna7qezj70AV5+mw890VksXK8dy0K6gKG3RaJTl
-   UmdZQO4kS4ImoKZsrOlzyxSrAGferxax4tT9MyLtGBm/nngNHbsoDud22
-   YeoEV/WxvReqc6++s2aZHtMsmmQORWpBvqHiMdW/oG750lopiXQVQkRnA
-   HWheF1v20tB785mdWzctY3NPTjB5npGAxy4fgZdYTYfG8R3yBkbtRIMea
-   A==;
-X-CSE-ConnectionGUID: 8ANAt4KWQW+B+CewKhA2BA==
-X-CSE-MsgGUID: sGJGXI+iQkG4UEX41vUfVA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="100843501"
-X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
-   d="scan'208";a="100843501"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 02:18:34 -0700
-X-CSE-ConnectionGUID: vtOm/KE8TVmRwlS0kMDFBQ==
-X-CSE-MsgGUID: d3KR/EcUTDGWL8yaFbOGrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
-   d="scan'208";a="253812014"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO [10.245.245.28]) ([10.245.245.28])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 02:18:32 -0700
-Message-ID: <a034ee3637d8e2b849759b3935992f6d195ab52d.camel@linux.intel.com>
-Subject: Re: [PATCH] drm/ttm: Fix UAF on dma-buf attach failure for sg BOs
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Nitin Gote <nitin.r.gote@intel.com>, intel-xe@lists.freedesktop.org
-Cc: stable@vger.kernel.org, Christian Konig <christian.koenig@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>
-Date: Mon, 29 Jun 2026 11:18:16 +0200
-In-Reply-To: <20260625055734.2831607-2-nitin.r.gote@intel.com>
-References: <20260625055734.2831607-2-nitin.r.gote@intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="jeUP7WDj"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=G2M8dDHxD+jz6xgmK0NGrGGjxPFhsJR72vzpL2rXGAg=;
+	b=jeUP7WDjEepo3brfJMCRdy1wLlb/PDs6Ih+yaMuvj7+GJo/FHzp8clzSgCltX7I5GbJD6d/cz
+	t/Wl56isEll41nk/w6Gk//1zIDW2YyVs6xSlbUMwNO1W37YQYXtGhLrA+kzzvqiApWOPh0CB8S3
+	tM1tkkiIa+o4+jdSctm3Ivc=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4gpgbS6gYtzpSyh;
+	Mon, 29 Jun 2026 17:15:00 +0800 (CST)
+Received: from kwepemr100001.china.huawei.com (unknown [7.202.195.168])
+	by mail.maildlp.com (Postfix) with ESMTPS id 363204057D;
+	Mon, 29 Jun 2026 17:23:25 +0800 (CST)
+Received: from huawei.com (10.50.159.234) by kwepemr100001.china.huawei.com
+ (7.202.195.168) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Mon, 29 Jun
+ 2026 17:23:24 +0800
+From: xietangxin <xietangxin@h-partners.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>, "David S . Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>
+CC: gaoxingwang <gaoxingwang1@huawei.com>, huyizhen <huyizhen2@huawei.com>,
+	<netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: [PATCH net] netfilter: nf_nat_masquerade: recalculate TCP TS offset when port is randomized
+Date: Mon, 29 Jun 2026 17:34:08 +0800
+Message-ID: <20260629093408.3927103-1-xietangxin@h-partners.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemr100001.china.huawei.com (7.202.195.168)
 
-On Thu, 2026-06-25 at 11:27 +0530, Nitin Gote wrote:
-> When a dma-buf importer creates a ttm_bo_type_sg BO with bo-
-> >base.resv
-> pointing at the exporter's dma_buf->resv and dma_buf_dynamic_attach()
-> fails, no dma_buf reference is held. The exporter can be freed before
-> the delayed_delete worker calls dma_resv_lock(bo->base.resv), causing
-> a
-> use-after-free:
->=20
-> =C2=A0 Oops: general protection fault, probably for non-canonical address
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x6b6b6b6b6b6b6b9c
-> =C2=A0 Workqueue: ttm ttm_bo_delayed_delete [ttm]
-> =C2=A0 RIP: 0010:mutex_can_spin_on_owner+0x3f/0xc0
->=20
-> ttm_bo_individualize_resv() skips the resv swap for all sg BOs to
-> keep
-> the shared resv available for delayed_delete to release the dma-buf
-> mapping. A BO whose attach never succeeded has no mapping to release,
-> yet it keeps bo->base.resv pointing at the exporter resv that
-> delayed_delete later locks once the exporter is gone.
->=20
-> Fix this by checking bo->base.import_attach, which is only set after
-> successful dma_buf_dynamic_attach(). Failed imports now individualize
-> normally, so delayed_delete operates on the BO's private _resv. The
-> exporter remains alive during individualize as it runs synchronously
-> in ttm_bo_release(), while the gem_prime_import caller still holds
-> its dma_buf reference.
+Problem observed in Kubernetes environments where MASQUERADE target with
+--random-fully is configured by default. after commit
+165573e41f2f ("tcp: secure_seq: add back ports to TS offset") TCP short
+connection QPS dropped from ~20000 to ~10000. This added source and
+destination ports into TS offset calculation.
 
-I think since the bo is published on the LRU, a LRU walk can still grab
-a bo reference before the prime_import caller calls put(). So this
-doesn't necessarily hold?
+However, with MASQUERADE --random-fully, when multiple internal connections
+(e.g sport 10000,20000) are mapped to the same external port (e.g 30000),
+their TS offsets are calculated as ts_offset(10000) and ts_offset(20000).
+If the server reuses the TIME_WAIT slot from the first connection, there is
+a chance that ts_offset(20000) < ts_offset(10000), breaking TSval
+monotonicity for the same 4-tuple and causing RST packets:
+  Client -> Server 24870 -> 80 [SYN] TSval=2294041168
+  Server -> Client 80 -> 24870 [ACK] TSecr=2846236456
+  Client -> Server 24870 -> 80 [RST] Seq=855605690
 
->=20
-> Closes:
-> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8023
-> Fixes: d99fbd9aab62 ("drm/ttm: Always take the bo delayed cleanup
-> path for imported bos")
-> Cc: stable@vger.kernel.org=C2=A0# v6.8+
-> Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
-> Cc: Christian Konig <christian.koenig@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-> Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
-> ---
-> v3:
-> - Dropped the xe-side reordering approach since importer_priv must be
-> =C2=A0 valid when dma_buf_dynamic_attach() publishes the attachment.
-> - Per Christian's suggestion on the v1 thread, keyed the check on
-> =C2=A0 import_attach rather than removing the sg guard entirely.
-> - Exporter lifetime: individualize runs synchronously inside
-> =C2=A0 ttm_bo_release(), called from drm_gem_object_put() in the
-> =C2=A0 gem_prime_import error path while drm_gem_prime_fd_to_handle()
-> =C2=A0 still holds its dma_buf reference.
-> - Fixes both xe and amdgpu in a single TTM patch.
->=20
-> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++++++++---------
-> =C2=A01 file changed, 15 insertions(+), 9 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
-> b/drivers/gpu/drm/ttm/ttm_bo.c
-> index bcd76f6bb7f0..bf8eaec0e9ca 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -196,6 +196,14 @@ static int ttm_bo_individualize_resv(struct
-> ttm_buffer_object *bo)
-> =C2=A0	if (bo->base.resv =3D=3D &bo->base._resv)
-> =C2=A0		return 0;
-> =C2=A0
-> +	/*
-> +	 * Successfully imported sg BOs need the shared resv for
-> dma-buf
-> +	 * cleanup. Failed imports have no attachment or mapping and
-> can
-> +	 * use the private _resv.
-> +	 */
-> +	if (bo->type =3D=3D ttm_bo_type_sg && bo->base.import_attach)
-> +		return 0;
-> +
+After nf_nat_setup_info() successfully assigns a new randomized
+source port, recalculate the TS offset using the new port and
+update the SYN packet's TSval accordingly.
 
-You would still need to copy the current fences to _resv here, because
-otherwise, the object can be premaurely released. It's considered idle
-when the fences attached to _resv have all signaled. So this needs to
-be moved below the fence duplication below.
+Test results on 4U4G VM with
+`./wrk -t8 -c200 -H "Connection: close" -d10s --latency http://5.5.5.5:80`
+Before:
+  random:10712 req/s, random-fully:10986 req/s
+After:
+  random:21463 req/s, random-fully:19181 req/s
 
-Thanks,
-Thomas
+Fixes: 165573e41f2f ("tcp: secure_seq: add back ports to TS offset")
+Cc: stable@vger.kernel.org
+Closes:https://lore.kernel.org/all/92935c00-e0be-4591-ac44-5978c7804d57@yeah.net/
+Signed-off-by: xietangxin <xietangxin@h-partners.com>
+---
+ net/netfilter/nf_nat_masquerade.c | 91 ++++++++++++++++++++++++++++++-
+ 1 file changed, 89 insertions(+), 2 deletions(-)
 
+diff --git a/net/netfilter/nf_nat_masquerade.c b/net/netfilter/nf_nat_masquerade.c
+index 4de6e0a51701..8c9ca5a051cc 100644
+--- a/net/netfilter/nf_nat_masquerade.c
++++ b/net/netfilter/nf_nat_masquerade.c
+@@ -6,8 +6,11 @@
+ #include <linux/netfilter.h>
+ #include <linux/netfilter_ipv4.h>
+ #include <linux/netfilter_ipv6.h>
++#include <linux/tcp.h>
+ 
++#include <net/tcp.h>
+ #include <net/netfilter/nf_nat_masquerade.h>
++#include <net/secure_seq.h>
+ 
+ struct masq_dev_work {
+ 	struct work_struct work;
+@@ -24,6 +27,76 @@ static DEFINE_MUTEX(masq_mutex);
+ static unsigned int masq_refcnt __read_mostly;
+ static atomic_t masq_worker_count __read_mostly;
+ 
++static __be32 *tcp_ts_option_ptr(const struct sk_buff *skb)
++{
++	const struct tcphdr *th;
++	unsigned char *ptr;
++	unsigned char opsize;
++	unsigned int optlen, offset;
++
++	th = tcp_hdr(skb);
++	optlen = (th->doff - 5) * 4;
++	ptr = (unsigned char *)(th + 1);
++	offset = 0;
++
++	while (offset < optlen) {
++		unsigned char opcode = ptr[offset];
++
++		if (opcode == TCPOPT_EOL)
++			break;
++		if (opcode == TCPOPT_NOP) {
++			offset++;
++			continue;
++		}
++
++		if (offset + 1 >= optlen)
++			break;
++
++		opsize = ptr[offset + 1];
++		if (opsize < 2 || offset + opsize > optlen)
++			break;
++
++		if (opcode == TCPOPT_TIMESTAMP && opsize == TCPOLEN_TIMESTAMP)
++			return (__be32 *)(ptr + offset + 2);
++
++		offset += opsize;
++	}
++
++	return NULL;
++}
++
++static void masquerade_update_tcp_ts_offset(struct nf_conn *ct, struct sk_buff *skb)
++{
++	__be32 *tsptr;
++	struct net *net;
++	struct tcphdr *th;
++	struct tcp_sock *tp;
++	union tcp_seq_and_ts_off st;
++	struct nf_conntrack_tuple *tuple;
++
++	th = tcp_hdr(skb);
++	net = nf_ct_net(ct);
++	tuple = &ct->tuplehash[IP_CT_DIR_REPLY].tuple;
++
++	if (th && th->syn && !th->ack && skb->sk &&
++	    READ_ONCE(net->ipv4.sysctl_tcp_timestamps) == 1) {
++		tp = tcp_sk(skb->sk);
++		tsptr = tcp_ts_option_ptr(skb);
++		if (!tsptr)
++			return;
++
++		if (nf_ct_l3num(ct) == NFPROTO_IPV4)
++			st = secure_tcp_seq_and_ts_off(net, tuple->src.u3.ip, tuple->dst.u3.ip,
++				tuple->src.u.tcp.port, tuple->dst.u.tcp.port);
++		else
++			st = secure_tcpv6_seq_and_ts_off(net, tuple->src.u3.ip6,
++				tuple->dst.u3.ip6, tuple->src.u.tcp.port, tuple->dst.u.tcp.port);
++
++		*tsptr = htonl(tcp_skb_timestamp_ts(tp->tcp_usec_ts, skb) + st.ts_off);
++		WRITE_ONCE(tp->tsoffset, st.ts_off);
++	}
++}
++
+ unsigned int
+ nf_nat_masquerade_ipv4(struct sk_buff *skb, unsigned int hooknum,
+ 		       const struct nf_nat_range2 *range,
+@@ -35,6 +108,7 @@ nf_nat_masquerade_ipv4(struct sk_buff *skb, unsigned int hooknum,
+ 	struct nf_nat_range2 newrange;
+ 	const struct rtable *rt;
+ 	__be32 newsrc, nh;
++	unsigned int ret;
+ 
+ 	WARN_ON(hooknum != NF_INET_POST_ROUTING);
+ 
+@@ -71,7 +145,13 @@ nf_nat_masquerade_ipv4(struct sk_buff *skb, unsigned int hooknum,
+ 	newrange.max_proto   = range->max_proto;
+ 
+ 	/* Hand modified range to generic setup. */
+-	return nf_nat_setup_info(ct, &newrange, NF_NAT_MANIP_SRC);
++	ret = nf_nat_setup_info(ct, &newrange, NF_NAT_MANIP_SRC);
++
++	if (ret == NF_ACCEPT && nf_ct_protonum(ct) == IPPROTO_TCP &&
++	    (range->flags & NF_NAT_RANGE_PROTO_RANDOM_ALL))
++		masquerade_update_tcp_ts_offset(ct, skb);
++
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(nf_nat_masquerade_ipv4);
+ 
+@@ -229,6 +309,7 @@ nf_nat_masquerade_ipv6(struct sk_buff *skb, const struct nf_nat_range2 *range,
+ 	struct in6_addr src;
+ 	struct nf_conn *ct;
+ 	struct nf_nat_range2 newrange;
++	unsigned int ret;
+ 
+ 	ct = nf_ct_get(skb, &ctinfo);
+ 	WARN_ON(!(ct && (ctinfo == IP_CT_NEW || ctinfo == IP_CT_RELATED ||
+@@ -248,7 +329,13 @@ nf_nat_masquerade_ipv6(struct sk_buff *skb, const struct nf_nat_range2 *range,
+ 	newrange.min_proto	= range->min_proto;
+ 	newrange.max_proto	= range->max_proto;
+ 
+-	return nf_nat_setup_info(ct, &newrange, NF_NAT_MANIP_SRC);
++	ret = nf_nat_setup_info(ct, &newrange, NF_NAT_MANIP_SRC);
++
++	if (ret == NF_ACCEPT && nf_ct_protonum(ct) == IPPROTO_TCP &&
++	    (range->flags & NF_NAT_RANGE_PROTO_RANDOM_ALL))
++		masquerade_update_tcp_ts_offset(ct, skb);
++
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(nf_nat_masquerade_ipv6);
+ 
+-- 
+2.43.0
 
-
-> =C2=A0	BUG_ON(!dma_resv_trylock(&bo->base._resv));
-> =C2=A0
-> =C2=A0	r =3D dma_resv_copy_fences(&bo->base._resv, bo->base.resv);
-> @@ -203,15 +211,13 @@ static int ttm_bo_individualize_resv(struct
-> ttm_buffer_object *bo)
-> =C2=A0	if (r)
-> =C2=A0		return r;
-> =C2=A0
-> -	if (bo->type !=3D ttm_bo_type_sg) {
-> -		/* This works because the BO is about to be
-> destroyed and nobody
-> -		 * reference it any more. The only tricky case is
-> the trylock on
-> -		 * the resv object while holding the lru_lock.
-> -		 */
-> -		spin_lock(&bo->bdev->lru_lock);
-> -		bo->base.resv =3D &bo->base._resv;
-> -		spin_unlock(&bo->bdev->lru_lock);
-> -	}
-> +	/* This works because the BO is about to be destroyed and
-> nobody
-> +	 * references it any more. The only tricky case is the
-> trylock on
-> +	 * the resv object while holding the lru_lock.
-> +	 */
-> +	spin_lock(&bo->bdev->lru_lock);
-> +	bo->base.resv =3D &bo->base._resv;
-> +	spin_unlock(&bo->bdev->lru_lock);
-> =C2=A0
-> =C2=A0	return r;
-> =C2=A0}
