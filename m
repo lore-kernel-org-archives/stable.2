@@ -1,102 +1,118 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E4F38BF69
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 20:19:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370D23612F3;
+	Mon, 29 Jun 2026 20:35:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782764380; cv=none; b=QJvmlemT7INNjARsKNkvZLX8u63ZiKlWaArE2+ls5GF4lQsqPKJgQy2YWLY67YTPl/UTxhLbGOlA16w+iAO8hvivRKYT2VHuzWvEMJziz6Zn4QK/KgkuScUQrSzCIXeYdygF60YSejLop074v6h+Abyp5uM//wFQzjyDE4NOVLs=
+	t=1782765324; cv=none; b=d5Ad+9DqdRuBQBnryJGM3tbdReduIRWMiSC/3HLgZR79tDXWdOJ3yGqXz80qmWKEBDGfR0eGPrkkVFfXz8M49xc9n4vd4bmM6Y88gwT8eXwWjYq//f+Kof+o7Es0BvlIOSHVZMXuPf4ZgtBdvPriNNdZGV26z/7EQFt9tp0eVBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782764380; c=relaxed/simple;
-	bh=99WKfdqZoi1+9ylSQNVVCW06vQ25p+lbTWGbcCvQBW8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=luXldDEqC/QV8jPZDpA8Z6k7+iE/71DpZ82XVRdQDuIu0YbfmUCJVdFU5cya+xfehfDcHVKxHL75ZvG7vMeeDmhD1tqbQxe5DsugDNxVNWk+CaArZRSgCAsnwXwLdnIY5HoZnMhtjzKtRih7OlnO8tFqWBqD9Nk3Q8JFFU8rsGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=f9D6ryyv; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782765324; c=relaxed/simple;
+	bh=VkoYOlEYcEWos5dD5mpKTK0yY5QHXN+DJ7ZNdSm15Q0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KqcAhHwZkEdeZUMC8KuJSUfE+63K3fg2MMr6Uv+ba1c8ySqtb5mt9KdQHSVEikeh/7zc18tZdEUJVKKTxcPZoZusOX7EZnZ5T/Q8Hp4/VFJxIfBCoA0ZJqpYxWOIbJfMWf5qOeewhfXy7uWyQzSJ0FkZPbkWBDAU/CHbWOTT59Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K31tkYmw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="f9D6ryyv"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8478a25f268so825782b3a.2
-        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 13:19:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782764375; x=1783369175; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tiWkzSXLrg0x2FGE/eIO2X7UZ5sYnOvtaeA8i0STfAs=;
-        b=f9D6ryyvdXnvVuX+Wyr7ate0AiJRDrButbjp3k/IOAzXYyYWeLBQINdGwlz1lecJyI
-         itthAY/k2FRsbMvI2s2RZWbuS2lyUvjNVUYkX5YuEOE8c8szFtNBZY1fZAiYGYTGa1Jf
-         Jm18HqW498HAwjiTYvvo4erYbCwoM2gNcFCszWZs2gg1Trxr4yj1rxVMIk3jHLhKv54c
-         8tK0FN6R2blnc0c7fQdhknXE41zSA6wwTyMLI4bdE4tSdc67Bum9/ousg/cR4scLBlCL
-         1ZMyVrlAAYcB92j5ftjxVuFDSHq6KdFv/LIGwdu8tkpDmxquVEmz10o8/uw0j8iT1J2S
-         Y5sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782764375; x=1783369175;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=tiWkzSXLrg0x2FGE/eIO2X7UZ5sYnOvtaeA8i0STfAs=;
-        b=ruGkCiMsF+3U35+kyiXyu1whzlH2oNOZWoWWBViP+QpA79MNz+FkX3iDOECjXvjHWP
-         Wmz/zc8NPjN5fQ4dWpzKwFRPrPiOMHmcW8xP2gWkNL3Z5Sa5Gk/GbZOyNzZ3paG6BJZZ
-         Oxis4FWc+H0dlImTmgh+b/Olq01NLi8qiB6Gmr1aFsTQfHoqrUd0hSAlweYwkqfySR5X
-         D1NAlGbXhFKX+REMq9a0I/56HfGbPqHSl28Ei0W5zYunSJfFkx7m/O9DlLunagR1VU3C
-         0yHIRiRF+wBjv6VdGSLLBX6DaPjpCb93cKdOuec8YEv24Nm/EVbcnTYHPXd44OKEUFub
-         X7bA==
-X-Forwarded-Encrypted: i=1; AHgh+RopZX3yl3XoO7h9EqkmDsLxcnvDiuJXc09WF1urPlkLWj6Co8cfNboCuZVlHTpKL8RMTTU09vE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSMqsfGJ8f9NUhUB330G71DnPAj9Q7JzdHFuVvMShTirpviKzh
-	xACgGnv9HevV4Y32+bcVitaiTL13U5wOw1o5CLR0YJrPi1BY4sK4QL9eChxsFdLc1D4=
-X-Gm-Gg: AfdE7cleDnzN6l+X95too0AG0/iDMzXWrK/AsZzGYmmkO+lM95aYbAM7zJC35EJ1W+1
-	UOLzaGtpOsYP15th1XPpETz361Hq58gqFYh2ZgwuROZp39A8lUhwfRU9fYXiAXhv7e0zDPDNHGv
-	id1NUIe3vYmqzK2bktinhc4pds5e5nnAy5KzoC0F9rHBtEnb0hfcI4vMEyztoGGir2quxx2Xe38
-	566wfheAwOeKDZ9ctIIgyMr93ElMQVaA9cIXXqZNMgR+3nKkqEIM7nr+k9sO8fQEHWGdODFw+77
-	+mb6O0ZPGXosFIARn3hFRS4UnNcNzcz3/+LBU9Gayp9wFfAR+cHm7qUHXp+9/9XGXHuxuLcv+ZE
-	Y51X8KbdVjPbfgsKWPBFSTaZe1yJWraVlAUV4BOincoKJxSWrIVuhGdunlNv71qMDuFIZkLYNwe
-	FHGl48mT4kmQ==
-X-Received: by 2002:a05:6a00:1814:b0:847:98cc:a347 with SMTP id d2e1a72fcca58-8479f2ce28bmr712007b3a.61.1782764375358;
-        Mon, 29 Jun 2026 13:19:35 -0700 (PDT)
-Received: from localhost ([71.212.202.210])
-        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-847a0007464sm316121b3a.23.2026.06.29.13.19.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 13:19:34 -0700 (PDT)
-From: Kevin Hilman <khilman@baylibre.com>
-To: paul@pwsan.com, aaro.koskinen@iki.fi, andreas@kemnade.info, 
- rogerq@kernel.org, tony@atomide.com, linux@armlinux.org.uk, 
- Haoxiang Li <haoxiang_li2024@163.com>
-Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260623072534.1997680-1-haoxiang_li2024@163.com>
-References: <20260623072534.1997680-1-haoxiang_li2024@163.com>
-Subject: Re: [PATCH] ARM: OMAP2+: Fix a reference leak bug in
- omap_hwmod_fix_mpu_rt_idx()
-Message-Id: <178276437440.1055800.18333324347324908320.b4-ty@b4>
-Date: Mon, 29 Jun 2026 13:19:34 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K31tkYmw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14FFD1F000E9;
+	Mon, 29 Jun 2026 20:35:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782765322;
+	bh=8a06L0VXzdr/uleO9for3GUONneYi0JhHdh4wi547JI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K31tkYmwluD2pwR/vbqAIpy0dFddndW0pniVnPbn0e1VfD5625tRtS1wL9Q95OCbk
+	 Gv07rVoDhkp9ASUKKOCaJeMf7QTmPcxt0VCfsJUWw/+zTk5keozQbBjmplndfqpaur
+	 6TuIx+kr8p57cuhzWQ07IcBe/u/yJTQqKOtj7aTYV/QLexmag6DJpEhv0laiU2JweU
+	 Er3ePN5C3h2oFjNzCrXjVIAEO9tN6H31dFvsDdNNWVdRran9jfDIVLPh6JiCAQI1FO
+	 7zYEvattphsB5LYdRFDlvsiVY+EqOKM8xWLVb0W4Ns0K6tAosGNP5ra9VS4UxpnXhP
+	 XpQhMDlqgKkWQ==
+Date: Mon, 29 Jun 2026 13:35:20 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Viktor Malik <vmalik@redhat.com>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+	linux-perf-users@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Howard Chu <howardchu95@gmail.com>, linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org, Michael Petlan <mpetlan@redhat.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] perf trace: Refactor augmented_raw_syscalls using
+ bpf_loop
+Message-ID: <akLXCFpnum0WgXGf@google.com>
+References: <20260623112533.1151502-1-vmalik@redhat.com>
+ <DJGJ9F6WQZV9.2W4WBIHYLJQ97@gmail.com>
+ <ajq98dm4gAwEzkMb@google.com>
+ <c2f4e45e-d5c9-42e9-a46b-25fb0cacb267@redhat.com>
+ <ajwu7xR6V6MAQOFw@google.com>
+ <3c221e35-d642-4036-88fd-d25df7f8807e@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <3c221e35-d642-4036-88fd-d25df7f8807e@redhat.com>
 
-
-On Tue, 23 Jun 2026 15:25:34 +0800, Haoxiang Li wrote:
-> omap_hwmod_fix_mpu_rt_idx() gets the first child node with
-> of_get_next_child(), which returns a node with its reference count
-> incremented. The function uses the child node to translate the MPU
-> runtime register resource, but never drops the reference afterwards.
+On Thu, Jun 25, 2026 at 02:05:29PM +0200, Viktor Malik wrote:
+> On 6/24/26 21:24, Namhyung Kim wrote:
+> > On Wed, Jun 24, 2026 at 08:47:38AM +0200, Viktor Malik wrote:
+> >> On 6/23/26 19:10, Namhyung Kim wrote:
+> >>> Hello,
+> >>>
+> >>> On Tue, Jun 23, 2026 at 08:27:39AM -0700, Alexei Starovoitov wrote:
+> >>>> On Tue Jun 23, 2026 at 4:25 AM PDT, Viktor Malik wrote:
+> > [SNIP]
+> >>>>> +	struct args_loop_ctx loop_ctx = {
+> >>>>> +		.args = args,
+> >>>>> +		.beauty_map = beauty_map,
+> >>>>> +		.payload_offset = payload_offset,
+> >>>>> +		.value_size = value_size,
+> >>>>> +		.output = &output,
+> >>>>> +		.do_output = &do_output
+> >>>>> +	};
+> >>>>> +	iters = bpf_loop(6, process_arg_cb, &loop_ctx, 0);
+> >>>>
+> >>>> bpf_loop() is old and generally not recommended.
+> >>>> Please use bpf_for() then the diff will be one line change and
+> >>>> can scale to any number of args. Not just 6.
+> >>
+> >> Thanks Alexei, I didn't know about this preference.
+> >>
+> >>> One thing we should take care is to support old kernels.  The oldest
+> >>> LTS kernel in the kernel.org is 5.10 and bpf_loop() was introduced in
+> >>> 5.17 and bpf_for (bpf_iter_num) was 6.4.
+> >>
+> >> The problematic loop was introduced in 6.12 by a68fd6a6cdd3 ("perf
+> >> trace: Collect augmented data using BPF") so we should be good using
+> >> bpf_for. Or is perf from 7.2 supposed to work on 5.10 LTS kernels?
+> > 
+> > Yep, we'd like to support old kernels.
 > 
-> Add the missing of_node_put() after of_address_to_resource().
+> How much strict are you on this requirement? IMHO, the very least we
+> need to fix the verifier issue is bpf_loop, so that would still not work
+> on 5.10 and 5.15 LTS kernels.
+
+I don't think it's an absolute requirement, but I think we don't want to
+break any existing working setup (old kernel + old compiler).
+
 > 
-> [...]
+> We could probably keep the open-coded loop in case bpf_loop is not
+> available but `perf trace` would still fail on kernels without bpf_loop
+> for new perf built with Clang>=22. Also, the code would be a bit ugly
+> and I'm not sure how well the feature check for helpers (bpf_loop) works
+> on old kernels.
+ 
+Any chance process_arg_cb() can be called directly in the regular for
+loop on old kernels?
 
-Applied, thanks!
-
-[1/1] ARM: OMAP2+: Fix a reference leak bug in omap_hwmod_fix_mpu_rt_idx()
-      (no commit info)
-
-Best regards,
--- 
-Kevin Hilman (TI) <khilman@baylibre.com>
+Thanks,
+Namhyung
 
