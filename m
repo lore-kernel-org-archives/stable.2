@@ -1,102 +1,178 @@
-Received: from mail-m8122.xmail.ntesmail.com (mail-m8122.xmail.ntesmail.com [156.224.81.22])
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0ED39891E;
-	Mon, 29 Jun 2026 06:41:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.224.81.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60F639A078;
+	Mon, 29 Jun 2026 06:41:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782715271; cv=none; b=m3uKbghZr6R0bH4x6FCmezMQlY0FXcXKqglAE49Fj9xbe1pgWA446e+x8VsEwqHDjNFacCY5LynzvQvLihTGeJTwzsok6EfeLsAkg714fcgAfSyql/xeyY6XCKY3hC4ife/nAuJKYzdC72K5+yg+SJEVVqKRSJdp2w6GxHODc5U=
+	t=1782715275; cv=none; b=iBOtiBiOduiLgDMt9n03h+fZT43t9QIlWXRY+l4aeTK+igJyfhRHNQUOh4DeA/Bq+0CIoxjEfRuY9P5yJVCho4Jlwmb4GcNCqfv0GZlBMSurXrzpki/Rbbwf9L7bj7H+yN2bNS+VWgZC4rXCjksRZ8n2bfDEJXRE9gc4zFmoZXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782715271; c=relaxed/simple;
-	bh=yfs8+bMOUbqTUuh24TuXA2WJutNxxonltXfrlZiI5iE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kJv676usm/TyrC7pR3J1HhzZOaK5zoE2HLH/hOoysKrmZlEFKkVbJvv7HxHoqI80J9Y45fB6CMCIN8xAXihUZDvyJbNEcWdwgROOKfdiKRDB/D9J8eecxd6eVS3esaoxFhj4OLI41AmekM0hMNmPxDu9dh0TFoI0UhF/gaZ2nQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=cg7cOhvE; arc=none smtp.client-ip=156.224.81.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1782715275; c=relaxed/simple;
+	bh=/RkF59PZPSOpnNK7H4vSewsvE7k7qKrBfk8PqJeAOGk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TKRqkViBcGPwgqb74CIaErX0zyBbH7nPPQFm7q+5VWCzZR2wYpQmk/5wNDLpWULteH9FhlJ2zK+jztfzSEnjHXeNJsbj0HrVQz6//YQpkqKDbPbhpTpcYN3iZj/UHISWYG3OJNmEyfeg4A5pX8aXItlvF0Q5LkZaE6bvSKZOhE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Pf8xFVKV; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="cg7cOhvE"
-Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 441fe7671;
-	Mon, 29 Jun 2026 14:40:52 +0800 (GMT+08:00)
-From: Dawei Feng <dawei.feng@seu.edu.cn>
-To: saeedm@nvidia.com
-Cc: leon@kernel.org,
-	tariqt@nvidia.com,
-	mbloch@nvidia.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	kliteyn@nvidia.com,
-	vdogaru@nvidia.com,
-	horms@kernel.org,
-	kees@kernel.org,
-	stable@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn,
-	zilin@seu.edu.cn,
-	Dawei Feng <dawei.feng@seu.edu.cn>
-Subject: [PATCH net] net/mlx5: HWS, fix matcher leak on resize target setup failure
-Date: Mon, 29 Jun 2026 14:40:49 +0800
-Message-Id: <20260629064049.3852759-1-dawei.feng@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Pf8xFVKV"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=82zkxaEI8uR+qMXD7gBzmQv42ToBsOivHdabU9oJF4c=;
+	b=Pf8xFVKVTgAh1OLaNOb7TNQt2/emT6BLpwNHCkDXGK5Sd6+5WStQ6/kPxNR3uyF84kAjbimU5
+	ibVAbAhUF+36GfePQVri0qT96uHUm/BOTvg0vlTBrl+8ABQ912GjNC5VEMWpIfE4f4W55jLbdSn
+	yruVYRqvh8INTdcvZknYNcc=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4gpbxC48kDz1T4Jk;
+	Mon, 29 Jun 2026 14:30:07 +0800 (CST)
+Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
+	by mail.maildlp.com (Postfix) with ESMTPS id 5549F40538;
+	Mon, 29 Jun 2026 14:38:55 +0800 (CST)
+Received: from kwepemq200017.china.huawei.com (7.202.195.228) by
+ dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 29 Jun 2026 14:38:55 +0800
+Received: from octopus.huawei.com (10.67.174.191) by
+ kwepemq200017.china.huawei.com (7.202.195.228) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 29 Jun 2026 14:38:54 +0800
+From: Cai Xinchen <caixinchen1@huawei.com>
+To: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
+	<miklos@szeredi.hu>, <amir73il@gmail.com>, <paul@paul-moore.com>,
+	<jmorris@namei.org>, <serge@hallyn.com>, <stephen.smalley.work@gmail.com>,
+	<omosnace@redhat.com>, <gregkh@linuxfoundation.org>, <sashal@kernel.org>,
+	<bboscaccy@linux.microsoft.com>, <caixinchen1@huawei.com>
+CC: <linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-unionfs@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
+	<selinux@vger.kernel.org>, <bpf@vger.kernel.org>, <stable@vger.kernel.org>,
+	<lujialin4@huawei.com>
+Subject: [PATCH stable/linux-5.10.y 4/7] lsm: constify the 'file' parameter in security_binder_transfer_file()
+Date: Mon, 29 Jun 2026 15:06:50 +0800
+Message-ID: <20260629070653.580879-5-caixinchen1@huawei.com>
+X-Mailer: git-send-email 2.18.0.huawei.25
+In-Reply-To: <20260629070653.580879-1-caixinchen1@huawei.com>
+References: <20260629070653.580879-1-caixinchen1@huawei.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f121bff6d03a2kunm0b532ae5167829
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHh5OVkodSktNTUtDGEwaTFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=cg7cOhvEzbulZL53noFNqlYXEefydojZqYXcwUrt4F66QBc1PC66ANOY7Z8S2/ugU1n3OJLs9wlESI9PheqS5YWlnwmNPHhNreMjzu0nbf6z7VrwUpldug3vAVVUfFxIWnzmMDiFHPDGOh4V4/rfYtPjpaHIl6y5xjyaIvEL+bo=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=yVyDbdz8sAP2Avj+M0KEYVA5YSr+NWDHHtNxtisYCrI=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemq200017.china.huawei.com (7.202.195.228)
 
-hws_bwc_matcher_move() allocates a replacement matcher before setting it
-as the resize target. If mlx5hws_matcher_resize_set_target() fails, the
-replacement matcher is not attached anywhere and is leaked.
+From: Khadija Kamran <kamrankhadijadj@gmail.com>
 
-Fix the leak by destroying the replacement matcher before returning from
-the resize-target failure path.
+[ Upstream commit 8e4672d6f902d5c4db1e87e8aa9f530149d85bc6 ]
 
-The bug was first flagged by an experimental analysis tool we are
-developing for kernel memory-management bugs while analyzing
-v6.13-rc1. The tool is still under development and is not yet publicly
-available. Manual inspection confirms that the bug is still
-present in v7.1.1.
+SELinux registers the implementation for the "binder_transfer_file"
+hook. Looking at the function implementation we observe that the
+parameter "file" is not changing.
 
-An x86_64 allyesconfig build showed no new warnings. As we do not have a
-mlx5 HWS-capable device to test with, no runtime testing was able to be
-performed.
+Mark the "file" parameter of LSM hook security_binder_transfer_file() as
+"const" since it will not be changing in the LSM hook.
 
-Fixes: 2111bb970c78 ("net/mlx5: HWS, added backward-compatible API handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+Signed-off-by: Khadija Kamran <kamrankhadijadj@gmail.com>
+[PM: subject line whitespace fix]
+Signed-off-by: Paul Moore <paul@paul-moore.com>
+Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
 ---
- drivers/net/ethernet/mellanox/mlx5/core/steering/hws/bwc.c | 1 +
- 1 file changed, 1 insertion(+)
+ include/linux/lsm_hook_defs.h | 2 +-
+ include/linux/security.h      | 4 ++--
+ security/security.c           | 2 +-
+ security/selinux/hooks.c      | 8 ++++----
+ 4 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/bwc.c b/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/bwc.c
-index eae02bc74221..3bcf412a08c4 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/bwc.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/bwc.c
-@@ -205,6 +205,7 @@ static int hws_bwc_matcher_move(struct mlx5hws_bwc_matcher *bwc_matcher)
- 	ret = mlx5hws_matcher_resize_set_target(old_matcher, new_matcher);
- 	if (ret) {
- 		mlx5hws_err(ctx, "Rehash error: failed setting resize target\n");
-+		mlx5hws_matcher_destroy(new_matcher);
- 		return ret;
- 	}
+diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
+index 35bb13ce1faf..e34b295bc15a 100644
+--- a/include/linux/lsm_hook_defs.h
++++ b/include/linux/lsm_hook_defs.h
+@@ -32,7 +32,7 @@ LSM_HOOK(int, 0, binder_transaction, const struct cred *from,
+ LSM_HOOK(int, 0, binder_transfer_binder, const struct cred *from,
+ 	 const struct cred *to)
+ LSM_HOOK(int, 0, binder_transfer_file, const struct cred *from,
+-	 const struct cred *to, struct file *file)
++	 const struct cred *to, const struct file *file)
+ LSM_HOOK(int, 0, ptrace_access_check, struct task_struct *child,
+ 	 unsigned int mode)
+ LSM_HOOK(int, 0, ptrace_traceme, struct task_struct *parent)
+diff --git a/include/linux/security.h b/include/linux/security.h
+index 2b8a00118903..f3c9d640b60b 100644
+--- a/include/linux/security.h
++++ b/include/linux/security.h
+@@ -264,7 +264,7 @@ int security_binder_transaction(const struct cred *from,
+ int security_binder_transfer_binder(const struct cred *from,
+ 				    const struct cred *to);
+ int security_binder_transfer_file(const struct cred *from,
+-				  const struct cred *to, struct file *file);
++				  const struct cred *to, const struct file *file);
+ int security_ptrace_access_check(struct task_struct *child, unsigned int mode);
+ int security_ptrace_traceme(struct task_struct *parent);
+ int security_capget(struct task_struct *target,
+@@ -518,7 +518,7 @@ static inline int security_binder_transfer_binder(const struct cred *from,
  
+ static inline int security_binder_transfer_file(const struct cred *from,
+ 						const struct cred *to,
+-						struct file *file)
++						const struct file *file)
+ {
+ 	return 0;
+ }
+diff --git a/security/security.c b/security/security.c
+index 6de10b6699a4..d6b1b82094b7 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -744,7 +744,7 @@ int security_binder_transfer_binder(const struct cred *from,
+ }
+ 
+ int security_binder_transfer_file(const struct cred *from,
+-				  const struct cred *to, struct file *file)
++				  const struct cred *to, const struct file *file)
+ {
+ 	return call_int_hook(binder_transfer_file, 0, from, to, file);
+ }
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 90935ed3d8d8..e1bbdef0bcd3 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -1700,7 +1700,7 @@ static inline int file_path_has_perm(const struct cred *cred,
+ }
+ 
+ #ifdef CONFIG_BPF_SYSCALL
+-static int bpf_fd_pass(struct file *file, u32 sid);
++static int bpf_fd_pass(const struct file *file, u32 sid);
+ #endif
+ 
+ /* Check whether a task can use an open file descriptor to
+@@ -1972,7 +1972,7 @@ static inline u32 file_mask_to_av(int mode, int mask)
+ }
+ 
+ /* Convert a Linux file to an access vector. */
+-static inline u32 file_to_av(struct file *file)
++static inline u32 file_to_av(const struct file *file)
+ {
+ 	u32 av = 0;
+ 
+@@ -2050,7 +2050,7 @@ static int selinux_binder_transfer_binder(const struct cred *from,
+ 
+ static int selinux_binder_transfer_file(const struct cred *from,
+ 					const struct cred *to,
+-					struct file *file)
++					const struct file *file)
+ {
+ 	u32 sid = cred_sid(to);
+ 	struct file_security_struct *fsec = selinux_file(file);
+@@ -6799,7 +6799,7 @@ static u32 bpf_map_fmode_to_av(fmode_t fmode)
+  * access the bpf object and that's why we have to add this additional check in
+  * selinux_file_receive and selinux_binder_transfer_files.
+  */
+-static int bpf_fd_pass(struct file *file, u32 sid)
++static int bpf_fd_pass(const struct file *file, u32 sid)
+ {
+ 	struct bpf_security_struct *bpfsec;
+ 	struct bpf_prog *prog;
 -- 
-2.34.1
+2.18.0.huawei.25
 
