@@ -1,60 +1,60 @@
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E353FBEC6
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 10:22:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD793DD523
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 10:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782728538; cv=none; b=GUSqCCoESp6S2tKOUpo2CNCR94cJQS2Fa5dA1I9pc1a6ETVFtunTNMT8ytkJthS6OMbRKsydD2Qdw/XyQsfKlHJ58yU+kb6IUGr993TfVbP1MHlgmB8Ccp3I+ZQkpKq3yE+LV+xeee1/UGZKRzM5vKyE3BJYo0fXhQNlJjsXH+U=
+	t=1782728540; cv=none; b=h0l6UQOc4nLe7Okcyh/8i7IbIdlo9r4AnKjsniPTEJArsXC96H7KNkD3TQFRs4gtqWow2TYCYJoasQnHDoOmuqXZY+ueTLblyNzwGmDsePMsyGfV5G9mJ1HPIB2A/TF1xHNhmkLN/sZ2j85tRkqae6mqpuAHSiSj/4j9LBknojI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782728538; c=relaxed/simple;
-	bh=xRnw7242z9WbMB6XdZLIajDiBJC82CJfwz1kTnEwOQQ=;
+	s=arc-20240116; t=1782728540; c=relaxed/simple;
+	bh=ASAsNjpJiL0iDVuRoTSS0v6raFdvNBmTaG2/7A8pzxA=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=l3rAOg9DB8RxFpgXPQqj73EsnChb9ZbHzECcFjTaqzYjbQvHXvJulO3O0obzsphOVyh8/LY9LUosv1zsAzov4FMZNOpvZCWiCbjmCX57j2pEoR99Ws95Vk3wJszPRU519rNoYUy+lb3u5SiOGqOLvHuTzilNDPn7HT8/NWYuPWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=UlpdHP8E; arc=none smtp.client-ip=209.85.222.177
+	 MIME-Version; b=VqYYDYgx0VIefNOKkcXTbPe0jtMPVGTuJKOArbeB9Oyxhj9osKrX+eX+CQ9LZSgl40oMXwGaeFfD5YMMvETI1B4bif31yHlNInVHknwT6q/u7tmV7pXoxMPOIMY353ojiBAvYS96O8t17/UvBiQigrIhtw1Gttc70iMvElX+Qkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=ylhoM19q; arc=none smtp.client-ip=209.85.222.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="UlpdHP8E"
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-92e5b048375so28050985a.1
-        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 03:22:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="ylhoM19q"
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-92e512a9a6bso58787085a.2
+        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 03:22:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1782728535; x=1783333335; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1782728537; x=1783333337; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9eHozVOxctx8ZnBOZ6mIPq3LTpcSDR+UEeGb+/4LThc=;
-        b=UlpdHP8EaNz8zXxPwSb8o4lpvsnSW5Gg9QsxPPv2t583GPbW3OBpMdJgmmyfuiHhvI
-         Hn7r8yVuTHvbEs5dltimoE81LORxP9u2MA144HRBIvDhjryuVV7U8E7UkC6825pMI3Vn
-         9KmIBb6RF3Zy/aViGESCCLfdIfP9xQ8CtjEGY=
+        bh=q6bI9WxCTH9AmhFxJspc0SFcU/tfRkGjHjpW70ODuqE=;
+        b=ylhoM19qGyOxC1WhFhpR5C535vL2CizSA3Go8seV8tMjid/3nZM+2KY1JgdlZUTY4r
+         LhcWBVqQLw1xKnrBXcldnEZLyPJTma0kyheOVnaB3ULe+Qn+4b/0rCyTKvrbXnlXjyDm
+         BvMh+rGg/2O+aJs0WYCrxd7UhfOHWMbZVUJgA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782728535; x=1783333335;
+        d=1e100.net; s=20251104; t=1782728537; x=1783333337;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=9eHozVOxctx8ZnBOZ6mIPq3LTpcSDR+UEeGb+/4LThc=;
-        b=MN7abOEWZfsc0eOxHwEcAiw/VCxIZQFv/2kADXQ445A5vIHKvFCzmnvzSNjIpJdqR7
-         9G06RiqztaQj/gQDG2GxFDJ3Sl52SN1Lr8S7A6V+LHHVvK89XAxgtU6VTu9fZIwA1hRG
-         WDM+i5MUtaVuwN0hf8AQ7MowwEn2bylmJ9eSO16U2DSDOFxBqbStLZpyjTXbzg9h+4tj
-         iPN1vcAA9hoCXvyM2+V3g/G+Zso1g0vku+MuCyW2bjmsT2v95RSKjYUgwvxFRfKclgx0
-         aC9MbBwJN5KItmBmzkGaXtc1V3cwW2mV0BVw3Teb35pQDxlu5dGjmLwvir6DNWUGAqvO
-         tU1g==
-X-Forwarded-Encrypted: i=1; AFNElJ+4VpICwnvD5ouNwnjlylOrcmAjd5Y8m0BVG/ciyKO6+VSQR5SVki0u0k/5DvaP8RYScqHZAiw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVPynMU6fd9XV8TMqdKKk3seB+OGKzYRwtgdjFxCSMirMAStAN
-	qmjk3GRuzPSLzjtUSvLdOWQ2TzbJ5F2xhTw+5hnePwsF7F9mc7/B6nM1gf5/CPGSGQ==
-X-Gm-Gg: AfdE7cnzu6pcAnqdHnyoC3o5IImJomA1qWKG2V6tdopaosURH3PveGxpxqgijt0/vA5
-	Ra751G2NUbjhxpiUSpTLyeedBgf7llu/ZyFLY/oIx0+dLu9fw76AwXbtTKzREsk5J1SjdkgI4bM
-	nwzb6CXvkKs49rdgAf7EY02NChvQ7APrh6W4LHyOqSGoPUlSjQY3iHpSu1ZNNFxnIW5kqYT1hpS
-	rIWvXGEB6USbnM/gZ04vXyOaj89wHyWygwUDP6oeah1hoXetS401MixzADzl80fN7N+iPeRV0iQ
-	akoSMJ4FAQwG5/Ggle/nNNoMglIgKFgmJcGydf2bkJMq/3hCMeRskON8BAFPS5DWROAqE4udZko
-	2T01ssYktqtEBjIv6EjQHOcJgYM81Yp6cWZW7D08rWr6tFgrTPZoKTz7hrmdjvYrJnciH7+HH1Z
-	xqmob5pA==
-X-Received: by 2002:a05:620a:8811:b0:92e:4613:5b0b with SMTP id af79cd13be357-92e5f3e9a4fmr15169185a.68.1782728535288;
-        Mon, 29 Jun 2026 03:22:15 -0700 (PDT)
+        bh=q6bI9WxCTH9AmhFxJspc0SFcU/tfRkGjHjpW70ODuqE=;
+        b=rae4bCw/u39OiUOs/h3sRnhX6jFy/2WglcqOHy2kq8zGCQ/si7LMLFl9bKMBq54HUn
+         iQk5sln4VpXqIoOqs/LbIlsxi+oWmtXaABnBXa9YSiumVbDBSfDFGseDmu84x3dFKlua
+         D/fzqd0ojeuzDb8sHz2Yvj+9ugOQ1Y9bpgPBa9ZLml85VmfFwJsLukcXgjMsyhs+SGbF
+         T1TbzGazzFsOo5MWL8/hhcm77ZJwk82lsoJ+iWvRo6+KiM2S6TYHmRWMxsjT+r/lpITl
+         Ajhey65ywFgkK5IsW89ElRt8LgyLj5Ypr58ZtcWpLf++nNn6feX79ozS/2Ndvg6AzCC/
+         E/GQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqQJyKKKMIsFfaQ6OReG06+Xh8Zj8CE27PyXPPg/tQVhTbcJfCpJ/zzashRUkdcV9wMhyBvlNc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/9p3fDjo/XstdQCh8+mRN4wQoysTyZUq73TUVZGnx+MuzF+qy
+	tZAcpN7l9TgTccAey5KAvbSRPYhGKDUIISWVmk1p2miOk9bMO+d9+/3Nz7wchqTf+g==
+X-Gm-Gg: AfdE7ck3wdjyt2P50Q8xdANxpCdnQ2yvhuz7kpuMh22TQ+wJDR3GeKiK4n4TVIFiakO
+	jAdYuBvIv9wzLI/Frm1Mo1dTfapIcGtlfdhJmhr5slrzyPIGz8ciE4Iq5tw/ZPHdMLf0F60tgSE
+	x0p6OGBw6KXMTxx3FJUlJoWnH41nRaiKzROXs12Q3VT1HtTHAzz6y44LzvFYzpoWNrqT7MyrtEa
+	5OpgLgDN2vW2D0sl9pZZs+qHsM8aRGCDXTS6MALihPUXio37dwDjjaRRlFKgd0YXjdiyiQyJPsi
+	1a4d3nksZTuFmt3+46wxQKoNbJvKYYzoPiskWvh9rP28HeoOb5W0HV58ZdCFKHXMlVCS1k8pWlW
+	8jFtT5/4w5ME13klZ7SLr1hPwxChowh3CkAeHcTqhqZ9SDuH8pOKoKpe5w3Bf19AiFyFQ3W3sGA
+	L2I2loIA==
+X-Received: by 2002:a05:6214:5292:b0:8ba:3fc9:88ca with SMTP id 6a1803df08f44-8f159d1344fmr1534206d6.39.1782728536829;
+        Mon, 29 Jun 2026 03:22:16 -0700 (PDT)
 Received: from majuu.waya ([184.144.29.222])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ef0f2b9df0sm53589236d6.13.2026.06.29.03.22.14
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ef0f2b9df0sm53589236d6.13.2026.06.29.03.22.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 03:22:14 -0700 (PDT)
+        Mon, 29 Jun 2026 03:22:16 -0700 (PDT)
 From: Jamal Hadi Salim <jhs@mojatatu.com>
 To: netdev@vger.kernel.org
 Cc: jiri@resnulli.us,
@@ -74,11 +74,11 @@ Cc: jiri@resnulli.us,
 	bpf@vger.kernel.org,
 	security@kernel.org,
 	stable@vger.kernel.org,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Victor Nogueira <victor@mojatatu.com>
-Subject: [PATCH net 2/3 v2] net/sched: Handle TC_ACT_REDIRECT from qdisc filter chains
-Date: Mon, 29 Jun 2026 06:21:56 -0400
-Message-Id: <20260629102157.737306-3-jhs@mojatatu.com>
+	Victor Nogueira <victor@mojatatu.com>,
+	Jamal Hadi Salim <jhs@mojatatu.com>
+Subject: [PATCH net 3/3 v2] selftests/tc-testing: Verify bpf redirect on RED block with preceding clsact (egress) classifier
+Date: Mon, 29 Jun 2026 06:21:57 -0400
+Message-Id: <20260629102157.737306-4-jhs@mojatatu.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260629102157.737306-1-jhs@mojatatu.com>
 References: <20260629102157.737306-1-jhs@mojatatu.com>
@@ -90,291 +90,183 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a TC filter attached to a qdisc filter chain returns
-TC_ACT_REDIRECT (ex: via an eBPF program calling bpf_redirect() or an
-act_bpf action), the redirect was silently lost i.e no qdisc classify
-function handled TC_ACT_REDIRECT, so the packet fell through the
-switch and was enqueued normally instead of being redirected.
+From: Victor Nogueira <victor@mojatatu.com>
 
-This has been broken since bpf_redirect() was introduced for TC in
-commit 27b29f63058d ("bpf: add bpf_redirect() helper"). We got lucky
-for a long time because bpf_net_context was a per-CPU variable that
-was always available.
-commit 401cb7dae813 ("net: Reference bpf_redirect_info via task_struct on PREEMPT_RT.")
-turned bpf_net_context into a task_struct member that is only set up by
-explicit callers. Without a caller setting it up, bpf_redirect() itself
-crashes with a NULL pointer dereference in bpf_net_ctx_get_ri().
+The bpf_net_context used by sch_handle_egress() is stack-allocated and torn
+down in that function. By the time tcf_qevent_handle() runs
+current->bpf_net_context is NULL.
 
-The NULL deref is fixed separately by extending the bpf_net_context
-lifetime to cover qdisc enqueue. However, even with bpf_net_context
-available, TC_ACT_REDIRECT from qdisc filter chains cannot be honored
-without adding skb_do_redirect() calls to every qdisc classify
-function, which would require changes across net/sched/. Isolate it
-to ebpf core where it belongs.
+When a filter attached to a qevent block (e.g. RED's early_drop or mark
+qevents, which always uses shared blocks) returns TC_ACT_REDIRECT,
+tcf_qevent_handle() calls skb_do_redirect(), which in turn calls bpf helper
+bpf_net_ctx_get_ri(). That helper unconditionally dereferences
+current->bpf_net_context resulting in a NULL pointer dereference.
 
-Instead, add a tcf_classify_qdisc() inline helper in pkt_cls.h, as a
-wrapper around tcf_classify() for use by qdisc classify functions and
-tcf_qevent_handle(). When the classify verdict is TC_ACT_REDIRECT,
-the wrapper converts it to TC_ACT_SHOT, dropping the packet rather
-than letting it continue silently. Dropping is preferred over
-letting the packet through because the user immediately sees packet
-loss and, with the help of the rate-limited warning in the log
-("use eBPF with clsact or mirred redirect instead"), can quickly
-identify and fix the misconfiguration. Silently passing the packet
-through would hide the problem and leave the user wondering why their
-redirect is not working.
+Add a test case that reproduces this scenario by attaching a filter to
+clsact (egress) and a bpf filter to a block attached to RED. Use TBF as
+red's parent, so that  a traffic burst builds backlog and RED early-drops
+triggers the block filter.
 
-The clsact fast path, tc_run() continues to call tcf_classify() directly
-and is unaffected: TC_ACT_REDIRECT is returned as-is and handled by
-sch_handle_egress/ingress() calling skb_do_redirect() as before.
-
-Also (to emphasize again to Sashiko):
-Remove the TC_ACT_REDIRECT case from tcf_qevent_handle() as well.
-skb_do_redirect() belongs in the BPF plumbing layer (net/core/), not
-in net/sched/. The case was never consistent with the rest of the qdisc
-classification infrastructure, where no classify function handles
-TC_ACT_REDIRECT. It appears to have been a cut-and-paste artifact from
-the qevent introduction rather than a deliberate design decision.
-
-Fixes: 27b29f63058d ("bpf: add bpf_redirect() helper")
-Fixes: 401cb7dae813 ("net: Reference bpf_redirect_info via task_struct on PREEMPT_RT.")
-Tested-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Signed-off-by: Victor Nogueira <victor@mojatatu.com>
 ---
- include/net/pkt_cls.h    | 13 +++++++++++++
- net/sched/cls_api.c      |  6 +-----
- net/sched/sch_cake.c     |  2 +-
- net/sched/sch_drr.c      |  2 +-
- net/sched/sch_dualpi2.c  |  2 +-
- net/sched/sch_ets.c      |  2 +-
- net/sched/sch_fq_codel.c |  2 +-
- net/sched/sch_fq_pie.c   |  2 +-
- net/sched/sch_hfsc.c     |  2 +-
- net/sched/sch_htb.c      |  2 +-
- net/sched/sch_multiq.c   |  2 +-
- net/sched/sch_prio.c     |  2 +-
- net/sched/sch_qfq.c      |  2 +-
- net/sched/sch_sfb.c      |  2 +-
- net/sched/sch_sfq.c      |  2 +-
- 15 files changed, 27 insertions(+), 18 deletions(-)
+ .../testing/selftests/tc-testing/action-ebpf  | Bin 856 -> 9072 bytes
+ tools/testing/selftests/tc-testing/action.c   |   5 +++
+ .../tc-testing/tc-tests/infra/qdiscs.json     |  32 ++++++++++++++++++
+ 3 files changed, 37 insertions(+)
 
-diff --git a/include/net/pkt_cls.h b/include/net/pkt_cls.h
-index 3bd08d7f39c1..3a542a72e9a5 100644
---- a/include/net/pkt_cls.h
-+++ b/include/net/pkt_cls.h
-@@ -159,6 +159,19 @@ static inline int tcf_classify(struct sk_buff *skb,
+diff --git a/tools/testing/selftests/tc-testing/action-ebpf b/tools/testing/selftests/tc-testing/action-ebpf
+index 4879479b2ee5c046279be0fe8f9ca313dfb7e618..52c47e42bf0af024a073cacc823c8270f906a8df 100644
+GIT binary patch
+literal 9072
+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
+
+delta 317
+zcmez1c7tt#hG+yM0~|PjSq=;w6K#!|-2;3kf8>;vbYoy(U}5<9A1sGNNKf7<Ebhb3
+zz`!8HzycRnfU;~E7#IW@SfM<S2@oa|GYf-WNoqw2Lt=7CW`16Lc0QD)n?2b|MpptN
+zte4E7S6ot5l9<GxS6rD}l9)7kqm2C|E)G_I1_lP^$saj|Cx1|60h=E`IZ#f0vW2V#
+zqw3^BS$jso$s1+u8SN$;%84@;O!kyhXVjnkQAu3%1H=Uk%upKSbcV@=a>A_P3=9lR
+YATu>8pmH!86gW%_3=AAlaS1350I>8ljQ{`u
+
+diff --git a/tools/testing/selftests/tc-testing/action.c b/tools/testing/selftests/tc-testing/action.c
+index c32b99b80e19..350f2d36a773 100644
+--- a/tools/testing/selftests/tc-testing/action.c
++++ b/tools/testing/selftests/tc-testing/action.c
+@@ -20,4 +20,9 @@ __attribute__((section("action-ko"),used)) int action_ko(struct __sk_buff *s)
+ 	return TC_ACT_OK;
+ }
  
- #endif
- 
-+static inline int tcf_classify_qdisc(struct sk_buff *skb,
-+				     const struct tcf_proto *tp,
-+				     struct tcf_result *res, bool compat_mode)
++__attribute__((section("action-redirect"), used)) int action_redirect(struct __sk_buff *s)
 +{
-+	int ret = tcf_classify(skb, NULL, tp, res, compat_mode);
-+
-+	if (unlikely(ret == TC_ACT_REDIRECT)) {
-+		pr_warn_once("TC_ACT_REDIRECT from qdisc filter chains is not supported; use eBPF with clsact or mirred redirect instead\n");
-+		ret = TC_ACT_SHOT;
-+	}
-+	return ret;
++	return TC_ACT_REDIRECT;
 +}
 +
- static inline unsigned long
- __cls_set_class(unsigned long *clp, unsigned long cl)
- {
-diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
-index 3e67600a4a1a..3ca56d060e28 100644
---- a/net/sched/cls_api.c
-+++ b/net/sched/cls_api.c
-@@ -4033,7 +4033,7 @@ struct sk_buff *tcf_qevent_handle(struct tcf_qevent *qe, struct Qdisc *sch, stru
- 
- 	fl = rcu_dereference_bh(qe->filter_chain);
- 
--	switch (tcf_classify(skb, NULL, fl, &cl_res, false)) {
-+	switch (tcf_classify_qdisc(skb, fl, &cl_res, false)) {
- 	case TC_ACT_SHOT:
- 		qdisc_qstats_drop(sch);
- 		__qdisc_drop(skb, to_free);
-@@ -4045,10 +4045,6 @@ struct sk_buff *tcf_qevent_handle(struct tcf_qevent *qe, struct Qdisc *sch, stru
- 		__qdisc_drop(skb, to_free);
- 		*ret = __NET_XMIT_STOLEN;
- 		return NULL;
--	case TC_ACT_REDIRECT:
--		skb_do_redirect(skb);
--		*ret = __NET_XMIT_STOLEN;
--		return NULL;
- 	case TC_ACT_CONSUMED:
- 		*ret = __NET_XMIT_STOLEN;
- 		return NULL;
-diff --git a/net/sched/sch_cake.c b/net/sched/sch_cake.c
-index a3c185505afc..94eb47ac54ee 100644
---- a/net/sched/sch_cake.c
-+++ b/net/sched/sch_cake.c
-@@ -1730,7 +1730,7 @@ static u32 cake_classify(struct Qdisc *sch, struct cake_tin_data **t,
- 		goto hash;
- 
- 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
--	result = tcf_classify(skb, NULL, filter, &res, false);
-+	result = tcf_classify_qdisc(skb, filter, &res, false);
- 
- 	if (result >= 0) {
- #ifdef CONFIG_NET_CLS_ACT
-diff --git a/net/sched/sch_drr.c b/net/sched/sch_drr.c
-index 020657f959b5..91b1ef824afa 100644
---- a/net/sched/sch_drr.c
-+++ b/net/sched/sch_drr.c
-@@ -312,7 +312,7 @@ static struct drr_class *drr_classify(struct sk_buff *skb, struct Qdisc *sch,
- 
- 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
- 	fl = rcu_dereference_bh(q->filter_list);
--	result = tcf_classify(skb, NULL, fl, &res, false);
-+	result = tcf_classify_qdisc(skb, fl, &res, false);
- 	if (result >= 0) {
- #ifdef CONFIG_NET_CLS_ACT
- 		switch (result) {
-diff --git a/net/sched/sch_dualpi2.c b/net/sched/sch_dualpi2.c
-index 5434df6ca8ef..98364f74211e 100644
---- a/net/sched/sch_dualpi2.c
-+++ b/net/sched/sch_dualpi2.c
-@@ -364,7 +364,7 @@ static int dualpi2_skb_classify(struct dualpi2_sched_data *q,
- 		return NET_XMIT_SUCCESS;
- 	}
- 
--	result = tcf_classify(skb, NULL, fl, &res, false);
-+	result = tcf_classify_qdisc(skb, fl, &res, false);
- 	if (result >= 0) {
- #ifdef CONFIG_NET_CLS_ACT
- 		switch (result) {
-diff --git a/net/sched/sch_ets.c b/net/sched/sch_ets.c
-index cb8cf437ce87..25fcf4079fec 100644
---- a/net/sched/sch_ets.c
-+++ b/net/sched/sch_ets.c
-@@ -391,7 +391,7 @@ static struct ets_class *ets_classify(struct sk_buff *skb, struct Qdisc *sch,
- 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
- 	if (TC_H_MAJ(skb->priority) != sch->handle) {
- 		fl = rcu_dereference_bh(q->filter_list);
--		err = tcf_classify(skb, NULL, fl, &res, false);
-+		err = tcf_classify_qdisc(skb, fl, &res, false);
- #ifdef CONFIG_NET_CLS_ACT
- 		switch (err) {
- 		case TC_ACT_STOLEN:
-diff --git a/net/sched/sch_fq_codel.c b/net/sched/sch_fq_codel.c
-index cafd1f943d99..6cce86ba383c 100644
---- a/net/sched/sch_fq_codel.c
-+++ b/net/sched/sch_fq_codel.c
-@@ -91,7 +91,7 @@ static unsigned int fq_codel_classify(struct sk_buff *skb, struct Qdisc *sch,
- 		return fq_codel_hash(q, skb) + 1;
- 
- 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
--	result = tcf_classify(skb, NULL, filter, &res, false);
-+	result = tcf_classify_qdisc(skb, filter, &res, false);
- 	if (result >= 0) {
- #ifdef CONFIG_NET_CLS_ACT
- 		switch (result) {
-diff --git a/net/sched/sch_fq_pie.c b/net/sched/sch_fq_pie.c
-index 72f48fa4010b..069e1facd413 100644
---- a/net/sched/sch_fq_pie.c
-+++ b/net/sched/sch_fq_pie.c
-@@ -96,7 +96,7 @@ static unsigned int fq_pie_classify(struct sk_buff *skb, struct Qdisc *sch,
- 		return fq_pie_hash(q, skb) + 1;
- 
- 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
--	result = tcf_classify(skb, NULL, filter, &res, false);
-+	result = tcf_classify_qdisc(skb, filter, &res, false);
- 	if (result >= 0) {
- #ifdef CONFIG_NET_CLS_ACT
- 		switch (result) {
-diff --git a/net/sched/sch_hfsc.c b/net/sched/sch_hfsc.c
-index 7e537295b8b6..e87f5021a199 100644
---- a/net/sched/sch_hfsc.c
-+++ b/net/sched/sch_hfsc.c
-@@ -1143,7 +1143,7 @@ hfsc_classify(struct sk_buff *skb, struct Qdisc *sch, int *qerr)
- 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
- 	head = &q->root;
- 	tcf = rcu_dereference_bh(q->root.filter_list);
--	while (tcf && (result = tcf_classify(skb, NULL, tcf, &res, false)) >= 0) {
-+	while (tcf && (result = tcf_classify_qdisc(skb, tcf, &res, false)) >= 0) {
- #ifdef CONFIG_NET_CLS_ACT
- 		switch (result) {
- 		case TC_ACT_QUEUED:
-diff --git a/net/sched/sch_htb.c b/net/sched/sch_htb.c
-index 908b9ba9ba2e..fdac0dc8f35a 100644
---- a/net/sched/sch_htb.c
-+++ b/net/sched/sch_htb.c
-@@ -243,7 +243,7 @@ static struct htb_class *htb_classify(struct sk_buff *skb, struct Qdisc *sch,
- 	}
- 
- 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
--	while (tcf && (result = tcf_classify(skb, NULL, tcf, &res, false)) >= 0) {
-+	while (tcf && (result = tcf_classify_qdisc(skb, tcf, &res, false)) >= 0) {
- #ifdef CONFIG_NET_CLS_ACT
- 		switch (result) {
- 		case TC_ACT_QUEUED:
-diff --git a/net/sched/sch_multiq.c b/net/sched/sch_multiq.c
-index 4e465d11e3d7..004f0d275caf 100644
---- a/net/sched/sch_multiq.c
-+++ b/net/sched/sch_multiq.c
-@@ -36,7 +36,7 @@ multiq_classify(struct sk_buff *skb, struct Qdisc *sch, int *qerr)
- 	int err;
- 
- 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
--	err = tcf_classify(skb, NULL, fl, &res, false);
-+	err = tcf_classify_qdisc(skb, fl, &res, false);
- #ifdef CONFIG_NET_CLS_ACT
- 	switch (err) {
- 	case TC_ACT_STOLEN:
-diff --git a/net/sched/sch_prio.c b/net/sched/sch_prio.c
-index e4dd56a89072..79437c587e7e 100644
---- a/net/sched/sch_prio.c
-+++ b/net/sched/sch_prio.c
-@@ -39,7 +39,7 @@ prio_classify(struct sk_buff *skb, struct Qdisc *sch, int *qerr)
- 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
- 	if (TC_H_MAJ(skb->priority) != sch->handle) {
- 		fl = rcu_dereference_bh(q->filter_list);
--		err = tcf_classify(skb, NULL, fl, &res, false);
-+		err = tcf_classify_qdisc(skb, fl, &res, false);
- #ifdef CONFIG_NET_CLS_ACT
- 		switch (err) {
- 		case TC_ACT_STOLEN:
-diff --git a/net/sched/sch_qfq.c b/net/sched/sch_qfq.c
-index cb56787e1d25..6f3b7273cb16 100644
---- a/net/sched/sch_qfq.c
-+++ b/net/sched/sch_qfq.c
-@@ -709,7 +709,7 @@ static struct qfq_class *qfq_classify(struct sk_buff *skb, struct Qdisc *sch,
- 
- 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
- 	fl = rcu_dereference_bh(q->filter_list);
--	result = tcf_classify(skb, NULL, fl, &res, false);
-+	result = tcf_classify_qdisc(skb, fl, &res, false);
- 	if (result >= 0) {
- #ifdef CONFIG_NET_CLS_ACT
- 		switch (result) {
-diff --git a/net/sched/sch_sfb.c b/net/sched/sch_sfb.c
-index b1d465094276..ed39869199c0 100644
---- a/net/sched/sch_sfb.c
-+++ b/net/sched/sch_sfb.c
-@@ -260,7 +260,7 @@ static bool sfb_classify(struct sk_buff *skb, struct tcf_proto *fl,
- 	struct tcf_result res;
- 	int result;
- 
--	result = tcf_classify(skb, NULL, fl, &res, false);
-+	result = tcf_classify_qdisc(skb, fl, &res, false);
- 	if (result >= 0) {
- #ifdef CONFIG_NET_CLS_ACT
- 		switch (result) {
-diff --git a/net/sched/sch_sfq.c b/net/sched/sch_sfq.c
-index 758b88f21865..77675f9a4c46 100644
---- a/net/sched/sch_sfq.c
-+++ b/net/sched/sch_sfq.c
-@@ -171,7 +171,7 @@ static unsigned int sfq_classify(struct sk_buff *skb, struct Qdisc *sch,
- 		return sfq_hash(q, skb) + 1;
- 
- 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
--	result = tcf_classify(skb, NULL, fl, &res, false);
-+	result = tcf_classify_qdisc(skb, fl, &res, false);
- 	if (result >= 0) {
- #ifdef CONFIG_NET_CLS_ACT
- 		switch (result) {
+ char _license[] __attribute__((section("license"),used)) = "GPL";
+diff --git a/tools/testing/selftests/tc-testing/tc-tests/infra/qdiscs.json b/tools/testing/selftests/tc-testing/tc-tests/infra/qdiscs.json
+index a1f97a4b606e..762f86ceab1c 100644
+--- a/tools/testing/selftests/tc-testing/tc-tests/infra/qdiscs.json
++++ b/tools/testing/selftests/tc-testing/tc-tests/infra/qdiscs.json
+@@ -1540,5 +1540,37 @@
+             "$TC qdisc del dev $DUMMY root",
+             "$IP addr del 10.10.10.10/24 dev $DUMMY || true"
+         ]
++    },
++    {
++        "id": "fb8d",
++        "name": "Verify bpf redirect on RED block with preceding clsact (egress) classifier",
++        "category": [
++            "qdisc",
++            "red",
++            "qevent",
++            "clsact"
++        ],
++        "plugins": {
++            "requires": "nsPlugin"
++        },
++        "setup": [
++            "$IP addr add 10.10.10.1/24 dev $DUMMY",
++            "$IP neigh add 10.10.10.2 lladdr 02:00:00:00:00:01 dev $DUMMY nud permanent",
++            "$TC qdisc add dev $DUMMY handle 1: root tbf rate 1Mbit burst 10K limit 1M",
++            "$TC qdisc add dev $DUMMY parent 1:1 handle 11: red limit 1M avpkt 1400 probability 1 burst 38 harddrop min 30000 max 30001 qevent early_drop block 10",
++            "$TC qdisc add dev $DUMMY clsact",
++            "$TC filter add dev $DUMMY egress protocol ip prio 1 matchall action gact pass",
++            "$TC filter add block 10 protocol ip prio 1 matchall action bpf obj $EBPFDIR/action-ebpf sec action-redirect"
++        ],
++        "cmdUnderTest": "bash -c 'data=$(head -c 1400 /dev/zero | tr \"\\0\" \"x\"); exec 3>/dev/udp/10.10.10.2/12345; for i in $(seq 1 8000); do printf \"%s\" \"$data\" >&3; done; exit 0'",
++        "expExitCode": "0",
++        "verifyCmd": "$TC -s filter show block 10",
++        "matchPattern": "Sent [1-9][0-9]* bytes [1-9][0-9]* pkt",
++        "matchCount": "1",
++        "teardown": [
++            "$TC qdisc del dev $DUMMY clsact",
++            "$TC qdisc del dev $DUMMY handle 1: root",
++            "$IP addr del 10.10.10.1/24 dev $DUMMY"
++        ]
+     }
+ ]
 -- 
 2.54.0
 
