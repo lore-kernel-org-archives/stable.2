@@ -1,132 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563734218B8;
-	Mon, 29 Jun 2026 14:44:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5DD423160
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 14:48:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782744282; cv=none; b=eFgY8X+2MMvGDrldNGgrLpYGtfs9f76r/aIFrTe5rj4ei7DUh2jlwZQwASWI6wPI87nQ4eTeqRqzRGkPuqj/Agq1Erke1hISMSOUw2mmFq+VwpTe6tEGavOi11QSjBV3+oUT/VpJNRF945wISgLGWjAh+8YbMBtpr+tsNQkv8vM=
+	t=1782744530; cv=none; b=BNui8KCpOZ6fHDyhaa1pBUwJOC4Gm5ra8UG/ivi/LB5NwbILTzb8yrdBDzRAoF0Xlefxzxvs76MnTxSLoMvIRnd5Lbv9R68Ylf1YOJr3c3/u5Q0HFoKEE4gAveSE7GXmQSix4Y3MCD52fqQQK7CAvBT4YOPsGSDmSyeoQlJuKVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782744282; c=relaxed/simple;
-	bh=P6RH3uPza7/i5npkvxetS0N9j86oYtT4K5gIPNjKzVg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NyZQ4YFVfgmvSvw+tO3BDoFjEKGEfCQR6/slVYZqFdk8qqHYKwyfDnxYEZu74tOraJ2H1aQwUToGFiRHSNJwNfHu+RCzrQs4D+nc5UdR7Rto790+yj3s1EBrAdqS4zpC5dfEjjj7ulzoxyu4QphUvvrFYw9IBI7pUjLBZakOQss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UTWtaIYq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782744530; c=relaxed/simple;
+	bh=Pktu8IUFaoWPXqsRCXhZdqmIMTa4nXkzwmgiIgu2fFc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=IZ3Ym297/gQCKKAmpTKASVNKJG0h8ploND0+7hxI9AzUho9az6rVez6WIlnAbVqk3jQqYsaP66ZZr9qsrz9Au64e6+00O88l0qrVPS4NK4CjC2n6PdDUq0xeXKaNCycQz6An9M4s57ICntfPTOPUOwKxwSA/LUJYbKHEyeYQI9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B85W5nc4; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UTWtaIYq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 899B81F000E9;
-	Mon, 29 Jun 2026 14:44:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782744280;
-	bh=Kd7LVRXhQqayNdQaCsVNZXfiEHFjU+l0jmqRhEGwXDg=;
-	h=From:To:Cc:Subject:Date;
-	b=UTWtaIYqyHgFCVTDkmRR45eFK42+RqOpV3re+1jd3KS79Sp3M4K+ZiuhLtRWwk4Qd
-	 aKQQ4R64rEd1TknW7eV9p2gTLWNyu8HNDkFcmJBgd9GAswNC+k3Abvi/CT04uPMo3W
-	 y9XPNuUtXgGJS1wAa21xEzVk74TnJF/xlocVKLgMmlJj0fPy92WQks7zyLoyi5rZKh
-	 tEytiM2ItM1+2pDQ61EVDjhU2U9R2yYj3Raz06K99THaxdRX5q/1Nc2+CgLwNzodLF
-	 09z9r9CEQledrfb5WAADN0HHUR58VtjRIe+kaXBhy91tA07FATCiBppXicTlXYg5dx
-	 eLQGxjrn8AsOA==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Zenghui Yu <yuzenghui@huawei.com>,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3] samples/damon/mtier: fail early if address range parameters are invalid
-Date: Mon, 29 Jun 2026 07:44:31 -0700
-Message-ID: <20260629144432.133962-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B85W5nc4"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id B18EF1A0CF1;
+	Mon, 29 Jun 2026 14:48:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 847D55FF96;
+	Mon, 29 Jun 2026 14:48:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 55906106F18C0;
+	Mon, 29 Jun 2026 16:48:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1782744526; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=4Y2dGtCX571obC1bHJuffzAj/LpJ/YCV6B+7lEKdOS4=;
+	b=B85W5nc4ALTzeXLEqY9xRChScRByfCgI22raxm5gdRyi9GFihKGYlhi7zeog25kse2VEuv
+	6zyKiEM1Hoqroc/CLUH+p9iX/LMyA/Km1mK3M21dgaYE1TSrt8XR1mW5FUfR5z89Uk6fQd
+	KO0KqSElqLJ0QT+EzYlq/NvWPmGh/osf5SFixvv8qPYiC9ACG/J3fXbwYQvG92gCxov6MD
+	x+4L9Ti6A3u0uGbhfMo+G/nPWiT2xfH+LVfT7+WHtK4h59yyIdLxeo7l1BLYMWGQn9tkqs
+	DuOKTZq6KCfGMvQ81OogPbYMvSg4EskxfagQ0nb8bn0lQuQnLA6CCrxLv1Q+WA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Michal Simek <michal.simek@amd.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Andrea Scian <andrea.scian@dave.eu>, 
+ "Miquel Raynal (DAVE)" <miquel.raynal@bootlin.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Olivier Sobrie <olivier@sobrie.be>, stable@vger.kernel.org
+In-Reply-To: <20260529-dave-upstream-nand-fixes-v1-0-8c72aa23aee2@bootlin.com>
+References: <20260529-dave-upstream-nand-fixes-v1-0-8c72aa23aee2@bootlin.com>
+Subject: Re: [PATCH 0/3] mtd: rawnand: pl353: Fixes and software ECC
+ support
+Message-Id: <178274452512.266238.15298515792441156646.b4-ty@bootlin.com>
+Date: Mon, 29 Jun 2026 16:48:45 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Zenghui Yu <yuzenghui@huawei.com>
+On Fri, 29 May 2026 18:29:55 +0200, Miquel Raynal (DAVE) wrote:
+> Following the previous reports from Andrea, here are a couple of fixes,
+> making sure the software ECC support works flawlessly and is compatible
+> with U-Boot.
+> 
+> Link: https://lore.kernel.org/linux-mtd/MI2P293MB02644DC5515E56A2539C65739765A@MI2P293MB0264.ITAP293.PROD.OUTLOOK.COM/
+> 
+> 
+> [...]
 
-The comment on top of `struct damon_region` clearly says that
+Applied to nand/next, thanks!
 
-    For any use case, @ar should be non-zero positive size.
+[1/3] mtd: rawnand: pl353: Update timings at the right moment
+      commit: ee60be8929c7badf1194e3149a8aef930cfd77b8
+[2/3] mtd: rawnand: pl353: Make sure we use the monolithic helpers for raw accesses
+      commit: 80ecacd054ffeb60cd28e46ed5cd6bd0d2de318b
+[3/3] mtd: rawnand: pl353: Fix debug prints
+      commit: 2b7baaddf1bc3e39206a0354449fdc349945b86b
 
-which is now verified in damon_verify_new_region() if the kernel is built
-with DAMON_DEBUG_SANITY.
+Patche(s) should be available on mtd/linux.git and will be
+part of the next PR (provided that no robot complains by then).
 
-The WARN_ONCE() can be triggered if the mtier sample module is enabled
-before node{0,1}_{start,end}_addr have been properly initialized, which is
-obviously not good.
+Kind regards,
+Miquèl
 
- ------------[ cut here ]------------
- start 0 >= end 0
- WARNING: mm/damon/core.c:217 at damon_new_region+0xf4/0x118, CPU#59: bash/341468
- Call trace:
-  damon_new_region+0xf4/0x118 (P)
-  damon_set_regions+0xfc/0x3c0
-  damon_sample_mtier_build_ctx+0xe8/0x3a8
-  damon_sample_mtier_start+0x1c/0x90
-  damon_sample_mtier_enable_store+0x98/0xb0
-  param_attr_store+0xb4/0x128
-  module_attr_store+0x2c/0x50
-  sysfs_kf_write+0x58/0x90
-  kernfs_fop_write_iter+0x16c/0x238
-  vfs_write+0x2c0/0x370
-  ksys_write+0x74/0x118
-  __arm64_sys_write+0x24/0x38
-  invoke_syscall+0xa8/0x118
-  el0_svc_common.constprop.0+0x48/0xf0
-  do_el0_svc+0x24/0x38
-  el0_svc+0x54/0x370
-  el0t_64_sync_handler+0xa0/0xe8
-  el0t_64_sync+0x1ac/0x1b0
- ---[ end trace 0000000000000000 ]---
-
-Note that the same issue can happen if detect_node_addresses is true, and
-node 0 or 1 is memoryless. Fix it together by checking the validity of
-parameters right before damon_new_region() and fail early if they're
-invalid.
-
-Fixes: 82a08bde3cf7 ("samples/damon: implement a DAMON module for memory tiering")
-Cc: <stable@vger.kernel.org> # 6.16.x
-Signed-off-by: Zenghui Yu <yuzenghui@huawei.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes from v2
-- v2: https://lore.kernel.org/20260609064653.1829-1-yuzenghui@huawei.com
-- Collect R-b: from SJ.
-- Add Fixes: and Cc: stable@.
-- Rebase to latest mm-new.
-Changes from v1
-- v1: https://lore.kernel.org/20260608111534.264-1-yuzenghui@huawei.com
-- take into account the detect_node_addresses case (Sashiko)
-- based on mm-new (SJ)
-
-This is a fix Cc-ing stable@.  Nonetheless, because it is for a sample
-module, not necessarily "super hot".  7.3 should also be a reasonable
-target, like the other sample module fixes [1].
-
-[1] https://lore.kernel.org/20260629132641.159851-1-sj@kernel.org
-
- samples/damon/mtier.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/samples/damon/mtier.c b/samples/damon/mtier.c
-index faaaaa12e6206..e567f4edd80ea 100644
---- a/samples/damon/mtier.c
-+++ b/samples/damon/mtier.c
-@@ -120,6 +120,9 @@ static struct damon_ctx *damon_sample_mtier_build_ctx(bool promote)
- 		addr.end = promote ? node1_end_addr : node0_end_addr;
- 	}
- 
-+	if (addr.start >= addr.end)
-+		goto free_out;
-+
- 	range.start = addr.start;
- 	range.end = addr.end;
- 
-
-base-commit: c1922f6a1a8b9a120b46051c3c5e3b81b4b75d92
--- 
-2.47.3
