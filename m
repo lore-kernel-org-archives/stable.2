@@ -1,108 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678D33FE35A;
-	Mon, 29 Jun 2026 12:15:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A773FFF86;
+	Mon, 29 Jun 2026 12:18:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782735325; cv=none; b=suLoKPceAzk5iVGhQviUSAzrt5oxZO/TMwdM8iMkbyzBvU3pkfJ0kekxWVI/r24MRBH3glLtWoeRbcoxsGOYOcKeN1Gpe+uSc/mEEbb4tfbGpdvvv7VnK1bJ/Q9C1QyLwC9INZsud75OG/TPBMan7SRAGFEw56W16IqTAY/9WaY=
+	t=1782735492; cv=none; b=HGM8VfmVNGs1LO9LNlVrLNSJ0SB/8SMMcM0/Veb7m/g9985ykgs+qeF3Aum0LlQD31puatLaVCVpgx6/HhxV/ZT/sj9mZdGW5WUTzXARcMY8kyzKaUvH0PDGnTNBMWkM/xgqJeceeXDkxKNfqmcHzmQO13RcAjLeAyBHzKj0ZX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782735325; c=relaxed/simple;
-	bh=T5WovzhCFKz4G/fb6TfdpHfesyp09NS4EQPhTFfMkUc=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=MlpvADjSq2sjgCmEyoXCOG0urKUKceRpxnLO/vDc+jdNqDtAb0gTz3WrRWSPQnS9ZTWVTOr9dwGhBmO63J7nNS9HBiq5Otq0JcAysdPl27bVyshb4Cas1eDE0cZjf5cAFfT1WsCeqKYiCWs/+OODGCEQeW0jhmHR2lDSk3XApwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9dZyRX+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782735492; c=relaxed/simple;
+	bh=ECvDfXgKW4JbF/oVmEsOMPFtH2HOc8dl5MSYssZy5YA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sn4SuCw4Hrlbdjp+EAlNFUortWmVHf3+P+a9R3uWG7lF4vQURzs/AQQF31/0t5Mskn17o1l+a7SCftdBIuG4Y5Ay506Kuqda9hLgDE2/4tCPtCCHZz7VGWbD+ypts39cWmNEuX4ZP77l/H86bbiQaGlJz/hV6dnYFFT0zV45EkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ENi4gjhv; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9dZyRX+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CAA71F000E9;
-	Mon, 29 Jun 2026 12:15:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782735324;
-	bh=Ib3bsCrjJ/YTtTkut2lMHiWjoeu6mhtWtwT28YpERNk=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=K9dZyRX+d4FAViVDAE3qeR8uiytew7r/wwvdnbw2pLzk34UOwGxvC34eg3qFspG2O
-	 NwZPGN/SV7RcTKIvcggcCjVtiSROmoQnPu4ZbOkBFTh9pqawRYjuiwvnDbkm8pMtU5
-	 TrURwID5TBZSmBvqrggDjQblNwwO1m3IGfP7YPmusz+ySpaF0jVqic11yFaciPmVOw
-	 rXo8mlio2lp+8OYh/oH+YInPXPUG3xDjb5cIfbsRaX4/bea5SUhGcIPK3DBfT2qqH0
-	 XdDJkf67UjDlghNJzE9qy33nswqMlMN5NCiksRqFsZqqYsizdTo93fMIp+m8v0RGZF
-	 5RS7KB77c+Zmg==
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ENi4gjhv"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=h8W/8MOVA/KLPn/O4gFOUg7bhB+AX9sU5r41MvDzxwY=; b=ENi4gjhv1y6oMmj7vcPthQA93k
+	MxTLJ3Qm3IOJUzqCyvUwop61YPAgD+Ao6F/5SshgOtlGWGpW4sts5bl1E4JYtdGMo9YMOsgJ8AUC+
+	0SnWc6KSYxY6brMxLJCbN5CTljr99E86RDIy5wyboff6VKB7VOk6f/gV1Ntdc5o4B0HFkeTA9YegJ
+	KOmwM5UJx2u/2uhRnSDeQngpv4rn7q2FRtVOnekSd2T2G/2fEiSwb4oo+Pwq34WHoJzuY/CoqT9yu
+	Pm0A6Z2BN82ArtUh1v6KrYkdY4uSi3ltjU2BTTArw0MEJVzbYzMQ/0azMyB1KcpQ7/GVDQpXMka1D
+	EbykWDWQ==;
+Received: from clnet-b08-202.ikbnet.co.at ([83.175.123.202] helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1weAw5-0000000EWzg-3hsh;
+	Mon, 29 Jun 2026 12:18:02 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Christian Brauner <brauner@kernel.org>,
+	"Darrick J. Wong" <djwong@kernel.org>
+Cc: Kelu Ye <yekelu1@huawei.com>,
+	Yifan Zhao <zhaoyifan28@huawei.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sungjong Seo <sj1557.seo@samsung.com>,
+	Hyunchul Lee <hyc.lee@gmail.com>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	fuse-devel@lists.linux.dev,
+	ntfs3@lists.linux.dev,
+	linux-erofs@lists.ozlabs.org,
+	linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] iomap: consolidate bio submission
+Date: Mon, 29 Jun 2026 14:17:38 +0200
+Message-ID: <20260629121750.3392300-2-hch@lst.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260629121750.3392300-1-hch@lst.de>
+References: <20260629121750.3392300-1-hch@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] mm: do file ownership checks with the proper mount
- idmap
-From: Christian Brauner <brauner@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: Pedro Falcato <pfalcato@suse.de>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, 
- David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, linux-fsdevel@vger.kernel.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <s6mr3j7gew2cgerzrvqzenjctctrtnhvlynmcccxb24uszcauz@5iapd6wnbfxg>
-References: <20260625153853.913949-1-pfalcato@suse.de>
- <s6mr3j7gew2cgerzrvqzenjctctrtnhvlynmcccxb24uszcauz@5iapd6wnbfxg>
-Date: Mon, 29 Jun 2026 14:15:19 +0200
-Message-Id: <20260629-sektor-gaben-gepokert-58db0a3528a3@brauner>
-X-Mailer: b4 0.16-dev-4217c
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2047; i=brauner@kernel.org;
- h=from:subject:message-id; bh=T5WovzhCFKz4G/fb6TfdpHfesyp09NS4EQPhTFfMkUc=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ5Jd7Y+irtou7+09lprx08z0UfPLfnp+Z0UXejY7x5B
- j3MVxJ6O0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACbym4mRoUOgUez4ZoaN60N4
- 24zvfXXlXOx5q3jt+X9Bzgar7yUn+TP8M4qJv2hy0aUs7NLkaVf8nEPYZ8g63L555Feby6kfSfs
- 8WAE=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On 2026-06-26 16:19:18+02:00, Jan Kara wrote:
-> On Thu 25-06-26 16:38:53, Pedro Falcato wrote:
-> 
-> > Ever since idmapped mounts were introduced, inode ownership checks
-> > (for side-channel protection) in mincore() and madvise(MADV_PAGEOUT) were
-> > done against the nop_mnt_idmap, which completely ignores the file's mount's
-> > idmap. This results in odd edgecases like:
-> > 
-> > 1) mount/bind-mount with an idmap userA:userB:1
-> > 2) userB runs an owner_or_capable() check on file that is owned by userA
-> > on-disk/in-memory, but owned by userB after idmap translation
-> > 3) owner_or_capable() mysteriously fails as the correct idmap wasn't supplied
-> > 
-> > In the case of mincore/madvise MADV_PAGEOUT, this is usually benign, because
-> > file_permission(file, MAY_WRITE) will probably succeed, as it uses the proper
-> > idmap internally, but it does not need to be the case on e.g a 0444 file
-> > where even the owner itself doesn't have permissions to write to it.
-> > 
-> > Since this is clearly not trivial to get right, introduce a
-> > file_owner_or_capable() that can carry the correct semantics, and switch
-> > the various users in mm to it.
-> > 
-> > The issue was found by manual code inspection & an off-list discussion with
-> > Jan Kara.
-> > 
-> > Fixes: 9caccd41541a ("fs: introduce MOUNT_ATTR_IDMAP")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Pedro Falcato <pfalcato@suse.de>
-> 
-> This looks good to me. I'm a bit curious why Christian initially (in 2021)
-> used init_user_ns here instead of the file namespace... Anyway feel free to
-> add:
+Add a iomap_bio_submit_read_endio helper factored out of
+iomap_bio_submit_read to that all ->submit_read implementations for
+iomap_read_ops that use iomap_bio_read_folio_range can shared the
+logic.
 
-Back when this was added only the do_mincore() codepath existed and that
-was intentionally left unconverted because it exposes the cache
-residency status. So it was effectively a massive side-channel.
+Right now that logic is mostly trivial, but already has a bug for XFS
+because the XFS version is too trivial:  file system integrity validation
+needs a workqueue context and thus can't happen from the default iomap
+bi_end_io I/O handler.  Unfortunately the iomap refactoring just before
+fs integrity landed moved code around here and the call go misplaced,
+meaning it never got called.  The PI information still is verified by
+the block layer, but the offloading is less efficient (and the future
+userspace interface can't get at it).
 
-Both fd3b1bc3c86e ("mm/madvise: fix madvise_pageout for private file mappings")
-and specifically cachestat() came way after all that.
+Fixes: 0b10a370529c ("iomap: support T10 protection information")
+Cc: <stable@vger.kernel.org> # v7.1
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+---
+ fs/exfat/iomap.c      |  5 +----
+ fs/iomap/bio.c        | 13 ++++++++++---
+ fs/ntfs/aops.c        |  6 ++----
+ fs/ntfs3/inode.c      |  5 +----
+ fs/xfs/xfs_aops.c     |  3 +--
+ include/linux/iomap.h |  2 ++
+ 6 files changed, 17 insertions(+), 17 deletions(-)
 
-I'm otherwise fine with the change.
-
-Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
+diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
+index 1aac38e63fe6..190fc6471f84 100644
+--- a/fs/exfat/iomap.c
++++ b/fs/exfat/iomap.c
+@@ -253,10 +253,7 @@ static void exfat_iomap_read_end_io(struct bio *bio)
+ static void exfat_iomap_bio_submit_read(const struct iomap_iter *iter,
+ 		struct iomap_read_folio_ctx *ctx)
+ {
+-	struct bio *bio = ctx->read_ctx;
+-
+-	bio->bi_end_io = exfat_iomap_read_end_io;
+-	submit_bio(bio);
++	iomap_bio_submit_read_endio(iter, ctx, exfat_iomap_read_end_io);
+ }
+ 
+ const struct iomap_read_ops exfat_iomap_bio_read_ops = {
+diff --git a/fs/iomap/bio.c b/fs/iomap/bio.c
+index 4504f4633f17..0f31e35567b4 100644
+--- a/fs/iomap/bio.c
++++ b/fs/iomap/bio.c
+@@ -78,15 +78,23 @@ u32 iomap_finish_ioend_buffered_read(struct iomap_ioend *ioend)
+ 	return __iomap_read_end_io(&ioend->io_bio, ioend->io_error);
+ }
+ 
+-static void iomap_bio_submit_read(const struct iomap_iter *iter,
+-		struct iomap_read_folio_ctx *ctx)
++void iomap_bio_submit_read_endio(const struct iomap_iter *iter,
++		struct iomap_read_folio_ctx *ctx, bio_end_io_t end_io)
+ {
+ 	struct bio *bio = ctx->read_ctx;
+ 
++	bio->bi_end_io = end_io;
+ 	if (iter->iomap.flags & IOMAP_F_INTEGRITY)
+ 		fs_bio_integrity_alloc(bio);
+ 	submit_bio(bio);
+ }
++EXPORT_SYMBOL_GPL(iomap_bio_submit_read_endio);
++
++static void iomap_bio_submit_read(const struct iomap_iter *iter,
++		struct iomap_read_folio_ctx *ctx)
++{
++	return iomap_bio_submit_read_endio(iter, ctx, iomap_read_end_io);
++}
+ 
+ static struct bio_set *iomap_read_bio_set(struct iomap_read_folio_ctx *ctx)
+ {
+@@ -127,7 +135,6 @@ static void iomap_read_alloc_bio(const struct iomap_iter *iter,
+ 	if (ctx->rac)
+ 		bio->bi_opf |= REQ_RAHEAD;
+ 	bio->bi_iter.bi_sector = iomap_sector(iomap, iter->pos);
+-	bio->bi_end_io = iomap_read_end_io;
+ 	bio_add_folio_nofail(bio, folio, plen,
+ 			offset_in_folio(folio, iter->pos));
+ 	ctx->read_ctx = bio;
+diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
+index 1fbf832ad165..f2bb56506046 100644
+--- a/fs/ntfs/aops.c
++++ b/fs/ntfs/aops.c
+@@ -38,11 +38,9 @@ static void ntfs_iomap_read_end_io(struct bio *bio)
+ }
+ 
+ static void ntfs_iomap_bio_submit_read(const struct iomap_iter *iter,
+-	struct iomap_read_folio_ctx *ctx)
++		struct iomap_read_folio_ctx *ctx)
+ {
+-	struct bio *bio = ctx->read_ctx;
+-	bio->bi_end_io = ntfs_iomap_read_end_io;
+-	submit_bio(bio);
++	iomap_bio_submit_read_endio(iter, ctx, ntfs_iomap_read_end_io);
+ }
+ 
+ static const struct iomap_read_ops ntfs_iomap_bio_read_ops = {
+diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+index 42af1abe17f8..f9600aba1548 100644
+--- a/fs/ntfs3/inode.c
++++ b/fs/ntfs3/inode.c
+@@ -609,10 +609,7 @@ static void ntfs_iomap_read_end_io(struct bio *bio)
+ static void ntfs_iomap_bio_submit_read(const struct iomap_iter *iter,
+ 		struct iomap_read_folio_ctx *ctx)
+ {
+-	struct bio *bio = ctx->read_ctx;
+-
+-	bio->bi_end_io = ntfs_iomap_read_end_io;
+-	submit_bio(bio);
++	iomap_bio_submit_read_endio(iter, ctx, ntfs_iomap_read_end_io);
+ }
+ 
+ static const struct iomap_read_ops ntfs_iomap_bio_read_ops = {
+diff --git a/fs/xfs/xfs_aops.c b/fs/xfs/xfs_aops.c
+index 2a0c54256e93..51293b6f331f 100644
+--- a/fs/xfs/xfs_aops.c
++++ b/fs/xfs/xfs_aops.c
+@@ -764,8 +764,7 @@ xfs_bio_submit_read(
+ 
+ 	/* defer read completions to the ioend workqueue */
+ 	iomap_init_ioend(iter->inode, bio, ctx->read_ctx_file_offset, 0);
+-	bio->bi_end_io = xfs_end_bio;
+-	submit_bio(bio);
++	iomap_bio_submit_read_endio(iter, ctx, xfs_end_bio);
+ }
+ 
+ static const struct iomap_read_ops xfs_iomap_read_ops = {
+diff --git a/include/linux/iomap.h b/include/linux/iomap.h
+index 3582ed1fe236..56b43d594e6e 100644
+--- a/include/linux/iomap.h
++++ b/include/linux/iomap.h
+@@ -622,6 +622,8 @@ extern struct bio_set iomap_ioend_bioset;
+ #ifdef CONFIG_BLOCK
+ int iomap_bio_read_folio_range(const struct iomap_iter *iter,
+ 		struct iomap_read_folio_ctx *ctx, size_t plen);
++void iomap_bio_submit_read_endio(const struct iomap_iter *iter,
++		struct iomap_read_folio_ctx *ctx, bio_end_io_t end_io);
+ 
+ extern const struct iomap_read_ops iomap_bio_read_ops;
+ 
+-- 
+2.53.0
 
