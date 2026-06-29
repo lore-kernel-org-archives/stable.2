@@ -1,166 +1,177 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012014.outbound.protection.outlook.com [52.101.43.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A556366DA5
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 11:04:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782731070; cv=none; b=ZHl5PAzIZCXOmlmroNPmUrBYDB0yH5X9lDYaZNIBih/yT+GRReCEf1iPdabwA7p1kooRg8O5r989hqUBJ+9fUT7A0sJPQQVJ1PcTMMLNk4KA4NM6WbvVUxCoWChLKDV3He7u5yEbArpPKrEkO2c1qQ1OwvQvzwdL3L/Qk6rtYaQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782731070; c=relaxed/simple;
-	bh=WnWyCT69qqAeBtcSs5TAxdDrYRVZzP3DQEXySulJOog=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sGDLovXq390VylWAMr0MTumQfg3XbFEpYG/7nC0Z8pt1/wIT3HCmMfFcKzzL671KKlr8tgx1N64Vavzle3YONWhPDt1GSdADlg5PgCxLVlvwPSILk+NT3naaAl/9D7g8sedNep4uKKoXnZF660UlU4jH4iCgnce47Bis7j6xEzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s7eoRtdY; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB427364943;
+	Mon, 29 Jun 2026 11:05:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782731106; cv=fail; b=ebMga8Uv+ETnD5qfQQnwPWPORjOQ/j80ZMKxgTM6m2cazwHAzosXzL3l1KJFroX09nUsR/coJ9bJK/wjS2QagAeI+ATNstnWoBwjMFbzRE46TDxcNk6uR/VxgjmUNt39Fd69AntxIg+kV11ksMNTAkgvein9OXvIjtKsy+FNqnQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782731106; c=relaxed/simple;
+	bh=YIfaRTXwMmFyUaUoAGtcdXnYG8IQrQEcgNuuhK5EOS0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=RYwFFSVWSjauPJs1xXaYDrgPkSHPfgn3to1eQOO3RZWMYfiWihH/QwSy8rrGB7jASYUt5WsBwsLJkexCg+y6yPmUMMNHGGW3+pBcKsgCjX+LAJRI5J3P5IPylYwX12LZT82QSdkqEmq37BbRPukx5RozWtZShq3Wg1TpkWtMTts=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rcoll3WY; arc=fail smtp.client-ip=52.101.43.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s7eoRtdY"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8478a25f268so357716b3a.2
-        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 04:04:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782731067; x=1783335867; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=b1hHHsDIbbNW2mvKYCvO+OggmhpHSR1woASylmKNhS0=;
-        b=s7eoRtdYDGTktjwslQC8ePmlGxAZpxmktj1BOakey8+so9zoM/HFSHpCjX6yOhAiIH
-         RFFNSMho8hYpoghG4V7/jBNKmwMdfD/pAUd6/beHfqUAzeXHK74MwxVOZw7N0KttR727
-         WKKHVksIPm6UXvKy5xRcZKtvMbDblP2sohsrxnowyek53JiHnIsQQAlrd9Bwl0yM/oQB
-         y/of3jtaulNlaZMxRZqBzsIoUPXjPmeGiZ5fGRtVXw18eDknbQM1cASReB8d7VLQPdAH
-         sCCSlYLx656ta/tDpgbhU4qcwqsGlEGpaR0lp8GuGPOS9H0jDEVoRdAyTI0/FxO0xNAv
-         EjKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782731067; x=1783335867;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=b1hHHsDIbbNW2mvKYCvO+OggmhpHSR1woASylmKNhS0=;
-        b=Bvl+aMWATT0OjKYrw7xakiXgsjes7/MZEE3cO4H08I8J/pa++myjkgFLz4ig4CqTkP
-         1fVuvePws43Fj3weJ90MXNA0BiC5fm+/b3SQdfyvOtSkGqg8Gd5EgkACUhZ8CvvpRaOH
-         +L1YWSoiltvwHkqlVFCUSbddFWafV3yeRKXOKVehKgsgkxdHNEd/jkf/6Tso9zeZySun
-         4LmQ8LV0pOVfe23e+F3ECGvn4cHsVxD3wkieI/oOyfIJ3MahaWGBMrqD1GFSuJR2H0mB
-         h7lPxz3/hRJlIVW2aY4PSGyXNBfO4BY8XDiAWx6Y5D6vYnTFZ212rnzzdS5mYNXKA9+q
-         ESaw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1Jx/BOhDbIU9a9OWminVBfDjD0U9XKB4ceqjgSymJnbBj0YHFCXIpqPyVuxql/rh27ZiIoAU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzwjguhkwZpikMRs62zranqnP8ycqYtTRxTR8i1Its1cviNuL8U
-	hvShjxMdSvOBKa1fs/lu74XSbob8nPKXscPxYyOL66swn7F5UlSGpiSWVW8fYbkB
-X-Gm-Gg: AfdE7cns0N9pYXIPsPOjks7Yy8ALH5ei99NE7e0dot/jvVuEwxFx38bK/76MfUBkCga
-	EgA6/fj5IQ5JSgr5r4sPmWmpvsWBSrv8d83H707ybqgNXCrV9/w//DgMhmhixg4ww4bNjKk5beR
-	FCtAaFUsPZ2zAAhGdPrtBjQq64jSuXVJPIg56iDLMLjc/0ZbQ7GmceaW94ziLI/qpct1kRRBoL4
-	otWb0zgy7+XJTfhMq+tMVqyQNbDgxCgz+XNRMH/TD12qWFQEPo+VSwHEGISE/4auNRbvrVkOagk
-	ZlAEZKl526fVaDtT6CN8RqVmB/GSOPgFOX7Q2/hBsas4jw0f+fvKFd0rwVvKNXiQkogmEzBt7Ph
-	eW9x/0ZbpAnfqBfxvuZA8psHdczPuLFEg70Z93Ci1iQA4GyTuAojzRmnsp3mUzxY8XN0eS/5zYp
-	aRbWjWhHL4DHRUFI+kbPYA7OPWJFI=
-X-Received: by 2002:a05:6a00:12c1:b0:845:4142:b8b7 with SMTP id d2e1a72fcca58-845b3b714bemr15729492b3a.24.1782731067401;
-        Mon, 29 Jun 2026 04:04:27 -0700 (PDT)
-Received: from localhost.localdomain ([112.166.204.241])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-845cdfac944sm5858964b3a.12.2026.06.29.04.04.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 04:04:26 -0700 (PDT)
-From: Hojun Choi <ghwns6743@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	Hojun Choi <ghwns6743@gmail.com>,
-	syzbot+9c40ad7c6ed7165e46e8@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: L2CAP: Fix slab-use-after-free in l2cap_disconn_ind
-Date: Mon, 29 Jun 2026 20:05:15 +0900
-Message-ID: <20260629110515.29689-1-ghwns6743@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <6a043270.a00a0220.3890a0.0006.GAE@google.com>
-References: <6a043270.a00a0220.3890a0.0006.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rcoll3WY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CGTpX79/admW/7mv1pmFI31mM9LUWx+BfVfSLIyRv1qReKJr6INTdnX+gd7OSwHnsJjpk/SEecKG+taf6K3vei8NMsz6FKrLhDtj+sIQs0NA7Gsf+8dA1LTgQIcwDLH+E7rRzcsv2owJrUxbxG3UPZeOGmNcDL1QgC7jURx7O8IeanQ+p/aSsaKh76bsfozoCDcG9Egjt0mUc5HexKB/myklaHAYQ7jhZUblwycOUzgM9I53BQMJChhs9iB+FYqBoCv08v/8gK+i3hchROCsgyM9Dp9ism65upj1TAgLMDR4os0MSoeYiV/ZavJB6tu1FHMBl2p1JW/y3+nETfoPcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t1kFCaE+6DQU/OpO5CtSfM6oDDKSwH/lJfwL2zGrWwM=;
+ b=DUAx0ZD+pxK6XtJlpmxR0FmoUBB5tS0GwmJGyt2QBrQq5W1IRzLB1ToTWeknHI9oniBiIZafd7rWGfYX+dz5kRQuNmKNVLSP74yt8dGU0rgBNfZmI5N/608sR1Kk6RSbrr2sSyo8ecPh2BuadTLz7QpjFmG+uvQqnGPpp6dVCQrVo3CviUOXO+c5MITOvYfmkA6Jdo55r82wvLrlqpI/V3mpiv5iveI5vVvt0tUMi9IxhurZoIY1Jxadj/nJMFuxtrerrSOYZ3akRUy/rb3m5s02wRb/3vmE3m+O6BKoSbEUh84uyn1f8bF4TOp4Dinvco5LUD4by6yReDyLlp5vqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t1kFCaE+6DQU/OpO5CtSfM6oDDKSwH/lJfwL2zGrWwM=;
+ b=rcoll3WYM0KjfcuZDTMzneEdwW2N0tHcKU4uviDaFzCbEHzZEeGMTedPIe2KryvML6YMGfbHlqIv0F4xpN/wSkEi07oE8w/IHP7lzoxVi5ck3v2CNFX6rfsO1IOgEKa0WIhVV0E87IoAXTlMtaEEuxchmeMT7Jiyq+fufM6G9sEA6N7DuO7/DBGoI6h5vh8S5wd16hHi08ZPWBEjwzbzo0iFdMSrSIYlmgYnhtwizx8pUvFhGo56Nr+6cj5OpxEKKmFshW43IFQlttRWuTeNco8LKzma06DD6QYjWDm4WFz8VYJ82iGlYcWt+CmSqR9jsaSXYCf4zlQlAOxLvVv8LQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW6PR12MB7086.namprd12.prod.outlook.com (2603:10b6:303:238::20)
+ by SA0PR12MB4446.namprd12.prod.outlook.com (2603:10b6:806:71::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 29 Jun
+ 2026 11:05:02 +0000
+Received: from MW6PR12MB7086.namprd12.prod.outlook.com
+ ([fe80::4eb8:7fcb:fe8d:e95e]) by MW6PR12MB7086.namprd12.prod.outlook.com
+ ([fe80::4eb8:7fcb:fe8d:e95e%6]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 11:05:02 +0000
+Message-ID: <b979e01b-fe90-477c-ae3f-cbe1d29506ee@nvidia.com>
+Date: Mon, 29 Jun 2026 14:04:53 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4] net/mlx5e: macsec: fix use-after-free of
+ metadata_dst on RX SC delete
+To: Doruk Tan Ozturk <doruk@0sec.ai>, saeedm@nvidia.com, leon@kernel.org,
+ tariqt@nvidia.com, mbloch@nvidia.com, sd@queasysnail.net,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com
+Cc: horms@kernel.org, borisp@nvidia.com, raeds@nvidia.com, ehakim@nvidia.com,
+ netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260627223059.29917-1-doruk@0sec.ai>
+Content-Language: en-US
+From: Tariq Toukan <tariqt@nvidia.com>
+In-Reply-To: <20260627223059.29917-1-doruk@0sec.ai>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0220.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e4::15) To MW6PR12MB7086.namprd12.prod.outlook.com
+ (2603:10b6:303:238::20)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW6PR12MB7086:EE_|SA0PR12MB4446:EE_
+X-MS-Office365-Filtering-Correlation-Id: e701c414-e5a5-4cd7-08f6-08ded5ce441e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|376014|366016|23010399003|11063799006|56012099006|921020|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	4G8g6eyDFRcIio6GtubaRAST0r3uG4iRq9dvyK8oBKhK5hoJZ9JgWZw7Hk2OcvnuaUZIstkYuIZxGPj4RAhc0AhKbU4L8HSLEqTpDOOc/R0BgKPfIMhb2BmFxprmm7K7KNUWtVgh7cJJdtHvSuTEsGL+3snD8emYz3HApW7kWxJkX9hzA/RZz6H6ZSrbFdgNfyb3A9xyug97n5T85Fsq98BOftM/2+87LMJ8statlIOPg6vR7h/3nqpm8Dm3LASDEuFVMyWcu25gBBh9jPcNTKP/tEYlCgy/s63ItUZyv7ei7yBQhMWAFmyj87onecZOeiFQ6O+2Xbxju9zO4SBAJkWUNAlkm8tPtVW9ufEfALMEhVuHg2X7ndtJJK8um25j25/NDaMjTIjJG6TTunZ9uSYrItIvl0qsjRbhhqSVUmDk0TRUNz8mzHNwqNzQRmy15pVU72TExh+wMoyKAfLX7kVC7tg3Jgs+4L9BL6e3Er929hqBPZCLSOqK4nPOyBSfwFSljFd5ijGUbxrvkGIlBbhHEUGw/QIi3AZ9gxPVz/VM8b6Y446QRBx1TeoXbBDLBGOvbfNSZONbjRa0di3sTwcK1R1yypJWY5QWRLho2+qkE/MbGqQkkKyoATouQ2EwYRPx3XV8L0wuTzGWAUY2N4b9jeVoNqJjeiDWeE6q9Wzwk1jILU30itBAZpM3ipknrYpEFUkJVyJ3vEDtgGq4bg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW6PR12MB7086.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(23010399003)(11063799006)(56012099006)(921020)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y3JUb3VicWtHbzhiTkIwYWhUOTlra3VuQmdTK2lZazd2ZGdEYTArN0RXVElm?=
+ =?utf-8?B?MnA4ZXh6T3MzRDE1R1h4TGIzZEZ2K1hlUGRmQktiNzliSjd0OG5naHNOUFIv?=
+ =?utf-8?B?cnhBU0lIaFI1alZBRVdWa2JqMTI3RWNhd0k4bmhTb1g4bmpneE1UQU5STENk?=
+ =?utf-8?B?amFabE1JdDA4TnpiUUQxYk8rK3lsTFRESHpYWE16b1B6aEFxRVZFQ0JoYUhB?=
+ =?utf-8?B?Q2NQL0lDRllLeU93eEo0YVE2SXlOWnNFQlpIZTZXOXdIQy9jQzZkVmRzVjAx?=
+ =?utf-8?B?UDNPa2U2R0FMKzA2dCtJNmt3cEV0eDlaTEhUUHBqN0puVDhEWDNYV3ZFMlRZ?=
+ =?utf-8?B?dm5BU09qKzBybGU3alJnZ0pnMEdlSTVJNHNsblJYUkh2YnBvRVpuUVZ4NEM5?=
+ =?utf-8?B?OER3V25yVVN4RjcyWEZqTmR6T2liR3NmUWFuMDM3MHBBYjJPMFJrZ1YxdXZN?=
+ =?utf-8?B?RHdmRDAycy9nRGxWbE4rUVd1Q0xSSHMvNEpoOE4wSTVJdDhFVkpaZE8rYXVS?=
+ =?utf-8?B?L1djejF6L0Y5SE9NWmIrMHdhdjlCNk9WVWFEK1NtdWMydUhwM1FnazROdlpK?=
+ =?utf-8?B?TzNnUXhkY2RoRmo0WEdCRVQxSXFKUjZQd0VlSUhsa05RU1ZYd1JDczJNaHV0?=
+ =?utf-8?B?dWdZUjVpbDRKYXQvbnpqUDg5ZS9MSE9pbFArU0piaWdSdFZBcVZSU05wSXhC?=
+ =?utf-8?B?MmlNNm0zQ3VocW9LUWpmV1crQ0FFbDZxU054WU1FYW5XYmNjNEdRLzU5aHRy?=
+ =?utf-8?B?ZWgzUnFnZncxU0wwVU9SY0JNRU9LUE5TdkpvN2plY1dFL3JRNHZlMldKUXds?=
+ =?utf-8?B?Si81TDRMVlZ2WG9raGRxZ1Y3SFIxT0pUWFVhaEtVY1NBQWVxZ2xvbmhBMmpL?=
+ =?utf-8?B?ZVRJTUYyKytPZFFIemtqU2wzYVA3LzBFQlp6SWNyZkVTQngxWDFsbEFpS0lW?=
+ =?utf-8?B?TU9Id1BmcjBoV1RXTVpXVnlERUIwWmlTSXpSaCtGZ3EvVWc4d0NkTDUrclBM?=
+ =?utf-8?B?ZHlVcC9OdzgyNzYrWXFEZEJVei9uOG9rYjFCYUpmOGVvNGxnSG5kOEJnay9W?=
+ =?utf-8?B?TitzWGZ2aDZTVzNNUDE4OXhmdVBtdytoa1hUaXR2aDdneU45Mi9RZGxZcy9P?=
+ =?utf-8?B?KzEzR1dkVk83ekFPczMxbzlhYkJkdlgwZFcrSHp0STlPaFg0YzNQbUFETXBQ?=
+ =?utf-8?B?WW1ZNThvREVZS29SZDhrL3NXQzNVcVJmZXg4WU0xUEkxRzBhc0NIaDlwVTNj?=
+ =?utf-8?B?YzF1RGk2OEh6Q3RkWXNFK1ZRdnlvQU1GUEtLQjIvYjJ2UE5UWG5OQXdNZXRH?=
+ =?utf-8?B?aFBLOWkzamxVY2tiUnVmSWRvWm9QOGt2eXlYQ2xLVGFVQXduOGgwSVFJT2c3?=
+ =?utf-8?B?bENIaU5QNFh3Q2pmd3E5OWRXcm5LTzdqQXp0akd0TlJXZFZISWNuTHA0Vmtq?=
+ =?utf-8?B?OEFKWXZSeUtzV055T0NUQ2tTWWJMdkpuNlRpL0g5ZG1CTlNiMHdaTXlxelIz?=
+ =?utf-8?B?STRvWW14b2tVUWNBZ205NW1YUG5HbWVnelNNN1RsSlh3elhQSzFCLzRSV2Fl?=
+ =?utf-8?B?WDF4TUdmY2tYUGlhT0hGcnRuUmd1b2NQODFKa3FITS9LYmQ1NG1uZnB1SGJB?=
+ =?utf-8?B?RjhQNHpwS1BHQjFOS2FobTVDV2N5UjNJNHA4VkRWcnpKYzh3WU5yeSsyUUFS?=
+ =?utf-8?B?RmpJMFJwSVhubG9pWFlGR3BCMkQ0eURNdTBWOThYck4vcWFpVHQ2K3ZKVzJZ?=
+ =?utf-8?B?YzU2dkFLVHF4WWhYRnk1N25WWW8xNFNWNzNsMDlmcGFJUTdwR1Q3OWJnRFM5?=
+ =?utf-8?B?VzRpb1VCUVV5QWdhQkV6U2VxYy9ZQzBCSWdYQXArM0xwbUk4bllZNC9US1hn?=
+ =?utf-8?B?QjlZUE5FVGE1dHBqU3IxSk5saHJsRjBwS3R3dDVZTElEWXlzaExMUzUrNWYy?=
+ =?utf-8?B?QzBweFdOaWVDM2xRVnhuZWlMY1pzcStCOTVZTjY4ekp6UlRxUXRlK2hac2Iz?=
+ =?utf-8?B?aHI3T2xVbzlTV0w3Z0lTWkx6alRLbHF5NXFrRTVOZDF1aWt3NUxQZE5YaDRY?=
+ =?utf-8?B?NkV6S1gzam4zU0FTVzFPZUNWQWV4aWo5ZVFYcXdpc0src09sTXVBeE5vcHFw?=
+ =?utf-8?B?U3kyeE1TOFMxV0drUXV5ZkphZVRqd29sRzRoQ2tnSE5URHVGb3E5OFZpcVZ2?=
+ =?utf-8?B?dzFBS1gwN2ltVnF0WUdaZEtnSmEzREVHYXJTVEhmaVFYeS9QajROTkI1NWdz?=
+ =?utf-8?B?QnhQWkxwa0RrOUdkL3FVMGZ3Y0c1ODFIdkJIak5Pb3IybXBpTHgvdEdNMWtO?=
+ =?utf-8?Q?QUJb+koBRPXR/G6o7n?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e701c414-e5a5-4cd7-08f6-08ded5ce441e
+X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB7086.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 11:05:01.9471
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wUNunGSrhZuJYL4vWjcvwPJlI0jyE3JwqaB+2qKyQDI7YiiHq1wi02hkfU/sjFs1n0gHYzTJoOleHx5POeW29w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4446
 
-l2cap_disconn_ind() runs from the hci_conn_timeout() worker without
-hci_dev_lock, and reads conn->disc_reason via hcon->l2cap_data. It races
-the teardown path: hci_conn_failed() frees the l2cap_conn via
-hci_connect_cfm() -> l2cap_conn_del() and only afterwards drains the
-worker via hci_conn_del(), so the worker can read disc_reason after the
-l2cap_conn has been freed:
 
-| BUG: KASAN: slab-use-after-free in l2cap_disconn_ind+0xd7/0xf0
-| Read of size 1 at addr ffff88807ee53278 by task kworker/u9:1/4933
-|  l2cap_disconn_ind net/bluetooth/l2cap_core.c:7430
-|  hci_conn_timeout net/bluetooth/hci_conn.c:646
 
-l2cap_conn_del() is always called under hci_dev_lock(), so hold it while
-dereferencing hcon->l2cap_data and reading disc_reason. A blocking lock
-cannot be used here: hci_conn_del() drains this worker with
-disable_delayed_work_sync() while holding hci_dev_lock(), so the worker
-would deadlock against the drain. Use a trylock; on contention return the
-default HCI_ERROR_REMOTE_USER_TERM, the same reason the !conn path already
-returns.
+On 28/06/2026 1:30, Doruk Tan Ozturk wrote:
+> When an offloaded MACsec RX SC is deleted, macsec_del_rxsc_ctx() freed
+> the per-SC metadata_dst with metadata_dst_free(), which kfree()s the
+> object unconditionally and ignores the dst reference count. The RX
+> datapath in mlx5e_macsec_offload_handle_rx_skb() looks up the SC under
+> rcu_read_lock() via xa_load(), takes a reference with dst_hold() and
+> attaches the dst to the skb with skb_dst_set(). A reader that already
+> obtained the rx_sc pointer can race with the delete path and operate on
+> freed memory.
+> 
+> Fix the owner side by dropping the reference with dst_release() instead
+> of freeing unconditionally, and convert the RX datapath to
+> dst_hold_safe() so a reader racing the SC delete cannot attach a dst
+> whose last reference was just dropped; only attach it when a reference
+> was actually taken.
+> 
+> mlx5e_macsec_add_rxsc() also published sc_xarray_element via xa_alloc()
+> before rx_sc->md_dst was allocated and initialised, so a datapath reader
+> that looked the SC up by fs_id could observe rx_sc with md_dst still
+> NULL or, on weakly-ordered architectures, a non-NULL md_dst pointer
+> whose contents were not yet visible. NULL-check the xa_load() result and
+> md_dst on the datapath, and reorder add_rxsc() so the xa_alloc() publish
+> happens only after md_dst is fully initialised; the xarray RCU publish
+> then pairs with the rcu_read_lock()/xa_load() in the datapath.
+> 
+> Note: macsec_del_rxsc_ctx() also kfree()s rx_sc->sc_xarray_element
+> without an RCU grace period while the same datapath reads it under
+> rcu_read_lock(); that is a separate pre-existing issue left to a
+> follow-up patch.
+> 
+> Found by 0sec automated security-research tooling (https://0sec.ai).
+> 
+> Fixes: b7c9400cbc48 ("net/mlx5e: Implement MACsec Rx data path using MACsec skb_metadata_dst")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+> ---
 
-Fixes: 2950f21acb0f ("Bluetooth: Ask upper layers for HCI disconnect reason")
-Reported-by: syzbot+9c40ad7c6ed7165e46e8@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=9c40ad7c6ed7165e46e8
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Hojun Choi <ghwns6743@gmail.com>
----
- include/net/bluetooth/hci_core.h |  1 +
- net/bluetooth/l2cap_core.c       | 24 ++++++++++++++++++++----
- 2 files changed, 21 insertions(+), 4 deletions(-)
+Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
 
-diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index aa600fbf9a53..a5d82f9f3871 100644
---- a/include/net/bluetooth/hci_core.h
-+++ b/include/net/bluetooth/hci_core.h
-@@ -1733,6 +1733,7 @@ static inline struct hci_dev *hci_dev_hold(struct hci_dev *d)
- }
- 
- #define hci_dev_lock(d)		mutex_lock(&d->lock)
-+#define hci_dev_trylock(d)	mutex_trylock(&d->lock)
- #define hci_dev_unlock(d)	mutex_unlock(&d->lock)
- 
- #define to_hci_dev(d) container_of(d, struct hci_dev, dev)
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 1fbd52165fb2..1666601ebd1f 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -7498,13 +7498,29 @@ static void l2cap_connect_cfm(struct hci_conn *hcon, u8 status)
- 
- int l2cap_disconn_ind(struct hci_conn *hcon)
- {
--	struct l2cap_conn *conn = hcon->l2cap_data;
-+	struct hci_dev *hdev = hcon->hdev;
-+	struct l2cap_conn *conn;
-+	u8 reason = HCI_ERROR_REMOTE_USER_TERM;
- 
- 	BT_DBG("hcon %p", hcon);
- 
--	if (!conn)
--		return HCI_ERROR_REMOTE_USER_TERM;
--	return conn->disc_reason;
-+	/* l2cap_conn_del() is always called under hci_dev_lock(), so hold
-+	 * it while dereferencing hcon->l2cap_data and reading disc_reason
-+	 * to serialize against the free. trylock because hci_conn_del()
-+	 * drains this worker with disable_delayed_work_sync() under
-+	 * hci_dev_lock(), so a blocking lock here would deadlock against
-+	 * that drain.
-+	 */
-+	if (!hci_dev_trylock(hdev))
-+		return reason;
-+
-+	conn = hcon->l2cap_data;
-+	if (conn)
-+		reason = conn->disc_reason;
-+
-+	hci_dev_unlock(hdev);
-+
-+	return reason;
- }
- 
- static void l2cap_disconn_cfm(struct hci_conn *hcon, u8 reason)
--- 
-2.54.0
-
+Thanks.
