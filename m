@@ -1,58 +1,37 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03FA426D37;
-	Mon, 29 Jun 2026 15:22:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CB54266B2;
+	Mon, 29 Jun 2026 15:23:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.245.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782746537; cv=none; b=RqG/JWzC2lJVeNRlCujfkUjJt4miJTzVAlAan0/dzvJ9tG5aQk5vVmaogkDNx/1XXfPY+D4UblgIGXwdrzxpm783sWeMPMbnDkQFnUuKTqkT+1chAwVvmmITVfRJBtKvWNJEMVDIEmnWdKKVy3tCGsJwPxXXjMpQz2vTaBQj9Xw=
+	t=1782746604; cv=none; b=V2KwQxsCaCmCUJOro1pQ5L4YkNL7dPw0fgZmX5bp88gASkI0VG3L548+C1vuerJ94mRPsPNJb2eY8pC4iJCxCA2oghtzC5gefoCdvY3XcF005lBl/OdLdG1/wg+oNeww0JdyJMvP0vd4gNLecA+cPtO/ZxdbHhx1spLkqrePoPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782746537; c=relaxed/simple;
-	bh=3nhMqATbBpip5vicGHiYjtjkt6pG1SvW6hoLlNxb+lM=;
+	s=arc-20240116; t=1782746604; c=relaxed/simple;
+	bh=buJd/u9F+wdKD3YLkBTjVFqrcSmXSGPZ5mhyiIdWO/4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m13JhX3WQch0uk+UT8zwtdsNGPqva6w2mt0LbyIf/MO99n+nMIJmoKDbSeN5wzvdGioon1lsALAkTYJ9GAKUiEADYJLt0d+QayXI2fG+YxUdwfM2atpysh4cks6OS20NTNLxMS0pY/0tzc89bYwyHejDeei+F8Ou8S/zkF1CfqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LjIVLW7y; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LjIVLW7y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782746537; x=1814282537;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3nhMqATbBpip5vicGHiYjtjkt6pG1SvW6hoLlNxb+lM=;
-  b=LjIVLW7yDAIyVf+uVp3GHci2+IhB+4FMsJyScbO3/sFPFlmjjMn/mwtm
-   sfvrE+NEAhMIWejfs6s2gcO30vkgoGD8C5cmiR9sipIC0R1ValePnHqxq
-   p24EsIQkD9XWtx3os9B3jA0SywvLJ7mJa8VEzKGShXYRGuoQW3woC/TGX
-   lq+KHWJtdOYLVGph96ZD1M197E96mQVWc5a3nXNd6xgRGH9jvPWNveB5L
-   4NrC/ku6H4hGy/QhNz/hviwYZRO2e5AeTYOuKzhp5W0n1tGLg2mX7pn3A
-   YMZXkTvA+d2DCDaZ+iW7Nd09Qtf3Oe/7dYMWtQx6JyTMjvNxp7u1gX6QF
-   A==;
-X-CSE-ConnectionGUID: rgBCitxITpC28W9levB0Dw==
-X-CSE-MsgGUID: qDS+S/tbStC1pvk6lPXtRg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="83315533"
-X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
-   d="scan'208";a="83315533"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 08:22:16 -0700
-X-CSE-ConnectionGUID: 4LWcxAVJTICeY4WckVwoMg==
-X-CSE-MsgGUID: 6uew36sjSSirYu1kwU6bHw==
-X-ExtLoop1: 1
-Received: from abityuts-desk.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.245.82])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 08:22:13 -0700
-Date: Mon, 29 Jun 2026 17:22:04 +0200
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: Tarang Raval <tarang.raval@siliconsignals.io>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, stable@vger.kernel.org, 
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 01/15] media: i2c: os05b10: Use
- pm_runtime_get_if_active() when applying controls
-Message-ID: <akKM6VhoLNep5UZB@mdjait-mobl>
-References: <20260325114404.95188-1-tarang.raval@siliconsignals.io>
- <20260325114404.95188-2-tarang.raval@siliconsignals.io>
+	 Content-Type:Content-Disposition:In-Reply-To; b=glAkpymYTuCgBt27s6jcMb0K0XdO7qA1UiWnnU0SeAmMzbl/YMSseec8KxnczVyBvqv8HCfi8Wp8MOb/pSjMRYveCl/gOj7PD++mOh/LPLQmQSFkTMYPDKXBPpxBcvHs55CuCppVSk/tPVS5txOiFV/vXqDMmInLxAQmng/G1RU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de; spf=pass smtp.mailfrom=strlen.de; arc=none smtp.client-ip=91.216.245.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
+Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
+	id 743DE60370; Mon, 29 Jun 2026 17:23:19 +0200 (CEST)
+Date: Mon, 29 Jun 2026 17:23:13 +0200
+From: Florian Westphal <fw@strlen.de>
+To: xietangxin <xietangxin@h-partners.com>
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Phil Sutter <phil@nwl.cc>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	gaoxingwang <gaoxingwang1@huawei.com>,
+	huyizhen <huyizhen2@huawei.com>, netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] netfilter: nf_nat_masquerade: recalculate TCP TS
+ offset when port is randomized
+Message-ID: <akKN4cywAsFRdefX@strlen.de>
+References: <20260629093408.3927103-1-xietangxin@h-partners.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,55 +40,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260325114404.95188-2-tarang.raval@siliconsignals.io>
+In-Reply-To: <20260629093408.3927103-1-xietangxin@h-partners.com>
 
-Hi Tarang,
-
-On Wed, Mar 25, 2026 at 05:13:47PM +0530, Tarang Raval wrote:
-> os05b10_set_ctrl() currently uses pm_runtime_get_if_in_use() to decide
-> whether controls should be applied to hardware.
+xietangxin <xietangxin@h-partners.com> wrote:
+> Problem observed in Kubernetes environments where MASQUERADE target with
+> --random-fully is configured by default. after commit
+> 165573e41f2f ("tcp: secure_seq: add back ports to TS offset") TCP short
+> connection QPS dropped from ~20000 to ~10000. This added source and
+> destination ports into TS offset calculation.
 > 
-> This is not correct for the intended behavior. If the runtime PM usage
-> count is 0 while the device is still active, pm_runtime_get_if_in_use()
-> returns 0 and the control update is skipped, leaving the software state
-> updated but not the hardware state.
+> However, with MASQUERADE --random-fully, when multiple internal connections
+> (e.g sport 10000,20000) are mapped to the same external port (e.g 30000),
+> their TS offsets are calculated as ts_offset(10000) and ts_offset(20000).
+> If the server reuses the TIME_WAIT slot from the first connection, there is
+> a chance that ts_offset(20000) < ts_offset(10000), breaking TSval
+> monotonicity for the same 4-tuple and causing RST packets:
+>   Client -> Server 24870 -> 80 [SYN] TSval=2294041168
+>   Server -> Client 80 -> 24870 [ACK] TSecr=2846236456
+>   Client -> Server 24870 -> 80 [RST] Seq=855605690
 > 
-> Use pm_runtime_get_if_active() instead so controls are applied whenever
-> the device is runtime-active, regardless of the current usage count.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 3aa9296a23ec4("media: i2c: add os05b10 image sensor driver")
+> After nf_nat_setup_info() successfully assigns a new randomized
+> source port, recalculate the TS offset using the new port and
+> update the SYN packet's TSval accordingly.
 
-A space is missing here after the commit hash.
-See https://docs.kernel.org/process/submitting-patches.html
+I don't think this is related to masquerade but to snat (port address
+rewrite) in general.
 
-checkpatch will warn you about it.
+I think you could place your new helper in nf_nat_core.c and call it
+from nf_nat_l4proto_unique_tuple() once we've found a usable tuple:
 
-with that:
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+ 668 another_round:
+ 669         for (i = 0; i < attempts; i++, off++) {
+ 670                 *keyptr = htons(min + off % range_size);
+ 671                 if (!nf_nat_used_tuple_harder(tuple, ct, attempts - i))
 
-> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
-> ---
->  drivers/media/i2c/os05b10.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-> index e0453c988e4a..5da5b7d21f31 100644
-> --- a/drivers/media/i2c/os05b10.c
-> +++ b/drivers/media/i2c/os05b10.c
-> @@ -531,7 +531,7 @@ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
->  			return ret;
->  	}
->  
-> -	if (pm_runtime_get_if_in_use(os05b10->dev) == 0)
-> +	if (pm_runtime_get_if_active(os05b10->dev) == 0)
+	 		     ... here.
+ 672                         return;
+ 673         }
 
-small nit: how about
-	if (!pm_runtime_get_if_active(os05b10->dev))
-
-consistent with other drivers using this call but really not important,
-up to you if you want to change it.
-
---
-Kind Regards
-Mehdi Djait
