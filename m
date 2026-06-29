@@ -1,60 +1,75 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C963E3B42DC;
-	Mon, 29 Jun 2026 15:40:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850043EF654
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 15:40:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782747614; cv=none; b=BOZvl31Itnda82YSiWhfu+gKAsU2XvtsOWtMyvFHSHQyWjNA91nd3liEtYewF9/yOYBN1GZ0yakyY+o6B1ljiO44l4i7RPGiaqOLeqySzvH3KVpnoYnF0loZ03gfNt+xJ6pT8/pYU3gNmc1MCiOx7hq9WKhVZQs7UNegSJZdens=
+	t=1782747647; cv=none; b=uW0b3pGTJXdwz7O3t++PTlITjktaQgZqLcsFPiNuSoGt7/Nx+d9JpwWACuurkwGfhS9lDDhrvnLmhAWZVeRx8YnkPJTJxV+xkjfYIchK3pxxwkX8KphUCnA+P+XCzzVT8aRe4JEKY8kuytcsZOsmEz6lYWrTGHByARziJwtAJIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782747614; c=relaxed/simple;
-	bh=mNEmfpypvUNZ+gR4xPR0xDDTBTDrRcJEbt3dRM+/o1M=;
+	s=arc-20240116; t=1782747647; c=relaxed/simple;
+	bh=EFwE5ooeukEnnEc43GuxbMkaqRCOSt5EXwI+fuMAuQg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FLh5egs1iftnfVV3ajSu1YOzezMDVvcl9dtcVfjarXReRW3rf54rYYQQvN+j+z0eLVPU5f62KIOUY9JxqLbP3flqkmN5hGIF6vO4embn04loNwzHr1ruAOwFXVLhNIFYUFO+4XhYuejBtCgS9XQ0MikhbVHlbpsihGImGaZy56k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Rk5K7dhb; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=eHMQTTN9X5YWYGptfnib+F6OFf4Hrcl65ESC++WF+DvG18VhsOc5NioLKeuLLkdjJWd/wCmKU04q+ILe+v3amUHkImH50ZK09P2Pk22Xuvn9X8c+Gr1HGYl9OQhkL1hoejjowgF3D341V5aoKfMZAU05GEtuhpJex8bP4+jxzZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X7KAUloB; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Rk5K7dhb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782747612; x=1814283612;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mNEmfpypvUNZ+gR4xPR0xDDTBTDrRcJEbt3dRM+/o1M=;
-  b=Rk5K7dhb77u55s6MUkk/MYszdBbNQ5wrILqdidyuV1tMhzNxvmwuSZoi
-   UnHwkUZ9HvCzLqlAhOBg/QfB9usgBPvXzumy7Ade6nZXz/a7tGxrM72ey
-   FYmCm1zuAhbaeV3HjSii0RYoHpQ193b2bmdCKHZNomfW7dVbE7c6yhv7R
-   LvpFTLiwG0yQFiWK0cNpQ/MczKjO+AQf/7xPc3IiGr1sF9asOEH87q4qv
-   YFetEL4AB8gN1hGiQ1bbBQsTQCsFsmAKUrDo225zv8lZXtW+ud4zM+w2Q
-   Mib5VpIqOBaevKZkiozEV9iiYHvizi+Y0sMuUCqiH64aT5o4Aa9lKVPBr
-   g==;
-X-CSE-ConnectionGUID: 6uIGsCPRTmOLDeRlTCbQ4A==
-X-CSE-MsgGUID: b0T72LNnT0uXc2JZkJVl/A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="108986417"
-X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
-   d="scan'208";a="108986417"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 08:40:11 -0700
-X-CSE-ConnectionGUID: dSYOS7uKT4WN/nRMbsXWyQ==
-X-CSE-MsgGUID: ZeBTgg84Q1Wb/e1V1Tutvw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
-   d="scan'208";a="256909319"
-Received: from tassilo.jf.intel.com (HELO tassilo) ([10.54.38.190])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 08:40:11 -0700
-Date: Mon, 29 Jun 2026 08:40:09 -0700
-From: Andi Kleen <ak@linux.intel.com>
-To: Alexander Martyniuk <alexevgmart@gmail.com>
-Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	David Airlie <airlied@redhat.com>, Sasha Levin <sashal@kernel.org>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
-	Lukas Wunner <lukas@wunner.de>
-Subject: Re: [PATCH 5.10/5.15/6.1/6.6/6.12] agp/amd64: Fix broken error
- propagation in agp_amd64_probe()
-Message-ID: <akKR2bNYFokN43Sk@tassilo>
-References: <20260629102124.252403-1-alexevgmart@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X7KAUloB"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-30bc871ecdfso4609070eec.1
+        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 08:40:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782747643; x=1783352443; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8QToOEeOU/UyYphWJrDQxnYbVsLkFGV+L+v/I8ajcB8=;
+        b=X7KAUloBk4wBFIhQjB+Z3wKOoBa3PjdtyBFul9mJlgZWR/daB6yyQ2rx9vrPzv8z5k
+         XoD7mto5mD/Zh8ATvNdi5Ii6KKVtwIxFTQZzKat5x514wAocBuCrwt8M667SATF7xU2N
+         816dY3im2CR+ua4bjMFvGSvcOILdyImuxMI/psNCt8VH18wZjzClyPl5CNDAzq45U9wk
+         C7X23swU758DdLwjNmaaz3UGJSI5tFLBygI90k3RjlROe4PbfYPCAyLp8yzf73X8WtNq
+         KwcHgChMda4VwapuiVvclRY8nq9OvqWOWZGu9tqAYCr/vAqOPZjNcVvsy1+bmCPJ/zoi
+         LxmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782747643; x=1783352443;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=8QToOEeOU/UyYphWJrDQxnYbVsLkFGV+L+v/I8ajcB8=;
+        b=prqoUk5605z6QfQL4Bv+c4jSJ5OCTt/aGEfx+uwUz6gqMLcU6ddFwjG0SYn8ZAtzv4
+         KSAoZnPYXzWHhrK7D8r9gJoSGvBERsPDZdfYbeWPWA3BGIecoHrmCNuCwii1e0bB8GDT
+         Tg8L9h5zK3Ipq8zCH1FaAbWYyI9YI+jX+rLazSltZ3AT8eA6Hb2761BBL0vaTCeLS1VM
+         O9CTL3dYm4yJwrRgTXnDgJHcM9Uq7jZ1p7frJZmhf20F1JZJRTJe5/bzu8kmgx/Y4XSa
+         21vI9PH06WhhrlYRk8grKYe8L1DvA6vi2NuUGI0e6hifC3y2YRIYqZBi3DohZSQDDERI
+         7A6A==
+X-Forwarded-Encrypted: i=1; AHgh+RrA32UqbUyhKrIaK9/Cvv4e1790NLiWRjgVZFA56yPJ9bpJIOmTUUN+bqfJXZC4y42uhHQzoI8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyFCZPTYPVFJnkq0q4/y+BtLTdsr4aYrgYwrUgnMGEQsG5qWMtG
+	HA7T7EtuS2prtT/naTCpKZO9e0kUnzJnT/0EhtiAFcP4hGZ1tpTDkZ5u
+X-Gm-Gg: AfdE7clt8SN2Zo046M+KyY2gVOhGrx/GABb8EGVlskSUre6CdunGsu+/Mg18ZPer32b
+	CQpNXcSKPfO2UOREYsDH/RkI1eyhUDzdZsMFsKYpBv1C8/U3f9EQEYXccsPP89fT0Nz8CJ+r1hc
+	ZNAAZ7K3XFmjfWDLkPrkpe7rtQIHs39iSwkm4PrfCbbqcFztkzFGLaLp6maI+4MhOM9p0ThMuno
+	RJZAwULNaME7k9nkTW6yJzrvO7AhthkOapInPV/qefHgc1U9EQE7OnC9cZm64+v64klgHu6Czh5
+	UZ7JZ/Rl13L87QsbZ3RQkFnwDsqesDjLAIaf77XVkIW8pfSJWsMA6yXAGnAgZo1W2Du245b2JAv
+	6RlTSNg0+Jph9+pRCDwvUwFKKLHwsbE1jC4fldq5REEi6NNwdrUY02eKa4SYmGht5zwVUCH591s
+	vJPM8iVWiDHeUcWvP2I8fGqBkLWw==
+X-Received: by 2002:a05:7300:8c15:b0:30c:1147:ccc3 with SMTP id 5a478bee46e88-30c84fdbbaemr16973902eec.33.1782747643093;
+        Mon, 29 Jun 2026 08:40:43 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30ec3e400a2sm19162263eec.28.2026.06.29.08.40.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jun 2026 08:40:42 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 29 Jun 2026 08:40:41 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Eddie James <eajames@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+	Sasha Levin <sashal@kernel.org>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] hwmon: (occ) unregister sysfs devices outside occ lock
+Message-ID: <09e5f291-eb8f-4c56-8d61-45b38c81fa2d@roeck-us.net>
+References: <20260617150859.741453-1-runyu.xiao@seu.edu.cn>
+ <20260619015938.494464-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,24 +78,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260629102124.252403-1-alexevgmart@gmail.com>
+In-Reply-To: <20260619015938.494464-1-runyu.xiao@seu.edu.cn>
 
-On Mon, Jun 29, 2026 at 01:21:23PM +0300, Alexander Martyniuk wrote:
-> From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+On Fri, Jun 19, 2026 at 09:59:38AM +0800, Runyu Xiao wrote:
+> occ_active(false) and occ_shutdown() unregister sysfs-backed devices while
+> occ->lock is held.  hwmon_device_unregister() and sysfs_remove_group() can
+> wait for active sysfs callbacks to drain, and those callbacks can enter the
+> OCC update path and try to take occ->lock again.  That gives the unregister
+> paths the lock ordering occ->lock -> sysfs callback drain, while a callback
+> has the opposite edge sysfs callback -> occ->lock.
 > 
-> commit b08472db93b1ccff84a7adec5779d47f0e9d3a30 upstream.
+> This issue was found by our static analysis tool and then manually
+> reviewed against the current tree.
 > 
-> A NULL pointer dereference was observed in the AMD64 AGP driver when
-> running in a virtualized environment (e.g. qemu/kvm) without a physical
-> AMD northbridge. The crash occurs in amd64_fetch_size() when attempting
-> to dereference the pointer returned by node_to_amd_nb(0).
+> The grounded PoC kept the real unregister and callback carrier:
+> 
+>   occ_shutdown()
+>   hwmon_device_unregister()
+>   occ_show_temp_1()
+>   occ_update_response()
+> 
+> Lockdep reported the circular dependency with occ_shutdown() already
+> holding the OCC mutex and hwmon_device_unregister() waiting on the sysfs
+> side:
+> 
+>   WARNING: possible circular locking dependency detected
+>   ... (sysfs_lock) ... at: hwmon_device_unregister+0x12/0x30 [vuln_msv]
+>   ... (&test_occ.lock) ... at: occ_shutdown.constprop.0+0xe/0x40 [vuln_msv]
+>   occ_update_response.isra.0+0xb/0x20 [vuln_msv]
+>   occ_show_temp_1.constprop.0.isra.0+0x23/0x40 [vuln_msv]
+>   *** DEADLOCK ***
+> 
+> Serialize hwmon registration and removal with a separate hwmon_lock.
+> Under that lock, detach occ->hwmon and update occ->active while occ->lock
+> is held so concurrent OCC state changes still see a stable state, then
+> drop occ->lock before calling hwmon_device_unregister().  Remove the
+> driver sysfs group before taking occ->lock in occ_shutdown(), so draining
+> the driver attributes cannot wait while the OCC mutex is held.  Also make
+> OCC update callbacks return -ENODEV after deactivation, so callbacks that
+> already passed sysfs active protection do not poll the hardware after
+> teardown has detached the hwmon device.
+> 
+> Fixes: 849b0156d996 ("hwmon: (occ) Delay hwmon registration until user request")
+> Fixes: ac6888ac5a11 ("hwmon: (occ) Lock mutex in shutdown to prevent race with occ_active")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-What is special about this virtual environment? Nobody else 
-seems to have seen that in 20+ years.
+Applied.
 
-Or maybe the Fixes tag is not quite correct and something else more
-recent has caused it.
-
-
--Andi
-
+Thanks,
+Guenter
