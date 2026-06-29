@@ -1,114 +1,123 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C2E3F0A9C;
-	Mon, 29 Jun 2026 08:49:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7593F823F;
+	Mon, 29 Jun 2026 08:51:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782722965; cv=none; b=KnIwjV7GW6z6Rs4vNhvRn5jpSc45FO0Ij2YYhd1IRWHDLZZbL/7fTjAO5TeWx6jMMsIYFN56o7I9INKcZ9tRtwEtHAST8Hr82EgD7V59mfdsQsM3r5flXtGVTTroULm+RF55LFLWGnPYNVES0xwBJenBFEkhE+rD1azDUvq8+EQ=
+	t=1782723121; cv=none; b=gRFUPF1j4gqN5RtjmVv9wVKLQCMmzFG5U+ABB2oVqFgf+jrjUbuoQQCoYn21mbzJHWHm5kCB6Fnt72W4KY7BIyL0XdWmKkwNO50sj71wO7w59wVx7fzHnz3ErK7fRHZlRH5byY5m/c2VQLUo1bM5+HqRS0NU8lKYnBXulSTFKIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782722965; c=relaxed/simple;
-	bh=bNexwtP6qx9lBB2uR84+WnHRT3J5jrJo35qB4/OoSvo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=er/LeWQPeyAY+fkR25TtydurpyzOfAbP0z1uFjS15oQEB6RVg1mqvioEWDOWq1yVvYlMMTjBxJ0pJLoK2+N/BEgM4aGp3HY0I6jfp91dXwdGG5wLDGveBwQNXJXldSMMRi6WuCVD1ruroov2ApqUTK3iT3XTqkm67RZeDiI4UTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Xo2DxI3n; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1782723121; c=relaxed/simple;
+	bh=KBbwYRYPW0GMqgyqxF9nRWGH7Tc+vo/MfqUayDiJGBA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GZaiW+Papy0C/pu63Z/4V/9J4rfR08POA73KC2tUVbOY0X27hHq6Jutwdga+QhD4Nh5ltZv+B9GOH0GCdXqlp7ZsSVychEnCLr/xcGUG5UxlDytLcOctvLf0sDpSW84wjbOhekCEMhs1Em/ehLrDsw5vfgBM/XtIf1FY4t2g51g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=OG609C4Q; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Xo2DxI3n"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gpg1j70zzz9vCB;
-	Mon, 29 Jun 2026 10:49:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1782722954; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bNexwtP6qx9lBB2uR84+WnHRT3J5jrJo35qB4/OoSvo=;
-	b=Xo2DxI3nSm1iCegJk8MQv5Ll1eLaAPBnhGRqiegbYbTjCxRaGQqzDB3W07+kH4nKtBOK3X
-	dxkTDCXuQUDwC3ZesbR6kjyCUEGGStztrYbNGILYnuOljcBSgRh5/6RAXtVP+gguGSSf+x
-	Yp9xjAj2QGvTgG5xfjoDECXVfis/ea/aNTXlV72Invo1LvyMebH9dEi7iC4S+JDfzfAdnQ
-	NRnFSdYbz+GRaxibti2WUcwH/Eu4d6B7AwsMUUcfxA9sx16NZNKM+5nDCFuW7+7BGqOKXG
-	6xcZzlTKT1me4aIiAYV/TZQcQYu1viLrzGkqyS1iVNviQ4rGqBMWAmeqkCMbHw==
-Message-ID: <058f4bb261e408cf17deca9ff7354460675eacbf.camel@mailbox.org>
-Subject: Re: [PATCH] dma-fence: Make dma_fence_dedup_array() robust against
- 0-count input
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Baineng
- Shou <shoubaineng@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Philipp Stanner
- <phasta@kernel.org>,  Akash Goel <akash.goel@arm.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="OG609C4Q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1782723076;
+	bh=GPlWodIq++298AjwM0SiZYMKvCA7hqnNN+2a2GtbAvA=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=OG609C4QtKEu8VeKw0c/Vc1cTZbiXR0ll/gqt/3Pw8n8Wu9APT3Re13Q1A8x5AJv8
+	 GOIzPB9mD8w/fPTW69toz0N1MB25Nv4SD4Nj21JPJAoRtsT+KrKTKAX6z2XoKZT0Zf
+	 PbnG4uuXzqD0MvHu4T4FJ6EigubmIbvRTG+ONRhE=
+X-QQ-mid: zesmtpgz6t1782723056t15444658
+X-QQ-Originating-IP: HKqs9Lg2tlHObXLTPbb2GpE5viamZAU0Zt2hPPRyweU=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 29 Jun 2026 16:50:55 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 2402098009740855058
+EX-QQ-RecipientCnt: 11
+From: raoxu <raoxu@uniontech.com>
+To: tsbogend@alpha.franken.de
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-mips@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
 	stable@vger.kernel.org
-Date: Mon, 29 Jun 2026 10:49:08 +0200
-In-Reply-To: <becd29b5-9e40-4104-b6c9-3d91e2ddddff@amd.com>
-References: <20260629031346.3875683-1-shoubaineng@gmail.com>
-	 <becd29b5-9e40-4104-b6c9-3d91e2ddddff@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: [PATCH net] net: sgi: ioc3-eth: unregister netdev before freeing DMA rings
+Date: Mon, 29 Jun 2026 16:50:53 +0800
+Message-ID: <40CD736C4911C181+20260629085053.964383-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: qsgddayaj8bgcsbnm6438m7kgxrxucpg
-X-MBO-RS-ID: eb9239d37414620f1a5
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: OGRTx1KypL8CZphGXTz5mxS25mjt2eoksqlynM1tgSUjzdKQg+oWhJAV
+	aVO7tsiIqQb7OCNyk2jGxS03j7G9AM+HvqvkXMX64d3RFQy1+MNIFLDiOmy5bMoLBvoUP1y
+	sHvQaz/JaP44OVKHw7DU10awJ6li5TRUjIwGR4ZuRD/pY0DzihhKupZQXhSKjpsG7RwlC1e
+	3sgB1Mc+j1kLT+0H8s/rN0SrAY7ADyCr9EZ6/NA15Gvx2T6uOpHOs/qhMYZlQ8hXRk53k4C
+	8aHVXzBs+AX4JfAk1Sh/RUjl+9EeOLjy7rLKmqhevsNBDiLNwlxfIkpz2RTupEmodYHRHZF
+	RvBnT0c7h0LyBJAeY1Z9TG/uNjorfbpYFjwBdQhTTI7D+Fj8ZqTIbUkb2bCRfDRvLnFDb5J
+	+Oji7vdzd2558B/925Ensm6y3mHyte6YJs3ldips64EbwO3PIxErtWR6PY5l02bwPk1Ggu2
+	fg46VC3kPLKGq5XT/kjGh7xtLmly9KR0HowjeWvxohj/VzKDwZ1bjm00KUrKyu/7N5ZsrBS
+	VUSlWIMD0pa8E+Ye9qx2iBStIgQjcpsxe1v6V0nV8s5SwOM674nLvRoWnpzYvLHep1W8AIk
+	fsFv6dCyyPT0uKVjwc9OU2tHPxmabJ7b8dGLOMQkrniF5biYjsY8iekvRbJm5AT4+kpE5Ic
+	XMkPwPfOrrqGREYSUbuI8KdEpRG7KVl2YXvnkNy41k3p9bKSFIKwyUZyUIth43Eo+0fsIjN
+	PQxGU0luSpoLW2Pt60tJkgXFDkP6PfWiGjuqeAlOa6LqwYPPvB/eKgUf9sF2UHzg4/QRVgC
+	rqdIPdvsMkl8UczqZZoAD3VDpCZFc0Xy8tw/Bgtn58qee7ieYC5OgwGZwCiivIUQMQZcbTZ
+	WqMA9r1F/S8aQiEciou3sSB5baqFwRUQKTrMoZJ1h9ZIjcNvQBQk0DlOCfoxT2MGnYxqsSV
+	sRqsz6rEVQZHgr1q2IiXqfh6Qlou1vAusyxtUfudY+/62klR6Au6peSNMARsTnCA8t1Ck3s
+	zrCcc5IJCmyqcR1NcqoV/2lobDNA2UlZKvmYxfFNNZjRlFV0G8
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-On Mon, 2026-06-29 at 10:45 +0200, Christian K=C3=B6nig wrote:
-> On 6/29/26 05:13, Baineng Shou wrote:
-> > dma_fence_dedup_array() returns 1 when called with num_fences =3D=3D 0:
-> > the for-loop body never executes, j stays at 0, and the final
-> > `return ++j` yields 1. This contradicts both the kernel-doc ("Return:
-> > Number of unique fences remaining in the array") and the natural
-> > expectation that 0 input gives 0 output.
->=20
-> Good catch.
->=20
-> >=20
-> > All in-tree callers currently filter num_fences =3D=3D 0 before invokin=
-g
-> > this helper (__dma_fence_unwrap_merge() bails out via the
-> > `if (count =3D=3D 0 || count =3D=3D 1)` fast path; amdgpu_userq_wait_*(=
-)
-> > cannot reach the dedup call with a zero local count because the
-> > amdgpu_userq_wait_add_fence() helper guarantees num_fences stays in
-> > [0, wait_info->num_fences], and wait_info->num_fences > 0 is enforced
-> > at the ioctl entry).
->=20
-> That's not correct, wait_info->num_fences is just the maximum amount of f=
-ences we return.
->=20
-> It is perfectly possible that amdgpu never finds any fences to add to the=
- array.
->=20
-> >=20
-> > However, dma_fence_dedup_array() is EXPORT_SYMBOL_GPL, so any future
-> > caller that forgets to pre-filter the zero case will get a misleading
-> > return value of 1. Depending on how that caller uses the result, it
-> > could dereference an uninitialized fence slot in the array, since the
-> > caller's array may have been allocated but not yet populated.
-> >=20
-> > Make the contract match the documentation by returning 0 early. This
-> > also skips an unnecessary sort() call on an empty array.
-> >=20
-> > Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
->=20
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->=20
-> I will add a CC stable before pushing to drm-misc-fixes.
+From: Xu Rao <raoxu@uniontech.com>
 
-No offense intended or taken, but don't the DRM rules say that things
-do not get merged while there are outstanding concerns or significant
-points in review feedback?
+ioc3eth_remove() frees the coherent RX and TX descriptor rings before
+unregistering the netdev. If the interface is running,
+unregister_netdev() invokes ioc3_close() through ndo_stop.
 
-What about my comments?
+ioc3_close() stops the device and then calls ioc3_free_rx_bufs() and
+ioc3_clean_tx_ring(). Both cleanup functions access descriptors in the
+rings, so the current ordering causes CPU accesses to freed coherent
+memory. Until ioc3_stop() disables RX and TX DMA, the device may also
+continue using the freed ring addresses.
 
+Unregister the netdev before releasing the rings. This lets the core
+close a running interface and quiesce the device while the rings are
+still valid. Keep the explicit timer deletion because ndo_stop is not
+called when the interface is already down.
 
-P.
+Fixes: c7b572747549 ("net: sgi: ioc3-eth: allocate space for desc rings only once")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ drivers/net/ethernet/sgi/ioc3-eth.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/sgi/ioc3-eth.c b/drivers/net/ethernet/sgi/ioc3-eth.c
+index 261f2d35d579..009f37105eaf 100644
+--- a/drivers/net/ethernet/sgi/ioc3-eth.c
++++ b/drivers/net/ethernet/sgi/ioc3-eth.c
+@@ -967,11 +967,12 @@ static void ioc3eth_remove(struct platform_device *pdev)
+ 	struct net_device *dev = platform_get_drvdata(pdev);
+ 	struct ioc3_private *ip = netdev_priv(dev);
+ 
++	unregister_netdev(dev);
++	timer_delete_sync(&ip->ioc3_timer);
++
+ 	dma_free_coherent(ip->dma_dev, RX_RING_SIZE, ip->rxr, ip->rxr_dma);
+ 	dma_free_coherent(ip->dma_dev, TX_RING_SIZE + SZ_16K - 1, ip->tx_ring, ip->txr_dma);
+ 
+-	unregister_netdev(dev);
+-	timer_delete_sync(&ip->ioc3_timer);
+ 	free_netdev(dev);
+ }
+ 
+-- 
+2.50.1
+
