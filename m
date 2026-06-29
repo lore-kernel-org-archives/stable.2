@@ -1,71 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106BC3783B4;
-	Sun,  5 Jul 2026 13:52:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E2437883E;
+	Sun,  5 Jul 2026 14:00:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783259526; cv=none; b=T/VBlijdAuRJdcMXqyrLqlYUj3He8zxeWQ49Y1ha4DDwcVhJIyhVXSGe8Z8SZTBP3dpHy87A5s6z9PQI+qIAIH66dw1ZrHzb7ORoDoM+gw6Kq30xfKmf5vRuQVd0FRHt/JJxLaICh4AFg0IGS8raS49knIihEI9q8lgcZp68cuI=
+	t=1783260038; cv=none; b=ggZUlrAj/McqlvK9KTGyEPEUgN2r6ijVLncMPQOlzRETMDuczaJTZ+FnYfsQ/bGwVA56aEvYac1dk+EiG1G1uyaAOQ7YJDz5TnEAzPP5xR8LIeqPCfbq2vdhOESqbkGityOnggxX+1EuvpZ0Rh+a1Ve6DSEHNVyEeFrOjcjNoY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783259526; c=relaxed/simple;
-	bh=MWz+AiWcMBmm/IVpKupbMG1mTBA7Ba0IjeQ7nosE5I0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Glfbe99WvcgPhRSOr48YEebRUqDWY/Z3zg0H9GUOW3lUufTtwqbI4WgQ1WKEz+yOjvTcQeDDPQuQFsKz/zNQj/k8ExQFzOhZEZ8//wiF8CDVZ3+A0sTXpOP0ir3Fw3d1WP6Sexh5jynzFUPbBlKx2/D+ovIv0AQQV3z9pCPVmI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eXdXF+HT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783260038; c=relaxed/simple;
+	bh=png50S20ShN43oQFZ0KFX6+JBP2QoOZjdSEZIbE7nGc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=boGTKIul6O6bwG0oMuGOWmq0vGnqZd8EEAlBdtqyaAnrCAWN7bX4XTz0ZvOCmT1xldpcilDzuOyuXP5rNFxrB3S2/nfk2T8l9vjoEUxH31bVSnFmlJMQEuR2RVUQBMORlhJq3MZML6juOzoTbLTEp/7nZvaUXaTFhE++40rw0s4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gg3gPeZn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eXdXF+HT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C6B21F00A3D;
-	Sun,  5 Jul 2026 13:52:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gg3gPeZn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 262AB1F000E9;
+	Sun,  5 Jul 2026 14:00:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783259524;
-	bh=hiXx0kh1llU+tqTb5cQLeELIhtzQB8YMaLGKmHcMmT8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eXdXF+HTA76vk6XNS/vpiHTMSk+4FpMeNvRZmKgO8fO2droK6kJamzz2kJ8o2E9mW
-	 UXXYCvFJ5fT1e2JQ+P9Tv3IJ76zYmA+czNJ9uy4Xg5XK1a0WoqHA3kDRrX+VbCFdU3
-	 rqA9ifY2b9eHSUHyxfpweXEQCaU/cSUQ3At3MiJQt2DcC5sGzpskRjaDvjuNhV3vG5
-	 BegQJHRNGJ59ocpzb/UbLmhFvM6KVGIZ1poDnVkzWlij5XbukRWorvucLvVJkqa5HG
-	 hGxerQFd58E7/X1XZi9/7xfznMbhiXcZWtc7z0jwPrzdgjdKAdViUYJvlPraIvFsYE
-	 2/qLQXFlaM9FQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Gustavo Padovan <gustavo@padovan.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Yunxiang Li <Yunxiang.Li@amd.com>
-Cc: Sasha Levin <sashal@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	peter.griffin@linaro.org,
-	andre.draszik@linaro.org,
-	jyescas@google.com,
-	kernel-team@android.com,
-	Tudor Ambarus <tudor.ambarus@linaro.org>
-Subject: Re: [PATCH v2] dma-buf: remove unused dma-fence-unwrap.c (stable/linux-5.15.y only)
-Date: Sun,  5 Jul 2026 09:51:58 -0400
-Message-ID: <2026070416-stable-reply-0003@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260703-5-15-dma-fence-unwrap-v2-1-43d58ee68c6b@linaro.org>
-References: <20260703-5-15-dma-fence-unwrap-v2-1-43d58ee68c6b@linaro.org>
+	s=k20260515; t=1783260036;
+	bh=5uxf4qWbZxrE+bclyeo+X4WWa+BNtCzdTw3O82BRkVg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Gg3gPeZnv+nztE73c3L1kKLTkcDrfYYajG6/oBuEmNSbAA675tFKtLbraQxpXioYL
+	 DDrq4KywljsnuF8lvsR6ptsUlvT683TOVPDlYuWQqRfZl6leGMszYEXRYgusGVS+RT
+	 MFn4jWKS+wd+Rdww+MNy2VCCCgzqrJUVR8a/uejK7Vbi6VzL/i3SX669H0nHTkAgIN
+	 SLwmJMT+1gDytydeE1z0MnbANUTzPOhj6RR9hEkox3edHHF7OfdFCCW7eft0MJQsEU
+	 b6zjdv0lxWq7SCtcckyji1vl8w/Vo4T6aobJ4w4RU/QavZcxliKwHcxRj9Xt+7Sk86
+	 sDgP7dJFHpmgw==
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Michael Bommarito <michael.bommarito@gmail.com>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Vlad Dumitrescu <vdumitrescu@nvidia.com>, 
+ Or Har-Toov <ohartoov@nvidia.com>, Bob Pearson <rpearsonhpe@gmail.com>, 
+ Sean Hefty <shefty@nvidia.com>, Kees Cook <kees@kernel.org>
+In-Reply-To: <3170ff3bc389a930bb1641f2caa394a0b2241579.1780774907.git.michael.bommarito@gmail.com>
+References: <3170ff3bc389a930bb1641f2caa394a0b2241579.1780774907.git.michael.bommarito@gmail.com>
+Subject: Re: [PATCH v3] IB/mad: drop unmatched RMPP responses before
+ reassembly
+Message-Id: <178273508232.133362.14163993593921420714.b4-ty@kernel.org>
+Date: Mon, 29 Jun 2026 08:11:22 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-On Thu, 2026-07-03 at 14:28 +0000, Tudor Ambarus wrote:
-> The file drivers/dma-buf/dma-fence-unwrap.c was incorrectly added to
-> the 5.15.y stable branch in commit 4e82b9c11d3c ("dma-buf: add
-> dma_fence_timestamp helper") as a new file, but it was never enabled in
-> the Makefile, and its header include/linux/dma-fence-unwrap.h was not
-> present, making it uncompilable.
 
-Queued for 5.15.y, thanks.
+On Sat, 06 Jun 2026 16:01:55 -0400, Michael Bommarito wrote:
+> Kernel-handled RMPP receive processing starts reassembly for active
+> DATA responses before the response is matched to an outstanding send.
+> The normal match happens later, after ib_process_rmpp_recv_wc() has
+> either assembled a complete message or consumed the segment.
+> 
+> That ordering lets an unsolicited response that routes to a kernel
+> RMPP agent by the high TID bits allocate or extend RMPP receive state
+> before the full TID and source address are checked against a real
+> request. A reordered burst can therefore reach the receive-side
+> insertion path even though the response would not match any send.
+> 
+> [...]
 
+Applied, thanks!
+
+[1/1] IB/mad: drop unmatched RMPP responses before reassembly
+      https://git.kernel.org/rdma/rdma/c/d2e52d610b9b09
+
+Best regards,
 -- 
-Thanks,
-Sasha
+Leon Romanovsky <leon@kernel.org>
+
