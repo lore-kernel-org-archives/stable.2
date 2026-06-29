@@ -1,129 +1,93 @@
-Received: from forward201d.mail.yandex.net (forward201d.mail.yandex.net [178.154.239.220])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07DFC3783CC;
-	Mon, 29 Jun 2026 09:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C4E3FC5BE;
+	Mon, 29 Jun 2026 09:18:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782724636; cv=none; b=DXDXbY9bmBr+8RJQU4beeQ1jJlTvPC7ivUpySRX3GhQ60QFfXlVAAb0HuGfh1ER3Nm9y4LkJBssuh38Q9zotzBfCsVuu6ytAqQ8biDNhTjgCTsqJ7P1eidlgmSVD6IrtStiXPFiSz8p9KnsIMeor5DQJP2fh6khX+Vs/z8Jbavc=
+	t=1782724705; cv=none; b=SmNA+4P4ElJz1qHa0ySoQrvDa7ZDcCnohsumHzv3iJFkxB1rnUnEN3pMfGRvDnK6WfyQ0xq5gztyELox/YYXMlP9TFAWb2kIubsOFqATWvo/s3iZ/FFFZwx8VuDB9pLtLMfxQEhve6WqRwnweECg6Ori/RzTxyDN04LSsqquozw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782724636; c=relaxed/simple;
-	bh=uKskaaQi181cgtwH0BimF/V2i2ESaiuqP9naFLgfl+c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rf+aQiwAYew9H7X8olY9dPs1mb38QozfJ0blXmHa8o7iS+AzXP0VfksWX2P95NAumy8Giy8lb+egtB4riJZ/KgIiJorK6JVpx+H5rirJNWgeVKFg5yl9BSp0JJ3xS6URKhCPhsJVOnBxo+1PVPD0iiy8mXhYK8JB7cqHZpNufuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=eVzIDb7U; arc=none smtp.client-ip=178.154.239.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
+	s=arc-20240116; t=1782724705; c=relaxed/simple;
+	bh=sJKNtE95R5L+yo7q9jl3+KbIcC66zPXSE+Ab5FZZs7o=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=tSbL9751ZxOzRTHDPIDiKQ6zs11PAWHxqNlIrTqhu/Z7YOgb1fcBItDDDdMMnsxtjNtH8d9QWfCuDw+aDMj2UeptEC6lUDlwIYLir6xy+q1YkSt1VT3/Ztn1U5bsn+iS1LNsaEyJe8m15n3N+pW7LF99/vZpz48uO90+O/ZuMOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nsI5JgCR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="eVzIDb7U"
-Received: from forward101d.mail.yandex.net (forward101d.mail.yandex.net [IPv6:2a02:6b8:c41:1300:1:45:d181:d101])
-	by forward201d.mail.yandex.net (postfix) with ESMTPS id E6FFF82FBC;
-	Mon, 29 Jun 2026 12:11:02 +0300 (MSK)
-Received: from mail-nwsmtp-smtp-production-main-73.iva.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-73.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:bb8b:0:640:6ac7:0])
-	by forward101d.mail.yandex.net (postfix) with ESMTPS id 4F091C006A;
-	Mon, 29 Jun 2026 12:10:54 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-73.iva.yp-c.yandex.net (smtp) with ESMTPSA id ZAZXGGsiDOs0-bvxPsrrN;
-	Mon, 29 Jun 2026 12:10:53 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1782724253; bh=6sWfq1ii8CZ63zd/fACYXQ6suOEoWDKB19vowTfgyPU=;
-	h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
-	b=eVzIDb7UzQqiIrreUq0Il7aRtv9PPsehEDpWtRsiNbX/QgxgiobKwmCXUZMwJMk6T
-	 u+wp50ZDXfkRkpFBSAJiPGlgwUD/qR9ETiYpDl7GONTuWZIIz3fmUM3UwqfWruSplr
-	 c0kOT7PdinjtfvEMMHu+czGW7nXe/Z/lEy9NxH6s=
-Authentication-Results: mail-nwsmtp-smtp-production-main-73.iva.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-From: Evgenii Burenchev <evg28bur@yandex.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Evgenii Burenchev <evg28bur@yandex.ru>,
-	harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	siqueira@igalia.com,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	mario.limonciello@amd.com,
-	alex.hung@amd.com,
-	superm1@kernel.org,
-	timur.kristof@gmail.com,
-	ivan.lipski@amd.com,
-	ray.wu@amd.com,
-	aurabindo.pillai@amd.com,
-	chen-yu.chen@amd.com,
-	mripard@kernel.org,
-	Dillon.Varone@amd.com,
-	mwen@igalia.com,
-	chiahsuan.chung@amd.com,
-	kenneth.feng@amd.com,
-	srinivasan.shanmugam@amd.com,
-	tzimmermann@suse.de,
-	Alvin.Lee2@amd.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	chaitanya.kumar.borah@intel.com,
-	ekurzinger@gmail.com,
-	pierre-eric.pelloux-prayer@amd.com,
-	HaoPing.Liu@amd.com,
-	Tony.Cheng@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH v4 1/3] drm/amd/display: Fix dangling pointer in plane reset function
-Date: Mon, 29 Jun 2026 12:04:29 +0300
-Message-ID: <20260629090435.9729-3-evg28bur@yandex.ru>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260629090435.9729-2-evg28bur@yandex.ru>
-References: <20260629090435.9729-2-evg28bur@yandex.ru>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nsI5JgCR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7F11F000E9;
+	Mon, 29 Jun 2026 09:18:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782724703;
+	bh=7JktU4sf7enyE9ymlnEnWDK2ubbaQM7VRZFQOV/uzsw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=nsI5JgCREXFgGS/h6fw5pb7ioF6D/w6HGbVK0PphL9vzHMAPIYlJAEo1eRDYqhUVm
+	 QUCFg54pedBvK9iRJH8hURe9aDSBiCtQ37wW8qArBow/fSSntWsOTSz6bHYtUiVACf
+	 /DKuGHNr/6bed38uAUUMDxDhwCUF2E9WzyXSkQX/KV+QdcEzJcefV57Pddh5/Scg3K
+	 KDyInWNXfCjjVTCMODZvcxcGico4rxI21qZFKEb5NRxPALggLDqpITH4Hv7qAGvx67
+	 EmxyHU0lGWmxRSTp2IsKc35tBA5sWjKgYE7TWcqpCDZxUyjIQaS6tcvuB1DyqTHW35
+	 v5jM4K4jVC/Zw==
+Date: Mon, 29 Jun 2026 11:18:21 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: HyeongJun An <sammiee5311@gmail.com>
+cc: Benjamin Tissoires <bentiss@kernel.org>, 
+    =?ISO-8859-15?Q?Filipe_La=EDns?= <lains@riseup.net>, 
+    Lee Jones <lee@kernel.org>, linux-input@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] HID: logitech-dj: Fix maxfield check in DJ short report
+ validation
+In-Reply-To: <20260618063737.211468-1-sammiee5311@gmail.com>
+Message-ID: <5s454s07-8sso-p157-9047-o3o5r1276p86@xreary.bet>
+References: <20260618063737.211468-1-sammiee5311@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-amdgpu_dm_plane_drm_plane_reset() frees the old state before allocating
-a new one. If kzalloc_obj() fails, the function returns without updating
-the state pointer, leaving a dangling pointer to already freed memory.
+On Thu, 18 Jun 2026, HyeongJun An wrote:
 
-Fix this by allocating the new state first. On allocation failure, the
-old state remains untouched and the function safely returns.
+> Commit b6a57912854e ("HID: logitech-dj: Prevent REPORT_ID_DJ_SHORT
+> related user initiated OOB write") added validation for the DJ short
+> output report, but the error path dereferences rep->field[0] even when
+> rep->maxfield is zero.
+> 
+> Commit 8b9a097eb2fc ("HID: logitech-dj: fix wrong detection of bad
+> DJ_SHORT output report") made the check conditional on rep being present,
+> but a crafted descriptor can still create report ID 0x20 with only padding
+> output items. hid-core registers the report, ignores the padding field,
+> and leaves rep->maxfield as zero.
+> 
+> In that case the validation enters the rep->maxfield < 1 branch and then
+> dereferences rep->field[0]->report_count while printing the error message,
+> causing a NULL pointer dereference during probe. This is reproducible with
+> uhid by emulating a Logitech receiver with a padding-only DJ short output
+> report:
+> 
+>   BUG: KASAN: null-ptr-deref in logi_dj_probe+0xb1/0x754 [hid_logitech_dj]
+>   Read of size 4 at addr 0000000000000028 by task kworker/4:1/129
+>   ...
+>   Call Trace:
+>    logi_dj_probe+0xb1/0x754 [hid_logitech_dj]
+>    hid_device_probe+0x329/0x3f0 [hid]
+>    really_probe+0x162/0x570
+>    __device_attach+0x137/0x2c0
+>    bus_probe_device+0x38/0xc0
+>    device_add+0xa56/0xce0
+>    hid_add_device+0x19c/0x280 [hid]
+>    uhid_device_add_worker+0x2c/0xb0 [uhid]
+> 
+> Reject the zero-field report before printing the field report_count.
+> 
+> Fixes: b6a57912854e ("HID: logitech-dj: Prevent REPORT_ID_DJ_SHORT related user initiated OOB write")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Applied, thanks.
 
-Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
-Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index c7f8e08feaf4..cfd76c54f652 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1488,17 +1488,15 @@ static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
- 
- static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
- {
--	struct dm_plane_state *amdgpu_state = NULL;
--
--	if (plane->state)
--		plane->funcs->atomic_destroy_state(plane, plane->state);
-+	struct dm_plane_state *amdgpu_state;
- 
- 	amdgpu_state = kzalloc_obj(*amdgpu_state);
--	WARN_ON(amdgpu_state == NULL);
--
- 	if (!amdgpu_state)
- 		return;
- 
-+	if (plane->state)
-+		plane->funcs->atomic_destroy_state(plane, plane->state);
-+
- 	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
- 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
- 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
 -- 
-2.43.0
+Jiri Kosina
+SUSE Labs
 
