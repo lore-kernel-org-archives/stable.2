@@ -1,128 +1,116 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCC234A3BF
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 17:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782754284; cv=pass; b=dbmyyHQ7RDiPb2Tq2u67S+BjDe5doMW4g3Elg5ryWoFdAWrY9hEV7amcowPGtAmqarqxPIxyhm7S0cPIFWyR//SiQPlaBMMdP6gOWWuLYfNDWyUZT13Wv+eRxXT+Tl1sWwdYumnF5mdpbeoZrflrsj1jANzNplkThrMVs6Lp+TQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782754284; c=relaxed/simple;
-	bh=eOClBfv6lfdCI5t+K8NOrbjIYwBgmecurDoITjBEbHY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hrrTr98Yvajdh5d9QmomnehH111SRbBUpGTZ2+Adad2vGnQblg16AlYr50K5knV/P4ZwGVHwAXThqIaxg2O0tAOKK/GqjMRKjeBsYjA3pH3g2Lnc6uwwXxxJoZp8G2Yd9MWOkTE8i49uoc7Yb0jirf6KkQVdzQ249oVCuuuF6UM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VOB0tbQz; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 631FA347BBD
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 17:31:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782754305; cv=none; b=mCRlvrNi35G6BQRkNN+lW9GoLaCWP7+Cir0tSw6rVhYwHjI6A1qc0EI7P8RTCcqno20ifiiemrMQYTCwk2N8lzam+nd5QalGGO7LI6GksIgMUnGj+gk+F91fk2oF1K2LyZ1Pzu15HFMWSIBzUw0GIbhJnZ3iURIcEhzERwdsDQk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782754305; c=relaxed/simple;
+	bh=TL08TzO3D3qpCBAqoDnd/7ghYJ3m8ofj+GSg0J5faFg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fEvTWsBe8tScet9Rwo4Xpt9Uteu1KEwjabcxIlHc0YrKREZgFn5PVvCX+a018v7fExEwLRCdSC5rKSBdVD1PKoL7DcbfbQM7OrMBOe8Hy9c4I2xymLINcXydiR8pV3BP90ZFhWO+DckdRIkd/pbE/eCzl4mYz1ddu/EZQEY4+Vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=REYFV+to; arc=none smtp.client-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VOB0tbQz"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-69857dc1d5eso2962011a12.3
-        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 10:31:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782754281; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pHz6CuwJJt7cZi6w3iwUuSeQAup/sgjPj776hm6xFgfKM3AQ2cqMcYY7eK/WuJ1A6x
-         g7ptKneyttGA69+SV8HMU4Tl5WK59escqjWL7hXg2yKXxrPGrU4X9z28tLK6vYK8rs87
-         VSiOQcWvBe59/bxbskvTiwfqzgqyGHJmaMq1p4DssyLEbTqh94WY4luE+PVTjBaFiEdN
-         w/f8lcVwrrQBOQCJFXnWuOr6RTxWvwxZy55S+Pn2yqlIVoUrhm9n4LUmJhf8F9TS07xN
-         P04KL+FB9zKCbTGHDxDoKY3q6kRAVLZYZx2ta1Xa6I/DCHcR5E3VAj+8C+gkSPu1ZYD8
-         E4rQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=eOClBfv6lfdCI5t+K8NOrbjIYwBgmecurDoITjBEbHY=;
-        fh=BrFeWbUGWeAj201CeSZQHJ73r78FnNC6wvlEBlXQoDM=;
-        b=QOWJy0jCEJwXXcm6MGI2hUFf/YNFqZtnY3HUX7jfv8O5r0zVY2QjSvJpaaQuarSLUa
-         q+k6DnrWCgAbbbJKJILOIK3orEDFpM50SkptM61FGykh874A57pnYlggTN7MPbMkGDre
-         W30QN3IkBW/lhSdKOQb/U32apgqD5N8Jc5Ev6oW4UFPA0GXJxqxaDRZJmoJ1opqZT00I
-         GmT479cSkitD/rlYNNvgKhsYiAdyqJYjkkakvtrmGT4Zm6dvvnRfd6cyMJMpjJ6+DFEE
-         LqB8zoYcKnbdfWsXXpSozS6RheqYveDFRX+t9B8k3ZNR1zuqJ4ji0S+8SkCJNEG9S04g
-         5H5A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="REYFV+to"
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5aeb8c19017so1313516e87.0
+        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 10:31:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782754281; x=1783359081; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eOClBfv6lfdCI5t+K8NOrbjIYwBgmecurDoITjBEbHY=;
-        b=VOB0tbQzXHx225/eBRLGEzWz6vX02N24U92aDSCNpfdq7DZv9iI6NGkOHF5VJSXBf0
-         iZEHeZ0V5mC0F3hIMX5sla7sCwE6QUNe99CfMZz+3kF02NmreX29GtPeIhhn9/tvERdq
-         6rIHJEfwGNs7g3Qtc2MU325nY7nvEWm2h/9qTqpSpa6S67zweReqCilX7ZHuwu06Afw2
-         Tp0haJ2b/3LKr4BGQqiyRCz5NDX62Jd6SCIPaTHgyHwtVcs9J/8SW3WLPHp/mOLeDDnB
-         HbauBnc7gNry89jY+RZ4nsQ9ECd+RxPZvUBef39i/RgCTiFo8PTy4LyUjrjbVd51dDKN
-         dcww==
+        d=chromium.org; s=google; t=1782754303; x=1783359103; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9EUpiZVAqkBSshI3JVd3gOCLUNBz11MuKzvqTDhb6VI=;
+        b=REYFV+topJ/PKOhq5twnY20wYQ2qF5/AEsdB0rFySr8BDZM9NeQ/7dmCkHbKLQQI+X
+         IrGvErpXKLdjqCuA3M83GxXYc4n8cPuwLPqbdbOMfOzrThCtrgDgVJPl/cOWLfPxnpdb
+         NkNgkldJ78V6J9N2BgGDBokjh+I4l7Al//Xgs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782754281; x=1783359081;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eOClBfv6lfdCI5t+K8NOrbjIYwBgmecurDoITjBEbHY=;
-        b=YZTCPNGsL8xZphi3ms9rjoz/r4tRN/goG7G9PVz8DQ6Zx+X2RAksM+LHREEcPffo65
-         aIQ6ZTNgD9PG1Pw55hwLegYX/GNQPnxMu4YpVJz/r4uZcpmYA9fh5Pt5k9LMw9Ygvlg5
-         CpVrEsIUyldkswftCE5Mm5Mc5ZuyrV+NMRMP8wFwOfPF0HPrO0TD6cxC8dDUXNb9a/Bs
-         znRtd7ufulO5OI3ZXXRslC7Z2aoe6dZIL7fBWkDAh8vKeGHI5DpNJwION43kI7bkx5az
-         QWIbw/pPS3qN/g4OqsIytKXok0qHarm8LiUMz8Et+sEFccC8TuV1YU70A7yttgZ4eeMw
-         IZSw==
-X-Forwarded-Encrypted: i=1; AHgh+RrqVwY+LpFsFFdt40wIpaLnE89jSnVFvkUeTJ0v++W1ycxJzOWo60BpWTLlgReqaU6z+GrrO+8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8YyRSIcPF8+ZAeJKJ0J3mdqjE3hsD9VuYIJoqLvaX2+aUJs+b
-	zVlEXhJ0HXUHqxbYBgx9Te/52Mbkz+Oji+QTrvClL/APHoCRuTwNzRCcxv1ZuJ4ADFBAq8RJsdp
-	oszRq7o7xb37WA7EyITK/2yvuO65KfiI=
-X-Gm-Gg: AfdE7cltjR8zafCRY65L8gs1Jialujvn+UFyTHgmecXIVFBNgfk+LS4jClYdYFbu4EK
-	rEbp/tQpQErlY1kbXSvtTxGQSJLn/hRnIqT3Arn60dyeFqYrpfQfzeQ3TV9ziElPIegBlTZCbrG
-	nCm4n844kfyFU6uvI1QHp1r3V2Wl3pYVnogOWO3Z5yMZqozEePfKEFaRsUiFUSMFftNzvKUazBq
-	TNKfhn0R7jK3y1l1QGUKU2t4kfcX6GcHEUK9TZKiZ342QzGjxmPGN8JfvyYESNXHY1cam+O/OhY
-	MYii9sNLkDFL9dLZwE25psgRfeun/6k=
-X-Received: by 2002:a05:6402:390a:b0:68f:cc95:8c10 with SMTP id
- 4fb4d7f45d1cf-69879e4b974mr46982a12.27.1782754280332; Mon, 29 Jun 2026
- 10:31:20 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782754303; x=1783359103;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9EUpiZVAqkBSshI3JVd3gOCLUNBz11MuKzvqTDhb6VI=;
+        b=BihMdQhf/G6UYPXN39qvfR1cvnAPGXaMmvKfWYk9BiFfk+JpNpMHSqS0WHNrQf0J25
+         mkh6WzR1oJ+GNhw7elSKZQuWsDTLAAzyZDi4Fj5Qn6caOf0F6FcDXDMUpgr/XLyX1lKd
+         Kc8XCqiPOpzmgNcQCWmTsrhF2XRGXFMtHydLeD1gsECTKrZ3V5Dv3oVPnlnwLigw53hP
+         t22HB/XYpHjEO/Iuu/rOYr1gC291k45X85JongMMB0DzMoQ/yttY9x7xMZ+3y2z+vyTc
+         e/br8y3npcrHLiNcffAx+KiZZhfqgbxIshmIFmKsePSMl74yXbDnOAweYFa0n8oP1o6J
+         Uryg==
+X-Forwarded-Encrypted: i=1; AHgh+RrIweZWNb5IcnIGX1qE9Xq4PhwzLCm67B16MLNZrDEf1LZ+6NiH7yDzfX8XiJEmJc42ESdKrwo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyMBNkjVh0Li4Gi+xzYN7YCZtOD1Nz+Kv/r8CnyDXFatSme2TF9
+	yNegYq/pW3iD2DhKJIsUMPxcqInYS5hS0sok9hGZgKuh4uicJ1VU3G2rMQrGsaJEdHRPL7diiRx
+	3tngQZFKF
+X-Gm-Gg: AfdE7cngIsA9JgDzaFm+BVBdQI0ZpwKBE6s/vGBDmPAJvOF+z9nO8oEcv69dMMAKN8d
+	u/OAwzBIjoZZwAuBu+2P0tThkap81+mfaJzsnQnFKLPFgEplHLrQDAphztQoZuRtfnPi1jExun8
+	7WyfT1e3WEjDCBXzr5qYTyFferq7sO7TFe1l9SgJfHgq8XEJzRCXIJRVirofC5cytjZBqmMot7f
+	nLVAO1SKf4uacsAmf95HizaZmiJePMt1USOnInlby2UvakJyczNV7ohHbH61UCQED2VJNP6Pr68
+	NskYG+zwdnvwqXMyxSspqFmOn/q7CQdP6KeF4yAPrvTAJg0yTbgWPcb6TnD1NmYaiOlytmkWyuG
+	j1gfDAkUkVa8ZX87YdytOrcQqYdZIyltnT3asPkDsrY11CEHcuqgb3qydaa1PMvMDqF4BT2ZvI3
+	IKErdJfyvkxVvpaBGoYlVfCTGAQRIvEAu6AyfHAzVS0WHidPmjWyxzUU8injUDmWyshAff
+X-Received: by 2002:a05:6512:3d19:b0:5aa:671d:9960 with SMTP id 2adb3069b0e04-5aebdb7d433mr66040e87.6.1782754302744;
+        Mon, 29 Jun 2026 10:31:42 -0700 (PDT)
+Received: from ribalda.c.googlers.com (216.148.88.34.bc.googleusercontent.com. [34.88.148.216])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aea237d2e7sm3973868e87.28.2026.06.29.10.31.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jun 2026 10:31:41 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH v2 0/2] media: uvcvideo: Fix race condition on metadata
+ buffers
+Date: Mon, 29 Jun 2026 17:31:39 +0000
+Message-Id: <20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260629070653.580879-1-caixinchen1@huawei.com>
-In-Reply-To: <20260629070653.580879-1-caixinchen1@huawei.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 29 Jun 2026 19:31:09 +0200
-X-Gm-Features: AVVi8CfvDZzdzYVHdraWAewZEFEyCZ6yZ4zu-tcKsdp7diMSLlszm49WqjY_Vvs
-Message-ID: <CAOQ4uxjcD0-PHqqmrpEvkLRgtKJGe8-n+6DQyBngjN2TorwU+g@mail.gmail.com>
-Subject: Re: [PATCH stable/linux-5.10.y 0/7] Backport Fix incorrect overlayfs
- mmap() and mprotect() LSM access controls
-To: Cai Xinchen <caixinchen1@huawei.com>
-Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
-	miklos@szeredi.hu, paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, 
-	stephen.smalley.work@gmail.com, omosnace@redhat.com, 
-	gregkh@linuxfoundation.org, sashal@kernel.org, bboscaccy@linux.microsoft.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-unionfs@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	selinux@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org, 
-	lujialin4@huawei.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPurQmoC/3XMQQ7CIBCF4as0sxYDaGvqynuYLigdyiwoZmiJp
+ uHuYvcu/5e8b4eETJjg3uzAmClRXGroUwPWm2VGQVNt0FK38qauYstWsLEYcDXCIWrs+nF0doJ
+ 6eTE6eh/cc6jtKa2RP4ee1W/9A2UllLh0cqqeak1vHtZzDLSFc+QZhlLKFyC8sbGrAAAA
+X-Change-ID: 20250714-uvc-racemeta-fee2e69bbfcd
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-On Mon, Jun 29, 2026 at 8:38=E2=80=AFAM Cai Xinchen <caixinchen1@huawei.com=
-> wrote:
->
-> ackport the patch series
-> "Fix incorrect overlayfs mmap() and mprotect() LSM access controls" [1]
-> to 5.10 lts
+This series fixes a race condition when calling streamoff only on the
+metada queue while streaming.
 
-Chai,
+The first patch fixes the race condition and the second patch replaces a
+busy wait with a waitqueue. It is probably overkilled and this is why it
+is a follow-up patch.
 
-First of all, I don't think that stable maintainers are picking backports
-to 5.10 that were not backported to 6.1 and 5.15.
+Feel free to apply the first patch, both, or squash them into one patch.
 
-Second, backporting backing_file as a dependency to LTS kernels is a pretty
-intrusive change, so your description above is very much lacking.
+Regards!!
 
-Please do not backport backing_file to any of the LTS kernels without provi=
-ding
-detailed explanation to try and convince the vfs maintainers that you
-verified this
-bacport is safe for the LTS kernel, because honestly, this looks a bit
-risky for me.
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Changes in v2:
+- Use a new flag in_flight to avoid keeping the spinlock for long
+  periods of time
+- Link to v1: https://lore.kernel.org/r/20250714-uvc-racemeta-v1-1-360de2e15a9a@chromium.org
 
-Thanks,
-Amir.
+---
+Ricardo Ribalda (2):
+      media: uvcvideo: Fix race condition for meta buffer list
+      media: uvcvideo: Use wait queue for metadata streamoff
+
+ drivers/media/usb/uvc/uvc_queue.c | 11 +++++++++++
+ drivers/media/usb/uvc/uvc_video.c | 32 +++++++++++++++++++++++++++++++-
+ drivers/media/usb/uvc/uvcvideo.h  |  3 +++
+ 3 files changed, 45 insertions(+), 1 deletion(-)
+---
+base-commit: 253355887a1ab0ac8f33b356c7c1140eee554d18
+change-id: 20250714-uvc-racemeta-fee2e69bbfcd
+
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
+
