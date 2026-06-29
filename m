@@ -1,134 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D9737B417;
-	Mon, 29 Jun 2026 17:41:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75FCF38837E
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 18:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782754908; cv=none; b=Cu4vhfta/ymUhAz79UgyuXoubJrWBGtCSByd2iARmyH07wjfrfvMQxh+65SA8AlKrHevluH1WZcJUolKejTxYRcgOn70wviYL/l5curxnJD/tD0J96+4iJUCVmfuoMR81h6lciO924GVfcofTTCmtVuFZE2hFMVu0DFZGpVyw38=
+	t=1782757852; cv=none; b=X7ivfNb55JfTgqzHOupqzqpA/GDMlrorLtVXN/ZGcdu2k3Q8Kvjy7Jr23975SRnFKQZrT5RBOf4QZv9t632ykiu66fiGqfMPQhhn7YjLj5e5QkacFhARmHSBs3TIPgAsW9BSZO2r6M2xTp0BBzzSzV+tiJOWQy5AxQ6VfKO1G6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782754908; c=relaxed/simple;
-	bh=umCHY0WzhRo9BnV9a4Rue5Pb9esGaLf2ekRSTfsrgUg=;
-	h=Date:To:From:Subject:Message-Id; b=QMEliudPhOTBl+IwcjQDmko4zQ/rYvzy+YefZUrIHMz8+2wDy7pJXbkt94n7UFr6tGlaTAiZ3xISPEesEDT5TLIPaP9uPN2bPNl7hP1Cde/kS2ASvryJBpI0lt6Lok1AFjCi87Xf+zAFJzCnmHjQVbWPpZhM5rP4ZeFQfmwwCAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=RDRWYMEA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782757852; c=relaxed/simple;
+	bh=NSyl7BT1TjFj5gSTLMOULowrGNab8nMNFh4Un9s5lk8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wg5ewWbdxAYyW6o3t6ZSa26IZU2Y51C3AMrUBvZ61E0VMjuy983223qGMTt3wMw3ngFSdL34ZFSR/rHBAT8U08as3ZpmhjEHE8WtyKOBtqr1OKQMBIQ73nFcgPxNY10jdMvLUeJVs3Drx1slkhbraqCH9F1FVUE0OmuMWHgHjoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZSKW5IWI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XiK/ozan; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0Ip6Kwgp; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EeYyMfbh; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RDRWYMEA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 425081F00A3A;
-	Mon, 29 Jun 2026 17:41:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1782754904;
-	bh=mon0FP5pD7CxKi+sn0r1+EpOnERjsocTWpwnXmAnPI8=;
-	h=Date:To:From:Subject;
-	b=RDRWYMEAV7bqH1etaXbD6Tc5oPw5YnEa2+0lhYBqjftznK1hhZ54kN0DrSiLOyxo8
-	 HELTaBFsStKZeL8Lf2aY23+/FwRD/eCqW2BQjFNkCmYrkVdCUDqse3ljSeoYaFRem+
-	 fMJVCSx+dIENi0a+s7wTUFK3i34l0App+BSbNgbo=
-Date: Mon, 29 Jun 2026 10:41:43 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,yuzenghui@huawei.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260629174144.425081F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZSKW5IWI";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XiK/ozan";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0Ip6Kwgp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EeYyMfbh"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8C5DC73213;
+	Mon, 29 Jun 2026 18:30:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1782757847; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+4unOw1kC7PDoCyOC3Zep6sOEjf/lsnW9nQUlS74aFs=;
+	b=ZSKW5IWIhLmI75H5Ru137+UQ9cwp0wZYNWh0wLLIwO5UeUdvIAf2J7wD49hRckfFtQs5te
+	KCzC0YssaeSjr9FGF/D0OVQ2YRkDRna7X85nfuOKVE/gp+B0yhLSpINVrqY3eRm3M7t9q+
+	m/I00eAYwiTNDvSUCNHwMzn1k11kjAA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1782757847;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+4unOw1kC7PDoCyOC3Zep6sOEjf/lsnW9nQUlS74aFs=;
+	b=XiK/ozan+2lMDL5Detpi57el9beS/jZlYoacw9yUkD5LGELLMmDbFuIPMzf6NDHVdguh8N
+	ri9mJsShahj+JlAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1782757846; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+4unOw1kC7PDoCyOC3Zep6sOEjf/lsnW9nQUlS74aFs=;
+	b=0Ip6KwgpFhy8F4Ou3+lH/mzi+xCwIOYpRGCQ3A3XNcrAfHKigDU/sszYi08H5tg4Xv6+1R
+	xdZV1ik8foXtGbd1KHMUkOLd9PFKWatLgTqBU/lEqi7pgcAv4zo/Ll41gcTaMmwmOWKLxP
+	wJEC8RthywEFKzfWtAYS9zFXCNRqa/E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1782757846;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+4unOw1kC7PDoCyOC3Zep6sOEjf/lsnW9nQUlS74aFs=;
+	b=EeYyMfbhRr8oQQjM/Igb3SEFQJcXtgZp4ynHWIVDTLcZcStgOopApUqSajIw8RiD8N7NHY
+	ZiPQqv8eCeLo1ZDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8D138779A8;
+	Mon, 29 Jun 2026 18:30:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id uIrYHtW5Qmr0dwAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 29 Jun 2026 18:30:45 +0000
+Date: Mon, 29 Jun 2026 19:30:43 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, linux-fsdevel@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: do file ownership checks with the proper mount idmap
+Message-ID: <akK4CRgiv9G29UiM@pedro-suse.lan>
+References: <20260625153853.913949-1-pfalcato@suse.de>
+ <s6mr3j7gew2cgerzrvqzenjctctrtnhvlynmcccxb24uszcauz@5iapd6wnbfxg>
+ <20260629-sektor-gaben-gepokert-58db0a3528a3@brauner>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260629-sektor-gaben-gepokert-58db0a3528a3@brauner>
+X-Spam-Flag: NO
+X-Spam-Score: -4.30
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,pedro-suse.lan:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Level: 
 
+On Mon, Jun 29, 2026 at 02:15:19PM +0200, Christian Brauner wrote:
+> On 2026-06-26 16:19:18+02:00, Jan Kara wrote:
+> > On Thu 25-06-26 16:38:53, Pedro Falcato wrote:
+> > 
+> > > Ever since idmapped mounts were introduced, inode ownership checks
+> > > (for side-channel protection) in mincore() and madvise(MADV_PAGEOUT) were
+> > > done against the nop_mnt_idmap, which completely ignores the file's mount's
+> > > idmap. This results in odd edgecases like:
+> > > 
+> > > 1) mount/bind-mount with an idmap userA:userB:1
+> > > 2) userB runs an owner_or_capable() check on file that is owned by userA
+> > > on-disk/in-memory, but owned by userB after idmap translation
+> > > 3) owner_or_capable() mysteriously fails as the correct idmap wasn't supplied
+> > > 
+> > > In the case of mincore/madvise MADV_PAGEOUT, this is usually benign, because
+> > > file_permission(file, MAY_WRITE) will probably succeed, as it uses the proper
+> > > idmap internally, but it does not need to be the case on e.g a 0444 file
+> > > where even the owner itself doesn't have permissions to write to it.
+> > > 
+> > > Since this is clearly not trivial to get right, introduce a
+> > > file_owner_or_capable() that can carry the correct semantics, and switch
+> > > the various users in mm to it.
+> > > 
+> > > The issue was found by manual code inspection & an off-list discussion with
+> > > Jan Kara.
+> > > 
+> > > Fixes: 9caccd41541a ("fs: introduce MOUNT_ATTR_IDMAP")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Pedro Falcato <pfalcato@suse.de>
+> > 
+> > This looks good to me. I'm a bit curious why Christian initially (in 2021)
+> > used init_user_ns here instead of the file namespace... Anyway feel free to
+> > add:
+> 
+> Back when this was added only the do_mincore() codepath existed and that
+> was intentionally left unconverted because it exposes the cache
+> residency status. So it was effectively a massive side-channel.
 
-The patch titled
-     Subject: samples/damon/mtier: fail early if address range parameters are invalid
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid.patch
+Hmm. I'm not sure what you mean by this. Wouldn't it be more correct to respect
+the mount idmap (given that a mount-ns-capable user mounted it with an idmap for
+someone else, or itself) for mincore? Am I missing something? Or maybe I'm
+misunderstanding that paragraph.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid.patch
+> 
+> Both fd3b1bc3c86e ("mm/madvise: fix madvise_pageout for private file mappings")
+> and specifically cachestat() came way after all that.
+> 
+> I'm otherwise fine with the change.
+> 
+> Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org> 
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Thanks!
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Zenghui Yu <yuzenghui@huawei.com>
-Subject: samples/damon/mtier: fail early if address range parameters are invalid
-Date: Mon, 29 Jun 2026 07:44:31 -0700
-
-The comment on top of `struct damon_region` clearly says that
-
-    For any use case, @ar should be non-zero positive size.
-
-which is now verified in damon_verify_new_region() if the kernel is built
-with DAMON_DEBUG_SANITY.
-
-The WARN_ONCE() can be triggered if the mtier sample module is enabled
-before node{0,1}_{start,end}_addr have been properly initialized, which is
-obviously not good.
-
- ------------[ cut here ]------------
- start 0 >= end 0
- WARNING: mm/damon/core.c:217 at damon_new_region+0xf4/0x118, CPU#59: bash/341468
- Call trace:
-  damon_new_region+0xf4/0x118 (P)
-  damon_set_regions+0xfc/0x3c0
-  damon_sample_mtier_build_ctx+0xe8/0x3a8
-  damon_sample_mtier_start+0x1c/0x90
-  damon_sample_mtier_enable_store+0x98/0xb0
-  param_attr_store+0xb4/0x128
-  module_attr_store+0x2c/0x50
-  sysfs_kf_write+0x58/0x90
-  kernfs_fop_write_iter+0x16c/0x238
-  vfs_write+0x2c0/0x370
-  ksys_write+0x74/0x118
-  __arm64_sys_write+0x24/0x38
-  invoke_syscall+0xa8/0x118
-  el0_svc_common.constprop.0+0x48/0xf0
-  do_el0_svc+0x24/0x38
-  el0_svc+0x54/0x370
-  el0t_64_sync_handler+0xa0/0xe8
-  el0t_64_sync+0x1ac/0x1b0
- ---[ end trace 0000000000000000 ]---
-
-Note that the same issue can happen if detect_node_addresses is true, and
-node 0 or 1 is memoryless.  Fix it together by checking the validity of
-parameters right before damon_new_region() and fail early if they're
-invalid.
-
-Link: https://lore.kernel.org/20260629144432.133962-1-sj@kernel.org
-Fixes: 82a08bde3cf7 ("samples/damon: implement a DAMON module for memory tiering")
-Signed-off-by: Zenghui Yu <yuzenghui@huawei.com>
-Signed-off-by: SJ Park <sj@kernel.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 6.16.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- samples/damon/mtier.c |    3 +++
- 1 file changed, 3 insertions(+)
-
---- a/samples/damon/mtier.c~samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid
-+++ a/samples/damon/mtier.c
-@@ -120,6 +120,9 @@ static struct damon_ctx *damon_sample_mt
- 		addr.end = promote ? node1_end_addr : node0_end_addr;
- 	}
- 
-+	if (addr.start >= addr.end)
-+		goto free_out;
-+
- 	range.start = addr.start;
- 	range.end = addr.end;
- 
-_
-
-Patches currently in -mm which might be from yuzenghui@huawei.com are
-
-samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid.patch
-
+-- 
+Pedro
