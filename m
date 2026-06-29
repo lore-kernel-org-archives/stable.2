@@ -1,210 +1,167 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012036.outbound.protection.outlook.com [52.101.66.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0BF352C52;
-	Mon, 29 Jun 2026 10:51:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782730303; cv=none; b=GNevidijmK0VYnYU/84sqn1JeHfMcQbAywJJC2nNa+DMcKrheoo3/Z3nnss82edZSEr2epnG3E8FFb57trSHwdekunfQ8pK3n7+PWXZkY2RmAn/iii3Ck+uv0UGcgsxDE1XQpwhqhdslX0X+aXbBaTGcXe4zsG/vKmSD3TKogf0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782730303; c=relaxed/simple;
-	bh=l+pwPZ3mH88cvUR9ynAx9YtSbA2M7oTw0A/rnSyGd8A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gas2rSgn/ahY5iBwfhvMAfyqlaRxateKYmHk5ZCaENMMMuCYEBpZNHwA93/BOb1AB8IBWktWbMHKuH6EJiWVZYXgjv+2hvs5XC9IqHzBUtSOYDpOxs3xm+z91HoD1tHUpXQExTgTiR4ayORUxv577Ae/gFVbsHrk6awshHuwQp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=DB4cDEwn; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED0C3630BA;
+	Mon, 29 Jun 2026 10:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782730504; cv=fail; b=jA8xde9aawNKwLnq7u5EhDX3xidYRdo/jGTgL5r4a9EKwyoEoMAlOq2tt1Lqh3BhJAUvcDgYhTdKYeN41rs/KRnqDB5Y9Ipz3hG9AxOczVOI0IwZISXdkaudwovXqvDu1nNz3Qt0/GpRD1WJa7ByggcWZyt4HxwMRzO7uqoAqew=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782730504; c=relaxed/simple;
+	bh=LRzixOfWRQzc1epb/qcqnuo9oLTMJtCF0pcxNk1/fPs=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=X61NzDu2f4WKsQTckwAaZ4Jb6Oy5BGB1NXYaG50tQ1qQACWJ9KOXxkmYjLJJdctfojHmdwcp3+wvllIRyirOHZ2WLRtssigVJVGOlE41rLyLK7/A/Z55SfC9Is1P6yTP8kgDL3Qd3r+Q9mY3usHmMhE/EKtim82r/4YEp/m6Rs0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=AB66Q0fZ; arc=fail smtp.client-ip=52.101.66.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="DB4cDEwn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1782730261;
-	bh=pEl6slmbG03HLbMen+dJ3Wx5FOBpw1nFQYLZ/jkz7AQ=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=DB4cDEwnBlsUsrL1G8fFmn+XzszvY4d04dLXiXl4lRJukYr9/wr8X0TQqIFE1zioN
-	 BItwClShOchG4641eKaaO3hegEUz0JLze4IpGA9u1xM2owFYaNojRUXDiRshunBs3T
-	 MGmp3wetLHgD3+Y8SwUtp1RnRVCA2bTRDaZKu+UU=
-X-QQ-mid: zesmtpgz4t1782730256t0db3bca9
-X-QQ-Originating-IP: 0/RmKe9hjSb4z5yuXVq0/ri8sUzq8k4cl/q9Fbf1GSU=
-Received: from hepeiyang-vm.wu.lxd ( [218.94.142.72])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 29 Jun 2026 18:50:55 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 639159883977955067
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: syzkaller@googlegroups.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ntfs: fix mrec_lock ABBA deadlock in rename
-Date: Mon, 29 Jun 2026 18:50:36 +0800
-Message-ID: <53BDDD94CF346272+20260629105036.2137914-1-peiyang_he@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="AB66Q0fZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vfAKeuO2BixS7qJ/zSAcJHmCveWYuuvQ3Q67+T1EY8xRFHMW9tOJDOsL8wehlWGee0+0gk7IXgGZJd+bWgEqjpQ+iK56rSipS2iIzzmJzjLYDMr/UYWZsigOm2INGSyyzHugwmJFO06vlsDSjrnOyv9sKSWO8G+jAmTTftKwk/skHnYXF1edVuPxZTZI+Hj6ObfuI6Z2+x12fePh6I5E4KrggBxDZGCeoPfQqwUjv4Sdu2U4IMP3hR4etaLCMKrB91A6QjvKe0QqCnzOT5JJX5z5ZRl6cbSSvuIjRKnFfyVg+vv/UgIAWmyVY/vqIeNE5xoFIbDmRBDW0uqBF6HbZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=433s79QuiBdquUivzUKSNqienkbPl38lx7g0+m8SDNI=;
+ b=ryz+7NKFXV+m/aO9c0dfN/RHapmJFebs+885RCJwFn/22D4hhw92zRbb92I9lADoYMzdUMV6vgqFPT3Zb3KbkwA5hYQqJXhLEbEft2RPiclDMT7ebdehlqktvPsZFEQcPJUy0NEtYiNqCTVvfyQnCjxBz2HWSv3/JtM3+H3vrEUCF68BG0qxuNXRLdv+4FHrhCQTl1XZGgOgTXBcRok2LFiXFUTQkCuMaOBHPQOszx0MMtWauWjmKf20Cs1GDzeEzDuhN+21zDLyvZfa1/RPhuPu62YPMQhPAq9jjfuaKiuJeOhNzGOdUZIFETEvCOWIpAIF7SsNtH+PQZ1mcZ7o1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=433s79QuiBdquUivzUKSNqienkbPl38lx7g0+m8SDNI=;
+ b=AB66Q0fZ+e4B6QASMI/ODRSaTiy4ABnlY7djqKavVGJQPxhl4aWm2iS1IOMxtVMfmnKFIjJAojS5Xp7ctZM1OyPMrJ9y565I0sAhm0kvbiTOAyBoVyQPyh6JxbUOJdKaWsvG/erI+rnSbBaJLC3h+OOUlkXP7/p4+L5iJPrq3lUk7DVUVSWwe+NP9Mq5rEPJsA2Pnwm21/ECp0ZVvUmdiLCwhlzSjk5UC7T4tpjGEm/CS++AWLR8cOM7XfhCeBoHxGElho5nR7FM+MeWC1Uh0SSB39GY9j04lzikRwadifiytRQZwSIjmvaXOtDO9pvGgahjWb4eLZK5aCyqffxcbw==
+Received: from CWLP265CA0345.GBRP265.PROD.OUTLOOK.COM (2603:10a6:401:5a::21)
+ by DB5PR10MB9713.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:653::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Mon, 29 Jun
+ 2026 10:54:57 +0000
+Received: from AMS1EPF00000049.eurprd04.prod.outlook.com
+ (2603:10a6:401:5a:cafe::1) by CWLP265CA0345.outlook.office365.com
+ (2603:10a6:401:5a::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
+ 29 Jun 2026 10:54:57 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AMS1EPF00000049.mail.protection.outlook.com (10.167.16.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 10:54:56 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 29 Jun
+ 2026 12:59:11 +0200
+Received: from localhost (10.130.78.67) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 29 Jun
+ 2026 12:54:56 +0200
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+Subject: [PATCH v2 0/5] media: i2c: vd55g1: Add vd55g4 support and various
+ fixes
+Date: Mon, 29 Jun 2026 12:51:45 +0200
+Message-ID: <20260629-vd55g4_and_fixes-v2-0-ea0a7cf3cd66@foss.st.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NS6VT4aJZuBZQANqNJvC3QKzDa8BVmjK8mWkrSFRWw40u7fBMuURA3li
-	Sxm+T2crs7LV5SPtdd8W+j0jC5dVHg0NXnFdQWtzUoEFOlu1I8gFoczmnkMqsbhr0jtyuLW
-	9PbFGjPZOG0EDIKEb4bDn3hc/7a3UxhgG2OsvmTWQnGr0t7oat6bsmLIyq0WcfWvfDhgjGt
-	dKuG/BcaoaVnDGRosZGQhHoFoHnOTMJC1JBHx+UTpgyE0RhHwRsXJvJLwRZ8dICNRDFaIij
-	tdy2N00gmVmiwsZrdCw1SZurOog9pd7ITc8h/GPzYRScrGTSsLAotAIKD+1lBkmHPur5YGz
-	Zf4mU+/rXQgrIneXdglTxLq1CA6J/swcclWZJzgUF09sQxNbdaWdEyJUpDc3djiMVs0IcNP
-	9ZlRO08aQ8+cc83mCtfd2ZMSxK/6xQCKysConXdeTqrCU8auEXqeNtoK7Id/uRZmaIVAClB
-	98Ey9P47uAdxnBP7C6WXzgQtUJ+w9+RAShUnxYhio7IIzu7Xw3Hae/SHOfgF/E7pSAfUjq0
-	eHDZXdxN/w6OaARXvpu5XiKvC8UJbhHOq320NkHeDixLYaYz+K3FosPGJhwHyYvwP1uQODo
-	DUxPxMBj/843TEUFcyy/rpY2Fde1e15q/Lv9Hjqzl2/AiLL2DbKKgA7nqU+VCUXDzNjuK+3
-	Alp6YEDx+29PrvjJZJgmE09I49++F6Eh0jSt7wzeFSMjUD5NLD2sapUtRylu5zy9ic4W6o1
-	fj+XB568/kLUhWTvdSq2vGL0W1kzUZq//4cC5+Sn4Vyv5sOFLSp+dcfggZS/7tMBb+JV4py
-	8DsCOxuLFB/EXR+22Hfd0keCyplAOx3qLk3yDg4vBCtpXxP4jhQUplwteZOegdb7WPHmRWv
-	Q2cG4j0uGqD083G/4L1ZjSy/j3BPjHQ/bmE1I3GtYdnsQE7yqqTIy5ChExDfiiyUROcE1V0
-	r5bIaDGtHcRdH4VY+5OrHtfPGdeD0xb6C/XcahkHexuYc+5c3Zjw54zQTiF7Gk1FiLqT8QS
-	gQBQVxAk7NkmB++DgRgPILl5PM9HSUOz1xF90ldcDkcU7DyVQTWZDRO8sGw7RuDnt+9xijC
-	znoG6vkxFRXRab7hQNKNc4TLKvlHTFJLZLQ9hMDmMQ6+j3E9fvwXiGFC7WjsUIO7qPBGBpl
-	5jv2uqUGHfmW9/Q=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEFOQmoC/32NQQ6CMBREr0L+2hIopaAr72EIgfYXamJr+rHRE
+ O5uwb3Ll5k3swJhsEhwyVYIGC1Z7xLwUwZqHtyEzOrEwAsuC8FbFnVdT6IfnO6NfSOxc6MVr0Z
+ puJSQtGfAI0jWrfsxvcY7qmXf2RuzpcWHz/EZy733Zz6WrGDCNKIe2mpsG7waT5TTkiv/gG7bt
+ i8YBB6fxAAAAA==
+X-Change-ID: 20260428-vd55g4_and_fixes-97dc23b6f266
+To: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
+	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, Benjamin Mugnier
+	<benjamin.mugnier@foss.st.com>, <stable@vger.kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS1EPF00000049:EE_|DB5PR10MB9713:EE_
+X-MS-Office365-Filtering-Correlation-Id: deef7077-7f75-40cc-6b20-08ded5ccdba0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|82310400026|7416014|376014|36860700016|13003099007|18002099003|56012099006|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	uAC3LtC9tF74UAb0VuJMCNGHepzjuSj9EDy+e6uGbflfxIwSClWsj5zxdIzPb3Qb0Gzi54Y2q+cLl2G3anTsIGA9SyoyUdyiQDacEUGpcLGFB2VRxlPK/sP8aF/5U4P2gJpyGZFaseKCAJMA0zryd2gjx2jIU6g6GXA5B/qz0f9CkfXrvb8CRjeLudEATxSlR/U/FnS0uUFNHhMcxuf7dUZQflVZDJa6AfCQgFNUgNlLEsLkHnzNTB7JeXFZB+jHLg+UpbDmm4gUb8NCZIZTWFDtBJhPMkd6aDDlQwfbNDscd2JT0HqwTSF5fP1qaPAlvvnzRlxv8aRwYrJimP8n+7D4915bnB38Nb+oazAgjaxURsvBZcMRJVbpKKFFwXMgY9kXwg6E5949mERZoc6oTZ3+ovUkAhyPoYHpMu51zFclMbwptr7YDWPGaY1mhUCWTsikCBLvqt4gwvT8yOpNuu/gNRNH1wMZ+BWUu42YHATrrn96eHeneAKSRKuf7VCzcqDfxQxC9Ib59bAF0Pu/BTtWErx9yeanlNXH41QP10TeMyHMcPal6hVzgnHauAzur8vYjnComZBLbX3dQ69YgJvF7em0k1N4Nt99bn2oPEE6YkU25DGJtbjtCW96giajSE4UrWyH5LTj4yqCIN7aZCYSNp2uoUMDjDlsOgPFD2I=
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(82310400026)(7416014)(376014)(36860700016)(13003099007)(18002099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	1YKiWTuO/gVfx/ckEtkY5Wxno6+iNRHEOwLmWWN6zgLIKnILXxhM2PV9RCy1rBJ4X39B1dLQ/wg0c0ImiXPFASuJxq8KScJt885tjnHGfWI1FG5WXTLABchErt03kXK9Wr6+djuVzyNZgMUFhmBwonXFsgyCoUD2HbnODVb9Hw3qEDONBcjs/xCjRsM6LxgIVmNOAsCW0AUWcNKyYLvWocPW06/6kjo+CPrs8kuEH7KPAXEAwHtv3idMPTP5QBMe48tVU4Hc+DIJgcwIpLasgmRJDRU3h7YLyl7USfRT/x8sd5eHacXV2PqA6MTujXZtRn8biLH0oL3RxUSxNE4ztxwxI0UjjHDnrInQgK0YN46HLIv4Cippo8TP4OCCGM8ko6D72ahQEDkbaelkLW4QyVvyMpQ+EUklfFJ5OT932RAhgLpPfcKjjZN18sesxcC4
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 10:54:56.7137
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: deef7077-7f75-40cc-6b20-08ded5ccdba0
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS1EPF00000049.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR10MB9713
 
-ntfs_file_fsync(), ntfs_dir_fsync() and __ntfs_write_inode() lock an
-inode's mrec_lock before taking the mrec_lock of its parent directory.
+The vd55g4 is the monochrome variant of the vd56g4. This series adds the
+necessary code in the driver to probe and stream from the sensor
+in the correct format, and a new compatible in device tree bindings.
 
-ntfs_rename() takes old_ni->mrec_lock and old_dir_ni->mrec_lock
-before taking new_ni->mrec_lock for an existing target, or
-new_dir_ni->mrec_lock for a cross-directory rename.
-This can deadlock when ntfs_file_fsync() or __ntfs_write_inode() holds
-the target inode, or when ntfs_dir_fsync() holds a child target
-directory, while rename() holds the parent directory and waits for the
-target.
+This series also fixes some issues I encountered while developing.
 
-Fix this by locking the existing target inode before taking any parent
-directory mrec_lock. For cross-directory renames where the target parent
-is a descendant of the source parent, lock the target parent before the
-source parent so the directory order matches the child-to-parent order used
-by ntfs_file_fsync(), ntfs_dir_fsync(), and __ntfs_write_inode().
-
-Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Closes: https://lore.kernel.org/all/C4D296F0E9F3D66C+9397ffbc-eb55-44bb-9b3f-5da4809e7955@smail.nju.edu.cn/
-Fixes: af0db57d4293 ("ntfs: update inode operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Assisted-by: Codex:gpt-5.5
+Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
 ---
- fs/ntfs/namei.c | 60 ++++++++++++++++++++++++-------------------------
- 1 file changed, 29 insertions(+), 31 deletions(-)
+Changes in v2:
+- Cc stable on "Fixes" patches
+- Check mono code is correct in vd55g1_get_fmt_code()
+- Remove VD55G1_MBUS_CODE_IDX_DEF
+- Don't initialize vd55g1_color_version members
+- Indent vd55g1_get_version() one tab left
+- Declare vd55g1_get_version() iterator in for loop
+- Reorder commits to put device tree patch before implementation patch
+- Link to v1: https://patch.msgid.link/20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com
 
-diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-index a19626a135bd..43f5f306a4fc 100644
---- a/fs/ntfs/namei.c
-+++ b/fs/ntfs/namei.c
-@@ -1266,6 +1266,7 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 	struct ntfs_volume *vol = NTFS_SB(sb);
- 	struct ntfs_inode *old_ni, *new_ni = NULL;
- 	struct ntfs_inode *old_dir_ni = NTFS_I(old_dir), *new_dir_ni = NTFS_I(new_dir);
-+	bool new_dir_first = false;
- 
- 	if (NVolShutdown(old_dir_ni->vol))
- 		return -EIO;
-@@ -1301,36 +1302,37 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 	old_inode = old_dentry->d_inode;
- 	new_inode = new_dentry->d_inode;
- 	old_ni = NTFS_I(old_inode);
-+	if (new_inode)
-+		new_ni = NTFS_I(new_inode);
- 
- 	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
- 		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
- 
- 	mutex_lock_nested(&old_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
--	mutex_lock_nested(&old_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
-+	if (new_ni)
-+		mutex_lock_nested(&new_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL_2);
- 
--	if (NInoBeingDeleted(old_ni) || NInoBeingDeleted(old_dir_ni)) {
-+	if (old_dir == new_dir) {
-+		mutex_lock_nested(&old_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
-+	} else if (d_ancestor(old_dentry->d_parent, new_dentry->d_parent)) {
-+		mutex_lock_nested(&new_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
-+		mutex_lock_nested(&old_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT_2);
-+		new_dir_first = true;
-+	} else {
-+		mutex_lock_nested(&old_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
-+		mutex_lock_nested(&new_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT_2);
-+	}
-+
-+	if (NInoBeingDeleted(old_ni) || NInoBeingDeleted(old_dir_ni) ||
-+	    (new_ni && NInoBeingDeleted(new_ni)) ||
-+	    (old_dir != new_dir && NInoBeingDeleted(new_dir_ni))) {
- 		err = -ENOENT;
--		goto unlock_old;
-+		goto err_out;
- 	}
- 
- 	is_dir = S_ISDIR(old_inode->i_mode);
- 
- 	if (new_inode) {
--		new_ni = NTFS_I(new_inode);
--		mutex_lock_nested(&new_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL_2);
--		if (old_dir != new_dir) {
--			mutex_lock_nested(&new_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT_2);
--			if (NInoBeingDeleted(new_dir_ni)) {
--				err = -ENOENT;
--				goto err_out;
--			}
--		}
--
--		if (NInoBeingDeleted(new_ni)) {
--			err = -ENOENT;
--			goto err_out;
--		}
--
- 		if (is_dir) {
- 			struct mft_record *ni_mrec;
- 
-@@ -1348,14 +1350,6 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 		err = ntfs_delete(new_ni, new_dir_ni, uname_new, new_name_len, false);
- 		if (err)
- 			goto err_out;
--	} else {
--		if (old_dir != new_dir) {
--			mutex_lock_nested(&new_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT_2);
--			if (NInoBeingDeleted(new_dir_ni)) {
--				err = -ENOENT;
--				goto err_out;
--			}
--		}
- 	}
- 
- 	err = __ntfs_link(old_ni, new_dir_ni, uname_new, new_name_len);
-@@ -1386,13 +1380,17 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 	inode_inc_iversion(new_dir);
- 
- err_out:
--	if (old_dir != new_dir)
-+	if (old_dir == new_dir) {
-+		mutex_unlock(&old_dir_ni->mrec_lock);
-+	} else if (new_dir_first) {
-+		mutex_unlock(&old_dir_ni->mrec_lock);
- 		mutex_unlock(&new_dir_ni->mrec_lock);
--	if (new_inode)
-+	} else {
-+		mutex_unlock(&new_dir_ni->mrec_lock);
-+		mutex_unlock(&old_dir_ni->mrec_lock);
-+	}
-+	if (new_ni)
- 		mutex_unlock(&new_ni->mrec_lock);
--
--unlock_old:
--	mutex_unlock(&old_dir_ni->mrec_lock);
- 	mutex_unlock(&old_ni->mrec_lock);
- 	if (uname_new)
- 		kmem_cache_free(ntfs_name_cache, uname_new);
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+To: Sylvain Petinot <sylvain.petinot@foss.st.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
 
-base-commit: 1a3746ccbb0a97bed3c06ccde6b880013b1dddc1
--- 
-2.43.0
+---
+Benjamin Mugnier (5):
+      media: i2c: vd55g1: Fix media bus code initialization
+      media: i2c: vd55g1: Remove spurious pad format update on init_state()
+      media: i2c: vd55g1: Fix manual digital gain on color variant
+      media: dt-bindings: vd55g1: Add vd55g4 compatible
+      media: i2c: vd55g1: Add support for vd55g4
+
+ .../devicetree/bindings/media/i2c/st,vd55g1.yaml   |   3 +-
+ drivers/media/i2c/vd55g1.c                         | 160 ++++++++++++++-------
+ 2 files changed, 111 insertions(+), 52 deletions(-)
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260428-vd55g4_and_fixes-97dc23b6f266
+
+Best regards,
+--  
+Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+
