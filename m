@@ -1,190 +1,185 @@
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010027.outbound.protection.outlook.com [40.93.198.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB52438A718;
-	Mon, 29 Jun 2026 11:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782733260; cv=none; b=jOXMVnPEPE+u+ZEXzs8udh3bDE7C0DmmRiMcJ+v0wWuKUqOnIdYK+AuRN5/qO9BeeYI2e+TLFZpNNm5FooCd4wu2TnyQstVXCNsW8DDpwfPRJ3s2/e4xoRmy3obffURJF6G2V9ataGFxPbWK3lY1ZFpGuB/aIM5c+LXA25jjknA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782733260; c=relaxed/simple;
-	bh=bc49tQ62+w9u87Y2vRsQ6BnJrlQPAHPk2VErB+vlkZ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SaTe+fXA07/P7mvKwdQLSS2pR1vu/dIgVEQCQEDg/vFpn7Fg6FbmdS7sIfWO/QXG+pBRkFqwGa36kToeD/CZ0Vf25HCRC7nUzbf2F9n4G9X10KqaTF6jK3OjZLBUfSf2boRF79ixzch6/2/8Idp/dhuO72yt1sN3MvBIi5rjPzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=NuJ+ikbN; arc=none smtp.client-ip=115.124.30.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148093B4EA1;
+	Mon, 29 Jun 2026 11:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782733900; cv=fail; b=jcLFWYEt8BXebXdVOUzDEdeNIsBj3a3GPEly4JaHlSTz4NLm1uTCP6Ynl4qwg2rx9l5bt6XejmMppzij4DmqlGossMEWELBmcjOjYcw+obw4XmTxCKqPPNOofhuKOEhIxiu+1luFH9TCG+aJujaWf1asTOYlh7pWEkpdKKJWvuE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782733900; c=relaxed/simple;
+	bh=96FvdSSDN3FRolfHSmcbTA7ZhVr1EGcEz1sTQG3WuN0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=BuzhPOTcwycKKrBnSKL6g1gYu13X4Qv4BvOHR7C15nkyLfRDmCNWXMapjNFu7dAjIDFBXX9U9RExiJL7ESN4E+8elH1BpBrRXCuGY9hZ3tIoStiBhB8Uukly0hfKR9ORF1fmbW/LwuxdNGZ/aNpkcODsyIW/ZXwBR22e5zLpizY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tWpTrrwJ; arc=fail smtp.client-ip=40.93.198.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="NuJ+ikbN"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1782733255; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=IamwdDSMaD5+IxwQs2MbeKnGNJ8bxCpdX3TG62bS6SM=;
-	b=NuJ+ikbN+TPDKP4Ox+G0yDVLn9HB5Wnz4JZ/B1fzU1iX4pC2GhWK0V7MA8JmfEeoBv9rUet34pghtxYkTUyaqcdI3yXMAiV2QkqxbDo4MDKUGN9WBmxzSCw+DhBwLVm24jECqu2Y/ci549kvVGsm0OGugNqhlvPkA/CY+O2hcXg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=feng.tang@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0X5ss1KF_1782733252;
-Received: from localhost(mailfrom:feng.tang@linux.alibaba.com fp:SMTPD_---0X5ss1KF_1782733252 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 29 Jun 2026 19:40:53 +0800
-Date: Mon, 29 Jun 2026 19:40:52 +0800
-From: Feng Tang <feng.tang@linux.alibaba.com>
-To: Petr Mladek <pmladek@suse.com>
-Cc: Bradley Morgan <include@grrlz.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] panic: use sys_info_with_filter() to avoid
- duplicate backtraces
-Message-ID: <akJZxCTlLcwubqi2@U-2FWC9VHC-2323.local>
-References: <20260625152558.7450-1-include@grrlz.net>
- <20260625152558.7450-5-include@grrlz.net>
- <aj5TNB8cRtMNTtIT@pathway.suse.cz>
- <aj5tFiwhRqPkAkqU@pathway.suse.cz>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tWpTrrwJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ooAGdF91hUfFJtCaqgsV6f4wlcdeG0Ts5u4cxW8sYLeF/x0i5T1d+80j+g1YHsskgJurdFVdKkwfLm9wGjs/RiDhc08sPvy8bb4SVcbXl3hPK0VZHwZBLiIXD7z7fdD/ktH2yfB0p/xW4BDwWrV7NspSjcY+vfX+tFJs5jMM/drSmuXfkr8/Ir1eTop0qkWkrNgoT9fJrPJ0fGNntnJ/Bn0VsAXMZjYH45uQbz601UPDAzsQacPnw2rLBS2ioUM6eugvr4K1SqAjHq4UVcNC8Hw3I0qnQdMqJCxjHohHp+mOZu4eZdUmc00TmCriPoNONxVp+WbgMUG3zpQYzEAyag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=B3t+ebOpMMIl0e+sC41QYgakyNsbA9ur65Y+UuAt1LA=;
+ b=o0y/lO9Cv+7kyzIHzvEdU8cCWdqRu570LhAleQQ1oKxvy7vVbB9mqzB62KgTjcqXUBNlVeHcJ6mJ2EIfnpl6a4lBSv4NIA8ibYPTNghTZ2GkIG3YTU4fazgvaCauww+dZP/L8fSGWvyjFflx8m+LlA9cOwdqNsIzrAarXVMSOVIPf1OttgCSnoAl+QBjMFXKoC8uGxIn7CbAkpMo4aatWv4QnyHxEBu4Zv/8fdADYshMqNiPRRyMnG/xJy0ehPl3yCPc+l/1fCHPWRJwClWvlhJC7bYuM70xu8BFZ4yoR/sAbbdrZtO1pECo7sQ5k9+Y1PbBlSckaO3KrQRCdDqP2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B3t+ebOpMMIl0e+sC41QYgakyNsbA9ur65Y+UuAt1LA=;
+ b=tWpTrrwJTgl13ftbgWk0YRyNB1auzmto/3p6rG23H90nd0PxbhQQKroncz64bDV/FrBXRxj6iD8cILbuglzuhh5sehsH56MW3Csno+wUhFk9j0uahRe6PxpfWRbQOFvrOJwZz6KrYGJf7wIEhuDTKQB5FWVDY+Wt5ulvI471rro=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB7524.namprd12.prod.outlook.com (2603:10b6:610:146::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 11:51:36 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 11:51:36 +0000
+Message-ID: <b2fa3540-a2cb-4ed6-886c-e1fbe4d8e289@amd.com>
+Date: Mon, 29 Jun 2026 13:51:31 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-fence: Make dma_fence_dedup_array() robust against
+ 0-count input
+To: phasta@kernel.org, Baineng Shou <shoubaineng@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Akash Goel <akash.goel@arm.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260629031346.3875683-1-shoubaineng@gmail.com>
+ <becd29b5-9e40-4104-b6c9-3d91e2ddddff@amd.com>
+ <058f4bb261e408cf17deca9ff7354460675eacbf.camel@mailbox.org>
+ <66344c20-ea97-4dfa-ac42-c9d6e061eb95@amd.com>
+ <7dc78d8ae9903c215ec492ee39b27cc504da8307.camel@mailbox.org>
+ <349ada65-c788-4c5e-9992-0278cf1382dd@amd.com>
+ <9bd4bd923eacca9da25b6b9fda33057455d084c3.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <9bd4bd923eacca9da25b6b9fda33057455d084c3.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1P221CA0029.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:208:2c5::25) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aj5tFiwhRqPkAkqU@pathway.suse.cz>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7524:EE_
+X-MS-Office365-Filtering-Correlation-Id: c43edd55-2878-4f26-bd0a-08ded5d4c5c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|18002099003|22082099003|5023799004|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	J+LYUvz03dzphNW+TxfFlOPhW0aP58OS0lcLmGtx0rsuClGb6qWHe6sdsFa5oSdHUntjxPoYH6uMbe/+Qkx8esSlqASV+mS5cEGGpFpAmpE7Oaz1RbxeGwK0vKmFnmtxzZX06RkZciCxehoO9I3VpmXLFOVmyJsWDhNNpQakccZ4HoTX8kthLIfsT4W2/Ot751kfVpTt3590hyUqSldq33Tr1rmPgThso8c+iNZubnQkLod5wUk+xR5SrgjBWMPTCAvUvqzwWrd0tNAzdoMOl8HMjg7d2C94GPPr/OXRZDDq5If6URMSUdQzLIFu1IaGVhlvy27MwZ7Jc5LtDj5cEnOqa5W17RmRsIvF6i/kvIBc/WTqOI3VZOqUfYVIZ8RG1BeeupcTtnN0n7wuHgJMInJGNqBqMswMLZaDgCDEz5WggNjHf2hokXGSOZPIk42DT8qBslv2bYr8twzBryTZMCu/7cu5q9BQAL9JSA0jj2aXInt2q4zpNbaCqD0z+YaRyIVGoy2vZhN/YL83ydAaLDHiyi9tM1M8QAR/dD1ObZxlyPc5ax1xlsIgkQumxsZQwnN6kTS6JADge/Ta5fG/A5Fr9MOOJfDBgp8g7Ovem2iPAJXty9Qv1I9v9aOGu0HqE8pEwJe2CcMt33GX/UYl7/DaRA8LCtGtyRkuyOshDg4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(5023799004)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NnVyTEpDZTFwT0t0M2tYNG9aZHJIRitzUWIwSlVsOWcxam9taURma3ZpMWJi?=
+ =?utf-8?B?QVIwYzAwcXduM3lIK3NEUVhjdVJaOWo1ajFMdDhPYmg4M2tNWlQzSUQ0dUth?=
+ =?utf-8?B?Z1RGR1Z2aElJdUV4bmJkdW94K2FBN0M0UDlwd1hSdnBMcjVhZjVZNnMrd1JO?=
+ =?utf-8?B?Qzd2Wk9UNnorWmk5aWhvSFl4U1Iyc2s2U0haOVlyMnFYVzVEZi9WYkhhYUZW?=
+ =?utf-8?B?OTN6SzNNa0dpSDRaNVBjOFcyR0dVMVRscHJaanFuYWc0Qk04MkttT3Y1WUI1?=
+ =?utf-8?B?S1NRRGZ5M3BzdzhZVVMrR0QyU3ozQmEyOEQvdlZMQXNZUGlodGNjcWpiZGNT?=
+ =?utf-8?B?ZjA1andSWkovdUtoblpZT2I5WXErV0dRMkoySmIwOWw3QmtaMVR1UmQ2T0NY?=
+ =?utf-8?B?Z0FqOTVHbG1YNVFhWWVhUWVkT2RRTzlLeWRYOG03TUhybDNsQ0k1TFFrODBP?=
+ =?utf-8?B?YWNua2NJN2JkY2hqTjZKaVcwN3VsMkNDMDBFM1J3Sk03RW5vZCt1NVFiS1VT?=
+ =?utf-8?B?bzlyaUxXeHhSQ0JkTnk1dzQyNVRjb0N0KzkrSHdUVFFneHVFZlZ1dEhIVGov?=
+ =?utf-8?B?QVRpelBKWWdSbmZlZnRVR2VPM0N1aytKZHNKT2lIaXo2aStPMHVMNUo5UDhq?=
+ =?utf-8?B?NlZaWFo0MlZ2MHcreTZQMENSakN3cHI4WFhKbkZidklSSmNBSFJNdWw5RWk2?=
+ =?utf-8?B?Q0tSZk9IOHRmblQ2UnpQYlc3STY0QVp6MnFwVHUvZkV1WUZjcmYyNU9xMUQw?=
+ =?utf-8?B?NEF1ZWlmSllpSDE5MDlBTGxaR0ZBOGl6RXNwMmRnN2lZMDgvbFNnUktXaTVK?=
+ =?utf-8?B?T3RhbXFMTnd0SkR0MVpUTmlyVHdOVGRjZWRZYTZQaWx3UUdMMk5ZWExadTNJ?=
+ =?utf-8?B?NFN5bEdGNEpIM2dLZm1EeW1JSUhGNmozSStBRnY4cFVJMXRUbXlOUEszMzlF?=
+ =?utf-8?B?WE5FWW5xUWorRC8xczhkMm0wN1p1VS9lWlhPWGM2eEN3VW50MkFCVnBSY1hS?=
+ =?utf-8?B?eEdjQmZJZTRyUFFnMWx6Q093NkU4VU1Nd2J4T2gyaHl3WWh1N2RqNlBUb0Vj?=
+ =?utf-8?B?YkxuOVJTdVp2NXFsQlBjTHNRS2pNM2N1eCs0eW9sRVJ1VnQ1dEI2dUUyTFh0?=
+ =?utf-8?B?R1ZDRkxjd3Q0M1lqQ2EwSHVsa3grVTg3cVJoTlcvUnk1UlV0SlJrOVo3ajNU?=
+ =?utf-8?B?bW85c0FNVVg1SFZzRjZ4TUdnVVNBbFRkNmVhZGkzWFNMVDVNR2RRcGE2OU1X?=
+ =?utf-8?B?ZUMra041UmtUdkNLcFBkY0FUKy9kclg5QVVsRzFsR3pVdzVPektLdGFQR1hU?=
+ =?utf-8?B?alZsVENOMzhlY2dtZEg4eTlUWE5mUUZJVGIybVhZekw1UGNyWWNhTk02K2JC?=
+ =?utf-8?B?dlNKS0JnREJHYm9CNU80a0tUZEJERCttdG1sL3ZGbEFZUGRMMThvNFY4anhx?=
+ =?utf-8?B?TG4xOEtKTEdnRjQrMkZYd1ZYbHZ5cG9HQS82MWdZUVRlM3VGZjlJaEpkSVVH?=
+ =?utf-8?B?SEFUaHJXSWVNalA2VmpnSjlBU2NoenAvMmlQdTE4ZFUyWHgxYXY3OGpKbWM3?=
+ =?utf-8?B?cFdKbHY2WWZ1R1NrTnZJWXgrSDQzSmZUNWRRS2lFc1huaUl0MnU2bHptUnV3?=
+ =?utf-8?B?M0h0NlAremF5Z3c0U29IWjhTTjRtbmJRQmxleHBUTU5xVytiYWdOUnpyYUVp?=
+ =?utf-8?B?MkNzRUFKSEdlRGUrQjhlbllCc0szbEpKNVZBOUVxQVBxVmlVdVE1SFN3bVdI?=
+ =?utf-8?B?TTgxQWRVbmVTRXowTFBVbG1vOWhQMDFhdFFlK2FzT3RRcGdEZ2NGaXdib0Rp?=
+ =?utf-8?B?c3RuU0x3UGVRTnhRS1NwdGNuTnBtdkhNMVk2ZlpoeFlObUphTW9BelRWUHlz?=
+ =?utf-8?B?UkxGaTZtVU1kemszcEtFTDNjZUZjc2hYeHZpeWFnT2NwbS9jU2xKZGIyTGRj?=
+ =?utf-8?B?cThiMjVzZWZvWE9kRU9qVjNOT2NIVklncVhjUmVrU200dEV4SytlbnRLdEJP?=
+ =?utf-8?B?aEhONFQ1dTF6K083ZkFNU0NEYVdzYzQzMGp0TGNuY2tBakVBM0QvVFczbTdV?=
+ =?utf-8?B?ZVQ0bDRZVXIrWjZlQVlPY1JwQWJrNlVmLzZlZkFrZnhsYk43dCt3MmN3d0Ju?=
+ =?utf-8?B?YXJQVjZFRWdpaGFTQU0rMngyVkQyN05SdkNrQUpqZFFZQjUwTmlVSVc2R0Fy?=
+ =?utf-8?B?WUhLN0hpRC9aOXR2ZnM3YjlkYXIyR2tnZWREWFJBWU9mRk8yR3g2dkR3VWdE?=
+ =?utf-8?B?VHZuaWxyOTBaV3FUVmY5UU9JVEpRT0ZQZ2VDUHQ5V3NZNUJUU2p0NUtxL2x5?=
+ =?utf-8?Q?RKBAPDJqBlP1m0fZcE?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c43edd55-2878-4f26-bd0a-08ded5d4c5c3
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 11:51:36.2187
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FFcSJEZ7e3p+hV+Gjl3OaM0DPX4sLByshjGXAx9TLOejA0FSTy3jljqc7JZV+rI4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7524
 
-On Fri, Jun 26, 2026 at 02:14:14PM +0200, Petr Mladek wrote:
-> On Fri 2026-06-26 12:23:50, Petr Mladek wrote:
-> > On Thu 2026-06-25 15:25:58, Bradley Morgan wrote:
-> > > panic_other_cpus_shutdown() handles SYS_INFO_ALL_BT before stopping the
-> > > other CPUs. Do not ask sys_info() to handle that bit again later in the
-> > > panic path.
-> > > 
-> > > Use sys_info_with_filter() so panic_print=all_bt does not request more
-> > > output after the CPUs are stopped.
-> > > 
-> > > Fixes: a9af76a78760 ("watchdog: add sys_info sysctls to dump sys info on system lockup")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Bradley Morgan <include@grrlz.net>
-> > > ---
-> > >  kernel/panic.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > 
-> > > diff --git a/kernel/panic.c b/kernel/panic.c
-> > > index 213725b612aa..eb842823df61 100644
-> > > --- a/kernel/panic.c
-> > > +++ b/kernel/panic.c
-> > > @@ -680,7 +680,7 @@ void vpanic(const char *fmt, va_list args)
-> > >  	 */
-> > >  	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
-> > >  
-> > > -	sys_info(panic_print);
-> > > +	sys_info_with_filter(panic_print, SYS_INFO_ALL_BT);
-> > 
-> > Hmm, this prevents printing backtraces from all CPUs completely.
-> > But what if they were not printed?
-> > 
-> > They might be printed by:
-> > 
-> > static void panic_other_cpus_shutdown(bool crash_kexec)
-> > {
-> > 	if (panic_print & SYS_INFO_ALL_BT)
-> > 		panic_trigger_all_cpu_backtrace();
-> > 
-> > [...]
-> > }
-> > 
-> > But it checks only "panic_print" variable. It won't do anything
-> > when (panic_print == 0).
-> > 
-> > In this case, we might still want to print the backraces when
-> > SYS_INFO_ALL_BT is set in kernel_si_info.
-> > 
-> > >  	kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
-> > 
-> > Of course, we might fix panic_other_cpus_shutdown() to check also
-> > kernel_si_info.
-> > 
-> > But it all becomes very hairy. We have several levels:
-> > 
-> >    + watchdog-all_bt-specific option, e.g. sysctl_hardlockup_all_cpu_backtrace
-> > 
-> >    + watchdog-specific si_info preferences, e.g. hardlockup_si_mask
-> > 
-> >    + panic-specific si_info: panic_print
-> > 
-> >    + universal fallback for any layer: kernel_si_info
-> > 
-> > Now, we try to check all these variables back and forth to
-> > trigger all backtraces or to avoid triggering them.
-> > And it clearly does not work well and the code is more and more
-> > hairy.
-> > 
-> > I think about another approach. The word "waterfall" comes to my mind.
-> > Instead of checking all the settings back and forth, let's process
-> > each setting one by one and just remember what has been done and
-> > skip this in the next level.
-> > 
-> > All the si_info actions seems to dump a global system state.
-> > So, it would make sense to remember the state in a global variable
-> > even when it might be modified by more CPUs in parallel.
-> > 
-> > I am going to think more about it.
+On 6/29/26 12:16, Philipp Stanner wrote:
+> On Mon, 2026-06-29 at 11:52 +0200, Christian König wrote:
+>> On 6/29/26 11:06, Philipp Stanner wrote:
+>>> On Mon, 2026-06-29 at 10:52 +0200, Christian König wrote:
+>>>> On 6/29/26 10:49, Philipp Stanner wrote:
+>>>>>>
+>>>>>> I will add a CC stable before pushing to drm-misc-fixes.
+>>>>>
+>>>>> No offense intended or taken, but don't the DRM rules say that
+>>>>> things
+>>>>> do not get merged while there are outstanding concerns or
+>>>>> significant
+>>>>> points in review feedback?
+>>>>
+>>>> I haven't seen that before writing the response.
+>>>>
+>>>> I usually go over my mails till the end and wait a couple of
+>>>> hours before pushing anything.
+>>>>
+>>>>> What about my comments?
+>>>>
+>>>> Looks valid to me as well, but I think that is a separate issue.
+>>>
+>>> But if we keep it an integer for now, and if that check is added,
+>>> and
+>>> it most certainly should also catch negative integers, shouldn't
+>>> it?
+>>
+>> Maybe with a WARN_ON(), but not as regular code path.
+>>
+>> The thing is I think we need to backport this fix to stable kernels,
+>> but switching from signed to unsigned is only a minor cleanup when no
+>> real users are currently affected.
 > 
-> I have created a POC using Gemini. I haven't tested it.
-> But it looks acceptable. And the logic seems to be more
-> straightforward.
-> 
-> One drawback is that it requires adding the _reset()
-> call for all sys_info() callers. It is fine in principle
-> but it might complicate back-porting because all changes
-> have to be done in one patch.
-> 
-> But honestly, this is a nice to have fix. Most people could
-> live happily without it.
-> 
-> From 3c66436d9978030845a96bfaedd6b914536e2ac4 Mon Sep 17 00:00:00 2001
-> From: Petr Mladek <pmladek@suse.com>
-> Date: Fri, 26 Jun 2026 13:55:41 +0200
-> Subject: [POC] sys_info: Introduce state-tracking APIs to prevent duplicate
->  backtraces
-> 
-> In watchdog, panic, and hung task detection scenarios, sys_info() can
-> be called multiple times or alongside direct backtrace triggers like
-> trigger_allbutcpu_cpu_backtrace(). This results in identical backtraces
-> being dumped repeatedly from all CPUs, cluttering the kernel log and
-> delaying or obscuring critical debug details.
-> 
-> Introduce a state tracking bitmask and associated helpers:
-> - sys_info_done(mask): Marks specific sys_info bits as already printed.
-> - sys_info_reset(): Resets the tracking state.
-> - sys_info_is_done(mask): Checks if all bits in the mask have been printed.
-> 
-> Update sys_info() to automatically filter out already printed bits
-> using this state. Integrate these APIs with the generic hardlockup
-> and softlockup watchdogs, the PowerPC watchdog, the hung task detector,
-> and the panic core. This ensures that each piece of system information
-> and backtrace output is printed at most once per lockup/panic event,
-> and the state is reset cleanly when a lockup does not trigger a panic.
-> 
-> Races between sys_info() callers are ignored. It should be acceptable
-> because the output from various watchdogs has never been synchronized.
-> And panic() never returns.
-> 
-> Assisted-by: gemini-1.5-flash
-> Signed-off-by: Petr Mladek <pmladek@suse.com>
+> Fine by me.
 
-Yep. There are cases that people want panic on task-hung or sw/hw lockup,
-and this could remove much duplication of sys info dump, thanks!
+Thanks, I updated the commit message a bit and added Fixes and CC stable tags and pushed the result to drm-misc-fixes.
 
-Reviewed-by: Feng Tang <feng.tang@linux.alibaba.com>
+@Baineng it would be cool if you could write a test cases for this as well. E.g. just ~10 line in drivers/dma-buf/st-dma-fence-unwrap.c.
 
-> ---
->  arch/powerpc/kernel/watchdog.c | 13 ++++++++++---
->  include/linux/sys_info.h       |  3 +++
->  kernel/hung_task.c             |  2 ++
->  kernel/panic.c                 |  4 +++-
->  kernel/watchdog.c              | 10 ++++++++--
->  lib/sys_info.c                 | 30 +++++++++++++++++++++++++++++-
->  6 files changed, 55 insertions(+), 7 deletions(-)
+Thanks in advance,
+Christian.
+
+> 
+> P.
+
