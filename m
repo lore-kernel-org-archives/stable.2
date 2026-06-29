@@ -1,167 +1,195 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013040.outbound.protection.outlook.com [40.93.196.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31D2374A02;
-	Mon, 29 Jun 2026 09:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782726732; cv=fail; b=m2jyXfPowfkjjU0Btv8viuffijHaLVy/fkXzYCpeJiLJcNMLCHr6/irhYFtigWp5TWFFA4/5bx3JvvVvYVk4YgOvK0zIRl4AM+yf7m6+9/kL5ytz3UlPz1rAZne4ZS38myiRmkUIFG5niGWkQaf4QIFdUOQNZyxPgzeVtgAggAo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782726732; c=relaxed/simple;
-	bh=SoAnNawoD9OyXT2cAL2Hp1v0//K/vG1P2db8I3p2e/A=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=rAmeLrWE5Xsd9TLvkNYlnHCi1G576gHCbWEwpyAVOH1glZSjFpEssxmckcxrElDUaN8TIkBBUzI6SryKCLWrGHIb52zcusnyvpd/6ajMfQErZWsab2/eZfZPbn5AwhgSjkM1iAt6OKFJ2WN0F0dgN/CbN6R1FOQPmg14hgpIDJI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bPETxYt4; arc=fail smtp.client-ip=40.93.196.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB42D3FE347
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 10:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782728152; cv=none; b=QXjS25MBCzlOnFE40NpApbSY7hk2g5gYnABC/fYc0HkagSqSBG76ivNI99z8lLON8Mznz2Qe6nMDF5ElwaR83+GV1vcIa/FoN8TEHILy8E4bms4YH1eNdUqxM/ix5LdEdJbD9K0CpHfdKA4HcGkL7klUAx2ChAvwYDmeTPB+fDI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782728152; c=relaxed/simple;
+	bh=lQmgQs5IwiG1DL5ek9CXp3Y5TZZWbH9+aAHkY115yL4=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JuJQutC51jXPVA1mvHcHBZN1FsfBHV8hY83AhDVRN2WDqWNkJH0m+/mM/Mp7HLlXSdEB4cWfDrmo6Rg7MOZuilhdZHVPsrIkTt34jJO7N4zcUKi34A9idknI/5wF3PjMptY7uHxKSATLtN4Cek15Einv5RUuqC/OIIf459+432I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LJmwljJb; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=/KKhNtV/; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=sNSU7e0D; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=BpMJ1ntC; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bPETxYt4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rg9XRbBSbftOASUoAhys+pzatDJzjvSbCf7wEFMjDGoM+eyV29JVZe6tMKGyX9FRffR8E+Q7gphC/h2W5q4JICBSydGUnzUhBOKlTdmjF/WeBQ5gO/Cw6OIixNH2Ndanx/wWpiHEyIgAwwXYo/uXwQOkfaTBp1YMaUJDyWjQCUDn0ex6iVQmwLKMYzJ5No47SQ2xXJ1lrajw8UqW+zNDliMOSXOzOzjWF0susSPrptPCTDUTh9Tu5EKy8szmkJWEhDynsjmCYbKCW1LntdIkIViIMkbsNutJQPSi4TKhAhOIxUfmZZP+26gJ0WZP3/lfAZouy8TnG2S3Fk6uIfgXVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ff4+wMCnhJZStZXc1KtF/zH7gL4Z3N7SOuVbLPJ7Hs0=;
- b=V4JLBCPvfRHmvM1ZEg7Vpvm767eom0O0r54l3ZiIlklD/kdqFt0A8SefN4MUKbpZ+FvQ0zivnQoxCGYDrhBjVCrZQt5XxxuPzv9fOEFCCj+Xt/XDIordghCQpM738XZJvW4bsYT1FicasHJ30VmqPru80Hif+Kaxmcy0cP4zLiqQYtwUKGF7sGPE/sydwhQ8EjJFlpglbDf1CmgYvKVz9iaGJIHfF3ljLQ7FhNAHY4FRlGdWfJdzQ9hdF4Vo/jsTmWQjodIIL1aSwkoY8ix5syjwmP0h4A+tE1W6GYULbaP1+vYU2oXi3dc/LvGCbe30VSZMxtJGoVYMhXq1Fab4QA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ff4+wMCnhJZStZXc1KtF/zH7gL4Z3N7SOuVbLPJ7Hs0=;
- b=bPETxYt4xSxxRU/Ufh2PO1L50fRgKKCih6DKQAa0TFlKeKd4y9sh988/Hve15HmdmHJxvZBWOt9VFYzQ1F+Yct0gV7cdZKlhledTJr7eILelT88fI1Y7e7yvebbpdh3TlvdVB+CiL/P12utnw/ZhgDQeRFzG4hI+50Edh3e2SuM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CYYPR12MB8730.namprd12.prod.outlook.com (2603:10b6:930:c1::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 09:52:08 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 09:52:08 +0000
-Message-ID: <349ada65-c788-4c5e-9992-0278cf1382dd@amd.com>
-Date: Mon, 29 Jun 2026 11:52:01 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-fence: Make dma_fence_dedup_array() robust against
- 0-count input
-To: phasta@kernel.org, Baineng Shou <shoubaineng@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Akash Goel <akash.goel@arm.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260629031346.3875683-1-shoubaineng@gmail.com>
- <becd29b5-9e40-4104-b6c9-3d91e2ddddff@amd.com>
- <058f4bb261e408cf17deca9ff7354460675eacbf.camel@mailbox.org>
- <66344c20-ea97-4dfa-ac42-c9d6e061eb95@amd.com>
- <7dc78d8ae9903c215ec492ee39b27cc504da8307.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <7dc78d8ae9903c215ec492ee39b27cc504da8307.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0366.namprd13.prod.outlook.com
- (2603:10b6:208:2c0::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LJmwljJb";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/KKhNtV/";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sNSU7e0D";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BpMJ1ntC"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id CBBE475D7B;
+	Mon, 29 Jun 2026 10:15:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1782728149; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xk5jXTH0rPYDTmpQI6nSdSsvy17M4jYVpe4SU8tiahY=;
+	b=LJmwljJb3pyfb2MfeuBUan7sxJD2En7Mz4/KtzTDbIH3bduYi/r0yAeSYx1jCR5k6z+UUt
+	E7zEW3M+48hsm/5+6u6+aKXEFamnNlLiVWEkvr7Pi+8gCn1uB1xDbe9UopoDiKAW3Sjfiu
+	QxS4F4IYpQWDRx3Kjfa/FRqwNYCFJlw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1782728149;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xk5jXTH0rPYDTmpQI6nSdSsvy17M4jYVpe4SU8tiahY=;
+	b=/KKhNtV/huD1pKcmJ5t6qHg1PVuyFppNCPiFR9DhPpBPpl9+510AZkjTrps3b1xNkqYRbt
+	lbFQ/UFlQdZZ1IBw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=sNSU7e0D;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=BpMJ1ntC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1782728148; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xk5jXTH0rPYDTmpQI6nSdSsvy17M4jYVpe4SU8tiahY=;
+	b=sNSU7e0DPYIsqhI0nnX0d0QInczDzTkoBrBgNuEqtMppTLaji8mobjbHKA7pLkEYJmmrXp
+	ppFCygeGvvYh60MIVSdVQDYssnu8wdJtnMV2mKk121nUPorWMw+7QKWRNFVTBbE9nRTwmv
+	DWY95PzTzr++QCkAHUV6u+/7ZDLWFpg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1782728148;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xk5jXTH0rPYDTmpQI6nSdSsvy17M4jYVpe4SU8tiahY=;
+	b=BpMJ1ntCeLVlOKolhbN8HaUmsGiwB83lBGT4W1uFWU6t2F++hQ0/aA8zwOTtg11WzACXj+
+	QdFIpnfLyKoR1RAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 90F06779A8;
+	Mon, 29 Jun 2026 10:15:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id CcDDIdRFQmo9DAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 29 Jun 2026 10:15:48 +0000
+Date: Mon, 29 Jun 2026 12:15:48 +0200
+Message-ID: <87a4sdr6sr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	kees@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] fix: sound/usb: snd_media_device_create: incorrect media_device_delete on borrowed reference
+In-Reply-To: <20260627040907.60784-1-vulab@iscas.ac.cn>
+References: <20260627040907.60784-1-vulab@iscas.ac.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB8730:EE_
-X-MS-Office365-Filtering-Correlation-Id: 445fa15c-25e2-40d0-ad25-08ded5c41534
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|7416014|4143699003|11063799006|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	54tqqNH+USogJWUkxwKsnzZPdq/Qfuxw4L0yJO9FM8f5k7Ed9gWImoGTc1r0nxjOvLp5m8aPaB051cc2EXZgLDgITw7Mrw1R9U1V5eCYkq0V4eeYU2D1gyNN/451qPJjn+Ov06i5OM6K/rKfkY3x9owg8ysooXAbbbv5K4G1QHYPNA3OuwESQ8Zy07nNB3yGZNfW0idcy0UdqiT658RAIrH6CGD++XRSDvg2wW0spM2JfP0Mi+iLOQgmDVZuuqTCxJ+d2x/TeZJiVndE58nNd0P8P4P4Z5ZhsEsW//chCy/kZmmza0PkIHiXS5oOfO1aWRbv+5Mu7/ZPuLowV2kgOjqTrKxuWFoekEqR8iZs9S10JJ4WxzKy2FLBFHWKV0uFKViJObx7mLKrCWJmOzV5PiT4zm3t0D6GkvsuP5sEiBU90olj/08yPQ+HEv04AGCXPYr7HQ06m+udcpPUYApv8N8kARx2TLoHzVO43bf14wXhaEAvm/wmu7gE2k9inzhyqawJ1YERN2Pl6CzMiGKswpc82pcvqA6zJmAJzFqIUMOPcBN9sV9Fj8OlBb7w5yqrIcQLbncNBLc8shJrdgnNLkPJ6Hn6jJXnNlUJhs2FiT9O3yk4JtTMFCG71aevVfgn44NKUqEZC/Cot9kdB+17LjjEbVpn/K4YUUkg+NrMWHs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(7416014)(4143699003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MVhlbWh5SExWNlNaRGhGREh0MEg2Sjg0V3pMWW0rMkZtSk5Lb0JnbWE5ejBh?=
- =?utf-8?B?VUYvODNkTEVQd05aTk9KSGowV3ZJemhXSThwSTBaQ1ZVdllhWDlDRGFXU2Fm?=
- =?utf-8?B?Ymo4QWRQNlBhVk5HQ2ZTV2Y5dTZ6dE5IaEp2d2dzamZELzNLblJGdm9rYmMx?=
- =?utf-8?B?Y3dYMm11NUNMSExlZGM0Mm40REw1b3laUEw5MWlsMnM4UWFpSTFieVE0UmZ0?=
- =?utf-8?B?YmpCQ0NzR2RucHN0RUhId3AzVGVwcEd4UDRxVWlkRERrUTUvamQxRjVQRFNy?=
- =?utf-8?B?RWtoS1V2QXBDNmQrV3pkeVI5VXYxQ3RHaUtPQ3JMS1JFclNsc2l1NEZTVFZo?=
- =?utf-8?B?TW5TZUpvZkxOUFg3M1NYcXg1Z2VtcjhYYmVLRG5KYXhsTnF0aXV0TmR5WXZX?=
- =?utf-8?B?V2g3MkF3d3Q3MVltUERaTmdXSzRzbHJyejh1d1ZMdjRjYys5OVJDQjVzaVhl?=
- =?utf-8?B?L0E0MXpMQTZnOGc5aS93WGwzMi9lZUNQTHRhY2w3N1hlQUtwc3h0YXpLM3dX?=
- =?utf-8?B?U3lTM2lrWUJkQWx1WjhPcFFNSGVGQkVPbUhuUjRiNWVSSXdod082VWZVV0xw?=
- =?utf-8?B?ZjFFaXdNTUlRZy9sTFZ5VmlQN2tyMi95YUEyMmkwSmtwbElQeUwybVh0czhx?=
- =?utf-8?B?MkJtWTVyNkZHbi82Zm9qa0I0aWplQ2MvYWJOZFhHeDcvOEJFWEVraDBlbXhH?=
- =?utf-8?B?VFM1N0pmK09CeXVPUStHQXh3V2c5OW9hQ0NCaWsxV3hXVEFtV2pOOE5zdTFI?=
- =?utf-8?B?bXN5WlZKVmdZVWRVMnJkdFlKdHVHTUE2c0dpSTZjaHVYQUNiTi9ZSk9QbW5n?=
- =?utf-8?B?LzR6bTVjYklhdzc3SjhIUk5oNEF3ekJrY2pVOEY5dkMyQWlNcmlXNnhQRVNJ?=
- =?utf-8?B?TkFwWkZMMGVhMTJoMGZnZk1sVTJnQVFDem85eFUwSmdiTzY5elF0b1VDUFNh?=
- =?utf-8?B?QU1aUXVDeEhlZFEySnNrNHhZNVhwbDN4VDVaVCtUMHpDdjdXN0lJQjE3eTEw?=
- =?utf-8?B?dlZVVUg3SUN2dmE3WlFOQ0RZbElmWlVBZ0pUMmF3bUduWkovK1RzcWZKVnh2?=
- =?utf-8?B?THlGWGRSb25DMHVBTFRHTHd0VndvM09JYnFqY1pjbzJpRUExQWJJNGFyVTNJ?=
- =?utf-8?B?M05WN1NsZmxLVmdBNHR6bTE5RGMzM2paT1hxS3luN3V0Yit1bHJjM0YzOWh3?=
- =?utf-8?B?TGhLQWRJQU9OVUlSdGVETnhzVHhMcjFKQ1VxZUNpUnZWZ1V0NldPakUxUllZ?=
- =?utf-8?B?QnVLclNrTVFETm56Y1NabTcrZEFSR3Y3REZhdU5obURjOHI1UUNtYnpHelFS?=
- =?utf-8?B?dXVyRXNxcFNFa3pzTjYxYVdJcXNabndZU1pYbllBbCsyWVVNbEhtZVRXdllI?=
- =?utf-8?B?TER5M3lLVlM1emVvbzhQaVphck5hbFJlZ0FVcVo1amtaSi9QL1JQa0RzNkV2?=
- =?utf-8?B?cHM4ME0rWVRmS3NHampyYUI4Sjk4K1hiM3creTVpMjE5amlyd00xVUkzdFJZ?=
- =?utf-8?B?S2kwb3k5QlFzcXRaaGd5RWhyT2pqeFFaTENTam5OUTYyRTJlM1ZGdnJRMmlJ?=
- =?utf-8?B?ampqRnp2MG9IdEYxcUR5ZFU1ZnU3VHZNa2tEUUs1cllveHZVNzMvQmdxSSts?=
- =?utf-8?B?WUppT1oweitvdTZybkdORGR5SzcwSy9QUTJmV1p0dE1BMjNHVWkzeU51ZkJk?=
- =?utf-8?B?akRnZFc1UFEwWnJ6VzI0VFpTc3h0ZHZhMlBwY3Z5dVZjSXZwOW43QS96NXY5?=
- =?utf-8?B?ZlFGdzd2THcycDJLd2E2cnErZUFrWUJvUEw0b1Y3TUYxMVhjMWNYK2luRjhH?=
- =?utf-8?B?NkJBMjFscjdicjdCNjY1UTZKZTBNMW4rSDhHMFpQMDBIaDhkdUhwbzdhWFV3?=
- =?utf-8?B?TU5rZ2hSeUVtTklQNVMwclhlVlV6VVNaSElrUVdsUlloc21iUW4xWTQ3N3o0?=
- =?utf-8?B?dkdtME5DVTQ3WlBpZUpia21LWUlSTXZramdjaXpFSGRIV2JON0JDZE5ZK3Jx?=
- =?utf-8?B?Ty9QNjY2YnBYTEJXZXJKbnZBcklFbnNSbElzWjEwZnBCRjBFNXVhclU1K1F4?=
- =?utf-8?B?Um1hbGxrR2RCaitIenB2eVBlRmNmRXpHTHFtdlR0aFA3b2xScFJ5cVptYmRu?=
- =?utf-8?B?dkdsRGVTNnlEUUxodGJaUlRraU4xVDR4NW9lVGFUOWt3VFZ4dXE0c2JvdkRy?=
- =?utf-8?B?UnN0N2QxN0JjUjBhak9pYkV6b3hVMlZiRmdZTDY2T1BaT0JqSFhEYjMvMjg0?=
- =?utf-8?B?WlVlK2lBWnRDR3l0V1VZbk1qdG5FRHo5VXU1ZThyVElQZWFUSXVjQ3FvaUFD?=
- =?utf-8?Q?KiQVSCjXSVRrTpU7Mq?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 445fa15c-25e2-40d0-ad25-08ded5c41534
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 09:52:08.1698
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yCccjJSRH7X/ts4CJKsrsxUEMCv/LpSEw5mRS0Y9Cq1FNfChoqLDY3Gr94Eu7Taq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8730
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: CBBE475D7B
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 
-On 6/29/26 11:06, Philipp Stanner wrote:
-> On Mon, 2026-06-29 at 10:52 +0200, Christian König wrote:
->> On 6/29/26 10:49, Philipp Stanner wrote:
->>>>
->>>> I will add a CC stable before pushing to drm-misc-fixes.
->>>
->>> No offense intended or taken, but don't the DRM rules say that things
->>> do not get merged while there are outstanding concerns or significant
->>> points in review feedback?
->>
->> I haven't seen that before writing the response.
->>
->> I usually go over my mails till the end and wait a couple of hours before pushing anything.
->>
->>> What about my comments?
->>
->> Looks valid to me as well, but I think that is a separate issue.
+On Sat, 27 Jun 2026 06:09:07 +0200,
+WenTao Liang wrote:
 > 
-> But if we keep it an integer for now, and if that check is added, and
-> it most certainly should also catch negative integers, shouldn't it?
+> In snd_media_device_create(), when chip->media_dev is already set, mdev
+> borrows the reference without incrementing the refcount. On error paths
+> through create_fail, media_device_delete() is called which releases the
+> borrowed reference, corrupting the reference count. Additionally,
+> chip->media_dev is set to NULL, losing the original reference.
+> 
+> Introduce an 'allocated' flag to distinguish between borrowed and
+> self-allocated references, and only call media_device_delete() when the
+> reference was actually acquired by this function invocation.
 
-Maybe with a WARN_ON(), but not as regular code path.
+Does this really happen?  The code in question is after the check by
+media_devnode_is_registered(), and if chip->media_dev has been already
+set, it means that it should have been already registered, hence this
+code path won't hit.
 
-The thing is I think we need to backport this fix to stable kernels, but switching from signed to unsigned is only a minor cleanup when no real users are currently affected.
 
-Christian.
+thanks,
+
+Takashi
+
 
 > 
-> P.
-
+> Cc: stable@vger.kernel.org
+> Fixes: 66354f18fe5f ("media: sound/usb: Use Media Controller API to share media resources")
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+> ---
+>  sound/usb/media.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/sound/usb/media.c b/sound/usb/media.c
+> index b7497d18ee3f..290bd24bf301 100644
+> --- a/sound/usb/media.c
+> +++ b/sound/usb/media.c
+> @@ -255,6 +255,7 @@ int snd_media_device_create(struct snd_usb_audio *chip,
+>  	struct media_device *mdev;
+>  	struct usb_device *usbdev = interface_to_usbdev(iface);
+>  	int ret = 0;
+> +	bool allocated = false;
+>  
+>  	/* usb-audio driver is probed for each usb interface, and
+>  	 * there are multiple interfaces per device. Avoid calling
+> @@ -272,6 +273,7 @@ int snd_media_device_create(struct snd_usb_audio *chip,
+>  
+>  	/* save media device - avoid lookups */
+>  	chip->media_dev = mdev;
+> +	allocated = true;
+>  
+>  snd_mixer_init:
+>  	/* Create media entities for mixer and control dev */
+> @@ -292,9 +294,11 @@ int snd_media_device_create(struct snd_usb_audio *chip,
+>  create_fail:
+>  		if (ret) {
+>  			snd_media_mixer_delete(chip);
+> -			media_device_delete(mdev, KBUILD_MODNAME, THIS_MODULE);
+> -			/* clear saved media_dev */
+> -			chip->media_dev = NULL;
+> +			if (allocated) {
+> +				media_device_delete(mdev, KBUILD_MODNAME, THIS_MODULE);
+> +				/* clear saved media_dev */
+> +				chip->media_dev = NULL;
+> +			}
+>  			dev_err(&usbdev->dev,
+>  				"Couldn't register media device. Error: %d\n",
+>  				ret);
+> -- 
+> 2.39.5 (Apple Git-154)
+> 
