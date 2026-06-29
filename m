@@ -1,146 +1,87 @@
-Received: from out-172.mta1.migadu.com (out-172.mta1.migadu.com [95.215.58.172])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9F83F9278
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 08:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3B12F872;
+	Mon, 29 Jun 2026 09:06:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782723340; cv=none; b=c2Uv0KRlX7ElznSjQKnEUN6Oxhrxf8RRRGy2nrP2B9s1q88aOKBx26Kbqon1YOySvJVZR8pKcxoU59CsGWl5gpGNSuuPmp5qKtQXLkNA59bn15I/3gAn+iF+LNc8nVUXQW01nf4X8ytPg7veMOJmxm3IsJVCOIe1MmAuxk0+6ZQ=
+	t=1782723992; cv=none; b=t9iqBb471c6zuiQZ48/gndPZSzp9WZaq2Qrl/TgvvOQq/c1sprgYsAxWMNyw9sHFo3ebFOdgtprC0PGMWh23QwaAqwHWyvixLHxB+Fn2xGA3us7oqoXATpq69xx9Ff8kkYCKLPuZSzCSKXWIGAMiDSccsPB5+1wlJN2rB5ZcMTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782723340; c=relaxed/simple;
-	bh=koXZVkv+H5aUy7dUnGtXaW5EVAc1bVhhL44/jbs3IwY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=pZH5NU/W/YLc1vkraCdWvJALYNNUOIyh7xAJ5hzWbhWbZInfmjrg66Ru2JEnJZeDJjnHnw3E7ZgbD+Nlvz3eopyvtgMQNyBebo9QZdvAbWq0uVMayf9yPjaMtAMK3p5mVgcqHmSBkiamv2kP8JaikhhLM365ikwAaoWX35dTxBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TXVkzdY4; arc=none smtp.client-ip=95.215.58.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782723992; c=relaxed/simple;
+	bh=+5DbOdCREXrMOWTs8JUDBnSvw6WHxdCc8/FhJoU4pkA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lmQcW3e1T2o5BVf+pqMzwTGuVoJSbH7Yh3ZYXWpOQpOUwdxNSXq/xeqT21MaHXb2yiIENqYLoopoyQTle52Zogmd8b27/psL3KSm9jvjgXMjvxsJpZNdalp6jGQunNJWQAh5umAC5bQ1Hy8uOaCNPR0MX2h2DCbvxeUFyA0tGP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=k6LBd3yF; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TXVkzdY4"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782723324;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="k6LBd3yF"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gpgPZ2Y2Jz9try;
+	Mon, 29 Jun 2026 11:06:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1782723986; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ZeKM9BOzEu5hGJchdfeYskOLG9RiF3XxK5/9qzeUnhM=;
-	b=TXVkzdY4CG/j8CYOc1oXlbULUVWgDOzy0uYtUJAktYZFGAH+JKQZfwKbk1E85RSxTbkFvA
-	cLlNJJT4srV/aO9ozLPGaBUs0rk9b7q8m3XkCY0r4n6hhr6osi/7TRSy42MaKlf0R+AXkc
-	RlVIlX5WdTR3jPzghh9PbQsHbhH4DOQ=
-From: George Guo <dongtai.guo@linux.dev>
-To: Huacai Chen <chenhuacai@kernel.org>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Hengqi Chen <hengqi.chen@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	George Guo <guodongtai@kylinos.cn>,
-	bpf@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
+	bh=+5DbOdCREXrMOWTs8JUDBnSvw6WHxdCc8/FhJoU4pkA=;
+	b=k6LBd3yF3Cnq4MQdQc4I+O4WCdw+y7Noqxao+VzjtYi9OYQ7XW+2HvjGqcRVJHoVhmLcLc
+	s3f/wRe0eJmN96EjhPw1DUomwvvHCZp9E29MDxZJGXjRduvgqpZmDIYGpED0MHzlp28kzq
+	sWzDf/9h6tcOGRsWGi95XWpN/DHtGbuRxSXnOUtWgHmSLUHbth47Y6lCTVQizyutGmTqBZ
+	zzmkABTINM7ROXl2HyKnQeCjpT5/UZ14ebvsqlbd7vW3fJwKCs1y7Q16CANb7SxjrDlZjT
+	C5FMk0+KCbADbCzC5PRtEmUQmFqwwGEJDRkMh/I2fRYCS3JdwRS43uAxcBxtmQ==
+Message-ID: <7dc78d8ae9903c215ec492ee39b27cc504da8307.camel@mailbox.org>
+Subject: Re: [PATCH] dma-fence: Make dma_fence_dedup_array() robust against
+ 0-count input
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+	phasta@kernel.org, Baineng Shou <shoubaineng@gmail.com>, Sumit Semwal
+	 <sumit.semwal@linaro.org>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Akash Goel <akash.goel@arm.com>, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: [PATCH bpf v2] LoongArch: BPF: Fix tail call count pointer offset for arena programs
-Date: Mon, 29 Jun 2026 16:55:11 +0800
-Message-Id: <20260629085511.359546-1-dongtai.guo@linux.dev>
-In-Reply-To: <20260625083212.277417-1-dongtai.guo@linux.dev>
-References: <20260625083212.277417-1-dongtai.guo@linux.dev>
+Date: Mon, 29 Jun 2026 11:06:22 +0200
+In-Reply-To: <66344c20-ea97-4dfa-ac42-c9d6e061eb95@amd.com>
+References: <20260629031346.3875683-1-shoubaineng@gmail.com>
+	 <becd29b5-9e40-4104-b6c9-3d91e2ddddff@amd.com>
+	 <058f4bb261e408cf17deca9ff7354460675eacbf.camel@mailbox.org>
+	 <66344c20-ea97-4dfa-ac42-c9d6e061eb95@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-MBO-RS-META: cfpbhpfazfnp163f3j9gh77ehdtgq5zb
+X-MBO-RS-ID: 2e7c4b9ff8e2908180c
 
-From: George Guo <guodongtai@kylinos.cn>
+On Mon, 2026-06-29 at 10:52 +0200, Christian K=C3=B6nig wrote:
+> On 6/29/26 10:49, Philipp Stanner wrote:
+> > >=20
+> > > I will add a CC stable before pushing to drm-misc-fixes.
+> >=20
+> > No offense intended or taken, but don't the DRM rules say that things
+> > do not get merged while there are outstanding concerns or significant
+> > points in review feedback?
+>=20
+> I haven't seen that before writing the response.
+>=20
+> I usually go over my mails till the end and wait a couple of hours before=
+ pushing anything.
+>=20
+> > What about my comments?
+>=20
+> Looks valid to me as well, but I think that is a separate issue.
 
-The tail call count (TCC) and its pointer occupy the two deepest slots of
-the callee-saved area set up by build_prologue(). An arena program reserves
-one extra word for REG_ARENA (arena_vm_start) right above them:
+But if we keep it an integer for now, and if that check is added, and
+it most certainly should also catch negative integers, shouldn't it?
 
-    ra fp s0 s1 s2 s3 s4 s5      <- 8 words
-    [ REG_ARENA ]                <- only if ctx->arena_vm_start
-    tail_call_cnt
-    tail_call_cnt_ptr            <- loaded on tail call / bpf2bpf call
-
-BPF_TAIL_CALL_CNT_PTR_STACK_OFF() hardcodes the pointer at
-round_up(stack, 16) - 80, which is only correct when REG_ARENA is absent.
-For an arena program the extra word shifts every slot below it down by 8
-bytes, so the macro resolves to the tail_call_cnt slot (the counter value)
-instead of tail_call_cnt_ptr. The JIT then loads the counter value and
-dereferences it as the TCC pointer, corrupting memory or panicking the
-kernel whenever an arena program performs a tail call or a bpf2bpf call.
-
-Replace the macro with a helper that accounts for the REG_ARENA slot,
-mirroring the reservation logic in build_prologue().
-
-Fixes: ef54c517a937 ("LoongArch: BPF: Implement PROBE_MEM32 pseudo instructions")
-Cc: stable@vger.kernel.org
-Signed-off-by: George Guo <guodongtai@kylinos.cn>
----
-v2:
- - Dropped the second patch ("Don't charge an empty prog_array slot to
-   the tail call count"); that off-by-one was fixed independently by
-   commit 0379d10f09bc ("LoongArch: BPF: Fix off-by-one error in tail
-   call"), now in 7.2-rc1. The arena tail call count pointer offset bug
-   addressed here is independent and still unfixed.
- - No code change; reworded the commit message and rebased on 7.2-rc1.
- - v1: https://lore.kernel.org/all/20260625083212.277417-1-dongtai.guo@linux.dev
-
- arch/loongarch/net/bpf_jit.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
-
-diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
-index ad7e28375aa9..5e34e9e3f508 100644
---- a/arch/loongarch/net/bpf_jit.c
-+++ b/arch/loongarch/net/bpf_jit.c
-@@ -25,7 +25,23 @@
- 
- #define REG_TCC		LOONGARCH_GPR_A6
- #define REG_ARENA	LOONGARCH_GPR_S6 /* For storing arena_vm_start */
--#define BPF_TAIL_CALL_CNT_PTR_STACK_OFF(stack) (round_up(stack, 16) - 80)
-+
-+static int tail_call_cnt_ptr_stack_off(struct jit_ctx *ctx)
-+{
-+	/* Ten words are pushed below the BPF stack: ra, fp, s0-s5, and the
-+	 * tail call count plus its pointer, which occupy the two deepest
-+	 * slots of the callee-saved area.
-+	 */
-+	int offset = sizeof(long) * 10;
-+
-+	/* An arena program reserves one extra word above them (REG_ARENA),
-+	 * which pushes the tail call count pointer down by one slot.
-+	 */
-+	if (ctx->arena_vm_start)
-+		offset += sizeof(long);
-+
-+	return round_up(ctx->stack_size, 16) - offset;
-+}
- 
- static const int regmap[] = {
- 	/* return value from in-kernel function, and exit value for eBPF program */
-@@ -291,7 +307,7 @@ bool bpf_jit_supports_far_kfunc_call(void)
- static int emit_bpf_tail_call(struct jit_ctx *ctx, int insn)
- {
- 	int off, tc_ninsn = 0;
--	int tcc_ptr_off = BPF_TAIL_CALL_CNT_PTR_STACK_OFF(ctx->stack_size);
-+	int tcc_ptr_off = tail_call_cnt_ptr_stack_off(ctx);
- 	u8 a1 = LOONGARCH_GPR_A1;
- 	u8 a2 = LOONGARCH_GPR_A2;
- 	u8 t1 = LOONGARCH_GPR_T1;
-@@ -1181,7 +1197,7 @@ static int build_insn(const struct bpf_insn *insn, struct jit_ctx *ctx, bool ext
- 			return ret;
- 
- 		if (insn->src_reg == BPF_PSEUDO_CALL) {
--			tcc_ptr_off = BPF_TAIL_CALL_CNT_PTR_STACK_OFF(ctx->stack_size);
-+			tcc_ptr_off = tail_call_cnt_ptr_stack_off(ctx);
- 			emit_insn(ctx, ldd, REG_TCC, LOONGARCH_GPR_SP, tcc_ptr_off);
- 		}
- 
--- 
-2.25.1
-
+P.
