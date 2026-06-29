@@ -1,123 +1,196 @@
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010029.outbound.protection.outlook.com [52.101.56.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7593F823F;
-	Mon, 29 Jun 2026 08:51:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782723121; cv=none; b=gRFUPF1j4gqN5RtjmVv9wVKLQCMmzFG5U+ABB2oVqFgf+jrjUbuoQQCoYn21mbzJHWHm5kCB6Fnt72W4KY7BIyL0XdWmKkwNO50sj71wO7w59wVx7fzHnz3ErK7fRHZlRH5byY5m/c2VQLUo1bM5+HqRS0NU8lKYnBXulSTFKIs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782723121; c=relaxed/simple;
-	bh=KBbwYRYPW0GMqgyqxF9nRWGH7Tc+vo/MfqUayDiJGBA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GZaiW+Papy0C/pu63Z/4V/9J4rfR08POA73KC2tUVbOY0X27hHq6Jutwdga+QhD4Nh5ltZv+B9GOH0GCdXqlp7ZsSVychEnCLr/xcGUG5UxlDytLcOctvLf0sDpSW84wjbOhekCEMhs1Em/ehLrDsw5vfgBM/XtIf1FY4t2g51g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=OG609C4Q; arc=none smtp.client-ip=18.194.254.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2453A3EA95A;
+	Mon, 29 Jun 2026 08:52:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782723180; cv=fail; b=YWWZ7BwnZl2ZFbY3k4AarJmFx5Kt2IDO8uWzfiOmJ7U+F7JN+9kPlWhQ+EqXR1OWzQ7OE1EJqKbrMZE7sJ1cvNirbe8zoYurrRKmPKnS56Way3KW4+FSUL114/rS9CC6zGDpOiplVcF/fGJd7JCKqBMNF0QMPlNmu3kTOnw15FA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782723180; c=relaxed/simple;
+	bh=SymsYOiCBeJQu6rpAjB/EbclCuMDAAJfzQv3xLpkXxA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=U71IbUNBZvEm086Vh73zaIOBY2qVSFmaqMBnLVjwhwxda0hbb+3EYB+sRCuKgF/Y1pF9+W7ceZot1R1b2emrwx1iAQGosGWhf1XYKX3cvH1XAIPZgai3R1aTj/Os6v4AYNp5Fo9mbjYsgk9Xsm2rHiVkjvDOWdRzMqbDwW6hZE0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Q986DCiu; arc=fail smtp.client-ip=52.101.56.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="OG609C4Q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1782723076;
-	bh=GPlWodIq++298AjwM0SiZYMKvCA7hqnNN+2a2GtbAvA=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=OG609C4QtKEu8VeKw0c/Vc1cTZbiXR0ll/gqt/3Pw8n8Wu9APT3Re13Q1A8x5AJv8
-	 GOIzPB9mD8w/fPTW69toz0N1MB25Nv4SD4Nj21JPJAoRtsT+KrKTKAX6z2XoKZT0Zf
-	 PbnG4uuXzqD0MvHu4T4FJ6EigubmIbvRTG+ONRhE=
-X-QQ-mid: zesmtpgz6t1782723056t15444658
-X-QQ-Originating-IP: HKqs9Lg2tlHObXLTPbb2GpE5viamZAU0Zt2hPPRyweU=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 29 Jun 2026 16:50:55 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2402098009740855058
-EX-QQ-RecipientCnt: 11
-From: raoxu <raoxu@uniontech.com>
-To: tsbogend@alpha.franken.de
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-mips@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: sgi: ioc3-eth: unregister netdev before freeing DMA rings
-Date: Mon, 29 Jun 2026 16:50:53 +0800
-Message-ID: <40CD736C4911C181+20260629085053.964383-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Q986DCiu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PjWlq+No56JGLXdo+Dj8AJu5wH+FIBnE5j0XO3gTe01l4962J7vMYJYfRtcDtje3IzbGoRj/Qg1MNihaFxZf17b/iJXBGXcpzM4iR2TDUTkC9MveJRW0RkrQY5g7jJn2CZEFVmuqIIdDEmoSqWFukO5ZazmV9eDtA7fT1MgGVezq3V9qNUiKTkfqT+WaVJ7yC3iH+gcWUXPw45TSFUu2Iq7WLnMPYYaCyG3pa55Me6RWd0lK7CKyZPqg3PfIZGaYPf4ow7Tb9f0Gt7G0sxy9i/gm8cWGuUvTFevO5DRJqikN62MV4Sa2kyxQcUwkf81UbRx2D/MtAI7NWNYmt2ev4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UsOE0Jid2xVVKv1FP3ap2jWQIZIli/rD1TuUM2XSHt8=;
+ b=L+jUbSVaj6guo9WASfVAHJxzompNKlf/4mYGGAwP7oN0B0blTujDp7Jwmt+mPJ8jDNYqseKzNUwiBWE/YBqaR6WKpdMeeYR7n8k5tgE0vtHRhiIWx68A5RZZ289KeGKa6J10k9wBd08U7aDPOSnLbgNZqlW1sK3brU2R5ztUaejnzN7XcXnOHDQdVRbuU/DeHDIlzVGHwCJQ5cPb4Is8NCtvSGL26Dzyq9+XE+S4WdKnBzQOryuVph/fvCg51s1kimdJ4e3aayYTVWd6RNEoy3d0dA4OLrQPTaTJuMo2s/+KNSt6ZP9o8yMS/kK090JPesMaFeXNyIjjDaZEf06zVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UsOE0Jid2xVVKv1FP3ap2jWQIZIli/rD1TuUM2XSHt8=;
+ b=Q986DCiun9t6zONn5NXa4YfK8kiAEhzKkajPrQFiSK7wybpiQnlFUn6EP3GlDaSeMvOlzjBeZyknbqJQZ2NXdjm7JUr9guHMKovm6QEDBeyee+m4rX+LHrrAt9UlBcDUE4dMGa887AynnqCIpxHmu+Z7n5WbpBxcjbPMp6JplGo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB7643.namprd12.prod.outlook.com (2603:10b6:610:152::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 08:52:55 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 08:52:55 +0000
+Message-ID: <66344c20-ea97-4dfa-ac42-c9d6e061eb95@amd.com>
+Date: Mon, 29 Jun 2026 10:52:50 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-fence: Make dma_fence_dedup_array() robust against
+ 0-count input
+To: phasta@kernel.org, Baineng Shou <shoubaineng@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Akash Goel <akash.goel@arm.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260629031346.3875683-1-shoubaineng@gmail.com>
+ <becd29b5-9e40-4104-b6c9-3d91e2ddddff@amd.com>
+ <058f4bb261e408cf17deca9ff7354460675eacbf.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <058f4bb261e408cf17deca9ff7354460675eacbf.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0136.namprd13.prod.outlook.com
+ (2603:10b6:208:2bb::21) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: OGRTx1KypL8CZphGXTz5mxS25mjt2eoksqlynM1tgSUjzdKQg+oWhJAV
-	aVO7tsiIqQb7OCNyk2jGxS03j7G9AM+HvqvkXMX64d3RFQy1+MNIFLDiOmy5bMoLBvoUP1y
-	sHvQaz/JaP44OVKHw7DU10awJ6li5TRUjIwGR4ZuRD/pY0DzihhKupZQXhSKjpsG7RwlC1e
-	3sgB1Mc+j1kLT+0H8s/rN0SrAY7ADyCr9EZ6/NA15Gvx2T6uOpHOs/qhMYZlQ8hXRk53k4C
-	8aHVXzBs+AX4JfAk1Sh/RUjl+9EeOLjy7rLKmqhevsNBDiLNwlxfIkpz2RTupEmodYHRHZF
-	RvBnT0c7h0LyBJAeY1Z9TG/uNjorfbpYFjwBdQhTTI7D+Fj8ZqTIbUkb2bCRfDRvLnFDb5J
-	+Oji7vdzd2558B/925Ensm6y3mHyte6YJs3ldips64EbwO3PIxErtWR6PY5l02bwPk1Ggu2
-	fg46VC3kPLKGq5XT/kjGh7xtLmly9KR0HowjeWvxohj/VzKDwZ1bjm00KUrKyu/7N5ZsrBS
-	VUSlWIMD0pa8E+Ye9qx2iBStIgQjcpsxe1v6V0nV8s5SwOM674nLvRoWnpzYvLHep1W8AIk
-	fsFv6dCyyPT0uKVjwc9OU2tHPxmabJ7b8dGLOMQkrniF5biYjsY8iekvRbJm5AT4+kpE5Ic
-	XMkPwPfOrrqGREYSUbuI8KdEpRG7KVl2YXvnkNy41k3p9bKSFIKwyUZyUIth43Eo+0fsIjN
-	PQxGU0luSpoLW2Pt60tJkgXFDkP6PfWiGjuqeAlOa6LqwYPPvB/eKgUf9sF2UHzg4/QRVgC
-	rqdIPdvsMkl8UczqZZoAD3VDpCZFc0Xy8tw/Bgtn58qee7ieYC5OgwGZwCiivIUQMQZcbTZ
-	WqMA9r1F/S8aQiEciou3sSB5baqFwRUQKTrMoZJ1h9ZIjcNvQBQk0DlOCfoxT2MGnYxqsSV
-	sRqsz6rEVQZHgr1q2IiXqfh6Qlou1vAusyxtUfudY+/62klR6Au6peSNMARsTnCA8t1Ck3s
-	zrCcc5IJCmyqcR1NcqoV/2lobDNA2UlZKvmYxfFNNZjRlFV0G8
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7643:EE_
+X-MS-Office365-Filtering-Correlation-Id: c33b3c85-a4ed-4642-3e6f-08ded5bbcf71
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|7416014|6133799003|3023799007|22082099003|18002099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	3vBAu1JrT5D+9xMyUcsQB550w6GpZv79uqXBNiRW5sNAiRXpYaELyfSR0v3xwvh3LlfpCgJCwYpN89IG09XwpiSil4paLT5tE4LR2r3sskn0B39LuwUWl6yjIvrTMce6UEr+gdJX02NYPNJN380xcR9yhK8iIgqVyD4szRidaXO5fsZQ9LMHo7xs0OKIXb4SfWnFBkUuMZQQ+LNgy4kclbSUkFwKF/Oj54hsFiXyeQ4YaxVZtZTbnNpI2Njmr5t+VBJbC3pQeS97YkdkBoOCRbljaxqg2g8414aoFHpGl0rb24xADzTMR1r+LMAKEPSMrl7pdMdkR7Q1D4vBysPrKJLIjtiTdpAoQ6+XZ8Q2JXdaOJSkn0GKAbU9sOjxObImXC/ZSthIJR83MOKn/6Gwd68hesyzcx6i1wYAWR4hHYg8BjYM8eXsIQCb5KLmmCkWlVueYOmIqbH0Gzq+zmWI6oZLk6gN/J8hrkS7IVtO6xajNaW9pkLBTG+/cTEoe2bhFLgl+tScBHLFHAhGsuUJlx1JV4BAqlqdIJmmwRAECLnQvhJ+uIPBP2zb0+PBIbO/M+NBP5QKEAwrgwierkxM+Bg69W/MVzF16frkDFVQ14UUCFErvh+bg2anAhg8jXlzZyBeN5PkqC/c/rGMLn4PxhKxJN1QY7RBc9hmiyyhxTA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(6133799003)(3023799007)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?b1o3NFk1Slg1WUs2VGJMUGFpRHd3Yys2L1NHVnlWN2ZSZ1BBOVZmTGRYKzBa?=
+ =?utf-8?B?S0NIS20rSHcrY3lkeEV0eWVuRmo1bTdTWFNnSHRoWUxKQUhrd3NHZGVhaTRV?=
+ =?utf-8?B?WmNpWDUwajNhU0ZIYjd2QVM2bU05YmxLYW1xc1BXTXRsdjNLNjU2RDB5VEho?=
+ =?utf-8?B?VGpvQThVSWtpZzNOMnNRWThydDFzS2NFNC9nem9XMkhjNXlkWXUza3puS0wy?=
+ =?utf-8?B?VWRnTEIvcVRIc1gwZmZySW9qQUQ0a2UrT2hOVThQWnJqNmtzNVRvYkc2NDBl?=
+ =?utf-8?B?VXNuMlpjMG8rOXNsNEswUXZvL0IwbWRFdGRnM0FmeTBNWFkyV0NnN3ZmTURl?=
+ =?utf-8?B?Vi9jcUsyUFBidFFyNlZIUDZSZktYZVVRcnFZTEFjdXgxKy9kcVVGQ1UrNTB1?=
+ =?utf-8?B?ZTRjc2R4Z0VZMUt5Ymoza2Y5MEdJTDNGd25wM3hnTXpRcXBKeFpvQS9IS1Ar?=
+ =?utf-8?B?UFJ2aVR0Zy8vWG9xOVJZOW1wS051QkdWWEIzWlhOMU14aytNOEYyc3hCUjU4?=
+ =?utf-8?B?aXlyRVhRV1RoNnpSNFhBL0RCKzIyMmZOVjBaVHdEbHp1L1JOZy85UzQweTJp?=
+ =?utf-8?B?bmhZRjYwdm4rYmdOc0lYWXpiNXJYdERtWS9TeFRzMG40WDNoNmJUSjZoQmxX?=
+ =?utf-8?B?enJhZldKZlZLaHdEVlF4ZGR1RGVlTVlwTEw0UW1tMXNpTTI2clNnTGFkemRi?=
+ =?utf-8?B?NTl0Ylk2bW5taTFudFJNbHN2aEQ3R2M5UzFVd016R3hJcTc1bEFDblk1QVBS?=
+ =?utf-8?B?d09CeVczbDJKdmNhR0t0cVdjd093WkxMVXRhTVpVbnpxTC9hTkhBYjdBQ2pa?=
+ =?utf-8?B?dDU4MGc3NDhNckp3VG9uSmpoRDNBOU9TdXk4U2x4dzMvb3A0cjZSVVFOUHpm?=
+ =?utf-8?B?YmRkSkc0TE5ZUzZPaThYWDJnaS9mSkdaYmczd2lHM21McU9Fd0c1Y1NBQUYv?=
+ =?utf-8?B?dXcwSHVzNmhpVlZzdXJtakYxNzdvNzJHMzNRU29YaFc1V3FrZFJFeUxJanBQ?=
+ =?utf-8?B?dDU5YVlwT3lEZFB1SEd1YjltRjQvWFFNTndSY3A5Y0t4OCt5aWtpa3VRZFg3?=
+ =?utf-8?B?SERNa1daQmJ0aVBWYkUrR05oUURKTFgrYTJybGZyZUd1UUFjbU5rSmdEUDRm?=
+ =?utf-8?B?NGxCNnVwdVAwMFRVb1JQbksyZG5jZmFiSmhXdmFma0w1ekVWUWZJMUNQaTRR?=
+ =?utf-8?B?NVFwZzRCRzF0bDJzTFp0Y0pjSEVPSUtLOUoxUW1CTlRleWxvRzhCaUxyb2U2?=
+ =?utf-8?B?eHdQdDVSWmZHNFE3WVVDMzQzbm9iMzJIZUZ6dWJDWjg4b3JjaUNRcldnYzNr?=
+ =?utf-8?B?VG1rUlZ4NlFTdUY5a1ZmcmQzYTdLOGNuWEdGVlIxZWdBYUkvMnhuR01BRHhP?=
+ =?utf-8?B?aytlYzNOTWprZTVIanBRSG4yMnVrVy9wVFluQll3Vms5bnFTWk1sM3dIVy9T?=
+ =?utf-8?B?RkNoK2RBMkErVENIWGpYU3VqN0MzZW9hUkphbS94b2FtRC9oYjZiRUVHMTlp?=
+ =?utf-8?B?YkFWWENTcmhXTkJ0eWVseitWKzdGLzVxT3hsdEU4cWJpOWdtREpZa3MrZldo?=
+ =?utf-8?B?NGdpSWJxbUdHWGRCRHNLeE1rSzNzWHllMnRRYXhUTko4NGJPYThrOEsxaGkw?=
+ =?utf-8?B?emd4dDBmSEkvYTZmelI2TEpGMGVMZjJRSldORGtVb1VETTRVU0JSYTJYV0Mv?=
+ =?utf-8?B?aVRtTmcrRWk1UVlRYlFsNWtBbHg1bElLTWF5Zk1OUllBZjAwd3RiZlBoV1Y2?=
+ =?utf-8?B?bWlzZXVLYUh5TW5GN0tFMER4djdLRzBGNkFQcnovMEE2VkV2TXVCbDI0SW5r?=
+ =?utf-8?B?bkhoUE83UStLT0RwR1VYSnp0TjN5akkzVHd2NlF4U2VZWWtEOVd6ei9lZWIr?=
+ =?utf-8?B?OUc5Vi8xMUdvL1oxV2F5aEMrNkNGV2ZYaDZBald4bGk5cVZZMm44ZUEwMk15?=
+ =?utf-8?B?a1dhMVZUSFUyY2V4ekI1SzVCN0xCZW9qQm9QdmppbGsrNmZWYXdZaG1ySDJZ?=
+ =?utf-8?B?VnhSU1cwMWZ5VkN0VEhZbDZyeWpIMHgyQ2lBNHVUd3dGQkFnS1lNMitaaDc0?=
+ =?utf-8?B?Wm4zODUvMjNCNGIxSmpXL1ppQWFPUVpEL3Q0bnIrSHFWbUlEakhKL01ONzlP?=
+ =?utf-8?B?SDBEaHB2d3JHanBiOVQrQXRjWHFVbk5TQ3ZLc25xVlF5b2dwNXpCTzFVWnc4?=
+ =?utf-8?B?cDEyTEIwNzIzM3QxV2pubGRWYzhHMTlnR0FrL2VJa1YveFpJSm1yd3RXSXNa?=
+ =?utf-8?B?WHppSkVYRVl2cmhLOXRnaHpsTys4QWhDdDl6alZyckJiYXVsSzZlUTZKNFU3?=
+ =?utf-8?Q?EioKJmLY2JiN1q597J?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c33b3c85-a4ed-4642-3e6f-08ded5bbcf71
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 08:52:55.0971
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: j1dwGA0DMu5rFL1gVvtr4MKz1qKjJUcmKaqNoVd/vcPpS2+E2igj55yWcsw3005B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7643
 
-From: Xu Rao <raoxu@uniontech.com>
+On 6/29/26 10:49, Philipp Stanner wrote:
+> On Mon, 2026-06-29 at 10:45 +0200, Christian König wrote:
+>> On 6/29/26 05:13, Baineng Shou wrote:
+>>> dma_fence_dedup_array() returns 1 when called with num_fences == 0:
+>>> the for-loop body never executes, j stays at 0, and the final
+>>> `return ++j` yields 1. This contradicts both the kernel-doc ("Return:
+>>> Number of unique fences remaining in the array") and the natural
+>>> expectation that 0 input gives 0 output.
+>>
+>> Good catch.
+>>
+>>>
+>>> All in-tree callers currently filter num_fences == 0 before invoking
+>>> this helper (__dma_fence_unwrap_merge() bails out via the
+>>> `if (count == 0 || count == 1)` fast path; amdgpu_userq_wait_*()
+>>> cannot reach the dedup call with a zero local count because the
+>>> amdgpu_userq_wait_add_fence() helper guarantees num_fences stays in
+>>> [0, wait_info->num_fences], and wait_info->num_fences > 0 is enforced
+>>> at the ioctl entry).
+>>
+>> That's not correct, wait_info->num_fences is just the maximum amount of fences we return.
+>>
+>> It is perfectly possible that amdgpu never finds any fences to add to the array.
+>>
+>>>
+>>> However, dma_fence_dedup_array() is EXPORT_SYMBOL_GPL, so any future
+>>> caller that forgets to pre-filter the zero case will get a misleading
+>>> return value of 1. Depending on how that caller uses the result, it
+>>> could dereference an uninitialized fence slot in the array, since the
+>>> caller's array may have been allocated but not yet populated.
+>>>
+>>> Make the contract match the documentation by returning 0 early. This
+>>> also skips an unnecessary sort() call on an empty array.
+>>>
+>>> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+>>
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>
+>> I will add a CC stable before pushing to drm-misc-fixes.
+> 
+> No offense intended or taken, but don't the DRM rules say that things
+> do not get merged while there are outstanding concerns or significant
+> points in review feedback?
 
-ioc3eth_remove() frees the coherent RX and TX descriptor rings before
-unregistering the netdev. If the interface is running,
-unregister_netdev() invokes ioc3_close() through ndo_stop.
+I haven't seen that before writing the response.
 
-ioc3_close() stops the device and then calls ioc3_free_rx_bufs() and
-ioc3_clean_tx_ring(). Both cleanup functions access descriptors in the
-rings, so the current ordering causes CPU accesses to freed coherent
-memory. Until ioc3_stop() disables RX and TX DMA, the device may also
-continue using the freed ring addresses.
+I usually go over my mails till the end and wait a couple of hours before pushing anything.
 
-Unregister the netdev before releasing the rings. This lets the core
-close a running interface and quiesce the device while the rings are
-still valid. Keep the explicit timer deletion because ndo_stop is not
-called when the interface is already down.
+> What about my comments?
 
-Fixes: c7b572747549 ("net: sgi: ioc3-eth: allocate space for desc rings only once")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/net/ethernet/sgi/ioc3-eth.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Looks valid to me as well, but I think that is a separate issue.
 
-diff --git a/drivers/net/ethernet/sgi/ioc3-eth.c b/drivers/net/ethernet/sgi/ioc3-eth.c
-index 261f2d35d579..009f37105eaf 100644
---- a/drivers/net/ethernet/sgi/ioc3-eth.c
-+++ b/drivers/net/ethernet/sgi/ioc3-eth.c
-@@ -967,11 +967,12 @@ static void ioc3eth_remove(struct platform_device *pdev)
- 	struct net_device *dev = platform_get_drvdata(pdev);
- 	struct ioc3_private *ip = netdev_priv(dev);
- 
-+	unregister_netdev(dev);
-+	timer_delete_sync(&ip->ioc3_timer);
-+
- 	dma_free_coherent(ip->dma_dev, RX_RING_SIZE, ip->rxr, ip->rxr_dma);
- 	dma_free_coherent(ip->dma_dev, TX_RING_SIZE + SZ_16K - 1, ip->tx_ring, ip->txr_dma);
- 
--	unregister_netdev(dev);
--	timer_delete_sync(&ip->ioc3_timer);
- 	free_netdev(dev);
- }
- 
--- 
-2.50.1
+If I'm not completely mistaken we should use size_t instead of int for array sizes all around the place in those functions.
+
+Regards,
+Christian.
+
+> 
+> 
+> P.
 
