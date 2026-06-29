@@ -1,164 +1,166 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013033.outbound.protection.outlook.com [40.107.159.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E103636C581;
-	Mon, 29 Jun 2026 10:55:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782730510; cv=fail; b=ZZK7LDGL+4FODp735HTbPN40nMtHqaORWPcuikowl9PqaXoUkk3o2O8b4oInta2tH+sB4aJBEr4e1DX43oagDbGdVIYmaQJg7RH49QUxNZevX4Mberk78XMD5zoLaO4Xyd4tFPi99aWdJWO8p1zFgPA3eAb1bgHAhf67u8qtt9o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782730510; c=relaxed/simple;
-	bh=s1LgoL6uwv/5IqXhZXbEREBzDUkAhDRb6kkOG6uH+a0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=NkO4TeWHUfEzY1byMDuNXPGDYJN2IT50pTlCMIm0L8QDsj6EZOHoIKczo6nay+Zo8sm/HJfH1hqaVXQZEzHAL3lomFeKr/O9uM5010AEfjkhoPEAjHRMoD+fc0QSHPkZbL65VlqgyarL55olR3ALy2fyc+FqXiGzlwseVdLOyvw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=WFWvl6iY; arc=fail smtp.client-ip=40.107.159.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A556366DA5
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 11:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782731070; cv=none; b=ZHl5PAzIZCXOmlmroNPmUrBYDB0yH5X9lDYaZNIBih/yT+GRReCEf1iPdabwA7p1kooRg8O5r989hqUBJ+9fUT7A0sJPQQVJ1PcTMMLNk4KA4NM6WbvVUxCoWChLKDV3He7u5yEbArpPKrEkO2c1qQ1OwvQvzwdL3L/Qk6rtYaQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782731070; c=relaxed/simple;
+	bh=WnWyCT69qqAeBtcSs5TAxdDrYRVZzP3DQEXySulJOog=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sGDLovXq390VylWAMr0MTumQfg3XbFEpYG/7nC0Z8pt1/wIT3HCmMfFcKzzL671KKlr8tgx1N64Vavzle3YONWhPDt1GSdADlg5PgCxLVlvwPSILk+NT3naaAl/9D7g8sedNep4uKKoXnZF660UlU4jH4iCgnce47Bis7j6xEzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s7eoRtdY; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="WFWvl6iY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Pc/lCfhGwGasinOmU63NWKc4Rdz9Cw4l+9PeECFGb8YOFZCK7leBsjPeoYq/WAA0wQLwR/tnZrAbqSusOSqyT3NR8GzxavdanMML0SGeBYNNR/zjW3oGIOmxAIyzc+V3Nbn8ywZZPnWvRwzdYDjeSH75xqYvx95GdDdet8eyVVpl7PlJHqFf2ydnNFdJ1/beNmS5jxpIaIqpvF3dYNhXi/pHFTl0Bcg3dYWCfFw4rt05MH/pBGYdeD7XNTAc7UNIx5ZDgjMC7INnCKWX/hdp9PXMhz8EAvMOpZwfB3dxc3IQc1FwzXZfjOJMH1iOLw9k5ZQ03bBb3jN5uz0ON4/xuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bYKEFgf1EibGKZoStYZWGhnMgeYNtNC9RcgqM28v0hc=;
- b=L0e6ZirTcxkgW0LX+jxk4qSsHBmrPC8m+J0i+pFZTnXHgmx3MlGRFAVVAG8DMuA80mesmcjsR85m7Ff9GHmUep+OsebRPlGq4o0/9dCHX7s77WgdLrujNDkgL09B6okw17Qncx8JdjTgE19qJIDtFpZELDHZQky0ehjNgWRBZ5lMUXRIsC+UJ/DqjY5wKA9DOTfZKHTPJJtbUJT+ozV1GgyYGvSgpPDikoTPU2+jZaoGP/DHaYGc+DOcvVLOy6o6wr+rSqPmM562QHGJNb2mOMPPo2JJoOa2GM7qZ0FyXh+X6O7hokDOo1cM7RfRyoV0pOqwlVkO1a6vOOMQbK1qmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bYKEFgf1EibGKZoStYZWGhnMgeYNtNC9RcgqM28v0hc=;
- b=WFWvl6iYERtKsGmxSPIwOVkb3bSS7ptZGY7wnq4ln7IyrtJdQI89n24HALi1Ys6A8UtusIO/up+VtXKyiph8GtlVWmuI+0Tls9x7GV0rJSfU4x5WJLHxm7n3YZk+6t/SxfedCR1WAVndAk5ub5NCdrTMTJ9lYJsBmqpm8pIzoHhyBjSMeA65E5tNkQAAVfu8pGvfGvrWlbT1MI+UB2pNQ4OAKf3fCGSquZEdP9cvS07zJRaNxaEQ3/BzFFTyDezGdXSyEtFqSdGvHP7Ne7zKnt7yOJwWw2e64pDwWnW/+KCPhk1eETeqNREkYF/NOH/8TGc32835cQ5T0mvT/7AfmQ==
-Received: from CWLP265CA0498.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:18b::12)
- by DU4PR10MB8513.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:561::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 10:54:58 +0000
-Received: from AM3PEPF0000A78D.eurprd04.prod.outlook.com
- (2603:10a6:400:18b:cafe::80) by CWLP265CA0498.outlook.office365.com
- (2603:10a6:400:18b::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
- 29 Jun 2026 10:54:58 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AM3PEPF0000A78D.mail.protection.outlook.com (10.167.16.116) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 10:54:58 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 29 Jun
- 2026 12:59:41 +0200
-Received: from localhost (10.130.78.67) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 29 Jun
- 2026 12:54:57 +0200
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-Date: Mon, 29 Jun 2026 12:51:48 +0200
-Subject: [PATCH v2 3/5] media: i2c: vd55g1: Fix manual digital gain on
- color variant
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s7eoRtdY"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8478a25f268so357716b3a.2
+        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 04:04:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782731067; x=1783335867; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=b1hHHsDIbbNW2mvKYCvO+OggmhpHSR1woASylmKNhS0=;
+        b=s7eoRtdYDGTktjwslQC8ePmlGxAZpxmktj1BOakey8+so9zoM/HFSHpCjX6yOhAiIH
+         RFFNSMho8hYpoghG4V7/jBNKmwMdfD/pAUd6/beHfqUAzeXHK74MwxVOZw7N0KttR727
+         WKKHVksIPm6UXvKy5xRcZKtvMbDblP2sohsrxnowyek53JiHnIsQQAlrd9Bwl0yM/oQB
+         y/of3jtaulNlaZMxRZqBzsIoUPXjPmeGiZ5fGRtVXw18eDknbQM1cASReB8d7VLQPdAH
+         sCCSlYLx656ta/tDpgbhU4qcwqsGlEGpaR0lp8GuGPOS9H0jDEVoRdAyTI0/FxO0xNAv
+         EjKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782731067; x=1783335867;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=b1hHHsDIbbNW2mvKYCvO+OggmhpHSR1woASylmKNhS0=;
+        b=Bvl+aMWATT0OjKYrw7xakiXgsjes7/MZEE3cO4H08I8J/pa++myjkgFLz4ig4CqTkP
+         1fVuvePws43Fj3weJ90MXNA0BiC5fm+/b3SQdfyvOtSkGqg8Gd5EgkACUhZ8CvvpRaOH
+         +L1YWSoiltvwHkqlVFCUSbddFWafV3yeRKXOKVehKgsgkxdHNEd/jkf/6Tso9zeZySun
+         4LmQ8LV0pOVfe23e+F3ECGvn4cHsVxD3wkieI/oOyfIJ3MahaWGBMrqD1GFSuJR2H0mB
+         h7lPxz3/hRJlIVW2aY4PSGyXNBfO4BY8XDiAWx6Y5D6vYnTFZ212rnzzdS5mYNXKA9+q
+         ESaw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1Jx/BOhDbIU9a9OWminVBfDjD0U9XKB4ceqjgSymJnbBj0YHFCXIpqPyVuxql/rh27ZiIoAU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzwjguhkwZpikMRs62zranqnP8ycqYtTRxTR8i1Its1cviNuL8U
+	hvShjxMdSvOBKa1fs/lu74XSbob8nPKXscPxYyOL66swn7F5UlSGpiSWVW8fYbkB
+X-Gm-Gg: AfdE7cns0N9pYXIPsPOjks7Yy8ALH5ei99NE7e0dot/jvVuEwxFx38bK/76MfUBkCga
+	EgA6/fj5IQ5JSgr5r4sPmWmpvsWBSrv8d83H707ybqgNXCrV9/w//DgMhmhixg4ww4bNjKk5beR
+	FCtAaFUsPZ2zAAhGdPrtBjQq64jSuXVJPIg56iDLMLjc/0ZbQ7GmceaW94ziLI/qpct1kRRBoL4
+	otWb0zgy7+XJTfhMq+tMVqyQNbDgxCgz+XNRMH/TD12qWFQEPo+VSwHEGISE/4auNRbvrVkOagk
+	ZlAEZKl526fVaDtT6CN8RqVmB/GSOPgFOX7Q2/hBsas4jw0f+fvKFd0rwVvKNXiQkogmEzBt7Ph
+	eW9x/0ZbpAnfqBfxvuZA8psHdczPuLFEg70Z93Ci1iQA4GyTuAojzRmnsp3mUzxY8XN0eS/5zYp
+	aRbWjWhHL4DHRUFI+kbPYA7OPWJFI=
+X-Received: by 2002:a05:6a00:12c1:b0:845:4142:b8b7 with SMTP id d2e1a72fcca58-845b3b714bemr15729492b3a.24.1782731067401;
+        Mon, 29 Jun 2026 04:04:27 -0700 (PDT)
+Received: from localhost.localdomain ([112.166.204.241])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-845cdfac944sm5858964b3a.12.2026.06.29.04.04.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jun 2026 04:04:26 -0700 (PDT)
+From: Hojun Choi <ghwns6743@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	Hojun Choi <ghwns6743@gmail.com>,
+	syzbot+9c40ad7c6ed7165e46e8@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: L2CAP: Fix slab-use-after-free in l2cap_disconn_ind
+Date: Mon, 29 Jun 2026 20:05:15 +0900
+Message-ID: <20260629110515.29689-1-ghwns6743@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <6a043270.a00a0220.3890a0.0006.GAE@google.com>
+References: <6a043270.a00a0220.3890a0.0006.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260629-vd55g4_and_fixes-v2-3-ea0a7cf3cd66@foss.st.com>
-References: <20260629-vd55g4_and_fixes-v2-0-ea0a7cf3cd66@foss.st.com>
-In-Reply-To: <20260629-vd55g4_and_fixes-v2-0-ea0a7cf3cd66@foss.st.com>
-To: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, Benjamin Mugnier
-	<benjamin.mugnier@foss.st.com>, <stable@vger.kernel.org>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM3PEPF0000A78D:EE_|DU4PR10MB8513:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b353ef3-25f2-49c5-8996-08ded5ccdca5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|7416014|23010399003|376014|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	J7GjKQU5y+any46l6a1JVEtdl095NcwsyyrDGpK4+Xnq/U93OWCd+C8GotSGn0AdOA5+QuTOvd2Q4Nwzr/aQPNReUXn3zNRcNyvPBLEIKP+ZkptH2/W1RiL6njncQlgOzOwqgTOuDid1v7WeZ9iJ9IRFbgaD3cIZ4YmqZzqjbBGabaly8xapKjh2WJw06TvXQuTxbyuFM53F/ogV2wIs2V02FJeFvMxj8CEuCLl9zfZW/NRLeFs2vkJ72sUYAaGwYjEqkSu577ZnOQg8GadIE9VUbxWP6uW1VHWFeFHhS1O5BaRy4qvUpUvTXkNbbhZhK/2dsJUjvHLiB0YCDCLAHMW4amISKxqsyf2/qJ6OZuh0jqF8D2tbs9NGETFAKn4KnNioZ58NhT9dqOL6SPnMQRLuZ/ANxsi/PFnnkexLcEoKj4rZX6Zvb6YOj14/6WqLJEVOhbkc+PszhJjYZfMhi8cff0XoJsqLWQOLNwK4HNudj2Iw0aF/G4Jock7DPd+0Ym0FAnSzzSwXyyOwBs5tA0CiIurOfWGzzEqAY3xmjBu6LwwtgWf6d2dAVcnKSrpAgmpYXnMpEeWpl3lz10tG+Bdw3BHX6VsEpSRV5xYfb2t2VhEO3ya0slGkG+VzRMDik0VaJ1CrH5TK65Ow6qxURu1MyVblEqajZ6z8qbS3ttq6m3j9euhhv2BqQhJ0WFw5amhnJFWnegak01H1NzAtHQ==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(7416014)(23010399003)(376014)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	WhUANMp8NBqAAl85OMi6XKx39YPEUjHwssW/jSa9wJ/lgQxlqbLJiseB6/EG5x2nevYsT68qOfzJ/nwh92AYCZsafhvEfHbnjb3lUaBB01R0XDxL9wKRn7ySQO5Blrgw+/wvNCcx7Q5o8nwSmENQNoexLOOnsKqhDz+8R8FoYE5WyHwOKmMFeDFh2AvgIjIijVaHhFHT04mIQvsII1OV1NTjssi2RVi8WctkIQPixNffWhUhoQKcl4m8RHLSi2qWCYzmgjsDCyxkcH8EB9leSPrOIeILDEXOucSOuC87owauupgB/vN9Cx7ocJqXkCw6gIX+NrvQAuB1oyFQRy22s3pLJEIbpKnLN2m5FHl1gmKd74z1q01ivgVTFZR0djQQ8aCZEckAF1nN+GGtWGrhKFi+GFjnyEVaKr/yGtbTe2b42IDEDHB2lamaXYmaJxof
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 10:54:58.4134
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b353ef3-25f2-49c5-8996-08ded5ccdca5
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM3PEPF0000A78D.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB8513
+Content-Transfer-Encoding: 8bit
 
-Apply digital gain to all channels, each channel representing a color.
+l2cap_disconn_ind() runs from the hci_conn_timeout() worker without
+hci_dev_lock, and reads conn->disc_reason via hcon->l2cap_data. It races
+the teardown path: hci_conn_failed() frees the l2cap_conn via
+hci_connect_cfm() -> l2cap_conn_del() and only afterwards drains the
+worker via hci_conn_del(), so the worker can read disc_reason after the
+l2cap_conn has been freed:
 
-Cc: stable@vger.kernel.org
-Fixes: e138e7f00042 ("media: i2c: vd55g1: Add support for vd65g4 RGB variant")
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+| BUG: KASAN: slab-use-after-free in l2cap_disconn_ind+0xd7/0xf0
+| Read of size 1 at addr ffff88807ee53278 by task kworker/u9:1/4933
+|  l2cap_disconn_ind net/bluetooth/l2cap_core.c:7430
+|  hci_conn_timeout net/bluetooth/hci_conn.c:646
+
+l2cap_conn_del() is always called under hci_dev_lock(), so hold it while
+dereferencing hcon->l2cap_data and reading disc_reason. A blocking lock
+cannot be used here: hci_conn_del() drains this worker with
+disable_delayed_work_sync() while holding hci_dev_lock(), so the worker
+would deadlock against the drain. Use a trylock; on contention return the
+default HCI_ERROR_REMOTE_USER_TERM, the same reason the !conn path already
+returns.
+
+Fixes: 2950f21acb0f ("Bluetooth: Ask upper layers for HCI disconnect reason")
+Reported-by: syzbot+9c40ad7c6ed7165e46e8@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9c40ad7c6ed7165e46e8
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Hojun Choi <ghwns6743@gmail.com>
 ---
- drivers/media/i2c/vd55g1.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ include/net/bluetooth/hci_core.h |  1 +
+ net/bluetooth/l2cap_core.c       | 24 ++++++++++++++++++++----
+ 2 files changed, 21 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-index 22464fe31562..37d44abd1435 100644
---- a/drivers/media/i2c/vd55g1.c
-+++ b/drivers/media/i2c/vd55g1.c
-@@ -60,7 +60,10 @@
- #define VD55G1_PATGEN_ENABLE				BIT(0)
- #define VD55G1_REG_MANUAL_ANALOG_GAIN			CCI_REG8(0x0501)
- #define VD55G1_REG_MANUAL_COARSE_EXPOSURE		CCI_REG16_LE(0x0502)
--#define VD55G1_REG_MANUAL_DIGITAL_GAIN			CCI_REG16_LE(0x0504)
-+#define VD55G1_REG_MANUAL_DIGITAL_GAIN_CH0		CCI_REG16_LE(0x0504)
-+#define VD55G1_REG_MANUAL_DIGITAL_GAIN_CH1		CCI_REG16_LE(0x0506)
-+#define VD55G1_REG_MANUAL_DIGITAL_GAIN_CH2		CCI_REG16_LE(0x0508)
-+#define VD55G1_REG_MANUAL_DIGITAL_GAIN_CH3		CCI_REG16_LE(0x050a)
- #define VD55G1_REG_APPLIED_COARSE_EXPOSURE		CCI_REG16_LE(0x00e8)
- #define VD55G1_REG_APPLIED_ANALOG_GAIN			CCI_REG16_LE(0x00ea)
- #define VD55G1_REG_APPLIED_DIGITAL_GAIN			CCI_REG16_LE(0x00ec)
-@@ -849,9 +852,16 @@ static int vd55g1_update_expo_cluster(struct vd55g1 *sensor, bool is_auto)
- 		vd55g1_write(sensor, VD55G1_REG_MANUAL_ANALOG_GAIN,
- 			     sensor->again_ctrl->val, &ret);
- 
--	if (!is_auto && sensor->dgain_ctrl->is_new)
--		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN,
-+	if (!is_auto && sensor->dgain_ctrl->is_new) {
-+		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN_CH0,
- 			     sensor->dgain_ctrl->val, &ret);
-+		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN_CH1,
-+			     sensor->dgain_ctrl->val, &ret);
-+		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN_CH2,
-+			     sensor->dgain_ctrl->val, &ret);
-+		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN_CH3,
-+			     sensor->dgain_ctrl->val, &ret);
-+	}
- 
- 	return ret;
+diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
+index aa600fbf9a53..a5d82f9f3871 100644
+--- a/include/net/bluetooth/hci_core.h
++++ b/include/net/bluetooth/hci_core.h
+@@ -1733,6 +1733,7 @@ static inline struct hci_dev *hci_dev_hold(struct hci_dev *d)
  }
-
+ 
+ #define hci_dev_lock(d)		mutex_lock(&d->lock)
++#define hci_dev_trylock(d)	mutex_trylock(&d->lock)
+ #define hci_dev_unlock(d)	mutex_unlock(&d->lock)
+ 
+ #define to_hci_dev(d) container_of(d, struct hci_dev, dev)
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 1fbd52165fb2..1666601ebd1f 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -7498,13 +7498,29 @@ static void l2cap_connect_cfm(struct hci_conn *hcon, u8 status)
+ 
+ int l2cap_disconn_ind(struct hci_conn *hcon)
+ {
+-	struct l2cap_conn *conn = hcon->l2cap_data;
++	struct hci_dev *hdev = hcon->hdev;
++	struct l2cap_conn *conn;
++	u8 reason = HCI_ERROR_REMOTE_USER_TERM;
+ 
+ 	BT_DBG("hcon %p", hcon);
+ 
+-	if (!conn)
+-		return HCI_ERROR_REMOTE_USER_TERM;
+-	return conn->disc_reason;
++	/* l2cap_conn_del() is always called under hci_dev_lock(), so hold
++	 * it while dereferencing hcon->l2cap_data and reading disc_reason
++	 * to serialize against the free. trylock because hci_conn_del()
++	 * drains this worker with disable_delayed_work_sync() under
++	 * hci_dev_lock(), so a blocking lock here would deadlock against
++	 * that drain.
++	 */
++	if (!hci_dev_trylock(hdev))
++		return reason;
++
++	conn = hcon->l2cap_data;
++	if (conn)
++		reason = conn->disc_reason;
++
++	hci_dev_unlock(hdev);
++
++	return reason;
+ }
+ 
+ static void l2cap_disconn_cfm(struct hci_conn *hcon, u8 reason)
 -- 
-2.43.0
+2.54.0
 
