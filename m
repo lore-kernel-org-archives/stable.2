@@ -1,68 +1,68 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD0437D10F
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 19:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA35137FF43
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 19:17:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782760671; cv=none; b=sbQjTdN5El7FJLXEARO6Q4Cv4RAv9PJgrsDSl8bgMkNcHC6E0sPQcfBteJHt5x4HxOAAeDOwear0Dkxg2eruVJr0kzlD47fFBnraxm4jkqgaxTk5PTae4aw/txaSDuSS08IjexChQLAltCvWw0cp2NoPE4OvTwVLT/Q1TMUCrEQ=
+	t=1782760671; cv=none; b=KYN6zUvMFC5XeLro3U+vPU1EzMArbzkm6rhwan3U+qzv9LzBKfi/ZqjHvXTwvp11SstLgTYNN/Zmf8AEZzcNHpyHAxzljtuJDIgpJqvxMUB/7V5GXuk8CO0GxQar7UR45UR/YmTWA3IKjqndaXqq2tJyoQADmGWxB7IiAnb9DCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782760671; c=relaxed/simple;
-	bh=4KDJhI9HttGkLkq+uMNiUP4rjVMYobG2l//58bY3dbQ=;
+	bh=kdblPCOGXaTGl7yZ6R9wu2yUo3KZJ0fjKjmlgmItCI0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KLA74+hixZZwTA4Z5n+/GRhJ4UsvQnOx3JIsrY9QjEZ+/h0wgkITm29T+xNyO3GhDrsPTV+C735IFekmeyMGajRiUMGpeKZ8+WekWBo65F+aL+xQ3LJgf4hptbhG6OeHdq/ydxO40pMVvtpTjfZihnwwg3a0F9jWathELgneZ3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mtTfcl6P; arc=none smtp.client-ip=209.85.128.43
+	 In-Reply-To:To:Cc; b=lDNmQ/I2OEj4gUQ0Q6Bw2lx4zbJNkvA54GykwyLvahPznCH+T7+uLuRw5K02teLn1Z0A01KiplxunnKWWzWtNGYi3gBHkFfjgqiVm8FJRdpt2cTLoguELVTJTukXFi5rGmEhKaWFNXwOWvu3E5iQBNdQwuIQ4aUvV4IZalspKiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qHddGQe6; arc=none smtp.client-ip=209.85.221.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mtTfcl6P"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-493b5d61302so4995645e9.1
-        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 12:17:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qHddGQe6"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-470174001a0so1735953f8f.0
+        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 12:17:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782760668; x=1783365468; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782760669; x=1783365469; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=YFiE5okuY8pUtgILiSrSZWQvOisAuKWMlCokuO74NKY=;
-        b=mtTfcl6PE1uHYxeOLf55qGrgz6+FfG8xpy7EgKGAIO6Ts5OI0SFI8BQoxGXtRMyOkv
-         n8vHTZjRyLsRDC+X0g1oS8jA89R/OjSW0WMvPlCiTCA4SiZBMKsOe6UVXx/wJLxNm1tp
-         +d5MeEWV319ZgIlt4fxJQVdF03uT3MJD8q8AWf0OwSmdAeJJz9iVZKlIxD0DI/XfvPfF
-         No5zl+4M1Csh5mmh5vXGepsu9vK+LC9TM/hv75PC64oFXSlo+NSDp22qNDMtHqXHzq+u
-         CrFMHvSJ86dGtnirBg/NHO2tnd3cUp01Q2GQ5ajHNc/uc0msBIwXP1h2cxv2FGm3ZJph
-         bkLw==
+        bh=lQX+REvUREvT7qbaKL41arO3MGXYR/ufA0BB9H4xgPg=;
+        b=qHddGQe6ySjFZTp2IzE2Zgojg6w5jSMgSVPCMQ59NXTtteFxUMZvsmq4KZURS0+B/k
+         +c2NhJl32UBdFfWtJ3vHL4jYEaBrC/7cE2QXBxSTts6qbo1dD+viP8hdFauF/bHdjgkH
+         sXyOYZMBOfFA82Bgc1mLiRND1YfKNXs37M8226d33XJxfi7o+nS4hnd7dYm6pj/xTJ+T
+         hCeO5eG0UhmoTgjj0yeRH6xUpZDB123bZR/1fMOcK/8mvE+s4XCIsHHMNqH05EEzaq94
+         4vcR38u3gFCOjcuG+Ufy6FfzCjBgWa/3rh9gjVeYG2VY1b7hcP3Npf2ETYfSwrqOEfxn
+         Z7Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782760668; x=1783365468;
+        d=1e100.net; s=20251104; t=1782760669; x=1783365469;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=YFiE5okuY8pUtgILiSrSZWQvOisAuKWMlCokuO74NKY=;
-        b=UunU81Q92sv5X+kRfJZlMNnxnqm/pDOoE6oZ+bSghSvh7WrNa9vhrAKG3YQAky2Tq8
-         bMs1AFPnrJMcDpUQkbBo4skEcSc3+y1oQH/WjmqL2e0TLjn6XUUtmZ4OcXIqfLl8prQ2
-         4cJv8vDQBnZu87hCUF0UNkksPFHLVSyhnQIufr3o5YqjXVBamKULM2eapjMJJkNouPRx
-         997cnIBxBpIMc0zCva2HR8mgCEi0roTxAqnnyLGvaz2sytNh9oZ4YPs4PoVEW9L/XRkz
-         YGENao9SVQba9hu08myQqE8EO1GDxkV0bfXO4qIiXgTO9vP+pOtmT4STn5BqK+A0x9/N
-         ultQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro/Ne5N3Z3gU4mS7JWBVmFCghUHNwykHZ2l7YmhFr7RvmCctyVTo6nuDiEz7UW+4jXNjzI0qNU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwRQaOLvbasN6pHQnULlMVAiOKq9cU+uhKaAOw90hiN4+UnIFPl
-	v1FSEPwr7Lz834PrRthQmE3g7xYZWunhVj5SAVGBZLMh7TtVo1cQ+Q6y
-X-Gm-Gg: AfdE7cl7fGVEOzr5+4qk5bKtwW+VdPR0J7FjB21BqQ6WBbxnTSz85tHOGy4vo/ZnIXn
-	ip4v9sTpi969vfStvf6Tfm3WXoUaU4/v1lBPA6jlfot/QJSc1PVA52kzPX2d1jNAJj8Q4RDJdpp
-	JCv9XfHxg7f9Z+2qd3jyhep2z0E7sWg0C3YXgM/qZU5MN34uO047nz/M7BA4tAnZyjJtBzVUd34
-	fEei9z+ntLsiduxA1oncjMhzvFL8fRvbUdhuaPF2lfmoVax3uPeWsN5IhHSjyDl56RuntJB0YnQ
-	GHEANeKwrvXTsSXA6czVK0FRRRJ9B3ZlLSqfrnK9oiafpZMfWP2mxP4xoOniy9ADXuzMFB2WVjT
-	jmH/cZihHOVwZPhEVVpObSeWrhQjH+AzH+dTrJlIxpdmTmw6xTuZtuafqFZ0pWgTF4jymOr3oUa
-	rlFWtrJAMwFn74q/ZE6MZ8cNGS+4X7ggFg1Vv42idTnWtUMqTE5bYdKM7rDtyGfyiX53w5QPm+x
-	B2xIibGKVInCHF/CwPs6BtYP9O01Zgd1zJ4XqbGAG00AyIa+xUboAGjZQ6E/i6m7j4nKOm6ZJai
-	Ca560J+Tog==
-X-Received: by 2002:a05:6000:2c0c:b0:473:1e79:87e6 with SMTP id ffacd0b85a97d-4754a50ac5emr757082f8f.3.1782760668572;
-        Mon, 29 Jun 2026 12:17:48 -0700 (PDT)
+        bh=lQX+REvUREvT7qbaKL41arO3MGXYR/ufA0BB9H4xgPg=;
+        b=AvWcBZh+Xx6XtX57i+lWGz9nTwmrGEmmW4d+o3zyGhkkv89kEo0XVtq1qKpDbLHA8u
+         18Umk+Fp8EZa3XJ22AYV7l66i25r+cceJ2VvIOb+qas9xWkXzxR3SnUefdMLgo4boN6F
+         4iZ/uWMCGX3yXr59usd/e0sastA7N+3o5M15Xe+CqL/hs6UC6c9qIMp5CbWdi8xB1+30
+         F+g732oyPhpHP1p88YKJKgDE89GZEF7Mit8TIQJjPFrghfsLbbkWfu+bjuJbeoA6ILpc
+         8GRsPPFpxFpRzt62aQ6qEGqvdFFsUQWak16XgZzioAkyVAU0ZOyET//RxHuxyrdANhj4
+         Y+sw==
+X-Forwarded-Encrypted: i=1; AHgh+RqhSUsQUMguiTGP+I31P9fDSB1uTsrSrSJRB0NL7AA8bQ/4cwhdW17TJ0ryy9+S3mnIPH6pox8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYMhxUMAqWUJSxEIHXM8rVdfg8cxVezQVtMFkB323/D/s9hQJj
+	1qo+AzUG6pOH+bQK4qytwcSzdlwPjF1JiNbIke9EWWXh6AobadEsWQ8c
+X-Gm-Gg: AfdE7cl7wKnTGVczEYf9zGYPJ942r84RfiXKIbGtwfRpsRWDM08txz/XyutJMMJ2aHI
+	/O8QdxXU1D9Wk7NN1Pl59HupoHQ7+Kzvuptdw8YSQeym/yns0I7dNhJMCwGag1UVHR6Wcox60+H
+	5LMByovM4OYLz94iw1wKGHJgubB28x2iJpg7WbwYwr+EgPv6/ySlC+3Ph7ZagNVlh0eY0+GdtNX
+	7aOyb213o6jgcoDMBTjMUEVVYtKaCJo+aFoIh2bS5ZoWdGBfvbXCEpfROvOROHUgES30UONOREU
+	YZq88VeRSy58ZSpg7Zj8TFWUxBk1dgcH4YW2gHN3A78T12Zzrnwm9uv55UqPhoIu2eJ5DgP7/tg
+	KXUvuBZmd0ZocQ7q/amHSO73E8keZDtNnrETQcvKQ7L5wuT32sWSIQX7y2TE2mLGzvtcwKuxEtX
+	sDTaO7m8Wa3OXe15y/j1UPL5jU6FpMV07XOkWvMa8t4q8dQO7tbYqoK1yd2lk4MuAT+8SdQPy5h
+	tBCO3yCdCACgIbE/8ye57fOcPeO+OjECPuAEJScZNdFpBIoDREe373MTXoPmQiOdl2dEg2Wzmk4
+	Btc9GK/HmdbKqTPZTxvu
+X-Received: by 2002:a05:6000:460d:b0:474:fa2e:c94f with SMTP id ffacd0b85a97d-475505f3339mr886185f8f.3.1782760669176;
+        Mon, 29 Jun 2026 12:17:49 -0700 (PDT)
 Received: from [192.168.1.187] ([2a02:8308:4092:11f0::f9f])
         by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4756636cdccsm259568f8f.24.2026.06.29.12.17.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 29 Jun 2026 12:17:48 -0700 (PDT)
 From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Mon, 29 Jun 2026 21:17:39 +0200
-Subject: [PATCH 1/3] hwmon: (max1619) add missing 'select REGMAP' to
+Date: Mon, 29 Jun 2026 21:17:40 +0200
+Subject: [PATCH 2/3] hwmon: (ltc2992) add missing 'select REGMAP_I2C' to
  Kconfig
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-add-kconfig-deps-v1-1-8104df929b1a@gmail.com>
+Message-Id: <20260629-add-kconfig-deps-v1-2-8104df929b1a@gmail.com>
 References: <20260629-add-kconfig-deps-v1-0-8104df929b1a@gmail.com>
 In-Reply-To: <20260629-add-kconfig-deps-v1-0-8104df929b1a@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>, Tzung-Bi Shih <tzungbi@kernel.org>, 
@@ -80,19 +80,19 @@ To: Guenter Roeck <linux@roeck-us.net>, Tzung-Bi Shih <tzungbi@kernel.org>,
 Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Joshua Crofts <joshua.crofts1@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782760667; l=793;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782760667; l=857;
  i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
- bh=4KDJhI9HttGkLkq+uMNiUP4rjVMYobG2l//58bY3dbQ=;
- b=4LflAj63BV1nJl1FxlOGiLIMPdzdWeGL6ck6IgzOh4DqZkNcPwufL1uFSFGcJUfft0nUyPYAk
- 5S7Bm/UJ0mqCyi49TFKpPNpgNlWhFq/wG3g4JMzBH439LctlQ8F8nFj
+ bh=kdblPCOGXaTGl7yZ6R9wu2yUo3KZJ0fjKjmlgmItCI0=;
+ b=TwZgEW9tjN1sLAB3jmCcOLBAJiWWCwv8wDRDVLL5laP56OjkvtqfqX9Ql3QNloSuFLYzS1Q4Q
+ BspBuITZz0qCFrWG/dDECus5q6/FIwFwMvjW8xt1WbP77vcVPDxelMm
 X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
  pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-The Kconfig entry for the MAX1619 sensor doesn't contain a
-`select REGMAP` parameter, causing build failures if regmap
+The Kconfig entry for the LTC2992 sensor doesn't contain a
+`select REGMAP_I2C` parameter, causing build failures if regmap
 isn't selected previously during the build process.
 
-Fixes: f8016132ce49 ("hwmon: (max1619) Convert to use regmap")
+Fixes: b0bd407e94b0 ("hwmon: (ltc2992) Add support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 ---
@@ -100,17 +100,17 @@ Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index 5c2d3ff5fce8..a908e22bf166 100644
+index a908e22bf166..cc593fbfa4cc 100644
 --- a/drivers/hwmon/Kconfig
 +++ b/drivers/hwmon/Kconfig
-@@ -1248,6 +1248,7 @@ config SENSORS_MAX16065
- config SENSORS_MAX1619
- 	tristate "Maxim MAX1619 sensor chip"
+@@ -1098,6 +1098,7 @@ config SENSORS_LTC2992
+ 	tristate "Linear Technology LTC2992"
  	depends on I2C
-+	select REGMAP
+ 	depends on GPIOLIB
++	select REGMAP_I2C
  	help
- 	  If you say yes here you get support for MAX1619 sensor chip.
- 
+ 	  If you say yes here you get support for Linear Technology LTC2992
+ 	  I2C System Monitor. The LTC2992 measures current, voltage, and
 
 -- 
 2.54.0
