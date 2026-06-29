@@ -1,158 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CA529430;
-	Mon, 29 Jun 2026 19:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5408E33F8B4;
+	Mon, 29 Jun 2026 20:04:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782762744; cv=none; b=TuZjn4RjV1b8tCNFXqw/OUnYEzHT6/xfrNEUs6lH5vjpUGvLId8Ky7MPmofoUXG1n0fWeOK+KzSNY1o1vpLio8flTs3OJLg1WIAl2Jrhlg9c0NN0uUnMBvtdb6MBjh//bhSuDbJo46alYYGezwaEr0WzU6MmSIQaElaLXPwx4b0=
+	t=1782763492; cv=none; b=qP3Pqt8WLX0TNvPwpNKkagfymVPC8zxYyd6DKowmD3lxhln7wvxaxmh2qulMpLQuiqvZx7IyzRsu0raMqorL0ziT+7jriuyV0PpSScE0Lz4phd3RkQj3rfEmq3u1MuS9h9+olU0FfRHuN1OW4tG5o0s0tSWgtDdtRzADaBu7eRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782762744; c=relaxed/simple;
-	bh=L2gzR1egjYQSUH7Gk+JXE9HC6cSCCnkjvNyRofRmJZI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dPuOOsp0E5POJYGif7OWTcYyd25wUbIN+Eb4CwZH2A4jNMLJhSYcOwpEu84J8WsHkKzx5Wd6iT/BCvZ0r1tPMYzxx3kAkkDFnFKAq1NbUna9CqZR76klUq5MHhjZ7vU2KP3G/4SrhV1Ors4+AZZaqWKbvNQkEtcWnYB/yheT5eI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r06bz4ct; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1782763492; c=relaxed/simple;
+	bh=WaJLFRCMGBs9oDFsFYVBl0jds4Goea18ENlYdd0tXW4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z/0iW47KMWgVkiZqobrBaVW/V0S3h1cr1y54rAOKPbP2a42IXWaOO1nkrYJK9teH8cZ6aDHd6P43BGyyZsZJixkKFUouHGcq45M/RiOabXi2sQJH6b0oI/wbUtvDca7A2pVOKIU39LxQvcxoq+IJWfoXPyriurN0Jj4ajFW0TWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lILhwzeb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r06bz4ct"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B262BC2BCB8;
-	Mon, 29 Jun 2026 19:52:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782762743;
-	bh=L2gzR1egjYQSUH7Gk+JXE9HC6cSCCnkjvNyRofRmJZI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=r06bz4ct329clznzAVMaU4NXPP8bO/89j+vIzotzkII1EOKgC8EjwKQPdXwI7e/GM
-	 FyV/m9nSIOy85U94GxWHsn4tmmi1E84EwXHXuM5rs4WkxXQTn49KT9MRdMVTZINJSr
-	 zABIScIAlS18yyAyPc4t5MQIO9Rhy82GxxNFVIzAQiryqze0bnM9kI3WAokGV1GX0o
-	 rZtIAFimpJCxQbCiequ+a4KcTP1ZFf0JCXnhv+BfLZgre6G1HBcdM7YkbqsGcjJuUU
-	 UTH4PP2u+bfAChVdA7u8OLdHvneDEM5Kp+F2Njhpg4OqIlW/LJuYT4+sV6NL9M1RU4
-	 XRSTpyZi7p4qA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 98B5BC43458;
-	Mon, 29 Jun 2026 19:52:23 +0000 (UTC)
-From: Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
-Date: Mon, 29 Jun 2026 21:51:55 +0200
-Subject: [PATCH v2] iio: imu: inv_icm42600: fix timestamping by limiting
- FIFO reading
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lILhwzeb"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E83A71F000E9;
+	Mon, 29 Jun 2026 20:04:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782763490;
+	bh=4Ob/wvSNyCMAzv5Z7UpCcvR+1yeJxsnqWMhoik2Ne54=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lILhwzebmZgULzE5CEaVE3l5eyt8DrTVQpyd/H7TQHky4mUigbgXz77zdprWXBLuw
+	 vCwL2XKzgeJUGlAetdoFMM6XZodB2AjqhIEfqLwe9+RlLsw3KXWN7WrO1W4hTUedHv
+	 1WUCg/GNUteTdko6GNZjlt3MIIwiN0vvKtJ2MTaxKQgYou6TTqLei6g7q0alNyLfpF
+	 jZAedKVRsVGGf/3qRr+yPUppgPZa4UE3rqaWRWZwESwl5/84fQLTwviIjo4VD13hrj
+	 pBq9LT2Oe3oxR5bZr1xvooxaodTqyroNEaFgduF5VJ+AmVZJoe2GrQjpXK1R60wT9O
+	 mQPAXh4agFvhQ==
+Date: Mon, 29 Jun 2026 13:04:49 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Dawei Feng <dawei.feng@seu.edu.cn>
+Cc: cem@kernel.org, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, jianhao.xu@seu.edu.cn, zilin@seu.edu.cn
+Subject: Re: [PATCH] xfs: fix memory leak in xfs_dqinode_metadir_create()
+Message-ID: <20260629200449.GB6078@frogsfrogsfrogs>
+References: <20260627060402.2544349-1-dawei.feng@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260629-inv-icm42600-fix-watermark-fifo-reading-v2-1-967e375db7b3@tdk.com>
-X-B4-Tracking: v=1; b=H4sIANrMQmoC/5WOQQ7CIBQFr9Kw9hugFKsr72G6QArt1xQMIGqa3
- l1aT+ByksmbN5NoAppITtVMgskY0bsCfFcRPSo3GMC+MOGUSyp5DegyoJ5EQQoW3/BSyYRJhXs
- h6yEY1aMbQHKhlaUtPTSClLVHMMXeSpfux/F5vRmd1vnVGDEmHz7blcxW7/9qZsDA1raRR6Fa1
- qpz6u977SfSLcvyBbqWBZHuAAAA
-X-Change-ID: 20260623-inv-icm42600-fix-watermark-fifo-reading-624caf080754
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>, 
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org, 
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782762742; l=3459;
- i=jean-baptiste.maneyrol@tdk.com; s=20240923; h=from:subject:message-id;
- bh=nQhkZPtLs3PxMsL5AOyaO81u0Ro6Jo38fVYTn+BsJME=;
- b=yNVbPmWmarrbpNgNuwBQ178hkXzXHqoQp/X8hWQ65VmW5iY76m8EurFHMdJuhiYWYIGd3L5jT
- SWPomtYGum/BbS0QinLJhieEwMKSikWg4wbFY+i32wgeOde28Se91zn
-X-Developer-Key: i=jean-baptiste.maneyrol@tdk.com; a=ed25519;
- pk=bRqF1WYk0hR3qrnAithOLXSD0LvSu8DUd+quKLxCicI=
-X-Endpoint-Received: by B4 Relay for
- jean-baptiste.maneyrol@tdk.com/20240923 with auth_id=218
-X-Original-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Reply-To: jean-baptiste.maneyrol@tdk.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260627060402.2544349-1-dawei.feng@seu.edu.cn>
 
-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+On Sat, Jun 27, 2026 at 02:04:02PM +0800, Dawei Feng wrote:
+> If xfs_metadir_create() fails in xfs_dqinode_metadir_create(), the current
+> code returns directly, leaking the allocated update and transaction state.
+> If the subsequent commit fails, the caller-owned inode reference is left
+> behind.
+> 
+> Fix this memory leak by routing the create failure path through
+> xfs_metadir_cancel().  For both create and commit failures, finish and
+> release any inode returned to the caller, mirroring the unwind pattern in
+> xfs_metadir_mkdir().
+> 
+> The bug was first flagged by an experimental analysis tool we are
+> developing for kernel memory-management bugs while analyzing
+> v6.13-rc1. The tool is still under development and is not yet publicly
+> available. Manual inspection confirms that the bug is still
+> present in v7.1.1.
+> 
+> An x86_64 allyesconfig build showed no new warnings. Runtime validation
+> used kprobe fault injection during `mount -o uquota` on a metadir XFS
+> image. Injecting xfs_metadir_create() reproduced the old active-update path
+> that left mount stuck later in mount setup; after this change, the same
+> injection reported cancel_hits=1 and irele_hits=1. Injecting
+> xfs_metadir_commit() exercised the old inode-reference leak path; after
+> this change, it reported irele_hits=1.
+> 
+> Fixes: e80fbe1ad8ef ("xfs: use metadir for quota inodes")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
 
-Timestamps are made by measuring the chip clock using the watermark
-interrupts. If we read more than watermark samples as done today, we
-are reducing the period between interrupts and distort the time
-measurement. Fix that by reading only watermark samples in the
-interrupt case.
+Heh, I have a patch just like this one in my tree courtesy of codex,
+so I think this is fair:
 
-Fixes: 7f85e42a6c54 ("iio: imu: inv_icm42600: add buffer support in iio devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>
----
-Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
----
-Changes in v2:
-- Delete watermark computation rework, keep only FIFO read fix.
-- Link to v1: https://patch.msgid.link/20260623-inv-icm42600-fix-watermark-fifo-reading-v1-1-f3f5694a818a@tdk.com
+Cc: <stable@vger.kernel.org> # v6.13
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
 
-To: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-To: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-To: Nuno Sá <nuno.sa@analog.com>
-To: Andy Shevchenko <andy@kernel.org>
-Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Cc: Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>
-Cc: linux-iio@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c | 9 +++++----
- drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h | 1 +
- 2 files changed, 6 insertions(+), 4 deletions(-)
+--D
 
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-index 68a395758031..5c3840acf085 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-@@ -248,6 +248,7 @@ int inv_icm42600_buffer_update_watermark(struct inv_icm42600_state *st)
- 
- 	/* compute watermark value in bytes */
- 	wm_size = watermark * packet_size;
-+	st->fifo.watermark.value = watermark;
- 
- 	/* changing FIFO watermark requires to turn off watermark interrupt */
- 	ret = regmap_update_bits_check(st->map, INV_ICM42600_REG_INT_SOURCE0,
-@@ -454,11 +455,10 @@ int inv_icm42600_buffer_fifo_read(struct inv_icm42600_state *st,
- 	st->fifo.nb.accel = 0;
- 	st->fifo.nb.total = 0;
- 
--	/* compute maximum FIFO read size */
-+	/* compute maximum FIFO read size (watermark for max = 0 interrupt case) */
- 	if (max == 0)
--		max_count = sizeof(st->fifo.data);
--	else
--		max_count = max * inv_icm42600_get_packet_size(st->fifo.en);
-+		max = st->fifo.watermark.value;
-+	max_count = max * inv_icm42600_get_packet_size(st->fifo.en);
- 
- 	/* read FIFO count value */
- 	raw_fifo_count = (__be16 *)st->buffer;
-@@ -574,6 +574,7 @@ int inv_icm42600_buffer_init(struct inv_icm42600_state *st)
- 
- 	st->fifo.watermark.eff_gyro = 1;
- 	st->fifo.watermark.eff_accel = 1;
-+	st->fifo.watermark.value = 1;
- 
- 	/*
- 	 * Default FIFO configuration (bits 7 to 5)
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
-index ffca4da1e249..88b8b9f780af 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
-@@ -34,6 +34,7 @@ struct inv_icm42600_fifo {
- 		unsigned int accel;
- 		unsigned int eff_gyro;
- 		unsigned int eff_accel;
-+		unsigned int value;
- 	} watermark;
- 	size_t count;
- 	struct {
-
----
-base-commit: cc746297b23e89bd5df9f91f3a0ca209e8991763
-change-id: 20260623-inv-icm42600-fix-watermark-fifo-reading-624caf080754
-
-Best regards,
---  
-Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-
-
+> ---
+>  fs/xfs/libxfs/xfs_dquot_buf.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/xfs/libxfs/xfs_dquot_buf.c b/fs/xfs/libxfs/xfs_dquot_buf.c
+> index ce767b40482f..bbada0d3cc08 100644
+> --- a/fs/xfs/libxfs/xfs_dquot_buf.c
+> +++ b/fs/xfs/libxfs/xfs_dquot_buf.c
+> @@ -436,17 +436,27 @@ xfs_dqinode_metadir_create(
+>  
+>  	error = xfs_metadir_create(&upd, S_IFREG);
+>  	if (error)
+> -		return error;
+> +		goto out_cancel;
+>  
+>  	xfs_trans_log_inode(upd.tp, upd.ip, XFS_ILOG_CORE);
+>  
+>  	error = xfs_metadir_commit(&upd);
+>  	if (error)
+> -		return error;
+> +		goto out_irele;
+>  
+>  	xfs_finish_inode_setup(upd.ip);
+>  	*ipp = upd.ip;
+>  	return 0;
+> +
+> +out_cancel:
+> +	xfs_metadir_cancel(&upd, error);
+> +out_irele:
+> +	/* Have to finish setting up the inode to ensure it's deleted. */
+> +	if (upd.ip) {
+> +		xfs_finish_inode_setup(upd.ip);
+> +		xfs_irele(upd.ip);
+> +	}
+> +	return error;
+>  }
+>  
+>  #ifndef __KERNEL__
+> -- 
+> 2.34.1
+> 
+> 
