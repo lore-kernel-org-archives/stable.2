@@ -1,125 +1,165 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC793C457D
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 22:44:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758FB314D37;
+	Mon, 29 Jun 2026 23:11:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782773100; cv=none; b=pfYQTFJhKQtvDIwADtVvEhDbk9ryODug6lBuuZHIy7vPTtX+ROmTcnPwrY9JelrOX4pi1A0NUOQcoBK2dc+EhZq6Qii1n5xF0ikgbCTVxd5HkDM2B3HrW/a7yz2CrtyFlZRRT6P+aPmrhEE/XENeVEDTmx/s7EghOX+hCkCPTvI=
+	t=1782774667; cv=none; b=Hr1/ksH/iCe/JdG4EC+6WOcT15beEjdCDpVeauKCW5L1SpEgpITA7YkHDq69ZKTdjy+aMEgj1jlzSmwZcDp5PgsaYc86JFfnjpExbqPGgIEbk8AN+C/JrXsPp+X/4CcKvrOKD4LPhyALK+KNdspjdL5QkiGy/6pZpWWgsJ7rlt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782773100; c=relaxed/simple;
-	bh=T4iQ48UIz6BTuPPw30b0yfQHI3incJ6DiOOONbPQt9A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j9AbmNaMU/hDkJwnZQGRbkuDWWhPVLX4OXweSAUSp633rUAkE7bS2qw0YGss5FCPfRWo5o2L/XctrP19Qxpos4KKBhKgKeggRg3RFa2zrzH06F9d59ZG17uufXI9fNsX4+PWAAmURg5XeivlPIC8Dx72Gw8/klyqis1NG/HRc2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iywq9mKM; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1782774667; c=relaxed/simple;
+	bh=q9NkZ492aB1EfwWDCRs5iUarWXOTV9qwLaHWrkdLZFo=;
+	h=Date:To:From:Subject:Message-Id; b=miji09/5O2CQKuB01dDdmXEoPOKapIv13wfYcrzkq0oXHsoQG1g5mBexRG8YZGPUs2XShRKcPetpXPAJaqX9Drd07ilPs4GCgEIKNCJmT5Bqvk22wuxYRkzg2WYhXQ7BMyxPWMcUimeyeKzs0kzI1H9Xrp4TDa4GiTOXWnbFudU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=oPU363xd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iywq9mKM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782773098;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p+UkYCYkCp20WVOEdzEgkpb9VOvQcbeVE69sH5B4ycg=;
-	b=iywq9mKMZHCJqWQ6itCxXKUSnnHh/0Gs24iv5/pgJpHWDw5eymCndulcynJDuQX7I5L9yx
-	c/ozIte8LhbKWXO8vU+1w0l2q5EdnQo6SVEVY6K//FKYYNvW4wqpyreaQqR6tmjkNkdu3m
-	DuL4rc7RWuQsWLuInmkI8pK9Yyq3BmE=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-677-Ig9b9bhAOTy5PGWJW_bNEg-1; Mon,
- 29 Jun 2026 18:44:50 -0400
-X-MC-Unique: Ig9b9bhAOTy5PGWJW_bNEg-1
-X-Mimecast-MFC-AGG-ID: Ig9b9bhAOTy5PGWJW_bNEg_1782773089
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id ABAE619344BA;
-	Mon, 29 Jun 2026 22:44:48 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.88.59])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 202DB3691A;
-	Mon, 29 Jun 2026 22:44:46 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: nouveau@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	"Timur Tabi" <ttabi@nvidia.com>,
-	"Dave Airlie" <airlied@redhat.com>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
-	"Ben Skeggs" <bskeggs@nvidia.com>,
-	"Kees Cook" <kees@kernel.org>,
-	"Simona Vetter" <simona@ffwll.ch>,
-	"David Airlie" <airlied@gmail.com>,
-	"Thomas Zimmermann" <tzimmermann@suse.de>,
-	"Maxime Ripard" <mripard@kernel.org>,
-	"Mel Henning" <mhenning@darkrefraction.com>,
-	"Danilo Krummrich" <dakr@kernel.org>,
-	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v2 4/4] drm/nouveau/gsp/r570: Add missing state flags to GSP resume arguments
-Date: Mon, 29 Jun 2026 18:42:36 -0400
-Message-ID: <20260629224350.2870201-5-lyude@redhat.com>
-In-Reply-To: <20260629224350.2870201-1-lyude@redhat.com>
-References: <20260629224350.2870201-1-lyude@redhat.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="oPU363xd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F941F000E9;
+	Mon, 29 Jun 2026 23:11:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1782774666;
+	bh=HsS4jFT58CO08bn2w46NjfQSbm90g92nvw5Ob+rCTTc=;
+	h=Date:To:From:Subject;
+	b=oPU363xd1xiVm/srT95Sz70e+pE9+dHqwKHIYnlfJx+6qZ02Fx9pz0kXzIfRveyQV
+	 B5IG3roZC1GgZk5/CIk1zShuIc4SQcFlsi4kYIvrVlhoOFaliJF7GfWwLDgl4Dzox/
+	 ci+hg2/9nYjDWe8Qmvc31w1VooLPs23V80zsc18A=
+Date: Mon, 29 Jun 2026 16:11:05 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,stable@vger.kernel.org,rakie.kim@sk.com,nehagholkar@gmail.com,matthew.brost@intel.com,joshua.hahnjy@gmail.com,gourry@gourry.net,david@kernel.org,byungchul@sk.com,apopple@nvidia.com,hannes@cmpxchg.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-mempolicy-fix-automatic-numa-balancing-for-shmem.patch added to mm-new branch
+Message-Id: <20260629231105.D7F941F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-When resuming the GPU, we need to let GSP know that we need it to avoid
-destructive state transitions when bringing the GPU back up. Otherwise, we
-will end up with a plethora of strange behavior after coming out of resume
-- such as push buffers randomly timing out.
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Fixes: 53dac0623853 ("drm/nouveau/gsp: add support for 570.144")
-Cc: <stable@vger.kernel.org> # v6.16+
+The patch titled
+     Subject: mm: mempolicy: fix automatic numa balancing for shmem
+has been added to the -mm mm-new branch.  Its filename is
+     mm-mempolicy-fix-automatic-numa-balancing-for-shmem.patch
+
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mempolicy-fix-automatic-numa-balancing-for-shmem.patch
+
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Johannes Weiner <hannes@cmpxchg.org>
+Subject: mm: mempolicy: fix automatic numa balancing for shmem
+Date: Mon, 29 Jun 2026 12:33:37 -0400
+
+Neha reports that mapped shmem aren't considered for NUMA balancing,
+noting convergence problems and bandwidth bottlenecking for cachelib based
+workloads on tiered memory systems.
+
+Looking at the code and going through the git history, this doesn't
+actually seem intentional:
+
+Commit fc3147245d19 ("mm: numa: Limit NUMA scanning to migrate-on-fault
+VMAs") added a vma_policy_mof() gate to task_numa_work() so VMAs whose
+policy lacks MPOL_F_MOF are skipped from NUMA balancing scans.  The
+motivation was a real usecase: Oracle was pinning shared segments with
+mbind(MPOL_BIND) so trapping faults was both expensive and pointless.
+
+The handling of NULL from vm_ops->get_policy, however, treated "user
+explicitly opted out" the same as "user never specified anything." For
+VMAs whose shared policy is absent - the common case for shmem - the scan
+was disabled too.
+
+This issue is old.  It probably hurts less in conventional NUMA.  But it's
+very noticable on tiered systems, where entire tmpfs workingsets can get
+stuck on lower-bandwidth memory.
+
+Fix this by having vma_policy_mof() use __get_vma_policy() directly, and
+thereby handle the fallback to task policy (-> preferred_node_policy() has
+MPOL_F_MOF per default).  Every other consumer of vm_ops->get_policy
+already handles it this way, the scan-eligibility check was the outlier.
+
+This preserves Mel's intended fix: don't scan stuff the user explicitly
+pinned.  But allow default policy vmas to participate in balancing.
+
+Link: https://lore.kernel.org/20260629163337.1264881-1-hannes@cmpxchg.org
+Fixes: fc3147245d19 ("mm: numa: Limit NUMA scanning to migrate-on-fault VMAs")
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Reported-by: Neha Gholkar <nehagholkar@gmail.com>
+Tested-by: Neha Gholkar <nehagholkar@gmail.com>
+Reviewed-by: Gregory Price <gourry@gourry.net>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c     | 3 ++-
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h    | 8 ++++++++
- 2 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-index 00158697bd77a..b7f396897e56c 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-@@ -198,7 +198,8 @@ r570_gsp_set_rmargs(struct nvkm_gsp *gsp, bool resume)
- 		args->srInitArguments.bInPMTransition = 0;
- 	} else {
- 		args->srInitArguments.oldLevel = NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_4;
--		args->srInitArguments.flags = 0;
-+		args->srInitArguments.flags =
-+			GPU_STATE_FLAGS_PRESERVING | GPU_STATE_FLAGS_PM_TRANSITION;
- 		args->srInitArguments.bInPMTransition = 1;
- 	}
- 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-index 1904305b69624..aa6c19965e0b4 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-@@ -523,6 +523,14 @@ typedef struct
- 
- #define NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_4            (0x00000004U)
- 
-+#define GPU_STATE_FLAGS_PRESERVING         BIT(0)  // GPU state is preserved
-+#define GPU_STATE_FLAGS_VGA_TRANSITION     BIT(1)   // To be used with GPU_STATE_FLAGS_PRESERVING.
-+#define GPU_STATE_FLAGS_PM_TRANSITION      BIT(2)   // To be used with GPU_STATE_FLAGS_PRESERVING.
-+#define GPU_STATE_FLAGS_PM_SUSPEND         BIT(3)
-+#define GPU_STATE_FLAGS_PM_HIBERNATE       BIT(4)
-+#define GPU_STATE_FLAGS_GC6_TRANSITION     BIT(5)  // To be used with GPU_STATE_FLAGS_PRESERVING.
-+#define GPU_STATE_FLAGS_FAST_UNLOAD        BIT(6)  // Used during windows restart, skips stateDestroy steps
-+
- typedef struct
+ mm/mempolicy.c |   21 ++++++---------------
+ 1 file changed, 6 insertions(+), 15 deletions(-)
+
+--- a/mm/mempolicy.c~mm-mempolicy-fix-automatic-numa-balancing-for-shmem
++++ a/mm/mempolicy.c
+@@ -2057,24 +2057,15 @@ struct mempolicy *get_vma_policy(struct
+ bool vma_policy_mof(struct vm_area_struct *vma)
  {
-     // Magic for verification by secure ucode
--- 
-2.54.0
+ 	struct mempolicy *pol;
++	pgoff_t ilx;
++	bool mof;
+ 
+-	if (vma->vm_ops && vma->vm_ops->get_policy) {
+-		bool ret = false;
+-		pgoff_t ilx;		/* ignored here */
+-
+-		pol = vma->vm_ops->get_policy(vma, vma->vm_start, &ilx);
+-		if (pol && (pol->flags & MPOL_F_MOF))
+-			ret = true;
+-		mpol_cond_put(pol);
+-
+-		return ret;
+-	}
+-
+-	pol = vma->vm_policy;
++	pol = __get_vma_policy(vma, vma->vm_start, &ilx);
+ 	if (!pol)
+ 		pol = get_task_policy(current);
+-
+-	return pol->flags & MPOL_F_MOF;
++	mof = pol->flags & MPOL_F_MOF;
++	mpol_cond_put(pol);
++	return mof;
+ }
+ 
+ bool apply_policy_zone(struct mempolicy *policy, enum zone_type zone)
+_
+
+Patches currently in -mm which might be from hannes@cmpxchg.org are
+
+mm-mempolicy-fix-automatic-numa-balancing-for-shmem.patch
 
