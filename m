@@ -1,120 +1,150 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0E3370AC1;
-	Mon, 29 Jun 2026 11:10:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CD73FD15F
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 11:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782731409; cv=none; b=ZGoFrk7Zy7zDUzRnnBBRbrFDtNbVIP70qT+OJoPIIQ6TxLJWJJbX5BPRJW3xADxZ+Hif1h8suqjEPX7/qt/YsJTpzWPlEgdcplkqbQtTB7LClkdq5df0ebQ0Yw/DDLWX9jW8REWDUf/qTJaATRCmHoc4vrxK9CtD/aob6VvgTRY=
+	t=1782732057; cv=none; b=Y99g0jcaqgMRU7QQ4NwheoPkcl81CwSgO5H2LuONhFpaZSuNdMCpO+b6rd9rbwDf46v22HY2MUJV52Uxao7zwZqM9ykboO+5yJ/rD7yHyzMXIO8LYwDJLp06LaERA4D7JJ1oFUasPngzWL+873XIPteu6lYpi25aUOvG0nJarz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782731409; c=relaxed/simple;
-	bh=97gjSRFLW+WV1vqO3pAl6R/Yqwn4HK36ZjcyuF/eGIs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=UZEcVqkmq4P7EugN2tw+EaCKyCZ+jDKE/2+kTdpfrywIPSU+0o2pU4s2UyLDKbHeBGQKNNw3ltKlS7WuDufe7YKhZOvgYY7Mr8MiArbk2G2m3Tvrx3Bwro15lMpuSHuDT0jVCfBd8NGTbS2+8fE0xfW2Is9RbUpu3ySJmcxxe10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ptIJPe3N; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1782732057; c=relaxed/simple;
+	bh=oBlqxgiOGageFSYmE0C05QIao61wUq0bgS3LnT7IDh0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=qK4mcTjEfw6i7CRVE0aFKmHiM1IFJ1KGUQVMLzVFqcACSXTGJyuVsNDQKNKZLHw9KsQrq7X7AVjiU7Cshtnx2SYYSp2dHNNde+g0EGMSsADtu4dnr+pWoPX9D7Juwu5Unrk3dKN5g8lIuFc+zMYXYfCDi+yrSv2qCdON4/WiQDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TRIh3zGt; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ptIJPe3N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1782731408; x=1814267408;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=97gjSRFLW+WV1vqO3pAl6R/Yqwn4HK36ZjcyuF/eGIs=;
-  b=ptIJPe3NWn0Pzpx68q34omW/x9RfqZ4r0wPLywskfUq8H3DmYV51jSYR
-   D02efT8tq+mFgKtgVGwUA/+bFNRtXyY3TXeJWwd6/phS2HgxUTcm6va+j
-   Tuyw1/yK3sVFMpI+3i4/WUkXY80PiZ/dWJ6h4truJHFnpDU0n9UHoTw1y
-   nVKSlNwwD0oHG4p5sldVcincec7MFU9D6e+mPI7RcFNO/F2T4TcrKp+qu
-   tvuwEYjnxeP4X1u07rGv09Lw7ekHDIbdcan5PqlosUpv8BSWl9dO03CYH
-   ORGbOoZEixH+hoFxQnHQ5iha2X91nMc542CjRKkcC4786Ew4bNL9QpLWc
-   g==;
-X-CSE-ConnectionGUID: 2R1XcyI6SfWTmVxjRinPxg==
-X-CSE-MsgGUID: Iw9tvSUFSICFBVjbD84e0Q==
-X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
-   d="scan'208";a="59817901"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 29 Jun 2026 04:10:08 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Mon, 29 Jun 2026 04:10:07 -0700
-Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
- (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Mon, 29 Jun 2026 04:10:04 -0700
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Mon, 29 Jun 2026 16:39:35 +0530
-Subject: [PATCH v2 10/10] media: microchip-isc: fix WB offset and gain
- register field masking
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TRIh3zGt"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2c6b67d5fa1so16928995ad.2
+        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 04:20:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782732055; x=1783336855; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ViL3fRcEiOH5DjjJbtd4DZVU5q2T+7FWxEKjKuEIV8w=;
+        b=TRIh3zGt417/hY8IHIlpEzZ/YXKoVu7/O7FAtWrMgJlqFeYkyL+cz40M74u5vUEKRI
+         WrBdRl+qUc4Tha9B9jKEBDygW/vxLm8ISjcXuZMOzXrWmuyFdjR8AIzBBrw29wqCnLP8
+         BKU5sDdtf8VNbWpDGhr5jx9DfCyI8nMwxWRnMjtSWncGFSGF5adJYF5YPuMRjXVX7/AH
+         3aujJviJ6avSKhkOE7m1s9l4h88GcCxk8thUUTAH9B3AlASboGUAQ3fYqgsC3eIV0is8
+         /pMsHpWN6cb9uXYuVV9ZZ8gsAHlHA1I7rclXjyUOmZGxVaUVUOWImMC38cWhjeXuTVCp
+         MLQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782732055; x=1783336855;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ViL3fRcEiOH5DjjJbtd4DZVU5q2T+7FWxEKjKuEIV8w=;
+        b=eZJ9fM8TUoRk0ny+r50vDF/XfmE4zxP+XNaG2lKTD3UPXg8K0H+ssaweoZGewIw9yZ
+         ZLNHgjCfDUxZGEcY/WOCNTpqP7iPXA5IX6Z95+dv60UiGNWRJH4gWBKpH7kvzc0/pC+D
+         qLGtoshuEKNSaSUtl20IuANwUPwVX7yww125mkFFi/g09LyqRguneY/jyR8Flf3S7TRF
+         dQgvpyXPRoBC4WJRM3tcL6TIwXqEgdPwRHlX4SO6kCAtzwiRzbLbWu/AuVGE/PRbH114
+         tIEpfDS4gAV9aYGwpot6LSuMTI3C3vtTHW5MlD58SxqTWfq0eWLCvaRjneFBYpdqT3iY
+         L4qg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr1ANNL9ryvCUwvHaPy4uKK1jjgxA3KgSCHy5APs2o0uzLiuCQMJ5pKvtknONmHG1vVYjPI4Zw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyYQC4pHUeFo0O3Yl2VR4sXMTMWgUwKLv0yjFz9tJchOzHpSGpq
+	Z39niuVC2D+ADs4V/3f6mkKzOcTTusJThWRJgDCA9FFBXyidmJuApZWV
+X-Gm-Gg: AfdE7ckH5mometac1x4SO+7m+QJyxAXhX2d12b/E9rfjSlZwgo4vhH//jPwEkXpBd0m
+	eMl3xqGDl12OOxLMTxIxInyi3Ggm4/pmhVvtKRTzsShGez7PtGKWM6+t2PnWKMlqcrIVCrNG/Qy
+	CkhrqPb+McHqvqkKSbIE586TFJLP5y6vFQreqIXroyqY80uOvKEF/scAHhNWdmfm9M+RZ/IfoB2
+	xp411IOglhkWBdyqnXgqStclch4JGU/N0wN3448HGEKi5eCprLyOyHWZbQNIn0REvdMLeWKryDh
+	wVihm/4OKsohZyMdRefm3KwNcJBo/PG+pIDXpeY92VEibbklL15cU6YFQkoN2UpbCgQXnpru2zp
+	UasxZpolGiAzT/VzdIEBbuX0uR+vXcHCM8VldXbMObuebLaxdRFC9kKL/BzuqKTDw7f1Yj9ch/X
+	qTElOnswyLKB7Zs2wHToBq6MHIUgjqHWbx7giKU2vHklaTQhBdUH8=
+X-Received: by 2002:a17:903:690:b0:2c9:97a7:71b1 with SMTP id d9443c01a7336-2ca26545886mr67075ad.44.1782732055099;
+        Mon, 29 Jun 2026 04:20:55 -0700 (PDT)
+Received: from localhost.localdomain ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7f63d09f0sm92759085ad.56.2026.06.29.04.20.49
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 29 Jun 2026 04:20:54 -0700 (PDT)
+From: Hao Jia <jiahao.kernel@gmail.com>
+To: akpm@linux-foundation.org,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	shakeel.butt@linux.dev,
+	mhocko@kernel.org,
+	yosry@kernel.org,
+	mkoutny@suse.com,
+	nphamcs@gmail.com,
+	chengming.zhou@linux.dev,
+	muchun.song@linux.dev,
+	roman.gushchin@linux.dev
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Hao Jia <jiahao1@lixiang.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v5 1/6] mm/zswap: Fix global shrinker when memory cgroup is disabled
+Date: Mon, 29 Jun 2026 19:20:27 +0800
+Message-Id: <20260629112032.20423-2-jiahao.kernel@gmail.com>
+X-Mailer: git-send-email 2.39.2 (Apple Git-143)
+In-Reply-To: <20260629112032.20423-1-jiahao.kernel@gmail.com>
+References: <20260629112032.20423-1-jiahao.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260629-balki-isc-prefix-fixes-v1-v2-10-3b120cc3742f@microchip.com>
-References: <20260629-balki-isc-prefix-fixes-v1-v2-0-3b120cc3742f@microchip.com>
-In-Reply-To: <20260629-balki-isc-prefix-fixes-v1-v2-0-3b120cc3742f@microchip.com>
-To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>
-CC: Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, <linux-media@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Balakrishnan Sambath
-	<balakrishnan.s@microchip.com>, <stable@vger.kernel.org>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
-ISC_WB_O_* and ISC_WB_G_* pack two 13-bit fields per register. Sign
-extension from negative offsets corrupts the upper field. Mask both
-fields to 13 bits before packing.
+From: Hao Jia <jiahao1@lixiang.com>
 
-Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
+When memory cgroup is disabled, mem_cgroup_iter() always returns NULL.
+Therefore, the global shrinker shrink_worker() always takes the !memcg
+branch. After MAX_RECLAIM_RETRIES empty walks, the worker simply gives up,
+so it fails to write back anything.
+
+Therefore, when memory cgroup is disabled, fall through with the !memcg
+branch and shrink the root memcg directly. Stop the loop once
+shrink_memcg() reports -ENOENT, since the root LRU is the only target and
+-ENOENT means it has been exhausted.
+
+Fixes: a65b0e7607cc ("zswap: make shrinking memcg-aware")
 Cc: stable@vger.kernel.org
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Reported-by: Yosry Ahmed <yosry@kernel.org>
+Closes: https://lore.kernel.org/all/CAO9r8zPVzMKFbCixxD-qgtRrkFxWVrHiZZeLc=eyTPKPVQgX4g@mail.gmail.com
+Signed-off-by: Hao Jia <jiahao1@lixiang.com>
 ---
- .../media/platform/microchip/microchip-isc-base.c  | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ mm/zswap.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index 1a9b97edfa32..79a58efb6333 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -62,18 +62,24 @@ static inline void isc_update_awb_ctrls(struct isc_device *isc)
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 761cd699e0a3..0f8f04f22888 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1356,7 +1356,12 @@ static void shrink_worker(struct work_struct *w)
+ 		} while (memcg && !mem_cgroup_tryget_online(memcg));
+ 		spin_unlock(&zswap_shrink_lock);
  
- 	/* In here we set our actual hw pipeline config */
+-		if (!memcg) {
++		/*
++		 * Reaching a NULL memcg means a full hierarchy pass completed.
++		 * Exclude the memcg-disabled case, where it is always NULL, and
++		 * fall through to shrink the root LRU directly.
++		 */
++		if (!memcg && !mem_cgroup_disabled()) {
+ 			/*
+ 			 * Continue shrinking without incrementing failures if
+ 			 * we found candidate memcgs in the last tree walk.
+@@ -1378,8 +1383,15 @@ static void shrink_worker(struct work_struct *w)
+ 		 * with pages in zswap. Skip this without incrementing attempts
+ 		 * and failures.
+ 		 */
+-		if (ret == -ENOENT)
++		if (ret == -ENOENT) {
++			/*
++			 * With memcg disabled the root LRU is the only target, so
++			 * we should abort if it has no writeback-candidate pages.
++			 */
++			if (mem_cgroup_disabled())
++				break;
+ 			continue;
++		}
+ 		++attempts;
  
-+	/*
-+	 * Offsets are 13-bit signed fields [12:0] and [28:16]. Cast to
-+	 * u32 and mask to 13 bits so sign extension of a negative value
-+	 * cannot corrupt the adjacent field.
-+	 */
- 	regmap_write(isc->regmap, ISC_WB_O_RGR,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_R])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GR]) << 16));
-+		     ((u32)ctrls->offset[ISC_HIS_CFG_MODE_R] & GENMASK(12, 0)) |
-+		     (((u32)ctrls->offset[ISC_HIS_CFG_MODE_GR] & GENMASK(12, 0)) << 16));
- 	regmap_write(isc->regmap, ISC_WB_O_BGB,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_B])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GB]) << 16));
-+		     ((u32)ctrls->offset[ISC_HIS_CFG_MODE_B] & GENMASK(12, 0)) |
-+		     (((u32)ctrls->offset[ISC_HIS_CFG_MODE_GB] & GENMASK(12, 0)) << 16));
-+	/* Gains are 13-bit unsigned fields [12:0] and [28:16] */
- 	regmap_write(isc->regmap, ISC_WB_G_RGR,
--		     ctrls->gain[ISC_HIS_CFG_MODE_R] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GR] << 16));
-+		     (ctrls->gain[ISC_HIS_CFG_MODE_R] & GENMASK(12, 0)) |
-+		     ((ctrls->gain[ISC_HIS_CFG_MODE_GR] & GENMASK(12, 0)) << 16));
- 	regmap_write(isc->regmap, ISC_WB_G_BGB,
--		     ctrls->gain[ISC_HIS_CFG_MODE_B] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GB] << 16));
-+		     (ctrls->gain[ISC_HIS_CFG_MODE_B] & GENMASK(12, 0)) |
-+		     ((ctrls->gain[ISC_HIS_CFG_MODE_GB] & GENMASK(12, 0)) << 16));
- }
- 
- static inline void isc_reset_awb_ctrls(struct isc_device *isc)
-
+ 		if (ret && ++failures == MAX_RECLAIM_RETRIES)
 -- 
 2.34.1
 
