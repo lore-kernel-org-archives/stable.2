@@ -1,178 +1,108 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60F639A078;
-	Mon, 29 Jun 2026 06:41:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 09E413A7F72;
+	Mon, 29 Jun 2026 06:49:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782715275; cv=none; b=iBOtiBiOduiLgDMt9n03h+fZT43t9QIlWXRY+l4aeTK+igJyfhRHNQUOh4DeA/Bq+0CIoxjEfRuY9P5yJVCho4Jlwmb4GcNCqfv0GZlBMSurXrzpki/Rbbwf9L7bj7H+yN2bNS+VWgZC4rXCjksRZ8n2bfDEJXRE9gc4zFmoZXw=
+	t=1782715747; cv=none; b=upVzfdGCguB878UYpHOpnSkaKgqkXtLtZCyQT6R3lQOIK2/e7YL3hTUtTJXIrshJyrS84HK1mPH0OUbpExolvX3LafVD0cSlW0XA0iclpMoeqkeZgU/EAZQw4WgMDObfUWypIH8+gQ7lR93mX1HjHpWDBo7uQUnqd4kTgoKKug8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782715275; c=relaxed/simple;
-	bh=/RkF59PZPSOpnNK7H4vSewsvE7k7qKrBfk8PqJeAOGk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TKRqkViBcGPwgqb74CIaErX0zyBbH7nPPQFm7q+5VWCzZR2wYpQmk/5wNDLpWULteH9FhlJ2zK+jztfzSEnjHXeNJsbj0HrVQz6//YQpkqKDbPbhpTpcYN3iZj/UHISWYG3OJNmEyfeg4A5pX8aXItlvF0Q5LkZaE6bvSKZOhE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Pf8xFVKV; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1782715747; c=relaxed/simple;
+	bh=WWesDXMaxpr9v0pxKfGfA5W4afJMug2+aRszzj4Irak=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nFJOJuxIFraXA9BiDp/sLwRoArJO0vXnA0pfdYjNKUYCDhGBs0L8qg57RsJX5coTBgusAhkiKMJf9GmRlsdOqG2JTvDXziF1i9c3ipGy3adRBZXvagGsoZBCDyIFWLZdW97SHWVUBXLUgF2+eFvmPjL8KUrzF+MszViUsDXFmz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qir4B0AP; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Pf8xFVKV"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=82zkxaEI8uR+qMXD7gBzmQv42ToBsOivHdabU9oJF4c=;
-	b=Pf8xFVKVTgAh1OLaNOb7TNQt2/emT6BLpwNHCkDXGK5Sd6+5WStQ6/kPxNR3uyF84kAjbimU5
-	ibVAbAhUF+36GfePQVri0qT96uHUm/BOTvg0vlTBrl+8ABQ912GjNC5VEMWpIfE4f4W55jLbdSn
-	yruVYRqvh8INTdcvZknYNcc=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4gpbxC48kDz1T4Jk;
-	Mon, 29 Jun 2026 14:30:07 +0800 (CST)
-Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
-	by mail.maildlp.com (Postfix) with ESMTPS id 5549F40538;
-	Mon, 29 Jun 2026 14:38:55 +0800 (CST)
-Received: from kwepemq200017.china.huawei.com (7.202.195.228) by
- dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 29 Jun 2026 14:38:55 +0800
-Received: from octopus.huawei.com (10.67.174.191) by
- kwepemq200017.china.huawei.com (7.202.195.228) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 29 Jun 2026 14:38:54 +0800
-From: Cai Xinchen <caixinchen1@huawei.com>
-To: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
-	<miklos@szeredi.hu>, <amir73il@gmail.com>, <paul@paul-moore.com>,
-	<jmorris@namei.org>, <serge@hallyn.com>, <stephen.smalley.work@gmail.com>,
-	<omosnace@redhat.com>, <gregkh@linuxfoundation.org>, <sashal@kernel.org>,
-	<bboscaccy@linux.microsoft.com>, <caixinchen1@huawei.com>
-CC: <linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-unionfs@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
-	<selinux@vger.kernel.org>, <bpf@vger.kernel.org>, <stable@vger.kernel.org>,
-	<lujialin4@huawei.com>
-Subject: [PATCH stable/linux-5.10.y 4/7] lsm: constify the 'file' parameter in security_binder_transfer_file()
-Date: Mon, 29 Jun 2026 15:06:50 +0800
-Message-ID: <20260629070653.580879-5-caixinchen1@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
-In-Reply-To: <20260629070653.580879-1-caixinchen1@huawei.com>
-References: <20260629070653.580879-1-caixinchen1@huawei.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qir4B0AP"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B142F176B;
+	Sun, 28 Jun 2026 23:49:00 -0700 (PDT)
+Received: from [10.164.19.15] (unknown [10.164.19.15])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 720CE3F85F;
+	Sun, 28 Jun 2026 23:48:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1782715745; bh=WWesDXMaxpr9v0pxKfGfA5W4afJMug2+aRszzj4Irak=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qir4B0APt+liPIhMhV/X6VjodvpmrcL2dgZo8y3s/326ijhOw00p77WP5smmRoG6V
+	 hHZ+WfMYnb38XwkL6UB2PFIIjGGWwUVgVzDUp3C2tW4fUEj5cGTXjksQ3LQGTiUljO
+	 16d5GBzKOj3sW0EgqUgbb11lIqBZzsh8R3C+5lqU=
+Message-ID: <1d6d699e-62e5-424f-a147-b7a75b966957@arm.com>
+Date: Mon, 29 Jun 2026 12:18:53 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemq200017.china.huawei.com (7.202.195.228)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>
+Cc: linmiaohe@huawei.com, muchun.song@linux.dev, osalvador@suse.de,
+ akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
+ riel@surriel.com, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
+ kas@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ rcampbell@nvidia.com, apopple@nvidia.com, ziy@nvidia.com,
+ matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ byungchul@sk.com, gourry@gourry.net, ying.huang@linux.alibaba.com,
+ mel@csn.ul.ie, nao.horiguchi@gmail.com, ak@linux.intel.com,
+ j-nomura@ce.jp.nec.com, pfalcato@suse.de, dave.hansen@intel.com,
+ tglx@kernel.org, jpoimboe@kernel.org, ryan.roberts@arm.com,
+ anshuman.khandual@arm.com, stable@vger.kernel.org
+References: <82395f5a-31d4-406b-b7ec-10d1a9d067d4@arm.com>
+ <20260628054402.76978-1-lance.yang@linux.dev>
+ <98f3aedd-de11-4a83-81b8-f3e3c9380e49@kernel.org>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <98f3aedd-de11-4a83-81b8-f3e3c9380e49@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Khadija Kamran <kamrankhadijadj@gmail.com>
 
-[ Upstream commit 8e4672d6f902d5c4db1e87e8aa9f530149d85bc6 ]
 
-SELinux registers the implementation for the "binder_transfer_file"
-hook. Looking at the function implementation we observe that the
-parameter "file" is not changing.
+On 29/06/26 12:09 pm, David Hildenbrand (Arm) wrote:
+> On 6/28/26 07:44, Lance Yang wrote:
+>>
+>> On Sat, Jun 27, 2026 at 12:43:31PM +0530, Dev Jain wrote:
+>>>
+>>>
+>>> On 26/06/26 10:16 pm, Lance Yang wrote:
+>> [...]
+>>>>
+>>>> Just thinking out loud: given that huge_ptep_get() already assumes that
+>>>> addr matches the huge pte, at least on arm64, would it make sense to
+>>>> have a small hugetlb wrapper around it that takes hstate and aligns
+>>>> the address before calling the arch helper?
+>>>>
+>>>> Might make the rule clearer, and a bit harder to get wrong again :)
+>>>
+>>> Are you suggesting something like:
+>>
+>> Yes, that's what I had in mind :) thanks!
+>>
+>>> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+>>> index fdb7bdf7645c..xxxxxxxxxxxx 100644
+>>> --- a/include/linux/hugetlb.h
+>>> +++ b/include/linux/hugetlb.h
+>>> @@ -825,6 +825,15 @@ static inline struct folio *filemap_lock_hugetlb_folio(struct hstate *h,
+>>>
+>>> #include <asm/hugetlb.h>
+>>
+>> Maybe worth spelling out the rule as well: 
+>>
+>> For arch helpers that use addr, huge_ptep_get() assumes addr is the
+>> address for the hugetlb entry ptep points to. arm64 already makes that
+>> assumption.
+>>
+>> Callers where addr may not be hugepage-aligned should use
+>> hugetlb_ptep_get() instead.
+> 
+> Do we have any examples where code would do that? I would think that all code
+> must properly align addr ahead of times.
 
-Mark the "file" parameter of LSM hook security_binder_transfer_file() as
-"const" since it will not be changing in the LSM hook.
+Sashiko notes other places:
 
-Signed-off-by: Khadija Kamran <kamrankhadijadj@gmail.com>
-[PM: subject line whitespace fix]
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
----
- include/linux/lsm_hook_defs.h | 2 +-
- include/linux/security.h      | 4 ++--
- security/security.c           | 2 +-
- security/selinux/hooks.c      | 8 ++++----
- 4 files changed, 8 insertions(+), 8 deletions(-)
+https://sashiko.dev/#/patchset/20260625112955.3254283-1-dev.jain%40arm.com
 
-diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-index 35bb13ce1faf..e34b295bc15a 100644
---- a/include/linux/lsm_hook_defs.h
-+++ b/include/linux/lsm_hook_defs.h
-@@ -32,7 +32,7 @@ LSM_HOOK(int, 0, binder_transaction, const struct cred *from,
- LSM_HOOK(int, 0, binder_transfer_binder, const struct cred *from,
- 	 const struct cred *to)
- LSM_HOOK(int, 0, binder_transfer_file, const struct cred *from,
--	 const struct cred *to, struct file *file)
-+	 const struct cred *to, const struct file *file)
- LSM_HOOK(int, 0, ptrace_access_check, struct task_struct *child,
- 	 unsigned int mode)
- LSM_HOOK(int, 0, ptrace_traceme, struct task_struct *parent)
-diff --git a/include/linux/security.h b/include/linux/security.h
-index 2b8a00118903..f3c9d640b60b 100644
---- a/include/linux/security.h
-+++ b/include/linux/security.h
-@@ -264,7 +264,7 @@ int security_binder_transaction(const struct cred *from,
- int security_binder_transfer_binder(const struct cred *from,
- 				    const struct cred *to);
- int security_binder_transfer_file(const struct cred *from,
--				  const struct cred *to, struct file *file);
-+				  const struct cred *to, const struct file *file);
- int security_ptrace_access_check(struct task_struct *child, unsigned int mode);
- int security_ptrace_traceme(struct task_struct *parent);
- int security_capget(struct task_struct *target,
-@@ -518,7 +518,7 @@ static inline int security_binder_transfer_binder(const struct cred *from,
- 
- static inline int security_binder_transfer_file(const struct cred *from,
- 						const struct cred *to,
--						struct file *file)
-+						const struct file *file)
- {
- 	return 0;
- }
-diff --git a/security/security.c b/security/security.c
-index 6de10b6699a4..d6b1b82094b7 100644
---- a/security/security.c
-+++ b/security/security.c
-@@ -744,7 +744,7 @@ int security_binder_transfer_binder(const struct cred *from,
- }
- 
- int security_binder_transfer_file(const struct cred *from,
--				  const struct cred *to, struct file *file)
-+				  const struct cred *to, const struct file *file)
- {
- 	return call_int_hook(binder_transfer_file, 0, from, to, file);
- }
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 90935ed3d8d8..e1bbdef0bcd3 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -1700,7 +1700,7 @@ static inline int file_path_has_perm(const struct cred *cred,
- }
- 
- #ifdef CONFIG_BPF_SYSCALL
--static int bpf_fd_pass(struct file *file, u32 sid);
-+static int bpf_fd_pass(const struct file *file, u32 sid);
- #endif
- 
- /* Check whether a task can use an open file descriptor to
-@@ -1972,7 +1972,7 @@ static inline u32 file_mask_to_av(int mode, int mask)
- }
- 
- /* Convert a Linux file to an access vector. */
--static inline u32 file_to_av(struct file *file)
-+static inline u32 file_to_av(const struct file *file)
- {
- 	u32 av = 0;
- 
-@@ -2050,7 +2050,7 @@ static int selinux_binder_transfer_binder(const struct cred *from,
- 
- static int selinux_binder_transfer_file(const struct cred *from,
- 					const struct cred *to,
--					struct file *file)
-+					const struct file *file)
- {
- 	u32 sid = cred_sid(to);
- 	struct file_security_struct *fsec = selinux_file(file);
-@@ -6799,7 +6799,7 @@ static u32 bpf_map_fmode_to_av(fmode_t fmode)
-  * access the bpf object and that's why we have to add this additional check in
-  * selinux_file_receive and selinux_binder_transfer_files.
-  */
--static int bpf_fd_pass(struct file *file, u32 sid)
-+static int bpf_fd_pass(const struct file *file, u32 sid)
- {
- 	struct bpf_security_struct *bpfsec;
- 	struct bpf_prog *prog;
--- 
-2.18.0.huawei.25
+> 
 
