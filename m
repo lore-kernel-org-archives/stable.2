@@ -1,142 +1,138 @@
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A0440961F
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 13:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782738594; cv=none; b=u4uampnKCqEoOvieEQFpOjmP9vlnsyhCOfKxfi6Tsz3j0LR1L6yAw90bvVJnx9Xin8aMsNNMZggvOQ7POZFvFqtPHstkwrNEAyd2EI1rWbCFNvMJdSJf0ie+EauV6wsFRGYHLTEJL9C7jKbkmxnbSGRL687nYF/G0vFThPF4U40=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782738594; c=relaxed/simple;
-	bh=MRnm09PMVz3zZlTQCCbSkxqgokpKHu3OelLb7bM8jtQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q9DQ9ovKRm1ZeupwUVTRP01duA+gJ+Gm/mq9WORpXjX7kYCZSu5MGGQonWit0LBTHOPYt43o9ReG3RdkXhfisbJxfSYyOYBzyMUg7DAEgI5OmOZ/+29H0aiqEpe6nGwGvhO0QVOSHCX2Js5kqG2LSaBFi+EE91HHvk13SaVUVE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=gMJDg1NA; arc=none smtp.client-ip=209.85.210.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818BE4048BB
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 13:20:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782739211; cv=pass; b=INebM1r/7DudbF659+koX32pW7ATVgmbdpBi4BIsTsOGqL4BAnY9JH0HJmvd0Iu1cKdPBLoFIm8KnvfAuMTxA6nf43C8i1cDX9zeH76tGgrqFnbLxP996CDmkbplvJD+txDSufU/DmSGiHsMTYK37zOmOV/p/NnWGEaC+ixqPRk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782739211; c=relaxed/simple;
+	bh=+A+RUJTLJrGbg9VAv0ThV60lYJTd/ycmh9oKZScdsCM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EaAMffMAZSUOZgXNbJQWVj2MQT31vf+K+hNqQaeCy/L9tTolqBBEtj1YUHYZ3aP805b96gkq5AclTvSZ9OwgMkFVKmnm3TWMsNsMRZHRh0ebdlZmxa/gTdjI9SHl/FM64slErhLMmdKhTknSXikHMOBS3eKAlFGKQyubENKpnLM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OtDRmQFK; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=SOo45Wbl; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="gMJDg1NA"
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7e6b554044fso2946722a34.0
-        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 06:09:52 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OtDRmQFK";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="SOo45Wbl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1782739209;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+A+RUJTLJrGbg9VAv0ThV60lYJTd/ycmh9oKZScdsCM=;
+	b=OtDRmQFKZA2q6ygtKSUlgzHK9spa2LQQRT31F3Gj6cYGD5ynZZRzbThUO+Wv2RJ+XDhKSq
+	lAJzzYWbdTjGtPr6iUw+L9nase0py5r7B3Gkb4vqHnh9N5aBRuD47OtLV5Zi9g+BjRzYKJ
+	HVrqniCIiSmLzP7x54jCzB60TeVJFYc=
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-541-lppY9MCsOiu6NFflJhmGmw-1; Mon, 29 Jun 2026 09:20:07 -0400
+X-MC-Unique: lppY9MCsOiu6NFflJhmGmw-1
+X-Mimecast-MFC-AGG-ID: lppY9MCsOiu6NFflJhmGmw_1782739207
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4909b046dabso6517576b6e.0
+        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 06:20:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782739207; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kXxCozWgsXhQXKoWf95WKBrUn2woZw1BBoYpDBcUPrGbiaozSseLJgXYfsiZLjr8iM
+         b/BpdiNmj572/6mT6aG9VLo8aaX5GjAs4UEHCrx4gwuwoHmQ7g3WjGxtJhAdqiPgR7xf
+         jUfjS1+Mg913wf3jovoP4k91TjisAsFbmZZlWt2i0ByhOgcUaSPk209ESteZdi/dt5ut
+         n39SCiaLoBVW7QGIvwCzEK6DBbdOpqWNZberQeIJxmlDUeoRRip54tHL49MdfrGyN3LO
+         nimcgUrJZbBs8Pi/HckJyMasaSeWRowrur93Ol1S5aQlNBV3BXLycaQVXGp1v4kXCZTB
+         cd8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+A+RUJTLJrGbg9VAv0ThV60lYJTd/ycmh9oKZScdsCM=;
+        fh=T5mO7V/lEHwqSJ45UQ7cJyC3FmB/RFt2JD8kO98XIUc=;
+        b=W3DN6ppmosyKX23629hRf4ttaQ6sL9NSYW3rUE8jC8zXWWDfYld11oUcT7UUfgm0i2
+         dd+J4DqdI1O8tXRoH0xbEyWud8jk/1N+suQpkUALrk31tIyBUM1SEHf3N/ERAN7zWkoO
+         UXAqZmd3tWp0aWr5mebDSjMNUo0IPNbKx3BEGLiLRcNGQox57skcnU6uK9udyMARfv40
+         LoWzHsji/eFNm6tG0HBhQmBfA8TZi3STH/eR+P9NG/xOZRVaG5yLP3DIaoMM28T814Gz
+         7EcLGcqNKYnxrWKSAErJTHecvL9Dce9C5z3ZMBV0QfxGte9lHIuG3gt4lXQO39jBJsYR
+         PSvQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1782738592; x=1783343392; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=C857Q2VDyItus3syZ+DUaEL05/aUtCKQC2sIRlYJkic=;
-        b=gMJDg1NAajeSLhbu0RTZcMA51c0+/uo33amb51UJLNd1o2YVOaFkRWKjg/iPIKLDSw
-         46XUc8VZocCD5dV08LbuyFxuwpGOeMsJSbSNr+1ITT4Dw+HINjDwWkW8wPm6BZSuY7IM
-         CSQqPeDgY0QntvYjabDVFqnOPb21tnh3onwIo=
+        d=redhat.com; s=google; t=1782739207; x=1783344007; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+A+RUJTLJrGbg9VAv0ThV60lYJTd/ycmh9oKZScdsCM=;
+        b=SOo45WblozuOj5/C4Csm55jUwDH208E5PeEzqBtsAJ5kZGAvuo+RutnVtJcmhH9Kyh
+         m5wtENHJWnOpu1bmK4Ox+puUJiVjCjUQ5hCZDPEwTaW1koStfrQwPcAIfy6npXYUBNgx
+         KJn1VMalvfqyh5KGFldZkYwt7ceaZQ248xSp5SX25gRVD95aJccHQiPt3dnRalN5gRwA
+         QnU/5vhoqC9bPMR9h7NCGlmWRQysjE2Oa9Fk37auLgzEPdLcbV7KzNZ7gc6hr0DfPi2h
+         u2tiei7erfPwzDVVmRHkgAsobqjBVp1EP2EacNLGGJlLYu+Tc2qzFtad/OHkO+vBBAPT
+         tahw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782738592; x=1783343392;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=C857Q2VDyItus3syZ+DUaEL05/aUtCKQC2sIRlYJkic=;
-        b=XGZCJN4Q91ljpY6gZMu6pr03IG4zjHkIYWaIDWCmk19a7QckO9UAlVPzXKXfWDKLd1
-         bWAHSXC34s83BYI8aBUNGXptBW4oe313VgRdzcCza0KnCQSL+6SCcgTalZ7QaWnCcRFC
-         o66pH0545iX3OHW8UiPiKBPVkpbje20Pra6RjhPcDbxLKcoUGB6hKoYqur6nQMS2oE4d
-         ifcyvzlWGrrervTIH8zaCCfrsuATPWn79G28wnsDi8Z5aMvfATUdTYYtG1Wg0f3qQPql
-         lvK/L421qCApc5BETKH+Sf/3H9LI0EwUof/JZKTo5awGVe56wT0KeF7Jau212428zJYf
-         OStA==
-X-Forwarded-Encrypted: i=1; AFNElJ+kCYrazEopXTMMZRGcU+HI6UvolcK05MT4CCXs4mjfNIJNnMplNOQ0mQXO4sZtWJL5p7j7omE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVbWyAb9VIXNx1NNl9H5vkWHJVIhgiD13pGBmPoS72Gw9RVOzg
-	CSTWmfIAjKNDFly1DVNyzJncN8QNZyKspQKfWmEZrJwcSydusG7IPe0PO/Qphqwoug==
-X-Gm-Gg: AfdE7cmXx0nJvcn7c8FUA17v/EHh3EBNtHPsBgcUlCgAzA5gslOGuPM4trm+6vrOR09
-	NMzCM84JBCredC3lqSP+u4dqIxxWhDNESBXx7xA5gicHVTBX4srrMJT8/7zd/Lyqm1L+JgOu+Hl
-	dv5uKPZQxPiKRDzYm2w2XhvxTLvE5PJgwD/aMW0UbmT+NcCPlBaSLXr8Tansjck7K2k9Cshl4Oh
-	80GB/rD87s7mYnYvocaljc9Oh0oXnQ1N2qh72Zb0voBLgoi0IPriRBaCMTwr24LWO4ar2+V0G8K
-	RKXb5k1X1GyggiGUEDiyyyqvvq8A3RVyYPmY50GjgUIB/R3hxC0PmuF7SPGgUTXxSSa1nUeI16E
-	eMnKVq/1lO/BfCV3zGQRJpysbsj5XpM10gb9+BNMvE1fyR3oCx0Pt4LutTAuvkrU2Gz9AzWYxXR
-	AXqBhVvoda5fTXIwo2jObNjDyaUmWgHeFkbA==
-X-Received: by 2002:a05:6830:314c:b0:7e9:d3aa:e391 with SMTP id 46e09a7af769-7e9e91a5b19mr361337a34.6.1782738592071;
-        Mon, 29 Jun 2026 06:09:52 -0700 (PDT)
-Received: from ?IPV6:2804:14d:5c54:4d67::1c9d? ([2804:14d:5c54:4d67::1c9d])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9aa800350sm8796677a34.25.2026.06.29.06.09.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 06:09:51 -0700 (PDT)
-Message-ID: <f315dd0d-211e-4d85-a06e-da422f015f1e@mojatatu.com>
-Date: Mon, 29 Jun 2026 10:09:45 -0300
+        d=1e100.net; s=20251104; t=1782739207; x=1783344007;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=+A+RUJTLJrGbg9VAv0ThV60lYJTd/ycmh9oKZScdsCM=;
+        b=bgIsOhn+2Jw5ngJ3QXtwTOl5ozfLpnXX1Xktd9tJQJWxZPJhVITLm83q9OqzwnS9vo
+         jr2zak6OYjc7f2h9s6xc5vOt7IxQ0ZGmsU4FNy5+iiMxtQ8SsihZVArpaUOuX4nbkSy+
+         Qo2sZwwKIeZN80PkVNGnujDBz41gOhVMS/u7v53wC38i0X+/4cPcNXlJDohCoODgMFiW
+         g2+s+8Ph+P4i8XjEDBZrNoCbZQVEHy/9cqucGUv+tQsSktLD0hSwZG99QLEyMXulqogw
+         8cYqheEX7N/6XThlH5+k9UKEhmC/bmxZ3/kRdbFBefXPQ+pgpfERlghXXkP1ryVYupbN
+         qECw==
+X-Forwarded-Encrypted: i=1; AFNElJ8/0tHiRL674w9K5vy1QdU03JiurZA+n95SIq9evwC09wqukhEOPMMq+KEyNd6InufFS4rv1UU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1fq+IJmI+lTMgy/0hMP0OQqc5NmztFAUEhyKTAP5zeD6hbtkF
+	v1VvVO8p94/WdFh4ts2zZ3Te+JDq7xa9JCuN8BOuu7ORx+dfY+19j3kPPFKDGzJdsSH8bXoedVn
+	GrA+xFZ9mvTFPshbSG5NMML/jmesHEVVYFSwC7FOO0PgjFuu913ZVNzfb7BQ/4aBPp58BO6k4f0
+	GXC8Jnt9DDSncDFtYIPSA6pXLwUTDEO0X4
+X-Gm-Gg: AfdE7ckB7Jwsee6xfTsjgu6kI2x06Qabb0FzIV6KOM5eqHLEH0jCI5aI1NFuPFETzTz
+	8T2ITadwm6Br13+8dEzvGZ9eX3BG/gg6Pv9hpggKz76ZRe/ebBKVSnaTEOJfPM0ia2aVBKID1lL
+	3Bj2KsZdwLlakwNnGkQIJCmzmkXWKBtidrfsqe8SkNmUZbq1Mfu3+zdeIEXY4spv2a/A+GBRoZk
+	brAfy2CdvE2KjXn04SA7SYwmnhF
+X-Received: by 2002:a05:6808:c229:b0:492:285c:4dbc with SMTP id 5614622812f47-4943dfd8b2emr7701006b6e.30.1782739206973;
+        Mon, 29 Jun 2026 06:20:06 -0700 (PDT)
+X-Received: by 2002:a05:6808:c229:b0:492:285c:4dbc with SMTP id
+ 5614622812f47-4943dfd8b2emr7700980b6e.30.1782739206188; Mon, 29 Jun 2026
+ 06:20:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] netfilter: nf_nat_masquerade: recalculate TCP TS
- offset when port is randomized
-To: xietangxin <xietangxin@h-partners.com>,
- Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
- Phil Sutter <phil@nwl.cc>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Cc: gaoxingwang <gaoxingwang1@huawei.com>, huyizhen <huyizhen2@huawei.com>,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260629093408.3927103-1-xietangxin@h-partners.com>
-Content-Language: en-US
-From: Victor Nogueira <victor@mojatatu.com>
-In-Reply-To: <20260629093408.3927103-1-xietangxin@h-partners.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260622133540.48591-1-desnesn@redhat.com> <CACaw+ewAhmPYxnQgpzh-zL823YEuyZGDukwAzeDUOvRU9RrWcA@mail.gmail.com>
+ <be228d1b-f4f8-4cc8-ab35-717571d0db36@linux.intel.com>
+In-Reply-To: <be228d1b-f4f8-4cc8-ab35-717571d0db36@linux.intel.com>
+From: Desnes Nunes <desnesn@redhat.com>
+Date: Mon, 29 Jun 2026 10:19:53 -0300
+X-Gm-Features: AVVi8CdsM8o1m1mnm4XRVJ9a4Hx4twvCmdvxj6ov7z9dn3EC7SvcKrUgKnuqktI
+Message-ID: <CACaw+ewcs2Swx1EErF9JB3a8Da6WPhXwsSeqbA7F+ZpcFXAuAA@mail.gmail.com>
+Subject: Re: [PATCH] iommu/vt-d: Fix UCTP context table slot when copying root entries
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+	stable@vger.kernel.org, dwmw2@infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
+Hello Samiullah and Lu,
 
-On 29/06/2026 06:34, xietangxin wrote:
-> Problem observed in Kubernetes environments where MASQUERADE target with
-> --random-fully is configured by default. after commit
-> 165573e41f2f ("tcp: secure_seq: add back ports to TS offset") TCP short
-> connection QPS dropped from ~20000 to ~10000. This added source and
-> destination ports into TS offset calculation.
-> 
-> However, with MASQUERADE --random-fully, when multiple internal connections
-> (e.g sport 10000,20000) are mapped to the same external port (e.g 30000),
-> their TS offsets are calculated as ts_offset(10000) and ts_offset(20000).
-> If the server reuses the TIME_WAIT slot from the first connection, there is
-> a chance that ts_offset(20000) < ts_offset(10000), breaking TSval
-> monotonicity for the same 4-tuple and causing RST packets:
->    Client -> Server 24870 -> 80 [SYN] TSval=2294041168
->    Server -> Client 80 -> 24870 [ACK] TSecr=2846236456
->    Client -> Server 24870 -> 80 [RST] Seq=855605690
-> 
-> After nf_nat_setup_info() successfully assigns a new randomized
-> source port, recalculate the TS offset using the new port and
-> update the SYN packet's TSval accordingly.
-> 
-> Test results on 4U4G VM with
-> `./wrk -t8 -c200 -H "Connection: close" -d10s --latency http://5.5.5.5:80`
-> Before:
->    random:10712 req/s, random-fully:10986 req/s
-> After:
->    random:21463 req/s, random-fully:19181 req/s
-> 
-> Fixes: 165573e41f2f ("tcp: secure_seq: add back ports to TS offset")
-> Cc: stable@vger.kernel.org
-> Closes:https://lore.kernel.org/all/92935c00-e0be-4591-ac44-5978c7804d57@yeah.net/
-> Signed-off-by: xietangxin <xietangxin@h-partners.com>
-> [...]
-> +
-> +static void masquerade_update_tcp_ts_offset(struct nf_conn *ct, struct sk_buff *skb)
-> +{
-> [...]
-> +
-> +		if (nf_ct_l3num(ct) == NFPROTO_IPV4)
-> +			st = secure_tcp_seq_and_ts_off(net, tuple->src.u3.ip, tuple->dst.u3.ip,
-> +				tuple->src.u.tcp.port, tuple->dst.u.tcp.port);
-> +		else
-> +			st = secure_tcpv6_seq_and_ts_off(net, tuple->src.u3.ip6,
-> +				tuple->dst.u3.ip6, tuple->src.u.tcp.port, tuple->dst.u.tcp.port);
+On Mon, Jun 22, 2026 at 10:46=E2=80=AFPM Samiullah Khawaja <skhawaja@google=
+.com> wrote:
+> Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
 
-This breaks the build when CONFIG_IPV6 is not set.
+Thanks for the review Samiullah
 
-.config:4948:warning: override: reassigning to symbol NET
-.config:4949:warning: override: reassigning to symbol NET_CORE
-.config:4950:warning: override: reassigning to symbol NETDEVICES
-.config:4951:warning: override: reassigning to symbol NETWORK_FILESYSTEMS
-ERROR: modpost: "secure_tcpv6_seq_and_ts_off" [net/netfilter/nf_nat.ko] 
-undefined!
+On Sat, Jun 27, 2026 at 3:46=E2=80=AFAM Baolu Lu <baolu.lu@linux.intel.com>=
+ wrote:
+> So this not only addresses a DMA fault message, but also resolves a
+> real-world kdump reboot issue. When you send the next version, could you
+> please include this and the below stack trace in the commit message?
 
-cheers,
-Victor
+Exactly!
+
+> The change itself looks good to me. Thank you!
+
+Outstanding - will send a v2 with the stack trace in the patch log.
+
+Best Regards,
+
