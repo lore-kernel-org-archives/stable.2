@@ -1,131 +1,123 @@
-Received: from out-172.mta1.migadu.com (out-172.mta1.migadu.com [95.215.58.172])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4046BA45
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 06:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD683A169F;
+	Mon, 29 Jun 2026 06:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782716375; cv=none; b=T0my3Vag8lqQLBZWR5Oq35llWGMrak1V9MNNv8T9cSi850WBG05KAykRZUnh7+RLkN8mYyTwqRgXOc52J+c8QTKvw0fmWujRpxb/QGHgxs99iZzcPljNKeMsSUvW5IRW0FZN85un5fwPd66rwfMJAJ0Thw9iEEEzZd3Z9nORb3M=
+	t=1782716397; cv=none; b=k37TqD1xDSJKzb5NDqS4JIK8FSwleDFzJOQaya8ryg/E/BvEpvi5CFqlbFohCSjoIfb2PJa9dPDTYCWG7orJmwnZjJdnFBUiZHUk3lAVU49sMg2NTOHp4M8GW8A07FM5MvHeL7q7bIXgHaRyUFKBsuFtzJ72diTNTOF3C9RHuFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782716375; c=relaxed/simple;
-	bh=jo7qIqrE9uE0oWniagettds49XQ0MvQn/8X0KRnXJcA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Zo3S5DJe10T6B2VeycEtmn+6XYbPmXlIIfaDd+8T5OTC1Y+MgmlQJGlp8+bqANUI3pCeVribx7GrViyJGkP9Orb647KJHcHy4csentJcz2KeZg1TVvwunxsWlxPZyZXRSRLNdcPdpzivdoR+gAFyKVxz9dGcs3gNhAg4wTzib0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DDHiMsy5; arc=none smtp.client-ip=95.215.58.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782716397; c=relaxed/simple;
+	bh=cfj6qsLX7lbSG0og6v/xy08fwwUJ7Cuhaei+hCrYdR0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=odXrXz7z5gqpjeZRmF55fuaEW+pP7Wig98LoXz65/3MT7DA886AepkvbnTfAC8KReHHyzGQD+VP6zl0I+YOyFoUgMvxXlp62yQXkJ+PxgdhsR6aUQA1lKNmRnimlOkCBKVbhEHe7VvqfZkvAw1K3i8NsfxIZ2EGXFpEk/DadMYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=OpZpETnl; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DDHiMsy5"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782716370;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="OpZpETnl"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gpcbW4kVfz9tv4;
+	Mon, 29 Jun 2026 08:59:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1782716391; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=PHRiMqDlFwcJe/A5WBZFbr9/kLEIZnbR25zBaf1Mgu0=;
-	b=DDHiMsy5WoetwRHmMY/f3MDGJeEIiEiSQlfiqCsqhkXrK0G8y2nHgKhJ+WyQoOzkR1Pj3z
-	1J61aO1SyLsadSXK780OpBUYjd2sESHNxRD5m8AOU9clPbLrFQ50R1UkprCNTQkAsxEVO3
-	Oeum72prWOggU3P3Aw11HExUVqbfbYY=
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: lance.yang@linux.dev,
-	dev.jain@arm.com,
-	linmiaohe@huawei.com,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	akpm@linux-foundation.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	riel@surriel.com,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	kas@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	rcampbell@nvidia.com,
-	apopple@nvidia.com,
-	ziy@nvidia.com,
-	matthew.brost@intel.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	byungchul@sk.com,
-	gourry@gourry.net,
-	ying.huang@linux.alibaba.com,
-	mel@csn.ul.ie,
-	nao.horiguchi@gmail.com,
-	ak@linux.intel.com,
-	j-nomura@ce.jp.nec.com,
-	pfalcato@suse.de,
-	dave.hansen@intel.com,
-	tglx@kernel.org,
-	jpoimboe@kernel.org,
-	ryan.roberts@arm.com,
-	anshuman.khandual@arm.com,
+	bh=3hbzEnZLAxVe7ov2oMC76sAGhhFWZLnsRyY/MSpvDoM=;
+	b=OpZpETnl2QbkF2dT5mnB5Yni7iy5P50niEkB/W2TSRxOOM32j7izTnQjyiENXcbK26PltS
+	v3NslQjcrwoKez3ZUrZeKNsdYHpJHIyjJ/W/Yo0Bmqa5kWhPS3uachHQX+TLXQMJ4mLHI9
+	Nm6hQ4d3/UPJEIxR56wmEXB4WubGN9NYpyDKIQq6m5x28UeyHv2dLCXaiKWeywrWktbL5K
+	OQOuuge2wOLZ9QiSbbvZ2p3dfhWJDa7/lqSexq1rdxFq1+2mt40I5JgScnzON9FQ1TLjxb
+	qiTOtHvA+Jgak4v64ATZwUhVlPVFSugA0cHre/RSPjKxRu3SQNTIjPILaeL/BA==
+Message-ID: <e5b833e4c3764efa84f57e1b9691b946e0d3b1cd.camel@mailbox.org>
+Subject: Re: [PATCH] dma-fence: Make dma_fence_dedup_array() robust against
+ 0-count input
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Baineng Shou <shoubaineng@gmail.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Philipp Stanner
+ <phasta@kernel.org>,  Akash Goel <akash.goel@arm.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: Re: [PATCH 4/5] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
-Date: Mon, 29 Jun 2026 14:59:09 +0800
-Message-Id: <20260629065909.88972-1-lance.yang@linux.dev>
-In-Reply-To: <98f3aedd-de11-4a83-81b8-f3e3c9380e49@kernel.org>
-References: <98f3aedd-de11-4a83-81b8-f3e3c9380e49@kernel.org>
+Date: Mon, 29 Jun 2026 08:59:47 +0200
+In-Reply-To: <20260629031346.3875683-1-shoubaineng@gmail.com>
+References: <20260629031346.3875683-1-shoubaineng@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-MBO-RS-META: bbk6f6twdq8kmn36mzidwpfnhkk5qc61
+X-MBO-RS-ID: 236d4085a3bc31e8aaf
+
+On Mon, 2026-06-29 at 11:13 +0800, Baineng Shou wrote:
+> dma_fence_dedup_array() returns 1 when called with num_fences =3D=3D 0:
+> the for-loop body never executes, j stays at 0, and the final
+> `return ++j` yields 1. This contradicts both the kernel-doc ("Return:
+> Number of unique fences remaining in the array") and the natural
+> expectation that 0 input gives 0 output.
+>=20
+> All in-tree callers currently filter num_fences =3D=3D 0 before invoking
+> this helper (__dma_fence_unwrap_merge() bails out via the
+> `if (count =3D=3D 0 || count =3D=3D 1)` fast path; amdgpu_userq_wait_*()
+> cannot reach the dedup call with a zero local count because the
+> amdgpu_userq_wait_add_fence() helper guarantees num_fences stays in
+> [0, wait_info->num_fences], and wait_info->num_fences > 0 is enforced
+> at the ioctl entry).
+>=20
+> However, dma_fence_dedup_array() is EXPORT_SYMBOL_GPL, so any future
+> caller that forgets to pre-filter the zero case will get a misleading
+> return value of 1. Depending on how that caller uses the result, it
+> could dereference an uninitialized fence slot in the array, since the
+> caller's array may have been allocated but not yet populated.
+>=20
+> Make the contract match the documentation by returning 0 early. This
+> also skips an unnecessary sort() call on an empty array.
+>=20
+> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+> ---
+> =C2=A0drivers/dma-buf/dma-fence-unwrap.c | 3 +++
+> =C2=A01 file changed, 3 insertions(+)
+>=20
+> diff --git a/drivers/dma-buf/dma-fence-unwrap.c b/drivers/dma-buf/dma-fen=
+ce-unwrap.c
+> index 53bb40e70b27..364cbf79ad73 100644
+> --- a/drivers/dma-buf/dma-fence-unwrap.c
+> +++ b/drivers/dma-buf/dma-fence-unwrap.c
+> @@ -97,6 +97,9 @@ int dma_fence_dedup_array(struct dma_fence **fences, in=
+t num_fences)
+> =C2=A0{
+> =C2=A0	int i, j;
+> =C2=A0
+> +	if (!num_fences)
+> +		return 0;
+
+Hm, since you're adding this, what about num_fences =3D -5 ?
 
 
-On Mon, Jun 29, 2026 at 08:39:22AM +0200, David Hildenbrand (Arm) wrote:
->On 6/28/26 07:44, Lance Yang wrote:
->> 
->> On Sat, Jun 27, 2026 at 12:43:31PM +0530, Dev Jain wrote:
->>>
->>>
->>> On 26/06/26 10:16 pm, Lance Yang wrote:
->> [...]
->>>>
->>>> Just thinking out loud: given that huge_ptep_get() already assumes that
->>>> addr matches the huge pte, at least on arm64, would it make sense to
->>>> have a small hugetlb wrapper around it that takes hstate and aligns
->>>> the address before calling the arch helper?
->>>>
->>>> Might make the rule clearer, and a bit harder to get wrong again :)
->>>
->>> Are you suggesting something like:
->> 
->> Yes, that's what I had in mind :) thanks!
->> 
->>> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
->>> index fdb7bdf7645c..xxxxxxxxxxxx 100644
->>> --- a/include/linux/hugetlb.h
->>> +++ b/include/linux/hugetlb.h
->>> @@ -825,6 +825,15 @@ static inline struct folio *filemap_lock_hugetlb_folio(struct hstate *h,
->>>
->>> #include <asm/hugetlb.h>
->> 
->> Maybe worth spelling out the rule as well: 
->> 
->> For arch helpers that use addr, huge_ptep_get() assumes addr is the
->> address for the hugetlb entry ptep points to. arm64 already makes that
->> assumption.
->> 
->> Callers where addr may not be hugepage-aligned should use
->> hugetlb_ptep_get() instead.
->
->Do we have any examples where code would do that? I would think that all code
->must properly align addr ahead of times.
+Let me use this opportunity to also highlight that we should, in C, in
+general get away from using int for everything.
 
-I was thinking of the memory-failure case from earlier:
+__dma_fence_unwrap_merge() directly below uses unsigned int, as you
+would expect. dma_fence_dedup_array() has almost no users. Probably we
+should change that API to unsigned int, too?
 
-https://lore.kernel.org/linux-mm/20260626141031.14309-1-lance.yang@linux.dev/
 
-There, page_mapped_in_vma() can be called with the poisoned tail page,
-so pvmw.address comes from page_pgoff(folio, page) and need not be
-hugepage-aligned.
+Regards
+P.
 
-Cheers, Lance
+> +
+> =C2=A0	sort(fences, num_fences, sizeof(*fences), fence_cmp, NULL);
+> =C2=A0
+> =C2=A0	/*
