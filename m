@@ -1,93 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C4E3FC5BE;
-	Mon, 29 Jun 2026 09:18:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCD23FD15F
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 09:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782724705; cv=none; b=SmNA+4P4ElJz1qHa0ySoQrvDa7ZDcCnohsumHzv3iJFkxB1rnUnEN3pMfGRvDnK6WfyQ0xq5gztyELox/YYXMlP9TFAWb2kIubsOFqATWvo/s3iZ/FFFZwx8VuDB9pLtLMfxQEhve6WqRwnweECg6Ori/RzTxyDN04LSsqquozw=
+	t=1782724717; cv=none; b=ZXfZGgBK6ICJI3Na5IjrzWrWIkZbyN42VEuSyN/84A70vW2sHJCzCrnCvmA8rJDx+0vVMAGmM/95cMIPqw+LXeg3DJt43z/rQ+rlj2RAa4EyANjh6qpFHvGNYtEeCv00/ofA6GxRqi3C19SW3ZaFeNiNa5al/EoqFnmreeCzMjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782724705; c=relaxed/simple;
-	bh=sJKNtE95R5L+yo7q9jl3+KbIcC66zPXSE+Ab5FZZs7o=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=tSbL9751ZxOzRTHDPIDiKQ6zs11PAWHxqNlIrTqhu/Z7YOgb1fcBItDDDdMMnsxtjNtH8d9QWfCuDw+aDMj2UeptEC6lUDlwIYLir6xy+q1YkSt1VT3/Ztn1U5bsn+iS1LNsaEyJe8m15n3N+pW7LF99/vZpz48uO90+O/ZuMOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nsI5JgCR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782724717; c=relaxed/simple;
+	bh=VXGReo7ab2OKkmaZ2FbFu+urBDyiDuPMgysRMWQylX4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=L5Cy5cNy1F/iTrmMq05YeCJu8r3OoaCOzG91SIActQ0wSBWPlM7Ct+A4brbHzAEVJ2A2gcOyg7lMoj3rdmuH/npopfXY0ipArFl9IGD5FyCuZ3yblhEdeZOmlD47VhYIwR2iYCbbOosrQ0F/DV0ZUZnJ1EBib33tV34g4xoqF6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LzGQnWFG; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nsI5JgCR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7F11F000E9;
-	Mon, 29 Jun 2026 09:18:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782724703;
-	bh=7JktU4sf7enyE9ymlnEnWDK2ubbaQM7VRZFQOV/uzsw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=nsI5JgCREXFgGS/h6fw5pb7ioF6D/w6HGbVK0PphL9vzHMAPIYlJAEo1eRDYqhUVm
-	 QUCFg54pedBvK9iRJH8hURe9aDSBiCtQ37wW8qArBow/fSSntWsOTSz6bHYtUiVACf
-	 /DKuGHNr/6bed38uAUUMDxDhwCUF2E9WzyXSkQX/KV+QdcEzJcefV57Pddh5/Scg3K
-	 KDyInWNXfCjjVTCMODZvcxcGico4rxI21qZFKEb5NRxPALggLDqpITH4Hv7qAGvx67
-	 EmxyHU0lGWmxRSTp2IsKc35tBA5sWjKgYE7TWcqpCDZxUyjIQaS6tcvuB1DyqTHW35
-	 v5jM4K4jVC/Zw==
-Date: Mon, 29 Jun 2026 11:18:21 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: HyeongJun An <sammiee5311@gmail.com>
-cc: Benjamin Tissoires <bentiss@kernel.org>, 
-    =?ISO-8859-15?Q?Filipe_La=EDns?= <lains@riseup.net>, 
-    Lee Jones <lee@kernel.org>, linux-input@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] HID: logitech-dj: Fix maxfield check in DJ short report
- validation
-In-Reply-To: <20260618063737.211468-1-sammiee5311@gmail.com>
-Message-ID: <5s454s07-8sso-p157-9047-o3o5r1276p86@xreary.bet>
-References: <20260618063737.211468-1-sammiee5311@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LzGQnWFG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782724715; x=1814260715;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=VXGReo7ab2OKkmaZ2FbFu+urBDyiDuPMgysRMWQylX4=;
+  b=LzGQnWFG7JWyJo3kF0FhzdIX4CkARFxvkLWXa4AmdM1AbDRo8rHAlHTG
+   r2Ic0f7jpMZ4jsGI4AiIbJ7Vzmf+EfuIBVQIQsWn7mrOwJoPC3UmBv6UA
+   wIh44pkc4VeGaca16WUna7qezj70AV5+mw890VksXK8dy0K6gKG3RaJTl
+   UmdZQO4kS4ImoKZsrOlzyxSrAGferxax4tT9MyLtGBm/nngNHbsoDud22
+   YeoEV/WxvReqc6++s2aZHtMsmmQORWpBvqHiMdW/oG750lopiXQVQkRnA
+   HWheF1v20tB785mdWzctY3NPTjB5npGAxy4fgZdYTYfG8R3yBkbtRIMea
+   A==;
+X-CSE-ConnectionGUID: 8ANAt4KWQW+B+CewKhA2BA==
+X-CSE-MsgGUID: sGJGXI+iQkG4UEX41vUfVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="100843501"
+X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
+   d="scan'208";a="100843501"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 02:18:34 -0700
+X-CSE-ConnectionGUID: vtOm/KE8TVmRwlS0kMDFBQ==
+X-CSE-MsgGUID: d3KR/EcUTDGWL8yaFbOGrg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
+   d="scan'208";a="253812014"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO [10.245.245.28]) ([10.245.245.28])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 02:18:32 -0700
+Message-ID: <a034ee3637d8e2b849759b3935992f6d195ab52d.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/ttm: Fix UAF on dma-buf attach failure for sg BOs
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Nitin Gote <nitin.r.gote@intel.com>, intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org, Christian Konig <christian.koenig@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>
+Date: Mon, 29 Jun 2026 11:18:16 +0200
+In-Reply-To: <20260625055734.2831607-2-nitin.r.gote@intel.com>
+References: <20260625055734.2831607-2-nitin.r.gote@intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 18 Jun 2026, HyeongJun An wrote:
+On Thu, 2026-06-25 at 11:27 +0530, Nitin Gote wrote:
+> When a dma-buf importer creates a ttm_bo_type_sg BO with bo-
+> >base.resv
+> pointing at the exporter's dma_buf->resv and dma_buf_dynamic_attach()
+> fails, no dma_buf reference is held. The exporter can be freed before
+> the delayed_delete worker calls dma_resv_lock(bo->base.resv), causing
+> a
+> use-after-free:
+>=20
+> =C2=A0 Oops: general protection fault, probably for non-canonical address
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x6b6b6b6b6b6b6b9c
+> =C2=A0 Workqueue: ttm ttm_bo_delayed_delete [ttm]
+> =C2=A0 RIP: 0010:mutex_can_spin_on_owner+0x3f/0xc0
+>=20
+> ttm_bo_individualize_resv() skips the resv swap for all sg BOs to
+> keep
+> the shared resv available for delayed_delete to release the dma-buf
+> mapping. A BO whose attach never succeeded has no mapping to release,
+> yet it keeps bo->base.resv pointing at the exporter resv that
+> delayed_delete later locks once the exporter is gone.
+>=20
+> Fix this by checking bo->base.import_attach, which is only set after
+> successful dma_buf_dynamic_attach(). Failed imports now individualize
+> normally, so delayed_delete operates on the BO's private _resv. The
+> exporter remains alive during individualize as it runs synchronously
+> in ttm_bo_release(), while the gem_prime_import caller still holds
+> its dma_buf reference.
 
-> Commit b6a57912854e ("HID: logitech-dj: Prevent REPORT_ID_DJ_SHORT
-> related user initiated OOB write") added validation for the DJ short
-> output report, but the error path dereferences rep->field[0] even when
-> rep->maxfield is zero.
-> 
-> Commit 8b9a097eb2fc ("HID: logitech-dj: fix wrong detection of bad
-> DJ_SHORT output report") made the check conditional on rep being present,
-> but a crafted descriptor can still create report ID 0x20 with only padding
-> output items. hid-core registers the report, ignores the padding field,
-> and leaves rep->maxfield as zero.
-> 
-> In that case the validation enters the rep->maxfield < 1 branch and then
-> dereferences rep->field[0]->report_count while printing the error message,
-> causing a NULL pointer dereference during probe. This is reproducible with
-> uhid by emulating a Logitech receiver with a padding-only DJ short output
-> report:
-> 
->   BUG: KASAN: null-ptr-deref in logi_dj_probe+0xb1/0x754 [hid_logitech_dj]
->   Read of size 4 at addr 0000000000000028 by task kworker/4:1/129
->   ...
->   Call Trace:
->    logi_dj_probe+0xb1/0x754 [hid_logitech_dj]
->    hid_device_probe+0x329/0x3f0 [hid]
->    really_probe+0x162/0x570
->    __device_attach+0x137/0x2c0
->    bus_probe_device+0x38/0xc0
->    device_add+0xa56/0xce0
->    hid_add_device+0x19c/0x280 [hid]
->    uhid_device_add_worker+0x2c/0xb0 [uhid]
-> 
-> Reject the zero-field report before printing the field report_count.
-> 
-> Fixes: b6a57912854e ("HID: logitech-dj: Prevent REPORT_ID_DJ_SHORT related user initiated OOB write")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+I think since the bo is published on the LRU, a LRU walk can still grab
+a bo reference before the prime_import caller calls put(). So this
+doesn't necessarily hold?
 
-Applied, thanks.
+>=20
+> Closes:
+> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8023
+> Fixes: d99fbd9aab62 ("drm/ttm: Always take the bo delayed cleanup
+> path for imported bos")
+> Cc: stable@vger.kernel.org=C2=A0# v6.8+
+> Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
+> Cc: Christian Konig <christian.koenig@amd.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+> Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
+> ---
+> v3:
+> - Dropped the xe-side reordering approach since importer_priv must be
+> =C2=A0 valid when dma_buf_dynamic_attach() publishes the attachment.
+> - Per Christian's suggestion on the v1 thread, keyed the check on
+> =C2=A0 import_attach rather than removing the sg guard entirely.
+> - Exporter lifetime: individualize runs synchronously inside
+> =C2=A0 ttm_bo_release(), called from drm_gem_object_put() in the
+> =C2=A0 gem_prime_import error path while drm_gem_prime_fd_to_handle()
+> =C2=A0 still holds its dma_buf reference.
+> - Fixes both xe and amdgpu in a single TTM patch.
+>=20
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++++++++---------
+> =C2=A01 file changed, 15 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+> b/drivers/gpu/drm/ttm/ttm_bo.c
+> index bcd76f6bb7f0..bf8eaec0e9ca 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -196,6 +196,14 @@ static int ttm_bo_individualize_resv(struct
+> ttm_buffer_object *bo)
+> =C2=A0	if (bo->base.resv =3D=3D &bo->base._resv)
+> =C2=A0		return 0;
+> =C2=A0
+> +	/*
+> +	 * Successfully imported sg BOs need the shared resv for
+> dma-buf
+> +	 * cleanup. Failed imports have no attachment or mapping and
+> can
+> +	 * use the private _resv.
+> +	 */
+> +	if (bo->type =3D=3D ttm_bo_type_sg && bo->base.import_attach)
+> +		return 0;
+> +
 
--- 
-Jiri Kosina
-SUSE Labs
+You would still need to copy the current fences to _resv here, because
+otherwise, the object can be premaurely released. It's considered idle
+when the fences attached to _resv have all signaled. So this needs to
+be moved below the fence duplication below.
 
+Thanks,
+Thomas
+
+
+
+> =C2=A0	BUG_ON(!dma_resv_trylock(&bo->base._resv));
+> =C2=A0
+> =C2=A0	r =3D dma_resv_copy_fences(&bo->base._resv, bo->base.resv);
+> @@ -203,15 +211,13 @@ static int ttm_bo_individualize_resv(struct
+> ttm_buffer_object *bo)
+> =C2=A0	if (r)
+> =C2=A0		return r;
+> =C2=A0
+> -	if (bo->type !=3D ttm_bo_type_sg) {
+> -		/* This works because the BO is about to be
+> destroyed and nobody
+> -		 * reference it any more. The only tricky case is
+> the trylock on
+> -		 * the resv object while holding the lru_lock.
+> -		 */
+> -		spin_lock(&bo->bdev->lru_lock);
+> -		bo->base.resv =3D &bo->base._resv;
+> -		spin_unlock(&bo->bdev->lru_lock);
+> -	}
+> +	/* This works because the BO is about to be destroyed and
+> nobody
+> +	 * references it any more. The only tricky case is the
+> trylock on
+> +	 * the resv object while holding the lru_lock.
+> +	 */
+> +	spin_lock(&bo->bdev->lru_lock);
+> +	bo->base.resv =3D &bo->base._resv;
+> +	spin_unlock(&bo->bdev->lru_lock);
+> =C2=A0
+> =C2=A0	return r;
+> =C2=A0}
