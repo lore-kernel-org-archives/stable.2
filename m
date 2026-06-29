@@ -1,75 +1,63 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4793428841
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 17:01:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CE83655F1;
+	Mon, 29 Jun 2026 17:20:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782752504; cv=none; b=ZSMOry332TRp5yBrbiwvcWDj8N/rfAOTEezhVsKK50XaUTKnX1kLOFMm2XoTWrY7GOGi9o9+8Znf5x8OjekCzThXj3fO21e54i+9lrm876xBbXV+daOsZY6ypAjXmuQ/9GTNtTplwQhRGW2gRoP4CebuJ8QFghiMrJw6vFrQXTQ=
+	t=1782753640; cv=none; b=q9qDkNUK+YT0kuE3asg7QUF6X4XZ6usyXGcrvYqjHGEwVoOGcYAoN/t6vhNWi0WODq2Ev3HnPBvtHCGPomfYkAP6JAl4RR1cgcV3VXoco7qgrHhIqiewwIGsp5MrmlDAtWJjP5+2f4lmJOFCbtVHKGfE9Zorib1RFQB1bFbkEkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782752504; c=relaxed/simple;
-	bh=0ZbNq3krgb6G8hdaDapKsW5xowxyl35n00VG63vlvsE=;
+	s=arc-20240116; t=1782753640; c=relaxed/simple;
+	bh=al5yQE0+dYMsecaa6NaCOaeK0Yanl/mTELVPQXEbJIs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H2PZ/BvyLMjMpzOUhtnTuSBqW/QQgl+SnWc6yOx3oD9Ndy5iez6aGnMaOV1SBNpf5eBWQXdtk86Bneum5QQO+wLtMP8KZe2znbv35zN4AxkOJVSSO8DL+twQO0rIah8vM5xiNX4Cqq8673oPf7PvGFS/rUzj8YT/c7eLSUfjpNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=YsFHHwbp; arc=none smtp.client-ip=209.85.160.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=m+3BtZsVBd+Avq8MrHaa7vDT6RwZIS33PDc6ohcUrmwKtCUHh1UKnTK2wlhC67K4gV6f872PXq3RQkHGZSYGGuhT/P4yc8kYbw0ojUQLA62A8f2Pw5cO38DeRSfWr8tjC4MS8MA5cpX87Y3GZbCFtImXP0TqWyNTwg0SCnzlOZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Vb4sF2Wx; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="YsFHHwbp"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-51a0188b92fso37894611cf.3
-        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 10:01:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1782752502; x=1783357302; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=YeHN7utODULOILBow3SQ4SKTKi+vOT1iFpqN2h/hBuo=;
-        b=YsFHHwbpRsX5WjoNxm3vYRCqhksFNPQnB0Jc2ywinYZG01tXjjJH3fkHn/Div+1sMs
-         ZhqEsZ3KP5/hCtwmCB0sggQycScKKihHnrWvN4HLpcOJuNZTlKnq+N2iGObngd0tVmR2
-         sNCaSLYR9ResDcJSB9fXvvlTivQR+tJU0vmOPohlYuGpV8zozEEJARYh8Cc8bA0gcbt/
-         mPAqGodfzl0Ws6ujYVGVqZHCS1Omy0pqmvxo2PmF2iMoXoZYTgsg4O1eIA98ZRCZYVFz
-         SIZNs95vuTXa4A2PxaBZ2HnF6UIEM5kPpV4hO2xHaCIgQsKcJicrKhkSKSda3VKHsaRQ
-         GEKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782752502; x=1783357302;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=YeHN7utODULOILBow3SQ4SKTKi+vOT1iFpqN2h/hBuo=;
-        b=jRpKVIOkCxz7zi2FTmbTzK25d8wtZZr0/RcR9Bsef+ESQW8eTmWU/EE8Gy4/eHl1Q1
-         +xRM/s83qUEelpuHcJ1P8CwhTewxNGgx3NthdnK61FyyIr2Jb4oFH5W6w8iXXz6WGdOZ
-         yPMzAXWKEkeJqEyf6r8WihjXogu9lma+2Yr3bkvAtzyedscp1YvxHEBEDBtFy4wagdwz
-         qr9WNGuRke0ruAnWD8spg/4DaDgX27a4ILZmPRadnor/TZl6hAl5LK/0V5jsJO+WL8fQ
-         KU1e6gcY0O1vuX4YYPkCQst27YOlPFJpUhctisuuGxyxpZDeb5q1mRHl3KG1shrEWEEc
-         HoGw==
-X-Forwarded-Encrypted: i=1; AFNElJ+kWt0llNhk4LY+M1gAfw/uf9jcaEF1lYTPrPVtLawYip4+myyKpeInkDQhVat9MqCZ0lrfm2A=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXT8nKY+sLguObkU3CHdlpxI9k8xCMuWB7KF+71NmirLh0/uh6
-	6DbXfO6UcA/7jJ9awjDkFtWo9x0F3nwVirCBi+1rm0XWlRHBD1qd2BdgNjFFXjEjesVVX552ar1
-	TIFk=
-X-Gm-Gg: AfdE7cmlVIXMI6IN7vmBbAahHHPZh5mxkgC6cU7yQVK+MDFswIrMgja9LFNhPZ2vwtS
-	Rq19IRlWS9OWOsPMiViayuKgFL1e/9IOb8D97zEksmIVmaEqp3YYrLUGxFs0vk+gOlr6nCVQjr+
-	Wm7bXTWkdF6kBS43iHoZ2KhhHsG0FAIo0bgwpbr9hMylvgcaZVLqk2aKB5qkZA6em8achIRAQux
-	gvcffkRUYhcQJt9MqrqOzAH/V0S6S8gepANnPkM2MyTkJBUaW/RBNnu5lFcIh7JT2caAzzVQb8T
-	MJRB+5slCOlbhwyllyChsdeOxUBS6ADOo4pk44BoVjMyMWJUOcH4pOlCee85wAf3GPCwDiJ5zAV
-	KhGsh+HgUbabOcQOQeo2FMnW57VUuzQMldErJtzYieFMVLq2da6MubheYXcPhZ+aopIuNREmma1
-	BKyWcqvqngm9ffqHUBGDz5dKK9Vk+JnzANGAFO2HdhLTsgqJZZqHP0sbek
-X-Received: by 2002:a05:622a:551b:b0:517:8446:3afc with SMTP id d75a77b69052e-51c1074e85cmr2361671cf.14.1782752501737;
-        Mon, 29 Jun 2026 10:01:41 -0700 (PDT)
-Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51c1080d4f4sm881251cf.4.2026.06.29.10.01.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 10:01:41 -0700 (PDT)
-Date: Mon, 29 Jun 2026 13:01:38 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Nikhil Solanke <nikhilsolanke5@gmail.com>
-Cc: Michal Pecio <michal.pecio@gmail.com>, linux-usb@vger.kernel.org,
-	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2] usbcore: Add quirk for 255-bytes initial config read
-Message-ID: <e7d49127-0215-4b29-9a2a-e1dc0d889b70@rowland.harvard.edu>
-References: <20260623161035.5792-1-nikhilsolanke5@gmail.com>
- <20260628231634.6752f74d.michal.pecio@gmail.com>
- <CAFgddh+AUNH9Ji-Qd=BKEDZWJrzPMWN20-g-htQDPSdSehZStQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Vb4sF2Wx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782753639; x=1814289639;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=al5yQE0+dYMsecaa6NaCOaeK0Yanl/mTELVPQXEbJIs=;
+  b=Vb4sF2WxOaICnsuNCJ8qXijkTZHz+/fEE/XSjY6ELFGj5WUGsWXVPWRI
+   5IZuuyvDaOXZlr0HZC8t6CGrcFzPVCA9qbzsZxP/15dp144DM+HisLQHj
+   NMCF3pnQTLTyVdRBcrzSVl1pn6gOi0swPVmnp9PIR8f0rTWlau/I4zHEC
+   4m6le2SEg9cEZ6pyh4tcYWxiS6G0YAWpEuEEhb0e0XQ25knz6MauZJJjK
+   bEiuu7pk07xz9z5xtp74eT+Fw4M2QAO59fSRD49ymtBW6p4/afPy/fxIa
+   UlA7gmwYVepu6oyubMz6dATKVRSG6Gm+ST1vNu0nY1+0Ug0FsUcDAKUdQ
+   Q==;
+X-CSE-ConnectionGUID: Xvxip7/uQ0ecSRnjAJUoTQ==
+X-CSE-MsgGUID: wtTNEFijRvm0kEBEk9mnRA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="83651019"
+X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
+   d="scan'208";a="83651019"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 10:20:38 -0700
+X-CSE-ConnectionGUID: 0vRtVAJ/SG22+p1DOcbZCg==
+X-CSE-MsgGUID: sNaMJrLLR/K0VUi71Nij5Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
+   d="scan'208";a="250315835"
+Received: from lkp-server02.sh.intel.com (HELO ea128546eb3d) ([10.239.97.151])
+  by orviesa006.jf.intel.com with ESMTP; 29 Jun 2026 10:20:36 -0700
+Received: from kbuild by ea128546eb3d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1weFer-000000007bt-3yh3;
+	Mon, 29 Jun 2026 17:20:33 +0000
+Date: Tue, 30 Jun 2026 01:19:41 +0800
+From: kernel test robot <lkp@intel.com>
+To: Peiyang He <peiyang_he@smail.nju.edu.cn>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Hyunchul Lee <hyc.lee@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, syzkaller@googlegroups.com,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ntfs: fix mrec_lock ABBA deadlock in rename
+Message-ID: <202606300141.H6Io52CJ-lkp@intel.com>
+References: <53BDDD94CF346272+20260629105036.2137914-1-peiyang_he@smail.nju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,24 +66,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAFgddh+AUNH9Ji-Qd=BKEDZWJrzPMWN20-g-htQDPSdSehZStQ@mail.gmail.com>
+In-Reply-To: <53BDDD94CF346272+20260629105036.2137914-1-peiyang_he@smail.nju.edu.cn>
 
-On Mon, Jun 29, 2026 at 11:00:44AM +0530, Nikhil Solanke wrote:
-> On that note, I discovered that usb_get_descriptor just blindly trusts
-> the caller with the allocation of buf, it never checks if buf is null
-> or not. There is only a check for the size. and then there is a
-> memset(buf, 0, size). This results in a segfault if buf is NULL and
-> size > 0. Perhaps it's time for a new patch to fix this?
+Hi Peiyang,
 
-There's nothing wrong with trusting the caller to do the right thing.  
-Besides, if a segfault does occur then it will be pretty obvious that 
-the caller needs to be fixed.
+kernel test robot noticed the following build errors:
 
-What would you do if buf is NULL?  Return an error code?  That won't 
-help anyone locate the bug.  Put an error message in the log?  Segfaults 
-are much more visible.
+[auto build test ERROR on 1a3746ccbb0a97bed3c06ccde6b880013b1dddc1]
 
-Not to mention that nobody has complained about this code failing, so it 
-seems unlikely that buf ever is NULL.
+url:    https://github.com/intel-lab-lkp/linux/commits/Peiyang-He/ntfs-fix-mrec_lock-ABBA-deadlock-in-rename/20260629-185343
+base:   1a3746ccbb0a97bed3c06ccde6b880013b1dddc1
+patch link:    https://lore.kernel.org/r/53BDDD94CF346272%2B20260629105036.2137914-1-peiyang_he%40smail.nju.edu.cn
+patch subject: [PATCH] ntfs: fix mrec_lock ABBA deadlock in rename
+config: arm-randconfig-001-20260629 (https://download.01.org/0day-ci/archive/20260630/202606300141.H6Io52CJ-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 10.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260630/202606300141.H6Io52CJ-lkp@intel.com/reproduce)
 
-Alan Stern
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202606300141.H6Io52CJ-lkp@intel.com/
+
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+>> ERROR: modpost: "d_ancestor" [fs/ntfs/ntfs.ko] undefined!
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
