@@ -1,154 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C731A9B24;
-	Mon, 29 Jun 2026 13:33:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D0B1AA780;
+	Mon, 29 Jun 2026 13:34:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782739991; cv=none; b=OX17S4ktp/2pjdWOe+dV+mLfhqxSEpsHQXrTBfFhSZamS0Y/L9DYMIVYI16/nOjIYTf+OFdE+GyEcJGRfUKOle3FipQlG3/xRrU67TsnzqVJ+Vkkkpc6eiLo8k47SyDOExNpfpNUWoGSAv6o/2IPxTqPpzqTa64Sr5Y6sPxfD/8=
+	t=1782740063; cv=none; b=uRaMey3o/24Havt4By1t6kqxdqaz0B2NhOuuWtyoC9Yqm3iH4dx0veian6/2/a3O6Gk2IS6Lo+gTdfdjLndcJcSZN7T8U/AOBJEuvLYoBdI6PwzcuWffz8UiG8zsJPrWd33/F+iaZOTDM82uMQu+XvDQPPyd+BscTl6gd5rwKAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782739991; c=relaxed/simple;
-	bh=QCFBw/xJRQ/J1HKN/dIIyJ1SeNj2agIKOaeZDEM0KSM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ujVMGjXF9b67CpaUnIzCzTchopR0keyR7BnkQdV6EsjbWQxOIJLAeyE+Eke1NNL1KJq397XY3NmKCfF8/poeBrDnXhu/Lul1/lHWqm10N3qiOnYlMIFUJ4uZBBEFNDFQV2Dw1SrgOMJ/6aW6iASfPfrcb1arWt6hCTlv3vlVVpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jVp7bkZD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782740063; c=relaxed/simple;
+	bh=RDXd2DV9o9Ew1Cn/dxVriEPiH3znnGUUkp4sf0LuKYI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CmN6xTO6mCPQhPTPMyC1+RV81/zNK0zxiNibVv+JRcxTeMEVAWCqMn8Tx6rIe/ckTBkWCIEzTF9sEkoMjyv3Y5XS6GMqkpguJnET1Xmqon7SGXSB3EGfwcSWGPqITii2QEqO7iY8tBjFanud8YW7CDGqht7wPNbp9Rxr2sv3DHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wot+pkiM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jVp7bkZD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E8A71F000E9;
-	Mon, 29 Jun 2026 13:33:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wot+pkiM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DBED1F000E9;
+	Mon, 29 Jun 2026 13:34:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782739989;
-	bh=aVfOEMQ8FHgyc6cNNe2Ze8iDiCaW4tFzEyy8N2ynY0Q=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=jVp7bkZDWMWWYny/2Cd3m/wnt0A9I0f9IoBhXrpNxcBylYE+T7f3bYwe35LVBSvaF
-	 uUsuz7vJ/sABsA9WRyowtd2l4q3mqP8GfflXSj0SDBeq3DY0e3XzR8yNRVL86PEY6D
-	 5SXyC9QKPFSgmqPW3D5f2ZEYlAzg8fQ24hgYx5Fw4GEG0zZBgCJJDUqfeXWSLNhwDl
-	 zLTGAO6kg8+ysJ6NsodOegQfXsLBFPhbIjddd0qotTFuRx13uznHYH5pbhKvXlgIPO
-	 xb9ipYhfxK3qbewuWWHnXRMchLQ7njWNr3lisl7qNW5bOfI4VcT6hB8t/KnJTMrESS
-	 IqMcRK52uKcnw==
-Message-ID: <525600ac-f304-4a5c-b50c-b0051756c1a6@kernel.org>
-Date: Mon, 29 Jun 2026 15:33:06 +0200
+	s=k20260515; t=1782740062;
+	bh=RDXd2DV9o9Ew1Cn/dxVriEPiH3znnGUUkp4sf0LuKYI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Wot+pkiM/+XeZThAnRU6/qSAEhaI8GSkJ3+b/o9Wx1VjTPJpaaTimN1MTiUQDqETl
+	 B2Qk8Qio0wSXu3mlO2TVmjdV9J/mx4Pts+Lnl636Q01ARHlAiEKf+GMGUwpCFx2+S6
+	 VNqm7zvP4Yjq1jguU+2DKiZBmF2GB1U5NGfnCxapG8ICgf2D587shtS3cp9nin+I/I
+	 eUrzIV6befcxxVAUL7Gi0xcWnh5MARwnBKjSazxtXdj+Pp66Txp1Ludtlg7b/gUrbj
+	 FcC8gBK1sO1vP6Wa4otT5TpZ2nM8H4WPnjlX5Eh4ss/BUcY2eG59UUNpADtNzjWcQj
+	 Nz3Qr6Q1SKaJA==
+Date: Mon, 29 Jun 2026 14:34:19 +0100
+From: Mark Brown <broonie@kernel.org>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] fix: regulator: as3722_get_regulator_dt_data: fix
+ premature of_node_put   leaving dangling of_node pointer
+Message-ID: <cea3b329-6c77-4289-8c0a-3fa717258f42@sirena.org.uk>
+References: <20260626160150.54291-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH 4/4] Input: sur40 - fix V4L2 video device lifetime
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Hans Verkuil <hverkuil@kernel.org>, linux-input@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, sashiko-bot@kernel.org,
- stable@vger.kernel.org
-References: <20260616051235.1549517-1-dmitry.torokhov@gmail.com>
- <20260616051235.1549517-4-dmitry.torokhov@gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260616051235.1549517-4-dmitry.torokhov@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PQ0TtsOcivnon6BL"
+Content-Disposition: inline
+In-Reply-To: <20260626160150.54291-1-vulab@iscas.ac.cn>
 
-On 16/06/2026 07:12, Dmitry Torokhov wrote:
-> sur40_disconnect() synchronously frees the sur40_state structure (kfree(sur40))
-> while userspace might still hold an open file descriptor to the V4L2 video
-> device node. When userspace later accesses or closes the lingering file
-> descriptor, the V4L2 core invokes file operations (such as vb2_fop_release)
-> that dereference the already freed sur40 memory, resulting in a use-after-free
-> vulnerability.
-> 
-> Fix this by implementing a V4L2 release callback (sur40_video_release) in
-> sur40_video_device to clean up V4L2 components and free the sur40 structure
-> only when the last video file descriptor is closed.
-> 
-> Additionally, update the sur40_probe() error path to call video_unregister_device()
-> and return inline if input initialization fails after video device registration
-> succeeded, allowing the V4L2 release callback to manage cleanup.
-> 
-> Also, call v4l2_device_disconnect() in sur40_disconnect() to safely dissociate
-> the V4L2 device from the parent USB device during unplug.
-> 
-> Reported-by: sashiko-bot@kernel.org
-> Cc: stable@vger.kernel.org
-> Assisted-by: Antigravity:gemini-3.5-flash
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> ---
->  drivers/input/touchscreen/sur40.c | 27 ++++++++++++++++-----------
->  1 file changed, 16 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
-> index 1ad68131e3a6..2f0efee23d1e 100644
-> --- a/drivers/input/touchscreen/sur40.c
-> +++ b/drivers/input/touchscreen/sur40.c
-> @@ -806,8 +806,10 @@ static int sur40_probe(struct usb_interface *interface,
->  	}
->  
->  	error = sur40_init_input(sur40);
-> -	if (error)
-> -		goto err_unreg_video;
-> +	if (error) {
-> +		video_unregister_device(&sur40->vdev);
-> +		return error;
-> +	}
->  
->  	/* we can register the device now, as it is ready */
->  	usb_set_intfdata(interface, sur40);
-> @@ -815,8 +817,6 @@ static int sur40_probe(struct usb_interface *interface,
->  
->  	return 0;
->  
-> -err_unreg_video:
-> -	video_unregister_device(&sur40->vdev);
->  err_free_ctrl:
->  	v4l2_ctrl_handler_free(&sur40->hdl);
->  err_unreg_v4l2:
-> @@ -835,13 +835,8 @@ static void sur40_disconnect(struct usb_interface *interface)
->  	struct sur40_state *sur40 = usb_get_intfdata(interface);
->  
->  	input_unregister_device(sur40->input);
-> -
-> -	v4l2_ctrl_handler_free(&sur40->hdl);
->  	video_unregister_device(&sur40->vdev);
 
-This call can free sur40,
+--PQ0TtsOcivnon6BL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> -	v4l2_device_unregister(&sur40->v4l2);
-> -
-> -	kfree(sur40->bulk_in_buffer);
-> -	kfree(sur40);
-> +	v4l2_device_disconnect(&sur40->v4l2);
+On Sat, Jun 27, 2026 at 12:01:50AM +0800, WenTao Liang wrote:
+> In as3722_get_regulator_dt_data(), of_get_child_by_name() acquires a
+> reference on np, which is then assigned to pdev->dev.of_node. The
+> function immediately calls of_node_put(np), releasing the reference and
+> leaving pdev->dev.of_node as a dangling pointer.
 
-but this call still uses it.
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-The easiest fix is just to swap the two lines.
+--PQ0TtsOcivnon6BL
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Regards,
+-----BEGIN PGP SIGNATURE-----
 
-	Hans
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpCdFoACgkQJNaLcl1U
+h9BxeQf/Y+aXiDhM2jO4bBtKpiGpSY1bSxFvAWJuuoN+8nr711br1jUobsfwPs13
+C764kjE6BOO5zcWMxYLlsk6h4zyLqciQcdnCN0WKyK7Y+5Y29LQg3QUN47Bscal3
+U8AX/qZKuHexydRhq2QXOJuSDa0VpLT9AuJ5xKgV+JY6cob+6rZlir/RlAWTFrz8
+1u+A+X92bUPggi205MR/ZpsJU9c06sMI8Whmlqr8O66dIvyrjkkMUeqarc87sM1O
+vWZfIUQsiJq2xvJN06xX2+NfnPh6Ov9VOQR9JnIZ38mio0xeMVMbGuv7FMd7WgHe
+ttjhSDGLRWz8bPg21KktCls2+JMGSA==
+=Z1yk
+-----END PGP SIGNATURE-----
 
->  
->  	usb_set_intfdata(interface, NULL);
->  	dev_dbg(&interface->dev, "%s is now disconnected\n", DRIVER_DESC);
-> @@ -1176,11 +1171,21 @@ static const struct v4l2_ioctl_ops sur40_video_ioctl_ops = {
->  	.vidioc_streamoff	= vb2_ioctl_streamoff,
->  };
->  
-> +static void sur40_video_release(struct video_device *vdev)
-> +{
-> +	struct sur40_state *sur40 = video_get_drvdata(vdev);
-> +
-> +	v4l2_device_unregister(&sur40->v4l2);
-> +	v4l2_ctrl_handler_free(&sur40->hdl);
-> +	kfree(sur40->bulk_in_buffer);
-> +	kfree(sur40);
-> +}
-> +
->  static const struct video_device sur40_video_device = {
->  	.name = DRIVER_LONG,
->  	.fops = &sur40_video_fops,
->  	.ioctl_ops = &sur40_video_ioctl_ops,
-> -	.release = video_device_release_empty,
-> +	.release = sur40_video_release,
->  	.device_caps = V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_TOUCH |
->  		       V4L2_CAP_READWRITE | V4L2_CAP_STREAMING,
->  };
-
+--PQ0TtsOcivnon6BL--
