@@ -1,91 +1,134 @@
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4DCB3C6A5C;
-	Mon, 29 Jun 2026 17:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D9737B417;
+	Mon, 29 Jun 2026 17:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782754813; cv=none; b=q73mQbCbUzXe3zpK+qIydXkB4IRzyEXI5cnpk150oSLeTqwshP9qE+TZwvc64sLOtOmIdecosRw1GiIVE/HiFaKC+5Aizd8viUUd1uZwcFfMbwL6MTxUZmYt/ya8Co4Yb8lqt8FsK8bI2vEFoFNf86FKt9oTCruGD2Dqpye0rJI=
+	t=1782754908; cv=none; b=Cu4vhfta/ymUhAz79UgyuXoubJrWBGtCSByd2iARmyH07wjfrfvMQxh+65SA8AlKrHevluH1WZcJUolKejTxYRcgOn70wviYL/l5curxnJD/tD0J96+4iJUCVmfuoMR81h6lciO924GVfcofTTCmtVuFZE2hFMVu0DFZGpVyw38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782754813; c=relaxed/simple;
-	bh=suPZDoIjc7imHpWyaxyx0h9JyD2nnVd0qCwkq8i2i60=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j1+kQcf2MUOkEMkzE9ozd+DPi+IxyORVd8D8lk19/Vx9ySF1IeU7qg14CzbPnreTFU5wIqaRetyp45U12ImtON0gESq9rYUAOepiuq9TXrMhoZ0jHKDbFtaYlRuXYLxRgQiiVMA6vPjOEIuW9TPy4s0GoNUZ//eFRCpuIS2e94c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
-Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1weFd2-0005ih-00; Mon, 29 Jun 2026 19:18:40 +0200
-Received: by alpha.franken.de (Postfix, from userid 1000)
-	id 407A1C0148; Mon, 29 Jun 2026 19:18:30 +0200 (CEST)
-Date: Mon, 29 Jun 2026 19:18:30 +0200
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: raoxu <raoxu@uniontech.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, linux-mips@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] net: sgi: ioc3-eth: unregister netdev before freeing
- DMA rings
-Message-ID: <akKo5i95wiQu6SLY@alpha.franken.de>
-References: <40CD736C4911C181+20260629085053.964383-1-raoxu@uniontech.com>
+	s=arc-20240116; t=1782754908; c=relaxed/simple;
+	bh=umCHY0WzhRo9BnV9a4Rue5Pb9esGaLf2ekRSTfsrgUg=;
+	h=Date:To:From:Subject:Message-Id; b=QMEliudPhOTBl+IwcjQDmko4zQ/rYvzy+YefZUrIHMz8+2wDy7pJXbkt94n7UFr6tGlaTAiZ3xISPEesEDT5TLIPaP9uPN2bPNl7hP1Cde/kS2ASvryJBpI0lt6Lok1AFjCi87Xf+zAFJzCnmHjQVbWPpZhM5rP4ZeFQfmwwCAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=RDRWYMEA; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RDRWYMEA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 425081F00A3A;
+	Mon, 29 Jun 2026 17:41:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1782754904;
+	bh=mon0FP5pD7CxKi+sn0r1+EpOnERjsocTWpwnXmAnPI8=;
+	h=Date:To:From:Subject;
+	b=RDRWYMEAV7bqH1etaXbD6Tc5oPw5YnEa2+0lhYBqjftznK1hhZ54kN0DrSiLOyxo8
+	 HELTaBFsStKZeL8Lf2aY23+/FwRD/eCqW2BQjFNkCmYrkVdCUDqse3ljSeoYaFRem+
+	 fMJVCSx+dIENi0a+s7wTUFK3i34l0App+BSbNgbo=
+Date: Mon, 29 Jun 2026 10:41:43 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,yuzenghui@huawei.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260629174144.425081F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <40CD736C4911C181+20260629085053.964383-1-raoxu@uniontech.com>
 
-On Mon, Jun 29, 2026 at 04:50:53PM +0800, raoxu wrote:
-> From: Xu Rao <raoxu@uniontech.com>
-> 
-> ioc3eth_remove() frees the coherent RX and TX descriptor rings before
-> unregistering the netdev. If the interface is running,
-> unregister_netdev() invokes ioc3_close() through ndo_stop.
-> 
-> ioc3_close() stops the device and then calls ioc3_free_rx_bufs() and
-> ioc3_clean_tx_ring(). Both cleanup functions access descriptors in the
-> rings, so the current ordering causes CPU accesses to freed coherent
-> memory. Until ioc3_stop() disables RX and TX DMA, the device may also
-> continue using the freed ring addresses.
-> 
-> Unregister the netdev before releasing the rings. This lets the core
-> close a running interface and quiesce the device while the rings are
-> still valid. Keep the explicit timer deletion because ndo_stop is not
-> called when the interface is already down.
-> 
-> Fixes: c7b572747549 ("net: sgi: ioc3-eth: allocate space for desc rings only once")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> ---
->  drivers/net/ethernet/sgi/ioc3-eth.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/sgi/ioc3-eth.c b/drivers/net/ethernet/sgi/ioc3-eth.c
-> index 261f2d35d579..009f37105eaf 100644
-> --- a/drivers/net/ethernet/sgi/ioc3-eth.c
-> +++ b/drivers/net/ethernet/sgi/ioc3-eth.c
-> @@ -967,11 +967,12 @@ static void ioc3eth_remove(struct platform_device *pdev)
->  	struct net_device *dev = platform_get_drvdata(pdev);
->  	struct ioc3_private *ip = netdev_priv(dev);
->  
-> +	unregister_netdev(dev);
-> +	timer_delete_sync(&ip->ioc3_timer);
-> +
->  	dma_free_coherent(ip->dma_dev, RX_RING_SIZE, ip->rxr, ip->rxr_dma);
->  	dma_free_coherent(ip->dma_dev, TX_RING_SIZE + SZ_16K - 1, ip->tx_ring, ip->txr_dma);
->  
-> -	unregister_netdev(dev);
-> -	timer_delete_sync(&ip->ioc3_timer);
->  	free_netdev(dev);
->  }
->  
-> -- 
-> 2.50.1
 
-Reviewed-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+The patch titled
+     Subject: samples/damon/mtier: fail early if address range parameters are invalid
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid.patch
 
--- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid.patch
+
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Zenghui Yu <yuzenghui@huawei.com>
+Subject: samples/damon/mtier: fail early if address range parameters are invalid
+Date: Mon, 29 Jun 2026 07:44:31 -0700
+
+The comment on top of `struct damon_region` clearly says that
+
+    For any use case, @ar should be non-zero positive size.
+
+which is now verified in damon_verify_new_region() if the kernel is built
+with DAMON_DEBUG_SANITY.
+
+The WARN_ONCE() can be triggered if the mtier sample module is enabled
+before node{0,1}_{start,end}_addr have been properly initialized, which is
+obviously not good.
+
+ ------------[ cut here ]------------
+ start 0 >= end 0
+ WARNING: mm/damon/core.c:217 at damon_new_region+0xf4/0x118, CPU#59: bash/341468
+ Call trace:
+  damon_new_region+0xf4/0x118 (P)
+  damon_set_regions+0xfc/0x3c0
+  damon_sample_mtier_build_ctx+0xe8/0x3a8
+  damon_sample_mtier_start+0x1c/0x90
+  damon_sample_mtier_enable_store+0x98/0xb0
+  param_attr_store+0xb4/0x128
+  module_attr_store+0x2c/0x50
+  sysfs_kf_write+0x58/0x90
+  kernfs_fop_write_iter+0x16c/0x238
+  vfs_write+0x2c0/0x370
+  ksys_write+0x74/0x118
+  __arm64_sys_write+0x24/0x38
+  invoke_syscall+0xa8/0x118
+  el0_svc_common.constprop.0+0x48/0xf0
+  do_el0_svc+0x24/0x38
+  el0_svc+0x54/0x370
+  el0t_64_sync_handler+0xa0/0xe8
+  el0t_64_sync+0x1ac/0x1b0
+ ---[ end trace 0000000000000000 ]---
+
+Note that the same issue can happen if detect_node_addresses is true, and
+node 0 or 1 is memoryless.  Fix it together by checking the validity of
+parameters right before damon_new_region() and fail early if they're
+invalid.
+
+Link: https://lore.kernel.org/20260629144432.133962-1-sj@kernel.org
+Fixes: 82a08bde3cf7 ("samples/damon: implement a DAMON module for memory tiering")
+Signed-off-by: Zenghui Yu <yuzenghui@huawei.com>
+Signed-off-by: SJ Park <sj@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 6.16.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ samples/damon/mtier.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+--- a/samples/damon/mtier.c~samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid
++++ a/samples/damon/mtier.c
+@@ -120,6 +120,9 @@ static struct damon_ctx *damon_sample_mt
+ 		addr.end = promote ? node1_end_addr : node0_end_addr;
+ 	}
+ 
++	if (addr.start >= addr.end)
++		goto free_out;
++
+ 	range.start = addr.start;
+ 	range.end = addr.end;
+ 
+_
+
+Patches currently in -mm which might be from yuzenghui@huawei.com are
+
+samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid.patch
+
