@@ -1,155 +1,190 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABFE3FFFA2
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 11:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB52438A718;
+	Mon, 29 Jun 2026 11:40:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782732658; cv=none; b=kVbD9td3GJ+DjqXAcgH0tfFufumCCBuFxlTLYkACOmEspVNJN5L9fxPxT1ydRArGkCwIvM1iA/z0QPrbn+tbqqLlyGa/LjyYUSQ7qqy5/FFHo+xn9vwvjkUJaC/Spsg3Dfd3QLygRBvjG0xV5e41d9Aljq6phqq9Z3ZjthC97cI=
+	t=1782733260; cv=none; b=jOXMVnPEPE+u+ZEXzs8udh3bDE7C0DmmRiMcJ+v0wWuKUqOnIdYK+AuRN5/qO9BeeYI2e+TLFZpNNm5FooCd4wu2TnyQstVXCNsW8DDpwfPRJ3s2/e4xoRmy3obffURJF6G2V9ataGFxPbWK3lY1ZFpGuB/aIM5c+LXA25jjknA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782732658; c=relaxed/simple;
-	bh=I2H5tinn3brqMNAoiayDqdeQNYpC874+PMUqa9KGe8o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=e/LKtIM9izZFrb2JNlpcEKLzHUTtMuC+HlyXNYpag3RU8OhJNjS2GoSIrOml86brFkpt9XSNE5Ptpc7apPiGUtNoaQylD7YiAmGG+Xhko1SO3b5/IKGXneQlsgfxMF1+hRLvLR6N2/VWMwQfxhLooqYp8m+i+MTvBJ+5pKBC/Kw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=CGHx4THy; arc=none smtp.client-ip=209.85.167.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1782733260; c=relaxed/simple;
+	bh=bc49tQ62+w9u87Y2vRsQ6BnJrlQPAHPk2VErB+vlkZ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SaTe+fXA07/P7mvKwdQLSS2pR1vu/dIgVEQCQEDg/vFpn7Fg6FbmdS7sIfWO/QXG+pBRkFqwGa36kToeD/CZ0Vf25HCRC7nUzbf2F9n4G9X10KqaTF6jK3OjZLBUfSf2boRF79ixzch6/2/8Idp/dhuO72yt1sN3MvBIi5rjPzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=NuJ+ikbN; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="CGHx4THy"
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5ad4f1cf3cdso3027970e87.1
-        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 04:30:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1782732655; x=1783337455; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ET2VyfZbT6w4nMLaDtcHsXYFQy+5hvSsWtzBLWHwhrI=;
-        b=CGHx4THyomG9KgMvrrWJ41aw/qBh9KEy6drGrwNkm5GNy8tDHs2Lui+1I79SVbgJua
-         Za7BUWJjoFLCciyEYvWy0Vk16Ik6fNE7eLzN+RWRkOojNCKS/r/N752hkIbFmIn/JBgm
-         QhA0OzcZSPwSe5x+cdUqrx2tcwIRLH99EoTnI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782732655; x=1783337455;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ET2VyfZbT6w4nMLaDtcHsXYFQy+5hvSsWtzBLWHwhrI=;
-        b=hzxCxPAfAJWMH4t1RKvQyfbn8sG7W4HkCwUd9mxo9w0TOc6AoXtUbo5lbT0t3dhPkV
-         BdOGjevXuAH3j7OP7zRtCmwesjafoLMoa63sdW6Zg0zVWTXWit0ptWpwzWmSBAEZPOZ0
-         g8qIriVbVNAr4rkHrI9gXkOxHCvUSwUq+/IQRBVAeYdE6x0+n2g1RgoLUBoHrPbWKE9U
-         WP0mn2rj1xSgNtsUP1E0UXgJqPajl0dblE9GeXaMzT6FnxvqAd8VRGG2b8Dph/IaQ1Sk
-         uDqIugC8nZcOaiLhsyUa97dnA/UkKpg0dt7x5zzmfGvcLzEbP7wSVEJBh4JPovndSuie
-         UaaA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq7ibXIk0vehlbNfGTCHrK3BucL/DcMUC+BS0ld+ZzjPZynrilU1sBnTiTwjV1ZespBYmydwi0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzjv1sgsIoLQ+K7BibfY660/DTjLvFqQKh9O26z9RpnB07qmmn+
-	xvgQfsQR1yxWf8o+/PLr5+Hz08ZHlk/UWSn40W5/QNVlkBJVKkdxXd9f9DKzrycVGw==
-X-Gm-Gg: AfdE7ck/KP8IYOUoyUH6dkGYMWBw+G8JbSKIaKR6+Kc+Du6SuWmsI00rFGFYo5NAC5C
-	88XFbHZLJD7yHZ60CP/uwSpJju+MVzZ+697hlO3gwLpRVaMJHxKqdZUjhd3SBASHvIcUW7GP9wU
-	KNo+u7qLo1L/m2J6/pQJz9C2cGlmax18jAViiDjpVF5H46wMSF9W3uv/c9kW8VBIGKoXKjVeyCN
-	uQL7Mlk6G8v5Ed8/ynWWWZ0w4or2FlzOpitxtdA+y4UEGdCmyXm0DacgYO9hCJXTUEzcPTErk6l
-	s8cJ17gVX7DH5yRSMhHnfHAaHXDt8aCwXVdeqV91q+mtphMYCiu0NgwcsK1u0jZBkyiEB4u/MmJ
-	d1Yv/hO5TQ06Xg4qnr0pSjlnkAwc51x2IDkNYsMavYKZwag9d3GYxj6B8AAlsTjantCh7WtHa4E
-	l1OUXm2gPt4xinpD6qaa9tuVrO//Y+r3lvQJJUairtcJMBPZOnSgoiwDAeSavpgEAjFD/w
-X-Received: by 2002:a05:6512:4285:b0:5ae:b7c1:f7a with SMTP id 2adb3069b0e04-5aeb7c110e0mr863055e87.30.1782732655026;
-        Mon, 29 Jun 2026 04:30:55 -0700 (PDT)
-Received: from ribalda.c.googlers.com (216.148.88.34.bc.googleusercontent.com. [34.88.148.216])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aea2cffc04sm3597745e87.17.2026.06.29.04.30.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 04:30:54 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 29 Jun 2026 11:30:46 +0000
-Subject: [PATCH 5/9] media: platform: amd: use refcount_t instead of
- atomic_t
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="NuJ+ikbN"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1782733255; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=IamwdDSMaD5+IxwQs2MbeKnGNJ8bxCpdX3TG62bS6SM=;
+	b=NuJ+ikbN+TPDKP4Ox+G0yDVLn9HB5Wnz4JZ/B1fzU1iX4pC2GhWK0V7MA8JmfEeoBv9rUet34pghtxYkTUyaqcdI3yXMAiV2QkqxbDo4MDKUGN9WBmxzSCw+DhBwLVm24jECqu2Y/ci549kvVGsm0OGugNqhlvPkA/CY+O2hcXg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=feng.tang@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0X5ss1KF_1782733252;
+Received: from localhost(mailfrom:feng.tang@linux.alibaba.com fp:SMTPD_---0X5ss1KF_1782733252 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 29 Jun 2026 19:40:53 +0800
+Date: Mon, 29 Jun 2026 19:40:52 +0800
+From: Feng Tang <feng.tang@linux.alibaba.com>
+To: Petr Mladek <pmladek@suse.com>
+Cc: Bradley Morgan <include@grrlz.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] panic: use sys_info_with_filter() to avoid
+ duplicate backtraces
+Message-ID: <akJZxCTlLcwubqi2@U-2FWC9VHC-2323.local>
+References: <20260625152558.7450-1-include@grrlz.net>
+ <20260625152558.7450-5-include@grrlz.net>
+ <aj5TNB8cRtMNTtIT@pathway.suse.cz>
+ <aj5tFiwhRqPkAkqU@pathway.suse.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-cocci-7-2-v1-5-5884c80ee3b6@chromium.org>
-References: <20260629-cocci-7-2-v1-0-5884c80ee3b6@chromium.org>
-In-Reply-To: <20260629-cocci-7-2-v1-0-5884c80ee3b6@chromium.org>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, Bin Du <bin.du@amd.com>, 
- Nirujogi Pratap <pratap.nirujogi@amd.com>, 
- Sultan Alsawaf <sultan@kerneltoast.com>, 
- Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Abylay Ospan <aospan@amazon.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, Bin Du <Bin.Du@amd.com>, 
- Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aj5tFiwhRqPkAkqU@pathway.suse.cz>
 
-We are using the refcnt variable for refcounting. Use the refcount_t
-type instead, as it has support for saturation and underflow.
+On Fri, Jun 26, 2026 at 02:14:14PM +0200, Petr Mladek wrote:
+> On Fri 2026-06-26 12:23:50, Petr Mladek wrote:
+> > On Thu 2026-06-25 15:25:58, Bradley Morgan wrote:
+> > > panic_other_cpus_shutdown() handles SYS_INFO_ALL_BT before stopping the
+> > > other CPUs. Do not ask sys_info() to handle that bit again later in the
+> > > panic path.
+> > > 
+> > > Use sys_info_with_filter() so panic_print=all_bt does not request more
+> > > output after the CPUs are stopped.
+> > > 
+> > > Fixes: a9af76a78760 ("watchdog: add sys_info sysctls to dump sys info on system lockup")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Bradley Morgan <include@grrlz.net>
+> > > ---
+> > >  kernel/panic.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > 
+> > > diff --git a/kernel/panic.c b/kernel/panic.c
+> > > index 213725b612aa..eb842823df61 100644
+> > > --- a/kernel/panic.c
+> > > +++ b/kernel/panic.c
+> > > @@ -680,7 +680,7 @@ void vpanic(const char *fmt, va_list args)
+> > >  	 */
+> > >  	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
+> > >  
+> > > -	sys_info(panic_print);
+> > > +	sys_info_with_filter(panic_print, SYS_INFO_ALL_BT);
+> > 
+> > Hmm, this prevents printing backtraces from all CPUs completely.
+> > But what if they were not printed?
+> > 
+> > They might be printed by:
+> > 
+> > static void panic_other_cpus_shutdown(bool crash_kexec)
+> > {
+> > 	if (panic_print & SYS_INFO_ALL_BT)
+> > 		panic_trigger_all_cpu_backtrace();
+> > 
+> > [...]
+> > }
+> > 
+> > But it checks only "panic_print" variable. It won't do anything
+> > when (panic_print == 0).
+> > 
+> > In this case, we might still want to print the backraces when
+> > SYS_INFO_ALL_BT is set in kernel_si_info.
+> > 
+> > >  	kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
+> > 
+> > Of course, we might fix panic_other_cpus_shutdown() to check also
+> > kernel_si_info.
+> > 
+> > But it all becomes very hairy. We have several levels:
+> > 
+> >    + watchdog-all_bt-specific option, e.g. sysctl_hardlockup_all_cpu_backtrace
+> > 
+> >    + watchdog-specific si_info preferences, e.g. hardlockup_si_mask
+> > 
+> >    + panic-specific si_info: panic_print
+> > 
+> >    + universal fallback for any layer: kernel_si_info
+> > 
+> > Now, we try to check all these variables back and forth to
+> > trigger all backtraces or to avoid triggering them.
+> > And it clearly does not work well and the code is more and more
+> > hairy.
+> > 
+> > I think about another approach. The word "waterfall" comes to my mind.
+> > Instead of checking all the settings back and forth, let's process
+> > each setting one by one and just remember what has been done and
+> > skip this in the next level.
+> > 
+> > All the si_info actions seems to dump a global system state.
+> > So, it would make sense to remember the state in a global variable
+> > even when it might be modified by more CPUs in parallel.
+> > 
+> > I am going to think more about it.
+> 
+> I have created a POC using Gemini. I haven't tested it.
+> But it looks acceptable. And the logic seems to be more
+> straightforward.
+> 
+> One drawback is that it requires adding the _reset()
+> call for all sys_info() callers. It is fine in principle
+> but it might complicate back-porting because all changes
+> have to be done in one patch.
+> 
+> But honestly, this is a nice to have fix. Most people could
+> live happily without it.
+> 
+> From 3c66436d9978030845a96bfaedd6b914536e2ac4 Mon Sep 17 00:00:00 2001
+> From: Petr Mladek <pmladek@suse.com>
+> Date: Fri, 26 Jun 2026 13:55:41 +0200
+> Subject: [POC] sys_info: Introduce state-tracking APIs to prevent duplicate
+>  backtraces
+> 
+> In watchdog, panic, and hung task detection scenarios, sys_info() can
+> be called multiple times or alongside direct backtrace triggers like
+> trigger_allbutcpu_cpu_backtrace(). This results in identical backtraces
+> being dumped repeatedly from all CPUs, cluttering the kernel log and
+> delaying or obscuring critical debug details.
+> 
+> Introduce a state tracking bitmask and associated helpers:
+> - sys_info_done(mask): Marks specific sys_info bits as already printed.
+> - sys_info_reset(): Resets the tracking state.
+> - sys_info_is_done(mask): Checks if all bits in the mask have been printed.
+> 
+> Update sys_info() to automatically filter out already printed bits
+> using this state. Integrate these APIs with the generic hardlockup
+> and softlockup watchdogs, the PowerPC watchdog, the hung task detector,
+> and the panic core. This ensures that each piece of system information
+> and backtrace output is printed at most once per lockup/panic event,
+> and the state is reset cleanly when a lockup does not trigger a panic.
+> 
+> Races between sys_info() callers are ignored. It should be acceptable
+> because the output from various watchdogs has never been synchronized.
+> And panic() never returns.
+> 
+> Assisted-by: gemini-1.5-flash
+> Signed-off-by: Petr Mladek <pmladek@suse.com>
 
-This also makes cocci happier, as it will fix the following warning:
-./platform/amd/isp4/isp4_subdev.c:394:6-25: WARNING: atomic_dec_and_test variation before object free at line 395.
+Yep. There are cases that people want panic on task-hung or sw/hw lockup,
+and this could remove much duplication of sys info dump, thanks!
 
-Fixes: 4c5feef6a62c ("media: platform: amd: Add isp4 fw and hw interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
----
- drivers/media/platform/amd/isp4/isp4_interface.c | 4 ++--
- drivers/media/platform/amd/isp4/isp4_interface.h | 2 +-
- drivers/media/platform/amd/isp4/isp4_subdev.c    | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+Reviewed-by: Feng Tang <feng.tang@linux.alibaba.com>
 
-diff --git a/drivers/media/platform/amd/isp4/isp4_interface.c b/drivers/media/platform/amd/isp4/isp4_interface.c
-index 8d73f66bb42c..00a817909292 100644
---- a/drivers/media/platform/amd/isp4/isp4_interface.c
-+++ b/drivers/media/platform/amd/isp4/isp4_interface.c
-@@ -375,7 +375,7 @@ static int isp4if_send_fw_cmd(struct isp4_interface *ispif, u32 cmd_id,
- 			return -ENOMEM;
- 
- 		/* Get two references: one for the resp thread, one for us */
--		atomic_set(&ele->refcnt, 2);
-+		refcount_set(&ele->refcnt, 2);
- 		init_completion(&ele->cmd_done);
- 	}
- 
-@@ -455,7 +455,7 @@ static int isp4if_send_fw_cmd(struct isp4_interface *ispif, u32 cmd_id,
- 
- put_ele_ref:
- 	/* Don't free the command if we didn't put the last reference */
--	if (ele && atomic_dec_return(&ele->refcnt))
-+	if (ele && !refcount_dec_and_test(&ele->refcnt))
- 		ele = NULL;
- 
- free_ele:
-diff --git a/drivers/media/platform/amd/isp4/isp4_interface.h b/drivers/media/platform/amd/isp4/isp4_interface.h
-index ce3ac9b9e5cd..04db71cd54e6 100644
---- a/drivers/media/platform/amd/isp4/isp4_interface.h
-+++ b/drivers/media/platform/amd/isp4/isp4_interface.h
-@@ -68,7 +68,7 @@ struct isp4if_cmd_element {
- 	u32 seq_num;
- 	u32 cmd_id;
- 	struct completion cmd_done;
--	atomic_t refcnt;
-+	refcount_t refcnt;
- };
- 
- struct isp4_interface {
-diff --git a/drivers/media/platform/amd/isp4/isp4_subdev.c b/drivers/media/platform/amd/isp4/isp4_subdev.c
-index 48deea79ce6c..2a8bc1207843 100644
---- a/drivers/media/platform/amd/isp4/isp4_subdev.c
-+++ b/drivers/media/platform/amd/isp4/isp4_subdev.c
-@@ -391,7 +391,7 @@ static void isp4sd_fw_resp_cmd_done(struct isp4_subdev *isp_subdev,
- 
- 	if (ele) {
- 		complete(&ele->cmd_done);
--		if (atomic_dec_and_test(&ele->refcnt))
-+		if (refcount_dec_and_test(&ele->refcnt))
- 			kfree(ele);
- 	}
- }
-
--- 
-2.55.0.rc0.799.gd6f94ed593-goog
-
+> ---
+>  arch/powerpc/kernel/watchdog.c | 13 ++++++++++---
+>  include/linux/sys_info.h       |  3 +++
+>  kernel/hung_task.c             |  2 ++
+>  kernel/panic.c                 |  4 +++-
+>  kernel/watchdog.c              | 10 ++++++++--
+>  lib/sys_info.c                 | 30 +++++++++++++++++++++++++++++-
+>  6 files changed, 55 insertions(+), 7 deletions(-)
