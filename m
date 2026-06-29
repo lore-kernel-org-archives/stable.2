@@ -1,198 +1,248 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011039.outbound.protection.outlook.com [40.93.194.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3352939D6FC;
-	Mon, 29 Jun 2026 08:45:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782722736; cv=fail; b=hDXHrpLyTxnv9yFcSSjLj+KBzlTBoimlkdOr432LPcCmOArLS1cCNf5wTgIxFVOg/y0hDmF4x33I2RHfbHDBq8F+5iugz0Qdx6Pfk+FUlirZSps/kynvhDK5DRy3RZHzxIKOMx+BGYd8HDvb1MqcLT3MmewXfkUe2LyPtLyU5Lg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782722736; c=relaxed/simple;
-	bh=fcas130LkegMMuC6VmmE+oVSFoRaIbB9yR9ZLiFPKqQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=NZhOGX6hy5+epVdAexfy9O5j3DzMAQ+kmWSEb2XJW7kR9NTRav9Ew0vwyoN5YpUaD3dwYufpzrzKTzsqUWjZk/StzWxl/KTo8asOavpJ8yaG/MOqLFzFqrvxztCBWbA930LgFYlt0wof3FTcHyUAWuemv3bQ1MXWCQHb3GvdPBA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Bal8FNjL; arc=fail smtp.client-ip=40.93.194.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D483033DE
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 08:48:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782722902; cv=none; b=tQcYUTquopGmFj0noYVQnfDZl/E2zZm+/8FyXVPUJPeMjTE0k2vhoNFKaZCLQXSrOqyd4+QP994ddWlfDFzI2MO1hcbs9lPK62ppXvb3GHpXUD6IJxoTvyKfaJx2CgQpoXXKLFKkY/j9Nc8DuAM3bvisydGq7xeM8Ktlw3C/3mk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782722902; c=relaxed/simple;
+	bh=qjBuJ33yZlfHL1S9SrLYPjB31Lz1hU3VJgkUNM2s+hU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QbLSEjzhYFOZWLFqsfy9oS+uJzTtKoDhsPKFU06c+ILDoItPHKcC+ishgXVZXpw8pF25N0eBr40OEg2xJ2kYE57wb3WOJT80PaOnMF5sjh34tnv2DU7ekDgu5sTBQH38PaAjHcngbxSmoaARSEJE33NtcIsk/tQo+G2aAKxF18Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Bnbvm6Iz; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Bal8FNjL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G3iPGhjzgHzR/i8+JLN+tvpHR5Wir3e1ZEnQciwL5CNR7i8enkA5vQcDifooDw3lYkI93ATyUDPTjB/KsYjunMveUVq0lmGuKKnKBY+l3LSyX7KHu7MfHn1GUtUyWuL87ilkU0nG2JEaqYffyMDxdDv439XD1jvd0Hs0FQ9jY9CP4CzHDTWk1x0oZbJ7ueOeF7d8QP98AEooaKb0gphA5Jvdkum9MawYYzJJcMMY5GsEW9Fohzi9bjlon3KUCsrrp6X0R7J7BaCk1R9KDcfXE1vk2XAyUEoM8awwSm8jsN0WR71nSauVC+Nb9nL40nj1C4HVOjeBlPpihvS6ww8NVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FyFi4cWhfmG6yEHKDlBzlSjelEj8KABaqY+V2GEuBAA=;
- b=HOrxNVBGKb7vjTdcxLLhjy4fXXJe39dmB3KIgy7OpKgX7U4+Rob6uWKEshllIwAL8mGzxMUdA5750AhuQrp9iI/JLPNJUWhsqttwzej8YFu4XZbWyHY28YclWOKLdRggjDkxqzpI5RJhh/jCcuo3Ni/WCCcLoyyiVn+32HxGWlUvP9QaHPWdPtAxJBCuTqzmovUXwSZNzcE4/4WkTvZK2THweribIgspzofd4mW/rnbL4DPj9qvXioxrEeSMmFO/kewa7k8/9B5y4m/qcl/xfsj3AzCBUyJDk1b9Mu2M6tSQlwJVdTJgKcRWzMqTXEm08ohmr0XpS+xUN3jEwFFjiA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FyFi4cWhfmG6yEHKDlBzlSjelEj8KABaqY+V2GEuBAA=;
- b=Bal8FNjLBv1jOkp5IPFlTxHf+JoE91Y3o76PKdtEUIXz1LB5tVVdE1fJTLbVH+uUXDhhG+jlsSvwca1Ge4L7XCVcGdWnblzMRwcU7HClWap4oUPdN13dPqATEavI+do4M7moAw8mikqI5VcOw9c4oKwUf5u/ks6kYMFKA9tuqEc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB7643.namprd12.prod.outlook.com (2603:10b6:610:152::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 08:45:28 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 08:45:27 +0000
-Message-ID: <becd29b5-9e40-4104-b6c9-3d91e2ddddff@amd.com>
-Date: Mon, 29 Jun 2026 10:45:23 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-fence: Make dma_fence_dedup_array() robust against
- 0-count input
-To: Baineng Shou <shoubaineng@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Philipp Stanner
- <phasta@kernel.org>, Akash Goel <akash.goel@arm.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260629031346.3875683-1-shoubaineng@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260629031346.3875683-1-shoubaineng@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN1PR14CA0009.namprd14.prod.outlook.com
- (2603:10b6:408:e3::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Bnbvm6Iz"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2c81db32393so66295ad.0
+        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 01:48:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1782722900; x=1783327700; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2CYHaiLd9ywNSZ9pftV2yPbkytXEfUK5AIl8p5DJYxA=;
+        b=Bnbvm6Iz421a3hEiQdhKX59PJBYRZq3a5gyeppw1b3Me17EAdpDZtsAW7bARBJqPfa
+         9c45MOz5otxVxuD2jl4jD1zvsnUOlJ13CiaYPRH2+4X0SptD9CjVR44+PWT6qmYME5uI
+         +PTCnkJWX1dOIF/AxmXkbEhnZbpBmaTAuviS9Y3sOYCOUmpK5K65SAqfHVGegxZmGPH4
+         UDUl3WBaYtCIS/Rn5DKoz+zdguMfmIAwmYWYhs2bxDO9+XdLgkoIHERDytpxivsJ4wSa
+         TEzT3VTNCUhicZJTU2CMaiJl5AKKK2Tse50DJFoxB/s0G6wm84Bq/GC7xlhRq6zbLXul
+         TeHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782722900; x=1783327700;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2CYHaiLd9ywNSZ9pftV2yPbkytXEfUK5AIl8p5DJYxA=;
+        b=E4bcUe++XZiS3GTSm7ThkFm7kWAPz4EU1yz35eo8ezFq5+YgPh+D2AaWOktdRtAq7K
+         qkPMA98lvuamtbNzAuJ+1VwoWwfExoG0/kWY3NR3JLKZqfwvgJ+NkhDlG/K9w+D4pJth
+         8BgUcik6AZRrDgVQ3VGmbDtZROFof31WCnhrFyjT09GDpo9sgeVu3vEvZMzAzfWGo2+R
+         ScO2BSvGghfTBYvEoUYcMD5bC97SkujNQaN6EyB2HTJPS6hvftViuV70F4Msw5PXAohu
+         A0pe5hZbgA5mdz85aTZ+xuERnl7ydvM4zSLL6gnWKecWWN1yYmp+QTTpUfR5bA/raRJz
+         zPzw==
+X-Forwarded-Encrypted: i=1; AHgh+RoI99PEVRVHTJqO+XTQTBKDWOMoRKd4PudNvwriAUd9smM9L+LQcRia2pESDBK8EaPZuxUlGKA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0Lfsy/RROiVgou3uULdtMa4pySZjM8uskAUygyHg1GRJnHiiS
+	KlkPKuzxs/lN6SPOrUIAxgwHv371mlki2g8cefc4JaaVmhzwM4AgJiX8OQ07QJt1+Q==
+X-Gm-Gg: AfdE7ck/DqxCUGG2EKhAFuiRQvyJWGBXm69trSqcvx5hJUB8CytQBCk80kJulqeDRCk
+	Vg7dILf6T8/qfQ2hDVbsUFXSNvUhipiOY+/+OhBA6FtRXEVObGlgFe6oGPJlXWuIw3M/QGIWwFH
+	KE0vZpc5vzLNllOLE7ufRCk9ybLha93e0Wll20iVyZvr94/NRsbB7yCh37gpIdKwOoTQSw1NlZw
+	ozEszi3QzKL8yWEirCqnkOyCeqiy2oaMvqvE/y3CuIvDW2e5QnBJWyTRmCZ8VSM/bZ00K7Vs03V
+	+qR1HGucqwEsQyZCInYw7Lo9wZVgGsqRYI63XLtH0RhWfU/KEQMFzMbHi/5HxSqmedNnbsyvDM7
+	Djmchhr9FRNUjRgAJWNn+rZ+9m2TLbRTgJZ8r/gwkO4lU5ZbRqnNS10MiQG+U/jw0EvdjIdDo9H
+	bfN+hKrqDEOFkJPplyc95rgZs4fVDLpsiLJGuLgQGBsh9sTl8=
+X-Received: by 2002:a17:902:f612:b0:2c7:9e6a:1a8d with SMTP id d9443c01a7336-2c9a24512fcmr3816645ad.12.1782722899601;
+        Mon, 29 Jun 2026 01:48:19 -0700 (PDT)
+Received: from google.com (10.129.124.34.bc.googleusercontent.com. [34.124.129.10])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-846de12ed24sm2482229b3a.8.2026.06.29.01.48.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jun 2026 01:48:18 -0700 (PDT)
+Date: Mon, 29 Jun 2026 08:48:11 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: will@kernel.org, robin.murphy@arm.com, jgg@nvidia.com, joro@8bytes.org,
+	kees@kernel.org, baolu.lu@linux.intel.com, kevin.tian@intel.com,
+	miko.lenczewski@arm.com, smostafa@google.com,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	jamien@nvidia.com
+Subject: Re: [PATCH rc v6 3/7] iommu/arm-smmu-v3: Do not enable EVTQ/PRIQ
+ interrupts in kdump kernel
+Message-ID: <akIxS7kuhuLRHAMg@google.com>
+References: <cover.1779265413.git.nicolinc@nvidia.com>
+ <e643786d849d274c1d8dcfc03795f572aef812bd.1779265413.git.nicolinc@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7643:EE_
-X-MS-Office365-Filtering-Correlation-Id: 383a54a2-bdc5-4241-0323-08ded5bac4de
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|7416014|23010399003|1800799024|18002099003|22082099003|11063799006|56012099006|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	Ld3jOEIOUE+6zjqgiFOdDIthMie+Nl3Wpi9+fv7m8abCUyMVUP/DjesKPQT+l0D+a05cWjIZGQLyJr8i0eMIrImxjiAQ4JWtsUZbWu1IN0YV2UBtGLDgqmvOjiQtvQazUfnHaRErWPIJJPSuSYTe3Ui3xEEWQvZUUEuyWAmledYCPxze3pf9V9cd8ZYT/lovZRgdQ9w21xAHnkuUh2GfIgSfmRFWMrFvxCkgaT5fnRbmecBvCXRntDftejiZAkGW6Vgo9aERJzcUgjvkQZ8PpY8BQqswr0xgcWHkKb0/DQbLZuOXZxSJTXGuAAyJ+hi34EmE68uDKiTDLh+c6JgvfZY0oY2s+/cN2/lKTjmlPwBUHxThcDWBH+np+jwGaGlfYQ0CoKjsZNwX7lD+SAsDbFPhLggwRxYxTbOzkIUile0MLjTTMVBi9FdE8vfHeXc+a+xAibZ9/2RMvK61aTQcLsNsfzmQUc/gnSor8zjjtfWuoqH/9mBIVlh+mGV4NGM/kA2IWRC/rcUeaBJCAZRkQfYLe5jTaFiERjLhXDLKtiXYs0BoNdY5+Uly9BCRdIwXGNaiZzKyzKBDcpoK1/G7u9qG5XIPaM4Bt2/WESOLLt08Kj8cbCkjxLtCJi1ns2pjZ585/CPGqfUCm8tgU2jwMNxfLoazrMxjTlXLMOsMt6c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(23010399003)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ckUxYW05ck9Zc0V1U20yMGxPYm9KdE43UWJ5UW1LMEFYUC9vREZTbnJqSE55?=
- =?utf-8?B?VUw5Y1U0WHlYS3IrUkZmZUdldEF5YjhvS2kvZmxPdjc0YW1VUjBvbk0rTXhv?=
- =?utf-8?B?THAzbmtiK1FuQWQzTVRlcXR3SWNadWt0YjFhczF2YnpJdi9TSVJubFRaNEZN?=
- =?utf-8?B?aTRTM2xkQ3RDNjllVEFlWHpmS0ZGOG5JQlRCRUd5N3VBVjdwR2FnYk8yRG1C?=
- =?utf-8?B?Ym1PcHlaTVorNHUxRzc0SzRuSjBCM25Lbi9IR0grK3ZRZC9Vd1ZGdTBMdFp1?=
- =?utf-8?B?alJqTW5aWlV6Ry9FRHV6WEVhcDVGV0hNTWd5V2JpbkRrRmQ1aEp4ZS9qVFpt?=
- =?utf-8?B?WnRNUzBGV1M3bjJlWldxRmxsSlhEaDVBRHBYL1ZzUytJZjQ1UzIrMlpzNDlu?=
- =?utf-8?B?WFYwZnRDZ2xOMHQwSUhvVUR3ajJTS3N6dDhpbWM2TVd5SnkxdWtWQk1SQWVt?=
- =?utf-8?B?bUZqL28xalJrYmMxa0RZMWRTYU42YUpaZWVoemw0VGxpOEJ5bzFUd3EwVHdh?=
- =?utf-8?B?SEFOaEFHTHoreHh6T0kxK1dIUGFqbW5KUmp5UWxDUCtIeXpDK2N6VXRiRnMy?=
- =?utf-8?B?ZmFjVjg5djFTM1VjUEVlc1BKcFFyeXhVTFhrVUhUdytjc3gwVnRpdjhzWW9s?=
- =?utf-8?B?UWhzVVFvb3EvanNsOUwxL3puTUNKbU00NWxwSHZMKy9qcUcyMC9PWXZDSzlu?=
- =?utf-8?B?aGswZzRLWmRZQUpsRjYvQU1nRC9VVkovU3ZlZXg3MjRMOVNQbWxzNXlwMFI0?=
- =?utf-8?B?YWF6U3B4QWsvVDBjWDlPMWZ4cDBXZ1NxTjFtTitmYXFwL0hCb09LZG8wVUxH?=
- =?utf-8?B?TlFFS0xPQjJSNmIvU2ZNWEd4dUp5KzRmQ0VobklSa1RkRitDWnhOZ2FIUFZH?=
- =?utf-8?B?YWk4QVZsaExLNXZCRFFxQUQ0MzNSTDZoaWxjVi9GZjRIaXFXdmtTYnJDZnRC?=
- =?utf-8?B?TUJGd2lmb3pSbFV1Tm9qa0svMnhFcFBxcVJSdDMwMys3N0FNM0ZlLzFtdDE4?=
- =?utf-8?B?cW0wWGRNNzkvdmFNZ0ExU05MYlhhWDFUaHpIUEhQMVQ3ZVBYa3d6N1VxMmI3?=
- =?utf-8?B?TnkxQUVRYTFLSlhybytScGZ5R2xHZnByVVNNWEZkcmVwaUJrN2FsSGtYcVho?=
- =?utf-8?B?VjU4ek9oY2VCanZ2ZnZnTEFyamJTSjl5U3V3UUN1T3VLSFlxNlRQOERxUGVy?=
- =?utf-8?B?WFlxdWVvVENSWXMzOVBYQllMeUlZdHM3b2dzRVQ0WGFPU3BoandNcElJanZL?=
- =?utf-8?B?bVZTaWtITjUwVWsxUEpKVldZR2lJM0tZSDBHVDlVQXZNMnFKQ2JkWDZ5UzR1?=
- =?utf-8?B?TEhsckJwdXV3OTRqZjhKbXQwVi9uTXI4U3pQd3RINHpuSk5tMDBsbjcyekFV?=
- =?utf-8?B?NXRBMGxjT0xqeXJoVGhFdEpaWHBndjBpVncvUzM4Y05aMDdmbGtpV1h3bXVi?=
- =?utf-8?B?N0FXL0VQbEppTVI5L0hQYk9mUkdpWTJUc0luMi9BOU5MY1Z0Z3ZGQWllL2x0?=
- =?utf-8?B?OVZzZE1FTHNjZ0NnV0FweXk3QlVCSVFmS05naEE1RGpjNkIzaUhnczUzWmpr?=
- =?utf-8?B?MEJUbVBTNWpsOHQyamtrbEVKMFpLeEdxNkhaTER0dDVFLzhPM3lXOFdPcUw5?=
- =?utf-8?B?bEZxMllUbGxjUyt6Zmt1QlhkU2xqWDVyTFZQUUdFS2xkdXpUV3YrdlltTUpy?=
- =?utf-8?B?VklwYkNnWnhnWnE2YUpMWFNiVUZGSm0xVVE5QXgzbHF0cHM4MEZob2hVSHFF?=
- =?utf-8?B?M2xkVDQ4aFE2OXhzamlUNE1USitBTG9qUVdFNit3SzVWWjM4K2dpVlJlTTlv?=
- =?utf-8?B?RkREdGV5WlRFdW14Tk14UUJLOVk1ZDI4U3FacjJSNDJmSmNKUVJWOTdzNmVs?=
- =?utf-8?B?TjdHZGRJNWRocTJqbEV1Sm0rcTd4L21xMTF6RWwvZzVvLzVxbW0zajMyNFFm?=
- =?utf-8?B?Q29GdTJyeWhLS0YxVWlVcGJMdTJueVYyZDhEWnlNN0JtS0pmYk9tWkxtMGZJ?=
- =?utf-8?B?eHhWd255OWZBMmowR2lwZ1hBemRQbGFkdUFrNXVXSWM3SWZXcXJ6RitmZWMx?=
- =?utf-8?B?M3FtVDd3OHZWeGN2WFc4QzNDd0F5bVdpK1hmVUUrZE1aQkpwVHlUdjhrRmxV?=
- =?utf-8?B?K0NxL1N6MUEzc2UwNnBpemdFenYyU1V2VXg3bjdLamF4aTkxU0xaVmlPS2gz?=
- =?utf-8?B?bnlDN1RWTHBhQUpSYm5Fb2ZJaVZsUllEZExJekVrdVczekttWXN4RkZuLzQ2?=
- =?utf-8?B?QldlZjJZSDA1M3U4T0Nxa3hPNVpKb1ZhNVdJbkV4VitTNmNvNDN3N3pOSU1r?=
- =?utf-8?Q?QZ7pKGJ8p1SNvX1RSc?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 383a54a2-bdc5-4241-0323-08ded5bac4de
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 08:45:27.8193
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rGv8LXfdfTH//CRHOR7UUtLuxh077pJqaKm6PAq3SfNlisPKnFwfTUYRc7CYzPkT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7643
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e643786d849d274c1d8dcfc03795f572aef812bd.1779265413.git.nicolinc@nvidia.com>
 
-On 6/29/26 05:13, Baineng Shou wrote:
-> dma_fence_dedup_array() returns 1 when called with num_fences == 0:
-> the for-loop body never executes, j stays at 0, and the final
-> `return ++j` yields 1. This contradicts both the kernel-doc ("Return:
-> Number of unique fences remaining in the array") and the natural
-> expectation that 0 input gives 0 output.
-
-Good catch.
-
+On Wed, May 20, 2026 at 10:03:20AM -0700, Nicolin Chen wrote:
+> In kdump cases, the crashed kernel's CDs and page tables can be corrupted,
+> which could trigger event spamming. Also, we cannot serve page requests.
 > 
-> All in-tree callers currently filter num_fences == 0 before invoking
-> this helper (__dma_fence_unwrap_merge() bails out via the
-> `if (count == 0 || count == 1)` fast path; amdgpu_userq_wait_*()
-> cannot reach the dedup call with a zero local count because the
-> amdgpu_userq_wait_add_fence() helper guarantees num_fences stays in
-> [0, wait_info->num_fences], and wait_info->num_fences > 0 is enforced
-> at the ioctl entry).
-
-That's not correct, wait_info->num_fences is just the maximum amount of fences we return.
-
-It is perfectly possible that amdgpu never finds any fences to add to the array.
-
+> Skip the IRQ setup for EVTQ/PRIQ in arm_smmu_setup_irqs().
 > 
-> However, dma_fence_dedup_array() is EXPORT_SYMBOL_GPL, so any future
-> caller that forgets to pre-filter the zero case will get a misleading
-> return value of 1. Depending on how that caller uses the result, it
-> could dereference an uninitialized fence slot in the array, since the
-> caller's array may have been allocated but not yet populated.
+> Skip their IRQ handler registration in unique-IRQ and combined-IRQ cases.
 > 
-> Make the contract match the documentation by returning 0 early. This
-> also skips an unnecessary sort() call on an empty array.
+> Fixes: b63b3439b856 ("iommu/arm-smmu-v3: Abort all transactions if SMMU is enabled in kdump kernel")
+> Cc: stable@vger.kernel.org # v6.12+
+> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+> ---
+>  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 58 ++++++++++++++-------
+>  1 file changed, 39 insertions(+), 19 deletions(-)
 > 
-> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> index 2d7eb42449eaf..e00b28e36f9c4 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -2464,7 +2464,11 @@ static irqreturn_t arm_smmu_combined_irq_thread(int irq, void *dev)
+>  
+>  static irqreturn_t arm_smmu_combined_irq_handler(int irq, void *dev)
+>  {
+> -	arm_smmu_gerror_handler(irq, dev);
+> +	irqreturn_t ret = arm_smmu_gerror_handler(irq, dev);
+> +
+> +	/* In kdump, EVTQ/PRIQ are disabled and there is no thread to wake */
+> +	if (is_kdump_kernel())
+> +		return ret;
+>  	return IRQ_WAKE_THREAD;
+>  }
+>  
+> @@ -4963,6 +4967,21 @@ static void arm_smmu_setup_unique_irqs(struct arm_smmu_device *smmu)
+>  	arm_smmu_setup_msis(smmu);
+>  
+>  	/* Request interrupt lines */
+> +	irq = smmu->gerr_irq;
+> +	if (irq) {
+> +		ret = devm_request_irq(smmu->dev, irq, arm_smmu_gerror_handler,
+> +				       0, "arm-smmu-v3-gerror", smmu);
+> +		if (ret < 0)
+> +			dev_warn(smmu->dev, "failed to enable gerror irq\n");
+> +	} else {
+> +		dev_warn(smmu->dev,
+> +			 "no gerr irq - errors will not be reported!\n");
+> +	}
+> +
+> +	/* No EVTQ/PRIQ interrupts in kdump -- queues are disabled */
+> +	if (is_kdump_kernel())
+> +		return;
+> +
+>  	irq = smmu->evtq.q.irq;
+>  	if (irq) {
+>  		ret = devm_request_threaded_irq(smmu->dev, irq, NULL,
+> @@ -4975,16 +4994,6 @@ static void arm_smmu_setup_unique_irqs(struct arm_smmu_device *smmu)
+>  		dev_warn(smmu->dev, "no evtq irq - events will not be reported!\n");
+>  	}
+>  
+> -	irq = smmu->gerr_irq;
+> -	if (irq) {
+> -		ret = devm_request_irq(smmu->dev, irq, arm_smmu_gerror_handler,
+> -				       0, "arm-smmu-v3-gerror", smmu);
+> -		if (ret < 0)
+> -			dev_warn(smmu->dev, "failed to enable gerror irq\n");
+> -	} else {
+> -		dev_warn(smmu->dev, "no gerr irq - errors will not be reported!\n");
+> -	}
+> -
+>  	if (smmu->features & ARM_SMMU_FEAT_PRI) {
+>  		irq = smmu->priq.q.irq;
+>  		if (irq) {
+> @@ -5005,7 +5014,7 @@ static void arm_smmu_setup_unique_irqs(struct arm_smmu_device *smmu)
+>  static int arm_smmu_setup_irqs(struct arm_smmu_device *smmu)
+>  {
+>  	int ret, irq;
+> -	u32 irqen_flags = IRQ_CTRL_EVTQ_IRQEN | IRQ_CTRL_GERROR_IRQEN;
+> +	u32 irqen_flags = IRQ_CTRL_GERROR_IRQEN;
+>  
+>  	/* Disable IRQs first */
+>  	ret = arm_smmu_write_reg_sync(smmu, 0, ARM_SMMU_IRQ_CTRL,
+> @@ -5020,19 +5029,30 @@ static int arm_smmu_setup_irqs(struct arm_smmu_device *smmu)
+>  		/*
+>  		 * Cavium ThunderX2 implementation doesn't support unique irq
+>  		 * lines. Use a single irq line for all the SMMUv3 interrupts.
+> +		 *
+> +		 * In kdump, EVTQ/PRIQ are disabled, so no threaded handling.
+>  		 */
+> -		ret = devm_request_threaded_irq(smmu->dev, irq,
+> -					arm_smmu_combined_irq_handler,
+> -					arm_smmu_combined_irq_thread,
+> -					IRQF_ONESHOT,
+> -					"arm-smmu-v3-combined-irq", smmu);
+> +		if (is_kdump_kernel())
+> +			ret = devm_request_irq(smmu->dev, irq,
+> +					       arm_smmu_combined_irq_handler, 0,
+> +					       "arm-smmu-v3-combined-irq",
+> +					       smmu);
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+This `if` isn't needed, we can continue using devm_request_threaded_irq,
+if you look at the doc for devm_request_threaded_irq [1] it says:
 
-I will add a CC stable before pushing to drm-misc-fixes.
+/**
+ * devm_request_threaded_irq - allocate an interrupt line for a managed device with error logging
+ * @dev:	Device to request interrupt for
+ * @irq:	Interrupt line to allocate
+ * @handler:	Function to be called when the interrupt occurs
+ * @thread_fn:	Function to be called in a threaded interrupt context. NULL
+ *		for devices which handle everything in @handler
+ * @irqflags:	Interrupt type flags
+ * @devname:	An ascii name for the claiming device, dev_name(dev) if NULL
+ * @dev_id:	A cookie passed back to the handler function
+[...]
+*/
+
+So, we can pass handler() here while leaving the thread_fn == NULL:
+
+ret = devm_request_threaded_irq(smmu->dev, irq,
+         arm_smmu_combined_irq_handler,
+         is_kdump_kernel() ? NULL : arm_smmu_combined_irq_thread,
+         IRQF_ONESHOT,
+         "arm-smmu-v3-combined-irq", smmu);
+
+(In fact that's exactly what devm_request_irq does under the hood [2])
+
+Additionally, the arm_smmu_combined_irq_handler() returns 
+IRQ_WAKE_THREAD unconditionally, which causes us to hit the warn_on[3] in
+__handle_irq_event_percpu.
+
+Hence, we'd need to refactor the arm_smmu_combined_irq_handler() to
+return IRQ_HANDLED / _NONE if is_kdump_kernel().
+
+> +		else
+> +			ret = devm_request_threaded_irq(
+> +				smmu->dev, irq, arm_smmu_combined_irq_handler,
+> +				arm_smmu_combined_irq_thread, IRQF_ONESHOT,
+> +				"arm-smmu-v3-combined-irq", smmu);
+>  		if (ret < 0)
+>  			dev_warn(smmu->dev, "failed to enable combined irq\n");
+>  	} else
+>  		arm_smmu_setup_unique_irqs(smmu);
+>  
+> -	if (smmu->features & ARM_SMMU_FEAT_PRI)
+> -		irqen_flags |= IRQ_CTRL_PRIQ_IRQEN;
+> +	/* No EVTQ/PRIQ IRQ generation in kdump -- queues are disabled */
+> +	if (!is_kdump_kernel()) {
+> +		irqen_flags |= IRQ_CTRL_EVTQ_IRQEN;
+> +		if (smmu->features & ARM_SMMU_FEAT_PRI)
+> +			irqen_flags |= IRQ_CTRL_PRIQ_IRQEN;
+> +	}
+>  
+>  	/* Enable interrupt generation on the SMMU */
+>  	ret = arm_smmu_write_reg_sync(smmu, irqen_flags,
+> -- 
+> 2.43.0
+> 
 
 Thanks,
-Christian.
+Praan
 
-
-> ---
->  drivers/dma-buf/dma-fence-unwrap.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/dma-buf/dma-fence-unwrap.c b/drivers/dma-buf/dma-fence-unwrap.c
-> index 53bb40e70b27..364cbf79ad73 100644
-> --- a/drivers/dma-buf/dma-fence-unwrap.c
-> +++ b/drivers/dma-buf/dma-fence-unwrap.c
-> @@ -97,6 +97,9 @@ int dma_fence_dedup_array(struct dma_fence **fences, int num_fences)
->  {
->         int i, j;
-> 
-> +       if (!num_fences)
-> +               return 0;
-> +
->         sort(fences, num_fences, sizeof(*fences), fence_cmp, NULL);
-> 
->         /*
-> --
-> 2.34.1
-> 
-
+[1] https://elixir.bootlin.com/linux/v7.1.1/source/kernel/irq/devres.c#L75
+[2] https://elixir.bootlin.com/linux/v7.1.1/source/include/linux/interrupt.h#L218
+[3] https://elixir.bootlin.com/linux/v7.1.1/source/kernel/irq/handle.c#L225
