@@ -1,21 +1,21 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B343D75BF;
-	Mon, 29 Jun 2026 07:26:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F3C3D34A0;
+	Mon, 29 Jun 2026 07:28:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782717967; cv=none; b=dpQn444J7r5KoRiI8yjohQ4ed9RVNf5ndKMBN33GETkR6I7+II1er4x4Jl6Ao3g7U2PU2bPi/b9ldNN5qV68gDIjEBATOZLCMNmunY/svzv61E7DWlJLqrCTXK/JMdhE0SSyxzhE8Ih1Ir9BahepiuvdUBycYIdsC73/ihYyC1E=
+	t=1782718083; cv=none; b=K2sdxHRNQKBUVtrhQoHhUpne8Mm4LfSugUW4gp5P6XXG2zOtZjfsU7VutVLaKAQsboZ1FtQ28PQS5LlyO2IUnMsHBHDewJCkfxH8l34eXLDdKWvORQCYyvsWtlq6LCR0aq94qOcb9vy3SV2QOdkjcAaP1eFNcdvuCL2TRD3ym+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782717967; c=relaxed/simple;
-	bh=Oc7p5naKI0aOY2n1SYhKEhitfUgn/oCcQP0I1lHF55k=;
+	s=arc-20240116; t=1782718083; c=relaxed/simple;
+	bh=ifzOW5xRhoRUg6/BDIT+EDopmK6Cx/+YTe6yGEWjuQI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OaxNeoPIv73NiyU0pSWl13Jc/v1SlMoX6KUmAZmdMCbDX/PraVI30XbmHOQk4CS2lcuyp7PdTJ7EjnOe6w08KLKkzC4gfh3eDQ4s8xug9FV/BAArBcX5IbXDYxFrgMBZLzoJFBctLSmxK0l7eHpAIx22Jq21AG+CaYqANaJm4SI=
+	 In-Reply-To:Content-Type; b=nrFg3sPpLN0aM2gKnwKApWENtPhA/mAIWPrmn27DrGte2BxCHjtLHo9pCVuIXNtUZ7WidXLrLEsfSziBEM0uGr1YH6JUAKnh6Y+ZIXfcxIdV9cOOtG7uN8ilHn4Icwcl+CLunhwIL09eenH3TYWDcebzAqaoxcnIscwQu6aGuSU=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 952701F000E9;
-	Mon, 29 Jun 2026 07:25:53 +0000 (UTC)
-Message-ID: <0fabee2a-edb7-41c8-91ec-8cf0646c9e83@kernel.org>
-Date: Mon, 29 Jun 2026 09:25:48 +0200
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A04FF1F000E9;
+	Mon, 29 Jun 2026 07:27:54 +0000 (UTC)
+Message-ID: <fd16413a-95a7-4503-80df-2d71303498fa@kernel.org>
+Date: Mon, 29 Jun 2026 09:27:23 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -23,23 +23,22 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
-To: Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>
-Cc: linmiaohe@huawei.com, muchun.song@linux.dev, osalvador@suse.de,
- akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- riel@surriel.com, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
- kas@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- rcampbell@nvidia.com, apopple@nvidia.com, ziy@nvidia.com,
- matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- byungchul@sk.com, gourry@gourry.net, ying.huang@linux.alibaba.com,
- mel@csn.ul.ie, nao.horiguchi@gmail.com, ak@linux.intel.com,
- j-nomura@ce.jp.nec.com, pfalcato@suse.de, dave.hansen@intel.com,
- tglx@kernel.org, jpoimboe@kernel.org, ryan.roberts@arm.com,
- anshuman.khandual@arm.com, stable@vger.kernel.org
-References: <82395f5a-31d4-406b-b7ec-10d1a9d067d4@arm.com>
- <20260628054402.76978-1-lance.yang@linux.dev>
- <98f3aedd-de11-4a83-81b8-f3e3c9380e49@kernel.org>
- <1d6d699e-62e5-424f-a147-b7a75b966957@arm.com>
+Subject: Re: [PATCH v2] cgroup/cpuset: rebind mm mempolicy to effective_mems,
+ not mems_allowed
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: Waiman Long <longman@redhat.com>, Farhad Alemi <falemi@asu.edu>,
+ Gregory Price <gourry@gourry.net>, Yury Norov <ynorov@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+ stable@vger.kernel.org, Tejun Heo <tj@kernel.org>
+References: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
+ <CA+0ovCgfHJHv5d1mzapWWvF-LhjppzDX8NPPLvCPZxPKg8RiYw@mail.gmail.com>
+ <20260627231508.74201ca47c883507be97d8c2@linux-foundation.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -86,82 +85,46 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <1d6d699e-62e5-424f-a147-b7a75b966957@arm.com>
+In-Reply-To: <20260627231508.74201ca47c883507be97d8c2@linux-foundation.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 6/29/26 08:48, Dev Jain wrote:
+On 6/28/26 08:15, Andrew Morton wrote:
+> On Sun, 14 Jun 2026 06:25:55 -0700 Farhad Alemi <farhad.alemi@berkeley.edu> wrote:
 > 
-> 
-> On 29/06/26 12:09 pm, David Hildenbrand (Arm) wrote:
->> On 6/28/26 07:44, Lance Yang wrote:
->>>
->>> [...]
->>>
->>> Yes, that's what I had in mind :) thanks!
->>>
->>>
->>> Maybe worth spelling out the rule as well: 
->>>
->>> For arch helpers that use addr, huge_ptep_get() assumes addr is the
->>> address for the hugetlb entry ptep points to. arm64 already makes that
->>> assumption.
->>>
->>> Callers where addr may not be hugepage-aligned should use
->>> hugetlb_ptep_get() instead.
+>> Creating a child cpuset where cpuset.mems is never set leads to a div/0
+>> when a VMA mempolicy with MPOL_F_RELATIVE_NODES rebinds in response to a
+>> CPU hotplug event.
 >>
->> Do we have any examples where code would do that? I would think that all code
->> must properly align addr ahead of times.
+>> Reproduction steps:
+>>  1) Create a cgroup w/ cpuset controls (do not set cpuset.mems)
+>>  2) Move the task into the child cpuset
+>>  3) Create a VMA mempolicy for that task with MPOL_F_RELATIVE_NODES
+>>  4) unplug and hotplug a cpu
+>>       echo 0 > /sys/devices/system/cpu/cpu1/online
+>>       echo 1 > /sys/devices/system/cpu/cpu1/online
+>>  5) mempolicy rebind does a div/0 in mpol_relative_nodemask on the
+>>     call to __nodes_fold()
 > 
-> Sashiko notes other places:
+> Oops.
 > 
-> https://sashiko.dev/#/patchset/20260625112955.3254283-1-dev.jain%40arm.com
+>> The cpuset code passes (cs->mems_allowed) which is not guaranteed to have
+>> nodes to the rebind routine.  Use cs->effective_mems instead, which is
+>> guaranteed to have a non-empty nodemask.
+> 
+> Well gee, what happened with this patch.
+> 
+> I apologize for misfiling a cc:stable bugfix into my post-rc1 backlog
+> pile, but I got there in the end.
+> 
+> I guess this is an MM patch, even though it's against
+> kernel/cgroup/cpuset.c.
+> 
+> Nobody cc'ed Tejun.  Fixed.
+> 
+> David acked v1 but is being coy about the v2 patch?
 
-Yeah, that looks shaky. We do seem to have a bunch of these cases, primarily
-from pagewalk code (where some users like pagemap need the actual address).
-
-I think we have two options
-
-1) To prevent any (further) issues, make huge_ptep_get() always consume the
-hstate, and let the arch code deal with aligning it. Invasive.
-
-2) Make the arch code handle aligning without the hstate.
-
-diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-index 30772a909aea3..303a1b74796c9 100644
---- a/arch/arm64/mm/hugetlbpage.c
-+++ b/arch/arm64/mm/hugetlbpage.c
-@@ -126,6 +126,9 @@ pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
-                return orig_pte;
- 
-        ncontig = find_num_contig(mm, addr, ptep, &pgsize);
-+       ptep = PTR_ALIGN_DOWN(ptep, sizeof(*ptep) * ncontig);
-+       orig_pte = __ptep_get(ptep);
-+
-        for (i = 0; i < ncontig; i++, ptep++) {
-                pte_t pte = __ptep_get(ptep);
- 
-(nshift/order instead of ncontig might avoid a multiplication, but not sure if that matters in practice)
-
-IIUC, that's similar to what huge_ptep_get() does on ppc.
-
-
-static inline pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
-{
-	if (ptep_is_8m_pmdp(mm, addr, ptep))
-		ptep = pte_offset_kernel((pmd_t *)ptep, ALIGN_DOWN(addr, SZ_8M));
-	return ptep_get(ptep);
-}
-
-I'd assume we could do the same on riscv. Besides that, I don't think any arch has cont
-entries.
-
-
-Interestingly, huge_pte_clear() / huge_ptep_get_and_clear() and friends would be all
-wrong when the wrong address is passed. But that code really is called from hugetlb.c
-where we should take better care of that. (e.g., partially zapping a hugetlb page is not
-possible)
-
+Yes, after the discussion, I think we should add comment similar to what I proposed.
 -- 
 Cheers,
 
