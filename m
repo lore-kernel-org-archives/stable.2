@@ -1,210 +1,108 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A773FFF86;
-	Mon, 29 Jun 2026 12:18:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068323FFACC
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 12:23:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782735492; cv=none; b=HGM8VfmVNGs1LO9LNlVrLNSJ0SB/8SMMcM0/Veb7m/g9985ykgs+qeF3Aum0LlQD31puatLaVCVpgx6/HhxV/ZT/sj9mZdGW5WUTzXARcMY8kyzKaUvH0PDGnTNBMWkM/xgqJeceeXDkxKNfqmcHzmQO13RcAjLeAyBHzKj0ZX8=
+	t=1782735832; cv=none; b=dvkD5pLaZQ3jPXXWTNfSZvYLO1War97IYx3SAFrdw2ldZuWcTLirf5a/Z48n+TpOtbUBI4r08chpkrWPh5VteoiE4YJO0ohTwnWAfjfCJsmeRoNAJXumPD1GyO3VcaexnbmHog4nX4KXy/UoASn3/2YImCUiiNKllQ+U/KE7xqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782735492; c=relaxed/simple;
-	bh=ECvDfXgKW4JbF/oVmEsOMPFtH2HOc8dl5MSYssZy5YA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sn4SuCw4Hrlbdjp+EAlNFUortWmVHf3+P+a9R3uWG7lF4vQURzs/AQQF31/0t5Mskn17o1l+a7SCftdBIuG4Y5Ay506Kuqda9hLgDE2/4tCPtCCHZz7VGWbD+ypts39cWmNEuX4ZP77l/H86bbiQaGlJz/hV6dnYFFT0zV45EkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ENi4gjhv; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	s=arc-20240116; t=1782735832; c=relaxed/simple;
+	bh=JiweOcpD2gpG/D1UI6s63Lm84Lx/AQcHh2xZgunNp4w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DhG+L1VEyhOJD3RxDueG9A/mdg13XtGb8leu/uj+7r0hgi1FtTz3mXwJ8ctjuBqw31hz6fgbFSxAXWFJ9MkDI2cc/uvD13G6bGvG4woC51pxtgXiUHfqtd3JhyN6ApxEsl9Utk3v43dYV4BqpcWZHUFnfsSzDhgDe1RmLXIAUoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=A8zoHkA2; arc=none smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ENi4gjhv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=h8W/8MOVA/KLPn/O4gFOUg7bhB+AX9sU5r41MvDzxwY=; b=ENi4gjhv1y6oMmj7vcPthQA93k
-	MxTLJ3Qm3IOJUzqCyvUwop61YPAgD+Ao6F/5SshgOtlGWGpW4sts5bl1E4JYtdGMo9YMOsgJ8AUC+
-	0SnWc6KSYxY6brMxLJCbN5CTljr99E86RDIy5wyboff6VKB7VOk6f/gV1Ntdc5o4B0HFkeTA9YegJ
-	KOmwM5UJx2u/2uhRnSDeQngpv4rn7q2FRtVOnekSd2T2G/2fEiSwb4oo+Pwq34WHoJzuY/CoqT9yu
-	Pm0A6Z2BN82ArtUh1v6KrYkdY4uSi3ltjU2BTTArw0MEJVzbYzMQ/0azMyB1KcpQ7/GVDQpXMka1D
-	EbykWDWQ==;
-Received: from clnet-b08-202.ikbnet.co.at ([83.175.123.202] helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1weAw5-0000000EWzg-3hsh;
-	Mon, 29 Jun 2026 12:18:02 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Christian Brauner <brauner@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>
-Cc: Kelu Ye <yekelu1@huawei.com>,
-	Yifan Zhao <zhaoyifan28@huawei.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sungjong Seo <sj1557.seo@samsung.com>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	fuse-devel@lists.linux.dev,
-	ntfs3@lists.linux.dev,
-	linux-erofs@lists.ozlabs.org,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/3] iomap: consolidate bio submission
-Date: Mon, 29 Jun 2026 14:17:38 +0200
-Message-ID: <20260629121750.3392300-2-hch@lst.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260629121750.3392300-1-hch@lst.de>
-References: <20260629121750.3392300-1-hch@lst.de>
+	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="A8zoHkA2"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-697564cb69eso5881291a12.0
+        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 05:23:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bynar.io; s=google; t=1782735829; x=1783340629; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=c42ikaiQsX4R+I2gt7m3Uhxc5QLT/t1/qPY6OMkStPw=;
+        b=A8zoHkA2gd+dw7bz2EaMOpGNULqy3f/dq6uWhXmOlktNLWm5FeqC3PpkAMWQQ+Zb2U
+         tFTnWzMHlN3VjOFU5QWdMpl6cAITVfGDXp2Nu+z7QQ3D5WxEKSUpzzk95Owkz/xWQ+z4
+         7MquCn+Q4NhIaY45VknAtk9g8rUrH2m8WlZV8okOutHUoIrqOyFjvefn4CIWPkNvkxSU
+         rrTkJUWOhOm8/x1Sd4HB0PJ4+7deHg+hpYzf1hjlC4BrGfFUzlcP7jaiA7b5fqdRbing
+         C2LeDFwgk8DI9MV+tmgN0wTxS6BcaP4Z4QMJW7LX0cuPlaoYZG6Ju6LS5YqSr3SuT06H
+         9GuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782735829; x=1783340629;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=c42ikaiQsX4R+I2gt7m3Uhxc5QLT/t1/qPY6OMkStPw=;
+        b=bMkR8Sulo1LJXgk0Qur1JQTa5ky5ZvrocPz+rzaW/lqQZle0vmt3aOsBn+UgrEB565
+         7h1XFEzGlmueNOPX0zJl39K7jaVEONPR1cnVHm7J/TPg//x8KzzJYlkVNPKB3N5Q19zt
+         VFWJQac5tJMbtYD/YQpiwbjQ1bdMwA2hSCF6aQbO+N4zy5NjfGMWDV0xk3MUqIPzsIYp
+         IYwxchwkd+sTAVkWjQ2/SG8mKv7EXf2GMHxNv0O+Ai05NpfD3opxrtpcYSiF526NnPVb
+         5Omqu+RN9yD2XvXp08nEgP5FrBD0EN1A/CHkjMhjHm3bGB/joFRF6qxnmJap0aA60UHW
+         JZ3Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrzYBoTBYP2X9cvxFIa+/emBmM+Wu6z/5i8zYq0vtiy96NruNCTM7YwpiGtJxaWb98CaNMdep4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGNcGqlvba5m6tSpjoXbABZ5ZZUsZOb4YGK8db+DnIxm17Xe4c
+	bJ3LwZkRXqjZ/sUi9uTMJJv8DWr1Gnmax4hAgB1aixwPQ4mOxoK5Vz3L11PjSBoDiIka
+X-Gm-Gg: AfdE7ckecKt/OD2scZ/NAHFmABHkUN8QEIEwrsmWL6PmfURk8LOXG05Hjw/mEK4KNWB
+	mvx16gJAfxD74cHsRqIoTjskqzJw1Jvw3OU+woMrckQagGL70yZV+XbME1dOi65FFZIkerUJYvo
+	YJfPkPTumTaa27Y0iZEPQPg7DP160iuTOV2ThXXORTs/8ozJVEP20lJH7vrb4xx0rI3DFxgSlzk
+	b/Gun1SoTXIesMzZRmZWk05qnyRtRxxWtSJf9odFhzxs4clvx8C3fAN8p68PYDazv29rcmKHhw2
+	hCmLUq47/1s1EsxkrxyTJCNpgnofOLFMpLMbnpQSc8LitSBLic+5puITvbSZ3Q8HXRmVg4Fkpy1
+	dZ/b00AqvxT9GQ4ih5f+sellXCovxT5toBcJHjSQDrbEQ8k2IIlWec4OpH1dO48EKKfn/khNarP
+	RLzG+EBEESjgZCqc+IcX1ml+kbvZZemyf1fzwvfo5HWXmL6Q==
+X-Received: by 2002:a17:907:d26:b0:c12:45fc:c25 with SMTP id a640c23a62f3a-c1245fc3060mr292629466b.17.1782735828774;
+        Mon, 29 Jun 2026 05:23:48 -0700 (PDT)
+Received: from ?IPV6:2a06:61c2:d427:0:b321:1c7a:b072:326e? ([2a06:61c2:d427:0:b321:1c7a:b072:326e])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1256c8c643sm233359466b.52.2026.06.29.05.23.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 05:23:48 -0700 (PDT)
+Message-ID: <edfa1b87-a28c-40ca-85ca-e11ac3482518@bynar.io>
+Date: Mon, 29 Jun 2026 13:23:45 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] nfc: nci: fix uninit-value in the RF
+ discover/activated NTF handlers
+To: David Heidelberg <david@ixit.cz>
+Cc: "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260626090301.2139500-1-sam@bynar.io>
+ <9f73948f-7045-4ef3-bc8c-731fde943c1e@ixit.cz>
+Content-Language: en-GB
+From: Sam P <sam@bynar.io>
+In-Reply-To: <9f73948f-7045-4ef3-bc8c-731fde943c1e@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add a iomap_bio_submit_read_endio helper factored out of
-iomap_bio_submit_read to that all ->submit_read implementations for
-iomap_read_ops that use iomap_bio_read_folio_range can shared the
-logic.
+On 27/06/2026 19:41, David Heidelberg wrote:
+>> Assisted-by: Bynario AI
+> 
+> Hello Samuel,
+> 
+> the fix look good, may I ask you to follow the Assisted-by syntax as requested in [1]?
+> 
+> Thank you
+> David
+> 
+> [1] https://docs.kernel.org/process/coding-assistants.html
 
-Right now that logic is mostly trivial, but already has a bug for XFS
-because the XFS version is too trivial:  file system integrity validation
-needs a workqueue context and thus can't happen from the default iomap
-bi_end_io I/O handler.  Unfortunately the iomap refactoring just before
-fs integrity landed moved code around here and the call go misplaced,
-meaning it never got called.  The PI information still is verified by
-the block layer, but the offloading is less efficient (and the future
-userspace interface can't get at it).
+Hey David,
 
-Fixes: 0b10a370529c ("iomap: support T10 protection information")
-Cc: <stable@vger.kernel.org> # v7.1
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
----
- fs/exfat/iomap.c      |  5 +----
- fs/iomap/bio.c        | 13 ++++++++++---
- fs/ntfs/aops.c        |  6 ++----
- fs/ntfs3/inode.c      |  5 +----
- fs/xfs/xfs_aops.c     |  3 +--
- include/linux/iomap.h |  2 ++
- 6 files changed, 17 insertions(+), 17 deletions(-)
+The :MODEL_VERSION was omitted as we use a range of different models and versions in our pipeline, making it hard to attribute to a single model/version. As for the AGENT_NAME, in this instance, would the correct syntax be to remove the spacing here (e.g. Bynario-AI)?
 
-diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
-index 1aac38e63fe6..190fc6471f84 100644
---- a/fs/exfat/iomap.c
-+++ b/fs/exfat/iomap.c
-@@ -253,10 +253,7 @@ static void exfat_iomap_read_end_io(struct bio *bio)
- static void exfat_iomap_bio_submit_read(const struct iomap_iter *iter,
- 		struct iomap_read_folio_ctx *ctx)
- {
--	struct bio *bio = ctx->read_ctx;
--
--	bio->bi_end_io = exfat_iomap_read_end_io;
--	submit_bio(bio);
-+	iomap_bio_submit_read_endio(iter, ctx, exfat_iomap_read_end_io);
- }
- 
- const struct iomap_read_ops exfat_iomap_bio_read_ops = {
-diff --git a/fs/iomap/bio.c b/fs/iomap/bio.c
-index 4504f4633f17..0f31e35567b4 100644
---- a/fs/iomap/bio.c
-+++ b/fs/iomap/bio.c
-@@ -78,15 +78,23 @@ u32 iomap_finish_ioend_buffered_read(struct iomap_ioend *ioend)
- 	return __iomap_read_end_io(&ioend->io_bio, ioend->io_error);
- }
- 
--static void iomap_bio_submit_read(const struct iomap_iter *iter,
--		struct iomap_read_folio_ctx *ctx)
-+void iomap_bio_submit_read_endio(const struct iomap_iter *iter,
-+		struct iomap_read_folio_ctx *ctx, bio_end_io_t end_io)
- {
- 	struct bio *bio = ctx->read_ctx;
- 
-+	bio->bi_end_io = end_io;
- 	if (iter->iomap.flags & IOMAP_F_INTEGRITY)
- 		fs_bio_integrity_alloc(bio);
- 	submit_bio(bio);
- }
-+EXPORT_SYMBOL_GPL(iomap_bio_submit_read_endio);
-+
-+static void iomap_bio_submit_read(const struct iomap_iter *iter,
-+		struct iomap_read_folio_ctx *ctx)
-+{
-+	return iomap_bio_submit_read_endio(iter, ctx, iomap_read_end_io);
-+}
- 
- static struct bio_set *iomap_read_bio_set(struct iomap_read_folio_ctx *ctx)
- {
-@@ -127,7 +135,6 @@ static void iomap_read_alloc_bio(const struct iomap_iter *iter,
- 	if (ctx->rac)
- 		bio->bi_opf |= REQ_RAHEAD;
- 	bio->bi_iter.bi_sector = iomap_sector(iomap, iter->pos);
--	bio->bi_end_io = iomap_read_end_io;
- 	bio_add_folio_nofail(bio, folio, plen,
- 			offset_in_folio(folio, iter->pos));
- 	ctx->read_ctx = bio;
-diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
-index 1fbf832ad165..f2bb56506046 100644
---- a/fs/ntfs/aops.c
-+++ b/fs/ntfs/aops.c
-@@ -38,11 +38,9 @@ static void ntfs_iomap_read_end_io(struct bio *bio)
- }
- 
- static void ntfs_iomap_bio_submit_read(const struct iomap_iter *iter,
--	struct iomap_read_folio_ctx *ctx)
-+		struct iomap_read_folio_ctx *ctx)
- {
--	struct bio *bio = ctx->read_ctx;
--	bio->bi_end_io = ntfs_iomap_read_end_io;
--	submit_bio(bio);
-+	iomap_bio_submit_read_endio(iter, ctx, ntfs_iomap_read_end_io);
- }
- 
- static const struct iomap_read_ops ntfs_iomap_bio_read_ops = {
-diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
-index 42af1abe17f8..f9600aba1548 100644
---- a/fs/ntfs3/inode.c
-+++ b/fs/ntfs3/inode.c
-@@ -609,10 +609,7 @@ static void ntfs_iomap_read_end_io(struct bio *bio)
- static void ntfs_iomap_bio_submit_read(const struct iomap_iter *iter,
- 		struct iomap_read_folio_ctx *ctx)
- {
--	struct bio *bio = ctx->read_ctx;
--
--	bio->bi_end_io = ntfs_iomap_read_end_io;
--	submit_bio(bio);
-+	iomap_bio_submit_read_endio(iter, ctx, ntfs_iomap_read_end_io);
- }
- 
- static const struct iomap_read_ops ntfs_iomap_bio_read_ops = {
-diff --git a/fs/xfs/xfs_aops.c b/fs/xfs/xfs_aops.c
-index 2a0c54256e93..51293b6f331f 100644
---- a/fs/xfs/xfs_aops.c
-+++ b/fs/xfs/xfs_aops.c
-@@ -764,8 +764,7 @@ xfs_bio_submit_read(
- 
- 	/* defer read completions to the ioend workqueue */
- 	iomap_init_ioend(iter->inode, bio, ctx->read_ctx_file_offset, 0);
--	bio->bi_end_io = xfs_end_bio;
--	submit_bio(bio);
-+	iomap_bio_submit_read_endio(iter, ctx, xfs_end_bio);
- }
- 
- static const struct iomap_read_ops xfs_iomap_read_ops = {
-diff --git a/include/linux/iomap.h b/include/linux/iomap.h
-index 3582ed1fe236..56b43d594e6e 100644
---- a/include/linux/iomap.h
-+++ b/include/linux/iomap.h
-@@ -622,6 +622,8 @@ extern struct bio_set iomap_ioend_bioset;
- #ifdef CONFIG_BLOCK
- int iomap_bio_read_folio_range(const struct iomap_iter *iter,
- 		struct iomap_read_folio_ctx *ctx, size_t plen);
-+void iomap_bio_submit_read_endio(const struct iomap_iter *iter,
-+		struct iomap_read_folio_ctx *ctx, bio_end_io_t end_io);
- 
- extern const struct iomap_read_ops iomap_bio_read_ops;
- 
--- 
-2.53.0
+Once clarified, I'll submit a new patch with the correct syntax.
+
+Thanks,
+Sam
+
 
