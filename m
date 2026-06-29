@@ -1,235 +1,171 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010069.outbound.protection.outlook.com [52.101.201.69])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8417E3CCFDB
-	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 07:43:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782719030; cv=fail; b=hukF1R1g16ShRxbEu0heXKOL+G+cgzKFYDuQ3iNotr1BQoZgYsScx6F2dgizhcCHYVRkGHOuSyWlqeR21WM9cI27HO5Jxd/15n0ZQRJSi1VerVIhgilgs8pp8UW3+Dy1fFNIWgNehlhQ0sYloyoWarMJGfPWPBLxH2qFyaIKxwk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782719030; c=relaxed/simple;
-	bh=rNKO1wPCSsfKkUXdkz2u7HZpw8vOW8osh3f7Jk8gQTc=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fxX+31++dClSB5dBo8u2ZOugBBHJ4PNiXJTiqInVDJFyUJAz4ozE07ATaGP0eBowJmNtrx0K48B+p0h1ytPjjxe70dP++dlP0fqwsXGSkBXSUsXd3hxYNx/bIHHC+G78bQVUNAv6QR0ZHI1UrbffLd7WcQQvYKEMHkCCSK/ytBw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=z2WmSo0d; arc=fail smtp.client-ip=52.101.201.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4745D3DD50F;
+	Mon, 29 Jun 2026 07:45:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782719144; cv=none; b=ihLZQO181Yxbs3evK1yse5fCzOrDlJUuHZA8b5mWX2nEJYFfw5/oh+cadY3Qps3l3dfSZS7Cu5TXWM7ZunshLu12SoQ3CiNyZttU1NaaNYcGZtWw22mV4HRJQ2nsOGF1RQhFxkPePRa1sFG5+DEMSX5k1wnFSUD4t0qD3aHMnZY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782719144; c=relaxed/simple;
+	bh=GdOSW+9QpbI+GOCh/RF/AckWXho4xoQ8zdx+rrMu8RI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=gguaqOJw9w5I4Or3WUgHHTsTM9/oZRP1GpAVPLrLfOa0XFNU/crE9K3GGd51/HS5c/0ceZaN0BwesJzMD04Vmc0QfNmHeFn6UJlyUyodLPIZYfCeY/VoVXqJVfk4QOSs4b4HnaXC1xg58B5C6BEdTJJhfUEMNwmAnxiraLkdEJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3/GFQ8Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="z2WmSo0d"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oyotn+Hy2/TdkjYUxyPmyt2m1V0L0VujpCiO7ZA3qHeHEQjqPh5q7WwpyUmz52l0YXqCkZyyRiDJPbTdq34EOx8xtgYCzt3eT9ELoBFXtZyVW4t/ttSQDMDVYqheuy+ig4Zd84IHCAvuPYgRph/Pw0MRP/2Xu0yLAmyNgOtnK+Fk3NSOGPpJAFTaDK+47MnADYaPs8aryd7YJyuOJbAnUCgnasbZGz02QwObCw9GhyUhyk8buGh3PvSFMVEccTfOVuOYPDMW5yUPAkxo7SJEnRa49GTCKMydpyDmtbBeldC1+OCCdOkUys3rCpo+Vug6uA6UKon/bvT/IM+9vanBnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eGI/vVqlZHJz4JlzpwIrut/PT3weaDmCXgB/ZgDr4uA=;
- b=kjw8Q0XgeWRy7gEVWvKRrvFhTQN0HQfPMbVlYvN8JdmU5dj1GrU51P0wji0FZrcBphJzO5uRTXg6CK27pEZT/QRBTnIi0qfOworVN7un3m2gHlrTMCVxOPy+I1LYdJzwBJRkdrm5CDYGfslZ7Eifsr3c6yki+gJ1s8fGWtGhGIsAAkei3Y0o/sPNaZ4a4yLBHww7WDrDgvQQMalMppFFU1lIW/Fx67bGKWd1aBAq28XWzr5wyHKeYUtY0dqqJt38wBu43v+csEDNkbdAFfWucnB03fBdLXL9hKMCA3h9rr/0syQ1TesKtyT0vGwodWMKBqowYLMOq23P+3TJVCapTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eGI/vVqlZHJz4JlzpwIrut/PT3weaDmCXgB/ZgDr4uA=;
- b=z2WmSo0d3c7vPExjZm1/aE72ohZ+WSc6IggLzjOxg9rNesL9PW8r787JAc722fEaGCd51oCD/ITGdt2SiTV72WvuqqPg3Thjkf40xOwv98/slhpez79OiWtdz+YbUT/rSWEZUPeq8CJf3QEcRQU1l9p8l1OMZgeLv7Q1JwrbF/U=
-Received: from CH0PR03CA0051.namprd03.prod.outlook.com (2603:10b6:610:b3::26)
- by MW4PR12MB6898.namprd12.prod.outlook.com (2603:10b6:303:207::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 07:43:36 +0000
-Received: from CH1PEPF0000AD7B.namprd04.prod.outlook.com
- (2603:10b6:610:b3:cafe::ab) by CH0PR03CA0051.outlook.office365.com
- (2603:10b6:610:b3::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
- 29 Jun 2026 07:43:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD7B.mail.protection.outlook.com (10.167.244.58) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 07:43:36 +0000
-Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 29 Jun
- 2026 02:43:32 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
-	<dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
-	<intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
-	<Arunpravin.PaneerSelvam@amd.com>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
-	<timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
-	<stable@vger.kernel.org>
-Subject: [PATCH v2] gpu/buddy: bail out of try_harder when alignment cannot be honoured
-Date: Mon, 29 Jun 2026 13:13:11 +0530
-Message-ID: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3/GFQ8Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5D31F00A3A;
+	Mon, 29 Jun 2026 07:45:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782719137;
+	bh=X0uYIgycRQfmlWGtZQLMUu7Bf9aoXkgVqzrHIxUISYM=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=S3/GFQ8ZHJP33yNpAHgjlK04oWaIhQn9/JJ7ugdwUgAybIrffOlWXC8gbrimqKxGl
+	 lH5wg/52z9ldIDSLDr5sPVjCD7AV1+F8c//nYYQfZmPSv6ds0vRyEdvvkMy7/eHhCx
+	 D+BShmZcHknlfPmvdVPInaB9rNtxADquwvWimiexfd4hXBzd4p0Xx5UqVsBjj4/TzQ
+	 isfN3oF1XnrNGhFYu2xGB5qabTM7DbJ5H4Ztyp1fAlriprvHMl5SDyT06r7vqtoe/B
+	 xJbBkH9L2FHJpEkQqG3JsshZ4TzvQrtliCUX1e3x5WUmKnUW4Mp8MBP7jToam0Muoh
+	 9m8PnjcrBi5FA==
+Message-ID: <e0c25e65-8e07-41bc-a165-ae5e770a71a2@kernel.org>
+Date: Mon, 29 Jun 2026 09:45:34 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7B:EE_|MW4PR12MB6898:EE_
-X-MS-Office365-Filtering-Correlation-Id: e23fe91c-890b-4e4d-a886-08ded5b220b4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|18002099003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	ji9fu/TSOMhQzh5ZuLSwejICE5xkb6SrcR7lluwuNTNNijHFn302K1hBhpbQWDO2WJ9AO33hlQ+9IPrYYBvxKDwvfmESUYRWL78W8PRWXrF9GIisQyGBKXucLj4hm0wejZO3h0mfMF6MFkstqJlbtn8XDIf+E2FVTGZz6bDYxxGvU1UQ0tCYhhFDGL4DrEtrx6sOVaOxGAerUUppxj12xWblrDEEhAWg6JjG7Zl6iI5MrUqazMiACeweiqODJojaDzc7/zOqO3YzvHqeLCQccEIt9CuyaWYD+61iRJtvuT71QITvPY4ojjg4imwTlLJqCyOH2CXSerpeugy7b45igbC4MjJ629TPkVorU2/IIjcpfSfS5IFYmEfCPaRSWWLlIPNZv5N527Yg4A3dQj0T8OKR7QviLr5CJdhWwp9Lu5UAcwwllny0Hy4IXFS8SN7WIV/Ab+sgjQMCLqBxfbjiHbvTSeDx+cjSNNNxwHsGFfKHMusT2Cl6JkSDOhnIuyxq/sSA9sjvhOhwskrFyiMFhzvfJxCwK0Zgd+20y8Ed/tpDpz/gdrTEP6R3zGO8bIF2dRdcVdHIFCZA3eV54XwvwJTg3EwHxQ66tW5ZB+kbVg2VY45GAJyboeYKifuPEfHy8x6GIw4iv7nudXkUPaR/0QpkKATFg0jFe5SyGI3Ce3trQN1gef+NJAEZWVy7A2+jSWZEX+43qBXKATAk1dnang==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	3Qr12JGewYSbtEpcpOVuwNau5xyIsIs4wq3i/hM7V+ovrmJINrgXFtoAYLd+zb+ItqshqnbEF6meB0tqZHbUlyOpYaPEOwWlLL8v35htORzjaQ5jIdmSfTxwqWYVTo3CWsfjZEzbsYwvB6+7pYWtEGqolJxE4rGMwnoigK/B2Jebo7+UjZFGLhInT8mfufR7mHSYpBEO/zEDfHoXMjbicu/bjxNe4623iOh54ykOVeXe/p0qQV9AZJdgobANIhp5R+rUh5G++TelWck6ckkm8htlCVVs8oooh3wNBT5kCzPwyb+LZ+WRf8sVmcwUOoTNJXJd13MqTqmdJrh8lR4JLLAVl9xl1aM7jM+F9Mddh7CwSOojz8ZWSHadXkOv6NDzxp0b5WloeSnzGrkvIc+ZSIQEMcp99caWYAytwz+0HKPS0wF56JT80pTi1Pa6Q94O
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 07:43:36.2528
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e23fe91c-890b-4e4d-a886-08ded5b220b4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD7B.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6898
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: em28xx: keep device state alive for registered
+ video nodes
+To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Abhishek Kumar <abhishek_sts8@yahoo.com>, stable@vger.kernel.org,
+ syzbot+39ff299961a7c07f00f0@syzkaller.appspotmail.com
+References: <20260628003103.24832-1-alhouseenyousef@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260628003103.24832-1-alhouseenyousef@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The try_harder contiguous fallback could return a range whose start
-offset did not match the caller's min_block_size. When a candidate's
-start is misaligned, realign it: free the misaligned run and reallocate
-exactly @size at the next lower min_block_size boundary. This keeps the
-returned size unchanged with no surplus to trim, and rejects the request
-only when no aligned candidate fits.
+On 28/06/2026 02:31, Yousef Alhouseen wrote:
+> The V4L2 core takes a video_device reference before invoking the
+> driver open callback. That reference does not protect em28xx state
+> because all three video_device objects are embedded in em28xx_v4l2 and
+> use video_device_release_empty().
+> 
+> If initialization fails after registering a node, the error path can
+> unregister it and drop the last em28xx_v4l2 reference while a concurrent
+> open has passed the core registration check. The open callback then
+> dereferences the freed video_device in video_drvdata(), as observed by
+> KASAN. A disconnect has the same lifetime gap.
+> 
+> Give each successfully registered video node references to both the
+> enclosing V4L2 state and the parent em28xx device. Release those
+> references from the video_device release callback, after the core has
+> drained pending opens and existing file references.
 
-v2: align misaligned candidates down to min_block_size instead of
-    bailing out, for both the RHS and LHS paths (Matthew).
+This patch series should fix this issue properly:
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Timur Kristóf <timur.kristof@gmail.com>
-Cc: John Olender <john.olender@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
----
- drivers/gpu/buddy.c | 63 +++++++++++++++++++++++++++++++--------------
- 1 file changed, 44 insertions(+), 19 deletions(-)
+https://patchwork.linuxtv.org/project/linux-media/list/?series=26968
 
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index dc81fe0301ce..3c73ae87f3c5 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -1118,22 +1118,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
- 			     blocks, total_allocated_on_err);
- }
- 
-+static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
-+					u64 unaligned_offset,
-+					u64 size,
-+					u64 min_block_size,
-+					struct list_head *blocks)
-+{
-+	u64 aligned_offset = round_down(unaligned_offset, min_block_size);
-+
-+	return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
-+}
-+
- static int __alloc_contig_try_harder(struct gpu_buddy *mm,
- 				     u64 size,
- 				     u64 min_block_size,
- 				     struct list_head *blocks)
- {
--	u64 rhs_offset, lhs_offset, lhs_size, filled;
-+	u64 rhs_offset, lhs_offset, filled;
- 	struct gpu_buddy_block *block;
- 	unsigned int tree, order;
--	LIST_HEAD(blocks_lhs);
--	unsigned long pages;
- 	u64 modify_size;
- 	int err;
- 
- 	modify_size = rounddown_pow_of_two(size);
--	pages = modify_size >> ilog2(mm->chunk_size);
--	order = fls(pages) - 1;
-+	order = ilog2(modify_size) - ilog2(mm->chunk_size);
- 	if (order == 0)
- 		return -ENOSPC;
- 
-@@ -1149,31 +1157,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
- 		while (iter) {
- 			block = rbtree_get_free_block(iter);
- 
--			/* Allocate blocks traversing RHS */
- 			rhs_offset = gpu_buddy_block_offset(block);
-+
-+			/* Allocate blocks traversing RHS */
- 			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
- 						       &filled, blocks);
--			if (!err || err != -ENOSPC)
-+			if (err && err != -ENOSPC)
- 				return err;
-+			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
-+				return 0;
-+			if (!err) {
-+				/* Allocate the unaligned RHS offset using round_down */
-+				gpu_buddy_free_list_internal(mm, blocks);
-+				err = __alloc_contig_aligned_retry(mm, rhs_offset,
-+								   size,
-+								   min_block_size,
-+								   blocks);
-+				if (!err)
-+					return 0;
-+				if (err != -ENOSPC) {
-+					gpu_buddy_free_list_internal(mm, blocks);
-+					return err;
-+				}
-+				goto next;
-+			}
- 
--			lhs_size = max((size - filled), min_block_size);
--			if (!IS_ALIGNED(lhs_size, min_block_size))
--				lhs_size = round_up(lhs_size, min_block_size);
-+			if (size - filled > rhs_offset)
-+				goto next;
- 
--			/* Allocate blocks traversing LHS */
--			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
--			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
--						       NULL, &blocks_lhs);
--			if (!err) {
--				list_splice(&blocks_lhs, blocks);
-+			lhs_offset = rhs_offset - (size - filled);
-+
-+			/* Allocate the unaligned LHS offset using round_down */
-+			gpu_buddy_free_list_internal(mm, blocks);
-+			err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
-+							   min_block_size, blocks);
-+			if (!err)
- 				return 0;
--			} else if (err != -ENOSPC) {
-+			if (err != -ENOSPC) {
- 				gpu_buddy_free_list_internal(mm, blocks);
- 				return err;
- 			}
--			/* Free blocks for the next iteration */
-+next:
- 			gpu_buddy_free_list_internal(mm, blocks);
--
- 			iter = rb_prev(iter);
- 		}
- 	}
+Rejecting this patch, manually manipulating refcounts is not the way to go.
 
-base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
--- 
-2.34.1
+Regards,
+
+	Hans
+
+> 
+> Fixes: ef74a0b9ff56 ("[media] em28xx: move video_device structs from struct em28xx to struct v4l2")
+> Reported-by: syzbot+39ff299961a7c07f00f0@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=39ff299961a7c07f00f0
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+> ---
+>  drivers/media/usb/em28xx/em28xx-video.c | 35 +++++++++++++++++++++++--
+>  1 file changed, 33 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+> index da0422c65e5f..4274a9bcb432 100644
+> --- a/drivers/media/usb/em28xx/em28xx-video.c
+> +++ b/drivers/media/usb/em28xx/em28xx-video.c
+> @@ -2289,6 +2289,31 @@ static void em28xx_free_v4l2(struct kref *ref)
+>  	kfree(v4l2);
+>  }
+>  
+> +static void em28xx_vdev_release(struct video_device *vdev)
+> +{
+> +	struct em28xx_v4l2 *v4l2;
+> +	struct em28xx *dev;
+> +
+> +	switch (vdev->vfl_type) {
+> +	case VFL_TYPE_VIDEO:
+> +		v4l2 = container_of(vdev, struct em28xx_v4l2, vdev);
+> +		break;
+> +	case VFL_TYPE_VBI:
+> +		v4l2 = container_of(vdev, struct em28xx_v4l2, vbi_dev);
+> +		break;
+> +	case VFL_TYPE_RADIO:
+> +		v4l2 = container_of(vdev, struct em28xx_v4l2, radio_dev);
+> +		break;
+> +	default:
+> +		WARN_ON_ONCE(1);
+> +		return;
+> +	}
+> +
+> +	dev = v4l2->dev;
+> +	kref_put(&v4l2->ref, em28xx_free_v4l2);
+> +	kref_put(&dev->ref, em28xx_free_device);
+> +}
+> +
+>  /*
+>   * em28xx_v4l2_open()
+>   * inits the device and starts isoc transfer
+> @@ -2554,7 +2579,7 @@ static const struct v4l2_ioctl_ops video_ioctl_ops = {
+>  static const struct video_device em28xx_video_template = {
+>  	.fops		= &em28xx_v4l_fops,
+>  	.ioctl_ops	= &video_ioctl_ops,
+> -	.release	= video_device_release_empty,
+> +	.release	= em28xx_vdev_release,
+>  	.tvnorms	= V4L2_STD_ALL,
+>  };
+>  
+> @@ -2583,7 +2608,7 @@ static const struct v4l2_ioctl_ops radio_ioctl_ops = {
+>  static struct video_device em28xx_radio_template = {
+>  	.fops		= &radio_fops,
+>  	.ioctl_ops	= &radio_ioctl_ops,
+> -	.release	= video_device_release_empty,
+> +	.release	= em28xx_vdev_release,
+>  };
+>  
+>  /* I2C possible address to saa7115, tvp5150, msp3400, tvaudio */
+> @@ -2965,6 +2990,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+>  			"unable to register video device (error=%i).\n", ret);
+>  		goto unregister_dev;
+>  	}
+> +	kref_get(&v4l2->ref);
+> +	kref_get(&dev->ref);
+>  
+>  	/* Allocate and fill vbi video_device struct */
+>  	if (em28xx_vbi_supported(dev) == 1) {
+> @@ -2999,6 +3026,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+>  				"unable to register vbi device\n");
+>  			goto unregister_dev;
+>  		}
+> +		kref_get(&v4l2->ref);
+> +		kref_get(&dev->ref);
+>  	}
+>  
+>  	if (em28xx_boards[dev->model].radio.type == EM28XX_RADIO) {
+> @@ -3012,6 +3041,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+>  				"can't register radio device\n");
+>  			goto unregister_dev;
+>  		}
+> +		kref_get(&v4l2->ref);
+> +		kref_get(&dev->ref);
+>  		dev_info(&dev->intf->dev,
+>  			 "Registered radio device as %s\n",
+>  			 video_device_node_name(&v4l2->radio_dev));
 
