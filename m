@@ -1,170 +1,182 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010044.outbound.protection.outlook.com [52.101.69.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D389F3EEAF9;
-	Mon, 29 Jun 2026 15:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782745702; cv=fail; b=fB3W/h01kKEpgfHS1NfMEs5ntBXaHo/kdk75M2mVBmsOvMTZl5SSft6lWTvGGBsOQ93+0OuCqEBwtyPKljXxNomRxcB3KhvNGZQEuvMxJJBTwHWb6DMup96c4Dc6r1gHNTJvAWp5ACpdkrkk5FGTEC2bGgFV5Z4dUTzfwLLFqCA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782745702; c=relaxed/simple;
-	bh=rrL6ymDv6zDv+ikdJUkTcZS4Q1XpDhMDn5gpoffl9+s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=fEtq3STnqXpwVca1Q8qntFc4htlIqKqjALvq3iBB78b950kZcmVTsLLEyX8IDyuGXgTYK0WkclTTJ7UnvveSar12mtXd0BOLaHKWq8+l6ZKjPeemDKX0aqThMoh5kcHUNkvoBriTyfRfOCeDJDXPkG1JY4orjjan87Tu4ajCC7E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=kw+FBXkQ; arc=fail smtp.client-ip=52.101.69.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16465425CC6
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 15:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782746130; cv=none; b=IZwR7icbWbD8ZRjuyHNN/rH3J81snGV7vQ02QYd47W/NzA7czfAfdHEb6maeapQs/v5FdZ1QIiH/eEwb79uBPu2pCKhVrZeThmLp4nda8IGyRvNOxz573KEgMHjom47nswkeuNZUt5Rm8xoP/9un2D+uwOG14ohy3e4b2T9n1+c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782746130; c=relaxed/simple;
+	bh=af20jhog62oBC86VKU1xoF2h/kpAYcLB6qGZDThBzQE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V213nU6K8n4JFe6Kxq01IozVvjCe4dv3ZefmpYlE8wLz7oXuFQ2YisSPm7D2vJnbnCgBH6p8ZFOUb+R0YjrH2yX9HpaTwLp4NZFeUqE5HcyeDqAJ3L37OxAzRSHdvZhH66YPxlPd3EziOSpGTag7um72tAKPCqjqWUMbTA0+EZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=X56qzsVR; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="kw+FBXkQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kpiSfwRpkqCMF57+EqdncWLc96iXVGjwk35MmSV6skbTieRquegAiYiF6Sfe2ki7dv/v5IMLSddDhDajCHEBPECG/Lej4yJRrkHH1s9VliTd+gyGOVy2CqApel3qbdVUU3w+pxh55Pt5owTPnvMsPc8h1q++Vb1GRa4iIVxa1X4K7D2Hq1+2QBVC67+ybHi52bsU9h9g0WpnaiRvFgzPBEUaKiFCttcBvK9qlmJnq2oa44paBcX5AT8A8e56BH0q+oglc4oBJAV7zta2Qt2wyOqaGnZaOsac9CsHELPyC5W9lkKB8QQvQNi5MYohwcjc0gyIFt0D7iLpl2p0jpDG3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x7H3G61ijq7+XHi73CDHVMxMTM8P0HCPp2X9yuonuEg=;
- b=WDwY4xMBngFXb7RideS9nfMRV0P6Ou5PDBXGPn+LSQN7uIKtfhdGpmn8TRxUj+tIouRINqgaRnAA48QUuUTqhnoZTOgTCnr4E8h65LwoF47DOenAI4ctbFIeSTlxvsIIUmRXS7RkIGfKnAbvYE3W9I3rpZtYi7WBHRi7gZs6grRS0Pk4nAOuJTkH36gxqN+XFMoYRbm04QOt3znvOEaJPWxiGyADnrrmQ2e3uZSu5rksE8DuYHVtQ+h3xxwa2MXP7mh4u0fPJFTGYD2IAqxOaGDRz/kHV0ZIbHl2i2WAsG7bF5QFSN5LnubWhF4F/7QfTnC0oeivSYxfBspVQpEbnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x7H3G61ijq7+XHi73CDHVMxMTM8P0HCPp2X9yuonuEg=;
- b=kw+FBXkQy0XS1CsJ/wP4nICiCav6kc69jZQO93qran0/YnPh3plknLuIc1Ek/RqrZ3it0hbDFsO+1kp7eLosqRfxP3IphZ/lFhy3hmSogCWpvcPe1obdrl4WODIuWziqXTCzAHH6stCVu1AAhS5BAGkUbFTKh6GNvi3Do5+pyoj3oXwb/kZdmQI7sFrqrXiDUXA9bp5uuuZjxlUFM6jhNsHdPL4FSh8IvpVfbbnBkI+1jVEAApV/OM1JPXR93BaQiRnhBlmbbJMORucNIPs1Vy0ZJ2V+oCuFTjbFFM3VkRSdwZpoaADKDS5uWen8nvhroufElX7rC5i9pZuWOoM5tA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAXPR04MB8428.eurprd04.prod.outlook.com (2603:10a6:102:1ce::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 15:08:17 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 29 Jun 2026
- 15:08:17 +0000
-Date: Mon, 29 Jun 2026 10:08:05 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Christian Hemp <c.hemp@phytec.de>,
-	Stefan Riedmueller <s.riedmueller@phytec.de>,
-	Jacopo Mondi <jacopo@jmondi.org>,
-	Dong Aisheng <aisheng.dong@nxp.com>,
-	Guoniu Zhou <guoniu.zhou@nxp.com>, linux-media@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 4/5] media: nxp: imx8-isi: Correct color map between V4L2
- and ISI
-Message-ID: <akKKVSKxibnRfgaQ@SMW015318>
-References: <20260629-isi-v1-0-deebfdb1b07b@oss.nxp.com>
- <20260629-isi-v1-4-deebfdb1b07b@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260629-isi-v1-4-deebfdb1b07b@oss.nxp.com>
-X-ClientProxiedBy: SA9PR13CA0100.namprd13.prod.outlook.com
- (2603:10b6:806:24::15) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="X56qzsVR"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2c81db32393so96055ad.0
+        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 08:15:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1782746128; x=1783350928; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UPSjr9JU+pCYrEmDJ7OVpfKAUb1nOpu7R28XymotIVY=;
+        b=X56qzsVR/oOIdXUx9ePC4tXSB88Jr2QwO5TQ3emsT4XLGnw0aA+/xIQCBY38if4QrE
+         uw/juGKNm1Jj9zKjaQvWaXtzzFy8RyqxGEJg1SYbYPVrS3HqRWayIFhKhsX3qE0TUOOy
+         QvF5IVv1ebb9X98wMmi9Raado0nBM4MRi30lOkEJcCkzPpeoh02N+dp7gjMYo4QNynge
+         97kQeKRbsgiNdcthNXzNrEz8yT2JAfjktUs5I96N7kOSeHQYoBGMdLUHxOLSMkxn7hkX
+         Vm3sVsd4UXS4/OnFKUTW6DKmWI2WMMrUoc1zjiuTk9bfWhC85QKb4jwH+qG5wrjr/R6o
+         wbtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782746128; x=1783350928;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UPSjr9JU+pCYrEmDJ7OVpfKAUb1nOpu7R28XymotIVY=;
+        b=FsZxUzwPi6WeCAU+zYn4k6jS8u9sdGDRFMHQrIUxQFa9wmqABl6lTRTIVRSC3GYFQL
+         +mBLLLPxohBzoiSBKx3wnPp45NghKXtMpQ2XA34SvRJws3lebscxP42kK2LvN1zSu4oG
+         6Fmr7Sbge4SXqoQwXHKRqiXglcbDgybXOPOVIJWzfxF8RS0e4bRrFXn4gKf8rcK8kmDu
+         55pVBwMaEu2iIHzSP/ftsQj6cNf2WN4PTEh9TVv+Lep7OyWTWbj3ppbd3Xm226NwR/wS
+         GM8ahudv2kH8QJ63vh7S+bwZ6ZgKVOICzfQ7B5x8frP0eV8FISy1Vg0S1SETYKFIn7Uv
+         HgYQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrjcBV/+F/QHwBwWjokEvSlEk858J+nfkljc4XCrCmNClNvWLZn8rkfdehkh79wOmszYZiBFF8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxepc2I5sL+C2hekt7Dg8K03fK2rR1xaXMUP9HMAwE6BvyMP3ur
+	TlGtEyZZux8G3QUY4e6TDwGomqDSWvCHZjmYmpYomV6PeE0KLAIzRwTyVmwO3raBfQ==
+X-Gm-Gg: AfdE7cl7H8O0SeR5M9liGFgJbKyIFhFXElIUvw7Yic0KMrqkCCFTlifcQJSuuf8RNyo
+	WS48anGOo4XOn5J8ANqgnb2RRrqvkeOJVF/TlGSzcZPHK5a4UBO9gQJIhKCwTTQ1KxnkgQpw831
+	l7J0DIMuEcSzBDIyR38A/vXUohzJL1LDJyjq0vjt7OVDtqeTCNHdd55oD209tjRfNZISY+v1+lG
+	dpSsjQk9bKknmwTjz0F4A3hxG2Ux1HUIfz3OKzLb/1CI4JAODK5h+eysM0+SmfSQiFzwBcC14Lj
+	a8LT77O+9pF4SbVors8RNRdoZvx4zD9XsNUo3SLVj9MFMSS7RF9jraG2BLWoS3q5L6RnacszEJQ
+	Kbj8qliKiNwrmZKeir91K3PZpJRbqeH6/ArHntjKen8SlhIZ5uvVezMc2NHOZ/f15LIAB6/uRTL
+	qZERlHTijuFvQP7hs07i0AM9rN+WtqXznYapMTiJC198PNsIk=
+X-Received: by 2002:a17:902:e5c1:b0:2c7:b1e7:501e with SMTP id d9443c01a7336-2ca2ce7f8b4mr86255ad.3.1782746127572;
+        Mon, 29 Jun 2026 08:15:27 -0700 (PDT)
+Received: from google.com (10.129.124.34.bc.googleusercontent.com. [34.124.129.10])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c9b0992227sm50676885ad.37.2026.06.29.08.15.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jun 2026 08:15:26 -0700 (PDT)
+Date: Mon, 29 Jun 2026 15:15:21 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: will@kernel.org, robin.murphy@arm.com, jgg@nvidia.com, joro@8bytes.org,
+	kees@kernel.org, baolu.lu@linux.intel.com, kevin.tian@intel.com,
+	miko.lenczewski@arm.com, smostafa@google.com,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	jamien@nvidia.com
+Subject: Re: [PATCH rc v6 4/7] iommu/arm-smmu-v3: Skip EVTQ/PRIQ setup in
+ kdump kernel
+Message-ID: <akKMCYsdH4lVSyf7@google.com>
+References: <cover.1779265413.git.nicolinc@nvidia.com>
+ <1280ac4fdb37f998fd6dcb2bf8f4437283279395.1779265413.git.nicolinc@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB8428:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6df9b0a7-7d3b-430c-a021-08ded5f03f69
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|366016|7416014|23010399003|19092799006|1800799024|18002099003|22082099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
- z73EazHhMYg3oSOIYw5ZEfuSRWQL5nddeMAf11bAXjcZRUOvhgLlaPN1jtNM5vV2MbfnhUI9cBL1obg5zuf05Oq5A+NpYHrbNGGekiQk8DOQDhDuBZE+SZdnXiUGsrPetJ7kqEozKdgbULLvh8vv3JCSKV5C39Izqmb59YNazUD776zI8JLK7jDY6pCCyyUiRVS92K4MM/12vqpGIwRi7BWCY4leZyqpwj52fjUdh3XnV8DfjDvl4jTYTwcgUEOsYynfXbtCrYTa8p6eR0YVTHLRtmqoq01pGHb6xF6+ffpbD5t/s+YYB8y5r5+/vf8H8RZNkvqFYmrpf52rTqwASXSGIgz6uPXZIbZ3RX3DY40EXKbKl7f8mnGnLnr8blhD1NXw3g62XnOIUZcFWM3ERO+1xSrQu/lEEHmguFbK8ZBfjdHUuKsbXE4S18mKSs72XCbhaeSGiaUu/YUjs3dwCY2TjjLSE0GjLWZdrLPjztq2z3aoo7ZkVqNEWu9BYiZgJFNafWrKV6WOXStlwU+ad754KOv70JViwOEcnwQHtqpC3iEXCQoSdE2sY89h+m/3dYOTc84NNMqHlQRljl47Olpd1FXd7aDP3GeoS38sOznO8/y1Ov9thPYKeeo9TF+6CX6OqM2DIMcIgVMY/x+ltXGfnFd7zJva6W9TZ0hABeg=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(23010399003)(19092799006)(1800799024)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?j0Z9xFWRIKundIkFd+tzhyJYgBLCDMuhsQqnGsZv0jNDY3Q50GMOvXk5Qcv6?=
- =?us-ascii?Q?hUJlkZTCSYAqzOzGVtUSeCEBBVgbwhEbzNoDza2a59Lb/wri5umorRE9FkaL?=
- =?us-ascii?Q?x7W/BB2iTD0hlc6gfp7yKcT1fi89J8LQxAR5N1lJ78hKa2x8JhOWcjuBwWZK?=
- =?us-ascii?Q?DZzcLmwEbc72pIHp8G0/c9gMdfBEKx3Bf4H8vqv0HqWCFZi/mKhNvQOOUlWx?=
- =?us-ascii?Q?9+7mHPdFNTYrn0QkZuWPpIMB8eJACnBFhUrmBbgEfUzL9y4+FyvO+GSnrTpl?=
- =?us-ascii?Q?fIsTAJfZCXsHFdf9Pt0EpLZh4vLJLbAZoMzXtEkLIi1cpWY8Sbg+im5UrcS/?=
- =?us-ascii?Q?RmfU43y3kPJWq22ipBkdLKtlih7vZwlnEd9CuIeWmOQzn4JSdo26kDfJ9pSv?=
- =?us-ascii?Q?Munj2XBLwZBcCGEJoFYBOc3gRa3IpQ1prcNWsolYOtOg1HW6IYlPpbqhtMFJ?=
- =?us-ascii?Q?UZoD1Cyxfsj296qYB7NQaEdzjnHihUHO2pbGZrUf6XOIx3D82hBQKQHCJ5lC?=
- =?us-ascii?Q?WS4RcahN2L/bR1nvPWtseNCdCoQi1B5JyCDLq/gZk3zACkqYvVx3NO0KxwVQ?=
- =?us-ascii?Q?xZEXhSM6sMm4691NYvw1Ve5cUya2q1H4ysCmNW2gB0a+dSQ470lPtPiUNv34?=
- =?us-ascii?Q?gKXhcKanzZCFdJenqQaPtMSKcyZqw/36Cxy4JoFLMnH1XGMS0WMGg84ccZzD?=
- =?us-ascii?Q?vVFbIRgg1E9M7E1RqE27oIwjeW9I1cHTHQtzb+7NR4vc7AbE2hSYA98XoK+4?=
- =?us-ascii?Q?VXj84mXNqmqz1ADD0a03LF2FckTn/WAbVdHgMU1OacYHXoYnFLXivOcV2Ra/?=
- =?us-ascii?Q?XOESlMIAG0lV8LfJ1zkbyCNffGDIEHUTfJJNZCgvj4dB3UFzc0i3nwGLKiDM?=
- =?us-ascii?Q?pZUytpBHMZF6gCche9DeYL8JrSV0ic0bs1C5s8vjCO37Qr2q43VgIYfz8fkU?=
- =?us-ascii?Q?ITGUPpYYtsxVu2o4Up8jVVMAHcYkC/SEPQntdLQbrKv6migKP9CZR6LiWk4z?=
- =?us-ascii?Q?HxHi1sz0QePVXN3OgRspy71gIZ2mCWzgOlx+PLJ6QxkD+9TCrqZVvVYqx2VV?=
- =?us-ascii?Q?LqdOBFmBIbel0yrKD0pQhx1s7FsqlOmZmnFoEnjRbX2VgeVRaW4LwVPwWIRP?=
- =?us-ascii?Q?lHMhpQbba/Lrc7Do1xqtcqxyZA+pSQAkGjd6IOQWgkCk415Po5u4037+zDSK?=
- =?us-ascii?Q?6EKULORMPlQ8aRzbAxlDl3LswTg/8Bhki/rAj50gh0AqwcOUakhJVo/mMag6?=
- =?us-ascii?Q?CilQDzBuEVkhxgzoNC2hwrqiK1p8vaHRc62Zy7gzcSDM2QnYt5dLwSF1VJS9?=
- =?us-ascii?Q?z+SUy0sL/1JJMwRmA9bG3eoP1OQpp1Uc086RRYJlhdJFlCSsOCNDKAWzjeW3?=
- =?us-ascii?Q?0WqSINl1xdxkVA1gDDLiBPXXFkOv37dxyxmqnkU/4JcaZGDu3FXP/VuuFGQm?=
- =?us-ascii?Q?1HTtvK/SW8sdXeMT9y7AwPMMWwwVELl3CiSai5JR81E1LVqRV9kn0qVg7ErU?=
- =?us-ascii?Q?O2A/QZuGgocOWT+abZfoCHDhL7pOnCNpJGgqwhyMQKeBFDHZHC6vFkKW9oIT?=
- =?us-ascii?Q?2dIHhjV/aRtenJ20sGvdkIKXZZDZut0FPrXFJ0HWjA+6lstJfrfGYBYboZb7?=
- =?us-ascii?Q?x4v/A5Tkwz3kKkhr6hzh5BcBHMGQcfbiIH15+NJkjejA950pNWJtqthRelwJ?=
- =?us-ascii?Q?5YjMe8U5YojtL7/WdEWkn/9QRzZ4KKtYTt2q5FVyWAotpOWzvh1Qn5nYmyw1?=
- =?us-ascii?Q?FelmMxwNZT/9ZLyeeJTjHKBLySDWCNA2zC4/gP5GxxbI6ksoImml?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6df9b0a7-7d3b-430c-a021-08ded5f03f69
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 15:08:16.9216
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XuCs48eCiQhvMuzTIATXF068LAL8HI26/SMT83TyuF5PWdATHmoQMLQAwcf8p31P8H9dpJnCSIbMNFxYQSt2va/EMDjmCMHdncYUDM5ria/z/Eoe504bO+XOpKyIcOdF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8428
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1280ac4fdb37f998fd6dcb2bf8f4437283279395.1779265413.git.nicolinc@nvidia.com>
 
-On Mon, Jun 29, 2026 at 03:44:58PM +0800, Guoniu Zhou wrote:
-
-Subject: Correct V4L2_PIX_FMT_XBGR32 mapping in m2m mode
-
-> Correct color map between V4L2_PIX_FMT_XBGR32 and ISI input
-> format XRGB8 when ISI works at memory to memory mode.
-
-Fix the ISI input format for the color map V4L2_PIX_FMT_XBGR32 in
-memory-to-memory mode.
-
-Frank
-
->
-> Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
+On Wed, May 20, 2026 at 10:03:21AM -0700, Nicolin Chen wrote:
+> In kdump cases, the crashed kernel's CDs and page tables can be corrupted,
+> which could trigger event spamming. Also, we cannot serve page requests.
+> 
+> Skip the EVTQ/PRIQ setup entirely rather than enabling then disabling them.
+> 
+> Also add some inline comments explaining that.
+> 
+> Fixes: b63b3439b856 ("iommu/arm-smmu-v3: Abort all transactions if SMMU is enabled in kdump kernel")
+> Cc: stable@vger.kernel.org # v6.12+
+> Suggested-by: Kevin Tian <kevin.tian@intel.com>
+> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
 > ---
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-> index 5eb448f4c26f..05b51b98344b 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-> @@ -151,7 +151,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
->  		.fourcc		= V4L2_PIX_FMT_XBGR32,
->  		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_OUT
->  				| MXC_ISI_VIDEO_M2M_CAP,
-> -		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_XBGR8,
-> +		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_XRGB8,
->  		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_XRGB888,
->  		.mem_planes	= 1,
->  		.color_planes	= 1,
->
-> --
-> 2.34.1
->
->
+>  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 43 +++++++++++++--------
+>  1 file changed, 27 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> index e00b28e36f9c4..3f22949391c82 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -5161,21 +5161,35 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
+>  	cmd.opcode = CMDQ_OP_TLBI_NSNH_ALL;
+>  	arm_smmu_cmdq_issue_cmd_with_sync(smmu, &cmd);
+>  
+> -	/* Event queue */
+> -	writeq_relaxed(smmu->evtq.q.q_base, smmu->base + ARM_SMMU_EVTQ_BASE);
+> -	writel_relaxed(smmu->evtq.q.llq.prod, smmu->page1 + ARM_SMMU_EVTQ_PROD);
+> -	writel_relaxed(smmu->evtq.q.llq.cons, smmu->page1 + ARM_SMMU_EVTQ_CONS);
+> -
+> -	enables |= CR0_EVTQEN;
+> -	ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
+> -				      ARM_SMMU_CR0ACK);
+> -	if (ret) {
+> -		dev_err(smmu->dev, "failed to enable event queue\n");
+> -		return ret;
+> +	/*
+> +	 * Event queue
+> +	 *
+> +	 * Do not enable in a kdump case, as the crashed kernel's CDs and page
+> +	 * tables might be corrupted, triggering event spamming.
+> +	 */
+> +	if (!is_kdump_kernel()) {
+> +		writeq_relaxed(smmu->evtq.q.q_base,
+> +			       smmu->base + ARM_SMMU_EVTQ_BASE);
+> +		writel_relaxed(smmu->evtq.q.llq.prod,
+> +			       smmu->page1 + ARM_SMMU_EVTQ_PROD);
+> +		writel_relaxed(smmu->evtq.q.llq.cons,
+> +			       smmu->page1 + ARM_SMMU_EVTQ_CONS);
+> +
+> +		enables |= CR0_EVTQEN;
+> +		ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
+> +					      ARM_SMMU_CR0ACK);
+
+Nit:
+I believe only the write_reg_sync(CR0) should be under this if condition
+do we see any weird behavior if we perform the reg writes in
+kdump_kernel?
+
+> +		if (ret) {
+> +			dev_err(smmu->dev, "failed to enable event queue\n");
+> +			return ret;
+> +		}
+>  	}
+>  
+> -	/* PRI queue */
+> -	if (smmu->features & ARM_SMMU_FEAT_PRI) {
+> +	/*
+> +	 * PRI queue
+> +	 *
+> +	 * Do not enable in a kdump case, as we cannot serve page requests.
+> +	 */
+> +	if (!is_kdump_kernel() && (smmu->features & ARM_SMMU_FEAT_PRI)) {
+>  		writeq_relaxed(smmu->priq.q.q_base,
+>  			       smmu->base + ARM_SMMU_PRIQ_BASE);
+>  		writel_relaxed(smmu->priq.q.llq.prod,
+> @@ -5208,9 +5222,6 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
+>  		return ret;
+>  	}
+>  
+> -	if (is_kdump_kernel())
+> -		enables &= ~(CR0_EVTQEN | CR0_PRIQEN);
+> -
+>  	/* Enable the SMMU interface */
+>  	enables |= CR0_SMMUEN;
+>  	ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
+> -- 
+> 2.43.0
+> 
+
+Apart from that nit, 
+
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
+
+Thanks,
+Praan
