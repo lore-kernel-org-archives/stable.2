@@ -1,171 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com [91.218.175.185])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4745D3DD50F;
-	Mon, 29 Jun 2026 07:45:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF673DD853
+	for <stable@vger.kernel.org>; Mon, 29 Jun 2026 07:48:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782719144; cv=none; b=ihLZQO181Yxbs3evK1yse5fCzOrDlJUuHZA8b5mWX2nEJYFfw5/oh+cadY3Qps3l3dfSZS7Cu5TXWM7ZunshLu12SoQ3CiNyZttU1NaaNYcGZtWw22mV4HRJQ2nsOGF1RQhFxkPePRa1sFG5+DEMSX5k1wnFSUD4t0qD3aHMnZY=
+	t=1782719314; cv=none; b=LruYojy97Y6I6rMD749PvvpcA1hFzzXd9w8ufb1H7TQvPOfI5E+EqQ8j0R2JQEsUikT47cU2bNA8U7LDWuzkyRrdUpxzbomtfX/k+OqeSoIU2RgrBg6ag7/37ANK4WJHESZtFXFllfEJqNWjYgGE2XKdgo4V4W1Ms8Hc080cIHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782719144; c=relaxed/simple;
-	bh=GdOSW+9QpbI+GOCh/RF/AckWXho4xoQ8zdx+rrMu8RI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=gguaqOJw9w5I4Or3WUgHHTsTM9/oZRP1GpAVPLrLfOa0XFNU/crE9K3GGd51/HS5c/0ceZaN0BwesJzMD04Vmc0QfNmHeFn6UJlyUyodLPIZYfCeY/VoVXqJVfk4QOSs4b4HnaXC1xg58B5C6BEdTJJhfUEMNwmAnxiraLkdEJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3/GFQ8Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782719314; c=relaxed/simple;
+	bh=I0LE9c3w+KcSiWBYmxliNvpIxE2KdyLvIg6huSHKM9c=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VYPmBKs3XfwD2kiudrPekmBr5JJsomaHepA0qFF+KeWclWo55ei3m2jw0H1PxL5i//dHou7Z3PmQ2HYGX3j6gx/Har3FysBLP3fAo+DWli4rfBpM7dNi9cgcDrSI4aCKfi9nXp9f91i5qwFH/DQQQZ76e62xZD5JnUFze2BOg7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Rql5VEcf; arc=none smtp.client-ip=91.218.175.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3/GFQ8Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5D31F00A3A;
-	Mon, 29 Jun 2026 07:45:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782719137;
-	bh=X0uYIgycRQfmlWGtZQLMUu7Bf9aoXkgVqzrHIxUISYM=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=S3/GFQ8ZHJP33yNpAHgjlK04oWaIhQn9/JJ7ugdwUgAybIrffOlWXC8gbrimqKxGl
-	 lH5wg/52z9ldIDSLDr5sPVjCD7AV1+F8c//nYYQfZmPSv6ds0vRyEdvvkMy7/eHhCx
-	 D+BShmZcHknlfPmvdVPInaB9rNtxADquwvWimiexfd4hXBzd4p0Xx5UqVsBjj4/TzQ
-	 isfN3oF1XnrNGhFYu2xGB5qabTM7DbJ5H4Ztyp1fAlriprvHMl5SDyT06r7vqtoe/B
-	 xJbBkH9L2FHJpEkQqG3JsshZ4TzvQrtliCUX1e3x5WUmKnUW4Mp8MBP7jToam0Muoh
-	 9m8PnjcrBi5FA==
-Message-ID: <e0c25e65-8e07-41bc-a165-ae5e770a71a2@kernel.org>
-Date: Mon, 29 Jun 2026 09:45:34 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Rql5VEcf"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782719304;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xGFa9gooeOspYp4vl0A+wPqxGnfwbnKJ6LWOLsX6z/o=;
+	b=Rql5VEcfNlXPZKFLS7y5qlk8EU6IZxaJbezHUrEyFyoHcx4/+RH5ALnqLEtQaRrosJUh6V
+	BUq7TMwlCe6PqgxaxGQgzR9vWrUGXjjgzDOCu2JvphUiefbDAjbSVDH2YOibNL+UhyRAsZ
+	46K/CszOdo5gTI0MkiYa172hVlOhyMI=
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org,
+	dev.jain@arm.com
+Cc: linmiaohe@huawei.com,
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	akpm@linux-foundation.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	riel@surriel.com,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	kas@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	rcampbell@nvidia.com,
+	apopple@nvidia.com,
+	ziy@nvidia.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	mel@csn.ul.ie,
+	nao.horiguchi@gmail.com,
+	ak@linux.intel.com,
+	j-nomura@ce.jp.nec.com,
+	pfalcato@suse.de,
+	dave.hansen@intel.com,
+	tglx@kernel.org,
+	jpoimboe@kernel.org,
+	ryan.roberts@arm.com,
+	anshuman.khandual@arm.com,
+	stable@vger.kernel.org,
+	Lance Yang <lance.yang@linux.dev>
+Subject: Re: [PATCH 4/5] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
+Date: Mon, 29 Jun 2026 15:48:02 +0800
+Message-Id: <20260629074802.42727-1-lance.yang@linux.dev>
+In-Reply-To: <0fabee2a-edb7-41c8-91ec-8cf0646c9e83@kernel.org>
+References: <0fabee2a-edb7-41c8-91ec-8cf0646c9e83@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH] media: em28xx: keep device state alive for registered
- video nodes
-To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Abhishek Kumar <abhishek_sts8@yahoo.com>, stable@vger.kernel.org,
- syzbot+39ff299961a7c07f00f0@syzkaller.appspotmail.com
-References: <20260628003103.24832-1-alhouseenyousef@gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260628003103.24832-1-alhouseenyousef@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On 28/06/2026 02:31, Yousef Alhouseen wrote:
-> The V4L2 core takes a video_device reference before invoking the
-> driver open callback. That reference does not protect em28xx state
-> because all three video_device objects are embedded in em28xx_v4l2 and
-> use video_device_release_empty().
+
+On Mon, Jun 29, 2026 at 09:25:48AM +0200, David Hildenbrand (Arm) wrote:
+>On 6/29/26 08:48, Dev Jain wrote:
+>> 
+>> 
+>> On 29/06/26 12:09 pm, David Hildenbrand (Arm) wrote:
+>>> On 6/28/26 07:44, Lance Yang wrote:
+>>>>
+>>>> [...]
+>>>>
+>>>> Yes, that's what I had in mind :) thanks!
+>>>>
+>>>>
+>>>> Maybe worth spelling out the rule as well: 
+>>>>
+>>>> For arch helpers that use addr, huge_ptep_get() assumes addr is the
+>>>> address for the hugetlb entry ptep points to. arm64 already makes that
+>>>> assumption.
+>>>>
+>>>> Callers where addr may not be hugepage-aligned should use
+>>>> hugetlb_ptep_get() instead.
+>>>
+>>> Do we have any examples where code would do that? I would think that all code
+>>> must properly align addr ahead of times.
+>> 
+>> Sashiko notes other places:
+>> 
+>> https://sashiko.dev/#/patchset/20260625112955.3254283-1-dev.jain%40arm.com
+>
+>Yeah, that looks shaky. We do seem to have a bunch of these cases, primarily
+>from pagewalk code (where some users like pagemap need the actual address).
+
+Indeed ...
+
+>I think we have two options
+>
+>1) To prevent any (further) issues, make huge_ptep_get() always consume the
+>hstate, and let the arch code deal with aligning it. Invasive.
+
+Kinda lean toward option 1, even if it's more invasive. If we pass the
+hstate down, each arch can figure out the right addr from there.
+
+>2) Make the arch code handle aligning without the hstate.
+>
+>diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
+>index 30772a909aea3..303a1b74796c9 100644
+>--- a/arch/arm64/mm/hugetlbpage.c
+>+++ b/arch/arm64/mm/hugetlbpage.c
+>@@ -126,6 +126,9 @@ pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
+>                return orig_pte;
 > 
-> If initialization fails after registering a node, the error path can
-> unregister it and drop the last em28xx_v4l2 reference while a concurrent
-> open has passed the core registration check. The open callback then
-> dereferences the freed video_device in video_drvdata(), as observed by
-> KASAN. A disconnect has the same lifetime gap.
+>        ncontig = find_num_contig(mm, addr, ptep, &pgsize);
+>+       ptep = PTR_ALIGN_DOWN(ptep, sizeof(*ptep) * ncontig);
+>+       orig_pte = __ptep_get(ptep);
+>+
+>        for (i = 0; i < ncontig; i++, ptep++) {
+>                pte_t pte = __ptep_get(ptep);
 > 
-> Give each successfully registered video node references to both the
-> enclosing V4L2 state and the parent em28xx device. Release those
-> references from the video_device release callback, after the core has
-> drained pending opens and existing file references.
+>(nshift/order instead of ncontig might avoid a multiplication, but not sure if that matters in practice)
+>
+>IIUC, that's similar to what huge_ptep_get() does on ppc.
+>
+>
+>static inline pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
+>{
+>	if (ptep_is_8m_pmdp(mm, addr, ptep))
+>		ptep = pte_offset_kernel((pmd_t *)ptep, ALIGN_DOWN(addr, SZ_8M));
+>	return ptep_get(ptep);
+>}
+>
+>I'd assume we could do the same on riscv. Besides that, I don't think any arch has cont
+>entries.
 
-This patch series should fix this issue properly:
+AFAICT, for huge_ptep_get() the addr users are arm64 and powerpc, riscv
+doesn't really care about addr there. Looks mostly arm64-specific ... 
 
-https://patchwork.linuxtv.org/project/linux-media/list/?series=26968
-
-Rejecting this patch, manually manipulating refcounts is not the way to go.
-
-Regards,
-
-	Hans
-
-> 
-> Fixes: ef74a0b9ff56 ("[media] em28xx: move video_device structs from struct em28xx to struct v4l2")
-> Reported-by: syzbot+39ff299961a7c07f00f0@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=39ff299961a7c07f00f0
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-> ---
->  drivers/media/usb/em28xx/em28xx-video.c | 35 +++++++++++++++++++++++--
->  1 file changed, 33 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-> index da0422c65e5f..4274a9bcb432 100644
-> --- a/drivers/media/usb/em28xx/em28xx-video.c
-> +++ b/drivers/media/usb/em28xx/em28xx-video.c
-> @@ -2289,6 +2289,31 @@ static void em28xx_free_v4l2(struct kref *ref)
->  	kfree(v4l2);
->  }
->  
-> +static void em28xx_vdev_release(struct video_device *vdev)
-> +{
-> +	struct em28xx_v4l2 *v4l2;
-> +	struct em28xx *dev;
-> +
-> +	switch (vdev->vfl_type) {
-> +	case VFL_TYPE_VIDEO:
-> +		v4l2 = container_of(vdev, struct em28xx_v4l2, vdev);
-> +		break;
-> +	case VFL_TYPE_VBI:
-> +		v4l2 = container_of(vdev, struct em28xx_v4l2, vbi_dev);
-> +		break;
-> +	case VFL_TYPE_RADIO:
-> +		v4l2 = container_of(vdev, struct em28xx_v4l2, radio_dev);
-> +		break;
-> +	default:
-> +		WARN_ON_ONCE(1);
-> +		return;
-> +	}
-> +
-> +	dev = v4l2->dev;
-> +	kref_put(&v4l2->ref, em28xx_free_v4l2);
-> +	kref_put(&dev->ref, em28xx_free_device);
-> +}
-> +
->  /*
->   * em28xx_v4l2_open()
->   * inits the device and starts isoc transfer
-> @@ -2554,7 +2579,7 @@ static const struct v4l2_ioctl_ops video_ioctl_ops = {
->  static const struct video_device em28xx_video_template = {
->  	.fops		= &em28xx_v4l_fops,
->  	.ioctl_ops	= &video_ioctl_ops,
-> -	.release	= video_device_release_empty,
-> +	.release	= em28xx_vdev_release,
->  	.tvnorms	= V4L2_STD_ALL,
->  };
->  
-> @@ -2583,7 +2608,7 @@ static const struct v4l2_ioctl_ops radio_ioctl_ops = {
->  static struct video_device em28xx_radio_template = {
->  	.fops		= &radio_fops,
->  	.ioctl_ops	= &radio_ioctl_ops,
-> -	.release	= video_device_release_empty,
-> +	.release	= em28xx_vdev_release,
->  };
->  
->  /* I2C possible address to saa7115, tvp5150, msp3400, tvaudio */
-> @@ -2965,6 +2990,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
->  			"unable to register video device (error=%i).\n", ret);
->  		goto unregister_dev;
->  	}
-> +	kref_get(&v4l2->ref);
-> +	kref_get(&dev->ref);
->  
->  	/* Allocate and fill vbi video_device struct */
->  	if (em28xx_vbi_supported(dev) == 1) {
-> @@ -2999,6 +3026,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
->  				"unable to register vbi device\n");
->  			goto unregister_dev;
->  		}
-> +		kref_get(&v4l2->ref);
-> +		kref_get(&dev->ref);
->  	}
->  
->  	if (em28xx_boards[dev->model].radio.type == EM28XX_RADIO) {
-> @@ -3012,6 +3041,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
->  				"can't register radio device\n");
->  			goto unregister_dev;
->  		}
-> +		kref_get(&v4l2->ref);
-> +		kref_get(&dev->ref);
->  		dev_info(&dev->intf->dev,
->  			 "Registered radio device as %s\n",
->  			 video_device_node_name(&v4l2->radio_dev));
-
+>
+>
+>Interestingly, huge_pte_clear() / huge_ptep_get_and_clear() and friends would be all
+>wrong when the wrong address is passed. But that code really is called from hugetlb.c
+>where we should take better care of that. (e.g., partially zapping a hugetlb page is not
+>possible)
+>
+>-- 
+>Cheers,
+>
+>David
+>
