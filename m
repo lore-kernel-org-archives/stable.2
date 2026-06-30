@@ -1,56 +1,57 @@
-Received: from mail-pg1-f202.google.com (mail-pg1-f202.google.com [209.85.215.202])
+Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com [209.85.210.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB34C3DE421
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 17:22:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7363DE430
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 17:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782840131; cv=none; b=Gj7fMZ7y4iwQgnQPZNAacIgy1AzwsVeE5Ah5KLMET3kFNh8zNe6TWk9H5xnvqwqH8vd1noYIknlJzXroDatcq6lDQNKHRwCKljpXtHWtWMv89U4mNabb+0ErhGkiF5cFzBqETLkalYSZZjp9E9ySTZNk1V8DA3q1kGfYZMYMk2s=
+	t=1782840132; cv=none; b=kdMA4wjQhz5bPk5iOEa89VclmGzAt4e8TwMg8BigbRB+EJuLc5BjTi5WiTBQY9zoT5azgb1LgxZTXdephSaV6kdGXV1M4+pLZFrk1lgpkxwHjchf9FxIIFcOYn6MUQQ0pvSWDqsVQX2GwpyoBUN4ags6kH1CNMGmqhzNEKQRRKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782840131; c=relaxed/simple;
-	bh=GJiY0G+v1cHtWDhoF6H7oSsoQa/Y8R9a0sPu01Qf5Rg=;
+	s=arc-20240116; t=1782840132; c=relaxed/simple;
+	bh=QownP5O3SgOH6K/a/4OEbY9KCQNS/sRmdjb73UxuYjo=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=mcZLcX4tL52lt7ATzR8tHxDUc2dvJPY519UEcZ2U8Qltzm4lniziHahB5Lpob4VcScP6DQygse7X+HdeslqVcV8exL/gALA4SgU/OqC+J9TwxRvWHpIQEX4JqHg0F/r4pipkTdVWQCfoRmJT4ljzokAdhbxpj2C9HvvAjw4xopQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eil2Qigu; arc=none smtp.client-ip=209.85.215.202
+	 To:Cc:Content-Type; b=b1bWG8AP188X8k6ksLyyyizH7wrkqCij5InGSwcMAOjSon0U3tzpWmUCMYuLoC0mTjFR875ScTWYe6d6SMFMd8U/KjXq/g61vwGrppKgnxh5iRe2SmXEPeHFWW6TfLCC5c/9UqeXp1wTNNicbTaSRoMQn5NwM0wNlls5dx85n3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=V5lFtol4; arc=none smtp.client-ip=209.85.210.201
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eil2Qigu"
-Received: by mail-pg1-f202.google.com with SMTP id 41be03b00d2f7-c894391f000so5903109a12.1
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 10:22:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="V5lFtol4"
+Received: by mail-pf1-f201.google.com with SMTP id d2e1a72fcca58-8478e9c4bd2so1701985b3a.1
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 10:22:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782840129; x=1783444929; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=plT5/1MQYoLBw0hf7vwLUa68BnMiEY/lHOfm/Z/BEKM=;
-        b=eil2Qigu+nVxG+043Br3hYg3wzon+eM9FJBcif8V9IdXTLj/uIi/pwo11d9eM5HvtZ
-         IMHCq//NjdrNphsq31lX31Zyf/KIRUjrFowQtO4mPlQc4SdYMKMd+jxANcgcnl/23kTu
-         u8q3qm1wd4256aIobOp9rEiQhwAFqjMK/b8jNDI6PIw7j4aPI3DwpPs8VCEvp8WwHbR4
-         ha3U2T33ehIqppTdNvWMa17/zXkrus5xjnrokuTOjl8r0lY1foUTOlfrA83vtmR+TNo9
-         sMWd5aROQwm0N6rpLdSUxd+cBhF0NyDLgsY0fqBBfxK/dVQ5r2uyeCkuFJacJs5lcfR5
-         9Drg==
+        d=google.com; s=20251104; t=1782840130; x=1783444930; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=aeKQsjfZgGnjU4G1lMW9mvpdAcNYgz7m2gaNolAJCNE=;
+        b=V5lFtol4i6FK6+g3fefSLkN5iKfgz+WZoqV7I8FlF7iQT4kFw6cd4Iszu1CDyk21Vk
+         9tqy33wDi6svWkCa6XFoZWY3osXXqk5VI6KWMBaUKFJUEP9CR2KhEZfa3/1zxr8mXPRY
+         C0IcDFjVxBC/plqBGbkXy4LQSmfu+VVp5WIK2S6RgxMZ8qjH6RV5S14abn1UWifUfTvz
+         H/esnHqm1sBHXaETdBOmbCMEd3K96ZnqnMH5CXTRQu9O4FRqcYp5SGLZBTrOHPJ0h5tb
+         3CsqYPTM9G9nW5NEHVvY+qasZA4q6d6++BM3hWW1D4RkXE4VGbHQZha709fHqgLudP5V
+         tCsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782840129; x=1783444929;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=plT5/1MQYoLBw0hf7vwLUa68BnMiEY/lHOfm/Z/BEKM=;
-        b=O5QrRq4dxlq9TTjtOlTcZHr3ELzEbA9Cg5piZRkNNtQIBzn2xFhcCVFlDB3HD++Iip
-         niHPUAVI5/R4GPXXx3oBA4PF0S0V/1eJnelXgUvjuKxGkpe51CzuPlMnhm3PEYWQoL27
-         4E0UWTj5pBxiUbj6UgqiiSfMfFtPj+t9ka61IPv7RMaMJsMVHJHK1xjaFMn0k/LehEfB
-         MpanV8PP/9wXEOLH1+Pdy/NUXWrA66DeLu6ED8e43Z19HqJlYR4w/G7U7Qx0vmtTv/zD
-         4G95fz/tqo6b9qewsShWajBvOrDVU5yRar6/1cHL8jcTwCs/prxH7SSqIWAJigXRCI22
-         kueA==
-X-Gm-Message-State: AOJu0YwnYpi28dYtKfXe/fFGJhCoSST2BxfjysBFBselzRtEp+i1h78K
-	VSOFjYxXm06h5b/1Um5iG8SzaVtDsS8kyWNrWGfsOv4gV6Q5QXLUcFLgIhGobeFT67HHlG14JWY
-	D6+H/qTfw4TAlFbydZJnVUUIrk2WJuaCxzNd1zMKGhfP9gu4eCWTVDOEfQ77z9TBkucGxfXwlXN
-	sB3rRDsdr0wNMTYAH2Tzxg3J7rXkDW8nLDiOgE
-X-Received: from pfoo8.prod.google.com ([2002:a05:6a00:1a08:b0:845:c4b8:9730])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2ea8:b0:847:7f38:27c2
- with SMTP id d2e1a72fcca58-8479f293658mr3669670b3a.50.1782840128582; Tue, 30
- Jun 2026 10:22:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782840130; x=1783444930;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aeKQsjfZgGnjU4G1lMW9mvpdAcNYgz7m2gaNolAJCNE=;
+        b=QOcfA1c6scXQr9/3whnl8LNH7v/Dd/RJ6p/rO/CVaLSUuCDBHAfx9WYjx0lb2cLLck
+         K+fvO27u7MBWMDrrXAA5ILDBKG/MzksztfO2qjon8c43WJ7QXw1psOtK5BEVFj/gccE0
+         rfsMEUHm5P8BXwb3rZdAM6MuHhAalNYhNk1wULP7Xt/CdEcxd1O80UhmDHdh/UUcFISf
+         OqD0Pi9Elw3UqVcA/Rqi6x5uoyMheLQKaEgOcuZEqqu8leasrUEvkJfutmiTkCZW0Zi3
+         8Ghq4aSmxzD1thSBoSi9OIaZQ8+QDBTflPrIgTzstBhaNWvCS59O5x3ubw1m/iNDVV+D
+         zwBQ==
+X-Gm-Message-State: AOJu0YxtVe9GXYBEJF/x95wNHTKxW028a/UaCMdWGPch43/uQgo1AJgJ
+	g1YqP37VB83uWC8OQ05YELgkLjFc7lZ5+BOyuQVLbATHUiV9kceKraH1Ca12tJ1RJT1TqeEG2u0
+	HadLooXZuUYC4ywqQ/06d7fvjyA6T9Rp7eB7rjmqyWVIJy7uuQ6HcD6Gm5BDgv0IZh8qjmMs/1p
+	MUe9pufTewvhpmnCUE8xOiG8O4VePbqwB64gq/
+X-Received: from pfbmy9-n1.prod.google.com ([2002:a05:6a00:6d49:10b0:845:be7a:f76e])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:440d:b0:845:e04b:565f
+ with SMTP id d2e1a72fcca58-8479f0ecfb6mr3579731b3a.14.1782840129783; Tue, 30
+ Jun 2026 10:22:09 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Tue, 30 Jun 2026 10:22:03 -0700
+Date: Tue, 30 Jun 2026 10:22:04 -0700
 In-Reply-To: <20260630172204.279784-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -60,8 +61,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260630172204.279784-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-Message-ID: <20260630172204.279784-2-seanjc@google.com>
-Subject: [PATCH 6.12.y 1/2] KVM: SEV: Move sev_free_vcpu() down below sev_es_unmap_ghcb()
+Message-ID: <20260630172204.279784-3-seanjc@google.com>
+Subject: [PATCH 6.12.y 2/2] KVM: SEV: Unmap and unpin the GHCB as needed on
+ vCPU free
 From: Sean Christopherson <seanjc@google.com>
 To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
 	Sasha Levin <sashal@kernel.org>
@@ -70,111 +72,84 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 
-[ Upstream commit 08385c5e1814edee829ffe475d559ed730354335 ]
+[ Upstream commit db38bcb3311053954f62b865cd2d86e164b04351 ]
 
-Relocate sev_free_vcpu() down in sev.c so that it's definition comes after
-sev_es_unmap_ghcb().  This will allow sharing unmap functionality between
-the two functions without needing a forward declaration (or weird placement
-of the common code).
+Unmap and unpin the GHCB as needed when freeing a vCPU.  If the VM is
+destroyed after mapping+pinning the GHCB on #VMGEXIT, without re-running
+the vCPU, KVM will effectively leak the GHCB and any mappings created for
+the GHCB.
 
-No functional change intended.
-
+Fixes: 291bd20d5d88 ("KVM: SVM: Add initial support for a VMGEXIT VMEXIT")
 Cc: stable@vger.kernel.org
+Tested-by: Michael Roth <michael.roth@amd.com>
 Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
 Reviewed-by: Michael Roth <michael.roth@amd.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260501202250.2115252-16-seanjc@google.com>
+Message-ID: <20260501202250.2115252-18-seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <20260529183549.1104619-16-pbonzini@redhat.com>
+Message-ID: <20260529183549.1104619-18-pbonzini@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[sean: Preserve use of sev_es_guest() as is_sev_es_guest() doesn't exist
-       in 6.12, resolve superficial conflict due to pre_sev_run()
-       prototype mismatch.]
+[sean: Preserve @dirty=true param to kvm_vcpu_unmap()]
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/svm/sev.c | 62 +++++++++++++++++++++---------------------
- 1 file changed, 31 insertions(+), 31 deletions(-)
+ arch/x86/kvm/svm/sev.c | 26 ++++++++++++++++----------
+ 1 file changed, 16 insertions(+), 10 deletions(-)
 
 diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 115c59c86f44..0f79e052ac42 100644
+index 0f79e052ac42..7914cdea4cdd 100644
 --- a/arch/x86/kvm/svm/sev.c
 +++ b/arch/x86/kvm/svm/sev.c
-@@ -3168,37 +3168,6 @@ void sev_guest_memory_reclaimed(struct kvm *kvm)
- 	wbinvd_on_all_cpus();
+@@ -3412,6 +3412,20 @@ static int sev_es_validate_vmgexit(struct vcpu_svm *svm)
+ 	return 1;
  }
  
--void sev_free_vcpu(struct kvm_vcpu *vcpu)
--{
--	struct vcpu_svm *svm;
--
--	if (!sev_es_guest(vcpu->kvm))
--		return;
--
--	svm = to_svm(vcpu);
--
--	/*
--	 * If it's an SNP guest, then the VMSA was marked in the RMP table as
--	 * a guest-owned page. Transition the page to hypervisor state before
--	 * releasing it back to the system.
--	 */
--	if (sev_snp_guest(vcpu->kvm)) {
--		u64 pfn = __pa(svm->sev_es.vmsa) >> PAGE_SHIFT;
--
--		if (kvm_rmp_make_shared(vcpu->kvm, pfn, PG_LEVEL_4K))
--			goto skip_vmsa_free;
--	}
--
--	if (vcpu->arch.guest_state_protected)
--		sev_flush_encrypted_page(vcpu, svm->sev_es.vmsa);
--
--	__free_page(virt_to_page(svm->sev_es.vmsa));
--
--skip_vmsa_free:
--	if (svm->sev_es.ghcb_sa_free)
--		kvfree(svm->sev_es.ghcb_sa);
--}
--
- static void dump_ghcb(struct vcpu_svm *svm)
- {
- 	struct ghcb *ghcb = svm->sev_es.ghcb;
-@@ -3475,6 +3444,37 @@ void sev_es_unmap_ghcb(struct vcpu_svm *svm)
- 	svm->sev_es.ghcb = NULL;
- }
- 
-+void sev_free_vcpu(struct kvm_vcpu *vcpu)
++static void __sev_es_unmap_ghcb(struct vcpu_svm *svm)
 +{
-+	struct vcpu_svm *svm;
-+
-+	if (!sev_es_guest(vcpu->kvm))
-+		return;
-+
-+	svm = to_svm(vcpu);
-+
-+	/*
-+	 * If it's an SNP guest, then the VMSA was marked in the RMP table as
-+	 * a guest-owned page. Transition the page to hypervisor state before
-+	 * releasing it back to the system.
-+	 */
-+	if (sev_snp_guest(vcpu->kvm)) {
-+		u64 pfn = __pa(svm->sev_es.vmsa) >> PAGE_SHIFT;
-+
-+		if (kvm_rmp_make_shared(vcpu->kvm, pfn, PG_LEVEL_4K))
-+			goto skip_vmsa_free;
++	if (svm->sev_es.ghcb_sa_free) {
++		kvfree(svm->sev_es.ghcb_sa);
++		svm->sev_es.ghcb_sa = NULL;
++		svm->sev_es.ghcb_sa_free = false;
 +	}
 +
-+	if (vcpu->arch.guest_state_protected)
-+		sev_flush_encrypted_page(vcpu, svm->sev_es.vmsa);
-+
-+	__free_page(virt_to_page(svm->sev_es.vmsa));
-+
-+skip_vmsa_free:
-+	if (svm->sev_es.ghcb_sa_free)
-+		kvfree(svm->sev_es.ghcb_sa);
++	if (svm->sev_es.ghcb) {
++		kvm_vcpu_unmap(&svm->vcpu, &svm->sev_es.ghcb_map, true);
++		svm->sev_es.ghcb = NULL;
++	}
 +}
 +
- void pre_sev_run(struct vcpu_svm *svm, int cpu)
+ void sev_es_unmap_ghcb(struct vcpu_svm *svm)
  {
- 	struct svm_cpu_data *sd = per_cpu_ptr(&svm_data, cpu);
+ 	/* Clear any indication that the vCPU is in a type of AP Reset Hold */
+@@ -3430,18 +3444,11 @@ void sev_es_unmap_ghcb(struct vcpu_svm *svm)
+ 		svm->sev_es.ghcb_sa_sync = false;
+ 	}
+ 
+-	if (svm->sev_es.ghcb_sa_free) {
+-		kvfree(svm->sev_es.ghcb_sa);
+-		svm->sev_es.ghcb_sa = NULL;
+-		svm->sev_es.ghcb_sa_free = false;
+-	}
+-
+ 	trace_kvm_vmgexit_exit(svm->vcpu.vcpu_id, svm->sev_es.ghcb);
+ 
+ 	sev_es_sync_to_ghcb(svm);
+ 
+-	kvm_vcpu_unmap(&svm->vcpu, &svm->sev_es.ghcb_map, true);
+-	svm->sev_es.ghcb = NULL;
++	__sev_es_unmap_ghcb(svm);
+ }
+ 
+ void sev_free_vcpu(struct kvm_vcpu *vcpu)
+@@ -3471,8 +3478,7 @@ void sev_free_vcpu(struct kvm_vcpu *vcpu)
+ 	__free_page(virt_to_page(svm->sev_es.vmsa));
+ 
+ skip_vmsa_free:
+-	if (svm->sev_es.ghcb_sa_free)
+-		kvfree(svm->sev_es.ghcb_sa);
++	__sev_es_unmap_ghcb(svm);
+ }
+ 
+ void pre_sev_run(struct vcpu_svm *svm, int cpu)
 -- 
 2.55.0.rc0.799.gd6f94ed593-goog
 
