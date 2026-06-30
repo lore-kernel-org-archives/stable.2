@@ -1,178 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B02239B96A
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 08:29:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E36840D577;
+	Tue, 30 Jun 2026 08:34:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782808160; cv=none; b=kRwXu2PPMOErax/EPgV2uW/mlEX6Y9ALD6n5jWf6WuO5abIvHlrNtAQPy5O3bK0iL1NmdgAGCSL/2Jt6rSIdHVFPbjm42a4uVs3qJg4Wj9JNrcqnhQ0V7yCM0TnA032khfFuRrunIRMeAXzqnxnr8n6xTCYlm5IIr10O0UEXnZE=
+	t=1782808491; cv=none; b=D4H4N9uD40vC5m8kUTgYyLdfzDGLMZnxWyEB2MjbLTrTja1ALfWCx3+hb5vRMuvLgZho+7TyY7LwZQzkLB9gdKL/iIyyGbxwvCD+YI3qi0lK/x1DQJBUzqE03cHDvc/AXEHmt+xMSRndxMHWMFInXsZD/b3unRG1Vp7S9sMsQzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782808160; c=relaxed/simple;
-	bh=+S4eAojz/g8C9jCveAwNs9kiMSikarxTsxTmuHeIXVU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EXqBmNaGs93fTFaPwY3p+WmF+R+F5y4PAKXAZ1IiQmvp76RQOF9LFDfGvhXPaW/FCzb5COdO3YgTvu7Vxy0HSCobr7UK+DrGUAz4rRaVCb28ANSae9HbEjpZJd//36cSwCLJjKptng2pSaLNQlSAKcMs5i+DiKqh68IT3pj9qCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CGFr1xg5; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782808491; c=relaxed/simple;
+	bh=/2j0DDj3iEHsHxquIQWouGW2wWlUANGgq7bRDSng2TE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AjmBVzgfindhW9uYzkb0OCBD57btD2MqPw2q9bEZQuDAmqDiQAm9ijIrpgvgq7YdRAT/4dwU+KZ/4MOydoVdlUoPcnw/72RJTd5t5VkcHfhvXNJcTASZt9G7a+ugKmQ76/Lms2J//HWMg3OFXGfw/3O5TYFaNeOJzWMrSMZ6iJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=oYguo7QO; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CGFr1xg5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782808158; x=1814344158;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=+S4eAojz/g8C9jCveAwNs9kiMSikarxTsxTmuHeIXVU=;
-  b=CGFr1xg5MyIpMVK6YMvmK4Qm9Ni4TWZBJPiS6t+zJPEFf5c/MS5Vb94S
-   QQtTmVBqOpjdT1b3tmVqiapYQkNES8YV/7wNZLa+Ht/xaXEFoszYUfzXW
-   dx4iXTJ5QE7atpUNlwghCKM2nWjdNIEvRZ7vJLZlVun6q6QdMQUkeff/9
-   Di7EER9qKHXzQKrV9RWIM3j4xKjr3iHsPJ4yom4UKrJxvmy8fr4phfe5x
-   gnN0FaraPeYB5enyWiufkfpemCbPLGVYnP5EZZP0UBuaYjrp7IAJZih6Q
-   1d0D5FtR2Pr+gxPXljsocOya+vhFM3Jd8t2PHrA42NvtRnu0QG/99JP+y
-   A==;
-X-CSE-ConnectionGUID: MctyOQtKTUeBYPyBpid0XQ==
-X-CSE-MsgGUID: AWx7xSZwSBadWb6tMHDJWA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="93870428"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
-   d="scan'208";a="93870428"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 01:29:18 -0700
-X-CSE-ConnectionGUID: 3i2WV8R3Tje1dYOabLX8BQ==
-X-CSE-MsgGUID: iarQpEQJS2eWHoXc+WEe5Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
-   d="scan'208";a="251794796"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.174])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 01:29:15 -0700
-Date: Tue, 30 Jun 2026 11:29:11 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
-	Martin Hodo <martin.hodo@intel.com>, stable@vger.kernel.org,
-	Animesh Manna <animesh.manna@intel.com>,
-	Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@intel.com>,
-	=?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>
-Subject: Re: [PATCH v2] drm/i915/bios: range check LFP Data Block panel_type2
-Message-ID: <akN8-YNa6kwRVkHk@intel.com>
-References: <20260625135130.1067872-1-jani.nikula@intel.com>
- <20260626140155.1389655-1-jani.nikula@intel.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="oYguo7QO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=YT
+	EgbRAg6lomNr0DN2FzVbDdc7M+qSJOungF1DxvSAE=; b=oYguo7QOEwbf96iwNz
+	+eUJ/03thBALJVsRjOoN4Dgejdf7XRhRCyYFPa+vhSa9N3mr/iaCnm6Dp4jfw8VP
+	EBlFQrB46BMybzmv/BXTYqCM32YmT8rydSzmbRNCxHstblneBlLPvX7VVXkhkvm7
+	jRbipk0Rq37Z+4JhT2XUn9Bxs=
+Received: from ubuntu.. (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3D8V4f0NqibrcGg--.35590S4;
+	Tue, 30 Jun 2026 16:34:05 +0800 (CST)
+From: Ma Ke <make_ruc2021@163.com>
+To: sre@kernel.org,
+	hansg@kernel.org,
+	marex@denx.de
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	Ma Ke <make_ruc2021@163.com>,
+	stable@vger.kernel.org
+Subject: [RESEND PATCH] power: supply: bq25890: Fix power_supply reference leak
+Date: Tue, 30 Jun 2026 16:33:52 +0800
+Message-ID: <20260630083352.1841720-1-make_ruc2021@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260626140155.1389655-1-jani.nikula@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-CM-TRANSID:_____wD3D8V4f0NqibrcGg--.35590S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZrW7Gr4UKw1UZryxuryUWrg_yoW8tFy8pF
+	4rCF98Kr48XF4fAw4ktw1v9Fyak34xCFy3Ar1xGw1vvw13Jr1DXry8JF9aqry8Cr97GFs2
+	yw43tr4fCFnxGaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRkhLbUUUUU=
+X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC0x1qdWpDf31P5wAA3S
 
-On Fri, Jun 26, 2026 at 05:01:55PM +0300, Jani Nikula wrote:
-> While the panel_type from LFP Data Block is range checked, panel_type2
-> is not. Add a few helpers for range checking, and use them to not only
-> check panel_type2, but also improve clarity and correctness in the panel
-> type selection.
-> 
-> Discovered using AI-assisted static analysis confirmed by Intel Product
-> Security.
-> 
-> v2:
-> - Fix commit message typo (Michał)
-> - Add is_panel_type_pnp() (Ville)
-> 
-> Reported-by: Martin Hodo <martin.hodo@intel.com>
-> Fixes: 6434cf630086 ("drm/i915/bios: calculate panel type as per child device index in VBT")
-> Cc: <stable@vger.kernel.org> # v6.0+
-> Cc: Animesh Manna <animesh.manna@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@intel.com>
-> Reviewed-by: Michał Grzelak <michal.grzelak@intel.com> # v1
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_bios.c | 36 ++++++++++++++++++-----
->  1 file changed, 28 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-> index 15ebadc72b88..97cbae2e547e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bios.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-> @@ -623,6 +623,21 @@ get_lfp_data_tail(const struct bdb_lfp_data *data,
->  		return NULL;
->  }
->  
-> +static bool is_panel_type_valid(int panel_type)
-> +{
-> +	return panel_type >= 0 && panel_type < 16;
-> +}
-> +
-> +static bool is_panel_type_pnp(int panel_type)
-> +{
-> +	return panel_type == 0xff;
-> +}
-> +
-> +static bool is_panel_type_valid_or_pnp(int panel_type)
-> +{
-> +	return is_panel_type_valid(panel_type) || is_panel_type_pnp(panel_type);
-> +}
-> +
->  static int opregion_get_panel_type(struct intel_display *display,
->  				   const struct intel_bios_encoder_data *devdata,
->  				   const struct drm_edid *drm_edid, bool use_fallback)
-> @@ -640,15 +655,21 @@ static int vbt_get_panel_type(struct intel_display *display,
->  	if (!lfp_options)
->  		return -1;
->  
-> -	if (lfp_options->panel_type > 0xf &&
-> -	    lfp_options->panel_type != 0xff) {
-> +	if (!is_panel_type_valid_or_pnp(lfp_options->panel_type)) {
->  		drm_dbg_kms(display->drm, "Invalid VBT panel type 0x%x\n",
->  			    lfp_options->panel_type);
->  		return -1;
->  	}
->  
-> -	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2)
-> +	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2) {
-> +		if (!is_panel_type_valid_or_pnp(lfp_options->panel_type2)) {
-> +			drm_dbg_kms(display->drm, "Invalid VBT panel type 2 0x%x\n",
-> +				    lfp_options->panel_type2);
-> +			return -1;
-> +		}
-> +
->  		return lfp_options->panel_type2;
-> +	}
+bq25890_fw_probe() acquires a reference to a secondary charger via
+power_supply_get_by_name(). This helper internally calls
+class_find_device() which gets a reference on the found device.
+However, the driver does not release this reference on error paths.
+The devm cleanup callback also does not put the reference, so normal
+driver unload leaks it as well.
 
-Hmm, this code will always return 'panel_type' if it's valid, even
-for LFP2. That seems wrong, but would need to double check the
-Windows behaviour to be sure...
+Fix the leak by adding a power_supply_put() call in the new error
+label of bq25890_fw_probe() and in the devm cleanup routine.
 
-But that's a separate issue, so this patch is
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Found by code review.
 
->  
->  	drm_WARN_ON(display->drm,
->  		    devdata && devdata->child.handle != DEVICE_HANDLE_LFP1);
-> @@ -762,13 +783,12 @@ static int get_panel_type(struct intel_display *display,
->  				    panel_types[i].name, panel_types[i].panel_type);
->  	}
->  
-> -	if (panel_types[PANEL_TYPE_OPREGION].panel_type >= 0)
-> +	if (is_panel_type_valid(panel_types[PANEL_TYPE_OPREGION].panel_type))
->  		i = PANEL_TYPE_OPREGION;
-> -	else if (panel_types[PANEL_TYPE_VBT].panel_type == 0xff &&
-> -		 panel_types[PANEL_TYPE_PNPID].panel_type >= 0)
-> +	else if (is_panel_type_pnp(panel_types[PANEL_TYPE_VBT].panel_type) &&
-> +		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID].panel_type))
->  		i = PANEL_TYPE_PNPID;
-> -	else if (panel_types[PANEL_TYPE_VBT].panel_type != 0xff &&
-> -		 panel_types[PANEL_TYPE_VBT].panel_type >= 0)
-> +	else if (is_panel_type_valid(panel_types[PANEL_TYPE_VBT].panel_type))
->  		i = PANEL_TYPE_VBT;
->  	else
->  		i = PANEL_TYPE_FALLBACK;
-> -- 
-> 2.47.3
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
+Cc: stable@vger.kernel.org
+Fixes: d54bf877fd87 ("power: supply: bq25890: Add support for having a secondary charger IC")
+---
+ drivers/power/supply/bq25890_charger.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/power/supply/bq25890_charger.c b/drivers/power/supply/bq25890_charger.c
+index c1c12a447178..b50be3fca77c 100644
+--- a/drivers/power/supply/bq25890_charger.c
++++ b/drivers/power/supply/bq25890_charger.c
+@@ -1411,7 +1411,8 @@ static int bq25890_fw_probe(struct bq25890_device *bq)
+ 	if (ret == 0) {
+ 		if (val > 100) {
+ 			dev_err(bq->dev, "Error linux,iinlim-percentage %u > 100\n", val);
+-			return -EINVAL;
++			ret = -EINVAL;
++			goto err_put_charger;
+ 		}
+ 		bq->iinlim_percentage = val;
+ 	} else {
+@@ -1426,12 +1427,19 @@ static int bq25890_fw_probe(struct bq25890_device *bq)
+ 
+ 	ret = bq25890_fw_read_u32_props(bq);
+ 	if (ret < 0)
+-		return ret;
++		goto err_put_charger;
+ 
+ 	init->ilim_en = device_property_read_bool(bq->dev, "ti,use-ilim-pin");
+ 	init->boostf = device_property_read_bool(bq->dev, "ti,boost-low-freq");
+ 
+ 	return 0;
++
++err_put_charger:
++	if (bq->secondary_chrg) {
++		power_supply_put(bq->secondary_chrg);
++		bq->secondary_chrg = NULL;
++	}
++	return ret;
+ }
+ 
+ static void bq25890_non_devm_cleanup(void *data)
+@@ -1440,6 +1448,11 @@ static void bq25890_non_devm_cleanup(void *data)
+ 
+ 	cancel_delayed_work_sync(&bq->pump_express_work);
+ 
++	if (bq->secondary_chrg) {
++		power_supply_put(bq->secondary_chrg);
++		bq->secondary_chrg = NULL;
++	}
++
+ 	if (bq->id >= 0) {
+ 		mutex_lock(&bq25890_id_mutex);
+ 		idr_remove(&bq25890_id, bq->id);
 -- 
-Ville Syrjälä
-Intel
+2.43.0
+
