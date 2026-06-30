@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B67C21CC51;
-	Tue, 30 Jun 2026 22:58:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CE52D2496;
+	Tue, 30 Jun 2026 23:06:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782860329; cv=none; b=HVfPa5ZfeS6oHubyBlQ760E5HSRTLUymde3WUOagDhCDrMTzBfugt9F/FDrKFCYtxLjELB905TMeL3j9qYByR+2SuDWiMvWx3cH3vRHyWSwwTFz3F+2vh59hfmFblb8uP0zRr0wFNI84QGQB/QBtSlD4HPeD5THnS8+Oms125yk=
+	t=1782860779; cv=none; b=kCj4dvCoMh+lg0t1xLQCnJQFsMmP/l4EONaWqy6yOWEMypKdRnEQGiGIjHOIPGe5WdtihIwGnanEBufYwp6h3vg6jtcFZ9faOAn7BWn8lz3NqM6fxhOBVRsRbMhSMuAcEheFZhDBu9vSF+nLzIQizphS0SsWUSzkll2l6m+KCs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782860329; c=relaxed/simple;
-	bh=aq9jJsGvYEawxXGAy0iuy6oK59s02bFHbdyTTS22zLs=;
+	s=arc-20240116; t=1782860779; c=relaxed/simple;
+	bh=L0YdNEn01usZ5HFVBmt/SJpuNkxX/zV7tbw6fpz1UlQ=;
 	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=OnS3jfucg5Exo/3vMgfbNkD15RU8e/F7PxQR4tLZZSWOMrzrtCpEtoG5d3uyxsU+OLdqZsUyjk/TSFuxzzzKbkHJCQpVhxm7D6lDAJSFgXJ8fZzLjEFGST/jj2eeQqGerseRbQDVFT4kRiQ2R7t4QEgP6T9RZMyUdbo/WIbl5rc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P5f/0Kqj; arc=none smtp.client-ip=100.103.45.18
+	 Mime-Version:Content-Type; b=BW1xsXVMWOfnr8VXO/V9gO3vJamx/HxwKOGZWuZNV2YUaONuzDdS7XBM1vIaMCLesmG2kCkTVO5FnYWfwSRHjWFovnVBAcgOI9YmlrkKN+YsGp3e2lZ5J50zZ4in/ci0o5ANMJKNozO+dOh2ufN28po8BA/HKK9lpJvhxU9M/yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kc/ghFFU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P5f/0Kqj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDD7A1F000E9;
-	Tue, 30 Jun 2026 22:58:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kc/ghFFU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6881F000E9;
+	Tue, 30 Jun 2026 23:06:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782860327;
-	bh=LzgO/WtP3CHsUyiGKcx7YHKu/av/Fuaej/8zHHRDb7w=;
+	s=k20260515; t=1782860778;
+	bh=n1UCvvhGUs9c34ulNz3yl2igsM3qXoph0EPgLkRotzU=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=P5f/0Kqj6lvAulhzPauZEJUAACK0UeYeG67JPeOoa7qkcO1dP7Myuuhm4UNucWKW2
-	 9wyUc/pJrFwZNZJK4e3fwBHIyN2qhib0otVdORx2OTuX8JypEzFW1zSdHGvaI+e3kG
-	 F0D9X3WwbFvOQwBCsqfAWFWi53X9n/FbXJQND2VazLnhy63w8RJB9CqUz+PmL0q2c3
-	 Xsuj2OJn52BohKAcEmdS4AwsoicttbXsbDSbdnBo+tTB6zm879yreGjfM+nn3INXaF
-	 vVm/pKAas7BfW29vrOIlstDTbcSg2QmhyRtaxg/QthsnkKzETOb4VMGdzoPa+jbWiV
-	 SxcxGhczVzkkg==
-Date: Wed, 1 Jul 2026 07:58:43 +0900
+	b=Kc/ghFFUqWWQhABkIJ3FNrCqd/8xhHOorvN7bevAdNneaLBNBLr0JTVmxDI5ZNoIC
+	 exbw5RQKXLCsnu1Qy96lWYje8VuGlHmuBb/kHZsJVsUCiIVkhHgNgaOl5YsqPuMgUp
+	 G/rQnBtlhczB6zdFhZZh5WtkV/cn/sdxy4NZn1MAzbcKXDjPk+uuLqvoci6CqRVl4Q
+	 x5yhQR49DGTzHxIKeZYqdwHOO+ZM5EjbtpeNQ8Sk2fs1tzoHbd/aaDx3774lroD/u3
+	 uLpsCA6UH1xTdruFE06PN2UWU9zYxJN11mVtPcRNMxbVCCBtK+fAgcm1K2gb1VP5Ep
+	 ohI6Kk4/tBJwg==
+Date: Wed, 1 Jul 2026 08:06:14 +0900
 From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 To: Bradley Morgan <include@grrlz.net>
 Cc: akpm@linux-foundation.org, linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org, stable@vger.kernel.org
 Subject: Re: [PATCH v2] lib/bootconfig: fix undefined behavior involving
  NULL pointer arithmetic
-Message-Id: <20260701075843.a308d7dadf327eda4015236b@kernel.org>
+Message-Id: <20260701080614.96639cb0bfb97eb70e1d6177@kernel.org>
 In-Reply-To: <20260630174746.14795-1-include@grrlz.net>
 References: <20260630174746.14795-1-include@grrlz.net>
 X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
@@ -69,10 +69,13 @@ Bradley Morgan <include@grrlz.net> wrote:
 > Assisted-by: GLM:glm-5.2
 > Signed-off-by: Bradley Morgan <include@grrlz.net>
 
-Thanks for the fix!
-Let me pick this to bootconfig/fixes.
+Oops, Breno already did it.
 
-Thank you,
+https://lore.kernel.org/all/20260626-bootconfig_using_tools-v7-1-24ab72139c29@debian.org/
+
+Let me drop this patch since it makes a conflict with Breno patch.
+
+Thanks, 
 
 > ---
 >  lib/bootconfig.c | 13 +++++++++----
