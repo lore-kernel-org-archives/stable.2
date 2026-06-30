@@ -1,190 +1,94 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC63D4657CF
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 15:48:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20D74657CC;
+	Tue, 30 Jun 2026 15:49:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782834536; cv=none; b=mHyEuX+91lmmKkqKymz6boOsnI/OSDZw/feehiRdeExuPXYTCT3DFGOg+MjvZvlPtZOglHhxdQ+o5Jc/ZH8E8kscpB4BDLOqcuRdoVVvebqi0wWqJJjW2Nsu/rl1ETUTdUm6T98gDwPhbqSBx3FnC/ViqRJ+g6U+fho+xo2VhOc=
+	t=1782834547; cv=none; b=M1+dSXfAZZygqQhBE1MK7Qnk84USpIo2XegN3uAEYFZngY7SrtHmIERvYqhdYYudKL92TllBEAhmTdM4PpgpRfe4o3q+DUw2xTjlK2UH4hFkG7RS5Q10NP4C7zRoN5Pg9tjJ4N9RJv5cO5lFSPXHGQ1dRvqWnG4zUr/ecCet6dk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782834536; c=relaxed/simple;
-	bh=+Nu8T2P5J4piOI6iPNLzOouVdCkgquRY6nHCGOeDlSI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hphYUBW/5c5uNvnfSfAC4hYdieqwOM1GYpMmWzLbz14moM+V0i692pRMOMAZ97/rBG0MZkOnQBsaZj965vgI50LQGIc6CgHlT2QAMe4moW4NrXaWa+lTDWOjHhVQCRth+cL2JlSMGXcvmFX07BQ1aAL4pjWj8A3a1pZqaZZ+vVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=tR9ajE1d; arc=none smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1782834547; c=relaxed/simple;
+	bh=2Ws7P6BOYP/iMzX2LpzDFt3jxCfbZZ0tRoZaRPsgeg8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=AqvhPc4YMKDblIx72Hq53jO5yvJyNzQJugk5wIFXUtaENkklHDTYa4CqRcgXsY4QN+QgX7q9mXE/hrk8/nThLtZBGna0Q1mue+yQQMniZeRVEmk7VOGSPCtZIh7Hv+PBOX8l78LWZ+6drOa06CZxg275xloMtr+i7+/CmuWr0GQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UewBZu4D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="tR9ajE1d"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-51a0188b92fso48530281cf.3
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 08:48:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1782834533; x=1783439333; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T+E4S6GTRJ9jJ/udD9Nkt2a9cnzXt0ecKVKDowSdAYc=;
-        b=tR9ajE1dR3A5NMBnNqf4AYx7AGFybH5Dd/TrgdysOKnd5O5zwMAiarlTJ8VlOJ6pFH
-         VUtjLkB0j96oRiAgu9CbYRqj7ZkU5YRNSfbUx7DfmvWRYP/YGPm4h0HfaSKkeyOLs+a2
-         QqCtERDkuiN7FX/Nt68a4CiU8McrPG+Nd/N+h0U27tdnnk1aQJBNAp9Qy+KslS0O+MgT
-         Nh5dy0CkFSmRTLxev7JfI1XEMuFM9h4Vp3JQszQu+zos+BIGi12luxvOBPgGVEVV88/D
-         KWHo7qTq2KPhNrxKi+UBl1MjzJvTWLCbEOHZsSPCD2JEbt2jlcVxCzlyaAeAAEI1b2qa
-         EgQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782834533; x=1783439333;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T+E4S6GTRJ9jJ/udD9Nkt2a9cnzXt0ecKVKDowSdAYc=;
-        b=cJGT7tJ3jYhyutcfmd6mV9ZdKB1OjENqG3/3xZDfaTscZUYf2+263rPT0qmVKkJ1Ry
-         dBO+Q7SBIAdArStNQgSeREVHMTCxJWY6mbVDn2TVXyCiMg1RqUttAAy3Uo1aBl38vqhd
-         hOjvCELo6XjXgX9wFVNU4k9rCoFWE2ijb5HC8L6x2IOtp1hnEKfMft9CX0D1sHl8kMjR
-         u5GRPihu6Gad7ydojXew2HZPKJ7Y/hipsShecfbg34mH6UFuh4jeiC4zx7A7nnOo+0Zs
-         Cj4auRK/f+4DO/elAYgI8NQCCpXJN4FbVh6WIrSb6+O2VOMzjsBzJyEEi+CZtFAdrpfj
-         nnQg==
-X-Forwarded-Encrypted: i=1; AFNElJ+CYRgNBm9XW99Y08KDHM+BMmD642zFXt6Koga9G5/pLkXkPh4IIlxtNeoujHvVpqbn3pCDVOM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzR3CbfBZfNR5RWbwk76JGWu00DlxhRcMErcht+8bQrmRbAiwmm
-	aHIZLtQ2bcwkXgWxJcXnk8vF2LSkWzHmouUzWTULVtMnPAs57FnI8VBV2r120xuE1MA2MdxwSmw
-	Q4pshvg==
-X-Gm-Gg: AfdE7ckF7xLkoZkbulVV0UZ7hLfmMITd47TWqPLPkZGa12Y+5LSuvJAFUNg2DBM6PMX
-	w0u/jr0Yt2OVTzN4rHrsl8sdzDqK9BUwHt/curKszHXLICBZyfiQU/A5/bqBWvEwRlfgqUlFpwj
-	skeaw4RAO4RzAh3pjjD25CIgPIj7E+SfIUW1CijyBmzFz29WkMkkn7XYJBVq4zaU1Om2yWQpCTy
-	IYc5jDPfpAIGP+7ncEnBiRSIEX82cD1Pg55M1cPUwBkfwLuvZVE/0ITHvgtWVkG41m4T4rwoyTw
-	tanleO8B10vf/v6Snr7kF1qUhkwDKNZRXO1UI1M19LIY3DH6R/5teSXuu06lgwm+obM2FikmE9h
-	wOBWqU6UUWBi9Z0GZI5q941syc04wCqqJCTMfxizC4qPrrBYiLSREU1Ju9iD0FIX6QKnEWEahae
-	9r0CnW9smTJb1QIA==
-X-Received: by 2002:ac8:7191:0:b0:51c:147d:9bec with SMTP id d75a77b69052e-51c147d9e47mr27863881cf.6.1782834532456;
-        Tue, 30 Jun 2026 08:48:52 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::883a])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51c10a265efsm21250581cf.27.2026.06.30.08.48.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 08:48:51 -0700 (PDT)
-Date: Tue, 30 Jun 2026 11:48:49 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Dawei Feng <dawei.feng@seu.edu.cn>
-Cc: gregkh@linuxfoundation.org, linusw@kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn, zilin@seu.edu.cn, stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: free iso schedules on failed submit
-Message-ID: <667e59f6-c91f-4bcc-ae70-5fc211d9e606@rowland.harvard.edu>
-References: <20260630071419.349161-1-dawei.feng@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UewBZu4D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E783A1F00A3A;
+	Tue, 30 Jun 2026 15:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782834546;
+	bh=zbDc8XvKfWhyJZCvaNUfBHlhmN+srBYnmv7WiPYXZMU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=UewBZu4DfaJZR3z/lfKqySeicVUNufZxMF6HaP1JEMAbE+9wgvT//86VLMTH9dzbR
+	 yz82/qFpmHBKfKKna+DjuwFxjd7WZWiJDt3MMJM6zZn3B6RpLIjgHVT1PbfgdCjscC
+	 2RCk3TuMEN4W8ehWGwN3GorV9ZGHnr6uIzijmUr58dWTRVIJr8a3pLeGZY9XIijHIU
+	 W2LSMsTq/4U1Lebr9mwUsV6jGFlVLcV3FWM18Y6V16Q1pU+QLWGKLJVY62hFW8AXA/
+	 GUF8xAkzJsamO/4MJHqpn/o10kdaYK9kqimikopoDskFeUmRgre1XB71cWM0DEt2PR
+	 oVLxyVsxuFKRw==
+From: Mark Brown <broonie@kernel.org>
+To: cezary.rojewski@intel.com, liam.r.girdwood@linux.intel.com, 
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com, 
+ kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.dev, 
+ perex@perex.cz, tiwai@suse.com, subhransu.s.prusty@intel.com, 
+ vkoul@kernel.org, Haoxiang Li <haoxiang_li2024@163.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260622091620.897478-1-haoxiang_li2024@163.com>
+References: <20260622091620.897478-1-haoxiang_li2024@163.com>
+Subject: Re: [PATCH] AsoC: intel: sst: fix PCI device reference leak on
+ probe failure
+Message-Id: <178281880553.79320.14011856942727285355.b4-ty@b4>
+Date: Tue, 30 Jun 2026 12:26:45 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260630071419.349161-1-dawei.feng@seu.edu.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1145; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=2Ws7P6BOYP/iMzX2LpzDFt3jxCfbZZ0tRoZaRPsgeg8=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqQ+Vuv8hZl91x79U9+h9u6ZEn5M30sk8byUnpr
+ UxGm+c13nuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCakPlbgAKCRAk1otyXVSH
+ 0HRaB/98TpHdgY32MfnLUEZShVWSWsp2x+bfxE+Q6uCO/2P1C7jggMiMfPVlXPftCfslNoWac6F
+ SsQMlZAeSknCk80DiH7VAvZnJTLa8ai8k/bQ9g+MHzxwus9UNluIX7TKvWfvvRPDz52lhDCIggr
+ 7owAOPonoE5c1qofJ0fP9/TGX/e3aMSlB6JkNhQOrY5wJZ0PkQX2J4qZDrudo4rHpKbZLJHk0ea
+ P+SZ936J50O7ODBmBfTUjmYy7go7mdUNsWyIh+XAVW7x4xnNJyZXSN+hMrWV331hzuO3ktO6km8
+ RYE/JD8Q00STLxGhHWDkA+pY+nDiwOwu3GhKTOorVDA6JmOT
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, Jun 30, 2026 at 03:14:19PM +0800, Dawei Feng wrote:
-> EHCI and FOTG210 isochronous submits build an ehci_iso_sched before
-> linking the URB to the endpoint queue, and keep the staged schedule in
-> urb->hcpriv until iso_stream_schedule() and the link helpers consume it.
-> If the controller is no longer accessible, or usb_hcd_link_urb_to_ep()
-> fails, submit jumps to done_not_linked before that handoff happens and
-> leaks the staged schedule still attached to urb->hcpriv.
-> 
-> Free the staged schedule from done_not_linked when submit fails before
-> the URB is linked and clear urb->hcpriv after the free.
-> 
-> The bug was first flagged by an experimental analysis tool we are
-> developing for kernel memory-management bugs while analyzing
-> v6.13-rc1. The tool is still under development and is not yet publicly
-> available. Manual inspection confirms that the bug is still
-> present in v7.1.1.
-> 
-> An x86_64 allyesconfig build showed no new warnings. As we do not have an
-> EHCI host controller with a USB isochronous device to test with, no
-> runtime testing was able to be performed.
-> 
-> Fixes: 8de98402652c ("[PATCH] USB: Fix USB suspend/resume crasher (#2)")
-> Fixes: e9df41c5c589 ("USB: make HCDs responsible for managing endpoint queues")
-> Fixes: 7d50195f6c50 ("usb: host: Faraday fotg210-hcd driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
-> ---
-> Changes in v2:
-> - Move negative iso_stream_schedule() cleanup to the submit failure path.
-> - Clear urb->hcpriv after iso_stream_schedule() frees the schedule for an
->   immediately completed EHCI URB.
+On Mon, 22 Jun 2026 17:16:20 +0800, Haoxiang Li wrote:
+> AsoC: intel: sst: fix PCI device reference leak on probe failure
 
-For the ehci-sched portion:
+Applied to
 
-Reviewed-by: Alan Stern <stern@rowland.harvard.edu>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
 
->  drivers/usb/fotg210/fotg210-hcd.c |  6 ++++--
->  drivers/usb/host/ehci-sched.c     | 11 +++++++++--
->  2 files changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/fotg210/fotg210-hcd.c b/drivers/usb/fotg210/fotg210-hcd.c
-> index 1a48329a4e08..956be5b56510 100644
-> --- a/drivers/usb/fotg210/fotg210-hcd.c
-> +++ b/drivers/usb/fotg210/fotg210-hcd.c
-> @@ -4267,8 +4267,6 @@ static int iso_stream_schedule(struct fotg210_hcd *fotg210, struct urb *urb,
->  	return 0;
->  
->  fail:
-> -	iso_sched_free(stream, sched);
-> -	urb->hcpriv = NULL;
->  	return status;
->  }
->  
-> @@ -4562,6 +4560,10 @@ static int itd_submit(struct fotg210_hcd *fotg210, struct urb *urb,
->  	else
->  		usb_hcd_unlink_urb_from_ep(fotg210_to_hcd(fotg210), urb);
->  done_not_linked:
-> +	if (status < 0) {
-> +		iso_sched_free(stream, urb->hcpriv);
-> +		urb->hcpriv = NULL;
-> +	}
->  	spin_unlock_irqrestore(&fotg210->lock, flags);
->  done:
->  	return status;
-> diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
-> index a241337c9af8..57d07d1c2dfa 100644
-> --- a/drivers/usb/host/ehci-sched.c
-> +++ b/drivers/usb/host/ehci-sched.c
-> @@ -1623,6 +1623,7 @@ iso_stream_schedule(
->  			status = 1;	/* and give it back immediately */
->  			iso_sched_free(stream, sched);
->  			sched = NULL;
-> +			urb->hcpriv = NULL;
->  		}
->  	}
->  	urb->error_count = skip / period;
-> @@ -1653,8 +1654,6 @@ iso_stream_schedule(
->  	return status;
->  
->   fail:
-> -	iso_sched_free(stream, sched);
-> -	urb->hcpriv = NULL;
->  	return status;
->  }
->  
-> @@ -1966,6 +1965,10 @@ static int itd_submit(struct ehci_hcd *ehci, struct urb *urb,
->  		usb_hcd_unlink_urb_from_ep(ehci_to_hcd(ehci), urb);
->  	}
->   done_not_linked:
-> +	if (status < 0) {
-> +		iso_sched_free(stream, urb->hcpriv);
-> +		urb->hcpriv = NULL;
-> +	}
->  	spin_unlock_irqrestore(&ehci->lock, flags);
->   done:
->  	return status;
-> @@ -2343,6 +2346,10 @@ static int sitd_submit(struct ehci_hcd *ehci, struct urb *urb,
->  		usb_hcd_unlink_urb_from_ep(ehci_to_hcd(ehci), urb);
->  	}
->   done_not_linked:
-> +	if (status < 0) {
-> +		iso_sched_free(stream, urb->hcpriv);
-> +		urb->hcpriv = NULL;
-> +	}
->  	spin_unlock_irqrestore(&ehci->lock, flags);
->   done:
->  	return status;
-> -- 
-> 2.34.1
+Thanks!
+
+[1/1] AsoC: intel: sst: fix PCI device reference leak on probe failure
+      https://git.kernel.org/broonie/sound/c/016f29997ebd
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
