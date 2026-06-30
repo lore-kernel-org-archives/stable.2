@@ -1,243 +1,304 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010011.outbound.protection.outlook.com [52.101.56.11])
+Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE7431F9BE;
-	Tue, 30 Jun 2026 06:06:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782799609; cv=fail; b=qsrxAcbiJgRhgyeKLGO/hsi9zPeVJqdzilWtxRQmYbj7kYg4rsvOsoSI3RcRMOht5kESOMelvQyziJFM2xXhSzP0qhSkvXIhtZoGun4jTrqOEiJNTDUqg+UWLO+hNJesQgSRXd/fmZHAISqXnzUlBru6MDlX7frIfwmNr2RzQvQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782799609; c=relaxed/simple;
-	bh=AJyABz/wD6NByXIm8QOWOiT524xUlyEIGMmTzEsfe6c=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=aoEH1pAq9TGM9nHymOtHgUjsG6AfE9R58E3PKlkKRxerZSZFxwNqmRrRLJpWLicEgMxd2stb/S1ndJOZ3QXFCOu8fsVJX/r5syUeHOCxnpvSfCYe+RyDIJf+ib+021zNQ2/eTPTD9T/LzaxV7MLXMfLgq6wKt2B47JTF/9N2Bnw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Xu9TzIVy; arc=fail smtp.client-ip=52.101.56.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAF333BBCF;
+	Tue, 30 Jun 2026 06:07:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.1.125
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782799624; cv=none; b=chKtYI5mGxodDo5erB7orLl79nIpTJKRDHYFJct6I/bG9JfbYrR7Ia8Ea+ojsnlDxREyzLaHamk51Q4hiiKbaQQvHlFavxad0YXwRJSjw8OrmnYZUAyBnA3lmtqNrGalGWuXFxiwv+gQUrRvb2gr3g+t0x/FgJdqpXNbFP5/o5g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782799624; c=relaxed/simple;
+	bh=5JffXCMyl3pvr8XVbKuZW6pi4Xy3qaVHJggNLcgGlPM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dFTHozCN4vufY3i2rw5thVc/Q1KvnpxRWjvKCKr8l5uR2vcX0jMntEsXVjAniqzCr22AoRTRpAAZaqnhckiEb9ORtYWrIY1FYExVXQ2XTth1neBhrU9ewcEFqyhuMGOS6mpB04oBrXOKOlUwy1AD6v5+Jjnwk82KL6ZcpsNReo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=XPP2sIIM; arc=none smtp.client-ip=44.246.1.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Xu9TzIVy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jD8BMqSYrj6SS8b7TxKaIbvL34y50gZBp0iUSztiDqWWxTDvOqXsxcCe3iIzgqaeayWVA2/kELht0iHvL3LqR6lBKqnWm9M++9FOOo8nPpZp08rnjOlAFHQMvPxKYgvPyWvCVnTb6gamDlx3S+dVFqYnnFF+LNgYrMIQWg5yKbi0anjrVb/K4wXa4Jy9fHmTnZz9LmLLS6BdwCZqoY9h0dgGBIFidfhsWwXnHfP+h7nVtX6PtiZm4dIlOm2WG4osN93DzTlr0U91BxVSI95to1NHtsyLiD774syLdgSWx2O8EGzKDQu1xDteuzwbjQvjlzpg/g0z6lYYgYpyFYZZgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4j7aeXz8jAUIpYSFJXFm2K9nCEn9xI/Tr2QmS9+DWVc=;
- b=Q9yXGrHTaBpXIjFWbbBGo+cFxMo8HUt05VX843nBNEw5B90PIxUotO8zUgQQA7khEhEm62Ng4fk5l/ho1nzDFINm+eSnFcYStH49K8Nqxf9fRQdeLam4VYaPrdVNWyyaR3g9JOlZGIQHK965wbr8puurhb/jdl7pbxIa3fHqLqU22CtWVrDtf4yi/GQxtVIZauULHFWR0CZ6ikKbFjmnZCvdKR+oHRwid1VSS0Set+Ibm0G81gxOimD09kNLfPZtHnfsVnE8GD4RRYB8m8OHjzN39jNkUnYg5G9TziBGAM4RSEObWFurwuaG9J/8QgxP+dwcGA2FHYDt+n4mq0COHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4j7aeXz8jAUIpYSFJXFm2K9nCEn9xI/Tr2QmS9+DWVc=;
- b=Xu9TzIVybQ/RSwX4dHvX8RWHarC+bN3R/as78xQPQHxpHdVRwZWYoBGQqs2yntjcRNEHBHKPx5lcUFFB2+dYfXEhByG2yXCHjlleO+GyQZ4dr7eEYSNyOXJQv1ELLBSEaTQKeAvl7toFV7Nd7NgETwtyytu/2F/38Drm6bOl8lU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20)
- by DS2PR12MB9821.namprd12.prod.outlook.com (2603:10b6:8:270::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 30 Jun
- 2026 06:06:43 +0000
-Received: from DS0PR12MB7747.namprd12.prod.outlook.com
- ([fe80::2ef2:e88:4708:b589]) by DS0PR12MB7747.namprd12.prod.outlook.com
- ([fe80::2ef2:e88:4708:b589%6]) with mapi id 15.21.0159.018; Tue, 30 Jun 2026
- 06:06:43 +0000
-Message-ID: <eab6abda-6f06-4dd4-9aad-1bcbf135f90a@amd.com>
-Date: Tue, 30 Jun 2026 14:06:33 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/9] media: platform: amd: use refcount_t instead of
- atomic_t
-To: "Nirujogi, Pratap" <pnirujog@amd.com>,
- Ricardo Ribalda <ribalda@chromium.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Nirujogi Pratap <pratap.nirujogi@amd.com>,
- Sultan Alsawaf <sultan@kerneltoast.com>,
- Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Abylay Ospan <aospan@amazon.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
-References: <20260629-cocci-7-2-v1-0-5884c80ee3b6@chromium.org>
- <20260629-cocci-7-2-v1-5-5884c80ee3b6@chromium.org>
- <8bb876da-5691-4471-8813-b12d07ca8ca4@amd.com>
-Content-Language: en-US
-From: Bin Du <Bin.Du@amd.com>
-In-Reply-To: <8bb876da-5691-4471-8813-b12d07ca8ca4@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TPYP295CA0013.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:9::7)
- To DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20)
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="XPP2sIIM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1782799620; x=1814335620;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=8ZbkaSXN58OWFlL2u0MDoyUGWdO5zkTGgolYw2Hv6l8=;
+  b=XPP2sIIM0hZ19q9xJ9x+oVaFga2tHBjEcK5Thfo9hgo21Kk8zr42ENlC
+   bf/YwAlbCzoZmAY0OieN8LUpAzuf6ad63OpJSy75NrnkYW5+3+Qfx+bbF
+   nUtQhZH0cpUwm0kPArs8rAMKIMmZ5fz78vbtiNKAEol2tFF0Df6jCVvkV
+   wAysgjIBMEFlPEF/QBbR7TGOAJA14eupXmP0ULYxtEzj3e/52QOC5Mz1k
+   ZhLwAmFXNiokfpREunFeXg0ufhFZxVzRN6QzmkxE1BfjHmd7xCE8bjVZ0
+   9pKoBYvfsO1wLDPmdWI/CrYW9Pjh0wmxmRG9A0rlIzED/ss35OT9tkLMr
+   w==;
+X-CSE-ConnectionGUID: WclxOZq0SGuMgpSvR1Tx5w==
+X-CSE-MsgGUID: YpJnGYEFTryRh1wMNRSSMg==
+X-IronPort-AV: E=Sophos;i="6.24,233,1774310400"; 
+   d="scan'208";a="22758375"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 06:06:57 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:2396]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.226:2525] with esmtp (Farcaster)
+ id 0343961f-b4c4-438a-b642-1b2cbe59ba4d; Tue, 30 Jun 2026 06:06:56 +0000 (UTC)
+X-Farcaster-Flow-ID: 0343961f-b4c4-438a-b642-1b2cbe59ba4d
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
+ Tue, 30 Jun 2026 06:06:56 +0000
+Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
+ Tue, 30 Jun 2026 06:06:55 +0000
+From: Bjoern Doebel <doebel@amazon.de>
+To: <stable@vger.kernel.org>
+CC: <sashal@kernel.org>, <rostedt@goodmis.org>, <mhiramat@kernel.org>,
+	<mathieu.desnoyers@efficios.com>, <dhowells@redhat.com>,
+	<linux-trace-kernel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<doebel@amazon.de>
+Subject: [PATCH v2 5.10.y] ring-buffer: Remove ring_buffer_read_prepare_sync()
+Date: Tue, 30 Jun 2026 06:06:34 +0000
+Message-ID: <20260630060634.1496989-1-doebel@amazon.de>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260625054005.0015.ringbuf-510@kernel.org>
+References: <20260625054005.0015.ringbuf-510@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7747:EE_|DS2PR12MB9821:EE_
-X-MS-Office365-Filtering-Correlation-Id: be49d8b8-f95e-4e12-c425-08ded66dc221
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|921020|18002099003|22082099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	EzF5urj88eexhVh8307C/uwDe508k+fVy24d76AxNtq0hoSH5+UuMEM83eK77S3BpiijwXmz6o219Wh3Ys0rhPzqWUKGpPcwVFT7ZXsvS3KizVjjzBR25+kwzwmAKOKBKtcgFC1S6/zAp3u6meiIOG1HdpbLkP4kXdzCZiN42Pi39cpiTBF8ovSnqJ3ry4NavOzNFoCtJOh+c7NL6EFVuxlna/HrUOpsZ64XJIMumQUZFTuzSdYNrcgkoouaHltUW2Ao3MiFjJ5vMJ2jmICzESyoAkzPd8BE7X7AVC1VsiYngVM5f7SpmLy866QAPtacmOX2j8LCPPbxhlPX3TOUPhJPuF0SSVAY2ICn+y9x07kSFs2305wGNwXaljWnh6AwgOBGL7eK1LYbd94ILWfPce/D6YpQUjfMraq3f6kJEo0EEx3SdIV19JlyaOXCzkEeSzpTFb9c4ZbrRAvnlNjV/b1jMjWZI49nXV7LymBKiN+6nqXgb8ZgfA6evCjlSqN3UcRj+L1If/GEon2PJG+M/mzpZ3z9yJeU7coSyiYtQIdkCItic4lsc709oifwRWryPpDtT5xRX5zaCfW8LVKUx5RR4uPJdrnZlz8KnO65aGJJtn4nPb2iMt8mlgyEZWTSf3dYWit2tOdGnC/7F+gwdfMwO5m/yptUmHjLNnj7Ju3TP/7cqiIa4M3mpeY1FuUwirIUF5f1h84AAlWsNAYHtQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7747.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(921020)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q2hucW5KNmhiNzk4Y2FxSmpwNStndmN2czhHWTUzN2tCa0xNQ2g2bVZuQ3VQ?=
- =?utf-8?B?ZkFKRGlXWHFDdUlIdXpQYi8vRzlLdWRnbEk5aWpHNXJqbmJiZlhYNWlLWlhX?=
- =?utf-8?B?L1FxYW5pQm00QmJpNjVva1FxNFovejFpVzFVZC9NOTRsTnR0U09TWlJvYUdI?=
- =?utf-8?B?bHZtYnN3VmhpZFJ5NWs1Wk04MUZsckhsbVZPZHljUW1abXU4QUZtVU50bjRu?=
- =?utf-8?B?dEVmUG90aHo1VE1LMXZMWXlWeTRNSlJkS2VwVWdvRndGdXlLMU9rWUwxUGh6?=
- =?utf-8?B?WUF1UXUvNHNqam5EK1JmUERHMGErczNTcmpuRml5UDFIbHFRbjdwcFJjd296?=
- =?utf-8?B?aUFwc25Oa0tNQXNEdmdvQmJDR29RcGdyMkpLSVA0V0F6djgxcDJrWDIwSzNp?=
- =?utf-8?B?dXNFVlRXS0hmWDVuNUh3NkhQeDVjcDM3ZFlob2FqTWtnOEc0UnVkWWhwckZU?=
- =?utf-8?B?TUtSQ25CSTNNR2I0VTBWM0Q3RzB6OU1MOThZRXNjYWtvMEZ6TmxQK1VzK045?=
- =?utf-8?B?dG5zeW0rNGJDWTQwbGFLUzQ2SXNrZytvYWZTc3N0OC8vM2tSQU1iSU1zbXRS?=
- =?utf-8?B?VHpodHdwb2dUTlBaeVdTSzdUenRDbnRwN0Z5VkdpRXhwcmxmNHJaYW93QXVD?=
- =?utf-8?B?QmtGaGZJWjA3ZnRSRk1sNkZCbFpaaXo4dGRZWXVhZmdKVFFqZWlBaHZQTVF1?=
- =?utf-8?B?RUlQUzdaVkZYVlFEb0h3OGFsRkVqd2VzR01OekJQRTl4d3N3d1JzUEtacVJq?=
- =?utf-8?B?ZGRHaitWcXJXSnpHQkNwZ3hiYTltVWcxd0pRMkR6TnAzTjlUekFFQlY4SExl?=
- =?utf-8?B?eklWWEV3Qkc5RW1iQVZDMGtoZkJJanV4VWdReWU2QTlBQk1DejNsQ0tDQ2Z5?=
- =?utf-8?B?MXhybFZZQVc5TDNDSmRuV0ZJMkYzeHBzTERqeUM1enM2cnB0SGtvblNSUXlE?=
- =?utf-8?B?cjlZR1hGZ2Vybkk2RDV3RTFYNDExSGlxc1ZMcDlYQlU3TExLc3RUTnMrckJl?=
- =?utf-8?B?eHhweVR6SXlZc3YxbmY3UkI5aHVndTM5c3FmV0J4VzZTVlQrck5yNW8zdTJn?=
- =?utf-8?B?YlZPMlNsd2djV3QvKzVHbXRtT3FBUk5haTdTQmZad3g3OUUzN1B0ZmtzVkdh?=
- =?utf-8?B?b3gxSVNvNlBjNFkxOGVmTkprN3RVTUN0L3JGdFJRUHZ6aURabkNKTnVRZmE1?=
- =?utf-8?B?YlJ2NEh1d1ZQQ2dVOXh6RzFkajhoSG1rekMybE1XK2tkUFRDV1ZwS25rUkdP?=
- =?utf-8?B?SmxDWFpseUtyS3VKZXFnbG9IL0RQTitUVVdjTTFDTVl2K1FyOFdGemRDSUVT?=
- =?utf-8?B?SHdGeElNY0NCVVAvTmF6WWdSUkU2OXNCMXBkdkN6OVZsdUdXN2cyZmlFdDVH?=
- =?utf-8?B?djBLSkRNTnhZTFdGTGprU3NQd2hyRWZnUVozV0UzMkxUZStiejlHZkhvSHpL?=
- =?utf-8?B?M2VyNVlYejdpckZsTjc3RmNQanBjTm5ocExtWE14SDM2RjJwNWlqbElvZFBr?=
- =?utf-8?B?N3JCWFhhamFZMnk4emNVTzFpQmpRUHQzQmY4NDF4RSthTXRBSWdIZlMzNWsw?=
- =?utf-8?B?M21lbGN2NzRCbWlOLzJtL2Fub1NHcVdJWkhObk54NnUxeTE1cnJncUN2YUhY?=
- =?utf-8?B?WHJwZGpiTFhuTUNpVnFIb3M2S0tmcUVLYlVQL1E2eWEzdXN4c3N2a3YxMWs1?=
- =?utf-8?B?NG83UHFFcnJtNVN2aWpPUWJ0NDZpQXdoTEEyclZHL3pXTXkwckJhQ2FzRFk2?=
- =?utf-8?B?T1BqelJIYXN0Z3pXSzRQWUtpM0lMVy9jeGwyYnVFbjlXTmF5U3dXdVJiNHQ3?=
- =?utf-8?B?OEhVa2FDeElCMG5ZN0xBbXNIYm9ybjA4RUFFU2x3dUR5aEhDbmpzUEh6V1ox?=
- =?utf-8?B?VDNhYnZndHRaeHd3RmJ2NDlzU2ZzYllpekxNUXR4d25RTE5RQTZaVHBXMHkr?=
- =?utf-8?B?QUV3cVB2MDhQcFNoaDAydnVhRWZzTGUrdllSNDFPaVprTzd4b1ZPU2dMbUIw?=
- =?utf-8?B?T3hDVE5oWHZla3FNTEFvSktUTkQ2UkluMHhzVVZNQUcwbUJ5VnhabDdoU2tu?=
- =?utf-8?B?U0hhbEI4V2c3QmJzaVZwR2M3UVhMUWVUNlVnN1hoWUVJS0pUSnNKTHdpdDFK?=
- =?utf-8?B?TDJoVmtqMHpNMFhDRTFUamg2dUNRVWtXMlFJaXIrZHVyWEE1SU8zajJtQW5P?=
- =?utf-8?B?TkIrL0Jjd0FPV2JaeFRPanlaVXhLOE1DTC95b2xWQ0RIOFN5L0lxTCtLTHNV?=
- =?utf-8?B?b1pxRXUxb2RvZStQS1Z2ZmZ3STN4cUxkUVlMWjFHbWF3eFROWHIzN1MybHRo?=
- =?utf-8?Q?GSIW/tv9ETd4we2fxp?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be49d8b8-f95e-4e12-c425-08ded66dc221
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7747.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 06:06:43.2686
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: htfpWxScfACjNeQVO94wnkeDZiulXUdv56IYGGFiZMPdV8wyu8v5woeQq3C2l8jY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9821
+X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+[ Upstream commit 119a5d573622ae90ba730d18acfae9bb75d77b9a ]
+
+When the ring buffer was first introduced, reading the non-consuming
+"trace" file required disabling the writing of the ring buffer. To make
+sure the writing was fully disabled before iterating the buffer with a
+non-consuming read, it would set the disable flag of the buffer and then
+call an RCU synchronization to make sure all the buffers were
+synchronized.
+
+The function ring_buffer_read_start() originally  would initialize the
+iterator and call an RCU synchronization, but this was for each individual
+per CPU buffer where this would get called many times on a machine with
+many CPUs before the trace file could be read. The commit 72c9ddfd4c5bf
+("ring-buffer: Make non-consuming read less expensive with lots of cpus.")
+separated ring_buffer_read_start into ring_buffer_read_prepare(),
+ring_buffer_read_sync() and then ring_buffer_read_start() to allow each of
+the per CPU buffers to be prepared, call the read_buffer_read_sync() once,
+and then the ring_buffer_read_start() for each of the CPUs which made
+things much faster.
+
+The commit 1039221cc278 ("ring-buffer: Do not disable recording when there
+is an iterator") removed the requirement of disabling the recording of the
+ring buffer in order to iterate it, but it did not remove the
+synchronization that was happening that was required to wait for all the
+buffers to have no more writers. It's now OK for the buffers to have
+writers and no synchronization is needed.
+
+Remove the synchronization and put back the interface for the ring buffer
+iterator back before commit 72c9ddfd4c5bf was applied.
+
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Link: https://lore.kernel.org/20250630180440.3eabb514@batman.local.home
+Reported-by: David Howells <dhowells@redhat.com>
+Fixes: 1039221cc278 ("ring-buffer: Do not disable recording when there is an iterator")
+Tested-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+
+Assisted-by: Kiro:claude-opus-4.8
+[doebel@amazon.de: move patch section using guard() macro into a
+separate block to address declaration after statement warning.]
+Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+---
+ include/linux/ring_buffer.h |  4 +--
+ kernel/trace/ring_buffer.c  | 72 ++++++++-----------------------------
+ kernel/trace/trace.c        | 14 +++-----
+ kernel/trace/trace_kdb.c    |  8 ++---
+ 4 files changed, 22 insertions(+), 76 deletions(-)
+
+diff --git a/include/linux/ring_buffer.h b/include/linux/ring_buffer.h
+index 7d5a78f49d43d..be5c120922469 100644
+--- a/include/linux/ring_buffer.h
++++ b/include/linux/ring_buffer.h
+@@ -128,9 +128,7 @@ ring_buffer_consume(struct trace_buffer *buffer, int cpu, u64 *ts,
+ 		    unsigned long *lost_events);
+ 
+ struct ring_buffer_iter *
+-ring_buffer_read_prepare(struct trace_buffer *buffer, int cpu, gfp_t flags);
+-void ring_buffer_read_prepare_sync(void);
+-void ring_buffer_read_start(struct ring_buffer_iter *iter);
++ring_buffer_read_start(struct trace_buffer *buffer, int cpu, gfp_t flags);
+ void ring_buffer_read_finish(struct ring_buffer_iter *iter);
+ 
+ struct ring_buffer_event *
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 03a7127efc5a8..1089daa17b09e 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -4858,28 +4858,20 @@ ring_buffer_consume(struct trace_buffer *buffer, int cpu, u64 *ts,
+ EXPORT_SYMBOL_GPL(ring_buffer_consume);
+ 
+ /**
+- * ring_buffer_read_prepare - Prepare for a non consuming read of the buffer
++ * ring_buffer_read_start - start a non consuming read of the buffer
+  * @buffer: The ring buffer to read from
+  * @cpu: The cpu buffer to iterate over
+  * @flags: gfp flags to use for memory allocation
+  *
+- * This performs the initial preparations necessary to iterate
+- * through the buffer.  Memory is allocated, buffer recording
+- * is disabled, and the iterator pointer is returned to the caller.
+- *
+- * Disabling buffer recording prevents the reading from being
+- * corrupted. This is not a consuming read, so a producer is not
+- * expected.
+- *
+- * After a sequence of ring_buffer_read_prepare calls, the user is
+- * expected to make at least one call to ring_buffer_read_prepare_sync.
+- * Afterwards, ring_buffer_read_start is invoked to get things going
+- * for real.
++ * This creates an iterator to allow non-consuming iteration through
++ * the buffer. If the buffer is disabled for writing, it will produce
++ * the same information each time, but if the buffer is still writing
++ * then the first hit of a write will cause the iteration to stop.
+  *
+- * This overall must be paired with ring_buffer_read_finish.
++ * Must be paired with ring_buffer_read_finish.
+  */
+ struct ring_buffer_iter *
+-ring_buffer_read_prepare(struct trace_buffer *buffer, int cpu, gfp_t flags)
++ring_buffer_read_start(struct trace_buffer *buffer, int cpu, gfp_t flags)
+ {
+ 	struct ring_buffer_per_cpu *cpu_buffer;
+ 	struct ring_buffer_iter *iter;
+@@ -4904,51 +4896,15 @@ ring_buffer_read_prepare(struct trace_buffer *buffer, int cpu, gfp_t flags)
+ 
+ 	atomic_inc(&cpu_buffer->resize_disabled);
+ 
+-	return iter;
+-}
+-EXPORT_SYMBOL_GPL(ring_buffer_read_prepare);
++	{
++		guard(raw_spinlock_irqsave)(&cpu_buffer->reader_lock);
+ 
+-/**
+- * ring_buffer_read_prepare_sync - Synchronize a set of prepare calls
+- *
+- * All previously invoked ring_buffer_read_prepare calls to prepare
+- * iterators will be synchronized.  Afterwards, read_buffer_read_start
+- * calls on those iterators are allowed.
+- */
+-void
+-ring_buffer_read_prepare_sync(void)
+-{
+-	synchronize_rcu();
+-}
+-EXPORT_SYMBOL_GPL(ring_buffer_read_prepare_sync);
+-
+-/**
+- * ring_buffer_read_start - start a non consuming read of the buffer
+- * @iter: The iterator returned by ring_buffer_read_prepare
+- *
+- * This finalizes the startup of an iteration through the buffer.
+- * The iterator comes from a call to ring_buffer_read_prepare and
+- * an intervening ring_buffer_read_prepare_sync must have been
+- * performed.
+- *
+- * Must be paired with ring_buffer_read_finish.
+- */
+-void
+-ring_buffer_read_start(struct ring_buffer_iter *iter)
+-{
+-	struct ring_buffer_per_cpu *cpu_buffer;
+-	unsigned long flags;
+-
+-	if (!iter)
+-		return;
+-
+-	cpu_buffer = iter->cpu_buffer;
++		arch_spin_lock(&cpu_buffer->lock);
++		rb_iter_reset(iter);
++		arch_spin_unlock(&cpu_buffer->lock);
++	}
+ 
+-	raw_spin_lock_irqsave(&cpu_buffer->reader_lock, flags);
+-	arch_spin_lock(&cpu_buffer->lock);
+-	rb_iter_reset(iter);
+-	arch_spin_unlock(&cpu_buffer->lock);
+-	raw_spin_unlock_irqrestore(&cpu_buffer->reader_lock, flags);
++	return iter;
+ }
+ EXPORT_SYMBOL_GPL(ring_buffer_read_start);
+ 
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index 5bcd4cbeeb4fe..ed32d3c4f0e76 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -4480,21 +4480,15 @@ __tracing_open(struct inode *inode, struct file *file, bool snapshot)
+ 	if (iter->cpu_file == RING_BUFFER_ALL_CPUS) {
+ 		for_each_tracing_cpu(cpu) {
+ 			iter->buffer_iter[cpu] =
+-				ring_buffer_read_prepare(iter->array_buffer->buffer,
+-							 cpu, GFP_KERNEL);
+-		}
+-		ring_buffer_read_prepare_sync();
+-		for_each_tracing_cpu(cpu) {
+-			ring_buffer_read_start(iter->buffer_iter[cpu]);
++				ring_buffer_read_start(iter->array_buffer->buffer,
++						       cpu, GFP_KERNEL);
+ 			tracing_iter_reset(iter, cpu);
+ 		}
+ 	} else {
+ 		cpu = iter->cpu_file;
+ 		iter->buffer_iter[cpu] =
+-			ring_buffer_read_prepare(iter->array_buffer->buffer,
+-						 cpu, GFP_KERNEL);
+-		ring_buffer_read_prepare_sync();
+-		ring_buffer_read_start(iter->buffer_iter[cpu]);
++			ring_buffer_read_start(iter->array_buffer->buffer,
++					       cpu, GFP_KERNEL);
+ 		tracing_iter_reset(iter, cpu);
+ 	}
+ 
+diff --git a/kernel/trace/trace_kdb.c b/kernel/trace/trace_kdb.c
+index 9da76104f7a28..18d1551db2b0d 100644
+--- a/kernel/trace/trace_kdb.c
++++ b/kernel/trace/trace_kdb.c
+@@ -43,17 +43,15 @@ static void ftrace_dump_buf(int skip_entries, long cpu_file)
+ 	if (cpu_file == RING_BUFFER_ALL_CPUS) {
+ 		for_each_tracing_cpu(cpu) {
+ 			iter.buffer_iter[cpu] =
+-			ring_buffer_read_prepare(iter.array_buffer->buffer,
+-						 cpu, GFP_ATOMIC);
+-			ring_buffer_read_start(iter.buffer_iter[cpu]);
++			ring_buffer_read_start(iter.array_buffer->buffer,
++					       cpu, GFP_ATOMIC);
+ 			tracing_iter_reset(&iter, cpu);
+ 		}
+ 	} else {
+ 		iter.cpu_file = cpu_file;
+ 		iter.buffer_iter[cpu_file] =
+-			ring_buffer_read_prepare(iter.array_buffer->buffer,
++			ring_buffer_read_start(iter.array_buffer->buffer,
+ 						 cpu_file, GFP_ATOMIC);
+-		ring_buffer_read_start(iter.buffer_iter[cpu_file]);
+ 		tracing_iter_reset(&iter, cpu_file);
+ 	}
+ 
+-- 
+2.50.1
 
 
 
-On 6/29/2026 11:51 PM, Nirujogi, Pratap wrote:
-> 
-> 
-> On 6/29/2026 7:30 AM, Ricardo Ribalda wrote:
->> [You don't often get email from ribalda@chromium.org. Learn why this
->> is important at https://aka.ms/LearnAboutSenderIdentification ]
->>
->> Caution: This message originated from an External Source. Use proper
->> caution when opening attachments, clicking links, or responding.
->>
->>
->> We are using the refcnt variable for refcounting. Use the refcount_t
->> type instead, as it has support for saturation and underflow.
->>
->> This also makes cocci happier, as it will fix the following warning:
->> ./platform/amd/isp4/isp4_subdev.c:394:6-25: WARNING:
->> atomic_dec_and_test variation before object free at line 395.
->>
->> Fixes: 4c5feef6a62c ("media: platform: amd: Add isp4 fw and hw
->> interface")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
->> ---
->>   drivers/media/platform/amd/isp4/isp4_interface.c | 4 ++--
->>   drivers/media/platform/amd/isp4/isp4_interface.h | 2 +-
->>   drivers/media/platform/amd/isp4/isp4_subdev.c    | 2 +-
->>   3 files changed, 4 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/media/platform/amd/isp4/isp4_interface.c b/
->> drivers/media/platform/amd/isp4/isp4_interface.c
->> index 8d73f66bb42c..00a817909292 100644
->> --- a/drivers/media/platform/amd/isp4/isp4_interface.c
->> +++ b/drivers/media/platform/amd/isp4/isp4_interface.c
->> @@ -375,7 +375,7 @@ static int isp4if_send_fw_cmd(struct
->> isp4_interface *ispif, u32 cmd_id,
->>                          return -ENOMEM;
->>
->>                  /* Get two references: one for the resp thread, one
->> for us */
->> -               atomic_set(&ele->refcnt, 2);
->> +               refcount_set(&ele->refcnt, 2);
->>                  init_completion(&ele->cmd_done);
->>          }
->>
->> @@ -455,7 +455,7 @@ static int isp4if_send_fw_cmd(struct
->> isp4_interface *ispif, u32 cmd_id,
->>
->>   put_ele_ref:
->>          /* Don't free the command if we didn't put the last reference */
->> -       if (ele && atomic_dec_return(&ele->refcnt))
->> +       if (ele && !refcount_dec_and_test(&ele->refcnt))
->>                  ele = NULL;
->>
->>   free_ele:
->> diff --git a/drivers/media/platform/amd/isp4/isp4_interface.h b/
->> drivers/media/platform/amd/isp4/isp4_interface.h
->> index ce3ac9b9e5cd..04db71cd54e6 100644
->> --- a/drivers/media/platform/amd/isp4/isp4_interface.h
->> +++ b/drivers/media/platform/amd/isp4/isp4_interface.h
->> @@ -68,7 +68,7 @@ struct isp4if_cmd_element {
->>          u32 seq_num;
->>          u32 cmd_id;
->>          struct completion cmd_done;
->> -       atomic_t refcnt;
->> +       refcount_t refcnt;
->>   };
->>
->>   struct isp4_interface {
->> diff --git a/drivers/media/platform/amd/isp4/isp4_subdev.c b/drivers/
->> media/platform/amd/isp4/isp4_subdev.c
->> index 48deea79ce6c..2a8bc1207843 100644
->> --- a/drivers/media/platform/amd/isp4/isp4_subdev.c
->> +++ b/drivers/media/platform/amd/isp4/isp4_subdev.c
->> @@ -391,7 +391,7 @@ static void isp4sd_fw_resp_cmd_done(struct
->> isp4_subdev *isp_subdev,
->>
->>          if (ele) {
->>                  complete(&ele->cmd_done);
->> -               if (atomic_dec_and_test(&ele->refcnt))
->> +               if (refcount_dec_and_test(&ele->refcnt))
->>                          kfree(ele);
->>          }
->>   }
->>
->> -- 
->> 2.55.0.rc0.799.gd6f94ed593-goog
->>
-> 
-> Reviewed-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
-> 
-> Thanks,
-> Pratap
-> 
-> 
 
-Reviewed-by: Bin Du <bin.du@amd.com>
+Amazon Web Services Development Center Germany GmbH
+Tamara-Danz-Str. 13
+10243 Berlin
+Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
+Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
+Sitz: Berlin
+Ust-ID: DE 365 538 597
 
-Regards,
-Bin
