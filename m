@@ -1,260 +1,158 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0920366DB5
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 09:53:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782813195; cv=none; b=ZvvLJIK0XP66JikK7Uada1zbfXANbHstVdND41Fa/c8CL3VpiZQ8DxGG1xmGhGpd80ZAiMUhMfZ7dQIqRNwF93WCBO3fdP42yN/dErFS0N4S7Nn7zfSHr6gdcVuBm73ungA4rZ6bAm49c6DhVhvErNjupoBE0xsJZhwAtfIpMk4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782813195; c=relaxed/simple;
-	bh=NbDEHp0gquR5Nq2A/cm+7E2L5SZ1Jhgmv94kZhkUywY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d5OcmtHP8kJ5+r7QCj8zR0qwpYw2Gc2P4bxvtLkrANvCtkb238MuYN/ENt0TRKH5t2q60foORRjIxiAdYQLxPic3DXg3Sg5Ixcom+OXoTF1etj2oMnCCWDjAJxAAFAPnJTz/ZHsGmMzFBdPjRk3mSTW/4aZsdvgTxZWvjqPWoIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ajjACraE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=flG5IDJ2; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9AB43EA942
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 10:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782813677; cv=pass; b=TX5WMqcbPH++Ez/fd4hsjhXv1HenvdaqTiuhoPDHk/NCn4A1+UnYS/ITYb4F5SiAs9VfbTr2Eg1s0qKZHTaH4Fewg8OBDRW/soRoQ2znmhycoCZNMx1tUNCaRb2/C9fZDymrwHn6fUbX03MIPuDimJ5nvtZobg94DB7KvhSD2O4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782813677; c=relaxed/simple;
+	bh=BU8JH/JOv4QfhOcoG4nN41cEWWJ+yoErkc6ymqiy3mk=;
+	h=In-Reply-To:References:MIME-Version:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bF+ZSD96yDoU0VV1gmtESY2I5iXR/B3BDLg1FFbxW0WN3BQ8zMeCZhaHgfN4PnM40wV2YW/0mmp4Utn5Tc1wMJZRe/QZNyeJKc0h6bTkTznV/m00udvTzu/w9pTtjKflk9TD8GnPuf3feXEibz/GYum1hIG4BzYb0vokDPVGtqg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CPaL+u7t; arc=pass smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ajjACraE";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="flG5IDJ2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782813193;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4wTpFP+uURpV7Es5gbDN0xr6tXZLlBB9VR1MULvKZf4=;
-	b=ajjACraEAs7QxAl/5WwiafHfYKzCCF903h/10kt1IW05pHLh3aXqvWOzFOvhURBCl4ROMF
-	GvyBXUsVSiIG+AoZonSTHyIQKXU7R+/s8R09isqxZHGLDZzSOxJobWkSaJKWU0xbV12ELi
-	y9n2rEJYpQOgz/wiRUobnb+hxno+IIs=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-26-uVj9zf6aPK-a5WIB19YTfg-1; Tue, 30 Jun 2026 05:53:09 -0400
-X-MC-Unique: uVj9zf6aPK-a5WIB19YTfg-1
-X-Mimecast-MFC-AGG-ID: uVj9zf6aPK-a5WIB19YTfg_1782813188
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47162f83c75so281087f8f.1
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 02:53:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CPaL+u7t"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-80fe8f03098so9423117b3.0
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 03:01:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782813675; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lDKI155gTlLLxdKakIxdNQNEogwmk6tmqWUkbCrrX/SKLIvXD924aTlDtH2FWMsHQ5
+         s9xdZC9wXokPdUvZB7bmcjKYTghNp9mxxnDQ4e1UXCnX/DDnqlYZ2MhL0rnDurzHDDAg
+         +3kPCDSKOeX+UIWXty4aLa3bgeTuZtdAcAlOatKU4gZQL96yEv18R+gGyXUmYR7Cb5ez
+         fWI6ouAFz9xICD/zUGHBrYr7DMd2Gh6ui7de9RUTrMDjTvhFb2aOePPzz4+xuiPtgw0p
+         qBBGrux6SjUZRSGt6hu9Hio5KNe/v4UEDzkElc6lCqqaEYiY2ryT233274Lp5NuQrb3c
+         7+HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:references
+         :in-reply-to:dkim-signature;
+        bh=BU8JH/JOv4QfhOcoG4nN41cEWWJ+yoErkc6ymqiy3mk=;
+        fh=Wn55ohqkRwy1yDE4z9zZ+hHF4k9iV8yM+O8OEaJLgRY=;
+        b=phmABVVu718naGVXXDTU1xcvRlZ/X1uLGuwyUWD32XbZAsLaRi5W23ogiVqm0bAE9n
+         PhFpuuwxnqMRJTztiDbhAUSNrCxeC4OcQz4ZX4NpKQeTtZ3LNhdwcuhfhtZYDkPUOBOZ
+         tPrwcRmVkd/71A9sSPXiazH7B1e6LOhus8HIzPV0CdajpUOIEX1j6Psaac+9mF0awGBL
+         4G52okPLZxJdyfvjIhd1niJSG2s7823HJjTZtDLPzAMT5hek+5ad6xFiktMk6qaizwto
+         j3QgdAtOxLRqqpaI58LNmdvM6vNFaBYkT99kr80lhuHXKtbtM5CRd4LJeDs6Ua9OICPZ
+         awfg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1782813188; x=1783417988; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4wTpFP+uURpV7Es5gbDN0xr6tXZLlBB9VR1MULvKZf4=;
-        b=flG5IDJ2hqHW0esT+mbR1XlgzZp+A3gpWkh+I4LyDmUY21Ok86j1MXal/n3wpcvbPa
-         EUfEzabuf4xebj87SDEHm8gtvrsUe3JJlOhC9XW/naZdU/qAdYABRt3JRjgiB6uS5eSN
-         oQ8mCFg7JRyQGhnLjuOtQtZKIZJ15+bFVGrDmPlSAZOStGKRQAH3f+lwHDGwlDQKtyy/
-         DnjcGAoFMdNagtSMyCZbOVIkxB5EOadqirFKlR1d8lZjD5MiAEB3IMBD0VMu6U5Cmq0j
-         ZvPNlaeiVYrLdXgLH5msXPaVcUDBr9u8IZ3BCiKtFgBf0Dg7/FE/gq1cGS24n3hUHYut
-         OYEA==
+        d=gmail.com; s=20251104; t=1782813675; x=1783418475; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:mime-version:references
+         :in-reply-to:from:to:cc:subject:date:message-id:reply-to;
+        bh=BU8JH/JOv4QfhOcoG4nN41cEWWJ+yoErkc6ymqiy3mk=;
+        b=CPaL+u7tZyg6q8JqiZIQCnevYwkTiYcFgN4EXE9XzrjQ3y/dZ6QVG9xiiBPEhjDpws
+         lzm82z2pFIfMpTdn0BYvT5xR/bYjw9RYojzy+jJUPUef0E1/F1wtZTpiz29xroJURrah
+         R2iTlNt5bxaQ4DWrCkoEhXDpciXJ2I4ml5zjRwrgyscBJ2DNqrCAIkfQAQDrsAHG+z/S
+         c0krm2DB9foaeWFusuI22q+7fmEfGX7ht8Qg+raLFo4eugVVLpvVOkl63sSWL9rGCQNQ
+         bQh4r8BcOzJwb/mcBOYeJ+lkg62XgIEkszHlUhEooHF7WVez550xwgUHXe3VIr7C41ET
+         UVvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782813188; x=1783417988;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4wTpFP+uURpV7Es5gbDN0xr6tXZLlBB9VR1MULvKZf4=;
-        b=YMMdLw4ACDvdElOmqhGZsTGX8vzggUu2xBfoHJS3/S0S068TrCzs8dKOqRd2rbDq37
-         K4FSEQe6XQF3+cSVYjAYOPmjBjrwsgOx7W/gEvrRbcC3ecK41wS2wdx25UBI8xvJK42F
-         Gt1wF9J7vOpSDLi2GlNBy/y5+huf5xNwJuRKp4dRpolKCL3Ghsgbm0q4BmWwQM38I6JW
-         d4lddF3c4ZZSYS9vnX3jj4TBsdWUN+pmQC3tIF9pIQ/q5bWPn0ZRS2RAJmnZxt4V207q
-         aqAWj8vZceC+WaMlxB8Mc4Cz+OOpAcZRh9wNgBlaxaYCPJe8ThOMcNhqRZ1P9YUoZfX4
-         pUpg==
-X-Forwarded-Encrypted: i=1; AHgh+RqanwcqVKwuyJQ53qyQWJ0EbD538YK4WtMXPiHy52Oxta/fhxdiD0W3K/SnqwCUxdVkb28VTYM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEhy5EGjFwn0EO0dJl2e6XCYljiEvKBH++4QQNzCmw3zcq/ux+
-	QJyG/evJzevtAAv0HYzCMRt4nLxOE7XwdS7bope0BP2HxQVto0gdaSurqviHrpHqZnrft2KyS07
-	aUzfyJB1Sc2NBU8dliVRl0uMhhHqQH28TkL9E0sAnephdbTbJYxANVEqg9w==
-X-Gm-Gg: AfdE7ckyzpbWqUaOE7ORCyM8n4WrLkmfSVs6dfp6hvGI3IwWDj4PyHtyMUJuCUBXRGd
-	U1bYh8WPWtlxFjS2Qi0wnWSBsShgsnGQIS0AeKQFH1dI1R+ey/E11vqwmJJSRwTi96L0553VbZJ
-	XfaPdm2FUJ2oZfAXhaQ6wLWVNv1/YOg/7Zo/mSAVeX2KyNGd0NIteUTyCsNq3dUXgDDW4PgRrqy
-	O5umT+8vXXEX9RG4Zb4S5yudwS+XFMYdDMiMP1NEJtvqc+JfVWgeoyypfGVg3xCQ8UC8Q5Kwvl+
-	7tm1fBZ82PxySQmIWUTFopOzpkxBT7iAl5Na2HYt1SsZ60Blv6SW90XR9iMJRcTiJC/APerWCD1
-	WvRt1Tj2J9kA1UThwzW2Uu3O4la0c5Iv2abC/qwUPVbRoVMgIMLSsztYrgmwqNJdCWTQAmO1Ftd
-	QcMkY1S4tBfA==
-X-Received: by 2002:a05:6000:1847:b0:45d:4c30:81a6 with SMTP id ffacd0b85a97d-475f4fb5d50mr1344059f8f.5.1782813188245;
-        Tue, 30 Jun 2026 02:53:08 -0700 (PDT)
-X-Received: by 2002:a05:6000:1847:b0:45d:4c30:81a6 with SMTP id ffacd0b85a97d-475f4fb5d50mr1344016f8f.5.1782813187784;
-        Tue, 30 Jun 2026 02:53:07 -0700 (PDT)
-Received: from ?IPV6:2a0d:3344:5521:6b10:2eb7:f61a:75:4534? ([2a0d:3344:5521:6b10:2eb7:f61a:75:4534])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4756636cf65sm6669391f8f.21.2026.06.30.02.53.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jun 2026 02:53:05 -0700 (PDT)
-Message-ID: <6a6be4b0-e02d-46ca-b8bf-c27bd681d253@redhat.com>
-Date: Tue, 30 Jun 2026 11:53:04 +0200
+        d=1e100.net; s=20251104; t=1782813675; x=1783418475;
+        h=cc:to:subject:message-id:date:from:mime-version:references
+         :in-reply-to:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BU8JH/JOv4QfhOcoG4nN41cEWWJ+yoErkc6ymqiy3mk=;
+        b=UTfWQiAT/uadJlWDHVODBO7KRjRDH7RijtLUNZuLGZXDLmSO5k4Q3pBJ0GT4JKdi3E
+         d5unz8zo18DakfCMpKw5cu4T1x7FsIg3S7SfsVUtixSrc0jLjUz0SHZqaJ2++40vlyxX
+         5Hf4rTeXZS/k7aOY9A+LZQeKmKiJNWem1DMW98Z4sYUWCnwPhVGGxLOIQ6JhduyXEdRY
+         3/cNvCob0T8StHGNPIZ+6yWQc9it1gnusVZDJwQXXl4MZWfavAaZZGjawl1JwwI4XyIs
+         j2Sb7AEmoA4S/NhvitsEmM8USa7miXnf+rV+U/O+p82DwcrOPbw3fmK/unnkvzTG81H2
+         zM3g==
+X-Forwarded-Encrypted: i=1; AHgh+RpRR0V3FhR6hOUswbPnrUAtXP2pQoNx/lboQvccx+ghV1RcH7LpeGsX0GtKzN04FJcS8k9cOJM=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yynu5VMdrMhQiIKOQXhsd1C8T8z89cI580RLdZ/sVQjbRiMcO3C
+	la3FSseezDwBkcGgJOcMon04s14nsfgGB52ET1q3pm3zG7xWQbki5xJdFm1/XjmmzBBBDxJ31hw
+	0/BhM+lI+J0EoZKL3JVCKKE9H1RBUWDc=
+X-Gm-Gg: AfdE7ckcCNVy6UeqW3CyOgloPpCuDt5k3b7Qq7TVyPnhJ/S2ExC/mswKjTDvXRbI7c5
+	Qzn2x/LzLpfnR6wD2yoIBlQrUVt9zorrJk4M5jkWkLr4QIjujVZl515zQto9Bmkg8WIDKaKXGVb
+	LREmobBGN0E3X64yGovT4V0rhkCjuivOHeXAuVlt/PQzFl0UzaH126m8JcLdI/O/cVLFqIFyy1U
+	10+CvuyEO16dfpKcEnqvua6tOiakyYuqfvg+XROwSkMl+7zitteeliFGzA3+57lIXyxMn8p
+X-Received: by 2002:a05:690c:6186:b0:80a:a005:8415 with SMTP id
+ 00721157ae682-810d9f0dfdcmr33829617b3.53.1782813674742; Tue, 30 Jun 2026
+ 03:01:14 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 30 Jun 2026 12:01:13 +0200
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 30 Jun 2026 12:01:13 +0200
+In-Reply-To: <20260629203959.GD6078@frogsfrogsfrogs>
+References: <20260628094748.46578-1-alhouseenyousef@gmail.com> <20260629203959.GD6078@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 1/2] vsock/virtio: collapse receive queue under memory
- pressure
-To: Stefano Garzarella <sgarzare@redhat.com>, netdev@vger.kernel.org
-Cc: Jason Wang <jasowang@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
- "Michael S. Tsirkin" <mst@redhat.com>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
- linux-kernel@vger.kernel.org, Stefan Hajnoczi <stefanha@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, =?UTF-8?Q?Eugenio_P=C3=A9rez?=
- <eperezma@redhat.com>, stable@vger.kernel.org,
- Brien Oberstein <brienpub@gmail.com>
-References: <20260626134823.206676-1-sgarzare@redhat.com>
- <20260626134823.206676-2-sgarzare@redhat.com>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260626134823.206676-2-sgarzare@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Date: Tue, 30 Jun 2026 12:01:13 +0200
+X-Gm-Features: AVVi8Cc_DhIdO3oFvX3YF7lE0hO5f0INVLW3aYt7sEymvlUtFIcfTvhSp8X8zwQ
+Message-ID: <CAMuQ4bXUrZV000bcc-XfPoyBoWFGWAwZRZb-1WDG+BrT5pzuCg@mail.gmail.com>
+Subject: Re: [PATCH] xfs: zero newly allocated btree root space
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, syzbot+97f2c05378c5d68dcb8c@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 6/26/26 3:48 PM, Stefano Garzarella wrote:
-> From: Stefano Garzarella <sgarzare@redhat.com>
-> 
-> When many small packets accumulate in the receive queue, the skb overhead
-> can exceed buf_alloc even while the payload is within bounds. This causes
-> virtio_transport_inc_rx_pkt() to reject packets, leading to connection
-> resets during large transfers under backpressure.
-> 
-> The issue was reported by Brien, who has a reproducer, but it is also
-> easily reproducible with iperf-vsock [1] using a small packet size:
-> 
->   iperf3 --vsock -c $CID -l 129
-> 
-> which fails immediately without this patch but with commit 059b7dbd20a6
-> ("vsock/virtio: fix potential unbounded skb queue").
-> 
-> Inspired by TCP's tcp_collapse() which solves a similar problem, add
-> virtio_transport_collapse_rx_queue() that walks the receive queue and
-> re-copies data into compact linear skbs to reduce the overhead.
-> 
-> The collapse is triggered from virtio_transport_recv_enqueue() when
-> virtio_transport_inc_rx_pkt() fails. A pre-scan counts the eligible bytes
-> to size each allocation precisely, avoiding waste for isolated small
-> packets. Partially consumed skbs are kept as-is to preserve
-> buf_used/fwd_cnt accounting, EOM-marked skbs to maintain SEQPACKET
-> message boundaries, and skbs already larger than the collapse target
-> because they already have a good data-to-overhead ratio.
-> 
-> [1] https://github.com/stefano-garzarella/iperf-vsock
-> 
-> Fixes: 059b7dbd20a6 ("vsock/virtio: fix potential unbounded skb queue")
-> Cc: stable@vger.kernel.org
-> Reported-by: Brien Oberstein <brienpub@gmail.com>
-> Closes: https://lore.kernel.org/netdev/618701dd023e$063de350$12b9a9f0$@gmail.com/
-> Tested-by: Brien Oberstein <brienpub@gmail.com>
-> Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
-> ---
->  net/vmw_vsock/virtio_transport_common.c | 148 +++++++++++++++++++++++-
->  1 file changed, 146 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-> index 09475007165b..304ea424995d 100644
-> --- a/net/vmw_vsock/virtio_transport_common.c
-> +++ b/net/vmw_vsock/virtio_transport_common.c
-> @@ -420,6 +420,137 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
->  	return ret;
->  }
->  
-> +static bool virtio_transport_can_collapse(struct sk_buff *skb,
-> +					  unsigned int size)
+It can, but krealloc() requires __GFP_ZERO on the initial allocation
+and every subsequent allocation/reallocation of the object. I missed
+that requirement here.
 
-Why passing a `size` argument here? AFAICS the actual argument is always
-a constant and IMHO rightfully so.
+I'll send v2 using __GFP_ZERO consistently in xfs_broot_alloc() and
+all allocation paths in xfs_broot_realloc(), instead of the explicit
+memset.
 
-> +{
-> +	/* skbs that are partially consumed, mark a SEQPACKET message boundary,
-> +	 * or are already large enough should not be collapsed: they either
-> +	 * need special accounting, carry protocol state, or already have a
-> +	 * good data-to-overhead ratio.
-> +	 */
-> +	if (VIRTIO_VSOCK_SKB_CB(skb)->offset)
-> +		return false;
-> +	if (le32_to_cpu(virtio_vsock_hdr(skb)->flags) & VIRTIO_VSOCK_SEQ_EOM)
-> +		return false;
-> +	if (skb->len >= size)
-> +		return false;
-> +	return true;
-> +}
-> +
-> +/* Iterate through the packets in the queue starting from the current skb to
-> + * count the number of bytes we can collapse.
-> + */
-> +static unsigned int
-> +virtio_transport_collapse_size(struct sk_buff *skb,
-> +			       struct sk_buff_head *queue,
-> +			       unsigned int max_size)
-> +{
-> +	unsigned int target = skb->len - VIRTIO_VSOCK_SKB_CB(skb)->offset;
-> +
-> +	while ((skb = skb_peek_next(skb, queue)) &&
-> +	       virtio_transport_can_collapse(skb, max_size)) {
-> +		unsigned int len = skb->len - VIRTIO_VSOCK_SKB_CB(skb)->offset;
-> +
-> +		if (len > max_size - target)
-> +			return target;
-> +
-> +		target += len;
-> +	}
-> +
-> +	return target;
-> +}
-> +
-> +/* Called under lock_sock when skb overhead exceeds the budget. */
-> +static void virtio_transport_collapse_rx_queue(struct virtio_vsock_sock *vvs)
-> +{
-> +	/* Use the same linear allocation threshold as virtio_vsock_alloc_skb()
-> +	 * to avoid adding pressure on the page allocator.
-> +	 */
-> +	unsigned int collapse_max = SKB_MAX_ORDER(VIRTIO_VSOCK_SKB_HEADROOM,
-> +						  PAGE_ALLOC_COSTLY_ORDER);
-> +	struct sk_buff *skb, *next_skb, *new_skb = NULL;
-> +	struct sk_buff_head new_queue;
-> +
-> +	__skb_queue_head_init(&new_queue);
-> +
-> +	skb_queue_walk_safe(&vvs->rx_queue, skb, next_skb) {
+Thanks,
+Yousef
 
-If the queue is relevantly big, walking all of it may take a significant
-amount of time/cache misses and causes traffic burstines. I think you
-could add an additional stop condition, i.e. when the current queue size
-is below a reasonable threshold (allowing the current packet to be
-inserted plus some more slack).
-
-/P
-
-> +		struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> +		u32 src_off = VIRTIO_VSOCK_SKB_CB(skb)->offset;
-> +		u32 src_len = skb->len - src_off;
-> +		bool keep = false;
-> +
-> +		if (!virtio_transport_can_collapse(skb, collapse_max)) {
-
-Minor nit, possibly something alike the following lead to more
-compact/more readable code:
-
-
-		keep = !virtio_transport_can_collapse(skb, collapse_max);
-		if (keep) {
-
-> +			/* Finalize pending collapsed skb to preserve packet
-> +			 * ordering.
-> +			 */
-> +			if (new_skb) {
-> +				__skb_queue_tail(&new_queue, new_skb);
-> +				new_skb = NULL;
-> +			}
-> +			keep = true;
-> +			goto next;
-> +		}
-> +
-> +		/* Finalize if this packet won't fit in the remaining tailroom,
-> +		 * so we can allocate a right-sized new_skb.
-> +		 */
-> +		if (new_skb && src_len > skb_tailroom(new_skb)) {
-> +			__skb_queue_tail(&new_queue, new_skb);
-> +			new_skb = NULL;
-
-Possibly introduce an helper for the above 2 statements?
-
-/P
-
+On Mon, 29 Jun 2026 13:39:59 -0700, "Darrick J. Wong" <djwong@kernel.org> wrote:
+> On Sun, Jun 28, 2026 at 11:47:48AM +0200, Yousef Alhouseen wrote:
+> > xfs_broot_realloc() preserves the existing in-inode btree root while
+> > growing its allocation, but leaves the added bytes uninitialized. The
+> > inode log formatter copies if_broot_bytes bytes into the journal, so those
+> > bytes reach the log record and its CRC calculation before every location
+> > has necessarily been overwritten by btree updates.
+> >
+> > Clear the newly allocated tail immediately after a successful growth to
+> > keep stale heap contents out of the filesystem log.
+> >
+> > Fixes: 6c1c55ac3c05 ("xfs: refactor the inode fork memory allocation functions")
+> > Reported-by: syzbot+97f2c05378c5d68dcb8c@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=97f2c05378c5d68dcb8c
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+> > ---
+> > fs/xfs/libxfs/xfs_inode_fork.c | 3 +++
+> > 1 file changed, 3 insertions(+)
+> >
+> > diff --git a/fs/xfs/libxfs/xfs_inode_fork.c b/fs/xfs/libxfs/xfs_inode_fork.c
+> > index 606a36526ce2..0d81c78f5afe 100644
+> > --- a/fs/xfs/libxfs/xfs_inode_fork.c
+> > +++ b/fs/xfs/libxfs/xfs_inode_fork.c
+> > @@ -398,6 +398,8 @@ xfs_broot_realloc(
+> > struct xfs_ifork *ifp,
+> > size_t new_size)
+> > {
+> > + size_t old_size = ifp->if_broot_bytes;
+> > +
+> > /* No size change? No action needed. */
+> > if (new_size == ifp->if_broot_bytes)
+> > return ifp->if_broot;
+> > @@ -430,6 +432,7 @@ xfs_broot_realloc(
+> > */
+> > ifp->if_broot = krealloc(ifp->if_broot, new_size,
+> > GFP_KERNEL | __GFP_NOFAIL);
+> > + memset((char *)ifp->if_broot + old_size, 0, new_size - old_size);
+>
+> Why doesn't GFP_ZERO work to clear the new memory?
+>
+> --D
+>
+> > ifp->if_broot_bytes = new_size;
+> > return ifp->if_broot;
+> > }
+> > --
+> > 2.54.0
+> >
+> >
