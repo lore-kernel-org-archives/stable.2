@@ -1,95 +1,95 @@
-Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com [209.85.210.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-180.mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00321349CE6
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 14:45:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A340410D09
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 14:47:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782830730; cv=none; b=Lt02WQfKAtsi1PR9vo3tJQP3WqEJLrCN57hZ7KFdNxZ3TlkpsbPLy7YNF7/T7Fux9H+nxD/injLTgTtJ4WVfSGSMRdakmSXXRxY7C/1hO+1FEsUJ6KBoAvzi7uTu9qjxMEXCJ/XLfJiNAD4LnO6MmdZ1x4Cg2EfHYaFZgozmeLQ=
+	t=1782830867; cv=none; b=S/biMiigZvkqs50va7xTjYW06ua8v6wJEQwDRWdTV8A/vngYRTGLEEiA5R3+LhG/1oPYiblyRhVkPIU5w2wdoCnmYlS42mMZvd4BSvKZUNxy7V3JAAmOjAbDvbJrUjtm+jATNcYCI7TOmCaLgCHKx+gcQR+6X8SAs9eM85RjgcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782830730; c=relaxed/simple;
-	bh=/q6XtpR0sR9fw02i48k3vckGPMXCPX+g9spOGktbTGI=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=EozgajDfBuarfW7+rQmdS7nuz5nIBzVXHV55e0MC1Z2sIlbPf2SVq0KAb6UIX2+BTsDrr6DiCMROJvGl0WsD9qbknwx57OOLROzzkAk5EAaketYOdbxhdSa4tF/hfc1MXW+N4RX6BmkKGeV96UWCCHDG3J6lbwVSLQ714zHHCPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tfAJrUjQ; arc=none smtp.client-ip=209.85.210.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1782830867; c=relaxed/simple;
+	bh=I/zLi514bfgMzHbULipHGX78klpg+H8YN/GCoHJja18=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k6u5UZ4QdRaS0Y2z/97VyaWW/3QL9qWVtelH5gkfyCtaM92vbbSAzus3Nz1o7AVHbR2tGuOlaVGizGu5pCnO7HoekicoDml4mEciD1UOmXbgTvEsts3ADjuO38JtHfquAcpE4Uvi7rXAokd5/9gq4CuomvpHsZAYmqjFfciX8N8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FmJRX50X; arc=none smtp.client-ip=95.215.58.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tfAJrUjQ"
-Received: by mail-pf1-f201.google.com with SMTP id d2e1a72fcca58-84777e9b51bso3175436b3a.2
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 07:45:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782830728; x=1783435528; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=rZ+ykOnpuz4GlNAG8Lxp+ssON7jaEsuqG2UOo0T+7uY=;
-        b=tfAJrUjQ1CJ6AVVMs87NrCaTbRZtMaFpUikbQZJEvepYJj8Q3LUJcKHbcWLkUo9KmY
-         s47xQABx5/IMQtHzkBHnGQvqGEJvAbLwm8aSMtCf3NsA3c4671naAgb0L0JnN3TmU6Y1
-         P2BO+NFyhZ4AdXCa/YmecgkgUtFvuQBJTALtHiQWJCtGcA+LRdM5k7FOPpo48+q+o+xF
-         iajmZdzl7XzhX7c7GN0jh7t0uqtpXZ8Ex+722xsXO2WekK0IfVv/n/dnzBTKd6axpkbG
-         v0TzBsqATYdt2RtAtXzJh0Y368CDS0RcjcH3bXSj7couciDmUM0+1Z9SoKY9byUIEbVg
-         kadA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782830728; x=1783435528;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rZ+ykOnpuz4GlNAG8Lxp+ssON7jaEsuqG2UOo0T+7uY=;
-        b=TeLdZ6GGoy5z5dHjvJcIbSexJjs9SEmHBOVRmcWEix2j7cKOwME1N5oai5JnR9ewtb
-         yWSbdS6wHROvZ/fKAia1hiaLpmU3Raq+v5lXVwGOg8ZS6Vc+HyiR/19R7fqAnFE+11FR
-         3cHGQSGwE2cuG8OWJMN1CznDsu/N2B8HrHwRAzqqF56pwNVSECfSTctPrPY+mPR205SJ
-         cPQWZ1fPVd5jfvE2CD+3tlBlqdcJHtCvd98wsGOFQge6782/CgdLh6VtdvHSkQWSdGah
-         m0/zVJIGnWPH1AaqTEq/nTSzY5UDGkLiu/Y0hVP9ON2tHCxFebXDLSrqaRxQln9oy0nZ
-         m9mg==
-X-Forwarded-Encrypted: i=1; AHgh+RqTGjbeBXF+Yh6pf6NDCxuxUaAGCXmORbZPcOe19CDCNX4P5kHm3Hg51XpGzl01Kt5ZL4qkQWc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxhPc6qL34FIpFaEp1s+k8QftHAqZ4dVhVehTvY1F6d62n8aoe3
-	3D26np5E/3LLTnV7depsoUpy+qsLmky2WKsmRsZPN/69ZZnckdj0FXGfuCBwOfbNTT6q35BaAmz
-	iNBpKzw==
-X-Received: from pfbml1.prod.google.com ([2002:a05:6a00:3d81:b0:847:ac08:fdf6])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:430b:b0:846:1698:638b
- with SMTP id d2e1a72fcca58-8479f12294amr3318831b3a.27.1782830727773; Tue, 30
- Jun 2026 07:45:27 -0700 (PDT)
-Date: Tue, 30 Jun 2026 07:45:27 -0700
-In-Reply-To: <20260626193343.256956-3-jinpu.wang@ionos.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FmJRX50X"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782830854;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ec4y5CC9osX1Fg3YZN+Ow/rvBlJD1nIcT1j8LM/GIAs=;
+	b=FmJRX50XWFqK5QpU/Lvd2417iY8koi8gFcrrlCJZ0ywgG9BIYPSxM1kBham4gcZRtHT+3C
+	HssL7y8kdeHl0btKk6Tdd1envqSoEJNhkTWliRUtxC/hZY0yn+CRBrH+UO+Tjmy9mlxfPr
+	bBh65Em9nvNfgtDhFGZPfLqWE4cVp4w=
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: vbabka@kernel.org,
+	ziy@nvidia.com,
+	akpm@linux-foundation.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	jackmanb@google.com,
+	hannes@cmpxchg.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	yuzhao@google.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Lance Yang <lance.yang@linux.dev>
+Subject: Re: [PATCH] mm/page_alloc: free allocated PFNs if the range does not match
+Date: Tue, 30 Jun 2026 22:47:14 +0800
+Message-Id: <20260630144714.66550-1-lance.yang@linux.dev>
+In-Reply-To: <d44ae8a5-ec70-456b-92a0-ce7ccabf6917@kernel.org>
+References: <d44ae8a5-ec70-456b-92a0-ce7ccabf6917@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260626193343.256956-1-jinpu.wang@ionos.com> <20260626193343.256956-3-jinpu.wang@ionos.com>
-Message-ID: <akPWh6PelrFlotF1@google.com>
-Subject: Re: [stable-6.12 v2 2/3] KVM: SEV: Reject MMIO requests larger than 8
- bytes with GHCB v2+
-From: Sean Christopherson <seanjc@google.com>
-To: Jack Wang <jinpu.wang@ionos.com>
-Cc: gregkh@linuxfoundation.org, sashal@kernel.org, stable@vger.kernel.org, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Paolo Bonzini <pbonzini@redhat.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On Fri, Jun 26, 2026, Jack Wang wrote:
-> From: Sean Christopherson <seanjc@google.com>
-> 
-> commit dcf1b2d4b0564a27e4ca7c654871aab4f9620046 upstream.
-> 
-> When using GHCB v2+, reject MMIO requests that are larger than 8 bytes.
-> Per the GHCB spec:
-> 
->   SW_EXITINFO2 must be less than or equal to 0x7fffffff for version 1 and
->   less than or equal to 0x8 for all other versions.
-> 
-> Fixes: 4af663c2f64a ("KVM: SEV: Allow per-guest configuration of GHCB protocol version")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Message-ID: <20260501202250.2115252-4-seanjc@google.com>
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-Same comment about documentation the changes.
+On Tue, Jun 30, 2026 at 03:39:56PM +0200, David Hildenbrand (Arm) wrote:
+>On 6/30/26 09:44, Vlastimil Babka (SUSE) wrote:
+>> On 6/30/26 03:35, Zi Yan wrote:
+>>> When using __GFP_COMP in alloc_contig_frozen_range(), if the allocated
+>>> range does not match the requested one, the code errors out with EINVAL
+>>> without freeing the allocated PFNs and causes free page leaks. Fix it by
+>>> calling release_free_list() in the error path.
+>>>
+>>> The issue is reported by Sashiko[1].
+>> 
+>> So this?
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> 
+>>> Fixes: e98337d11bbd ("mm/contig_alloc: support __GFP_COMP")
+>>> Link: https://sashiko.dev/#/patchset/20260628-keep-subpage-private-zero-at-free-v1-0-f4ce3930d10f@nvidia.com [1]
+>>> Signed-off-by: Zi Yan <ziy@nvidia.com>
+>>> Cc: stable@vger.kernel.org
+>> 
+>> Hm well, it's a path that warns, can only happen due to a development error?
+>> Not sure we care about stable then. Anyway.
+>> 
+>
+>If someone would run into the WARN we would already be in Fixes: territory.
+>
+>it's a path that should never be executed. If it does, the real issue must be fixed.
+>
+>So (a) I don't think this is stable material (b) I am skeptical that this is
+>even a Fixes and (c) I am wondering whether we should touch this *at all*.
 
-[Jack: Open code response as svm_vmgexit_bad_input() doesn't exist in 6.12,
-       nor does GHCB_HV_RESP_MALFORMED_INPUT (the literal '2').  Duplicate
-       fix to split READ/WRITE paths. ]
+FWIW, this patch looks fine defensively, but probably not a stable
+material unless we know a real caller can hit it :)
 
-> Signed-off-by: Jack Wang <jinpu.wang@ionos.com>
-
-Acked-by: Sean Christopherson <seanjc@google.com>
+Cheers, Lance
