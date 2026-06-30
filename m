@@ -1,33 +1,33 @@
 Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3090366052;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2FF93655CF;
 	Tue, 30 Jun 2026 13:50:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.38.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782827414; cv=none; b=AM7Lg9MftamFpsvOiDHrqImlrSBsTt8m4UW0ocWzR0BDmhUyC4BzTqvCjW3yc2LtK9DQOWAURbrkgfxZBs0xp9Y9WSigICLs8X5ftR0EjllYspYB4XIM97st/higI3nHDtiy+PiPKd6mHwldh8H98+9pcYMNl7P/39olm5ofgnw=
+	t=1782827414; cv=none; b=nS6kJyiaAyCVV0uHTWGm/kv7tnGat9R6oVm2rugp5v+aMK2Jkb4PWKvG5I4SxfYKrRhhD/wwkZDT7G8215L4EVTmVseAMgFyE975/IBNnjQNGT+LSkHrOHyMRjcihFpEtdVCAosCY8DywhTZG2UFHD9fUck/VMAENW0yT3e/LO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782827414; c=relaxed/simple;
-	bh=0waat0bcc64myjOjt1ucKwriB7oQE5aosJTDY2Mu3n4=;
+	bh=dEfcVMqAagf5Z/KbO/YMEcTRUts5sKjg9t3G2nt5OUQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WV0xjiFR4JAW1q2o+zewMIpVzbGhR9HfCNroLhIxSmyiW81pQNOl7HCK/Y6lxXIoBDTx5CwBRZlEHmyU/FsrDvWEUOHCNIPLDpoyPJA91yT6ALxq3d+vaoQFZTJJfjFD5h6c8boCL+hzfpAf6XCpJ9rIieptZpTHSg4YivePQZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de; spf=pass smtp.mailfrom=simonwunderlich.de; dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b=gSGup5cP; arc=none smtp.client-ip=23.88.38.48
+	 MIME-Version; b=IHIpmmf7vqhvcp8qXrrILUeqT7xHuB8gYuvQMOxfX8k94AJQjOObK3hvYy6Kqlz0nZDTfRMLvnKIEQGudzynOp0P9WQhmcqHbpPC2Y2ZqzoH4mJ5pBn2MzMRfQv6EHU30hPZ4Zcqp29VcSb2SRtBZvs6njPzdFtUPYuLLjG7S+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de; spf=pass smtp.mailfrom=simonwunderlich.de; dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b=InxosmK1; arc=none smtp.client-ip=23.88.38.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b="gSGup5cP"
+	dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b="InxosmK1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
-	s=09092022; t=1782827072;
+	s=09092022; t=1782827074;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SOjchQvhacxvYrMble3BHRhvtECYrwp0WDh1TmLB26c=;
-	b=gSGup5cPIGZra0Xv5mvac2TW7IAkfBMTTDmKokVrMFVTdIcQX4RTZQB4da1DRBJk69tbNw
-	OmXD0uvyEiF3ZcmlgHScJd8qtLwGlnTk+R4JgIrJ3GNybfVJKxBVedtauHfaMAA+aXFcGC
-	iF+MzJyAZm4oq9VyYtAcv/PgWiUhnCUdZhlNN86N6c9ZLH/QBMUicyeRpqa+GxMlTPdIV4
-	Bo9fc1Fp3QYFkUKi8WpRu522oW3xrXHb2TrHreFhdcwwzVqcmwEj4TrTpfyaU4xKX+9WqV
-	XGj59EcKqkbDY/b3aZxRO2q19+2j7DTTD869zlUBGfj2NI9Kl49bcBvF3mNxhw==
+	bh=JBuHPZ3Gw+mxEmOkIIjrkJNU1dKRnB7h3kisH349Hag=;
+	b=InxosmK1H4dBLqnjRvXv8/9FIZjpGJzRKYs6i7DJrTtsB0sA9lDmbj6mQVVUb1ruxDE9SN
+	I/ETKihQZlImJOidz2lWiDk/tBdPM076Jzg6dxEerRixHCo2BAUoVM5IzhT/ig8VCVL7br
+	v+hRDptzhwlKxAQvOmJkt8ybClTmNbgVGx8hUiyj1jr0kLczS76lNsUxhE7bITB4zrN3Sq
+	iudM3agVD3ZQ1AhCweabAxgLuJScwlPCFv+m96ypwxk+VEF5Kt8lr20/dDZjs2SsU22sAq
+	rz47rE7gIxGqoIFQxOCd18hUgpHpOFp3X5Z3ci3tYPuPoSl3qs0Yhoa04IXpkA==
 From: Simon Wunderlich <sw@simonwunderlich.de>
 To: netdev@vger.kernel.org
 Cc: "David S. Miller" <davem@davemloft.net>,
@@ -38,11 +38,10 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	b.a.t.m.a.n@lists.open-mesh.org,
 	Sven Eckelmann <sven@narfation.org>,
 	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
 	Simon Wunderlich <sw@simonwunderlich.de>
-Subject: [PATCH net 1/6] batman-adv: retrieve ethhdr after potential skb realloc on RX
-Date: Tue, 30 Jun 2026 15:44:25 +0200
-Message-ID: <20260630134430.85786-2-sw@simonwunderlich.de>
+Subject: [PATCH net 3/6] batman-adv: gw: acquire ethernet header only after skb realloc
+Date: Tue, 30 Jun 2026 15:44:27 +0200
+Message-ID: <20260630134430.85786-4-sw@simonwunderlich.de>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260630134430.85786-1-sw@simonwunderlich.de>
 References: <20260630134430.85786-1-sw@simonwunderlich.de>
@@ -56,35 +55,37 @@ Content-Transfer-Encoding: 8bit
 
 From: Sven Eckelmann <sven@narfation.org>
 
-pskb_may_pull() in batadv_interface_rx() could reallocate the buffer behind
-the skb. Variables which were pointing to the old buffer need to be
+The pskb_may_pull() called by batadv_get_vid() could reallocate the buffer
+behind the skb. Variables which were pointing to the old buffer need to be
 reassigned to avoid an use-after-free.
 
-This was done correctly for the VLAN header but missed for the ethernet
-header which is later used for the TT and AP isolation handling.
-
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: c6c8fea29769 ("net: Add batman-adv meshing protocol")
-Fixes: c78296665c3d ("batman-adv: Check skb size before using encapsulated ETH+VLAN header")
+Fixes: 6c413b1c22a2 ("batman-adv: send every DHCP packet as bat-unicast")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
 ---
- net/batman-adv/mesh-interface.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/batman-adv/gateway_client.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/batman-adv/mesh-interface.c b/net/batman-adv/mesh-interface.c
-index 44026810b99ce..511f70e0706a7 100644
---- a/net/batman-adv/mesh-interface.c
-+++ b/net/batman-adv/mesh-interface.c
-@@ -434,6 +434,7 @@ void batadv_interface_rx(struct net_device *mesh_iface,
- 		if (!pskb_may_pull(skb, VLAN_ETH_HLEN))
- 			goto dropped;
+diff --git a/net/batman-adv/gateway_client.c b/net/batman-adv/gateway_client.c
+index 305488a74a256..a5ac82eabd250 100644
+--- a/net/batman-adv/gateway_client.c
++++ b/net/batman-adv/gateway_client.c
+@@ -684,12 +684,13 @@ bool batadv_gw_out_of_range(struct batadv_priv *bat_priv,
+ 	struct batadv_gw_node *gw_node = NULL;
+ 	struct batadv_gw_node *curr_gw = NULL;
+ 	struct batadv_neigh_ifinfo *curr_ifinfo, *old_ifinfo;
+-	struct ethhdr *ethhdr = (struct ethhdr *)skb->data;
++	struct ethhdr *ethhdr;
+ 	bool out_of_range = false;
+ 	u8 curr_tq_avg;
+ 	unsigned short vid;
  
-+		ethhdr = eth_hdr(skb);
- 		vhdr = skb_vlan_eth_hdr(skb);
+ 	vid = batadv_get_vid(skb, 0);
++	ethhdr = (struct ethhdr *)skb->data;
  
- 		/* drop batman-in-batman packets to prevent loops */
+ 	if (is_multicast_ether_addr(ethhdr->h_dest))
+ 		goto out;
 -- 
 2.47.3
 
