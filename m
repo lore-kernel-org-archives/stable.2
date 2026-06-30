@@ -1,140 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F064B218ADD;
-	Tue, 30 Jun 2026 19:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6363C4154
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 19:49:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782848036; cv=none; b=YCMTOTRgrGLpuveSaBmXgzRjr7ZONMuFiwTkVd/4r+n0cOCfyfoEDFVKHIo+Vmfu71WQXU2DQXV4mUSSM6ppu5BJB2ctmhC5YiyoZzvsMLwjTOF0hpj+PsfKWVfVMzoLe6tqTSB0OLrPJyM+ttJ8odBQHzu1Utj7bINK3yH7k8c=
+	t=1782848999; cv=none; b=BH2/ERFLZxbga9snjJsxtW6cr8vc69Fbzf2rMvqp+TgplcCzTCIvxD/c+P4tWropCcr7Yuia3bkPYH/z9BulTuFLOLQdGAUYovaow24+l230wdvMDJOEMVXTLTDGKpcrOZ5YIdV/j+Lsm6wLpG/RB1euvFRgRJ/c6NrgvzMP9Mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782848036; c=relaxed/simple;
-	bh=Eg20+VAAssc3FYkdk1eSTyJ1S+d8iw//th1NOcFJIb4=;
-	h=Date:To:From:Subject:Message-Id; b=ipdSZAHaGTCZ06BFcB6Wir0MRNuOqcpSgtUodtsmiBS9KshD1R0dSNyVqh4mrEMRDgg+FLylBgmUD/rvdrAdOq8coOzFqDdQU27ZE2nyKSDCyxGaejTxCQLBbEZB/VdWZbNkOiYBsOXa7k6gXniBrylfUHNbBWhu9Jv7cdIESks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=slE3RoQU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782848999; c=relaxed/simple;
+	bh=ndjrqTDd7iJKz5Vy6GvgobLXO+ceomtbKFEb3u3b6EM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hkOYwvI6O5DVmoVXC5BExuonIycqRtbc5gQJsSY8mhew2ULRvTdK0WbzkLqI32NEfSSLPXbX/MNC+xHoOWtJxQPBigJzkgswD0hQLFSq2GuL0SD5bY7eJJJPUR/zaUG9BdC23SQa+Px9itpMgc5vUas1OJt0GPNiAsLYZJRt/LQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WfEvfRS9; arc=none smtp.client-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="slE3RoQU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870441F000E9;
-	Tue, 30 Jun 2026 19:33:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WfEvfRS9"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-8ee88fce536so24046896d6.1
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 12:49:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1782848034;
-	bh=StlVVE0MT/EAK8je7lu0gcmBlcRPvkEXViRwqB+pZqc=;
-	h=Date:To:From:Subject;
-	b=slE3RoQUPmyQ+edY/giVJAYUzs9ggblhuGSjQZ4TPXqGfy31F9KffkH8jXfhgJn2z
-	 /7Ko+H/xxakext36dVSSZBTZW9y9i/zfPvcQEXcYSljWzd04m6wRGTvbRiuM2xbjKZ
-	 udOl0A7IpIrPPIMsFFSIrUZKFb7Ho2lD11ZF8JLE=
-Date: Tue, 30 Jun 2026 12:33:54 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,rostedt@goodmis.org,mhiramat@kernel.org,include@grrlz.net,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + lib-bootconfig-fix-undefined-behavior-involving-null-pointer-arithmetic.patch added to mm-nonmm-unstable branch
-Message-Id: <20260630193354.870441F000E9@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1782848997; x=1783453797; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=n1qWlnp0byEBEeqkZdCjA2Jg1Z+PW8t3ekcekpBNKTw=;
+        b=WfEvfRS9wgll8++0qRTBXGf3uVtr4Fd3CdmSt3/ecBmFVdzTaKzgS3ZvLI/ZkMQifh
+         Y6t7k3f3oAGm2zGFRtSJIquyMGPkbCFpUL1VqLePDdDJuimT9uRpZHZkJ9z1/qFB8MTe
+         WiPjcUy1BuU2ioxGPG7cbHJyGDP8daUiFjQKE1gAWZs4P5splOqOBCPLyCcbAj2pqple
+         RB9MS862488hwpaX+xQrJFHmUx8qb7UZ4vXNSIgfxNMiAE7Tp9ScMnIx0SNDd+K9Y/hC
+         C0pds9pUSfVGAFwLKQ8neftJVLax8Grd+6IPUxpmet7TL2/bcG42Nlox4yhY5TaP/wP1
+         4xQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782848997; x=1783453797;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=n1qWlnp0byEBEeqkZdCjA2Jg1Z+PW8t3ekcekpBNKTw=;
+        b=dduPd9wpBftGXen1R2bsmfL0Cr1IvUArpVvEn41F+9ceoh03X6HBE+wzr3x6cQKNFJ
+         lb/GE+Dg0dXGTtcDhHJ31oy9T+fywgt6Ey5bFCsdt7Bn/X23fIIJj5nVVJwSgItPZ3Ts
+         OU3YrndCsKP+kuYprSZ3Jct4Qcv79yYpQmBdeYSkXJuRulN/h/9GV9844tN+pn2L/fSK
+         LeEql/l8+K2+fycxOpJlv48EsPRPF7EkhBUixzQfGZvGRqvKCV+z8F0YikV/tYsnhPVw
+         kSO0AOT5+1U1yiYJyTZSDYYfWxAWrbeBlY3uqUW7UVjEGONZqLuYqd04QESxqBBruNl1
+         IyDA==
+X-Forwarded-Encrypted: i=1; AHgh+RruES6PUOG9ExnLvQFwiBvPgW8A/jBzuyPc/5gH16GdUXkAk+TEMC/WLWWrF5orRK3ux/3dUbs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRRJ/8xrfHZfdLDoTlon1R+z7hNrXbSPkVLkCIkDxWUmKSno5S
+	zTgkvWufy1bzV3PhXjFUsHpeJtaTBUWHovkiUsLsvmDAC7jdEMm8mf7B
+X-Gm-Gg: AfdE7cl9xjGJ/5gMPF/Gf9Xtl/vOisrQtiKqyJVHhJpPDBdtsC6ubfNpoQrSKeBZdCP
+	CIft1cRtpQ1zEBiSZPtpcwHjq2ZBkC9Jde4goRxfi+l/T/g3QOT61/9VMql4FRsYLHy4M3rI36g
+	MDETJz8VGfvwybbSpzk+FIx3/Azz1suZQZDloNNIR8FPaioCBB1Wt+aZc9DTr352INh2e+JxXf/
+	Tv5pW9XgkVgv9VqekZU49v7tkI3kH023H6JJhQmQsDb6cCQbwIroptqquEbh5BcyAfkBwsHsaJh
+	9DeLFmoJ+CD72M8WICuJHp4D+OmR44hNXtdWxz+J7TZBMVVTxyim1guIRkhMAMh76RA9MbryKOg
+	qO+/7zEhFuElt0qtUFMWAKWcBYoEzTo4u3slYYysCmAYYd5KjC2ya9nEKtjsixcfNwSZFpO9wKg
+	v6ldbiT49S76jKaGRuylrw9Eirhv4Nub8oqKPIbXXdOw==
+X-Received: by 2002:ad4:5baf:0:b0:8e9:f5b0:f623 with SMTP id 6a1803df08f44-8f1bd6f20f8mr82544276d6.51.1782848996851;
+        Tue, 30 Jun 2026 12:49:56 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8f1a7e0d5e3sm33242986d6.48.2026.06.30.12.49.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 12:49:56 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] llc: fix SAP refcount leak in llc_ui_autobind()
+Date: Tue, 30 Jun 2026 15:48:56 -0400
+Message-ID: <20260630194856.1036497-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+llc_ui_autobind() opens a SAP after choosing a dynamic LSAP.
+llc_sap_open() returns a reference owned by the caller, and
+llc_sap_add_socket() takes a second reference for the socket's
+membership in the SAP hash tables.
 
-The patch titled
-     Subject: lib/bootconfig: fix undefined behavior involving NULL pointer arithmetic
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     lib-bootconfig-fix-undefined-behavior-involving-null-pointer-arithmetic.patch
+llc_ui_bind() drops the caller's reference after adding the socket,
+but llc_ui_autobind() keeps it. When the socket is closed,
+llc_sap_remove_socket() releases only the socket reference, leaving
+the SAP on llc_sap_list with sk_count == 0.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/lib-bootconfig-fix-undefined-behavior-involving-null-pointer-arithmetic.patch
+This is user-visible because repeated autobind and close cycles can consume
+all dynamic SAP values and make later autobinds fail with -EUSERS.
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Drop the caller's reference after a successful autobind, matching
+llc_ui_bind()'s ownership model.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Bradley Morgan <include@grrlz.net>
-Subject: lib/bootconfig: fix undefined behavior involving NULL pointer arithmetic
-Date: Tue, 30 Jun 2026 17:47:46 +0000
-
-When xbc_snprint_cmdline() is called during the size-probing phase (with
-buf = NULL and size = 0), the function computes the end pointer as 'buf +
-size' (NULL + 0) and repeatedly advances 'buf' via 'buf += ret'.
-
-Under the C standard, performing pointer arithmetic on a NULL pointer is
-undefined behavior.  While harmless inside the kernel, this code is also
-compiled into the userspace host tool 'tools/bootconfig', where host
-compilers with UBSan or FORTIFY_SOURCE enabled abort the build when they
-detect NULL pointer arithmetic.
-
-Fix this by guarding the pointer arithmetic so 'buf' is only advanced when
-non-NULL, and track the running written length in a separate 'len' counter
-for the return value (which cannot be recovered from pointer math when
-'buf' is NULL).  The rest() helper and snprintf call sites are unchanged.
-
-Link: https://lore.kernel.org/20260630174746.14795-1-include@grrlz.net
-Fixes: 51887d03aca1 ("bootconfig: init: Allow admin to use bootconfig for kernel command line")
-Assisted-by: GLM:glm-5.2
-Signed-off-by: Bradley Morgan <include@grrlz.net>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 ---
+ net/llc/af_llc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- lib/bootconfig.c |   13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
---- a/lib/bootconfig.c~lib-bootconfig-fix-undefined-behavior-involving-null-pointer-arithmetic
-+++ a/lib/bootconfig.c
-@@ -427,8 +427,9 @@ static char xbc_namebuf[XBC_KEYLEN_MAX]
- int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
- {
- 	struct xbc_node *knode, *vnode;
--	char *end = buf + size;
-+	char *end = buf ? buf + size : NULL;
- 	const char *val, *q;
-+	size_t len = 0;
- 	int ret;
- 
- 	xbc_node_for_each_key_value(root, knode, val) {
-@@ -442,7 +443,9 @@ int __init xbc_snprint_cmdline(char *buf
- 			ret = snprintf(buf, rest(buf, end), "%s ", xbc_namebuf);
- 			if (ret < 0)
- 				return ret;
--			buf += ret;
-+			len += ret;
-+			if (buf)
-+				buf += ret;
- 			continue;
- 		}
- 		xbc_array_for_each_value(vnode, val) {
-@@ -456,11 +459,13 @@ int __init xbc_snprint_cmdline(char *buf
- 				       xbc_namebuf, q, val, q);
- 			if (ret < 0)
- 				return ret;
--			buf += ret;
-+			len += ret;
-+			if (buf)
-+				buf += ret;
- 		}
- 	}
- 
--	return buf - (end - size);
-+	return len;
- }
- #undef rest
- 
-_
-
-Patches currently in -mm which might be from include@grrlz.net are
-
-lib-string-fix-memchr_inv-for-large-ranges.patch
-signal-avoid-shared-siginfo-namespace-rewrites.patch
-lib-bootconfig-fix-undefined-behavior-involving-null-pointer-arithmetic.patch
+diff --git a/net/llc/af_llc.c b/net/llc/af_llc.c
+index 8ed1be1ecccc..b0447c33dbf0 100644
+--- a/net/llc/af_llc.c
++++ b/net/llc/af_llc.c
+@@ -312,6 +312,7 @@ static int llc_ui_autobind(struct socket *sock, struct sockaddr_llc *addr)
+ 	/* assign new connection to its SAP */
+ 	llc_sap_add_socket(sap, sk);
+ 	sock_reset_flag(sk, SOCK_ZAPPED);
++	llc_sap_put(sap);
+ 	rc = 0;
+ out:
+ 	dev_put(dev);
+-- 
+2.43.0
 
