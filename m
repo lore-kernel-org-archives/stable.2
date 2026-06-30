@@ -1,46 +1,47 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012004.outbound.protection.outlook.com [52.101.48.4])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012053.outbound.protection.outlook.com [52.101.48.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802263C2BBA;
-	Tue, 30 Jun 2026 16:52:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866323C2BBA;
+	Tue, 30 Jun 2026 16:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782838359; cv=fail; b=AfX8RCB+VqNjbdl//B82NuX3yjzyqg7w0J2DN3lKMB31oXrkzbu7O4AtfjkaPSpEbncWLfXCEau0vp3sUXZx5Z5gXq7KH5+7V70eTgqUNF3zz4FQiYauny8sH85zrhO8tb9OiHEFiL9c0rFQoMfVaGZ2jS3mENxJcnX3Uu/R8YE=
+	t=1782838412; cv=fail; b=bmrJjVctYiJb5voeym3YS3tjHqH5+y3hJ1AFU2IZgxGbiu34ZdXWSaJp95+xizJby893/7a2tY0ufSl9h9oxJMvjmTT4oPlK795nz+YIemAeHrckyhGSPOWFIXPoERD1xxBRqcxuHYxNzx1uv8+JdPPPKAqhKiUe12rIU+Cpq64=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782838359; c=relaxed/simple;
-	bh=aeBjYjgexK2yComLyW0nrMYBOyFIy0h2XsGpT2OyNJ0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Uw/HSiPpuAw2MTjEDKd9AchGMI+jHcG/CYL5MBPan7gJR8gn08Usx+MZ019nz2bF+EuPb1cwRPetAzpJFX7zN9uYsAIkDO/pKYMrC/PTxp7Tc1XnQq+hr3WVM2Iaf8Kl5Paw5Dm0jJMa43XCO8fYFXlOKY5DqRvUJfEzSXk7/hI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Q7KptqYC; arc=fail smtp.client-ip=52.101.48.4
+	s=arc-20240116; t=1782838412; c=relaxed/simple;
+	bh=v2E/uSu1sHtvIXPrgx3zY8ctoxoEXOu6N2u4fuOWH8w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=jRWkVlbw0//ERkG5HgQlL/UkzoSkTtgIbyDiajV1F7R3GNOUgdj6nR1ZBn1JWzagZ7OZZwQwYCW3IUTBZRkOJ1/XERkh1TYYNDI5pDQbH1dQByG5jFhWwoeBHP8oz1pkoECv8cOJ15pCGDzF5vRKrVIEyCN71X4rKZ3mAXNHK4Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Sv0c64JH; arc=fail smtp.client-ip=52.101.48.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Q7KptqYC"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Sv0c64JH"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PPrRWvCOoggsU3BResvZatTXw2rVb2r13ybxikhwIT35Jb76JSqi4XPCo5aoVC9o4iuMYL/yqysfLsBmYj3zxyfIwz5Kt6JqzE9/sOUpfGJfWU3zKEHzlquJ/GEOa0Zn7frZYVhR2mAxBf+dk8N3Ow0NDlvZW/c1Kzxnk6do0MAoAM0JrXx5d+qAgBcKaXcCrHjkOW5cExH8LVYyMWY3bX9NTdSLRq5ZQqtnUBNJ1UI3swxNM0sYnVTCq6ONHJrrZD3mI8048HDoZTi3ca7WPUCq+T3lyQYhplkkyF2krZwLvHF669rSg5TXbOkg85OROiZWhFYkkKxeBwMpf77FZA==
+ b=Nh4NGoCKZAwd8HBpHBVxxNRAb/MRug7ykuApRckC7mowLOKEVrzhTnaootVehauPiX3S+1v9X0wftB73Trz3zy+ng6QzzsYAhGO0gKCq3DWL8a4BW41H8FtdkCd0NpSo1vyvhu9Eum9HxfQ71I6OZwavz18zmk6ZSVcWpu8UgRbnDO72mNlE4WHH6vH7UtRtnLV8OA8SoUoUh0wG7opNFSQt1VXhZRHw3ztkHczQRIT2i4UR9x7/fSz4hfoNBa6lNZOl5f7bRzKGnet7Wkxfu2pQJfHF8acHywUVMv3bU4NTmzrwloEHFbB/1I/ksMi3zswynDq/jYkRnSjW/hYBJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xp93eoBT/3mWkYReg1XvEGMLcuCAYD4Wn47k/18IfL4=;
- b=x6vDt6ku5h+roiPjfZ+FsmGYqBJXbdLyKWNXglbIFugngMVoFvRHIyIaniTjtdW4Y27NfHHItDAyVg5zKiE/1L9ZxmidvRoVb3DMXZFzRHEgkdt6C8wH1rwUEiRT+gupZK2dQiQCLhweu3vCgHoTiqHFGK1/uZmUezcPWtx0aq9CFcxFX72Dei8ruj1q6cRZEiZ6uNG24/uXwdKM4LCuzrMKfYcyGjNyk7Y3bjlTcQHFW6EG+fogc+pJE/Rb+4/b0lndBlnqQnknoCIBaGQ2lkDn0fU1fYD3d3QbNc167Er9A2CromtvFoLwrlsZPKIc4KWJlrnL04q53OJJ7ONEQA==
+ bh=VPMJ4ZlQ0j5HtNaXqL/xwJMdSqenXPEKoAzm8QDGGS4=;
+ b=M6OXxAoxRKCe4Z5tkZAYuD298U2wtkrHx1/HwqULpzyBtg1FlVcDdR3D4b7mcm4iyJ8qiuyGz0YRs+XYkY0muYZyeQuibjH/Ul7ntyYUarPCnLHpTDEk+kBMq992NCtANZ48eYjUm9CzZHNokW6RWhRWUwpD3JqdB51Lp+LQkJwR15act9V0UMkd5YfJUnUrJ9XGDebseyHwIUXzQVSU3S+Jx5BYT0iK4pIhFwooRaudG1a3i2I+eD7Hh+pOE3/b6/8HhwreskTJizYv6hsU5kbvb+0geGDisHPjlWTcOqB2ok7mXQNNMtrI5rDg6WgAzIHw/rJM7Nr4ZH5nsCTxDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=davemloft.net smtp.mailfrom=nvidia.com;
+ 216.228.117.160) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xp93eoBT/3mWkYReg1XvEGMLcuCAYD4Wn47k/18IfL4=;
- b=Q7KptqYC2T9XHkVs1iYLkGkyYDO9m7ILxS3OEVPPuTePhvSji6d4LPLAzWLGYX0PdzSlhkmuv5qp65nV4ynz7fIC4/LL6OXXFo14RrRfcsa0FXU+RTCsF4XvBJA8Awq7yD5rIvcCpmVN7UpIVnR2euMnIZyEq8po7y30jbe6U3Xbi77lF2V4g1v7j5Sa9//T84Q26ivtNxzwttWzHHk//s7geA2YLu8CtAzNsPQK6Mx7B98jFhpg9JB+XGSAhht+jQ27QfXWPmwIM7lO7JB5mqWRbzygE+DxUOh36XfoOSkWNlvE3n8UuoAg4EWHi8IXYnuEngHc7WkslPbIt52srQ==
-Received: from CH0PR13CA0033.namprd13.prod.outlook.com (2603:10b6:610:b2::8)
- by DS0PR12MB7900.namprd12.prod.outlook.com (2603:10b6:8:14e::10) with
+ bh=VPMJ4ZlQ0j5HtNaXqL/xwJMdSqenXPEKoAzm8QDGGS4=;
+ b=Sv0c64JHgUosHaB7P5up/PiozWETQqBHVSBR8iZCAVa6UBJ9T6RTUwieFnqLyoDEJrqeMNo/3KNWbmhhp8dy4LFkEM/3cMxzR45TRg6K+0LxTOkQQQVjijPqgqT79wlYOXEJlzUep3zd6+BdvZVs7/yQviW9IV81N4o+zZYekIQdn+iBJAo8GbLswRvh0AVeXykc0idDCQOY9JRrneXzVtUdqlOHzRHULVrRmxcWNbQVvxDedSiVCTvomZdUTwtUulhfVpE2P+yiJ0TtWMmqTRgq5OAR5UDGvzEMeM/fUKM5W7fmRIxXjM4oZR5NRlqMZfaY8TRNUwDu7Fnr4N4TZA==
+Received: from CH0PR03CA0436.namprd03.prod.outlook.com (2603:10b6:610:10e::33)
+ by IA1PR12MB9029.namprd12.prod.outlook.com (2603:10b6:208:3f0::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
- 2026 16:52:33 +0000
-Received: from CH1PEPF0000AD75.namprd04.prod.outlook.com
- (2603:10b6:610:b2:cafe::36) by CH0PR13CA0033.outlook.office365.com
- (2603:10b6:610:b2::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Tue, 30
- Jun 2026 16:52:33 +0000
+ 2026 16:53:23 +0000
+Received: from CH1PEPF0000AD76.namprd04.prod.outlook.com
+ (2603:10b6:610:10e:cafe::89) by CH0PR03CA0436.outlook.office365.com
+ (2603:10b6:610:10e::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Tue,
+ 30 Jun 2026 16:53:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -48,131 +49,103 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.160 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.160) by
- CH1PEPF0000AD75.mail.protection.outlook.com (10.167.244.54) with Microsoft
+ CH1PEPF0000AD76.mail.protection.outlook.com (10.167.244.53) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Tue, 30 Jun 2026 16:52:32 +0000
+ 15.21.181.6 via Frontend Transport; Tue, 30 Jun 2026 16:53:23 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 30 Jun
- 2026 09:52:10 -0700
-Received: from 82875d6-lcedt.nvidia.com (10.126.231.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.20; Tue, 30 Jun 2026 09:52:10 -0700
-From: Nirmoy Das <nirmoyd@nvidia.com>
-To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
-	<edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Shuah Khan <shuah@kernel.org>
-CC: <netdev@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<stable@vger.kernel.org>, Nirmoy Das <nirmoyd@nvidia.com>
-Subject: [PATCH net v2] selftests: net: make busywait timeout clock portable
-Date: Tue, 30 Jun 2026 09:51:57 -0700
-Message-ID: <20260630165157.3814871-1-nirmoyd@nvidia.com>
-X-Mailer: git-send-email 2.43.0
+ 2026 09:53:02 -0700
+Received: from [10.221.135.3] (10.126.230.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 30 Jun
+ 2026 09:52:59 -0700
+Message-ID: <acb1b298-78e6-416a-89ac-80f3d1984236@nvidia.com>
+Date: Tue, 30 Jun 2026 18:52:57 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] selftests: net: make busywait timeout clock portable
+To: Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, "Shuah
+ Khan" <shuah@kernel.org>
+CC: <netdev@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260626144902.3214350-1-nirmoyd@nvidia.com>
+ <2a1c4eb4-a4ba-4fc7-9bda-6a7a8d0be2f1@redhat.com>
+Content-Language: en-US
+From: Nirmoy Das <nirmoyd@nvidia.com>
+In-Reply-To: <2a1c4eb4-a4ba-4fc7-9bda-6a7a8d0be2f1@redhat.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD75:EE_|DS0PR12MB7900:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e5a17f5-1e88-472c-0961-08ded6c7fac4
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD76:EE_|IA1PR12MB9029:EE_
+X-MS-Office365-Filtering-Correlation-Id: dfdf9f9e-9adc-49ec-a0bb-08ded6c8193a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|13003099007|18002099003|56012099006|11063799006|6133799003;
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|23010399003|22082099003|4143699003|11063799006|56012099006|18002099003|6133799003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	rZFcg43MljeevmyxriATaxTCXYgBTDXObAe7spu9z8NJ890MOaPWdnKSiiZ2DB+qogi+qUirjstYGoV7NxzjePhdsj+pWOAB67V7dmlwJBGEEfHB1MKJVdKa8ocKLMe5mt36s2aF4cBJQSspKBD3D8Mj3QfVuPNIP5OPWSr/src8byqtD9LZdM3WTbBvQS+9+djehzPHVnn5w2pYA1W6k/3aDXVppsuNJqXb2D0mjSK30Q5oy93NJhZEoIfDzVrZ7h19Ec1T2PIWS7t+iG+oeqkgGax9+/g1wKZvPS5SoNR6HfI26J+RBLM1awJoISsuvo0vFwAj2MvnlsaNxad9Q9RIny1t0YMLiVMDbhko22Avt9RfryFqpgRvWGx4yLqWQD78taw585HLp7Q6JE9nNGIp3FAYSj582FHHdZAHCAwMwLCWRx6fzoSKU51yWjEkrcNeZDpa/eB4vl6z1pdhRFOnDO0jz4VRZB2x2r/IkFVZ6CUf0q3+JUav8gANVWhR1bfCTI5d56+T58Re9Beb7rXzs3tjN3nI+oD8eAQQM54U0zO8A+vsdapAvLzBTVwlEa+QfxeShBpEQGuQRtp32JYxWoFsKG8BIBUeSjTCKI27ainIdEABhyvkduGn+hat5V6olMQb87zu6+y8DGx+pSYhxqsDj/RXUmJi/MmNb4CjFzl1HA0Hf6WRbEguuBCmh5/85h+42HTlZI05mklIfw==
+	hM6wD0mqI6dP6kifODwnn+1eU7RgOI8mdFGpfIvJ8fMJlQbl/InHFDa0gsCm1luwskd9vdG+wDXqvxJrWxnNcLIIb1dkkPham32pUjUE/ifv4NAy6miXr4B/BG/tA8Zo7tkG073eRIU0w4XWbVwVw8uqdkYXqbvJSinjcMJ8Nf1y0cQpMJKuPM3JqmiEHlXjH4D9rrS4l+FWzGBJWF1xz6REd38B3yYHyWCUlRqcKy1P8Cnyfm6pM8AbTG0n977DBFjCw+ORAX+LQAk8Z31JjJBEWZoC0XJv+fdTYpVPoGe/Eh9lcKh0FSq0rZGpA695fOhe13XZodNR72088qqXd60Ln2EFGjzRg7yWIZFzija0OUkT3nhP4dtj8gnNWMWwnL9DYbH2wLfQE4lJ4WksMMaEzfwYkYnVtlobEFUJRGk7soCdS0BGA6wPa6dr+cr4GfIFcfKvrIR9YnOtI14Ln2N79iXdgHU6zfSvlJ+B9Mvs2rHy2kgJooXBvWnf4Vqy+0nCmsOpmYiM7gWzh6y06zBOzdI4twrcRTpCoU9JPH+e4WwDIVnnwq1RHFVJ3jJ7XAI3+Adnk1VUsvz0DGOt0Tln/usmaZvBfb8BalvZy0pODvgpVMiJ5fK9JtnDAMheC8I87oYmYDgvwqhepqEz+WZ8IjEMk7DGO/jlayfUgU1yDqMzwPjRta3wUZlqAHQNRlIFv6UhC5pyFUJ7NpcauA==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(13003099007)(18002099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(22082099003)(4143699003)(11063799006)(56012099006)(18002099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Yfd5rvebk2dDLobXH53MMCNK9zwuoH5lx3SucW6oB4g+qUrMok+ptZ6Cs+YKc1SQ0lS2Bm5CQoYLEbkR1TwD36J5giHky0T7Y6mFmFqQ18QYk/rhU8U/eTtTsdAPd8+1Jt3/HGPL+dboUB0avaAP2URRNkAOS0sfL9+BCLT/5oDZ4cjms5yaSMHMosmjHAEjsi0If3Lf8ywrFvXCDACSfcXlFl6gL79mg8qP+2OSKnQ5qduw68d+I2e23pEqot+xCxTtuV1OCynTCYFIXOTQmFHo+duy6HrnDRWRcvzHOfGd8AtairJOTz4LNxyH1FUFtJKgxYaUVpj4d1eIYeh55YL/KirBEa10j2K1Na0X4h0N8+m4n+p7oeCL7jTstH5Ef3eWZ9b7BIzLpeYr+DE7XDFM1nQ74U253nR2BuL7hpVWL5mRjM9sdb5vytpY9Qvj
+	yl/DvboXFNUdVMnNv2KCVza+6VSYeBn0DtiC5l6arHPBc5wx5aZFXPqMh0Som0sVOzwqILCA+vD22TcZC+BLmEKT0gZ7kOPuy3Ykmgkxt018McAwhZHc6MQZH2gpMoE5gowaOlUiVivaKw4hBbvWGyTZPqAyOMh+caXzeTgaRiATmtST0ebyjm8TmvnVVlHE0GQ8sbS10Rieb8cRy8VByAhRvywNn0uCr390o7TipgdTv7WnB57ZfrQ0eX+gArHyQpTcSY3X+/qFG6WUqdqszzndU6rQHsS/Zz8pm/yma5IyCtSXoq9r9okhoPidM8E54JarRDNi6s/MfRcaQstRvebwLfy20oafYsqM3IUOvigEYdzh+boptxWWXSMIfIcUfkpAET48mCd55FCTTh5s+S0kOzo+VtGWNpvX2kjTHuj21RtyRKz8Hp6G0ACHTboq
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 16:52:32.5523
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 16:53:23.6646
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e5a17f5-1e88-472c-0961-08ded6c7fac4
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfdf9f9e-9adc-49ec-a0bb-08ded6c8193a
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD75.namprd04.prod.outlook.com
+	CH1PEPF0000AD76.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7900
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9029
 
-loopy_wait() expects millisecond timestamps. However, Ubuntu Resolute
-can use uutils date, where `date -u +%s%3N` returns seconds plus full
-nanoseconds instead of a 3-digit millisecond field. This makes
-busywait expire too early and can make vlan_bridge_binding.sh read a
-stale operstate.
 
-Fixes: 25ae948b4478 ("selftests/net: add lib.sh")
-Cc: stable@vger.kernel.org # 6.8+
-Link: https://github.com/uutils/coreutils/issues/11658
-Signed-off-by: Nirmoy Das <nirmoyd@nvidia.com>
----
-Changes in v2:
-- Declare variables separately from command substitutions and propagate
-  timestamp failures, addressing ShellCheck SC2155.
+On 30.06.26 13:11, Paolo Abeni wrote:
+> On 6/26/26 4:49 PM, Nirmoy Das wrote:
+>> loopy_wait() expects millisecond timestamps. However, Ubuntu Resolute
+>> can use uutils date, where `date -u +%s%3N` returns seconds plus full
+>> nanoseconds instead of a 3-digit millisecond field. This makes
+>> busywait expire too early and can make vlan_bridge_binding.sh read a
+>> stale operstate.
+>>
+>> Fixes: 25ae948b4478 ("selftests/net: add lib.sh")
+>> Cc: stable@vger.kernel.org # 6.8+
+>> Link: https://github.com/uutils/coreutils/issues/11658
+>> Signed-off-by: Nirmoy Das <nirmoyd@nvidia.com>
+>> ---
+>>   tools/testing/selftests/net/lib.sh | 19 +++++++++++++++++--
+>>   1 file changed, 17 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/tools/testing/selftests/net/lib.sh b/tools/testing/selftests/net/lib.sh
+>> index b40694573f4c7..fcaec058be6d0 100644
+>> --- a/tools/testing/selftests/net/lib.sh
+>> +++ b/tools/testing/selftests/net/lib.sh
+>> @@ -70,12 +70,27 @@ ksft_exit_status_merge()
+>>   		$ksft_xfail $ksft_pass $ksft_skip $ksft_fail
+>>   }
+>>   
+>> +timestamp_ms()
+>> +{
+>> +	local now=$(date -u +%s:%N)
+> shellcheck says:
+>
+>   ^-^ SC2155 (warning): Declare and assign separately to avoid masking
+> return values.
 
- tools/testing/selftests/net/lib.sh | 25 +++++++++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
+Thanks a lot. Sent a v2 with that fixed.
 
-diff --git a/tools/testing/selftests/net/lib.sh b/tools/testing/selftests/net/lib.sh
-index b40694573f4c7..d030d45c0e603 100644
---- a/tools/testing/selftests/net/lib.sh
-+++ b/tools/testing/selftests/net/lib.sh
-@@ -70,12 +70,33 @@ ksft_exit_status_merge()
- 		$ksft_xfail $ksft_pass $ksft_skip $ksft_fail
- }
- 
-+timestamp_ms()
-+{
-+	local now
-+	local seconds
-+	local nanoseconds
-+
-+	now=$(date -u +%s:%N) || return
-+	seconds=${now%:*}
-+	nanoseconds=${now#*:}
-+
-+	if [[ $nanoseconds =~ ^[0-9]+$ ]]; then
-+		nanoseconds=${nanoseconds:0:9}
-+	else
-+		nanoseconds=0
-+	fi
-+
-+	echo $((seconds * 1000 + 10#$nanoseconds / 1000000))
-+}
-+
- loopy_wait()
- {
- 	local sleep_cmd=$1; shift
- 	local timeout_ms=$1; shift
-+	local start_time
-+	local current_time
- 
--	local start_time="$(date -u +%s%3N)"
-+	start_time=$(timestamp_ms) || return
- 	while true
- 	do
- 		local out
-@@ -84,7 +105,7 @@ loopy_wait()
- 			return 0
- 		fi
- 
--		local current_time="$(date -u +%s%3N)"
-+		current_time=$(timestamp_ms) || return
- 		if ((current_time - start_time > timeout_ms)); then
- 			echo -n "$out"
- 			return 1
 
-base-commit: e7cffd183c128af12683aba28ba163017ea2b192
--- 
-2.43.0
+> /P
+>
