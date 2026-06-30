@@ -1,162 +1,169 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345343988F9
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 11:47:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782820029; cv=none; b=Mpk9Q1cGMKY4z4gfjREY08yqG1wTcBPZ9IyxAhxfFcimflrVFtnNQstwoP/bkqiMriwXewe6Y5IFuIOTIbUFhIVGOF0g5ViyodvLSWROnNWMQNcqwpHa+v9BbkNfXr5bvHRt/2Sj+tAtWgleCJJxdRTTL9eBDN0ViS0z/N4Z9Zo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782820029; c=relaxed/simple;
-	bh=o74wfL8s1rLkd7zI65jrA8msIbQNU0hccGkpygWaWmM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MyzNrNQIR4rrJK7eIMohhACmLhBZ8hBRPaRyTmIpY8gAdKOEZlfzJa4CDkqduYNQpcoFgdSLRsCNsFwiUDHnYPbaZzwrzi3/uvq/SMDV/fA88vILmE0/tdudNcTi08N2SYi9kf/+/IyHgVMXu4/ZYuK3t3j7rRepPwC0H4f64RY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=g27i+rSn; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEFA405C55
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 11:50:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782820205; cv=pass; b=V+uaA3m9RC0ccewava7ZhK0JhYNrSiwDC0q3bYeKjUlLrE01j4gI+sCmSCxJ51Oc8rNNW+CYLAJBBmiVlJKDAqx04JPvSoQsmyfh+MJamfQ5amc8f4q3PvgQr5kRdO1cvtUVuWZPDtJGTUVrF1orj3KsGeQ1UODqC8v+RuJKjkk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782820205; c=relaxed/simple;
+	bh=AKxGBmZoJWBXkWw87eb5Iekf1UB3fVGGAvIFgFCNLvA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gWeNADwKzoNuGFWLBKwPwsIwzgTSaoq34w938VnesRiGq5IYCdLddqKNcQ3LrczNyoxDqZNoybWGYz3w5Upjx+7UYzRHdt0sd/7SwRPvmnL2c2jBWdYrWIRC/rZrDK8AjAKxOLVfZ1ga6vBORj9fLmC3Si0Z57HaOmIUYDMj638=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=EuGK6/VL; arc=pass smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="g27i+rSn"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-473b4139a83so211443f8f.2
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 04:47:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="EuGK6/VL"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8478a25f268so1213835b3a.2
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 04:50:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782820203; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nxAYeIHwdEzTdQo+FtX3UyxB6gfL4bHEDfMatAGvRM20dHLBVdpT90FLemxtp3JT7q
+         Mlw4PS6oWfgv1pwLSOgvKzjKhrpdCZr+/C0A4Z2LW2vk+WS1KxESoHdAeHMmuB5NLhr2
+         FYdZL3Mn6vEAH1sgFwDHL9ty5taDDAoC+Rk1VFUBogEfoBw7XD9lbAPqJ7Y9LbatVsLj
+         WJOPed3nfT2Sqw5QqgTr1V2s9Wo6pRSR98vHlzpw2g2KnMo6dI1/EoFRqdI7BDV55Ap9
+         LYOpcD2IKoYTduemEhjb99Wfk+GHTXZHKwBqT3o0z6Mo3gtDgN81wuerGurqJxFxUXn3
+         qjkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AKxGBmZoJWBXkWw87eb5Iekf1UB3fVGGAvIFgFCNLvA=;
+        fh=WXTC2YOcwuzkhRsi6duKEgTmoVwPjDxtW9nAdtRo/cw=;
+        b=PWFD1kKodKasoMXY920iaxDEmcm0ZQ59ET1koiewCKkaR28bS39VSawf+4I59AnFvM
+         2F1fzPxeapKZ8hYiKOp0EzIlEW5mg5kzxeHAYb7Clx/X82gIVKS3YK2sxpW/LX71aFjb
+         zgXrB7EcmLqOi49UTyoDp/8O8Qpek9ny4y7Y5XCl6bbnEf7aM682KxWANYWLU6QFzEOF
+         Y1tQCzxLSgNuWIwEEVAu1zlRwlm7dl29BZdaBmOfa7ubs2dTlVQnLIEuA/9db3atrgVv
+         5B8R79iHhsuWLs80YZz2aHbHdlM4roZA3ultViNW/8cs6ycII0qwx8oxv1f/Bt/bjtcK
+         r1xg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1782820025; x=1783424825; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KwYeM8W++Hp1eioV/dv67xKEijFj30e/B/6NIOTe/3M=;
-        b=g27i+rSnW+2Ke1paoIXAoGR1PExNAAQPmevtqmsF3ngI56FkGe9y/Rq3y5DyCiRSb1
-         tZqHHcMpzXLnd8VPjqTOr41QM2nn9BsePUBT8dDsmCscjcB6LpSNZZ6+zh6vrwh9YSNL
-         HAxHEn/uiKh7OlbPdVSARC12b69hp1RX8uFwiur8W8423nKBC9pn5uq2vF9LGaPi86S5
-         RPPuYsTran349G4Sr3SJq/na4o54JECnqZYERneBUJ26llZ2aZ9k3URpyRX8h4j2LFB0
-         vOy2d/FS6piFJHQtBnTxY+w8M1OZiYyhDL2QN09mIUwQ18ty0/xRuTWkYxh9k1ANgbHb
-         Glcw==
+        d=mojatatu.com; s=google; t=1782820203; x=1783425003; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AKxGBmZoJWBXkWw87eb5Iekf1UB3fVGGAvIFgFCNLvA=;
+        b=EuGK6/VL52hgI5WdOzdbe0U4f2KyXWqkmzJowf69FFieDfbOb/a9u2Uz1npJ+uhNXY
+         aGJK1ZRaW51BJtmkJqK2dNNcJH+WFeax1wC6XweXDsgus0Ep4wonP/7tHIZ34pucbQ9r
+         yJEnweRTqNtjHps/7vOAaXaL9vu+dAVikhNT4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782820025; x=1783424825;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KwYeM8W++Hp1eioV/dv67xKEijFj30e/B/6NIOTe/3M=;
-        b=h7uIJ8LaSY6hc7DnH1LQzZ0ob/jKS4v6vh9cxFfEWtTgEJ+pKgJJheOALQgYO+BhDC
-         7sUoviPdH+WcwZu9qAM+17qhYWle42cGLjGsMRtjRaiEYVjwaXTp6O9WIJ02DsHkVnUC
-         2/DPHYQMnNsBNgaMqbXJ6DkDNs9OYeri4MpBSgbMnBTNnVYElQkyNgVkQ1Vy3/xyDegv
-         2oy84hDRcEORRQyHXBDbfmuEvnW0uaAjGc1T3wFgUO9+IGfHJ9t64TmUncBfVCiQMk5S
-         9DCTa4FVHoZlHTTvAFemPJui4YM/q9oBrRf4rlAxVwiW/oDKrAethpVvsyDBkyw5oLpm
-         PMVg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp6EupPrDvGq5WgE4jUcoklacOBlUa6oNzSfxHgcNVl+Q6x2Y3yuMQECqV1z4juO8GsVXbV1mE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyiPHLxYxCmb4TOeOaBFDztni0pXGdC3hAYkjyr36EmqeVcvgFI
-	vblSjyxm/NYTxYdImQ5JuMuKn0Cs0yo+w4ro+Q33SIhq/ySUT0hhFOgsgcwIEDG02B4=
-X-Gm-Gg: AfdE7clD0BRjXIVWb7xapjLZjSz+HgS/o8AxeEd8CyiBOBJDG+umqeHvihQwLjWsvRU
-	TmyI3WBgi65xhzR/ztwPgKOBLKJ+K2XzeLJxg+YHVYcjoaRh4Qq2pl8Fq1o1kySfAMX3fM0TcVJ
-	KSRAyQOP4vBzwu5KPWj1RWhxk7GoLxIkO+R0rF1XLC63F/lURLIhZham3fN5eI+G679lyxq+HAL
-	KE9czL4Uj8pu+ZRzWsSuHyx8PSTqScoFTUzfukgqEKwY+VrgjKHZ1zJxyk8Rx2zSLtYIiBzBoyw
-	cnFYiBNhI/Uph88KWGtul+cclfof4P9xXIp7z+j1SenQR9Jd+eTXxpsJyNx9RWnPij1XNjGIyUe
-	o7QWVREoNY9HvuhYs3d3NVopht6/h5MY8V36NyD/6OUe7EuA4We5ciz37PQ8wIVet2fkueQdx1O
-	XdCuk3JdSXACyihl0NJjXkN5h7ZTRUveMV71Vf7p8yMusGBw==
-X-Received: by 2002:a05:6000:24c2:b0:46f:7d90:8124 with SMTP id ffacd0b85a97d-47550313dd6mr2387117f8f.2.1782820025445;
-        Tue, 30 Jun 2026 04:47:05 -0700 (PDT)
-Received: from jwang-ThinkPad-T14-Gen-6.fritz.box ([2001:9e8:1453:7800:1346:8041:6728:42f3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47567979eafsm6925731f8f.34.2026.06.30.04.47.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 04:47:04 -0700 (PDT)
-From: Jack Wang <jinpu.wang@ionos.com>
-To: gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Michael Roth <michael.roth@amd.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: [stable-6.12] KVM: SEV: Unmap and unpin the GHCB as needed on vCPU free
-Date: Tue, 30 Jun 2026 13:47:01 +0200
-Message-ID: <20260630114701.319917-1-jinpu.wang@ionos.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1782820203; x=1783425003;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=AKxGBmZoJWBXkWw87eb5Iekf1UB3fVGGAvIFgFCNLvA=;
+        b=pigBsr6ZS8jNLIuw6Wer+P4l9Fg1YuyJwO7ylFtO91svJ2dCYVBhioib733i7GEvoW
+         g6DkaFVrCBSMosOM/doeHXnWrpUMssY15BZLVbFTpDjBsmC9JoanyyZnEJpLg9xUs+Fc
+         mS4WnERaCSq/JmZz/X+MI9qVoB5cE+InBm/6i1vJ0G9HQTW4+sGUdnoAos+7TXjQ539E
+         IfttFKDBdKcIusFLBkgDEM30t0hBD+XKYYB0DgLVJMOrv/1vDlTeOB726L15PiidDztj
+         8f7+uZpwhw748nii+8JPWnnZg9yhvvwmrDq7nsyCRFlL7/Gh2ouabFxQwQaPxwXf5S/y
+         CfXA==
+X-Forwarded-Encrypted: i=1; AFNElJ9LBbb6G8oB1PZdB5ecgOArlbYjn64kkIFGYajPztqe8hUglG6Av4EqWbkqmrip9YV/OZpmKtc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRNPdlmTTkFsYDrLYxLC8NV5M3ZVSa/Mc2byF4a3nRPVekaJGu
+	dnBYqAEHUnGpc2/LCeG5NNDXudIx2cAacGDXPx3kkNCv8pIYnooiXv22H0aHhP7GDGTyfrdZE1x
+	lfvS1rE4Nak0q/5j+vgD4McizVi1cLdX+eI22mRS0
+X-Gm-Gg: AfdE7cnEh8VkIVbyY5xQDbYjWMr0NyWX9HSj92nFsvhXM4cFaKKNTQ4TA83CpEyAyWH
+	/F41ZBSmyo5e3VKsURIpDoVOzEqI9uCPpJEwaxrviqDtsO286ZcgloofccG8OMc9RoXjSmOvumS
+	yKYyUldaynpJ1KgGb/vY06xHuwqWnOZyKyUXvnrVS6cKmS6xxrgJwX6izSUssnuaIs3sUW90fdM
+	F2dl4ot5kdW1zCN5tJaKWy9zSBEfQuL+mNADDA2UAST60lF0hsAMlUlwtgX3N5aiAdhS39h/A==
+X-Received: by 2002:a05:6a00:14c1:b0:847:968d:b0ff with SMTP id
+ d2e1a72fcca58-8479f2a49b9mr2599684b3a.55.1782820202911; Tue, 30 Jun 2026
+ 04:50:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260628111229.669751-1-jhs@mojatatu.com> <de40b1a5-663e-43ab-9fb7-5a49f029cc4b@redhat.com>
+In-Reply-To: <de40b1a5-663e-43ab-9fb7-5a49f029cc4b@redhat.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Tue, 30 Jun 2026 07:49:50 -0400
+X-Gm-Features: AVVi8CdpQSTjeXB-bnfvF1mLqAtHVPEptxCPY-KPz-SG2z_eFlsvaBUP5s4cQzw
+Message-ID: <CAM0EoMn-6Ayjd3mxsiifDXwN1zdefx9eiRk_wWRpsuEh22LziA@mail.gmail.com>
+Subject: Re: [PATCH net v3 1/1] net/sched: sch_teql: Introduce slaves_lock to
+ avoid race condition and UAF
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, horms@kernel.org, victor@mojatatu.com, jiri@resnulli.us, 
+	security@kernel.org, zdi-disclosures@trendmicro.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Sean Christopherson <seanjc@google.com>
+On Tue, Jun 30, 2026 at 7:15=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
+te:
+>
+> On 6/28/26 1:12 PM, Jamal Hadi Salim wrote:
+> > The teql master->slaves singly linked list is not protected against
+> > multiple writes. It can be mod'ed concurently from teql_master_xmit(),
+> > teql_dequeue(), teql_init() and teql_destroy() without holding any list
+> > lock or RCU protection.
+> >
+> > zdi-disclosures@trendmicro.com has demonstrated that the qdisc is freed
+> > after an RCU grace period, but teql_master_xmit() running on another
+> > CPU can still hold a stale pointer into the list, resulting in a
+> > slab-use-after-free:
+> >
+> > BUG: KASAN: slab-use-after-free in teql_master_xmit+0xf0f/0x16b0
+> > Read of size 8 at addr ffff888013fb0440 by task poc/332
+> > Freed 512-byte region [ffff888013fb0400, ffff888013fb0600) (kmalloc-512=
+)
+> >
+> > The fix?
+> > Add a per-master slaves_lock spinlock that serializes all mutations of
+> > master->slaves and the NEXT_SLAVE() links in teql_destroy() and
+> > teql_qdisc_init(). teql_master_xmit() also takes the same slaves_lock
+> > around those updates.
+> > Annotate master->slaves and the per-slave ->next pointer with __rcu and
+> > use the appropriate RCU accessors everywhere they are touched:
+> > rcu_assign_pointer() on the writer side (under slaves_lock),
+> > rcu_dereference_protected() for the writer-side loads (also under
+> > slaves_lock), rcu_dereference_bh() for the loads in teql_master_xmit() =
+and
+> > rtnl_dereference() for the loads in teql_master_open()/teql_master_mtu(=
+),
+> > which run under RTNL.
+> > Pair this with rcu_read_lock_bh()/rcu_read_unlock_bh() around the list
+> > traversal in teql_master_xmit(), so that readers either observe a fully
+> > linked list or are deferred until the in-flight mutation completes. The=
+ two
+> > early-return paths in teql_master_xmit() are updated to release the RCU=
+-bh
+> > read-side critical section before returning, since leaving it held woul=
+d
+> > disable BH on that CPU for good.
+> >
+> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > Reported-by: zdi-disclosures@trendmicro.com
+> > Tested-by: Victor Nogueira <victor@mojatatu.com>
+> > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+>
+> Looks good, thanks!
+>
+> Please note that sashiko/gemini found a pre-existing issues which may
+> require a follow-up/separate fix:
+>
+> https://sashiko.dev/#/patchset/20260628111229.669751-1-jhs%40mojatatu.com
+>
+> (the 2nd one in the above link, IDK how to generate a direct link to a
+> specific comment)
 
-commit a847a44f67eaf99faad905da38c080f0ba7ee02a upstream.
+I just sent v4 which covered that but i will send a followup instead
+if you already applied.
 
-Unmap and unpin the GHCB as needed when freeing a vCPU.  If the VM is
-destroyed after mapping+pinning the GHCB on #VMGEXIT, without re-running
-the vCPU, KVM will effectively leak the GHCB and any mappings created for
-the GHCB.
+BTW: What is the ruling on when Sashiko finds a pre-existing issue?
+Should we address that as a separate follow-up patch? It is unclear
+what the policy is.
 
-Fixes: 291bd20d5d88 ("KVM: SVM: Add initial support for a VMGEXIT VMEXIT")
-Cc: stable@vger.kernel.org
-Tested-by: Michael Roth <michael.roth@amd.com>
-Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-Reviewed-by: Michael Roth <michael.roth@amd.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260501202250.2115252-18-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <20260529183549.1104619-18-pbonzini@redhat.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Signed-off-by: Jack Wang <jinpu.wang@ionos.com>
----
- arch/x86/kvm/svm/sev.c | 27 ++++++++++++++++-----------
- 1 file changed, 16 insertions(+), 11 deletions(-)
+This teql patch was one of the hardest to deal with in terms of
+reproduciability and the fact sashiko kept coming up with pre-existing
+issues - including the one Simon and I were discussing. Note: None of
+the pre-existing issues affected reproducibility at all although i am
+sure one of the AI-kiddies reading the sashiko reports will find a way
+to create a poc (this is why i entertain fixing them when they look
+simple enough)
 
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 73e493177351..580ed430f426 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -3168,6 +3168,20 @@ void sev_guest_memory_reclaimed(struct kvm *kvm)
- 	wbinvd_on_all_cpus();
- }
- 
-+static void __sev_es_unmap_ghcb(struct vcpu_svm *svm)
-+{
-+	if (svm->sev_es.ghcb_sa_free) {
-+		kvfree(svm->sev_es.ghcb_sa);
-+		svm->sev_es.ghcb_sa = NULL;
-+		svm->sev_es.ghcb_sa_free = false;
-+	}
-+
-+	if (svm->sev_es.ghcb) {
-+		kvm_vcpu_unmap(&svm->vcpu, &svm->sev_es.ghcb_map, true);
-+		svm->sev_es.ghcb = NULL;
-+	}
-+}
-+
- void sev_free_vcpu(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_svm *svm;
-@@ -3195,8 +3209,7 @@ void sev_free_vcpu(struct kvm_vcpu *vcpu)
- 	__free_page(virt_to_page(svm->sev_es.vmsa));
- 
- skip_vmsa_free:
--	if (svm->sev_es.ghcb_sa_free)
--		kvfree(svm->sev_es.ghcb_sa);
-+	__sev_es_unmap_ghcb(svm);
- }
- 
- static void dump_ghcb(struct vcpu_svm *svm)
-@@ -3461,20 +3474,12 @@ void sev_es_unmap_ghcb(struct vcpu_svm *svm)
- 		svm->sev_es.ghcb_sa_sync = false;
- 	}
- 
--	if (svm->sev_es.ghcb_sa_free) {
--		kvfree(svm->sev_es.ghcb_sa);
--		svm->sev_es.ghcb_sa = NULL;
--		svm->sev_es.ghcb_sa_free = false;
--	}
--
- 	trace_kvm_vmgexit_exit(svm->vcpu.vcpu_id, svm->sev_es.ghcb);
- 
- 	sev_es_sync_to_ghcb(svm);
- 
--	kvm_vcpu_unmap(&svm->vcpu, &svm->sev_es.ghcb_map, true);
--	svm->sev_es.ghcb = NULL;
-+	__sev_es_unmap_ghcb(svm);
- }
--
- void pre_sev_run(struct vcpu_svm *svm, int cpu)
- {
- 	struct svm_cpu_data *sd = per_cpu_ptr(&svm_data, cpu);
--- 
-2.43.0
-
+cheers,
+jamal
