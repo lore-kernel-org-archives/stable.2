@@ -1,173 +1,165 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012063.outbound.protection.outlook.com [52.101.43.63])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A421021CC51;
-	Tue, 30 Jun 2026 22:47:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782859681; cv=fail; b=TdP6NTnqiuz+oJOVC6hRA6a0hmsA8wlvpFhQ+9vwn+ikvMAdGKibL9Soy/UbiKJR/aV0LYQErPJXaRYX8v/ty9mJHQV1+P9boNnhwaRFB7/Jn4Io37LlglbCkU/jl4ub9i9+sC1HARSd64sQZ5XGlfdPLYki4hd9bJx/1SzIIAo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782859681; c=relaxed/simple;
-	bh=M7aZCJ7A/bwxkwrogZpNpr4UW2/C+w5F9z1djdkTFs0=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=tjjzikKHCQIIzsxBT9zcxju2WXKoaaX2VGn3AcF/kcIaFZwjRFfIzbQMs3CzYSQbLNiR7oqwXMUIkCO3VcLMQ15n9kGrW3tLB8KqSs58kDXPYymOYSh2/eFBBv/igec9OjO1vuBVi2I2oJerpfccVuIlDs0iENCyYtbBXNuNt2Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=aOwt6rJd; arc=fail smtp.client-ip=52.101.43.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4369431E823;
+	Tue, 30 Jun 2026 22:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782860120; cv=none; b=rGItvveoZ86GFDtfoveWzPKaj8YTN8jgoHVSPvqjR5DfGNcUsWZEC7jELSb2zFz4rb7OobR+vZxcBBQFegj7qOdn7iLtNAQa4cHrCpcQGOiW2eNGizcLrcswFd02k+GwCWvT7xehcRdJf8UJdM/jL/NiGJN1PV9Bz6jtqdKC9OQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782860120; c=relaxed/simple;
+	bh=bW2iVO5p1HwMr74vSECehUVdeXkq2JENlQ3PiCMKcO8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=qqrgwluoA9jVqz7vtmqEDxdhXKKvL7yZZc+r2TsVWrrkURZGcSlCxYRyGIjTUwaNBASDqEpAVBIk1RRDATUrDwWHouRYoB0ZX901phJxg9nhsyA6IdTkytfHmnVcBeziwh/jOeJhGB8FIzyg4OMKCeC1XmEXlKPhLCLeg9EcpyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=G/aWsL+g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="aOwt6rJd"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dSAZ6e/Q1Ivd691n2qcgMbbHTUYOOc5vXM5CxEI/JZLXxzNfr2QVtgu1bw2f2l8AeJc61Yq8/ef6bSP2IyFH7L3adLdVCi+Bn9SAmaGKlZWm6iTzwFK8Pnk2/IjjJSwCaVNjc0iPmxI3n2r3IqQoarzp+f0oWBZbGM030ixp9I7bXIPvLtvmIXBCTjFlH3fukgfnzN/X4w6nIEfizKOniZmZSHo6t+lmsqu305B3NXNbKWRKHkWwRfSNiDd6JBoUGPXDmkmRUYwn2Vt4Ski7xmzUgu0xxkCb4zV5m1q0WVfm6hX0CAcKsEEvooSe0/4ERJ5+Ov5RCyZ8PzLt7CEVZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f+ug32B4Jsle35MqAfvF3Rxns/M6x/bceS7vOMNw2gU=;
- b=d69lmQ2ZlgfveCvjaXpswolSnajTCSAsa7ZiaBq/dhy6pT3A7WgASx7bkDO7FHb3rY5fKaLqJW5gvDRk91ZRWRjg7aPJb2pWTDPqC1nKo6nuQZUJkYcWULLKm+JyG8fSm+xivJ50doT8B0vRrgFfMv1p79qq1BzDGuMRG0pMtYrPepk7nhbVtb+60IR4hXv3JmE4JfIsQF8RPA+A5j51cHIKvy/hj5EbKHzBExDM6E9sJCZ3Dr5AP9p1GrtQmMKNq+/cucQbAryi0oJI884TKA0eezj4F2rFxowB4WFTFt8kitKeVCPCccGgGm6vhdTphW+WBIZecuFIFCCYZhrNYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f+ug32B4Jsle35MqAfvF3Rxns/M6x/bceS7vOMNw2gU=;
- b=aOwt6rJdfp2v6IwVG2cgbWi3WvdJlI1qvVKP9OffSn68wGe1sD04RMbXZ5vNkhJg7GQON9ErAIa3r2hjiQ3H6C4wV4V6fRaz2liMzTGLtK7OWGJ1y+dr2Ad2jDnv2B2TH/X5qdWWoH8KMbNyB84OxHe8GVftM/UazXlt15s5hW43talDs/WfAaxQnVv/wl57hl+N23zt504uvXQH6FTepdmvdeXRexS4RuXzf3zG+cDGccBBXt4sZJTx7X1ISUF7P9JloeSk73Ff46EJDsXSdmItYegZYEUuI0QKgGwT0bFPbLyakX0dDj44YRB45ob5Wc1ZEftStqyCBKATiYqW4A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5873.namprd12.prod.outlook.com (2603:10b6:208:395::20)
- by MN0PR12MB6320.namprd12.prod.outlook.com (2603:10b6:208:3d3::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
- 2026 22:47:55 +0000
-Received: from BL1PR12MB5873.namprd12.prod.outlook.com
- ([fe80::e8aa:dc7d:992f:93df]) by BL1PR12MB5873.namprd12.prod.outlook.com
- ([fe80::e8aa:dc7d:992f:93df%5]) with mapi id 15.21.0181.008; Tue, 30 Jun 2026
- 22:47:55 +0000
-Message-ID: <d6c67c8b-acbb-46fe-9f9c-b32232b00778@nvidia.com>
-Date: Wed, 1 Jul 2026 01:47:47 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net/mlx5: HWS, fix matcher leak on resize target
- setup failure
-To: Dawei Feng <dawei.feng@seu.edu.cn>, saeedm@nvidia.com, tariqt@nvidia.com
-Cc: leon@kernel.org, mbloch@nvidia.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, vdogaru@nvidia.com, horms@kernel.org, kees@kernel.org,
- stable@vger.kernel.org, netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, zilin@seu.edu.cn
-References: <20260629064049.3852759-1-dawei.feng@seu.edu.cn>
-Content-Language: en-US
-From: Yevgeny Kliteynik <kliteyn@nvidia.com>
-In-Reply-To: <20260629064049.3852759-1-dawei.feng@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0041.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c7::11) To BL1PR12MB5873.namprd12.prod.outlook.com
- (2603:10b6:208:395::20)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="G/aWsL+g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 835181F000E9;
+	Tue, 30 Jun 2026 22:55:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1782860118;
+	bh=uf4NCErCtbDw+Q8rHtEwdiycQJlKnF842/UAloF/2Fc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=G/aWsL+gZx6ItIsGSSmT+5RPKoGmHvOITQxmaCiERCn4DhyhbNap1PAb3oH9MfqMm
+	 Bh7wQOO2wDhDS6DyOyc0QD29/68fLKdeBWoBoAUBhJOeSefRHL+Ajk5VDX6LXHq1l6
+	 1CSNbVtJfGaTt8Ps/WLqahzU1QRkavjL90LkbSu8=
+Date: Tue, 30 Jun 2026 15:55:17 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ rppt@kernel.org, vbabka@kernel.org, mgorman@techsingularity.net,
+ hannes@cmpxchg.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/vmstat: fold stranded per-cpu node stats when a
+ node comes online
+Message-Id: <20260630155517.38a99de9f32d20abcbf9440b@linux-foundation.org>
+In-Reply-To: <akQtx7zhP7pxNCiy@gourry-fedora-PF4VCD3F>
+References: <20260627202243.758289-1-gourry@gourry.net>
+	<20260627161007.81e4533ce561c2951a69f927@linux-foundation.org>
+	<akQtx7zhP7pxNCiy@gourry-fedora-PF4VCD3F>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5873:EE_|MN0PR12MB6320:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c6396d5-112a-4b5a-0cec-08ded6f99fe3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|22082099003|18002099003|5023799004|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	/V9Gj5aKd9EbGF/luLFCOMwkeGXGQWCKmidZD9FwGvkP+lcrrF9RXPkijxffsCfhM/mvOrJRU/AzghDGur/thgazr8/1ckqu7VJTQSmu1XDm6oAaVEY6OkxSWHedM2yFWxUCJo3UDrLpXNSdNs5ATX8pn3VRPpGEvcgeCIJngofRwDEwRD9bMuEF6YuTrSbI88+HSLc7qt83qjRWUVr2FaNc2BW00O0KzFmWUE8Iv8McAD4AoUZE4XcgetK0pZ42Tm408wONznsUhH+JcU9Igs7hRBU/+4nngoI1pKmIS20pXtxU3W06PtzwTOrbGdzCxkFFaqfe0TJSUN1D2L/irhyeZttR9JPGyl4yCs+b0uTah8wxFfEjlHe6sAvneac4HwY1OfamhaJPD6+TzSdOUyG5y1U71mYNK5sB6206GAk6PrH6NZxYRL4iR65Cy1/X01KjMvSHcAkAlfaIJeE9tPFJpyeKLlKq6ZwLsvh20ihdHxSLlyhzqn4dXD1QTXh8E8dvdxt7nmMaaMiur3ro73zz9UPhSJPNr2FNDTgyg+mKIqwZQKbX+9pIw5Bpcd8rzO9JLlKRMB9o0RYhnMNSHv7tQo0wJYrokBUtNLbF9BNiKe8USYUZuihFMXHMHZLc1eRZUnFbVohE4MIFltPtE+jFUVgRsq3OVsCNNgCaEME=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(5023799004)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b0xBVHVhUEE3MHJTMCtIcGxZSE1iY2pLV1RrVkUzWHY5Qy9wbXlqOHpBbWlz?=
- =?utf-8?B?a3NXRDU5R2dhQWRIZEFucmpra2Z5R0w4clZGSnBDRUxYWlZtaVVzOGdpMWF6?=
- =?utf-8?B?b3JRQzFiU2RNbUR4YmgrcmM2S2F5a1piVGU4WDI0UWRlMDArQVdRT3FpVTdD?=
- =?utf-8?B?dEltakN0dit2bWNJL1VrUEVBZW9WMG9OK1E0K2F3MHBJSGY3U3dMZEdrRkFq?=
- =?utf-8?B?TCtUbFhDV3Q5WVZqMVh0dXVoc2VmQzNFcTF0SEFDM00razdKV0RRWHhJL3M0?=
- =?utf-8?B?eHFtZ2VSNllDblN5SFYyUlJFb0U1MkVBQXFKSnl1OHhjbVdrOTdJYTFKU1Qr?=
- =?utf-8?B?N3ZEZkI4YThFUVlESWw0R3lzUzgxVkRtSU5nUk15cUN3ZXVTVXdsZCtCNGl1?=
- =?utf-8?B?dXEvY0JiM3BGdnFtU1VxeStpNitQQ3VrUDkySzBOSmQ5c3pxU0Rna1h4eER2?=
- =?utf-8?B?VitzcmMycksrZkE4eWNZbXNONGszZlAzaXFIVmszZzFGclQ0Und5ZFkxL09R?=
- =?utf-8?B?N08vOVVMZTQ5WDFXQTJCSExDL2toVEpnRkt6azVKQVpHNFVVakMvQ21ESjBR?=
- =?utf-8?B?QlVEK1lJaC9SSTVlZ2djbS9CTUEwUkpnQU80ZFdnY2J6bkdBdElCSUwweTdK?=
- =?utf-8?B?TW1yd05jMlBHRld1UzdWcE5sMXVqVGZrcnYwcm5qSGpGdWRucFdUaG43SGJ5?=
- =?utf-8?B?ZG5teFVWOHgyM2U5SjV3ekpXZEgwVlNDSDE0c0grNmtJUUNXKzkvV1I4SUE2?=
- =?utf-8?B?dWM0M1Z0b0g3ZUMrR3pVQ2lPbkxEeVVPNUZkOFNKNXFpTnZmQzZ3blFmOHlC?=
- =?utf-8?B?citteWhRQ04xOXR4RlhoLzY1cldJZmh6WnZXb0NUUnRnTHFKOWVrSkxwRnhD?=
- =?utf-8?B?eFpyOURqTlpoU0YrWHRKdGZhMTAyNHNzVHB6a3BqanlqSU00dCs5Rko3UE9v?=
- =?utf-8?B?c1k4YzR5UmVUME04NmtXcXZSYTl1RTR3bjJlTzNpRlVyZGVMR05LWWM3NWRz?=
- =?utf-8?B?anVKdlN6N0JaWnlMQ01pYjBwR3RUZlVKVVMvQnUrbUdrM1dlZVdlU2JDV2tN?=
- =?utf-8?B?M1Q2VXlmL25lVWNxVVhvNjJqektobzlkRzN5MHFUMTZjRUlRZlk0V3RlOFVY?=
- =?utf-8?B?OTFFWHU5SXFaUHEzYWgrYWl5V1UvaC8vMlZVZkI3MVJrTVlUS25LVUpSVE4z?=
- =?utf-8?B?Q0ZVb2t1TWNxdDNEZkxzVGsvdFB3SVREUWMrK3k5YkxWdnFHMmlQMGlVQUpY?=
- =?utf-8?B?NExlQ2lYdkRuNjFRbGJlc2UrRVZVbEdLSE9XaDBXT2hxUU5maTNzd1hWcmVN?=
- =?utf-8?B?ajJDeEh5YWdyZk81QzI3L0NFTzJRODhVSGpPUHVRNmxRZWdvS3VVVzMrUnE4?=
- =?utf-8?B?MVI0WXpoUFNnamM1SE1yOHNCWVE3YlpCeFRITnJGM0VCSkFOUXNYUnFSY3FE?=
- =?utf-8?B?bFRKQVh1bHEzdXdBVnZ1ODBNYVhGN2FsNkNidE1SNGJzRU12TXRuYkRacG11?=
- =?utf-8?B?YktNSG5pcEVpMDgvblR3a2NiWFViMmtHb3NYdHRPSVZKbGFLVjRtTW82clQz?=
- =?utf-8?B?dk53RVlIWlE4Z2JzWXZlODRTb1RJb0lmS1ZaSDhra0FreDR5U3RVTldSQ1RD?=
- =?utf-8?B?aC9pLzNsMlNKeExQTExvRkdiMUVicmZQNFNXejdsRnRkcEJrRXJ1NzF1RDAv?=
- =?utf-8?B?K1NtVTVNMllUOFlWZXBpR2lxbXJwekkrTWowU0hyM3ZwQnpuK3BLeCtUKytN?=
- =?utf-8?B?MGljc3RXUWhTQVJjZ1E3U2s3L1djTGJnY1BESkdQZGQ3bkpjdERvbkIxKzlq?=
- =?utf-8?B?ZEdzUzBsQVRiQmRYUjFFVW9WUnkvTGNDNGdDTURXQzZRSU53bXpYSURqclVm?=
- =?utf-8?B?YjVVMW9aallTN1dWTlBDa01hbDhMOFFaaVBMaG1VS0Y3b09MVEtSdTdFV0dL?=
- =?utf-8?B?SE9zRTVKdmxlZjRFYVIwRFI2cHUrclU1MVJBaTk1YnVYM3dDNFpVMWRwN0ZL?=
- =?utf-8?B?WURHejlWaUx4bzBUUVhjV2Vsekh6azlSZ2VmOGg1SkJIK09DQUV3QmNnOHI1?=
- =?utf-8?B?ZEt1ZHcrUUh0QVlGVjdEVkhaNmFWNlFLS2E5UEhpWDBub2ZhZDA2aVg1Mncx?=
- =?utf-8?B?Ry9oVVluQ25KaDdCcFo1azZaNnBMUVE1UU1xaWNrMDRuZmlVTDVJa2FQZTZx?=
- =?utf-8?B?NCtRRmF3Wnp5dzVmcjBpNWxuZlNrbHZQcGhLWURSK2VFQ3l4TU43bFhoK1dR?=
- =?utf-8?B?VHM3YWJzMVVjY3hDSjNLdjRqNDNicm1nMldWWTV4SzVUZDc1WWtrdDBlZlFW?=
- =?utf-8?B?cW9DRm15L3EzT3RTNUhNZWRmUWs1aC94NE1Bc0dQaVUxa2MzbFdFZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c6396d5-112a-4b5a-0cec-08ded6f99fe3
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 22:47:55.5568
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: InUZiyi7jRBkN0ZbaHohm4ZTOIFEdWcu3pFJO9jSk5uH005ZxGX9YQWLQFcIdoa5mrTbImHZGZ5QzYnZqgwVvw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6320
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 29-Jun-26 09:40, Dawei Feng wrote:
-> hws_bwc_matcher_move() allocates a replacement matcher before setting it
-> as the resize target. If mlx5hws_matcher_resize_set_target() fails, the
-> replacement matcher is not attached anywhere and is leaked.
-> 
-> Fix the leak by destroying the replacement matcher before returning from
-> the resize-target failure path.
-> 
-> The bug was first flagged by an experimental analysis tool we are
-> developing for kernel memory-management bugs while analyzing
-> v6.13-rc1. The tool is still under development and is not yet publicly
-> available. Manual inspection confirms that the bug is still
-> present in v7.1.1.
-> 
-> An x86_64 allyesconfig build showed no new warnings. As we do not have a
-> mlx5 HWS-capable device to test with, no runtime testing was able to be
-> performed.
-> 
-> Fixes: 2111bb970c78 ("net/mlx5: HWS, added backward-compatible API handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
-> ---
->   drivers/net/ethernet/mellanox/mlx5/core/steering/hws/bwc.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/bwc.c b/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/bwc.c
-> index eae02bc74221..3bcf412a08c4 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/bwc.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/bwc.c
-> @@ -205,6 +205,7 @@ static int hws_bwc_matcher_move(struct mlx5hws_bwc_matcher *bwc_matcher)
->   	ret = mlx5hws_matcher_resize_set_target(old_matcher, new_matcher);
->   	if (ret) {
->   		mlx5hws_err(ctx, "Rehash error: failed setting resize target\n");
-> +		mlx5hws_matcher_destroy(new_matcher);
->   		return ret;
->   	}
->   
+On Tue, 30 Jun 2026 16:57:43 -0400 Gregory Price <gourry@gourry.net> wrote:
 
-Reviewed-by: Yevgeny Kliteynik <kliteyn@nvidia.com>
+> On Sat, Jun 27, 2026 at 04:10:07PM -0700, Andrew Morton wrote:
+> > On Sat, 27 Jun 2026 16:22:43 -0400 Gregory Price <gourry@gourry.net> wrote:
+> > 
+> > > +		struct per_cpu_nodestat *p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
+> > >  
+> > > -		p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
+> > > +		for (i = 0; i < NR_VM_NODE_STAT_ITEMS; i++)
+> > 
+> > and that's a lot of items.
+> > 
+> > I guess the overall loop count won't be large enough to cause issues,
+> > but it's large!
+> > 
+> > Perhaps there's some simple test we can do on the per_cpu_nodestat to
+> > avoid the inner loop?  Perhaps might need to add a field for this?
+> >
+> 
+> I took a look, but that would involve adding another per-cpu field and
+> then making sure all the races on that field are respected as well.
+> 
+> Not sure it's worth it for such an extremely rare event.
+> 
+> I can try to get clever on the folding logic if you'd like, let me know.
+> 
+> > btw, "for(int i..." is allowed nowadays.  It'll make this code nicer, IMO.
+> > 
+> 
+> Otherwise i can send you a respin for this.
+
+Is OK, we could make this change in a million other places.
+
+> > And... Sashiko seems to have found a pre-existing issue:
+> > 	https://sashiko.dev/#/patchset/20260627202243.758289-1-gourry@gourry.net
+> > 
+> 
+> Incoming patch for this shortly.  Pretty trivial.
+
+Cool, what was the Subject?
+
+
+I'll queue this patch in mm-hotfixes for some testing while we await
+further review (please).
+
+
+From: Gregory Price <gourry@gourry.net>
+Subject: mm/vmstat: fold stranded per-cpu node stats when a node comes online
+Date: Sat, 27 Jun 2026 16:22:43 -0400
+
+A per-node vmstat counter is pgdat->vm_stat[] plus per-cpu deltas.  A
+balanced counter can sit split as global=+N / per-cpu=-N.
+
+The folds reconciling the split only walk online nodes, so when
+try_offline_node() marks a node offline the per-cpu deltas are stranded.
+
+A subsequent online resets the per-cpu area but not pgdat->vm_stat[],
+orphaning the +N permanently.  All NR_VM_NODE_STAT_ITEMS are affected.
+
+The existing code zeroes the per-cpu counters and causes a permanent skew.
+Fold the stranded deltas instead, before the node rejoins the online set.
+The node is not online yet and the hotplug lock is held, so the remote
+access to per-cpu values is safe.
+
+Discovered when node compaction hung for a nearly empty node, as the math
+to determine throttling broke.  Reproduced by repeated memory
+hotplug/unplug cycles on a node under pressure: NR_ISOLATED_ANON ratchets
+up and never returns to zero.
+
+Link: https://lore.kernel.org/20260627202243.758289-1-gourry@gourry.net
+Fixes: 75ef71840539 ("mm, vmstat: add infrastructure for per-node vmstats")
+Signed-off-by: Gregory Price <gourry@gourry.net>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/mm_init.c |   15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+--- a/mm/mm_init.c~mm-vmstat-fold-stranded-per-cpu-node-stats-when-a-node-comes-online
++++ a/mm/mm_init.c
+@@ -1540,7 +1540,7 @@ void __ref free_area_init_core_hotplug(s
+ {
+ 	int nid = pgdat->node_id;
+ 	enum zone_type z;
+-	int cpu;
++	int cpu, i;
+ 
+ 	pgdat_init_internals(pgdat);
+ 
+@@ -1558,10 +1558,17 @@ void __ref free_area_init_core_hotplug(s
+ 	pgdat->node_start_pfn = 0;
+ 	pgdat->node_present_pages = 0;
+ 
+-	for_each_online_cpu(cpu) {
+-		struct per_cpu_nodestat *p;
++	/*
++	 * Hot-unplug can leave per-cpu vmstat deltas unfolded (folders skip
++	 * offline nodes) - reconcile this at online. Foreign access to counters
++	 * is safe: the node is not online yet and we hold the hotplug lock.
++	 */
++	for_each_possible_cpu(cpu) {
++		struct per_cpu_nodestat *p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
+ 
+-		p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
++		for (i = 0; i < NR_VM_NODE_STAT_ITEMS; i++)
++			if (p->vm_node_stat_diff[i])
++				node_page_state_add(p->vm_node_stat_diff[i], pgdat, i);
+ 		memset(p, 0, sizeof(*p));
+ 	}
+ 
+_
+
