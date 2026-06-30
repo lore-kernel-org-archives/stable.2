@@ -1,234 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29CC83E5A24;
-	Tue, 30 Jun 2026 09:46:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4819B3ED5B3;
+	Tue, 30 Jun 2026 09:48:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782812817; cv=none; b=u1yg1lh2yXjABlzkLD18BsazQq58yulccwSQA0fqFeUGhU0NsY6dWaJ4h5IJR1IJ+3nqFurrN1VinKm7tvMJUmmWuWaXFrX3SLgovyh5qKguV0waSXVIV99zMEZgGDIrvPVnYQpmry6NKBq8vVgnXVT3F2+glG/jwNXI6N5RZqI=
+	t=1782812901; cv=none; b=XSELa38EYq0NIac3FFh/UEowIZGw2JvJQNESpzY84Hh8jd3bLVOHrV4S0VpkWcjGfUyME1mBfrhICThej+uNEWK6/xRRxFFwCEtDvxerSGgkL9co6AK+la2RtZVkqf6v37nfwyOvJzZXCwJCOebaBmi/h4XAoKhbXIH14VhxzOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782812817; c=relaxed/simple;
-	bh=GuQw9MIS/pH3fVPA6CarIQglbTE1BhNLAOJ9yeXqKA8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rnLjwn+xiBCbtSgIWJrRsXwDqFLt2VAKsmPhU2hGDPk+aTinSRRT4aG58Jl8388TQe+6vgoDlqY4q8QeeaDXbZENAwMl/+Avl1qYzk6cC3qE5LXhv5Sc+IiQ2KJL1qZdMQljp4WUFnuxy0k0+Ee2/iSdCpTjkKtmoU6bOVT1iJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PnHa8UwN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782812901; c=relaxed/simple;
+	bh=ZTLMazWscUK2u9c+7QbExy8OEyWQbL/sD/Myv7Br7/E=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=f6imdsnE3BhGAW0R9QU/V33ct7J2bbqetVJg4N0xquiAZ5VIEwzJniWVdsGqPF2cOPkDHYTtHgKzTQcgkUDVXL8ZYd5PS7bzJ/qDd365oq5p0ps0d1DJGmCSSmB6avowvzuCWDJo+y7nW8gOBRaAf1FbJtdzvB7Yc0KlXGN1xMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ApTloHXt; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Alym5fP4; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PnHa8UwN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7661C1F000E9;
-	Tue, 30 Jun 2026 09:46:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782812815;
-	bh=uY/mD87Fvq6E/NoNR+PQqQ38lk4WiPdm6num7PEMI9g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PnHa8UwNnOjknGIYsrdstzWHrpp6DN1rr0a/TcNQ0Q/1FqtaEW4YZEJNejMWVVjV9
-	 413+jtFHvk5ajgSc6oJLSgWHyemDgAEP4CTwZ73kYszLF4tW7DEcem212ooGCo2yU7
-	 B0uc5wixnMsIPUYZLuOUrQWPAPIyJiZXF+rZ03c0HyTpZqKjL6iJ8mk494Pgekirnp
-	 zLEJ1gM3ILLKvxfVAJhSqyYSQn0I8K6RXjznSJclb7HyTT7eQCJrxxvmFqc4QflKEd
-	 k7M6D7tuTUwkN97kRi4fnBgIKH9WSLtNGJqJPq2TbfWHcyTR1g+mt95FqXLB5pGRVA
-	 wfgI+YaQ6U6Tw==
-Message-ID: <a0e4d412-f0bf-4415-9e4b-2c6347bf8c69@kernel.org>
-Date: Tue, 30 Jun 2026 11:46:52 +0200
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ApTloHXt";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Alym5fP4"
+Date: Tue, 30 Jun 2026 09:48:17 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1782812898;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qM/hhCgy6S5tUVeJ/xFQRdDVrrgRsnPoL2in4x3gGOg=;
+	b=ApTloHXt/NeZXlbPXIB77CbWChU2G0auEXDCDMUPBlHzFaH75vKbSR0c+mbEieG+ELsrqp
+	8+dNFbsJRw+qFJ+VKa2hHiVZogqLNbJ4oNV0QDCVBRRAnv75MfynLJO4XySnkMZVMl3SV6
+	+3gLLUVl9ee2VTnX7gPGYQCk2f6k1K8p3Dg6pGesxQRU8siIewVR7mvF4RjcUzGd0nPolk
+	D/nS34sGrtKxtayohqXTqmA+Y/1J980AidbjG+xS66+C/EyoZmiFNJsUuuUFQQ/QLMu+Bo
+	nYrEtqq71DJhqoGhqxz5g1ru5zwimQNwlHjtgzqM0ewRJ4dg8+OZ+Z8cPp+bIQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1782812898;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qM/hhCgy6S5tUVeJ/xFQRdDVrrgRsnPoL2in4x3gGOg=;
+	b=Alym5fP4v17hq2qLNVRJ6+hm7/s+3lOSb8jo0CuHAhs76sU0kpPxM7jR69vh30bzH2KNH/
+	E1iFlp3FLtBr3TDg==
+From: "tip-bot2 for Dapeng Mi" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: perf/core] perf/x86/intel: Fix kernel address leakages in LBR stack
+Cc: Ian Rogers <irogers@google.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>, stable@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260616044654.3468742-5-dapeng1.mi@linux.intel.com>
+References: <20260616044654.3468742-5-dapeng1.mi@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] media: uvcvideo: Fix race condition for meta
- buffer list
-To: Ricardo Ribalda <ribalda@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org>
- <20260629-uvc-racemeta-v2-1-10e91d2afba0@chromium.org>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260629-uvc-racemeta-v2-1-10e91d2afba0@chromium.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Message-ID: <178281289705.3843924.11429508339062927893.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Ricardo,
+The following commit has been merged into the perf/core branch of tip:
 
-On 29-Jun-26 19:31, Ricardo Ribalda wrote:
-> queue->irqueue contains a list of the buffers owned by the driver. The
-> list is protected by queue->irqlock. uvc_queue_get_current_buffer()
-> returns a pointer to the current buffer in that list, but does not
-> remove the buffer from it. This can lead to race conditions.
-> 
-> Inspecting the code, it seems that the candidate for such race is
-> uvc_queue_return_buffers(). For the capture queue, that function is
-> called with the device streamoff, so no race can occur. On the other
-> hand, the metadata queue, could trigger a race condition, because
-> stop_streaming can be called with the device in any streaming state.
-> 
-> We can solve this issue introducing a flag, stream->meta.in_flight,
-> protected with a spinlock. When there is a buffer in flight that can
-> write into metadata the flag is raised, notifying the stop streaming
-> that it needs to wait.
-> 
-> Reported-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Closes: https://lore.kernel.org/linux-media/20250630141707.GG20333@pendragon.ideasonboard.com/
-> Cc: stable@vger.kernel.org
-> Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Commit-ID:     e2b0575900ff72aa82748af96e7bd564ade5157a
+Gitweb:        https://git.kernel.org/tip/e2b0575900ff72aa82748af96e7bd564ade=
+5157a
+Author:        Dapeng Mi <dapeng1.mi@linux.intel.com>
+AuthorDate:    Tue, 16 Jun 2026 12:46:50 +08:00
+Committer:     Peter Zijlstra <peterz@infradead.org>
+CommitterDate: Tue, 30 Jun 2026 11:46:06 +02:00
 
-First of all thank you for looking into fixing this.
+perf/x86/intel: Fix kernel address leakages in LBR stack
 
-I'm sorry, but this feels more like a band-aid then a proper fix.
+Before Arch LBR gained CPL filtering support, a user-only branch stack
+could still contain kernel addresses. As a result, kernel branch records
+may be exposed to user space even when PERF_SAMPLE_BRANCH_USER is
+requested.
 
-How about adding a started bool to struct uvc_streaming which gets
-set to 1 by uvc_video_start_streaming() and 0 by uvc_video_stop_streaming().
+For example, on Intel Tiger Lake, the following command can still report
+SYSRET/ERET entries with kernel-space from addresses:
 
-And then call uvc_video_stop_streaming() from either 
-uvc_stop_streaming_video() or uvc_stop_streaming_meta()
-depending on which one gets called first ?
+$ ./perf record -e cycles:p -o - --branch-filter any,save_type,u -- \
+ 	./perf bench syscall basic --loop 1000 | \
+	./perf script -i - --fields brstack|tr ' ' '\n'| \
+	grep -E '0x[89a-f][0-9a-f]{15}'
 
-With a mutex protecting the started bool and being held
-over calling uvc_video_stop_streaming() ?
+    Total time: 0.000 [sec]
 
-So stop the actual hw streaming when either of the
-2 possible /dev/video0 nodes gets its vb2_ops.stop_streaming
-callback called?
+      0.219000 usecs/op
+     4,566,210 ops/sec
+[ perf record: Woken up 1 times to write data ]
+[ perf record: Captured and wrote 0.551 MB - ]
+0xffffffff93c001c8/0x7f12a2b1d647/P/-/-/16959/SYSRET/-
+0xffffffff93c001c8/0x7f12a2b1d5c2/P/-/-/17535/SYSRET/-
+0xffffffff93c01928/0x7f12a2861000/P/-/-/6719/ERET/-
+0xffffffff93c01928/0x7f12a297a000/P/-/-/8575/ERET/-
 
-And to this before draining the buffer queue.
+The problem is that intel_pmu_lbr_filter() does not fully validate the
+privilege level of sampled entries. It filters some mismatches based on
+the branch type and the to address, but it does not reject entries whose
+from address violates the requested branch privilege filter.
 
-That seems cleaner then this approach?
+Fix this by extending software filtering to validate both from and to
+addresses against br_sel. Any LBR entry contains kernel address does not
+match the requested user filter is dropped. This prevents kernel
+addresses from appearing in user-only branch stacks.
 
-Regards,
+Fixes: 47125db27e47 ("perf/x86/intel/lbr: Support Architectural LBR")
+Reported-by: Ian Rogers <irogers@google.com>
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260616044654.3468742-5-dapeng1.mi@linux.inte=
+l.com
+---
+ arch/x86/events/intel/lbr.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-Hans
-
-p.s.
-
-1. It is tempting to also apply the same approach to
-vb2_ops.start_streaming, but allowing the meta queue to be
-the one to start streaming will likely cause issues. E.g.
-the streaming code assumes having a meta-queue active is
-optional, but not the other way around.
-
-TL;DR: vb2_ops.start_streaming should stay as is.
-
-2. While looking into this I noticed that struct uvc_streaming
-already has an active member, but unless I'm missing something
-that ever only gets initialized to 0. So I think that can be
-dropped. (If you re-use this please change it to a bool, no
-need to have it atomic while protected by a mutex).
-
-
-
-> ---
->  drivers/media/usb/uvc/uvc_queue.c | 14 ++++++++++++++
->  drivers/media/usb/uvc/uvc_video.c | 30 +++++++++++++++++++++++++++++-
->  drivers/media/usb/uvc/uvcvideo.h  |  2 ++
->  3 files changed, 45 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
-> index 3c002c8f442f..af9dbfcf6f53 100644
-> --- a/drivers/media/usb/uvc/uvc_queue.c
-> +++ b/drivers/media/usb/uvc/uvc_queue.c
-> @@ -209,10 +209,24 @@ static void uvc_stop_streaming_video(struct vb2_queue *vq)
->  static void uvc_stop_streaming_meta(struct vb2_queue *vq)
->  {
->  	struct uvc_video_queue *queue = vb2_get_drv_priv(vq);
-> +	struct uvc_streaming *stream = queue->stream;
->  
->  	lockdep_assert_irqs_enabled();
->  
-> +	spin_lock_irq(&stream->meta.irqlock);
-> +	while (stream->meta.in_flight) {
-> +		spin_unlock_irq(&stream->meta.irqlock);
-> +		schedule();
-> +		spin_lock_irq(&stream->meta.irqlock);
-> +	}
-> +	stream->meta.in_flight = true;
-> +	spin_unlock_irq(&stream->meta.irqlock);
-> +
->  	uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
-> +
-> +	scoped_guard(spinlock_irq, &stream->meta.irqlock) {
-> +		stream->meta.in_flight = false;
-> +	}
->  }
->  
->  static const struct vb2_ops uvc_queue_qops = {
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index fc3536a4399f..f6b55b3a3308 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -1732,6 +1732,26 @@ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
->  	urb->transfer_buffer_length = stream->urb_size - len;
->  }
->  
-> +static struct uvc_buffer *
-> +uvc_video_get_current_meta_buffer(struct uvc_streaming *stream)
-> +{
-> +	struct uvc_video_queue *queue = &stream->meta.queue;
-> +	struct uvc_buffer *buf;
-> +
-> +	buf = uvc_queue_get_current_buffer(queue);
-> +	if (!buf)
-> +		return NULL;
-> +
-> +	guard(spinlock_irqsave)(&stream->meta.irqlock);
-> +
-> +	if (stream->meta.in_flight)
-> +		return NULL;
-> +
-> +	stream->meta.in_flight = true;
-> +
-> +	return buf;
-> +}
-> +
->  static void uvc_video_complete(struct urb *urb)
->  {
->  	struct uvc_urb *uvc_urb = urb->context;
-> @@ -1767,7 +1787,7 @@ static void uvc_video_complete(struct urb *urb)
->  	buf = uvc_queue_get_current_buffer(queue);
->  
->  	if (vb2_qmeta)
-> -		buf_meta = uvc_queue_get_current_buffer(qmeta);
-> +		buf_meta = uvc_video_get_current_meta_buffer(stream);
->  
->  	/* Re-initialise the URB async work. */
->  	uvc_urb->async_operations = 0;
-> @@ -1778,6 +1798,12 @@ static void uvc_video_complete(struct urb *urb)
->  	 */
->  	stream->decode(uvc_urb, buf, buf_meta);
->  
-> +	if (buf_meta) {
-> +		scoped_guard(spinlock_irqsave, &stream->meta.irqlock) {
-> +			stream->meta.in_flight = false;
-> +		}
-> +	}
-> +
->  	/* If no async work is needed, resubmit the URB immediately. */
->  	if (!uvc_urb->async_operations) {
->  		ret = usb_submit_urb(uvc_urb->urb, GFP_ATOMIC);
-> @@ -2330,6 +2356,8 @@ int uvc_video_init(struct uvc_streaming *stream)
->  	for_each_uvc_urb(uvc_urb, stream)
->  		INIT_WORK(&uvc_urb->work, uvc_video_copy_data_work);
->  
-> +	spin_lock_init(&stream->meta.irqlock);
-> +
->  	return 0;
->  }
->  
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index b6bcee4a222f..6f1a3381d392 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -484,6 +484,8 @@ struct uvc_streaming {
->  		struct uvc_video_queue queue;
->  		u32 format;
->  		u32 buffersize;
-> +		bool in_flight;
-> +		spinlock_t irqlock; /* Protects in_flight. */
->  	} meta;
->  
->  	/* Context data used by the bulk completion handler. */
-> 
-
+diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
+index 688d1df..f8fadb0 100644
+--- a/arch/x86/events/intel/lbr.c
++++ b/arch/x86/events/intel/lbr.c
+@@ -1213,7 +1213,7 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
+ {
+ 	u64 from, to;
+ 	int br_sel =3D cpuc->br_sel;
+-	int i, j, type, to_plm;
++	int i, j, type, from_plm, to_plm;
+ 	bool compress =3D false;
+=20
+ 	/* if sampling all branches, then nothing to filter */
+@@ -1245,8 +1245,14 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
+ 				type |=3D X86_BR_NO_TX;
+ 		}
+=20
+-		/* if type does not correspond, then discard */
+-		if (type =3D=3D X86_BR_NONE || (br_sel & type) !=3D type) {
++		from_plm =3D kernel_ip(from) ? X86_BR_KERNEL : X86_BR_USER;
++		/*
++		 * If type does not correspond, then discard.
++		 * Specifically reject entries whose from address is in
++		 * kernel space when only X86_BR_USER is requested.
++		 */
++		if (type =3D=3D X86_BR_NONE || (br_sel & type) !=3D type ||
++		    (!(br_sel & X86_BR_KERNEL) && (from_plm & X86_BR_KERNEL))) {
+ 			cpuc->lbr_entries[i].from =3D 0;
+ 			compress =3D true;
+ 		}
