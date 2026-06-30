@@ -1,90 +1,111 @@
 Received: from gw2.atmark-techno.com (gw2.atmark-techno.com [35.74.137.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548AF3B42ED
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 08:11:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221BE38D006
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 08:27:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.74.137.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782807110; cv=none; b=fyRSSYAbQW703d5hbvfnR4ijwbc6iJMM9IBcCxOD4CcmblOhRwglDfoOyhaRjiS058Oi8yXVvzZV59K/1iUj+jab8X+hn09FO6U/xCg5ojJU3hWeCXvRGMq8WH1/VBHV4LkAwxExSirUbDXxcJ2RLNqUYf1YDvhf1su5e14T4BM=
+	t=1782808053; cv=none; b=t2qtlLbnkuvTWUqP4S6xbfqZ5KMnbSb0tXJujW2WAsYzN5d1fD4mmLjlapZ+RV6717QwZRUMBG5Uarqmvum/oxzG3+3DQdQMRbZBO7cnztyiYwr+9C9+eH96hn4YopjSMaJyBFNsLYdvyLuLaVj2sXn5HIVVnuAL3ORbZs/bd+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782807110; c=relaxed/simple;
-	bh=9WOKJEUmWGPbrtC633HUp32C+93WqW3IL7MVE/LPjHY=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nxFnEA40SopYBEYbycnW6fOjMprAtK1qKpaCxfvelc45niRQvD4AK6R8Mlm5Kfwfy1GIQLLfs2wEKMdbYBBrhXpvOa3ZjFxNNdr/FR2Q7Ra1uJPNanW4xVzL1wS40QImwTiyiKOl0Jjqx99NCtkkmjI4V3RkqMsWz6LGEGBQYKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=atmark-techno.com; spf=pass smtp.mailfrom=atmark-techno.com; dkim=pass (2048-bit key) header.d=atmark-techno.com header.i=@atmark-techno.com header.b=vQM+1Ggz; dkim=pass (2048-bit key) header.d=atmark-techno.com header.i=@atmark-techno.com header.b=VlU8V4nT; arc=none smtp.client-ip=35.74.137.57
+	s=arc-20240116; t=1782808053; c=relaxed/simple;
+	bh=0AqV/YDHGn19EMEu1E1okmOUiWZzYKdDuUHqmTFfw3A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FQjXt+W/Fm3SR0+yLM5CA2aLvgjR6OoSfCpaSVqhPL+X+0DdnqJXavdCGI690pvdAWvx3YfvrGC+d3p8rOsCKCSYRqwSmkfa1jQh99HMyCGvlAYz4URe++9+UCxY7tFerSSq2WPQOxUjZ5P2JPyvR10+0EuFAThqOZrAHv0nJEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=atmark-techno.com; spf=pass smtp.mailfrom=atmark-techno.com; dkim=pass (2048-bit key) header.d=atmark-techno.com header.i=@atmark-techno.com header.b=OhMH3War; dkim=pass (2048-bit key) header.d=atmark-techno.com header.i=@atmark-techno.com header.b=jlmMCW/l; arc=none smtp.client-ip=35.74.137.57
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=atmark-techno.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atmark-techno.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=atmark-techno.com header.i=@atmark-techno.com header.b="vQM+1Ggz";
-	dkim=pass (2048-bit key) header.d=atmark-techno.com header.i=@atmark-techno.com header.b="VlU8V4nT"
+	dkim=pass (2048-bit key) header.d=atmark-techno.com header.i=@atmark-techno.com header.b="OhMH3War";
+	dkim=pass (2048-bit key) header.d=atmark-techno.com header.i=@atmark-techno.com header.b="jlmMCW/l"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=atmark-techno.com;
-	s=gw2_bookworm; t=1782806706;
-	bh=9WOKJEUmWGPbrtC633HUp32C+93WqW3IL7MVE/LPjHY=;
-	h=From:To:Subject:Date:From;
-	b=vQM+1GgznpcjTS9yOEn+kS5GSejnRgtVsj0pTFS9AXm8FfXLIzASr4gnTL3O6vun8
-	 05OmBW5YGwJxZv2mDT1+8ZUolKNLuJbqOayGUl6BmFquF03RmHKCzAksCbmvQhcsWn
-	 b3d5i/HX+q5LcBwDXp5jDUbRvJmBmIS4n9IEfhpEPmJKqlYMHeNOUAziebbodGpHRc
-	 RfjIrL1+zLvZDU0b67ltJK7wIFtJ7J2fgcfDIEi6dl56Xptro3XOtqhCeCcihE21U/
-	 DjhK8ojU523JzDlWsgt/0I/3MUdFCgCAk2kqFfJDcpmpMNV7cl5Hx04hWTYgGcIZ84
-	 9jEe5vxv4f34Q==
+	s=gw2_bookworm; t=1782808050;
+	bh=0AqV/YDHGn19EMEu1E1okmOUiWZzYKdDuUHqmTFfw3A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=OhMH3WarNc4+1DHPQVYNJabTzFK792Sh/uTC4VUlNZwsce91W7p5PxxMId2ph/qqN
+	 i5vVGtiLWsqEDaWsI/0Q9pDuFLv57qWpc9mZlQVKm+/brTYWv1grHySN8UOtQJLeBj
+	 z13Qph6Mrfdo2xpl7j9dOTZvwrdGFD/8CWIA7KOVhgLLYU26oVwUFDWsWN9BdpF1z/
+	 5vJScSvXekNQPKTXBK9qNCvwUDGc1MSPwjOY7DhvRI3lNhTR4z2pqYFreRlG8XbqIs
+	 kbjMh59HGXq78V7gAaVoxBPL5vvADcmhNN1jBoWUrSXb4cpIqOhzAI6Fwf4x/maF4w
+	 tQPSzZIXDO+ow==
 Received: from gw2.atmark-techno.com (localhost [127.0.0.1])
-	by gw2.atmark-techno.com (Postfix) with ESMTP id 931F3262
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 17:05:06 +0900 (JST)
+	by gw2.atmark-techno.com (Postfix) with ESMTP id 4D0CF366
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 17:27:30 +0900 (JST)
 Authentication-Results: gw2.atmark-techno.com;
-	dkim=pass (2048-bit key; unprotected) header.d=atmark-techno.com header.i=@atmark-techno.com header.a=rsa-sha256 header.s=google header.b=VlU8V4nT;
+	dkim=pass (2048-bit key; unprotected) header.d=atmark-techno.com header.i=@atmark-techno.com header.a=rsa-sha256 header.s=google header.b=jlmMCW/l;
 	dkim-atps=neutral
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by gw2.atmark-techno.com (Postfix) with ESMTPS id 72645262
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 17:05:06 +0900 (JST)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8478947e047so1191473b3a.3
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 01:05:06 -0700 (PDT)
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by gw2.atmark-techno.com (Postfix) with ESMTPS id 3AC73433
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 17:27:28 +0900 (JST)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-845df469a26so4156297b3a.3
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 01:27:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=atmark-techno.com; s=google; t=1782806705; x=1783411505; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=GYTqILTvcqVqVJ+q6wbQFT2JmVJmeSOj94A8snwL4SE=;
-        b=VlU8V4nTzJ0oa4aDuxwvq9aekLSlKGY073xo3UZiWAB6nY6fHN/sUOhi0Eu0PUvtYz
-         nQ4+RAGPqlQVA/Ba1ymAyDgRftv2txpfPDJkxMqoF89rWGtF5408ZmikzDIpS2uqMEnW
-         pCOE6ApICHqJx7MIm0GE4Ukvkk6SCbVZsves4W2jVyrKWFgE8euoyF+z29UhFdP4Q93y
-         qyx7JcYHdKl9hOZ++n31mdNH+fW8SJDgJoAug/4zrXF9Z8313n+8xZDyEHJGT4WjHVHH
-         BcRbqP5jEnrorhvBzZCo+7kgxAu8GrB8qRihfNY7nhWxelK0bgeN23v26YktuXNfYG6I
-         hddw==
+        d=atmark-techno.com; s=google; t=1782808047; x=1783412847; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ElN0E0Vc646AHHC1/cI4G5asPGbZj5VC1KY8MtG3QEI=;
+        b=jlmMCW/lM4FJ61iWKO1/pLO+ZJngdd2cQ3wu4+/iutFnbobPKekYiy/ytfM3nfhSk9
+         NpxGnYzO4XvwsRl2E5fDg72OA0LLlQrYqDR+qvbJADlaWeA0rj07cPvKces9T++/pVzL
+         4jYZHtITnXHdo1FMPGqe5kDQ+8Ufu5NsZb4NXr42lY0vkqa3TLRxhEUbZDUbSrmLEvgZ
+         SJLXQxJJ11y4sNHyvbDJ3MQXF20r+JbgbTg2NOL4fyct849cyl+8AHjULiVUNsSZkBg+
+         oaoEifIcY6Yfq+NgOnt0fNpO3GRQJjntImfydP1p8i1jjfvGjSqMP3MHbEZ0rivZVLDY
+         mJhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782806705; x=1783411505;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=GYTqILTvcqVqVJ+q6wbQFT2JmVJmeSOj94A8snwL4SE=;
-        b=Z55o2A1OD0rVeRHBLKVWyhkgUXpyU6SqU6asU17SCNJ5MceoQO2AqjY9ORCNtPzwP2
-         NbYiFKjSUUImtqCt61Xj+G5ONmrSWzcGP6RI43gVix2GWxuFNDIEoCKn715F5tA35hXA
-         yJA8u9kquJYugs0nZXveym3HXex20Bf90DKCl+lmd4Bl7WquV0z2O9Gs66CxmWE8efxw
-         LRyBtV+R9DLAzSjPJ+dBAqHhxpL4NdwcVBMI1CYSKp03r2iifnkiqlNf4zf7gRYbRV1s
-         VsZ9nhMaBP3erOubsViKbiLcIKbawm9FZ0H5GTJw8zwZmW33LWM/J3VB2HvNZTAKUZ5N
-         YQhQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqf/Gqwft3JT+jGx5A6rl+UmsZ8vNmZIy6rQ8ZqUlSH8b0nt2yRVt1nQPGcY7LdT1vh4cg+0Ec=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwxjnJaS3CWEKiULOSYUWMF1RIkWBCutrArMeTzvQx1jbZIqShC
-	THl0WP5wlMCd2abt0+OgdYl0B7E9LXSD3dP6pVMq23/zo8s+UWu2RBzLQMpixrEMWUjQdlj9p1y
-	ldCQcpKw6vlPyRsY4/zilg062jC2he7uJE0VSfVL2v99CvsEJx1qA/HKO56Kc37b0Ws0=
-X-Gm-Gg: AfdE7clnuthRAgxfGcp2YSfnmOwcVUgHOsLfbZf6G4ePPfNGv/l05FDk1bL4PQfBIpq
-	53I/NteBTg6dLFuRfOo86O8U0c+4pdZN4J64q1PDk5lhjyR4AYb08ktGzdoq+Qh6ggm2n6hhnVo
-	SVydoVrWUVpfCS9HQfC6nZrRZc11u4a8V+YVVA+8RA9Z5vN+7Pj8bQPZZtepjoUGdD4HARJPDOz
-	lcB+Yg7WBnCETPp0HJp/zfLWSToCaHISQFHyEnrcy06RYJZXGww4lsZw7YHPgFWZqNYrYtm8KWI
-	3VUOu60lta96OzIWEGCQUri1rg/gWWJcZIRn05Q8FIWFqXsNpA6LaTvCGESfmR7LxwO5t0SEHCL
-	J6/4StkhETa7K2NszUReUiksJ3zffZOo+JwqpX02VSh7qLxG75Q19R/R87fM=
-X-Received: by 2002:a05:6a00:4b56:b0:839:12a7:70f7 with SMTP id d2e1a72fcca58-8479f26ada7mr2050448b3a.31.1782806705436;
-        Tue, 30 Jun 2026 01:05:05 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4b56:b0:839:12a7:70f7 with SMTP id d2e1a72fcca58-8479f26ada7mr2050413b3a.31.1782806704973;
-        Tue, 30 Jun 2026 01:05:04 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782808047; x=1783412847;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ElN0E0Vc646AHHC1/cI4G5asPGbZj5VC1KY8MtG3QEI=;
+        b=p95VMvZlereoXJ58xAnOjlmpJd8GctMXaT/2dWwQqJ29IFHT/sBaTT9+iwpvfKIum8
+         csw1IBbtAoIgzvMx8lJ+2XWZMd9btW26kXu04li0jGjbKrSEWzP/HIP9BWzZo9pSNfM3
+         COcMCQ9dA11AMRf5tvoARlHz5Zh0o2Z6qF+8Jk0L4Z5qjRAbEygHb1aDTgz38tPNSOS/
+         5P3bFWIBLQAm3A2Zmf+VxC7UwC6jY6tFoUdbbhRT3yulWtV4gq0PH8hTVCTCGqG8SJEc
+         3puEAQciHx4GHCGXCcFQkXuSdtBCGwr7oVQ0An6RbUowRBxjN2o9qANWUIfm1Q2IClGd
+         DbSg==
+X-Forwarded-Encrypted: i=1; AFNElJ/vg6F/shwrznxOTsYaPD/GosqWCWx1W2o2ulYlicVoWhUHonrot/x4BNVcvvP1F2sH7innQ9c=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzrVp5OaApvqXie8s6NYwRf6ZTN6a3fucGL3eEeefmPkCr7hdj4
+	WOwxjOFLRbSp8p2Rap/fyaquddMMb9T7IFyg1jc9T8/rdnQxzwCeiPuI7TY1ShShO/ggxUZa+hs
+	DQNMcM6l/XQeTyYKN7iSkfpW3GodsKxHNYS4Dr2mrf118ShoNmo11me68I8s=
+X-Gm-Gg: AfdE7clC7hMbF6ajQOLkEVtCU4ukg2HWAugz7I+G+xTPxotUgZ09HLJzpjrzcpjOQQ7
+	BUaJIlUOIXqUZGjnyybGOCdKFR6ehRmn2F/pHiYb93VZ9HzpJFwH5p3F+2m1TOjH2SuQ+QtbmcT
+	c4ThqdTI2jqcwJ2GAGcGpsGD4uT6gBKQivLTCg5KqMYKAoxMRqjmB0taBCJ35eWt78nyFL/8CZU
+	rq4oxDkQT85g/Z8Y6kswnTCfkQrhX6/BCv5OecxuvF47Dcsfro86chMxsArwR+T27PE3fxu6cQB
+	6EnbY3mOtBfZ/Tfn7wDgj9A7bpWJco0y6Dg/qSR1DxxlzqDDt3LFvs2qTgkb8TaxTV/9C0lqsVX
+	5wTrAZn3Vu+i1GXrQvPgzZToYohyo41Le8we60mjK9Tkv7NrWPrS1wSlFR9A=
+X-Received: by 2002:a05:6a00:94c9:b0:847:927d:47a8 with SMTP id d2e1a72fcca58-8479eef1e06mr2334517b3a.18.1782808047166;
+        Tue, 30 Jun 2026 01:27:27 -0700 (PDT)
+X-Received: by 2002:a05:6a00:94c9:b0:847:927d:47a8 with SMTP id d2e1a72fcca58-8479eef1e06mr2334489b3a.18.1782808046677;
+        Tue, 30 Jun 2026 01:27:26 -0700 (PDT)
 Received: from localhost (sodcd-04p2-40.ppp11.odn.ad.jp. [203.139.65.40])
-        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-847a02ced41sm1326619b3a.36.2026.06.30.01.05.03
+        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-847a0007464sm1371506b3a.23.2026.06.30.01.27.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 01:05:04 -0700 (PDT)
+        Tue, 30 Jun 2026 01:27:26 -0700 (PDT)
 From: Dominique Martinet <dominique.martinet@atmark-techno.com>
 To: dominique.martinet@atmark-techno.com,
 	stable@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Cong Wang <xiyou.wangcong@gmail.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Mat Martineau <mathew.j.martineau@linux.intel.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rajat Gupta <rajat.gupta@oss.qualcomm.com>,
+	Yiming Qian <yimingqian591@gmail.com>,
+	Keenan Dong <keenanat2000@gmail.com>,
+	Han Guidong <2045gemini@gmail.com>,
+	Zhang Cen <rollkingzzc@gmail.com>,
+	Davide Caratti <dcaratti@redhat.com>,
+	=?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+	Victor Nogueira <victor@mojatatu.com>
 Subject: [PATCH 5.10.y] net/sched: fix pedit partial COW leading to page cache corruption
-Date: Tue, 30 Jun 2026 17:05:03 +0900
-Message-ID: <20260630-cve-2026-46331-v1-1-c1986f356f26@atmark-techno.com>
+Date: Tue, 30 Jun 2026 17:27:08 +0900
+Message-ID: <20260630-cve-2026-46331-v1-2-c1986f356f26@atmark-techno.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260630-cve-2026-46331-v1-1-c1986f356f26@atmark-techno.com>
+References: <20260630-cve-2026-46331-v1-1-c1986f356f26@atmark-techno.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -93,7 +114,6 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Change-ID: 20260630-cve-2026-46331-4f851ccf8244
-X-Mailer: b4 0.14.2
 X-Developer-Signature: v=1; a=openpgp-sha256; l=8877; i=dominique.martinet@atmark-techno.com;
  h=from:subject:message-id; bh=oqcZ/f4/98migEijhvNaC5FLNfmO9L/opKQ1jbIHVBc=;
  b=owEBbQKS/ZANAwAKAfKKYH/WjHEHAcsmYgBqQ3f7YjUi3XnzjgCFJQqCGn8HEiwjWqbnoJh3M
@@ -147,6 +167,9 @@ Signed-off-by: Jakub Kicinski <kuba@kernel.org>=0D
 mostly be used]=0D
 Signed-off-by: Dominique Martinet <dominique.martinet@atmark-techno.com>=0D
 ---=0D
+(Sorry for double-send to stable@vger, I hadn't intended to send the=0D
+Cc-free version...)=0D
+=0D
 CVE-2026-46331 got attention and I've had to backport this to 5.10, so=0D
 here we are, this should fix it.=0D
 =0D
