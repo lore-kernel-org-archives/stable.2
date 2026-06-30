@@ -1,42 +1,51 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E36840D577;
-	Tue, 30 Jun 2026 08:34:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9776282F35;
+	Tue, 30 Jun 2026 09:03:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782808491; cv=none; b=D4H4N9uD40vC5m8kUTgYyLdfzDGLMZnxWyEB2MjbLTrTja1ALfWCx3+hb5vRMuvLgZho+7TyY7LwZQzkLB9gdKL/iIyyGbxwvCD+YI3qi0lK/x1DQJBUzqE03cHDvc/AXEHmt+xMSRndxMHWMFInXsZD/b3unRG1Vp7S9sMsQzA=
+	t=1782810217; cv=none; b=ZKqpDUxGqINGDvbLTh1bh+tI/OtRsoXYwfwaduT8xSNx/opSy6/qAgunxQ39qI3rjg48fzFHXT5d7v4tf/kPF3tdvlhXniBDhNqZn8fpZEMs9mGKU08wBDa/8haOFvpU69jJVM+2jFv84p/+0/p0fPOPm7D5+u/cF8XSABGYndw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782808491; c=relaxed/simple;
-	bh=/2j0DDj3iEHsHxquIQWouGW2wWlUANGgq7bRDSng2TE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AjmBVzgfindhW9uYzkb0OCBD57btD2MqPw2q9bEZQuDAmqDiQAm9ijIrpgvgq7YdRAT/4dwU+KZ/4MOydoVdlUoPcnw/72RJTd5t5VkcHfhvXNJcTASZt9G7a+ugKmQ76/Lms2J//HWMg3OFXGfw/3O5TYFaNeOJzWMrSMZ6iJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=oYguo7QO; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1782810217; c=relaxed/simple;
+	bh=IZA6zaAqzIIyuQMA463msv9+ex442pIEyCdq82Qpfxg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Pr7PtAkkolQ9k4tE36oGqhcRdJxR5RQoah1VHzg19hyz9a8WoYwC9F1m/QdA37kGIvAKYQcnWrK7y8BIKH2C3/DX8XW+BllhabiHtxmr8pNLo3zK1r1EgcL8we3T/B9EV6JJLUD2RWVRX1u+pxqv62Wf4YSxjZaykvGOR/NgiMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=V3t2l2rS; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="oYguo7QO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=YT
-	EgbRAg6lomNr0DN2FzVbDdc7M+qSJOungF1DxvSAE=; b=oYguo7QOEwbf96iwNz
-	+eUJ/03thBALJVsRjOoN4Dgejdf7XRhRCyYFPa+vhSa9N3mr/iaCnm6Dp4jfw8VP
-	EBlFQrB46BMybzmv/BXTYqCM32YmT8rydSzmbRNCxHstblneBlLPvX7VVXkhkvm7
-	jRbipk0Rq37Z+4JhT2XUn9Bxs=
-Received: from ubuntu.. (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3D8V4f0NqibrcGg--.35590S4;
-	Tue, 30 Jun 2026 16:34:05 +0800 (CST)
-From: Ma Ke <make_ruc2021@163.com>
-To: sre@kernel.org,
-	hansg@kernel.org,
-	marex@denx.de
-Cc: linux-pm@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="V3t2l2rS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1782810168;
+	bh=/DbPEVJLeqWxXeZW+eO/pHHIYIquir08fIC3tmI1b7M=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=V3t2l2rSvEC8oCCgQ8qRin+jI2w+vTULqPNxGN86aMOD0F/siwmBNj8HKmaGTHB4W
+	 0aVbNVDFjtmvBifotYwB7wZAxWggOZ6sODEfRYGQlKNHSFmIo/hJj1c38ZmP93IYil
+	 37E5JRqsfURSf4x5UdzUkvs1JYQtxkfQJaZ5/jOs=
+X-QQ-mid: esmtpsz10t1782810147t6bfd4277
+X-QQ-Originating-IP: /V+MfEC+CGaw+MBecW7/C8hr9iS2fpHB2cqKH+c4jjw=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 30 Jun 2026 17:02:25 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 12524413929417674271
+EX-QQ-RecipientCnt: 10
+From: Wentao Guan <guanwentao@uniontech.com>
+To: lorenzo@kernel.org,
+	sean.wang@mediatek.com,
+	mingyen.hsieh@mediatek.com
+Cc: quan.zhou@mediatek.com,
+	nbd@nbd.name,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	Ma Ke <make_ruc2021@163.com>,
+	linux-mediatek@lists.infradead.org,
+	Wentao Guan <guanwentao@uniontech.com>,
 	stable@vger.kernel.org
-Subject: [RESEND PATCH] power: supply: bq25890: Fix power_supply reference leak
-Date: Tue, 30 Jun 2026 16:33:52 +0800
-Message-ID: <20260630083352.1841720-1-make_ruc2021@163.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] wifi: mt76: mt7925: cancel pending mlo_pm_work
+Date: Tue, 30 Jun 2026 17:02:18 +0800
+Message-Id: <20260630090218.3202029-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,79 +53,113 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3D8V4f0NqibrcGg--.35590S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZrW7Gr4UKw1UZryxuryUWrg_yoW8tFy8pF
-	4rCF98Kr48XF4fAw4ktw1v9Fyak34xCFy3Ar1xGw1vvw13Jr1DXry8JF9aqry8Cr97GFs2
-	yw43tr4fCFnxGaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRkhLbUUUUU=
-X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC0x1qdWpDf31P5wAA3S
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OBlCTbN6oDZ0VdIAHy6dMxzAyHEqJJlB3e5dBwYIrhQNV0VcIkMvkzdY
+	P+1joB5M1AhKbzSz1nZ+Hqlx22mhJqsaGOeqb5G4cWupbVIYMa34OVm/sKadi25HitACbZy
+	4D3XfS/cGjMmZmm3ia+OS1DGQmsHuAjzu1LOUbE8Vo+kDyQDLdQppRFo9EfpH3ZhXQc45Ma
+	BajW4RnmiZzE7gluKb5C7HzAK4HZMlF8AhUYquftthr3t4XZRr5ggwW+70knI/U4hXA0tg/
+	NCdyqZdyJ7OCTJS86XgQ1oWYB0HNmkMG3GwfHNdAAq2bFuH78ugD+segjtjEbDBNnDgkqj4
+	bNv2U8l3e5rswbymlCu+mDU7Bp7jZHoZWhu72eUfIn+FfOyDgkEVs1HvaAnbKduErHykLKS
+	0ZR+P8xBFnaA3cCe9p2NdqqvTgh+86oxKvrZbw3os8a0gRZ6cLFYpWtY3tPDlz2PzpdaIpv
+	Gbzrl4LOjN+/yxNNJ9431pngQAyRCOKedi3WslPnmQoKFXgFvBAReGKH2fbOPFg2VrWz0IC
+	x/gAO4hkDmPny3Xkv8p5LHdGQoPWeRNkg1Zrt8ZxhMwQ0xT5GcNm/Atj8rPGkJAVv3r+5Tq
+	Fbe/sCFzKGjP9Jx3d2wm5qERWMbKISgdjMbZ2z9/cqkbppIhcbKP9XD8ljNtgL1LWaIDavL
+	DJRBdronBwgPtu8Gr3Stxh/0m3VVgmyQyqGOeNXaFdc1xBifLkK2gN7uKSSxS27D3bCh7Hg
+	v66dU+Xy2VMC+WIlndMMGUOZCyvPkWu78TTmZkzKEtOF9U3MujAUJwN7RKqUbvNX7vXAHg0
+	wKOhAUBFCaWqEigP0AYaWBQIU8t43dC4IgaC+wuK7SJCo85hoHKWdroio7Ku02pyUuLHDxr
+	RuF0UsNlPmszDjXB6ORiKnDGvU0fF8P3FVDthV3mRLoa1CzoOv0FchIRmU++Cvv6hoQfXGc
+	uKdHZ6IAMAZe3gj5sFHaATmU7A3Dep44xveUHwWO9ME3XgoJq523bJ3EuTNRc5XKM73GXJk
+	o9/Vwe9e3MnZURkwGN32gFvGuX6AWAg/R6DYxotJ/g85icsRre/U5eE1zYoadGklAcyOojV
+	g==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-bq25890_fw_probe() acquires a reference to a secondary charger via
-power_supply_get_by_name(). This helper internally calls
-class_find_device() which gets a reference on the found device.
-However, the driver does not release this reference on error paths.
-The devm cleanup callback also does not put the reference, so normal
-driver unload leaks it as well.
+If the device is reset, suspended or unregistered within that window,
+the pending work can still run and access vif/bss data that may already
+be freed, or send MCU commands while the firmware is not available.
 
-Fix the leak by adding a power_supply_put() call in the new error
-label of bq25890_fw_probe() and in the devm cleanup routine.
+Add cancel_delayed_work_sync(&dev->mlo_pm_work) in all relevant teardown
+and suspend paths:
 
-Found by code review.
+ - mt7925_mac_reset_work()        (chip reset recovery)
+ - mt7925e_unregister_device()    (PCIe unbind)
+ - mt7925_pci_suspend()           (PCIe bus suspend)
+ - mt7925_suspend()               (mac80211 suspend)
+ - mt7925u_suspend()              (USB bus / runtime suspend)
 
-Signed-off-by: Ma Ke <make_ruc2021@163.com>
+This ensures the work is stopped before the device state becomes
+invalid.
+
+Assisted-by: kimi-cli:kimi-k2.7 code
+Assisted-by: atomcode:glm-5.2 #Reported-by
+
+Fixes: 276a568832577 ("wifi: mt76: mt7925: update the power-saving flow")
 Cc: stable@vger.kernel.org
-Fixes: d54bf877fd87 ("power: supply: bq25890: Add support for having a secondary charger IC")
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- drivers/power/supply/bq25890_charger.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
+ drivers/net/wireless/mediatek/mt76/mt7925/mac.c  | 1 +
+ drivers/net/wireless/mediatek/mt76/mt7925/main.c | 1 +
+ drivers/net/wireless/mediatek/mt76/mt7925/pci.c  | 2 ++
+ drivers/net/wireless/mediatek/mt76/mt7925/usb.c  | 1 +
+ 4 files changed, 5 insertions(+)
 
-diff --git a/drivers/power/supply/bq25890_charger.c b/drivers/power/supply/bq25890_charger.c
-index c1c12a447178..b50be3fca77c 100644
---- a/drivers/power/supply/bq25890_charger.c
-+++ b/drivers/power/supply/bq25890_charger.c
-@@ -1411,7 +1411,8 @@ static int bq25890_fw_probe(struct bq25890_device *bq)
- 	if (ret == 0) {
- 		if (val > 100) {
- 			dev_err(bq->dev, "Error linux,iinlim-percentage %u > 100\n", val);
--			return -EINVAL;
-+			ret = -EINVAL;
-+			goto err_put_charger;
- 		}
- 		bq->iinlim_percentage = val;
- 	} else {
-@@ -1426,12 +1427,19 @@ static int bq25890_fw_probe(struct bq25890_device *bq)
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
+index c47bd812b66b9..d56a846dec53e 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
+@@ -1307,6 +1307,7 @@ void mt7925_mac_reset_work(struct work_struct *work)
  
- 	ret = bq25890_fw_read_u32_props(bq);
- 	if (ret < 0)
--		return ret;
-+		goto err_put_charger;
+ 	cancel_delayed_work_sync(&dev->mphy.mac_work);
+ 	cancel_delayed_work_sync(&pm->ps_work);
++	cancel_delayed_work_sync(&dev->mlo_pm_work);
+ 	cancel_work_sync(&pm->wake_work);
  
- 	init->ilim_en = device_property_read_bool(bq->dev, "ti,use-ilim-pin");
- 	init->boostf = device_property_read_bool(bq->dev, "ti,boost-low-freq");
+ 	for (i = 0; i < 10; i++) {
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/main.c b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+index 73d3722739d0a..ab6c6565ca0f7 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/main.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+@@ -1602,6 +1602,7 @@ static int mt7925_suspend(struct ieee80211_hw *hw,
+ 	cancel_delayed_work_sync(&phy->mt76->mac_work);
  
- 	return 0;
-+
-+err_put_charger:
-+	if (bq->secondary_chrg) {
-+		power_supply_put(bq->secondary_chrg);
-+		bq->secondary_chrg = NULL;
-+	}
-+	return ret;
- }
+ 	cancel_delayed_work_sync(&dev->pm.ps_work);
++	cancel_delayed_work_sync(&dev->mlo_pm_work);
+ 	mt76_connac_free_pending_tx_skbs(&dev->pm, NULL);
  
- static void bq25890_non_devm_cleanup(void *data)
-@@ -1440,6 +1448,11 @@ static void bq25890_non_devm_cleanup(void *data)
+ 	mt792x_mutex_acquire(dev);
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/pci.c b/drivers/net/wireless/mediatek/mt76/mt7925/pci.c
+index c4161754c01df..cfa91af065b78 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/pci.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/pci.c
+@@ -42,6 +42,7 @@ static void mt7925e_unregister_device(struct mt792x_dev *dev)
+ 	mt76_for_each_q_rx(&dev->mt76, i)
+ 		napi_disable(&dev->mt76.napi[i]);
+ 	cancel_delayed_work_sync(&pm->ps_work);
++	cancel_delayed_work_sync(&dev->mlo_pm_work);
+ 	cancel_work_sync(&pm->wake_work);
+ 	cancel_work_sync(&dev->reset_work);
  
- 	cancel_delayed_work_sync(&bq->pump_express_work);
+@@ -453,6 +454,7 @@ static int mt7925_pci_suspend(struct device *device)
+ 	dev->hif_resumed = false;
+ 	flush_work(&dev->reset_work);
+ 	cancel_delayed_work_sync(&pm->ps_work);
++	cancel_delayed_work_sync(&dev->mlo_pm_work);
+ 	cancel_work_sync(&pm->wake_work);
  
-+	if (bq->secondary_chrg) {
-+		power_supply_put(bq->secondary_chrg);
-+		bq->secondary_chrg = NULL;
-+	}
-+
- 	if (bq->id >= 0) {
- 		mutex_lock(&bq25890_id_mutex);
- 		idr_remove(&bq25890_id, bq->id);
+ 	mt7925_roc_abort_sync(dev);
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/usb.c b/drivers/net/wireless/mediatek/mt76/mt7925/usb.c
+index d9968f03856d8..7ba50c33cd32c 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/usb.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/usb.c
+@@ -251,6 +251,7 @@ static int mt7925u_suspend(struct usb_interface *intf, pm_message_t state)
+ 	pm->suspended = true;
+ 	dev->hif_resumed = false;
+ 	flush_work(&dev->reset_work);
++	cancel_delayed_work_sync(&dev->mlo_pm_work);
+ 
+ 	mt76_connac_mcu_set_hif_suspend(&dev->mt76, true, false);
+ 	ret = wait_event_timeout(dev->wait,
 -- 
-2.43.0
+2.30.2
 
