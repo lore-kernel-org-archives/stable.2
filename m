@@ -1,84 +1,84 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9AB43EA942
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 10:01:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A9F3EBF20
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 10:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782813677; cv=pass; b=TX5WMqcbPH++Ez/fd4hsjhXv1HenvdaqTiuhoPDHk/NCn4A1+UnYS/ITYb4F5SiAs9VfbTr2Eg1s0qKZHTaH4Fewg8OBDRW/soRoQ2znmhycoCZNMx1tUNCaRb2/C9fZDymrwHn6fUbX03MIPuDimJ5nvtZobg94DB7KvhSD2O4=
+	t=1782813679; cv=pass; b=PK/MF6H478CTIK0ZVau59zA0PZi72gmsKpG+UgYy661HuN9OrsRfrkH/6ua17xhL4rsF7OJxKQAfgLT4apoulhusguUFKWtWXzwMcViCW05TiZD9Y3TDROJggcMueQ3KN/hCOKxvltLDuRG78gpmt6RDSiEBo2wjxiGkyoIck5s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782813677; c=relaxed/simple;
-	bh=BU8JH/JOv4QfhOcoG4nN41cEWWJ+yoErkc6ymqiy3mk=;
+	s=arc-20240116; t=1782813679; c=relaxed/simple;
+	bh=H/81wjmdIjTzJqVZB8M0I1Im1tte7mRFN4YFwVEVUXk=;
 	h=In-Reply-To:References:MIME-Version:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bF+ZSD96yDoU0VV1gmtESY2I5iXR/B3BDLg1FFbxW0WN3BQ8zMeCZhaHgfN4PnM40wV2YW/0mmp4Utn5Tc1wMJZRe/QZNyeJKc0h6bTkTznV/m00udvTzu/w9pTtjKflk9TD8GnPuf3feXEibz/GYum1hIG4BzYb0vokDPVGtqg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CPaL+u7t; arc=pass smtp.client-ip=209.85.128.177
+	 To:Cc:Content-Type; b=BoF0D/3+Gu8XT0OUHCyGB4SB2PGnwIqJojXw/yCdRXYJDPwufvDkZ2+OuszTRSDkTzlyMIb6t0qHFG94hloKcSMmoAs1Gp2R1u9l75d8Hq8AQ8ISy3GkXFV9qJSBq62e4lqZBMMvxhVf10EeIO7BLXm5onEsdTCVgo/j/WpWjuw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BtgwsyEC; arc=pass smtp.client-ip=74.125.224.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CPaL+u7t"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-80fe8f03098so9423117b3.0
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 03:01:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782813675; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BtgwsyEC"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-664ee752958so1644510d50.1
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 03:01:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782813677; cv=none;
         d=google.com; s=arc-20260327;
-        b=lDKI155gTlLLxdKakIxdNQNEogwmk6tmqWUkbCrrX/SKLIvXD924aTlDtH2FWMsHQ5
-         s9xdZC9wXokPdUvZB7bmcjKYTghNp9mxxnDQ4e1UXCnX/DDnqlYZ2MhL0rnDurzHDDAg
-         +3kPCDSKOeX+UIWXty4aLa3bgeTuZtdAcAlOatKU4gZQL96yEv18R+gGyXUmYR7Cb5ez
-         fWI6ouAFz9xICD/zUGHBrYr7DMd2Gh6ui7de9RUTrMDjTvhFb2aOePPzz4+xuiPtgw0p
-         qBBGrux6SjUZRSGt6hu9Hio5KNe/v4UEDzkElc6lCqqaEYiY2ryT233274Lp5NuQrb3c
-         7+HQ==
+        b=jsxkVbS72AR98FOZdcD5KHOLsEDXkCbvTSH8wpeeDyPvTxdqPT0c0IpTQf97YPucce
+         5gFZioSsCLUM5sW9FIV8ByexpBDxvlIMHpuyoZfy+/2BNGQ9YGp5JD+p8xQv7wF26Ri0
+         dOwM+OkwE6wm1ZNuHMt95X7xXVs0btU7OOWEzjtjvqUwRHZvFE74CCOhvRHVDjFQhelw
+         r68tn7jgnI39/ARqWhO9URkUz4dk4G4liFkDInJANUkR++pZj2eCCvLFNmV68r3OVx1z
+         HBuTs2hlXrAmyo8bLilo01OGb6DLf4xo58DPNxERkoiXeUe+iVDhNyI+Tc5Zi06qEbCX
+         FxaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:mime-version:references
          :in-reply-to:dkim-signature;
-        bh=BU8JH/JOv4QfhOcoG4nN41cEWWJ+yoErkc6ymqiy3mk=;
-        fh=Wn55ohqkRwy1yDE4z9zZ+hHF4k9iV8yM+O8OEaJLgRY=;
-        b=phmABVVu718naGVXXDTU1xcvRlZ/X1uLGuwyUWD32XbZAsLaRi5W23ogiVqm0bAE9n
-         PhFpuuwxnqMRJTztiDbhAUSNrCxeC4OcQz4ZX4NpKQeTtZ3LNhdwcuhfhtZYDkPUOBOZ
-         tPrwcRmVkd/71A9sSPXiazH7B1e6LOhus8HIzPV0CdajpUOIEX1j6Psaac+9mF0awGBL
-         4G52okPLZxJdyfvjIhd1niJSG2s7823HJjTZtDLPzAMT5hek+5ad6xFiktMk6qaizwto
-         j3QgdAtOxLRqqpaI58LNmdvM6vNFaBYkT99kr80lhuHXKtbtM5CRd4LJeDs6Ua9OICPZ
-         awfg==;
+        bh=H/81wjmdIjTzJqVZB8M0I1Im1tte7mRFN4YFwVEVUXk=;
+        fh=V5NOCwlpIgrSEIv+z9v2ie+BPSmo2GaIxbf8MQym2eU=;
+        b=EGSeV/BW8lqO5g6H4WNMkQXDpUJBiRzwLvIUY15FPArQ0ZebbUdoJRt0bkXTdvlwWw
+         PG/E7x1CaI9HredzI5eBMHip8HMG7NGNibtU6Ad6x6UvujCif5RVAra3E25lRO7AAmQC
+         IhC6G7/U3ynGRON/H+WM77VP+2pSWxceqqXDmwq9b2MxpiJrSlIz9eQBs3NMy02hT6Bq
+         Y1FVq1N1b1/pGxuZGHCkcFdIs4UYsv7iOqHT14Q+LzpK9P0QPKIMtbvS+ZT44EHiDNHq
+         b1eF0N0OYvNbDfgpLjPznutSQDBbSXR6IKDTwBU3yWvw/q7ECM5g4aab8LutadZ+7zZI
+         shOA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782813675; x=1783418475; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782813677; x=1783418477; darn=vger.kernel.org;
         h=cc:to:subject:message-id:date:from:mime-version:references
          :in-reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=BU8JH/JOv4QfhOcoG4nN41cEWWJ+yoErkc6ymqiy3mk=;
-        b=CPaL+u7tZyg6q8JqiZIQCnevYwkTiYcFgN4EXE9XzrjQ3y/dZ6QVG9xiiBPEhjDpws
-         lzm82z2pFIfMpTdn0BYvT5xR/bYjw9RYojzy+jJUPUef0E1/F1wtZTpiz29xroJURrah
-         R2iTlNt5bxaQ4DWrCkoEhXDpciXJ2I4ml5zjRwrgyscBJ2DNqrCAIkfQAQDrsAHG+z/S
-         c0krm2DB9foaeWFusuI22q+7fmEfGX7ht8Qg+raLFo4eugVVLpvVOkl63sSWL9rGCQNQ
-         bQh4r8BcOzJwb/mcBOYeJ+lkg62XgIEkszHlUhEooHF7WVez550xwgUHXe3VIr7C41ET
-         UVvQ==
+        bh=H/81wjmdIjTzJqVZB8M0I1Im1tte7mRFN4YFwVEVUXk=;
+        b=BtgwsyEC7UjjN0ZHDDQnlp8xmDD+4xaOaOvh7uXMrYKUJN1sv8ATUzzY++OF33CCXy
+         AF+ckA0Cu6IV7332hB/fXBIu4p7f3+3eW9B37EI3Bbkgi8hAtr0dC2wVQevRYsgscBC5
+         AIN0bdF6mJX2b1hDBo390V4Nj7JtrW05TKfAs42Rs5Q+J1YEQPUjZ/tbFEreup3njhTY
+         Z0v/ak5hD5BFpCAzIRYjW3jSecLRo9sjQ4OVrlTh3Swn0SjA2jyE5FmXCG6HdDBRvGGJ
+         4orjLC4UBVFq5qMUWFzDqxZrUix9usaTlfW2R4+Q9+FfRSGin4WsjuI1rSRqQJuPsONO
+         s7dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782813675; x=1783418475;
+        d=1e100.net; s=20251104; t=1782813677; x=1783418477;
         h=cc:to:subject:message-id:date:from:mime-version:references
          :in-reply-to:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BU8JH/JOv4QfhOcoG4nN41cEWWJ+yoErkc6ymqiy3mk=;
-        b=UTfWQiAT/uadJlWDHVODBO7KRjRDH7RijtLUNZuLGZXDLmSO5k4Q3pBJ0GT4JKdi3E
-         d5unz8zo18DakfCMpKw5cu4T1x7FsIg3S7SfsVUtixSrc0jLjUz0SHZqaJ2++40vlyxX
-         5Hf4rTeXZS/k7aOY9A+LZQeKmKiJNWem1DMW98Z4sYUWCnwPhVGGxLOIQ6JhduyXEdRY
-         3/cNvCob0T8StHGNPIZ+6yWQc9it1gnusVZDJwQXXl4MZWfavAaZZGjawl1JwwI4XyIs
-         j2Sb7AEmoA4S/NhvitsEmM8USa7miXnf+rV+U/O+p82DwcrOPbw3fmK/unnkvzTG81H2
-         zM3g==
-X-Forwarded-Encrypted: i=1; AHgh+RpRR0V3FhR6hOUswbPnrUAtXP2pQoNx/lboQvccx+ghV1RcH7LpeGsX0GtKzN04FJcS8k9cOJM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yynu5VMdrMhQiIKOQXhsd1C8T8z89cI580RLdZ/sVQjbRiMcO3C
-	la3FSseezDwBkcGgJOcMon04s14nsfgGB52ET1q3pm3zG7xWQbki5xJdFm1/XjmmzBBBDxJ31hw
-	0/BhM+lI+J0EoZKL3JVCKKE9H1RBUWDc=
-X-Gm-Gg: AfdE7ckcCNVy6UeqW3CyOgloPpCuDt5k3b7Qq7TVyPnhJ/S2ExC/mswKjTDvXRbI7c5
-	Qzn2x/LzLpfnR6wD2yoIBlQrUVt9zorrJk4M5jkWkLr4QIjujVZl515zQto9Bmkg8WIDKaKXGVb
-	LREmobBGN0E3X64yGovT4V0rhkCjuivOHeXAuVlt/PQzFl0UzaH126m8JcLdI/O/cVLFqIFyy1U
-	10+CvuyEO16dfpKcEnqvua6tOiakyYuqfvg+XROwSkMl+7zitteeliFGzA3+57lIXyxMn8p
-X-Received: by 2002:a05:690c:6186:b0:80a:a005:8415 with SMTP id
- 00721157ae682-810d9f0dfdcmr33829617b3.53.1782813674742; Tue, 30 Jun 2026
- 03:01:14 -0700 (PDT)
+        bh=H/81wjmdIjTzJqVZB8M0I1Im1tte7mRFN4YFwVEVUXk=;
+        b=s4Vqbe5W8cH8ZpK7ivbmVznil/Pu7goyz8cQFtjEQdMdPRZ71TMNKIT+aXqDduNOTT
+         7EDNM67uMFTAUpPxVTpOD6sfyA3GaB3vEBm0rfP8IKdevxrofVYgK6rEqU55Knk6iA7M
+         +nQQOT44uhItRKRJFU0VOLjZRwY2e0RRWOSnP53rE87iJA3cDtXalILa9TVSGUBrQPcW
+         aOb8IvqUKv/zgdBnzRutKPqVTziLINTt84C91vxwqmaAKEMgjrmjWrH/5Ksi1eqnwGoZ
+         WCo15GAvF0BxsiWy6lXxu9KC4Moc+PvrR+gzIjYKSBwy08Tx61T6vypM2J2Agj9vOEn5
+         0B1w==
+X-Forwarded-Encrypted: i=1; AHgh+RpXUIjl8ZzwWefmuTsrDYGGmpz6wIFYJGsSgc6AaysbycuBXccbD/kylCLBupE/YbKF8UAa6OQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEPDmBksIUbFOL8A+iPEFElf5tOzrqzvHfWkui8+79PyQWHyRH
+	wFYgBL4fsCAnUrXfwuaIiGc0bo+ss76hjx5NiZYodJ6rOoJmKcitgmpf13rSUj4s22C4rn8UH7L
+	PodEsVEpA3Tqig/9LE5/lCsUVHezGUGw=
+X-Gm-Gg: AfdE7cn9p6ITrBS55NQ4NcgNO5+UuSUkJslUcPYbkqyagF5FNB+wW4jI5sW1Z1B9MKZ
+	fWioTjXbr9ncFUptN2Ru/hSTwIurQ9lfIdHckYtuPV13UXIkNv+OuO12cHaw0zDDd0u9f7uqs9H
+	d20w3/ArTDAb94Z5CxU97NvPiBH92Pvn6RWLmWQZJ0MfRygCwtDe9vGWLkb5hpgdW9qSfZ71US5
+	TzO8oxkCaW6X6ePwWlbKchEjgsrcqmzYgZsLD71J6qRhVwsMOeH7ldYh4qYQZE+ULwfRn0s
+X-Received: by 2002:a05:690c:4807:b0:80a:a034:17c7 with SMTP id
+ 00721157ae682-810da607f74mr30469567b3.55.1782813676650; Tue, 30 Jun 2026
+ 03:01:16 -0700 (PDT)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Tue, 30 Jun 2026 12:01:13 +0200
+ Tue, 30 Jun 2026 12:01:15 +0200
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Tue, 30 Jun 2026 12:01:13 +0200
-In-Reply-To: <20260629203959.GD6078@frogsfrogsfrogs>
-References: <20260628094748.46578-1-alhouseenyousef@gmail.com> <20260629203959.GD6078@frogsfrogsfrogs>
+ Tue, 30 Jun 2026 12:01:15 +0200
+In-Reply-To: <20260629201350.GC6078@frogsfrogsfrogs>
+References: <20260628092513.39620-1-alhouseenyousef@gmail.com> <20260629201350.GC6078@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,72 +86,70 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Date: Tue, 30 Jun 2026 12:01:13 +0200
-X-Gm-Features: AVVi8Cc_DhIdO3oFvX3YF7lE0hO5f0INVLW3aYt7sEymvlUtFIcfTvhSp8X8zwQ
-Message-ID: <CAMuQ4bXUrZV000bcc-XfPoyBoWFGWAwZRZb-1WDG+BrT5pzuCg@mail.gmail.com>
-Subject: Re: [PATCH] xfs: zero newly allocated btree root space
+Date: Tue, 30 Jun 2026 12:01:15 +0200
+X-Gm-Features: AVVi8CcHFXy5WXv8Z7KDhPMawVILInCAnJXIeDL9L2Vx83obhjttyaKdCByM8rU
+Message-ID: <CAMuQ4bWu3cSE-QcCY75xQdesqyoxSu6z4QVduKOVC+p_rw0VXQ@mail.gmail.com>
+Subject: Re: [PATCH] xfs: initialize first bad log block in head verification
 To: "Darrick J. Wong" <djwong@kernel.org>
 Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, syzbot+97f2c05378c5d68dcb8c@syzkaller.appspotmail.com
+	stable@vger.kernel.org, syzbot+b7dfbed0c6c2b5e9fd34@syzkaller.appspotmail.com
 Content-Type: text/plain; charset="UTF-8"
 
-It can, but krealloc() requires __GFP_ZERO on the initial allocation
-and every subsequent allocation/reallocation of the object. I missed
-that requirement here.
+Agreed. Log block zero is valid, so using it as the sentinel is unsafe
+for exactly that wrapped-log case.
 
-I'll send v2 using __GFP_ZERO consistently in xfs_broot_alloc() and
-all allocation paths in xfs_broot_realloc(), instead of the explicit
-memset.
+I'll send v2 initializing first_bad to XFS_BUF_DADDR_NULL and checking
+explicitly against that sentinel before entering the torn-write
+recovery path.
 
 Thanks,
 Yousef
 
-On Mon, 29 Jun 2026 13:39:59 -0700, "Darrick J. Wong" <djwong@kernel.org> wrote:
-> On Sun, Jun 28, 2026 at 11:47:48AM +0200, Yousef Alhouseen wrote:
-> > xfs_broot_realloc() preserves the existing in-inode btree root while
-> > growing its allocation, but leaves the added bytes uninitialized. The
-> > inode log formatter copies if_broot_bytes bytes into the journal, so those
-> > bytes reach the log record and its CRC calculation before every location
-> > has necessarily been overwritten by btree updates.
+On Mon, 29 Jun 2026 13:13:50 -0700, "Darrick J. Wong" <djwong@kernel.org> wrote:
+> On Sun, Jun 28, 2026 at 11:25:13AM +0200, Yousef Alhouseen wrote:
+> > xlog_do_recovery_pass() only writes first_bad when it reaches the common
+> > error exit after processing a log record. An earlier CRC or corruption
+> > failure can therefore return without initializing the out-parameter.
 > >
-> > Clear the newly allocated tail immediately after a successful growth to
-> > keep stale heap contents out of the filesystem log.
+> > xlog_verify_head() tests first_bad on those errors and may then use its
+> > uninitialized stack value as a log block number while searching for the
+> > last good record. Initialize it to zero, matching xlog_verify_tail(), so
+> > an error without a recorded bad block is returned directly.
 > >
-> > Fixes: 6c1c55ac3c05 ("xfs: refactor the inode fork memory allocation functions")
-> > Reported-by: syzbot+97f2c05378c5d68dcb8c@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=97f2c05378c5d68dcb8c
+> > Fixes: 7088c4136fa1 ("xfs: detect and trim torn writes during log recovery")
+> > Reported-by: syzbot+b7dfbed0c6c2b5e9fd34@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=b7dfbed0c6c2b5e9fd34
 > > Cc: stable@vger.kernel.org
 > > Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 > > ---
-> > fs/xfs/libxfs/xfs_inode_fork.c | 3 +++
-> > 1 file changed, 3 insertions(+)
+> > fs/xfs/xfs_log_recover.c | 2 +-
+> > 1 file changed, 1 insertion(+), 1 deletion(-)
 > >
-> > diff --git a/fs/xfs/libxfs/xfs_inode_fork.c b/fs/xfs/libxfs/xfs_inode_fork.c
-> > index 606a36526ce2..0d81c78f5afe 100644
-> > --- a/fs/xfs/libxfs/xfs_inode_fork.c
-> > +++ b/fs/xfs/libxfs/xfs_inode_fork.c
-> > @@ -398,6 +398,8 @@ xfs_broot_realloc(
-> > struct xfs_ifork *ifp,
-> > size_t new_size)
+> > diff --git a/fs/xfs/xfs_log_recover.c b/fs/xfs/xfs_log_recover.c
+> > index 09e6678ca487..d8125f3add4b 100644
+> > --- a/fs/xfs/xfs_log_recover.c
+> > +++ b/fs/xfs/xfs_log_recover.c
+> > @@ -1028,7 +1028,7 @@ xlog_verify_head(
 > > {
-> > + size_t old_size = ifp->if_broot_bytes;
-> > +
-> > /* No size change? No action needed. */
-> > if (new_size == ifp->if_broot_bytes)
-> > return ifp->if_broot;
-> > @@ -430,6 +432,7 @@ xfs_broot_realloc(
-> > */
-> > ifp->if_broot = krealloc(ifp->if_broot, new_size,
-> > GFP_KERNEL | __GFP_NOFAIL);
-> > + memset((char *)ifp->if_broot + old_size, 0, new_size - old_size);
+> > struct xlog_rec_header *tmp_rhead;
+> > char *tmp_buffer;
+> > - xfs_daddr_t first_bad;
+> > + xfs_daddr_t first_bad = 0;
 >
-> Why doesn't GFP_ZERO work to clear the new memory?
+> Why is it safe to set this to the first daddr of the log? Is it
+> possible that a filesystem could have a log record starting near the end
+> of the log which wrapped around, and later suffered a CRC corruption in
+> daddr 0?
+>
+> xfs_daddr_t already defines an explicit null value (XFS_BUF_DADDR_NULL);
+> wouldn't it be /much/ safer to set that here and update the if test body
+> later?
 >
 > --D
 >
-> > ifp->if_broot_bytes = new_size;
-> > return ifp->if_broot;
-> > }
+> > xfs_daddr_t tmp_rhead_blk;
+> > int found;
+> > int error;
 > > --
 > > 2.54.0
 > >
