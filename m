@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96AC1410D38;
-	Tue, 30 Jun 2026 13:21:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB35133A702;
+	Tue, 30 Jun 2026 13:40:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782825671; cv=none; b=UVBOAqoC2dIrtZjQW0J0spERAvuX5GXqhp6zHH/QXg6nsz4F2ohtWIwvhDl2RDJTP8q+LOov9bYp7o3ixoYD4VztwHmjJ3T2c3unozNbGChJSsPRr07mMWQCkhz+SHAknD5F1k7x/WobsTJg4dy7aieU06r0654p+nP2N8hcU+w=
+	t=1782826801; cv=none; b=ZhyJ/Cct5z1RV9q0XKeUE04j8h1jPefaaeVUSNARtZASvj1qNWuXetP+ra/BqAIrHJPC2oFB789y6OEXlPCBC7Is7/ZHg9h+OXSr7Vqy0MlKXtgqHHjSyF4Rsl09gQqhjXIpGu1a19C1X9HYgOswlwfwK0MxE4pO5xqD2iwi/74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782825671; c=relaxed/simple;
-	bh=SNzP2DjFn4VgsiVDGK1FmH+yk6bNgbKDu9jbFZf0dIg=;
+	s=arc-20240116; t=1782826801; c=relaxed/simple;
+	bh=s8DAq9r/q4mV2RUHxQBIHB3yknB9AoJhzhjkfP6qlO0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A26DpBzo8HAYN9QYMuifzM5TrWFDGu1sx5bIIETLYOjqyot/yrj1xVRc4ivA0vwLmcjExeb2GJf7nhI3NPpY9xBjYR9w5P7nQfMJ+YO7uVdXnBlJkCA7/S6rauO+Ke+DywDIdXyFesxhW+mQc1m4lgAFzuhG71Woh5Ie5NJ1GmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ViR5tEe9; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Itcpe/hA5Uio6BT534QAcsKlVbocZuy7liL5gwQ5MWm0Oy3VNcaHWjL+Fvjx3a/uuFKcjFPyIDqafuuifxvGMNKBXZjb3vKK6i4UtFqePgXVThnthaZ3+E0mJbGqJtnoFPuVyYu9oTSXFlsE9loMW/qdHTuJQSDT8jBPYR3fJos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9jJnG7W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ViR5tEe9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D736A1F000E9;
-	Tue, 30 Jun 2026 13:21:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9jJnG7W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F257D1F000E9;
+	Tue, 30 Jun 2026 13:39:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782825670;
-	bh=ZiIJ8GV2JhBDL2sR36Ko1hUN+wUPw/2B1JzsbAesMnw=;
+	s=k20260515; t=1782826800;
+	bh=0phyMnWezcU9MmzmfXfHgx0JGNa4GUrTZOFULyjll9k=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ViR5tEe9pQowEE6SWjL7DcTOtwKvWBFg+rTSGaT8Hv39E8QcZB4hIcVhzq2UmVwWm
-	 NPEQS6RdNFqVa3eLAb5i/TMz0U+KM7p1C4hZXP+68DTJbFNtmhV2Up4JZJRmnuOtsl
-	 VYvG0Md4pLX6/d9s9edtblrMV9rCQQX0Gz53WMPXtmCIOPZ30q/43HzlC2EhRt6hge
-	 QGbALK80d+Vdl1GXsxrWqf68Be7jMNMstX2fMCRzVmb4SaxX7473qihH2jqG5VplXF
-	 /4LrpFtXeRwTWbqfh6rDUu7LISrRM6XYWznnIS0cxASBziAtYI1/C2s8hkzZPqiz5H
-	 CLH1X5WisZ+/Q==
-Message-ID: <5327bf8c-270e-4650-8f44-6026dce36457@kernel.org>
-Date: Tue, 30 Jun 2026 15:21:07 +0200
+	b=b9jJnG7WMRwu79rfljohbeuTGvO5gBcBCsIiYnzlmdPCmXjjz2TEpcbb9LC8DEprh
+	 7t57CU12zwfUBmE52Jqfkt6UsU476jgnsQp0pA77CBplLbXyo67Dlmc30rVO47Eum+
+	 RZjO7q6+vZMfPQo2VkXN/RUofdktKXDemTkXBN1R0UcrfYJar49LqetmmXJJJS0IKf
+	 HkeTTDbrcB9Z7/vwy3wq4DZU/66l9+A+nea6HMeng2pt612w6s81Px9MCb18K4+Gc9
+	 NTSI7jn9wDTK6MsHBmHFGj9OM/9Mx0sFjRu2dlFBlD0HDkYeYJ+RdBtVDM2cmbeVQX
+	 4QD0xtTiHtJSA==
+Message-ID: <d44ae8a5-ec70-456b-92a0-ce7ccabf6917@kernel.org>
+Date: Tue, 30 Jun 2026 15:39:56 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,265 +35,98 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] media: uvcvideo: Fix race condition for meta
- buffer list
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org>
- <20260629-uvc-racemeta-v2-1-10e91d2afba0@chromium.org>
- <a0e4d412-f0bf-4415-9e4b-2c6347bf8c69@kernel.org>
- <CANiDSCtv_ZmTWUzbuxuEy0JmLmFs2Wqj31O3neGZ4ee=p065-g@mail.gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <CANiDSCtv_ZmTWUzbuxuEy0JmLmFs2Wqj31O3neGZ4ee=p065-g@mail.gmail.com>
+Subject: Re: [PATCH] mm/page_alloc: free allocated PFNs if the range does not
+ match
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <jackmanb@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Mike Rapoport <rppt@kernel.org>, Yu Zhao <yuzhao@google.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260629-free-pfn-on-alloc-contig-range-error-path-v1-1-496ff9ca22db@nvidia.com>
+ <4549ad0e-abb1-4156-95c6-5e3c1319dffe@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <4549ad0e-abb1-4156-95c6-5e3c1319dffe@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Ricardo,
-
-On 30-Jun-26 12:17, Ricardo Ribalda wrote:
-> Hi Hans,
+On 6/30/26 09:44, Vlastimil Babka (SUSE) wrote:
+> On 6/30/26 03:35, Zi Yan wrote:
+>> When using __GFP_COMP in alloc_contig_frozen_range(), if the allocated
+>> range does not match the requested one, the code errors out with EINVAL
+>> without freeing the allocated PFNs and causes free page leaks. Fix it by
+>> calling release_free_list() in the error path.
+>>
+>> The issue is reported by Sashiko[1].
 > 
-> Thanks for the prompt reply.
+> So this?
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
 > 
-> On Tue, 30 Jun 2026 at 11:47, Hans de Goede <hansg@kernel.org> wrote:
->>
->> Hi Ricardo,
->>
->> On 29-Jun-26 19:31, Ricardo Ribalda wrote:
->>> queue->irqueue contains a list of the buffers owned by the driver. The
->>> list is protected by queue->irqlock. uvc_queue_get_current_buffer()
->>> returns a pointer to the current buffer in that list, but does not
->>> remove the buffer from it. This can lead to race conditions.
->>>
->>> Inspecting the code, it seems that the candidate for such race is
->>> uvc_queue_return_buffers(). For the capture queue, that function is
->>> called with the device streamoff, so no race can occur. On the other
->>> hand, the metadata queue, could trigger a race condition, because
->>> stop_streaming can be called with the device in any streaming state.
->>>
->>> We can solve this issue introducing a flag, stream->meta.in_flight,
->>> protected with a spinlock. When there is a buffer in flight that can
->>> write into metadata the flag is raised, notifying the stop streaming
->>> that it needs to wait.
->>>
->>> Reported-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
->>> Closes: https://lore.kernel.org/linux-media/20250630141707.GG20333@pendragon.ideasonboard.com/
->>> Cc: stable@vger.kernel.org
->>> Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
->>> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
->>
->> First of all thank you for looking into fixing this.
->>
->> I'm sorry, but this feels more like a band-aid then a proper fix.
->>
->> How about adding a started bool to struct uvc_streaming which gets
->> set to 1 by uvc_video_start_streaming() and 0 by uvc_video_stop_streaming().
->>
->> And then call uvc_video_stop_streaming() from either
->> uvc_stop_streaming_video() or uvc_stop_streaming_meta()
->> depending on which one gets called first ?
->>
->> With a mutex protecting the started bool and being held
->> over calling uvc_video_stop_streaming() ?
->>
->> So stop the actual hw streaming when either of the
->> 2 possible /dev/video0 nodes gets its vb2_ops.stop_streaming
->> callback called?
->>
->> And to this before draining the buffer queue.
->>
->> That seems cleaner then this approach?
+>> Fixes: e98337d11bbd ("mm/contig_alloc: support __GFP_COMP")
+>> Link: https://sashiko.dev/#/patchset/20260628-keep-subpage-private-zero-at-free-v1-0-f4ce3930d10f@nvidia.com [1]
+>> Signed-off-by: Zi Yan <ziy@nvidia.com>
+>> Cc: stable@vger.kernel.org
 > 
-> Assuming /dev/video0 is the video node and /dev/video1 is the meta device.
-> 
-> Currently, we support something like:
-> 
-> 1) yavta -c /dev/video0 &
-> 2) yavta --capture=2 /dev/video1
-> 3) yavta --capture=2 /dev/video1
-> 4) kill %1
-> 
-> 
-> If I understood correctly, your proposal would cause the camera to
-> stop streaming when step 2 completes.
-
-Yes. But this very much feels like a case of:
-
-https://quotefancy.com/media/wallpaper/1600x900/5523002-Henny-Youngman-Quote-The-patient-says-Doctor-it-hurts-when-I-do.jpg
-
-> I think this risks breaking use cases.
-
-That would have to be some rather convoluted use-case.
-
-IMHO the simplicity of fixing the race you're trying to fix is
-worth the userspace regression risk (which I deem low).
-
-Worst case we revert the fix and go back to the drawing board.
-
-> As I see it, the issue is that the camera's live capture cycle is
-> controlled solely by video0. We need some kind of synchronization
-> mechanism with video1 if we do not want to change the behaviour and
-> risk breaking apps.
-
-IMHO for a device with multiple /dev/video# nodes it makes sense
-to wait with actually starting streaming/DMA-engines until all
-enabled queues are started and stop when the first queue is stopped.
-
-The problem with uvcvideo is that we do not know if the metadata
-queue is going to get used at all. In hindsight we should maybe
-have had some way for userspace to explictly enable/disable metadata
-support.
-
-So we start as soon as the main video node is opened, still I think
-that stopping as soon as one of the queues is stopped makes sense.
-
-Laurent, do you have any input here?
-
-Regards,
-
-Hans
-
-
-
-
->> p.s.
->>
->> 1. It is tempting to also apply the same approach to
->> vb2_ops.start_streaming, but allowing the meta queue to be
->> the one to start streaming will likely cause issues. E.g.
->> the streaming code assumes having a meta-queue active is
->> optional, but not the other way around.
->>
->> TL;DR: vb2_ops.start_streaming should stay as is.
->>
->> 2. While looking into this I noticed that struct uvc_streaming
->> already has an active member, but unless I'm missing something
->> that ever only gets initialized to 0. So I think that can be
->> dropped. (If you re-use this please change it to a bool, no
->> need to have it atomic while protected by a mutex).
-> 
-> I will send a patch to fix this. Thanks for noticing :)
-> 
->>
->>
->>
->>> ---
->>>  drivers/media/usb/uvc/uvc_queue.c | 14 ++++++++++++++
->>>  drivers/media/usb/uvc/uvc_video.c | 30 +++++++++++++++++++++++++++++-
->>>  drivers/media/usb/uvc/uvcvideo.h  |  2 ++
->>>  3 files changed, 45 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
->>> index 3c002c8f442f..af9dbfcf6f53 100644
->>> --- a/drivers/media/usb/uvc/uvc_queue.c
->>> +++ b/drivers/media/usb/uvc/uvc_queue.c
->>> @@ -209,10 +209,24 @@ static void uvc_stop_streaming_video(struct vb2_queue *vq)
->>>  static void uvc_stop_streaming_meta(struct vb2_queue *vq)
->>>  {
->>>       struct uvc_video_queue *queue = vb2_get_drv_priv(vq);
->>> +     struct uvc_streaming *stream = queue->stream;
->>>
->>>       lockdep_assert_irqs_enabled();
->>>
->>> +     spin_lock_irq(&stream->meta.irqlock);
->>> +     while (stream->meta.in_flight) {
->>> +             spin_unlock_irq(&stream->meta.irqlock);
->>> +             schedule();
->>> +             spin_lock_irq(&stream->meta.irqlock);
->>> +     }
->>> +     stream->meta.in_flight = true;
->>> +     spin_unlock_irq(&stream->meta.irqlock);
->>> +
->>>       uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
->>> +
->>> +     scoped_guard(spinlock_irq, &stream->meta.irqlock) {
->>> +             stream->meta.in_flight = false;
->>> +     }
->>>  }
->>>
->>>  static const struct vb2_ops uvc_queue_qops = {
->>> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
->>> index fc3536a4399f..f6b55b3a3308 100644
->>> --- a/drivers/media/usb/uvc/uvc_video.c
->>> +++ b/drivers/media/usb/uvc/uvc_video.c
->>> @@ -1732,6 +1732,26 @@ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
->>>       urb->transfer_buffer_length = stream->urb_size - len;
->>>  }
->>>
->>> +static struct uvc_buffer *
->>> +uvc_video_get_current_meta_buffer(struct uvc_streaming *stream)
->>> +{
->>> +     struct uvc_video_queue *queue = &stream->meta.queue;
->>> +     struct uvc_buffer *buf;
->>> +
->>> +     buf = uvc_queue_get_current_buffer(queue);
->>> +     if (!buf)
->>> +             return NULL;
->>> +
->>> +     guard(spinlock_irqsave)(&stream->meta.irqlock);
->>> +
->>> +     if (stream->meta.in_flight)
->>> +             return NULL;
->>> +
->>> +     stream->meta.in_flight = true;
->>> +
->>> +     return buf;
->>> +}
->>> +
->>>  static void uvc_video_complete(struct urb *urb)
->>>  {
->>>       struct uvc_urb *uvc_urb = urb->context;
->>> @@ -1767,7 +1787,7 @@ static void uvc_video_complete(struct urb *urb)
->>>       buf = uvc_queue_get_current_buffer(queue);
->>>
->>>       if (vb2_qmeta)
->>> -             buf_meta = uvc_queue_get_current_buffer(qmeta);
->>> +             buf_meta = uvc_video_get_current_meta_buffer(stream);
->>>
->>>       /* Re-initialise the URB async work. */
->>>       uvc_urb->async_operations = 0;
->>> @@ -1778,6 +1798,12 @@ static void uvc_video_complete(struct urb *urb)
->>>        */
->>>       stream->decode(uvc_urb, buf, buf_meta);
->>>
->>> +     if (buf_meta) {
->>> +             scoped_guard(spinlock_irqsave, &stream->meta.irqlock) {
->>> +                     stream->meta.in_flight = false;
->>> +             }
->>> +     }
->>> +
->>>       /* If no async work is needed, resubmit the URB immediately. */
->>>       if (!uvc_urb->async_operations) {
->>>               ret = usb_submit_urb(uvc_urb->urb, GFP_ATOMIC);
->>> @@ -2330,6 +2356,8 @@ int uvc_video_init(struct uvc_streaming *stream)
->>>       for_each_uvc_urb(uvc_urb, stream)
->>>               INIT_WORK(&uvc_urb->work, uvc_video_copy_data_work);
->>>
->>> +     spin_lock_init(&stream->meta.irqlock);
->>> +
->>>       return 0;
->>>  }
->>>
->>> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
->>> index b6bcee4a222f..6f1a3381d392 100644
->>> --- a/drivers/media/usb/uvc/uvcvideo.h
->>> +++ b/drivers/media/usb/uvc/uvcvideo.h
->>> @@ -484,6 +484,8 @@ struct uvc_streaming {
->>>               struct uvc_video_queue queue;
->>>               u32 format;
->>>               u32 buffersize;
->>> +             bool in_flight;
->>> +             spinlock_t irqlock; /* Protects in_flight. */
->>>       } meta;
->>>
->>>       /* Context data used by the bulk completion handler. */
->>>
->>
-> 
+> Hm well, it's a path that warns, can only happen due to a development error?
+> Not sure we care about stable then. Anyway.
 > 
 
+If someone would run into the WARN we would already be in Fixes: territory.
+
+it's a path that should never be executed. If it does, the real issue must be fixed.
+
+So (a) I don't think this is stable material (b) I am skeptical that this is
+even a Fixes and (c) I am wondering whether we should touch this *at all*.
+
+:)
+
+-- 
+Cheers,
+
+David
