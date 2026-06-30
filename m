@@ -1,110 +1,206 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E2040627B;
-	Tue, 30 Jun 2026 11:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9ADE407CD1
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 12:02:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782820421; cv=none; b=C3hlN6N6HXH7fEE67v8X2K9FQ2tyLi8iEF0QkEy7o9SyJgMRcwVNwuNVmTDD3mNXSy9AsYCgk9LvIkvasaX8/MnX7OhC88CgTi5vWc3xkIeOJgkRA4Hz1W4iZyqQhw3DpsLCH2Mir7NrUH7wVLjvHNnM6LidgQX9p3srLoj7L10=
+	t=1782820948; cv=none; b=rGb56mDbXFHcr2FokrWUWn/cR34Ig3QQWz8LHlYkuK66z9OZ/NLpfEEyEvp6UTX0rGLC+jcUCwNs0tUiwBMVJn2N0XUPiyRFKnjESy08iJxVO46k9PBkFUXilentWu3WJdxXssHgmXTmM9BSwchGWB22LBpJ9Q/tf1rS1M4lOgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782820421; c=relaxed/simple;
-	bh=HHeUzys9SZo4sXJXwBYEOYegZzAOleiFoxqxV4KVsUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=atrBSgt0GK0XTU4/VXnKO34dxafOYUa8O5bV7WNExeBSEfIhvvHP8tjyp8ZizsklIHJobkzlXTjAYY3usZ4eN8HEbEswL3LSEuUMQv0ZEaT95EZldWwwuNb47I2mznvWebZLklnvkx8Jz9WFIvJf+5n4Adq5x/bLOXSe/W9U+QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N95sYqlI; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1782820948; c=relaxed/simple;
+	bh=4ZSwZymhBMoMS7e9yAqoDjInucyag5+dMxp9MPkaiY0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ApHp0sJoFH1li+Am1baFN5iNRSOTDgy8gQj3GQe0OMkZCC9DmghCYSx7R22+OQUxMDDd3LVV0GIO6NXL2GwFIq+lS0XVDA1KPu3CYSRExr52phqtX7oVW4bLjonmjabjohdvENhPLjxnVavEJINxObNUMxKWrnlpBbMZvYJv3ZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=meng.ding@siemens.com header.b=au27Z8Yj; arc=none smtp.client-ip=185.136.64.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N95sYqlI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782820420; x=1814356420;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HHeUzys9SZo4sXJXwBYEOYegZzAOleiFoxqxV4KVsUA=;
-  b=N95sYqlIcdWsKyi8Wwj9FSbmqjGRWu1HNJyPFWjEsQM9KZ6EwxOVMLnr
-   oE6S2x2tU11XtAjhgQa/9PyqyLQGgR6jG48Ub3QRGNIqZLrkHDdqa/s2y
-   17pMKdk0SOFuimdxL8vrYve5mfXqup0jKunjDAdUFJKpvyRgTmU2osO20
-   3SJRViL0oeb0fNne6zkP65PIs5l42vI91Al0kllIkUvL6BZHf7L1+k7tc
-   wtk/BzYvl3c5iL2D5giZPC1Br450LDOQcxHTrCOxiOn5O/EDgy9XgWPYP
-   5cyn2IPLgCA19xASErdGsVNNdHKyZOu7+2WLlwQfDdc4rK4A/ceqk/J34
-   w==;
-X-CSE-ConnectionGUID: L/qS6vz8TJelXaU+2foZog==
-X-CSE-MsgGUID: CttWor74QAeYzONEJyqCgQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="109080376"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
-   d="scan'208";a="109080376"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 04:53:39 -0700
-X-CSE-ConnectionGUID: UseMqb4hTouQba8inFEEaA==
-X-CSE-MsgGUID: OQAo9beZS6SkUijWaWBaZg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
-   d="scan'208";a="250556196"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.96])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 04:53:36 -0700
-Date: Tue, 30 Jun 2026 14:53:33 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Lyude Paul <lyude@redhat.com>
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Timur Tabi <ttabi@nvidia.com>, Dave Airlie <airlied@redhat.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Ben Skeggs <bskeggs@nvidia.com>, Kees Cook <kees@kernel.org>,
-	Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Maxime Ripard <mripard@kernel.org>,
-	Mel Henning <mhenning@darkrefraction.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Subject: Re: [PATCH v2 1/4] Revert "nouveau/gsp: fix suspend/resume
- regression on r570 firmware"
-Message-ID: <akOuPQ37-zxIJWWH@ashevche-desk.local>
-References: <20260629224350.2870201-1-lyude@redhat.com>
- <20260629224350.2870201-2-lyude@redhat.com>
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=meng.ding@siemens.com header.b="au27Z8Yj"
+Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 2026063011220030542f7d77000207d6
+        for <stable@vger.kernel.org>;
+        Tue, 30 Jun 2026 13:22:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
+ d=siemens.com; i=meng.ding@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=FGWjX5Iw+idjzBCUjhnqRS4MmD5hoBNLO0VdMjNcb0g=;
+ b=au27Z8YjSO7lrdMiXMKZKX04axUjx3tCBcFn/n1iVduzZQwpYpn1MMDv3JXmUT35/VG1nZ
+ muiVJZ9oa28547LGKhhcioH4cLarvCqcVCeULc1MIYDKoMg/tsspDJYrLs5agqoM3Wd6nmzV
+ uWt5dJ3z9uyDhixiGcY6khTLwWraKKUYJNf5wicZaEBMfi8C75m8rC+w/9qM6cHt+vBV7j6z
+ i7Sz1wK9qXAFdZQf3+Vq02+VIRgvywuG/EjTl+riq+DSvgLzQvwumxPQ6wJjAjI8qO2PKlji
+ ZKijyupNhmCSt8qaljxIxGPu9lD+MvbnaanfmIHM4eOqjUWuq6NEYtqQ==;
+From: Ding Meng <meng.ding@siemens.com>
+To: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	jan.kiszka@siemens.com,
+	florian.bezdeka@siemens.com
+Cc: intel-wired-lan@lists.osuosl.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	meng.ding@siemens.com,
+	wq.wang@siemens.com,
+	pmenzel@molgen.mpg.de,
+	stable@vger.kernel.org,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Piotr Kwapulinski <piotr.kwapulinski@intel.com>
+Subject: [Intel-wired-lan] [PATCH net v2] igc: Fix RX HW timestamp reporting when NET_RX_BUSY_POLL is disabled
+Date: Tue, 30 Jun 2026 19:15:23 +0800
+Message-ID: <20260630112056.885071-1-meng.ding@siemens.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260629224350.2870201-2-lyude@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-1335312:519-21489:flowmailer
 
-On Mon, Jun 29, 2026 at 06:42:33PM -0400, Lyude Paul wrote:
-> This reverts commit 8302d0afeaec0bc57d951dd085e0cffe997d4d18.
-> 
-> It turns out this looked like the right fix on some systems, but it's not -
-> as this causes runtime PM to actually fail on many a laptop.
-> 
-> [I have set the fixes to an older commit then the one that is reverted
-> here, because when applied with the other patches in this series, this
-> appears to /fully/ fix runtime PM in addition to the regression]
+When CONFIG_NET_RX_BUSY_POLL is deactivated, fetching RX HW timestamps
+from the NIC no longer works as expected, often resulting in incorrect
+or negative values such as "HW raw -121948.050407424".
 
-No need to have this in the commit message, move it to the comment block...
+This occurs because disabling CONFIG_NET_RX_BUSY_POLL disables the
+SKB NAPI mapping in __skb_mark_napi_id(). Consequently, get_timestamp()
+fails to perform its driver lookup, and the igc driver's struct
+net_device_ops::ndo_get_tstamp is never invoked.
 
-> Fixes: 53dac0623853 ("drm/nouveau/gsp: add support for 570.144")
+Instead, get_timestamp() falls back to use shhwtstamps(skb)->hwtstamp,
+a field that the driver has not populated. This results in incorrect
+timestamps.
 
-I'm not sure, actually, that this is a correct approach. You can't revert
-something that never appeared (in time range between 53dac0623853 and
-8302d0afeaec). Have you consulted with the stable kernel process documentation
-and/or respective maintainers?
+Fix this by populating the hwtstamp field with the correct timestamp
+in the default timer when CONFIG_NET_RX_BUSY_POLL is disabled.
+The "igc_adapter" is passed to igc_construct_skb() to enable
+igc_ptp_rx_pktstamp() to access the necessary adapter details for
+adjusting the timestamp.
 
-> Cc: <stable@vger.kernel.org> # v6.16+
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> ---
+Test case:
+ Disable CONFIG_NET_RX_BUSY_POLL.
+ Sender:
+ # tools/testing/selftests/net/timestamping en0 \
+        SOF_TIMESTAMPING_TX_HARDWARE PTPV2 IP_MULTICAST_LOOP
+ Receiver:
+ # tools/testing/selftests/net/timestamping en0 \
+        SOF_TIMESTAMPING_RX_HARDWARE SOF_TIMESTAMPING_RAW_HARDWARE PTPV2
 
-...somewhere here.
+Before patch, receiver prints
+ HW raw -121948.050407424
+After patch, receiver prints
+ HW raw 1760648763.746974064
 
->  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c | 2 +-
->  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  | 2 +-
->  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 8 ++++----
->  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h        | 2 +-
+Fixes: 069b142f5819 ("igc: Add support for PTP .getcyclesx64()")
+Cc: stable@vger.kernel.org
+Co-developed-by: Florian Bezdeka <florian.bezdeka@siemens.com>
+Signed-off-by: Florian Bezdeka <florian.bezdeka@siemens.com>
+Signed-off-by: Ding Meng <meng.ding@siemens.com>
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Reviewed-by: Piotr Kwapulinski <piotr.kwapulinski@intel.com>
+---
+V2:
+  - update commit message(suggested by Paul Menzel):
+      add error log
+      explain why need to pass igc_adapter
+      add test case
+  - move variable declarations on top of the function
+  - Cc stable@vger.kernel.org
+V1: https://lore.kernel.org/intel-wired-lan/20260622041718.6106-1-meng.ding@siemens.com/
+---
+ drivers/net/ethernet/intel/igc/igc_main.c | 41 ++++++++++++++++-------
+ 1 file changed, 29 insertions(+), 12 deletions(-)
 
+diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
+index 8ac16808023..5c4beb8b5d4 100644
+--- a/drivers/net/ethernet/intel/igc/igc_main.c
++++ b/drivers/net/ethernet/intel/igc/igc_main.c
+@@ -1992,7 +1992,29 @@ static struct sk_buff *igc_build_skb(struct igc_ring *rx_ring,
+ 	return skb;
+ }
+ 
+-static struct sk_buff *igc_construct_skb(struct igc_ring *rx_ring,
++static void igc_construct_skb_timestamps(struct igc_adapter *adapter,
++					 struct sk_buff *skb,
++					 struct igc_xdp_buff *ctx)
++{
++#ifndef CONFIG_NET_RX_BUSY_POLL
++	struct igc_inline_rx_tstamps *tstamps;
++#endif
++
++	if (!ctx->rx_ts)
++		return;
++
++#ifndef CONFIG_NET_RX_BUSY_POLL
++	tstamps = ctx->rx_ts;
++	skb_hwtstamps(skb)->hwtstamp = igc_ptp_rx_pktstamp(adapter,
++							   tstamps->timer0);
++#else
++	skb_shinfo(skb)->tx_flags |= SKBTX_HW_TSTAMP_NETDEV;
++	skb_hwtstamps(skb)->netdev_data = ctx->rx_ts;
++#endif
++}
++
++static struct sk_buff *igc_construct_skb(struct igc_adapter *adapter,
++					 struct igc_ring *rx_ring,
+ 					 struct igc_rx_buffer *rx_buffer,
+ 					 struct igc_xdp_buff *ctx)
+ {
+@@ -2013,10 +2035,7 @@ static struct sk_buff *igc_construct_skb(struct igc_ring *rx_ring,
+ 	if (unlikely(!skb))
+ 		return NULL;
+ 
+-	if (ctx->rx_ts) {
+-		skb_shinfo(skb)->tx_flags |= SKBTX_HW_TSTAMP_NETDEV;
+-		skb_hwtstamps(skb)->netdev_data = ctx->rx_ts;
+-	}
++	igc_construct_skb_timestamps(adapter, skb, ctx);
+ 
+ 	/* Determine available headroom for copy */
+ 	headlen = size;
+@@ -2686,7 +2705,7 @@ static int igc_clean_rx_irq(struct igc_q_vector *q_vector, const int budget)
+ 		else if (ring_uses_build_skb(rx_ring))
+ 			skb = igc_build_skb(rx_ring, rx_buffer, &ctx.xdp);
+ 		else
+-			skb = igc_construct_skb(rx_ring, rx_buffer, &ctx);
++			skb = igc_construct_skb(adapter, rx_ring, rx_buffer, &ctx);
+ 
+ 		/* exit if we failed to retrieve a buffer */
+ 		if (!xdp_res && !skb) {
+@@ -2738,7 +2757,8 @@ static int igc_clean_rx_irq(struct igc_q_vector *q_vector, const int budget)
+ 	return total_packets;
+ }
+ 
+-static struct sk_buff *igc_construct_skb_zc(struct igc_ring *ring,
++static struct sk_buff *igc_construct_skb_zc(struct igc_adapter *adapter,
++					    struct igc_ring *ring,
+ 					    struct igc_xdp_buff *ctx)
+ {
+ 	struct xdp_buff *xdp = &ctx->xdp;
+@@ -2760,10 +2780,7 @@ static struct sk_buff *igc_construct_skb_zc(struct igc_ring *ring,
+ 		__skb_pull(skb, metasize);
+ 	}
+ 
+-	if (ctx->rx_ts) {
+-		skb_shinfo(skb)->tx_flags |= SKBTX_HW_TSTAMP_NETDEV;
+-		skb_hwtstamps(skb)->netdev_data = ctx->rx_ts;
+-	}
++	igc_construct_skb_timestamps(adapter, skb, ctx);
+ 
+ 	return skb;
+ }
+@@ -2775,7 +2792,7 @@ static void igc_dispatch_skb_zc(struct igc_q_vector *q_vector,
+ 	struct igc_ring *ring = q_vector->rx.ring;
+ 	struct sk_buff *skb;
+ 
+-	skb = igc_construct_skb_zc(ring, ctx);
++	skb = igc_construct_skb_zc(q_vector->adapter, ring, ctx);
+ 	if (!skb) {
+ 		ring->rx_stats.alloc_failed++;
+ 		set_bit(IGC_RING_FLAG_RX_ALLOC_FAILED, &ring->flags);
+
+base-commit: 4549871118cf616eecdd2d939f78e3b9e1dddc48
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.47.3
 
