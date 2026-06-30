@@ -1,227 +1,297 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92766335BDB;
-	Tue, 30 Jun 2026 09:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782811501; cv=pass; b=CPpGWQ9wO7atzV2NkH5GWsrRsb5Y57DVH8xpvutYLKbFQQwcPWAAQhrYAMidd6w8P6ezpL1YCgOxswrjMjdXgl6cuLKt5dwmFhDphyN/STlYHIZB1tPdcd2p8VicujNigQ1NrNJrzLTYc+kQjj2oO8XJbXe0ZtVDubPElkvNxEI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782811501; c=relaxed/simple;
-	bh=y8kBP+bHRQBiLY5c5LWe4utE0UQQH06StwsAnt7JqHU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aZOBtGqVP6RI3iicZM/W9eA2fGnl7AT1+OU2M7wPgBoNwA/h5UNukB6y4mOdGn5FV1D/B/z6oXjRq2LpGUniP2jzAqCZlV6wa0GFUk0momfMNGj/Ku/3jKaLy4xVhK1IvchzVLQv/UIVvXB/XKC8YDN9BaeL+IUyBfEGH8WOirw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.beauty; spf=pass smtp.mailfrom=linux.beauty; dkim=pass (1024-bit key) header.d=linux.beauty header.i=me@linux.beauty header.b=OVsV8vZZ; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.beauty
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.beauty
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495513EEAE5;
+	Tue, 30 Jun 2026 09:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782811650; cv=none; b=ZI7FfucxK0u3Jv4QQXR/gvuSAkAlIeOmei2emojRjn+KYX9OlYqM1ymxsFD8Q67/zrtvkJ8wD91aTD0F61zEy1KGfYvYr1PbISAubm8izTZj6OaFj/wDdcrr/e7JwFAhnly8yYE95Oo/HsCeUZSNRgZqHzUZA6A/2fQDA3N4S9Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782811650; c=relaxed/simple;
+	bh=GduhRvfG0QzsuvgcVco1uZuIp0l3DXJTI++cEOWs798=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=kbeRbcIBASDTjmKMzCDb2hmhFkPtKM5KbQN1b3/P1h5RuGcjSweWVoU/MKagBU0ODZblnDLyW1LuVVH9HwFi3iMzaurDRGd2y1jIPpGFdfRPWgS/wlvfPRk4gzhTjAHUlngYgfOMNTbfnRgckyk/ym/D/ZAYsSW2s48hJ4MnhDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=jrjF93WJ; arc=none smtp.client-ip=185.132.180.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.beauty header.i=me@linux.beauty header.b="OVsV8vZZ"
-ARC-Seal: i=1; a=rsa-sha256; t=1782811466; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=jCvPM6pJBzs848+V6IPrCIFk+ABHzi1D7c7J1fofsgv8v8AcQoGkq4Tertv8cim9mzGAPvKgEdknw6GH2RxjMKAg3F+vJtvrzdAcxkcVArqgl34f0i6XC1+zM2FXCq/zLDRukUs7Je7fuKllGK96FYyE8sTlugkcTBtKh8O3KH0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1782811466; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=KAqo6HEsfFOfcrjtYZyWNrhZkXkJwWKMsugdhZZUMo0=; 
-	b=dmrqqbo7pabC+ecNGgl2uimFgT+wFohH390RQmG0UrvvYpeogbApfN7AB8ZMe2ZAfVwxEKtf8Xhi6VAo7jXZM4CpWHqPy349mIoyG6N+Aw5i239f0yO+fRf1zQw24CFnF4Yb65mTkv2kcVWPyuEuQGzEa7w11zqQw2qQwnGdGhU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=linux.beauty;
-	spf=pass  smtp.mailfrom=me@linux.beauty;
-	dmarc=pass header.from=<me@linux.beauty>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782811466;
-	s=zmail; d=linux.beauty; i=me@linux.beauty;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=KAqo6HEsfFOfcrjtYZyWNrhZkXkJwWKMsugdhZZUMo0=;
-	b=OVsV8vZZ4Iqh95kxtsVCpJ5JXEPKiG6yqAgSkJN9jwn28MtFAUWNizCSfFi9RCys
-	WgBjRP/gUGYHKni4EsH8bIOAyFX6W6FK1esFLqSkoqm+ibhrPpTzhjMtuMo+Sh1RGIy
-	HKZJYU9/g9L5Tm7t1LnxFuJne+dFLzCQiMgpkMSg=
-Received: by mx.zohomail.com with SMTPS id 1782811462698849.0149791608991;
-	Tue, 30 Jun 2026 02:24:22 -0700 (PDT)
-From: Li Chen <me@linux.beauty>
-To: Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	virtualization@lists.linux.dev,
-	nvdimm@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Li Chen <me@linux.beauty>
-Subject: [PATCH v7 08/12] nvdimm: virtio_pmem: refcount requests for token lifetime
-Date: Tue, 30 Jun 2026 17:23:33 +0800
-Message-ID: <20260630092338.2094628-9-me@linux.beauty>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260630092338.2094628-1-me@linux.beauty>
-References: <20260630092338.2094628-1-me@linux.beauty>
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="jrjF93WJ"
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U5eYYq874592;
+	Tue, 30 Jun 2026 10:27:08 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=QO6McH8r7hXIXf6T2Fn09cg
+	BgSq04y2vLP/sIy9RH8I=; b=jrjF93WJGi+8RR0fLYgpK9PsuSWgznhURZ43QWe
+	bL5SL6Xel7HYUlmevZeXS2JhITDh5H9dIiFxfswRqhvdFqMKiUNMEvC8IuP6Yxw4
+	aoM6UkuViJ6QrJ7NWRsNKVD8hhM3P2gEWW9aUQNdk5Zl60dAborzpOZ0W4sQ60wA
+	Hy4vpsehmKwKiStV0YHjOVXESqjQY5h4U6v6Ewz2tOtOAoWOH4U7uWhbqsHlxAJr
+	5nh4VAF01tEqvwnjD6ophvx/20jsYwqLONqB187+Qkc6h1d3Aa6UB45RNBStQWsx
+	765g+fATmppzwM+O4IryY5SrVoWAYN6t8j7rV5+h/+CbKRw==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4f26kuk2jq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 30 Jun 2026 10:27:07 +0100 (BST)
+Received: from [127.0.1.1] (172.25.128.225) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 30 Jun
+ 2026 10:27:04 +0100
+From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Date: Tue, 30 Jun 2026 14:55:49 +0530
+Subject: [PATCH v5] drm/imagination: Fix double call to
+ drm_sched_entity_fini()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Message-ID: <20260630-b4-sched_fix-v5-1-2a84cbf18bfe@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAJyLQ2oC/33NSw6CMBSF4a2Yjq3pu+LIfRhj+riFDgBDCdEQ9
+ m5hhBAdnpt8/x1Rgi5CQpfDiDoYYoptk4c8HpCrTFMCjj5vxAhTRFGCrcDJVeAfIb6wcdwWjAS
+ hpUWZPDvI5yV3u+ddxdS33XupD3S+/ggNFFPsZKG1UUCscNdYlz24k2trNJcGttZ0o1nWVJuCW
+ zir4PxO83+aZ61mayUBQ+hOi7UuNlrMWnqQlgWv6ffvaZo+pFpXFmMBAAA=
+To: Frank Binns <frank.binns@imgtec.com>,
+        Matt Coster
+	<matt.coster@imgtec.com>,
+        Alessio Belle <Alessio.Belle@imgtec.com>,
+        "Alexandru Dadu" <alexandru.dadu@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Boris Brezillon
+	<boris.brezillon@collabora.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>, Brajesh Gupta <brajesh.gupta@imgtec.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782811624; l=9016;
+ i=brajesh.gupta@imgtec.com; s=20260417; h=from:subject:message-id;
+ bh=GduhRvfG0QzsuvgcVco1uZuIp0l3DXJTI++cEOWs798=;
+ b=Je9cUdZT/E5MFaiX4ll5RZ8eHMSA4/ozqMX0mP4Tl6hsldOreWdyefTizNL0XyYQF95G5P3RK
+ sgB6lTsZPJ1B70quB3H/Gr/6x0DZ/+po3TOgGcV6iDtbRwRUDxXlBZW
+X-Developer-Key: i=brajesh.gupta@imgtec.com; a=ed25519;
+ pk=vDcrSP6vOpWKs914T986xUbB/vY0/cU7mRRb16MRkcg=
+X-Authority-Analysis: v=2.4 cv=epXvCIpX c=1 sm=1 tr=0 ts=6a438beb cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=HYrZrZQ_E1YA:10 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=28r1m_Knvop3wzSJsIkA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: qXehpBGzRX0n6WvbThtF6sRMvhodT-tt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA4NCBTYWx0ZWRfX8xjgKC2r6JPe
+ 45A8Terjaa96/jK/Pgj8OwoyVtb25Oyf22p23wYb3YlzimSYLHRkoRLBQzrg2QKz2aCfkS6G6L4
+ 4lBFgRNdHTxGtqbexYRxzICF4cqPYlHQAzYjnxSy4RHv5MUR9eVmZqBP5yt2HepaOVWnzT29giA
+ zkfRCA8L1YR8VI9NeLdzDxud33wK+XoH+INdzPMVT4KW5RbAWiPw3CfsyIYyS33E8e7QPyelNQf
+ RO+9nxy1JaRAhOzLESXCA4mFDApDdX01dUyJCof9Q3AFBh5qGy6QML75x328aVjhItCMbBJHzN9
+ qF/emjh+2Tuv3925GClxgVZLnL/DjWPh6JRbmklHP4umjnE6lL9bsmTEcDR9VFnGekpK+/yyfde
+ TPW5LdgCgrcoPhaxzWdZRA0izpPag6LvRzsPkeAazoyyFLDAA3asMs7iPsjocEgmLuO/f8iPT+f
+ LHfh8sQaM1Yk6xUcW1g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA4NCBTYWx0ZWRfX5n3uLyL0c/Uq
+ lpaxXhfjo+BSEjqn6Vn7roe9OXFAEUmESzNo2KViaqDLQLlRGpRqOEicoybCpYTs8BzFmAja+zY
+ xey20DNYNs/xrbAKMsD0JracVGCsN0U=
+X-Proofpoint-GUID: qXehpBGzRX0n6WvbThtF6sRMvhodT-tt
 
-KASAN reports slab-use-after-free in __wake_up_common():
-BUG: KASAN: slab-use-after-free in __wake_up_common+0x114/0x160
-Read of size 8 at addr ffff88810fdcb710 by task swapper/0/0
+Call sequence of double call:
+pvr_context_destroy
+  pvr_context_kill_queues
+    pvr_queue_kill
+      drm_sched_entity_destroy
+        drm_sched_entity_fini // here
+  pvr_context_put
+    kref_put(..., pvr_context_release)
+      pvr_context_destroy_queues
+        pvr_queue_destroy
+          drm_sched_entity_fini // here
 
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
-6.19.0-next-20260220-00006-g1eae5f204ec3 #4 PREEMPT(full)
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Arch Linux
-1.17.0-2-2 04/01/2014
-Call Trace:
- <IRQ>
- dump_stack_lvl+0x6d/0xb0
- print_report+0x170/0x4e2
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? __virt_addr_valid+0x1dc/0x380
- kasan_report+0xbc/0xf0
- ? __wake_up_common+0x114/0x160
- ? __wake_up_common+0x114/0x160
- __wake_up_common+0x114/0x160
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- __wake_up+0x36/0x60
- virtio_pmem_host_ack+0x11d/0x3b0
- ? sched_balance_domains+0x29f/0xb00
- ? __pfx_virtio_pmem_host_ack+0x10/0x10
- ? _raw_spin_lock_irqsave+0x98/0x100
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- vring_interrupt+0x1c9/0x5e0
- ? __pfx_vp_interrupt+0x10/0x10
- vp_vring_interrupt+0x87/0x100
- ? __pfx_vp_interrupt+0x10/0x10
- __handle_irq_event_percpu+0x17f/0x550
- ? __pfx__raw_spin_lock+0x10/0x10
- handle_irq_event+0xab/0x1c0
- handle_fasteoi_irq+0x276/0xae0
- __common_interrupt+0x65/0x130
- common_interrupt+0x78/0xa0
- </IRQ>
+Call to drm_sched_entity_destroy() from pvr_context_kill_queues() calls
+drm_sched_entity_flush() + drm_sched_entity_fini().
+drm_sched_entity_flush() ensures all pending jobs are completed and
+drm_sched_entity_fini() ensures no further submission is allowed as
+per expectation from pvr_context_kill_queues(). Double call to
+drm_sched_entity_fini() is misuse of the API so keep call only in
+pvr_context_create() failure path.
 
-virtio_pmem_host_ack() wakes a request that has already been freed by the
-submitter.
+Stack trace for issue with addition of refcounting for DRM entity
+stats in commit fd177135f0e6 ("drm/sched: Account entity GPU time"):
+[  789.490527] ------------[ cut here ]------------
+[  789.490559] refcount_t: underflow; use-after-free.
+[  789.490657] WARNING: lib/refcount.c:28 at refcount_warn_saturate+0xf4/0x144, CPU#0: kworker/u16:1/440
+[  789.490695] Modules linked in: powervr drm_gpuvm drm_exec gpu_sched drm_shmem_helper xhci_plat_hcd xhci_hcd dwc3 usbcore usb_common snd_soc_simple_card snd_soc_simple_card_utils sa2ul sha512 sha256 dwc3_am62 sha1 authenc rti_wdt libsha512 at24 sch_fq_codel fuse dm_mod ipv6
+[  789.490798] CPU: 0 UID: 0 PID: 440 Comm: kworker/u16:1 Not tainted 7.0.0-rc7-02049-g5e2c0700091b #22 PREEMPT
+[  789.490809] Hardware name: Texas Instruments AM625 SK (DT)
+[  789.490815] Workqueue: powervr-sched pvr_queue_fence_release_work [powervr]
+[  789.490868] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[  789.490876] pc : refcount_warn_saturate+0xf4/0x144
+[  789.490884] lr : refcount_warn_saturate+0xf4/0x144
+[  789.490892] sp : ffff8000822cbcc0
+[  789.490895] x29: ffff8000822cbcc0 x28: 0000000000000000 x27: 0000000000000000
+[  789.490909] x26: 0000000000000000 x25: ffff800081b1e338 x24: ffff000004541405
+[  789.490922] x23: ffff000004bea950 x22: ffff00000042e400 x21: ffff000007123e30
+[  789.490935] x20: ffff000007123000 x19: ffff000007a80d50 x18: fffffffffffe7768
+[  789.490948] x17: 74736574202c6e6f x16: 697461746e656d65 x15: ffff800081b269f0
+[  789.490962] x14: 0000000000000030 x13: ffff800081b26a70 x12: 0000000000000211
+[  789.490975] x11: 00000000000000c0 x10: 0000000000000b50 x9 : ffff8000822cbb30
+[  789.490988] x8 : ffff0000014e7bb0 x7 : ffff00007725e780 x6 : 0000000372a05f49
+[  789.491001] x5 : 0000000000000000 x4 : 0000000000000001 x3 : 0000000000000010
+[  789.491013] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff0000014e7000
+[  789.491027] Call trace:
+[  789.491032]  refcount_warn_saturate+0xf4/0x144 (P)
+[  789.491043]  drm_sched_entity_fini+0x164/0x18c [gpu_sched]
+[  789.491081]  pvr_queue_destroy+0x64/0x134 [powervr]
+[  789.491110]  pvr_context_destroy_queues+0x34/0x64 [powervr]
+[  789.491138]  pvr_context_release+0x70/0xac [powervr]
+[  789.491166]  pvr_context_put.part.0+0x5c/0x7c [powervr]
+[  789.491193]  pvr_context_put+0x14/0x24 [powervr]
+[  789.491221]  pvr_queue_fence_release_work+0x20/0x38 [powervr]
+[  789.491249]  process_one_work+0x160/0x4c4
+[  789.491264]  worker_thread+0x188/0x310
+[  789.491276]  kthread+0x130/0x13c
+[  789.491287]  ret_from_fork+0x10/0x20
+[  789.491300] ---[ end trace 0000000000000000 ]---
 
-This happens when the request token is still reachable via the virtqueue,
-but virtio_pmem_flush() returns and frees it.
-
-Fix the token lifetime by refcounting struct virtio_pmem_request.
-virtio_pmem_flush() holds a submitter reference, and the virtqueue holds an
-extra reference once the request is queued. The completion path drops the
-virtqueue reference, and the submitter drops its reference before
-returning.
-
-Fixes: 6e84200c0a29 ("virtio-pmem: Add virtio pmem driver")
+Fixes: eaf01ee5ba28 ("drm/imagination: Implement job submission and scheduling")
 Cc: stable@vger.kernel.org
-Signed-off-by: Li Chen <me@linux.beauty>
+Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
 ---
-v2->v3:
-- Add raw KASAN report to the patch description.
-- Drop timestamps from the embedded report.
-v3->v4:
-- Rebased onto v7.1-rc7 and renumbered after the flush error patches.
+Changes in v5:
+- Update description of the issue and added stable tag.
+- Modified variable name to align with behaviour.
+- Link to v4: https://lore.kernel.org/r/20260619-b4-sched_fix-v4-1-65de5b2fd71d@imgtec.com
 
- drivers/nvdimm/nd_virtio.c   | 34 +++++++++++++++++++++++++++++-----
- drivers/nvdimm/virtio_pmem.h |  2 ++
- 2 files changed, 31 insertions(+), 5 deletions(-)
+Changes in v4:
+- Simplify logic in v3 by pushing new flag to pvr_queue_destroy().
+- Link to v3: https://lore.kernel.org/r/20260611-b4-sched_fix-v3-1-693beb50ea01@imgtec.com
 
-diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
-index 8c0d4347938a1..1cf53f75b1281 100644
---- a/drivers/nvdimm/nd_virtio.c
-+++ b/drivers/nvdimm/nd_virtio.c
-@@ -15,6 +15,14 @@ struct virtio_pmem_flush_work {
- 	struct bio *bio;
- };
- 
-+static void virtio_pmem_req_release(struct kref *kref)
-+{
-+	struct virtio_pmem_request *req;
-+
-+	req = container_of(kref, struct virtio_pmem_request, kref);
-+	kfree(req);
-+}
-+
- static void virtio_pmem_wake_one_waiter(struct virtio_pmem *vpmem)
+Changes in v3:
+- Fixed a typo.
+- Handled missing memory leak for RENDER_CONTEXT.
+- Link to v2: https://lore.kernel.org/r/20260611-b4-sched_fix-v2-1-17a93be86fcd@imgtec.com
+
+Changes in v2:
+- Fixed memory leak identified in following error path handling of pvr_context_create():
+- pvr_context_create()
+-   ...
+-   err_destroy_queues:
+-     pvr_context_destroy_queues()
+-       pvr_queue_destroy()
+- Link to v1: https://lore.kernel.org/r/20260610-b4-sched_fix-v1-1-c5977a6e0b4c@imgtec.com
+---
+ drivers/gpu/drm/imagination/pvr_context.c | 18 ++++++++++--------
+ drivers/gpu/drm/imagination/pvr_queue.c   |  6 ++++--
+ drivers/gpu/drm/imagination/pvr_queue.h   |  2 +-
+ 3 files changed, 15 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/imagination/pvr_context.c b/drivers/gpu/drm/imagination/pvr_context.c
+index eba4694400b5..b6f9e078315d 100644
+--- a/drivers/gpu/drm/imagination/pvr_context.c
++++ b/drivers/gpu/drm/imagination/pvr_context.c
+@@ -161,22 +161,24 @@ ctx_fw_data_init(void *cpu_ptr, void *priv)
+ /**
+  * pvr_context_destroy_queues() - Destroy all queues attached to a context.
+  * @ctx: Context to destroy queues on.
++ * @cleanup_queue_entity: Whether to cleanup the queue entity e.g. context
++ *                      creation failure path.
+  *
+  * Should be called when the last reference to a context object is dropped.
+  * It releases all resources attached to the queues bound to this context.
+  */
+-static void pvr_context_destroy_queues(struct pvr_context *ctx)
++static void pvr_context_destroy_queues(struct pvr_context *ctx, bool cleanup_queue_entity)
  {
- 	struct virtio_pmem_request *req_buf;
-@@ -42,6 +50,7 @@ void virtio_pmem_host_ack(struct virtqueue *vq)
- 		virtio_pmem_wake_one_waiter(vpmem);
- 		WRITE_ONCE(req_data->done, true);
- 		wake_up(&req_data->host_acked);
-+		kref_put(&req_data->kref, virtio_pmem_req_release);
+ 	switch (ctx->type) {
+ 	case DRM_PVR_CTX_TYPE_RENDER:
+-		pvr_queue_destroy(ctx->queues.fragment);
+-		pvr_queue_destroy(ctx->queues.geometry);
++		pvr_queue_destroy(ctx->queues.fragment, cleanup_queue_entity);
++		pvr_queue_destroy(ctx->queues.geometry, cleanup_queue_entity);
+ 		break;
+ 	case DRM_PVR_CTX_TYPE_COMPUTE:
+-		pvr_queue_destroy(ctx->queues.compute);
++		pvr_queue_destroy(ctx->queues.compute, cleanup_queue_entity);
+ 		break;
+ 	case DRM_PVR_CTX_TYPE_TRANSFER_FRAG:
+-		pvr_queue_destroy(ctx->queues.transfer);
++		pvr_queue_destroy(ctx->queues.transfer, cleanup_queue_entity);
+ 		break;
  	}
- 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
  }
-@@ -72,6 +81,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 	if (!req_data)
- 		return -ENOMEM;
+@@ -240,7 +242,7 @@ static int pvr_context_create_queues(struct pvr_context *ctx,
+ 	return -EINVAL;
  
-+	kref_init(&req_data->kref);
- 	WRITE_ONCE(req_data->done, false);
- 	init_waitqueue_head(&req_data->host_acked);
- 	init_waitqueue_head(&req_data->wq_buf);
-@@ -89,10 +99,23 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 	  * to req_list and wait for host_ack to wake us up when free
- 	  * slots are available.
- 	  */
--	while ((err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
--					GFP_ATOMIC)) == -ENOSPC) {
--
--		dev_info(&vdev->dev, "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
-+	for (;;) {
-+		err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
-+					GFP_ATOMIC);
-+		if (!err) {
-+			/*
-+			 * Take the virtqueue reference while @pmem_lock is
-+			 * held so completion cannot run concurrently.
-+			 */
-+			kref_get(&req_data->kref);
-+			break;
-+		}
-+
-+		if (err != -ENOSPC)
-+			break;
-+
-+		dev_info_ratelimited(&vdev->dev,
-+				     "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
- 		WRITE_ONCE(req_data->wq_buf_avail, false);
- 		list_add_tail(&req_data->list, &vpmem->req_list);
- 		spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
-@@ -101,6 +124,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 		wait_event(req_data->wq_buf, READ_ONCE(req_data->wq_buf_avail));
- 		spin_lock_irqsave(&vpmem->pmem_lock, flags);
- 	}
-+
- 	err1 = virtqueue_kick(vpmem->req_vq);
- 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
- 	/*
-@@ -116,7 +140,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 		err = le32_to_cpu(req_data->resp.ret);
- 	}
- 
--	kfree(req_data);
-+	kref_put(&req_data->kref, virtio_pmem_req_release);
+ err_destroy_queues:
+-	pvr_context_destroy_queues(ctx);
++	pvr_context_destroy_queues(ctx, true);
  	return err;
- };
+ }
  
-diff --git a/drivers/nvdimm/virtio_pmem.h b/drivers/nvdimm/virtio_pmem.h
-index e6dfc10ce0762..3af92588bd9d1 100644
---- a/drivers/nvdimm/virtio_pmem.h
-+++ b/drivers/nvdimm/virtio_pmem.h
-@@ -12,12 +12,14 @@
+@@ -349,7 +351,7 @@ int pvr_context_create(struct pvr_file *pvr_file, struct drm_pvr_ioctl_create_co
+ 	pvr_fw_object_destroy(ctx->fw_obj);
  
- #include <linux/module.h>
- #include <uapi/linux/virtio_pmem.h>
-+#include <linux/kref.h>
- #include <linux/libnvdimm.h>
- #include <linux/mutex.h>
- #include <linux/spinlock.h>
- #include <linux/workqueue.h>
+ err_destroy_queues:
+-	pvr_context_destroy_queues(ctx);
++	pvr_context_destroy_queues(ctx, true);
  
- struct virtio_pmem_request {
-+	struct kref kref;
- 	struct virtio_pmem_req req;
- 	struct virtio_pmem_resp resp;
+ err_free_ctx_id:
+ 	/*
+@@ -384,7 +386,7 @@ pvr_context_release(struct kref *ref_count)
+ 	spin_unlock(&pvr_dev->ctx_list_lock);
  
+ 	xa_erase(&pvr_dev->ctx_ids, ctx->ctx_id);
+-	pvr_context_destroy_queues(ctx);
++	pvr_context_destroy_queues(ctx, false);
+ 	pvr_fw_object_destroy(ctx->fw_obj);
+ 	kfree(ctx->data);
+ 	pvr_vm_context_put(ctx->vm_ctx);
+diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
+index 7ed60e1c1a86..941c017399fc 100644
+--- a/drivers/gpu/drm/imagination/pvr_queue.c
++++ b/drivers/gpu/drm/imagination/pvr_queue.c
+@@ -1439,11 +1439,12 @@ void pvr_queue_kill(struct pvr_queue *queue)
+ /**
+  * pvr_queue_destroy() - Destroy a queue.
+  * @queue: The queue to destroy.
++ * @cleanup_queue_entity: Whether to cleanup the queue entity.
+  *
+  * Cleanup the queue and free the resources attached to it. Should be
+  * called from the context release function.
+  */
+-void pvr_queue_destroy(struct pvr_queue *queue)
++void pvr_queue_destroy(struct pvr_queue *queue, bool cleanup_queue_entity)
+ {
+ 	if (!queue)
+ 		return;
+@@ -1453,7 +1454,8 @@ void pvr_queue_destroy(struct pvr_queue *queue)
+ 	mutex_unlock(&queue->ctx->pvr_dev->queues.lock);
+ 
+ 	drm_sched_fini(&queue->scheduler);
+-	drm_sched_entity_fini(&queue->entity);
++	if (cleanup_queue_entity)
++		drm_sched_entity_fini(&queue->entity);
+ 
+ 	if (WARN_ON(queue->last_queued_job_scheduled_fence))
+ 		dma_fence_put(queue->last_queued_job_scheduled_fence);
+diff --git a/drivers/gpu/drm/imagination/pvr_queue.h b/drivers/gpu/drm/imagination/pvr_queue.h
+index 4aa72665ce25..5b07d7edf1c1 100644
+--- a/drivers/gpu/drm/imagination/pvr_queue.h
++++ b/drivers/gpu/drm/imagination/pvr_queue.h
+@@ -158,7 +158,7 @@ struct pvr_queue *pvr_queue_create(struct pvr_context *ctx,
+ 
+ void pvr_queue_kill(struct pvr_queue *queue);
+ 
+-void pvr_queue_destroy(struct pvr_queue *queue);
++void pvr_queue_destroy(struct pvr_queue *queue, bool queue_entity_fini);
+ 
+ void pvr_queue_process(struct pvr_queue *queue);
+ 
+
+---
+base-commit: 61de054a772a1feda6364931ab1baf9038abf1c8
+change-id: 20260610-b4-sched_fix-ac3b920f475b
+
+Best regards,
 -- 
-2.52.0
+Brajesh Gupta <brajesh.gupta@imgtec.com>
+
