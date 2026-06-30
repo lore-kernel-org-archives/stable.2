@@ -1,281 +1,200 @@
-Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020137.outbound.protection.outlook.com [52.101.225.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608202E62A9;
-	Tue, 30 Jun 2026 07:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.254.231
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782803850; cv=none; b=CJrPhK1iF+ZnO0u0JvLtyvpjZW1/dKxbuoiBed4uc2jam8RHNnmfiFaucbIkx+r24ioyyTHyYg0ePaP4lnc4I0Y3TocERtgUOydSFOxpoXC6GwBtdhNknPQZxWfK/d4mHW7dmlHMhqKoL61S+N1TJIvwsKryoIxF09J2K86cKXg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782803850; c=relaxed/simple;
-	bh=VWIgefliV8YxJIbhhZyhjZxdSIhdnTh39pYWt+2ts2s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rkzo6/0tBpQ05DFx/s83GheEpTEU7C0ERfeiWApm9TMZeV4OqZmHHD8fh52SWWnDBGzDGDtOEl4j8W/mKe+nWEsxuONycpPY7291r+z550ukntO1K5u6efwGjrvhchDtuUiUplwk/yeucz0P4vG8arfU4dB047NSWf1/p5l8oDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com; spf=pass smtp.mailfrom=ilvokhin.com; dkim=pass (1024-bit key) header.d=ilvokhin.com header.i=@ilvokhin.com header.b=syXOtjay; arc=none smtp.client-ip=178.62.254.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ilvokhin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D879B26B742;
+	Tue, 30 Jun 2026 07:18:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.137
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782803883; cv=fail; b=cjz7NJW7GsQBtiu6DsTNOXku3Xj5sAlYyaNdVliuJIjxYU9KGUMwJpKFiUeYVN4b+5PmveMInZLEgfivaxaEQ/oUq83TjQCDJyei2BZMxU1i/AgOtC0FA67anww8F9xs8HpUzgXb1Rq/SwDNRleaue2Ua8c5vTwzGiXm/DDrsLs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782803883; c=relaxed/simple;
+	bh=wOmVjKjVZLmgZWde9tb8yFkKXi85XPLmA3J4fbBG5bg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=b8Cj+RKZyV6OcHzYR6B0iXg91YvvaMF7GhfRrTlz0gRZOh/+VU6sXijUfPtdu5qYmU+oGEwfZRxIFqdN+D/8sw4PjVi63Wbaw6quvoD/fm8I6ERIS+WypYZdjaKmjsFqRoU3vHl/NJ8Utk39zrVyIWMWlj0JrrwgIc+U8r3oMsc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=maKNuCHN reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ilvokhin.com header.i=@ilvokhin.com header.b="syXOtjay"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
-	s=mail; t=1782803845;
-	bh=HlWLwSH0iFYuJaopVbi6zi7vSTxiIWcw9qQ4QUSqZts=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=syXOtjayWzIu4PLb1tTRsEjaJ2um72liKmyOg546sUjeNz16SplOi5tG0tbA/DCFN
-	 DO62VCeoK0m+hKLUC6t+dCFvOSG4X218jt2khCTA+UbH5X0jHU73gVZenxhNm1W0Wg
-	 bRT2XTRlV4p09W9uABVQ89D+D0NerYMGdSvwfYDM=
-Received: from localhost.localdomain (shell.ilvokhin.com [138.68.190.75])
-	(Authenticated sender: d@ilvokhin.com)
-	by mail.ilvokhin.com (Postfix) with ESMTPSA id 37538DB246;
-	Tue, 30 Jun 2026 07:17:25 +0000 (UTC)
-From: Dmitry Ilvokhin <d@ilvokhin.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Nick Terrell <terrelln@fb.com>,
-	David Sterba <dsterba@suse.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	kernel-team@meta.com,
-	Farid Zakaria <fmzakari@meta.com>,
-	Dmitry Ilvokhin <d@ilvokhin.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/3] perf record: Fix multiple PERF_RECORD_COMPRESSED2 records per push
-Date: Tue, 30 Jun 2026 07:17:00 +0000
-Message-ID: <079503c01a3e28d3775947f3449cadacfa1f4117.1782743187.git.d@ilvokhin.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1782743187.git.d@ilvokhin.com>
-References: <cover.1782743187.git.d@ilvokhin.com>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="maKNuCHN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aeJq+sic01FHQn1w/KggnZEBXJ6bQ0IIJN50Tus+jHtm7CinXtpYfNNa1GAU7GVx3JnQwZGMQDblFS+NNdk4u0vMwnsvSK4NZHydRaVeR9GiUIf081UX16J+fFmVyJF3O+Uw66pYyy/daAYlpJaVNDem5u9pPm8NmXx6LorlMbjREebQGDPhqMDyYqSouJjODiXEkD8x6+fRzZyNMfWi7wD0Pwov1QWSk4vGe/MGgCI0KCDh1FMpdIPsqJUfa2QRBNvNbphB+Gqy4oifSuKa1CWDWGvoOeNqKI4WWUn8Byn35LpQBpHdUosq5YhKOsqAsRqwG6gonS1t7IQ4WmujCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V0CngVb/KpSE7q+fzqxrfA8IrurwHYZjAzLBKXxitTA=;
+ b=bmJ0+Sa7+9Eliyhs4nYzL1YWtCGr1NHQZmoKwnh7wtkuVvs+iU4z09SZqbrhgidt8EIq8jz2pps0leeBjIhu+G8vkX1ne8+BOVvLIbmHzpI7WGKyfJSEzUDcvEW6INQflgMI3RKaR0tOKWok7+M/7alkiB/1I+GO8veVl9fTzIk/HNtMoCoG2yd9gyq1DzVts7J+XciGyw4W/ujr7UUke1xcy/4gMkWvuTWHpr+lReHbRwMIe5wEO40awlIxdXs+K1S5yjlqfjbM+Q1riAA+yE4sxM512vbUs2bJgBIV7TEY/Yv/tFVpL1t/iQNZYh+gKmTnbPxxEGZ3444FrPzzmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V0CngVb/KpSE7q+fzqxrfA8IrurwHYZjAzLBKXxitTA=;
+ b=maKNuCHN7skUXCmLwXD+mfAD1Aj+DIgWeWVRNkoJKgFEqYlLop3vpAFpPy5yKMloyZXi3w2ta+iOX43lu1Y5M6eZjzrfOW/h1NCKBILpB1YXz2P2Ye263Y/VQJMViws+9CX8T4vhL5uzOuJTWtwNQeheLxr7eJ1rQHKoLlGX18W8+dYLwXDnYoSj9xNoRPKstsEaew2eemZRPQBO0yC+QiGonQ5NhpRQGwQfTbcp95wU+nJ6sp63ITeYTKK+mSLIoyFXcJZjZIgFnfzImBF+eK3W80YDaoX3niD9TsI/xSLpJR3+4JFQkQiQjr8qd0sA2tkiqdnK0avN74/vkR0UpA==
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
+ by MA0P287MB0555.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:116::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 30 Jun
+ 2026 07:17:56 +0000
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b%6]) with mapi id 15.21.0181.008; Tue, 30 Jun 2026
+ 07:17:55 +0000
+From: Tarang Raval <tarang.raval@siliconsignals.io>
+To: Mehdi Djait <mehdi.djait@linux.intel.com>
+CC: Sakari Ailus <sakari.ailus@linux.intel.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, Himanshu Bhavani
+	<himanshu.bhavani@siliconsignals.io>, Elgin Perumbilly
+	<elgin.perumbilly@siliconsignals.io>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Vladimir
+ Zapolskiy <vladimir.zapolskiy@linaro.org>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 01/15] media: i2c: os05b10: Use
+ pm_runtime_get_if_active() when applying controls
+Thread-Topic: [PATCH v2 01/15] media: i2c: os05b10: Use
+ pm_runtime_get_if_active() when applying controls
+Thread-Index: AQHcvE0VYEyGpKrPCUqCSgEd3XhlMbZWPXoAgAEDjnI=
+Date: Tue, 30 Jun 2026 07:17:55 +0000
+Message-ID:
+ <PN3P287MB18296B5F265EB5961F25FF758BF72@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+References: <20260325114404.95188-1-tarang.raval@siliconsignals.io>
+ <20260325114404.95188-2-tarang.raval@siliconsignals.io>
+ <akKM6VhoLNep5UZB@mdjait-mobl>
+In-Reply-To: <akKM6VhoLNep5UZB@mdjait-mobl>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PN3P287MB1829:EE_|MA0P287MB0555:EE_
+x-ms-office365-filtering-correlation-id: b190bed8-ebc4-4eec-5c11-08ded677b4cc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|18002099003|22082099003|38070700021|4143699003|56012099006;
+x-microsoft-antispam-message-info:
+ fE5DRcVC7VZ4YHV35IeXEpJhIGHBM69jvB0FL+iNz3B2Nmt9FxFoHonP+PsVtvEwdAL0Hk5EhSqU6ecoPSWrmmEawGh1S9OnKad5kbtqflEdAul32kbbcmo5xUO+h4T6rL/wxhTGC8DhI7oc68MRmtLl5wTMiGsYnxWUbSjdClTNb/y2XWo6Lj2rZ3H9z8q9AIK8CZG0rST1AuO9reM4sWhh67Bq6cGco/ywFLpSOEwCVZBL0WwOe8Ok2PuxCvM7FI0ImtmMo3FKJcT3qcuFSYzie8t45iwGYXlauuDktLGm4MMUK67174KGM90il61JR2i5UVGuqcPPI1CUJDMXfBtoR7UfbpIrM7sEYKhPZ0wzAoR7Y71neZHvpnjxCL8gD8JaHDbm9IF4mY+IwshD/FUWIGgnx17Uf9F1pkBDL0JIp6wRmGChijg+rmP+bM92J2G2HGTrBjiNc3XME8FvK/LciKdQXWB4wt8tk5EopgwE7JWOjVYF4CjqO4JY1/32zJQ7xYGkQOGguB4B5t0ha2aOsR8QTWEXJnV5BsGNQNmMCxwdkmMc2ENk2F7rOhDbAWyqYtbErt+qHxzzLaiQeWbZ9wa6CKN6VG5vWJMvvf4QQo130hhqZcmAenCYdKRuZa/qfrNC3uFuQ0CuShsMO/p3ChYHnhawAtLA5jsvA0uNJ3z7iNfWdrwAa+gARDiaDcHxdyEjE/GWEe6Ct2bxJ4X1Af5qS8G1AHs2w8/BsBE=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(18002099003)(22082099003)(38070700021)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?SaTKw1IpDwxZ1SrB/5YaF9apUYkEiuINQJalw3L9naoOtQ7UDM/xV+HI3r?=
+ =?iso-8859-1?Q?ejplNDHPNazByHCDov1YNFiv+ug3lxYn+Vf/8zy5HnUPbGnpIh3UPkrkb+?=
+ =?iso-8859-1?Q?bpOlGpAbG9sZ7WbrqMWjq9pwDlNjFYhFdkfqQB+r64xlLVM3Dz88VZ9J0y?=
+ =?iso-8859-1?Q?9ywgEMv7LszsdXGuNyysjk7Ho/xqWmj3IRapEcwHES7cqXiHBATUcfcYJ+?=
+ =?iso-8859-1?Q?chwgvx+wQFSfFhSmFbUe1IOa5HckbA9W5Kj+MrGzIDe6fYnHyC8Fx6lAZD?=
+ =?iso-8859-1?Q?v46ojZIyuTaOMRt2XXRNXVs2KeGZ9M2PLrO6MNtNSDZzZ6ql664OfGp55B?=
+ =?iso-8859-1?Q?pOFFQ+MG32NJXQDNh01D7+Wj15ATcO7k4r5+Xn+AWgyOU8K01F1to7SOy8?=
+ =?iso-8859-1?Q?zXVs2VEDO/zy/MnD0X3+uV6IqLZq2SQyfqBJtQClzV9na1y+wVo5pbObHT?=
+ =?iso-8859-1?Q?1rx+obOTllGaBMvgohClwNOAT5NR9VxzylVG8iadEJJw+XafjBZe+lzlmZ?=
+ =?iso-8859-1?Q?LPiHo6TMWtwK1NWGtSKnYWsWRyL0csP18mUm8h8pSsimo43P7VrJ5WS3BQ?=
+ =?iso-8859-1?Q?8DALTJDbU1JbPyr8gt/OHoJY9LWJTC9vyhQkG/E27Th6WME5MOZchrNmGo?=
+ =?iso-8859-1?Q?h/Uq/2HoWhtNQYiDNhDLEbXBstH44DMv0rSXdIu0+hJIM7nLbJsjCyXstl?=
+ =?iso-8859-1?Q?u9T3E8960Uvj5CKhrxpE2xMCaQkNlqflgosLgOO9SY4eJRt0vmx6yq/Dr0?=
+ =?iso-8859-1?Q?frFLZP2Y+Pigouc5jIU//Gs+CaYB6OXXZHMO3EalZ14nQIK/BxGdY89/+O?=
+ =?iso-8859-1?Q?skKwlyWzlKYrSgBlBe/fcz+O2lJsY5eDDgRkiE1s33aXpRG1gyKxyS1GzC?=
+ =?iso-8859-1?Q?4k9B7aMsdJXF11hjHuX54RCIoe0kantLG+o4bRmV4X0hVOFTfzyNgJLdRC?=
+ =?iso-8859-1?Q?SFJtjDzjqX4Rhhs94SbZdGJABzg/fZlK0QFgi6MB9Hc1v23rZCunjvfxLp?=
+ =?iso-8859-1?Q?/4E5Lwu/3FQiYr+K8FE4l3QD5ghOsYX9QZBvBIGdxHdzHRL7K/gpEl7iJH?=
+ =?iso-8859-1?Q?rwCHU6D40W+hLn9Zvz4RTyWobYshs1vfzspWtA4I4Lj/27oMcgzqRtPbKq?=
+ =?iso-8859-1?Q?wtDfs9+3t+pRBRj5NvdZlJqIQCgrbh1uyvzTsV2fI3zZeev1Gt3ElCYx6+?=
+ =?iso-8859-1?Q?klQNXzx762+zTaSZNldW35Dg23YSdcEk0utv8Y7DHzM8M019ois5/XoR8D?=
+ =?iso-8859-1?Q?+KJq8wjh++FU0ESWD3D+NiUZPcGzCJBlhmZBdp7eLIgg4WSZ2XdD3JI2dn?=
+ =?iso-8859-1?Q?jzaWLHLSq7j9yCqAklWckMLi+lfrMkf8Evfm5odfEIL4mQD7E8rGtnT2Cz?=
+ =?iso-8859-1?Q?Bli9R8t+PGsxI1kbn82fmRZVcgth86BTRaK/Ix9Pp/rjW5qdi8zKCjsSwe?=
+ =?iso-8859-1?Q?NLXcBClorQ+4lHhmicrciFcrfT1vbHb/bHeZp3IUaz2UJmwmEFlVZlNMIK?=
+ =?iso-8859-1?Q?EqnZgLNpFA+jLdKKV1JYnLqofmWFUQDQ+PlTS2JUY/VlEkf7VxperQMHuV?=
+ =?iso-8859-1?Q?mkpM3ok2e79ZEcsKylla+an7NRiZI47FnaaNu7z7zLU1AqPZ5/UKJC3m0r?=
+ =?iso-8859-1?Q?BSqvZHEa6cA7sJi/WHT3vippGNktJ6QTMsCi+QsTQB7KhKFZahz0GskflJ?=
+ =?iso-8859-1?Q?jDs1b09aAbw1XxHiN/sXIrmmyrm1+SR+RVH0k8g/wOsZzGyDt8QVp23Smy?=
+ =?iso-8859-1?Q?EduxRu86zOImnNjbVhH8o9gA7ZV4hIAWxOHcaaEZFzcKDt89HxBzWlpWW8?=
+ =?iso-8859-1?Q?z520Ui2M+w=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: b190bed8-ebc4-4eec-5c11-08ded677b4cc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2026 07:17:55.5650
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xXY7IFejndbXRV6UEvB7m0shYgCOSfu3Qf5CZiiZYRoCoEXceTrSFsQa7JOmAbZpwIv0i5pPTl6Q8HrjtCQgWURdI8hzV2MiR1uZ5MVveQY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA0P287MB0555
 
-With Zstd compression enabled ('perf record -z'), a single mmap push
-whose compressed output exceeds the maximum record size makes
-zstd_compress_stream_to_records() emit several PERF_RECORD_COMPRESSED2
-records back to back. record__pushfn() however rewrote only the first
-record's header to describe the whole blob as one record:
-
-  event->data_size   = compressed - sizeof(struct perf_record_compressed2);
-  event->header.size = PERF_ALIGN(compressed, sizeof(u64));
-  padding            = event->header.size - compressed;
-  ...
-  record__write(rec, map, &pad, padding);
-
-perf_event_header::size is a __u16, so once the compressed blob no
-longer fits in it the header.size assignment truncates and 'padding'
-(size_t) underflows. write() is then handed that bogus length and fails
-with EFAULT, aborting the recording:
-
-  failed to write perf data, error: Bad address
-
-The bytes that did reach the file are mis-framed, so reading it back
-cannot be decompressed.
-
-This is easy to hit with a high event rate and a large buffer, e.g.:
-
-  perf record -z -F max -m 32M --per-thread -- perf test -w thloop 5 1
-
-The single-record fixup is wrong by construction: because header.size is
-16 bits a compressed record cannot exceed 64KB, so the compressor must
-split a push into a chain of records, and the session reader already
-consumes them as such.
-
-Frame each record where it is produced instead: make
-process_comp_header() set the per-record data_size, 8-byte-align
-header.size and zero the trailing padding, and let record__pushfn()
-write the resulting blob, as the AIO path already does. Reduce
-max_record_size by sizeof(u64) so the per-record alignment padding
-cannot push header.size past its u16 field.
-
-There is no on-disk format change; a perf.data written by the fixed tool
-is still read by existing perf.
-
-Fixes: 208c0e168344 ("perf record: Add 8-byte aligned event type PERF_RECORD_COMPRESSED2")
-Reported-by: Farid Zakaria <fmzakari@meta.com>
-Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
-Cc: stable@vger.kernel.org
----
- tools/perf/builtin-record.c                   | 41 ++++++------
- .../record+zstd_comp_decomp_multi_record.sh   | 64 +++++++++++++++++++
- tools/perf/util/zstd.c                        |  2 +-
- 3 files changed, 87 insertions(+), 20 deletions(-)
- create mode 100755 tools/perf/tests/shell/record+zstd_comp_decomp_multi_record.sh
-
-diff --git a/tools/perf/builtin-record.c b/tools/perf/builtin-record.c
-index 4a5eba498c02..2562c3177eae 100644
---- a/tools/perf/builtin-record.c
-+++ b/tools/perf/builtin-record.c
-@@ -652,27 +652,14 @@ static int record__pushfn(struct mmap *map, void *to, void *bf, size_t size)
- 	struct record *rec = to;
- 
- 	if (record__comp_enabled(rec)) {
--		struct perf_record_compressed2 *event = map->data;
--		size_t padding = 0;
--		u8 pad[8] = {0};
- 		ssize_t compressed = zstd_compress(rec->session, map, map->data,
- 						   mmap__mmap_len(map), bf, size);
- 
- 		if (compressed < 0)
- 			return (int)compressed;
- 
--		bf = event;
- 		thread->samples++;
--
--		/*
--		 * The record from `zstd_compress` is not 8 bytes aligned, which would cause asan
--		 * error. We make it aligned here.
--		 */
--		event->data_size = compressed - sizeof(struct perf_record_compressed2);
--		event->header.size = PERF_ALIGN(compressed, sizeof(u64));
--		padding = event->header.size - compressed;
--		return record__write(rec, map, bf, compressed) ||
--		       record__write(rec, map, &pad, padding);
-+		return record__write(rec, map, map->data, compressed);
- 	}
- 
- 	thread->samples++;
-@@ -1590,18 +1577,29 @@ static void record__adjust_affinity(struct record *rec, struct mmap *map)
- 	}
- }
- 
--static size_t process_comp_header(void *record, size_t increment)
-+/*
-+ * Called once with data_size == 0 to start a record, then once with
-+ * data_size == compressed payload size to finalize and 8-byte-pad it
-+ * (unaligned records trip ASan in the reader).
-+ */
-+static size_t process_comp_header(void *record, size_t data_size)
- {
- 	struct perf_record_compressed2 *event = record;
- 	size_t size = sizeof(*event);
- 
--	if (increment) {
--		event->header.size += increment;
--		return increment;
-+	if (data_size) {
-+		size_t padding;
-+
-+		event->data_size = data_size;
-+		event->header.size = PERF_ALIGN(size + data_size, sizeof(u64));
-+		padding = event->header.size - size - data_size;
-+		memset(record + size + data_size, 0, padding);
-+		return data_size + padding;
- 	}
- 
- 	event->header.type = PERF_RECORD_COMPRESSED2;
- 	event->header.size = size;
-+	event->data_size = 0;
- 
- 	return size;
- }
-@@ -1610,7 +1608,12 @@ static ssize_t zstd_compress(struct perf_session *session, struct mmap *map,
- 			    void *dst, size_t dst_size, void *src, size_t src_size)
- {
- 	ssize_t compressed;
--	size_t max_record_size = PERF_SAMPLE_MAX_SIZE - sizeof(struct perf_record_compressed2) - 1;
-+	/*
-+	 * Reserve space so per-record PERF_ALIGN() padding keeps header.size
-+	 * within u16.
-+	 */
-+	size_t max_record_size = PERF_SAMPLE_MAX_SIZE
-+		- sizeof(struct perf_record_compressed2) - sizeof(u64);
- 	struct zstd_data *zstd_data = &session->zstd_data;
- 
- 	if (map && map->file)
-diff --git a/tools/perf/tests/shell/record+zstd_comp_decomp_multi_record.sh b/tools/perf/tests/shell/record+zstd_comp_decomp_multi_record.sh
-new file mode 100755
-index 000000000000..42efe7260def
---- /dev/null
-+++ b/tools/perf/tests/shell/record+zstd_comp_decomp_multi_record.sh
-@@ -0,0 +1,64 @@
-+#!/bin/bash
-+# Zstd perf.data compression/decompression of multi-record data
-+
-+# SPDX-License-Identifier: GPL-2.0
-+
-+perfdata=$(mktemp /tmp/__perf_test.perf.data.XXXXX)
-+recout=$(mktemp /tmp/__perf_test.zstd.rec.XXXXX)
-+injout=$(mktemp /tmp/__perf_test.zstd.inj.XXXXX)
-+perf_tool=perf
-+
-+cleanup() {
-+	rm -f "${perfdata}" "${perfdata}".old "${perfdata}".decomp "${recout}" "${injout}"
-+}
-+trap cleanup EXIT TERM INT
-+
-+skip_if_no_z_record() {
-+	$perf_tool record -h 2>&1 | grep -q -- '-z, --compression-level'
-+}
-+
-+collect_z_record() {
-+	echo "Collecting compressed record file:"
-+	[ "$(uname -m)" != s390x ] && gflag='-g'
-+	$perf_tool record -o "${perfdata}" $gflag -z -F max -m 32M --per-thread -- \
-+		$perf_tool test -w thloop 5 1 \
-+		>/dev/null 2>"${recout}"
-+}
-+
-+check_record() {
-+	echo "Checking record did not fail to write data:"
-+	if grep -q "failed to write perf data" "${recout}"; then
-+		cat "${recout}"
-+		return 1
-+	fi
-+}
-+
-+check_decompress() {
-+	echo "Checking compressed file decompresses cleanly:"
-+	if ! $perf_tool inject -i "${perfdata}" -o "${perfdata}".decomp 2>"${injout}"; then
-+		cat "${injout}"
-+		return 1
-+	fi
-+	if grep -Eqi "decompress|corrupt|failed to process type" "${injout}"; then
-+		cat "${injout}"
-+		return 1
-+	fi
-+}
-+
-+skip_if_no_z_record || exit 2
-+collect_z_record
-+check_record || exit 1
-+
-+# Need >1 record, else the multi-record path wasn't exercised.
-+# Skip rather than pass/fail spuriously.
-+nr=$($perf_tool report -i "${perfdata}" --stats 2>/dev/null |
-+	awk '/COMPRESSED2 events:/ { print $3 }')
-+if [ -z "${nr}" ] || [ "${nr}" -lt 2 ]; then
-+	echo "less than two compressed records (${nr:-0}), skipping"
-+	exit 2
-+fi
-+echo "Produced ${nr} compressed records"
-+
-+check_decompress
-+err=$?
-+exit $err
-diff --git a/tools/perf/util/zstd.c b/tools/perf/util/zstd.c
-index 57027e0ac7b6..1955fa2431d1 100644
---- a/tools/perf/util/zstd.c
-+++ b/tools/perf/util/zstd.c
-@@ -30,7 +30,7 @@ int zstd_fini(struct zstd_data *data)
- 
- ssize_t zstd_compress_stream_to_records(struct zstd_data *data, void *dst, size_t dst_size,
- 				       void *src, size_t src_size, size_t max_record_size,
--				       size_t process_header(void *record, size_t increment))
-+				       size_t process_header(void *record, size_t data_size))
- {
- 	size_t ret, size, compressed = 0;
- 	ZSTD_inBuffer input = { src, src_size, 0 };
--- 
-2.53.0-Meta
-
+Hi, Mehdi.=0A=
+=0A=
+> On Wed, Mar 25, 2026 at 05:13:47PM +0530, Tarang Raval wrote:=0A=
+> > os05b10_set_ctrl() currently uses pm_runtime_get_if_in_use() to decide=
+=0A=
+> > whether controls should be applied to hardware.=0A=
+> >=0A=
+> > This is not correct for the intended behavior. If the runtime PM usage=
+=0A=
+> > count is 0 while the device is still active, pm_runtime_get_if_in_use()=
+=0A=
+> > returns 0 and the control update is skipped, leaving the software state=
+=0A=
+> > updated but not the hardware state.=0A=
+> >=0A=
+> > Use pm_runtime_get_if_active() instead so controls are applied whenever=
+=0A=
+> > the device is runtime-active, regardless of the current usage count.=0A=
+> >=0A=
+> > Cc: stable@vger.kernel.org=0A=
+> > Fixes: 3aa9296a23ec4("media: i2c: add os05b10 image sensor driver")=0A=
+>=0A=
+> A space is missing here after the commit hash.=0A=
+> See https://docs.kernel.org/process/submitting-patches.html=0A=
+>=0A=
+> checkpatch will warn you about it.=0A=
+=0A=
+Recently, I found that this is not actually a bug. Using=0A=
+pm_runtime_get_if_active() would simply allow more control updates to be=0A=
+written over I=B2C while the device is runtime-active, even when the PM=0A=
+usage count is zero. Since this is not a bug fix, I'll remove the Fixes=0A=
+tag.=0A=
+=0A=
+> with that:=0A=
+> Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>=0A=
+>=0A=
+> > Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>=0A=
+> > ---=0A=
+> >  drivers/media/i2c/os05b10.c | 2 +-=0A=
+> >  1 file changed, 1 insertion(+), 1 deletion(-)=0A=
+> >=0A=
+> > diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c=
+=0A=
+> > index e0453c988e4a..5da5b7d21f31 100644=0A=
+> > --- a/drivers/media/i2c/os05b10.c=0A=
+> > +++ b/drivers/media/i2c/os05b10.c=0A=
+> > @@ -531,7 +531,7 @@ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)=
+=0A=
+> >                       return ret;=0A=
+> >       }=0A=
+> >=0A=
+> > -     if (pm_runtime_get_if_in_use(os05b10->dev) =3D=3D 0)=0A=
+> > +     if (pm_runtime_get_if_active(os05b10->dev) =3D=3D 0)=0A=
+>=0A=
+> small nit: how about=0A=
+>         if (!pm_runtime_get_if_active(os05b10->dev))=0A=
+>=0A=
+> consistent with other drivers using this call but really not important,=
+=0A=
+> up to you if you want to change it.=0A=
+=0A=
+Sure, I will update.=0A=
+=0A=
+Best Regards,=0A=
+Tarang=
