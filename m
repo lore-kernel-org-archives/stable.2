@@ -1,109 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA4F46AEE2;
-	Tue, 30 Jun 2026 16:04:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6441F46AEDB;
+	Tue, 30 Jun 2026 16:05:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782835492; cv=none; b=lplv2/EiQFizcOPjeYArN1KQ09bKehdNPdWcBhnV2Pa6vCUMNm2K3jZNLSGsb2UEaWGn/ltZR+oQTxk0dwmmaWY/Zu3fwN2EcOLCYbJh4Q7CNSVDX4PMZfkNpaVWpN4fIs47baPHUUIf3FKWml2KWfWw0dHnWzwH1A2m97mUWrM=
+	t=1782835549; cv=none; b=RB6OzxiT9gWc83tokUlIZetCLgF0u03S/YLvW6207AUmC2IK98zEv+aH7UtQfVR0W4AXP7XZRa6ZIaLWklLkFfgQGNlegaDOrjqMG5w83GLjr86ZQoNcqetCPs7sw8mBkDmaG+qoDaYVUHKAm2h63UPMboXFnXENxANtX0R/OBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782835492; c=relaxed/simple;
-	bh=m8ubQEzYN9wUMvEDdXsR8GvLoyJQsl/90h1gsmWq6IU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EqCawST4pk+DC8x7lk1YdMqVsGz4Z0BhPWeOqIL+Cpkr8rcU1ARo/7bcbpHUE2ke9VLMjzorJlymhWTRPjMH79UfQ+UMnK2BBBSW92B86WuBEabgP+tkHza8XlUhULxQVRrRCta3/NSRxXKR07yTqYBkFAeSmVQKbxCfGD35+y8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkaMRFtR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782835549; c=relaxed/simple;
+	bh=GRs8WjcQhEYPcY1IkD3TxIAylDmbtFFFSwtcXiK+ZfU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=sgY9wBa91kPhbT1PTKPSGCH1Za9aSrhsWndEVe+Ktc8gfCgsELCoPjszoTLVOWAx5kcyiBD5LchOZUiN8/S6IewfwXoJ9EvZkvy28Hz7RoESrM2OffEq6RlV+jhm48zXGHo5WYjZ3r4koY1e8MhgHKo8ne8Afn2muEXOrm3FMGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ox1lSUs8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkaMRFtR"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 252B61F00AC4;
-	Tue, 30 Jun 2026 16:04:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ox1lSUs8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F352A1F000E9;
+	Tue, 30 Jun 2026 16:05:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782835489;
-	bh=QesfPcZNprlavXfSBU02g5izCfA79PSfySOG273cUO4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZkaMRFtRGKFKB9zCEDFe3sy+Xv9IT6JFxHfOCYFNm2h1xHdVPBOCdUH/yS8c9bq0c
-	 pBexjMkrNWtvjmZn6PzQ3H/SRjCPysIxsVt0S6bB1KhA5yOM+o3v8wYeenMW9Ewmck
-	 FdPvgDew12gBpVgH3BYAKSF7I4AXBnrxmHjvduwK+3gRe3qynCWrzGTK8pcoyXq3cE
-	 +/MoeS/yTc8nODuP9F2h9CX6FYp6fInn0rwHSGNZpil/vCBSqDgPyzoQB+Us29+Xpx
-	 pvVyNdP/HPUxsHMbu9y9Nk5UVViHeGRG7CNGTC5h5CwHOIsS57MXEtT5iRdDDF0FL1
-	 hSIPDjB46wSPQ==
-Date: Tue, 30 Jun 2026 09:04:48 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Yousef Alhouseen <alhouseenyousef@gmail.com>, f@magnolia.djwong.org
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	syzbot+b7dfbed0c6c2b5e9fd34@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] xfs: use null daddr for unset first bad log block
-Message-ID: <20260630160448.GA6526@frogsfrogsfrogs>
-References: <20260630100607.7150-1-alhouseenyousef@gmail.com>
+	s=k20260515; t=1782835547;
+	bh=GRs8WjcQhEYPcY1IkD3TxIAylDmbtFFFSwtcXiK+ZfU=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=Ox1lSUs8APxIsUyMFvQd0DXXHeogkAi4cBq7Nizl0YA0oJsHLXSZrXSDjaUxbf1J7
+	 VFdM3rKwRi7eEN9eli1d/LEEGUB/m01MbJEtntsSfXM3plXu7HfFSxaBX6Kaw5eKDC
+	 zhRTylalba619x60GkyfjhkL21ZLJRsTAnvKZe137Ed4OVHcBkyEk6wfR2YqOg+JCW
+	 9AyXSMhByZlMFpix4KMGX12NfZXZmy1KNndWd0gUt18ZCZYYhve92toImNVQKaDAHX
+	 08kQELCc79R8VkaNWXTzXpIFb7diJSou5D9IfOTxeFVu1xTL/EpLnPVKdxS3I2Wlkd
+	 /DOnQRMPtcXtQ==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260630100607.7150-1-alhouseenyousef@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 30 Jun 2026 18:05:42 +0200
+Message-Id: <DJMIGDHFYCIA.271V0T10TID2J@kernel.org>
+Subject: Re: [PATCH v2 1/4] Revert "nouveau/gsp: fix suspend/resume
+ regression on r570 firmware"
+Cc: <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Dave Airlie" <airlied@redhat.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Ben Skeggs" <bskeggs@nvidia.com>,
+ "Kees Cook" <kees@kernel.org>, "Simona Vetter" <simona@ffwll.ch>, "David
+ Airlie" <airlied@gmail.com>, "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Maxime Ripard" <mripard@kernel.org>, "Mel Henning"
+ <mhenning@darkrefraction.com>
+To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>, "Lyude Paul"
+ <lyude@redhat.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260629224350.2870201-1-lyude@redhat.com>
+ <20260629224350.2870201-2-lyude@redhat.com>
+ <akOuPQ37-zxIJWWH@ashevche-desk.local>
+In-Reply-To: <akOuPQ37-zxIJWWH@ashevche-desk.local>
 
-On Tue, Jun 30, 2026 at 12:06:07PM +0200, Yousef Alhouseen wrote:
-> xlog_do_recovery_pass() may return before setting first_bad.  The caller
-> must distinguish that case from an error at a valid log block, including
-> block zero after the log wraps.
-> 
-> Initialize first_bad to XFS_BUF_DADDR_NULL and test it explicitly before
-> treating the error as a torn write.
-> 
-> Fixes: 7088c4136fa1 ("xfs: detect and trim torn writes during log recovery")
-> Suggested-by: Darrick J. Wong <djwong@kernel.org>
-> Reported-by: syzbot+b7dfbed0c6c2b5e9fd34@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=b7dfbed0c6c2b5e9fd34
-> Cc: stable@vger.kernel.org
+On Tue Jun 30, 2026 at 1:53 PM CEST, Andy Shevchenko wrote:
+> On Mon, Jun 29, 2026 at 06:42:33PM -0400, Lyude Paul wrote:
+>> This reverts commit 8302d0afeaec0bc57d951dd085e0cffe997d4d18.
+>>=20
+>> It turns out this looked like the right fix on some systems, but it's no=
+t -
+>> as this causes runtime PM to actually fail on many a laptop.
+>>=20
+>> [I have set the fixes to an older commit then the one that is reverted
+>> here, because when applied with the other patches in this series, this
+>> appears to /fully/ fix runtime PM in addition to the regression]
+>
+> No need to have this in the commit message, move it to the comment block.=
+..
+>
+>> Fixes: 53dac0623853 ("drm/nouveau/gsp: add support for 570.144")
+>
+> I'm not sure, actually, that this is a correct approach. You can't revert
+> something that never appeared (in time range between 53dac0623853 and
+> 8302d0afeaec). Have you consulted with the stable kernel process document=
+ation
+> and/or respective maintainers?
 
-Cc: <stable@vger.kernel.org> # v4.5
+I think it should be as simple as picking
 
-> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Fixes: 8302d0afeaec ("nouveau/gsp: fix suspend/resume regression on r570 fi=
+rmware")
+Cc: <stable@vger.kernel.org> # v6.19+
 
-Much better now, thanks.
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+for this commit and keep patches 2, 3 and 4 as they are.
 
---D
+The commit message of this revert can then explain that the commit that was
+attempted to fix with this revert, i.e. commit 53dac0623853 ("drm/nouveau/g=
+sp:
+add support for 570.144") is fixed with a different, subsequent approach.
 
-> ---
-> Changes in v2:
-> - Use XFS_BUF_DADDR_NULL instead of zero as the unset sentinel.
-> - Test the sentinel explicitly before handling a torn write.
-> 
->  fs/xfs/xfs_log_recover.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/xfs/xfs_log_recover.c b/fs/xfs/xfs_log_recover.c
-> index 09e6678ca487..5f984bf5698a 100644
-> --- a/fs/xfs/xfs_log_recover.c
-> +++ b/fs/xfs/xfs_log_recover.c
-> @@ -1028,7 +1028,7 @@ xlog_verify_head(
->  {
->  	struct xlog_rec_header	*tmp_rhead;
->  	char			*tmp_buffer;
-> -	xfs_daddr_t		first_bad;
-> +	xfs_daddr_t		first_bad = XFS_BUF_DADDR_NULL;
->  	xfs_daddr_t		tmp_rhead_blk;
->  	int			found;
->  	int			error;
-> @@ -1057,7 +1057,8 @@ xlog_verify_head(
->  	 */
->  	error = xlog_do_recovery_pass(log, *head_blk, tmp_rhead_blk,
->  				      XLOG_RECOVER_CRCPASS, &first_bad);
-> -	if ((error == -EFSBADCRC || error == -EFSCORRUPTED) && first_bad) {
-> +	if ((error == -EFSBADCRC || error == -EFSCORRUPTED) &&
-> +	    first_bad != XFS_BUF_DADDR_NULL) {
->  		/*
->  		 * We've hit a potential torn write. Reset the error and warn
->  		 * about it.
-> @@ -3575,4 +3576,3 @@ xlog_recover_cancel(
->  	if (xlog_recovery_needed(log))
->  		xlog_recover_cancel_intents(log);
->  }
-> -
-> -- 
-> 2.54.0
-> 
+This seems correct, as reverting a bad fix does not claim to solve the orig=
+inal
+problem.
+
+Thanks,
+Danilo
