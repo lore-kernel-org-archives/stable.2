@@ -1,98 +1,131 @@
-Received: from out-184.mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0A63E6DE7;
-	Tue, 30 Jun 2026 10:28:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03BA53E9C26;
+	Tue, 30 Jun 2026 10:29:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782815327; cv=none; b=HQ8DxV4hD+ftzXblf0wGLzps4D/FHgdAfJZRi3/yyeK1doP+9MVse9VUSNMMvvWjMoVVdAPrANaKAp5TN1JUeGrEZDfHhWrqWgvK0HpchkqeACaLZMKyJ/o3uLBf4XkHPFMb8y8fcQB80n+MFJUQZEHQUN8o7vTMZBzfhunGMhI=
+	t=1782815361; cv=none; b=Hn+T0lIOzTCcAj3j+iUGZnBM3yHV3viTX1y02dSKuT51vh/Ej96Or/nqetos/tv9IvN8NiVmYYzCRP/2PsDd5Tm7aaN6QqiJjhXUGVM8znB+fvva7KR4n9Jx95BJ3MyL7KRTWuxan4G48tRrCFaIZXYRKYjdZpGl8LFdAZTBCHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782815327; c=relaxed/simple;
-	bh=+pX07a2u5TkbqrO4azJbx+91thfYIYeQVNU0vPSkC7I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D9FiDK0G9TohKjfJ9qiypupS/mIhBUWR0yYr5GoxORjbEVPLLbS2NkAVJtavaO5L/fl14b6MRuhR1GeIkG4UytWtfPefpWjRNoByGvK8+hOP9AkCKEISIREsYz5ggTK+zNsE9BzugteBKMP9cbXev7z3FrfmT+mRKbZKMbMv0cA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=COQPLKmv; arc=none smtp.client-ip=91.218.175.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782815361; c=relaxed/simple;
+	bh=Dr7yY5XLV8e/9e5N9FOL+bV4EWOSxszyyOnFOIzQXrs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X9q2Aq5yCRKMCEanOFZsokFFP7FCGSrzYg0/7hBcI0u9p/7QVbfxgj5D9V+dsoYsOfK0K6Gn0QwMRI/n4jia2qeDX/6CJIx62FIt7Eg/UjyIm7xFlMjgzEggzUM6GJkj2nT4hfMlJ8Dz5fwuy2w8Z+6uFqkJs8FQ0e+gmClyYNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=isS2HbgE; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="COQPLKmv"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782815324;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=sRyqpi+BAHs5WUp31Tgpjj0ZLVkhU0Gr2GsoSexZcO4=;
-	b=COQPLKmvp3nt6ZbZQIVudhiGCgGCEPJrfnbR1T06o8vWsf9wvIf/QVayAZ20/gHRA979tp
-	Jl6V28cRxvERUg9G1mXzxYOlhQjpeGA6X86chStFwtbH7okRabIMvtpeaA0VMVx9xGCxFX
-	8USVIVDv7D4K6371CUpUIVU5Oq/J3QE=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Pekka Enberg <penberg@cs.helsinki.fi>,
-	Yinghai Lu <yinghai@kernel.org>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="isS2HbgE"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 9D5FA4E40BA0;
+	Tue, 30 Jun 2026 10:29:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6E9B66025A;
+	Tue, 30 Jun 2026 10:29:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EDF76106F1D96;
+	Tue, 30 Jun 2026 12:29:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1782815355; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=N5mQBROnrDBEAwginXZzryOTa1g0CZWIynlCLymzLoo=;
+	b=isS2HbgEW1sYyTo+L05nI4J2Ql1KHG3dmccxgyjW3r5MmhzxIAslATYYkZT/0RWY41cLjC
+	WGndIOG/WQtjDafLLm9s1cB4HsOsvCb7w3NnMlGIYn8A610J75fZnQ1yjF02CXk8ietvvM
+	QKRWDK9zGR2O2OYfBpKmrCAlQ+hwerhUvKI+ZMneLedQIn79YU4qBYj0OVu2SPrkMLpqxL
+	5C7MFpY/dKj9szN/sh5kF4eHb5YMDibWVIRsLluhNLH/NOKAa7qJxJA4lWqwF+ZsME0Z5+
+	Dgzh+lF+HYACn+9wzkc5p+eASIUbcSIqYoyEKc0Kyd3hTCImx1WJjZdRnZXfFQ==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Lizhi Hou <lizhi.hou@amd.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Cc: driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 	stable@vger.kernel.org,
-	"H. Peter Anvin" <hpa@linux.intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND] x86/boot: Validate console=uart8250 baud rate to avoid early boot hang
-Date: Tue, 30 Jun 2026 12:28:11 +0200
-Message-ID: <20260630102810.685658-3-thorsten.blum@linux.dev>
+	Ulf Hansson <ulf.hansson@linaro.org>
+Subject: [PATCH v8 1/8] driver core: fw_devlink: Introduce fw_devlink_set_device()
+Date: Tue, 30 Jun 2026 12:27:55 +0200
+Message-ID: <20260630102804.413563-2-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260630102804.413563-1-herve.codina@bootlin.com>
+References: <20260630102804.413563-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1402; i=thorsten.blum@linux.dev; h=from:subject; bh=+pX07a2u5TkbqrO4azJbx+91thfYIYeQVNU0vPSkC7I=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnOs6yUOX5raP0zXfb2r8Dywy/k1b0L/v++cmTyYiX+f +zXfi5V7ShlYRDjYpAVU2R5MOvHDN/SmspNJhE7YeawMoEMYeDiFICJBCUxMtxtPJu9vvrItwMK KYeaDqbzfDXmSz5/9tG7JTwFp/d+WirLyHAnoYo9oyfDwVXy5JO11pNtEo5pa5haZzzbeGlf2d6 kX+wA
-X-Developer-Key: i=thorsten.blum@linux.dev; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-Last-TLS-Session-Version: TLSv1.3
 
-When the baud rate is empty, 0, invalid, or overflows to 0 when stored
-as an int, the system will hang during early boot because of a division
-by zero in early_serial_init().
+Setting fwnode->dev is specific to fw_devlink.
 
-Fall back to DEFAULT_BAUD when the resulting baud rate is 0 to prevent
-an early system hang.
+In order to avoid having a direct 'fwnode->dev = dev;' in several
+place in the kernel, introduce fw_devlink_set_device() helper to perform
+this operation.
 
-Fixes: ce0aa5dd20e4 ("x86, setup: Make the setup code also accept console=uart8250")
+Having this helper allows to hide the fwnode devlink related stuff
+behind the helper.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- arch/x86/boot/early_serial_console.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+Cc stable because used by other patches with Fixes + Cc stable
+---
+ include/linux/fwnode.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/x86/boot/early_serial_console.c b/arch/x86/boot/early_serial_console.c
-index 023bf1c3de8b..5b83beab89e1 100644
---- a/arch/x86/boot/early_serial_console.c
-+++ b/arch/x86/boot/early_serial_console.c
-@@ -117,7 +117,7 @@ static unsigned int probe_baud(int port)
- static void parse_console_uart8250(void)
- {
- 	char optstr[64], *options;
--	int baud = DEFAULT_BAUD;
-+	int baud;
- 	int port = 0;
+diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
+index 4e86e6990d28..31538f54b1ca 100644
+--- a/include/linux/fwnode.h
++++ b/include/linux/fwnode.h
+@@ -256,4 +256,10 @@ void fw_devlink_purge_absent_suppliers(struct fwnode_handle *fwnode);
+ void fw_devlink_refresh_fwnode(struct fwnode_handle *fwnode);
+ bool fw_devlink_is_strict(void);
  
- 	/*
-@@ -136,10 +136,13 @@ static void parse_console_uart8250(void)
- 	else
- 		return;
- 
--	if (options && (options[0] == ','))
--		baud = simple_strtoull(options + 1, &options, 0);
--	else
-+	if (options && (options[0] == ',')) {
-+		baud = simple_strtoull(options + 1, NULL, 0);
-+		if (!baud)
-+			baud = DEFAULT_BAUD;
-+	} else {
- 		baud = probe_baud(port);
-+	}
- 
- 	if (port)
- 		early_serial_init(port, baud);
++static inline void fw_devlink_set_device(struct fwnode_handle *fwnode,
++					 struct device *dev)
++{
++	fwnode->dev = dev;
++}
++
+ #endif
+-- 
+2.54.0
+
