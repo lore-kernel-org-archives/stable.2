@@ -1,97 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4369431E823;
-	Tue, 30 Jun 2026 22:55:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A8E21CC51;
+	Tue, 30 Jun 2026 22:55:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782860120; cv=none; b=rGItvveoZ86GFDtfoveWzPKaj8YTN8jgoHVSPvqjR5DfGNcUsWZEC7jELSb2zFz4rb7OobR+vZxcBBQFegj7qOdn7iLtNAQa4cHrCpcQGOiW2eNGizcLrcswFd02k+GwCWvT7xehcRdJf8UJdM/jL/NiGJN1PV9Bz6jtqdKC9OQ=
+	t=1782860131; cv=none; b=QtKGgffVz6YY4vuiHKAH8Cj+KlqZlzdzxPthyEtddWMRsP1XX+o2azd5fxNJK8IJJkjObFIJVvH1pIqCMPfAR7Pgk2uRDZjP2sRmepmlMVIqC7vNnoBLy1A2LzgJNK8sB+rt7jRg2JO1hlkqda1wi0Pm2yMAS04EpB7fCuSpGvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782860120; c=relaxed/simple;
-	bh=bW2iVO5p1HwMr74vSECehUVdeXkq2JENlQ3PiCMKcO8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=qqrgwluoA9jVqz7vtmqEDxdhXKKvL7yZZc+r2TsVWrrkURZGcSlCxYRyGIjTUwaNBASDqEpAVBIk1RRDATUrDwWHouRYoB0ZX901phJxg9nhsyA6IdTkytfHmnVcBeziwh/jOeJhGB8FIzyg4OMKCeC1XmEXlKPhLCLeg9EcpyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=G/aWsL+g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782860131; c=relaxed/simple;
+	bh=PJHuKndL1Ty7Hzyb9y0N59/fYRssMKPdJ7wJr7ZVk6w=;
+	h=Date:To:From:Subject:Message-Id; b=on3AsZDnistLiJ3gjh3WioFvYsWAcIdXmIGA6xQnea55UbsGEeFjQhJHC5nJ/GOuf1zkj6b5SHCbjumX+X4vRKNqKHXWk9Kt61YtW0I9efZq9yEt8O4rgNeGjwUAIzL6SOl4S8oFLuOHjWJghE0G5qWZo4kiCRUIHkCwFxbDgGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1DvMYIGR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="G/aWsL+g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 835181F000E9;
-	Tue, 30 Jun 2026 22:55:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1DvMYIGR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC331F000E9;
+	Tue, 30 Jun 2026 22:55:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1782860118;
-	bh=uf4NCErCtbDw+Q8rHtEwdiycQJlKnF842/UAloF/2Fc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=G/aWsL+gZx6ItIsGSSmT+5RPKoGmHvOITQxmaCiERCn4DhyhbNap1PAb3oH9MfqMm
-	 Bh7wQOO2wDhDS6DyOyc0QD29/68fLKdeBWoBoAUBhJOeSefRHL+Ajk5VDX6LXHq1l6
-	 1CSNbVtJfGaTt8Ps/WLqahzU1QRkavjL90LkbSu8=
-Date: Tue, 30 Jun 2026 15:55:17 -0700
+	d=linux-foundation.org; s=korg; t=1782860129;
+	bh=sEARnuA1AIjYngcy4Yz7fWEcrZY4Nv0lMLJrzcEyJA8=;
+	h=Date:To:From:Subject;
+	b=1DvMYIGRgJYkjlW1pJvksxf1bwodpwWEU8Q3Y7tj35yMDpt+JtMwxl1rQvWgHuXJU
+	 j9vslvErngwCYklFBtShOB3q2j+1qRyzEjgBAddVlNo6fcy3SV5lzWSAcXJH++8GQL
+	 ZRuwx2MmQ4D1paCZlLNYjnJmiX3HbjjlHb7Bd/mE=
+Date: Tue, 30 Jun 2026 15:55:29 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,rppt@kernel.org,mgorman@techsingularity.net,hannes@cmpxchg.org,gourry@gourry.net,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- rppt@kernel.org, vbabka@kernel.org, mgorman@techsingularity.net,
- hannes@cmpxchg.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/vmstat: fold stranded per-cpu node stats when a
- node comes online
-Message-Id: <20260630155517.38a99de9f32d20abcbf9440b@linux-foundation.org>
-In-Reply-To: <akQtx7zhP7pxNCiy@gourry-fedora-PF4VCD3F>
-References: <20260627202243.758289-1-gourry@gourry.net>
-	<20260627161007.81e4533ce561c2951a69f927@linux-foundation.org>
-	<akQtx7zhP7pxNCiy@gourry-fedora-PF4VCD3F>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Subject: + mm-vmstat-fold-stranded-per-cpu-node-stats-when-a-node-comes-online.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260630225529.ABC331F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-
-On Tue, 30 Jun 2026 16:57:43 -0400 Gregory Price <gourry@gourry.net> wrote:
-
-> On Sat, Jun 27, 2026 at 04:10:07PM -0700, Andrew Morton wrote:
-> > On Sat, 27 Jun 2026 16:22:43 -0400 Gregory Price <gourry@gourry.net> wrote:
-> > 
-> > > +		struct per_cpu_nodestat *p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
-> > >  
-> > > -		p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
-> > > +		for (i = 0; i < NR_VM_NODE_STAT_ITEMS; i++)
-> > 
-> > and that's a lot of items.
-> > 
-> > I guess the overall loop count won't be large enough to cause issues,
-> > but it's large!
-> > 
-> > Perhaps there's some simple test we can do on the per_cpu_nodestat to
-> > avoid the inner loop?  Perhaps might need to add a field for this?
-> >
-> 
-> I took a look, but that would involve adding another per-cpu field and
-> then making sure all the races on that field are respected as well.
-> 
-> Not sure it's worth it for such an extremely rare event.
-> 
-> I can try to get clever on the folding logic if you'd like, let me know.
-> 
-> > btw, "for(int i..." is allowed nowadays.  It'll make this code nicer, IMO.
-> > 
-> 
-> Otherwise i can send you a respin for this.
-
-Is OK, we could make this change in a million other places.
-
-> > And... Sashiko seems to have found a pre-existing issue:
-> > 	https://sashiko.dev/#/patchset/20260627202243.758289-1-gourry@gourry.net
-> > 
-> 
-> Incoming patch for this shortly.  Pretty trivial.
-
-Cool, what was the Subject?
 
 
-I'll queue this patch in mm-hotfixes for some testing while we await
-further review (please).
+The patch titled
+     Subject: mm/vmstat: fold stranded per-cpu node stats when a node comes online
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-vmstat-fold-stranded-per-cpu-node-stats-when-a-node-comes-online.patch
 
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vmstat-fold-stranded-per-cpu-node-stats-when-a-node-comes-online.patch
 
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
 From: Gregory Price <gourry@gourry.net>
 Subject: mm/vmstat: fold stranded per-cpu node stats when a node comes online
 Date: Sat, 27 Jun 2026 16:22:43 -0400
@@ -162,4 +128,9 @@ Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
  	}
  
 _
+
+Patches currently in -mm which might be from gourry@gourry.net are
+
+mm-vmstat-fold-stranded-per-cpu-node-stats-when-a-node-comes-online.patch
+mm-constify-oom_control-scan_control-and-alloc_context-nodemask.patch
 
