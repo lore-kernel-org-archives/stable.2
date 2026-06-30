@@ -1,156 +1,140 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD463DB314;
-	Tue, 30 Jun 2026 16:48:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484443D75D1;
+	Tue, 30 Jun 2026 16:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782838102; cv=none; b=sVFyy6SL5Ct+VdJcNfDVw4MqP8yY6qOZRNwmJ68o46Uzx/NWqJKYbfoymOJnKvcmNQ4rN6x7b/cEuO18YXqhxXsDMO3UijSTKLzEFLtr6NaZDolP/io7yaHSzcUXYyFwt4qC73GP3ZjNJ5OFwVk4g0P1LI4abtcpt3j4QUVbvlg=
+	t=1782838307; cv=none; b=JGdH2sKbYQ0IAvNAJzGC3iLJY1PP7jTd6/SkZMkqqPJdBk4p0/LRRVpbsWmNr7/sFakxbgyKKyFtjHmCSIbcj7LXcjKAYJP2inGQnkATVC6AHDEe5ntO54TXWzR8ZXfcKtbVtGko3RhMj2P3SxoH7/sIrT+KbYDuIadK4ZoHohY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782838102; c=relaxed/simple;
-	bh=gKQYf74xPpytI8rbZnvPeewbN3H/KzF0nc088tK6OYs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j3auipmKID5/KYkKLdiTpeFd0WOaj8EVOA4RZSj63xeFbFP+lHpxGA4hRjrHcmIc03o9MCtSr4KD83LDnQj0v1VI+lDmDF7eNGbhxNuBMs4FLBZSkWQoxA/2zkEWAgXZPFNhP2Mh8tWWTM2KRiUwqJtjg071t+8WI5OBAx8NpkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bKBn8yiw; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1782838307; c=relaxed/simple;
+	bh=QU0uN8hQiSXf074bddrC7cQZ0ZcDxXavvyeQCJtMUsI=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=jmsZ2jlE18TaJIhfIeULadsln6wmqt06Bkf101nwuCnZQtpQeK4f7E0T2HjjQxP/LYheeWlPzyiM3XQsCOQji2pCuCxRX85X5qbLsY+etvKKXh69hzCfpUnBc7YmblzlNXW91qag3g3yu8PknrW33t1kATziH1TX3lXvHExpFJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=gtEChR3R; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dXzKovoz; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bKBn8yiw"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65UEIH6K2288478;
-	Tue, 30 Jun 2026 16:48:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=q3mWEO+m7Q0z7JDH5
-	ZGSHJF5tisumNe9dB4cIXGURIs=; b=bKBn8yiw3azk9i9nGFGZTAImB6O9+EpZk
-	byLDsLPV0iC9XdBnMxDBtNrV6swNcvJ3yDoXJ/MnkJoAsGbiS+K3r1R7a4CHgGDQ
-	76E9Y2Pr7TR8GW+gNqO91hWsdrQzrB7B+aEk+yJr6sUQuhlizbPksPR3pYGaQmVi
-	dPJlYjemSdBcIUzAGnaX7cx2zVcHD303VSJDP4oKMKHcaEYwzDVRbE+V2s89tqV1
-	CjKr9Dnd1P4IL0ArtF6jZNXnztVynx1V+JtczOOUz+YuQZxpbiNjJWMN21YpKike
-	Ihkf5eMypJ6iVn3vmXkQ85EyrX4AcxNYNvqiXOjnK+ac85HAmzGLA==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4f26pe00xj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 30 Jun 2026 16:48:16 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65UGhAr8026978;
-	Tue, 30 Jun 2026 16:48:16 GMT
-Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4f2uhyb00p-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 30 Jun 2026 16:48:15 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65UGmEmH24707788
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 30 Jun 2026 16:48:14 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4648B58058;
-	Tue, 30 Jun 2026 16:48:14 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 384FF5805C;
-	Tue, 30 Jun 2026 16:48:13 +0000 (GMT)
-Received: from IBM-D32RQW3.ibm.com (unknown [9.61.250.12])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 30 Jun 2026 16:48:13 +0000 (GMT)
-From: Farhan Ali <alifm@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pci@vger.kernel.org
-Cc: helgaas@kernel.org, alex@shazbot.org, alifm@linux.ibm.com,
-        schnelle@linux.ibm.com, mjrosato@linux.ibm.com, stable@vger.kernel.org,
-        Thomas Gleixner <tglx@kernel.org>
-Subject: [PATCH v21 4/4] PCI/MSI: Enable memory decoding before restoring MSI-X messages
-Date: Tue, 30 Jun 2026 09:48:07 -0700
-Message-ID: <20260630164807.643-5-alifm@linux.ibm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260630164807.643-1-alifm@linux.ibm.com>
-References: <20260630164807.643-1-alifm@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="gtEChR3R";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dXzKovoz"
+Date: Tue, 30 Jun 2026 16:51:43 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1782838304;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b201IaT277mzb3hbPC6lM2Oa1Y3JRC8revqZfZBNB84=;
+	b=gtEChR3Rw5XAY2r4gdZk7PLNh9gIrmIHjRIfSSMnOdjS+u2NXu2gz+RKlVH001Q3eDkkJ6
+	EqDa5T+lySU3XnTFvKNC781iJ7Z+pO4HCEG0N01MyeINjQB3pm6knejqZX/J2mxuWrYz9B
+	/t0Turl5SAGVMao5IwXTvPqd2K1ogwxrafha01yNed9q3A2J5uSrI1BYHBLQ5XHqfOUs3i
+	N8t1jXo9cbXoXH6RlVdBKZyyJR///k0scW8OY0IbgOmoWZtgRWly4mnEEn5p9NvkYTm76+
+	sDbNBgETpyZk3HCwPPBrn6fhSNKH1Q7B4TM7d5pJudNTsuthm0zL2RzglSlt9A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1782838304;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b201IaT277mzb3hbPC6lM2Oa1Y3JRC8revqZfZBNB84=;
+	b=dXzKovozo5jl18TwhhEFMyc30LIPKkapOtqxjJXpHIcxerr5P22dYuOLM8fXo6gBXuzcRx
+	YppWj+ReYC+JpCDQ==
+From: "tip-bot2 for Haoxiang Li" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: irq/urgent] irqchip/irq-riscv-imsic-early: Fix fwnode leak on
+ state setup failure
+Cc: Haoxiang Li <haoxiang_li2024@163.com>, Thomas Gleixner <tglx@kernel.org>,
+ stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ maz@kernel.org
+In-Reply-To: <20260623073744.2009137-1-haoxiang_li2024@163.com>
+References: <20260623073744.2009137-1-haoxiang_li2024@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: gynBASBXoYL22XMEwbLu4mO8n90zXUMB
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDE2MCBTYWx0ZWRfX8K13WtQDCbGB
- vclCbW1gVhGfiGsSqoXygFHxxR4UhuxYkGzYEx2FBSBOQiThzCi40Rwu5p0IdNyt0iUuxCKC7OW
- mi5we6+hcnVCTJWBvAScFOYhnuTBQw8=
-X-Authority-Analysis: v=2.4 cv=edsNubEH c=1 sm=1 tr=0 ts=6a43f350 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=di-imCqyroNM6h0WoG0A:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDE2MCBTYWx0ZWRfX+QKgj5Eu/7Fz
- 4gDnY2seQEIFJOUOUNDrb7Fo23F7+JsKdHdSYJhk/GQKPoF10sq0324EFr/wz1m55Uy3nDT7m0o
- 8miZ5P2luOdj4Udpxo5YYRdr/RLEfpvV9sgr1YGhBjB7wUM6Te0bZ0RshJ/qu/wlujbDFTasHJQ
- tgsXRw/qpV39NimQihd3WDsmzMoxY0u/Cm6cYbdjq/sfD9Gq9EPppcfuOtCru3S8iLua+GUhiRF
- yCg2VbBpRPFcr9RLdnjk10OVPyZqNgrO42djT10YYN95gvKrFL/nOrVunMHHVeS981rktPtYfYs
- +T1HLviZcToBa5DKthqjzXKB2k2UFK/xHPelCiKUiUczkIS+lHvcl9D7fRrhLHfU3Kh14R14euT
- 6qgbthQfmk43c98s0S41KLqE39Cml4+qgbmLCsoRoITdK0kRkZ1cTKDtlRShvrViO6esfZKwq1I
- o6IrrxVkSkiXi2i4EPQ==
-X-Proofpoint-ORIG-GUID: gynBASBXoYL22XMEwbLu4mO8n90zXUMB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-30_04,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 adultscore=0 impostorscore=0 bulkscore=0
- spamscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300160
+Message-ID: <178283830314.3843924.11638746215515181404.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-The current MSI-X restoration path assumes the Command register Memory bit
-is enabled when writing MSI-X messages. But it's possible the last saved
-and restored state of a device may not have the Memory bit enabled, even if
-a device driver later enables Memory bit and MSI-X. Attempting to access
-Memory space without Memory bit enabled can lead to Unsupported Request
-(UR) from the device. Fix this by enabling Memory bit and restore it
-afterwards.
+The following commit has been merged into the irq/urgent branch of tip:
 
-Fixes: 41017f0cac92 ("[PATCH] PCI: MSI(X) save/restore for suspend/resume")
+Commit-ID:     1358126fbed104e5657955d3ba029b283687ba02
+Gitweb:        https://git.kernel.org/tip/1358126fbed104e5657955d3ba029b28368=
+7ba02
+Author:        Haoxiang Li <haoxiang_li2024@163.com>
+AuthorDate:    Tue, 23 Jun 2026 15:37:44 +08:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Tue, 30 Jun 2026 18:49:48 +02:00
+
+irqchip/irq-riscv-imsic-early: Fix fwnode leak on state setup failure
+
+imsic_early_acpi_init() allocates a firmware node before setting up the
+IMSIC state. If imsic_setup_state() fails, the function returns without
+freeing the allocated fwnode.
+
+Free the fwnode and clear the global pointer on this error path, matching
+the cleanup already done when imsic_early_probe() fails.
+
+[ tglx: Use a common cleanup path instead of copying code around ]
+
+Fixes: fbe826b1c106 ("irqchip/riscv-imsic: Add ACPI support")
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Reviewed-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
+Link: https://patch.msgid.link/20260623073744.2009137-1-haoxiang_li2024@163.c=
+om
 ---
- drivers/pci/msi/msi.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/irqchip/irq-riscv-imsic-early.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
-index 209373c92e9e..79c7e84d314b 100644
---- a/drivers/pci/msi/msi.c
-+++ b/drivers/pci/msi/msi.c
-@@ -870,6 +870,7 @@ void __pci_restore_msix_state(struct pci_dev *dev)
- {
- 	struct msi_desc *entry;
- 	bool write_msg;
-+	u16 cmd;
- 
- 	if (!dev->msix_enabled)
- 		return;
-@@ -879,6 +880,14 @@ void __pci_restore_msix_state(struct pci_dev *dev)
- 	pci_msix_clear_and_set_ctrl(dev, 0,
- 				PCI_MSIX_FLAGS_ENABLE | PCI_MSIX_FLAGS_MASKALL);
- 
-+	/*
-+	 * The restored device state may not have Memory decoding enabled
-+	 * in the Command register. Since the MSI-X was enabled for the
-+	 * device, enable Memory decoding before restoring MSI-X.
-+	 */
-+	pci_read_config_word(dev, PCI_COMMAND, &cmd);
-+	pci_write_config_word(dev, PCI_COMMAND, cmd | PCI_COMMAND_MEMORY);
-+
- 	write_msg = arch_restore_msi_irqs(dev);
- 
- 	scoped_guard (msi_descs_lock, &dev->dev) {
-@@ -889,6 +898,7 @@ void __pci_restore_msix_state(struct pci_dev *dev)
- 		}
+diff --git a/drivers/irqchip/irq-riscv-imsic-early.c b/drivers/irqchip/irq-ri=
+scv-imsic-early.c
+index a7a1852..12efd24 100644
+--- a/drivers/irqchip/irq-riscv-imsic-early.c
++++ b/drivers/irqchip/irq-riscv-imsic-early.c
+@@ -272,16 +272,13 @@ static int __init imsic_early_acpi_init(union acpi_subt=
+able_headers *header,
+ 	rc =3D imsic_setup_state(imsic_acpi_fwnode, imsic);
+ 	if (rc) {
+ 		pr_err("%pfwP: failed to setup state (error %d)\n", imsic_acpi_fwnode, rc);
+-		return rc;
++		goto cleanup;
  	}
- 
-+	pci_write_config_word(dev, PCI_COMMAND, cmd);
- 	pci_msix_clear_and_set_ctrl(dev, PCI_MSIX_FLAGS_MASKALL, 0);
- }
- 
--- 
-2.43.0
-
+=20
+ 	/* Do early setup of IMSIC state and IPIs */
+ 	rc =3D imsic_early_probe(imsic_acpi_fwnode);
+-	if (rc) {
+-		irq_domain_free_fwnode(imsic_acpi_fwnode);
+-		imsic_acpi_fwnode =3D NULL;
+-		return rc;
+-	}
++	if (rc)
++		goto cleanup;
+=20
+ 	rc =3D imsic_platform_acpi_probe(imsic_acpi_fwnode);
+=20
+@@ -300,8 +297,12 @@ static int __init imsic_early_acpi_init(union acpi_subta=
+ble_headers *header,
+ 	 * DT where IPI works but MSI probe fails for some reason.
+ 	 */
+ 	return 0;
+-}
+=20
++cleanup:
++	irq_domain_free_fwnode(imsic_acpi_fwnode);
++	imsic_acpi_fwnode =3D NULL;
++	return rc;
++}
+ IRQCHIP_ACPI_DECLARE(riscv_imsic, ACPI_MADT_TYPE_IMSIC, NULL,
+ 		     1, imsic_early_acpi_init);
+ #endif
