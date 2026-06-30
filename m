@@ -1,71 +1,80 @@
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3411DDC37
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 21:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0152D1916
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 21:18:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782854280; cv=none; b=dXAwi5VjS/mAUUitYR25u6D2zyN6o46tewOEzuOl6qw9Pg4Jw48Jj99n8DxxlD8YeKYerfENm6I2cZvYGz4iy01HwI6DGcwxwl+EORNuAQ94zV1G/PVOgM5u0CRUZQApFb3BfhrMylosQIgguYZMOCCwXorhQ8tIv8tWYbR5eMc=
+	t=1782854302; cv=none; b=IU/POd2YwWXAmMoUCQzDIZSJbJbV9+DcCiFwr58R5c1QpwlrmPAYFms8AkaGozyNY9e3MvqtxEmpAIDMiLGm8qyiDboj7LA54vU6Vq8OTN28rQSK8D0nmG7NjLH4eWYqHxv0xoOhBNdxP12OTfoWYBertXQzL7nBrIYeB1esjYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782854280; c=relaxed/simple;
-	bh=1gfTG8r17InAvWVOuauyVqtQhqiNXbc6nH97XNyOiec=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sqysz8Ll7kO4B9aGmfzoylfCpRstydyeTUAB4mQUsev77NKsA8fJf1jxRvt0G8RTH3CSPuMJVFBted4ybYBY7MAcO61hrnMphke5gwIsoxyLq+FQz3G/l7Xzp1Kx8ZP3I4kE8AVEEwBnd/dL3JOIS5C0fuiwv9DftBEHHwtxGXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I1AIU53+; arc=none smtp.client-ip=209.85.128.172
+	s=arc-20240116; t=1782854302; c=relaxed/simple;
+	bh=blmSz0ucFYiG8IMVfZLdaXb020QBlMaQczvCK7E15mE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uriLH0jw+bepYY2ukUN2a5/DUYcPbdngFUq6v6AO020gUE9RCYsIk/gXkPqPeOW7rXmUnqEf9LNgqLwLwJCOMwOFxd5qLLkixQiAQcPI0DDRUYObM5+7uWrr+KZDaWX9jbNAF1XJvZE+v5G7n++44Ky/dyg37zFy3cCdnxo/ugg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LbxG12rr; arc=none smtp.client-ip=209.85.128.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I1AIU53+"
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-7ff05e5d009so37142117b3.1
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 14:17:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LbxG12rr"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8000e21f014so56579097b3.2
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 14:18:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782854278; x=1783459078; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782854300; x=1783459100; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=xPhVhhlEs/4/VupytmipRMbVj77VuW2OuCbqLDIFyug=;
-        b=I1AIU53+mkXf8gnACaus9jvVWmHmjdaEkyG/XjqRUT1WVL2mD4vxtt1vkdoTM23Rx4
-         Xw8gFRpDNn3nKgWe2i4zy1TiavG7ml2LFPPlrfuYz5czT+ex2r7CaOeh63EJNCqH9teT
-         o5vYhOXR0Lg3QR+zfN4ridCdy5NtMAy3+bmEqhxASiuLJeky8i+dIDQYYXBIOxWRbYJ+
-         6rg0PzOMUCjx6F0zHJZIqoiZOrECaFA0Ch3xQwRodL5svuS2fcANzFIkK7xxnqrg68hX
-         rpH/lGRgq7Xsc7kZfDzgbYA4MRuB5JgyWk5OhshK2RdHzzdnb7iwFFx4mFyh0Ts4qR31
-         eDkw==
+        bh=2poGPPDKuIRln5tPnA3S6uNyhm8S9MHlvQPEbWhmm6U=;
+        b=LbxG12rr4PsUtTJ6Ojiajta+pwvBJYbTxn7OUS/ZnAF+3aw79w81fUp0c2Pmv6BofN
+         vJrBYwYW393ImQXBwlfR42xMIi6RGxiwwJdR7ePdAtZrp+ewE7nFlSZ5T8LJpSpx3Z5f
+         ZVuNS4IhUtS3bVUlENg+aw0AgSLfJgGxEwARhJBg8EX+JWG66/qxe2xZCdtkrw+Uh3ek
+         pd1qbAWTaCOIQii9kPB/yHuVp2fxfrRw3jaoGPPBhB2Okn2zamhXL0cPlD583OGq3K4d
+         CyFnSuK6BkA4kRJadHNKh2SZhwJytLcVwh8tRcJBCNMUlK3NCn/yU9kKWB1qvUWk0UyC
+         kqJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782854278; x=1783459078;
+        d=1e100.net; s=20251104; t=1782854300; x=1783459100;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xPhVhhlEs/4/VupytmipRMbVj77VuW2OuCbqLDIFyug=;
-        b=UNZMyLQaN/lM5qmTELrL07WYyIThXjfqlYr9zp1Ik/FX2eaHC2E7MFQylgXgEJqulI
-         IIPgPJPXl8FDVLMykBmqdtRihQkpZFOLDqrYmwj4g/bmoe5dGi4qSj1Q30VlbewlYE8M
-         ekhLgFsmHxBvNiz/dha0jrFeZk44nu9b50vMzQiRqpEwqSKwW2zXBSRNWLMl06vVRwRe
-         FbJMEzWpVZuwIcweLcPvo9gYUnHRi1LhmjdjaMOVaT+GL+pkaGac2+ujjvsU3FK0f1+e
-         LDay7Ze+phtb31QuJY6MBj0YBILQU0vg/5pTehdh3pCg/X1QVXsDU/OhsvoRHbFg4Qyh
-         RNNA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpgtw2Bc81WcYcA+wqixzQZ/jCXHFJQZcjwYqYhbpBRdoupPIyDb5Ac6wlsEgylhk+XZIPjKHU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YytNyiRIEnvgei8fbaYnaJxlkxF9OVTRJIyWqzYhIqd9nIdpTB2
-	6axswZEXEO/g9nbEWmisKMN3t5A3MROSkyhp/XiuNwxOir9dbWtZOzNQ
-X-Gm-Gg: AfdE7cnQEiUx2h6AEtIsfHYlAUInS5SIRd219hEf3KZ83KRyF+kQhENUWuloNtg9CfQ
-	Sl82jCQ6NoWlJ6Oh9Yg1crS6XByM0uB5jlHM9i3tLV2scrpVQuWgd+M1MN2PQTv4GOflin+E8K3
-	2wPYGs1Y9Tydai9fdWY2ztVnzbTZGFtcQpoG7d6i2S4n/fVeHBz6XrnJ7YClwTWjw0rq18QM8HN
-	+9CCxw5P/y9pUY01Dz0/T1xM+iAJ8MVQosnbW8A9nEqJxQbyfN+DWcWKR2nGvUN5Y1Bj3nm+vwN
-	jO2inBCeHY/fnQANe1zikAyBaESbjvvqwVCS0eAl93LxjXQWRDhnr5rRih5Ar/v+nqtPo8gDBpm
-	oIU/BvuhwJlRYcYcI8Sm0H9+DoVexH0/q8vd857uKWUpRw43dzUWDvQuz/PQwXjDAdgPFlYpeb6
-	zFEekSf84SN1Dc/+//4Omil1xgy07TqRAKNCJt
-X-Received: by 2002:a05:690c:670f:b0:80c:85b6:765f with SMTP id 00721157ae682-810da90d417mr63206517b3.68.1782854277959;
-        Tue, 30 Jun 2026 14:17:57 -0700 (PDT)
+        bh=2poGPPDKuIRln5tPnA3S6uNyhm8S9MHlvQPEbWhmm6U=;
+        b=kiVTqE7BlhcYC/NTBRYk8Bn6B0XSRDS3INlfQGG6k5YZ1FGRujh6y6EBVoJyIxgNPd
+         JaT2e7/5mDFHtJjelGF8d/XURo0HRdFKdBeCWU/mbws4e1HpZkS/dQQPlDYdzm+iudmS
+         aQc5M548Rd3c97Ggmz06yfOb3NtqVdcWyUay9J1dEYa2dAudAvmxz4RvVHr77q6/qYr3
+         Vm+8WwNzgR6bRo68iLLXCu3In8mafHX+hNnMIA8gPI9pUnQb2lbkgiYfYVLKUHkVsDDf
+         ur3H3PlZ3h+Mtd4rbTkIzAG8lu23IJfASuwZHt2ILEJMDCAvJRFnBWXcbbdPr74ogZRu
+         o6KA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1q5zao3PjQK8AO3JH1GonpK41G3C52qlVBe0RMho6uDJVYkerfjCLZ/sdmZ5e30UKZUofjsQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxy65nffrjZwtkvH0dHt9PCEBy5JoIh3558OOZHaSRO1aPGbT0L
+	xxBk6kVTPCqupT/2gzEY12yW3BjK4LvENTpCI0Ewkju4TL8hG5RaQ9fy
+X-Gm-Gg: AfdE7ck19qfBU0M98EufV4piVYFQ+AbAi6AJERSaniRSemPB9TeHZMdYxFOYuKeElkh
+	nLJD7U6IOQ5dHDHofD5QKNeNxcWzrJIZlcU0iZkQTDbfbtfvPLK4ooPwv0Zs+r0Y41JjvEJ60Q8
+	7AF/PJYEJzMTnNeockkAkcxY5ZIMt7dEqSmDtocPARs++SZ7Jn3gic3Ahk3JJ6zuf6gttgYtakE
+	8v7sQdyQLxyv+1HKqFNxwcwiXWFqbhjD7u7rbgRqdnBHRlns9SioikJ5XyJMC3Zvfg2kxE7k2yb
+	sx8htlcWmPmlBsvfngqO7kIQKJcpQ8qdTmW6ZAIGtKfUV1k1utFJAuwq8eyQ7sySWY7vvvqebQr
+	ZYy8E/eLWMWCVxgtTTmWwrvvMu6Dh1IVQQOl2bliNQa01X40SP377r22cqVD8GbidJdcsPmsXSb
+	tBpwt2WShCITHmXD6NMrTt6Ai9VQ==
+X-Received: by 2002:a05:690c:9c09:b0:80c:85c6:898f with SMTP id 00721157ae682-81204145786mr20454527b3.62.1782854300375;
+        Tue, 30 Jun 2026 14:18:20 -0700 (PDT)
 Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8128d450908sm13827b3.36.2026.06.30.14.17.55
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8128ce56f3fsm29517b3.27.2026.06.30.14.18.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 14:17:57 -0700 (PDT)
+        Tue, 30 Jun 2026 14:18:20 -0700 (PDT)
 From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
+To: Alexander Aring <alex.aring@gmail.com>,
+	Stefan Schmidt <stefan@datenfreihafen.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	syzbot+4b4ec878e25fafefa70f@syzkaller.appspotmail.com,
+	syzbot+36256deb69a588e9290e@syzkaller.appspotmail.com,
 	Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH] ntfs3: reject empty iomap before reading its LCN
-Date: Tue, 30 Jun 2026 23:17:43 +0200
-Message-ID: <20260630211743.50400-1-alhouseenyousef@gmail.com>
+Subject: [PATCH net] mac802154: wait for RCU readers when removing interfaces
+Date: Tue, 30 Jun 2026 23:18:08 +0200
+Message-ID: <20260630211808.50440-1-alhouseenyousef@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -75,48 +84,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-attr_data_get_block() can return success with a zero run length when no
-cached or on-disk mapping covers a read VCN. In that case it does not
-initialize the LCN output.
+Queue wake, stop, and disable paths walk local->interfaces under RCU.
+The bulk hardware teardown path removes entries with list_del() and
+immediately unregisters their netdevices, so an asynchronous transmit
+completion can follow a poisoned list node in ieee802154_wake_queue().
 
-Check the returned length before comparing the LCN against the special
-mapping values. This preserves the existing -EINVAL result for an empty
-mapping without passing an uninitialized LCN to the comparisons.
+Match ieee802154_if_remove(): use list_del_rcu() and wait for existing
+readers before unregistering each interface.
 
-Fixes: ecbb433f9a8e ("fs/ntfs3: fold file size handling into ntfs_set_size()")
-Reported-by: syzbot+4b4ec878e25fafefa70f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=4b4ec878e25fafefa70f
+Fixes: 592dfbfc72f5 ("mac820154: move interface unregistration into iface")
+Reported-by: syzbot+36256deb69a588e9290e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=36256deb69a588e9290e
 Cc: stable@vger.kernel.org
 Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 ---
- fs/ntfs3/inode.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ net/mac802154/iface.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
-index c43101cc064d..a428f03a695d 100644
---- a/fs/ntfs3/inode.c
-+++ b/fs/ntfs3/inode.c
-@@ -777,6 +777,8 @@ static int ntfs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
- 	if (err) {
- 		return err;
- 	}
-+	if (!clen)
-+		return -EINVAL;
+diff --git a/net/mac802154/iface.c b/net/mac802154/iface.c
+index 000be60d9580..73d82a015184 100644
+--- a/net/mac802154/iface.c
++++ b/net/mac802154/iface.c
+@@ -703,7 +703,8 @@ void ieee802154_remove_interfaces(struct ieee802154_local *local)
  
- 	if (lcn == EOF_LCN) {
- 		/* request out of file. */
-@@ -811,11 +813,6 @@ static int ntfs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
- 		return 0;
- 	}
+ 	mutex_lock(&local->iflist_mtx);
+ 	list_for_each_entry_safe(sdata, tmp, &local->interfaces, list) {
+-		list_del(&sdata->list);
++		list_del_rcu(&sdata->list);
++		synchronize_rcu();
  
--	if (!clen) {
--		/* broken file? */
--		return -EINVAL;
--	}
--
- 	iomap->bdev = inode->i_sb->s_bdev;
- 	iomap->offset = offset;
- 	iomap->length = ((loff_t)clen << cluster_bits) - off;
+ 		unregister_netdevice(sdata->dev);
+ 	}
 -- 
 2.55.0
 
