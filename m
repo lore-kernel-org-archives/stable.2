@@ -1,304 +1,234 @@
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010020.outbound.protection.outlook.com [52.101.46.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAF333BBCF;
-	Tue, 30 Jun 2026 06:07:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.1.125
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782799624; cv=none; b=chKtYI5mGxodDo5erB7orLl79nIpTJKRDHYFJct6I/bG9JfbYrR7Ia8Ea+ojsnlDxREyzLaHamk51Q4hiiKbaQQvHlFavxad0YXwRJSjw8OrmnYZUAyBnA3lmtqNrGalGWuXFxiwv+gQUrRvb2gr3g+t0x/FgJdqpXNbFP5/o5g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782799624; c=relaxed/simple;
-	bh=5JffXCMyl3pvr8XVbKuZW6pi4Xy3qaVHJggNLcgGlPM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dFTHozCN4vufY3i2rw5thVc/Q1KvnpxRWjvKCKr8l5uR2vcX0jMntEsXVjAniqzCr22AoRTRpAAZaqnhckiEb9ORtYWrIY1FYExVXQ2XTth1neBhrU9ewcEFqyhuMGOS6mpB04oBrXOKOlUwy1AD6v5+Jjnwk82KL6ZcpsNReo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=XPP2sIIM; arc=none smtp.client-ip=44.246.1.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3B83E00B9;
+	Tue, 30 Jun 2026 06:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782800176; cv=fail; b=qEqfwnErh8zCZ4tnZhgjhnflqyZTbL8w5EasRTU2k1ji8AQnzlQ10KDPOf4rWR1ZcFNT8xxVP7ikQA0+sgIHxSLUokE9W9CJCycUZpV5dE7pC9cTWHECpRB6dyxImWbrPHC6aqrFntt3CAiPYFNqZCqQRXvLk2KfchBK8GFWxwY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782800176; c=relaxed/simple;
+	bh=kUaKrtX16Goc0dsJ1/dkPrjXwd/cbw3a6GenOc4oNtA=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=F2wyT8R/C98Ia0VxteyMv6wqNYBxgL6Jz6AARzosQ2ey0Atp1E4cyb0ovSbJgreoOSXBBGqjduVQ5XOAbM/sqnl3BmmAuSRT+88maPWNrXMorGP2nzh24C1uc16Ew38qU7SGOcgSj7po70DO3AHOyrUxQXGMXxok7s7SKyE6bsE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ueTbP6mK; arc=fail smtp.client-ip=52.101.46.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="XPP2sIIM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1782799620; x=1814335620;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=8ZbkaSXN58OWFlL2u0MDoyUGWdO5zkTGgolYw2Hv6l8=;
-  b=XPP2sIIM0hZ19q9xJ9x+oVaFga2tHBjEcK5Thfo9hgo21Kk8zr42ENlC
-   bf/YwAlbCzoZmAY0OieN8LUpAzuf6ad63OpJSy75NrnkYW5+3+Qfx+bbF
-   nUtQhZH0cpUwm0kPArs8rAMKIMmZ5fz78vbtiNKAEol2tFF0Df6jCVvkV
-   wAysgjIBMEFlPEF/QBbR7TGOAJA14eupXmP0ULYxtEzj3e/52QOC5Mz1k
-   ZhLwAmFXNiokfpREunFeXg0ufhFZxVzRN6QzmkxE1BfjHmd7xCE8bjVZ0
-   9pKoBYvfsO1wLDPmdWI/CrYW9Pjh0wmxmRG9A0rlIzED/ss35OT9tkLMr
-   w==;
-X-CSE-ConnectionGUID: WclxOZq0SGuMgpSvR1Tx5w==
-X-CSE-MsgGUID: YpJnGYEFTryRh1wMNRSSMg==
-X-IronPort-AV: E=Sophos;i="6.24,233,1774310400"; 
-   d="scan'208";a="22758375"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 06:06:57 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:2396]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.226:2525] with esmtp (Farcaster)
- id 0343961f-b4c4-438a-b642-1b2cbe59ba4d; Tue, 30 Jun 2026 06:06:56 +0000 (UTC)
-X-Farcaster-Flow-ID: 0343961f-b4c4-438a-b642-1b2cbe59ba4d
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Tue, 30 Jun 2026 06:06:56 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Tue, 30 Jun 2026 06:06:55 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: <stable@vger.kernel.org>
-CC: <sashal@kernel.org>, <rostedt@goodmis.org>, <mhiramat@kernel.org>,
-	<mathieu.desnoyers@efficios.com>, <dhowells@redhat.com>,
-	<linux-trace-kernel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<doebel@amazon.de>
-Subject: [PATCH v2 5.10.y] ring-buffer: Remove ring_buffer_read_prepare_sync()
-Date: Tue, 30 Jun 2026 06:06:34 +0000
-Message-ID: <20260630060634.1496989-1-doebel@amazon.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260625054005.0015.ringbuf-510@kernel.org>
-References: <20260625054005.0015.ringbuf-510@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ueTbP6mK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=haUiO/k/thfs39B4lTuADOXcfbh0k5IR4rC+X1uFTuV9iRJVfMND6/nAF/y0vNY66kP5nJKof2BLRkoLVDdItFWN6KvM1ibDr8zKcDIQtcvkIfZ/CPlwSXo1hygsYYW0I6agrV8GyI+jl8Ex/GFfd0eikZ4eOsiVqfeWGnpwDGPG3WIoFGSrAWqq7JsW2fNZU1k76H7akudehI84rGwjwmoGTeQrfkCRE13ClqWZBATvFuX5QROqc+h+YsxLqI+k/7TPNF2yEBAKgXHE0RmuodPjHZPPPqCejpxmB8Bh/dqfW6w9hRjq2YmqOU/MIOPzaSihGcv+cYmHk3yeOdY7Sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ODjFiAhIfbPYBIARe0nrwOOhgJEognYGBG4bSmfWNbo=;
+ b=eW86ey0pkFqXSEfSApn5iJDQ4CTXhfSuNOCbCrrdRNeXW6TAAnd9KlmJjzWk/+FgiIzXYy0DulIhDNN79fOpQi2qFPV7fg10/vk9MIOt4W+YLK+DdsR0ZB+sWLCdXEVhx37Y3T+1Wt87qXeJQpNc9iytLwEAJ8SavTCAUYJRj9qz5MxwLb/Fogx/JbNgJ3hCptG4cHFos+xGjgYRflxJYlTfoG9GAy+mGzzFjx+LlVeER0YJSQuiWaYKNMp3o4ewYxaShTGcaiMeZu9+OGqlhnmMXtBV6d8X+QVYojWzGNWqNA3wlxrZWU0Wx3hoKUO7MFpdJyOASeZ48332xV2SkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ODjFiAhIfbPYBIARe0nrwOOhgJEognYGBG4bSmfWNbo=;
+ b=ueTbP6mKdk3KAR60+yDcwesUWJLHdLTg+fPs6IP63rPn8LtUeLRRgxAhcKRxfyMZKqPRWlmfdh2Zc/LELOvRVMcxciyfbpr61BB6mkeqTfcwACQlZv617mKzXqL+s3jHguF1+/13BQEIMRO5HSBdr/uWNMa9/C1PiqB74WOB4PN5cnXJwE2CiU9y9xdfJF9mCVWTRVnYgCDdWjdkxFrGMEp/l4XsjQg7z6Oor77yvHzg82ApQS0CnvLa3T/CUx9fztJTiDUjYYtSFKdOTHmZm3Y9eDYuY7jDGELnnaWFwf7O6lEGVejZtGWbeARHor2HLk2XUZKa6XY/rxyfB5ZZ3A==
+Received: from CH0PR03CA0116.namprd03.prod.outlook.com (2603:10b6:610:cd::31)
+ by BL4PR12MB9536.namprd12.prod.outlook.com (2603:10b6:208:590::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
+ 2026 06:16:08 +0000
+Received: from CH2PEPF0000013C.namprd02.prod.outlook.com
+ (2603:10b6:610:cd:cafe::a) by CH0PR03CA0116.outlook.office365.com
+ (2603:10b6:610:cd::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Tue, 30
+ Jun 2026 06:16:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CH2PEPF0000013C.mail.protection.outlook.com (10.167.244.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Tue, 30 Jun 2026 06:16:08 +0000
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 29 Jun
+ 2026 23:15:53 -0700
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail204.nvidia.com
+ (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 29 Jun
+ 2026 23:15:53 -0700
+Received: from Asurada-Nvidia.nvidia.com (10.127.8.11) by mail.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
+ Transport; Mon, 29 Jun 2026 23:15:52 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: <will@kernel.org>, <robin.murphy@arm.com>, <jgg@nvidia.com>
+CC: <joro@8bytes.org>, <praan@google.com>, <kees@kernel.org>,
+	<baolu.lu@linux.intel.com>, <kevin.tian@intel.com>,
+	<miko.lenczewski@arm.com>, <smostafa@google.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, <jamien@nvidia.com>
+Subject: [PATCH rc v7 0/7] iommu/arm-smmu-v3: Fix device crash on kdump kernel
+Date: Mon, 29 Jun 2026 23:15:33 -0700
+Message-ID: <cover.1782799827.git.nicolinc@nvidia.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013C:EE_|BL4PR12MB9536:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3967c6db-4638-4f62-a13f-08ded66f135f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|7416014|23010399003|6133799003|5023799004|18002099003|11063799006|56012099006|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	Y9OHUtu8gBeFWNSloDHPBxY8G3Mc6XWF0XfMeqLkEzPp/ctG6sC/73nZaSavz17rbs57NHs/WxwOQ8q8SfHVJg2ft2K2y4M97nvcMiuAACfPOie6ZyG2kLcT7Wb8xWVGObHOAZXA7iXJHVzwHOkm72Wz8vlM+KV6j0DCAfSUVI0h6fNhVdCyviVul3EV4nJK8Tlcy1I1eujey1jODeRfmSl7tDpX7/c7XOPi1hFS5klwZwrl9qoi+a/Ye15xvCLZT5MwStEpQdoEgWeNPy3MHfdnqukzNbjoiH42rHgeq1MTkPyoZLfRdz/YeD0dDC7VjxvfVdHozADuRcBksB3ZzQuQKby8PjHi4zq+VSYyTVbdpayp+JOU7E4RQzjWVy5SA1MLAi0T5JFMZ1DENt0QDTN9y/r8o4fI2ylttMMAIbrRDLOlVXjHuM/sKCvQJH07lezlSIM7aIEEHULKHnc8MrGBHhp8TyNdK/JQCRloZjEQ/zcfXgMDd/Pxgn0mYGHLgcIXGHiuhzUERln3DwG8XO3QF4OzLC/ECRT5xTGM/3FjICiEAtht2mg36CL1ShyJy+efvbO30jQHlBrKOHwbpAlJd/wjY4yoxxMO2z2reFUEDDfc1PaI+bRuDovYvZgdWWlRI6uT/am5gVsjYXnAuQN4NDhEiJLQZqdnw98rBvm8fsYzFuOb4G+YA062zp+S5c8rbbRrB34Wp+R6sVoVTQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(7416014)(23010399003)(6133799003)(5023799004)(18002099003)(11063799006)(56012099006)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	VZX2FlZGX5viGXbtscW4Fy+F/DURKsoCe/3QC2vOLbeLJaz1ReB7PpAKiWu9rmZpj6GcUKwUFtciWxo36q5xmzItbHSbh4exx1sYDnZbXJCKaUWKJXLB00S1Cv/FlTgZ+BKBxTDEQDoVEVUwUAGEIqkpgWPqglLfRQWyU4y0Wzui/BS8pRhGll5iNxI/n7L7GuyicbF4FrSAIIo+CZyRG1LuQNCzm3EfzVHGLiqt4xRNYxRivZGcITNxjZ9MIYg4Fd8pDobAYroAmCPb6Se9DEfg41hJ/aIKlakoHTPg7jotS302lGPIqWXJ46NyNjsC1Wq+s2zttzo6CbaZKro2weyoo9qtaILlnPzeefI+G1kax5FjyRJQFrZ/syLPmlDSwsEKJQ2ECkeZTm3kBQQTide8UXqdc/FoSa6/X21VLA2Buc/IGRKMhI/RGGvmI0nH
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 06:16:08.6302
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3967c6db-4638-4f62-a13f-08ded66f135f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF0000013C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9536
 
-[ Upstream commit 119a5d573622ae90ba730d18acfae9bb75d77b9a ]
+When transitioning to a kdump kernel, the primary kernel might have crashed
+while endpoint devices were actively bus-mastering DMA. Currently, the SMMU
+driver aggressively resets the hardware during probe by clearing CR0_SMMUEN
+and setting the Global Bypass Attribute (GBPA) to ABORT.
 
-When the ring buffer was first introduced, reading the non-consuming
-"trace" file required disabling the writing of the ring buffer. To make
-sure the writing was fully disabled before iterating the buffer with a
-non-consuming read, it would set the disable flag of the buffer and then
-call an RCU synchronization to make sure all the buffers were
-synchronized.
+In a kdump scenario, this aggressive reset is highly destructive:
+a) If GBPA is set to ABORT, in-flight DMA will be aborted, generating fatal
+   PCIe AER or SErrors that may panic the kdump kernel
+b) If GBPA is set to BYPASS, in-flight DMA targeting some IOVAs will bypass
+   the SMMU and corrupt the physical memory at those 1:1 mapped IOVAs.
 
-The function ring_buffer_read_start() originally  would initialize the
-iterator and call an RCU synchronization, but this was for each individual
-per CPU buffer where this would get called many times on a machine with
-many CPUs before the trace file could be read. The commit 72c9ddfd4c5bf
-("ring-buffer: Make non-consuming read less expensive with lots of cpus.")
-separated ring_buffer_read_start into ring_buffer_read_prepare(),
-ring_buffer_read_sync() and then ring_buffer_read_start() to allow each of
-the per CPU buffers to be prepared, call the read_buffer_read_sync() once,
-and then the ring_buffer_read_start() for each of the CPUs which made
-things much faster.
+To safely absorb in-flight DMA, the kdump kernel must leave SMMUEN=1 intact
+and avoid modifying STRTAB_BASE. This allows HW to continue translating in-
+flight DMA using the crashed kernel's page tables until the endpoint device
+drivers probe and quiesce their respective hardware.
 
-The commit 1039221cc278 ("ring-buffer: Do not disable recording when there
-is an iterator") removed the requirement of disabling the recording of the
-ring buffer in order to iterate it, but it did not remove the
-synchronization that was happening that was required to wait for all the
-buffers to have no more writers. It's now OK for the buffers to have
-writers and no synchronization is needed.
+However, the ARM SMMUv3 architecture specification states that updating the
+SMMU_STRTAB_BASE register while SMMUEN == 1 is UNPREDICTABLE or ignored.
 
-Remove the synchronization and put back the interface for the ring buffer
-iterator back before commit 72c9ddfd4c5bf was applied.
+This leaves a kdump kernel no choice but to adopt the stream table from the
+crashed kernel.
 
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Link: https://lore.kernel.org/20250630180440.3eabb514@batman.local.home
-Reported-by: David Howells <dhowells@redhat.com>
-Fixes: 1039221cc278 ("ring-buffer: Do not disable recording when there is an iterator")
-Tested-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+In this series:
+ - Introduce an ARM_SMMU_OPT_KDUMP_ADOPT
+ - Skip SMMUEN and STRTAB_BASE resets in arm_smmu_device_reset()
+ - Skip EVENTQ/PRIQ setup including interrupts and their handlers
+ - Memremap the crashed kernel's stream tables into the kdump kernel [*]
+ - Defer any default domain attachment to retain STEs until device drivers
+   explicitly request it.
 
-Assisted-by: Kiro:claude-opus-4.8
-[doebel@amazon.de: move patch section using guard() macro into a
-separate block to address declaration after statement warning.]
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
----
- include/linux/ring_buffer.h |  4 +--
- kernel/trace/ring_buffer.c  | 72 ++++++++-----------------------------
- kernel/trace/trace.c        | 14 +++-----
- kernel/trace/trace_kdb.c    |  8 ++---
- 4 files changed, 22 insertions(+), 76 deletions(-)
+[*] For verification reasons, this series only fixes coherent SMMUs.
 
-diff --git a/include/linux/ring_buffer.h b/include/linux/ring_buffer.h
-index 7d5a78f49d43d..be5c120922469 100644
---- a/include/linux/ring_buffer.h
-+++ b/include/linux/ring_buffer.h
-@@ -128,9 +128,7 @@ ring_buffer_consume(struct trace_buffer *buffer, int cpu, u64 *ts,
- 		    unsigned long *lost_events);
- 
- struct ring_buffer_iter *
--ring_buffer_read_prepare(struct trace_buffer *buffer, int cpu, gfp_t flags);
--void ring_buffer_read_prepare_sync(void);
--void ring_buffer_read_start(struct ring_buffer_iter *iter);
-+ring_buffer_read_start(struct trace_buffer *buffer, int cpu, gfp_t flags);
- void ring_buffer_read_finish(struct ring_buffer_iter *iter);
- 
- struct ring_buffer_event *
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 03a7127efc5a8..1089daa17b09e 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -4858,28 +4858,20 @@ ring_buffer_consume(struct trace_buffer *buffer, int cpu, u64 *ts,
- EXPORT_SYMBOL_GPL(ring_buffer_consume);
- 
- /**
-- * ring_buffer_read_prepare - Prepare for a non consuming read of the buffer
-+ * ring_buffer_read_start - start a non consuming read of the buffer
-  * @buffer: The ring buffer to read from
-  * @cpu: The cpu buffer to iterate over
-  * @flags: gfp flags to use for memory allocation
-  *
-- * This performs the initial preparations necessary to iterate
-- * through the buffer.  Memory is allocated, buffer recording
-- * is disabled, and the iterator pointer is returned to the caller.
-- *
-- * Disabling buffer recording prevents the reading from being
-- * corrupted. This is not a consuming read, so a producer is not
-- * expected.
-- *
-- * After a sequence of ring_buffer_read_prepare calls, the user is
-- * expected to make at least one call to ring_buffer_read_prepare_sync.
-- * Afterwards, ring_buffer_read_start is invoked to get things going
-- * for real.
-+ * This creates an iterator to allow non-consuming iteration through
-+ * the buffer. If the buffer is disabled for writing, it will produce
-+ * the same information each time, but if the buffer is still writing
-+ * then the first hit of a write will cause the iteration to stop.
-  *
-- * This overall must be paired with ring_buffer_read_finish.
-+ * Must be paired with ring_buffer_read_finish.
-  */
- struct ring_buffer_iter *
--ring_buffer_read_prepare(struct trace_buffer *buffer, int cpu, gfp_t flags)
-+ring_buffer_read_start(struct trace_buffer *buffer, int cpu, gfp_t flags)
- {
- 	struct ring_buffer_per_cpu *cpu_buffer;
- 	struct ring_buffer_iter *iter;
-@@ -4904,51 +4896,15 @@ ring_buffer_read_prepare(struct trace_buffer *buffer, int cpu, gfp_t flags)
- 
- 	atomic_inc(&cpu_buffer->resize_disabled);
- 
--	return iter;
--}
--EXPORT_SYMBOL_GPL(ring_buffer_read_prepare);
-+	{
-+		guard(raw_spinlock_irqsave)(&cpu_buffer->reader_lock);
- 
--/**
-- * ring_buffer_read_prepare_sync - Synchronize a set of prepare calls
-- *
-- * All previously invoked ring_buffer_read_prepare calls to prepare
-- * iterators will be synchronized.  Afterwards, read_buffer_read_start
-- * calls on those iterators are allowed.
-- */
--void
--ring_buffer_read_prepare_sync(void)
--{
--	synchronize_rcu();
--}
--EXPORT_SYMBOL_GPL(ring_buffer_read_prepare_sync);
--
--/**
-- * ring_buffer_read_start - start a non consuming read of the buffer
-- * @iter: The iterator returned by ring_buffer_read_prepare
-- *
-- * This finalizes the startup of an iteration through the buffer.
-- * The iterator comes from a call to ring_buffer_read_prepare and
-- * an intervening ring_buffer_read_prepare_sync must have been
-- * performed.
-- *
-- * Must be paired with ring_buffer_read_finish.
-- */
--void
--ring_buffer_read_start(struct ring_buffer_iter *iter)
--{
--	struct ring_buffer_per_cpu *cpu_buffer;
--	unsigned long flags;
--
--	if (!iter)
--		return;
--
--	cpu_buffer = iter->cpu_buffer;
-+		arch_spin_lock(&cpu_buffer->lock);
-+		rb_iter_reset(iter);
-+		arch_spin_unlock(&cpu_buffer->lock);
-+	}
- 
--	raw_spin_lock_irqsave(&cpu_buffer->reader_lock, flags);
--	arch_spin_lock(&cpu_buffer->lock);
--	rb_iter_reset(iter);
--	arch_spin_unlock(&cpu_buffer->lock);
--	raw_spin_unlock_irqrestore(&cpu_buffer->reader_lock, flags);
-+	return iter;
- }
- EXPORT_SYMBOL_GPL(ring_buffer_read_start);
- 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 5bcd4cbeeb4fe..ed32d3c4f0e76 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -4480,21 +4480,15 @@ __tracing_open(struct inode *inode, struct file *file, bool snapshot)
- 	if (iter->cpu_file == RING_BUFFER_ALL_CPUS) {
- 		for_each_tracing_cpu(cpu) {
- 			iter->buffer_iter[cpu] =
--				ring_buffer_read_prepare(iter->array_buffer->buffer,
--							 cpu, GFP_KERNEL);
--		}
--		ring_buffer_read_prepare_sync();
--		for_each_tracing_cpu(cpu) {
--			ring_buffer_read_start(iter->buffer_iter[cpu]);
-+				ring_buffer_read_start(iter->array_buffer->buffer,
-+						       cpu, GFP_KERNEL);
- 			tracing_iter_reset(iter, cpu);
- 		}
- 	} else {
- 		cpu = iter->cpu_file;
- 		iter->buffer_iter[cpu] =
--			ring_buffer_read_prepare(iter->array_buffer->buffer,
--						 cpu, GFP_KERNEL);
--		ring_buffer_read_prepare_sync();
--		ring_buffer_read_start(iter->buffer_iter[cpu]);
-+			ring_buffer_read_start(iter->array_buffer->buffer,
-+					       cpu, GFP_KERNEL);
- 		tracing_iter_reset(iter, cpu);
- 	}
- 
-diff --git a/kernel/trace/trace_kdb.c b/kernel/trace/trace_kdb.c
-index 9da76104f7a28..18d1551db2b0d 100644
---- a/kernel/trace/trace_kdb.c
-+++ b/kernel/trace/trace_kdb.c
-@@ -43,17 +43,15 @@ static void ftrace_dump_buf(int skip_entries, long cpu_file)
- 	if (cpu_file == RING_BUFFER_ALL_CPUS) {
- 		for_each_tracing_cpu(cpu) {
- 			iter.buffer_iter[cpu] =
--			ring_buffer_read_prepare(iter.array_buffer->buffer,
--						 cpu, GFP_ATOMIC);
--			ring_buffer_read_start(iter.buffer_iter[cpu]);
-+			ring_buffer_read_start(iter.array_buffer->buffer,
-+					       cpu, GFP_ATOMIC);
- 			tracing_iter_reset(&iter, cpu);
- 		}
- 	} else {
- 		iter.cpu_file = cpu_file;
- 		iter.buffer_iter[cpu_file] =
--			ring_buffer_read_prepare(iter.array_buffer->buffer,
-+			ring_buffer_read_start(iter.array_buffer->buffer,
- 						 cpu_file, GFP_ATOMIC);
--		ring_buffer_read_start(iter.buffer_iter[cpu_file]);
- 		tracing_iter_reset(&iter, cpu_file);
- 	}
- 
+For non-ARM_SMMU_OPT_KDUMP_ADOPT cases, keep a status quo since the commit
+3f54c447df34f ("iommu/arm-smmu-v3: Don't disable SMMU in kdump kernel"):
+full reset followed by driver-initiated reattach, potentially rejecting any
+in-flight DMA.
+
+Note that the series requires Jason's work that was merged in v6.12: commit
+85196f54743d ("iommu/arm-smmu-v3: Reorganize struct arm_smmu_strtab_cfg").
+I have a backported version that is verified with a v6.8 kernel. I can send
+if we see a strong need after this version is accepted.
+
+This is on Github:
+https://github.com/nicolinc/iommufd/commits/smmuv3_kdump-v7
+
+Changelog
+v7
+ * Rebase v7.2-rc1
+ * Add Reviewed-by from Pranjal
+ * Reword the linear stream table adoption comment
+ * Use dev_dbg for the stream table adoption message
+ * Document why the lazy L2 adoption uses devm_memremap()
+ * Drop redundant FEAT_COHERENCY checks in the adopt functions
+ * Use feature bit instead of STRTAB_BASE_CFG in adopt cleanup
+ * Skip CR0_ATSCHK update in adopt mode to retain the crashed policy
+ * Restore FEAT_2_LVL_STRTAB if the cleanup action fails to register
+v6
+ https://lore.kernel.org/all/cover.1779265413.git.nicolinc@nvidia.com/
+ * Rebase v7.1-rc3
+ * Add Reviewed-by from Jason
+ * Replace dma_addr_t with phys_addr_t
+ * Drop arm_smmu_kdump_phys_is_corrupted()
+ * Skip threaded IRQ handlers for EVTQ and PRIQ
+ * Bypass arm_smmu_rmr_install_bypass_ste() in kdump case
+ * Drop devm_ for adopt-time allocations; set up cleanup function via
+   devm_add_action_or_reset()
+v5
+ https://lore.kernel.org/all/cover.1778416609.git.nicolinc@nvidia.com/
+ * Add Reviewed-by from Kevin
+ * Drop READ_ONCE on lazy-attach L1 read
+ * Split "Skip EVTQ/PRIQ setup" into two patches
+ * Tighten kdump probe comment and dev_warn message
+ * Use MEM + BUSY in arm_smmu_kdump_phys_is_corrupted
+v4
+ https://lore.kernel.org/all/cover.1777446969.git.nicolinc@nvidia.com/
+ * Rebase v7.1-rc1
+ * s/arm_smmu_adopt/arm_smmu_kdump_adopt
+ * Revert alloc/memremap/fmt on fallback
+ * Reorder patches to avoid bisect regression
+ * Use IRQ_NONE for spurious evtq/priq entries
+ * Cap linear log2size by kdump's allocation bound
+ * Defer clearing FEAT_2_LVL_STRTAB on linear adopt
+ * Add arm_smmu_kdump_phys_is_corrupted() validation
+ * Defer l2 stream table memremap till master inserts
+ * Re-validate L1 desc on master insert with READ_ONCE
+v3
+ https://lore.kernel.org/all/cover.1777150307.git.nicolinc@nvidia.com/
+ * s/OPT_KDUMP/OPT_KDUMP_ADOPT
+ * Do not adopt if GERROR_SFM_ERR
+ * Retain CR0_ATSCHK beside CR0_SMMUEN
+ * Clear latched GERROR bits (e.g. CMDQ_ERR)
+ * Assert ARM_SMMU_FEAT_COHERENCY in adopt functions
+ * Add STE.Cfg check in arm_smmu_is_attach_deferred()
+ * Fix validations on return codes from devm_memremap()
+ * Sanitize crashed kernel register values in adopt functions
+ * Drop unnecessary l2ptrs guard in arm_smmu_is_attach_deferred()
+ * Don't enable PRIQ/EVTQ irqs and guard the irq functions for combined
+   irq cases
+v2
+ https://lore.kernel.org/all/cover.1776286352.git.nicolinc@nvidia.com/
+ * Add warning in non-coherent SMMU cases
+ * Keep eventq/priq disabled vs. enabling-and-disabling-later
+ * Check KDUMP option in the beginning of arm_smmu_device_reset()
+ * Validate STRTAB format matches HW capability instead of forcing flags
+v1:
+ https://lore.kernel.org/all/cover.1775763475.git.nicolinc@nvidia.com/
+
+Nicolin Chen (7):
+  iommu/arm-smmu-v3: Add arm_smmu_kdump_adopt_strtab() for kdump
+  iommu/arm-smmu-v3: Implement is_attach_deferred() for kdump
+  iommu/arm-smmu-v3: Do not enable EVTQ/PRIQ interrupts in kdump kernel
+  iommu/arm-smmu-v3: Skip EVTQ/PRIQ setup in kdump kernel
+  iommu/arm-smmu-v3: Retain CR0_SMMUEN during kdump device reset
+  iommu/arm-smmu-v3: Skip RMR bypass for kdump adoption
+  iommu/arm-smmu-v3: Detect ARM_SMMU_OPT_KDUMP_ADOPT in probe()
+
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |   1 +
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 467 ++++++++++++++++++--
+ 2 files changed, 422 insertions(+), 46 deletions(-)
+
 -- 
-2.50.1
-
-
-
-
-Amazon Web Services Development Center Germany GmbH
-Tamara-Danz-Str. 13
-10243 Berlin
-Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
-Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
-Sitz: Berlin
-Ust-ID: DE 365 538 597
+2.43.0
 
