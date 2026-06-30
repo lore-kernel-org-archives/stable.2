@@ -1,113 +1,87 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B460F327C18;
-	Tue, 30 Jun 2026 23:39:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597472405E1;
+	Tue, 30 Jun 2026 23:47:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782862774; cv=none; b=hfCy7BH0JTG34+m7sWBO5hc8a1vIMv5jx3UCdKDCET1Iuq4MBGfU0u58MwRiroHyEClftLnRrGlabu4fo+tp/sl16KvSKKq21VZcaabofyd3nAqrGEExXdn8ornvPj3zjivY4Ph9Eu6fvgljd+plVs89qzAsFcrG7hI/oTR9mPY=
+	t=1782863243; cv=none; b=oM8dO3acQaF8ND5LkOTXHcy4InSKEs2i6BNn81cupJu2Eq35w8+2psZXSDsO99WtQky15YfdMJsmYwliVFivYDjjFgZ024N7Km8/5vPO45lz/BU2Fk98Gof0O24G66h3kqAUp7NBDypMAu8dp4sYjSMkI4QQl7939uU6CP7wHL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782862774; c=relaxed/simple;
-	bh=0G5cbCuFFtTik9VB/m/2l08FRU6Cu2jrZrkrO4k7EtY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qlpu4kfauBOhJxInMm8lt45JKdO2PhYFtNvH+/P8xFU10T1PfhbOwlMYjOs3Vqs2+rXIL0BBQQKgEG3voTPoKNK2WPPjLwr0adtCc/VSAH99GmXAyQpuBzBPtYwldS7Nsq7mF3zqc3QJqAUbZiwg9uGN6V3ArhOH7HSsLpXA5eY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=A23ClQJB; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1782863243; c=relaxed/simple;
+	bh=CVyTP7zm6ASkp+fjbYE+ecq6M0SfjzGaQ2CVSdusMwI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gKBgCz/FFO6i27Sqaebv511sY2gT5aXfe4a3zGn6Wv4ivnSXQLlGa5COiOyn2DYNK3UYksn4/HRxCTE7sC/kHOWynwVXM7R70XXC4+QVxFPiXX2RednwkzwpmnOOCk8zn9CGYnYbx18TGTDpt2jt4Tzc/ZtrtfhM97FWYKlUC2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=leNAfvFH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="A23ClQJB"
-Received: by linux.microsoft.com (Postfix, from userid 1216)
-	id C047220B7166; Tue, 30 Jun 2026 16:39:32 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C047220B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1782862772;
-	bh=LknY8HuCtBdKybv7MMH3FvdcOBWXhWU7Txkil/1+ADw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=A23ClQJBoBSn+1oFyLIz2cV3lCHwR/bTBRPYh1HXVCT0xVh3gdUtbu+kAYbaj2XiX
-	 AmDh32UdvZn7C0+7quRoS9iy0OyYUVPnJ3P31dPxowZjenSXOaeciwZ/lvhWIepXtt
-	 dHHGK8eTx5qKuwmVY/8usHuadm/pvx8URCNJi190=
-Date: Tue, 30 Jun 2026 19:39:32 -0400
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: Carlos Maiolino <cem@kernel.org>, Amir Goldstein <amir73il@gmail.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Fedor Pchelkin <pchelkin@ispras.ru>, stable@vger.kernel.org,
-	xfs-stable@lists.linux.dev, Christoph Hellwig <hch@lst.de>,
-	Catherine Hoang <catherine.hoang@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	lvc-project@linuxtesting.org, linux-xfs@vger.kernel.org,
-	Leah Rumancik <leah.rumancik@gmail.com>,
-	Theodore Ts'o <tytso@mit.edu>
-Subject: Re: [PATCH 6.6 0/4] fix kernel crash for xfs/235 test
-Message-ID: <akRTtCIZZ0IZ0Omc@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <aisAxyXVxf4wql2u@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <20260612233110.2-1-sashal@kernel.org>
- <ajBQPNuKCruxhkXX@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <ajD3Gb-vQkGU0N6b@nidhogg.toxiclabs.cc>
- <ajFQPY2m2A6ltvTH@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <ajFabPtI8UGfkyix@nidhogg.toxiclabs.cc>
- <CACzhbgS59uCYhjX80__+nPjEx=N8mKUsYyFS1+aRDpMA-b-VXQ@mail.gmail.com>
- <CAOQ4uxgXqmP49FV3b_cKDD_703bRHz0fjm=k=FmNytsPpnKx3g@mail.gmail.com>
- <ajKSytW_sBFJaBTW@nidhogg.toxiclabs.cc>
- <20260625183421.GO6070@frogsfrogsfrogs>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="leNAfvFH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082231F00A3D;
+	Tue, 30 Jun 2026 23:47:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782863242;
+	bh=U5ldOW9ifgcKwIN1X3AjwZELUVzkc0skATFdb1bxG2Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=leNAfvFHMhBs8D5tvJIoPQ33i7ijBKYg+QoqEmYRniioa6lRK3AU7R74QyGtXPR/e
+	 7L+ukrb5+NGS0VwqIScSbbBcuGKFbAvp+z6S7SoSiwgV5n89OcOfWT02JwqcP7xg6Z
+	 Z4wUGpY4rmlsTinvBDxvvQealO+foeIZVjjOMmxFVDj0d/NiO3/Vxji+y19psQ8B4k
+	 sz3Y8ESGv2zyhxTqte0H66JH7zx3DjSZoGsB9mCJvK+xi/3rx0psqkMYz1u9s2+8HN
+	 3drpymJJo2cr1vfFNhXrFGiGUs3E+LLxz2bwkrD8L+ENZeLgvRm+FPkGHso0EPD2FZ
+	 IuMj5YQCJ62Gg==
+From: Yosry Ahmed <yosry@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yosry Ahmed <yosry@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/7] KVM: x86: Check EFER validity on KVM_SET_SREGS*
+Date: Tue, 30 Jun 2026 23:47:09 +0000
+Message-ID: <20260630234716.3039031-2-yosry@kernel.org>
+X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
+In-Reply-To: <20260630234716.3039031-1-yosry@kernel.org>
+References: <20260630234716.3039031-1-yosry@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260625183421.GO6070@frogsfrogsfrogs>
 
-On Thu, Jun 25, 2026 at 11:34:21AM -0700, Darrick J. Wong wrote:
-> On Wed, Jun 17, 2026 at 02:31:01PM +0200, Carlos Maiolino wrote:
-> > On Wed, Jun 17, 2026 at 11:19:25AM +0200, Amir Goldstein wrote:
-> > > On Tue, Jun 16, 2026 at 7:33 PM Leah Rumancik <leah.rumancik@gmail.com> wrote:
-> > > >
-> > > > I have changed teams so I no longer work on kernel and I don't believe
-> > > > my xfs maintenance work was backfilled ;(
-> > > >
-> > > > On Tue, Jun 16, 2026 at 7:19 AM Carlos Maiolino <cem@kernel.org> wrote:
-> > > > >
-> > > > > On Tue, Jun 16, 2026 at 09:31:41AM -0400, Hamza Mahfooz wrote:
-> > > > > > Cc: linux-xfs@vger.kernel.org
-> > > > > >
-> > > > > > On Tue, Jun 16, 2026 at 09:13:45AM +0200, Carlos Maiolino wrote:
-> > > > > > > On Mon, Jun 15, 2026 at 03:19:24PM -0400, Hamza Mahfooz wrote:
-> > > > > > > > Cc: Carlos Maiolino <cem@kernel.org>
-> > > > > > >
-> > > > > > > FWIW I don't maintain the stable trees I really don't have time for
-> > > > > > > that. Darrick/Leah have been doing a best effort case for that, but
-> > > > > > > again, this is mostly a best effort so we shouldn't expect them to be
-> > > > > > > looking/picking up every single possible patch suggested for stable.
-> > > > > > >
-> > > > > >
-> > > > > > Now that you mention it, the xfs-stable mailing list seems to be pretty
-> > > > > > much dead (i.e. the last time fixes from it were merged into stable was
-> > > > > > almost a year ago). I guess no one is really working on it anymore?
-> > > > >
-> > > > > IIRC Darrick started it, I personally never worked on it, but I didn't
-> > > > > follow the evolution there.
-> > > 
-> > > I think at this point we can officially declare xfs in stable <= 6.6
-> > > unmaintained
-> > > maybe need to send patches to LTS MAINTAINERS.
-> > > 
-> > > The best chance in this case to apply the requested fix to 6.6.y is that the
-> > > author (Darrick) approves it.
-> > 
-> > Unfortunately this might be true. But let's wait for Darrick's input
-> > please. He's on vacations this week so will be unfair to make any
-> > decisions in this matter without his input.
-> > Also he has been still poking people to tag patches with LTS versions
-> > so even though he might not me dealing with the xfs-stable, he might still
-> > be driving work on LTS trees.
-> 
-> I've really only been doing QA work on 6.12/6.18 LTS.  Ted Tso might
-> still be doing the older ones.  Catherine left Oracle last year.
+When handling userspace SREGS writes, check the validity of EFER (i.e.
+allowed bits) before writing the new value of EFER through the
+per-vendor set_efer callbacks. This prevents userspace from writing
+bogus values (e.g. EFER.SVME=1 with nested=0).
 
-Any idea on potential paths forward for getting this series in
-particular into 6.6.y?
+Note: on KVM_SET_MSRS, KVM only checks EFER validity in terms of KVM
+caps, not guest caps, so it is possible to set EFER bits that are
+supported by KVM but not by the guest CPUID. Potentially allowing
+userspace to set msrs before CPUID.
 
-> 
-> --D
+However, for KVM_SET_SREGS*, check the validity of the set bits against
+both KVM and guest caps. This is consistent with other validity checks
+(e.g. for CR4) that check validity against guest caps, which already
+imposes the need to set CPUID before SREGS.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+---
+ arch/x86/kvm/regs.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
+index d2caf5a67dba4..94c4e4e41868f 100644
+--- a/arch/x86/kvm/regs.c
++++ b/arch/x86/kvm/regs.c
+@@ -563,7 +563,8 @@ static bool kvm_is_valid_sregs(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs)
+ 	}
+ 
+ 	return kvm_is_valid_cr4(vcpu, sregs->cr4) &&
+-	       kvm_is_valid_cr0(vcpu, sregs->cr0);
++	       kvm_is_valid_cr0(vcpu, sregs->cr0) &&
++	       kvm_valid_efer(vcpu, sregs->efer);
+ }
+ 
+ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
+-- 
+2.55.0.rc0.799.gd6f94ed593-goog
+
