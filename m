@@ -1,126 +1,154 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD763F2117
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 11:01:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782817318; cv=pass; b=W4SJ6Jv4hzHw7Zz3hhgcM7IGTKGYB8EFyZ8pw/lKZRCqBITwAC7hp4Q1fPCRHY/KFDUuZ2UpkrOObjDQliWyxbXQZ+DG6iRmb60UdACNezv9wdOb1ZN2Q5fjVsY1VOwG8nXws/2cTkFA+YtWlmc4dUdyE+9P3Gw3fxuOX/KvfCo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782817318; c=relaxed/simple;
-	bh=XVMnZazNe6ueinmZJ6D34+lB49c1hHJgeNSRfW04Low=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=f79FBm3oVFEpabHBh4IGj/0vgaTvySr23xGvykc+5bxP2XpqThlPmuEiRn4EvyZaNx2RIEXgtja2VpfYIQEyjzVS7McOFTEZYsLkrPEkhQO41KmHc+nXkchCwf5AWUzpi8v3HhvtxHU3GC5sKiT4foWOd/yS88rLu2YYCV5whv0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vh/cOEk4; arc=pass smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B823FF1A3
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 11:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782818112; cv=none; b=rpNCUUGv9dCtqwQEGsFQ+r24rmDG4DvQ4OhQBjhM/RmD7ARpM7PNJHtR/mcGHVp1EWNQ1S4gwi+IuJc+srkZLYyyexjHFM4UbLecA7u9jBMOyhj3VktY1p0ZJBdbEXsChjQujExbWY21Wq2n6N0vVeq597YBYmrnprMGQ8V6YKI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782818112; c=relaxed/simple;
+	bh=KN1FRu4cuOz4IFhgPj+yn2ZmKQqb+oVckZ03m5pXlAk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cJUXRQrrSn0SbXiEowNFAD1QFyBAtPIr5aPIsUukw5K9PQJJg9bjfbqAUWp+qaWhWH27sXZVxwNk/oLIpwCHUIM3+3lA2aK/PcqDC5OWS0xLPMHsXa35RQ8wO1dDVW+fyyWUEWMNlNQKCyecxIhnlmeDtIkOL6o+0VwRolG+oJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MWnAJo3y; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=J6RITRFM; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vh/cOEk4"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-697ce8cfe65so7131636a12.3
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 04:01:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782817315; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MW2edXpg4L5BD4hnyAQRWPTUZbUnazn+77MNa5iyKynUq+erKJYaZEGR6exvWXxMUf
-         dWP/jITLTLKoAHsqLHsgwrgk0za6WbepKzEUEuSjy6Y7K7lond8jpOA8OrXM1Xpbshwc
-         wiAA36sNRJJikZGWzDp8KlkdlbTP3lMXRwFjSE5NOVt6mu118TNqTvDhz4tUIkq5yfxd
-         4pC2rOydAR3kfscBbfbhblTsywNLNSA1fsa+EhfWBpmmN2aQDvUYz/LTLi3hWRjlzUUk
-         kjgYaLDLu87E0iMKisnVag9ODDC2T6xva6Z3EQ9EU8ySXlJgojmO9l9H9CGaoCSCNtpD
-         yFiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XVMnZazNe6ueinmZJ6D34+lB49c1hHJgeNSRfW04Low=;
-        fh=+M5V36peYborbfJ/xg1BrBWDjC/9zbq4RZEjsjCgv2w=;
-        b=J4r2xs9rm+kr2XHFyzSVXBdNDtT0xGSP0XGZ+6l25a48mSuauUPZeCcb3d9GSABPhq
-         9ZZ5kqatxKFd9GyWkZRu29ChyaAW1FVVbeOSiMtZ27K3B38y7A6ii7ts3mOYRr/Hle7s
-         LUD7laIe2NfgbfTjJTrnDuU76+48JqWrlm6vUHtcM2RWK4+7SBA+7R6w7njd55Ue7S2r
-         B93spORJu071OpnmsJSGhFimhj6HlB083feE/7g5LT0xOVG1Bz3kc1K9+HaTdW0CGupC
-         PuTvBIgSsjKYYtCt091xGa1wdRa+kS1PCXgCdDmvy2e0J+m6mC4zJ4c88uUthyDGHxnm
-         4pDw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MWnAJo3y";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="J6RITRFM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1782818110;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=j15V7ngwE/VoSisyb4jPtPP2vsFCnu4q3l7tU5FLXAA=;
+	b=MWnAJo3y9inWm0EXpBxzlVH5wanKleijOEMt4R4hG6NKcr5ZLvKmhdftO2kOvLL4WcphPb
+	577fELL6/9GInAZzjK59AwmmTR8ZjFUBjcfKu4ldBkPwonjTX9fLl/Z7MJxLqBRYp4rPwN
+	ANNn+2O2WM7qyuQzXb4Vab9ndTrg+18=
+Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
+ [74.125.224.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-54-p0Uzc16OMem5kdLhdRCuzA-1; Tue, 30 Jun 2026 07:15:07 -0400
+X-MC-Unique: p0Uzc16OMem5kdLhdRCuzA-1
+X-Mimecast-MFC-AGG-ID: p0Uzc16OMem5kdLhdRCuzA_1782818107
+Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-664d8e6c178so3143005d50.1
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 04:15:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782817315; x=1783422115; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XVMnZazNe6ueinmZJ6D34+lB49c1hHJgeNSRfW04Low=;
-        b=Vh/cOEk41rYPNWUDRzL9fV6pGiGys+jgYv56yyVM5YLQG+CQ6HAz8bjg+2yhOi6Z0R
-         HX5dq5MjKkDCK0F0V42AmSr9XYvoGMwSY8++X6KpGHvfsB59EyMe/afP90eBPd6RVRuU
-         L7n25ctS5VPtXZFXOSehyvn8hizxq6TuElNJX8Iqm3lyuU2vWeZaWZSlzFn+po0im++h
-         6dXOnUDzBwgqXpKdQxQeR6rYoXT3d9Jo00Fe2t0MpjfrJ99DhicDwTRG2/Uz1zEh9e4R
-         eR7AWSSH51CU2MO3xvGY9EF+7aN4NbA4bV/dCilNCPOg4BUfkwmVFQbMOtZGFMCByYKP
-         R3zw==
+        d=redhat.com; s=google; t=1782818107; x=1783422907; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=j15V7ngwE/VoSisyb4jPtPP2vsFCnu4q3l7tU5FLXAA=;
+        b=J6RITRFMkP6oI/1ka8mRsZbGkrToqP7+lLijURua8dBCTr2oOedemijEI2JU2sVAQO
+         1m0NhFHYXyUQ9dNqrqQedUO3OEvJgUgX8JfqioUdpkcHJM8TYyMQwSMbBTd+3D9mELp0
+         yrbXGbKAvpSV24Jqs+5EUGHE27CNHFYPHZXc0pCV4kO+lSsNmHabHPnZc3cPWLQQNrQP
+         OL6kAXi7oeupqo2THNLd+Wo07nvKvie/2Z5dPjTbGJqAsbk37gkc5YGxukcZ9qbZsm00
+         zEZXUncro8JHpmiCScO88gX0OKb8onyb3VSKU7oaTbHNgjm0ENC/V1p+xCPnU/L9Ygnq
+         lLNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782817315; x=1783422115;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=XVMnZazNe6ueinmZJ6D34+lB49c1hHJgeNSRfW04Low=;
-        b=jkgZRoi1iK2fMlO+8bdNmNojDii9SV2LT4JSkNJjr0VdTovRFMty1e2hoAOVX7PQ/M
-         CmsawRxnzU1wVW3ak2d9N6qU2Q+H7dTYNlvKX8gv5ohihLyBgyyq/05CCvfO+6JLlwlJ
-         aQ2GS68EcxZw+W/csloRtkCPFGMMguhm3onxD5apkN7g8NIA0+tZbhp4M+X2oyMCylF9
-         TlyChEU8t3I4E/DFjbIa6d8VTvGopjQmRssCsKh1tUbIZtd9KCD85Wv/PEgy97asXLoj
-         zxieGbMlCXVtnWFZ3touP5wRRrC96WIfC2ULs2LNxcOmRWNGyUp3ips8/mHYRiNuw3eu
-         8akA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqxwh48fAdbo0/nl0JEHt7PbdwBltXX60ggvXQvtSjXmFICkRd7vNcxmTPyuXpCsOkc97wYJEI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSIkRX8F4O8JdyO1JcNKl+F0tm+mGMLN4SzL5QuIuKdirpxA9B
-	mZhDwKlryd9h1eGJa3IgbZbTuYixXsYjZH1Xq6I1bxjwJfzfIxxeH+olNb5Civ79Dg78nskuina
-	lN5VukKhf2XXx1zxbYFJEocGriG2oJw8=
-X-Gm-Gg: AfdE7cnmQABI3TxjBiRoJnORgMuRMTa4+bXVvPPiLqGhDNMz5dHGFBVlm313+GIi/7x
-	rJanjy5MSOn1oMosKqumegI/ZXEkcp+lmcPts1T4QwtxoH0NXAiA1xwK/GD3maxsIk7YxY+T1Jg
-	JMuBsvn/vRxpFDg8ul81Gdetb8ghZwHVfTfJhAfEY9inPvT+qUhwJGMBq2i0HgeXjmNUFI/iDrt
-	aN2PXWJpCYhIUrDgGDwlqXS+L6WQngLO7WJugTOp7gtGk1ljmtyEi2DBmQqJeFV8zVNG/okJ4aJ
-	16b5h88+o/29b4wfYtv2g/FpWK+Hv0g=
-X-Received: by 2002:a05:6402:5248:b0:697:4307:991d with SMTP id
- 4fb4d7f45d1cf-6988789244bmr120235a12.19.1782817314715; Tue, 30 Jun 2026
- 04:01:54 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782818107; x=1783422907;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=j15V7ngwE/VoSisyb4jPtPP2vsFCnu4q3l7tU5FLXAA=;
+        b=GbVtB5/Nb2XBofjJGbNXE5U1VBTb097FLjJ5r3zr7GU4J5BMGFCtcveS4QK/BYt/2h
+         qdLiXoW2PYYtXpPihx+1BbQZWdmqU/M/3bnPPI47Qv6O0jSYmXa+WyVbk9Ik2hDj4GxF
+         Dm15RxqNw8yYil2Xgitrm0zsiEMhV1LKLJETDeCZyxp9lUuZqIGw+LLmxTwqEIvdLysY
+         f2tFnMHnmQBdnfsSlgBVcjtjFFJP6J/WUotn4UtHFaUsX8IlQbZ5bxhtoyrzE8JDQcda
+         ao9E7ffi8hsqaL80fPwY3rE3Z7RNP5TDeb3yBY+U4RxOBrWzqY+Fus591aS/x4lyApHh
+         Q7dw==
+X-Forwarded-Encrypted: i=1; AHgh+RoUjcD/EYjFXUY9M5h1s75J0txpfodO7aBCpdo3PfpWb7jo2gHu62Xyvb1Eti/PRuEnPD3ZD5c=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzfjNVXrsEN8PWMgO50JKvqxhKv1Hkb+fUNKiI2Jj2/nDIMaNcn
+	J0xU6dMYO9GtCeFL1eQjTWDvj5Pi8t0a/lELshusV+HAG8sX5F/UnLoBKg+/K6GlowLY+jsFhGO
+	xC36qOnZv7jo7e2VG8+HTPfMeMpLu03/NoyFgYIAzvXK1wXwa6nxAz3uaqg==
+X-Gm-Gg: AfdE7cngU4uqpqBXGXLfZXXAqW0heVcgU7ltD7WrrpdO/M3sVI4WfM9OJERU9Ok9tCM
+	1uuFfPwQ3XhsReDwVZZFaUkCl5soB+AlH4kaHlrHBZ7kM6PwRcj1ip3JrS0LNKbt9zsJ2CPGCna
+	/EA1+WCcd+RZJ1T/WUrG8FTwEHdCosGPuodXZJ9T1TXli5uPdiPAXlAxvOJm5+3jgg4KjaQzJGR
+	WSU+0qiK/tNhwHEZ+vyfveaBhZGla6SieTlFjSeJXAwgcxJh87oN61hiEKwobJsPAE1QVoursao
+	/DzfSJ9X87t0Mpm7WR0FUHm1nrjiYBAGXL7phnP0+Ct/AgPqK8AB3QaMeuPMQy/7u3kY1O8240L
+	o9FiT7VMBNWPIfmkCniox4hMzRrRQiqpo5Z/o4SML8mcqNl4Sx2yLZRI4kZ++WpH+pOjbWqqxAG
+	Dk7iYA/VX6KA==
+X-Received: by 2002:a05:690e:428c:20b0:664:e5c5:5b3f with SMTP id 956f58d0204a3-664f98d1883mr2606810d50.44.1782818106792;
+        Tue, 30 Jun 2026 04:15:06 -0700 (PDT)
+X-Received: by 2002:a05:690e:428c:20b0:664:e5c5:5b3f with SMTP id 956f58d0204a3-664f98d1883mr2606780d50.44.1782818106280;
+        Tue, 30 Jun 2026 04:15:06 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:5521:6b10:2eb7:f61a:75:4534? ([2a0d:3344:5521:6b10:2eb7:f61a:75:4534])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-665006a8c03sm770116d50.9.2026.06.30.04.15.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2026 04:15:05 -0700 (PDT)
+Message-ID: <de40b1a5-663e-43ab-9fb7-5a49f029cc4b@redhat.com>
+Date: Tue, 30 Jun 2026 13:15:03 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260629070653.580879-1-caixinchen1@huawei.com>
- <CAOQ4uxjcD0-PHqqmrpEvkLRgtKJGe8-n+6DQyBngjN2TorwU+g@mail.gmail.com> <f4c8f5fe-30c3-4e7f-8512-7a2befdd1ed3@huawei.com>
-In-Reply-To: <f4c8f5fe-30c3-4e7f-8512-7a2befdd1ed3@huawei.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Tue, 30 Jun 2026 13:01:43 +0200
-X-Gm-Features: AVVi8CeRSS7JXqOJC8_jFJY-F8O-_1zMcUusRfzqJnniatTSJdpzkrHWbWs8ruQ
-Message-ID: <CAOQ4uxh4-LYt8VUW5o+0mMrHpnZm3t8k4WD6x2kRqEj=_ZpLOA@mail.gmail.com>
-Subject: Re: [PATCH stable/linux-5.10.y 0/7] Backport Fix incorrect overlayfs
- mmap() and mprotect() LSM access controls
-To: Cai Xinchen <caixinchen1@huawei.com>
-Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
-	miklos@szeredi.hu, paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, 
-	stephen.smalley.work@gmail.com, omosnace@redhat.com, 
-	gregkh@linuxfoundation.org, sashal@kernel.org, bboscaccy@linux.microsoft.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-unionfs@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	selinux@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org, 
-	lujialin4@huawei.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 1/1] net/sched: sch_teql: Introduce slaves_lock to
+ avoid race condition and UAF
+To: Jamal Hadi Salim <jhs@mojatatu.com>, netdev@vger.kernel.org
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ horms@kernel.org, victor@mojatatu.com, jiri@resnulli.us,
+ security@kernel.org, zdi-disclosures@trendmicro.com, stable@vger.kernel.org
+References: <20260628111229.669751-1-jhs@mojatatu.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260628111229.669751-1-jhs@mojatatu.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 30, 2026 at 5:06=E2=80=AFAM Cai Xinchen <caixinchen1@huawei.com=
-> wrote:
->
-> Thank you for your reply. Regarding the two points of feedback:
->
-> First, 6.1 is still in the process of being adapted.
+On 6/28/26 1:12 PM, Jamal Hadi Salim wrote:
+> The teql master->slaves singly linked list is not protected against
+> multiple writes. It can be mod'ed concurently from teql_master_xmit(),
+> teql_dequeue(), teql_init() and teql_destroy() without holding any list
+> lock or RCU protection.
+> 
+> zdi-disclosures@trendmicro.com has demonstrated that the qdisc is freed
+> after an RCU grace period, but teql_master_xmit() running on another
+> CPU can still hold a stale pointer into the list, resulting in a
+> slab-use-after-free:
+> 
+> BUG: KASAN: slab-use-after-free in teql_master_xmit+0xf0f/0x16b0
+> Read of size 8 at addr ffff888013fb0440 by task poc/332
+> Freed 512-byte region [ffff888013fb0400, ffff888013fb0600) (kmalloc-512)
+> 
+> The fix?
+> Add a per-master slaves_lock spinlock that serializes all mutations of
+> master->slaves and the NEXT_SLAVE() links in teql_destroy() and
+> teql_qdisc_init(). teql_master_xmit() also takes the same slaves_lock
+> around those updates.
+> Annotate master->slaves and the per-slave ->next pointer with __rcu and
+> use the appropriate RCU accessors everywhere they are touched:
+> rcu_assign_pointer() on the writer side (under slaves_lock),
+> rcu_dereference_protected() for the writer-side loads (also under
+> slaves_lock), rcu_dereference_bh() for the loads in teql_master_xmit() and
+> rtnl_dereference() for the loads in teql_master_open()/teql_master_mtu(),
+> which run under RTNL.
+> Pair this with rcu_read_lock_bh()/rcu_read_unlock_bh() around the list
+> traversal in teql_master_xmit(), so that readers either observe a fully
+> linked list or are deferred until the in-flight mutation completes. The two
+> early-return paths in teql_master_xmit() are updated to release the RCU-bh
+> read-side critical section before returning, since leaving it held would
+> disable BH on that CPU for good.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: zdi-disclosures@trendmicro.com
+> Tested-by: Victor Nogueira <victor@mojatatu.com>
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 
-So do not propose for 5.10 please.
+Looks good, thanks!
 
->
-> Second, this patch set is primarily intended to fix CVE-2026-46054, but
-> it seems that for lower versions to implement SELinux checks for overlay
-> mmap/mprotect checks, some dependencies are unavoidable. In such cases,
-> should we add more tests to reduce the risk and integrate the changes,
-> or should we simply not fix this issue? If more tests are needed, are
-> there any recommended test suites?
+Please note that sashiko/gemini found a pre-existing issues which may
+require a follow-up/separate fix:
 
-I have concerns.
-The burdn of proof is on you.
+https://sashiko.dev/#/patchset/20260628111229.669751-1-jhs%40mojatatu.com
 
-Thanks,
-Amir.
+(the 2nd one in the above link, IDK how to generate a direct link to a
+specific comment)
+
+/P
+
