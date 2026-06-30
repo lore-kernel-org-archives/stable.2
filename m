@@ -1,149 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECF43603D5;
-	Tue, 30 Jun 2026 02:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E4C3502A8
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 02:13:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782785182; cv=none; b=mQRpPpUrn2mQzN0LCdZNJhvNadI+VLEc/zO3pxkJ4AbnMQqS9+uCGJnEJ+clp3voJRhyn5yytQ1MhasDynRcmhc9RUkwln3sIcWsxUfbML1S433cOacm+HsN4LGKNKdN75OcGrTR1lFFLTS4hA43gIrW1uO3UDwK4P6XymeYHnI=
+	t=1782785601; cv=none; b=Sueh7f1NIBJxNejDR+Y0hD1l7U2aSyXJQDVh99wZNRS7vVYRuCWP5Z25/k+jkQ6A74USpjnlj+g7vgi4THCHnNDeqqZnWY5vqq0vbFbOecfhzbUKXxldhUz7Iru4VvjOpPFEh/jJWplVfPfI4AhUOdZnpi3ZsER7EG4U8AYmuW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782785182; c=relaxed/simple;
-	bh=qcjlqVgMBng3JrMXXt6dxNGOaJrJtFMJOrdR3IdfZ0M=;
-	h=Date:To:From:Subject:Message-Id; b=fDXc8p4sWawbFJtlaVa2616fzjRinSWiGzAH7teB7lDWN5f6b2tvn6Wnjk00oLCNFPGfLI4tu/dMI2v79Rzdx31p++cXS6/MLV8x8ymujKprr0FMxiVvMjMO2/Llf2f+A4ZEk8y1GI3/sSGJsnEb/jXGmnymkUH5kd1Uqf3/KGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=MaHVsk1b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782785601; c=relaxed/simple;
+	bh=qLzTEG0vAb1fVHHleYCIHVSPJN5rRtgS8VUpHiPqUss=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cD/S8X1NDn1eF0vIfR1U1pNO3+/yRaF8L+Gp25r5HOF4nokY6vNdlU6/sSpZLs0KUQVzHWBzgYBmm2g67WI8MZ2eUthCNz8O3bVpnXvxSuffFcHeyMdGeNcD1M9Ktb5CRUICGT89bsBmKvhncW1Kc+q+XKklmNkeM+nI3+ulLE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=usp.br; spf=pass smtp.mailfrom=usp.br; dkim=pass (2048-bit key) header.d=usp.br header.i=@usp.br header.b=XUE+hG7g; arc=none smtp.client-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=usp.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=usp.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="MaHVsk1b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114B11F000E9;
-	Tue, 30 Jun 2026 02:06:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=usp.br header.i=@usp.br header.b="XUE+hG7g"
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-13981833e13so4844671c88.1
+        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 19:13:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1782785181;
-	bh=VMY5q02TSLKXORYGWu7qp70GTD2mddMdf9wKurdFhJk=;
-	h=Date:To:From:Subject;
-	b=MaHVsk1bYXm41TLFk+IU7o89kc9ZgXvIuvhk0HL3QAvQ98C9ZolqAZxIA8fDFT7xe
-	 8nmWJLI+EYJ8Qm5+XKpT53moEgyOQLSJ1cQ7te8A9JdoZItoK2N3ZGSCGHeadAl2SK
-	 igUkCieJE93w6FPpKuhg65D6+jJztnbGTdf4Veto=
-Date: Mon, 29 Jun 2026 19:06:20 -0700
-To: mm-commits@vger.kernel.org,yuzhao@google.com,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,rppt@kernel.org,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,jackmanb@google.com,hannes@cmpxchg.org,david@kernel.org,ziy@nvidia.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-page_alloc-free-allocated-pfns-if-the-range-does-not-match.patch added to mm-new branch
-Message-Id: <20260630020621.114B11F000E9@smtp.kernel.org>
+        d=usp.br; s=usp-google; t=1782785597; x=1783390397; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uHXvlgwhzgwaNu3wblp/hnWeWlO47iBmvx2wTGsjZzQ=;
+        b=XUE+hG7gXFDxPMdTtrPy+a/YBJLdF1Faeso1sX5Hy40XnTaydijuoClKaHzQLaiZH8
+         CAcGQCBsr++uBwaWnlacj5l4zLJJZYdPCMj2lFz4DAM2QidXqcjpldwueb9J/Vkxpj9J
+         Orr05ndHlbaopQuE6Z+U7Hrv2XZu0JLddQXfgVxkoQO7hwWiEXc64Qu7Vpr34OUzchiY
+         gSzC2opMqz8GAex0rCnIVmMJixEFQybEFE29x5WcoIirvVf+gtl7vGYOlMQHU9eskRtu
+         mz7di3+KwJ1nTyerPVgkqzyDiZUtBgw5qfqTZ3SvUrX51bZAjsFZCQQqmo5ld/iT88nc
+         bGLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782785597; x=1783390397;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=uHXvlgwhzgwaNu3wblp/hnWeWlO47iBmvx2wTGsjZzQ=;
+        b=ccgn4upZlcUicS7R+sSPTRQFpsajLe9DeET/2zULVSWuPrj0bzk4XGsgU457JSAyEX
+         4zM3h6ds0BRq6mttwc8T7VFe8bnWwXQL+U+e9A611p+MbqL0cbq1rqTjE5hxZ9FljYO3
+         Q/pcJkDxdnOjYrW1AGDMAWB9JPykQ79ZGc5UgjX0+ygbyjx98esnBSb0Pp1J53giZrH0
+         9UrApz4RPIew+CKQrDFUx/20JIn7uT8xUg63Jr9yH+VAAuaRnuDsJXfu5g9cz56lv7TW
+         YNxviYDfBJtyClYc6qA8/0J1oP/OKJhgXHOy/NWtNCeAcHJmyVIj9AIRan6+6x+3fkDX
+         AaqQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro0mKBSGDZbli9R/XEyPAnCHt9nv7K4JrzZB7oShnkwk3eeFFxRfR+38hl4KCKae/fKs9kWpJk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoLwRj+5xOMwmwqTDDrNRpXQ1JX+gQzr7ZqMVI+cfNlEk+zjXs
+	2JmXEdyzUvsO/qCXy2XXAMR+6tQaZ7ikelwYpFUFL5IyECWag7t+jcHaLjuc0KVQDiI=
+X-Gm-Gg: AfdE7cmSYxKXJXVtXknI1dZSUYDdztC2pS0PeH7an7XkOJ62/ezU3Sl5xKkspfpFU8U
+	K91IZg9pjdEcGDglPy44E3xFD5EnKrJvzmvOmt4Cy5JB9ueZ4bF7SnLuA6+WGoO1NS8oaOnFrf/
+	SI8sCUhSxA1wo5+uUCfKfkoewX0JYXWdSP/Ju+UzLCdXwDwUpev3b/WyajmhGHV1ToD9TUqfrrb
+	sy239oapze3lal79gU5MmMuJhIc06OLXw8QQkZ5uXFvz3Q2GUUoSGqeNs1425v3kqjjlUFW5XFu
+	oYPsGqSCqp+5aF4HV5izZxdD9fFLRJ4S2oPd7hDF9hb/+mksSVpGf/GYIhUR2u+vdd+zYqqi4ID
+	xiicDpNesybQ7ahkzHKJ9KqjzWkh3VOvAfVt+C7mOAnqBoSu4DXJhUfyFYMb5vyegK1eAbbphZS
+	nMrQ2fT9JYVc9xCd+6JSYJsl3NujIOdQs7NNHc
+X-Received: by 2002:a05:7300:7245:b0:30e:c30f:fc53 with SMTP id 5a478bee46e88-30ee11ad71emr1226622eec.3.1782785597430;
+        Mon, 29 Jun 2026 19:13:17 -0700 (PDT)
+Received: from localhost ([2804:1b3:aa80:ec21:865b:5eb9:80c:c4c8])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-30ee32519aesm2311203eec.27.2026.06.29.19.13.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jun 2026 19:13:16 -0700 (PDT)
+From: Erick Henrique <erick.henrique.rodrigues@usp.br>
+To: jic23@kernel.org
+Cc: andriy.shevchenko@intel.com,
+	andy@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	joshua.crofts1@gmail.com,
+	linux-iio@vger.kernel.org,
+	Erick Henrique <erick.henrique.rodrigues@usp.br>,
+	stable@vger.kernel.org
+Subject: [PATCH v1 1/1] iio: dac: m62332: Fix regulator reference count imbalance
+Date: Mon, 29 Jun 2026 23:13:09 -0300
+Message-ID: <20260630021309.36636-2-erick.henrique.rodrigues@usp.br>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260630021309.36636-1-erick.henrique.rodrigues@usp.br>
+References: <20260630021309.36636-1-erick.henrique.rodrigues@usp.br>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+m62332_set_value() enables the Vcc regulator on every write of a
+non-zero value and disables it on every write of zero, without tracking
+the channel's current state. Because the regulator is reference counted,
+changing a channel directly from one non-zero value to another enables
+it more than once, while a later write of zero disables it only once.
+The reference count never returns to zero and the regulator is left
+enabled indefinitely.
 
-The patch titled
-     Subject: mm/page_alloc: free allocated PFNs if the range does not match
-has been added to the -mm mm-new branch.  Its filename is
-     mm-page_alloc-free-allocated-pfns-if-the-range-does-not-match.patch
+Only enable the regulator on the transition from zero to non-zero, and
+only disable it on the transition from non-zero to zero, using the
+previously stored channel value to detect the edge. Balance the
+regulator on the I2C error path so the reference count stays consistent
+if the write fails.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-page_alloc-free-allocated-pfns-if-the-range-does-not-match.patch
-
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Zi Yan <ziy@nvidia.com>
-Subject: mm/page_alloc: free allocated PFNs if the range does not match
-Date: Mon, 29 Jun 2026 21:35:33 -0400
-
-When using __GFP_COMP in alloc_contig_frozen_range(), if the allocated
-range does not match the requested one, the code errors out with EINVAL
-without freeing the allocated PFNs and causes free page leaks.  Fix it by
-calling release_free_list() in the error path.
-
-The issue is reported by Sashiko[1].
-
-Link: https://lore.kernel.org/20260629-free-pfn-on-alloc-contig-range-error-path-v1-1-496ff9ca22db@nvidia.com
-Link: https://sashiko.dev/#/patchset/20260628-keep-subpage-private-zero-at-free-v1-0-f4ce3930d10f@nvidia.com [1]
-Fixes: e98337d11bbd ("mm/contig_alloc: support __GFP_COMP")
-Signed-off-by: Zi Yan <ziy@nvidia.com>
-Cc: Brendan Jackman <jackmanb@google.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Yu Zhao <yuzhao@google.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: b87b0c0f81e8 ("iio: add m62332 DAC driver")
+Reported-by: Jonathan Cameron <jic23@kernel.org>
+Closes: https://lore.kernel.org/r/20260419144958.03394ed5@jic23-huawei
+Cc: stable@vger.kernel.org
+Signed-off-by: Erick Henrique <erick.henrique.rodrigues@usp.br>
 ---
+ drivers/iio/dac/m62332.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
- mm/compaction.c |    2 +-
- mm/internal.h   |    1 +
- mm/page_alloc.c |    6 ++++--
- 3 files changed, 6 insertions(+), 3 deletions(-)
-
---- a/mm/compaction.c~mm-page_alloc-free-allocated-pfns-if-the-range-does-not-match
-+++ a/mm/compaction.c
-@@ -88,7 +88,7 @@ static struct page *mark_allocated_nopro
- }
- #define mark_allocated(...)	alloc_hooks(mark_allocated_noprof(__VA_ARGS__))
+diff --git a/drivers/iio/dac/m62332.c b/drivers/iio/dac/m62332.c
+index 3497513854d7..b66b4c28859a 100644
+--- a/drivers/iio/dac/m62332.c
++++ b/drivers/iio/dac/m62332.c
+@@ -43,7 +43,7 @@ static int m62332_set_value(struct iio_dev *indio_dev, u8 val, int channel)
  
--static unsigned long release_free_list(struct list_head *freepages)
-+unsigned long release_free_list(struct list_head *freepages)
- {
- 	int order;
- 	unsigned long high_pfn = 0;
---- a/mm/internal.h~mm-page_alloc-free-allocated-pfns-if-the-range-does-not-match
-+++ a/mm/internal.h
-@@ -828,6 +828,7 @@ static inline void clear_zone_contiguous
- }
+ 	mutex_lock(&data->mutex);
  
- extern int __isolate_free_page(struct page *page, unsigned int order);
-+extern unsigned long release_free_list(struct list_head *freepages);
- extern void __putback_isolated_page(struct page *page, unsigned int order,
- 				    int mt);
- extern void memblock_free_pages(unsigned long pfn, unsigned int order);
---- a/mm/page_alloc.c~mm-page_alloc-free-allocated-pfns-if-the-range-does-not-match
-+++ a/mm/page_alloc.c
-@@ -7244,9 +7244,11 @@ int alloc_contig_frozen_range_noprof(uns
- 		check_new_pages(head, order);
- 		prep_new_page(head, order, gfp_mask, 0);
- 	} else {
-+		release_free_list(cc.freepages);
- 		ret = -EINVAL;
--		WARN(true, "PFN range: requested [%lu, %lu), allocated [%lu, %lu)\n",
--		     start, end, outer_start, outer_end);
-+		WARN(true,
-+		     "PFN range: allocated [%lu, %lu) does not match requested [%lu, %lu), freeing allocated PFNs\n",
-+		     outer_start, outer_end, start, end);
- 	}
- done:
- 	undo_isolate_page_range(start, end);
-_
-
-Patches currently in -mm which might be from ziy@nvidia.com are
-
-mm-compaction-handle-free_pages_prepare-properly-in-compaction_free.patch
-mm-page_alloc-free-allocated-pfns-if-the-range-does-not-match.patch
+-	if (val) {
++	if (val && !data->raw[channel]) {
+ 		res = regulator_enable(data->vcc);
+ 		if (res)
+ 			goto out;
+@@ -52,14 +52,17 @@ static int m62332_set_value(struct iio_dev *indio_dev, u8 val, int channel)
+ 	res = i2c_master_send(client, outbuf, ARRAY_SIZE(outbuf));
+ 	if (res >= 0 && res != ARRAY_SIZE(outbuf))
+ 		res = -EIO;
+-	if (res < 0)
++	if (res < 0) {
++		if (val && !data->raw[channel])
++			regulator_disable(data->vcc);
+ 		goto out;
++	}
+ 
+-	data->raw[channel] = val;
+-
+-	if (!val)
++	if (!val && data->raw[channel])
+ 		regulator_disable(data->vcc);
+ 
++	data->raw[channel] = val;
++
+ 	mutex_unlock(&data->mutex);
+ 
+ 	return 0;
+-- 
+2.51.0
 
