@@ -1,206 +1,120 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB04A279903
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 15:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782832387; cv=pass; b=en9UFRtDkH1h1QnJcu+z6WSAwZ1e8uejGfWLk53mNV0dwoxp917hhTb6xyWi5cAyhsqCB6gmha/P3EiX8TyyYx4lYviaV7Bb2AoHNyBqaoe1rWUhY14M6/ktV2DQtenvP1/oUNMd0KvmifdztdqwiPdYb3hJ8MznL/Q1aY0uw20=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782832387; c=relaxed/simple;
-	bh=BJYqFnL2vG71AIAqq+EbZ1KEewPN7ISeg84rZvQEiKQ=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536853502A8
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 15:18:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782832711; cv=none; b=NYHsNHDaTWE8HKPUmVSznhOlgjLYdJ3tMW4Nhi5bCq7mtyrJMXMGplD7kjTWmxedXA85CQWhydDFOCwRwDmxcpiupWQtgVDeVtXBqkcyTRkYZ5WBBVowWZGvJWWGls6n8wZlQfZp+tkbZc1D58Bwwms5G7EnSRA8mtvU/8q/4w4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782832711; c=relaxed/simple;
+	bh=N/Zi+rWJkX+vGnzQXQfq1XW3GIG775X83OLKitFptWM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qiv2MseC67N94iEOLA+Dqbc4tryuIRnzkTsUaPrCtgF/CO4FtqkXGMmPiGlkDwKHFx2rUgG1FCqbUxmJYrw5jieRxwHpbdjf142rv7UVjhK2nGfZ19o8XIcjfy3BPvLCifzGU1kw2YoKCoLcJ8oXPpNeKmDrYNhU/03HGyBKWQc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=u0IPYxCK; arc=pass smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="u0IPYxCK"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c85c531d4a9so1849576a12.2
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 08:13:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782832385; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NR6ESCbGqdTe+KiKPhZLbRjUGYDHM2tELMZW0OpuSU2uTRRjBNELEnBNQVLz+9ab9S
-         2BWcdrH0hHC9usKsjs+WGT76/OZSoNpy6SA9PZEoLZhor2QjSgvAPu+0HifvvyGUmMqN
-         TxVB0x37AyNsG3J916+LpO5rha7BR+MIc+RtM6Y9uWUwyeSJqSpPIckax62pD1q6U+9Y
-         UbDUNmdIG4RXtOsh63YaBdMpWp+AXxiHOdQCTBYU4+tKmR+tgoB+6qF+AnjKj8nz64Zf
-         nXSBN4L/PryH9fiGhVEmHGMGmSubDTz5USCFwQn9eBKQksVetCtuP0JNPWxTt/zZ7+mK
-         FtVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BJYqFnL2vG71AIAqq+EbZ1KEewPN7ISeg84rZvQEiKQ=;
-        fh=Lk5BldHHmc9LchyYLLoniVTZgKtWdQhTKlFjVaqBqxA=;
-        b=AOZSvPoZHYZc4+W7ymZehO1O954Bje1YesX8fOAq0jlLRw7GbznqthGzjXBML6dQJQ
-         hzFYxpuB74/swhg+MlygIAKj/PuqDnAj1tPP1+AkWBa4edG+0xjk12F58qeBNVvzEwAp
-         +f+598LoLRi19giQuOxCF7tg+RLJP927LHQqgFuefF35bYbQYBxxvP7kIF7xsThlhsoU
-         u95Lhjd5iQKH7Inm/N4yDqoczmqkLulhpY1n8Tm0MfvY0GZYFym5Zi8+WrWBkAYQnpMP
-         VXScHJcthzZxMorQHXaHm1aBKtJBOlsfX9DAHvf26raktcrIMzQGb5JG0ZevfFsY0KX/
-         HfRA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1782832385; x=1783437185; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BJYqFnL2vG71AIAqq+EbZ1KEewPN7ISeg84rZvQEiKQ=;
-        b=u0IPYxCKGJAuEgUYMjWBG2ou/o00l2/OmyMv8Ly2jdrVfYDtudr5vkrDcQdsbaG3pg
-         qO96WJ/e0yQm05m0iXnd5v0DgiTpJSO5431M95fsZIARe7pzzsqId/sv+p43YbRzsyNg
-         1Bxp8Gk8Ethw/oPP5fJBbTX0luOYmH9p6tDV8=
+	 To:Cc:Content-Type; b=KVYKHBkcHi2N6VT+9HQsa8AncDcmuz50MftADNIuAEIQDjs3OM9KVuliXnTf3owyQ/jbQqZEAbxau5AugHkqOPBL5qD1hJFhp6sIw0S8pcqUdS3oEJ69QxEj4RawD07DmlAtTMphsMARVV+kRUHBIj/H19bsPii3TetV0TRCkfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c0868ca8738so735442866b.0
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 08:18:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782832385; x=1783437185;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=BJYqFnL2vG71AIAqq+EbZ1KEewPN7ISeg84rZvQEiKQ=;
-        b=Wm4CsOdwYLc1WezLcDdVy3H44n59MG/8ENCD2vkFV4wzYWCfAyAWLqrcHYuFNrQtm7
-         UbxWum1I7lZ7IbhSQ0T8LT/+5jlEAMhIlaglla6qXtrftKeYKk9feofpGJiSrVHJ0zBk
-         yt8StMZ6yXWRiaB1GhNGPfoPNiYWmSDCE44e2hTtvFn7V4Mqnd+4kfVBSiCl4+qZS68q
-         nMpqLiyM4VH78Prj2w2IjonPfbkAgqTIGUlGJ25l6vJcxdSx6jMEzKlylL5lhaQUEnjE
-         xA0fc7glExlKtXXVKveX1a9zcF0Fo6rwrEgPDS5OVHh4fLP3lt6+BGTRePanMm7ykLk9
-         x6fA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro4AXjlZgCvWmq1HT3lOro0hpp0QGoR6leiPkcZb4Z9HwSWidGwc6gwcisjmK0J3RL/UQWlMi4=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3EkpEVQbDn6/ExFU0lG6MmjPzYmguUDtvDHcUOEOK0qOSJfVr
-	Cjy9hH+MJ1fb2vGKg5qAw+60ealXwY4ogpUJSNVmK8wKL6m6NMA7FZnefmIKpMesG6i+V/7dNJK
-	3MXpq2k2wG01wfF5Q821dVD8ocAomkMqyr4ELgxfo
-X-Gm-Gg: AfdE7ckUQYON8nnzbHFLQlLebYVB2ZKqBmnvOqNfHrDDrsG92/ld7kR28Z2xI/hlOvd
-	RZweqxvBV/kVX+ySSFHOvy0A/567UzuldNNNZMFBGjNvRcbCDBWALYJZpMhXk3V1fapXu2pflP9
-	leppMY4pZgD3b2bUnY5JRF47HHrt3V04T/AjKZQZFR0aAFJBB7j70N3yBaFQPYzxJV+KvbDOJTW
-	atUAE0MEQbTBVyqO6Uv3VcGTI0So5f/LT8+q8QGswwOHMQJfgmseyLryr3k+A2F1xPhs2D99w==
-X-Received: by 2002:a05:6a00:22cb:b0:847:8449:2bb6 with SMTP id
- d2e1a72fcca58-847add5ed31mr1031837b3a.4.1782832384500; Tue, 30 Jun 2026
- 08:13:04 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782832708; x=1783437508;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=u/KBEaRwzQxEmv419xD4ZZ9bpbQPWDLZFF8bQ7NEZ/M=;
+        b=nyDgTghmDQk2ChSMj5NJzLbkn+szJLbsCI9SqjcD1wYsCr0fgwRgyfRx1u5pxqQuPz
+         w8E35uiCfsdVlIdRwUfyp6C7F4KhuMIaP88IAbN3eoEMBwXbs+51bOC312ctMPjpPSNF
+         G5k958hBCfvqP82F5cidhWuum6WENF4zIERQMxSEhPbOtOqcb5waYOzrW5/vMohqPEiQ
+         2uTIqRcsOuI3Loct6jo9aJyo3mfFv7TsyN4Ua5g3GQs2Uub+z2aBj7+HVQFjXslaB2/l
+         +3YUd3uspzniYENG81t9PD/x/7Kf+eGIxC3jDgUW2o9muoWm21dINEgD3HegVMCq1vKg
+         GIVw==
+X-Forwarded-Encrypted: i=1; AHgh+RpleuzCXFA6/RBc7AVGxoaNdSmmachToU9rjpTcvMSBpg20Od6OAVdvl6fMQ9Bp7wdyEMro97E=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxT/ViL/aLS9UlGVS9fIy7uqCJkPdQR/k21X7LcV+WUF17GL4TR
+	6jDNzcXYUpY4Go63N+G8cOc0XK4ywv//IZty7sr3b224+4Wyvfm/nt88BwZDPkJ2lRA=
+X-Gm-Gg: AfdE7cnuV3T9pU8lcfmtLJyAClU4DM6nwiuCfUlDRWqo1vcjsIKF6VyZMaGJam4Eh1J
+	W0QFjfUYkayi/M5LHvShEIz23l5syTJItJvWlC6HxeAohcjkPaQ2axBJp+qFOhdRT2N06G+YDCr
+	nrLUeoJw2MlaIGMpIdinPuDsX71duRXr1CDJBZMTt9VaBX1VEJRgUXgi7bH00YX7zF+ukYHU3I+
+	D8B+QWoZPiVJVXH5kDeE8M5Xh7qtQBdK1kix3k3fShX2Bvh7mBah6w6p8K+8RuQZ9ueYbk1bv9b
+	V8xTNLCd2TAX/uFluHAt5BWQZGNJ6p6IT973S0XdrdYAX3AzVPQ4mFlz6lnRgtGdfHEkoCYHhXg
+	Mca3bS+C3sPNEELjNJ3znKFB/28iMiQGDRYCSP/YODufQLB0FdXEkYFak9uj5P4LtrffiakzXfr
+	S1GGwdFrRR01R7bTEX8rZPojXnQURBYuEzve9uYPdBqRHX4NoWRw==
+X-Received: by 2002:a17:906:4fd0:b0:c12:3e8e:2ac1 with SMTP id a640c23a62f3a-c12982ad2bcmr51898766b.51.1782832707556;
+        Tue, 30 Jun 2026 08:18:27 -0700 (PDT)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com. [209.85.208.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1288f0cc2asm146367366b.33.2026.06.30.08.18.26
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2026 08:18:26 -0700 (PDT)
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-697edb1bf6eso6765190a12.1
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 08:18:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoeYw7d7btzchjzjI3jQbDERKBh4tOCQAsOLOr2jylR6/gzeNW1xhz3ud4xi5r0eiJTVM4CYk8=@vger.kernel.org
+X-Received: by 2002:a05:6402:4490:b0:698:48c4:361c with SMTP id
+ 4fb4d7f45d1cf-6988786091fmr817966a12.28.1782832706307; Tue, 30 Jun 2026
+ 08:18:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260628111229.669751-1-jhs@mojatatu.com> <de40b1a5-663e-43ab-9fb7-5a49f029cc4b@redhat.com>
- <CAM0EoMn-6Ayjd3mxsiifDXwN1zdefx9eiRk_wWRpsuEh22LziA@mail.gmail.com> <3dab7c8e-aed3-41f2-97e0-558c7a82f925@redhat.com>
-In-Reply-To: <3dab7c8e-aed3-41f2-97e0-558c7a82f925@redhat.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Tue, 30 Jun 2026 11:12:53 -0400
-X-Gm-Features: AVVi8CfDVmG9Z4yADXh5AS1CG7Y0BA3PaEb22keblCHUYnyd1XomuuYfPnXpfXM
-Message-ID: <CAM0EoMmzrJHLzFczYsXGcr7oEJ2-TSrkPVJJa4ROwPwA+MFj3Q@mail.gmail.com>
-Subject: Re: [PATCH net v3 1/1] net/sched: sch_teql: Introduce slaves_lock to
- avoid race condition and UAF
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, horms@kernel.org, victor@mojatatu.com, jiri@resnulli.us, 
-	security@kernel.org, zdi-disclosures@trendmicro.com, stable@vger.kernel.org
+References: <20260513-panhandle-ashy-70c6abf84d59@spud>
+In-Reply-To: <20260513-panhandle-ashy-70c6abf84d59@spud>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 30 Jun 2026 17:18:13 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXnkeantjtoMg+3unfP8ZSeG+7K+EGkn48=BEi_RWENwg@mail.gmail.com>
+X-Gm-Features: AVVi8Cc1NkuZmAxV303oD2tKXfYtzTdOGchmD-0yx3VkueavnJtU938JZF73YgY
+Message-ID: <CAMuHMdXnkeantjtoMg+3unfP8ZSeG+7K+EGkn48=BEi_RWENwg@mail.gmail.com>
+Subject: Re: [PATCH v1] rtc: mpfs: fix counter upload completion condition
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>, 
+	stable@vger.kernel.org, Valentina.FernandezAlanis@microchip.com, 
+	Daire McNamara <daire.mcnamara@microchip.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 30, 2026 at 10:12=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wr=
-ote:
->
-> On 6/30/26 1:49 PM, Jamal Hadi Salim wrote:
-> > On Tue, Jun 30, 2026 at 7:15=E2=80=AFAM Paolo Abeni <pabeni@redhat.com>=
- wrote:
-> >> On 6/28/26 1:12 PM, Jamal Hadi Salim wrote:
-> >>> The teql master->slaves singly linked list is not protected against
-> >>> multiple writes. It can be mod'ed concurently from teql_master_xmit()=
-,
-> >>> teql_dequeue(), teql_init() and teql_destroy() without holding any li=
-st
-> >>> lock or RCU protection.
-> >>>
-> >>> zdi-disclosures@trendmicro.com has demonstrated that the qdisc is fre=
-ed
-> >>> after an RCU grace period, but teql_master_xmit() running on another
-> >>> CPU can still hold a stale pointer into the list, resulting in a
-> >>> slab-use-after-free:
-> >>>
-> >>> BUG: KASAN: slab-use-after-free in teql_master_xmit+0xf0f/0x16b0
-> >>> Read of size 8 at addr ffff888013fb0440 by task poc/332
-> >>> Freed 512-byte region [ffff888013fb0400, ffff888013fb0600) (kmalloc-5=
-12)
-> >>>
-> >>> The fix?
-> >>> Add a per-master slaves_lock spinlock that serializes all mutations o=
-f
-> >>> master->slaves and the NEXT_SLAVE() links in teql_destroy() and
-> >>> teql_qdisc_init(). teql_master_xmit() also takes the same slaves_lock
-> >>> around those updates.
-> >>> Annotate master->slaves and the per-slave ->next pointer with __rcu a=
-nd
-> >>> use the appropriate RCU accessors everywhere they are touched:
-> >>> rcu_assign_pointer() on the writer side (under slaves_lock),
-> >>> rcu_dereference_protected() for the writer-side loads (also under
-> >>> slaves_lock), rcu_dereference_bh() for the loads in teql_master_xmit(=
-) and
-> >>> rtnl_dereference() for the loads in teql_master_open()/teql_master_mt=
-u(),
-> >>> which run under RTNL.
-> >>> Pair this with rcu_read_lock_bh()/rcu_read_unlock_bh() around the lis=
-t
-> >>> traversal in teql_master_xmit(), so that readers either observe a ful=
-ly
-> >>> linked list or are deferred until the in-flight mutation completes. T=
-he two
-> >>> early-return paths in teql_master_xmit() are updated to release the R=
-CU-bh
-> >>> read-side critical section before returning, since leaving it held wo=
-uld
-> >>> disable BH on that CPU for good.
-> >>>
-> >>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> >>> Reported-by: zdi-disclosures@trendmicro.com
-> >>> Tested-by: Victor Nogueira <victor@mojatatu.com>
-> >>> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> >>
-> >> Looks good, thanks!
-> >>
-> >> Please note that sashiko/gemini found a pre-existing issues which may
-> >> require a follow-up/separate fix:
-> >>
-> >> https://sashiko.dev/#/patchset/20260628111229.669751-1-jhs%40mojatatu.=
-com
-> >>
-> >> (the 2nd one in the above link, IDK how to generate a direct link to a
-> >> specific comment)
-> >
-> > I just sent v4 which covered that but i will send a followup instead
-> > if you already applied.
->
-> The PW bot is went on vacation and no 'patch applied' notification is
-> reaching the ML; v3 is already applied.
->
-> > BTW: What is the ruling on when Sashiko finds a pre-existing issue?
-> > Should we address that as a separate follow-up patch? It is unclear
-> > what the policy is.
->
-> The general guidance is that pre-existing issues should be addressed
-> separately.
->
+Hi Conor,
 
-Ok - i think it would help if this was documented somewhere..
-
-> > This teql patch was one of the hardest to deal with in terms of
-> > reproduciability and the fact sashiko kept coming up with pre-existing
-> > issues - including the one Simon and I were discussing. Note: None of
-> > the pre-existing issues affected reproducibility at all although i am
-> > sure one of the AI-kiddies reading the sashiko reports will find a way
-> > to create a poc (this is why i entertain fixing them when they look
-> > simple enough)
-> Not an ideal situation both ways (which is increasingly the case).
+On Wed, 13 May 2026 at 20:04, Conor Dooley <conor@kernel.org> wrote:
+> From: Conor Dooley <conor.dooley@microchip.com>
 >
-> Addressing incrementally pre-existing issues can lead to an huge/endless
-> number of iterations when touching some unfortunate area (4 is _not_ a
-> big number ;) delaying the actual fix indefinitely.
+> The condition that needs to be checked for upload completion is the
+> UPLOAD bit in the completion register going low. The original iterations
+> of this driver used a do-while and this was converted to a
+> read_poll_timeout() during upstreaming without the condition being
+> inverted as it should have been.
 >
-
-Agreed. I guess i get anxious the AI-kiddies seem to be following
-sashiko and as soon as it complains about something they immediately
-followup looking for new vectors and i feel like i will be going back
-to fixing the next issue ;->
-
-I just sent a followup.
-
-cheers,
-jamal
-> /P
+> I suspect that this went unnoticed until now because a) the first read
+> was done when the bit was still set, immediately completing the
+> read_poll_timeout() and b) because the RTC doesn't hold time when power
+> is removed from the SoC reducing its utility (I for one keep it
+> disabled). If my first suspicion was true when the driver was
+> upstreamed, it's not true any longer though, hence the detection of the
+> problem.
 >
->
+> Fixes: 0b31d703598dc ("rtc: Add driver for Microchip PolarFire SoC")
+> CC: stable@vger.kernel.org
+> Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
+
+Thanks, this landed as commit 9792ff8afa9017fe ("rtc: mpfs: fix counter
+upload completion condition") in v7.2-rc1, and finally the endless
+stream of:
+
+    mpfs_rtc 20124000.rtc: timed out uploading time to rtc
+
+is gone!
+
+And no, it didn't go unnoticed, at least not for me, but you couldn't
+reproduce it reliably before:
+https://lore.kernel.org/bce2ca405ef96b1363fd1370887409d9e8468422.1660659437.git.geert+renesas@glider.be/
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
