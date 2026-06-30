@@ -1,228 +1,299 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8EE41325B
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 13:17:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96AC1410D38;
+	Tue, 30 Jun 2026 13:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782825459; cv=none; b=UrkNMHrzOV2vdOKRWo6jQDHvWD5+bXTCvLw4jjcA9pWarjZ3EkdWQXCjpVlaa9RMLxTKo6ut0n9fpo6H96wqIpwe2zcoykz2i0BUMLu4lBy6axIjjkL0tHYRqHbipkBLOF/RjxMzqcnZkG0PnEf7JDhJc0R4hx9Bz63GYSVrNjQ=
+	t=1782825671; cv=none; b=UVBOAqoC2dIrtZjQW0J0spERAvuX5GXqhp6zHH/QXg6nsz4F2ohtWIwvhDl2RDJTP8q+LOov9bYp7o3ixoYD4VztwHmjJ3T2c3unozNbGChJSsPRr07mMWQCkhz+SHAknD5F1k7x/WobsTJg4dy7aieU06r0654p+nP2N8hcU+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782825459; c=relaxed/simple;
-	bh=xJzJE6JcIfh29mENEET4zmI5xlhI0ypkw6NGz/Hgyj8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z7eUZh/gClwXvqI9TTvoMbakmBs0l0jiCPv3TNn95SXY5KVn9bKxnvo+qZSEuAXXPgNwaiLHgeZFxiJuKx9CoDMdgo25ugxxGVlPyHvn1yQPEwu2VxPpk6ujqgQQygYKAis6htP3PQ3/msKCL8bh+W7rF6Bd2H29jAjrrK9ockI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FyUM/KTH; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1782825671; c=relaxed/simple;
+	bh=SNzP2DjFn4VgsiVDGK1FmH+yk6bNgbKDu9jbFZf0dIg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A26DpBzo8HAYN9QYMuifzM5TrWFDGu1sx5bIIETLYOjqyot/yrj1xVRc4ivA0vwLmcjExeb2GJf7nhI3NPpY9xBjYR9w5P7nQfMJ+YO7uVdXnBlJkCA7/S6rauO+Ke+DywDIdXyFesxhW+mQc1m4lgAFzuhG71Woh5Ie5NJ1GmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ViR5tEe9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FyUM/KTH"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-493b8d92a4eso43015e9.1
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 06:17:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782825455; x=1783430255; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lMFOK57Iz7WMkmkcRIKxg4m8SX0OyWW/vWHhXqpi1uY=;
-        b=FyUM/KTHLdWRtXooJVl7dFEnhlPZA4uCsW8hp+PFo2JbtCKMFHuQRD/15GqBkyaPcI
-         ucSpz8EZso8Zy1psDwiy5w7636Ipff5Vm8j77jOrqoIVbfbDPozMh+0jr8XzLA7KyJRG
-         2Lv/AdUM/i+tABJHhj7Vn4MlX9pyAs/AGmhBa0M87ANQ1hQsOA/EfBcGtpTiKnDcsBdt
-         Hqk/Ja8LjpHdqX2HrxNRL2YCTh7S0tOGbdApI6HeccIX0cNUbHsC6Unh76jj0XJrQ4H7
-         PZQpJldS28XLs+kE6WW5pad9sRP7x9x3yIAFl3s28ZFLhWt4JFtzK1AGKfvNc1/uRvGl
-         mAFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782825455; x=1783430255;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lMFOK57Iz7WMkmkcRIKxg4m8SX0OyWW/vWHhXqpi1uY=;
-        b=fv7N3Niy6Fijy8g/36n/SilvOQCp/x/BJrrgrH4rsiGUecQ2Vuol13/jOKvwSWPQPW
-         exPJzf0LNA9YwQPZlIjAnzXwTRfIemHxQA2EkU/rrNDwgd4CG9NeyLiZ2p+nQwOSSD1S
-         H+2J3K/9orH1dPw3HrTElZhu6a9cs2G95Km1ElfRqV8Sn5/TMapqPUP3wUWl7wJDa14U
-         6fAO5OHfg0QtUe+CuKyvsUIKKXEuxaWVZ3A+7I7ALbDv8jGu8t7opgI/fq/dsZta1j4A
-         nVNWrp1W4txZ8i7zOfJ6hrpZVxYqcEmXkKzPwppMmHsSnSk564n3aJyZ5bXIo2uTSIwS
-         VfNQ==
-X-Forwarded-Encrypted: i=1; AFNElJ90I6uoAuwfCOE/c/Zf69q24kb6GQXNm5HsZahzXJGDUjOYfAFAfnPI7ZT0LHwMj5sQAj95i54=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzCebUfE1Ag/QAgKft4uA/iQuI11Cr5J+buyQZF+8M1LiGHp947
-	8Vx46pGLpMHkmXxHYHBv81Ed9G2GJeaJHby+Nnj8+DT+5muuofdHOkOF12s5pXBATg==
-X-Gm-Gg: AfdE7cnrRt8/QQ/r7Pe+cTAkQ9/HKvx5rf71n9mxE4zEPUvTZyRHhS0+Vssx5OMz6fj
-	y8qZkEHPVfC5clmqbFpoHoUQgbAEOWWrIyfwsrX/yntqsQ49q5nWNqW6zaPFIhG06VE4xJWPDZv
-	aucScTUwC8gnC/eSAt6cbE6/aNDkur4t1rcZuVdvmlUGu+zbzp/mgZeqZlCLjonI+VAZjqzS/Ag
-	Q/kmWTolOC9+sFhqVLjPEJS3r3vFvoWLxKb9fllG1fxeLPOUN3Ir9WRoUYbazay7hn4WRJlL+rp
-	Dxf9LEtxvt1rGfrg3fLGaIp8XvHV2yQ0zJjulQ8TM3obLs7hgL2qMn51fHodvyHA+knYQYE10FL
-	ZSlCMaG9z4bUqe7UM4Ex9avMJBLKt+t88JScwhL8p2B4Doo2mNpOMd2y/zzZ5PcyfWUZ0taUfTV
-	97CmmTv0UUYztkHI7kOOFJsgoXZ+HKSUusMSLYvDwX0pvFl1f/AYs=
-X-Received: by 2002:a05:600c:638f:b0:493:ae5f:d29f with SMTP id 5b1f17b1804b1-493bde0d921mr57485e9.3.1782825455000;
-        Tue, 30 Jun 2026 06:17:35 -0700 (PDT)
-Received: from google.com (140.240.76.34.bc.googleusercontent.com. [34.76.240.140])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493b8d0496csm63329035e9.10.2026.06.30.06.17.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 06:17:33 -0700 (PDT)
-Date: Tue, 30 Jun 2026 13:17:30 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: will@kernel.org, robin.murphy@arm.com, jgg@nvidia.com, joro@8bytes.org,
-	praan@google.com, kees@kernel.org, baolu.lu@linux.intel.com,
-	kevin.tian@intel.com, miko.lenczewski@arm.com,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	jamien@nvidia.com
-Subject: Re: [PATCH rc v7 0/7] iommu/arm-smmu-v3: Fix device crash on kdump
- kernel
-Message-ID: <akPB6l-fuJUcg4a2@google.com>
-References: <cover.1782799827.git.nicolinc@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ViR5tEe9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D736A1F000E9;
+	Tue, 30 Jun 2026 13:21:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782825670;
+	bh=ZiIJ8GV2JhBDL2sR36Ko1hUN+wUPw/2B1JzsbAesMnw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ViR5tEe9pQowEE6SWjL7DcTOtwKvWBFg+rTSGaT8Hv39E8QcZB4hIcVhzq2UmVwWm
+	 NPEQS6RdNFqVa3eLAb5i/TMz0U+KM7p1C4hZXP+68DTJbFNtmhV2Up4JZJRmnuOtsl
+	 VYvG0Md4pLX6/d9s9edtblrMV9rCQQX0Gz53WMPXtmCIOPZ30q/43HzlC2EhRt6hge
+	 QGbALK80d+Vdl1GXsxrWqf68Be7jMNMstX2fMCRzVmb4SaxX7473qihH2jqG5VplXF
+	 /4LrpFtXeRwTWbqfh6rDUu7LISrRM6XYWznnIS0cxASBziAtYI1/C2s8hkzZPqiz5H
+	 CLH1X5WisZ+/Q==
+Message-ID: <5327bf8c-270e-4650-8f44-6026dce36457@kernel.org>
+Date: Tue, 30 Jun 2026 15:21:07 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1782799827.git.nicolinc@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] media: uvcvideo: Fix race condition for meta
+ buffer list
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org>
+ <20260629-uvc-racemeta-v2-1-10e91d2afba0@chromium.org>
+ <a0e4d412-f0bf-4415-9e4b-2c6347bf8c69@kernel.org>
+ <CANiDSCtv_ZmTWUzbuxuEy0JmLmFs2Wqj31O3neGZ4ee=p065-g@mail.gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <CANiDSCtv_ZmTWUzbuxuEy0JmLmFs2Wqj31O3neGZ4ee=p065-g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jun 29, 2026 at 11:15:33PM -0700, Nicolin Chen wrote:
-> When transitioning to a kdump kernel, the primary kernel might have crashed
-> while endpoint devices were actively bus-mastering DMA. Currently, the SMMU
-> driver aggressively resets the hardware during probe by clearing CR0_SMMUEN
-> and setting the Global Bypass Attribute (GBPA) to ABORT.
-> 
-> In a kdump scenario, this aggressive reset is highly destructive:
-> a) If GBPA is set to ABORT, in-flight DMA will be aborted, generating fatal
->    PCIe AER or SErrors that may panic the kdump kernel
+Hi Ricardo,
 
-Can you please clarify more on those errors, what conditions will
-trigger that?
-For example, patch 4 disables the EVTQ to avoid events as there might
-be a lot, why are they not fatal also?
+On 30-Jun-26 12:17, Ricardo Ribalda wrote:
+> Hi Hans,
+> 
+> Thanks for the prompt reply.
+> 
+> On Tue, 30 Jun 2026 at 11:47, Hans de Goede <hansg@kernel.org> wrote:
+>>
+>> Hi Ricardo,
+>>
+>> On 29-Jun-26 19:31, Ricardo Ribalda wrote:
+>>> queue->irqueue contains a list of the buffers owned by the driver. The
+>>> list is protected by queue->irqlock. uvc_queue_get_current_buffer()
+>>> returns a pointer to the current buffer in that list, but does not
+>>> remove the buffer from it. This can lead to race conditions.
+>>>
+>>> Inspecting the code, it seems that the candidate for such race is
+>>> uvc_queue_return_buffers(). For the capture queue, that function is
+>>> called with the device streamoff, so no race can occur. On the other
+>>> hand, the metadata queue, could trigger a race condition, because
+>>> stop_streaming can be called with the device in any streaming state.
+>>>
+>>> We can solve this issue introducing a flag, stream->meta.in_flight,
+>>> protected with a spinlock. When there is a buffer in flight that can
+>>> write into metadata the flag is raised, notifying the stop streaming
+>>> that it needs to wait.
+>>>
+>>> Reported-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>>> Closes: https://lore.kernel.org/linux-media/20250630141707.GG20333@pendragon.ideasonboard.com/
+>>> Cc: stable@vger.kernel.org
+>>> Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+>>> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+>>
+>> First of all thank you for looking into fixing this.
+>>
+>> I'm sorry, but this feels more like a band-aid then a proper fix.
+>>
+>> How about adding a started bool to struct uvc_streaming which gets
+>> set to 1 by uvc_video_start_streaming() and 0 by uvc_video_stop_streaming().
+>>
+>> And then call uvc_video_stop_streaming() from either
+>> uvc_stop_streaming_video() or uvc_stop_streaming_meta()
+>> depending on which one gets called first ?
+>>
+>> With a mutex protecting the started bool and being held
+>> over calling uvc_video_stop_streaming() ?
+>>
+>> So stop the actual hw streaming when either of the
+>> 2 possible /dev/video0 nodes gets its vb2_ops.stop_streaming
+>> callback called?
+>>
+>> And to this before draining the buffer queue.
+>>
+>> That seems cleaner then this approach?
+> 
+> Assuming /dev/video0 is the video node and /dev/video1 is the meta device.
+> 
+> Currently, we support something like:
+> 
+> 1) yavta -c /dev/video0 &
+> 2) yavta --capture=2 /dev/video1
+> 3) yavta --capture=2 /dev/video1
+> 4) kill %1
+> 
+> 
+> If I understood correctly, your proposal would cause the camera to
+> stop streaming when step 2 completes.
 
-> b) If GBPA is set to BYPASS, in-flight DMA targeting some IOVAs will bypass
->    the SMMU and corrupt the physical memory at those 1:1 mapped IOVAs.
-> 
-> To safely absorb in-flight DMA, the kdump kernel must leave SMMUEN=1 intact
-> and avoid modifying STRTAB_BASE. This allows HW to continue translating in-
-> flight DMA using the crashed kernel's page tables until the endpoint device
-> drivers probe and quiesce their respective hardware.
-> 
-> However, the ARM SMMUv3 architecture specification states that updating the
-> SMMU_STRTAB_BASE register while SMMUEN == 1 is UNPREDICTABLE or ignored.
-> 
-> This leaves a kdump kernel no choice but to adopt the stream table from the
-> crashed kernel.
+Yes. But this very much feels like a case of:
 
-In many cases the patches assume that the CDs/STE might be corrupted,
-but still attempt to retrieve them with some validation
-(log2size/split...)
-However, the base address might be broken, TLBs state is unknown...
+https://quotefancy.com/media/wallpaper/1600x900/5523002-Henny-Youngman-Quote-The-patient-says-Doctor-it-hurts-when-I-do.jpg
 
-IMO, although that might improve the status quo, there are still
-heuristics, in addition to noticeable complexity to transition the
-stream tables. I wonder if FW can deal with AER in that case before
-booting the kdump kernel.
+> I think this risks breaking use cases.
 
-Thanks,
-Mostafa
+That would have to be some rather convoluted use-case.
 
+IMHO the simplicity of fixing the race you're trying to fix is
+worth the userspace regression risk (which I deem low).
+
+Worst case we revert the fix and go back to the drawing board.
+
+> As I see it, the issue is that the camera's live capture cycle is
+> controlled solely by video0. We need some kind of synchronization
+> mechanism with video1 if we do not want to change the behaviour and
+> risk breaking apps.
+
+IMHO for a device with multiple /dev/video# nodes it makes sense
+to wait with actually starting streaming/DMA-engines until all
+enabled queues are started and stop when the first queue is stopped.
+
+The problem with uvcvideo is that we do not know if the metadata
+queue is going to get used at all. In hindsight we should maybe
+have had some way for userspace to explictly enable/disable metadata
+support.
+
+So we start as soon as the main video node is opened, still I think
+that stopping as soon as one of the queues is stopped makes sense.
+
+Laurent, do you have any input here?
+
+Regards,
+
+Hans
+
+
+
+
+>> p.s.
+>>
+>> 1. It is tempting to also apply the same approach to
+>> vb2_ops.start_streaming, but allowing the meta queue to be
+>> the one to start streaming will likely cause issues. E.g.
+>> the streaming code assumes having a meta-queue active is
+>> optional, but not the other way around.
+>>
+>> TL;DR: vb2_ops.start_streaming should stay as is.
+>>
+>> 2. While looking into this I noticed that struct uvc_streaming
+>> already has an active member, but unless I'm missing something
+>> that ever only gets initialized to 0. So I think that can be
+>> dropped. (If you re-use this please change it to a bool, no
+>> need to have it atomic while protected by a mutex).
 > 
-> In this series:
->  - Introduce an ARM_SMMU_OPT_KDUMP_ADOPT
->  - Skip SMMUEN and STRTAB_BASE resets in arm_smmu_device_reset()
->  - Skip EVENTQ/PRIQ setup including interrupts and their handlers
->  - Memremap the crashed kernel's stream tables into the kdump kernel [*]
->  - Defer any default domain attachment to retain STEs until device drivers
->    explicitly request it.
+> I will send a patch to fix this. Thanks for noticing :)
 > 
-> [*] For verification reasons, this series only fixes coherent SMMUs.
+>>
+>>
+>>
+>>> ---
+>>>  drivers/media/usb/uvc/uvc_queue.c | 14 ++++++++++++++
+>>>  drivers/media/usb/uvc/uvc_video.c | 30 +++++++++++++++++++++++++++++-
+>>>  drivers/media/usb/uvc/uvcvideo.h  |  2 ++
+>>>  3 files changed, 45 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+>>> index 3c002c8f442f..af9dbfcf6f53 100644
+>>> --- a/drivers/media/usb/uvc/uvc_queue.c
+>>> +++ b/drivers/media/usb/uvc/uvc_queue.c
+>>> @@ -209,10 +209,24 @@ static void uvc_stop_streaming_video(struct vb2_queue *vq)
+>>>  static void uvc_stop_streaming_meta(struct vb2_queue *vq)
+>>>  {
+>>>       struct uvc_video_queue *queue = vb2_get_drv_priv(vq);
+>>> +     struct uvc_streaming *stream = queue->stream;
+>>>
+>>>       lockdep_assert_irqs_enabled();
+>>>
+>>> +     spin_lock_irq(&stream->meta.irqlock);
+>>> +     while (stream->meta.in_flight) {
+>>> +             spin_unlock_irq(&stream->meta.irqlock);
+>>> +             schedule();
+>>> +             spin_lock_irq(&stream->meta.irqlock);
+>>> +     }
+>>> +     stream->meta.in_flight = true;
+>>> +     spin_unlock_irq(&stream->meta.irqlock);
+>>> +
+>>>       uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
+>>> +
+>>> +     scoped_guard(spinlock_irq, &stream->meta.irqlock) {
+>>> +             stream->meta.in_flight = false;
+>>> +     }
+>>>  }
+>>>
+>>>  static const struct vb2_ops uvc_queue_qops = {
+>>> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+>>> index fc3536a4399f..f6b55b3a3308 100644
+>>> --- a/drivers/media/usb/uvc/uvc_video.c
+>>> +++ b/drivers/media/usb/uvc/uvc_video.c
+>>> @@ -1732,6 +1732,26 @@ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
+>>>       urb->transfer_buffer_length = stream->urb_size - len;
+>>>  }
+>>>
+>>> +static struct uvc_buffer *
+>>> +uvc_video_get_current_meta_buffer(struct uvc_streaming *stream)
+>>> +{
+>>> +     struct uvc_video_queue *queue = &stream->meta.queue;
+>>> +     struct uvc_buffer *buf;
+>>> +
+>>> +     buf = uvc_queue_get_current_buffer(queue);
+>>> +     if (!buf)
+>>> +             return NULL;
+>>> +
+>>> +     guard(spinlock_irqsave)(&stream->meta.irqlock);
+>>> +
+>>> +     if (stream->meta.in_flight)
+>>> +             return NULL;
+>>> +
+>>> +     stream->meta.in_flight = true;
+>>> +
+>>> +     return buf;
+>>> +}
+>>> +
+>>>  static void uvc_video_complete(struct urb *urb)
+>>>  {
+>>>       struct uvc_urb *uvc_urb = urb->context;
+>>> @@ -1767,7 +1787,7 @@ static void uvc_video_complete(struct urb *urb)
+>>>       buf = uvc_queue_get_current_buffer(queue);
+>>>
+>>>       if (vb2_qmeta)
+>>> -             buf_meta = uvc_queue_get_current_buffer(qmeta);
+>>> +             buf_meta = uvc_video_get_current_meta_buffer(stream);
+>>>
+>>>       /* Re-initialise the URB async work. */
+>>>       uvc_urb->async_operations = 0;
+>>> @@ -1778,6 +1798,12 @@ static void uvc_video_complete(struct urb *urb)
+>>>        */
+>>>       stream->decode(uvc_urb, buf, buf_meta);
+>>>
+>>> +     if (buf_meta) {
+>>> +             scoped_guard(spinlock_irqsave, &stream->meta.irqlock) {
+>>> +                     stream->meta.in_flight = false;
+>>> +             }
+>>> +     }
+>>> +
+>>>       /* If no async work is needed, resubmit the URB immediately. */
+>>>       if (!uvc_urb->async_operations) {
+>>>               ret = usb_submit_urb(uvc_urb->urb, GFP_ATOMIC);
+>>> @@ -2330,6 +2356,8 @@ int uvc_video_init(struct uvc_streaming *stream)
+>>>       for_each_uvc_urb(uvc_urb, stream)
+>>>               INIT_WORK(&uvc_urb->work, uvc_video_copy_data_work);
+>>>
+>>> +     spin_lock_init(&stream->meta.irqlock);
+>>> +
+>>>       return 0;
+>>>  }
+>>>
+>>> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+>>> index b6bcee4a222f..6f1a3381d392 100644
+>>> --- a/drivers/media/usb/uvc/uvcvideo.h
+>>> +++ b/drivers/media/usb/uvc/uvcvideo.h
+>>> @@ -484,6 +484,8 @@ struct uvc_streaming {
+>>>               struct uvc_video_queue queue;
+>>>               u32 format;
+>>>               u32 buffersize;
+>>> +             bool in_flight;
+>>> +             spinlock_t irqlock; /* Protects in_flight. */
+>>>       } meta;
+>>>
+>>>       /* Context data used by the bulk completion handler. */
+>>>
+>>
 > 
-> For non-ARM_SMMU_OPT_KDUMP_ADOPT cases, keep a status quo since the commit
-> 3f54c447df34f ("iommu/arm-smmu-v3: Don't disable SMMU in kdump kernel"):
-> full reset followed by driver-initiated reattach, potentially rejecting any
-> in-flight DMA.
 > 
-> Note that the series requires Jason's work that was merged in v6.12: commit
-> 85196f54743d ("iommu/arm-smmu-v3: Reorganize struct arm_smmu_strtab_cfg").
-> I have a backported version that is verified with a v6.8 kernel. I can send
-> if we see a strong need after this version is accepted.
-> 
-> This is on Github:
-> https://github.com/nicolinc/iommufd/commits/smmuv3_kdump-v7
-> 
-> Changelog
-> v7
->  * Rebase v7.2-rc1
->  * Add Reviewed-by from Pranjal
->  * Reword the linear stream table adoption comment
->  * Use dev_dbg for the stream table adoption message
->  * Document why the lazy L2 adoption uses devm_memremap()
->  * Drop redundant FEAT_COHERENCY checks in the adopt functions
->  * Use feature bit instead of STRTAB_BASE_CFG in adopt cleanup
->  * Skip CR0_ATSCHK update in adopt mode to retain the crashed policy
->  * Restore FEAT_2_LVL_STRTAB if the cleanup action fails to register
-> v6
->  https://lore.kernel.org/all/cover.1779265413.git.nicolinc@nvidia.com/
->  * Rebase v7.1-rc3
->  * Add Reviewed-by from Jason
->  * Replace dma_addr_t with phys_addr_t
->  * Drop arm_smmu_kdump_phys_is_corrupted()
->  * Skip threaded IRQ handlers for EVTQ and PRIQ
->  * Bypass arm_smmu_rmr_install_bypass_ste() in kdump case
->  * Drop devm_ for adopt-time allocations; set up cleanup function via
->    devm_add_action_or_reset()
-> v5
->  https://lore.kernel.org/all/cover.1778416609.git.nicolinc@nvidia.com/
->  * Add Reviewed-by from Kevin
->  * Drop READ_ONCE on lazy-attach L1 read
->  * Split "Skip EVTQ/PRIQ setup" into two patches
->  * Tighten kdump probe comment and dev_warn message
->  * Use MEM + BUSY in arm_smmu_kdump_phys_is_corrupted
-> v4
->  https://lore.kernel.org/all/cover.1777446969.git.nicolinc@nvidia.com/
->  * Rebase v7.1-rc1
->  * s/arm_smmu_adopt/arm_smmu_kdump_adopt
->  * Revert alloc/memremap/fmt on fallback
->  * Reorder patches to avoid bisect regression
->  * Use IRQ_NONE for spurious evtq/priq entries
->  * Cap linear log2size by kdump's allocation bound
->  * Defer clearing FEAT_2_LVL_STRTAB on linear adopt
->  * Add arm_smmu_kdump_phys_is_corrupted() validation
->  * Defer l2 stream table memremap till master inserts
->  * Re-validate L1 desc on master insert with READ_ONCE
-> v3
->  https://lore.kernel.org/all/cover.1777150307.git.nicolinc@nvidia.com/
->  * s/OPT_KDUMP/OPT_KDUMP_ADOPT
->  * Do not adopt if GERROR_SFM_ERR
->  * Retain CR0_ATSCHK beside CR0_SMMUEN
->  * Clear latched GERROR bits (e.g. CMDQ_ERR)
->  * Assert ARM_SMMU_FEAT_COHERENCY in adopt functions
->  * Add STE.Cfg check in arm_smmu_is_attach_deferred()
->  * Fix validations on return codes from devm_memremap()
->  * Sanitize crashed kernel register values in adopt functions
->  * Drop unnecessary l2ptrs guard in arm_smmu_is_attach_deferred()
->  * Don't enable PRIQ/EVTQ irqs and guard the irq functions for combined
->    irq cases
-> v2
->  https://lore.kernel.org/all/cover.1776286352.git.nicolinc@nvidia.com/
->  * Add warning in non-coherent SMMU cases
->  * Keep eventq/priq disabled vs. enabling-and-disabling-later
->  * Check KDUMP option in the beginning of arm_smmu_device_reset()
->  * Validate STRTAB format matches HW capability instead of forcing flags
-> v1:
->  https://lore.kernel.org/all/cover.1775763475.git.nicolinc@nvidia.com/
-> 
-> Nicolin Chen (7):
->   iommu/arm-smmu-v3: Add arm_smmu_kdump_adopt_strtab() for kdump
->   iommu/arm-smmu-v3: Implement is_attach_deferred() for kdump
->   iommu/arm-smmu-v3: Do not enable EVTQ/PRIQ interrupts in kdump kernel
->   iommu/arm-smmu-v3: Skip EVTQ/PRIQ setup in kdump kernel
->   iommu/arm-smmu-v3: Retain CR0_SMMUEN during kdump device reset
->   iommu/arm-smmu-v3: Skip RMR bypass for kdump adoption
->   iommu/arm-smmu-v3: Detect ARM_SMMU_OPT_KDUMP_ADOPT in probe()
-> 
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |   1 +
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 467 ++++++++++++++++++--
->  2 files changed, 422 insertions(+), 46 deletions(-)
-> 
-> -- 
-> 2.43.0
-> 
+
