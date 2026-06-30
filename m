@@ -1,154 +1,117 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B823FF1A3
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 11:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E30A3E3C5A
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 11:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782818112; cv=none; b=rpNCUUGv9dCtqwQEGsFQ+r24rmDG4DvQ4OhQBjhM/RmD7ARpM7PNJHtR/mcGHVp1EWNQ1S4gwi+IuJc+srkZLYyyexjHFM4UbLecA7u9jBMOyhj3VktY1p0ZJBdbEXsChjQujExbWY21Wq2n6N0vVeq597YBYmrnprMGQ8V6YKI=
+	t=1782818168; cv=none; b=Qa8eoaf/Ip90VRQoCQfn/apwXi/7nsgK6m+I7xrdkBA8dwXzpPOYnCu6NMCEzw2S8KsmFa/Oaf1NpfAZonGH0Gd8pPmDJFBj0AVsFjkk3dF0K3ZVEn4JtAr5btj4rG0GAKPVUTJEW0g4UgQKAECkdzjcs5I3XIn67FIQY/tboPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782818112; c=relaxed/simple;
-	bh=KN1FRu4cuOz4IFhgPj+yn2ZmKQqb+oVckZ03m5pXlAk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cJUXRQrrSn0SbXiEowNFAD1QFyBAtPIr5aPIsUukw5K9PQJJg9bjfbqAUWp+qaWhWH27sXZVxwNk/oLIpwCHUIM3+3lA2aK/PcqDC5OWS0xLPMHsXa35RQ8wO1dDVW+fyyWUEWMNlNQKCyecxIhnlmeDtIkOL6o+0VwRolG+oJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MWnAJo3y; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=J6RITRFM; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1782818168; c=relaxed/simple;
+	bh=s5LFEK1Pa253fBmuQHxQ2azSIMnGRrnpfip1MZDg1Ss=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H9jyfi9aWQ7AjVBkGKTXdeUk99pEe2RHYzj+mUusiqDGMdf/ykiTylj7lw3kDKCwKfea3MNseSoKtw35u45hgAWJkVridXpIFBp0/fZmyTquM5+Rk0iP/CKYIp6zjUg3Folpu8XycUdP0vN599y89MdTHZxYH968QO9ZEjIvX8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i9mMHZPy; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MWnAJo3y";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="J6RITRFM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782818110;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j15V7ngwE/VoSisyb4jPtPP2vsFCnu4q3l7tU5FLXAA=;
-	b=MWnAJo3y9inWm0EXpBxzlVH5wanKleijOEMt4R4hG6NKcr5ZLvKmhdftO2kOvLL4WcphPb
-	577fELL6/9GInAZzjK59AwmmTR8ZjFUBjcfKu4ldBkPwonjTX9fLl/Z7MJxLqBRYp4rPwN
-	ANNn+2O2WM7qyuQzXb4Vab9ndTrg+18=
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
- [74.125.224.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-54-p0Uzc16OMem5kdLhdRCuzA-1; Tue, 30 Jun 2026 07:15:07 -0400
-X-MC-Unique: p0Uzc16OMem5kdLhdRCuzA-1
-X-Mimecast-MFC-AGG-ID: p0Uzc16OMem5kdLhdRCuzA_1782818107
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-664d8e6c178so3143005d50.1
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 04:15:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i9mMHZPy"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-472326ca506so1410032f8f.2
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 04:16:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1782818107; x=1783422907; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=j15V7ngwE/VoSisyb4jPtPP2vsFCnu4q3l7tU5FLXAA=;
-        b=J6RITRFMkP6oI/1ka8mRsZbGkrToqP7+lLijURua8dBCTr2oOedemijEI2JU2sVAQO
-         1m0NhFHYXyUQ9dNqrqQedUO3OEvJgUgX8JfqioUdpkcHJM8TYyMQwSMbBTd+3D9mELp0
-         yrbXGbKAvpSV24Jqs+5EUGHE27CNHFYPHZXc0pCV4kO+lSsNmHabHPnZc3cPWLQQNrQP
-         OL6kAXi7oeupqo2THNLd+Wo07nvKvie/2Z5dPjTbGJqAsbk37gkc5YGxukcZ9qbZsm00
-         zEZXUncro8JHpmiCScO88gX0OKb8onyb3VSKU7oaTbHNgjm0ENC/V1p+xCPnU/L9Ygnq
-         lLNA==
+        d=gmail.com; s=20251104; t=1782818166; x=1783422966; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Zvb8CfoUDD5Z1NJ95/7IaMiF39Bs5qAnQxdvVT+CaO8=;
+        b=i9mMHZPya2f9QJKbyUWzyPY7ulChkJdJcUfrgfYneDxC1jC3EkSND831L6YgdN9MU9
+         Xn9dGbrHUS+k32uNF/ynjJBq7aI/sQixR3CGInVMgryLCgM4xz5JmcE3jQyo0f0euGZ7
+         Cm42bad/WG8UpzDAfLw2tUdSQu1ejHwK7K/M10A5XJyI8duwdC+HUfuACJWtCiwNvY/8
+         oo3iK+F3OCJXpgxHfpxGajfGQRY3XoRsw3jMnmavnYS3CuYVaaM+7BqxU4nOdA50Ao2f
+         jPL++CaFpKWRvvSdhdPPKZ0vrLILBYMFSNPhkBR93GQOpcf/u3/ElbpwkTk17cEhY5ng
+         Upjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782818107; x=1783422907;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=j15V7ngwE/VoSisyb4jPtPP2vsFCnu4q3l7tU5FLXAA=;
-        b=GbVtB5/Nb2XBofjJGbNXE5U1VBTb097FLjJ5r3zr7GU4J5BMGFCtcveS4QK/BYt/2h
-         qdLiXoW2PYYtXpPihx+1BbQZWdmqU/M/3bnPPI47Qv6O0jSYmXa+WyVbk9Ik2hDj4GxF
-         Dm15RxqNw8yYil2Xgitrm0zsiEMhV1LKLJETDeCZyxp9lUuZqIGw+LLmxTwqEIvdLysY
-         f2tFnMHnmQBdnfsSlgBVcjtjFFJP6J/WUotn4UtHFaUsX8IlQbZ5bxhtoyrzE8JDQcda
-         ao9E7ffi8hsqaL80fPwY3rE3Z7RNP5TDeb3yBY+U4RxOBrWzqY+Fus591aS/x4lyApHh
-         Q7dw==
-X-Forwarded-Encrypted: i=1; AHgh+RoUjcD/EYjFXUY9M5h1s75J0txpfodO7aBCpdo3PfpWb7jo2gHu62Xyvb1Eti/PRuEnPD3ZD5c=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzfjNVXrsEN8PWMgO50JKvqxhKv1Hkb+fUNKiI2Jj2/nDIMaNcn
-	J0xU6dMYO9GtCeFL1eQjTWDvj5Pi8t0a/lELshusV+HAG8sX5F/UnLoBKg+/K6GlowLY+jsFhGO
-	xC36qOnZv7jo7e2VG8+HTPfMeMpLu03/NoyFgYIAzvXK1wXwa6nxAz3uaqg==
-X-Gm-Gg: AfdE7cngU4uqpqBXGXLfZXXAqW0heVcgU7ltD7WrrpdO/M3sVI4WfM9OJERU9Ok9tCM
-	1uuFfPwQ3XhsReDwVZZFaUkCl5soB+AlH4kaHlrHBZ7kM6PwRcj1ip3JrS0LNKbt9zsJ2CPGCna
-	/EA1+WCcd+RZJ1T/WUrG8FTwEHdCosGPuodXZJ9T1TXli5uPdiPAXlAxvOJm5+3jgg4KjaQzJGR
-	WSU+0qiK/tNhwHEZ+vyfveaBhZGla6SieTlFjSeJXAwgcxJh87oN61hiEKwobJsPAE1QVoursao
-	/DzfSJ9X87t0Mpm7WR0FUHm1nrjiYBAGXL7phnP0+Ct/AgPqK8AB3QaMeuPMQy/7u3kY1O8240L
-	o9FiT7VMBNWPIfmkCniox4hMzRrRQiqpo5Z/o4SML8mcqNl4Sx2yLZRI4kZ++WpH+pOjbWqqxAG
-	Dk7iYA/VX6KA==
-X-Received: by 2002:a05:690e:428c:20b0:664:e5c5:5b3f with SMTP id 956f58d0204a3-664f98d1883mr2606810d50.44.1782818106792;
-        Tue, 30 Jun 2026 04:15:06 -0700 (PDT)
-X-Received: by 2002:a05:690e:428c:20b0:664:e5c5:5b3f with SMTP id 956f58d0204a3-664f98d1883mr2606780d50.44.1782818106280;
-        Tue, 30 Jun 2026 04:15:06 -0700 (PDT)
-Received: from ?IPV6:2a0d:3344:5521:6b10:2eb7:f61a:75:4534? ([2a0d:3344:5521:6b10:2eb7:f61a:75:4534])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-665006a8c03sm770116d50.9.2026.06.30.04.15.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jun 2026 04:15:05 -0700 (PDT)
-Message-ID: <de40b1a5-663e-43ab-9fb7-5a49f029cc4b@redhat.com>
-Date: Tue, 30 Jun 2026 13:15:03 +0200
+        d=1e100.net; s=20251104; t=1782818166; x=1783422966;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Zvb8CfoUDD5Z1NJ95/7IaMiF39Bs5qAnQxdvVT+CaO8=;
+        b=SDQ82rXWcXS+NAYZ3JoZGCUwwOAmRwWAUWo3gEz7TzwWm+JGD6wZuoeFzoTcS3Dajw
+         wo2BeXoZP1+nu3DxKbXM+FWhSFMqARTJY2guVdJYKAwILWcS/gU1LhYz6DfUlopWHe5n
+         vvqbf2OfwstTwETKcx5GNkyh8zMAugKHUriwsUStQozSs8WIzAkaAHLSj7IzCObMx0zE
+         qjkDJZsQ+H58EHXWUhg93KlOVXnP0xtvrhSBLVwqIsd+tU/HHhGpQ6q1Pro7/9vKjHv+
+         dlfeYshS8/lsC463BaHP3i9MpIMSGX0qgXwHJbCyHvZqalhb6G4R6fmrszxrH0C1CJJs
+         NLXA==
+X-Forwarded-Encrypted: i=1; AHgh+RoxLoiqjlju5/P98ic9qG2SSRJmIpKbdZRn8iJWHTX85nZq7w4vTgLFcOiSBid8scAYpxRbF04=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx9IMiECXXPECViy2Or4QWw2wYXXspV/B9jPRSJHN94kPaIxkbK
+	IquiiVdbbgbehWH1vpltMJAUfF3DX3ZvxA3CoRxfhun2CJHzcTAS5oYE
+X-Gm-Gg: AfdE7cl+lturG0Fd2QadBCAJ/5AYNqkX/oSeLRg+HD2sourjyfNKeBj144uyxPGw9OF
+	TQipcER6h9foQHNfYWva13Tv3WfuGPnhlvgoJTNvyUXqzIwACHo0CfDgr7cFHiYyEGVYsM65CGE
+	9JEQVuXkZHV0CQCtKGVNzHWf8W2WS5bo7CHJhK9qi6CRhB4FljZNPU2vW/E03njlKUn76d16LS7
+	Fn/QEnGwE0SN/LQFA43q8aqzen4L8Kbmx340CzmiYKqQwWhDcynP3DxZx91noQCKxw4pgWcibYi
+	Fn/dypNiCZ86zVLANpQobnKuaxV7WRYy5rQXohVmhBdL1RMQIpLDLOUXLo2Zhz1uksdd3KRYUV6
+	fI25xWO9xhwKSM+/mr80LhMDWIOmXnpsyL9NdsFixnzjWwOSsB0Hp0K2u2N8K9HG6msbuT/hAFa
+	lx8mGWUF81QasJO0m0QWFfsqFeUBukK/yKUl9+WHNEZnsnlwl1BHXgZMM=
+X-Received: by 2002:a05:6000:2884:b0:461:a5d3:915a with SMTP id ffacd0b85a97d-475507dde46mr4416732f8f.6.1782818165524;
+        Tue, 30 Jun 2026 04:16:05 -0700 (PDT)
+Received: from tolga-Legion-5-15AKP10.local ([78.188.87.47])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4756636cf26sm6263329f8f.19.2026.06.30.04.16.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 04:16:05 -0700 (PDT)
+From: coredumpdev <muzaffertolgayakar@gmail.com>
+To: ali.sabri@zetasavunma.com
+Cc: Xu Rao <raoxu@uniontech.com>,
+	stable@vger.kernel.org,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH] Input: gscps2 - advance receive buffer write index
+Date: Tue, 30 Jun 2026 14:15:52 +0300
+Message-ID: <20260630111552.9612-1-muzaffertolgayakar@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 1/1] net/sched: sch_teql: Introduce slaves_lock to
- avoid race condition and UAF
-To: Jamal Hadi Salim <jhs@mojatatu.com>, netdev@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- horms@kernel.org, victor@mojatatu.com, jiri@resnulli.us,
- security@kernel.org, zdi-disclosures@trendmicro.com, stable@vger.kernel.org
-References: <20260628111229.669751-1-jhs@mojatatu.com>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260628111229.669751-1-jhs@mojatatu.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 6/28/26 1:12 PM, Jamal Hadi Salim wrote:
-> The teql master->slaves singly linked list is not protected against
-> multiple writes. It can be mod'ed concurently from teql_master_xmit(),
-> teql_dequeue(), teql_init() and teql_destroy() without holding any list
-> lock or RCU protection.
-> 
-> zdi-disclosures@trendmicro.com has demonstrated that the qdisc is freed
-> after an RCU grace period, but teql_master_xmit() running on another
-> CPU can still hold a stale pointer into the list, resulting in a
-> slab-use-after-free:
-> 
-> BUG: KASAN: slab-use-after-free in teql_master_xmit+0xf0f/0x16b0
-> Read of size 8 at addr ffff888013fb0440 by task poc/332
-> Freed 512-byte region [ffff888013fb0400, ffff888013fb0600) (kmalloc-512)
-> 
-> The fix?
-> Add a per-master slaves_lock spinlock that serializes all mutations of
-> master->slaves and the NEXT_SLAVE() links in teql_destroy() and
-> teql_qdisc_init(). teql_master_xmit() also takes the same slaves_lock
-> around those updates.
-> Annotate master->slaves and the per-slave ->next pointer with __rcu and
-> use the appropriate RCU accessors everywhere they are touched:
-> rcu_assign_pointer() on the writer side (under slaves_lock),
-> rcu_dereference_protected() for the writer-side loads (also under
-> slaves_lock), rcu_dereference_bh() for the loads in teql_master_xmit() and
-> rtnl_dereference() for the loads in teql_master_open()/teql_master_mtu(),
-> which run under RTNL.
-> Pair this with rcu_read_lock_bh()/rcu_read_unlock_bh() around the list
-> traversal in teql_master_xmit(), so that readers either observe a fully
-> linked list or are deferred until the in-flight mutation completes. The two
-> early-return paths in teql_master_xmit() are updated to release the RCU-bh
-> read-side critical section before returning, since leaving it held would
-> disable BH on that CPU for good.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reported-by: zdi-disclosures@trendmicro.com
-> Tested-by: Victor Nogueira <victor@mojatatu.com>
-> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+From: Xu Rao <raoxu@uniontech.com>
 
-Looks good, thanks!
+Commit 44f920069911 ("Input: gscps2 - use guard notation when
+acquiring spinlock") moved the receive loop into gscps2_read_data()
+and gscps2_report_data().
 
-Please note that sashiko/gemini found a pre-existing issues which may
-require a follow-up/separate fix:
+While moving the code, it preserved the writes to
+buffer[ps2port->append], but omitted the following producer index
+update from the original loop:
 
-https://sashiko.dev/#/patchset/20260628111229.669751-1-jhs%40mojatatu.com
+	ps2port->append = (ps2port->append + 1) & BUFFER_SIZE;
 
-(the 2nd one in the above link, IDK how to generate a direct link to a
-specific comment)
+As a result, append never advances. Since gscps2_report_data() only
+reports bytes while act != append, the receive buffer always appears
+empty and no keyboard or mouse data reaches the serio core.
 
-/P
+Restore the omitted index update.
+
+Fixes: 44f920069911 ("Input: gscps2 - use guard notation when acquiring spinlock")
+Cc: stable@vger.kernel.org # 6.13+
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Link: https://patch.msgid.link/460B5655BA580C60+20260624094739.850306-1-raoxu@uniontech.com
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/input/serio/gscps2.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/input/serio/gscps2.c b/drivers/input/serio/gscps2.c
+index 22b2f57fd91f..bf9b993f5733 100644
+--- a/drivers/input/serio/gscps2.c
++++ b/drivers/input/serio/gscps2.c
+@@ -219,6 +219,7 @@ static void gscps2_read_data(struct gscps2port *ps2port)
+ 		ps2port->buffer[ps2port->append].str = status;
+ 		ps2port->buffer[ps2port->append].data =
+ 				gscps2_readb_input(ps2port->addr);
++		ps2port->append = (ps2port->append + 1) & BUFFER_SIZE;
+ 	} while (true);
+ }
+ 
+-- 
+2.53.0
 
