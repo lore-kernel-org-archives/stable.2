@@ -1,43 +1,29 @@
-Received: from confino.investici.org (confino.investici.org [93.190.126.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741DB3A7F5D;
-	Tue, 30 Jun 2026 17:47:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.190.126.19
+Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 369562E413
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 17:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782841678; cv=none; b=MnMHYH/ES51KSlcMxOtk6YZRrHY8gtiaCg3wnYZwbub5xh305um72f4WZqXofW83Wv6y5n9u2PRxpuHGNr0/T2etpWn5IymtUXFALvjMW+eQMmF0/WVDDvwotQY6kpEurX3h/Xh9RGnv/MSTvrhgQkgP3sgQON1V8+LIwjM/SK8=
+	t=1782841855; cv=none; b=TZFU7S/vg3+I+f1rKx+0+FBG+ZE5kPe9a5EHk36e59lbrh04fPx0Gib6uLtkFqGQyHCvRd6I3/1ZKy+u3fLy/jjz6IeIMQTxKlptdHTc6h7xuvPYtAIDyeNSb2JZDkDsCBrlEW6T3Z7JcGDl2JSrNJlKBUF3+FGIO2P9vDwLOlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782841678; c=relaxed/simple;
-	bh=I1LOT/OjmutTzc99FoIIzp+e8Ek1SEWElD3tb5rK46g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tA7Z7MtkfH74ofhO2PBj7IaHvFchuRsMYE/9ZMYHBsdx1vx05FqHvgldBZzzkEOCoyDxl/0KbiWK8WE48j3tEkiBR7bMGi5FSnzAgbyq5WMj/PSiIatC8x3LcIPO1FV0ybTgwWL5TY/QZbq3dJFFExmFcqNyLwyYiKKin90s/Xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=Qyu+K9yj; arc=none smtp.client-ip=93.190.126.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="Qyu+K9yj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1782841667;
-	bh=dgGRZ+lG71CErrgxYbV81iyldDtSI4aGkhmvY2yKvvA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Qyu+K9yjTxCg/MicaXwCUoyas1LYGpZB1Q47o951VsDV67o9/MDqdtRD53sjcWWAo
-	 crh65Fapw8YWiLaaaZegAxFFI4gfKCb7QrRlo6ijTxJQBFcK4Ge2uEk/ZYVcWVDZXW
-	 COr3+qfhETFb+A9zm7FFhRlb70v5si7KQwlx+VKY=
-Received: from mx1.investici.org (unknown [127.0.0.1])
-	by confino.investici.org (Postfix) with ESMTP id 4gqVwg0ThBz114Z;
-	Tue, 30 Jun 2026 17:47:47 +0000 (UTC)
-Received: by mx1.investici.org (Postfix) id 4gqVwf4CcVz115l;
-	Tue, 30 Jun 2026 17:47:46 +0000 (UTC)
-From: Bradley Morgan <include@grrlz.net>
-To: akpm@linux-foundation.org,
-	mhiramat@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bradley Morgan <include@grrlz.net>
-Subject: [PATCH v2] lib/bootconfig: fix undefined behavior involving NULL pointer arithmetic
-Date: Tue, 30 Jun 2026 17:47:46 +0000
-Message-ID: <20260630174746.14795-1-include@grrlz.net>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1782841855; c=relaxed/simple;
+	bh=vkWA+pR3OZfnWlFZW+uq1EZpX3DsehdrYFIuwaPN4dI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WtG3cG/MXsy9yDQP3Dtp0R6xSbK1U3nR4ZmSuxg1fb0ewuR2pFXPv8k0UIth+2E8SHJBhyd77VceLQlnwAPMBmOi8QRycs0pVMfDxlD1Ji4exjNJYa2Slz4XI4QOVSJhmH0KadalORBhz4HWz0nQjAHqhj7J2cRHwLTcTmjTG0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.21.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCXSEbvAURqhL9EAw--.1828S3;
+	Wed, 01 Jul 2026 01:50:40 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgDXSKLuAURqhARwAg--.25407S2;
+	Wed, 01 Jul 2026 01:50:38 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: fanwu01@zju.edu.cn
+Cc: stable@vger.kernel.org
+Subject: [PATCH] wifi: rtl8xxxu: fix use-after-free from rx_urb_wq on stop
+Date: Tue, 30 Jun 2026 17:49:43 +0000
+Message-Id: <20260630174943.4586-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,76 +31,131 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgDXSKLuAURqhARwAg--.25407S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?vTUfaQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBFqMtuuSY+hlM9PtGqm/FS6btp/jEcEl0KzedP1HbrsFE3q
+	DT8VARshbIGxxOGF17ip9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxuFy7WFy5Gw47XF4fAw1rXwc_yoWrtrykpF
+	Z0k3sIkr4DXr4rtrn8Jwn7AF1rGw1a9F13ZF4kW343AFnagF1fX3W8KryavrWkur97tayf
+	Zr18J39rGwn0krgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9mb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r1j6r4UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r1Y6r17MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4U
+	YxBIdaVFxhVjvjDU0xZFpf9x07jnKsUUUUUU=
 
-When xbc_snprint_cmdline() is called during the size-probing phase
-(with buf = NULL and size = 0), the function computes the end pointer
-as 'buf + size' (NULL + 0) and repeatedly advances 'buf' via 'buf += ret'.
+rtl8xxxu arms rx_urb_wq from the RX completion path:
+rtl8xxxu_rx_complete() hands the URB to rtl8xxxu_queue_rx_urb(), which
+queues it on rx_urb_pending_list and, once the list grows past
+RTL8XXXU_RX_URB_PENDING_WATER, schedules rx_urb_wq.  The worker
+rtl8xxxu_rx_urb_work() drains rx_urb_pending_list, recovers priv through
+container_of, and resubmits each URB through rtl8xxxu_submit_rx_urb(),
+which anchors it on rx_anchor and dereferences priv->udev.
 
-Under the C standard, performing pointer arithmetic on a NULL pointer is
-undefined behavior. While harmless inside the kernel, this code is also
-compiled into the userspace host tool 'tools/bootconfig', where host
-compilers with UBSan or FORTIFY_SOURCE enabled abort the build when they
-detect NULL pointer arithmetic.
+rtl8xxxu_stop() cancels the sibling work items (c2hcmd_work, ra_watchdog,
+update_beacon_work) but never cancels rx_urb_wq, so a worker armed during
+the last burst of RX traffic can run rtl8xxxu_rx_urb_work() after
+rtl8xxxu_disconnect() has called ieee80211_free_hw(), which frees priv,
+producing a use-after-free.  The window opens under active RX traffic
+(pending count above the watermark) followed by a disconnect.
 
-Fix this by guarding the pointer arithmetic so 'buf' is only advanced when
-non-NULL, and track the running written length in a separate 'len' counter
-for the return value (which cannot be recovered from pointer math when
-'buf' is NULL). The rest() helper and snprintf call sites are unchanged.
+There are two teardown races to close:
 
-Fixes: 51887d03aca1 ("bootconfig: init: Allow admin to use bootconfig for kernel command line")
+  * rtl8xxxu_queue_rx_urb() decided whether to enqueue under rx_urb_lock
+    but called schedule_work() after dropping the lock.  A completion
+    that observed shutdown == false and released the lock could then call
+    schedule_work() after rtl8xxxu_stop() had set shutdown and
+    cancel_work_sync() had already returned, arming the worker to run
+    after the teardown.  Move schedule_work() under the same !shutdown
+    branch so the arming decision is atomic with the shutdown check.
+
+  * rtl8xxxu_rx_urb_work() anchors every URB it drained back onto
+    rx_anchor through rtl8xxxu_submit_rx_urb().  A worker still running
+    when usb_kill_anchored_urbs(&priv->rx_anchor) returned would submit a
+    URB that escaped the kill.  In rtl8xxxu_stop(), call
+    cancel_work_sync(&priv->rx_urb_wq) before the kill so the worker is
+    drained first.
+
+After priv->shutdown is set under rx_urb_lock, completions can no longer
+queue rx_urb_wq. cancel_work_sync() then drains the last queued or running
+worker, and the following usb_kill_anchored_urbs() kills the URBs it may
+have submitted.
+
+rtl8xxxu_disconnect() is covered because ieee80211_unregister_hw()
+guarantees .stop() runs for a live interface before ieee80211_free_hw()
+frees priv.  The probe error path needs no cancel: rx_urb_wq is
+INIT_WORK()'d there but cannot have been scheduled, since no URB is
+submitted before ieee80211_register_hw() succeeds.
+
+This bug was found by static analysis.
+
+Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
 Cc: stable@vger.kernel.org
-Assisted-by: GLM:glm-5.2
-Signed-off-by: Bradley Morgan <include@grrlz.net>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- lib/bootconfig.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/net/wireless/realtek/rtl8xxxu/core.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-Changes since v1:
-- Got the big guns out! :) (see Assisted-by).
-- Addressed review from Masami Hiramatsu and Breno Leitao.
-
-diff --git a/lib/bootconfig.c b/lib/bootconfig.c
-index f445b7703fdd..c913259c80ce 100644
---- a/lib/bootconfig.c
-+++ b/lib/bootconfig.c
-@@ -427,8 +427,9 @@ static char xbc_namebuf[XBC_KEYLEN_MAX] __initdata;
- int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+index c06ad064f37c..b447ce78ff05 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
++++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+@@ -5792,14 +5792,19 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
  {
- 	struct xbc_node *knode, *vnode;
--	char *end = buf + size;
-+	char *end = buf ? buf + size : NULL;
- 	const char *val, *q;
-+	size_t len = 0;
- 	int ret;
+ 	struct sk_buff *skb;
+ 	unsigned long flags;
+-	int pending = 0;
  
- 	xbc_node_for_each_key_value(root, knode, val) {
-@@ -442,7 +443,9 @@ int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
- 			ret = snprintf(buf, rest(buf, end), "%s ", xbc_namebuf);
- 			if (ret < 0)
- 				return ret;
--			buf += ret;
-+			len += ret;
-+			if (buf)
-+				buf += ret;
- 			continue;
- 		}
- 		xbc_array_for_each_value(vnode, val) {
-@@ -456,11 +459,13 @@ int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
- 				       xbc_namebuf, q, val, q);
- 			if (ret < 0)
- 				return ret;
--			buf += ret;
-+			len += ret;
-+			if (buf)
-+				buf += ret;
- 		}
+ 	spin_lock_irqsave(&priv->rx_urb_lock, flags);
+ 
+ 	if (!priv->shutdown) {
+ 		list_add_tail(&rx_urb->list, &priv->rx_urb_pending_list);
+ 		priv->rx_urb_pending_count++;
+-		pending = priv->rx_urb_pending_count;
++		/*
++		 * Arm the worker under rx_urb_lock so this is atomic with the
++		 * shutdown check: moving it out of the lock would let a
++		 * completion arm the work after rtl8xxxu_stop() canceled it.
++		 */
++		if (priv->rx_urb_pending_count > RTL8XXXU_RX_URB_PENDING_WATER)
++			schedule_work(&priv->rx_urb_wq);
+ 	} else {
+ 		skb = (struct sk_buff *)rx_urb->urb.context;
+ 		dev_kfree_skb_irq(skb);
+@@ -5807,9 +5812,6 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
  	}
  
--	return buf - (end - size);
-+	return len;
+ 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
+-
+-	if (pending > RTL8XXXU_RX_URB_PENDING_WATER)
+-		schedule_work(&priv->rx_urb_wq);
  }
- #undef rest
  
+ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
+@@ -7461,6 +7463,13 @@ static void rtl8xxxu_stop(struct ieee80211_hw *hw, bool suspend)
+ 	priv->shutdown = true;
+ 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
+ 
++	/*
++	 * Cancel before killing rx_anchor: the worker re-anchors every URB
++	 * it drained via rtl8xxxu_submit_rx_urb(), so a worker still running
++	 * after the kill could submit a URB that escapes it.
++	 */
++	cancel_work_sync(&priv->rx_urb_wq);
++
+ 	usb_kill_anchored_urbs(&priv->rx_anchor);
+ 	usb_kill_anchored_urbs(&priv->tx_anchor);
+ 	if (priv->usb_interrupts)
 -- 
-2.53.0
+2.34.1
 
