@@ -1,33 +1,42 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C746D22F01;
-	Tue, 30 Jun 2026 03:32:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07177219A8A;
+	Tue, 30 Jun 2026 03:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782790351; cv=none; b=NUp/5k2IwBeTTr1+YVuln3LGgxlY+S3mYz1SpP/BguPpxXpn98WxiGyNs9xU7pjn0speHCo4pwRSkJKe5ZKJqvT292DVG29QdPC5JDpeci0JUFlir24BlcZOfu7hK5fIyY7SaaDlAkseNXbPTFEKXA0rWg9pS2yjdhXw63DGljw=
+	t=1782791552; cv=none; b=e2QcRFbVSxa7sWQCJBi2MqfdDmykNs+oUvam4VIAe81PjANIINEQZ2DknnmZr8S1yXFJHgYnILv+JwbbKAnytr5LpsCmTjtmu2JJ4qxT2EBNWxxRh8sSsEw703+U/odCqcGhW0HxMu8/zYpGrkD1l0U/yFKnlSUk8oYc+y2AD/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782790351; c=relaxed/simple;
-	bh=vkWA+pR3OZfnWlFZW+uq1EZpX3DsehdrYFIuwaPN4dI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DLHCBvVAO08uIr0lK1KDniBAkf54pwflg8k+kwxLWhBvbcTVU78h3wPMbw+lfCK6JEU15fl8iRYmCrnElI3DReoikzjiTQRsrrxT/QBO5QgnIrneY8CUK8rqD34Vukhzi4Km3GHPvS2dwxc8KovLICm4S6u5TIG8ZreVCwIpNBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wBXmKS_OENqBuc9Aw--.1902S3;
-	Tue, 30 Jun 2026 11:32:16 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with SMTP id zS_KCgB3jW++OENqCJmuAg--.37584S2;
-	Tue, 30 Jun 2026 11:32:14 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Jes.Sorensen@gmail.com
-Cc: kvalo@kernel.org,
-	linux-wireless@vger.kernel.org,
+	s=arc-20240116; t=1782791552; c=relaxed/simple;
+	bh=w97OAoK3vAYojf+1DNyodckx2XQcsTLl+URCPzKVqOk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EHk2jjJea8ScFFNiShdC6AbPMaS9xYekpWD0eM8082IAfwNg0z8rqDxjUHGDR0SPCijSMK3potbX8ZICeQwV6I/HQLXgvK5xaasoYTLBImGkNYPLM/wIMdQLn4dwMycQjFWczmRaeHORhdfblo0UVRE9S9SuqfDB+NjmhxuHj4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BQscV47n; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BQscV47n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667CB1F000E9;
+	Tue, 30 Jun 2026 03:52:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782791550;
+	bh=oWQGO6JAGeGVOvqhfdihogE5K82vJ74Pirejh7VlOVk=;
+	h=From:To:Cc:Subject:Date;
+	b=BQscV47nr6fwdYaNNmhl0m94aO6hG1wDTviAy8/A28ojaC/br9mLIo6ifH9zaXntd
+	 sRq5nbTZQUJnxrBjnWd69s2L9mMytrsXomveu8oJ7EGI50EhiTfcugqeOf/7yPm+YL
+	 kP6ZeD31uorveDYQfb/POcnWvqXttsvsjbs5temCSPbjXhsD7ThZxvPkQDjyKnxO1a
+	 vGVdtQgBmweOL9aYPnXhmOPEh7ZZK3uvfsshU1mgRfghhzj2BdgIy/RkPz72yjYjrN
+	 JYH8oPyv5qoHwCYK5glCAS+HxMUnhcUo8DAVbDzFq5PDWgZ8Zt/GVyj+kYVxLk0O0b
+	 mGS4wq/S/VNwg==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	Yang Yingliang <yangyingliang@huawei.com>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] wifi: rtl8xxxu: fix use-after-free from rx_urb_wq on stop
-Date: Tue, 30 Jun 2026 03:31:17 +0000
-Message-Id: <20260630033117.3377-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/damon/core: validate ranges in damon_set_regions()
+Date: Mon, 29 Jun 2026 20:52:19 -0700
+Message-ID: <20260630035221.146458-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,131 +44,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgB3jW++OENqCJmuAg--.37584S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?Wp3VBgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WNwlFx2dRLm32eR9KY4rKC2xVEIbCIerUVYkzJm/RyYZt3W
-	Q9ZbTGxtaOZaNhHSkxgRHL2kVhyvJul4EdsB+lxN
-X-Coremail-Antispam: 1Uk129KBj93XoWxuFy7WFy5Gw47XF4fAw1rXwc_yoWrtrykpF
-	Z0k3sIkr4DXr4rtrn8Jwn7AF1rGw1a9F13ZF4kW343AFnagF1fX3W8KryavrWkur97tayf
-	Zr18J39rGwn0krgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
 
-rtl8xxxu arms rx_urb_wq from the RX completion path:
-rtl8xxxu_rx_complete() hands the URB to rtl8xxxu_queue_rx_urb(), which
-queues it on rx_urb_pending_list and, once the list grows past
-RTL8XXXU_RX_URB_PENDING_WATER, schedules rx_urb_wq.  The worker
-rtl8xxxu_rx_urb_work() drains rx_urb_pending_list, recovers priv through
-container_of, and resubmits each URB through rtl8xxxu_submit_rx_urb(),
-which anchors it on rx_anchor and dereferences priv->udev.
+DAMON core logic assumes zero length regions don't exist.  However, a
+few DAMON API callers including DAMON_SYSFS, DAMON_RECLAIM and
+DAMON_LRU_SORT allow users to set empty monitoring target regions.  This
+could result in WARN_ONCE() on CONFIG_DAMON_DEBUG_SANITY enabled kernel,
+and divide-by-zero from damon_merge_two_regions().
 
-rtl8xxxu_stop() cancels the sibling work items (c2hcmd_work, ra_watchdog,
-update_beacon_work) but never cancels rx_urb_wq, so a worker armed during
-the last burst of RX traffic can run rtl8xxxu_rx_urb_work() after
-rtl8xxxu_disconnect() has called ieee80211_free_hw(), which frees priv,
-producing a use-after-free.  The window opens under active RX traffic
-(pending count above the watermark) followed by a disconnect.
+For example, the WANR_ONCE() can be triggered like below.
 
-There are two teardown races to close:
+    # grep DAMON_DEBUG_SANITY /boot/config-$(uname -r)
+    # CONFIG_DAMON_DEBUG_SANITY=y
+    # damo start
+    # cd /sys/kernel/mm/damon/admin/kdamonds/0
+    # echo 0 > contexts/0/targets/0/regions/0/start
+    # echo 0 > contexts/0/targets/0/regions/0/end
+    # echo commit > state
+    # dmesg
+    [....]
+    [   73.705780] ------------[ cut here ]------------
+    [   73.707552] start 0 >= end 0
+    [   73.708452] WARNING: mm/damon/core.c:359 at damon_new_region+0x6e/0x80, CPU#1: kdamond.0/758
+    [...]
 
-  * rtl8xxxu_queue_rx_urb() decided whether to enqueue under rx_urb_lock
-    but called schedule_work() after dropping the lock.  A completion
-    that observed shutdown == false and released the lock could then call
-    schedule_work() after rtl8xxxu_stop() had set shutdown and
-    cancel_work_sync() had already returned, arming the worker to run
-    after the teardown.  Move schedule_work() under the same !shutdown
-    branch so the arming decision is atomic with the shutdown check.
+All DAMON API callers eventually use damon_set_regions() to setup the
+regions.  Add the validation logic in the function.
 
-  * rtl8xxxu_rx_urb_work() anchors every URB it drained back onto
-    rx_anchor through rtl8xxxu_submit_rx_urb().  A worker still running
-    when usb_kill_anchored_urbs(&priv->rx_anchor) returned would submit a
-    URB that escaped the kill.  In rtl8xxxu_stop(), call
-    cancel_work_sync(&priv->rx_urb_wq) before the kill so the worker is
-    drained first.
-
-After priv->shutdown is set under rx_urb_lock, completions can no longer
-queue rx_urb_wq. cancel_work_sync() then drains the last queued or running
-worker, and the following usb_kill_anchored_urbs() kills the URBs it may
-have submitted.
-
-rtl8xxxu_disconnect() is covered because ieee80211_unregister_hw()
-guarantees .stop() runs for a live interface before ieee80211_free_hw()
-frees priv.  The probe error path needs no cancel: rx_urb_wq is
-INIT_WORK()'d there but cannot have been scheduled, since no URB is
-submitted before ieee80211_register_hw() succeeds.
-
-This bug was found by static analysis.
-
-Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Fixes: 43b0536cb471 ("mm/damon: introduce DAMON-based Reclamation (DAMON_RECLAIM)")
+Cc: <stable@vger.kernel.org> # 5.16.x
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- drivers/net/wireless/realtek/rtl8xxxu/core.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+Changes from RFC v1.2
+- RFC v1.2: https://lore.kernel.org/20260628165447.86217-1-sj@kernel.org
+- Drop RFC tag.
+- Rebase to latest mm-new.
+Changes from RFC v1.1
+- RFC v1.1: https://lore.kernel.org/20260628005723.28549-1-sj@kernel.org
+- Use ALIGN() for end address.
+Changes from RFC v1
+- RFC v1: https://lore.kernel.org/20260627170057.1867-1-sj@kernel.org
+- Fixup the commit message for how the fix is made.
+- Do the validation with min_region_sz-aligned addresses.
 
-diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
-index c06ad064f37c..b447ce78ff05 100644
---- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
-+++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
-@@ -5792,14 +5792,19 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
- {
- 	struct sk_buff *skb;
- 	unsigned long flags;
--	int pending = 0;
+FYI, this fix cannot be applied as is to the commit that introduced this
+class of bugs, because damon_set_regions() was introduced after the bug.
+I considered making three fixes for each caller to make the backporting
+on the old kernels easy.  However, the first LTS kernel having the bug
+is 6.1.y, which has damon_set_regions() and all the callers are using
+it.  So porting this to necessary stable kernels should be easy enough.
+
+ mm/damon/core.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 027250e43c66f..3dd2750c2ef20 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -356,6 +356,12 @@ int damon_set_regions(struct damon_target *t, struct damon_addr_range *ranges,
+ 	unsigned int i;
+ 	int err;
  
- 	spin_lock_irqsave(&priv->rx_urb_lock, flags);
- 
- 	if (!priv->shutdown) {
- 		list_add_tail(&rx_urb->list, &priv->rx_urb_pending_list);
- 		priv->rx_urb_pending_count++;
--		pending = priv->rx_urb_pending_count;
-+		/*
-+		 * Arm the worker under rx_urb_lock so this is atomic with the
-+		 * shutdown check: moving it out of the lock would let a
-+		 * completion arm the work after rtl8xxxu_stop() canceled it.
-+		 */
-+		if (priv->rx_urb_pending_count > RTL8XXXU_RX_URB_PENDING_WATER)
-+			schedule_work(&priv->rx_urb_wq);
- 	} else {
- 		skb = (struct sk_buff *)rx_urb->urb.context;
- 		dev_kfree_skb_irq(skb);
-@@ -5807,9 +5812,6 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
- 	}
- 
- 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
--
--	if (pending > RTL8XXXU_RX_URB_PENDING_WATER)
--		schedule_work(&priv->rx_urb_wq);
- }
- 
- static void rtl8xxxu_rx_urb_work(struct work_struct *work)
-@@ -7461,6 +7463,13 @@ static void rtl8xxxu_stop(struct ieee80211_hw *hw, bool suspend)
- 	priv->shutdown = true;
- 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
- 
-+	/*
-+	 * Cancel before killing rx_anchor: the worker re-anchors every URB
-+	 * it drained via rtl8xxxu_submit_rx_urb(), so a worker still running
-+	 * after the kill could submit a URB that escapes it.
-+	 */
-+	cancel_work_sync(&priv->rx_urb_wq);
++	for (i = 0; i < nr_ranges; i++) {
++		if (ALIGN_DOWN(ranges[i].start, min_region_sz) >=
++				ALIGN(ranges[i].end, min_region_sz))
++			return -EINVAL;
++	}
 +
- 	usb_kill_anchored_urbs(&priv->rx_anchor);
- 	usb_kill_anchored_urbs(&priv->tx_anchor);
- 	if (priv->usb_interrupts)
--- 
-2.34.1
+ 	/* Remove regions which are not in the new ranges */
+ 	damon_for_each_region_safe(r, next, t) {
+ 		for (i = 0; i < nr_ranges; i++) {
 
+base-commit: e861a804dfa410dde21e8d2d20179df9c66edd8d
+-- 
+2.47.3
