@@ -1,174 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD6A3D1CCF;
-	Tue, 30 Jun 2026 07:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C4A3E316E
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 07:48:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782805454; cv=none; b=B84Q7xGac/NhGseKSV3J5D9guzt1B2nvpVHgZvjrJElZUx0RGWHMtgH26YW7LMUTIWKV120dKXglSLqS+atG1IHkL0rjFHUIfm1YmM+n5NoXnhjTWUky4YlkszbRzCb0teW9Oa9SS9bEXazQDJqolCkzASdjjjoMpZ91a8RWU88=
+	t=1782805737; cv=none; b=DxrClrZXcraksIXhWh564z6CRGX4Xx584c50T7iKhFMZAKPqp6L6CDOzxH6J+6TdJI1qzflBAzEAR5q4GNu9BrpVdcjtVvnIeiT8N+hZ/8Ss6BuhGoxEp7IxlATAfiV8Sbw+ocNIbMf9RiYwg+pCTWjLYobF+rXpnqYnACKUoFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782805454; c=relaxed/simple;
-	bh=7DbOLKL0rLvcvNDP28oH6c82QlbGx/4fWe6uzgVFgRc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D/TrApZv88t67cT84+wVRzht12Q+yY5RZXGkP0uZsytlMUiVGUAyDNeX403rhjILqZOZfy+wPjrzsmjk4QotMMzI0ofq4FrWq+GjpRzoL6cCjEiz3BcubhQP0nygAfPt9BxRRoIrk6+t7vpsOvocevFcVZ/Xad2jSynk6OGY+28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CkRZKX/b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782805737; c=relaxed/simple;
+	bh=FVsTp1W5wAMou7tfbvT3MvGOwJ4atyI0HNj0OMdGxB8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RwNJeE/LtPLqs9yrtBA52/aGbWF/mIMz7IBDJWpAZmlJIItyBLibysVp8zatUJGmW9cFzorchxwscPlexaBGDDcggB17QLkjzZLOH6hMflWZhDv/++YbTaSty5/UHoxVZf+be28ib0UXXXmjCUUVUnLSL8/LUfCg02GjnDOTK8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BL8ASBoN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EV5m5dmj; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CkRZKX/b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED68B1F00A3A;
-	Tue, 30 Jun 2026 07:44:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782805453;
-	bh=E0KgZjmuVYnhggcedT+cDC7Ty8G96rX4EfII0AXlJBc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CkRZKX/bA42/uEJ5XxOREyoadqjTygMIt74dA2qVxbuawMc1GSM0yzs633B3Tz2Mp
-	 beFyyifGnnR5RMB9iDUdGHwTYb7nThu3cByxooWGzkC9q5L0DgNlp4RGKOF0mb2gYw
-	 Tk+3eY1YbRGGBk5/z7rDeqxVdHEoll1eEUlccMfvQDJs6EgAJi2iB7gOrgZVXfld0Z
-	 sL7A/q9rmCpWOrvANDV7DVruik0tM2zCCbGGtmzNJIhjfP8Tuo91RuvXdzBCEEWFJt
-	 mCO/ihVsbG9zr37T8zLuH+OVGAlb/m4Afew6Hs3XrUsKe0UnlwMSF+ITUKsOl1HXNS
-	 4C8x5cWcUc55Q==
-Message-ID: <4549ad0e-abb1-4156-95c6-5e3c1319dffe@kernel.org>
-Date: Tue, 30 Jun 2026 09:44:08 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BL8ASBoN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EV5m5dmj"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U6CItT1055974
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 07:48:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	i0OvYj2FpZ08KKJOnjskaUMgl/M91qfEsZGOL3FKGXw=; b=BL8ASBoNxXkoZNfg
+	EXNJyjI4C6QaS5sbxsb4KFOBDEYR7Yos+njfcuxtrpjyJwJxcZldsWC8sc8JGsvM
+	xrKDs5i4ldXb6o6YQ6c5iceyIjZxmDlfk6CGFD4NRpzwq1r33F8M3KGWoMD0B+Ia
+	XPZk6ncR5TI8JqJd9p/YoZANgdNEsmKC+Mw79smAzP/cGvjHg9k0uq/Pyi3TsRaD
+	YfNsYL497k70BrnmQj/v60H98yOYaLbRBbahcSkvvaNTdG7lwXg1mqvLpi/7yyeB
+	h4FQd4p2xFjGSoDrJS6cDva37pADTpHQN04AfSg1ERnvCupeQA9H/rcpcKudHm0d
+	KM7gUg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f46860x1m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 07:48:52 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e52306621so311845085a.1
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 00:48:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782805732; x=1783410532; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=i0OvYj2FpZ08KKJOnjskaUMgl/M91qfEsZGOL3FKGXw=;
+        b=EV5m5dmjJvyskzsNGvvuOqXqqNLT8s4NB1tzZGXplUQWphn9Nz6Y3cZu+wRLlUGSKA
+         aQKua7ec5+h5Wq+z8LipuAUZsllcY/xa0iIpxiRqGxjryCiLNsHr4vga+5BidNBnvP5r
+         zYHXGlCydQk/UH5AZHEk33tVXHdsyoNDj7qv//ArxheISElS56xKXxdlo2gYXNIj9RUY
+         EAw4p3Qo0QlVW7cc983HP80ga1EAVU3wRFljrkZe9xZt6v5Z+oL90xaiZU4D8JgeemD1
+         fbQbHq67nfZPeSE2NXjksifBGa6bxlzf15GEU9CJN3mhFhwjpW4KMB090ZRgRz6wsvDL
+         JwQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782805732; x=1783410532;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=i0OvYj2FpZ08KKJOnjskaUMgl/M91qfEsZGOL3FKGXw=;
+        b=chsZKpOrM9oax4ALODjIgNCkxtbWQ0T4rn+ryX2WjuevFcRgnvSUGzIus/IewoO4sF
+         J/Et/s7yZHTULwUbBBY2eR6mFoW4n7USOT/VB2uzAol4d2UgFL4AJK3/nnMIiJustUXf
+         Nq9IS73KXUUeU5fRm+T+FPNrxc/P/S3bCSYiZdBxll+hyrk1B6NhIMoeXkr2wac8yYJm
+         SZYdXMQ359l0vgXf+DzIIiSUyA+RS88nKr3vdb0buNYYX8cwNSUOGNCOjHfT9KZExLtX
+         yIcwPaqU57TtBs1CzHA48qZHdaeUpebVyIp742JNCl2RShfzlvfjOS1WrvwVaEed1t5m
+         aLYw==
+X-Forwarded-Encrypted: i=1; AFNElJ/EB2JjcgfMLaMT7qQ1jMVmSsX5sFObk+Sn7RtwckUibyDmqnaoUrwaERTU9gpd4KnOoZX2U6k=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvrF7dOUtcHz4KWKvnU41K97hjIgiQyHrJLxRfVib5+s0pRmZ1
+	vGRJLdEBdVpAIUr/BILm6U/M63IjrLlANk4kwBT9YS+4WgdJv6NRKMgQ2+jHQCyKtYHLUrSD7wp
+	l4yqA3j8YIl2NOAeNOPPLKzu+hvaeF3Q4+6xgtoWWm8I5OLyLGLqK4N/8Wi0=
+X-Gm-Gg: AfdE7cnlyDW+V7phT3DzcCjOk/4f0M8WPS/EuFEy9i1HlWrxjWAA7c7oOZu7QFlQQPI
+	/LN23xgi9rzje30gSgilSo5VYVMk8QvN+RFJdUrZx9ms9zmB9uosfbZGHG8iNcIcOqukjRNuioX
+	/cziszyU0IpMWSnkFBY1Ezr4B7JZywIGWWOjMkyP4lUPu2MeGCjoB1LGhGLxwyZE43NMSzLmWln
+	0BquJDOpfWOt5T31nnVWt5oTvwj56W701L2BI9qwi0jxDUaLfliDzYGIq66r6IekxOtOc2R5Q3M
+	oPXMqx55ld1iYok3miQZcdjOv4KSTasPwEhcoURyt7ubP6qFSvbElToymqsaqhzgEWJbY22Cx54
+	IUgo+BlSwMFXaWuR3Im1HMCyWy+GoQIcabii2ydQ=
+X-Received: by 2002:a05:620a:40d0:b0:915:cda5:2803 with SMTP id af79cd13be357-92e627eba1emr490886585a.56.1782805732097;
+        Tue, 30 Jun 2026 00:48:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:40d0:b0:915:cda5:2803 with SMTP id af79cd13be357-92e627eba1emr490884285a.56.1782805731685;
+        Tue, 30 Jun 2026 00:48:51 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:a2d4:ac8b:bb21:2661])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493b8c65f67sm53224605e9.3.2026.06.30.00.48.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 00:48:49 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Henning Schild <henning.schild@siemens.com>,
+        Simon Guinot <simon.guinot@sequanux.org>,
+        Paul Louvel <paul.louvel@bootlin.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+        stable@vger.kernel.org
+Subject: Re: [PATCH] gpio-f7188x: Add support for NCT6126D version B
+Date: Tue, 30 Jun 2026 09:48:47 +0200
+Message-ID: <178280572474.5897.16083467528991834203.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260629-gpio-f7188x-nct6126d-version-b-v1-1-a06226c02a2d@bootlin.com>
+References: <20260629-gpio-f7188x-nct6126d-version-b-v1-1-a06226c02a2d@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/page_alloc: free allocated PFNs if the range does not
- match
-Content-Language: en-US
-To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <jackmanb@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- Yu Zhao <yuzhao@google.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260629-free-pfn-on-alloc-contig-range-error-path-v1-1-496ff9ca22db@nvidia.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260629-free-pfn-on-alloc-contig-range-error-path-v1-1-496ff9ca22db@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: hyIqVcMachrBE6-Yc9z279D0lQX-Rd48
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA2OCBTYWx0ZWRfXxeR1NT3+/dBH
+ hQCRzBhUpVGtnmOSA97aF3r4aczfMyNqj/IqgexTezNDRto58bv1SrmS+wexHsGE0zg+4ErF/U7
+ abQQZ249HCwAKRhq2dHd2UhHhp/VVg6/CjhfA47tBYvT8JeDsZ0P9Gp86S1SjIpB3tkUWUp/Nhn
+ QprVv3a5zrf2KwzUMiiMZxaw+4OBhntMaSOlJ+wLfF5QiNApVU1NZOikhwmNRVGOAyj5QuKWObe
+ cXDyk5CBc8riiyW7TkGVku67qN7fUdetOxGuYB45eSG1jD+RXo4O9TlyLK/E8pAHVE8W8+GT/kf
+ PaL518mraWeF6A9Vkytjd2naO+CIMgSLdcIHy+1CDw+3b8PUTqk2YaXyZw1U/iUqK1G0a4jpLCC
+ gq1pXPjr+xRvzoZx4M7hruJtAKU1aJcNjFNDs70S9VNYFPXo0nKmi5lv+tKTttFKG7KkZ2JcJnO
+ i/i14ZvMB45qa5LIaGw==
+X-Proofpoint-GUID: hyIqVcMachrBE6-Yc9z279D0lQX-Rd48
+X-Authority-Analysis: v=2.4 cv=FbcHAp+6 c=1 sm=1 tr=0 ts=6a4374e4 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=pvbJ51eCTVabp2qf0xoA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA2OCBTYWx0ZWRfX3jZP+6iwY/H4
+ AgDjkFSLMm7TG9766iYUX4rJZvV7wD8/P+G8GpVA/2UfDY8V7hz4fdtoT0ACYYIzrnNK7s55wTw
+ PgoWVLMtMZDxaIP31jWqErhnoFWA/VI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 adultscore=0 phishscore=0
+ malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300068
 
-On 6/30/26 03:35, Zi Yan wrote:
-> When using __GFP_COMP in alloc_contig_frozen_range(), if the allocated
-> range does not match the requested one, the code errors out with EINVAL
-> without freeing the allocated PFNs and causes free page leaks. Fix it by
-> calling release_free_list() in the error path.
+
+On Mon, 29 Jun 2026 16:07:02 +0200, Paul Louvel wrote:
+> The Nuvoton NCT6126D Super-I/O is available in two hardware revisions.
+> According to the manufacturer datasheet revision 2.4, version A reports
+> chip ID 0xD283, while version B reports chip ID 0xD284.
 > 
-> The issue is reported by Sashiko[1].
-
-So this?
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-
-> Fixes: e98337d11bbd ("mm/contig_alloc: support __GFP_COMP")
-> Link: https://sashiko.dev/#/patchset/20260628-keep-subpage-private-zero-at-free-v1-0-f4ce3930d10f@nvidia.com [1]
-> Signed-off-by: Zi Yan <ziy@nvidia.com>
-> Cc: stable@vger.kernel.org
-
-Hm well, it's a path that warns, can only happen due to a development error?
-Not sure we care about stable then. Anyway.
-
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-> ---
-> Sashiko reports that if alloc_contig_range() with __GFP_COMP cannot
-> allocate PFNs with the given range, it returns EINVAL without freeing the
-> allocated PFNs and causes free memory leaks. Fix it by properly freeing the
-> isolated free pages and adjusting WARN message for clarification.
-> ---
->  mm/compaction.c | 2 +-
->  mm/internal.h   | 1 +
->  mm/page_alloc.c | 6 ++++--
->  3 files changed, 6 insertions(+), 3 deletions(-)
+> The driver currently only recognizes only the version A ID. Version B
+> only contains hardware fixes unrelated to the GPIO functionality, so it
+> can be supported by simply adding its chip ID without any other driver
+> changes.
 > 
-> diff --git a/mm/compaction.c b/mm/compaction.c
-> index b776f35ad020..4e3f06ff9304 100644
-> --- a/mm/compaction.c
-> +++ b/mm/compaction.c
-> @@ -88,7 +88,7 @@ static struct page *mark_allocated_noprof(struct page *page, unsigned int order,
->  }
->  #define mark_allocated(...)	alloc_hooks(mark_allocated_noprof(__VA_ARGS__))
->  
-> -static unsigned long release_free_list(struct list_head *freepages)
-> +unsigned long release_free_list(struct list_head *freepages)
->  {
->  	int order;
->  	unsigned long high_pfn = 0;
-> diff --git a/mm/internal.h b/mm/internal.h
-> index 181e79f1d6a2..6f9e5c2a6065 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -821,6 +821,7 @@ static inline void clear_zone_contiguous(struct zone *zone)
->  }
->  
->  extern int __isolate_free_page(struct page *page, unsigned int order);
-> +extern unsigned long release_free_list(struct list_head *freepages);
->  extern void __putback_isolated_page(struct page *page, unsigned int order,
->  				    int mt);
->  extern void memblock_free_pages(unsigned long pfn, unsigned int order);
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index ee902a468c2f..c1a35adb40f1 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -7235,9 +7235,11 @@ int alloc_contig_frozen_range_noprof(unsigned long start, unsigned long end,
->  		check_new_pages(head, order);
->  		prep_new_page(head, order, gfp_mask, 0);
->  	} else {
-> +		release_free_list(cc.freepages);
->  		ret = -EINVAL;
-> -		WARN(true, "PFN range: requested [%lu, %lu), allocated [%lu, %lu)\n",
-> -		     start, end, outer_start, outer_end);
-> +		WARN(true,
-> +		     "PFN range: allocated [%lu, %lu) does not match requested [%lu, %lu), freeing allocated PFNs\n",
-> +		     outer_start, outer_end, start, end);
->  	}
->  done:
->  	undo_isolate_page_range(start, end);
-> 
-> ---
-> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-> change-id: 20260629-free-pfn-on-alloc-contig-range-error-path-acc001232468
-> 
-> Best regards,
+> [...]
 
+Applied, thanks!
+
+[1/1] gpio-f7188x: Add support for NCT6126D version B
+      https://git.kernel.org/brgl/c/9a6c0b6ea12746d50cf53d59a7e05fd83f974bda
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
