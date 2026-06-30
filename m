@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DCC47AF6F;
-	Tue, 30 Jun 2026 20:32:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70C647CC87;
+	Tue, 30 Jun 2026 20:32:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782851572; cv=none; b=gaft8LZsds1CyQ8IAFpw1UzK/Elqkh3oWYgnbrf6xrW9NB8lstAxBbst36ZyCk4PgYgV11Zjih4H3Ejj0PCi3GmWd9M6XSHsVDthgZm/YRFIMPoMf7uPXAdGKwgTZJRwgL4x9j619N7Gt7su/7g2xjBGVcvUPEMUKG4vmtXsZSA=
+	t=1782851576; cv=none; b=aAl5uVjHsy2gbj3v60Irhu9jNL1PvWSbwaORQs7sSsIpHKcBNt8NDeJJj8vau5RdLKKQkH9nsUTdG6f/9DpLehQjH5TDI4XCzPTmWNsXXdmyYqe87v57l89qU2Tg/3rmJ6/qpUL7mi8UYe3ywGL+UIF8IV3RXKxzBcG22O1bbnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782851572; c=relaxed/simple;
-	bh=FLjrl7czaG4FfZ/yByaab4DhVMLtckgWxxVurMT0haE=;
+	s=arc-20240116; t=1782851576; c=relaxed/simple;
+	bh=ByIBVyBM03OfrN1ZFbcXC+RBCM3Y2iRMY7d1jJmRDJ0=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=d/GFiaF/lu6wj02m42xuPZIpjqIW3MCTxqSJ2bXfqJocjD/bfcQ2GGz/A3CLrKYI5GUpcQRbkBfU8/3elMCT69C/TNkHdoTZwpckeXOEe2jsVEWdh+v53DoI4PnqMrUZE45tCi6/7mmCmLSJWrgpiH/87BE6O90e6hrjGkuk/W8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e32DL/vx; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=YwT8p0a+erht4ivjJUM571AofHtks8DIJoOZQRw0JQJhE8avuhVT3/KNAyiyXjHAgDzgZozbHlx8aQycSEhnj8PDZK24Cup78eOSqdb5WDP0d9KRqpnQ2fT3fFUXFSmp2wLOnAfA4ksU9tc8RIx5o7DJPFXLSeg2X/e47aNMcM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UazHzzYo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e32DL/vx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33BF21F000E9;
-	Tue, 30 Jun 2026 20:32:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UazHzzYo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB6DF1F000E9;
+	Tue, 30 Jun 2026 20:32:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782851571;
-	bh=xfw3ezIWzpDKuqA9gNKODmNxB7jhAnIOXzwGIeBOwIo=;
+	s=k20260515; t=1782851575;
+	bh=m+Mn34FwdBlEkYd6k+CFYNtnPQQvOr2OMuiUX/rvhcU=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=e32DL/vxmT/1au2oHbHO7HiwryYow707JyWXPlbzkLj37hhZmggwFKYxbL9Ca+xPE
-	 5Mxp4Qn9xEVjNvjU+p+Td71aCiMVZhNk+xtaej30GdsVs1+mfCYJSXvj4hI1WlKV08
-	 ANxOkQFs3CrVXbE4S0nfM9uhA6bw87YfY13XlyV9MUNjValMw8OhhWlQLdKBN0Z8y0
-	 S6/h4+T9a00C+6uMhZwMTJQbzUc3cM3h+JYOMh+/5l5Pa+MNea3Ad/pFMF6+dRpqrv
-	 qCgxA5YBHgY+IspywzDkOo6bFfaQDEvO99mfLGDcyeRuJcY7rQatns0zXf3IZGLjGf
-	 OEJDVPAWo7T1Q==
+	b=UazHzzYodNRxpLNL/ozozDs2HcgajjM7D7qXtUzkc5CjvxtbFfFi7Gk4JPUesYJ9y
+	 wB2xES4/uFE4A5XPNdwpWdLS2tGgxBsjSkyBsI1fmoRWnGqlZi70EqA9ucOzMLqNZF
+	 WYL0GTVLdF3NOYpT5jplFO4cILGg7ePKBlNawxxJ2LvUdvF4lNKYVI6d79TYpXeU45
+	 bACvpyvQMqMvdWIBXdI7SUM3V1DTtnKofQSzf/uSH2jfN6/GR/8kYongAVouQjTGx1
+	 S3zV+Gt/MpFfXqXGQNyfdCTVorMvyODCvLQ4Lv+zeY4tpMAlk/JW5M5XHRyPgb9pYy
+	 pX+MwDf/MrbiA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5692C393A951;
-	Tue, 30 Jun 2026 20:32:36 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A7C393A951;
+	Tue, 30 Jun 2026 20:32:40 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,38 +37,38 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: bnep: pin L2CAP connection during netdev
- registration
+Subject: Re: [PATCH] Bluetooth: fix UAF in bt_accept_dequeue()
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <178285155488.267316.4327348213803627629.git-patchwork-notify@kernel.org>
-Date: Tue, 30 Jun 2026 20:32:34 +0000
-References: <20260628005058.29072-1-alhouseenyousef@gmail.com>
-In-Reply-To: <20260628005058.29072-1-alhouseenyousef@gmail.com>
+ <178285155938.267316.144055219083939907.git-patchwork-notify@kernel.org>
+Date: Tue, 30 Jun 2026 20:32:39 +0000
+References: <20260628002305.22823-1-alhouseenyousef@gmail.com>
+In-Reply-To: <20260628002305.22823-1-alhouseenyousef@gmail.com>
 To: Yousef Alhouseen <alhouseenyousef@gmail.com>
 Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
  linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, syzbot+fed5dce4553262f3b35c@syzkaller.appspotmail.com
+ safa.karakus@secunnix.com, stable@vger.kernel.org,
+ syzbot+674ff7e4d7fdfd572afc@syzkaller.appspotmail.com
 
 Hello:
 
 This patch was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Sun, 28 Jun 2026 02:50:58 +0200 you wrote:
-> bnep_add_connection() reads the L2CAP connection without holding the
-> channel lock, then passes its HCI device to register_netdev(). Controller
-> teardown can clear and release that connection concurrently, leaving the
-> network device registration path to dereference a freed parent device.
+On Sun, 28 Jun 2026 02:23:05 +0200 you wrote:
+> bt_accept_get() takes a temporary reference before dropping the accept
+> queue lock. bt_accept_dequeue() currently drops that reference before
+> bt_accept_unlink(), leaving only the queue reference.
 > 
-> Take a reference to the L2CAP connection while holding the channel lock.
-> Retain it until register_netdev() has taken the parent device reference.
+> bt_accept_unlink() drops the queue reference. The subsequent
+> sock_hold() therefore accesses freed memory if it was the final
+> reference, as observed by KASAN during listening L2CAP socket cleanup.
 > 
 > [...]
 
 Here is the summary with links:
-  - Bluetooth: bnep: pin L2CAP connection during netdev registration
-    https://git.kernel.org/bluetooth/bluetooth-next/c/d66f0661748e
+  - Bluetooth: fix UAF in bt_accept_dequeue()
+    https://git.kernel.org/bluetooth/bluetooth-next/c/a8c481ee3819
 
 You are awesome, thank you!
 -- 
