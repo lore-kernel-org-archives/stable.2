@@ -1,195 +1,228 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABBE410D04;
-	Tue, 30 Jun 2026 12:46:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8EE41325B
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 13:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782823596; cv=none; b=TpgCSDmKJB3/Hxxf+KgHi/bc+duQZMvBYt+YiZSScWxiKk2hweL1iJKKjx/isfcINWQ3yR/HrYE5n637j/ZyQ+0Ea8WX7GndM1g2IEabQFut1wu0G+BtkTL6Zr+hfADLFPiQI9KDZyB8/1+rJgGYKOT8z7U5gFueoYiE4yBGpUQ=
+	t=1782825459; cv=none; b=UrkNMHrzOV2vdOKRWo6jQDHvWD5+bXTCvLw4jjcA9pWarjZ3EkdWQXCjpVlaa9RMLxTKo6ut0n9fpo6H96wqIpwe2zcoykz2i0BUMLu4lBy6axIjjkL0tHYRqHbipkBLOF/RjxMzqcnZkG0PnEf7JDhJc0R4hx9Bz63GYSVrNjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782823596; c=relaxed/simple;
-	bh=RT0dwjn0lBQ3vrq53HCmpzrU5ySV3XD8Calq9B5BmuA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S1K2kG0YBWH3k1pXtnFFjp11z6Kp3MykBeW//ylEnTh/M9eMSQBo9XPSa6saXcKgExm54fLX9NxLWPSvIu2T8lQcIOw1HBpjaFo+UScFoCuJICl8f9uJjaQp/Xyc6U39uNwXB7beAP32ErFy2B6F5QL56yKDilrACObhxsoZxJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l9fHtvOQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782825459; c=relaxed/simple;
+	bh=xJzJE6JcIfh29mENEET4zmI5xlhI0ypkw6NGz/Hgyj8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z7eUZh/gClwXvqI9TTvoMbakmBs0l0jiCPv3TNn95SXY5KVn9bKxnvo+qZSEuAXXPgNwaiLHgeZFxiJuKx9CoDMdgo25ugxxGVlPyHvn1yQPEwu2VxPpk6ujqgQQygYKAis6htP3PQ3/msKCL8bh+W7rF6Bd2H29jAjrrK9ockI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FyUM/KTH; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l9fHtvOQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 172481F000E9;
-	Tue, 30 Jun 2026 12:46:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782823595;
-	bh=zVRDifu1QOyyXsAGZkUm6ew4XqjId6qSZyoyYBdxCL4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=l9fHtvOQOP1Ai0VpWvZKiub+ksLWhWziADe3pLNfPxthadvVrmehxH6q/40yTMPH1
-	 VKlXtQcRFJUncsgox7z1MmPK+41arWoWSKb15luQrC+c7RZwPSRh6YaHuQHVDlr2zP
-	 gE8n346B54Meo0ciXzFd11xIDgLQSmDXCrxIp2W8SKL2lQh5UiOZ7YltjkSkgnWpY4
-	 EK8BYZHlvO7zQkCqxwftcbSy93CqfKyBZyqQhAuzUVHKqA45XL81fXEVvoJ4dwFkfn
-	 DFgd9gCeYXOIecVHrqwaum6X/8FjP9lDctXz4DYecsPkUmIuLDbc5l7elbP5B9KEUA
-	 WAar42Kf9ZP1Q==
-Message-ID: <1fb04774-1ac6-472a-bbc8-52fceb69b018@kernel.org>
-Date: Tue, 30 Jun 2026 14:46:27 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FyUM/KTH"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-493b8d92a4eso43015e9.1
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 06:17:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1782825455; x=1783430255; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lMFOK57Iz7WMkmkcRIKxg4m8SX0OyWW/vWHhXqpi1uY=;
+        b=FyUM/KTHLdWRtXooJVl7dFEnhlPZA4uCsW8hp+PFo2JbtCKMFHuQRD/15GqBkyaPcI
+         ucSpz8EZso8Zy1psDwiy5w7636Ipff5Vm8j77jOrqoIVbfbDPozMh+0jr8XzLA7KyJRG
+         2Lv/AdUM/i+tABJHhj7Vn4MlX9pyAs/AGmhBa0M87ANQ1hQsOA/EfBcGtpTiKnDcsBdt
+         Hqk/Ja8LjpHdqX2HrxNRL2YCTh7S0tOGbdApI6HeccIX0cNUbHsC6Unh76jj0XJrQ4H7
+         PZQpJldS28XLs+kE6WW5pad9sRP7x9x3yIAFl3s28ZFLhWt4JFtzK1AGKfvNc1/uRvGl
+         mAFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782825455; x=1783430255;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lMFOK57Iz7WMkmkcRIKxg4m8SX0OyWW/vWHhXqpi1uY=;
+        b=fv7N3Niy6Fijy8g/36n/SilvOQCp/x/BJrrgrH4rsiGUecQ2Vuol13/jOKvwSWPQPW
+         exPJzf0LNA9YwQPZlIjAnzXwTRfIemHxQA2EkU/rrNDwgd4CG9NeyLiZ2p+nQwOSSD1S
+         H+2J3K/9orH1dPw3HrTElZhu6a9cs2G95Km1ElfRqV8Sn5/TMapqPUP3wUWl7wJDa14U
+         6fAO5OHfg0QtUe+CuKyvsUIKKXEuxaWVZ3A+7I7ALbDv8jGu8t7opgI/fq/dsZta1j4A
+         nVNWrp1W4txZ8i7zOfJ6hrpZVxYqcEmXkKzPwppMmHsSnSk564n3aJyZ5bXIo2uTSIwS
+         VfNQ==
+X-Forwarded-Encrypted: i=1; AFNElJ90I6uoAuwfCOE/c/Zf69q24kb6GQXNm5HsZahzXJGDUjOYfAFAfnPI7ZT0LHwMj5sQAj95i54=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzCebUfE1Ag/QAgKft4uA/iQuI11Cr5J+buyQZF+8M1LiGHp947
+	8Vx46pGLpMHkmXxHYHBv81Ed9G2GJeaJHby+Nnj8+DT+5muuofdHOkOF12s5pXBATg==
+X-Gm-Gg: AfdE7cnrRt8/QQ/r7Pe+cTAkQ9/HKvx5rf71n9mxE4zEPUvTZyRHhS0+Vssx5OMz6fj
+	y8qZkEHPVfC5clmqbFpoHoUQgbAEOWWrIyfwsrX/yntqsQ49q5nWNqW6zaPFIhG06VE4xJWPDZv
+	aucScTUwC8gnC/eSAt6cbE6/aNDkur4t1rcZuVdvmlUGu+zbzp/mgZeqZlCLjonI+VAZjqzS/Ag
+	Q/kmWTolOC9+sFhqVLjPEJS3r3vFvoWLxKb9fllG1fxeLPOUN3Ir9WRoUYbazay7hn4WRJlL+rp
+	Dxf9LEtxvt1rGfrg3fLGaIp8XvHV2yQ0zJjulQ8TM3obLs7hgL2qMn51fHodvyHA+knYQYE10FL
+	ZSlCMaG9z4bUqe7UM4Ex9avMJBLKt+t88JScwhL8p2B4Doo2mNpOMd2y/zzZ5PcyfWUZ0taUfTV
+	97CmmTv0UUYztkHI7kOOFJsgoXZ+HKSUusMSLYvDwX0pvFl1f/AYs=
+X-Received: by 2002:a05:600c:638f:b0:493:ae5f:d29f with SMTP id 5b1f17b1804b1-493bde0d921mr57485e9.3.1782825455000;
+        Tue, 30 Jun 2026 06:17:35 -0700 (PDT)
+Received: from google.com (140.240.76.34.bc.googleusercontent.com. [34.76.240.140])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493b8d0496csm63329035e9.10.2026.06.30.06.17.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 06:17:33 -0700 (PDT)
+Date: Tue, 30 Jun 2026 13:17:30 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: will@kernel.org, robin.murphy@arm.com, jgg@nvidia.com, joro@8bytes.org,
+	praan@google.com, kees@kernel.org, baolu.lu@linux.intel.com,
+	kevin.tian@intel.com, miko.lenczewski@arm.com,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	jamien@nvidia.com
+Subject: Re: [PATCH rc v7 0/7] iommu/arm-smmu-v3: Fix device crash on kdump
+ kernel
+Message-ID: <akPB6l-fuJUcg4a2@google.com>
+References: <cover.1782799827.git.nicolinc@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
-To: Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>
-Cc: linmiaohe@huawei.com, muchun.song@linux.dev, osalvador@suse.de,
- akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- riel@surriel.com, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
- kas@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- rcampbell@nvidia.com, apopple@nvidia.com, ziy@nvidia.com,
- matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- byungchul@sk.com, gourry@gourry.net, ying.huang@linux.alibaba.com,
- mel@csn.ul.ie, nao.horiguchi@gmail.com, ak@linux.intel.com,
- j-nomura@ce.jp.nec.com, pfalcato@suse.de, dave.hansen@intel.com,
- tglx@kernel.org, jpoimboe@kernel.org, ryan.roberts@arm.com,
- anshuman.khandual@arm.com, stable@vger.kernel.org
-References: <0fabee2a-edb7-41c8-91ec-8cf0646c9e83@kernel.org>
- <20260629074802.42727-1-lance.yang@linux.dev>
- <a1c6c3dd-8db1-4db6-b032-e350bacc4577@kernel.org>
- <6fdc0cbd-0880-4594-bf33-a2993ac2fe60@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <6fdc0cbd-0880-4594-bf33-a2993ac2fe60@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1782799827.git.nicolinc@nvidia.com>
 
-On 6/30/26 13:34, Dev Jain wrote:
+On Mon, Jun 29, 2026 at 11:15:33PM -0700, Nicolin Chen wrote:
+> When transitioning to a kdump kernel, the primary kernel might have crashed
+> while endpoint devices were actively bus-mastering DMA. Currently, the SMMU
+> driver aggressively resets the hardware during probe by clearing CR0_SMMUEN
+> and setting the Global Bypass Attribute (GBPA) to ABORT.
 > 
+> In a kdump scenario, this aggressive reset is highly destructive:
+> a) If GBPA is set to ABORT, in-flight DMA will be aborted, generating fatal
+>    PCIe AER or SErrors that may panic the kdump kernel
+
+Can you please clarify more on those errors, what conditions will
+trigger that?
+For example, patch 4 disables the EVTQ to avoid events as there might
+be a lot, why are they not fatal also?
+
+> b) If GBPA is set to BYPASS, in-flight DMA targeting some IOVAs will bypass
+>    the SMMU and corrupt the physical memory at those 1:1 mapped IOVAs.
 > 
-> On 29/06/26 1:35 pm, David Hildenbrand (Arm) wrote:
->> On 6/29/26 09:48, Lance Yang wrote:
->>>
->>> >from pagewalk code (where some users like pagemap need the actual address).
->>>
->>> Indeed ...
->>>
->>>
->>> Kinda lean toward option 1, even if it's more invasive. If we pass the
->>> hstate down, each arch can figure out the right addr from there.
->>>
->>>
->>> AFAICT, for huge_ptep_get() the addr users are arm64 and powerpc, riscv
->>> doesn't really care about addr there. Looks mostly arm64-specific ... 
->> powerpc handles it correctly in the weird "span two PMD entries" case by
->> aligning the PMD down.
->>
->> Risc-v copied from arm64, but can simply derive the #entries from the PTE value.
->> it doesn't have to re-walk the table using the address.
->>
->> But I think the following is required to fix, no?
+> To safely absorb in-flight DMA, the kdump kernel must leave SMMUEN=1 intact
+> and avoid modifying STRTAB_BASE. This allows HW to continue translating in-
+> flight DMA using the crashed kernel's page tables until the endpoint device
+> drivers probe and quiesce their respective hardware.
 > 
-> We don't receive an unaligned ptep in huge_ptep_get, and riscv derives the
-> number of cont ptes from the pte itself, so why is the below required?
+> However, the ARM SMMUv3 architecture specification states that updating the
+> SMMU_STRTAB_BASE register while SMMUEN == 1 is UNPREDICTABLE or ignored.
+> 
+> This leaves a kdump kernel no choice but to adopt the stream table from the
+> crashed kernel.
 
-Let me look at the actual report once more ...
+In many cases the patches assume that the CDs/STE might be corrupted,
+but still attempt to retrieve them with some validation
+(log2size/split...)
+However, the base address might be broken, TLBs state is unknown...
 
-I thought for a second that the problem would be having the ptep not point at the
-start of the hugetlb page mapping. But that should always be the case.
-So yes, riscv does not have any problems.
+IMO, although that might improve the status quo, there are still
+heuristics, in addition to noticeable complexity to transition the
+stream tables. I wonder if FW can deal with AER in that case before
+booting the kdump kernel.
 
-And IIUC, arm64 only has a problem when CONT_PTES != CONT_PMDS (16 kernel?).
+Thanks,
+Mostafa
 
-Yeah, aligning the ptep down doesn't solve anything, it's already properly aligned.
-
-To fix it inside arm64 code, we'd have to teach find_num_contig() to
-ignore the ptep and instead look for the cont bit, maybe?
-
-But I'm sure I messed this up as I am working on 10 things at the same time :D
-
-
-diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-index d477a9dd1b472..d1d03795c135e 100644
---- a/arch/arm64/mm/hugetlbpage.c
-+++ b/arch/arm64/mm/hugetlbpage.c
-@@ -76,7 +76,7 @@ bool arch_hugetlb_migration_supported(struct hstate *h)
- #endif
- 
- static int find_num_contig(struct mm_struct *mm, unsigned long addr,
--                          pte_t *ptep, size_t *pgsize)
-+                          size_t *pgsize)
- {
-        pgd_t *pgdp = pgd_offset(mm, addr);
-        p4d_t *p4dp;
-@@ -87,7 +87,7 @@ static int find_num_contig(struct mm_struct *mm, unsigned long addr,
-        p4dp = p4d_offset(pgdp, addr);
-        pudp = pud_offset(p4dp, addr);
-        pmdp = pmd_offset(pudp, addr);
--       if ((pte_t *)pmdp == ptep) {
-+       if (pmd_cont(*pmdp)) {
-                *pgsize = PMD_SIZE;
-                return CONT_PMDS;
-        }
-@@ -131,7 +131,7 @@ pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
-        if (!pte_present(orig_pte) || !pte_cont(orig_pte))
-                return orig_pte;
- 
--       ncontig = find_num_contig(mm, addr, ptep, &pgsize);
-+       ncontig = find_num_contig(mm, addr, &pgsize);
-        for (i = 0; i < ncontig; i++, ptep++) {
-                pte_t pte = __ptep_get(ptep);
- 
-@@ -475,7 +475,7 @@ void huge_ptep_set_wrprotect(struct mm_struct *mm,
-                return;
-        }
- 
--       ncontig = find_num_contig(mm, addr, ptep, &pgsize);
-+       ncontig = find_num_contig(mm, addr, &pgsize);
- 
-        pte = get_clear_contig_flush(mm, addr, ptep, pgsize, ncontig);
-        pte = pte_wrprotect(pte);
-diff --git a/mm/memory.c b/mm/memory.c
-
-
--- 
-Cheers,
-
-David
+> 
+> In this series:
+>  - Introduce an ARM_SMMU_OPT_KDUMP_ADOPT
+>  - Skip SMMUEN and STRTAB_BASE resets in arm_smmu_device_reset()
+>  - Skip EVENTQ/PRIQ setup including interrupts and their handlers
+>  - Memremap the crashed kernel's stream tables into the kdump kernel [*]
+>  - Defer any default domain attachment to retain STEs until device drivers
+>    explicitly request it.
+> 
+> [*] For verification reasons, this series only fixes coherent SMMUs.
+> 
+> For non-ARM_SMMU_OPT_KDUMP_ADOPT cases, keep a status quo since the commit
+> 3f54c447df34f ("iommu/arm-smmu-v3: Don't disable SMMU in kdump kernel"):
+> full reset followed by driver-initiated reattach, potentially rejecting any
+> in-flight DMA.
+> 
+> Note that the series requires Jason's work that was merged in v6.12: commit
+> 85196f54743d ("iommu/arm-smmu-v3: Reorganize struct arm_smmu_strtab_cfg").
+> I have a backported version that is verified with a v6.8 kernel. I can send
+> if we see a strong need after this version is accepted.
+> 
+> This is on Github:
+> https://github.com/nicolinc/iommufd/commits/smmuv3_kdump-v7
+> 
+> Changelog
+> v7
+>  * Rebase v7.2-rc1
+>  * Add Reviewed-by from Pranjal
+>  * Reword the linear stream table adoption comment
+>  * Use dev_dbg for the stream table adoption message
+>  * Document why the lazy L2 adoption uses devm_memremap()
+>  * Drop redundant FEAT_COHERENCY checks in the adopt functions
+>  * Use feature bit instead of STRTAB_BASE_CFG in adopt cleanup
+>  * Skip CR0_ATSCHK update in adopt mode to retain the crashed policy
+>  * Restore FEAT_2_LVL_STRTAB if the cleanup action fails to register
+> v6
+>  https://lore.kernel.org/all/cover.1779265413.git.nicolinc@nvidia.com/
+>  * Rebase v7.1-rc3
+>  * Add Reviewed-by from Jason
+>  * Replace dma_addr_t with phys_addr_t
+>  * Drop arm_smmu_kdump_phys_is_corrupted()
+>  * Skip threaded IRQ handlers for EVTQ and PRIQ
+>  * Bypass arm_smmu_rmr_install_bypass_ste() in kdump case
+>  * Drop devm_ for adopt-time allocations; set up cleanup function via
+>    devm_add_action_or_reset()
+> v5
+>  https://lore.kernel.org/all/cover.1778416609.git.nicolinc@nvidia.com/
+>  * Add Reviewed-by from Kevin
+>  * Drop READ_ONCE on lazy-attach L1 read
+>  * Split "Skip EVTQ/PRIQ setup" into two patches
+>  * Tighten kdump probe comment and dev_warn message
+>  * Use MEM + BUSY in arm_smmu_kdump_phys_is_corrupted
+> v4
+>  https://lore.kernel.org/all/cover.1777446969.git.nicolinc@nvidia.com/
+>  * Rebase v7.1-rc1
+>  * s/arm_smmu_adopt/arm_smmu_kdump_adopt
+>  * Revert alloc/memremap/fmt on fallback
+>  * Reorder patches to avoid bisect regression
+>  * Use IRQ_NONE for spurious evtq/priq entries
+>  * Cap linear log2size by kdump's allocation bound
+>  * Defer clearing FEAT_2_LVL_STRTAB on linear adopt
+>  * Add arm_smmu_kdump_phys_is_corrupted() validation
+>  * Defer l2 stream table memremap till master inserts
+>  * Re-validate L1 desc on master insert with READ_ONCE
+> v3
+>  https://lore.kernel.org/all/cover.1777150307.git.nicolinc@nvidia.com/
+>  * s/OPT_KDUMP/OPT_KDUMP_ADOPT
+>  * Do not adopt if GERROR_SFM_ERR
+>  * Retain CR0_ATSCHK beside CR0_SMMUEN
+>  * Clear latched GERROR bits (e.g. CMDQ_ERR)
+>  * Assert ARM_SMMU_FEAT_COHERENCY in adopt functions
+>  * Add STE.Cfg check in arm_smmu_is_attach_deferred()
+>  * Fix validations on return codes from devm_memremap()
+>  * Sanitize crashed kernel register values in adopt functions
+>  * Drop unnecessary l2ptrs guard in arm_smmu_is_attach_deferred()
+>  * Don't enable PRIQ/EVTQ irqs and guard the irq functions for combined
+>    irq cases
+> v2
+>  https://lore.kernel.org/all/cover.1776286352.git.nicolinc@nvidia.com/
+>  * Add warning in non-coherent SMMU cases
+>  * Keep eventq/priq disabled vs. enabling-and-disabling-later
+>  * Check KDUMP option in the beginning of arm_smmu_device_reset()
+>  * Validate STRTAB format matches HW capability instead of forcing flags
+> v1:
+>  https://lore.kernel.org/all/cover.1775763475.git.nicolinc@nvidia.com/
+> 
+> Nicolin Chen (7):
+>   iommu/arm-smmu-v3: Add arm_smmu_kdump_adopt_strtab() for kdump
+>   iommu/arm-smmu-v3: Implement is_attach_deferred() for kdump
+>   iommu/arm-smmu-v3: Do not enable EVTQ/PRIQ interrupts in kdump kernel
+>   iommu/arm-smmu-v3: Skip EVTQ/PRIQ setup in kdump kernel
+>   iommu/arm-smmu-v3: Retain CR0_SMMUEN during kdump device reset
+>   iommu/arm-smmu-v3: Skip RMR bypass for kdump adoption
+>   iommu/arm-smmu-v3: Detect ARM_SMMU_OPT_KDUMP_ADOPT in probe()
+> 
+>  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |   1 +
+>  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 467 ++++++++++++++++++--
+>  2 files changed, 422 insertions(+), 46 deletions(-)
+> 
+> -- 
+> 2.43.0
+> 
