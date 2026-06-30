@@ -1,132 +1,90 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+Received: from mail-pf1-f202.google.com (mail-pf1-f202.google.com [209.85.210.202])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE513DB33C
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 17:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782839449; cv=pass; b=TInjQcblNl5b/nFyZ+YHWFILvjGpKeBCrKUR3qtal6KCYIml6WqPDwUgO+SPzD/t95O+dDL4H8XjtrZgLvruVRSSc9syIdz708ig2psZXY+s4p097OYUQbosxpIUh2XACNZmJLACjjKPcH2XElN3BSVtWLoJDmUkq5LpV3X4eTs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782839449; c=relaxed/simple;
-	bh=Q+NKeElSU3Mey9uyDYNttOsH+dbdUz4bwovoPjDwSTA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rMX2scsTgR0tylcjZRECY6zLp2ABtNlyxl+6FSm3pGbqo5kF2i2frMv4Ol4odUu0ZhPLl8MQKacPuP1d5IyIPrGO1cSBXxLbHtvh80QT90+oVrqVhhRoOrV/GeLxpKfSHYNPH+49JSjlAMeYG2gOii9AqrmCYq1BD8Jn0yzmzoU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aD0UN9K0; arc=pass smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799CC3DE427
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 17:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.202
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782840129; cv=none; b=kdd4zNtjUf3hqYzOJQJq8/xBGfE8Y4YNUMWIf+RKvpqRi/mpEH2Jf7NweN4PFTsA28SQMpprN4jCp/TIx7XSiygzrpiS2c8xDNXr8a8iVxKozWfFF4jYxOs7ljTv/9zmROB5ASTUximliGfvlunCuZ7kLVxA3eL8AZbxz94qXgE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782840129; c=relaxed/simple;
+	bh=Guh0b0E/oshV7Eo9n9YJbc2xeAVSD7LwXtP/99970XI=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=j8XTUN6BIC9ieP6XBtuNGsL657rYu8jRmORWp17ueD6NQjZnLTbqT49wMW5Cm3nySgmqoXTuRterZ8r2qkmsdDt80n98qXnJj3yyCvUxHy55VTPUjo/+zXvLfiErNToipzTTiUyPvJPACKDWVFKhrRugItXROQh28xvomI+/AuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sZLqydp5; arc=none smtp.client-ip=209.85.210.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aD0UN9K0"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c124c3c876aso517216766b.1
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 10:10:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782839446; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QCAw9e7Sxs2xdkdwqdjRpYDPjWoUTAOkDVc2AYVC/FoHokAbJC+Wi+3Yjq4ZifLNzg
-         Ni8uDppTIBN8wCQUhCruikYE8B11BCO+IRPi/PzW8k7eK0iJ2oB9cpz/YfC/NtnY9Xni
-         RppMlMA0G+1PuRMgifs285BFAs6N0ImGNY8Zq0ffhsMU0DKOOFG+dLBX24dv/KUqarCF
-         m1g9HsTYp5zf3yR8ZLh30KT0onTF4bJIYyxs+ZjYvQj8tU3UHEc2ktTlqSZ5R/Ca45Hr
-         /V9XtdwgNwuylw+1tWWqzpnDsWrlMLH4orCIy6/RUh25/wX8W23y3OqZB9R729yHbJSz
-         ssHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=64A1s13t8IpGGSBhMh8O8eYrTFpABwP1rR+WIQ9DsoI=;
-        fh=0djsQ4HX0dTcCdxSZe5mJ+IuddEFhc2vjvXU+GHzGzw=;
-        b=oveKp0S2tCMAaJP/nCbQn+4yvtD4nuxuoZCWIyL8WLywsxdu4MSbf7RwPELAW9nDIn
-         ROSXbBNwdYTT3MXD0uu1I0wyXVa5KVU1hwoe3IHlAwYaMbj25uzyTxL3RXlY8U+lz/jL
-         hGkn/YLnS+oOvBvfusv8O1IjPPTep4GsT+/y5+L22UD+3LdFTn7vr1w35t/hwptrv8v5
-         YKndWUrsukcOSsV6V5wzQTOnck3t8TIvtRaQ9e0QAlRiAULgNQ/1tjFXPwkUBr8VLAQ0
-         ZvPHDEKc8hoR29n1ICSJD7+diSRiMzkcZFZO8JoIDVtt7JMCCtDO8i1npvBnGmtbFkJb
-         VNGw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sZLqydp5"
+Received: by mail-pf1-f202.google.com with SMTP id d2e1a72fcca58-8423f544944so2698578b3a.3
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 10:22:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782839446; x=1783444246; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=64A1s13t8IpGGSBhMh8O8eYrTFpABwP1rR+WIQ9DsoI=;
-        b=aD0UN9K0I2je6VboJYEwgYK/1RyEHdtZCobpZKj1h227f+0T94gqS5Uu2Z6SxTLT/s
-         PFX1n5ScwuxOhL0q5YiTfGIy4PjNbSi9lZr348jFAwbRvO/KMTTe6v7VVTYV1YUbm9UG
-         Lj1gnmQyJjV2zBkY2fbKjQg6ZDVv3KA6l/fukd/sHKRYMV/Kn9yXshmkW9JgiYpb2+/i
-         ZlA3uU/nxcw7IDniepvYdidEtkgqB1m5UNzSZ9uN7hYKpuccCybt0uRnSSMUdf6iTlHE
-         sOrbJLR3YtoaZNa/jBiDHXnf8Mw1x9VumT1EU+4EofBM+/J9/kDQt3PDhtgvHDr2KAiA
-         m2mQ==
+        d=google.com; s=20251104; t=1782840128; x=1783444928; darn=vger.kernel.org;
+        h=cc:to:from:subject:message-id:mime-version:date:reply-to:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RNfVuu5IEUj4RxRR3iUFZkOMO70NS5abTKzIhEzo5lQ=;
+        b=sZLqydp5cnA9aBBg3wLfgvlgf13ETHgUuOOMM+1AQyqFi3SG/dSDhcsvYRJirrnL9i
+         JIFLERgoJ3tzy7Ho15WJ35nto/XTXQ1U4a6r+HNX1XNh5UtbXRSBetKaE+/1165EtITz
+         wHzJGcB9TEU/h3/N9XTJfJ9Qvi5XRh6wIuWBoYQ58wC1ZWcpivLtKSlREvphvJHdgKbP
+         JdXkJpF/LvUZNmSOAigsWu0yZ1WvHDXHSIOGATuGrUbWMGHAVpU29/9tIqfv4R29y4Yk
+         pziTt+5/6fcAOBC0TCijRfW4JchQ+BjQGkKZ5uj7i1lP59Gitdf+kRdpq7Ewb5OfUoX/
+         lG+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782839446; x=1783444246;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=64A1s13t8IpGGSBhMh8O8eYrTFpABwP1rR+WIQ9DsoI=;
-        b=MBupvqKPF4nWdlvBUVbLFrLte3eM3oSOy2yDqU09RbDYHhDViaSmEIQusoS1XC1e/m
-         hK8oXvzi4t/TnhOsuRt5Py/WFPhQecSO33bapnYfz5i/vGlSwLHV8z27QPoJOMT4GgbI
-         vnz8LjNKlvlVHu9fGmkGeDeWSCjxnYeMvqVOOrKRNWaDBiId4wrwOpoC9iXG7JjtL2NV
-         TuoBYL6SoINQSMafxcROzKI0GIqF0cY2QbzNWbAm8YUrrOZ/kP7reI3H+PfFGyfccaH/
-         EGg3Ae8WsIBsY30exVfeqZID+XXIbWFWbHWG7zrKAA2hHBXl6wcuXR8ez0QqVOv24Guz
-         MxLQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrygmpwQcWTd31dEFcItW+uZG9k/ATyQTGQ3xWiSPZtbDTsdKvbI1btC7tsdB559nokPVMq6ZU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxMpcDdoQ+MKKpNnz1ghxz5MuPh+kS+EC8Q5LYmVMo9w5j+FgKX
-	LG9lm8FgtMcQxQLoP+e/4r/lAqgKU3TT2c7MrjVO0DmOSE9yI2fy0iTfc0MYBXRpFe8z5S+PALs
-	vwOuE+5nyhZ2eNT1orJnP9vxruD8baPQ=
-X-Gm-Gg: AfdE7cmx7H0HmJDsDZyofGw2jGVFmxNDTNKDeZw5/KsxOmxrN+WHBxICgYgyPWXj5Q9
-	mn9wg6uATPd8OkeuvtQoiFdFao9d3WEcdV0FFNEGYj5K05PUlbauBKD1gH83aHQaUU8XqJPyx7h
-	RM8sqCulbJcRKE28hE2HxxeXOrA7Z9Q0LzRExnyX64+SDFqyg1SCOlo/RctEXoeoyISjqJJzl1V
-	w6qoFVn3rGUMuiL9niegB9xBFVSlOu6mynkdstW46EWfZi2H92BvsweZ+bqhYe0FV3ZvmS5sG+T
-	Ivv+d+tWKo7VmHjBToklBpay8fCuB0o=
-X-Received: by 2002:a17:906:6a84:b0:c12:8296:1a76 with SMTP id
- a640c23a62f3a-c12872d6ec8mr174161766b.33.1782839445331; Tue, 30 Jun 2026
- 10:10:45 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782840128; x=1783444928;
+        h=cc:to:from:subject:message-id:mime-version:date:reply-to
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=RNfVuu5IEUj4RxRR3iUFZkOMO70NS5abTKzIhEzo5lQ=;
+        b=GEpY4W3jAo0t8KQaDOLZu6SqsMJDxBDEeIwfshY+xK5eW0Ta/AKrNGLU9q6S1ggJwU
+         OhHnXaTYrn4nfOThtkmuGEO7b88HC7pj0ZxKYySulydoG8sOLNG4VpHdkdDrgOJm3tiA
+         U/AreeRVnsnOUy27MYauhl6WjygMM20PwjkgZpfugUrt2KV29rxgY6rHaCxk7mqgEmHY
+         DI9RlG6TnVOMgJlSUQ+1ERod/MoNyGihb+ZMfO0IOQ0t+lT3y0n5PhmCSi6uTgbxTbyJ
+         Csn5QkX8v4ZYPS8Jwm+P1jsOc8VZFr/qOSes2wpmK/MGCGA8FWqlz0UbuGS46nn6S1AK
+         Wcew==
+X-Gm-Message-State: AOJu0YwTVOmRkAiQ1JdXFymktYfaZ8IHmGxE3CDwRUonloVofeWEq6Q5
+	pDlU7KsPvamTe6uqlycTu1g6MDaedjmDrsa7+277OMk6VWUg5k5SlDstebTMgLKn9cuUE4C06Je
+	qVn8AwXX32Cw09sPZBnSPSfiU0eA6n8pQz46sQq8jUycUBsQ8bRRE9lwn0SF/3p+DnOGJqmW+5t
+	/6NxC8XXiZMGOBN357c684R9ecNDOSGwm3q9Mu
+X-Received: from pfbih2.prod.google.com ([2002:a05:6a00:8c02:b0:842:5241:cda4])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1896:b0:845:ec1c:71ff
+ with SMTP id d2e1a72fcca58-8479f26b1abmr4047285b3a.46.1782840127403; Tue, 30
+ Jun 2026 10:22:07 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Tue, 30 Jun 2026 10:22:02 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260623161035.5792-1-nikhilsolanke5@gmail.com>
- <20260628231634.6752f74d.michal.pecio@gmail.com> <CAFgddh+AUNH9Ji-Qd=BKEDZWJrzPMWN20-g-htQDPSdSehZStQ@mail.gmail.com>
- <e7d49127-0215-4b29-9a2a-e1dc0d889b70@rowland.harvard.edu>
-In-Reply-To: <e7d49127-0215-4b29-9a2a-e1dc0d889b70@rowland.harvard.edu>
-From: Nikhil Solanke <nikhilsolanke5@gmail.com>
-Date: Tue, 30 Jun 2026 22:40:33 +0530
-X-Gm-Features: AVVi8CfKnnvidb5guFAdpaAe6CVJqAOJJ5DDmKL1Krrb-F8QVvOrevg30QCfF0c
-Message-ID: <CAFgddhLeQ1cJv-E4mYWR8cs7T2USkrEd5i=uxqkNCH2UWaQ5=g@mail.gmail.com>
-Subject: Re: [PATCH v2] usbcore: Add quirk for 255-bytes initial config read
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Michal Pecio <michal.pecio@gmail.com>, linux-usb@vger.kernel.org, 
-	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org, 
-	linux-doc@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
+Message-ID: <20260630172204.279784-1-seanjc@google.com>
+Subject: [PATCH 6.12.y 0/2] KVM: SEV: Backports for GHCB leak fix
+From: Sean Christopherson <seanjc@google.com>
+To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Sasha Levin <sashal@kernel.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Michael Roth <michael.roth@amd.com>, 
+	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 
-> There's nothing wrong with trusting the caller to do the right thing.
-> Besides, if a segfault does occur then it will be pretty obvious that
-> the caller needs to be fixed.
->
-> What would you do if buf is NULL?  Return an error code?  That won't
-> help anyone locate the bug.  Put an error message in the log?  Segfaults
-> are much more visible.
+Backports for what are effectively patches 2/4 and 4/4 from this chunk of
+commits (1/4 and 3/4 are already in 6.12.y).
 
-Understood. I guess my coding style is a little "too paranoid" and
-"check everything and report errors". I understood now why this may
-not always be the best approach in low level programming like kernel
-development.
+  8618004d3e89 KVM: Don't WARN if memory is dirtied without a vCPU when the VM is dying
+  08385c5e1814 KVM: SEV: Move sev_free_vcpu() down below sev_es_unmap_ghcb()
+  f041dc80de4a KVM: SEV: Decouple the need to sync the GHCB SA from the need to free the SA
+  db38bcb33110 KVM: SEV: Unmap and unpin the GHCB as needed on vCPU free
 
-Anyways, I have done all the requested changes. Here's a short summary:
-- put strings in a single line
-- copy bytes from desc to bigbuffer instead of pointer aliasing. (so
-no krealloc too)
-- change tabs to spaces in documentation
-- reworded some comments
-- drop USB_CONFIG_WINDOWS_REQ_SIZE macro
-- revert USB_DELAY_INIT to original behavior. no delay before 1st request.
+Cc: Jack Wang <jinpu.wang@ionos.com>
 
-Let me know if I missed any changes mentioned in previous discussions
-(or misunderstood and made unnecessary changes :') ).
+Sean Christopherson (2):
+  KVM: SEV: Move sev_free_vcpu() down below sev_es_unmap_ghcb()
+  KVM: SEV: Unmap and unpin the GHCB as needed on vCPU free
 
-> I wonder if it wouldn't make sense to split announce_device() so that
-> the first line is printed as soon as usb_new_device() starts, before
-> enumeration is attempted and possibly fails.
+ arch/x86/kvm/svm/sev.c | 84 ++++++++++++++++++++++--------------------
+ 1 file changed, 45 insertions(+), 39 deletions(-)
 
-The current patch still logs device ids upon failure in
-usb_enumerate_device(). Do you want me to implement that suggestion?
 
-Thanks,
-Nikhil Solanke
+base-commit: 0b8f247169e487eff2d4c2dd531bc43f7efda2cb
+-- 
+2.55.0.rc0.799.gd6f94ed593-goog
+
