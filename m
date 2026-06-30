@@ -1,171 +1,84 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 66D2F7404E;
-	Tue, 30 Jun 2026 13:54:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C771C367F58
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 14:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782827648; cv=none; b=gHxxO5nAe8WxL+cxgKZidijuNn7d/koo8Khbc0lxGpFRvr2NQFl/3cAiGrvchGlWFm3Ww+Z0WyVPG5I1cQIqq7rRP+aywl6Msoe6gLZyzDodfKrcH3qBO/xARcIDlLLfyz/RN0skHsb6b0qeZLdhYolrAXqgezTkQj0YxQfxNEE=
+	t=1782828366; cv=none; b=O0NnxIbULMdDwWQKC30+LpcgcX10+YPUa4kz8KWYDwUza1iEsJ141l2QbpbeZXoxUVXQuFgxSP1djol8iO2AazQSaz/5ddJBisRiDVKLlH1z711DYNOHA2V40ZkG+t0ihP2gmoBmxjN77X/qFT0prKTybf8mjhNBwyqL+vYxkt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782827648; c=relaxed/simple;
-	bh=bRjeMLBRn+jxQAm2ekNeaSxDem01aFIboF+1jmwc+uU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Gu3atihf7EWuhGTH6Hri4JIrL1bWun3LGH7ImoOy7FAw4OyDpEsvcL4Zz9mfmXQOMt1TZZvwnUzpTv2Jcnx0WAYsSbdeLrq5Ytj/Pr3ekKXH04PqSdGRB8ao27HpqixvOpQrPVjW2BkS6ugVvLmMKcrvsP+oxMfnwEYlS5I3Uac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Fiyz70s4; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1782828366; c=relaxed/simple;
+	bh=KZE8PERg9mDPVZNcBjLhSl+mypn89lWn+zelpMIYuqc=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nI291T9cxSR71ycDBlBmPhYOhHwrdX1o1KqInII/zBB6+76sc1hTPhue37zianywu1ApKkw8vyIpP+MRYuWY0jzSq+j4x9IMCKcdHVQDvfvjRTxBVvWjB44aJAenH9bv2UmV/aFH8XwvlDyti8NgAgoQsTvMW6r8MX5F+3eTV/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ssx8+8uZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Fiyz70s4"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2B1BC1C01;
-	Tue, 30 Jun 2026 06:54:01 -0700 (PDT)
-Received: from [10.164.19.15] (unknown [10.164.19.15])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E86503F66F;
-	Tue, 30 Jun 2026 06:53:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1782827645; bh=bRjeMLBRn+jxQAm2ekNeaSxDem01aFIboF+1jmwc+uU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Fiyz70s4+uUmNIjX6xDSUdsEK140AT1ai79NuNO+FWxq+cbpgHt9EB8jc7BkLtcU9
-	 0K71n9prgUrk/y4KNQgNrLb42LI0u/iktK1roYgs9wWn3PE9SaEULIHo9SXT8C4g/+
-	 gn+oSZCYkUxpoyK2BiuJDr9vOdIKKu/7eKYah7ME=
-Message-ID: <cf369aa5-e540-4c3b-85d6-0e9e159496ed@arm.com>
-Date: Tue, 30 Jun 2026 19:23:54 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ssx8+8uZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8251F00A3A
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 14:06:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782828365;
+	bh=KZE8PERg9mDPVZNcBjLhSl+mypn89lWn+zelpMIYuqc=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Ssx8+8uZ0Y4OP+CEnjvqnXDa84ZyQPh7l9SD9BcsSqMV0Zn3PeIuTYVZs+Ncgw41m
+	 /QOYTZlR8mmQue/AJ3/+7cs++45c7/f7YmtcL5Ys75rkpHAVJbQwRoL1pXK2RnGo7V
+	 /5SFOSuQWXc/4AKwMNr426Owcb3SqgnE1NSxCq6sajfVUtuKjS6Wuo+FodGrBLawBj
+	 TI2y6d6sxOxaCWtXpVkVWZq5WcIA7vxiGkMWxM3rqATwliZGTqszxsIu5JEuFaet1r
+	 Cp5o4J0dSIMhyxPNv+lS1p7wKOhAfx/i2/fBvu/jmsSSMxLse4KDar47lCau+537vC
+	 h7HhJ/TKQG66g==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39b030e889aso21629451fa.1
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 07:06:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrRaAo+k55hXR0etrf7Inm1b1JrU6kAhWHe1VZOXX1bDAIxndLbHSLxS2mTCqarhbRKq0W/q7Y=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxoXQYETcV2vebv1FuaoR5yQ1zK2ogf9KtXJqAYoqmr1Y4q32dK
+	4ZRbyhxVyv9F2v5YxLhiZRNqKM87JjqwASZyebuUgTnMgLRLGeO9u/KqoQSwhgaj+n3SCUF4neF
+	EuxbCwtPK3FPs1EErJTjHdotclHMUGE3m9nAH5MdwfQ==
+X-Received: by 2002:a05:651c:890:b0:396:7fa2:e090 with SMTP id
+ 38308e7fff4ca-39b1dfa89a6mr9139571fa.29.1782828364161; Tue, 30 Jun 2026
+ 07:06:04 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 30 Jun 2026 07:06:03 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 30 Jun 2026 07:06:03 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260626060112.2498324-4-sergio.paracuellos@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Lance Yang <lance.yang@linux.dev>
-Cc: linmiaohe@huawei.com, muchun.song@linux.dev, osalvador@suse.de,
- akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- riel@surriel.com, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
- kas@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- rcampbell@nvidia.com, apopple@nvidia.com, ziy@nvidia.com,
- matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- byungchul@sk.com, gourry@gourry.net, ying.huang@linux.alibaba.com,
- mel@csn.ul.ie, nao.horiguchi@gmail.com, ak@linux.intel.com,
- j-nomura@ce.jp.nec.com, pfalcato@suse.de, dave.hansen@intel.com,
- tglx@kernel.org, jpoimboe@kernel.org, ryan.roberts@arm.com,
- anshuman.khandual@arm.com, stable@vger.kernel.org
-References: <0fabee2a-edb7-41c8-91ec-8cf0646c9e83@kernel.org>
- <20260629074802.42727-1-lance.yang@linux.dev>
- <a1c6c3dd-8db1-4db6-b032-e350bacc4577@kernel.org>
- <6fdc0cbd-0880-4594-bf33-a2993ac2fe60@arm.com>
- <1fb04774-1ac6-472a-bbc8-52fceb69b018@kernel.org>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <1fb04774-1ac6-472a-bbc8-52fceb69b018@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260626060112.2498324-1-sergio.paracuellos@gmail.com> <20260626060112.2498324-4-sergio.paracuellos@gmail.com>
+Date: Tue, 30 Jun 2026 07:06:03 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfiSePgA+Vc2GHz_5QUGZWFhnPrXPZoCV+32b9RJos5xg@mail.gmail.com>
+X-Gm-Features: AVVi8CfCtJrxZdB_aayhUMnyKmkOqnmeYDZ9Pam7vPg_2SWx29HyVqbCNBbdF9M
+Message-ID: <CAMRc=MfiSePgA+Vc2GHz_5QUGZWFhnPrXPZoCV+32b9RJos5xg@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] gpio: mt7621: be sure IRQ domain is created before
+ exposing GPIO chips
+To: Sergio Paracuellos <sergio.paracuellos@gmail.com>
+Cc: linusw@kernel.org, brgl@kernel.org, vicencb@gmail.com, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Fri, 26 Jun 2026 08:01:11 +0200, Sergio Paracuellos
+<sergio.paracuellos@gmail.com> said:
+> Function 'mediatek_gpio_bank_probe()' registers three GPIO chips using
+> 'devm_gpiochip_add_data()'. At this point, the chips become live and visible
+> to consumers. However, the IRQ domain isn't allocated and set up until
+> 'mt7621_gpio_irq_setup()' is called after the GPIO chips setup finishes.
+> If a consumer requests a GPIO IRQ concurrently 'mt7621_gpio_to_irq()' can
+> be called and pass a NULL irq domain pointer irq_create_mapping(), that can
+> corrupt the mappings or cause a crash. Fix this possible problem seting up
+> irq domain before GPIO chips setup is performed.
+>
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Fixes: a46f2e5720f5 ("gpio: mt7621: fix interrupt banks mapping on gpio chips")
+> Signed-off-by: Sergio Paracuellos <sergio.paracuellos@gmail.com>
+> ---
 
+Seems like sashiko still complains about this one. I'm not overly worried about
+this path but since the commit's purpose was to address this very issue, do you
+want to rework it further?
 
-On 30/06/26 6:16 pm, David Hildenbrand (Arm) wrote:
-> On 6/30/26 13:34, Dev Jain wrote:
->>
->>
->> On 29/06/26 1:35 pm, David Hildenbrand (Arm) wrote:
->>> On 6/29/26 09:48, Lance Yang wrote:
->>>>
->>>> >from pagewalk code (where some users like pagemap need the actual address).
->>>>
->>>> Indeed ...
->>>>
->>>>
->>>> Kinda lean toward option 1, even if it's more invasive. If we pass the
->>>> hstate down, each arch can figure out the right addr from there.
->>>>
->>>>
->>>> AFAICT, for huge_ptep_get() the addr users are arm64 and powerpc, riscv
->>>> doesn't really care about addr there. Looks mostly arm64-specific ... 
->>> powerpc handles it correctly in the weird "span two PMD entries" case by
->>> aligning the PMD down.
->>>
->>> Risc-v copied from arm64, but can simply derive the #entries from the PTE value.
->>> it doesn't have to re-walk the table using the address.
->>>
->>> But I think the following is required to fix, no?
->>
->> We don't receive an unaligned ptep in huge_ptep_get, and riscv derives the
->> number of cont ptes from the pte itself, so why is the below required?
-> 
-> Let me look at the actual report once more ...
-> 
-> I thought for a second that the problem would be having the ptep not point at the
-> start of the hugetlb page mapping. But that should always be the case.
-> So yes, riscv does not have any problems.
-> 
-> And IIUC, arm64 only has a problem when CONT_PTES != CONT_PMDS (16 kernel?).
-> 
-> Yeah, aligning the ptep down doesn't solve anything, it's already properly aligned.
-> 
-> To fix it inside arm64 code, we'd have to teach find_num_contig() to
-> ignore the ptep and instead look for the cont bit, maybe?
-> 
-> But I'm sure I messed this up as I am working on 10 things at the same time :D
-> 
-> 
-> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-> index d477a9dd1b472..d1d03795c135e 100644
-> --- a/arch/arm64/mm/hugetlbpage.c
-> +++ b/arch/arm64/mm/hugetlbpage.c
-> @@ -76,7 +76,7 @@ bool arch_hugetlb_migration_supported(struct hstate *h)
->  #endif
->  
->  static int find_num_contig(struct mm_struct *mm, unsigned long addr,
-> -                          pte_t *ptep, size_t *pgsize)
-> +                          size_t *pgsize)
->  {
->         pgd_t *pgdp = pgd_offset(mm, addr);
->         p4d_t *p4dp;
-> @@ -87,7 +87,7 @@ static int find_num_contig(struct mm_struct *mm, unsigned long addr,
->         p4dp = p4d_offset(pgdp, addr);
->         pudp = pud_offset(p4dp, addr);
->         pmdp = pmd_offset(pudp, addr);
-> -       if ((pte_t *)pmdp == ptep) {
-> +       if (pmd_cont(*pmdp)) {
-
-We can simply do this right:
-
-diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-index b8432886085af..a35fa373263dc 100644
---- a/arch/arm64/mm/hugetlbpage.c
-+++ b/arch/arm64/mm/hugetlbpage.c
-@@ -87,7 +87,7 @@ static int find_num_contig(struct mm_struct *mm, unsigned long addr,
- 	p4dp = p4d_offset(pgdp, addr);
- 	pudp = pud_offset(p4dp, addr);
- 	pmdp = pmd_offset(pudp, addr);
--	if ((pte_t *)pmdp == ptep) {
-+	if ((pte_t *)PTR_ALIGN_DOWN(pmdp, sizeof(*pmdp) * CONT_PMDS) == ptep) {
- 		*pgsize = PMD_SIZE;
- 		return CONT_PMDS;
- 	}
-
-
->                 *pgsize = PMD_SIZE;
->                 return CONT_PMDS;
->         }
-> @@ -131,7 +131,7 @@ pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
->         if (!pte_present(orig_pte) || !pte_cont(orig_pte))
->                 return orig_pte;
->  
-> -       ncontig = find_num_contig(mm, addr, ptep, &pgsize);
-> +       ncontig = find_num_contig(mm, addr, &pgsize);
->         for (i = 0; i < ncontig; i++, ptep++) {
->                 pte_t pte = __ptep_get(ptep);
->  
-> @@ -475,7 +475,7 @@ void huge_ptep_set_wrprotect(struct mm_struct *mm,
->                 return;
->         }
->  
-> -       ncontig = find_num_contig(mm, addr, ptep, &pgsize);
-> +       ncontig = find_num_contig(mm, addr, &pgsize);
->  
->         pte = get_clear_contig_flush(mm, addr, ptep, pgsize, ncontig);
->         pte = pte_wrprotect(pte);
-> diff --git a/mm/memory.c b/mm/memory.c
-> 
-> 
-
+Bart
