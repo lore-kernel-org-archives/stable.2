@@ -1,216 +1,242 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08F0335BA;
-	Tue, 30 Jun 2026 03:09:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B89264617;
+	Tue, 30 Jun 2026 03:10:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782788991; cv=none; b=HNoBzQdlUuhBDu6C3mKbmWpjkB6cVNy7S0EI0J9CeYzswyiWMrqRb6S+w2tXO7MOfRf6b1iMmW3UnNZSqAYUmQmNxLf5UNnrTKAAEkeg2f2A45zl7ygPkS/q3OmwhZM2PyrYHI3q6j313feScFs7qanAgIaanMaotx+8oGk9Lb4=
+	t=1782789058; cv=none; b=k/hDcd5aXgkx2WRY7kjDALREsFOGjgtVAHnoqebai8ap+bjxq/ud5JbEVoiny1AXhuixnYVVepCGpqN8m9K7Fe+RU52Oery0ubkAR6U4pB/8iV42dNEwaHGFOTdSbwJ+O2Eba58EilZ6M8GkMdv2CJnMrNf1pQfyfoyb3XDeu3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782788991; c=relaxed/simple;
-	bh=5L/cSEGvPtP3iaRS4GeQQ+VEM5ck7RMhTM8l/ZG6gLM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XAFZPGNbnc2QR2PSiWzF9nTcg4neb3j/m0u0nkQDcfSye0aeScswZ469Dmfv1tEk4XXc4qv5snQJWXtFn3+mDLNnmSoOjc0QaKpEly+r/7pOhIaF1tCnx7yw53QAIfpmVKqx7hbYAP0+1yj2U7eH2pyAp/ohslDYf8qmJxh0B1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=u1JdgPQ/; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	s=arc-20240116; t=1782789058; c=relaxed/simple;
+	bh=kTEPPbJxVN5buc3F2nTCDSgkowYHC7ZBtLeJFcNH0h4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WpodrA/FZ2L/wwYcyUi9KZMgNOkJDHLCY0USqC1bau2R9KU+WQtQNeSbdwI+BWo8s/X2OB2kECH6sWAaD+Os740sKwML79j+HJDuWQfbkjzACQ10dhqTfYAlc9bRF0ew7WxVlcxJsX801KZfjsGSgMVv2ZDaQ7ECj4NDgJ3olrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aSbd9pXF; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="u1JdgPQ/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1782788946;
-	bh=7WcfZP1UOOLYSOg9HtPf0M8B5bAz4/WMG8M4g/hDJzs=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=u1JdgPQ/RYHWYts3Fe0i8Q679OlBVBzdssf1jUfZh4OoAg+mJffCKXrwicHu0wVc1
-	 IBk5cN5+sMqh7sby8EPIlYjaeLGBkSJPBtg2qtwXefn8ImgN43UJtqZEeO08iWy/P8
-	 Fq8Rn2OzW78oBE85Mv8Svbz5GebUIuxJm2K600gc=
-X-QQ-mid: esmtpgz16t1782788940tac31b7c8
-X-QQ-Originating-IP: zc0nl9nEZCIVZIPtSuTq/mPDO2oMnifVArq6bC4hDfM=
-Received: from hepeiyang-vm.wu.lxd ( [218.94.142.72])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 30 Jun 2026 11:08:59 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 1330492449178660943
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: syzkaller@googlegroups.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ntfs: fix mrec_lock ABBA deadlock in rename
-Date: Tue, 30 Jun 2026 11:08:56 +0800
-Message-ID: <E1CB185090CF6721+20260630030856.2210012-1-peiyang_he@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aSbd9pXF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782789056; x=1814325056;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=kTEPPbJxVN5buc3F2nTCDSgkowYHC7ZBtLeJFcNH0h4=;
+  b=aSbd9pXFkmH8KnGOYKVxoZYItuT3IYI8RcABhsyaKGCwK6ZrNRTI/HH6
+   T7LaJYEdJqB5pzmr55Tc7/BOjoFNVyUMXilA8fqEUdxgvU7eZ5pgR3YKG
+   ZGocOE91Soi0IkwQV6pP6cUJTq9VPp3bOdOcuBHggS1Nt8xtGpWHgI93j
+   +XcyU4Dewwh8UlAyqwt5bmmiRIv8rFUlLXrSvHjqBAyuEgy1Butm2bctf
+   l5E0iwQ05amiydLkFOFIzZgoB/0YlgFphnJ8vnVNDJkcktPlMp4zmirGu
+   smavuRNK4t3S5xd8Ga5jMYWTvtYAGEkEZmU0SjDNgF1mGAq/OaWYCCDso
+   Q==;
+X-CSE-ConnectionGUID: hafI7H6BQG6Cx0VN2/X/Bg==
+X-CSE-MsgGUID: fOcSO5MsRJyxmt1ue+jwRQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="83270073"
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
+   d="scan'208";a="83270073"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 20:10:55 -0700
+X-CSE-ConnectionGUID: hKJBoE3LRaKI5VtXHrqsNg==
+X-CSE-MsgGUID: cv4r6+HHTY+1uO5cuXdsEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
+   d="scan'208";a="249497144"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.232.65]) ([10.124.232.65])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 20:10:52 -0700
+Message-ID: <acea8b54-4887-4d59-9bd9-0fa7ff803d3a@linux.intel.com>
+Date: Tue, 30 Jun 2026 11:10:49 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: N3qHXqQQ4xJJy/mWsJsrubmZL6h44yGPV0t0TeUPgM2S7Us1DSQb7VDp
-	LKL+JEtoxB4/6rkGtJtbHP4Cz0YGeyU7EdRgoy8KJg9LxIJx6/oLELhPYSM5thRosGzJcY4
-	ovDkKkqEvhADjeOHPTzEAiiG9lDQ5nnAaxKTp/upc778PKgSmtIfSz2APUiyojMP1bPaTpC
-	CSpAntpAOf+gdSHM17gOo4YQfjOvnMbMwScRYw8F649gBR5vMHnk2vPer8toVKmHDOoQ38v
-	dSSaipZj8U1TvdcMparPVndYxdI9q4NwXmr2x0EWtlsURGBxuxCIQj+W2RJBPCjFDxxbh62
-	NWvK0QnEJ4GZNiH7D0Jn1P75DR4qlNS+IURgljtXeg0Dybq4YJ1R+Ob1o+GBr8Hj/nZZZK8
-	wp8R+k7gNZdqzCaV9y/ksZ74Eg2wBgyI3WtW0Q2beUQEMG4hDBpncQ7BmQes6wF8mu1BHsm
-	rWkjDg7KHguU3g6cGskjIfUFAX6YHIRIzeYf/AlJG8AyLPmGOqPOPMu8wiUk/zK+7bAWCfx
-	bul+fuwKf6b5naJubjbcABXwVRGYLIg7ArrQo2jhZw832aHDQcYyavltkgngDhOkXh+3MwU
-	bfZEcpM1N1uamPJGaAQiHpzU2E1lcjmKFfHFq22qpk0IK/Fc9dfOWoyjwD90ExiDd/puCRJ
-	kzoZlqvUR9GblTA2rB+zqLmU1jo6wonY/sJBPFqavwLd5a6X2n8RBfGNgNBUiN2iM//Fy4i
-	JPMgMqWWSj7boToOOh271Zne5WocJ7eeq3GfVTr7N9h/oDpbOyvHv6ubRU5nxLTUHCexSg/
-	5fH3DkOVDS4CE31YlTwXcXy22kJqSUTwITm0sCrmbBb0eRgzujtqYvgRTzaPXkU7OEwY5Kg
-	HP1FHtqzlihsfudZ6ziRZnFhZr/E2pbtuwf6fATdg3ziPP2VoIsoBfWapOSsxpl8pGhvEPW
-	vplkxoe4Yanqgrx+Gb3Jn8HjEUoUqEvgEl0uEzshw2y6TbyFh3zr83Z0zD/tmz0ATvHZk/G
-	1XY6tV5X0UjXQAgAqz8Rc1vhAWUIEfMI3EixqfxsHmg68XnN5Q9NMyZFWkcZG/0CatWDr/0
-	u6mam+hKyW19ImvG69Je5KvzqzzvnLe0A==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] perf/core: Fix group leader use-after-free after
+ sibling detach
+To: Aditya Chillara <aditya.chillara@oss.qualcomm.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>
+Cc: Peter Zijlstra <a.p.zijlstra@chello.nl>, Ingo Molnar <mingo@elte.hu>,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260630-fix-group-leader-uaf-v2-1-9349121835ee@oss.qualcomm.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260630-fix-group-leader-uaf-v2-1-9349121835ee@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-ntfs_file_fsync(), ntfs_dir_fsync() and __ntfs_write_inode() lock an
-inode's mrec_lock before taking the mrec_lock of its parent directory.
+LGTM.
 
-ntfs_rename() takes old_ni->mrec_lock and old_dir_ni->mrec_lock
-before taking new_ni->mrec_lock for an existing target, or
-new_dir_ni->mrec_lock for a cross-directory rename.
-This can deadlock when ntfs_file_fsync() or __ntfs_write_inode() holds
-the target inode, or when ntfs_dir_fsync() holds a child target
-directory, while rename() holds the parent directory and waits for the
-target.
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-Fix this by locking the existing target inode before taking any parent
-directory mrec_lock. For cross-directory renames where the target parent
-is a descendant of the source parent, lock the target parent before the
-source parent so the directory order matches the child-to-parent order used
-by ntfs_file_fsync(), ntfs_dir_fsync(), and __ntfs_write_inode().
 
-Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Closes: https://lore.kernel.org/all/C4D296F0E9F3D66C+9397ffbc-eb55-44bb-9b3f-5da4809e7955@smail.nju.edu.cn/
-Fixes: af0db57d4293 ("ntfs: update inode operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Assisted-by: Codex:gpt-5.5
----
-Changes in v2:
- - fix the NTFS module build by using exported is_subdir() instead of
-   unexported d_ancestor() (suggested by kernel test robot)
- - move the ancestor relationship check before taking any mrec_lock
-
- fs/ntfs/namei.c | 62 ++++++++++++++++++++++++-------------------------
- 1 file changed, 31 insertions(+), 31 deletions(-)
-
-diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-index a19626a135bd..5ff25e9aaa32 100644
---- a/fs/ntfs/namei.c
-+++ b/fs/ntfs/namei.c
-@@ -1266,6 +1266,7 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 	struct ntfs_volume *vol = NTFS_SB(sb);
- 	struct ntfs_inode *old_ni, *new_ni = NULL;
- 	struct ntfs_inode *old_dir_ni = NTFS_I(old_dir), *new_dir_ni = NTFS_I(new_dir);
-+	bool new_dir_first = false;
- 
- 	if (NVolShutdown(old_dir_ni->vol))
- 		return -EIO;
-@@ -1301,36 +1302,39 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 	old_inode = old_dentry->d_inode;
- 	new_inode = new_dentry->d_inode;
- 	old_ni = NTFS_I(old_inode);
-+	if (new_inode)
-+		new_ni = NTFS_I(new_inode);
-+	if (old_dir != new_dir)
-+		new_dir_first = is_subdir(new_dentry->d_parent,
-+					  old_dentry->d_parent);
- 
- 	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
- 		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
- 
- 	mutex_lock_nested(&old_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
--	mutex_lock_nested(&old_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
-+	if (new_ni)
-+		mutex_lock_nested(&new_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL_2);
-+
-+	if (old_dir == new_dir) {
-+		mutex_lock_nested(&old_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
-+	} else if (new_dir_first) {
-+		mutex_lock_nested(&new_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
-+		mutex_lock_nested(&old_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT_2);
-+	} else {
-+		mutex_lock_nested(&old_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
-+		mutex_lock_nested(&new_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT_2);
-+	}
- 
--	if (NInoBeingDeleted(old_ni) || NInoBeingDeleted(old_dir_ni)) {
-+	if (NInoBeingDeleted(old_ni) || NInoBeingDeleted(old_dir_ni) ||
-+	    (new_ni && NInoBeingDeleted(new_ni)) ||
-+	    (old_dir != new_dir && NInoBeingDeleted(new_dir_ni))) {
- 		err = -ENOENT;
--		goto unlock_old;
-+		goto err_out;
- 	}
- 
- 	is_dir = S_ISDIR(old_inode->i_mode);
- 
- 	if (new_inode) {
--		new_ni = NTFS_I(new_inode);
--		mutex_lock_nested(&new_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL_2);
--		if (old_dir != new_dir) {
--			mutex_lock_nested(&new_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT_2);
--			if (NInoBeingDeleted(new_dir_ni)) {
--				err = -ENOENT;
--				goto err_out;
--			}
--		}
--
--		if (NInoBeingDeleted(new_ni)) {
--			err = -ENOENT;
--			goto err_out;
--		}
--
- 		if (is_dir) {
- 			struct mft_record *ni_mrec;
- 
-@@ -1348,14 +1352,6 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 		err = ntfs_delete(new_ni, new_dir_ni, uname_new, new_name_len, false);
- 		if (err)
- 			goto err_out;
--	} else {
--		if (old_dir != new_dir) {
--			mutex_lock_nested(&new_dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT_2);
--			if (NInoBeingDeleted(new_dir_ni)) {
--				err = -ENOENT;
--				goto err_out;
--			}
--		}
- 	}
- 
- 	err = __ntfs_link(old_ni, new_dir_ni, uname_new, new_name_len);
-@@ -1386,13 +1382,17 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 	inode_inc_iversion(new_dir);
- 
- err_out:
--	if (old_dir != new_dir)
-+	if (old_dir == new_dir) {
-+		mutex_unlock(&old_dir_ni->mrec_lock);
-+	} else if (new_dir_first) {
-+		mutex_unlock(&old_dir_ni->mrec_lock);
- 		mutex_unlock(&new_dir_ni->mrec_lock);
--	if (new_inode)
-+	} else {
-+		mutex_unlock(&new_dir_ni->mrec_lock);
-+		mutex_unlock(&old_dir_ni->mrec_lock);
-+	}
-+	if (new_ni)
- 		mutex_unlock(&new_ni->mrec_lock);
--
--unlock_old:
--	mutex_unlock(&old_dir_ni->mrec_lock);
- 	mutex_unlock(&old_ni->mrec_lock);
- 	if (uname_new)
- 		kmem_cache_free(ntfs_name_cache, uname_new);
-
-base-commit: 1a3746ccbb0a97bed3c06ccde6b880013b1dddc1
--- 
-2.43.0
+On 6/30/2026 3:12 AM, Aditya Chillara wrote:
+> perf_group_detach() handles leader and sibling detach differently. When the
+> group leader is detached, all siblings are promoted to singleton events and
+> their group_leader pointer is reset to themselves. When a sibling is
+> detached, it is removed from the leader's sibling_list, but its
+> group_leader pointer is left pointing at the old leader.
+>
+> That is harmless when the sibling is being closed and freed immediately, as
+> in the DETACH_DEAD path. It is not safe when the sibling is detached but
+> kept alive, such as during CPU hotplug with DETACH_GROUP. In that case the
+> sibling is removed from the context, while its file descriptor can still
+> keep it alive.
+>
+> A typical failing sequence is:
+>
+>   - A group contains leader L and sibling S.
+>   - CPU hot-unplug detaches S with DETACH_GROUP, removing it from
+>     L->sibling_list but leaving S->group_leader == L.
+>   - L is later closed and freed.
+>   - A PERF_IOC_FLAG_GROUP ioctl on S follows S->group_leader and
+>     dereferences the freed leader.
+>
+> This was reproduced by running the perf event fuzzer, CPU hotplug, and a
+> stress workload concurrently:
+>
+> Unable to handle kernel paging request at virtual address 006b6b6b6b6b6cdb
+> CPU: 2 PID: 12489 Comm: perf_fuzzer 6.18.7 PREEMPT
+> pc : perf_ioctl+0x34c/0xc68
+> x20: ffffff89a3fa2c70 x8 : 6b6b6b6b6b6b6b6b
+> Code: 943c4a0e 340047a0 f9404a94 f9411e88 (f940b908)
+> Call trace:
+> perf_ioctl+0x34c/0xc68 (P)
+> __arm64_sys_ioctl+0xa0/0xf4
+> invoke_syscall+0x58/0xe4
+> el0_svc_common+0xa8/0xdc
+> do_el0_svc+0x1c/0x28
+> el0_svc+0x40/0xc0
+> el0t_64_sync_handler+0x68/0xdc
+> el0t_64_sync+0x1c4/0x1c8
+>
+> The fault happened in perf_ioctl(), where perf_event_for_each() follows
+> the stale group_leader pointer and perf_event_for_each_child() then
+> dereferences the freed leader's context.
+>
+> Fix the use-after-free by promoting the detached sibling to a singleton.
+>
+> Fixes: 8a49542c0554 ("perf_events: Fix races in group composition")
+> Assisted-by: PatchWise:gpt-5.5
+> Signed-off-by: Aditya Chillara <aditya.chillara@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Moved the fix to perf_group_detach() with a small refactor
+> - Link to v1: https://patch.msgid.link/20260626-fix-group-leader-uaf-v1-1-ac54652ca944@oss.qualcomm.com
+> ---
+>  kernel/events/core.c | 62 +++++++++++++++++++++++++++++++++++-----------------
+>  1 file changed, 42 insertions(+), 20 deletions(-)
+>
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index 954c36e28101..744643ada948 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -2253,6 +2253,8 @@ static void put_event(struct perf_event *event);
+>  static void __event_disable(struct perf_event *event,
+>  			    struct perf_event_context *ctx,
+>  			    enum perf_event_state state);
+> +static void event_sched_out(struct perf_event *event,
+> +			    struct perf_event_context *ctx);
+>  
+>  static void perf_put_aux_event(struct perf_event *event)
+>  {
+> @@ -2343,6 +2345,44 @@ static inline struct list_head *get_event_list(struct perf_event *event)
+>  				    &event->pmu_ctx->flexible_active;
+>  }
+>  
+> +/* @sibling must already be unlinked from its old leader's sibling_list. */
+> +static void perf_promote_sibling_to_leader(struct perf_event *sibling,
+> +					   struct perf_event_context *ctx,
+> +					   int group_caps)
+> +{
+> +	/*
+> +	 * Events that have PERF_EV_CAP_SIBLING require being part of
+> +	 * a group and cannot exist on their own, schedule them out
+> +	 * and move them into the ERROR state. Also see
+> +	 * _perf_event_enable(), it will not be able to recover this
+> +	 * ERROR state.
+> +	 */
+> +	if (sibling->event_caps & PERF_EV_CAP_SIBLING) {
+> +		event_sched_out(sibling, ctx);
+> +
+> +		/*
+> +		 * The guards keep this correct even when @sibling is already
+> +		 * disabled (see __perf_remove_from_context()).
+> +		 */
+> +		if (sibling->state > PERF_EVENT_STATE_OFF)
+> +			perf_cgroup_event_disable(sibling, ctx);
+> +		if (sibling->state > PERF_EVENT_STATE_ERROR)
+> +			perf_event_set_state(sibling, PERF_EVENT_STATE_ERROR);
+> +	}
+> +
+> +	sibling->group_leader = sibling;
+> +	sibling->group_caps = group_caps;
+> +
+> +	if (sibling->attach_state & PERF_ATTACH_CONTEXT) {
+> +		add_event_to_groups(sibling, ctx);
+> +
+> +		if (sibling->state == PERF_EVENT_STATE_ACTIVE)
+> +			list_add_tail(&sibling->active_list, get_event_list(sibling));
+> +	}
+> +
+> +	perf_event__header_size(sibling);
+> +}
+> +
+>  static void perf_group_detach(struct perf_event *event)
+>  {
+>  	struct perf_event *leader = event->group_leader;
+> @@ -2368,6 +2408,7 @@ static void perf_group_detach(struct perf_event *event)
+>  		list_del_init(&event->sibling_list);
+>  		event->group_leader->nr_siblings--;
+>  		event->group_leader->group_generation++;
+> +		perf_promote_sibling_to_leader(event, ctx, event->event_caps);
+>  		goto out;
+>  	}
+>  
+> @@ -2377,29 +2418,10 @@ static void perf_group_detach(struct perf_event *event)
+>  	 * to whatever list we are on.
+>  	 */
+>  	list_for_each_entry_safe(sibling, tmp, &event->sibling_list, sibling_list) {
+> -
+> -		/*
+> -		 * Events that have PERF_EV_CAP_SIBLING require being part of
+> -		 * a group and cannot exist on their own, schedule them out
+> -		 * and move them into the ERROR state. Also see
+> -		 * _perf_event_enable(), it will not be able to recover this
+> -		 * ERROR state.
+> -		 */
+> -		if (sibling->event_caps & PERF_EV_CAP_SIBLING)
+> -			__event_disable(sibling, ctx, PERF_EVENT_STATE_ERROR);
+> -
+> -		sibling->group_leader = sibling;
+>  		list_del_init(&sibling->sibling_list);
+>  
+>  		/* Inherit group flags from the previous leader */
+> -		sibling->group_caps = event->group_caps;
+> -
+> -		if (sibling->attach_state & PERF_ATTACH_CONTEXT) {
+> -			add_event_to_groups(sibling, event->ctx);
+> -
+> -			if (sibling->state == PERF_EVENT_STATE_ACTIVE)
+> -				list_add_tail(&sibling->active_list, get_event_list(sibling));
+> -		}
+> +		perf_promote_sibling_to_leader(sibling, ctx, event->group_caps);
+>  
+>  		WARN_ON_ONCE(sibling->ctx != event->ctx);
+>  	}
+>
+> ---
+> base-commit: ab9de95c9cf952332ab79453b4b5d1bfca8e514f
+> change-id: 20260626-fix-group-leader-uaf-c46960e525e0
+>
+> Best regards,
+> --  
+> Aditya Chillara <aditya.chillara@oss.qualcomm.com>
+>
+>
