@@ -1,50 +1,33 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907123B42C5;
-	Tue, 30 Jun 2026 09:45:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29CC83E5A24;
+	Tue, 30 Jun 2026 09:46:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782812704; cv=none; b=hJlrmPujeUwcBRf8uzPqwruAMgLAQ4Z9X235txQLd/Ev4NeypCUNMdwx/ldqI7M99LnE6r1FCdHBO/ikpMWJxaDVB0Rvbl86TPxRDvHVD60+bkaUnMyARIN/pKGXxGDRJRX1XBW7VUzTRSR8HFC1/4LkqpLf+SgtENVkpE5P3UI=
+	t=1782812817; cv=none; b=u1yg1lh2yXjABlzkLD18BsazQq58yulccwSQA0fqFeUGhU0NsY6dWaJ4h5IJR1IJ+3nqFurrN1VinKm7tvMJUmmWuWaXFrX3SLgovyh5qKguV0waSXVIV99zMEZgGDIrvPVnYQpmry6NKBq8vVgnXVT3F2+glG/jwNXI6N5RZqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782812704; c=relaxed/simple;
-	bh=4DOfS0q2fNlZSxTeZ6/JGzRAnFYMAcN2e1WPkYAv+DE=;
+	s=arc-20240116; t=1782812817; c=relaxed/simple;
+	bh=GuQw9MIS/pH3fVPA6CarIQglbTE1BhNLAOJ9yeXqKA8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g6mnsNkQV1Eh8JZadfaeYxFv2+JgQ5A7dWFPTZI9790cc8uIT7dQDAjfxRQgo5uSbyXFJ1eMPlqeDrVwc3kyXNOEJrhe6q+11FJS7S/INbkXxBo2fVWCOf35Pv3h4u4O+TGJJVADovAEV6OLyv5VjWJ10DLBCirHV5VxasPT880=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=coTjloB/; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 In-Reply-To:Content-Type; b=rnLjwn+xiBCbtSgIWJrRsXwDqFLt2VAKsmPhU2hGDPk+aTinSRRT4aG58Jl8388TQe+6vgoDlqY4q8QeeaDXbZENAwMl/+Avl1qYzk6cC3qE5LXhv5Sc+IiQ2KJL1qZdMQljp4WUFnuxy0k0+Ee2/iSdCpTjkKtmoU6bOVT1iJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PnHa8UwN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="coTjloB/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782812702; x=1814348702;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=4DOfS0q2fNlZSxTeZ6/JGzRAnFYMAcN2e1WPkYAv+DE=;
-  b=coTjloB/PFJMlTAaa/XKUUrsIcCwQc0vl6f3p3EIykcleUEAK0oZuMeL
-   YqobReYt11wfaqE8HHQ8sMDLBLfZfmBB6L/lEi6LIdwLxfOEIMJyZZz7J
-   dm4ry4SJmXd5+eNtmTgQpYdToXATwUVpLk7yUtkAGuTIx9L7rnCp8RIBz
-   fHAnskVUBSYcxC5BwTjj1j8OjDu2O2GHXcsJbgPGufG35/QxYr0c3+XEO
-   5oEkcDAb7DeHjXp8bPPebxmbey510eB1cFZhkVrUcI9pGgwWQOehN7wua
-   mfh92NdIDW6lQuDwbG3IcVHo4Cw2fCZzjOhCl8zwVJh90E8CLowb47k80
-   A==;
-X-CSE-ConnectionGUID: ju5wRZ/VSqeqK4wOuKjWTg==
-X-CSE-MsgGUID: z/mFM3QxTimRpQIMRCcTGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="82509623"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
-   d="scan'208";a="82509623"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 02:45:02 -0700
-X-CSE-ConnectionGUID: koiyIAHVRr6vwtJThEIs+w==
-X-CSE-MsgGUID: T2ttrrZZQ7e3F9tPqzAwDQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
-   d="scan'208";a="251164995"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.232.65]) ([10.124.232.65])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 02:44:57 -0700
-Message-ID: <ccf419bb-6b87-450f-a371-5e198fa99e5d@linux.intel.com>
-Date: Tue, 30 Jun 2026 17:44:55 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PnHa8UwN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7661C1F000E9;
+	Tue, 30 Jun 2026 09:46:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782812815;
+	bh=uY/mD87Fvq6E/NoNR+PQqQ38lk4WiPdm6num7PEMI9g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PnHa8UwNnOjknGIYsrdstzWHrpp6DN1rr0a/TcNQ0Q/1FqtaEW4YZEJNejMWVVjV9
+	 413+jtFHvk5ajgSc6oJLSgWHyemDgAEP4CTwZ73kYszLF4tW7DEcem212ooGCo2yU7
+	 B0uc5wixnMsIPUYZLuOUrQWPAPIyJiZXF+rZ03c0HyTpZqKjL6iJ8mk494Pgekirnp
+	 zLEJ1gM3ILLKvxfVAJhSqyYSQn0I8K6RXjznSJclb7HyTT7eQCJrxxvmFqc4QflKEd
+	 k7M6D7tuTUwkN97kRi4fnBgIKH9WSLtNGJqJPq2TbfWHcyTR1g+mt95FqXLB5pGRVA
+	 wfgI+YaQ6U6Tw==
+Message-ID: <a0e4d412-f0bf-4415-9e4b-2c6347bf8c69@kernel.org>
+Date: Tue, 30 Jun 2026 11:46:52 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,46 +35,200 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch v3 1/8] perf/x86/intel: Remove anythread_deprecated bit
- from perf_capabilities
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>,
- linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- Dapeng Mi <dapeng1.mi@intel.com>, Zide Chen <zide.chen@intel.com>,
- Falcon Thomas <thomas.falcon@intel.com>, Xudong Hao <xudong.hao@intel.com>,
+Subject: Re: [PATCH v2 1/2] media: uvcvideo: Fix race condition for meta
+ buffer list
+To: Ricardo Ribalda <ribalda@chromium.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-References: <20260612090114.3188886-1-dapeng1.mi@linux.intel.com>
- <20260612090114.3188886-2-dapeng1.mi@linux.intel.com>
- <20260612094648.GB42921@noisy.programming.kicks-ass.net>
- <96a18944-bc0d-47dd-b435-e9aa63b93c43@linux.intel.com>
- <20260616100202.GJ42921@noisy.programming.kicks-ass.net>
- <47a9642f-68ab-432c-a607-548995bd82fa@linux.intel.com>
- <27d77639-a948-4f0f-8cb5-1d06966bac0f@linux.intel.com>
- <20260630094312.GA751831@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20260630094312.GA751831@noisy.programming.kicks-ass.net>
+References: <20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org>
+ <20260629-uvc-racemeta-v2-1-10e91d2afba0@chromium.org>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260629-uvc-racemeta-v2-1-10e91d2afba0@chromium.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+
+Hi Ricardo,
+
+On 29-Jun-26 19:31, Ricardo Ribalda wrote:
+> queue->irqueue contains a list of the buffers owned by the driver. The
+> list is protected by queue->irqlock. uvc_queue_get_current_buffer()
+> returns a pointer to the current buffer in that list, but does not
+> remove the buffer from it. This can lead to race conditions.
+> 
+> Inspecting the code, it seems that the candidate for such race is
+> uvc_queue_return_buffers(). For the capture queue, that function is
+> called with the device streamoff, so no race can occur. On the other
+> hand, the metadata queue, could trigger a race condition, because
+> stop_streaming can be called with the device in any streaming state.
+> 
+> We can solve this issue introducing a flag, stream->meta.in_flight,
+> protected with a spinlock. When there is a buffer in flight that can
+> write into metadata the flag is raised, notifying the stop streaming
+> that it needs to wait.
+> 
+> Reported-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Closes: https://lore.kernel.org/linux-media/20250630141707.GG20333@pendragon.ideasonboard.com/
+> Cc: stable@vger.kernel.org
+> Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+
+First of all thank you for looking into fixing this.
+
+I'm sorry, but this feels more like a band-aid then a proper fix.
+
+How about adding a started bool to struct uvc_streaming which gets
+set to 1 by uvc_video_start_streaming() and 0 by uvc_video_stop_streaming().
+
+And then call uvc_video_stop_streaming() from either 
+uvc_stop_streaming_video() or uvc_stop_streaming_meta()
+depending on which one gets called first ?
+
+With a mutex protecting the started bool and being held
+over calling uvc_video_stop_streaming() ?
+
+So stop the actual hw streaming when either of the
+2 possible /dev/video0 nodes gets its vb2_ops.stop_streaming
+callback called?
+
+And to this before draining the buffer queue.
+
+That seems cleaner then this approach?
+
+Regards,
+
+Hans
+
+p.s.
+
+1. It is tempting to also apply the same approach to
+vb2_ops.start_streaming, but allowing the meta queue to be
+the one to start streaming will likely cause issues. E.g.
+the streaming code assumes having a meta-queue active is
+optional, but not the other way around.
+
+TL;DR: vb2_ops.start_streaming should stay as is.
+
+2. While looking into this I noticed that struct uvc_streaming
+already has an active member, but unless I'm missing something
+that ever only gets initialized to 0. So I think that can be
+dropped. (If you re-use this please change it to a bool, no
+need to have it atomic while protected by a mutex).
 
 
-On 6/30/2026 5:43 PM, Peter Zijlstra wrote:
-> On Tue, Jun 30, 2026 at 05:14:41PM +0800, Mi, Dapeng wrote:
->> Hi Peter,
->>
->> Could you please queue above latest v4 patchset
->> (https://lore.kernel.org/all/20260616044654.3468742-1-dapeng1.mi@linux.intel.com/)
->> which fixes a defect in patch 5/8  "perf/x86/intel: Validate the return
->> value of intel_pmu_init_hybrid()"? 
->>
-> Damn, I knew I was forgetting something :-(
->
-> Let me go fix that.
 
-Thanks! :)
-
+> ---
+>  drivers/media/usb/uvc/uvc_queue.c | 14 ++++++++++++++
+>  drivers/media/usb/uvc/uvc_video.c | 30 +++++++++++++++++++++++++++++-
+>  drivers/media/usb/uvc/uvcvideo.h  |  2 ++
+>  3 files changed, 45 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+> index 3c002c8f442f..af9dbfcf6f53 100644
+> --- a/drivers/media/usb/uvc/uvc_queue.c
+> +++ b/drivers/media/usb/uvc/uvc_queue.c
+> @@ -209,10 +209,24 @@ static void uvc_stop_streaming_video(struct vb2_queue *vq)
+>  static void uvc_stop_streaming_meta(struct vb2_queue *vq)
+>  {
+>  	struct uvc_video_queue *queue = vb2_get_drv_priv(vq);
+> +	struct uvc_streaming *stream = queue->stream;
+>  
+>  	lockdep_assert_irqs_enabled();
+>  
+> +	spin_lock_irq(&stream->meta.irqlock);
+> +	while (stream->meta.in_flight) {
+> +		spin_unlock_irq(&stream->meta.irqlock);
+> +		schedule();
+> +		spin_lock_irq(&stream->meta.irqlock);
+> +	}
+> +	stream->meta.in_flight = true;
+> +	spin_unlock_irq(&stream->meta.irqlock);
+> +
+>  	uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
+> +
+> +	scoped_guard(spinlock_irq, &stream->meta.irqlock) {
+> +		stream->meta.in_flight = false;
+> +	}
+>  }
+>  
+>  static const struct vb2_ops uvc_queue_qops = {
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> index fc3536a4399f..f6b55b3a3308 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -1732,6 +1732,26 @@ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
+>  	urb->transfer_buffer_length = stream->urb_size - len;
+>  }
+>  
+> +static struct uvc_buffer *
+> +uvc_video_get_current_meta_buffer(struct uvc_streaming *stream)
+> +{
+> +	struct uvc_video_queue *queue = &stream->meta.queue;
+> +	struct uvc_buffer *buf;
+> +
+> +	buf = uvc_queue_get_current_buffer(queue);
+> +	if (!buf)
+> +		return NULL;
+> +
+> +	guard(spinlock_irqsave)(&stream->meta.irqlock);
+> +
+> +	if (stream->meta.in_flight)
+> +		return NULL;
+> +
+> +	stream->meta.in_flight = true;
+> +
+> +	return buf;
+> +}
+> +
+>  static void uvc_video_complete(struct urb *urb)
+>  {
+>  	struct uvc_urb *uvc_urb = urb->context;
+> @@ -1767,7 +1787,7 @@ static void uvc_video_complete(struct urb *urb)
+>  	buf = uvc_queue_get_current_buffer(queue);
+>  
+>  	if (vb2_qmeta)
+> -		buf_meta = uvc_queue_get_current_buffer(qmeta);
+> +		buf_meta = uvc_video_get_current_meta_buffer(stream);
+>  
+>  	/* Re-initialise the URB async work. */
+>  	uvc_urb->async_operations = 0;
+> @@ -1778,6 +1798,12 @@ static void uvc_video_complete(struct urb *urb)
+>  	 */
+>  	stream->decode(uvc_urb, buf, buf_meta);
+>  
+> +	if (buf_meta) {
+> +		scoped_guard(spinlock_irqsave, &stream->meta.irqlock) {
+> +			stream->meta.in_flight = false;
+> +		}
+> +	}
+> +
+>  	/* If no async work is needed, resubmit the URB immediately. */
+>  	if (!uvc_urb->async_operations) {
+>  		ret = usb_submit_urb(uvc_urb->urb, GFP_ATOMIC);
+> @@ -2330,6 +2356,8 @@ int uvc_video_init(struct uvc_streaming *stream)
+>  	for_each_uvc_urb(uvc_urb, stream)
+>  		INIT_WORK(&uvc_urb->work, uvc_video_copy_data_work);
+>  
+> +	spin_lock_init(&stream->meta.irqlock);
+> +
+>  	return 0;
+>  }
+>  
+> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+> index b6bcee4a222f..6f1a3381d392 100644
+> --- a/drivers/media/usb/uvc/uvcvideo.h
+> +++ b/drivers/media/usb/uvc/uvcvideo.h
+> @@ -484,6 +484,8 @@ struct uvc_streaming {
+>  		struct uvc_video_queue queue;
+>  		u32 format;
+>  		u32 buffersize;
+> +		bool in_flight;
+> +		spinlock_t irqlock; /* Protects in_flight. */
+>  	} meta;
+>  
+>  	/* Context data used by the bulk completion handler. */
+> 
 
