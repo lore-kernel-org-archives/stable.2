@@ -1,108 +1,162 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4370132571D;
-	Tue, 30 Jun 2026 21:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67A8285CB6
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 21:46:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782855856; cv=none; b=EI0hcnvoin43KTKle9cyyz3HPhwgNJqU2iuMP0/C/7JmMSSzShcHKey0YhttzKN5fTn3Kudc2bHHjFv1ig81/G7UUM7LAYZa114r2cYCDlJb9fU+GJLSFWbbwmfIvpWdjhBeyE9Y7BbNrPBASF+LNXrVXSxnUbJPnc1phGeaIi8=
+	t=1782855969; cv=none; b=m3JnKK2PJtwknyZMtIpw0DMU98byU0h7Hm3DHe5SYd1fWpt/IEoVjLL8ad2FNmG28LTMOVPaFhMgd2Y1VcOBsO8k+B0VNCBIl5sdOGlVBMJfYW3lEw8O6C8XKrKWndumiplYH2tHtz6vSNkN35/6M21ZMgKZB/tABmMuzfwy3CQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782855856; c=relaxed/simple;
-	bh=fS/J+sqBiuir5n500nJ07TkRBhF4znKgrCnzhvoe4nU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s0t4GLqHx5EP1mLl1Ep9dqNBiEI1xzI5WcIalkLWbrebuqIywNCYsPCMrZN3rYGu/vdFdLc1ShzYe+tWAnPPO6PgEZMMdBcGoY3RBuGvdl+91TPGW0iGpps9fP+/5bUbWo/Nl0FGxfqpnUcUpyo/S+nP3hgqNCEkSuwfI41fyOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SPzufVX+; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782855969; c=relaxed/simple;
+	bh=QWuxanpR96XxW/AQtuxKdVFi5wsx2VqMS5+/jhKwVBE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=u4VQ396hGwVwkPWx45PUioZF6k2060T16veCAyDqKaSxxeuBQb9dm8qmO6y5NC7yqHJzySwbTEXgnCoPIscaoOTO94KIf8sKKQbFPowl5Il//qQyH/8Vp+o/a+Y18IUYeuQ/MKm1YB+AvtjaaHAZNvabLEzKYc7NtuJnj0so1+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D7/fwntI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SPzufVX+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782855854; x=1814391854;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=fS/J+sqBiuir5n500nJ07TkRBhF4znKgrCnzhvoe4nU=;
-  b=SPzufVX+eyCI+bxQ8B9iqSVJ9k7KFG23VP7Kxm+FGHhBJ/b6dQOXP8qY
-   +IQBqyImHBrFyQUW2QRIbJx8Y/RhKjDTYTOs0KIwgUo3s+mCKq8MvUQrr
-   I19X4IeINyP8pRKuIl5//QzDzl8dsJu7v3qP1kaZsnHdBkYHzwAH57ECe
-   8pVqrd3cjGnEqXyhkU5RocS9kKve/XGDnhP4t48QHDedfyeNleh7QA15+
-   Hq9N4h0bQ2VAcoxxT17vwKoIJo8DowArJeEeQR5ZwDUyLD7BHLclc+rsm
-   1PBw1AK6FbqbOXjWnHpswinFX92QNjE2Uyrvy1aEHVDbY/HX5tCTMrWCs
-   g==;
-X-CSE-ConnectionGUID: ib3Wpn0nQo6nux8xVgylcA==
-X-CSE-MsgGUID: zf47I0HBRRKFF1Sc+ZiCPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="83637598"
-X-IronPort-AV: E=Sophos;i="6.24,234,1774335600"; 
-   d="scan'208";a="83637598"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 14:44:13 -0700
-X-CSE-ConnectionGUID: dDVYN+wTT+Gd7RhDtMhYJQ==
-X-CSE-MsgGUID: vYY7EoUkQSKlR46k4CJ8Jg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,234,1774335600"; 
-   d="scan'208";a="254296604"
-Received: from anguy11-upstream.jf.intel.com ([10.166.9.133])
-  by fmviesa004.fm.intel.com with ESMTP; 30 Jun 2026 14:44:12 -0700
-From: Tony Nguyen <anthony.l.nguyen@intel.com>
-To: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	andrew+netdev@lunn.ch,
-	netdev@vger.kernel.org
-Cc: Matt Vollrath <tactii@gmail.com>,
-	anthony.l.nguyen@intel.com,
-	stable@vger.kernel.org
-Subject: [PATCH net 4/4] igbvf: Fix leak in TX DMA error cleanup
-Date: Tue, 30 Jun 2026 14:44:02 -0700
-Message-ID: <20260630214404.930923-5-anthony.l.nguyen@intel.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20260630214404.930923-1-anthony.l.nguyen@intel.com>
-References: <20260630214404.930923-1-anthony.l.nguyen@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D7/fwntI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FC451F00ADF
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 21:46:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782855968;
+	bh=pUvDaNXzQAJTqE61fbo+DfZd1bDU6D/qLMCG5IKiMGk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=D7/fwntI/3EHRu1rhEkf/Sxm5cxtWYBPvIyeiHr4BbeE+U3AC8KziRAH/U9R2kZMS
+	 qnVlrScxXMTR+aij1253AguCwtOB36ZJlqGONrgVB0aIem+0zGFOPt2bkghO19pNQA
+	 0L11F8QdXG3xIS9oH+cULaOedAwOQpsrBZ8+RmrxF+WXYCsMkF8ip8T0M2sh/dSMah
+	 zEJrNBRx53ziG79D5Bk6qHq/Ay1OkwovDv8nf9b1+5iqiKFwvZNA6/ZlQIlt+gGpli
+	 OcoR5vcOBHqTjCfrBl6hNTosFoPsoO5PxYZ505Drx/3wDSyHCEo3Fw7RyinOJ8sFFX
+	 N8ihdn7Dk2vHA==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c128c8c7a76so257922566b.0
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 14:46:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpgI1z6kukT9PVqKtbNk6Rp6yzxKL+nNGjhq275kx+N8nra2V6qJ1vR04T+klwCMel4h8zZnfQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZndaVxVB/UGzyHXfjJmmAW5Enlf6hem6gR6XhoLq3py4GhM53
+	SLLGqX/shNNTFYNYIBInJYX++2md+NLi+eVY/4KIvP+weqQ9JcU1Db8Ka0QhcYMmcehrEe5WBBE
+	3dH/ikk2Y/YZ7s8mfanEKpJruLm/BiQ==
+X-Received: by 2002:a17:907:6d06:b0:c08:580e:899a with SMTP id
+ a640c23a62f3a-c129042e82emr232092166b.10.1782855967114; Tue, 30 Jun 2026
+ 14:46:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260629-block-as-nvmem-v6-0-f02513dcd46d@oss.qualcomm.com>
+ <20260629-block-as-nvmem-v6-1-f02513dcd46d@oss.qualcomm.com>
+ <20260630180219.GA4139943-robh@kernel.org> <CAFEp6-163adAq8-H_pCzGnq+Fo4jpyKGs6Jv25j3fSpZg3COjQ@mail.gmail.com>
+In-Reply-To: <CAFEp6-163adAq8-H_pCzGnq+Fo4jpyKGs6Jv25j3fSpZg3COjQ@mail.gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 30 Jun 2026 16:45:54 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqKFjk-mdaAAOzNB6rFiJbw5gd4eDpRBLQL-4q+uJKnp3g@mail.gmail.com>
+X-Gm-Features: AVVi8Cc4MorOqwfKhUItBpWtyYeUsNNDkbig_T10OqzF2nSF1JgV4ariSeJFQ-w
+Message-ID: <CAL_JsqKFjk-mdaAAOzNB6rFiJbw5gd4eDpRBLQL-4q+uJKnp3g@mail.gmail.com>
+Subject: Re: [PATCH v6 1/9] block: partitions: of: Skip child nodes without
+ reg property
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+	Johannes Berg <johannes@sipsolutions.net>, Jeff Johnson <jjohnson@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, 
+	Rocky Liao <quic_rjliao@quicinc.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Saravana Kannan <saravanak@kernel.org>, Christian Marangi <ansuelsmth@gmail.com>, linux-mmc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-block@vger.kernel.org, 
+	linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
+	linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org, 
+	daniel@makrotopia.org, stable@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Matt Vollrath <tactii@gmail.com>
+On Tue, Jun 30, 2026 at 2:59=E2=80=AFPM Loic Poulain
+<loic.poulain@oss.qualcomm.com> wrote:
+>
+> Hi Rob,
+>
+> On Tue, Jun 30, 2026 at 8:02=E2=80=AFPM Rob Herring <robh@kernel.org> wro=
+te:
+> >
+> > On Mon, Jun 29, 2026 at 10:55:20AM +0200, Loic Poulain wrote:
+> > > Child nodes of a fixed-partitions node are not necessarily partition
+> > > entries, for example an nvmem-layout node has no reg property. The
+> > > current code passes a NULL reg pointer and uninitialized len to the
+> > > length check, which can result in a kernel panic or silent failure to
+> > > register any partitions.
+> >
+> > That does not sound right to me. A fixed-partitions node should only be
+> > defining partitions with address ranges. I would expect a partition nod=
+e
+> > could be nvmem-layout, but not the whole address range. If you wanted
+> > the latter, then just do:
+> >
+> > partitions {
+> >   ...
+> > };
+> >
+> > nvmem-layout {
+> >   ...
+> > };
+>
+> In our case, the nvmem-layout needs to be associated with a specific
+> eMMC hardware partition, nvmem cells can be a simple sub-range within
+> the global eMMC, each hardware partition (boot0, boot1, user...)
+> having its own address spaces.
+>
+> That said, your point about not abusing fixed-partitions is valid. I
+> initially dropped the compatible =3D "fixed-partitions" from the
+> partitions-boot1 node when it only carries an nvmem-layout and no
+> actual partition entries, making it a plain named container node. But
+> it's a bit fragile if we want to support both nvmem-layout and
+> fixed-partitions.
+>
+> Regarding your expectation of a partition node being a nvmem-layout,
+> do you mean that the nvmem-layout should live under a fixed-partitions
+> node? Something along these lines:
+>
+> partitions-boot1 {
+>       compatible =3D "fixed-partitions";
+>       #address-cells =3D <1>;
+>       #size-cells =3D <1>;
+>
+>       nvmem@4400 {
 
-If an error is encountered while mapping TX buffers, the driver should
-unmap any buffers already mapped for that skb.
+partition@4400
 
-Because count is incremented before each frag mapping, it will always
-match the correct number of unmappings needed when dma_error is reached.
-Decrementing count before the while loop in dma_error causes an
-off-by-one error. If any mapping was successful before an unsuccessful
-mapping, exactly one DMA mapping (the head) would leak.
+>           reg =3D <0x4400 0x1000>;
+>
+>           nvmem-layout {
+>               compatible =3D "fixed-layout";
+>               #address-cells =3D <1>;
+>               #size-cells =3D <1>;
+>
+>               wifi_mac_addr: mac-addr@0 {
+>                   compatible =3D "mac-base";
+>                   reg =3D <0x0 0x6>;
+>                   #nvmem-cell-cells =3D <1>;
+>               };
+>       [...]
 
-This bug was introduced by a 2010 fix for an endless loop in dma_error.
-All other affected drivers have already been fixed.
+Either this or replacing "fixed-partitions" with "fixed-layout" if you
+want to make the whole boot1 partition nvmem-layout looks like the
+right way to me.
 
-Fixes: c1fa347f20f1 ("e1000/e1000e/igb/igbvf/ixgb/ixgbe: Fix tests of unsigned in *_tx_map()")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-4-7-opus
-Signed-off-by: Matt Vollrath <tactii@gmail.com>
-Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
----
- drivers/net/ethernet/intel/igbvf/netdev.c | 2 --
- 1 file changed, 2 deletions(-)
+> That makes some sense, this would require extra work for the
+> emmc/block layer to also associate fwnodes with logical partitions,
+> not just the whole disk/hw (hw part), Is that the direction you'd like
+> us to go?
 
-diff --git a/drivers/net/ethernet/intel/igbvf/netdev.c b/drivers/net/ethernet/intel/igbvf/netdev.c
-index 0a3d0a1cba43..c686ee120a14 100644
---- a/drivers/net/ethernet/intel/igbvf/netdev.c
-+++ b/drivers/net/ethernet/intel/igbvf/netdev.c
-@@ -2190,8 +2190,6 @@ static inline int igbvf_tx_map_adv(struct igbvf_adapter *adapter,
- 	buffer_info->time_stamp = 0;
- 	buffer_info->length = 0;
- 	buffer_info->mapped_as_page = false;
--	if (count)
--		count--;
- 
- 	/* clear timestamp and dma mappings for remaining portion of packet */
- 	while (count--) {
--- 
-2.47.1
+Yes.
 
+> Also, Note that regardless of which approach we settle on, this
+> specific fix/patch remains necessary to validate the partition node
+> and prevent NULL-deref.
+
+Fair enough, though the reasoning for it would be different and
+perhaps should give a warning.
+
+Rob
