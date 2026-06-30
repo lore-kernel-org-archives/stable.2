@@ -1,145 +1,214 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E4C3502A8
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 02:13:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0B3222582
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 02:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782785601; cv=none; b=Sueh7f1NIBJxNejDR+Y0hD1l7U2aSyXJQDVh99wZNRS7vVYRuCWP5Z25/k+jkQ6A74USpjnlj+g7vgi4THCHnNDeqqZnWY5vqq0vbFbOecfhzbUKXxldhUz7Iru4VvjOpPFEh/jJWplVfPfI4AhUOdZnpi3ZsER7EG4U8AYmuW4=
+	t=1782785747; cv=none; b=lprb/rdGcwtw8QcbxNnY2eNhV5DkP5dSiNP+EuC0UFD3b7b9FINAKURTpJF1mkeLV32jelS9GeRbjDVa63prmC8/PmtoBj0MdUh/gatVzKdoQ8mat55DxLQDySrOz0caK0tqArcV9hOn+FVfFAJHZ+gdLTVeXH2lUUOsLyIT2TU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782785601; c=relaxed/simple;
-	bh=qLzTEG0vAb1fVHHleYCIHVSPJN5rRtgS8VUpHiPqUss=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cD/S8X1NDn1eF0vIfR1U1pNO3+/yRaF8L+Gp25r5HOF4nokY6vNdlU6/sSpZLs0KUQVzHWBzgYBmm2g67WI8MZ2eUthCNz8O3bVpnXvxSuffFcHeyMdGeNcD1M9Ktb5CRUICGT89bsBmKvhncW1Kc+q+XKklmNkeM+nI3+ulLE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=usp.br; spf=pass smtp.mailfrom=usp.br; dkim=pass (2048-bit key) header.d=usp.br header.i=@usp.br header.b=XUE+hG7g; arc=none smtp.client-ip=74.125.82.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=usp.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=usp.br
+	s=arc-20240116; t=1782785747; c=relaxed/simple;
+	bh=ReUoazs1gd0HJAirt0KbIslMuUb1g9bojOUB+Uh3pRA=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=D2K4R1vkks/y3LiGYZFsHSsxJ/WSoLM40a/rzv2orpzPmuP/1GFw6291bQXXUh0r5RJpXUlvt19DQv4gLxBeQ8wJzfXy/mCVESrQXEUGC2zXUKKfDh4EIuj7+7U6bIKpjlVjp2nadRJvkk2wO1xv8LAXiUi3vlVo0lVQcpi3iZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ym1SkqLL; arc=none smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=usp.br header.i=@usp.br header.b="XUE+hG7g"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-13981833e13so4844671c88.1
-        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 19:13:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ym1SkqLL"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c1269e4721aso223469366b.0
+        for <stable@vger.kernel.org>; Mon, 29 Jun 2026 19:15:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=usp.br; s=usp-google; t=1782785597; x=1783390397; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1782785745; x=1783390545; darn=vger.kernel.org;
+        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uHXvlgwhzgwaNu3wblp/hnWeWlO47iBmvx2wTGsjZzQ=;
-        b=XUE+hG7gXFDxPMdTtrPy+a/YBJLdF1Faeso1sX5Hy40XnTaydijuoClKaHzQLaiZH8
-         CAcGQCBsr++uBwaWnlacj5l4zLJJZYdPCMj2lFz4DAM2QidXqcjpldwueb9J/Vkxpj9J
-         Orr05ndHlbaopQuE6Z+U7Hrv2XZu0JLddQXfgVxkoQO7hwWiEXc64Qu7Vpr34OUzchiY
-         gSzC2opMqz8GAex0rCnIVmMJixEFQybEFE29x5WcoIirvVf+gtl7vGYOlMQHU9eskRtu
-         mz7di3+KwJ1nTyerPVgkqzyDiZUtBgw5qfqTZ3SvUrX51bZAjsFZCQQqmo5ld/iT88nc
-         bGLA==
+        bh=TmwOM3kLmga60eTP4uif8DGldwNWcAncsPcoMOlri90=;
+        b=Ym1SkqLLvCPyTGXmdAZ1MHakS2w1t0sHeA6Z5p6ahGHM5GrDqVHnwOpmmTxRUQeqRb
+         aYtJyfHdwvV/upK9aQsdTmBUa6oGCfA1DeQqfhu4IfWfMnwxxFQV+PWj9cyRBf9IwIP+
+         Nxt9EYji7CSl1EDW1CbkK1Giq+MpTKKDzGvIp9bgIaNhkRpj8A3avjT4fjsGflzAdxdn
+         jWTgQszqTwjJmVw0TIySKXTeJyPNX/wTp7h+O+J4hxV7E0WBNlNIT/c8ywjyET6CDuim
+         inDQME25VpQMk6lyaivYvB9qQhA8YrO/LDtc+tV3nEK6tJQvPCvsvTsZ5ty1ziPzaIs7
+         SNmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782785597; x=1783390397;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20251104; t=1782785745; x=1783390545;
+        h=message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=uHXvlgwhzgwaNu3wblp/hnWeWlO47iBmvx2wTGsjZzQ=;
-        b=ccgn4upZlcUicS7R+sSPTRQFpsajLe9DeET/2zULVSWuPrj0bzk4XGsgU457JSAyEX
-         4zM3h6ds0BRq6mttwc8T7VFe8bnWwXQL+U+e9A611p+MbqL0cbq1rqTjE5hxZ9FljYO3
-         Q/pcJkDxdnOjYrW1AGDMAWB9JPykQ79ZGc5UgjX0+ygbyjx98esnBSb0Pp1J53giZrH0
-         9UrApz4RPIew+CKQrDFUx/20JIn7uT8xUg63Jr9yH+VAAuaRnuDsJXfu5g9cz56lv7TW
-         YNxviYDfBJtyClYc6qA8/0J1oP/OKJhgXHOy/NWtNCeAcHJmyVIj9AIRan6+6x+3fkDX
-         AaqQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0mKBSGDZbli9R/XEyPAnCHt9nv7K4JrzZB7oShnkwk3eeFFxRfR+38hl4KCKae/fKs9kWpJk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwoLwRj+5xOMwmwqTDDrNRpXQ1JX+gQzr7ZqMVI+cfNlEk+zjXs
-	2JmXEdyzUvsO/qCXy2XXAMR+6tQaZ7ikelwYpFUFL5IyECWag7t+jcHaLjuc0KVQDiI=
-X-Gm-Gg: AfdE7cmSYxKXJXVtXknI1dZSUYDdztC2pS0PeH7an7XkOJ62/ezU3Sl5xKkspfpFU8U
-	K91IZg9pjdEcGDglPy44E3xFD5EnKrJvzmvOmt4Cy5JB9ueZ4bF7SnLuA6+WGoO1NS8oaOnFrf/
-	SI8sCUhSxA1wo5+uUCfKfkoewX0JYXWdSP/Ju+UzLCdXwDwUpev3b/WyajmhGHV1ToD9TUqfrrb
-	sy239oapze3lal79gU5MmMuJhIc06OLXw8QQkZ5uXFvz3Q2GUUoSGqeNs1425v3kqjjlUFW5XFu
-	oYPsGqSCqp+5aF4HV5izZxdD9fFLRJ4S2oPd7hDF9hb/+mksSVpGf/GYIhUR2u+vdd+zYqqi4ID
-	xiicDpNesybQ7ahkzHKJ9KqjzWkh3VOvAfVt+C7mOAnqBoSu4DXJhUfyFYMb5vyegK1eAbbphZS
-	nMrQ2fT9JYVc9xCd+6JSYJsl3NujIOdQs7NNHc
-X-Received: by 2002:a05:7300:7245:b0:30e:c30f:fc53 with SMTP id 5a478bee46e88-30ee11ad71emr1226622eec.3.1782785597430;
-        Mon, 29 Jun 2026 19:13:17 -0700 (PDT)
-Received: from localhost ([2804:1b3:aa80:ec21:865b:5eb9:80c:c4c8])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-30ee32519aesm2311203eec.27.2026.06.29.19.13.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 19:13:16 -0700 (PDT)
-From: Erick Henrique <erick.henrique.rodrigues@usp.br>
-To: jic23@kernel.org
-Cc: andriy.shevchenko@intel.com,
-	andy@kernel.org,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	joshua.crofts1@gmail.com,
-	linux-iio@vger.kernel.org,
-	Erick Henrique <erick.henrique.rodrigues@usp.br>,
+        bh=TmwOM3kLmga60eTP4uif8DGldwNWcAncsPcoMOlri90=;
+        b=GrTuKbR/MnuxTz0w3KcsPXp9mNR4X+fatuhR3h/uoGNsWdzAhnDq//cgGsl8hXl7qV
+         T45oo3Q7aTDpsJtwB1Rs6k4Aqe9oI2DQNlXd4+Mm2HHdSKVgmQLC7OwHopvZ51Z0afUp
+         WiOukQbZKO9uv06rg2I/Fp0VdMTOn+vSLw8f1ExV0d/3VWikK0uJtb7RV+LFd0wGzLIF
+         FAJwa/vmr+nfjfsFK2p+HdQD5tpDxAkwNnwwFppG4Xg1uhm/OEMdeoES3m9PKerC/jiE
+         yGZMiq4yWqbpfG2s/KxvAgP//MBoDi9Hlr7e8ufyQcGDMmYXbuiYx+OuuloQnvA56de3
+         +HtQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrH/BLhPm1BUeEfd82pM37Rp6kOyAgSWleVAw7souBlI88NycQaPnHiJ/KgPh4FQ9RmpCJgrk8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwndWMeXuSf43m+NcVUi1LUZ9HfiBusTcnJsCUuWIIYdf0xbOuY
+	CCn1upPeafF01kgddas6G34B8+hpzPo3Wf+XMit/rxRerjesn+s8it2Q
+X-Gm-Gg: AfdE7clphM3+xMJAOU4KBXMAKrcqACOyhQUAbOLVfk+fHWavlt3ZEFSMkfHxgKkcZob
+	hpkCQgoh7fIf4lI8EE+BLwAa26lUjV8qGhrhIGDA32HLxnx3fX9GwetpVjeHRhHlf+Dem+0jW9C
+	hXFT38fZsm35vWr1ni84r8Cv/MeKIPSSYhpjF1PULApC1BHDyNZAUVS/XiUeiSKHAT/qWjB27f6
+	PLa2vYp77FOQ31jVCxm1q3MQgTMasfy8xba5AX9KNKwoupzJR8yG2qJslRPBMJBVVsK5typ9iFS
+	cjPP613iwks27n2USSBxJRmize7HouwAypxmfX5N0Jw5/dCvrJS8aW5YbnN53cBvVLlGEkHoVPK
+	JgXlo/jSB8cRTdTPns/rcyyZhOxKu0wvoDMjgoUgdiOfHNRmtJAl0VIv5Wzb1a0naDNQ2MTAWkO
+	OtZ8LMwoiRlIw=
+X-Received: by 2002:a17:906:f598:b0:c12:34ed:e100 with SMTP id a640c23a62f3a-c12873e7ce6mr70015966b.62.1782785744410;
+        Mon, 29 Jun 2026 19:15:44 -0700 (PDT)
+Received: from localhost ([185.92.221.13])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6987c3b7335sm323776a12.11.2026.06.29.19.15.42
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Mon, 29 Jun 2026 19:15:43 -0700 (PDT)
+From: Wei Yang <richard.weiyang@gmail.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	balbirs@nvidia.com,
+	sj@kernel.org,
+	ziy@nvidia.com
+Cc: lance.yang@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Wei Yang <richard.weiyang@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v1 1/1] iio: dac: m62332: Fix regulator reference count imbalance
-Date: Mon, 29 Jun 2026 23:13:09 -0300
-Message-ID: <20260630021309.36636-2-erick.henrique.rodrigues@usp.br>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260630021309.36636-1-erick.henrique.rodrigues@usp.br>
-References: <20260630021309.36636-1-erick.henrique.rodrigues@usp.br>
+Subject: [Patch mm-hotfixes v5] mm/page_vma_mapped: fix device-private PMD handling
+Date: Tue, 30 Jun 2026 02:15:40 +0000
+Message-Id: <20260630021540.17297-1-richard.weiyang@gmail.com>
+X-Mailer: git-send-email 2.11.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-m62332_set_value() enables the Vcc regulator on every write of a
-non-zero value and disables it on every write of zero, without tracking
-the channel's current state. Because the regulator is reference counted,
-changing a channel directly from one non-zero value to another enables
-it more than once, while a later write of zero disables it only once.
-The reference count never returns to zero and the regulator is left
-enabled indefinitely.
+Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
+device-private entries") introduced the concept of device-private
+PMD entries, but did not correctly update the rmap walk code to
+account for them.
 
-Only enable the regulator on the transition from zero to non-zero, and
-only disable it on the transition from non-zero to zero, using the
-previously stored channel value to detect the edge. Balance the
-regulator on the I2C error path so the reference count stays consistent
-if the write fails.
+As a result, when page_vma_mapped_walk() encounters device-private
+PMD entries, it takes no action other than to acquire the PMD lock
+and exit.
 
-Fixes: b87b0c0f81e8 ("iio: add m62332 DAC driver")
-Reported-by: Jonathan Cameron <jic23@kernel.org>
-Closes: https://lore.kernel.org/r/20260419144958.03394ed5@jic23-huawei
-Cc: stable@vger.kernel.org
-Signed-off-by: Erick Henrique <erick.henrique.rodrigues@usp.br>
+However this is highly problematic for two reasons - firstly,
+device private entries possess a PFN so check_pmd() needs to be
+called to ensure an overlapping PFN range.
+
+Secondly, and more importantly, if PVMW_MIGRATION is set the
+caller assumes the returned entry is a migration entry, resulting
+in memory corruption when the caller tries to interpret the device
+private entry as such.
+
+In addition, commit 146287290023 ("mm/huge_memory: implement
+device-private THP splitting") allowed device private PMDs to be
+split like THP mappings, but again did not update this code path.
+
+As a result, we might race a PMD split prior to acquiring the PMD
+lock.
+
+This patch addresses all of these issues by invoking check_pmd(),
+ensuring PMVW_MIGRATION is not set and checks whether a split raced
+us we do for PMD THP and migration entries.
+
+Instead of checking for a subset of the cases after taking the
+pmd_lock(), put device-private along with pmd_trans_huge() and
+pmd_is_migration_entry(). Also remove thp_migration_supported() as
+it is already guarded by pmd_is_migration_entry().
+
+Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
+Suggested-by: David Hildenbrand <david@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: SeongJae Park <sj@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+
 ---
- drivers/iio/dac/m62332.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+v5:
+  * put device-private pmd handling along with the other two cases
+  * remove thp_migration_supported()
+v4: https://lore.kernel.org/all/20260624065353.1622-1-richard.weiyang@gmail.com/T/#u
+  * refine subject and commit log based on Lorenzo's suggestion
+  * put pmd device-private entry handling in its own if branch,
+    suggested by Lorenzo
 
-diff --git a/drivers/iio/dac/m62332.c b/drivers/iio/dac/m62332.c
-index 3497513854d7..b66b4c28859a 100644
---- a/drivers/iio/dac/m62332.c
-+++ b/drivers/iio/dac/m62332.c
-@@ -43,7 +43,7 @@ static int m62332_set_value(struct iio_dev *indio_dev, u8 val, int channel)
+v3:
+  * remove cleanup part, only fix the issue for device-private entry
+  * refine user effect description based on Lorenzo's suggestion
+
+v2: https://lore.kernel.org/all/20260616063436.20455-1-richard.weiyang@gmail.com/T/#u
+  * specify the possible error case of current code and user visible effect
+  * besides fix, cleanup the pmd entry handling based on David's suggestion
+
+v1: https://lore.kernel.org/linux-mm/20260508013728.21285-1-richard.weiyang@gmail.com/
+---
+ mm/page_vma_mapped.c | 30 ++++++++++++++++--------------
+ 1 file changed, 16 insertions(+), 14 deletions(-)
+
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index 2ccbabfb2cc1..2d6c58488e3a 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -243,21 +243,30 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 		 */
+ 		pmde = pmdp_get_lockless(pvmw->pmd);
  
- 	mutex_lock(&data->mutex);
+-		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
++		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
++		    pmd_is_device_private_entry(pmde)) {
+ 			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+ 			pmde = *pvmw->pmd;
+-			if (!pmd_present(pmde)) {
++			if (pmd_is_migration_entry(pmde)) {
+ 				softleaf_t entry;
  
--	if (val) {
-+	if (val && !data->raw[channel]) {
- 		res = regulator_enable(data->vcc);
- 		if (res)
- 			goto out;
-@@ -52,14 +52,17 @@ static int m62332_set_value(struct iio_dev *indio_dev, u8 val, int channel)
- 	res = i2c_master_send(client, outbuf, ARRAY_SIZE(outbuf));
- 	if (res >= 0 && res != ARRAY_SIZE(outbuf))
- 		res = -EIO;
--	if (res < 0)
-+	if (res < 0) {
-+		if (val && !data->raw[channel])
-+			regulator_disable(data->vcc);
- 		goto out;
-+	}
+-				if (!thp_migration_supported() ||
+-				    !(pvmw->flags & PVMW_MIGRATION))
++				if (!(pvmw->flags & PVMW_MIGRATION))
+ 					return not_found(pvmw);
+ 				entry = softleaf_from_pmd(pmde);
++				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
++					return not_found(pvmw);
++				return true;
++			} else if (pmd_is_device_private_entry(pmde)) {
++				softleaf_t entry;
  
--	data->raw[channel] = val;
+-				if (!softleaf_is_migration(entry) ||
+-				    !check_pmd(softleaf_to_pfn(entry), pvmw))
++				if (pvmw->flags & PVMW_MIGRATION)
++					return not_found(pvmw);
++				entry = softleaf_from_pmd(pmde);
++				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+ 					return not_found(pvmw);
+ 				return true;
++			} else if (!pmd_present(pmde)) {
++				return not_found(pvmw);
+ 			}
+ 			if (likely(pmd_trans_huge(pmde))) {
+ 				if (pvmw->flags & PVMW_MIGRATION)
+@@ -266,17 +275,10 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 					return not_found(pvmw);
+ 				return true;
+ 			}
+-			/* THP pmd was split under us: handle on pte level */
++			/* THP/device-private pmd was split under us: handle on pte level */
+ 			spin_unlock(pvmw->ptl);
+ 			pvmw->ptl = NULL;
+ 		} else if (!pmd_present(pmde)) {
+-			const softleaf_t entry = softleaf_from_pmd(pmde);
 -
--	if (!val)
-+	if (!val && data->raw[channel])
- 		regulator_disable(data->vcc);
- 
-+	data->raw[channel] = val;
-+
- 	mutex_unlock(&data->mutex);
- 
- 	return 0;
+-			if (softleaf_is_device_private(entry)) {
+-				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+-				return true;
+-			}
+-
+ 			if ((pvmw->flags & PVMW_SYNC) &&
+ 			    thp_vma_suitable_order(vma, pvmw->address,
+ 						   PMD_ORDER) &&
 -- 
-2.51.0
+2.34.1
 
