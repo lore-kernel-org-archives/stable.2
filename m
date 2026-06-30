@@ -1,81 +1,69 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0152D1916
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 21:18:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1C031D72E;
+	Tue, 30 Jun 2026 21:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782854302; cv=none; b=IU/POd2YwWXAmMoUCQzDIZSJbJbV9+DcCiFwr58R5c1QpwlrmPAYFms8AkaGozyNY9e3MvqtxEmpAIDMiLGm8qyiDboj7LA54vU6Vq8OTN28rQSK8D0nmG7NjLH4eWYqHxv0xoOhBNdxP12OTfoWYBertXQzL7nBrIYeB1esjYQ=
+	t=1782855854; cv=none; b=cjg1bLN/8NkK2shn6LrhlyxdHzAH31hS9pzHdmxOar58Psm+haEvHxIqAZSmq+L9ZSHV1M0kHBwWhSywrC6tLePLd+IPinrZkwXy+axE5KPBm95+EH8NBt3nQMcFrTgdUEsrc3oK/LpYOq6c2i3WsK6/4hnWPJIDo7M7fGvZspw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782854302; c=relaxed/simple;
-	bh=blmSz0ucFYiG8IMVfZLdaXb020QBlMaQczvCK7E15mE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uriLH0jw+bepYY2ukUN2a5/DUYcPbdngFUq6v6AO020gUE9RCYsIk/gXkPqPeOW7rXmUnqEf9LNgqLwLwJCOMwOFxd5qLLkixQiAQcPI0DDRUYObM5+7uWrr+KZDaWX9jbNAF1XJvZE+v5G7n++44Ky/dyg37zFy3cCdnxo/ugg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LbxG12rr; arc=none smtp.client-ip=209.85.128.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782855854; c=relaxed/simple;
+	bh=SlmsKtIIkfbMO1XsocZq5DP3MtDIX9HCDGvKoiP0GHU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ubgfE8ds8ge3YyUOk5T89VhhniAyVx9RPupLRFPy/cY5pe7S+SoKbF/hWHENbF+4HVT9ts0im0C+3XbvGSQZkf3q4shoWjVNLBl2PwzphM6RINbsu/4UUKjVsm2ySL35+2VsYugEA/NH6ubxZ6WYfN4azBcgNfWEnsAJfc2/zYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gRG6/yZx; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LbxG12rr"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8000e21f014so56579097b3.2
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 14:18:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782854300; x=1783459100; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=2poGPPDKuIRln5tPnA3S6uNyhm8S9MHlvQPEbWhmm6U=;
-        b=LbxG12rr4PsUtTJ6Ojiajta+pwvBJYbTxn7OUS/ZnAF+3aw79w81fUp0c2Pmv6BofN
-         vJrBYwYW393ImQXBwlfR42xMIi6RGxiwwJdR7ePdAtZrp+ewE7nFlSZ5T8LJpSpx3Z5f
-         ZVuNS4IhUtS3bVUlENg+aw0AgSLfJgGxEwARhJBg8EX+JWG66/qxe2xZCdtkrw+Uh3ek
-         pd1qbAWTaCOIQii9kPB/yHuVp2fxfrRw3jaoGPPBhB2Okn2zamhXL0cPlD583OGq3K4d
-         CyFnSuK6BkA4kRJadHNKh2SZhwJytLcVwh8tRcJBCNMUlK3NCn/yU9kKWB1qvUWk0UyC
-         kqJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782854300; x=1783459100;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2poGPPDKuIRln5tPnA3S6uNyhm8S9MHlvQPEbWhmm6U=;
-        b=kiVTqE7BlhcYC/NTBRYk8Bn6B0XSRDS3INlfQGG6k5YZ1FGRujh6y6EBVoJyIxgNPd
-         JaT2e7/5mDFHtJjelGF8d/XURo0HRdFKdBeCWU/mbws4e1HpZkS/dQQPlDYdzm+iudmS
-         aQc5M548Rd3c97Ggmz06yfOb3NtqVdcWyUay9J1dEYa2dAudAvmxz4RvVHr77q6/qYr3
-         Vm+8WwNzgR6bRo68iLLXCu3In8mafHX+hNnMIA8gPI9pUnQb2lbkgiYfYVLKUHkVsDDf
-         ur3H3PlZ3h+Mtd4rbTkIzAG8lu23IJfASuwZHt2ILEJMDCAvJRFnBWXcbbdPr74ogZRu
-         o6KA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1q5zao3PjQK8AO3JH1GonpK41G3C52qlVBe0RMho6uDJVYkerfjCLZ/sdmZ5e30UKZUofjsQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxy65nffrjZwtkvH0dHt9PCEBy5JoIh3558OOZHaSRO1aPGbT0L
-	xxBk6kVTPCqupT/2gzEY12yW3BjK4LvENTpCI0Ewkju4TL8hG5RaQ9fy
-X-Gm-Gg: AfdE7ck19qfBU0M98EufV4piVYFQ+AbAi6AJERSaniRSemPB9TeHZMdYxFOYuKeElkh
-	nLJD7U6IOQ5dHDHofD5QKNeNxcWzrJIZlcU0iZkQTDbfbtfvPLK4ooPwv0Zs+r0Y41JjvEJ60Q8
-	7AF/PJYEJzMTnNeockkAkcxY5ZIMt7dEqSmDtocPARs++SZ7Jn3gic3Ahk3JJ6zuf6gttgYtakE
-	8v7sQdyQLxyv+1HKqFNxwcwiXWFqbhjD7u7rbgRqdnBHRlns9SioikJ5XyJMC3Zvfg2kxE7k2yb
-	sx8htlcWmPmlBsvfngqO7kIQKJcpQ8qdTmW6ZAIGtKfUV1k1utFJAuwq8eyQ7sySWY7vvvqebQr
-	ZYy8E/eLWMWCVxgtTTmWwrvvMu6Dh1IVQQOl2bliNQa01X40SP377r22cqVD8GbidJdcsPmsXSb
-	tBpwt2WShCITHmXD6NMrTt6Ai9VQ==
-X-Received: by 2002:a05:690c:9c09:b0:80c:85c6:898f with SMTP id 00721157ae682-81204145786mr20454527b3.62.1782854300375;
-        Tue, 30 Jun 2026 14:18:20 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8128ce56f3fsm29517b3.27.2026.06.30.14.18.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 14:18:20 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Alexander Aring <alex.aring@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gRG6/yZx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782855853; x=1814391853;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=SlmsKtIIkfbMO1XsocZq5DP3MtDIX9HCDGvKoiP0GHU=;
+  b=gRG6/yZxQNT3Sd4a71Qf6bgMxuP/uA6nk0Hm3c32ETaA9o4RyC6/AxE2
+   50xgiccKqr5T4xAoSd3LhRFhEheT0jJVyWtQU7sLMWFkDXGOTsELbW+4U
+   2iqythHaJTcDSksorM3J6UwlpQUpa8GoUOV4is4x5ybx6WRGvZHFEqy+B
+   MoNG/o2Ey316FlH6DJJjdlbEFD8VQhNbeNUNSb75pH/v5ZWxXDV7rVHML
+   NYfd8oJtx2zSl/EBmVak3jr0BXhOnR8WtOBGhSOkVrcwQ3TdgFMu/vcry
+   twcUIoanP2FeVGIvPLVwCud2iACNPBnj6inXesd3vOamDNwr0OFup6+u2
+   g==;
+X-CSE-ConnectionGUID: DScVTpRLSA6d7qksWxnmDg==
+X-CSE-MsgGUID: G1NNk7EHTn+K0n52/+P49w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="83637568"
+X-IronPort-AV: E=Sophos;i="6.24,234,1774335600"; 
+   d="scan'208";a="83637568"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 14:44:11 -0700
+X-CSE-ConnectionGUID: 6zY0CAZYRVO3ULzDO2gkFg==
+X-CSE-MsgGUID: UHZFWYhCS7uzUuH+52aPvg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,234,1774335600"; 
+   d="scan'208";a="254296573"
+Received: from anguy11-upstream.jf.intel.com ([10.166.9.133])
+  by fmviesa004.fm.intel.com with ESMTP; 30 Jun 2026 14:44:11 -0700
+From: Tony Nguyen <anthony.l.nguyen@intel.com>
+To: davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch,
+	netdev@vger.kernel.org
+Cc: Aaron Ma <aaron.ma@canonical.com>,
+	anthony.l.nguyen@intel.com,
+	jbrandeb@kernel.org,
 	stable@vger.kernel.org,
-	syzbot+36256deb69a588e9290e@syzkaller.appspotmail.com,
-	Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH net] mac802154: wait for RCU readers when removing interfaces
-Date: Tue, 30 Jun 2026 23:18:08 +0200
-Message-ID: <20260630211808.50440-1-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	Kohei Enju <kohei@enjuk.jp>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Alexander Nowlin <alexander.nowlin@intel.com>
+Subject: [PATCH net 1/4] ice: wait for reset completion in ice_resume()
+Date: Tue, 30 Jun 2026 14:43:59 -0700
+Message-ID: <20260630214404.930923-2-anthony.l.nguyen@intel.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20260630214404.930923-1-anthony.l.nguyen@intel.com>
+References: <20260630214404.930923-1-anthony.l.nguyen@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,37 +72,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Queue wake, stop, and disable paths walk local->interfaces under RCU.
-The bulk hardware teardown path removes entries with list_del() and
-immediately unregisters their netdevices, so an asynchronous transmit
-completion can follow a poisoned list node in ieee802154_wake_queue().
+From: Aaron Ma <aaron.ma@canonical.com>
 
-Match ieee802154_if_remove(): use list_del_rcu() and wait for existing
-readers before unregistering each interface.
+ice_resume() schedules an asynchronous PF reset and returns
+immediately. The reset runs later in ice_service_task(). If
+userspace tries to bring up the net device before the reset
+finishes, ice_open() fails with -EBUSY:
 
-Fixes: 592dfbfc72f5 ("mac820154: move interface unregistration into iface")
-Reported-by: syzbot+36256deb69a588e9290e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=36256deb69a588e9290e
+  ice_resume()
+    ice_schedule_reset()          # sets ICE_PFR_REQ, returns
+  ...
+  ice_open()
+    ice_is_reset_in_progress()    # ICE_PFR_REQ still set, -EBUSY
+  ...
+  ice_service_task()
+    ice_do_reset()
+      ice_rebuild()               # clears ICE_PFR_REQ, too late
+
+Reproduced on E800 series NICs during suspend/resume with irdma
+enabled, where the aux device probe widens the race window.
+
+  ice 0000:81:00.0: can't open net device while reset is in progress
+
+Add a best-effort wait (10s timeout, matching ice_devlink_info_get())
+for the reset to complete before returning from ice_resume(). In
+practice the reset completes in ~300ms.
+
+Fixes: 769c500dcc1e ("ice: Add advanced power mgmt for WoL")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Reviewed-by: Kohei Enju <kohei@enjuk.jp>
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
+Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
+Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
 ---
- net/mac802154/iface.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/intel/ice/ice_main.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/net/mac802154/iface.c b/net/mac802154/iface.c
-index 000be60d9580..73d82a015184 100644
---- a/net/mac802154/iface.c
-+++ b/net/mac802154/iface.c
-@@ -703,7 +703,8 @@ void ieee802154_remove_interfaces(struct ieee802154_local *local)
+diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
+index e2fd2dab03e3..d88835482d3a 100644
+--- a/drivers/net/ethernet/intel/ice/ice_main.c
++++ b/drivers/net/ethernet/intel/ice/ice_main.c
+@@ -5637,6 +5637,16 @@ static int ice_resume(struct device *dev)
+ 	/* Restart the service task */
+ 	mod_timer(&pf->serv_tmr, round_jiffies(jiffies + pf->serv_tmr_period));
  
- 	mutex_lock(&local->iflist_mtx);
- 	list_for_each_entry_safe(sdata, tmp, &local->interfaces, list) {
--		list_del(&sdata->list);
-+		list_del_rcu(&sdata->list);
-+		synchronize_rcu();
++	/* Best-effort wait for the scheduled reset to finish so that the
++	 * device is operational before returning. Without this, userspace
++	 * (e.g. NetworkManager) may try to open the net device while the
++	 * asynchronous reset is still in progress, hitting -EBUSY.
++	 */
++	ret = ice_wait_for_reset(pf, secs_to_jiffies(10));
++	if (ret)
++		dev_err(dev, "Wait for reset timed out (10s) during resume: %d\n",
++			ret);
++
+ 	return 0;
+ }
  
- 		unregister_netdevice(sdata->dev);
- 	}
 -- 
-2.55.0
+2.47.1
 
