@@ -1,164 +1,260 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4413EDE6A;
-	Tue, 30 Jun 2026 09:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0920366DB5
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 09:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782812906; cv=none; b=Ko33eQ70Ln//CcYz1u8Vez7tA6kkUAO/lODrRqOIfopniH2GAHueqq5V6MUDGgB5YuWBrYURJxbVth8P9HFP3ZCvnfnSOU4WYC6aD89fQ5WZC5I4HSCPg/RlP3cZa8VJy786ABRhY0lGq6IXNU/DFYlpqOlmgmo+YdOzbV4BhqI=
+	t=1782813195; cv=none; b=ZvvLJIK0XP66JikK7Uada1zbfXANbHstVdND41Fa/c8CL3VpiZQ8DxGG1xmGhGpd80ZAiMUhMfZ7dQIqRNwF93WCBO3fdP42yN/dErFS0N4S7Nn7zfSHr6gdcVuBm73ungA4rZ6bAm49c6DhVhvErNjupoBE0xsJZhwAtfIpMk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782812906; c=relaxed/simple;
-	bh=0OwGSDOc3YRfH6HYgMB/5rZVD0d9vgNOpv0PoHaX798=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=MhYDH8cDGM04jCn3uWS/lVGPIxNPOH6EhvDGEXXS3ncZMt/iqEjf6PaWJxfjall1dgM5VbhKMqNjHjtwHqouHifiPY/ibxuDYSGeoBkg5iF1x9vQLhxPgV/kAY1DrMVeSWJ+DdpvPURZHfOZ3Al6jlprfqoqeRLA2v9R4FZM+2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IM+GOTv5; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Og01JDkQ; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1782813195; c=relaxed/simple;
+	bh=NbDEHp0gquR5Nq2A/cm+7E2L5SZ1Jhgmv94kZhkUywY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d5OcmtHP8kJ5+r7QCj8zR0qwpYw2Gc2P4bxvtLkrANvCtkb238MuYN/ENt0TRKH5t2q60foORRjIxiAdYQLxPic3DXg3Sg5Ixcom+OXoTF1etj2oMnCCWDjAJxAAFAPnJTz/ZHsGmMzFBdPjRk3mSTW/4aZsdvgTxZWvjqPWoIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ajjACraE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=flG5IDJ2; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IM+GOTv5";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Og01JDkQ"
-Date: Tue, 30 Jun 2026 09:48:21 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1782812903;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ajjACraE";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="flG5IDJ2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1782813193;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xPJTE+FMc6Fuo4XsCrLrn/ByrdFbhFpmyiMyX3vdjLM=;
-	b=IM+GOTv59ccrdsbZCIqady21WZMNaEyb8V43tgpMZlJlh79vJF51apg4TDBmrHyqBzTGMx
-	5CgNcLYbXz8MyoGM6WOc50MY/btteh6eB0Idm2cWj574N9XviX8s9MIM3wIE+So0fOmBJy
-	odCX8B79+M8lz7SS5CWH/x2a3t4d1gNQalrzkGi7o6GPmkLQltDUDxZuFT98jioGwgMNzw
-	PLbifk7kwvjM4GchXvqPKcYDeXZlkQRJ5l66b3cZLrBjaTK4BJOiuCrSS+31D70nEGe/IF
-	F7Zl+o6He6OhxR6FESG1BJNlx9H05bM0n6pdY7hXfLvepUXjsntPlP6Sy+CJ4w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1782812903;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xPJTE+FMc6Fuo4XsCrLrn/ByrdFbhFpmyiMyX3vdjLM=;
-	b=Og01JDkQQzBsc0ZtcitTIWXUxgLjS6oNXciW7Xaro75UPxew54NYkau37gwrAMfbIerc/V
-	MILSVdO1/jEHpvDw==
-From: "tip-bot2 for Dapeng Mi" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/core] perf/x86/intel: Remove anythread_deprecated bit from
- perf_capabilities
-Cc: Namhyung Kim <namhyung@kernel.org>, Dapeng Mi <dapeng1.mi@linux.intel.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Zide Chen <zide.chen@intel.com>, Thomas Falcon <thomas.falcon@intel.com>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260616044654.3468742-2-dapeng1.mi@linux.intel.com>
-References: <20260616044654.3468742-2-dapeng1.mi@linux.intel.com>
+	bh=4wTpFP+uURpV7Es5gbDN0xr6tXZLlBB9VR1MULvKZf4=;
+	b=ajjACraEAs7QxAl/5WwiafHfYKzCCF903h/10kt1IW05pHLh3aXqvWOzFOvhURBCl4ROMF
+	GvyBXUsVSiIG+AoZonSTHyIQKXU7R+/s8R09isqxZHGLDZzSOxJobWkSaJKWU0xbV12ELi
+	y9n2rEJYpQOgz/wiRUobnb+hxno+IIs=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-26-uVj9zf6aPK-a5WIB19YTfg-1; Tue, 30 Jun 2026 05:53:09 -0400
+X-MC-Unique: uVj9zf6aPK-a5WIB19YTfg-1
+X-Mimecast-MFC-AGG-ID: uVj9zf6aPK-a5WIB19YTfg_1782813188
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47162f83c75so281087f8f.1
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 02:53:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1782813188; x=1783417988; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4wTpFP+uURpV7Es5gbDN0xr6tXZLlBB9VR1MULvKZf4=;
+        b=flG5IDJ2hqHW0esT+mbR1XlgzZp+A3gpWkh+I4LyDmUY21Ok86j1MXal/n3wpcvbPa
+         EUfEzabuf4xebj87SDEHm8gtvrsUe3JJlOhC9XW/naZdU/qAdYABRt3JRjgiB6uS5eSN
+         oQ8mCFg7JRyQGhnLjuOtQtZKIZJ15+bFVGrDmPlSAZOStGKRQAH3f+lwHDGwlDQKtyy/
+         DnjcGAoFMdNagtSMyCZbOVIkxB5EOadqirFKlR1d8lZjD5MiAEB3IMBD0VMu6U5Cmq0j
+         ZvPNlaeiVYrLdXgLH5msXPaVcUDBr9u8IZ3BCiKtFgBf0Dg7/FE/gq1cGS24n3hUHYut
+         OYEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782813188; x=1783417988;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4wTpFP+uURpV7Es5gbDN0xr6tXZLlBB9VR1MULvKZf4=;
+        b=YMMdLw4ACDvdElOmqhGZsTGX8vzggUu2xBfoHJS3/S0S068TrCzs8dKOqRd2rbDq37
+         K4FSEQe6XQF3+cSVYjAYOPmjBjrwsgOx7W/gEvrRbcC3ecK41wS2wdx25UBI8xvJK42F
+         Gt1wF9J7vOpSDLi2GlNBy/y5+huf5xNwJuRKp4dRpolKCL3Ghsgbm0q4BmWwQM38I6JW
+         d4lddF3c4ZZSYS9vnX3jj4TBsdWUN+pmQC3tIF9pIQ/q5bWPn0ZRS2RAJmnZxt4V207q
+         aqAWj8vZceC+WaMlxB8Mc4Cz+OOpAcZRh9wNgBlaxaYCPJe8ThOMcNhqRZ1P9YUoZfX4
+         pUpg==
+X-Forwarded-Encrypted: i=1; AHgh+RqanwcqVKwuyJQ53qyQWJ0EbD538YK4WtMXPiHy52Oxta/fhxdiD0W3K/SnqwCUxdVkb28VTYM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEhy5EGjFwn0EO0dJl2e6XCYljiEvKBH++4QQNzCmw3zcq/ux+
+	QJyG/evJzevtAAv0HYzCMRt4nLxOE7XwdS7bope0BP2HxQVto0gdaSurqviHrpHqZnrft2KyS07
+	aUzfyJB1Sc2NBU8dliVRl0uMhhHqQH28TkL9E0sAnephdbTbJYxANVEqg9w==
+X-Gm-Gg: AfdE7ckyzpbWqUaOE7ORCyM8n4WrLkmfSVs6dfp6hvGI3IwWDj4PyHtyMUJuCUBXRGd
+	U1bYh8WPWtlxFjS2Qi0wnWSBsShgsnGQIS0AeKQFH1dI1R+ey/E11vqwmJJSRwTi96L0553VbZJ
+	XfaPdm2FUJ2oZfAXhaQ6wLWVNv1/YOg/7Zo/mSAVeX2KyNGd0NIteUTyCsNq3dUXgDDW4PgRrqy
+	O5umT+8vXXEX9RG4Zb4S5yudwS+XFMYdDMiMP1NEJtvqc+JfVWgeoyypfGVg3xCQ8UC8Q5Kwvl+
+	7tm1fBZ82PxySQmIWUTFopOzpkxBT7iAl5Na2HYt1SsZ60Blv6SW90XR9iMJRcTiJC/APerWCD1
+	WvRt1Tj2J9kA1UThwzW2Uu3O4la0c5Iv2abC/qwUPVbRoVMgIMLSsztYrgmwqNJdCWTQAmO1Ftd
+	QcMkY1S4tBfA==
+X-Received: by 2002:a05:6000:1847:b0:45d:4c30:81a6 with SMTP id ffacd0b85a97d-475f4fb5d50mr1344059f8f.5.1782813188245;
+        Tue, 30 Jun 2026 02:53:08 -0700 (PDT)
+X-Received: by 2002:a05:6000:1847:b0:45d:4c30:81a6 with SMTP id ffacd0b85a97d-475f4fb5d50mr1344016f8f.5.1782813187784;
+        Tue, 30 Jun 2026 02:53:07 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:5521:6b10:2eb7:f61a:75:4534? ([2a0d:3344:5521:6b10:2eb7:f61a:75:4534])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4756636cf65sm6669391f8f.21.2026.06.30.02.53.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2026 02:53:05 -0700 (PDT)
+Message-ID: <6a6be4b0-e02d-46ca-b8bf-c27bd681d253@redhat.com>
+Date: Tue, 30 Jun 2026 11:53:04 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178281290180.3843924.17060332567585317649.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 1/2] vsock/virtio: collapse receive queue under memory
+ pressure
+To: Stefano Garzarella <sgarzare@redhat.com>, netdev@vger.kernel.org
+Cc: Jason Wang <jasowang@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
+ linux-kernel@vger.kernel.org, Stefan Hajnoczi <stefanha@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, =?UTF-8?Q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>, stable@vger.kernel.org,
+ Brien Oberstein <brienpub@gmail.com>
+References: <20260626134823.206676-1-sgarzare@redhat.com>
+ <20260626134823.206676-2-sgarzare@redhat.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260626134823.206676-2-sgarzare@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the perf/core branch of tip:
+On 6/26/26 3:48 PM, Stefano Garzarella wrote:
+> From: Stefano Garzarella <sgarzare@redhat.com>
+> 
+> When many small packets accumulate in the receive queue, the skb overhead
+> can exceed buf_alloc even while the payload is within bounds. This causes
+> virtio_transport_inc_rx_pkt() to reject packets, leading to connection
+> resets during large transfers under backpressure.
+> 
+> The issue was reported by Brien, who has a reproducer, but it is also
+> easily reproducible with iperf-vsock [1] using a small packet size:
+> 
+>   iperf3 --vsock -c $CID -l 129
+> 
+> which fails immediately without this patch but with commit 059b7dbd20a6
+> ("vsock/virtio: fix potential unbounded skb queue").
+> 
+> Inspired by TCP's tcp_collapse() which solves a similar problem, add
+> virtio_transport_collapse_rx_queue() that walks the receive queue and
+> re-copies data into compact linear skbs to reduce the overhead.
+> 
+> The collapse is triggered from virtio_transport_recv_enqueue() when
+> virtio_transport_inc_rx_pkt() fails. A pre-scan counts the eligible bytes
+> to size each allocation precisely, avoiding waste for isolated small
+> packets. Partially consumed skbs are kept as-is to preserve
+> buf_used/fwd_cnt accounting, EOM-marked skbs to maintain SEQPACKET
+> message boundaries, and skbs already larger than the collapse target
+> because they already have a good data-to-overhead ratio.
+> 
+> [1] https://github.com/stefano-garzarella/iperf-vsock
+> 
+> Fixes: 059b7dbd20a6 ("vsock/virtio: fix potential unbounded skb queue")
+> Cc: stable@vger.kernel.org
+> Reported-by: Brien Oberstein <brienpub@gmail.com>
+> Closes: https://lore.kernel.org/netdev/618701dd023e$063de350$12b9a9f0$@gmail.com/
+> Tested-by: Brien Oberstein <brienpub@gmail.com>
+> Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
+> ---
+>  net/vmw_vsock/virtio_transport_common.c | 148 +++++++++++++++++++++++-
+>  1 file changed, 146 insertions(+), 2 deletions(-)
+> 
+> diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+> index 09475007165b..304ea424995d 100644
+> --- a/net/vmw_vsock/virtio_transport_common.c
+> +++ b/net/vmw_vsock/virtio_transport_common.c
+> @@ -420,6 +420,137 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
+>  	return ret;
+>  }
+>  
+> +static bool virtio_transport_can_collapse(struct sk_buff *skb,
+> +					  unsigned int size)
 
-Commit-ID:     8767b4d73018bd3143f4c55b672064fad292f11b
-Gitweb:        https://git.kernel.org/tip/8767b4d73018bd3143f4c55b672064fad29=
-2f11b
-Author:        Dapeng Mi <dapeng1.mi@linux.intel.com>
-AuthorDate:    Tue, 16 Jun 2026 12:46:47 +08:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Tue, 30 Jun 2026 11:46:06 +02:00
+Why passing a `size` argument here? AFAICS the actual argument is always
+a constant and IMHO rightfully so.
 
-perf/x86/intel: Remove anythread_deprecated bit from perf_capabilities
+> +{
+> +	/* skbs that are partially consumed, mark a SEQPACKET message boundary,
+> +	 * or are already large enough should not be collapsed: they either
+> +	 * need special accounting, carry protocol state, or already have a
+> +	 * good data-to-overhead ratio.
+> +	 */
+> +	if (VIRTIO_VSOCK_SKB_CB(skb)->offset)
+> +		return false;
+> +	if (le32_to_cpu(virtio_vsock_hdr(skb)->flags) & VIRTIO_VSOCK_SEQ_EOM)
+> +		return false;
+> +	if (skb->len >= size)
+> +		return false;
+> +	return true;
+> +}
+> +
+> +/* Iterate through the packets in the queue starting from the current skb to
+> + * count the number of bytes we can collapse.
+> + */
+> +static unsigned int
+> +virtio_transport_collapse_size(struct sk_buff *skb,
+> +			       struct sk_buff_head *queue,
+> +			       unsigned int max_size)
+> +{
+> +	unsigned int target = skb->len - VIRTIO_VSOCK_SKB_CB(skb)->offset;
+> +
+> +	while ((skb = skb_peek_next(skb, queue)) &&
+> +	       virtio_transport_can_collapse(skb, max_size)) {
+> +		unsigned int len = skb->len - VIRTIO_VSOCK_SKB_CB(skb)->offset;
+> +
+> +		if (len > max_size - target)
+> +			return target;
+> +
+> +		target += len;
+> +	}
+> +
+> +	return target;
+> +}
+> +
+> +/* Called under lock_sock when skb overhead exceeds the budget. */
+> +static void virtio_transport_collapse_rx_queue(struct virtio_vsock_sock *vvs)
+> +{
+> +	/* Use the same linear allocation threshold as virtio_vsock_alloc_skb()
+> +	 * to avoid adding pressure on the page allocator.
+> +	 */
+> +	unsigned int collapse_max = SKB_MAX_ORDER(VIRTIO_VSOCK_SKB_HEADROOM,
+> +						  PAGE_ALLOC_COSTLY_ORDER);
+> +	struct sk_buff *skb, *next_skb, *new_skb = NULL;
+> +	struct sk_buff_head new_queue;
+> +
+> +	__skb_queue_head_init(&new_queue);
+> +
+> +	skb_queue_walk_safe(&vvs->rx_queue, skb, next_skb) {
 
-AnyThread mode deprecation is enumerated by CPUID.0AH:EDX[15] instead of
-PERF_CAPABILITIES MSR. It's not a good practice to define a bit to
-represent "anythread deprecation" in perf_capabilities. It leads to the
-anythread_deprecated bit could be overwritten by the real value of
-PERF_CAPABILITIES MSR, just like the below code in update_pmu_cap() does.
+If the queue is relevantly big, walking all of it may take a significant
+amount of time/cache misses and causes traffic burstines. I think you
+could add an additional stop condition, i.e. when the current queue size
+is below a reasonable threshold (allowing the current packet to be
+inserted plus some more slack).
 
-if (!intel_pmu_broken_perf_cap()) {
-	/* Perf Metric (Bit 15) and PEBS via PT (Bit 16) are hybrid enumeration */
-	rdmsrq(MSR_IA32_PERF_CAPABILITIES, hybrid(pmu, intel_cap).capabilities);
-}
+/P
 
-It leads to the anythread_deprecated bit is cleared to 0 and the "any"
-attribute is incorrectly shown in the /sys/devices/cpu/format/ folder on
-these support Perfmon v6 platforms, like Clearwater Forest.
+> +		struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
+> +		u32 src_off = VIRTIO_VSOCK_SKB_CB(skb)->offset;
+> +		u32 src_len = skb->len - src_off;
+> +		bool keep = false;
+> +
+> +		if (!virtio_transport_can_collapse(skb, collapse_max)) {
 
-$ grep . /sys/devices/cpu/format/*
-/sys/devices/cpu/format/acr_mask:config2:0-63
-/sys/devices/cpu/format/any:config:21
-/sys/devices/cpu/format/cmask:config:24-31
+Minor nit, possibly something alike the following lead to more
+compact/more readable code:
 
-So remove the anythread_deprecated bit from perf_capabilities structure
-and directly depends on CPUID.0AH:EDX[15] to judge if anythread is
-deprecated.
 
-Fixes: cadbaa039b99 ("perf/x86/intel: Make anythread filter support condition=
-al")
-Reported-by: Namhyung Kim <namhyung@kernel.org>
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Reviewed-by: Zide Chen <zide.chen@intel.com>
-Reviewed-by: Thomas Falcon <thomas.falcon@intel.com>
-Acked-by: Namhyung Kim <namhyung@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260616044654.3468742-2-dapeng1.mi@linux.inte=
-l.com
----
- arch/x86/events/intel/core.c | 10 +++-------
- arch/x86/events/perf_event.h |  2 +-
- 2 files changed, 4 insertions(+), 8 deletions(-)
+		keep = !virtio_transport_can_collapse(skb, collapse_max);
+		if (keep) {
 
-diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-index 2b35483..465c414 100644
---- a/arch/x86/events/intel/core.c
-+++ b/arch/x86/events/intel/core.c
-@@ -7947,12 +7947,6 @@ __init int intel_pmu_init(void)
-=20
- 	x86_add_quirk(intel_arch_events_quirk); /* Install first, so it runs last */
-=20
--	if (version >=3D 5) {
--		x86_pmu.intel_cap.anythread_deprecated =3D edx.split.anythread_deprecated;
--		if (x86_pmu.intel_cap.anythread_deprecated)
--			pr_cont(" AnyThread deprecated, ");
--	}
--
- 	/* The perf side of core PMU is ready to support the mediated vPMU. */
- 	x86_get_pmu(smp_processor_id())->capabilities |=3D PERF_PMU_CAP_MEDIATED_VP=
-MU;
-=20
-@@ -8829,8 +8823,10 @@ __init int intel_pmu_init(void)
- 				      &x86_pmu.intel_ctrl);
-=20
- 	/* AnyThread may be deprecated on arch perfmon v5 or later */
--	if (x86_pmu.intel_cap.anythread_deprecated)
-+	if (version >=3D 5 && edx.split.anythread_deprecated) {
- 		x86_pmu.format_attrs =3D intel_arch_formats_attr;
-+		pr_cont("AnyThread deprecated, ");
-+	}
-=20
- 	intel_pmu_check_event_constraints_all(NULL);
-=20
-diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
-index eae24bb..5902a29 100644
---- a/arch/x86/events/perf_event.h
-+++ b/arch/x86/events/perf_event.h
-@@ -668,7 +668,7 @@ union perf_capabilities {
- 		u64	perf_metrics:1;
- 		u64	pebs_output_pt_available:1;
- 		u64	pebs_timing_info:1;
--		u64	anythread_deprecated:1;
-+		u64	__reserved:1;
- 		u64	rdpmc_metrics_clear:1;
- 	};
- 	u64	capabilities;
+> +			/* Finalize pending collapsed skb to preserve packet
+> +			 * ordering.
+> +			 */
+> +			if (new_skb) {
+> +				__skb_queue_tail(&new_queue, new_skb);
+> +				new_skb = NULL;
+> +			}
+> +			keep = true;
+> +			goto next;
+> +		}
+> +
+> +		/* Finalize if this packet won't fit in the remaining tailroom,
+> +		 * so we can allocate a right-sized new_skb.
+> +		 */
+> +		if (new_skb && src_len > skb_tailroom(new_skb)) {
+> +			__skb_queue_tail(&new_queue, new_skb);
+> +			new_skb = NULL;
+
+Possibly introduce an helper for the above 2 statements?
+
+/P
+
