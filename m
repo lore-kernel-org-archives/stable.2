@@ -1,60 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59225322C77;
-	Tue, 30 Jun 2026 22:23:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF321D9663;
+	Tue, 30 Jun 2026 22:23:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782858200; cv=none; b=FkaZXXAsxHvt3HT6sUXvTbYc1pvh+uXdNci19NGwX3ooCHUGOysEaUCAVF73QKB+cK2mdemWT+Q4W18MRY713Rm9wSCF6ABenpjqrgfF8+ehmSBwqJf7oLG1CLfruleX8IFGdKmvHTCuI9Aaz2ghVq3BeP1EHLwuYgj7v7zo1ec=
+	t=1782858201; cv=none; b=Bsaow9qPDix7vPbjV87v3UxkTzrPzl2CJfYrDTM1fxBYQxGMx+l659i9PUMMBjzRMNhn9qQ/gvqBRJbo9KJjmMa5XXCPTmk/MaJ0NR8ek0oNevqij85Gmh0l9k9+DQKoSgO3NvENEh/zI7951XBKDh0Ui0OwcwPPeVjhRLlAOCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782858200; c=relaxed/simple;
-	bh=dyWlc/2eR8m+sQqMtQbUYiFpV2uOHxIlz/9dViFfAPg=;
+	s=arc-20240116; t=1782858201; c=relaxed/simple;
+	bh=Ku9og58Xz1nANnozikVlC9ErCkL2zdmGYHCsn4BnHMQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qGgWvl7X1MwbcnorHO575SIkUfRVyZrmQRmw7EuNrTPPLC3tEQJWgL/DZslogyl2wDvbcZ6Klj+sVB63ii+8sd48kJPQNh250995MwuCt2Joo4U2NLsC/ZHvNaUERjVoYWVfWHFVwurVljUX0fS2MTYg2F2XdXwYTVBus38bQQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EcY7mt7O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fuo3G4tUW7lQqaZnwMSjJYHmBmkMndpk/waMAV888VkWZyNr/neNyDzi+ngN5IOmkbd5CMkZQepVzWtSmWmKbH9XhP4Hai+jmZ0j3jwyeiVZ0s3EERjY5vupq41sIHw6JkZm8MG1SU1Jrq85l6TLIyMte6eMoJxOlmOPxPvwQ0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UGdd5lRw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EcY7mt7O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94DEA1F000E9;
-	Tue, 30 Jun 2026 22:23:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UGdd5lRw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2A81F00A3A;
+	Tue, 30 Jun 2026 22:23:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782858197;
-	bh=n7o6b+pDfbXkoCXWqOQ4sT4HKnVIGfNIQENiExzPoRA=;
+	s=k20260515; t=1782858198;
+	bh=Ku9og58Xz1nANnozikVlC9ErCkL2zdmGYHCsn4BnHMQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EcY7mt7O6KCpNEL2GMPDeHKUgyQU5wwnwOEnBqqzrsOMOMFWZLCEAvSePCw9TprYw
-	 j/VVLbikigx1l8ACtyx1WH0ZCl84x7w17ugdybddB9GoUqwKlb7/zpLKuE1O7nXyjp
-	 zu2biYTGaZbRW6DiUbOyyzwxMNBRkAz0jjAMKg7j6OjQlWXOKUkPijO89/BJqzixqn
-	 9DIKzc/sVL+qTR/tBq/RGgemLjw0mI30EQRPwo+449yh3o6QZOcDNKGahq+w4Dzuo2
-	 kArX2KM1bXApwlBRuFC67clHyCFBwbsrCWL0wwjz+AKsfzOOfI8ID96vSgRreTcIrz
-	 6Y9kSDP1KDk6A==
+	b=UGdd5lRwgO64Br99au6ha83ML3w2JJTl1jmUntTYf7mJjx7+6uDKJq46+pSVfW/f5
+	 bonDW/0G2BVMh+c547shoQ9mENUUCWN1eJzy2vBCWtEQQsmMEn7zsRDp9dHGwqa+NC
+	 xSJNkr2LY3hatRDtOaPD36ojbAYuX9ikFofgB4xxqKs9jlI9VguuOaBlkc5o96sJzj
+	 mPIA6fdovuvBK1usgFHizc7oUtfesCDTBg6MIvttVXZ6EKVsG4v1a2azR13UHQM/f4
+	 tCIVh7XyrKrdm38i121RXInbdbY/DKmAs5Wf4A8bpePVLf/YxQehHnRy5tYq3oPrPy
+	 p4p04pM2QaGaQ==
 From: Sasha Levin <sashal@kernel.org>
-To: viro@zeniv.linux.org.uk,
-	brauner@kernel.org,
-	jack@suse.cz,
-	miklos@szeredi.hu,
-	amir73il@gmail.com,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	stephen.smalley.work@gmail.com,
-	omosnace@redhat.com,
-	gregkh@linuxfoundation.org,
-	bboscaccy@linux.microsoft.com,
-	caixinchen1@huawei.com
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
+	rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com,
+	dhowells@redhat.com,
+	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-unionfs@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	selinux@vger.kernel.org,
-	bpf@vger.kernel.org,
-	stable@vger.kernel.org,
-	lujialin4@huawei.com
-Subject: Re: [PATCH v3 stable/linux-6.12.y 0/3] Backport Fix incorrect overlayfs mmap() and mprotect() LSM access controls
-Date: Tue, 30 Jun 2026 18:23:09 -0400
-Message-ID: <stable-reply-item001-overlayfs-612-20260630181642@kernel.org>
+	doebel@amazon.de
+Subject: Re: [PATCH v2 5.15.y] ring-buffer: Remove ring_buffer_read_prepare_sync()
+Date: Tue, 30 Jun 2026 18:23:10 -0400
+Message-ID: <stable-reply-item003-ringbuf-515-20260630181642@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260629070338.578858-1-caixinchen1@huawei.com>
-References: <20260629070338.578858-1-caixinchen1@huawei.com>
+In-Reply-To: <20260630060321.1494832-1-doebel@amazon.de>
+References: <20260625054005.0014.ringbuf-515@kernel.org> <20260630060321.1494832-1-doebel@amazon.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,18 +50,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Backport the patch series
-> "Fix incorrect overlayfs mmap() and mprotect() LSM access controls" [1]
-> to 6.12 lts
->
-> Amir Goldstein (1):
->   fs: constify file ptr in backing_file accessor helpers
->
-> Paul Moore (2):
->   lsm: add backing_file LSM hooks
->   selinux: fix overlayfs mmap() and mprotect() access checks
+> [doebel@amazon.de: move patch section using guard() macro into a
+> separate block to address declaration after statement warning.]
+> Signed-off-by: Bjoern Doebel <doebel@amazon.de>
 
-All three patches are queued for 6.12, thanks.
+Queued for 5.15, thanks.
 
 --
 Thanks,
