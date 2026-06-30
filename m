@@ -1,200 +1,140 @@
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020137.outbound.protection.outlook.com [52.101.225.137])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D879B26B742;
-	Tue, 30 Jun 2026 07:18:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.137
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782803883; cv=fail; b=cjz7NJW7GsQBtiu6DsTNOXku3Xj5sAlYyaNdVliuJIjxYU9KGUMwJpKFiUeYVN4b+5PmveMInZLEgfivaxaEQ/oUq83TjQCDJyei2BZMxU1i/AgOtC0FA67anww8F9xs8HpUzgXb1Rq/SwDNRleaue2Ua8c5vTwzGiXm/DDrsLs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782803883; c=relaxed/simple;
-	bh=wOmVjKjVZLmgZWde9tb8yFkKXi85XPLmA3J4fbBG5bg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=b8Cj+RKZyV6OcHzYR6B0iXg91YvvaMF7GhfRrTlz0gRZOh/+VU6sXijUfPtdu5qYmU+oGEwfZRxIFqdN+D/8sw4PjVi63Wbaw6quvoD/fm8I6ERIS+WypYZdjaKmjsFqRoU3vHl/NJ8Utk39zrVyIWMWlj0JrrwgIc+U8r3oMsc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=maKNuCHN reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AC278F2F;
+	Tue, 30 Jun 2026 07:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782804113; cv=none; b=mNI7CZBeB4PvX7cRnsUwh77dz7EwGGy5I5fB5sikKGIk/V2bXV1kwpM5sMKPiiJprf8hrI/TMrAN9Wq7auTOmDOv/G8ukYLGr5CDK7me0ePtPAXBdepMoFBOM9oR+uzyl7mcK3inp/OJrxc2U/m+Bkf+0ONkIDihiOOe8Il+KPc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782804113; c=relaxed/simple;
+	bh=OdcC6x/d01X8Zoz5vtiz0YK7mL1Z51asCo1ShgRdG2M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bZ4T67tSCegbEXFWmfZ5JvKBwoQXz2Qb+idQHbF+ya8Ymfu7jVJh9jMhM8zLbIYFTGdFAKUrWvSkPkGlQznblGTWrOeEaOdTiqWqJLUktbMKYxtweqam3nUXUAlNF+7x/QPukvZmFag7LP7k8FnjvQDCKdM+cEC1vLWPxNkCOd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=C1RU/7O2; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="maKNuCHN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aeJq+sic01FHQn1w/KggnZEBXJ6bQ0IIJN50Tus+jHtm7CinXtpYfNNa1GAU7GVx3JnQwZGMQDblFS+NNdk4u0vMwnsvSK4NZHydRaVeR9GiUIf081UX16J+fFmVyJF3O+Uw66pYyy/daAYlpJaVNDem5u9pPm8NmXx6LorlMbjREebQGDPhqMDyYqSouJjODiXEkD8x6+fRzZyNMfWi7wD0Pwov1QWSk4vGe/MGgCI0KCDh1FMpdIPsqJUfa2QRBNvNbphB+Gqy4oifSuKa1CWDWGvoOeNqKI4WWUn8Byn35LpQBpHdUosq5YhKOsqAsRqwG6gonS1t7IQ4WmujCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V0CngVb/KpSE7q+fzqxrfA8IrurwHYZjAzLBKXxitTA=;
- b=bmJ0+Sa7+9Eliyhs4nYzL1YWtCGr1NHQZmoKwnh7wtkuVvs+iU4z09SZqbrhgidt8EIq8jz2pps0leeBjIhu+G8vkX1ne8+BOVvLIbmHzpI7WGKyfJSEzUDcvEW6INQflgMI3RKaR0tOKWok7+M/7alkiB/1I+GO8veVl9fTzIk/HNtMoCoG2yd9gyq1DzVts7J+XciGyw4W/ujr7UUke1xcy/4gMkWvuTWHpr+lReHbRwMIe5wEO40awlIxdXs+K1S5yjlqfjbM+Q1riAA+yE4sxM512vbUs2bJgBIV7TEY/Yv/tFVpL1t/iQNZYh+gKmTnbPxxEGZ3444FrPzzmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V0CngVb/KpSE7q+fzqxrfA8IrurwHYZjAzLBKXxitTA=;
- b=maKNuCHN7skUXCmLwXD+mfAD1Aj+DIgWeWVRNkoJKgFEqYlLop3vpAFpPy5yKMloyZXi3w2ta+iOX43lu1Y5M6eZjzrfOW/h1NCKBILpB1YXz2P2Ye263Y/VQJMViws+9CX8T4vhL5uzOuJTWtwNQeheLxr7eJ1rQHKoLlGX18W8+dYLwXDnYoSj9xNoRPKstsEaew2eemZRPQBO0yC+QiGonQ5NhpRQGwQfTbcp95wU+nJ6sp63ITeYTKK+mSLIoyFXcJZjZIgFnfzImBF+eK3W80YDaoX3niD9TsI/xSLpJR3+4JFQkQiQjr8qd0sA2tkiqdnK0avN74/vkR0UpA==
-Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
- by MA0P287MB0555.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:116::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 30 Jun
- 2026 07:17:56 +0000
-Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- ([fe80::ce63:5749:b390:508b%6]) with mapi id 15.21.0181.008; Tue, 30 Jun 2026
- 07:17:55 +0000
-From: Tarang Raval <tarang.raval@siliconsignals.io>
-To: Mehdi Djait <mehdi.djait@linux.intel.com>
-CC: Sakari Ailus <sakari.ailus@linux.intel.com>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, Himanshu Bhavani
-	<himanshu.bhavani@siliconsignals.io>, Elgin Perumbilly
-	<elgin.perumbilly@siliconsignals.io>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Vladimir
- Zapolskiy <vladimir.zapolskiy@linaro.org>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 01/15] media: i2c: os05b10: Use
- pm_runtime_get_if_active() when applying controls
-Thread-Topic: [PATCH v2 01/15] media: i2c: os05b10: Use
- pm_runtime_get_if_active() when applying controls
-Thread-Index: AQHcvE0VYEyGpKrPCUqCSgEd3XhlMbZWPXoAgAEDjnI=
-Date: Tue, 30 Jun 2026 07:17:55 +0000
-Message-ID:
- <PN3P287MB18296B5F265EB5961F25FF758BF72@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
-References: <20260325114404.95188-1-tarang.raval@siliconsignals.io>
- <20260325114404.95188-2-tarang.raval@siliconsignals.io>
- <akKM6VhoLNep5UZB@mdjait-mobl>
-In-Reply-To: <akKM6VhoLNep5UZB@mdjait-mobl>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PN3P287MB1829:EE_|MA0P287MB0555:EE_
-x-ms-office365-filtering-correlation-id: b190bed8-ebc4-4eec-5c11-08ded677b4cc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|18002099003|22082099003|38070700021|4143699003|56012099006;
-x-microsoft-antispam-message-info:
- fE5DRcVC7VZ4YHV35IeXEpJhIGHBM69jvB0FL+iNz3B2Nmt9FxFoHonP+PsVtvEwdAL0Hk5EhSqU6ecoPSWrmmEawGh1S9OnKad5kbtqflEdAul32kbbcmo5xUO+h4T6rL/wxhTGC8DhI7oc68MRmtLl5wTMiGsYnxWUbSjdClTNb/y2XWo6Lj2rZ3H9z8q9AIK8CZG0rST1AuO9reM4sWhh67Bq6cGco/ywFLpSOEwCVZBL0WwOe8Ok2PuxCvM7FI0ImtmMo3FKJcT3qcuFSYzie8t45iwGYXlauuDktLGm4MMUK67174KGM90il61JR2i5UVGuqcPPI1CUJDMXfBtoR7UfbpIrM7sEYKhPZ0wzAoR7Y71neZHvpnjxCL8gD8JaHDbm9IF4mY+IwshD/FUWIGgnx17Uf9F1pkBDL0JIp6wRmGChijg+rmP+bM92J2G2HGTrBjiNc3XME8FvK/LciKdQXWB4wt8tk5EopgwE7JWOjVYF4CjqO4JY1/32zJQ7xYGkQOGguB4B5t0ha2aOsR8QTWEXJnV5BsGNQNmMCxwdkmMc2ENk2F7rOhDbAWyqYtbErt+qHxzzLaiQeWbZ9wa6CKN6VG5vWJMvvf4QQo130hhqZcmAenCYdKRuZa/qfrNC3uFuQ0CuShsMO/p3ChYHnhawAtLA5jsvA0uNJ3z7iNfWdrwAa+gARDiaDcHxdyEjE/GWEe6Ct2bxJ4X1Af5qS8G1AHs2w8/BsBE=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(18002099003)(22082099003)(38070700021)(4143699003)(56012099006);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?SaTKw1IpDwxZ1SrB/5YaF9apUYkEiuINQJalw3L9naoOtQ7UDM/xV+HI3r?=
- =?iso-8859-1?Q?ejplNDHPNazByHCDov1YNFiv+ug3lxYn+Vf/8zy5HnUPbGnpIh3UPkrkb+?=
- =?iso-8859-1?Q?bpOlGpAbG9sZ7WbrqMWjq9pwDlNjFYhFdkfqQB+r64xlLVM3Dz88VZ9J0y?=
- =?iso-8859-1?Q?9ywgEMv7LszsdXGuNyysjk7Ho/xqWmj3IRapEcwHES7cqXiHBATUcfcYJ+?=
- =?iso-8859-1?Q?chwgvx+wQFSfFhSmFbUe1IOa5HckbA9W5Kj+MrGzIDe6fYnHyC8Fx6lAZD?=
- =?iso-8859-1?Q?v46ojZIyuTaOMRt2XXRNXVs2KeGZ9M2PLrO6MNtNSDZzZ6ql664OfGp55B?=
- =?iso-8859-1?Q?pOFFQ+MG32NJXQDNh01D7+Wj15ATcO7k4r5+Xn+AWgyOU8K01F1to7SOy8?=
- =?iso-8859-1?Q?zXVs2VEDO/zy/MnD0X3+uV6IqLZq2SQyfqBJtQClzV9na1y+wVo5pbObHT?=
- =?iso-8859-1?Q?1rx+obOTllGaBMvgohClwNOAT5NR9VxzylVG8iadEJJw+XafjBZe+lzlmZ?=
- =?iso-8859-1?Q?LPiHo6TMWtwK1NWGtSKnYWsWRyL0csP18mUm8h8pSsimo43P7VrJ5WS3BQ?=
- =?iso-8859-1?Q?8DALTJDbU1JbPyr8gt/OHoJY9LWJTC9vyhQkG/E27Th6WME5MOZchrNmGo?=
- =?iso-8859-1?Q?h/Uq/2HoWhtNQYiDNhDLEbXBstH44DMv0rSXdIu0+hJIM7nLbJsjCyXstl?=
- =?iso-8859-1?Q?u9T3E8960Uvj5CKhrxpE2xMCaQkNlqflgosLgOO9SY4eJRt0vmx6yq/Dr0?=
- =?iso-8859-1?Q?frFLZP2Y+Pigouc5jIU//Gs+CaYB6OXXZHMO3EalZ14nQIK/BxGdY89/+O?=
- =?iso-8859-1?Q?skKwlyWzlKYrSgBlBe/fcz+O2lJsY5eDDgRkiE1s33aXpRG1gyKxyS1GzC?=
- =?iso-8859-1?Q?4k9B7aMsdJXF11hjHuX54RCIoe0kantLG+o4bRmV4X0hVOFTfzyNgJLdRC?=
- =?iso-8859-1?Q?SFJtjDzjqX4Rhhs94SbZdGJABzg/fZlK0QFgi6MB9Hc1v23rZCunjvfxLp?=
- =?iso-8859-1?Q?/4E5Lwu/3FQiYr+K8FE4l3QD5ghOsYX9QZBvBIGdxHdzHRL7K/gpEl7iJH?=
- =?iso-8859-1?Q?rwCHU6D40W+hLn9Zvz4RTyWobYshs1vfzspWtA4I4Lj/27oMcgzqRtPbKq?=
- =?iso-8859-1?Q?wtDfs9+3t+pRBRj5NvdZlJqIQCgrbh1uyvzTsV2fI3zZeev1Gt3ElCYx6+?=
- =?iso-8859-1?Q?klQNXzx762+zTaSZNldW35Dg23YSdcEk0utv8Y7DHzM8M019ois5/XoR8D?=
- =?iso-8859-1?Q?+KJq8wjh++FU0ESWD3D+NiUZPcGzCJBlhmZBdp7eLIgg4WSZ2XdD3JI2dn?=
- =?iso-8859-1?Q?jzaWLHLSq7j9yCqAklWckMLi+lfrMkf8Evfm5odfEIL4mQD7E8rGtnT2Cz?=
- =?iso-8859-1?Q?Bli9R8t+PGsxI1kbn82fmRZVcgth86BTRaK/Ix9Pp/rjW5qdi8zKCjsSwe?=
- =?iso-8859-1?Q?NLXcBClorQ+4lHhmicrciFcrfT1vbHb/bHeZp3IUaz2UJmwmEFlVZlNMIK?=
- =?iso-8859-1?Q?EqnZgLNpFA+jLdKKV1JYnLqofmWFUQDQ+PlTS2JUY/VlEkf7VxperQMHuV?=
- =?iso-8859-1?Q?mkpM3ok2e79ZEcsKylla+an7NRiZI47FnaaNu7z7zLU1AqPZ5/UKJC3m0r?=
- =?iso-8859-1?Q?BSqvZHEa6cA7sJi/WHT3vippGNktJ6QTMsCi+QsTQB7KhKFZahz0GskflJ?=
- =?iso-8859-1?Q?jDs1b09aAbw1XxHiN/sXIrmmyrm1+SR+RVH0k8g/wOsZzGyDt8QVp23Smy?=
- =?iso-8859-1?Q?EduxRu86zOImnNjbVhH8o9gA7ZV4hIAWxOHcaaEZFzcKDt89HxBzWlpWW8?=
- =?iso-8859-1?Q?z520Ui2M+w=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="C1RU/7O2"
+Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 444c2becd;
+	Tue, 30 Jun 2026 15:16:29 +0800 (GMT+08:00)
+From: Dawei Feng <dawei.feng@seu.edu.cn>
+To: sgoutham@marvell.com
+Cc: rkannoth@marvell.com,
+	gakula@marvell.com,
+	sbhatta@marvell.com,
+	hkelam@marvell.com,
+	bbhushan2@marvell.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	jbrandeb@kernel.org,
+	richardcochran@gmail.com,
+	amakarov@marvell.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	jianhao.xu@seu.edu.cn,
+	zilin@seu.edu.cn,
+	Dawei Feng <dawei.feng@seu.edu.cn>
+Subject: [PATCH net v2] octeontx2-pf: fix SQB pointer leak on init failure
+Date: Tue, 30 Jun 2026 15:16:25 +0800
+Message-Id: <20260630071625.349996-1-dawei.feng@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: b190bed8-ebc4-4eec-5c11-08ded677b4cc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2026 07:17:55.5650
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xXY7IFejndbXRV6UEvB7m0shYgCOSfu3Qf5CZiiZYRoCoEXceTrSFsQa7JOmAbZpwIv0i5pPTl6Q8HrjtCQgWURdI8hzV2MiR1uZ5MVveQY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA0P287MB0555
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9f1762f76a03a2kunm902ae0401aabee
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSUlMVhpNT00ZSE1IQ01KTVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=C1RU/7O21k/2k+xueF8mLAKd7K1Tdcq8ibjilpoJA+LsPo/JOBTwSIQvZ5dWuB/pwSI9+Q2LfVTc97UJvWpprt5yo3zmK5r/msXPybGsG8567v08c8R2v00sp6mxewBagFNzgi3R5q6IgJbcAuA1DrYdNwUpv0sD+qQJBgThz6Y=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=9At5R7iJVdLl+b9yYFudoALdZ+Azmft7oDz1KkJjsHI=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi, Mehdi.=0A=
-=0A=
-> On Wed, Mar 25, 2026 at 05:13:47PM +0530, Tarang Raval wrote:=0A=
-> > os05b10_set_ctrl() currently uses pm_runtime_get_if_in_use() to decide=
-=0A=
-> > whether controls should be applied to hardware.=0A=
-> >=0A=
-> > This is not correct for the intended behavior. If the runtime PM usage=
-=0A=
-> > count is 0 while the device is still active, pm_runtime_get_if_in_use()=
-=0A=
-> > returns 0 and the control update is skipped, leaving the software state=
-=0A=
-> > updated but not the hardware state.=0A=
-> >=0A=
-> > Use pm_runtime_get_if_active() instead so controls are applied whenever=
-=0A=
-> > the device is runtime-active, regardless of the current usage count.=0A=
-> >=0A=
-> > Cc: stable@vger.kernel.org=0A=
-> > Fixes: 3aa9296a23ec4("media: i2c: add os05b10 image sensor driver")=0A=
->=0A=
-> A space is missing here after the commit hash.=0A=
-> See https://docs.kernel.org/process/submitting-patches.html=0A=
->=0A=
-> checkpatch will warn you about it.=0A=
-=0A=
-Recently, I found that this is not actually a bug. Using=0A=
-pm_runtime_get_if_active() would simply allow more control updates to be=0A=
-written over I=B2C while the device is runtime-active, even when the PM=0A=
-usage count is zero. Since this is not a bug fix, I'll remove the Fixes=0A=
-tag.=0A=
-=0A=
-> with that:=0A=
-> Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>=0A=
->=0A=
-> > Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>=0A=
-> > ---=0A=
-> >  drivers/media/i2c/os05b10.c | 2 +-=0A=
-> >  1 file changed, 1 insertion(+), 1 deletion(-)=0A=
-> >=0A=
-> > diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c=
-=0A=
-> > index e0453c988e4a..5da5b7d21f31 100644=0A=
-> > --- a/drivers/media/i2c/os05b10.c=0A=
-> > +++ b/drivers/media/i2c/os05b10.c=0A=
-> > @@ -531,7 +531,7 @@ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)=
-=0A=
-> >                       return ret;=0A=
-> >       }=0A=
-> >=0A=
-> > -     if (pm_runtime_get_if_in_use(os05b10->dev) =3D=3D 0)=0A=
-> > +     if (pm_runtime_get_if_active(os05b10->dev) =3D=3D 0)=0A=
->=0A=
-> small nit: how about=0A=
->         if (!pm_runtime_get_if_active(os05b10->dev))=0A=
->=0A=
-> consistent with other drivers using this call but really not important,=
-=0A=
-> up to you if you want to change it.=0A=
-=0A=
-Sure, I will update.=0A=
-=0A=
-Best Regards,=0A=
-Tarang=
+otx2_init_hw_resources() initializes SQ aura and pool resources before
+several later setup steps. On failure, err_free_sq_ptrs only frees SQB
+pages, leaving the per-SQ sqb_ptrs arrays behind.
+
+Use otx2_free_sq_res() for the SQ unwind path and let it free sqb_ptrs
+even when sq->sqe has not been allocated yet.
+
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still
+present in v7.1.1.
+
+An x86_64 allyesconfig build showed no new warnings. As we do not have an
+OcteonTX2 PF device and the corresponding AF mailbox setup to test with,
+no runtime testing was able to be performed.
+
+Fixes: caa2da34fd25 ("octeontx2-pf: Initialize and config queues")
+Cc: stable@vger.kernel.org
+Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
+Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+---
+v2:
+- Rebase on net/main.
+- Drop the timestamp qmem cleanup and the PTP Fixes tag because net/main
+  already has commit a056db30de92 ("octeontx2-pf: Fix leak of SQ timestamp
+  buffer on teardown").
+
+ .../ethernet/marvell/octeontx2/nic/otx2_pf.c  | 21 +++++++++----------
+ 1 file changed, 10 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+index b63df5737ff2..88ac85354445 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+@@ -1568,15 +1568,15 @@ static void otx2_free_sq_res(struct otx2_nic *pf)
+ 	otx2_sq_free_sqbs(pf);
+ 	for (qidx = 0; qidx < otx2_get_total_tx_queues(pf); qidx++) {
+ 		sq = &qset->sq[qidx];
+-		/* Skip freeing Qos queues if they are not initialized */
+-		if (!sq->sqe)
+-			continue;
+-		qmem_free(pf->dev, sq->sqe);
+-		qmem_free(pf->dev, sq->sqe_ring);
+-		qmem_free(pf->dev, sq->cpt_resp);
+-		qmem_free(pf->dev, sq->tso_hdrs);
+-		qmem_free(pf->dev, sq->timestamps);
+-		kfree(sq->sg);
++		/* sq->sqe is not initialized for unused QoS queues */
++		if (sq->sqe) {
++			qmem_free(pf->dev, sq->sqe);
++			qmem_free(pf->dev, sq->sqe_ring);
++			qmem_free(pf->dev, sq->cpt_resp);
++			qmem_free(pf->dev, sq->tso_hdrs);
++			qmem_free(pf->dev, sq->timestamps);
++			kfree(sq->sg);
++		}
+ 		kfree(sq->sqb_ptrs);
+ 	}
+ }
+@@ -1711,13 +1711,12 @@ int otx2_init_hw_resources(struct otx2_nic *pf)
+ 	return err;
+ 
+ err_free_nix_queues:
+-	otx2_free_sq_res(pf);
+ 	otx2_free_cq_res(pf);
+ 	otx2_ctx_disable(mbox, NIX_AQ_CTYPE_RQ, false);
+ err_free_txsch:
+ 	otx2_txschq_stop(pf);
+ err_free_sq_ptrs:
+-	otx2_sq_free_sqbs(pf);
++	otx2_free_sq_res(pf);
+ err_free_rq_ptrs:
+ 	otx2_free_aura_ptr(pf, AURA_NIX_RQ);
+ 	otx2_ctx_disable(mbox, NPA_AQ_CTYPE_POOL, true);
+-- 
+2.34.1
