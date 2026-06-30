@@ -1,151 +1,171 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010058.outbound.protection.outlook.com [52.101.56.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0620C12CDBE
-	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 18:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782842643; cv=fail; b=N+W7A95SkjGyVW5cyiJEFnW4aWWC61vB209STceYqH1izq5Um4/evsfNlV6Mj5qJ1mkLLnpo+7RIaSwhvzgRvfZKD8t7hA4z7+XCoUDkzWC2nwobfD6lpai1pRyJlML6IO0NZTtE991Wdcj/E/wkOr/LIJRKqpPDKq/qmP768iM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782842643; c=relaxed/simple;
-	bh=fyLhi70j+8pVkGjC1H8HRiiFLTJTjXnA5q0FDOuPukE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dVG+SXTrGKhpEZGUyd03Rek2ZzvuQFoRYSmnrENQ2mbikc8ZOSlW9QLKxKGJgctr3b9e209BuPVS9R96kv0ccvxxV7ZJV15S3Dm+tBNoUmu7IBz+o0lXgmgdiBY7vM0o4HniAbAeyvgVcZCYoXzruk4soOfuCpZ/xSQI68CpVBM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Xq4R9JI4; arc=fail smtp.client-ip=52.101.56.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7EB358360
+	for <stable@vger.kernel.org>; Tue, 30 Jun 2026 18:30:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782844252; cv=none; b=lh+Pcs3UM21NOWtRCTr3LibvskWO+iEAXpqpjFe2H6+HwOteCZz9Iffw0n1LjL/FCDLUhvSga9a+siiK4q0TFPHVzW1k/v+1AVFWopqKu+zph0K5xnPZ2BZyE0vv++N46oc4DJxNbjqQfB/MFPDb1OlpO3XP5troP8x0BL0uKOQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782844252; c=relaxed/simple;
+	bh=lcny+By7zybEfee72uKlhA8jZ6/K+CPLkKhviUZiqUM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NRH3uKe/vm4q0UU7bBNfVOkylfeT+pHKX7Ki6uhZzehl84loH25/g3e1PVSX3L8+Oas3tFyW8Ql+dVa79reTh6OXXkNOGgKp64JZJ+jMg+fjh3RfamqqKyjSm8IYGta5O0ICt1xpHYSXw0MAXVyxddcTohH2ls1+XsocQlGQ7To=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Y/tcZGKo; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Xq4R9JI4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nf2vkMOWZvSUj4HF0d2H46g9rcFSMWGUl6GAJq1knURx2mT3eK0nFlNb8v3jdHLufYhGcnGl9lzXb8I25Doad/622cSaiie1ALOjaDdTNoBObEGfTuhks312WxsGILe8JhjT5bOgof7h0KrNDxZEZy1ylG/0mmhrpBCRm/nGeGNoZ9Q3FtWE5GdzhyrgmNpzFDtF2iKq1SxO5gX9qHh0HiTWRt3AVmjm8CNT0EC1kLZvSCKAE+oHHeG8ZAQPQ0zoHweKDCgzYS07+vuhRWicyd4+DSA2aWQzrZHhGaB8TaxV5KPVRZgpiN3iUa9geimH9aupzzDnvyfcZFHIzIybWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kDdwRciHAiEs1fOdP0WenP48KHaWlCFjQbD94j3bDBc=;
- b=cS5EEaEPJIO+MwqS14NTylVAYSBlBC3eLlFMY26GF/WFjWTFd5K6pFPk6Pa5zceDAzwVxaym6PxLBEZu/2AR1aCqoIAonHQDkVjyjBYyi1JRwKZ5P8rqyWXc5lxJh45LZf/sFOfwRpoZwqb+LCvIBYID6Br6wz8gq3sy8VRRcL283Anw1FeTySqunwYiyW+AmQ2TBfAHlKA6PjdZPOgj5nsuPxbbcDT4aqTKjZzXvc5UcMF8bmNy851QZBkJmN9gv46Az+NuURHeYLenPyr+So7CYkgLW2pYli1uMEBgXp2y2RkrrlFwaDvqtFdeoxJwCB0+qsoV8+kosGGIIuQwPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kDdwRciHAiEs1fOdP0WenP48KHaWlCFjQbD94j3bDBc=;
- b=Xq4R9JI44JqK6MR69oI+/RrbDqebf2a/IvtdsoQP1l3SNllXU2zT4WwqOxKQed8oOuvKS+GRT/kDozBe7qQmccsQrxf3nJsI6JHtFeHNXXfoqm8vtoTh8QXKO1gEfOCNOIvh515KoTeTb+vfD/l1yn7kIenQ1cG3WmSKhtx7INA=
-Received: from DSSP220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:3d3::16) by
- CY8PR12MB7731.namprd12.prod.outlook.com (2603:10b6:930:86::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.8; Tue, 30 Jun 2026 18:03:54 +0000
-Received: from DS2PEPF00003445.namprd04.prod.outlook.com
- (2603:10b6:8:3d3:cafe::57) by DSSP220CA0011.outlook.office365.com
- (2603:10b6:8:3d3::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Tue, 30
- Jun 2026 18:03:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DS2PEPF00003445.mail.protection.outlook.com (10.167.17.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Tue, 30 Jun 2026 18:03:53 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 30 Jun
- 2026 13:03:49 -0500
-Received: from flamewok (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
- with Microsoft SMTP Server id 15.2.2562.41 via Frontend Transport; Tue, 30
- Jun 2026 13:03:48 -0500
-From: <sunpeng.li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <mario.limonciello@amd.com>,
-	<wiagn233@outlook.com>, <sysdadmin@m1k.cloud>, <timur.kristof@gmail.com>,
-	<xaver.hugl@kde.org>, <mario.kleiner.de@gmail.com>,
-	<michel.daenzer@mailbox.org>, <matthew.schwartz@linux.dev>,
-	<chris@kode54.net>, Leo Li <sunpeng.li@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH v3 3/3] Revert "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs"
-Date: Tue, 30 Jun 2026 14:03:01 -0400
-Message-ID: <20260630180301.362070-4-sunpeng.li@amd.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260630180301.362070-1-sunpeng.li@amd.com>
-References: <20260630180301.362070-1-sunpeng.li@amd.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Y/tcZGKo"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2c81db32393so8975ad.0
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 11:30:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1782844250; x=1783449050; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UFLNZBPki14ArLq9AWdBh/KIv4fHhLMZ/fjJCcm8kA0=;
+        b=Y/tcZGKoCtsfen3bajfdpgiPwaMHk0XQ1hzw6G+FDAa4F3IuJi0gr4gENAJg14CUP4
+         2fRsWFoTOtCbCcG/fOEyhYQCXqOv0Bs1WzFch5O0rwhcmGJxYRYzJ/Dd81nOD+FtSOxg
+         /e+ydkweo7WFiie2nErukmcvUP/MnWqQsSUJ/BZuilAadLTzvqcgu3g4MMw7+ZW6zvB1
+         ky8WP/CcohoVnxdr+g/KOsgSx64ZjsQLsE9+z6nfPS5Zvb6PHxXoN2aT6cSPxWA7Oc9Y
+         HEvXw46yk+I6AbzeZ0xjwbJNQ2F9Cil+qrqVwLScbEdJr9+Kii02HgwHeWzy0jO8oghL
+         ZupA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782844250; x=1783449050;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UFLNZBPki14ArLq9AWdBh/KIv4fHhLMZ/fjJCcm8kA0=;
+        b=Sg8vb6jmxTKmKn/ozgou8HLzntkJnK9Aauf09Qi6B5aNfnpnGtcO+Puen58kFeId5b
+         7wTesEULJ6h/JXqufoUmnCu4tTTxlww6eSgfebfuA3u2mQGzTHs1V0HEQtN6yCuAHGvQ
+         46sf5SwECe9oYrIuyi7gx4eHFyPASFR8RNr6sKBSBwKFZTsbrQHQtWFRUjPTbx5okwFL
+         sbCgngFR4b3DKj+bVp8HmPfULMJSo+VwzeZrP5gTKdLE/e0vWDM5AItliGoqMhyNnrAf
+         g7Z7pYMuoQN/7LRFx3I3rcx+2hHI4ys7VNMHBnxJdn1YEn0kR3WDFuvpvrQaEzrFEb1u
+         IClQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrSOt8Xawsm4//qwQpwgdDrTYNNVQVqv3f1xRe/8lUqXX1VIhvtW7vMA6zDbEuW8VuIEZzRWpM=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzb8n26FfGYdRQsGQeXIjuTrMmxWNuWn6mEFNiBFRCKWKBVzcNo
+	mWgHVzyr8SJ/nbHMXlZXFXx5tXOI3wwkNHBTTvFCL5mMBl/5fIUzrsOqRdJI/avP5w==
+X-Gm-Gg: AfdE7clZ9DDVZjbaLMYYLs63l2ApcK9jtODKuSwAb8Ez79DV6RQY7F9poLPZS37N2cS
+	RFuqiIEELOoBCt8Fc4m+6S4r0zENRsjq9wpp9ia2vPL9jp8bCzdpvstQx3sJ3xJWGBXilOijOWV
+	T6uYwNEvYlNueUsE1Nm5K1AoMjwTK6oXt89Yo5VC7ekpGV9r09P2sRyZsiIJyQ+4Kv+bHyjYlDw
+	aonDfe5I5UqBpfxg2kmaqF51pw86tfqKjwFEnVUt1IU5X1ST9+77rqFI9fBIljNVAWLWA7thb2N
+	1bOF8UpdCrkbLPBplEPxFZ098/sYV8aM1jasUYNo5Xs9hhJyP0zadpHZOXLI2QfeH1ynsCZ9MXd
+	1FEj23rGCFshd5Qjv3GXUDYybiIs51ezKTLqChhWbDnXTIFsOZl0CySlLcRyEBJqN0tjs3zeGic
+	EaJCek97KYJsOtpLfA05X8isivYRV7z3bsh0PMY+NUJMCrOv4=
+X-Received: by 2002:a17:902:ccc8:b0:2c1:ee6e:be1d with SMTP id d9443c01a7336-2ca68c40b96mr331005ad.27.1782844249825;
+        Tue, 30 Jun 2026 11:30:49 -0700 (PDT)
+Received: from google.com (10.129.124.34.bc.googleusercontent.com. [34.124.129.10])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847a00029d3sm2576588b3a.20.2026.06.30.11.30.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 11:30:48 -0700 (PDT)
+Date: Tue, 30 Jun 2026 18:30:41 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Mostafa Saleh <smostafa@google.com>
+Cc: Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org,
+	robin.murphy@arm.com, jgg@nvidia.com, joro@8bytes.org,
+	kees@kernel.org, baolu.lu@linux.intel.com, kevin.tian@intel.com,
+	miko.lenczewski@arm.com, linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, jamien@nvidia.com
+Subject: Re: [PATCH rc v7 0/7] iommu/arm-smmu-v3: Fix device crash on kdump
+ kernel
+Message-ID: <akQLURkLA-bZ9dAk@google.com>
+References: <cover.1782799827.git.nicolinc@nvidia.com>
+ <akPB6l-fuJUcg4a2@google.com>
+ <akPX_N0P2EcI_jbV@google.com>
+ <akPhuF9pAWaBXzpi@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003445:EE_|CY8PR12MB7731:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19c640b4-b2b8-47c3-5af4-08ded6d1f24e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|30052699003|1800799024|82310400026|36860700016|32650700020|13003099007|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	gVrBtmqhBU0QqRyTLYOUfZz1tjLkD7FJgN4hJnbs63lnt5wqz0WVul86YPW6UzqzrgEFAJkvrXDqGK6f2OWvDgaKvoFKY9Uq1gqobtwHmaMy4aVe7EvRwjlDOsgtJIIYl53yhS+NtWuWe9lJCvx9ZsHoIJO6k3IasinwxocKKJZ9kGftzn+el9Yzxdwi7HyRtBvqYx9OFXxTXm7OOl6Hq02SHR0uBqrUAILAftGVdFDiLJD4AQxt1e05nS9He8qzL6qyc1lrOYroAkM9MS93pVccH4hJvSuvsww797Q1DOhr/n0VjpEe2rx0U10mDDKO7lM4GLY7+z1j5Q2aaOoUwwdS7yLpP/DWIdxfuPKZsJb5Der01luPxcwo8LFW+P7QkAxg1/Wja3AowcAIt7OqZjXilGFF3w+AVhFi2dsatt3tDKFsHSU/fGUJw8hrL8o5Qp7+O4QYCMWHGrrKMJtZUj8HpGgBPdpm6ZXes44kYKZG0seP8jS4WX9iQzcdPCH5i4rGYfKUkhNQOf9K6yVmj1rqZ0PymxR3F7DZL6P3Xyvo5H/RSC+GVNA85BN6Rw+IubOvP3PNVznHpaqg9KaiCZvkjFUH+g9xeBFElTTdYTilrrhE38+gowrG0voV1rfZYPoktUGaBe6HO3GVYwOIgA6zTtzrpqE0g7MzwkqtD8/J4stgzK3EOrxQtf7wgXCGOjGo8pzER2vBXBXlUURYCA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(30052699003)(1800799024)(82310400026)(36860700016)(32650700020)(13003099007)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	u5xOaExZyp7WLGOZ2ASgyonqOngS7sCQAooNbk4N6XxjGEIEORbeCrw05Gd200zz3HYWSie5OAP8Uh4/+eYVad2DmGX+xIA+od5jzFF0PQHQ+Epr+pOykRIIhfMKZqQQ/vIY7TXpMWrJN0gmzbyKUstMcymHqzOPnv1b4d9TrIBnERIPFH3VAmZ+axK/pzpUhqSj94BT1wiMVjR3KDb5VDmyvbwXjGtLUjPgbJHS5x8zVxXyI+F+/VhSl1vezpHEfk5yXOVGcQqt3KH56BsKP/SQMAyHrWNhJr1oqspbXHH0hBkCKrGNx6hEqul2jA5OdnEiwSfXAIlsPAVLmzRhhNknZdJMoyKdjx5j8vgZfxic0DBidKP6uNHIneJ4sCFDep/1+GO3NbfvYuZA26vFSjhV1S2S3IBG19QTmnHUoxn9cvGjI7jKsakSABKpFrRH
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 18:03:53.4388
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19c640b4-b2b8-47c3-5af4-08ded6d1f24e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003445.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7731
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akPhuF9pAWaBXzpi@google.com>
 
-From: Leo Li <sunpeng.li@amd.com>
+On Tue, Jun 30, 2026 at 03:33:12PM +0000, Mostafa Saleh wrote:
+> On Tue, Jun 30, 2026 at 02:51:40PM +0000, Pranjal Shrivastava wrote:
+> > On Tue, Jun 30, 2026 at 01:17:30PM +0000, Mostafa Saleh wrote:
+> > > On Mon, Jun 29, 2026 at 11:15:33PM -0700, Nicolin Chen wrote:
+> > > > When transitioning to a kdump kernel, the primary kernel might have crashed
+> > > > while endpoint devices were actively bus-mastering DMA. Currently, the SMMU
+> > > > driver aggressively resets the hardware during probe by clearing CR0_SMMUEN
+> > > > and setting the Global Bypass Attribute (GBPA) to ABORT.
+> > > > 
+> > > > In a kdump scenario, this aggressive reset is highly destructive:
+> > > > a) If GBPA is set to ABORT, in-flight DMA will be aborted, generating fatal
+> > > >    PCIe AER or SErrors that may panic the kdump kernel
+> > > 
+> > > Can you please clarify more on those errors, what conditions will
+> > > trigger that?
+> > > For example, patch 4 disables the EVTQ to avoid events as there might
+> > > be a lot, why are they not fatal also?
+> > > 
+> > > > b) If GBPA is set to BYPASS, in-flight DMA targeting some IOVAs will bypass
+> > > >    the SMMU and corrupt the physical memory at those 1:1 mapped IOVAs.
+> > > > 
+> > > > To safely absorb in-flight DMA, the kdump kernel must leave SMMUEN=1 intact
+> > > > and avoid modifying STRTAB_BASE. This allows HW to continue translating in-
+> > > > flight DMA using the crashed kernel's page tables until the endpoint device
+> > > > drivers probe and quiesce their respective hardware.
+> > > > 
+> > > > However, the ARM SMMUv3 architecture specification states that updating the
+> > > > SMMU_STRTAB_BASE register while SMMUEN == 1 is UNPREDICTABLE or ignored.
+> > > > 
+> > > > This leaves a kdump kernel no choice but to adopt the stream table from the
+> > > > crashed kernel.
+> > > 
+> > > In many cases the patches assume that the CDs/STE might be corrupted,
+> > > but still attempt to retrieve them with some validation
+> > > (log2size/split...)
+> > > However, the base address might be broken, TLBs state is unknown...
+> > > 
+> > > IMO, although that might improve the status quo, there are still
+> > > heuristics, in addition to noticeable complexity to transition the
+> > > stream tables. I wonder if FW can deal with AER in that case before
+> > > booting the kdump kernel.
+> > 
+> > I guess we're reading the base address from the HW register itself so
+> > that should be fine? CDs are in-memory so that's why they could be
+> > corrupted?
+> 
+> For example patch#1 verifies log2size and split and both are read
+> from HW registers. Same for the base address or other addresses as
+> the page tables, they  might be corrupted due to a buggy driver.
+> My point is that, it is really hard to assume that the previous state
+> of registers/STE/page-tables were valid or even consistent, when the
+> kernel crashed and did not transition the state gracefully.
+> 
+> > 
+> > About the TLB state, I'm not sure what might pollute it, since this is a
+> > kexec, I don't expect any non-kernel entity to gain program control
+> > before the kdump kernel.. Hence, IMO, we can't configure FW to deal with
+> > AER here..
+> 
+> Similarly for TLBs, the kernel might have panicked in the middle of an
+> unmap or free domain. (not to mention what that means for RPM where
+> a device reset with unknown TLBs?
+> 
+> Why can't the FW deal with it?
 
-Now that proper fixes have been found, let's revert this workaround.
+The FW can't handle it because between a kexec from main kernel -> kdump
+there's no FW-based handoff hence wee can't setup a handler in FW..
 
-This reverts commit 751414c12388ff2b475e15c15d3c817dcf563635.
+> As I mentioned above in the previous
+> reply I am not sure I understand what situation leads into this, when
+> does a device trigger SError to the system vs when not which is observed
+> as an event in that case.
+> 
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Leo Li <sunpeng.li@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 18 +++---------------
- 1 file changed, 3 insertions(+), 15 deletions(-)
+Ack. I see what you mean now.. How does a DMA fault raise an SError? 
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 754fedbdd7460..43a786f08516e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3526,21 +3526,9 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
- 	if (acrtc_state) {
- 		timing = &acrtc_state->stream->timing;
- 
--		if (amdgpu_ip_version(adev, DCE_HWIP, 0) >=
--		      IP_VERSION(3, 2, 0) &&
--		      !(adev->flags & AMD_IS_APU)) {
--			/*
--			 * DGPUs NV3x and newer that support idle optimizations
--			 * experience intermittent flip-done timeouts on cursor
--			 * updates. Restore 5s offdelay behavior for now.
--			 *
--			 * Discussion on the issue:
--			 * https://lore.kernel.org/amd-gfx/20260217191632.1243826-1-sysdadmin@m1k.cloud/
--			 */
--			config.offdelay_ms = 5000;
--			config.disable_immediate = false;
--		} else if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
--			     IP_VERSION(3, 5, 0)) {
-+		if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
-+			   IP_VERSION(3, 5, 0) ||
-+			   !(adev->flags & AMD_IS_APU)) {
- 			/*
- 			 * Older HW and DGPU have issues with instant off;
- 			 * use a 2 frame offdelay.
--- 
-2.54.0
+I'm guessing the HW (PCIe RC) is wired in a way to raise an SError on an
+error? But I agree that sounds pretty unusual, why should a DMA abort
+panic the CPU? Is the DMA happening between a platform device & PCIe EP?
+Even if that's true, why would it raise an SError? (No CPU was involved)
+Unless, we have a fabric that raises an Serror on a SLVERR or something
 
+Thanks,
+Praan
