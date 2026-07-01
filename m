@@ -1,144 +1,129 @@
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E342DE6E3
-	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 22:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F2E3749E7
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 22:22:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782944285; cv=none; b=tHOFunsyoVofsoQ//tVaau6n1QF7uV8uXvzOCm0u8SV4nYF43bYPmW4zd3vPp+4aBTp8r+TUbARCykoCVpiRWGGEX3QkHOn2NGvRGmPqeRTbX1PQ36Qlx/63rwLilTAiwQ+7ZdoiC4OVCaJuB+9PNlOr0i3YnVa9n8LJgf7TaDg=
+	t=1782944544; cv=none; b=qiOuKGL0c2RXG+FofHCUZj49F0jGaW4YY0xff3bTsavk4XlghuMdObz9osiwfu5BKHpRx599ZIl2p84w1Hcr7iRkZ1fTpgALQAuXFlVQuK3ggbsPCURpntXzUTrpzGZZE+UsF6KlZRM6/XrEFCYY6wG20+rZbWXOyTV/rkDNTAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782944285; c=relaxed/simple;
-	bh=nCOVcS5Xjk1nB+bnIBUwvH0i7poNAUWnO3X659ZGnvg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=G5eZ9PqVJ5MCOS3dpB9pUQKpThSyEoGHdrNTMyGwRXvwEfAAyjltx/42sZE5d/L/kJaD3PExER5nSu1wfxixgx3J9aJACoZOxxd4xKSOHWL6Qb1T3kqV8c4xIrMQDeRhYVpWeBZrZQfc5Rk6KhWtgnRiWeOtUgYfQrP8jIHx7bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VIOw014N; arc=none smtp.client-ip=209.85.167.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782944544; c=relaxed/simple;
+	bh=nsC8NFJSg8O/cmJlglfgAIYEwbzzUARXd3KnJnP1he4=;
+	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
+	 References:In-Reply-To; b=iSA3TKcPTGeG8+5dFSbmijVUMk2ev2hnD+EYNgoxGDMhQz1InSqSnYb8cTENu1/4RvpSqZPbS4NjCs5SDtDc9tx+D17ZoO5qxSkjHRauE9IOVZC4bHrLGshg3D/RQ3iAMI86AEOHsLq4oO0bGw/mHBF1hRbv2xAFNeyJuRAp0zM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=b9/JBzma; arc=none smtp.client-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VIOw014N"
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5aebd52488cso1154091e87.2
-        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 15:18:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="b9/JBzma"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-8f0e5e36912so7895316d6.2
+        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 15:22:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782944281; x=1783549081; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=iq6lRh8f1Za1oSMuyvvaFYD5RB3Lmh/p/MiUmv9wGms=;
-        b=VIOw014N7J/t32H61bZ8TXV5pmvOYXG0Sd594hILZsE2zCpd0XnLiRzPn0cKPb+Sju
-         zoCjUydOHW7lMJ8flk5yXMymqgBCMYXOXya9TdMAgW2qIvi6seEPdCtBdnbeycJ8Busv
-         fP37/o5ckENNDNzv/Gvn+QN2g5qcv9GuoPl5mw+2qwokD213BGu3a8Tv2JRSDf8osBh5
-         rfsfxOPaal7SmLzeJ4R8xyr1PWDDZsK/auRQKpfhhH1BtEAVvXDnpzPKs7p/rkIPc88R
-         +oiRR9XwvJunnU/6AKOsaQuHCZqMq3gHkn/Kff8k0aJjfmAlHpjKaGie5kzZDFlvnu/0
-         WZ8g==
+        d=paul-moore.com; s=google; t=1782944542; x=1783549342; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :mime-version:message-id:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fDjVbAPkrL6odl57wphrkqpaqgjfsBhCuJy+AzVkWyk=;
+        b=b9/JBzmajA1J46/l6ayN9WrxEGU9lxfMeQIpquWhmV/EstyuqJLXmix32Nagjqtp8/
+         bj8XHMZvqePrhuJLFGIhoy5iomO/UACJIEUYDahCzIY54WlZTm3C4hFu16nw3F+zS5bd
+         Ar2MLfZERweKG8RS+4rEm94d+J4ViH/4cR8Nkq/m8IiaWTKgtNKsgoCQaR3AZxk/L39M
+         lFS467afguJUbvtQy0ZDVDUHtW5U83X1cQmWB3ICwWp6EV5GDwCNhcEa09zPVlCjuG8w
+         eFHLmwrn+UuAtjT0uUfi28PIHh/bywoFoRrD9PqSdK+ABUcz8pJivHX3E2D8uOuRK9E3
+         Iprw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782944281; x=1783549081;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iq6lRh8f1Za1oSMuyvvaFYD5RB3Lmh/p/MiUmv9wGms=;
-        b=rVW9uBCgKwP2RPTpj3h4iuN9IJ+SCeItFbE8UE0MwoD2+uQQ+Qu7+mDZITmddOCPMX
-         uGh+4hakEmXwmSgVGilCxV9ZOuCpgM/2chDWBAe2lcOiqKrIPQFXvYMOYY6NGpyhXgSb
-         S4VQR3bhZL5mHet5MWlyB9UeZPfv9h0kIdUkye3hNpdPPgN7iw5Abq5sxCcfkBGYveej
-         5OS3rLOG7AiMv9HpBoPRK1QggtDKtelJZnlfR6xSuz7RuVQC9BVwIfAP5Xz6zFFzYD1m
-         czgcmsnooB2+kcKjOhQaefJYKmmkMirzq8VryGq0Qfa/DC9LBFa4Wz+hhlSOGcKp6e0x
-         Uq3w==
-X-Forwarded-Encrypted: i=1; AHgh+RqrV6YjvugILffYhc/4OeASlgEFOtiWSssix7wH9qI+Lg76uZqYKtcAnDjZnMFdG6cDMpl+/EE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywzim7xEUsiaRNOs8Z46EG7/LpdssJpjyjX+snGHLdJORTBPHEC
-	n/nl75QDf/Xs0Rm8HM4BCjbLJ4LAIhMVNmtxX0OR6VRxI2Y812FJmr4r
-X-Gm-Gg: AfdE7cnN9eKLtpj6BybtlQU9x/X3KLAwtGl2MDC8YQaCAUc6u/hdP8/0BxKnJobm3Cb
-	RZDVWAoNSCNp53uJaERkc/vLvE9i6MRWVpAViF27Do9ioaeggcSXnDbUbdVMFipXicUaFspWkyl
-	btxwxTet3XdErc8x0X2PJ7UlNeU/OmgW52aM4G03Nzb10YtQGDY1DStfgjsdRCGzuF/1LBy4Dc/
-	yuy4jMe0+TWxkd96DmSv5HLSBUr+9kyQXt3UIn+ymdrIUTjknasNgecIZTddIUTdliLJRG0wpu5
-	ninjX5Ay4DhXpkMIltu+PhAMpFr5MavwSdqfkYH84zCvaAiT9Mn0eIKS24H5uJURUGf2WL7BtKI
-	mHa6oZh2Ry4v+0TAenoMbiR/t/9ClM1kkpQSA+e9dCh82dR1M1K8qHtR/xXPxBO5DahAhOE36G0
-	YzhBSIB2TJVife2DdHUV9I62MBD5pF7io=
-X-Received: by 2002:a05:6512:22c5:b0:5ae:a9ec:3545 with SMTP id 2adb3069b0e04-5aec7338d31mr590751e87.54.1782944280234;
-        Wed, 01 Jul 2026 15:18:00 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:4f9:2a:1c13::2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aec89dc478sm267767e87.68.2026.07.01.15.17.58
+        d=1e100.net; s=20251104; t=1782944542; x=1783549342;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :mime-version:message-id:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=fDjVbAPkrL6odl57wphrkqpaqgjfsBhCuJy+AzVkWyk=;
+        b=FV2+qx2YH38kyBfNPz3Cxn8pYOI2hBlJ9ARLOo3sPcHcDHLcfr+NUTrRbRq7k7gr1c
+         YjB8CB/oOqdv56st1xnYGErlwyMaG9q8tQHZh2BXy3XgQVXVpmoo7rMAiLoawhH8GVS6
+         OVaDcYmW+GGBrPTimC/zOncbJPwWbcyHahT8Cm+uxmK7/RvEHupXz4Icx6nJ1ZrBrclU
+         qrlelxyxl8XwDBlEDjfEp2erLvRB2c+ZcjV4vSUF1MJ5xypKZTaNmLtz8UF9ugkb5aEw
+         VWa8/KeK151+c+Jc6z8IJrX9nS0IBMYrgj9k5bLcg7Oh6M2YpIu7zUscmFCRzLvpBo0s
+         xkQw==
+X-Forwarded-Encrypted: i=1; AHgh+RoHVG2kWywefc9nnqCrQrkkOBnYCVQIg4tp4kPLR4HokYiv6bXj21pyzR6nRh+HXsLO8skrjKI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzkqw7fqJgk5n0PrbWEsfrfzvn4OiAmFS5iQE5TRfNEYhOdNE59
+	+KJYqtIB/NzvgOuP4ipVQmOBHEtzMHBGqEci8avti6jVkkYS8PuqceRrAQ70mZWOUQ==
+X-Gm-Gg: AfdE7ckhr4dTeP9MJSkX2R9dciIZdDBPazSm+OTYthKyiasfIMsPQcwEN44YBC3NCTG
+	vZcVkyR5kIGUnIqzUvvEAwa76QpOQUXtQuOe8TQBS0i7bY/yG2xpeQIPM5RDNv9rfqrZHWKCIE/
+	timSW6Pg6c0V1zALxL2MUwVEzxE27fuGe463vGa50AbmNMkrdOfC8WU7oJrrepBd4MhVz/cHyLK
+	XklVGJAvspl8vL1qHb1A3Z/IkQLG7OsX6xtDWEeFBDjSCxgIKGnQyOs9IuoG1gmLKLLffLpNMg6
+	bd3nHdwDzDnxgzDf1OZOLU2SymZgbB7GfgE4lRmmvbh3dLEUW/Y5he5Kdrh9vRhD0SIAceQJ1/M
+	rED37rcAPy4Q+gn+hMXkpbcx1tf21BI74bWB0C0/OLAgdJUCxbv/92HgShQrOe/smjSvvjpGwow
+	6G6aFQX/tTUpUj3HYUiA+FLuuJWJVfEnCcV6eb71CgBe15hFyC7bKblNPQsw==
+X-Received: by 2002:a05:6214:2a47:b0:8f3:b922:b54f with SMTP id 6a1803df08f44-8f3ca37a4d6mr52803116d6.51.1782944542073;
+        Wed, 01 Jul 2026 15:22:22 -0700 (PDT)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8f4718141e6sm9298786d6.24.2026.07.01.15.22.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 15:17:58 -0700 (PDT)
-From: Melbin K Mathew <mlbnkm1@gmail.com>
-To: deller@gmx.de
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org,
-	Melbin K Mathew <mlbnkm1@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] fbdev: protect mode sysfs reads with lock_fb_info()
-Date: Thu,  2 Jul 2026 00:17:57 +0200
-Message-Id: <20260701221757.231490-1-mlbnkm1@gmail.com>
-X-Mailer: git-send-email 2.39.5
+        Wed, 01 Jul 2026 15:22:21 -0700 (PDT)
+Date: Wed, 01 Jul 2026 18:22:20 -0400
+Message-ID: <0fa8e2f769f889368756a1ed1f12ea8e@paul-moore.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=UTF-8 
+Content-Transfer-Encoding: 8bit 
+X-Mailer: pstg-pwork:20260701_1640/pstg-lib:20260701_1540/pstg-pwork:20260701_1640
+From: Paul Moore <paul@paul-moore.com>
+To: Tristan Madani <tristmd@gmail.com>, Stephen Smalley <stephen.smalley.work@gmail.com>
+Cc: Ondrej Mosnacek <omosnace@redhat.com>, Richard Haines <richard_c_haines@btinternet.com>, selinux@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org, tristan@talencesecurity.com
+Subject: Re: [PATCH v3] selinux: avoid sk_socket dereference in  selinux_sctp_bind_connect()
+References: <20260625235336.3641828-1-tristmd@gmail.com>
+In-Reply-To: <20260625235336.3641828-1-tristmd@gmail.com>
 
-show_mode() dereferences fb_info->mode and show_modes() walks
-fb_info->modelist without holding lock_fb_info(). store_modes() takes
-lock_fb_info() while replacing the modelist and freeing the old one.
+On Jun 25, 2026 Tristan Madani <tristmd@gmail.com> wrote:
+> 
+> selinux_sctp_bind_connect() dereferences sk->sk_socket to pass a
+> struct socket * to selinux_socket_bind() and
+> selinux_socket_connect_helper().  However, when the hook is invoked
+> from the ASCONF softirq path (sctp_process_asconf), there is no file
+> reference guaranteeing that sk->sk_socket is non-NULL.  The setsockopt
+> callers (bindx, connectx, set_primary, sendmsg connect) hold a file
+> reference and are not affected.
+> 
+> Both selinux_socket_bind() and selinux_socket_connect_helper()
+> immediately resolve sock->sk, never using the struct socket * for
+> anything else.  Refactor the inner logic into helpers that take a
+> struct sock * directly so that selinux_sctp_bind_connect() never needs
+> to touch sk->sk_socket at all.
+> 
+> Suggested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+> Fixes: d452930fd3b9 ("selinux: Add SCTP support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+> Reviewed-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+> Tested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+> ---
+> Changes in v3:
+>   - Keep comment describing IPv4/IPv6 address processing loop
+>     (Stephen Smalley).
+> 
+> Changes in v2:
+>   - Refactor selinux_socket_bind() and selinux_socket_connect_helper()
+>     into sk-based inner helpers instead of adding a NULL check on
+>     sk->sk_socket (Stephen Smalley).
+> 
+>  security/selinux/hooks.c | 19 ++++++++++---------
+>  1 file changed, 10 insertions(+), 9 deletions(-)
 
-A concurrent reader can load a pointer to an old modelist entry before
-store_modes() frees it, then dereference freed memory in mode_string().
+Thanks, this looks good to me, I'm going to merge it into
+selinux/stable-7.2 now.
 
-Take lock_fb_info() in both show_mode() and show_modes() to serialize
-with store_modes(). In show_mode(), copy the mode to the stack and
-format the stack copy after dropping the lock.
+However, there is another issue relating to the SCTP softirq code paths:
+the fact that we call into sock_has_perm() in both
+__selinux_socket_bind() and selinux_socket_connect_helper().  The
+sock_has_perm() function uses current_sid() as the subject in the
+avc_has_perm() call, and in the softirq case that is not what we want.
 
-Impact: local kernel UAF read when a privileged writer races with
-sysfs readers of /sys/class/graphics/fb*/mode and modes.
+It's been few years since I spent any serious time with SCTP so it isn't
+immediately clear to me what the solution is to this problem, but if you
+wanted to look into this and come up with some ideas that would be a big
+help!
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Melbin K Mathew <mlbnkm1@gmail.com>
----
-A userspace reproducer triggering the race is available to maintainers on request.
-
- drivers/video/fbdev/core/fbsysfs.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/fbsysfs.c
-index ea196603c7..6bdb25f7be 100644
---- a/drivers/video/fbdev/core/fbsysfs.c
-+++ b/drivers/video/fbdev/core/fbsysfs.c
-@@ -82,11 +82,20 @@ static ssize_t show_mode(struct device *device, struct device_attribute *attr,
- 			 char *buf)
- {
- 	struct fb_info *fb_info = dev_get_drvdata(device);
-+	struct fb_videomode mode;
-+	bool have_mode = false;
- 
--	if (!fb_info->mode)
-+	lock_fb_info(fb_info);
-+	if (fb_info->mode) {
-+		mode = *fb_info->mode;
-+		have_mode = true;
-+	}
-+	unlock_fb_info(fb_info);
-+
-+	if (!have_mode)
- 		return 0;
- 
--	return mode_string(buf, 0, fb_info->mode);
-+	return mode_string(buf, 0, &mode);
- }
- 
- static ssize_t store_modes(struct device *device,
-@@ -134,10 +143,13 @@ static ssize_t show_modes(struct device *device, struct device_attribute *attr,
- 	const struct fb_videomode *mode;
- 
- 	i = 0;
-+	lock_fb_info(fb_info);
- 	list_for_each_entry(modelist, &fb_info->modelist, list) {
- 		mode = &modelist->mode;
- 		i += mode_string(buf, i, mode);
- 	}
-+	unlock_fb_info(fb_info);
-+
- 	return i;
- }
- 
--- 
-2.39.5
-
+--
+paul-moore.com
