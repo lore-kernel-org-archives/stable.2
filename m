@@ -1,193 +1,134 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093BD49251A
-	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 12:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15408441020
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 13:05:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782910769; cv=none; b=pkK+inRqcVhJp55ZfheyhyFi0ABQHTUpJQ8Zq4e/nV2QFdFF6+DCV9VNcaCCBcby2oTwvFibq5jEAsnlbdYHtgDbiVhuaAp7CgTxztRXOkpaQ6XRnUaBk7CjDZp/SiZZ9mxz542jOgEfgDVigvzCJk6YZdcJ0ZLWg5DyVdBNfzg=
+	t=1782911128; cv=none; b=tGU3RuCag4fAfaj39IjcpCm8aKYYjK1jHSMT7OEZ3C+8bKU9PbZqJrX8w6P1EE7rAnrQagJ0Ook2udYl4r27jiX6sMG9UhoZxNn0bwcg2bXrvz0OQbg+2cV0izw8324SXuTw2tpBsk02hZjnXpEcM7DuZkkHB9YESh8TGm1X8E8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782910769; c=relaxed/simple;
-	bh=6fo20VRXrOdo58jE/al9Koqf8jb4GjjqmMEUtkJNTTw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DeTwSBe+mZXAMp4OBeZmMdTZBIuK3TS6A/ftGKicXtPKO3n1YVUG60JUqjLMHVTQi6ZXuqiGhI9HzkmUMVTrUCgdJ/j/zw4eTTp0OtZ9fM+qFweRxjaTI1forND/DK9mQfo49lNygDTBcWcwtjuSlC3A43a4VMBQ05gbo11pZzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KhOf2v+l; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1782911128; c=relaxed/simple;
+	bh=fEP9ef/N1AWvi9/oINhLx5eWsJ1F7KP+teA8vEFxCQ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r/LwkVAem8q2l9TyRxfMiDga+przLHE1G9gn6dIg1GEqErzsE839RIAR8iuimMPQpnKGwTTJp5oUP0bW2DlcUANh/2+D7PQtmUujIO2PrG9ZtJOsbTFh4H2MMjkEmusB3Y90evOyM4xp0ymejMSiSzuKe1ueisJ1r8vllv07mLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ogm0mNw8; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KhOf2v+l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782910768; x=1814446768;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=6fo20VRXrOdo58jE/al9Koqf8jb4GjjqmMEUtkJNTTw=;
-  b=KhOf2v+lEovDXU+oyk3NUrUNfqmAwwL7UWFhSnZosy4wh43tjLqc0dOs
-   DytVSjQm0ss7HmFjo01ckYs5yEfaYGp3fbhjtNAk7YEV0zAPEkc9id3AM
-   qhPRudiZWQbOxWJy2qsb1fWycB3CT/6K0gnoYiXTr0stVas6kjByIySK0
-   LpHV7TdNknY0wbfb2JE0XjXJhBUPWW3UVTWbf0vHy4hUxpGlm1bKfvKnW
-   yF64FylNvcKXsz7WI3Mhz2eG4oERdGbpAnQ0fusvLzapR/NPQy8QRzF+L
-   8H4xhsg1HI+gL3NKKE8UtrGTozecUGd1ffNWU9k8n0jAxFYHkfPCCLLOf
-   A==;
-X-CSE-ConnectionGUID: l54GooZ0QAqdy85LaYoW4Q==
-X-CSE-MsgGUID: 9NHtcjqzSQazsfApghpt0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="83729235"
-X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
-   d="scan'208";a="83729235"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 05:59:28 -0700
-X-CSE-ConnectionGUID: qXCQ/+SbQtmXd8eTMgVR6w==
-X-CSE-MsgGUID: VjS26tDmQnC5MDfeHwtIwA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
-   d="scan'208";a="253210494"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.120]) ([10.245.244.120])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 05:59:26 -0700
-Message-ID: <dfed18b63a7b6cf164b3af7f65df8b4a1b9dbdf2.camel@linux.intel.com>
-Subject: Re: [PATCH] drm/ttm: Fix UAF on dma-buf attach failure for sg BOs
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Nitin Gote <nitin.r.gote@intel.com>, intel-xe@lists.freedesktop.org
-Cc: stable@vger.kernel.org, Christian Konig <christian.koenig@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>
-Date: Wed, 01 Jul 2026 14:59:24 +0200
-In-Reply-To: <20260701062559.3731993-2-nitin.r.gote@intel.com>
-References: <20260701062559.3731993-2-nitin.r.gote@intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ogm0mNw8"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493be0fbcc5so51525e9.0
+        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 06:05:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1782911125; x=1783515925; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Gu+E2JdVa1JRknmwyrW0o138XPVwsj6HNCm/db6x0Ac=;
+        b=Ogm0mNw8/U4pGjnpu0FRT8tDipaKHqmvkepIN6cGcT98FXnRTr43T6Ut8+lzqqEHfQ
+         S9B7BSCq5vHoXM7b06Iqxn8prkhrBL/Oe94jn5g/jU6dTQWmmld3S7Jeb8FB3jtU3sbu
+         ISFrwSeleDsYXQ1emggkgEcdGTYUiFOIkjRGKUscNkrrKFALfJ1a+UuCYO0H9/1Nlav3
+         tcGt1CUrZhrgSctVlpLyTH8z9l2jKJ2Aofnbj08x6cnRk3b/1nfa2Ca+8Az6+AR/zP/R
+         AOaIDJbLp9Mf7qXxjwnT/vHRFq7Jx37e1NaiubI9NdCJGg9lqYlLr0n0KK9j4QUrU6Kz
+         bl0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782911125; x=1783515925;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Gu+E2JdVa1JRknmwyrW0o138XPVwsj6HNCm/db6x0Ac=;
+        b=Pq9XnvWB2dFP6GWlmVEs6sjBYrt9A18sLtcjHgGHTb7asylr6NeMgwqgQ97A8uZr43
+         AOVeg6nrrYNAGHQZFVTh+l93O3FN909T8ruqfBC2QQXmAw3NR1z5wkOLRiy+18MNnarx
+         cTyqpsS6yYoHfkro4p8MkjTZH4I+QLFi7viaKFt5fSHwX4JUV/lcVi9VsZsKln/nLXl+
+         pB0kVnuvP+q+O4uWHDRDzDobITON35bFGT6Lcz6bZStoz2DlxmxtGEu5uTsgwr8ueTUL
+         nFbY8TA5R1Aj9GXYigLCnfA3II86UnAGmDrHhpeHm+2EAEpHgA+PdbkM/mncddaZAgAL
+         QBMQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8mxP94GwqAVj03qoeOxbKfJ+DsVPyEOpdjxUgmzRG6ZJCZ6kSsIpwwYx90AgQvUKGQET+ssYw=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yye2cuYLzRT7ftigfzhw/Xe4Scy+fIXXzke2knqYZH2XUnmKcPv
+	vsFpm1JH4+L/H6oyO7m8WZQAbVRNHSk7lBJzhdrUSDl8slYMuaVhPE/YXurcetBnO7yR+ugPUIZ
+	HoNMg8Q==
+X-Gm-Gg: AfdE7cmsPsnlHaRQHIXPh4te8FnTL0UdYDbMirrOVXX0OntQ4XCz7CPEMyD+Og5SIY1
+	bYDLYBhn3FX7ZbaswD8pqg3GlKqOwEYf2JUJ92W8lSopuiTpZ6qjX+lPH9qGzQzJB8EQpV6TFBt
+	gnKkiBlvEipo7LV1jht6K1HJ6ojlrcUq3poRl7MO1hdWPlktIBZt5HVXIBDN1I1VSBeAG8cYWz9
+	wAetiJq6Gzu4TWqW5AlJpiUMGMe0iYOg0LIzdpytl9L0Tcc7mq48MJA/3D7abIFapWkilBuiM0U
+	rxCNF12OQRijxOCgobyFWMhiG8EgyvejqbIM5/j/5MJa5m47/ITlET9BKILvEoGwsgrRC+mie+O
+	zpPie9KsVd73w6UZpb2Hr/GYUt/sLmbtaZovmbu46/7C6HxWwG4k2FI8q1WXkheXgcqpOl6OTis
+	zKOoooVhmHBXn5BUVumnRPOnbZEu4L7QcpALNFs38FkcQsVqo91X0=
+X-Received: by 2002:a05:600c:4b9a:b0:492:203f:a378 with SMTP id 5b1f17b1804b1-493c0bca5e0mr702615e9.8.1782911124942;
+        Wed, 01 Jul 2026 06:05:24 -0700 (PDT)
+Received: from google.com (140.240.76.34.bc.googleusercontent.com. [34.76.240.140])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47566743895sm18099701f8f.25.2026.07.01.06.05.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Jul 2026 06:05:24 -0700 (PDT)
+Date: Wed, 1 Jul 2026 13:05:19 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Pranjal Shrivastava <praan@google.com>,
+	Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org,
+	robin.murphy@arm.com, joro@8bytes.org, kees@kernel.org,
+	baolu.lu@linux.intel.com, kevin.tian@intel.com,
+	miko.lenczewski@arm.com, linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, jamien@nvidia.com
+Subject: Re: [PATCH rc v7 0/7] iommu/arm-smmu-v3: Fix device crash on kdump
+ kernel
+Message-ID: <akUQj2pa1W-MekgF@google.com>
+References: <cover.1782799827.git.nicolinc@nvidia.com>
+ <akPB6l-fuJUcg4a2@google.com>
+ <akPX_N0P2EcI_jbV@google.com>
+ <akPhuF9pAWaBXzpi@google.com>
+ <20260630185942.GF7481@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260630185942.GF7481@nvidia.com>
 
-Hi, Nitin
+On Tue, Jun 30, 2026 at 03:59:42PM -0300, Jason Gunthorpe wrote:
+> On Tue, Jun 30, 2026 at 03:33:12PM +0000, Mostafa Saleh wrote:
+> 
+> > For example patch#1 verifies log2size and split and both are read
+> > from HW registers. Same for the base address or other addresses as
+> > the page tables, they  might be corrupted due to a buggy driver.
+> > My point is that, it is really hard to assume that the previous state
+> > of registers/STE/page-tables were valid or even consistent, when the
+> > kernel crashed and did not transition the state gracefully.
+> 
+> Sure, and this mechanism is probably not very useful for debugging
+> these kinds of errors in the SMMU driver. Oh well, that isn't a common
+> source of kernel crashes :)
 
-On Wed, 2026-07-01 at 11:56 +0530, Nitin Gote wrote:
-> When a dma-buf importer creates a ttm_bo_type_sg BO with bo-
-> >base.resv
-> pointing at the exporter's dma_buf->resv and dma_buf_dynamic_attach()
-> fails, no dma_buf reference is held. The exporter can be freed before
-> the delayed_delete worker calls dma_resv_lock(bo->base.resv), causing
-> a
-> use-after-free:
->=20
-> =C2=A0 Oops: general protection fault, probably for non-canonical address
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x6b6b6b6b6b6b6b9c
-> =C2=A0 Workqueue: ttm ttm_bo_delayed_delete [ttm]
-> =C2=A0 RIP: 0010:mutex_can_spin_on_owner+0x3f/0xc0
->=20
-> ttm_bo_individualize_resv() skips the resv swap for all sg BOs to
-> keep
-> the shared resv available for delayed_delete to release the dma-buf
-> mapping. A BO whose attach never succeeded has no mapping to release,
-> yet it keeps bo->base.resv pointing at the exporter resv that
-> delayed_delete later locks once the exporter is gone.
->=20
-> Fix this by checking bo->base.import_attach, which is set only after
-> a
-> successful attach. The check is placed after dma_resv_copy_fences()
-> so
-> successful imports still copy fences to _resv before returning,
-> keeping
-> the shared resv for delayed_delete. Failed imports fall through to
-> swap
-> resv to _resv, so delayed_delete never locks the stale exporter resv.
->=20
-> Closes:
-> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8023
-> Fixes: d99fbd9aab62 ("drm/ttm: Always take the bo delayed cleanup
-> path for imported bos")
-> Cc: stable@vger.kernel.org=C2=A0# v6.8+
-> Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
-> Cc: Christian Konig <christian.koenig@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-> Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
-> ---
-> Hi Thomas/Christian,
-> Thank you for the review. Addressed the v3 review comments in this=20
-> v4 version.
->=20
-> v4:
-> - Moved import_attach check to after dma_resv_copy_fences() so fences
-> =C2=A0 are copied before returning for successful imports (Thomas).
-> - Removed exporter-alive claim from commit message (Thomas).
+I hope not! Although memory corruption can happen due to many other
+reasons :/
 
-That's not sufficient. What I meant was that this invalidates the
-approach in its current form:
+I am not trying to bikeshed, but I wondering if there is a more
+reliable way rather than doing archaeology from a panicked kernel
+SMMUv3 configuration, as I am worried that will be even harder to
+debug if it goes wrong.
 
-A			B
-prime_import()	=09
-exported_get();
-exported_lock();
-bo_create();		lru_walk():
-attach_fail();		bo_get();
-bo_put();	=09
-exported_unlock();	bo_lock() // exporter_lock
-exporter_put();	=09
-exporter_free();=09
-			bo_unlock(); //UAF
-		=09
-There is no guarantee that the exporter stays alive until
-resv individualization happens.
+>  
+> > Similarly for TLBs, the kernel might have panicked in the middle of an
+> > unmap or free domain. (not to mention what that means for RPM where
+> > a device reset with unknown TLBs)
+> 
+> TLB is fine. kdump works by carving out a chunk of memory for the
+> future crash kernel. When the kernel boots it ignores all the memory
+> used by the prior kernel. So DMA can keep running into the old kernels
+> memory with no issue. It doesn't matter if the TLBs are inconsistent or
+> not.
 
-/Thomas
+Ideally if a TLB is to be missed (because of the panic), it should not
+point to kdump memory as it is carved-out. However, it is still a leap to
+assume that the TLBs are in a good shape as I mentioned with RPM (or
+even if the device resets transiently for some reason) it can end up
+with garbage in its TLBs.
 
+Thanks,
+Mostafa
 
->=20
-> v3:
-> - Dropped the xe-side reordering approach since importer_priv must be
-> =C2=A0 valid when dma_buf_dynamic_attach() publishes the attachment.
-> - Per Christian's suggestion on the v1 thread, keyed the check on
-> =C2=A0 import_attach rather than removing the sg guard entirely.
-> - Fixes both xe and amdgpu in a single TTM patch.
->=20
-> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++++++++---------
-> =C2=A01 file changed, 15 insertions(+), 9 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
-> b/drivers/gpu/drm/ttm/ttm_bo.c
-> index bcd76f6bb7f0..9b6341f69805 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -203,15 +203,21 @@ static int ttm_bo_individualize_resv(struct
-> ttm_buffer_object *bo)
-> =C2=A0	if (r)
-> =C2=A0		return r;
-> =C2=A0
-> -	if (bo->type !=3D ttm_bo_type_sg) {
-> -		/* This works because the BO is about to be
-> destroyed and nobody
-> -		 * reference it any more. The only tricky case is
-> the trylock on
-> -		 * the resv object while holding the lru_lock.
-> -		 */
-> -		spin_lock(&bo->bdev->lru_lock);
-> -		bo->base.resv =3D &bo->base._resv;
-> -		spin_unlock(&bo->bdev->lru_lock);
-> -	}
-> +	/*
-> +	 * Successfully imported sg BOs need the shared resv for
-> dma-buf
-> +	 * cleanup. Failed imports have no attachment or mapping and
-> can
-> +	 * use the private _resv.
-> +	 */
-> +	if (bo->type =3D=3D ttm_bo_type_sg && bo->base.import_attach)
-> +		return 0;
-> +
-> +	/* This works because the BO is about to be destroyed and
-> nobody
-> +	 * references it any more. The only tricky case is the
-> trylock on
-> +	 * the resv object while holding the lru_lock.
-> +	 */
-> +	spin_lock(&bo->bdev->lru_lock);
-> +	bo->base.resv =3D &bo->base._resv;
-> +	spin_unlock(&bo->bdev->lru_lock);
-> =C2=A0
-> =C2=A0	return r;
-> =C2=A0}
+> 
+> Jason
