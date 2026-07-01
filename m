@@ -1,138 +1,107 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0267F25DB1A
-	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 09:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C444403E87
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 09:58:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782899565; cv=none; b=LEUWynWs13pZM2Qbq6FYGDG0d34imG+GYPdiK4XzL8jzmOrpS7/M0JHhTAvRhd06qcAak2l41zB1jJ/YkK9iOp72wmcsE5mGuZlvC67SwJOioVa+wNh3OA/jAUzNyPc9t+2P1klaKW8tUHVCJMz5V6pLYIczpvIeHSHg0cHfFw4=
+	t=1782899938; cv=none; b=kM3NBD2cIGvTL9ROgkyENjKhyttPDKOqW7UICP6X/0bL+Wjs+z/xoSNvjCWUD9VTNSRp5alx6Xxi0mOxYz/d24DdbNSpNizDAS3oOSqcTGHYhes9UBpyMsIOokGPfxKjh19LOyUnWPm4euPSOexBoWVcqgThiLAqUynoJsV8Aog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782899565; c=relaxed/simple;
-	bh=3a1+2nbXhZcTj4NeTgnKV87B2okzAssG60+kH78Twao=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vl+KP7opJc9cpLj0bzr6WAT4uojR1DScD3COpjVrTvc6kkCD6eyPUcTsldKGyDmd7gbYMN6oFuwT6EX9XKnFRWm7cDze4eYBq6FwyDhN4O+dt4+z+3k5DLqbRXAu0XP6z4dr2VenTFn2AhdOdXvJ1GISw2oS3uRiRwKmOmpDdiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qg0owHf3; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782899938; c=relaxed/simple;
+	bh=v7yW10N5rdbaNr0AbgfvIKAE851swmfImkTSQtp0FiY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DRY7YxwT705v6sEljihnQHpDyjAugnnRxAnzt0Xyof2oEy2Ns4AbAqFAMMgWqrPhbW5mmPQg5eeIAo/sej06ETAAFhoeW6EXgdyrq8EDSJk70eRupTROnRJftavducK2MswpYBWj6WCZI4CqCn55DV2tspfWB1Lf6nDpLkPuahU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mlLg6tN7; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qg0owHf3"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-37d82f3a244so211108a91.2
-        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 02:52:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mlLg6tN7"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493b8d92a4eso27175e9.1
+        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 02:58:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782899563; x=1783504363; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=8mVJevA43xSAbcO4XqhY7+SohvyRUWiP3RuKf16nZNc=;
-        b=qg0owHf3MUSdtGbd/ij8LNpShNt375wMuwK4tvW6JxsKT73IkPryVWOiMzIvJaaNi9
-         aRiMP3reyuHWGCI+GBm4xsric1MimiiiQLMXPHdfkNtu7bloeejmYYBBo7wG1xyuMlmb
-         kMwOmUMfJ/THgi9rB99u+z49LrVVGoqP9muBQYLGrp4VPklQG/ND9ZCaj2opLyurkpDA
-         W8NYHC/xgBbsmTGZBDOeZ1xad+fYdPpnu9mg0jkk3mX2IYN0/I+k3Wj19GBeHvRRELnF
-         NfjLEUlFIGf8Gl0M87dJQAJZDH1aFfgowekEFxGLFAGBcQtaSCEEA07y0B+laUcVflsU
-         sLxA==
+        d=google.com; s=20251104; t=1782899936; x=1783504736; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7aPPO+1CYD+YBwvwpYgtZJkmXkRW2VjIt/FwgJ0T6qg=;
+        b=mlLg6tN74O6CRQzUrm4inY4+UxBGv/bsVH6lXCQBdYsAsC28/bFRH2Q4uobIY+WmKd
+         oV413GI6V25nKznPzDCORS+An95IrVWgghDeU4I/4soOgjvHub0Ml4C3wMqr+pVFo4/n
+         Z/LBsKYFjItXy4eFKi27YmZ5MK2waGPN9hhCCk4Vy8j8wnIbrvXXi48AD7V3elwiwEL0
+         g6q4wYM/LTKWV+wMScftHu9k6M58KCwURovjaUly3DQKtNp9/+qYcBAgpcWD4Bsp5sYd
+         3NxNhRrdbCd5UgBb86Y7uTxDBJxPErAia6KqbNDEVpJfpueRJILKuSdVUSEElidPcSoR
+         vnGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782899563; x=1783504363;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8mVJevA43xSAbcO4XqhY7+SohvyRUWiP3RuKf16nZNc=;
-        b=S2JoAfGKA+yDXgLzv7yx1QUUOuNG8Y9riAHMyw4UuRsgw1+4KaaDvU4PzJohlpMy0Q
-         ymWpzNwMDXDijynEwu4hw0LR+yEszWAQjc3ATrh7mXXkugM4IuEn8XGSsbJ+NWQL3MMi
-         zMPmB3jQh1lAZ8KjYS80dV5FL54CYKfIkqzkWkNrUyVrRRbJcK1eiMdyzk78wIrKLAEw
-         MrMV/5xSDFJ/Gh1QQhtqjd3lAkajfi9Oe2XumxHZga8N43wZcMcYe4hQI4DHwiPWhzOT
-         OFc33gUBtDnOs4Zj+K3O4KlaS0YJpywz2wNsSiDmOh+xwr9hWo5Wgf5c/7hQ54lJtjqz
-         XchA==
-X-Forwarded-Encrypted: i=1; AHgh+RrlJ/uzECh/xt+QJUrb3998lFUQZsWy7tEMlsNkLtdJHF1LZZ+bRIPH7mP0FYY/YGqWd/75nDY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0rO7yHi5HbwEaoHRjXto7FCjN1ZKojBLPSlMt3pIn+glUqgUg
-	u85eFgcT8r+8kdas3KCu9FYJp3a30A0w8DARMVEBJeZKrgHBL4NuRaHU
-X-Gm-Gg: AfdE7cm4A0Beqc2qMSftOX+2GwUj5jsxBNMZFCU4acBsk/7gD81fN4DB0DdWVaEtJuF
-	CAlcbdyzTfUYDVJgEJe1om+ZpJ0ryhopkstW25+0eq1ffLMOdcmyhATkb8yuygXsDzRgPWIeWgJ
-	qAO5sQx1j8ZnODz6j/6nfw7Fy7NTY095iqf8NGsHz8GTHuqdfctrDe5b+UCEU7a22RZ87cgEs3T
-	CicWENZ/C1V01rOHk3x4V5AUbTwVoYwbkwgjYKp5ZR9a2qLFvPR/2yHjcd5Rz5ilo8NZBzfrSBK
-	0rTILoXtn0KoW7tnWmg70BJHMiwR7G8M4Qxgql41noAqR35WmQ+TCc2HLfy95hw84vDW5lX1xs5
-	iq6UkPeMBfnSRGBuVzYH94WQafL/BSa9hC52bmY1K4iCPg2KlPft1NRQb9UR+1Wp7rOS4rmn/Fw
-	FRUZgOU55F/CEVZTOXzyQVuYVnGYJg9CBhTz8T9fUYdXUpz193zivI+PG/XD4g5p/UTxJuZEebA
-	pCF/A==
-X-Received: by 2002:a17:90a:d647:b0:369:a359:b181 with SMTP id 98e67ed59e1d1-380aa221bf1mr776096a91.23.1782899563156;
-        Wed, 01 Jul 2026 02:52:43 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38095d6d45asm1596801a91.9.2026.07.01.02.52.40
+        d=1e100.net; s=20251104; t=1782899936; x=1783504736;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7aPPO+1CYD+YBwvwpYgtZJkmXkRW2VjIt/FwgJ0T6qg=;
+        b=g79uIuxpyiCCZ/dyRjUeI8Dqsok8GYDrXg9Wjd6ALhmqy99skKruVXhZVB3EJNrSxd
+         o0eabyy+D9Jikp6LJixAdkLoWWkI3U1jf6u1F1VLZ7o6DCDob4irh8pUKCipNod4Au4l
+         2h2PDYrTKdS2UO0TM95nI2NblvaqlOfpq6b/KHRNhjgsagB6bvyskqthi/VUP23N/WNX
+         OL3vRMp8ktUuddyuBXIl/djCcVZX3lklNwGZsEdQNEc3lnmRfjUeBmKjBlxiqRsISnvt
+         rD8fQDv4RIIbtnGS9osJFX1ZMSTDFStBuDy70V1EbfXUb6irWSZbKLuBYHmQqsw9n4yF
+         x/Hg==
+X-Forwarded-Encrypted: i=1; AFNElJ8kq+XAgNKazPWrv1sIBWyoza4UxzxkAiLihNHbs5TB4FzmNkF7TATVyO/S4Cq9UVirD/gd2xg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz4os4PuJ4tEHEPNlHUQsts8OpAYkiT+whyRQcbs2esOPqoDxNw
+	XQcKC+rDUnHABl6W6DtQ1ulMACteBtztBGPjjWMJZISQn5IfCfON+Bhh0JldtlAKgQ==
+X-Gm-Gg: AfdE7clt+QbWP6K2fYa+BwsHhZXg0LUlTZsZ7et7CNJqQWxlMQGfuxjOZ2M3IXLvAqL
+	hrIgQqvtcphUQUufLM4CsnQRGvK811x9lhmrJ4GRleXtZ9zM/6r+1xcIu20Nph8oUHEdrgkgvg1
+	R9UkqGVQ7Dm/WimlvZ2COlwjfG+ZkIpfAKHb2+AC8oP01GN1hxApT1VV+9ikWcP6WfA6ojCgUSA
+	y20K9gtcvBX3E/2dmWRzA0ryiiUcJJvMAoH/IcihthnsHpW7fiL+uv6K2Qp2SfBAmpdDJLPov5J
+	+cGVkMHqAheshep9jurOzV85lmb2qMHyd3AnPxND7Pqh8MS8UZhe2YB+C/YbO3PzdE35U/2Sn9q
+	I2FePvp08rZ/QArAJFmtVfOd77fdX4Z9tiAyXE1GBSNRl1ldt+KPv1K2+YPcLnmBfSe8KypNPKd
+	Ez0yvo6waQTWWW3nFDaPM4jAdVsLICHTXuh3jb06N1QZGqiN2Nk3I=
+X-Received: by 2002:a05:600c:22d4:b0:493:b47f:a24 with SMTP id 5b1f17b1804b1-493c0bcab48mr503405e9.6.1782899935171;
+        Wed, 01 Jul 2026 02:58:55 -0700 (PDT)
+Received: from google.com (140.240.76.34.bc.googleusercontent.com. [34.76.240.140])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493bef17c82sm31881885e9.1.2026.07.01.02.58.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 02:52:42 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: =?UTF-8?q?=C5=A0erif=20Rami?= <ramiserifpersia@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: usx2y: us144mkii: fix work UAF on disconnect
-Date: Wed,  1 Jul 2026 18:52:31 +0900
-Message-ID: <20260701095231.1020811-1-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Wed, 01 Jul 2026 02:58:54 -0700 (PDT)
+Date: Wed, 1 Jul 2026 09:58:50 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: will@kernel.org, robin.murphy@arm.com, jgg@nvidia.com, joro@8bytes.org,
+	praan@google.com, kees@kernel.org, baolu.lu@linux.intel.com,
+	kevin.tian@intel.com, miko.lenczewski@arm.com,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	jamien@nvidia.com
+Subject: Re: [PATCH rc v7 0/7] iommu/arm-smmu-v3: Fix device crash on kdump
+ kernel
+Message-ID: <akTk2uM0Kat4Jvrg@google.com>
+References: <cover.1782799827.git.nicolinc@nvidia.com>
+ <akPB6l-fuJUcg4a2@google.com>
+ <akQYpCdwGnpKTnjN@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <akQYpCdwGnpKTnjN@nvidia.com>
 
-tascam_disconnect() cancels capture_work and midi_in_work before
-usb_kill_anchored_urbs() kills the capture/MIDI-in URBs.  Those URBs
-self-resubmit, and their completion handlers reschedule the work.
+On Tue, Jun 30, 2026 at 12:27:32PM -0700, Nicolin Chen wrote:
+> (I think Jason has answered most of the questions here.)
+> 
+> On Tue, Jun 30, 2026 at 01:17:30PM +0000, Mostafa Saleh wrote:
+> > For example, patch 4 disables the EVTQ to avoid events as there might
+> > be a lot, why are they not fatal also?
+> 
+> FWIW, the PATCH-4 doesn't disable the EVTQ: EVTQ is disabled in
+> kdump case prior to the series; PATCH-4 just makes sure it won't
+> get enabled transiently.
 
-A URB that completes in the small window between cancel_work_sync() and
-usb_kill_anchored_urbs() therefore re-arms the work after its only
-cancel.  Nothing cancels it again before snd_card_free() frees the
-card-private tascam structure, so the work handler then runs on freed
-memory.
+Yes, I meant the patch disabling it even transiently because of DMA
+faults, which was confusing to me because I though they are fatal anyway,
+but I see Jason’s explanation now.
 
-Kill the anchored URBs before cancelling the work; once the work is
-cancelled no remaining URB can complete to re-arm it.
+Thanks,
+Mostafa
 
-Fixes: c1bb0c13e430 ("ALSA: usb-audio: us144mkii: Implement audio capture and decoding")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
----
- sound/usb/usx2y/us144mkii.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
-
-diff --git a/sound/usb/usx2y/us144mkii.c b/sound/usb/usx2y/us144mkii.c
-index 94553b61013c..58ef23146f20 100644
---- a/sound/usb/usx2y/us144mkii.c
-+++ b/sound/usb/usx2y/us144mkii.c
-@@ -585,19 +585,24 @@ static void tascam_disconnect(struct usb_interface *intf)
- 		return;
- 
- 	if (intf->cur_altsetting->desc.bInterfaceNumber == 0) {
--		/* Ensure all deferred work is complete before freeing resources */
- 		snd_card_disconnect(tascam->card);
--		cancel_work_sync(&tascam->stop_work);
--		cancel_work_sync(&tascam->capture_work);
--		cancel_work_sync(&tascam->midi_in_work);
--		cancel_work_sync(&tascam->midi_out_work);
--		cancel_work_sync(&tascam->stop_pcm_work);
- 
-+		/*
-+		 * Kill the URBs before cancelling the work, so a late URB
-+		 * completion cannot re-arm a work that then runs after
-+		 * snd_card_free().
-+		 */
- 		usb_kill_anchored_urbs(&tascam->playback_anchor);
- 		usb_kill_anchored_urbs(&tascam->capture_anchor);
- 		usb_kill_anchored_urbs(&tascam->feedback_anchor);
- 		usb_kill_anchored_urbs(&tascam->midi_in_anchor);
- 		usb_kill_anchored_urbs(&tascam->midi_out_anchor);
-+
-+		cancel_work_sync(&tascam->stop_work);
-+		cancel_work_sync(&tascam->capture_work);
-+		cancel_work_sync(&tascam->midi_in_work);
-+		cancel_work_sync(&tascam->midi_out_work);
-+		cancel_work_sync(&tascam->stop_pcm_work);
- 		timer_delete_sync(&tascam->error_timer);
- 		tascam_free_urbs(tascam);
- 		snd_card_free(tascam->card);
--- 
-2.43.0
-
+> 
+> Nicolin
