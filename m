@@ -1,73 +1,59 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011069.outbound.protection.outlook.com [52.101.57.69])
+Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41F434678C;
-	Wed,  1 Jul 2026 14:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782917151; cv=fail; b=LgDgoNih+XlCD7FW1+6yT032XGAypo7LHgTzCUb9owtwC4hbxqJkPHyauiqlhWxYAoRfksS5A1YMyhbWSP/Y+/KGGGqu1BzC0dwErOVfcM3axXRcK++AWKvw5T3AYddZuuTrTbLzJhrEBDabMN5G4RBVhmTzTKyCoGYV7N4IwL4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782917151; c=relaxed/simple;
-	bh=C6KwSR5H/WIAmIcpv/RdHDvN91dl9E+nRPBNDgtnvWg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=W4qlaN04ONawLe/F3seq4pZeNJsDAo2yKtCcJvZiL8SIfCTvrCmohEB2iMslOXCazop1gHpJYTJoTLuraCCthJ2p3LKQuueEvVEbytLmPoXQwpBCL+i3jXUCGXcfWuRzB4Tw/kFTQo6RbmhJsB2b3rHdXjOhIVbOxN4RgO+Bbdc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lEaNDHI+; arc=fail smtp.client-ip=52.101.57.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6837223E320
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 14:57:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782917876; cv=none; b=I+CCKjwqiG2BA2ejjr0Y9uBxCDlr5C7TjWhiWI0R1qzoruBGlRGpPqhyBahtGNVOvn3HuB4Wgyhm/9Nf4wwsYCWNLqXY9UsghU76Ksig4mt7+s/q4FCbfAK9KgVcoMd2GzIeEn19wOyEw17JrUSHtlkeesBApe3nXiDnO8Bvd00=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782917876; c=relaxed/simple;
+	bh=vGLL9VM7Nd6jgMhorxhyV71SGtCxHnTJ0VvqtfPeljM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FWO5qUTPBvgumlfZKLh2GUoDu6byHzFYhpHGstqTdjTAFhyR7L1ZVfOYuIAF8cCszHhRngplJy17AholzDKB2ExRSerdZuGcCuMuZUZIMZ+2S0zX9Tp/+ec+adw2RTgDWDmIidNIYXJFlY2uxZjRaNDPDin/qRScVAwOsArV+58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=u/xNL6ff; arc=none smtp.client-ip=91.218.175.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lEaNDHI+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rPfQ8xENHjP8tMk8QhsuuOG1Ao3M315bvpJgU1EIxcMkpDXak0wqFCfbH9T1Dh1slhpv9gJDP65Z0KKwQmkZ+mawy4OpvQg3CLQvqR14Zbo3wkkHfN0Dhp/dpqCDRPHjLX+xFJvWBV623UMPckTibh8PtbT14V9OrW7reEisyAKLHcSjY9n+1aiKILinNQ0qu306H5ILBPk5YPLsXDK44QUf4Cnwfa4yIbvQvrk7mzmPS4vX7GH7rTfDiVL2LHvIruGCetCB5hW5xUMZr2XGRIYTBJFdIB7g1QOgPbzIZfe3e03vCMDJc1nnzNGbFnoK+FRIG4ZZJ4oHA4UcnvK3vQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gmuy4r/LO/+UyyrA/vTbPgi+EZCCx4dyKpZlrrSIYK8=;
- b=hfaYNa3eY9/Me6EBnym+KzgUY2gFKVlxuiqz5k8Vzwo4H5rgXKMUg51jBCpjSZBQGu84bYq5fP14Li75KlnYtnKbDvgKJI62CmhKed5kg0L3g14GtMxcxA66/LD55v1k2u+F5fzAQJy8dJLeZxR/7p6P11xZnSKYlons07n9ebmv1cxTV3lZOH5G9h5uA09rOsY9LbeDkcmnbQ+8JBnlgCPLwUjR3MyxydyB2//tLoqIOdREps1VwqJQXmkwOVX7aXbK6+iKyZINcEvqDX2vS3zwg/TPCSQi9dDAUqEo0G+HhxfgYmno67w6RvKVUPm9zjizhbVpEEOycih1P44SUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gmuy4r/LO/+UyyrA/vTbPgi+EZCCx4dyKpZlrrSIYK8=;
- b=lEaNDHI+k72Pl9znsfqmy3TOF05wYROiyXVuUM4tZnySb3vVUAUvQUeV5SgfxAjducjyFQxyneJqK4A9HVUUy5I/tCu47fdsW2pzUlpNanUYiZYonTrI0G+1RGQFC9pNMR3DGrM7gDzLypTeHIj9cZTsFxZIwuoBNihy3F4mOM8=
-Received: from BY3PR10CA0020.namprd10.prod.outlook.com (2603:10b6:a03:255::25)
- by CH1PR12MB9693.namprd12.prod.outlook.com (2603:10b6:610:2b0::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
- 14:45:44 +0000
-Received: from SJ1PEPF00002314.namprd03.prod.outlook.com
- (2603:10b6:a03:255:cafe::3e) by BY3PR10CA0020.outlook.office365.com
- (2603:10b6:a03:255::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.9 via Frontend Transport; Wed, 1
- Jul 2026 14:45:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002314.mail.protection.outlook.com (10.167.242.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Wed, 1 Jul 2026 14:45:44 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 1 Jul
- 2026 09:45:43 -0500
-Received: from pankaj-M75q.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 1 Jul 2026 09:45:43 -0500
-From: Pankaj Gupta <pankaj.gupta@amd.com>
-To: <seanjc@google.com>, <pbonzini@redhat.com>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <dave.hansen@linux.intel.com>
-CC: <bp@alien8.de>, <x86@kernel.org>, <thomas.lendacky@amd.com>,
-	<hpa@zytor.com>, <david@kernel.org>, <yangge1116@126.com>,
-	<kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<pankaj.gupta@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region registration
-Date: Wed, 1 Jul 2026 09:45:43 -0500
-Message-ID: <20260701144543.39582-1-pankaj.gupta@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="u/xNL6ff"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782917861;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IZxZYzr7s/jUyGjUJHT8GX3O2MqALroysxUHX5OVR6I=;
+	b=u/xNL6ffTYYFG6/pQpvgb7+IDpimCtA2nrVpoyuJXSR+7kaiiIrfULdup+UpIRI/qtrg7V
+	GgzR0/hCpJhwoWWcGngrI4zLqG283UAA2LBp8soStkA1DrGZXKPunOUidLsR+PQee3cP6B
+	RhE8vD7Y1go18ShEHgOu6+YT2Wtt24c=
+From: Usama Arif <usama.arif@linux.dev>
+To: Qi Zheng <qi.zheng@linux.dev>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	kasong@tencent.com,
+	shakeel.butt@linux.dev,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	hannes@cmpxchg.org,
+	harry@kernel.org,
+	muchun.song@linux.dev,
+	peiyang_he@smail.nju.edu.cn,
+	mhocko@kernel.org,
+	roman.gushchin@linux.dev,
+	ljs@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4] mm: mglru: fix stale batch updates after memcg reparenting
+Date: Wed,  1 Jul 2026 07:57:35 -0700
+Message-ID: <20260701145736.3785016-1-usama.arif@linux.dev>
+In-Reply-To: <20260701075251.56413-1-qi.zheng@linux.dev>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,67 +61,163 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002314:EE_|CH1PR12MB9693:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6863833-e859-4f80-7ada-08ded77f6e59
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|1800799024|36860700016|23010399003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	x+TjOdFqVG8tg5hRoAOQR2BpeLWfQaEvHD4V43PNFZ4e1F5hGl3aHKxzpJBGWRe7sQZlaj65dvoItYgo6Aua1dTDiySL3J23yjNZslLkjSxROG39x5uZwbsgeaiVFYjRv7AoQyTlPnb7RK7MWRwTSHMBaKjqkzClkvoVSE6Prs2tj3NF1BFzmZxBkWr2fm2vjI915bxhZbxZsp81UBTbpKgU5ZxgDJwrVXmbj6W/1Fj1eWHhKnuOXQfwzSMohyQN/B2sL2a2AyQqD7SoV8g+Ary/dXHMgbsinLwR4Brzxvj9OeOA4ETkMi2AisiZgF2nJE5NMJ527ekpGF7d1ksEdLWzXhIcjOq2k0YtvI0XQn/6XJIz3rFrEEQR79BGFGPJPJ02DaauSMYFxm75rQOra529ZRX2wCrHPFKBFFOW/Yn+May53bohQfw2cmYJkGP6YRzWDmLDvjWjudppZctvZdl1GUwAF2RR5K68+A2KIjAcT2lO4mdIKjobsu4XlKrBAaD0nCaqU12GJgQcyw3VEHNU+jbCjDwxlYjkuZBoxGh4c5gcW8ZTjdaYVYHrDbyBtaJSRdVkMb9w25oV3JJhoc8D2+YAwvwu9AS6Oq44PWQitWzHBeU23oia1qAiioKKHa9X3TLNWfHA3Z3uEi0xQ/8+WB6qOIdUkkiDWM8hJV58zyu8TeQIxf3It3fvrwaUgZEiHZlRcAxI2sfRgyO/yg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	unIlfKaedUozbHK+qKHZD9qjJHvv4dSVqjc4ei43WzPyu8jl0FchDNryHwHGKgThEWHukhyBpBg0DSCRwnbBnv/7EwIUusj3GLQykKqKQXlAg5lyMB/5xFhqHB4oG+q8yv9gRCC9K9bEHmrHRbdmyorhZBzILDEm+hCWUn/ODo/PG8iz3u5VxJ2WeH5rxYSQUNPNvbN4o8sS+Pr3FRVXHd2YP10kMdVBDIpalkyBdLg/omQcTnVP29DRiJtVbXrSHjwdBcZ/GansT98tsiUQrDXcz10uEjNy/xw93D+ckDJgnw3Qb7SU08np0U2axQDKT0/TIs4RlFFFQjU5vuzqWBESQd5DtQ7t785wU1VJGRX5cJj3Wgjx6i2/dTPDT5RS0w/41V0Du/BcSOY5vWgvFZk5ck1OVttPAw/9a3dWqJduV1Sb6VHQoBhaIvMLwb4w
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 14:45:44.4347
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6863833-e859-4f80-7ada-08ded77f6e59
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002314.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9693
+X-Migadu-Flow: FLOW_OUT
 
-commit 7e066cb9b71a ("KVM: SEV: Use long-term pin when registering encrypted memory regions")
-added FOLL_LONGTERM to sev_mem_enc_register_region() so anonymous guest RAM is
-migrated out of MIGRATE_CMA/ZONE_MOVABLE before a long term pin. This breaks
-virtio-pmem which has file backed (MAP_SHARED) host mapping where GUP rejects
-FOLL_WRITE | FOLL_LONGTERM since:
+On Wed,  1 Jul 2026 15:52:51 +0800 Qi Zheng <qi.zheng@linux.dev> wrote:
 
-commit 8ac268436e6d ("mm/gup: disallow FOLL_LONGTERM GUP-nonfast writing to file-backed mappings")
-commit a6e79df92e4a ("mm/gup: disallow FOLL_LONGTERM GUP-fast writing to file-backed mappings").
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
+> 
+> The mglru page table walker batches per-generation size deltas in
+> walk->nr_pages while walking page tables without holding the lruvec lock.
+> The reset_batch_size() later folds those deltas into walk->lruvec under
+> the lruvec lock.
+> 
+> The page table walker can run concurrently with the memcg reparenting path
+> as follows:
+> 
+> CPU0                           CPU1
+> ====                           ====
+> 
+> walk_mm
+> --> walk_page_range
+>     --> update_batch_size
+>         --> walk->nr_pages += delta
+> 
+>                               mem_cgroup_css_offline
+>                               --> memcg_reparent_objcgs
+>                                   --> lock lruvec
+>                                       lru_gen_reparent_memcg
+>                                       --> reparent child folios to parent
+>                                       unlock lruvec
+> 
+>     lock lruvec
+>     reset_batch_size
+>     --> child lrugen->nr_pages += delta
+> 
+> This will trigger the following warning in lru_gen_exit_memcg():
+> 
+> 	VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
+> 				   sizeof(lruvec->lrugen.nr_pages)));
+> 
+> And the user-visible impact of underestimated nr_pages in MGLRU was
+> premature OOMs because MGLRU does not try to reclaim memory when nr_pages
+> reaches zero, but there are still more pages.
+> 
+> To fix it, make reset_batch_size() check CSS_DYING under RCU before
+> flushing the pending batch. A non-dying memcg keeps the original lruvec
+> stable against RCU-delayed offlining; a dying memcg redirects the deltas
+> to the first non-dying ancestor.
+> 
+> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+> Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn
+> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
+> ---
+> Changes in v4:
+>  - re-implement lock_batch_lruvec() in a simpler way
+>    (suggested by Johannes and Harry)
+>  - collect Reviewed-by
+>  - rebase onto the next-20260630
+> 
+> Changes in v3:
+>  - re-implement lock_batch_lruvec() by checking CSS_DYING under the RCU lock
+>    (suggested by Harry)
+>  - update the commit message (suggested by Harry)
+>  - temporarily drop the previous Reviewed-by tags
+>    (since the sync method has changed)
+>  - rebase onto the next-20260624
+> 
+> Changes in v2:
+>  - update the commit message (pointed by Barry)
+>  - collect Reviewed-by
+> 
+>  mm/vmscan.c | 41 ++++++++++++++++++++++++++++++++++-------
+>  1 file changed, 34 insertions(+), 7 deletions(-)
+> 
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 35c3bb15ae96..ca1e2a870d51 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -3262,10 +3262,40 @@ static void update_batch_size(struct lru_gen_mm_walk *walk, struct folio *folio,
+>  	walk->nr_pages[new_gen][type][zone] += delta;
+>  }
+>  
+> +#ifdef CONFIG_MEMCG
+> +static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
+> +{
+> +	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+> +	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
+> +
+> +	rcu_read_lock();
+> +
+> +	/*
+> +	 * The memcg can be NULL when the memory controller is disabled.
+> +	 * Otherwise, the caller keeps the memcg owning @lruvec alive.
+> +	 */
+> +	while (unlikely(memcg && css_is_dying(&memcg->css))) {
+> +		memcg = parent_mem_cgroup(memcg);
+> +		lruvec = mem_cgroup_lruvec(memcg, pgdat);
+> +	}
+> +
+> +	spin_lock_irq(&lruvec->lru_lock);
 
-Drop FOLL_LONGTERM when registering encrypted memory regions and restore
-the previous behavior.
+Do we need an rcu_read_unlock() here?
 
-Fixes: 7e066cb9b71a ("KVM: SEV: Use long-term pin when registering encrypted memory regions")
-Cc: stable@vger.kernel.org
-
-Signed-off-by: Pankaj Gupta <pankaj.gupta@amd.com>
----
- arch/x86/kvm/svm/sev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 6c6a6d663e29..c4b53700f69e 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -2764,7 +2764,7 @@ int sev_mem_enc_register_region(struct kvm *kvm,
- 		return -ENOMEM;
- 
- 	region->pages = sev_pin_memory(kvm, range->addr, range->size, &region->npages,
--				       FOLL_WRITE | FOLL_LONGTERM);
-+				       FOLL_WRITE);
- 	if (IS_ERR(region->pages)) {
- 		ret = PTR_ERR(region->pages);
- 		goto e_free;
--- 
-2.34.1
-
+> +
+> +	return lruvec;
+> +}
+> +#else
+> +static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
+> +{
+> +	lruvec_lock_irq(lruvec);
+> +
+> +	return lruvec;
+> +}
+> +#endif
+> +
+>  static void reset_batch_size(struct lru_gen_mm_walk *walk)
+>  {
+>  	int gen, type, zone;
+> -	struct lruvec *lruvec = walk->lruvec;
+> +	struct lruvec *lruvec = lock_batch_lruvec(walk->lruvec);
+>  	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+>  
+>  	walk->batched = 0;
+> @@ -3285,6 +3315,8 @@ static void reset_batch_size(struct lru_gen_mm_walk *walk)
+>  			lru += LRU_ACTIVE;
+>  		__update_lru_size(lruvec, lru, zone, delta);
+>  	}
+> +
+> +	lruvec_unlock_irq(lruvec);
+>  }
+>  
+>  static int should_skip_vma(unsigned long start, unsigned long end, struct mm_walk *args)
+> @@ -3779,11 +3811,8 @@ static void walk_mm(struct mm_struct *mm, struct lru_gen_mm_walk *walk)
+>  			mmap_read_unlock(mm);
+>  		}
+>  
+> -		if (walk->batched) {
+> -			lruvec_lock_irq(lruvec);
+> +		if (walk->batched)
+>  			reset_batch_size(walk);
+> -			lruvec_unlock_irq(lruvec);
+> -		}
+>  
+>  		cond_resched();
+>  	} while (err == -EAGAIN);
+> @@ -4867,9 +4896,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+>  	walk = current->reclaim_state->mm_walk;
+>  	if (walk && walk->batched) {
+>  		walk->lruvec = lruvec;
+> -		lruvec_lock_irq(lruvec);
+>  		reset_batch_size(walk);
+> -		lruvec_unlock_irq(lruvec);
+>  	}
+>  
+>  	mod_lruvec_state(lruvec, PGDEMOTE_KSWAPD + reclaimer_offset(sc),
+> -- 
+> 2.54.0
+> 
+> 
