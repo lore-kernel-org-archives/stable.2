@@ -1,118 +1,250 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC61372665;
-	Wed,  1 Jul 2026 16:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826C63672BA
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 16:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782923593; cv=none; b=dc3phKgLtfSH3P/Cm/pY3KAvESfEFJYdtxkgxpF0SxG0PKmzO4KsihoHJsnVYvNykqtLkqRz7Zfo2Oq/Ae9RFaEaH9NuOw3SjV8oDjKTna7OIGxN0DBM5JPqz0pYc/VYHdNwr307Drbs2lDKo60jTCLxgjfvxr15tsZV2O1WkJQ=
+	t=1782923669; cv=none; b=XyQWn5hxgmE0d3wuVfwepQk5mYnTfCfLw2/Dcozc8FP7lr8FfJPBxWIVBkfJPMhvKRjkeY71n/dkrrK/HzkOM9bRZt79j6asH+7llir2Ub8b7EiZzMOLz1VP6gYJKipbfMC1ewCtOrmvGVW7CibQNPb+/7584tZEVGMJtioTuRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782923593; c=relaxed/simple;
-	bh=0O9t1tSW9YfYk8QA/2Mz/IGLCxAsLbduu3bCC9RWh80=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VidtfDOoO7XHV3/n1Jef4VPwf/WKqkMjPa5KntYSHELT79huIcs6yP2+MmFQJytcBqZbRs73UfhIAQkW8LpZbywLhXFewhsy/xhOkuui4x7hJm86V7+312F1ScVEOzZ3UILj4VdUzyDL6iJzxxiDCMX4G65Fc90eLF/WV6HFZ7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cyqs4l3b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782923669; c=relaxed/simple;
+	bh=DKsCUg9vm/xtg5xUoAWiCg6A+X/ncWbB78N2f2lBVEA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kupJfNTsazTYZBtOr5/tKHPgbUD1Df+HWgKGVDud+q1LzvZuUvItpmPDzgPwh1AStt58NCyTNnXhivnsOQN0CW/s001/EaZxSgFVxLO0kNoN3yCsvX3SdnaFv9SoxqkIovNK00vx0Goz9dMf3BzbPIpJab+Huggo7q45BRIgvv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iDTr5a4c; arc=none smtp.client-ip=91.218.175.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cyqs4l3b"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D543A1F000E9;
-	Wed,  1 Jul 2026 16:33:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782923590;
-	bh=JgWpcCcEJlgI18zAnaxSSxs31O3rZqKIde8ESLBbl58=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Cyqs4l3bKZWQQmmdEFKG4KeMAGlk09rG3dzqnFaYOS78zkoBGk+T+4LlOw2HlIu7G
-	 aUKhduciD+oTLynKp6RHPTayp0cE8K0l4iL1KtmrYlxenJOpxpfShccuy0UzRnoIo6
-	 j9GIJrJqQIlmJJiD4u7e2HNhlfKcXow02C7YBRGmHLSn94rxIWn13Q/LW3fAG/SjKO
-	 EproLb5GRdFPnZORcWcSZaZwGZAKVindRMCEz6Sahg8rutD3jweoXQ6PMWLYZjn+QX
-	 nGKeKKYdgL6CL8saUrQZcoffTdH3t7ZcSGdQux7I44Buj8X29F5jLXfYV5wvUALB8U
-	 aMdmvxzZS0kwA==
-Date: Wed, 1 Jul 2026 09:33:10 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Cc: Carlos Maiolino <cem@kernel.org>, Amir Goldstein <amir73il@gmail.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Fedor Pchelkin <pchelkin@ispras.ru>, stable@vger.kernel.org,
-	xfs-stable@lists.linux.dev, Christoph Hellwig <hch@lst.de>,
-	Catherine Hoang <catherine.hoang@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	lvc-project@linuxtesting.org, linux-xfs@vger.kernel.org,
-	Leah Rumancik <leah.rumancik@gmail.com>,
-	Theodore Ts'o <tytso@mit.edu>
-Subject: Re: [PATCH 6.6 0/4] fix kernel crash for xfs/235 test
-Message-ID: <20260701163310.GB6517@frogsfrogsfrogs>
-References: <20260612233110.2-1-sashal@kernel.org>
- <ajBQPNuKCruxhkXX@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <ajD3Gb-vQkGU0N6b@nidhogg.toxiclabs.cc>
- <ajFQPY2m2A6ltvTH@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <ajFabPtI8UGfkyix@nidhogg.toxiclabs.cc>
- <CACzhbgS59uCYhjX80__+nPjEx=N8mKUsYyFS1+aRDpMA-b-VXQ@mail.gmail.com>
- <CAOQ4uxgXqmP49FV3b_cKDD_703bRHz0fjm=k=FmNytsPpnKx3g@mail.gmail.com>
- <ajKSytW_sBFJaBTW@nidhogg.toxiclabs.cc>
- <20260625183421.GO6070@frogsfrogsfrogs>
- <akRTtCIZZ0IZ0Omc@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iDTr5a4c"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782923654;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S8EN7g6oxS7SXD5LHkfE9wVI24o1Ccmyer7oaOUmqbs=;
+	b=iDTr5a4c5GYQEsX7/WoMX8mugZgns0NLjQHuSMmfFNbqMBJ90bt7Imb/Jq2IOUZYVlwefW
+	shL1UB/bB76qXBYtmjfnVFKuf25AHcO7V/mcp3fAWkfsOqbv+UlS8VdUr2ffq/juIgD45a
+	6Z4SkIcRx2UjYuHcQ0+MYeDPb/uf1Oc=
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org,
+	klarasmodin@gmail.com
+Cc: richard.weiyang@gmail.com,
+	akpm@linux-foundation.org,
+	ljs@kernel.org,
+	riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	balbirs@nvidia.com,
+	sj@kernel.org,
+	ziy@nvidia.com,
+	lance.yang@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [Patch mm-hotfixes v5] mm/page_vma_mapped: fix device-private PMD handling
+Date: Thu,  2 Jul 2026 00:33:56 +0800
+Message-Id: <20260701163356.22936-1-lance.yang@linux.dev>
+In-Reply-To: <d4e4180e-dcdf-40e6-b5a2-2ac55f4aecc4@kernel.org>
+References: <d4e4180e-dcdf-40e6-b5a2-2ac55f4aecc4@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <akRTtCIZZ0IZ0Omc@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+X-Migadu-Flow: FLOW_OUT
 
-On Tue, Jun 30, 2026 at 07:39:32PM -0400, Hamza Mahfooz wrote:
-> On Thu, Jun 25, 2026 at 11:34:21AM -0700, Darrick J. Wong wrote:
-> > On Wed, Jun 17, 2026 at 02:31:01PM +0200, Carlos Maiolino wrote:
-> > > On Wed, Jun 17, 2026 at 11:19:25AM +0200, Amir Goldstein wrote:
-> > > > On Tue, Jun 16, 2026 at 7:33 PM Leah Rumancik <leah.rumancik@gmail.com> wrote:
-> > > > >
-> > > > > I have changed teams so I no longer work on kernel and I don't believe
-> > > > > my xfs maintenance work was backfilled ;(
-> > > > >
-> > > > > On Tue, Jun 16, 2026 at 7:19 AM Carlos Maiolino <cem@kernel.org> wrote:
-> > > > > >
-> > > > > > On Tue, Jun 16, 2026 at 09:31:41AM -0400, Hamza Mahfooz wrote:
-> > > > > > > Cc: linux-xfs@vger.kernel.org
-> > > > > > >
-> > > > > > > On Tue, Jun 16, 2026 at 09:13:45AM +0200, Carlos Maiolino wrote:
-> > > > > > > > On Mon, Jun 15, 2026 at 03:19:24PM -0400, Hamza Mahfooz wrote:
-> > > > > > > > > Cc: Carlos Maiolino <cem@kernel.org>
-> > > > > > > >
-> > > > > > > > FWIW I don't maintain the stable trees I really don't have time for
-> > > > > > > > that. Darrick/Leah have been doing a best effort case for that, but
-> > > > > > > > again, this is mostly a best effort so we shouldn't expect them to be
-> > > > > > > > looking/picking up every single possible patch suggested for stable.
-> > > > > > > >
-> > > > > > >
-> > > > > > > Now that you mention it, the xfs-stable mailing list seems to be pretty
-> > > > > > > much dead (i.e. the last time fixes from it were merged into stable was
-> > > > > > > almost a year ago). I guess no one is really working on it anymore?
-> > > > > >
-> > > > > > IIRC Darrick started it, I personally never worked on it, but I didn't
-> > > > > > follow the evolution there.
-> > > > 
-> > > > I think at this point we can officially declare xfs in stable <= 6.6
-> > > > unmaintained
-> > > > maybe need to send patches to LTS MAINTAINERS.
-> > > > 
-> > > > The best chance in this case to apply the requested fix to 6.6.y is that the
-> > > > author (Darrick) approves it.
-> > > 
-> > > Unfortunately this might be true. But let's wait for Darrick's input
-> > > please. He's on vacations this week so will be unfair to make any
-> > > decisions in this matter without his input.
-> > > Also he has been still poking people to tag patches with LTS versions
-> > > so even though he might not me dealing with the xfs-stable, he might still
-> > > be driving work on LTS trees.
-> > 
-> > I've really only been doing QA work on 6.12/6.18 LTS.  Ted Tso might
-> > still be doing the older ones.  Catherine left Oracle last year.
-> 
-> Any idea on potential paths forward for getting this series in
-> particular into 6.6.y?
 
-Run fstests, and if there are no new regressions, ask sasha/greg to
-queue it.
+On Wed, Jul 01, 2026 at 05:36:33PM +0200, David Hildenbrand (Arm) wrote:
+>On 7/1/26 16:33, Klara Modin wrote:
+>> Hi,
 
---D
+Hi,
+
+[...]
+>> 
+>> This results in a build bug for my Raspberry Pi 1:
+
+Thanks for reporting this!
+
+>>  In file included from <command-line>:
+>>  In function ‘check_pmd’,
+>>      inlined from ‘page_vma_mapped_walk’ at /home/klara/git/linux/trees/bisect/mm/page_vma_mapped.c:256:10:
+>>  /home/klara/git/linux/trees/bisect/include/linux/compiler_types.h:702:45: error: call to ‘__compiletime_assert_433’ declared with attribute error: BUILD_BUG failed
+>>    702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>        |                                             ^
+>>  /home/klara/git/linux/trees/bisect/include/linux/compiler_types.h:683:25: note: in definition of macro ‘__compiletime_assert’
+>>    683 |                         prefix ## suffix();                             \
+>>        |                         ^~~~~~
+>>  /home/klara/git/linux/trees/bisect/include/linux/compiler_types.h:702:9: note: in expansion of macro ‘_compiletime_assert’
+>>    702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>        |         ^~~~~~~~~~~~~~~~~~~
+>>  /home/klara/git/linux/trees/bisect/include/linux/build_bug.h:40:37: note: in expansion of macro ‘compiletime_assert’
+>>     40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+>>        |                                     ^~~~~~~~~~~~~~~~~~
+>>  /home/klara/git/linux/trees/bisect/include/linux/build_bug.h:60:21: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
+>>     60 | #define BUILD_BUG() BUILD_BUG_ON_MSG(1, "BUILD_BUG failed")
+>>        |                     ^~~~~~~~~~~~~~~~
+>>  /home/klara/git/linux/trees/bisect/include/linux/huge_mm.h:113:28: note: in expansion of macro ‘BUILD_BUG’
+>>    113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
+>>        |                            ^~~~~~~~~
+>>  /home/klara/git/linux/trees/bisect/include/linux/huge_mm.h:117:26: note: in expansion of macro ‘HPAGE_PMD_SHIFT’
+>>    117 | #define HPAGE_PMD_ORDER (HPAGE_PMD_SHIFT-PAGE_SHIFT)
+>>        |                          ^~~~~~~~~~~~~~~
+>>  /home/klara/git/linux/trees/bisect/include/linux/huge_mm.h:118:26: note: in expansion of macro ‘HPAGE_PMD_ORDER’
+>>    118 | #define HPAGE_PMD_NR (1<<HPAGE_PMD_ORDER)
+>>        |                          ^~~~~~~~~~~~~~~
+>>  /home/klara/git/linux/trees/bisect/mm/page_vma_mapped.c:142:20: note: in expansion of macro ‘HPAGE_PMD_NR’
+>>    142 |         if ((pfn + HPAGE_PMD_NR - 1) < pvmw->pfn)
+>>        |                    ^~~~~~~~~~~~
+>> 
+>> bisect log:
+>> 
+>>  # bad: [be5c93fa674f0fc3c8f359c2143abce6bbb422e6] Add linux-next specific files for 20260630
+>>  git bisect start 'HEAD'
+>>  # status: waiting for 'good' commit(s), 'bad' commit known
+>>  # good: [dc59e4fea9d83f03bad6bddf3fa2e52491777482] Linux 7.2-rc1
+>>  git bisect good dc59e4fea9d83f03bad6bddf3fa2e52491777482
+>>  # bad: [6148219e90732fd06f5d7a498bda974e6a43ab4b] Merge branch 'nand/next' of https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git
+>>  git bisect bad 6148219e90732fd06f5d7a498bda974e6a43ab4b
+>>  # bad: [e0326ebe10191447ab8fa2e904080df7b743765e] Merge branch 'for-next' of https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git
+>>  git bisect bad e0326ebe10191447ab8fa2e904080df7b743765e
+>>  # bad: [fbc9c5ac47cef5a2b04aef30c8e990b32dcf2548] Merge branch 'hwmon' of https://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git
+>>  git bisect bad fbc9c5ac47cef5a2b04aef30c8e990b32dcf2548
+>>  # bad: [e488171f6f6df6fc899a355079665fdb3c50b0e3] Merge branch 'for-linus' of https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
+>>  git bisect bad e488171f6f6df6fc899a355079665fdb3c50b0e3
+>>  # bad: [60db0fcb8fc9d80ac0b63041c632b41a311a45f1] Merge branch 'fs-current' of linux-next
+>>  git bisect bad 60db0fcb8fc9d80ac0b63041c632b41a311a45f1
+>>  # good: [51021d260d682aa17b3533848a99160ab83e0c93] Merge branch 'vfs.fixes' of https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+>>  git bisect good 51021d260d682aa17b3533848a99160ab83e0c93
+>>  # good: [ded56474db6552260786a65898322464b72c7540] mm: a second pagecache maintainer
+>>  git bisect good ded56474db6552260786a65898322464b72c7540
+>>  # good: [6c893b948351d42cfc3761cc746ab5b3d03ee7f3] Merge branch 'misc-7.2' into next-fixes
+>>  git bisect good 6c893b948351d42cfc3761cc746ab5b3d03ee7f3
+>>  # good: [bfcc55a14179495b0c41408908fd7b9d7785c694] lib: test_hmm: use device devt for coherent device range selection
+>>  git bisect good bfcc55a14179495b0c41408908fd7b9d7785c694
+>>  # good: [a27318567c92ba5482906d047e71a7aa4fd01889] Merge branch 'fixes' of https://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs.git
+>>  git bisect good a27318567c92ba5482906d047e71a7aa4fd01889
+>>  # bad: [6887a39652cdfd4cfd3b0962662c9cbc26ce5252] mm/page_vma_mapped: fix device-private PMD handling
+>>  git bisect bad 6887a39652cdfd4cfd3b0962662c9cbc26ce5252
+>>  # good: [2cc6bd0efc264b9ac760c2bc74dff4f521a680a1] MAINTAINERS: s/SeongJae/SJ/
+>>  git bisect good 2cc6bd0efc264b9ac760c2bc74dff4f521a680a1
+>>  # first 'bad' commit: [6887a39652cdfd4cfd3b0962662c9cbc26ce5252] mm/page_vma_mapped: fix device-private PMD handling
+>> 
+>>>
+>>> Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
+>>> Cc: <stable@vger.kernel.org>
+>>> Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
+>>> Suggested-by: David Hildenbrand <david@kernel.org>
+>>> Cc: David Hildenbrand <david@kernel.org>
+>>> Cc: Balbir Singh <balbirs@nvidia.com>
+>>> Cc: SeongJae Park <sj@kernel.org>
+>>> Cc: Zi Yan <ziy@nvidia.com>
+>>> Cc: Lorenzo Stoakes <ljs@kernel.org>
+>>> Cc: Lance Yang <lance.yang@linux.dev>
+>>>
+>>> ---
+>>> v5:
+>>>   * put device-private pmd handling along with the other two cases
+>>>   * remove thp_migration_supported()
+>>> v4: https://lore.kernel.org/all/20260624065353.1622-1-richard.weiyang@gmail.com/T/#u
+>>>   * refine subject and commit log based on Lorenzo's suggestion
+>>>   * put pmd device-private entry handling in its own if branch,
+>>>     suggested by Lorenzo
+>>>
+>>> v3:
+>>>   * remove cleanup part, only fix the issue for device-private entry
+>>>   * refine user effect description based on Lorenzo's suggestion
+>>>
+>>> v2: https://lore.kernel.org/all/20260616063436.20455-1-richard.weiyang@gmail.com/T/#u
+>>>   * specify the possible error case of current code and user visible effect
+>>>   * besides fix, cleanup the pmd entry handling based on David's suggestion
+>>>
+>>> v1: https://lore.kernel.org/linux-mm/20260508013728.21285-1-richard.weiyang@gmail.com/
+>>> ---
+>>>  mm/page_vma_mapped.c | 30 ++++++++++++++++--------------
+>>>  1 file changed, 16 insertions(+), 14 deletions(-)
+>>>
+>>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>>> index 2ccbabfb2cc1..2d6c58488e3a 100644
+>>> --- a/mm/page_vma_mapped.c
+>>> +++ b/mm/page_vma_mapped.c
+>>> @@ -243,21 +243,30 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+>>>  		 */
+>>>  		pmde = pmdp_get_lockless(pvmw->pmd);
+>>>  
+>>> -		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
+>>> +		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+>>> +		    pmd_is_device_private_entry(pmde)) {
+>>>  			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+>>>  			pmde = *pvmw->pmd;
+>>> -			if (!pmd_present(pmde)) {
+>>> +			if (pmd_is_migration_entry(pmde)) {
+>>>  				softleaf_t entry;
+>>>  
+>>> -				if (!thp_migration_supported() ||
+>>> -				    !(pvmw->flags & PVMW_MIGRATION))
+>>> +				if (!(pvmw->flags & PVMW_MIGRATION))
+>>>  					return not_found(pvmw);
+>>>  				entry = softleaf_from_pmd(pmde);
+>>> +				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+>>> +					return not_found(pvmw);
+>>> +				return true;
+>>> +			} else if (pmd_is_device_private_entry(pmde)) {
+>>> +				softleaf_t entry;
+>>>  
+>> 
+>>> -				if (!softleaf_is_migration(entry) ||
+>>> -				    !check_pmd(softleaf_to_pfn(entry), pvmw))
+>> 
+>> My only guess here would be that the compiler evaluates
+>> !softleaf_is_migration(entry) to always be true and optimises away the
+>> !check_pmd(softleaf_to_pfn(entry), pvmw) which is why this worked
+>> before?
+>
+>Weird, we enter this path only with
+>
+>pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+>pmd_is_device_private_entry(pmde)
+>
+>If any one of these would compile for !CONFIG_TRANSPARENT_HUGEPAGE that would be
+>odd.
+>
+>pmd_is_device_private_entry() is hard-coded to false unless
+>CONFIG_ARCH_ENABLE_THP_MIGRATION. Which is only selected with
+>ARCH_ENABLE_THP_MIGRATION.
+>
+>pmd_trans_huge() as well.
+>
+>Maybe it's struggling with pmd_is_migration_entry() on some (older) compilers?
+>(not innlining stuff and not properly optimizing it out).
+>
+>The whole conditional must be optimized out.
+
+Right. Kinda weird if compiler didn't fold
+
+pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+pmd_is_device_private_entry(pmde)
+
+away here ...
+
+>We could check for IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) right at the start
+>to make it easier for the compiler:
+
++1, explicit THP guard should do the trick :)
+
+>if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) &&
+>    (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+>     pmd_is_device_private_entry(pmde))) {
+>
+>
+
+Klara, could you try with this change and see if it fixes the build?
+
+Thanks, Lance
