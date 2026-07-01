@@ -1,86 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58BE126BF7;
-	Wed,  1 Jul 2026 21:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782941787; cv=none; b=tyLsnqVLP9ATdhpSCNibUP5dqg7ZJ9YAGELS0PfHt9yEZGZ5KRtLHYB9MRjX/pf5dWy6JX8UsPfsT95jIjVMRotlo1iqgaC0AdJ2adUE791kSRfBmfGKKzwftOXk8/OLdLDd4vdh0nj6mLj48M8EfjZz8f5CxUgiH7VnezGzw6A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782941787; c=relaxed/simple;
-	bh=HbpNaRpWDDCBeG6ANkvOf/buiFuDy8gK4KPQhWjEMlI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iKkV4440h0Xj/da1IuIotWhF+hz+LIGKpafgL2hsukzk7E06B+Zv5c/KZgoP6Kf7lkOKxVthP0rKvDRRWXD3QtwKBFGPMVfh9M5Islg3wdtV8ER7dYLyjCIGVlplCiEcWjaB/TyxMbOqZ+VGFOhZx5/x4UaMSQELEArB2XvwmqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JsEPiXJG; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBAA3A5433
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 21:50:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782942601; cv=pass; b=kofNJzcGGmU4aT3a0z64neb02xeYafTkF2d9/Cwk6iCACqc8JbszkiydUOHWoQUT8NHp/WjvnJE5hwGG22mCQic4b5a/BWkytA/Xnhz2PT0ijVhusbw2z6GlD7aGsQTAHjnU9FTQXkADhESzFjx2BJJsm5AsWlLE6T9Y2vM/8a4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782942601; c=relaxed/simple;
+	bh=h0dblCKkE57OsnBb8pOm0NmjLkRbGQhvwMz5SEGtfxU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fHw8fu0DQkNWb7CPLpu5UYDtfZHUWoT68BZhUsUPhMs/PmFXJOkGG71zgBDdozBmrAfC+vipZAlF3HDNvni8NQ7Na1LvDj4mEyGtTiCuegQIgQrPCQCBxMcsKMAPAOdMOT2XwlvUl/+hh5DISFXzfOqk4dtceIdTcdM4Pl9BW+4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jeIKBZup; arc=pass smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JsEPiXJG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6CAE1F000E9;
-	Wed,  1 Jul 2026 21:36:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782941786;
-	bh=Z9n4hgFW1lcg5WJBcaxfj0XD7SO1SGF4heQUZIBAA74=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JsEPiXJG2ec9ZhGTdPnc3dP9h2/lZFSjMaKkvvHXfqvKpRFpYoELblIr11XXwTaIu
-	 3HVZnLtYDsDGmQ4XjURUg/SLQVcUKN8QU33jSPZXJb4HbcWjkJbTijMIvtHAI9CCJr
-	 N/z3X2YuDJd6cELsgt+Sz0Ly6JYPN1eslEXSzhgoUhKwOMwu6ezqHN+acdF6Lsemq0
-	 pshI5SGxUGaJY5z148z7YQfIN9zDzBw/1NQAo8XZ8wxD5zwwhFCYVQDMcSn8YXt/TW
-	 wMa497ZPb4mQtPi7KV15ZWcMPFbqGdRCPRPfTC9g8pDgCafS0nUhH9KdhCe9qDYQ5C
-	 PnlstwqUgfcTA==
-Date: Wed, 1 Jul 2026 22:36:20 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, David Lechner
- <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Dan Murphy <dmurphy@ti.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Joshua Crofts
- <joshua.crofts1@gmail.com>
-Subject: Re: [PATCH v2] iio: adc: ti-ads124s08: Return reset GPIO lookup
- errors
-Message-ID: <20260701223620.714f4e7f@jic23-huawei>
-In-Reply-To: <ajzPBWPKTra82lb_@ashevche-desk.local>
-References: <20260624055325.32388-1-pengpeng@iscas.ac.cn>
-	<20260625054407.82228-1-pengpeng@iscas.ac.cn>
-	<ajzPBWPKTra82lb_@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jeIKBZup"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2c6b67d5fa1so9989035ad.2
+        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 14:50:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782942599; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MXXkM5cYBMdT+QRAYDHH08pTV7uOfY1jyqADWXWPr4nY+dXcjirz7L9/do82qs1JUQ
+         TQm3OlKoaPdJq7yfeUEq5BoYR88zC1DoYYdpMwfju/QKYiVqkMo/uvSSll+YNykf3LKY
+         SQbNX8Q6G6RMUswbNkXB3nMy20OvMboqTY2r6FwfMVkrl9PABxamDA6sjJlTUKiPIHpJ
+         +ZrUKnNIRcOOeN3aoLCS9Bu2oTOg4VBpYMyxeryKj0XW9tVg+fbXaYUxGaDoASoFYtFX
+         3gOgEeUCy9BOlst+2dKlgSQBdmvKb5whf26ErC/f9tViLvadz78VkPubZ6bW4mHHzj05
+         89Rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=h0dblCKkE57OsnBb8pOm0NmjLkRbGQhvwMz5SEGtfxU=;
+        fh=lc6m/cmRRto5TwQf/w388wJCULtfCmeM2Wsbn1nuD4w=;
+        b=sTQsQ0BzP/nvp51L/5m3c2Q1P0DfWRvdY2b9G9LxgWK6AmbEUN1RANDGmE8Htdpvsc
+         48IGXgqGoDfN1VuppkYYPuNnqZZI8S8rXoXcwPThx9ryY3CC7dJNMHBOLs+hWIZ39z17
+         5m/BhSRjb6CDo2XEDnMNu4Vrg0sAfo6+76jPq7W36asrY8gGURjqVLOvyH1Y+VCCeIET
+         Cl9agV2wzEJ9BxqQstv3LA4MQjt1V8/Vaf57PUzBRY8WMLC0d+0noaxYOhQ0HOiEvS23
+         48EXs3jaw9FPaBb8Ae3D6IZn5ip0wJsNoYa+bMbtIt+HmddR0zvxWYEdzvEWbsDPtvIO
+         pFCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1782942599; x=1783547399; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=h0dblCKkE57OsnBb8pOm0NmjLkRbGQhvwMz5SEGtfxU=;
+        b=jeIKBZupD2uAFmiEql0qVzN7IsZ7fqEk7kqd3Xa8BaERaWr4+og89gsNp5WZcA035a
+         ++rqwxuSPoKYVqZOKAl6tEPV1BjifyFxTsI//o6zH+qZM8QMS483DAtQrPyZecFIvAeI
+         b4Uv0Jd8aD98+ylnQxMErKttre3lbD4XqRGRybrIwKkjzVvU1zw+nkclM9KnpYIOshQp
+         KclDlGFZfHWmgwHqlv2JancioAwF5uQMhBqlcBGlDLeiK6xnRpJPTDdLx5u0tBgEiGSY
+         wHvIrbMqOWMBIjdTrJgJ5WJUU6IX3QFIUgQLx7JnLuJp05H3x+EGriKl6O/SAwu6++M6
+         uULg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782942599; x=1783547399;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=h0dblCKkE57OsnBb8pOm0NmjLkRbGQhvwMz5SEGtfxU=;
+        b=WMYKRJLcwn0qLQn3c9kDTJ/j7r97O+dlyp4Macmx6QP6ZESUKH/Dfnc1xq8P1HUQqF
+         LgxHE5oE7PaEj6hY4L5kIsi8YhIPP3MWCMfL/3miryBxWEXAW4b3ImgIIgsAcq3F/jzE
+         UUx78wUqzMHPSqu4G4hb7ku2K63moYkL/LnSlra29C1dBABlXi1YLlC/u2B8MiH4GzAY
+         laGnicOywHR8Fwgo9pTuFuL4TNh2w0QC9h0ijwGfEDWZ6ZGHbGcUFbWc8gcS1eNV98xL
+         ZUWsfdxsJedOz8w1SDBnQQLVsi5pIcdiUxaOK3JaooR7nHgWrnsCXB3aPp8Gkurb+s6s
+         Z+nw==
+X-Forwarded-Encrypted: i=1; AHgh+RpRcEv8KoEONTzrnb0pPPQ1THSr0JqukeUpiIRSY3+WKv2do0eMkI1EpDiOMdcTShZxhpuAG8M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwA5kNNQaPYzBr6As5X6yKuJ/i6iwLwIJQQnBS9nUq2JvJy255x
+	/LiC5dqev2h7/jZdxslOSucRSC9ODtcsdHo36ow80dUvgwHjhSjgDDBrBWiPDBACfCmHdceLiCb
+	2dZuw5ghpxYr6Mkx7/9fqQLrsAhsbv/B4aMRDuwE5
+X-Gm-Gg: AfdE7ckmXkYuD83YBbo8fVEzWlOzuCGn4BmwMEKrgG4RfUP2UC4RlopijVwB24FI8uV
+	mkBIQQHy7cNvbJgmF5w22hTeUNVEv7YyfGn7zkG3nAAPqJZp+ZOrA5pHMtLvWYEHg6RMF2hzg9v
+	BcVE9xjG0hoN8PyRf4KPbsUNU6xK3c9G6dD0EM+NYPImmI1OFfVC6qMTIKiptsWVpeCsWqNnruJ
+	OOGkIgtdZO4zfHERop826tDTlC/PV5OPIBkw/pSTrSiXiL4588xaQw7QRsOptlq7gltes6QJ349
+	cUobuAtfLVRaU7fR5d0E2yiQasXyb54EV3VcPnZnftepIm4CJiUf55Hb89MCONKZSW9yrVbEMEV
+	HT70zQ+uVut9AR/wCCp41zs6MBYpF9A6sthUBc2vgEA==
+X-Received: by 2002:a17:902:e807:b0:2c9:97a7:71ac with SMTP id
+ d9443c01a7336-2ca7e91c1a5mr36388505ad.39.1782942598927; Wed, 01 Jul 2026
+ 14:49:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260630211808.50440-1-alhouseenyousef@gmail.com> <20260701164222.9094-1-alhouseenyousef@gmail.com>
+In-Reply-To: <20260701164222.9094-1-alhouseenyousef@gmail.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Wed, 1 Jul 2026 14:49:47 -0700
+X-Gm-Features: AVVi8CdoooCP65yZagy1IFzbbVt52lLnQXjOFVI1HQAUaxbpxOSVlznX-wwdP2g
+Message-ID: <CAAVpQUCfzVMV4NZPnTGB7RFCxrBPHET0sxnAoO6zKuUNZaFTRg@mail.gmail.com>
+Subject: Re: [PATCH net v2] mac802154: remove interfaces with RCU list deletion
+To: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Cc: alex.aring@gmail.com, stefan@datenfreihafen.org, miquel.raynal@bootlin.com, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, marcel@holtmann.org, linux-wpan@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	syzbot+36256deb69a588e9290e@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 25 Jun 2026 09:47:33 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+On Wed, Jul 1, 2026 at 9:42=E2=80=AFAM Yousef Alhouseen
+<alhouseenyousef@gmail.com> wrote:
+>
+> Queue wake, stop, and disable paths walk local->interfaces under RCU.
+> The bulk hardware teardown path removes entries with list_del(), so an
+> asynchronous transmit completion can follow a poisoned list node in
+> ieee802154_wake_queue().
+>
+> Use list_del_rcu() as in the single-interface removal path. The following
+> unregister_netdevice() waits for in-flight RCU readers before freeing the
+> netdevice, so no separate grace-period wait is needed.
+>
+> Fixes: 592dfbfc72f5 ("mac820154: move interface unregistration into iface=
+")
+> Reported-by: syzbot+36256deb69a588e9290e@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D36256deb69a588e9290e
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-> On Thu, Jun 25, 2026 at 01:44:07PM +0800, Pengpeng Hou wrote:
-> > devm_gpiod_get_optional() returns NULL when the optional GPIO is absent,
-> > but returns an ERR_PTR when the GPIO provider lookup fails, including
-> > probe deferral.
-> > 
-> > Probe currently logs the ERR_PTR case as if the reset GPIO were simply
-> > absent and keeps the error pointer in reset_gpio. Later ads124s_reset()
-> > treats any non-NULL reset_gpio as a valid descriptor and passes it to
-> > gpiod_set_value_cansleep().  
-> 
-> The GPIOLIB code will print an error message each time that's called.
-> This might flood the logs with a noise.
-> 
-> > Return the lookup error instead of retaining the ERR_PTR.  
-> 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> 
-> It's good as a fix for backport, but can you consider switching to use reset
-> framework and reset-gpio driver instead? (As a separate change on top of this
-> one.)
-> 
-
-Applied to the fixes-togreg branch of iio.git.
-
-One small process thing.  Please don't send new versions in reply to older
-ones - just send a new thread.  Doing it as replies makes for confusing threads
-and ensures they are many pages up in the maintainers inbox!
-
-Jonathan
-
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
