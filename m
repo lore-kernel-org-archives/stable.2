@@ -1,388 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16AF748C8D4;
-	Wed,  1 Jul 2026 15:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782919830; cv=none; b=tbrabmIrmQaE61BQJPS3fYPy4DtOvQv7j30bDmfPtlCPYUCSvTlkHHrZNP/iF0O0h0+EYJtdXZ4O/GvuVfoegtp7ScCxtPUhwkxzdF12/0UfPrTppTU9eAdO6NQrIn9o5KGkmQaz2Sidwn+fV/usSCFms8438Rp61Pv8HpYys8I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782919830; c=relaxed/simple;
-	bh=StIsgS8IPeOvKDmoZgZPhDOue1XyUafR06J7QwaShPE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bjDtRTWoSsdvFbZiIHVQMO/kajI2g6hlZ456FNuUWXREJ9BORwcZRZq97jHjIOSRKet9F2TF8Kzj+EzEoxnAU3vi2ufWCyxPtlmSx3mQ7QO9L/WnqkC90Ej70jtbKW7JbyfumKi8z8SVHTS6BA9IU9Xi1BAB7c3TeJLCyafl2/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e4QkH7cQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308A5480968
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 15:31:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782919878; cv=pass; b=bnoeCq6f76Oiy88CMe7WxQEh3y7p5sefwKtrTLBqrMlBll/rVC/E3afWm5KTxiY5UXQhnmp7gQ+6YaLs7WLRK3CROqXrolW2iJlqo6uFwpAgi3v24i9sm13H0ezbnm+1GulD51Ejw/1y9qQ50t/Cjn+Z8b5m2Khix5P5Y6KKUOg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782919878; c=relaxed/simple;
+	bh=55lo0aofODQs02uG9VovT0wfddIORdq11yOlKOcVWUc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HFWyPL32al71mPXxbMqEXQptV40QZUjJm1wfoncZexYSiRXKxrquFrVRBYAqQYx0J4RX5VlwtTF1sGOQ7yOFyR2lCmtaR4jNDJgzj4QqMNnWX1fbViZr56YqJVYC+MBM8zWW/zPuaoou74l8u3WCdK+rexiwlUCavSTtV6FevDg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=S/RC+3rd; arc=pass smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e4QkH7cQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADA5B1F000E9;
-	Wed,  1 Jul 2026 15:30:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782919826;
-	bh=9TxYdKHNjSZ/BE0adprsUfmAAOdcr8uI2pyh4XYomAE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=e4QkH7cQ05Q3I77X8kbiVVtqiwatM1eLIVM3QikjoL8sX+goKOtTMfUKBwAIZ4svK
-	 P9pDoc18gZPHe12bOGgbYLuvjToJ9OJb64mqoHr/Q/8ZCmfsNiZnEM9LRP+j9onFY0
-	 /Z4PLNL52m+V3vXm3076VT5AuYuG1Ym7jU7/KCNca4+i+HQtVA/zKTNezc1sUGoaC4
-	 6KObv2JZK9KfICbZAqB2MDpDcSqBWJJ8C/DxXCySwpXsWpz6Cwvmxp9ju/AxdD140i
-	 BdblVtG4F603p4xMIXaLmsr5OiXPiUbkfFTk65nwAAVtgk09UmcJeonFMbzh6qA2o2
-	 zOv4Y6O64lU5w==
-Message-ID: <15b919c9-158a-45ca-8566-bf20447d397c@kernel.org>
-Date: Wed, 1 Jul 2026 17:30:22 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="S/RC+3rd"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-51c15a5b265so296121cf.0
+        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 08:31:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782919876; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VG23Jggi8yq34APleOX77UslAfEt+j0IvqtSEdEcLZRs7Ey1KOxB1iMLZ9NLTgm1t3
+         VGmNDklP08LbTmR/5cTf0kN/2w0B9H6qPvkvIvwii38Antw/7FuC8K+/NkSY8Wcf2SHD
+         884+YP9ysUDFX0C1prDC3kk8+Jk48LtHVnq8VWEtLNGhb7wOK0t7TJn/n3h47qcR4b7F
+         17Pn//vSxukkKb9RWmer8pObH8QaN3gksJpI9mgjhlYNvJfte+cwGrl50vhTMF6e/25Q
+         aW0m/UOach3SkiAXDTtaYGYIteaKHrYwwburypH5VDTgyrh2VjHvtP4GzGpe/SqkfNFa
+         G6jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=55lo0aofODQs02uG9VovT0wfddIORdq11yOlKOcVWUc=;
+        fh=xpgwH7mvUYk9no5FYZDxt3AJsgXTYvs/8ngf95St7ps=;
+        b=cw6TIBFF6gG4Id36yxJc5txWSA0Ag5eHX/jJCt6pP5kHL3V23N4hHtvhnZJMn0S34v
+         IWWOgfmsLlH8Z9GA7DnBbrMMOStGFUaRcEI5LxWuAenZDgi3G98VG/oyGfHoqukGQ7mv
+         T/sZC+3vka0jQ4AOiNalQv2GoFFJ9cMHMpdK561MFwbCh6z6G20llodu0ALKuR8SYUiK
+         PEl/vg/Y9743JUl0lMRGNanXF4ZZk08XfCDmCh1B/M8bGzcvA5KrxCTrZEyfOruIAKvH
+         4wl9fXEhAve0hDxwQiWn8vZpe8icx0dTt5Sick186B9tkjhnRg2DpnWQamgTdbuFlaPA
+         RW6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1782919876; x=1783524676; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=55lo0aofODQs02uG9VovT0wfddIORdq11yOlKOcVWUc=;
+        b=S/RC+3rdOTz5ony3l/rAMxYRD2clYoAWWjtHoQnE1y4h2S9/GkKY5sjpwHwvFxJbmE
+         VfTQrfGLspEXTDlZDwjA3smJDccuJ/nz9itI2ZRTmgrhEOehhu5bxvsICoe7FYx283Tn
+         7IFz1EBIjyHu6OVnu+AkXPi8Wc0AByr9o6TLCLogQ0TiAYl9ezgar1OL3UgTF4h41ac/
+         M0U5TXnOruhQG06yPqWVwlmdkG+BdhYkXyvxQOP5zklS9fefbTbKj0/lO6mK6dERyUpg
+         jmLpQwEa7Z4Wqi4Wl66I6UHgpemDjXZUNAndRW6ELxeaACKawpAJpNBUjNJb3ytibMkg
+         oXLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782919876; x=1783524676;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=55lo0aofODQs02uG9VovT0wfddIORdq11yOlKOcVWUc=;
+        b=ozrRvSQgh/uPCyJCzR2Aboyp5jWMmfB+Sr7TUVokt6KFLJ9SrEhwyJRKDxTaAa2SQ1
+         o5hJG2cQtVs1QoTjwhsUQDaRuk7Ie13CeYDgMIkB29W3b1jhdolFvx/6X0xKo1vjgpA0
+         VpTZ/yKvbLhi0LquzfFvAeSCZQd9rZcDSY3sXzj+knzAKnzHbyZh9zTpOQxg61h/gcYb
+         jMUifuq3OfsyLpsqYKAf1hF/u2GsQeZYzn5C5yZL93wzoGMNwwb9926KZnNvlRx8CFzH
+         Mew8DIhw45FrvOB9hZgJFKvjdxZPOHJ/ZVVdyv9Dsc/M5gEjZFqZR0bXw7vhG3IgkRfa
+         DaRQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/dO0pKDINdaH72Jw8wnEbXATYTNz7XNiS5fzELD37kXzl26UEm661ds6L/sIgbAEyv8svDJsw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxExsTECXAKlpymC/GN3bYgLxCRledHZpZsew1Y+pVKKLJBzeiQ
+	hSlV3FDN+lgnI1rCHrw0FBiT3zkXDMjWbmvnz2f/knYM8YBYcHwfDp8h7hpeBqyn7890RHxR+8B
+	BboEJOpRpJDTz77+Zegt3eqT1Zvj7t3AISGhYZyrg
+X-Gm-Gg: AfdE7cmvhZtK3ypRpYdVx49dwJRcyAqNntcjusd2Rbel1n4Fplu3rPVxSgk6k7Gd1U6
+	XfVAKvLQpN5UcXINOgbNZEwP0NKSCO4fIynsROiI03VjkROoR0NJm5M+nkRf7cMXJRJwUASWiIV
+	a43pSv1siRUZhg8AeK/etIuACf9Q0d5NFrD/ARK9YT1ywcTfyxIhaieu4GXS/C779xDcmw/N3hc
+	BFTqKPDnh6YLx0joEvMB2Oos5COsAfJasVfHz7OdZXYJ/bdOTTvGPjWVfc+HI6gjPfkRUPc/hmR
+	g4R7
+X-Received: by 2002:a05:622a:1489:b0:51c:289:6979 with SMTP id
+ d75a77b69052e-51c24ad22dbmr7660531cf.21.1782919875291; Wed, 01 Jul 2026
+ 08:31:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] media: uvcvideo: Fix race condition for meta
- buffer list
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org>
- <20260629-uvc-racemeta-v2-1-10e91d2afba0@chromium.org>
- <a0e4d412-f0bf-4415-9e4b-2c6347bf8c69@kernel.org>
- <CANiDSCtv_ZmTWUzbuxuEy0JmLmFs2Wqj31O3neGZ4ee=p065-g@mail.gmail.com>
- <5327bf8c-270e-4650-8f44-6026dce36457@kernel.org>
- <CANiDSCskW6qhuGsDj2JN9UqAobAzqxEn7bKxVLZKEpEi0P9bWA@mail.gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <CANiDSCskW6qhuGsDj2JN9UqAobAzqxEn7bKxVLZKEpEi0P9bWA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260701-arm32-cfi-bug-v3-1-e3c37e2b80a4@kernel.org>
+ <akT1lr2iNzbnGEzH@shell.armlinux.org.uk> <CAD++jL=_j69pFuM+vv-8Q7x4VA=PUX8iV1Yfw4YkdxGDFo9D1g@mail.gmail.com>
+In-Reply-To: <CAD++jL=_j69pFuM+vv-8Q7x4VA=PUX8iV1Yfw4YkdxGDFo9D1g@mail.gmail.com>
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Wed, 1 Jul 2026 08:30:38 -0700
+X-Gm-Features: AVVi8CccdFxYQjLQCTfyDOXy92KNPnmhAMyQo3FP3svHlBkgrYYSxYCe2kFFN_Q
+Message-ID: <CABCJKufpj8LiSYtkSS=oCJqt+gW=tY5yFTyWr7KP4iLUzxiO4g@mail.gmail.com>
+Subject: Re: [PATCH v3] ARM: breakpoint: CFI breakpoints only on demand
+To: Linus Walleij <linusw@kernel.org>
+Cc: Russell King <linux@armlinux.org.uk>, Nathan Chancellor <nathan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	slipher <slipher@protonmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Ricardo,
+On Wed, Jul 1, 2026 at 5:50=E2=80=AFAM Linus Walleij <linusw@kernel.org> wr=
+ote:
+>
+> On Wed, Jul 1, 2026 at 1:10=E2=80=AFPM Russell King <linux@armlinux.org.u=
+k> wrote:
+>
+> > Have the LLVM compiler people responded to this bug yet? What is their
+> > plan with the silly choice of BKPT usage for CFI failure?
+>
+> Haven't heard anything.
 
-On 30-Jun-26 16:10, Ricardo Ribalda wrote:
-> Hi Hans,
-> 
-> On Tue, 30 Jun 2026 at 15:21, Hans de Goede <hansg@kernel.org> wrote:
->>
->> Hi Ricardo,
->>
->> On 30-Jun-26 12:17, Ricardo Ribalda wrote:
->>> Hi Hans,
->>>
->>> Thanks for the prompt reply.
->>>
->>> On Tue, 30 Jun 2026 at 11:47, Hans de Goede <hansg@kernel.org> wrote:
->>>>
->>>> Hi Ricardo,
->>>>
->>>> On 29-Jun-26 19:31, Ricardo Ribalda wrote:
->>>>> queue->irqueue contains a list of the buffers owned by the driver. The
->>>>> list is protected by queue->irqlock. uvc_queue_get_current_buffer()
->>>>> returns a pointer to the current buffer in that list, but does not
->>>>> remove the buffer from it. This can lead to race conditions.
->>>>>
->>>>> Inspecting the code, it seems that the candidate for such race is
->>>>> uvc_queue_return_buffers(). For the capture queue, that function is
->>>>> called with the device streamoff, so no race can occur. On the other
->>>>> hand, the metadata queue, could trigger a race condition, because
->>>>> stop_streaming can be called with the device in any streaming state.
->>>>>
->>>>> We can solve this issue introducing a flag, stream->meta.in_flight,
->>>>> protected with a spinlock. When there is a buffer in flight that can
->>>>> write into metadata the flag is raised, notifying the stop streaming
->>>>> that it needs to wait.
->>>>>
->>>>> Reported-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
->>>>> Closes: https://lore.kernel.org/linux-media/20250630141707.GG20333@pendragon.ideasonboard.com/
->>>>> Cc: stable@vger.kernel.org
->>>>> Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
->>>>> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
->>>>
->>>> First of all thank you for looking into fixing this.
->>>>
->>>> I'm sorry, but this feels more like a band-aid then a proper fix.
->>>>
->>>> How about adding a started bool to struct uvc_streaming which gets
->>>> set to 1 by uvc_video_start_streaming() and 0 by uvc_video_stop_streaming().
->>>>
->>>> And then call uvc_video_stop_streaming() from either
->>>> uvc_stop_streaming_video() or uvc_stop_streaming_meta()
->>>> depending on which one gets called first ?
->>>>
->>>> With a mutex protecting the started bool and being held
->>>> over calling uvc_video_stop_streaming() ?
->>>>
->>>> So stop the actual hw streaming when either of the
->>>> 2 possible /dev/video0 nodes gets its vb2_ops.stop_streaming
->>>> callback called?
->>>>
->>>> And to this before draining the buffer queue.
->>>>
->>>> That seems cleaner then this approach?
->>>
->>> Assuming /dev/video0 is the video node and /dev/video1 is the meta device.
->>>
->>> Currently, we support something like:
->>>
->>> 1) yavta -c /dev/video0 &
->>> 2) yavta --capture=2 /dev/video1
->>> 3) yavta --capture=2 /dev/video1
->>> 4) kill %1
->>>
->>>
->>> If I understood correctly, your proposal would cause the camera to
->>> stop streaming when step 2 completes.
->>
->> Yes. But this very much feels like a case of:
->>
->> https://quotefancy.com/media/wallpaper/1600x900/5523002-Henny-Youngman-Quote-The-patient-says-Doctor-it-hurts-when-I-do.jpg
-> 
-> We have a similar joke in Spanish:
-> Doctor, doctor, it hurts here, here, here, here, here. What do I have?
-> A broken finger :P
-> 
->>
->>> I think this risks breaking use cases.
->>
->> That would have to be some rather convoluted use-case.
-> 
-> I believe we have a similar scheme to test the metadata node in
-> ChromeOS... but we can change that.
+LLVM's generic KCFI pass uses a debug trap as an architecture-agnostic
+way to trap on failure. It shouldn't be a problem to switch to
+something else now that we have an ARM back-end implementation thanks
+to Kees.
 
-That seems unlikely? Either I would expect some app/lib/dameon to
-do a quick test stream for a few frames at init time to determine metadata
-support, in which case I would expect streaming on both queues to get
-stopped after the quick test.
+> My tentative plan is to follow this up with a patch to LLVM (and I guess
+> then later also GCC...) to enable handling CFI faults with a read
+> to the guard region at 0xffc00000 instead of using BKPT so we get a
+> good old predictable segfault instead. I was thinking something like
+>
+> -fsanitize-kcfi-guard-region-address=3D0xffc00000
+>
+> My idea is that the unwinder can then see that this is caused by KCFI
+> and act accordingly, but already the existing stack trace should make
+> it pretty obvious what happened.
+>
+> It's the best I can think of at least, haven't seen any other ideas.
 
-Or testing is delayed till the first real start-streaming moment in which
-case it makes no sense to stop + restart the metadata queue. What I guess
-may happen is stopping the metadata queue when it does not generate any
-data for a few frames, assuming there simply is no metadata support.
+Note that for X86 and RISC-V the compiler emits a list of CFI trap
+locations in the .kcfi_traps section (see CONFIG_ARCH_USES_CFI_TRAPS),
+which the kernel uses to figure out if an exception was caused by a
+CFI failure. I'm not sure if this is useful in your case, but the
+plumbing is already in the compiler and could also be enabled in the
+ARM implementation if needed.
 
-Hmm, that might actually be a troublesome case.
-
-> My worry is the outside apps that we do not control.
-
-Ack, thinking more about this, this might be more likely then
-I assumed in the non metadata available case, see above.
-
-So I'm no longer really convinced of my own proposal.
-
->> IMHO the simplicity of fixing the race you're trying to fix is
->> worth the userspace regression risk (which I deem low).
->>
->> Worst case we revert the fix and go back to the drawing board.
-> 
-> Are you concerned of this asymmetric behaviour, or do you think that it is fine?
-> 
-> open /dev/video0 (streaming starts)
-> open /dev/video1
-> close /dev/video1 (streaming stops)
-> open /dev/video1 (streaming still off)
-> 
-> 
-> vs
-> 
-> open /dev/video0 (streaming starts)
-> open /dev/video1
-> close /dev/video0 (streaming stops)
-> open /dev/video0 (streaming resumes)
-
-That second one actually is broken already, we don't flush
-the metadata queue on streaming stop on the regular queue, so
-it will possibly contain a half-filled metadata buffer which
-we then continue to append to with fresh metadata. So any
-multi-packet metadata will get corrupted for the first frame
-in the second stream start in that case.
-
-In hindsight having the metadata queue be a fully independent
-queue without clearly defining how start/stop on both queues
-works and enforcing the defined behavior at the driver level
-was a mistake.
-
-I'm starting to think that ideally we would simply flush both
-queues on the stop on the regular node and not have a stop
-queue-op on the metadata queue at all, but that is not possible
-I'm afraid.
-
-So I think we do need something like this series +
-flush metadata-queue on regular queue stop.
-
-I'll try to make some time to review this series as is, since
-although the waiting solution still feels ugly it may be the
-best we can do.
-
-Regards,
-
-Hans
-
-
-
-
-
-> 
-> 
->>
->>> As I see it, the issue is that the camera's live capture cycle is
->>> controlled solely by video0. We need some kind of synchronization
->>> mechanism with video1 if we do not want to change the behaviour and
->>> risk breaking apps.
->>
->> IMHO for a device with multiple /dev/video# nodes it makes sense
->> to wait with actually starting streaming/DMA-engines until all
->> enabled queues are started and stop when the first queue is stopped.
->>
->> The problem with uvcvideo is that we do not know if the metadata
->> queue is going to get used at all. In hindsight we should maybe
->> have had some way for userspace to explictly enable/disable metadata
->> support.
->>
->> So we start as soon as the main video node is opened, still I think
->> that stopping as soon as one of the queues is stopped makes sense.
->>
->> Laurent, do you have any input here?
->>
->> Regards,
->>
->> Hans
->>
->>
->>
->>
->>>> p.s.
->>>>
->>>> 1. It is tempting to also apply the same approach to
->>>> vb2_ops.start_streaming, but allowing the meta queue to be
->>>> the one to start streaming will likely cause issues. E.g.
->>>> the streaming code assumes having a meta-queue active is
->>>> optional, but not the other way around.
->>>>
->>>> TL;DR: vb2_ops.start_streaming should stay as is.
->>>>
->>>> 2. While looking into this I noticed that struct uvc_streaming
->>>> already has an active member, but unless I'm missing something
->>>> that ever only gets initialized to 0. So I think that can be
->>>> dropped. (If you re-use this please change it to a bool, no
->>>> need to have it atomic while protected by a mutex).
->>>
->>> I will send a patch to fix this. Thanks for noticing :)
->>>
->>>>
->>>>
->>>>
->>>>> ---
->>>>>  drivers/media/usb/uvc/uvc_queue.c | 14 ++++++++++++++
->>>>>  drivers/media/usb/uvc/uvc_video.c | 30 +++++++++++++++++++++++++++++-
->>>>>  drivers/media/usb/uvc/uvcvideo.h  |  2 ++
->>>>>  3 files changed, 45 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
->>>>> index 3c002c8f442f..af9dbfcf6f53 100644
->>>>> --- a/drivers/media/usb/uvc/uvc_queue.c
->>>>> +++ b/drivers/media/usb/uvc/uvc_queue.c
->>>>> @@ -209,10 +209,24 @@ static void uvc_stop_streaming_video(struct vb2_queue *vq)
->>>>>  static void uvc_stop_streaming_meta(struct vb2_queue *vq)
->>>>>  {
->>>>>       struct uvc_video_queue *queue = vb2_get_drv_priv(vq);
->>>>> +     struct uvc_streaming *stream = queue->stream;
->>>>>
->>>>>       lockdep_assert_irqs_enabled();
->>>>>
->>>>> +     spin_lock_irq(&stream->meta.irqlock);
->>>>> +     while (stream->meta.in_flight) {
->>>>> +             spin_unlock_irq(&stream->meta.irqlock);
->>>>> +             schedule();
->>>>> +             spin_lock_irq(&stream->meta.irqlock);
->>>>> +     }
->>>>> +     stream->meta.in_flight = true;
->>>>> +     spin_unlock_irq(&stream->meta.irqlock);
->>>>> +
->>>>>       uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
->>>>> +
->>>>> +     scoped_guard(spinlock_irq, &stream->meta.irqlock) {
->>>>> +             stream->meta.in_flight = false;
->>>>> +     }
->>>>>  }
->>>>>
->>>>>  static const struct vb2_ops uvc_queue_qops = {
->>>>> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
->>>>> index fc3536a4399f..f6b55b3a3308 100644
->>>>> --- a/drivers/media/usb/uvc/uvc_video.c
->>>>> +++ b/drivers/media/usb/uvc/uvc_video.c
->>>>> @@ -1732,6 +1732,26 @@ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
->>>>>       urb->transfer_buffer_length = stream->urb_size - len;
->>>>>  }
->>>>>
->>>>> +static struct uvc_buffer *
->>>>> +uvc_video_get_current_meta_buffer(struct uvc_streaming *stream)
->>>>> +{
->>>>> +     struct uvc_video_queue *queue = &stream->meta.queue;
->>>>> +     struct uvc_buffer *buf;
->>>>> +
->>>>> +     buf = uvc_queue_get_current_buffer(queue);
->>>>> +     if (!buf)
->>>>> +             return NULL;
->>>>> +
->>>>> +     guard(spinlock_irqsave)(&stream->meta.irqlock);
->>>>> +
->>>>> +     if (stream->meta.in_flight)
->>>>> +             return NULL;
->>>>> +
->>>>> +     stream->meta.in_flight = true;
->>>>> +
->>>>> +     return buf;
->>>>> +}
->>>>> +
->>>>>  static void uvc_video_complete(struct urb *urb)
->>>>>  {
->>>>>       struct uvc_urb *uvc_urb = urb->context;
->>>>> @@ -1767,7 +1787,7 @@ static void uvc_video_complete(struct urb *urb)
->>>>>       buf = uvc_queue_get_current_buffer(queue);
->>>>>
->>>>>       if (vb2_qmeta)
->>>>> -             buf_meta = uvc_queue_get_current_buffer(qmeta);
->>>>> +             buf_meta = uvc_video_get_current_meta_buffer(stream);
->>>>>
->>>>>       /* Re-initialise the URB async work. */
->>>>>       uvc_urb->async_operations = 0;
->>>>> @@ -1778,6 +1798,12 @@ static void uvc_video_complete(struct urb *urb)
->>>>>        */
->>>>>       stream->decode(uvc_urb, buf, buf_meta);
->>>>>
->>>>> +     if (buf_meta) {
->>>>> +             scoped_guard(spinlock_irqsave, &stream->meta.irqlock) {
->>>>> +                     stream->meta.in_flight = false;
->>>>> +             }
->>>>> +     }
->>>>> +
->>>>>       /* If no async work is needed, resubmit the URB immediately. */
->>>>>       if (!uvc_urb->async_operations) {
->>>>>               ret = usb_submit_urb(uvc_urb->urb, GFP_ATOMIC);
->>>>> @@ -2330,6 +2356,8 @@ int uvc_video_init(struct uvc_streaming *stream)
->>>>>       for_each_uvc_urb(uvc_urb, stream)
->>>>>               INIT_WORK(&uvc_urb->work, uvc_video_copy_data_work);
->>>>>
->>>>> +     spin_lock_init(&stream->meta.irqlock);
->>>>> +
->>>>>       return 0;
->>>>>  }
->>>>>
->>>>> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
->>>>> index b6bcee4a222f..6f1a3381d392 100644
->>>>> --- a/drivers/media/usb/uvc/uvcvideo.h
->>>>> +++ b/drivers/media/usb/uvc/uvcvideo.h
->>>>> @@ -484,6 +484,8 @@ struct uvc_streaming {
->>>>>               struct uvc_video_queue queue;
->>>>>               u32 format;
->>>>>               u32 buffersize;
->>>>> +             bool in_flight;
->>>>> +             spinlock_t irqlock; /* Protects in_flight. */
->>>>>       } meta;
->>>>>
->>>>>       /* Context data used by the bulk completion handler. */
->>>>>
->>>>
->>>
->>>
->>
-> 
-> 
-
+Sami
