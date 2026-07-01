@@ -1,129 +1,281 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B765C375F81
-	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 16:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC1E2D5408
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 16:46:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782924152; cv=none; b=X8psNZQUOqUC13mevBz1eDxw/+IASzXvjbEvkQYHjmL4HiSkVcFv1z6oGI5IX94imsqQi8hw8F38wjvbl08n4IoHbJZ5qjC8pf1yMitwCijqZZQ+7bvccnoCJwEfozWS0H+byhtWBLoBaZH+8t1XXA+du8ynqnGN1png1myzLGQ=
+	t=1782924394; cv=none; b=B4sZknB+yu5jCwaZQk3tR6DDIAT7AVB8pmS7uLpOXQtqARZ89Q+gG4p+hSBiKcJMMb3CYaCRA0xtr96OLG2ztro2xZMWJohDv0YT+7u4Rny9iYfs+r333EvgBRSnnc9dHct02g/TDZpdvFduJzU1EbKqnlIxJQn24Kxfq5jPsxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782924152; c=relaxed/simple;
-	bh=d9ZiF7LjaiiY1OZofmWsgVZV2t94SKMbzoBzxGqUi88=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KBfrAaemc8p9ioTs95z99TgTRRMsSOJIIWPz75gtyuoBklCi7UJGBVLGqIYIK+/sPjwH0aCTdUlWmmtwQ12XmjOeRhHQzknlZBZX+CFXOrDjNe0IkNfqhvgVhd/24wzNj94K4wjqmfIQOEDjLY4lu1oE/9zpIKQBhYD/AJvDv9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZSTGIew2; arc=none smtp.client-ip=209.85.128.177
+	s=arc-20240116; t=1782924394; c=relaxed/simple;
+	bh=3ZkG23Ahcwd+RsFfsoFpsMvSdVlXU9LOciY+aV8yYQw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DU3YlI7TtzxdlGZE8S23+jSZwGJMGBEVOM41AODUzHKygNNTE9IFJO+57L9nkyCArEpjrg3Aii/uIuaFdSPSIIEulPwGuzP46Zd1xrJhNRZRAIvPuboetWkjPThueg5nfxnzFleWC51RH4pykNhZBq/L+qRYa5nJyKT5g9eGmK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dx7VG+rX; arc=none smtp.client-ip=209.85.167.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZSTGIew2"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-80e4455b9a3so12876717b3.1
-        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 09:42:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dx7VG+rX"
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5aeb91c003eso878678e87.3
+        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 09:46:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782924150; x=1783528950; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HUTIvVd7hXVFaVubObi/HnQ0CBjtLgoeqk9bLxy6OA4=;
-        b=ZSTGIew275uqpmk0BEhIxaJsx7WtTwHZ7Ty+OwzZBbP0Bm6R4kc9d3qmUMdEDjP8s8
-         5BuliDbXsffYVavapIaqoFTq72zweZw9RDwzH+ijFoU9ndBjQIxdNBemMlxCQwkfKrdn
-         f3AxrXsqMm9Di0mT56nKEv/zm/yTy1e8tYeTxVx2T9xwRwvPtjehnJL4g0FiRVpC2Siq
-         hlbGhxm39ETzbZxQIOIRYBXHXVGsGaMlOiUI+0x5094PQGAUReqqe0vnkgUyHZWKI1jx
-         ApLlTLguAApRmNvyVz48bEpY3oBWQH6Lr9RAxGqPwmbyf48f3xVOn8bQERxcWFF3+yCm
-         aS7Q==
+        d=gmail.com; s=20251104; t=1782924390; x=1783529190; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=cdd9rY5oP30RnQMgnsEDsM9Bt8UvFzdvGQmBfn+/Lf4=;
+        b=dx7VG+rXjxPMYDZDFUTBFvuNxyXBzahMlDFKuJX5BDkdWqguLLJ5MfYmNXs7wpVxKC
+         AWvQ6n+bgT1Ks429Ky73JXg4LrBaOm+CJAvAcJw8s2MqDem0Oslkv3duD8BILwgfMeTs
+         cOMqiHjx/sKoO7SSwOGqV2ehONIKmhfJcZFnYlcWMk7jyBQjf0Lu+KYzixX5W1ONbEmc
+         0mKcsk49laV1vMG1OYomqcWLJ5tuMi+7Az/rgL+GqfNXuIbq0lTmnHhI47SPtCxHsx6U
+         i1qawXpD3jc3oeP0lv5yZc0yj2GCjUP+YVD+INICIwstElCYMqeUSMhdSrVD5ITnnXZ9
+         fiQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782924150; x=1783528950;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HUTIvVd7hXVFaVubObi/HnQ0CBjtLgoeqk9bLxy6OA4=;
-        b=ewQZdjWywtzb8w5Zmv1BEQUkF18PdUnOAdizGGwixT43B1EPuo/pJnVprIoeYJJhSg
-         gOfHfTk+BY18A5Spvfm/SPlhA6/k73WSwk48O/INm/ucN2WX6WCh7b3wveut/P4KsLVE
-         Rch3RBXlSGIU+2ISZjRk9OxaJI1zlk12Q+G/TUdctzJ/Q0+jlHRyQCex4DurZnBbOCmV
-         V3b410GPNQPExeTMW1sxfNVrWPEWtj8t4yF+W6vO6rjZiWeQKqTwzu/nwTzU/M+g/y+f
-         OpralAlQxo4DmmQ/S3a0+kv3u5sWGKetfdUEO0aMT1olAagWKu7lWvrJF+dxfbCThYiL
-         c6jw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrt59w+3xI/g3J1emeZI2HESNVHFMRbFYVpA4I8gmjvNuxMbUI6GE72JZtz6+YwEczqt1vdPVU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2ssf5srOKNyx2WaAZAHoaXS3YRcktYIcFe7D2/FZ3oCnUulKI
-	MudjICk+KmTUWVcOfb7Aa13SqbnDa4ouLuMStNjlEXyumdkUTezhS9ls
-X-Gm-Gg: AfdE7ck7djMpOgFzbkIGZz49d/3u2dbCxA3ctF9UAjDjrNd9IgREovEl1VcXb8z+8xV
-	FiPKiJGMj+xr0XfHiYWmSSqtdY6g7j8GIshcwi33Tmy9CQ/DGx0Ta77TfGHoM94beoHtR0p+feQ
-	N8WTFdG5tRv0TRgKcVYlmIMOm96enBMkxxjBeOa5SL8pSn7WXJsr1worKclBYIkSeHmgHfAXSCJ
-	z+GAySOf+g3cqz5dYH6KQp9vKdXX77zIceXpSxgM7hvVj2cPa29JVgbucLPU/I8iP5P1Zge7EfF
-	BHlz917RYaRYxS/25ZjHknUzvqQxHBNq5/V9Rg2ugD7+F3rMjqS++YZVCIDUeVl/k0e2gu6o9HK
-	/HQFS4ItTCt8V3PDAC+p58q1HV7G51lWHNdY2PLCK1Cd2qHPy21qPtgBpuZW4s1m+Tz/xyp8n09
-	PvwRgiPYtvNtP8ChlkB8hzMBiOAA==
-X-Received: by 2002:a05:690c:734a:b0:80c:85c6:8987 with SMTP id 00721157ae682-8138b95e350mr17913177b3.70.1782924149728;
-        Wed, 01 Jul 2026 09:42:29 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81448cd06a1sm2213857b3.21.2026.07.01.09.42.26
+        d=1e100.net; s=20251104; t=1782924390; x=1783529190;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=cdd9rY5oP30RnQMgnsEDsM9Bt8UvFzdvGQmBfn+/Lf4=;
+        b=dzK0JoLZNW0yP1ZYM5FAgSKs/Fh7CqPGv5eeIMg6PLe80OS6bggLMipOEGP5fd4a1D
+         aenWfEa2JWuebJENbvGMeEoC8tztBsVAzqkSqh5fFxJiB3F109uprr5Ru8U62i5Q78bg
+         RtQjn7M+hopQ7Joxs52+uoB8lzWgAI9MglnORE435my/kUAsavUfW+k5Zidw3Dhx602+
+         uty0z33+p0blxK33UIxTUBxH5V8VGAr2jI0Iktf8FS6N67rZ4q6oBQqIpRqdAtE6VzNg
+         MztZxMA0/HGeyzZ7DOG5GlnZAhYbiCr/jzdF7Gam7JAHeCpNU1TcFMpvrA9srZTo4rlP
+         L+dw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq5VIGm4ebziI16dNBroGt0+5wT/ViR37SbgeCq4JAOdMQdY1TkSmOEEgkoA8fMSu3beCPydqc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywc7JueSRcAlDVI5KgvFKxYn3LIBodIDZGlzwvgxtHL+2xChK8V
+	QToiB4Mo4fyphmSuXiAdsyc31/6SPdZvh6L9xNg+k3oz14o13PFaRToY
+X-Gm-Gg: AfdE7clwrcjrPD2TcTk97T9vq3OEwiwiu/we7NExvf8ciOgciqDGirzoIIFoS8PhwcS
+	3ajv8XBng2UpFAXjvitx8SPAAmclpoj12O37MIf1fMw8nZoMwKD1bfMt1umjFsITj9pZiREvLyV
+	tiHiJxVV2xBA+DUDnu3VgY0tT62cvqWwLpFDB5TvXP5+FXkfJ7DEBSI3kARia5yGmXdcdOLgv58
+	5tfCq3VobftWQczd1hd8Wv9QAOxf1LsGGKX66eA+zhue/7Z5n/9BRKyqxVhkmAx2kSuyL6mcslj
+	Q30L0W4P90YSrGOyKldyt8zyvtaX93+SewBC0bEUmtZaR892DY3GHTNj5c1QPxe6yLxG+fcHwek
+	mwyZemfBWzXl+ll6d0kHTukXUpWu+1qH2huLKDSJUE7IiecUA0hqD887HsR1mwEYvQbagv9L9Nz
+	TWZ6Xb3sRrNCvaJp+C4525gl7LYTE4mhqwNs1jNA==
+X-Received: by 2002:a05:6512:22d8:b0:5ae:c099:a92 with SMTP id 2adb3069b0e04-5aec68b7ea8mr494950e87.42.1782924389903;
+        Wed, 01 Jul 2026 09:46:29 -0700 (PDT)
+Received: from localhost (soda.int.kasm.eu. [2001:678:a5c:1202:7b92:9ac1:b9ef:5287])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aec894e5afsm140232e87.0.2026.07.01.09.46.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 09:42:29 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: alex.aring@gmail.com,
-	stefan@datenfreihafen.org,
-	miquel.raynal@bootlin.com
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	marcel@holtmann.org,
-	kuniyu@google.com,
-	linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+36256deb69a588e9290e@syzkaller.appspotmail.com,
-	Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH net v2] mac802154: remove interfaces with RCU list deletion
-Date: Wed,  1 Jul 2026 18:42:22 +0200
-Message-ID: <20260701164222.9094-1-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260630211808.50440-1-alhouseenyousef@gmail.com>
-References: <20260630211808.50440-1-alhouseenyousef@gmail.com>
+        Wed, 01 Jul 2026 09:46:29 -0700 (PDT)
+Date: Wed, 1 Jul 2026 18:46:27 +0200
+From: Klara Modin <klarasmodin@gmail.com>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: david@kernel.org, richard.weiyang@gmail.com, akpm@linux-foundation.org, 
+	ljs@kernel.org, riel@surriel.com, liam@infradead.org, vbabka@kernel.org, 
+	harry@kernel.org, jannh@google.com, balbirs@nvidia.com, sj@kernel.org, 
+	ziy@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [Patch mm-hotfixes v5] mm/page_vma_mapped: fix device-private
+ PMD handling
+Message-ID: <akVDNLGaCfr-PF8K@soda.int.kasm.eu>
+References: <d4e4180e-dcdf-40e6-b5a2-2ac55f4aecc4@kernel.org>
+ <20260701163356.22936-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260701163356.22936-1-lance.yang@linux.dev>
 
-Queue wake, stop, and disable paths walk local->interfaces under RCU.
-The bulk hardware teardown path removes entries with list_del(), so an
-asynchronous transmit completion can follow a poisoned list node in
-ieee802154_wake_queue().
+On 2026-07-02 00:33:56 +0800, Lance Yang wrote:
+> 
+> On Wed, Jul 01, 2026 at 05:36:33PM +0200, David Hildenbrand (Arm) wrote:
+> >On 7/1/26 16:33, Klara Modin wrote:
+> >> Hi,
+> 
+> Hi,
+> 
+> [...]
+> >> 
+> >> This results in a build bug for my Raspberry Pi 1:
+> 
+> Thanks for reporting this!
+> 
+> >>  In file included from <command-line>:
+> >>  In function ‘check_pmd’,
+> >>      inlined from ‘page_vma_mapped_walk’ at /home/klara/git/linux/trees/bisect/mm/page_vma_mapped.c:256:10:
+> >>  /home/klara/git/linux/trees/bisect/include/linux/compiler_types.h:702:45: error: call to ‘__compiletime_assert_433’ declared with attribute error: BUILD_BUG failed
+> >>    702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+> >>        |                                             ^
+> >>  /home/klara/git/linux/trees/bisect/include/linux/compiler_types.h:683:25: note: in definition of macro ‘__compiletime_assert’
+> >>    683 |                         prefix ## suffix();                             \
+> >>        |                         ^~~~~~
+> >>  /home/klara/git/linux/trees/bisect/include/linux/compiler_types.h:702:9: note: in expansion of macro ‘_compiletime_assert’
+> >>    702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+> >>        |         ^~~~~~~~~~~~~~~~~~~
+> >>  /home/klara/git/linux/trees/bisect/include/linux/build_bug.h:40:37: note: in expansion of macro ‘compiletime_assert’
+> >>     40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+> >>        |                                     ^~~~~~~~~~~~~~~~~~
+> >>  /home/klara/git/linux/trees/bisect/include/linux/build_bug.h:60:21: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
+> >>     60 | #define BUILD_BUG() BUILD_BUG_ON_MSG(1, "BUILD_BUG failed")
+> >>        |                     ^~~~~~~~~~~~~~~~
+> >>  /home/klara/git/linux/trees/bisect/include/linux/huge_mm.h:113:28: note: in expansion of macro ‘BUILD_BUG’
+> >>    113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
+> >>        |                            ^~~~~~~~~
+> >>  /home/klara/git/linux/trees/bisect/include/linux/huge_mm.h:117:26: note: in expansion of macro ‘HPAGE_PMD_SHIFT’
+> >>    117 | #define HPAGE_PMD_ORDER (HPAGE_PMD_SHIFT-PAGE_SHIFT)
+> >>        |                          ^~~~~~~~~~~~~~~
+> >>  /home/klara/git/linux/trees/bisect/include/linux/huge_mm.h:118:26: note: in expansion of macro ‘HPAGE_PMD_ORDER’
+> >>    118 | #define HPAGE_PMD_NR (1<<HPAGE_PMD_ORDER)
+> >>        |                          ^~~~~~~~~~~~~~~
+> >>  /home/klara/git/linux/trees/bisect/mm/page_vma_mapped.c:142:20: note: in expansion of macro ‘HPAGE_PMD_NR’
+> >>    142 |         if ((pfn + HPAGE_PMD_NR - 1) < pvmw->pfn)
+> >>        |                    ^~~~~~~~~~~~
+> >> 
+> >> bisect log:
+> >> 
+> >>  # bad: [be5c93fa674f0fc3c8f359c2143abce6bbb422e6] Add linux-next specific files for 20260630
+> >>  git bisect start 'HEAD'
+> >>  # status: waiting for 'good' commit(s), 'bad' commit known
+> >>  # good: [dc59e4fea9d83f03bad6bddf3fa2e52491777482] Linux 7.2-rc1
+> >>  git bisect good dc59e4fea9d83f03bad6bddf3fa2e52491777482
+> >>  # bad: [6148219e90732fd06f5d7a498bda974e6a43ab4b] Merge branch 'nand/next' of https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git
+> >>  git bisect bad 6148219e90732fd06f5d7a498bda974e6a43ab4b
+> >>  # bad: [e0326ebe10191447ab8fa2e904080df7b743765e] Merge branch 'for-next' of https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git
+> >>  git bisect bad e0326ebe10191447ab8fa2e904080df7b743765e
+> >>  # bad: [fbc9c5ac47cef5a2b04aef30c8e990b32dcf2548] Merge branch 'hwmon' of https://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git
+> >>  git bisect bad fbc9c5ac47cef5a2b04aef30c8e990b32dcf2548
+> >>  # bad: [e488171f6f6df6fc899a355079665fdb3c50b0e3] Merge branch 'for-linus' of https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
+> >>  git bisect bad e488171f6f6df6fc899a355079665fdb3c50b0e3
+> >>  # bad: [60db0fcb8fc9d80ac0b63041c632b41a311a45f1] Merge branch 'fs-current' of linux-next
+> >>  git bisect bad 60db0fcb8fc9d80ac0b63041c632b41a311a45f1
+> >>  # good: [51021d260d682aa17b3533848a99160ab83e0c93] Merge branch 'vfs.fixes' of https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+> >>  git bisect good 51021d260d682aa17b3533848a99160ab83e0c93
+> >>  # good: [ded56474db6552260786a65898322464b72c7540] mm: a second pagecache maintainer
+> >>  git bisect good ded56474db6552260786a65898322464b72c7540
+> >>  # good: [6c893b948351d42cfc3761cc746ab5b3d03ee7f3] Merge branch 'misc-7.2' into next-fixes
+> >>  git bisect good 6c893b948351d42cfc3761cc746ab5b3d03ee7f3
+> >>  # good: [bfcc55a14179495b0c41408908fd7b9d7785c694] lib: test_hmm: use device devt for coherent device range selection
+> >>  git bisect good bfcc55a14179495b0c41408908fd7b9d7785c694
+> >>  # good: [a27318567c92ba5482906d047e71a7aa4fd01889] Merge branch 'fixes' of https://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs.git
+> >>  git bisect good a27318567c92ba5482906d047e71a7aa4fd01889
+> >>  # bad: [6887a39652cdfd4cfd3b0962662c9cbc26ce5252] mm/page_vma_mapped: fix device-private PMD handling
+> >>  git bisect bad 6887a39652cdfd4cfd3b0962662c9cbc26ce5252
+> >>  # good: [2cc6bd0efc264b9ac760c2bc74dff4f521a680a1] MAINTAINERS: s/SeongJae/SJ/
+> >>  git bisect good 2cc6bd0efc264b9ac760c2bc74dff4f521a680a1
+> >>  # first 'bad' commit: [6887a39652cdfd4cfd3b0962662c9cbc26ce5252] mm/page_vma_mapped: fix device-private PMD handling
+> >> 
+> >>>
+> >>> Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
+> >>> Cc: <stable@vger.kernel.org>
+> >>> Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
+> >>> Suggested-by: David Hildenbrand <david@kernel.org>
+> >>> Cc: David Hildenbrand <david@kernel.org>
+> >>> Cc: Balbir Singh <balbirs@nvidia.com>
+> >>> Cc: SeongJae Park <sj@kernel.org>
+> >>> Cc: Zi Yan <ziy@nvidia.com>
+> >>> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> >>> Cc: Lance Yang <lance.yang@linux.dev>
+> >>>
+> >>> ---
+> >>> v5:
+> >>>   * put device-private pmd handling along with the other two cases
+> >>>   * remove thp_migration_supported()
+> >>> v4: https://lore.kernel.org/all/20260624065353.1622-1-richard.weiyang@gmail.com/T/#u
+> >>>   * refine subject and commit log based on Lorenzo's suggestion
+> >>>   * put pmd device-private entry handling in its own if branch,
+> >>>     suggested by Lorenzo
+> >>>
+> >>> v3:
+> >>>   * remove cleanup part, only fix the issue for device-private entry
+> >>>   * refine user effect description based on Lorenzo's suggestion
+> >>>
+> >>> v2: https://lore.kernel.org/all/20260616063436.20455-1-richard.weiyang@gmail.com/T/#u
+> >>>   * specify the possible error case of current code and user visible effect
+> >>>   * besides fix, cleanup the pmd entry handling based on David's suggestion
+> >>>
+> >>> v1: https://lore.kernel.org/linux-mm/20260508013728.21285-1-richard.weiyang@gmail.com/
+> >>> ---
+> >>>  mm/page_vma_mapped.c | 30 ++++++++++++++++--------------
+> >>>  1 file changed, 16 insertions(+), 14 deletions(-)
+> >>>
+> >>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+> >>> index 2ccbabfb2cc1..2d6c58488e3a 100644
+> >>> --- a/mm/page_vma_mapped.c
+> >>> +++ b/mm/page_vma_mapped.c
+> >>> @@ -243,21 +243,30 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+> >>>  		 */
+> >>>  		pmde = pmdp_get_lockless(pvmw->pmd);
+> >>>  
+> >>> -		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
+> >>> +		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+> >>> +		    pmd_is_device_private_entry(pmde)) {
+> >>>  			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+> >>>  			pmde = *pvmw->pmd;
+> >>> -			if (!pmd_present(pmde)) {
+> >>> +			if (pmd_is_migration_entry(pmde)) {
+> >>>  				softleaf_t entry;
+> >>>  
+> >>> -				if (!thp_migration_supported() ||
+> >>> -				    !(pvmw->flags & PVMW_MIGRATION))
+> >>> +				if (!(pvmw->flags & PVMW_MIGRATION))
+> >>>  					return not_found(pvmw);
+> >>>  				entry = softleaf_from_pmd(pmde);
+> >>> +				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+> >>> +					return not_found(pvmw);
+> >>> +				return true;
+> >>> +			} else if (pmd_is_device_private_entry(pmde)) {
+> >>> +				softleaf_t entry;
+> >>>  
+> >> 
+> >>> -				if (!softleaf_is_migration(entry) ||
+> >>> -				    !check_pmd(softleaf_to_pfn(entry), pvmw))
+> >> 
+> >> My only guess here would be that the compiler evaluates
+> >> !softleaf_is_migration(entry) to always be true and optimises away the
+> >> !check_pmd(softleaf_to_pfn(entry), pvmw) which is why this worked
+> >> before?
+> >
+> >Weird, we enter this path only with
+> >
+> >pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+> >pmd_is_device_private_entry(pmde)
+> >
+> >If any one of these would compile for !CONFIG_TRANSPARENT_HUGEPAGE that would be
+> >odd.
+> >
+> >pmd_is_device_private_entry() is hard-coded to false unless
+> >CONFIG_ARCH_ENABLE_THP_MIGRATION. Which is only selected with
+> >ARCH_ENABLE_THP_MIGRATION.
+> >
+> >pmd_trans_huge() as well.
+> >
+> >Maybe it's struggling with pmd_is_migration_entry() on some (older) compilers?
+> >(not innlining stuff and not properly optimizing it out).
 
-Use list_del_rcu() as in the single-interface removal path. The following
-unregister_netdevice() waits for in-flight RCU readers before freeing the
-netdevice, so no separate grace-period wait is needed.
+It's a GCC 16 cross-compiler for armv6 so I wouldn't call it old :)
 
-Fixes: 592dfbfc72f5 ("mac820154: move interface unregistration into iface")
-Reported-by: syzbot+36256deb69a588e9290e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=36256deb69a588e9290e
-Cc: stable@vger.kernel.org
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
----
-Changes in v2:
-- Drop the redundant synchronize_rcu() noted by Kuniyuki Iwashima.
-- Clarify that unregister_netdevice() supplies the required RCU wait.
-- Narrow the subject and commit message to the list deletion bug.
+> >
+> >The whole conditional must be optimized out.
+> 
+> Right. Kinda weird if compiler didn't fold
+> 
+> pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+> pmd_is_device_private_entry(pmde)
+> 
+> away here ...
+> 
+> >We could check for IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) right at the start
+> >to make it easier for the compiler:
+> 
+> +1, explicit THP guard should do the trick :)
+> 
+> >if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) &&
+> >    (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+> >     pmd_is_device_private_entry(pmde))) {
+> >
+> >
+> 
+> Klara, could you try with this change and see if it fixes the build?
+> 
+> Thanks, Lance
 
- net/mac802154/iface.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This does indeed make it build.
 
-diff --git a/net/mac802154/iface.c b/net/mac802154/iface.c
-index 000be60d9580..b823720630e7 100644
---- a/net/mac802154/iface.c
-+++ b/net/mac802154/iface.c
-@@ -703,7 +703,7 @@ void ieee802154_remove_interfaces(struct ieee802154_local *local)
- 
- 	mutex_lock(&local->iflist_mtx);
- 	list_for_each_entry_safe(sdata, tmp, &local->interfaces, list) {
--		list_del(&sdata->list);
-+		list_del_rcu(&sdata->list);
- 
- 		unregister_netdevice(sdata->dev);
- 	}
--- 
-2.55.0
+Thanks,
+Klara Modin
