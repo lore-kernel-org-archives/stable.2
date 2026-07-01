@@ -1,226 +1,145 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F9747F2D6;
-	Wed,  1 Jul 2026 11:57:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782907069; cv=none; b=SZCSQq0iHbnFEUrq3j2UpwIXqHFsa0xVUghFWGf26qCGaHl6cfslHGAHfcAJjh93rTHrCyCm4A4k3OmOqxTlcj4NblD4LC07aI0QgBBkpbd30+/OXLOZ71+myDOSJ6KJ1sWtWZblSbQv4RNPzjPzpceeQRECKmMWJaWoPLXn1LI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782907069; c=relaxed/simple;
-	bh=0tp+7zcgSFtQPXo/HXnwjHM5gwirR7Xv/ZQ/pXHyyFY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mZvQcKFlqzP+IG7/drL2v2WwPGmNw5zgDWWKVtwW3qejVnhwQPlqTr/Q7WPEh3EfDU5C3RSPgjKKPHRIaV3fAL2a7PSwIcn3box/aMEbETkVsvfqsmFqvN1wj+AkpUiOhm+rsuxwBFmDwurtnptV8ZUU6ouphsz8xo1Osc+OBRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PBVOA/Ja; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D545D42B72D
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 12:07:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782907631; cv=pass; b=UXcP5pMZCLJYfv1xNwHcB9uufGktIsBJseF5orzb1DxpFoh5WKxOjfcXhhNmNF7rWHbbp9/lenUbJIf3L2oXzLDCV/H+9/3z9FsVgFo5zbCQsVNuud7qCNbSdgRjQOz3AqzYUTLzThRDXH6w1WMKmbZ18fuAXFHe/DC8bpOQ2+Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782907631; c=relaxed/simple;
+	bh=9/m+39RgXBaNYdYcIO6pX/z82SuA7XEH4J+ByPOaFWM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=R153X6KxQBsX0DjciCMNH50CcHCheBCSvVDDmm3QaJ7L2hERrP55wceomhzTncyrtzZbzeH/rlCTmUluL83tws5IpeRJVYPtpRRHua/eC+fr2afuI6m7tCYmafAt8V0RcpNAPEdDWw86S7jV+xyuyDWkRHhRaH66WPYiKEh0toY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iZWO54oX; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=OFU0+raV; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PBVOA/Ja"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782907066; x=1814443066;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=0tp+7zcgSFtQPXo/HXnwjHM5gwirR7Xv/ZQ/pXHyyFY=;
-  b=PBVOA/Jalt1Y6t7HJyMIQQV6YcCED/If84Pc92Wz2cGRzhO32jrBIy6o
-   oXa7jLk2pNU1yyrvzc5Kvpe+Zcsv5JHSqRf0QeTMJgLRF6e4Cc+X4vyZO
-   tf2AB0erYoKghv1qb1McuKxaeh/N0D45X4XzPIPYFLQ8gsobHF7BVp7Xq
-   uUH6WiFDw6M0jajA/BVPBOh1ucXXexp9l8BF9wLRmxAYSQJp8INOvhb6M
-   vvneqg8CeEg9haPYpUNL1UrW8/v+LwRLijhgG2yUKTaHEWViJBX53OC0l
-   mOG75xznpu9T0rXbG8VLT0aNOfaJDQ/Hdyl3ejmDYVH9LGLcksmBPMTi4
-   g==;
-X-CSE-ConnectionGUID: rxFpfzGcTE2y9Sxixguq9w==
-X-CSE-MsgGUID: FzN8hMxPTM26G0ECoDtgjA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="87473377"
-X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
-   d="scan'208";a="87473377"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 04:57:45 -0700
-X-CSE-ConnectionGUID: OnZszanzTmCFLiGuL2vzrQ==
-X-CSE-MsgGUID: 1UKXULCjQTGzTjjPWtXVOA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
-   d="scan'208";a="249899986"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.120]) ([10.245.244.120])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 04:57:42 -0700
-Message-ID: <d2558fc5240d47d08d6b7d35fdeeb50f9b78a292.camel@linux.intel.com>
-Subject: Re: [PATCH] drm/ttm: Account for NULL pages in ttm_pool_backup
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- 	dri-devel@lists.freedesktop.org
-Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
- <ray.huang@amd.com>,  Matthew Auld <matthew.auld@intel.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
-	 <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 01 Jul 2026 13:57:28 +0200
-In-Reply-To: <20260626074653.1326683-1-matthew.brost@intel.com>
-References: <20260626074653.1326683-1-matthew.brost@intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iZWO54oX";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="OFU0+raV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1782907628;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9/m+39RgXBaNYdYcIO6pX/z82SuA7XEH4J+ByPOaFWM=;
+	b=iZWO54oXz0Lyh4SQ0LD/2PzioT6EkOVeS0E8R9fS9IJyR/3BGz05L+Nx8mgeU55THT9jp8
+	IEwe3m4aMoEMShOR/w2hBZG6j9ZiC3fcEjQ4hqkFudntRcAhHzQ4F1zmIRL+mVscEpQZ1n
+	xjsSkboum+on8DKPNpYpBxG7iEH8Yc0=
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-581-nQWmmu0vObW7zFSIPemJKA-1; Wed, 01 Jul 2026 08:07:07 -0400
+X-MC-Unique: nQWmmu0vObW7zFSIPemJKA-1
+X-Mimecast-MFC-AGG-ID: nQWmmu0vObW7zFSIPemJKA_1782907626
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-37f72223fc9so458628a91.3
+        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 05:07:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782907626; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LBwxc0+YziqubjCHA/gA09s9JxqEG7aIwNZcl+uWd9gD3nu/93mxRrw5X8ajI9gHpx
+         EjVx1FuNJxiSY/FwKBmW9vWFPkHZnOGtiIsWPWvnkWCc1pU3DbWG/NJ/0K5jnGiBTBk1
+         Ux/RrmcI+7aEgHwQBncoF4PLH9MzWBIzApnvLd8ns0X7cfGGKcTwY928nX/yof/iXWLc
+         yf4LPU/nVrJdEnmrLWYl6UmVdfB/MkOgHslYLXn9PaemAYCHm8O8E0rykbS+GKjyiQAd
+         AhyejlHLw0/PdxK5S9sEyIV1f/Zp+erFQZWVJvb9ue1In2GKe6PvEVgdxw5y9HgYFeGG
+         Dysw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=9/m+39RgXBaNYdYcIO6pX/z82SuA7XEH4J+ByPOaFWM=;
+        fh=sCFMgd+BZxzi0wBECUY0zuXjv5cdpf49Y7tePNHIJxo=;
+        b=E/XPVMA8LCspcduUZfFa2sNY4BL6deEiyE/1LV29FFGkJxlFRYwwjObUmCiRyRdF8w
+         vIEHRRgz8x/M64aCosUCGx0lTKF7h5EUrfuh3hAkitbOA7OXEM+37phbiP1uj9+8HLzb
+         r3QY3SdBcv4sZdyaD982cK3h+6a6KoDSd3+yCnNLcKBOtDQr4HNoJZRMpYWp44XDlTtJ
+         XBrLy0fmIYExq/9nHGQ5QBTD7V19n/hGAUkfS8QhZlnRjuQ8VzRqhtkODjaRGhFJCeMD
+         jYfg2P19IP3lWL+7dUxWxYZiF5fg9im2FC3X30K0Uz6SHHYE0nLa/WXWu1D5Pbl24W9j
+         D3Hg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1782907626; x=1783512426; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=9/m+39RgXBaNYdYcIO6pX/z82SuA7XEH4J+ByPOaFWM=;
+        b=OFU0+raV7+OGyjlcHsVfQ6B+arkv0Q09N9iqEZivR4KBmSrghuRRuCFLDOhU+9VTri
+         EyF9x9Z5gq7Pu7kLL2yeJnBJ7hS3Ah8druw2Zk0WmKcb1WrLSSn8hGP7jA2p3vKuqn6H
+         T58cUi+K+onHaAB2u53CvkvX+6zvVXRraVS6qDxoXwyTpco6tS0uR4IdqIZz/8DkYnx0
+         4sDyYwuih0riJLQDP+qtVnnL/BHJoAHjd1Ci5A3ftD4X5O6jcn4xOZb/Ye6KErTIocyg
+         jn9Dz8vF0WaPkAY8hfVnnb6ngvbt3MPTLF0kjgNfm90yxn5DiCtA2olLnObyUYGnUpT4
+         UzYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782907626; x=1783512426;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9/m+39RgXBaNYdYcIO6pX/z82SuA7XEH4J+ByPOaFWM=;
+        b=VL6H89b3tiJavkhGcUIZSCiMzBRKBaryNdMQh2T6IYouXalZ5eC6GZubbGwdoeF16i
+         +Zi9BMRQ0fPSq5ch9Lfwh3YZh2EAthFlXKBo3a+IWGPV/dwH3YK14c1n5rjQmiml6cKy
+         TmlYQxsPK7X1VggYWIaCBMD2pBiKmHdqr288fsaMG3uFp+6Bl6ZEbGlj05Xxt8jsvLDy
+         psPNiGERuXJZREcZRysAhZEeDMVZCvWwC36dYu8ZeohJf4MgDhPK0eyjiFFMJyie2GMx
+         VR6fRJLhxUJeQWr+97UQm0k2nFugNQtmIfohzSIjC0AT63By4JH8T/IlKXnxUYaSUT1p
+         UUMw==
+X-Forwarded-Encrypted: i=1; AHgh+RqK6SOS2R9UAyHFZjCRNVIJ+uOZXBhhoyyjacDxh7Y0V+4Ff4Zo+FIi65IUdBswIrXMA13TMe4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwbVFBYacUkvMWSVxmmjiPeHH5ED9+ibmpdhmHtePIJsYqTVp+Z
+	bF063kxik+Aq2HUfhHwQ+OSL2twCfCcinMtLouF5jX9Syue4+xVlNIU+eoLqKAF4HA5qtYudD37
+	/MpraSbCkhJw/6eSB0NNUUlduJ8B1AfHzKT99Lb84Ve6rwDpXhRABC7Dry94S4Og1SdV1EFACXd
+	NFYcTBaXZZ539NvbX+oc9UnVGt9aZzJmpK
+X-Gm-Gg: AfdE7cnI7AlRkAb7Dnlaqgv/EWAiiqyjiuJcEc/oavI+jZC5XlzWfjEyItROCLu+VUY
+	XRa0q5Uzo9y6b2Pf851xDlQ+fBfeSOQ/CeKBB4rnaOkDwzueufDuIGMRBolvjC9hJYQn814pw+n
+	dvhpuyQRvZB2psyJgeXTlzFXumSzIfk8KO1ERBPtGOZz7IV+tR8zOgy+pfwrJZxAx+EEQAWDPn2
+	h1EOI3QEy4jizzQmzqOkCe4Ysr9QJdZFgfwohIomma5VNAH2J8GRA==
+X-Received: by 2002:a17:90b:4acb:b0:37f:d6f3:450d with SMTP id 98e67ed59e1d1-380aa1313ecmr1402121a91.14.1782907626392;
+        Wed, 01 Jul 2026 05:07:06 -0700 (PDT)
+X-Received: by 2002:a17:90b:4acb:b0:37f:d6f3:450d with SMTP id
+ 98e67ed59e1d1-380aa1313ecmr1402085a91.14.1782907625931; Wed, 01 Jul 2026
+ 05:07:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260701101826.894848-1-sgrunert@redhat.com> <20260701101826.894848-3-sgrunert@redhat.com>
+ <2026070107-estrogen-semantic-31a4@gregkh>
+In-Reply-To: <2026070107-estrogen-semantic-31a4@gregkh>
+From: Sascha Grunert <sgrunert@redhat.com>
+Date: Wed, 1 Jul 2026 14:06:54 +0200
+X-Gm-Features: AVVi8CeRQTqgN5cj_Z4mp2mNGeXSYNgKCI3KC-weO90OjIlH9BN804MEvO8IifE
+Message-ID: <CAPre7xAbrZssWtLkVbLnEzcea5FxSZk12ZY-PpRJ4xC+w5n3Dw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] usbip: block SET_INTERFACE for isoc alt settings
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, valentina.manea.m@gmail.com, shuah@kernel.org, 
+	i@zenithal.me, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi, Matt
+On Wed, Jul 01, 2026, Greg Kroah-Hartman wrote:
+> What commit id does this fix?
 
-On Fri, 2026-06-26 at 00:46 -0700, Matthew Brost wrote:
-> Pages in ttm_pool_backup can be NULL, and set_pages_array_wb() cannot
-> handle NULL entries. Switch to set_pages_wb() after checking for NULL
-> pages.
->=20
-> Fixes the following oops:
->=20
-> Oops: general protection fault, kernel NULL pointer dereference 0x0:
-> 0000 [#1] SMP NOPTI
-> RIP: 0010:__cpa_process_fault+0xf8/0x770
-> RSP: 0018:ffffc90000a87718 EFLAGS: 00010287
-> RAX: 0000000000000000 RBX: ffffc90000a87868 RCX: 0000000000000000
-> RDX: 0000000000001000 RSI: 0005088000000000 RDI: ffffffff827c5f34
-> RBP: 0005088000000000 R08: ffffc90000a877cb R09: ffffc90000a877d0
-> R10: 0000000000000000 R11: 000000000000001b R12: 000ffffffffff000
-> R13: ffffc90000a87868 R14: ffffc90000a87868 R15: ffff88815b882ae0
-> FS:=C2=A0 0000000000000000(0000) GS:ffff8884ec840000(0000)
-> knlGS:0000000000000000
-> CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007f930b844000 CR3: 000000000262e003 CR4: 0000000008f70ef0
-> PKRU: 55555554
-> Call Trace:
-> =C2=A0<TASK>
-> =C2=A0__change_page_attr_set_clr+0x989/0xe90
-> =C2=A0? __purge_vmap_area_lazy+0x6c/0x3a0
-> =C2=A0? _vm_unmap_aliases+0x250/0x2a0
-> =C2=A0set_pages_array_wb+0x7f/0x120
-> =C2=A0ttm_pool_backup+0x4c9/0x5b0 [ttm]
-> =C2=A0? dma_resv_wait_timeout+0x3b/0xf0
-> =C2=A0ttm_tt_backup+0x32/0x60 [ttm]
-> =C2=A0ttm_bo_shrink+0x66/0x110 [ttm]
-> =C2=A0xe_bo_shrink_purge+0x12b/0x1b0 [xe]
-> =C2=A0xe_bo_shrink+0xbb/0x270 [xe]
-> =C2=A0__xe_shrinker_walk+0xf7/0x160 [xe]
-> =C2=A0xe_shrinker_walk+0x9d/0xc0 [xe]
-> =C2=A0xe_shrinker_scan+0x11f/0x210 [xe]
-> =C2=A0do_shrink_slab+0x13b/0x270
-> =C2=A0shrink_slab+0xf1/0x400
-> =C2=A0shrink_node+0x352/0x8a0
-> =C2=A0balance_pgdat+0x32c/0x700
-> =C2=A0kswapd+0x205/0x2f0
-> =C2=A0? __pfx_autoremove_wake_function+0x10/0x10
-> =C2=A0? __pfx_kswapd+0x10/0x10
-> =C2=A0kthread+0xd1/0x110
-> =C2=A0? __pfx_kthread+0x10/0x10
-> =C2=A0ret_from_fork+0x1b1/0x200
-> =C2=A0? __pfx_kthread+0x10/0x10
-> =C2=A0ret_from_fork_asm+0x1a/0x30
-> =C2=A0</TASK>
->=20
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: stable@vger.kernel.org
-> Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to
-> shrink pages")
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> ---
-> =C2=A0drivers/gpu/drm/ttm/ttm_pool.c | 49 +++++++++++++++++--------------=
--
-> --
-> =C2=A01 file changed, 24 insertions(+), 25 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
-> b/drivers/gpu/drm/ttm/ttm_pool.c
-> index 682ae4f40424..ea14447411a6 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -1064,34 +1064,33 @@ long ttm_pool_backup(struct ttm_pool *pool,
-> struct ttm_tt *tt,
-> =C2=A0	=C2=A0=C2=A0=C2=A0 ttm_pool_uses_dma_alloc(pool) ||
-> ttm_tt_is_backed_up(tt))
-> =C2=A0		return -EBUSY;
-> =C2=A0
-> -#ifdef CONFIG_X86
-> -	/* Anything returned to the system needs to be cached. */
-> -	if (tt->caching !=3D ttm_cached)
-> -		set_pages_array_wb(tt->pages, tt->num_pages);
-> -#endif
-> +	for (i =3D 0; i < tt->num_pages; i +=3D num_pages) {
-> +		unsigned int order;
-> =C2=A0
-> -	if (tt->dma_address || flags->purge) {
-> -		for (i =3D 0; i < tt->num_pages; i +=3D num_pages) {
-> -			unsigned int order;
-> +		page =3D tt->pages[i];
-> +		if (unlikely(!page)) {
-> +			num_pages =3D 1;
-> +			continue;
-> +		}
-> =C2=A0
-> -			page =3D tt->pages[i];
-> -			if (unlikely(!page)) {
-> -				num_pages =3D 1;
-> -				continue;
-> -			}
-> +		order =3D ttm_pool_page_order(pool, page);
-> +		num_pages =3D 1UL << order;
-> =C2=A0
-> -			order =3D ttm_pool_page_order(pool, page);
-> -			num_pages =3D 1UL << order;
-> -			if (tt->dma_address)
-> -				ttm_pool_unmap(pool, tt-
-> >dma_address[i],
-> -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 num_pages);
-> -			if (flags->purge) {
-> -				shrunken +=3D num_pages;
-> -				page->private =3D 0;
-> -				__free_pages_gpu_account(page,
-> order, false);
-> -				memset(tt->pages + i, 0,
-> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 num_pages * sizeof(*tt-
-> >pages));
-> -			}
-> +#ifdef CONFIG_X86
-> +		/* Anything returned to the system needs to be
-> cached. */
-> +		if (tt->caching !=3D ttm_cached)
-> +			set_pages_wb(page, 1 << order);
-> +#endif
+The limitation goes back to the original import:
 
-As discussed otherwise, this causes one IPI per page when TLB flushing,
-whereas set_pages_array_wb() causes one per array. IPIs are quite
-costly, and
-set_pages_array_wb() has been tailor-made to only issue one per array,
-so we would want to call it on subarrays in case there are NULL
-pointers and always call it in case there are no NULL pointers.
+Fixes: 4d7b5c7f8ad4 ("Staging: USB/IP: add host driver")
 
-/Thomas
+tweak_set_interface_cmd() has always forwarded SET_INTERFACE
+unconditionally, which is fine until an alt setting with isochronous
+endpoints is activated.
 
+> Why is this not an error? And if a user sees this, what can they do
+> about it?
+>
+> > + return 0;
+>
+> Why isn't this an error?
 
-> +
-> +		if (tt->dma_address)
-> +			ttm_pool_unmap(pool, tt->dma_address[i],
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 num_pages);
-> +		if (flags->purge) {
-> +			shrunken +=3D num_pages;
-> +			page->private =3D 0;
-> +			__free_pages_gpu_account(page, order,
-> false);
-> +			memset(tt->pages + i, 0,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 num_pages * sizeof(*tt->pages));
-> =C2=A0		}
-> =C2=A0	}
-> =C2=A0
+Returning 0 here means "handled" in tweak_special_requests() semantics
+(!err = 1 = tweaked), so the URB is completed with success and never
+submitted to the HCD. If we returned an error instead,
+tweak_special_requests() would return 0 (not tweaked) and the URB
+goes through to the hardware, the isoc alt setting activates, the
+transfers fail, and the device disconnects, which is the problem
+this patch is trying to prevent.
+
+You're right that the user can't act on the log message though. I'll
+change dev_info to dev_dbg in v2.
+
+Thanks,
+Sascha
+
