@@ -1,108 +1,243 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448E5480962;
-	Wed,  1 Jul 2026 15:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6CF411670
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 15:23:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782918692; cv=none; b=qEBVdNRg7phnFQVWrzfRjwbUhMabO+3YOeJXGiKEhx5Z4huFWNoKgd5tp/sXKMZWRFZROWds+D0Kj+RslD8nX58HitJUXR7End+mhtjrQAVenloy2O/5UoIBG+LvESr6U6PHDzxT37odtNDoeA4top6PihYay4FvVYKm/y/jfJA=
+	t=1782919401; cv=none; b=bJq0PzjGapVvU9UF6GfmBa9QJf98ftC+ht6owzyLTexznlb3PB5/63ktD51gKVY98RWgYoeo9p5I3p8zTR17lSWvMm7gMg2TEvKEzW4sl7fxd71FK6pMQ89nO1i3VtZFDH7cmDqpOB2OAFgntGw5E7Gjl6Ei2ioN+l9IfV23rEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782918692; c=relaxed/simple;
-	bh=pqXDIwoAyt2quUPbgSaISF8Jx1KHm3fHKzGycjMi/JU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XpJn+FPkbWZJGuJK6y4VBnoEGp9rl29w1NmZl2NmRrhKrK9PCn1sBFuzOKn4LLiBzA8ZdFrPlptIGu1nPfLc61KerpYYYZRoNgmvCzF1oLq411V/T3xMbcUyPYpUIA9MIJdvFemdO2imCBQYPV6P1alq1RBEj8aBBjBVTxLvlpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=laeO97db; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1782919401; c=relaxed/simple;
+	bh=11rMUklXb0pqNOKXlW6EemWO3Cy6rhYqZNz+Hsxi7Ic=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sgXKqmdfQJt38/sJYinKYJqq5Lp34jhesLzdy/Xpjq6nwoX4OBed1OSPzI6F5qZkK0bLIlM37otl7mWv6wCsvLsihYQcr7m4NOj2AUyrNCYN+DWg2tzU4wPlglcQ93WZiIjfO6rgnEsz4FeDhmcygfB9JWGPQjohK/3/eIVVovE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Hyt/uq5e; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="laeO97db"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4484c23de;
-	Wed, 1 Jul 2026 23:06:15 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] media: sti: delta: use unaligned accessors for MJPEG SOF fields
-Date: Wed,  1 Jul 2026 23:06:10 +0800
-Message-Id: <20260701150610.1243552-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Hyt/uq5e"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782919399; x=1814455399;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=11rMUklXb0pqNOKXlW6EemWO3Cy6rhYqZNz+Hsxi7Ic=;
+  b=Hyt/uq5eW5fwCGvlYuU4KUyjTYk+4qrPD68qebGTKA76hNs/VveRGuGL
+   22E9VMH9PCPSeDcAdBKjZYA9ZHUsp7Hc4XF+ee48pf0I2u1kyOopqKCfJ
+   rHYr/imYzWCjNt0zyPDmAzGV+0Q1RoxjleNA04RCZuG4NOPnYKQIbe59b
+   +367cCvgbePhTlJSNlohXukTpJ5vX0c7rUgI23ZXKj9LRTa01NYo/Gu8/
+   dSgs5tbjsZRmPNJwwAItnnct1L76yFSU6SpLTAlZDhXlEz97DsfZ5XFjX
+   Vt7BZybjOgjF26Y57x7jg+Zq1t/GS8HfUmFkq4rfhZn6vz8xspHnxoQ24
+   w==;
+X-CSE-ConnectionGUID: HpJuc3S0QlKBTiCAZdeEGA==
+X-CSE-MsgGUID: R/yYWV+URqCVJ1yLJtnG/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="83789255"
+X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; 
+   d="scan'208";a="83789255"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 08:23:19 -0700
+X-CSE-ConnectionGUID: fAmO+TmlRpmiBDAiEP2W2g==
+X-CSE-MsgGUID: xsORQ27NRSuvz1RHDfTk+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; 
+   d="scan'208";a="252727577"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.120]) ([10.245.244.120])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 08:23:17 -0700
+Message-ID: <fead429b4ee46bfb7cd1f1dee27912e155797fc6.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/ttm: Fix UAF on dma-buf attach failure for sg BOs
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Nitin
+ Gote	 <nitin.r.gote@intel.com>, intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org, Matthew Auld <matthew.auld@intel.com>
+Date: Wed, 01 Jul 2026 17:23:15 +0200
+In-Reply-To: <b32a5081-545f-4703-ad88-ce54cc1efe09@amd.com>
+References: <20260701062559.3731993-2-nitin.r.gote@intel.com>
+	 <dfed18b63a7b6cf164b3af7f65df8b4a1b9dbdf2.camel@linux.intel.com>
+	 <b32a5081-545f-4703-ad88-ce54cc1efe09@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f1e37685f03a1kunm2a8d56bf1a2157
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGBlPVh0YShhDSE9KQhlNHlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=laeO97dbyxKIjEgKBD+ucg0FHJrITvFZ5wZFl4UVNea1YbF3u72dFM2J+HU3LkpnGYFhnLnKgsU4nSjJbDwR7gL6IfWrE85oCux32xfQdJd81zpBAco7cDXsAimeUHVcJWxZpApMDlqLIqvS+ZdG4TteBAZHy0tt6uSzPBDtL3U=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=WSg39v+YA5YT+PhbNRAE4fCI3WcM3DFOR25HCKVnYFY=;
-	h=date:mime-version:subject:message-id:from;
 
-delta_mjpeg_read_header() scans a compressed MJPEG access unit byte by
-byte and passes the bytes after an SOF marker to delta_mjpeg_read_sof().
-The SOF parser then reads 16-bit big-endian fields directly from that
-byte stream.
+On Wed, 2026-07-01 at 15:20 +0200, Christian K=C3=B6nig wrote:
+> On 7/1/26 14:59, Thomas Hellstr=C3=B6m wrote:
+> > Hi, Nitin
+> >=20
+> > On Wed, 2026-07-01 at 11:56 +0530, Nitin Gote wrote:
+> > > When a dma-buf importer creates a ttm_bo_type_sg BO with bo-
+> > > > base.resv
+> > > pointing at the exporter's dma_buf->resv and
+> > > dma_buf_dynamic_attach()
+> > > fails, no dma_buf reference is held. The exporter can be freed
+> > > before
+> > > the delayed_delete worker calls dma_resv_lock(bo->base.resv),
+> > > causing
+> > > a
+> > > use-after-free:
+> > >=20
+> > > =C2=A0 Oops: general protection fault, probably for non-canonical
+> > > address
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x6b6b6b6b6b6b6b9c
+> > > =C2=A0 Workqueue: ttm ttm_bo_delayed_delete [ttm]
+> > > =C2=A0 RIP: 0010:mutex_can_spin_on_owner+0x3f/0xc0
+> > >=20
+> > > ttm_bo_individualize_resv() skips the resv swap for all sg BOs to
+> > > keep
+> > > the shared resv available for delayed_delete to release the dma-
+> > > buf
+> > > mapping. A BO whose attach never succeeded has no mapping to
+> > > release,
+> > > yet it keeps bo->base.resv pointing at the exporter resv that
+> > > delayed_delete later locks once the exporter is gone.
+> > >=20
+> > > Fix this by checking bo->base.import_attach, which is set only
+> > > after
+> > > a
+> > > successful attach. The check is placed after
+> > > dma_resv_copy_fences()
+> > > so
+> > > successful imports still copy fences to _resv before returning,
+> > > keeping
+> > > the shared resv for delayed_delete. Failed imports fall through
+> > > to
+> > > swap
+> > > resv to _resv, so delayed_delete never locks the stale exporter
+> > > resv.
+> > >=20
+> > > Closes:
+> > > https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8023
+> > > Fixes: d99fbd9aab62 ("drm/ttm: Always take the bo delayed cleanup
+> > > path for imported bos")
+> > > Cc: stable@vger.kernel.org=C2=A0# v6.8+
+> > > Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
+> > > Cc: Christian Konig <christian.koenig@amd.com>
+> > > Cc: Matthew Auld <matthew.auld@intel.com>
+> > > Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+> > > Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
+> > > ---
+> > > Hi Thomas/Christian,
+> > > Thank you for the review. Addressed the v3 review comments in
+> > > this=20
+> > > v4 version.
+> > >=20
+> > > v4:
+> > > - Moved import_attach check to after dma_resv_copy_fences() so
+> > > fences
+> > > =C2=A0 are copied before returning for successful imports (Thomas).
+> > > - Removed exporter-alive claim from commit message (Thomas).
+> >=20
+> > That's not sufficient. What I meant was that this invalidates the
+> > approach in its current form:
+> >=20
+> > A			B
+> > prime_import()	=09
+> > exported_get();
+> > exported_lock();
+> > bo_create();		lru_walk():
+> > attach_fail();		bo_get();
+> > bo_put();	=09
+> > exported_unlock();	bo_lock() // exporter_lock
+> > exporter_put();	=09
+> > exporter_free();=09
+> > 			bo_unlock(); //UAF
+> > 		=09
+> > There is no guarantee that the exporter stays alive until
+> > resv individualization happens.
+>=20
+> IIRC at least for AMDGPU that shouldn't be possible.
+>=20
+> We intentionally create the imported BO as empty shell without
+> ttm_resource object, so it is not on any LRU list.
+>=20
+> But to be honest I haven't looked into that in years, so it is
+> perfectly possible that this is messed up again.
 
-The SOF payload is not an aligned object. The marker scan can find the
-payload at any byte position, and the SOF layout also puts frame_height
-and frame_width after a one-byte sample_precision field. Those fields
-therefore sit at odd offsets within the payload even when the payload
-base happens to be 2-byte aligned.
+Yeah, this was recently changed in xe, but I'm not 100% sure we
+actually create a bo resource.
 
-Avoid casting the byte stream to __be16 pointers and use
-get_unaligned_be16() for the SOF length, height, and width fields.
+In any case if we add an assert
 
-This issue was detected by our static analysis tool and confirmed by
-manual audit. A focused UBSAN alignment validation of the same typed
-load shape reported a misaligned __be16 access in delta_mjpeg_read_sof().
+WARN_ON_ONCE(bo->type =3D=3D ttm_bo_type_sg && bo->res);
 
-Fixes: 433ff5b4a29b ("[media] st-delta: add mjpeg support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+just before / after=C2=A0
+bo->base.resv =3D &bo->base._resv;
 
-diff --git a/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c b/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
-index 90e5b2f72c82..849a5e118aec 100644
---- a/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
-+++ b/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
-@@ -4,6 +4,7 @@
-  * Author: Hugues Fruchet <hugues.fruchet@st.com> for STMicroelectronics.
-  */
- 
-+#include <linux/unaligned.h>
- #include "delta.h"
- #include "delta-mjpeg.h"
- 
-@@ -48,13 +49,13 @@ static int delta_mjpeg_read_sof(struct delta_ctx *pctx,
- 		goto err_no_more;
- 
- 	memset(header, 0, sizeof(*header));
--	header->length           = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->length           = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
- 	header->sample_precision = *(u8 *)(data + offset);
- 	offset += sizeof(u8);
--	header->frame_height     = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->frame_height     = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
--	header->frame_width      = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->frame_width      = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
- 	header->nb_of_components = *(u8 *)(data + offset);
- 	offset += sizeof(u8);
--- 
-2.34.1
+or something similar, we would hit that if the bo is published on the
+LRU and would need an additional fix in the driver.
 
+/Thomas
+
+
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > /Thomas
+> >=20
+> >=20
+> > >=20
+> > > v3:
+> > > - Dropped the xe-side reordering approach since importer_priv
+> > > must be
+> > > =C2=A0 valid when dma_buf_dynamic_attach() publishes the attachment.
+> > > - Per Christian's suggestion on the v1 thread, keyed the check on
+> > > =C2=A0 import_attach rather than removing the sg guard entirely.
+> > > - Fixes both xe and amdgpu in a single TTM patch.
+> > >=20
+> > > =C2=A0drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++++++++---------
+> > > =C2=A01 file changed, 15 insertions(+), 9 deletions(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+> > > b/drivers/gpu/drm/ttm/ttm_bo.c
+> > > index bcd76f6bb7f0..9b6341f69805 100644
+> > > --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> > > +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> > > @@ -203,15 +203,21 @@ static int ttm_bo_individualize_resv(struct
+> > > ttm_buffer_object *bo)
+> > > =C2=A0	if (r)
+> > > =C2=A0		return r;
+> > > =C2=A0
+> > > -	if (bo->type !=3D ttm_bo_type_sg) {
+> > > -		/* This works because the BO is about to be
+> > > destroyed and nobody
+> > > -		 * reference it any more. The only tricky case
+> > > is
+> > > the trylock on
+> > > -		 * the resv object while holding the lru_lock.
+> > > -		 */
+> > > -		spin_lock(&bo->bdev->lru_lock);
+> > > -		bo->base.resv =3D &bo->base._resv;
+> > > -		spin_unlock(&bo->bdev->lru_lock);
+> > > -	}
+> > > +	/*
+> > > +	 * Successfully imported sg BOs need the shared resv for
+> > > dma-buf
+> > > +	 * cleanup. Failed imports have no attachment or mapping
+> > > and
+> > > can
+> > > +	 * use the private _resv.
+> > > +	 */
+> > > +	if (bo->type =3D=3D ttm_bo_type_sg && bo-
+> > > >base.import_attach)
+> > > +		return 0;
+> > > +
+> > > +	/* This works because the BO is about to be destroyed
+> > > and
+> > > nobody
+> > > +	 * references it any more. The only tricky case is the
+> > > trylock on
+> > > +	 * the resv object while holding the lru_lock.
+> > > +	 */
+> > > +	spin_lock(&bo->bdev->lru_lock);
+> > > +	bo->base.resv =3D &bo->base._resv;
+> > > +	spin_unlock(&bo->bdev->lru_lock);
+> > > =C2=A0
+> > > =C2=A0	return r;
+> > > =C2=A0}
