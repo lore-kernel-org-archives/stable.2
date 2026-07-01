@@ -1,64 +1,62 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5193644C5
-	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 02:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374DA363C50
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 02:45:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782873907; cv=none; b=EHDHqniKTN4gfzvwcsMc9EgX87sckUrvzqlqVGNv9L3BQRq1pqoR7zFSOUcwriYizLrOOHI4cazHgVkPslK7ghYXQ1n7rksIBC9KeFz3YiJk3T2SDenngY4v4mU2yb2kHagBdRxNnofSukkfofOxSStHu8E4/t8YuMlnNZrVkaE=
+	t=1782873907; cv=none; b=LOrpRAVz6/NEwyNMFjU4IrMIMEUDRejMVa9VmeHxOOGsosRCzkAwOEZbh+AS9/eOIjPU78DyAJ9XH1lhO6tIAXPgdW8IgT6EN2zonoKMV75h4MDIx7VrOzfu/XU4ylGsCINlbBUwCKI2tGtC0uUXwLj1yz81oxhOaDCMpiUhfm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782873907; c=relaxed/simple;
-	bh=zF7LEpAl1TlGogqI/nguiy9uCHqliGxv7yw1OsiyGFI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rA98RxyEUllQVjjKaI8UA+l2n73S2FFjFiydz1s2ap52Iz8/QHAO7vsXCYRCB1JmMqxkJ3i3m8jLbmAMrNQafZogpuwEk5Bkx9YkngpYWsqPbJPqyj9MSiaKD1UZiQ5PrD0Itz7RzubYzrP1iL67rn1naCS59NVQJVsL4OZK2+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ny7lv/Ah; arc=none smtp.client-ip=209.85.210.175
+	bh=7AUf/dQ60ZUC10Vl9hsxxT4uc9WrQwe3UEf1UqLr0wY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=o18njS3knJtXukfh7scIkOpHh1mvjWPq/YSU7xUK23AP9DZBGpM76JuZobTUhYoSd7Vd5B4qfOgdH1nQTmIedc5VTShDvgWyAyuwbDNv096QBAi4EvZsebxzLgvTksPHyNDEB9CyigQyGLEE/DhR0t77wfpo5d9Ri9z9U41N1u0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=djkGsmFP; arc=none smtp.client-ip=209.85.210.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ny7lv/Ah"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-845b6d9bf39so65903b3a.1
-        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 19:45:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="djkGsmFP"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84536ecfc5bso140442b3a.2
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 19:45:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1782873905; x=1783478705; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lhdK0h9qN098ZBlBAGds8RFxtjxiKXaQo70sxkxPcBk=;
-        b=Ny7lv/AhXKbE+J8eaedOm7ftGo9ZpYRbCx7M3ZaZhp8zIjQfb07ckiGtJB3WcW86A9
-         BxXRFAZp8r/7br0QjiT05BDvfQUkACCPbiPw7LCkGoxhmrwwUGCluUvExN11fLNt6ohv
-         +zVBJhTG3gfj7hYTyiTeYJ8I+ILKQw3RwI90Y6o40Sae1kHKkXsqZFnweCoMb+tmJ7jX
-         13eO8kEgBJJZPfANjVQjuvvCogf+K6zp5OAJlb7hgVi8iHB+yss8J02nbw32gPSvuwP+
-         MLiTACMrU1wwOk3g82f/o11f6sKYJJj9VJ8Uxwct8MljNjXDEX5sdUGo+xiKZYyNSQ6u
-         N3qQ==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+OPd1GHODOckXDuq1kdFib8UHAUD5MfQDAIu/WdnbLI=;
+        b=djkGsmFP89aSY4BoXyf3nxtWGdVk3WtKIeQpNFWauRemCrvBbWhdGofi3fo0VBn+Vv
+         A5LXFACW6RQ9G5nzUmdA5Fcx5IKcRsF0f7y8rfAoFjIJXo5pyfE/n193pvxp9Wmc5Y2P
+         5Cp5uoLu5q2R0ilW77V5wQyEBH0s0iV+YT9Qwn57Qq3zbXl8DxtIHmHcw8FLSVeDHIKD
+         zKiBGeWkpu9IylrAjQv4AgHIxN+5AkuV6x9P14t5zjlGKext9dw7bTo0ZDm8361lMxSt
+         std/WHIAeK1pCYbXXBj+j1oAbXGuZgpcOIT9PxfznHnPkp/DsCZ2y9QPSBhphmnQiWHY
+         8ueA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1782873905; x=1783478705;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=lhdK0h9qN098ZBlBAGds8RFxtjxiKXaQo70sxkxPcBk=;
-        b=n4nDYfZVKlUmKD+uzSgs+JCbiYu7dE9lD4qtczSxm/V/8hX2SPPGv3PP669KZ3OWJo
-         5tymi3cwes3fxcDuupM9BZjeVCaPovFmeA63CedsRiHtsT4CZSYf1URuyDN91KyKlwP9
-         bPt24xTaVICLuBPrpLHmejV6a6fC0k3ti2N5XvR/XfeFhZdlvg5ouJ2cYEx9moJo3xhF
-         v7qmELUH5FK3XMR/W6zxZ2abTM5AIVxbOrbsFXeAqjEprElmDXx7GMHnyrFAKSwc5NGe
-         +aMxwa0ZiJdmP3/fxunCn7nnWo+8l9QoWZrIrUWociscFO1+vOqixinXm0JXyI77pmh/
-         G3Qg==
-X-Gm-Message-State: AOJu0Yye1JiA5ZKoe1JoU0pJrchbm9W57ktsgiAwciclFmtIosbyVxvt
-	xh6SpTsqO5nlJKJ1TBjNM27k6QPPAvDxWRjy7cQCffRLvB2Y+dPFSb+n
-X-Gm-Gg: AfdE7cmnONJovczy/AlC+iHvTIApV3nq0cC37Fhy52kFS2gryeyzVLc0cUTZt9bc9ux
-	RN9eWNu5GdZHZGVDdO6FnLnoKIwscUZbGQvP2AKcKvKxMAMszKB92ntRm4SkGhMgkK1E8+W5u+d
-	bg0Amusm/9TJE25+TD4H0fdTIUA58WIJ/K4xZM2pH5S8p5LCVqIV07gnR+vU560ikA1kkT4kr+x
-	8CxS7S2P4ELaX2y4H+ikq79JJQoFyHO55sgni2EEfsIhCk8r6h6ki5uFDNkyXux/tPe3ma5y2Xz
-	YLVRT0Oqx7YQ3AiOd6gkAKppBsJScJtBf8uLa7D1X/zSqWYK5V7kJV4pIX5kpeX+FG4fXCjs5cY
-	RaDTdIWKa/+DW2QPd8EWq+NpWv6p2AZnHflraeC/UccKyWaYwnz0zdYTh42LmakGhqGMEQaASl2
-	7ZCw0UX3FnN0f3a52O70aId6yolPHBHkYrXzU=
-X-Received: by 2002:a05:6a00:3487:b0:845:df4a:2a2c with SMTP id d2e1a72fcca58-847a81c1ea7mr3414947b3a.8.1782873904807;
-        Tue, 30 Jun 2026 19:45:04 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+OPd1GHODOckXDuq1kdFib8UHAUD5MfQDAIu/WdnbLI=;
+        b=Jp90QRqcyZV+xOGmm+WegnIU5IcQo6YFsi8JEdB3by6Szi6ItzL1k53GyGbblToNLv
+         zxRzHb5ZMa4qZQ3Z61DfVtyksMIWVWByCEWtdONx8dz/ShAvJslQAAFqW5+DmKctNhh4
+         +ZSqHCD9Df6WxZpxPuC2q6CEDOO3lRUUiAVoYz8ItrcoFDGbcqzScNMH/eYT3upy4SjR
+         oaLOpDcLwMI5hHM1hnmVoNc9eixa2j558nFlBtFck8EltEghQ3u/zhXTpkAPr2oPl2c6
+         tHop8d0tZuHcvLyLbP4GGFRUMYK0AVzdzcPoyr4aeE3cSzXVLQcthLLZURS70sPPT/P2
+         f0fA==
+X-Gm-Message-State: AOJu0YyFDpOmxFwJDScKxFzszjbuiNaNsxxLHcrkfc7PR40D5CodoIqn
+	UCGFzEt3y/Dwvj8dxSvEtXZ3vABt0oCNlwurWJ1vJHeBKOW0AJ+B2fVB
+X-Gm-Gg: AfdE7cmWHDCAroxIeeqqQ9ZUlUgIoh8mc3sjNt8HpGJSZoECHjiVyO41ysLEfozuLEx
+	S3DtutoHRU0dL9QcCHMKIvmyEQEE6Y7zyxO6NZLM8nhsJqEhRzPffmP7fEEt+RcYbl64a1dh9Nj
+	aOM8oX+8S+a3PL6l++KZkefKfw5NHKuggK/RvszJZhXfd5ZdUN/1w+mdzyhZ/lv6ugVtDZf8T2d
+	cJUhkGQUx0EszN9RFwAPMzCqxTTTt4NBPz1qF8uhMYj1VLuSXvNur+7bcDzqWMilJt8MJEnWEVj
+	7K+kb3am/G3KNajJuhTSbi9bBTUqbv8RiDlqzLNu+Nu6/XmRXe/TJrMqr3i/zCSC2ZZrBpeVr0Q
+	IX29Jpxnszu1k/movaHUWzt18XxjuPA2LviYZ92I1iFJG7edLg4zz8kNX0GbL5HTXRNxW0zUvu/
+	SZLZ7kSMhptZ1GkPBJGg12pjRNCgr9BUoDMN4=
+X-Received: by 2002:a05:6a00:4089:b0:845:dde9:ab62 with SMTP id d2e1a72fcca58-847addb1bd5mr2956528b3a.19.1782873905310;
+        Tue, 30 Jun 2026 19:45:05 -0700 (PDT)
 Received: from twhmp6px (mxsmtp211.mxic.com.tw. [211.75.127.162])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847a02d41c0sm2993631b3a.33.2026.06.30.19.45.04
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8479fff9744sm3145620b3a.14.2026.06.30.19.45.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 30 Jun 2026 19:45:04 -0700 (PDT)
 Received: from hqs-appsw-a2o.mp600.macronix.com (unknown [172.17.236.67])
-	by twhmp6px (Postfix) with ESMTPS id 99FE2416A066;
+	by twhmp6px (Postfix) with ESMTPS id 96B64416A065;
 	Wed,  1 Jul 2026 10:45:02 +0800 (CST)
 From: Cheng Ming Lin <linchengming884@gmail.com>
 To: stable@vger.kernel.org
@@ -71,12 +69,10 @@ Cc: tudor.ambarus@linaro.org,
 	linux-mtd@lists.infradead.org,
 	alvinzhou@mxic.com.tw,
 	Cheng Ming Lin <chengminglin@mxic.com.tw>
-Subject: [PATCH 6.12.y 2/2] mtd: spi-nor: macronix: add support for mx66{l2, u1}g45g
-Date: Wed,  1 Jul 2026 10:42:04 +0800
-Message-Id: <20260701024204.2730472-2-linchengming884@gmail.com>
+Subject: [PATCH 6.12.y 1/2] mtd: spi-nor: macronix: Add post_sfdp fixups for Quad Input Page Program
+Date: Wed,  1 Jul 2026 10:42:03 +0800
+Message-Id: <20260701024204.2730472-1-linchengming884@gmail.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260701024204.2730472-1-linchengming884@gmail.com>
-References: <20260701024204.2730472-1-linchengming884@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,44 +83,90 @@ Content-Transfer-Encoding: 8bit
 
 From: Cheng Ming Lin <chengminglin@mxic.com.tw>
 
-commit 797bbaa7531f75985b199e484451fa3f954382b3 upstream.
+commit 798aafeffb369c5eb36e406b18970ef27baa820d upstream.
 
-Due to incorrect values in the 4-BAIT table for these two flash IDs,
-it is necessary to add these two flash IDs with fixups.
+Although certain Macronix NOR flash support the Quad Input Page Program
+feature, the corresponding information in the 4-byte Address Instruction
+Table of these flash is not properly filled. As a result, this feature
+cannot be enabled as expected.
+
+To address this issue, a post_sfdp fixups implementation is required to
+correct the missing information.
 
 Signed-off-by: Cheng Ming Lin <chengminglin@mxic.com.tw>
-Link: https://lore.kernel.org/r/20250211063028.382169-3-linchengming884@gmail.com
+Link: https://lore.kernel.org/r/20250211063028.382169-2-linchengming884@gmail.com
 Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
 ---
- drivers/mtd/spi-nor/macronix.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/mtd/spi-nor/macronix.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
 diff --git a/drivers/mtd/spi-nor/macronix.c b/drivers/mtd/spi-nor/macronix.c
-index 678ebaa220ca..6127565372c5 100644
+index ea6be95e75a5..678ebaa220ca 100644
 --- a/drivers/mtd/spi-nor/macronix.c
 +++ b/drivers/mtd/spi-nor/macronix.c
-@@ -110,6 +110,10 @@ static const struct flash_info macronix_nor_parts[] = {
+@@ -28,8 +28,26 @@ mx25l25635_post_bfpt_fixups(struct spi_nor *nor,
+ 	return 0;
+ }
+ 
++static int
++macronix_qpp4b_post_sfdp_fixups(struct spi_nor *nor)
++{
++	/* PP_1_1_4_4B is supported but missing in 4BAIT. */
++	struct spi_nor_flash_parameter *params = nor->params;
++
++	params->hwcaps.mask |= SNOR_HWCAPS_PP_1_1_4;
++	spi_nor_set_pp_settings(&params->page_programs[SNOR_CMD_PP_1_1_4],
++				SPINOR_OP_PP_1_1_4_4B, SNOR_PROTO_1_1_4);
++
++	return 0;
++}
++
+ static const struct spi_nor_fixups mx25l25635_fixups = {
+ 	.post_bfpt = mx25l25635_post_bfpt_fixups,
++	.post_sfdp = macronix_qpp4b_post_sfdp_fixups,
++};
++
++static const struct spi_nor_fixups macronix_qpp4b_fixups = {
++	.post_sfdp = macronix_qpp4b_post_sfdp_fixups,
+ };
+ 
+ static const struct flash_info macronix_nor_parts[] = {
+@@ -85,11 +103,13 @@ static const struct flash_info macronix_nor_parts[] = {
+ 		.size = SZ_64M,
+ 		.no_sfdp_flags = SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
+ 		.fixup_flags = SPI_NOR_4B_OPCODES,
++		.fixups = &macronix_qpp4b_fixups,
+ 	}, {
+ 		.id = SNOR_ID(0xc2, 0x20, 0x1b),
+ 		.name = "mx66l1g45g",
  		.size = SZ_128M,
  		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 		.fixups = &macronix_qpp4b_fixups,
-+	}, {
-+		/* MX66L2G45G */
-+		.id = SNOR_ID(0xc2, 0x20, 0x1c),
 +		.fixups = &macronix_qpp4b_fixups,
  	}, {
  		.id = SNOR_ID(0xc2, 0x23, 0x14),
  		.name = "mx25v8035f",
-@@ -165,6 +169,10 @@ static const struct flash_info macronix_nor_parts[] = {
+@@ -137,18 +157,21 @@ static const struct flash_info macronix_nor_parts[] = {
+ 		.size = SZ_64M,
  		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
  		.fixup_flags = SPI_NOR_4B_OPCODES,
- 		.fixups = &macronix_qpp4b_fixups,
-+	}, {
-+		/* MX66U1G45G */
-+		.id = SNOR_ID(0xc2, 0x25, 0x3b),
++		.fixups = &macronix_qpp4b_fixups,
+ 	}, {
+ 		.id = SNOR_ID(0xc2, 0x25, 0x3a),
+ 		.name = "mx66u51235f",
+ 		.size = SZ_64M,
+ 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
+ 		.fixup_flags = SPI_NOR_4B_OPCODES,
 +		.fixups = &macronix_qpp4b_fixups,
  	}, {
  		.id = SNOR_ID(0xc2, 0x25, 0x3c),
  		.name = "mx66u2g45g",
+ 		.size = SZ_256M,
+ 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
+ 		.fixup_flags = SPI_NOR_4B_OPCODES,
++		.fixups = &macronix_qpp4b_fixups,
+ 	}, {
+ 		.id = SNOR_ID(0xc2, 0x26, 0x18),
+ 		.name = "mx25l12855e",
 -- 
 2.25.1
 
