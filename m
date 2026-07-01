@@ -1,306 +1,142 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9546E372EEF
-	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 16:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EBC3750DB;
+	Wed,  1 Jul 2026 16:39:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782923688; cv=none; b=sumxyYLEcvBCecXQVtSwajLRzlp4m2fvpECsSbhNvNdKyd2O0pbmKtv7r8DBd4d9/xLjBRqye6S4478kafYTFXFOlgS7VSuIb/bmfnO05/1u3EX62gTXdnBvtOSwWfhss6JUXrqkO0cAC3PluI1zrXwDd/x0VU87QHaGlnQK9Mc=
+	t=1782923951; cv=none; b=Ka4/NkhUSdEwREgGAHVPWUsp31LcBcMggR1E0pqRVljcUXPq3zoCLoMZPrK6f8FF9lp4vN2PxZqInJZI0aVAMv2HNXaX5RzzLGZ+1NX4H6NrJZeQ46rZqpZTYQ+RiX+cgGRtQnfYge/ol3KONjj3b/JS2G4T2gvmW32KSK27AEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782923688; c=relaxed/simple;
-	bh=IgxZJkAX83JEoUd7zhGT0HcnVVm/OyxbDgl2DsEOM60=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rjnj/gkQyFYQYOf4/leIL6QWGKvaIj8yndyU8NHDESSop5XX3dGl50b5YVBMTmCeyLwohzklu80acXdBpQLzzMyi5RDp1JpkaZNAW0AflWaQpClpF7FO3OLU5QSk9CKdKcbiCKPgUNieUJLkC3Ig5oK1SjG7CktzbPeWJtpkrOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VF7TYWZE; arc=none smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782923951; c=relaxed/simple;
+	bh=mTLpAMVMzHCWtZWJCRnhXqV2f49vXr3MZyHU/ofR0vU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OnhxjsnKAcT7u3RwlWeHlLpdEyzEEwDzgrvG7tAfnhxFyplzOrLSY2Vv8YJkPsxFhSbb0CpMvMGoB2J8t5mmifo0InA54Fil0C2SwKr+ImnO7/IlOjYpHjEIWcqTK4LcL8x88NBMHnbz7Gbrdfty1WnO4qyH6wF3IZjYSx4a224=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WZlT1uM3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VF7TYWZE"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7e9ef94c0e2so420390a34.3
-        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 09:34:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782923683; x=1783528483; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1aq9FrQ86evQJPeL1WihgSaD08JDHC1d1jP4T/r4tmg=;
-        b=VF7TYWZEJtU6xvbF+N5I18va+RpqBL5W9T8utPvXEVC2XCAy+yl8Hqs+DyusYprh6/
-         oS5zCXsbtb1yQCnCNNyPbFoijcq2wiCeV+oVDfFUBVnIfRKhnLYmLFWCTjE5SKHFUfMc
-         ag8e7gx6ozqOf0NzfFGZix2ZFVZAnBcp9K33zMDW+Pyzdv6bR1n999XzawPZ3LLTPxyh
-         tvMyivJLY7K6QYGyU6/cQ0p7z8YBo0PHz46qTuvphTNTgFV46GnkwBdruB2HN+1V8oXv
-         /dSEcOw+t6F34jewZQEQ01skUi2QER/unrWUx+IGVt46r/a2XUzsQT6cozu9EEDGDnt4
-         w8Pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782923683; x=1783528483;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1aq9FrQ86evQJPeL1WihgSaD08JDHC1d1jP4T/r4tmg=;
-        b=cKLi1il0X46nb+tNIXBcVrU1egA8KGnzKriq290ndwInMSbr/A1nYw9fWTs2a5CAKW
-         ChPCaOkCxaiTvfjeUFfBIWfe9q/tbZcySQuR+eBkt9ThkPy+FLfHzy53iRufVtioe4kY
-         nTGjRisO217U64xhKlYZW60Qa+jhd5eyDH21I96z21kzSIEVFE5FgqVmrJNZUtIwazE+
-         J0F6ToguN2kN76RQbMfXAfMnudICacHzndFVZ6s7A5Yu5pVvKX4iTBpgnnwbBAY9wYaI
-         YcchqESxXhP/kJfxj7087vAUYiKdMrs5dA/BCZh8JBOPZXVZXPxb7ISom3xBdK+biE7G
-         BTag==
-X-Forwarded-Encrypted: i=1; AFNElJ/B5CGT6aIKKT4Z9ogIdOYctpporaFjt5uc8/6Fz1OqBso2/V1lGbYq75yLfEmgTh82ZrPOhCU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSaiDXNpgw27r9znyY305N9bga551fWxstA01lAVAnHc2db1JV
-	va4dpiUnw9hN72C4YHpBNSQRKYuw1aN2WmWJHjPlQHIeB65DGnhamkR1
-X-Gm-Gg: AfdE7cl0ApSe9ayJkX613kqFTP1I2TsO+Teqtd9WoZ/lyRG5nxitzv3mCLaGfMuHr0w
-	7Dl58BxQ3hho9QtEB3dGqbTXz7epnyf1TXi54oDH3lFu8z5GLXY5qxJ9CYjXx06IJexf0qred3m
-	Evn46Q6H2LKQS62+RVgtszKrniA9AFwbtohXxpb8pHOpN1HvInKtL9TgcrI+LXMg5Z6FdeDyCaY
-	Q7fsUDZ1TF67lqmX9IjGX21+sAz/gMShwDHDV8OQ6uDUiL+SAVTrs9TjL6Jspmp8KCbax1FF+rS
-	FT5Ws1rZ5eRUHetEZpPOIOcjFEM5oRc8xJ9IGGkmJAl+3tG1+aLsS9hAPgDhZLdAVAbieylyLsH
-	0kRXYkeJ2ozEIkCCIhDc0AIi4si9nuKGoXVbUdCi7m00NJNZVS0VuZ54zRW2LneqoC0AXKDSHY9
-	gNBd9k4mHtU7qw7Wux5j4p9b/muG2yt7gQwQ==
-X-Received: by 2002:a05:6830:3784:b0:7e9:c2d8:1789 with SMTP id 46e09a7af769-7eb504be755mr1070845a34.18.1782923683262;
-        Wed, 01 Jul 2026 09:34:43 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:50::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7eb542d017csm410999a34.8.2026.07.01.09.34.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 09:34:42 -0700 (PDT)
-Date: Wed, 1 Jul 2026 09:34:35 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: netdev@vger.kernel.org, Jason Wang <jasowang@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>, kvm@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org, Stefan Hajnoczi <stefanha@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	stable@vger.kernel.org, Brien Oberstein <brienpub@gmail.com>
-Subject: Re: [PATCH net 1/2] vsock/virtio: collapse receive queue under
- memory pressure
-Message-ID: <akVBmydgSd0Eb46/@devvm29614.prn0.facebook.com>
-References: <20260626134823.206676-1-sgarzare@redhat.com>
- <20260626134823.206676-2-sgarzare@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WZlT1uM3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 189D21F000E9;
+	Wed,  1 Jul 2026 16:39:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782923949;
+	bh=rFi7za6TMIBXh1ci1ZaV/CadCFF1+ZDP7ntbr0l7lLY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WZlT1uM3Cq+PDML6CkOmUj7mo97tNFxZP6HbxcHpAqhes7scZkbIPp0D4tbK5mEGv
+	 BGs6DmxNwmtpzjc+Db9fe9RA7xcpaPec+dqMhRmst7RG97GcBbE93y3iQdBlcuxnqC
+	 h2JT/WvFiF141jwwC5wpI4g1LpFKBTYtoVxGX2lyCgQAyjku/e96afZ7fyc07iEWJd
+	 vXSESozov16GQVICdGUOxfTmcAYhvOkqD/IUR4VCEOvmrLY+x0oRRoI9H/1WSmcBZB
+	 H6sb2CcAVFi+PPgrIdGfWyyY6w+SboHdsMcE2Sjd/OCGVPbTPxnc1NsYJ3CFl62tK6
+	 CaPldLmm+HrMQ==
+Message-ID: <d9f98e2f-d2c6-447a-b3b1-17f07d1fac3f@kernel.org>
+Date: Wed, 1 Jul 2026 18:39:04 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260626134823.206676-2-sgarzare@redhat.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region
+ registration
+To: Sean Christopherson <seanjc@google.com>
+Cc: Pankaj Gupta <pankaj.gupta@amd.com>, pbonzini@redhat.com,
+ tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
+ bp@alien8.de, x86@kernel.org, thomas.lendacky@amd.com, hpa@zytor.com,
+ yangge1116@126.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260701144543.39582-1-pankaj.gupta@amd.com>
+ <1cc159b9-5f94-4524-8e03-efe91601ccfc@kernel.org>
+ <akVAnGuiuJttE5-6@google.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <akVAnGuiuJttE5-6@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jun 26, 2026 at 03:48:22PM +0200, Stefano Garzarella wrote:
-> From: Stefano Garzarella <sgarzare@redhat.com>
+On 7/1/26 18:30, Sean Christopherson wrote:
+> On Wed, Jul 01, 2026, David Hildenbrand (Arm) wrote:
+>> On 7/1/26 16:45, Pankaj Gupta wrote:
+>>> commit 7e066cb9b71a ("KVM: SEV: Use long-term pin when registering encrypted memory regions")
+>>> added FOLL_LONGTERM to sev_mem_enc_register_region() so anonymous guest RAM is
+>>> migrated out of MIGRATE_CMA/ZONE_MOVABLE before a long term pin. This breaks
+>>> virtio-pmem which has file backed (MAP_SHARED) host mapping where GUP rejects
+>>> FOLL_WRITE | FOLL_LONGTERM since:
+>>>
+>>> commit 8ac268436e6d ("mm/gup: disallow FOLL_LONGTERM GUP-nonfast writing to file-backed mappings")
+>>> commit a6e79df92e4a ("mm/gup: disallow FOLL_LONGTERM GUP-fast writing to file-backed mappings").
+>>>
+>>> Drop FOLL_LONGTERM when registering encrypted memory regions and restore
+>>> the previous behavior.
+>>
+>> But that breaks the original issue of breaking ZONE_MOVABLE/CMA?
 > 
-> When many small packets accumulate in the receive queue, the skb overhead
-> can exceed buf_alloc even while the payload is within bounds. This causes
-> virtio_transport_inc_rx_pkt() to reject packets, leading to connection
-> resets during large transfers under backpressure.
+> Ya.
 > 
-> The issue was reported by Brien, who has a reproducer, but it is also
-> easily reproducible with iperf-vsock [1] using a small packet size:
+>> If it is a longterm pin, it must use FOLL_LONGTERM. :/
 > 
->   iperf3 --vsock -c $CID -l 129
-> 
-> which fails immediately without this patch but with commit 059b7dbd20a6
-> ("vsock/virtio: fix potential unbounded skb queue").
-> 
-> Inspired by TCP's tcp_collapse() which solves a similar problem, add
-> virtio_transport_collapse_rx_queue() that walks the receive queue and
-> re-copies data into compact linear skbs to reduce the overhead.
-> 
-> The collapse is triggered from virtio_transport_recv_enqueue() when
-> virtio_transport_inc_rx_pkt() fails. A pre-scan counts the eligible bytes
-> to size each allocation precisely, avoiding waste for isolated small
-> packets. Partially consumed skbs are kept as-is to preserve
-> buf_used/fwd_cnt accounting, EOM-marked skbs to maintain SEQPACKET
-> message boundaries, and skbs already larger than the collapse target
-> because they already have a good data-to-overhead ratio.
-> 
-> [1] https://github.com/stefano-garzarella/iperf-vsock
-> 
-> Fixes: 059b7dbd20a6 ("vsock/virtio: fix potential unbounded skb queue")
-> Cc: stable@vger.kernel.org
-> Reported-by: Brien Oberstein <brienpub@gmail.com>
-> Closes: https://lore.kernel.org/netdev/618701dd023e$063de350$12b9a9f0$@gmail.com/
-> Tested-by: Brien Oberstein <brienpub@gmail.com>
-> Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
-> ---
->  net/vmw_vsock/virtio_transport_common.c | 148 +++++++++++++++++++++++-
->  1 file changed, 146 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-> index 09475007165b..304ea424995d 100644
-> --- a/net/vmw_vsock/virtio_transport_common.c
-> +++ b/net/vmw_vsock/virtio_transport_common.c
-> @@ -420,6 +420,137 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
->  	return ret;
->  }
->  
-> +static bool virtio_transport_can_collapse(struct sk_buff *skb,
-> +					  unsigned int size)
-> +{
-> +	/* skbs that are partially consumed, mark a SEQPACKET message boundary,
-> +	 * or are already large enough should not be collapsed: they either
-> +	 * need special accounting, carry protocol state, or already have a
-> +	 * good data-to-overhead ratio.
-> +	 */
-> +	if (VIRTIO_VSOCK_SKB_CB(skb)->offset)
-> +		return false;
-> +	if (le32_to_cpu(virtio_vsock_hdr(skb)->flags) & VIRTIO_VSOCK_SEQ_EOM)
-> +		return false;
-> +	if (skb->len >= size)
-> +		return false;
-> +	return true;
-> +}
-> +
-> +/* Iterate through the packets in the queue starting from the current skb to
-> + * count the number of bytes we can collapse.
-> + */
-> +static unsigned int
-> +virtio_transport_collapse_size(struct sk_buff *skb,
-> +			       struct sk_buff_head *queue,
-> +			       unsigned int max_size)
-> +{
-> +	unsigned int target = skb->len - VIRTIO_VSOCK_SKB_CB(skb)->offset;
-> +
-> +	while ((skb = skb_peek_next(skb, queue)) &&
-> +	       virtio_transport_can_collapse(skb, max_size)) {
-> +		unsigned int len = skb->len - VIRTIO_VSOCK_SKB_CB(skb)->offset;
-> +
-> +		if (len > max_size - target)
-> +			return target;
-> +
-> +		target += len;
-> +	}
-> +
-> +	return target;
-> +}
-> +
-> +/* Called under lock_sock when skb overhead exceeds the budget. */
-> +static void virtio_transport_collapse_rx_queue(struct virtio_vsock_sock *vvs)
-> +{
-> +	/* Use the same linear allocation threshold as virtio_vsock_alloc_skb()
-> +	 * to avoid adding pressure on the page allocator.
-> +	 */
-> +	unsigned int collapse_max = SKB_MAX_ORDER(VIRTIO_VSOCK_SKB_HEADROOM,
-> +						  PAGE_ALLOC_COSTLY_ORDER);
-> +	struct sk_buff *skb, *next_skb, *new_skb = NULL;
-> +	struct sk_buff_head new_queue;
-> +
-> +	__skb_queue_head_init(&new_queue);
-> +
-> +	skb_queue_walk_safe(&vvs->rx_queue, skb, next_skb) {
-> +		struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> +		u32 src_off = VIRTIO_VSOCK_SKB_CB(skb)->offset;
-> +		u32 src_len = skb->len - src_off;
-> +		bool keep = false;
-> +
-> +		if (!virtio_transport_can_collapse(skb, collapse_max)) {
-> +			/* Finalize pending collapsed skb to preserve packet
-> +			 * ordering.
-> +			 */
-> +			if (new_skb) {
-> +				__skb_queue_tail(&new_queue, new_skb);
-> +				new_skb = NULL;
-> +			}
-> +			keep = true;
-> +			goto next;
-> +		}
-> +
-> +		/* Finalize if this packet won't fit in the remaining tailroom,
-> +		 * so we can allocate a right-sized new_skb.
-> +		 */
-> +		if (new_skb && src_len > skb_tailroom(new_skb)) {
-> +			__skb_queue_tail(&new_queue, new_skb);
-> +			new_skb = NULL;
-> +		}
-> +
-> +		if (!new_skb) {
-> +			unsigned int alloc_size;
-> +
-> +			alloc_size = virtio_transport_collapse_size(skb, &vvs->rx_queue,
-> +								    collapse_max);
-> +
-> +			/* Only this skb's data is eligible, nothing to merge
-> +			 * with. Keep as-is.
-> +			 */
-> +			if (alloc_size <= src_len) {
-> +				keep = true;
-> +				goto next;
-> +			}
-> +
-> +			new_skb = virtio_vsock_alloc_linear_skb(alloc_size +
-> +					VIRTIO_VSOCK_SKB_HEADROOM, GFP_KERNEL);
-> +			if (!new_skb)
-> +				goto out;
-> +
-> +			memcpy(virtio_vsock_hdr(new_skb), hdr,
-> +			       sizeof(struct virtio_vsock_hdr));
-> +			virtio_vsock_hdr(new_skb)->len = 0;
-> +		}
-> +
-> +		/* Cannot fail since src_off/src_len are within bounds, but if
-> +		 * it does, discard new_skb to avoid queuing corrupted data.
-> +		 */
-> +		if (WARN_ON_ONCE(skb_copy_bits(skb, src_off,
-> +					       skb_put(new_skb, src_len),
-> +					       src_len))) {
-> +			kfree_skb(new_skb);
-> +			new_skb = NULL;
-> +			goto out;
-> +		}
-> +
-> +		le32_add_cpu(&virtio_vsock_hdr(new_skb)->len, src_len);
-> +		virtio_vsock_hdr(new_skb)->flags |= hdr->flags;
-> +
-> +next:
-> +		__skb_unlink(skb, &vvs->rx_queue);
-> +		if (keep)
-> +			__skb_queue_tail(&new_queue, skb);
-> +		else
-> +			consume_skb(skb);
-> +	}
-> +out:
-> +	if (new_skb)
-> +		__skb_queue_tail(&new_queue, new_skb);
-> +
-> +	skb_queue_splice(&new_queue, &vvs->rx_queue);
+> Heh, well, KVM showed that that's not entirely true for many years :-)
 
-I think the new skbs will also need skb_set_owner_sk_safe(skb, sk)
-when adding to rx_queue?
+What exactly do you mean? KVM MMUs sync through memory notifiers and doesn't
+need this.
 
-Best,
-Bobby
+It's only our "interesting" CoCo code :)
 
-> +}
-> +
->  static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
->  					u32 len)
->  {
-> @@ -1363,8 +1494,21 @@ virtio_transport_recv_enqueue(struct vsock_sock *vsk,
->  	spin_lock_bh(&vvs->rx_lock);
->  
->  	can_enqueue = virtio_transport_inc_rx_pkt(vvs, len);
-> -	if (!can_enqueue)
-> -		goto out;
-> +	if (!can_enqueue) {
-> +		/* Try to collapse the receive queue to reduce skb overhead and
-> +		 * make room for this packet.
-> +		 * Unlock rx_lock since the collapse may sleep or, in any case,
-> +		 * take some time to collapse the skbs, but this is safe, since
-> +		 * sk_lock is held by caller so no one else can enqueue or
-> +		 * dequeue.
-> +		 */
-> +		spin_unlock_bh(&vvs->rx_lock);
-> +		virtio_transport_collapse_rx_queue(vvs);
-> +		spin_lock_bh(&vvs->rx_lock);
-> +		can_enqueue = virtio_transport_inc_rx_pkt(vvs, len);
-> +		if (!can_enqueue)
-> +			goto out;
-> +	}
->  
->  	if (le32_to_cpu(hdr->flags) & VIRTIO_VSOCK_SEQ_EOM)
->  		vvs->msg_count++;
-> -- 
-> 2.54.0
 > 
-> 
+> Assuming we can't solve this some other way, and that there are "real" use cases
+> that were broken by adding FOLL_LONGTERM, maybe this as a hack-a-fix?
+
+Well, it's not a driver's decision to make. :P
+
+But, can we actually whitelist virtio-pmem in GUP code somehow?
+
+I mean, it does not suffer from the documented writeback issue, that we wanted
+to protect from. We similarly allow shmem and hugetlb there.
+
+
+-- 
+Cheers,
+
+David
