@@ -1,175 +1,142 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.61.103])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38FCD1CAA7D;
-	Wed,  1 Jul 2026 06:22:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.61.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235EA2DB78C
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 06:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782886929; cv=none; b=JjKcjMgF4IZCmKd5dp+uJPj/Ti/BQ/Kt3U5LqpYpLd5zALS53V/kVbVQWqg8ulw/yp5lrB4kk6yxhClLscvezLwBxn7GDwfzHa2+Xx6lHG0Q9DSEdsUEI8xUn1Hx85eYlNRk9XjV3rdog1t7thvcLx5HJ08sTdJq2nUD2NycbwQ=
+	t=1782887961; cv=none; b=FFp3qm3jqy/I998KfnxUvXwFHRF+iSbDEFkiQH5etY1H4iOh6l09xb93TmUXmyq4CyR8TDw7igO7MhRk/6qyWi4AaUFbXB7RATT3o+uVLkU+nKNeg2qP9mhhN2L8Zp3sUWrrButQ6R8ktVondjUmkffKtPiZWSm+y2g8Htt/BZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782886929; c=relaxed/simple;
-	bh=rp90KJFs22SyjGf2Hk3J7Q7l91PBQxjIILxn6RvvY+M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fy1rFibPZ/NMxNvVNuUlcqbajX7LTTIH/esyzd1lgX7IG+4dVPlUR9TotTVjAbUbwaE0Xtbaeve+k9fiY21vtSfgRL0uRBUvO5ryTsBlbsoLg3J7nr5lBP5B4Ht3ik2xNv1rOxBs3CYi9ukdcD1E2iY7eLzbSyVle9a+4Xug8mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=g4zUQNpf; arc=none smtp.client-ip=188.68.61.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1782887961; c=relaxed/simple;
+	bh=c3UXkmSf/U+KQu2LbfQINtMaYbmZc76jB9bbaDgnsC0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=utDo+wdQq4hkj1ZtamVY2KCqQn/GpIsWAuBsNaR0RI++gYC7YgoRRGHiztnubG4MeZ5D+ftGXnV6VmEaI1V4TKn/n6sl2OjfoIOOckIAi2N2vX4XMGgekdjrLYKvlY+R48DvwIhNu7V/ueOxEXhk6v2yDaYSRp5KTxRkKewDTt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EuxziFIJ; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="g4zUQNpf"
-Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4gqqXC5GYNz8F0Z;
-	Wed,  1 Jul 2026 08:16:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1782886571;
-	bh=rp90KJFs22SyjGf2Hk3J7Q7l91PBQxjIILxn6RvvY+M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=g4zUQNpfJa61aEi2tVmdwfjBlUEOaHTBD6TeHnpae3Gauuf3u499YLSwlxzx607z5
-	 fxczv1T92tXpFjMgoZtRFJ/ik7KovZRl69bmFf0VQjxI+PV9EBEWruVWkc8N39LkwM
-	 YA+G4JVW8J9reLpC8yKaWc9D0ZrLMwmOybv8i+mpqz+hvFGFz/H4oIIKqvnWogy4Lc
-	 LCmwFml4B2ny64ZREkUfyKU3SYMFCytAdHYuFEQW9evW4cBMRBT6eFHZ9jV1LeXFq2
-	 slmwUl9P2YWY4PbcSqGwYsLJCKFqEnE35SNCr1YgSOoM9QnXIKxAx7VhEUB9K9tAVT
-	 7PL3R6rd9+fNQ==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4gqqXC4Y7Pz8F0W;
-	Wed,  1 Jul 2026 08:16:11 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4gqqXB0S2bz8sb0;
-	Wed,  1 Jul 2026 08:16:10 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 79E145F961;
-	Wed,  1 Jul 2026 08:16:08 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <dc7657b2-e3d5-4777-af52-1169fe743761@leemhuis.info>
-Date: Wed, 1 Jul 2026 08:16:07 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EuxziFIJ"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-474e7ba9fd6so131353f8f.1
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 23:39:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782887957; x=1783492757; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=L9lS47Kg6rDUlabcBxfm0AD8NjNyWC3LZqIIiOY+ZJo=;
+        b=EuxziFIJv5R/EkQllUWaovqol6oj4qfkobLr0ujMtxhcZF93swOGZeEokU3Dp8qJLI
+         d5Q4D/eJB5LD1rVz89LiJBY6DwE9lDPCqwqYUyhmt7BkTml4dWx9yz/kKzC2MxLrPfUE
+         1LvsjFIRjVWKbbhgR89YeHPlgSuZiKy4XVbMsiq5pzOOC609AnUYqstX68IqQz/MRqCn
+         m3bCVawOXu0QJ78R32CehmIoZ8lvjALxT7p22s0srun1AttdQQIjV0N/aV377ekTyjyw
+         QGsPFA46IezdtmW1JeSLkAaUD0Sl+jRQ3a7qWove72lDwf+sIQFQep/X9Koodio/f/rN
+         P79Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782887957; x=1783492757;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=L9lS47Kg6rDUlabcBxfm0AD8NjNyWC3LZqIIiOY+ZJo=;
+        b=b2zJpwDPAsgu43H4UJqGJXNCPfWC7RRC93AAW6Hax0zrOMBT9t/M9goYlynN7WH9H5
+         cRqzkFsB7P/Crf7l7823kZvxNhkwM5iHYJlV/e6ikuQUZHl088IKjMkYbkiVlOUSX79z
+         6O58KCUAnVRJ/8GIfqChklvfjbluqzrxmoCovjyc/p3uDABVVubtFmNJgeewILhwB4NZ
+         A+C2XPKSfbMKgsyPqdGlIhqnZn1FyoNsEKclHvGLiUUvGm+NcmutkxdHA0cyHYWBtwna
+         AVfng51ZPYE7nYoqln3/PSNnslaUqrMxFUQeOC3iZ+hINCnY99QOt0rZ8YqtUrsTAetD
+         dh8A==
+X-Forwarded-Encrypted: i=1; AFNElJ+8Wa4Ms+b+FwNVphup5f+ILwE9hJqebjf0FcNurcAANKxJhVMqlA0upU/LfueqfwE2LC6uv3U=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyD+PRrmaR3dhsZ5MHIN2UiStua97yi4OjqtCDkJremBWHcZt+Z
+	g5/qIvpj589ZP7yOigyQU22tsu9/BRkv3Ep/8heMWNh6qF7gqxNz2YKI
+X-Gm-Gg: AfdE7cnvsm350hDScekOk2EilI1FyohgErOsDVUy8PfY5MbLctvZa0biyLMnqLthUGC
+	k/9YnLZ8m76kslJYVKY/SszGR8HH7xK/GvaqxT8RtpCtKjMLJ1IY3p0lY6O/lEQPw6OMzl2ujm9
+	OBKk42Srd9dxmGz9+ZpeENDIRJ7FAgRXXTAqk5uEdTAQ5yPSHLrCuFt6i3bqdZufbkvPrMYuea2
+	2veWta+xvvMt6tWMsJb5II1852ahpJdSU8FZY+iAo6D/tZKMjzvf6gV4YbfTbjc6fnundutMiLr
+	LjhBMJvSo1B03Yqzi84xyPzMBIX5pWxoStMUXpQPpu7728dCOxIUMXregNOd6bf2Uhdt6H/RFJk
+	TJsD/iNLFkv4XE0qE7rBhwRQ7ohBpsV6OqUmzTC+qwb8i3Id6iu/xSiM7984DRNtRgOhbutnsiw
+	aZ5R0ux2gzgGp/aL3sxLIb6cbrW3tLYg4MmLwIMzIOfdQkshyqMa8YMna6u4Xx0g/hm10Cq2b/
+X-Received: by 2002:a05:600d:6409:20b0:493:c21a:11f9 with SMTP id 5b1f17b1804b1-493c2b38eddmr3043765e9.6.1782887957236;
+        Tue, 30 Jun 2026 23:39:17 -0700 (PDT)
+Received: from localhost.localdomain (94-43-5-44.dsl.utg.ge. [94.43.5.44])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493be4bfd47sm70551775e9.2.2026.06.30.23.39.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 23:39:16 -0700 (PDT)
+From: Igor Ushakov <sysroot314@gmail.com>
+To: sashal@kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	kuniyu@google.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	stable@vger.kernel.org,
+	sysroot314@gmail.com
+Subject: [PATCH v2 6.6.y/6.12.y/6.18.y] af_unix: Set gc_in_progress to true in unix_gc().
+Date: Wed,  1 Jul 2026 09:39:00 +0300
+Message-ID: <20260701063900.280980-1-sysroot314@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <stable-reply-item009-af-unix-gc-20260630181642@kernel.org>
+References: <stable-reply-item009-af-unix-gc-20260630181642@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] wifi: mt76: add wcid publish check in mt76_sta_add
-To: "stable@vger.kernel.org" <stable@vger.kernel.org>,
- Greg KH <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>
-Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Jiajia Liu <liujiajia@kylinos.cn>, Ryder Lee <ryder.lee@mediatek.com>,
- Shayne Chen <shayne.chen@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Ming Yen Hsieh <mingyen.hsieh@mediatek.com>, Leon Yen
- <leon.yen@mediatek.com>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260528033814.46418-1-liujiajia@kylinos.cn>
- <b143b62e-ca11-4f00-ad60-f71ae55213b9@leemhuis.info>
- <akSoHk-BozrpWPmZ@nature>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <akSoHk-BozrpWPmZ@nature>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: 
- <178288656922.3967521.14789663261680188235@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 79E145F961
-X-NC-CID: l2BgsPYJ/4KD2mWJhuqWjAbXGGXHzUV2LTla55HtmwPtd8pnV9s=
+Content-Transfer-Encoding: 8bit
 
-On 7/1/26 07:39, Jiajia Liu wrote:
-> On Tue, Jun 30, 2026 at 01:29:51PM +0200, Thorsten Leemhuis wrote:
->> On 5/28/26 05:38, Jiajia Liu wrote:
->>> Since mt7925_mac_sta_add publishes wcid, add publish check in mt76_sta_add
->>> to avoid reinitializing the wcid->poll_list.
->>>
->>> Found dev->sta_poll_list corruption when using mt7925 and 7.1-rc4.
->>
->> Jiajia Liu, Felox:
+From: Kuniyuki Iwashima <kuniyu@google.com>
 
-BTW: @Felix, sorry for the typo!
+[ Upstream commit d82ba05263c69fa2437fe93e4e561cc40f4c03af ]
 
->> given that the problem seems to be in 7.1, should we
->> ask the stable team to pick this regression fix up, as this change was
->> mainlined (as 20b126920a259d ("wifi: mt76: add wcid publish check in
->> mt76_sta_add") [v7.2-rc1]), but lacks both a Fixes and a Stable tag?
-> 
-> Yes. It seems to be related to cbf5e61da660 ("wifi: mt76: initialize
-> more wcid fields mt76_wcid_init") [v6.14-rc1]. But I didn't reproduce
-> when I checked it out and tested. So Fixes was not added.
+Igor Ushakov reported that unix_gc() could run with gc_in_progress
+being false if the work is scheduled while running:
 
-In that case:
+  Thread 1         Thread 2                     Thread 3
+  --------         --------                     --------
+                   unix_schedule_gc()           unix_schedule_gc()
+                   `- if (!gc_in_progress)      `- if (!gc_in_progress)
+                      |- gc_in_progress = true     |
+                      `- queue_work()              |
+  unix_gc() <----------------/                     |
+  |                                                |- gc_in_progress = true
+  ...                                              `- queue_work()
+  |                                                       |
+  `- gc_in_progress = false                               |
+                                                          |
+  unix_gc() <---------------------------------------------'
+  |
+  ... /* gc_in_progress == false */
+  |
+  `- gc_in_progress = false
 
-@Stable team, you you please pick up 20b126920a259d ("wifi: mt76: add
-wcid publish check in mt76_sta_add") [v7.2-rc1] for 7.1? It lacks a
-fixes tag and the problem might be older, but I saw two reports about
-this with 7.1-rc -- so it seems some recent change made that problem
-more likely to occur, so it might be good to fix it at least in 7.1.y.
+unix_peek_fpl() relies on gc_in_progress not to confuse GC
+by MSG_PEEK.
 
-Ciao, Thorsten
+Let's set gc_in_progress to true in unix_gc().
 
->>> According to the corruption information, prev->next was changed to itself.
->>>
->>> wlan0: disconnect from AP 90:fb:5d:94:8b:e3 for new auth to 90:fb:5d:94:8b:e2
->>> wlan0: authenticate with 90:fb:5d:94:8b:e2 (local address=84:9e:56:9c:7e:6b)
->>> wlan0: send auth to 90:fb:5d:94:8b:e2 (try 1/3)
->>>  slab kmalloc-8k start ffff8c80958a6000 pointer offset 4160 size 8192
->>> list_add corruption. prev->next should be next (ffff8c808a7488f8), but was ffff8c80958a7040. (prev=ffff8c80958a7040).
->>>
->>>  mt76_wcid_add_poll+0x95/0xd0 [mt76]
->>>  mt7925_mac_add_txs.part.0+0xa5/0xe0 [mt7925_common]
->>>  mt7925_rx_check+0xa7/0xc0 [mt7925_common]
->>>  mt76_dma_rx_poll+0x50d/0x790 [mt76]
->>>  mt792x_poll_rx+0x52/0xe0 [mt792x_lib]
->>>
->>> Signed-off-by: Jiajia Liu <liujiajia@kylinos.cn>
->>> ---
->>>
->>> Changes in v2:
->>>   - use dev->wcid table instead of adding MT_WCID_FLAG_DRV_PUBLSH for
->>>     wcid publish check suggested by Sean
->>>   - subject and commit message update
->>>
->>> ---
->>>  drivers/net/wireless/mediatek/mt76/mac80211.c | 15 ++++++++++++---
->>>  1 file changed, 12 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/net/wireless/mediatek/mt76/mac80211.c b/drivers/net/wireless/mediatek/mt76/mac80211.c
->>> index 4ae5e4715a9c..b78b4cd206e0 100644
->>> --- a/drivers/net/wireless/mediatek/mt76/mac80211.c
->>> +++ b/drivers/net/wireless/mediatek/mt76/mac80211.c
->>> @@ -1576,6 +1576,7 @@ mt76_sta_add(struct mt76_phy *phy, struct ieee80211_vif *vif,
->>>  {
->>>  	struct mt76_wcid *wcid = (struct mt76_wcid *)sta->drv_priv;
->>>  	struct mt76_dev *dev = phy->dev;
->>> +	struct mt76_wcid *published;
->>>  	int ret;
->>>  	int i;
->>>  
->>> @@ -1595,11 +1596,19 @@ mt76_sta_add(struct mt76_phy *phy, struct ieee80211_vif *vif,
->>>  		mtxq->wcid = wcid->idx;
->>>  	}
->>>  
->>> -	ewma_signal_init(&wcid->rssi);
->>> -	rcu_assign_pointer(dev->wcid[wcid->idx], wcid);
->>> +	published = rcu_dereference_protected(dev->wcid[wcid->idx],
->>> +					      lockdep_is_held(&dev->mutex));
->>> +	if (published != wcid) {
->>> +		WARN_ON_ONCE(published);
->>> +		ewma_signal_init(&wcid->rssi);
->>> +		rcu_assign_pointer(dev->wcid[wcid->idx], wcid);
->>> +		mt76_wcid_init(wcid, phy->band_idx);
->>> +	} else {
->>> +		wcid->phy_idx = phy->band_idx;
->>> +	}
->>> +
->>>  	phy->num_sta++;
->>>  
->>> -	mt76_wcid_init(wcid, phy->band_idx);
->>>  out:
->>>  	mutex_unlock(&dev->mutex);
->>>
+Fixes: 8b90a9f819dc ("af_unix: Run GC on only one CPU.")
+Reported-by: Igor Ushakov <sysroot314@gmail.com>
+Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260501073945.1884564-1-kuniyu@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Add setting gc_in_progress in __unix_gc(). Keep the existing
+  set in unix_gc() for wait_for_unix_gc() over-limit throttling. ]
+Signed-off-by: Igor Ushakov <sysroot314@gmail.com>
+---
+ net/unix/garbage.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/net/unix/garbage.c b/net/unix/garbage.c
+index 1cdb54c616..fa6983dc31 100644
+--- a/net/unix/garbage.c
++++ b/net/unix/garbage.c
+@@ -583,6 +583,8 @@ static void __unix_gc(struct work_struct *work)
+ 	struct sk_buff_head hitlist;
+ 	struct sk_buff *skb;
+ 
++	WRITE_ONCE(gc_in_progress, true);
++
+ 	spin_lock(&unix_gc_lock);
+ 
+ 	if (!unix_graph_maybe_cyclic) {
+-- 
+2.47.3
 
