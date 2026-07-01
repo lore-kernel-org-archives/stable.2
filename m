@@ -1,35 +1,89 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.175.55.52])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4F8A5224B04;
-	Wed,  1 Jul 2026 14:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.175.55.52
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26851343887
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 14:30:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782916154; cv=none; b=cLM8XpQdi88/Jmw4gKmDxGzw+ein7Ik+kZL0VcOyQ7ORYpHSL7zOuB+OlZqLgosizXZfshauu3Zb7mXX6lSRifYhGzbSbWMEb7n9AjRgobdXuOSS/7zh05CLe2hCsDsD8pmOzgp8E+wOdi/Xps/xdpoDH3ZpzgbWnNPIZzID1zk=
+	t=1782916209; cv=none; b=tQW3RUR4Z7WonP+JQi7oxYb5Y2Z+dR+rNaoVbEGQSOlXIv+Xlooc8+NQJs3efgShTN9bmpmWPganoGHbeNGCF9IaRTqlO86QPkpqDnTXZF/8gYVyb5FburrvyE4tVxWalMJvlhUtRglEJKoeQjdMMteEkES0hy8uImWKpmo1ssk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782916154; c=relaxed/simple;
-	bh=5KGXLuJSX0BjAWR3juBdii5Oe66hGwwQCohFUY34DJg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dwtQPS1Muz3d4BZj2sCrsu+ArQXTfg4CWo9mdpsEjamJV+pvWKo1ySS3ul4zI7y6ORHN0yF6V25aiiqu5nLjXzHsnb0EmutpD0x30dZKV8pBXGBafScJEyQSGhH5RPMPsc/DimqeRGKH8NoicZfyGFBKTyHtAPyVZU548GxDTV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.175.55.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDXl0YkJEVq0UlNAw--.19045S3;
-	Wed, 01 Jul 2026 22:28:53 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgCn2jEkJEVqzTz8AQ--.5574S2;
-	Wed, 01 Jul 2026 22:28:52 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: don.brace@microchip.com
-Cc: James.Bottomley@HansenPartnership.com,
-	martin.petersen@oracle.com,
-	storagedev@microchip.com,
-	linux-scsi@vger.kernel.org,
+	s=arc-20240116; t=1782916209; c=relaxed/simple;
+	bh=2XW1YLWJizNQohpYXEK8jt76PjghRUYJEyG+o9IP8gM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QAcO+pq27ZM2+wz4iOPJxxTOYugcx/CaRx4PJlNeIZo03xr/QTbaESlLsgPfRRUd1IqClIPbcXTgz5Ktte+O73MlSkFH6O7JSnm760tlm8E3g9wlhgweBXjjSAoTjJ7XdcBGdVJLAZ5nWrH0tk6++/inL1QT70SUSwHolFM0hHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qW7MGtno; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qW7MGtno"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4763b0c1dcdso838930f8f.2
+        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 07:30:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782916207; x=1783521007; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1d9xc1hK1wDKpjmJn7eEG84uycO+0Cq+uemYlSYPoc4=;
+        b=qW7MGtnoSIRnZdpZE4EDjh7OoNiVkiGpHPxUsrF8tOeDC6iafI3tXWBWFNpapph4BV
+         3yjigcYRCz7NAjkGQ53GBkS6HH7DZ3PHFltC8xl73yW8G0aQUQPVCe1N8vz2rSRvmumC
+         Osf7QRZINnH6uauawljRPz5LCEoyz9+3bweasrXuLvyYQQZDFF9phKStbiC84SOrEmWs
+         cR0j5wzEie2kl+A3oh8pJEIWMMNemgJUhOvzrtEorZw9OYmDWGWIWgh2GL8KbxLid4/9
+         O6I0TNG3AUozBacBLrZ79GJ2inP0lVbQwbkMgK/mhDdywHEnYaHZnofG6vFKcl0cWkqo
+         EMwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782916207; x=1783521007;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1d9xc1hK1wDKpjmJn7eEG84uycO+0Cq+uemYlSYPoc4=;
+        b=C3ldo93v5wN7mxBkIgYdb3UpDsdMHdxLCMLQP7VQkK+/sLCV0MgPA0DGZV7xSCfF+6
+         mEHBmn1Xk+rrCguzF3gOt4PKEQPA+/irR5fyvmAV12kRFaxZzCulNy8+1zUZ5XhafGTm
+         0CgyOJZGLcJWt1ZG1qnQmns2jm/ZHPjUjAWyZGbeZreHLBwdXZrmS2TfaMOfuCN5K3Sg
+         wfhJhvXYvIoWs76vJP9ax06O8/n49O1flSyleCmAS6PqrQmabTL17JdxD0al6RyH+dmQ
+         xB9zV60P+RxeyXMZtEpR6QJibmCfro392g5Sw4V83r3I1xSqYJERyq0wBBgMaT/YRheC
+         8VVg==
+X-Forwarded-Encrypted: i=1; AHgh+Roj8ndc11weEvfGUpQAO4Ab1/EjvvrKBmT2mxHaj3PiUCeQULS25hjvVlaf4x8sqb4BEsJ+xoU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyDAs9nsxp1GfQzUmoMurX21wEFYh3p5hbaskFd60WCDNAkpCIb
+	elJIX/bJOzf81H3M1FihRMtZtl+c8zfg8b0a7f0+XGfHAxHP4rgiikhh
+X-Gm-Gg: AfdE7clXxTVL1ISb3RINuDUd6Dvd3IsOTEfhci0DS+9fXz2E6mTswx8b1MDxhZjQJWS
+	yEC59mnr7ofNxhu6EYOUxtMQGqZNlAV+mgbOwU3qPMdxezHD4rXlntcYpRFHEkikC/6EIMjlGX0
+	24ST8XhcP0HadtPZqPJvBKmKRGzA8hvb2cOgGOrq+aq8DZH7lAyIEBltIuHt0WXY4Tgt520QSKi
+	lF5rHT7Tf66h9btAUc4gwOdQTYmvjUFqOZVA3ZWY5Jv6D18CkEee7FhwTtwmZTwgWzfrvw1kd+S
+	YLtBPezWqISu3kYB2I8a/XK527woaYegcR3VNqCnWhjAQ6KqB1djpmZquFBJ7CQ7fJKnNjlJua4
+	AuppTVMTAuH8ZouvVyanWNeT4JtW3ePznqBBzmvKSlG+eYbZVR/ECPfGpCGfZ9ZzfugoHd+y+6u
+	DJQQPU2oMFpzbOSDTvaNQXlpYwAZBhs5hFzX3lMjqBm+qf4ZDMGPzk1gZ2SJkyxHUEYadr27x+K
+	rGjDMytqLVMQSqpifamH0S9/G0=
+X-Received: by 2002:a05:6000:1788:b0:475:613c:c9f2 with SMTP id ffacd0b85a97d-477b34b0313mr1284809f8f.5.1782916206537;
+        Wed, 01 Jul 2026 07:30:06 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:5353:5ce3:a6a2:3b98])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477dd94c829sm184902f8f.24.2026.07.01.07.30.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Jul 2026 07:30:06 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-rtc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] scsi: smartpqi: cancel pending workers before freeing controller
-Date: Wed,  1 Jul 2026 14:27:57 +0000
-Message-Id: <20260701142757.8447-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 02/10] rtc: rzn1: Handle EPROBE_DEFER for optional pps interrupt
+Date: Wed,  1 Jul 2026 15:29:45 +0100
+Message-ID: <20260701142953.2014895-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260701142953.2014895-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260701142953.2014895-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,120 +91,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgCn2jEkJEVqzTz8AQ--.5574S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?Wu+DqAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZwEeP9aV36GJRgY7CgHqzw/4H/s5SQPYwcAkAkIL+W54GHX
-	FQYp8/i1GZ6kQ0dgi24=
-X-Coremail-Antispam: 1Uk129KBj93XoWxGr4ruF18uFWkWF1UuFyfuFX_yoWrtFW5pF
-	WfX3srJr4ktFWY934qv3W8AFy3ur4DJw1DC397K3sxCa13Jry0qFyUGF4qvFW5Jrs5Ar12
-	yrnYva45Wr98tFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-The smartpqi driver schedules four struct work_struct members of
-struct pqi_ctrl_info on the system workqueue: ctrl_offline_work,
-event_work, ofa_memory_alloc_work and ofa_quiesce_work.
-ctrl_offline_work is armed by pqi_take_ctrl_offline(), reached from the
-heartbeat timer handler and the error paths; event_work is queued by the
-event-interrupt handler, and the event worker can in turn queue the two
-OFA workers while processing OFA events.
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-None of these workers is cancelled during controller teardown.
-pqi_remove_ctrl() stops the heartbeat timer and cancels the rescan and
-update_time delayed workers, then calls pqi_free_ctrl_resources(), which
-frees the interrupts and finally the controller in pqi_free_ctrl_info()
-(kfree).  A worker queued by the timer or the event handler can therefore
-run after the controller has been freed:
+Check for -EPROBE_DEFER from platform_get_irq_byname_optional() and handle
+the deferred probe request properly.
 
-    CPU0 (teardown)                 CPU1 (system_wq)
-    heartbeat timer / event IRQ
-    pqi_take_ctrl_offline()
-      schedule_work(ctrl_offline_work)
-    pqi_remove_ctrl()
-      ...
-      pqi_free_ctrl_resources()
-        free_irq()
-        kfree(ctrl_info)            pqi_ctrl_offline_worker()
-                                      container_of(work) -> freed ctrl_info
-                                      pqi_take_ctrl_offline_deferred()
-                                        dereferences ctrl_info  UAF
+Although the "pps" interrupt is optional, an error code of -EPROBE_DEFER
+indicates that the interrupt subsystem is not yet ready. Intercept this
+specific error condition, assign it to the return value, and jump to the
+dis_runtime_pm label to avoid ignoring a valid probe deferral.
 
-Clearing controller_online does not stop an already-queued
-ctrl_offline_work: pqi_ctrl_offline_worker() and its callee
-pqi_take_ctrl_offline_deferred() never check it and dereference the
-controller unconditionally.  pqi_event_worker() and the two OFA workers
-recover the controller with container_of() and dereference it the same way.
-
-Drain the workers in pqi_free_ctrl_resources(), in an order that drains
-each layer of the arming chain.
-
-ctrl_offline_work is disabled with disable_work_sync() rather than
-cancelled.  Its armer, pqi_take_ctrl_offline(), checks controller_online
-and then, still in the same call, clears it and calls schedule_work(); an
-interrupt or error handler that has already passed that check will queue
-ctrl_offline_work even after pqi_remove_ctrl() has cleared
-controller_online, so a plain cancel_work_sync() can return before that
-in-flight armer queues the work.  The worker's callback,
-pqi_take_ctrl_offline_deferred(), also calls pqi_free_interrupts(), so an
-instance running during teardown would race the
-num_msix_vectors_initialized counter in pqi_free_irqs() and call
-free_irq() twice for the same vectors.  disable_work_sync() drains any
-queued or running instance and makes later schedule_work() calls on it
-no-ops, so the worker can neither run during the teardown's own
-pqi_free_interrupts() nor survive until the controller is freed.
-
-The remaining three workers are cancelled after pqi_free_interrupts().
-Freeing the IRQs first stops the handler from arming event_work, draining
-event_work next stops the event worker from arming the OFA workers, and
-the OFA workers are drained last: each cancel is a final drain with no
-re-arm race.
-
-cancel_work_sync() is the correct primitive for the remaining work_struct
-items: it cancels a pending instance and waits for a running callback to
-return.  pqi_free_ctrl_resources() is reached only through the
-pqi_remove_ctrl() chokepoint shared by pqi_pci_remove() and the probe
-error path, and the four work_structs are initialised in
-pqi_alloc_ctrl_info(), so draining here always operates on initialised
-work.
-
-Fixes: 5f310425c8ea ("scsi: smartpqi: update rescan worker")
-Cc: stable@vger.kernel.org # needs adjustments for <= 6.6: use cancel_work_sync()
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Fixes: eea7791e00f33 ("rtc: rzn1: implement one-second accuracy for alarms")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- drivers/scsi/smartpqi/smartpqi_init.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+v1->v2:
+- No changes
+---
+ drivers/rtc/rtc-rzn1.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/scsi/smartpqi/smartpqi_init.c b/drivers/scsi/smartpqi/smartpqi_init.c
---- a/drivers/scsi/smartpqi/smartpqi_init.c
-+++ b/drivers/scsi/smartpqi/smartpqi_init.c
-@@ -8891,7 +8891,16 @@ static void pqi_free_interrupts(struct pqi_ctrl_info *ctrl_info)
-
- static void pqi_free_ctrl_resources(struct pqi_ctrl_info *ctrl_info)
- {
-+	/*
-+	 * Disable, not cancel: the callback also frees IRQs, and
-+	 * pqi_take_ctrl_offline() can re-queue it after a cancel.
-+	 */
-+	disable_work_sync(&ctrl_info->ctrl_offline_work);
- 	pqi_free_interrupts(ctrl_info);
-+	/* IRQs queue event_work, which can queue OFA work. */
-+	cancel_work_sync(&ctrl_info->event_work);
-+	cancel_work_sync(&ctrl_info->ofa_memory_alloc_work);
-+	cancel_work_sync(&ctrl_info->ofa_quiesce_work);
- 	if (ctrl_info->queue_memory_base)
- 		dma_free_coherent(&ctrl_info->pci_dev->dev,
- 			ctrl_info->queue_memory_length,
+diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
+index 305f10a8a85b..aa27ad7f5941 100644
+--- a/drivers/rtc/rtc-rzn1.c
++++ b/drivers/rtc/rtc-rzn1.c
+@@ -464,6 +464,10 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	irq = platform_get_irq_byname_optional(pdev, "pps");
++	if (irq == -EPROBE_DEFER) {
++		ret = irq;
++		goto dis_runtime_pm;
++	}
+ 	if (irq >= 0)
+ 		ret = devm_request_irq(&pdev->dev, irq, rzn1_rtc_1s_irq, 0, "RZN1 RTC 1s", rtc);
+ 
+-- 
+2.54.0
 
