@@ -1,129 +1,143 @@
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB0048094F
-	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 11:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86843C060F
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 11:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782906286; cv=none; b=cvlNGuQPyNefUKvuXsXmBf7SxROIPs/FoCCWLWH8N1V2nHFq0WLUkdpXnzQIG+vjw2bYRqKjWT63F4azgu/vPPDH78StURVQmdky8z5a1Fl6WlX53SHQB8nT49v2RnJh4D1emtM45kDwfmyp9rZSYnj6WmsI4d8oSpU8hBa/W5Q=
+	t=1782906328; cv=none; b=EGkscl2s2dqRM5o1pGs3497y2TfF+MyHHwoldsrVlHfX77ZnSwVl49rRtn5ujh8RNXab+JMrzQD9coOunPF+q82yCt43i2u7g9imk/89GsNwttvfG2wGNlKI17gkFNanOuTu6J5+nbnVwM7E7KBYxodLh99kPZFLBfhYWPtM7b0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782906286; c=relaxed/simple;
-	bh=Bn7cpK7c9P1Ng+xQTLrX5oRSvaP7UkoJRFYhjK+iQcU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GP8fUwHULmg3joGecsQmG3gsGmAwFQo7eUj0fZbkRBfWsfQRCjgcxsBDvG1RHrijnnfztDWObEtVQt87nwgHtUAql4gBEzLJqpEBTOwBbD1HXsSrYQfk/jpeDwjcCV1Z3lasEX/H9uF/eytExq205GixaEUa2WGxeI3DTGX6vHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=C0e0vY33; arc=none smtp.client-ip=209.85.219.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1782906328; c=relaxed/simple;
+	bh=yY++beBrEYp8b4rwSg/82vP/T0D2SHR5CaVAZG/7az4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q3d36j4xhi+6x84/YXfqAW6R7hVXpEDHQqMRW83h2bKzj1TP/hGtPitkY07AsnY6cOIQORxy/zjppnaIjVZpMoObV5/RPOzmZMgJUyO37DtTvsp+RfYxTxTo8fVYgzg6wcDDF4IoBAJRGv5hqghDBkNfZ00aTEMDMFhtNVl7PY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MPBrgAU6; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="C0e0vY33"
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-8ef7b7651ecso17144026d6.1
-        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 04:44:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1782906282; x=1783511082; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=CWuXB5G6o/EOutDklrz0KDK/EngRzHI91oIWGAEJRck=;
-        b=C0e0vY333zeAMCS/zM/pqIYUkT/ypLoAkXN5K7p8Sd3JoEhBloB5jC3LghM1QSXQ53
-         9v/SHNallheASGhxKVytCtMb5RzQxCr/z+JoeaW3Cn7xpeBBlNC5ewKyiDfA6KEXV3ng
-         8QEc1DuOO0Es0pbUn4FR5DeNdATltUAdi0shnf/eeM57mwBEDjatSQaNcaVQbmWeDDHl
-         JER10VKk8fQF8KFQ20MTcP9TK9v02gKqj78yRWZwXHccz6oFQ02plz5WswNqCOqP5rWP
-         0LdKX9rZJONPayNPmWQuBmzK4U8ITV8FnwWf97bqDM+rEOCLj92O1wDrGESr6xf0HZwd
-         9ysw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782906282; x=1783511082;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CWuXB5G6o/EOutDklrz0KDK/EngRzHI91oIWGAEJRck=;
-        b=CLC9PffQj+g+GdohitP4jWOupChWhPvHBIqpxiSAb6+cCad1RhCF95IAeB5+e65IM8
-         eJYB+1BxD9plUKskLhjaV/9kLRgo+tUsh+KXKaGHLKJHi4NgAvRpGwdhgnnGauU8kPy0
-         GkLF9ha39o4zjJxtFCW5hhFOVaBVBvMqdGDQckAdvyAeHCyi1Jcr7T0DHxyPXErphobY
-         YfsfCabmNPiOpXgFmuvUOZZVO3wUYw5Uwbk6ocMrA1B4CMUoXqBiRPeVDoetXW3M4rNU
-         hRcnSBxOr3QviaTPICa2stzDIPwuhcOjBhi8M4LcpjDxnM667EI72EDO5YpxQtBQpa6w
-         Ucfw==
-X-Forwarded-Encrypted: i=1; AHgh+RqbLCLE75VjQyNwz8Q96AMsjYBV8QOSdjbPZwDheMerC1bCYqVl0/Vq2XBWlupz6FKcgbnPAto=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyL2VS0FiT84h6oIWmpAtd8LRcbfzwRFuFIdnrY/g7Mk7litu9L
-	dtoF/vVsk//WQ+eptHwBj+YNuRv2HVjqlw7q2Bo0psrnLG8N9bl1KR319Sc67728vw4=
-X-Gm-Gg: AfdE7cl/3PYYRLexBQnnZJpvVIf/vHq8qNBe+u7N/2R0VwjU0f7YzOuuz+FooQWuGeV
-	XCcs3V7Yf91PBMoiKvmGKs3Fvy/BkFtR7CU2DiopUGr0lQCJNNvahUd34cSSrpU9cULKH3l4rpt
-	/vwQofapl/JbWpb5/RdJZMN9lbzdfVDDeAW2bZTzrrNzo5Ob2p6w35taR0p4WzP42/SglPukIrT
-	7mC3ZEFK/CJ9JzVDTmwph1PYQtWZSs8fFyKyzkxbpUmTtjNY+tsbZAqVOMRYzvp8ZO/Bg4DZ8qm
-	3tWoguCTM4/qVbhJmMFBPFyPAsiNqPh5gyxJ4BunRQMQdT+dDqZx7R/qelMhv/MpO5X20E89B9Y
-	rBBSmv9n9NTPM9qKiV2FBCQzK9KjuNlV/Se/+GOgTbLWqC2t7cytqak9bAt8pbdNGnA7jLVhfdr
-	sTZ894EXEgQzCskeeFnw==
-X-Received: by 2002:a05:6214:4e90:b0:8e5:8d7b:5188 with SMTP id 6a1803df08f44-8f2526fa04emr73202606d6.9.1782906282086;
-        Wed, 01 Jul 2026 04:44:42 -0700 (PDT)
-Received: from localhost ([146.190.222.192])
-        by smtp.gmail.com with UTF8SMTPSA id 6a1803df08f44-8f3611dec91sm19921376d6.29.2026.07.01.04.44.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Jul 2026 04:44:41 -0700 (PDT)
-From: David Lee <david.lee@trailofbits.com>
-To: viro@zeniv.linux.org.uk,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>
-Cc: David Lee <david.lee@trailofbits.com>,
-	Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Jann Horn <jannh@google.com>,
-	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MPBrgAU6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782906327; x=1814442327;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=yY++beBrEYp8b4rwSg/82vP/T0D2SHR5CaVAZG/7az4=;
+  b=MPBrgAU64VnLMcAo8043Qg8nnjLPyPNR8Gn7mnDXzaTJikinwY+nhdNP
+   ayTwbuvW4Dt3oC6Bn5Kp3bU6yqUc2MEGVTn73sjL0HWAf7pcVQu5Nfoa3
+   TXyGn2FkdrBHxNMyJCSAK33QUs8G7qNIu/hQarm9NuPKI5VeRLqLftypm
+   VUSzW6GmgSihTgSfOejWSoi+sEPmGUMqsWgH0YSlBhNCt8aC9zQwlmWXr
+   PQsn2/oU53htOtJ0anj1xfH6KCzcQYVJE9p8PoZZVKbUC0Jx5Go9VCqq8
+   /d+ORGPzGb9tlZiHjKG9vtpFvcwQEbGOgyHuTrcZTj2pQO8LzOTtm6R0N
+   g==;
+X-CSE-ConnectionGUID: udQNKtExRBasMnL4xqlOyQ==
+X-CSE-MsgGUID: qOCxqBRGQs2blxvFEWUidw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="95020789"
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
+   d="scan'208";a="95020789"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 04:45:26 -0700
+X-CSE-ConnectionGUID: txcxdr6OQl+SOyVeOyJJZA==
+X-CSE-MsgGUID: pZg1y71zTeOU2DrmG8tHGQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
+   d="scan'208";a="282622128"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.25])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 04:45:23 -0700
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Intel graphics driver community testing & development <intel-gfx@lists.freedesktop.org>
+Cc: Direct Rendering Infrastructure - Development <dri-devel@lists.freedesktop.org>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Martin Hodo <martin.hodo@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
 	stable@vger.kernel.org
-Subject: [PATCH] fhandle: reject detached mounts in capable_wrt_mount()
-Date: Wed,  1 Jul 2026 11:44:28 +0000
-Message-ID: <20260701114438.24431-1-david.lee@trailofbits.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] drm/i915/gt: Fix NULL deref on sched_engine alloc failure
+Date: Wed,  1 Jul 2026 14:45:13 +0300
+Message-ID: <20260701114513.221254-1-joonas.lahtinen@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The recent fhandle RCU fix moved the mount namespace capability check
-into capable_wrt_mount(), so a non-NULL mnt_namespace survives the
-ns_capable() dereference. The helper still assumes the later
-READ_ONCE(mount->mnt_ns) must be non-NULL because may_decode_fh()
-checked is_mounted() first.
+Avoid using intel_context_put() before intel_context_init() in
+execlists_create_virtual() as the kref_put() inside would lead
+to NULL deref on the IOCTL path when sched_engine allocation fails.
 
-That assumption is not stable. A detached mount from
-open_tree(..., OPEN_TREE_CLONE) can be dissolved on fput while
-open_by_handle_at() is between those checks, and umount_tree() can
-clear mount->mnt_ns. If the helper observes NULL, it dereferences
-mnt_ns->user_ns and panics.
+Discovered using AI-assisted static analysis confirmed by
+Intel Product Security.
 
-Return false when the RCU read observes a detached mount. This keeps
-the relaxed permission path conservative: a mount no longer attached
-to a namespace cannot authorize open_by_handle_at() access.
-
-Fixes: 620c266f3949 ("fhandle: relax open_by_handle_at() permission checks")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Lee <david.lee@trailofbits.com>
-Assisted-by: Codex:gpt-5
+Reported-by: Martin Hodo <martin.hodo@intel.com>
+Fixes: 3e28d37146db ("drm/i915: Move priolist to new i915_sched_engine object")
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: <stable@vger.kernel.org> # v5.15+
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 ---
-Bug found and triaged by David Lee from Trail of Bits.
+ .../drm/i915/gt/intel_execlists_submission.c  | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-Trail of Bits has a minimal PoC that triggers this crash on a custom
-kernel build, which can be shared further if needed.
-
- fs/fhandle.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/fhandle.c b/fs/fhandle.c
-index 1ca7eb3a6cb5..f8829231e3d7 100644
---- a/fs/fhandle.c
-+++ b/fs/fhandle.c
-@@ -295,7 +295,7 @@ static bool capable_wrt_mount(struct mount *mount)
- 	 */
- 	guard(rcu)();
- 	mnt_ns = READ_ONCE(mount->mnt_ns);
--	return ns_capable(mnt_ns->user_ns, CAP_SYS_ADMIN);
-+	return mnt_ns && ns_capable(mnt_ns->user_ns, CAP_SYS_ADMIN);
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 1359fc9cb88e..e693b0c9d2a3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -3932,11 +3932,11 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
+ 	struct drm_i915_private *i915 = siblings[0]->i915;
+ 	struct virtual_engine *ve;
+ 	unsigned int n;
+-	int err;
++	int err = -ENOMEM;
+ 
+ 	ve = kzalloc_flex(*ve, siblings, count);
+ 	if (!ve)
+-		return ERR_PTR(-ENOMEM);
++		goto err;
+ 
+ 	ve->base.i915 = i915;
+ 	ve->base.gt = siblings[0]->gt;
+@@ -3968,10 +3968,8 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
+ 	intel_engine_init_execlists(&ve->base);
+ 
+ 	ve->base.sched_engine = i915_sched_engine_create(ENGINE_VIRTUAL);
+-	if (!ve->base.sched_engine) {
+-		err = -ENOMEM;
+-		goto err_put;
+-	}
++	if (!ve->base.sched_engine)
++		goto err_noput;
+ 	ve->base.sched_engine->private_data = &ve->base;
+ 
+ 	ve->base.cops = &virtual_context_ops;
+@@ -3987,10 +3985,8 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
+ 	intel_context_init(&ve->context, &ve->base);
+ 
+ 	ve->base.breadcrumbs = intel_breadcrumbs_create(NULL);
+-	if (!ve->base.breadcrumbs) {
+-		err = -ENOMEM;
++	if (!ve->base.breadcrumbs)
+ 		goto err_put;
+-	}
+ 
+ 	for (n = 0; n < count; n++) {
+ 		struct intel_engine_cs *sibling = siblings[n];
+@@ -4065,8 +4061,13 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
+ 	virtual_engine_initial_hint(ve);
+ 	return &ve->context;
+ 
++err_noput:
++	kfree(ve);
++	goto err;
++
+ err_put:
+ 	intel_context_put(&ve->context);
++err:
+ 	return ERR_PTR(err);
  }
  
- static inline int may_decode_fh(struct handle_to_path_ctx *ctx,
 -- 
-2.43.0
+2.54.0
+
