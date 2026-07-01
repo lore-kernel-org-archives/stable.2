@@ -1,107 +1,159 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3713F4824;
-	Wed,  1 Jul 2026 09:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109883A1A3F
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 09:39:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782897692; cv=none; b=XULRrDzYTlyKjxTfzD/x9eja04E3wWBYFSXC+gxZPn21knpb55ML4Oi80iiuiHCe+wzP9/KID8kE3SNq13Fm6FlBPImHQ7/wrB5RMV0MSsrfhhFhzrEbFtD/sUb6hHgf3HIH2hAu2iY0zCNUFk36C+N8ALorIN1t85qvFExJWGo=
+	t=1782898775; cv=none; b=N6H6eCbyrsd1Q6mnOYpNrVDGQCNg7eTauhTcovVYYOIIvYx0Rjx4CP7LkbeBy5vUskmsfLjisc5KVDYdCf/UakGIlsf7V06jsx40J4CTmgZvvO6Ax+o6yRywX01OyMiNZsqYqcoZQSHVbVZ/3roYn4f+lH7yjvK2CDJwBS/Rkio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782897692; c=relaxed/simple;
-	bh=x1MoegCY6YEEWIzYOP6qLgLJzGXz39X22orJAX7mHVY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l/SveEE9sLnYVwc0h8vMJ8dwFHrfwmacVsydrA9gkAJqmS72Ri76TIwsMLA5tE/8OQ79iDL5FuVtNh/H8f4rWHhxELbabeBfDzrzrssfU1cNpz79IwvTPMhMPS8Z2nEZbk4HaWNj1EnAAglTBO8zZlhR15gfl++1UlXk4uPkMo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=qLExgf/z; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iSBZwsbw; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1782898775; c=relaxed/simple;
+	bh=1E+cYhGlSjW1xiBWX7Lf4NQ3+nhN+zb1AQgSa0kzBzM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ly/NMqCvsgbLnAmLYTIig7FtvVSjflu/hjt69MsuDckmy7lQJJyg9Mjvs0ZUaoutSPWKqr0P6sFFwiYnZQ64AFwwBXtHvGNrKrldJMUDvEzMVfXhJ4inJvmhGw7eTmINVY+T9fuv4e93XakBLWJ5jSd4286T3GxRJ10O5FRAhYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gW/DFc23; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="qLExgf/z";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iSBZwsbw"
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1782897687;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RZTHPrI4IM81/CExa8gXGUexuM3Q0SH52YtJqQ1ZRIM=;
-	b=qLExgf/zidv5RV/7Q70dezrp0I6TovxjLZ/Uxy+mzJsItwLmbULuMcWXtMFp8fq/LKp9pu
-	+94Bu66jpRQTFhBMeOjGNpEh5sPSpH5cUnN9b+IqTx/XDybqGJLJjCFCmi+Pi5dxjwhoVi
-	4LpWqldjLGa8cc6C89V/bKi3kD0wL9Mjdvr2i44SI7ghx2TNpgGEp8/U9HrMMZ7p/aydBD
-	l8TaoyqbgaIhVm3UXTp0q/VU3VWqV4/75xBeCMZ0FKram8UwNwxsvoKnianF+wkQ6qltiP
-	ZBww19KqrlH7BZWnnQ49io+WhrkllBEJKbbZ5uz0mIbvl6oG4yJYLjH+s5TOGQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1782897687;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RZTHPrI4IM81/CExa8gXGUexuM3Q0SH52YtJqQ1ZRIM=;
-	b=iSBZwsbwunqy0uUPMJoFZyYyGUDsylfBmObKjuv0FrRLC+aw3cyH3ZNwiQ1BiR2nj+Pg2h
-	xFG2Tjdug+lz3aBw==
-Date: Wed, 01 Jul 2026 11:21:22 +0200
-Subject: [PATCH 1/2] riscv: vdso: Do not use LTO for the vDSO
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gW/DFc23"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2c9c1779fc8so1904795ad.3
+        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 02:39:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782898773; x=1783503573; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Oqs6VzWQewb1OvRu2nCVMyJUKa4LqJKmS9q20XGY1/U=;
+        b=gW/DFc23F9TYT9Do92R/WcdUNB6zbEhcBEW0jNEn4qrK8ID4r3F5H3ExVN5s+8zy13
+         pf2uL1VmetRAeCAlhmZ8w7tqPR0Am8DwLNiZPuGACXU59f0vR03ftDVSizgG9lDApWrM
+         ARC4lnVLtu86yG6tCkUNmKr9uzEVrzERA7RK2Np8fdrZVKv9J3KnOXn90E6rXEMhbsvE
+         eJ6yutBTCkWw6g5TjmqOSFQpwkzNDQYR7TBQbeAW2CGxrs7xEhPVJnsETIYvmv6RdQXt
+         ISa7gY3cfUxi0Y5eGWH6tKvBFNzvawf0n0kbiuD/2+r+n2zayMV0252DdQWN4IgRKLMq
+         sRdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782898773; x=1783503573;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Oqs6VzWQewb1OvRu2nCVMyJUKa4LqJKmS9q20XGY1/U=;
+        b=SbJ+bQiJxMbOVeE3aKMTueCIIlpsxTbfsgTYEq6AlEVooziKu5YSVVfdaXyeY44LAZ
+         kSTsCGoNSb9V7ngDeHK5V4RpPTrZ5FSLOOp+AQOnuDdJRmaEaMcFKJNWp3kAy+r0DOHq
+         fjpRfwqLU3e7+5ruScT92lSbMZNqbx6WuZ8b7CV30Tl9f1g6X/Vvk5BdD2vtTgQ+0uYM
+         aUfjOBu7Lr4ZG0SxMO2IjulpdpIQ1yVU3VsK5j0jwIfKRj9xP9P38mvbOuhyqVzUuxPN
+         /rLos8ny6mTE+qeSTPgfGHxcMwe0g2W0LwOAgnc+BINUUnaNmyvV9c4lkqekE7XxMig6
+         /9Xg==
+X-Forwarded-Encrypted: i=1; AHgh+RrBc1DiijVegPv4s9iMe1pqwzFt8bJmbW5StY0PnT52Xw3LeHvc0XUZKjN0H45gGrxCkFbjazI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxb0a9L7gkWbzr905/RdwDxxVfo4ZpaulG9pvTdWvFl4v9Ld+go
+	Fx++0WyF4M8AteAJERutPPj+lW5eu4DHAEPio4iWO1SVEqUhvOXUJ4F3
+X-Gm-Gg: AfdE7cmb1j57AUH7nNEmDfbuCQxbraklJf8tHlIIFawWZy8d9Oi7qBzLk+rP6M9VOta
+	urCarGpPH+iuJ9xkf33m+iKfKnAHMBhj82S47yaawyzGHkS6XU+rKZEn/WGLrTpPQwQNpUFyYUG
+	5n+HqUMXIvbos8wpbjuceSBYUN0i2pi4TLK7yrr7oKwEgLmt1ZeuEflRlm62/Svdfnnib4xBwLq
+	KklhmyqsVk6vHWjY+5kkjZu9dbRNkiHMwYvsLL4+NPP/HnbNCT99KgP7ODDEpslWjISCrerW2oh
+	WgMGFzr1aVYytcF+JzYfVtOcuMn6IO9zRBTGobANFtTjOfa0q6yr4H82CIIY1o2pzMQSHqutBut
+	OqP6kS/b6iu+LtLNyZhoaoNnl83zBPcbIjX8N89DLgQH2rIN25Sl5LcHsuc6EuYzJyEaG+iOf+h
+	DvrYkhMBGpldckB4qOGYUqlpaw6TLKC1U4
+X-Received: by 2002:a17:902:da8b:b0:2c9:9a2e:dab0 with SMTP id d9443c01a7336-2ca7e71509cmr10989425ad.3.1782898773219;
+        Wed, 01 Jul 2026 02:39:33 -0700 (PDT)
+Received: from [10.125.192.77] ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca382acd0csm29148225ad.62.2026.07.01.02.39.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Jul 2026 02:39:32 -0700 (PDT)
+Message-ID: <e2ec0924-52b3-25f3-8432-4b8e33a101dd@gmail.com>
+Date: Wed, 1 Jul 2026 17:39:15 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260701-riscv-vdso-lto-v1-1-89db0cd82077@linutronix.de>
-References: <20260701-riscv-vdso-lto-v1-0-89db0cd82077@linutronix.de>
-In-Reply-To: <20260701-riscv-vdso-lto-v1-0-89db0cd82077@linutronix.de>
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Conor Dooley <conor.dooley@microchip.com>, Wende Tan <twd2.me@gmail.com>
-Cc: Palmer Dabbelt <palmer@rivosinc.com>, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Nam Cao <namcao@linutronix.de>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
- kernel test robot <lkp@intel.com>, stable@vger.kernel.org
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782897683; l=1567;
- i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
- bh=x1MoegCY6YEEWIzYOP6qLgLJzGXz39X22orJAX7mHVY=;
- b=zQHfOUpebyL5rgX0Mbz4u0oHJzSMpORSRNHVgS/rlmQKMgOzBBwelbAYq7OBLvRTre7APEoOu
- 83oTc3bpBwYCq4Rcg+nXy+pGCNj4CT+NZ6E85GjoujQqZsytYVSPsc4
-X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
- pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.15.0
+Subject: Re: [PATCH v5 1/6] mm/zswap: Fix global shrinker when memory cgroup
+ is disabled
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Nhat Pham <nphamcs@gmail.com>, akpm@linux-foundation.org, tj@kernel.org,
+ hannes@cmpxchg.org, shakeel.butt@linux.dev, mhocko@kernel.org,
+ mkoutny@suse.com, chengming.zhou@linux.dev, muchun.song@linux.dev,
+ roman.gushchin@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Hao Jia <jiahao1@lixiang.com>,
+ stable@vger.kernel.org
+References: <20260629112032.20423-1-jiahao.kernel@gmail.com>
+ <20260629112032.20423-2-jiahao.kernel@gmail.com>
+ <CAKEwX=MniM-4-aV17aH3UiDd_Xd2RH743fFZaxEnYX9qvnokeA@mail.gmail.com>
+ <fe15eb9f-0b6c-dcaa-d0a7-5f08c3f92bfb@gmail.com>
+ <CAO9r8zPBe9BPwP8NXz7pdH7T+8HLNsRAckL2Vfcnz0c23TH=iw@mail.gmail.com>
+From: Hao Jia <jiahao.kernel@gmail.com>
+In-Reply-To: <CAO9r8zPBe9BPwP8NXz7pdH7T+8HLNsRAckL2Vfcnz0c23TH=iw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-With LTO enabled the compiler assumes that the vDSO functions are not
-used and optimizes them away completely. Currently this happens to
-__vdso_clock_getres(), __vdso_clock_gettime(), __vdso_getrandom(),
-__vdso_gettimeofday() and __vdso_riscv_hwprobe().
 
-Disable LTO for the vDSO, as these functions are hand-optimized anyways.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202606301855.WvkSC4kD-lkp@intel.com/
-Fixes: 021d23428bdb ("RISC-V: build: Allow LTO to be selected")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
----
- arch/riscv/kernel/vdso/Makefile | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+On 2026/7/1 00:02, Yosry Ahmed wrote:
+>> How about something like this? If there are no objections, I'll fold
+>> this into the next version.
+>>
+>>       mm/zswap: Fix global shrinker when memory cgroup is disabled
+>>
+>>       When memory cgroup is disabled, mem_cgroup_iter() always returns NULL.
+>>       Therefore, the global shrinker shrink_worker() always takes the !memcg
+>>       branch. After MAX_RECLAIM_RETRIES empty walks, the worker simply
+>> gives up,
+>>       so it fails to write back anything.
+>>
+>>       Therefore, when memory cgroup is disabled, fall through with the !memcg
+>>       branch and shrink the root memcg directly.
+>>
+>>       With memcg disabled, shrink_memcg() only returns -ENOENT when the root
+>>       LRU is empty, which means the total pages are already below thr.
+>> The loop
+>>       then safely bails out via the zswap_total_pages() <= thr check. For any
+>>       other return value from shrink_memcg(), the loop is guaranteed to
+>> terminate,
+>>       either after MAX_RECLAIM_RETRIES failures or once the threshold is met.
+>>
+>>       Fixes: a65b0e7607cc ("zswap: make shrinking memcg-aware")
+>>       Cc: stable@vger.kernel.org
+>>       Reported-by: Yosry Ahmed <yosry@kernel.org>
+>>       Closes:
+>> https://lore.kernel.org/all/CAO9r8zPVzMKFbCixxD-qgtRrkFxWVrHiZZeLc=eyTPKPVQgX4g@mail.gmail.com
+>>       Signed-off-by: Hao Jia <jiahao1@lixiang.com>
+> 
+> Feel free to add:
+> 
+> Acked-by: Yosry Ahmed <yosry@kernel.org>
 
-diff --git a/arch/riscv/kernel/vdso/Makefile b/arch/riscv/kernel/vdso/Makefile
-index a842dc034571..43ee881f6c6f 100644
---- a/arch/riscv/kernel/vdso/Makefile
-+++ b/arch/riscv/kernel/vdso/Makefile
-@@ -69,9 +69,9 @@ CPPFLAGS_$(vdso_lds) += -DHAS_VGETTIMEOFDAY
- endif
- 
- # Disable -pg to prevent insert call site
--CFLAGS_REMOVE_vgettimeofday.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS)
--CFLAGS_REMOVE_getrandom.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS)
--CFLAGS_REMOVE_hwprobe.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS)
-+CFLAGS_REMOVE_vgettimeofday.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS) $(CC_FLAGS_LTO)
-+CFLAGS_REMOVE_getrandom.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS) $(CC_FLAGS_LTO)
-+CFLAGS_REMOVE_hwprobe.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS) $(CC_FLAGS_LTO)
- 
- # Force dependency
- $(obj)/$(vdso_o): $(obj)/$(vdso_so)
+Thank you for taking the time to review this.
+> 
+> A small nit below.
+> 
+>>
+>> diff --git a/mm/zswap.c b/mm/zswap.c
+>> index 4b5149173b0e..9d4f19fc440e 100644
+>> --- a/mm/zswap.c
+>> +++ b/mm/zswap.c
+>> @@ -1361,11 +1361,12 @@ static void shrink_worker(struct work_struct *w)
+>>                   } while (memcg && !mem_cgroup_tryget_online(memcg));
+>>                   spin_unlock(&zswap_shrink_lock);
+>>
+>> -               if (!memcg) {
+>> -                       /*
+>> -                        * Continue shrinking without incrementing
+>> failures if
+>> -                        * we found candidate memcgs in the last tree walk.
+>> -                        */
+>> +               /*
+>> +                * A NULL memcg ends a full hierarchy pass (except when
+>> memcg is
+>> +                * disabled, where it is always NULL: fall through to
+>> the root LRU).
+>> +                * Count a failure only if the pass found no candidates.
+> 
+> I think "last pass" is clearer than just "pass" here?
 
--- 
-2.55.0
+
+Will do.
+
+Thanks,
+Hao
 
