@@ -1,111 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27277153BE9;
-	Wed,  1 Jul 2026 03:49:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782877766; cv=none; b=lWI80VVWS0A+Q9/Gnhb7sH2tOwBpNBxCeRrzPSgx/m5hczkeVjoM9svgelJHfwzc4F6G6edWmF1F8doW2oFHwjCw1hPml7CXxHYUI8gIksOYffFbcqQjEA5NR0Llze+OjO4p46e3oHO5NZLHYnqNGiajVHfmh/El+xuOFE1/0Bc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782877766; c=relaxed/simple;
-	bh=HzrrCs8h6iLWxsQVSConV5FaL92OEu3gjLyX+IPW5vU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oV/nXzbewfJmE6nON3Y/ZNzQSFY0eANwmX+xwSaKibSkB60d9QjPlKtNsmBD/me+JOq7tz8iEP1p2ZT7Bw+wir37PTQ1N20SzAJEOpMANr4R+7MmFgdUMu7UI7yyrGZGHUO44YIH15LhZrW1zRrKTsYs0SGGVZ2HBohhuyl4BQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m7UyyaqM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C813138F620
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 04:08:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782878939; cv=pass; b=e8ZBnJLk/n6qZEHLg1vj6iD6ZBccZSM3y6g5bem3rRM0hYFqImTgwl3+8Fqoq9v/0f46MIQYg6GxmAVU0xEjL/0MKgPxoyChPpm/C6Fl7hshLQLtsBr9r48sjfC50Ns8xxwSNUWJoj+mqyQwVNtdB+zQnDyFO0LnWHyVGGhij1M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782878939; c=relaxed/simple;
+	bh=D+kbCD/ppYE47hx4avQKVjTJJVYTT9+t+s+Wi1vJscM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CYxt9PfKDrzaZVDFiJi7buPBLPh8dfjQwW7F2iA/KtbLEVZLCZp+Jv0xl8yMHdwUHocqX3zKxr9Lg3C/y0P4yaeCGRx2PLZxCgP7vABHC84ZFTR7o4pwhYR3/DMxjEgVBnCKVNeqLASZd3WYsqAc34R9Z3eTFXi2UeME4WTQyts=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=Qs+ne3U7; arc=pass smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m7UyyaqM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75D981F000E9;
-	Wed,  1 Jul 2026 03:49:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782877764;
-	bh=DSsNvKEhBE5WjxBTWWMLlI7db6DTdt9TNuLjxtRycHA=;
-	h=From:To:Cc:Subject:Date;
-	b=m7UyyaqMGmKsZsCAJyJQIIEUp67RIhDIq9y+b8ac8fOpQA5Qk0uxhOTa8cdStG01z
-	 /1Tdb0AIOaZupv744SiazIjaDztqrQ2zGJ3PxkGL1c93AXu50nQt36EWsCkbB1h8y9
-	 q4GwLsFj+XmGhSKW1eWE+z5Bv1RZKD6YBk/+8zHzhfovpNWLTZW3BDpf9vsofZcxUP
-	 k/mdIcYiR3kAQon4kkcDeYF3gsMWqqXHYpir9Muy2eGe3V31w432OUZZlISooK5UIB
-	 b9/wK++cYeuakV225wYzRCgQWKnbYrwjEMPQ4DZfjKWVtiUv+gtVKvYRQtdqwGp5zQ
-	 YAFh32ZeTaarg==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	"# 5 . 19 . x" <stable@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH] mm/damon/core: disallow overlapping input ranges for damon_set_regions()
-Date: Tue, 30 Jun 2026 20:49:18 -0700
-Message-ID: <20260701034921.99179-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="Qs+ne3U7"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6984f4c25f8so26322a12.2
+        for <stable@vger.kernel.org>; Tue, 30 Jun 2026 21:08:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782878929; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AoD4NWKaZbzBw5Sj7mmV/Nm5VQhd9oHN2P79ie3ZqAmtq49JAgDRVvDbzMxeyQ0DEj
+         3z+76qyxmcD3Qyn5mYP9Hx8anIfgiOZjxtDjDeg3DEe1sjVAYYowLdMFnIqkpwzeMWco
+         XA068t+CJNrYuheNKdNu0gcdwPt6sGKJxwcPQVeIzoJI69+47vjtPkGIFO9Ftz/sM8BX
+         psesiNjnSnHiXyQUyzZLToTmEDy5Yhea40tzZ4n++OFGETNjECpNE4DYGdZRy7SXZrhM
+         BbMY1F/FkhyZZ+p3ChXZrs0KZ2c2Mj/DBghUqPfGJuMp/QMcHlxCG3twRDQqxVAHRd6F
+         Q1ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6vchq38cxL71WHw3tQQOxmw2ltB/ceG06+rbRCiiw1M=;
+        fh=N3gVuIw6HGvaEnLTRA+NOZ4W66ynM4MlOveIUh7EcQY=;
+        b=fJeHh6puNoJAI9ntxOaTyyizSLhxKc/Y7vL5b15nto7JQwh8t6g5Cgse1fiN+sPjD5
+         mc7w0PEAt2WWtbbCntRwlFAuj7tbPCZJGlpEIzNiEwMd70poeGo+H/4V+d3X+PMxrAWl
+         RYaWO3GIE3TxSTW6DWuXoHFBASz+hvWYKGUlK27JkUi61ctS+umfgatS8h+BTLcWQmrJ
+         4QE85swP0Tjmf7rWaA+QWp2U3EdO20HbPULxuL5bud6NsooF60lKJveuEfsOFwrCXkE5
+         6iUkznQ24zLbJWRs5l7OTEXZQvs4sFAi3/wr8+4VhzBxhYkdiPgNbGLdvPuOEuTcIxep
+         DFOA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1782878929; x=1783483729; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6vchq38cxL71WHw3tQQOxmw2ltB/ceG06+rbRCiiw1M=;
+        b=Qs+ne3U7MkshHPC4bHvcJdaidkvugkhiva8YJkTacSQZsCc1I8XpThUOo1yGfpTp4Z
+         7swhFqTmD5H0Upc9nzWeRBIjKz2IatROzoL2z+Ypc9Yt4ezUC8Yhf6NyTTkZqmGJr1qW
+         G7CNOBa8MAywSsEtp8d54QtEK8HRUVJ4shm1TQ24iTa3j2cspN4n3Lw2Q195wkbftfI8
+         La0QyjLpQgNAM975dsXw7xw/oqjjOFZzXiioMrhhbiTjvikhGHNlpu5oTVDQ7NrUwvax
+         7jlhN4zVIK+UbOaU+ppgan/H20Z6g309Ep/225n31Ms87MJUlOhN66fac35K+tuFB2rh
+         07cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782878929; x=1783483729;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6vchq38cxL71WHw3tQQOxmw2ltB/ceG06+rbRCiiw1M=;
+        b=L6LbkQuaojM8EtbHhSMTnP33UpwHn2DQWzKSIlsUwMcX79/CvrK1E52yKN2eJ574ei
+         zyuFAiw1lZ8/eYOLK5mvPrsOWZMnfWrXj8+Rsdl4TQXUF5hznaqpdzaodkZKlHqX2Ewd
+         3xcQwj888hOL50kXCvMDZaiNY8hzLlaIxx1QP/H66AlAjN30JbAgDBBMWfAJ0pgHgabo
+         iVtXXTloHSC9r8UmB4Tac8cpXK15esRTD0mYVLjVIALMui4s0miNzXcCo2cVT63XXOiT
+         q26KrBFr+Fx0hXGQAYw1gfbVgvnAWot9353ISA3ek+6EuLfh9pSYEmuWZKMQlB6ZIcIN
+         wPmA==
+X-Forwarded-Encrypted: i=1; AHgh+RrefbETWZ/3ntcHwYC08ZgYPRKwHqeY57UB0C+aqWTWwRffw6RGBaB1gkwlSWV8Ob56uWBEGts=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxsMHQD84ehuy0rEcWoBWjl+bcuP4KXFkIz6mUY/KYu5QLDK18P
+	hDfCuU6Fm0y6BqbBDg0ceFxXNVNN6LJSMOAcbBIk4/FEm16dPiN6NVLHvOaHugHgqI5nA9XciCd
+	uMyen/ES3+Is/0qoW7VF1B+N4qQ6F9hkUr42hh+sMZw==
+X-Gm-Gg: AfdE7clUkjUI/ad9FHMFL83Dh6eUoLxDce9OHff3xJCikr922tPDaQVSsZn7i0+mrfq
+	IIn7UY4idqbN7i0O9x/gKJPgG1ailaDMq/3nfpenIFH62OrnQzlzuc8WWqRUtQ+CyfJyNzoZdfL
+	u09ZY+fWsaJNBt0vIoW3Bf4frs6B3Oq0e4Dwq72mUvvYgZt48h+YohlMDcg7T/05eOIM5VYVqu8
+	T1mNJWocHQJkxKb6/7+C4mhv8nOJdZCQJGL6f8uar3kQywT4zFEecAHDeQSjI/dg8IJZLILften
+	cSLOSFLBAnrd7N1ieuvtU6ObhJNvztuV0oQ3JfIq
+X-Received: by 2002:a17:907:86ab:b0:c12:6ad8:821f with SMTP id
+ a640c23a62f3a-c1287494f7emr160110666b.7.1782878928903; Tue, 30 Jun 2026
+ 21:08:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260630114701.319917-1-jinpu.wang@ionos.com> <akPc2raibHy-QnPH@google.com>
+In-Reply-To: <akPc2raibHy-QnPH@google.com>
+From: Jinpu Wang <jinpu.wang@ionos.com>
+Date: Wed, 1 Jul 2026 06:08:37 +0200
+X-Gm-Features: AVVi8CcwfTnPArhNbb4YNNCEyMd_9X9QQuMy-fDKlFrASSln7aEbe4qOJ5TyhMU
+Message-ID: <CAMGffE=1-NnVQBgMnyiEhXD20TZ7z_-u0B4hpnC9qv6FOV6EcA@mail.gmail.com>
+Subject: Re: [stable-6.12] KVM: SEV: Unmap and unpin the GHCB as needed on
+ vCPU free
+To: Sean Christopherson <seanjc@google.com>
+Cc: gregkh@linuxfoundation.org, sashal@kernel.org, stable@vger.kernel.org, 
+	Michael Roth <michael.roth@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-damon_set_regions() assumes the input ranges are sorted by the address
-and don't overlap each other.  Hence the assumption was initially to be
-explicitly validated.  But commit 97d482f4592f ("mm/damon/sysfs: reuse
-damon_set_regions() for regions setting") has mistakenly removed the
-validation.
+On Tue, Jun 30, 2026 at 5:12=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> On Tue, Jun 30, 2026, Jack Wang wrote:
+> > From: Sean Christopherson <seanjc@google.com>
+> >
+> > commit a847a44f67eaf99faad905da38c080f0ba7ee02a upstream.
+>
+> Wrong hash, the upstream commit is db38bcb3311053954f62b865cd2d86e164b043=
+51.
+>
+> > Unmap and unpin the GHCB as needed when freeing a vCPU.  If the VM is
+> > destroyed after mapping+pinning the GHCB on #VMGEXIT, without re-runnin=
+g
+> > the vCPU, KVM will effectively leak the GHCB and any mappings created f=
+or
+> > the GHCB.
+> >
+> > Fixes: 291bd20d5d88 ("KVM: SVM: Add initial support for a VMGEXIT VMEXI=
+T")
+> > Cc: stable@vger.kernel.org
+> > Tested-by: Michael Roth <michael.roth@amd.com>
+> > Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+> > Reviewed-by: Michael Roth <michael.roth@amd.com>
+> > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> > Message-ID: <20260501202250.2115252-18-seanjc@google.com>
+> > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> > Message-ID: <20260529183549.1104619-18-pbonzini@redhat.com>
+> > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+>
+> Please document what you adjusted.  That matters very much, because I wou=
+ld much
+> rather backport 08385c5e1814 ("KVM: SEV: Move sev_free_vcpu() down below
+> sev_es_unmap_ghcb()") than shuffle things around on the fly.  That was th=
+e entire
+> point of tagging 08385c5e1814 for stable.
+>
+> > Signed-off-by: Jack Wang <jinpu.wang@ionos.com>
+>
+> NAK, I'll send backports of the two patches (I ended up doing them anyway=
+s to
+> figure out what was changing in this backport).
+Understood, thanks for handling it.
 
-This can make DAMON behave in unexpected ways.  At the best, the
-monitoring results snapshot will just look weird since there will be
-overlapping regions.  DAMOS will also work weirdly, applying the same
-action multiple times for overlapping regions, and make DAMOS quota
-weird. More seriously, depending on the setup and regions updates
-sequence, negative size regions can be made.  It will trigger
-WARN_ONCE() if the kernel is built with CONFIG_DAMON_DEBUG_SANITY=y.
-Depending on the monitoring results, the negative size region can
-further trigger division by zero in damon_merge_two_regions().
-
-Fix the problems by checking the assumption and returning an error if
-the input ranges don't meet the assumption.
-
-The issue was discovered [1] by Sashiko.
-
-[1] https://lore.kernel.org/20260630041806.151124-1-sj@kernel.org
-
-Fixes: 97d482f4592f ("mm/damon/sysfs: reuse damon_set_regions() for regions setting")
-Cc: <stable@vger.kernel.org> # 5.19.x
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Note that some of the consequences including the WARN_ONCE() and the
-divide by zero depend on commits that were introduced after the original
-broken commit.
-
- mm/damon/core.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 972a19fcee3ec..a99458c578518 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -354,12 +354,19 @@ int damon_set_regions(struct damon_target *t, struct damon_addr_range *ranges,
- {
- 	struct damon_region *r, *next;
- 	unsigned int i;
-+	unsigned long last_end;
- 	int err;
- 
- 	for (i = 0; i < nr_ranges; i++) {
--		if (ALIGN_DOWN(ranges[i].start, min_region_sz) >=
--				ALIGN(ranges[i].end, min_region_sz))
-+		unsigned long start, end;
-+
-+		start = ALIGN_DOWN(ranges[i].start, min_region_sz);
-+		end = ALIGN(ranges[i].end, min_region_sz);
-+		if (start >= end)
-+			return -EINVAL;
-+		if (i > 0 && last_end > start)
- 			return -EINVAL;
-+		last_end = end;
- 	}
- 
- 	/* Remove regions which are not in the new ranges */
-
-base-commit: 81c085116d080d3f35279353cdec773e02f43fe1
--- 
-2.47.3
+Thx!
