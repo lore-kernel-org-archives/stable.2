@@ -1,138 +1,118 @@
-Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com [209.85.210.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB99371D08
-	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 16:30:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC61372665;
+	Wed,  1 Jul 2026 16:33:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782923423; cv=none; b=Vmxb/zWKm/HA3iow6l+2ZTV3LOHBO8EM+G/lLTkbPQI4Qa5g/irhf17+5bTRMLk5ZGGyoEbTwAUT/iZGuIKDcJ0vPCpLi/SMdZNNxztLN7l3RmboR3CWxfHIUNDph4D7sueLlhncSR7Ntcc4bkAbbuK1dDhxJU/EU8CuCC7U8UA=
+	t=1782923593; cv=none; b=dc3phKgLtfSH3P/Cm/pY3KAvESfEFJYdtxkgxpF0SxG0PKmzO4KsihoHJsnVYvNykqtLkqRz7Zfo2Oq/Ae9RFaEaH9NuOw3SjV8oDjKTna7OIGxN0DBM5JPqz0pYc/VYHdNwr307Drbs2lDKo60jTCLxgjfvxr15tsZV2O1WkJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782923423; c=relaxed/simple;
-	bh=BntJeF67EJ/FhtFrjQ07iZV46hXBlWp3EEMp9VjRrfA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=UegSNcFOH4kasSm3DFLZLQsVq9YXWdkb+FFeauYXurgRRPuGEreMJic7qKMOGwSkCo57HLT+4NUc/Q+yUTY8WGtHsvtby637WAfTL3mnZ2VPNDKvMuegSmTLrODeZg4lrJ6/XFjbIMmhnfP30rp859ThERvZh5SG5Hr3aK7ZxZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NmnMk4Mw; arc=none smtp.client-ip=209.85.210.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1782923593; c=relaxed/simple;
+	bh=0O9t1tSW9YfYk8QA/2Mz/IGLCxAsLbduu3bCC9RWh80=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VidtfDOoO7XHV3/n1Jef4VPwf/WKqkMjPa5KntYSHELT79huIcs6yP2+MmFQJytcBqZbRs73UfhIAQkW8LpZbywLhXFewhsy/xhOkuui4x7hJm86V7+312F1ScVEOzZ3UILj4VdUzyDL6iJzxxiDCMX4G65Fc90eLF/WV6HFZ7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cyqs4l3b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NmnMk4Mw"
-Received: by mail-pf1-f201.google.com with SMTP id d2e1a72fcca58-8423f1fe39eso1068757b3a.1
-        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 09:30:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782923422; x=1783528222; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ShKiZb344TxyfswQ+jZSBX+kNOM96MzdNNYUtZBeP4E=;
-        b=NmnMk4Mw/bYUzm3x5Jk5YmoAdQMAWivj+aVQAdvLFUiWmqox96KLfNTE+TlhfbAgUs
-         W9BFDXiod9f5r5+FM6r97HqoBjkBOkZcaW/mwXIQRLn3Ushj5uJtuiAKdLXEsF+ry0g6
-         IPsJ610UzmrtbyA1OitHBwe47jXX2zz77cu2Hpjqq1hxfVwPnMbeGbBIdJEiEOqsW5Vw
-         fcdwR6DB40SqoCQf8jz/wPLppp/T+dLtp4/iLkFeFPQ07VWpatMv8QJVfDBSgA+Gsz/T
-         pfzK1RYRyGiHqY1DPMcAjf3XNGdeicRqtMphYgmX3SHOrek0r20IF0U+ChmCNkynTVvd
-         yODg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782923422; x=1783528222;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ShKiZb344TxyfswQ+jZSBX+kNOM96MzdNNYUtZBeP4E=;
-        b=dReu8UvS2kw5O+yevBSuL6R0N4GrIyQT7d2CwDzAN9OtCvGaCNsKpwpLRsPW6JuFEY
-         ncIuJTXQJZOJL4fYUXSbH86BOGwV4u3e1otp6Vg1dWvPtxxxuNGamYT+ZfNqP0MVAIAu
-         Z69g/2D6NyLg9waxT2eFnxzgjKt8mHEuN2cfSah4tqqXEz3YcNPYwxGViKGj0Tz1wm3B
-         B8+wZ/u5yIjo3I2f5B03WGeomXqKWtCI5CdVYi7XKVSShoGakbcQNbJnHFio1mfa2ftH
-         XiwAqj0aw6aNZSdy21k3oJdx/nq21llKwiv45TCxuMBZoNocQeMBDqF0daUzLo3wvnbp
-         OPew==
-X-Forwarded-Encrypted: i=1; AHgh+RqJzDio92WKqEfAbBk7dFYNHJKUsKL3JwT3vo6BBCc7pTOEwxaHaa2izYqPuuAmSkvu2snf5ZQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyxEhMC5AnjV15rNKex+hx+lQ2y5JljI8xrnx+m9aaW6dUOlRuN
-	pn6sBtyweY6VYsYGe50Vp89rHm/SsYYYoUBH5yWPrmubQgDiu2jOmwica9Wt97Cr9o/3Ktb0meb
-	KuqtDMg==
-X-Received: from pfnn9.prod.google.com ([2002:a05:6a00:2b89:b0:847:7fb7:7370])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4f95:b0:847:9745:2f91
- with SMTP id d2e1a72fcca58-847c5105275mr1361289b3a.28.1782923421185; Wed, 01
- Jul 2026 09:30:21 -0700 (PDT)
-Date: Wed, 1 Jul 2026 09:30:20 -0700
-In-Reply-To: <1cc159b9-5f94-4524-8e03-efe91601ccfc@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cyqs4l3b"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D543A1F000E9;
+	Wed,  1 Jul 2026 16:33:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782923590;
+	bh=JgWpcCcEJlgI18zAnaxSSxs31O3rZqKIde8ESLBbl58=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Cyqs4l3bKZWQQmmdEFKG4KeMAGlk09rG3dzqnFaYOS78zkoBGk+T+4LlOw2HlIu7G
+	 aUKhduciD+oTLynKp6RHPTayp0cE8K0l4iL1KtmrYlxenJOpxpfShccuy0UzRnoIo6
+	 j9GIJrJqQIlmJJiD4u7e2HNhlfKcXow02C7YBRGmHLSn94rxIWn13Q/LW3fAG/SjKO
+	 EproLb5GRdFPnZORcWcSZaZwGZAKVindRMCEz6Sahg8rutD3jweoXQ6PMWLYZjn+QX
+	 nGKeKKYdgL6CL8saUrQZcoffTdH3t7ZcSGdQux7I44Buj8X29F5jLXfYV5wvUALB8U
+	 aMdmvxzZS0kwA==
+Date: Wed, 1 Jul 2026 09:33:10 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Cc: Carlos Maiolino <cem@kernel.org>, Amir Goldstein <amir73il@gmail.com>,
+	Sasha Levin <sashal@kernel.org>,
+	Fedor Pchelkin <pchelkin@ispras.ru>, stable@vger.kernel.org,
+	xfs-stable@lists.linux.dev, Christoph Hellwig <hch@lst.de>,
+	Catherine Hoang <catherine.hoang@oracle.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	lvc-project@linuxtesting.org, linux-xfs@vger.kernel.org,
+	Leah Rumancik <leah.rumancik@gmail.com>,
+	Theodore Ts'o <tytso@mit.edu>
+Subject: Re: [PATCH 6.6 0/4] fix kernel crash for xfs/235 test
+Message-ID: <20260701163310.GB6517@frogsfrogsfrogs>
+References: <20260612233110.2-1-sashal@kernel.org>
+ <ajBQPNuKCruxhkXX@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <ajD3Gb-vQkGU0N6b@nidhogg.toxiclabs.cc>
+ <ajFQPY2m2A6ltvTH@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <ajFabPtI8UGfkyix@nidhogg.toxiclabs.cc>
+ <CACzhbgS59uCYhjX80__+nPjEx=N8mKUsYyFS1+aRDpMA-b-VXQ@mail.gmail.com>
+ <CAOQ4uxgXqmP49FV3b_cKDD_703bRHz0fjm=k=FmNytsPpnKx3g@mail.gmail.com>
+ <ajKSytW_sBFJaBTW@nidhogg.toxiclabs.cc>
+ <20260625183421.GO6070@frogsfrogsfrogs>
+ <akRTtCIZZ0IZ0Omc@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260701144543.39582-1-pankaj.gupta@amd.com> <1cc159b9-5f94-4524-8e03-efe91601ccfc@kernel.org>
-Message-ID: <akVAnGuiuJttE5-6@google.com>
-Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region registration
-From: Sean Christopherson <seanjc@google.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Pankaj Gupta <pankaj.gupta@amd.com>, pbonzini@redhat.com, tglx@kernel.org, 
-	mingo@redhat.com, dave.hansen@linux.intel.com, bp@alien8.de, x86@kernel.org, 
-	thomas.lendacky@amd.com, hpa@zytor.com, yangge1116@126.com, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <akRTtCIZZ0IZ0Omc@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
 
-On Wed, Jul 01, 2026, David Hildenbrand (Arm) wrote:
-> On 7/1/26 16:45, Pankaj Gupta wrote:
-> > commit 7e066cb9b71a ("KVM: SEV: Use long-term pin when registering encrypted memory regions")
-> > added FOLL_LONGTERM to sev_mem_enc_register_region() so anonymous guest RAM is
-> > migrated out of MIGRATE_CMA/ZONE_MOVABLE before a long term pin. This breaks
-> > virtio-pmem which has file backed (MAP_SHARED) host mapping where GUP rejects
-> > FOLL_WRITE | FOLL_LONGTERM since:
+On Tue, Jun 30, 2026 at 07:39:32PM -0400, Hamza Mahfooz wrote:
+> On Thu, Jun 25, 2026 at 11:34:21AM -0700, Darrick J. Wong wrote:
+> > On Wed, Jun 17, 2026 at 02:31:01PM +0200, Carlos Maiolino wrote:
+> > > On Wed, Jun 17, 2026 at 11:19:25AM +0200, Amir Goldstein wrote:
+> > > > On Tue, Jun 16, 2026 at 7:33 PM Leah Rumancik <leah.rumancik@gmail.com> wrote:
+> > > > >
+> > > > > I have changed teams so I no longer work on kernel and I don't believe
+> > > > > my xfs maintenance work was backfilled ;(
+> > > > >
+> > > > > On Tue, Jun 16, 2026 at 7:19 AM Carlos Maiolino <cem@kernel.org> wrote:
+> > > > > >
+> > > > > > On Tue, Jun 16, 2026 at 09:31:41AM -0400, Hamza Mahfooz wrote:
+> > > > > > > Cc: linux-xfs@vger.kernel.org
+> > > > > > >
+> > > > > > > On Tue, Jun 16, 2026 at 09:13:45AM +0200, Carlos Maiolino wrote:
+> > > > > > > > On Mon, Jun 15, 2026 at 03:19:24PM -0400, Hamza Mahfooz wrote:
+> > > > > > > > > Cc: Carlos Maiolino <cem@kernel.org>
+> > > > > > > >
+> > > > > > > > FWIW I don't maintain the stable trees I really don't have time for
+> > > > > > > > that. Darrick/Leah have been doing a best effort case for that, but
+> > > > > > > > again, this is mostly a best effort so we shouldn't expect them to be
+> > > > > > > > looking/picking up every single possible patch suggested for stable.
+> > > > > > > >
+> > > > > > >
+> > > > > > > Now that you mention it, the xfs-stable mailing list seems to be pretty
+> > > > > > > much dead (i.e. the last time fixes from it were merged into stable was
+> > > > > > > almost a year ago). I guess no one is really working on it anymore?
+> > > > > >
+> > > > > > IIRC Darrick started it, I personally never worked on it, but I didn't
+> > > > > > follow the evolution there.
+> > > > 
+> > > > I think at this point we can officially declare xfs in stable <= 6.6
+> > > > unmaintained
+> > > > maybe need to send patches to LTS MAINTAINERS.
+> > > > 
+> > > > The best chance in this case to apply the requested fix to 6.6.y is that the
+> > > > author (Darrick) approves it.
+> > > 
+> > > Unfortunately this might be true. But let's wait for Darrick's input
+> > > please. He's on vacations this week so will be unfair to make any
+> > > decisions in this matter without his input.
+> > > Also he has been still poking people to tag patches with LTS versions
+> > > so even though he might not me dealing with the xfs-stable, he might still
+> > > be driving work on LTS trees.
 > > 
-> > commit 8ac268436e6d ("mm/gup: disallow FOLL_LONGTERM GUP-nonfast writing to file-backed mappings")
-> > commit a6e79df92e4a ("mm/gup: disallow FOLL_LONGTERM GUP-fast writing to file-backed mappings").
-> > 
-> > Drop FOLL_LONGTERM when registering encrypted memory regions and restore
-> > the previous behavior.
+> > I've really only been doing QA work on 6.12/6.18 LTS.  Ted Tso might
+> > still be doing the older ones.  Catherine left Oracle last year.
 > 
-> But that breaks the original issue of breaking ZONE_MOVABLE/CMA?
+> Any idea on potential paths forward for getting this series in
+> particular into 6.6.y?
 
-Ya.
+Run fstests, and if there are no new regressions, ask sasha/greg to
+queue it.
 
-> If it is a longterm pin, it must use FOLL_LONGTERM. :/
-
-Heh, well, KVM showed that that's not entirely true for many years :-)
-
-Assuming we can't solve this some other way, and that there are "real" use cases
-that were broken by adding FOLL_LONGTERM, maybe this as a hack-a-fix?
-
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 74fb15551e83..ea136d79c963 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -2752,6 +2752,25 @@ int sev_mem_enc_register_region(struct kvm *kvm,
- 
-        region->pages = sev_pin_memory(kvm, range->addr, range->size, &region->npages,
-                                       FOLL_WRITE | FOLL_LONGTERM);
-+
-+       /*
-+        * On failure, attempt a "short"-term pin for backwards compatibility,
-+        * in quotes because this isn't actually a short-term pin.  The kernel
-+        * disallows long-term writable pins on file-backed memory as a partial
-+        * defense against the fundamental problem that most filesystems don't
-+        * play nice with kernel writes via GUP (true short-term pins are much
-+        * less likely to be problematic).
-+        *
-+        * Unfortunately, KVM (incorrectly) used a short-term pin for years,
-+        * and so can't *require* a long-term pin.  And for this use case, the
-+        * potential filesystem crashes that occur with kernel writes are a
-+        * non-issue, as KVM isn't using this pin to access guest memory, the
-+        * pin is performed purely to prevent the memory from being migrated.
-+        */
-+       if (IS_ERR(region->pages))
-+               region->pages = sev_pin_memory(kvm, range->addr, range->size,
-+                                              &region->npages, FOLL_WRITE);
-+
-        if (IS_ERR(region->pages)) {
-                ret = PTR_ERR(region->pages);
-                goto e_free;
-
-> I assume we fail in check_vma_flags()
-> 
-> 	if ((gup_flags & FOLL_LONGTERM) && vma_is_fsdax(vma))
-> 		return -EOPNOTSUPP;
-> 
-> IIRC, fsdax cannot tolerate unbounded pins. Is that the case we are running into?
-> 
-> How does vfio deal with that? (does it?)
-> 
-> -- 
-> Cheers,
-> 
-> David
+--D
