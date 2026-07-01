@@ -1,58 +1,73 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47534363082
-	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 05:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC59370AE5;
+	Wed,  1 Jul 2026 05:49:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782884977; cv=none; b=oSZUyy/sz1BP4iltr7DcuABynRnbCrDOvEpVGktySB6N0FREKTyf+P3Dst3DbOI+i4KRdna9O9xYJOtCCJtFwSyMwNR88HcDVhZxmB2qcwEyrYuZ4E5ZtIeiZ7cXrostDtsDqWcgo2KVB+oQDmvEaw0+DvYIdaIx3jGhszoruXs=
+	t=1782884997; cv=none; b=dhHtX1TholBfhEsLL6ArD1ywwiT9oUTkt2SkAIkL87LG95EQfDoCdPC4iX6Nma2JkX5hL5W8rfjBk5AKGj8rTjvCLS46A6E2XHutvu0O9z1VUuKC5Lwd49WCs4eBzG6oGrsW+aA8e5ebOzVr3STvFKDlDzx+ycOd5vQGFvyTQU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782884977; c=relaxed/simple;
-	bh=v1ueM0dwe6N3NoizG/3DpBtYbUPxQDnS5+MX8TeAjmo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dauTD4RYwBAAdCY/+OVDbiarXNoIW/k22C37rRPVqXzzAscAJIL33Axxm9z3rbWg9AxjU8+AStyetrP6Lx/Fg+WCEBDh1gVIubwdAbj32KcGqUUwDFtmblpgXfmZCd8AVprpDVobxY15wa70pNpE42/HGV2wyou1/XkHB4uqPdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lqX89Ggl; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782884997; c=relaxed/simple;
+	bh=/GMcqF1R94FyG0iOfJ+bmNgW7ojUYmGJGxN4rlizefA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sEzGFvXl+h37U8x217Hv8iSbA1V3YyIBTCdT0ulDhaixuIK92737UIS042RGE4kgHWZ3LuCluZAtZS4Qly+EKDcdn5yTep+g/uwFn0Rgxa/gLFhegHC5FWNdgR0aXkJ3SLciGMOvbJiNnsMQlVEI+Bm+jsAmxG2ZCV6l5PCsuvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h/T2z7jo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lqX89Ggl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782884977; x=1814420977;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=v1ueM0dwe6N3NoizG/3DpBtYbUPxQDnS5+MX8TeAjmo=;
-  b=lqX89GglZJznOOCgPb+6nl6d8tB3oOrBvO/BGRnbz950I3U3gaRt659t
-   nUO9WxrFeVtcYTMt7I8+S2QFetqXLjekCzYOhB6MZ2bnuVD+aYVNDIvo0
-   wtT/m/sICRuihF02sPsZefDEw6UIa6mr6hbFQKAH0I3/LIzkReuAv2gtA
-   j92qoiEae6Ag3fGVHpCOBIhjxeI5lZh2YusGejXtRN/MGmGsH7vkpdC55
-   wzeLAkU8GNFTXiEOGbOrLkFlUE2bhuy5LCInH3EREQQr9nH6884fL/jJi
-   CuoZ0ECZoA7BBn/ZywJc55bMJknAETdE3YPwqUxd1ryDrxiYCE6l8IVcC
-   A==;
-X-CSE-ConnectionGUID: Hw3DgvUzSZC2fFr1juZ3wg==
-X-CSE-MsgGUID: 0nVBPWQ3TGqfeJQDX9/+kw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="87519362"
-X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; 
-   d="scan'208";a="87519362"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 22:49:36 -0700
-X-CSE-ConnectionGUID: WUeu4p63SRKS5gWOuRkQDA==
-X-CSE-MsgGUID: K/6vQlLiThe1xmDbEOa7OA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; 
-   d="scan'208";a="246119054"
-Received: from nitin-super-server.iind.intel.com ([10.190.238.72])
-  by fmviesa009.fm.intel.com with ESMTP; 30 Jun 2026 22:49:33 -0700
-From: Nitin Gote <nitin.r.gote@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Nitin Gote <nitin.r.gote@intel.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h/T2z7jo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F256F1F00A3A;
+	Wed,  1 Jul 2026 05:49:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782884995;
+	bh=DDn6/hMBFkxaIDTWG6ELJ9BHD0gGmn2ym9lHK0DAGBg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=h/T2z7joqV/7Szo7Y6FCLPBWjs4VapdKJ+KPy/Ku43SEyDt4VnitmsW8lRvqODvMl
+	 B0MXcLm7ZWWk+2LPK6OpNw6Q3+mzvXlr5NETR2VA7Gjs+2DJiTpQrj+udsy0x4T/t3
+	 NuEG5V7zS0WlM5ziBr/L1q6WOCgsfDVWjMV+wvpm6IhKD8ASPll7G5wWwPa6+QOFTa
+	 9SDXWxR4Ct5CXZGM6/pAVwaHSfPCH8mfKhi5ou1lS81pkpBHUIELi3XbHNcuQt4hIb
+	 xRflhDKe0XIazwi3h04clh9VY69qxQ6HLLzpzsu1MTx9gdx8EY4pYu0u5clacZPU/9
+	 g1lf1PeOrzCJA==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-coco@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	x86@kernel.org,
 	stable@vger.kernel.org,
-	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
-	Christian Konig <christian.koenig@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>
-Subject: [PATCH] drm/ttm: Fix UAF on dma-buf attach failure for sg BOs
-Date: Wed,  1 Jul 2026 11:56:00 +0530
-Message-ID: <20260701062559.3731993-2-nitin.r.gote@intel.com>
-X-Mailer: git-send-email 2.50.1
+	Michael Kelley <mhklinux@outlook.com>,
+	Jason Gunthorpe <jgg@nvidia.com>
+Subject: [PATCH v7 01/22] dma-direct: return struct page from dma_direct_alloc_from_pool()
+Date: Wed,  1 Jul 2026 11:19:05 +0530
+Message-ID: <20260701054926.825925-2-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260701054926.825925-1-aneesh.kumar@kernel.org>
+References: <20260701054926.825925-1-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,92 +76,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a dma-buf importer creates a ttm_bo_type_sg BO with bo->base.resv
-pointing at the exporter's dma_buf->resv and dma_buf_dynamic_attach()
-fails, no dma_buf reference is held. The exporter can be freed before
-the delayed_delete worker calls dma_resv_lock(bo->base.resv), causing a
-use-after-free:
+Commit 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool
+helper") changed dma_direct_alloc_from_pool() to return the CPU address
+from dma_alloc_from_pool(). That fits dma_direct_alloc(), but
+dma_direct_alloc_pages() also uses the helper and expects a struct page *.
 
-  Oops: general protection fault, probably for non-canonical address
-        0x6b6b6b6b6b6b6b9c
-  Workqueue: ttm ttm_bo_delayed_delete [ttm]
-  RIP: 0010:mutex_can_spin_on_owner+0x3f/0xc0
+Fix this by making dma_direct_alloc_from_pool() return the struct page *
+again, and pass the CPU address back through an out-parameter for the
+dma_direct_alloc() caller.
 
-ttm_bo_individualize_resv() skips the resv swap for all sg BOs to keep
-the shared resv available for delayed_delete to release the dma-buf
-mapping. A BO whose attach never succeeded has no mapping to release,
-yet it keeps bo->base.resv pointing at the exporter resv that
-delayed_delete later locks once the exporter is gone.
-
-Fix this by checking bo->base.import_attach, which is set only after a
-successful attach. The check is placed after dma_resv_copy_fences() so
-successful imports still copy fences to _resv before returning, keeping
-the shared resv for delayed_delete. Failed imports fall through to swap
-resv to _resv, so delayed_delete never locks the stale exporter resv.
-
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8023
-Fixes: d99fbd9aab62 ("drm/ttm: Always take the bo delayed cleanup path for imported bos")
-Cc: stable@vger.kernel.org # v6.8+
-Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
-Cc: Christian Konig <christian.koenig@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
+Fixes: 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool helper")
+Cc: stable@vger.kernel.org
+Tested-by: Michael Kelley <mhklinux@outlook.com>
+Tested-by: Mostafa Saleh <smostafa@google.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
-Hi Thomas/Christian,
-Thank you for the review. Addressed the v3 review comments in this 
-v4 version.
+ kernel/dma/direct.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-v4:
-- Moved import_attach check to after dma_resv_copy_fences() so fences
-  are copied before returning for successful imports (Thomas).
-- Removed exporter-alive claim from commit message (Thomas).
-
-v3:
-- Dropped the xe-side reordering approach since importer_priv must be
-  valid when dma_buf_dynamic_attach() publishes the attachment.
-- Per Christian's suggestion on the v1 thread, keyed the check on
-  import_attach rather than removing the sg guard entirely.
-- Fixes both xe and amdgpu in a single TTM patch.
-
- drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index bcd76f6bb7f0..9b6341f69805 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -203,15 +203,21 @@ static int ttm_bo_individualize_resv(struct ttm_buffer_object *bo)
- 	if (r)
- 		return r;
- 
--	if (bo->type != ttm_bo_type_sg) {
--		/* This works because the BO is about to be destroyed and nobody
--		 * reference it any more. The only tricky case is the trylock on
--		 * the resv object while holding the lru_lock.
--		 */
--		spin_lock(&bo->bdev->lru_lock);
--		bo->base.resv = &bo->base._resv;
--		spin_unlock(&bo->bdev->lru_lock);
--	}
-+	/*
-+	 * Successfully imported sg BOs need the shared resv for dma-buf
-+	 * cleanup. Failed imports have no attachment or mapping and can
-+	 * use the private _resv.
-+	 */
-+	if (bo->type == ttm_bo_type_sg && bo->base.import_attach)
-+		return 0;
-+
-+	/* This works because the BO is about to be destroyed and nobody
-+	 * references it any more. The only tricky case is the trylock on
-+	 * the resv object while holding the lru_lock.
-+	 */
-+	spin_lock(&bo->bdev->lru_lock);
-+	bo->base.resv = &bo->base._resv;
-+	spin_unlock(&bo->bdev->lru_lock);
- 
- 	return r;
+diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+index 4391b797d4db..b4cb2c03e5d7 100644
+--- a/kernel/dma/direct.c
++++ b/kernel/dma/direct.c
+@@ -164,22 +164,21 @@ static bool dma_direct_use_pool(struct device *dev, gfp_t gfp)
+ 	return !gfpflags_allow_blocking(gfp) && !is_swiotlb_for_alloc(dev);
  }
+ 
+-static void *dma_direct_alloc_from_pool(struct device *dev, size_t size,
+-		dma_addr_t *dma_handle, gfp_t gfp)
++static struct page *dma_direct_alloc_from_pool(struct device *dev, size_t size,
++		dma_addr_t *dma_handle, void **cpu_addr, gfp_t gfp)
+ {
+ 	struct page *page;
+ 	u64 phys_limit;
+-	void *ret;
+ 
+ 	if (WARN_ON_ONCE(!IS_ENABLED(CONFIG_DMA_COHERENT_POOL)))
+ 		return NULL;
+ 
+ 	gfp |= dma_direct_optimal_gfp_mask(dev, &phys_limit);
+-	page = dma_alloc_from_pool(dev, size, &ret, gfp, dma_coherent_ok);
++	page = dma_alloc_from_pool(dev, size, cpu_addr, gfp, dma_coherent_ok);
+ 	if (!page)
+ 		return NULL;
+ 	*dma_handle = phys_to_dma_direct(dev, page_to_phys(page));
+-	return ret;
++	return page;
+ }
+ 
+ static void *dma_direct_alloc_no_mapping(struct device *dev, size_t size,
+@@ -247,8 +246,11 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+ 	 * the atomic pools instead if we aren't allowed block.
+ 	 */
+ 	if ((remap || force_dma_unencrypted(dev)) &&
+-	    dma_direct_use_pool(dev, gfp))
+-		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
++	    dma_direct_use_pool(dev, gfp)) {
++		page = dma_direct_alloc_from_pool(dev, size, dma_handle,
++						  &ret, gfp);
++		return page ? ret : NULL;
++	}
+ 
+ 	/* we always manually zero the memory once we are done */
+ 	page = __dma_direct_alloc_pages(dev, size, gfp & ~__GFP_ZERO, true);
+@@ -357,7 +359,7 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
+ 	void *ret;
+ 
+ 	if (force_dma_unencrypted(dev) && dma_direct_use_pool(dev, gfp))
+-		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
++		return dma_direct_alloc_from_pool(dev, size, dma_handle, &ret, gfp);
+ 
+ 	page = __dma_direct_alloc_pages(dev, size, gfp, false);
+ 	if (!page)
 -- 
-2.50.1
+2.43.0
 
