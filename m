@@ -1,75 +1,166 @@
-Received: from outbound.st.icloud.com (p-east2-cluster6-host5-snip4-10.eps.apple.com [57.103.76.221])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB884C040A
-	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 17:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.76.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E1F372064;
+	Wed,  1 Jul 2026 17:59:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782928580; cv=none; b=bKvHoDXA1JRP6pu1qgkrqaJMRXbR2Mk8A7S8+jrDTg503ySIwXMDivwvRsw0hCfL0C/L26+OFI0ir8Z+ZvxqEhFOMbf3gcA3O8We7rFbMxGCBobAzpVyjyEnXtWQsTj0ZlctWLu8lOcvm465gExacAqKh+Smn7JzD4pU4c2toXM=
+	t=1782928756; cv=none; b=ZVwBm42MQ8pKTZmEyviUVrMN5gHZuwNPHxv8Sb1VqgH/ifcwGSdYoCrkjtzA5eAhPAFwIPkRZFVykCV6y8bSWCrwQB15fWPry/ZubX9Zg8iqGndAIN7AP4KwUO68ON5Tv/j1FsI0Wc/5+gcGCEuaixwxXzAh1gSfcoMYYNSg1P0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782928580; c=relaxed/simple;
-	bh=oBluO8Go7Ada5MaFGlyMK2kizMewkK5Ba1uEF5uWyBk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=APepN46ixaN6nXCn9e20w+5SNZzDm48jHSh8BmFNethB8T773hU7+2fVtxS3iSrw/se/3xqrjkT5B2ER0ER9QlifJ8Erp48Ts/KoHZP0QF4RxKDp2yMEsIwpxzVMblUyQVyUMIgEPzQ5ecWic6hivhBwzgRbnC13GWG1TTkYinQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=catnip.supply; spf=pass smtp.mailfrom=catnip.supply; dkim=pass (2048-bit key) header.d=catnip.supply header.i=@catnip.supply header.b=mAECChIo; arc=none smtp.client-ip=57.103.76.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=catnip.supply
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catnip.supply
+	s=arc-20240116; t=1782928756; c=relaxed/simple;
+	bh=wC6VbQ2fn5i1xjrwkl7o5SV+oivH8PPpQHIk/wSRVNo=;
+	h=Date:To:From:Subject:Message-Id; b=MFdY61OVk3yfTO8nzm4TT3co1sXVg4ycvIEq2Nzad+Ri5u0ywfWsBuMyUQv4UoddCQc4tP+Qks5fDSn/59orP0c23TXY+ITjaapBfE8OiSe5vAj7EnV5s0edu+gKgyyvjbuPUis0ftO5oyXTcL63CCIB4Ke/wWCwXH+rt+MtHZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=tm6bJ6qE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=catnip.supply header.i=@catnip.supply header.b="mAECChIo"
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-5 (Postfix) with ESMTPS id A62011800228;
-	Wed, 01 Jul 2026 17:56:14 +0000 (UTC)
-X-ICL-RepId: 019f1ed3-085d-7f8e-acf0-fba0e7747b5c
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQhICkMFWwVeCEgHQwVaAFBcHA4HVgVyE1gMXQRHRUEFSQhfFBcNVk1aGUcDXhscA0wIQwFOS0ATBEkHTV8OXh8EF0YZVQRHHl1WQBkZAlEcVg1XQ1QEX1BJDEFQbFoARxdIHV0ZWW9QXRwODlYfXBlJVkAYRxteCRkVWgkKVwBAC04DWgdaA0cMTQZaGV0KQApVAkBdClwwWhlHA14bHANMCEMBTlUSBEAIVlBUHkEEVhVsCVgGUxlX
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=catnip.supply; s=sig1; t=1782928577; x=1785520577; bh=oBluO8Go7Ada5MaFGlyMK2kizMewkK5Ba1uEF5uWyBk=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=mAECChIo4zyIE0v0DnJ7q6dawJowZ6VKp3cX9mZ5up6esnUtQ11tgmX/tOl35GY30R/M65UWxxA5MQNi3cjOs41Xm1ljndMum5md7JOVvPEt3yLA/bMzDijh1ivLXQI8cdJhqq6wnQSp4zDKk57pohnQy8Im0z8QvAtZdIaZS9+vIFvPWyL8apJtchfdUtTG8UTF8C0TYfVbv0nHJTvnD8qkWDbBE6Fk4LL5QsDK68VWk+JM8ZcGNQbarsjZoKEgSG9DNPkx7mSmLOXUGX/T8uBUth71s7W9dQvLvVeKbNT7cNWcR6vLIbecoaD3bz9l3VfwSNu8EJL8IKgCALD/cQ==
-mail-alias-created-date: 1779453914251
-Received: from jan-pc (unknown [17.42.251.67])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-5 (Postfix) with ESMTPSA id E0D4D180158B;
-	Wed, 01 Jul 2026 17:56:07 +0000 (UTC)
-From: Jan Kot <jan@catnip.supply>
-To: sashal@kernel.org
-Cc: alex@exolabs.net,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	horms@kernel.org,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org,
-	oliver@neukum.org,
-	pabeni@redhat.com,
-	patches@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH AUTOSEL 7.0-6.12] net: usb: cdc_ncm: add Apple Mac USB-C direct networking quirk
-Date: Wed,  1 Jul 2026 19:55:57 +0200
-Message-ID: <20260701175557.6803-1-jan@catnip.supply>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260520111944.3424570-19-sashal@kernel.org>
-References: <20260520111944.3424570-19-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="tm6bJ6qE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FAF41F000E9;
+	Wed,  1 Jul 2026 17:59:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1782928755;
+	bh=xHj/blAs7xxBqGS0oB3FC/vAwyh9Mivo3cKwhMDuLyw=;
+	h=Date:To:From:Subject;
+	b=tm6bJ6qEEBkbO2VP6LHZrLDft1fSI1MeZMpgSkwaiEQLipYmEoe9FHPYsDKc9DRmn
+	 LR8awQoJCqbxFYT0aVzCetI765fElbV41LclTHXj2s7RxNsVtysqUP2Oq8Q49jJqkE
+	 aZbtXELG3TKSurGZYMP3ifh1mkP8JGW/pH2gUSQU=
+Date: Wed, 01 Jul 2026 10:59:14 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,yang@os.amperecomputing.com,stable@vger.kernel.org,ryan.roberts@arm.com,npache@redhat.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,dev.jain@arm.com,david@kernel.org,baolin.wang@linux.alibaba.com,baohua@kernel.org,riel@surriel.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-huge_memory-set-pg_has_hwpoisoned-only-after-new-folio-head-is-established.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260701175915.1FAF41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: _g_xjTsoEF11gaND9dDj2vQmtmwVDbbu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDE5MSBTYWx0ZWRfX5w5hSfh3QXnj
- woZ2A7uWowp8a9yDJ7KPZLilXu8bMQi6hv/x9jXSE6vfzLEmv32FZzJanreP4HdByjNA8kuu6jT
- tLMQM/ocQuIsSsATUFt1B97Bge3mfKbWAwIz0UVRWCYLpYjUU5k2tAvaWY7Zt6O9fQvK8GpzM3R
- Y/aACP3Soy3LycOfmGIeDwycbom0+GVVZHHd3eEsZU0WyPuluacvDYoDEaN5AJM60khfgPgxob7
- oDp9kK08yhkt3ZQzFxV8C+8DJD1KcXUpj/5XG1TwnojCe53e+rIrUn/VL4DPNKpvzf8qC/tAt8E
- CgR3jNmNJQ0/T5jJZ2QIVthgYbd9+QF4zq/s85LvA==
-X-Proofpoint-GUID: _g_xjTsoEF11gaND9dDj2vQmtmwVDbbu
 
-Hi,
-I noticed that there may be more PIDs for Apple Silicon Macs.
-My M1 MacBook Air uses PID 0x1903, not 0x1905.
-Looking at libimobiledevice/usbmuxd for reference, they actually define
-a range of PIDs from 0x1901 to 0x1905 for these devices:
-https://github.com/libimobiledevice/usbmuxd/blob/master/src/usb.h
-I guess the whole range should be added to the id_table as well.
 
-Best regards,
-Jan Kot
+The patch titled
+     Subject: mm/huge_memory: set PG_has_hwpoisoned only after new folio head is established
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-huge_memory-set-pg_has_hwpoisoned-only-after-new-folio-head-is-established.patch
+
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-huge_memory-set-pg_has_hwpoisoned-only-after-new-folio-head-is-established.patch
+
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Rik van Riel <riel@surriel.com>
+Subject: mm/huge_memory: set PG_has_hwpoisoned only after new folio head is established
+Date: Wed, 1 Jul 2026 13:42:34 -0400
+
+__split_folio_to_order() copies the hwpoison state onto each new sub-folio
+while splitting a folio to a non-zero order.  It does so via
+
+	if (handle_hwpoison && page_range_has_hwpoisoned(new_head, new_nr_pages))
+		folio_set_has_hwpoisoned(new_folio);
+
+*before* clear_compound_head(new_head)/prep_compound_page(new_head, ...)
+turns @new_head from a tail page into a proper folio head.
+
+PG_has_hwpoisoned is a FOLIO_SECOND_PAGE flag, so
+folio_set_has_hwpoisoned() resolves to folio_flags(folio, 1).  With the
+new compound_info-based page-flags layout, folio_flags() asserts the page
+is not a tail:
+
+	VM_BUG_ON_PGFLAGS(page->compound_info & 1, page);
+	VM_BUG_ON_PGFLAGS(n > 0 && !test_bit(PG_head, &page->flags.f), page);
+
+At the current call site @new_head still has the tail marker
+(compound_info bit 0 set, PG_head clear), so on CONFIG_DEBUG_VM kernels
+this hits:
+
+  kernel BUG at include/linux/page-flags.h:354
+  folio_flags+0x82
+  folio_set_has_hwpoisoned
+  __split_folio_to_order
+  __split_unmapped_folio
+  __folio_split
+  truncate_inode_partial_folio  (shmem hole-punch / MADV_REMOVE)
+
+Reproduced by syzkaller: hwpoison-inject a few subpages of a large shmem
+folio, then MADV_REMOVE (fallocate punch hole) on the same range, which
+splits the partial folio to a non-zero order.
+
+memory_failure() tries to split the poisoned folio to order 0 first, but
+that split is best-effort; when it fails the folio is left large with
+PG_has_hwpoisoned set, the case fa5a06170036 added this hwpoison copying
+for.
+
+Move the folio_set_has_hwpoisoned() call to after
+clear_compound_head()/prep_compound_page(), where @new_folio is a real
+order-new_order head folio (handle_hwpoison implies new_order != 0, so a
+second page always exists).  The flag still lands on the same struct page
+(page[1] of the new folio); only the ordering relative to compound-head
+setup changes, satisfying the FOLIO_SECOND_PAGE precondition.
+
+Link: https://lore.kernel.org/20260701174235.3173401-1-riel@surriel.com
+Fixes: fa5a06170036 ("mm/huge_memory: preserve PG_has_hwpoisoned if a folio is split to >0 order")
+Signed-off-by: Rik van Riel <riel@surriel.com>
+Assisted-by: Claude:claude-opus-4-8
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Yang Shi <yang@os.amperecomputing.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/huge_memory.c |   12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+--- a/mm/huge_memory.c~mm-huge_memory-set-pg_has_hwpoisoned-only-after-new-folio-head-is-established
++++ a/mm/huge_memory.c
+@@ -3587,10 +3587,6 @@ static void __split_folio_to_order(struc
+ 				 (1L << PG_dropbehind) |
+ 				 LRU_GEN_MASK | LRU_REFS_MASK));
+ 
+-		if (handle_hwpoison &&
+-		    page_range_has_hwpoisoned(new_head, new_nr_pages))
+-			folio_set_has_hwpoisoned(new_folio);
+-
+ 		new_folio->mapping = folio->mapping;
+ 		new_folio->index = folio->index + i;
+ 
+@@ -3612,6 +3608,14 @@ static void __split_folio_to_order(struc
+ 			folio_set_large_rmappable(new_folio);
+ 		}
+ 
++		/*
++		 * PG_has_hwpoisoned is on the 2nd page, so set it after
++		 * the compound head is prepped.
++		 */
++		if (handle_hwpoison &&
++		    page_range_has_hwpoisoned(new_head, new_nr_pages))
++			folio_set_has_hwpoisoned(new_folio);
++
+ 		if (folio_test_young(folio))
+ 			folio_set_young(new_folio);
+ 		if (folio_test_idle(folio))
+_
+
+Patches currently in -mm which might be from riel@surriel.com are
+
+mm-huge_memory-set-pg_has_hwpoisoned-only-after-new-folio-head-is-established.patch
+
