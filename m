@@ -1,155 +1,127 @@
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A39AA248F57;
-	Wed,  1 Jul 2026 13:49:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B012D97B5;
+	Wed,  1 Jul 2026 14:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782913789; cv=none; b=Wu+V3fwldg2/Ll2CjZFLzvmKmgESNae7G0O64dIcqrdDXLv+ESOtGKLNwL2C1aHociiLnjgGJMbWa/mzAAPVJV2ivEEjRYvwbnupVP1fSx++MBFQLt3BvmicQdlGlIzwGWoIUXlid5svzkpXaSFdLcOHXKHBdjQo0cAhpSTxjKE=
+	t=1782914973; cv=none; b=jshpskWyn/Cr7dv6uTJQcIhKn5mdlS1ACaSeOiUJjOUyGiraRgySjUQho20ddyqAPQNlHV//FZTb54cci1688HzZFAOUk8PhCXzmqBZghExdK1XbIb7WxkofJ7+/rCgWPjcUGTkUPmxXZJOarHvkPDqHMdpg+xuPCq7bY41CJUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782913789; c=relaxed/simple;
-	bh=TA3UksPLh0uIuOSCT4vsxe4Pa7NHRR288d4RcMIe7Cg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VVs4DQY51TwfwEVc6Zy5Lg0ZfYlNjppT3ZGgbsJ0zK+ZxC7XqSbZ6WxBEY/uJy1wc1Ia5N6/o2mUK8YnPX1Kwp0F+GmlpvxnyW0xQV+T/LhRXaROrRKoC24bp5itpziFxYn5s33pVLuBbeZpmsmKq2jPEX8TCyXA5oN46nihC3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ETjP0uis; arc=none smtp.client-ip=115.124.30.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1782914973; c=relaxed/simple;
+	bh=ZILN6gtte3VTuWz2MDDPVacKzfJyPzK8qQQjXqjTEqs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=YRIKYxaFXn6tgcRWK5HMch9MR1VftrmnrTEn1aeCZaTR13n8VWY/dHj6Wccq/I6CMzu3+3HeSHk/MZ/55osfKJXqmQxB3d/w8cY2J/xJzpqgOzsf8SqfXfPS/umOS1aRPUvRC3hhDbKC2hMhjzhBzVW8uZiPWBwrCwXz9s8ADko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=BSOoP2EC; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ETjP0uis"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1782913774; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=SGXE/7wv5lCrkCqb5tP5HEIZQWgbH2VC/JSKP94oKzE=;
-	b=ETjP0uisYKohmJXSqjw1gCFNFk4SbinkqQw8+4GR9H3yHIwFrEfzhb+GDCBXKRpZZhYpFo7w+D1hF0mhdO9SDMkV8h7yHME+APmJ0GEFauJ92OZkFtzrNoP+jW1qw3NqI+mVyrvvXybPb3M02f/QkLNOBTudZfjm+5b4gvND8nk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=lulie@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0X69H23N_1782913773;
-Received: from localhost(mailfrom:lulie@linux.alibaba.com fp:SMTPD_---0X69H23N_1782913773 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 01 Jul 2026 21:49:33 +0800
-From: Philo Lu <lulie@linux.alibaba.com>
-To: stable@vger.kernel.org
-Cc: hch@lst.de,
-	sagi@grimberg.me,
-	kch@nvidia.com,
-	gregkh@linuxfoundation.org,
-	skumar47@syr.edu,
-	kumar.shivam43666@gmail.com,
-	kbusch@kernel.org,
-	dust.li@linux.alibaba.com,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y] nvmet-tcp: fix race between ICReq handling and queue teardown
-Date: Wed,  1 Jul 2026 21:49:33 +0800
-Message-Id: <20260701134933.66838-1-lulie@linux.alibaba.com>
-X-Mailer: git-send-email 2.32.0.3.g01195cf9f
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="BSOoP2EC"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=x+YQQZdl+zcGOGPMuUavo8t+GSogJ59TL26Izpzh+CI=;
+	b=BSOoP2ECTYDILZF7Zy50EpMtsKHKDJzIYalhdbVM+WCkITo8iVto8ldJ8ynAED/CEmsQZuUXL
+	Ga3ygHFCpt/K5EfvYkP2GmWmp8iozmVBPzaKuVDtveSd7n2NBvNriZ9MpuyuzISx4H0h5mV25Ye
+	88N7usBGTukLOQGo/Hi5c7Q=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4gr1r42CTxz12LCv;
+	Wed,  1 Jul 2026 22:00:36 +0800 (CST)
+Received: from kwepemr100001.china.huawei.com (unknown [7.202.195.168])
+	by mail.maildlp.com (Postfix) with ESMTPS id 59F894057F;
+	Wed,  1 Jul 2026 22:09:19 +0800 (CST)
+Received: from [10.136.112.147] (10.136.112.147) by
+ kwepemr100001.china.huawei.com (7.202.195.168) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.36; Wed, 1 Jul 2026 22:09:18 +0800
+Message-ID: <0ad60f06-387e-49bc-9e26-3dcebf182cb4@h-partners.com>
+Date: Wed, 1 Jul 2026 22:09:00 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] netfilter: nf_nat_masquerade: recalculate TCP TS
+ offset when port is randomized
+To: Florian Westphal <fw@strlen.de>
+CC: Pablo Neira Ayuso <pablo@netfilter.org>, Phil Sutter <phil@nwl.cc>, "David
+ S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, gaoxingwang <gaoxingwang1@huawei.com>, huyizhen
+	<huyizhen2@huawei.com>, <netfilter-devel@vger.kernel.org>,
+	<coreteam@netfilter.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20260629093408.3927103-1-xietangxin@h-partners.com>
+ <akKN4cywAsFRdefX@strlen.de>
+Content-Language: en-US
+From: xietangxin <xietangxin@h-partners.com>
+In-Reply-To: <akKN4cywAsFRdefX@strlen.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemr100001.china.huawei.com (7.202.195.168)
 
-From: Chaitanya Kulkarni <kch@nvidia.com>
 
-commit 5293a8882c549fab4a878bc76b0b6c951f980a61 upstream.
 
-nvmet_tcp_handle_icreq() updates queue->state after sending an
-Initialization Connection Response (ICResp), but it does so without
-serializing against target-side queue teardown.
+On 6/29/2026 11:23 PM, Florian Westphal wrote:
+> xietangxin <xietangxin@h-partners.com> wrote:
+>> Problem observed in Kubernetes environments where MASQUERADE target with
+>> --random-fully is configured by default. after commit
+>> 165573e41f2f ("tcp: secure_seq: add back ports to TS offset") TCP short
+>> connection QPS dropped from ~20000 to ~10000. This added source and
+>> destination ports into TS offset calculation.
+>>
+>> However, with MASQUERADE --random-fully, when multiple internal connections
+>> (e.g sport 10000,20000) are mapped to the same external port (e.g 30000),
+>> their TS offsets are calculated as ts_offset(10000) and ts_offset(20000).
+>> If the server reuses the TIME_WAIT slot from the first connection, there is
+>> a chance that ts_offset(20000) < ts_offset(10000), breaking TSval
+>> monotonicity for the same 4-tuple and causing RST packets:
+>>   Client -> Server 24870 -> 80 [SYN] TSval=2294041168
+>>   Server -> Client 80 -> 24870 [ACK] TSecr=2846236456
+>>   Client -> Server 24870 -> 80 [RST] Seq=855605690
+>>
+>> After nf_nat_setup_info() successfully assigns a new randomized
+>> source port, recalculate the TS offset using the new port and
+>> update the SYN packet's TSval accordingly.
+> 
+> I don't think this is related to masquerade but to snat (port address
+> rewrite) in general.
+> 
+> I think you could place your new helper in nf_nat_core.c and call it
+> from nf_nat_l4proto_unique_tuple() once we've found a usable tuple:
+> 
+>  668 another_round:
+>  669         for (i = 0; i < attempts; i++, off++) {
+>  670                 *keyptr = htons(min + off % range_size);
+>  671                 if (!nf_nat_used_tuple_harder(tuple, ct, attempts - i))
+> 
+> 	 		     ... here.
+>  672                         return;
+>  673         }
+> 
+Hi Florian,
 
-If an NVMe/TCP host sends an Initialization Connection Request
-(ICReq) and immediately closes the connection, target-side teardown
-may start in softirq context before io_work drains the already
-buffered ICReq. In that case, nvmet_tcp_schedule_release_queue()
-sets queue->state to NVMET_TCP_Q_DISCONNECTING and drops the queue
-reference under state_lock.
+Thank you for the insightful feedback. You are absolutely right that
+this issue is releated to SNAT with port rewrite, rather masquerade.
 
-If io_work later processes that ICReq, nvmet_tcp_handle_icreq() can
-still overwrite the state back to NVMET_TCP_Q_LIVE. That defeats the
-DISCONNECTING-state guard in nvmet_tcp_schedule_release_queue() and
-allows a later socket state change to re-enter teardown and issue a
-second kref_put() on an already released queue.
+Shifting the helper down to nf_nat_l4proto_unique_tuple() as you suggested
+encounters a structural roadblock. we don't have access to the skb there.
+Adding skb to all intermediate callers (like nf_nat_setup_info, get_unique_tuple)
+would severely pollute the core NAT APIs.
 
-The ICResp send failure path has the same problem. If teardown has
-already moved the queue to DISCONNECTING, a send error can still
-overwrite the state with NVMET_TCP_Q_FAILED, again reopening the
-window for a second teardown path to drop the queue reference.
+would it be acceptable to place this logic in nf_nat_inet_fn() before do_nat?
 
-Fix this by serializing both post-send state transitions with
-state_lock and bailing out if teardown has already started.
+ 963 do_nat:
+             ..here
+ 964         return nf_nat_packet(ct, ctinfo, state->hook, skb);
+ 965
+ 966 oif_changed:
+ 967         nf_ct_kill_acct(ct, ctinfo, skb);
+ 968         return NF_DROP;
+ 969 }
 
-Use -ESHUTDOWN as an internal sentinel for that bail-out path rather
-than propagating it as a transport error like -ECONNRESET. Keep
-nvmet_tcp_socket_error() setting rcv_state to NVMET_TCP_RECV_ERR before
-honoring that sentinel so receive-side parsing stays quiesced until the
-existing release path completes.
-
-Fixes: c46a6465bac2 ("nvmet-tcp: add NVMe over TCP target driver")
-Cc: stable@vger.kernel.org
-Reported-by: Shivam Kumar <skumar47@syr.edu>
-Tested-by: Shivam Kumar <kumar.shivam43666@gmail.com>
-Signed-off-by: Chaitanya Kulkarni <kch@nvidia.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ context diff adaptation: drop `queue->state = NVMET_TCP_Q_FAILED` since
- the enum introduced in 6.7, 675b453e0241 ("nvmet-tcp: enable TLS handshake
- upcall" ]
-Signed-off-by: Philo Lu <lulie@linux.alibaba.com>
----
-This fix has been backported to 6.12, 6.18, and 7.1.
-This patch just adds it to 6.6.
----
- drivers/nvme/target/tcp.c | 29 ++++++++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
-index 5f85c4a812abc..4174fef03eac7 100644
---- a/drivers/nvme/target/tcp.c
-+++ b/drivers/nvme/target/tcp.c
-@@ -380,6 +380,19 @@ static int nvmet_tcp_build_pdu_iovec(struct nvmet_tcp_cmd *cmd)
-
- static void nvmet_tcp_fatal_error(struct nvmet_tcp_queue *queue)
- {
-+	/*
-+	 * Keep rcv_state at RECV_ERR even for the internal -ESHUTDOWN path.
-+	 * nvmet_tcp_handle_icreq() can return -ESHUTDOWN after the ICReq has
-+	 * already been consumed and queue teardown has started.
-+	 *
-+	 * If nvmet_tcp_data_ready() or nvmet_tcp_write_space() queues
-+	 * nvmet_tcp_io_work() again before nvmet_tcp_release_queue_work()
-+	 * cancels it, the queue must not keep that old receive state.
-+	 * Otherwise the next nvmet_tcp_io_work() run can reach
-+	 * nvmet_tcp_done_recv_pdu() and try to handle the same ICReq again.
-+	 *
-+	 * That is why queue->rcv_state needs to be updated before we return.
-+	 */
- 	queue->rcv_state = NVMET_TCP_RECV_ERR;
- 	if (queue->nvme_sq.ctrl)
- 		nvmet_ctrl_fatal_error(queue->nvme_sq.ctrl);
-@@ -935,10 +948,24 @@ static int nvmet_tcp_handle_icreq(struct nvmet_tcp_queue *queue)
- 	iov.iov_base = icresp;
- 	iov.iov_len = sizeof(*icresp);
- 	ret = kernel_sendmsg(queue->sock, &msg, &iov, 1, iov.iov_len);
--	if (ret < 0)
-+	if (ret < 0) {
-+		spin_lock_bh(&queue->state_lock);
-+		if (queue->state == NVMET_TCP_Q_DISCONNECTING) {
-+			spin_unlock_bh(&queue->state_lock);
-+			return -ESHUTDOWN;
-+		}
-+		spin_unlock_bh(&queue->state_lock);
- 		return ret; /* queue removal will cleanup */
-+	}
-
-+	spin_lock_bh(&queue->state_lock);
-+	if (queue->state == NVMET_TCP_Q_DISCONNECTING) {
-+		spin_unlock_bh(&queue->state_lock);
-+		/* Tell nvmet_tcp_socket_error() teardown is in progress. */
-+		return -ESHUTDOWN;
-+	}
- 	queue->state = NVMET_TCP_Q_LIVE;
-+	spin_unlock_bh(&queue->state_lock);
- 	nvmet_prepare_receive_pdu(queue);
- 	return 0;
- }
---
-2.32.0.3.g01195cf9f
+Best regards,
+Tangxin Xie
 
