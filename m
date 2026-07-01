@@ -1,150 +1,124 @@
-Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D91432AAC5;
-	Wed,  1 Jul 2026 07:00:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.97.182.222
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9BA39448F;
+	Wed,  1 Jul 2026 07:06:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782889264; cv=none; b=qbAqbp1OSx9vxb50tOtY8QwvaDMHm4dLoOMam9z6MXhjsI/IHnHdABfDg1UkX9af3Ghgd0mtEOmeFOlWlLIpUj4sAGcKwRoq+UQmzkcI3/3IOqKt2L/ptqoXU4etqWRUVzoIAK1dXyXPxevmHI/3OBZnxZJZTCPXfkSCYqg4X6E=
+	t=1782889609; cv=none; b=Lm1pC6Zib9AY6aT9mjVQVkwKtwFJ4ZuZwgsZ94fg9tYiI5jechR8k5Jhzs121DzEPcq3fdWlAI0P7+pjSxIV3ljqky7HsGmzM8cT7wkkXgQ77G2fH/XTOuw0YDxpb1CXyoUz4sr4/k1PlBooioe8L6Z8rsCsU4qthW2M3hUoJ+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782889264; c=relaxed/simple;
-	bh=cw7i0cd2QohmmQ/IPMBa+DNnv4Eq9NyNfIk394gQg1E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C3QXvQaQoE0ylcuVPf3Yq4DoE3bNyhikEviYOjGCvk/LSvGQUBgtZFOBBbPNlxpvLBuqtrTpjDssw9OOtzuJioQDhMPkgcAPzQnkzlhsJKOWDqqY91vt6UAjI17uUiFY70R6h5zvFTGoIbyWclN5KaHMrsujTGb8+p2xDlR59Qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=ebkahP8+; arc=none smtp.client-ip=209.97.182.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="ebkahP8+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=0csrI
-	h9NbqUGd1HTtZbXAxrP8rkXEwSRDAuiXdVwyvw=; b=ebkahP8+tQxFfhLOuiIba
-	ujxW+79XS6VUnpqsqImZ1/Y/QFI9ffvUY+ioNusqGF+kk2jFafELmhiqJ8ePG7nB
-	szaOcbi4CYI7ryqxNw10kw7nTLwTLJIr+ZKgSSTp6hCTU/3OeWufvcMjqX+dC6N6
-	9ZNWVnLz/8lzMVumGprjdk=
-Received: from localhost.localdomain (unknown [211.102.241.101])
-	by web5 (Coremail) with SMTP id zAQGZQBHAMDtukRqnMrVAg--.25970S2;
-	Wed, 01 Jul 2026 14:59:58 +0800 (CST)
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-To: netdev@vger.kernel.org
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Simon Horman <horms@verge.net.au>,
-	Julian Anastasov <ja@ssi.bg>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	lvs-devel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
+	s=arc-20240116; t=1782889609; c=relaxed/simple;
+	bh=8j++vddKNtkB77TBw94k0qkKgf2OgN7kSZ/jf7gwzIc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=TS4l4OiV/pL8Y32N9eY8STc4kuh03kECJHG43bQJZ7x5GHbJKjo9+JInEcbNFwfJ3bOb0XicxMiiXCC25Nn7Xy/kRiM9EkTo9Tz6/qgv5gtnM2cAStXAO/59IMQWE2BUd9o0Qi8EtsGzul2EhcRpHcIy6m4gYdGvfuSYOfPmYEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 67c593ca751b11f1aa26b74ffac11d73-20260701
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:7fc683ad-40bf-4424-abdb-6d0d9692cb5f,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:c74d3269c232baecb98dcfaa16aad86e,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|136|850|865|898,TC:nil,Content:0|15|
+	50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 67c593ca751b11f1aa26b74ffac11d73-20260701
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 205018069; Wed, 01 Jul 2026 15:06:39 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com,
+	charsyam@gmail.com
+Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>
-Subject: [PATCH net] ipvs: fix PMTU for GUE/GRE tunnel ICMP errors
-Date: Wed,  1 Jul 2026 14:59:40 +0800
-Message-ID: <20260701065941.46249-1-zhaoyz24@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.46.2
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] ntfs: validate error codes from untrusted disk data
+Date: Wed,  1 Jul 2026 15:06:35 +0800
+Message-Id: <20260701070635.53544-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zAQGZQBHAMDtukRqnMrVAg--.25970S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuF1kZryfXF17Ar4Dur1Utrb_yoW5AF4fpF
-	WIk397ArZ7JF42qw1kXrWxZ3y3KrZ7JF4xWrZ5K345Z3Z0g3WrtFZYy34YgFn0y3yUK345
-	Jr1qy3yUAan8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
-	648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK67
-	AK6r47MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
-	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc4
-	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
-	xVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
-	1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sR_w0eJUU
-	UUU==
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgUPAWpEQp7gLwAAs0
 
-When an ICMP Fragmentation Needed error is received for a tunneled IPVS
-connection, ip_vs_in_icmp() recomputes the MTU that the original packet
-can use by subtracting the tunnel overhead from the reported next-hop
-MTU.
+ntfs_lookup_ino_by_name() returns MFT references read directly from
+disk, which are untrusted data. The current code extracts error codes
+via MREF_ERR() without proper validation, allowing maliciously crafted
+NTFS images to trigger kernel panic.
 
-The current code always subtracts sizeof(struct iphdr), which is only
-the IPIP overhead. For GUE and GRE tunnels, ipvs_udp_decap() and
-ipvs_gre_decap() already compute the additional tunnel header length,
-but that value is scoped to the decapsulation block and is lost before
-the ICMP_FRAG_NEEDED handling. As a result, the ICMP error sent back to
-the client advertises an MTU that is too large, so PMTUD can fail to
-converge for GUE/GRE-tunneled real servers.
+The MFT reference encoding uses bit 47 as an error indicator, but the
+lower 32 bits can contain arbitrary values. If a malicious image sets
+the error bit with a positive integer (e.g., 1), MREF_ERR() returns
+that positive value. Returning ERR_PTR(1) causes VFS to treat it as
+a valid dentry pointer since IS_ERR() only recognizes values in
+[-MAX_ERRNO, -1] as errors.
 
-With a reported next-hop MTU of 1400, a GUE tunnel currently returns
-1380 to the client. The correct value is 1368:
+This leads to kernel panic when walk_component() → step_into()
+dereferences the bogus pointer at:
+    struct inode *inode = dentry->d_inode;
 
-  1400 - sizeof(struct iphdr) - sizeof(struct udphdr) -
-  sizeof(struct guehdr)
+Fix by strictly validating error codes: only accept negative values
+in the valid errno range [-MAX_ERRNO, -1]. Convert all other values
+(positive, zero, or out-of-range) to -EIO to indicate disk corruption.
 
-Hoist the tunnel header length into the main ip_vs_in_icmp() scope and
-subtract sizeof(struct iphdr) + ulen in the Fragmentation Needed path.
-The IPIP path keeps ulen as 0, so its existing 1400 - 20 = 1380 result
-is unchanged.
+This prevents potential security issues and ensures proper error handling
+for corrupted or malicious NTFS filesystems.
 
-Fixes: 508f744c0de3 ("ipvs: strip udp tunnel headers from icmp errors")
+Fixes: 1e9ea7e04472d ("Revert \"fs: Remove NTFS classic\"")
 Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Assisted-by: Claude Code:GLM-5.2
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
----
- net/netfilter/ipvs/ip_vs_core.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
 
-diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
-index d40b404c1bf62..74c5bd8b5f48 100644
---- a/net/netfilter/ipvs/ip_vs_core.c
-+++ b/net/netfilter/ipvs/ip_vs_core.c
-@@ -1765,8 +1765,9 @@ ip_vs_in_icmp(struct netns_ipvs *ipvs, struct sk_buff *skb, int *related,
- 	struct ip_vs_proto_data *pd;
- 	unsigned int offset, offset2, ihl, verdict;
- 	bool tunnel, new_cp = false;
- 	union nf_inet_addr *raddr;
- 	char *outer_proto = "IPIP";
-+	int ulen = 0;
- 
- 	*related = 1;
- 
-@@ -1831,7 +1832,6 @@ ip_vs_in_icmp(struct netns_ipvs *ipvs, struct sk_buff *skb, int *related,
- 		   /* Error for our tunnel must arrive at LOCAL_IN */
- 		   (skb_rtable(skb)->rt_flags & RTCF_LOCAL)) {
- 		__u8 iproto;
--		int ulen;
- 
- 		/* Non-first fragment has no UDP/GRE header */
- 		if (unlikely(cih->frag_off & htons(IP_OFFSET)))
-@@ -1936,8 +1936,8 @@ ip_vs_in_icmp(struct netns_ipvs *ipvs, struct sk_buff *skb, int *related,
- 				if (dest_dst)
- 					mtu = dst_mtu(dest_dst->dst_cache);
- 			}
--			if (mtu > 68 + sizeof(struct iphdr))
--				mtu -= sizeof(struct iphdr);
-+			if (mtu > 68 + sizeof(struct iphdr) + ulen)
-+				mtu -= sizeof(struct iphdr) + ulen;
- 			info = htonl(mtu);
- 		}
- 		/* Strip outer IP, ICMP and IPIP/UDP/GRE, go to IP header of
+---
+Change in v2:
+ - Use else branch to replace original error handling, avoiding duplicate
+   logging and ensuring single consistent error messag
+---
+Change in v3:
+ - move the assignment long err = MREF_ERR(mref); to the top of the block
+   and reuse err instead of using MREF_ERR(mref).
+---
+ fs/ntfs/namei.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index a19626a135bd..5229522b29ba 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -233,9 +233,17 @@ static struct dentry *ntfs_lookup(struct inode *dir_ino, struct dentry *dent,
+ 		ntfs_debug("Done.");
+ 		return d_splice_alias(NULL, dent);
+ 	}
+-	ntfs_error(vol->sb, "ntfs_lookup_ino_by_name() failed with error code %i.",
+-			-MREF_ERR(mref));
+-	return ERR_PTR(MREF_ERR(mref));
++
++	long err = MREF_ERR(mref);
++
++	if (err < 0 && err >= -MAX_ERRNO) {
++		ntfs_error(vol->sb, "ntfs_lookup_ino_by_name() failed with error code %li.",
++				err);
++		return ERR_PTR(err);
++	}
++	ntfs_error(vol->sb, "ntfs_lookup_ino_by_name() returned invalid error code %li, treating as disk corruption.",
++			err);
++	return ERR_PTR(-EIO);
+ handle_name:
+ 	{
+ 		struct mft_record *m;
+-- 
+2.25.1
 
