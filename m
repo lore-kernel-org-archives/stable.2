@@ -1,118 +1,122 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-ej2-f1.google.com (mail-ej2-f1.google.com [74.125.228.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650E0480DEC
-	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 12:23:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782908595; cv=none; b=loz4rpYctgp/ULTXzknStLQYo//ugBDmUYtQstY3PEDSrrO3t6Mk4YrrEbMdg7MYMl5qEzzXNhUDpFFZKfn0EBozX40NH0Cp8iibEikbRUnFmdORJIrGWkreucRlk2FbVCReW0Zpjtr7Gzwl129vRneDHkkXafhhbmH/g1bWdO4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782908595; c=relaxed/simple;
-	bh=yhC1e0ZzliyRdtlVUueoO1bJdMQisEQkE6746sabsHw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pSyBBIych8zSpAIrBM7VMMB5of59FA0gbp7wmfDkHudANvGYcPylonuL0LESNwPDv4bedDSVmqnrNHyof3o9XpDtWHODQOUUIO62xz//u8nU736g2YCuKyASRKaa6xfr8ho5PwyiSeVLEs4gZfGcS0PCF4lDM/pfHBC6kenhXzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eaB84vdI; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7EDD48125E
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 12:25:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.129
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782908738; cv=pass; b=A8+1jroViXSG0X6FPcJxPF84SG1QWIMjMx5jtEq35HzwJwW7r4aThoQnmnlkjtsGCbmC+16qWuxnqBxitkj3+/zosambd9bmrXXokMdfIBgXJ6KNi3QJUd6oGP1eoDtOPllGE+eziieTG0nFzXP6ow580Ra6ifKacvn9baJ3eBw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782908738; c=relaxed/simple;
+	bh=gKEugolkMnTPV+ZSXAHUz/DmmfW/0pCogkat6PL2lfE=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=FMTISkxX1LQ2Ws6GdOldz6E6j5Fv5ymkvbycYyf8rdWx+//DO6cMmiC0i5N++5dQq2XJ2D8xLyuToh80C4T8OQgmB5L3VYwuw3tfYGAiIszhSasm9pWtQY/tSA2CoqzbZer1ZK0nsj5HOjrEbploDow71/IJXpCw5pugcqJVld4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fgFN03yF; arc=pass smtp.client-ip=74.125.228.129
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eaB84vdI"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2c9b19bbaefso3588035ad.0
-        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 05:23:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fgFN03yF"
+Received: by mail-ej2-f1.google.com with SMTP id a640c23a62f3a-c128e8a16e0so21508066b.1
+        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 05:25:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782908735; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pX/GXT7NCwEVRn4cio8R16NdnKQVT5eAbd2yMm4d69yxoFrHcDYgiS1wGBTFe6yqJb
+         H1OXJ0FJ7OVoq6EUWO6e4CPdGDG1G6nGKGrRTf1d/BzWdvh4Op9ElMN8FJ9exOgXEktN
+         vTfI8bTcco9PZkMvb/e6shKcuK250ZreLIPL9F8v1Bt6tU/JiOMvn9PMvva0PnjAn4Lr
+         k/bgK23XlSyCix1nk1RJ/8uaLZp0E8sicFMy+MnoJfxnuRmFvodqILhtyNin/qgSJiVE
+         OPf+j52Y0Wf1eBwmHzc7Ve5wbIfQnfcuCC0qYz83SpzhzrLOPjhMe7WAmnl43V05jIzF
+         Qg8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=gKEugolkMnTPV+ZSXAHUz/DmmfW/0pCogkat6PL2lfE=;
+        fh=Ay0fIimQmWlyJmDyAAsLaFCsFv5MDSVjAUZ0oAHksSw=;
+        b=fv6q1t84gC0CtdqiMH7BedRo1BHVpI8w55DFv4S4gxmF0R8UaGTmR1p3ZYSDPj7wEg
+         n+fXBx0F4jL1Rj+Rb797vRaaTE9l6BXM/BGA1xaE9JK/LX96NsTXvb2BWqAOQT0G2cM2
+         JzA7gFg0otv4VAH8EfnlvqKgkngJcVqduXwWCazbF9nDF3AX3QWysdDboaIbLUC4tO0L
+         tkGU4j8p6E59MfJ2NDpf6rX+T/IpIcwZ43OqXMgG5SSBwvuHtUUuMtAaNPfW/ObCxgKm
+         YhpZcb5dLu9TFfn7GggHAn89JIncyNK33JvJrADAcEYbshBYMXWwb5XRvlPewipOQLfo
+         JmTg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782908594; x=1783513394; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=7kp62ieRMyjOkk6mXBcyHmXcTSjtToMp+qoAu3klnJQ=;
-        b=eaB84vdIsGgOO3pXysISsZd0EtpY/EOtRg35/iG0grwgplPwSBAkB38H/m7fqHmgXN
-         8fcOPB4Q65PWnL+9X3ekoxNF0HfFXMoEktVAbRdkSz0LE0bkZWhb16MBjYKIz0S7g+y7
-         5/w1F/6l5aTYz95c8u545ufpjcPrpIGYgGou9/2lRqSZ/FjitktrU5RMO+cedpslX44f
-         hCq7gJO7uw7ZdpzKu6inUrFXTDzM8jmstZh99PaLbnhU7w81BjGn7kN5VHf67cf47DRG
-         e4ufYglWN9BE7ejfG23v6J6oRiotLJQxl0E2cXHFv7BFw3yaSuWK9kHexMvPj7sd2PDn
-         /vdg==
+        d=gmail.com; s=20251104; t=1782908735; x=1783513535; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=gKEugolkMnTPV+ZSXAHUz/DmmfW/0pCogkat6PL2lfE=;
+        b=fgFN03yFiJ3IPSwnD3aDdtghvCZ+5Gssd6XOQnLsqjyQa9xPRepj+zjbMOnpsPEZQm
+         DMeZa2Vyagdedhq5NqS5tCivpnK5I7hsVCuNVimenaspErt6+uYmyetHrMEinctjtnaw
+         SrcSRBTxVyoZLIrFAKwcGlukNCv3OCm9LyGYH+qZiJSKC7xp7adjo8pfBNcNoHRt5e5p
+         jjk08t7YOSv/+yojBgc/1dz0b5xLA15Aq5/GwCyNHAQdtMfYUc/v3G7Ooxbg1y4nGUkT
+         1BatqxWzUgxzaiAZMSjG0kfH0RyYfLt25P+puUAehGG40DEYIzDI2x2RPFCERMLkXxuS
+         JomQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782908594; x=1783513394;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7kp62ieRMyjOkk6mXBcyHmXcTSjtToMp+qoAu3klnJQ=;
-        b=L0J2cmiC8V1dqowYISavXFSpS1W5yVj/7HAr7CiICAXdrpKPNZDxGg+/wcVnPJ/O83
-         vlK+WFkyL/qxHxFYM065MJxDQ3/O5WmmabHrwA8eCOP1tWqkCdISjiJFad0TdEUZx4fA
-         5jRAtGPm1xj2cCpmW8rPMxPt+N01sZ2D8Jmaq1PkFxWQqw6Hke5knSedMaaO7AgD0WtW
-         4PzpJ0Mztm3pnCJMyAKdCRSUM1vVKG7baV7wJ/MJr4S2jEJmqgWYaThvrDgnKlCTLFbd
-         nKUdxqMC6SOnLpkvS5HV5zr6U7c7O9qxYU5Vf3d5xnj43f5yb+sOoGyKaLv1Y02dvFZV
-         5KJg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1nmz8NHvUTOTfRk67sivC6EMi1Jnv7FyHjxFDb+WupyL0YDT6a7F6enlK2hhYfy4/eYqPK9E=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy92t6E3ey0z7wGPoM0s6A0rgb+IfUhDriEI1Eo9ohQyUASUrzj
-	vPcSAnuYUiBIEI0VJ01YV/FRgBbj5BFFOtp3/YwBJTbMIECVAovdRmU=
-X-Gm-Gg: AfdE7clPFCQaZD9YfiOa2djig/YOx4C0AnmpLtZPyLroFG2pzTeMikmFkgFq8/sFuyN
-	ptK7Yi170FLxfYn2EyL0t4Xsh13YlMmIxh6a1zNqDRghe0WKTSgx1P33vN2p8mrb8HxLa/uKi2+
-	uDH4pl/dl3dyZyZ3RgurRPtJxvavSxjXISKEllT7PoHtAEInyyx2t/kYKAG5emHviJ/1Vh9f51s
-	UwHh6SqxKc8MPQMgPDuLAb54kzOQCmNK/xpAwlHAxXBW5lqoANbU1Sz6oeZYmKuriV97WcdRJW9
-	6yLeu11Epp6Rix2INUxVKKCUQfR28LculAtGL60qJDhisARBH1IdWtd8XG9VkBcUeBa11jqVk6M
-	9eguKcoZ0CVWcv3QtCtnzF1ohzpWehjb4J2946YIqU2PvwuAy6rpPrdGlAgJupPvNO8mAF0TSMu
-	yKYqJDs7jUQBZT3RJXkC7C39RM/02wR8DqVuwDeZy2kQgIAWmRFmK6qTlMwDTOGLPnA1UGWlIXr
-	8m5YjDnI7UFnqF7Zfvdj5WoUj1KDxpvoE1xFkCBKtKqdIgZkQ==
-X-Received: by 2002:a17:902:ebc4:b0:2ca:35d:1148 with SMTP id d9443c01a7336-2ca7e8dbff8mr15486835ad.29.1782908593440;
-        Wed, 01 Jul 2026 05:23:13 -0700 (PDT)
-Received: from localhost.localdomain ([14.5.152.27])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca3828c8e8sm31219095ad.42.2026.07.01.05.23.10
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 01 Jul 2026 05:23:12 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Oliver Neukum <oneukum@suse.com>,
-	Alex Henrie <alexhenrie24@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] USB: misc: uss720: unregister parport on probe failure
-Date: Wed,  1 Jul 2026 21:22:46 +0900
-Message-Id: <20260701122246.2451-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20251104; t=1782908735; x=1783513535;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=gKEugolkMnTPV+ZSXAHUz/DmmfW/0pCogkat6PL2lfE=;
+        b=nKPFoHIi76uCIvfQpFbsdCDuYAKC9GdGzZLDmWB8tVRorIxUQ976mTxJkJIf6i14xk
+         xqf9z3BS+7pw0a2WRYhq+Xcff6MX/ZwIAaZYJI7oYeLGwwJCldt4aOeFm4+V0E3Xsgpt
+         58NqiZTkJ/gZEMNXB+sgFAq7mLkTZP+itdjhjT4HEyWWV92/QCrG91M2mwCVmpwHuNGE
+         cHHcHCjfNHG+rTwCIjumfUepPnoGnuuc7VTguRY8lzbdEY8fHszAeZ9SQXryGchtYchi
+         ctQ3/Es3ClP2p3Zv7xZmnEWzaNn+MR1ZNTR2mN6odtffH8Nog1q2Gvpt/BfxcA+J5qBg
+         W6UQ==
+X-Gm-Message-State: AOJu0YyVVqnb55CdmpyjkXh6AQCm3boYQhznAp5V+HM3kUG/qzXznc0F
+	j+Goa/n2418JJGVktIQCZ5dneE7gwC5Kr7EgB29uyiTopKklkY9awq3j6H/HEcNMDfEoFAWsTwM
+	bIlvCWPey3o8XSdfYHVQ/wnZv3GvcFsbi2fx1AqYheQ==
+X-Gm-Gg: AfdE7ckgt6SQJJvwJWyaaWEdSUt8XOTFh29muTmjNbHjVXLSnzN2rcXibrTvsTU6R0D
+	rBRptfUO/RCNqjdYQcoQAlBLuIlQXhpGnlAvCoNSN3oa2C9nP7rUxiZBABbtgIFnqtizynqXNPl
+	qw4ZVIwpFxncSZv2JcJwznQ3KmCutNS4IkLXGiIFO40QqUXREmpUksrXVblvQYEDPs8E/cCnyhJ
+	Ere1/Xt3DQiu104DCUU7zMMygPKpukJCHpTMlFIjZ+ZTQMJQ8rHVEZYaXb3BdocbHI3E707AGy1
+	IuW2TL4i
+X-Received: by 2002:a17:907:3d02:b0:c12:764e:326 with SMTP id
+ a640c23a62f3a-c12a9da169amr65688866b.27.1782908735156; Wed, 01 Jul 2026
+ 05:25:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: sdj asj <sdjasjbuaa@gmail.com>
+Date: Wed, 1 Jul 2026 20:27:36 +0800
+X-Gm-Features: AVVi8Cdqf7juqn_CbSlS62fGyCkuNpOQ4kTHWhZbn8nJt1Q8Y0TWcyUL1baHDaU
+Message-ID: <CAFTRC0=hdHvug9=JyiZ=XYowdpqp9TAgXbq0YpDOEnzmQUWxzQ@mail.gmail.com>
+Subject: [stable] Please backport ntfs3: reject direct userspace writes to
+ reserved $LX* xattrs
+To: stable@vger.kernel.org
+Cc: ntfs3@lists.linux.dev, 
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Content-Type: text/plain; charset="UTF-8"
 
-uss720_probe() registers a parport before reading the 1284 register used
-to detect unsupported Belkin F5U002 adapters. If get_1284_register()
-fails, the error path drops the driver private data and the USB device
-reference, but leaves the parport device registered.
+Hello stable team,
 
-Undo the pre-announce registration with parport_del_port(). Clear
-priv->pp before unregistering the port, matching the disconnect path and
-avoiding leaving a stale pointer in the private data.
+Please consider picking up the following upstream commit for supported
+stable trees where it applies:
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+5b08dccecf825cbf905f348bc6ccb497507e28e2
+ntfs3: reject direct userspace writes to reserved $LX* xattrs
 
-Fixes: 3295f1b866bf ("usb: misc: uss720: check for incompatible versions of the Belkin F5U002")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/usb/misc/uss720.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Reason for stable:
 
-diff --git a/drivers/usb/misc/uss720.c b/drivers/usb/misc/uss720.c
-index a8af7615b1..8a5ffb19a5 100644
---- a/drivers/usb/misc/uss720.c
-+++ b/drivers/usb/misc/uss720.c
-@@ -749,6 +749,10 @@ static int uss720_probe(struct usb_interface *intf,
- 	return 0;
- 
- probe_abort:
-+	if (pp) {
-+		priv->pp = NULL;
-+		parport_del_port(pp);
-+	}
- 	kill_all_async_requests_priv(priv);
- 	kref_put(&priv->ref_count, destroy_priv);
- 	return -ENODEV;
--- 
-2.47.1
+This fixes a user-visible security issue in ntfs3. Before this change,
+the empty-prefix xattr handler allowed an unprivileged file owner on a
+writable ntfs3 mount to set the reserved $LXUID, $LXGID and $LXMOD
+extended attributes directly. These attributes are later trusted by
+ntfs_get_wsl_perm() during inode reload and used to populate i_uid,
+i_gid and i_mode.
+
+As a result, an unprivileged user can create a file that becomes
+root-owned and SUID after inode reload. The issue is reproducible
+using normal syscalls only and does not require a malformed filesystem
+image.
+
+The upstream fix prevents non-privileged users from directly writing
+these reserved $LX* attributes, while keeping internal ntfs3 metadata
+updates working.
+
+The original issue no longer reproduces with the upstream fix applied.
+
+Please apply this to supported stable branches that contain the
+vulnerable ntfs3 code.
+
+Thanks,
+Zhen
