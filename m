@@ -1,145 +1,162 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C86449550D
-	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 13:36:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 024943E1D16
+	for <stable@vger.kernel.org>; Wed,  1 Jul 2026 13:36:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.97.182.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782913003; cv=none; b=mylR2gZtfU/Ftf3KLOu0zKIkdOI5MpT1U4EXV8FkW3h05t7Ej4yHeKqOgrK5veyMNFuEcZF8+FGN2AbbpofFOeQTqlJvXmLhctT6FQPCxkG3TMv3tW7nusrEO2BNI8QLkyR+0LhY7igQ6AOR/0618xjFjoMdletTxWKUtsdB810=
+	t=1782913013; cv=none; b=j+kOHyWt7L/0SbrIK9U1hwtWW2tF3pMNJj0aH2Lx2XOy3PSlZvblsyMeNTxjP35xnVBMjh2eKwRTagt6NLkq2jgZ4aKjjdnD1fvivCXs885ntGpK44ykDnG1mUM6JcII2E8u0+ySGu8ZZvMmFTty0Ice39A6TVu56wN+UP1bwxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782913003; c=relaxed/simple;
-	bh=Rvbe9sFMJGpQWup1UcjTJpn3Xq27G7UIqOzhJnx5NSE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Aw2WMamVmaFBBrjnwuwLIRugFMh4bCWNQryHPVqdV1/3GFiijFuIDilRz4pg2fScZbfeyafJuhEzllai/tXo5bz2W+D5MsTLD6Bu6IBuAJagUWj6CMwXkie2ugN2S7Hl0+tZKDyCWXgvOJIbotVqAMUhM68Wlthbqx6QkJrE2pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ic4t8H/y; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ic4t8H/y"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2c9b2ac97cdso39505ad.1
-        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 06:36:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782912999; x=1783517799; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qS13cSENFGcBB0bnz6k1QAxOjQr0kz2UqGp/5+eDOd8=;
-        b=Ic4t8H/youc6RlIzIJUsjoIK0uNO8p2/e7x4/Jabg6v4vqafr8T64dfIOoNmiPGuNZ
-         1DLvWMQu2x1oUlWJww1PqUbc0FBnGsWMUgbEaaAhZWnXyWReYrLrlLKs0qsNfzW9HSTZ
-         dIlFjwiUf3LGl+0eprZ+MLRq4wgBJ+ooH85lxLjxyyrumtQbsvEzTkVlCUM2Aff91HYQ
-         x3Yu61GrOZSa2thG9n15OkLZyRQS/L2IPspEqYD8oAFw8UhYPQaDtbQengtyS7HfpTjD
-         hjErBPmZrGTwxWHR+1bEr7kBP1TEWxeg1O5s3geRzUqusBBLsY56WGg5MnKaIMHOy2CW
-         qTXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782912999; x=1783517799;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qS13cSENFGcBB0bnz6k1QAxOjQr0kz2UqGp/5+eDOd8=;
-        b=motaXlahORGyz8wJ72wBlgkMPK9RW5x47/VgNci7lNxUk3FoWB/BgGUimQiG+TXTYT
-         h0GE+HjwEvKGWumJ9+9dOUIiJw/eP4wQ0CE7cIEJcCAYS/+J1yng7TG6VWY9ZSXqcgpB
-         Vp2OuqlzqK9GIjIKlIrTOsTFLUb9VmGIBP8ps95RRjzyxXPK6BwNt8Evqhjp8GLGOs2/
-         4P8mqYhUB3TvRvPIPAaWG/0QdECKzTk+7yCMXaOTKCKd/+1Jv+tWe6ilPe5PPxEhyE8u
-         2Sjbk+StMKJ6cVpP8dNTkWyI53X6pqvAlwK7AI5+idc0HI3KbuWNOj5gRehzKM/VzICj
-         MJLQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5LPz53m637uRaRU51og4Pj6FRksAPl9yRShJqjmBamVCwbUCnOaOZpvOz8fL0LOyz+/k60ho=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfALP+C9YuKt/HopZyykiJw5HlcizJwtVHEU78Xa202Sj/CrHt
-	F6oIuJTxTGkt746hlUQxNiKHLGfMtmTL1TAx/Sj7mepE7PLKNb9P8uC0CyTVfd9IZg==
-X-Gm-Gg: AfdE7ckpiXXXDWXxJSN5fR6fTLvr6/oT6A1Mk17zqaAv0Lnq13goxSEUDxUSm4PXQEh
-	TUv83fUPPmAcVpRU2giQDeBmAukTYWpgdummZKCeaExlxVFxcVZLkwpJ0NpoJ/ZfR2Gp1OqAvER
-	xL7EYTsozQBqtcdATSj0kcbq3iowaWXQBUDG52aO3J/4TOBDOibtQnbr1bdBCKSAJXm801ryWLB
-	dvG2Xmg71OPPd7m4O2mV9sqBrL3ff77SO4AM1EHcMgGLmuCrKQGsE411SLG2S3hUV/AObyklyVI
-	QEgAstQkuYXWbAVoBfWEA84Be1ZC9wjGjURnfKvJ2fYWif7r96KCS/HvV+MDk9QmYY81yUy+8LE
-	m7hler6ncMWAaLC3BLaDiilhx1kyfuUYT1/NbsAm2SpRYwZEIaBF/59qa4+yjXdQKj2nMNWcboM
-	OA7n3IgmsBiGQzteUVIbyScbJ6p90v9Q1YU2w5TdrLSrZE4Yk=
-X-Received: by 2002:a17:903:283:b0:2ca:1bbe:c3e0 with SMTP id d9443c01a7336-2ca8f1bb537mr296825ad.0.1782912998682;
-        Wed, 01 Jul 2026 06:36:38 -0700 (PDT)
-Received: from google.com (10.129.124.34.bc.googleusercontent.com. [34.124.129.10])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8479fffa65bsm4111750b3a.21.2026.07.01.06.36.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 06:36:36 -0700 (PDT)
-Date: Wed, 1 Jul 2026 13:36:29 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Mostafa Saleh <smostafa@google.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Nicolin Chen <nicolinc@nvidia.com>,
-	will@kernel.org, robin.murphy@arm.com, joro@8bytes.org,
-	kees@kernel.org, baolu.lu@linux.intel.com, kevin.tian@intel.com,
-	miko.lenczewski@arm.com, linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, jamien@nvidia.com
-Subject: Re: [PATCH rc v7 0/7] iommu/arm-smmu-v3: Fix device crash on kdump
- kernel
-Message-ID: <akUX3T3fIoN42sdM@google.com>
-References: <cover.1782799827.git.nicolinc@nvidia.com>
- <akPB6l-fuJUcg4a2@google.com>
- <akPX_N0P2EcI_jbV@google.com>
- <akPhuF9pAWaBXzpi@google.com>
- <20260630185942.GF7481@nvidia.com>
- <akUQj2pa1W-MekgF@google.com>
+	s=arc-20240116; t=1782913013; c=relaxed/simple;
+	bh=vkWA+pR3OZfnWlFZW+uq1EZpX3DsehdrYFIuwaPN4dI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mdIMIQ4U1QWNGtnOkUh892tZHI0+5cR0oWLDBHLVXB+lVtZEYMPzom4WOhjh2+CFY0cjo/3sGk9JA/uvKSvMJF8UlMFj4NrFlwSqtNvvoDrNPJJkJ1g9b45pBUjfINIqUpBhIlwmMychLd6LInM5ckD4Vx7GiR79sFGXpZdJ0V8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=209.97.182.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCXSEblF0VqQvNMAw--.20652S3;
+	Wed, 01 Jul 2026 21:36:38 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgD3DXDkF0Vq9hS8Ag--.36084S2;
+	Wed, 01 Jul 2026 21:36:36 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: 
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: rtl8xxxu: fix use-after-free from rx_urb_wq on stop
+Date: Wed,  1 Jul 2026 13:35:41 +0000
+Message-Id: <20260701133541.7481-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akUQj2pa1W-MekgF@google.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgD3DXDkF0Vq9hS8Ag--.36084S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?lKQt2AXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WPh//7mY0qv4xtIN3wdo0R49TDnJWHVEE4lEwAX94AoDNBF
+	CQeAx4DHCGCeRrlOYazN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoWxuFy7WFy5Gw47XF4fAw1rXwc_yoWrtrykpF
+	Z0k3sIkr4DXr4rtrn8Jwn7AF1rGw1a9F13ZF4kW343AFnagF1fX3W8KryavrWkur97tayf
+	Zr18J39rGwn0krgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUB2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUXVWUAwC2zVAIFx02awCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x02
+	67AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUaKZXUUUUU
 
-On Wed, Jul 01, 2026 at 01:05:19PM +0000, Mostafa Saleh wrote:
-> On Tue, Jun 30, 2026 at 03:59:42PM -0300, Jason Gunthorpe wrote:
-> > On Tue, Jun 30, 2026 at 03:33:12PM +0000, Mostafa Saleh wrote:
-> > 
-> > > For example patch#1 verifies log2size and split and both are read
-> > > from HW registers. Same for the base address or other addresses as
-> > > the page tables, they  might be corrupted due to a buggy driver.
-> > > My point is that, it is really hard to assume that the previous state
-> > > of registers/STE/page-tables were valid or even consistent, when the
-> > > kernel crashed and did not transition the state gracefully.
-> > 
-> > Sure, and this mechanism is probably not very useful for debugging
-> > these kinds of errors in the SMMU driver. Oh well, that isn't a common
-> > source of kernel crashes :)
-> 
-> I hope not! Although memory corruption can happen due to many other
-> reasons :/
-> 
-> I am not trying to bikeshed, but I wondering if there is a more
-> reliable way rather than doing archaeology from a panicked kernel
-> SMMUv3 configuration, as I am worried that will be even harder to
-> debug if it goes wrong.
-> 
-> >  
-> > > Similarly for TLBs, the kernel might have panicked in the middle of an
-> > > unmap or free domain. (not to mention what that means for RPM where
-> > > a device reset with unknown TLBs)
-> > 
-> > TLB is fine. kdump works by carving out a chunk of memory for the
-> > future crash kernel. When the kernel boots it ignores all the memory
-> > used by the prior kernel. So DMA can keep running into the old kernels
-> > memory with no issue. It doesn't matter if the TLBs are inconsistent or
-> > not.
-> 
-> Ideally if a TLB is to be missed (because of the panic), it should not
-> point to kdump memory as it is carved-out. However, it is still a leap to
-> assume that the TLBs are in a good shape as I mentioned with RPM (or
-> even if the device resets transiently for some reason) it can end up
-> with garbage in its TLBs.
+rtl8xxxu arms rx_urb_wq from the RX completion path:
+rtl8xxxu_rx_complete() hands the URB to rtl8xxxu_queue_rx_urb(), which
+queues it on rx_urb_pending_list and, once the list grows past
+RTL8XXXU_RX_URB_PENDING_WATER, schedules rx_urb_wq.  The worker
+rtl8xxxu_rx_urb_work() drains rx_urb_pending_list, recovers priv through
+container_of, and resubmits each URB through rtl8xxxu_submit_rx_urb(),
+which anchors it on rx_anchor and dereferences priv->udev.
 
-Regarding RPM, I can say that even if we panicked while SMMU was off in
-the previous kernel, when we call device_reset() in the new kernel we
-still issue the TLBI_ALL with the reset.
+rtl8xxxu_stop() cancels the sibling work items (c2hcmd_work, ra_watchdog,
+update_beacon_work) but never cancels rx_urb_wq, so a worker armed during
+the last burst of RX traffic can run rtl8xxxu_rx_urb_work() after
+rtl8xxxu_disconnect() has called ieee80211_free_hw(), which frees priv,
+producing a use-after-free.  The window opens under active RX traffic
+(pending count above the watermark) followed by a disconnect.
 
-However, I agree with the overall problem, i.e. IF an active device
-unmaps the DMA addr after the transaction in the previous kernel, 
-(with the SMMU powered ON) but the TLBI was missed due to a crash/panic,
-Any new DMA in the new kernel may alias onto a memory in the previous 
-(crashed) kernel, not the kdump kernel.
+There are two teardown races to close:
 
-That way, I agree that continuing DMA could be problematic as we may
-corrupt the very memory we'd wanna analyze for a crash.
+  * rtl8xxxu_queue_rx_urb() decided whether to enqueue under rx_urb_lock
+    but called schedule_work() after dropping the lock.  A completion
+    that observed shutdown == false and released the lock could then call
+    schedule_work() after rtl8xxxu_stop() had set shutdown and
+    cancel_work_sync() had already returned, arming the worker to run
+    after the teardown.  Move schedule_work() under the same !shutdown
+    branch so the arming decision is atomic with the shutdown check.
 
-Thanks,
-Praan
+  * rtl8xxxu_rx_urb_work() anchors every URB it drained back onto
+    rx_anchor through rtl8xxxu_submit_rx_urb().  A worker still running
+    when usb_kill_anchored_urbs(&priv->rx_anchor) returned would submit a
+    URB that escaped the kill.  In rtl8xxxu_stop(), call
+    cancel_work_sync(&priv->rx_urb_wq) before the kill so the worker is
+    drained first.
+
+After priv->shutdown is set under rx_urb_lock, completions can no longer
+queue rx_urb_wq. cancel_work_sync() then drains the last queued or running
+worker, and the following usb_kill_anchored_urbs() kills the URBs it may
+have submitted.
+
+rtl8xxxu_disconnect() is covered because ieee80211_unregister_hw()
+guarantees .stop() runs for a live interface before ieee80211_free_hw()
+frees priv.  The probe error path needs no cancel: rx_urb_wq is
+INIT_WORK()'d there but cannot have been scheduled, since no URB is
+submitted before ieee80211_register_hw() succeeds.
+
+This bug was found by static analysis.
+
+Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/net/wireless/realtek/rtl8xxxu/core.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+index c06ad064f37c..b447ce78ff05 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
++++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+@@ -5792,14 +5792,19 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
+ {
+ 	struct sk_buff *skb;
+ 	unsigned long flags;
+-	int pending = 0;
+ 
+ 	spin_lock_irqsave(&priv->rx_urb_lock, flags);
+ 
+ 	if (!priv->shutdown) {
+ 		list_add_tail(&rx_urb->list, &priv->rx_urb_pending_list);
+ 		priv->rx_urb_pending_count++;
+-		pending = priv->rx_urb_pending_count;
++		/*
++		 * Arm the worker under rx_urb_lock so this is atomic with the
++		 * shutdown check: moving it out of the lock would let a
++		 * completion arm the work after rtl8xxxu_stop() canceled it.
++		 */
++		if (priv->rx_urb_pending_count > RTL8XXXU_RX_URB_PENDING_WATER)
++			schedule_work(&priv->rx_urb_wq);
+ 	} else {
+ 		skb = (struct sk_buff *)rx_urb->urb.context;
+ 		dev_kfree_skb_irq(skb);
+@@ -5807,9 +5812,6 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
+ 	}
+ 
+ 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
+-
+-	if (pending > RTL8XXXU_RX_URB_PENDING_WATER)
+-		schedule_work(&priv->rx_urb_wq);
+ }
+ 
+ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
+@@ -7461,6 +7463,13 @@ static void rtl8xxxu_stop(struct ieee80211_hw *hw, bool suspend)
+ 	priv->shutdown = true;
+ 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
+ 
++	/*
++	 * Cancel before killing rx_anchor: the worker re-anchors every URB
++	 * it drained via rtl8xxxu_submit_rx_urb(), so a worker still running
++	 * after the kill could submit a URB that escapes it.
++	 */
++	cancel_work_sync(&priv->rx_urb_wq);
++
+ 	usb_kill_anchored_urbs(&priv->rx_anchor);
+ 	usb_kill_anchored_urbs(&priv->tx_anchor);
+ 	if (priv->usb_interrupts)
+-- 
+2.34.1
 
