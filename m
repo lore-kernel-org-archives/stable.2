@@ -1,202 +1,155 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1414F3C09F2
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 10:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AF42E8B82
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 10:48:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782989300; cv=none; b=a8YCBbQJcCYenHtNVDBXVmaDDyvybXvU5DSavWj3UtNA60hOJrSp9j5Z2nQoquFGAsNYKRgM32HNTN+mdihfVZ+yJysbnljaqaIJtNcpSqbH6S0OClsXBewzciqTH7J/+emZm9Fz2bKp39F14SBEUkSHAKgviSMbNsKSubl3um0=
+	t=1782989316; cv=none; b=Pu/ShBVr+ocmWA1bSf6TTMb1NH+o4xCIdNyt89rbxYonOk35k9toWuZNbKQky3VqWNvl9vwnBiNIz4MuAlxXpwYoWv8W4iSO4dlwZN1u0CK1j5EScQ6e2ZIfphjmuj7hmhI82oRZsQxDbIJfmWShMpR3yqdXv/gsGYiDLyqCsWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782989300; c=relaxed/simple;
-	bh=k+6/Z2gs9cVAAhPHygjW4k5IBm479qlyxmM2Tyng3a0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N78cp56AXPXU22h4IyApJUjAechFYQ1E9tF1nI45bn3Xj8sSK2fAQzuJbS6AehE+hA3OsiQ2YYsfTXtYEgouetDCCYogRhLGqBUV7If3teIo1Ro7oih9Nv7/76sROoLJcDOT+a6jQQY6sa0lQMEX/x12PpOReLC6Ti/cFXGxOxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BrVp59r+; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782989316; c=relaxed/simple;
+	bh=CP90g/Sd8SpBamQMkPP7wI+cAPxvLKgKoJOnW93/UXA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PEXHgoVKSb44RWaBgst7CyMxrYO3FDgSTBzA4XH1+M25enel+R3U6BbnzOF89+ga0R7Psk/E+QRGYr0pWl+eiAWCEjM0+8G83i55nveqS6htplqTiAlbWcbMLidiop8LVmBBS2rb82+lIbBAiR2KX8FfvA8FoXriug/eu2y91qU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dcaqOliq; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BrVp59r+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782989299; x=1814525299;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=k+6/Z2gs9cVAAhPHygjW4k5IBm479qlyxmM2Tyng3a0=;
-  b=BrVp59r+FTTu494SrsP6YnzNcXlOprMtp8Q3MF/2VMkvFdtBlXWggoez
-   OHPdZEGfcr7EbgTbAnz8C65WZDgCkaJKBVENdbStzKbwtaI4KF522IEio
-   IbLojHF8jw2lo9t79Rk4wZnDkv8u784j0GSEHYBSTTvKIMDiqkNp2R2Cd
-   J5bK8+LbHbPUh+IrDuKlflDHAFYQLpBPurcuIkfFSHjR8CW5Zn9Fs5SCe
-   ZHUc3UVstOeOjPJJdNV3iMub7/QMzWe9vDlLzyZWwiTD4ltO/y/qOtm+q
-   y38ge2m2uTKem2rF1dTN7bIydY6UVS9jY3K8ajMGCwK49EYz5e7dJqk5h
-   Q==;
-X-CSE-ConnectionGUID: F5qLyqS2RSybZPWlgvpveA==
-X-CSE-MsgGUID: 48H5jW6dRIKvEVVBLJWXbQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="94340596"
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; 
-   d="scan'208";a="94340596"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 03:48:19 -0700
-X-CSE-ConnectionGUID: OSSGdLzfTSae19ANyeWZrg==
-X-CSE-MsgGUID: urzn876CTMaIgaRj9LGwYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; 
-   d="scan'208";a="250174105"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.244.242]) ([10.245.244.242])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 03:48:16 -0700
-Message-ID: <a4657daa-c58e-4441-ad81-c3e770bc5a94@intel.com>
-Date: Thu, 2 Jul 2026 11:48:14 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dcaqOliq"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c9d1fff21edso946490a12.1
+        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 03:48:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782989315; x=1783594115; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8HePeeifvB/opdYPmqi87Awn5dRCasskHjfVg9hPOIo=;
+        b=dcaqOliqF6MY8EexIiXb648nQZwaNGFs3qvOJw4YX++pmySRFPvLwFEPUK/Vfitou8
+         rsGc2q//f1THizj95QuNICYojijxjy8+74c6FZDw4nWX0uUoRnTrOup8LqIwSNRuvIgt
+         Wt1DTGnaUV1hfzx1gu9kVvxEusUS4Vaf7nnz8ffpwZsDhNNlCtXCL+oA33n6zuv7BnGp
+         4JqP+DY7D2CwpguZ8J7Kx6FLPQD5M1ypuTHFOL2YTS8WzU5+f6/X+U3BE1Z5b8NrmVsn
+         8OE+7OZNHQBcgqJMa8FQMDgYWTm5Vq0NKDUebD+xc3kWAIZ1MOTxVbXf3HO7/nGNAzPw
+         R41A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782989315; x=1783594115;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8HePeeifvB/opdYPmqi87Awn5dRCasskHjfVg9hPOIo=;
+        b=odgMAtPJnF209vkMmughwXK5QKG2bIq4B93oWsod+cNIMUOvqdObiAPq1YGVGYuEpj
+         BX6cX3iBoXBO2MLxx55Uz2SKKeuyqfW6ZgCDQpbBzoaKMc/oaQouqkFkYhBlWdQFEmDm
+         RVTHYxYToq2/bK4TVMXHJdyvj6CwvoBe8gRvTYSTvMgYJHaB8G7jupm10rhpqtM4c+JM
+         6cKo1YtAXOCE6cW+FZBKCWYePooRqr9lv+t/Ssfgoq3FQO4B7XrHpqxFO5Hhn7eWimoB
+         yzYoNRZXMHMgXYE7tPgJlhHBmZ6SlsxGVtK5W3rWuWHkLZjIgXNPjUUiS5bYSYkccDs5
+         4dkw==
+X-Forwarded-Encrypted: i=1; AFNElJ8SH8nDgxlQvPTDOWOmmRjm+IudNQRddqbg0P2ufS47C9A+5o4rHbPv0ZvcWy2HrRl5vtMKoZw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyAbTEOMHO/AsObPBnMTcytLZt+PSqxY+5tMWK4VaWS7jFOwVYJ
+	42q8amOaUmEtLEO2yrT9uZetIekNpSSphOR4uf2qRi5k3W6PTTFr7s6N
+X-Gm-Gg: AfdE7clLqV/a8+/UJ4sWHjWKWrGRE663nLS6kbTKJw10kjOapFgfXNKGs4uR/q6tBxi
+	ooD8mT4j0xiSoBCRZrBEWygQKxzgDQW8QL0BGyEJnFOI+V48C/8VUC5T0qwZODSsIdukX8bQ21c
+	Gn/qZyfMsMrlYt5MguR50vtmS+22w8k0BH/VDX0Rha78us7t3gfk9KsiNIAUqGtMpotlj6J4Cn7
+	TY2lWQEXALy/HCRwiQgGy0kgiYaXQHs0+POLThQ+Eeg7fRoJ8nDTX2P9uMkQJeG/e7TiwzJIwIj
+	2vvSBov92s2ubcO6Qsagn8IrKi6VNKai1wsXFgniQlflo8JFItBqPbKHjPJT0VGzU5HUEIBMpnD
+	Tvfa6wMH6Fs9CZRk1W1C53PDmoVqQfQ0YDTl4Sm6i1sjE7XBos/y2s4QHqeGNS7T4L7oo1+Wp/7
+	0tGMSkAA3Plu5pCCmI4e8BTrCrGxNNvoIWnc5TqtbqMip3whGGuVRK73+nif4EbK9rLreBiFtMW
+	bzgEiiZV85Eqe+sd2kFaZN5q59vzCl4nhW3AU+ZBQk=
+X-Received: by 2002:a05:6a20:e20f:b0:3b4:669c:ee32 with SMTP id adf61e73a8af0-3bfed3b26edmr7042853637.37.1782989314653;
+        Thu, 02 Jul 2026 03:48:34 -0700 (PDT)
+Received: from leonardoc-nb (201-68-197-145.dsl.telesp.net.br. [201.68.197.145])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f116065c5sm5936815eec.11.2026.07.02.03.48.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 03:48:34 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: louis.chauvet@bootlin.com
+Cc: airlied@gmail.com,
+	bparrot@ti.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	jsarha@ti.com,
+	jyri.sarha@iki.fi,
+	kristo@kernel.org,
+	krzk+dt@kernel.org,
+	lee@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	nm@ti.com,
+	robh@kernel.org,
+	sam@ravnborg.org,
+	simona@ffwll.ch,
+	stable@vger.kernel.org,
+	thomas.petazzoni@bootlin.com,
+	tomi.valkeinen@ideasonboard.com,
+	tomi.valkeinen@ti.com,
+	tzimmermann@suse.de,
+	vigneshr@ti.com
+Subject: Re: [PATCH 4/4] drm/tidss: Fix sampling edge configuration
+Date: Thu,  2 Jul 2026 07:48:01 -0300
+Message-ID: <20260702104817.1219078-1-leoreis.costa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250730-fix-edge-handling-v1-4-1bdfb3fe7922@bootlin.com>
+References: <20250730-fix-edge-handling-v1-4-1bdfb3fe7922@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] gpu/buddy: bail out of try_harder when alignment
- cannot be honoured
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
- stable@vger.kernel.org
-References: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 29/06/2026 08:43, Arunpravin Paneer Selvam wrote:
-> The try_harder contiguous fallback could return a range whose start
-> offset did not match the caller's min_block_size. When a candidate's
-> start is misaligned, realign it: free the misaligned run and reallocate
-> exactly @size at the next lower min_block_size boundary. This keeps the
-> returned size unchanged with no surplus to trim, and rejects the request
-> only when no aligned candidate fits.
-> 
-> v2: align misaligned candidates down to min_block_size instead of
->      bailing out, for both the RHS and LHS paths (Matthew).
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Timur Kristóf <timur.kristof@gmail.com>
-> Cc: John Olender <john.olender@gmail.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Hello,
 
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+We tested this patch and it introduces a regression on our panel.
 
-> ---
->   drivers/gpu/buddy.c | 63 +++++++++++++++++++++++++++++++--------------
->   1 file changed, 44 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index dc81fe0301ce..3c73ae87f3c5 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-> @@ -1118,22 +1118,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
->   			     blocks, total_allocated_on_err);
->   }
->   
-> +static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
-> +					u64 unaligned_offset,
-> +					u64 size,
-> +					u64 min_block_size,
-> +					struct list_head *blocks)
-> +{
-> +	u64 aligned_offset = round_down(unaligned_offset, min_block_size);
-> +
-> +	return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
-> +}
-> +
->   static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->   				     u64 size,
->   				     u64 min_block_size,
->   				     struct list_head *blocks)
->   {
-> -	u64 rhs_offset, lhs_offset, lhs_size, filled;
-> +	u64 rhs_offset, lhs_offset, filled;
->   	struct gpu_buddy_block *block;
->   	unsigned int tree, order;
-> -	LIST_HEAD(blocks_lhs);
-> -	unsigned long pages;
->   	u64 modify_size;
->   	int err;
->   
->   	modify_size = rounddown_pow_of_two(size);
-> -	pages = modify_size >> ilog2(mm->chunk_size);
-> -	order = fls(pages) - 1;
-> +	order = ilog2(modify_size) - ilog2(mm->chunk_size);
->   	if (order == 0)
->   		return -ENOSPC;
->   
-> @@ -1149,31 +1157,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->   		while (iter) {
->   			block = rbtree_get_free_block(iter);
->   
-> -			/* Allocate blocks traversing RHS */
->   			rhs_offset = gpu_buddy_block_offset(block);
-> +
-> +			/* Allocate blocks traversing RHS */
->   			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
->   						       &filled, blocks);
-> -			if (!err || err != -ENOSPC)
-> +			if (err && err != -ENOSPC)
->   				return err;
-> +			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
-> +				return 0;
-> +			if (!err) {
-> +				/* Allocate the unaligned RHS offset using round_down */
-> +				gpu_buddy_free_list_internal(mm, blocks);
-> +				err = __alloc_contig_aligned_retry(mm, rhs_offset,
-> +								   size,
-> +								   min_block_size,
-> +								   blocks);
-> +				if (!err)
-> +					return 0;
-> +				if (err != -ENOSPC) {
-> +					gpu_buddy_free_list_internal(mm, blocks);
-> +					return err;
-> +				}
-> +				goto next;
-> +			}
->   
-> -			lhs_size = max((size - filled), min_block_size);
-> -			if (!IS_ALIGNED(lhs_size, min_block_size))
-> -				lhs_size = round_up(lhs_size, min_block_size);
-> +			if (size - filled > rhs_offset)
-> +				goto next;
->   
-> -			/* Allocate blocks traversing LHS */
-> -			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
-> -			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
-> -						       NULL, &blocks_lhs);
-> -			if (!err) {
-> -				list_splice(&blocks_lhs, blocks);
-> +			lhs_offset = rhs_offset - (size - filled);
-> +
-> +			/* Allocate the unaligned LHS offset using round_down */
-> +			gpu_buddy_free_list_internal(mm, blocks);
-> +			err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
-> +							   min_block_size, blocks);
-> +			if (!err)
->   				return 0;
-> -			} else if (err != -ENOSPC) {
-> +			if (err != -ENOSPC) {
->   				gpu_buddy_free_list_internal(mm, blocks);
->   				return err;
->   			}
-> -			/* Free blocks for the next iteration */
-> +next:
->   			gpu_buddy_free_list_internal(mm, blocks);
-> -
->   			iter = rb_prev(iter);
->   		}
->   	}
-> 
-> base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
+On our board, a Toshiba TC358768 DPI-to-DSI bridge is connected to the parallel
+RGB output. The bridge requires data to be driven on the negative edge, and
+this is also reflected by the `ipc` variable in `dispc_vp_enable()`, which is
+set to `1`.
 
+With this patch applied, however, data is driven on the positive edge instead.
+
+According to SPRUIV7C, both `MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL[8]` and
+`DSS_VP1_POL_FREQ[14] IPC` should be programmed consistently. However, if we
+follow the actual bit descriptions, and ignore the sentence saying that the two
+programmed values should be the same, the data is driven on the requested edge.
+
+From SPRUIV7C (https://www.ti.com/lit/ug/spruiv7b/spruiv7c.pdf):
+
+MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL[8] (DPI0_CLK_CTRL_DATA_CLK_INVDIS):
+
+        Clock edge select for DPI0 data outputs
+
+        Note that this value should be the same as the programmed value of
+        DSS_POL_FREQ[14] IPC.
+
+        Reset Source: mod_por_rst_n
+
+        0 DATA and DE are driven on the falling edge of clk
+        1 DATA and DE are driven on the rising edge of clk
+
+
+    DSS_VP1_POL_FREQ[14] (IPC)
+
+        Invert pixel clock
+
+        To set data to pixel clock relationship, CTRL_MMR_DPI0_CLK_CTRL[8]
+        DPI0_CLK_CTRL_DATA_CLK_INVDIS setting should be the same as the [14]
+        IPC setting.
+
+        0 Data is driven on the LCD data lines on the rising-edge of the pixel clock
+        1 Data is driven on the LCD data lines on the falling-edge of the pixel clock
+
+So, the proposed fix to this patch is:
+
+```diff
+- regmap_update_bits(dispc->clk_ctrl, 0, 0x100, ipc ? 0x100 : 0x000);
++ regmap_update_bits(dispc->clk_ctrl, 0, 0x100, ipc ? 0x000 : 0x100);
+```
+
+Reverting the patch also makes the Toshiba bridge work correctly again.
+However, we can confirm that the patch is needed, otherwise only the
+positive-edge case (our case) works correctly.
+
+In other words, the two registers need to match semantically, not numerically.
