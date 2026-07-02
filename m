@@ -1,143 +1,113 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gw2.atmark-techno.com (gw2.atmark-techno.com [35.74.137.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE3F1B85F8
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 00:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B101431E49
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 01:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.74.137.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782953426; cv=none; b=iEa25boNEsUW0Mnxp/7grzEXaaCPKJonZOQ/ta61MAjP8Tvk0LtvgbUtoIf93MUVEWHaJgVaFcizIL+/QtgkwvOroMg9C/PlzfibrFxvHlzO1JJ8SXvWcDpmi1u40I1Hz/WBV1Fa5RHzsihUHKxrVwJ6BZ7nJPG8zabLq5iaz5g=
+	t=1782954052; cv=none; b=X37R2po/aPgYOA7Lp2BSNaGg65hIp7jKAMGFW0yaCLjcMlBXT2Bp9paMK3LMcuZTXsEYZlBt60+GmuRu3AKgTxMFBI4Ai/fSKjyXGxLr04+aVddEypRYKzTPLMP3q5vEiq6dn08NRk+ehRJ6ihyZ02ya8sC7dwZgrk+NUauBv6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782953426; c=relaxed/simple;
-	bh=oAV3PO9BQ+ZuyovnCrvkgJTGceWcDv9CRAo4iAZ12p4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hNY+mwuxL5kH4ja6kFm5oHI3wzK45sLtgIxb1rC4HJle0LtPB3dtJPUvvcGv+x4XZo2Y58mXezHEmDTvZUqPTsH5oFfDueeOPJSUbotLxXsP4/QO/wUL2ZA5qQVX6qiaBJFucWnYyMb5oHEHRHGE8sMlPGc7zxNmrdFri7U7T58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T0qW8dek; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782954052; c=relaxed/simple;
+	bh=JSdxwTjGuLjPKD2MFftoxTD6yZmcAVuXoW0ZxbMbcAs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lsg4QZxuNNXVHUOhnLq6uWaB/uNds+kRj8bTNsqwOW9hswE7DeHhUdryawJVa6aGA4D8zrpzZShtNuelfg3pzUWHHooIRm95fC2t+F60fAtPsRRSWXSZgMtU89OiWAn9UGJo1QEE9Pbrkj4fuoeqyWHmMp8HvoTCiHtaPrCPX30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=atmark-techno.com; spf=pass smtp.mailfrom=atmark-techno.com; dkim=pass (2048-bit key) header.d=atmark-techno.com header.i=@atmark-techno.com header.b=Yx6XpBeI; arc=none smtp.client-ip=35.74.137.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=atmark-techno.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atmark-techno.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T0qW8dek"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-475881b9a4bso1263960f8f.3
-        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 17:50:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=atmark-techno.com header.i=@atmark-techno.com header.b="Yx6XpBeI"
+Authentication-Results: gw2.atmark-techno.com;
+	dkim=pass (2048-bit key; unprotected) header.d=atmark-techno.com header.i=@atmark-techno.com header.a=rsa-sha256 header.s=google header.b=Yx6XpBeI;
+	dkim-atps=neutral
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by gw2.atmark-techno.com (Postfix) with ESMTPS id 46AC2615
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 10:00:44 +0900 (JST)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c889d1eedcdso1313458a12.1
+        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 18:00:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782953422; x=1783558222; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CWkUSJ2157Xsff0+/g2CHpj4cXQ6nQx4HiCWFbqWFso=;
-        b=T0qW8dekdGH0/URnE6qqg0dAY4aUECbNrYbMHqPJlPoAGcNi/n930ocAnIkqUKy+wo
-         lSP9RyayirXAzHruU2CFrLofdrB9OUGNtLYDgNn4tXYKGpMrsnYoAHMOwb50W+XN1ti3
-         nWnYuuHnztHbyjUREXTwVFeP1pdh/18JW5ulFoLAKFlzsZF37RGb+D1EIaBPJ68re4jR
-         ONTwIc4qvJxkT8BOa1ZqVQxSsCqaI/5uvsyrSL70gHRDkUn47xkY7TXSVz8TtYZfl8XV
-         RzFX69sPh5AdJiInWcUuxHVp2YKDjRu2shAHpyBpLsGQwv5z63Q0pQT9OB5PuPzc/Ao7
-         yeMg==
+        d=atmark-techno.com; s=google; t=1782954043; x=1783558843; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=dYVIvz2xiwDyxGktXu2b/BOw3jOsNJ0bfYAQd0mQ/PY=;
+        b=Yx6XpBeIQeCInVuGNYy37XpP0BGaNv2NqGWOPrSSjdJAw3mVBpLB18fP/Yhucho2g4
+         x64EIRYjSZtsWRJuOmI7XXt7yQJNy3mlZkoGleMOVHsiD/1Qt9DjKxKnCy9f9VUjr6em
+         pJZBVcZpgwO1h+R37a0VzqZj0jj/2stUTIkbOq1WhcDQbkKBRKnYfNzBylVcyGz3R28n
+         7xvs3oMDiXlc40qlfkkyEc7GnyFTdC+INgOZUEihWewngGpQF4RrMqWR/ojuqpr6Qwa6
+         IiaPiC34IIx3cE5l4OSCxA6sLhN55ooe9MwAsE3dlgE1F0iQNpEKvmZLYJdFL4Elfppt
+         cNEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782953422; x=1783558222;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CWkUSJ2157Xsff0+/g2CHpj4cXQ6nQx4HiCWFbqWFso=;
-        b=gsOUrMJZPGWUjAyZab08BCFB7hoFl4Mf9QM7bagg3M9i3wH2uVyFU42EFr/25I5QNa
-         ILn6paNgcHlVugwTQZ0H+FL+akdxiU3RqeXf4oDahpR0Wc1bM3/wvPgjBWA6W9k8FxHS
-         YNTONXWe1A+YvmI9zNOsegMH3ifMS/V22NqqX3hLmtZxnQlvVA/tSJdDpKCwQwBzWtgp
-         XlFCbFfiwjVCx8OJ5/jKIoxBui7pautqaCdK7IzlOTt9QQEYnm530XyooKs3xUfvSZBa
-         IKTSE4EtnPWDhm9OtzPhFyrlfD90Jn4TpJYSUZkMwFaC1TkgWS+3OrP69slKnlN56aPw
-         5Mvw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1PQOi9J48+M79Xan6Mk7G93PNR4KBvf02RfUs1ti3UkGfsMAeC72XAClUIfx97mcFcTLt8hY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBsJPHf0Jf8U6qKXt93byOV0oPUI8KE5W/XgpnGO3z0DXaMEJQ
-	gZF4eviikkpw4Ng84knZNGqV3fT0pfxGXKFR2KptyffO0+A+Zho5Txc=
-X-Gm-Gg: AfdE7cnSocL/JrbVLjX2DQmOOnPn90JRVhQBHPPNytpKQRD9kEP7+oHAQZ27OInjzBe
-	GhdmdrCGim4sk/xZSSlDuPU6Wgthb5qkTZxlIEted7Pz7XLK3JTJNRSGjwlE19SXX3Ps3LmJXB6
-	IoXxCSoQ8I2VsUh7NhtsqwDuw5SXs4zb45w5sHXHk+kdQ1qPaRJIuANFncuhhgF1Bvto/e6yK6O
-	lnkEZD3UZrnPYPyAiDSGPmESO+oL36apt9WAHgmnl2CZ8jkZQhVLGj+VaxQEpbhIBDA98R90csn
-	SahXaxyipvfCed8P/v95cWIG5ItcmsCJ570F6cqFNLnmZGKVSfphCBsGqJiU7hXDBxWxrb6FAlt
-	eM8NpNunAFI2XFVfxhP3joSFZRxOdOxmNZ+WU2CqYFbjfWkt5aSTj4Zew8w==
-X-Received: by 2002:a5d:5588:0:b0:475:f100:35f5 with SMTP id ffacd0b85a97d-477b5c415a8mr3398042f8f.50.1782953421736;
-        Wed, 01 Jul 2026 17:50:21 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db8a4b83sm4747406f8f.12.2026.07.01.17.50.20
+        d=1e100.net; s=20251104; t=1782954043; x=1783558843;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=dYVIvz2xiwDyxGktXu2b/BOw3jOsNJ0bfYAQd0mQ/PY=;
+        b=GR/MzWTMIAqFW4GShLvACjS6HYcaUAYUGJRbxYLCXBpfm8z3j3RJnBcvvxQ3hm65bh
+         16Lt4xuQGi1++vhLzXi1e0cXKRL8gjSgteLajHhUMSJRuN6nV+mQIc8idaCX7tb86J6r
+         FvOt9FVqk0nrh2+ku59v1R7L0IJ/HnxlgcyqwZv5fHZs1BCuht8NHmbJWxJB9f9Pk6JL
+         K6G3I0iX/R06wVHo8YGZ7vMV47HMWOb40EAYS08KzZg5wcaI7yo9RagO1qoH2A+HZXaC
+         ODg51GaqZ3ThMJxR5B2nRjlBkH1ZmZodJFl1TbVTOl/urn7VKUFgdEmlWHe1KMmY5QJh
+         2W+w==
+X-Gm-Message-State: AOJu0YyD60PS/XCUQ2ObJkkDeHI+uc7r1/e8/SVQ9fZLb6vKXivdkZqM
+	ctV92ol7BFAMOr8LaYNuQbm50UZHjeV1zC6oSn52Ke2813UD1qAFenpIycQbDcECbqiuJzG091V
+	DLJPA2KHis7KMWHYhPxyA+bMj6SFMah7Z6BuNULj8t/Q/q7Ljp6IRcPveZ6o=
+X-Gm-Gg: AfdE7clnEQfSCqxMBDMtzYadLt9wn41d8ZDV6WCboHG/tmExjAdwJnFpXWWI+WDARaO
+	QwoQLjoVPrtSr3ebeg/dnRFtyO3J3RBroLG3hmNN0ySCAbmIem6rA1VCAuecDZbUahAE6wUe/Ta
+	4kP+RPFkRaxOTt/bi5exGeUZrTloodQyQMsUFDSh4sHmDGJdB6fx3d5oKjgyyeuDfpk/+L/JSX2
+	1Qx04Yl4BH5NBJqtYwi8QOrD8RiPyhDHru86fLcbBcbbQ7+6ZYrn5ea+xTfn/vmQP/daGk/yTtW
+	Cod/AXDjwXedbVEg8ey2JT/Q8VfjzvX3nRe+ZNsHmW1hfRuqK7izWruFJLJ6PpsseYZ2dlpCagx
+	TS4jrQ1LRlZbY9nmOAQFOelYHvgxkiu7szR3X2Csp+AfzeR+KbBGT8JX/Lts=
+X-Received: by 2002:a17:90b:17c2:b0:36d:689a:cb27 with SMTP id 98e67ed59e1d1-380aa22b082mr3768087a91.24.1782954043125;
+        Wed, 01 Jul 2026 18:00:43 -0700 (PDT)
+X-Received: by 2002:a17:90b:17c2:b0:36d:689a:cb27 with SMTP id 98e67ed59e1d1-380aa22b082mr3768041a91.24.1782954042395;
+        Wed, 01 Jul 2026 18:00:42 -0700 (PDT)
+Received: from localhost (sodcd-04p2-40.ppp11.odn.ad.jp. [203.139.65.40])
+        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-380e16057d0sm86255a91.8.2026.07.01.18.00.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 17:50:20 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: vasanthakumar.thiagarajan@oss.qualcomm.com,
-	jeff.johnson@oss.qualcomm.com,
-	johannes@sipsolutions.net,
-	tristan@talencesecurity.com,
-	Tristan Madani <tristmd@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5] wifi: ath6kl: fix OOB access from firmware ADDBA window size
-Date: Thu,  2 Jul 2026 00:50:20 +0000
-Message-ID: <20260702005020.708717-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        Wed, 01 Jul 2026 18:00:41 -0700 (PDT)
+Date: Thu, 2 Jul 2026 10:00:30 +0900
+From: Dominique Martinet <dominique.martinet@atmark-techno.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Jamal Hadi Salim <jhs@mojatatu.com>,
+	Cong Wang <xiyou.wangcong@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Mat Martineau <mathew.j.martineau@linux.intel.com>,
+	Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rajat Gupta <rajat.gupta@oss.qualcomm.com>,
+	Yiming Qian <yimingqian591@gmail.com>,
+	Keenan Dong <keenanat2000@gmail.com>,
+	Han Guidong <2045gemini@gmail.com>,
+	Zhang Cen <rollkingzzc@gmail.com>,
+	Davide Caratti <dcaratti@redhat.com>,
+	Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+	Victor Nogueira <victor@mojatatu.com>
+Subject: Re: [PATCH 5.10.y] net/sched: fix pedit partial COW leading to page
+ cache corruption
+Message-ID: <akW4LleEw9axSYaB@atmark-techno.com>
+References: <20260630-cve-2026-46331-v1-2-c1986f356f26@atmark-techno.com>
+ <stable-reply-pedit-cow-510-20260701193800@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <stable-reply-pedit-cow-510-20260701193800@kernel.org>
 
-From: Tristan Madani <tristan@talencesecurity.com>
+Sasha Levin wrote on Wed, Jul 01, 2026 at 08:38:34PM -0400:
+> > [Dominique: plenty of context conflict but the code itself could still
+> > mostly be used]
+> 
+> Thanks! However, the same upstream fix (899ee91156e5) is already queued for
+> 5.10.y via Wentao Guan's backport, which brings in the act_pedit
+> RCU/percpu-stats prerequisites first and then applies the fix nearly
+> verbatim.
 
-aggr_recv_addba_req_evt() logs a debug message when the firmware-supplied
-win_sz is outside [AGGR_WIN_SZ_MIN, AGGR_WIN_SZ_MAX] but does not
-return. The out-of-range win_sz is then used in TID_WINDOW_SZ() to
-compute a kzalloc size and stored in rxtid->hold_q_sz, leading to
-zero-size or overflowed allocations and subsequent out-of-bounds access.
+Oh, thanks!
+Sorry for the noise, I'll remember to check next time.
 
-Clean up any previously active aggregation session for the TID first,
-then return early when win_sz is out of the valid range, instead of
-proceeding with a broken allocation size.
-
-Fixes: bdcd81707973 ("Add ath6kl cleaned up driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
-
-Changes in v5:
-  - Add From: tag in the patch body to fix the From/Signed-off-by
-    address mismatch (Jeff Johnson).
-  - Drop Suggested-by, add Reviewed-by (Vasanthakumar Thiagarajan).
-
-Changes in v4:
-  - Move aggregation session cleanup before the window size check so
-    that a previously active session is always torn down, even when the
-    firmware sends an ADDBA event with an out-of-range window size
-    (Vasanthakumar Thiagarajan).
-
-Changes in v3:
-  - Regenerated from wireless-next with proper git format-patch to
-    produce valid index hashes (v2 had post-processed index lines).
-
-Changes in v2:
-  - No code changes from v1.
-
- drivers/net/wireless/ath/ath6kl/txrx.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/wireless/ath/ath6kl/txrx.c b/drivers/net/wireless/ath/ath6kl/txrx.c
-index 80e66ac..a39c815 100644
---- a/drivers/net/wireless/ath/ath6kl/txrx.c
-+++ b/drivers/net/wireless/ath/ath6kl/txrx.c
-@@ -1722,13 +1722,15 @@ void aggr_recv_addba_req_evt(struct ath6kl_vif *vif, u8 tid_mux, u16 seq_no,
-
- 	rxtid = &aggr_conn->rx_tid[tid];
-
--	if (win_sz < AGGR_WIN_SZ_MIN || win_sz > AGGR_WIN_SZ_MAX)
--		ath6kl_dbg(ATH6KL_DBG_WLAN_RX, "%s: win_sz %d, tid %d\n",
--			   __func__, win_sz, tid);
--
- 	if (rxtid->aggr)
- 		aggr_delete_tid_state(aggr_conn, tid);
-
-+	if (win_sz < AGGR_WIN_SZ_MIN || win_sz > AGGR_WIN_SZ_MAX) {
-+		ath6kl_dbg(ATH6KL_DBG_WLAN_RX, "%s: win_sz %d, tid %d\n",
-+			   __func__, win_sz, tid);
-+		return;
-+	}
-+
- 	rxtid->seq_next = seq_no;
- 	hold_q_size = TID_WINDOW_SZ(win_sz) * sizeof(struct skb_hold_q);
- 	rxtid->hold_q = kzalloc(hold_q_size, GFP_KERNEL);
---
-2.47.3
+-- 
+Dominique
