@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F7A480DD1
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 12:49:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E32A481648
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 12:49:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782996585; cv=none; b=uaQeAUcjOx2daJ6DqUsC4qGIOaHM0uw5vKBFpPYxKedtFu3dmbyqVPhVUmJ5i8fe18nt8uoKsxn8lcHkGHxVxMoCoxlXL0sIiVOFGZD1XF+LX6biGtHOLgZbUWmhFTF4KwW7fxpIW/XXa5iPv7uVU5BnwzjFh/Y8WSXwI0N6bbI=
+	t=1782996587; cv=none; b=F6SErHP0WTDGTSKQkfCG6QT5NcnSKBmaHUnPHsgDMlI3Tz5IR1Qff8MEkWV9yezfaNFTm4vOCVmPlixhTIkFG1XIjbM5peM57S9HPm6UZuurbsroH5dH0uGSk/fOqqCDOxDKk1IWokcZbvcpQnp7IBmf+q9PIKgDGudwtfjcqoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782996585; c=relaxed/simple;
-	bh=Y10EfEGAVwSCLHKFgAVZhIL4XWl2G2kvVFwnSojvSoI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FAcvhLJVqHhMZNrOI36Qj6ruuESNyS8PBLoFDIt4Airl9KLzqSfDFeiWwaNOuAl653hnevLWCAz3b+d9Onl8ewqmENNVxThrfMBuq4T/FLQ+Lhzqsupm+W38CgCG72p7BySznEVmJO30Cd9RLrqddGnguCOcrsSx7uPm65jiOgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oxist6w2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782996587; c=relaxed/simple;
+	bh=xJW1Uwt4QJCDdS2j4iq81Ki7O3/NeztcX3AE9QgMinY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uoSzcSzo/i0rP16n625rEdnHjGQOvQ9p1lmB5jK8E2Ya39swdOucISo3hyM0aUxlhLEo6Uf+FkiUiwA7QPL63eLb5UDW3k/CZp/Nh//a6Um7uwlrvAzS6t3OpIB4qfqb0w+4yyPQ2ywr3RlWL3nCJfPhwBp0vlxKkX491iowyEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eEu5bE8o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oxist6w2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15A311F00A3A;
-	Thu,  2 Jul 2026 12:49:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eEu5bE8o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3CA1F00A3D;
+	Thu,  2 Jul 2026 12:49:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782996582;
-	bh=SUMSS9O6pHP+mAyFa4rK8wXUdw+L79dwSiLhSFGUL00=;
+	s=korg; t=1782996585;
+	bh=yLsNQX7GSsJgc5dVquyAv5RF7dNga6zsxvy/1nBChj8=;
 	h=Subject:To:Cc:From:Date;
-	b=oxist6w2IzbON9GUiJM4CketUCODruw59W4k2j3QQDfF3Msfo3IUiHRMD6P1fFUto
-	 SN9F3uVnwvsXcTmqUH7Ulb81Fi206flUGfdDLcbhAZOdw2xaJvCluy+VkmiI7nQyFX
-	 ysBCr6YO0W5hMc6M7DuJVvF/rna/dp+IROO9uaqQ=
-Subject: FAILED: patch "[PATCH] KVM: arm64: Omit tag sync on stage-2 mappings of the zero" failed to apply to 5.15-stable tree
+	b=eEu5bE8oHj8dP4INsGFrvKyug7YW0vLidKPcdYLcmwMHME8SZ4QZMn9JMUV1u5K7+
+	 jEJzPuU6IjuYCZbrPkh3bxiSryGYCuKcQb1QAtCwEeGzuar+Oi0EtWwzXSrysm05hM
+	 4J4VHKwr0q0ZdRM+4keVdeeB5IGoW/YbX3QpIg2E=
+Subject: FAILED: patch "[PATCH] KVM: arm64: Omit tag sync on stage-2 mappings of the zero" failed to apply to 5.10-stable tree
 To: ardb@kernel.org,catalin.marinas@arm.com,will@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Thu, 02 Jul 2026 14:49:43 +0200
-Message-ID: <2026070243-buckshot-awaken-ece0@gregkh>
+Message-ID: <2026070243-tapestry-thinning-690d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2986a625740599fe6e7635b0586fed2a95bcd1f7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070243-buckshot-awaken-ece0@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070243-tapestry-thinning-690d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
