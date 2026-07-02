@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD43431E55
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 13:08:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99AD048033A
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 13:08:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782997736; cv=none; b=Mscc0QwjsdbJO829PM01UnPmQ23RhfN+u8gcpnJzFSyGx/d7Qb9/nhTHfYqu37K5KcSbFOYchIv1N7ah8JLAwaHKn/iCeokh5q2aTfF3NBCrO2Qb1Z1+5DW18eCft6eYXn5QYoazyA++sfEEidj5blReh93MUiYYvZh37gBqLQA=
+	t=1782997741; cv=none; b=NMqfOzQARZWIfbba63kiFmhHFi/lJgZW2eivRTJ60i8etuuKDTTTh/qScFg1gshj+lTI41ZCq5CmwlExYH7uT8hpuFC39ljXDlQ5Ij7/8MDC+AVvfl3vgR1U9PQKzDKmR48RgwIz3ZH3AvNlY/1Fykklgwz2OuXTx09UMzZJlbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782997736; c=relaxed/simple;
-	bh=I6qkEgcJN8Mf7025D0q/oYXlv7gHcy1Oz9T7Mei5lEs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HFQhYYDQ+2Mit/6wrVYk5+ZiPQ26KvedpHpXRSFepQGm86wz2h0woMgG/CPc4TrGkJslDr0JMYY3bzHj2Tc4C83cRcyLOK34iVhWUEhTH8TO87gplICSxhMGBtP4UuX7VH+/H961BQZ9DBuK7NyFpjoRiKd8BmnL3w4B5tZEY5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2jjgKHmK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782997741; c=relaxed/simple;
+	bh=dmf1cWRtisQ8xqsnKuGrNlRs1uMvnkPupo42FzvxsIg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rAdqelkEFZfathoqDfwWLUmZVPZzlz2yPFshRngeRuL8RX7vIxb8GEZ1L85pRgA+/jOghMynPmbWymk2y8bEbPernF1Uqz8v8KrnoFK2m0iKOrFs1Mn2JjtwMCmhlQcuKOgPvdXNPUmuxoJwsC0SlWfsCQXOmdB8a3n+gYuxtps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=w2oxWRjE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2jjgKHmK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3731F00A3A;
-	Thu,  2 Jul 2026 13:08:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="w2oxWRjE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F711F00A3A;
+	Thu,  2 Jul 2026 13:08:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782997731;
-	bh=B0v4XhMuJZdSVqE43x5DUbQC1LaZHrRvTrSRsWZ+RYk=;
+	s=korg; t=1782997739;
+	bh=E+T25zeQpRYMS+wQrIpOR6AUgcu9RnW+tFYsrOnZ1tc=;
 	h=Subject:To:Cc:From:Date;
-	b=2jjgKHmKrxCz2l+ZlIYWiSlHjI+fmPQ6+3dxsTndqyV9tam/3c0snxc/H3sAGztUr
-	 qcOxn1Lyry04Kt3j8YxZvvHeMGsoRhRkWG1mjVBZPcvHfC27FMENU33n2nXXVSvmai
-	 YTzjpxklsH/YACMPrStJ0QeoqMCZNKFIxJdyG5YA=
-Subject: FAILED: patch "[PATCH] f2fs: validate orphan inode entry count" failed to apply to 6.12-stable tree
+	b=w2oxWRjEAUZ74Ma9Fsf1WbAdsD5BBgQ5dWuHk+0SCIE4imvCmpz0J18bSFgWm3ehg
+	 z1mUMI4rVf2jE45/Ev0SLwmDx7kwj3KgERjsjc1S62dDSQ8vcVoKjc/ChwOifYuO12
+	 nJfx6dm+uRYbsvneOZvf+gK124PLvkB0hTPPjEoc=
+Subject: FAILED: patch "[PATCH] f2fs: validate orphan inode entry count" failed to apply to 6.6-stable tree
 To: qwjhust@gmail.com,chao@kernel.org,jaegeuk@kernel.org,qiwenjie@xiaomi.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Thu, 02 Jul 2026 15:09:01 +0200
-Message-ID: <2026070201-empower-operation-19d2@gregkh>
+Message-ID: <2026070201-evasion-negate-eca9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 846c499a65816d13f1186e3090e825e8bb8bcb8b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070201-empower-operation-19d2@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070201-evasion-negate-eca9@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
