@@ -1,120 +1,116 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EAFD3603E8
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 16:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306EB362154;
+	Thu,  2 Jul 2026 16:31:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783009872; cv=none; b=TZrKV4mWgyql47Z6cVaBO1I3hhIxFLgivKOXjDyNJiQyjZx1HDH1DDTtvl0A4wrAy8E2go172JbDtp4sAJEuwreFmzKBtNlmc5eCLws8scCB+g3Ec6KV/BHHacXe+Q6t4fr7pb9Y3l5bk/4qLS7cZI6ByLB+FFn5ivG/PpU2Btg=
+	t=1783009874; cv=none; b=OjOirWyLItmUc3Yjt7KKXiejjpt+ZLeZq/lIPAuyB5ns+0Uw4YWdia2+hsfI57d0Opd6C7tnl6HkDdZOPYvyTJ1apjrWqI9q99Ky1WPZh+f6jE/Z7mo+rc5vbbKH+gflN+SMgB8N3Z8ohHiKffwtxFN+PbLb+N2GtBIDGfeVNBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783009872; c=relaxed/simple;
-	bh=Yhl+3oW3kXt8ec0rUSaQ1g6FmMDZRDoLmEpqjnxw3S0=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=PFsv7KYhN9OhDyxZwG2u4UaAz2a740a/uAv1HNwt8fIewkt5QGwjtICwfzN0EwMG5TyPTdiZY7o2BlzRqVAl7E7rU696wCqQML2OOoDCjm8/8m3p0tLZ9nnH32zGW8CbI5HMqfjQyJ0rcVUwVA+xy5mikv7Fevo/SxeuWhxivQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=BIdxpUOK; arc=none smtp.client-ip=18.169.211.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1783009874; c=relaxed/simple;
+	bh=vMeE0zNFjGxmb8C2fRKF10h6qaG6MeQUf9w6Z6e/sWU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=C3ZU77aaNQDWOUThTMrix3pEAOmwfSWbdPxwG+dfb+qI9n1gY2KDEDQs+E9xn/iGYV4r6Y1tScqKy/XhuI4MDdadKjlrHG0iTA+h01LSyeH7R8KY4k0m1TzzorW++kvSjJY92It6anpMzOIQ2v0sWKlj7UzWUsVuljtPuBMCmcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SM1YBWLM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="BIdxpUOK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1783009767;
-	bh=Yhl+3oW3kXt8ec0rUSaQ1g6FmMDZRDoLmEpqjnxw3S0=;
-	h=From:To:Subject:Mime-Version:Date:Message-ID;
-	b=BIdxpUOKbhKFP6PnEMF+lD4YeYuXVmTche01adarQG604WaPgTqAGmbfYQuRSkMdc
-	 XkY88cQoQbQDeXwzh9kqqbbkCvNo1VWEjMJH8VKiR2R+C2Qv8/EcDNkZ/0s40HqR2U
-	 WJf23+aO6xjZp5BKU2juUyCau1YXprO8M9sfiGsM=
-EX-QQ-RecipientCnt: 8
-X-QQ-GoodBg: 1
-X-QQ-SSF: 00400000000000F0
-X-QQ-FEAT: D4aqtcRDiqQ6f7IieUZ8DoKgL9zJG7IbL7boNmGOgcs=
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: D7Y1ShbmZDUc5HDRLR7HoQ+C7igt/Drzm96NVueKceQ55F55yi618lUUpL/fBwymM4ehIFhDnY0VMUlNgbAbaw==
-X-QQ-STYLE: 
-X-QQ-mid: lv3gz7b-6t1783009765te748538d
-From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
-To: "=?utf-8?B?R3JlZyBLSA==?=" <gregkh@linuxfoundation.org>
-Cc: "=?utf-8?B?MDAxMDcwODI=?=" <00107082@163.com>, "=?utf-8?B?aWtsYXR6Y28=?=" <iklatzco@gmail.com>, "=?utf-8?B?cGF0Y2hlcw==?=" <patches@lists.linux.dev>, "=?utf-8?B?cGV0ZXJ6?=" <peterz@infradead.org>, "=?utf-8?B?U2FzaGEgTGV2aW4=?=" <sashal@kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>, "=?utf-8?B?eWVvcmV1bS55dW4=?=" <yeoreum.yun@arm.com>
-Subject: Re: [PATCH] perf: Fix dangling cgroup pointer in cpuctx backport
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SM1YBWLM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 974901F000E9;
+	Thu,  2 Jul 2026 16:31:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1783009873;
+	bh=52tkHbPkagTI1vTuuNprsSPnC444dT7gzlRfHNGEbi8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SM1YBWLMpqx7N/6A9ZyKVWNMcu5jX4wotM8c9TQt7Z9nQTm+7l7owbVuW2fcLgF61
+	 G+IhaiJlJtm+O8tCIZlrsAKB1sIKvpyH4wC7ZXdKt/SeSrLQArA4kCBeWlR/5iOmQ9
+	 t8Z+zgUGddQEILRh6L04hS937WsDTIE4x4OT8K7Q=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	syzbot+b8ca586b9fc235f0c0df@syzkaller.appspotmail.com,
+	Helen Koike <koike@igalia.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 025/129] debugobjects: Do not fill_pool() if pi_blocked_on
+Date: Thu,  2 Jul 2026 18:19:04 +0200
+Message-ID: <20260702155112.681449840@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260702155112.163984240@linuxfoundation.org>
+References: <20260702155112.163984240@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Fri, 3 Jul 2026 00:29:25 +0800
-X-Priority: 3
-Message-ID: <tencent_6D500C6D6BAE135A01D2E2B8@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <2026062455-obtrusive-sandbox-d6d1@gregkh>
-	<20260624095920.2558406-1-guanwentao@uniontech.com>
-	<2026062404-unusual-nutmeg-87d5@gregkh>
-	<tencent_5FDA609363B90C6249A050FD@qq.com>
-	<2026070200-uneaten-smock-4130@gregkh>
-In-Reply-To: <2026070200-uneaten-smock-4130@gregkh>
-X-QQ-ReplyHash: 379268434
-X-BIZMAIL-ID: 2400357538771675532
-X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1])
-	by smtp.qq.com (ESMTP) with SMTP
-	id ; Fri, 03 Jul 2026 00:29:26 +0800 (CST)
-Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NFbgtEGdVZezRXmxXKhLuzCkl18SvNau5sDqnW7xrDdBBmGJu2aGRl5e
-	EE4TzFzt0b7Lq3mmSAps3IsN57VXUhJTyhDbs2o9r7aCJYNPwG3xQPQJZPMM9wmM9KsVneE
-	JYqwIXAEmwwcyU9LPcw88RtysKpTF6GzOou0cMx/E6hZhQLpIKUP3DqNOqGPrvXtP4POJh1
-	2q5NbDiPAv5xlTMbjx2trMFnPF9+UccJ8C/ewbkPB/fo6FGG8pvN68kyJV5/+2/Bq/38qX1
-	eHpJ12jTDo7sb3XQI/s2LVuW79a8k/pOFf7tGj9Int1ywlFeCKtDI4YwPNu3rKcmet4n7p5
-	7dJ8Q+dyVL8s4rByXXtwiUbGn6lpYExW+nDbfMIIop+meBkqW4teNwdb8aYG5e0ibk8rcdX
-	DmTSfudDlb/dc2EtJ4mfQPmKc7GajeaLO6HjHYyWvCfFcin7Y3kSHof2WLBudkwRhVhZBMK
-	QiLZMN/Vl44I+fyRCU/oQGMVR1cpeV+wrNFqBRzpr1Lc8CrRhiJcevF5nXlhFIrk9H67Ae2
-	O1KBEfpH9lJhpWtGaNmyV12Z/XVtp3wY4gV0U8wKzO2QjMS8VeDncaLJ1SEk9GpTS4b01S9
-	PLishDL0BQ8+D9mYkh2kYcpeoV37LlgOprlklincZPMbFm44DltwCausTDdJfg+7hSDg3OV
-	dKgWnKVyYWa/+emQRKbu3WRjjTg5VL87dYrpDDHPE8eQyPz2SGlYPYzC8s3SfHQq3a2vXpr
-	LhmfGUENY6y/7+plViU4uBd4XYDZbvV32351tyZfyw5Nssr6VNHphv7HEvDbZPsEuHvctgI
-	Wf3NIswZMh43FywTnsslWjpVG0h6z28Ct/zrsaLAOpj16h92m3INX+52nGJ5Alm+cyxBlLr
-	PpyqmnQk6MWXA8TAhJzjFXASa+yENwntIyjF2xyFOsK2Ir7wuVLPVcAUmfAyQ27/zxVDqwD
-	XAFC7PbNTbo+VrqbOVKbmVQO0f/pEg9DjC5ajZaOa8EVEr3kgZoMvh4/hxeLY26afL3bwM+
-	p5oe/Q5vLJ2PsnPII13kyZIj9PgbLTznyXl2Xwb7IcJxZOXgiLoQr1Vfn/jUDI/WrA7TvoX
-	1Xllmm186e3lK/v7xoXUGmI6+PFjPkcow==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-SGksDQoNCj4gT24gV2VkLCBKdW4gMjQsIDIwMjYgYXQgMDY6MDc6NDFQTSArMDgwMCwgV2Vu
-dGFvIEd1YW4gd3JvdGU6DQo+ID4gPiBPbiBXZWQsIEp1biAyNCwgMjAyNiBhdCAwNTo1OToy
-MVBNICswODAwLCBXZW50YW8gR3VhbiB3cm90ZToNCj4gPiA+ID4gcmVjZW50bHkgYmFja3Bv
-cnQgb2YgKCJwZXJmOiBGaXggZGFuZ2xpbmcgY2dyb3VwIHBvaW50ZXIgaW4gY3B1Y3R4IikN
-Cj4gPiA+ID4gdXNlIGEgbWlkZGxlIHZlcnNpb24sIHNvIGFsaWduZWQgd2l0aCB0aGUgdXBz
-dHJlYW0gY29tbWl0Og0KPiA+ID4gPiAzYjdhMzRhZWJiZGYyYTRiNzI5NTIwNWJmMGM2NTQy
-OTQyODNlYzgyDQo+ID4gPiA+DQo+ID4gPiA+ID4gU2lnbmVkLW9mZi1ieTogV2VudGFvIEd1
-YW4gPGd1YW53ZW50YW9AdW5pb250ZWNoLmNvbT4NCj4gPiA+ID4gLS0tDQo+ID4gPiA+ICBr
-ZXJuZWwvZXZlbnRzL2NvcmUuYyB8IDUgKystLS0NCj4gPiA+ID4gIDEgZmlsZSBjaGFuZ2Vk
-LCAyIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQo+ID4gPiA+DQo+ID4gPiA+IGRp
-ZmYgLS1naXQgYS9rZXJuZWwvZXZlbnRzL2NvcmUuYyBiL2tlcm5lbC9ldmVudHMvY29yZS5j
-DQo+ID4gPiA+IGluZGV4IGE0MTg3ZGVhNjQwMmEuLjczYTg2ZGIwNmNjOWIgMTAwNjQ0DQo+
-ID4gPiA+IC0tLSBhL2tlcm5lbC9ldmVudHMvY29yZS5jDQo+ID4gPiA+ICsrKyBiL2tlcm5l
-bC9ldmVudHMvY29yZS5jDQo+ID4gPiA+IEBAIC0yMzg0LDEwICsyMzg0LDkgQEAgX19wZXJm
-X3JlbW92ZV9mcm9tX2NvbnRleHQoc3RydWN0IHBlcmZfZXZlbnQgKmV2ZW50LA0KPiA+ID4g
-PiAgKi8NCj4gPiA+ID4gIGlmIChmbGFncyAmIERFVEFDSF9FWElUKQ0KPiA+ID4gPiAgc3Rh
-dGUgPSBQRVJGX0VWRU5UX1NUQVRFX0VYSVQ7DQo+ID4gPiA+IC0gaWYgKGZsYWdzICYgREVU
-QUNIX0RFQUQpIHsNCj4gPiA+ID4gLSBldmVudC0+cGVuZGluZ19kaXNhYmxlID0gMTsNCj4g
-PiA+ID4gKyBpZiAoZmxhZ3MgJiBERVRBQ0hfREVBRCkNCj4gPiA+ID4gIHN0YXRlID0gUEVS
-Rl9FVkVOVF9TVEFURV9ERUFEOw0KPiA+ID4gPiAtIH0NCj4gPiA+ID4gKw0KPiA+ID4gPiAg
-ZXZlbnRfc2NoZWRfb3V0KGV2ZW50LCBjdHgpOw0KPiA+ID4gPg0KPiA+ID4gPiAgaWYgKGV2
-ZW50LT5zdGF0ZSA+IFBFUkZfRVZFTlRfU1RBVEVfT0ZGKQ0KPiA+ID4gPiAtLQ0KPiA+ID4g
-PiAyLjMwLjINCj4gPiA+ID4NCj4gPiA+DQo+ID4gPiBXaGF0IGtlcm5lbCB0cmVlKHMpIGlz
-IHRoaXMgZm9yPyAgV2hhdCBnaXQgaWQgZG9lcyB0aGlzIGZpeD8NCj4gPiAxLiB2Ni42LjE0
-MyBhbmQgdjYuMTIuOTQNCj4gPiAyLg0KPiA+IGFlMWFkYTBhZjE2MjQ5YTNlZDE1ZTMzZmE2
-NzE5YTZhMmY5NmY1MzcgaW4gdjYuNi4xNDMNCj4gPiA0NmY1NjIzZjliMGVmNjYxMjdlMWRl
-MTZmYjg1Nzg1MGNkYjE0ZTY4IGluIHY2LjEyLjk0DQo+IA0KPiBQbGVhc2UgcHV0IGFsbCBv
-ZiB0aGlzIGluZm9ybWF0aW9uIGluIHRoZSBjaGFuZ2Vsb2cgYW5kIHByb3ZpZGUNCj4gdmVy
-c2lvbnMgZm9yIGFsbCBvZiB0aGUgYnJhbmNoZXMgeW91IHdhbnQgaXQgZm9yLg0KVGhhbmtz
-IGZvciB5b3VyIHJlcGx5LCBJIHdpbGwgc3VtYml0IGxhdGVyLg0KDQpPdXQgb2YgdGhyZWFk
-LCBwZW9wbGUgc2F5cyBodHRwczovL2Nkbi5rZXJuZWwub3JnL3B1Yi9saW51eC9rZXJuZWwv
-djcueC9saW51eC03LjEuMi50YXIueHoNCmZyb20ga2VybmVsLm9yZyBwdWJsaWMgYXJjaGl2
-ZSByZXR1cm4gNDA0LCB3aGF0IGhhcHBlbj8NCg0KQlJzDQpXZW50YW8gR3Vhbg==
+6.1-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Helen Koike <koike@igalia.com>
+
+commit 5f41161059fd0f1bbf18c90f3180e38cc45a14eb upstream.
+
+On RT enabled kernels, fill_pool() ends up calling rtlock_lock(), which
+asserts if current::pi_blocked_on is set, because a task can obviously only
+block on one lock as otherwise the priority inheritenace chain gets
+corrupted.
+
+Prevent this by expanding the conditional to take current::pi_blocked_on
+into account.
+
+Fixes: 4bedcc28469a ("debugobjects: Make them PREEMPT_RT aware")
+Reported-by: syzbot+b8ca586b9fc235f0c0df@syzkaller.appspotmail.com
+Signed-off-by: Helen Koike <koike@igalia.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://patch.msgid.link/20260511215359.3351259-1-koike@igalia.com
+Closes: https://syzkaller.appspot.com/bug?extid=b8ca586b9fc235f0c0df
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ lib/debugobjects.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/lib/debugobjects.c b/lib/debugobjects.c
+index a7f3c6f15125a9..5e653e2ffa8dac 100644
+--- a/lib/debugobjects.c
++++ b/lib/debugobjects.c
+@@ -597,15 +597,25 @@ static struct debug_obj *lookup_object_or_alloc(void *addr, struct debug_bucket
+ 	return NULL;
+ }
+ 
++static inline bool debug_objects_is_pi_blocked_on(void)
++{
++#ifdef CONFIG_RT_MUTEXES
++	return current->pi_blocked_on != NULL;
++#else
++	return false;
++#endif
++}
++
+ static void debug_objects_fill_pool(void)
+ {
+ 	/*
+ 	 * On RT enabled kernels the pool refill must happen in preemptible
+-	 * context -- for !RT kernels we rely on the fact that spinlock_t and
+-	 * raw_spinlock_t are basically the same type and this lock-type
+-	 * inversion works just fine.
++	 * context and not enqueued on an rt_mutex -- for !RT kernels we rely
++	 * on the fact that spinlock_t and raw_spinlock_t are basically the
++	 * same type and this lock-type inversion works just fine.
+ 	 */
+-	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || preemptible() || system_state < SYSTEM_SCHEDULING) {
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || system_state < SYSTEM_SCHEDULING ||
++	    (preemptible() && !debug_objects_is_pi_blocked_on())) {
+ 		/*
+ 		 * Annotate away the spinlock_t inside raw_spinlock_t warning
+ 		 * by temporarily raising the wait-type to LD_WAIT_CONFIG, matching
+-- 
+2.53.0
+
+
 
