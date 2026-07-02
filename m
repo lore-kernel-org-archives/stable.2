@@ -1,254 +1,131 @@
-Received: from devianza.investici.org (devianza.investici.org [198.167.222.108])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FDF35DA65;
-	Thu,  2 Jul 2026 18:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.167.222.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1C03090C6;
+	Thu,  2 Jul 2026 18:23:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783016531; cv=none; b=DZuXT9tYRzpxzsnjYAFnjzt0/g8+CCnOKPMqac5AOBQSd/xv9A8hjNSUl3bp3ywX0woYs3VXKDpJ/8kkn9mv3u3WLK6lF9h+53ffMDwuI8/rQaTvlF0X3fMyfhWN0+BaCa6DtTZZyBjKzSxZGYWqkP6j/j4mnmeaR0D3VbESVJc=
+	t=1783016625; cv=none; b=YY8lGlXfR4rPFq3E7ChOs52BL92bwtZsDwm1srHG8ntw757BVDCZrpAXKh0FjjseAF1ctkPDt+KXjbtOZMHKQYvc9s+VxkUY6DFbxdr/8y5GZNTXpInXNBp/jDtOZDZ2e9PVKns2WKysxlGmGM4ffce9nA3SSQhrbvMLlJrmv64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783016531; c=relaxed/simple;
-	bh=oe7xnLsL4togXaJ9OmW2NUOY1vkn8a8RpZnA0f1dxZo=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=aZNkqFplBSfdz1fA3bXjXdAFdUNCsqC+t6l6/YHUdziejtf/MQ2er2wW/yelufPFukONOQoIx1wu6KmPTxUpyfCmboX1Uk9b5wGR1sP4jVAab7qPG1ftbrOgOokNsSDNBcVDaZ/q2vdmt45U7uubCSeBnOBu6QqvWx0S/qaIEPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=cPIs8oMd; arc=none smtp.client-ip=198.167.222.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
+	s=arc-20240116; t=1783016625; c=relaxed/simple;
+	bh=eA8Q+hA17ukWLXB1CNR+Deq0hQsIHwC+H49wxnv3eCI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dswlW8F42YTODsVfRwBXcNKsUXwGJzItbptbDrHl/h/QKRHdN9zHs9tbvpQ3j3pX8ST4me3ZQ8uvbOenSA8BygxmwL/wlCu1LtWuu5BBphTNS2TIKziGGlqIyXTLQAhGSw07cT2Vrs8G3vDAiWqdXDhoFVKjnBTXHAMXSwYE4hM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=NfmR94Ne; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="cPIs8oMd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1783016526;
-	bh=ytLKTMN7m8TznEFga2mkbUY90NBLPwrVqySqaInC9/c=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=cPIs8oMduJhTtjKa6dVCGRbMICyWBjcRfFVbUcXnTKsLIgKYjoMU4ezu/SLTH0Uqb
-	 zThAQG4FuSr9/+Fisnfla1tlNfhJLfWeG7O53TIPkF/9B7Rf2tLOBV0WVLTtVIVhF2
-	 GtRj3cAuV7/J20RRsq8eF/lxD2LtWU/jL/JXIFck=
-Received: from mx2.investici.org (unknown [127.0.0.1])
-	by devianza.investici.org (Postfix) with ESMTP id 4grlbL3pzHz6vKP;
-	Thu, 02 Jul 2026 18:22:06 +0000 (UTC)
-Received: by mx2.investici.org (Postfix) id 4grlbK6yx2z4y2q;
-	Thu, 02 Jul 2026 18:22:05 +0000 (UTC)
-Date: Thu, 02 Jul 2026 19:22:06 +0100
-From: Bradley Morgan <include@grrlz.net>
-To: Petr Mladek <pmladek@suse.com>
-CC: Feng Tang <feng.tang@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_4/4=5D_panic=3A_use_sys=5Finfo=5Fwi?=
- =?US-ASCII?Q?th=5Ffilter=28=29_to_avoid_duplicate_backtraces?=
-In-Reply-To: <EC1E5A79-524A-45C2-9FE8-964EB0E18D76@grrlz.net>
-References: <20260625152558.7450-1-include@grrlz.net> <20260625152558.7450-5-include@grrlz.net> <aj5TNB8cRtMNTtIT@pathway.suse.cz> <aj5tFiwhRqPkAkqU@pathway.suse.cz> <akJZxCTlLcwubqi2@U-2FWC9VHC-2323.local> <E482A23D-4E1C-42C0-9D07-83C6CDFD1546@grrlz.net> <akYq1YaCpZ0b4SBS@pathway.suse.cz> <EC1E5A79-524A-45C2-9FE8-964EB0E18D76@grrlz.net>
-Message-ID: <102FB664-5FC5-4388-B818-265F81B9AE55@grrlz.net>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="NfmR94Ne"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=HMwrIHSesSwBeH6rt0sJESP8Af/ZauXLbklgi13pmLA=; b=NfmR94NelT+fa24vbw3X4cZSHb
+	QvuasTkKBv7nIffde1TU80ZGRZNMujgsv/nuoVr3pIcjqDy7UPTdzPhtTHRVAuRk7JhYoTg9uHII1
+	OXSywskLhP2W95jLSdoQhIR2fZTrye+LU2vzfa9Etb5OTfmJFQ6XHFQfu1sZlbRxoktutEE7P9SoB
+	ArPm6ocKSke0tRI7ISqWohmMBzfpnbFQkUclzfS5GijvvmpVyKhpm6aoK5HSe/bsdsJEIDkx8WO8d
+	ugD7ymSrVdM9xlSDc9/rOOCWLEx468ifdBKwzJAo50QBqnSdERWYx4IwvokZQ4i5enrACjARLo8IU
+	wX/8jIZA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: oklopfer37@gmail.com, Oren Klopfer <oklopfer37@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Peter Robinson <pbrobinson@gmail.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>, stable@vger.kernel.org
+Subject:
+ Re: [PATCH] Revert "arm64: dts: rockchip: Further describe the WiFi for the
+ Pinephone Pro"
+Date: Thu, 02 Jul 2026 20:23:38 +0200
+Message-ID: <6745357.1oUyQt6lIG@phil>
+In-Reply-To: <20260615225014.219115-1-oklopfer37@gmail.com>
+References: <20260615225014.219115-1-oklopfer37@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On July 2, 2026 7:13:26 PM GMT+01:00, Bradley Morgan <include@grrlz.net>
-wrote:
->On July 2, 2026 10:09:41 AM GMT+01:00, Petr Mladek <pmladek@suse.com>
->wrote:
->>On Mon 2026-06-29 13:54:18, Bradley Morgan wrote:
->>> On 29 June 2026 12:40:52 BST, Feng Tang <feng.tang@linux.alibaba.com>
->>> wrote:
->>> >On Fri, Jun 26, 2026 at 02:14:14PM +0200, Petr Mladek wrote:
->>> >> On Fri 2026-06-26 12:23:50, Petr Mladek wrote:
->>> >> > On Thu 2026-06-25 15:25:58, Bradley Morgan wrote:
->>> >> > > panic_other_cpus_shutdown() handles SYS_INFO_ALL_BT before
->>stopping
->>> >the
->>> >> > > other CPUs. Do not ask sys_info() to handle that bit again later
->>in
->>> >the
->>> >> > > panic path.
->>> >> > > 
->>> >> > > Use sys_info_with_filter() so panic_print=all_bt does not
->request
->>> >more
->>> >> > > output after the CPUs are stopped.
->>> >> > > 
->>> >> > > Fixes: a9af76a78760 ("watchdog: add sys_info sysctls to dump sys
->>> >info on system lockup")
->>> >> > > Cc: stable@vger.kernel.org
->>> >> > > Signed-off-by: Bradley Morgan <include@grrlz.net>
->>> >> > > ---
->>> >> > >  kernel/panic.c | 2 +-
->>> >> > >  1 file changed, 1 insertion(+), 1 deletion(-)
->>> >> > > 
->>> >> > > diff --git a/kernel/panic.c b/kernel/panic.c
->>> >> > > index 213725b612aa..eb842823df61 100644
->>> >> > > --- a/kernel/panic.c
->>> >> > > +++ b/kernel/panic.c
->>> >> > > @@ -680,7 +680,7 @@ void vpanic(const char *fmt, va_list args)
->>> >> > >  	 */
->>> >> > >  	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
->>> >> > >  
->>> >> > > -	sys_info(panic_print);
->>> >> > > +	sys_info_with_filter(panic_print, SYS_INFO_ALL_BT);
->>> >> > 
->>> >> > Hmm, this prevents printing backtraces from all CPUs completely.
->>> >> > But what if they were not printed?
->>> >> > 
->>> >> > They might be printed by:
->>> >> > 
->>> >> > static void panic_other_cpus_shutdown(bool crash_kexec)
->>> >> > {
->>> >> > 	if (panic_print & SYS_INFO_ALL_BT)
->>> >> > 		panic_trigger_all_cpu_backtrace();
->>> >> > 
->>> >> > [...]
->>> >> > }
->>> >> > 
->>> >> > But it checks only "panic_print" variable. It won't do anything
->>> >> > when (panic_print == 0).
->>> >> > 
->>> >> > In this case, we might still want to print the backraces when
->>> >> > SYS_INFO_ALL_BT is set in kernel_si_info.
->>> >> > 
->>> >> > >  	kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
->>> >> > 
->>> >> > Of course, we might fix panic_other_cpus_shutdown() to check also
->>> >> > kernel_si_info.
->>> >> > 
->>> >> > But it all becomes very hairy. We have several levels:
->>> >> > 
->>> >> >    + watchdog-all_bt-specific option, e.g.
->>> >sysctl_hardlockup_all_cpu_backtrace
->>> >> > 
->>> >> >    + watchdog-specific si_info preferences, e.g.
->hardlockup_si_mask
->>> >> > 
->>> >> >    + panic-specific si_info: panic_print
->>> >> > 
->>> >> >    + universal fallback for any layer: kernel_si_info
->>> >> > 
->>> >> > Now, we try to check all these variables back and forth to
->>> >> > trigger all backtraces or to avoid triggering them.
->>> >> > And it clearly does not work well and the code is more and more
->>> >> > hairy.
->>> >> > 
->>> >> > I think about another approach. The word "waterfall" comes to my
->>mind.
->>> >> > Instead of checking all the settings back and forth, let's process
->>> >> > each setting one by one and just remember what has been done and
->>> >> > skip this in the next level.
->>> >> > 
->>> >> > All the si_info actions seems to dump a global system state.
->>> >> > So, it would make sense to remember the state in a global variable
->>> >> > even when it might be modified by more CPUs in parallel.
->>> >> > 
->>> >> > I am going to think more about it.
->>> >> 
->>> >> I have created a POC using Gemini. I haven't tested it.
->>> >> But it looks acceptable. And the logic seems to be more
->>> >> straightforward.
->>> >> 
->>> >> One drawback is that it requires adding the _reset()
->>> >> call for all sys_info() callers. It is fine in principle
->>> >> but it might complicate back-porting because all changes
->>> >> have to be done in one patch.
->>> >> 
->>> >> But honestly, this is a nice to have fix. Most people could
->>> >> live happily without it.
->>> >> 
->>> >> From 3c66436d9978030845a96bfaedd6b914536e2ac4 Mon Sep 17 00:00:00
->>2001
->>> >> From: Petr Mladek <pmladek@suse.com>
->>> >> Date: Fri, 26 Jun 2026 13:55:41 +0200
->>> >> Subject: [POC] sys_info: Introduce state-tracking APIs to prevent
->>> >duplicate
->>> >>  backtraces
->>> >> 
->>> >> In watchdog, panic, and hung task detection scenarios, sys_info()
->can
->>> >> be called multiple times or alongside direct backtrace triggers like
->>> >> trigger_allbutcpu_cpu_backtrace(). This results in identical
->>backtraces
->>> >> being dumped repeatedly from all CPUs, cluttering the kernel log and
->>> >> delaying or obscuring critical debug details.
->>> >> 
->>> >> Introduce a state tracking bitmask and associated helpers:
->>> >> - sys_info_done(mask): Marks specific sys_info bits as already
->>printed.
->>> >> - sys_info_reset(): Resets the tracking state.
->>> >> - sys_info_is_done(mask): Checks if all bits in the mask have been
->>> >printed.
->>> >> 
->>> >> Update sys_info() to automatically filter out already printed bits
->>> >> using this state. Integrate these APIs with the generic hardlockup
->>> >> and softlockup watchdogs, the PowerPC watchdog, the hung task
->>detector,
->>> >> and the panic core. This ensures that each piece of system
->>information
->>> >> and backtrace output is printed at most once per lockup/panic event,
->>> >> and the state is reset cleanly when a lockup does not trigger a
->>panic.
->>> >> 
->>> >> Races between sys_info() callers are ignored. It should be
->acceptable
->>> >> because the output from various watchdogs has never been
->>synchronized.
->>> >> And panic() never returns.
->>> >> 
->>> >> Assisted-by: gemini-1.5-flash
->>> >> Signed-off-by: Petr Mladek <pmladek@suse.com>
->>> >
->>> >Yep. There are cases that people want panic on task-hung or sw/hw
->>lockup,
->>> >and this could remove much duplication of sys info dump, thanks!
->>> >
->>> >Reviewed-by: Feng Tang <feng.tang@linux.alibaba.com>
->>> 
->>> Thanks,
->>> 
->>> im feeling a new file to do all the force panic jazz, but putting tape
->>> on sys_info.c isn't bd either.
->>
->>I wonder how to move forward with this.
->>
->>Honestly, I am not sure what exactly you mean by creating another
->>API for tracking the reports so I could not judge it. Feel free
->>to sent some POC.
->>
->>Otherwise, I would go with my proposal to remember the printed states
->>by the sys_info API. I am not sure whether I should send a proper
->>patch or you would like to somehow improve it.
->>
->>Best Regards,
->>Petr
->>
->
->
->sup petr, here's my poc
->
->
->This should make my entire thing make sense
+Hi Oren,
+
+Am Dienstag, 16. Juni 2026, 00:50:13 Mitteleurop=C3=A4ische Sommerzeit schr=
+ieb Oren Klopfer:
+> This reverts commit 096bd8c679185f898cae9933c6a68650fa26ea4f.
+>=20
+> Just as with the Pinebook Pro, there are multiple chipset variants for th=
+e Pinephone Pro, and multiple firmware binaries for different distributions=
+=2E The change causes issues with some of these combinations, and reverting=
+ it resolves the issues. See the Closes below for the full report.
+>=20
+> Similarly with the Pinebook Pro adjustment, the original commit only indi=
+cates "further description" and not indicative of fixing any existing issue=
+s, so reverting should not kick any back up.
+
+The commit message did not get any line breaks, 72 character
+is the preferred line length.
+
+Also the patch contents itself got mangled.
+All the indentation is set as spaces, so that patch won't apply.
+
+Please try using b4 or at least git send-email for sending patches.
+
+Thanks a lot
+Heiko
+
+
+> Fixes: 096bd8c67918 ("arm64: dts: rockchip: Further describe the WiFi for=
+ the Pinephone Pro")
+> Cc: Heiko Stuebner <heiko@sntech.de>
+> Cc: Peter Robinson <pbrobinson@gmail.com>
+> Cc: Thorsten Leemhuis <regressions@leemhuis.info>
+> Cc: stable@vger.kernel.org
+> Closes: https://lore.kernel.org/r/20260607225901.64019-1-oklopfer37@gmail=
+=2Ecom/
+> Signed-off-by: Oren Klopfer <oklopfer37@gmail.com>
+> ---
+>  .../boot/dts/rockchip/rk3399-pinephone-pro.dts | 18 ------------------
+>  1 file changed, 18 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch=
+/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> index 8d26bd9b7500..d46cdfe3f784 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> @@ -734,12 +734,6 @@ light_int_l: light-int-l {
+>          };
+>      };
+> =20
+> -    wifi {
+> -        wifi_host_wake_l: wifi-host-wake-l {
+> -            rockchip,pins =3D <4 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>;
+> -        };
+> -    };
+> -
+>      wireless-bluetooth {
+>          bt_wake_pin: bt-wake-pin {
+>              rockchip,pins =3D <2 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
+> @@ -766,19 +760,7 @@ &sdio0 {
+>      pinctrl-names =3D "default";
+>      pinctrl-0 =3D <&sdio0_bus4 &sdio0_cmd &sdio0_clk>;
+>      sd-uhs-sdr104;
+> -    #address-cells =3D <1>;
+> -    #size-cells =3D <0>;
+>      status =3D "okay";
+> -
+> -    brcmf: wifi@1 {
+> -        compatible =3D "brcm,bcm4329-fmac";
+> -        reg =3D <1>;
+> -        interrupt-parent =3D <&gpio4>;
+> -        interrupts =3D <RK_PD0 IRQ_TYPE_LEVEL_HIGH>;
+> -        interrupt-names =3D "host-wake";
+> -        pinctrl-names =3D "default";
+> -        pinctrl-0 =3D <&wifi_host_wake_l>;
+> -    };
+>  };
+> =20
+>  &pwm0 {
+>=20
 
 
 
 
-Actually, looks like churn to me.
-
-we shouldn't do that.
-
-It is on that gist though.
-
-As in, I'm thinking about doing a new API to perhaps, make sys_info better?
-
-
-But it's very complicated, and may need discussion, feel free to ignore
-that POC...
-
-
-crappy old me, need a coffee heh.
-
-Thanks!
