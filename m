@@ -1,131 +1,66 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from mail.antaris-organics.com (mail.antaris-organics.com [91.227.220.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1C03090C6;
-	Thu,  2 Jul 2026 18:23:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B03F346A02;
+	Thu,  2 Jul 2026 18:37:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.227.220.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783016625; cv=none; b=YY8lGlXfR4rPFq3E7ChOs52BL92bwtZsDwm1srHG8ntw757BVDCZrpAXKh0FjjseAF1ctkPDt+KXjbtOZMHKQYvc9s+VxkUY6DFbxdr/8y5GZNTXpInXNBp/jDtOZDZ2e9PVKns2WKysxlGmGM4ffce9nA3SSQhrbvMLlJrmv64=
+	t=1783017429; cv=none; b=flecd4xgdyYTTUKFtyeIsyOzyOEwovcBOjnIJ43Fv2lvCf8AaLWZnbt4zZL3E4IndZ4XnkXBC6UOiGFNWyISb+8Qi2WoQytrO+3pzl3wDbD3KReCK9SvVlSLQKFFQYQ5o2s6lUjrWP0bEjRGVDL5aMcu8Tdp29nwzV7RDfbzgzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783016625; c=relaxed/simple;
-	bh=eA8Q+hA17ukWLXB1CNR+Deq0hQsIHwC+H49wxnv3eCI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dswlW8F42YTODsVfRwBXcNKsUXwGJzItbptbDrHl/h/QKRHdN9zHs9tbvpQ3j3pX8ST4me3ZQ8uvbOenSA8BygxmwL/wlCu1LtWuu5BBphTNS2TIKziGGlqIyXTLQAhGSw07cT2Vrs8G3vDAiWqdXDhoFVKjnBTXHAMXSwYE4hM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=NfmR94Ne; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1783017429; c=relaxed/simple;
+	bh=WOXCFsPAf+RefC9MBykYEMS9Isd99Or2XKYIGMnrl10=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cZx7YMpEBEO7jIRi7oiI8ZLEUZQvmMsRGCTXeMkbGqFCqk/hcQNO5aqN72rRIyGGttIG3qhgkAdmiB2YhufX93ag7c3E+1HOEmK6w26afH3nYxyRxgQPzTtvTVx+OTXlHfH9xuqs1sNYx2L858lGb2ppt/N0HIntuZ5SrXHBzWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mareichelt.com; spf=pass smtp.mailfrom=mareichelt.com; dkim=pass (2048-bit key) header.d=mareichelt.com header.i=@mareichelt.com header.b=vTCha7Kk; arc=none smtp.client-ip=91.227.220.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mareichelt.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mareichelt.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="NfmR94Ne"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=HMwrIHSesSwBeH6rt0sJESP8Af/ZauXLbklgi13pmLA=; b=NfmR94NelT+fa24vbw3X4cZSHb
-	QvuasTkKBv7nIffde1TU80ZGRZNMujgsv/nuoVr3pIcjqDy7UPTdzPhtTHRVAuRk7JhYoTg9uHII1
-	OXSywskLhP2W95jLSdoQhIR2fZTrye+LU2vzfa9Etb5OTfmJFQ6XHFQfu1sZlbRxoktutEE7P9SoB
-	ArPm6ocKSke0tRI7ISqWohmMBzfpnbFQkUclzfS5GijvvmpVyKhpm6aoK5HSe/bsdsJEIDkx8WO8d
-	ugD7ymSrVdM9xlSDc9/rOOCWLEx468ifdBKwzJAo50QBqnSdERWYx4IwvokZQ4i5enrACjARLo8IU
-	wX/8jIZA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: oklopfer37@gmail.com, Oren Klopfer <oklopfer37@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Peter Robinson <pbrobinson@gmail.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>, stable@vger.kernel.org
-Subject:
- Re: [PATCH] Revert "arm64: dts: rockchip: Further describe the WiFi for the
- Pinephone Pro"
-Date: Thu, 02 Jul 2026 20:23:38 +0200
-Message-ID: <6745357.1oUyQt6lIG@phil>
-In-Reply-To: <20260615225014.219115-1-oklopfer37@gmail.com>
-References: <20260615225014.219115-1-oklopfer37@gmail.com>
+	dkim=pass (2048-bit key) header.d=mareichelt.com header.i=@mareichelt.com header.b="vTCha7Kk"
+Date: Thu, 2 Jul 2026 20:33:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mareichelt.com;
+	s=202107; t=1783017209;
+	bh=VidOYyXo6nIePnjujXp74XhnEt6pZoJ7yofkmtd7r4Y=;
+	h=Date:From:To:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:date:
+	 author:from:to:subject:message-id:in-reply-to:references:
+	 mail-followup-to:openpgp:mime-version:content-type:
+	 content-transfer-encoding:author:from:subject:date:to:cc:
+	 resent-author:resent-date:resent-from:resent-sender:resent-to:
+	 resent-cc:resent-reply-to:resent-message-id:in-reply-to:references:
+	 mime-version:content-type:content-transfer-encoding:
+	 content-disposition:content-id:content-description:message-id:
+	 mail-followup-to:openpgp;
+	b=vTCha7KkSbdePmFfeWrLC1sgK81+XlfA8lh8TkaPtz4mzDAS7U64bp5ObJP/UMLc3
+	 0wVC1uWOgFIQTQguKQwPx7tMKgf51x3SZ9xp+HCmyl0vuqNub6MMUoNpJuBZ3i3Pjg
+	 hdkeNSmU0+syznB0TIpyMni6iN4SFHpEmdr2y72WjqHOiCo8XHhJmpkJtPqeX7tMeM
+	 P3qRwZzo/OGyt6CNQhZwGvqRV9RiLBFZlrAM+gkhKGuOc92FQEwCIzdzfbTV/jJ9c9
+	 DmGmsTq57O/QhIFAP1u1ztAStaA+8X9/IIiAE2vNGXmcqnrqHQ0CLerqZK+EMkYruR
+	 HA8USiPmHuvog==
+From: Markus Reichelt <lkt+2023@mareichelt.com>
+To: stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 7.1 000/120] 7.1.3-rc1 review
+Message-ID: <20260702183328.GC27532@pc21.mareichelt.com>
+Mail-Followup-To: stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260702155112.964534952@linuxfoundation.org>
+ <0585b5ab-f9a1-4922-b2f4-167d0402758c@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0585b5ab-f9a1-4922-b2f4-167d0402758c@linuxfoundation.org>
 
-Hi Oren,
+* Shuah Khan <skhan@linuxfoundation.org> wrote:
 
-Am Dienstag, 16. Juni 2026, 00:50:13 Mitteleurop=C3=A4ische Sommerzeit schr=
-ieb Oren Klopfer:
-> This reverts commit 096bd8c679185f898cae9933c6a68650fa26ea4f.
->=20
-> Just as with the Pinebook Pro, there are multiple chipset variants for th=
-e Pinephone Pro, and multiple firmware binaries for different distributions=
-=2E The change causes issues with some of these combinations, and reverting=
- it resolves the issues. See the Closes below for the full report.
->=20
-> Similarly with the Pinebook Pro adjustment, the original commit only indi=
-cates "further description" and not indicative of fixing any existing issue=
-s, so reverting should not kick any back up.
+> > https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.3-rc1.gz
+> I am seeing 404 on this link. Maybe I will it more time for it to show up on
+> kernel.org
+> 
+> Same with 6.18 link - haven't tried the others.
 
-The commit message did not get any line breaks, 72 character
-is the preferred line length.
-
-Also the patch contents itself got mangled.
-All the indentation is set as spaces, so that patch won't apply.
-
-Please try using b4 or at least git send-email for sending patches.
-
-Thanks a lot
-Heiko
-
-
-> Fixes: 096bd8c67918 ("arm64: dts: rockchip: Further describe the WiFi for=
- the Pinephone Pro")
-> Cc: Heiko Stuebner <heiko@sntech.de>
-> Cc: Peter Robinson <pbrobinson@gmail.com>
-> Cc: Thorsten Leemhuis <regressions@leemhuis.info>
-> Cc: stable@vger.kernel.org
-> Closes: https://lore.kernel.org/r/20260607225901.64019-1-oklopfer37@gmail=
-=2Ecom/
-> Signed-off-by: Oren Klopfer <oklopfer37@gmail.com>
-> ---
->  .../boot/dts/rockchip/rk3399-pinephone-pro.dts | 18 ------------------
->  1 file changed, 18 deletions(-)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch=
-/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-> index 8d26bd9b7500..d46cdfe3f784 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-> @@ -734,12 +734,6 @@ light_int_l: light-int-l {
->          };
->      };
-> =20
-> -    wifi {
-> -        wifi_host_wake_l: wifi-host-wake-l {
-> -            rockchip,pins =3D <4 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>;
-> -        };
-> -    };
-> -
->      wireless-bluetooth {
->          bt_wake_pin: bt-wake-pin {
->              rockchip,pins =3D <2 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
-> @@ -766,19 +760,7 @@ &sdio0 {
->      pinctrl-names =3D "default";
->      pinctrl-0 =3D <&sdio0_bus4 &sdio0_cmd &sdio0_clk>;
->      sd-uhs-sdr104;
-> -    #address-cells =3D <1>;
-> -    #size-cells =3D <0>;
->      status =3D "okay";
-> -
-> -    brcmf: wifi@1 {
-> -        compatible =3D "brcm,bcm4329-fmac";
-> -        reg =3D <1>;
-> -        interrupt-parent =3D <&gpio4>;
-> -        interrupts =3D <RK_PD0 IRQ_TYPE_LEVEL_HIGH>;
-> -        interrupt-names =3D "host-wake";
-> -        pinctrl-names =3D "default";
-> -        pinctrl-0 =3D <&wifi_host_wake_l>;
-> -    };
->  };
-> =20
->  &pwm0 {
->=20
-
-
-
+the problem seems to be that there is no kernel dir present at
+https://www.kernel.org/pub/linux/
 
