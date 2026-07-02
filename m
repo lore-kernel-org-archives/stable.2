@@ -1,148 +1,176 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011063.outbound.protection.outlook.com [40.93.194.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CE038D6A8;
-	Thu,  2 Jul 2026 07:05:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03EC3914ED
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 07:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782975923; cv=fail; b=MgJTWyfpdy4ca3bDgFpDN06pD/eNQZKHHCFHkNRgIM6sg/b6ePXv4slXgbMuqu3qkrNy5MGEt4iHDIaGvYa47Pk9VncCXTXdy3IgWM67baQJSTmvfxEg6uuqiFagTZuFvp5xAqyPZRxnCQJC1Jw7WaJZeXLq3SNwXabPfO10jbM=
+	t=1782977295; cv=pass; b=EcipvKWQZkwbDd4pERfpTJ9wMB05TWYo/PyAPrzXFV+v+FS5gbHUljmw5AE6C/oKw+uSxjMdLXd3B0e/srtqonBfnznyEa2BP2OBH+PO8sIhYRE74vLrkSnrmMIiigDmxrnxFxMiKgj/y0dyiMaHSltEpDX3yyDF7vdn7LVpbVs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782975923; c=relaxed/simple;
-	bh=joXHzL09fA5AD1iiOaKruc4Jk5pfPCIE1pzilbUod2M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Cm/TYwuGzwk8PEaOBodFE+i+bCXigN2zT61dnDEclC+tTn88JkHaqOGQ4h8MzZf8VtOr+eB6naJESsQIFtHQ+UackJu3Ob2F0NOzYW27+VdxUkNVse0mtNFltItGXrwjJkILnYvV9Pnr2G0KNrmtXnXje/WGrvCM604sO6fTXgQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LqPTL/Va; arc=fail smtp.client-ip=40.93.194.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1782977295; c=relaxed/simple;
+	bh=iSg7UmndrJmXXq+2G8hB7zmOgf39V74PutvtsgDozeU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bzPs7aHjw1XBfllkmcCPNOT03lCJvRIjur2AvLE9ZILqY92PmAIwHs3qke+Bmmz3EbeBBDyZAT03cnD57iK5bjBS6+VisUNCSihhec4sXd+xP82ranrK69z8bdV64Rr208lJQtxCrTNBfQpDCe7/ZI3ZzgnoStm/rQGxdQKP2XQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PK7WOqlV; arc=pass smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LqPTL/Va"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C7NggHU7ePATmptcFZlmHAsOTJO66r+MGwN9hQFDxk2FeSbNltUWL3gq/O0L5HcF2t2Fb3ImaI75kIDVEWqgD0kBaJEwSGvegcrD8Km1/z3BMQvQolBCAY56sjvaJsU+O6siHmntFsdwGNXWVNh9VPHfNpLbm5lPDQf0CEk0B1BwOzbQRd/q/bF7KSytdcGm2zzFJph7kgyr0cuwYYnfyDsbTenrg186fFrbNg0jYQPv9xgdYMyXoNCf9rK8cfb3hDnCUWQr0wqyfO3yz2TD49ecjiS6OWU4QOHj8PpOYMhA+Qk1tB7uGLxyzxPwvsMWgvoVhOJ+pBjG8QIMzRXdMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ggsi8DbW86xv8oIdasEqUvsK5EuAa7MyN4L3TLfFg0s=;
- b=jfbtNYLTMbJBb7XITuSIQIve4/6gSErVowUrSb/neX8c4gNP6E3ZX2ddvPAsE5ZS5xPeRL4fd4BSdRhP8xi41TkRk0cAPsv6t84zjQoPq9YNUblr30jWBHIZyeWh05Wul6rUfxNDR8NHC/eF8ri8J8PmVjz+pViK0IFfLOyHTRtLLUYAFwf/E6MGzYwEY/fFdeI4CgINYkoj8PxRHu6wLly/mVgDDxuwgFuh0fNuqyWWmvccRR10Ct4zSLj9XYV1PvVPEBrXf1uHybMOBQyNg6RnavBLeWGwMjH26qePqLY4fGjDSeH7dXzgbI+3gFlv7vnCm1DtPR1zNgg4Wun6sg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ggsi8DbW86xv8oIdasEqUvsK5EuAa7MyN4L3TLfFg0s=;
- b=LqPTL/Vapq42rxkfDjuNZgt1dgRsrmmu5k7Zc+lqJ/EXzN+2VuLdQKKJtvbH711i08EHJRkc9hHah2mN5TWByBDpnTjDiOv4IQt/vNdpl2xOiWxGfSSq4/BdKON/iGMw34mcr3gE613MppOa6MWvVlGCxWnaVQcTUB2xFIBMZH7UUNfzGjhtfS5nsb0dhFuZAHxe0Rz4VAco3xx8LjG4UrvU+eofwsbHKaThQu+mlnxiOwe2v0N+PUqS8mfgk4i9K2iH2NQWXHPB7rI0bbccPRadzPEFToVO8M7s6bp+3Ctukwq51SIrPDL6fL5K2iflkcoDEsOg3FFereZzsxVdXw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB7901.namprd12.prod.outlook.com (2603:10b6:806:306::12)
- by DS0PR12MB9058.namprd12.prod.outlook.com (2603:10b6:8:c6::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Thu, 2 Jul
- 2026 07:05:15 +0000
-Received: from SA3PR12MB7901.namprd12.prod.outlook.com
- ([fe80::6f7f:5844:f0f7:acc2]) by SA3PR12MB7901.namprd12.prod.outlook.com
- ([fe80::6f7f:5844:f0f7:acc2%6]) with mapi id 15.21.0181.009; Thu, 2 Jul 2026
- 07:05:15 +0000
-Date: Thu, 2 Jul 2026 10:05:03 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Yuyang Huang <yuyanghuang@google.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Cong Wang <xiyou.wangcong@gmail.com>,
-	David Ahern <dsahern@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v3] ipv4: igmp: remove multicast group from hash
- table on device destruction
-Message-ID: <20260702070503.GA1544468@shredder>
-References: <20260701235014.73505-1-yuyanghuang@google.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260701235014.73505-1-yuyanghuang@google.com>
-X-ClientProxiedBy: FR0P281CA0037.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::19) To SA3PR12MB7901.namprd12.prod.outlook.com
- (2603:10b6:806:306::12)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PK7WOqlV"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c981c2c37cbso657990a12.0
+        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 00:28:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782977293; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KuY5ID3ehBUTVewmIJCVVtP2b2GX6hJSQ0mykOvyPtJer8fCTqMC41hK6e6L3W+OP/
+         kjKZ8cqfIXcuHkP+BizlSQvxI9hY4vuKIgklFCNs+HJAxwA1O5OhtvszOrecJxZWS5ji
+         vTTFkeHNqp00KI7+fQzBBj+dKDaj70BoCMitbh/kSfle+WD57n+N3LAPUKEr8amE3qta
+         pzhyJmWj7UR2iP2vPWtWOdLjlY252wW66u557+6t/yNqcquB4gY+Ya9bGL8MManYO08g
+         pausUE3JjMEdah5kF6JEr89cKZUMTPSyd92pJyUX1Ft8jxuqckJ/5YELVBhEi1rtyuhi
+         sssQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iSg7UmndrJmXXq+2G8hB7zmOgf39V74PutvtsgDozeU=;
+        fh=DrVD+eTYzW/RRKMWcKsj+riOlJimUtovOrn4ucKolSk=;
+        b=rv4Kr3v9a/gvtVlnvhWNUTy22I7KOXouiqJ05yEb2QpPs3YcZe3nAHB8Q+PLLdULrK
+         emFCy5Vx+LM7N+2u7TSWcwqUQW3ppTYwLpJOYrSLfqcTSs1u0wDdrqeA4JcBHJ+B3G7J
+         w1B/n1l0d9NM6ZxodzD19jCgkdiCe/aBTgXXhMj7gbClaglxPyAJs9JzY6dtxSlu4tKE
+         cuzbjX4FdB0QVasZlkDPIlV4HTynASq63Z3BqoxjQZbh/FhOkHQbHc8SqNLBOToSKVp7
+         Q6621LcokGN567iF84PxDN5Q0P9AyBmV/AzEzR/p0sZU4e+RGJXpsdAD6vca6w6HtQ13
+         GlBg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782977293; x=1783582093; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iSg7UmndrJmXXq+2G8hB7zmOgf39V74PutvtsgDozeU=;
+        b=PK7WOqlVCKe3WAUMB/8QiMgZe6hpqs0vJRuZj7/EfFBGDJzDVMfdfBeS962Gh8Ph3c
+         lJjTQMJW2RRibDhK3jgDUhRbkj+b0PVYPKZgqIP3UCkz12Sz+hQBVDtrFmQFlXH8l6pB
+         efbiYPSHKO5CaMgz1PSxin1ydyrSs/pedrdGGNdogAb9ahANMg4svG7/rs9gw/KzPexk
+         OPPVmgizjlW1HggTZzvTgjvJAUIN2Q5MjcM5b9AxLDbH4GUcT/BWrx94eP+f8L+13Fjg
+         jwhBwfuYwx/tNOUrV0N/yM+CeBg+b2xykpE9EB2UBADYWC/ThDsDf99tuP8PK3dFzma3
+         +Iww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782977293; x=1783582093;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=iSg7UmndrJmXXq+2G8hB7zmOgf39V74PutvtsgDozeU=;
+        b=Hev5MrCoaxMSA8itDoQtPy4c8g5QpQaV258f2ATcg4099qhEaC+O8k3pd4wj97PZDx
+         VcnWQEsOkKiNWRn7pIm0fiSdolZLrWkQQ63y8ZqZtikGWCGCjpaGVEHCHj40z7Hwbbbk
+         mPRw3sBkXVolajEjAHqHURzIUFVm2dNXeLDnwzQ5JSYYVnSzRrmtzp9oL7jJDDRYjZj8
+         PBo/Q9EljKsV7JQzzcyzw4KHuOJkogNVx1o9lX5sQ3S+eYia1kYacb14OX9WtcfxjYh7
+         98X6ncy1SMCQte+VO1tuD6HCeKVf8qlEnCrTof3rd1YgbJM3j0zpyAaSqyx58Gn4J68I
+         mTPg==
+X-Forwarded-Encrypted: i=1; AFNElJ+jyjYoR/OKbQMUeV9uR1m/oZ2KRTK+Qwp2wyFWVP+i8UmmDol4/KrKosMC7WDnePYVu+C0P70=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz65/F+qVhCPUC5O3TYApsx5CS+EHl/zJQZTxqJL1d+LZ9FQIkU
+	Aza86XjNqZO9AFEdhAPQW1SMlfmle2olY+VmKq3NWS8cjmf4TUvWixn/dPT6LUt78m6c9sDJ8lH
+	yO4r6F4t11dbGZ0/xvd373caJdzNbsQU=
+X-Gm-Gg: AfdE7cnVf0XgC01bM3GXhR2BPKJar+rJeUdAdoO4Rpj6D4VS4r9o7xb+QVyakOMpMln
+	IZJI5l2Ir1hLTLit8EYXe/8EtpjqlDf4flhfDEQa8g7/YJgGWqQm/uI++9ccRaFyY8dvrDAfJO6
+	n7bIaPyonlfAE05Ga7wISgXV0SV+ZyVfBAq2dwgeEL7mv56b6gUxXPsrFBupaOH42ruQ8vMGvov
+	IwnbNiQVm1wsyVEpspweZpK7fz/9uGAwK6oVDOD/sDg2ArVDQcHxhSWXwf/AWNefoI7pOD3
+X-Received: by 2002:a05:6a20:734f:b0:3bf:e2f1:1b17 with SMTP id
+ adf61e73a8af0-3bfed5d84b3mr5130678637.50.1782977292785; Thu, 02 Jul 2026
+ 00:28:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB7901:EE_|DS0PR12MB9058:EE_
-X-MS-Office365-Filtering-Correlation-Id: 190d56f7-90b9-48ba-e9f9-08ded80843fd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|1800799024|23010399003|376014|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	M8zXuzv1CBYcLH4jdIrHbZWB7/dC+UoCXHNhPoCruUVQxeGBJwU/3I2FiEMD34gmrQfCJ6SBofkPFchCtV6hO6R9SE3awKPFxuyW+Hb0gTMh2BIgM/IizlVDSMcGjQgbDRoV+iszn9Uj9m3vuj7wKOA3JWiRjeUWcNs/wFPU6j1IjKIG7JtS94HNbhuZpa+d3+cfWDHuxwD4/iZ7ME97gwQOcRtz4Xnz7HSzhW6n4JbQ6f3HpJQrkFh5v31qGkiPXvY+C6zg0D0F5zeDkK5N8wpSP0AEq7m2s0o+oqD4+gxbAJ6zHxD7f7ad6o1aL7Q27hIOLuWlDGBw3GvhTyKBZfspBVs+m3aTgdo9ToKFIZPE+q36bDD48ouyLJfsUzhYTJ5UjyOrtzKuXJtwgju9+bg2q/4U4hrvnGpDLJFSH2rmV1YUN06V07CthZ2Pheb8hnM43Zbq1WNDUfvHyuhM7PUJNT+WP6w8FOgGJiVHERwU50cn7T4SyBwaRGUOECZHa9YCaiw9+/gHeUkAaiLHxm+dKA0R1x9AI6PXkylnFDOAO9kU86MiaDIEAaPR9OMjAqOH3pMx/IgvB3g/b6SLYiWLWxjP+6z+N80Fy3jHf/M6Yr37Vst5QJWDGgJngssCmSeKCIgQDREMjsXQjTZV/ok04ZEZR7ugQDwxyx82Zfw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB7901.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(23010399003)(376014)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?b/flcu/Z+FLnpZu7svGr5V5v9BgaD2z8D46vdF8XP8H97yjQcLbdy58dVHlh?=
- =?us-ascii?Q?SR6xmhLVpOJ8WfjJlYbuigtcyOGbgY9k811SP6K6Y9U3PdG2fU7FWntMgaGd?=
- =?us-ascii?Q?dmX4kPO/ORk7fPJQQWpUqC6w9RM9VCjmfIzy6O/cG79+MC82ZM16LvVOaqWp?=
- =?us-ascii?Q?cvBUROWush7ytttAdS4oO3mJ3ujgGkePv7Swcsgh7ZlhL3+TdqkXho3ogRBe?=
- =?us-ascii?Q?sZBCeXKU/AQUb8CSo2NuFIx4sK3hkr/VKcczL7kk/d40i6jKKiF4lkwDOUUG?=
- =?us-ascii?Q?0YqnbzWfWKCUkQ8DTXIkT1a54lZZ07bw9mGZwfkm093e0PCRnF0VFK9i1JCr?=
- =?us-ascii?Q?smzpVQq6+Ae/821iKLeU70/F1NFh6y4ybmkG3DHyB29nK2B5oDaMMrMjTGFF?=
- =?us-ascii?Q?/9HiEejZ1cFSek8kBuTDm0AKBoU7VqUQtxYFTRLjMBv1Z+xE7+f0xJ4X1ST5?=
- =?us-ascii?Q?KyDIS/uk61tPJ6lqa+Oel//6BUqjm+X27hqBtSy0BIJHb0q8/n3IST9lCEhU?=
- =?us-ascii?Q?DsbAJVOX9SBWZqYdhpd4+ne23/Uh5arEiewAG+3o6/D9ZIi6gAM3vhgeZjZQ?=
- =?us-ascii?Q?z/yuug5uy2gxBmN6prB3J7Iq3w4ufkitk4CkHRV35GY8sIS/2oCYAt/n7doN?=
- =?us-ascii?Q?g2Wk33hVAS+qPYaQ36y3nDd3aKtITItM0UZkbdLmL9z1k0GB243FeSRTEuQG?=
- =?us-ascii?Q?DSV1NYFQFvzbNK5d155Sm++IHKszU9lNPTrjSgsd5/qbzj/CgjMNiVtVwO6W?=
- =?us-ascii?Q?zHGgEmGdUvUhv7qbtFaqlcYapS/6wBCNPA8IwsOgmVJx1aYW5v3PH+Pz1ddb?=
- =?us-ascii?Q?aBlQqCY9yjLxOn/bv5SXjNZ3WxUaxwV9UXd13Jz4cUwWDEr/JaECYSHONMJ2?=
- =?us-ascii?Q?ZRBVPpT5BlXiOE1mamzTqR1Zm9stO76tPBl5ty9ebe+8BOsnPiipDwNRa2iw?=
- =?us-ascii?Q?oMTdfgr6g43NWdPKpqVmLf/Qw3AA7b2BCmhX4FolEqKrDPVaPSh1tQ8ORpQT?=
- =?us-ascii?Q?Rkd16pQm3WAN8r75ttue1pOJqRUTT4oYEopYSoinP3yVzfYmZPCgpSf1uBGa?=
- =?us-ascii?Q?whiLsUtYPb5Qf87J8JPI96AXg2J1p3WlMRZvj3D+iXHV1LNY87mC6iKUzoMd?=
- =?us-ascii?Q?tp8QrtBXArs1gqH7NccdK8gIyeA5iv5FKg+OT0xKndiCNzJd/Hw/tSrlU7wC?=
- =?us-ascii?Q?ns0npEetI1h2Tj3gDqqIRHjvhzkA86+tcHQqmV9m9hg0doyrqamIPf//KsKn?=
- =?us-ascii?Q?/qSCg5yr6K0J+NELRa2XrfsyjGVFozHZ6CQtF69nDCA4pjW7kIXZn7fI+XM3?=
- =?us-ascii?Q?MFbD99trumCGwEML/jX8xqvJt9rWUBCgyctejeMlJqQi3ioENWh82pbEqH4w?=
- =?us-ascii?Q?E62HyYN0uINh3Mb5+6c8Ql+fdh3QrEe5lTfM/XaD2dKHe/y8GdhoKC806Ftt?=
- =?us-ascii?Q?oSJcO0tIJ0N4frdMYM7kTX4x/vTqtzj5V8zzYZ/RJ4ySKwRI6raNPahYMi3S?=
- =?us-ascii?Q?zYlZ91mBIwSqmqDoSwu7YQdeAXJ9FeBGPTXraXNaGeSVm1p9ghIYz81w+/Kx?=
- =?us-ascii?Q?GW+72JbGMa7omxalpy6+GHm6DO6Y4hJOyq5pv4l4PrgmExGZI6vYJLdnKaxm?=
- =?us-ascii?Q?MGdGX6AVePQQH8SMYr7dHD/cHbWkMpPV8/lO0GlntmymbFr1OtSzE2M6r1Hs?=
- =?us-ascii?Q?iroDqki18oi1yIosC8DDXAC97jy+0a+9KMas0rDDjpjQ3dpI6Wexwf4VDoJ6?=
- =?us-ascii?Q?JMradqf02Q=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 190d56f7-90b9-48ba-e9f9-08ded80843fd
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB7901.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 07:05:15.0991
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iFcxT1QyKkV0fg85VnrKZ22iFguEO93l3Xz9xVH60boGAC8JdyJtJEsgur8RGVKPmAkvQImXYdSXGWhEM2gV2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9058
+References: <20260701023619.2730136-1-linchengming884@gmail.com>
+ <stable-reply-mtd-macronix-66-20260701193800@kernel.org> <CAAyq3SY48RRSO1nN-uRH7HVnXbnvQ1_K823Lc_hRsCyVuf9L3g@mail.gmail.com>
+ <DJNVRMSG4C6K.34EGBE463IOCZ@kernel.org>
+In-Reply-To: <DJNVRMSG4C6K.34EGBE463IOCZ@kernel.org>
+From: Cheng Ming Lin <linchengming884@gmail.com>
+Date: Thu, 2 Jul 2026 15:25:08 +0800
+X-Gm-Features: AVVi8CcWlU27hjRKRNYS1yEHj59voSMvjse80wpxaUbcKd4sp8ZX2S5x4aeIs_k
+Message-ID: <CAAyq3Sb6d4xtp-wEwM9EhMo5OSzjvsh450JcwyeEOh2NeLrA8Q@mail.gmail.com>
+Subject: Re: [PATCH 6.6.y] mtd: spi-nor: macronix: Add post_sfdp fixups for
+ Quad Input Page Program
+To: Michael Walle <mwalle@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org, tudor.ambarus@linaro.org, 
+	pratyush@kernel.org, miquel.raynal@bootlin.com, richard@nod.at, 
+	vigneshr@ti.com, linux-mtd@lists.infradead.org, alvinzhou@mxic.com.tw, 
+	Cheng Ming Lin <chengminglin@mxic.com.tw>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 02, 2026 at 08:50:14AM +0900, Yuyang Huang wrote:
-> When a device is destroyed under RTNL, ip_mc_destroy_dev() iterates through
-> the multicast list and calls ip_ma_put() on each membership, scheduling
-> them for RCU reclamation. However, they are not unlinked from the device's
-> multicast hash table (mc_hash).
-> 
-> Since the device remains published in dev->ip_ptr until after
-> ip_mc_destroy_dev() completes, concurrent RCU readers traversing mc_hash
-> can still locate and access the multicast group after its refcount is
-> decremented. If the RCU callback runs and frees the group while a reader is
-> accessing it, a use-after-free occurs.
-> 
-> Fix this by unlinking the multicast group from mc_hash using
-> ip_mc_hash_remove() before scheduling it for reclamation.
+Hi Michael,
 
-[...]
+Michael Walle <mwalle@kernel.org> =E6=96=BC 2026=E5=B9=B47=E6=9C=882=E6=97=
+=A5=E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=882:44=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> On Thu Jul 2, 2026 at 4:13 AM CEST, Cheng Ming Lin wrote:
+> > Hi Sasha,
+> >
+> > Sasha Levin <sashal@kernel.org> =E6=96=BC 2026=E5=B9=B47=E6=9C=882=E6=
+=97=A5=E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=888:38=E5=AF=AB=E9=81=93=EF=BC=9A
+> >>
+> >> I can't take this series for 6.6.y: patch 2 adds flash_info entries
+> >> with a NULL .name, and 6.6's spi_nor_match_name() has no NULL guard
+> >> (only added upstream in ac5bfa968b60), so the legacy probe-by-name
+> >> path can oops at boot.
+> >
+> > Thank you for pointing this out and catching the potential issue.
+> >
+> > I have verified this, and you are absolutely right. The issue stems fro=
+m
+> > the strcmp(name, manufacturers[i]->parts[j].name) evaluation within the
+> > legacy probe path. Since 6.6.y lacks the null guard, passing a NULL .na=
+me
+> > will result in a null pointer dereference in strcmp() and cause a kerne=
+l
+> > oops during boot.
+> >
+> > I will add the .name to the new flash entries and submit a v2 series.
+>
+> No, please backport the needed patches. The reason is that the name
+> shouldn't become something an application relies on (it is also
+> exposed via sysfs).
+>
+> For all people not too involved: we are dropping the name for new
+> flash additions, because it is almost always wrong, due to flash id
+> reuse among almost all flash vendors.
 
-> 
-> Fixes: e9897071350b ("igmp: hash a hash table to speedup ip_check_mc_rcu()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuyang Huang <yuyanghuang@google.com>
+Thank you for the clarification regarding the upstream policy on dropping
+flash names. That makes perfect sense given the ID reuse issues.
 
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Unfortunately, our emails crossed paths, and I had already submitted the
+v2 series (which adds the .name back) just before seeing your message.
+Please disregard the v2 submission.
+
+To follow your guidance, I will prepare a v3 series.
+My plan is to:
+
+1. Backport commit ac5bfa968b60 ("mtd: spi-nor: fix flash probing") as the
+first patch in the v3 series to resolve the NULL pointer dereference issue
+in 6.6.y.
+
+2. Send my flash addition patches (without the .name field, using comments
+instead) as the subsequent patches in the series.
+
+Does this structure for the v3 series look good to you?
+
+>
+> -michael
+>
+> >
+> >>
+> >> Please send a v2 that either names the new entries or backports
+> >> ac5bfa968b60 first.
+> >>
+> >> The 6.12.y series is queued, thanks.
+> >>
+> >> --
+> >> Thanks,
+> >> Sasha
+> >
+> > Thanks,
+> > Cheng Ming Lin
+>
+
+Thanks,
+Cheng Ming Lin
