@@ -1,66 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F3D47D933;
-	Thu,  2 Jul 2026 12:24:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1422E431E5F;
+	Thu,  2 Jul 2026 12:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782995096; cv=none; b=VZtsDL/L7xOVKyz3Z/eziAM4no2kpyzh5ktlbsRkyd5BM6sLq+8PpAdJ1tO+Ku/JGTh+eLm3E2u/NUyneB1P8CoZHS7KN9fZek61kGlLAOUZq7o5r0yArK9JxLG8glElDjb2a8k2ji9lwUeBL0m4gf76Dk+GatkvvWlvbr4ehiM=
+	t=1782995814; cv=none; b=CKTFAov7k2pdXTcrCNWTRntxWyTX+bxliTawf5fDgV+4BbArp9mHcw4HI4mJ3psvnwqfXV8SFB1eJOoucJJ15fIR/aIdzU8xvdU4mwVH44gEEN9gAgeip/FeBMwOFQhsIjaIFGPd9ECmo3ZWUwAU42seiS2K6tJ/oyZzje+wh4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782995096; c=relaxed/simple;
-	bh=ICx0y48EgCqwfUHNaqvLcqUK7PvEoDZZYH1/W6//A4c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PMX49pDfGZ8jDm1j9sV47aBowRebvFuWmNRjUMomO6mZWNvuhMXARrvUjmEqWGJiC5gFweQ6AYTHiVA7B+x8K4p3uMwyzDgj1XnLCBQILag3CFt0tTg2LoiDZrBpYwTsr0ucsoo+yDjS9gLOiW22B06I60zD57ztimeMgFv1kFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MOD8Nzut; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782995814; c=relaxed/simple;
+	bh=Fr4M7C+NnTbWofsJlqHjRbKxixJR0BDKqhFBPSCDRrs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oFFXtvVWwIhT9vK+kowh/BBeDCxYxspcaout6TksYs5HqfmSX7FFmXolGDpsh6DDmkHJCq79vbz8n2kDXwa4Id4vsNdXKsw7dyQfvgdR8DA7nZQD/4J+UZLCCtRohZOAC9eKynusP9kp9XrcYTStpUo8ONMl5/uJMjYzBc6omtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=WRr+a2Up; arc=none smtp.client-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MOD8Nzut"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC061F000E9;
-	Thu,  2 Jul 2026 12:24:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782995095;
-	bh=1F/DnNRQhNjVTQ0PSQv/Zbt1GQU1sT+mz5mYcSd9Uq0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MOD8NzutSbE5DdqnftFDp1RWydj64FDIYocU3xGvqy3WYNHeymhmGboz+b/ecsyxd
-	 ne49teMDeOFKjgmQZP4/5oeW6D0TPIDziY6fVP4Fp52WUWrXb3RLMtdxTjMpwxlK/7
-	 g+/t1XWQS+54f64n16MAi3wR9XTrLWC/NmPChijwUcAgyk0VmPTtaHaSue0Q9fJ9JF
-	 RwzEvjqP0p7pG0v39qsOrSDFSeIocbFvAx2lLzKIWyLdFit15ymPHiLASQUksJCBRf
-	 Q6ZZMAjJNZzNsN210yoMirZ3kSjEWFnKmVUbnawBolmWRfLYPz+/ZMn2SKYQBJ+M3R
-	 alYo2AO7HtjIg==
-Date: Thu, 2 Jul 2026 14:24:50 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: stable@vger.kernel.org, Jan Kara <jack@suse.cz>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, "Darrick J. Wong" <djwong@kernel.org>, 
-	Dave Chinner <david@fromorbit.com>, Eric Sandeen <sandeen@redhat.com>, linux-xfs@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, "Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>
-Subject: Re: [PATCH v3 1/5] xfs: fix capability check in xfs
-Message-ID: <akZYU2T4BkIuTcE3@nidhogg.toxiclabs.cc>
-References: <20260702093324.127450-1-cem@kernel.org>
- <20260702093324.127450-3-cem@kernel.org>
- <20260702103052.GA6670@lst.de>
- <akZITB_FDP1nl2_S@nidhogg.toxiclabs.cc>
- <20260702112438.GA10565@lst.de>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="WRr+a2Up"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1782995805; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=cevlqQbo5AF7dFWxjqI14ITjpYDdB6fC4CHmTN4MEAI=;
+	b=WRr+a2UpNz7+kv1+OyKdfWoytvsbJgTHWTfbtclh4hvGlMB6MniyP+14SvWY6AXh/hB0seDQY2GoqH0cSiyundfW8fw1k68Jvc/kb4f2Tg4c/xlhCTozxZMpywp7vpmOlLACy0qR1RVx/fix71tqgZLj8gxRRKIyo2Lre/aQBjg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R871e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=lulie@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0X6En0-D_1782995804;
+Received: from localhost(mailfrom:lulie@linux.alibaba.com fp:SMTPD_---0X6En0-D_1782995804 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 02 Jul 2026 20:36:45 +0800
+From: Philo Lu <lulie@linux.alibaba.com>
+To: stable@vger.kernel.org
+Cc: hch@lst.de,
+	sagi@grimberg.me,
+	kch@nvidia.com,
+	gregkh@linuxfoundation.org,
+	skumar47@syr.edu,
+	kumar.shivam43666@gmail.com,
+	kbusch@kernel.org,
+	dust.li@linux.alibaba.com,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.1.y] nvmet-tcp: fix race between ICReq handling and queue teardown
+Date: Thu,  2 Jul 2026 20:36:44 +0800
+Message-Id: <20260702123644.98527-1-lulie@linux.alibaba.com>
+X-Mailer: git-send-email 2.32.0.3.g01195cf9f
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260702112438.GA10565@lst.de>
+Content-Transfer-Encoding: 8bit
 
-> > +                               ns_capable_noaudit(&init_user_ns, CAP_FOWNER),
-> > +                               &tp);
-> 
-> This still adds an extra tab.  Like much (but not all) of the kernel
-> we use two-tabs by default, which is also in the other two hinks.  This
-> now adds a third.  Just keep it as it was:
-> 
-> 	error = xfs_trans_alloc_ichange(ip, udqp, gdqp, NULL,
-> 			ns_capable_noaudit(&init_user_ns, CAP_FOWNER), &tp);
-> 
-> 
+From: Chaitanya Kulkarni <kch@nvidia.com>
 
-FWIW, I also fixed these in the patch 4 which I had screwed up too :)
+commit 5293a8882c549fab4a878bc76b0b6c951f980a61 upstream.
+
+nvmet_tcp_handle_icreq() updates queue->state after sending an
+Initialization Connection Response (ICResp), but it does so without
+serializing against target-side queue teardown.
+
+If an NVMe/TCP host sends an Initialization Connection Request
+(ICReq) and immediately closes the connection, target-side teardown
+may start in softirq context before io_work drains the already
+buffered ICReq. In that case, nvmet_tcp_schedule_release_queue()
+sets queue->state to NVMET_TCP_Q_DISCONNECTING and drops the queue
+reference under state_lock.
+
+If io_work later processes that ICReq, nvmet_tcp_handle_icreq() can
+still overwrite the state back to NVMET_TCP_Q_LIVE. That defeats the
+DISCONNECTING-state guard in nvmet_tcp_schedule_release_queue() and
+allows a later socket state change to re-enter teardown and issue a
+second kref_put() on an already released queue.
+
+The ICResp send failure path has the same problem. If teardown has
+already moved the queue to DISCONNECTING, a send error can still
+overwrite the state with NVMET_TCP_Q_FAILED, again reopening the
+window for a second teardown path to drop the queue reference.
+
+Fix this by serializing both post-send state transitions with
+state_lock and bailing out if teardown has already started.
+
+Use -ESHUTDOWN as an internal sentinel for that bail-out path rather
+than propagating it as a transport error like -ECONNRESET. Keep
+nvmet_tcp_socket_error() setting rcv_state to NVMET_TCP_RECV_ERR before
+honoring that sentinel so receive-side parsing stays quiesced until the
+existing release path completes.
+
+Fixes: c46a6465bac2 ("nvmet-tcp: add NVMe over TCP target driver")
+Cc: stable@vger.kernel.org
+Reported-by: Shivam Kumar <skumar47@syr.edu>
+Tested-by: Shivam Kumar <kumar.shivam43666@gmail.com>
+Signed-off-by: Chaitanya Kulkarni <kch@nvidia.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+[ context diff adaptation: drop `queue->state = NVMET_TCP_Q_FAILED` since
+ the enum introduced in 6.7, 675b453e0241 ("nvmet-tcp: enable TLS handshake
+ upcall" ]
+Signed-off-by: Philo Lu <lulie@linux.alibaba.com>
+---
+ drivers/nvme/target/tcp.c | 29 ++++++++++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
+index 01d685499b97..a0751ca359f5 100644
+--- a/drivers/nvme/target/tcp.c
++++ b/drivers/nvme/target/tcp.c
+@@ -353,6 +353,19 @@ static int nvmet_tcp_build_pdu_iovec(struct nvmet_tcp_cmd *cmd)
+
+ static void nvmet_tcp_fatal_error(struct nvmet_tcp_queue *queue)
+ {
++	/*
++	 * Keep rcv_state at RECV_ERR even for the internal -ESHUTDOWN path.
++	 * nvmet_tcp_handle_icreq() can return -ESHUTDOWN after the ICReq has
++	 * already been consumed and queue teardown has started.
++	 *
++	 * If nvmet_tcp_data_ready() or nvmet_tcp_write_space() queues
++	 * nvmet_tcp_io_work() again before nvmet_tcp_release_queue_work()
++	 * cancels it, the queue must not keep that old receive state.
++	 * Otherwise the next nvmet_tcp_io_work() run can reach
++	 * nvmet_tcp_done_recv_pdu() and try to handle the same ICReq again.
++	 *
++	 * That is why queue->rcv_state needs to be updated before we return.
++	 */
+ 	queue->rcv_state = NVMET_TCP_RECV_ERR;
+ 	if (queue->nvme_sq.ctrl)
+ 		nvmet_ctrl_fatal_error(queue->nvme_sq.ctrl);
+@@ -896,10 +909,24 @@ static int nvmet_tcp_handle_icreq(struct nvmet_tcp_queue *queue)
+ 	iov.iov_base = icresp;
+ 	iov.iov_len = sizeof(*icresp);
+ 	ret = kernel_sendmsg(queue->sock, &msg, &iov, 1, iov.iov_len);
+-	if (ret < 0)
++	if (ret < 0) {
++		spin_lock_bh(&queue->state_lock);
++		if (queue->state == NVMET_TCP_Q_DISCONNECTING) {
++			spin_unlock_bh(&queue->state_lock);
++			return -ESHUTDOWN;
++		}
++		spin_unlock_bh(&queue->state_lock);
+ 		return ret; /* queue removal will cleanup */
++	}
+
++	spin_lock_bh(&queue->state_lock);
++	if (queue->state == NVMET_TCP_Q_DISCONNECTING) {
++		spin_unlock_bh(&queue->state_lock);
++		/* Tell nvmet_tcp_socket_error() teardown is in progress. */
++		return -ESHUTDOWN;
++	}
+ 	queue->state = NVMET_TCP_Q_LIVE;
++	spin_unlock_bh(&queue->state_lock);
+ 	nvmet_prepare_receive_pdu(queue);
+ 	return 0;
+ }
+--
+2.47.3
+
