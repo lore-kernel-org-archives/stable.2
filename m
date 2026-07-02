@@ -1,51 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD8123B61B;
-	Thu,  2 Jul 2026 00:38:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE9123EA84;
+	Thu,  2 Jul 2026 00:38:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782952730; cv=none; b=q8MH9dE6KzQXPrUTo244bMUUN/wa52CoFWNVFBsfTAV12vYrPtG4xZJEfCVcYfBBbOYcsD0K97bs6hfxxFLxHtoiDiypJwQd9R7yCQWY9g+E/0cYigkQnZG5vgN9oXxnGp71RgJRbRcmQaxLVsjbhVeJUchdZbFTN1SE3DM/YwQ=
+	t=1782952730; cv=none; b=HQoSm5xRJBUQQGtVykuCQBDKVXx5dAGVJhHBwAISOkm6WHZISBRvVxej2nPse76Ys649WBf5hyibR/IcNxlTkjNqirTT9g3Uqqx+G45/IEPiv0/P4mZhg8Zk9lCjLR0S5o7fDYaEe3ZHAiNemCffxv74WP7X2SMMlPs2PNf2kic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782952730; c=relaxed/simple;
-	bh=4FEbMQDgH8S/wK4vw6nNRjwLCjNCpuBt0+xHmiav6EE=;
+	bh=KFloiX/NaoYvSItTJ6jV74rTn+xe6HAIwwjaM/RDAu8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hPMMunQ7RezE6t0bfCgseVsIF59MfyTkNJnsGjoEU0AD5JkF2r4jFzj3KG5tIv5mGwfznsbnBySTmSMFidI2gHvPPT0xhEF7QzJFkrLULgOZdhvEnG5pE1zPgYax5jtVNJSpzZ9JJKpYcqgeznJoVLhXTPsm83u0papLZf+Nxq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FLasALrA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UWmDsmAaF2/8Dfq3jXdtrxnvkMfzl+7tlnSHmZusTQ6bePi05Hz4dB86iM7RojNq07m8iI6XXKfQuCkcFBH3WZ9lg/fvtyuy07MVxBGZgA0Q9z70iQjZDEzWjEPtz/dPWRgfpoAeRQt/Hulf/B/+dt8krF025aVXr6PSqqC4s6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CxZfILy5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FLasALrA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8A691F00A3D;
-	Thu,  2 Jul 2026 00:38:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CxZfILy5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E001F00A3A;
+	Thu,  2 Jul 2026 00:38:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782952725;
-	bh=g23Smlgv36tz/nRKQRwM2wZEV9ZS31aK9ItwDzqu71Y=;
+	s=k20260515; t=1782952727;
+	bh=xVHiH/jTz3G7qfQnR0AINzLrRVsN8rD7LEdf7ebVKcs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FLasALrAikS46IGhf1IHRhYiVYrlA1ThCPGZSHp3xCK6lTe2uimRj82mso70chRMW
-	 yNDIr0FUaGMsC7OMVGfH7vcWDkjvoI1iHFubmiTCZzjhHo8vDA4OSehg1Wi5X3gEhj
-	 Os/6BcciiNHpNtwbz+1cQ+K501BwkKuz8O7CxA3HuMlqUR25gjelR1z+LG1cwTlHUL
-	 azAXWvRAoSn374/E9VkUiGZ82j9ihAVsPGxBa+8jLzcfFDSaJ+vBLV9K11G62L4q5j
-	 fRDDzR/VlaOkc1x19nK1CYdqfnVSixsrGPK5V9IlEyN1JImQGIY/TrmX0N0049Bciw
-	 Vd4K5fCcykGIw==
+	b=CxZfILy5Y0CfqcgMFc/bXL1WVvB0yiBrqNn/fd3Z2065AIW3c0e6ai1Cli63tfZew
+	 siPl/BRnZcMlOxShBj39zWKBLg72yOyuJO06Vk80vs3auHo3BA5ObsTq4yS4BJUTOU
+	 a+wM4potE8v9utBdxNJYboeMEeDNInSsaZYr2aypnklHk2EdQqYKatf8M9Cf1iSV7w
+	 52eLMdnbFYuW1qFUoxTgthX3Yh9DqnXhL6mw1cXzrEMYNnz3B+beoM+gM+JABEnEyK
+	 V4wQyhsPMYMMg0VxtZjk/CjoXdPIn499tW0uDGlDBesAyXBKuiVDYznJy/7vxfsrgT
+	 P4Cp3Xgg5Waew==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	hch@lst.de,
-	sagi@grimberg.me,
-	kch@nvidia.com,
-	gregkh@linuxfoundation.org,
-	skumar47@syr.edu,
-	kumar.shivam43666@gmail.com,
-	kbusch@kernel.org,
-	dust.li@linux.alibaba.com,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Philo Lu <lulie@linux.alibaba.com>
-Subject: Re: [PATCH 6.6.y] nvmet-tcp: fix race between ICReq handling and queue teardown
-Date: Wed,  1 Jul 2026 20:38:28 -0400
-Message-ID: <stable-reply-nvmet-tcp-icreq-20260701193800@kernel.org>
+	kuniyu@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	netdev@vger.kernel.org,
+	sysroot314@gmail.com
+Subject: Re: [PATCH v2 6.6.y/6.12.y/6.18.y] af_unix: Set gc_in_progress to true in unix_gc().
+Date: Wed,  1 Jul 2026 20:38:30 -0400
+Message-ID: <stable-reply-af-unix-gc-v2-20260701193800@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260701134933.66838-1-lulie@linux.alibaba.com>
-References: <20260701134933.66838-1-lulie@linux.alibaba.com>
+In-Reply-To: <20260701065306.281809-1-sysroot314@gmail.com>
+References: <20260701065306.281809-1-sysroot314@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,26 +50,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> If io_work later processes that ICReq, nvmet_tcp_handle_icreq() can
-> still overwrite the state back to NVMET_TCP_Q_LIVE. That defeats the
-> DISCONNECTING-state guard in nvmet_tcp_schedule_release_queue() and
-> allows a later socket state change to re-enter teardown and issue a
-> second kref_put() on an already released queue.
+> [ Upstream commit d82ba05263c69fa2437fe93e4e561cc40f4c03af ]
+>
+> Igor Ushakov reported that unix_gc() could run with gc_in_progress
+> being false if the work is scheduled while running:
 
-Queued for 6.6.y, thanks.
-
-One follow-up: 6.1.y, 5.15.y, and 5.10.y carry the same unlocked
-"queue->state = NVMET_TCP_Q_LIVE" assignment and don't have this fix
-either. The upstream Fixes tag (c46a6465bac2) doesn't correspond to a
-real mainline commit; the race goes back to the original driver in
-872d26a391da ("nvmet-tcp: add NVMe over TCP target driver", v5.0), so
-all three older trees are affected. The mainline commit won't pick
-cleanly there for the same NVMET_TCP_Q_FAILED reason you adapted for
-6.6.
-
-Would you be able to send backports for 6.1.y/5.15.y/5.10.y as well?
-Your 6.6 adaptation looks like it should carry over with minimal
-context changes.
+Queued for 6.18.y, 6.12.y, and 6.6.y, thanks.
 
 -- 
 Thanks,
