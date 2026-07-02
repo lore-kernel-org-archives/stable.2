@@ -1,162 +1,153 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28394189DD;
-	Thu,  2 Jul 2026 11:31:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0BB35E1A9;
+	Thu,  2 Jul 2026 11:33:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782991902; cv=none; b=r88YPtFoLqKvK2PHkH202q+78HcDwtE9/IkdPDs53kI4noWt0LZ2sCTgRpksPbLTjNuXZzI+J/YmLy8rTpi9139wBtpPeQOr62037rystVTUxlRaweuBavZA2BfiWJkgNtxxQVYC151NSAjR0Vu5mrJUa9ceZl3T1PfrL35h+N0=
+	t=1782992008; cv=none; b=Ngb9FJRjMuCUZ86zCq1TE608Icwc2Ql9VZy+3evRRC2aIB0oaqiyqNOOWrQMnBVLkkF+/TWYjzNGK7WVfAqunisuXpsRYovXiIOavlcQjiq/EfQwEOsPPdDw+OhlwkGC1m9K539p9PdC/Ajx5ICGee8S4C9YDvvn6FLPSq/kMIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782991902; c=relaxed/simple;
-	bh=tXGbtkdTZWAv2pqpZGDXd8E3ARFn2KxITER5JobuThU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=G4RksqvHGS3Ud7cGOGkarkv4i1QG5u8to5WYw4A7t/8+r8qgV9QwTOnk8/AP6Zf8Af3odEA5eA3evI8Cv5Dof4wFttomxw8jxPECeOylW/MckuWEmYk822T1Dx5u9aoaCurk+ZLyHfL9bQrRY8Efuw60UuueGX7H6BL1MR6DIJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=yCrjjBRw; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	s=arc-20240116; t=1782992008; c=relaxed/simple;
+	bh=DSiLEAn5xPmd6cvduTjLn/orcK4idVtMJbh8dY0obRI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ct9iUuF/Gdax7tzt/YNlzG7G4hGe4DEjFg3JwBxTseulIWMt2LNGXeLFdgYnbiw3p7QZviK7NPXFOA9Ez1xshIRRT04DymMPj0FWW4ZVEv52HGjqGQ/VbP7xoYo4SIdXrzELE9FPKq4djokjuEqksbi/WbdNlXffZMXuYSZZiD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=ZAw1jAUh; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="yCrjjBRw"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id C0191229E7;
-	Thu, 02 Jul 2026 14:31:32 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=vNIDsZvLWhESGHi31+8av3uZRVUZwCUmNhPwcwKeGuY=; b=yCrjjBRw9gkC
-	LC0pjNMVHtdLgT+4Z7rzrnM45BFpaAYiM1fTte9FYqoza4tc7UhtwWV5yKLzdJFu
-	yS6z3o/hlGo1Ig5qIxdv+Ozdokki15BT/xRE2fbrMUJA5cy7ikGFc997M458VIy3
-	/pzXisJostq8f8Yn70GP1BwAnPiJQCcZa60K7uqETuRgTRXTAY/J5/mShiRPIBNH
-	9ja+3JvqKfUssVsF91rSdYfKTLV3/ScVZbKjWCougWdrEf4fDXoMGpj2UxNysA28
-	dWK7/dli4y236S0Aw/E9By1Uhh799Y3wtCrHqwg6eQ+EPR+5W41iZ19t5XzKXbBv
-	7UT2cVNSY4F+pk+cDyolaMiLDhacfPlelmxWet3200LZB0Wo8Uq/v/Hh0uJo2BTL
-	Baw43tgfw9HGGQ77Ne6Vi0vb+/pkPQrQnVc6hDaFiSwXLqf6wCXbKwq97YougY+z
-	MQgR/BcjqELSCnEzOHF86PtXfBoaWO/OJJrLcg0Rmn8LSJIofO4YmHAXxQ01lmCw
-	YPnSD1Gw5hTCIdKvJhB38jGiHQxrgo6EbFWQsDHEmtRD5Z/d/abbcredtURottvE
-	vQsDL5vuT80dMFCTzcBOP9SIe2itXhfyxe7Ygdogc8M1RiT9Cyjn4rLMZeLgzuEP
-	pPThQRfH7D540qdMGw0pr7mSZ4qVF70=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Thu, 02 Jul 2026 14:31:32 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 7602C60B21;
-	Thu,  2 Jul 2026 14:31:31 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 662BVT4K038906;
-	Thu, 2 Jul 2026 14:31:29 +0300
-Date: Thu, 2 Jul 2026 14:31:29 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-cc: netdev@vger.kernel.org, Simon Horman <horms@verge.net.au>,
-        Pablo Neira Ayuso <pablo@netfilter.org>,
-        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, lvs-devel@vger.kernel.org,
-        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-        Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-        Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>
-Subject: Re: [PATCH net v2] ipvs: fix PMTU for GUE/GRE tunnel ICMP errors
-In-Reply-To: <20260702073430.67680-1-zhaoyz24@mails.tsinghua.edu.cn>
-Message-ID: <c6664a17-eea8-edf3-30bc-9997265c9b57@ssi.bg>
-References: <20260702073430.67680-1-zhaoyz24@mails.tsinghua.edu.cn>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="ZAw1jAUh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1782991976;
+	bh=vcTdDoubVIbYNczx1/biUey51SEWq1ldwdWLBW13qs8=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=ZAw1jAUhXhrwxMQiAdRx/X1N41lH8H35oaOgZszN1XTXsWcDJsQaVWq0XBUlS29YR
+	 +sEMv5HMgHGSLJbILOZFXaUlRSBbRXmFq/monvdOZQ2CqOW/1gd6XWZevfACC7H6tP
+	 3WZTDw8k2opURkEQ7SeHxdSWiRCRsoxp6OPcEodY=
+X-QQ-mid: zesmtpsz9t1782991970ta665f6a2
+X-QQ-Originating-IP: NOClrfKYjb16CBrXfyUYZuIokmrndgP0NGeZvFRimTo=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 02 Jul 2026 19:32:27 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 4999534152803471521
+EX-QQ-RecipientCnt: 7
+From: Wentao Guan <guanwentao@uniontech.com>
+To: linkinjeon@kernel.org
+Cc: smfrench@gmail.com,
+	tristan@talencesecurity.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Guan <guanwentao@uniontech.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: restore DACL size on check_add_overflow() to avoid malformed ACL
+Date: Thu,  2 Jul 2026 19:32:22 +0800
+Message-Id: <20260702113222.228413-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OcJU98wqb2KeoOV3oMoLJR0sj3W88Gawa9ODU6AJi/b/TytwkM1igxSV
+	vvBDhg0b1Z50EBL33n0lPc1J6wIwOWM0vn2UhFl2ozJt+bMrSFWb5fSZINGoBvoWBrZ6MUp
+	L2PQLLXcN4alKP4dmUVm6417x0wrBm83wZwNQxQCAIbd5WE+ynUcYR9sc/Ay/xGAzi3Ssfz
+	i8yhZgllcRbAXcM+S+lToh1qnjCpLo+I+mdsrm39zULOzoMFbEEc+jDpPsxnCgDyw1TVLI4
+	2xbBF42+3kdUzfuP/ZdLlfaoWA6Ym1nWfXAVekpJr/Q8w+Wp8QTVnOZFmX5iRrIUqV7QHik
+	G0Syg4iHs0nf6RNevCY7uInAI+5PcPYGxqUlmXGXeaqFT/+RFGlLgUnrmpgRBRWDiP6G40j
+	OHanLe9Lr1zhaqJonCMtXAUtl8m4bE/mmu4lZnuSrJnvpYlKTuHO7N9P7i+iNXu8yW0ZYwl
+	tlYXppUDp6t5mkAcBlhhxFewPJ9x7a3t6Lzw/3rBEzqcJ5Qzktka2rvKsPT0CUGAGXu4/jj
+	mLX3UrGVczni8g4AEpHA3/3cj0HPEX2XU7Bv0ySwRulQPAP0Hl4GNjdhOV72mWG1C8BLFhx
+	1SHlkENPFO24GpPNXSh9puYOP7wWyTJ2wdrRg8izv9m9RfdhgigVPHFCtqAq/xMFQbpp8e/
+	Zi6+1JxCAm4nWPGRnukrlNf0AQtvTfE9EcYRNqA4XSJGu6ufFS6QlB9vnHcE4yxAo4BVVFx
+	JL91bOKCN/PSpDce3ldNVOmF1E5nnvBbgDMe/s1lqhDle7EwJHi/pK9wQNbO7fGrI5rxkKm
+	sSVHuXzcxAMnN4rQRxfBKCSqKZDeq1sT/DCbu72BotXbuYWf03ZwJm76ArHDc6TYUAJL1zh
+	hmygS81RH9vZ9GxKQ8H8xulLQ5x33nYzQSPycpJwxJGfx0zvLzBNrPRoP1WUvlXa6QxkkMv
+	qgaE1a7wDFOmcxhN8ZRNBH/bbRePbQYvCYNMZ2LjwWpno3e6AKovnNj0664f9FGeG7TC8XY
+	1kMyvIqRSKH0AIkaR6Qb3ZrEZzLK8MoSVwXlc2O+J4qwwOeyF1b7dWSpQ6EphNYrDpphtm6
+	rS05172Hxjg
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
+check_add_overflow() unconditionally writes the truncated sum into *d
+even on overflow, per its contract in include/linux/overflow.h.
+The four check_add_overflow() guards in set_posix_acl_entries_dacl()
+and set_ntacl_dacl() break out of the ACE-building loops on overflow,
+but the truncated *size is then consumed downstream at the end of
+set_ntacl_dacl():
 
-	Hello,
+    pndacl->size = cpu_to_le16(le16_to_cpu(pndacl->size) + size);
 
-On Thu, 2 Jul 2026, Yizhou Zhao wrote:
+This produces an on-wire NT ACL whose pndacl->size under-reports the
+bytes actually written by the preceding fill_ace_for_sid()/memcpy()
+calls, yielding a malformed ACL that can trigger out-of-bounds reads
+when re-parsed by clients or ksmbd itself.
 
-> When an ICMP Fragmentation Needed error is received for a tunneled IPVS
-> connection, ip_vs_in_icmp() recomputes the MTU that the original packet
-> can use by subtracting the tunnel overhead from the reported next-hop
-> MTU.
-> 
-> The current code always subtracts sizeof(struct iphdr), which is only
-> the IPIP overhead. For GUE and GRE tunnels, ipvs_udp_decap() and
-> ipvs_gre_decap() already compute the additional tunnel header length,
-> but that value is scoped to the decapsulation block and is lost before
-> the ICMP_FRAG_NEEDED handling. As a result, the ICMP error sent back to
-> the client advertises an MTU that is too large, so PMTUD can fail to
-> converge for GUE/GRE-tunneled real servers.
-> 
-> With a reported next-hop MTU of 1400, a GUE tunnel currently returns
-> 1380 to the client. The correct value is 1368:
-> 
->   1400 - sizeof(struct iphdr) - sizeof(struct udphdr) -
->   sizeof(struct guehdr)
-> 
-> Hoist the tunnel header length into the main ip_vs_in_icmp() scope and
-> subtract sizeof(struct iphdr) + ulen in the Fragmentation Needed path.
-> The IPIP path keeps ulen as 0, so its existing 1400 - 20 = 1380 result
-> is unchanged.
-> 
-> Fixes: 508f744c0de3 ("ipvs: strip udp tunnel headers from icmp errors")
-> Cc: stable@vger.kernel.org
-> Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-> Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-> Reported-by: Ao Wang <wangao@seu.edu.cn>
-> Reported-by: Xuewei Feng <fengxw06@126.com>
-> Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-> Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-> Assisted-by: Claude-Code:GLM-5.2
-> Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Restore *size to its pre-addition value on each overflow branch (via
+`*size -= ace_sz` / `size -= nt_ace_size`) so that after the break,
+*size once again holds the cumulative size of the successfully-written
+ACEs. The committed ACL is then truncated-but-self-consistent rather
+than malformed.
 
-	Looks good to me for the nf tree, thanks!
+The ksmbd DACL builders are the only check_add_overflow() sites found
+where an overflow path breaks out of a loop and the destination value
+is consumed afterward. The other nearby break-style cases either
+return -EINVAL on overflow (transport_ipc.c) or break without
+consuming the overflowed destination value afterward (buildid.c).
 
-Acked-by: Julian Anastasov <ja@ssi.bg>
+Assisted-by: atomcode:glm-5.2
+Assisted-by: Codex:gpt-5.5
 
-> ---
-> Changes in v2:
->   - Use the short first hunk context so patch applies without fuzz.
->   - Adjust Assisted-by to checkpatch's agent-name format.
->   - Suggested by Julian.
->   - Link to v1: https://lore.kernel.org/netdev/20260701065941.46249-1-zhaoyz24@mails.tsinghua.edu.cn/
-> ---
->  net/netfilter/ipvs/ip_vs_core.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
-> index d40b404c1bf6..906f2c361676 100644
-> --- a/net/netfilter/ipvs/ip_vs_core.c
-> +++ b/net/netfilter/ipvs/ip_vs_core.c
-> @@ -1767,6 +1767,7 @@ ip_vs_in_icmp(struct netns_ipvs *ipvs, struct sk_buff *skb, int *related,
->  	bool tunnel, new_cp = false;
->  	union nf_inet_addr *raddr;
->  	char *outer_proto = "IPIP";
-> +	int ulen = 0;
->  
->  	*related = 1;
->  
-> @@ -1831,7 +1832,6 @@ ip_vs_in_icmp(struct netns_ipvs *ipvs, struct sk_buff *skb, int *related,
->  		   /* Error for our tunnel must arrive at LOCAL_IN */
->  		   (skb_rtable(skb)->rt_flags & RTCF_LOCAL)) {
->  		__u8 iproto;
-> -		int ulen;
->  
->  		/* Non-first fragment has no UDP/GRE header */
->  		if (unlikely(cih->frag_off & htons(IP_OFFSET)))
-> @@ -1936,8 +1936,8 @@ ip_vs_in_icmp(struct netns_ipvs *ipvs, struct sk_buff *skb, int *related,
->  				if (dest_dst)
->  					mtu = dst_mtu(dest_dst->dst_cache);
->  			}
-> -			if (mtu > 68 + sizeof(struct iphdr))
-> -				mtu -= sizeof(struct iphdr);
-> +			if (mtu > 68 + sizeof(struct iphdr) + ulen)
-> +				mtu -= sizeof(struct iphdr) + ulen;
->  			info = htonl(mtu);
->  		}
->  		/* Strip outer IP, ICMP and IPIP/UDP/GRE, go to IP header of
+Fixes: 299f962c0b02 ("ksmbd: use check_add_overflow() to prevent u16 DACL size overflow")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+---
+ fs/smb/server/smbacl.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 664b1b4a3233d..943fde8300a01 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -644,6 +644,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
+ 		ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED, flags,
+ 				pace->e_perm, 0777);
+ 		if (check_add_overflow(*size, ace_sz, size)) {
++			*size -= ace_sz;
+ 			kfree(sid);
+ 			break;
+ 		}
+@@ -658,6 +659,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
+ 			ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED,
+ 					0x03, pace->e_perm, 0777);
+ 			if (check_add_overflow(*size, ace_sz, size)) {
++				*size -= ace_sz;
+ 				kfree(sid);
+ 				break;
+ 			}
+@@ -703,6 +705,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
+ 		ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED, 0x0b,
+ 				pace->e_perm, 0777);
+ 		if (check_add_overflow(*size, ace_sz, size)) {
++			*size -= ace_sz;
+ 			kfree(sid);
+ 			break;
+ 		}
+@@ -741,8 +744,10 @@ static void set_ntacl_dacl(struct mnt_idmap *idmap,
+ 				break;
+ 
+ 			memcpy((char *)pndace + size, ntace, nt_ace_size);
+-			if (check_add_overflow(size, nt_ace_size, &size))
++			if (check_add_overflow(size, nt_ace_size, &size)) {
++				size -= nt_ace_size;
+ 				break;
++			}
+ 			aces_size -= nt_ace_size;
+ 			ntace = (struct smb_ace *)((char *)ntace + nt_ace_size);
+ 			num_aces++;
+-- 
+2.30.2
 
