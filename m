@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5339C26E165
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 13:11:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C94C42E8E5
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 13:11:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782997912; cv=none; b=CfqMGznxba8+tTe5P+DpB9J2RMn9kTCUMAQiH+VRYLari7M6tRuzUPmv3Uii/Kw75F9C+smgXLs15M8TPN2KZExIA43pENh4ZAtYGh23xUjG+53w0O6pNqLWHuZqG3yo0LGb59Guy7a2gkD8qG2j7Ugnpcd2hXckub+jT0kxyZc=
+	t=1782997916; cv=none; b=ctvftILJiFFWfNA9vp/J62UQp9UBNBlRcRKYLl1ALhuhtNzFiTMJagg3sTzqgEFE8/fUlxg266U1iRLE2lwV2uhS8OnxRzzjbU9oJPfZhU8OpEs1W8Cdr20xSofRjhp9TuteX4OBHrVUL1Dks1UFVciuhotlJDDyUH1J2AwcT78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782997912; c=relaxed/simple;
-	bh=1wsP4OKmkekCNe21BXMliSt0lyhwyPEbqTF/qmKaRas=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZcLkpvbZgDNbfdxmh2MWxTl3foFK83b2EZJvtxay/q8aa/sXECbxmX/45ZmLjdW8w2lqVBSBtAIj/Z25pUb3Q/aXWzg10YRJAKUmn/JpNpTfrrqK1GPJ//R0Lp2bZPpCRTTPq4kDIioppp0HC4zGVhcZH8ziw0ExDm8CeCtEobk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VPSvg6Ff; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782997916; c=relaxed/simple;
+	bh=Y4P3p6Fl42d8d0vKXIHUOTJCmL9iyY6l59wVC9vegag=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BmzDy3q3N7hR8BUW2UmgunokL/a2wzck+dVj5Q65CQltfpeqkE8UYgL7XAwtWaMduGyKTZhD22mxJp+3t5Go9DQCtAR6n3+RFUaKvCuzj5EGzzHtfebrbw+l5gDlCf6dY4+U0SNUSnOiRrbpmjVZOB8mhoofCQJgewhkSJRh+SU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y2cF10Mv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VPSvg6Ff"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2BE71F000E9;
-	Thu,  2 Jul 2026 13:11:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y2cF10Mv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87D0F1F00A3A;
+	Thu,  2 Jul 2026 13:11:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782997911;
-	bh=9AoQesObUS84OvKyij5/TVUFA4RaxKIQVx20R+/0m3w=;
+	s=korg; t=1782997915;
+	bh=r1QV5vDSth5PPWxhOii6Kx4z6FkeNqn2ylIK5sKU5do=;
 	h=Subject:To:Cc:From:Date;
-	b=VPSvg6FfJTOoY6cglAS1zDbnOfLcEtoDaImIigfaH8lL4TPgphENZSvBHb5DaQO1/
-	 aS2Odu+tFdd3PwI7SLBf2LzCKsqYSljuwiC3gtUs9alP1l4r5OHzPeqhWuLsbEIUn2
-	 dv4C55DgN9L4LnuSwuBFbKiB+7TAcsIxl1QctE0I=
-Subject: FAILED: patch "[PATCH] f2fs: fix potential deadlock in gc_merge path of" failed to apply to 5.10-stable tree
-To: chao@kernel.org,chaseyu@google.com,dhavale@google.com,jaegeuk@kernel.org,ruipengqi3@gmail.com
+	b=Y2cF10MvjY9Ih4ioMaJThBnk/3/G932mWk7dTE/iR781xE0V51IWN6TavAL6GPV4m
+	 hqnh4FhrN+GVQqOVj+o9smKILDYm1QxrlmWhcvmvqbMpw/cHaLvlpMvqotV2XDVdfR
+	 lc4oaPRDwimtBjziffeM45WgqPSaWmlxxOQyIr1Y=
+Subject: FAILED: patch "[PATCH] f2fs: avoid false shutdown fserror reports" failed to apply to 6.18-stable tree
+To: qwjhust@gmail.com,chao@kernel.org,jaegeuk@kernel.org,qiwenjie@xiaomi.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 02 Jul 2026 15:11:43 +0200
-Message-ID: <2026070243-elephant-debtless-5fa6@gregkh>
+Date: Thu, 02 Jul 2026 15:11:53 +0200
+Message-ID: <2026070253-quantum-slate-f842@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8b4468ec023d0d1b4669dfb867588997cc03a06b
+git cherry-pick -x 484c84ecc1a497d09239ca3a12dff3cc832830ce
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070243-elephant-debtless-5fa6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070253-quantum-slate-f842@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,80 +62,81 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8b4468ec023d0d1b4669dfb867588997cc03a06b Mon Sep 17 00:00:00 2001
-From: Chao Yu <chao@kernel.org>
-Date: Tue, 19 May 2026 01:14:38 +0000
-Subject: [PATCH] f2fs: fix potential deadlock in gc_merge path of
- f2fs_balance_fs()
+From 484c84ecc1a497d09239ca3a12dff3cc832830ce Mon Sep 17 00:00:00 2001
+From: Wenjie Qi <qwjhust@gmail.com>
+Date: Thu, 21 May 2026 18:37:48 +0800
+Subject: [PATCH] f2fs: avoid false shutdown fserror reports
 
-When we mount device w/ gc_merge mount option, we may suffer below
-potential deadlock:
+F2FS records image errors and checkpoint-stop reasons through the same
+s_error_work worker.  The ordinary f2fs_handle_error() path only updates
+s_errors, but the worker still calls fserror_report_shutdown()
+unconditionally after committing the superblock.
 
-Kworker					GC trehad			Truncator
-- f2fs_write_cache_pages
- - f2fs_write_single_data_page
-  - f2fs_do_write_data_page
-   - folio_start_writeback  --- set writeback flag on folio
-   - f2fs_outplace_write_data
-   : cached folio in internal bio cache
-  - f2fs_balance_fs
-   - wake_up(gc_thread)
-   : wake up gc thread to run foreground GC
-   - finish_wait(fggc_wq)
-   : wait on the waitqueue --- wait on GC thread to finish the work
-									- truncate_inode_pages_range
-									 - __filemap_get_folio(, FGP_LOCK)  --- lock folio
-									 - truncate_inode_partial_folio
-									  - folio_wait_writeback            --- wait on writeback being cleared
-					- do_garbage_collect
-					 - move_data_page
-					  - f2fs_get_lock_data_folio
-					   - lock on folio  --- blocked on folio's lock
+As a result, a metadata corruption report can be followed by a synthetic
+FAN_FS_ERROR event with ESHUTDOWN and an invalid superblock file handle,
+even though no stop reason was recorded.
 
-In order to avoid such deadlock, let's call below functions to commit
-cached bios in GC_MERGE path of f2fs_balance_fs() as the same as we did
-in NOGC_MERGE path.
-- f2fs_submit_merged_write(sbi, DATA);
-- f2fs_submit_all_merged_ipu_writes(sbi);
+Track whether save_stop_reason() actually changed the stop_reason array
+and only report the shutdown fserror for that case.  Pure s_errors updates
+still commit the superblock, but no longer generate a false shutdown event.
 
+Fixes: 50faed607d32 ("f2fs: support to report fserror")
 Cc: stable@kernel.org
-Fixes: 351df4b20115 ("f2fs: add segment operations")
-Cc: Ruipeng Qi <ruipengqi3@gmail.com>
-Reported: Sandeep Dhavale <dhavale@google.com>
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Chao Yu <chaseyu@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 7c8ac62b1b0d..1ef4edb77078 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -445,6 +445,13 @@ void f2fs_balance_fs(struct f2fs_sb_info *sbi, bool need)
- 	if (has_enough_free_secs(sbi, 0, 0))
- 		return;
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index b83ff4bd96ec..9f24287de4c3 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -1989,6 +1989,7 @@ struct f2fs_sb_info {
+ 	unsigned char stop_reason[MAX_STOP_REASON];	/* stop reason */
+ 	spinlock_t error_lock;			/* protect errors/stop_reason array */
+ 	bool error_dirty;			/* errors of sb is dirty */
++	bool stop_reason_dirty;			/* stop reason of sb is dirty */
  
-+	/*
-+	 * Submit all cached OPU/IPU DATA bios before triggering
-+	 * foreground GC to avoid potential deadlocks.
-+	 */
-+	f2fs_submit_merged_write(sbi, DATA);
-+	f2fs_submit_all_merged_ipu_writes(sbi);
-+
- 	if (test_opt(sbi, GC_MERGE) && sbi->gc_thread &&
- 				sbi->gc_thread->f2fs_gc_task) {
- 		DEFINE_WAIT(wait);
-@@ -464,13 +471,6 @@ void f2fs_balance_fs(struct f2fs_sb_info *sbi, bool need)
- 			.err_gc_skipped = false,
- 			.nr_free_secs = 1 };
+ 	/* For reclaimed segs statistics per each GC mode */
+ 	unsigned int gc_segment_mode;		/* GC state for reclaimed segments */
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 629548d78db0..b277807c8185 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -4626,6 +4626,7 @@ static void save_stop_reason(struct f2fs_sb_info *sbi, unsigned char reason)
+ 	spin_lock_irqsave(&sbi->error_lock, flags);
+ 	if (sbi->stop_reason[reason] < GENMASK(BITS_PER_BYTE - 1, 0))
+ 		sbi->stop_reason[reason]++;
++	sbi->stop_reason_dirty = true;
+ 	spin_unlock_irqrestore(&sbi->error_lock, flags);
+ }
  
--		/*
--		 * Submit all cached OPU/IPU DATA bios before triggering
--		 * foreground GC to avoid potential deadlocks.
--		 */
--		f2fs_submit_merged_write(sbi, DATA);
--		f2fs_submit_all_merged_ipu_writes(sbi);
--
- 		f2fs_down_write_trace(&sbi->gc_lock, &gc_control.lc);
- 		stat_inc_gc_call_count(sbi, FOREGROUND);
- 		f2fs_gc(sbi, &gc_control);
+@@ -4633,6 +4634,7 @@ static void f2fs_record_stop_reason(struct f2fs_sb_info *sbi)
+ {
+ 	struct f2fs_super_block *raw_super = F2FS_RAW_SUPER(sbi);
+ 	unsigned long flags;
++	bool report_shutdown = false;
+ 	int err;
+ 
+ 	f2fs_down_write(&sbi->sb_lock);
+@@ -4644,6 +4646,10 @@ static void f2fs_record_stop_reason(struct f2fs_sb_info *sbi)
+ 		sbi->error_dirty = false;
+ 	}
+ 	memcpy(raw_super->s_stop_reason, sbi->stop_reason, MAX_STOP_REASON);
++	if (sbi->stop_reason_dirty) {
++		report_shutdown = true;
++		sbi->stop_reason_dirty = false;
++	}
+ 	spin_unlock_irqrestore(&sbi->error_lock, flags);
+ 
+ 	err = f2fs_commit_super(sbi, false);
+@@ -4654,7 +4660,8 @@ static void f2fs_record_stop_reason(struct f2fs_sb_info *sbi)
+ 			"f2fs_commit_super fails to record stop_reason, err:%d",
+ 			err);
+ 
+-	fserror_report_shutdown(sbi->sb, GFP_NOFS);
++	if (report_shutdown)
++		fserror_report_shutdown(sbi->sb, GFP_NOFS);
+ }
+ 
+ void f2fs_save_errors(struct f2fs_sb_info *sbi, unsigned char flag)
 
