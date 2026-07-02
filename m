@@ -1,170 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CA72B9BA;
-	Thu,  2 Jul 2026 00:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD2C431E53;
+	Thu,  2 Jul 2026 00:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782952258; cv=none; b=oPkiIdfZKZws/GNZVchyTdxCGzZt3F6MlDw/DpESZbN1Ol8elr890w4RO5LChX1B12mnPtX737lhAnQn2a68ZQ5G0+mEHTlr+l9CyM9tZ805vUe8zrGTgbRjSFfcmJJug5YxTxy+FC17k4OZ7v3guejJu8iqvhY7K62/ySs/jDM=
+	t=1782952345; cv=none; b=uhME3A98Yly2ooFMiSfKaV9M5Bzyhp/K0//3e5/ChkV2GlLAMJS/ePcj0LweFtyXKR0Mczc70mO9W/4jdW17s97PEppliKly6a8PDVSczaOc71nkUg/RDg1Fn+Inn4ypwYrcxYkZdZrkG5kb17hp6OnG9z/0+fAYRJD8kx7NEmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782952258; c=relaxed/simple;
-	bh=6RJz9T66+OhsFA81BL/SHfEOMk3438nuaMTFEC3yGgQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HRLnqu9yhun44sBoa9u4LqA4HueAosBPl5U22N/NGwEi5HBcxPuoGBZq6r4jfKJ5kzTgsnf5gM76qurA5IfvCiGJ5Xyy8B8oXr8U/d55uTx9zJuYPMApSoT6m3t23jZ3Mo7gFAwUypXT3dT9fSPxtV+0/b7R6aZLOWLcB1vAwKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EL9wvESS; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782952345; c=relaxed/simple;
+	bh=+NIsTwvWHACM3Yz5EP0EQfv55ysBa1WuTH0Bywo+aUY=;
+	h=Date:To:From:Subject:Message-Id; b=IqC4A3sMrI+MY46HkqEkbKGlPqMrbmG7ySK7sOs0xG59qcwr0DRSrF67HUcFvJ5BueHI7/Y69PSeMoDsC7xNF5vdT6segqvpr0wdfKqbxE751chVjfA6+lZ1NMV2B7bFvl1fsT89s2DzrvNUGWjqmTqMdws9MRKj9mDULk2jIlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=KMH9MiQV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EL9wvESS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782952257; x=1814488257;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=6RJz9T66+OhsFA81BL/SHfEOMk3438nuaMTFEC3yGgQ=;
-  b=EL9wvESS1b8OoPMq5BOG0hD3COViTxbTCePlhPKPLgkst2el6dhI9CcR
-   fXN8aFOaek4pd05DZjDJ98ZCT7T7UnbWBRZDfOWd7UlR+8XKDr5UywPdH
-   4wwCNWzQAoBP1hJfLG27rAqlAnxRxDMrDLP+OgSGTUmxzMjwr0bTrwc26
-   bhCN6Zau7vn8Bbp6SA4yGAXJXniC3JzxLNNr2qHdKGOMpaiJ4WKUjI9Po
-   RBaUKaVpNnbVloYDbW1QFrKoNxh9hGPfFLu6jSrs4gVt5EoqbYrn0BUcS
-   6r/QwZK0dljSQnf7zgUvx0ZnCc5gTEpAM+to9iIY6b+499PUhY2Psn/wZ
-   w==;
-X-CSE-ConnectionGUID: t11JjtdHSiOIR5DRE70I2g==
-X-CSE-MsgGUID: /6FSvT/TQiybo9hKD11bYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="83565774"
-X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; 
-   d="scan'208";a="83565774"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 17:30:55 -0700
-X-CSE-ConnectionGUID: WdBrzBkwRMezzuZu/OI1hA==
-X-CSE-MsgGUID: QGcuDEZMQTSqvKqlv3MV/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; 
-   d="scan'208";a="275920054"
-Received: from aschofie-mobl2.amr.corp.intel.com (HELO localhost) ([10.124.221.139])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 17:30:54 -0700
-From: Alison Schofield <alison.schofield@intel.com>
-To: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Ira Weiny <iweiny@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Li Ming <ming.li@zohomail.com>
-Cc: linux-cxl@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/3] cxl/pmem: Format the nvdimm serial number as unsigned decimal
-Date: Wed,  1 Jul 2026 17:30:44 -0700
-Message-ID: <e124234e95069cb6512b9e1ab8a1335bf4fbed5e.1782948930.git.alison.schofield@intel.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <cover.1782948930.git.alison.schofield@intel.com>
-References: <cover.1782948930.git.alison.schofield@intel.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="KMH9MiQV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CEFA1F000E9;
+	Thu,  2 Jul 2026 00:32:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1782952343;
+	bh=OCTsahi7cPsMEYQZE+icz78dBTjEfh+NvNJzY5qKVHM=;
+	h=Date:To:From:Subject;
+	b=KMH9MiQV6phsEMN7Za//6DzSZWNiVbQDf4qzbUHGhoOWMEqo7eS4FNLFXcTnIdv4C
+	 diHAqMxzPOLrMhecplv4WVDSKAfyPso/0uUlt8kCpGvrk3ONE2j7lio95MOrJqj2xu
+	 jI3NabbCDH4xZEjjbzpWDJ+JqbX0mwuFj1OCNdZY=
+Date: Wed, 01 Jul 2026 17:32:23 -0700
+To: mm-commits@vger.kernel.org,willy@infradead.org,stable@vger.kernel.org,jack@suse.cz,hughd@google.com,brauner@kernel.org,yanzhen20011121@163.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-fix-mapping_seek_hole_data-overflow-on-last-page.patch added to mm-new branch
+Message-Id: <20260702003223.7CEFA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The CXL NVDIMM security passphrase key description and the nvdimm 'id'
-sysfs attribute are both derived from the CXL device serial number,
-but the serial number is not formatted consistently.
 
-The key description is formatted in hexadecimal while the 'id'
-attribute is formatted in decimal. As a result, ndctl stores the key
-using a decimal description while the kernel later looks it up using
-a hexadecimal description. For serial numbers of 10 and above, the
-descriptions no longer match, preventing automatic unlock after
-reboot.
+The patch titled
+     Subject: mm: fix mapping_seek_hole_data() overflow on last page
+has been added to the -mm mm-new branch.  Its filename is
+     mm-fix-mapping_seek_hole_data-overflow-on-last-page.patch
 
-The decimal formatting has a second problem. Both the key description
-and the 'id' attribute use the signed %lld format for a u64 PCIe
-Device Serial Number. Devices whose vendor OUI sets bit 63, such as
-Montage CXL devices, appear with negative decimal serial numbers.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-fix-mapping_seek_hole_data-overflow-on-last-page.patch
 
-Format the security key description and 'id' attribute as unsigned
-decimal, %llu, and document that the 'id' attribute is an unsigned
-decimal value.
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-The key lookup mismatch was exposed by CXL unit test cxl-security.sh
-when cxl_test mock serial numbers were extended to 10 and above.
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Zhen Yan <yanzhen20011121@163.com>
+Subject: mm: fix mapping_seek_hole_data() overflow on last page
+Date: Tue, 30 Jun 2026 20:50:47 +0800
+
+A local unprivileged process can create a shmem/tmpfs file with i_size ==
+LLONG_MAX using memfd_create() and fallocate().  If the last page is
+present in the page cache, lseek(SEEK_HOLE) on that page returns
+0x8000000000000000 as a successful offset, which is LLONG_MIN when stored
+in loff_t.
+
+The same file has readable data at the last byte, but SEEK_DATA from that
+offset returns ENXIO.
+
+The overflow is in mapping_seek_hole_data():
+
+  pos = round_up((u64)pos + 1, seek_size);
+
+For the final page below LLONG_MAX, the next page boundary is
+0x8000000000000000, which is then used as a signed file offset.  When
+assigned to the loff_t pos, this overflows to LLONG_MIN, so a subsequent
+"pos > end" comparison does not catch it.
+
+Keep mapping_seek_hole_data() inside its documented [start, end) search
+range: compute round_up() into a u64 variable and compare against (u64)end
+so the overflow is detected, then clamp pos to end when the rounded-up
+value goes past the search limit.
+
+Link: https://lore.kernel.org/20260630125047.703170-1-yanzhen20011121@163.com
+Signed-off-by: Zhen Yan <yanzhen20011121@163.com>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
 Cc: <stable@vger.kernel.org>
-Fixes: b5807c80b5bc ("cxl: add dimm_id support for __nvdimm_create()")
-Signed-off-by: Alison Schofield <alison.schofield@intel.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- Documentation/ABI/testing/sysfs-bus-nvdimm |  3 ++-
- drivers/cxl/core/pmem.c                    | 10 ++++++----
- drivers/cxl/cxl.h                          |  3 ++-
- drivers/cxl/pmem.c                         |  2 +-
- 4 files changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-nvdimm b/Documentation/ABI/testing/sysfs-bus-nvdimm
-index 64eb8f4c6a41..46dafd8482b9 100644
---- a/Documentation/ABI/testing/sysfs-bus-nvdimm
-+++ b/Documentation/ABI/testing/sysfs-bus-nvdimm
-@@ -48,7 +48,8 @@ What:		/sys/bus/nd/devices/nmemX/cxl/id
- Date:		November 2022
- KernelVersion:	6.2
- Contact:	Dave Jiang <dave.jiang@intel.com>
--Description:	(RO) Show the id (serial) of the device. This is CXL specific.
-+Description:	(RO) Show the id (serial) of the device, formatted as an
-+		unsigned 64-bit decimal value. This is CXL specific.
+ mm/filemap.c |    7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+--- a/mm/filemap.c~mm-fix-mapping_seek_hole_data-overflow-on-last-page
++++ a/mm/filemap.c
+@@ -3229,6 +3229,7 @@ loff_t mapping_seek_hole_data(struct add
+ 	while ((folio = find_get_entry(&xas, max, XA_PRESENT))) {
+ 		loff_t pos = (u64)xas.xa_index << PAGE_SHIFT;
+ 		size_t seek_size;
++		u64 next;
  
- What:		/sys/bus/nd/devices/nmemX/cxl/provider
- Date:		November 2022
-diff --git a/drivers/cxl/core/pmem.c b/drivers/cxl/core/pmem.c
-index 68462e38a977..5a3bb7e8a1f1 100644
---- a/drivers/cxl/core/pmem.c
-+++ b/drivers/cxl/core/pmem.c
-@@ -219,12 +219,14 @@ static struct cxl_nvdimm *cxl_nvdimm_alloc(struct cxl_nvdimm_bridge *cxl_nvb,
- 	dev->bus = &cxl_bus_type;
- 	dev->type = &cxl_nvdimm_type;
- 	/*
--	 * A "%llx" string is 17-bytes vs dimm_id that is max
--	 * NVDIMM_KEY_DESC_LEN
-+	 * dev_id is the nvdimm dimm_id used for security key lookup.
-+	 * It must match id_show(), which emits the CXL serial as an
-+	 * unsigned decimal. A u64 decimal string is at most 20 digits
-+	 * plus NUL.
- 	 */
--	BUILD_BUG_ON(sizeof(cxl_nvd->dev_id) < 17 ||
-+	BUILD_BUG_ON(sizeof(cxl_nvd->dev_id) < 21 ||
- 		     sizeof(cxl_nvd->dev_id) > NVDIMM_KEY_DESC_LEN);
--	sprintf(cxl_nvd->dev_id, "%llx", cxlmd->cxlds->serial);
-+	sprintf(cxl_nvd->dev_id, "%llu", cxlmd->cxlds->serial);
+ 		if (start < pos) {
+ 			if (!seek_data)
+@@ -3237,7 +3238,11 @@ loff_t mapping_seek_hole_data(struct add
+ 		}
  
- 	return cxl_nvd;
- }
-diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
-index c0e5308e4d1b..d683ae5e0f7d 100644
---- a/drivers/cxl/cxl.h
-+++ b/drivers/cxl/cxl.h
-@@ -503,7 +503,8 @@ struct cxl_nvdimm_bridge {
- 	struct nvdimm_bus_descriptor nd_desc;
- };
- 
--#define CXL_DEV_ID_LEN 19
-+/* Holds a u64 serial as a decimal string: up to 20 digits + NUL */
-+#define CXL_DEV_ID_LEN 21
- 
- enum {
- 	CXL_NVD_F_INVALIDATED = 0,
-diff --git a/drivers/cxl/pmem.c b/drivers/cxl/pmem.c
-index 261dff7ced9f..a9f50281875d 100644
---- a/drivers/cxl/pmem.c
-+++ b/drivers/cxl/pmem.c
-@@ -52,7 +52,7 @@ static ssize_t id_show(struct device *dev, struct device_attribute *attr, char *
- 	struct cxl_nvdimm *cxl_nvd = nvdimm_provider_data(nvdimm);
- 	struct cxl_dev_state *cxlds = cxl_nvd->cxlmd->cxlds;
- 
--	return sysfs_emit(buf, "%lld\n", cxlds->serial);
-+	return sysfs_emit(buf, "%llu\n", cxlds->serial);
- }
- static DEVICE_ATTR_RO(id);
- 
--- 
-2.37.3
+ 		seek_size = seek_folio_size(&xas, folio);
+-		pos = round_up((u64)pos + 1, seek_size);
++		next = round_up((u64)pos + 1, seek_size);
++		if (next > (u64)end)
++			pos = end;
++		else
++			pos = next;
+ 		start = folio_seek_hole_data(&xas, mapping, folio, start, pos,
+ 				seek_data);
+ 		if (start < pos)
+_
+
+Patches currently in -mm which might be from yanzhen20011121@163.com are
+
+mm-fix-mapping_seek_hole_data-overflow-on-last-page.patch
 
