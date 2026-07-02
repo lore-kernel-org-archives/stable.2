@@ -1,147 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81651331ECC;
-	Thu,  2 Jul 2026 10:20:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C90431E68;
+	Thu,  2 Jul 2026 10:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.188.205.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782987625; cv=none; b=eyh/BGFJM6MS1eWYjwB2LJkqh+604JhcpPoYzHZeZ80su2xDLkWWX4xHTVo3Rqo4J09vKBidCyjW7LaW54FH7Ifn6EHq+0s7A55woA4oiBi7/gIdAjxP+NNJa+gpDdtGVPdXFkFyP2bHoaVz3eMW5PuqKMD/bTZW1ADwfdXCSX8=
+	t=1782987664; cv=none; b=iBSIaJBS6UsEUcT6fkRkalTXSep5YkMcukG9GhbxPgsWRz3+ockjdM3N5yEud0KWdxXo2H7fDLkZflp+B9OUh872cQ9DXrIHs5XB5Qb8uwsIDCtn8wxH+Cv239sDKq++jdkhq1lAg5uI52PwNHrybXnWX7zbDGbITwVTiN+zqho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782987625; c=relaxed/simple;
-	bh=NTj3SMMZi59FJRD9neVtVzHFkfFu2Xfyy21Th1lSVS8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nNKdG5YbWreGkBDyoKrGQhDsnnpDml1E6h2OjROkWzQDDLE15O9FbOjZEdsAG9vd67eXFtU5B7OnjjUopHUOTdDdKHJS05WOeuctr5xCt2witCuNtn6svxXCWzyQ2Dj6MFOPpXl6AWRBepqdVpfoCuADHp5l6EDxHr9TnrRmSWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aoEffApH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782987664; c=relaxed/simple;
+	bh=bzutjKBr6Z86v8mWSdu4o8FkYSFLpCB7bWGr+YlZWzA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=a2+rjakNTZSb8+jp8bbkLJsW6BxLjGTBoSqZ9fvSI5BlUvESE48FQFKhuC+LMj30mTXBViIRC7Xca0hc0KaLc/hDgRUZhXyUKRCfWckjqC1ukf+uAoTNdFGUJaP3fxQc+ahsfLeZdSTmjpeBIRvF09eR5yJUk1FCi00VFaZJw2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=pJqRIF92; arc=none smtp.client-ip=93.188.205.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aoEffApH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 542001F000E9;
-	Thu,  2 Jul 2026 10:20:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782987623;
-	bh=pKlN1lKaCwCvx1qCw5sm035UekJag3BuZwX6Ys1gvfk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aoEffApH4IBz8kezLe9+FkUVXNGpPyQofj9vfgPMO0KOpfiVQkvgN/6AKCdt9IaVs
-	 nSr79KXJA08JeirgAgP4Hv2w/DbO6Ck1Pozv69YwgyJ4Mr8pgH6v7EGUPxyCT60lR8
-	 Gzwt9GhG3oxWgwx5B75V7H2omx3Rc/cm5LbLYn4NakO87macqnhrXDcH6YhtrFEaxF
-	 fSmfjnazZ9+1I/nemiHNsHTyrSMB8HR/KqdL6h1a49Qreix3uK2ORI9WZh38yEL63/
-	 hTFmVBwwsmfga0QcE/KbgfZ7tT9Ziv6dc16mlSABhuyBUnZ5Zysmpk3BuxS+fflXGJ
-	 Bpyi3g6JEyClw==
-Date: Thu, 2 Jul 2026 11:20:18 +0100
-From: Lee Jones <lee@kernel.org>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Pavel Machek <pavel@kernel.org>, linux-leds@vger.kernel.org,
-	Andreas Werner <andreas.werner@men.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Shreshtha Kumar Sahu <shreshthakumar.sahu@stericsson.com>,
-	Bryan Wu <cooloney@gmail.com>, linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] leds: lm3530: use brightness_set_blocking for
- sleepable callback
-Message-ID: <20260702102018.GH2108533@google.com>
-References: <20260615145756.1019184-1-runyu.xiao@seu.edu.cn>
- <20260615145756.1019184-2-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="pJqRIF92"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1782987651;
+	bh=bzutjKBr6Z86v8mWSdu4o8FkYSFLpCB7bWGr+YlZWzA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=pJqRIF92s0iEpinwSTJ7s+hKoHSWwC89vaSU8qnU8/UQR/hxl6urtFk+xf7EZt8d9
+	 Hf0w9mzvj3oPQaJ8MorEgWNDohXyxw+3TTRrd8dvWnl4Hvq6LjN24pzAXu58Km+1Of
+	 bi/dXFg8gqDxUo7VwjUVew+8C6CLkGn3X11BUeAHqgYwrdsnvGaUL9b9J5psTGgvNN
+	 pfAVMp2LV6OyyV112bUFBiqv94RxcxPyuXyhxqXG1GKTbLerYoqqhIkpWKA8ukDHb0
+	 ednFPZalkcmunVEkLRNgOEAECdZM++2URcRQOBWeuCqpunXqzLrb03/TMjikqP+Du3
+	 wIKsyei5whYtg==
+Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw02.astralinux.ru (Postfix) with ESMTP id A24051F955;
+	Thu,  2 Jul 2026 13:20:51 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
+	Thu,  2 Jul 2026 13:20:49 +0300 (MSK)
+Received: from rbta-msk-lt-169874.astralinux.ru (rbta-msk-lt-169874.astralinux.ru [10.198.56.59])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4grXw10s5Pzh5F;
+	Thu, 02 Jul 2026 13:20:49 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Peter Chen <peter.chen@nxp.com>,
+	Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@ti.com>,
+	Felipe Balbi <felipe.balbi@linux.intel.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Peter Chen <peter.chen@kernel.org>,
+	Roger Quadros <rogerq@kernel.org>,
+	lvc-project@linuxtesting.org,
+	stable <stable@kernel.org>,
+	Yongchao Wu <yongchao.wu@autochips.com>
+Subject: [PATCH 5.10] usb: cdns3: gadget: fix NULL pointer dereference in ep_queue
+Date: Thu,  2 Jul 2026 13:20:17 +0300
+Message-Id: <20260702102018.48182-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.39.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260615145756.1019184-2-runyu.xiao@seu.edu.cn>
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/07/02 08:31:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 111 0.3.111 1434338e80da3ad6056aa2b487308911a6b137ca, {date_rfc_vio_soft_silent}, {Tracking_ml_letters}, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_internal2}, {Tracking_from_domain_doesnt_match_to}, patch.msgid.link:7.1.1;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;new-mail.astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 204205 [Jul 02 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.22
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/07/02 09:59:00 #28358554
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/07/02 08:31:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-On Mon, 15 Jun 2026, Runyu Xiao wrote:
+From: Yongchao Wu <yongchao.wu@autochips.com>
 
-> lm3530_brightness_set() talks to the device over I2C and can sleep, but
-> the driver registers it as brightness_set.  That leaves the LED core
-> free to invoke the callback from atomic contexts.
-> 
-> This issue was found by our static analysis tool and then manually
-> reviewed against the current tree.
-> 
-> A minimal Lockdep reproducer that keeps the original registration and
-> call chain is enough to trigger the warning: lm3530_probe() still
-> publishes lm3530_brightness_set() as brightness_set,
-> led_trigger_event_atomic() invokes it under spin_lock_irqsave(), and
-> the callback reaches i2c_smbus_write_byte_data() as its first
-> sleepable edge.
-> 
-> Lockdep reports:
-> 
->   BUG: sleeping function called from invalid context
->   i2c_smbus_write_byte_data.constprop.0+0x14/0x30 [vuln_msv]
->   lm3530_brightness_set+0x4e/0x66 [vuln_msv]
->   led_trigger_event_atomic.constprop.0+0x2b/0x40 [vuln_msv]
-> 
-> Convert the callback to brightness_set_blocking so the LED core only
-> invokes it from a sleepable context.
-> 
-> Fixes: b1e6b7068f02 ("leds: add driver for LM3530 ALS")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
-> Notes:
->   - Validated with a grounded Lockdep PoC that preserves the
->     lm3530_probe() brightness_set registration and the
->     led_trigger_event_atomic() -> lm3530_brightness_set() ->
->     i2c_smbus_write_byte_data() path.
->   - checkpatch.pl --strict: clean.
->   - Not tested on LM3530 hardware.
-> 
->  drivers/leds/leds-lm3530.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/leds/leds-lm3530.c b/drivers/leds/leds-lm3530.c
-> index e44a3db106c3..ba744961ebcd 100644
-> --- a/drivers/leds/leds-lm3530.c
-> +++ b/drivers/leds/leds-lm3530.c
-> @@ -301,10 +301,11 @@ static int lm3530_init_registers(struct lm3530_data *drvdata)
->  	return ret;
->  }
->  
-> -static void lm3530_brightness_set(struct led_classdev *led_cdev,
-> -				     enum led_brightness brt_val)
-> +static int
-> +lm3530_brightness_set_blocking(struct led_classdev *led_cdev,
-> +			       enum led_brightness brt_val)
->  {
-> -	int err;
-> +	int err = 0;
->  	struct lm3530_data *drvdata =
->  	    container_of(led_cdev, struct lm3530_data, led_dev);
->  	struct lm3530_platform_data *pdata = drvdata->pdata;
-> @@ -344,6 +345,8 @@ static void lm3530_brightness_set(struct led_classdev *led_cdev,
->  	default:
->  		break;
->  	}
-> +
-> +	return err;
+commit 7f6f127b9bc34bed35f56faf7ecb1561d6b39000 upstream.
 
-What makes you think that the original author didn't want these failures
-to be non-catastrophic?
+When the gadget endpoint is disabled or not yet configured, the ep->desc
+pointer can be NULL. This leads to a NULL pointer dereference when
+__cdns3_gadget_ep_queue() is called, causing a kernel crash.
 
->  }
->  
->  static ssize_t mode_show(struct device *dev,
-> @@ -438,7 +441,8 @@ static int lm3530_probe(struct i2c_client *client)
->  	drvdata->brightness = LED_OFF;
->  	drvdata->enable = false;
->  	drvdata->led_dev.name = LM3530_LED_DEV;
-> -	drvdata->led_dev.brightness_set = lm3530_brightness_set;
-> +	drvdata->led_dev.brightness_set_blocking =
-> +		lm3530_brightness_set_blocking;
+Add a check to return -ESHUTDOWN if ep->desc is NULL, which is the
+standard return code for unconfigured endpoints.
 
-We've had no complaints about this in the 15-years it's been
-operational.  I think it's safe to conclude that this isn't causes
-anyone issues.  I'd be concerned that these changes, although seemingly
-correct on the surface, may cause problems for users, which would be
-unacceptable.
+This prevents potential crashes when ep_queue is called on endpoints
+that are not ready.
 
->  	drvdata->led_dev.max_brightness = MAX_BRIGHTNESS;
->  	drvdata->led_dev.groups = lm3530_groups;
->  
-> -- 
-> 2.34.1
+Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Yongchao Wu <yongchao.wu@autochips.com>
+Acked-by: Peter Chen <peter.chen@kernel.org>
+Link: https://patch.msgid.link/20260331000407.613298-1-yongchao.wu@autochips.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-31755
+ drivers/usb/cdns3/gadget.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
+diff --git a/drivers/usb/cdns3/gadget.c b/drivers/usb/cdns3/gadget.c
+index 61388e2089f5f..a64302acdfe6d 100644
+--- a/drivers/usb/cdns3/gadget.c
++++ b/drivers/usb/cdns3/gadget.c
+@@ -2587,6 +2587,9 @@ static int __cdns3_gadget_ep_queue(struct usb_ep *ep,
+ 	struct cdns3_request *priv_req;
+ 	int ret = 0;
+ 
++	if (!ep->desc)
++		return -ESHUTDOWN;
++
+ 	request->actual = 0;
+ 	request->status = -EINPROGRESS;
+ 	priv_req = to_cdns3_request(request);
 -- 
-Lee Jones
+2.47.3
