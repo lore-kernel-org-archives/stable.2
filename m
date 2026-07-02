@@ -1,41 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B82414DE5;
-	Thu,  2 Jul 2026 16:23:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55A033B970;
+	Thu,  2 Jul 2026 16:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783009414; cv=none; b=Sqwagfi0NrRZZJbG+M1mNbymD14px9jKI2vkb7VkKj3N/a9D0mtyp+1r5izA+edWKt6T+WREOk6ksdzvYdlVhICpcgBDPxGbYVWp1T/rz4iBmqAWeJk2kg7HQGh9XoZYjOFYcXEcK2mNYek5C4IdcK/hpfitA/lKZaglHop713U=
+	t=1783009418; cv=none; b=SXpyfOKJBOqZ8fKyLXtETUfpToJpigHEdonPsKYcNYwNoLr/U8CZt52C3Uff9z5BtACtz3EU5p0K+DSSosXBrryk2DgXjoOGg5hBfeeyiRtCI+WGYz3Ww9BG7UA6s3+OUwszzy5M244P1jkKeCLnqIVv6qTNu1UFdHlVc5JRAAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783009414; c=relaxed/simple;
-	bh=MQUZqke4g27KghawRDBcbjHdRe1NM2DJr2sRyquF2Q8=;
+	s=arc-20240116; t=1783009418; c=relaxed/simple;
+	bh=TGwddRvcHvzmwxMi+W8tSS3IjQzdHdKjyUz6XFldvQ0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wog+WFVoMw/E4ucRfAXHOxN6fo1Uh6ojUxwSLpsUyh6Pbls75CBQYnyWbR6QsHxeJ6GtfX0ktKSpXY18tzUNpguwYPz127CjM1eG5asLSv3v/45iQcLmPHfsReAZCEZzuEQ3KoWGqXZcaIQuQUzauDgTAjwjHVyHPyoXV9Na6sE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EdMCLcb4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tkmlwG4lx3OhKIiJw14yNdfpkgazZFDrsCBfzlQtxTTOdVl+OM+uw/XDY2BCE1HHTplJndETrnOEC8DPdeztO+RqRprWWoAhAgbpe5kqJmDrZqyC4FfFvgFzYrapq2AMcy+eS3qcBUeyILIXquSgjezMU/Yq0Z65orszPacb5r0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Q9E1wy2g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EdMCLcb4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BDAC1F00A3E;
-	Thu,  2 Jul 2026 16:23:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Q9E1wy2g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C91D1F00A3A;
+	Thu,  2 Jul 2026 16:23:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783009410;
-	bh=fggnnEQwdObJ2BdXANJSJUaFZvms6VwZGVjpQLJ/yuk=;
+	s=korg; t=1783009413;
+	bh=yRdDQo03XxJ4pdIbwHEe+V3dPePHJXB9iaxjOOzDC0k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EdMCLcb47zicGsq38BZoZsVL+CEGERC76SJf1VHB5Hz6+5SPPA94Uciasnq4Iopyf
-	 96pKnPQxWLXInMANBTU5M9LUcl+Bl6IzEKfGmfPnVpwgIMVKtEizpF5J9Xrb/4ySrj
-	 fxzvx+Gw1vqbVccH7GZeN5Sh7x+46K3v4Jl/NPzo=
+	b=Q9E1wy2gaU6etBDBhcSTDiwywv6QK3n+IfQAqv3GeigvheaNzis44iHZo31JRUaPn
+	 zXhIpvHjk3AFUzOZHXsI6mD4pYxmVf2aUyofCrajm4m4dGVlMnaZdGyDzCBdicy5WM
+	 Y+3kyHK7pw20y8hXkcnLmQwMzSDt8Qq7jhmkPVgQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Simon Horman <simon.horman@corigine.com>,
-	Pedro Tammela <pctammela@mojatatu.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Wentao Guan <guanwentao@uniontech.com>,
+	stable@kernel.org,
+	Sven Eckelmann <sven@narfation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 04/96] net/sched: act_pedit: remove extra check for key type
-Date: Thu,  2 Jul 2026 18:18:56 +0200
-Message-ID: <20260702155109.055892028@linuxfoundation.org>
+Subject: [PATCH 5.10 40/96] batman-adv: tp_meter: handle seqno wrap-around for fast recovery detection
+Date: Thu,  2 Jul 2026 18:19:32 +0200
+Message-ID: <20260702155109.827730456@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260702155108.949633242@linuxfoundation.org>
 References: <20260702155108.949633242@linuxfoundation.org>
@@ -54,96 +51,37 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Pedro Tammela <pctammela@mojatatu.com>
+From: Sven Eckelmann <sven@narfation.org>
 
-[ Upstream commit 577140180ba28d0d37bc898c7bd6702c83aa106f ]
+commit f54c85ed42a1b27a516cf2a4728f5a612b799e07 upstream.
 
-The netlink parsing already validates the key 'htype'.
-Remove the datapath check as it's redundant.
+The recover variable and the last_sent sequence number are initialized on
+purpose as a really high value which will wrap-around after the first 2000
+bytes. The fast recovery precondition must therefore not use simple integer
+comparisons but use helpers which are aware of the sequence number
+wrap-arounds.
 
-Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Reviewed-by: Simon Horman <simon.horman@corigine.com>
-Signed-off-by: Pedro Tammela <pctammela@mojatatu.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Cc: stable@kernel.org
+Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sched/act_pedit.c | 29 +++++++----------------------
- 1 file changed, 7 insertions(+), 22 deletions(-)
+ net/batman-adv/tp_meter.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/sched/act_pedit.c b/net/sched/act_pedit.c
-index 84152d3a492469..957ce9017c3f73 100644
---- a/net/sched/act_pedit.c
-+++ b/net/sched/act_pedit.c
-@@ -305,37 +305,28 @@ static bool offset_valid(struct sk_buff *skb, int offset)
- 	return true;
- }
+diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
+index cd196842478686..a4df826e4ece71 100644
+--- a/net/batman-adv/tp_meter.c
++++ b/net/batman-adv/tp_meter.c
+@@ -738,7 +738,7 @@ static void batadv_tp_recv_ack(struct batadv_priv *bat_priv,
+ 		if (atomic_read(&tp_vars->dup_acks) != 3)
+ 			goto out;
  
--static int pedit_skb_hdr_offset(struct sk_buff *skb,
--				enum pedit_header_type htype, int *hoffset)
-+static void pedit_skb_hdr_offset(struct sk_buff *skb,
-+				 enum pedit_header_type htype, int *hoffset)
- {
--	int ret = -EINVAL;
--
-+	/* 'htype' is validated in the netlink parsing */
- 	switch (htype) {
- 	case TCA_PEDIT_KEY_EX_HDR_TYPE_ETH:
--		if (skb_mac_header_was_set(skb)) {
-+		if (skb_mac_header_was_set(skb))
- 			*hoffset = skb_mac_offset(skb);
--			ret = 0;
--		}
- 		break;
- 	case TCA_PEDIT_KEY_EX_HDR_TYPE_NETWORK:
- 	case TCA_PEDIT_KEY_EX_HDR_TYPE_IP4:
- 	case TCA_PEDIT_KEY_EX_HDR_TYPE_IP6:
- 		*hoffset = skb_network_offset(skb);
--		ret = 0;
- 		break;
- 	case TCA_PEDIT_KEY_EX_HDR_TYPE_TCP:
- 	case TCA_PEDIT_KEY_EX_HDR_TYPE_UDP:
--		if (skb_transport_header_was_set(skb)) {
-+		if (skb_transport_header_was_set(skb))
- 			*hoffset = skb_transport_offset(skb);
--			ret = 0;
--		}
- 		break;
- 	default:
--		ret = -EINVAL;
- 		break;
- 	}
--
--	return ret;
- }
+-		if (tp_vars->recover >= recv_ack)
++		if (!batadv_seq_before(tp_vars->recover, recv_ack))
+ 			goto out;
  
- static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
-@@ -367,10 +358,9 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
- 
- 	for (i = parms->tcfp_nkeys; i > 0; i--, tkey++) {
- 		int offset = tkey->off;
-+		int hoffset = 0;
- 		u32 *ptr, hdata;
--		int hoffset;
- 		u32 val;
--		int rc;
- 
- 		if (tkey_ex) {
- 			htype = tkey_ex->htype;
-@@ -379,12 +369,7 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
- 			tkey_ex++;
- 		}
- 
--		rc = pedit_skb_hdr_offset(skb, htype, &hoffset);
--		if (rc) {
--			pr_info("tc action pedit bad header type specified (0x%x)\n",
--				htype);
--			goto bad;
--		}
-+		pedit_skb_hdr_offset(skb, htype, &hoffset);
- 
- 		if (tkey->offmask) {
- 			u8 *d, _d;
+ 		/* if this is the third duplicate ACK do Fast Retransmit */
 -- 
 2.53.0
 
