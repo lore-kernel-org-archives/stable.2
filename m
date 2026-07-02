@@ -1,62 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27AED4CA264;
-	Thu,  2 Jul 2026 14:13:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9492A4DA550;
+	Thu,  2 Jul 2026 14:16:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783001642; cv=none; b=sNyM3bc7n6souV9blghRJYUehvFjViU8k8vUEV1yTobTF8Or6lk5gK2qUnnxEcL3neiyq1w115HV12K+XxghB/b5OQtbpzDnCuCBT9V7e2CRXIcLw5ZsIZYOGiEb+lF4O1PiQx/YvlPqB3OyEt52UFWqnHSQnA+58FKZ5eJoQSk=
+	t=1783001772; cv=none; b=eW2My9OqaLqxLVtR3asKJ5wYC+zm9GeWn9PmHFbEM4/QjTJl/bSxcrYQWpz+IIrb5VzTRPrr75oO67vZKjhnw8ljamQX/EP85ixM6oRR1O06pDMabyxiepyR2cA2hHUjhtN/TyyS9xQEEI5fBeqPLP4YvkbqgL3hTvYIxkmGPHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783001642; c=relaxed/simple;
-	bh=R98QZzYpDR41aXFD47w3kHfUzVNIU5IUGG2s/zcV2As=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ovgUKMegcYSoxWNA+n+rewnIk0iKwEdlBohw4LWTVjSg5bIro99fV+ZPWr5xrGG6rEeyUqFZD3aNffyOH9TZ6MfcwGWI+qrC3gX2tiiwkykqxE6zDYO1H7AdipfovFVD85vJyeaoslFax0ZVSGXrqoYUVn8rcP/a7ouY77ozONs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yaCzakvI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783001772; c=relaxed/simple;
+	bh=rt+hTQljtmTKZB3seaFCTOOiXTvilEYPyHN5EZGxnKY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e1vjkY0cYGm8oBd4Of8XkkC6jkUhrA5g6rXywHQgJfl3N1Gm1lmhY+8PFJpx/k3LngS2ueUSo9m25NNxyS7Hmi/tHyBGkepjPsm4j/zxC6Eeq22rt8VU/PimJdpZ/phY4i2p7pb4lR/vCeZOYzbyzwwCKyazJnlAPJBUZ4hPEsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IWq9ghV9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yaCzakvI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BCDB1F000E9;
-	Thu,  2 Jul 2026 14:13:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783001632;
-	bh=22NrB53quUcL92USbBtWlF+xpexlIHtl2vYI1OOtmKE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=yaCzakvI2ONHSQhFmcWi+I3WBUkfJSvEKMpe6DJ5uj8d45bflUf/FCSZVKjGlq6T9
-	 zHEc+fukuaOhNBr6ZSk/G0hvYQuZQ19gOpx1j8sSuI8OsVy0sBsQ88zOjp2CnNUvDt
-	 44CAMBARDqaXB82rV1ZP1CjWaI7fmif+nnrtZeQA=
-Date: Thu, 2 Jul 2026 16:14:03 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Maximilian Heyne <mheyne@amazon.de>
-Cc: stable@vger.kernel.org, Wolfgang Grandegger <wg@grandegger.com>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"Eric W. Biederman" <ebiederm@aristanetworks.com>,
-	linux-can@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.6.y] net: add missing ns_capable check for peer netns
-Message-ID: <2026070244-trustable-cresting-2d80@gregkh>
-References: <20260617-sprain-dye-86c242ac@mheyne-amazon>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IWq9ghV9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C0751F00A3E;
+	Thu,  2 Jul 2026 14:16:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783001769;
+	bh=MhBTAqbX+6ddORWh3uOqJPTx4/35gVXV/hnc5cvGL/w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IWq9ghV9ePdP6Jv1QTUqpDdm/5QFTr7+Be5rrPQUiptDgFHFD9Gl9PR9JhKsdnoyT
+	 tzfxxQHEVO3WAqvmaeswEZjQgnjX7+4/+I5ulGvR2dw0CekZ83mIrdtxtoncdXkz3/
+	 CFmpmBuDRvmbpfPZNTQ/tBS0p9QGkYKBqmW03QwEBzWTswsjH7iL0IvZUbHRxLQZdI
+	 svZHG1tIRsiEPOyc4zMM1OGqzUoc4quVUzIQx3KOUaPDk37MvEvrnhn2oZKCvDtpNp
+	 bnT1HxvVeVJuVAzMyInZOfqMta4HF3CbkxZO/ngoUDhXx+roSdST9tEsgIuANrHbqN
+	 pywL2OgZVBRNQ==
+Received: from johan by xi.lan with local (Exim 4.99.3)
+	(envelope-from <johan@kernel.org>)
+	id 1wfID0-00000000Nea-2lTM;
+	Thu, 02 Jul 2026 16:16:06 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] USB: gadget: fsl-udc: fix device name leak on probe failure
+Date: Thu,  2 Jul 2026 16:15:33 +0200
+Message-ID: <20260702141536.90887-2-johan@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260702141536.90887-1-johan@kernel.org>
+References: <20260702141536.90887-1-johan@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617-sprain-dye-86c242ac@mheyne-amazon>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jun 17, 2026 at 08:26:39AM +0000, Maximilian Heyne wrote:
-> The upstream commit 7b735ef81286 ("rtnetlink: add missing
-> netlink_ns_capable() check for peer netns") doesn't apply on older
-> stable kernels due to refactoring. Therefore, this patch is an attempt
-> to implement the same capability check just directly in the respective
-> interface types.
+The gadget device name is set by UDC core when registering the gadget
+and must not be set before to avoid leaking the name in intermediate
+error paths (e.g. on dma pool creation failure).
 
-Why not just take the upstream commits instead?  That's simpler over
-time than a one-off patch.
+Fixes: eab35c4e6d95 ("usb: gadget: fsl_udc_core: let udc-core manage gadget->dev")
+Cc: stable@vger.kernel.org	# 3.10
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/usb/gadget/udc/fsl_udc_core.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-thanks,
+diff --git a/drivers/usb/gadget/udc/fsl_udc_core.c b/drivers/usb/gadget/udc/fsl_udc_core.c
+index 600ce8cc0fef..8c5b2f42ff44 100644
+--- a/drivers/usb/gadget/udc/fsl_udc_core.c
++++ b/drivers/usb/gadget/udc/fsl_udc_core.c
+@@ -2474,7 +2474,6 @@ static int fsl_udc_probe(struct platform_device *pdev)
+ 	udc_controller->gadget.name = driver_name;
+ 
+ 	/* Setup gadget.dev and register with kernel */
+-	dev_set_name(&udc_controller->gadget.dev, "gadget");
+ 	udc_controller->gadget.dev.of_node = pdev->dev.of_node;
+ 
+ 	if (!IS_ERR_OR_NULL(udc_controller->transceiver))
+-- 
+2.53.0
 
-greg k-h
