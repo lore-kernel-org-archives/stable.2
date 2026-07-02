@@ -1,44 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81D324E4C3;
-	Thu,  2 Jul 2026 16:54:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B1E318B9D
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 16:54:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783011256; cv=none; b=tHEJdgIX1N6Bl5YpqJnUD0S03PLuX7wVs/XaCGz37r8U+WOUyeyTgTLbatk5r/jUJVa/KU51J83U55ARlL1REHq9xfF00S2slzLCwrUISLgKz70zimxEdHsqGGFYbXX528pa2GTTFYRPArE+mFp2Ne3p2LEZcinT1r2gFjae/yk=
+	t=1783011257; cv=none; b=S0LZTQG3Ku6QM5FrQLvKjh3Hg1nxYPjdnlLSjJsoHW5oBOYG/AtmFYEYDl0feRF/PM7Jpv5zYtBWKdEh+PmoQmnJhkm6EDmvNGU/3aGKQJv0r/GBAsyfEBnOKCzGR3W7qhl9hXKFzObCI7pPaDz9CpqvMjo2MkwYmxcv+rfwDyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783011256; c=relaxed/simple;
-	bh=BevTuA3/jJ5SECFLk91iMCtiTlAlrW3N0YTD75t7Eic=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bLlGPZ6MRQHnFyMFkQBfj7N4tu6Zpgq/8zz4DXwnOIAXqvk18mpX1w/E91fGyi0iNyx1yTHl5xXa4q8wjIbJm/uOjEm7h+lzfj9G1dqyNbFzxLolLKLA3xV8lQkY9U4uvr4XGeHhMS9icjYqdaNBSUxrUuLUQ28TJv9XAmHNmsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ghz78+jz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783011257; c=relaxed/simple;
+	bh=jX86nFiXli7OqYmNr8GkSaY/BfnwjYRyX7CwrJ6i0mo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z5KoKd+AL+Snczs0wl2m8D2TjVrhTNUB6PI1+PY2kyr3B6VBLjXiPduGqNLwfa+8qKYEdB5T/C8nYpo3KQ/HmJ/BfTjs9tfQz8zvffz+zZ+4Flg7lVcC5ZMDZPEUQTsqTgQaCTYQjKv/aph/PWsMovcToZxbWL50oj50SJ90Mis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1izVBK4n; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=6uTqBlzX; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=i80g1EaL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=O61y2J9V; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ghz78+jz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7FE1F000E9;
-	Thu,  2 Jul 2026 16:54:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783011254;
-	bh=ze4srq5+DCycCV+R2RGqBklDhHe1AlJC6kvu8gm5Y7I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ghz78+jzMY3J914a9iH7eiktjUxIxgLTwSUmK9zPYagEmQewivZsE19nvE7Zy6Gif
-	 ZMIL106H9KlhWvHKw07E8Nu7R7UI+UaDaoj+N7dOPHO0XjfJ6IKLvxsvyEhPPgI7Wb
-	 7KJZ20/FOQEk/tnKjByF2ngddQrGRcUqKHUmhXsE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yiming Qian <yimingqian591@gmail.com>,
-	Keenan Dong <keenanat2000@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.18 038/108] net: skmsg: preserve sg.copy across SG transforms
-Date: Thu,  2 Jul 2026 18:20:35 +0200
-Message-ID: <20260702155112.898262608@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260702155112.110058792@linuxfoundation.org>
-References: <20260702155112.110058792@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1izVBK4n";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6uTqBlzX";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="i80g1EaL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O61y2J9V"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7658C75FB5;
+	Thu,  2 Jul 2026 16:54:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1783011254; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=heA6NlsuWwAqm6a7CgrmaEXikzhssH3mg744Z6Vx3HM=;
+	b=1izVBK4nVCJ74vk0GUwiMAv0GlH+Ps2ASXq6SqAYaeWjK8PW5ZlWd6OSAcLlqMtiVIBUEa
+	cSd5oQV9mUQl3GWMrCCyaTZEx4FPCpXWM4uBLp7hZkonWn/RY/aHQdxawvRDSs2mPlViDV
+	SrKqtCd+GWMLNwmY1EcWQSfqqOJgTUo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1783011254;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=heA6NlsuWwAqm6a7CgrmaEXikzhssH3mg744Z6Vx3HM=;
+	b=6uTqBlzXnUFP3mTmChLkBqe9bSn2aV9bO5GZPaSJwxMPe2hHKRPdjxwC+vZWd4zUAyunz+
+	VMNDWuCVoSd9ROBA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=i80g1EaL;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=O61y2J9V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1783011253; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=heA6NlsuWwAqm6a7CgrmaEXikzhssH3mg744Z6Vx3HM=;
+	b=i80g1EaLCR84t4GJZWPKL6QND00ecxXrtiK9z4q8TQS+NWQohgoAxa1kY0V3lE8MaUmP8v
+	W+i9mEj6mJepcuqBJ6gIqD3NXTlMfhAnx1iU+B5UithgtQwzoP6850iPelgEugyd/gM4ZW
+	xkQ+27Ttbg/+EogYLdaQToHHKmrNSDc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1783011253;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=heA6NlsuWwAqm6a7CgrmaEXikzhssH3mg744Z6Vx3HM=;
+	b=O61y2J9VlyCj+9OmiKJmZFL1QCLCphSXO1xaHSug75JaSqB+QWHtxr4oIESNxRBIWlEZoA
+	4DbvtMoAIhZYetDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F384C779AA;
+	Thu,  2 Jul 2026 16:54:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HYAEOLOXRmrqQQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Thu, 02 Jul 2026 16:54:11 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <npache@redhat.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	Pedro Falcato <pfalcato@suse.de>,
+	stable@vger.kernel.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Matthew Wilcox <willy@infradead.org>,
+	Song Liu <song@kernel.org>,
+	Eric Hagberg <ehagberg@janestreet.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Gregg Leventhal <gleventhal@janestreet.com>
+Subject: [PATCH stable] mm/khugepaged: write all dirty file folios when collapsing
+Date: Thu,  2 Jul 2026 17:54:09 +0100
+Message-ID: <20260702165409.164568-1-pfalcato@suse.de>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,293 +100,152 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	RCVD_COUNT_TWO(0.00)[2];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.org.uk:email,suse.cz:email,infradead.org:email,janestreet.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,nvidia.com:email,suse.de:email,suse.de:dkim,suse.de:mid];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 7658C75FB5
+X-Spam-Score: -3.01
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+As-is, khugepaged and writable-file opening exclude each other. A file
+cannot be open writeable and have THPs (because the filesystem is not aware
+of them). khugepaged will never collapse file pages for files that are
+opened writeable. On an open(O_RDWR/O_WRONLY), the page cache for that
+particular file is dropped. This is fine because nothing could've been
+dirtied.
 
-------------------
+However, there is an edge-case: collapse_file() might not be able to
+coexist with concurrent writers, but it can coexist with dirty folios
+(from previous writers). Therefore, the following can happen:
 
-From: Yiming Qian <yimingqian591@gmail.com>
+open(file, O_RDWR)
+write(file)
+close(file)
+madvise(file_mapping, MADV_COLLAPSE, some non-dirty range)
+open(file, O_RDWR)
+ nr_thps > 0
+  truncate_inode_pages()
+    /* THPs are cleared out, but so are the dirty folios */
 
-commit 406e8a651a7b854c41fecd5117bb282b3a6c2c6b upstream.
+When this edge-case happens, there is data loss, as the dirty folios are
+fully discarded.
 
-The sk_msg sg.copy bitmap is part of the scatterlist entry ownership
-state. A set bit tells sk_msg_compute_data_pointers() not to expose the
-entry through writable BPF ctx->data. This protects entries backed by
-pages that are not private to the sk_msg, such as splice-backed file
-page-cache pages.
+Fix it by fully writing back the page cache (and waiting) when collapsing
+file THPs. Doing so provides the guarantee that no dirty folio will be
+observed while there are active THPs. To fully ensure this is safe, the
+invalidate_lock needs to be held while doing the writeout, so that
+do_dentry_open()'s page cache truncation excludes this write-and-wait.
 
-Several sk_msg transform paths move, copy, split, or compact
-msg->sg.data[] entries without moving the matching sg.copy bit. This can
-make an externally backed entry arrive at a new slot with a clear copy
-bit. A later SK_MSG verdict can then expose sg_virt(sge) as writable
-ctx->data and BPF stores can modify the original page cache.
-
-Keep sg.copy synchronized with sg.data[] whenever entries are
-transferred, shifted, split, or copied into a new sk_msg. Clear the bit
-when an entry is replaced by a newly allocated private page or freed.
-This covers the BPF pull/push/pop helpers, sk_msg_shift_left/right(),
-sk_msg_xfer(), and tls_split_open_record(), including the partial tail
-entry created during TLS open-record splitting.
-
-Fixes: d3b18ad31f93 ("tls: add bpf support to sk_msg handling")
 Cc: stable@vger.kernel.org
-Reported-by: Yiming Qian <yimingqian591@gmail.com>
-Reported-by: Keenan Dong <keenanat2000@gmail.com>
-Signed-off-by: Yiming Qian <yimingqian591@gmail.com>
-Link: https://patch.msgid.link/20260610062137.49075-1-yimingqian591@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Song Liu <song@kernel.org>
+Cc: Eric Hagberg <ehagberg@janestreet.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+Reported-by: Gregg Leventhal <gleventhal@janestreet.com>
+Closes: https://lore.kernel.org/linux-mm/CAFN_u7H_0ECF3jixP=T=U7AH5=Q3wQNvJMo8an3VqUDMerQfUw@mail.gmail.com/
+Tested-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Pedro Falcato <pfalcato@suse.de>
 ---
- include/linux/skmsg.h |   15 +++++++++++----
- net/core/filter.c     |   27 +++++++++++++++++++++++++++
- net/core/skmsg.c      |    2 ++
- net/tls/tls_sw.c      |    4 ++++
- 4 files changed, 44 insertions(+), 4 deletions(-)
+This patch is written against 7.1.0 (because the code no longer exists in mainline).
 
---- a/include/linux/skmsg.h
-+++ b/include/linux/skmsg.h
-@@ -4,6 +4,7 @@
- #ifndef _LINUX_SKMSG_H
- #define _LINUX_SKMSG_H
+Zi, I kept your Tested-by, but I had to move some things around and
+use the invalidate lock. Please re-test if you can.
+
+ mm/khugepaged.c | 39 +++++++++++++++++++++++++--------------
+ 1 file changed, 25 insertions(+), 14 deletions(-)
+
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index b8452dbdb043..0707d719a270 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2094,32 +2094,43 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 		goto xa_unlocked;
+ 	}
  
-+#include <linux/bitops.h>
- #include <linux/bpf.h>
- #include <linux/filter.h>
- #include <linux/scatterlist.h>
-@@ -199,11 +200,14 @@ static inline void sk_msg_xfer(struct sk
- 			       int which, u32 size)
- {
- 	dst->sg.data[which] = src->sg.data[which];
-+	__assign_bit(which, dst->sg.copy, test_bit(which, src->sg.copy));
- 	dst->sg.data[which].length  = size;
- 	dst->sg.size		   += size;
- 	src->sg.size		   -= size;
- 	src->sg.data[which].length -= size;
- 	src->sg.data[which].offset += size;
-+	if (!src->sg.data[which].length)
-+		__clear_bit(which, src->sg.copy);
- }
- 
- static inline void sk_msg_xfer_full(struct sk_msg *dst, struct sk_msg *src)
-@@ -273,16 +277,19 @@ static inline void sk_msg_page_add(struc
- static inline void sk_msg_sg_copy(struct sk_msg *msg, u32 i, bool copy_state)
- {
- 	do {
--		if (copy_state)
--			__set_bit(i, msg->sg.copy);
--		else
--			__clear_bit(i, msg->sg.copy);
-+		__assign_bit(i, msg->sg.copy, copy_state);
- 		sk_msg_iter_var_next(i);
- 		if (i == msg->sg.end)
- 			break;
- 	} while (1);
- }
- 
-+static inline void sk_msg_sg_copy_assign(struct sk_msg *dst, u32 dst_i,
-+					 const struct sk_msg *src, u32 src_i)
-+{
-+	__assign_bit(dst_i, dst->sg.copy, test_bit(src_i, src->sg.copy));
-+}
+-	if (!is_shmem) {
++xa_locked:
++	xas_unlock_irq(&xas);
++xa_unlocked:
 +
- static inline void sk_msg_sg_copy_set(struct sk_msg *msg, u32 start)
- {
- 	sk_msg_sg_copy(msg, start, true);
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -2732,11 +2732,13 @@ BPF_CALL_4(bpf_msg_pull_data, struct sk_
- 		poffset += len;
- 		sge->length = 0;
- 		put_page(sg_page(sge));
-+		__clear_bit(i, msg->sg.copy);
- 
- 		sk_msg_iter_var_next(i);
- 	} while (i != last_sge);
- 
- 	sg_set_page(&msg->sg.data[first_sge], page, copy, 0);
-+	__clear_bit(first_sge, msg->sg.copy);
- 
- 	/* To repair sg ring we need to shift entries. If we only
- 	 * had a single entry though we can just replace it and
-@@ -2762,9 +2764,11 @@ BPF_CALL_4(bpf_msg_pull_data, struct sk_
- 			break;
- 
- 		msg->sg.data[i] = msg->sg.data[move_from];
-+		sk_msg_sg_copy_assign(msg, i, msg, move_from);
- 		msg->sg.data[move_from].length = 0;
- 		msg->sg.data[move_from].page_link = 0;
- 		msg->sg.data[move_from].offset = 0;
-+		__clear_bit(move_from, msg->sg.copy);
- 		sk_msg_iter_var_next(i);
- 	} while (1);
- 
-@@ -2793,6 +2797,7 @@ BPF_CALL_4(bpf_msg_push_data, struct sk_
- {
- 	struct scatterlist sge, nsge, nnsge, rsge = {0}, *psge;
- 	u32 new, i = 0, l = 0, space, copy = 0, offset = 0;
-+	bool sge_copy, nsge_copy, nnsge_copy, rsge_copy = false;
- 	u8 *raw, *to, *from;
- 	struct page *page;
- 
-@@ -2865,6 +2870,7 @@ BPF_CALL_4(bpf_msg_push_data, struct sk_
- 			sk_msg_iter_var_prev(i);
- 		psge = sk_msg_elem(msg, i);
- 		rsge = sk_msg_elem_cpy(msg, i);
-+		rsge_copy = test_bit(i, msg->sg.copy);
- 
- 		psge->length = start - offset;
- 		rsge.length -= psge->length;
-@@ -2889,24 +2895,32 @@ BPF_CALL_4(bpf_msg_push_data, struct sk_
- 
- 	/* Shift one or two slots as needed */
- 	sge = sk_msg_elem_cpy(msg, new);
-+	sge_copy = test_bit(new, msg->sg.copy);
- 	sg_unmark_end(&sge);
- 
- 	nsge = sk_msg_elem_cpy(msg, i);
-+	nsge_copy = test_bit(i, msg->sg.copy);
- 	if (rsge.length) {
- 		sk_msg_iter_var_next(i);
- 		nnsge = sk_msg_elem_cpy(msg, i);
-+		nnsge_copy = test_bit(i, msg->sg.copy);
- 		sk_msg_iter_next(msg, end);
- 	}
- 
- 	while (i != msg->sg.end) {
- 		msg->sg.data[i] = sge;
-+		__assign_bit(i, msg->sg.copy, sge_copy);
- 		sge = nsge;
-+		sge_copy = nsge_copy;
- 		sk_msg_iter_var_next(i);
- 		if (rsge.length) {
- 			nsge = nnsge;
-+			nsge_copy = nnsge_copy;
- 			nnsge = sk_msg_elem_cpy(msg, i);
-+			nnsge_copy = test_bit(i, msg->sg.copy);
- 		} else {
- 			nsge = sk_msg_elem_cpy(msg, i);
-+			nsge_copy = test_bit(i, msg->sg.copy);
++	/*
++	 * If collapse is successful, flush must be done now before copying.
++	 * If collapse is unsuccessful, does flush actually need to be done?
++	 * Do it anyway, to clear the state.
++	 */
++	try_to_unmap_flush();
++
++	if (result == SCAN_SUCCEED && !is_shmem) {
++		/*
++		 * invalidate_lock as shared excludes against concurrent opens
++		 * in do_dentry_open() truncating the page cache. This is
++		 * particularly important if there are dirty folios in transit.
++		 */
++		filemap_invalidate_lock_shared(mapping);
+ 		filemap_nr_thps_inc(mapping);
+ 		/*
+ 		 * Paired with the fence in do_dentry_open() -> get_write_access()
+ 		 * to ensure i_writecount is up to date and the update to nr_thps
+ 		 * is visible. Ensures the page cache will be truncated if the
+-		 * file is opened writable.
++		 * file is opened writable. If collapse looks to be successful,
++		 * flush any dirty pages out the page cache. With the nr_thps
++		 * incremented, there won't be any new writers (nor new dirties).
+ 		 */
+ 		smp_mb();
+-		if (inode_is_open_for_write(mapping->host)) {
++		if (inode_is_open_for_write(mapping->host) || filemap_write_and_wait(mapping)) {
+ 			result = SCAN_FAIL;
+ 			filemap_nr_thps_dec(mapping);
++			filemap_invalidate_unlock_shared(mapping);
++			goto rollback;
  		}
++		filemap_invalidate_unlock_shared(mapping);
  	}
  
-@@ -2920,6 +2934,7 @@ place_new:
- 		get_page(sg_page(&rsge));
- 		sk_msg_iter_var_next(new);
- 		msg->sg.data[new] = rsge;
-+		__assign_bit(new, msg->sg.copy, rsge_copy);
- 	}
- 
- 	sk_msg_reset_curr(msg);
-@@ -2947,25 +2962,33 @@ static void sk_msg_shift_left(struct sk_
- 		prev = i;
- 		sk_msg_iter_var_next(i);
- 		msg->sg.data[prev] = msg->sg.data[i];
-+		sk_msg_sg_copy_assign(msg, prev, msg, i);
- 	} while (i != msg->sg.end);
- 
- 	sk_msg_iter_prev(msg, end);
-+	__clear_bit(msg->sg.end, msg->sg.copy);
- }
- 
- static void sk_msg_shift_right(struct sk_msg *msg, int i)
- {
- 	struct scatterlist tmp, sge;
-+	bool tmp_copy, sge_copy;
- 
- 	sk_msg_iter_next(msg, end);
- 	sge = sk_msg_elem_cpy(msg, i);
-+	sge_copy = test_bit(i, msg->sg.copy);
- 	sk_msg_iter_var_next(i);
- 	tmp = sk_msg_elem_cpy(msg, i);
-+	tmp_copy = test_bit(i, msg->sg.copy);
- 
- 	while (i != msg->sg.end) {
- 		msg->sg.data[i] = sge;
-+		__assign_bit(i, msg->sg.copy, sge_copy);
- 		sk_msg_iter_var_next(i);
- 		sge = tmp;
-+		sge_copy = tmp_copy;
- 		tmp = sk_msg_elem_cpy(msg, i);
-+		tmp_copy = test_bit(i, msg->sg.copy);
- 	}
- }
- 
-@@ -3025,6 +3048,8 @@ BPF_CALL_4(bpf_msg_pop_data, struct sk_m
- 		struct scatterlist *nsge, *sge = sk_msg_elem(msg, i);
- 		int a = start - offset;
- 		int b = sge->length - pop - a;
-+		u32 sge_i = i;
-+		bool sge_copy = test_bit(i, msg->sg.copy);
- 
- 		sk_msg_iter_var_next(i);
- 
-@@ -3037,6 +3062,7 @@ BPF_CALL_4(bpf_msg_pop_data, struct sk_m
- 				sg_set_page(nsge,
- 					    sg_page(sge),
- 					    b, sge->offset + pop + a);
-+				__assign_bit(i, msg->sg.copy, sge_copy);
- 			} else {
- 				struct page *page, *orig;
- 				u8 *to, *from;
-@@ -3053,6 +3079,7 @@ BPF_CALL_4(bpf_msg_pop_data, struct sk_m
- 				memcpy(to, from, a);
- 				memcpy(to + a, from + a + pop, b);
- 				sg_set_page(sge, page, a + b, 0);
-+				__clear_bit(sge_i, msg->sg.copy);
- 				put_page(orig);
- 			}
- 			pop = 0;
---- a/net/core/skmsg.c
-+++ b/net/core/skmsg.c
-@@ -66,6 +66,7 @@ int sk_msg_alloc(struct sock *sk, struct
- 			sge = &msg->sg.data[msg->sg.end];
- 			sg_unmark_end(sge);
- 			sg_set_page(sge, pfrag->page, use, orig_offset);
-+			__clear_bit(msg->sg.end, msg->sg.copy);
- 			get_page(pfrag->page);
- 			sk_msg_iter_next(msg, end);
- 		}
-@@ -186,6 +187,7 @@ static int sk_msg_free_elem(struct sock
- 			sk_mem_uncharge(sk, len);
- 		put_page(sg_page(sge));
- 	}
-+	__clear_bit(i, msg->sg.copy);
- 	memset(sge, 0, sizeof(*sge));
- 	return len;
- }
---- a/net/tls/tls_sw.c
-+++ b/net/tls/tls_sw.c
-@@ -623,6 +623,7 @@ static int tls_split_open_record(struct
- 	struct scatterlist *sge, *osge, *nsge;
- 	u32 orig_size = msg_opl->sg.size;
- 	struct scatterlist tmp = { };
-+	u32 tmp_i = 0;
- 	struct sk_msg *msg_npl;
- 	struct tls_rec *new;
- 	int ret;
-@@ -644,6 +645,7 @@ static int tls_split_open_record(struct
- 		if (sge->length > apply) {
- 			u32 len = sge->length - apply;
- 
-+			tmp_i = i;
- 			get_page(sg_page(sge));
- 			sg_set_page(&tmp, sg_page(sge), len,
- 				    sge->offset + apply);
-@@ -675,6 +677,7 @@ static int tls_split_open_record(struct
- 	nsge = sk_msg_elem(msg_npl, j);
- 	if (tmp.length) {
- 		memcpy(nsge, &tmp, sizeof(*nsge));
-+		sk_msg_sg_copy_assign(msg_npl, j, msg_opl, tmp_i);
- 		sk_msg_iter_var_next(j);
- 		nsge = sk_msg_elem(msg_npl, j);
- 	}
-@@ -682,6 +685,7 @@ static int tls_split_open_record(struct
- 	osge = sk_msg_elem(msg_opl, i);
- 	while (osge->length) {
- 		memcpy(nsge, osge, sizeof(*nsge));
-+		sk_msg_sg_copy_assign(msg_npl, j, msg_opl, i);
- 		sg_unmark_end(nsge);
- 		sk_msg_iter_var_next(i);
- 		sk_msg_iter_var_next(j);
-
+-xa_locked:
+-	xas_unlock_irq(&xas);
+-xa_unlocked:
+-
+-	/*
+-	 * If collapse is successful, flush must be done now before copying.
+-	 * If collapse is unsuccessful, does flush actually need to be done?
+-	 * Do it anyway, to clear the state.
+-	 */
+-	try_to_unmap_flush();
+-
+ 	if (result == SCAN_SUCCEED && nr_none &&
+ 	    !shmem_charge(mapping->host, nr_none))
+ 		result = SCAN_FAIL;
+-- 
+2.54.0
 
