@@ -1,148 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A22437A857
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 15:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C61353A71
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 15:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783006585; cv=none; b=XAl08LHbhEyZ3R8+wlBUHd292HGhbm3IpBeE7h+nkcf/8m0xwylo6zKiVTof4XfkkVeIz5AFoLZX+knc8GQwMIcWMIox231LNWVxVH8dHO/kAysmqeOllnDqADX6ttD0kLYmDs9wVZqf8Pd7ry2jncOmoLt9wW9QKEGzkBc9KhA=
+	t=1783006644; cv=none; b=KMy4lBh6x8j53O1TIidMgx/c3pvAe6Xi0mcBv4OJS/kvCGWsPHb7bGcr8h/pCAo+L+CSeo8bW429cUvg4trkGyHBUNimTZS7mncsC8+9LshIT8M+mIEfkz6ixsFIDJnweFrh+KkiGU9NuOyMhRncpxOvMxbgnRO6Wb53kJzNLXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783006585; c=relaxed/simple;
-	bh=Ct3iGGq2SMb3lyx9Ud/QhPAWp/h9dObfKsy9YS2pVXs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TYufRquI+Z266xXsKj2UcmeVSujVKzoTXw1OtuP0/DrQiARgTNp+nBuZstDG9et4AOp1yKunP9CqNGD5FmutH1NNvzFHLhGZ203/GYKMAstAZ/LA4dyIge9AMZrU04CbW3Ce0EnDl7J24+lQ5bxWLJ/dkXK2y8a58G0w+0zF9XM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jmwno2h5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783006644; c=relaxed/simple;
+	bh=AIrYhi5OowtDq9G+B94nZBHdwHjATxJ6Q9liZf5as3s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Y4Ppy7LJ88Anf2gRu2rAGxQKdtFduv/eg7FkdYRHRjEwGmhvY8df1JUfuuKuyjy1omeC+tPMn4/TlA0pGSb6WnNiUOZi270EpVB/jJvcNnc4N/rAoJkOeUa02Gau2dapOWZSCaUwM4hvRcg+FqADLPR25Dj3gGtgU4m/YFhTTLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cgWww9OW; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jmwno2h5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CBC01F000E9;
-	Thu,  2 Jul 2026 15:36:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783006584;
-	bh=VWRF9LKNHGFvrhxGvs54A/h1HtwOUVzWHEKT+l6cGw0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jmwno2h5ZKGCPW9nBmqMZRma107Iw3k2Ekbsh++X11+5d8cjMYcwZIddX2GMftUhS
-	 KUTt9c5HeIesG4Nudr14RNpUfZjefB38IANqdXIJiKYz+JC2cdpSfl6ndIBmjU0+Iu
-	 TCEBF9d0Hvl0pyXzMg8imrxBx3d3YVIRUcgweXL5JwnDmIHb4G81mcoxLSWcKC7prN
-	 nYX8vVot3FSe7fgMgNN9LwY/a4IFdXZQxfw35v055dt7LfzaEHAuwQRrwN853xP9py
-	 Y5LFNS2XIDX6KmwuK6hINRlS4571LiyWi7pN17lRr2XdJBnywcwQ2WcIehomnjlAuM
-	 2wHhxosPWx/SQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
-	Xiao Liang <shaw.leon@gmail.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] net: ip_gre: require CAP_NET_ADMIN in the device netns for changelink
-Date: Thu,  2 Jul 2026 11:36:22 -0400
-Message-ID: <20260702153622.3533221-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070222-gently-rally-f7d9@gregkh>
-References: <2026070222-gently-rally-f7d9@gregkh>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cgWww9OW"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id EEC8E1A0DE7;
+	Thu,  2 Jul 2026 15:37:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BFDB65FF03;
+	Thu,  2 Jul 2026 15:37:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BF14D104C9565;
+	Thu,  2 Jul 2026 17:37:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783006637; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=lTA0HpAPorocbxVlyn/m7V1bsvYRqGh8CYfVJvJ2hys=;
+	b=cgWww9OWl6A6RPBSxJRSknpPFsoMYFnVRCz/9OI3heR1ex+LDpE6gb+0kyBUGmgPlPOBTZ
+	zjEwpJ+QRmqluIFI4X9wbqdQcyH1rsj1h7kVdcVBbMtZPFai9pjFkVy/GqRWkfB7/mjNKL
+	V6NaZ6yweBcoSTurE44hBRDwXEd4XqqtZGnEuKzKPJ7OPBrCjQ8w2Om7L8H8yASr01HPIR
+	Zda43+ydkTn4QPrY/Oi+p393+1V/NbXdXPulwk1aydIiU8Btoxu4gbVXQeUpyI3OqFaigx
+	x6AFkEsgg4Cyd1HBBNV6lDHsKozXffBmyVJXl8uaecCAzg1Bgrku1LTNQpwdDg==
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Date: Thu, 02 Jul 2026 17:37:02 +0200
+Subject: [PATCH net v4] net: macb: drop in-flight Tx SKBs on close
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260702-macb-drop-tx-v4-1-1c833eebdbc8@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XNSw6CMBCA4auQrh3TlkLBlfcwLmw7SI1S0laiI
+ dzdgia+ljOZ75+RBPQWA9lkI/E42GBdlwaxyohuD90RwZo0E055SQXP4XLQCox3PcQbNLVGySW
+ nhhYkkd5jY29Lbkc6jGT/XIarOqGOc2g+a22Izt+XpwNbjl998d0fGDBQOWolK2kqYbbKuXi23
+ Vq7yxIf+CevfjgHCqWQTcHq2lSm+ef5m5dM/vA8cSO0xCI9r6n65tM0PQCtHESOPwEAAA==
+X-Change-ID: 20260423-macb-drop-tx-f9ce72720d05
+To: Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Jeff Garzik <jeff@garzik.org>, Conor Dooley <conor.dooley@microchip.com>
+Cc: Paolo Valerio <pvalerio@redhat.com>, Nicolai Buchwitz <nb@tipi-net.de>, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
+ Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, stable@vger.kernel.org, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Maoyi Xie <maoyixie.tju@gmail.com>
+The MACB driver has since forever leaked the outgoing SKBs that
+have not yet been marked as completed. They live in queue->tx_skb
+which gets freed without remorse nor checking.
 
-[ Upstream commit 8165f7ff57d9667d2bb477ef6af83ede7fed4ad7 ]
+macb_free_consistent() gets called in a few codepaths, but only close will
+trigger the added expressions. In macb_open() and macb_alloc_consistent()
+failure cases, queues' tx_skb just got allocated and are empty.
 
-A tunnel changelink() operates on at most two netns, dev_net(dev) and
-the tunnel link netns t->net. They differ once the device is created in
-or moved to a netns other than the one the request runs in. The rtnl
-changelink path checks CAP_NET_ADMIN only against dev_net(dev), so a
-caller privileged there but not in t->net can rewrite a tunnel that
-lives in t->net.
-
-Add rtnl_dev_link_net_capable() next to rtnl_get_net_ns_capable() in
-net/core/rtnetlink.c. It requires CAP_NET_ADMIN in the link netns and is
-skipped when the link netns is dev_net(dev), where the rtnl path already
-checked it. The other patches in this series use the same helper.
-
-Gate ipgre_changelink() and erspan_changelink() with it, at the top of
-the op before any attribute is parsed, because the parsers update live
-tunnel fields first. ipgre_netlink_parms() sets t->collect_md before
-ip_tunnel_changelink() runs.
-
-Commit 8b484efd5cb4 ("ip6: vti: Use ip6_tnl.net in
-vti6_siocdevprivate().") added the same check on the ioctl path. This
-adds it on RTM_NEWLINK.
-
-Reported-by: Xiao Liang <shaw.leon@gmail.com>
-Closes: https://lore.kernel.org/netdev/CABAhCOSzP1vaThGV35_VnsRCb=87_CPjPVsTHbq905k8A+BuUg@mail.gmail.com/
-Fixes: b57708add314 ("gre: add x-netns support")
+Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20260612085941.3158249-2-maoyixie.tju@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
 ---
- include/net/rtnetlink.h | 2 ++
- net/core/rtnetlink.c    | 8 ++++++++
- net/ipv4/ip_gre.c       | 6 ++++++
- 3 files changed, 16 insertions(+)
+Changes in v4:
+- Drop the skb_drop_reason code. No other Ethernet driver does that and
+  the reasoning (because our stats are broken) is a bad one.
+- Take Rb trailer from Nicolai.
+- Drop <hskinnemoen@atmel.com> email that gets rejected.
+- Rebase upon latest net/main (d8e8b85a85fe).
+- Link to v3: https://patch.msgid.link/20260617-macb-drop-tx-v3-0-d4c7e57d890b@bootlin.com
 
-diff --git a/include/net/rtnetlink.h b/include/net/rtnetlink.h
-index e893b1f21913e5..b4869af378d12e 100644
---- a/include/net/rtnetlink.h
-+++ b/include/net/rtnetlink.h
-@@ -183,6 +183,8 @@ int rtnl_configure_link(struct net_device *dev, const struct ifinfomsg *ifm);
- int rtnl_nla_parse_ifinfomsg(struct nlattr **tb, const struct nlattr *nla_peer,
- 			     struct netlink_ext_ack *exterr);
- struct net *rtnl_get_net_ns_capable(struct sock *sk, int netnsid);
-+bool rtnl_dev_link_net_capable(const struct net_device *dev,
-+			       const struct net *link_net);
+Changes in v3:
+- Drop stats fixing. A proper fix deserves its own net-next refactoring
+  series to migrate to netdev_stat_ops (ynltool uAPI), which will come
+  in later. We keep the tx_dropped++ because they are safe as every
+  other context is disabled when macb_free_consistent() is called.
+- Rebased to latest net/main (406e8a651a7b), nothing to report.
+- Link to v2: https://patch.msgid.link/20260428-macb-drop-tx-v2-0-647f5199d8df@bootlin.com
+
+Changes in v2:
+- Increment tx_dropped stat once per SKB, not once per frame.
+- Reset tx_head & tx_tail to avoid keeping stalled cursors.
+- Fix SKB dropped reasons throughout by adding the reason as parameter
+  to macb_tx_unmap(). This is a new patch. Then the drop-all-on-close
+  fix can use this ability to report we are not consuming SKBs.
+- Add increment to stats->tx_dropped on DMA mapping failure and
+  tx_error_task. Done as separate patches (3 and 4).
+- Rebase upon net/main @ 46f74a3f7d57, nothing to report.
+- Link to v1: https://patch.msgid.link/20260424-macb-drop-tx-v1-1-b3ecb787d84d@bootlin.com
+---
+ drivers/net/ethernet/cadence/macb_main.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index fd282a1700fb..d394f1f43b68 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -2668,8 +2668,25 @@ static void macb_free_consistent(struct macb *bp)
+ 	dma_free_coherent(dev, size, bp->queues[0].rx_ring, bp->queues[0].rx_ring_dma);
  
- #define MODULE_ALIAS_RTNL_LINK(kind) MODULE_ALIAS("rtnl-link-" kind)
- 
-diff --git a/net/core/rtnetlink.c b/net/core/rtnetlink.c
-index 5603bb4a6cafc2..0da09c19428eaf 100644
---- a/net/core/rtnetlink.c
-+++ b/net/core/rtnetlink.c
-@@ -2024,6 +2024,14 @@ struct net *rtnl_get_net_ns_capable(struct sock *sk, int netnsid)
- }
- EXPORT_SYMBOL_GPL(rtnl_get_net_ns_capable);
- 
-+bool rtnl_dev_link_net_capable(const struct net_device *dev,
-+			       const struct net *link_net)
-+{
-+	return net_eq(link_net, dev_net(dev)) ||
-+	       ns_capable(link_net->user_ns, CAP_NET_ADMIN);
-+}
-+EXPORT_SYMBOL_GPL(rtnl_dev_link_net_capable);
+ 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
+-		kfree(queue->tx_skb);
+-		queue->tx_skb = NULL;
++		if (queue->tx_skb) {
++			unsigned int dropped = 0, tail;
 +
- static int rtnl_valid_dump_ifinfo_req(const struct nlmsghdr *nlh,
- 				      bool strict_check, struct nlattr **tb,
- 				      struct netlink_ext_ack *extack)
-diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-index c56848f36298d4..213d29fe190c16 100644
---- a/net/ipv4/ip_gre.c
-+++ b/net/ipv4/ip_gre.c
-@@ -1407,6 +1407,9 @@ static int ipgre_changelink(struct net_device *dev, struct nlattr *tb[],
- 	struct ip_tunnel_parm p;
- 	int err;
- 
-+	if (!rtnl_dev_link_net_capable(dev, t->net))
-+		return -EPERM;
++			for (tail = queue->tx_tail; tail != queue->tx_head;
++			     tail++) {
++				if (macb_tx_skb(queue, tail)->skb)
++					dropped++;
++				macb_tx_unmap(bp, macb_tx_skb(queue, tail), 0);
++			}
 +
- 	err = ipgre_newlink_encap_setup(dev, data);
- 	if (err)
- 		return err;
-@@ -1436,6 +1439,9 @@ static int erspan_changelink(struct net_device *dev, struct nlattr *tb[],
- 	struct ip_tunnel_parm p;
- 	int err;
- 
-+	if (!rtnl_dev_link_net_capable(dev, t->net))
-+		return -EPERM;
++			queue->stats.tx_dropped += dropped;
++			bp->dev->stats.tx_dropped += dropped;
 +
- 	err = ipgre_newlink_encap_setup(dev, data);
- 	if (err)
- 		return err;
--- 
-2.53.0
++			kfree(queue->tx_skb);
++			queue->tx_skb = NULL;
++		}
++
++		queue->tx_head = 0;
++		queue->tx_tail = 0;
+ 		queue->tx_ring = NULL;
+ 		queue->rx_ring = NULL;
+ 	}
+
+---
+base-commit: d8e8b85a85fe21954d303db68034aac4639df88d
+change-id: 20260423-macb-drop-tx-f9ce72720d05
+
+Best regards,
+--  
+Théo Lebrun <theo.lebrun@bootlin.com>
 
