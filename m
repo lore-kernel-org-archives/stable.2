@@ -1,129 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FA333B6E8;
-	Thu,  2 Jul 2026 20:45:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D649F352C3F
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 20:46:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783025122; cv=none; b=YCYf0bS7quBWQ1K8Sa8w+3Zb0/0D0HQjkqQh13DFxqpj1jWragIo4H3BrMiI6orO4BszAmu2NHp0/Jeiko+Sb+AMs6L69Whp5Mpm68ETmv3K1M+pRpGNcQ8cRDYTNNhbZDjv1yl/QKXyDAlRX43q8AQPvt1vw3eXEJbEgS1eHy4=
+	t=1783025208; cv=none; b=jgg3I+o3gc8bOEZxZyTOQTrXQH+Rn+PjqZ7a38tYBncJf755xFknoVnU/HD25GrrjTaaZTHKat56flXMHXVO5zPBfMkFOxLLiuqUd1AnNBYqBVNnLvObLgUNmsxs8Q9Fg953427dwqFXRqWwUSpKycOTy29h4oVEHWu/xUMCOV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783025122; c=relaxed/simple;
-	bh=9bjGaW2xqFtOKOjoH2XYmQTRMj29VWIQHUSfpLTJ8zw=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=KsUs3+MIzHCq1zgtf6s//8M1TMvNumLA/tLUHjMGACvWM2gNDk8oihz6uwLRbdtvZG8tboADclHHmnXpx+7LbN9Wj4L0AaqOlWaar1ZX0+liXlDB84QKhR6a+iwTu6j4ZpQwGJJ0WWeFfSz5tg9xfXDyCu93gaoLl5bW2PW/M58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E5HbCWdy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783025208; c=relaxed/simple;
+	bh=mzfMrKegHTcQ3RSy166F0rX9swRFELx8+9bHvnCtMOs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=o9vhAkVdA+qF5fXgwUXjuorJyfu/7xAZoZS4PgkT/CfHcFpfr55jGpCqVddm/ePBgig8onnhZ7eWenkyzIy7sKMi0JYJQxi1KdPqfCsSHkNaPsS4ZLYWuWGDXTjd2h+Qm+URfo2zu02fU4wRDKlf2GV9ye+MdhpWu3gOX3Nhwnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=nh6zGeuA; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E5HbCWdy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9231F000E9;
-	Thu,  2 Jul 2026 20:45:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783025121;
-	bh=sV7+DPdgpOZCAKw1wALrGg5YsvNfUvmv07GbElhuie8=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=E5HbCWdyDgFjbX3Kw8aQjk54DXEJtswWNjqmtu5+/uILwfsNP9bHYLNEqid334S2t
-	 Pmq0eHCawJrjtM3yEC2n8JG6f0Wr8r/RtlxAYkPOeeQ5xhqp1CEAmPH6MgQEGJon5C
-	 qiqQ0PHfawjB8O3zmwwZmaGmsdCloS6irUkB1a8pIOV8ROmsis5nAwCKvQUIji3KgK
-	 kiOnKF2IENddXQWAtHrS/LfSl5ddzgDLPtphW0j/CwPkDSGzEFsZ+4MUEnYEpVYDDs
-	 dNsAbhaxwMtUsv45KBI6GAYGHP3phUFEH3ROtIu8J5gWnFLrJNiIg60DMOxIH8i/6d
-	 T3oBbsihNTE7Q==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 72CE9F40068;
-	Thu,  2 Jul 2026 16:45:20 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Thu, 02 Jul 2026 16:45:20 -0400
-X-ME-Sender: <xms:4M1Gao5PqgJNVaV1IIaZw_E_PEL7VRBUH3WWBUWaa50bv-pi9sJKog>
-    <xme:4M1GaktHdHz4shAg3q58OUjsRmIir8FCI24Ity0L9K-5r9Dt-Sec5aw0s6i1SG5q6
-    EzlsHu5cLF5MeYJF3wk8Rged9TESaAeiTh9jtFle-eovG7YBkxb70Ed>
-X-ME-Proxy-Cause: dmFkZTEWBhmQujZvw9wF2vX4e7b730NnN6xlnP8PtWBPAXtiAZbWF71+2I8koxW6iNCjzm
-    didnUynxwK38SPL5U9lS8CB33VzAf6RRO8TyLxHwOrNHOWHpBTZ6cs2mJngiXR7hvMK9Cx
-    PnzXm9gfAa3PZ+GkMQ8/5G6cjSZOzZ9oj5dtpJTJlkb8fRH9SHdSZGWEEvqbn8WF0uFo03
-    TOomF2q8DK5CzuBCqzH1IHwJBixQCpfbYTzeg4R9UybsH/UKG8iwHnJXbKZubDIQIh++wH
-    svZXDYywiYFZ0wxFJ2dQsk+v/8G0G2Xcw5Gxkx3MQEG+AB2e0/adfAaEWcYiVMHRvoLeeY
-    ilzH2tGU2p+eTYVY3uKrggE76rtJT/vwG2FKBtd7Fwxop7XQqP5AsU2IvtfQBBwzpgx1ch
-    gh7Szhj/k4JKLvIHWjBrsyELht5mc9rZKIbgqXejlzZca0Oz5fpqLm25u/w3df2vtw/IIX
-    A5BgYc2AnWe+/lUCd/KswPDEg8PMIUO0LEqPOnZUBql8j+173TE809GvVaIQusoU/vXp2j
-    jtKyyTwo+YF0vyaK50ozIGtjGvWSX4pCz3VkMWQCjZ31BBdqezZZq5agLkBCuBGyPyCNXW
-    CsE/zNgDzyJTtZbAOzFycgATY13Lk9r1N2nOqzcqzR/Es8xG6JPmI7mDAnYQ
-X-ME-Proxy: <xmx:4M1GaucBJlFrs1fzQmolec4UeCc--ab0DSXEBb0KQq53q4NDYwNlqQ>
-    <xmx:4M1GaoXaadCZZ3GBirLmqksGJohM-8VIzWaiQ-qrCjMD1eYSu4eIkw>
-    <xmx:4M1GaneS1A2Kr2wm4oSP9-aD5OGg9UYm4OZOZxAyYJnFz_TsP8o7gw>
-    <xmx:4M1GakMH_HluRhmzyq3ClPoTu-PEcq-66HC5o7NBN5cQheEu17Dxgg>
-    <xmx:4M1GalhXg5heameuRMmawAKguXP4OjUNmBIYbwKSGDis128BlYMD75Gp>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 525D5780AB8; Thu,  2 Jul 2026 16:45:20 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="nh6zGeuA"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-473ba028d46so2282516f8f.1
+        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 13:46:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1783025205; x=1783630005; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=OJVX8JRPAX+8aFg3xElLxvZtOlGVWEW18wH1utQChXk=;
+        b=nh6zGeuAG73uWr3tqE4IJoByS9VihA+/hYHgNc0KJ04ZCNYXOoLE+OSWzFKMBrhKKI
+         npV6UBggpPfoHWcbpHre6J+PIQ2q8JauZWn4HIZVnmI3WVMZVpxYocWaE9J3i2BurnGi
+         z2HlKVrIXGlMcPop7VwTgisEdAf6LBWUxGS0h8ZdJ8bNuitjuzglgTgzTj6BumBzxYbc
+         stV48uu0aL4fw6/W2Dhthrmz/ILnl6dhCkV/TK0dVygHB7s5B1xq+es5kVcTou9xsf1R
+         s/vHniRFKllCpCrTZ+aZix7DiKFpr2IrkZlzh0h8KIRgVD/TwMFURUrgDcSuvweEfM+f
+         Tawg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783025205; x=1783630005;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=OJVX8JRPAX+8aFg3xElLxvZtOlGVWEW18wH1utQChXk=;
+        b=mZsZcz5XHJ7x2Sn9bKytevKnPabd2czFCb+KQI8D3qj90TPibGUvVZZHBzle6YkWtN
+         s7BPaSS859yF+zDeZaLN9usDYE65iH0WvIaBZ+1jtiwZFjQUS8j4oO96+uvO3axYJSzr
+         q1DHibI3bv78yieQB3Le2b/FArkGpBPEElfsXfYPzzKK3ywHh7nkJcIPSNFzG/tQaOgr
+         r+SJXkMuf+q7DRtwc1Wa2iok+GqQAq5wLyKb6EU1uz+tbFJunNN5JKeQ1PPx7j5Upk8v
+         RwsLF3drma9qzDrFMFgIJTWSrfAaR7isWo3Y3H7X6Rtj0OOKaBqXjHR8qiEeJA6V+kzv
+         Hb5w==
+X-Forwarded-Encrypted: i=1; AHgh+RoBOb1k6RyHbt/iIgxlNlJ8+B3DtNPPcLMWpDmwcBNRZxVOEMuU3iFq+CBDGqHHvSs9rhbypX0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEfsh0ViFkYNR5KgdydQOqducLlMMy2GOj1H3ry1soosN7mnJ+
+	c9KBEDWn4XQylNoQFW7q3M9WiRZ6D8uZ5cQb63ppoL4SuXxXVA2H6O4=
+X-Gm-Gg: AfdE7ckD47JhP7J4v3SSwl9upSUsf8iZMWJ205cZ6wEkcL+3P+jaLXNOid+j37Vdg7x
+	mR02kb4B+Gb062qmNsd566sH6MU2a4w4nNYNCvjkrlmmVYDcGzwfwWb4aZPQV4lqAu4ik0vAUTr
+	5bYAd6kh1wAwWY89snWn6L1i1MplpS1PnKpo5hlBewwZ46xl3mneA1jJZM7pH1mqMbSK4ZaoO0X
+	C53paE/52f6xKx/am6AF4rQ1t7YHwBXSnXog+9fRg9srmUckJSsP1NFa9aQ98EeIVwl8/xx6tGi
+	STg9mIP463iqm3kcJry5cdWEVsMbPPxhrk6ovPHYkFE0mmeIPZP/McArHmHoJ82O/CxjXa+8+Vh
+	N/v0e90ounxPk62hmO0Yf3kuuH1FtiaUJmSITKDWQz2JEn0n7jEy2NIiLvmfCP4YirROm6qHf55
+	0tM//sCTw7TpSbklXpQkVU6B2upYqrIut9zJXLiaz9DZSqrdSXvL4GAa3y1zYLP9o=
+X-Received: by 2002:a05:6000:2203:b0:470:c049:b444 with SMTP id ffacd0b85a97d-477550090a8mr11611351f8f.0.1783025205255;
+        Thu, 02 Jul 2026 13:46:45 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2ac307.dip0.t-ipconnect.de. [91.42.195.7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477dde1a4fdsm12963775f8f.26.2026.07.02.13.46.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 02 Jul 2026 13:46:44 -0700 (PDT)
+Message-ID: <becf13e8-600c-4f10-ba82-e8bcc972d8ca@googlemail.com>
+Date: Thu, 2 Jul 2026 22:46:44 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: At87D983WL-J
-Date: Thu, 02 Jul 2026 16:45:00 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-nfs@vger.kernel.org, "Jeff Layton" <jlayton@kernel.org>
-Message-Id: <75ee89cc-490d-4ba4-b6fa-32f5a2b62379@app.fastmail.com>
-In-Reply-To: <20260702202749.1618630-2-cel@kernel.org>
-References: <20260702202749.1618630-1-cel@kernel.org>
- <20260702202749.1618630-2-cel@kernel.org>
-Subject: Re: [PATCH 6.12.y 2/2] nfsd: release layout stid on setlease failure
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.6 000/175] 6.6.144-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260702155115.766838875@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260702155115.766838875@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Please note: The correct Author for this patch is "Chris Mason <clm@meta.com>"
+Am 02.07.2026 um 18:18 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.6.144 release.
+> There are 175 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-On Thu, Jul 2, 2026, at 4:27 PM, Chuck Lever wrote:
-> commit 30d55c8aabb261bc3f427d6b9aae7ef6206063f9 upstream.
->
-> nfs4_alloc_stid() publishes the new stid into cl->cl_stateids via
-> idr_alloc_cyclic() under cl_lock before returning to
-> nfsd4_alloc_layout_stateid(). When nfsd4_layout_setlease() then
-> fails, the error path frees the layout stateid directly with
-> kmem_cache_free() without ever calling idr_remove(), leaving the
-> IDR slot pointing at freed slab memory. Any subsequent IDR walker
-> (states_show, client teardown) dereferences the dangling pointer.
->
-> The correct teardown for an IDR-published stid is nfs4_put_stid(),
-> which removes the IDR slot under cl_lock, dispatches sc_free
-> (nfsd4_free_layout_stateid) to release ls->ls_file via
-> nfsd4_close_layout(), and drops the nfs4_file reference in its
-> tail.
->
-> Replace the manual nfsd_file_put + put_nfs4_file + kmem_cache_free
-> cleanup with a single nfs4_put_stid(stp).
->
-> Fixes: c5c707f96fc9 ("nfsd: implement pNFS layout recalls")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <clm@meta.com>
-> Reviewed-by: Jeff Layton <jlayton@kernel.org>
-> Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-> Signed-off-by: Chuck Lever <cel@kernel.org>
-> [ cel: no ls_fence_work in 6.12.y; dropped INIT_DELAYED_WORK hunk ]
-> Signed-off-by: Chuck Lever <cel@kernel.org>
-> ---
->  fs/nfsd/nfs4layouts.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
->
-> diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-> index fc5e82eddaa1..c08bc2d0d377 100644
-> --- a/fs/nfsd/nfs4layouts.c
-> +++ b/fs/nfsd/nfs4layouts.c
-> @@ -256,9 +256,7 @@ nfsd4_alloc_layout_stateid(struct 
-> nfsd4_compound_state *cstate,
->  	BUG_ON(!ls->ls_file);
-> 
->  	if (nfsd4_layout_setlease(ls)) {
-> -		nfsd_file_put(ls->ls_file);
-> -		put_nfs4_file(fp);
-> -		kmem_cache_free(nfs4_layout_stateid_cache, ls);
-> +		nfs4_put_stid(stp);
->  		return NULL;
->  	}
-> 
-> -- 
-> 2.54.0
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
+
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+
+
+Beste Grüße,
+Peter Schneider
 
 -- 
-Chuck Lever
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
