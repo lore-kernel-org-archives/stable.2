@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8BC305673;
-	Thu,  2 Jul 2026 15:32:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8C0307AE3;
+	Thu,  2 Jul 2026 15:35:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783006356; cv=none; b=qJkx3L78TI+GHoscwuGX3T4hKJXJtuL6oDFx2eP8hztfVR2grLims1ak2WdKOP7yyYYqD0zfhfOflflfq64Zc9l7femCoiEaFKYbg811uYB5sCbvFKTDqjrd6ZamyMDdmk0ZCSXh/mn2j7x2+njEjWOzWTG7RHW+sRu2x0wwnyE=
+	t=1783006508; cv=none; b=EJ0tt49NOp7r0mUaaY8lfm2xRb3rScd28INPWXoHPh9csMIWy2BeCEbAre+gGkUFZRbRhhPHIJeZ/NNuX1iHb2QZmHGag9LMSDgw6zC2M0uVnWyducoTts6JlALmmhFKoNk7Z2EWndz/DAZBihJ80CljMhNQn0g8VQbx8bTCaBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783006356; c=relaxed/simple;
-	bh=/7WF9BtcaYkfSSoY50IfeTlm3wvEay304OfbcPXH9QI=;
+	s=arc-20240116; t=1783006508; c=relaxed/simple;
+	bh=Te0GaiLMWUEcQ5syOEih+Esqk00taxjeJaaqn9hKGRE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HOxGiRnUAm9hZXbds3Fe5CID3v7it4T3pDxp3l6UDgY628EnfEnz/shcuCyOhHxhHKWt79DGrDOl5ujTReqBuHCg2HOwM7ZyJqfc7P/lTDzuL0Dcrk7RpyRrxD7xIGG5QLqwQvGvnKa2FN4/WrQUIOVIbowsMhS5muMEmC9VJcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RrfHMTc6; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=mYWzK9l88ttEjXcsmwp+75BhMAZ8GtyulvUtrrbLjUoLX4V/jvzkoADBKAx9FXkbbdg5RVsLlQYvPXdNaVH+ni48ny+wCjmSCyo3DUCjGvR+jxmYBJnMFNKXVr2DEFz7zTDEytBU51MhwOjAHmm2GGTcbmBCgP+pBudP5XfB7aA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=claYiCGD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RrfHMTc6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9271B1F000E9;
-	Thu,  2 Jul 2026 15:32:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="claYiCGD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ABFF1F000E9;
+	Thu,  2 Jul 2026 15:34:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783006355;
-	bh=K6BXeY1SuXwf6XNLIwmaGIUYMIBQYDCncKaEEO6QK5o=;
+	s=k20260515; t=1783006506;
+	bh=jWa1mD+awYvcVqO7NB5NDH/ijt/TFGs11SlmfzyMrnY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RrfHMTc6WpFqBIjgT3gKXJn9UOPoDGOmQjbssocbfy19iPWhzvzZOmDc2uft1nTM/
-	 G4mcZQYbMHXOrHseVJCkoj98KH/X/o931BKZVuGiz0o8Sx08jvdPQC00UZ01xGkDe0
-	 ANjXIGZ1epVEZa/j/Wi5/7tIdg3oTErIEWdOWc+QRX0pwGPIq40tRn1qFM7FYFQXAY
-	 zHmSlxTopOz0AVxljNc3xjqdmrClnJqiS3j5wBtfJ8Wu0IrfTdc0iUeT+sEnWbwR2S
-	 iMJSwCbMr6porAjAWR31wA7EQRiBrXaHFYTaVgyinEnl24OpPzs/7aTh/Q2g3PTBmX
-	 HzG8A1gFURwlg==
-Message-ID: <00d6e0fb-dcba-45d5-98c0-f5ed81604ca0@kernel.org>
-Date: Thu, 2 Jul 2026 17:32:26 +0200
+	b=claYiCGD9+iGsb3rEHrI1s5HJg2hkS7W6gL8omu35jx7x6oqejSN3G4l7/5wm7Oj8
+	 +qeUOcSoyvFJPDTJquyp36FHneu5xD9PqAyLHKJcQ+P3eTzJg10elubGWbYbJr+tvk
+	 gEE7trLBICmQyG4GF4bSPPqOoz8r1KexO9NQFWpt3u0Qf8T4/i/JJfkd3SpHnFKz99
+	 RX6qVFtcgpOs+c+omD5H0aJsah5hYR2/8Ml0K83F+CITI6tNy81EbWhYtG4d4EAkVL
+	 yNTim2+Lm0L3zEKKV5p6v+OojCOKZ+TZsWnkiFcAAN0kVhGppFbuEVQCf5lkvEZkm2
+	 Ixf8nfTRbGYxw==
+Message-ID: <38a23f8c-56c4-43a2-a3ed-bf7d4f784cda@kernel.org>
+Date: Thu, 2 Jul 2026 17:34:56 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,7 +35,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] mm/rmap: use huge_ptep_get() in try_to_unmap_one()
+Subject: Re: [PATCH v2 3/6] mm/rmap: use huge_ptep_get() in
+ try_to_migrate_one()
 To: Dev Jain <dev.jain@arm.com>, muchun.song@linux.dev, osalvador@suse.de,
  akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org
 Cc: riel@surriel.com, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
@@ -50,7 +51,7 @@ Cc: riel@surriel.com, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
  linux-arm-kernel@lists.infradead.org, ryan.roberts@arm.com,
  anshuman.khandual@arm.com, stable@vger.kernel.org
 References: <20260702051341.126509-1-dev.jain@arm.com>
- <20260702051341.126509-3-dev.jain@arm.com>
+ <20260702051341.126509-4-dev.jain@arm.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -97,15 +98,15 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260702051341.126509-3-dev.jain@arm.com>
+In-Reply-To: <20260702051341.126509-4-dev.jain@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 7/2/26 07:13, Dev Jain wrote:
-> try_to_unmap_one() handles hugetlb folios when memory failure needs
-> to replace a poisoned hugetlb mapping with a hwpoison entry. In that
-> case page_vma_mapped_walk() returns the pte pointer to the hugetlb folio
-> in pvmw.pte, but the code reads it with ptep_get().
+> try_to_migrate_one() is used by folio migration to replace a present
+> mapping with a migration entry. For hugetlb folios, page_vma_mapped_walk()
+> returns the pte pointer to the hugetlb folio in pvmw.pte, but the code
+> reads the huge pte entry with ptep_get().
 > 
 > On arches which provide their own huge_ptep_get() to dereference a huge
 > pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
@@ -113,42 +114,24 @@ On 7/2/26 07:13, Dev Jain wrote:
 > 
 > It is not clear whether this has a trivially visible effect to userspace.
 > 
-> Just use huge_ptep_get() for dereferencing a huge pte pointer.
+> Use huge_ptep_get() to dereference a huge pte pointer.
 > 
-> Fixes: c7ab0d2fdc84 ("mm: convert try_to_unmap_one() to use page_vma_mapped_walk()")
+> Commit a98a2f0c8ce1 copied the bug from try_to_unmap_one into
+> try_to_migrate_one.
+> 
+> Fixes: a98a2f0c8ce1 ("mm/rmap: split migration into its own function")
 > Cc: stable@vger.kernel.org
-> Reported-by: David Hildenbrand <david@kernel.org>
+> Acked-by: Muchun Song <muchun.song@linux.dev>
 > Signed-off-by: Dev Jain <dev.jain@arm.com>
 > ---
->  include/linux/hugetlb.h |  3 +++
->  mm/rmap.c               | 16 ++++++++++------
->  2 files changed, 13 insertions(+), 6 deletions(-)
+>  mm/rmap.c | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
 > 
-> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-> index 2abaf99321e90..fdb7bdf7645c5 100644
-> --- a/include/linux/hugetlb.h
-> +++ b/include/linux/hugetlb.h
-> @@ -1261,6 +1261,9 @@ static inline void hugetlb_count_sub(long l, struct mm_struct *mm)
->  {
->  }
->  
-> +pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr,
-> +		    pte_t *ptep);
-
-Two tabs, or just in a single line.
-
-If others prefer a stub, I don't care. This here is shortest to let the linker
-bail out.
-
-> +
->  static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
->  					  unsigned long addr, pte_t *ptep)
->  {
 > diff --git a/mm/rmap.c b/mm/rmap.c
-> index 1c77d5dc06e9f..aa8a254efaecc 100644
+> index aa8a254efaecc..abc3a44baaa3d 100644
 > --- a/mm/rmap.c
 > +++ b/mm/rmap.c
-> @@ -2095,11 +2095,16 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+> @@ -2505,11 +2505,16 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
 >  		/* Unexpected PMD-mapped THP? */
 >  		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
 >  
@@ -156,9 +139,20 @@ bail out.
 > -		 * Handle PFN swap PTEs, such as device-exclusive ones, that
 > -		 * actually map pages.
 > -		 */
+> -		pteval = ptep_get(pvmw.pte);
+> +		address = pvmw.address;
+> +		if (folio_test_hugetlb(folio)) {
+> +			pteval = huge_ptep_get(mm, address, pvmw.pte);
+> +		} else {
+> +			/*
+> +			 * Handle PFN swap PTEs, such as device-exclusive ones,
+> +			 * that actually map pages.
+> +			 */
 
-That comment now actually belongs above the pte_present() check below.
+Again, the comment is related to the pte_present() handling, so best to move it
+down there.
 
+Apart from that LGTM.
 
 -- 
 Cheers,
