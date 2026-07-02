@@ -1,58 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5960730ACFF
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 15:49:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFE431AF2D
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 15:49:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783007354; cv=none; b=S9Qht5RSYfE3GYvClg/W+oh2v+C6RReDqIRTYmQnGmkJklPLUOGYUWAYA9QttoJapkOolVe7xUydUgzzEvyKv3VDz0fKX0YRPXH5XsFfBAE8UpMpchcLJcU/R4gMP/bOAZThEI5JLDcjWUuwm3l6RExwPMXZ5jhfgAkqI4nyQy4=
+	t=1783007354; cv=none; b=YCC0Af0Lzqkb7UCTJ1QBavQjEFGAALvGRMSoaK8fOUDpf7VfluOyVBP6v5VWe7hGUBUxRXNBKYBGlmj/ckLapfvRFUWn6S7u4XiF6x47Rw+YaL1/t7n70JPEWUVLbu+iRdo711RtWwp6pGthsK2JLCMxKMU2IQhnoAQ0mqezUt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783007354; c=relaxed/simple;
-	bh=RDZSJqRNICQ3tD7uC5O4G/7iRPUUCsbOrhVV2kU4tcQ=;
+	bh=V2wsPHM9whO+8UEZU+kmBIh7oNKCMyXeX+sPcDuYAvY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pKmXcEbtR4aimtax4GbHlCLfDfb5S9zPJRIMjHnRcbM+CY6bPzfUwgpt1719KMLyqyyxnQ9pInI67NOC9lN1RqW8hmwuwAMJ0yTiIbGimOc8gwugGdEB/zCLrtJ0RxC5T0YKb+ApgS72Rpuo9iaedh7vLCnOoHa1wjAAEI8WI7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sd9f1YOw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pGhnyksQFADdO1nVTx3IGCTVjF037jUo+NYSEJC/TClqUioqxAs4d4BE9MWiVjHeZBigekzwip+B095K2JAE4JwPZ25gL2OPqocJXB/6ef1G7/GtZE8rsAlT85uZVMp8xHy/0gXx6W1qI3ToqYupbF/CPp/QANt/hD4lF966lDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GGznK+g7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sd9f1YOw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DB701F00A3F;
-	Thu,  2 Jul 2026 15:49:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GGznK+g7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59D61F00A3E;
+	Thu,  2 Jul 2026 15:49:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783007349;
-	bh=DFhQOIHWTHoFlKX3iXpR7xXeEZj65AEZOPGhkZDpMp4=;
+	s=k20260515; t=1783007348;
+	bh=//1yCu2rPJQpbwPWAuzOrita8zkbHkDXNH2MigqNwQA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sd9f1YOwk+6lQIH2k+VsF34zfTihVix4CeBr6PlrQK62jLfuKJGpRhfkP8bGiGEcQ
-	 VdEYEzHb3cdzZ5K+zTyg2gKHmSZdqf7jDlGriowMbwGaiv3y8BoZW6ApnmXqaRG1hp
-	 SMXGLtc9Ovkz/MDOHoMHaE16SwHacqgpqa/2tRjLnNqrjHFulDaGQOksWgRbeLbLCz
-	 kF5PaQ3T8T9PeEik4hAFlrIC5fMEL4krfMenwyBAx/+OOcictH3cXjsxaFKrJhI+Oe
-	 v2QrzMDcsMghzGzKr942iecKeRoAPi7TKFCOz/XZnNGx8XboOOqVZjnCUodfwjxpmc
-	 WDEZbDI+ky7ig==
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 888F7F40069;
-	Thu,  2 Jul 2026 11:49:08 -0400 (EDT)
+	b=GGznK+g7LLLfgMKHLRUTAr46ouKHCWNg3IHBO9zkRrKDUiAprGC9t6MnaAxIfB9WM
+	 /vPBL9vYL0PP4vbKGAtfeHZeVYAycZyL6yUyIDq/D2njhOqEylyTXGwIwS5Nuijf9p
+	 Vt+TV/0vsN54B9NgbjXjeIx/QabOaJCkUan/Zo0+g4uQQo+Oznk3q+EjaMFbB6MVY+
+	 BqrALQplrRZ6Y49wBO4A7TGkM9kb2C2xzG5VrbglkmYb68D+x64qp71EF80kRZ4Ref
+	 +kEVr+vWWF8HmsrnblLxVdlffjJoXT+V5+civoza3hYT8sS0wvPF41O8NkSKMDso+i
+	 wg0vGkdZwQfRA==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.phl.internal (Postfix) with ESMTP id F010CF40068;
+	Thu,  2 Jul 2026 11:49:06 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-09.internal (MEProxy); Thu, 02 Jul 2026 11:49:08 -0400
-X-ME-Sender: <xms:dIhGao92NEnBdAIzBwkaGMpsPUTAgDh9f-vOs63Y0p1vD1szsJAtOg>
-    <xme:dIhGao4FIV7KJ73zjalN1hob_waNDiDFwlKC5jt8MbZ28omHefSqjRdiWfUQBMJL-
-    nSmwK0ksbliU01h0IFXJjbzoe_VFPsXXoUHhMriP7qqp3CqxjRBuw>
-X-ME-Received: <xmr:dIhGapmzb4sriCWbA7-XLqZgMGY3qhbit9wgtKhizXlW8yLzfwlo2t4lOl01KA>
+  by phl-compute-01.internal (MEProxy); Thu, 02 Jul 2026 11:49:06 -0400
+X-ME-Sender: <xms:cohGahqVf665o7eGmXLy0T8G9RAZpuryuAEmOm8THAqj5_EJptx5cQ>
+    <xme:cohGar3osa6MuugX8lJ3wARH7c06XiA2S0W_gLmSGqjYyuU8aw3AUMvAueJNjGiuD
+    lzleTurmFTr3sgsgPEFiV6SKHVHnT5rID7HgNZPCZoXiTW74hkz_bI>
+X-ME-Received: <xmr:cohGapyokDYscd4gPBOwMMTdMDdjpkdEYBo67AUsgrQdUMP4acdzBFjL-tqa8w>
 X-ME-Proxy-Cause: dmFkZTG0Ih/t8cHbMCodKXQLkUxQJqy59wDK3mLTRA7dVIErvl2/d1Ah+epBvIXb5j+AYP
     IXeEFDcIBfVLytuYu4/vLDhgRVlW3a+843BEiRDknGKdd2YPYw+W7qSRgjHbAB7tPzyIg1
     K/iaGu6PpbNvdlBe1ylT3w+4CnduN7fXaIiVz2SFU4GsotfIh0Hdi2izsWXFRQyA1Pgmvd
     bz3VM1BdljYqC26bMo/Uu8GxRLOKa/FHGZ/ez2IuhQ+NgorPxPnwdGD70mq06prVA+bGMW
-    J3iimRYR/yORdPuHTUcQx20NCsiqIhAYZRtSAvfP/TF7cp/wxVykEXOIXpNkkJ9g0C+7Vf
-    3GiKJci/HMJlzBe+LyMqSocVAuRNGVFYGaIMLIXvAD3qRMCEegplxAyUwGQXKnjQkdQZ8R
-    NQc6u6oJG91xbTS/zuIwi+qmKthnm34oEPWvmwoPxP7kNJPUksPZ4vFuoHduhxgOG+TfCi
-    pRc07OLjoA5jntKMzYPBPl4LFGQFquUDN2geMKSjDmO99tIXaTYuJ3+Tk9ODASu4GSBW0b
-    RrPql85vYtDl70fuGDLM1uPwZgbw6Q9FrLSchGb0naquSfE2R0YY/W/kUAOQT0gqpg728p
-    YKvTUsJU5CLxxXu1/syz4SxiN0ngZmP0bbQz25Xa/+y3JzYbJlfTiXQ43vTQ
-X-ME-Proxy: <xmx:dIhGajF0b1tkjj0v85XndwWeee_n_3ykHzIUq-jek8_ssb3EwmJ8ZQ>
-    <xmx:dIhGao_CUqN7bbfYOxVPS9aGApDC2ZDSGF_0a7ee-7L9uzSpVVz6yg>
-    <xmx:dIhGaskjwjnHo8Zb4qXv_l048M6ReALNLCn7_Eph5hoQ0AyH4lh7_Q>
-    <xmx:dIhGarDt5h7Nuh0rdNZWKc4pflFLjPF3APiowYC6BlurFqGZBn4QAQ>
-    <xmx:dIhGatW-UB0GJL042u-RcsVA9AdCT1IN9i6lgNbKjMPsZeK-H_T3DzWD>
+    J3iimRYR/yORdPuHTUcQx20NCsiqIhAYZRtSAvfP/TF7cp/wxVykEXOIXpNkkJ9g0C+7Ky
+    k0Ou2ccpkl9SwrCYazFezoP1UVC7u15Dh+c0bnSKpDHF6Sa/dnWVOyFi1R2HiHU84o36ua
+    YdE/kPxUkO2S7rrMvVVS6l7cQBfP4YWCNNJAATEgH1xyYVOxSLuLmQZx4BdGoRiAckhTVo
+    S61Ayb4Wf5ncRlPUzWaXPPLhPHlMhxRhxAVCP16mgVpEaUavAtKGN86Rn7zktZ2wVUN/SK
+    Xhg2Ff9xTv1DRo8mIkzjMkpUiz7PByu5/JHbkA2ELN6V+lbCREJqE1Oh+dhM4guw/hkmsV
+    siRoc2eFHURGn43lMPC8URpPgSsRTV1n2a/TdmRSRs2wMMtrbCqOv9oturMw
+X-ME-Proxy: <xmx:cohGanh4XE3jU4eJPihTgl_X71bXP-nMrlMaBYSmWvR_Pht2D4jIBQ>
+    <xmx:cohGaspeiRrMQv_Q8hh7AsPQBoH6mYb9AQJKz8QPpJy6A5ppC9mt0g>
+    <xmx:cohGauiqwzwvjD272dPuko5FQKCE4UD-oKKVdg_6aIpxN_rETJz0fg>
+    <xmx:cohGauNPhzgfdAJWYAcvGyj7_MCkyu6IiqYiIjIkiXufbZFt-KrjpQ>
+    <xmx:cohGaoxg2N-SRupt1Xkshgo7n30SMoTQkToKJbheuuWrTWE5ZV9WzKJ1>
 Feedback-ID: i10464835:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 2 Jul 2026 11:49:07 -0400 (EDT)
+ 2 Jul 2026 11:49:06 -0400 (EDT)
 From: Kiryl Shutsemau <kas@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sashiko AI review <sashiko-bot@kernel.org>,
@@ -65,12 +65,12 @@ Cc: Sashiko AI review <sashiko-bot@kernel.org>,
 	Vlastimil Babka <vbabka@kernel.org>,
 	Balbir Singh <balbirs@nvidia.com>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.18.y] userfaultfd: gate must_wait writability check on pte_present()
-Date: Thu,  2 Jul 2026 16:49:07 +0100
-Message-ID: <20260702154907.975486-1-kas@kernel.org>
+Subject: [PATCH 6.12.y] userfaultfd: gate must_wait writability check on pte_present()
+Date: Thu,  2 Jul 2026 16:49:05 +0100
+Message-ID: <20260702154905.975477-1-kas@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2026070238-shadiness-ivory-4087@gregkh>
-References: <2026070238-shadiness-ivory-4087@gregkh>
+In-Reply-To: <2026070238-eraser-blanching-bbcb@gregkh>
+References: <2026070238-eraser-blanching-bbcb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -124,7 +124,7 @@ Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
  1 file changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
-index df18fb453403..1377b76fe3c5 100644
+index 29c9941e5ea7..cbd9d610c54b 100644
 --- a/fs/userfaultfd.c
 +++ b/fs/userfaultfd.c
 @@ -251,7 +251,12 @@ static inline bool userfaultfd_huge_must_wait(struct userfaultfd_ctx *ctx,
