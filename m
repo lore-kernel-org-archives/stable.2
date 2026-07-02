@@ -1,97 +1,129 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2A530D412
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 15:27:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFAEA3FCC;
+	Thu,  2 Jul 2026 15:28:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783006023; cv=none; b=QpeRmhc7K0tkrzNg7KfRgXgZygRO9lMP4wg2XpZBvmAyz73miMp5HkxF1o5Z0nth2XCEqSDcy3YU0TypVYAlDjxj/sJfDdXtP38bgJO8yccDsOsdaQoVxpyW4zyJ79Liv5aFsVSBbwZdxd7YM/SkM/RxPTvVRQjQLEveCDF+itU=
+	t=1783006091; cv=none; b=FaGpwzIq/2PVrtlBgvaMOwQ603NPkQ0B+I40ptAu7aDZymA7IdXUCZ38pPZBmRbyG7Q3lQrs8QbbGzNlBvjm+MU2TY6pwlTAA70UuG5PbMQ8xsuPvBtnlNvsLHujjxNsjhQyDuf5iJ0QCEjyl6btraHSEc3ZC7MB1KdsqATMrYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783006023; c=relaxed/simple;
-	bh=3kyBhjP5JMk8j8K+1xEAajnWvzsKxVJbKoa2akymi9Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oOg+1t41T7veGYTOAAz1LnL5yV6aMwqX5e3ZBKUn6Jx1OLJcrNHA/rbY0QzYXOFZuMnsWjwWxI2Jof+FudqR6KdEIt6T4jmZwph0ZItmCpvuwPfHkbDmhanhSvMvDKzP3nAWyda8OkFzYe6aqoFRPuLa+MMgOoADEZ1px+dEcQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jovmKwB5; arc=none smtp.client-ip=209.85.222.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1783006091; c=relaxed/simple;
+	bh=wviL27NRl327KGDR0BmJPJJ56A3cdlfcV3c2ED4Jls8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mB+UXUIlrUxSP1plnAZjzfGNwRoIa5zfFD1C4sKup3YSVtOxa6J45YvLzf13jLL5Jh2nvIoNKpe6Cbg27bXrCpfZDbtg6XqBcrXNZf+AAlG6R/hIW+Qev4yr/TovtBOCpsAN3bwDoAAeE/5LMmINEz9wVuIwMH7V4PM9oCJKRhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bil6EqVa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jovmKwB5"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-92e5d6f35c1so159730485a.0
-        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 08:27:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1783006021; x=1783610821; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=3kyBhjP5JMk8j8K+1xEAajnWvzsKxVJbKoa2akymi9Q=;
-        b=jovmKwB57vQAycgMzlYPF86WLcBY9/kfHcdv9We2SO0Y/7HIwUWJbJsr9RqKm/aphx
-         EyVJKURjTRVEi0kpSWJg2JB+UJlxvVlpLyN9N/JZ3pkxGrsvU8eKsOexi8nenn7t0qzN
-         PntAgYVQ9jdF+2SOCdYNIaMotSVFfuE3auOgKievR+p5w5E2U0EEzzVUjs++9V9VYgSK
-         Vz0bFCSK7wimDPAdr3P6ttHpwqOLBZU1ATVFzZyhT+LeAvRF3qe9pJZddSxU2D1QNIdp
-         8te91guOE4A9C73DjZ1P1KgwAHIOpVMP52PI5RhrdpozGu/k/KmTa55FjaZv3ptrsZJA
-         8Vtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783006021; x=1783610821;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3kyBhjP5JMk8j8K+1xEAajnWvzsKxVJbKoa2akymi9Q=;
-        b=pAzsxo4HqQtaSLwIa6QIqJspLz20etUnoABSk7d79caHDExjiIoxRNlaMBkov+Uv0t
-         sBKqTADaxVDAsgCN+zInEe1wU55owQ2XG3m0pDJ/yQ6rcB3vjlQQuGuYxTFD/VpnXINU
-         fOb+Kri+nqsqlTcEBk09n/yD46N3BAI0CiTClkJ6ozk9h3wG5eB/oYHHOmmYqkpyPage
-         mJNpjHwlQwwPylLhM99IBCcYijiwt7/32BMuDLSP/QmX+kycfGGUVoL9PwB55ynf1bwX
-         rrBgfdvcYqhHgXRsrEvsNvfOaQ6njgFGitRQwoaatqF24NgWyRhSCm6l1Tm5zobs1MkR
-         ltjw==
-X-Forwarded-Encrypted: i=1; AFNElJ9rbNiDQd36+h2hrFeMDNoocycu5ntVYdghG01Inj/mayKUUWCvpe/mzlvefFCauPnu1OVsoKg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPBeUUQeIEFLzQEhQXlm3kz6gJD9eCpGhf99Klz6tLVGexYLkp
-	/USrxZKWMng9+Wmc1oLmciCQJWA5symK066in+IGfKLcPDV867Pt526zSHhUoEg2FLY=
-X-Gm-Gg: AfdE7cka+KBylzWiIFwoGoVoAqhAF/P+7gUY1C+z7MGIl7H6sb219hXpCm+4uz2uT7N
-	wc+7tf72h80N+Y+ueCWs+x2kYLNRI6rBZ1ZmfMnc+tA/XSjHXmXaaCuZqsgDGtL1VHu6WTyhiEr
-	5Xb9Iy6GjYikEQx55UZE+zDxLZ0Yo9RRhqntu/cau7KkYGJ84+/37rxAeY5jSGvMiPgZoHtaAKF
-	6GT7mZlyBFM8TbhzDiQewudceH5bLwg+n4pL19iWasqHtkWo8F00ZsKZDiTmgVhxOybdtwmeqbd
-	fhSE9aQG4U/CSrOsSrc6SSGHAaZX/Yc1rLCYFwaLNE4DmSsgk5iubhlcoS8X/ChOAv0QDUlillP
-	lrCp9IcGUrAA6NAKWadnryBl3XO4nX/nUJdGSLst8ZUT590jtOu1cd05665TY2ptym1hC67pjCY
-	NV59+B7VpNJjki1mnCEYXR2flQlBRL5k8TeqEoiygW0HTX/AfAk4mjeJzj4wBB9Z+0dV8=
-X-Received: by 2002:a05:620a:28d3:b0:92b:6805:91be with SMTP id af79cd13be357-92e7853d109mr831898385a.70.1783006019875;
-        Thu, 02 Jul 2026 08:26:59 -0700 (PDT)
-Received: from ziepe.ca (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net. [47.54.130.67])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92e7ffdd84esm236010785a.10.2026.07.02.08.26.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 08:26:58 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1wfJJZ-00000005xYE-2TnW;
-	Thu, 02 Jul 2026 12:26:57 -0300
-Date: Thu, 2 Jul 2026 12:26:57 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Alex Timofeyev <sashka@ankey.net>
-Cc: Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
-	Parav Pandit <parav@nvidia.com>, Edward Srouji <edwards@nvidia.com>,
-	Vlad Dumitrescu <vdumitrescu@nvidia.com>, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH rdma-next v1 0/2] RDMA: fix cross-NIC same-host IPv6
- RDMA-CM connect
-Message-ID: <20260702152657.GS7525@ziepe.ca>
-References: <1781545579.1-sashka@ankey.net>
- <1781661732.reply1-sashka@ankey.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bil6EqVa"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8D9FFC2BCC7;
+	Thu,  2 Jul 2026 15:28:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783006090;
+	bh=wviL27NRl327KGDR0BmJPJJ56A3cdlfcV3c2ED4Jls8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=bil6EqVajk2Zqpm+mDR5iVYnFZLBRWVg0O2wEuReWosBySmR0xpp9xfTpNn/Knj8i
+	 XZglHMIdT173QV54eTXHzHuJKBklXnyVZ8grMOcuQhYjUqx8gsdxIQYNBDfAoWp7S6
+	 T+452S8P29OL9UE46uD1oMgAwzFNB03Fs2Br0zY1yOQstldxoLlOE4NNliy48OOO5e
+	 0dvfakGzhpYVkD6Lt6ZoKQJYCfKif1aqF+J8cgEOLCxaqsJ0MM83BaaHQOrX+WxS0f
+	 SfJjznMcYizc+gyI3F88yFWiqsqbJ38FgFYJGS2esjrcaFu/sEj/DHjLVUiEpSjpl7
+	 EY0RoTmfyh17Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B616C43458;
+	Thu,  2 Jul 2026 15:28:10 +0000 (UTC)
+From: Christian Taedcke via B4 Relay <devnull+christian.taedcke.weidmueller.com@kernel.org>
+Date: Thu, 02 Jul 2026 17:28:03 +0200
+Subject: [PATCH v2] dmaengine: nbpfaxi: Fix setting channel irqs in probe()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1781661732.reply1-sashka@ankey.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260702-upstreaming-nbpfaxi-v1-v2-1-e6d6b178a278@weidmueller.com>
+X-B4-Tracking: v=1; b=H4sIAIKDRmoC/4WNQQqDMBREryJ/3ZQYqw1deY/iIsYf/UUTSdRax
+ Ls32gMUZvNgZt4GAT1hgEeygceFAjkbQVwS0J2yLTJqIoPgouB3Ltg8hsmjGsi2zNajUSuxJWU
+ 8K26Y5bkyMoc4Hj0aWs/jZ/XjMNcv1NPxdjQ6CpPzn9O8pEfvryQmZaaRqKTMuEZVvpGaYca+R
+ 3/VboBq3/cvNKXPpdQAAAA=
+X-Change-ID: 20260702-upstreaming-nbpfaxi-v1-0364e355af85
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Dan Carpenter <error27@gmail.com>, christian.taedcke-oss@weidmueller.com
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ Christian Taedcke <christian.taedcke@weidmueller.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783006089; l=2082;
+ i=christian.taedcke@weidmueller.com; s=20260702;
+ h=from:subject:message-id;
+ bh=IzUQu+E8VTZ8ZfkMwN9i9MqRhpTxuocHqQC40gcbdj4=;
+ b=zXjAubGaROb2J3AtoN9zBnEjeOfeexMILJ4jDci7kkqlVT59SDtPLUATpTo7oS7kiAbIJhFR6
+ QYEo87v7d0QD9wqXvRA8sU//UrioR6OPMm7DxrE2WXYlC+UkmDbcC6I
+X-Developer-Key: i=christian.taedcke@weidmueller.com; a=ed25519;
+ pk=fVCoBhFV3uMogA2nxIOU/rynNY+O2TDJgWvWjR06TrQ=
+X-Endpoint-Received: by B4 Relay for
+ christian.taedcke@weidmueller.com/20260702 with auth_id=847
+X-Original-From: Christian Taedcke <christian.taedcke@weidmueller.com>
+Reply-To: christian.taedcke@weidmueller.com
 
-On Wed, Jun 17, 2026 at 02:02:12AM +0000, Alex Timofeyev wrote:
+From: Christian Taedcke <christian.taedcke@weidmueller.com>
 
-> IFF_LOOPBACK one to still recognize it as local. That commit is in
-> v6.18 but not in linux-6.6.y, which is the stable base we (and
-> presumably other RoCE-on-6.6 users) are on; might be worth a stable
-> backport on its own merits, independent of this series.
+When one irq is used for errors and each channel gets a dedicated irq,
+the total number of irqs is num_channels + 1. If the error irq is not
+the last entry in irqbuf[] but an earlier one, the loop assigning
+per-channel irqs terminates one iteration too early and the last
+channel is left without an irq.
 
-Feel free to propose backports to stable if it is valuable to you,
-RDMA maintainers are not managing stable at all, so you are welcome to
-do so.
+Iterate over all collected irqs instead of num_channels so the
+error-irq skip does not shorten the effective channel count.
 
-Jason
+Fixes: 188c6ba1dd92 ("dmaengine: nbpfaxi: Fix memory corruption in probe()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Taedcke <christian.taedcke@weidmueller.com>
+---
+Changes in v2:
+- Advance chan only when assigning a real irq to fix out-of-bounds
+  memory access.
+- Remove now redundant ARRAY_SIZE(irqbuf) check.
+- Link to v1: https://patch.msgid.link/20260702-upstreaming-nbpfaxi-v1-v1-1-fd8ea8830cea@weidmueller.com
+
+To: christian.taedcke-oss@weidmueller.com
+To: Vinod Koul <vkoul@kernel.org>
+To: Frank Li <Frank.Li@kernel.org>
+To: Dan Carpenter <error27@gmail.com>
+Cc: dmaengine@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/dma/nbpfaxi.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/dma/nbpfaxi.c b/drivers/dma/nbpfaxi.c
+index 05d7321629cc..bcfab62a71d7 100644
+--- a/drivers/dma/nbpfaxi.c
++++ b/drivers/dma/nbpfaxi.c
+@@ -1374,14 +1374,12 @@ static int nbpf_probe(struct platform_device *pdev)
+ 		if (irqs == num_channels + 1) {
+ 			struct nbpf_channel *chan;
+ 
+-			for (i = 0, chan = nbpf->chan; i < num_channels;
+-			     i++, chan++) {
++			for (i = 0, chan = nbpf->chan; i < irqs; i++) {
+ 				/* Skip the error IRQ */
+ 				if (irqbuf[i] == eirq)
+-					i++;
+-				if (i >= ARRAY_SIZE(irqbuf))
+-					return -EINVAL;
++					continue;
+ 				chan->irq = irqbuf[i];
++				chan++;
+ 			}
+ 		} else {
+ 			/* 2 IRQs and more than one channel */
+
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260702-upstreaming-nbpfaxi-v1-0364e355af85
+
+Best regards,
+--  
+Christian Taedcke <christian.taedcke@weidmueller.com>
+
+
