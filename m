@@ -1,135 +1,182 @@
-Received: from mail-wm2-f0.google.com (mail-wm2-f0.google.com [74.125.225.128])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4822C40E8FA
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 08:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796CF3D4128
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 08:10:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782979688; cv=none; b=R56FDm5fGh+oW4arLf2Eeunabzt9qoKpXzJdSGtZk/9lJHTiDyK4DiG2KE2+E3399pLshr5sNPy0Jl7uI8pk4ONFchkb1XexLqM3Xhpx68YPztcGV4FLPiifrFrLeboOs8Nz1Oxd7e3GSi9w7yxOHXHJpBqKsEmzuSvbH33iiTE=
+	t=1782979845; cv=none; b=hucKQYkP6mKqEq6zG7QP60+UQ9PJ01Ztpa78kFwPhkBD4+x5tPzn/vnAVQ+9sbW3ckW7Z4YNVbHqiC9I0s78naEZdA1izxQZJEetvbaUuwkWD5/TnJUGrd6uiRUk4zoL+rk7ayd6BJ/pzsEYueENhZMEizBQJ0krE21BMxrw7gU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782979688; c=relaxed/simple;
-	bh=0Z+e/OdRh7vWb/zrJFf8bLcehs/oqWvr693tmYK+cXo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ub1U2J0Kr3tvFhuzchZ2eI3JQzNh5GnQnWxWzySMIn5t2hr2EMW9FpZ0OpTjMwPHoUVnGan6qtkIJiP7B52pBPp6pd9uvrr8GTvDVmFGoFe93pAmJkDaa620jxbVGkxFAEh3oNM06YFIPgXIwO6zBURipf1h5cwKPoFcwn5PKb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=JqxxAowG; arc=none smtp.client-ip=74.125.225.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1782979845; c=relaxed/simple;
+	bh=ap1syISulsKRSaIRGnWZqvqO+c8TnmiIW0rxGDJ3Zus=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UzP1mW6ZKvdHuEZEdvJKgB48tP1TnD52Mg9ca5qtonGQ8Rg9xluYGR6aoew+i+Mf5NoyZh1wW41Apm4bsuEJrxmhG/gX7stD0GCqelrl09hMXnwlmrFR6kbmZbeQw+SokYM9wCgHsntErSCsguRg4SVIG3FVOpPa30IwQGSxFo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mwj5zC6V; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="JqxxAowG"
-Received: by mail-wm2-f0.google.com with SMTP id 5b1f17b1804b1-493b4af7976so5941855e9.1
-        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 01:08:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mwj5zC6V"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493c486f012so3240475e9.3
+        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 01:10:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782979685; x=1783584485; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=S0s7OKBGnkDY1ld78GA7O9n4AGhFwWRGm1kjn5yI6YM=;
-        b=JqxxAowG5SiZYTuRGunUA5CUUxL26njktxnAjNPgEIP19Ftycazh9BQhYry3+PJgZM
-         KtA6VIWRVsSP7gvMSQ7Xs2Z9D2rMmz2rwc8N5CBxZ/JAOvrLxTU0lrEUOgMFa7VlPfMJ
-         m1USVD0EToW04jCFCkGZaXxsLmKCm686a1YFfwGlqrOpaf2rOVVVPaPQI2PH9e2gaHFs
-         77iDZWEx+pn3eE06utDiYHTTrkmgqkyBCyceQn7jNRfF8d9Ly7i79Zuup73kRGqS0Bbk
-         Dt4NY7/dn/0qgD9Ljs5Ohq6YZUlFuNe0mShzH13ygUpujMK+3f7htweHemlzCoPgrgbX
-         Tc7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782979685; x=1783584485;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1782979843; x=1783584643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=S0s7OKBGnkDY1ld78GA7O9n4AGhFwWRGm1kjn5yI6YM=;
-        b=F2tK0VcPCunxgwCFBIAo/7PSlDGXJA/2kk29dMDGENhzicVqGRvS2E7FVSgtlsEwkN
-         JIPho/9hvtwdl8lo/reKyE3CakDeb6qes4jklR/+SzCorurlXO1z+vmrHZlM62bPfUC1
-         +fSfbDc4jbNCdD6t40IfxLLsqM+JR4Yv72PZDpFj6OwtrrDtXvM/H20phlxjUJhMaoch
-         FR9vweUOeE7LrV+CFtuBRqYgozEQsd2mGsrhD9ijj8eNux+uOTwwwEelxhTL4OZwvj7g
-         lYKJLM4kcLDqHuFDg0/7HzFGQi78wuvbm4LSVYnglM37GXf5zyRwASwNMgSkhCk/1BhO
-         lS/g==
-X-Gm-Message-State: AOJu0YxBomzD2h1VxFGqhG0z3cbZ1ogk2t+5T0Pi7xUSWo82MmFecTZx
-	Rnmjsk/MOv8aTWDaQqRu1LEu+fPlSCibDOWaPkJq+gsRbMssNnT3bTBDPqe7L8+lCqDDioLG1qP
-	NurSvFUp3A37F
-X-Gm-Gg: AfdE7clftSDXnZPlg9/r9fpUgUxfbbWgqChmCfxwSeMX6myAtC9JTw6cw8MGFH3Zi79
-	yDksnU2Q6BxwrPIpAF+EAALuvcCExTzhZSA3FLICDQaFBrhJUYkt9sZPxYrSbOBnUBPMljDU93T
-	6f9e5BrWkTICLONZAp/YL0OcsJgSLxAieViUngWZKfgbiu41tGojgOTkLA9cWttUEljjEZp2mJj
-	8LmP4SKL+UcBu/lPrFMadSjMEIKFFvuVmokH9AXTNOzUjfBHLNbq59ELUaXcBhc3Kln+QCs61in
-	+bcSAXyZDyaSJOQpZXtDmczUyXaXczz1KSfHwQZ+cIgYtkbOd9App4Xm9RqMv6xQVeDvd4u9w97
-	7rpPOJaxobJa1zhOUA5J7cgQBun0FIaJlPqvzNtihCCm9Gy4lN6uMA5KNL0EPbcXeVa+vvRHBq2
-	PQmdNiJEVPy/Ht5Z248KA/yeW6oZx7aXaIk341VyY=
-X-Received: by 2002:a05:600c:8b75:b0:493:aa0a:45ad with SMTP id 5b1f17b1804b1-493c2b3ce9fmr70074755e9.2.1782979685560;
-        Thu, 02 Jul 2026 01:08:05 -0700 (PDT)
-Received: from localhost (27-53-177-85.adsl.fetnet.net. [27.53.177.85])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44cbe84efefsm2148988fac.2.2026.07.02.01.08.01
+        bh=BIcE6G+6TDMoCdkb5TNOONacJV25dJbtV9kWeZ6u/To=;
+        b=mwj5zC6V/wMYMsIx68xHW5X++kHFiON9682T+Pq7c9ZCSi8VPN10GQCpWJ+aftzzwh
+         XswWKVBUEVKKR2866rzfMTKb+rrGiemjfwTieM5f2Ycv9wkBvgLt1CS4vXGE7oSqtq91
+         iGO6rE09n6zKp/2aIyQecCqmW3cfmI4vswq2rKpFg4QW1cN6Yjdwy4338M/nE29k51C9
+         rQ13PJIWnjS7I6w0bTRK8JLqzl1lusv52kRyvcUFT0QgonxZm0appuKDnZzksdFWbQ3O
+         5BnHXR9MGywQ8BJGr6YGuYGozQry3gpWox0ynx1/cxazUWyjNoylpqZSpfktzRLGFTcc
+         qgFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782979843; x=1783584643;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=BIcE6G+6TDMoCdkb5TNOONacJV25dJbtV9kWeZ6u/To=;
+        b=ZJr9vsIjIGSTDzBWrFrID83tTKNIwcQ7MFnP8mX1qBNA957iyneKo6QT8OWxrkuObA
+         UdnSyBMR1J8dLCGFkOtDb+5tEYeqKNuWp8+i1yyodDLpEi59sCGPX9kncmtKei/SOo53
+         yr91m+1ynKv9LIEFWFemzDj9PIHh/SWz1v/MZTDEN/jcXxzd5T+ZQXF0wMLPKCYvXDvq
+         TpjSKZjtgcD8dUab3Y8ao1d8BvZeziyCpvU6G64rreh4INQTCBhuPdfT0plsuy8kBAi9
+         7ntteqMWylVg2DuvhG2nBuuPW9y0My5jBq3jtai3uk+MWc6o6T3n3WZRGVwXg99gN9Rj
+         kjFA==
+X-Forwarded-Encrypted: i=1; AFNElJ93gPQBM9ggdf1Del162KwWvgAuSddVQOvTxy9FgJPUsRBInl6fdGGTyNjFD27/zUT5E0YgMOU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzJlITu2LpqEtRWgc/layXIKiI/wNjhXFmR5JiOKt0Nc5lLTtp9
+	XDh3BXtyHOlx31RcIE2FdZEOjYwBAkhptN5Mt1QAsTA6iXU7iAixai7O
+X-Gm-Gg: AfdE7cmpHATlXseCBSWkHYC/6RIR62UPhcQnz8NUZ4u6OZ1lvwRM4pzOuUP6g7NxYQ5
+	G7+332ZQRDU3zQO4kwwm7k5281sLTqwuEUR3FJkk0HQbgQySG7HH7I0CtJpRJGQZFE9rU02h/UV
+	kJIAUOdndNnOxueWZZgXRfSFUq8yj0dshWkkbmjgxRMr+twX3H95vXnFr93y69Th6s/iufUiyn8
+	id86gcdQd3J96BH/Dou/IVuxatJmcz1/U4xAls9TaF6ph8T9ATHuGo0+J9WvkRd7LDzzoHX0QfZ
+	iJ5cl/nvcSiPMcVpVu5PtFYVnJvkglgwtxwtsmnLmWBbKrvhYDTZZsyusNvzzSNZjQIjWEfwe/U
+	AvdFSzmpiGwqEJ/X4BMy4XICNrNxzHC9DJyA9SKcFUDtpyKh6XNCMnZXcMXmdFitaGmlivAjqdV
+	0PW2y2/aU7QSF2Lwn9l3RfLBDOhdD2wSEuJRNpY/QH/8cQWdIfSyGQPqVP
+X-Received: by 2002:a05:600c:6c95:b0:493:bc4a:fb56 with SMTP id 5b1f17b1804b1-493c2bbcb21mr53757575e9.39.1782979842538;
+        Thu, 02 Jul 2026 01:10:42 -0700 (PDT)
+Received: from pumpkin (host-92-21-50-228.as13285.net. [92.21.50.228])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db3db964sm6530093f8f.8.2026.07.02.01.10.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 01:08:03 -0700 (PDT)
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: stable@vger.kernel.org
-Cc: Shung-Hsi Yu <shung-hsi.yu@suse.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>
-Subject: [PATCH stable 6.18 6.12 1/1] bpf, arm64: Reject out-of-range B.cond targets
-Date: Thu,  2 Jul 2026 16:07:56 +0800
-Message-ID: <20260702080757.98071-1-shung-hsi.yu@suse.com>
-X-Mailer: git-send-email 2.54.0
+        Thu, 02 Jul 2026 01:10:42 -0700 (PDT)
+Date: Thu, 2 Jul 2026 09:10:40 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: David Hu <xuehaohu@google.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Pranjal Shrivastava <praan@google.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Nicolin Chen <nicolinc@nvidia.com>, Leon
+ Romanovsky <leon@kernel.org>, Kevin Tian <kevin.tian@intel.com>, Ankit
+ Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, jmoroni@google.com, kpberry@google.com,
+ chriscli@google.com, sashiko-bot@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] dma-buf: Split sgl into page-aligned 2G chunks
+Message-ID: <20260702091040.35eff00c@pumpkin>
+In-Reply-To: <CAPd9Lg9uY1RZvYUtcbKUg=VdWM61M2f3aqmS5veUg_8M_Ce80g@mail.gmail.com>
+References: <20260621222130.1667453-1-xuehaohu@google.com>
+	<20260623015459.1153884-1-xuehaohu@google.com>
+	<20260623094446.4a8fc2ed@pumpkin>
+	<ajryxMaT5evDUxaq@google.com>
+	<20260623235350.6540eaa2@pumpkin>
+	<20260630124252.GD7525@ziepe.ca>
+	<CAPd9Lg9uY1RZvYUtcbKUg=VdWM61M2f3aqmS5veUg_8M_Ce80g@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Daniel Borkmann <daniel@iogearbox.net>
+On Thu, 2 Jul 2026 00:56:40 -0400
+David Hu <xuehaohu@google.com> wrote:
 
-commit 48d83d94930eb4db4c93d2de44838b9455cff626 upstream.
+> On Tue, Jun 30, 2026 at 8:42=E2=80=AFAM Jason Gunthorpe <jgg@ziepe.ca> wr=
+ote:
+> >
+> > On Tue, Jun 23, 2026 at 11:53:50PM +0100, David Laight wrote:
+> > =20
+> > > > If we restrict incoming dmabuf transfers to fit within VFS-centric
+> > > > limits (2GB), we impose unnecessary overhead on the RDMA stack, for=
+cing
+> > > > it to manage a significantly higher number of memory registrations.=
+ By
+> > > > cleanly splitting these massive contiguous device buffers into
+> > > > page-aligned SGL entries, we directly improve the efficiency of P2P
+> > > > transfers and memory registration. =20
+> > >
+> > > But a divide by '4G - PAGE_SIZE' is also non-trivial and (I think aff=
+ects
+> > > a lot of io) when the quotient is always 1.
+> > > Splitting into 2G chunks is a lot cheaper. =20
+> >
+> > Doesn't matter this isn't fast path stuff. It is better to use fewer
+> > SGL entries, IHMO.
+> > =20
+> > > > Since this change doesn't seem to have a negative impact on standar=
+d file
+> > > > I/O or break existing VFS constraints, I'm curious why we shouldn't
+> > > > support splitting these >4GB P2P transfers? Am I missing something?=
+ =20
+> > >
+> > > I was only wondering whether it was needed...
+> > > It does bring up the question of why the >4GB transfers even need spl=
+itting.
+> > > But that is another question. =20
+> >
+> > SGL can only store an unsigned int size, so any large physical range
+> > has to be split down.
+> >
+> > rdma now a days has code to process the sgl and restore back the > 4G
+> > sizes since mode RDMA HW can accept that.
+> >
+> > commit 486055f5e09df959ad4e3aa4ee75b5c91ddeec2e
+> > Author: Michael Margolin <mrgolin@amazon.com>
+> > Date:   Mon Feb 17 14:16:23 2025 +0000
+> >
+> >     RDMA/core: Fix best page size finding when it can cross SG entries
+> >
+> > So whatever this produces needs to be compatible with that to undo it. =
+=20
+>=20
+> Thank you everyone. It looks like most open issues are sorted out.
+> I'll wait for maintainers to weigh in before sending out v3 (which
+> will remove the type cast for min() per David L.'s feedback, and
+> revert to ALIGN_DOWN(UINT_MAX, PAGE_SIZE) per Jason's feedback).
 
-aarch64_insn_gen_cond_branch_imm() calls label_imm_common() to
-compute a 19-bit signed byte offset for a conditional branch,
-but unlike its siblings aarch64_insn_gen_branch_imm() and
-aarch64_insn_gen_comp_branch_imm(), it does not check whether
-label_imm_common() returned its out-of-range sentinel (range)
-before feeding the value to aarch64_insn_encode_immediate().
+Does this code get used a lot for 'normal' transfers?
+I'm away from my normal systems and can't check.
+But if pretty much all of the fragments are small (< 4G) then
+it is probably worth adding a check for 'size < limit' before
+anything else and optimising that case.
 
-aarch64_insn_encode_immediate() unconditionally masks the value
-with the 19-bit field mask, so an offset that was rejected by
-label_imm_common() gets silently truncated. With the sentinel
-value SZ_1M, the resulting field ends up with bit 18 (the sign
-bit of the 19-bit signed displacement) set, and the CPU decodes
-it as a ~1 MiB *backward* branch, producing an incorrectly
-targeted B.cond instruction. For code-gen locations like the
-emit_bpf_tail_call() this function is the only barrier between
-an overflowing displacement and a silently miscompiled branch.
+	David
 
-Fix it by returning AARCH64_BREAK_FAULT when the offset is out
-of range, so callers see a loud failure instead of a silently
-misencoded branch. validate_code() scans the generated image
-for any AARCH64_BREAK_FAULT and then lets the JIT fail.
-
-Fixes: 345e0d35ecdd ("arm64: introduce aarch64_insn_gen_cond_branch_imm()")
-Fixes: c94ae4f7c5ec ("arm64: insn: remove BUG_ON from codegen")
-Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Reviewed-by: Puranjay Mohan <puranjay@kernel.org>
-Link: https://lore.kernel.org/r/20260415121403.639619-1-daniel@iogearbox.net
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
----
-Confirmed that after this patch is applied, BPF selftests on aarch64
-still passes on 6.18[1] and 6.12[2].
-
-1: https://github.com/kernel-patches/linux-stable/actions/runs/28509125434/job/84504843132
-2: https://github.com/kernel-patches/linux-stable/actions/runs/28572297925/job/84712643104
----
- arch/arm64/lib/insn.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/arch/arm64/lib/insn.c b/arch/arm64/lib/insn.c
-index 4e298baddc2e..e9e9a70ac155 100644
---- a/arch/arm64/lib/insn.c
-+++ b/arch/arm64/lib/insn.c
-@@ -338,6 +338,8 @@ u32 aarch64_insn_gen_cond_branch_imm(unsigned long pc, unsigned long addr,
- 	long offset;
- 
- 	offset = label_imm_common(pc, addr, SZ_1M);
-+	if (offset >= SZ_1M)
-+		return AARCH64_BREAK_FAULT;
- 
- 	insn = aarch64_insn_get_bcond_value();
- 
--- 
-2.54.0
+>=20
+> Hi Jason,
+>=20
+> Thank you for your feedback. I took a closer look at the commit to
+> ensure compatibility. This patch is perfectly complementary, and
+> actually prevents a failure in an edge case for the latest
+> `ib_umem_find_best_pgsz` [1].
+>=20
+> Regards,
+> David
+>=20
+> [1] For dma-buf split with `0xFFFFFFFF`, in case of a discontinguity
+> in later buffers, we will hit this code path in
+> `ib_umem_find_best_pgsz`
+>=20
+> ```
+> if (i !=3D 0)
+>     mask |=3D va;
+> ```
+> (*After `va` had been incremented by `0xFFFFFFFF`, due to `va +=3D
+> sg_dma_len(sg) - pgoff`)
+> (*Which will set the lowest bit of `mask` to 1)
+>=20
+> Because `count_trailing_zeros(mask) returns 0`,
+> `ib_umem_find_best_pgsz()` will always return 0 in such cases.
 
