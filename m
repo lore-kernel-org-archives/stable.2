@@ -1,155 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806333A9861;
-	Thu,  2 Jul 2026 10:45:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1414F3C09F2
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 10:48:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782989116; cv=none; b=qRIEwP4/YI2vmrJCe3ybu1ECd3kB7YpKTtIsKNxEpcJXPeu636xS/vR7WJhFWrnV+9meuUibR4ZJq+UUqt15tOfkETFzkgIskq3fAiLRlpMtcSM8uJXQeQwPklJed/S5+gQY3+czAu9zU9Hy5+DJxwMev57pX+3TdjEMgP+Vs2c=
+	t=1782989300; cv=none; b=a8YCBbQJcCYenHtNVDBXVmaDDyvybXvU5DSavWj3UtNA60hOJrSp9j5Z2nQoquFGAsNYKRgM32HNTN+mdihfVZ+yJysbnljaqaIJtNcpSqbH6S0OClsXBewzciqTH7J/+emZm9Fz2bKp39F14SBEUkSHAKgviSMbNsKSubl3um0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782989116; c=relaxed/simple;
-	bh=3NneBBleRP0nq+F3t1BNyohmj2uvqhmH0DV22CPVyj4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BTkQsvsO6DkP0cr/zNbL9/hhRf8t1Ri8Apk0liY/ExNBW/6Y8vuyeHsoC50J3eSUASuiInuInWwB7wspMsbR+o4QPzEoRoRztQV71aTo0TubMkduzdC/CmEPpjSljy3ZjQiOYY74jt41tr8p0AytO0d6svx9hGCSaXKTDtOslus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F5naeyss; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782989300; c=relaxed/simple;
+	bh=k+6/Z2gs9cVAAhPHygjW4k5IBm479qlyxmM2Tyng3a0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N78cp56AXPXU22h4IyApJUjAechFYQ1E9tF1nI45bn3Xj8sSK2fAQzuJbS6AehE+hA3OsiQ2YYsfTXtYEgouetDCCYogRhLGqBUV7If3teIo1Ro7oih9Nv7/76sROoLJcDOT+a6jQQY6sa0lQMEX/x12PpOReLC6Ti/cFXGxOxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BrVp59r+; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5naeyss"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80B21F000E9;
-	Thu,  2 Jul 2026 10:45:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782989115;
-	bh=rWEH3UEpZiTc622864CoktOdJp9DODCAffj/VJOaNBE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F5naeyssM/8+BL+MdigXcvrNE1PonCqowok5mo6jpL1aMpHbKm1hzVls6m6tMtXvW
-	 xEPFT+fbn8PhZ+AxVSvkdH3uVd7C8IqboM2Pt2eZm3iJKiWcW6ubsjHEpdKAyTyuiH
-	 JTGCZrWxInJ9shglw9bbCA7sqDa5CgdKs12DprldrcXojkKqfwn/jbJ3m3ftH5RVJr
-	 dTgSNGHaucQs7Hmt0jNNDQ/Eg85SqRfFSYVgkj31y22aVGElPIJO02Jps87Zs50nR0
-	 wsbBOfB61DLE2vzWbENnMZp9wn22pfItqfc7EeW83iRkLn1Bb6Gafe1YGZmYxCSXMn
-	 dSsT0L6UOLNMA==
-Date: Thu, 2 Jul 2026 11:45:10 +0100
-From: Lee Jones <lee@kernel.org>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Andreas Werner <andreas.werner@men.de>
-Cc: Pavel Machek <pavel@kernel.org>, linux-leds@vger.kernel.org,
-	Andreas Werner <andreas.werner@men.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Shreshtha Kumar Sahu <shreshthakumar.sahu@stericsson.com>,
-	Bryan Wu <cooloney@gmail.com>, linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] leds: menf21bmc: use brightness_set_blocking for
- sleepable callback
-Message-ID: <20260702104510.GI2108533@google.com>
-References: <20260615145756.1019184-1-runyu.xiao@seu.edu.cn>
- <20260615145756.1019184-3-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BrVp59r+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782989299; x=1814525299;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=k+6/Z2gs9cVAAhPHygjW4k5IBm479qlyxmM2Tyng3a0=;
+  b=BrVp59r+FTTu494SrsP6YnzNcXlOprMtp8Q3MF/2VMkvFdtBlXWggoez
+   OHPdZEGfcr7EbgTbAnz8C65WZDgCkaJKBVENdbStzKbwtaI4KF522IEio
+   IbLojHF8jw2lo9t79Rk4wZnDkv8u784j0GSEHYBSTTvKIMDiqkNp2R2Cd
+   J5bK8+LbHbPUh+IrDuKlflDHAFYQLpBPurcuIkfFSHjR8CW5Zn9Fs5SCe
+   ZHUc3UVstOeOjPJJdNV3iMub7/QMzWe9vDlLzyZWwiTD4ltO/y/qOtm+q
+   y38ge2m2uTKem2rF1dTN7bIydY6UVS9jY3K8ajMGCwK49EYz5e7dJqk5h
+   Q==;
+X-CSE-ConnectionGUID: F5qLyqS2RSybZPWlgvpveA==
+X-CSE-MsgGUID: 48H5jW6dRIKvEVVBLJWXbQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="94340596"
+X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; 
+   d="scan'208";a="94340596"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 03:48:19 -0700
+X-CSE-ConnectionGUID: OSSGdLzfTSae19ANyeWZrg==
+X-CSE-MsgGUID: urzn876CTMaIgaRj9LGwYg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; 
+   d="scan'208";a="250174105"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.244.242]) ([10.245.244.242])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 03:48:16 -0700
+Message-ID: <a4657daa-c58e-4441-ad81-c3e770bc5a94@intel.com>
+Date: Thu, 2 Jul 2026 11:48:14 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260615145756.1019184-3-runyu.xiao@seu.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] gpu/buddy: bail out of try_harder when alignment
+ cannot be honoured
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
+ stable@vger.kernel.org
+References: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Andreas, any thoughts?
-
-On Mon, 15 Jun 2026, Runyu Xiao wrote:
-
-> menf21bmc_led_set() serializes access with a mutex and performs I2C
-> transfers, but the driver exposes it through brightness_set.  That
-> mismatches the LED core callback contract for atomic callers.
+On 29/06/2026 08:43, Arunpravin Paneer Selvam wrote:
+> The try_harder contiguous fallback could return a range whose start
+> offset did not match the caller's min_block_size. When a candidate's
+> start is misaligned, realign it: free the misaligned run and reallocate
+> exactly @size at the next lower min_block_size boundary. This keeps the
+> returned size unchanged with no surplus to trim, and rejects the request
+> only when no aligned candidate fits.
 > 
-> This issue was found by our static analysis tool and then manually
-> reviewed against the current tree.
+> v2: align misaligned candidates down to min_block_size instead of
+>      bailing out, for both the RHS and LHS paths (Matthew).
 > 
-> A minimal Lockdep reproducer that keeps the original registration and
-> call chain is enough to trigger the warning: menf21bmc_led_probe()
-> still publishes menf21bmc_led_set() as brightness_set,
-> led_trigger_event_atomic() invokes it under spin_lock_irqsave(), and
-> the callback immediately tries mutex_lock(&led_lock) before reaching
-> its I2C accesses.
-> 
-> Lockdep reports:
-> 
->   BUG: sleeping function called from invalid context
->   __mutex_lock+0x4f/0xd20
->   menf21bmc_led_set+0x15/0x49 [vuln_msv]
->   [ BUG: Invalid wait context ]
->   ... (led_lock#2) ... at: menf21bmc_led_set+0x15/0x49 [vuln_msv]
-> 
-> Convert the driver to brightness_set_blocking and return the transport
-> status to the LED core.
-> 
-> Fixes: 38433639af91 ("leds: leds-menf21bmc: Introduce MEN 14F021P00 BMC LED driver")
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Timur Kristóf <timur.kristof@gmail.com>
+> Cc: John Olender <john.olender@gmail.com>
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
-> Notes:
->   - Validated with a grounded Lockdep PoC that preserves the
->     menf21bmc_led_probe() brightness_set registration and the
->     led_trigger_event_atomic() -> menf21bmc_led_set() ->
->     mutex_lock(&led_lock) path.
->   - checkpatch.pl --strict: clean.
->   - Not tested on MEN 14F021P00 BMC hardware.
-> 
->  drivers/leds/leds-menf21bmc.c | 18 ++++++++++++------
->  1 file changed, 12 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/leds/leds-menf21bmc.c b/drivers/leds/leds-menf21bmc.c
-> index 6b1b47160602..da476fe6ed2c 100644
-> --- a/drivers/leds/leds-menf21bmc.c
-> +++ b/drivers/leds/leds-menf21bmc.c
-> @@ -49,28 +49,33 @@ static struct menf21bmc_led leds[] = {
->  
->  static DEFINE_MUTEX(led_lock);
->  
-> -static void
-> -menf21bmc_led_set(struct led_classdev *led_cdev, enum led_brightness value)
-> +static int
-> +menf21bmc_led_set_blocking(struct led_classdev *led_cdev,
-> +			   enum led_brightness value)
->  {
->  	int led_val;
-> +	int ret = 0;
->  	struct menf21bmc_led *led = container_of(led_cdev,
->  					struct menf21bmc_led, cdev);
->  
->  	mutex_lock(&led_lock);
->  	led_val = i2c_smbus_read_byte_data(led->i2c_client,
->  					   BMC_CMD_LED_GET_SET);
-> -	if (led_val < 0)
-> +	if (led_val < 0) {
-> +		ret = led_val;
->  		goto err_out;
-> +	}
->  
->  	if (value == LED_OFF)
->  		led_val &= ~led->led_bit;
->  	else
->  		led_val |= led->led_bit;
->  
-> -	i2c_smbus_write_byte_data(led->i2c_client,
-> -				  BMC_CMD_LED_GET_SET, led_val);
-> +	ret = i2c_smbus_write_byte_data(led->i2c_client,
-> +					BMC_CMD_LED_GET_SET, led_val);
->  err_out:
->  	mutex_unlock(&led_lock);
-> +	return ret;
->  }
->  
->  static int menf21bmc_led_probe(struct platform_device *pdev)
-> @@ -81,7 +86,8 @@ static int menf21bmc_led_probe(struct platform_device *pdev)
->  
->  	for (i = 0; i < ARRAY_SIZE(leds); i++) {
->  		leds[i].cdev.name = leds[i].name;
-> -		leds[i].cdev.brightness_set = menf21bmc_led_set;
-> +		leds[i].cdev.brightness_set_blocking =
-> +			menf21bmc_led_set_blocking;
->  		leds[i].i2c_client = i2c_client;
->  		ret = devm_led_classdev_register(&pdev->dev, &leds[i].cdev);
->  		if (ret < 0) {
-> -- 
-> 2.34.1
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
--- 
-Lee Jones
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
+> ---
+>   drivers/gpu/buddy.c | 63 +++++++++++++++++++++++++++++++--------------
+>   1 file changed, 44 insertions(+), 19 deletions(-)
+> 
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index dc81fe0301ce..3c73ae87f3c5 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -1118,22 +1118,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
+>   			     blocks, total_allocated_on_err);
+>   }
+>   
+> +static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
+> +					u64 unaligned_offset,
+> +					u64 size,
+> +					u64 min_block_size,
+> +					struct list_head *blocks)
+> +{
+> +	u64 aligned_offset = round_down(unaligned_offset, min_block_size);
+> +
+> +	return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
+> +}
+> +
+>   static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>   				     u64 size,
+>   				     u64 min_block_size,
+>   				     struct list_head *blocks)
+>   {
+> -	u64 rhs_offset, lhs_offset, lhs_size, filled;
+> +	u64 rhs_offset, lhs_offset, filled;
+>   	struct gpu_buddy_block *block;
+>   	unsigned int tree, order;
+> -	LIST_HEAD(blocks_lhs);
+> -	unsigned long pages;
+>   	u64 modify_size;
+>   	int err;
+>   
+>   	modify_size = rounddown_pow_of_two(size);
+> -	pages = modify_size >> ilog2(mm->chunk_size);
+> -	order = fls(pages) - 1;
+> +	order = ilog2(modify_size) - ilog2(mm->chunk_size);
+>   	if (order == 0)
+>   		return -ENOSPC;
+>   
+> @@ -1149,31 +1157,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>   		while (iter) {
+>   			block = rbtree_get_free_block(iter);
+>   
+> -			/* Allocate blocks traversing RHS */
+>   			rhs_offset = gpu_buddy_block_offset(block);
+> +
+> +			/* Allocate blocks traversing RHS */
+>   			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+>   						       &filled, blocks);
+> -			if (!err || err != -ENOSPC)
+> +			if (err && err != -ENOSPC)
+>   				return err;
+> +			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
+> +				return 0;
+> +			if (!err) {
+> +				/* Allocate the unaligned RHS offset using round_down */
+> +				gpu_buddy_free_list_internal(mm, blocks);
+> +				err = __alloc_contig_aligned_retry(mm, rhs_offset,
+> +								   size,
+> +								   min_block_size,
+> +								   blocks);
+> +				if (!err)
+> +					return 0;
+> +				if (err != -ENOSPC) {
+> +					gpu_buddy_free_list_internal(mm, blocks);
+> +					return err;
+> +				}
+> +				goto next;
+> +			}
+>   
+> -			lhs_size = max((size - filled), min_block_size);
+> -			if (!IS_ALIGNED(lhs_size, min_block_size))
+> -				lhs_size = round_up(lhs_size, min_block_size);
+> +			if (size - filled > rhs_offset)
+> +				goto next;
+>   
+> -			/* Allocate blocks traversing LHS */
+> -			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
+> -			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
+> -						       NULL, &blocks_lhs);
+> -			if (!err) {
+> -				list_splice(&blocks_lhs, blocks);
+> +			lhs_offset = rhs_offset - (size - filled);
+> +
+> +			/* Allocate the unaligned LHS offset using round_down */
+> +			gpu_buddy_free_list_internal(mm, blocks);
+> +			err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
+> +							   min_block_size, blocks);
+> +			if (!err)
+>   				return 0;
+> -			} else if (err != -ENOSPC) {
+> +			if (err != -ENOSPC) {
+>   				gpu_buddy_free_list_internal(mm, blocks);
+>   				return err;
+>   			}
+> -			/* Free blocks for the next iteration */
+> +next:
+>   			gpu_buddy_free_list_internal(mm, blocks);
+> -
+>   			iter = rb_prev(iter);
+>   		}
+>   	}
+> 
+> base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
+
