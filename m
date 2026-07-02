@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89975353A79
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 15:11:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F53353A69
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 15:11:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783005065; cv=none; b=gih/HO8aTRMCTg2Kd0pzUAG4Q4mKCMOj0Yz2ijpLHxXJ+7Gi/N/b0ZV9ilUM4JuBINBe/vDkQ3EvQaqJAJhCL4xiF/Fs9co8rnOaPBUjqdoVoepe2IYp4DgCXu9akbL3IQwZeYaC1e6qqBkHcUrBOkDmZEK3R/IQLfXqMk4ughY=
+	t=1783005067; cv=none; b=phYT1rxeZgntyITx5VSd8a29/j7Bi54YpZy92AfA27lH2onlFqC/AuZ3cTLfvKB7Gfx3mL2+zYlHfJ6z6J9TCrnbEpB+LfPDYLBtU11jm7l1JTpzVA28tOWhjOk9y1ciMVaaR+/vy/WC7GVkXm1E50K2CGKsw90lmylUmwoyh6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783005065; c=relaxed/simple;
-	bh=XiQyWwyuinvkCaFqkq5eSTP5rOxzl0gyqrz7OBfE5kw=;
+	s=arc-20240116; t=1783005067; c=relaxed/simple;
+	bh=OaS5jdR6a3zwejP3LIaPmc7V7w788YjYyPyjzR8phEw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jS2CYyHGEXGlRlWB3n+gBoeVDzW6UrE01S+MAWLK5GDKhsuELLDeDsis1SjIKG3uDF8hrFRZj56NkmitDXdzJIxSKcs+QeVqPrfLFeaCVXhJ54RF23UWnfHO1wEuFcaN+OmVJ8238mvmKlzFz+xI4buvi++255eY5WrSLs70fQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LfJ/OtIw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jlYFoCF0bYHdVdWrm+3lWPohPQBH91vM9RxBtIovgaJaUIcY9Y47QgtDjzclyglxBxqZ+CKUl7iViBfYiOU/kueN/HQ3Z6V7aIoQ1/uXNy+TyxXwpabB0sbQ8yh2ldX+rJihEt7558W8dFIscy4a7Y7LRENzckfwHfkAK6XptXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CDfrVnvu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LfJ/OtIw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A65E51F00A3D;
-	Thu,  2 Jul 2026 15:11:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CDfrVnvu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F37961F000E9;
+	Thu,  2 Jul 2026 15:11:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783005064;
-	bh=jAGXit53IX+cgjYiWR8eAqjKJaBRpWFkauxpY3aHJkk=;
+	s=k20260515; t=1783005066;
+	bh=SVpVf9myb59VQm0mlMhKgh0sPf4gBupxxUt5SrM4PFE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LfJ/OtIwEUZ1j88Wk2Wu7Cs1qSlyPJ94jbzkNL9xGK0pHBsbxQ9p35sMTg1NIn/Vi
-	 kxB/OEvh1OxdVcnoPhZBDoTvjLjTYHTpLyRQlg9W+PjmWFfmZ1110hANdqy6IRsNf9
-	 Z3O0cLqDfmDOpVKWaOjssY2AwRl2/si9Tu74jEvUU5fJGxli/oUjb9YfGOebCzDvAV
-	 QszVbF2xEXl19Oz7ps52XtnYadG1KYmUvnjGCK7LziiNUs3CDmy5qZIE0+wMASGY4m
-	 3gj/XWjo1K4u9mFXOO9nnFdWp1fhoesBaA5VG63wggHkQNZ1w1zUZpQ2QfWh98Wvbi
-	 J0XB8QGn36duQ==
+	b=CDfrVnvu1G1TlkyY1ib0mjl7jlcJGEUuQVKhd5JreOaIqHCXn6JI1m2PlyLwaufZ4
+	 ggzxlvMN0B+oK6prA2tHdt1BdNPQursI65QyW7t3cnD8KY4M03rKap9MNH6FjFcfq+
+	 K9oTd+5cG/rHO3+edrWR7bcYBC6rb0fCenNyOj1jXmDNZUufYaUpJ+kZs+nLj2uuOt
+	 NARKoxxUR9u3+D82Wi0Yn7xrALuABuLhl7kuPYASm+vhC1GRmqtW6fNiyaPmAVZcGn
+	 S2W7fW+2D1uTbivRDQOFiAMEgglfg2DZ6DUvw+QKs8cDCUVtEvVu9GCGvRilKyLrMq
+	 /lG9S8Uuk/8VA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yiming Qian <yimingqian591@gmail.com>,
-	Keenan Dong <keenanat2000@gmail.com>,
+Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
+	Xiao Liang <shaw.leon@gmail.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] net: skmsg: preserve sg.copy across SG transforms
-Date: Thu,  2 Jul 2026 11:11:01 -0400
-Message-ID: <20260702151101.3512823-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] net: ip_gre: require CAP_NET_ADMIN in the device netns for changelink
+Date: Thu,  2 Jul 2026 11:11:04 -0400
+Message-ID: <20260702151104.3512866-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260702151101.3512823-1-sashal@kernel.org>
-References: <2026070245-deviation-chaffing-97e7@gregkh>
- <20260702151101.3512823-1-sashal@kernel.org>
+In-Reply-To: <2026070221-oblivious-crayfish-1017@gregkh>
+References: <2026070221-oblivious-crayfish-1017@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,297 +47,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yiming Qian <yimingqian591@gmail.com>
+From: Maoyi Xie <maoyixie.tju@gmail.com>
 
-[ Upstream commit 406e8a651a7b854c41fecd5117bb282b3a6c2c6b ]
+[ Upstream commit 8165f7ff57d9667d2bb477ef6af83ede7fed4ad7 ]
 
-The sk_msg sg.copy bitmap is part of the scatterlist entry ownership
-state. A set bit tells sk_msg_compute_data_pointers() not to expose the
-entry through writable BPF ctx->data. This protects entries backed by
-pages that are not private to the sk_msg, such as splice-backed file
-page-cache pages.
+A tunnel changelink() operates on at most two netns, dev_net(dev) and
+the tunnel link netns t->net. They differ once the device is created in
+or moved to a netns other than the one the request runs in. The rtnl
+changelink path checks CAP_NET_ADMIN only against dev_net(dev), so a
+caller privileged there but not in t->net can rewrite a tunnel that
+lives in t->net.
 
-Several sk_msg transform paths move, copy, split, or compact
-msg->sg.data[] entries without moving the matching sg.copy bit. This can
-make an externally backed entry arrive at a new slot with a clear copy
-bit. A later SK_MSG verdict can then expose sg_virt(sge) as writable
-ctx->data and BPF stores can modify the original page cache.
+Add rtnl_dev_link_net_capable() next to rtnl_get_net_ns_capable() in
+net/core/rtnetlink.c. It requires CAP_NET_ADMIN in the link netns and is
+skipped when the link netns is dev_net(dev), where the rtnl path already
+checked it. The other patches in this series use the same helper.
 
-Keep sg.copy synchronized with sg.data[] whenever entries are
-transferred, shifted, split, or copied into a new sk_msg. Clear the bit
-when an entry is replaced by a newly allocated private page or freed.
-This covers the BPF pull/push/pop helpers, sk_msg_shift_left/right(),
-sk_msg_xfer(), and tls_split_open_record(), including the partial tail
-entry created during TLS open-record splitting.
+Gate ipgre_changelink() and erspan_changelink() with it, at the top of
+the op before any attribute is parsed, because the parsers update live
+tunnel fields first. ipgre_netlink_parms() sets t->collect_md before
+ip_tunnel_changelink() runs.
 
-Fixes: d3b18ad31f93 ("tls: add bpf support to sk_msg handling")
+Commit 8b484efd5cb4 ("ip6: vti: Use ip6_tnl.net in
+vti6_siocdevprivate().") added the same check on the ioctl path. This
+adds it on RTM_NEWLINK.
+
+Reported-by: Xiao Liang <shaw.leon@gmail.com>
+Closes: https://lore.kernel.org/netdev/CABAhCOSzP1vaThGV35_VnsRCb=87_CPjPVsTHbq905k8A+BuUg@mail.gmail.com/
+Fixes: b57708add314 ("gre: add x-netns support")
 Cc: stable@vger.kernel.org
-Reported-by: Yiming Qian <yimingqian591@gmail.com>
-Reported-by: Keenan Dong <keenanat2000@gmail.com>
-Signed-off-by: Yiming Qian <yimingqian591@gmail.com>
-Link: https://patch.msgid.link/20260610062137.49075-1-yimingqian591@gmail.com
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260612085941.3158249-2-maoyixie.tju@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/skmsg.h | 15 +++++++++++----
- net/core/filter.c     | 27 +++++++++++++++++++++++++++
- net/core/skmsg.c      |  2 ++
- net/tls/tls_sw.c      |  4 ++++
- 4 files changed, 44 insertions(+), 4 deletions(-)
+ include/net/rtnetlink.h | 2 ++
+ net/core/rtnetlink.c    | 8 ++++++++
+ net/ipv4/ip_gre.c       | 6 ++++++
+ 3 files changed, 16 insertions(+)
 
-diff --git a/include/linux/skmsg.h b/include/linux/skmsg.h
-index 7bc66fd7fc58c1..fb0709d17fd2b1 100644
---- a/include/linux/skmsg.h
-+++ b/include/linux/skmsg.h
-@@ -4,6 +4,7 @@
- #ifndef _LINUX_SKMSG_H
- #define _LINUX_SKMSG_H
+diff --git a/include/net/rtnetlink.h b/include/net/rtnetlink.h
+index 0bd400be3f8d9f..983f01bf1bd6ba 100644
+--- a/include/net/rtnetlink.h
++++ b/include/net/rtnetlink.h
+@@ -210,6 +210,8 @@ int rtnl_configure_link(struct net_device *dev, const struct ifinfomsg *ifm,
+ int rtnl_nla_parse_ifinfomsg(struct nlattr **tb, const struct nlattr *nla_peer,
+ 			     struct netlink_ext_ack *exterr);
+ struct net *rtnl_get_net_ns_capable(struct sock *sk, int netnsid);
++bool rtnl_dev_link_net_capable(const struct net_device *dev,
++			       const struct net *link_net);
  
-+#include <linux/bitops.h>
- #include <linux/bpf.h>
- #include <linux/filter.h>
- #include <linux/scatterlist.h>
-@@ -188,11 +189,14 @@ static inline void sk_msg_xfer(struct sk_msg *dst, struct sk_msg *src,
- 			       int which, u32 size)
- {
- 	dst->sg.data[which] = src->sg.data[which];
-+	__assign_bit(which, dst->sg.copy, test_bit(which, src->sg.copy));
- 	dst->sg.data[which].length  = size;
- 	dst->sg.size		   += size;
- 	src->sg.size		   -= size;
- 	src->sg.data[which].length -= size;
- 	src->sg.data[which].offset += size;
-+	if (!src->sg.data[which].length)
-+		__clear_bit(which, src->sg.copy);
+ #define MODULE_ALIAS_RTNL_LINK(kind) MODULE_ALIAS("rtnl-link-" kind)
+ 
+diff --git a/net/core/rtnetlink.c b/net/core/rtnetlink.c
+index a4e017c2cbf213..b97d348a5b2a93 100644
+--- a/net/core/rtnetlink.c
++++ b/net/core/rtnetlink.c
+@@ -2110,6 +2110,14 @@ struct net *rtnl_get_net_ns_capable(struct sock *sk, int netnsid)
  }
+ EXPORT_SYMBOL_GPL(rtnl_get_net_ns_capable);
  
- static inline void sk_msg_xfer_full(struct sk_msg *dst, struct sk_msg *src)
-@@ -262,16 +266,19 @@ static inline void sk_msg_page_add(struct sk_msg *msg, struct page *page,
- static inline void sk_msg_sg_copy(struct sk_msg *msg, u32 i, bool copy_state)
- {
- 	do {
--		if (copy_state)
--			__set_bit(i, msg->sg.copy);
--		else
--			__clear_bit(i, msg->sg.copy);
-+		__assign_bit(i, msg->sg.copy, copy_state);
- 		sk_msg_iter_var_next(i);
- 		if (i == msg->sg.end)
- 			break;
- 	} while (1);
- }
- 
-+static inline void sk_msg_sg_copy_assign(struct sk_msg *dst, u32 dst_i,
-+					 const struct sk_msg *src, u32 src_i)
++bool rtnl_dev_link_net_capable(const struct net_device *dev,
++			       const struct net *link_net)
 +{
-+	__assign_bit(dst_i, dst->sg.copy, test_bit(src_i, src->sg.copy));
++	return net_eq(link_net, dev_net(dev)) ||
++	       ns_capable(link_net->user_ns, CAP_NET_ADMIN);
 +}
++EXPORT_SYMBOL_GPL(rtnl_dev_link_net_capable);
 +
- static inline void sk_msg_sg_copy_set(struct sk_msg *msg, u32 start)
- {
- 	sk_msg_sg_copy(msg, start, true);
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 5874ecb192098c..2b413e9b6d02a6 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -2701,11 +2701,13 @@ BPF_CALL_4(bpf_msg_pull_data, struct sk_msg *, msg, u32, start,
- 		poffset += len;
- 		sge->length = 0;
- 		put_page(sg_page(sge));
-+		__clear_bit(i, msg->sg.copy);
+ static int rtnl_valid_dump_ifinfo_req(const struct nlmsghdr *nlh,
+ 				      bool strict_check, struct nlattr **tb,
+ 				      struct netlink_ext_ack *extack)
+diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
+index 2c1228ddaa22f7..b635d2fedd2dbd 100644
+--- a/net/ipv4/ip_gre.c
++++ b/net/ipv4/ip_gre.c
+@@ -1406,6 +1406,9 @@ static int ipgre_changelink(struct net_device *dev, struct nlattr *tb[],
+ 	struct ip_tunnel_parm p;
+ 	int err;
  
- 		sk_msg_iter_var_next(i);
- 	} while (i != last_sge);
++	if (!rtnl_dev_link_net_capable(dev, t->net))
++		return -EPERM;
++
+ 	err = ipgre_newlink_encap_setup(dev, data);
+ 	if (err)
+ 		return err;
+@@ -1435,6 +1438,9 @@ static int erspan_changelink(struct net_device *dev, struct nlattr *tb[],
+ 	struct ip_tunnel_parm p;
+ 	int err;
  
- 	sg_set_page(&msg->sg.data[first_sge], page, copy, 0);
-+	__clear_bit(first_sge, msg->sg.copy);
- 
- 	/* To repair sg ring we need to shift entries. If we only
- 	 * had a single entry though we can just replace it and
-@@ -2731,9 +2733,11 @@ BPF_CALL_4(bpf_msg_pull_data, struct sk_msg *, msg, u32, start,
- 			break;
- 
- 		msg->sg.data[i] = msg->sg.data[move_from];
-+		sk_msg_sg_copy_assign(msg, i, msg, move_from);
- 		msg->sg.data[move_from].length = 0;
- 		msg->sg.data[move_from].page_link = 0;
- 		msg->sg.data[move_from].offset = 0;
-+		__clear_bit(move_from, msg->sg.copy);
- 		sk_msg_iter_var_next(i);
- 	} while (1);
- 
-@@ -2762,6 +2766,7 @@ BPF_CALL_4(bpf_msg_push_data, struct sk_msg *, msg, u32, start,
- {
- 	struct scatterlist sge, nsge, nnsge, rsge = {0}, *psge;
- 	u32 new, i = 0, l = 0, space, copy = 0, offset = 0;
-+	bool sge_copy, nsge_copy, nnsge_copy, rsge_copy = false;
- 	u8 *raw, *to, *from;
- 	struct page *page;
- 
-@@ -2834,6 +2839,7 @@ BPF_CALL_4(bpf_msg_push_data, struct sk_msg *, msg, u32, start,
- 			sk_msg_iter_var_prev(i);
- 		psge = sk_msg_elem(msg, i);
- 		rsge = sk_msg_elem_cpy(msg, i);
-+		rsge_copy = test_bit(i, msg->sg.copy);
- 
- 		psge->length = start - offset;
- 		rsge.length -= psge->length;
-@@ -2858,24 +2864,32 @@ BPF_CALL_4(bpf_msg_push_data, struct sk_msg *, msg, u32, start,
- 
- 	/* Shift one or two slots as needed */
- 	sge = sk_msg_elem_cpy(msg, new);
-+	sge_copy = test_bit(new, msg->sg.copy);
- 	sg_unmark_end(&sge);
- 
- 	nsge = sk_msg_elem_cpy(msg, i);
-+	nsge_copy = test_bit(i, msg->sg.copy);
- 	if (rsge.length) {
- 		sk_msg_iter_var_next(i);
- 		nnsge = sk_msg_elem_cpy(msg, i);
-+		nnsge_copy = test_bit(i, msg->sg.copy);
- 		sk_msg_iter_next(msg, end);
- 	}
- 
- 	while (i != msg->sg.end) {
- 		msg->sg.data[i] = sge;
-+		__assign_bit(i, msg->sg.copy, sge_copy);
- 		sge = nsge;
-+		sge_copy = nsge_copy;
- 		sk_msg_iter_var_next(i);
- 		if (rsge.length) {
- 			nsge = nnsge;
-+			nsge_copy = nnsge_copy;
- 			nnsge = sk_msg_elem_cpy(msg, i);
-+			nnsge_copy = test_bit(i, msg->sg.copy);
- 		} else {
- 			nsge = sk_msg_elem_cpy(msg, i);
-+			nsge_copy = test_bit(i, msg->sg.copy);
- 		}
- 	}
- 
-@@ -2889,6 +2903,7 @@ BPF_CALL_4(bpf_msg_push_data, struct sk_msg *, msg, u32, start,
- 		get_page(sg_page(&rsge));
- 		sk_msg_iter_var_next(new);
- 		msg->sg.data[new] = rsge;
-+		__assign_bit(new, msg->sg.copy, rsge_copy);
- 	}
- 
- 	sk_msg_reset_curr(msg);
-@@ -2916,25 +2931,33 @@ static void sk_msg_shift_left(struct sk_msg *msg, int i)
- 		prev = i;
- 		sk_msg_iter_var_next(i);
- 		msg->sg.data[prev] = msg->sg.data[i];
-+		sk_msg_sg_copy_assign(msg, prev, msg, i);
- 	} while (i != msg->sg.end);
- 
- 	sk_msg_iter_prev(msg, end);
-+	__clear_bit(msg->sg.end, msg->sg.copy);
- }
- 
- static void sk_msg_shift_right(struct sk_msg *msg, int i)
- {
- 	struct scatterlist tmp, sge;
-+	bool tmp_copy, sge_copy;
- 
- 	sk_msg_iter_next(msg, end);
- 	sge = sk_msg_elem_cpy(msg, i);
-+	sge_copy = test_bit(i, msg->sg.copy);
- 	sk_msg_iter_var_next(i);
- 	tmp = sk_msg_elem_cpy(msg, i);
-+	tmp_copy = test_bit(i, msg->sg.copy);
- 
- 	while (i != msg->sg.end) {
- 		msg->sg.data[i] = sge;
-+		__assign_bit(i, msg->sg.copy, sge_copy);
- 		sk_msg_iter_var_next(i);
- 		sge = tmp;
-+		sge_copy = tmp_copy;
- 		tmp = sk_msg_elem_cpy(msg, i);
-+		tmp_copy = test_bit(i, msg->sg.copy);
- 	}
- }
- 
-@@ -2994,6 +3017,8 @@ BPF_CALL_4(bpf_msg_pop_data, struct sk_msg *, msg, u32, start,
- 		struct scatterlist *nsge, *sge = sk_msg_elem(msg, i);
- 		int a = start - offset;
- 		int b = sge->length - pop - a;
-+		u32 sge_i = i;
-+		bool sge_copy = test_bit(i, msg->sg.copy);
- 
- 		sk_msg_iter_var_next(i);
- 
-@@ -3006,6 +3031,7 @@ BPF_CALL_4(bpf_msg_pop_data, struct sk_msg *, msg, u32, start,
- 				sg_set_page(nsge,
- 					    sg_page(sge),
- 					    b, sge->offset + pop + a);
-+				__assign_bit(i, msg->sg.copy, sge_copy);
- 			} else {
- 				struct page *page, *orig;
- 				u8 *to, *from;
-@@ -3022,6 +3048,7 @@ BPF_CALL_4(bpf_msg_pop_data, struct sk_msg *, msg, u32, start,
- 				memcpy(to, from, a);
- 				memcpy(to + a, from + a + pop, b);
- 				sg_set_page(sge, page, a + b, 0);
-+				__clear_bit(sge_i, msg->sg.copy);
- 				put_page(orig);
- 			}
- 			pop = 0;
-diff --git a/net/core/skmsg.c b/net/core/skmsg.c
-index 68e5fd7aa12893..2bf60619dc7b25 100644
---- a/net/core/skmsg.c
-+++ b/net/core/skmsg.c
-@@ -65,6 +65,7 @@ int sk_msg_alloc(struct sock *sk, struct sk_msg *msg, int len,
- 			sge = &msg->sg.data[msg->sg.end];
- 			sg_unmark_end(sge);
- 			sg_set_page(sge, pfrag->page, use, orig_offset);
-+			__clear_bit(msg->sg.end, msg->sg.copy);
- 			get_page(pfrag->page);
- 			sk_msg_iter_next(msg, end);
- 		}
-@@ -185,6 +186,7 @@ static int sk_msg_free_elem(struct sock *sk, struct sk_msg *msg, u32 i,
- 			sk_mem_uncharge(sk, len);
- 		put_page(sg_page(sge));
- 	}
-+	__clear_bit(i, msg->sg.copy);
- 	memset(sge, 0, sizeof(*sge));
- 	return len;
- }
-diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
-index 630fa387da14f0..389597bd7ae524 100644
---- a/net/tls/tls_sw.c
-+++ b/net/tls/tls_sw.c
-@@ -607,6 +607,7 @@ static int tls_split_open_record(struct sock *sk, struct tls_rec *from,
- 	struct scatterlist *sge, *osge, *nsge;
- 	u32 orig_size = msg_opl->sg.size;
- 	struct scatterlist tmp = { };
-+	u32 tmp_i = 0;
- 	struct sk_msg *msg_npl;
- 	struct tls_rec *new;
- 	int ret;
-@@ -628,6 +629,7 @@ static int tls_split_open_record(struct sock *sk, struct tls_rec *from,
- 		if (sge->length > apply) {
- 			u32 len = sge->length - apply;
- 
-+			tmp_i = i;
- 			get_page(sg_page(sge));
- 			sg_set_page(&tmp, sg_page(sge), len,
- 				    sge->offset + apply);
-@@ -659,6 +661,7 @@ static int tls_split_open_record(struct sock *sk, struct tls_rec *from,
- 	nsge = sk_msg_elem(msg_npl, j);
- 	if (tmp.length) {
- 		memcpy(nsge, &tmp, sizeof(*nsge));
-+		sk_msg_sg_copy_assign(msg_npl, j, msg_opl, tmp_i);
- 		sk_msg_iter_var_next(j);
- 		nsge = sk_msg_elem(msg_npl, j);
- 	}
-@@ -666,6 +669,7 @@ static int tls_split_open_record(struct sock *sk, struct tls_rec *from,
- 	osge = sk_msg_elem(msg_opl, i);
- 	while (osge->length) {
- 		memcpy(nsge, osge, sizeof(*nsge));
-+		sk_msg_sg_copy_assign(msg_npl, j, msg_opl, i);
- 		sg_unmark_end(nsge);
- 		sk_msg_iter_var_next(i);
- 		sk_msg_iter_var_next(j);
++	if (!rtnl_dev_link_net_capable(dev, t->net))
++		return -EPERM;
++
+ 	err = ipgre_newlink_encap_setup(dev, data);
+ 	if (err)
+ 		return err;
 -- 
 2.53.0
 
