@@ -1,80 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCA231F9A2;
-	Thu,  2 Jul 2026 17:05:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232FD3093DD;
+	Thu,  2 Jul 2026 17:12:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783011953; cv=none; b=kBB1kRK6AeYu/SoyfeA5MuI2Ikefx/DVQD9+5zVHcB8PQ7Uf7IKLy06gxi6it5SnPsgW5KsAwpHP0yVIvFvsOMfEMxXg1VvZQUFY0URSWHLlpgGXRFubl/YGeS1ESiS4Oh2Xm2H6C32sKwV7zhxdJignW1sryL2H9SoKZSWQ+aI=
+	t=1783012357; cv=none; b=owAoE5bTKOpg5zXw6Ni3dOS7XNQrgiTo6GGLAyLb8QC5k6Voy4cvJyrqU/iVPD6hjqsGF47i2ZFfv2nVXaY0FubcondEIAsaw10pL/Q/z3lfrY4hIxr8TeKiVL7IMeFRBHhzX4aJJjDU1UD6y5C8WxaSwbmXabth0s1EV+YB8II=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783011953; c=relaxed/simple;
-	bh=vgEYiPDUAR8MFY8T/V7VkePhk2r4/Zam4XfDFzJai0E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uVtbilOPrXzHL8Ku4SSWgnn+Vu+/w/LgFLnA1dBwBaWj80kT5KOmeI8FrIgLyzBgvAlRhXd+sBH7zejBfC23hxfUu9VJFZp3hfQa+CapjXmGZBkehHjLJd1HVnSvOwwyt2flZ2K5c0Tujn7wfKjN7tOwNKHEGb4cVNUOzGJxYnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NlbbMCA0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783012357; c=relaxed/simple;
+	bh=ui7Wvq31+bmhfdGiaQu1nVRQtVBuT+2jB1IXxK1XaZE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ITOdGhBajQvzsgT/bOcQ7jSpVNcxv9TmKhyYDvaEpZNI8h84oA0ywA77mMtki0vXP9Jtpck2WJ1y2H4mjJxkblcybIApcU7wX11Dt1YOMdCLxQIF7Qhy4BEyvBvfHsj+lj4xrAobylzln0FXKS/yZSOXlqkVW6fsndVM4n97gHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=YhTkq2iH; arc=none smtp.client-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NlbbMCA0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84E6A1F000E9;
-	Thu,  2 Jul 2026 17:05:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783011951;
-	bh=3F7AKCX0pjnj4U4BTcSrfEj0YWHfY9FVXVpF3mkxY2M=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NlbbMCA0hgGr/QPVK0aEl9MoqqkEfyj4VKKUKiP7WvzgO27SAGvnsxF4Z3/1JHtvR
-	 +CTfn1ExbRB/7OyMk985NiAJlwaIS+T4NLA338mROmP1EsWMZ5wa/juxbHvN3dO/1R
-	 CP6RpvmbazHNGCWUKvTwK0uTQ6Gmd7k5XJ6L4/DtfjmY83A4Xi1GAF9Wgn0iugNlGe
-	 O/L5LlM2NWHypp+Lr1g+wZ/PKdJLKgM1dC3XhQdC6zRR7j9j7p1/iu2rW2+sf9q3qD
-	 VbkEd1w4KhXl8RYuD0MxQJXHe24L2DG4Pk0YEe/D0C2K89W6bi72q8xutVZryOH830
-	 gb4HqZgSm8Fug==
-Date: Thu, 2 Jul 2026 18:05:45 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Joshua Crofts <joshua.crofts1@gmail.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Jonathan Santos <Jonathan.Santos@analog.com>,
- Ramona Alexandra Nechita <ramona.nechita@analog.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] iio: adc: add missing 'select IIO_TRIGGERED_BUFFER'
- to Kconfig entries
-Message-ID: <20260702180545.680c5265@jic23-huawei>
-In-Reply-To: <akZFTC6qVzLG5ton@ashevche-desk.local>
-References: <20260701-add-adc-kconfig-deps-v1-0-b9708d74f426@gmail.com>
-	<akZFTC6qVzLG5ton@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="YhTkq2iH"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1783012350; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=vQZAChbuoVsas+C9SU6lXSqc6Mn3Gbl8B75Pqg5FD4w=;
+	b=YhTkq2iHhHmU++xvPZsVB2ZQGz8P4XtjWJZ3mpuGaK6L9pfXRxx/2+lzSdlk7FgN9a1bXR3431akmVBklKT3+tetK4/Xr5psX9GuYLNBa4aHW8qD1P3rTHeUVCXHhS6cg/mzXvQw+EK//40U4hj9y9x08JD1i4DnX9pv600uJBI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0X6FdVAf_1783012348;
+Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0X6FdVAf_1783012348 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 03 Jul 2026 01:12:29 +0800
+From: Dust Li <dust.li@linux.alibaba.com>
+To: "D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Wenjia Zhang <wenjia@linux.ibm.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	Simon Horman <horms@kernel.org>,
+	Ursula Braun <ubraun@linux.vnet.ibm.com>,
+	Hans Wippel <hwippel@linux.ibm.com>,
+	linux-rdma@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net] net/smc: ignore peer-supplied rmbe_idx and dmbe_idx
+Date: Fri,  3 Jul 2026 01:11:38 +0800
+Message-ID: <20260702171137.1099051-2-dust.li@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2 Jul 2026 14:02:36 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+Linux always uses exactly one RMBE per RMB (index 1 for SMC-R) and
+one DMBE per DMB (index 0 for SMC-D), so conn->tx_off is always zero.
+Hardcode these fixed values instead of deriving tx_off from the
+peer-supplied rmbe_idx / dmbe_idx in the CLC Accept/Confirm message.
 
-> On Wed, Jul 01, 2026 at 09:21:45PM +0200, Joshua Crofts wrote:
-> > The AD4130 and AD7779 entries are missing 'select IIO_TRIGGERED_BUFFER'
-> > entries, causing potential build failures.
-> > 
-> > Steps to reproduce:
-> > 1. Run `make allnoconfig`
-> > 2. Run `make menuconfig` and select any afformentioned driver and
-> >    modules it depends on.
-> > 3. Run `make .` and the build will fail due to missing triggered
-> >    buffer definitions etc.  
-> 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> 
-> > I seem to have stumbled upon a lot of drivers which have incomplete
-> > Kconfigs, expect more patch series per sensor type.  
-> 
-> 
-> 
-Applied to the fixes-togreg branch of iio.git.
+Fixes: e6727f39004b ("smc: send data (through RDMA)")
+Fixes: 413498440e30 ("net/smc: add SMC-D support in af_smc")
+Cc: stable@vger.kernel.org
+Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
+Signed-off-by: Dust Li <dust.li@linux.alibaba.com>
+---
+ net/smc/af_smc.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-Thanks,
-
-Jonathan
+diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+index b5db69073e20..3706e8ac49e0 100644
+--- a/net/smc/af_smc.c
++++ b/net/smc/af_smc.c
+@@ -729,11 +729,15 @@ static void smcr_conn_save_peer_info(struct smc_sock *smc,
+ {
+ 	int bufsize = smc_uncompress_bufsize(clc->r0.rmbe_size);
+ 
+-	smc->conn.peer_rmbe_idx = clc->r0.rmbe_idx;
++	/* Linux uses exactly one RMBE per RMB (always index 1); ignore the
++	 * peer-supplied rmbe_idx to prevent a malicious peer from setting an
++	 * out-of-bounds tx_off.
++	 */
++	smc->conn.peer_rmbe_idx = 1;
+ 	smc->conn.local_tx_ctrl.token = ntohl(clc->r0.rmbe_alert_token);
+ 	smc->conn.peer_rmbe_size = bufsize;
+ 	atomic_set(&smc->conn.peer_rmbe_space, smc->conn.peer_rmbe_size);
+-	smc->conn.tx_off = bufsize * (smc->conn.peer_rmbe_idx - 1);
++	smc->conn.tx_off = 0;
+ }
+ 
+ static void smcd_conn_save_peer_info(struct smc_sock *smc,
+@@ -741,12 +745,16 @@ static void smcd_conn_save_peer_info(struct smc_sock *smc,
+ {
+ 	int bufsize = smc_uncompress_bufsize(clc->d0.dmbe_size);
+ 
+-	smc->conn.peer_rmbe_idx = clc->d0.dmbe_idx;
++	/* Linux uses exactly one DMBE per DMB (always index 0); ignore the
++	 * peer-supplied dmbe_idx to prevent a malicious peer from deriving an
++	 * out-of-bounds tx_off that causes an OOB write.
++	 */
++	smc->conn.peer_rmbe_idx = 0;
+ 	smc->conn.peer_token = ntohll(clc->d0.token);
+ 	/* msg header takes up space in the buffer */
+ 	smc->conn.peer_rmbe_size = bufsize - sizeof(struct smcd_cdc_msg);
+ 	atomic_set(&smc->conn.peer_rmbe_space, smc->conn.peer_rmbe_size);
+-	smc->conn.tx_off = bufsize * smc->conn.peer_rmbe_idx;
++	smc->conn.tx_off = 0;
+ }
+ 
+ static void smc_conn_save_peer_info(struct smc_sock *smc,
+-- 
+2.43.7
 
