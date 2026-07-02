@@ -1,29 +1,29 @@
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B7147ECF0;
-	Thu,  2 Jul 2026 12:38:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D007926ED40;
+	Thu,  2 Jul 2026 12:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782995884; cv=none; b=RlAoP+YgzQFeO6sLV/Zd2ZCwspq7BeE/0NCFJaazvOX12cn86qzBWg5brc+1SahHsu8yFTOGgZBoj+MN1F7bJZrIZdSJKOCfT+CCxwIXfMEE2vQhPZWEPIsB7ZZXAtSa1RzpoVwc2JYTUxvKut9EjXTLUp6QZr0JXrM6uLRD73I=
+	t=1782995925; cv=none; b=LWPA1Hog9CzYdbgKkBSWXBmSo/CQduXU5Jz59g90dBOpYhSlciIWgDcr2zroI/A6IpmtA+DTeAwObDxhx9/hRvor8HiXRmmLn4YJcHrEFcgMcyMq9pjnNjQlnF5k0SOseKo3gEJuY2HjJsoj5eCRrfHS7kc6Y0Z/NmU0rsh1bLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782995884; c=relaxed/simple;
-	bh=fr4dDHRw85B1ssa1/vxY3hp9jcdR1I10WXYlcljDAIk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e0fdQjMPPvBGMfe3/ZC53sZE/J0Uql87dZrESZ4IUbAwy4l95amzqhORPLKUUfgHjoaP9aqKe1lnr67EeHxpCqfeskbNKlysOrV0RJdrNwWTSfKD6xej/+EV3Fjz+dKbZTGxIMgcMn0UB4g3R1yxnwdq7SrHjeE1Ozc0cxoB/BM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=shodn1SD; arc=none smtp.client-ip=115.124.30.100
+	s=arc-20240116; t=1782995925; c=relaxed/simple;
+	bh=sFKBSdGs6U8VmnH0Vwsy5UTVUBPubwlrpxWzEIWh67w=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=crHCgXT0p9T5W4D4e+qlbEXvt4kspTi7tdaU1OvhpM9M6tnTgDSWPFdj4KuxAngBqQonOa2vgPC4DTEVDCXtw9li3YY2Ga83ny8PNrLQVzSJwjRcpc13LoJ36EcKX5owv6mdGfY/S/oZJhlARle2f2ss6hBHAvIyRNEVpmhrBh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=wa8Geehd; arc=none smtp.client-ip=115.124.30.112
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="shodn1SD"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="wa8Geehd"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1782995878; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=zVPsC72MacI+7uoqqa+knkUXaga+oDDWAOgXUhuF+3U=;
-	b=shodn1SDfbx5Pt/vRFN+LVJS/e5jb0NOlMi6EfCUIUTF6w/sZhIWbvVTwKgY8Sk4kbbYtp6xQ197KtTBjA2g8bpG6rgkRv91J9uMfAY76rnHH4+6Gs1432v+vpEiD79cIY2SbLle0MWjDIJfjM3Cdvegl5nh3t+/4gTDFnSG6jw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=lulie@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0X6EoVO7_1782995877;
-Received: from localhost(mailfrom:lulie@linux.alibaba.com fp:SMTPD_---0X6EoVO7_1782995877 cluster:ay36)
+	t=1782995920; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=lKI7fmOaYipG31xvygjbfgJ816qdaKPkIEG+rDNU3b4=;
+	b=wa8GeehdL7tRyP1h+w3MLBGUD9dI8pG5gMJmjEJ7czpji0gVCGOvqfwmStM9vbY8f+L4yceL2E5LD5peIsgw1zGqGInagZQeGy4fd+o9OHnz8qrpRTl5k1nzL4UMEI+W/A/NIRZ4a58wSzFRbqiLaFN5cL4KIjwCRvKTt1g/0a4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=lulie@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0X6En153_1782995919;
+Received: from localhost(mailfrom:lulie@linux.alibaba.com fp:SMTPD_---0X6En153_1782995919 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Thu, 02 Jul 2026 20:37:58 +0800
+          Thu, 02 Jul 2026 20:38:40 +0800
 From: Philo Lu <lulie@linux.alibaba.com>
 To: stable@vger.kernel.org
 Cc: hch@lst.de,
@@ -36,9 +36,9 @@ Cc: hch@lst.de,
 	dust.li@linux.alibaba.com,
 	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 5.15.y] nvmet-tcp: fix race between ICReq handling and queue teardown
-Date: Thu,  2 Jul 2026 20:37:57 +0800
-Message-Id: <20260702123757.99897-1-lulie@linux.alibaba.com>
+Subject: [PATCH 5.10.y] nvmet-tcp: fix race between ICReq handling and queue teardown
+Date: Thu,  2 Jul 2026 20:38:39 +0800
+Message-Id: <20260702123839.100640-1-lulie@linux.alibaba.com>
 X-Mailer: git-send-email 2.32.0.3.g01195cf9f
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -98,10 +98,10 @@ Signed-off-by: Philo Lu <lulie@linux.alibaba.com>
  1 file changed, 28 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
-index 29ed707e76e0..06cfcf085007 100644
+index edcc0662c3e5..4bd82e9b113f 100644
 --- a/drivers/nvme/target/tcp.c
 +++ b/drivers/nvme/target/tcp.c
-@@ -357,6 +357,19 @@ static void nvmet_tcp_build_pdu_iovec(struct nvmet_tcp_cmd *cmd)
+@@ -345,6 +345,19 @@ static void nvmet_tcp_build_pdu_iovec(struct nvmet_tcp_cmd *cmd)
 
  static void nvmet_tcp_fatal_error(struct nvmet_tcp_queue *queue)
  {
@@ -121,7 +121,7 @@ index 29ed707e76e0..06cfcf085007 100644
  	queue->rcv_state = NVMET_TCP_RECV_ERR;
  	if (queue->nvme_sq.ctrl)
  		nvmet_ctrl_fatal_error(queue->nvme_sq.ctrl);
-@@ -900,10 +913,24 @@ static int nvmet_tcp_handle_icreq(struct nvmet_tcp_queue *queue)
+@@ -888,10 +901,24 @@ static int nvmet_tcp_handle_icreq(struct nvmet_tcp_queue *queue)
  	iov.iov_base = icresp;
  	iov.iov_len = sizeof(*icresp);
  	ret = kernel_sendmsg(queue->sock, &msg, &iov, 1, iov.iov_len);
