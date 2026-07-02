@@ -1,157 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E9330E82D
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 15:26:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2A530D412
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 15:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783005991; cv=none; b=Xa3SvO9QQ58XH89ANrjKjrvezjda89Z6WCGUTpcimPAfdH0t3Kg8idnsqH1DUpiY6yy3e44iQj0ktTSbnlqULtLSpOwJSwxQv3bgaFvEA4UhnJcOEJRHjohg+QhPdG7YzDsVfgL0HdXihNP7wlcMJy3AMmllPYDAYjHg7Nz75gA=
+	t=1783006023; cv=none; b=QpeRmhc7K0tkrzNg7KfRgXgZygRO9lMP4wg2XpZBvmAyz73miMp5HkxF1o5Z0nth2XCEqSDcy3YU0TypVYAlDjxj/sJfDdXtP38bgJO8yccDsOsdaQoVxpyW4zyJ79Liv5aFsVSBbwZdxd7YM/SkM/RxPTvVRQjQLEveCDF+itU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783005991; c=relaxed/simple;
-	bh=rxA2g75mZ2zg4WRZA/M0wg/BD4vaXQZyz0JOAv3FOk8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PzRlEeYPk1wCW/l0CXxJroW7aJkYzbvE8npZSwyc0HQZAENOeBmCK3PDBOHtxY13U86NknjVCKmNcI/9f2Wqr+/oYSKobwX7kEQ+OIV66vLaaXosPocbrev0xV+2NIZlkoL0v8oU/Zj+iqcn19J6NILHPSYvZ+M08Bfv0olq3oY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OgyGEVfQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783006023; c=relaxed/simple;
+	bh=3kyBhjP5JMk8j8K+1xEAajnWvzsKxVJbKoa2akymi9Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oOg+1t41T7veGYTOAAz1LnL5yV6aMwqX5e3ZBKUn6Jx1OLJcrNHA/rbY0QzYXOFZuMnsWjwWxI2Jof+FudqR6KdEIt6T4jmZwph0ZItmCpvuwPfHkbDmhanhSvMvDKzP3nAWyda8OkFzYe6aqoFRPuLa+MMgOoADEZ1px+dEcQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jovmKwB5; arc=none smtp.client-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OgyGEVfQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFA461F000E9;
-	Thu,  2 Jul 2026 15:26:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783005990;
-	bh=GVV0eXw6QGhbOUwbf2ycu3cMPbwOpommhUQ8YFYOKII=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OgyGEVfQ2D9Sj/xAuMuld7hfxvMLajEXUXhqUKWz607MSw+Q5Ruu05WNKriRnhGWM
-	 75JA1BJ3ZWdT2XCa/y07QrNGKmlLFhz2UMizm7k1768R1GWY7qpIHCOML8NEM7L1Mi
-	 EvzSDHCY2FChsBDnkRSN60oYodT0UKi7dtrBHqipIBdGKU79iNnhtvUCnULcEJ2Bmk
-	 oi1O0llcRITcMdfc92RKSbNEgB+4IT0s4lWv2K/5wNfgdC8xaqujjzvk77D073+LGt
-	 7/jKKR91HlOY4gh57wkmtnbQvERoNcXwaLH7fnaTrIy3Mj8TBePbjRb0EIH9Ps15UO
-	 PWO4+FfCs6RNg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ruslan Valiyev <linuxoid@gmail.com>,
-	Colin Ian King <colin.i.king@gmail.com>,
-	John Johansen <john.johansen@canonical.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] apparmor: fix use-after-free in rawdata dedup loop
-Date: Thu,  2 Jul 2026 11:26:28 -0400
-Message-ID: <20260702152628.3530333-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070221-sulphate-cauterize-488e@gregkh>
-References: <2026070221-sulphate-cauterize-488e@gregkh>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jovmKwB5"
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-92e5d6f35c1so159730485a.0
+        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 08:27:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1783006021; x=1783610821; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=3kyBhjP5JMk8j8K+1xEAajnWvzsKxVJbKoa2akymi9Q=;
+        b=jovmKwB57vQAycgMzlYPF86WLcBY9/kfHcdv9We2SO0Y/7HIwUWJbJsr9RqKm/aphx
+         EyVJKURjTRVEi0kpSWJg2JB+UJlxvVlpLyN9N/JZ3pkxGrsvU8eKsOexi8nenn7t0qzN
+         PntAgYVQ9jdF+2SOCdYNIaMotSVFfuE3auOgKievR+p5w5E2U0EEzzVUjs++9V9VYgSK
+         Vz0bFCSK7wimDPAdr3P6ttHpwqOLBZU1ATVFzZyhT+LeAvRF3qe9pJZddSxU2D1QNIdp
+         8te91guOE4A9C73DjZ1P1KgwAHIOpVMP52PI5RhrdpozGu/k/KmTa55FjaZv3ptrsZJA
+         8Vtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783006021; x=1783610821;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3kyBhjP5JMk8j8K+1xEAajnWvzsKxVJbKoa2akymi9Q=;
+        b=pAzsxo4HqQtaSLwIa6QIqJspLz20etUnoABSk7d79caHDExjiIoxRNlaMBkov+Uv0t
+         sBKqTADaxVDAsgCN+zInEe1wU55owQ2XG3m0pDJ/yQ6rcB3vjlQQuGuYxTFD/VpnXINU
+         fOb+Kri+nqsqlTcEBk09n/yD46N3BAI0CiTClkJ6ozk9h3wG5eB/oYHHOmmYqkpyPage
+         mJNpjHwlQwwPylLhM99IBCcYijiwt7/32BMuDLSP/QmX+kycfGGUVoL9PwB55ynf1bwX
+         rrBgfdvcYqhHgXRsrEvsNvfOaQ6njgFGitRQwoaatqF24NgWyRhSCm6l1Tm5zobs1MkR
+         ltjw==
+X-Forwarded-Encrypted: i=1; AFNElJ9rbNiDQd36+h2hrFeMDNoocycu5ntVYdghG01Inj/mayKUUWCvpe/mzlvefFCauPnu1OVsoKg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPBeUUQeIEFLzQEhQXlm3kz6gJD9eCpGhf99Klz6tLVGexYLkp
+	/USrxZKWMng9+Wmc1oLmciCQJWA5symK066in+IGfKLcPDV867Pt526zSHhUoEg2FLY=
+X-Gm-Gg: AfdE7cka+KBylzWiIFwoGoVoAqhAF/P+7gUY1C+z7MGIl7H6sb219hXpCm+4uz2uT7N
+	wc+7tf72h80N+Y+ueCWs+x2kYLNRI6rBZ1ZmfMnc+tA/XSjHXmXaaCuZqsgDGtL1VHu6WTyhiEr
+	5Xb9Iy6GjYikEQx55UZE+zDxLZ0Yo9RRhqntu/cau7KkYGJ84+/37rxAeY5jSGvMiPgZoHtaAKF
+	6GT7mZlyBFM8TbhzDiQewudceH5bLwg+n4pL19iWasqHtkWo8F00ZsKZDiTmgVhxOybdtwmeqbd
+	fhSE9aQG4U/CSrOsSrc6SSGHAaZX/Yc1rLCYFwaLNE4DmSsgk5iubhlcoS8X/ChOAv0QDUlillP
+	lrCp9IcGUrAA6NAKWadnryBl3XO4nX/nUJdGSLst8ZUT590jtOu1cd05665TY2ptym1hC67pjCY
+	NV59+B7VpNJjki1mnCEYXR2flQlBRL5k8TeqEoiygW0HTX/AfAk4mjeJzj4wBB9Z+0dV8=
+X-Received: by 2002:a05:620a:28d3:b0:92b:6805:91be with SMTP id af79cd13be357-92e7853d109mr831898385a.70.1783006019875;
+        Thu, 02 Jul 2026 08:26:59 -0700 (PDT)
+Received: from ziepe.ca (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net. [47.54.130.67])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92e7ffdd84esm236010785a.10.2026.07.02.08.26.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 08:26:58 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wfJJZ-00000005xYE-2TnW;
+	Thu, 02 Jul 2026 12:26:57 -0300
+Date: Thu, 2 Jul 2026 12:26:57 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Alex Timofeyev <sashka@ankey.net>
+Cc: Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
+	Parav Pandit <parav@nvidia.com>, Edward Srouji <edwards@nvidia.com>,
+	Vlad Dumitrescu <vdumitrescu@nvidia.com>, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH rdma-next v1 0/2] RDMA: fix cross-NIC same-host IPv6
+ RDMA-CM connect
+Message-ID: <20260702152657.GS7525@ziepe.ca>
+References: <1781545579.1-sashka@ankey.net>
+ <1781661732.reply1-sashka@ankey.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1781661732.reply1-sashka@ankey.net>
 
-From: Ruslan Valiyev <linuxoid@gmail.com>
+On Wed, Jun 17, 2026 at 02:02:12AM +0000, Alex Timofeyev wrote:
 
-[ Upstream commit 6f060496d03e4dc560a40f73770bd08335cb7a27 ]
+> IFF_LOOPBACK one to still recognize it as local. That commit is in
+> v6.18 but not in linux-6.6.y, which is the stable base we (and
+> presumably other RoCE-on-6.6 users) are on; might be worth a stable
+> backport on its own merits, independent of this series.
 
-aa_replace_profiles() walks ns->rawdata_list to dedup the incoming
-policy blob against entries already attached to existing profiles.
-Per the kernel-doc on struct aa_loaddata, list membership does not
-hold a reference: profiles hold pcount, and when the last pcount
-drops, do_ploaddata_rmfs() is queued on a workqueue that takes
-ns->lock and removes the entry. Between dropping the last pcount
-and the workqueue running, an entry remains on the list with
-pcount == 0.
+Feel free to propose backports to stable if it is valuable to you,
+RDMA maintainers are not managing stable at all, so you are welcome to
+do so.
 
-aa_get_profile_loaddata() is an unconditional kref_get() on
-pcount, so when the dedup loop hits such an entry, refcount
-hardening reports
-
-  refcount_t: addition on 0; use-after-free.
-
-inside aa_replace_profiles(), and the poisoned counter then
-trips "saturated" and "underflow" warnings on the subsequent
-uses of the same loaddata.
-
-Before commit a0b7091c4de4 ("apparmor: fix race on rawdata
-dereference") the dedup path used a get_unless_zero-style helper
-on a single counter, so the existing "if (tmp)" guard was
-meaningful. The split-refcount refactor introduced
-aa_get_profile_loaddata(), which has plain kref_get() semantics,
-and the guard quietly became a no-op.
-
-Introduce aa_get_profile_loaddata_not0(), matching the existing
-_not0 convention used by aa_get_profile_not0(), and use it for
-the rawdata_list dedup lookup so dying entries are skipped.
-
-Reproduced on x86_64 with v7.1-rc5 in QEMU+KVM running Ubuntu
-24.04 + stress-ng 0.17.06:
-
-  stress-ng --apparmor 1 --klog-check --timeout 60s
-
-Without this patch the three refcount_t warnings fire within a
-few seconds. With it the same 60 s run is clean. Coverage is a
-smoke-test only; a longer soak with CONFIG_KASAN, CONFIG_KCSAN
-and CONFIG_PROVE_LOCKING would be welcome from anyone with the
-cycles.
-
-Fixes: a0b7091c4de4 ("apparmor: fix race on rawdata dereference")
-Reported-by: Colin Ian King <colin.i.king@gmail.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221513
-Cc: stable@vger.kernel.org
-Signed-off-by: Ruslan Valiyev <linuxoid@gmail.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- security/apparmor/include/policy_unpack.h | 19 +++++++++++++++++++
- security/apparmor/policy.c                |  8 ++++++--
- 2 files changed, 25 insertions(+), 2 deletions(-)
-
-diff --git a/security/apparmor/include/policy_unpack.h b/security/apparmor/include/policy_unpack.h
-index 61cc9b5b8a1f36..b6af40885860b4 100644
---- a/security/apparmor/include/policy_unpack.h
-+++ b/security/apparmor/include/policy_unpack.h
-@@ -122,6 +122,25 @@ aa_get_profile_loaddata(struct aa_loaddata *data)
- 	return data;
- }
- 
-+/**
-+ * aa_get_profile_loaddata_not0 - get a profile reference count if not zero
-+ * @data: reference to get a count on
-+ *
-+ * Like aa_get_profile_loaddata(), but safe to call on an entry that may
-+ * be on a list (e.g. ns->rawdata_list) where the last pcount has already
-+ * dropped and the deferred cleanup has not yet run.
-+ *
-+ * Returns: pointer to reference, or %NULL if @data is NULL or its
-+ *          profile refcount has already reached zero.
-+ */
-+static inline struct aa_loaddata *
-+aa_get_profile_loaddata_not0(struct aa_loaddata *data)
-+{
-+	if (data && kref_get_unless_zero(&data->pcount))
-+		return data;
-+	return NULL;
-+}
-+
- void __aa_loaddata_update(struct aa_loaddata *data, long revision);
- bool aa_rawdata_eq(struct aa_loaddata *l, struct aa_loaddata *r);
- void aa_loaddata_kref(struct kref *kref);
-diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
-index 62ac50db5f803e..46d84d3a099866 100644
---- a/security/apparmor/policy.c
-+++ b/security/apparmor/policy.c
-@@ -976,8 +976,12 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 		if (aa_rawdata_eq(rawdata_ent, udata)) {
- 			struct aa_loaddata *tmp;
- 
--			tmp = aa_get_profile_loaddata(rawdata_ent);
--			/* check we didn't fail the race */
-+			/*
-+			 * Entries remain on rawdata_list with
-+			 * pcount == 0 until do_ploaddata_rmfs()
-+			 * runs; only take a live profile ref.
-+			 */
-+			tmp = aa_get_profile_loaddata_not0(rawdata_ent);
- 			if (tmp) {
- 				aa_put_profile_loaddata(udata);
- 				udata = tmp;
--- 
-2.53.0
-
+Jason
