@@ -1,58 +1,90 @@
-Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48442C11F9;
-	Thu,  2 Jul 2026 01:48:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009C1533D6;
+	Thu,  2 Jul 2026 02:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782956929; cv=none; b=QVcLZnKhsLhrLdhtx6p5mK2Ksnv7K0lc57my4h6ANu/2ohm69JCPIhxpXpTOeMhpDhAGo36sQyH+nKYsWVzjiARfTAcDnTSX4lm86VLHaqr7dopJ+iMvkmjGoOQSr1rXXvLnWlDgEbeA5j0P1kMDrXao9Qh1es9cUPjO+Lk0Bd4=
+	t=1782957809; cv=none; b=Mez1Se6W9I0+3XPrHjqefL11DXLzw8fl38Ry4qJJ9gGuwelk8dKzTNQDYj2oVPRjIeEeaVK2rV9BxIQx0XNsw3Dd5MTGjyYZB1d+KOyvCU3uuJEVbymltwECCckHSlH6inSGkslFcWdrrqb098wlaBsiu8ZhRJG0lxqMLjEgWW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782956929; c=relaxed/simple;
-	bh=OsgpoD5P4cFTiwjAqPW62HDOaq7/Xu8Dn4rKycuJ0fM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uHff6V5SEF1+Ds+Gp7QCJ0dX7xbLj40YxcRwJbenD6nr3e6wkHZgsbGOARD1qRHiU00OTxOCKeu0c5n/ihe0brjGU63ca7X7bIVwgcfti1Cw9/TYX7hBv7fMm0fYIE+xilnj4GdxgvOnIAnv2wYEiW1w+oKdUnH4VZWxD5qtbXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jd+8qkoy; arc=none smtp.client-ip=91.218.175.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782957809; c=relaxed/simple;
+	bh=R9m+PIIvrdJACQL1pc6fp0Yasf5Vz/CAGATDcgkgRl0=;
+	h=Date:To:From:Subject:Message-Id; b=YUq2b26iNHlUuaODLSBNPX94/ykpxWOWHAONRpcQ6ksLfwcoj6IsOOOwkkgy5L3SxQF/Y17uf28zK7IC1p3wcC6xvNaNt4WTUUzhHc8zECCntR5uEFgsRQRDIr1MdR8SmtaRHvfB+VT6Ts7y2VlIgDKeY7El6f5lxk+/piXSXig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=IjH/YnAh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jd+8qkoy"
-Date: Thu, 2 Jul 2026 09:48:33 +0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782956924;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OsgpoD5P4cFTiwjAqPW62HDOaq7/Xu8Dn4rKycuJ0fM=;
-	b=jd+8qkoyMpMPcw5KtF2o3aAaYORsMyJ1VxSjbgTogPwrt+X2it6p59J71sgczzr67Nn+h2
-	D5qluvUfemIyAR8QgFLCT+ZOQdGPcq4NpG80+ZhA0OEhcNkiJ7S1HE70OPRRhActsVkmWG
-	Mo+HE28vouMP6jQL5pB4WTlHp3Cm9FE=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Wang Jun <1742789905@qq.com>, tytso@mit.edu, adilger.kernel@dilger.ca, 
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	libaokun1@huawei.com, 25125332@bjtu.edu.cn, Jan Kara <jack@suse.cz>, 
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>
-Subject: Re: [PATCH] ext4: get rid of ppath in get_ext_path()
-Message-ID: <rrsgndgpxyrmu6okb43u6wkdaibbidlbyqgugeeijd2b44sf4y@6lzmm4v4xvdp>
-References: <tencent_C982B0201FE8F041BD5B4FC1ED7D646A740A@qq.com>
- <2026062643-tamer-limes-a320@gregkh>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="IjH/YnAh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 750281F000E9;
+	Thu,  2 Jul 2026 02:03:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1782957807;
+	bh=NKxnObE8dSSzelyVDyM98+YZsFq3lckxHKs/8JxCRrY=;
+	h=Date:To:From:Subject;
+	b=IjH/YnAhoWFV6fvirautY+yuGDH8JbDXnNa4ULd6gz/d39z+7C4bKdIE5jzHtW2GI
+	 ooOO1cu/xrmmw8AAHWCSKWxJH1Lp1A90p3+OmNzuFm5v+wd42UttsqoJnbKv7JkcIj
+	 kYgZTaBw9FIlrtjDP27lRqlRQWR/O+RrbBzJkFY8=
+Date: Wed, 01 Jul 2026 19:03:26 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,shuah@kernel.org,rppt@kernel.org,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,dev.jain@arm.com,david@kernel.org,broonie@kernel.org,sarthak.sharma@arm.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged mm-hotfixes-stable] selftests-mm-fix-ksft_process_madvsh-test-category.patch removed from -mm tree
+Message-Id: <20260702020327.750281F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026062643-tamer-limes-a320@gregkh>
-X-Migadu-Flow: FLOW_OUT
 
-Hi Greg,
 
-Any update here ?
+The quilt patch titled
+     Subject: selftests/mm: fix ksft_process_madv.sh test category
+has been removed from the -mm tree.  Its filename was
+     selftests-mm-fix-ksft_process_madvsh-test-category.patch
 
-We rebased the 6.6 stable one week ago and also found the same regression.
+This patch was dropped because it was merged into the mm-hotfixes-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Are we planning to use this patch or just revert the blamed series like 6.1 did ?
-https://lore.kernel.org/all/20260408010208.746177-1-sashal@kernel.org/
+------------------------------------------------------
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: selftests/mm: fix ksft_process_madv.sh test category
+Date: Mon, 8 Jun 2026 16:02:24 +0530
+
+ksft_process_madv.sh currently runs run_vmtests.sh with the mmap category.
+Update it to run the process_madv category, since ksft_mmap.sh already
+runs the mmap category tests.
+
+This avoids running mmap tests twice and ensures that process_madv tests
+are run through the kselftest harness.
+
+Link: https://lore.kernel.org/20260608103224.344101-1-sarthak.sharma@arm.com
+Fixes: 6ce964c02f1c ("selftests/mm: have the harness run each test category separately")
+Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
+Reviewed-by: Mark Brown <broonie@kernel.org>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ tools/testing/selftests/mm/ksft_process_madv.sh |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/tools/testing/selftests/mm/ksft_process_madv.sh~selftests-mm-fix-ksft_process_madvsh-test-category
++++ a/tools/testing/selftests/mm/ksft_process_madv.sh
+@@ -1,4 +1,4 @@
+ #!/bin/sh -e
+ # SPDX-License-Identifier: GPL-2.0
+ 
+-./run_vmtests.sh -t mmap
++./run_vmtests.sh -t process_madv
+_
+
+Patches currently in -mm which might be from sarthak.sharma@arm.com are
+
+
