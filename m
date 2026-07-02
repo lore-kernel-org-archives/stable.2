@@ -1,126 +1,63 @@
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668083B895D
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 22:28:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.153.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707ED335067
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 22:42:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783031303; cv=none; b=tlp346QA7/OZlcLDMIXlV46jrEdAA5sr1uFFcRZ2ln4Mdd/bb/e00ckcI7BpWSgpnXi9e4yOJIUMb5W7fpAoUjfPRIJB5nlJ+R8GDRYgmDeRwnMcNT8TdghIcP4OXKc5lD2GXKXgm2qVNFuNpqOrv4QAUnXAkBMs4dbqPTY1wRw=
+	t=1783032157; cv=none; b=ZAKXZcTmVpD/x/WKQ4B08eTiH9Kkcw41RUx/4SoBLTU6XibITkUzeXhpztjTcm7qUshg9oiiyoSdTZB2yD9u9JD2/7rQycl7vQLR/ZQyGZ6H4CBlcrqR8xf4EV0uzH7PchkVTbw07ItwiT0FlSMXTHz+YOYfCCMbbV4gu2+dXCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783031303; c=relaxed/simple;
-	bh=NhPOBFymM4iytlpbMVnpsIX4tj32JcuO5EuJy37qJ20=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=uwtJDptccUDCf2IGFC14eu55/8gsk+1ICXlTYJAq6JVyYgb0PrL1vZVoFJkU6njWn9z1tTxynV2Adlmizb2Ar+sDdt1hz9u0eujtSpBoSPflbBInhAK2DdLvOqljIPppyRMHVGMt7HKvnnkuk7BjYuK9xzTj42NfgHC7oBrAq/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=FX/+iBZN; arc=none smtp.client-ip=67.231.153.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	s=arc-20240116; t=1783032157; c=relaxed/simple;
+	bh=6G79Ji4NeuIWF2cos93QCaEoIu/4Cufc86YF2qkp2EE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NZSVne5LH8slFNppqPUQvIxHwZQI+4izSHNWblnmXrVjsF4OBql6xN/gwwSB6DID+iRjFG7krj16vPVli5axWy0ZdhAHe/4MSJaidREFnSD8dW8Nj7mLX15qs9io9hUjgu+8bCOM3/uiLRE0enUZlUFNi6FDeZ83SRf5B74X/V0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mLdlgw89; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="FX/+iBZN"
-Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 662IrZ9q3942411
-	for <stable@vger.kernel.org>; Thu, 2 Jul 2026 15:28:21 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=s2048-2025-q2; bh=AiFEfhNTIOViBQyl8B
-	wIWC6v3Ib53cvu8YduqIAlzko=; b=FX/+iBZNK+r6qx7+qRW3bQa6AcfQ0ATQ2+
-	uOfqtMejWKeI2jeyzLerMoEsU/8wWbSSpfj6NGQatlEYVopopUbTbXhO0XGIAHRV
-	2hNfRKhnwojDceMCKow8v9WW/sbHy1jH7mUR2O91pDYNmvsADPEuMROfKcEdLFHP
-	4WMEejfkNKR++JJ6e3ugQsRgo0452K6W1WslcqwheHcDSXHCi6CY7qnNg4zHYokt
-	kMY5BQQ9xPIv0Choba8IzVHBDrC/GJIHrSB1mDaXpq7dE1ZSXlP9PJgQUyk0kqGm
-	RkujvzQJtLgcbNmHIpDw2Vqqerr7qTt1afIklNEsxf/dpv3phVEw==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4f5c0srq43-5
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 02 Jul 2026 15:28:21 -0700 (PDT)
-Received: from twshared6916.34.frc3.facebook.com (2620:10d:c085:108::4) by
- mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Thu, 2 Jul 2026 22:28:18 +0000
-Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
-	id B6F3B40F35B7D; Thu,  2 Jul 2026 15:25:09 -0700 (PDT)
-From: Zhiping Zhang <zhipingz@meta.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
-        Saeed
- Mahameed Michael <saeedm@nvidia.com>,
-        Tariq Toukan <tariqt@nvidia.com>, Mark
- Bloch <mbloch@nvidia.com>
-CC: Michael Guralnik <michaelgur@nvidia.com>, <netdev@vger.kernel.org>,
-        <linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Zhiping Zhang
-	<zhipingz@meta.com>, <stable@vger.kernel.org>
-Subject: [PATCH net v2] net/mlx5: free mlx5_st_idx_data on final dealloc
-Date: Thu, 2 Jul 2026 15:24:58 -0700
-Message-ID: <20260702222507.1234467-1-zhipingz@meta.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mLdlgw89"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F01E1F000E9;
+	Thu,  2 Jul 2026 22:42:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783032154;
+	bh=dIKDS9HR4plaqfzTOZAq9jlTWr8EKXEJ+e+Ebx1Sl20=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mLdlgw894RGEARbP33M8zU3zE0z8ip1NOFMJaG0z1/gYKi6nDV1vc63fUiwDh8nR5
+	 avX3NhcA/muecyI1W4qD29xo5nSlKn79zf0Vf6pQuvffG/CySylhcL8GGJ/GsCts9a
+	 TJ/GDfq4EVa6wnw7cAnDWiC820lu+2yVFzxvZ8XxCclCKV2ZxkxmOa+RvQWdRGBuSU
+	 Yw19lqn/fQVDtPXJ5WGkLTQB1zSSaW86yuI4VBvKpHgzbZehZWWzwf/tgkmYKkgB0/
+	 VyzTEoZ7py09e7Xl8UFTbdqKnnN+sexMqIMUQE0QbkSgvFZLzAB34B0cOKbOSf+qCf
+	 1EtRU3V+RkHjA==
+Date: Thu, 2 Jul 2026 15:42:29 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org
+Subject: Re: [PATCH 6.18.y] fscrypt: Fix key setup in edge case with multiple
+ data unit sizes
+Message-ID: <20260702224229.GA116181@quark>
+References: <2026070242-action-undermine-e5ce@gregkh>
+ <20260702222323.3702129-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDIzNCBTYWx0ZWRfX0LNo4qc1TTOu
- 2tZeUbeTB/xgPTBpj62H1T/KemBXPkLTNyMTfcIjkgXFgKXyejZcEA0d6Qog9pbM+amX3TqseQX
- JdW/qglUZncoxYeBJq2upzIdw3vluMOf4QX7r2Nsscg44gU476AG/femnv2Kph4xI+q1zrRFC/O
- 6cGrNSDe16dsPMbFqceglIbluQVltyzl/i+yB/fMx//MmK90Ir3N3MxB7smNtoft1nJ+i7v9Al/
- yDOywabCTQO9Svv594J/eDhczvhPOdj24bRz4D6EbhTeM1jbmvIdYPkE2tupD6Pdy8kMiCUyZSH
- +q3AlydaKHC+Zbpg8VgRroXRkKufG2Uc2Je2Sx6URU5JvWU236OGuBkurf8mjr6GwHHe5Y73B4l
- /Nh/Cf/PlfFI17mjVC4gWVzBK+fNLt/te+za3uCJaFpDnjfFLTUU93MirrcwY32ece5aQn6l3U8
- 563J3EKaNdoSBBA5q9A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDIzNCBTYWx0ZWRfXwfvir9JlK4n0
- plnBToFFzKnJfMfOSWiSukk6JQ7FEgFWrkSjAXxWP4WUhGifPUVVOnIdijP8rdBWA72t3a30JEx
- rLxdLARUL/S/nEkUjItm0j/ls2XRziM=
-X-Authority-Analysis: v=2.4 cv=H7rrBeYi c=1 sm=1 tr=0 ts=6a46e605 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=GbPsI2Ihf5RTnMjR_gZv:22 a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8 a=Ikd4Dj_1AAAA:8
- a=vNmdTtWwCD1Yl-TW2gAA:9 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-GUID: Vg8m6RNTOB5yi5FKFb82Vy9ubfGKjZzx
-X-Proofpoint-ORIG-GUID: Vg8m6RNTOB5yi5FKFb82Vy9ubfGKjZzx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-02_03,2026-06-26_01,2025-10-01_01
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260702222323.3702129-1-sashal@kernel.org>
 
-Workloads that repeatedly allocate and release mkeys carrying TPH
-steering-tag hints (e.g. churning RDMA MRs) leak one
-struct mlx5_st_idx_data per cycle; kmemleak flags it as unreferenced
-and the kmalloc slab grows over time.
+On Thu, Jul 02, 2026 at 06:23:23PM -0400, Sasha Levin wrote:
+> [ added explicit GFP_KERNEL argument to kzalloc_obj() since the 6.18 macro lacks the variadic default-gfp form ]
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-When the last reference to an ST table entry is dropped,
-mlx5_st_dealloc_index() removed the entry from idx_xa but the backing
-mlx5_st_idx_data allocation was never freed.
+At this point I just have to nack any patch that isn't Cc'ed to the
+subsystem mailing list and isn't a clean cherry-pick.  I always mention
+to include the mailing list, but clearly that's not working, as I just
+get ignored.
 
-Free idx_data after the xa_erase() so the lifetime of the bookkeeping
-struct matches the lifetime of the ST entry it tracks.
+Nacked-by: Eric Biggers <ebiggers@kernel.org>
 
-Cc: stable@vger.kernel.org
-Fixes: 888a7776f4fb ("net/mlx5: Add support for device steering tag")
-Reviewed-by: Michael Gur <michaelgur@nvidia.com>
-Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
----
-v2: respin per maintainer-netdev.rst; no code change.
-v1: https://lore.kernel.org/linux-rdma/20260612170406.3339093-1-zhipingz@=
-meta.com/
+It would also be a good idea to make k[mz]alloc_obj() on 6.18 have the
+same behavior as on mainline, as every patch using those is going to
+have the same issue.
 
- drivers/net/ethernet/mellanox/mlx5/core/lib/st.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/n=
-et/ethernet/mellanox/mlx5/core/lib/st.c
-index 997be91f0a13..7cedc348790d 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-@@ -175,6 +175,7 @@ int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, =
-u16 st_index)
-=20
- 	if (refcount_dec_and_test(&idx_data->usecount)) {
- 		xa_erase(&st->idx_xa, st_index);
-+		kfree(idx_data);
- 		/* We leave PCI config space as was before, no mkey will refer to it *=
-/
- 	}
-=20
---=20
-2.53.0-Meta
-
+- Eric
