@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33C74A3413
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 13:50:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2F34A2E34
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 13:51:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783000218; cv=none; b=fPLaG1J5rCs/C7W8+3/0QhOqhZM6QR9qlf5SRSvvGocKT2YsLcqfdLMi8UdIShY3LgGIxBt8EC4xMqP2u2N10Dm5sHqlD5VDvpWvkRa0xrmMEnUtyB+vj00eVs+K66Kqz8pCyUUyL36UhXUF66wyMGM4gW9bAMzSE3AxQqfqTZY=
+	t=1783000303; cv=none; b=Hx50Cb20wBOvjgNK2rkjt8Rg4/wF1nKyMwLdqYKY8Vf36v95Ntn63gPCPXIkguQGuxmAO8AYh9senQqiDDHdglHscglMk2/zIxcs5GjD0/k9e3h5SvOZCZfBzhQRiInLRNkKqsTmEIWpaWHeoBL0x9bjI83CIj/MNuyl1XtT2iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783000218; c=relaxed/simple;
-	bh=WzanjI2H+ieCUY6SvPm+hT9mgTCkjkhZJ5KP+jkZHdg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=on2abxS4cGKu03iuKe+ypgiS8oHWCCTEZ4Pq/2f3Tt8ZtLAnu2Tm0kbRyJhcRFfujwFMDCYQmLYLzhY2LYBoxdrPaYnU8NNOXfDQpazX4yZgzllz1xq+OD1pImxvwhQ/KbILVR0vcYFPReDNGdF5wGty0yqxDmqzXfVwPsIF7og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yGDCmtgW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783000303; c=relaxed/simple;
+	bh=YaF7ZICnb8hJAzY+mnZWaQj5hjNczNjCsUZqTHZ6QjM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pOZWQXoTboTxdJVuGxRkrTtKRuEjBjozYr312HT/5OBMtQJ4i9mCQU9rlLsCtUBOwJNHY8wqfhrDKSvrtNHZ7UKmdiRh0qQSK2dmWkt5pm8N6NFgu0b9piojs5WrMhrBbct2p6t/Rzih+vBGoNQv4SQxPM1YAYPlsrQjSq7IKN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VJJWawf0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yGDCmtgW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7D9F1F000E9;
-	Thu,  2 Jul 2026 13:50:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VJJWawf0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EE6D1F000E9;
+	Thu,  2 Jul 2026 13:51:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783000217;
-	bh=koKAdAZQdXaeH8QYPXGHkCRgtQPCc7k7GvdjzySpiuY=;
+	s=korg; t=1783000302;
+	bh=+XySq/Lhl69f/TAp/yd89SpUsdqY0zZKZ8PymumIVgE=;
 	h=Subject:To:Cc:From:Date;
-	b=yGDCmtgWyPhBW4RqEwp+x9uCEWJigponi0PdIX53ZR4AA8lYX3PMWRb2phsODvkxx
-	 YeYL5peYSVnkyCERBMij3h/NS0Di2x6DdBNr3Xrm06LJxTiHJzZs/YWI9Vlp/uqJ2O
-	 qPmee527xKlbv244j5gHV4gZTkS/cTGJs6Z2UObk=
-Subject: FAILED: patch "[PATCH] rpmsg: char: Fix use-after-free on probe error path" failed to apply to 6.1-stable tree
-To: dbgh9129@gmail.com,mathieu.poirier@linaro.org
+	b=VJJWawf0upK7eVgp1EEP9CH3X1Y+C+d66127n3CbkoF18zW995FZ5zWsU9qqVPz+8
+	 5RngsQuWC0XA9l6De89UCFoqjjpYcT386ScfkHNquVnPDMmPSRb633iBchhQPIH6s0
+	 L0pO3aEZ6S6uyP+2TlfdaVOLuWaIzF1ORwQ+loN8=
+Subject: FAILED: patch "[PATCH] riscv: kfence: Call mark_new_valid_map() for" failed to apply to 6.6-stable tree
+To: wangruikang@iscas.ac.cn,pjw@kernel.org,yaneti@declera.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 02 Jul 2026 15:50:28 +0200
-Message-ID: <2026070228-dwelled-nurture-5733@gregkh>
+Date: Thu, 02 Jul 2026 15:51:52 +0200
+Message-ID: <2026070252-appetizer-unclip-195c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1ff3f528e67d20e2b1483dcaba899dc7832b2e6b
+git cherry-pick -x 8d6c8c40e733b3fcaf92fed0a078bba2f6941a3b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070228-dwelled-nurture-5733@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070252-appetizer-unclip-195c@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,79 +62,77 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1ff3f528e67d20e2b1483dcaba899dc7832b2e6b Mon Sep 17 00:00:00 2001
-From: Yuho Choi <dbgh9129@gmail.com>
-Date: Mon, 1 Jun 2026 14:32:47 -0400
-Subject: [PATCH] rpmsg: char: Fix use-after-free on probe error path
+From 8d6c8c40e733b3fcaf92fed0a078bba2f6941a3b Mon Sep 17 00:00:00 2001
+From: Vivian Wang <wangruikang@iscas.ac.cn>
+Date: Tue, 3 Mar 2026 13:29:46 +0800
+Subject: [PATCH] riscv: kfence: Call mark_new_valid_map() for
+ kfence_unprotect()
 
-rpmsg_chrdev_probe() stores the newly allocated eptdev in the default
-endpoint's priv pointer before calling rpmsg_chrdev_eptdev_add(). If
-rpmsg_chrdev_eptdev_add() then fails, its error path frees eptdev while
-the default endpoint may still dispatch callbacks with the stale priv
-pointer.
+In kfence_protect_page(), which kfence_unprotect() calls, we cannot send
+IPIs to other CPUs to ask them to flush TLB. This may lead to those CPUs
+spuriously faulting on a recently allocated kfence object despite it
+being valid, leading to false positive use-after-free reports.
 
-Avoid publishing eptdev through the default endpoint until
-rpmsg_chrdev_eptdev_add() succeeds. Messages received before the priv
-pointer is published should be ignored by rpmsg_ept_cb(). Flow-control
-updates can hit rpmsg_ept_flow_cb() in the same window, so make both
-callbacks return success when priv is NULL.
+Fix this by calling mark_new_valid_map() so that the page fault handling
+code path notices the spurious fault and flushes TLB then retries the
+access.
 
-Fixes: bc69d1066569 ("rpmsg: char: Introduce the "rpmsg-raw" channel")
-Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
+Update the comment in handle_exception to indicate that
+new_valid_map_cpus_check also handles kfence_unprotect() spurious
+faults.
+
+Note that kfence_protect() has the same stale TLB entries problem, but
+that leads to false negatives, which is fine with kfence.
+
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20260601183247.1962010-1-dbgh9129@gmail.com
-Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+Reported-by: Yanko Kaneti <yaneti@declera.com>
+Fixes: b3431a8bb336 ("riscv: Fix IPIs usage in kfence_protect_page()")
+Signed-off-by: Vivian Wang <wangruikang@iscas.ac.cn>
+Link: https://patch.msgid.link/20260303-handle-kfence-protect-spurious-fault-v2-2-f80d8354d79d@iscas.ac.cn
+Signed-off-by: Paul Walmsley <pjw@kernel.org>
 
-diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-index ca9cf8858a5e..bff5aefee212 100644
---- a/drivers/rpmsg/rpmsg_char.c
-+++ b/drivers/rpmsg/rpmsg_char.c
-@@ -104,6 +104,9 @@ static int rpmsg_ept_cb(struct rpmsg_device *rpdev, void *buf, int len,
- 	struct rpmsg_eptdev *eptdev = priv;
- 	struct sk_buff *skb;
+diff --git a/arch/riscv/include/asm/kfence.h b/arch/riscv/include/asm/kfence.h
+index d08bf7fb3aee..29cb3a6ee113 100644
+--- a/arch/riscv/include/asm/kfence.h
++++ b/arch/riscv/include/asm/kfence.h
+@@ -6,6 +6,7 @@
+ #include <linux/kfence.h>
+ #include <linux/pfn.h>
+ #include <asm-generic/pgalloc.h>
++#include <asm/cacheflush.h>
+ #include <asm/pgtable.h>
  
-+	if (!eptdev)
-+		return 0;
-+
- 	skb = alloc_skb(len, GFP_ATOMIC);
- 	if (!skb)
- 		return -ENOMEM;
-@@ -124,6 +127,9 @@ static int rpmsg_ept_flow_cb(struct rpmsg_device *rpdev, void *priv, bool enable
+ static inline bool arch_kfence_init_pool(void)
+@@ -17,10 +18,12 @@ static inline bool kfence_protect_page(unsigned long addr, bool protect)
  {
- 	struct rpmsg_eptdev *eptdev = priv;
+ 	pte_t *pte = virt_to_kpte(addr);
  
-+	if (!eptdev)
-+		return 0;
-+
- 	eptdev->remote_flow_restricted = enable;
- 	eptdev->remote_flow_updated = true;
+-	if (protect)
++	if (protect) {
+ 		set_pte(pte, __pte(pte_val(ptep_get(pte)) & ~_PAGE_PRESENT));
+-	else
++	} else {
+ 		set_pte(pte, __pte(pte_val(ptep_get(pte)) | _PAGE_PRESENT));
++		mark_new_valid_map();
++	}
  
-@@ -490,6 +496,7 @@ static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
- 	struct rpmsg_channel_info chinfo;
- 	struct rpmsg_eptdev *eptdev;
- 	struct device *dev = &rpdev->dev;
-+	int ret;
+ 	preempt_disable();
+ 	local_flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
+diff --git a/arch/riscv/kernel/entry.S b/arch/riscv/kernel/entry.S
+index d011fb51c59a..6c14ed7a5613 100644
+--- a/arch/riscv/kernel/entry.S
++++ b/arch/riscv/kernel/entry.S
+@@ -136,8 +136,10 @@ SYM_CODE_START(handle_exception)
  
- 	memcpy(chinfo.name, rpdev->id.name, RPMSG_NAME_SIZE);
- 	chinfo.src = rpdev->src;
-@@ -502,13 +509,17 @@ static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
- 	/* Set the default_ept to the rpmsg device endpoint */
- 	eptdev->default_ept = rpdev->ept;
- 
-+	ret = rpmsg_chrdev_eptdev_add(eptdev, chinfo);
-+
-+	if (ret)
-+		return ret;
+ #ifdef CONFIG_64BIT
  	/*
- 	 * The rpmsg_ept_cb uses *priv parameter to get its rpmsg_eptdev context.
--	 * Storedit in default_ept *priv field.
-+	 * Stored it in default_ept *priv field.
- 	 */
- 	eptdev->default_ept->priv = eptdev;
- 
--	return rpmsg_chrdev_eptdev_add(eptdev, chinfo);
-+	return 0;
- }
- 
- static void rpmsg_chrdev_remove(struct rpmsg_device *rpdev)
+-	 * The RISC-V kernel does not eagerly emit a sfence.vma after each
+-	 * new vmalloc mapping, which may result in exceptions:
++	 * The RISC-V kernel does not flush TLBs on all CPUS after each new
++	 * vmalloc mapping or kfence_unprotect(), which may result in
++	 * exceptions:
++	 *
+ 	 * - if the uarch caches invalid entries, the new mapping would not be
+ 	 *   observed by the page table walker and an invalidation is needed.
+ 	 * - if the uarch does not cache invalid entries, a reordered access
 
