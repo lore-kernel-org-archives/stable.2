@@ -1,152 +1,286 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449F632B106;
-	Thu,  2 Jul 2026 17:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CDA35F179;
+	Thu,  2 Jul 2026 17:49:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783014435; cv=none; b=HflUTGnZkWaDOMg7ZggyoCSPWNdj7QdZRN2Ai7T9e/PlbDTx0d09GL4srPN/3Ektn9aYLCaCO5Cy47TX6F43QOe99GNyOnvLohM7ooV6dC2R9qSMLXtmWvUTxLMHYRgPdqcxuiPBIegnLUqX9JLPPeYYZfR6jGWSWiI7wns9lYQ=
+	t=1783014586; cv=none; b=cxmm7au+1nmy50b6nhJLK+/GjkF2dlUVtoFhLb+NGqoCujkcYCoTw+kYkXylQWKkoEhoVBnWC8v81B4sHde3wmAD0xZK4DGKKeLEn5ydNjZ11rMbHf+tWUZIBz6Xyv8qkIaEoChdnyk0Lse3k2yjxVsBVT6IhdLh3BbEgQBINT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783014435; c=relaxed/simple;
-	bh=1PO3YHl+btPykbwTM16jfcwADiOLFguz3RVcskKvjrA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kAaVhOAcoAPHSoakt8jdygY/l0OCgvq/x64bTE9khq2jbU0TwpjAtJA6GY0thnhJRVhc8BlaOG7QGzhtB8MwZqkfFixnXMJXBtylK6mhYc58Sy6NainnUyFQshxsFrDHvc+RPfiqQ5rNbz1SswOvcfn32iWX4ZwX3ho0Bi12TvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=Xj/kZIaV; arc=none smtp.client-ip=212.227.15.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1783014586; c=relaxed/simple;
+	bh=HulFaU5N9XffYtGHyYz+8oE2bb35HAROZbyr78/rhyQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u3Yoh7Udwgq20A94LZzG+/9WGEbE4TJwmR6NGNAX5jw+HAYuzldTiaxj+arKdIf/ZVd9EJY/itO0QNDsWOjRcg3O0qxSw2V3ORO+08fQy/z1Utyy1xOrJX0+EMQjAsIr7iazDf9mSxfJFfR9B0rpgoNdpHaeSveaum2LTmVj94o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eS77nEYO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="Xj/kZIaV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1783014398; x=1783619198; i=rwarsow@gmx.de;
-	bh=1PO3YHl+btPykbwTM16jfcwADiOLFguz3RVcskKvjrA=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=Xj/kZIaVHCk8nSIzOzBwPRaVXl5yyHMNsSxE6JbFqztab2D6spGweqyH2vAmmn5z
-	 X4Gmfu3KeNXjbVVrCZTmHdebkJhe3j/otcucMngdfEeUozkiWg7JbX5WGdDuzCNk3
-	 qsIs0B7oSWXyZ8+Y/PyVsT9tM5/Jv3dhflhdwhQOhXChmiEeCmu9L5oNwLuUOaGP2
-	 2dCAp/G5tr15LpCXpbPcOCsc5I0AHUsS+LcTySua5Yy8nbq2ZXkZ3JN63e28zxSVJ
-	 L1WS90hu4dj787qMbkTCsqOphxQ+ER6L6yJiN64cDjf7aeiSYtPJRqPVKKaZvyNi6
-	 8a3BDby9XuaFWEP7+Q==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MWih0-1wdCnm1WOm-00N9vT; Thu, 02
- Jul 2026 19:46:38 +0200
-Message-ID: <d7829ebb-2a5d-4ea9-82c9-35bf2f923466@gmx.de>
-Date: Thu, 2 Jul 2026 19:46:36 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eS77nEYO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7393F1F000E9;
+	Thu,  2 Jul 2026 17:49:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783014585;
+	bh=wuCIBX5SKHbYxpJ28hHw2u9p1C37eIECB4uw4lnxHb8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eS77nEYOKAx15MNcfxh3mmjiOoNqjHjvbu58LpEIZnqMfmdHX15eBZ0mkhikJcDl/
+	 tP4vIFxQbFD2GzOd37ePE1DRxEY/pdgBfqyusoa3LIhU1HDeyJoKx8sECR0dXAbwj6
+	 SKZGjK6FxJPXBg5c91F/GR6iLSBNoFSNfMZ+vbjVBwzoA24Io+ulZ2nqwXoH/j9Wnl
+	 jpNTcYvD7IihrnGPEnCBl0hbLFG1RGgapV4SsGoPbnDvBxCVSdE7OXQXGYkgVbgrsB
+	 b3caRgLyJ0IETP4mgPER75qHRXXZClI8NazztQSybbHie9vOe9eIwqTvLxI8GBAuSh
+	 VbsJeulNaTsyQ==
+Date: Thu, 2 Jul 2026 18:49:34 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Klara Modin <klarasmodin@gmail.com>
+Cc: Lance Yang <lance.yang@linux.dev>, david@kernel.org, 
+	richard.weiyang@gmail.com, akpm@linux-foundation.org, riel@surriel.com, liam@infradead.org, 
+	vbabka@kernel.org, harry@kernel.org, jannh@google.com, balbirs@nvidia.com, 
+	sj@kernel.org, ziy@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [Patch mm-hotfixes v5] mm/page_vma_mapped: fix device-private
+ PMD handling
+Message-ID: <akai-Iw5okhFPXUq@lucifer>
+References: <d4e4180e-dcdf-40e6-b5a2-2ac55f4aecc4@kernel.org>
+ <20260701163356.22936-1-lance.yang@linux.dev>
+ <akVDNLGaCfr-PF8K@soda.int.kasm.eu>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 000/120] 7.1.3-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260702155112.964534952@linuxfoundation.org>
-From: Ronald Warsow <rwarsow@gmx.de>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260702155112.964534952@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:1DSixhzeI2nprKZH/+B2wgxxP/eDTnuxwOju52FKgG2hAq4yKnc
- vHZeFx5nsVQHxtcwOaiye/gyMfFi18sAU4u2r274EbSPM/+lgIanTKgcx0Dty6iIMQl34ko
- huUKFy3xnTysaut6x2o6j07RTkpje/6XnTlEPK9c9LNooKdcDbP31aYUHXsH56zhYVR+me4
- hrM9/ZSTCTUjVwm872aMA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:J5/5aJns2Lo=;GkpZvDp1wbiOTRKVIKw1EcZg1/a
- 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
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <akVDNLGaCfr-PF8K@soda.int.kasm.eu>
 
-Hi
+On Wed, Jul 01, 2026 at 06:46:27PM +0200, Klara Modin wrote:
+> On 2026-07-02 00:33:56 +0800, Lance Yang wrote:
+> >
+> > On Wed, Jul 01, 2026 at 05:36:33PM +0200, David Hildenbrand (Arm) wrote:
+> > >On 7/1/26 16:33, Klara Modin wrote:
+> > >> Hi,
+> >
+> > Hi,
+> >
+> > [...]
+> > >>
+> > >> This results in a build bug for my Raspberry Pi 1:
+> >
+> > Thanks for reporting this!
+> >
+> > >>  In file included from <command-line>:
+> > >>  In function ‘check_pmd’,
+> > >>      inlined from ‘page_vma_mapped_walk’ at /home/klara/git/linux/trees/bisect/mm/page_vma_mapped.c:256:10:
+> > >>  /home/klara/git/linux/trees/bisect/include/linux/compiler_types.h:702:45: error: call to ‘__compiletime_assert_433’ declared with attribute error: BUILD_BUG failed
+> > >>    702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+> > >>        |                                             ^
+> > >>  /home/klara/git/linux/trees/bisect/include/linux/compiler_types.h:683:25: note: in definition of macro ‘__compiletime_assert’
+> > >>    683 |                         prefix ## suffix();                             \
+> > >>        |                         ^~~~~~
+> > >>  /home/klara/git/linux/trees/bisect/include/linux/compiler_types.h:702:9: note: in expansion of macro ‘_compiletime_assert’
+> > >>    702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+> > >>        |         ^~~~~~~~~~~~~~~~~~~
+> > >>  /home/klara/git/linux/trees/bisect/include/linux/build_bug.h:40:37: note: in expansion of macro ‘compiletime_assert’
+> > >>     40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+> > >>        |                                     ^~~~~~~~~~~~~~~~~~
+> > >>  /home/klara/git/linux/trees/bisect/include/linux/build_bug.h:60:21: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
+> > >>     60 | #define BUILD_BUG() BUILD_BUG_ON_MSG(1, "BUILD_BUG failed")
+> > >>        |                     ^~~~~~~~~~~~~~~~
+> > >>  /home/klara/git/linux/trees/bisect/include/linux/huge_mm.h:113:28: note: in expansion of macro ‘BUILD_BUG’
+> > >>    113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
+> > >>        |                            ^~~~~~~~~
+> > >>  /home/klara/git/linux/trees/bisect/include/linux/huge_mm.h:117:26: note: in expansion of macro ‘HPAGE_PMD_SHIFT’
+> > >>    117 | #define HPAGE_PMD_ORDER (HPAGE_PMD_SHIFT-PAGE_SHIFT)
+> > >>        |                          ^~~~~~~~~~~~~~~
+> > >>  /home/klara/git/linux/trees/bisect/include/linux/huge_mm.h:118:26: note: in expansion of macro ‘HPAGE_PMD_ORDER’
+> > >>    118 | #define HPAGE_PMD_NR (1<<HPAGE_PMD_ORDER)
+> > >>        |                          ^~~~~~~~~~~~~~~
+> > >>  /home/klara/git/linux/trees/bisect/mm/page_vma_mapped.c:142:20: note: in expansion of macro ‘HPAGE_PMD_NR’
+> > >>    142 |         if ((pfn + HPAGE_PMD_NR - 1) < pvmw->pfn)
+> > >>        |                    ^~~~~~~~~~~~
+> > >>
+> > >> bisect log:
+> > >>
+> > >>  # bad: [be5c93fa674f0fc3c8f359c2143abce6bbb422e6] Add linux-next specific files for 20260630
+> > >>  git bisect start 'HEAD'
+> > >>  # status: waiting for 'good' commit(s), 'bad' commit known
+> > >>  # good: [dc59e4fea9d83f03bad6bddf3fa2e52491777482] Linux 7.2-rc1
+> > >>  git bisect good dc59e4fea9d83f03bad6bddf3fa2e52491777482
+> > >>  # bad: [6148219e90732fd06f5d7a498bda974e6a43ab4b] Merge branch 'nand/next' of https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git
+> > >>  git bisect bad 6148219e90732fd06f5d7a498bda974e6a43ab4b
+> > >>  # bad: [e0326ebe10191447ab8fa2e904080df7b743765e] Merge branch 'for-next' of https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git
+> > >>  git bisect bad e0326ebe10191447ab8fa2e904080df7b743765e
+> > >>  # bad: [fbc9c5ac47cef5a2b04aef30c8e990b32dcf2548] Merge branch 'hwmon' of https://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git
+> > >>  git bisect bad fbc9c5ac47cef5a2b04aef30c8e990b32dcf2548
+> > >>  # bad: [e488171f6f6df6fc899a355079665fdb3c50b0e3] Merge branch 'for-linus' of https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
+> > >>  git bisect bad e488171f6f6df6fc899a355079665fdb3c50b0e3
+> > >>  # bad: [60db0fcb8fc9d80ac0b63041c632b41a311a45f1] Merge branch 'fs-current' of linux-next
+> > >>  git bisect bad 60db0fcb8fc9d80ac0b63041c632b41a311a45f1
+> > >>  # good: [51021d260d682aa17b3533848a99160ab83e0c93] Merge branch 'vfs.fixes' of https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+> > >>  git bisect good 51021d260d682aa17b3533848a99160ab83e0c93
+> > >>  # good: [ded56474db6552260786a65898322464b72c7540] mm: a second pagecache maintainer
+> > >>  git bisect good ded56474db6552260786a65898322464b72c7540
+> > >>  # good: [6c893b948351d42cfc3761cc746ab5b3d03ee7f3] Merge branch 'misc-7.2' into next-fixes
+> > >>  git bisect good 6c893b948351d42cfc3761cc746ab5b3d03ee7f3
+> > >>  # good: [bfcc55a14179495b0c41408908fd7b9d7785c694] lib: test_hmm: use device devt for coherent device range selection
+> > >>  git bisect good bfcc55a14179495b0c41408908fd7b9d7785c694
+> > >>  # good: [a27318567c92ba5482906d047e71a7aa4fd01889] Merge branch 'fixes' of https://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs.git
+> > >>  git bisect good a27318567c92ba5482906d047e71a7aa4fd01889
+> > >>  # bad: [6887a39652cdfd4cfd3b0962662c9cbc26ce5252] mm/page_vma_mapped: fix device-private PMD handling
+> > >>  git bisect bad 6887a39652cdfd4cfd3b0962662c9cbc26ce5252
+> > >>  # good: [2cc6bd0efc264b9ac760c2bc74dff4f521a680a1] MAINTAINERS: s/SeongJae/SJ/
+> > >>  git bisect good 2cc6bd0efc264b9ac760c2bc74dff4f521a680a1
+> > >>  # first 'bad' commit: [6887a39652cdfd4cfd3b0962662c9cbc26ce5252] mm/page_vma_mapped: fix device-private PMD handling
+> > >>
+> > >>>
+> > >>> Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
+> > >>> Cc: <stable@vger.kernel.org>
+> > >>> Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
+> > >>> Suggested-by: David Hildenbrand <david@kernel.org>
+> > >>> Cc: David Hildenbrand <david@kernel.org>
+> > >>> Cc: Balbir Singh <balbirs@nvidia.com>
+> > >>> Cc: SeongJae Park <sj@kernel.org>
+> > >>> Cc: Zi Yan <ziy@nvidia.com>
+> > >>> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> > >>> Cc: Lance Yang <lance.yang@linux.dev>
+> > >>>
+> > >>> ---
+> > >>> v5:
+> > >>>   * put device-private pmd handling along with the other two cases
+> > >>>   * remove thp_migration_supported()
+> > >>> v4: https://lore.kernel.org/all/20260624065353.1622-1-richard.weiyang@gmail.com/T/#u
+> > >>>   * refine subject and commit log based on Lorenzo's suggestion
+> > >>>   * put pmd device-private entry handling in its own if branch,
+> > >>>     suggested by Lorenzo
+> > >>>
+> > >>> v3:
+> > >>>   * remove cleanup part, only fix the issue for device-private entry
+> > >>>   * refine user effect description based on Lorenzo's suggestion
+> > >>>
+> > >>> v2: https://lore.kernel.org/all/20260616063436.20455-1-richard.weiyang@gmail.com/T/#u
+> > >>>   * specify the possible error case of current code and user visible effect
+> > >>>   * besides fix, cleanup the pmd entry handling based on David's suggestion
+> > >>>
+> > >>> v1: https://lore.kernel.org/linux-mm/20260508013728.21285-1-richard.weiyang@gmail.com/
+> > >>> ---
+> > >>>  mm/page_vma_mapped.c | 30 ++++++++++++++++--------------
+> > >>>  1 file changed, 16 insertions(+), 14 deletions(-)
+> > >>>
+> > >>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+> > >>> index 2ccbabfb2cc1..2d6c58488e3a 100644
+> > >>> --- a/mm/page_vma_mapped.c
+> > >>> +++ b/mm/page_vma_mapped.c
+> > >>> @@ -243,21 +243,30 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+> > >>>  		 */
+> > >>>  		pmde = pmdp_get_lockless(pvmw->pmd);
+> > >>>
+> > >>> -		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
+> > >>> +		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+> > >>> +		    pmd_is_device_private_entry(pmde)) {
+> > >>>  			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+> > >>>  			pmde = *pvmw->pmd;
+> > >>> -			if (!pmd_present(pmde)) {
+> > >>> +			if (pmd_is_migration_entry(pmde)) {
+> > >>>  				softleaf_t entry;
+> > >>>
+> > >>> -				if (!thp_migration_supported() ||
+> > >>> -				    !(pvmw->flags & PVMW_MIGRATION))
+> > >>> +				if (!(pvmw->flags & PVMW_MIGRATION))
+> > >>>  					return not_found(pvmw);
+> > >>>  				entry = softleaf_from_pmd(pmde);
+> > >>> +				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+> > >>> +					return not_found(pvmw);
+> > >>> +				return true;
+> > >>> +			} else if (pmd_is_device_private_entry(pmde)) {
+> > >>> +				softleaf_t entry;
+> > >>>
+> > >>
+> > >>> -				if (!softleaf_is_migration(entry) ||
+> > >>> -				    !check_pmd(softleaf_to_pfn(entry), pvmw))
+> > >>
+> > >> My only guess here would be that the compiler evaluates
+> > >> !softleaf_is_migration(entry) to always be true and optimises away the
+> > >> !check_pmd(softleaf_to_pfn(entry), pvmw) which is why this worked
+> > >> before?
+> > >
+> > >Weird, we enter this path only with
+> > >
+> > >pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+> > >pmd_is_device_private_entry(pmde)
+> > >
+> > >If any one of these would compile for !CONFIG_TRANSPARENT_HUGEPAGE that would be
+> > >odd.
+> > >
+> > >pmd_is_device_private_entry() is hard-coded to false unless
+> > >CONFIG_ARCH_ENABLE_THP_MIGRATION. Which is only selected with
+> > >ARCH_ENABLE_THP_MIGRATION.
+> > >
+> > >pmd_trans_huge() as well.
+> > >
+> > >Maybe it's struggling with pmd_is_migration_entry() on some (older) compilers?
+> > >(not innlining stuff and not properly optimizing it out).
+>
+> It's a GCC 16 cross-compiler for armv6 so I wouldn't call it old :)
+>
+> > >
+> > >The whole conditional must be optimized out.
+> >
+> > Right. Kinda weird if compiler didn't fold
+> >
+> > pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+> > pmd_is_device_private_entry(pmde)
+> >
+> > away here ...
+> >
+> > >We could check for IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) right at the start
+> > >to make it easier for the compiler:
+> >
+> > +1, explicit THP guard should do the trick :)
+> >
+> > >if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) &&
+> > >    (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
+> > >     pmd_is_device_private_entry(pmde))) {
+> > >
+> > >
+> >
+> > Klara, could you try with this change and see if it fixes the build?
+> >
+> > Thanks, Lance
+>
+> This does indeed make it build.
 
-kernel build / boot test on x86_64.
+Hmm this is pretty ugly though.
 
-No regressions here.
+softleaf_is_migration() is a bit-test so I don't think that's the issue.
 
-Thanks
+I think the issue here is thp_migration_supported() that's what's needed here.
 
-Tested-by: Ronald Warsow <rwarsow@gmx.de>
+So maybe
+
+-				if (!thp_migration_supported() ||
+-				    !(pvmw->flags & PVMW_MIGRATION))
++				if (!(pvmw->flags & PVMW_MIGRATION))
+
+Should just be kept as it is or:
+
+
++#ifdef CONFIG_ARCH_ENABLE_THP_MIGRATION
+ static inline bool pmd_is_migration_entry(pmd_t pmd)
+ {
+      return softleaf_is_migration(softleaf_from_pmd(pmd));
+ }
++#else
++static inline bool pmd_is_migration_entry(pmd_t pmd)
++{
++     return false;
++}
++#endif
+
+And I think the CONFIG_TRANSPARENT_HUGEPAGE is just conflating the
+CONFIG_ARCH_ENABLE_THP_MIGRATION.
+
+
+
+>
+> Thanks,
+> Klara Modin
+
+Thanks, Lorenzo
