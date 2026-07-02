@@ -1,58 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B46A30ACFF
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 15:49:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDBD31AF2D
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 15:49:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783007343; cv=none; b=L2zCSemdQgrVxAxKc0yzw06CLcEaxnja9h0ttIxwEFc4FhFbJwocAlMuFYkz2ux7VGYu7epMouauPSyzRyR1FygVqvRfqtHTXCbz5Nlbi1kZ3oZhY1PfiqQzPbe1RztXIK3L6RuWg8XggCg0qLtQ/qJCVj9tbEiEvI6PYcP6VXU=
+	t=1783007344; cv=none; b=sCkq69QBQ6kEAsKSvlfBtZLsP5Bi3ApHrh14zi0oeB+m18Rxc7XcU3JOG8mhdXkM7ng8Bp0NMpvA04iG971Q0kG31M0lDjq2ScykLDlsF1o6CzCmG5MI4eytgrRU70QTskw7n0A8P6G0iqFAtBJcF43fPcyInpVoHwJvkokBUb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783007343; c=relaxed/simple;
-	bh=E3PqlsXQqVqc/deOd2kY5vHnNNIjEvjDiyaoJk5tA4A=;
+	s=arc-20240116; t=1783007344; c=relaxed/simple;
+	bh=Zd4yG/QSiVOs1aUmuaHm7FASVagb16I5i5mzer1zCCQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oqyPLKnlow7DViCZyqYJD3yEpbhqAbltFMY21TYfNYCv61eO/A8FSfv/K9ZQ3lk8s/pEZA9iNgaYZOPhn7bWB1fle6ktif+q0BxqZVmT6mO3/KsdO5jJF6aF4HU07dOyS+f5Cuv4FByn3aLCZaCdvodUWZRe5pBO+X4eNE37J0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WP6PkLiD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mdxMWz4UYNj0BtscMzcqneyL17UvKLKfwvz5Xf8CtGR7CtrU1xauQgZtz3CEJED7J23pKl56uw0+pdmufHUaglLMtOZjgENyzh07frdPt4lUXXcBzdHIuWIfgxrObOpKNWhTc7yvEp5Q2+iWWKDqOAQNocxeFi039uIW9q2ehoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Na2QKQGF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WP6PkLiD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37AA1F00A3D;
-	Thu,  2 Jul 2026 15:49:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Na2QKQGF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30CF61F000E9;
+	Thu,  2 Jul 2026 15:49:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783007342;
-	bh=Z3wAEB9MuuyQgdz6Wq19MjzziB+0fVpyCfK0I5xUSSM=;
+	s=k20260515; t=1783007343;
+	bh=+89XCyuENSANksnjhQn/pTdLf1Pbda6axUIjZcmffgo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WP6PkLiDzf4A4OJ9+oZlYDzE7qd2cruUGKkKPa5rpJR8Mpg70j5aZ5ezDL34ejqfi
-	 y0g6DmIcIJeKclmJim9JEZ1pin8VzmvljtedA8X+kW/75vQyUANZw4CknMA7maIJmz
-	 mbpxJ1o3eUsMNW8x0tG8aAKqNzhZvaGeDLvkYUNz7vTaR88ovYW04ujXxBoEkAFQvB
-	 0UwP0XC7eBVpGnWWud8DD+pQk0v7kufGAamFETBTuMhGLkPVpcPDCZOMzBCXXxr9qZ
-	 PIwiVsdCv4kSj56+dmlbMbKcT+mjqLi/CXcNFYp6w6f/7pC8X+Hqm174rugf7lKymI
-	 9RcMXzKWx+vTw==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.phl.internal (Postfix) with ESMTP id A3FE2F40068;
-	Thu,  2 Jul 2026 11:49:00 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Thu, 02 Jul 2026 11:49:00 -0400
-X-ME-Sender: <xms:bIhGagIbcMa_Qn-FeD57QqQQyOtXeQb_0IbCTk22hUNIcK8884O6gg>
-    <xme:bIhGaoVcSZoLON3OA20fS4_wvZMkWDeMvldrG3BJBW3GOh8qvJm_HcDv5X3KDrFmj
-    OTcjxAzt45bYKmBra93TEbyrcJU9qC4KY2wDmDieiJ0lhd4fqnVOjY>
-X-ME-Received: <xmr:bIhGasSkcsQJ7-JiCySglvsBDzuho8YsKWw3JWQkA2LxXh70fNUJSvvSLQEGgA>
+	b=Na2QKQGF2HQxeQJVB2AHJ85ou2pXTQmea6AcrJZ0e53ecn/2HSOx1YMINRp6PyG+S
+	 axWFqnsYIVU1twUMG4XTUMfpwzxA3C8hNEAlq5NT5lLQqznyz+E8ziQHcvcdVqXRHZ
+	 jz16AOScvutTGZ1bkSL/7QRDmfdT2gjii78e3euRzf19V+3nVHXBb6tEbdYODMpUl3
+	 fZqYGDKfF+ZvNI3zhSe8v+eWOjeSYMq4wtfdZPFwe3oxgzrhEe7YUAqA6lv6O2ao1o
+	 QjnjomeYhFbzXhCjumgg6JVoG6QzUSKDhK6tldmvUWhfLYtQTWvYNfEAAJU20/47i5
+	 dvSw1bFHZqVRQ==
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 49522F40068;
+	Thu,  2 Jul 2026 11:49:02 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-11.internal (MEProxy); Thu, 02 Jul 2026 11:49:02 -0400
+X-ME-Sender: <xms:bohGamhTk8ouZ7MjD0GLVvgd-6Y09faKM275ZXLhu70-Tc4Sn0Ellg>
+    <xme:bohGavMD_HNM9VuMTLvF_wfH3u1k9m_r9CEVxYT1oDqmyXoDfHKC3vdwBE-muD-bi
+    lzpto_a53UA9dVcRqWIc9d0uaDYAF6AdsrmCDaVnBunKnc7ZvFh0Q>
+X-ME-Received: <xmr:bohGaprCWLVEJnZk0vopXd7_-jYx9Y9BAbX8FdoiMtQQpsYnzANpdoAl67Y4-w>
 X-ME-Proxy-Cause: dmFkZTG0Ih/t8cHbMCodKXQLkUxQJqy59wDK3mLTRA7dVIErvl2/d1Ah+epBvIXb5j+AYP
     IXeEFDcIBfVLytuYu4/vLDhgRVlW3a+843BEiRDknGKdd2YPYw+W7qSRgjHbAB7tPzyIg1
     K/iaGu6PpbNvdlBe1ylT3w+4CnduN7fXaIiVz2SFU4GsotfIh0Hdi2izsWXFRQyA1Pgmvd
     bz3VM1BdljYqC26bMo/Uu8GxRLOKa/FHGZ/ez2IuhQ+NgorPxPnwdGD70mq06prVA+bGMW
-    J3iimRYR/yORdPuHTUcQx20NCsiqIhAYZRtSAvfP/TF7cp/wxVykEXOIXpNkkJ9g0C+7PU
-    8ghd6tHhq8OfeuIk4+yeTtK43ZBpu5ULQkdrUfD+FXtczLKGjOdOj+dO+arKELZRSruBG6
-    FxbobCvpo2W8UG27w/6ZI+ol6BjSHFb954xaAmmAtJSTW8qD+hSefbUo/zGKzpwf+p/Qrh
-    BKkFGscPft090bi8I3e7WZCXZRywY8sAkXd+sqIAHCd9IrRDlHVj314ft9/Qfh2AEa8VZu
-    kgrN0zkQaqqnvZUxiVw0Rmkps0FG18ALERcz4LfeaibVv/UGSTvtBAV5BvU5YNP1zAzPt3
-    u79GHwZg5rNJqaR3WumP21gMXAZaBTWe4pcFgZ8s/YpE2+HUyDEj4ZD190vw
-X-ME-Proxy: <xmx:bIhGaoDFAORg7ILj8EcvTiqyxoEImApFhhr8xm__o0P-Om1trvTYyw>
-    <xmx:bIhGajJbE8_0yA3nY5-fyx1bYsmzbuuSPe0nF_Jtr97aJJqPmTb8Bg>
-    <xmx:bIhGajCTKfSa7_glYjGUkcrPIF3QoGZfTI-Cff0a4LpMe_x2ZAwtoA>
-    <xmx:bIhGaovm-28Y8PkvcT7uUnZnXCnXCUOnBaIdwxWa0fbhXpPgCUC6LA>
-    <xmx:bIhGahR2t84wHlx9YCIIFOp_zo2JYlcCKfRd1Zr46UHDdjbKPXItpxtK>
+    J3iimRYR/yORdPuHTUcQx20NCsiqIhAYZRtSAvfP/TF7cp/wxVykEXOIXpNkkJ9g0C+7OF
+    aKFW7YuVKywECuWyp3k31tGp9nqK3J5Qbc5yPxNdLa8uS2QYYbpJDB9VL25Q5c4xIEz6wV
+    kxQfjebchCnaW+J0JYdceXblKF7ol+1dyZuusl9EYh5FqU0+7azS0T0H5yZg+2xsND0k7A
+    Tgq2M5ZuWDSr4leA7mdnXfIYq1tZsYxkSdxdIEle29IMDw9WrylmjWpFHneJXkH6MW/C49
+    buGQaWIVpdB1Lw0GO5d6CeViMqZnfTLXfBQ81QTYZIv59vn7xPrrq92Tq6RrVeuEnFlOgV
+    WKYP8L/2gCz+qyN8NIrrI32+QEAg09VPEVXt/RHKLntcUsbkEeEt6SjYVAsg
+X-ME-Proxy: <xmx:bohGap69EUrWjDvQgrTRiLxW7Hju_DfrAxl-qntMpKV4RA8nhkHTcA>
+    <xmx:bohGavjz30Jj7ammTOnDdptRt7TMMk5gN6I1McpTVvmQ-qFe3nOLSg>
+    <xmx:bohGan6DEJ6DHbWzUMwefbXEzdPU4CS2pQzt0fFbbHgb4vs18m14pw>
+    <xmx:bohGasFLHm_9YhRQf3c3yp-uvpXukBdry-UowMn5nyPtVvM4Nd4iww>
+    <xmx:bohGahISE3lCXxSoQquanKFmuj8PFPCbG72lhiDXC4B6jdQ8DslZ1g62>
 Feedback-ID: i10464835:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 2 Jul 2026 11:49:00 -0400 (EDT)
+ 2 Jul 2026 11:49:01 -0400 (EDT)
 From: Kiryl Shutsemau <kas@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sashiko AI review <sashiko-bot@kernel.org>,
@@ -65,12 +65,12 @@ Cc: Sashiko AI review <sashiko-bot@kernel.org>,
 	Vlastimil Babka <vbabka@kernel.org>,
 	Balbir Singh <balbirs@nvidia.com>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 5.10.y] userfaultfd: gate must_wait writability check on pte_present()
-Date: Thu,  2 Jul 2026 16:48:59 +0100
-Message-ID: <20260702154859.975356-1-kas@kernel.org>
+Subject: [PATCH 5.15.y] userfaultfd: gate must_wait writability check on pte_present()
+Date: Thu,  2 Jul 2026 16:49:00 +0100
+Message-ID: <20260702154900.975365-1-kas@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2026070240-sultry-bankbook-e1b3@gregkh>
-References: <2026070240-sultry-bankbook-e1b3@gregkh>
+In-Reply-To: <2026070240-femur-pork-cbe9@gregkh>
+References: <2026070240-femur-pork-cbe9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -124,10 +124,10 @@ Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
  1 file changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
-index 0d6c00e9b493..6773227fbe88 100644
+index 868405f3cfa0..271ce399f6b6 100644
 --- a/fs/userfaultfd.c
 +++ b/fs/userfaultfd.c
-@@ -251,7 +251,12 @@ static inline bool userfaultfd_huge_must_wait(struct userfaultfd_ctx *ctx,
+@@ -249,7 +249,12 @@ static inline bool userfaultfd_huge_must_wait(struct userfaultfd_ctx *ctx,
  	 */
  	if (huge_pte_none(pte))
  		ret = true;
@@ -141,7 +141,7 @@ index 0d6c00e9b493..6773227fbe88 100644
  		ret = true;
  out:
  	return ret;
-@@ -332,7 +337,12 @@ static inline bool userfaultfd_must_wait(struct userfaultfd_ctx *ctx,
+@@ -330,7 +335,12 @@ static inline bool userfaultfd_must_wait(struct userfaultfd_ctx *ctx,
  	 */
  	if (pte_none(*pte))
  		ret = true;
