@@ -1,155 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27483101C8;
-	Thu,  2 Jul 2026 16:47:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A7D346A18;
+	Thu,  2 Jul 2026 16:47:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783010832; cv=none; b=S+DE/RHc2JTlYo+Q8Ulx27UWBBc/l+BL8DBjWCla0z3FQfzR+06V8sMbBEkzrSn4Ot0sy8tBKiN/pb2MACGRVO/s5vnm0Uq53rX2KHOZ7ANH7dvAjnr0AoTta7FHY5Hvqah50skRIlI8HTrXlPG26bbJyePoexh7h2cdLEWUEME=
+	t=1783010833; cv=none; b=uAI+gX/WUliDt7JexQ3lMTz5H7Wi6FPfojOBgvj64I2Ee/mGIUeajuUPQSr1m4Sen9rlBIzaEd4EadyzBbGR0ViiHbTI8X1CHu40th+jokIRMK1++VVf1ycNWmKvjkV7khfneP79kVEfx+w413YicAu9Ark4oHOqFu2Xli2kOZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783010832; c=relaxed/simple;
-	bh=5XUkBQcAn9U6Y07aslj6I2AgcOM8TP0WDIngo4IAEtQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=idaGbN4gOEooYyxAywWl8L5yBS3gUIYIlraMnB8ZFC8wHrScrs0mbfMxNlLKlDTGIGPR0ljf7/9TSGYH7fN3wqfS68Oa1/hQY3/EE86Yk537dzzyFkeJOXvf8BN67SpwUbdpIn0oJtBCSSFt7uFj9hQsznxhRwBJnVZaemWX3Jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ng793fMZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783010833; c=relaxed/simple;
+	bh=Xkf6Hd+8/vjrBCt362ymLUa6m7d8Srl9zxE93HyLc5s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=az4hm6XYhfbvezv5K0J4xWY5sTw4dRxMbKJZdjzD8lS82sexDsNWb+uJjvlNzISsd3fEM+igi/g5Z+K5+K2DY8CkInACbDlfTXLUT5Zh/HXBBBASPDgqT7CxzIbnDnIWni2qPoRLWGA4d5q7sVgxOAXabXFC6ccW7OSunZ6Pjz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NBCeGssE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ng793fMZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E3191F000E9;
-	Thu,  2 Jul 2026 16:47:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783010831;
-	bh=taOAjbXieJFMNm4bP1CgHm93WARmoJbQ3VZALpeoKYs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ng793fMZgoIdBJrF15JJRcVZc4Bd+e1Y5NlbggtZpjY40sADDO0g7AShASlnCbxTn
-	 DULmdgFBcsXTUAqkhid4+Ghqkgk76u9EKOUrjSby0N5E+UBRVtc8efeMDRD3IByK4f
-	 KiK0PBm5LkZpiwQCqgpdkpanN8QQnkdwH6Yy/jqyHYSR7oNcnunqWf+cxZsucx4rfd
-	 DNPxHWL14kPBV6UTC8s+SccwkwjybjXqiKcRUo11fZnfUEPoNKr9CarED87qEIw6Tp
-	 9dfE1AfX5ojzy6hll3aFSdibY+wokynzZwX2I4vZ7dzJ6lULKP3dZf6svsaZcsH7dF
-	 Vtch1kZDF/LtA==
-Date: Thu, 2 Jul 2026 17:47:01 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Rik van Riel <riel@surriel.com>
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, linux-mm@kvack.org, 
-	akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
-	liam@infradead.org, npache@redhat.com, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, lance.yang@linux.dev, yang@os.amperecomputing.com, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/huge_memory: set PG_has_hwpoisoned only after new
- folio head is established
-Message-ID: <akaV3b1eziZ2bq21@lucifer>
-References: <20260701174235.3173401-1-riel@surriel.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NBCeGssE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 838451F00A3E;
+	Thu,  2 Jul 2026 16:47:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1783010832;
+	bh=CGvDThpXhSQn5z+GiSfX/scnUjOYAk8cJ/SrpnkAaeI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NBCeGssEcq4NaZxTWLWSBV4RZgTGBfrekgby7eGIXHaeKQhI4H/nZdlNmpr/0Xnin
+	 7KvLvomfPf903nPeZ7UxhiQAERD+0N4vuxZTlEnyAOC84nLfO+ZSYLo+l5xlRXfPmU
+	 SUtz082oQs1Z37R6D3TpthmrIBx5iep2LzPRd3DY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	bpf <bpf@vger.kernel.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nicolas@fjasle.eu>,
+	Zheng Yejian <zhengyejian1@huawei.com>,
+	Martin Kelly <martin.kelly@crowdstrike.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Josh Poimboeuf <jpoimboe@redhat.com>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
+	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
+Subject: [PATCH 6.6 047/175] scripts/sorttable: Have the ORC code use the _r() functions to read
+Date: Thu,  2 Jul 2026 18:19:08 +0200
+Message-ID: <20260702155116.789918873@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260702155115.766838875@linuxfoundation.org>
+References: <20260702155115.766838875@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260701174235.3173401-1-riel@surriel.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 01, 2026 at 01:42:34PM -0400, Rik van Riel wrote:
-> __split_folio_to_order() copies the hwpoison state onto each new
-> sub-folio while splitting a folio to a non-zero order.  It does so via
->
-> 	if (handle_hwpoison && page_range_has_hwpoisoned(new_head, new_nr_pages))
-> 		folio_set_has_hwpoisoned(new_folio);
->
-> *before* clear_compound_head(new_head)/prep_compound_page(new_head, ...)
-> turns @new_head from a tail page into a proper folio head.
->
-> PG_has_hwpoisoned is a FOLIO_SECOND_PAGE flag, so folio_set_has_hwpoisoned()
-> resolves to folio_flags(folio, 1).  With the new compound_info-based
-> page-flags layout, folio_flags() asserts the page is not a tail:
->
-> 	VM_BUG_ON_PGFLAGS(page->compound_info & 1, page);
-> 	VM_BUG_ON_PGFLAGS(n > 0 && !test_bit(PG_head, &page->flags.f), page);
->
-> At the current call site @new_head still has the tail marker
-> (compound_info bit 0 set, PG_head clear), so on CONFIG_DEBUG_VM kernels
-> this hits:
->
->   kernel BUG at include/linux/page-flags.h:354
->   folio_flags+0x82
->   folio_set_has_hwpoisoned
->   __split_folio_to_order
->   __split_unmapped_folio
->   __folio_split
->   truncate_inode_partial_folio  (shmem hole-punch / MADV_REMOVE)
->
-> Reproduced by syzkaller: hwpoison-inject a few subpages of a large shmem
-> folio, then MADV_REMOVE (fallocate punch hole) on the same range, which
-> splits the partial folio to a non-zero order.
->
-> memory_failure() tries to split the poisoned folio to order 0 first, but
-> that split is best-effort; when it fails the folio is left large with
-> PG_has_hwpoisoned set, the case fa5a06170036 added this hwpoison copying
-> for.
->
-> Move the folio_set_has_hwpoisoned() call to after
-> clear_compound_head()/prep_compound_page(), where @new_folio is a real
-> order-new_order head folio (handle_hwpoison implies new_order != 0, so a
-> second page always exists).  The flag still lands on the same struct page
-> (page[1] of the new folio); only the ordering relative to compound-head
-> setup changes, satisfying the FOLIO_SECOND_PAGE precondition.
->
-> Fixes: fa5a06170036 ("mm/huge_memory: preserve PG_has_hwpoisoned if a folio is split to >0 order")
-> Signed-off-by: Rik van Riel <riel@surriel.com>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-The actual logic looks good, thanks for fixing this, and the comment is much
-nicer now :) So:
+------------------
 
-Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
+From: Steven Rostedt <rostedt@goodmis.org>
 
-> Assisted-by: Claude:claude-opus-4-8
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Tested-by: Lance Yang <lance.yang@linux.dev>
-> Cc: stable@vger.kernel.org
-> ---
-> v2:
->  - cleaned up comment (Lorenzo)
->  - consistent changelog grammar, plus rationale on why this path exists (David)
->  - Cc: stable (Zi)
->
->  mm/huge_memory.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
->
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 2bccb0a53a0a..b5d1e9d4463d 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -3587,10 +3587,6 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
->  				 (1L << PG_dropbehind) |
->  				 LRU_GEN_MASK | LRU_REFS_MASK));
->
-> -		if (handle_hwpoison &&
-> -		    page_range_has_hwpoisoned(new_head, new_nr_pages))
-> -			folio_set_has_hwpoisoned(new_folio);
-> -
->  		new_folio->mapping = folio->mapping;
->  		new_folio->index = folio->index + i;
->
-> @@ -3612,6 +3608,14 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
->  			folio_set_large_rmappable(new_folio);
->  		}
->
-> +		/*
-> +		 * PG_has_hwpoisoned is on the 2nd page, so set it after
-> +		 * the compound head is prepped.
-> +		 */
+[ Upstream commit 66990c003306c240d570b3ba274ec4f68cf18c91 ]
 
-Great thanks!
+The ORC code reads the section information directly from the file. This
+currently works because the default read function is for 64bit little
+endian machines. But if for some reason that ever changes, this will
+break. Instead of having a surprise breakage, use the _r() functions that
+will read the values from the file properly.
 
-> +		if (handle_hwpoison &&
-> +		    page_range_has_hwpoisoned(new_head, new_nr_pages))
-> +			folio_set_has_hwpoisoned(new_folio);
-> +
->  		if (folio_test_young(folio))
->  			folio_set_young(new_folio);
->  		if (folio_test_idle(folio))
-> --
-> 2.53.0-Meta
->
+Cc: bpf <bpf@vger.kernel.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Masahiro Yamada <masahiroy@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>
+Cc: Nicolas Schier <nicolas@fjasle.eu>
+Cc: Zheng Yejian <zhengyejian1@huawei.com>
+Cc: Martin  Kelly <martin.kelly@crowdstrike.com>
+Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
+Cc: Josh Poimboeuf <jpoimboe@redhat.com>
+Link: https://lore.kernel.org/20250105162344.721480386@goodmis.org
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ scripts/sorttable.h |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Cheers, Lorenzo
+--- a/scripts/sorttable.h
++++ b/scripts/sorttable.h
+@@ -299,14 +299,14 @@ static int do_sort(Elf_Ehdr *ehdr,
+ #if defined(SORTTABLE_64) && defined(UNWINDER_ORC_ENABLED)
+ 		/* locate the ORC unwind tables */
+ 		if (!strcmp(secstrings + idx, ".orc_unwind_ip")) {
+-			orc_ip_size = s->sh_size;
++			orc_ip_size = _r(&s->sh_size);
+ 			g_orc_ip_table = (int *)((void *)ehdr +
+-						   s->sh_offset);
++						   _r(&s->sh_offset));
+ 		}
+ 		if (!strcmp(secstrings + idx, ".orc_unwind")) {
+-			orc_size = s->sh_size;
++			orc_size = _r(&s->sh_size);
+ 			g_orc_table = (struct orc_entry *)((void *)ehdr +
+-							     s->sh_offset);
++							     _r(&s->sh_offset));
+ 		}
+ #endif
+ 	} /* for loop */
+
+
