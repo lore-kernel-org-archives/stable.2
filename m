@@ -1,129 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFAEA3FCC;
-	Thu,  2 Jul 2026 15:28:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E77A3FCC;
+	Thu,  2 Jul 2026 15:28:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783006091; cv=none; b=FaGpwzIq/2PVrtlBgvaMOwQ603NPkQ0B+I40ptAu7aDZymA7IdXUCZ38pPZBmRbyG7Q3lQrs8QbbGzNlBvjm+MU2TY6pwlTAA70UuG5PbMQ8xsuPvBtnlNvsLHujjxNsjhQyDuf5iJ0QCEjyl6btraHSEc3ZC7MB1KdsqATMrYE=
+	t=1783006117; cv=none; b=N4EWlQkO02iJlPn2Ux/hP5wnjdAlihE5ZSn3A16ok5Gt7YT6wG/S9d8DbBiQuTDjlAOOfBVsT99HaPmAW8FMRZf4SJYEas/HUxHPEeNZ2KhoLL9ebgN1VeqDwwC65fnTI839/02sKvxqbLC81CiIWL/WKx8gfe1ZaDCfz0If0tk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783006091; c=relaxed/simple;
-	bh=wviL27NRl327KGDR0BmJPJJ56A3cdlfcV3c2ED4Jls8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mB+UXUIlrUxSP1plnAZjzfGNwRoIa5zfFD1C4sKup3YSVtOxa6J45YvLzf13jLL5Jh2nvIoNKpe6Cbg27bXrCpfZDbtg6XqBcrXNZf+AAlG6R/hIW+Qev4yr/TovtBOCpsAN3bwDoAAeE/5LMmINEz9wVuIwMH7V4PM9oCJKRhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bil6EqVa; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1783006117; c=relaxed/simple;
+	bh=8BY4wH+SJ2QwnSmIhMnl6FxKGp8LU7lTJOTygmbp7Z4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q6sLfkvLZUL+MKzvd7O9dO8HM3Zrxz453gDmaNfdevI1RxlixjORoykRLrE7uNW7/EgArEQZ+l6VY1q9ibD6uFADfW91qZuhvhSZuhlVOyTwdVvc9wfsInCQjkmiNKovQ01fnXFy0rx8yKVEBG7DPRYrzqdpopJEHFhO7DauG/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b2UNbaF3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bil6EqVa"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8D9FFC2BCC7;
-	Thu,  2 Jul 2026 15:28:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783006090;
-	bh=wviL27NRl327KGDR0BmJPJJ56A3cdlfcV3c2ED4Jls8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=bil6EqVajk2Zqpm+mDR5iVYnFZLBRWVg0O2wEuReWosBySmR0xpp9xfTpNn/Knj8i
-	 XZglHMIdT173QV54eTXHzHuJKBklXnyVZ8grMOcuQhYjUqx8gsdxIQYNBDfAoWp7S6
-	 T+452S8P29OL9UE46uD1oMgAwzFNB03Fs2Br0zY1yOQstldxoLlOE4NNliy48OOO5e
-	 0dvfakGzhpYVkD6Lt6ZoKQJYCfKif1aqF+J8cgEOLCxaqsJ0MM83BaaHQOrX+WxS0f
-	 SfJjznMcYizc+gyI3F88yFWiqsqbJ38FgFYJGS2esjrcaFu/sEj/DHjLVUiEpSjpl7
-	 EY0RoTmfyh17Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B616C43458;
-	Thu,  2 Jul 2026 15:28:10 +0000 (UTC)
-From: Christian Taedcke via B4 Relay <devnull+christian.taedcke.weidmueller.com@kernel.org>
-Date: Thu, 02 Jul 2026 17:28:03 +0200
-Subject: [PATCH v2] dmaengine: nbpfaxi: Fix setting channel irqs in probe()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b2UNbaF3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909DE1F000E9;
+	Thu,  2 Jul 2026 15:28:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783006116;
+	bh=1fxXhck2nCzeMzLvm9K6L7ngfJTEEd79JFyjVImCQDM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=b2UNbaF3r1hljIWsq+U3j/11VVe9K2mDfW8ITR+HjohsDjn4ssvCJs9AFVheLFUgy
+	 YutZV+6PpHeF6xFcTE3aP1wgob9+1JJiCuA/RUVFz2dvVYiCt029oTNRLVLNIirVwd
+	 ZJRN/llZI+zewvXG8n2DgpVZTw4maIPQ94/3bo8QOtoi+JTqEKFtFV6CASOrxfXduo
+	 qTdXAdcCH6byaDW+HoajP2kUzTHaMjHIVEEpuN8pRkkUTl53dMnB2eSPLJRIlyVlw7
+	 fxKtmvq5cuKuBvDlq8x+OvxC7zoRN102vKdIlK8yykc6GDFwRBmyrZt2fzUDpQl6OJ
+	 HSXqnKeJZSz7Q==
+Message-ID: <d6544525-5dfd-40c0-9c9a-2423f21d8034@kernel.org>
+Date: Thu, 2 Jul 2026 17:28:25 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] arm64: make huge_ptep_get handled unaligned
+ addresses
+To: Dev Jain <dev.jain@arm.com>, muchun.song@linux.dev, osalvador@suse.de,
+ akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org
+Cc: riel@surriel.com, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
+ lance.yang@linux.dev, kas@kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, rcampbell@nvidia.com, apopple@nvidia.com,
+ ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
+ rakie.kim@sk.com, byungchul@sk.com, gourry@gourry.net,
+ ying.huang@linux.alibaba.com, j-nomura@ce.jp.nec.com,
+ nao.horiguchi@gmail.com, ak@linux.intel.com, mel@csn.ul.ie,
+ pfalcato@suse.de, jpoimboe@kernel.org, dave.hansen@intel.com,
+ tglx@kernel.org, catalin.marinas@arm.com, will@kernel.org,
+ linux-arm-kernel@lists.infradead.org, ryan.roberts@arm.com,
+ anshuman.khandual@arm.com, stable@vger.kernel.org
+References: <20260702051341.126509-1-dev.jain@arm.com>
+ <20260702051341.126509-2-dev.jain@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260702051341.126509-2-dev.jain@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-upstreaming-nbpfaxi-v1-v2-1-e6d6b178a278@weidmueller.com>
-X-B4-Tracking: v=1; b=H4sIAIKDRmoC/4WNQQqDMBREryJ/3ZQYqw1deY/iIsYf/UUTSdRax
- Ls32gMUZvNgZt4GAT1hgEeygceFAjkbQVwS0J2yLTJqIoPgouB3Ltg8hsmjGsi2zNajUSuxJWU
- 8K26Y5bkyMoc4Hj0aWs/jZ/XjMNcv1NPxdjQ6CpPzn9O8pEfvryQmZaaRqKTMuEZVvpGaYca+R
- 3/VboBq3/cvNKXPpdQAAAA=
-X-Change-ID: 20260702-upstreaming-nbpfaxi-v1-0364e355af85
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Dan Carpenter <error27@gmail.com>, christian.taedcke-oss@weidmueller.com
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Christian Taedcke <christian.taedcke@weidmueller.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783006089; l=2082;
- i=christian.taedcke@weidmueller.com; s=20260702;
- h=from:subject:message-id;
- bh=IzUQu+E8VTZ8ZfkMwN9i9MqRhpTxuocHqQC40gcbdj4=;
- b=zXjAubGaROb2J3AtoN9zBnEjeOfeexMILJ4jDci7kkqlVT59SDtPLUATpTo7oS7kiAbIJhFR6
- QYEo87v7d0QD9wqXvRA8sU//UrioR6OPMm7DxrE2WXYlC+UkmDbcC6I
-X-Developer-Key: i=christian.taedcke@weidmueller.com; a=ed25519;
- pk=fVCoBhFV3uMogA2nxIOU/rynNY+O2TDJgWvWjR06TrQ=
-X-Endpoint-Received: by B4 Relay for
- christian.taedcke@weidmueller.com/20260702 with auth_id=847
-X-Original-From: Christian Taedcke <christian.taedcke@weidmueller.com>
-Reply-To: christian.taedcke@weidmueller.com
 
-From: Christian Taedcke <christian.taedcke@weidmueller.com>
-
-When one irq is used for errors and each channel gets a dedicated irq,
-the total number of irqs is num_channels + 1. If the error irq is not
-the last entry in irqbuf[] but an earlier one, the loop assigning
-per-channel irqs terminates one iteration too early and the last
-channel is left without an irq.
-
-Iterate over all collected irqs instead of num_channels so the
-error-irq skip does not shorten the effective channel count.
-
-Fixes: 188c6ba1dd92 ("dmaengine: nbpfaxi: Fix memory corruption in probe()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Taedcke <christian.taedcke@weidmueller.com>
----
-Changes in v2:
-- Advance chan only when assigning a real irq to fix out-of-bounds
-  memory access.
-- Remove now redundant ARRAY_SIZE(irqbuf) check.
-- Link to v1: https://patch.msgid.link/20260702-upstreaming-nbpfaxi-v1-v1-1-fd8ea8830cea@weidmueller.com
-
-To: christian.taedcke-oss@weidmueller.com
-To: Vinod Koul <vkoul@kernel.org>
-To: Frank Li <Frank.Li@kernel.org>
-To: Dan Carpenter <error27@gmail.com>
-Cc: dmaengine@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/dma/nbpfaxi.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/dma/nbpfaxi.c b/drivers/dma/nbpfaxi.c
-index 05d7321629cc..bcfab62a71d7 100644
---- a/drivers/dma/nbpfaxi.c
-+++ b/drivers/dma/nbpfaxi.c
-@@ -1374,14 +1374,12 @@ static int nbpf_probe(struct platform_device *pdev)
- 		if (irqs == num_channels + 1) {
- 			struct nbpf_channel *chan;
- 
--			for (i = 0, chan = nbpf->chan; i < num_channels;
--			     i++, chan++) {
-+			for (i = 0, chan = nbpf->chan; i < irqs; i++) {
- 				/* Skip the error IRQ */
- 				if (irqbuf[i] == eirq)
--					i++;
--				if (i >= ARRAY_SIZE(irqbuf))
--					return -EINVAL;
-+					continue;
- 				chan->irq = irqbuf[i];
-+				chan++;
- 			}
- 		} else {
- 			/* 2 IRQs and more than one channel */
-
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260702-upstreaming-nbpfaxi-v1-0364e355af85
-
-Best regards,
---  
-Christian Taedcke <christian.taedcke@weidmueller.com>
+On 7/2/26 07:13, Dev Jain wrote:
+> huge_ptep_get() can be handed a virtual address pointing to the middle of
+> a contpmd/contpte mapped hugetlb folio (examples of callers are
+> pagemap_hugetlb_range, page_mapped_in_vma).
+> 
+> The arm64 helper rewalks the pgtables in find_num_contig to answer whether
+> the huge pte we have maps a contpmd or a contpte hugetlb folio, and
+> returns CONT_PMDS or CONT_PTES, so that it can collect a/d bits over the
+> contiguous ptes. We can falsely return CONT_PTES instead of CONT_PMDS
+> if the addr is not aligned.
+> 
+> Fix this by aligning the pmdp pointer down to a contpmd base before
+> checking equality with the passed huge pte pointer, to correctly answer
+> whether the huge pte is the base of a contpmd block.
+> 
+> Fixes: 29cb80519689 ("arm64: hugetlb: Cleanup huge_pte size discovery mechanisms")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dev Jain <dev.jain@arm.com>
+> ---
+>  arch/arm64/mm/hugetlbpage.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
+> index 30772a909aea3..8e799c1fe0aa6 100644
+> --- a/arch/arm64/mm/hugetlbpage.c
+> +++ b/arch/arm64/mm/hugetlbpage.c
+> @@ -87,7 +87,7 @@ static int find_num_contig(struct mm_struct *mm, unsigned long addr,
+>  	p4dp = p4d_offset(pgdp, addr);
+>  	pudp = pud_offset(p4dp, addr);
+>  	pmdp = pmd_offset(pudp, addr);
+> -	if ((pte_t *)pmdp == ptep) {
+> +	if ((pte_t *)PTR_ALIGN_DOWN(pmdp, sizeof(*pmdp) * CONT_PMDS) == ptep) {
+>  		*pgsize = PMD_SIZE;
+>  		return CONT_PMDS;
+>  	}
 
 
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
