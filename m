@@ -1,94 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CA039A7E7
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 07:38:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382D139F19F;
+	Thu,  2 Jul 2026 07:40:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782977915; cv=none; b=by5lAQsc4SgfbzVM7QOKk0fTf9AS6lmti1d/9y53roDnW7lBC4gUxSQmbHaENjFGwo6AT+Aq6OSmEc+zTk8kqnQmQ6gDCy0dgjsGdo0IaqjfmMAd7vcawku/cRZ72DUzqXvU7Du4LVC0AqbIFKrrVu6PhhiyR8KnYN/xVhrXl54=
+	t=1782978024; cv=none; b=J9PROXtnrZmZ07cD1Vf1FhUQGPh8twdWkp1fAnLiR3VToJUo7C7bIgs6bz9C44KYhzOvpE9Uh9/c/z++axCC1pz3qw88xYLI9NKv7I9vh+rj6VhM61MKmqiQJF54UpUIy1nSy70V55zUq5H/SAYIDqLYA2BluIeXoRQuQlSLoAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782977915; c=relaxed/simple;
-	bh=SVYy/kAB71zO9r41iE0OF5XPAjDAV0RY4A3rcH+m2XM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=qkGXs86KK1sNSAlIm1DMpjILrcZShd8ZFdJwi7wa7znPBYHvk8NEg0jFfTKdglzdMB/E14J/HFdUUfUIPol2Wcg4tN5qxtssTCVGryNXzlesG5I2osTxJGIJLbR0t2WO0G1NG3JZXilvAu1eYDNnM8e6sJwe+/kX/mkY5CILguA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZi/lw3y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782978024; c=relaxed/simple;
+	bh=OLBo26MPL86PDfA7e8HH+TgVpcot15s/Og4apy0rSyI=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=PFQ37MpBkBDJRK58YAC09W8rqbgJmauxI+C+woqW6BJLfmXjgVokd42/MY9IqmkXJkVKEyy5hoUAXX2Cd9koGxHstTrx3LCJbTZ6V5cTGEWvGU+HydkBKSEZmcq9a0FUs2ADHnbVEFHK+0LRtSpEc2d64ASE4vUTm5+zbRCs+yQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H0ksU1lx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZi/lw3y"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id F36151F00A3A;
-	Thu,  2 Jul 2026 07:38:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H0ksU1lx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17FDE1F000E9;
+	Thu,  2 Jul 2026 07:40:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782977914;
-	bh=SVYy/kAB71zO9r41iE0OF5XPAjDAV0RY4A3rcH+m2XM=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=SZi/lw3ymY5+oH4pIVknJkew5GLxNj0DZOG/qXudljPARMR6rxk4gDYYXRFDdy236
-	 SCnQlOGu7jiKJP1VqWKOxZFngL1iAjM2vYUc9Uq+UCagfgTqgs5JkJ6WSwn010IsIl
-	 wXRCTJp7Y3rmOzj72BwD9w1IvxLcmQn94i4xi1b2SClM6WOvHxFLK/PD6qd+m5BZDm
-	 fFFkwhlwA6iHY+t/4F0EagYoJzkqOn21uP4Rf38VQukyodxOXYE8YFmteVSBNNO8wd
-	 s039fiQlXcvMpLENrj7p6JcOdOE1/Ajt2uSJXy5tG0Cqu2GKqDUiDOjVTniXkdPkjg
-	 psACam98JsMDA==
+	s=k20260515; t=1782978023;
+	bh=BjkaoU2WgrIbo3FTqjcKnmkv2r6llBu494GSVwWkcT0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=H0ksU1lxL6wt93PRPsQmi+u3tzWzC9XX65vRDVw9IqARueMuyfPm5Z/NTUCCtOuES
+	 vTuz5MjRi/EiiO1vbR3DM16qIBavyPpuxfp9D4IDcpv64qAxgTWOPsX9GAuSu4deCs
+	 Hl0hm49oluvVtlAl5SjD8IYaRfkkIy04rwsm2ey4UVIrooY/oCrS+v4bYUYx/gJbW3
+	 Uff77FrWsSwRX3VUN1S7NFLlNqxhRvxF8v9KgFH6QuA4h0dPn5YXB1WkTrOe0FsM05
+	 lScNeR8TtQKb6nQF+Abg2sGkpzsfB0Q27C+WCCtMfqQC+jZE/RuWAgoSEV3pvLNKua
+	 hAX0Rqtx3449A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 573BA39263BD;
+	Thu,  2 Jul 2026 07:40:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=4ec6414e26803d0253bc75a898ab2f13722c7d6a6b9e2a84d35a14bfb691;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Thu, 02 Jul 2026 09:38:27 +0200
-Message-Id: <DJNWX330PGHM.3IXKZ7556X5FP@kernel.org>
-Subject: Re: [PATCH 6.6.y] mtd: spi-nor: macronix: Add post_sfdp fixups for
- Quad Input Page Program
-Cc: "Sasha Levin" <sashal@kernel.org>, <stable@vger.kernel.org>,
- <tudor.ambarus@linaro.org>, <pratyush@kernel.org>,
- <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
- <linux-mtd@lists.infradead.org>, <alvinzhou@mxic.com.tw>, "Cheng Ming Lin"
- <chengminglin@mxic.com.tw>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Cheng Ming Lin" <linchengming884@gmail.com>
-X-Mailer: aerc 0.20.0
-References: <20260701023619.2730136-1-linchengming884@gmail.com>
- <stable-reply-mtd-macronix-66-20260701193800@kernel.org>
- <CAAyq3SY48RRSO1nN-uRH7HVnXbnvQ1_K823Lc_hRsCyVuf9L3g@mail.gmail.com>
- <DJNVRMSG4C6K.34EGBE463IOCZ@kernel.org>
- <CAAyq3Sb6d4xtp-wEwM9EhMo5OSzjvsh450JcwyeEOh2NeLrA8Q@mail.gmail.com>
-In-Reply-To: <CAAyq3Sb6d4xtp-wEwM9EhMo5OSzjvsh450JcwyeEOh2NeLrA8Q@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net/mlx5: HWS,
+ fix matcher leak on resize target setup failure
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178297800589.1493055.1247899710790412138.git-patchwork-notify@kernel.org>
+Date: Thu, 02 Jul 2026 07:40:05 +0000
+References: <20260629064049.3852759-1-dawei.feng@seu.edu.cn>
+In-Reply-To: <20260629064049.3852759-1-dawei.feng@seu.edu.cn>
+To: Dawei Feng <dawei.feng@seu.edu.cn>
+Cc: saeedm@nvidia.com, leon@kernel.org, tariqt@nvidia.com, mbloch@nvidia.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, kliteyn@nvidia.com, vdogaru@nvidia.com,
+ horms@kernel.org, kees@kernel.org, stable@vger.kernel.org,
+ netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, zilin@seu.edu.cn
 
---4ec6414e26803d0253bc75a898ab2f13722c7d6a6b9e2a84d35a14bfb691
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Hello:
 
-Hi,
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-> To follow your guidance, I will prepare a v3 series.
-> My plan is to:
->
-> 1. Backport commit ac5bfa968b60 ("mtd: spi-nor: fix flash probing") as th=
-e
-> first patch in the v3 series to resolve the NULL pointer dereference issu=
-e
-> in 6.6.y.
->
-> 2. Send my flash addition patches (without the .name field, using comment=
-s
-> instead) as the subsequent patches in the series.
->
-> Does this structure for the v3 series look good to you?
+On Mon, 29 Jun 2026 14:40:49 +0800 you wrote:
+> hws_bwc_matcher_move() allocates a replacement matcher before setting it
+> as the resize target. If mlx5hws_matcher_resize_set_target() fails, the
+> replacement matcher is not attached anywhere and is leaked.
+> 
+> Fix the leak by destroying the replacement matcher before returning from
+> the resize-target failure path.
+> 
+> [...]
 
-Sounds good to me.
+Here is the summary with links:
+  - [net] net/mlx5: HWS, fix matcher leak on resize target setup failure
+    https://git.kernel.org/netdev/net/c/bb09d0e64eca
 
--michael
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
---4ec6414e26803d0253bc75a898ab2f13722c7d6a6b9e2a84d35a14bfb691
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCakYVcxIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/iZzAGAnNKF7MipXCXc9iWKoLeTIJ7+Y3nkq7sD
-6JWd+NhoRF5/JsZ6ZxP256g6Qbx3LSOfAX0TPAtt2NKeg0GkjshagxLbx8lyumdu
-jN6fSgNckkwss3Noi7n/RsZ4KKPf/4HubwI=
-=K1qx
------END PGP SIGNATURE-----
-
---4ec6414e26803d0253bc75a898ab2f13722c7d6a6b9e2a84d35a14bfb691--
