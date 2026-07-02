@@ -1,104 +1,122 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B20A20FA81
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 01:10:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E20E41C72
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 01:24:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782954640; cv=none; b=d1Nue4gdttHBXhYp8j7GMvLfsmkSYXMK0nxU/sXhM7NWOslfYU63fLK0WEfGtR/Hpcs8grOU6Ye6iHWFRgmtBfc846LJ+L6f3R4wwYnX6LyjzYV6VnLIlehgHyQMnWXpR3GMUHmI9Lt133mWKNspMsFhcCGRCIQQk7fSeETFWAI=
+	t=1782955480; cv=none; b=tIyANvMG4DrLWFFFPHDJ2JIxNG5TAjR/Pb4aksCnHR9uita2kLuKaip0QECkncj1UT0U3ihT3LnWxUDIphqipRZZTeE59MLLO9/xsGsBQgX/LdhZ2/N55IGs5E0hTRnTugTqi9C7xBmkpaBwUOx44KXUK/VcG2+/H3My26Y015o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782954640; c=relaxed/simple;
-	bh=mOGFYf2NVq2+X+4ukULrmQkJlrQ1JeQwuSMJOslFPvs=;
-	h=Message-ID:Date:Content-Type:MIME-Version:From:To:Cc:Subject:
-	 In-Reply-To:References; b=QMvZqVcu+TzpbYuUAxcJAwkzdqi+GoLPpDI16wk/riIj6CoJS9kcl+gZxAC8tKjYCJa/DZiktN7bAIX9VJCgTWDxBWdAAmfKNsCBTwEhZdDqP72akLG/u5vsz6F0YN2W5FzCvnTh9ptsF9OTLlEZu6phm6htuSdZU1GVVK9K3d0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S5J0FbJF; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782955480; c=relaxed/simple;
+	bh=ctpQ78W0lSbJOHnoQkwspXnJShQ/RwnX315jTlQMbDk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Y5Ow5PI5qX0H9xpUZCvuSyrtSQPnIrRXFNO54dUDPFm+KfKutpu/4tcAm26ql/sF/Lrju3HRri8kKudVsKjWZqMWEDLf4OUzvUsT/vxZCb4LakCsuLeIeUIslEylfmo6FsGMymltBqBAorcdPXS0rHOXbYOZMO4dkRIm4kP8wFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U3tnnHx4; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S5J0FbJF"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-493bfe9f886so6639625e9.0
-        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 18:10:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782954638; x=1783559438; darn=vger.kernel.org;
-        h=references:in-reply-to:subject:cc:to:from:content-transfer-encoding
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mOGFYf2NVq2+X+4ukULrmQkJlrQ1JeQwuSMJOslFPvs=;
-        b=S5J0FbJFdM/AMSygSEGVa4WennqDRQKg0YoC7xGpGOwJKByVbvkI3ClVl8edntzYk6
-         U6HLqhyutcburVNaM2SFYlx9nul+yuiiiNjsldQFiF+J37KGrZ346g/GFqhSa8AuwIKq
-         u8l1JDowIcte0Vj/Gz5KfIU8zaWZNIfmR/SHvohvXAWKBrOti+CGgXqcNv2V6ZZVaLZD
-         DxReCMTMEux3mFmGcyictwIsHKnOsPBx2VnJXJdm3l/WVV0GJ5kjOQZBhso7J2hOCMq4
-         a3kng/9bi0Zmy2LBhtJ2HgZV20H5TLwrpbpeWo4zwp7EU9QRpNgQi5ULEjOrhrp5NBTN
-         kdzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782954638; x=1783559438;
-        h=references:in-reply-to:subject:cc:to:from:content-transfer-encoding
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=mOGFYf2NVq2+X+4ukULrmQkJlrQ1JeQwuSMJOslFPvs=;
-        b=IvvzODW/YunIXLY/DrFWve8825B5jilZu8JFO1Ckk7d43SnWpCQmP5fzTATSdgHPmA
-         I7oOk74jh9yO9rX6IKK+eTYsd2kfIRLpzfmYZgtO80GdqiAEcvrMFEmod4qGfZZiHuTy
-         aU4cnQrFrjUgtRThI4u03JNp9wIYUpgLLbfW8E/SdwDYrUE4K2p64ZCwhqXl3jz25e4k
-         98rQUBik8jRzsciSW/PUoLrhtycfvyF6dITjnL7PggA61WVE+1iH18kJTw6fkfsTRoLb
-         SMgbosI25AvbSk+38XJCebXMl6AgEs//9udX/nNlJMC5293m2fDcxmChcCZ5xLiDIyiM
-         s8fA==
-X-Forwarded-Encrypted: i=1; AFNElJ82My92HstA0efTGEhMKtbdM0W2PeRVw0W0oYlREpVd4Uc5RppNwmE7bUHKfrJJgPd0vzRYEq0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwYhJy54/cBECrfCb/bYfKmatntAuFDszPihBQMeK0gBnP+tmpF
-	y3ZZbFVnHeQA/2F+dnlK4OiGfy1HdutNFh4532iWh0vGk+UflQT3xZ/VkdC9
-X-Gm-Gg: AfdE7cmIQV23thlIjVnmLL4MurD7zMJYyy3yEhQ46aFhtQ6IXdQ/WTWtH910e/pRqD2
-	D7OytBA4Wk+G7OLb7rmqhpC/8HqCcEXf7zajlxVwr8jnAhVDtu1E/ljfb2b9Cx+Dh4XQ5FpuKjZ
-	zhnGn3ns4sIL3UpELEoSD2cN7w6qqpOAOGy4vX1qC/vb5xQ17/GTaKeOAPlJVthW7eWxvP0WAXj
-	1/NSCflxvp04Tmx1hFgDppECzjPTvSVM7M1KKjdPJDfsPmrFAoyNMppslBtWoN4R7qbkxNcTm/H
-	Qv0CTGyY1TaE45NGl7a0ycgZQh9FoZ9ns8KG50bD80ZKkfW/3ES2s9BZAdlmrVYYThxNhiJ+eLf
-	zsTN5lUFj7BG5SiVxrCGxqMslu48Ag48M+dACYA1bVhJwgHhFS/2EUw2k49VLXQ==
-X-Received: by 2002:a05:600c:34d4:b0:493:b8cf:cc8a with SMTP id 5b1f17b1804b1-493c2b3ccd2mr50214495e9.4.1782954637980;
-        Wed, 01 Jul 2026 18:10:37 -0700 (PDT)
-Received: from [127.0.1.1] ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493bef248b7sm62043285e9.2.2026.07.01.18.10.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 18:10:35 -0700 (PDT)
-Message-ID: <6a45ba8b.940a5a52.377c47.efec@mx.google.com>
-Date: Wed, 01 Jul 2026 18:10:35 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U3tnnHx4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782955479; x=1814491479;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ctpQ78W0lSbJOHnoQkwspXnJShQ/RwnX315jTlQMbDk=;
+  b=U3tnnHx4aMYF22QnXD0/5RW3kSVbWm5QwZeq+2EGRxXZ66irr+1WYPtt
+   yxHMdXWtObpCuLgcASn8UaGfjsmTwQ48jXtXTvbLAdaBuXf3Ps9QLlIq6
+   rlClzj3kI915d3RNbZ9YWZMldsFDP+5xRnE9ELmxbowzYB/FVic1VNaBH
+   4DxP1/+MJpvh/2B7wPQbtguiA7DgmgVgonOjF5lJWYgNQn02lsEjk2D/L
+   T0k9Yxmr6zgxYSukcfbBf45BkuJOxF26WScb74xAusPKduMxHyVTxMEtq
+   tSqEv163190xPgQSzevJSig53WAVA24U7UW/pnGD5s91oNC8ogLZHwIfj
+   w==;
+X-CSE-ConnectionGUID: 3lgSAycpT/2Ly/om6H0OEg==
+X-CSE-MsgGUID: QaDlZz1LQKiE1i/jgsQ3Eg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="82688434"
+X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; 
+   d="scan'208";a="82688434"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 18:24:38 -0700
+X-CSE-ConnectionGUID: HGIktfkMSq6AT4OZCvVlNQ==
+X-CSE-MsgGUID: ogIeEa1ORPecpIdEGVYojg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; 
+   d="scan'208";a="257604364"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 18:24:39 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] drm/xe: Fix PTE index in xe_vm_populate_pgtable() for chunked binds
+Date: Wed,  1 Jul 2026 18:24:34 -0700
+Message-Id: <20260702012434.3861171-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: Tristan Madani <tristmd@gmail.com>
-To: Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>
-Cc: Ondrej Mosnacek <omosnace@redhat.com>, Richard Haines <richard_c_haines@btinternet.com>, selinux@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org, tristan@talencesecurity.com
-Subject: Re: [PATCH v3] selinux: avoid sk_socket dereference in selinux_sctp_bind_connect()
-In-Reply-To: <0fa8e2f769f889368756a1ed1f12ea8e@paul-moore.com>
-References: <20260625235336.3641828-1-tristmd@gmail.com> <0fa8e2f769f889368756a1ed1f12ea8e@paul-moore.com>
+Content-Transfer-Encoding: 8bit
 
-T24gV2VkLCAwMSBKdWwgMjAyNiwgUGF1bCBNb29yZSB3cm90ZToKPiBIb3dldmVyLCB0aGVyZSBp
-cyBhbm90aGVyIGlzc3VlIHJlbGF0aW5nIHRvIHRoZSBTQ1RQIHNvZnRpcnEgY29kZSBwYXRoczoK
-PiB0aGUgZmFjdCB0aGF0IHdlIGNhbGwgaW50byBzb2NrX2hhc19wZXJtKCkgaW4gYm90aAo+IF9f
-c2VsaW51eF9zb2NrZXRfYmluZCgpIGFuZCBzZWxpbnV4X3NvY2tldF9jb25uZWN0X2hlbHBlcigp
-LiAgVGhlCj4gc29ja19oYXNfcGVybSgpIGZ1bmN0aW9uIHVzZXMgY3VycmVudF9zaWQoKSBhcyB0
-aGUgc3ViamVjdCBpbiB0aGUKPiBhdmNfaGFzX3Blcm0oKSBjYWxsLCBhbmQgaW4gdGhlIHNvZnRp
-cnEgY2FzZSB0aGF0IGlzIG5vdCB3aGF0IHdlIHdhbnQuCgpIYWQgYSBsb29rIGF0IHRoaXMuIFRo
-ZSBBU0NPTkYgc29mdGlycSBwYXRoIGlzOgoKICBzY3RwX3JjdigpICBbTkVUX1JYIHNvZnRpcnFd
-CiAgICAtPiBzY3RwX3Byb2Nlc3NfYXNjb25mKCkKICAgICAgLT4gc2N0cF9wcm9jZXNzX2FzY29u
-Zl9wYXJhbSgpCiAgICAgICAgLT4gc2VjdXJpdHlfc2N0cF9iaW5kX2Nvbm5lY3Qoc2ssIFNDVFBf
-UEFSQU1fQUREX0lQL1NFVF9QUklNQVJZKQogICAgICAgICAgLT4gc2VsaW51eF9zY3RwX2JpbmRf
-Y29ubmVjdCgpCiAgICAgICAgICAgIC0+IHNvY2tfaGFzX3Blcm0oKQogICAgICAgICAgICAgIC0+
-IGF2Y19oYXNfcGVybShjdXJyZW50X3NpZCgpLCBza3NlYy0+c2lkLCAuLi4pCgpJbiBzb2Z0aXJx
-LCBjdXJyZW50IGlzIHdoYXRldmVyIHByb2Nlc3Mgd2FzIGludGVycnVwdGVkLCBzbyB0aGUgc3Vi
-amVjdApTSUQgaXMgZWZmZWN0aXZlbHkgcmFuZG9tLiBNZWFud2hpbGUgdGhlIHBvcnQvbm9kZSBi
-aW5kIGNoZWNrcyBmdXJ0aGVyCmRvd24gaW4gX19zZWxpbnV4X3NvY2tldF9iaW5kKCkgYW5kIHRo
-ZSBwb3J0IGNvbm5lY3QgY2hlY2sgaW4Kc2VsaW51eF9zb2NrZXRfY29ubmVjdF9oZWxwZXIoKSBh
-bHJlYWR5IHVzZSBza3NlYy0+c2lkIGFzIHRoZSBzdWJqZWN0LAp3aGljaCBpcyB0aGUgZXN0YWJs
-aXNoZWQgcGF0dGVybiBmb3Igc29mdGlycSBjb250ZXh0CihzZWxpbnV4X3NvY2tldF9zb2NrX3Jj
-dl9za2IsIHNlbGludXhfc2N0cF9hc3NvY19yZXF1ZXN0LCBldGMuKS4KClRoZSBhcHByb2FjaCBJ
-IHdvdWxkIHN1Z2dlc3Q6IHRocmVhZCBhbiBleHBsaWNpdCBzdWJqZWN0IFNJRCBpbnRvIHRoZSBp
-bm5lcgpoZWxwZXJzLiBzZWxpbnV4X3NjdHBfYmluZF9jb25uZWN0KCkgd291bGQgcGFzcyBza3Nl
-Yy0+c2lkLCBhbmQgdGhlCnByb2Nlc3MtY29udGV4dCB3cmFwcGVycyAoc2VsaW51eF9zb2NrZXRf
-YmluZCwgc2VsaW51eF9zb2NrZXRfY29ubmVjdCkKd291bGQgcGFzcyBjdXJyZW50X3NpZCgpLiBU
-aGF0IGtlZXBzIHNvY2tfaGFzX3Blcm0oKSBzZW1hbnRpY3MKdW5jaGFuZ2VkIGZvciB0aGUgbm9y
-bWFsIHBhdGggYW5kIG1ha2VzIHRoZSBTSUQgY2hvaWNlIHZpc2libGUgYXQgZWFjaApjYWxsIHNp
-dGUuCgpJIGNhbiBzZW5kIGEgcGF0Y2ggZm9yIHRoaXMgaWYgdGhpcyBhcHByb2FjaCB3b3JrcyBm
-b3IgeW91LgoKLS0KVHJpc3Rhbgo=
+xe_vm_populate_pgtable() indexed the source PTE array (update->pt_entries)
+by the per-call loop counter, assuming each call starts at the first entry
+of the update. That holds for the CPU bind path
+(xe_migrate_update_pgtables_cpu), which populates a whole update in a single
+call, but not for the GPU bind path: write_pgtable() splits an update into
+MAX_PTE_PER_SDI (510) sized MI_STORE_DATA_IMM chunks, invoking the populate
+callback once per chunk with an advancing qword_ofs but a fresh command-
+buffer destination pointer.
+
+As a result, every chunk after the first re-read pt_entries from index 0
+instead of from its true offset, so PTEs beyond the first 510 entries of a
+single update were programmed with the wrong physical pages, shifting the
+mapping by exactly MAX_PTE_PER_SDI pages.
+
+This stayed latent because a single update only exceeds 510 qwords when a
+large (e.g. 2M) region is bound as individual 4K PTEs rather than a single
+huge-page entry, which happens when the backing store is sufficiently
+fragmented. It was surfaced by the BO defrag path, which deliberately
+rebinds such fragmented ranges via the GPU bind path, producing
+deterministic data corruption offset by 510 pages.
+
+Index pt_entries by the chunk's absolute offset relative to update->ofs so
+both the CPU and GPU paths pick the correct entries.
+
+Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub_Copilot:claude-opus-4.8
+---
+ drivers/gpu/drm/xe/xe_pt.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+index 00cef6ff17cc..7970b4ed95b5 100644
+--- a/drivers/gpu/drm/xe/xe_pt.c
++++ b/drivers/gpu/drm/xe/xe_pt.c
+@@ -1024,12 +1024,22 @@ xe_vm_populate_pgtable(struct xe_migrate_pt_update *pt_update, struct xe_tile *t
+ 	u64 *ptr = data;
+ 	u32 i;
+ 
++	/*
++	 * @qword_ofs is the absolute entry offset within the page table, while
++	 * @ptes is indexed relative to @update->ofs (its first entry). The GPU
++	 * path (write_pgtable) splits a single update into MAX_PTE_PER_SDI-sized
++	 * chunks, calling this with an advancing @qword_ofs but a fresh @data
++	 * pointer per chunk, so translate back into a @ptes index rather than
++	 * assuming the chunk starts at ptes[0].
++	 */
+ 	for (i = 0; i < num_qwords; i++) {
++		u32 idx = qword_ofs - update->ofs + i;
++
+ 		if (map)
+ 			xe_map_wr(tile_to_xe(tile), map, (qword_ofs + i) *
+-				  sizeof(u64), u64, ptes[i].pte);
++				  sizeof(u64), u64, ptes[idx].pte);
+ 		else
+-			ptr[i] = ptes[i].pte;
++			ptr[i] = ptes[idx].pte;
+ 	}
+ }
+ 
+-- 
+2.34.1
+
