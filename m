@@ -1,177 +1,173 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C562765ED
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 02:21:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBEE248F57
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 02:22:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782958918; cv=none; b=kBEtvCYGVWCsUw/7YRJzAllyAryq7YvPmUeDDRCrDNdcUp4t/A80HrhPXNOEsNaA5kNrDQ97bo4DsLhZwbLat4pXL6v4g7OdwkX7i6kD7LBoAo+kxPyszmkUON2i7AfqFqvrw6aQWV1zy8xst1oE4TIWfqvHFfY8W+CsOjh99AI=
+	t=1782958945; cv=none; b=jH9xB0ysMcjloHlonLCZItxV7S1ihAy2s4gNGad2k6lngkOR6ISWKikrRrpT8FV7Dk2Yl6MpMG72w/Pcz5PLnB3zGu5iR9eSGLri5K8N4YtygXPpWKEtX1DfxZIBEl6+nB/ChBOntA4xnSUZaNlxbG7zJ1HAvkh4RfW184sw+aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782958918; c=relaxed/simple;
-	bh=Taobu97kSS/BoYiN0TR+2a4iyUBtc3Kw7iUJ8JW5lkE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=DHPwiKl++kHmHGEPSoL89F5Fjnjx0jPs0eHUmAT4DC8E7mFDfiCuryOB0QeH0/37/Q+KXEyj4XOsTReM2Q0Yo7/7cFubMxHVb9o4k5zQNvUVtWozOI+tTFGVcpKxk7lRJh80UO/Aaf9ub3PWZwC2I8AAhQuCA2W7fqOKGFuv/Jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DlGNsKHp; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782958945; c=relaxed/simple;
+	bh=Xcx6CVbzOR65UAneR1Q9ElsyhMM8u/rDhorB1CejVBk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bXjuXHSP109m+VRySlUg36PvUYUcQTM5fBl7uYWp7H6BV+S3TTIYaxLGFGzB3v0Pn6SNWKxMQtmTYsS+KijboAg2D/zQiGZhAjul6ZCggQwqvjRSp2Eg32Gp+zgqyMCIR9GBDxRk/7rbyvtXYd2xk/hQte7Q4xIofWQvt0uctDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OFfJ0o1f; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bSj7TslH; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DlGNsKHp"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c85c531d4a9so624026a12.2
-        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 19:21:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OFfJ0o1f";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bSj7TslH"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6621KXe03029119
+	for <stable@vger.kernel.org>; Thu, 2 Jul 2026 02:22:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=WuJiALMC/BGgUNf5qTrrae
+	7IiC6Qqo1y/5Q35LNS3FM=; b=OFfJ0o1fNPdox08dfjsyHo7ZgIA2iIMIX3hTR/
+	t1xpdTN8Z0FD3Tm5caJs+CRwmmsgUbuHgecd2WMA4YqAHpLiDsYqqtIBvCUgwmoc
+	CByM1he21y8/0IZZ9DhLZjaelZS9TUWkbrViTqKExJ3YuNLOroj/ls2a7DEiGUG8
+	S5dVViHPYAjlw7BYuoYJM4U03Njd7w/1ig65s8eYCQlflDGOcUw/j7940sDa17k2
+	QXg04zAulHAwn4cR65qYi6d1S9CHyW7uXh0AjFcavGaejGp1jwsjOnUY/8Ei3YUq
+	qIqy4ZzK4CjGX5NOOU2KQAr93Lj+DOH3G4iEDHCG9HjNMI8Q==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4x0tmkte-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 02 Jul 2026 02:22:23 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2c987913b08so16821435ad.2
+        for <stable@vger.kernel.org>; Wed, 01 Jul 2026 19:22:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782958916; x=1783563716; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lhBKIBTyUUlzBSrRoY3fwwZdfAj9Qw3eVw3ezZbn3wQ=;
-        b=DlGNsKHptqx5x3pnAKGE/66LBMRetGjzggvdUfgWlyHVidPQrHOkPcg4P/csnwXXkP
-         6E7RjE/mmAfNBYp2nN+n2rCth9e7ZlGCyGG9ZatdSS72lfR8kdWYjhX5ORtSwDZ5+GEE
-         fTYiobc7AzWJTEmG1Xk9oiR5+EXrcjfgjSVHhpttXgvcapSqGIJ44ckR2lG8jIH262XW
-         Di9uFKsTTVLmnOYutW5VqcfrhnH8J7l9x+pHKljAn4BUzpYaIYgvIn5GXKv3ayKuXjc4
-         ldEj8k/LptICgHZ7/L8Q5LP7eF2rp28PH+VH6eGmyhJQzOvcCb95rAvtHeQErbEKwnQZ
-         CH3A==
+        d=oss.qualcomm.com; s=google; t=1782958942; x=1783563742; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=WuJiALMC/BGgUNf5qTrrae7IiC6Qqo1y/5Q35LNS3FM=;
+        b=bSj7TslHMz27TBiirfXbPb6509OUBOsTolkNJElcFZNLNDu1zE76tvjON7p5/ZWFw3
+         USeT0k/KGE24t85/7EY3O1o+Ntes3mDFSfu9yMsm68YXhOkOR0mUrmO/iFAMz3UdLCef
+         IVPmm9OGlNyFm3CO0176Xgwv387mXhk5+rz4xcMUwq260bV3SLCFFL6+rwStNAidDqJZ
+         v4U3Non8liN8mkeK/y8QcIghLbJoXyfaml4v3h/WWuVoBeBv2oQn9O0M4IEgxgPZepPh
+         A0V2kn2dK9RvZ0UlAUg6Vzq4wvqSQ/v1S7zrg3kPoY0XPM82G/FEJDT1hjl3iCUONwMk
+         ViqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782958916; x=1783563716;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=lhBKIBTyUUlzBSrRoY3fwwZdfAj9Qw3eVw3ezZbn3wQ=;
-        b=NwU2oIDlMQhYz2ufEEJ5/PKV4tFxJuF564GzW58sbBDRcPweDy01L+k16uTRKckzFK
-         fofJkk6gvjJqcFxrw5bh1UzNb/R+5cjvsQKyDCPyW1J/CnLw0JhRDwq3BS88Fr98gJqz
-         iwc1ywxMAhDLJqb6MezIiTMzNgrd1ACj8Ggl/KzNFWXS9wIsricEsv50vjFu0ZJzc2zn
-         dtXfjjEbFBbUHgD0ZxF/eKeZD9MxgJ4qKJkaJOM7o8vliDv0Oa9I4GCSiFKtdzzEB0TO
-         LSOnXPxkb513dhAkGuxrJy7IOaQxLjw7Bwe3rSBjczvD8muL3qzaHMKDtYOinRIzh8nr
-         ZT5Q==
-X-Gm-Message-State: AOJu0YyF+35+LTUK2UNIqfNyy7JBYh2UqqO9Jxgxv3G5IgDRzaIMnv4L
-	xrDmF05rZykwNVHjk9HIAChUluk2J+SmXNU+tGOTtvmE9nkiHSeIpa7E
-X-Gm-Gg: AfdE7cme3+85r7yI58+pBegRWO7a4W9QZmtcR33XwRuwLsX7dRVM6+5ZTyjwxZdvZ5r
-	P99WL0NAbcnZCnbMhebZEnbSill2ewkpJfW92oqmKwO/HvELNsTUdPFj/OtFmMiRUenLk3RBFhI
-	c9byJHNDEXoRXJ54tqzG14BQrPdMpkXgKS/I+RNG9AVvjnwzlTCNgJMBIBaJkGVmRZK7vAKo2+B
-	Y/C6SSPTB/Vwx3H4BmtRiK2+YiFrSC0NS8F72OLh003Z6vgV9Xutq7GBw4qZJYU2lOEONn1lnO8
-	BWnUP7pyn7AJ2zZBPmGXdGO4QTNESdIDy58ofY1p4mRnOVvCw4g5Bvy7rXnuwJ2WnnaA4iEKq8I
-	Wh/8oZ15JIFoOzBEtRcXKXjnxfJoRbWEy/Xkdac6hLYpz9kYqCq3s0sB7YUuBUTfsPNkp6fiKZJ
-	3gM53f7HQiC8yGuHfMJrILWYHyRx7vGXB/W9o=
-X-Received: by 2002:a05:6a21:697:b0:3bf:e94e:e38d with SMTP id adf61e73a8af0-3bfed472a5cmr4469448637.43.1782958916058;
-        Wed, 01 Jul 2026 19:21:56 -0700 (PDT)
-Received: from twhmp6px (mxsmtp211.mxic.com.tw. [211.75.127.162])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c9e8eb0ef50sm602016a12.6.2026.07.01.19.21.55
+        d=1e100.net; s=20251104; t=1782958942; x=1783563742;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WuJiALMC/BGgUNf5qTrrae7IiC6Qqo1y/5Q35LNS3FM=;
+        b=pZBKkRU1QhtMWhS7ttwMzcsFUgj2TjaEN9PahdWSmg50QM+sZBAtT79gBHHfmEJ8fV
+         uUm96GnLahieR3lrMlOb/H8xpvWfK56ank589dq9bt/hojiBVMraGi8H8I/DIcK7ITE8
+         YGzLLgM/wEPgVPnXU5qRq6JhHKpb6hlZWRD20/PmQELy3R9DM8ZWfNehxUHaiOkjXt/n
+         qXPGZv9n+l5a/dsEQXkQ4lP+6Zl6EUZl8PnU5CvadxgyDgBvcn3NZumqL7X/70GBYsJ3
+         yEoow7VTWbjUmuNAMFBZwlKIW6ysv/AhbenvLPI3Ija/H7C6PN0Ahfd5oyV9KxD6xTh/
+         2JlQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqu6Ve1fIRDKCYCgtOAGXD0K//IA+nYjRNRKmBDAK1Rg+3yfC5YZ752v5C9+dlMYReSEUXxmA8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdZ1S1+2Qyaz7SuE7puFJUdlgA42FqSJzy6PW8VbaC1jvaD9OC
+	SNyGzx0waj2UrEM3CNnpjhfyyXLrx+hA2fAO6zD+DAx0tb85REgA2HYHouvbEe02+agka+An367
+	e0B1GJhadUH+iTY6Dh20m4H3Kk1vCQQgLAbZTQCiBRlKtXA9Lj5kPlQkDnixKEqFgvGvX/g==
+X-Gm-Gg: AfdE7ckXeVT6JzJAqgpvSs7R/GZEnoa09iChy8U/2FqyBc4Vgj8n/9Uh3ce62KrP8iH
+	rnZ3F0ytxwDWvViWhK9T1QPZQ/NQ1GbxUwvPYbuRQXNEuwV14hucGbC+rKSNG2jUUgjeH2D8HgW
+	G0G4wZMN7f2eifbxdfFHwA7dg68P89IEY0/oRva9i1qDI8PwBylH4PjulhH1ru+3Zhv/kk+uCC1
+	UTVnHjDfvYnH8gqfOixslZLvZhkhOeMLlsAtOl24kpVRDErGeD8AFmbbbC9jihtJXXoPQtlA1Ss
+	gQIK/gbnChsYGzZpsNp+mWQeh6atKfQKwx2rjv7q47ZUBv7OhLc5/D1rJdCzghXepErNNLJtNs0
+	v2gu73Ett+z2Vxkq/h3Ekur3izk4WoZIZ3iKa5zR3/pFhWlgxS0NybbzpS8E=
+X-Received: by 2002:a17:903:3883:b0:2c9:97a7:b1ec with SMTP id d9443c01a7336-2ca7e9348f2mr45316025ad.43.1782958942326;
+        Wed, 01 Jul 2026 19:22:22 -0700 (PDT)
+X-Received: by 2002:a17:903:3883:b0:2c9:97a7:b1ec with SMTP id d9443c01a7336-2ca7e9348f2mr45315615ad.43.1782958941741;
+        Wed, 01 Jul 2026 19:22:21 -0700 (PDT)
+Received: from hu-yutlin-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b3c7fa65asm3279918c88.6.2026.07.01.19.22.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 19:21:55 -0700 (PDT)
-Received: from hqs-appsw-a2o.mp600.macronix.com (unknown [172.17.236.67])
-	by twhmp6px (Postfix) with ESMTPS id E522A4163B74;
-	Thu,  2 Jul 2026 10:21:52 +0800 (CST)
-From: Cheng Ming Lin <linchengming884@gmail.com>
-To: stable@vger.kernel.org
-Cc: tudor.ambarus@linaro.org,
-	pratyush@kernel.org,
-	mwalle@kernel.org,
-	miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com,
-	linux-mtd@lists.infradead.org,
-	alvinzhou@mxic.com.tw,
-	Cheng Ming Lin <chengminglin@mxic.com.tw>
-Subject: [PATCH 6.6.y v2 1/2] mtd: spi-nor: macronix: Add post_sfdp fixups for Quad Input Page Program
-Date: Thu,  2 Jul 2026 10:18:41 +0800
-Message-Id: <20260702021842.2771498-2-linchengming884@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260702021842.2771498-1-linchengming884@gmail.com>
-References: <20260702021842.2771498-1-linchengming884@gmail.com>
+        Wed, 01 Jul 2026 19:22:20 -0700 (PDT)
+From: Eddie Lin <eddie.lin@oss.qualcomm.com>
+Date: Wed, 01 Jul 2026 19:21:59 -0700
+Subject: [PATCH v3] misc: fastrpc: fix memory leak in
+ fastrpc_channel_ctx_free
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260701-fastrpc-cctx-cleanup-v3-1-3a73c2e4ce1a@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAEbLRWoC/4WNQQ6CMBBFr0K6tqRTCaAr72FclGGQGqTYFoIh3
+ N0WNy40biZ5yZ/3FubIanLsmCzM0qSdNn2A/S5h2Kr+SlzXgZkUMhc5AG+U83ZAjuhnjh2pfhx
+ 41dRSKFVUpRIsvA6WGj1v2vPlzW6sboQ+uuKi1c4b+9y6E8Tdn8QEHLgsxaHIsgwgx5NxLn2Mq
+ kNzv6fhsFia5Ker+OGSwVVRWaCQAJCpL651XV+IpGprHQEAAA==
+X-Change-ID: 20260611-fastrpc-cctx-cleanup-bfd20aa7b8a0
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Amol Maheshwari <amahesh@qti.qualcomm.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Eddie Lin <eddie.lin@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-GUID: JAb_jK0i8Evq-iiMHpuGi4wyPGXnDv9c
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDAyMSBTYWx0ZWRfXw1NequTXJdtB
+ RevedLIpYTdd8O4k7oVWLLSpdDYn5Ti7epmbmrlUEJ6qDLApBvS6uD88FxVxAhZ+QtafBqq/53N
+ usDtGIBMBsgsCm6iaGYIwAQdK3gZ/Po=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDAyMSBTYWx0ZWRfX4k0oz/1xgs3c
+ Yjatsd41/evrptCZHNfgQjkdtqAEU8D1ho0LggQTPAKsH/fkuEu+8JqZ847cwX0z0d324PWjWwy
+ pO8eB0nh6H+ke/JRXNy6qFn/khWdtUTCsHr20Rov7u9FwcICuKOAgsQd9tJzfbYoLmADN44jWmV
+ 57E29DHLZXrIml9jBDrd+CqqFDNjIwl973uz1sFGLHpVDZXjpE9Gjm2Kg5SouCvKnstb55APrD4
+ bfBBZyfjNy4LIrp+0Zmtcqq7EFQuvI1agXLWqrGY2ebw5o9vyJuWfwaDQddj+J3/TTWEdy1Yk96
+ KvK2lWQ/XqTB+lwH1tv56jxxpPlL+vg6IEBVW7YBQEpztVIn4vF5HqlKCMo7LQjeP2hFOhyDXnZ
+ knvag4t4OVynzhT6/kEgDxJWsYIpvl7WaInclSpwJcKskbrhKSSBHeGaNdlz3bPK3K8s01Pt7TI
+ KIxCNtoEen/UBjT8XxA==
+X-Authority-Analysis: v=2.4 cv=T5+8ifKQ c=1 sm=1 tr=0 ts=6a45cb5f cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=Rsn1OCey0fvCUy5VNe4A:9
+ a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: JAb_jK0i8Evq-iiMHpuGi4wyPGXnDv9c
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ bulkscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020021
 
-From: Cheng Ming Lin <chengminglin@mxic.com.tw>
+The 'ctx_idr' is initialized but never destroyed when
+the channel context is freed, leading to a memory leak.
+Add idr_destroy() to properly clean up the IDR resources.
 
-commit 798aafeffb369c5eb36e406b18970ef27baa820d upstream.
-
-Although certain Macronix NOR flash support the Quad Input Page Program
-feature, the corresponding information in the 4-byte Address Instruction
-Table of these flash is not properly filled. As a result, this feature
-cannot be enabled as expected.
-
-To address this issue, a post_sfdp fixups implementation is required to
-correct the missing information.
-
-Signed-off-by: Cheng Ming Lin <chengminglin@mxic.com.tw>
-Link: https://lore.kernel.org/r/20250211063028.382169-2-linchengming884@gmail.com
-Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+Fixes: f6f9279f2bf0 ("misc: fastrpc: Add Qualcomm fastrpc basic driver model")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eddie Lin <eddie.lin@oss.qualcomm.com>
 ---
- drivers/mtd/spi-nor/macronix.c | 33 ++++++++++++++++++++++++++++-----
- 1 file changed, 28 insertions(+), 5 deletions(-)
+Changes in v3:
+- Remove duplicate description from cover letter.
+- Link to v2: https://patch.msgid.link/20260617-fastrpc-cctx-cleanup-v2-1-be87c021114a@oss.qualcomm.com
 
-diff --git a/drivers/mtd/spi-nor/macronix.c b/drivers/mtd/spi-nor/macronix.c
-index eb149e517c1f..b676a71822a3 100644
---- a/drivers/mtd/spi-nor/macronix.c
-+++ b/drivers/mtd/spi-nor/macronix.c
-@@ -28,8 +28,26 @@ mx25l25635_post_bfpt_fixups(struct spi_nor *nor,
- 	return 0;
+Changes in v2:
+- Added Fixes tag.
+- Added Cc: stable@vger.kernel.org.
+- Removed duplicate description from cover letter.
+- Link to v1: https://patch.msgid.link/20260611-fastrpc-cctx-cleanup-v1-1-28097444116c@oss.qualcomm.com
+---
+ drivers/misc/fastrpc.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index a9b2ae44c06f..7727850e9240 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -492,6 +492,7 @@ static void fastrpc_channel_ctx_free(struct kref *ref)
+ 
+ 	cctx = container_of(ref, struct fastrpc_channel_ctx, refcount);
+ 
++	idr_destroy(&cctx->ctx_idr);
+ 	kfree(cctx);
  }
  
-+static int
-+macronix_qpp4b_post_sfdp_fixups(struct spi_nor *nor)
-+{
-+	/* PP_1_1_4_4B is supported but missing in 4BAIT. */
-+	struct spi_nor_flash_parameter *params = nor->params;
-+
-+	params->hwcaps.mask |= SNOR_HWCAPS_PP_1_1_4;
-+	spi_nor_set_pp_settings(&params->page_programs[SNOR_CMD_PP_1_1_4],
-+				SPINOR_OP_PP_1_1_4_4B, SNOR_PROTO_1_1_4);
-+
-+	return 0;
-+}
-+
- static const struct spi_nor_fixups mx25l25635_fixups = {
- 	.post_bfpt = mx25l25635_post_bfpt_fixups,
-+	.post_sfdp = macronix_qpp4b_post_sfdp_fixups,
-+};
-+
-+static const struct spi_nor_fixups macronix_qpp4b_fixups = {
-+	.post_sfdp = macronix_qpp4b_post_sfdp_fixups,
- };
- 
- static const struct flash_info macronix_nor_parts[] = {
-@@ -81,7 +99,8 @@ static const struct flash_info macronix_nor_parts[] = {
- 		FIXUP_FLAGS(SPI_NOR_4B_OPCODES) },
- 	{ "mx25u51245g", INFO(0xc2253a, 0, 64 * 1024, 1024)
- 		NO_SFDP_FLAGS(SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ)
--		FIXUP_FLAGS(SPI_NOR_4B_OPCODES) },
-+		FIXUP_FLAGS(SPI_NOR_4B_OPCODES)
-+		.fixups = &macronix_qpp4b_fixups },
- 	{ "mx25uw51245g", INFOB(0xc2813a, 0, 0, 0, 4)
- 		PARSE_SFDP
- 		FLAGS(SPI_NOR_RWW) },
-@@ -91,18 +110,22 @@ static const struct flash_info macronix_nor_parts[] = {
- 	{ "mx25l25655e", INFO(0xc22619, 0, 64 * 1024, 512) },
- 	{ "mx66l51235f", INFO(0xc2201a, 0, 64 * 1024, 1024)
- 		NO_SFDP_FLAGS(SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ)
--		FIXUP_FLAGS(SPI_NOR_4B_OPCODES) },
-+		FIXUP_FLAGS(SPI_NOR_4B_OPCODES)
-+		.fixups = &macronix_qpp4b_fixups },
- 	{ "mx66u51235f", INFO(0xc2253a, 0, 64 * 1024, 1024)
- 		NO_SFDP_FLAGS(SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ)
--		FIXUP_FLAGS(SPI_NOR_4B_OPCODES) },
-+		FIXUP_FLAGS(SPI_NOR_4B_OPCODES)
-+		.fixups = &macronix_qpp4b_fixups },
- 	{ "mx66l1g45g",  INFO(0xc2201b, 0, 64 * 1024, 2048)
- 		NO_SFDP_FLAGS(SECT_4K | SPI_NOR_DUAL_READ |
--			      SPI_NOR_QUAD_READ) },
-+			      SPI_NOR_QUAD_READ)
-+		.fixups = &macronix_qpp4b_fixups },
- 	{ "mx66l1g55g",  INFO(0xc2261b, 0, 64 * 1024, 2048)
- 		NO_SFDP_FLAGS(SPI_NOR_QUAD_READ) },
- 	{ "mx66u2g45g",	 INFO(0xc2253c, 0, 64 * 1024, 4096)
- 		NO_SFDP_FLAGS(SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ)
--		FIXUP_FLAGS(SPI_NOR_4B_OPCODES) },
-+		FIXUP_FLAGS(SPI_NOR_4B_OPCODES)
-+		.fixups = &macronix_qpp4b_fixups },
- };
- 
- static void macronix_nor_default_init(struct spi_nor *nor)
--- 
-2.25.1
+
+---
+base-commit: abe651837cb394f76d738a7a747322fca3bf17ba
+change-id: 20260611-fastrpc-cctx-cleanup-bfd20aa7b8a0
+
+Best regards,
+--  
+Eddie Lin <eddie.lin@oss.qualcomm.com>
 
