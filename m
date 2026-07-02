@@ -1,171 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18F1261B8A
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 13:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F744A3404;
+	Thu,  2 Jul 2026 13:43:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782999385; cv=none; b=pdpsA7E+lFMc1J4K5Pj+l5lhVgQlgEBia/SIDkrEIeb0edIPLkLx+Glu3pvo9CXJWUXoWI+eUXQJERZJDR+0vysGzolxbS+FyXKXp47hfg9+jNGR1Ku8PQmwrLr2VKEZa0imwT/F8PtKYm6tBPIxWMq2h3aysQFyL6TcNjKxHvM=
+	t=1782999814; cv=none; b=Tdmz1J1Uw+96D6/8pb0/erSEjJPjwq0J9Nh9dlCgHurZWxBO47NvVgKCpHbU2dD2oiUzezSWtpcTSJwCuPg5Kd2ijmjdhWe2zvzzdXGQ/8OhgHegl7LnH16syt/2JRzpY6KRBsQTE7rc2Xv08EvbzwTjqgn9OxErMnN74ikXeCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782999385; c=relaxed/simple;
-	bh=axvYGDk2I8RCmKMKsN+nnwKZWzsvGs4KUC2U2SZXFCc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ebEPs5TitW/bMp1UCRPdJ8VDojX9e4ePa7TNqqMgpTtj88QLAWtNepUYCLHhlGaeom9Sg7QoC9QJTW24WfuTiBbdwVwbdA7KX6tU+nrFJYS8vZ4tOsZjm5OegP63WyJfpZOVz2BfkwBsxMSB5WtVBSEla3f/FVq10lNjY66vUHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sffpo5eH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782999814; c=relaxed/simple;
+	bh=3RRAGJ45DI3/d7faCnQEzBes1sMD0GozE0Iva04Bm/g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pbsNPc6heDR4tYzBpGtSo5Nx8VZRIYuMpfA9kqY36gqec7fEaflvpdcw2TkWAEKGkWoKSlsU9ITHc4fUi+N7tN0Abip+KC3pRDy8t8X3uUHUwVW0pBSoxxp9/jV8fKAMZhVwpwnohrsvssGhWSdnnrCMhzZ7FaCQIwGaNGxpE00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=puN9zfSn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sffpo5eH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7FF81F000E9;
-	Thu,  2 Jul 2026 13:36:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782999384;
-	bh=p/d/JVXYikXpTD18Q5lWhPW8bWgyBalSQqcMoi6JklE=;
-	h=Subject:To:Cc:From:Date;
-	b=sffpo5eHR2p7PFMh6aeOLOLL9/f4mEkxK9zjWMQ04e+7dD+8VA/dJLlhZWWnAU4Xc
-	 FY6X/qhHMHOoqF/uDPlK9giaYf1X0Kxg/3VPNVu5yLsucB57ob/NkVsoT49c/Wr+3h
-	 uGS2n9JS6FGABOP23+KY0zgCLXxjcLNGXG8NPxPE=
-Subject: FAILED: patch "[PATCH] f2fs: fix to do sanity check on f2fs_get_node_folio_ra()" failed to apply to 6.18-stable tree
-To: chao@kernel.org,jaegeuk@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 02 Jul 2026 15:36:34 +0200
-Message-ID: <2026070234-outdated-refutable-f834@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="puN9zfSn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 61823C2BCC6;
+	Thu,  2 Jul 2026 13:43:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782999814;
+	bh=3RRAGJ45DI3/d7faCnQEzBes1sMD0GozE0Iva04Bm/g=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=puN9zfSn6UrOklH5SbCgtRQBtzuuE6JBE1/Vj4CibMnRnZ8rqJ7+30lGftIOjRjdx
+	 4lXal+3Qe5N3voqGoAUOBXRb9sL+X30ZOI3o93fsw0+yZU2FNRy52ainkurSLLdZ2p
+	 /hXkgGdiILRyt7RjIS7fNfqkcga5CpuCc+kGhhXIYbfWaqSFrJkQokYBH46QtMZlaC
+	 z/anfZsEy0wBQqcfEdcRtqqbepQRFTEPZXUTyjFDpy2W8FJTYSoGZLtS2VOvsaIXdo
+	 zwYbyn/u405p2evxurzCXLK40+mBclwHRUkgWurJpAJVXc+Cx1t2wtCPqoq0R5gV7H
+	 FweyhKCvxoG3w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F6D0C43458;
+	Thu,  2 Jul 2026 13:43:34 +0000 (UTC)
+From: Christian Taedcke via B4 Relay <devnull+christian.taedcke.weidmueller.com@kernel.org>
+Date: Thu, 02 Jul 2026 15:43:29 +0200
+Subject: [PATCH] dmaengine: nbpfaxi: Fix setting channel irqs in probe()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260702-upstreaming-nbpfaxi-v1-v1-1-fd8ea8830cea@weidmueller.com>
+X-B4-Tracking: v=1; b=H4sIAAFrRmoC/yXMQQqDMBBA0avIrB2IsbHiVcRF1ImdgjFkVATx7
+ qZ2+Rb/nyAUmQSa7IRIOwsvPqHIMxg+1k+EPCaDVrpSb6VxC7JGsjP7CX0fnD0Y9wJVWb2oNMa
+ 62kCKQyTHxzNuu79l6780rL8bXNcN7C8/RnoAAAA=
+X-Change-ID: 20260702-upstreaming-nbpfaxi-v1-0364e355af85
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Dan Carpenter <error27@gmail.com>, christian.taedcke-oss@weidmueller.com
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ Christian Taedcke <christian.taedcke@weidmueller.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782999813; l=1388;
+ i=christian.taedcke@weidmueller.com; s=20260702;
+ h=from:subject:message-id;
+ bh=Y9B/MscRS+aViEQu67zlX3/v5KCJOOqQmYwRkuMIXkk=;
+ b=TSvP0rZyf+DIpaVyWev2dPFYoKXBBM9HKVYYLQQ/m26InhmavFJeRlorKWP9ariFOgOeoXKdP
+ jaI36yxRwSsCRZb3bRB0yOyasZQhjQv9fUkHfP2dM+/Fe18iLRjoSVZ
+X-Developer-Key: i=christian.taedcke@weidmueller.com; a=ed25519;
+ pk=fVCoBhFV3uMogA2nxIOU/rynNY+O2TDJgWvWjR06TrQ=
+X-Endpoint-Received: by B4 Relay for
+ christian.taedcke@weidmueller.com/20260702 with auth_id=847
+X-Original-From: Christian Taedcke <christian.taedcke@weidmueller.com>
+Reply-To: christian.taedcke@weidmueller.com
 
+From: Christian Taedcke <christian.taedcke@weidmueller.com>
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+When one irq is used for errors and each channel gets a dedicated irq,
+the total number of irqs is num_channels + 1. If the error irq is not
+the last entry in irqbuf[] but an earlier one, the loop assigning
+per-channel irqs terminates one iteration too early and the last
+channel is left without an irq.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Iterate over all collected irqs instead of num_channels so the
+error-irq skip does not shorten the effective channel count.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x 8712353ed80f87271d732297567dcdbe4b84e8c7
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070234-outdated-refutable-f834@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+Fixes: 188c6ba1dd92 ("dmaengine: nbpfaxi: Fix memory corruption in probe()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Taedcke <christian.taedcke@weidmueller.com>
+---
+ drivers/dma/nbpfaxi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 8712353ed80f87271d732297567dcdbe4b84e8c7 Mon Sep 17 00:00:00 2001
-From: Chao Yu <chao@kernel.org>
-Date: Fri, 22 May 2026 15:53:29 +0800
-Subject: [PATCH] f2fs: fix to do sanity check on f2fs_get_node_folio_ra()
-
-kernel BUG at fs/f2fs/file.c:845!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 0 UID: 0 PID: 5336 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full)
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:f2fs_do_truncate_blocks+0x1115/0x1140 fs/f2fs/file.c:845
-Code: fc fc 90 0f 0b e8 8b 9d 9a fd 90 0f 0b e8 83 9d 9a fd 48 89 df 48 c7 c6 60 d1 1a 8c e8 54 f1 fc fc 90 0f 0b e8 6c 9d 9a fd 90 <0f> 0b e8 64 9d 9a fd 90 0f 0b 90 e9 93 fd ff ff e8 56 9d 9a fd 90
-RSP: 0018:ffffc9000e4474c0 EFLAGS: 00010283
-RAX: ffffffff842b1d34 RBX: 0000000000000003 RCX: 0000000000100000
-RDX: ffffc9000f03a000 RSI: 0000000000035503 RDI: 0000000000035504
-RBP: ffffc9000e447608 R08: ffff8880123b0000 R09: 0000000000000002
-R10: 00000000fffffffe R11: 0000000000000002 R12: 0000000000000001
-R13: 0000000000000000 R14: 1ffff92001c88ea0 R15: 00000000ffff039c
-FS:  00007f7e02ee36c0(0000) GS:ffff88808c887000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ff0305c4000 CR3: 0000000012d4c000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- f2fs_truncate_blocks+0x10a/0x300 fs/f2fs/file.c:882
- f2fs_truncate+0x471/0x7c0 fs/f2fs/file.c:940
- f2fs_evict_inode+0xa3f/0x1ac0 fs/f2fs/inode.c:907
- evict+0x61e/0xb10 fs/inode.c:841
- f2fs_fill_super+0x5f43/0x78f0 fs/f2fs/super.c:5224
- get_tree_bdev_flags+0x431/0x4f0 fs/super.c:1694
- vfs_get_tree+0x92/0x2a0 fs/super.c:1754
- fc_mount fs/namespace.c:1193 [inline]
- do_new_mount_fc fs/namespace.c:3758 [inline]
- do_new_mount+0x341/0xd30 fs/namespace.c:3834
- do_mount fs/namespace.c:4167 [inline]
- __do_sys_mount fs/namespace.c:4383 [inline]
- __se_sys_mount+0x31d/0x420 fs/namespace.c:4360
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x15f/0xf80 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-	count = ADDRS_PER_PAGE(dn.node_folio, inode);
-
-	count -= dn.ofs_in_node;
-	f2fs_bug_on(sbi, count < 0);
-
-The fuzz test will trigger above bug_on in f2fs.
-
-The root cause should be: in the corrupted inode, there is a direct node
-which has the same ino and nid in its footer, so in f2fs_do_truncate_blocks(),
-after f2fs_get_dnode_of_data() finds such dnode:
-1) ADDRS_PER_PAGE(dn.node_folio, inode) will return 923
-2) once dn.ofs_in_node points to addr[923, 1017]
-Then it will trigger the system panic.
-
-Let's introduce NODE_TYPE_NON_IXNODE to indicate current node should
-not be an inode or xattr node, and then use it in below path to detect
-inconsistent node chain in inode mapping table:
-
-- f2fs_do_truncate_blocks
- - f2fs_get_dnode_of_data
-  - f2fs_get_node_folio_ra
-   -  __get_node_folio
-    - f2fs_sanity_check_node_footer
-     - case NODE_TYPE_NON_IXNODE -> check whether it is inode|xnode
-
-Cc: stable@kernel.org
-Reported-by: syzbot+2488d8d751b27f7ce268@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/69fa3697.170a0220.59368.0018.GAE@google.com
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 9f24287de4c3..086bc5243979 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -1592,6 +1592,7 @@ enum node_type {
- 	NODE_TYPE_INODE,
- 	NODE_TYPE_XATTR,
- 	NODE_TYPE_NON_INODE,
-+	NODE_TYPE_NON_IXNODE,	/* non inode and xnode */
- };
+diff --git a/drivers/dma/nbpfaxi.c b/drivers/dma/nbpfaxi.c
+index 05d7321629cc..74ff7bd979e2 100644
+--- a/drivers/dma/nbpfaxi.c
++++ b/drivers/dma/nbpfaxi.c
+@@ -1374,7 +1374,7 @@ static int nbpf_probe(struct platform_device *pdev)
+ 		if (irqs == num_channels + 1) {
+ 			struct nbpf_channel *chan;
  
- /* a threshold of maximum elapsed time in critical region to print tracepoint */
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index cd5a394f6111..38917e4a7319 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -1548,6 +1548,10 @@ int f2fs_sanity_check_node_footer(struct f2fs_sb_info *sbi,
- 		if (is_inode)
- 			goto out_err;
- 		break;
-+	case NODE_TYPE_NON_IXNODE:
-+		if (is_inode || is_xnode)
-+			goto out_err;
-+		break;
- 	default:
- 		break;
- 	}
-@@ -1643,7 +1647,7 @@ static struct folio *f2fs_get_node_folio_ra(struct folio *parent, int start)
- 	struct f2fs_sb_info *sbi = F2FS_F_SB(parent);
- 	nid_t nid = get_nid(parent, start, false);
- 
--	return __get_node_folio(sbi, nid, parent, start, NODE_TYPE_REGULAR);
-+	return __get_node_folio(sbi, nid, parent, start, NODE_TYPE_NON_IXNODE);
- }
- 
- static void flush_inline_data(struct f2fs_sb_info *sbi, nid_t ino)
+-			for (i = 0, chan = nbpf->chan; i < num_channels;
++			for (i = 0, chan = nbpf->chan; i < irqs;
+ 			     i++, chan++) {
+ 				/* Skip the error IRQ */
+ 				if (irqbuf[i] == eirq)
+
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260702-upstreaming-nbpfaxi-v1-0364e355af85
+
+Best regards,
+--  
+Christian Taedcke <christian.taedcke@weidmueller.com>
+
 
