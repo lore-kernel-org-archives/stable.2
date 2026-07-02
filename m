@@ -1,42 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B3D312834;
-	Thu,  2 Jul 2026 21:41:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE08380FE0;
+	Thu,  2 Jul 2026 21:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783028499; cv=none; b=WHMehhJ9x9+QJBVxhjpk0iGtATQpjZQdsxD5pNg/gBjENnVTWFN1zYR0IKX6xBtvkFadMiExhCvLJrZkiA4KgSdiGaTmS0eI1VMeIYsG5JYMYd+RMuTMiUGbTxiFi7pZCX+L8X9NtbV2xIB8ukbXtDYI1tNy4acvU5fgj6+1L0k=
+	t=1783028905; cv=none; b=V/vNXNAl8KbE1OYBt2cqsPqtlPJ+tsJr0EOYtiBScxCK/Ve++o2+vu1cX6/AZJvVMb6K9PdJDg6PGsincmbrZaCLNZM8nVo73wmZg5uKfVzknnjqo14ONJzbLV6OgbTLut18WEgcFfT2GidOP6u4T3ldXU0U/JLS+Xx9DqLJzKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783028499; c=relaxed/simple;
-	bh=tT/3omg3PNgIoOIavzQkCy5itycSAAr2+yb/AXr4bSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RcIe+TGSCzOeSpZEZpggEneN9kRJcr6Gm0M3nYCnNzmrdxgupSHr/iZ03bkUjwWER+PchtKetoHq8x1aWcvTYg+Z8nF7aPrjUs1v4IbtlRng8+srv/Avvs3eRm98eT1SG2TkWP22dybNkrS9M1Xp3h86I9RhAXmcOBvxuVmPue0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C1nmlsUK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783028905; c=relaxed/simple;
+	bh=2A4OCL9PO6OKf1xo0SboDzLbLoVNYqX7VoF34UVzdvM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=jikP3ibku28VNHspPeu00Za+GzRD0SPfwhDWh+1zY8lXQUcTXN7BvqR1VH2XUebR7By41UJcXOdEP8F8UajxZwPuD4RcSSiAxKIQx7ppCYJbIwOcSCz26BedafBV9HbI1b3wrtT+dkx1CoOhFC/bnjkTUKM8rFoeXV+80UTu3Xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TqDsLoRP; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C1nmlsUK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27A951F00A3D;
-	Thu,  2 Jul 2026 21:41:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783028498;
-	bh=D0+XDJ0DE8l6O8P0lzGa5SSgmMFTY4bNO+D7PkidL6Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C1nmlsUKN46VHIwEmYuqu3Jl0dnrNR8rgh0agHtBrr6mGwEOq0NyVrPWP1PXsxfMj
-	 XEB+dZ0vBwRMOzPICy+02qlePQ6qa9uzlAVe5rCVZTxsZhkpmGQUqOS3tZSjCMACvc
-	 lvQwq9gpGxJ17eyILgagegP1alDY3DxqQM+u3dxhfF9lj+oJ042+wOruRM1k+Morjw
-	 oOzhiRsguWHlljZhT5ZTfDfIBoGypu4GlWldb3k0+o1RlfXYR1fBml2lw3icjHo+/N
-	 tlmkTIJQbRzQ2+zq7mOlDlYCGN4AhYkh4+6HnPgl5tDEFx1hWQL9BTYDpVZbpY1PlO
-	 dCvmSAUqoif0A==
-From: Chuck Lever <cel@kernel.org>
-To: <stable@vger.kernel.org>
-Cc: <linux-nfs@vger.kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chris Mason <clm@meta.com>
-Subject: [PATCH 6.6.y 2/2] nfsd: reset write verifier on deferred writeback errors
-Date: Thu,  2 Jul 2026 17:41:35 -0400
-Message-ID: <20260702214135.533354-2-cel@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260702214135.533354-1-cel@kernel.org>
-References: <20260702214135.533354-1-cel@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TqDsLoRP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783028903; x=1814564903;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=2A4OCL9PO6OKf1xo0SboDzLbLoVNYqX7VoF34UVzdvM=;
+  b=TqDsLoRPtH3qe6Lut76wU3RV2GUbpLPMUBtPKNQ5MVe1aG/0w+sVfC6g
+   pNSVufokT7aNWLYAFZL7RqX9GMjYsfHxnITOX0xWyDQUuoYpBVQ2lHl9o
+   aMxPKz2ofCAQzlkJHsFnF94HabrJqshgCydK07qM3nHgy1WOuAPLZ4cwD
+   u2ZdvWTUs1G21mBG+bKzU0h4Wu0o1IYIbn1dbFoVVAe8hpEDs/u97WP7g
+   DYeLC4qAt8vdk6XHVJViI2GzGlQFDNSadX8Hee/hare449M/ox9hHBiAo
+   PQ/QL361ylGQIM186P2OaXX8+Rrk3r+IehednJ3oLulaxkLJx4BkAPHbu
+   g==;
+X-CSE-ConnectionGUID: HX2BDY4EQjySo+mdrfwwcw==
+X-CSE-MsgGUID: aw8uU2xeSQO7Iw1GEmpHVg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="71308870"
+X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; 
+   d="scan'208";a="71308870"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 14:48:23 -0700
+X-CSE-ConnectionGUID: 6yjCdr7hRHa+cFFBJiaQjw==
+X-CSE-MsgGUID: +VP2jtGLTAeMcN7Syeyo6w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; 
+   d="scan'208";a="249612085"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 14:48:22 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>,
+	Huang Rui <ray.huang@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/ttm: Account for NULL and handle pages in ttm_pool_backup
+Date: Thu,  2 Jul 2026 14:48:15 -0700
+Message-Id: <20260702214815.4009271-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,69 +69,126 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+Pages in ttm_pool_backup can be NULL or backup handles
+(ttm_backup_page_ptr_is_handle()), neither of which can be passed to
+set_pages_array_wb() or freed. Add a dedicated WB pass before the
+dma/purge loop that walks allocations using the same i += num_pages
+stride, skipping NULL and handle entries, and calls set_pages_array_wb()
+once per contiguous run of real pages. Apply the same NULL/handle guard
+to the dma/purge loop.
 
-commit 2090b05803faab8a9fa62fbff871007862cac1b7 upstream.
+Fixes the following oops:
 
-nfsd_vfs_write() and nfsd_commit() both call filemap_check_wb_err() to
-detect deferred writeback errors, but neither rotates the server's write
-verifier (nn->writeverf) when this check fails. Every other
-durable-storage-failure path in these functions calls
-commit_reset_write_verifier() before returning an error.
+Oops: general protection fault, kernel NULL pointer dereference 0x0: 0000 [#1] SMP NOPTI
+RIP: 0010:__cpa_process_fault+0xf8/0x770
+RSP: 0018:ffffc90000a87718 EFLAGS: 00010287
+RAX: 0000000000000000 RBX: ffffc90000a87868 RCX: 0000000000000000
+RDX: 0000000000001000 RSI: 0005088000000000 RDI: ffffffff827c5f34
+RBP: 0005088000000000 R08: ffffc90000a877cb R09: ffffc90000a877d0
+R10: 0000000000000000 R11: 000000000000001b R12: 000ffffffffff000
+R13: ffffc90000a87868 R14: ffffc90000a87868 R15: ffff88815b882ae0
+FS:  0000000000000000(0000) GS:ffff8884ec840000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f930b844000 CR3: 000000000262e003 CR4: 0000000008f70ef0
+PKRU: 55555554
+Call Trace:
+ <TASK>
+ __change_page_attr_set_clr+0x989/0xe90
+ ? __purge_vmap_area_lazy+0x6c/0x3a0
+ ? _vm_unmap_aliases+0x250/0x2a0
+ set_pages_array_wb+0x7f/0x120
+ ttm_pool_backup+0x4c9/0x5b0 [ttm]
+ ? dma_resv_wait_timeout+0x3b/0xf0
+ ttm_tt_backup+0x32/0x60 [ttm]
+ ttm_bo_shrink+0x66/0x110 [ttm]
+ xe_bo_shrink_purge+0x12b/0x1b0 [xe]
+ xe_bo_shrink+0xbb/0x270 [xe]
+ __xe_shrinker_walk+0xf7/0x160 [xe]
+ xe_shrinker_walk+0x9d/0xc0 [xe]
+ xe_shrinker_scan+0x11f/0x210 [xe]
+ do_shrink_slab+0x13b/0x270
+ shrink_slab+0xf1/0x400
+ shrink_node+0x352/0x8a0
+ balance_pgdat+0x32c/0x700
+ kswapd+0x205/0x2f0
+ ? __pfx_autoremove_wake_function+0x10/0x10
+ ? __pfx_kswapd+0x10/0x10
+ kthread+0xd1/0x110
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork+0x1b1/0x200
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
 
-The missing rotation means clients holding UNSTABLE write data under the
-current verifier will COMMIT, receive the unchanged verifier back, and
-conclude their data is durable — silently dropping data that failed
-writeback. This violates the UNSTABLE+COMMIT durability contract
-(RFC 1813 §3.3.7, RFC 8881 §18.32).
-
-Add commit_reset_write_verifier() calls at both filemap_check_wb_err()
-error sites, matching the pattern used by adjacent error paths in the
-same functions. The helper already filters -EAGAIN and -ESTALE
-internally, so the calls are unconditionally safe.
-
-Reported-by: Chris Mason <clm@meta.com>
-Fixes: 555dbf1a9aac ("nfsd: Replace use of rwsem with errseq_t")
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Assisted-by: kres:claude-opus-4-6
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-[ cel: 6.6.y predates the commit_reset_write_verifier() helper (v6.7);
-  open-coded nfsd_reset_write_verifier() and the reset tracepoint at
-  both sites, matching the other reset paths in these functions ]
-Signed-off-by: Chuck Lever <cel@kernel.org>
+Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub_Copilot:claude-opus-4.8
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- fs/nfsd/vfs.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/ttm/ttm_pool.c | 30 ++++++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
 
-diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
-index ae1f43eb515a..6658c92340f2 100644
---- a/fs/nfsd/vfs.c
-+++ b/fs/nfsd/vfs.c
-@@ -1185,8 +1185,11 @@ nfsd_vfs_write(struct svc_rqst *rqstp, struct svc_fh *fhp, struct nfsd_file *nf,
- 	nfsd_stats_io_write_add(nn, exp, *cnt);
- 	fsnotify_modify(file);
- 	host_err = filemap_check_wb_err(file->f_mapping, since);
--	if (host_err < 0)
-+	if (host_err < 0) {
-+		nfsd_reset_write_verifier(nn);
-+		trace_nfsd_writeverf_reset(nn, rqstp, host_err);
- 		goto out_nfserr;
-+	}
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 3d5f2ae0a456..ff043420d517 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -1065,9 +1065,31 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
+ 		return -EBUSY;
  
- 	if (stable && use_wgather) {
- 		host_err = wait_for_concurrent_writes(file);
-@@ -1330,6 +1333,10 @@ nfsd_commit(struct svc_rqst *rqstp, struct svc_fh *fhp, struct nfsd_file *nf,
- 			nfsd_copy_write_verifier(verf, nn);
- 			err2 = filemap_check_wb_err(nf->nf_file->f_mapping,
- 						    since);
-+			if (err2 < 0) {
-+				nfsd_reset_write_verifier(nn);
-+				trace_nfsd_writeverf_reset(nn, rqstp, err2);
+ #ifdef CONFIG_X86
+-	/* Anything returned to the system needs to be cached. */
+-	if (tt->caching != ttm_cached)
+-		set_pages_array_wb(tt->pages, tt->num_pages);
++	/* Anything returned to the system needs to be cached. Walk allocations
++	 * skipping NULL pages and issue set_pages_array_wb() per contiguous run.
++	 */
++	if (tt->caching != ttm_cached) {
++		pgoff_t run_start = 0, run_count = 0;
++
++		for (i = 0; i < tt->num_pages; i += num_pages) {
++			page = tt->pages[i];
++			if (unlikely(!page || ttm_backup_page_ptr_is_handle(page))) {
++				if (run_count) {
++					set_pages_array_wb(&tt->pages[run_start],
++							   run_count);
++					run_count = 0;
++				}
++				num_pages = 1;
++				continue;
 +			}
- 			err = nfserrno(err2);
- 			break;
- 		case -EINVAL:
++			num_pages = 1UL << ttm_pool_page_order(pool, page);
++			if (!run_count)
++				run_start = i;
++			run_count += num_pages;
++		}
++		if (run_count)
++			set_pages_array_wb(&tt->pages[run_start], run_count);
++	}
+ #endif
+ 
+ 	if (tt->dma_address || flags->purge) {
+@@ -1075,7 +1097,7 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
+ 			unsigned int order;
+ 
+ 			page = tt->pages[i];
+-			if (unlikely(!page)) {
++			if (unlikely(!page || ttm_backup_page_ptr_is_handle(page))) {
+ 				num_pages = 1;
+ 				continue;
+ 			}
 -- 
-2.54.0
+2.34.1
 
