@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6447D339B3D;
-	Thu,  2 Jul 2026 16:50:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA1719049B;
+	Thu,  2 Jul 2026 16:50:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783011011; cv=none; b=hfiua6q0nFTV7bO6pf1QIHSrZd1NL+ejFlXXQrZL2qWPZRUJSerXGR9APISvTF6YzMWabzYDdRorN/kWxlkYAz+lyn7m+YjqkaslWLmQNaAzNklGMZI/jVznupCnmAI77NvQWiJTk8Jp8LzGXlBqqTdki8AmiGuf2CUErYuiHms=
+	t=1783011014; cv=none; b=YISTH6O80TF1fXaHR7Rh7NcQ0jw6GojyA0hzM2VF/uOOtSnTxax8BtHLqpLhPnh6TO20O9+qcgLTR4dajgVJeALcFeJBDE3fXXcFJ/YgDkfjISa+NBct6EAw2xlaJlOQdjFpNJE2B1HexTEAvwnNYapj+QQrrPcwr0LWLBksYKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783011011; c=relaxed/simple;
-	bh=YB6gvTwEgwEkKt8Gv2epHgpTGKxwLYfEA6uMtVMmKUM=;
+	s=arc-20240116; t=1783011014; c=relaxed/simple;
+	bh=A3uKLQpxihQRlVOXa/SpILv5C2PutjZguQX1pSIcxm4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nVzeSt4xQqsI087CMECX6D03ts0kpiCkQE92B+Ihomrix1p0JoevyoPu44YzZgSKEoDsMUhA4qRFx1tlYuQ4V/yIsk0OMH8BcdznzokTtqvI7uZil1vWp+ClntCkegFyaF61ky/11H3E0srTo01vvc0ml0A9dMa4avkMizlQbKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=P6HVhzBN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CT+EbMTomMKfx2JegC+yu+5Is1jo+QbZd9RklHlAfY6FkI4m9Vty01NZYIhkfOevWjf9TZgfvEClWzubta32jJs7Uogfa6ygk037CZNu39gdesTsAhDeutAs+xckL7y4U7hR9J1MTGFR9qCDvxY+nmUjmL+o4rRgKnJEE+Qtbdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=W6OpQE0k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="P6HVhzBN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAFCB1F000E9;
-	Thu,  2 Jul 2026 16:50:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="W6OpQE0k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C411F000E9;
+	Thu,  2 Jul 2026 16:50:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783011010;
-	bh=3lCbDE5G+BTOSQudOz/c1NcNyTDvpEGnnFAmIE8ZNh0=;
+	s=korg; t=1783011012;
+	bh=ILGshaMeIM/1z1ll4243cc69o0eIfBIYXRenAJYaanc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P6HVhzBN1pVj7aDVFea+/qC1pYP8arlnWFzlWaosddrTT1V8i9wPQUwTJqAGQ4aVW
-	 GhTQb8MereybtBGEhfCnVUs/zoe8HrIue9e+ozIlSXnan2PjG4gEeRtRyGYI0Jp51j
-	 2XCBxUIyiAE5YVDOIlLSxKulhmnWFGMoqw+0w6Co=
+	b=W6OpQE0kwgwZzJcPPLKyOU2mGTpjhDprBDNTi2VcMUe6Oru4KUH1tFtRTEjXjxDPj
+	 sim+G4dClLXtuZC6GOAfANeVnSOQHo8u9nfAJteraAG8mnix+HV3bPIs3u5DtZktqQ
+	 7/E8wfY8tSWt/qXYPRc1WsJak7oj4DeeHF4It7dE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	stable@kernel.org,
-	Sven Eckelmann <sven@narfation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 095/175] batman-adv: tp_meter: avoid divide-by-zero for dec_cwnd
-Date: Thu,  2 Jul 2026 18:19:56 +0200
-Message-ID: <20260702155117.776524349@linuxfoundation.org>
+	Doruk Tan Ozturk <doruk@0sec.ai>,
+	Alexander Lobakin <aleksander.lobakin@intel.com>,
+	Stefan Schmidt <stefan@datenfreihafen.org>
+Subject: [PATCH 6.6 122/175] mac802154: llsec: add skb_cow_data() before in-place crypto
+Date: Thu,  2 Jul 2026 18:20:23 +0200
+Message-ID: <20260702155118.322609654@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260702155115.766838875@linuxfoundation.org>
 References: <20260702155115.766838875@linuxfoundation.org>
@@ -51,64 +51,98 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Sven Eckelmann <sven@narfation.org>
+From: Doruk Tan Ozturk <doruk@0sec.ai>
 
-commit 33ccd52f3cc9ed46ce395199f89aa3234dc83314 upstream.
+commit 84a04eb5b210643bd67aab81ff805d32f62aa865 upstream.
 
-The cwnd is always MSS <= cwnd <= 0x20000000. But the calculation in
-batadv_tp_update_cwnd() assumes unsigned 32 bit arithmetics.
+llsec_do_encrypt_unauth(), llsec_do_encrypt_auth(),
+llsec_do_decrypt_unauth(), and llsec_do_decrypt_auth() all perform
+in-place cryptographic transformations on skb data.  They build a
+scatterlist with sg_init_one() pointing into the skb's linear data area
+and then pass the same scatterlist as both src and dst to the crypto API
+(e.g. crypto_skcipher_encrypt/decrypt, crypto_aead_encrypt/decrypt).
 
-    ((mss * 8) ** 2) / (cwnd * 8)
+On the RX path, __ieee802154_rx_handle_packet() clones the received skb
+before handing it to each subscriber via ieee802154_subif_frame().  The
+cloned skb shares the same underlying data buffer via reference
+counting.  When llsec_do_decrypt() subsequently modifies this shared
+buffer in place, it corrupts data that other clones -- potentially
+belonging to other sockets or subsystems -- still reference.
 
-In case cwnd is actually 0x20000000, it will be shifted by 3 bit to the
-left end up at 0x100000000 or U32_MAX + 1. It will therefore wrap around
-and be 0 - resulting in:
+On the TX path, similar data sharing can occur when an skb's head has
+been cloned (skb_cloned() returns true).
 
-    ((mss * 8) ** 2) / 0
+The fix is to call skb_cow_data() before performing any in-place crypto
+operation.  skb_cow_data() ensures that the skb's data area is not
+shared: if the skb head is cloned or the data spans multiple fragments,
+it copies the data into a private buffer that can be safely modified in
+place.  This is the same pattern used by:
 
-This is of course invalid and cannot be calculated. The calculation should
-must be simplified to avoid this overflow:
+  - ESP (net/ipv4/esp4.c, net/ipv6/esp6.c)
+  - MACsec (drivers/net/macsec.c)
+  - WireGuard (drivers/net/wireguard/receive.c)
+  - TIPC (net/tipc/crypto.c)
 
-   (mss ** 2) * 8 / cwnd
+Without this guard, in-place crypto on shared skb data leads to:
+  - Silent data corruption of other skb clones
+  - Use-after-free when the crypto API scatterwalk writes through a
+    page that has already been freed by another clone's kfree_skb()
+  - Kernel crashes under concurrent 802.15.4 traffic with security
+    enabled (KASAN/KMSAN reports slab-use-after-free)
 
-It will keep the precision enhancement from the scaling (by 8) but avoid
-the overflow in the divisor.
+Found by 0sec (https://0sec.ai) using automated source analysis.
 
-In theory, there could still be an overflow in the dividend. It is at the
-moment fixed to BATADV_TP_PLEN in batadv_tp_recv_ack() - so it is not an
-imminent problem. But allowing it to use the whole u32 bit range, would
-mean that it can still use up to 67 bits. To keep this calculation safe for
-32 bit arithmetic, mss must never use more than floor((32 - 3) / 2) bits -
-or in other words: must never be larger than 16383.
-
-Cc: stable@kernel.org
-Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 4c14a2fb5d14 ("mac802154: add llsec decryption method")
+Fixes: 03556e4d0dbb ("mac802154: add llsec encryption method")
+Cc: stable@vger.kernel.org
+Reported-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Closes: https://lore.kernel.org/linux-wpan/20260525161806.96158-1-doruk@0sec.ai/
+Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Closes: <link to your mail on lore>
+Link: https://lore.kernel.org/20260526183726.56100-1-doruk@0sec.ai
+Signed-off-by: Stefan Schmidt <stefan@datenfreihafen.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/batman-adv/tp_meter.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ net/mac802154/llsec.c |   14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index 0fdcafca3aa02b..4ff80e4214ff0a 100644
---- a/net/batman-adv/tp_meter.c
-+++ b/net/batman-adv/tp_meter.c
-@@ -154,9 +154,12 @@ static void batadv_tp_update_cwnd(struct batadv_tp_vars *tp_vars, u32 mss)
- 		return;
- 	}
+--- a/net/mac802154/llsec.c
++++ b/net/mac802154/llsec.c
+@@ -710,6 +710,7 @@ int mac802154_llsec_encrypt(struct mac80
+ {
+ 	struct ieee802154_hdr hdr;
+ 	int rc, authlen, hlen;
++	struct sk_buff *trailer;
+ 	struct mac802154_llsec_key *key;
+ 	u32 frame_ctr;
  
-+	/* prevent overflow in (mss * mss) << 3 */
-+	mss = min_t(u32, mss, (1U << 14) - 1);
+@@ -769,6 +770,12 @@ int mac802154_llsec_encrypt(struct mac80
+ 	skb->mac_len = ieee802154_hdr_push(skb, &hdr);
+ 	skb_reset_mac_header(skb);
+ 
++	rc = skb_cow_data(skb, 0, &trailer);
++	if (rc < 0) {
++		llsec_key_put(key);
++		return rc;
++	}
 +
- 	/* increment CWND at least of 1 (section 3.1 of RFC5681) */
- 	tp_vars->dec_cwnd += max_t(u32, 1U << 3,
--				   ((mss * mss) << 6) / (tp_vars->cwnd << 3));
-+				   ((mss * mss) << 3) / tp_vars->cwnd);
- 	if (tp_vars->dec_cwnd < (mss << 3)) {
- 		spin_unlock_bh(&tp_vars->cwnd_lock);
- 		return;
--- 
-2.53.0
-
+ 	rc = llsec_do_encrypt(skb, sec, &hdr, key);
+ 	llsec_key_put(key);
+ 
+@@ -908,6 +915,13 @@ llsec_do_decrypt(struct sk_buff *skb, co
+ 		 const struct ieee802154_hdr *hdr,
+ 		 struct mac802154_llsec_key *key, __le64 dev_addr)
+ {
++	struct sk_buff *trailer;
++	int err;
++
++	err = skb_cow_data(skb, 0, &trailer);
++	if (err < 0)
++		return err;
++
+ 	if (hdr->sec.level == IEEE802154_SCF_SECLEVEL_ENC)
+ 		return llsec_do_decrypt_unauth(skb, sec, hdr, key, dev_addr);
+ 	else
 
 
