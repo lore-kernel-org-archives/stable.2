@@ -1,169 +1,90 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A93F3CB2E5;
-	Fri,  3 Jul 2026 11:51:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FAA73CE0B8;
+	Fri,  3 Jul 2026 11:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783079496; cv=none; b=gHIei33wd86auxrX/7Do3RMug6HJ6Ku3bsJ3nDuHOsUc/SENwzHVdUDAYAqRnj/6wbiAkqjLMJEXDCjb8AxC/kA35B10CQVvvPtZyGK6hqEattbZX6IIhLND/iqZe7Hj7w69eGH/GHgxdr/uS5jkDG68bZXd8ibMknlume0Ct8c=
+	t=1783079839; cv=none; b=smc4mq2VTFPq+r8wqS+FDXlqRg4uVnTprPMIzhg2Hnka8wzhhVgzK15suhlRXNVJ3iKH2ntHPAsgHk/XApj4Qm7q25M6VroGj4jAvV2xsrzv3audxm/8kj+L42n88luKYz3ePK+3dC9tmkpjxG4McdUDMiT1xtRtZF+GkZfrWpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783079496; c=relaxed/simple;
-	bh=EN1FoxVYcSZZrRZfuiIGBF7q61Fq5UvtH7L7Z6USWoU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=NxMVjKNAWH33cQ5ZD1gAI+US+L84Jh5ktXus6fjkTrjkUZqYcHlS5VhLByKqrz/P9uF+H9+57yDAfHHy4mv29aAZ220YOLvk4UX3spL2xkCllM49G3QLK4A1DMmzwmxQo5zr6mk/fZ5Ytt3FIsRjTILvmIkS7weiKtKEcwTKiME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mssola.com; spf=fail smtp.mailfrom=mssola.com; dkim=pass (2048-bit key) header.d=mssola.com header.i=@mssola.com header.b=PrbOPp5Y; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mssola.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=mssola.com
+	s=arc-20240116; t=1783079839; c=relaxed/simple;
+	bh=ovPM9xZDUdWaupBWQHoOBb40dBYxxOM7oXiMWWVZVww=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=C2cWGTTD8q5KRYJFDpN4irJSaiSi74v5FPZb2lE0AaYI+laDPM2jurT7tJ7m/fnnzztHXHDZ4l9/IG8frucc9wRWbLRqChpZVkzLLPCq+LEzfTBfs7RNoT7Fm04CFwToBoiwzdTFolnDz1MFuVbjRFuGfdRrkCvX3ItmtqyqwS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZd1as71; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mssola.com header.i=@mssola.com header.b="PrbOPp5Y"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gsBg82b8Gz9trT;
-	Fri,  3 Jul 2026 13:41:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mssola.com; s=MBO0001;
-	t=1783078916;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d5ijYd4+DDU74Lv+YgQXZzF3vZnpBfVx9YRqkbIMycs=;
-	b=PrbOPp5YJVzJBAlgSQngjEYN5cGl8t5+wfQRxSYtBhF9rYE4n3A4vFlSkggqCZUuRJaUwb
-	NSxTWUNmBNn3NAbeV1yTNMiZQXriKJFOPGFxsmFnBHpGCwhqplGCvWVuR5GMiDSWP6bwPT
-	+hHjIAR7+/vhu90gkw5jhYdCkyMcweiQcrfRfNPDixaFGM/8bWvEK0uICQWF5Avf5RHqqF
-	CuDlsFLxiNt/4ypE69imV45//XOWbdVRXx3/653JbGi3DeDYhsXK82xLYUJxyrHZ9haGp8
-	Y9Wq8tsqRsf9dv7yECZyctQVgkcjSKRP3O0+U4MqtAbp8Dlv5gKe774xejIuCA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=softfail (outgoing_mbo_mout: 2001:67c:2050:b231:465::202 is neither permitted nor denied by domain of mssola@mssola.com) smtp.mailfrom=mssola@mssola.com
-From: =?utf-8?Q?Miquel_Sabat=C3=A9_Sol=C3=A0?= <mssola@mssola.com>
-To: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Cc: linux-btrfs@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH] btrfs: zoned: reset active_meta_bg on zone finish
-In-Reply-To: <b0d5ea81-37bd-44c3-b69c-ce7d47d02cdc@wdc.com> (Johannes
-	Thumshirn's message of "Fri, 3 Jul 2026 11:50:46 +0200")
-References: <20260703084559.136605-1-johannes.thumshirn@wdc.com>
-	<b0d5ea81-37bd-44c3-b69c-ce7d47d02cdc@wdc.com>
-Date: Fri, 03 Jul 2026 13:41:53 +0200
-Message-ID: <87pl14711a.fsf@>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZd1as71"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 900A71F000E9;
+	Fri,  3 Jul 2026 11:57:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783079838;
+	bh=r+aPFwarUHkhrm1jZbamCEDXoqqXazDsHMO77Y6Hkqw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=HZd1as7135L9ie4torTNvRcIlxRlY7pUneeGYreenG2FnfncoKpAcfQAeaAx+6LDM
+	 lbsepL4pfw1VHKVIDFHn98YoJHvSz8dRNPDvo5LU72wN56KT3+9Vrldp/1becRRLfC
+	 Zgx0bYlrf91tZpAzQtcMcpt7xmWMdlnLlcZqqoz9D8cU0DjxFAN/Ea/nRzQ35/vVnf
+	 aNFcXK0Rvv0CNx3CRBkb43O/gwDVLl5NC+cSHIP9wRExXRVkONX8TJKfaA2ibKnT1T
+	 1BJV4aw9eq4PHV0X6uepkhks9fuYqyFPh/39ljFX4ZW9LT305EoEbbuBYxjLDAoaab
+	 czldWgnZpqsQQ==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org, 
+ WenTao Liang <vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org
+In-Reply-To: <20260626160150.54291-1-vulab@iscas.ac.cn>
+References: <20260626160150.54291-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] fix: regulator: as3722_get_regulator_dt_data: fix
+ premature of_node_put leaving dangling of_node pointer
+Message-Id: <178300935014.83990.3579120327882545763.b4-ty@b4>
+Date: Thu, 02 Jul 2026 17:22:30 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
-X-Rspamd-Queue-Id: 4gsBg82b8Gz9trT
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1234; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ovPM9xZDUdWaupBWQHoOBb40dBYxxOM7oXiMWWVZVww=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqR6OcGOFaX2ASGZmlFq9sO7OsrWH20ngi4Dc0Q
+ /Jer56A8pKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCakejnAAKCRAk1otyXVSH
+ 0A++B/wMcGmxlpL3woIzmXlhwmG6i1EzlHzMEU8ab+o4rc7Ies2QFWZPYOjokOQTdFKe6dWULUu
+ WlP38v7m2ls2xA1USyBN/7IuRHZF1+wiv8EEkK0sMeaz1B68V21a7XWJGx38/Rb4UbQw1WbXQoc
+ yQYU6EnjURoV3vSa/3nI+o7HBm2wulhy10SpnkREIg9LzyIxXMqjOfPmLhYiA2KkZv5AJganh7U
+ NcY9eNJ7xW3afNOIsg5lcY43F+CxTA8LCOgAuwSopYyGFbAjjgfMtOTCC2E5J7OKgTudG7isXgg
+ UO0FFQR7Ezi/p9RILVDwUg0CtyqORQhdfNJwFJ0/2DW4MRYK
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
---=-=-=
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+On Sat, 27 Jun 2026 00:01:50 +0800, WenTao Liang wrote:
+> fix: regulator: as3722_get_regulator_dt_data: fix premature of_node_put leaving dangling of_node pointer
 
-Johannes Thumshirn @ 2026-07-03 11:50 +02:
+Applied to
 
-> On 7/3/26 11:31 AM, Miquel Sabat=C3=A9 Sol=C3=A0 wrote:
->> Hi,
->>
->> If you don't mind, a couple of questions from a newcomer that is trying
->> to grok this part of the code :)
->>
->> Johannes Thumshirn @ 2026-07-03 10:45 +02:
->>
->>> do_zone_finish() clears BLOCK_GROUP_FLAG_ZONE_IS_ACTIVE and removes the
->>> block group from zone_active_bgs, but only the path in
->>> check_bg_is_active() resets fs_info->active_meta_bg / active_system_bg.
->>> Any other finish path leaves active_meta_bg / active_system_bg pointing
->>> at an inactive, fully written block group.
->>>
->>> Reset the corresponding active_{meta,system}_bg pointer in do_zone_fini=
-sh()
->>> so it can never go stale.
->>>
->>> Fixes: 13bb483d32ab ("btrfs: zoned: activate metadata block group on wr=
-ite time")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
->>> ---
->>>   fs/btrfs/zoned.c | 15 +++++++++++++++
->>>   1 file changed, 15 insertions(+)
->>>
->>> diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
->>> index 44a13ed6b8b2..c8c850de1702 100644
->>> --- a/fs/btrfs/zoned.c
->>> +++ b/fs/btrfs/zoned.c
->>> @@ -2539,6 +2539,7 @@ static int do_zone_finish(struct btrfs_block_grou=
-p *block_group, bool fully_writ
->>>   	const bool is_metadata =3D (block_group->flags &
->>>   			(BTRFS_BLOCK_GROUP_METADATA | BTRFS_BLOCK_GROUP_SYSTEM));
->>>   	struct btrfs_dev_replace *dev_replace =3D &fs_info->dev_replace;
->>> +	struct btrfs_block_group **active_bg =3D NULL;
->>>   	int ret =3D 0;
->>>   	int i;
->>>
->>> @@ -2636,6 +2637,20 @@ static int do_zone_finish(struct btrfs_block_gro=
-up *block_group, bool fully_writ
->>>   	/* For active_bg_list */
->>>   	btrfs_put_block_group(block_group);
->>>
->>> +	if (block_group->flags & BTRFS_BLOCK_GROUP_SYSTEM)
->>> +		active_bg =3D &fs_info->active_system_bg;
->>> +	else if (block_group->flags & BTRFS_BLOCK_GROUP_METADATA)
->>> +		active_bg =3D &fs_info->active_meta_bg;
->>> +
->>> +	if (active_bg) {
->>> +		btrfs_zoned_meta_io_lock(fs_info);
->> If you need to lock/unlock in order call btrfs_put_block_group() and
->> then reset *active_bg, couldn't the previous if statement be written
->> like so?
->>
->> if (active_bg && (*active_bg =3D=3D block_group)) {
->>
->> This would then only lock/unlock just in the case we really want to
->> touch this 'block_group', no?
->
->
-> Yes it could be simplified, but I'm thinking what it would buy us. For su=
-re we
-> would not take the lock when finishing a DATA block-group here. Note the =
-lock is
-> not protecting a data structure but is for serializing metadata writes, s=
-o we do
-> a QD=3D1 write to the drive for METADATA/SYSTEM block-groups as we cannot=
- use
-> REQ_OP_ZONE_APPEND on these.
->
->
->>> +		if (*active_bg =3D=3D block_group) {
->>> +			btrfs_put_block_group(block_group);
->> Also, hasn't 'block_group' already been put before your patch? Won't
->> this try to double-free this pointer? Or it is about decreasing the
->> reference twice for this block group?
-> The put before is for the reference on the active_bgs_list, so we should =
-still
-> have a reference left.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
 
-Points raised by Sashiko aside, thanks for the clarifications, much
-appreciated.
+Thanks!
 
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
+[1/1] fix: regulator: as3722_get_regulator_dt_data: fix premature of_node_put leaving dangling of_node pointer
+      https://git.kernel.org/broonie/regulator/c/f9324d670ae0
 
------BEGIN PGP SIGNATURE-----
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-iQJiBAEBCgBMFiEEG6U8esk9yirP39qXlr6Mb9idZWUFAmpHoAEbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyEhxtc3NvbGFAbXNzb2xhLmNvbQAKCRCWvoxv2J1l
-ZZafEACHG+6V1Jnv5fthtlSYk49/3DwGhiKWwHVv8D8ZOvwFi6UBV3vWJ3LGNrd9
-trjHoOovSB5imGqbjiLy0a9ShB05Al+b2mnlgblQRxIAegpYuKWogo7TLlORDfcF
-XaQAr6SKRa++6gwOHqBw0VJA3Tegd6qx9HdOqwEM8NmCvomzBAHGdqr7DNiZgm1y
-rb4nhaALv18eTzHMyUzBBn6Gixm3meQBQvxpOT0id3o88PCJHlAw7Gn0oX+ToFCB
-o0+nDckpWOhPAEdtLdeT+0YQIOQjxn7XdgJxeKkWEWe3COdqSNd4FYsBSO/CRtfV
-6hjbHsu3KipMaVwBck2IViqQmmSoEhP+sMEYc68rnmFBdyyzjHLY9Vd+r20e331b
-yMBo8lJSorNYS3MiwRSZOE3h1x9vsTge60iMrQYNHQRmFTqc3L5bb1/JTOX6kuLo
-eTmCkJdNvOGgCofYutGwS42dvTPIJWh48fzgE1BZzbjJIpgDm2Hxc0fGorIkaDCT
-hfmmN9EbbKNmD/cAYExGz1Ks2bfYqxshdvJLzODbcOpimAzTNDR7MGWPYML3f4b+
-WvJhT/55e2hcZhqxCvYWicroxZPpBJjYV2cnZpLD1svVShsGXLPKERml6yuhrq/T
-TdSM9Lz9DLBYVA8l41iFuCbjgxYDL2ea+8RgUGexi27Jmu702A==
-=K/xi
------END PGP SIGNATURE-----
---=-=-=--
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
