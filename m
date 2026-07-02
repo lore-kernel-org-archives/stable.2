@@ -1,115 +1,155 @@
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A829017C203;
-	Thu,  2 Jul 2026 10:43:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806333A9861;
+	Thu,  2 Jul 2026 10:45:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782989018; cv=none; b=rYJMgpc/4LtDEGjlW8RcGQq5So0sUThW8PoTkwxP8CPdTAsybLkR/yh3S0VxxdjKHvN0FQiQAgyQ9e9DZdFGoTduunCK5zCKIB4cr+UsCX7CkAZvT20gCoJXJMrYiOi9G4lIUauI3jGmFDc2ix/kkk+f3BHJ08WdMHQiKY7ScS0=
+	t=1782989116; cv=none; b=qRIEwP4/YI2vmrJCe3ybu1ECd3kB7YpKTtIsKNxEpcJXPeu636xS/vR7WJhFWrnV+9meuUibR4ZJq+UUqt15tOfkETFzkgIskq3fAiLRlpMtcSM8uJXQeQwPklJed/S5+gQY3+czAu9zU9Hy5+DJxwMev57pX+3TdjEMgP+Vs2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782989018; c=relaxed/simple;
-	bh=jds2b0zMSdfnT5QI0PRr+QqXGnqfQuGdALNq4BcFp/c=;
-	h=From:To:CC:In-Reply-To:References:Subject:Message-ID:Date:
-	 MIME-Version:Content-Type; b=rJ9k3j6K+mvWX1CfLq1bVQRGt0SHxttFMuRB+Anyk1TrdBrKBzsJELHV2QGjt5Mu1LE9AE4r/O2sba6n25PPumf4ww5qVXugmuWAGrfV0zCNxsFTT5pV5nJwlF9SZHuF5+KDRMqC2TBjE66kya4xkg/kUuJdRPnKAL92UjWwaQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=VM352Nll; arc=none smtp.client-ip=185.132.180.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1782989116; c=relaxed/simple;
+	bh=3NneBBleRP0nq+F3t1BNyohmj2uvqhmH0DV22CPVyj4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BTkQsvsO6DkP0cr/zNbL9/hhRf8t1Ri8Apk0liY/ExNBW/6Y8vuyeHsoC50J3eSUASuiInuInWwB7wspMsbR+o4QPzEoRoRztQV71aTo0TubMkduzdC/CmEPpjSljy3ZjQiOYY74jt41tr8p0AytO0d6svx9hGCSaXKTDtOslus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F5naeyss; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="VM352Nll"
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6626MvDt1931364;
-	Thu, 2 Jul 2026 11:43:20 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=Y
-	GoGQ2Dd5wvF+n+UbUvDIuLeDHM947pWIHhw5b/yMyw=; b=VM352Nllvlq5bldvi
-	tXWDrvA8h4zpR749Qvb691CytLW/74EOVTWo93DsjHfVPtoZJE4CI/yd1dd9M+qA
-	OwnQgCX167jcnkPGOm+8zcA1BQ0Yszt84CciZK5GLYjQlzQp/gfg7y94HTZLJ26l
-	SrKSiDfH/E1oy1DizQolxQ1j6Bk01sazObAtSIgH3zQcMNEMwXp25UT2wU4XeQBh
-	AiH1QjgFRK2l0dRBNls2h2FTFMIgRzmhDyPI826IBk2hvyEXc+T50biQvRjMUWXo
-	BDhwU8mb3RSZtAa7BDGS+KD2f2Xc7mB6AoVLaxxkRKg8owP+oCRtkJgFH4njNJ1L
-	D4I/w==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4f26kunakn-3
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 11:43:20 +0100 (BST)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.9) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 2 Jul
- 2026 11:43:19 +0100
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Frank Binns <frank.binns@imgtec.com>,
-        Matt Coster
-	<matt.coster@imgtec.com>,
-        Shuvam Pandey <shuvampandey1@gmail.com>
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard
-	<mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Donald Robson
-	<donald.robson@imgtec.com>,
-        Sarah Walker <sarah.walker@imgtec.com>,
-        <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-In-Reply-To: <6a456012.eb165e5c.113c2a.b71d@mx.google.com>
-References: <6a456012.eb165e5c.113c2a.b71d@mx.google.com>
-Subject: Re: [PATCH v2] drm/imagination: Fix user array stride in
- pvr_set_uobj_array()
-Message-ID: <178298899967.102946.10188226714183419327.b4-ty@imgtec.com>
-Date: Thu, 2 Jul 2026 11:43:19 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5naeyss"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80B21F000E9;
+	Thu,  2 Jul 2026 10:45:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782989115;
+	bh=rWEH3UEpZiTc622864CoktOdJp9DODCAffj/VJOaNBE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=F5naeyssM/8+BL+MdigXcvrNE1PonCqowok5mo6jpL1aMpHbKm1hzVls6m6tMtXvW
+	 xEPFT+fbn8PhZ+AxVSvkdH3uVd7C8IqboM2Pt2eZm3iJKiWcW6ubsjHEpdKAyTyuiH
+	 JTGCZrWxInJ9shglw9bbCA7sqDa5CgdKs12DprldrcXojkKqfwn/jbJ3m3ftH5RVJr
+	 dTgSNGHaucQs7Hmt0jNNDQ/Eg85SqRfFSYVgkj31y22aVGElPIJO02Jps87Zs50nR0
+	 wsbBOfB61DLE2vzWbENnMZp9wn22pfItqfc7EeW83iRkLn1Bb6Gafe1YGZmYxCSXMn
+	 dSsT0L6UOLNMA==
+Date: Thu, 2 Jul 2026 11:45:10 +0100
+From: Lee Jones <lee@kernel.org>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Andreas Werner <andreas.werner@men.de>
+Cc: Pavel Machek <pavel@kernel.org>, linux-leds@vger.kernel.org,
+	Andreas Werner <andreas.werner@men.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shreshtha Kumar Sahu <shreshthakumar.sahu@stericsson.com>,
+	Bryan Wu <cooloney@gmail.com>, linux-kernel@vger.kernel.org,
+	jianhao.xu@seu.edu.cn, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] leds: menf21bmc: use brightness_set_blocking for
+ sleepable callback
+Message-ID: <20260702104510.GI2108533@google.com>
+References: <20260615145756.1019184-1-runyu.xiao@seu.edu.cn>
+ <20260615145756.1019184-3-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
-X-Authority-Analysis: v=2.4 cv=epXvCIpX c=1 sm=1 tr=0 ts=6a4640c8 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=rvaOABGgyOwA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=P5ZNOoLRPLbA7G_RXJEA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: u8VTaf-suaT-E9jg4__zGsHHx888B45Y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDExMSBTYWx0ZWRfX2mpPP/JBMZwV
- Qurx54ikPSl1YyHMmMfONTj2JkubDSApNkZKYpApGRnHfqlxB7sWRy1PtlcJC7eYs2UpaaDCvI5
- rqCJJvM4PnypUI+h32ItEbdGGaqn/mdaHWzsvPioGSbUzf7r+QZR7gj/7n05ef6QTugCN4hKeMS
- 04MNxdDAIDvc2OwA5vI3B5+re/1CKZTr6E30Yl30qoxDAFRwkbVSP70He+HMW6FNirZloWlq77U
- 472VgReWBEL2ywrr/ckXp93XUmEkPqTbGI8QiqfbKTlYEOxDCp0hRHE8cGPJfD1/lWY+TGfPwoB
- P55OAFBbLKRH2qeEvUtgtlkbSq5/T7Ht1qEC41lrBdykBje1HFhSrnP4LWgr4qziDApppkGJn2k
- 9eoIiBRYuRFspjfl7mEI0i/HGhDdrMr/S5YQDoS9/foObJNj3h4ZUV/SZMYwQOf7axe5Jt8K4si
- MV5Ql33XMmFEKyRbdwg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDExMSBTYWx0ZWRfXyqUnR4AxIUj6
- rMKsSnDqDcYQYYlIQKdOjjLbp235wPhBVJi5aUHMOCVDiH0UNw7do/8wuO/OzAVECCPRyP/iwhj
- 0GjMpy9S/ieU9lNDQOKn+TuPLPRdWJI=
-X-Proofpoint-GUID: u8VTaf-suaT-E9jg4__zGsHHx888B45Y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260615145756.1019184-3-runyu.xiao@seu.edu.cn>
 
+Andreas, any thoughts?
 
-On Wed, 01 Jul 2026 11:44:34 -0700, Shuvam Pandey wrote:
-> pvr_set_uobj_array() copies an array of kernel objects to a userspace
-> array whose element size is described by out->stride. When out->stride
-> is different from the kernel object size, the slow path advances the
-> userspace pointer by the kernel object size and the kernel pointer by the
-> userspace stride.
+On Mon, 15 Jun 2026, Runyu Xiao wrote:
+
+> menf21bmc_led_set() serializes access with a mutex and performs I2C
+> transfers, but the driver exposes it through brightness_set.  That
+> mismatches the LED core callback contract for atomic callers.
 > 
-> This reverses the intended layout. For larger userspace strides, later
-> copies read from the wrong kernel addresses. For smaller userspace
-> strides, later copies are written at the wrong userspace offsets. The
-> padding clear is also done only for the first element instead of the
-> padding area for each element.
+> This issue was found by our static analysis tool and then manually
+> reviewed against the current tree.
 > 
-> [...]
+> A minimal Lockdep reproducer that keeps the original registration and
+> call chain is enough to trigger the warning: menf21bmc_led_probe()
+> still publishes menf21bmc_led_set() as brightness_set,
+> led_trigger_event_atomic() invokes it under spin_lock_irqsave(), and
+> the callback immediately tries mutex_lock(&led_lock) before reaching
+> its I2C accesses.
+> 
+> Lockdep reports:
+> 
+>   BUG: sleeping function called from invalid context
+>   __mutex_lock+0x4f/0xd20
+>   menf21bmc_led_set+0x15/0x49 [vuln_msv]
+>   [ BUG: Invalid wait context ]
+>   ... (led_lock#2) ... at: menf21bmc_led_set+0x15/0x49 [vuln_msv]
+> 
+> Convert the driver to brightness_set_blocking and return the transport
+> status to the LED core.
+> 
+> Fixes: 38433639af91 ("leds: leds-menf21bmc: Introduce MEN 14F021P00 BMC LED driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+> Notes:
+>   - Validated with a grounded Lockdep PoC that preserves the
+>     menf21bmc_led_probe() brightness_set registration and the
+>     led_trigger_event_atomic() -> menf21bmc_led_set() ->
+>     mutex_lock(&led_lock) path.
+>   - checkpatch.pl --strict: clean.
+>   - Not tested on MEN 14F021P00 BMC hardware.
+> 
+>  drivers/leds/leds-menf21bmc.c | 18 ++++++++++++------
+>  1 file changed, 12 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/leds/leds-menf21bmc.c b/drivers/leds/leds-menf21bmc.c
+> index 6b1b47160602..da476fe6ed2c 100644
+> --- a/drivers/leds/leds-menf21bmc.c
+> +++ b/drivers/leds/leds-menf21bmc.c
+> @@ -49,28 +49,33 @@ static struct menf21bmc_led leds[] = {
+>  
+>  static DEFINE_MUTEX(led_lock);
+>  
+> -static void
+> -menf21bmc_led_set(struct led_classdev *led_cdev, enum led_brightness value)
+> +static int
+> +menf21bmc_led_set_blocking(struct led_classdev *led_cdev,
+> +			   enum led_brightness value)
+>  {
+>  	int led_val;
+> +	int ret = 0;
+>  	struct menf21bmc_led *led = container_of(led_cdev,
+>  					struct menf21bmc_led, cdev);
+>  
+>  	mutex_lock(&led_lock);
+>  	led_val = i2c_smbus_read_byte_data(led->i2c_client,
+>  					   BMC_CMD_LED_GET_SET);
+> -	if (led_val < 0)
+> +	if (led_val < 0) {
+> +		ret = led_val;
+>  		goto err_out;
+> +	}
+>  
+>  	if (value == LED_OFF)
+>  		led_val &= ~led->led_bit;
+>  	else
+>  		led_val |= led->led_bit;
+>  
+> -	i2c_smbus_write_byte_data(led->i2c_client,
+> -				  BMC_CMD_LED_GET_SET, led_val);
+> +	ret = i2c_smbus_write_byte_data(led->i2c_client,
+> +					BMC_CMD_LED_GET_SET, led_val);
+>  err_out:
+>  	mutex_unlock(&led_lock);
+> +	return ret;
+>  }
+>  
+>  static int menf21bmc_led_probe(struct platform_device *pdev)
+> @@ -81,7 +86,8 @@ static int menf21bmc_led_probe(struct platform_device *pdev)
+>  
+>  	for (i = 0; i < ARRAY_SIZE(leds); i++) {
+>  		leds[i].cdev.name = leds[i].name;
+> -		leds[i].cdev.brightness_set = menf21bmc_led_set;
+> +		leds[i].cdev.brightness_set_blocking =
+> +			menf21bmc_led_set_blocking;
+>  		leds[i].i2c_client = i2c_client;
+>  		ret = devm_led_classdev_register(&pdev->dev, &leds[i].cdev);
+>  		if (ret < 0) {
+> -- 
+> 2.34.1
 
-Applied, thanks!
-
-[1/1] drm/imagination: Fix user array stride in pvr_set_uobj_array()
-      commit: 8dc8f3f4c2382fb7d1b1986ba8f33a2466cd3d7a
-
-Best regards,
 -- 
-Alessio Belle <alessio.belle@imgtec.com>
-
+Lee Jones
