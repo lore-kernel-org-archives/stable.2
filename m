@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09EC04534B7
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 12:52:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BDF481FC6
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 12:52:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782996760; cv=none; b=gweRE6vrQ9sNlktLBdiiIGc9BzdrwNJYYnjAcasJfUG8Fefdu43CyFW1fvcadY1/juZgexdaMOE9ToVj9zs3XDAs+KofA0LdX5Uy0Zr1DCRg+clnna9BDHpYkxYR76IzWVbWHb3gnQF6kdUr/VUIb2eqCm/u4nIRVClhjtOApI0=
+	t=1782996763; cv=none; b=NXTukqYBgWEpJ+sU/tEXoNUjKzUYeGLZ+vw6cx9/mSy6PHa9foLqolv6/TyJh9flmRfIvN72jL5/oyj+WsIv6wvfh6SRQqfPhU/IZ/bFjjk5VzNcAZ/xq04xa4T1Ge38aAYURuk7v7ViTckeq5wYZdccQ0LKyQYuzAuhOTJh2uA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782996760; c=relaxed/simple;
-	bh=d7Dk1e8cpJ/mSJeee5bpCVrWWPyGE1VV1YEECfa0sqY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BcaZg5+MYZuUGHz6ZAyoDqC+K27TiLrpi4ZTsVrf9pzK/nCvudb7MmfV22PW2w0m/WTZjOuF7wqiLupIoEnDcIB2QhJm9DJx0jJrnSrFjKUFOgtmGzLBPtqClxqrimLGSnlpcbx+tkkr6qXpe0NFhgdMI8YOHpOVUpDNUjVdyQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gLVIw9Fr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782996763; c=relaxed/simple;
+	bh=wh5VBMMt8336JRuo/PudiTHZ7PcpfDY6Uq2/URiUJLY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NLajVPI9fXnRT9xD95In2yt8UVUux0nWYSQNA/YqyjjADo4x2nPUbVeLAUKxgkGQNKoIUrqhbPkW3XE98OG+0jR7uP1ztUhkX1xByzpGff9CvmmuIeBE+ahqnrLf3SrpGmVcB22NVqw6QzLWT1J8/c0Ce71L/xYVx11cc1zejn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ColBFN5/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gLVIw9Fr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2AA21F00A3D;
-	Thu,  2 Jul 2026 12:52:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ColBFN5/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64DFB1F000E9;
+	Thu,  2 Jul 2026 12:52:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782996757;
-	bh=vHJRlBqLGpvuq2ahoC0d85yRCKCxlrbOGcr4Jm7F8dg=;
+	s=korg; t=1782996759;
+	bh=sh1dr+L+xdSSYRMOe+22dnOnc5WNkNqcMNSD7y5MUXQ=;
 	h=Subject:To:Cc:From:Date;
-	b=gLVIw9Fr6BTCSHuq8n5AUjlbjBB5D2N09UHlujmgj0sUCiBprYyfsU/ETp22NatkK
-	 nxVBjLUQaN0Y4bc1huZ+viZbpS0XOVeh0KyTHt5ihJhFuboAeKDtw8ylMoeJP7/bHi
-	 2o7TW4YMGcN5qpzlaZlMabCuz4FGx1zeBB59+YrE=
-Subject: FAILED: patch "[PATCH] userfaultfd: gate must_wait writability check on" failed to apply to 6.6-stable tree
+	b=ColBFN5/W10TnZhKkXiSf8qM9qGuD3UIjv4IfEzAkLbWGTXorL3DxJpgZcAJBhXpT
+	 uGOEapUVX6Z/lcoRYHdAP5CJafn5hWtxO16SGmnBvGmoqBrXf0FsU+2QsPsFkfQ3Om
+	 33dMnX2/YrKTq68A546ZGAqGPxLLcYzalutVCJEM=
+Subject: FAILED: patch "[PATCH] userfaultfd: gate must_wait writability check on" failed to apply to 5.10-stable tree
 To: kas@kernel.org,akpm@linux-foundation.org,balbirs@nvidia.com,david@kernel.org,ljs@kernel.org,mhocko@suse.com,peterx@redhat.com,rppt@kernel.org,sashiko-bot@kernel.org,stable@vger.kernel.org,surenb@google.com,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 02 Jul 2026 14:52:39 +0200
-Message-ID: <2026070239-armless-humpback-0396@gregkh>
+Date: Thu, 02 Jul 2026 14:52:40 +0200
+Message-ID: <2026070240-sultry-bankbook-e1b3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8e80af52db652fbc41320eee45a4f73bc029faf2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070239-armless-humpback-0396@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070240-sultry-bankbook-e1b3@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
