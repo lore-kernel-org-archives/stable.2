@@ -1,110 +1,126 @@
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846BC35E929
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 20:18:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B564317145;
+	Thu,  2 Jul 2026 20:19:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783023489; cv=none; b=ASBmlw5F8MAQo52dHjbyUS8nBcFAFQRzjCALyu+nzhb3zeH4w1QNgr0zSJTCyzsEjWsJIe+jKTP1sW+roFfckMOIhTEnK5ZN3JXLgHSe/KZAmTL9wkrFoBQTw2uDd3NE6/cH+Ml0dto7n/s80WAkXYDclHv7go6VkiFFj3jCWrE=
+	t=1783023547; cv=none; b=W32l1Y+ofiifibINAq2ZmrVHzKXZXMttiTJ7HYNVWBwcec9j5oBfO5rJV6bZnMyFl/23aEyLnuamiMZS9JOD9JdhKJM9u7tb6IlPoS26FcMdr8/Da3yhC/xvJL0W4ElRCYQxgiEeDHOzqxTjtFL5EgfMjN80nC0gS+NVoJu/R4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783023489; c=relaxed/simple;
-	bh=SkElOmdjimEVDG9if3msE0Md43LetI4ECNME1NI6CSw=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=AJieQ7UcKVgL5ofR49+/SZLZweINGqC2mlZ/Qu7Wh7n2Ymlwg6IN4iRlz0xsK3i7MbfEvHZrALlUzsek2K6Pa2rAbeAv364EUPiolGVWF5IsPkqvi+7p1XAjr6z6gSEefftPHmEEhfNQGbIX2a9QQ5rhP2b/VBSzje6qhZ0w8DM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dwdFUdqq; arc=none smtp.client-ip=209.85.160.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783023547; c=relaxed/simple;
+	bh=qexeE/2gTnXvkaqyzrBOKAnhdyFue8P22dcPUPQvgoQ=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=MZ+1OJDNEA1yJkuE4NsDN4qCzscUNT7XaE4WF7kt+2vGqnjSmOhl499jhZw2D/gPvtwDJtm1qJJ91zXIF0t0nueG3NARvicVfLf3mLu5xPZvQ+9N4AOAkLzt3U6WV9dbZhIZKbjjsLZIcr5zu3Nly6XbU00J9pvC6cz+fyCBRS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=k+Cfut7P; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ACaXtwOp; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dwdFUdqq"
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-44cb68d549fso428285fac.1
-        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 13:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783023487; x=1783628287; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dF7n7bcUMpvGgguhuXDMND355JS/AC8zTZapBPi/s0E=;
-        b=dwdFUdqqrJQAqBIRYJvdsiNLNro5KL2hTDhedaeQDkvzE1WD8K29e1HpdWF6xSr+Uw
-         VKqIf1gOO/dND3mUONEcaRoFvZEIH96NXj97lffkvrQxYM5kDb07lPhutuyt4k4Xi3o9
-         AS5AkfrMqCDLBYEyMckkCLYuCwjlqvunB+HZZJODTceVRea6Nlu6/RTXMw/YU/krpjky
-         RvesQP5haNJ+wusap66bKCh16WKFMA8XXdnvpmfPU0cVME1OSmPNpQyYX2+WfbZ9LsJh
-         No9WUY2am79qLbqQfpbbSWz2jAoy32przxf9zEpgLGPs/GcMzqO0kAdQ4cPQhKUP/qDF
-         jt/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783023487; x=1783628287;
-        h=content-transfer-encoding:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=dF7n7bcUMpvGgguhuXDMND355JS/AC8zTZapBPi/s0E=;
-        b=lBCbZk5KgsbKqGcYoGAZXMptUf4CxEmgjxP60rThUYSM0ofRtFvOwRVurNgGLnwQ8I
-         hlIrWGC/XcisSfBYFbDfdY42tunLlfZxWiGoOfTNUtxQz7d3XIwKRH8W0GN4zsDQCJfe
-         ftlqUrUw3r2zianH/v2l1ctqJ+5+2Vw7Y09yzYY7X7BMERMn9qHr7oQoGmJjEFpBEXfd
-         9EclkWGdY4a3z4I06Sx74gb+z4gaDmAhAPY90Qv11Q2W1i8kDDTW04Nug4wxa0IAYL2X
-         OFaE0M8NDr8goNJC7WV427ND6p8+W1GxIR9aM/Xn719lFuvYLJQpax6envYZPuGUyx8M
-         7BSQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/KBqDg6F8vco+UxyBPAX4roSWFtdSSm57nsBTx9MnJAyEphiuAWy7XZGeLInIK6cySPyrOcoQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlIhJB1AvXJxbCooxY0exMgZLNySAyGK0w1jTSb0TztQ9arCz9
-	PsDxyO5VwqfHIy6wYWMB+pf7Z6097+GpdLTdowKavP8C21Sp+3B0t8I=
-X-Gm-Gg: AfdE7cltCGROsTCF3gDPMpmhYD8deH/gf3LqcbToeVF6b6tTJdJ2zlkk58UQ/KSJPQc
-	ABLDSUoGuV+SQl6viCoOlT9cA8RQ20fd9SHtQ7VKHMyxFVHVpDDz9ZygIQTNtiVL7yEaMOzQzZL
-	8WCvp8MUC7ePb1qnWGWafncj15wtmXCReRKX95As9Orbe/i8fyt2nxVqwXrFuFJUGPctgDOCArr
-	GtUf/WyLLlzGanlbKU7amh0YIJrPvD7FChleG0h5XnRZBHs9NjPovDBQA8KFyrbBG80t5fLCN2/
-	05QxCQPaPWrCVMXAtmdLzvZe8JvaSPMF9xnbUJ+ujxrENSo4uSnGw8Yie6Gx/CFBXHtTqkRm/YY
-	HO4ctzRCOIAgx0Q/MUT8TMCKm3FLWGRScFMj+luveuy1nbEalfxXGH1AifmaeEpwszYxjQjJeRA
-	yJGPnEY6VUfZGLvfbNqbTqDZW8bwIRtsj3Y0vRhlR1
-X-Received: by 2002:a05:6870:5348:10b0:42f:f3b2:e2c9 with SMTP id 586e51a60fabf-44ce9b12300mr627785fac.0.1783023487335;
-        Thu, 02 Jul 2026 13:18:07 -0700 (PDT)
-Received: from [120.7.1.23] (135-23-94-154.cpe.pppoe.ca. [135.23.94.154])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44cbe84f609sm4052650fac.1.2026.07.02.13.18.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 13:18:06 -0700 (PDT)
-Subject: Re: [PATCH 5.10 00/96] 5.10.260-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260702155108.949633242@linuxfoundation.org>
-From: Woody Suwalski <terraluna977@gmail.com>
-Message-ID: <cd648774-2a64-e5c2-a120-e4253d72cd1e@gmail.com>
-Date: Thu, 2 Jul 2026 16:18:19 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101
- Firefox/128.0 SeaMonkey/2.53.23
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="k+Cfut7P";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ACaXtwOp"
+Date: Thu, 02 Jul 2026 20:19:02 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1783023544;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WjA4peB+gYdpEvyNe7XePqEWTyZBGMyiDYlW239HnrU=;
+	b=k+Cfut7PEIORkypnWpNuRXDBUtxxDvQNsPe+HT8nnNPAk/xJs/Fok7dNy4nS1uOjZl67gn
+	zl4ui6GSaHefgsZ426tDJjyNBEHj7YzNcbioj7k1/8qi6V/MBaHc8SrHI4mSNxeGABIPfP
+	IFCD72kkKq09aRhnj2qqGHDUOzkQtbrZhoe3UfkoWkSUe6Uw5m28WM3Ct7c+8y9by18bAP
+	u2stpSsAICDJPBvJCUN7cQTHYDM9lH28K0wE3k0u+wE6p4mxSat4/Uq55Z23k6MAw9jKF2
+	pUH+6IJC0r7yGxhvyETAHrV//kJctU0uX+Jq+fTCup+bamBrJ0l3l0A77pulHg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1783023544;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WjA4peB+gYdpEvyNe7XePqEWTyZBGMyiDYlW239HnrU=;
+	b=ACaXtwOpuF9XgnY2M1A70ZQLDX0t9XPE7uLD/8x6+hpPnwtM/fLmPg3KxU6cLGAIy6SkfW
+	6LI1lHj4hBGPr0CA==
+From: "tip-bot2 for Sebastian Andrzej Siewior" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: locking/urgent] futex/requeue: Revert "Prevent NULL pointer
+ dereference in remove_waiter() on self-deadlock""
+Cc: Michael Bommarito <michael.bommarito@gmail.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Thomas Gleixner <tglx@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260701131150.0Ijhq4Dw@linutronix.de>
+References: <20260701131150.0Ijhq4Dw@linutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260702155108.949633242@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Message-ID: <178302354241.3843924.17363437869359149725.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.10.260 release.
-> There are 96 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sat, 04 Jul 2026 15:50:58 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.260-rc1.gz
->
-Problem with the kernel.org web site? I am getting
+The following commit has been merged into the locking/urgent branch of tip:
 
-https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/
+Commit-ID:     39def6d250d370298f86c116f4ac60093cefadaa
+Gitweb:        https://git.kernel.org/tip/39def6d250d370298f86c116f4ac60093ce=
+fadaa
+Author:        Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+AuthorDate:    Wed, 01 Jul 2026 15:11:50 +02:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Thu, 02 Jul 2026 22:14:08 +02:00
 
+futex/requeue: Revert "Prevent NULL pointer dereference in remove_waiter() on=
+ self-deadlock""
 
-  404 Not Found
+The commit cited below should not have been merged. It attemted to fix an
+existing problem ansd thereby introduced new problems by keeping the
+pi_state in state Q_REQUEUE_PI_IN_PROGRESS and leaking it.
 
-Same for v6.x and v7.x..
-https://www.kernel.org/pub/linux/kernel/ seems OK???
+Based on the commit description the intention was to handle the case
+when task_blocks_on_rt_mutex() returns -EDEADLK and the following
+remove_waiter() dereferences the NULL pointer in waiter->task.
 
-Woody
+That is already handled by Davidlohr in commit 40a25d59e85b3
+("locking/rtmutex: Skip remove_waiter() when waiter is not enqueued") and
+requires no further acting.
 
+Revert the commit breaking the "waiter =3D=3D owner" case again.
 
+Fixes: 74e144274af39 ("futex/requeue: Prevent NULL pointer dereference in rem=
+ove_waiter() on self-deadlock")
+Reported-by: Michael Bommarito <michael.bommarito@gmail.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260701131150.0Ijhq4Dw@linutronix.de
+Closes: https://lore.kernel.org/all/20260629020049.2082397-1-michael.bommarit=
+o@gmail.com
+---
+ kernel/futex/requeue.c | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/kernel/futex/requeue.c b/kernel/futex/requeue.c
+index 7384672..79823ad 100644
+--- a/kernel/futex/requeue.c
++++ b/kernel/futex/requeue.c
+@@ -645,12 +645,6 @@ retry_private:
+ 				continue;
+ 			}
+=20
+-			/* Self-deadlock: non-top waiter already owns the PI futex. */
+-			if (rt_mutex_owner(&pi_state->pi_mutex) =3D=3D this->task) {
+-				ret =3D -EDEADLK;
+-				break;
+-			}
+-
+ 			ret =3D rt_mutex_start_proxy_lock(&pi_state->pi_mutex,
+ 							this->rt_waiter,
+ 							this->task);
