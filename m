@@ -1,62 +1,126 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C143B19A9;
-	Thu,  2 Jul 2026 21:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5203905F8
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 21:58:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783028984; cv=none; b=CvCuBB36UKvTR3JQUPFa7bkzAEpKx6nwmHEeqrTlHxpjpwhCz/OMRjCxVYU4F55ikbY45LQPa+eHzSrSPDf7p0Dt3HxhVv9t0gvs/jt/SqJ7OCM0ktjEAL3+Ej+XEFNYIgorPtn12PYoW9Q/S7sBLBO4ZFb5MsGH+XwW2Dlzaco=
+	t=1783029497; cv=none; b=OPZaXIEU6SWlVxZ1EYseCxAGsCJ7JvcxFrFW5HYNfZpO9OHrw+5L3qFAKwSqRO1URG9wm1gzVblApmkQWec2uSyTk3DS5X2DEC2mSAEW2sVmGnGW8ZzBvecbw0Dg/NCGs55y2af0CziSST/LBpIu2wiXMvZxYDqg4Kc4dhUbso4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783028984; c=relaxed/simple;
-	bh=0fC5+7Qsj7SRA5PZBzND4iRKsv/Uckh03xn1Z5//zpQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p80O0jC9sqNTtFp++qqsMcynrY7a9TvLkHj+HuakB9yz8OJ9LvmuHyxNojmqbGm6H4Qg2XMfZsAX8wrJBUR0FJkywp/pCCon3OYMxg7sPHBw/PbAOEaN27pcEnrwJuGJGX1A24Xia8YUpjj+O/MYze6JP3QcxpLTg9eRzTmAF8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=z8GcIeNE; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1783029497; c=relaxed/simple;
+	bh=JkbgUCqRQaF8d/GqkaxFsgRIZE/GM+E2OoNJKmepXFA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=S8I35F7OW7vl6Pk5V1P3ptb5UJK7bG1UAgstqGLBiHrApQqVhGI4t1CEy206SRdHSEt7lqNCeo/ydV7gFEEY2SQjLNGuOAhi68sjGsrsIoM+geN+hBrx3xvk/7n6jJoBsUHRNgnpUf6eB8LUABA3XcXrsCLvpg9vIB8nr/jaYE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NYsEyQTH; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="z8GcIeNE"
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id D215E1FD17;
-	Thu,  2 Jul 2026 23:49:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1783028972;
-	bh=uWY7fw7M8W1sfIaSjOoPqodayJGDFfwG8TUmi3zZhbU=; h=From:To:Subject;
-	b=z8GcIeNEN1F2kN/dzURZVX5bhhYaUJCrcB9UfxrTEojy6fZubIxK4hGKy2Fokbq1b
-	 HE95GHz4RpSfteHyI4iJaDoVfErMxyruOSw7jwqS5Kzfi4cZV4/u6l8Lw7DXk9hRnP
-	 MEY+GwALyeWatkNW8B37ygnu08lijHPI9MtosD6svZqFq+2RIzASv4FSwP/xGBktKK
-	 dO4W84SE9kz1y8boLZap/t+j/NahxF0CMUrp638fFQ48hL/XDlVgBrFYx1nWoI5lsi
-	 4yvVTgIljixNc5bHmgP1xnuRc9zBi5oJMTusC4Zch/R8rOjfoIGW66B5x5erzrSjci
-	 ggq6aBdWE5l1g==
-Date: Thu, 2 Jul 2026 23:49:28 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.1 000/129] 6.1.177-rc1 review
-Message-ID: <20260702214916.GA281897@francesco-nb>
-References: <20260702155112.163984240@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NYsEyQTH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783029496; x=1814565496;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=JkbgUCqRQaF8d/GqkaxFsgRIZE/GM+E2OoNJKmepXFA=;
+  b=NYsEyQTHgNdz1GSCLGPlNPpFkJCQw21JWTzeMpIFgtLcVxL/qUnOzldB
+   891vWK9rtMyilAW1i+7sB1GhP5M4kgYvMMPMhsTJIIP/r6Hv/M56bHmA4
+   Zg3nmF6cTJjYwX/94nJ+JHkqeJdLrgBCl3RF/Rjk6F7tbohgTHZ+cbGWB
+   fmzcBcCQ3pP88YSfrAJfZU4TaS4FSpXy+VruExmvD/bjqCNc8qFOg2P0x
+   o+4uyPZraXJbPbAlL7NtE2nolf0X+1jpY8hhb32J224ErGJQRpue/EH9U
+   2vL9GK0WI6CXqVNmUujKUQMuSbQrhN1gC3A4UXuz+qLge/ux73JYaJtQM
+   Q==;
+X-CSE-ConnectionGUID: xyYv9ibzSRuQiPP/etA1XQ==
+X-CSE-MsgGUID: uILMQZW5R7a78ytvb/Ro8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="101208458"
+X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; 
+   d="scan'208";a="101208458"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 14:58:16 -0700
+X-CSE-ConnectionGUID: KgVi2j/jRRSslhpkcbahIA==
+X-CSE-MsgGUID: 6aKpgY3FQOWk+q94fqBw0Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; 
+   d="scan'208";a="253610076"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 14:58:15 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] drm/xe: Wait on external BO kernel fences in exec IOCTL
+Date: Thu,  2 Jul 2026 14:58:05 -0700
+Message-Id: <20260702215805.4011228-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260702155112.163984240@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 02, 2026 at 06:18:39PM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.177 release.
-> There are 129 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Before arming a user job, xe_exec_ioctl() only added the VM's
+dma-resv KERNEL slot as a dependency. That slot covers rebinds and
+the kernel operations of the VM's private BOs, but not external BOs
+(bo->vm == NULL), which carry their kernel operations (evictions,
+moves, ...) in their own dma-resv KERNEL slot.
 
-Tested-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+The DMA_RESV_USAGE_KERNEL slot is the cross-driver contract for
+memory management operations that must complete before the BO or its
+backing store may be used: any accessor is required to wait on the
+KERNEL fences before touching the resv. By skipping the external BOs'
+KERNEL slots, the exec path violated that contract and could schedule
+a user job while a kernel operation on an external BO mapped by the VM
+was still in flight, racing against it and potentially reading or
+writing memory that was being moved.
+
+Replace the VM-only dependency with an iteration over every object
+locked by the exec, adding each object's KERNEL slot as a job
+dependency. This covers the VM resv (rebinds and private BOs) as well
+as every external BO, mirroring the drm_gpuvm_resv_add_fence() call
+that later publishes the job fence to the same set of objects.
+Long-running mode continues to skip this, as before.
+
+Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub_Copilot:claude-opus-4.8
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/xe/xe_exec.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_exec.c b/drivers/gpu/drm/xe/xe_exec.c
+index e05dabfcd43c..d5293bc33a67 100644
+--- a/drivers/gpu/drm/xe/xe_exec.c
++++ b/drivers/gpu/drm/xe/xe_exec.c
+@@ -292,13 +292,23 @@ int xe_exec_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+ 		goto err_exec;
+ 	}
+ 
+-	/* Wait behind rebinds */
++	/*
++	 * Wait behind rebinds and any kernel operations (evictions, defrag
++	 * moves, ...) on the VM and all external BOs. The VM's private BOs
++	 * carry their kernel ops in the VM dma-resv KERNEL slot, while each
++	 * external BO carries them in its own dma-resv KERNEL slot; both are
++	 * covered by iterating every object locked by the exec, mirroring the
++	 * drm_gpuvm_resv_add_fence() below.
++	 */
+ 	if (!xe_vm_in_lr_mode(vm)) {
+-		err = xe_sched_job_add_deps(job,
+-					    xe_vm_resv(vm),
+-					    DMA_RESV_USAGE_KERNEL);
+-		if (err)
+-			goto err_put_job;
++		struct drm_gem_object *obj;
++
++		drm_exec_for_each_locked_object(exec, obj) {
++			err = xe_sched_job_add_deps(job, obj->resv,
++						    DMA_RESV_USAGE_KERNEL);
++			if (err)
++				goto err_put_job;
++		}
+ 	}
+ 
+ 	for (i = 0; i < num_syncs && !err; i++)
+-- 
+2.34.1
 
