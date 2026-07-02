@@ -1,54 +1,99 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com [209.85.221.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4804C3A9861;
-	Thu,  2 Jul 2026 10:27:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60ED33C7DE1
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 10:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782988032; cv=none; b=KcwIKun2I5d6tsq3K8yiiOErM8NCORfeHUo0CuVOgr2UGCLEAcjYgFDlFSfxqdgBcxPARO+3z1eL8kjC2uxsp/hTrxgyHkQvjDvnRrtbypnOnIwoooay7b60+qEUqiWQ32Xv2OR0JUHVNakiO9cj/Vuvv3t3AAY8DFefADPptPo=
+	t=1782988086; cv=none; b=b2ysDoOtvQxkVfoYZ6bBfv8pMM0d8ujMZ80cDokqMuv7M2/hGAd1z3ULtj0+1i0Ic20Y2Qif8tOR2qswPD++DyYHILzzMf2zAawyjM0UB6/l1I3PcV4F9sogwkUE4fj576iv2DSuyj9lcNfWuQmB5riGhenO2LnblWym2RExMrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782988032; c=relaxed/simple;
-	bh=Ii8HglSf588SoGDAT6pEq7kUdME/oJt1MpciuR55l2A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fp8beeSFqgbgfHrrMK6P0kwlT4TofOzbO9frr+PlDiXvXndAYL24P53mZq91owk7l/w6dRJNmnKJey098IYPB//GloIAl334A2hYgXr6iPKEOiSa/BWy4nAVuZ/9JfOTgCEhl/7CepY3tZxBK0y9vj5uRk0V5nHILmhvm/rTa8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 35C9B68BEB; Thu,  2 Jul 2026 12:27:06 +0200 (CEST)
-Date: Thu, 2 Jul 2026 12:27:06 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Christian Brauner <brauner@kernel.org>
-Cc: "Darrick J. Wong" <djwong@kernel.org>, Christoph Hellwig <hch@lst.de>,
-	Kelu Ye <yekelu1@huawei.com>, Yifan Zhao <zhaoyifan28@huawei.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sungjong Seo <sj1557.seo@samsung.com>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Miklos Szeredi <miklos@szeredi.hu>, fuse-devel@lists.linux.dev,
-	ntfs3@lists.linux.dev, linux-erofs@lists.ozlabs.org,
-	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] iomap: consolidate bio submission
-Message-ID: <20260702102705.GB6252@lst.de>
-References: <20260629121750.3392300-2-hch@lst.de> <20260701-davon-kniegelenk-gedehnt-96476b242a09@brauner>
+	s=arc-20240116; t=1782988086; c=relaxed/simple;
+	bh=He6nWqhkIDYGYE7ioFM7h6bIHX16EX1TUFeH5DSmEPE=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=pNnXW2Ar8dtVgnL2m568Y1EbJBa8b83A1p7a2DPGLIOniwA1A5ze5+zI5o0QMc7beUr8aobQVGUu5IRMkKTLHtQVvqi5OTa7iPfRTn7uLU8NrXavJtgL/AkcafaLCX1AIYV9dW/F4poMIdhcKyQ8uEJ6jwerKNHMzNL7Ae30bPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nIwzxBpl; arc=none smtp.client-ip=209.85.221.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nIwzxBpl"
+Received: by mail-wr1-f73.google.com with SMTP id ffacd0b85a97d-4773d2405c5so1311452f8f.3
+        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 03:28:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1782988082; x=1783592882; darn=vger.kernel.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=NMtazuX0bc66JaizzdMVIGRkh949Y63EIq5B+vLN6Nw=;
+        b=nIwzxBplT0MtvOyljtPrF6GLqXRTS6h2DmoVZYyOF9lIzDT/vGExFoxK8J4bRp6Xmf
+         CSUh9MWENdC2XACDHM/a9CLRVH1nvNzU/sjC5ILUDQpkd1k8rM4zWIsjRxufblVE+CKe
+         5QND0ia9zye8GTAhHy8GXik9jISn35Cr842GWgWPELaT1zn07yhG/UQso8aBM5M4YGnE
+         5grp4kUFhyQNhM0dtziDKYS3HDe7/A9J4WGmKL/OTboJgmQcCn16Z7chYtMyy4XoRBEq
+         RkJ1x0Fg1q5YvBCKt5foYgC5EdO6vhCZ5wTXeRrlTSpRP9ksNxf5kFna3ASIDVcFsYKT
+         GBKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782988082; x=1783592882;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=NMtazuX0bc66JaizzdMVIGRkh949Y63EIq5B+vLN6Nw=;
+        b=ezKQGHbYRfu6pj70fBNPkpqpTjjPJzO9F8s8OlATPcO/KKKG7g4uvNlcdoSfiIR1ld
+         YqH+h8mFBa4LKMHUP51Aj0kenBZcuB9y9FTFekNwk1y2PpH/59OZAV8oz9U6mqP4EpjO
+         itA8BZa4FRYsFcJopY/k/XUCPqGqo3NB1dcUTJKgLnDSRo+FHVJ1mmo5vxMa3VHtI64Y
+         IfF5t5RM7pVHizAB6oHC65CxksnIKuf4VvZQtyJxSIugZWb+x2NTti8+jMlaGGfgOyt8
+         t9OT9FahRfPYu4pIrJw0S/q7RkMh2eid2CDcj4x8jm347LUTo9wWBnX54+GHa5Ox7M1W
+         azyw==
+X-Forwarded-Encrypted: i=1; AHgh+RrzgejNE0qkimQBUjwZnjD/BG8KwvpkCzEA7EiuTueGn0kTSeRjEVa3ctoxGGtrYi0BfM9Kp0U=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywx2q8yYTWB8Tf4f8FeDzmD5K2n6y4W4K9C1Bn7vde/z7bWl9SK
+	5Gx+1ikbjIvymU86uS9h+diEQbc/sVDKRGhIvyJrjAs2n6gY/lCJoy2iUJc1o56p5gzk1mSgSQY
+	5kfzICJlaPOX6KAf3FA==
+X-Received: from wrbdo18.prod.google.com ([2002:a05:6000:c52:b0:46f:1272:763])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a5d:5e86:0:b0:460:1957:1b33 with SMTP id ffacd0b85a97d-47759c267a7mr8258289f8f.3.1782988081493;
+ Thu, 02 Jul 2026 03:28:01 -0700 (PDT)
+Date: Thu, 2 Jul 2026 10:27:59 +0000
+In-Reply-To: <ahw3tFhLz9bMMJAO@v4bel>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260701-davon-kniegelenk-gedehnt-96476b242a09@brauner>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Mime-Version: 1.0
+References: <ahw3tFhLz9bMMJAO@v4bel>
+Message-ID: <akY9L2CUlTFHA0dM@google.com>
+Subject: Re: [PATCH v2] rust_binder: use a u64 stride when cleaning up the
+ offsets array
+From: Alice Ryhl <aliceryhl@google.com>
+To: Hyunwoo Kim <imv4bel@gmail.com>
+Cc: gregkh@linuxfoundation.org, arve@android.com, tkjos@android.com, 
+	brauner@kernel.org, cmllamas@google.com, mo@sdhn.cc, wedsonaf@gmail.com, 
+	Liam.Howlett@oracle.com, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-On Wed, Jul 01, 2026 at 03:27:40PM +0200, Christian Brauner wrote:
-> Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-> Patches in the vfs.fixes branch should appear in linux-next soon.
+On Sun, May 31, 2026 at 10:29:24PM +0900, Hyunwoo Kim wrote:
+> Allocation's Drop walks the offsets array (binder_size_t = u64 entries),
+> cleaning up the objects, but it used usize instead of u64 for both the
+> stride and the per-entry read.
+> 
+> On 64-bit kernels (usize == u64) this is harmless, but on 32-bit kernels
+> it walks the 8-byte entries in 4-byte steps, iterating an N-entry array
+> 2N times, and reads the always-zero high word as offset 0, cleaning up
+> the object at offset 0 N extra times. As a result the referenced node or
+> handle ends up with a lower reference count than it actually has (a
+> refcount over-decrement), and binder's reference accounting is corrupted;
+> for example, the owner can be notified of a strong reference release
+> (BR_RELEASE) even though references still remain.
+> 
+> Change the stride to u64, and read each entry as a u64, narrowing it to
+> usize with try_into().
+> 
+> On 32-bit ARM, when this over-decrement would drive a count below zero,
+> the driver's existing refcount guard refuses it and fires:
+> 
+>   rust_binder: Failure: refcount underflow!
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
 
-Hmm, both this mail and the merge commit in git reference the first
-commit instead of the cower letter.  Is there an issue with your
-automation that made it miss the cover letter?
+Thanks!
+
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
