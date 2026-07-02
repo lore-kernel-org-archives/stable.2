@@ -1,112 +1,58 @@
-Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
+Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2CF2D7814
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 01:47:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48442C11F9;
+	Thu,  2 Jul 2026 01:48:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782956882; cv=none; b=tccjQmaqaG4fRVkmBOblrej8uod4DOAUvOof/WWRdiKeMW/onzJV3oihAWspk91PO4xvF7XQ9Di2e/5otCsXhyhwEJKyW2viLur0VGr0sVVApzSUzHuXBTmd8zncjgZV0dsXko80C25htcrEmqmOvS8LwM2I/8k72dCyJyIwOSc=
+	t=1782956929; cv=none; b=QVcLZnKhsLhrLdhtx6p5mK2Ksnv7K0lc57my4h6ANu/2ohm69JCPIhxpXpTOeMhpDhAGo36sQyH+nKYsWVzjiARfTAcDnTSX4lm86VLHaqr7dopJ+iMvkmjGoOQSr1rXXvLnWlDgEbeA5j0P1kMDrXao9Qh1es9cUPjO+Lk0Bd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782956882; c=relaxed/simple;
-	bh=vL19Y66aq34h6lqefzTPMlw6YHkIm12+EbTAWK8cCro=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MlPXOeNRb/s3ENNrCX4at2dQIEBzaYu2cIYkImVqCmissXaiA6HfZ2TjnyP5kbZK7takkCTRVIPaemd+iFlee0IDP38nij6Xlui1zoThj4yEmxc9gHaK5dKuxNcL5Dj0lWK5kiTBQ4LQMtsB5DT/jNgmP3HDDftYLSDYlRXoKOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZFj8EC9C; arc=none smtp.client-ip=95.215.58.174
+	s=arc-20240116; t=1782956929; c=relaxed/simple;
+	bh=OsgpoD5P4cFTiwjAqPW62HDOaq7/Xu8Dn4rKycuJ0fM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uHff6V5SEF1+Ds+Gp7QCJ0dX7xbLj40YxcRwJbenD6nr3e6wkHZgsbGOARD1qRHiU00OTxOCKeu0c5n/ihe0brjGU63ca7X7bIVwgcfti1Cw9/TYX7hBv7fMm0fYIE+xilnj4GdxgvOnIAnv2wYEiW1w+oKdUnH4VZWxD5qtbXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jd+8qkoy; arc=none smtp.client-ip=91.218.175.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZFj8EC9C"
-Message-ID: <5af860ed-e468-495b-905e-5571bf7344af@linux.dev>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jd+8qkoy"
+Date: Thu, 2 Jul 2026 09:48:33 +0800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782956867;
+	t=1782956924;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JADcuSn/VPIsOHwuCi62daxla5bBVdR5HLrgcBe0R44=;
-	b=ZFj8EC9C00SOAkiPd9aM7NmWzeXHYvQayP7DAeln2p7O6oY0pn46TFCduoAzBHEbZwdunE
-	d6YaQcpaVWFusEmmmz55uoGwcr0BNfZFcL6jWmXkx3vyMsFm+hgvh6kWEBL83KUzjyTeKF
-	j3I0zb2aV3VH+Bg+ZkWgp5I75KWH2es=
-Date: Thu, 2 Jul 2026 09:47:25 +0800
+	bh=OsgpoD5P4cFTiwjAqPW62HDOaq7/Xu8Dn4rKycuJ0fM=;
+	b=jd+8qkoyMpMPcw5KtF2o3aAaYORsMyJ1VxSjbgTogPwrt+X2it6p59J71sgczzr67Nn+h2
+	D5qluvUfemIyAR8QgFLCT+ZOQdGPcq4NpG80+ZhA0OEhcNkiJ7S1HE70OPRRhActsVkmWG
+	Mo+HE28vouMP6jQL5pB4WTlHp3Cm9FE=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Wang Jun <1742789905@qq.com>, tytso@mit.edu, adilger.kernel@dilger.ca, 
+	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	libaokun1@huawei.com, 25125332@bjtu.edu.cn, Jan Kara <jack@suse.cz>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Subject: Re: [PATCH] ext4: get rid of ppath in get_ext_path()
+Message-ID: <rrsgndgpxyrmu6okb43u6wkdaibbidlbyqgugeeijd2b44sf4y@6lzmm4v4xvdp>
+References: <tencent_C982B0201FE8F041BD5B4FC1ED7D646A740A@qq.com>
+ <2026062643-tamer-limes-a320@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [Patch mm-hotfixes v5] mm/page_vma_mapped: fix device-private PMD
- handling
-To: Klara Modin <klarasmodin@gmail.com>
-Cc: david@kernel.org, richard.weiyang@gmail.com, akpm@linux-foundation.org,
- ljs@kernel.org, riel@surriel.com, liam@infradead.org, vbabka@kernel.org,
- harry@kernel.org, jannh@google.com, balbirs@nvidia.com, sj@kernel.org,
- ziy@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <d4e4180e-dcdf-40e6-b5a2-2ac55f4aecc4@kernel.org>
- <20260701163356.22936-1-lance.yang@linux.dev>
- <akVDNLGaCfr-PF8K@soda.int.kasm.eu>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <akVDNLGaCfr-PF8K@soda.int.kasm.eu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026062643-tamer-limes-a320@gregkh>
 X-Migadu-Flow: FLOW_OUT
 
+Hi Greg,
 
+Any update here ?
 
-On 2026/7/2 00:46, Klara Modin wrote:
-[...]
->>>>
->>>> My only guess here would be that the compiler evaluates
->>>> !softleaf_is_migration(entry) to always be true and optimises away the
->>>> !check_pmd(softleaf_to_pfn(entry), pvmw) which is why this worked
->>>> before?
->>>
->>> Weird, we enter this path only with
->>>
->>> pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
->>> pmd_is_device_private_entry(pmde)
->>>
->>> If any one of these would compile for !CONFIG_TRANSPARENT_HUGEPAGE that would be
->>> odd.
->>>
->>> pmd_is_device_private_entry() is hard-coded to false unless
->>> CONFIG_ARCH_ENABLE_THP_MIGRATION. Which is only selected with
->>> ARCH_ENABLE_THP_MIGRATION.
->>>
->>> pmd_trans_huge() as well.
->>>
->>> Maybe it's struggling with pmd_is_migration_entry() on some (older) compilers?
->>> (not innlining stuff and not properly optimizing it out).
-> 
-> It's a GCC 16 cross-compiler for armv6 so I wouldn't call it old :)
-> 
->>>
->>> The whole conditional must be optimized out.
->>
->> Right. Kinda weird if compiler didn't fold
->>
->> pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
->> pmd_is_device_private_entry(pmde)
->>
->> away here ...
->>
->>> We could check for IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) right at the start
->>> to make it easier for the compiler:
->>
->> +1, explicit THP guard should do the trick :)
->>
->>> if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) &&
->>>     (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
->>>      pmd_is_device_private_entry(pmde))) {
->>>
->>>
->>
->> Klara, could you try with this change and see if it fixes the build?
->>
->> Thanks, Lance
-> 
-> This does indeed make it build.
+We rebased the 6.6 stable one week ago and also found the same regression.
 
-Good to know, thanks for testing!
+Are we planning to use this patch or just revert the blamed series like 6.1 did ?
+https://lore.kernel.org/all/20260408010208.746177-1-sashal@kernel.org/
