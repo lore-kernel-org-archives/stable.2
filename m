@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF25248C8DA
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 13:09:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A05648033A
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 13:09:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782997795; cv=none; b=CR4+BhNN3S0frdSxbuXzA+j51krOu/Vs9Vu4zlUhqNWbRba5wcygTqyVObrWRlk7WIyJRrInsCiymzxo0D5gPqGP1GH94xCjLhKKPe08HRhZq7b5N4JrP7W2CO7gPOjblYca7aQXNRWMw14jNZriidloPlR/0rNtfsFlxaHsdAk=
+	t=1782997797; cv=none; b=OMI+pJxcpVt7+Rm/sNaRSWyJmIdX5SjDpyECDicnjdWg7e/ej0xxre+KcAWdzE8pGgD9ZN5lPJ6YsrvMPnQbs2lGktDKI8eRTFSUc0FtM1H6qbzx4qZ36jdnsZgUUygcmqPA1YQ4UbZXrbNql9vNlaWG5MvJFiLZgEYJlPM/lso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782997795; c=relaxed/simple;
-	bh=4UUPbeXS9u37Pnw920sistyoYOt3oFUimlcrgpRso7Y=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nf7IOstzn9rnoFEAEd3md1a5y2DWxG2mXwB5iZkWK1uIRMao+I6xCo3gw6iGOgDlbj2EeVTZHQAwjC6cesxag1+O58eavndLq+azXSFVwyQOw2vkJP7rySLX0PsjqoouOMvhxIIWe87PBJlmO0zcW5kRvkgQKNDN/b8A0Mmy93U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ndTkYWQD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782997797; c=relaxed/simple;
+	bh=jXssX1Mi/0b+gzzZ2JzZXfsun8BPgZ8T5oqF6bX6fRQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sTcSCm7y439Py8/E9YrlLW6XjJDDFeZUD5+qVktiqYxyrlndCGCWSfpPDfZ4Y79/bMJ/NPHbY5KjpGZMR96cFgJoqXpDTAtFOQNHjbWqKZeX6jE+uQpvtQ2T3jbfPt2xplNQnodB+wYpVI0WZzsKwWH4X1N8jisbIveNFJpZCNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WIocm79+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ndTkYWQD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23EBA1F00A3D;
-	Thu,  2 Jul 2026 13:09:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WIocm79+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC521F000E9;
+	Thu,  2 Jul 2026 13:09:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782997790;
-	bh=2zQ2PH/i02kLydKakKd6iml0kR/PtNe/b8cZUKv9bxw=;
+	s=korg; t=1782997795;
+	bh=ZTFY6JvEwKAi6KI4TCp5itUuD5h+4178wVOEyNLMoZo=;
 	h=Subject:To:Cc:From:Date;
-	b=ndTkYWQDQgtX2YiLZPmFmKPao8aInAowUtsc7HGfdUb53t9MynBJVY4Ry+PwHG2pF
-	 hqFz16llzSO+7urrcaWmhY1fwtfjWjEvZEbqTUR/pwNpyGSao0h18sTMDDcMZu3KcD
-	 XkUQntIqhxMEUkcYe95+gwO2/SNAQUht46/mC8BY=
-Subject: FAILED: patch "[PATCH] f2fs: fix to round down start offset of fallocate for pin" failed to apply to 5.10-stable tree
-To: s_min.jeong@samsung.com,chao@kernel.org,jaegeuk@kernel.org,sj1557.seo@samsung.com,youngjin.gil@samsung.com,yunji0.kang@samsung.com
+	b=WIocm79+E1ba3Gbbas0YeB9Z4iqT2qB0Pro3v5u+IlvVbo8j4omWEVmMSATXKSNMr
+	 /sqnB/pp4TTddq2jJcOo1hi6OM+CBICI+Vdni8ogfSxiyzREc8B0pFIBo8UxxtrslS
+	 g3SB5dA33lTmwJwHoodrCiwoeUzZKm4G1kUID8sc=
+Subject: FAILED: patch "[PATCH] f2fs: bound i_inline_xattr_size for non-inline-xattr inodes" failed to apply to 6.18-stable tree
+To: hexlabsecurity@proton.me,chao@kernel.org,jaegeuk@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 02 Jul 2026 15:09:56 +0200
-Message-ID: <2026070256-cranberry-relax-7024@gregkh>
+Date: Thu, 02 Jul 2026 15:10:05 +0200
+Message-ID: <2026070205-tattoo-circling-7d61@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4275b59673eb60b02eec3997816c83f1f4b909c4
+git cherry-pick -x 378acf3cf19b6af6cba55e8dd1154c4e1504bae8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070256-cranberry-relax-7024@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070205-tattoo-circling-7d61@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,70 +62,70 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4275b59673eb60b02eec3997816c83f1f4b909c4 Mon Sep 17 00:00:00 2001
-From: Sunmin Jeong <s_min.jeong@samsung.com>
-Date: Mon, 22 Jun 2026 14:28:17 +0900
-Subject: [PATCH] f2fs: fix to round down start offset of fallocate for pin
- file
+From 378acf3cf19b6af6cba55e8dd1154c4e1504bae8 Mon Sep 17 00:00:00 2001
+From: Bryam Vargas <hexlabsecurity@proton.me>
+Date: Thu, 11 Jun 2026 23:00:36 -0500
+Subject: [PATCH] f2fs: bound i_inline_xattr_size for non-inline-xattr inodes
 
-Currently, the length of fallocate for pin file is section-aligned to
-keep allocated sections from being selected as victims of GC. However,
-for the case that the start offset of fallocate is not aligned in
-section, the allocated sections can't be fully utilized. It's because a
-new section is allocated by f2fs_allocate_pinning_section() after using
-blks_per_sec blocks regardless of the start offset. As a result, several
-unexpected dirty segments may be created, including blocks assigned to
-the pinned file.
+When the flexible_inline_xattr feature is enabled, do_read_inode() loads
+the on-disk i_inline_xattr_size unconditionally:
 
-To address this issue, let's round down the start offset of fallocate
-to the length of section.
+	if (f2fs_sb_has_flexible_inline_xattr(sbi))
+		fi->i_inline_xattr_size = le16_to_cpu(ri->i_inline_xattr_size);
 
-The reproducing scenario is as below
+but sanity_check_inode() only range-checks it when the inode also has the
+FI_INLINE_XATTR flag set.  An inode that carries an inline dentry or inline
+data but not FI_INLINE_XATTR -- the normal layout for an inline
+directory -- therefore keeps a fully attacker-controlled
+i_inline_xattr_size from a crafted image.
 
-chunk=$(((2<<20)+4096)) # 2MB + 4KB
-touch test
-f2fs_io pinfile set test
-f2fs_io fallocate 0 0 $chunk test
-f2fs_io fallocate 0 $chunk $chunk test
-f2fs_io fallocate 0 $((chunk*2)) $chunk test
-f2fs_io fiemap 0 $((chunk*3)) test
+get_inline_xattr_addrs() returns that value with no flag gating, so it
+feeds the inode geometry:
 
-Fiemap: offset = 0 len = 12288
-    logical addr.    physical addr.   length           flags
-0   0000000000000000 000000068c600000 0000000000400000 00001088
-1   0000000000400000 000000003d400000 0000000000001000 00001088
-2   0000000000401000 00000003eb200000 0000000000200000 00001088
-3   0000000000601000 00000005e4200000 0000000000001000 00001088
-4   0000000000602000 0000000605400000 0000000000200000 00001089
+	MAX_INLINE_DATA()  = 4 * (CUR_ADDRS_PER_INODE - i_inline_xattr_size - 1)
+	NR_INLINE_DENTRY() = MAX_INLINE_DATA() * BITS_PER_BYTE / (...)
+	addrs_per_page()   = CUR_ADDRS_PER_INODE - i_inline_xattr_size
+
+A large i_inline_xattr_size drives MAX_INLINE_DATA() and NR_INLINE_DENTRY()
+negative, so make_dentry_ptr_inline() sets d->max (int) to a negative
+value.  The inline directory walk then compares an unsigned long bit_pos
+against that negative d->max, which is promoted to a huge unsigned bound,
+and reads far past the inline area:
+
+	while (bit_pos < d->max)		/* fs/f2fs/dir.c */
+		... test_bit_le(bit_pos, d->bitmap) / d->dentry[bit_pos] ...
+
+Mounting a crafted image and reading such a directory triggers an
+out-of-bounds read in f2fs_fill_dentries(); the same underflow also
+corrupts ADDRS_PER_INODE for regular files.
+
+Validate i_inline_xattr_size against MAX_INLINE_XATTR_SIZE whenever the
+flexible_inline_xattr feature is enabled -- i.e. whenever the value is
+loaded from disk and consumed -- and keep the lower MIN_INLINE_XATTR_SIZE
+bound gated on inodes that actually carry an inline xattr, so legitimate
+inodes with i_inline_xattr_size == 0 are still accepted.
 
 Cc: stable@vger.kernel.org
-Fixes: f5a53edcf01e ("f2fs: support aligned pinned file")
-Reviewed-by: Yunji Kang <yunji0.kang@samsung.com>
-Reviewed-by: Yeongjin Gil <youngjin.gil@samsung.com>
-Reviewed-by: Sungjong Seo <sj1557.seo@samsung.com>
-Signed-off-by: Sunmin Jeong <s_min.jeong@samsung.com>
+Fixes: 6afc662e68b5 ("f2fs: support flexible inline xattr size")
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 8acdd94272a0..4b52c56d71f0 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -1916,8 +1916,15 @@ static int f2fs_expand_inode_data(struct inode *inode, loff_t offset,
+diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
+index 25f30b8eadc5..c95e0b126da4 100644
+--- a/fs/f2fs/inode.c
++++ b/fs/f2fs/inode.c
+@@ -325,9 +325,9 @@ static bool sanity_check_inode(struct inode *inode, struct folio *node_folio)
+ 	}
  
- 	if (f2fs_is_pinned_file(inode)) {
- 		block_t sec_blks = CAP_BLKS_PER_SEC(sbi);
--		block_t sec_len = roundup(map.m_len, sec_blks);
-+		block_t sec_len;
- 
-+		if (map.m_lblk % sec_blks) {
-+			map.m_lblk = rounddown(map.m_lblk, sec_blks);
-+			map.m_len = pg_end - map.m_lblk;
-+			if (off_end)
-+				map.m_len++;
-+		}
-+		sec_len = roundup(map.m_len, sec_blks);
- 		map.m_len = sec_blks;
- next_alloc:
- 		f2fs_down_write(&sbi->pin_sem);
+ 	if (f2fs_sb_has_flexible_inline_xattr(sbi) &&
+-		f2fs_has_inline_xattr(inode) &&
+-		(fi->i_inline_xattr_size < MIN_INLINE_XATTR_SIZE ||
+-		fi->i_inline_xattr_size > MAX_INLINE_XATTR_SIZE)) {
++		(fi->i_inline_xattr_size > MAX_INLINE_XATTR_SIZE ||
++		(f2fs_has_inline_xattr(inode) &&
++		fi->i_inline_xattr_size < MIN_INLINE_XATTR_SIZE))) {
+ 		f2fs_warn(sbi, "%s: inode (ino=%llx) has corrupted i_inline_xattr_size: %d, min: %zu, max: %lu",
+ 			  __func__, inode->i_ino, fi->i_inline_xattr_size,
+ 			  MIN_INLINE_XATTR_SIZE, MAX_INLINE_XATTR_SIZE);
 
