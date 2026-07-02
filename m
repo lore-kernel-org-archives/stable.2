@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D502BF3F3;
-	Thu,  2 Jul 2026 02:03:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9502C0F91;
+	Thu,  2 Jul 2026 02:03:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782957821; cv=none; b=kBNBT/atYv0gjkMVRFbffJidNXr9kg2CiAxjTcCuI5kXrHbIqJH7sULG0tPwUxhS3QeIuUXAoXvBer3cZlU15D+4pf5DWbsckKAkmC3CFIw7p97QBc6OeV5MC8aRokVUpA5/fD1Dju9wR7wd8tDry7Hbykxn/UyOQ/Ul3UjG5/8=
+	t=1782957829; cv=none; b=p0uuWnkWFtt8OZk1rBa6VsBcyqaFmxq2iPqUt2xiQ+woi8wuY7mcXVNN0CxwydbPS1sfihstg2CeS8O6O4CRSraLrcH6spAwKq/CNZ8KwfAWK9CQoZaFAmafKTGxbCS6l/49HYAb+YILEqWNJTojBWlkW40F7k1Fw7Enaoao9ZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782957821; c=relaxed/simple;
-	bh=8YPAfHBcDCfo5pesfDtCQYAROeYO5MvsCrUgj78zWS4=;
-	h=Date:To:From:Subject:Message-Id; b=hWkeBPp1x2BkrpL7XhYlnC554kApwnGwmj9G5cQ79Y0TYVO2Y++yMC628avFpkCx4ONmrjnnN9nRRdX+KXVTC2Ce1oIVvdwiXAAwv4+a244/68w3vPD40sVg3BvbPbm5j8JVBVLwzAsCfpQR9k5nkk6YGxz7e0yCR8ImVihCl74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=AQWHTDZ/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782957829; c=relaxed/simple;
+	bh=C+653xDK7uy+qIC6MlfyWsEPspxKyUOujjQ8DfQvVjQ=;
+	h=Date:To:From:Subject:Message-Id; b=Vq1IsqR5Vcy+rLB9Ocwpsxy8m53594coQFb1TB0wQ6yFsIB0ywMVQYgCB7GiZoZrPkjNRTkLZ0D9YKKBs0BWBvd1gZq8zma6kgwV6moi34rRxUFKd3rdyTKjJS7a6cN+Gff17/9jjIStmDhf22CrWmOxNx7FJf65Zb/DWvUXUFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=n2H6GLM2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="AQWHTDZ/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AAB21F000E9;
-	Thu,  2 Jul 2026 02:03:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="n2H6GLM2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC3F61F000E9;
+	Thu,  2 Jul 2026 02:03:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1782957820;
-	bh=tusNmJdChen/hKhlT5jV69uGmOBdTi3PPNgb7CHXQfs=;
+	d=linux-foundation.org; s=korg; t=1782957827;
+	bh=VZ1ljxfbwKzdzF2wQ2ZEj/ZZikrZb1Mhzqj0yOF1r+c=;
 	h=Date:To:From:Subject;
-	b=AQWHTDZ/weXB+kT13VlLhhTOTAMai5epr3cr3aEupyeiLwArTFz18z7b51KIWr+yY
-	 9b/GPjlKukhRTfhwianjKgwhwoAbh9OiD8vfiYNm1DvQltmiG2mJeSRt2/TKR3j5lI
-	 GtFqKAcSjvOyMAYGISllvZmyXfjlfMsEaeHuRU00=
-Date: Wed, 01 Jul 2026 19:03:39 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,usama.anjum@arm.com,surenb@google.com,stable@vger.kernel.org,shuah@kernel.org,rppt@kernel.org,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,david@kernel.org,zenghui.yu@linux.dev,akpm@linux-foundation.org
+	b=n2H6GLM2DepUKWkyg2uhDDMC5t/yFnmsZZ79Yr6JxxIgA0CsWES+D7gjafW/0iLc9
+	 vxcJEMv+GBH8tBsOQCTgMp32Rto6O3RQSrl48eU4ZRJJhaTp1c+ByjE64SrGE/0tvW
+	 8YidjasGHd6rWnvDcyPIjQNXL6UYcZ7Q6wW6mKeU=
+Date: Wed, 01 Jul 2026 19:03:47 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,yuzenghui@huawei.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] selftests-mm-pagemap_ioctl-use-the-correct-page-size-for-transact_test.patch removed from -mm tree
-Message-Id: <20260702020340.5AAB21F000E9@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid.patch removed from -mm tree
+Message-Id: <20260702020347.AC3F61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,100 +35,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: selftests/mm: pagemap_ioctl: use the correct page size for transact_test()
+     Subject: samples/damon/mtier: fail early if address range parameters are invalid
 has been removed from the -mm tree.  Its filename was
-     selftests-mm-pagemap_ioctl-use-the-correct-page-size-for-transact_test.patch
+     samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Zenghui Yu <zenghui.yu@linux.dev>
-Subject: selftests/mm: pagemap_ioctl: use the correct page size for transact_test()
-Date: Sun, 28 Jun 2026 18:11:18 +0800
+From: Zenghui Yu <yuzenghui@huawei.com>
+Subject: samples/damon/mtier: fail early if address range parameters are invalid
+Date: Mon, 29 Jun 2026 07:44:31 -0700
 
-There are several places in transact_test() where we use the hardcoded
-0x1000 (4k) as page size, which is not always correct for architectures
-supporting multiple page sizes.
+The comment on top of `struct damon_region` clearly says that
 
-Switch to use the correct page size.  Otherwise ./ksft_pagemap.sh on a
-16k-page-size arm64 box fails with
+    For any use case, @ar should be non-zero positive size.
 
- $ ./ksft_pagemap.sh
- [...]
- # ok 96 mprotect_tests Both pages written after remap and mprotect
- # ok 97 mprotect_tests Clear and make the pages written
- # Bail out! ioctl failed
- # # Planned tests != run tests (117 != 97)
- # # Totals: pass:97 fail:0 xfail:0 xpass:0 skip:0 error:0
- # [FAIL]
- not ok 1 pagemap_ioctl # exit=1
- # SUMMARY: PASS=0 SKIP=0 FAIL=1
- 1..1
+which is now verified in damon_verify_new_region() if the kernel is built
+with DAMON_DEBUG_SANITY.
 
-Link: https://lore.kernel.org/20260628101118.35861-1-zenghui.yu@linux.dev
-Fixes: 46fd75d4a3c9 ("selftests: mm: add pagemap ioctl tests")
-Signed-off-by: Zenghui Yu <zenghui.yu@linux.dev>
-Cc: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Zenghui Yu <zenghui.yu@linux.dev>
-Cc: <stable@vger.kernel.org>
+The WARN_ONCE() can be triggered if the mtier sample module is enabled
+before node{0,1}_{start,end}_addr have been properly initialized, which is
+obviously not good.
+
+ ------------[ cut here ]------------
+ start 0 >= end 0
+ WARNING: mm/damon/core.c:217 at damon_new_region+0xf4/0x118, CPU#59: bash/341468
+ Call trace:
+  damon_new_region+0xf4/0x118 (P)
+  damon_set_regions+0xfc/0x3c0
+  damon_sample_mtier_build_ctx+0xe8/0x3a8
+  damon_sample_mtier_start+0x1c/0x90
+  damon_sample_mtier_enable_store+0x98/0xb0
+  param_attr_store+0xb4/0x128
+  module_attr_store+0x2c/0x50
+  sysfs_kf_write+0x58/0x90
+  kernfs_fop_write_iter+0x16c/0x238
+  vfs_write+0x2c0/0x370
+  ksys_write+0x74/0x118
+  __arm64_sys_write+0x24/0x38
+  invoke_syscall+0xa8/0x118
+  el0_svc_common.constprop.0+0x48/0xf0
+  do_el0_svc+0x24/0x38
+  el0_svc+0x54/0x370
+  el0t_64_sync_handler+0xa0/0xe8
+  el0t_64_sync+0x1ac/0x1b0
+ ---[ end trace 0000000000000000 ]---
+
+Note that the same issue can happen if detect_node_addresses is true, and
+node 0 or 1 is memoryless.  Fix it together by checking the validity of
+parameters right before damon_new_region() and fail early if they're
+invalid.
+
+Link: https://lore.kernel.org/20260629144432.133962-1-sj@kernel.org
+Fixes: 82a08bde3cf7 ("samples/damon: implement a DAMON module for memory tiering")
+Signed-off-by: Zenghui Yu <yuzenghui@huawei.com>
+Signed-off-by: SJ Park <sj@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 6.16.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- tools/testing/selftests/mm/pagemap_ioctl.c |   12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ samples/damon/mtier.c |    3 +++
+ 1 file changed, 3 insertions(+)
 
---- a/tools/testing/selftests/mm/pagemap_ioctl.c~selftests-mm-pagemap_ioctl-use-the-correct-page-size-for-transact_test
-+++ a/tools/testing/selftests/mm/pagemap_ioctl.c
-@@ -1368,7 +1368,7 @@ void *thread_proc(void *mem)
- 			ksft_exit_fail_msg("pthread_barrier_wait\n");
+--- a/samples/damon/mtier.c~samples-damon-mtier-fail-early-if-address-range-parameters-are-invalid
++++ a/samples/damon/mtier.c
+@@ -120,6 +120,9 @@ static struct damon_ctx *damon_sample_mt
+ 		addr.end = promote ? node1_end_addr : node0_end_addr;
+ 	}
  
- 		for (i = 0; i < access_per_thread; ++i)
--			__atomic_add_fetch(m + i * (0x1000 / sizeof(*m)), 1, __ATOMIC_SEQ_CST);
-+			__atomic_add_fetch(m + i * (page_size / sizeof(*m)), 1, __ATOMIC_SEQ_CST);
++	if (addr.start >= addr.end)
++		goto free_out;
++
+ 	range.start = addr.start;
+ 	range.end = addr.end;
  
- 		ret = pthread_barrier_wait(&end_barrier);
- 		if (ret && ret != PTHREAD_BARRIER_SERIAL_THREAD)
-@@ -1403,15 +1403,15 @@ static void transact_test(int page_size)
- 	if (pthread_barrier_init(&end_barrier, NULL, nthreads + 1))
- 		ksft_exit_fail_msg("pthread_barrier_init\n");
- 
--	mem = mmap(NULL, 0x1000 * nthreads * pages_per_thread, PROT_READ | PROT_WRITE,
-+	mem = mmap(NULL, page_size * nthreads * pages_per_thread, PROT_READ | PROT_WRITE,
- 		   MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
- 	if (mem == MAP_FAILED)
- 		ksft_exit_fail_msg("Error mmap %s.\n", strerror(errno));
- 
--	wp_init(mem, 0x1000 * nthreads * pages_per_thread);
--	wp_addr_range(mem, 0x1000 * nthreads * pages_per_thread);
-+	wp_init(mem, page_size * nthreads * pages_per_thread);
-+	wp_addr_range(mem, page_size * nthreads * pages_per_thread);
- 
--	memset(mem, 0, 0x1000 * nthreads * pages_per_thread);
-+	memset(mem, 0, page_size * nthreads * pages_per_thread);
- 
- 	count = get_dirty_pages_reset(mem, nthreads * pages_per_thread, 1, page_size);
- 	ksft_test_result(count > 0, "%s count %u\n", __func__, count);
-@@ -1420,7 +1420,7 @@ static void transact_test(int page_size)
- 
- 	finish = 0;
- 	for (i = 0; i < nthreads; ++i)
--		pthread_create(&th, NULL, thread_proc, mem + 0x1000 * i * pages_per_thread);
-+		pthread_create(&th, NULL, thread_proc, mem + page_size * i * pages_per_thread);
- 
- 	extra_pages = 0;
- 	for (i = 0; i < iter_count; ++i) {
 _
 
-Patches currently in -mm which might be from zenghui.yu@linux.dev are
+Patches currently in -mm which might be from yuzenghui@huawei.com are
 
-tools-mm-add-thp_swap_allocator_test-binary-to-gitignore.patch
 
