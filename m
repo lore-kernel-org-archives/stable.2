@@ -1,53 +1,44 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A17030C15A
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 16:50:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53B0347536;
+	Thu,  2 Jul 2026 16:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783011020; cv=none; b=g72QtyM6Z0/j4PN26KxmazvwT8Xy7iY6+/y1Vqt8JgwNy4izwa5aSg6jcsZfSwFKtEXKWbboeFf8VF+XLVmVT7eqmYj7VWQ8/uhgzA84qOXI3JRmuHHjTcO0k3J7J3uR7a6pQfhvr6bGiLgon6nlmsn1XQqT5jL8os8eJPL9pUw=
+	t=1783011022; cv=none; b=haejyKAFcqykhRFbX8cUEnhaVojacMaxrkpnekJ9Od3vKCh9wVEzmDUvT1ZbQTx++S/hxQlnOy+TfXIkibUgsWa9WS8fPioctLWRor++GryXqGtQ46vn4314GZ6xAvKEytax8wCZ1KYxwSrx5IXtebeVDnQPuzbYA0IGYFoXwkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783011020; c=relaxed/simple;
-	bh=sEHMj6/RtevNQP2GPZjL3kSPccCIu75NjhjYiaPqXvQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=KzZxcw1yy1cVn4es0Qap4XGC3uKUiOYg5GOsa21g7HMTnZQfTXnQyHDbkbSNdlv7dprS1PpxJY6ceEl4/pPmMPEUzQ+w65lEhj+W/MbYT7fvJyfoztB6utEUNMo0ESHdsjP+TSMdVWA83nkcjMunQgu8CRqxPHY89DR6tX+Y/ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=R7vYhouA; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1783011022; c=relaxed/simple;
+	bh=ieX9yuFd7ucE7sPXyHxm1d5aDcrlzkQo5QjvkXUfXSI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TAX+/MKeAOKasQeZAI/h92hc/7AlCnTG/niTGv6VnnHCWWMYsEZFzFXLktgH1grBrlDlbrTBo9JhxZbpfybOOSE7MOpTf3cDHT2PEB/IkeQMHQzJ5zaMsptpkCrJudhEPKZf8uj0Cn7YNHRCKHQTOU8XjwRQ+CIWVCfXaVdLz+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ulAl3pkr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="R7vYhouA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1783010932;
-	bh=ZjZtskYj1lPGP1AN/SwUz6Igvce9elJmGSTGe8lPQsM=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=R7vYhouAViy9ABaanNriL3yj7r11QWyiEM7onWUSZF/ZL8KqfDlRwY1I6yXT/wkOJ
-	 blwLjaBrnZXmNzFtCjOwshve+hm3SfHA+orr/9DQJCDA/0+fcHbiuklV6eiiLjNS2+
-	 EI1pZpAa3o7RqcZFB1wa2VTNMkvvx/sa1KawAuKI=
-X-QQ-mid: esmtpsz21t1783010912tca81ae3f
-X-QQ-Originating-IP: ZqrZKvpZQ6tmI8zlKvlmPl8v6bQZ+npMTU/CL7SiK6Q=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 03 Jul 2026 00:48:30 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 12144950956054268831
-EX-QQ-RecipientCnt: 9
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: 00107082@163.com,
-	guanwentao@uniontech.com,
-	iklatzco@gmail.com,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ulAl3pkr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5218F1F000E9;
+	Thu,  2 Jul 2026 16:50:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1783011020;
+	bh=9zGIfT2ZXMNohSy1IpAT9EF+ADn2SrIMIGBLfqhHTCQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ulAl3pkrdINNVOH+O0szeuwVbWzoocrrfNaN6u9s3xDoSW6BrAePcRaSpieyNl5Bi
+	 thAsGBzx7M4Kt/SLvcdcIFfd7AOwFPISg39PPe35NRQia2otnBECJUfwLMhkaLE8zg
+	 OviRQsgN/+IApV+wtCL7FRE/8PKq9tnUGwGG0iKA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	peterz@infradead.org,
-	sashal@kernel.org,
-	stable@vger.kernel.org,
-	yeoreum.yun@arm.com
-Subject: [PATCH 6.12.y] perf: Fix dangling cgroup pointer in cpuctx backport
-Date: Fri,  3 Jul 2026 00:48:25 +0800
-Message-Id: <20260702164824.498942-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <2026070200-uneaten-smock-4130@gregkh>
-References: <2026070200-uneaten-smock-4130@gregkh>
+	Colin Ian King <colin.i.king@gmail.com>,
+	Ruslan Valiyev <linuxoid@gmail.com>,
+	John Johansen <john.johansen@canonical.com>
+Subject: [PATCH 6.6 125/175] apparmor: fix use-after-free in rawdata dedup loop
+Date: Thu,  2 Jul 2026 18:20:26 +0200
+Message-ID: <20260702155118.385586133@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260702155115.766838875@linuxfoundation.org>
+References: <20260702155115.766838875@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,59 +46,112 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: ML22//DLl/han3iVE2fKLxZY5WUDwMqUEByoYw2F4xqP0Q2h6vEJ8iUt
-	winRkYd6JUOZkX2KPsM+BdJD323xmWQ1r0pfNzFQfH3/9J3s/EM0NvsXfCgChtURi7mE4jJ
-	4H4HH7hhHmORNngsYovFKFbrn20rH/Qo4lC5LwrEX09EKpxyM3wZEh/pudCsn9TVE5u+bgv
-	URmhawejH11UYZeYpo1mUn1BwiJhf5dOovAl+PzOpPAOd9RfI2KrkYZjHh6c7foKwR+qimi
-	OfO4CtW0SpnGR84npsAwt+L3+TqMBhRM72QwpoPXcX9hFIZs7Lt8Zdgqpe4qxw+ZjR+n0Kq
-	/5BzeK9J/NC+GsdhLuR/ab6oCni4gu6YlChru3wWJyrnPOpCWfBtvBmI19lb27WUum+5+Jx
-	69jrWXIYfzTEwMhMmNrKLxB245yokBkcbAabYATXZugdp2NEfDX761X40rNmsVz2XkWyjLq
-	RuPzhlddZUQXm0EkHZAc3O3X6dmQlYiv3P34Q7tlWJx5uxPYh00owfCquQjk0Seae6Yi8q1
-	K/sqlUIvdn+h2sDAY67MQwMstcSGoHHSEOBHSa13+wgokEb1rWUThwrPn2L5alVVaRxnI9/
-	Ymgah/fXecByzubnx99E9cHR/y3eeBrn15Q1s+H9ytGutZH6N+GVWPwNyEay7qh+krY8OFo
-	sSVkD+KY5LKh1CWyBipN+LbbCr2jx8/owk7gc2/Yq1YPV/+VRWTTP7cRxwxHazBTQHwqPdE
-	ZhEbpAVw1w692xUw/Tx77dv7557IS1Zj1o5ZIBixGvGraHgOyLp1s8RwY9A9Tv4D1/sWoUI
-	lpp+kzmZxd5eILorhVrYHxJMnuVJB1PSpwjHgPDQMplhNngDhcahb9DReFtTRFq2j0+/VMm
-	RsQ4+rUOX5U6SwA9fJHLbcXNDkN7CWiPi79jR9GVzEYyG2YTjUzPFCrTDqiojvVsFg17PaK
-	uHRXCiAHBHW6OzWq4P1uRs6lxjC91b+/RGBObMDRH7yn7W5IibSI8KpvCekAokMXdHT9obl
-	NJDn0snleeRK20UONLmhZLWAgOvtzTahDpRdWleAIEN1aYq9+Y+F7SDNVXyo6QdjOgpDTYK
-	Ozr6kLg4RoQx7rK/nbLgAz7KIlP0/S3xiWa+F8tUsO5zdchX2eEDuA30vfpwbCwJroxIOfY
-	d24FQqXw2ETIHXs=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
 
-recently backport of ("perf: Fix dangling cgroup pointer in cpuctx")
-use a middle version, so aligned with the upstream commit:
-commit 3b7a34aebbdf ("perf: Fix dangling cgroup pointer in cpuctx")
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-This is a fix for stable v6.12.94 backport commit, so no upstream commit.
+------------------
 
-Link: https://lore.kernel.org/all/2026070200-uneaten-smock-4130@gregkh/
-Fixes: 46f5623f9b0e ("perf: Fix dangling cgroup pointer in cpuctx")
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+From: Ruslan Valiyev <linuxoid@gmail.com>
+
+commit 6f060496d03e4dc560a40f73770bd08335cb7a27 upstream.
+
+aa_replace_profiles() walks ns->rawdata_list to dedup the incoming
+policy blob against entries already attached to existing profiles.
+Per the kernel-doc on struct aa_loaddata, list membership does not
+hold a reference: profiles hold pcount, and when the last pcount
+drops, do_ploaddata_rmfs() is queued on a workqueue that takes
+ns->lock and removes the entry. Between dropping the last pcount
+and the workqueue running, an entry remains on the list with
+pcount == 0.
+
+aa_get_profile_loaddata() is an unconditional kref_get() on
+pcount, so when the dedup loop hits such an entry, refcount
+hardening reports
+
+  refcount_t: addition on 0; use-after-free.
+
+inside aa_replace_profiles(), and the poisoned counter then
+trips "saturated" and "underflow" warnings on the subsequent
+uses of the same loaddata.
+
+Before commit a0b7091c4de4 ("apparmor: fix race on rawdata
+dereference") the dedup path used a get_unless_zero-style helper
+on a single counter, so the existing "if (tmp)" guard was
+meaningful. The split-refcount refactor introduced
+aa_get_profile_loaddata(), which has plain kref_get() semantics,
+and the guard quietly became a no-op.
+
+Introduce aa_get_profile_loaddata_not0(), matching the existing
+_not0 convention used by aa_get_profile_not0(), and use it for
+the rawdata_list dedup lookup so dying entries are skipped.
+
+Reproduced on x86_64 with v7.1-rc5 in QEMU+KVM running Ubuntu
+24.04 + stress-ng 0.17.06:
+
+  stress-ng --apparmor 1 --klog-check --timeout 60s
+
+Without this patch the three refcount_t warnings fire within a
+few seconds. With it the same 60 s run is clean. Coverage is a
+smoke-test only; a longer soak with CONFIG_KASAN, CONFIG_KCSAN
+and CONFIG_PROVE_LOCKING would be welcome from anyone with the
+cycles.
+
+Fixes: a0b7091c4de4 ("apparmor: fix race on rawdata dereference")
+Reported-by: Colin Ian King <colin.i.king@gmail.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221513
+Cc: stable@vger.kernel.org
+Signed-off-by: Ruslan Valiyev <linuxoid@gmail.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- kernel/events/core.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ security/apparmor/include/policy_unpack.h |   19 +++++++++++++++++++
+ security/apparmor/policy.c                |    8 ++++++--
+ 2 files changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 9099c0cc933be..8fa3ee209a5be 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -2440,10 +2440,9 @@ __perf_remove_from_context(struct perf_event *event,
- 	 */
- 	if (flags & DETACH_EXIT)
- 		state = PERF_EVENT_STATE_EXIT;
--	if (flags & DETACH_DEAD) {
--		event->pending_disable = 1;
-+	if (flags & DETACH_DEAD)
- 		state = PERF_EVENT_STATE_DEAD;
--	}
-+
- 	event_sched_out(event, ctx);
+--- a/security/apparmor/include/policy_unpack.h
++++ b/security/apparmor/include/policy_unpack.h
+@@ -163,6 +163,25 @@ aa_get_profile_loaddata(struct aa_loadda
+ 	return data;
+ }
  
- 	if (event->state > PERF_EVENT_STATE_OFF)
--- 
-2.30.2
++/**
++ * aa_get_profile_loaddata_not0 - get a profile reference count if not zero
++ * @data: reference to get a count on
++ *
++ * Like aa_get_profile_loaddata(), but safe to call on an entry that may
++ * be on a list (e.g. ns->rawdata_list) where the last pcount has already
++ * dropped and the deferred cleanup has not yet run.
++ *
++ * Returns: pointer to reference, or %NULL if @data is NULL or its
++ *          profile refcount has already reached zero.
++ */
++static inline struct aa_loaddata *
++aa_get_profile_loaddata_not0(struct aa_loaddata *data)
++{
++	if (data && kref_get_unless_zero(&data->pcount))
++		return data;
++	return NULL;
++}
++
+ void __aa_loaddata_update(struct aa_loaddata *data, long revision);
+ bool aa_rawdata_eq(struct aa_loaddata *l, struct aa_loaddata *r);
+ void aa_loaddata_kref(struct kref *kref);
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -1172,8 +1172,12 @@ ssize_t aa_replace_profiles(struct aa_ns
+ 			if (aa_rawdata_eq(rawdata_ent, udata)) {
+ 				struct aa_loaddata *tmp;
+ 
+-				tmp = aa_get_profile_loaddata(rawdata_ent);
+-				/* check we didn't fail the race */
++				/*
++				 * Entries remain on rawdata_list with
++				 * pcount == 0 until do_ploaddata_rmfs()
++				 * runs; only take a live profile ref.
++				 */
++				tmp = aa_get_profile_loaddata_not0(rawdata_ent);
+ 				if (tmp) {
+ 					aa_put_profile_loaddata(udata);
+ 					udata = tmp;
+
 
