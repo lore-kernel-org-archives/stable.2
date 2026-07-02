@@ -1,155 +1,187 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AF42E8B82
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 10:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566B43CAE75;
+	Thu,  2 Jul 2026 10:53:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782989316; cv=none; b=Pu/ShBVr+ocmWA1bSf6TTMb1NH+o4xCIdNyt89rbxYonOk35k9toWuZNbKQky3VqWNvl9vwnBiNIz4MuAlxXpwYoWv8W4iSO4dlwZN1u0CK1j5EScQ6e2ZIfphjmuj7hmhI82oRZsQxDbIJfmWShMpR3yqdXv/gsGYiDLyqCsWQ=
+	t=1782989606; cv=none; b=MjWwqxO88bPxrArvfvPeol1y+dFXBEi3tKWfh7XhrJFCVmlMO+VWn2vzzse+DpXdLpivNJZXDrxZMmlK39GFsArhgg7PrSSZPn4NAMZn3gMDWRCjSQKCJ2kv+OFSRc8A3kGRAL9P2BG3ZSQNnuzWyrsYUmM73Kd0go8UrIYif1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782989316; c=relaxed/simple;
-	bh=CP90g/Sd8SpBamQMkPP7wI+cAPxvLKgKoJOnW93/UXA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PEXHgoVKSb44RWaBgst7CyMxrYO3FDgSTBzA4XH1+M25enel+R3U6BbnzOF89+ga0R7Psk/E+QRGYr0pWl+eiAWCEjM0+8G83i55nveqS6htplqTiAlbWcbMLidiop8LVmBBS2rb82+lIbBAiR2KX8FfvA8FoXriug/eu2y91qU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dcaqOliq; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782989606; c=relaxed/simple;
+	bh=l6NIVmclJOukYwpYuRypKxwUsOtZfK45Vb/F2yIhi6k=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=uxjgYYNacoOuJ08QgwxGnEn7gg/t4iZEhEC3aKVLjB69uhYvxcg2vh2ESpahIYNhLmEnA/D3C/T0PbstSkZSKG2A6uVUsSt8IG3Bcgt1tiFSuIkDJAvwYD7r0SanKQGKl98ABxROGD64cqwo0XERHaynhXdZdV/WZBh5/D0X/hE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=pyVxAYXY; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dcaqOliq"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c9d1fff21edso946490a12.1
-        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 03:48:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782989315; x=1783594115; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8HePeeifvB/opdYPmqi87Awn5dRCasskHjfVg9hPOIo=;
-        b=dcaqOliqF6MY8EexIiXb648nQZwaNGFs3qvOJw4YX++pmySRFPvLwFEPUK/Vfitou8
-         rsGc2q//f1THizj95QuNICYojijxjy8+74c6FZDw4nWX0uUoRnTrOup8LqIwSNRuvIgt
-         Wt1DTGnaUV1hfzx1gu9kVvxEusUS4Vaf7nnz8ffpwZsDhNNlCtXCL+oA33n6zuv7BnGp
-         4JqP+DY7D2CwpguZ8J7Kx6FLPQD5M1ypuTHFOL2YTS8WzU5+f6/X+U3BE1Z5b8NrmVsn
-         8OE+7OZNHQBcgqJMa8FQMDgYWTm5Vq0NKDUebD+xc3kWAIZ1MOTxVbXf3HO7/nGNAzPw
-         R41A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782989315; x=1783594115;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=8HePeeifvB/opdYPmqi87Awn5dRCasskHjfVg9hPOIo=;
-        b=odgMAtPJnF209vkMmughwXK5QKG2bIq4B93oWsod+cNIMUOvqdObiAPq1YGVGYuEpj
-         BX6cX3iBoXBO2MLxx55Uz2SKKeuyqfW6ZgCDQpbBzoaKMc/oaQouqkFkYhBlWdQFEmDm
-         RVTHYxYToq2/bK4TVMXHJdyvj6CwvoBe8gRvTYSTvMgYJHaB8G7jupm10rhpqtM4c+JM
-         6cKo1YtAXOCE6cW+FZBKCWYePooRqr9lv+t/Ssfgoq3FQO4B7XrHpqxFO5Hhn7eWimoB
-         yzYoNRZXMHMgXYE7tPgJlhHBmZ6SlsxGVtK5W3rWuWHkLZjIgXNPjUUiS5bYSYkccDs5
-         4dkw==
-X-Forwarded-Encrypted: i=1; AFNElJ8SH8nDgxlQvPTDOWOmmRjm+IudNQRddqbg0P2ufS47C9A+5o4rHbPv0ZvcWy2HrRl5vtMKoZw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyAbTEOMHO/AsObPBnMTcytLZt+PSqxY+5tMWK4VaWS7jFOwVYJ
-	42q8amOaUmEtLEO2yrT9uZetIekNpSSphOR4uf2qRi5k3W6PTTFr7s6N
-X-Gm-Gg: AfdE7clLqV/a8+/UJ4sWHjWKWrGRE663nLS6kbTKJw10kjOapFgfXNKGs4uR/q6tBxi
-	ooD8mT4j0xiSoBCRZrBEWygQKxzgDQW8QL0BGyEJnFOI+V48C/8VUC5T0qwZODSsIdukX8bQ21c
-	Gn/qZyfMsMrlYt5MguR50vtmS+22w8k0BH/VDX0Rha78us7t3gfk9KsiNIAUqGtMpotlj6J4Cn7
-	TY2lWQEXALy/HCRwiQgGy0kgiYaXQHs0+POLThQ+Eeg7fRoJ8nDTX2P9uMkQJeG/e7TiwzJIwIj
-	2vvSBov92s2ubcO6Qsagn8IrKi6VNKai1wsXFgniQlflo8JFItBqPbKHjPJT0VGzU5HUEIBMpnD
-	Tvfa6wMH6Fs9CZRk1W1C53PDmoVqQfQ0YDTl4Sm6i1sjE7XBos/y2s4QHqeGNS7T4L7oo1+Wp/7
-	0tGMSkAA3Plu5pCCmI4e8BTrCrGxNNvoIWnc5TqtbqMip3whGGuVRK73+nif4EbK9rLreBiFtMW
-	bzgEiiZV85Eqe+sd2kFaZN5q59vzCl4nhW3AU+ZBQk=
-X-Received: by 2002:a05:6a20:e20f:b0:3b4:669c:ee32 with SMTP id adf61e73a8af0-3bfed3b26edmr7042853637.37.1782989314653;
-        Thu, 02 Jul 2026 03:48:34 -0700 (PDT)
-Received: from leonardoc-nb (201-68-197-145.dsl.telesp.net.br. [201.68.197.145])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f116065c5sm5936815eec.11.2026.07.02.03.48.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 03:48:34 -0700 (PDT)
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: louis.chauvet@bootlin.com
-Cc: airlied@gmail.com,
-	bparrot@ti.com,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	jsarha@ti.com,
-	jyri.sarha@iki.fi,
-	kristo@kernel.org,
-	krzk+dt@kernel.org,
-	lee@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	nm@ti.com,
-	robh@kernel.org,
-	sam@ravnborg.org,
-	simona@ffwll.ch,
-	stable@vger.kernel.org,
-	thomas.petazzoni@bootlin.com,
-	tomi.valkeinen@ideasonboard.com,
-	tomi.valkeinen@ti.com,
-	tzimmermann@suse.de,
-	vigneshr@ti.com
-Subject: Re: [PATCH 4/4] drm/tidss: Fix sampling edge configuration
-Date: Thu,  2 Jul 2026 07:48:01 -0300
-Message-ID: <20260702104817.1219078-1-leoreis.costa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250730-fix-edge-handling-v1-4-1bdfb3fe7922@bootlin.com>
-References: <20250730-fix-edge-handling-v1-4-1bdfb3fe7922@bootlin.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="pyVxAYXY"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 662AqsbJ71875067, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1782989574; bh=6oidG+GErJm8FvmpYYel3i5fYgxw3UFmmr9RQwtIHOM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=pyVxAYXYh/rteNKSpsBnZjZpqCt2sGG9ZTNwFSHozdjmqa5k620AtKSgaczaFhAly
+	 jZ1Ot/h71DNc6MnAYCWMFUgw+KMyQz6Joyh7XjHEzZ0hPfVgcNKGQOwKxb2x67lZXq
+	 Xz3c3qmHUG0mkuGqr/tPYeqiJlpvCtGxAJxMt9OPGxvHzRV1RyrNaS2GbVYzrCVNTV
+	 /SPsxztPU+aeQ8dtYToCZpgE4TxdMWPg6aV15ObSCHSUQugtBDImOYEXzO46vy28H+
+	 DKeNcmKprLgUiWck3UEoa+vFkeOWFxUaXAAYQ5k+qqvi05c4wSQTPdqHHGvKXFtB0H
+	 KaEb4pZfhsi+Q==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 662AqsbJ71875067
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 2 Jul 2026 18:52:54 +0800
+Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 2 Jul 2026 18:52:54 +0800
+Received: from RTKEXHMBS04.realtek.com.tw ([::1]) by
+ RTKEXHMBS04.realtek.com.tw ([fe80::552f:8b32:656c:c395%6]) with mapi id
+ 15.02.2562.017; Thu, 2 Jul 2026 18:52:54 +0800
+From: Justin Lai <justinlai0215@realtek.com>
+To: Jakub Kicinski <kuba@kernel.org>
+CC: "davem@davemloft.net" <davem@davemloft.net>, "edumazet@google.com"
+	<edumazet@google.com>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, "horms@kernel.org" <horms@kernel.org>,
+	"richardcochran@gmail.com" <richardcochran@gmail.com>,
+	"david.laight.linux@gmail.com" <david.laight.linux@gmail.com>,
+	"aleksander.lobakin@intel.com" <aleksander.lobakin@intel.com>, Ping-Ke Shih
+	<pkshih@realtek.com>, Larry Chiu <larry.chiu@realtek.com>
+Subject: RE: [PATCH net v4] rtase: Workaround for TX hang caused by short UDP
+ packets entering hardware PTP parsing
+Thread-Topic: [PATCH net v4] rtase: Workaround for TX hang caused by short UDP
+ packets entering hardware PTP parsing
+Thread-Index: AQHdBSawlGaS5q8//kGEPfCefRjucrZV2E0AgAQ5B3A=
+Date: Thu, 2 Jul 2026 10:52:53 +0000
+Message-ID: <20c431f98e00464fa8a4ba1f431e89fd@realtek.com>
+References: <20260626044539.37753-1-justinlai0215@realtek.com>
+ <20260630020126.2366786-1-kuba@kernel.org>
+In-Reply-To: <20260630020126.2366786-1-kuba@kernel.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hello,
+Jakub Kicinski <kuba@kernel.org> wrote:
+>=20
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+>     rtase: Workaround for TX hang caused by short UDP packets entering
+> hardware PTP parsing
+>=20
+> This commit attempts to work around a hardware TX hang caused by
+> out-of-bounds
+> reads during PTP parsing. It introduces logic to pad short UDP packets to=
+ a
+> minimum transport data length before transmission.
+>=20
+> > diff --git a/drivers/net/ethernet/realtek/rtase/rtase_main.c
+> b/drivers/net/ethernet/realtek/rtase/rtase_main.c
+> > index 255667775f0e8..944ffe71b2d07 100644
+> > --- a/drivers/net/ethernet/realtek/rtase/rtase_main.c
+> > +++ b/drivers/net/ethernet/realtek/rtase/rtase_main.c
+> [ ... ]
+> > +static bool rtase_get_udp_offset(struct sk_buff *skb, u32 *udp_offset)
+> > +{
+> > +     struct ipv6hdr *i6h, _i6h;
+> > +     struct iphdr *ih, _ih;
+> > +     __be16 proto;
+> > +     u32 no;
+> > +
+> > +     if (!rtase_get_l3_proto(skb, &proto, &no))
+> > +             return false;
+> > +
+> > +     switch (proto) {
+> > +     case htons(ETH_P_IP):
+> > +             ih =3D skb_header_pointer(skb, no, sizeof(_ih), &_ih);
+> > +             if (!ih)
+> > +                     return false;
+>=20
+> [Severity: High]
+> Does this skip the padding workaround if the IP header itself is truncate=
+d?
+>=20
+> If the packet is shorter than the IP header (e.g., less than 34 bytes),
+> skb_header_pointer() will return false. This causes rtase_skb_pad() to
+> return true, allowing the packet to skip padding. Could this small unpadd=
+ed
+> packet still trigger the hardware parser and cause the TX hang?
+>=20
 
-We tested this patch and it introduces a regression on our panel.
+Thanks for pointing this out.
 
-On our board, a Toshiba TC358768 DPI-to-DSI bridge is connected to the parallel
-RGB output. The bridge requires data to be driven on the negative edge, and
-this is also reflected by the `ipc` variable in `dispc_vp_enable()`, which is
-set to `1`.
+A truncated IPv4 header can also trigger the same hardware TX hang
+issue.
 
-With this patch applied, however, data is driven on the positive edge instead.
+We'll update the workaround to handle this case as well.
+We'll also update the commit message to document this hardware
+limitation.
 
-According to SPRUIV7C, both `MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL[8]` and
-`DSS_VP1_POL_FREQ[14] IPC` should be programmed consistently. However, if we
-follow the actual bit descriptions, and ignore the sentence saying that the two
-programmed values should be the same, the data is driven on the requested edge.
+> [ ... ]
+> > +static bool rtase_skb_pad(struct sk_buff *skb)
+> > +{
+> > +     __be16 *dest, _dest;
+> > +     u32 trans_data_len;
+> > +     u32 udp_offset;
+> > +     u16 dest_port;
+> > +     u32 pad_len;
+> > +
+> > +     if (!rtase_get_udp_offset(skb, &udp_offset))
+> > +             return true;
+> > +
+> > +     if (udp_offset > skb->len)
+> > +             return false;
+> > +
+> > +     trans_data_len =3D skb->len - udp_offset;
+> > +     if (trans_data_len < offsetof(struct udphdr, len) ||
+> > +         trans_data_len >=3D RTASE_MIN_PAD_LEN)
+> > +             return true;
+>=20
+> [Severity: High]
+> Can an attacker bypass the workaround if the transport payload is very sm=
+all?
+>=20
+> By returning true when trans_data_len is less than
+> offsetof(struct udphdr, len) (which is 4 bytes), the packet is passed to
+> the hardware unpadded.
+>=20
+> If an attacker sends an IPv4 non-initial fragment with a very small paylo=
+ad,
+> the hardware parser might identify the fragment as UDP and attempt to rea=
+d
+> the
+> destination port at offset 2 from the payload. If this out-of-bounds read
+> hits residual uninitialized memory in the TX FIFO containing PTP port val=
+ues
+> (319 or 320), the hardware could incorrectly classify it as a PTP packet,
+> continue parsing out of bounds, and trigger the TX hang.
+>=20
 
-From SPRUIV7C (https://www.ti.com/lit/ug/spruiv7b/spruiv7c.pdf):
+Thanks for the review.
 
-MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL[8] (DPI0_CLK_CTRL_DATA_CLK_INVDIS):
+The hardware fetches packet data according to the packet length
+specified in the TX descriptor, so it does not fetch residual data
+beyond the end of the packet during DMA.
 
-        Clock edge select for DPI0 data outputs
+The affected out-of-bounds access occurs after the packet has already
+matched the PTP classification criteria (UDP destination port 319/320)
+and entered the hardware PTP parsing path.
 
-        Note that this value should be the same as the programmed value of
-        DSS_POL_FREQ[14] IPC.
+If the transport data is shorter than the destination port field
+itself, the packet cannot match the affected PTP classification path,
+so padding is not required for this case.
 
-        Reset Source: mod_por_rst_n
-
-        0 DATA and DE are driven on the falling edge of clk
-        1 DATA and DE are driven on the rising edge of clk
-
-
-    DSS_VP1_POL_FREQ[14] (IPC)
-
-        Invert pixel clock
-
-        To set data to pixel clock relationship, CTRL_MMR_DPI0_CLK_CTRL[8]
-        DPI0_CLK_CTRL_DATA_CLK_INVDIS setting should be the same as the [14]
-        IPC setting.
-
-        0 Data is driven on the LCD data lines on the rising-edge of the pixel clock
-        1 Data is driven on the LCD data lines on the falling-edge of the pixel clock
-
-So, the proposed fix to this patch is:
-
-```diff
-- regmap_update_bits(dispc->clk_ctrl, 0, 0x100, ipc ? 0x100 : 0x000);
-+ regmap_update_bits(dispc->clk_ctrl, 0, 0x100, ipc ? 0x000 : 0x100);
-```
-
-Reverting the patch also makes the Toshiba bridge work correctly again.
-However, we can confirm that the patch is needed, otherwise only the
-positive-edge case (our case) works correctly.
-
-In other words, the two registers need to match semantically, not numerically.
+> > +
+> > +     dest =3D skb_header_pointer(skb,
+> --
+> pw-bot: cr
