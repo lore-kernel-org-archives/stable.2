@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D8743E4A6
-	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 13:10:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20C643E9F9
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 13:11:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782997854; cv=none; b=km28CSo6celSYY2NUkxNJLwv8ntrPTvrwhKjCfzaIv+uhovajg/FO76chemY4qanVaDOwvWa5v6DFUMYBQiGFDT+FYjRhng116dC/sdkajUFdca/u3c1gz0qH4qDUpyAmr4ug7F749vTIsIN+kXWEZ7sgf4FRgNbtHhgcSUZros=
+	t=1782997871; cv=none; b=JNn/6q9OazkZsWvssbCivO7QQAJc0QCTnDFmBNC0GbqMFTX/RedNbPPZlNnOGX/asgtLxbVuz51YGjFMG+apqMq3EOtiJBVc0XB9Poti2aWJOuTB8ptFGXp8C0Cm/Rcj72hnlfJJCTo7g5L9F3+fPeejxFpmk+bgvT2E9Y1Iao0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782997854; c=relaxed/simple;
-	bh=/pAirxcpS41wN7PxNJeastI2r/Fq2Bn0wHTDwfXKCeU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=I1suNuee9hCCWQibj70wSUXW31IXrktdd6UA8WcWUOvdD8sE9bbMFaPYGHuLmfHIJAB7CNR/cXvAHhJU5o8IJ11fqdZWOQJ8NKh4NwjXkIFQY41TY1K+UoNmEKwSvNDpSdr2sH8yWg6YiwYL0N2lwDGTLN9lVCVcVMlXdMPgy8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kl8VSYd2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782997871; c=relaxed/simple;
+	bh=hV9PTs8/QYwrbqTQfQEPXGUHeM9O+Z+X0WUCA85WCLw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Y/Wmou9dvf5zHCPyifdgVrQFyPHYkIirvH1OUoOXF0LQsjQjG96AFcykNOgKzC93AaPIF4hbsmXkAteXEudosDBzgfjyCU+z/fjRe0zKsVI+FpJTzVhzrK3ZYL2iSCn3cxMgIO3q+osDfFYdtSoMnfiVp8wYeLRkn/gGq4Xk56E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zMCmLhPa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kl8VSYd2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D05691F000E9;
-	Thu,  2 Jul 2026 13:10:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zMCmLhPa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63CA01F00A3A;
+	Thu,  2 Jul 2026 13:11:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1782997853;
-	bh=kpxdthhZelc5kRw4mwaaiMhj7ZQlsBngnmxIAUviNk4=;
+	s=korg; t=1782997869;
+	bh=UAwgfEu0mKETTB4dqIotNYwJqzCENZ8Zfc0eUI00ZMg=;
 	h=Subject:To:Cc:From:Date;
-	b=kl8VSYd2wVmsQSA+IUcGJc2iR5topoJ8hs2NoT6+RMPeqqWz7G26JLbk0WQQkcqhi
-	 ozlg62u9+bx3+xmS8ABSq8NMa/luOdF0VZ04b4EwrtayxEoG+nhFhzzUfuPZfB5kSI
-	 TLexnZmJMFtN/jHxfKJ4ffafWdFtKnDjjaSRU53Y=
-Subject: FAILED: patch "[PATCH] f2fs: keep atomic write retry from zeroing original data" failed to apply to 6.1-stable tree
-To: qwjhust@gmail.com,chao@kernel.org,jaegeuk@kernel.org,qiwenjie@xiaomi.com
+	b=zMCmLhPacIM/i8bf3Us3yYFTxX8t5/9e+2+m6CwR2uoEzRs0am9gD0rvY6jFCUpy/
+	 Dry5kOXC0yHj5VTiOg1/wyGxd8RRnp4kSgNusYaq5a+8+DGGUnzD4/VWETkaLRlZg8
+	 rHyCePtz0v6aX1Oh/ePZz7u06eHNMiOA9TmIgqYM=
+Subject: FAILED: patch "[PATCH] f2fs: read COW data with the original inode during atomic" failed to apply to 6.18-stable tree
+To: m.lobanov@rosa.ru,chao@kernel.org,jaegeuk@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 02 Jul 2026 15:11:03 +0200
-Message-ID: <2026070203-junior-occupancy-679e@gregkh>
+Date: Thu, 02 Jul 2026 15:11:20 +0200
+Message-ID: <2026070220-thirstily-deniable-6715@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6d874b65aadce56ac78f76129dbcfc2599b638f8
+git cherry-pick -x a41075acde0124d2f8a5f563068a5d63e8ffd57b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070203-junior-occupancy-679e@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070220-thirstily-deniable-6715@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,74 +62,136 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6d874b65aadce56ac78f76129dbcfc2599b638f8 Mon Sep 17 00:00:00 2001
-From: Wenjie Qi <qwjhust@gmail.com>
-Date: Wed, 27 May 2026 20:06:28 +0800
-Subject: [PATCH] f2fs: keep atomic write retry from zeroing original data
+From a41075acde0124d2f8a5f563068a5d63e8ffd57b Mon Sep 17 00:00:00 2001
+From: Mikhail Lobanov <m.lobanov@rosa.ru>
+Date: Mon, 15 Jun 2026 14:36:13 +0300
+Subject: [PATCH] f2fs: read COW data with the original inode during atomic
+ write
 
-A partial atomic write reserves a block in the COW inode before reading the
-original data page for the untouched bytes in that page.
+When updating an atomic-write file, f2fs_write_begin() may read the
+previously written data back from the COW inode:
+prepare_atomic_write_begin() locates the block in the COW inode and sets
+use_cow, and the read bio is then built with the COW inode:
 
-If that read fails, write_begin returns an error but leaves the COW inode
-entry as NEW_ADDR. A retry of the same partial write then finds the COW
-entry, treats it as existing COW data, and f2fs_write_begin() zeroes the
-whole folio because blkaddr is NEW_ADDR.
+	f2fs_submit_page_read(use_cow ? F2FS_I(inode)->cow_inode : inode,
+			      ...);
 
-If the retry is committed, the bytes outside the retried write range are
-committed as zeroes instead of preserving the original file contents.
+and f2fs_grab_read_bio() decides whether to schedule fs-layer decryption
+(STEP_DECRYPT) for the bio based on that inode via
+fscrypt_inode_uses_fs_layer_crypto().
 
-Only use the COW inode as the read source when it already has a real data
-block. If the COW entry is still NEW_ADDR, treat it as a reservation to
-reuse: keep reading the old data from the original inode and avoid
-reserving or accounting the same atomic block again.
+However, the folio being filled belongs to the original inode
+(folio->mapping->host == inode), and the data stored in the COW block was
+encrypted (or left as plaintext) using the original inode's context, not
+the COW inode's -- see f2fs_encrypt_one_page(), which keys off
+fio->page->mapping->host.  fscrypt_decrypt_pagecache_blocks() likewise
+operates on folio->mapping->host.
 
-Cc: stable@kernel.org
-Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+The COW inode is created as a tmpfile in the parent directory and inherits
+its encryption policy from there.  With test_dummy_encryption the newly
+created COW inode gets the dummy policy and becomes encrypted, while a
+pre-existing regular file -- created before the policy applied, e.g.
+already present in the on-disk image -- stays unencrypted.  The read
+path then sets STEP_DECRYPT based on the encrypted COW inode and calls
+fscrypt_decrypt_pagecache_blocks() on a folio whose host (the unencrypted
+original inode) has a NULL ->i_crypt_info, dereferencing it:
+
+  Oops: general protection fault, probably for non-canonical address ...
+  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  RIP: 0010:fscrypt_decrypt_pagecache_blocks+0xa0/0x310
+  Workqueue: f2fs_post_read_wq f2fs_post_read_work
+  Call Trace:
+   fscrypt_decrypt_bio+0x1eb/0x340
+   f2fs_post_read_work+0xba/0x140
+   process_one_work+0x91c/0x1a40
+   worker_thread+0x677/0xe90
+   kthread+0x2bc/0x3a0
+
+The COW inode is only needed to locate the on-disk block, and that block
+address is already resolved into @blkaddr by prepare_atomic_write_begin()
+via __find_data_block(cow_inode, ...); f2fs_submit_page_read() then reads
+from that physical @blkaddr directly, so the inode argument only selects
+the post-read crypto context, not which block is fetched.  Reading with
+@inode therefore returns the same (latest, not-yet-committed) COW data,
+while making both the fs-layer decryption decision and the inline crypto
+path use the correct (original inode's) key.
+
+With the COW inode no longer used at the read site, the use_cow flag has no
+remaining consumer; drop it from f2fs_write_begin() and
+prepare_atomic_write_begin().
+
+Fixes: 591fc34e1f98 ("f2fs: use cow inode data when updating atomic write")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Lobanov <m.lobanov@rosa.ru>
 Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index d83a21998ec2..edda2ff72073 100644
+index cea34b4595b1..60dea95b0295 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -3862,6 +3862,7 @@ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
- 	pgoff_t index = folio->index;
- 	int err = 0;
- 	block_t ori_blk_addr = NULL_ADDR;
-+	bool cow_has_reserved_block = false;
+@@ -3860,7 +3860,7 @@ static int __reserve_data_block(struct inode *inode, pgoff_t index,
  
- 	/* If pos is beyond the end of file, reserve a new block in COW inode */
- 	if ((pos & PAGE_MASK) >= i_size_read(inode))
-@@ -3871,9 +3872,11 @@ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
+ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
+ 			struct folio *folio, loff_t pos, unsigned int len,
+-			block_t *blk_addr, bool *node_changed, bool *use_cow)
++			block_t *blk_addr, bool *node_changed)
+ {
+ 	struct inode *inode = folio->mapping->host;
+ 	struct inode *cow_inode = F2FS_I(inode)->cow_inode;
+@@ -3875,14 +3875,14 @@ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
+ 
+ 	/* Look for the block in COW inode first */
  	err = __find_data_block(cow_inode, index, blk_addr);
- 	if (err) {
+-	if (err) {
++	if (err)
  		return err;
--	} else if (*blk_addr != NULL_ADDR) {
-+	} else if (__is_valid_data_blkaddr(*blk_addr)) {
- 		*use_cow = true;
+-	} else if (__is_valid_data_blkaddr(*blk_addr)) {
+-		*use_cow = true;
++
++	if (__is_valid_data_blkaddr(*blk_addr))
  		return 0;
-+	} else if (*blk_addr == NEW_ADDR) {
-+		cow_has_reserved_block = true;
- 	}
+-	} else if (*blk_addr == NEW_ADDR) {
++
++	if (*blk_addr == NEW_ADDR)
+ 		cow_has_reserved_block = true;
+-	}
  
  	if (is_inode_flag_set(inode, FI_ATOMIC_REPLACE))
-@@ -3886,10 +3889,13 @@ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
+ 		goto reserve_block;
+@@ -3917,7 +3917,6 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+ 	struct folio *folio;
+ 	pgoff_t index = pos >> PAGE_SHIFT;
+ 	bool need_balance = false;
+-	bool use_cow = false;
+ 	block_t blkaddr = NULL_ADDR;
+ 	int err = 0;
  
- reserve_block:
- 	/* Finally, we should reserve a new block in COW inode for the update */
--	err = __reserve_data_block(cow_inode, index, blk_addr, node_changed);
--	if (err)
--		return err;
--	inc_atomic_write_cnt(inode);
-+	if (!cow_has_reserved_block) {
-+		err = __reserve_data_block(cow_inode, index, blk_addr,
-+					   node_changed);
-+		if (err)
-+			return err;
-+		inc_atomic_write_cnt(inode);
-+	}
+@@ -3980,7 +3979,7 @@ static int f2fs_write_begin(const struct kiocb *iocb,
  
- 	if (ori_blk_addr != NULL_ADDR)
- 		*blk_addr = ori_blk_addr;
+ 	if (f2fs_is_atomic_file(inode))
+ 		err = prepare_atomic_write_begin(sbi, folio, pos, len,
+-					&blkaddr, &need_balance, &use_cow);
++					&blkaddr, &need_balance);
+ 	else
+ 		err = prepare_write_begin(sbi, folio, pos, len,
+ 					&blkaddr, &need_balance);
+@@ -4020,8 +4019,15 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+ 			err = -EFSCORRUPTED;
+ 			goto put_folio;
+ 		}
+-		f2fs_submit_page_read(use_cow ? F2FS_I(inode)->cow_inode :
+-						inode,
++		/*
++		 * Although the block may be stored in the COW inode, the folio
++		 * belongs to @inode and its data was encrypted (or not) using
++		 * @inode's context (see f2fs_encrypt_one_page()).  Read with
++		 * @inode so the post-read decryption decision matches the
++		 * folio's owner; otherwise an unencrypted @inode whose COW inode
++		 * is encrypted hits a NULL ->i_crypt_info on decryption.
++		 */
++		f2fs_submit_page_read(inode,
+ 				      NULL, /* can't write to fsverity files */
+ 				      folio, blkaddr, 0, true);
+ 
 
