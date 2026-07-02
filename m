@@ -1,106 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F744A3404;
-	Thu,  2 Jul 2026 13:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33C74A3413
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 13:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782999814; cv=none; b=Tdmz1J1Uw+96D6/8pb0/erSEjJPjwq0J9Nh9dlCgHurZWxBO47NvVgKCpHbU2dD2oiUzezSWtpcTSJwCuPg5Kd2ijmjdhWe2zvzzdXGQ/8OhgHegl7LnH16syt/2JRzpY6KRBsQTE7rc2Xv08EvbzwTjqgn9OxErMnN74ikXeCQ=
+	t=1783000218; cv=none; b=fPLaG1J5rCs/C7W8+3/0QhOqhZM6QR9qlf5SRSvvGocKT2YsLcqfdLMi8UdIShY3LgGIxBt8EC4xMqP2u2N10Dm5sHqlD5VDvpWvkRa0xrmMEnUtyB+vj00eVs+K66Kqz8pCyUUyL36UhXUF66wyMGM4gW9bAMzSE3AxQqfqTZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782999814; c=relaxed/simple;
-	bh=3RRAGJ45DI3/d7faCnQEzBes1sMD0GozE0Iva04Bm/g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pbsNPc6heDR4tYzBpGtSo5Nx8VZRIYuMpfA9kqY36gqec7fEaflvpdcw2TkWAEKGkWoKSlsU9ITHc4fUi+N7tN0Abip+KC3pRDy8t8X3uUHUwVW0pBSoxxp9/jV8fKAMZhVwpwnohrsvssGhWSdnnrCMhzZ7FaCQIwGaNGxpE00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=puN9zfSn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1783000218; c=relaxed/simple;
+	bh=WzanjI2H+ieCUY6SvPm+hT9mgTCkjkhZJ5KP+jkZHdg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=on2abxS4cGKu03iuKe+ypgiS8oHWCCTEZ4Pq/2f3Tt8ZtLAnu2Tm0kbRyJhcRFfujwFMDCYQmLYLzhY2LYBoxdrPaYnU8NNOXfDQpazX4yZgzllz1xq+OD1pImxvwhQ/KbILVR0vcYFPReDNGdF5wGty0yqxDmqzXfVwPsIF7og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yGDCmtgW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="puN9zfSn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 61823C2BCC6;
-	Thu,  2 Jul 2026 13:43:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782999814;
-	bh=3RRAGJ45DI3/d7faCnQEzBes1sMD0GozE0Iva04Bm/g=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=puN9zfSn6UrOklH5SbCgtRQBtzuuE6JBE1/Vj4CibMnRnZ8rqJ7+30lGftIOjRjdx
-	 4lXal+3Qe5N3voqGoAUOBXRb9sL+X30ZOI3o93fsw0+yZU2FNRy52ainkurSLLdZ2p
-	 /hXkgGdiILRyt7RjIS7fNfqkcga5CpuCc+kGhhXIYbfWaqSFrJkQokYBH46QtMZlaC
-	 z/anfZsEy0wBQqcfEdcRtqqbepQRFTEPZXUTyjFDpy2W8FJTYSoGZLtS2VOvsaIXdo
-	 zwYbyn/u405p2evxurzCXLK40+mBclwHRUkgWurJpAJVXc+Cx1t2wtCPqoq0R5gV7H
-	 FweyhKCvxoG3w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F6D0C43458;
-	Thu,  2 Jul 2026 13:43:34 +0000 (UTC)
-From: Christian Taedcke via B4 Relay <devnull+christian.taedcke.weidmueller.com@kernel.org>
-Date: Thu, 02 Jul 2026 15:43:29 +0200
-Subject: [PATCH] dmaengine: nbpfaxi: Fix setting channel irqs in probe()
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yGDCmtgW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7D9F1F000E9;
+	Thu,  2 Jul 2026 13:50:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1783000217;
+	bh=koKAdAZQdXaeH8QYPXGHkCRgtQPCc7k7GvdjzySpiuY=;
+	h=Subject:To:Cc:From:Date;
+	b=yGDCmtgWyPhBW4RqEwp+x9uCEWJigponi0PdIX53ZR4AA8lYX3PMWRb2phsODvkxx
+	 YeYL5peYSVnkyCERBMij3h/NS0Di2x6DdBNr3Xrm06LJxTiHJzZs/YWI9Vlp/uqJ2O
+	 qPmee527xKlbv244j5gHV4gZTkS/cTGJs6Z2UObk=
+Subject: FAILED: patch "[PATCH] rpmsg: char: Fix use-after-free on probe error path" failed to apply to 6.1-stable tree
+To: dbgh9129@gmail.com,mathieu.poirier@linaro.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 02 Jul 2026 15:50:28 +0200
+Message-ID: <2026070228-dwelled-nurture-5733@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-upstreaming-nbpfaxi-v1-v1-1-fd8ea8830cea@weidmueller.com>
-X-B4-Tracking: v=1; b=H4sIAAFrRmoC/yXMQQqDMBBA0avIrB2IsbHiVcRF1ImdgjFkVATx7
- qZ2+Rb/nyAUmQSa7IRIOwsvPqHIMxg+1k+EPCaDVrpSb6VxC7JGsjP7CX0fnD0Y9wJVWb2oNMa
- 62kCKQyTHxzNuu79l6780rL8bXNcN7C8/RnoAAAA=
-X-Change-ID: 20260702-upstreaming-nbpfaxi-v1-0364e355af85
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Dan Carpenter <error27@gmail.com>, christian.taedcke-oss@weidmueller.com
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Christian Taedcke <christian.taedcke@weidmueller.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782999813; l=1388;
- i=christian.taedcke@weidmueller.com; s=20260702;
- h=from:subject:message-id;
- bh=Y9B/MscRS+aViEQu67zlX3/v5KCJOOqQmYwRkuMIXkk=;
- b=TSvP0rZyf+DIpaVyWev2dPFYoKXBBM9HKVYYLQQ/m26InhmavFJeRlorKWP9ariFOgOeoXKdP
- jaI36yxRwSsCRZb3bRB0yOyasZQhjQv9fUkHfP2dM+/Fe18iLRjoSVZ
-X-Developer-Key: i=christian.taedcke@weidmueller.com; a=ed25519;
- pk=fVCoBhFV3uMogA2nxIOU/rynNY+O2TDJgWvWjR06TrQ=
-X-Endpoint-Received: by B4 Relay for
- christian.taedcke@weidmueller.com/20260702 with auth_id=847
-X-Original-From: Christian Taedcke <christian.taedcke@weidmueller.com>
-Reply-To: christian.taedcke@weidmueller.com
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-From: Christian Taedcke <christian.taedcke@weidmueller.com>
 
-When one irq is used for errors and each channel gets a dedicated irq,
-the total number of irqs is num_channels + 1. If the error irq is not
-the last entry in irqbuf[] but an earlier one, the loop assigning
-per-channel irqs terminates one iteration too early and the last
-channel is left without an irq.
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Iterate over all collected irqs instead of num_channels so the
-error-irq skip does not shorten the effective channel count.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fixes: 188c6ba1dd92 ("dmaengine: nbpfaxi: Fix memory corruption in probe()")
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 1ff3f528e67d20e2b1483dcaba899dc7832b2e6b
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026070228-dwelled-nurture-5733@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 1ff3f528e67d20e2b1483dcaba899dc7832b2e6b Mon Sep 17 00:00:00 2001
+From: Yuho Choi <dbgh9129@gmail.com>
+Date: Mon, 1 Jun 2026 14:32:47 -0400
+Subject: [PATCH] rpmsg: char: Fix use-after-free on probe error path
+
+rpmsg_chrdev_probe() stores the newly allocated eptdev in the default
+endpoint's priv pointer before calling rpmsg_chrdev_eptdev_add(). If
+rpmsg_chrdev_eptdev_add() then fails, its error path frees eptdev while
+the default endpoint may still dispatch callbacks with the stale priv
+pointer.
+
+Avoid publishing eptdev through the default endpoint until
+rpmsg_chrdev_eptdev_add() succeeds. Messages received before the priv
+pointer is published should be ignored by rpmsg_ept_cb(). Flow-control
+updates can hit rpmsg_ept_flow_cb() in the same window, so make both
+callbacks return success when priv is NULL.
+
+Fixes: bc69d1066569 ("rpmsg: char: Introduce the "rpmsg-raw" channel")
+Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Christian Taedcke <christian.taedcke@weidmueller.com>
----
- drivers/dma/nbpfaxi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Link: https://lore.kernel.org/r/20260601183247.1962010-1-dbgh9129@gmail.com
+Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
 
-diff --git a/drivers/dma/nbpfaxi.c b/drivers/dma/nbpfaxi.c
-index 05d7321629cc..74ff7bd979e2 100644
---- a/drivers/dma/nbpfaxi.c
-+++ b/drivers/dma/nbpfaxi.c
-@@ -1374,7 +1374,7 @@ static int nbpf_probe(struct platform_device *pdev)
- 		if (irqs == num_channels + 1) {
- 			struct nbpf_channel *chan;
+diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+index ca9cf8858a5e..bff5aefee212 100644
+--- a/drivers/rpmsg/rpmsg_char.c
++++ b/drivers/rpmsg/rpmsg_char.c
+@@ -104,6 +104,9 @@ static int rpmsg_ept_cb(struct rpmsg_device *rpdev, void *buf, int len,
+ 	struct rpmsg_eptdev *eptdev = priv;
+ 	struct sk_buff *skb;
  
--			for (i = 0, chan = nbpf->chan; i < num_channels;
-+			for (i = 0, chan = nbpf->chan; i < irqs;
- 			     i++, chan++) {
- 				/* Skip the error IRQ */
- 				if (irqbuf[i] == eirq)
-
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260702-upstreaming-nbpfaxi-v1-0364e355af85
-
-Best regards,
---  
-Christian Taedcke <christian.taedcke@weidmueller.com>
-
++	if (!eptdev)
++		return 0;
++
+ 	skb = alloc_skb(len, GFP_ATOMIC);
+ 	if (!skb)
+ 		return -ENOMEM;
+@@ -124,6 +127,9 @@ static int rpmsg_ept_flow_cb(struct rpmsg_device *rpdev, void *priv, bool enable
+ {
+ 	struct rpmsg_eptdev *eptdev = priv;
+ 
++	if (!eptdev)
++		return 0;
++
+ 	eptdev->remote_flow_restricted = enable;
+ 	eptdev->remote_flow_updated = true;
+ 
+@@ -490,6 +496,7 @@ static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
+ 	struct rpmsg_channel_info chinfo;
+ 	struct rpmsg_eptdev *eptdev;
+ 	struct device *dev = &rpdev->dev;
++	int ret;
+ 
+ 	memcpy(chinfo.name, rpdev->id.name, RPMSG_NAME_SIZE);
+ 	chinfo.src = rpdev->src;
+@@ -502,13 +509,17 @@ static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
+ 	/* Set the default_ept to the rpmsg device endpoint */
+ 	eptdev->default_ept = rpdev->ept;
+ 
++	ret = rpmsg_chrdev_eptdev_add(eptdev, chinfo);
++
++	if (ret)
++		return ret;
+ 	/*
+ 	 * The rpmsg_ept_cb uses *priv parameter to get its rpmsg_eptdev context.
+-	 * Storedit in default_ept *priv field.
++	 * Stored it in default_ept *priv field.
+ 	 */
+ 	eptdev->default_ept->priv = eptdev;
+ 
+-	return rpmsg_chrdev_eptdev_add(eptdev, chinfo);
++	return 0;
+ }
+ 
+ static void rpmsg_chrdev_remove(struct rpmsg_device *rpdev)
 
