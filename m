@@ -1,48 +1,72 @@
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0BB35E1A9;
-	Thu,  2 Jul 2026 11:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EBA42A791
+	for <stable@vger.kernel.org>; Thu,  2 Jul 2026 11:44:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782992008; cv=none; b=Ngb9FJRjMuCUZ86zCq1TE608Icwc2Ql9VZy+3evRRC2aIB0oaqiyqNOOWrQMnBVLkkF+/TWYjzNGK7WVfAqunisuXpsRYovXiIOavlcQjiq/EfQwEOsPPdDw+OhlwkGC1m9K539p9PdC/Ajx5ICGee8S4C9YDvvn6FLPSq/kMIQ=
+	t=1782992688; cv=none; b=DWUquRW5ZqZOVvhjYNuG9EBopsXITRL4w7qgqKV2uWRfx7lqwzePeEEsLmvHSucIRBjqmetlaeRzfSNg2jLYlmqmvh95+v9n33hI3bo9iusvaEhCuZR3bxK/fszw/+30FEJEUgDrA4sHJ9sCvnizGf4bPo8Qs+1z60l+OsQgVkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782992008; c=relaxed/simple;
-	bh=DSiLEAn5xPmd6cvduTjLn/orcK4idVtMJbh8dY0obRI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ct9iUuF/Gdax7tzt/YNlzG7G4hGe4DEjFg3JwBxTseulIWMt2LNGXeLFdgYnbiw3p7QZviK7NPXFOA9Ez1xshIRRT04DymMPj0FWW4ZVEv52HGjqGQ/VbP7xoYo4SIdXrzELE9FPKq4djokjuEqksbi/WbdNlXffZMXuYSZZiD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=ZAw1jAUh; arc=none smtp.client-ip=18.194.254.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1782992688; c=relaxed/simple;
+	bh=JE/4MrGBkc1/iw8fWWnoJx79DYlxdndviPXed+c/nrs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ip1pP3oqptvxCIvcv/sveiH9RkSDJOhBC+NBzcA67DHy3LXkFrrHaIUMHGAFIbKU7d2EAnC5j263IWfheo9R8SRHDCXiM8pQ1wuVYHoT1F2jkmCN9pR32y1WTE2sm/kuyjmc4sKuEXSJ4l26lWjP5F0tklnnGfGGEX0TjUB745U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jKDIP5Iz; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="ZAw1jAUh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1782991976;
-	bh=vcTdDoubVIbYNczx1/biUey51SEWq1ldwdWLBW13qs8=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=ZAw1jAUhXhrwxMQiAdRx/X1N41lH8H35oaOgZszN1XTXsWcDJsQaVWq0XBUlS29YR
-	 +sEMv5HMgHGSLJbILOZFXaUlRSBbRXmFq/monvdOZQ2CqOW/1gd6XWZevfACC7H6tP
-	 3WZTDw8k2opURkEQ7SeHxdSWiRCRsoxp6OPcEodY=
-X-QQ-mid: zesmtpsz9t1782991970ta665f6a2
-X-QQ-Originating-IP: NOClrfKYjb16CBrXfyUYZuIokmrndgP0NGeZvFRimTo=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 02 Jul 2026 19:32:27 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 4999534152803471521
-EX-QQ-RecipientCnt: 7
-From: Wentao Guan <guanwentao@uniontech.com>
-To: linkinjeon@kernel.org
-Cc: smfrench@gmail.com,
-	tristan@talencesecurity.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Guan <guanwentao@uniontech.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: restore DACL size on check_add_overflow() to avoid malformed ACL
-Date: Thu,  2 Jul 2026 19:32:22 +0800
-Message-Id: <20260702113222.228413-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jKDIP5Iz"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2c9b42be8feso17645075ad.2
+        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 04:44:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782992684; x=1783597484; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rZhAVIeup1F6va9atDAIUYP9BVzqJtMjdTx7Wa+aOzI=;
+        b=jKDIP5IzqcQKfytCyrMoV9gaGAwdHxX2IvwWIwcXM3UPAxMJgUntXZSr5td0Kxr4KO
+         hKGkUskwrVUcLcK89FAVtlEdwCOJPmz3gQC+g4MBgRQ58a4KECF8jiwO+nfgURJw+2Ds
+         ZDbH2U99uyo1ppppXAhRRmW9UpZnWyc08C+pfrj8WL7Oo5Jep5ooLi2q1G8xDfHAxK+r
+         R21qKpegzK3AvZxBzhmNMZ2Iu4Ekka+5gt+s3VHco9yl/SfXuDQ09X0l5L9O0qoS1uDb
+         QqSMK4jjyCE1I6JBJrTh764t0ia5jD10TpVOBPPl4m4YoERfhhjnrZ+S5dC27RFtVbu/
+         wVyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782992684; x=1783597484;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=rZhAVIeup1F6va9atDAIUYP9BVzqJtMjdTx7Wa+aOzI=;
+        b=kUxYP2OsEbmnaP9rxvQoFwU0ZUHfVf0Mnj8Vn17cg+GztwGCWtijT9fK+bpz+1lTCR
+         o9tEZxuMMWF/BDYizPx4hDD9QLsMqgtjqy8KFLNF4HmSdX/FqbFxc5dFDVX8r59p6r+W
+         AtP2ZqNNjhoeG1vj9Qqta0McrkUDMyhCkWjymk+MOu9bH8h33OpzFDw92YWedGSfeKXI
+         CF4jX+lSbCXKpOj52OcOK0pzHAtnx3QTCtXo98A4pND0pP5xp85HpASHMG4xZnoEDpV7
+         iRNuYCHCwBUUsXXHpyYiLPKicIeYMj3ATt8SpzKChlsJsz20bD/IbCvrxERuZQZwZiO9
+         Ll5w==
+X-Gm-Message-State: AOJu0YxL4XwxWUs/GQXX1qQPZVJrbSoMtOr1jBpKu7oUpOwXJediarTF
+	b7OgpB3D1aMxTTZoRJSlYdPOtQsJ3nF13Qlnc1OTB2hmjxzoOuFtRSAvJ3Cigw==
+X-Gm-Gg: AfdE7cl1ef6fEJ5c+BhHUgg908lEd4pZJ8W7pqcoWSRHjT6vOZbR9sJ+N05v3dA4x0m
+	KCBlfxDFKdKIVch37CsCaUDDfdLGRpiuh8847S0YlBguzKsE8XL5QarZsCkIkqqip71SKZvINCJ
+	GDtYOOgKPytATFROLNC2ZOuSV3ySFsHItDfsD/W615hlThXuuv79uxkvs3IEE7FyhmZqSSu30ZQ
+	6SlcPAOKaE8qdJCJLOoFgfSPQJKwvOeO0xhfOqFhjX82am7WzSyhOcvXoj3PiO1W38rha3oZ3Xv
+	Ijbvv1wAYpY43Zmje+L5qfns2BQFIbcnsEP+hKVqAft/MYmTy0ws9yAIDjxMrf5HGRqfT5RgD+y
+	NluRnJU7jBpICzP09AuLmhCZT9tBI5XAzn8/O39+ZRil/b/RESVBqCmBy+Z7HaiuJ22PRRQhewL
+	Zpk6w+G77OZmirtM2vzoJ4wClD/CA1Z2zSosvbAA==
+X-Received: by 2002:a17:903:1a27:b0:2c9:dc38:3ec7 with SMTP id d9443c01a7336-2ca7e7579cfmr63288875ad.29.1782992683240;
+        Thu, 02 Jul 2026 04:44:43 -0700 (PDT)
+Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca9a8dadc8sm12332265ad.16.2026.07.02.04.44.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 04:44:42 -0700 (PDT)
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+To: stable@vger.kernel.org
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	Willem de Bruijn <willemb@google.com>
+Subject: [PATCH 7.0.y 1/2] ipv6: flowlabel: take ip6_fl_lock across mem_check and fl_intern
+Date: Thu,  2 Jul 2026 19:44:38 +0800
+Message-Id: <20260702114439.1942588-1-maoyixie.tju@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026051900-nanometer-dropkick-80d8@gregkh>
+References: <2026051900-nanometer-dropkick-80d8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,104 +74,153 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OcJU98wqb2KeoOV3oMoLJR0sj3W88Gawa9ODU6AJi/b/TytwkM1igxSV
-	vvBDhg0b1Z50EBL33n0lPc1J6wIwOWM0vn2UhFl2ozJt+bMrSFWb5fSZINGoBvoWBrZ6MUp
-	L2PQLLXcN4alKP4dmUVm6417x0wrBm83wZwNQxQCAIbd5WE+ynUcYR9sc/Ay/xGAzi3Ssfz
-	i8yhZgllcRbAXcM+S+lToh1qnjCpLo+I+mdsrm39zULOzoMFbEEc+jDpPsxnCgDyw1TVLI4
-	2xbBF42+3kdUzfuP/ZdLlfaoWA6Ym1nWfXAVekpJr/Q8w+Wp8QTVnOZFmX5iRrIUqV7QHik
-	G0Syg4iHs0nf6RNevCY7uInAI+5PcPYGxqUlmXGXeaqFT/+RFGlLgUnrmpgRBRWDiP6G40j
-	OHanLe9Lr1zhaqJonCMtXAUtl8m4bE/mmu4lZnuSrJnvpYlKTuHO7N9P7i+iNXu8yW0ZYwl
-	tlYXppUDp6t5mkAcBlhhxFewPJ9x7a3t6Lzw/3rBEzqcJ5Qzktka2rvKsPT0CUGAGXu4/jj
-	mLX3UrGVczni8g4AEpHA3/3cj0HPEX2XU7Bv0ySwRulQPAP0Hl4GNjdhOV72mWG1C8BLFhx
-	1SHlkENPFO24GpPNXSh9puYOP7wWyTJ2wdrRg8izv9m9RfdhgigVPHFCtqAq/xMFQbpp8e/
-	Zi6+1JxCAm4nWPGRnukrlNf0AQtvTfE9EcYRNqA4XSJGu6ufFS6QlB9vnHcE4yxAo4BVVFx
-	JL91bOKCN/PSpDce3ldNVOmF1E5nnvBbgDMe/s1lqhDle7EwJHi/pK9wQNbO7fGrI5rxkKm
-	sSVHuXzcxAMnN4rQRxfBKCSqKZDeq1sT/DCbu72BotXbuYWf03ZwJm76ArHDc6TYUAJL1zh
-	hmygS81RH9vZ9GxKQ8H8xulLQ5x33nYzQSPycpJwxJGfx0zvLzBNrPRoP1WUvlXa6QxkkMv
-	qgaE1a7wDFOmcxhN8ZRNBH/bbRePbQYvCYNMZ2LjwWpno3e6AKovnNj0664f9FGeG7TC8XY
-	1kMyvIqRSKH0AIkaR6Qb3ZrEZzLK8MoSVwXlc2O+J4qwwOeyF1b7dWSpQ6EphNYrDpphtm6
-	rS05172Hxjg
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
 
-check_add_overflow() unconditionally writes the truncated sum into *d
-even on overflow, per its contract in include/linux/overflow.h.
-The four check_add_overflow() guards in set_posix_acl_entries_dacl()
-and set_ntacl_dacl() break out of the ACE-building loops on overflow,
-but the truncated *size is then consumed downstream at the end of
-set_ntacl_dacl():
+From: Maoyi Xie <maoyi.xie@ntu.edu.sg>
 
-    pndacl->size = cpu_to_le16(le16_to_cpu(pndacl->size) + size);
+mem_check() in net/ipv6/ip6_flowlabel.c reads fl_size without
+holding ip6_fl_lock. fl_intern() takes the lock immediately
+afterwards. The two checks therefore race against concurrent
+fl_intern, ip6_fl_gc and ip6_fl_purge writers, which makes the
+mem_check budget check approximate.
 
-This produces an on-wire NT ACL whose pndacl->size under-reports the
-bytes actually written by the preceding fill_ace_for_sid()/memcpy()
-calls, yielding a malformed ACL that can trigger out-of-bounds reads
-when re-parsed by clients or ksmbd itself.
+Move spin_lock_bh(&ip6_fl_lock) and the matching unlock from
+fl_intern() into its only caller ipv6_flowlabel_get(). The
+mem_check() call now runs under the same critical section as the
+fl_intern() insert, so the budget check is exact.
 
-Restore *size to its pre-addition value on each overflow branch (via
-`*size -= ace_sz` / `size -= nt_ace_size`) so that after the break,
-*size once again holds the cumulative size of the successfully-written
-ACEs. The committed ACL is then truncated-but-self-consistent rather
-than malformed.
+With all writers and the read of fl_size under ip6_fl_lock,
+convert fl_size from atomic_t to plain int. The four sites that
+update or read fl_size are fl_intern (insert path), ip6_fl_gc
+(garbage collector, the !sched check and the per-entry decrement),
+ip6_fl_purge (per-netns purge), and mem_check (budget check), and
+all four now run under ip6_fl_lock.
 
-The ksmbd DACL builders are the only check_add_overflow() sites found
-where an overflow path breaks out of a loop and the destination value
-is consumed afterward. The other nearby break-style cases either
-return -EINVAL on overflow (transport_ipc.c) or break without
-consuming the overflowed destination value afterward (buildid.c).
+This is a prerequisite for adding a per-netns budget alongside
+fl_size. The follow-up patch adds netns_ipv6::flowlabel_count and
+folds it into mem_check().
 
-Assisted-by: atomcode:glm-5.2
-Assisted-by: Codex:gpt-5.5
-
-Fixes: 299f962c0b02 ("ksmbd: use check_add_overflow() to prevent u16 DACL size overflow")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Suggested-by: Willem de Bruijn <willemb@google.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Signed-off-by: Maoyi Xie <maoyi.xie@ntu.edu.sg>
+Link: https://patch.msgid.link/20260506082416.2259567-2-maoyixie.tju@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit 7ce5556f255a680d80daa31b1cedecf7f89e2c22)
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 ---
- fs/smb/server/smbacl.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ net/ipv6/ip6_flowlabel.c | 34 +++++++++++++++++++++-------------
+ 1 file changed, 21 insertions(+), 13 deletions(-)
 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 664b1b4a3233d..943fde8300a01 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -644,6 +644,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
- 		ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED, flags,
- 				pace->e_perm, 0777);
- 		if (check_add_overflow(*size, ace_sz, size)) {
-+			*size -= ace_sz;
- 			kfree(sid);
- 			break;
- 		}
-@@ -658,6 +659,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
- 			ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED,
- 					0x03, pace->e_perm, 0777);
- 			if (check_add_overflow(*size, ace_sz, size)) {
-+				*size -= ace_sz;
- 				kfree(sid);
- 				break;
- 			}
-@@ -703,6 +705,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
- 		ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED, 0x0b,
- 				pace->e_perm, 0777);
- 		if (check_add_overflow(*size, ace_sz, size)) {
-+			*size -= ace_sz;
- 			kfree(sid);
- 			break;
- 		}
-@@ -741,8 +744,10 @@ static void set_ntacl_dacl(struct mnt_idmap *idmap,
- 				break;
+diff --git a/net/ipv6/ip6_flowlabel.c b/net/ipv6/ip6_flowlabel.c
+index c92f98c6f6ec..a8974643195a 100644
+--- a/net/ipv6/ip6_flowlabel.c
++++ b/net/ipv6/ip6_flowlabel.c
+@@ -40,7 +40,7 @@
+ #define FL_HASH_MASK	255
+ #define FL_HASH(l)	(ntohl(l)&FL_HASH_MASK)
  
- 			memcpy((char *)pndace + size, ntace, nt_ace_size);
--			if (check_add_overflow(size, nt_ace_size, &size))
-+			if (check_add_overflow(size, nt_ace_size, &size)) {
-+				size -= nt_ace_size;
- 				break;
-+			}
- 			aces_size -= nt_ace_size;
- 			ntace = (struct smb_ace *)((char *)ntace + nt_ace_size);
- 			num_aces++;
+-static atomic_t fl_size = ATOMIC_INIT(0);
++static int fl_size;
+ static struct ip6_flowlabel __rcu *fl_ht[FL_HASH_MASK+1];
+ 
+ static void ip6_fl_gc(struct timer_list *unused);
+@@ -163,7 +163,7 @@ static void ip6_fl_gc(struct timer_list *unused)
+ 				if (time_after_eq(now, ttd)) {
+ 					*flp = fl->next;
+ 					fl_free(fl);
+-					atomic_dec(&fl_size);
++					fl_size--;
+ 					continue;
+ 				}
+ 				if (!sched || time_before(ttd, sched))
+@@ -172,7 +172,7 @@ static void ip6_fl_gc(struct timer_list *unused)
+ 			flp = &fl->next;
+ 		}
+ 	}
+-	if (!sched && atomic_read(&fl_size))
++	if (!sched && fl_size)
+ 		sched = now + FL_MAX_LINGER;
+ 	if (sched) {
+ 		mod_timer(&ip6_fl_gc_timer, sched);
+@@ -196,7 +196,7 @@ static void __net_exit ip6_fl_purge(struct net *net)
+ 			    atomic_read(&fl->users) == 0) {
+ 				*flp = fl->next;
+ 				fl_free(fl);
+-				atomic_dec(&fl_size);
++				fl_size--;
+ 				continue;
+ 			}
+ 			flp = &fl->next;
+@@ -210,10 +210,10 @@ static struct ip6_flowlabel *fl_intern(struct net *net,
+ {
+ 	struct ip6_flowlabel *lfl;
+ 
++	lockdep_assert_held(&ip6_fl_lock);
++
+ 	fl->label = label & IPV6_FLOWLABEL_MASK;
+ 
+-	rcu_read_lock();
+-	spin_lock_bh(&ip6_fl_lock);
+ 	if (label == 0) {
+ 		for (;;) {
+ 			fl->label = htonl(get_random_u32())&IPV6_FLOWLABEL_MASK;
+@@ -235,8 +235,6 @@ static struct ip6_flowlabel *fl_intern(struct net *net,
+ 		lfl = __fl_lookup(net, fl->label);
+ 		if (lfl) {
+ 			atomic_inc(&lfl->users);
+-			spin_unlock_bh(&ip6_fl_lock);
+-			rcu_read_unlock();
+ 			return lfl;
+ 		}
+ 	}
+@@ -244,9 +242,7 @@ static struct ip6_flowlabel *fl_intern(struct net *net,
+ 	fl->lastuse = jiffies;
+ 	fl->next = fl_ht[FL_HASH(fl->label)];
+ 	rcu_assign_pointer(fl_ht[FL_HASH(fl->label)], fl);
+-	atomic_inc(&fl_size);
+-	spin_unlock_bh(&ip6_fl_lock);
+-	rcu_read_unlock();
++	fl_size++;
+ 	return NULL;
+ }
+ 
+@@ -464,10 +460,14 @@ fl_create(struct net *net, struct sock *sk, struct in6_flowlabel_req *freq,
+ 
+ static int mem_check(struct sock *sk)
+ {
+-	int room = FL_MAX_SIZE - atomic_read(&fl_size);
++	int room;
+ 	struct ipv6_fl_socklist *sfl;
+ 	int count = 0;
+ 
++	lockdep_assert_held(&ip6_fl_lock);
++
++	room = FL_MAX_SIZE - fl_size;
++
+ 	if (room > FL_MAX_SIZE - FL_MAX_PER_SOCK)
+ 		return 0;
+ 
+@@ -692,11 +692,19 @@ static int ipv6_flowlabel_get(struct sock *sk, struct in6_flowlabel_req *freq,
+ 	if (!sfl1)
+ 		goto done;
+ 
++	rcu_read_lock();
++	spin_lock_bh(&ip6_fl_lock);
+ 	err = mem_check(sk);
++	if (err == 0)
++		fl1 = fl_intern(net, fl, freq->flr_label);
++	else
++		fl1 = NULL;
++	spin_unlock_bh(&ip6_fl_lock);
++	rcu_read_unlock();
++
+ 	if (err != 0)
+ 		goto done;
+ 
+-	fl1 = fl_intern(net, fl, freq->flr_label);
+ 	if (fl1)
+ 		goto recheck;
+ 
 -- 
-2.30.2
+2.34.1
 
