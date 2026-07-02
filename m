@@ -1,111 +1,78 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E67992BEC2B;
-	Thu,  2 Jul 2026 15:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E5833E367;
+	Thu,  2 Jul 2026 15:58:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783007697; cv=none; b=OCMeT6vKupjMDU1Tm2figIqmm1ZmCyhZpVO/WMQOzPinf4OWpZznMePzW0o6vks3uvehCdg1oyR3ZYr03EVIzD3rsIL1qwNDaETp960paCkz6MLSv7s3lwkyFOj9SHcGOaBW0akX58HK/0XNyJRExIdy7bXDOPH9tiQcFRDgqoE=
+	t=1783007932; cv=none; b=nT1Imk+v5RH8s1SZo5bSPtwq6ICCYO1kd3oYWyHNSJG8FB0KWChiRJlrcWWelRNnB/eGwAW6g7YoVjWPt+vJID5vNb1oM+TksLgynOMpf6SSK7MVGWoIrI245a88rN4naqCoBeY77WqBYrFfYWbYKExhwe+JIYximGOWNMha4pQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783007697; c=relaxed/simple;
-	bh=cmwFWdIMyxI6lDEfiRQcFFlaEYgTBil4SusP2BvEsOI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SZ2LjxJ+D1loNA+i4ltZpFxaMl8Q75978YJsHA76Rg6xMEvO1xYmD4SAQ5vZfumdRAVfWWTtS/ZCsFDtKog8neBBRf4T8DO2XobCmfVTy6DGwQ7DpfACUxEK9kTbawHph1pvawZ8Y2urOx7jSPJ6gfccTtU8epQNsXk0psyi1Nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=A2+Asl2Y; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1783007932; c=relaxed/simple;
+	bh=ktOLSkM4QNGp+BofIWyIQCjC61aNq1Rwowp/RLsjqi0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Ud0LjxXEro0MsCAPzgsBwntKkt4yWWbV/4Tt5de3Ns4tsMHF/Lx+iChM7MREztLquk10hwuESdCbKhTWDsmvrXPNFIBBw+06zV02NNQu6VkiwDaAJ8rVsrGXRCXsfY5uZ1HLYQnnS204+WaAEoEoMSA7AhGYkuhkQOlU6P3849E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DK9u0G4L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="A2+Asl2Y"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id DFB65842E5;
-	Thu, 02 Jul 2026 17:54:52 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id wDVd5znCqEJH; Thu,  2 Jul 2026 17:54:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1783007692; bh=cmwFWdIMyxI6lDEfiRQcFFlaEYgTBil4SusP2BvEsOI=;
-	h=From:To:Cc:Subject:Date;
-	b=A2+Asl2YrSEPdiSk+v00g9FdmOrlQl3WuCk7MLIgxMeNaZRUpK1xA4zs81V6n8MtL
-	 1zYDZt+Oril2gKWx8ihyHrhSFaGaOGaiB2QDJLHz7CoNQPb1Ez9htehdj6kTXVMWeS
-	 gOrN00SmPSC5X/42SoBhsNqVdzcXQ/BPZE7YgCltZ1qOnbumV3z6OGB06gIJwAzmcL
-	 m7rphyDIVjWS0NIzoiOkVjyUSskPzy/bF/Km6J0chbNX+xH2oovBXMa5ItE2DjR6l1
-	 yQzRWGU7QiYZnn6uksXgonsmuEfehDGL6JdIP6MmVBxU5HVebYrZYRkZyCZeGg4lnJ
-	 QY46oLsFzrmTg==
-From: James Montgomery <james_montgomery@disroot.org>
-To: linux-cifs@vger.kernel.org
-Cc: linkinjeon@kernel.org,
-	smfrench@gmail.com,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	linux-kernel@vger.kernel.org,
-	James Montgomery <james_montgomery@disroot.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: defer destroy_previous_session() until after NTLM authentication
-Date: Thu,  2 Jul 2026 11:54:49 -0400
-Message-ID: <20260702155449.3639773-1-james_montgomery@disroot.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DK9u0G4L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3781F000E9;
+	Thu,  2 Jul 2026 15:58:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783007931;
+	bh=zhi0CQ2SoxC+BtbxZrczEoNYIRXLtoEisvqq87+Gc9k=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=DK9u0G4LxdYDzdX7KkEQJo31HVW1qTC+azJx6ZptlLjsMCkWOxw4Tx13f8SPHH4i2
+	 yhld5Nfc84pApxj9+Y/Hz7Tag38LNF3vI25DAsFAsl9eb0OjRYCP5apo3AwtMt2Wih
+	 3VB768MIygVZLuoNM3nFeei5+59xXKGB2fq6auEYyenYWR5MNrmQjKVpE5A/divVAq
+	 CaJ6QmeFrtToBe6sgcYXatnaTbmZVop5PC9owa2r6Wt3dDiIVQp6PkbQOXTOCOhFgi
+	 yNw1XC5AHRo4Fycmdb5a0lSZNx/af4PFZV9aXQbheeRWuZuW6EC9z/NQQU9pNMAKVr
+	 WAoKp6ONmhzjQ==
+From: Vinod Koul <vkoul@kernel.org>
+To: Frank.Li@kernel.org, absahu@codeaurora.org, 
+ linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: Md Sadre Alam <md.alam@oss.qualcomm.com>, 
+ Lakshmi Sowjanya D <lakshmi.d@oss.qualcomm.com>, 
+ Frank Li <Frank.Li@nxp.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20260615060908.1263171-1-varadarajan.narayanan@oss.qualcomm.com>
+References: <20260615060908.1263171-1-varadarajan.narayanan@oss.qualcomm.com>
+Subject: Re: [PATCH v7] dmaengine: qcom: bam_dma: Fix command element mask
+ field for BAM v1.6.0+
+Message-Id: <178300792825.748656.1093234634497578365.b4-ty@kernel.org>
+Date: Thu, 02 Jul 2026 21:28:48 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
 
-In ntlm_authenticate(), destroy_previous_session() is called using a
-user pointer resolved from the client-supplied NTLM blob username field
-before the NTLMv2 response is validated. An authenticated attacker can
-set the NTLM blob username to match a victim account and set
-PreviousSessionId to the victim's session ID; destroy_previous_session()
-destroys the victim's session while ksmbd_decode_ntlmssp_auth_blob()
-subsequently rejects the request with -EPERM.
 
-Move destroy_previous_session() to after ksmbd_decode_ntlmssp_auth_blob()
-returns success and use sess->user rather than the pre-authentication
-lookup result. This matches the ordering already used by
-krb5_authenticate(), where destroy_previous_session() is called only
-after ksmbd_krb5_authenticate() returns success.
+On Mon, 15 Jun 2026 11:39:08 +0530, Varadarajan Narayanan wrote:
+> BAM version 1.6.0 and later changed the behavior of the mask field in
+> command elements for read operations.
+> 
+> In older BAM versions, or prior implementation assumptions, the mask
+> field was effectively ignored for read commands. However, starting from
+> BAM v1.6.0, the mask field for read commands is repurposed to carry the
+> upper 4 bits of the destination address, enabling support for 36-bit
+> addressing. For write commands, the mask field continues to function as
+> a traditional write mask.
+> 
+> [...]
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Montgomery <james_montgomery@disroot.org>
----
-Note: portions of this patch were suggested by an AI coding assistant
-(Claude Code / Anthropic). The ordering issue was identified via static
-analysis of ntlm_authenticate() and validated empirically using a PoC
-against ksmbd running Linux 7.1.0 in QEMU. The fix was verified by:
-checkpatch.pl --strict (0 errors, 0 warnings), sparse (HEAD, 0 warnings),
-and build test (make fs/smb/server/, clean). The assistant was prompted
-to identify and fix the destroy_previous_session() ordering issue relative
-to NTLMv2 validation, matching the pattern already used in krb5_authenticate().
+Applied, thanks!
 
- fs/smb/server/smb2pdu.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+[1/1] dmaengine: qcom: bam_dma: Fix command element mask field for BAM v1.6.0+
+      commit: 867621ba203027338b525af6729719c544135336
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 5859fa68bb84..1ce13b23cf6c 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -1670,10 +1670,7 @@ static int ntlm_authenticate(struct ksmbd_work *work,
- 		return -EPERM;
- 	}
- 
--	/* Check for previous session */
- 	prev_id = le64_to_cpu(req->PreviousSessionId);
--	if (prev_id && prev_id != sess->id)
--		destroy_previous_session(conn, user, prev_id);
- 
- 	if (sess->state == SMB2_SESSION_VALID) {
- 		/*
-@@ -1712,6 +1709,9 @@ static int ntlm_authenticate(struct ksmbd_work *work,
- 		}
- 	}
- 
-+	if (prev_id && prev_id != sess->id)
-+		destroy_previous_session(conn, sess->user, prev_id);
-+
- 	/*
- 	 * If session state is SMB2_SESSION_VALID, We can assume
- 	 * that it is reauthentication. And the user/password
+Best regards,
 -- 
-2.47.3
+~Vinod
+
 
