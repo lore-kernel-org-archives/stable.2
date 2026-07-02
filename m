@@ -1,286 +1,691 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from devianza.investici.org (devianza.investici.org [198.167.222.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CDA35F179;
-	Thu,  2 Jul 2026 17:49:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1880633D4EC;
+	Thu,  2 Jul 2026 18:13:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.167.222.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783014586; cv=none; b=cxmm7au+1nmy50b6nhJLK+/GjkF2dlUVtoFhLb+NGqoCujkcYCoTw+kYkXylQWKkoEhoVBnWC8v81B4sHde3wmAD0xZK4DGKKeLEn5ydNjZ11rMbHf+tWUZIBz6Xyv8qkIaEoChdnyk0Lse3k2yjxVsBVT6IhdLh3BbEgQBINT0=
+	t=1783016019; cv=none; b=HCRfoSGv7UzZH/PfWy1QxEWZyTHFGik6Nv4OP+gZuu23UGHTRPFJBA8eRaJQhmXLHDNnXjBChMJIma7DRSmUQZehJ72MBryyMRfjBXxNDcnoY0/TcVHMJB5VfouxeDz0oNecXLwdmz5zP4DjI6pf+egAlykmt1adq9A/JkZlqZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783014586; c=relaxed/simple;
-	bh=HulFaU5N9XffYtGHyYz+8oE2bb35HAROZbyr78/rhyQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u3Yoh7Udwgq20A94LZzG+/9WGEbE4TJwmR6NGNAX5jw+HAYuzldTiaxj+arKdIf/ZVd9EJY/itO0QNDsWOjRcg3O0qxSw2V3ORO+08fQy/z1Utyy1xOrJX0+EMQjAsIr7iazDf9mSxfJFfR9B0rpgoNdpHaeSveaum2LTmVj94o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eS77nEYO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783016019; c=relaxed/simple;
+	bh=ub5U5Slcr22Uyzzlejkfq3s5FZb5yuMVlTsdXqwoMAI=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=Dic4kyUcN5sO5OfCWvb/6t8EHeASryPdKgLQNFTrXqe5v7xs4BZZOR+QmUbt+EQ7pEPoL2YvigXPGpTgY5i62ezqEvkTpJbb3Pk7TrXkXHZVoX5+6YTLrc/vkDg5ol+eF+7Y2kqIyroqgwsKkOxLLMkCsVmUVHMl1cJ7sCtAShM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=h11TFcjf; arc=none smtp.client-ip=198.167.222.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eS77nEYO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7393F1F000E9;
-	Thu,  2 Jul 2026 17:49:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783014585;
-	bh=wuCIBX5SKHbYxpJ28hHw2u9p1C37eIECB4uw4lnxHb8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eS77nEYOKAx15MNcfxh3mmjiOoNqjHjvbu58LpEIZnqMfmdHX15eBZ0mkhikJcDl/
-	 tP4vIFxQbFD2GzOd37ePE1DRxEY/pdgBfqyusoa3LIhU1HDeyJoKx8sECR0dXAbwj6
-	 SKZGjK6FxJPXBg5c91F/GR6iLSBNoFSNfMZ+vbjVBwzoA24Io+ulZ2nqwXoH/j9Wnl
-	 jpNTcYvD7IihrnGPEnCBl0hbLFG1RGgapV4SsGoPbnDvBxCVSdE7OXQXGYkgVbgrsB
-	 b3caRgLyJ0IETP4mgPER75qHRXXZClI8NazztQSybbHie9vOe9eIwqTvLxI8GBAuSh
-	 VbsJeulNaTsyQ==
-Date: Thu, 2 Jul 2026 18:49:34 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Klara Modin <klarasmodin@gmail.com>
-Cc: Lance Yang <lance.yang@linux.dev>, david@kernel.org, 
-	richard.weiyang@gmail.com, akpm@linux-foundation.org, riel@surriel.com, liam@infradead.org, 
-	vbabka@kernel.org, harry@kernel.org, jannh@google.com, balbirs@nvidia.com, 
-	sj@kernel.org, ziy@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [Patch mm-hotfixes v5] mm/page_vma_mapped: fix device-private
- PMD handling
-Message-ID: <akai-Iw5okhFPXUq@lucifer>
-References: <d4e4180e-dcdf-40e6-b5a2-2ac55f4aecc4@kernel.org>
- <20260701163356.22936-1-lance.yang@linux.dev>
- <akVDNLGaCfr-PF8K@soda.int.kasm.eu>
+	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="h11TFcjf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
+	s=stigmate; t=1783016007;
+	bh=FxsLMBtnbEMHfYtH6sL2Gn7Yq7J6SKVu65F4DcQd6Vg=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=h11TFcjfUi9mHZq41xzQqXfwpoMVnwksW52qt3V4Vd02fD5FyQLVEyygMYpCCl31l
+	 94HCnAlC/ubfNXkR7TKlShc0VYjs4bdRVl+U1ZyPelp9Z6peABRVpK+v4HdzX1u4y8
+	 LqOEEGW4JWdlOK6B5TJOB8ufaH9aOQbp+juBUJig=
+Received: from mx2.investici.org (unknown [127.0.0.1])
+	by devianza.investici.org (Postfix) with ESMTP id 4grlPM1TdTz6vNX;
+	Thu, 02 Jul 2026 18:13:27 +0000 (UTC)
+Received: by mx2.investici.org (Postfix) id 4grlPL2KCqz4y2q;
+	Thu, 02 Jul 2026 18:13:26 +0000 (UTC)
+Date: Thu, 02 Jul 2026 19:13:26 +0100
+From: Bradley Morgan <include@grrlz.net>
+To: Petr Mladek <pmladek@suse.com>
+CC: Feng Tang <feng.tang@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_4/4=5D_panic=3A_use_sys=5Finfo=5Fwi?=
+ =?US-ASCII?Q?th=5Ffilter=28=29_to_avoid_duplicate_backtraces?=
+In-Reply-To: <akYq1YaCpZ0b4SBS@pathway.suse.cz>
+References: <20260625152558.7450-1-include@grrlz.net> <20260625152558.7450-5-include@grrlz.net> <aj5TNB8cRtMNTtIT@pathway.suse.cz> <aj5tFiwhRqPkAkqU@pathway.suse.cz> <akJZxCTlLcwubqi2@U-2FWC9VHC-2323.local> <E482A23D-4E1C-42C0-9D07-83C6CDFD1546@grrlz.net> <akYq1YaCpZ0b4SBS@pathway.suse.cz>
+Message-ID: <EC1E5A79-524A-45C2-9FE8-964EB0E18D76@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <akVDNLGaCfr-PF8K@soda.int.kasm.eu>
 
-On Wed, Jul 01, 2026 at 06:46:27PM +0200, Klara Modin wrote:
-> On 2026-07-02 00:33:56 +0800, Lance Yang wrote:
-> >
-> > On Wed, Jul 01, 2026 at 05:36:33PM +0200, David Hildenbrand (Arm) wrote:
-> > >On 7/1/26 16:33, Klara Modin wrote:
-> > >> Hi,
-> >
-> > Hi,
-> >
-> > [...]
-> > >>
-> > >> This results in a build bug for my Raspberry Pi 1:
-> >
-> > Thanks for reporting this!
-> >
-> > >>  In file included from <command-line>:
-> > >>  In function ‘check_pmd’,
-> > >>      inlined from ‘page_vma_mapped_walk’ at /home/klara/git/linux/trees/bisect/mm/page_vma_mapped.c:256:10:
-> > >>  /home/klara/git/linux/trees/bisect/include/linux/compiler_types.h:702:45: error: call to ‘__compiletime_assert_433’ declared with attribute error: BUILD_BUG failed
-> > >>    702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-> > >>        |                                             ^
-> > >>  /home/klara/git/linux/trees/bisect/include/linux/compiler_types.h:683:25: note: in definition of macro ‘__compiletime_assert’
-> > >>    683 |                         prefix ## suffix();                             \
-> > >>        |                         ^~~~~~
-> > >>  /home/klara/git/linux/trees/bisect/include/linux/compiler_types.h:702:9: note: in expansion of macro ‘_compiletime_assert’
-> > >>    702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-> > >>        |         ^~~~~~~~~~~~~~~~~~~
-> > >>  /home/klara/git/linux/trees/bisect/include/linux/build_bug.h:40:37: note: in expansion of macro ‘compiletime_assert’
-> > >>     40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-> > >>        |                                     ^~~~~~~~~~~~~~~~~~
-> > >>  /home/klara/git/linux/trees/bisect/include/linux/build_bug.h:60:21: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-> > >>     60 | #define BUILD_BUG() BUILD_BUG_ON_MSG(1, "BUILD_BUG failed")
-> > >>        |                     ^~~~~~~~~~~~~~~~
-> > >>  /home/klara/git/linux/trees/bisect/include/linux/huge_mm.h:113:28: note: in expansion of macro ‘BUILD_BUG’
-> > >>    113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
-> > >>        |                            ^~~~~~~~~
-> > >>  /home/klara/git/linux/trees/bisect/include/linux/huge_mm.h:117:26: note: in expansion of macro ‘HPAGE_PMD_SHIFT’
-> > >>    117 | #define HPAGE_PMD_ORDER (HPAGE_PMD_SHIFT-PAGE_SHIFT)
-> > >>        |                          ^~~~~~~~~~~~~~~
-> > >>  /home/klara/git/linux/trees/bisect/include/linux/huge_mm.h:118:26: note: in expansion of macro ‘HPAGE_PMD_ORDER’
-> > >>    118 | #define HPAGE_PMD_NR (1<<HPAGE_PMD_ORDER)
-> > >>        |                          ^~~~~~~~~~~~~~~
-> > >>  /home/klara/git/linux/trees/bisect/mm/page_vma_mapped.c:142:20: note: in expansion of macro ‘HPAGE_PMD_NR’
-> > >>    142 |         if ((pfn + HPAGE_PMD_NR - 1) < pvmw->pfn)
-> > >>        |                    ^~~~~~~~~~~~
-> > >>
-> > >> bisect log:
-> > >>
-> > >>  # bad: [be5c93fa674f0fc3c8f359c2143abce6bbb422e6] Add linux-next specific files for 20260630
-> > >>  git bisect start 'HEAD'
-> > >>  # status: waiting for 'good' commit(s), 'bad' commit known
-> > >>  # good: [dc59e4fea9d83f03bad6bddf3fa2e52491777482] Linux 7.2-rc1
-> > >>  git bisect good dc59e4fea9d83f03bad6bddf3fa2e52491777482
-> > >>  # bad: [6148219e90732fd06f5d7a498bda974e6a43ab4b] Merge branch 'nand/next' of https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git
-> > >>  git bisect bad 6148219e90732fd06f5d7a498bda974e6a43ab4b
-> > >>  # bad: [e0326ebe10191447ab8fa2e904080df7b743765e] Merge branch 'for-next' of https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git
-> > >>  git bisect bad e0326ebe10191447ab8fa2e904080df7b743765e
-> > >>  # bad: [fbc9c5ac47cef5a2b04aef30c8e990b32dcf2548] Merge branch 'hwmon' of https://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git
-> > >>  git bisect bad fbc9c5ac47cef5a2b04aef30c8e990b32dcf2548
-> > >>  # bad: [e488171f6f6df6fc899a355079665fdb3c50b0e3] Merge branch 'for-linus' of https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
-> > >>  git bisect bad e488171f6f6df6fc899a355079665fdb3c50b0e3
-> > >>  # bad: [60db0fcb8fc9d80ac0b63041c632b41a311a45f1] Merge branch 'fs-current' of linux-next
-> > >>  git bisect bad 60db0fcb8fc9d80ac0b63041c632b41a311a45f1
-> > >>  # good: [51021d260d682aa17b3533848a99160ab83e0c93] Merge branch 'vfs.fixes' of https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-> > >>  git bisect good 51021d260d682aa17b3533848a99160ab83e0c93
-> > >>  # good: [ded56474db6552260786a65898322464b72c7540] mm: a second pagecache maintainer
-> > >>  git bisect good ded56474db6552260786a65898322464b72c7540
-> > >>  # good: [6c893b948351d42cfc3761cc746ab5b3d03ee7f3] Merge branch 'misc-7.2' into next-fixes
-> > >>  git bisect good 6c893b948351d42cfc3761cc746ab5b3d03ee7f3
-> > >>  # good: [bfcc55a14179495b0c41408908fd7b9d7785c694] lib: test_hmm: use device devt for coherent device range selection
-> > >>  git bisect good bfcc55a14179495b0c41408908fd7b9d7785c694
-> > >>  # good: [a27318567c92ba5482906d047e71a7aa4fd01889] Merge branch 'fixes' of https://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs.git
-> > >>  git bisect good a27318567c92ba5482906d047e71a7aa4fd01889
-> > >>  # bad: [6887a39652cdfd4cfd3b0962662c9cbc26ce5252] mm/page_vma_mapped: fix device-private PMD handling
-> > >>  git bisect bad 6887a39652cdfd4cfd3b0962662c9cbc26ce5252
-> > >>  # good: [2cc6bd0efc264b9ac760c2bc74dff4f521a680a1] MAINTAINERS: s/SeongJae/SJ/
-> > >>  git bisect good 2cc6bd0efc264b9ac760c2bc74dff4f521a680a1
-> > >>  # first 'bad' commit: [6887a39652cdfd4cfd3b0962662c9cbc26ce5252] mm/page_vma_mapped: fix device-private PMD handling
-> > >>
-> > >>>
-> > >>> Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
-> > >>> Cc: <stable@vger.kernel.org>
-> > >>> Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
-> > >>> Suggested-by: David Hildenbrand <david@kernel.org>
-> > >>> Cc: David Hildenbrand <david@kernel.org>
-> > >>> Cc: Balbir Singh <balbirs@nvidia.com>
-> > >>> Cc: SeongJae Park <sj@kernel.org>
-> > >>> Cc: Zi Yan <ziy@nvidia.com>
-> > >>> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> > >>> Cc: Lance Yang <lance.yang@linux.dev>
-> > >>>
-> > >>> ---
-> > >>> v5:
-> > >>>   * put device-private pmd handling along with the other two cases
-> > >>>   * remove thp_migration_supported()
-> > >>> v4: https://lore.kernel.org/all/20260624065353.1622-1-richard.weiyang@gmail.com/T/#u
-> > >>>   * refine subject and commit log based on Lorenzo's suggestion
-> > >>>   * put pmd device-private entry handling in its own if branch,
-> > >>>     suggested by Lorenzo
-> > >>>
-> > >>> v3:
-> > >>>   * remove cleanup part, only fix the issue for device-private entry
-> > >>>   * refine user effect description based on Lorenzo's suggestion
-> > >>>
-> > >>> v2: https://lore.kernel.org/all/20260616063436.20455-1-richard.weiyang@gmail.com/T/#u
-> > >>>   * specify the possible error case of current code and user visible effect
-> > >>>   * besides fix, cleanup the pmd entry handling based on David's suggestion
-> > >>>
-> > >>> v1: https://lore.kernel.org/linux-mm/20260508013728.21285-1-richard.weiyang@gmail.com/
-> > >>> ---
-> > >>>  mm/page_vma_mapped.c | 30 ++++++++++++++++--------------
-> > >>>  1 file changed, 16 insertions(+), 14 deletions(-)
-> > >>>
-> > >>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
-> > >>> index 2ccbabfb2cc1..2d6c58488e3a 100644
-> > >>> --- a/mm/page_vma_mapped.c
-> > >>> +++ b/mm/page_vma_mapped.c
-> > >>> @@ -243,21 +243,30 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
-> > >>>  		 */
-> > >>>  		pmde = pmdp_get_lockless(pvmw->pmd);
-> > >>>
-> > >>> -		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
-> > >>> +		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
-> > >>> +		    pmd_is_device_private_entry(pmde)) {
-> > >>>  			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
-> > >>>  			pmde = *pvmw->pmd;
-> > >>> -			if (!pmd_present(pmde)) {
-> > >>> +			if (pmd_is_migration_entry(pmde)) {
-> > >>>  				softleaf_t entry;
-> > >>>
-> > >>> -				if (!thp_migration_supported() ||
-> > >>> -				    !(pvmw->flags & PVMW_MIGRATION))
-> > >>> +				if (!(pvmw->flags & PVMW_MIGRATION))
-> > >>>  					return not_found(pvmw);
-> > >>>  				entry = softleaf_from_pmd(pmde);
-> > >>> +				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
-> > >>> +					return not_found(pvmw);
-> > >>> +				return true;
-> > >>> +			} else if (pmd_is_device_private_entry(pmde)) {
-> > >>> +				softleaf_t entry;
-> > >>>
-> > >>
-> > >>> -				if (!softleaf_is_migration(entry) ||
-> > >>> -				    !check_pmd(softleaf_to_pfn(entry), pvmw))
-> > >>
-> > >> My only guess here would be that the compiler evaluates
-> > >> !softleaf_is_migration(entry) to always be true and optimises away the
-> > >> !check_pmd(softleaf_to_pfn(entry), pvmw) which is why this worked
-> > >> before?
-> > >
-> > >Weird, we enter this path only with
-> > >
-> > >pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
-> > >pmd_is_device_private_entry(pmde)
-> > >
-> > >If any one of these would compile for !CONFIG_TRANSPARENT_HUGEPAGE that would be
-> > >odd.
-> > >
-> > >pmd_is_device_private_entry() is hard-coded to false unless
-> > >CONFIG_ARCH_ENABLE_THP_MIGRATION. Which is only selected with
-> > >ARCH_ENABLE_THP_MIGRATION.
-> > >
-> > >pmd_trans_huge() as well.
-> > >
-> > >Maybe it's struggling with pmd_is_migration_entry() on some (older) compilers?
-> > >(not innlining stuff and not properly optimizing it out).
+On July 2, 2026 10:09:41 AM GMT+01:00, Petr Mladek <pmladek@suse.com>
+wrote:
+>On Mon 2026-06-29 13:54:18, Bradley Morgan wrote:
+>> On 29 June 2026 12:40:52 BST, Feng Tang <feng.tang@linux.alibaba.com>
+>> wrote:
+>> >On Fri, Jun 26, 2026 at 02:14:14PM +0200, Petr Mladek wrote:
+>> >> On Fri 2026-06-26 12:23:50, Petr Mladek wrote:
+>> >> > On Thu 2026-06-25 15:25:58, Bradley Morgan wrote:
+>> >> > > panic_other_cpus_shutdown() handles SYS_INFO_ALL_BT before
+>stopping
+>> >the
+>> >> > > other CPUs. Do not ask sys_info() to handle that bit again later
+>in
+>> >the
+>> >> > > panic path.
+>> >> > > 
+>> >> > > Use sys_info_with_filter() so panic_print=all_bt does not request
+>> >more
+>> >> > > output after the CPUs are stopped.
+>> >> > > 
+>> >> > > Fixes: a9af76a78760 ("watchdog: add sys_info sysctls to dump sys
+>> >info on system lockup")
+>> >> > > Cc: stable@vger.kernel.org
+>> >> > > Signed-off-by: Bradley Morgan <include@grrlz.net>
+>> >> > > ---
+>> >> > >  kernel/panic.c | 2 +-
+>> >> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+>> >> > > 
+>> >> > > diff --git a/kernel/panic.c b/kernel/panic.c
+>> >> > > index 213725b612aa..eb842823df61 100644
+>> >> > > --- a/kernel/panic.c
+>> >> > > +++ b/kernel/panic.c
+>> >> > > @@ -680,7 +680,7 @@ void vpanic(const char *fmt, va_list args)
+>> >> > >  	 */
+>> >> > >  	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
+>> >> > >  
+>> >> > > -	sys_info(panic_print);
+>> >> > > +	sys_info_with_filter(panic_print, SYS_INFO_ALL_BT);
+>> >> > 
+>> >> > Hmm, this prevents printing backtraces from all CPUs completely.
+>> >> > But what if they were not printed?
+>> >> > 
+>> >> > They might be printed by:
+>> >> > 
+>> >> > static void panic_other_cpus_shutdown(bool crash_kexec)
+>> >> > {
+>> >> > 	if (panic_print & SYS_INFO_ALL_BT)
+>> >> > 		panic_trigger_all_cpu_backtrace();
+>> >> > 
+>> >> > [...]
+>> >> > }
+>> >> > 
+>> >> > But it checks only "panic_print" variable. It won't do anything
+>> >> > when (panic_print == 0).
+>> >> > 
+>> >> > In this case, we might still want to print the backraces when
+>> >> > SYS_INFO_ALL_BT is set in kernel_si_info.
+>> >> > 
+>> >> > >  	kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
+>> >> > 
+>> >> > Of course, we might fix panic_other_cpus_shutdown() to check also
+>> >> > kernel_si_info.
+>> >> > 
+>> >> > But it all becomes very hairy. We have several levels:
+>> >> > 
+>> >> >    + watchdog-all_bt-specific option, e.g.
+>> >sysctl_hardlockup_all_cpu_backtrace
+>> >> > 
+>> >> >    + watchdog-specific si_info preferences, e.g. hardlockup_si_mask
+>> >> > 
+>> >> >    + panic-specific si_info: panic_print
+>> >> > 
+>> >> >    + universal fallback for any layer: kernel_si_info
+>> >> > 
+>> >> > Now, we try to check all these variables back and forth to
+>> >> > trigger all backtraces or to avoid triggering them.
+>> >> > And it clearly does not work well and the code is more and more
+>> >> > hairy.
+>> >> > 
+>> >> > I think about another approach. The word "waterfall" comes to my
+>mind.
+>> >> > Instead of checking all the settings back and forth, let's process
+>> >> > each setting one by one and just remember what has been done and
+>> >> > skip this in the next level.
+>> >> > 
+>> >> > All the si_info actions seems to dump a global system state.
+>> >> > So, it would make sense to remember the state in a global variable
+>> >> > even when it might be modified by more CPUs in parallel.
+>> >> > 
+>> >> > I am going to think more about it.
+>> >> 
+>> >> I have created a POC using Gemini. I haven't tested it.
+>> >> But it looks acceptable. And the logic seems to be more
+>> >> straightforward.
+>> >> 
+>> >> One drawback is that it requires adding the _reset()
+>> >> call for all sys_info() callers. It is fine in principle
+>> >> but it might complicate back-porting because all changes
+>> >> have to be done in one patch.
+>> >> 
+>> >> But honestly, this is a nice to have fix. Most people could
+>> >> live happily without it.
+>> >> 
+>> >> From 3c66436d9978030845a96bfaedd6b914536e2ac4 Mon Sep 17 00:00:00
+>2001
+>> >> From: Petr Mladek <pmladek@suse.com>
+>> >> Date: Fri, 26 Jun 2026 13:55:41 +0200
+>> >> Subject: [POC] sys_info: Introduce state-tracking APIs to prevent
+>> >duplicate
+>> >>  backtraces
+>> >> 
+>> >> In watchdog, panic, and hung task detection scenarios, sys_info() can
+>> >> be called multiple times or alongside direct backtrace triggers like
+>> >> trigger_allbutcpu_cpu_backtrace(). This results in identical
+>backtraces
+>> >> being dumped repeatedly from all CPUs, cluttering the kernel log and
+>> >> delaying or obscuring critical debug details.
+>> >> 
+>> >> Introduce a state tracking bitmask and associated helpers:
+>> >> - sys_info_done(mask): Marks specific sys_info bits as already
+>printed.
+>> >> - sys_info_reset(): Resets the tracking state.
+>> >> - sys_info_is_done(mask): Checks if all bits in the mask have been
+>> >printed.
+>> >> 
+>> >> Update sys_info() to automatically filter out already printed bits
+>> >> using this state. Integrate these APIs with the generic hardlockup
+>> >> and softlockup watchdogs, the PowerPC watchdog, the hung task
+>detector,
+>> >> and the panic core. This ensures that each piece of system
+>information
+>> >> and backtrace output is printed at most once per lockup/panic event,
+>> >> and the state is reset cleanly when a lockup does not trigger a
+>panic.
+>> >> 
+>> >> Races between sys_info() callers are ignored. It should be acceptable
+>> >> because the output from various watchdogs has never been
+>synchronized.
+>> >> And panic() never returns.
+>> >> 
+>> >> Assisted-by: gemini-1.5-flash
+>> >> Signed-off-by: Petr Mladek <pmladek@suse.com>
+>> >
+>> >Yep. There are cases that people want panic on task-hung or sw/hw
+>lockup,
+>> >and this could remove much duplication of sys info dump, thanks!
+>> >
+>> >Reviewed-by: Feng Tang <feng.tang@linux.alibaba.com>
+>> 
+>> Thanks,
+>> 
+>> im feeling a new file to do all the force panic jazz, but putting tape
+>> on sys_info.c isn't bd either.
 >
-> It's a GCC 16 cross-compiler for armv6 so I wouldn't call it old :)
+>I wonder how to move forward with this.
 >
-> > >
-> > >The whole conditional must be optimized out.
-> >
-> > Right. Kinda weird if compiler didn't fold
-> >
-> > pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
-> > pmd_is_device_private_entry(pmde)
-> >
-> > away here ...
-> >
-> > >We could check for IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) right at the start
-> > >to make it easier for the compiler:
-> >
-> > +1, explicit THP guard should do the trick :)
-> >
-> > >if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) &&
-> > >    (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
-> > >     pmd_is_device_private_entry(pmde))) {
-> > >
-> > >
-> >
-> > Klara, could you try with this change and see if it fixes the build?
-> >
-> > Thanks, Lance
+>Honestly, I am not sure what exactly you mean by creating another
+>API for tracking the reports so I could not judge it. Feel free
+>to sent some POC.
 >
-> This does indeed make it build.
-
-Hmm this is pretty ugly though.
-
-softleaf_is_migration() is a bit-test so I don't think that's the issue.
-
-I think the issue here is thp_migration_supported() that's what's needed here.
-
-So maybe
-
--				if (!thp_migration_supported() ||
--				    !(pvmw->flags & PVMW_MIGRATION))
-+				if (!(pvmw->flags & PVMW_MIGRATION))
-
-Should just be kept as it is or:
+>Otherwise, I would go with my proposal to remember the printed states
+>by the sys_info API. I am not sure whether I should send a proper
+>patch or you would like to somehow improve it.
+>
+>Best Regards,
+>Petr
+>
 
 
-+#ifdef CONFIG_ARCH_ENABLE_THP_MIGRATION
- static inline bool pmd_is_migration_entry(pmd_t pmd)
+sup petr, here's my poc
+
+
+This should make my entire thing make sense
+
+From eb587ed749ff5993c517f29799b369185c5ee7d8 Mon Sep 17 00:00:00 2001
+From: Bradley Morgan <include@grrlz.net>
+Date: Thu, 2 Jul 2026 18:09:23 +0000
+Subject: [POC] sys_info: Introduce incident state-tracking to prevent
+ duplicate diagnostics
+
+In watchdog, panic, and hung task detection scenarios, sys_info()
+can be called multiple times or alongside direct debug output
+functions (like trigger_allbutcpu_cpu_backtrace(), print_modules(),
+print_irqtrace_events(), and dump_stack()). This leads to identical
+diagnostics and stack traces being dumped repeatedly, cluttering the
+kernel log and delaying critical panics.
+
+Introduce a state tracking bitmask and helpers in a new file,
+lib/sys_info_filter.c:
+- sys_info_filter_and_set(mask): Atomically tests which bits in a mask
+  have not yet been printed during the current incident, marks them as
+  printed, and returns that subset.
+- sys_info_reset(): Clears the printed mask state.
+
+Add SYS_INFO_MODULES, SYS_INFO_IRQTRACE, and SYS_INFO_STACK flags to
+include/linux/sys_info.h, and handle them inside sys_info's diagnostic
+dispatch.
+
+Update the watchdogs, hung task detector, and panic core to call
+sys_info_filter_and_set() to deduplicate their diagnostic printouts, and
+sys_info_reset() when a warning incident concludes (e.g., when a stuck
+CPU recovers, or a new hung task check round begins).
+
+This ensures each piece of system diagnostic is printed at most once per
+lockup/panic event, preventing console log spam.
+
+Assisted-by: Gemini:gemini-3.5-flash
+Signed-off-by: Bradley Morgan <include@grrlz.net>
+---
+ arch/powerpc/kernel/watchdog.c |  21 +++++-
+ include/linux/sys_info.h       |   6 ++
+ kernel/hung_task.c             |   4 +-
+ kernel/panic.c                 |   9 ++-
+ kernel/watchdog.c              |  24 ++++++-
+ lib/Makefile                   |   2 +-
+ lib/sys_info.c                 |  38 ++---------
+ lib/sys_info_filter.c          | 120 +++++++++++++++++++++++++++++++++
+ 8 files changed, 184 insertions(+), 40 deletions(-)
+ create mode 100644 lib/sys_info_filter.c
+
+diff --git a/arch/powerpc/kernel/watchdog.c b/arch/powerpc/kernel/watchdog.c
+index c40c69368476..31035e28676a 100644
+--- a/arch/powerpc/kernel/watchdog.c
++++ b/arch/powerpc/kernel/watchdog.c
+@@ -160,6 +160,10 @@ static void wd_lockup_ipi(struct pt_regs *regs)
+ 	else
+ 		dump_stack();
+ 
++	/* Mark what we already printed so panic() won't repeat it. */
++	sys_info_filter_and_set(SYS_INFO_MODULES | SYS_INFO_IRQTRACE |
++				SYS_INFO_STACK);
++
+ 	/*
+ 	 * __wd_nmi_output must be set after we printk from NMI context.
+ 	 *
+@@ -238,7 +242,8 @@ static void watchdog_smp_panic(int cpu)
+ 
+ 	if (sysctl_hardlockup_all_cpu_backtrace ||
+ 	    (hardlockup_si_mask & SYS_INFO_ALL_BT)) {
+-		trigger_allbutcpu_cpu_backtrace(cpu);
++		if (sys_info_filter_and_set(SYS_INFO_ALL_BT))
++			trigger_allbutcpu_cpu_backtrace(cpu);
+ 		cpumask_clear(&wd_smp_cpus_ipi);
+ 	} else {
+ 		/*
+@@ -254,6 +259,8 @@ static void watchdog_smp_panic(int cpu)
+ 	sys_info(hardlockup_si_mask & ~SYS_INFO_ALL_BT);
+ 	if (hardlockup_panic)
+ 		nmi_panic(NULL, "Hard LOCKUP");
++	else
++		sys_info_reset();
+ 
+ 	wd_end_reporting();
+ 
+@@ -416,15 +423,23 @@ DEFINE_INTERRUPT_HANDLER_NMI(soft_nmi_interrupt)
+ 		print_irqtrace_events(current);
+ 		show_regs(regs);
+ 
++		/* Mark what we already printed so panic() won't repeat it. */
++		sys_info_filter_and_set(SYS_INFO_MODULES | SYS_INFO_IRQTRACE |
++					SYS_INFO_STACK);
++
+ 		xchg(&__wd_nmi_output, 1); // see wd_lockup_ipi
+ 
+ 		if (sysctl_hardlockup_all_cpu_backtrace ||
+-		    (hardlockup_si_mask & SYS_INFO_ALL_BT))
+-			trigger_allbutcpu_cpu_backtrace(cpu);
++		    (hardlockup_si_mask & SYS_INFO_ALL_BT)) {
++			if (sys_info_filter_and_set(SYS_INFO_ALL_BT))
++				trigger_allbutcpu_cpu_backtrace(cpu);
++		}
+ 
+ 		sys_info(hardlockup_si_mask & ~SYS_INFO_ALL_BT);
+ 		if (hardlockup_panic)
+ 			nmi_panic(regs, "Hard LOCKUP");
++		else
++			sys_info_reset();
+ 
+ 		wd_end_reporting();
+ 	}
+diff --git a/include/linux/sys_info.h b/include/linux/sys_info.h
+index a5bc3ea3d44b..f5a1b699143b 100644
+--- a/include/linux/sys_info.h
++++ b/include/linux/sys_info.h
+@@ -16,8 +16,14 @@
+ #define SYS_INFO_PANIC_CONSOLE_REPLAY	0x00000020
+ #define SYS_INFO_ALL_BT			0x00000040
+ #define SYS_INFO_BLOCKED_TASKS		0x00000080
++#define SYS_INFO_MODULES		0x00000100
++#define SYS_INFO_IRQTRACE		0x00000200
++#define SYS_INFO_STACK			0x00000400
+ 
+ void sys_info(unsigned long si_mask);
++unsigned long sys_info_effective_mask(unsigned long mask);
++unsigned long sys_info_filter_and_set(unsigned long si_mask);
++void sys_info_reset(void);
+ unsigned long sys_info_parse_param(char *str);
+ 
+ #ifdef CONFIG_SYSCTL
+diff --git a/kernel/hung_task.c b/kernel/hung_task.c
+index 6fcc94ce4ca9..7a3738279503 100644
+--- a/kernel/hung_task.c
++++ b/kernel/hung_task.c
+@@ -557,8 +557,10 @@ static int watchdog(void *dummy)
+ 		t = hung_timeout_jiffies(hung_last_checked, interval);
+ 		if (t <= 0) {
+ 			if (!atomic_xchg(&reset_hung_task, 0) &&
+-			    !hung_detector_suspended)
++			    !hung_detector_suspended) {
++				sys_info_reset();
+ 				check_hung_uninterruptible_tasks(timeout);
++			}
+ 			hung_last_checked = jiffies;
+ 			continue;
+ 		}
+diff --git a/kernel/panic.c b/kernel/panic.c
+index 213725b612aa..94ce7a94f118 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -550,8 +550,12 @@ static void panic_trigger_all_cpu_backtrace(void)
+  */
+ static void panic_other_cpus_shutdown(bool crash_kexec)
  {
-      return softleaf_is_migration(softleaf_from_pmd(pmd));
+-	if (panic_print & SYS_INFO_ALL_BT)
+-		panic_trigger_all_cpu_backtrace();
++	unsigned long mask = sys_info_effective_mask(panic_print);
++
++	if (mask & SYS_INFO_ALL_BT) {
++		if (sys_info_filter_and_set(SYS_INFO_ALL_BT))
++			panic_trigger_all_cpu_backtrace();
++	}
+ 
+ 	/*
+ 	 * Note that smp_send_stop() is the usual SMP shutdown function,
+@@ -649,6 +653,7 @@ void vpanic(const char *fmt, va_list args)
+ 		panic_this_cpu_backtrace_printed = true;
+ 	} else if (IS_ENABLED(CONFIG_DEBUG_BUGVERBOSE)) {
+ 		dump_stack();
++		sys_info_filter_and_set(SYS_INFO_STACK);
+ 		panic_this_cpu_backtrace_printed = true;
+ 	}
+ 
+diff --git a/kernel/watchdog.c b/kernel/watchdog.c
+index 87dd5e0f6968..3bc6f5fd5380 100644
+--- a/kernel/watchdog.c
++++ b/kernel/watchdog.c
+@@ -280,8 +280,13 @@ void watchdog_hardlockup_check(unsigned int cpu, struct pt_regs *regs)
+ 		trigger_single_cpu_backtrace(cpu);
+ 	}
+ 
++	/* Mark what we already printed so panic() won't repeat it. */
++	sys_info_filter_and_set(SYS_INFO_MODULES | SYS_INFO_IRQTRACE |
++				SYS_INFO_STACK);
++
+ 	if (hardlockup_all_cpu_backtrace) {
+-		trigger_allbutcpu_cpu_backtrace(cpu);
++		if (sys_info_filter_and_set(SYS_INFO_ALL_BT))
++			trigger_allbutcpu_cpu_backtrace(cpu);
+ 		if (!hardlockup_panic)
+ 			clear_bit_unlock(0, &hard_lockup_nmi_warn);
+ 	}
+@@ -289,6 +294,8 @@ void watchdog_hardlockup_check(unsigned int cpu, struct pt_regs *regs)
+ 	sys_info(hardlockup_si_mask & ~SYS_INFO_ALL_BT);
+ 	if (hardlockup_panic)
+ 		nmi_panic(regs, "Hard LOCKUP");
++	else
++		sys_info_reset();
+ 
+ 	per_cpu(watchdog_hardlockup_warned, cpu) = true;
  }
-+#else
-+static inline bool pmd_is_migration_entry(pmd_t pmd)
+@@ -792,6 +799,8 @@ static int softlockup_fn(void *data)
+ }
+ 
+ /* watchdog kicker functions */
++static DEFINE_PER_CPU(bool, watchdog_stuck_previously);
++
+ static enum hrtimer_restart watchdog_timer_fn(struct hrtimer *hrtimer)
+ {
+ 	unsigned long touch_ts, period_ts, now;
+@@ -864,6 +873,7 @@ static enum hrtimer_restart watchdog_timer_fn(struct hrtimer *hrtimer)
+ 	touch_ts = __this_cpu_read(watchdog_touch_ts);
+ 	duration = is_softlockup(touch_ts, period_ts, now);
+ 	if (unlikely(duration)) {
++		__this_cpu_write(watchdog_stuck_previously, true);
+ #ifdef CONFIG_SYSFS
+ 		++softlockup_count;
+ #endif
+@@ -893,8 +903,13 @@ static enum hrtimer_restart watchdog_timer_fn(struct hrtimer *hrtimer)
+ 			dump_stack();
+ 		printk_cpu_sync_put_irqrestore(flags);
+ 
++		/* Mark what we already printed so panic() won't repeat it. */
++		sys_info_filter_and_set(SYS_INFO_MODULES | SYS_INFO_IRQTRACE |
++					SYS_INFO_STACK);
++
+ 		if (softlockup_all_cpu_backtrace) {
+-			trigger_allbutcpu_cpu_backtrace(smp_processor_id());
++			if (sys_info_filter_and_set(SYS_INFO_ALL_BT))
++				trigger_allbutcpu_cpu_backtrace(smp_processor_id());
+ 			if (!softlockup_panic)
+ 				clear_bit_unlock(0, &soft_lockup_nmi_warn);
+ 		}
+@@ -905,6 +920,11 @@ static enum hrtimer_restart watchdog_timer_fn(struct hrtimer *hrtimer)
+ 
+ 		if (softlockup_panic && thresh_count >= softlockup_panic)
+ 			panic("softlockup: hung tasks");
++	} else {
++		if (__this_cpu_read(watchdog_stuck_previously)) {
++			__this_cpu_write(watchdog_stuck_previously, false);
++			sys_info_reset();
++		}
+ 	}
+ 
+ 	return HRTIMER_RESTART;
+diff --git a/lib/Makefile b/lib/Makefile
+index 7f75cc6edf94..521644a140c8 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -40,7 +40,7 @@ lib-y := ctype.o string.o vsprintf.o cmdline.o \
+ 	 is_single_threaded.o plist.o decompress.o kobject_uevent.o \
+ 	 earlycpio.o seq_buf.o siphash.o dec_and_lock.o \
+ 	 nmi_backtrace.o win_minmax.o memcat_p.o \
+-	 buildid.o objpool.o iomem_copy.o sys_info.o
++	 buildid.o objpool.o iomem_copy.o sys_info.o sys_info_filter.o
+ 
+ lib-$(CONFIG_UNION_FIND) += union_find.o
+ lib-$(CONFIG_PRINTK) += dump_stack.o
+diff --git a/lib/sys_info.c b/lib/sys_info.c
+index f32a06ec9ed4..e188c5d924cb 100644
+--- a/lib/sys_info.c
++++ b/lib/sys_info.c
+@@ -2,12 +2,9 @@
+ #include <linux/array_size.h>
+ #include <linux/bitops.h>
+ #include <linux/cleanup.h>
+-#include <linux/console.h>
+ #include <linux/log2.h>
+ #include <linux/kernel.h>
+-#include <linux/ftrace.h>
+-#include <linux/nmi.h>
+-#include <linux/sched/debug.h>
++#include <linux/slab.h>
+ #include <linux/string.h>
+ #include <linux/sysctl.h>
+ 
+@@ -22,6 +19,9 @@ static const char * const si_names[] = {
+ 	[ilog2(SYS_INFO_PANIC_CONSOLE_REPLAY)]	= "",
+ 	[ilog2(SYS_INFO_ALL_BT)]		= "all_bt",
+ 	[ilog2(SYS_INFO_BLOCKED_TASKS)]		= "blocked_tasks",
++	[ilog2(SYS_INFO_MODULES)]		= "modules",
++	[ilog2(SYS_INFO_IRQTRACE)]		= "irqtrace",
++	[ilog2(SYS_INFO_STACK)]			= "stack",
+ };
+ 
+ /*
+@@ -29,7 +29,7 @@ static const char * const si_names[] = {
+  * If a kernel module calls sys_info() with "parameter == 0", then
+  * this mask will be used.
+  */
+-static unsigned long kernel_si_mask;
++unsigned long kernel_si_mask;
+ 
+ /* Expecting string like "xxx_sys_info=tasks,mem,timers,locks,ftrace,..." */
+ unsigned long sys_info_parse_param(char *str)
+@@ -136,31 +136,7 @@ static int __init sys_info_sysctl_init(void)
+ subsys_initcall(sys_info_sysctl_init);
+ #endif
+ 
+-static void __sys_info(unsigned long si_mask)
++unsigned long sys_info_effective_mask(unsigned long mask)
+ {
+-	if (si_mask & SYS_INFO_TASKS)
+-		show_state();
+-
+-	if (si_mask & SYS_INFO_MEM)
+-		show_mem();
+-
+-	if (si_mask & SYS_INFO_TIMERS)
+-		sysrq_timer_list_show();
+-
+-	if (si_mask & SYS_INFO_LOCKS)
+-		debug_show_all_locks();
+-
+-	if (si_mask & SYS_INFO_FTRACE)
+-		ftrace_dump(DUMP_ALL);
+-
+-	if (si_mask & SYS_INFO_ALL_BT)
+-		trigger_all_cpu_backtrace();
+-
+-	if (si_mask & SYS_INFO_BLOCKED_TASKS)
+-		show_state_filter(TASK_UNINTERRUPTIBLE);
+-}
+-
+-void sys_info(unsigned long si_mask)
+-{
+-	__sys_info(si_mask ? : kernel_si_mask);
++	return mask ? : READ_ONCE(kernel_si_mask);
+ }
+diff --git a/lib/sys_info_filter.c b/lib/sys_info_filter.c
+new file mode 100644
+index 000000000000..b07b5dc3ce3c
+--- /dev/null
++++ b/lib/sys_info_filter.c
+@@ -0,0 +1,120 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * sys_info incident diagnostic engine.
++ *
++ * Centralises the dispatching and deduplication of system diagnostic
++ * output (task lists, memory info, backtraces, module lists, etc.)
++ * that is requested during lockups, hung tasks, and panics.
++ *
++ * A global bitmask tracks which categories have already been printed
++ * during the current incident so that duplicate output is suppressed
++ * when multiple subsystems request the same diagnostics (e.g. a
++ * watchdog fires, prints sys_info, then calls panic() which tries
++ * to print sys_info again).
++ */
++#include <linux/console.h>
++#include <linux/ftrace.h>
++#include <linux/kernel.h>
++#include <linux/lockdep.h>
++#include <linux/module.h>
++#include <linux/nmi.h>
++#include <linux/sched/debug.h>
++
++#include <linux/sys_info.h>
++
++/*
++ * Bitmask of sys_info categories already printed during the current
++ * incident.  Accessed locklessly via cmpxchg — races between CPUs
++ * during a lockup are tolerable because the output from different
++ * watchdogs has never been synchronised, and panic() never returns.
++ */
++static unsigned long sys_info_printed;
++
++/**
++ * sys_info_filter_and_set - atomically claim unprinted sys_info bits
++ * @si_mask: requested diagnostics bitmask
++ *
++ * Returns the subset of @si_mask that has NOT been printed yet during
++ * the current incident and marks those bits as printed.  Returns 0
++ * if everything requested was already printed.
++ */
++unsigned long sys_info_filter_and_set(unsigned long si_mask)
 +{
-+     return false;
++	unsigned long old, new;
++
++	if (!si_mask)
++		return 0;
++
++	do {
++		old = READ_ONCE(sys_info_printed);
++		if (!(si_mask & ~old))
++			return 0;
++		new = old | si_mask;
++	} while (cmpxchg(&sys_info_printed, old, new) != old);
++
++	return si_mask & ~old;
 +}
-+#endif
++
++/**
++ * sys_info_reset - clear the printed-state bitmask
++ *
++ * Called when an incident is over (lockup recovered, hung-task check
++ * round starts fresh) so that subsequent incidents produce output.
++ */
++void sys_info_reset(void)
++{
++	WRITE_ONCE(sys_info_printed, 0);
++}
++
++/*
++ * Dispatch the actual diagnostic output for each bit in @si_mask.
++ */
++static void __sys_info(unsigned long si_mask)
++{
++	if (si_mask & SYS_INFO_TASKS)
++		show_state();
++
++	if (si_mask & SYS_INFO_MEM)
++		show_mem();
++
++	if (si_mask & SYS_INFO_TIMERS)
++		sysrq_timer_list_show();
++
++	if (si_mask & SYS_INFO_LOCKS)
++		debug_show_all_locks();
++
++	if (si_mask & SYS_INFO_FTRACE)
++		ftrace_dump(DUMP_ALL);
++
++	if (si_mask & SYS_INFO_ALL_BT)
++		trigger_all_cpu_backtrace();
++
++	if (si_mask & SYS_INFO_BLOCKED_TASKS)
++		show_state_filter(TASK_UNINTERRUPTIBLE);
++
++	if (si_mask & SYS_INFO_MODULES)
++		print_modules();
++
++	if (si_mask & SYS_INFO_IRQTRACE)
++		print_irqtrace_events(current);
++
++	if (si_mask & SYS_INFO_STACK)
++		dump_stack();
++}
++
++/**
++ * sys_info - print system diagnostics, suppressing duplicates
++ * @si_mask: requested diagnostics bitmask (0 = use kernel_si_info default)
++ *
++ * Resolves the effective mask (falling back to the kernel-wide default
++ * when @si_mask is 0), filters out anything already printed during this
++ * incident, and dispatches the remaining diagnostics.
++ */
++void sys_info(unsigned long si_mask)
++{
++	unsigned long mask = sys_info_effective_mask(si_mask);
++	unsigned long filtered = sys_info_filter_and_set(mask);
++
++	if (filtered)
++		__sys_info(filtered);
++}
+-- 
+2.53.0
 
-And I think the CONFIG_TRANSPARENT_HUGEPAGE is just conflating the
-CONFIG_ARCH_ENABLE_THP_MIGRATION.
+
+
+NOTE!!: This is AI generated!! This **MAY** not be the finished product,
+this is ONLY the model!
 
 
 
->
-> Thanks,
-> Klara Modin
 
-Thanks, Lorenzo
+Thanks!
