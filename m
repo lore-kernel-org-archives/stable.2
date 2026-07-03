@@ -1,175 +1,136 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D3B175A97
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 02:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 201E926ED33
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 03:12:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783047424; cv=none; b=e9CXZqvYppaMhwkhP+lW0Q068ozVKTOuLLfwzAJIHcuhHU6emvROi59J5FDZ9C3lGAp+szOrjnbmx1yUg2mdm72QQBr+OrfRYrBA0LJTMQtd+xwPXlyU7+5wT/MxWnH8X1XhJYIOW+HMJIx7OWOH8+3i25dha65796trQ8rGvgk=
+	t=1783048366; cv=none; b=A45aAEfGf2yZAfjoz2craoLij+ZfK8FNw4rq2z8J9J2Nc/GXtPPD/aVL4EV2Wwc37cGmElwA09WibTrhP04AyDxI8O1p2mIzb7scd+L3mKB4xNyamXQV81jcuoiyhiNWC6pxdFbBKSCBKQ6rVTgjpKO06XzIRkY6VMyG0P4OAbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783047424; c=relaxed/simple;
-	bh=IsERjZASmoVoV1lYOdhQ8tqxvr21ky0zobJZ277IM2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E9BpqDtiaR5fmdQhCBvmBeRb3lWqm4Y5HdGcHbhblSgTI40z9y2+Vqvt3Vudgwal+ID8uhltgQ1+sj7jyPrrg4tz68aJP62WJPoDuazTzr3YfeRDvlewpjFsesnCfhs0ptbMLtA4+6QvYZicJ3TRlMAIBSm/DhBiisXiL5dGzro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RBS5G8Ci; arc=none smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RBS5G8Ci"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c9ef3e1337fso61213a12.2
-        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 19:57:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783047423; x=1783652223; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=JlV3zJ5RwhKne2jUh8CcjrZlF2RdUTEpohrGS1TCb5w=;
-        b=RBS5G8CillKqu/Cpoawv+Lt+EExiFWvpLQqd9w7AkzDXUcYPw2ON4uBj1+Gw4QTv+D
-         FYkSWTJoncNVo1EQupI2P47mEdk03XpiHX5aOWpmRJbsVMImOD11l7j5VGmPoR2fc3/+
-         ShfdlpYm46TruxBMoaDQJr1MYmyZErKcXdte7L7VObvNo0n9PcNPBR2TR+oSAsqn+bOq
-         xGnmtYR7p2RdPoaaRLOik7Liyog3mysD50uO5lsj8PdWf/QDh42fWPDhgYhMW7oTGhJx
-         HYTJB1GqgBF5rcvA/5JtQdEgBRjrH3G26brkNRSucceDN/Gs6RCK64ys5mbPyr/nO4yl
-         JpxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783047423; x=1783652223;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JlV3zJ5RwhKne2jUh8CcjrZlF2RdUTEpohrGS1TCb5w=;
-        b=cAcJizvEM+uv16Ww0iiz3dk3bCp1hVFGfPmX0ocfCw3tFNOU+5dbF5FVwpQk53HcuV
-         dlFAPZQfkzpwqwXT9Afn75GGd3lQ1hhMaSXng9lZh5s9uuyCfWEC8eROh25P32KeO/88
-         fnfTPo1b1TlL0Iga/T1fybAAzLabkUgmrGrMJgdT/ggPxdTTcWkfhV4QPfcO4TshveOQ
-         phuTTgHfCewkZcDq9/87F7pt78W+Flphw/BL/S332NlP7lM1IjoiTB8MZvOxLWXpFP4g
-         Maovfx2BgKeT9PK0BQbcMhkLXpQ7INqnOusVAwDZx76kRjRe3EL0PqdROEhD+k/KzbbM
-         tojQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9QfNHMylQNT06Hr1NITlGtTabQR1+/hq70XgH+n6AK4H5iTOrz+BlTTZg+Rn3lWw+4GRsxw6I=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx2TvTIU09AKjiC3TDGUSryDqNgWtnuzY2K5jai8YCdJCxoink1
-	tU37+heISNv6jcNoB/TmTOEEZgxuC9E47KyKkj7FuyAhQl/9WrSS1HUu
-X-Gm-Gg: AfdE7clZSR+pDY40gfzf184jiSUh/Jiql32aAtMe/w1exuZZwvpqwzUuc9E+hX0z6aP
-	MpKoYZuXxiWQpHhzyQMDzGr35g3v8U7AdErdELuWTGFjbmkW4B2XGYYYuh9fM7R0t9w4xbGdknx
-	A+IfgXjAGgNF/gjH9Cjw/tgNZFt2tOcrGz6vuL/h2a5PhvJFncwEc6/pv4C41wN2n08p+afUP7w
-	CYbAxEZ1dd2LHTdmzHlSpLP2HU4i8ziPWsyl27qSIXI+3gvjgrEUNS2AZtHlJVoLTzl2hBtniif
-	GxNJd6ZN/0gfEqcIPkRjeUr+wcPr73JOHOMi9DfGiugc/SUA3Fo8Aiw6i93edVvrFQWo9Etwu47
-	WgSHk1AHYW4uN/qHP5B7L2/fjLiW3VzbuIB8QOZaZS90Bdq60xEk2GIWOv/qtE2ay55OslivV8X
-	9UDCDDO1t60W7IcZ37UIpsIMAetP4gkfCYUn8sY7h+lkCNI7NAWEQI8/ZlVnA=
-X-Received: by 2002:a05:6a21:4516:b0:398:9379:d04d with SMTP id adf61e73a8af0-3bfed22ecacmr9856159637.24.1783047422829;
-        Thu, 02 Jul 2026 19:57:02 -0700 (PDT)
-Received: from fabio-Precision-3551.. ([2804:1b3:a800:5116:5334:8739:4661:fde2])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b3c7fa65asm14645620c88.6.2026.07.02.19.56.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 19:57:02 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: heiko@sntech.de
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	Fabio Estevam <festevam@nabladev.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] arm64: dts: rockchip: Fix rk3588s-roc-pc audio description
-Date: Thu,  2 Jul 2026 23:56:48 -0300
-Message-ID: <20260703025648.180135-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1783048366; c=relaxed/simple;
+	bh=zaIIDwJenKUY5f+BRBxcGHB5vBYf53XU4rXE+9ag8UU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=ZY+5hhH/4MK4iOAUz3n8fGt765sOcKbFSEb1XFar9QJ+aU1YQKUeXu1p5h/IbIgysVczn/1FQdOQC5sJokKlNSdkcA7J3IHUkPj94A4q6ofFWNeLPlIczRvF7+3TK8xEetYlwWtPthopDCe/pGLxq7CNWcWTj65G2GmN6DtAIXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.155])
+	by gateway (Coremail) with SMTP id _____8CxruupKEdqji8BAA--.1025S3;
+	Fri, 03 Jul 2026 11:12:41 +0800 (CST)
+Received: from chenhuacai$loongson.cn ( [223.64.68.155] ) by
+ ajax-webmail-front1 (Coremail) ; Fri, 3 Jul 2026 11:12:40 +0800 (GMT+08:00)
+Date: Fri, 3 Jul 2026 11:12:40 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?6ZmI5Y2O5omN?= <chenhuacai@loongson.cn>
+To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	"Guo Ren" <guoren@kernel.org>
+Subject: Re: [PATCH 6.1 095/129] LoongArch: Report dying CPU to RCU in
+ stop_this_cpu()
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.3-cmXT6 build
+ 20250609(354f7833) Copyright (c) 2002-2026 www.mailtech.cn loongson
+In-Reply-To: <20260702155114.109325852@linuxfoundation.org>
+References: <20260702155112.163984240@linuxfoundation.org>
+ <20260702155114.109325852@linuxfoundation.org>
+Content-Transfer-Encoding: base64
+X-CM-CTRLDATA: wS3XfWZvb3Rlcl90eHQ9MzEwNTo2MTg=
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <329cd36.6ac7d.19f25f6d0e3.Coremail.chenhuacai@loongson.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:qMiowJCxusGoKEdqN2G9AA--.30646W
+X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/1tbiAQERBmpF-eUZ-AABsE
+X-Coremail-Antispam: 1Uk129KBj93XoWxCw1ruF45GFy5AFy8XF18WFX_yoW5urW8pr
+	WfCrnxuw4kXr1xu3ykC34xCF1DXws3Gr1aqFs5JrZ3AayYvw1vvw1IqFyFqFyY9395W342
+	vFn0v3yvq3WUJrgCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFcxC0VAYjxAxZF
+	0Ew4CEw7xC0wACY4xI67k04243AVC20s07MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCj
+	c4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4
+	CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1x
+	MIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF
+	4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JwCE64xv
+	F2IEb7IF0Fy7YxBIdaVFxhVjvjDU0xZFpf9x07j0BTOUUUUU=
 
-From: Fabio Estevam <festevam@nabladev.com>
-
-The rk3588s-roc-pc ES8388 codec is connected to the i2s0_8ch audio
-interface.  Use the matching I2S0 MCLK output for the codec clock
-instead of I2S1.
-
-Using the I2S1 MCLK can leave the ALSA PCM running while the codec has
-no usable master clock for the active audio path, resulting in silent
-headphone output.
-
-Also make the CPU DAI provide bitclock and frame clock.  This matches
-the active Rockchip I2S controller side and avoids relying on the codec
-to drive the bus clocks.
-
-Route the headphone output to LOUT2 and ROUT2, matching the old 5.10
-BSP device tree.  LOUT1 and ROUT1 are used for the speaker route there,
-so using them for the headphone widget can leave the headphone jack
-silent even while the ALSA path is active.
-
-The old BSP also used hp-con-gpio on GPIO1_A4.  Model that GPIO as a
-simple audio amplifier so DAPM enables the headphone connection when the
-headphone path is active.
-
-Cc: stable@vger.kernel.org
-Fixes: 7f9509791507 ("arm64: dts: rockchip: add DTs for Firefly ROC-RK3588S-PC")
-Signed-off-by: Fabio Estevam <festevam@nabladev.com>
----
- .../boot/dts/rockchip/rk3588s-roc-pc.dts      | 23 +++++++++++++------
- 1 file changed, 16 insertions(+), 7 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-roc-pc.dts b/arch/arm64/boot/dts/rockchip/rk3588s-roc-pc.dts
-index d534d662c40f..99853880aaac 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-roc-pc.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-roc-pc.dts
-@@ -23,16 +23,19 @@ analog-sound {
- 		compatible = "simple-audio-card";
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&hp_detect>;
-+		simple-audio-card,aux-devs = <&headphones_amp>;
- 		simple-audio-card,name = "rockchip,es8388";
--		simple-audio-card,bitclock-master = <&masterdai>;
-+		simple-audio-card,bitclock-master = <&cpudai>;
- 		simple-audio-card,format = "i2s";
--		simple-audio-card,frame-master = <&masterdai>;
-+		simple-audio-card,frame-master = <&cpudai>;
- 		simple-audio-card,hp-det-gpios = <&gpio1 RK_PA6 GPIO_ACTIVE_LOW>;
- 		simple-audio-card,mclk-fs = <256>;
- 		simple-audio-card,pin-switches = "Headphones";
- 		simple-audio-card,routing =
--			"Headphones", "LOUT1",
--			"Headphones", "ROUT1",
-+			"Headphones", "Headphone Amp OUTL",
-+			"Headphones", "Headphone Amp OUTR",
-+			"Headphone Amp INL", "LOUT2",
-+			"Headphone Amp INR", "ROUT2",
- 			"LINPUT1", "Microphone Jack",
- 			"RINPUT1", "Microphone Jack",
- 			"LINPUT2", "Onboard Microphone",
-@@ -47,11 +50,17 @@ masterdai: simple-audio-card,codec {
- 			system-clock-frequency = <12288000>;
- 		};
- 
--		simple-audio-card,cpu {
-+		cpudai: simple-audio-card,cpu {
- 			sound-dai = <&i2s0_8ch>;
- 		};
- 	};
- 
-+	headphones_amp: audio-amplifier-headphones {
-+		compatible = "simple-audio-amplifier";
-+		enable-gpios = <&gpio1 RK_PA4 GPIO_ACTIVE_HIGH>;
-+		sound-name-prefix = "Headphone Amp";
-+	};
-+
- 	chosen {
- 		stdout-path = "serial2:1500000n8";
- 	};
-@@ -327,12 +336,12 @@ &i2c3 {
- 	es8388: audio-codec@11 {
- 		compatible = "everest,es8388", "everest,es8328";
- 		reg = <0x11>;
--		clocks = <&cru I2S1_8CH_MCLKOUT>;
-+		clocks = <&cru I2S0_8CH_MCLKOUT>;
- 		AVDD-supply = <&vcc_3v3_s0>;
- 		DVDD-supply = <&vcc_1v8_s0>;
- 		HPVDD-supply = <&vcc_3v3_s0>;
- 		PVDD-supply = <&vcc_3v3_s0>;
--		assigned-clocks = <&cru I2S1_8CH_MCLKOUT>;
-+		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
- 		assigned-clock-rates = <12288000>;
- 		#sound-dai-cells = <0>;
- 	};
--- 
-2.43.0
+SGksIEdyZWcsCgoKPiAtLS0tLeWOn+Wni+mCruS7ti0tLS0tCj4g5Y+R5Lu25Lq6OiAiR3JlZyBL
+cm9haC1IYXJ0bWFuIiA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+Cj4g5Y+R6YCB5pe26Ze0
+OjIwMjYtMDctMDMgMDA6MjA6MTQgKOaYn+acn+S6lCkKPiDmlLbku7bkuro6IHN0YWJsZUB2Z2Vy
+Lmtlcm5lbC5vcmcKPiDmioTpgIE6ICJHcmVnIEtyb2FoLUhhcnRtYW4iIDxncmVna2hAbGludXhm
+b3VuZGF0aW9uLm9yZz4sIHBhdGNoZXNAbGlzdHMubGludXguZGV2LCAiR3VvIFJlbiIgPGd1b3Jl
+bkBrZXJuZWwub3JnPiwgIkh1YWNhaSBDaGVuIiA8Y2hlbmh1YWNhaUBsb29uZ3Nvbi5jbj4KPiDk
+uLvpopg6IFtQQVRDSCA2LjEgMDk1LzEyOV0gTG9vbmdBcmNoOiBSZXBvcnQgZHlpbmcgQ1BVIHRv
+IFJDVSBpbiBzdG9wX3RoaXNfY3B1KCkKPiAKPiA2LjEtc3RhYmxlIHJldmlldyBwYXRjaC4gIElm
+IGFueW9uZSBoYXMgYW55IG9iamVjdGlvbnMsIHBsZWFzZSBsZXQgbWUga25vdy4KPiAKPiAtLS0t
+LS0tLS0tLS0tLS0tLS0KPiAKPiBGcm9tOiBIdWFjYWkgQ2hlbiA8Y2hlbmh1YWNhaUBsb29uZ3Nv
+bi5jbj4KPiAKPiBjb21taXQgZjI1MzljNTZjNzQ2OTFlN2E4OGFmNjM3MmJhMmI0OGMwNmVkMmZl
+NCB1cHN0cmVhbS4KPiAKPiBUaGlzIGlzIGEgcG9ydCBvZiBNSVBTIGNvbW1pdCA5ZjNmM2JkYzZk
+OWRhYzEgKCJNSVBTOiBzbXA6IHJlcG9ydCBkeWluZwo+IENQVSB0byBSQ1UgaW4gc3RvcF90aGlz
+X2NwdSgpIikuIHNtcF9zZW5kX3N0b3AoKSBwYXJrcyBhbGwgc2Vjb25kYXJ5Cj4gQ1BVcyBpbiBz
+dG9wX3RoaXNfY3B1KCkuIEFuZCB0aGUgZnVuY3Rpb24gbWFya3MgdGhlIENQVSBvZmZsaW5lIGZv
+ciB0aGUKPiBzY2hlZHVsZXIgdmlhIHNldF9jcHVfb25saW5lKGZhbHNlKSBidXQgbmV2ZXIgaW5m
+b3JtcyBSQ1UsIHNvIFJDVSBrZWVwcwo+IGV4cGVjdGluZyBhIHF1aWVzY2VudCBzdGF0ZSBmcm9t
+IENQVXMgdGhhdCBhcmUgbm93IHNwaW5uaW5nIGZvcmV2ZXIgd2l0aAo+IGludGVycnVwdHMgZGlz
+YWJsZWQuCj4gCj4gQXMgbG9uZyBhcyBub3RoaW5nIHdhaXRzIGZvciBhbiBSQ1UgZ3JhY2UgcGVy
+aW9kIGFmdGVyIHNtcF9zZW5kX3N0b3AoKQo+IHRoaXMgaXMgaGFybWxlc3MsIHdoaWNoIGlzIHdo
+eSBpdCB3ZW50IHVubm90aWNlZC4gSG93ZXZlciwgc2luY2UgY29tbWl0Cj4gOTE4NDBiZThmNzEw
+MzcwICgiaXJxX3dvcms6IEZpeCB1c2UtYWZ0ZXItZnJlZSBpbiBpcnFfd29ya19zaW5nbGUoKSBv
+bgo+IFBSRUVNUFRfUlQiKSwgaXJxX3dvcmtfc3luYygpIGNhbGxzIHN5bmNocm9uaXplX3JjdSgp
+IG9uIGFyY2hpdGVjdHVyZXMKPiB3aXRob3V0IGFuIGlycV93b3JrIHNlbGYtSVBJLCBpLmUuIHdo
+ZXJlIGFyY2hfaXJxX3dvcmtfaGFzX2ludGVycnVwdCgpCj4gcmV0dXJucyBmYWxzZS4gQW55IGly
+cV93b3JrX3N5bmMoKSBpc3N1ZWQgaW4gdGhlIHJlYm9vdC9zaHV0ZG93bi9oYWx0Cj4gcGF0aCBh
+ZnRlciBzbXBfc2VuZF9zdG9wKCkgdGhlbiBibG9ja3Mgb24gYSBncmFjZSBwZXJpb2QgdGhhdCBj
+YW4gbmV2ZXIKPiBjb21wbGV0ZSwgaGFuZ2luZyB0aGUgcmVib290Ogo+IAo+ICAgV0FSTklORzog
+Q1BVOiAwIFBJRDogMTUgYXQga2VybmVsL2lycV93b3JrLmM6MTQ0IGlycV93b3JrX3F1ZXVlX29u
+Cj4gICAuLi4KPiAgIHJjdTogSU5GTzogcmN1X3NjaGVkIGRldGVjdGVkIHN0YWxscyBvbiBDUFVz
+L3Rhc2tzOgo+ICAgcmN1OiBPZmZsaW5lIENQVSAxIGJsb2NraW5nIGN1cnJlbnQgR1AuCj4gICBy
+Y3U6IE9mZmxpbmUgQ1BVIDIgYmxvY2tpbmcgY3VycmVudCBHUC4KPiAgIHJjdTogT2ZmbGluZSBD
+UFUgMyBibG9ja2luZyBjdXJyZW50IEdQLgo+IAo+IFRoaXMgaXNzdWUgbmVlZHMgc29tZSBoYWNr
+cyB0byByZXByb2R1Y2UsIGFuZCBpdCB3YXMgbm90IG5vdGljZWQgb24KPiBMb29uZ0FyY2ggYmVj
+YXVzZSBhcmNoX2lycV93b3JrX2hhc19pbnRlcnJ1cHQoKSB1c3VhbGx5IHJldHVybnMgdHJ1ZS4K
+PiAKPiBDYWxsIHJjdXRyZWVfcmVwb3J0X2NwdV9kZWFkKCkgb25jZSBpbnRlcnJ1cHRzIGFyZSBk
+aXNhYmxlZCwgbWlycm9yaW5nCj4gdGhlIGdlbmVyaWMgQ1BVLWhvdHBsdWcgb2ZmbGluZSBwYXRo
+LCBzbyBSQ1Ugc3RvcHMgd2FpdGluZyBvbiB0aGUgcGFya2VkCj4gQ1BVcyBhbmQgZ3JhY2UgcGVy
+aW9kcyBjYW4gc3RpbGwgY29tcGxldGUuIExvb25nQXJjaCBzaHV0cyBkb3duIGFsbCBDUFVzCj4g
+aGVyZSB3aXRob3V0IGdvaW5nIHRocm91Z2ggdGhlIENQVS1ob3RwbHVnIG1lY2hhbmlzbSwgc28g
+dGhpcyByZXBvcnQgaXMKPiBub3Qgb3RoZXJ3aXNlIGlzc3VlZC4KPiAKPiBDYzogPHN0YWJsZUB2
+Z2VyLmtlcm5lbC5vcmc+Cj4gRml4ZXM6IDkxODQwYmU4ZjcxMCAoImlycV93b3JrOiBGaXggdXNl
+LWFmdGVyLWZyZWUgaW4gaXJxX3dvcmtfc2luZ2xlKCkgb24gUFJFRU1QVF9SVCIpCj4gUmV2aWV3
+ZWQtYnk6IEd1byBSZW4gPGd1b3JlbkBrZXJuZWwub3JnPgo+IFNpZ25lZC1vZmYtYnk6IEh1YWNh
+aSBDaGVuIDxjaGVuaHVhY2FpQGxvb25nc29uLmNuPgo+IFNpZ25lZC1vZmYtYnk6IEdyZWcgS3Jv
+YWgtSGFydG1hbiA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+Cj4gLS0tCj4gIGFyY2gvbG9v
+bmdhcmNoL2tlcm5lbC9zbXAuYyB8ICAgIDEgKwo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
+b24oKykKPiAKPiAtLS0gYS9hcmNoL2xvb25nYXJjaC9rZXJuZWwvc21wLmMKPiArKysgYi9hcmNo
+L2xvb25nYXJjaC9rZXJuZWwvc21wLmMKPiBAQCAtNTE3LDYgKzUxNyw3IEBAIHN0YXRpYyB2b2lk
+IHN0b3BfdGhpc19jcHUodm9pZCAqZHVtbXkpCj4gIAlzZXRfY3B1X29ubGluZShzbXBfcHJvY2Vz
+c29yX2lkKCksIGZhbHNlKTsKPiAgCWNhbGN1bGF0ZV9jcHVfZm9yZWlnbl9tYXAoKTsKPiAgCWxv
+Y2FsX2lycV9kaXNhYmxlKCk7Cj4gKwlyY3V0cmVlX3JlcG9ydF9jcHVfZGVhZCgpOwpGb3IgNi4x
+ICYgNi42IHRoaXMgc2hvdWxkIGJlICJyY3VfcmVwb3J0X2RlYWQoc21wX3Byb2Nlc3Nvcl9pZCgp
+KSIuIElmIHlvdSBkb24ndCB3YW50IHRvIG1vZGlmeSBwbGVhc2UganVzdCBkcm9wIHRoaXMgcGF0
+Y2gsIGFuZCBJIHdpbGwgc2VuZCBmb3IgdGhlbS4KCkh1YWNhaQoKPiAgCXdoaWxlICh0cnVlKTsK
+PiAgfQo+ICAKPiAKDQoNCuacrOmCruS7tuWPiuWFtumZhOS7tuWQq+aciem+meiKr+S4reenkeea
+hOWVhuS4muenmOWvhuS/oeaBr++8jOS7hemZkOS6juWPkemAgee7meS4iumdouWcsOWdgOS4reWI
+l+WHuueahOS4quS6uuaIlue+pOe7hOOAguemgeatouS7u+S9leWFtuS7luS6uuS7peS7u+S9leW9
+ouW8j+S9v+eUqO+8iOWMheaLrOS9huS4jemZkOS6juWFqOmDqOaIlumDqOWIhuWcsOazhOmcsuOA
+geWkjeWItuaIluaVo+WPke+8ieacrOmCruS7tuWPiuWFtumZhOS7tuS4reeahOS/oeaBr+OAguWm
+guaenOaCqOmUmeaUtuacrOmCruS7tu+8jOivt+aCqOeri+WNs+eUteivneaIlumCruS7tumAmuef
+peWPkeS7tuS6uuW5tuWIoOmZpOacrOmCruS7tuOAgiANClRoaXMgZW1haWwgYW5kIGl0cyBhdHRh
+Y2htZW50cyBjb250YWluIGNvbmZpZGVudGlhbCBpbmZvcm1hdGlvbiBmcm9tIExvb25nc29uIFRl
+Y2hub2xvZ3kgLCB3aGljaCBpcyBpbnRlbmRlZCBvbmx5IGZvciB0aGUgcGVyc29uIG9yIGVudGl0
+eSB3aG9zZSBhZGRyZXNzIGlzIGxpc3RlZCBhYm92ZS4gQW55IHVzZSBvZiB0aGUgaW5mb3JtYXRp
+b24gY29udGFpbmVkIGhlcmVpbiBpbiBhbnkgd2F5IChpbmNsdWRpbmcsIGJ1dCBub3QgbGltaXRl
+ZCB0bywgdG90YWwgb3IgcGFydGlhbCBkaXNjbG9zdXJlLCByZXByb2R1Y3Rpb24gb3IgZGlzc2Vt
+aW5hdGlvbikgYnkgcGVyc29ucyBvdGhlciB0aGFuIHRoZSBpbnRlbmRlZCByZWNpcGllbnQocykg
+aXMgcHJvaGliaXRlZC4gSWYgeW91IHJlY2VpdmUgdGhpcyBlbWFpbCBpbiBlcnJvciwgcGxlYXNl
+IG5vdGlmeSB0aGUgc2VuZGVyIGJ5IHBob25lIG9yIGVtYWlsIGltbWVkaWF0ZWx5IGFuZCBkZWxl
+dGUgaXQuIA0KDQoNCg==
 
