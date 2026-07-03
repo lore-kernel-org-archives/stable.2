@@ -1,46 +1,78 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEED42D6E5A;
-	Fri,  3 Jul 2026 16:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E2C2BF3F4
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 16:49:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783096613; cv=none; b=q2X/BCUQ3tyM0k/6HxJbNvmnYM6FxCJjs42rpDsL/CREJraVTfVdKMRbWpulR9YhkmMGIrcV3kDu74jkh9mRODS7xyNoArpBbwT8364JXkdW+sIN5Uw4hr1AjZ6n3bq+3ZCz4oWgK4Rp90GHAV9tqbsrIRlm1crEnqiilU12JX4=
+	t=1783097359; cv=none; b=YQsODbFEOfpc9UQ/jvt5TvdW5BUcCXqASllSlEkDC96VgUacRLGmpjj8LmyLD99GUnl8//Yu1BgXKug74guXqzlbkNpouIECTjHcrDxCAztQr1bIClhlEVr0OZdPhGjiOpPtk/injo7scTwNhtdPr+CS5Wah/gKLe8VIK8i1ajg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783096613; c=relaxed/simple;
-	bh=9qdvugQqW/YvFxRkzkxJHKUoAeLRag7HTh/mZandEKs=;
+	s=arc-20240116; t=1783097359; c=relaxed/simple;
+	bh=NImIZmSEszOUZywtJZSxACAiRqZzU96rD6XMWaHuLMk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kMAvxk46Ayebv/118qCI7yfqOQ8hSED7JluBHFIMt3fle0ThWZYR6+IwXOggxm0t/gBnMZoyxg5r5ZUBeGzVOeDF5dL5rnurlmIec8ZzeE7043wATpt77ZDQEzla/ftaxCpUw5ZeepMdNc4sM2l7PcsE11lQ4nTUByCsUTGJWgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=IG6/o3sA; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=LsDasukhQ67pZ78DCmiuhje7qWWMkukT0lpI60XimTe55WApa2LSV5gbfvsKgWCj1EiWqlk+x/JqyrdY5VKohwp+sj4GD5YKLMIdigVDH+gRLSSanGQKtvh1e02s/aUlQQZ/c6R3EBlU4pS390B9ZoDy183UB568dUUxMp57Z0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=ZsrGrE/J; arc=none smtp.client-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="IG6/o3sA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=NaKbXiUjcXXEQM+KivlGkp7ACDkK1uRPQEC/3PlVlnw=; b=IG6/o3sAg3yzjuLyCkfgfMR5Pe
-	12axx2uV2uA1a8fj5Vc7VmTAmNxWHr6vf+BDctuuBfdPNPZjmMwbaC1IcMSzoQjWs7dtVdqguXzOV
-	ZPXf5211Mj8NjrsOm+9043eSQsILpIIf48FzcJ1KelsdT6EwYQ6lIrEdcdGIVWMf0+pVwH3K0ZPYk
-	/kuc2DoGcR2MRn1IDuHqOxk+riKR6LykMyowCwpC1Yfl/BHI6Zv627WPzfM8l9EUDFYmfiiwv4NX0
-	+CjdeAAW+bcrYrKvQMp6YPMJmRs/y5z4THETVHGO61Eb0/dOlWeaso2UCrBBnAoXnicxIOpM1LX4I
-	2X3YubxQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1wfgsg-009XAY-0K;
-	Fri, 03 Jul 2026 16:36:46 +0000
-Date: Fri, 3 Jul 2026 09:36:42 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Sabrina Dubroca <sd@queasysnail.net>
-Cc: netdev@vger.kernel.org, 
-	Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu <herbert@gondor.apana.org.au>, stable@vger.kernel.org, 
-	zdi-disclosures@trendmicro.com
-Subject: Re: [PATCH ipsec] xfrm: espintcp: fix UAF during close
-Message-ID: <akfkd_1yI_G4cVoc@gmail.com>
-References: <50e2ab4348eb8177581058f0152394cfae6a8d27.1783071494.git.sd@queasysnail.net>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="ZsrGrE/J"
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-51c1372f84dso5188861cf.2
+        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 09:49:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1783097356; x=1783702156; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QyotU5l8k0oAbp2gmOwsLK/XfEKLkjm+dMk7XQ103yI=;
+        b=ZsrGrE/JCa9UqFweXEUFXoopadGiJ1o5dgKY+5RjVsPeb2utESZjaK/lLRxiuh4dGg
+         eJf7KEkE1cDp5NiYKZNiQis3zKG3kMyyGHx1tatCsooulsb5onD2cuot26vck2NgBtba
+         +94iSAj7jBjUqA1VhyRF3+ham9QdpJ37HwhUVdp6emb9m2DuR93sR/8b2YYGqM1WcHUt
+         duicbEjJTsMCQ7Z9r03zi6YMQ1YEn7HsxxD2xp9VRgb4VMCCOYV36V2Vk2V96NlnsL0s
+         /mTbvkV/RKx/EXGjusf+hHV51dqXuovYJge3Juq5k6bLG2lVV3P4UVpbNT4ykT2eGW4s
+         LWVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783097356; x=1783702156;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QyotU5l8k0oAbp2gmOwsLK/XfEKLkjm+dMk7XQ103yI=;
+        b=SCL+iztNTWO4rMLDZlie3AKROn16gh+9nSNBLHJ95nLpsHTwURPWLaMoOu6Xh6cw+A
+         ULbzQrzsMTisJwJLHSXVZer5ASTM4twv8M4vHXOGvL0C9kBaGxHu1j2ps+ZG9w5SOXbv
+         Y10FaKnF/pmKeKqjf0IiFe51EPhhAyWa8MlLknPZiwh32j9C70JybCctJKC6RkuZky7J
+         +97M8bAsI0Ln4GYgPTIq+LDWz2DqCo5kyQ0gvMQYSg7ngIl95osZ0IQkstU05KqR0teM
+         JuFpGQb5x9qXAmlXtTmb3G3kXSFzbkKwUfOwErOUzd4SXdqSgdgzwR8jsIi1CQYWjlzV
+         u5sA==
+X-Forwarded-Encrypted: i=1; AFNElJ91o71BCbbxZWXDsRjUnuchn8TVjoXcCAMyYCsx2PPUlNmndRcauOIhFWZybOWtC+94hjewQIc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyua3kWRHlRrzrW+j+l3m7duGNzkOx3WDeMMbx2WxzQElrukviX
+	gWvG0HgxYKYDX0L+9cyR7Ho6tlt6ha6izAzjL8okJFhokRBPRa5rfg+cMYBZL4sZ9Mw=
+X-Gm-Gg: AfdE7cnal8x2vR0+jZvazlLyTk2uXc1RVpNG9ukzHlMemv2v8vQyryiAjZihP5HwwFQ
+	REWY5fr6HRxfVlIQymErGrAH8jqEVm1Z6KDMPf2uHWk+RGOVF5W1uRwiWwiS1KkwyILyRGuk7Ci
+	hQcgIGcpPAcsc8/MWI0+fIoFYF4WkcoPF5qdcOFQ0GIU785hgBkNuzXV0MIjejwAW+lZhU+4Yu8
+	qLPJxhaN2gmPNVYjqrVdy1MC6at3xi5DNodySWIatUfY4NCXQFqtkmvihj8rHqBTXKcBumryfoZ
+	SBR2erRBtKRfTJly5VthGjad9S0R2bN2pT1nBgZGvM48vOWTPXJkugNO2/cXRY3KccSSlLvKmeH
+	AJ57pnCjj1OXeBt+u2LDssTvwy8C+o2EQ/if5DdrHIvndFpnZwsd+s0U58HR4FqlUMM8hLE32RB
+	b5P68R+tnap57et7vEtFLtyFTRuutSvojAObkiukO9cy0D1WF/S8pdJVaHc5rU0FedH9Q=
+X-Received: by 2002:ac8:594c:0:b0:51c:2cd3:ae7e with SMTP id d75a77b69052e-51c4c33eedamr5242041cf.45.1783097355828;
+        Fri, 03 Jul 2026 09:49:15 -0700 (PDT)
+Received: from ziepe.ca (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net. [47.54.130.67])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8f4724bab9esm57511866d6.42.2026.07.03.09.49.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 09:49:15 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wfh4k-00000008F7B-0pi6;
+	Fri, 03 Jul 2026 13:49:14 -0300
+Date: Fri, 3 Jul 2026 13:49:14 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: will@kernel.org, joro@8bytes.org, jpb@kernel.org,
+	catalin.marinas@arm.com, yangyicong@hisilicon.com,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] iommu/arm-smmu-v3: Add HAFT support for SVA
+Message-ID: <20260703164914.GY7525@ziepe.ca>
+References: <878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,25 +81,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <50e2ab4348eb8177581058f0152394cfae6a8d27.1783071494.git.sd@queasysnail.net>
-X-Debian-User: leitao
+In-Reply-To: <878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com>
 
-Hello Sabrina,
+On Wed, Jul 01, 2026 at 06:45:17PM +0100, Robin Murphy wrote:
 
-On Fri, Jul 03, 2026 at 04:21:12PM +0200, Sabrina Dubroca wrote:
-> diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
-> index 374e1b964438..f09b5dd85db8 100644
-> --- a/net/xfrm/espintcp.c
-> +++ b/net/xfrm/espintcp.c
-> @@ -517,6 +517,8 @@ static void espintcp_close(struct sock *sk, long timeout)
->  	sk->sk_prot = &tcp_prot;
->  	barrier();
+> @@ -211,6 +213,9 @@ bool arm_smmu_sva_supported(struct arm_smmu_device *smmu)
+>  	if (system_supports_bbml2_noabort())
+>  		feat_mask |= ARM_SMMU_FEAT_BBML2;
 >  
-> +	synchronize_rcu();
+> +	if (system_supports_haft())
+> +		feat_mask |= ARM_SMMU_FEAT_HAFT;
 
-I've got the impression netdev usually prefers synchronize_net() instead
-of synchornize_rcu(). Is there any reason for synchronize_net() not
-being used here?
+I fear this is going to make SVA stop working on systems it currently
+does work on, so it might be a major regression. 
 
-Also, given you have a explicit synchronize_rcu() here, should the
-barrier() above be dropped?
+SMMU HTTU is not a commonly implemented feature.. I think of all the
+NVIDIA ARM chips only one supports it. Given that a quick internal
+check is raising concerns this will be breaking for us. We need to
+check in more detail which cores have HAFT.
+
+Breaking already deployed SVA would be a major functional regression.
+
+I think this should start by just enabling SMMU HAFT when CPU HAFT is
+on, when possible. Maybe print a warning on the mismatch instead of
+failing.
+
+Since we can't break already deployed SVA a full solution would either
+have to somehow turn off CPU HAFT or we ignore the gap in the AF
+updates..
+
+Jason
