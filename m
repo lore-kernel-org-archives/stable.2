@@ -1,177 +1,143 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237DA3D522F;
-	Fri,  3 Jul 2026 13:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783084274; cv=none; b=KE3GALKkZJon5kffjrP76Buu0a0H5aVDYAN0+2HUnMvPP6my2Ke2NNkEgRW7aUCu+AMEnC2SuOczSspMfduzVzcKovdrsgAflKBl9bIhVGWiFQiqMPMAxY9X2T3OnltnPJDVr8gP5LPlGU8r3Z7a8hKoIXb+ayUopMZo/7ug6I0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783084274; c=relaxed/simple;
-	bh=Xu8EYnocXkw9ykOGNuGA2OOtRFcNnzkugR791sAp83E=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CjkDVFVQndL5b5B1nKTzlXgTNP9NfSqSMq86YY+DI19lk9Nffhj9ajbFensgHZPEUk+33wQuFfFxBgsPGnHRD3mwuK2rtJ4rh8+ADxLJdh8iJqIecCThjD1FOwidgsDbKVeROe9O/0ZSr4hsMdpQ6jZ54s3Bn4LiIimnSpgcU8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WzjPc3x6; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF6103D092F
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 13:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783084324; cv=pass; b=SFLmPqdM5gDB2VUTDi65wOa4xV+Cc5sqCoLlgW5wOek1caWqco+ZyVXYudNTP+uTK63CO7hUlMi7qDy6W0/B+i590Bo/09ub18tI66FfcyjbT6BOsExS/S+sB5XcHr6F7tlItIYzXAhCg3RoKvyr8JgVl8FA1z3r5l/FwpduqXM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783084324; c=relaxed/simple;
+	bh=BZ2c/iqj6Fnv5DHCt4xFCrkQIdu6CJdZKHyHErvXts4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FeoOonvbwczBOBcMEEaYEm02QLIdPDfzhedv9juEraWO15CwtIvkl4SBcZcP7ifxc9B8ao/onSm2sBJNQGD7zWPlptRC58B14kKXJCu8HwBDHe8yR8pLM0oNSNKFTIDpMpoAP3WEWlMMcHUeRRiYvNozv42sD5h5C0ocyX6T59M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=FXk9fmaY; arc=pass smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WzjPc3x6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783084272; x=1814620272;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=Xu8EYnocXkw9ykOGNuGA2OOtRFcNnzkugR791sAp83E=;
-  b=WzjPc3x6i8oESGBR+4Sc+DjA3U3nwzUKfDN4ljZtUsEfPOMNQPndDcru
-   BtlA7FRzXtv+EEue78JLxVKO6agwShptmFfGDZwiNpqkQEFI6rxBJsLca
-   WbwUyBYCKCwGNB93DyCMfiHaUpIzT6EPajfJqeeRfF+4Ngo0umt9G7nWS
-   4v+aFqFroSchIRsqfjEdYmDWCiMs74ZkYurzpS6ssMduZhEWIKnkTJWas
-   H530gfP/bSQbT6hUQ7zwS8jWLsrKTq8gv1Fa3qLdSH2D2aqKtn4qIBwcP
-   sGQ7JxpOIrgFEZeLUBZ3F5AAwluAkzL8VkA/j89yoDDVdIf2OuwbV+mqf
-   Q==;
-X-CSE-ConnectionGUID: IGuwcIpcS0CQLXKIPcYxJw==
-X-CSE-MsgGUID: hG0c06xqTGq8RfhrRuMiSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="84028519"
-X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; 
-   d="scan'208";a="84028519"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jul 2026 06:11:11 -0700
-X-CSE-ConnectionGUID: e8FeLx5dSgKO/yHFp/+lug==
-X-CSE-MsgGUID: l+f6gr/RSDWg7+8CNdy+/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; 
-   d="scan'208";a="248664380"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.245.146]) ([10.245.245.146])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jul 2026 06:11:06 -0700
-Message-ID: <92e3c9210c4038969b24c7b0f3df0a998587ff4c.camel@linux.intel.com>
-Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
- amdgpu_vram_mgr_init()
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	intel-xe@lists.freedesktop.org, "Paneer Selvam, Arunpravin"
-	 <Arunpravin.PaneerSelvam@amd.com>
-Cc: Sashiko-bot <sashiko-bot@kernel.org>, Friedrich Vock
- <friedrich.vock@gmx.de>,  Maarten Lankhorst	 <dev@lankhorst.se>, Tejun Heo
- <tj@kernel.org>, Maxime Ripard <mripard@kernel.org>,  Alex Deucher
- <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 	stable@vger.kernel.org, Natalie Vock
- <natalie.vock@gmx.de>, Johannes Weiner	 <hannes@cmpxchg.org>, Michal
- =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, 	cgroups@vger.kernel.org,
- Huang Rui <ray.huang@amd.com>, Matthew Brost	 <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Simona Vetter	 <simona@ffwll.ch>, David Airlie
- <airlied@gmail.com>, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
-Date: Fri, 03 Jul 2026 15:11:03 +0200
-In-Reply-To: <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
-References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
-	 <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
-	 <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="FXk9fmaY"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2caea3f742bso2891425ad.0
+        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 06:12:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783084322; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IW5UPinu8qQsWdAYi8PisdYDAvtynTWINrQ7ChclR+SEckPZR7QVY7kgJhCnKjZiUQ
+         LOkEf83N2icD36U8/2tCgbYNrJUerwjQLJ6o665mjQlA49BmxDQtQWYwB86vdnd7PZGo
+         Yyl0ufQPdT9cDWeyl4KIBMJncSNVC4yr/jscKVuyFjZ4GAgLDhLYn9zGke7nhRBQTJd9
+         COkOQkjJc5V3iHnb/2yqwVAkmv2e7de3VQPhtAx/o+/vJwBEzcqYXPxp5Bu4gAnpT37A
+         wlATbtlGNL+KHjRrRyP7oDOl4yrJwGs/2VilJgfu9ew6Qru5JIdxBiyiixnlRfJfCDXn
+         sTtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=X8lFHiTICcGdDsPowE7kwVw6KbJBWR6drjVQi7KGbu4=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=bOSYWtcUh9LuSZRHUOmJaht6Vv5nuPHIKZINxgdWROPo/5tMUfutOCwlVNyZicQNR9
+         RKJ70o+lLZjnUF9x0avYm1z4i1OPiSXbu8ThrIg4sEvLTszIAw75iFdBiInIIQ09y/4b
+         HRlhqJq36x5u5rjYjuCsBgN1SQulkr/q7OHvS8VvKGtKwByi7hpfaZe5nUixfpYnXb/E
+         TE/oVDTvyZ3hV7sJef6N77oLkYpdSAjhSoBBSbccqKLypAaWhNFTd4Ur4IQ+I4VhP+NR
+         8sGQDaFYS6NTvS4ka11EOjcRtq7LyStyYZgmh58j/A8a8imNi/ySkiR592RizcjtAr4Z
+         V6rA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=futuring-girl.com; s=google; t=1783084322; x=1783689122; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=X8lFHiTICcGdDsPowE7kwVw6KbJBWR6drjVQi7KGbu4=;
+        b=FXk9fmaYP2BnHkikIYr7tfH/WFAU5GERIb78x6Zfl9hANw3di+Fj6astqCqVwnf0Av
+         e6sUxDQQYiGYBFw9Lqz2BvXTIXaSubIB7zSxYWtoP/7n2aI1hkegJ9ORnZjVKif8pEjF
+         HYgIfR55mVPUOFHXB6d+ymu26/BY7A8zF+KS0U/iJMdv46STDB8nAk/KY7R8ucvD+V7R
+         IZvDlLYjgJUxPzovbfRP8PqrEi5US3cJv4Ixw29G7+EFg7RWRJDmrrbj6ZaCrmFfLl6q
+         emFID61ndBkIQZOB6BRRLs2eI4uwfeFFv6Z/3c4oBG0/AsYau1NVtRqPr8Eboo7IyEun
+         RmJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783084322; x=1783689122;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=X8lFHiTICcGdDsPowE7kwVw6KbJBWR6drjVQi7KGbu4=;
+        b=FWvRiJPQ/mYEfAbQzm3qAhsYXtW0Xa3qlDs7r1LcDrYWaZoxbBppvVJOhomMrCf8vG
+         yisvMHskZzXdzHGsK6e8N2SssdpBwgKHLPoci0pHKKZa7mMxcWWrWA8yguJA3wnbG0mR
+         y9I0AJLktChpwLn43YtdBrMtFOsw6vsjmbOeh2sCK5KVSZAya14S8UHRGFsLv8YxRgft
+         FUF2IBSa0WbgMgMd5DhiwKziqemu8oz7meMtdfVE3e5SkqOheNGoGpKnQyylt6z7GigD
+         pExdspF3qfvj5qNub0V77C1CWdEVd/RgKbOWfhNMjPolE+edzJy4Hz04nQZg8x7SuPAN
+         50pg==
+X-Gm-Message-State: AOJu0Ywo36jcnxFyGVqts4J/kXgHWSdRVkp4WJsK+jDOdtqLT0HI+8hz
+	G7phJy3oQEYAZABEjTpCGJbvO7rCmu6X2C4OLt7m1An6chFeIcnd+Ef6Kyi9UrMii9El35vT27J
+	uqgApnTomAMvH3pojlIKk1rDkvba61PIz0a0XLbQ1Mw==
+X-Gm-Gg: AfdE7ckCVI7rearw80Ziac246f6tCXYhoryQxjpJx9KRaetTU6zEJNvfesSfbcA502l
+	24mcEiHsVTPybl+k2VfSpDb3W0HvIhrw8BJn3gAW5yJByPouLibprY4GociHoYZ7/fxlEZw7IWx
+	lHjHQCm3pqIj2gT+fv5LL18KroCWMQLlrRZ8s8AR2DpI6mVdt/M8b4V9Z0JvW5lWTyOL3Qq39LZ
+	eeG5vJUMUNAVb9MyRl7M2do/E/XBs93sBLmXGfeuhNA97QVc3ycOUR8k8aT2zQFV3GOVIzU5tgD
+	dNMPjkjTDKNAfFbk2so1EAK+Wqgveg==
+X-Received: by 2002:a17:903:28f:b0:2ca:4b7a:4a02 with SMTP id
+ d9443c01a7336-2ca7e8c7cf2mr112714405ad.43.1783084322026; Fri, 03 Jul 2026
+ 06:12:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260703072822.817328079@linuxfoundation.org>
+In-Reply-To: <20260703072822.817328079@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Fri, 3 Jul 2026 22:11:44 +0900
+X-Gm-Features: AVVi8Ce2RGM5T3Pwi8q1vaGDUDYf0lIKTSVCyW91KIzXyuDigHkXVvd2rgHcDD4
+Message-ID: <CAKL4bV6CGp9+uzndeOmJtpOsda_iAp6Cpavdv6fXC1Ek3GWsYg@mail.gmail.com>
+Subject: Re: [PATCH 7.1 000/121] 7.1.3-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2026-07-03 at 15:08 +0200, Christian K=C3=B6nig wrote:
-> Arun please take a look at this.
->=20
-> Thanks,
-> Christian.
+Hi Greg
 
-FWIW Sashiko claims there is yet another pre-existing bug WRT ordering
-here, but since the fix wasn't needed for the rest of the series, I
-focused on this one.
+On Fri, Jul 3, 2026 at 4:38=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.1.3 release.
+> There are 121 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 05 Jul 2026 07:28:08 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.1.3-rc2.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
 
-Thanks,
-Thomas
+Linux version 7.1.3-rc2 tested.
 
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
 
->=20
-> On 7/3/26 15:05, Thomas Hellstr=C3=B6m wrote:
-> > drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
-> > gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the
-> > function
-> > returns early and bypasses those initializations.
-> >=20
-> > Since adev->mman.initialized is set to true before
-> > amdgpu_vram_mgr_init()
-> > is called, a failure triggers amdgpu_ttm_fini(), which calls
-> > amdgpu_vram_mgr_fini(), which then:
-> >=20
-> > =C2=A0- Calls list_for_each_entry_safe() on reservations_pending and
-> > =C2=A0=C2=A0 reserved_pages, whose list_head::next pointers are zero-
-> > initialized
-> > =C2=A0=C2=A0 (NULL). The loop does not recognize them as empty and
-> > dereferences NULL.
-> >=20
-> > =C2=A0- Calls gpu_buddy_fini(), which iterates free_trees[]
-> > unconditionally
-> > =C2=A0=C2=A0 via for_each_free_tree(). Since mm->free_trees is NULL
-> > =C2=A0=C2=A0 (never allocated), this dereferences NULL.
-> >=20
-> > Both result in a kernel panic on the module load error path.
-> >=20
-> > Fix by moving drmm_cgroup_register_region() to after the list and
-> > buddy
-> > allocator are fully initialized, so the teardown path is safe to
-> > run.
-> >=20
-> > Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-> > Closes:
-> > https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@=
-linux.intel.com?part=3D4
-> > Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in
-> > TTM")
-> > Cc: Friedrich Vock <friedrich.vock@gmx.de>
-> > Cc: Maarten Lankhorst <dev@lankhorst.se>
-> > Cc: Tejun Heo <tj@kernel.org>
-> > Cc: Maxime Ripard <mripard@kernel.org>
-> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org
-> > Cc: dri-devel@lists.freedesktop.org
-> > Cc: <stable@vger.kernel.org> # v6.14+
-> > Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> > ---
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
-> > =C2=A01 file changed, 4 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > index 2a241a5b12c4..ac3f71d77140 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
-> > *adev)
-> > =C2=A0	struct ttm_resource_manager *man =3D &mgr->manager;
-> > =C2=A0	int err;
-> > =C2=A0
-> > -	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev),
-> > "vram", adev->gmc.real_vram_size);
-> > -	if (IS_ERR(man->cg))
-> > -		return PTR_ERR(man->cg);
-> > =C2=A0	ttm_resource_manager_init(man, &adev->mman.bdev,
-> > =C2=A0				=C2=A0 adev->gmc.real_vram_size);
-> > =C2=A0
-> > @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
-> > *adev)
-> > =C2=A0	if (err)
-> > =C2=A0		return err;
-> > =C2=A0
-> > +	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev),
-> > "vram", adev->gmc.real_vram_size);
-> > +	if (IS_ERR(man->cg))
-> > +		return PTR_ERR(man->cg);
-> > +
-> > =C2=A0	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM,
-> > &mgr->manager);
-> > =C2=A0	ttm_resource_manager_set_used(man, true);
-> > =C2=A0	return 0;
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+
+[    0.000000] Linux version 7.1.3-rc2rv-g19dde9778fd8
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.1.1 20260625, GNU ld (GNU
+Binutils) 2.46.1) #1 SMP PREEMPT_DYNAMIC Fri Jul  3 21:35:42 JST 2026
+
+Thanks
+
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
