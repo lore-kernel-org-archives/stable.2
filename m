@@ -1,138 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68ECF388E76;
-	Fri,  3 Jul 2026 07:03:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783062201; cv=none; b=WKA+qWAOx1nftpZ5TBN/n5phnqGoG1Gp74rSGJ1SJT55z0b48QIk/Vw4VkxTFFa97s1OQXCOB+jgEdsreMB0EDHmRWIuBPWwv4AYcqbgDD9OI8GcCV0L7ZVMNj31ZV1MlBLstQbbbS9/IIdXpSCnwAuuNRgKLXHn7Xh4VNchxiA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783062201; c=relaxed/simple;
-	bh=JkFPjoxFTMur+37gMHh4PR+51kpVZe+/gkS9HFC0MBs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YBw7jh5A4xQMFtW8oChYTCT9HVpS6+0mLYzgkZIVmmezsh0n6ovVed/zh772VrTtOYPSbUxy86jCrp+joyexHjtY1qcOQkVnf/iSIyvMf/vf0/WgPT3Qy63+4gYE+qYuad9kWJdCk2oBGeDqPSVWy8dcQ8GChjJpEnuJ3M+11Yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RThat20e; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A5338398D
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 07:04:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783062267; cv=pass; b=XunwXisSHaoQez8Fv60jFa7dtzGxeSPnkPx8aBkc8G+mV87yUxeNltDyTRTj9GBGRHrNhuveHTLzx4nsElwNeGXsGpvLk28JEpEkpGccJkymH4ox0VHrGsgfpfkWIAdI7yIBllz8h0c44totyJ3FzrOcWK7/4PFKp6Hdx1l+KQc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783062267; c=relaxed/simple;
+	bh=+WWG55iPmetupBVpWvPzN8FNXJL/33pLOLWrSC+icwE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kQnefwVPQsAHTE8BYGJkI7Ww4tCMIk7z0qzwNhSo4pKXbCEIBEgk+MtsLSqcBNKGCUBCcERUGnNyOUPF8INMtahI4iThtLJtZeEsF5AuNi4qMo+Z9Bpq0TWbOypsjowjmnhYnt1AMZNht86IPf7kwfNGDp6I51D5RNcvQuYdVXg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=EDhjp3KB; arc=pass smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RThat20e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9B701F000E9;
-	Fri,  3 Jul 2026 07:03:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783062200;
-	bh=MwBqIbO+uyjhlDw6NVMbMyFvEcq7NmoGtHQejj+SLFE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RThat20ehjTOHl5OwssmV69gEmG2XtNagHpxRhIW8AXKQf+43a/DDdjyRAjwavYaK
-	 sSiZ3DoLLFpWSxZgn8uuWfduaLLCcp92C8ZCacx1Tb0xIuOpaXzkriE1Rw3ylL7sqm
-	 oSeccmmcQcjR5FOWhItZRdGpi4O0vqKu/KMl2QBVwoBI4Iu69M2i9HjV57S2/8jkZe
-	 UTiqaAiDHA+d0LD8ro1C2olBk94i2sC7AJjwKmc6Kv6SssgN7rmOSNm6V5lSFsB393
-	 jpwKD3r2xJaSuScEMETJ8jzGqQOh4e8f/aOC8vHuJl7EGV8XROmTAOFd+x2xMuDLqI
-	 awTcwR3SHtLWA==
-Date: Fri, 3 Jul 2026 00:03:18 -0700
-From: Peter Chen <peter.chen@kernel.org>
-To: Melbin K Mathew <mlbnkm1@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, security@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: gadget: printer: fix infinite loop in printer_read()
-Message-ID: <akdetq0h1ECpbZXp@hu-petche-lv.qualcomm.com>
-References: <20260701205320.227791-1-mlbnkm1@gmail.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="EDhjp3KB"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c12620ed112so27986066b.3
+        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 00:04:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783062264; cv=none;
+        d=google.com; s=arc-20260327;
+        b=My9dBLmNiLdd0FEoORF9N6qA6kVlRCyBWfZjjOLBG3cY5JL1DXfxHqDgZvP1DWquT8
+         Yk+Fj/3du0Zg0umZ1xoSzSV0yhIuXywShKVeFSwqvypP67y7Lr/wlzXVY5aulh4UEhRa
+         akhAm4IRiYZ+Xq9LLV03gP4MFvED4DpX3E7IUD5HMaIgKGcB0sKYTkuXE0ICrat8uGDL
+         nQCk9E+PJiypgkcmnKfLojTBxNSQNHnatvqsdL9ITQbwL+nKubfW6ZIIE5ekn7WrpRQc
+         v0zNS3smf0Sl9H3odg+/9qd4vUaW40E9oisQZaOHceWx7xaJgHjQmVuTOCvgiMOf3orc
+         qxYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MOh02fA3SZA2iuzmQFctiZnBgRTP/PzpfIgUWp1N9lY=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=UipzY10kqQcZm97hCK9PFcV/TSivNOUFsrBn6Tyzg1bTB6x5y/QDUidAfwLrFf4I3k
+         IPgjXTZ4zbz++85kZWJQ95pRbvi6UogBocZnppLGBjAjDQgoyJoVNFA9LVec88RMGNr+
+         6yQPdGIU6fvQnlRPcEg5OuP+EkJw0Z112ZfVG3xVrDTX1W223Lipb5iqVkqiO+SlW7Nc
+         o+qLBypAEkiCYSr7zLpEBSI1WsAUNClPI7mbhVi0c2lia74ZzGB0asoKmI050lrBk8w9
+         ea+m0s7TA3NB8sUGOrXOFDJnBP6zMj/Hf66TTkaTyddIxYzHnhnu6MX7jJchgsHZjNX/
+         SzfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1783062264; x=1783667064; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MOh02fA3SZA2iuzmQFctiZnBgRTP/PzpfIgUWp1N9lY=;
+        b=EDhjp3KB1QP+EktWrZgjoAlKrsBQbk5VeLe5rsz3sDCelpH7tvfNC9LtbTIOMYvqkY
+         vKULoM+T5YoVysSj3PauFKk7slQ7NIbW+pMG9l0QReS72o6Ojd7umGq83H2Ocplz8CnE
+         E/SpT6Sp9E7vIiJvPFuDKmtFfgW+W18YCfRpo+hmsMoc8UEY0rEkA9XYbYpBwpMPLxu/
+         AKYqQ5OHzVt623D2iNuqxVM0rdUCBRtD8AoJXkluFF5yysaTQgK45pFDjcr9DC3xdWgx
+         WDNLV/rJVccVy2b97HiioNoOYFfrpz9GUpdXdTLAPC7Ko+dchLtKZvaD8qiXZGRQwudW
+         qisw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783062264; x=1783667064;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=MOh02fA3SZA2iuzmQFctiZnBgRTP/PzpfIgUWp1N9lY=;
+        b=LSTHVLVsF0Iuep82p12W75pRk6Qw7Ay1BE5R+4NQJXAN9SiNvMLTbrwxxPCF1r5MjD
+         DSjISxkNM/Dz4a6e43K5IP3QEwbPAGMTPlrroqtVl/zvRZmza/GqH8CqJRRjCDLng/2c
+         L24yJTcQIgLUDHY/ysUDAGd+sFO7jZSwtj+HzDIqQN6BOZfu6oZpjW+GZNMtkXhHNrn/
+         UHPzIqWfOufNRZ8Vb/SCOsWwA78U7qBVuqtDXXgk3q8xNtsg+ZciWRknMRCt6Hgc6aII
+         MOkCs9QK/U5hDRxLaGIGdIJHanQeFoe0GQBxLzg8B2DiAdrl0fwBW0OuhAtxazAlFXBD
+         NpBA==
+X-Gm-Message-State: AOJu0YyGyhzN843T4GoVPKLNgJCtoiYIPRb4cw1g5qmzuPz+dipJJlfo
+	ZeB8Kz5m0qMPXo2oSLnqtLQUZYHtQd4xFZDjmRgwb/6Mommeox8hV7xcmIAjxqoQaOSRf3qQ43O
+	T1zOYWBra5qCelMBHbhwo4FOGH6F52o3LWoGUXc7dlQ==
+X-Gm-Gg: AfdE7cn3tllu5jDe3YW53bIDlRTPIYjMuWwLtD3f3r6p4G4hcHgOy9MO+DpnL5VqjEl
+	y0EGz6DFpwNN2TATK0zxCprnV9hD1Jd15uRu1/htHbfW2sYnFZaXXYsvqONoSjz9UnABywtwHUm
+	Gg9K8IqBIwu0jzQF6wcx7q3XJOpLl2Tt7hfv52mZD0yeTg9LX4Bw8Lf/nB38virCxPV6Bp7/8RD
+	q7yzDCZr2tAxfQRi/mM5Dw/8a/Q37u/GERuCi4y7qecVsshedRq9sbKVia65VhYQVDyhtk=
+X-Received: by 2002:a17:907:a0d6:b0:bd7:f75a:817c with SMTP id
+ a640c23a62f3a-c12a9d6c21dmr367228766b.17.1783062264082; Fri, 03 Jul 2026
+ 00:04:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260701205320.227791-1-mlbnkm1@gmail.com>
+References: <20260625125645.554579168@linuxfoundation.org> <akddu8pDgJ3itnfh@u94a>
+In-Reply-To: <akddu8pDgJ3itnfh@u94a>
+From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+Date: Fri, 3 Jul 2026 15:04:13 +0800
+X-Gm-Features: AVVi8Cd0csi63uxIrDTRJwEkzLcN7b-swi0CfEO28G_24PsvVFwDgkCXK5KP-lE
+Message-ID: <CAJFoxQO=gH5kuXdzjYmTwkvB_DcqgTjn3OU7EcB8UkQtnX-Smg@mail.gmail.com>
+Subject: Re: [PATCH 6.18 00/60] 6.18.37-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-07-01 22:53:20, Melbin K Mathew wrote:
-> printer_read() uses the same variable for the requested copy size and
-> the number of bytes actually copied to user space. copy_to_user()
-> returns the number of bytes not copied, so when it fails to copy
-> anything, the computed copied length becomes zero.
-> 
-> In that case len, buf, current_rx_bytes and current_rx_buf are left
-> unchanged. If RX data is available and the user buffer remains
-> unwritable, the read loop can repeat indefinitely.
-> 
-> Track the copied length separately and return -EFAULT, or the number of
-> bytes already copied, if an iteration makes no progress.
-> 
-> Fixes: b185f01a9ab7 ("usb: gadget: printer: factor out f_printer")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Melbin K Mathew <mlbnkm1@gmail.com>
-> ---
-> A small userspace model/reproducer is available to maintainers on request.
-> 
->  drivers/usb/gadget/function/f_printer.c | 25 +++++++++++++++++++------
->  1 file changed, 19 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
-> index e4f7828ae7..e346e4c26e 100644
-> --- a/drivers/usb/gadget/function/f_printer.c
-> +++ b/drivers/usb/gadget/function/f_printer.c
-> @@ -432,7 +432,7 @@ printer_read(struct file *fd, char __user *buf, size_t len, loff_t *ptr)
->  {
->  	struct printer_dev		*dev = fd->private_data;
->  	unsigned long			flags;
-> -	size_t				size;
-> +	size_t				size, not_copied, copied;
->  	size_t				bytes_copied;
->  	struct usb_request		*req;
->  	/* This is a pointer to the current USB rx request. */
-> @@ -525,14 +525,16 @@ printer_read(struct file *fd, char __user *buf, size_t len, loff_t *ptr)
->  		else
->  			size = len;
->  
-> -		size -= copy_to_user(buf, current_rx_buf, size);
-> -		bytes_copied += size;
-> -		len -= size;
-> -		buf += size;
-> +		not_copied = copy_to_user(buf, current_rx_buf, size);
-> +		copied = size - not_copied;
-> +
-> +		bytes_copied += copied;
-> +		len -= copied;
-> +		buf += copied;
->  
->  		spin_lock_irqsave(&dev->lock, flags);
->  
-> -		/* We've disconnected or reset so return. */
-> +		/* We have disconnected or reset so return. */
+On Fri, Jul 3, 2026 at 3:00=E2=80=AFPM Shung-Hsi Yu <shung-hsi.yu@suse.com>=
+ wrote:
+>
+> On Thu, Jun 25, 2026 at 02:02:45PM +0100, Greg Kroah-Hartman wrote:
+> > This is the start of the stable review cycle for the 6.18.37 release.
+> > There are 60 patches in this series, all will be posted as a response
+> > to this one.  If anyone has any issues with these being applied, please
+> > let me know.
+> >
+> > Responses should be made by Sat, 27 Jun 2026 12:54:50 +0000.
+> > Anything received after that time might be too late.
+>
+> test_progs, test_progs-no_alu32, test_progs-cpuv4, test_maps, test_verifi=
+er
+> in BPF selftests all passes[1] on both x86_64 and aarch64.
 
-Since it is a bug-fix, and goes to stable tree, drop this un-related change.
-Otherwise:
-Reviewed-by: Peter Chen <peter.chen@kernel.org>
-
-Peter
-
->  		if (dev->reset_printer) {
->  			list_add(&current_rx_req->list, &dev->rx_reqs);
->  			spin_unlock_irqrestore(&dev->lock, flags);
-> @@ -543,6 +545,17 @@ printer_read(struct file *fd, char __user *buf, size_t len, loff_t *ptr)
->  		if (dev->interface < 0)
->  			goto out_disabled;
->  
-> +		if (!copied) {
-> +			dev->current_rx_req = current_rx_req;
-> +			dev->current_rx_bytes = current_rx_bytes;
-> +			dev->current_rx_buf = current_rx_buf;
-> +			spin_unlock_irqrestore(&dev->lock, flags);
-> +			mutex_unlock(&dev->lock_printer_io);
-> +			return bytes_copied ? bytes_copied : -EFAULT;
-> +		}
-> +
-> +		size = copied;
-> +
->  		/* If we not returning all the data left in this RX request
->  		 * buffer then adjust the amount of data left in the buffer.
->  		 * Othewise if we are done with this RX request buffer then
-> -- 
-> 2.39.5
-> 
-> 
-
--- 
-
-Thanks,
-Peter Chen
+Oops, meant to reply against the 6.18.38-rc1 review. Sorry for the noise.
