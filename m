@@ -1,135 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A54A233721;
-	Fri,  3 Jul 2026 01:47:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A8E1C68F
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 02:31:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783043228; cv=none; b=PUREu87//tAFptaaRyVdMYGqnPJCahjTS9FTptEnPp9rsEINdUWsBb6yS3sIO2YaEEcxmEDifqbmqZq1RTF372j+qR8oBwr0LABsyuKkRpckZPJnoFRUr3UYNzPmBrW6OyRe+LKfoi5XBa/kloqiEjXBmgZiRhuqCQg295WPF+8=
+	t=1783045871; cv=none; b=Xog2Vpz/gdbZNuRH3pwww8tJsOuEjbN5zS3QzwTxL6JGUQ5yDXUccpJlHULs/OcJUi+hvfuPy4zn1tneQk8rRZ63CayhmB00Gq+2liEdFVEETP9aaX4Ugvts/xiFKft1lo0a4iVcFdkVK/znVZVZpn8ZzNaSux5kukwT556bvr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783043228; c=relaxed/simple;
-	bh=85bL5EhufkK8E/+zvpSd1INtd01eMnchbkxwYvSLNPc=;
-	h=Date:To:From:Subject:Message-Id; b=TsJ7cWW2LGbQorGcxyNf+v/LGtwPed6EI0C/9vRJ+Wv1WswD/Jw1Msa6RCxNMPbT94I5zHm5wD8oRv3IQDOcqg31jAPvBVNkksfKrzDSTC5WkVSm0zg+/IwjtgSG9Nd63WLwfc6zmVrMUqU+ZdPtnHsJUTtVNVA3reiuLOCsHj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Cnd+AMmr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783045871; c=relaxed/simple;
+	bh=jAnzaF5txNxYvh5Ma0GDN/WDcyKooTOAe/AQK9xAcpc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hrXDvyl4LaMqgqW396B24O56lcRUnCc6+3CirxYilgunIgebwY53eBf3cJjnGZ3OB38ySWPmzAyl7kSKdUVgxOMtDoHwK+0cfKCLytsVXRKJr0MrvLKJqnkemeilV0jGulL3RiCfoRH/MGlKuk2vFxWl84Fyb7faI11EsUpzwTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2G9Rsgn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Cnd+AMmr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 037291F00A3A;
-	Fri,  3 Jul 2026 01:47:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1783043227;
-	bh=EKb0Yg6YMSVtW3/6aW9IZAyttrAjzdvMbJKcxVIeODg=;
-	h=Date:To:From:Subject;
-	b=Cnd+AMmrQffLp3y7OJzh81nr8kC3QnDHJGtOm1Chvsd7Ti8bdvMtNBKkTmTgAKHIu
-	 /Sc71Fn/lO5YRajRMHbVIHfPnfWiOsGgjnq0usOpS9vjMJaSSbFjx2FrYIRaOZSazl
-	 C6+jUoxnmUJVgmEb/T0urYWuNA15GaCpDp2kVZZg=
-Date: Thu, 02 Jul 2026 18:47:06 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,hexlabsecurity@proton.me,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-validate-lengths-in-dlm_mig_lockres_handler.patch added to mm-new branch
-Message-Id: <20260703014707.037291F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2G9Rsgn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7551F00A3E
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 02:31:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783045870;
+	bh=WJhCa2sNygMOIyt0Y7+tuK6Oih42DNSuTmTC37p/FKU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=e2G9Rsgnn9m9P8o9ZeMFi2cmjYRzBo31GsPL95Jg0T7qn0sVG78FvoHXgtRI/ZxIe
+	 04Oil0ssfKKgfA1AHXhFBn+xS/F6VU77Bn3aJk6n2Nbjl8suTynAAL2upFdfUpWkbb
+	 gGDCKinzglIuxyPzK3ikkLAOX4x8f3qZT+oOLW1/FnR0tUORZbS0zw+3zPLVdEolS8
+	 3RJtaNzTSQ0c6UzZCZMJEwubtc0IAhNJW45RTiD1/WNbHEyFJzoqrZIycEu5Uhn3J2
+	 T6xEpSj5DJmMSH7EMgFOxR/MRZnQoZOyK4+tWmum6qoJLmeQjxXPl+kx6qAzIyJAtX
+	 EWUa9pJhdqyVQ==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-698c0ff45b5so1055222a12.1
+        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 19:31:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpuOL6uM8hBfCgdRBPJGi1zT7jEzMFi8LlPucxXbIGQyXm6DRG90G+v53k4k43XF3rCPBzy56c=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz0X4n+gTxnu9VsNzzc6GmJwWgxpfYYnUIfMqV4Pst6rY/DEEKb
+	eSbCjmH8Oq3PVm8Lo2NHEL1iSxi+O2p3V6wy11bVG0WA2ffa3rmyeB7HjxR+1Hd+K25tqn16As1
+	b0vdW9uJt159nyU+AHrnQLi0C8hMGvX0=
+X-Received: by 2002:a17:907:9307:b0:c12:686d:f673 with SMTP id
+ a640c23a62f3a-c12c9f71a74mr115649866b.30.1783045869051; Thu, 02 Jul 2026
+ 19:31:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260702113222.228413-1-guanwentao@uniontech.com>
+In-Reply-To: <20260702113222.228413-1-guanwentao@uniontech.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 3 Jul 2026 11:30:57 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9dgEhagjzofg_H4mx1kYg=tFEE49RrwU9WY-xPMoEVZw@mail.gmail.com>
+X-Gm-Features: AVVi8CcL5Nl7f5tcgx7ActxW8WSbdBD0NvGR2Idjtv5I9_5dVLUOLq6VW-mFQ4g
+Message-ID: <CAKYAXd9dgEhagjzofg_H4mx1kYg=tFEE49RrwU9WY-xPMoEVZw@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: restore DACL size on check_add_overflow() to avoid
+ malformed ACL
+To: Wentao Guan <guanwentao@uniontech.com>
+Cc: smfrench@gmail.com, tristan@talencesecurity.com, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-The patch titled
-     Subject: ocfs2: validate lengths in dlm_mig_lockres_handler
-has been added to the -mm mm-new branch.  Its filename is
-     ocfs2-validate-lengths-in-dlm_mig_lockres_handler.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-validate-lengths-in-dlm_mig_lockres_handler.patch
-
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Subject: ocfs2: validate lengths in dlm_mig_lockres_handler
-Date: Mon, 29 Jun 2026 00:01:44 -0500
-
-A node receiving a DLM_MIG_LOCKRES message trusts several fields of the
-peer-supplied dlm_migratable_lockres without validation.  num_locks and
-lockname_len are bounded only on the sending side, and the message is
-never checked to actually carry num_locks migratable_lock entries.  As a
-result dlm_process_recovery_data() walks mres->ml[0..num_locks) past the
-kmalloc(data_len) copy of the message (an out-of-bounds read that ends in
-a BUG_ON panic), and dlm_init_lockres() copies lockname_len bytes into the
-fixed 32-byte o2dlm_lockname slab object (a heap out-of-bounds write). 
-Both are reachable by any node in the domain.
-
-Validate these fields right after dlm_grab(), before anything uses them --
-including the not-joined error path, which already prints mres->lockname
-with the unbounded lockname_len as a %.*s precision.  Reject the message
-unless lockname_len <= DLM_LOCKID_NAME_MAX, num_locks <=
-DLM_MAX_MIGRATABLE_LOCKS (the bound the sender already asserts), and the
-payload is large enough to hold the claimed locks.  Conforming recovery
-and migration messages are unaffected.
-
-Link: https://lore.kernel.org/20260629-b4-disp-94fb6521-v1-2-6953bcc0421f@proton.me
-Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- fs/ocfs2/dlm/dlmrecovery.c |    9 +++++++++
- 1 file changed, 9 insertions(+)
-
---- a/fs/ocfs2/dlm/dlmrecovery.c~ocfs2-validate-lengths-in-dlm_mig_lockres_handler
-+++ a/fs/ocfs2/dlm/dlmrecovery.c
-@@ -1357,6 +1357,15 @@ int dlm_mig_lockres_handler(struct o2net
- 	if (!dlm_grab(dlm))
- 		return -EINVAL;
- 
-+	if (mres->lockname_len > DLM_LOCKID_NAME_MAX ||
-+	    mres->num_locks > DLM_MAX_MIGRATABLE_LOCKS ||
-+	    be16_to_cpu(msg->data_len) < struct_size(mres, ml, mres->num_locks)) {
-+		mlog(ML_ERROR, "%s: invalid lockres migration message from %u\n",
-+		     dlm->name, mres->master);
-+		dlm_put(dlm);
-+		return -EINVAL;
-+	}
-+
- 	if (!dlm_joined(dlm)) {
- 		mlog(ML_ERROR, "Domain %s not joined! "
- 			  "lockres %.*s, master %u\n",
-_
-
-Patches currently in -mm which might be from hexlabsecurity@proton.me are
-
-ocfs2-bound-namelen-in-dlm_migrate_request_handler.patch
-ocfs2-validate-lengths-in-dlm_mig_lockres_handler.patch
-
+On Thu, Jul 2, 2026 at 8:33=E2=80=AFPM Wentao Guan <guanwentao@uniontech.co=
+m> wrote:
+>
+> check_add_overflow() unconditionally writes the truncated sum into *d
+> even on overflow, per its contract in include/linux/overflow.h.
+> The four check_add_overflow() guards in set_posix_acl_entries_dacl()
+> and set_ntacl_dacl() break out of the ACE-building loops on overflow,
+> but the truncated *size is then consumed downstream at the end of
+> set_ntacl_dacl():
+>
+>     pndacl->size =3D cpu_to_le16(le16_to_cpu(pndacl->size) + size);
+>
+> This produces an on-wire NT ACL whose pndacl->size under-reports the
+> bytes actually written by the preceding fill_ace_for_sid()/memcpy()
+> calls, yielding a malformed ACL that can trigger out-of-bounds reads
+> when re-parsed by clients or ksmbd itself.
+>
+> Restore *size to its pre-addition value on each overflow branch (via
+> `*size -=3D ace_sz` / `size -=3D nt_ace_size`) so that after the break,
+> *size once again holds the cumulative size of the successfully-written
+> ACEs. The committed ACL is then truncated-but-self-consistent rather
+> than malformed.
+>
+> The ksmbd DACL builders are the only check_add_overflow() sites found
+> where an overflow path breaks out of a loop and the destination value
+> is consumed afterward. The other nearby break-style cases either
+> return -EINVAL on overflow (transport_ipc.c) or break without
+> consuming the overflowed destination value afterward (buildid.c).
+>
+> Assisted-by: atomcode:glm-5.2
+> Assisted-by: Codex:gpt-5.5
+>
+> Fixes: 299f962c0b02 ("ksmbd: use check_add_overflow() to prevent u16 DACL=
+ size overflow")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Applied it to #ksmbd-for-next-next.
+Thanks!
