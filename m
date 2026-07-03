@@ -1,123 +1,145 @@
-Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5253CCFC4;
-	Fri,  3 Jul 2026 12:14:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.188.205.243
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783080879; cv=none; b=XuU5Yd16W5EVAVj+XE6uS0DVSN5ImG7rizqT6y8/pyT3DdlH36XqGtx8xcaoRH2Y/KrjBJydwhhNtuBTwWkcebdllOkhrWmqVYUfVznJBDAjh2rH3lA1TwzdHWh4TpSDzyjwn8Q06QDIjy3Rbk4fqSmKdWo0gWlFQEZ2UwNOUxk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783080879; c=relaxed/simple;
-	bh=KWWCjLkg4h9x3km9rFZ2Wfc0d2ZwVc895DbuVuZ74O4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LITYEpjkICKds7eyG9iCs9Ip3nCPlwpL8rBVfo3YcjYhuSnaH1vkXdeUE4TgznHVZl8mYB3iK0axJGto4ZrIfZb15thfsprPHi9LZB4z4vBiZCvvA0XwgY32rskxlfUtGrfyj7pNYb2mPJbhIHjpvTPR1rbcxmqyQ7edYj0WZwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=AG6PM/yh; arc=none smtp.client-ip=93.188.205.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92FA23D093E
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 12:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783081303; cv=pass; b=Bo0shpRTTjpvRE1jdwBCBgwI0WGk8Ss8yKsl2Oj7D9h98YDrMRbg/Mu5+MbnueMcMBleUdsOhxy+wenhIZsN7qYTQ+I4oBYINF6sdNQ3IKyBPNnUu0cFywJVz2tRLeLAL/b3TA9W1gKcp8ZgpXT6HOJ3JlDaon84YpNiWO1Xtxg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783081303; c=relaxed/simple;
+	bh=e7AeLpfI/V+IZizL+0VxFnbt6XslONmPoQZ28t9uKEg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dIsIlKVC/iOW8fXoO8d1sFdl6Czvd3tfSE/S3HH8ohwAOdg0W5664fsGhx0KhjmVsmUUINvDuNcCDj9+yqJEjg+zCO+A12tnrKSGJMppdtIrq/Yq1o6r0RnNhvDi3uZ52KyUnlK2yi8REynOl8WSXa+IFyvxevIv8yFMWz8K4Do=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VFhT/HDn; arc=pass smtp.client-ip=209.85.208.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="AG6PM/yh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1783080866;
-	bh=KWWCjLkg4h9x3km9rFZ2Wfc0d2ZwVc895DbuVuZ74O4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=AG6PM/yhZE5mNO0tX1LnotZZjELMcvmJXDmIX/c8ZQZZRmqb4F+z0DwHJeotD5bSo
-	 TMCq+vjZRGTadIb7+1dbJQ4mZJLRTcvuT0XKke14kfpTeDOD8za86PV9FoyLs1RnBQ
-	 3hI1TUZPvcv0wUNdz7lvmh6yV9xjQyEEgBwL4VaFVO6f5DaDS1EN002XeBlTl/3nIZ
-	 ESitHEAvo/Td6xMh19gW7Xf9LS8PoQZ2wjJJgg4NfaYW8k8qFMi0eoi2H+9Z0BLPSO
-	 UpSs8207PQNBTZCwMoiVP4kNBwE+zC461C4uFRpI2f2Hma1MSzkRnZviL7bMuZ78ee
-	 V/9JZ6zwwVMYA==
-Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw02.astralinux.ru (Postfix) with ESMTP id E39021F42D;
-	Fri,  3 Jul 2026 15:14:26 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
-	Fri,  3 Jul 2026 15:14:24 +0300 (MSK)
-Received: from rbta-msk-lt-302690.astralinux.ru (unknown [10.198.56.105])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4gsCNb6Flsz1Q8W;
-	Fri, 03 Jul 2026 15:14:23 +0300 (MSK)
-From: Alexandra Diupina <adiupina@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alexandra Diupina <adiupina@astralinux.ru>,
-	Abel Vesa <abel.vesa@nxp.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	NXP Linux Team <linux-imx@nxp.com>,
-	Adam Ford <aford173@gmail.com>,
-	linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jiasheng Jiang <jiasheng@iscas.ac.cn>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Peng Fan <peng.fan@nxp.com>,
-	Brian Masney <bmasney@redhat.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	imx@lists.linux.dev,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] clk: imx: Add check for kcalloc
-Date: Fri,  3 Jul 2026 15:13:38 +0300
-Message-Id: <20260703121338.25747-1-adiupina@astralinux.ru>
-X-Mailer: git-send-email 2.30.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VFhT/HDn"
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39b38d3c929so4575401fa.3
+        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 05:21:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783081300; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NyS7Cs/m5E3MrsMpdKAGAR9aY4/E/KbL+Fru1ZNR9Qnc9zoCITI5nQZVJMshavQOAF
+         vMCq9g7anEtAH1+m2IozamCLNk0T09FgEDeCk+qnQZG72iFRnjHGex9i+e9edevAeDrG
+         qdiUMXcpj++QApV6cxhjMvXZcSJNdB8dQWSWoWxVjLEJN/HADZtOi0uFF73011+9nUMC
+         FVS6ael/Dn4cjA+cwGmukK7KfIArRRiuQX2tEgjDWWVliZIV4qf+UKX6phR5y3ALgV2b
+         tsurNnqx5zzjg+6woRFtegVHThtJWjJuSfuhnI5yplcISM3YnDfqwDqdDzGGp54S0XVE
+         bwOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LPBk8ugS/kgMy/u15yq0CBcBrSjlFHrN86r+y6xZUes=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=sP4nreMvARNfR9TVylSSkvVLYFujs5gm+NUYFda4Qj1yKCVo73dU2ONVRSewzbs8vx
+         Gw+Zu66QrWFc7NYPMyrvnBN1yTwcNZPsIrHEtNwyDhXiLnzhvyyJs64Skqe0hNB5HVjz
+         DHfRKa11ZLm4jgwAamJYEXht/El9W134sSYPDcswcrV3dLFEgW75urAFJtTF2If2UxRZ
+         7hgNu72OItiS/9OZrHIrcZYn8MuC+wz97PKuhK2EUEjVl/aPFtb6uQoKpwpmq6ex3Vum
+         uHDXJVX7f8oN/+XGqxBZtQdqMJYa7nmcyXezgJpTcRehxlX9GyfOuDWwR2HSXShcYDwR
+         pT5A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783081300; x=1783686100; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LPBk8ugS/kgMy/u15yq0CBcBrSjlFHrN86r+y6xZUes=;
+        b=VFhT/HDn6mybHqv9WRPoaOwkIKu80LKlYsnJbiIk0pZFMCLnghowT+6/X3Knd5WbcU
+         O1m+MAFUGGXAZRUSxChehOwpdD5SSacnXgMEeIR2G/323dlgLGKIkaeaCvRbzmQAvkgL
+         HwDEHrepkv9pApuWsbQnszjKjfA76wkDY6K8h24ydEvjfHVz1DqAfnx7mnFpXZCDzvRf
+         22H8J+GY3RWhdWznyGPj16AgcltVne6VaZWTN9HjDjdYV7g0eyIQc97PMxz5YcHgu76B
+         z4tZlg7SQHIvztkkL6QwKJSvcvIdRp2AhRYRUxpHwNBy2wyk+kLPX3LkaevU8mrIyQIK
+         w1bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783081300; x=1783686100;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=LPBk8ugS/kgMy/u15yq0CBcBrSjlFHrN86r+y6xZUes=;
+        b=l/YnhmWKoJeq8qqlvxc+5f6Sa6hzmHyud590A0oUzpVrkUxBfzjn+pI7esk0g72ph/
+         PUNe3Q6mffokB5fhId3DyVxsFyE+T+/faxFPtI2ObxxMSO2bGTOfVdlQLCqy8Rg5GCdc
+         8aV0ds91Pf+1+qKmsvkiW9W9ProX80mi00ps+S8ER3BxwEGTohM3ZU4Paxa4dryoKbyy
+         V3LvC5VdnCgOoodaKWZyWNSem9jDHAAmwb5unyw7Xt9JseA0sIwwPSmXItBiDvKdXN/5
+         xoyjwjJCWCo7kYUOIXMjRRGJJC3QU5SEO+3yIdaQhlqYDK0uojGN4oF+Z5w41gMvoVTs
+         lRIg==
+X-Gm-Message-State: AOJu0YzUsFqtRhRNBzKSLcj0miaN58lxi81suzZsnBVDIZhmpHoV5YIR
+	h+rHoVXb831d5LgmGX/zW64Llm51Lcm7bMoK9V7feo+/uSx/4+2D3U5ibEulFVAs6ojna7MZP1+
+	W0dRd81KcoeKGY+wcz7oZkmz6gBz48O0=
+X-Gm-Gg: AfdE7cn+CpCEYc6Mq/TTq5H0p1jrPDrpNDPHoShFbazqJHJEPCbDz5WGmF5/Ntbq55W
+	bFJmvpIcmvICiNTmlEwzNWYDMoqczY120WPBo1bB3BhzsS2CdlapqNrvy4xNyTcxGG/DdRhNKb4
+	oj8yU7RbLFPuo3vufhtnQfLIfsgG+NUXNuj5VacJYPXJa3c+b6pnEYuORfkXU33NsAQeksaKhb9
+	9sNYWSYLcW+RjAT1jvyLQGy/Hua/GXH7wY4KBeufWhlw3c8fSX2rBhAiwfYIt/TzmCcoRTqdN80
+	TPYtYCD2LEnqP4SP4o+dcFqFySLMag==
+X-Received: by 2002:a05:6512:6887:b0:5ae:bf95:38e4 with SMTP id
+ 2adb3069b0e04-5aec679798cmr1666596e87.3.1783081299489; Fri, 03 Jul 2026
+ 05:21:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/07/03 11:40:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: adiupina@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 112 0.3.112 7c8d497b0e572fbfa504a2ee62037c045a8cb4ec, {date_rfc_vio_soft_silent}, {Tracking_ml_letters}, {Tracking_uf_ne_domains}, {Tracking_internal2}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;lore.kernel.org:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 204227 [Jul 03 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.22
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/07/03 10:45:00 #28371015
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/07/03 11:40:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+References: <20260703072822.817328079@linuxfoundation.org>
+In-Reply-To: <20260703072822.817328079@linuxfoundation.org>
+From: Dileep malepu <dileep.debian@gmail.com>
+Date: Fri, 3 Jul 2026 17:51:27 +0530
+X-Gm-Features: AVVi8CcM4kfM7lzOEdj071SFlE-qqUn8hYlhEnpvzVa2yugxgWc4NOB7MuYiVXc
+Message-ID: <CAC-m1rrUUkGEGkQ8sxZYss1c02pCGyfAp6fyPzwTpWWN=tPGfg@mail.gmail.com>
+Subject: Re: [PATCH 7.1 000/121] 7.1.3-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+On Fri, Jul 3, 2026 at 1:08=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.1.3 release.
+> There are 121 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 05 Jul 2026 07:28:08 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.1.3-rc2.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
+> -------------
 
-commit ed713e2bc093239ccd380c2ce8ae9e4162f5c037 upstream.
+Build and boot report of 7.1.3-rc2
 
-As the potential failure of the kcalloc(),
-it should be better to check it in order to
-avoid the dereference of the NULL pointer.
+The kernel built successfully on both x86_64 and arm64 using their respecti=
+ve
+default configurations. No build issues were encountered. The kernel booted
+successfully on both architectures in the virtual environment. Basic
+boot verification
+completed successfully, and no unexpected dmesg regressions were observed
+during testing.
 
-Fixes: 379c9a24cc23 ("clk: imx: Fix reparenting of UARTs not associated with stdout")
-Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-Reviewed-by: Abel Vesa <abel.vesa@nxp.com>
-Link: https://lore.kernel.org/r/20220310080257.1988412-1-jiasheng@iscas.ac.cn
-Signed-off-by: Abel Vesa <abel.vesa@nxp.com>
-Signed-off-by: Alexandra Diupina <adiupina@astralinux.ru>
----
-Backport fix for CVE-2022-3114
- drivers/clk/imx/clk.c | 2 ++
- 1 file changed, 2 insertions(+)
+Kernel Version: 7.1.3-rc2
+Architectures: x86_64 (x86_64_defconfig), arm64 (defconfig)
+Kernel source: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux=
+-stable-rc.git
+Commit: 19dde9778fd8e8fb700fd3f9d29be0eb4376fb71
 
-diff --git a/drivers/clk/imx/clk.c b/drivers/clk/imx/clk.c
-index d4cf0c7045ab2..be0493e5b494e 100644
---- a/drivers/clk/imx/clk.c
-+++ b/drivers/clk/imx/clk.c
-@@ -173,6 +173,8 @@ void imx_register_uart_clocks(unsigned int clk_count)
- 		int i;
- 
- 		imx_uart_clocks = kcalloc(clk_count, sizeof(struct clk *), GFP_KERNEL);
-+		if (!imx_uart_clocks)
-+			return;
- 
- 		if (!of_stdout)
- 			return;
--- 
-2.47.3
+Tested-by: Dileep Malepu <dileep.debian@gmail.com>
+
+Best regards,
+Dileep Malepu.
