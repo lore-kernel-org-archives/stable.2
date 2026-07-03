@@ -1,129 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 094F11F30A9
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 18:50:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 441A6314D06
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 18:57:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783104622; cv=none; b=R2qG9ojJkmugbSMBQSIlMD5HdPG9ET62SUdLHKqOfpuTL+kFB91UdFlfEBkaAM8Qbh72VYcQ6mGD9m1quiLO1GLibQ65La6Srz0e5GZZvhVa8YnyAXZoABejOLZKGYhyv2agylbzbStIbLnylKq1pFpI4xjq+N3M8+OseWR1sZc=
+	t=1783105038; cv=none; b=rcjFdH98zza5lORaqUqWPSF2fCgPomN5GoiFAEtvGifQNExx1m6OFjVzFrawqxkRovLstMMXP5DPqSrlB3i3HB+B54Cn8v/kx712gBjHgaYAd0kllQHPe50ULgaZ2/ZfJKC6waECGi7e7XET3kCiAZCTJkn+qq1VsyuCjzVd+cU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783104622; c=relaxed/simple;
-	bh=251SqGJ9/vf4l5I68FUjfYJI2EuyjAkUXME5sQZ5KHM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XalPoOtSCHeuHU7TzfgjxXCLE5HPVW9XhRCttONT4udx/YtnmRToUa3IHX3GAlpHecd6eyHgQFkbSUrblSAG0ZbDI1/PCc1/j5VRs/gKyBR037whjNnIbgiLcILnaBiitMbV5lMv4UIIQ/c+z+CRBm+iERJ3ckoMB/uQ2bubv2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZlicXmFA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783105038; c=relaxed/simple;
+	bh=EVj/nJjoDMSSbQCOLNFtXva5XAladq3bBJePirYqfas=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uJOzqN4fok/emBkgqNnUoEJcnrI2Tbp8dJdSwtQgKhd2uzzQDCqjmCiD6PZNGk9hdNLdXJIw7OcYYaw5IKndaZZ88Hw/fw4Ohb5h6nh0o4kx+kAnLcrA19zLXj5dNMiuoIMIbYPPud5OpkCbaXWk46XTRv+ZygSrBlVcrePOQXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ApfJI2W6; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZlicXmFA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 029091F000E9;
-	Fri,  3 Jul 2026 18:50:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783104620;
-	bh=xO94CSWvqmEqD6id5sdLJZU6M3apRBTzh1zkI1d9NMk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZlicXmFAzHhu0RBoSCZoEFygDoC/iRCYkprHRcJuBL/ABm08KR0yRzNtmfc9uaASv
-	 nZSw8pvFjNZ0g2Z+4o1LFT290VbeQz4okzEazNNDqeuzfz68t1w8ng/3tz80c9GxA0
-	 +uWDsbuvoRfVkBSIQJn9FjjuinvuOnPdhIlXKbQq231GyJ2yWKdsWxfPHEvreOLmzd
-	 Dj2smZXrb9lpZTmUB+XYEZ3opQHXCpmQjzlupf6qQKU5sZd4ZHFbBDXEl3c8kFalXR
-	 nOqvyw2pvfHWRL/wftM31QQiYkco0G6me7i6FpexB5n56xt6J+DsJu/E8JThCrfgvo
-	 dsUzdd0WVloTg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] f2fs: bound i_inline_xattr_size for non-inline-xattr inodes
-Date: Fri,  3 Jul 2026 14:50:18 -0400
-Message-ID: <20260703185018.285454-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070209-customer-cubicle-6a8c@gregkh>
-References: <2026070209-customer-cubicle-6a8c@gregkh>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ApfJI2W6"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1C8ED22D7;
+	Fri,  3 Jul 2026 11:57:11 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D6E7C3F905;
+	Fri,  3 Jul 2026 11:57:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1783105035; bh=EVj/nJjoDMSSbQCOLNFtXva5XAladq3bBJePirYqfas=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ApfJI2W6Dx1v89BrkpaA+IivzEXpoA/C6HWy29MyKt+dwodqdvzesqJh0FhCHxrkZ
+	 HzjY99MkITrRuWRSNz1vn6CdJhMDyAFV/9nnSr0JjElv9gqUAuElmPfXoVW1wbGZXK
+	 lcQbhN305LF4d8wOzD+lptwW/xscZD3DX0+3bzUo=
+Message-ID: <6465c885-3a9d-4c0b-ab74-7665e274ae72@arm.com>
+Date: Fri, 3 Jul 2026 19:57:04 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iommu/arm-smmu-v3: Add HAFT support for SVA
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: will@kernel.org, joro@8bytes.org, jpb@kernel.org,
+ catalin.marinas@arm.com, yangyicong@hisilicon.com,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ stable@vger.kernel.org
+References: <878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com>
+ <20260703164914.GY7525@ziepe.ca>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260703164914.GY7525@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+On 03/07/2026 5:49 pm, Jason Gunthorpe wrote:
+> On Wed, Jul 01, 2026 at 06:45:17PM +0100, Robin Murphy wrote:
+> 
+>> @@ -211,6 +213,9 @@ bool arm_smmu_sva_supported(struct arm_smmu_device *smmu)
+>>   	if (system_supports_bbml2_noabort())
+>>   		feat_mask |= ARM_SMMU_FEAT_BBML2;
+>>   
+>> +	if (system_supports_haft())
+>> +		feat_mask |= ARM_SMMU_FEAT_HAFT;
+> 
+> I fear this is going to make SVA stop working on systems it currently
+> does work on, so it might be a major regression.
+> 
+> SMMU HTTU is not a commonly implemented feature.. I think of all the
+> NVIDIA ARM chips only one supports it. Given that a quick internal
+> check is raising concerns this will be breaking for us. We need to
+> check in more detail which cores have HAFT.
+> 
+> Breaking already deployed SVA would be a major functional regression.
+> 
+> I think this should start by just enabling SMMU HAFT when CPU HAFT is
+> on, when possible. Maybe print a warning on the mismatch instead of
+> failing.
+> 
+> Since we can't break already deployed SVA a full solution would either
+> have to somehow turn off CPU HAFT or we ignore the gap in the AF
+> updates..
 
-[ Upstream commit 378acf3cf19b6af6cba55e8dd1154c4e1504bae8 ]
+TBH I do not know how bad the implications of 
+pmd_young()/pmdp_test_and_clear_young() returning a false-negative are, 
+but if we aren't considering mismatched CPUs harmless then surely the 
+same must apply for SVA. In the POE/GCS cases all that can really be 
+broken is users' expectations, if they've opted in to additional 
+security features, but also opted in to SVA wherein those features can't 
+protect against DMA. Here, though, it's the kernel mm layer itself 
+that's impacted, and I'm not confident to say that that isn't more serious.
 
-When the flexible_inline_xattr feature is enabled, do_read_inode() loads
-the on-disk i_inline_xattr_size unconditionally:
+This came about as a sudden "oh crap" moment when answering an internal 
+query about SMMU features, and it seemed prudent to do _something_ for 
+the sake of correctness ASAP. Making HAFT depend on !SVA could only 
+easily be done at the config level, which seems arguably even more 
+over-reaching, and given that CPUs supporting HAFT aren't common yet - 
+at least from Arm it seems to be only the big cores of the latest C1 
+generation so far - in a pinch this felt like the least-worst option for 
+the short term. If someone has time to look into whether it's possible 
+to dynamically switch arch_has_hw_nonleaf_pmd_young (and whatever else) 
+post-init, then that's an obvious follow-up, but I can say for sure that 
+that someone is not me...
 
-	if (f2fs_sb_has_flexible_inline_xattr(sbi))
-		fi->i_inline_xattr_size = le16_to_cpu(ri->i_inline_xattr_size);
-
-but sanity_check_inode() only range-checks it when the inode also has the
-FI_INLINE_XATTR flag set.  An inode that carries an inline dentry or inline
-data but not FI_INLINE_XATTR -- the normal layout for an inline
-directory -- therefore keeps a fully attacker-controlled
-i_inline_xattr_size from a crafted image.
-
-get_inline_xattr_addrs() returns that value with no flag gating, so it
-feeds the inode geometry:
-
-	MAX_INLINE_DATA()  = 4 * (CUR_ADDRS_PER_INODE - i_inline_xattr_size - 1)
-	NR_INLINE_DENTRY() = MAX_INLINE_DATA() * BITS_PER_BYTE / (...)
-	addrs_per_page()   = CUR_ADDRS_PER_INODE - i_inline_xattr_size
-
-A large i_inline_xattr_size drives MAX_INLINE_DATA() and NR_INLINE_DENTRY()
-negative, so make_dentry_ptr_inline() sets d->max (int) to a negative
-value.  The inline directory walk then compares an unsigned long bit_pos
-against that negative d->max, which is promoted to a huge unsigned bound,
-and reads far past the inline area:
-
-	while (bit_pos < d->max)		/* fs/f2fs/dir.c */
-		... test_bit_le(bit_pos, d->bitmap) / d->dentry[bit_pos] ...
-
-Mounting a crafted image and reading such a directory triggers an
-out-of-bounds read in f2fs_fill_dentries(); the same underflow also
-corrupts ADDRS_PER_INODE for regular files.
-
-Validate i_inline_xattr_size against MAX_INLINE_XATTR_SIZE whenever the
-flexible_inline_xattr feature is enabled -- i.e. whenever the value is
-loaded from disk and consumed -- and keep the lower MIN_INLINE_XATTR_SIZE
-bound gated on inodes that actually carry an inline xattr, so legitimate
-inodes with i_inline_xattr_size == 0 are still accepted.
-
-Cc: stable@vger.kernel.org
-Fixes: 6afc662e68b5 ("f2fs: support flexible inline xattr size")
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/f2fs/inode.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
-
-diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
-index 1b504bdf39c26f..066249101ab8a9 100644
---- a/fs/f2fs/inode.c
-+++ b/fs/f2fs/inode.c
-@@ -254,14 +254,15 @@ static bool sanity_check_inode(struct inode *inode, struct page *node_page)
- 		return false;
- 	}
- 
--	if (f2fs_has_extra_attr(inode) &&
--		f2fs_sb_has_flexible_inline_xattr(sbi) &&
--		f2fs_has_inline_xattr(inode) &&
--		(!fi->i_inline_xattr_size ||
--		fi->i_inline_xattr_size > MAX_INLINE_XATTR_SIZE)) {
-+	if (f2fs_sb_has_flexible_inline_xattr(sbi) &&
-+		(fi->i_inline_xattr_size > MAX_INLINE_XATTR_SIZE ||
-+		(f2fs_has_inline_xattr(inode) &&
-+		fi->i_inline_xattr_size <
-+			sizeof(struct f2fs_xattr_header) / sizeof(__le32)))) {
- 		set_sbi_flag(sbi, SBI_NEED_FSCK);
--		f2fs_warn(sbi, "%s: inode (ino=%lx) has corrupted i_inline_xattr_size: %d, max: %zu",
-+		f2fs_warn(sbi, "%s: inode (ino=%lx) has corrupted i_inline_xattr_size: %d, min: %zu, max: %zu",
- 			  __func__, inode->i_ino, fi->i_inline_xattr_size,
-+			  sizeof(struct f2fs_xattr_header) / sizeof(__le32),
- 			  MAX_INLINE_XATTR_SIZE);
- 		return false;
- 	}
--- 
-2.53.0
-
+Thanks,
+Robin.
