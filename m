@@ -1,125 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9560C3D7D7F
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 14:02:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5E33C5552
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 14:03:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783087377; cv=none; b=pjRJlNTQ0v22IOBPcAcjjmvS012Er7emg3qkIkdQ7OuGwDzoD1qhADfQsLPBwR4DiMlzVOFZxAdGwXBnDmHaEA6kFxfRR6J9McYk9Hp3v9ocl1x/kfp950Qu6uRcr0DQJlqh3djskac7ou9kFGj0vPAl/HWR4WOaK6gUCYGg3u8=
+	t=1783087425; cv=none; b=ehMgWxNm2BTSRa9TPadk7WNXClAfS577k8uVfAsVDuG4ikyv5c/IEeFHMQqzzVxjUWqwILlPNZXjLkKri2PqlO9eiM3YV5qlJQma9BRnwVFzlDVeTwpSg/Y5NQsw0zJdxfBdHVS1f3HxBzBoxrJoXSLSOwL8PUsEkpaiQ9RBZwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783087377; c=relaxed/simple;
-	bh=KIirS9jCCrqf9F3eAzfxUpZi8vjMIlgWXF4MK/NmiM0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mWLSV01qA4s/4D75ELDIhOlC+c4gt65MO01/Y/BmOOMAxdg2bujHIZChilj9PjADVsboSlcCmRNN/Ys/Qtt8oHYFTm9sSbEFwug5gdbmaBHrz51WNTWMfWPO7boImRQW4S3rZ9jWa97slZ5Z5JoyHZvsmAzK6RTIjHQ7Saoi9Zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ospiV9lE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783087425; c=relaxed/simple;
+	bh=xnzH+vuckVgYEMUW/aaupycIFd7DntCShzqjz5PWgvs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iq2rGVqnOgE2jn6mlcQEm8KuAKAtQhRCrU9KVYCIafpDDcVfKjZkObU4Hv9UKcb2SjvrL5pIwYBYamvnIJqit/fqcYMKcxlABraQeoocdhI8bzdAgrWpidWCPiaCTV95wL980uIq+mgs2cesLieagGvZ7lJChIfJOMlRqQXDDy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=pZTcmage; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ospiV9lE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9551F000E9;
-	Fri,  3 Jul 2026 14:02:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783087376;
-	bh=bTAWY9pCSqMVcwkFTZLA8O9aOpvXf14ih+t5YMQy9Vc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ospiV9lEiDcC8tWiImtQhyVJBmFZh5ExNC0q+HZaRKge7jG2uUjoKzTgDXxcP4yJB
-	 WFB5JOcI6537Vlkc0gM8yOX6iqRMPq83IQ303H+LBKNKFC/HxCpH6J0xpp2pLyBsc9
-	 QmGiC1OuTKR3wde30ZfvDTgU09EHBOWYsLjdYChbABSCKrh72m8JrGY0+nY3I7s9xn
-	 /Ou1rF4BbVeZn2GpC+t2x3VxpENsd93gu94VNK3psQAEGkioJTRHgLI9iUdCBjQeNz
-	 I+9OR13w7QDbnU99JKsXtGeHvaYs79ltAlEVpI5ivhMGdHc7riQ30uprVOCDehPdh0
-	 N6MHt440b4cPw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Wenjie Qi <qwjhust@gmail.com>,
-	stable@kernel.org,
-	Wenjie Qi <qiwenjie@xiaomi.com>,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] f2fs: keep atomic write retry from zeroing original data
-Date: Fri,  3 Jul 2026 10:02:51 -0400
-Message-ID: <20260703140251.9905-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070203-junior-occupancy-679e@gregkh>
-References: <2026070203-junior-occupancy-679e@gregkh>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="pZTcmage"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-461edb387ddso692852f8f.3
+        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 07:03:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1783087422; x=1783692222; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bCpo2PK0VLzQh0dhhWPe7XdS+pSwNhWFcM7edGtLuS8=;
+        b=pZTcmage/tjD2xoAW201R2frlF6zxFnatM5U4zruMwbaofW6QfKvlLqfJWs2YKp4Ji
+         UvLvTzGekNBa3LGlaIGAP8G3umR5Kli/5ij7Psv6gjpkqC6gtpooFzgFXIBG+GD3txtk
+         R+gRESH/g1ZoJ/x7Db6bfcDATB7813EEGLlEbA6w/6/hwjO9Oz1JjEpZqIG/FH+glSz/
+         V90dMsmjDXYcvWzwH35gQd+kTZXrlmZ6Kfe9eQX9WXUJqexQKoQUcPo7ng1nahoY7w0R
+         UPq5hQrcj/nQ3Qaaa9wOeY84L7glCwNuB6vOKb4yfs4UwBKYY8etO3DO+6eVfp7XxA6k
+         kxNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783087422; x=1783692222;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bCpo2PK0VLzQh0dhhWPe7XdS+pSwNhWFcM7edGtLuS8=;
+        b=nIrARzE9i7SXgPe/0I2Kb+xqDesiIXUcJFo9PwfhOj5+TdEycAH9oq3Gjtes2RQWDT
+         YG5pzLQ4Y0RdwkA1dxfYXOE7HQBAkycKpimpqSho/UD9Nlh5XR1VciGjw8NSX1qwY8uV
+         Yo8qeGGzk/wCDgFnoUPNQquv1MQ+EbG128Y3dVdBonp1XalKI4zYRQpTmr3owshWd8C+
+         WB8xntuDJZzYmqyyZmEExfDtwX/V3sJpZHTeQcA+GwDu8ujURmjfu75odotnFsqGg3by
+         8zIZZlHG2c2hr97X3WmA0+wZ83UowJ+w58UK4xDAhZFtbboCHYn2ebF0tnfFhDDdPhZB
+         bKmA==
+X-Forwarded-Encrypted: i=1; AHgh+RpELoZvAIuoXFdaOV/Og3hYhQROEs7Z2cj6qtDAeZa1FgCLrNWfk4YQtE9CEK4aMZtvz1X5dVA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwM3VzP33BHgUinnjuOJnIt9QLMPWf4N3c+7M5yV1xr4j5M6+7V
+	g0N50um9c3ErUbw2KxHryEsylkHYsJOzvEWQmU5fUXmQk1cP+A9aIao=
+X-Gm-Gg: AfdE7cnnwCXBWfIsj3WcyrGPPs1Es1Ao32TZ+kDyDTcj16OImc3DW6CwIAlEqeez+Rs
+	ryg199PDaJpOxPnJ9auVP+35tTxenZ7c3mtV1ifk3o7WBrLxmdquHsNwjD1K7txD/KxE5mWYeIX
+	i6leolLKtIu2j3oTONu3rIb8BB5hDzKSIq2ngn36CBcGSXjLQ7hOx6sqtVvetjFwiesyYux+P9P
+	gLQh6CMs9IFwaKguEWzUXWDlXtelsM2WwWLuAJ2opS3P9470gSeHEV/zUhwAd0fTHNCYnY1D4yp
+	q2QCFey803PeNDo8/YB08dj1WR+Sy0Z4fpeyACUGLDoaM/uVnJOR6by3UZbmaUoqRyTOjMxk2wV
+	ytL8u8hyvQaEnHx+FdcpXzKbrcwNtdT5SJ+7rZfQyZemkTWlAd9Mj6tsFDQGGT4mVzv7Lf/DkNx
+	cAijtBflDfE4iTmS+b+Usot1nHW1LTGRXKtWp/HDzQI0WPAaOmxSqqA9Gh7N7DXV8=
+X-Received: by 2002:a5d:448e:0:b0:473:f4c3:4d51 with SMTP id ffacd0b85a97d-477b16c934cmr11380382f8f.43.1783087422162;
+        Fri, 03 Jul 2026 07:03:42 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2b474a.dip0.t-ipconnect.de. [91.43.71.74])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db8a4a15sm18054654f8f.14.2026.07.03.07.03.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 03 Jul 2026 07:03:41 -0700 (PDT)
+Message-ID: <fb64edaa-bd6d-42ea-83c0-61e0de7e90b4@googlemail.com>
+Date: Fri, 3 Jul 2026 16:03:40 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.1 000/121] 7.1.3-rc2 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260703072822.817328079@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260703072822.817328079@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Wenjie Qi <qwjhust@gmail.com>
+Am 03.07.2026 um 09:35 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.1.3 release.
+> There are 121 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-[ Upstream commit 6d874b65aadce56ac78f76129dbcfc2599b638f8 ]
+Just like rc1, rc2 builds, boots and works fine on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or 
+regressions found.
 
-A partial atomic write reserves a block in the COW inode before reading the
-original data page for the untouched bytes in that page.
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-If that read fails, write_begin returns an error but leaves the COW inode
-entry as NEW_ADDR. A retry of the same partial write then finds the COW
-entry, treats it as existing COW data, and f2fs_write_begin() zeroes the
-whole folio because blkaddr is NEW_ADDR.
 
-If the retry is committed, the bytes outside the retried write range are
-committed as zeroes instead of preserving the original file contents.
+Beste Grüße,
+Peter Schneider
 
-Only use the COW inode as the read source when it already has a real data
-block. If the COW entry is still NEW_ADDR, treat it as a reservation to
-reuse: keep reading the old data from the original inode and avoid
-reserving or accounting the same atomic block again.
-
-Cc: stable@kernel.org
-Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/f2fs/data.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
-
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index b9c841ab72f10c..cf3fb57d9b9b0e 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -3561,6 +3561,7 @@ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
- 	pgoff_t index = page->index;
- 	int err = 0;
- 	block_t ori_blk_addr = NULL_ADDR;
-+	bool cow_has_reserved_block = false;
- 
- 	/* If pos is beyond the end of file, reserve a new block in COW inode */
- 	if ((pos & PAGE_MASK) >= i_size_read(inode))
-@@ -3570,8 +3571,10 @@ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
- 	err = __find_data_block(cow_inode, index, blk_addr);
- 	if (err)
- 		return err;
--	else if (*blk_addr != NULL_ADDR)
-+	else if (__is_valid_data_blkaddr(*blk_addr))
- 		return 0;
-+	else if (*blk_addr == NEW_ADDR)
-+		cow_has_reserved_block = true;
- 
- 	/* Look for the block in the original inode */
- 	err = __find_data_block(inode, index, &ori_blk_addr);
-@@ -3580,10 +3583,13 @@ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
- 
- reserve_block:
- 	/* Finally, we should reserve a new block in COW inode for the update */
--	err = __reserve_data_block(cow_inode, index, blk_addr, node_changed);
--	if (err)
--		return err;
--	inc_atomic_write_cnt(inode);
-+	if (!cow_has_reserved_block) {
-+		err = __reserve_data_block(cow_inode, index, blk_addr,
-+					   node_changed);
-+		if (err)
-+			return err;
-+		inc_atomic_write_cnt(inode);
-+	}
- 
- 	if (ori_blk_addr != NULL_ADDR)
- 		*blk_addr = ori_blk_addr;
 -- 
-2.53.0
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
