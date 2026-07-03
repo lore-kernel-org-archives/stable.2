@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFEE3C5523
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 12:33:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A1B3C5523
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 12:33:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783082017; cv=none; b=Cw05hm0AY7Pt+7QV8RiYIqn7sjMq85uqFhHpquFvaPMqUNEPglz/XjRidumxbFNkI1Z61NMmyKrqPUSAhycWR2WUIllIDJvclxZtHsxPt83BrMg5b5g7xvv4IYpx2H4jQIuKNBM1WvAFOelJ2SttUg+K07KgX9wkQd3WhxMrpHA=
+	t=1783082023; cv=none; b=E32t8OFe5PQx4npO3S1K+KXxzxUZIKkoCQMBPQBubkud4RBtM/1J5/6Svm8rf5ekAervwL/a77BQdfHLCR4BnYxpr0VU7cvsTr7nXgR+JX+HV49to7bsMkHcvR0rLQAeFqypP1S2WVkEvWMVmWD4bou3SFsyjHWTE+/s/7bCjnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783082017; c=relaxed/simple;
-	bh=8Q7lPcvzXq3XH8qEMWzJnt52+wBMYE6AYrsebzY1JnU=;
+	s=arc-20240116; t=1783082023; c=relaxed/simple;
+	bh=op0ULqGxyNRwzZg5qtLfkiC+5pNewOm0ja53C01NTMg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PEwKDS6S5Q+/G1Citep7C10TrrFO0Xb4IvXk8HkeUdnRDfk1O6jH1Bwgz7ihj+1AT+r1ZALSP3plaahnZQ4EPoNayJ6pYE1BpY5eqI853sgUZ3H4qDfR8NFPlnQiehtMULmBf69cGOFC5bhF6yZQCxNNouvCkyJI+lsakQhKMVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ont3fm3v; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=g7eGjj1nAdIGeNOylydhJ/A+G+DKppjB3WbNLAJTGWhwn678FmwPPvifKMnrs9KwlY7bO2P6Av7q5m5+xdE7EO9THn3p+o/4J1YZY99TxEO5AZIWL3px/OD67LOsBqZfp8E0vrRZO3RxlG+xG15fhouc+peW1mfnoHwkGxQd2y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZnCZRzJO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ont3fm3v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0106F1F00A3D;
-	Fri,  3 Jul 2026 12:33:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZnCZRzJO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FD3D1F00A3E;
+	Fri,  3 Jul 2026 12:33:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783082013;
-	bh=uWyjN92ZwFB1ReJcQgBl8BLImoLkxgzzySN9kFzgp7k=;
+	s=k20260515; t=1783082020;
+	bh=m3eIFex6zxFjsjoIjoVCFg/kUv75K2a+SjtAsrtZU2M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ont3fm3v+CU/2s95vMdEDZ+KHz1G2RbRqYTqIeaW20ujZeDe9lVsPtwnUGla6IHz8
-	 jzR+IXIQRqEiSBRFlyykXSOFMXKaj/342gYmqGDyx10FJq7debn8HGPDrdsJCkXYvw
-	 sBoWRfKsy4+vTNicSx2MkT41PLvpuRdTvBJfE7AKuifirg6Iy764zJ3lYIS84DxvDo
-	 vGd45iQj1n3y0atlNP+7hwPOZ6PZw7TSjVDjbZsetlC3JPeIJS25pMZ5xv3HBhDy4f
-	 OpwyZJIwp2oMInrUu4LyNXU8qgCsE81r0MDNMVc7Y1UM8NwBFfLWVjmhIAnobd7AUY
-	 SM67LSCezRZEg==
+	b=ZnCZRzJOzdjFxH1+e/AthjYz/wTXhIYd3NSdZxFqs+Jhe7TLjxAlJWz2OQ1YaWEZH
+	 ZU7Li8fvhpzCxrjpFRO1Wcedr8SSMPuLyrF+Q554pePDBjaxknm3WLBejam+vrweg/
+	 JCKvwkUutOEfUc3D+g16BGKdthpfHHCdt1OX1olHGHLgKhG6mlVgxZfMCT1qHFFWS6
+	 T1U4iiBQjJ0i0xZm43K0jVP878NB/EV0afidTSd6UTJrzTK0i78k5Isi5WsoaaQWJQ
+	 onq9tnjSoZ/7Z0TxkrfmqZh1WTtavOgOg0aBBJ+wp0N7g7fCLSGGHx6EM7m/Ruls5p
+	 LypS190yjCwjg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
+Cc: Wenjie Qi <qwjhust@gmail.com>,
 	stable@kernel.org,
-	Daeho Jeong <daehojeong@google.com>,
-	Sunmin Jeong <s_min.jeong@samsung.com>,
+	Wenjie Qi <qiwenjie@xiaomi.com>,
+	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] f2fs: atomic: fix UAF issue on f2fs_inode_info.atomic_inode
-Date: Fri,  3 Jul 2026 08:33:30 -0400
-Message-ID: <20260703123330.3944793-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] f2fs: validate compress cache inode only when enabled
+Date: Fri,  3 Jul 2026 08:33:36 -0400
+Message-ID: <20260703123336.3945189-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260703123330.3944793-1-sashal@kernel.org>
-References: <2026070242-refusing-previous-82e3@gregkh>
- <20260703123330.3944793-1-sashal@kernel.org>
+In-Reply-To: <20260703123336.3945189-1-sashal@kernel.org>
+References: <2026070218-taekwondo-skeletal-13d5@gregkh>
+ <20260703123336.3945189-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,169 +49,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+From: Wenjie Qi <qwjhust@gmail.com>
 
-[ Upstream commit e0288584baa5dc41df4a829a023c4c1b33fe53d7 ]
+[ Upstream commit 5073c66a96a9c23c0c2533ed4ed06e42f9021208 ]
 
-- ioctl(F2FS_IOC_GARBAGE_COLLECT_RANGE)		- shrink
- - f2fs_gc
-  - gc_data_segment
-   - ra_data_block(cow_inode)
-    - mapping = F2FS_I(inode)->atomic_inode->i_mapping
-    : f2fs_is_cow_file(cow_inode) is true
-						 - f2fs_evict_inode(atomic_inode)
-						  - clear_inode_flag(fi->cow_inode, FI_COW_FILE)
-						  - F2FS_I(fi->cow_inode)->atomic_inode = NULL
-						  ...
-						  - truncate_inode_pages_final(atomic_inode)
-    - f2fs_grab_cache_folio(mapping)
-    : create folio in atomic_inode->mapping
-						  - clear_inode(atomic_inode)
-						   - BUG_ON(atomic_inode->i_data.nrpages)
+F2FS_COMPRESS_INO() uses NM_I(sbi)->max_nid as the synthetic inode
+number for the compressed page cache inode. That inode only exists when
+the compress_cache mount option is enabled.
 
-We need to add a reference on fi->atomic_inode before using its mapping
-field during garbage collection, otherwise, it will cause UAF issue.
+When compress_cache is disabled, max_nid is outside the valid inode
+range. A corrupted directory entry that points to ino == max_nid should
+therefore be rejected by f2fs_check_nid_range(). However, is_meta_ino()
+currently treats F2FS_COMPRESS_INO() as a meta inode unconditionally,
+so f2fs_iget() bypasses do_read_inode() and its nid range check, and
+instantiates a fake internal inode instead.
+
+Gate the compressed cache inode case on COMPRESS_CACHE, matching
+f2fs_init_compress_inode(). With compress_cache disabled, ino ==
+max_nid now follows the normal inode path and is rejected as an
+out-of-range nid.
 
 Cc: stable@kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>
-Cc: Sunmin Jeong <s_min.jeong@samsung.com>
-Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
-Fixes: f18d00769336 ("f2fs: use meta inode for GC of COW file")
-Signed-off-by: Chao Yu <chao@kernel.org>
+Fixes: 6ce19aff0b8c ("f2fs: compress: add compress_inode to cache compressed blocks")
+Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/gc.c    | 50 +++++++++++++++++++++++++++++++++++++++++--------
- fs/f2fs/inode.c | 11 ++++++++---
- 2 files changed, 50 insertions(+), 11 deletions(-)
+ fs/f2fs/inode.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index c7f6312cbb1016..7219a87955b208 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -1208,8 +1208,8 @@ static bool is_alive(struct f2fs_sb_info *sbi, struct f2fs_summary *sum,
- static int ra_data_block(struct inode *inode, pgoff_t index)
- {
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
--	struct address_space *mapping = f2fs_is_cow_file(inode) ?
--				F2FS_I(inode)->atomic_inode->i_mapping : inode->i_mapping;
-+	struct address_space *mapping = inode->i_mapping;
-+	struct inode *atomic_inode = NULL;
- 	struct dnode_of_data dn;
- 	struct folio *folio, *efolio;
- 	struct f2fs_io_info fio = {
-@@ -1224,9 +1224,22 @@ static int ra_data_block(struct inode *inode, pgoff_t index)
- 	};
- 	int err = 0;
- 
-+	f2fs_down_read(&F2FS_I(inode)->i_sem);
-+	if (f2fs_is_cow_file(inode)) {
-+		atomic_inode = igrab(F2FS_I(inode)->atomic_inode);
-+		if (!atomic_inode) {
-+			f2fs_up_read(&F2FS_I(inode)->i_sem);
-+			return -EBUSY;
-+		}
-+		mapping = atomic_inode->i_mapping;
-+	}
-+	f2fs_up_read(&F2FS_I(inode)->i_sem);
-+
- 	folio = f2fs_grab_cache_folio(mapping, index, true);
--	if (IS_ERR(folio))
--		return PTR_ERR(folio);
-+	if (IS_ERR(folio)) {
-+		err = PTR_ERR(folio);
-+		goto out_iput;
-+	}
- 
- 	if (f2fs_lookup_read_extent_cache_block(inode, index,
- 						&dn.data_blkaddr)) {
-@@ -1287,11 +1300,16 @@ static int ra_data_block(struct inode *inode, pgoff_t index)
- 	f2fs_update_iostat(sbi, inode, FS_DATA_READ_IO, F2FS_BLKSIZE);
- 	f2fs_update_iostat(sbi, NULL, FS_GDATA_READ_IO, F2FS_BLKSIZE);
- 
-+	if (atomic_inode)
-+		iput(atomic_inode);
- 	return 0;
- put_encrypted_page:
- 	f2fs_put_page(fio.encrypted_page, 1);
- put_folio:
- 	f2fs_folio_put(folio, true);
-+out_iput:
-+	if (atomic_inode)
-+		iput(atomic_inode);
- 	return err;
- }
- 
-@@ -1302,8 +1320,8 @@ static int ra_data_block(struct inode *inode, pgoff_t index)
- static int move_data_block(struct inode *inode, block_t bidx,
- 				int gc_type, unsigned int segno, int off)
- {
--	struct address_space *mapping = f2fs_is_cow_file(inode) ?
--				F2FS_I(inode)->atomic_inode->i_mapping : inode->i_mapping;
-+	struct address_space *mapping = inode->i_mapping;
-+	struct inode *atomic_inode = NULL;
- 	struct f2fs_io_info fio = {
- 		.sbi = F2FS_I_SB(inode),
- 		.ino = inode->i_ino,
-@@ -1325,10 +1343,23 @@ static int move_data_block(struct inode *inode, block_t bidx,
- 				(fio.sbi->gc_mode != GC_URGENT_HIGH) ?
- 				CURSEG_ALL_DATA_ATGC : CURSEG_COLD_DATA;
- 
-+	f2fs_down_read(&F2FS_I(inode)->i_sem);
-+	if (f2fs_is_cow_file(inode)) {
-+		atomic_inode = igrab(F2FS_I(inode)->atomic_inode);
-+		if (!atomic_inode) {
-+			f2fs_up_read(&F2FS_I(inode)->i_sem);
-+			return -EBUSY;
-+		}
-+		mapping = atomic_inode->i_mapping;
-+	}
-+	f2fs_up_read(&F2FS_I(inode)->i_sem);
-+
- 	/* do not read out */
- 	folio = f2fs_grab_cache_folio(mapping, bidx, false);
--	if (IS_ERR(folio))
--		return PTR_ERR(folio);
-+	if (IS_ERR(folio)) {
-+		err = PTR_ERR(folio);
-+		goto out_iput;
-+	}
- 
- 	if (!check_valid_map(F2FS_I_SB(inode), segno, off)) {
- 		err = -ENOENT;
-@@ -1461,6 +1492,9 @@ static int move_data_block(struct inode *inode, block_t bidx,
- 	folio_unlock(folio);
- 	folio_end_dropbehind(folio);
- 	folio_put(folio);
-+out_iput:
-+	if (atomic_inode)
-+		iput(atomic_inode);
- 	return err;
- }
- 
 diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
-index 49470f4c9362a0..5fca8e689b545e 100644
+index 4a99a9eab8291d..7b387edb6ef642 100644
 --- a/fs/f2fs/inode.c
 +++ b/fs/f2fs/inode.c
-@@ -848,10 +848,15 @@ void f2fs_evict_inode(struct inode *inode)
- 	f2fs_abort_atomic_write(inode, true);
+@@ -498,8 +498,13 @@ static int do_read_inode(struct inode *inode)
  
- 	if (fi->cow_inode && f2fs_is_cow_file(fi->cow_inode)) {
--		clear_inode_flag(fi->cow_inode, FI_COW_FILE);
--		F2FS_I(fi->cow_inode)->atomic_inode = NULL;
--		iput(fi->cow_inode);
-+		struct inode *cow_inode = fi->cow_inode;
-+
-+		f2fs_down_write(&F2FS_I(cow_inode)->i_sem);
-+		clear_inode_flag(cow_inode, FI_COW_FILE);
-+		F2FS_I(cow_inode)->atomic_inode = NULL;
- 		fi->cow_inode = NULL;
-+		f2fs_up_write(&F2FS_I(cow_inode)->i_sem);
-+
-+		iput(cow_inode);
- 	}
+ static bool is_meta_ino(struct f2fs_sb_info *sbi, unsigned int ino)
+ {
+-	return ino == F2FS_NODE_INO(sbi) || ino == F2FS_META_INO(sbi) ||
+-		ino == F2FS_COMPRESS_INO(sbi);
++	if (ino == F2FS_NODE_INO(sbi) || ino == F2FS_META_INO(sbi))
++		return true;
++#ifdef CONFIG_F2FS_FS_COMPRESSION
++	if (test_opt(sbi, COMPRESS_CACHE) && ino == F2FS_COMPRESS_INO(sbi))
++		return true;
++#endif
++	return false;
+ }
  
- 	trace_f2fs_evict_inode(inode);
+ struct inode *f2fs_iget(struct super_block *sb, unsigned long ino)
 -- 
 2.53.0
 
