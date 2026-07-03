@@ -1,66 +1,67 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3AD3D7D70
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 15:17:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3823BCD33
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 15:17:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783091838; cv=none; b=kFAw99Qg9VWj5ZCo7xFmnIIyH6F+CP/7co00b7TXcp7ynZnactUd+AE4FaRxJJPBzAcwD34uhW0wXtcdoSSfigRsLnf1796H/EgCebr/Ys5T3BkPR3gNKUAuy5KdrKeAXVvwZG0KC+5H0eTNJn9BcauE5AAknh6e6ZjX8bLUvyA=
+	t=1783091838; cv=none; b=h2zz3o0NRsqXTcVkP3fAIrrSeDy59ct0h/qLeKcd2KJMDoNfYpKTxInKNvhtmCTySPfkG3MQRYgNmcFbJx9X40N3AAye4FSBCplvje2vsglEUgrMXaKnFupeJ0PUsLqT/q/JPhDUeAyw9tg/JmPtMr+ZhITN58nEUJuaMdwRFus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783091838; c=relaxed/simple;
-	bh=K1OY5zdM6OEN9fIZJQfz8FC5tyVYrDLdL1WqwSsIcPc=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iX5UzRo5rJZ/KAsmU3JUo/PnUFLyTD9uC5LFr5FibMdpYiRjNcpuN21EPsw4+ldJxTZQdx2yFNertiWU1dUs9HpuRJOADwRneStmARki4Kdabo06DWrDnwgatBh3kos9KJy7SRoM/AKAPzJVQqdnc50jl6u9qEpDSBHCySaakGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=I48RFdLO; arc=none smtp.client-ip=209.85.128.52
+	bh=0eHW1w2sw8/QGjlmZcCx6sq7hihGPmbxeRNEM8aLoWY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RzIn/Gh6LITA+BGJJ7+xMapa4++B4udCsyl9zp0A3x5ZICt6zXAK1WPwva7EaH6ieovjDX6xhzgAVH8BG4+wD1Q8bNPmI/Ak+tM/tgWS9zCSyoUGcFPoR8oteFQkyTHFyXeo4+zGMErJH8hBKPmf1kGXW7RD1f2mkLeU2p8DbIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pvHCWAAP; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="I48RFdLO"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493c556ada3so106955e9.0
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 08:17:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pvHCWAAP"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-493b8d99342so186705e9.1
+        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 08:17:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783091835; x=1783696635; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pl3+RrSlv3/F/20nNGvlpUqYwKsTuCaqWMZ1BmqCvGY=;
-        b=I48RFdLOIMYR1ZCZmqRreuOguQ5SpCktwOkRUKWwlDwTTwBQyaH9BrINnM+JRhW8vq
-         F8rA7aZvWvdOk+2HvLwBV5LYlby5fZMeZp2c12lmHO20wJtWUdOfb9KHsRDkzzfTkGZx
-         MsfsovrMJ6tgKRRl6YCC+gqwyziLQw70y/lxjqM9eeIvt5+qvTE89AH7pJG7KasGVMvs
-         /Jpu6IlKbwzThVvXXqGWUHmTXDYTmVcIRumvHy9YFUsmOsI07B6wwXScHbNwly+JIYCM
-         HGja5b/8QYme8kIhBnAalQqGR/10BAZ3103SrBDJFrTsUjU/nRgUnuV6pub6yoWayiJY
-         5pNQ==
+        d=google.com; s=20251104; t=1783091836; x=1783696636; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z0Bc1ZmeOfqEtZgb3lF6zr0iTIVchQGs3e/FsoiNOcI=;
+        b=pvHCWAAPTk6iA5zpH/Ry+A4wWFRuZFhEByMHyNX5kXmvi1H/aqVBHYuzgn6D8lDjfW
+         F06YFAgnX9690y76aNRdIh2Dsxrq80u065H8VStVeLs9I0LhNpAvGFarDfbycBIQ2TZ+
+         irm9LfmdWE1bmS2t06SONQGhr8fqrxSyy9x1zzrgOc4kDBXqu2d+muLYqrGsCo1iOYKI
+         JcIxxD0t7E4iDf/iqsNi+WXSBa20TwQMfVxfM55riWzdLdmIT0BtWDLylH/bZa/lY7qt
+         6sbq8EB6ilJu+QaNvdGAr7WObcG89HSEwNuD99t/pCBkPOQ7ejY4HvzK9uTFKsJXhqne
+         SK/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783091835; x=1783696635;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=pl3+RrSlv3/F/20nNGvlpUqYwKsTuCaqWMZ1BmqCvGY=;
-        b=bGK+VeWb8k96HHU0Ut/sXcOnhMk0MLRXGaLf3GO+6yKp0RbEQ01EVm6xdc/DP6tzxf
-         384jQo18JKQ1u5JILmyhf6nfAq5vDUef01xeMiRX3Ypml1ZGHnk6e8dBSB+67PpgTX71
-         aFnhzbvp7Nn7pFZ2BhNT30ZNC44e61q9LtKMhNH1aBicENj/nQgbJsrX6wm+AsiN/eHq
-         to7hLNQc+zoyCW9uk+jXaYGQsGerC7XLJmdgoR0k3kXbYb/DQPb9IOX5OC3diZ2cT+EH
-         QAIxpepmkWiIcw4AMzjXu2H9PnDhAAxnvXcWTRbyX1qTxWp71bHDEGxXGRXDqipOdT0v
-         jV5Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+ze1FB9ID0vedkAf7Hwncny7cLJU9eP+5YSP3eycWnwlT8oIMK7iYiUjlVZsfWLG6eud1lFss=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSueivq7n23UxRIep/DQG0Uk94AlIqYVbXGi8OEaAKeCeh/oBg
-	xutbGkjj0ePvrmMa/aCATPnN13EsdxATjL0bHURxVPtANQpqG5McIjs1SEseMdD3Ig==
-X-Gm-Gg: AfdE7cniB1kzMZ0eKzPAiD/18Tf9lh1yoQwsnOGj4wPbqCO0bdUp9R5eCBOHRyxZa7z
-	d33vnJIfS1N3gsFKyKaFeQrRCS0OA1ILhRHNmp4AkvFPtjrFT7b0B6+rrC/k8ZbEr0x9JZR6u6G
-	SYnHOfLZkR1I5KQKz4X2iYsgVFPRRiuAAYc1kgcung0tYsWAdG90taTqWirnXw/hltLUJA5YI/J
-	swYlJXI1TPov/d9rXy2K7xitL7DeP6k2uSkLgugj+MmQ0q7h/AXdhaZ40Au0IZMJVePntNEGNQH
-	bXn0t1W1I0nxZ8RVHEuspwsLSzq4i31e2ZIXsvRubmCctsQXbzq/rFmZrtwyoSU4dfLmCnuOM3A
-	5V+ubX8dqMpiu8j1cAygFY7R4VkcPKVaRmCa/7xWjHOzZrmnaQLv3vkRN3uvaT0HNs4bXTzERPG
-	/07FURVmyOXc9AARIUVXZpY0BaTnki+79hhL5N9QSpgdEcB+hoOxPX1fh9AnyfxFi8cAeIWPo=
-X-Received: by 2002:a05:600d:6446:20b0:493:b279:6012 with SMTP id 5b1f17b1804b1-493d0fe58b1mr23715e9.0.1783091834470;
-        Fri, 03 Jul 2026 08:17:14 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783091836; x=1783696636;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z0Bc1ZmeOfqEtZgb3lF6zr0iTIVchQGs3e/FsoiNOcI=;
+        b=YrrUR0xG5FL7UVIV1XpXIGCSU4zMA1vms+fzPvYMsW4nivlkeIns9DOmdw25PakLqp
+         hHlnHVVj43uEljL48oKWHlmQttT6mXlR7OLtkLNJryVgaDhYhuyl7Yydz/hqVG2r/qPP
+         9xTc7TGe5TT3SmiyCsD0gH+dxKJRjlHC8Bh3vXYnT6ovYYzix2swhumbVdSnhoTXtiMu
+         vi5MZOYcLiuQQp/GcOTetI6E0Wb8wjfnbChkZDWXLF6UOkxcBAbvdmfZknulURtRcWkN
+         7JrngS4THGIhvlq7nOemkdRPYrqVva5aOhAos2ck+mh8RRVbI6zPF3gk3iMC6Mx4ySUa
+         5xMQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8QGth1NKkSkxB5bURXFJy4Coa4rUDfgMkZMLBacjRys9NmhCTC2CqiJ0bbKN4SgTPGr6NuvCk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxS+rbtvqgNiD9OlxqcwCK425BMSt7tnn2sQZrY+DxaIhkWXP5k
+	v23GwxTyx0rmcv3VU5lKMqPIOCMEUXW4wMUuzYZItd8Dl8k/XLnUkdlDklblRWHFxg==
+X-Gm-Gg: AfdE7cknLRCYm9Z1zxYcWF79z8lAKYtjm/b8dFvbAFsasB/SMQ8ve+Q0QNfUwrrMyYk
+	rQw4Z63OcZajtyiSDS6G7gxLMeAz3f86NcvM5MWyol0HAOqDyeeRcVFHiVdSraS1jXn/v/NEEFf
+	DfSYENnRbasVM15f5zSDuQkz6ECXDOtqarG81FEiWZvyYIvqKPESW4EPUOHjQ7ShlWHGZv2/aAH
+	L07I/Z/Oic0beRPAeXOrHwreppkEdxYJCGUGTBAR5xoIL35HMe8yK+3HJ8ngTR95zg0MoF5W8Os
+	MVG1ZdvBkZPUOzX6uAaHKtu+FRk3fQajsNqxO8Hnt5jhbquv5rt5Eeb70QVFm7lXNdGs5WcOO8i
+	nl6vdv8Mkw9ulQ6EekBCpv8lfzbzD7/OnnL03DV3VYTsYe+4Dlq7PKUsEzOlxab3QYrA8BDsajH
+	Wyti6nnH4x1hJ4G+MTjX9VRX+mFUwaKMSUYAr0SzU6QXcWv5NHYzdOrrS+pDBtfCtCvQkFnl4=
+X-Received: by 2002:a05:600c:b4e:b0:493:c1a0:7fdc with SMTP id 5b1f17b1804b1-493d0fe58a3mr22735e9.0.1783091835477;
+        Fri, 03 Jul 2026 08:17:15 -0700 (PDT)
 Received: from localhost ([2a00:79e0:288a:8:c0d:89b8:4c51:d7de])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493bf11eba5sm143481595e9.0.2026.07.03.08.17.13
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0960816sm7277f8f.29.2026.07.03.08.17.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 08:17:13 -0700 (PDT)
+        Fri, 03 Jul 2026 08:17:15 -0700 (PDT)
 From: Jann Horn <jannh@google.com>
-Subject: [PATCH 0/3] hid: fix missing hid_is_usb() checks in three drivers
-Date: Fri, 03 Jul 2026 17:16:46 +0200
-Message-Id: <20260703-hid-usbcheck-v1-0-e80259ff625d@google.com>
+Date: Fri, 03 Jul 2026 17:16:47 +0200
+Subject: [PATCH 1/3] HID: asus: fix missing hid_is_usb() check
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,10 +70,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAF7SR2oC/yXMQQ5AMBBA0avIrDVpiQpXEQvG0CFBOohE3F2xf
- Iv/LxDyTAJldIGng4WXOcDEEaBr5oEUd8GQ6MTqXKfKcad2adERTqowNiWLvdUmg5Csnno+v11
- V/5a9HQm39wH3/QAQFqI6cAAAAA==
-X-Change-ID: 20260703-hid-usbcheck-9163e6cf6015
+Message-Id: <20260703-hid-usbcheck-v1-1-e80259ff625d@google.com>
+References: <20260703-hid-usbcheck-v1-0-e80259ff625d@google.com>
+In-Reply-To: <20260703-hid-usbcheck-v1-0-e80259ff625d@google.com>
 To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
 Cc: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
  Mario Limonciello <mario.limonciello@amd.com>, 
@@ -80,35 +80,43 @@ Cc: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
  linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Jann Horn <jannh@google.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783091826; l=760;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783091826; l=1171;
  i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=K1OY5zdM6OEN9fIZJQfz8FC5tyVYrDLdL1WqwSsIcPc=;
- b=ZTFnHOYKP6v4nUghkdCwMVQ+kEASuNa8un//sNMk8aGmBQuJKy66d8zuStKDBo3Nkck68FfGH
- qKJi5WuMhoBDWoa53oFhUgTyhtynCPW3Y4pTJLJ1eLeS8UE8/KfKth/
+ bh=0eHW1w2sw8/QGjlmZcCx6sq7hihGPmbxeRNEM8aLoWY=;
+ b=wpHZ0pNkb+9kdY42h8/fX9hLQ4JEwlogdTzfqlJmlDZYff14DfGxAFttmL4/rE4CyPaOHW8lf
+ V4XZ7Hjg8/CB7J6kvzRpqlUM+x1ZWLCZyUBmKdRQGV/ZNUOrs9WVQQr
 X-Developer-Key: i=jannh@google.com; a=ed25519;
  pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
 
-This fixes missing hid_is_usb() checks before to_usb_interface() in
-three HID drivers.
-I've split it into three patches so that they can have separate "Fixes"
-tags, hopefully they are easier to stable-backport this way.
+to_usb_interface() can only be used on a hid_device whose parent is really
+USB; uhid can create devices that identify as being on BUS_USB, but don't
+actually have a USB parent.
+Fix the use of to_usb_interface() without a hid_is_usb() check.
 
+I have verified that it is currently possible to trigger a kernel splat due
+to this bug in an ASAN build, and that this commit fixes the issue.
+
+Fixes: 00e005c952f7 ("hid-asus: check ROG Ally MCU version and warn")
+Cc: stable@vger.kernel.org
 Signed-off-by: Jann Horn <jannh@google.com>
 ---
-Jann Horn (3):
-      HID: asus: fix missing hid_is_usb() check
-      HID: huawei: fix missing hid_is_usb() check
-      HID: rapoo: fix missing hid_is_usb() check
+ drivers/hid/hid-asus.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/hid/hid-asus.c   | 2 +-
- drivers/hid/hid-huawei.c | 5 +++--
- drivers/hid/hid-rapoo.c  | 2 +-
- 3 files changed, 5 insertions(+), 4 deletions(-)
----
-base-commit: 51512e22efe813d8223de27f6fd02a8a48ea2323
-change-id: 20260703-hid-usbcheck-9163e6cf6015
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index 3f5e96900b67..befa990b3210 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -753,7 +753,7 @@ static int asus_kbd_register_leds(struct hid_device *hdev)
+ 			return ret;
+ 	}
+ 
+-	if (drvdata->quirks & QUIRK_ROG_ALLY_XPAD) {
++	if ((drvdata->quirks & QUIRK_ROG_ALLY_XPAD) && hid_is_usb(hdev)) {
+ 		intf = to_usb_interface(hdev->dev.parent);
+ 		udev = interface_to_usbdev(intf);
+ 		validate_mcu_fw_version(hdev,
 
-Best regards,
---  
-Jann Horn <jannh@google.com>
+-- 
+2.55.0.rc0.799.gd6f94ed593-goog
 
