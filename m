@@ -1,470 +1,239 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mx0b-00549402.pphosted.com (mx0b-00549402.pphosted.com [205.220.178.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0282DEA95;
-	Fri,  3 Jul 2026 16:06:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8B61D9A5F;
+	Fri,  3 Jul 2026 16:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.178.134
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783094775; cv=fail; b=q5Bb8HrQu0+CrylNvdVigYmG5GvwCIj1SAcI1/dmCSkJR2cs8+3swzGY6xRO9w602IUqlWy4aCj7UmmZhIcSmwi4/oXlIpNedToNxXR89ov88DRyE6eT6KIbMkxsII2Y6XKpe0GMtiiCaEosvtdAQayeAlSX/dTtd6FelusKzu0=
+	t=1783095301; cv=fail; b=PmFJO1Q2xURAOxmL+6ByyNbXsIJGUhuoDtzVDESGZ9zshLyM1pczuAC7IUqqNZxQkCthbiCCBIiC9IpjppHGAzDPFsq/jhrhZpvFzDeSbZUq9dUzTMLOFjnPJ2Ui7MTSd5TDXD+kRHyUpT0IkVe1BN4IGsX0fMkRLYOGhmdA2mI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783094775; c=relaxed/simple;
-	bh=fGTUATdzMi8jRqHoPTgUgDTGgJ16xhjC1kU0nAdI+Zg=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=QkLm21r94p5sjWiz14XSL8Q0tLyVsUr6XRonFASiJJnxJNGoEuciuqSfiGyuOgWTMV7nFowo5gjpTSJf36Lobrcp9pQLldWP7wqXSzW2LdERganmVGEo3JYCs2LyfLWidofLSKKWda1Ca5amZPOp5Li/I0eOVKQvo6qGtM8HkbA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DKac/loF; arc=fail smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783095301; c=relaxed/simple;
+	bh=DRXhgveCXytIkCZhpIM+NPAj4FzvTyDNJlAA8DzpX7s=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ahH1nuCPBImvF+QT+dDxyplTNbE0opiQYRILlRaWPbfm/NtKWCq8vw9VzgQ/5CyCP1bCZWMSH/MpMzeCtHbC2eBIqa0+TtO91O0FbW8M1aPlqMo5WrGQuD8Z8+VQ1yv6A1a/mbDhKQLYVV26jPkyXtEo3J2HKkYt64aXiedwbzY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tdk.com; spf=pass smtp.mailfrom=tdk.com; dkim=pass (2048-bit key) header.d=tdk.com header.i=@tdk.com header.b=JN4yJnfe; arc=fail smtp.client-ip=205.220.178.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tdk.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tdk.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DKac/loF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783094772; x=1814630772;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=fGTUATdzMi8jRqHoPTgUgDTGgJ16xhjC1kU0nAdI+Zg=;
-  b=DKac/loFWR4R5C3qDcvodn1CHgqRdua1hovnK8lJtKra2tWoJlEItQyI
-   ghkXUMJh3TIwR/IVe0G+eVNz84swlA/nbM5PeHBi537ZpS2vtVQPMNLWc
-   wjL+Q/Zvc1pnViGgwvDsYECSwqEBJYxWN8tjbXZ46ZSUUnlpHWKZo9H3d
-   iB0+OoSzu2D8yFM1BSxFhRkz0Lnce5Y911/JzbyeCKb20hNfZzGC7Uj4+
-   9bzKM39gYzle1NM2+f0oDKxweBT59iYPqkDV3CSUw8UstkMzEiGHznjEx
-   I4r+IEFk8ZKaj1YyFG7tiSWmuLqAdKLkSyY86lPD+G7Dkw7WR96Zx/l9d
-   Q==;
-X-CSE-ConnectionGUID: W1NKDzodRsKP3TzWvIqIqw==
-X-CSE-MsgGUID: H1nsNyIrSbGsDd+uynhaiQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11836"; a="83883464"
-X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; 
-   d="scan'208";a="83883464"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jul 2026 09:06:10 -0700
-X-CSE-ConnectionGUID: NHLYMM5uSWGgjH7s5JAiNw==
-X-CSE-MsgGUID: ldlPjRk3RrSZZYuDO2n9TQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; 
-   d="scan'208";a="252081899"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jul 2026 09:06:09 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 3 Jul 2026 09:06:08 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Fri, 3 Jul 2026 09:06:08 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.61) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 3 Jul 2026 09:06:08 -0700
+	dkim=pass (2048-bit key) header.d=tdk.com header.i=@tdk.com header.b="JN4yJnfe"
+Received: from pps.filterd (m0233779.ppops.net [127.0.0.1])
+	by mx0b-00549402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663Fg3uF040458;
+	Fri, 3 Jul 2026 15:42:03 GMT
+Received: from fr4p281cu032.outbound.protection.outlook.com (mail-germanywestcentralazon11012035.outbound.protection.outlook.com [40.107.149.35])
+	by mx0b-00549402.pphosted.com (PPS) with ESMTPS id 4f27vgnqnx-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 03 Jul 2026 15:42:02 +0000 (GMT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nc2mnBFA12b8qErLYXXOdLbhqmmXZtbefjjF0eaDqo1nulPm/M/O2IEJ4K2a7cCVyZUJJKY0rP8bcua3ahFznflXyw9NEixEfDc97r5D4dr4+Kg/Xqh3BDjIep2zCoqAaAbgkUuvP+X+c5s3j0T8ZfNFfNiwgsA9NeqCs2VfLSlVA+f7S+e9UdXOxsly7vp84m4X+V5S51ipgjDgw8XvzQ6ohptiUJ7j7wEntMgapNtz4OFE3ywZUl3NXplOg60jSzK583LC8X1WSeMRAFCU7YfMT7tdtnEl5TILdPaLWhTNFW+PDCZzImlVlApSbhiXbvfWC1d+tPA79Qjwzx00KQ==
+ b=oOp+tOdOfBQwBhlJ3bfZOPWT7uPJcBFrwvR8JvrW/v8eNgBwVcGIXmnpWHKDPGtLvOg7EYfEQIzoS6xIPM5A2GzEdGkSZq6VFGNW1N0H0XFJFbwRPF0HZvi8OsObJzsaHiO1mhK9K5K9PJmaFetRkZ42IYcOojoaK7gduNwBLO82jR60i9t6ZhQYlQoHOiPkUa7HMydFDTXy3YVrJBfPv7RK7dDlqwwdCB3qdYruwidOTSPuv/lde0pGimsOoT7Y5Aq7vmkK7pj8YgNpDxkQglNaZNXsPJ1wapbXmL1W5S0crb6V2ooOL6KTtfa8VpDp3hdrMLecuM/SP13wNlyCcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gje+kMswaFKxHYJoVjLkWfg2eWYd21HlBRPYS9eC5qo=;
- b=SWOb3L1Dyvh2JwR+54FdDgANUOQqflERq2r/VjLc9ctFN17LkBic4Kyi3MKC/HFAnnOi0R2RWeB4FddZx9j88bmMFx9cftJcDR5MNWY/ZRwGAszf61bxFTR5feyT82uEDk/f2AFJT2PFf/l6z34xDSvjnZyJfUqDfJ3xY/Y2tpF1gpJWek/dda4cp8+36pg5RjF2iSKMpFP5/cbvjqPEthyB+LIPKUAzld+wV8EcvhUD/rA3Ure4rN4sdxIvgbP/FpjL5yv0wWErDNJNfjBT/ywHKmy6DS8sSdVEdN+TEYTlrbWZnL5l0lwjv/lKX/0bKtY3HEo7+URvvg/t9V+sHA==
+ bh=DRXhgveCXytIkCZhpIM+NPAj4FzvTyDNJlAA8DzpX7s=;
+ b=WCzsgjz1J4/o+lxXs50Oo3lh5mogr0ELdAJDw5NJ2nEXfW8PZmIgco/DTa7qB3Odr7soHaD0xK1995t0cmX4ADaVzyBxzYDpqvCHCOeJo756DDr28d56JYbIcSB4tV3bHIE/FqG5YR9Lbm3RzvDcrbvI0hlP2UhH81FotxPLDvOL1K+imb/+Rl4JsJIxm/MEnGE7WjjkCBHcRxfdh56kmymDqWMQ1S1LPs8f5FidUAyWG/umhotasQeqXNi695TDD8jR2tzDZ2fvlUzzJq8y9weN33mIqP8YOzt/o/QmwtsI8z1voZM3huQw/N47a1yttPaPUjY5Dh3vpanVk5Rbug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4SPRMB0045.namprd11.prod.outlook.com (2603:10b6:8:6e::21) by
- PH3PPF0515C3CD3.namprd11.prod.outlook.com (2603:10b6:518:1::d05) with
+ smtp.mailfrom=tdk.com; dmarc=pass action=none header.from=tdk.com; dkim=pass
+ header.d=tdk.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tdk.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DRXhgveCXytIkCZhpIM+NPAj4FzvTyDNJlAA8DzpX7s=;
+ b=JN4yJnfeBIW+Zk8yaBMK9I2TKJ53kPRUoIz3Dm5zo8G6cyqfAW6FKBxGrMc0m/kAGnd+MFJ1YvYm6M78E14+k7L1Nrw5ATqaCygRwLvUwvmxnhyW8eyQgtMd6R63QVkcePeNVzO/MbjBPdCmPD9DLG4NeLOGeJ5uULW7OD6kr3nqfmQFZB1nErh5Kk1JKZNuTDF4HT1WTYychYt5VXZ8n/TTvdryZB2uA00p8gwyM+prdfeBm/4aNd+Ffj7C4N0SnFWQgXrzTm+QreMZ8A1maVcSw07AK6zx2KQk+k8LRvfhuRuUE3B9lFgCgitT4C03/JpXYH0d4uZBezHL6l7B2w==
+Received: from BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10:19::10)
+ by BEZP281MB3381.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10:25::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Fri, 3 Jul 2026
- 16:06:04 +0000
-Received: from DM4SPRMB0045.namprd11.prod.outlook.com
- ([fe80::b630:ca9c:20e1:f485]) by DM4SPRMB0045.namprd11.prod.outlook.com
- ([fe80::b630:ca9c:20e1:f485%6]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
- 16:06:04 +0000
-Date: Fri, 3 Jul 2026 18:05:57 +0200
-From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-To: Eddie Phillips <eddiephillips@google.com>
-CC: Harshitha Ramamurthy <hramamurthy@google.com>, <netdev@vger.kernel.org>,
-	<joshwash@google.com>, <andrew+netdev@lunn.ch>, <davem@davemloft.net>,
-	<edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
-	<ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
-	<john.fastabend@gmail.com>, <bpf@vger.kernel.org>, <sdf@fomichev.me>,
-	<willemb@google.com>, <jordanrhee@google.com>, <nktgrg@google.com>,
-	<maolson@google.com>, <jacob.e.keller@intel.com>, <thostet@google.com>,
-	<csully@google.com>, <bcf@google.com>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH net] gve: fix Rx queue stall on alloc failure
-Message-ID: <akfd5abdGbxFl5o9@boxer>
-References: <20260701005341.3699161-1-hramamurthy@google.com>
- <akUUXT6UwTTD2yOs@boxer>
- <CAPBb8HmE6q0VPa5PooFP3VFF27GU3B4622Xww6MHRT-9i4zTxA@mail.gmail.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Fri, 3 Jul
+ 2026 15:41:55 +0000
+Received: from BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM
+ ([fe80::9d4c:26bd:ea0d:b04b]) by BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM
+ ([fe80::9d4c:26bd:ea0d:b04b%5]) with mapi id 15.21.0181.010; Fri, 3 Jul 2026
+ 15:41:55 +0000
+From: Jean-Baptiste Maneyrol <Jean-Baptiste.Maneyrol@tdk.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+        David Lechner
+	<dlechner@baylibre.com>,
+        =?utf-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>,
+        Andy
+ Shevchenko <andy@kernel.org>,
+        Jean-Baptiste Maneyrol
+	<Jean-Baptiste.Maneyrol@tdk.com>
+CC: "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH] iio: imu: inv_icm42600: fix timestamp clock period by
+ using lower value
+Thread-Topic: [PATCH] iio: imu: inv_icm42600: fix timestamp clock period by
+ using lower value
+Thread-Index: AQHdAxu+cE2mHNJ2kEmDUcLwMYfkDrZb/PPs
+Date: Fri, 3 Jul 2026 15:41:55 +0000
+Message-ID:
+ <BE1P281MB14269CFEE52E559DD3323BBACEF42@BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM>
+References:
+ <20260623-inv-icm42600-fix-timestamp-clock-period-v1-1-82184d2429f4@tdk.com>
+In-Reply-To:
+ <20260623-inv-icm42600-fix-timestamp-clock-period-v1-1-82184d2429f4@tdk.com>
+Accept-Language: en-US, fr-FR
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BE1P281MB1426:EE_|BEZP281MB3381:EE_
+x-ms-office365-filtering-correlation-id: 8f5c5cc9-5917-4df4-7fb2-08ded9199c60
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|19092799006|10070799003|1800799024|366016|6133799003|18002099003|22082099003|38070700021|3613699012|5023799004|56012099006|11063799006;
+x-microsoft-antispam-message-info:
+ CVPns85XXl0Hv3I7nvvCOxsYEFcWcmyLnf2xZ5mIPRAgEQ3u8c9ACvieA81h93hpW8fQzgdHXcu9ukqgJ1YzepwUL5FlL4uTQvqtCxu7WvhoWq/TNIf2oB2qvyLuzdiaq44DxKWXaAPY9Wkcy0tPWQzg7q6MQcBq2EaXRFOLovRNUKt6q5TVhE8m6iygs4qSoyK4qyPkOHtZ5mxEEULrW9gSTnL8nfMUJZVE+U+B55M/OavD6XlRz3CjQyz8QaHoDPTJrJktTRARoC54u9Rbpadye7bUPrEdg42yFr1uB2RWL8b7kxUHn/fGxAZp9wESOWKoar0gVo5wov19arvZtYcAqfpFaa1raQ/vYbEcoTFuQiGETs7Y33OaVFkZWSO3gFSXTCl3G0Do4zi22j5PebWGgMBkGXnNfmqTG6Z7kPnsBXlwPim3EJ+9aoijq1vMZ0zRuCyaEEZmGOCaSKgCULqxL5S4uWIfsnqw/8Tw1abSZcIvUwV4HD/7cM1AyKj+/52/UAyx51mM7IZBGgWJhO+POcR0udnlueiQz4PdT6DhBZhQftWmp1m3mz+CXIt8dUMlPtJlN2IMu4peQjItcZuv0sC+7H/rm7WTOL//WmN/O7nRz3TvV/IZyWVqPbrFe+8hBSJ9fdr3N9SaVLZ7sMxm108fqmTDha9uWwfPaVbepLR9ELzrs6FTkSUkplk3Mbv7siw3EmVDOEK8/sT1spcQRhmi3/jvuEttK7O4ssCMhH0iaYqIoc8lQtLdI6nz
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(19092799006)(10070799003)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(38070700021)(3613699012)(5023799004)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?ZUl3Nk85blhkMzF5NWZoUE82MHZMeGN4QVVvOFZPcStlRGNIdi8rc1RCWEh1?=
+ =?utf-8?B?NTdERERRTUZBVXNuYVJENmw0SHNFelZzam5DaTdnaEhYMjQ0cEpCTXNyU2FJ?=
+ =?utf-8?B?TFNITS9HenlpUE83MUE3R1RWaHN4QmJLZUVrUjZ0RWNBa2tOQjZuNTdmblh1?=
+ =?utf-8?B?eXg2TlFEeUFrN0NIS0w0M3RjdG4yS0wzSmxRdncxWlcwenFvRE9nNU05aHE5?=
+ =?utf-8?B?TlE5VVEzM0VvcTBFN3Q0TlB5UGRMaDM5cWpxUTlSb3NrTkJ6ZERKQmpJdDRh?=
+ =?utf-8?B?S2JrWllIWWo2QTdlN1RqWWFzQUJPMHhmRWtIcWJpWmUrcVRwSkxrNDdIa04w?=
+ =?utf-8?B?RlNscVRNVGdjRmV4SkpoOFIxa0VzN3JkZGNnRHVuUlduS2l3VnI1eGtIanhh?=
+ =?utf-8?B?VnNtWTZDaHlFTDluS2J1b0NIRUtuZUhZWVc4YmlxanNPRVh2M0s2a0dtRU82?=
+ =?utf-8?B?aEZ4NnBBUnpGSWs5Y3N6aEtEN3VIdVQrSWd6b3F0b3ZNM2VsenhVOEhPelk4?=
+ =?utf-8?B?dFdjd0VCRzFIMThnbVlOYkxWTFpJR0JyaHd6N2FURUswenEwaVQ3K2ZQWnFO?=
+ =?utf-8?B?b2hnNUxTMU5ac1FXdmNJRkc4WHhpSHJCYmtiMCtDYU1CUWxEQXVNaDlvVHFa?=
+ =?utf-8?B?aytWdHpIU2FuVkpXdHByaldLWTRDc0JyTi81dGQrWEJKdHZETFVEL0tZUkRv?=
+ =?utf-8?B?Q1BwNXBOc0MzZUFYYzJ1NWxvZzhUNVluc0c0SFoveG1weTRCcDNlMHUwTGxT?=
+ =?utf-8?B?MDdubkRmYkI1MFdrWDlaM3JEM0k4d09sQnRBcTduM0U0Qng0dHJuSTFJR0tE?=
+ =?utf-8?B?VmtRR0tFYWIrdm1nTDE3cGtWRlc1NGthR3VqN2FEVXppSTBtcVl3dVlPck5Q?=
+ =?utf-8?B?ZHgxWjNJWTVXZ1BQSEp4U2hJbThTU0Z3MndzZGROaHE1dkVCdlRtSzhsVHFy?=
+ =?utf-8?B?Y1BZTVA1T2c1UGcyODgwZElpdDRFdTNHbkF0K1NRWEFSTHpsRlA2dVJyakFQ?=
+ =?utf-8?B?Z1ZUTVNuR1dBVk80RzlaMU11MzZDdHo4RERvT2hUNlNkQXBKM0JJeTBBVFox?=
+ =?utf-8?B?a1BqWW52a0xETHN2NjFaTXltVDZnQW1rU0R4azVTMjFQNVArYzcvbW1TaUor?=
+ =?utf-8?B?RklBU3dhYVFURnRMTnNISGJRbi9XcDhoZ1dUOFhNRzYzaDlxVGZQTWRyY3RH?=
+ =?utf-8?B?SURncEU1bXdnK0VhZ1Z6NFlISGd4YS9DYjNpekhaNXhkcHZqdno3RlBSZG1H?=
+ =?utf-8?B?bkZ1ZXRlYUNmK2xoc1FlZGY5ZkFzdnl6Q2ZrUGgwUG1pTVdMaWVHaHAwR0Vs?=
+ =?utf-8?B?V0JrK1JPM054Y2ZWWW5iNEI4cElDSkNDbGFjc3JSWHR6TE5nUmpMcDdoeTJY?=
+ =?utf-8?B?cTlsS2FVcVZ6dTNwNTM0Ly8vclNSc29La2ZuZnlIdmhSK08vZmMvaTg3QXhh?=
+ =?utf-8?B?R0x1elFKQUtORXpnZlFmRDhnNndiMkdONXFVTW1vbkJySEFhdXlnWGhxbC9M?=
+ =?utf-8?B?UmVpaUVCM2x2M2R2WVZvOU9CbHJVaVlIUUl1TERLR2d5d0JTYkxJeXVIS3BC?=
+ =?utf-8?B?LzZ3dnZVQlh6UG9MdFlqd25ham5US2N0UUFYdk53WDBiaGtUamtLdUdQUGFS?=
+ =?utf-8?B?SlVUQW5sTEdKYTJMbW5ZMmhzVHZtVklxbTFtUzlrcFFJVEE1YllFaVBJRTlW?=
+ =?utf-8?B?dE1TS3FDb3J0d2lLMHV4U3B2bmZDZCtrK2M0VVkwa1c2aW56NmFJTDFCQklW?=
+ =?utf-8?B?OWFYNHRDUVhFRE1zNGIyZHZpZ1lyZktUckhRS2IxSE5URFlLNlNYNG1GeU4y?=
+ =?utf-8?B?NFQwSFhmT2tjSDNpUU5oNFgrc3hJdUZCeEVBaEJLaXlod1J3SmhuZVFRS25K?=
+ =?utf-8?B?SUUrVDBESEFSYW1XN2RJSXQ4RnZ4aHlqWlJkbDQzNzRrMXJndEREWC9zMWFB?=
+ =?utf-8?B?UnhPdzZpZ1lXdG5JRHJnV1Y3dWkzK2c4MU1SdHhmclBDWUp2UGtubWw1bHFl?=
+ =?utf-8?B?K0h1anNVWVA4NUpUUG5jbFhxTnhuUjdtVGpDYVl5S2pmOVpSV1BSdVVKb0FN?=
+ =?utf-8?B?bkcybks5SldHSEVsaDdXNVlWcTh6dmswb2lpd0hVT0xkd0FYZ0JxbFdDeDhm?=
+ =?utf-8?B?dDBjS1hzY0IwZVNEUjhjWERrRFBUT0w5dC83akZYQ2hDcUxTamVhMU1udHY3?=
+ =?utf-8?B?UnZqM3diWlFZZFVVUDNqQmZteFBDWGVBaW04NUorUGlRODhQQTBScWZ3azVN?=
+ =?utf-8?B?ZTBiUWdyeDNNV3RMZ2xzRW1SeHZ6RlRaaFNpdE9haE9DUDdPYzg3Z01kdjZF?=
+ =?utf-8?B?TGRRbGwxRWdxdEtyR3BZYklZRE1SUUI5WVdmcm5vRnJEK0svUE1NL1dTa1Rr?=
+ =?utf-8?Q?UKgAfcaf16v7Vyty04xnjI2mgZzxG0AZNb7YSQPNn5+Lg?=
+x-ms-exchange-antispam-messagedata-1: pkiB2iPQQ8tq3A==
 Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPBb8HmE6q0VPa5PooFP3VFF27GU3B4622Xww6MHRT-9i4zTxA@mail.gmail.com>
-X-ClientProxiedBy: WA2P291CA0015.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1e::28) To DM4SPRMB0045.namprd11.prod.outlook.com
- (2603:10b6:8:6e::21)
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4SPRMB0045:EE_|PH3PPF0515C3CD3:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ee0a7a5-20b9-40b4-96ca-08ded91cfc1d
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|18002099003|22082099003|11063799006|56012099006|4143699003|6133799003;
-X-Microsoft-Antispam-Message-Info: vOUwzDodPTC+Bzg3Hhhc9CJ7WG/WkCBnPpTEAhSK9dhluQgajFK7xh3yNiePkbSoOvtHgtPfHs56t5ez6o4wk2/SdLB3kt77yC9LvLqpZemE32XrLyaEiV2tS1y8o/bKCVNTj48DpwwaWn5YG+EDVw9eChRqhSs00tRhgJOf14H8cLpeAcz2OxmvtwbBDZy3Jn+mkgpujqvafVLOypSghULudwxxnssYC2X3tDaYbLXLj29G7HsvTxSaYDCrHMDHDwfkr65okBj1v0zVZC9EyaczCLrz0LUWtI2gJjiy4OTW3E/Pwwbi8SAA70zVmcug447OxHzHC4xk6HJcguWnf6uE5YuuSZSuu4eXWSyIulX9LysdnfBC7wRIfNIatLAVfaokFT1Q1NulT4j/oLPQAl5jcBDie8KaVzCmRWZD59O5cCk5zgpTQBwB6/sTlZwdArb/TgpRuGwm8+z/2hdl2c7H6qzolr5LuIPSSdi0PitLfzHJ8cCWRae4RXcoOXCc3dxljyxxWCnhjDG4N9UsJxeX/dYTxvd+wTkTXhf3rfHzBeLvEfGXUec1w2BfMeldU/TIs/I0gc/SJUJvrXozFN0lkuO2pkNJ4h2PX4Gm62ynN4Q9K37OGvb5mIxBtOzjTx++x+7/EIOEs8CvscLaaCXL7/zBnVSvEu7M0EGDBJU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4SPRMB0045.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlVIV05Lb2lSa0lFTTJGbFZ3cUs2bS9oOWJTSGloVkpPcUljb0o4OWJHVlBz?=
- =?utf-8?B?SXFkZjVXd3Bhd095bWRxZlpxU3A0Mk0wUUMwdjE4cDlBSmxrOGRkcjJoT0NO?=
- =?utf-8?B?R0QwaFo1Zm5uN0pGVHQxdXZEQk52anduMlFDeU5HODVrTHJEc1dJb3Qvd2VP?=
- =?utf-8?B?RXJFUnM4UkhKclEwUWU4OERTOVpVUG54aXVVa1dmQXZXUUhzN2VWd2pjdTg2?=
- =?utf-8?B?MHhLczJiTE84MjZiZjJPRnp4endrMUFWTk5jMHVKU2tmVnRNdDBKZ25JbldD?=
- =?utf-8?B?ejdFRzByUldwaS83VHU1VGJNSkJPY0pPZTdpbjM0MTBORjdJejdHdzVkN3dC?=
- =?utf-8?B?clZQblpMZUVKMUdDTHVaUFBoVTh0ZjhwN2lGc1dONjl6UjB5V0FCbktSVExY?=
- =?utf-8?B?c0Q5YmlDVWc0MzJIN2M3U3JkK0wzVDM4eUsxM2c3aXdwZ0R1TkMyNTgwQVpW?=
- =?utf-8?B?NjVaWXFHQnYrSmFZaHFhZGJaOGxxSUNvRHh3R21wYUlPcktnL0hZa3RYelVy?=
- =?utf-8?B?Y2NGUUdtY1poTkpzekVaRmVLTlhFRmE4bWNZaXIvYjlhcndmTHdRN1VFVTVG?=
- =?utf-8?B?czk3Q25YTWFyeTlnVjRqazlrRTFKVlJQVXJKSXZUeUNSVnY1MFl4UHpwZytZ?=
- =?utf-8?B?MTZpbG1jOUE5VVlxTERSSlZzcUdXN2k1UGpOb016QW44K1FoYjJkWGR4dVpu?=
- =?utf-8?B?dzk5MUMzcmFiaDFtRXdRMWgvOE1RTWovSEJ2eFVkN2tlVGRPT2RtSHRsdmxl?=
- =?utf-8?B?aHFrVEFIbnJZc0ZsYXJKMHVCclFqU09tWEVRNDJyeGpnYk43cHFCWk9IdllI?=
- =?utf-8?B?SUxIWEYrSHNBVklvRG11SDlpeEd1TU9MSWNxWFFyMDF3NkNnanlxZ0pXNWlu?=
- =?utf-8?B?cHlYYmdiU1NHRS9VYi9aK280V0czS1FramJ1WjZpeVBodlQ5NzNkUDFFTWl2?=
- =?utf-8?B?RS9lTUpxTFYwMUFRZU1NOVFVNzhGdCs2SkpwMmZNRTdrOUpuVlpFNzQvWFVm?=
- =?utf-8?B?Z3Ztc1dsSXNYTVdhTWptTXN5NGp3WEVvbWNORUZmblJsaWo2K3NOS0FnMGMx?=
- =?utf-8?B?WCt0UTdlM1h1eGRVN1htbTU0aU5aOS9OR2s2Y0RjRTVsWmVEeUpLekszSFFY?=
- =?utf-8?B?S3YxNmZJK3dHejRFdE95TTlwd0N2MUdpWm40Y0Y1eDU3QmtKRVVDOWdZK0tN?=
- =?utf-8?B?dGUrSW5hRzB6bjJXQVhEd1hDaXV2RlFPSE9EZnZOWUtDZlg3UVdFWXZPN1Mr?=
- =?utf-8?B?K3RrS2x6QzRxZEJSWkdHYVdvR3VuVXkrZ0hUaG5hWDhCUGxxcUlFbVFTSnJI?=
- =?utf-8?B?ZmRKQ2tBMzJDWHNvYUlhWGcxTEpYRU1QUnJ5RUhZc1AvTnVBNm94bGZOQXN1?=
- =?utf-8?B?Z0NIVHZmWEJsb1VuQ1JTYWFybWQ3dTJzM1VpaDM1R0lCMjlnampERmN5VGx6?=
- =?utf-8?B?TTVEVXNzd2VDckNuRlR0cnpOWlc3bWczWDIrZGZuRGdUOHRzR1VSVUpYK3Fk?=
- =?utf-8?B?aWRwRGhENkM0eDR3ZUJiZDZEa0hVampRakl1YkZXWWFMaG1DNTJ0RnQxclpr?=
- =?utf-8?B?ZGF2SWJXc0hzamhQN0VWK3ZEcXR2eXdnYVJzVU9UUnNJcXdWVmN6QzVJdCtQ?=
- =?utf-8?B?elBwSGZHYVArcVFWUXM2Z0FwMCtLdVowTE9naXhYNVZMQWV0NkpiVHhWQ2lu?=
- =?utf-8?B?Q283K3pleGMzb1JtdHljd3l2QW8wbXFWMVp6cDM5d1puTDdMdjVKKzZZQ3lJ?=
- =?utf-8?B?MkxpTmhRd2drcVZNSkdhWXlUdjZZREJJZklEMGdheHhnMFdZdmI0K1FMRFFX?=
- =?utf-8?B?amdMd0piT3IvUmNOUTZsb3VURmxFcXdXQUoxMGwzMHZKeE14SUt5UnJWNWhs?=
- =?utf-8?B?VERSTmd3aUxnOHZPZXRLcGpWcHJDNmluaHA5YXI1MjVNUG9qa1luTkRaTjVx?=
- =?utf-8?B?bXQ5UThoSnp0cit2dTZkN2tuQ1VLZmZ4OHBqRk90SWZZeENMUDFyWUFlbWdv?=
- =?utf-8?B?MlBJNFUrWUZ6WFNoM1prUEMrMElUbXBTNkxnU3V2OG03NVYxb0NLeWtUOW9z?=
- =?utf-8?B?NzVvYi8vTDh2YzhUODcwNkRwd1ZWY0VWNitpcThaejdVZGdxMnRoV1hyUm5X?=
- =?utf-8?B?MjJFRkpNLzNzeE5DR3lPSXhqc25pdE5lYmhYZGcvM20xclBtZjNmaTRuV2dm?=
- =?utf-8?B?NE9vd2FVV2JRM0tHYWZFclUwYzhnSHpPWHptVC9jOUt0TUJnZWIxU0VBSmFW?=
- =?utf-8?B?UnlxcTgweDNRclluSDcxSXVHWWFEQmEzMWJsRmhOeTV3RkpiL1BsZ2s3U08w?=
- =?utf-8?B?Y0MrdnpQMEFLRXhtaFBhTnZXQ0pEYUQ1eDU4ZFlxZFhkWGo3L3dkOGRIL1VY?=
- =?utf-8?Q?mN+C9lwidLRXjYu0=3D?=
-X-Exchange-RoutingPolicyChecked: tKf90PZTCTaMkZfh7wsl1Xv/A9ksEnDd+o5VeGUcTEQ1OpQEwnmlAGX77xFIJtYsq3TISI+92yY8pqHUjXum+iu0C5KHKZOfWq4sVX9bslF/vCrNg3wDgisQHW7MvBNUJt4aAHhwKQHninN3oXS5VQCc/gbSUEWNDeRwMJZOvnQBea+rFJ9cboSS5a9qkEJWIFEDMV5czfHAZh8UFsNQ24Y1iaabeNjaDcPqNWTCIk3G5cBnJvJBTgur5jONPNJDx/QGi5vknzeSQuSzlIcmp5CYvX1Sp0o+1XqXGvUniUox3mMvik3SbznEsDhEDEV4h4hIsgGo5z23SbgMIEUs6w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ee0a7a5-20b9-40b4-96ca-08ded91cfc1d
-X-MS-Exchange-CrossTenant-AuthSource: DM4SPRMB0045.namprd11.prod.outlook.com
+X-Exchange-RoutingPolicyChecked:
+	eHI055hClbxw2wCVTd6kLIVmjBrnjr0QbEN8wUr294AuxR+5q0dIR/AdvtNlCY5y4enAiKJgj9fLpErqAe+9rRNpPgLD4zei90BObTmqmgxjB8rUqgKBrkC+X48gfhzR+SsGc7kjRBtZB1URQe8TQt8mXQy9MY5QPRNw5TQHv0XDxeUh4iU3T+kS0bOEQZeDuNc+odyTc3M9cCEoDpaef3AX5T8o32mqynRN6N0raQWuxLIDpiDhjwEcRzlp/fvjTC9hCgNdsqfPRdUIf7HJ8MiX+i2Pad0EOzdb/IZ0yZU/5nF8KSBwmGHpR7IefOdyPGcE6T3ip0qhL2wwwj5yqw==
+X-OriginatorOrg: tdk.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 16:06:04.7438
+X-MS-Exchange-CrossTenant-AuthSource: BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f5c5cc9-5917-4df4-7fb2-08ded9199c60
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2026 15:41:55.3899
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: khzNZpy2vXWA+jyx/qrfhCjHTO3brd7oAzd4EiH+XB/uui4LAcIYrtvdgFvxXS4sG03Dnw2gU2ILLH/TeL0Qm3cliYdXNxmKks7QGUisqEs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF0515C3CD3
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7e452255-946f-4f17-800a-a0fb6835dc6c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gEbGowoaFUXx3XYt6B/a47iSbez6ckAwOpvunkhgufEZIET38+FkNMR90PRXipMgynXW9DRQzdNK2PXolqVNmS7S4xBLXdHHHt8iRJCIS4Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BEZP281MB3381
+X-Proofpoint-ORIG-GUID: B5m9DXY0xLuLIkaOUpaZkZBxld8CE2VO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE1NSBTYWx0ZWRfX+ipkKNYnms/k
+ kvMW2PA+QV1CEdx1Er9tlBmgUxEIpHBlN1JQqjHf+psKtYzZnHMpvCS1IK2vpcMvZgqnN8xgQi7
+ Oy3wb4HrYIMkcmqghohSxGNcjJHZIDUbwzN9xEdavcaR6QtJFpzEESeLNlQa7yPRGPHQfHGyfU9
+ p7tb8dnoxPD6QVkZ7d0yoLx6/sQwOjs097J3BRcSfAUckJ1glUcN9iDGTNlK4UgGL2X/xbYmCrh
+ LW3CYX1zI9b8qzJj8VExUxtFHY09jv7GAXKYy6LYDGXqRv4uGUnYgeLPt/lSM7GLBaPJrYDzxZS
+ gXUsC6QZmGc+iv36Su6lyFzw+aIOt/WVWKLNGcwwURsnPLiS6EjALTrj0V727u1aWFCk8BtIrMP
+ QePPB2ZxFbge5tm60EISuF9yWQUtNnNFLyD/LjSu3JxCxNX9xQ23A8iAiR0HotBiAzNqQ4Lw3rZ
+ 3Ba+KGHgUoElWo8N3zA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE1NSBTYWx0ZWRfX7USyAYnOGcsz
+ Bo58A6GxQir+8TaOIcWYLlsPf3MFnhERd4bQ/LpbONKxYPz3rV86LZRYa/u0RkaB4RabNtoWsDi
+ bJ2EnfhUsQ4ny+KmeRdPBm7G3kLw1yKkPPPnx4U0mLbceTQMJGzI
+X-Authority-Analysis: v=2.4 cv=I8RVgtgg c=1 sm=1 tr=0 ts=6a47d84a cx=c_pps
+ a=/XU0EaMXzvVpd7Nc14VS2A==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=Uwzcpa5oeQwA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=W6z64dnQKVPvYeLC5f8l:22 a=NpUDEC63da1vOGE9rZHW:22 a=VwQbUJbxAAAA:8
+ a=In8RU02eAAAA:8 a=4-y-BRCywwWH8eZLqKIA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: B5m9DXY0xLuLIkaOUpaZkZBxld8CE2VO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ impostorscore=0 malwarescore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 phishscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030155
 
-On Fri, Jul 03, 2026 at 01:03:20AM -0700, Eddie Phillips wrote:
-> > I think this deserves to be pulled out of the timer logic?
-> 
-> If by this you mean pull the stats into a separate patch, I agree.
-
-Hi Eddie,
-
-instead of forming a response at the top of the mail, please have your
-answers inlined; it is preferred way of communication on mailing lists.
-
-> 
-> > - couldn't you detect this case within napi poll loop?
-> 
-> It can only be detected after attempting to refill the queue and finding
-> that we are still below the critical threshold.
-> 
-> > - if not, does it have to be per-q timer? wouldn't one global per pf timer
-> >   satisfy your needs?
-> 
-> There are a few ways a global timer could be implemented,
->  - The global timer could queue napi for *all* queues, which would
-> result in a lot of unnecessary work.
->  - The global timer could iterate over each queue and try to detect
-> the critical low buffer condition, however this would require
-> introducing synchronization between the timer and the napis, which
-> would introduce expensive locking into the hot path.
->  - The global timer could be paired with a bitmap that stores which
-> queues need to be serviced.
-
-bitmap would probably do the job but i won't insist here tho.
-
-One more question/idea:
-Before arming the starvation timer, could we first try to make a smaller batch
-of already-posted buffers visible to HW?
-
-It seems the HW can accept RX buffer tail doorbell updates at a granularity
-lower than the normal `GVE_RX_BUF_THRESH_DQO` batching threshold, apparently as
-low as 8 descriptors. If that is the case, could we first use this as an
-emergency low-watermark path: when refill posts at least 8 descriptors but does
-not reach the normal 32-descriptor threshold, ring the doorbell immediately and
-only arm the starvation timer if even that lower threshold cannot be reached?
-
-> 
-> A `struct timer_list` is only 40 bytes, so the current implemention is
-> not expensive. Though a global timer is valid, it's not strictly better.
-> 
-> That said, I agree that we can clean up the structure—I will move the
-> timer state from the individual RX rings to the `gve_priv` structure.
-> 
-> On Wed, Jul 1, 2026 at 6:22 AM Maciej Fijalkowski
-> <maciej.fijalkowski@intel.com> wrote:
-> >
-> > On Wed, Jul 01, 2026 at 12:53:41AM +0000, Harshitha Ramamurthy wrote:
-> > > From: Eddie Phillips <eddiephillips@google.com>
-> > >
-> > > When the system is under extreme memory pressure, page allocations can
-> > > fail during the Rx buffer refill loop. If the number of buffers posted
-> > > to hardware falls below a critical low threshold and the refill loop
-> > > exits due to allocation failures, the queue can stall:
-> > >
-> > > 1. The device drops incoming packets because there are no descriptors.
-> > > 2. Since no packets are processed, no Rx completions are generated.
-> > > 3. Because no completions occur, NAPI is never scheduled, preventing
-> > >    the refill loop from running again even after memory is freed.
-> > >
-> > > This results in a permanent queue stall.
-> > >
-> > > Resolve this by introducing a starvation recovery timer for each Rx queue.
-> > > If the number of buffers posted to hardware falls below a critical low
-> > > threshold, start a timer to periodically reschedule NAPI. Once NAPI runs
-> > > and successfully refills the queue above the threshold, the timer is
-> > > not rescheduled.
-> > >
-> > > Also add a new ethtool statistic "rx_critical_low_bufs" to track the
-> > > number of times the starvation recovery timer is triggered.
-> >
-> > I think this deserves to be pulled out of the timer logic?
-> >
-> > Two questions tho:
-> > - couldn't you detect this case within napi poll loop?
-> > - if not, does it have to be per-q timer? wouldn't one global per pf timer
-> >   satisfy your needs?
-> >
-> > >
-> > > Cc: stable@vger.kernel.org
-> > > Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
-> > > Reviewed-by: Jordan Rhee <jordanrhee@google.com>
-> > > Signed-off-by: Eddie Phillips <eddiephillips@google.com>
-> > > Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
-> > > ---
-> > >  drivers/net/ethernet/google/gve/gve.h         |  4 ++++
-> > >  drivers/net/ethernet/google/gve/gve_ethtool.c | 14 +++++++++++++-
-> > >  drivers/net/ethernet/google/gve/gve_rx_dqo.c  | 32 ++++++++++++++++++++++++++++++++
-> > >  3 files changed, 49 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-> > > index 2f7bd330..8378bef2 100644
-> > > --- a/drivers/net/ethernet/google/gve/gve.h
-> > > +++ b/drivers/net/ethernet/google/gve/gve.h
-> > > @@ -13,6 +13,7 @@
-> > >  #include <linux/netdevice.h>
-> > >  #include <linux/net_tstamp.h>
-> > >  #include <linux/pci.h>
-> > > +#include <linux/timer.h>
-> > >  #include <linux/ptp_clock_kernel.h>
-> > >  #include <linux/u64_stats_sync.h>
-> > >  #include <net/page_pool/helpers.h>
-> > > @@ -41,6 +42,7 @@
-> > >
-> > >  /* Interval to schedule a stats report update, 20000ms. */
-> > >  #define GVE_STATS_REPORT_TIMER_PERIOD        20000
-> > > +#define GVE_RX_NAPI_RESCHED_MS 20 /* msecs */
-> > >
-> > >  /* Numbers of NIC tx/rx stats in stats report. */
-> > >  #define NIC_TX_STATS_REPORT_NUM      0
-> > > @@ -318,6 +320,7 @@ struct gve_rx_ring {
-> > >       u64 rx_copied_pkt; /* free-running total number of copied packets */
-> > >       u64 rx_skb_alloc_fail; /* free-running count of skb alloc fails */
-> > >       u64 rx_buf_alloc_fail; /* free-running count of buffer alloc fails */
-> > > +     u64 rx_critical_low_bufs; /* count of critical low buffer events */
-> > >       u64 rx_desc_err_dropped_pkt; /* free-running count of packets dropped by descriptor error */
-> > >       /* free-running count of unsplit packets due to header buffer overflow or hdr_len is 0 */
-> > >       u64 rx_hsplit_unsplit_pkt;
-> > > @@ -334,6 +337,7 @@ struct gve_rx_ring {
-> > >       struct gve_queue_resources *q_resources; /* head and tail pointer idx */
-> > >       dma_addr_t q_resources_bus; /* dma address for the queue resources */
-> > >       struct u64_stats_sync statss; /* sync stats for 32bit archs */
-> > > +     struct timer_list starvation_timer; /* for queue starvation recovery */
-> > >
-> > >       struct gve_rx_ctx ctx; /* Info for packet currently being processed in this ring. */
-> > >
-> > > diff --git a/drivers/net/ethernet/google/gve/gve_ethtool.c b/drivers/net/ethernet/google/gve/gve_ethtool.c
-> > > index a0e0472b..71b6efbf 100644
-> > > --- a/drivers/net/ethernet/google/gve/gve_ethtool.c
-> > > +++ b/drivers/net/ethernet/google/gve/gve_ethtool.c
-> > > @@ -46,6 +46,7 @@ static const char gve_gstrings_main_stats[][ETH_GSTRING_LEN] = {
-> > >       "rx_hsplit_unsplit_pkt",
-> > >       "interface_up_cnt", "interface_down_cnt", "reset_cnt",
-> > >       "page_alloc_fail", "dma_mapping_error", "stats_report_trigger_cnt",
-> > > +     "rx_critical_low_bufs",
-> > >  };
-> > >
-> > >  static const char gve_gstrings_rx_stats[][ETH_GSTRING_LEN] = {
-> > > @@ -58,6 +59,7 @@ static const char gve_gstrings_rx_stats[][ETH_GSTRING_LEN] = {
-> > >       "rx_xdp_aborted[%u]", "rx_xdp_drop[%u]", "rx_xdp_pass[%u]",
-> > >       "rx_xdp_tx[%u]", "rx_xdp_redirect[%u]",
-> > >       "rx_xdp_tx_errors[%u]", "rx_xdp_redirect_errors[%u]", "rx_xdp_alloc_fails[%u]",
-> > > +     "rx_critical_low_bufs[%u]",
-> > >  };
-> > >
-> > >  static const char gve_gstrings_tx_stats[][ETH_GSTRING_LEN] = {
-> > > @@ -151,12 +153,14 @@ gve_get_ethtool_stats(struct net_device *netdev,
-> > >  {
-> > >       u64 tmp_rx_pkts, tmp_rx_hsplit_pkt, tmp_rx_bytes, tmp_rx_hsplit_bytes,
-> > >               tmp_rx_skb_alloc_fail, tmp_rx_buf_alloc_fail,
-> > > +             tmp_rx_critical_low_bufs,
-> > >               tmp_rx_desc_err_dropped_pkt, tmp_rx_hsplit_unsplit_pkt,
-> > >               tmp_tx_pkts, tmp_tx_bytes,
-> > >               tmp_xdp_tx_errors, tmp_xdp_redirect_errors;
-> > >       u64 rx_buf_alloc_fail, rx_desc_err_dropped_pkt, rx_hsplit_unsplit_pkt,
-> > >               rx_pkts, rx_hsplit_pkt, rx_skb_alloc_fail, rx_bytes, tx_pkts, tx_bytes,
-> > > -             tx_dropped, xdp_tx_errors, xdp_redirect_errors;
-> > > +             rx_critical_low_bufs, tx_dropped, xdp_tx_errors,
-> > > +             xdp_redirect_errors;
-> > >       int rx_base_stats_idx, max_rx_stats_idx, max_tx_stats_idx;
-> > >       int stats_idx, stats_region_len, nic_stats_len;
-> > >       struct stats *report_stats;
-> > > @@ -197,6 +201,7 @@ gve_get_ethtool_stats(struct net_device *netdev,
-> > >
-> > >       for (rx_pkts = 0, rx_bytes = 0, rx_hsplit_pkt = 0,
-> > >            rx_skb_alloc_fail = 0, rx_buf_alloc_fail = 0,
-> > > +          rx_critical_low_bufs = 0,
-> > >            rx_desc_err_dropped_pkt = 0, rx_hsplit_unsplit_pkt = 0,
-> > >            xdp_tx_errors = 0, xdp_redirect_errors = 0,
-> > >            ring = 0;
-> > > @@ -212,6 +217,8 @@ gve_get_ethtool_stats(struct net_device *netdev,
-> > >                               tmp_rx_bytes = rx->rbytes;
-> > >                               tmp_rx_skb_alloc_fail = rx->rx_skb_alloc_fail;
-> > >                               tmp_rx_buf_alloc_fail = rx->rx_buf_alloc_fail;
-> > > +                             tmp_rx_critical_low_bufs =
-> > > +                                     rx->rx_critical_low_bufs;
-> > >                               tmp_rx_desc_err_dropped_pkt =
-> > >                                       rx->rx_desc_err_dropped_pkt;
-> > >                               tmp_rx_hsplit_unsplit_pkt =
-> > > @@ -226,6 +233,7 @@ gve_get_ethtool_stats(struct net_device *netdev,
-> > >                       rx_bytes += tmp_rx_bytes;
-> > >                       rx_skb_alloc_fail += tmp_rx_skb_alloc_fail;
-> > >                       rx_buf_alloc_fail += tmp_rx_buf_alloc_fail;
-> > > +                     rx_critical_low_bufs += tmp_rx_critical_low_bufs;
-> > >                       rx_desc_err_dropped_pkt += tmp_rx_desc_err_dropped_pkt;
-> > >                       rx_hsplit_unsplit_pkt += tmp_rx_hsplit_unsplit_pkt;
-> > >                       xdp_tx_errors += tmp_xdp_tx_errors;
-> > > @@ -269,6 +277,7 @@ gve_get_ethtool_stats(struct net_device *netdev,
-> > >       data[i++] = priv->page_alloc_fail;
-> > >       data[i++] = priv->dma_mapping_error;
-> > >       data[i++] = priv->stats_report_trigger_cnt;
-> > > +     data[i++] = rx_critical_low_bufs;
-> > >       i = GVE_MAIN_STATS_LEN;
-> > >
-> > >       rx_base_stats_idx = 0;
-> > > @@ -337,6 +346,8 @@ gve_get_ethtool_stats(struct net_device *netdev,
-> > >                               tmp_rx_hsplit_bytes = rx->rx_hsplit_bytes;
-> > >                               tmp_rx_skb_alloc_fail = rx->rx_skb_alloc_fail;
-> > >                               tmp_rx_buf_alloc_fail = rx->rx_buf_alloc_fail;
-> > > +                             tmp_rx_critical_low_bufs =
-> > > +                                     rx->rx_critical_low_bufs;
-> > >                               tmp_rx_desc_err_dropped_pkt =
-> > >                                       rx->rx_desc_err_dropped_pkt;
-> > >                               tmp_xdp_tx_errors = rx->xdp_tx_errors;
-> > > @@ -381,6 +392,7 @@ gve_get_ethtool_stats(struct net_device *netdev,
-> > >                       } while (u64_stats_fetch_retry(&priv->rx[ring].statss,
-> > >                                                      start));
-> > >                       i += GVE_XDP_ACTIONS + 3; /* XDP rx counters */
-> > > +                     data[i++] = tmp_rx_critical_low_bufs;
-> > >               }
-> > >       } else {
-> > >               i += priv->rx_cfg.num_queues * NUM_GVE_RX_CNTS;
-> > > diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-> > > index 02cba280..303db4fa 100644
-> > > --- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-> > > +++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-> > > @@ -18,6 +18,16 @@
-> > >  #include <net/tcp.h>
-> > >  #include <net/xdp_sock_drv.h>
-> > >
-> > > +static void gve_rx_starvation_timer(struct timer_list *t)
-> > > +{
-> > > +     struct gve_rx_ring *rx = timer_container_of(rx, t, starvation_timer);
-> > > +     struct gve_priv *priv = rx->gve;
-> > > +     struct gve_notify_block *block;
-> > > +
-> > > +     block = &priv->ntfy_blocks[rx->ntfy_id];
-> > > +     napi_schedule(&block->napi);
-> > > +}
-> > > +
-> > >  static void gve_rx_free_hdr_bufs(struct gve_priv *priv, struct gve_rx_ring *rx)
-> > >  {
-> > >       struct device *hdev = &priv->pdev->dev;
-> > > @@ -120,6 +130,7 @@ void gve_rx_stop_ring_dqo(struct gve_priv *priv, int idx)
-> > >
-> > >       if (rx->dqo.page_pool)
-> > >               page_pool_disable_direct_recycling(rx->dqo.page_pool);
-> > > +     timer_delete_sync(&rx->starvation_timer);
-> > >       gve_remove_napi(priv, ntfy_idx);
-> > >       gve_rx_remove_from_block(priv, idx);
-> > >       gve_rx_reset_ring_dqo(priv, idx);
-> > > @@ -136,6 +147,8 @@ void gve_rx_free_ring_dqo(struct gve_priv *priv, struct gve_rx_ring *rx,
-> > >       u32 qpl_id;
-> > >       int i;
-> > >
-> > > +     timer_shutdown_sync(&rx->starvation_timer);
-> > > +
-> > >       completion_queue_slots = rx->dqo.complq.mask + 1;
-> > >       buffer_queue_slots = rx->dqo.bufq.mask + 1;
-> > >
-> > > @@ -232,6 +245,7 @@ int gve_rx_alloc_ring_dqo(struct gve_priv *priv,
-> > >       rx->gve = priv;
-> > >       rx->q_num = idx;
-> > >       rx->packet_buffer_size = cfg->packet_buffer_size;
-> > > +     timer_setup(&rx->starvation_timer, gve_rx_starvation_timer, 0);
-> > >
-> > >       if (cfg->xdp) {
-> > >               rx->packet_buffer_truesize = GVE_XDP_RX_BUFFER_SIZE_DQO;
-> > > @@ -365,6 +379,7 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
-> > >       struct gve_rx_compl_queue_dqo *complq = &rx->dqo.complq;
-> > >       struct gve_rx_buf_queue_dqo *bufq = &rx->dqo.bufq;
-> > >       struct gve_priv *priv = rx->gve;
-> > > +     u32 num_bufs_avail_to_hw;
-> > >       u32 num_avail_slots;
-> > >       u32 num_full_slots;
-> > >       u32 num_posted = 0;
-> > > @@ -400,6 +415,23 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
-> > >       }
-> > >
-> > >       rx->fill_cnt += num_posted;
-> > > +
-> > > +     /* If the queue has fewer than GVE_RX_BUF_THRESH_DQO descriptors
-> > > +      * visible to the hardware, and no doorbell was written, the hardware
-> > > +      * is in danger of starving and cannot trigger interrupts. Start the
-> > > +      * timer to periodically reschedule NAPI and recover from starvation.
-> > > +      */
-> > > +     num_bufs_avail_to_hw =
-> > > +             ((bufq->tail & ~(GVE_RX_BUF_THRESH_DQO - 1)) -
-> > > +              bufq->head) & bufq->mask;
-> > > +
-> > > +     if (num_bufs_avail_to_hw < GVE_RX_BUF_THRESH_DQO) {
-> > > +             u64_stats_update_begin(&rx->statss);
-> > > +             rx->rx_critical_low_bufs++;
-> > > +             u64_stats_update_end(&rx->statss);
-> > > +             mod_timer(&rx->starvation_timer,
-> > > +                       jiffies + msecs_to_jiffies(GVE_RX_NAPI_RESCHED_MS));
-> > > +     }
-> > >  }
-> > >
-> > >  static void gve_rx_skb_csum(struct sk_buff *skb,
-> > > --
-> > > 2.55.0.rc2.803.g1fd1e6609c-goog
-> > >
-> > >
+PkZyb206IEplYW4tQmFwdGlzdGUgTWFuZXlyb2wgdmlhIEI0IFJlbGF5IDxkZXZudWxsK2plYW4t
+YmFwdGlzdGUubWFuZXlyb2wudGRrLmNvbUBrZXJuZWwub3JnPgo+U2VudDogVHVlc2RheSwgSnVu
+ZSAyMywgMjAyNiAxNjoyMgo+VG86IEpvbmF0aGFuIENhbWVyb247IERhdmlkIExlY2huZXI7IE51
+bm8gU8OhOyBBbmR5IFNoZXZjaGVua28KPkNjOiBsaW51eC1paW9Admdlci5rZXJuZWwub3JnOyBs
+aW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOyBKb25hdGhhbiBDYW1lcm9uOyBzdGFibGVAdmdl
+ci5rZXJuZWwub3JnOyBKZWFuLUJhcHRpc3RlIE1hbmV5cm9sCj5TdWJqZWN0OiBbUEFUQ0hdIGlp
+bzogaW11OiBpbnZfaWNtNDI2MDA6IGZpeCB0aW1lc3RhbXAgY2xvY2sgcGVyaW9kIGJ5IHVzaW5n
+IGxvd2VyIHZhbHVlCj4KPkZyb206IEplYW4tQmFwdGlzdGUgTWFuZXlyb2wgPGplYW4tYmFwdGlz
+dGUu4oCKbWFuZXlyb2xA4oCKdGRrLuKAimNvbT4gQ2xvY2sgcGVyaW9kIHZhbHVlIGlzIHVzZWQg
+Zm9yIGNvbXB1dGluZyBwZXJpb2RzIG9mIHNhbXBsaW5nLiBUaGVyZSBpcyBubyBuZWVkIGZvciBp
+dCB0byBiZSBoaWdoZXIgdGhhbiB0aGUgbWF4aW11bSBvZHIsIG90aGVyd2lzZSB3ZSBhcmUgbG9z
+aW5nIHByZWNpc2lvbiBpbiB0aGUgY29tcHV0YXRpb24KPlpqUWNtUVJZRnBmcHRCYW5uZXJTdGFy
+dAo+VGhpcyBNZXNzYWdlIElzIEZyb20gYW4gRXh0ZXJuYWwgU2VuZGVyCj5UaGlzIG1lc3NhZ2Ug
+Y2FtZSBmcm9tIG91dHNpZGUgeW91ciBvcmdhbml6YXRpb24uCj4KPlpqUWNtUVJZRnBmcHRCYW5u
+ZXJFbmQKPgo+RnJvbTogSmVhbi1CYXB0aXN0ZSBNYW5leXJvbCA8amVhbi1iYXB0aXN0ZS5tYW5l
+eXJvbEB0ZGsuY29tPgo+Cj5DbG9jayBwZXJpb2QgdmFsdWUgaXMgdXNlZCBmb3IgY29tcHV0aW5n
+IHBlcmlvZHMgb2Ygc2FtcGxpbmcuIFRoZXJlIGlzCj5ubyBuZWVkIGZvciBpdCB0byBiZSBoaWdo
+ZXIgdGhhbiB0aGUgbWF4aW11bSBvZHIsIG90aGVyd2lzZSB3ZSBhcmUKPmxvc2luZyBwcmVjaXNp
+b24gaW4gdGhlIGNvbXB1dGF0aW9uIGZvciBub3RoaW5nLgo+Cj5Td2l0Y2ggY2xvY2sgcGVyaW9k
+IHZhbHVlIHRvIG1heGltdW0gb2RyIHBlcmlvZCAoOGtIeikuCj4KPkZpeGVzOiAwZWNjMzYzY2Nl
+YTcgKCJpaW86IG1ha2UgaW52ZW5zZW5zZSB0aW1lc3RhbXAgbW9kdWxlIGdlbmVyaWMiKQo+Q2M6
+IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKPlNpZ25lZC1vZmYtYnk6IEplYW4tQmFwdGlzdGUgTWFu
+ZXlyb2wgPGplYW4tYmFwdGlzdGUubWFuZXlyb2xAdGRrLmNvbT4KPi0tLQo+IGRyaXZlcnMvaWlv
+L2ltdS9pbnZfaWNtNDI2MDAvaW52X2ljbTQyNjAwX2FjY2VsLmMgfCA0ICsrLS0KPiBkcml2ZXJz
+L2lpby9pbXUvaW52X2ljbTQyNjAwL2ludl9pY200MjYwMF9neXJvLmMgIHwgNCArKy0tCj4gMiBm
+aWxlcyBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4KPmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2lpby9pbXUvaW52X2ljbTQyNjAwL2ludl9pY200MjYwMF9hY2NlbC5jIGIv
+ZHJpdmVycy9paW8vaW11L2ludl9pY200MjYwMC9pbnZfaWNtNDI2MDBfYWNjZWwuYwo+aW5kZXgg
+NTMyZDVmZGZmYWY4Li43ZGY5MjBlZjNjZjAgMTAwNjQ0Cj4tLS0gYS9kcml2ZXJzL2lpby9pbXUv
+aW52X2ljbTQyNjAwL2ludl9pY200MjYwMF9hY2NlbC5jCj4rKysgYi9kcml2ZXJzL2lpby9pbXUv
+aW52X2ljbTQyNjAwL2ludl9pY200MjYwMF9hY2NlbC5jCj5AQCAtMTE3MCwxMCArMTE3MCwxMCBA
+QCBzdHJ1Y3QgaWlvX2RldiAqaW52X2ljbTQyNjAwX2FjY2VsX2luaXQoc3RydWN0IGludl9pY200
+MjYwMF9zdGF0ZSAqc3QpCj4gICAgICAgIGFjY2VsX3N0LT5maWx0ZXIgPSBJTlZfSUNNNDI2MDBf
+RklMVEVSX0FWR18xNlg7Cj4KPiAgICAgICAgLyoKPi0gICAgICAgICogY2xvY2sgcGVyaW9kIGlz
+IDMya0h6ICgzMTI1MG5zKQo+KyAgICAgICAgKiBjbG9jayBwZXJpb2QgaXMgOGtIeiAoMTI1MDAw
+bnMpCj4gICAgICAgICAqIGppdHRlciBpcyArLy0gMiUgKDIwIHBlciBtaWxsZSkKPiAgICAgICAg
+ICovCj4tICAgICAgIHRzX2NoaXAuY2xvY2tfcGVyaW9kID0gMzEyNTA7Cj4rICAgICAgIHRzX2No
+aXAuY2xvY2tfcGVyaW9kID0gMTI1MDAwOwo+ICAgICAgICB0c19jaGlwLmppdHRlciA9IDIwOwo+
+ICAgICAgICB0c19jaGlwLmluaXRfcGVyaW9kID0gaW52X2ljbTQyNjAwX29kcl90b19wZXJpb2Qo
+c3QtPmNvbmYuYWNjZWwub2RyKTsKPiAgICAgICAgaW52X3NlbnNvcnNfdGltZXN0YW1wX2luaXQo
+JmFjY2VsX3N0LT50cywgJnRzX2NoaXApOwo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvaWlvL2ltdS9p
+bnZfaWNtNDI2MDAvaW52X2ljbTQyNjAwX2d5cm8uYyBiL2RyaXZlcnMvaWlvL2ltdS9pbnZfaWNt
+NDI2MDAvaW52X2ljbTQyNjAwX2d5cm8uYwo+aW5kZXggMTEzMzlkZGYxZGEzLi5hMThkY2FjOTM5
+MjkgMTAwNjQ0Cj4tLS0gYS9kcml2ZXJzL2lpby9pbXUvaW52X2ljbTQyNjAwL2ludl9pY200MjYw
+MF9neXJvLmMKPisrKyBiL2RyaXZlcnMvaWlvL2ltdS9pbnZfaWNtNDI2MDAvaW52X2ljbTQyNjAw
+X2d5cm8uYwo+QEAgLTc1NSwxMCArNzU1LDEwIEBAIHN0cnVjdCBpaW9fZGV2ICppbnZfaWNtNDI2
+MDBfZ3lyb19pbml0KHN0cnVjdCBpbnZfaWNtNDI2MDBfc3RhdGUgKnN0KQo+ICAgICAgICB9Cj4K
+PiAgICAgICAgLyoKPi0gICAgICAgICogY2xvY2sgcGVyaW9kIGlzIDMya0h6ICgzMTI1MG5zKQo+
+KyAgICAgICAgKiBjbG9jayBwZXJpb2QgaXMgOGtIeiAoMTI1MDAwbnMpCj4gICAgICAgICAqIGpp
+dHRlciBpcyArLy0gMiUgKDIwIHBlciBtaWxsZSkKPiAgICAgICAgICovCj4tICAgICAgIHRzX2No
+aXAuY2xvY2tfcGVyaW9kID0gMzEyNTA7Cj4rICAgICAgIHRzX2NoaXAuY2xvY2tfcGVyaW9kID0g
+MTI1MDAwOwo+ICAgICAgICB0c19jaGlwLmppdHRlciA9IDIwOwo+ICAgICAgICB0c19jaGlwLmlu
+aXRfcGVyaW9kID0gaW52X2ljbTQyNjAwX29kcl90b19wZXJpb2Qoc3QtPmNvbmYuYWNjZWwub2Ry
+KTsKPiAgICAgICAgaW52X3NlbnNvcnNfdGltZXN0YW1wX2luaXQoJmd5cm9fc3QtPnRzLCAmdHNf
+Y2hpcCk7Cj4KPi0tLQo+YmFzZS1jb21taXQ6IGNjNzQ2Mjk3YjIzZTg5YmQ1ZGY5ZjkxZjNhMGNh
+MjA5ZTg5OTE3NjMKPmNoYW5nZS1pZDogMjAyNjA2MjMtaW52LWljbTQyNjAwLWZpeC10aW1lc3Rh
+bXAtY2xvY2stcGVyaW9kLTkzMTMzOGE4NDhjMwo+Cj5CZXN0IHJlZ2FyZHMsCj4tLQo+SmVhbi1C
+YXB0aXN0ZSBNYW5leXJvbCA8amVhbi1iYXB0aXN0ZS5tYW5leXJvbEB0ZGsuY29tPgo+Cj4KCkhl
+bGxvIEpvbmF0aGFuLAoKYW55IHVwZGF0ZSBhYm91dCB0aGlzIHBhdGNoPwoKVGhhbmtzLApKQg==
