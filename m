@@ -1,159 +1,134 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D262357CE9
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 07:54:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76602352010;
+	Fri,  3 Jul 2026 07:56:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783065275; cv=none; b=M6h9g1RNlUhqxkx6XnLo0TtiRbdNT4K1SU04TOf+K7P3EOfA+G0UPCV9zAKuKD1kG2ErOmugX2EaLnHI5jSA9Mu9OWx20xD6tS8x7ONqejIpfKDFt83jGNez8U3cP/obTQrPInAbLmspD0JMJlYNViLFgeVMK7Nsgf1iN1H1jB0=
+	t=1783065390; cv=none; b=bKS0IFNCXR4w79Zoh4eYQngdaCUQxconAH2vCk2zP173r6a9gCQZD4YPk6ED4hRhXRXHMcdOkfwVEbeqjdjWXn5f3EFXKJqvLhVhOIgn4qcXufffbymiQgSWamWcncTD+gc7lWIqqFHYL5qTk2EpdKUGFKO0XKDlDrQa8XgnMwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783065275; c=relaxed/simple;
-	bh=uUEaGr257SVcEghz/VrSWTnDL6TlG6Mg+al6N5GpqDM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ndEA6BCWGvdclasyVJQBXVLku0N0y/A3fZmJkM2v0+hfVnUrN2MTncksZx2h/m1UigyYyW+Zmu2c/wbdyMldOrdybMx5640DZpAaLTncNq7l4iHavIImTalNaXNJY8A31Bu+G9iPlrv25yV3AWUNVXlC8B+9qNmY9j20Ga2Juwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cFb1tIMs; arc=none smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783065390; c=relaxed/simple;
+	bh=LKcOlov2N3SHTXapa/nmcCUUNrIagP3wwg5tJkgrfWY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NMfqEWkiFT4tcX26bcORWYV9MWuk9AqFev+7jQsWcVb2uNmCqGoLLHopzUnXgckkJKONmpt1DrXCs95jIuaG/scan9M2LbazuznJWIFCa+xNvzigXGHUGKl7LPyQJpyrLLospUDlUvAkObyyTR8T2tBKwrXH5dtwm8OP551zADE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhM+maWT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cFb1tIMs"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aeb91c003eso356164e87.3
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 00:54:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783065272; x=1783670072; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=N0uc9u/smgtycisGY64visu/9W154DzGDHnBARqQPUc=;
-        b=cFb1tIMsIhpgVHLSScCl6MNZtqfZPl9bpUvqT1HafhXU7CNHe4/mHl6KmmT/47WpJ/
-         rx9wO02iIfFd+imkKIs2jT4Xvxk1hmo+pZT2H7CAyIrt/n8ZwAf8UtFnbnksnMdROoAu
-         gPRw8ddATUbZK5z87sivuizKhEoY9v3RlHF+/NsoUcFh/beVh9UvPVS/F3fgB6cEWAS6
-         y0Cd4PO1dw8jn0SVy+QmdTY+kMWEtGmCkaii1h6P9XEOqo8XmbOQuIXNcLpU7jif12gP
-         fBvntK/BF/CtFO5qdybest2i/INeJvrdiqoOmda6SzhNO06pyzwPqgdx3Y0/W0frQnjf
-         gMgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783065272; x=1783670072;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=N0uc9u/smgtycisGY64visu/9W154DzGDHnBARqQPUc=;
-        b=akjpoCQiawg2e7hNMHwY/3fHzK3hjcR3Aog+wu/412ljtGOigq9YKd2bQa6DgFvHZf
-         VIGJ6JVC7G8qOJoifsI6td0H0pr5jcHbRj1DcWDhNnNo3yZz6hs7TCY85g6OGvuGD84q
-         nReK/C5of6DpGzPAA0FlEQyw3Sa0AJhJBm42bc0qKI+nb6LYm8k9rl7H6A+Fp683rsJN
-         6P76CvrOZegCkCjcoSeP/hk5Bo1QRciZzdrTHpjU4lRgRClR6DuhQT1J2Gch1lwg8GW6
-         9GbhW2BwYSkuMWkJ0gFS4Xyi2uT1Wial9qJsQtVXqkv7UpA39vXjRe8S8RGFfhFQIkSh
-         YbJw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrj0+PHL6FvSSpYJGFt0Z775CM+ntpWrlBarctPzg64aPGYielSdns4RVmiIayokuaqlRPerug=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx2hMwfcInplpBM2v+9Icadyqjx04hQ3Eg2WJ5nzRV3dfLhBIhh
-	WA/zZu4/tVnSgQxoOx+yh9dkEFoxpI3fl9m7iU5dINLR242FfK16KhRv
-X-Gm-Gg: AfdE7cltg1liZWiw3OuB/vIMdOl00AXmDmJRTcVSO8Z/2bHYKDvxp6D1KakFuJWuVe+
-	cjfoqT+lSXQ+hmyEI2ORXysaMM+huR0JuxxXNrnxo1+S/ozh+X3s5zhfnSCY0cP+VWvwNVc0amV
-	GoHphp5WI47mwsgAzKKi+3l61y7Abxyhh60LZ9rzjwbESFQ+MCwlnaaRY+uo0TWFwq9w8e42WtO
-	6Nl43C3cbApljjjENiWhQa4gt58FBC4RvM6bY8vg/Zys5/YPgbOde54VzXqNxZtjYSv3STYaOe5
-	md/HGlJwocdlDd8XqUrZ8b7sPvWxVR3SFi2aApbxoTE3f0wbWjoh4gXWpB2oK5GBXCjKKOIC2C0
-	RbGZEniAFoFuuimzak+0fUqmbde8fyR5ZOICcAbkjcuNx90vy/CTSz5l4oo0OcpS0OpRk0oaQkz
-	1OnWdxPMI5f1UEUC0e+sXkZ1trUBuMxb4=
-X-Received: by 2002:a05:6512:a354:b0:5aa:6c66:e343 with SMTP id 2adb3069b0e04-5aec68b72f8mr1670652e87.38.1783065272010;
-        Fri, 03 Jul 2026 00:54:32 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:4f9:2a:1c13::2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed13bb768sm285986e87.52.2026.07.03.00.54.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 00:54:30 -0700 (PDT)
-From: Melbin K Mathew <mlbnkm1@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Peter Chen <peter.chen@kernel.org>,
-	stable@vger.kernel.org,
-	Melbin K Mathew <mlbnkm1@gmail.com>
-Subject: [PATCH v2] usb: gadget: printer: fix infinite loop in printer_read()
-Date: Fri,  3 Jul 2026 09:54:29 +0200
-Message-Id: <20260703075429.302687-1-mlbnkm1@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260701205320.227791-1-mlbnkm1@gmail.com>
-References: <20260701205320.227791-1-mlbnkm1@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhM+maWT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F17ECC2BCB8;
+	Fri,  3 Jul 2026 07:56:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783065390;
+	bh=LKcOlov2N3SHTXapa/nmcCUUNrIagP3wwg5tJkgrfWY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=nhM+maWTKUaMKAWfzOHz4ItAd5ZLx8PQFJ/IJgwso1JF5okfC0hOAQ6QDCo8Nbo/Y
+	 uTwsEvv36QvCmd86xoXIk4YM/yrM6l8AZu+JfCcJ7WfuimHvHaJMzSW/LjyX01EUs4
+	 vS69Aehc0ZETxfl3R++215UPbmHs5N9FPQomfyqD90ATh13TsmG6nedvIT17WrgWLX
+	 d/hwTySzVlkn3W0U3YYjaRmPX/rYG3vUMx/yc24QOXu1YORWAwr61BLWBVLoSm97P8
+	 AKSWEYGxu9z9ZOL6aFtTNB1zYn1ezM9UY6C0AVzzD3F9QtGbnu1tOJpRB6N+7TEhqe
+	 YL2eTkP3eDylA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CF348C43458;
+	Fri,  3 Jul 2026 07:56:29 +0000 (UTC)
+From: Christian Taedcke via B4 Relay <devnull+christian.taedcke.weidmueller.com@kernel.org>
+Date: Fri, 03 Jul 2026 09:56:12 +0200
+Subject: [PATCH v3] dmaengine: nbpfaxi: Fix setting channel irqs in probe()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260703-upstreaming-nbpfaxi-v1-v3-1-24f7f9aa102f@weidmueller.com>
+X-B4-Tracking: v=1; b=H4sIABtrR2oC/42NzQ7CIBAGX8VwFgPUUuLJ9zAeKCztmv4F2lrT9
+ N2FevSgyV4m+XZmJQE8QiCXw0o8zBiw7yJkxwMxte4qoGgjE8GEZAUTdBrC6EG32FW0KwenF6Q
+ zpyyTZ8jyXDuVk/g8eHC47OLb/cNhKh9gxmRLixrD2PvXXp552v2MxOPUWQVaqYwZ0NcnoG0na
+ BrwJ9O3JKVm8Z9MRBlIK0teKC0K9S3btu0NT+qR4iEBAAA=
+X-Change-ID: 20260702-upstreaming-nbpfaxi-v1-0364e355af85
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Dan Carpenter <error27@gmail.com>, christian.taedcke-oss@weidmueller.com
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ Christian Taedcke <christian.taedcke@weidmueller.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783065388; l=2324;
+ i=christian.taedcke@weidmueller.com; s=20260702;
+ h=from:subject:message-id;
+ bh=AyxnLI/6ejAzATGLnoVUg8vFQg+Ck0fOd3H2NJ7M7M8=;
+ b=hllzCXN0NijWy0Y1HV7Qfpucv5LSEaUdngpJMKNEDHtwPxaYQoFbfjggxY2WJDRoddmGxiwNK
+ WXZO34LAmLsBLEGCGICTZR4ym3hh4s7bCYmM4CZL0Y5aZExoH7I7tMR
+X-Developer-Key: i=christian.taedcke@weidmueller.com; a=ed25519;
+ pk=fVCoBhFV3uMogA2nxIOU/rynNY+O2TDJgWvWjR06TrQ=
+X-Endpoint-Received: by B4 Relay for
+ christian.taedcke@weidmueller.com/20260702 with auth_id=847
+X-Original-From: Christian Taedcke <christian.taedcke@weidmueller.com>
+Reply-To: christian.taedcke@weidmueller.com
 
-printer_read() uses the same variable for the requested copy size and
-the number of bytes actually copied to user space. copy_to_user()
-returns the number of bytes not copied, so when it fails to copy
-anything, the computed copied length becomes zero.
+From: Christian Taedcke <christian.taedcke@weidmueller.com>
 
-In that case len, buf, current_rx_bytes and current_rx_buf are left
-unchanged. If RX data is available and the user buffer remains
-unwritable, the read loop can repeat indefinitely.
+When one irq is used for errors and each channel gets a dedicated irq,
+the total number of irqs is num_channels + 1. If the error irq is not
+the last entry in irqbuf[] but an earlier one, the loop assigning
+per-channel irqs terminates one iteration too early and the last
+channel is left without an irq.
 
-Track the copied length separately and return -EFAULT, or the number of
-bytes already copied, if an iteration makes no progress.
+Iterate over all collected irqs instead of num_channels so the
+error-irq skip does not shorten the effective channel count.
 
-Fixes: b185f01a9ab7 ("usb: gadget: printer: factor out f_printer")
+Fixes: 188c6ba1dd92 ("dmaengine: nbpfaxi: Fix memory corruption in probe()")
 Cc: stable@vger.kernel.org
-Reviewed-by: Peter Chen <peter.chen@kernel.org>
-Signed-off-by: Melbin K Mathew <mlbnkm1@gmail.com>
+Signed-off-by: Christian Taedcke <christian.taedcke@weidmueller.com>
 ---
+Changes in v3:
+- Guard against out-of-bound writes to chan in case of an invalid eirq.
+- Link to v2: https://patch.msgid.link/20260702-upstreaming-nbpfaxi-v1-v2-1-e6d6b178a278@weidmueller.com
+
 Changes in v2:
-- Drop unrelated comment wording change.
-- Add Reviewed-by tag from Peter Chen.
+- Advance chan only when assigning a real irq to fix out-of-bounds
+  memory access.
+- Remove now redundant ARRAY_SIZE(irqbuf) check.
+- Link to v1: https://patch.msgid.link/20260702-upstreaming-nbpfaxi-v1-v1-1-fd8ea8830cea@weidmueller.com
 
- drivers/usb/gadget/function/f_printer.c | 25 +++++++++++++++++++------
- 1 file changed, 19 insertions(+), 6 deletions(-)
+To: christian.taedcke-oss@weidmueller.com
+To: Vinod Koul <vkoul@kernel.org>
+To: Frank Li <Frank.Li@kernel.org>
+To: Dan Carpenter <error27@gmail.com>
+Cc: dmaengine@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/dma/nbpfaxi.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
-index e4f7828ae7..e346e4c26e 100644
---- a/drivers/usb/gadget/function/f_printer.c
-+++ b/drivers/usb/gadget/function/f_printer.c
-@@ -432,7 +432,7 @@ printer_read(struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- {
- 	struct printer_dev		*dev = fd->private_data;
- 	unsigned long			flags;
--	size_t				size;
-+	size_t				size, not_copied, copied;
- 	size_t				bytes_copied;
- 	struct usb_request		*req;
- 	/* This is a pointer to the current USB rx request. */
-@@ -525,14 +525,16 @@ printer_read(struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- 		else
- 			size = len;
+diff --git a/drivers/dma/nbpfaxi.c b/drivers/dma/nbpfaxi.c
+index 05d7321629cc..b1f06f0bd0d5 100644
+--- a/drivers/dma/nbpfaxi.c
++++ b/drivers/dma/nbpfaxi.c
+@@ -1374,14 +1374,14 @@ static int nbpf_probe(struct platform_device *pdev)
+ 		if (irqs == num_channels + 1) {
+ 			struct nbpf_channel *chan;
  
--		size -= copy_to_user(buf, current_rx_buf, size);
--		bytes_copied += size;
--		len -= size;
--		buf += size;
-+		not_copied = copy_to_user(buf, current_rx_buf, size);
-+		copied = size - not_copied;
-+
-+		bytes_copied += copied;
-+		len -= copied;
-+		buf += copied;
- 
- 		spin_lock_irqsave(&dev->lock, flags);
- 
- 		if (dev->reset_printer) {
- 			list_add(&current_rx_req->list, &dev->rx_reqs);
- 			spin_unlock_irqrestore(&dev->lock, flags);
-@@ -543,6 +545,17 @@ printer_read(struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- 		if (dev->interface < 0)
- 			goto out_disabled;
- 
-+		if (!copied) {
-+			dev->current_rx_req = current_rx_req;
-+			dev->current_rx_bytes = current_rx_bytes;
-+			dev->current_rx_buf = current_rx_buf;
-+			spin_unlock_irqrestore(&dev->lock, flags);
-+			mutex_unlock(&dev->lock_printer_io);
-+			return bytes_copied ? bytes_copied : -EFAULT;
-+		}
-+
-+		size = copied;
-+
- 		/* If we not returning all the data left in this RX request
- 		 * buffer then adjust the amount of data left in the buffer.
- 		 * Othewise if we are done with this RX request buffer then
--- 
-2.39.5
+-			for (i = 0, chan = nbpf->chan; i < num_channels;
+-			     i++, chan++) {
++			for (i = 0, chan = nbpf->chan; i < irqs; i++) {
+ 				/* Skip the error IRQ */
+ 				if (irqbuf[i] == eirq)
+-					i++;
+-				if (i >= ARRAY_SIZE(irqbuf))
++					continue;
++				if (chan >= nbpf->chan + num_channels)
+ 					return -EINVAL;
+ 				chan->irq = irqbuf[i];
++				chan++;
+ 			}
+ 		} else {
+ 			/* 2 IRQs and more than one channel */
+
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260702-upstreaming-nbpfaxi-v1-0364e355af85
+
+Best regards,
+--  
+Christian Taedcke <christian.taedcke@weidmueller.com>
+
 
