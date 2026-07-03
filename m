@@ -1,198 +1,157 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE203B0ACC
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 09:19:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4023B38A4;
+	Fri,  3 Jul 2026 09:21:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783070399; cv=none; b=iFZqjfOVrXQlp3ASLIUr0fcuUI4/c6qWCvxqs1NBW2zn3I94ja0KJ0VJ3iUl9LKU5y83X5CaXsNStUoGfC5wu3y4yvuthuTYP1szS8fBoLXPNKPFGcvM0XxSku0FQzJOYEXiE/nb5aXSpRdwZmQ43csh2HhhQjUIr53EbxafvI8=
+	t=1783070467; cv=none; b=fMlCaFiRUryPBcuaAZ/Z1TOWXbwXLpJe/s6C/LhVPuxEw1JnJmFjwQ1a8x3bufv7VWshWJuCCl67+Y4fvAlwdCzjSX9AjMz8cF5tE8BW3AhcYA7mgWgd1KHSd3yj35RaRUsEtHKc40xPzoMdAlp5ZrebGiq2C9jcya7uKrSS9NQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783070399; c=relaxed/simple;
-	bh=sN0p0fVJ9sdmJILLH4DH6tZhh9cD37hVqESMMYX2k+s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u+g5REVmBrTC05rcYNxw5D8u6nkYkKhVVUDIxuQ+sRH5g8M6Dcc3hlXGd50WxwKQZgM5zmsMdJjlb/t5kHd9phPZq9ctYwn6/TEILX9gvGwEkqdIjGpNkhpbFQehyAA0R9jlPTvnF6Bmy978A07yOgwIR8C+VAB4vNtrS27/qEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=J6S8Rvou; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=rHkIOYoy; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PLBvQUmM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=RyJc3dXV; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1783070467; c=relaxed/simple;
+	bh=gzKi9PH1R+HQcTu5RKXmQhc5+Eb57u8CioYtKB7ccfk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RQbvVLDg3z2HuYL2nmd1yLd+aV1wch2cHcyZ1mbOdrTcL5hFb6j+6XHmsdJ+bTG2tFK5B/0grmrJCoCwb+XEa3E/rGYNugZb6Om1Jz84reb+YAUELFcmBtI6jOrsKuAC5F1qBQUW/UidoroSeB+kREgsGBXRoIv9k4Fu1Pox5OQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=er20X6E4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="J6S8Rvou";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rHkIOYoy";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PLBvQUmM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RyJc3dXV"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id EE60174832;
-	Fri,  3 Jul 2026 09:19:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1783070396; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wLNoIPFQAdzqlhhDjJljgWkTgIt0PBr/oUCSVxs3Zuo=;
-	b=J6S8Rvoua0dSJHxLdFrxFJWZM8hR6dSknFKcAwZHXB2IzZyj3aKXaoeMiZImqHX0DLmZm+
-	svYGrDovejHKJHqoHsqiatns8PXCi1T2wm9E6ZSQKQfKJJlcZDdQ+XVEykUQ9WTdrC3F4z
-	2q5V3AlISPlFskR4kIAjwVNNHfiwRKg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1783070396;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wLNoIPFQAdzqlhhDjJljgWkTgIt0PBr/oUCSVxs3Zuo=;
-	b=rHkIOYoy9oK2iBGSJenoueb7UarA4ICEW/qNf+dddBdOFfNk9eYrbA4mTgAai/ENT1rVJ8
-	SSI+FU1bE8I7+xAw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PLBvQUmM;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=RyJc3dXV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1783070394; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wLNoIPFQAdzqlhhDjJljgWkTgIt0PBr/oUCSVxs3Zuo=;
-	b=PLBvQUmMD5Np4IuyjLfdm9G8FzjBbaRQ3WyoW2tloAnkCBzSks74z10u+r7rmcaVwG/ju6
-	qwO4dgFbp+5RVJRJzDIe+5JjswhzV58TNnYXy+ZT9ASqBrPqSV2Z1khQE5ottap5weozQ2
-	dGhYPdi1qv0IkaJMgcj7870POHcX+CE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1783070394;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wLNoIPFQAdzqlhhDjJljgWkTgIt0PBr/oUCSVxs3Zuo=;
-	b=RyJc3dXVK/dYw+3iTJXMb3qEaBCULjbrWuBFuwA4FABcfAsT/HSJlGN8Q4clstduNeiUBT
-	eArI1L2wvWMx99AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EA3EC779AA;
-	Fri,  3 Jul 2026 09:19:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id UBbKNbh+R2qHaAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 03 Jul 2026 09:19:52 +0000
-Date: Fri, 3 Jul 2026 10:19:51 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Matthew Wilcox <willy@infradead.org>, 
-	Song Liu <song@kernel.org>, Eric Hagberg <ehagberg@janestreet.com>, 
-	Gregg Leventhal <gleventhal@janestreet.com>
-Subject: Re: [PATCH stable] mm/khugepaged: write all dirty file folios when
- collapsing
-Message-ID: <akd-fJf7i8E9FuSA@pedro-suse.lan>
-References: <20260702165409.164568-1-pfalcato@suse.de>
- <2DA84662-F9E4-4ED3-A225-71054FEC3849@nvidia.com>
- <d38263c7-b1ea-4709-8d75-2f2355ca38a6@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="er20X6E4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B97931F000E9;
+	Fri,  3 Jul 2026 09:20:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783070463;
+	bh=LRHs68uZvA9um2gm65aY4M4ReG5L7r5Gco47C8yFhfw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=er20X6E4CCctj3eE7ZkCYz1M034Z/dOeLXhhW4SXSHRXrNAdk8ORvRd78IdzAbnlx
+	 1XwS/Sj4Qy41VCSnWZTXn/Ueyhi9Hkl3GhMZyM02Pf2XRW4AoSTrJv/HwmO3VIFhpy
+	 H3E9Rxi9sFJ0olWtSmlvlQkcSPXm/DiXePmcUSydvdHxi2IOPNM2VvUO+xmofYmgaG
+	 KOBXjNOGM7D4+q538hTKSTBVko3mqvABUa1ZQvMRGWR03r2nnoKNTz6I+m27A6wdZN
+	 J7hUAsQXmzayViW3Mv1ZEg2RwRb/9a6JbeIudqEvgrciOYFi/iOHW6gWmPUAqtm8Ly
+	 2Ksvsni8s0uIw==
+Message-ID: <474e7222-7589-4e8b-8a3c-f85ec2335f19@kernel.org>
+Date: Fri, 3 Jul 2026 11:20:56 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d38263c7-b1ea-4709-8d75-2f2355ca38a6@linux.dev>
-X-Spam-Flag: NO
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCVD_TLS_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[nvidia.com:email,pedro-suse.lan:mid,suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,linux.org.uk:email,infradead.org:email,janestreet.com:email,suse.de:email,suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: EE60174832
-X-Spam-Score: -4.51
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH stable] mm/khugepaged: write all dirty file folios when
+ collapsing
+To: Lance Yang <lance.yang@linux.dev>
+Cc: pfalcato@suse.de, akpm@linux-foundation.org, ljs@kernel.org,
+ baolin.wang@linux.alibaba.com, liam@infradead.org, npache@redhat.com,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org,
+ viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz,
+ willy@infradead.org, song@kernel.org, ehagberg@janestreet.com,
+ ziy@nvidia.com, gleventhal@janestreet.com
+References: <e924bed9-4c46-4fe3-b6cd-7c77fd9e25c8@kernel.org>
+ <20260703090232.26261-1-lance.yang@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260703090232.26261-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 03, 2026 at 10:53:24AM +0800, Lance Yang wrote:
+On 7/3/26 11:02, Lance Yang wrote:
 > 
+> On Fri, Jul 03, 2026 at 10:55:42AM +0200, David Hildenbrand (Arm) wrote:
+>> On 7/2/26 18:54, Pedro Falcato wrote:
+>>> As-is, khugepaged and writable-file opening exclude each other. A file
+>>> cannot be open writeable and have THPs (because the filesystem is not aware
+>>> of them). khugepaged will never collapse file pages for files that are
+>>> opened writeable. On an open(O_RDWR/O_WRONLY), the page cache for that
+>>> particular file is dropped. This is fine because nothing could've been
+>>> dirtied.
+>>>
+>>> However, there is an edge-case: collapse_file() might not be able to
+>>> coexist with concurrent writers, but it can coexist with dirty folios
+>>> (from previous writers). Therefore, the following can happen:
+>>>
+>>> open(file, O_RDWR)
+>>> write(file)
+>>> close(file)
+>>
+>> Okay, folios are dirty.
+>>
+>>> madvise(file_mapping, MADV_COLLAPSE, some non-dirty range)
+>>
+>> collapse_file() has
+>>
+>> 	if (!is_shmem && (folio_test_dirty(folio) ||
+>> 			  folio_test_writeback(folio))) {
+>> 		...
+>> 		result = SCAN_PAGE_DIRTY_OR_WRITEBACK;
+>> 		goto out_unlock;
+>> 	}
+>>
+>> Making us abort collapse.
+>>
+>> What am I missing?
 > 
-> On 2026/7/3 01:24, Zi Yan wrote:
-> > On 2 Jul 2026, at 12:54, Pedro Falcato wrote:
-> > 
-> > > As-is, khugepaged and writable-file opening exclude each other. A file
-> > > cannot be open writeable and have THPs (because the filesystem is not aware
-> > > of them). khugepaged will never collapse file pages for files that are
-> > > opened writeable. On an open(O_RDWR/O_WRONLY), the page cache for that
-> > > particular file is dropped. This is fine because nothing could've been
-> > > dirtied.
-> > > 
-> > > However, there is an edge-case: collapse_file() might not be able to
-> > > coexist with concurrent writers, but it can coexist with dirty folios
-> > > (from previous writers). Therefore, the following can happen:
-> > > 
-> > > open(file, O_RDWR)
-> > > write(file)
-> > > close(file)
-> > > madvise(file_mapping, MADV_COLLAPSE, some non-dirty range)
-> > > open(file, O_RDWR)
-> > >   nr_thps > 0
-> > >    truncate_inode_pages()
-> > >      /* THPs are cleared out, but so are the dirty folios */
-> > > 
-> > > When this edge-case happens, there is data loss, as the dirty folios are
-> > > fully discarded.
-> > > 
-> > > Fix it by fully writing back the page cache (and waiting) when collapsing
-> > > file THPs. Doing so provides the guarantee that no dirty folio will be
-> > > observed while there are active THPs. To fully ensure this is safe, the
-> > > invalidate_lock needs to be held while doing the writeout, so that
-> > > do_dentry_open()'s page cache truncation excludes this write-and-wait.
-> > > 
-> > > Cc: stable@vger.kernel.org
-> > > Cc: Alexander Viro <viro@zeniv.linux.org.uk>
-> > > Cc: Christian Brauner <brauner@kernel.org>
-> > > Cc: Jan Kara <jack@suse.cz>
-> > > Cc: Matthew Wilcox <willy@infradead.org>
-> > > Cc: Song Liu <song@kernel.org>
-> > > Cc: Eric Hagberg <ehagberg@janestreet.com>
-> > > Cc: Zi Yan <ziy@nvidia.com>
-> > > Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> > > Reported-by: Gregg Leventhal <gleventhal@janestreet.com>
-> > > Closes: https://lore.kernel.org/linux-mm/CAFN_u7H_0ECF3jixP=T=U7AH5=Q3wQNvJMo8an3VqUDMerQfUw@mail.gmail.com/
-> > > Tested-by: Zi Yan <ziy@nvidia.com>
-> > > Signed-off-by: Pedro Falcato <pfalcato@suse.de>
-> > > ---
-> > > This patch is written against 7.1.0 (because the code no longer exists in mainline).
-> > > 
-> > > Zi, I kept your Tested-by, but I had to move some things around and
-> > > use the invalidate lock. Please re-test if you can.
-> > 
-> > Tested it again on top of v6.12 (the patch applied cleanly) and the issue
-> > is gone. My Tested-by still holds. :)
-
-Awesome, thanks Zi!
-
+> Hmm ... dirty folios can be outside the range being collapsed ...
 > 
-> Since READ_ONLY_THP_FOR_FS is gone from mainline, just to confirm: does this
-> only affect stable kernels, right?
+> For example:
+> 
+>   write/dirty:      [6M, 8M)
+>   MADV_COLLAPSE:    [0M, 2M)
+> 
+> collapse_file() only checks the folios in the collapse range, so the
+> dirty/writeback check passes for [0M, 2M). But after that, for the old
+> READ_ONLY_THP_FOR_FS case, nr_thps gets bumped for the mapping.
 
-Correct, current mainline doesn't play any sort of fun games with
-truncation and the code is fully gone from do_dentry_open().
+Ahh, so it's unrelated folios, thanks for clarifying that.
+
+("some non-dirty range" documents that)
+
+All makes sense to me, thanks!
 
 -- 
-Pedro
+Cheers,
+
+David
