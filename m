@@ -1,87 +1,52 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35887386441
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 06:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0210F35E1A2
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 06:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783061128; cv=none; b=h5ig2k4ouYj74zEjiB5wWizR/ddIpnZhQAKyCcwbGweiccWqO9uat3XcNaBE2XFPzP5AjZWw2D0iLkm34DWrCfmOTv7uDUdwVJhuxmNZ3ztLYQQk9mPWwbdbCJ9osrw7MXjJU6Tl/1vLWdp9O/7dM9F1V0g7yz6wzvDq9JPEdJ8=
+	t=1783061175; cv=none; b=V+CzNQ5303p9ScO2vzAAmqxf0+UiVJygq2zAyoe9L1rD2pQjicXuw7JK9TUh4D8lq1LXQfw4Xhu88+h/nlXA7y3scZ7QpZH6p5xs1NFHmGEJRaBFX9T1tUtOiSL72rqFIH10NHe3uyvHtPDLqLyGU6l7+/mRse8G5xCZvVwGHCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783061128; c=relaxed/simple;
-	bh=z4lCII1ZehUTz9Sz3H0Z4D5t89Ta0fqSUqyBnBq0R54=;
+	s=arc-20240116; t=1783061175; c=relaxed/simple;
+	bh=k38jnddNnUzVIvvhaTXkexVYvVuvZeVblg42ctx6FJU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OwiKbX24mgm4NujMwlvdHKB96S3PQbLQPF+cNtwCRq6hZS/ogMCbl1xrOTXKFTBjv1YLQg1qFgDBPW5PyzLp8hG/Rk1Oz6pthfKC26CfsFUlMmrXVRV5/gQcbdKaCbcD4ypdq2gWx5K3FDS1alY3lf4TcLCEGHwVa4LdDJdBqRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hiSvtWqm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LbPy4i11; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=KvSWhYU+wFMsjMYkehGWyyIu+kMr1zPzQaQejcQQed1lEulhiQgvJUpH+isxF7jlOuWzJUz7U/KVYh7IA94eLR+bBIy9qkt4OPlZHOJLAojLOmfQJWK3y06M40kt+0h7deRlrgg3OOpDun8hmLfCpyCDYgW2A9X+Zx/pkph0KjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=KFnHNxwd; arc=none smtp.client-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hiSvtWqm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LbPy4i11"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6635rwmk3126426
-	for <stable@vger.kernel.org>; Fri, 3 Jul 2026 06:45:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kfCsJor6zr9JsHaxgfb1o+ZCD1IlPkC0zKCAWBS/gS0=; b=hiSvtWqmwcoBj3sD
-	tQKWAXmYbaBpniUdOco+jxUBFPFfnfA1KU2X1Gj+q2byMnkhAQmjPGABzhlMMB0U
-	1iiqZndY8/9DJECEnS2XQprlGyO5NiWAS59woH22eEsD33aw+RL3njkNRlDI15o1
-	JBbFoO6aK18sC43z/EuypdbGTH3QUeT+7LCFxLTzDsyxGzZSTZv4juAeqGEVqObH
-	iyXX+56/D88FqYqg1tAgW/KzOY0V7W1MXPKozIleggk0vp16UF0F42srXGTFf02q
-	jjYvRK35i+mqueQN7Rj9zDal/GEeJdD135GOUI9EeCDpA1QYwsZE56W2csLkggAo
-	sCWJgg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5tpnk4g7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 03 Jul 2026 06:45:26 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c860544c077so719144a12.3
-        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 23:45:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783061125; x=1783665925; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kfCsJor6zr9JsHaxgfb1o+ZCD1IlPkC0zKCAWBS/gS0=;
-        b=LbPy4i11EiGOBd7uQ59Je/9zeAaq8sJPy8Jhg4U8SZoPg8CsctfT1I0U/FOIXfvwzh
-         tm1xP/00k0KAUu8PeuZo+pn77j46YD46kVwp8VcGxxhGg+Fr8y07MkWrqF+fma6GLy31
-         PfmDx1CsLUbKs18kW5eSkk9yGTX5IkvwAbIMuwhF6O1R0P5WO1/fhArLnbuSey+j9QI2
-         yBqhHERWfDj4svNdYpEchKgTNffKLovHoLBf2zgl76rSiTMnZBH3RqN+t+fAAuGTA9Vt
-         gXIGczkSjjbk5xRTfy8vdBLQu93UUUGnbD7Fvi7NocG9JaSiTjDYmFmtGZqilrtXR4ii
-         +YfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783061125; x=1783665925;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kfCsJor6zr9JsHaxgfb1o+ZCD1IlPkC0zKCAWBS/gS0=;
-        b=frjuWF6gy9tl8C5np26/RSzd2TlD1FWHCGloy69My+sDeF+WLfTeoq6PW+jsn17i1m
-         nq4Bbvi/JIsFh0dVS7z0B71FpQXILG/tKfrik/Fr8+AcDhaiIhg0VW991ONAIYGVGmiQ
-         hlnDHCOcs5wWdEDr/THjOzokHOrYUd0HGMsLtdIR/KS11wAX1JTbWmnAc8OIzjv3EwyY
-         jSqiffc3w0O0TUk/8BH3DGsyDKb4nHe4uRBtRnB2bSg60ur+VYwHmhTEa10O1Cb2h7PO
-         PuyyrSSt/Oeq8H1K046KfFvWe/jt/dLSynqAChfUz3+odKhTb+dPn2Gwts3ArHUeQLoq
-         rAYw==
-X-Forwarded-Encrypted: i=1; AFNElJ/CMd0qqUO+/JMVvRcipBx266uzi9P2craCU7XAr+hl2ZXzhhJuLa4FVuWlERCACAtDxDE44xM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkdrBd74eGK03q026eS1dHT6L1kJcE8OIXCRgQUB9yTzYQfdK0
-	Gibc4SlJeoN5aidBstFxSCerE3aYSGrli0SoDveI5owMguHKBMbFrxV6ZzJ59HqKBRljG1fwKbL
-	NQJBY5PwnpI9NlTBewZzRJeHNc0CeT9sD/OQJhwLvh47LqJL7DY4NKhFqGAo=
-X-Gm-Gg: AfdE7clsKnUptSudylTmDw0pjX41dJpE92ifAVGyxgYoIvS0ectAkQ+voJ0Q85jDoMc
-	cw73+oOrP32WhD27v9WDOed7mKGkN5hLM2s1zhlwhEmm7ZDD0J7vFdAw2j6bMCuu8ctaMgW0vYE
-	UvmDmC1Y2G7H13QYnjWdHxX/kbEpQPDrZITsKMe5QbqPMcmgsVsv1yrwFZ0xsPzw3QYY84ommaA
-	wTf4k5K03n33l9m+gW0AUG54wTy/pQRQBy3hvtS8yRRQIlxgBmIVy9fwRlaEv0+iNt2HCB7eqz3
-	T6IEhtCq/pU0e/i7RHvg13OV2bKGhiRss5v3p3wN7nOZEs4JXFtFLbUr5G1+efW4Pf+1AvEfVFE
-	J3aq+VQCXjHzY9YFFXo7jpiX3Aw+nyJW0qv6BiqI6vBvkBr3XLqbSFwxqc9JcFOLvSvGxKiHqRY
-	cFCAoRt0fP
-X-Received: by 2002:a05:6a20:3ca7:b0:3bf:6c08:2843 with SMTP id adf61e73a8af0-3bff42daee4mr11446773637.50.1783061125022;
-        Thu, 02 Jul 2026 23:45:25 -0700 (PDT)
-X-Received: by 2002:a05:6a20:3ca7:b0:3bf:6c08:2843 with SMTP id adf61e73a8af0-3bff42daee4mr11446741637.50.1783061124596;
-        Thu, 02 Jul 2026 23:45:24 -0700 (PDT)
-Received: from [10.133.33.211] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c9e8eb0efc8sm2367706a12.5.2026.07.02.23.45.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 23:45:24 -0700 (PDT)
-Message-ID: <f304041f-c570-4db3-b27b-86d85dd41ec5@oss.qualcomm.com>
-Date: Fri, 3 Jul 2026 14:45:20 +0800
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="KFnHNxwd"
+Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
+	by cmsmtp with ESMTPS
+	id fRL7wMwFRMFEgfXfBwkBOs; Fri, 03 Jul 2026 06:46:13 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id fXfAwBE0ewn18fXfBwdVmN; Fri, 03 Jul 2026 06:46:13 +0000
+X-Authority-Analysis: v=2.4 cv=ZbYdNtVA c=1 sm=1 tr=0 ts=6a475ab5
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=QUYbzp3p0A3I4yDEf8UA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=nZ5D3d78yLBbic6m+GY4XdImQCewPQ/EC8ilIeuUbU8=; b=KFnHNxwdG2jWSqpJOpnQrOi6EI
+	UJQuwekYTgEra9pCXeeey83k3IU+A9/VQ9G7bY2Gmcpv2qfi2ow9pbqXQCvJgp0PTbzy4BXh1/Bmy
+	UijfMF0gp527vIGJCeyVk0/oxXnjE0dDTxsHDoMdBxlhDcmXwfzVXU97V1dpZMt7vvdIRD3mV0LNO
+	dRCy7hIrxsfYFNS7VS5XMVggycXXGhMyA+0eF/825GRU3nY9hWhR2S3gsZo1RY4CVg+BMwf/o2O8u
+	VihcRoEwp3/vDFj+czLGqRBmFlMDezfdQjaCbYQ48HYSWcaCxlYDS/wZqQ9R1OkK2qtnsZTrIux/P
+	ggJ/YG2Q==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:47754 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.2)
+	(envelope-from <re@w6rz.net>)
+	id 1wfXfA-00000001B2S-1xnZ;
+	Fri, 03 Jul 2026 00:46:12 -0600
+Message-ID: <0fa47988-5c74-4cb8-8617-9e3902fee162@w6rz.net>
+Date: Thu, 2 Jul 2026 23:46:10 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,62 +54,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] wifi: ath11k: fix potential buffer underflow in
- ath11k_hal_rx_msdu_list_get()
-To: Dmitry Morgun <d.morgun@ispras.ru>, Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
-        linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
-        stable@vger.kernel.org
-References: <20260530114252.42615-1-d.morgun@ispras.ru>
-From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Subject: Re: [PATCH 5.15 00/95] 5.15.211-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260702155109.196223802@linuxfoundation.org>
 Content-Language: en-US
-In-Reply-To: <20260530114252.42615-1-d.morgun@ispras.ru>
-Content-Type: text/plain; charset=UTF-8
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260702155109.196223802@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: S4bWMHk-11wRLxutI26AQ7CflQnSDFJi
-X-Proofpoint-ORIG-GUID: S4bWMHk-11wRLxutI26AQ7CflQnSDFJi
-X-Authority-Analysis: v=2.4 cv=UMft2ify c=1 sm=1 tr=0 ts=6a475a86 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=HH5vDtPzAAAA:8 a=xjQjg--fAAAA:8 a=EUspDBNiAAAA:8 a=zEb-VJRgp1rxa82pEt8A:9
- a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10 a=_Vgx9l1VpLgwpw_dHYaR:22
- a=QM_-zKB-Ew0MsOlNKMB5:22 a=L4vkcYpMSA5nFlNZ2tk3:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA2MiBTYWx0ZWRfX/pQvxj876s7f
- 0WOs66oX6o5lF/JJJOyOaWNcoiiKibXChx+mZx9jYdZbhDEx8mxi2soAWblzj7719oxb1FGImD7
- r78Tiupil/ebEPEDalJt8JCGzIAzPmo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA2MiBTYWx0ZWRfX7GvZFSJnsojE
- pnsXuHdKcypw4mbl0Khj5IeZgPsbdqxovYKHAwOZrmGFJivJ7LpiK89Gjjt4tzmHjfNl8A9Qck9
- 1QsbqGmuDMGB4GKoM/U95bVc17zU+6ECEFgGrUK75k56Ms7dmIq8yZjDKvEMI8Ql7sYzlB+0fxP
- N77adJm7PRwNMNRKLewDSIHKwz530DHUY64C9yYEIsQAPAlcRZOqtxmuXQtxsqBpzIHn7/l86yZ
- vjqr5UJP8uwkLmoNo2SY9UK2pFfHQlyMeuQ4QV0F9N/EU4G6DufUi7C/uLQzg32KynhR3eivUXx
- gri4nhIHSj+zXEziApM27zAUmWUwSjsXKgFjHtynhQ60yYKxuBe9Iw0BjflKWq5H1syChg+J4xP
- xMYPWcSwig7VNcumbAy3yYC/f8T0dAg/C4dIiJrXPM/l+k+u1Zk3VrdTowuJjSH4JuC3PNs6LxT
- jJk7HWZji2Pjd+yrEBA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
- priorityscore=1501 bulkscore=0 impostorscore=0 spamscore=0 adultscore=0
- clxscore=1011 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607030062
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1wfXfA-00000001B2S-1xnZ
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:47754
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 79
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfKt4ESVkeAiVUht7ePG1tF+JUJK3LQ+GiCXPPEZQYrVpLhxsALUxtslixowSLJDmPLEHOpw8FIH/Af03s7zDyfj5jxAv0VfwxxenlNLuCxrTx68OL07b
+ StDugfANVDHz/276d9Uw9U63qrtK+hPibhGYe6plICWIKM1tQ/BKL5F/6CtI8w7Oa0veqDV301Nfhw==
 
+On 7/2/26 09:19, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.15.211 release.
+> There are 95 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sat, 04 Jul 2026 15:50:58 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.211-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-On 5/30/2026 7:42 PM, Dmitry Morgun wrote:
-> When the first entry in msdu_details has a zero buffer address,
-> the code accesses msdu_details[i - 1] with i == 0, causing a
-> buffer underflow.
-> 
-> Fix similarly to ath12k_wifi7_hal_rx_msdu_list_get() by adding
-> a separate check for i == 0 before the main condition to prevent
-> the out-of-bounds access.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> 
-> Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-> Signed-off-by: Dmitry Morgun <d.morgun@ispras.ru>
+Tested-by: Ron Economos <re@w6rz.net>
 
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
