@@ -1,32 +1,50 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D636377EB8;
-	Fri,  3 Jul 2026 08:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F24377553
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 08:45:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783068279; cv=none; b=h+nqQ5d0ZpUPnXAnHMj4zCRXcUQwBpxixRf8LlubXmV4GFQuop+1WzfysrNxNMp2k4m19/pAErahPnC45v2yl+q3npoA/wUlzXIjC/qUEcfs1/zEqNNmvZaCK11r/flHuXaQwUtyF403dEwUOcq5u4B4biBiep5XvxvtTYc/mBo=
+	t=1783068361; cv=none; b=jT7Kpxj1DlZXODOKSiNnmvNc3gW3aR39kk7jDtnwDeV1tjdPx2x3hu5k3/bq+1grk1ov2/0IyLmkdwAD6/b7/tIJ+05LDlt/Jgu27hQ87LyHJN2ylJurcHWrIrLZ5icBrABbTh/MwdSws89EKPCuagc8/jcTZY8UXv2e0AEdpdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783068279; c=relaxed/simple;
-	bh=5f5VORH3zawg/gO3b17vYMgZ7k1ax6oaoAxOZ6GP99g=;
+	s=arc-20240116; t=1783068361; c=relaxed/simple;
+	bh=/EwpHi6J5UJVM7ZmMt0AyaCEgH5luC7CEHQjRvGOyYI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CQV/1vGPeot0qAiC4WtIRVEYBwTJRVgqi+wU3Ys9KeqACcOfXYIkLJm4kN6SMwIbxTFQt8nmsc0ahxcjSb+9Fn00+7NwUHG8iJ/WQ2O9xXrawB4tSacvwZet8OiyVkrJhCXZE29MyIZmR8+HoNqz7EAk698Ts48mCCAZYY2EhGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=XH1OtT0m; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	 In-Reply-To:Content-Type; b=G7L/61e7iif5v5COxDEYhXN9K0MTXAmMEkUczLcC/VCrehRpaJbNdZEB1Eint1l2LnsYdAc/58OTLXhndbTg4lAZ7fwlLj1IHQ9MLgYbOWe/Y/OTunfzdWlZOcM5Js7wy9BdeGaxqGGWImjT+UI0mB/DGE0ImWhrFXLyHjCSVsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J6oBxIH5; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="XH1OtT0m"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1783068273; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=heLiIQaQ67iQ8EJ+Osbvfe//KC72f/O5+l/x4rW5RyQ=;
-	b=XH1OtT0mQh7l17sKw2Jg9NkVC8PS3Ae95e072pvjRn6ZOSiKoDflw/eDFc3TO9IkQHWDT+w1/xTxTd7QygYFPFofc5Fi7Jdm7WeWbATmRiyENMO+qT2yoFpN+fJCCJKzx57iTSnkbB5Ke+A5kuFf5E7ojQ1R6Ljee4Kex2Pi+EM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R761e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0X6IjTR5_1783068272;
-Received: from 30.221.129.235(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0X6IjTR5_1783068272 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 03 Jul 2026 16:44:33 +0800
-Message-ID: <2904d1db-11fa-450a-89ea-20fe133fa268@linux.alibaba.com>
-Date: Fri, 3 Jul 2026 16:44:32 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J6oBxIH5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783068358; x=1814604358;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=/EwpHi6J5UJVM7ZmMt0AyaCEgH5luC7CEHQjRvGOyYI=;
+  b=J6oBxIH5WseVEhugI9mPNVJS4pyfAfxx2TeeNP/F+e31O+NxAqEX/CQy
+   STjUnnYU5+XflUM8cszqoyQwjDIXi3CA5l6dAoj7QhBjIcVU+z825bQAg
+   4m143OLQDOU2OHBtN7SKoR0rLJOQGGRuhc62oM7owH63i6zbgP+n/xTcy
+   uCq3772JTMJRoq+Fz80eixnlXdsW9AtWRDDOj7YvU0m/mutSzIH/SNIs3
+   gnRIyCOBP1I0kzBiG1oe6KRI2y1jpa38VLVTtGIU6+vb74MAzCvjnb/2G
+   WV8kBcQVrCPKwxk+CWf26TMdZSAobP0peklXA9F2cnsunMbxwMAeX2YAS
+   Q==;
+X-CSE-ConnectionGUID: 06ZVhpf0Rs2UaD5LSzeQPw==
+X-CSE-MsgGUID: LTgKrXAXSsKyayCcxPm37A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="101240455"
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; 
+   d="scan'208";a="101240455"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jul 2026 01:45:57 -0700
+X-CSE-ConnectionGUID: 8hHC5PI0TWGDRU9ej3SrmA==
+X-CSE-MsgGUID: 4tpIW1sFQMuC4Nxexcsf0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; 
+   d="scan'208";a="254980022"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.245.138]) ([10.245.245.138])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jul 2026 01:45:56 -0700
+Message-ID: <d5c3258a-04d1-42d6-9d74-cdd9a1172d97@intel.com>
+Date: Fri, 3 Jul 2026 09:45:54 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -34,55 +52,84 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ext4: get rid of ppath in get_ext_path()
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>, Wang Jun <1742789905@qq.com>,
- tytso@mit.edu, adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 25125332@bjtu.edu.cn,
- Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>
-References: <tencent_C982B0201FE8F041BD5B4FC1ED7D646A740A@qq.com>
- <2026062643-tamer-limes-a320@gregkh>
- <rrsgndgpxyrmu6okb43u6wkdaibbidlbyqgugeeijd2b44sf4y@6lzmm4v4xvdp>
- <2026070210-catty-grape-2568@gregkh>
- <b93095c6-0717-4616-9702-570b2927429b@linux.alibaba.com>
- <2026070315-crescent-factoid-616d@gregkh>
-From: Baokun Li <libaokun@linux.alibaba.com>
-In-Reply-To: <2026070315-crescent-factoid-616d@gregkh>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] drm/xe: Wait on external BO kernel fences in exec IOCTL
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org
+References: <20260702215805.4011228-1-matthew.brost@intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260702215805.4011228-1-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2026/7/3 16:20, Greg KH wrote:
-> On Fri, Jul 03, 2026 at 03:57:09PM +0800, Baokun Li wrote:
->> On 2026/7/2 13:47, Greg KH wrote:
->>> On Thu, Jul 02, 2026 at 09:48:33AM +0800, Jiayuan Chen wrote:
->>>> Hi Greg,
->>>>
->>>> Any update here ?
->>> What is "here"?  There is no context in this email :(
->>>
->>>> We rebased the 6.6 stable one week ago and also found the same regression.
->>> What regression?  Again, no context :(
->>>
->>> confused,
->>>
->>> greg k-h
->> For some reason, LTS only merged a subset of my patchset, causing
->> some commits to lack their prerequisite patches. This leads to error
->> numbers being interpreted as valid pointers.
->>
->> For details, see the fix patchset that Erkun submitted to 6.6.y
->> (it fell through the cracks for some reason):
->>
->> https://lore.kernel.org/all/20260421113416.4040274-1-yangerkun@huawei.com/
->>
->> Either applying this fix patchset or reverting the incorrectly merged
->> commit should resolve the issue.
-> How about submitting a revert so that we can start fresh and work from
-> there?
+On 02/07/2026 22:58, Matthew Brost wrote:
+> Before arming a user job, xe_exec_ioctl() only added the VM's
+> dma-resv KERNEL slot as a dependency. That slot covers rebinds and
+> the kernel operations of the VM's private BOs, but not external BOs
+> (bo->vm == NULL), which carry their kernel operations (evictions,
+> moves, ...) in their own dma-resv KERNEL slot.
+> 
+> The DMA_RESV_USAGE_KERNEL slot is the cross-driver contract for
+> memory management operations that must complete before the BO or its
+> backing store may be used: any accessor is required to wait on the
+> KERNEL fences before touching the resv. By skipping the external BOs'
+> KERNEL slots, the exec path violated that contract and could schedule
+> a user job while a kernel operation on an external BO mapped by the VM
+> was still in flight, racing against it and potentially reading or
+> writing memory that was being moved.
+> 
+> Replace the VM-only dependency with an iteration over every object
+> locked by the exec, adding each object's KERNEL slot as a job
+> dependency. This covers the VM resv (rebinds and private BOs) as well
+> as every external BO, mirroring the drm_gpuvm_resv_add_fence() call
+> that later publishes the job fence to the same set of objects.
+> Long-running mode continues to skip this, as before.
+> 
+> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+> Cc: stable@vger.kernel.org
+> Assisted-by: GitHub_Copilot:claude-opus-4.8
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 
-Alright, I can help review the patches.
+Wow, kind of surprised we missed this.
 
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 
-Thanks,
-Baokun
+> ---
+>   drivers/gpu/drm/xe/xe_exec.c | 22 ++++++++++++++++------
+>   1 file changed, 16 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_exec.c b/drivers/gpu/drm/xe/xe_exec.c
+> index e05dabfcd43c..d5293bc33a67 100644
+> --- a/drivers/gpu/drm/xe/xe_exec.c
+> +++ b/drivers/gpu/drm/xe/xe_exec.c
+> @@ -292,13 +292,23 @@ int xe_exec_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+>   		goto err_exec;
+>   	}
+>   
+> -	/* Wait behind rebinds */
+> +	/*
+> +	 * Wait behind rebinds and any kernel operations (evictions, defrag
+> +	 * moves, ...) on the VM and all external BOs. The VM's private BOs
+> +	 * carry their kernel ops in the VM dma-resv KERNEL slot, while each
+> +	 * external BO carries them in its own dma-resv KERNEL slot; both are
+> +	 * covered by iterating every object locked by the exec, mirroring the
+> +	 * drm_gpuvm_resv_add_fence() below.
+> +	 */
+>   	if (!xe_vm_in_lr_mode(vm)) {
+> -		err = xe_sched_job_add_deps(job,
+> -					    xe_vm_resv(vm),
+> -					    DMA_RESV_USAGE_KERNEL);
+> -		if (err)
+> -			goto err_put_job;
+> +		struct drm_gem_object *obj;
+> +
+> +		drm_exec_for_each_locked_object(exec, obj) {
+> +			err = xe_sched_job_add_deps(job, obj->resv,
+> +						    DMA_RESV_USAGE_KERNEL);
+> +			if (err)
+> +				goto err_put_job;
+> +		}
+>   	}
+>   
+>   	for (i = 0; i < num_syncs && !err; i++)
 
