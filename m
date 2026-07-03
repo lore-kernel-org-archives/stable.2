@@ -1,83 +1,113 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4413B2F8E9C;
-	Fri,  3 Jul 2026 16:28:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93630305E10
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 16:35:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783096112; cv=none; b=aYx3d6kgwvPgeoUqTNi5LBBdeaLbXTP7pbCWKGLIZh+fURDqzHoK7w47kCNe4dQpq9q1n+k/vcUwRHVoTxcJxiHPf2i6x3KgJGvM66wc0A2m3SnxRvKYDY4b8RbSOG4SeLxwWvtzKaiJQIR32U25G/l78lE3yFx5QPS6PHrTkZs=
+	t=1783096510; cv=none; b=Kk3VcQuz84WP1jNiTMLx6X0mdMSb/6LTqAlx3H0qRHuz3Z3p5ieDtALpsFYBYKp+t7A/QILEVomOwnD5XmBmUNJsz8ZGn+fupyimUbPHzWD1hwZD+tvsLJIv2t0Exl2S3k6d2AXKCC4U2qOnUMFAG5wmGPI2DENbT9+jfSCXDUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783096112; c=relaxed/simple;
-	bh=hcr/VLRoB6bOL7od2RJpsiqly4sCMoyU4iz0d/lMjTE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p22Z9JVHTFe2HuklRQd6zgpkoJSF/S2cpurpQ5z3GrPNR54wyrNolot9oP/GMBkUYE9BS2XAdVj62gLp/6CFHTMIuHn5gkeoRDb9nTH2kA6mpYHdcduDrD+5KJzjypnlvfsf334ChzD2DUasAz2SFvYFhA3+XQ7CK/o4LaQjZag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gF2WbR/W; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1783096510; c=relaxed/simple;
+	bh=WdeqKTbBw0p9IN6WCIHfQW9SJlRN9D8ekRRYYDXPGYk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hyob2H2VXdbwl8mL2HqEy7LLhh3bGL6A9MciQJChXER2/Ao+N6pJaB2wU2sJQPBmELxZRkCASusrD6vMB/38vxGYS3WNL2sOhfskMkVYoF8DzIWDt5fWXhs4VCVmZFa9Ilh6GsyNYq/mTXqNrewf5B0g9594R6leQKnVDj5ou98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U0t6arJr; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gF2WbR/W"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E5DA71E7D;
-	Fri,  3 Jul 2026 09:28:25 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 24F493F905;
-	Fri,  3 Jul 2026 09:28:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1783096110; bh=hcr/VLRoB6bOL7od2RJpsiqly4sCMoyU4iz0d/lMjTE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gF2WbR/Wf9hS09+xZK6JhcHHu6PbPN2K9KD3T4cUGcy8JE3xadOOPtFQtuNps/yF9
-	 aCFHuItvlieixXf9raOV51gLR8iJtvOC9FPqO8FM2wzEi9bUbGiItUJzFGPJxQqU9m
-	 L9sWLC1odQPoLYqPu8x0KiZEzsCEQiJf6+gfRvyw=
-Date: Fri, 3 Jul 2026 17:28:26 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Breno Leitao <leitao@debian.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U0t6arJr"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493c83474ddso7174035e9.3
+        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 09:35:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783096507; x=1783701307; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ELIgzqdNSMVVWgszVoq642vcRbk3MvTzwUI4sM/DChA=;
+        b=U0t6arJrWrNySAOsulmooDTgY5VjIUfVjjqwQsOXjXfAvMkaaFxeFE9zZTo54OGIxP
+         VgzG1+XNNVydfLOQs6gIQjRv758XTsgIlUsHw1QrDxM/0mx/lQ6a/rqL8ICDbmv/LC05
+         q1X4IRwgLahxvKhgTHpRiGtMGKks4I950npo498a7A4SEkPUuuR/UpxxbAFX4cO5492k
+         v8GgZKIUG7T1kn4B/My2R1UQmbEvzL7VVpAu1LWTlMvUCS8l1dfsXgDaCnTO1NsUglX0
+         cp92xE+jY3BSsJEDR91bRCbkeemadUQqBdQhP3oynQORvZ2lpmKQuXOMLkmMXQgLnWDU
+         XObQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783096507; x=1783701307;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ELIgzqdNSMVVWgszVoq642vcRbk3MvTzwUI4sM/DChA=;
+        b=M/sdT4ILb3llwE8iutx2vBwAhmkq4MkYZfwDmwdC7hElTur6YNbzjxd1mrgXHUD6Em
+         RmgQeTMHjWwk3zPR29nBANDvODYtxJcyjy0+I5FDL5tyxfcwoHjp0dsrAG7QxJ/n6bUa
+         LxCf7XC0FE+dDz6TECfE9ivYGyGVPVK3J0LPqe+1DSXbEYAt02sMsWotph4h95i45Wks
+         8NaEb+qdXTFnV0GoJhggULG0jZZIshnLWsBFvv2Hdu5D9Z7s6Xn/xQpwbkymbuUoJFWR
+         /RCr6O8f6NGoHBFnGrY2OIN4yQLjpBA1n4tO7IEDo6K56d1H/Kzp3Uol/SUilht8xtC2
+         tJxA==
+X-Forwarded-Encrypted: i=1; AFNElJ+U5+qMJ1Ud/RlI4Cmq0I42oE16K3m6QkBrvGbT7V3yqiUl2zmLKIRe2l9AtYjsQLdaQGG0ebs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFCmGcqpift8oq5MTGK4cj6JlL42EeTI54SJw7RPDoSKXyjRsK
+	zZeMYa+JRGp9WURBzfNsAu7s/ctaXqAf5aYWiF08r8Tul1Ero873AnHk
+X-Gm-Gg: AfdE7ckbwSGl6glrRRTJnwEhEfvNzLyLa5qqr3UM3Piy9VXSn6ltEUsJqCAqWZ4gSHj
+	DukW4dZw+SR3HIUdIJZG+PPulktn9ttOqJjoHSF+w65bISzhCc3b5tMWCFbIWyXRZWDlj5W0GEB
+	aSmAwLXZs7Utf7quVdE396qT3ckO8BJGE+S9MeOB10iujjoR0hPeTgmtOsAhV+fahNinM3FRt6v
+	Yvy2G9O2AKCFhFdASOu08PCNKqK3O1b9F4aJD/7g6VM3RtzjdtQaQYYUQuEnYZzJ4X51RaCwdY3
+	MiHud3MTpafYypMVSOGCqvdFs2bg6HZVZIchk5J5zSs+ttGYOr/UWgSsEJ/HFXv8NhecO17cIhB
+	YWJ32WizwQ/0tibvV3KIVcR5xhmj5JpamzsiEEjUNvrs4Bl/bDubkMo4NBTt85U4i1VtZD7ebXm
+	u9fYBM80VSKrpgfr5DNPJF3fYEU7a9cUafljji6gs7zNIR/SrYkvtt4gifAGmzgLZ5wkw4GJRC
+X-Received: by 2002:a05:600c:314f:b0:493:cfd2:cd06 with SMTP id 5b1f17b1804b1-493d11cef20mr620455e9.6.1783096506606;
+        Fri, 03 Jul 2026 09:35:06 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493cce040b4sm81986795e9.10.2026.07.03.09.35.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 09:35:06 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: dan.scally@ideasonboard.com,
+	jacopo.mondi@ideasonboard.com,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/kmemleak: fix checksum computation for per-cpu objects
-Message-ID: <akfjKpv838nqsl78@arm.com>
-References: <20260703-kmemleak_checksum-v1-1-5e0ab7d6966f@debian.org>
+Subject: [PATCH v2] media: mali-c55: Fix clock leak on reset deassert failure
+Date: Fri,  3 Jul 2026 17:35:03 +0100
+Message-ID: <20260703163503.715606-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260703-kmemleak_checksum-v1-1-5e0ab7d6966f@debian.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 03, 2026 at 09:17:24AM -0700, Breno Leitao wrote:
-> The per-cpu object checksum folds each CPU's CRC together with XOR and
-> seeds every CRC with 0. Both choices make update_checksum() miss content
-> changes:
-> 
->   - XOR is self-cancelling, so equal contents on two CPUs cancel out and
->     simultaneous identical changes leave the checksum unchanged.
->   - crc32(0, ...) over all-zero content is 0, so a freshly allocated,
->     zeroed per-cpu area checksums to 0, matching the initial value, and
->     the object is never seen to change.
-> 
-> See discussions at [0].
-> 
-> When update_checksum() wrongly reports an actively modified object as
-> unchanged, kmemleak stops greying it for an extra scan and can report a
-> live per-cpu object as a leak.
-> 
-> Fold the per-cpu CRC as a single rolling checksum across all CPUs and
-> initialise the object checksum to ~0 so the first computed value always
-> registers as a change, even for content that hashes to 0.
-> reset_checksum() is seeded the same way.
-> 
-> Link: https://lore.kernel.org/all/akfYImSNDh3OjIfR@gmail.com [0]
-> Co-developed-by: Catalin Marinas <catalin.marinas@arm.com>
+__mali_c55_power_on() enables the clocks before deasserting the resets,
+but bails out on a deassert failure without disabling them again. Both
+callers treat a failed power-on as already cleaned up, so the clocks are
+left enabled.
 
-Since you added co-developed-by, I think it needs this as well:
+Disable them on the error path.
 
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Carlier <devnexen@gmail.com>
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+---
+v2:
+ - Add Cc: stable@vger.kernel.org (requested by Jacopo Mondi).
+ - Collect Reviewed-by from Daniel Scally and Jacopo Mondi.
+ drivers/media/platform/arm/mali-c55/mali-c55-core.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-(otherwise I'm fine with suggested-by)
-
-Thanks for the investigation and posting this.
-
+diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+index ee4a42674..fb81141d1 100644
+--- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
++++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+@@ -699,6 +699,8 @@ static int __mali_c55_power_on(struct mali_c55 *mali_c55)
+ 					  mali_c55->resets);
+ 	if (ret) {
+ 		dev_err(mali_c55->dev, "failed to deassert resets\n");
++		clk_bulk_disable_unprepare(ARRAY_SIZE(mali_c55->clks),
++					   mali_c55->clks);
+ 		return ret;
+ 	}
+ 
 -- 
-Catalin
+2.53.0
+
