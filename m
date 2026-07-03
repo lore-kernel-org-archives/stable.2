@@ -1,157 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4023B38A4;
-	Fri,  3 Jul 2026 09:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B5AE3955FB;
+	Fri,  3 Jul 2026 09:23:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783070467; cv=none; b=fMlCaFiRUryPBcuaAZ/Z1TOWXbwXLpJe/s6C/LhVPuxEw1JnJmFjwQ1a8x3bufv7VWshWJuCCl67+Y4fvAlwdCzjSX9AjMz8cF5tE8BW3AhcYA7mgWgd1KHSd3yj35RaRUsEtHKc40xPzoMdAlp5ZrebGiq2C9jcya7uKrSS9NQ=
+	t=1783070641; cv=none; b=I0UzB9Hjxvildbt1MZvwDrq0/OD72TNu+IchC7INIwtsQsCviS9mzMeDmzdpausqMCIxXGhd7J1r1mreer9lVQ07ylNuXSlIdc6vSVIsyJVMZTz+YvKUai8XMj9JiwnfxbacTljgTbWj/7It00u2X3WJzEX+wqViAYAwghMqhs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783070467; c=relaxed/simple;
-	bh=gzKi9PH1R+HQcTu5RKXmQhc5+Eb57u8CioYtKB7ccfk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RQbvVLDg3z2HuYL2nmd1yLd+aV1wch2cHcyZ1mbOdrTcL5hFb6j+6XHmsdJ+bTG2tFK5B/0grmrJCoCwb+XEa3E/rGYNugZb6Om1Jz84reb+YAUELFcmBtI6jOrsKuAC5F1qBQUW/UidoroSeB+kREgsGBXRoIv9k4Fu1Pox5OQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=er20X6E4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783070641; c=relaxed/simple;
+	bh=cauSp18KyEE16pHZhdaFI0rad7buc1sKzMNb4PtuJQ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ijskk3uUwXm348BYGZ11ntxqIa86fpoFtOVKus57CR1X181l92qum2jBjH2jtmJ963OYlxgYYQ7i/zwi9SwD7dLWWHUNSlMLgzPbemDvI5KiociUkF2qw6P7Fygd2c1sytX1d2bqRQXRfPQkyvGYzI0wuO78UjoSxWeVf6kbRaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=EBOppEHH; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="er20X6E4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B97931F000E9;
-	Fri,  3 Jul 2026 09:20:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783070463;
-	bh=LRHs68uZvA9um2gm65aY4M4ReG5L7r5Gco47C8yFhfw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=er20X6E4CCctj3eE7ZkCYz1M034Z/dOeLXhhW4SXSHRXrNAdk8ORvRd78IdzAbnlx
-	 1XwS/Sj4Qy41VCSnWZTXn/Ueyhi9Hkl3GhMZyM02Pf2XRW4AoSTrJv/HwmO3VIFhpy
-	 H3E9Rxi9sFJ0olWtSmlvlQkcSPXm/DiXePmcUSydvdHxi2IOPNM2VvUO+xmofYmgaG
-	 KOBXjNOGM7D4+q538hTKSTBVko3mqvABUa1ZQvMRGWR03r2nnoKNTz6I+m27A6wdZN
-	 J7hUAsQXmzayViW3Mv1ZEg2RwRb/9a6JbeIudqEvgrciOYFi/iOHW6gWmPUAqtm8Ly
-	 2Ksvsni8s0uIw==
-Message-ID: <474e7222-7589-4e8b-8a3c-f85ec2335f19@kernel.org>
-Date: Fri, 3 Jul 2026 11:20:56 +0200
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="EBOppEHH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=TYJFOLn851Tsz51dqj1HNvlJtqSVi+oJKTRYLTFxOKE=; 
+	b=EBOppEHHcVpFIcyBrfeqexxwsnkddf+O12EGIUQ8LxMZsu8SwRkGVpcbRNxBbvHDDToOC/RqZU2
+	LLkpugF8W4fuNNsu4iisNGOeiWjS5+/xi5keTvkynIoluSwxpxpBVy8eIV8B2JZ+MsRVzi1ykZ28L
+	i9EvO82cKOm+At6BF5xK2uoARoM+6Frlz5NYUGCLGQz6UsO7unXfsmlglOPCQy6NXIRb8BdZeEm0r
+	qxX91RctCYJjza+GskXsZY6AkXxAF4AZanU5QsI3OuusL1zqtENfbd/vnOmXPS5OHr+wLEYJ5mLZB
+	HVtHqfflVNp8aomJ9JYJDknzvIQOyPyiML+w==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1wfa7j-0000000AKA0-30o6;
+	Fri, 03 Jul 2026 17:23:52 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 03 Jul 2026 17:23:51 +0800
+Date: Fri, 3 Jul 2026 17:23:51 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Thara Gopinath <thara.gopinath@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Stanimir Varbanov <svarbanov@mm-sol.com>,
+	Eneas U de Queiroz <cotequeiroz@gmail.com>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+	Eric Biggers <ebiggers@kernel.org>, linux-crypto@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	brgl@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4 2/8] crypto: qce - Fix HMAC self-test failures for
+ empty messages
+Message-ID: <akd_p0Psntcp01F1@gondor.apana.org.au>
+References: <20260622-qce-fix-self-tests-v4-0-4f82ffa716c6@oss.qualcomm.com>
+ <20260622-qce-fix-self-tests-v4-2-4f82ffa716c6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH stable] mm/khugepaged: write all dirty file folios when
- collapsing
-To: Lance Yang <lance.yang@linux.dev>
-Cc: pfalcato@suse.de, akpm@linux-foundation.org, ljs@kernel.org,
- baolin.wang@linux.alibaba.com, liam@infradead.org, npache@redhat.com,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org,
- viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz,
- willy@infradead.org, song@kernel.org, ehagberg@janestreet.com,
- ziy@nvidia.com, gleventhal@janestreet.com
-References: <e924bed9-4c46-4fe3-b6cd-7c77fd9e25c8@kernel.org>
- <20260703090232.26261-1-lance.yang@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260703090232.26261-1-lance.yang@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260622-qce-fix-self-tests-v4-2-4f82ffa716c6@oss.qualcomm.com>
 
-On 7/3/26 11:02, Lance Yang wrote:
+On Mon, Jun 22, 2026 at 03:18:10PM +0200, Bartosz Golaszewski wrote:
+> BAM DMA cannot process zero-length transfers. For plain hashes this is
+> handled by returning the precomputed hash of the empty message
+> (tmpl->hash_zero), but for keyed HMAC the result depends on the key and
+> cannot be a constant. As a result, hmac(sha256) produced an incorrect
+> digest for an empty message and the crypto self-tests failed.
 > 
-> On Fri, Jul 03, 2026 at 10:55:42AM +0200, David Hildenbrand (Arm) wrote:
->> On 7/2/26 18:54, Pedro Falcato wrote:
->>> As-is, khugepaged and writable-file opening exclude each other. A file
->>> cannot be open writeable and have THPs (because the filesystem is not aware
->>> of them). khugepaged will never collapse file pages for files that are
->>> opened writeable. On an open(O_RDWR/O_WRONLY), the page cache for that
->>> particular file is dropped. This is fine because nothing could've been
->>> dirtied.
->>>
->>> However, there is an edge-case: collapse_file() might not be able to
->>> coexist with concurrent writers, but it can coexist with dirty folios
->>> (from previous writers). Therefore, the following can happen:
->>>
->>> open(file, O_RDWR)
->>> write(file)
->>> close(file)
->>
->> Okay, folios are dirty.
->>
->>> madvise(file_mapping, MADV_COLLAPSE, some non-dirty range)
->>
->> collapse_file() has
->>
->> 	if (!is_shmem && (folio_test_dirty(folio) ||
->> 			  folio_test_writeback(folio))) {
->> 		...
->> 		result = SCAN_PAGE_DIRTY_OR_WRITEBACK;
->> 		goto out_unlock;
->> 	}
->>
->> Making us abort collapse.
->>
->> What am I missing?
+> Allocate a software fallback ahash for the HMAC transforms and use it to
+> compute the digest whenever the message is empty (in both the .final()
+> and .digest() paths). The fallback is allocated in a dedicated cra_init
+> for the HMAC algorithms and is excluded from matching the crypto engine's
+> own algorithm to avoid recursion. It is kept keyed in sync with the
+> hardware transform in .setkey().
 > 
-> Hmm ... dirty folios can be outside the range being collapsed ...
-> 
-> For example:
-> 
->   write/dirty:      [6M, 8M)
->   MADV_COLLAPSE:    [0M, 2M)
-> 
-> collapse_file() only checks the folios in the collapse range, so the
-> dirty/writeback check passes for [0M, 2M). But after that, for the old
-> READ_ONLY_THP_FOR_FS case, nr_thps gets bumped for the mapping.
+> Cc: stable@vger.kernel.org
+> Fixes: ec8f5d8f6f76 ("crypto: qce - Qualcomm crypto engine driver")
+> Tested-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  drivers/crypto/qce/sha.c | 84 +++++++++++++++++++++++++++++++++++++++++++++++-
+>  drivers/crypto/qce/sha.h |  1 +
+>  2 files changed, 84 insertions(+), 1 deletion(-)
 
-Ahh, so it's unrelated folios, thanks for clarifying that.
+There is no need to allocate fallbacks anymore because the Crypto
+API now does it unconditionally.
 
-("some non-dirty range" documents that)
+Please see aspeed for an example on how to use the fallback.
 
-All makes sense to me, thanks!
-
--- 
 Cheers,
-
-David
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
