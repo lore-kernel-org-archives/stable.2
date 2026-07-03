@@ -1,134 +1,91 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6D2207DF7
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 06:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46C2372EC2;
+	Fri,  3 Jul 2026 06:19:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783059099; cv=none; b=jIKUuH+QuPVG6IkK7EpdBk/aQ5s2cpBRfqVQmALIZjopCTfR1vT2qevWUCa0vV58KVGavow8FyivzAEmgxBTZ8rVckeWCdUvMr+oHRchfr1ChxRu4scq/o0wymlRViLoue62wB1RgWfcxKPJNkjss9r+SQmFtCQVna/K0fhm33c=
+	t=1783059564; cv=none; b=BCeq2B4U8ns55hHQsSFoh9js6uUoEXjyoKlcCPU4asbVnhWo+Ba+Wg2gJzutK2abbvI0L+ZgX1WDDj0h1iHqk6c05QCr+PaK1WglUIgek68UL4dtk5efB6a5TM0ntGyr+Tpc/XdDZUvWW/JTLRMHraEb2mp4GhgluNLVfiO9DgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783059099; c=relaxed/simple;
-	bh=RQUCvdA+MVI6q4EFQD0YutZcNYyTZYIxmj8GOv13Kgw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u0bz+5c6LOKI9uFgXYJey6rFSxir1CpFc9PRaB4udJMVNzg92swKJN2Onl/x2HWmBQt2ErwU4tU3QuNCiT7RkRQ2Xrb/3hjXue7jSRxvHlpniKLc1pLVWkl+ZxCkQaNLAzw6F7LBB7AF6jymaYKgsHgDPOCYxLBv3aNZC6o2+p8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=TBYJ32O1; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1783059564; c=relaxed/simple;
+	bh=inKJGBUJkTuIRHR3mmK/NENLteLDVMvABcyPAGkKOyc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KeSGKUEBZcTKPjcK3yflfaKlZ+0rWXDWq9ALVplSWQVSy88Mzw1VS6ocBoljiQDRVeuWl86rCApUL0a/mwNRKFH/ss75Ctx2HETOGQkfR1PsRUS8KmWntJb0hSVY6JDb/Ew2J2sCHH26Z/kIzRcGnqWq7rZM1ssw1/BSz1qvkWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=iZ92HP03; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="TBYJ32O1"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493bfe9f886so782825e9.0
-        for <stable@vger.kernel.org>; Thu, 02 Jul 2026 23:11:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1783059097; x=1783663897; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PX/Sa5apQ3btYbp8NQIQflFTzJ1yYIUBG+U4cPBbk5w=;
-        b=TBYJ32O14koPBv8rHEotXuKraJsr8DKp09yD/d22XHJiuBu2LAoRyHF5AH2LcTu+18
-         qJJ9Cf+RvRgz/8D6m9hVtyZqUAAmJKM3O6XQsQ5Zxs7j+CAZfVgXV9MQAMPWQFmeJ3CV
-         4hGhaLlSPi4PfGs61mChw6wOSG71NaY1KrmCYDSX/Hr3eeDzUBMkP0PQhtsYcrRovE92
-         h+GPG74ZFa1PCwSCLjcxq7gBLtlf3CN4OKMQDvJB4Mnu2pbKYNgcieSrnSv0XVXhaMDz
-         bIiDt48OBBKU1Ros9bGVQht88fs8p3S3TYfO5ptsuntc4lXaGQXmneHLilGw2ogl7DeN
-         gl1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783059097; x=1783663897;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PX/Sa5apQ3btYbp8NQIQflFTzJ1yYIUBG+U4cPBbk5w=;
-        b=IWm68mpt5mB28Aiu36RGhCVA/halLplqaucALdDlje0QTUZiqvhA3jTw0idBcSugRm
-         ANkVr7osrycxMzSKSu4LZz6DlrjODIwN16GT/TG2ds20r/IPkvBJ3QrWH1xd2lDHyXQR
-         1LbFo5IfeUPkSI4+OwxlftXXrZwxbLNSGv1w0MVMQ+hajAHm8uFi/u4Oi+qYGnuG2Mjn
-         AjPv1BCuN7LI7G/S3qRuizQGX7wqwCUBClsZ7sVsGEiEXatmpalYK9rLPrduPpKVVOg1
-         ieK0ULYkYBjf63xlo0R8wksdsGIarvKiZ+q4eWHvl8ucVd5QiPbRcRWNUN/daOBRds9J
-         x8jA==
-X-Gm-Message-State: AOJu0YyURFfg4dO2lK3EA+OzLQK5wPmw+AKpEIXRauskcZp1tkbQrPhK
-	KsAnXfGwdxJQdIb2Tf5HvMhYZ2tQRtEjlnG3X92or7iezqJFF/41G5+EuiUBo4QHFeqI7qBKlCM
-	pHnkp
-X-Gm-Gg: AfdE7cnnJsrBjG2swVvmgyI+ae8YJh14gRmGHp2DXvGv3aenvN4R0WlPDcwbHgwesvu
-	N7T8/6CJEB9hvWIMVxhxHx3/LHTTHL5tUxw2wnnoE3Rv1YKjVSBA1uTemwEMIaCEwRTaFyNjl3m
-	n4csF2OAPQs9GT8nAgkRi94rV63BCg/JlemG0vqAHWCprEFIh6G1+x+CvV2K4oUGOJFJ21mH1gH
-	QlSEPg8npZxrFrZzjnhEad9P5iOVnVqjy5mHRECYFeHHdcq+rUNsttj0KzAzRmlpJRcc/9ljgiC
-	nkF0Ml7sb/a8OUFo5AMNx+D3S/s6CdgaKpvw+fB7v+EUYxNvOeS3qFMeZ7mMTJocUojH3srPhl5
-	ctKvkCLneSQTvnG8B/T3criuwQQ8uZiTEGLN+0AOSg33Iq8CK/z0+SHFGNfEX76dZBPR08bIWXR
-	H0DHFO8qsXssW0YoRCQcWZbdEAEbgKoLPFAiAMu4M=
-X-Received: by 2002:a05:600d:c:b0:493:b771:ddf9 with SMTP id 5b1f17b1804b1-493c2b3d048mr98662765e9.1.1783059096646;
-        Thu, 02 Jul 2026 23:11:36 -0700 (PDT)
-Received: from localhost (27-53-162-24.adsl.fetnet.net. [27.53.162.24])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44cfb67156csm1057496fac.18.2026.07.02.23.11.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 23:11:34 -0700 (PDT)
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: stable@vger.kernel.org
-Cc: Shung-Hsi Yu <shung-hsi.yu@suse.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>
-Subject: [PATCH stable 6.6 6.1 1/1] bpf, arm64: Reject out-of-range B.cond targets
-Date: Fri,  3 Jul 2026 14:11:25 +0800
-Message-ID: <20260703061126.125313-1-shung-hsi.yu@suse.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="iZ92HP03"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=vE92qeJByI2YA1KVwspOtgLh+8NHTenJzNWCzPyxjsY=; 
+	b=iZ92HP03MrvT5DpXr4lUViVyiIKf9mZ5Y5gcFb1KB6yiG1cpBO34A5E1kSFNwE1HsOPmTeC7Ug2
+	dEeN/y6TmlG9fTsqUpaPRhWJAj2ENul5AUaoQx368ROwbl/fUdvYAEp7qLtuafd0UsytLrk0oohRZ
+	gut3Ef7IxZFRPtTzf2osmNW7fVfMmXh8wnF2NfTVnF4qp3y5WblpU6NjnMSbghfxX9pdojm5ZwOqJ
+	TcpIHYfOrDzRPb6w0ZB+nEIle3ehd5Ys7otxP0joMNl2BEWJKJzoQnoHHPOZzMZQS0AOESXDBowNm
+	T0PgMMLgF+m9PHg7RJekcdkbFkd2/EMWXkeg==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1wfXEo-0000000AGhd-3xgT;
+	Fri, 03 Jul 2026 14:19:00 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 03 Jul 2026 14:18:58 +0800
+Date: Fri, 3 Jul 2026 14:18:58 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Atish Patra <atish.patra@linux.dev>
+Cc: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Peter Gonda <pgonda@google.com>,
+	Brijesh Singh <brijesh.singh@amd.com>,
+	Youngjae Lee <youngjaelee@meta.com>,
+	Ashish Kalra <ashish.kalra@amd.com>,
+	Michael Roth <michael.roth@amd.com>,
+	John Allen <john.allen@amd.com>, clm@meta.com, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+	stable@vger.kernel.org, Atish Patra <atishp@meta.com>
+Subject: Re: [PATCH v3 3/4] crypto: ccp: Fix possible deadlock in SEV init
+ failure path
+Message-ID: <akdUUggmSSS1a0IW@gondor.apana.org.au>
+References: <20260602-sev_snp_fixes-v3-0-24bfd3ae047c@meta.com>
+ <20260602-sev_snp_fixes-v3-3-24bfd3ae047c@meta.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260602-sev_snp_fixes-v3-3-24bfd3ae047c@meta.com>
 
-From: Daniel Borkmann <daniel@iogearbox.net>
+On Tue, Jun 02, 2026 at 03:36:34PM -0700, Atish Patra wrote:
+> From: Atish Patra <atishp@meta.com>
+> 
+> __sev_platform_init_handle_init_ex_path() calls
+> rmp_mark_pages_firmware() with locked=false while the parent
+> function of init_ex_path already acquired the sev_cmd_mutex.
+> In the case of an RMPUPDATE failure for any page after the first, the cleanup
+> path would invoke reclaim pages which would result in a deadlock in
+> sev_do_cmd.
+> 
+> Pass locked=true to honor the lock status of the parent function.
+> 
+> Fixes: 7364a6fbca45 ("crypto: ccp: Handle non-volatile INIT_EX data when SNP is enabled")
+> 
+> Reported-by: Chris Mason <clm@meta.com>
+> Assisted-by: Claude:claude-opus-4-6
+> Fixes: 7364a6fbca45 ("crypto: ccp: Handle non-volatile INIT_EX data when SNP is enabled")
+> Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+> Signed-off-by: Atish Patra <atishp@meta.com>
+> ---
+>  drivers/crypto/ccp/sev-dev.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-commit 48d83d94930eb4db4c93d2de44838b9455cff626 upstream.
-
-aarch64_insn_gen_cond_branch_imm() calls label_imm_common() to
-compute a 19-bit signed byte offset for a conditional branch,
-but unlike its siblings aarch64_insn_gen_branch_imm() and
-aarch64_insn_gen_comp_branch_imm(), it does not check whether
-label_imm_common() returned its out-of-range sentinel (range)
-before feeding the value to aarch64_insn_encode_immediate().
-
-aarch64_insn_encode_immediate() unconditionally masks the value
-with the 19-bit field mask, so an offset that was rejected by
-label_imm_common() gets silently truncated. With the sentinel
-value SZ_1M, the resulting field ends up with bit 18 (the sign
-bit of the 19-bit signed displacement) set, and the CPU decodes
-it as a ~1 MiB *backward* branch, producing an incorrectly
-targeted B.cond instruction. For code-gen locations like the
-emit_bpf_tail_call() this function is the only barrier between
-an overflowing displacement and a silently miscompiled branch.
-
-Fix it by returning AARCH64_BREAK_FAULT when the offset is out
-of range, so callers see a loud failure instead of a silently
-misencoded branch. validate_code() scans the generated image
-for any AARCH64_BREAK_FAULT and then lets the JIT fail.
-
-Fixes: 345e0d35ecdd ("arm64: introduce aarch64_insn_gen_cond_branch_imm()")
-Fixes: c94ae4f7c5ec ("arm64: insn: remove BUG_ON from codegen")
-Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Reviewed-by: Puranjay Mohan <puranjay@kernel.org>
-Link: https://lore.kernel.org/r/20260415121403.639619-1-daniel@iogearbox.net
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
----
-Tested that after applying this patch BPF selftests running on aarch64
-still passes in 6.6[1]. On 6.1 I only checked that it compiles.
-
-1: https://github.com/kernel-patches/linux-stable/actions/runs/28640243380/job/84934703682?pr=7
----
- arch/arm64/lib/insn.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/arch/arm64/lib/insn.c b/arch/arm64/lib/insn.c
-index 44bb90ee2f41..a50f6c061c27 100644
---- a/arch/arm64/lib/insn.c
-+++ b/arch/arm64/lib/insn.c
-@@ -423,6 +423,8 @@ u32 aarch64_insn_gen_cond_branch_imm(unsigned long pc, unsigned long addr,
- 	long offset;
- 
- 	offset = label_imm_common(pc, addr, SZ_1M);
-+	if (offset >= SZ_1M)
-+		return AARCH64_BREAK_FAULT;
- 
- 	insn = aarch64_insn_get_bcond_value();
- 
+Acked-by: Herbert Xu <herbert@gondor.apana.org.au>
 -- 
-2.54.0
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
