@@ -1,154 +1,136 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from email.studentenwerk.mhn.de (email.studentenwerk.mhn.de [141.84.225.229])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66BF131618B
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 18:30:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C839E211A09;
+	Fri,  3 Jul 2026 18:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.84.225.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783103412; cv=none; b=jJPHS3z1fNWgsu3EYlMTIayZWnoA2bYkC+25P6PbfUzLhBYqh4PGouAfaJGda4X4FlxOtO32NleK69HwZSvvhugiYebW/XesJO2s/eThoKWSr3/Kyhvr3/d4HPe4/MgCB4Rwmh2TCNcfmZ0F0DLW5uHflBW/Zhmxpw6qzK0R2LM=
+	t=1783103449; cv=none; b=ijSI3rnU/nJv+Rds5Npjd8XLfZUqfi0Gw2k5B4fqbw1dYC6KC/BxinmG6xeslOhHnxZ3o6d3BGpvMZI1StF1DesVZAf9sS2aZvQej81tjwXLepW6294OVdGZoAN5JroLiN1ir2g/kbNx6DMS/GbQbMNas/BOoWAkDVKsuaSzMWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783103412; c=relaxed/simple;
-	bh=jdF+XTMEqrXEdG2ItJUioWzkUtmEMcM84xIGPhaTnHw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iZwYwXkMZcVuPXqh5VNCfy2dIcJkCgMAijdvryyHYHaFCih2iHuRyy1kUjlvzZlo1+gOGK7VKXOjTjVTeDOvszO/4Dgp7t6PnMyDXFM1XI40UeeewhfJ8yjOQoK2AZlof1UCX518vWUaZIy/k6EIH/WJo9gO1DcKbKtWrzYIXzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=l2O5BDUg; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1783103449; c=relaxed/simple;
+	bh=RV15ipwq4miWMw1ZfmGmZ1dsn7YXEXkRZbYMy4iRgws=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=f56MLDXPIh4FHrqtcRhrXo3xD9hZhWbYT28ENPj7UFP59qwZYoYOJ7nhtvFOHy6FqTvqBSefnFKByYA5ckZJedDxbozvPY4x+npS4ZHpXFGq5vY3gtIOlmVpFwKPe2ttGgOdCd88kNzH9ufVgtXPCVu6oYQAG2U7EpR2vdMsjM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stwm.de; spf=pass smtp.mailfrom=stwm.de; dkim=pass (2048-bit key) header.d=stwm.de header.i=@stwm.de header.b=GfBLVgtz; arc=none smtp.client-ip=141.84.225.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stwm.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stwm.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="l2O5BDUg"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493b8d99342so192515e9.1
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 11:30:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783103409; x=1783708209; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=i/rUzSk53/USCRHP1Jq261zOjDhZqaIDYMeO3RcojEY=;
-        b=l2O5BDUgKcXmUcgtq2UMjI/ZusdQPRf6jOlN4tma+Pj3/vYsCF9utR4vOlEytL8FF1
-         IKSIRPKqT+Xs2uV5TQuURtwjRoyqidemjxI91xaJt8l9H9x7D9SMOeBRmKGoS9yRIIWj
-         dbsl5g36tpywNmMW8oSZKRkzV+X1iKiBLY462+0b2ZUpFHwB928J1aE2yulXnJc0+EXJ
-         B9QA/Wf47ZL1T5gJFE9L9opKKVFGGTMXan/XU1BAn7S3XrrNTB/sPlRVjfG2QgHHq20G
-         alAcl588gdDIbCTjqbm9ZxHw/IvsQ143UFWPcTmon5Iag8Xx8SPIrJCuL4Z0ZzZHhEVc
-         ZS/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783103409; x=1783708209;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=i/rUzSk53/USCRHP1Jq261zOjDhZqaIDYMeO3RcojEY=;
-        b=fB229+g1mi40T29RjshtCiiElzt4nGsWiekMrDxnlciUq7b4LZCT/ZuhWdsrTKizsx
-         TjSlaY/WrwgxBZ5YnL8Byv3rcYHeToL133i8CFrKVzj09eIDbjDe77PKsAtx31FlPMt1
-         +phFsbjsmeE2nRaStk9rqmkjqYNQYbblMiUV6DK1jqIRqc6uCJAXApJ7gVknNSYVfob1
-         HE8N9NWMxx//nwLnaYIfNj2eSvbcEm7fiRjG/BZgkdHjNTzgd+llNViUktKaTACdWB9n
-         FqcdCvK69xm3d+0hsv/snNyccD67kSMpS/B80w1K28GoVHSenNKYh9GgkinETe9EJkU+
-         38Aw==
-X-Forwarded-Encrypted: i=1; AFNElJ/zS1U6oTZ5EKIsYO5sdl/nd3jW0W0UYhZSRzBoIuZB7t5ds9TfJu3ON98sk8G16d1DlzqKSfI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzfDIrM6eqpO/N5PuKOUIKk9ZISnFBZ+bh3pfI1B69R1uBMnznG
-	7DhIcvATStvKD7GU81V7uCIbmPHsn1KoHet4TU38TdrmGzAU2v9xsOmDdtRGsfIijg==
-X-Gm-Gg: AfdE7cn7RtLZh2MYc2gW8wljP0svt3R2BXg3tdFiwFSgSJZalE4pIVW2VhKbPFmK6EO
-	7I4Fd4UBbInIknDZu5DwchrAcX4kNQ/AxYNdAlu90xiZUr7iel5iv+Gpa1Tr98DEzasa//Mggdi
-	oLPpdwwMU8H20q+Bh4VUuD4C4Alj7/5IgsBiNNS/PIrqfz5sL6K5H3lTIPvrSC+2qUEqhGnu8aO
-	Ao0Fkw5lCrU2KjikG5CuQxoQYHHTBDM5prk+2mHo0aJRiXSgt4wFb9MiBFX5ye0xaHYnLbyX/Dn
-	dRsgxpnEbSjwzL2ab7v1doI5PLHWUPub4HMJ0oL4hm4lfnpUShmPFH569KojLqv4n5oGRYJbrq6
-	ryeGNAqOCM5OMlr8q8lPRVqrVko3wlC8dvCRRmf4u4FUp/GV9ZGipPsPTn8f6fxYURjm5pnxdi8
-	fPpxo/kGxPgmbTwXMTs7oM+b95yzuxMfKKX1SJTCj9InaoZ7Ayo50IDUdVhrHfuP6w30IOfvM=
-X-Received: by 2002:a05:600d:8499:10b0:493:b24e:5c48 with SMTP id 5b1f17b1804b1-493d1057702mr190545e9.11.1783103408374;
-        Fri, 03 Jul 2026 11:30:08 -0700 (PDT)
-Received: from localhost ([2a00:79e0:288a:8:c0d:89b8:4c51:d7de])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493ccd9d620sm72590245e9.1.2026.07.03.11.30.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 11:30:07 -0700 (PDT)
-From: Jann Horn <jannh@google.com>
-Date: Fri, 03 Jul 2026 20:30:02 +0200
-Subject: [PATCH] HID: core: fix number/pointer type confusion on long items
+	dkim=pass (2048-bit key) header.d=stwm.de header.i=@stwm.de header.b="GfBLVgtz"
+Received: from mailhub.studentenwerk.mhn.de (mailhub.studentenwerk.mhn.de [127.0.0.1])
+	by email.studentenwerk.mhn.de (Postfix) with ESMTPS id 4gsMkk21T7zRhRJ;
+	Fri, 03 Jul 2026 20:30:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwm.de; s=stwm-20170627;
+	t=1783103438;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=94lQu3GW61jSH6v3zV2ia73X9muvR3oPlZ7JCXSRD+k=;
+	b=GfBLVgtzh+2/DMkEt0bb4GGDzWl7g/acjN5Qg3lVkV+CV3Dx9AsSZcURLZfaW05XNp+W5F
+	zek90wpI1tDgt6M8fzt/T+M8hOVRFHPDSGP/VNnijBq7oHCmVbpBDFqxEepLlMd/YdznfI
+	++6MTTIrU979JG07H1IJnfrTHcuyCfHP5nesknClhSSehogi+aP7WGBBg37fRCFgvkxyee
+	gtuf6Gi/4YUZOCzAVVvtW0ddbXF/3do82b7gh5ZIky7+svoEAG842Elp/X+n6Rfw7t5nGy
+	RDP5ZPg4vetkV5kZ54/ZmQ0qHxIxveQOns0hG3wtEjxZ9/POfw+eQlOHBlE8xA==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260703-hid-core-data-typeconfusion-v1-1-3c63c0d77ab1@google.com>
-X-B4-Tracking: v=1; b=H4sIAKn/R2oC/yXMwQ7CIBCE4Vdp9uwm2EaMvorxgMtg1wM0QI2m6
- buX6ty+w/wLFWRFoWu3UMZbi6bYcDx0JKOLT7D6ZupNb83ZDDyqZ0kZ7F11XL8TJMUw7z++nMR
- a40IbqBWmjKCfX/12/7vMjxek7kla1w31Aei1fwAAAA==
-X-Change-ID: 20260703-hid-core-data-typeconfusion-95c660affffe
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: Henrik Rydberg <rydberg@euromail.se>, linux-input@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Jann Horn <jannh@google.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783103404; l=2252;
- i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=jdF+XTMEqrXEdG2ItJUioWzkUtmEMcM84xIGPhaTnHw=;
- b=OXUC3Gp3ZPVD4A6+OXcCEMLUJm9RKFPXkHp2MXgSFOAi+65mC6JjgEDX/ROS8HIo2KCAoCOgN
- PD0DTsVikCYDQkJq4i5Gabfj9kxZF9Q5p1WjSUVNl7eQfiFxxMcLakv
-X-Developer-Key: i=jannh@google.com; a=ed25519;
- pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
+Date: Fri, 03 Jul 2026 20:30:38 +0200
+From: Wolfgang Walter <linux@stwm.de>
+To: Chuck Lever <cel@kernel.org>
+Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ patches@lists.linux.dev, Jeff Layton <jlayton@kernel.org>, Alexandr
+ Alexandrov <alexandr.alexandrov@oracle.com>, Yang Erkun
+ <yangerkun@huawei.com>, linux-nfs@vger.kernel.org
+Subject: Re: 6.18.37 has problems with nfs4 (server), 6.18.36 works
+In-Reply-To: <20260703160306.1651327-1-cel@kernel.org>
+References: <20260703160306.1651327-1-cel@kernel.org>
+Message-ID: <3d80d1812ab903dbc831fef122d3cc75@stwm.de>
+X-Sender: linux@stwm.de
+Organization: =?UTF-8?Q?Studierendenwerk_M=C3=BCnchen_Oberbayern?=
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-When fetch_item() is called by hid_scan_report() on an item with
-HID_ITEM_TAG_LONG, it stores a pointer to the item data in
-item->data.longdata instead of storing a value directly in
-item->data.{u8/u16/u32}.
+Hello Chuck,
 
-When item_udata() or item_sdata() encounters such an item, it incorrectly
-assumes that the item is in short format, and therefore returns the lower
-part of a kernel pointer reinterpreted as a number.
+Am 2026-07-03 18:03, schrieb Chuck Lever:
+> Hi Wolfgang, and stable@ --
+> 
+> Short version for stable@: 6.18.37 does not need a revert of
+> 95f9eb19d5e6 ("Revert 'NFSD: Defer sub-object cleanup in export
+> put callbacks'").  That commit is correct for 6.18, and it is
+> not the cause of Wolfgang's crash.  Please leave it in place.
 
-When a HID device is connected whose descriptor contains a
-HID_GLOBAL_ITEM_TAG_REPORT_SIZE encoded in long format with size=4, this
-causes the lower half of a kernel pointer to be printed into dmesg as a
-number, like this:
+Ok. I run v6.18.37 with the patch reverted since about a day (just for 
+the record). But according to your analysis, that's just a coincidence.
 
-    hid (null): invalid report_size 107953555
+> 
+> The reasoning: 95f9eb19d5e6 touches only fs/nfsd/export.c,
+> export.h, and nfsctl.c.  Wolfgang's oops is in
+> remove_blocked_locks() -> __destroy_client() ->
+> nfsd4_destroy_clientid(), entirely within fs/nfsd/nfs4state.c,
+> which the revert does not modify.  That path is byte-for-byte
+> identical across 6.18.36, 6.18.37, and current mainline, so the
+> revert cannot have introduced the bug and no missing backport
+> repairs it.  The 6.18.36-good / 6.18.37-bad split is a timing
+> coincidence; I believe the same latent bug is present in both.
+> 
+> Because the defect is present upstream as well, the fix belongs
+> in mainline first and is then backported to 6.18.y and the other
+> affected trees.
+> 
+> Wolfgang - to confirm this and capture the allocation and free
+> stacks, a KASAN-enabled kernel would settle it.  On a v6.18.37
+> tree:
+> 
+>   1. Add to your .config (keep your usual CONFIG_DEBUG_INFO so
+>      symbols resolve):
+> 
+>        CONFIG_KASAN=y
+>        CONFIG_KASAN_GENERIC=y
+>        CONFIG_KASAN_INLINE=y
+>        CONFIG_STACKTRACE=y
+> 
+>   2. Build and boot that kernel.  Stay on 6.18.37 -- you do not
+>      need the revert-the-revert build I suggested earlier; that
+>      experiment no longer tells us anything.
+> 
+>   3. When it trips, KASAN prints a "BUG: KASAN: use-after-free"
+>      report with "Allocated by" and "Freed by" call stacks.
+>      That report, in full, is what I need -- it should land in
+>      /var/log/messages just as the last oops did.
+> 
+> One caveat: KASAN roughly doubles memory use and adds CPU cost,
+> so weigh that before running it on the production server.  If
+> that is not practical, a full log from the first stall line
+> onward, with all CPU backtraces, captured over netconsole or
+> serial, is a useful second best.
+> 
+> I will draft a candidate upstream fix from the analysis so far
+> and send it separately.  If KASAN on the production box is not
+> an option, testing that patch may be the least disruptive way
+> to confirm.
+> 
 
-To fix it, let item_udata() and item_sdata() verify that the item is in
-short format.
+I think the memory usage should not be a problem, higher cpu usage 
+neither.
 
-Note that this bug only affects hid_scan_report(), while the main parsing
-pass hid_parse_collections() will always bail out when encountering a long
-item.
+But as it is a coincidence the probability to catch that error is 
+probably very low. We use v6.18 kernels since v6.18.1 on that fileserver 
+and this error never occured before.
 
-Sidenote: There are currently no users of data.longdata; maybe we should
-just remove any parsing of long-format descriptors as a follow-up.
+Or do you think it happens more often, but without symptoms, and KASAN 
+would detect it?
 
-Fixes: 3dc8fc083dbf ("HID: Use hid_parser for pre-scanning the report descriptors")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jann Horn <jannh@google.com>
----
- drivers/hid/hid-core.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+So I will try running a v3.18.37 + your patch applied. This of course 
+can not prove that it fixes the problem because it almost never happens, 
+but probably this would detect if if the patch had side effects.
 
-diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-index 41a79e43c82b..d6676505e122 100644
---- a/drivers/hid/hid-core.c
-+++ b/drivers/hid/hid-core.c
-@@ -379,6 +379,9 @@ static int hid_add_field(struct hid_parser *parser, unsigned report_type, unsign
- 
- static u32 item_udata(struct hid_item *item)
- {
-+	if (item->format != HID_ITEM_FORMAT_SHORT)
-+		return 0;
-+
- 	switch (item->size) {
- 	case 1: return item->data.u8;
- 	case 2: return item->data.u16;
-@@ -389,6 +392,9 @@ static u32 item_udata(struct hid_item *item)
- 
- static s32 item_sdata(struct hid_item *item)
- {
-+	if (item->format != HID_ITEM_FORMAT_SHORT)
-+		return 0;
-+
- 	switch (item->size) {
- 	case 1: return item->data.s8;
- 	case 2: return item->data.s16;
-
----
-base-commit: 51512e22efe813d8223de27f6fd02a8a48ea2323
-change-id: 20260703-hid-core-data-typeconfusion-95c660affffe
-
-Best regards,
---  
-Jann Horn <jannh@google.com>
-
+Regards,
+-- 
+Wolfgang Walter
+Studierendenwerk München Oberbayern
+Anstalt des öffentlichen Rechts
