@@ -1,112 +1,124 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CA924A078;
-	Fri,  3 Jul 2026 06:07:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C00B363C45
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 06:08:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783058876; cv=none; b=X3s/Wnx+BOLEZQoKdArhm3cR9t39hOtOPZB35baegb8OljgWwLenB9ek+3Anex64FyRSDbvFyVmKuwviGuO547cjIUS8qxUW3f9WmhckWg1e4lySaCPymzudk6Tud7j7MgBFhSycmsaPYY4XJBcWXxRRPX2CdGO3N+2klXF90VY=
+	t=1783058901; cv=none; b=AeXnTI6aSUqcan3Tc2/9bUBX7FYtYmrgi6e7Qa3GLi+cOsPsdnSm4wg/Fi2CMC3GizZAhnSp9TvkZA1lSvWsMJfrlr13gtHddKmutMIDFNNaOr175TIXOSaDY0ScWMpk/p/+hmpBrgUmYKKQXXX5U7nOxAD2kIZDFNitZTXttBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783058876; c=relaxed/simple;
-	bh=6FlYfQN1UOSeRESpTusWClmF3MQ6REC3pfVy+Velra0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pWFH6c1ujqY0sDfsbOtxsT/iB+fQ3yFxgGzGwMDiBS7kG6apM2P2PHpy9XCKHywqeHF+96T5DfFo0HDoJOoTDuj9WbrfoqaS1PxJptsZmNfUO9558gqIhkIqdi8YLgCu9vAAk17C5nc6o8bfxzIpUJu6WnqRaT4D9bm3bgzKa80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=PA6+wwdd; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1783058901; c=relaxed/simple;
+	bh=dx9w94AhTWx/gq9vAv9aqaRW52yBBm73UOM5KjQ2DWM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b0eglUoKx3SpZFI2yze2fqkoidmTz0lXosZ6AUQPJk3atUaj2syG/RpqSrHbRdc1xRgAcw8zNZ8FBaB3+TQBiJDUDoXkysrzqIPKpQYyb7/xWpEcFBQw/iwit2Q3Q3hxulgWqDchUBQyGV0FdA2VDBh3N/25ZV8XzD12Cqzw3Io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=e/57qUuI; arc=none smtp.client-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="PA6+wwdd"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 44c2aee32;
-	Fri, 3 Jul 2026 14:02:32 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: Wen Gong <quic_wgong@quicinc.com>,
-	Carl Huang <quic_cjhuang@quicinc.com>,
-	Karthikeyan Periyasamy <quic_periyasa@quicinc.com>,
-	P Praneesh <quic_ppranees@quicinc.com>,
-	Ramya Gnanasekar <quic_rgnanase@quicinc.com>,
-	linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 ath-current] wifi: ath12k: avoid flushing scan timeout under the wiphy lock
-Date: Fri,  3 Jul 2026 14:02:19 +0800
-Message-Id: <20260703060219.2998148-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="e/57qUuI"
+Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
+	by cmsmtp with ESMTPS
+	id fI5xw3nJflPo5fX4VwLHPa; Fri, 03 Jul 2026 06:08:19 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id fX4UwS6TgR2QyfX4UweC9W; Fri, 03 Jul 2026 06:08:19 +0000
+X-Authority-Analysis: v=2.4 cv=fI053Yae c=1 sm=1 tr=0 ts=6a4751d3
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=Fowlm8kEtbx0O9ktuRkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=ap2WA2OS9VyfySBBrFn208zBSGOqORd1QUPMQwh1n5A=; b=e/57qUuIL6xA1I+Ku/KaTXEjFS
+	2vJSnyVtO0HOTzPl4FYrsixkycA/x9tll3DsXAwpJPAiIQWFrpQLVHNEx1fqBrCXWY+CCL1Y/a7o0
+	fjvU9C6HwbjJJPLqXjaX7T00rQZJIOgAgIHiVbDSA5w59r28QHgv4tQBpHp7DnpACGFrJgEdiaO0m
+	erj3W7Gc3V1x6QH+s99qxcEIAgXKp3eudXyxEBwPIrLH9274uBnnaOUnAbTxJkBpHoK1y1pbvVjXi
+	jXPjbtcOh1U7kyHR7uFjKfRfvLn9esKgqbPs3DKuCn/IB/C34PrNzC0JNN0p4MnVPipvZ3wM4prMe
+	yspxLoSA==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:51120 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.2)
+	(envelope-from <re@w6rz.net>)
+	id 1wfX4T-00000000q57-42oD;
+	Fri, 03 Jul 2026 00:08:18 -0600
+Message-ID: <c99b489f-c5b3-410a-a2bf-cc9816bcffc7@w6rz.net>
+Date: Thu, 2 Jul 2026 23:08:16 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 000/204] 6.12.95-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260702155118.667618796@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260702155118.667618796@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f2692561303a1kunm8b79284b267b6
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTEwfVhoeT0tCSB9LS0tLGFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	hOQ0NVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=PA6+wwddAlFfYNDLvDiyuDnCF83FhOsXPDZo5caFThSqJOK2VVZCNfC7RS5cKXl9mEYJodTKIET2Jyn8pCAL08JGiCVhlVv5/Xrg58ahLQ3qT9kXYoNzXGtAiInoC58olsElJQrm0idUvNhVWinpBs6z7Pk+AmZ+uAEQidcM/ms=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=gImCEmtMsWutE6Xcg5AbO+j7S75qhJcqK6Q0eqEnk5c=;
-	h=date:mime-version:subject:message-id:from;
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1wfX4T-00000000q57-42oD
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:51120
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfDYG9s8kIzQbcr8UOhLFl0wCf+S9NaTRr7NaqSb01gH1XCtOjSKP/vA0capklPEhp3pSRBmBDc0h2KOs5X7KcWAghAtId03pXDj5k3Cb38hXFNiFxNIF
+ d+i9bGygH2jDpw3KJTWLNf2F1bTJZFk2t4m2c/Ngve0Mj7cf7xZb40Gcsn9vlw3pcdXElFYZE4Ckpw==
 
-ath12k_mac_op_stop() is called with the wiphy lock held. It then takes
-ah->hw_mutex and calls ath12k_mac_stop(), which synchronously cancels
-ar->scan.timeout.
+On 7/2/26 09:17, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.95 release.
+> There are 204 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sat, 04 Jul 2026 15:50:58 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.95-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-That can deadlock if the delayed work has started. The timeout worker
-ath12k_scan_timeout_work() takes the same wiphy lock before aborting the
-scan, so stop waits for a worker that cannot make progress until the
-wiphy lock is released.
+The build fails on RISC-V with:
 
-Drain ar->scan.timeout before entering the locked stop teardown, and
-remove the synchronous cancel from ath12k_mac_stop(). This preserves the
-stop-time drain while avoiding the wait-under-wiphy lock ordering.
+In file included from mm/kfence/core.c:36:
+./arch/riscv/include/asm/kfence.h: In function 'kfence_protect_page':
+./arch/riscv/include/asm/kfence.h:25:17: error: implicit declaration of function 'mark_new_valid_map' [-Wimplicit-function-declaration]
+    25 |                 mark_new_valid_map();
+       |                 ^~~~~~~~~~~~~~~~~~
 
-Fixes: d889913205cf ("wifi: ath12k: driver for Qualcomm Wi-Fi 7 devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
-Changes in v2:
-  - Rebase on ath.git ath-current.
-  - Use ath-current subject tag as requested.
-  - Move the synchronous scan timeout drain out of the locked stop path
-    instead of adding it in the wrong start-path context.
-  - Update Fixes to the ath12k commit that introduced the stop-time
-    scan.timeout drain.
+This is caused by commit "riscv: kfence: Call mark_new_valid_map() for kfence_unprotect()" e4cd475b84f3803fbaff874d5db89e1028bff4cb
 
- drivers/net/wireless/ath/ath12k/mac.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+As already reported by https://lore.kernel.org/stable/6c5c0723-66c6-4f9f-8021-2562efc95c6e@iscas.ac.cn/, upstream commit "riscv: mm: 
+Extract helper mark_new_valid_map()" 9ee25d0a70ff4494b4e1d266b962d0a574ef318a solves the issue. This commit cherry picks successfully.
 
-diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
-index af354bef5c0d..6da9a2bda9fe 100644
---- a/drivers/net/wireless/ath/ath12k/mac.c
-+++ b/drivers/net/wireless/ath/ath12k/mac.c
-@@ -9931,7 +9931,6 @@ static void ath12k_mac_stop(struct ath12k *ar)
- 
- 	clear_bit(ATH12K_FLAG_CAC_RUNNING, &ar->dev_flags);
- 
--	cancel_delayed_work_sync(&ar->scan.timeout);
- 	wiphy_work_cancel(ath12k_ar_to_hw(ar)->wiphy, &ar->scan.vdev_clean_wk);
- 	cancel_work_sync(&ar->regd_channel_update_work);
- 	cancel_work_sync(&ar->regd_update_work);
-@@ -9975,6 +9974,15 @@ void ath12k_mac_op_stop(struct ieee80211_hw *hw, bool suspend)
- 
- 	lockdep_assert_wiphy(hw->wiphy);
- 
-+	/*
-+	 * scan.timeout takes the wiphy lock before aborting the scan, so do
-+	 * not wait for it from the locked stop path below.
-+	 */
-+	wiphy_unlock(hw->wiphy);
-+	for_each_ar(ah, ar, i)
-+		cancel_delayed_work_sync(&ar->scan.timeout);
-+	wiphy_lock(hw->wiphy);
-+
- 	ath12k_drain_tx(ah);
- 
- 	mutex_lock(&ah->hw_mutex);
--- 
-2.34.1
