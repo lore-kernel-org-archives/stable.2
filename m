@@ -1,105 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA0D6FBF
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 01:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477F61A6829;
+	Fri,  3 Jul 2026 01:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783042186; cv=none; b=MdZ2Fgh6x1hcKgERm+LZJRt3LI9rnXqUaJ/CEzvPkjSPDkpIHL1wVsFFnxHpn4YnKwynld41wlOYY79qaTaTa2GQvVneqbAFLL9DBLsFe1Yi5ri40IiAk7/x+t8T0VwfaPhY/QO66KGfT3TvN17gnR+ce36KvpEGe596KvsbaD0=
+	t=1783042533; cv=none; b=OFMD5pGRwM8zE8cOF8eEHRhPzGHhBKbm8j4CDMHziyF7hDfbjOhROy0jJU7jdy8eAm3DKgv2ltpDOSkxd0ab5liRPkZfWd72VnONWzmhvoNnWzQJLnDnRti2M38tCRDHGOipgC4TSa3cePrg9Mh35MzHmwNQ0re2h5iP2CYMPTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783042186; c=relaxed/simple;
-	bh=vigRfPh84v/hzpmHzntSb/gUw2H/otH/iWxoNPdbsXo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kNEzDgmid7NObEJtyYDQIsn0OjmG4x/hxfS0sp4ImcDkVRxJ4m7mrEDJty4Ux9S4zq56qmZEqW45De4V0A8wRw6S5HH35LApYbnq34k0nuNovpW5GjjFyKY3dfFIKXJg22KtM/hPdAPG9spyvXlOFYfEzFTCcsGFmUqSueFoAPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MpSR7BwN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783042533; c=relaxed/simple;
+	bh=9y9Knjmaq3UbsqRd5XMzgtWRAg4wNyXhFTMUYoeKe04=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=cvgO7VcNOulWKDV1lZ3h1xXipUuDi/e8MHC6TeU9iVgFABnqfEdP+q1avDmjh2lQQmwae8QNbIrtNLxEZfaVnWRlT9Ck0OUGXNXllRmuG/ycboGZ0WmtlFQUi5xH6nrXkyFZUlEkFkKO3wTrji6QU9GwJf0hrGNpd4ui7pF2Mp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=BGH5pXag; arc=none smtp.client-ip=117.135.210.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MpSR7BwN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1768C1F000E9;
-	Fri,  3 Jul 2026 01:29:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783042184;
-	bh=Z7hNSPj//UYolhIe88eepCGBVhEOaWECEo+1QOTokFQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MpSR7BwNWO9zveiuzQswjOrwCTZwON6nHKBKX1tjadVM64hmoy9F3pDHQB90OFXFz
-	 fUxoVhb/R78OmrkwNdHVsNm07/fV3bn/SzurCY2vbaarjG5iBLCQP2YUHO+QYafqmr
-	 Y8lwaMca+U4ZyFFhWg6RU5vIifTCiTy+uJZIqOjScsD2VKOPToo+PG1MLvaTF85qNl
-	 5b12U5llVL9DyeucJhBZMJlzGFguuhdrYxbu/QFE8841F5+SuJ8IwmLZqQsSgcj0o7
-	 aFU48uK7s1OpR16mIJSk9wiJQtb29YEtfXFT/reYFS7p4SzhwmrAistmWwhMNt1bCg
-	 jVClpQ0AH90Yw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	John Johansen <john.johansen@canonical.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] apparmor: mediate the implicit connect of TCP fast open sendmsg
-Date: Thu,  2 Jul 2026 21:29:42 -0400
-Message-ID: <20260703012942.3803836-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070241-scabbed-quarry-6e0b@gregkh>
-References: <2026070241-scabbed-quarry-6e0b@gregkh>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="BGH5pXag"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
+	Content-Type; bh=+sGC+Dwc9ai0ghaJ2Gg4nS8CYYSVLp7XjSXbJUX3ia4=;
+	b=BGH5pXagpO9i+ir0zHR/nVsRceGactCppfMSgIncj6Uu2IJu8YKEOhZsAkEe4A
+	VDPiOmS9Ne+xi+0w5D8/ltxT5S/tYiP1dA04z0OL1RLmqOYPvv2rU0g9+okPRw/I
+	Y5tHPGdlsyHG4TxM2ClzXSEYRVFLcJ2vxdihKByspCd38=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3vxbKEUdqYXh1Cg--.64035S2;
+	Fri, 03 Jul 2026 09:35:07 +0800 (CST)
+Message-ID: <6A4711BE.8090101@126.com>
+Date: Fri, 03 Jul 2026 09:34:54 +0800
+From: Hongling Zeng <zhongling0719@126.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+To: Namjae Jeon <linkinjeon@kernel.org>, 
+ Hongling Zeng <zenghongling@kylinos.cn>
+CC: hyc.lee@gmail.com, charsyam@gmail.com, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] ntfs: prevent write access to $MFT inode
+References: <20260702090627.137915-1-zenghongling@kylinos.cn> <CAKYAXd9018ondtRRa6mGexej-SDCm3-LeWV0W4TCUwBZ5hOXvg@mail.gmail.com>
+In-Reply-To: <CAKYAXd9018ondtRRa6mGexej-SDCm3-LeWV0W4TCUwBZ5hOXvg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3vxbKEUdqYXh1Cg--.64035S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr4fWr4fZr18KrW7GrW3Wrg_yoW8WF4fpF
+	W2gFy5KrWYq3yxAas7X3WkAF1Yg398try3Gr1UKrs3ZasxKF1jqFW0gry09a4Iyry3Jw42
+	vr4j9ryxXw12yrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j-3kAUUUUU=
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrwvis2pHEcvvZAAA3J
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+   Hi Namjae,
 
-[ Upstream commit 4d587cd8a72155089a627130bbd4716ec0856e21 ]
+   Excellent solution! Your S_IMMUTABLE flag approach is much better 
+than my function-level checks.
 
-sendmsg()/sendto() with MSG_FASTOPEN is a combination of connect(2) and
-write(2): it opens the connection in the SYN. apparmor_socket_sendmsg()
-only checks AA_MAY_SEND, so a profile that grants send but denies connect
-lets a confined task open an outbound TCP/MPTCP connection that connect(2)
-would have refused, bypassing connect mediation.
+   I've validated that your patch comprehensively blocks all attack 
+vectors:
+   - write(), truncate(), fallocate(), mmap() - All protected via VFS layer
+   - Single modification vs. multiple function checks - Much more elegant
+   - Zero runtime overhead - Performance efficient
 
-Mediate the implicit connect when MSG_FASTOPEN is set and a destination
-is supplied. Add it to apparmor_socket_sendmsg() (not the shared
-aa_sock_msg_perm() helper, which recvmsg also uses) and call aa_sk_perm()
-directly, mirroring the selinux and tomoyo fixes. sk_is_tcp() does not
-cover MPTCP fast open, so the SOCK_STREAM/IPPROTO_MPTCP arm is explicit.
+   Your insights about the $Bitmap deadlock issue and directory handling 
+show deep understanding of NTFS architecture.
 
-Fixes: cf60af03ca4e ("net-tcp: Fast Open client - sendmsg(MSG_FASTOPEN)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-[ inlined absent sk_is_tcp()/sk_is_inet() helpers into the equivalent family/type/protocol checks ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- security/apparmor/lsm.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+   This solution would also make excellent patent material - the 
+VFS-level protection mechanism is both innovative and effective.
 
-diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-index 37aa1650c74eb2..6b259203557962 100644
---- a/security/apparmor/lsm.c
-+++ b/security/apparmor/lsm.c
-@@ -951,7 +951,23 @@ static int aa_sock_msg_perm(const char *op, u32 request, struct socket *sock,
- static int apparmor_socket_sendmsg(struct socket *sock,
- 				   struct msghdr *msg, int size)
- {
--	return aa_sock_msg_perm(OP_SENDMSG, AA_MAY_SEND, sock, msg, size);
-+	int error = aa_sock_msg_perm(OP_SENDMSG, AA_MAY_SEND, sock, msg, size);
-+
-+	if (error)
-+		return error;
-+
-+	/* TCP fast open carries connect() semantics in sendmsg(); mediate
-+	 * the implicit connect so it cannot bypass the connect permission.
-+	 */
-+	if ((msg->msg_flags & MSG_FASTOPEN) && msg->msg_name &&
-+	    (sock->sk->sk_family == AF_INET ||
-+	     sock->sk->sk_family == AF_INET6) &&
-+	    sock->sk->sk_type == SOCK_STREAM &&
-+	    (sock->sk->sk_protocol == IPPROTO_TCP ||
-+	     sock->sk->sk_protocol == IPPROTO_MPTCP))
-+		error = aa_sk_perm(OP_CONNECT, AA_MAY_CONNECT, sock->sk);
-+
-+	return error;
- }
- 
- /**
--- 
-2.53.0
+
+   Best regards,
+   Hongling Zeng
+
+在 2026年07月02日 20:12, Namjae Jeon 写道:
+> On Thu, Jul 2, 2026 at 6:06 PM Hongling Zeng <zenghongling@kylinos.cn> wrote:
+>> Malicious NTFS images can expose $MFT to userspace and allow write
+>> operations, leading to potential kernel NULL pointer dereference
+>> since ntfs_mft_aops lacks write_begin support.
+>>
+>> The vulnerability affects both write_iter and mmap-based write paths:
+>> 1. write_iter path: ntfs_file_write_iter()
+>> 2. mmap write path: ntfs_filemap_page_mkwrite()
+>>
+>> Without protecting both paths, attackers can bypass single-path
+>> protection by using the alternative write method.
+>>
+>> Fix by adding write protection in ntfs_file_write_iter() to prevent
+>> any write operations to FILE_MFT.
+>>
+>> Fixes: 1e9ea7e04472d ("Revert \"fs: Remove NTFS classic\"")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> Can you check if the attached file fixes this issue ?
+> Thanks.
 
