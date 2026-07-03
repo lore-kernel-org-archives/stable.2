@@ -1,180 +1,114 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8376E407570
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 15:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3AD3D7D70
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 15:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783091769; cv=none; b=S8U6r5CxVLT4ouAToJwah8nrqR2OG1yBUB78RjaHFLYN/Ns+myGzL+E9xvJoQ1MbrHjqHKkQxu6ZoUHlzYWyyHWhUXvTuh3sdky2t2P47qqIzBnH8r98/lBoTdz+5ow4D925DvaKQMbLrpBJrb2qvbb41msHTDoao6PveADLqWA=
+	t=1783091838; cv=none; b=kFAw99Qg9VWj5ZCo7xFmnIIyH6F+CP/7co00b7TXcp7ynZnactUd+AE4FaRxJJPBzAcwD34uhW0wXtcdoSSfigRsLnf1796H/EgCebr/Ys5T3BkPR3gNKUAuy5KdrKeAXVvwZG0KC+5H0eTNJn9BcauE5AAknh6e6ZjX8bLUvyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783091769; c=relaxed/simple;
-	bh=J9qnVuOG5fhGRzUZnT24UCrwxiapCHvz+6W7DVH2BUY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n8S/Juvo6W3SWldRmvgR5h+EQLSvMhqNVhQhxev/xNpW+yjI/1hfTL9nGLUR6P+XCamuOYOyb/62H0dm1LXy2IcqtzNnLHlhk1TJZI6Z6YOARgh15djD3RK0I6DnqzkckCsvAdPfSikvSqMfXFGLn4/liCcP+xT3FWS6HX8tgOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qVho8WpS; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783091838; c=relaxed/simple;
+	bh=K1OY5zdM6OEN9fIZJQfz8FC5tyVYrDLdL1WqwSsIcPc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iX5UzRo5rJZ/KAsmU3JUo/PnUFLyTD9uC5LFr5FibMdpYiRjNcpuN21EPsw4+ldJxTZQdx2yFNertiWU1dUs9HpuRJOADwRneStmARki4Kdabo06DWrDnwgatBh3kos9KJy7SRoM/AKAPzJVQqdnc50jl6u9qEpDSBHCySaakGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=I48RFdLO; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qVho8WpS"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-37dedd62b90so643946a91.1
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 08:16:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="I48RFdLO"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493c556ada3so106955e9.0
+        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 08:17:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783091768; x=1783696568; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=tbHH5Cu3nnovpCMyns6cOTHcPcimmGBMpGo53wRVoHA=;
-        b=qVho8WpSgp89V2RIT1WJLw/WglkNXWKiKrxatjiDm1yizqFZNHgpFZYG56FsmRPmJi
-         vjwDCgPkuMkfRrJVAA7kPdLWfSDxvf1EAZQq0rTVKbmlMLAD3U0xcpsZTo5e0lOTR695
-         EHSbU9KwQsq8GGtEeiFKpb/EXNKY7ViEHk5dB7B30eFlr4XceWNSYFvUM6DoJGtMLNgL
-         tzNTHt4QTc6HZ28cVTNyeNJbQ7hM14/JW2SZ6I2A9zyOeZwYqnwWKtaarq4ts7w650kU
-         vOrxIntLxEQbB0wt74qKgKhed0YhTvIyGlN+d7iNbAybuOG4Y1ThCpxHWU5iK6farHt6
-         td8g==
+        d=google.com; s=20251104; t=1783091835; x=1783696635; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pl3+RrSlv3/F/20nNGvlpUqYwKsTuCaqWMZ1BmqCvGY=;
+        b=I48RFdLOIMYR1ZCZmqRreuOguQ5SpCktwOkRUKWwlDwTTwBQyaH9BrINnM+JRhW8vq
+         F8rA7aZvWvdOk+2HvLwBV5LYlby5fZMeZp2c12lmHO20wJtWUdOfb9KHsRDkzzfTkGZx
+         MsfsovrMJ6tgKRRl6YCC+gqwyziLQw70y/lxjqM9eeIvt5+qvTE89AH7pJG7KasGVMvs
+         /Jpu6IlKbwzThVvXXqGWUHmTXDYTmVcIRumvHy9YFUsmOsI07B6wwXScHbNwly+JIYCM
+         HGja5b/8QYme8kIhBnAalQqGR/10BAZ3103SrBDJFrTsUjU/nRgUnuV6pub6yoWayiJY
+         5pNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783091768; x=1783696568;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tbHH5Cu3nnovpCMyns6cOTHcPcimmGBMpGo53wRVoHA=;
-        b=J9w1cN/uIfGS8qRlABjqbF7By9Hk7ie9TjGv+3Uik5V2FY20Uj05MQ4iNowEuPfzTf
-         GkdZ1wJwT/3IkQk1V1xnbCyNUt6ZJ1VARTkL/z9w/UoJfBAOHHl0Nts6CTQRC0uX2uU/
-         OTaM9YAvibWoNak2A7VOH5gpDJX342rtts0gOE9Q5v5lzDTJYnEz+u9fXBkBqcysbDfx
-         us8W3D2Fa+Pf0J5bFBbpMR/GCY0t49UNLNszBcprkhYlcGhmjIK2QUZooHlUcrrmwZ1r
-         0glrJ/gJZeRq3hyitIIA0MwsijREUZUNOnLLtsKRgKlwnnohkNqwDFrms/FqQ7RIbv9S
-         Xr7A==
-X-Forwarded-Encrypted: i=1; AHgh+RoNqmXdXkeF/FA001hkPVBd/wJRb2BPkIkAki4mBfNmowBYGu3GkqfU7g/MYfoDvDl9afRCERo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YynNO277NFucAU0GZjULtSxoyttQ8f4xUZ672M6Q0FVa4R5LfJ2
-	DcAIa/vueqsqfYJt5hFMhFaw6HY6Fjgg3VPS4gklmFRuHKk7J+2A9BhE
-X-Gm-Gg: AfdE7clakZKUXAIg8Cxwcj7ajKI63141TxhVrvPSCpkNGa4LZrQHEkHVzFyDjY0vAna
-	pREgkOl/o7amf6rac+dCr1FTyDzRmMySp/AuBPZiywvEJmv4ufa+iqM6RN4KA6zeL0/J3UZ/6CQ
-	NAOrC+RCtI+QN0bpNlxuE9qLIQExfahQb1DLa/Twbcdwz3cv4BKYf6Lwm4MzMb2xbeAM3wz3Ap1
-	dukNHfMfAgU6LKJ+aPiRdodvgvcyiX6Tc3mNuKTwyi5rkDgLhBOgbMIxo/HxBTzAxmUU8Re3hbO
-	ZfkbIVGFSSiLaOe96g2HPhnrWOyRKofe++BY65dmioxpxqP+7XMDgunzIJZmwDQX/xGS28A8HoS
-	WdGRVX/ECQqyyURHDCsu8mIjQHqyk3lrnE4TI/AHZ6dYlA240ZW7erlpzXaiO/6s+w2oF1Bdau/
-	F8cjwywoiv2ktfAWpNM9RDu3ErtfmwmE+fk4Y3JGygR4YFafGxYqKNJGOz6g==
-X-Received: by 2002:a17:90b:554c:b0:37f:e5b1:ec4b with SMTP id 98e67ed59e1d1-381120a7628mr5326181a91.5.1783091767561;
-        Fri, 03 Jul 2026 08:16:07 -0700 (PDT)
-Received: from fx.tailc0aff1.ts.net ([206.206.192.132])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b3c7ef5b3sm29352761c88.1.2026.07.03.08.16.06
+        d=1e100.net; s=20251104; t=1783091835; x=1783696635;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pl3+RrSlv3/F/20nNGvlpUqYwKsTuCaqWMZ1BmqCvGY=;
+        b=bGK+VeWb8k96HHU0Ut/sXcOnhMk0MLRXGaLf3GO+6yKp0RbEQ01EVm6xdc/DP6tzxf
+         384jQo18JKQ1u5JILmyhf6nfAq5vDUef01xeMiRX3Ypml1ZGHnk6e8dBSB+67PpgTX71
+         aFnhzbvp7Nn7pFZ2BhNT30ZNC44e61q9LtKMhNH1aBicENj/nQgbJsrX6wm+AsiN/eHq
+         to7hLNQc+zoyCW9uk+jXaYGQsGerC7XLJmdgoR0k3kXbYb/DQPb9IOX5OC3diZ2cT+EH
+         QAIxpepmkWiIcw4AMzjXu2H9PnDhAAxnvXcWTRbyX1qTxWp71bHDEGxXGRXDqipOdT0v
+         jV5Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+ze1FB9ID0vedkAf7Hwncny7cLJU9eP+5YSP3eycWnwlT8oIMK7iYiUjlVZsfWLG6eud1lFss=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzSueivq7n23UxRIep/DQG0Uk94AlIqYVbXGi8OEaAKeCeh/oBg
+	xutbGkjj0ePvrmMa/aCATPnN13EsdxATjL0bHURxVPtANQpqG5McIjs1SEseMdD3Ig==
+X-Gm-Gg: AfdE7cniB1kzMZ0eKzPAiD/18Tf9lh1yoQwsnOGj4wPbqCO0bdUp9R5eCBOHRyxZa7z
+	d33vnJIfS1N3gsFKyKaFeQrRCS0OA1ILhRHNmp4AkvFPtjrFT7b0B6+rrC/k8ZbEr0x9JZR6u6G
+	SYnHOfLZkR1I5KQKz4X2iYsgVFPRRiuAAYc1kgcung0tYsWAdG90taTqWirnXw/hltLUJA5YI/J
+	swYlJXI1TPov/d9rXy2K7xitL7DeP6k2uSkLgugj+MmQ0q7h/AXdhaZ40Au0IZMJVePntNEGNQH
+	bXn0t1W1I0nxZ8RVHEuspwsLSzq4i31e2ZIXsvRubmCctsQXbzq/rFmZrtwyoSU4dfLmCnuOM3A
+	5V+ubX8dqMpiu8j1cAygFY7R4VkcPKVaRmCa/7xWjHOzZrmnaQLv3vkRN3uvaT0HNs4bXTzERPG
+	/07FURVmyOXc9AARIUVXZpY0BaTnki+79hhL5N9QSpgdEcB+hoOxPX1fh9AnyfxFi8cAeIWPo=
+X-Received: by 2002:a05:600d:6446:20b0:493:b279:6012 with SMTP id 5b1f17b1804b1-493d0fe58b1mr23715e9.0.1783091834470;
+        Fri, 03 Jul 2026 08:17:14 -0700 (PDT)
+Received: from localhost ([2a00:79e0:288a:8:c0d:89b8:4c51:d7de])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493bf11eba5sm143481595e9.0.2026.07.03.08.17.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 08:16:06 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Carlos Maiolino <cem@kernel.org>,
-	linux-xfs@vger.kernel.org
-Cc: "Darrick J . Wong" <djwong@kernel.org>,
-	Brian Foster <bfoster@redhat.com>,
-	Xiang Mei <xmei5@asu.edu>,
-	linux-kernel@vger.kernel.org,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] xfs: reject attr leaf blocks with inconsistent usedbytes
-Date: Fri,  3 Jul 2026 08:15:44 -0700
-Message-ID: <20260703151543.3335583-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 03 Jul 2026 08:17:13 -0700 (PDT)
+From: Jann Horn <jannh@google.com>
+Subject: [PATCH 0/3] hid: fix missing hid_is_usb() checks in three drivers
+Date: Fri, 03 Jul 2026 17:16:46 +0200
+Message-Id: <20260703-hid-usbcheck-v1-0-e80259ff625d@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAF7SR2oC/yXMQQ5AMBBA0avIrDVpiQpXEQvG0CFBOohE3F2xf
+ Iv/LxDyTAJldIGng4WXOcDEEaBr5oEUd8GQ6MTqXKfKcad2adERTqowNiWLvdUmg5Csnno+v11
+ V/5a9HQm39wH3/QAQFqI6cAAAAA==
+X-Change-ID: 20260703-hid-usbcheck-9163e6cf6015
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ "Luke D. Jones" <luke@ljones.dev>, Miao Li <limiao@kylinos.cn>, 
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jann Horn <jannh@google.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783091826; l=760;
+ i=jannh@google.com; s=20240730; h=from:subject:message-id;
+ bh=K1OY5zdM6OEN9fIZJQfz8FC5tyVYrDLdL1WqwSsIcPc=;
+ b=ZTFnHOYKP6v4nUghkdCwMVQ+kEASuNa8un//sNMk8aGmBQuJKy66d8zuStKDBo3Nkck68FfGH
+ qKJi5WuMhoBDWoa53oFhUgTyhtynCPW3Y4pTJLJ1eLeS8UE8/KfKth/
+X-Developer-Key: i=jannh@google.com; a=ed25519;
+ pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
 
-xfs_attr3_leaf_verify() checks each attr leaf entry on its own, but never
-checks that the entries' nameval regions are disjoint. A crafted leaf can
-point several entries at overlapping offsets: every entry passes the
-per-entry check, yet the summed entry sizes far exceed the nameval region.
+This fixes missing hid_is_usb() checks before to_usb_interface() in
+three HID drivers.
+I've split it into three patches so that they can have separate "Fixes"
+tags, hopefully they are easier to stable-backport this way.
 
-ichdr.usedbytes is kept as the exact sum of the entries'
-xfs_attr_leaf_entsize() (see xfs_attr3_leaf_add()), so for such a leaf the
-real sum no longer matches usedbytes. When the leaf is later repacked,
-xfs_attr3_leaf_compact() resets firstused to blksize and calls
-xfs_attr3_leaf_moveents(), which subtracts each entry size from firstused;
-the oversized sum underflows the 32-bit firstused and the following memmove
-writes out of bounds. The same repack runs from xfs_attr3_leaf_rebalance()
-and xfs_attr3_leaf_unbalance(). The only guard is an ASSERT, which is
-compiled out on production kernels.
-
-A single setxattr() on a file with such a leaf, after mounting a crafted
-image, triggers the write:
-
-  BUG: KASAN: use-after-free in xfs_attr3_leaf_moveents (fs/xfs/libxfs/xfs_attr_leaf.c:2788)
-  Write of size 400 at addr ffff88802b187f98 by task exploit
-   xfs_attr3_leaf_moveents (fs/xfs/libxfs/xfs_attr_leaf.c:2788)
-   xfs_attr3_leaf_compact (fs/xfs/libxfs/xfs_attr_leaf.c:1790)
-   xfs_attr3_leaf_add (fs/xfs/libxfs/xfs_attr_leaf.c:1563)
-   xfs_attr_set_iter (fs/xfs/libxfs/xfs_attr.c:556)
-   xfs_attr_set (fs/xfs/libxfs/xfs_attr.c:1244)
-   xfs_xattr_set (fs/xfs/xfs_xattr.c:186)
-   __vfs_setxattr (fs/xattr.c:218)
-   vfs_setxattr (fs/xattr.c:339)
-   __x64_sys_fsetxattr (fs/xattr.c:774)
-
-Sum the entry sizes while verifying and reject the leaf unless the sum
-equals usedbytes and usedbytes fits in [firstused, blksize).  The online
-scrubber already validates this in xchk_xattr_block(); this brings the
-read/write verifier in line with it so the bad leaf is rejected before any
-reshape can run.
-
-Fixes: c84760659dcf ("xfs: check attribute leaf block structure")
-Reported-by: Xiang Mei <xmei5@asu.edu>
-Assisted-by: Claude:claude-opus-4-8
-Cc: stable@vger.kernel.org
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Signed-off-by: Jann Horn <jannh@google.com>
 ---
- fs/xfs/libxfs/xfs_attr_leaf.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
+Jann Horn (3):
+      HID: asus: fix missing hid_is_usb() check
+      HID: huawei: fix missing hid_is_usb() check
+      HID: rapoo: fix missing hid_is_usb() check
 
-diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
-index 86c5c09a5db4..9814dcfbd7ac 100644
---- a/fs/xfs/libxfs/xfs_attr_leaf.c
-+++ b/fs/xfs/libxfs/xfs_attr_leaf.c
-@@ -300,7 +300,8 @@ xfs_attr3_leaf_verify_entry(
- 	struct xfs_attr3_icleaf_hdr		*leafhdr,
- 	struct xfs_attr_leaf_entry		*ent,
- 	int					idx,
--	__u32					*last_hashval)
-+	__u32					*last_hashval,
-+	unsigned int				*usedbytes)
- {
- 	struct xfs_attr_leaf_name_local		*lentry;
- 	struct xfs_attr_leaf_name_remote	*rentry;
-@@ -344,6 +345,7 @@ xfs_attr3_leaf_verify_entry(
- 	if (name_end > buf_end)
- 		return __this_address;
- 
-+	*usedbytes += namesize;
- 	return NULL;
- }
- 
-@@ -376,6 +378,7 @@ xfs_attr3_leaf_verify(
- 	char				*buf_end;
- 	uint32_t			end;	/* must be 32bit - see below */
- 	__u32				last_hashval = 0;
-+	unsigned int			usedbytes = 0;
- 	int				i;
- 	xfs_failaddr_t			fa;
- 
-@@ -410,11 +413,21 @@ xfs_attr3_leaf_verify(
- 	buf_end = (char *)bp->b_addr + mp->m_attr_geo->blksize;
- 	for (i = 0, ent = entries; i < ichdr.count; ent++, i++) {
- 		fa = xfs_attr3_leaf_verify_entry(mp, buf_end, leaf, &ichdr,
--				ent, i, &last_hashval);
-+				ent, i, &last_hashval, &usedbytes);
- 		if (fa)
- 			return fa;
- 	}
- 
-+	/*
-+	 * usedbytes must equal the summed entry sizes and fit in the
-+	 * nameval region; otherwise a later repack underflows firstused
-+	 * in xfs_attr3_leaf_moveents().
-+	 */
-+	if (usedbytes != ichdr.usedbytes)
-+		return __this_address;
-+	if (ichdr.usedbytes > mp->m_attr_geo->blksize - ichdr.firstused)
-+		return __this_address;
-+
- 	/*
- 	 * Quickly check the freemap information.  Attribute data has to be
- 	 * aligned to 4-byte boundaries, and likewise for the free space.
--- 
-2.43.0
+ drivers/hid/hid-asus.c   | 2 +-
+ drivers/hid/hid-huawei.c | 5 +++--
+ drivers/hid/hid-rapoo.c  | 2 +-
+ 3 files changed, 5 insertions(+), 4 deletions(-)
+---
+base-commit: 51512e22efe813d8223de27f6fd02a8a48ea2323
+change-id: 20260703-hid-usbcheck-9163e6cf6015
+
+Best regards,
+--  
+Jann Horn <jannh@google.com>
 
