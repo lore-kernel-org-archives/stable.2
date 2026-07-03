@@ -1,71 +1,71 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989223B8124
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 10:51:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F3634041E
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 10:53:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783075898; cv=none; b=F7KUQB/fYOXvAVh6xQkpzFFnSaRXrTJqY5LOIQ9b67/YsjSrUTCAr29rt+5k/PsbqeNuu5CRWFJ+oaElcc8O7rlu0SrhobMlviQRVPwwv+NfvaQyLmESKAf39HpsOOcdWmXXBA++WZe/VbVgJMavTzCC0tJvJzd6smO8DeqsJ+Y=
+	t=1783075987; cv=none; b=V/s/ybZdaEFejekbp1xr78ZShonQrky+4qYwYwRMsccw+ZsGnucosX6pRFCLtgwKyRPBGAK5tbA2yzEaJslT0wND1bkp7ZiQB5o7SLQqCZkLWWu5YVEarwXuRssI/EYynu6IkGleTNKuXNbyfjbYicSLejWpUhd26seGQi1ZJ1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783075898; c=relaxed/simple;
-	bh=R+43hLrsbYtEmXKZRIczZev7SexoajOmJrYYrv4Eho0=;
+	s=arc-20240116; t=1783075987; c=relaxed/simple;
+	bh=n2dvmCT/3n07xYHJSO9W8w5ISYOmXe0c8mPsI26rKJI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jqw1U640+pzuxx/+/CJ0Sd/96qzLKTLejmbVQJCcTM3k+K6PzO4QyW1al/0/pSRCFwjWCKnwTLH9aMU7pSWnvj/79MQCJKndlHy88hNs54XVsC97QneXNfYmv1agS7hzL2Bl3seXXcy+wopvCnXTLv3q7YhTP6QckSDUvwaZqak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XEUdDEnI; arc=none smtp.client-ip=209.85.214.176
+	 MIME-Version; b=BaoOeZLttNcFVoVZ4IIiuKbWQeWX8y5UX3nQ6tnG354i+2aXhwguacEr6fetRuEPQgdJOrIK6ViXVNXuBWXJwrxIlEbeo/OaooKfKM6h60epj6eRwFUNI5FplqtlzBrK70fK6rN8Q04JeGuG/EBMvyAERa2vX1oNS4Z6Uq8tkx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IVsJ6p7R; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XEUdDEnI"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2c8017e981fso4284305ad.0
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 03:51:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IVsJ6p7R"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-37fa06b39b4so365589a91.2
+        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 03:53:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783075896; x=1783680696; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783075986; x=1783680786; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NILBCMIew3AReLpwbZCMTaqfSDHcfQHMLWRpawpzhng=;
-        b=XEUdDEnIFyQVxIAd9gRc5OnkWbqN5zAB8uPTVe9k1ONP/eJQQ9j4dXz5Btzra9LWj9
-         qCLK4i28fAQfSIv0HbGg85FKAMA+GplrXxvZ9xlJVElkUGKm+xIL4JhfyHOHRYTDMdq0
-         2tOjW/FK4VGhJg5brU7LW1HXwyEoA78Nhhs8MBJl616eAyUs7XjxDp4Xw+kqhrX6bTMB
-         1iAiW857UMe7GEenfgL8E+KV3blIM1YWF16aKxAtezbLIg8MmSdbquGlDmcgc0o7Ey1+
-         t3pXhjEM7TR7OfPjBN5Zvnc0Xtj+SPMXjRTVZPz+DOFrl3EBS6cu5nASzlktonJ01PZg
-         c7XA==
+         :message-id:reply-to;
+        bh=NiiB25eLMvJ0b3zoud6x0uzpJQH3ljcPlfBdhH5UEnA=;
+        b=IVsJ6p7RD3l/lPXkrFezLEAUgJz5KN8wXHcumVo2qkjDfoROeRfI+/KHVITo+lXJt8
+         t9MniEWB0ftcrcltPnBofbCLQt6XhcaixwNoMgzrMCQaPNtmVvdEbBo7TLR/QTHKqJP8
+         idQvCCXTTgMMCZJGV+L/4pFZMIvVNoks6hJPT4g1IwFTl91IgNX1cKF3Gs6LMnY+5QG/
+         LVk17TcbnLlOZpKQ+AVOu8iHBcJn2qEqlhYKEP5uCV0EPYpUquWj5RJXjgxW5QmwLJaw
+         MSgXHZWfsgaXNKIW+1alSDnM8+5rNnCJacWwod1UwlYCNw53VMbcuoBwlcarh7tszDLR
+         bZAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783075896; x=1783680696;
+        d=1e100.net; s=20251104; t=1783075986; x=1783680786;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NILBCMIew3AReLpwbZCMTaqfSDHcfQHMLWRpawpzhng=;
-        b=IXlXFQvLz+EDE7ZUffLckuBDwpPWcbRaNIVh1xhns/7ogV7xn+hYMbJat8Ue18TYSs
-         bLBxdKpfolhmaEb6pKGv1ludNtaCl7Jx5D//bZFdWespb9flmOnbLZjyzXsnu5F+ctOy
-         WwC9yQmXn8fNsNAf6n0jam1lWR9BFm7iU6Ny2ABQ56apEpkYDjcverFbMttlH/0uh/rc
-         tVMPeYXH+JndEcXVov6wxjP91iLGCyd4VuwWPhz6esoc6xXLazoyCURAyCLLYQtCqdoQ
-         NomY5HhVFGMq20cHRtlpjhksYbiPGSRUKZ05wNMF1tiVOa2I0zR32kJ2ea1Y7mSqY+Mo
-         KTnA==
-X-Gm-Message-State: AOJu0YxAkhhqutkBzejGGZ4q1W2Ui1KjmRdoHcX3d8CetvGUT0b7gXrZ
-	Pd3Yh/Gkmky0yJi5l+Bh9C/4II3ZEwO8S6EKAjd/IhaQwKnwjtFMCOOO6x219bmP
-X-Gm-Gg: AfdE7cl7LSXpHrmsYlYjgudsgNA3rY4TsZ4CgGVGaH5LcZiqW+2wUqmcQ/WQX4RgDEe
-	y9jUJyfrVXWZq9O6X9xYUJpWCGwQYHkxC6kMi9HLL0CoVDj+TCmxUbmIxV5J50FxSUF4k+jw6yZ
-	a7bYrilcqsPYaTu/LanWxwYCTaRgGTpAxq3nk1r4dEVuBtsSQOPw1xgJ71ZVJd2Vrh+Rcc+UUmb
-	Ym3QtSBwKrnACHeoW4NLWN1XaCPXH76AoCQYtkg/xIckRQqLZYxa3Wmx269uV2Ci2jqbLAttxK0
-	ZCQ6BShqV2jaZOtdQnqSybBD2BdfHV2bQxvF2HLylRqswWjftlxsJe2dVBcR7lSI1mQ+DGBallS
-	y3//D/gJyhQTXS0y5vdqBFC5CQ69jvNupFe110kLQq5m3Yf1/yA3aV7xyidHI4Mht/Diss4ZXhA
-	eQ1sbVV+HWWUsznWVL91ZW5COjZaBYXL+x
-X-Received: by 2002:a17:903:22d0:b0:2c9:8f4a:90b with SMTP id d9443c01a7336-2ca9112c9ddmr90768265ad.3.1783075895637;
-        Fri, 03 Jul 2026 03:51:35 -0700 (PDT)
+         :to:cc:subject:date:message-id:reply-to;
+        bh=NiiB25eLMvJ0b3zoud6x0uzpJQH3ljcPlfBdhH5UEnA=;
+        b=MW8wasf8NRBV9ZYBWxIJoOHq5aQvMeVF8t1lLt0/4PcDvTL79lMyIs4q6E/vYEFRZu
+         iF3f65i2+V62U7MKv8iN6LnSFzA3PjqjsmfbRsH/x0Zu+uWc2ocPuxI7rbzhpV93O3w6
+         XvPWNkhArCuXjMoZ9goLX7CwsdgZkWy8jo5kXYNk+3/sQws7GJkSTd0nuiQqTXesjVGS
+         uKDmROS3CZpD3VpzQcDtZXzcKDT8nOEXTLeZDM9YRNmzpJliRw+C6Z0XWxnNURllR5ln
+         vMin4W32ZjzZiGuGHvflCka0XK8TZTktPLyMJdMvqzW5KlKUA52OYI+KIzXDrq9MmF6C
+         cOJg==
+X-Gm-Message-State: AOJu0Ywpts+32Q1e1k3+Ib9JeGK/kDjU+okDZZzzkTdOo3aGVALbpSfO
+	LeTLnvXPFM+bzEpObHPq25vqGZTqj2791+SIpIFeAZdiIB8IysnI1k/PBd8Udn9J
+X-Gm-Gg: AfdE7ckXDO+3eXXLe0vf+mnKhrsTEdDTvTrvB6iLZq4G1gcsP5o6ICvo1ZL1bpd7FXZ
+	2kD3Pxxwlqiff5vYKqeFJnbtTnctf4nxnEO3dOxcmvSoskqNSuK3X/zxWhxk6KE139a34sgtx2w
+	6Fv88EjHuryBEf3EjyVanRCJdQpNRzCO+KseK55gfKkE/8MaTOQQdUOX7H0Pr4Q1qLdQekdDu/s
+	mzl5UXVTAS23Tc+Jxld2eeYcJG+Duu5+sDwCPWiISyjW4TXAOHGYMU3/6dWLaN7fa7b8U+4GoKw
+	nUOKtJmg4St+12KxA1nMcEBj740wywALqzxDjjl3GTqImjpY4amRJWNz+SOaLt6JHrPtsy+yQLY
+	9R3EvgechvrAQP8buiILuecIziPjNysCQQ9Yvihy1SJAkcRxomi3IMcd7W0UAy4YFxZYLTBzNW1
+	Re3CaEYpIQUzTxyc0xmV2IEPjM1DmOS8ol
+X-Received: by 2002:a17:90b:1d45:b0:381:21ea:9147 with SMTP id 98e67ed59e1d1-38121ea9ca7mr3137640a91.13.1783075985604;
+        Fri, 03 Jul 2026 03:53:05 -0700 (PDT)
 Received: from annie-ProLiant-DL380-Gen11.. ([183.107.7.114])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad7765810sm7594245ad.53.2026.07.03.03.51.33
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3812815d3e7sm762765a91.14.2026.07.03.03.53.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 03:51:35 -0700 (PDT)
+        Fri, 03 Jul 2026 03:53:05 -0700 (PDT)
 From: Hyokyung Kim <pulpannie@gmail.com>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	"Michael S . Tsirkin" <mst@redhat.com>,
 	Jason Wang <jasowang@redhat.com>,
 	Hyokyung Kim <pulpannie@gmail.com>
-Subject: [PATCH 6.6.y] virtio_net: clamp rss_indir_table_size to VIRTIO_NET_RSS_MAX_TABLE_LEN
-Date: Fri,  3 Jul 2026 19:50:59 +0900
-Message-ID: <20260703105059.3821189-1-pulpannie@gmail.com>
+Subject: [PATCH 6.1.y] virtio_net: clamp rss_indir_table_size to VIRTIO_NET_RSS_MAX_TABLE_LEN
+Date: Fri,  3 Jul 2026 19:52:56 +0900
+Message-ID: <20260703105256.3884798-1-pulpannie@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <stable-reply-item007-virtio-rss-20260630181642@kernel.org>
 References: <stable-reply-item007-virtio-rss-20260630181642@kernel.org>
@@ -107,34 +107,34 @@ new bugs, instead I added a small 6-line bounds check on the length the
 driver reads from the buggy or malicious device. Sending one patch per
 tree.
 
-Tested with KASAN + UBSAN under QEMU (guest 6.6.143), using a virtio-net
+Tested with KASAN + UBSAN under QEMU (guest 6.1.176), using a virtio-net
 device that advertises rss_max_indirection_table_length=3D512, i.e. larger
 than the driver's 128-entry VIRTIO_NET_RSS_MAX_TABLE_LEN.
 
 Before this patch, virtnet_probe() overflows the fixed indirection_table[]
 at boot:
 
-  BUG: KASAN: slab-out-of-bounds in virtnet_probe+0x136e/0x1520=0D
-  Write of size 2 at addr ff11000003384168 by task swapper/0/1=0D
-  CPU: 1 PID: 1 Comm: swapper/0 Not tainted 6.6.143 #2=0D
+  BUG: KASAN: slab-out-of-bounds in virtnet_probe+0x11a2/0x1580=0D
+  Write of size 2 at addr ff11000004130d60 by task swapper/0/1=0D
+  CPU: 1 PID: 1 Comm: swapper/0 Not tainted 6.1.176 #1=0D
   Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.3-0-=
 ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014=0D
   Call Trace:=0D
    <TASK>=0D
-   dump_stack_lvl+0x36/0x50=0D
-   print_report+0xcf/0x670=0D
-   kasan_report+0xc7/0x100=0D
-   virtnet_probe+0x136e/0x1520=0D
+   dump_stack_lvl+0x37/0x4a=0D
+   print_report+0x181/0x49e=0D
+   kasan_report+0xc9/0x150=0D
+   virtnet_probe+0x11a2/0x1580=0D
    virtio_dev_probe+0x2da/0x470=0D
-   really_probe+0x12f/0x420=0D
-   __driver_probe_device+0xf8/0x1e0=0D
+   really_probe+0x12f/0x390=0D
+   __driver_probe_device+0xfa/0x1a0=0D
    driver_probe_device+0x49/0x190=0D
    __driver_attach+0xdd/0x290=0D
-   bus_for_each_dev+0xde/0x140=0D
-   bus_add_driver+0x14a/0x2e0=0D
-   driver_register+0x9b/0x1c0=0D
-   virtio_net_driver_init+0x89/0xb0=0D
-   do_one_initcall+0x9e/0x2d0=0D
+   bus_for_each_dev+0xf5/0x150=0D
+   bus_add_driver+0x26e/0x2c0=0D
+   driver_register+0x10c/0x1a0=0D
+   virtio_net_driver_init+0x6c/0x93=0D
+   do_one_initcall+0x9e/0x2c0=0D
 
 After this patch the length is clamped, the device still probes, the boot
 is clean (no KASAN report), and ethtool -x reports a 128-entry table:
@@ -146,10 +146,10 @@ is clean (no KASAN report), and ethtool -x reports a 128-entry table:
  1 file changed, 6 insertions(+)
 
 diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index 33f61922c139..ec07e289f0c8 100644
+index b62b76963137..c840e6a55d86 100644
 --- a/drivers/net/virtio_net.c
 +++ b/drivers/net/virtio_net.c
-@@ -4587,6 +4587,12 @@ static int virtnet_probe(struct virtio_device *vdev)
+@@ -3913,6 +3913,12 @@ static int virtnet_probe(struct virtio_device *vdev)
  		vi->rss_indir_table_size =3D
  			virtio_cread16(vdev, offsetof(struct virtio_net_config,
  				rss_max_indirection_table_length));
