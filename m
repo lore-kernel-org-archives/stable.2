@@ -1,87 +1,193 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3491DF748;
-	Fri,  3 Jul 2026 13:20:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2341E3D2FE6
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 13:23:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783084846; cv=none; b=AK+fOTEFXpcJXu4Nk/KXeQTyAv9+ffGEma8KoV8ISnF5xD9isND3pgQysCQUQYHhwIm6KPTlucAVoABM+r6rVtPYkx+RyA07Cvag69MGAqVwvJeK8wUW1hF/dhmddDF/qYnxgvkQiUiv7YXTjinUdIRqlpNdOves1GG6UXqDHEc=
+	t=1783085020; cv=none; b=gM/QLAMt4BLybQF7bSHlXTG9O/FRN9k2ZaqsHnWZQjkJgR5mADAkF9CKkLlpy2Fz58u5o7Ke7tM7VF+f7DlqDAiBT9JbvNETAsuBRFf0iV0TnqYHYj1yAE1DUS0qXIZwmbAg3DbXsJJgJpDMebM89nEJSzT8Wu9PqNhHxzV6LUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783084846; c=relaxed/simple;
-	bh=o9HA0u01949GrWaok4cjwcYYdph9iVfnUpfsprV4hk0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hl+1hwmiQE4/wR8psyO+D8JmyB/Q43bpBtyhhzrdb1/oIhF145WI3XqcYXDnLU2E5LY0nQDvLmaTNe1qrU5nb8Dy5VSUsOBw3KvOsW/T2jnq97dzgUqZK0ORQZ5kZXCOr/klYFPNGTZkEG0wIXD9ouHOA+eeA69fIQ9b5yOQCJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=COLcWCYB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783085020; c=relaxed/simple;
+	bh=/Ls9/eWR3E56pKDnwiTc/D+Dg4ygCPxpXwTATFHTtXY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Lmv5dq7vZDxtF4Rfj2FYOApUI9zwLd7Go+D7umZswmRvBfCMmPagk5uiW9v5HxJuL781XKu18v0cSsQkwsEmeoSPJc36mA340Bm5NUnY1lNCB34ro3t91bveWWmLVUw4ff5duIKyqGwZ5iJnSz8zRrfTO/zr6gKlB2P1+C2/69Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U4crB9Pz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="COLcWCYB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC53E1F000E9;
-	Fri,  3 Jul 2026 13:20:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U4crB9Pz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 906D21F000E9;
+	Fri,  3 Jul 2026 13:23:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783084845;
-	bh=DMtNEtbh86PE/0OtSHafNiiMNiX2mMRVhXm4LGea/eE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=COLcWCYBFT9dd93pF5q2QEyFgZQkzG1MIG1pbKLA7Iqufd1ueWiJhww7kRKP1/Us1
-	 7jZQ3FGx35azOG0U/OqArHOXVUnQo3ZbamsNIryLfGzHDK/A4RNwcjMtuiY/y3XyhM
-	 PJwSPxZxHNLbOAmD59sbkzC9BCcuiN3o0tGsX//fnW50q4TueRw/LsGJ4a5mrT0pmD
-	 aeUEpglPCCvC0AQLzRWBn66GHeWX98d5Wmw36HEdFxXRmKemLZA2/9Jdiw1lUnFYMR
-	 B+45sMK7yABG6VQh4p6AHeUHilH+1lpYA3VdApKKwBTyN90fxFYkkeUWLmE04v6qAs
-	 V9jXfSdWfX0tg==
-Date: Fri, 3 Jul 2026 16:20:37 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linus Torvalds <torvalds@linuxfoundation.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Oleg Nesterov <oleg@redhat.com>, Peter Xu <peterx@redhat.com>,
-	vova tokarev <vladimirelitokarev@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] userfaultfd: prevent registration of special VMAs
-Message-ID: <ake3JZJPYHP-0N7n@kernel.org>
-References: <20260617194059.2529406-1-rppt@kernel.org>
- <5a993689-f730-406d-8515-8bb6025cc851@kernel.org>
- <ajOtfdGgFQYL-T6f@kernel.org>
- <ajOvwGs5xhnfBu-k@kernel.org>
- <41ef0dce-e973-4947-b5e3-150fdb07f1a6@kernel.org>
- <ajO4sLq2UBciSgOn@kernel.org>
- <dd2ae577-9b7d-4e40-81d0-fa9fcd7e0767@kernel.org>
- <ajO7yI541hphWRb8@kernel.org>
- <11bae87d-73e6-4946-a41f-c5542fb40b75@kernel.org>
- <akeJdxdZXAFb8XCr@lucifer>
+	s=k20260515; t=1783085017;
+	bh=3O5vulOw1RkXtdUS3Z+fHklQNxCITJv+5Ql+ilx1ZAQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=U4crB9PzOtsIpn6tzq7j9+A4Y+dfKA+MHZXjzqVhaV018rUr8Z4Pd3IqTCDj5UnbN
+	 VR4GmSSGH1yu4vcwuHKy/lQMbucHk9dCgqlT7/FolKskv2Zu+pL9olRBA+HVsfyXHT
+	 KsOUPi98JiaH08VugpuOmBcWtoPdf9PIshX+CnM+X7XbIXJSIX8pfEAo3ZIa7oKXb1
+	 2vAt9iYas94m0aBKy2GSz98PzwLsxOGJUMVY8905yWPfYoS0M2XUehILCwlPZ6cJHP
+	 3ck6uhcF9WM7riFZz2PRQkeFh3+GHbdoM7ZWF7xnRX5Mz+5kNyp7LAPYMx9/HKk6c6
+	 08IkwS1f8XJ3Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] f2fs: adjust zone capacity when considering valid block count
+Date: Fri,  3 Jul 2026 09:23:33 -0400
+Message-ID: <20260703132334.4098206-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026070255-livable-cheese-d39c@gregkh>
+References: <2026070255-livable-cheese-d39c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akeJdxdZXAFb8XCr@lucifer>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 03, 2026 at 11:11:14AM +0100, Lorenzo Stoakes wrote:
-> On Thu, Jun 18, 2026 at 11:37:10AM +0200, David Hildenbrand (Arm) wrote:
-> > > In a way that's an extra check for hugetlb, but it will work.
-> >
-> > My point would be that we exclude all special VMAs, except hugetlb (which is
-> > special but supported ... in its special way).
-> 
-> Mike - you said you were respinning, it'd help my series if you respan the above
-> quickly so I could base my change on that :).
+From: Jaegeuk Kim <jaegeuk@kernel.org>
 
-I sent it already:
+[ Upstream commit 074b5ea2900ea8e40f8e7a3fd37e0a55ad3d5874 ]
 
-https://lore.kernel.org/all/20260618095017.2553004-1-rppt@kernel.org
+This patch fixes counting unusable blocks set by zone capacity when
+checking the valid block count in a section.
 
-and Andrew apparently ook it:
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Stable-dep-of: 4275b59673eb ("f2fs: fix to round down start offset of fallocate for pin file")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/f2fs/debug.c   | 2 +-
+ fs/f2fs/file.c    | 6 +++---
+ fs/f2fs/gc.c      | 4 ++--
+ fs/f2fs/segment.c | 7 +++----
+ fs/f2fs/segment.h | 8 ++++----
+ 5 files changed, 13 insertions(+), 14 deletions(-)
 
-https://lore.kernel.org/all/20260618183442.BBCD71F000E9@smtp.kernel.org
-
-> I can send a quick patch if you're tied up also!
-> 
-> Thanks, Lorenzo
-
+diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
+index b449c7a372a4b1..cd21b4edeca1cb 100644
+--- a/fs/f2fs/debug.c
++++ b/fs/f2fs/debug.c
+@@ -39,7 +39,7 @@ void f2fs_update_sit_info(struct f2fs_sb_info *sbi)
+ 
+ 	bimodal = 0;
+ 	total_vblocks = 0;
+-	blks_per_sec = BLKS_PER_SEC(sbi);
++	blks_per_sec = CAP_BLKS_PER_SEC(sbi);
+ 	hblks_per_sec = blks_per_sec / 2;
+ 	for (segno = 0; segno < MAIN_SEGS(sbi); segno += sbi->segs_per_sec) {
+ 		vblocks = get_valid_blocks(sbi, segno, true);
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 1c5f2964649f27..d4d485032e6ea6 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -1694,7 +1694,7 @@ static int expand_inode_data(struct inode *inode, loff_t offset,
+ 		return 0;
+ 
+ 	if (f2fs_is_pinned_file(inode)) {
+-		block_t sec_blks = BLKS_PER_SEC(sbi);
++		block_t sec_blks = CAP_BLKS_PER_SEC(sbi);
+ 		block_t sec_len = roundup(map.m_len, sec_blks);
+ 
+ 		map.m_len = sec_blks;
+@@ -2547,7 +2547,7 @@ static int __f2fs_ioc_gc_range(struct file *filp, struct f2fs_gc_range *range)
+ 			ret = -EAGAIN;
+ 		goto out;
+ 	}
+-	range->start += BLKS_PER_SEC(sbi);
++	range->start += CAP_BLKS_PER_SEC(sbi);
+ 	if (range->start <= end)
+ 		goto do_more;
+ out:
+@@ -2672,7 +2672,7 @@ static int f2fs_defragment_range(struct f2fs_sb_info *sbi,
+ 		goto out;
+ 	}
+ 
+-	sec_num = DIV_ROUND_UP(total, BLKS_PER_SEC(sbi));
++	sec_num = DIV_ROUND_UP(total, CAP_BLKS_PER_SEC(sbi));
+ 
+ 	/*
+ 	 * make sure there are enough free section for LFS allocation, this can
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index 9a57754e6e0c1d..69a51fcfbead45 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -461,7 +461,7 @@ static void atgc_lookup_victim(struct f2fs_sb_info *sbi,
+ 	unsigned long long age, u, accu;
+ 	unsigned long long max_mtime = sit_i->dirty_max_mtime;
+ 	unsigned long long min_mtime = sit_i->dirty_min_mtime;
+-	unsigned int sec_blocks = BLKS_PER_SEC(sbi);
++	unsigned int sec_blocks = CAP_BLKS_PER_SEC(sbi);
+ 	unsigned int vblocks;
+ 	unsigned int dirty_threshold = max(am->max_candidate_count,
+ 					am->candidate_ratio *
+@@ -1445,7 +1445,7 @@ static int gc_data_segment(struct f2fs_sb_info *sbi, struct f2fs_summary *sum,
+ 		 */
+ 		if ((gc_type == BG_GC && has_not_enough_free_secs(sbi, 0, 0)) ||
+ 			(!force_migrate && get_valid_blocks(sbi, segno, true) ==
+-							BLKS_PER_SEC(sbi)))
++							CAP_BLKS_PER_SEC(sbi)))
+ 			return submitted;
+ 
+ 		if (check_valid_map(sbi, segno, off) == 0)
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 52d5915cee9674..95fdad8b19fdaf 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -833,7 +833,7 @@ static void __locate_dirty_segment(struct f2fs_sb_info *sbi, unsigned int segno,
+ 				get_valid_blocks(sbi, segno, true);
+ 
+ 			f2fs_bug_on(sbi, unlikely(!valid_blocks ||
+-					valid_blocks == BLKS_PER_SEC(sbi)));
++					valid_blocks == CAP_BLKS_PER_SEC(sbi)));
+ 
+ 			if (!IS_CURSEC(sbi, secno))
+ 				set_bit(secno, dirty_i->dirty_secmap);
+@@ -869,7 +869,7 @@ static void __remove_dirty_segment(struct f2fs_sb_info *sbi, unsigned int segno,
+ 			unsigned int secno = GET_SEC_FROM_SEG(sbi, segno);
+ 
+ 			if (!valid_blocks ||
+-					valid_blocks == BLKS_PER_SEC(sbi)) {
++					valid_blocks == CAP_BLKS_PER_SEC(sbi)) {
+ 				clear_bit(secno, dirty_i->dirty_secmap);
+ 				return;
+ 			}
+@@ -4679,7 +4679,6 @@ static void init_dirty_segmap(struct f2fs_sb_info *sbi)
+ 	struct free_segmap_info *free_i = FREE_I(sbi);
+ 	unsigned int segno = 0, offset = 0, secno;
+ 	block_t valid_blocks, usable_blks_in_seg;
+-	block_t blks_per_sec = BLKS_PER_SEC(sbi);
+ 
+ 	while (1) {
+ 		/* find dirty segment based on free segmap */
+@@ -4708,7 +4707,7 @@ static void init_dirty_segmap(struct f2fs_sb_info *sbi)
+ 		valid_blocks = get_valid_blocks(sbi, segno, true);
+ 		secno = GET_SEC_FROM_SEG(sbi, segno);
+ 
+-		if (!valid_blocks || valid_blocks == blks_per_sec)
++		if (!valid_blocks || valid_blocks == CAP_BLKS_PER_SEC(sbi))
+ 			continue;
+ 		if (IS_CURSEC(sbi, secno))
+ 			continue;
+diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
+index e59b330ed83351..5fdb393524c888 100644
+--- a/fs/f2fs/segment.h
++++ b/fs/f2fs/segment.h
+@@ -605,10 +605,10 @@ static inline bool has_not_enough_free_secs(struct f2fs_sb_info *sbi,
+ 					get_pages(sbi, F2FS_DIRTY_DENTS) +
+ 					get_pages(sbi, F2FS_DIRTY_IMETA);
+ 	unsigned int total_dent_blocks = get_pages(sbi, F2FS_DIRTY_DENTS);
+-	unsigned int node_secs = total_node_blocks / BLKS_PER_SEC(sbi);
+-	unsigned int dent_secs = total_dent_blocks / BLKS_PER_SEC(sbi);
+-	unsigned int node_blocks = total_node_blocks % BLKS_PER_SEC(sbi);
+-	unsigned int dent_blocks = total_dent_blocks % BLKS_PER_SEC(sbi);
++	unsigned int node_secs = total_node_blocks / CAP_BLKS_PER_SEC(sbi);
++	unsigned int dent_secs = total_dent_blocks / CAP_BLKS_PER_SEC(sbi);
++	unsigned int node_blocks = total_node_blocks % CAP_BLKS_PER_SEC(sbi);
++	unsigned int dent_blocks = total_dent_blocks % CAP_BLKS_PER_SEC(sbi);
+ 	unsigned int free, need_lower, need_upper;
+ 
+ 	if (unlikely(is_sbi_flag_set(sbi, SBI_POR_DOING)))
 -- 
-Sincerely yours,
-Mike.
+2.53.0
+
