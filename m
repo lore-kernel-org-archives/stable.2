@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BAC3D6488
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 13:23:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C920E3D34AB
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 13:23:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783085022; cv=none; b=AHahaAsthNd6sdMxEiYQbOjenDAPy2aVywSTogoqc3TUWVpQ+xXwBUWvvwYbzFDGwiHeJZLVMVp8FpKr3eidn0Ve8J1ylpEObJm7FccntchD5QjEI/VJR1ISVCu6rqAPX4J2D1jwgUg9NPyj6wZLocyw6M8zJmy2nWrPPwebCEo=
+	t=1783085027; cv=none; b=l5ZPxDGfkDciXt9TKrvYV2/b7n47rucWqTBn0YzXlg3VfJcyjkhdpmRd4sg+WloudKvK2NL8PFK0PFX0QP5HTyjy7rghA332MEZzQK8mjB1YbFX7pdgsgnm0Rdno27StiapxJb5C0BjkjuQx6akTF6ChC1tNW+M4vrEsZ7YGEPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783085022; c=relaxed/simple;
-	bh=NJDSUfVrYEpex+e549WvmMEHs3G12Spna2GVhRIK9Io=;
+	s=arc-20240116; t=1783085027; c=relaxed/simple;
+	bh=Lb5sSBOZ0OKXDu2ZauWRBrg8zRXO2hbRHe94LdNgsJc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bq4W8ofcXuQYANmO5G77FLWktAK0Sp8trowXY0XHpk0m2pzDlqPGdBVaRSvYpq1DAF8xJjFYY3cvieoK0VYKGAugoDhlT5uRNOXz/3jNYEiRLCaegvLgtVY37OamLV05xHA8THkjwsYb7riDQ0CrWRGqNbfuYgc1MZ7LjadRtLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fkOg6zQ/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tviIO+QbjwFCrqcD+J4B/39NbvutOG0QDYkebx7Ys4WqLV8+BPpuW6JH0DcoZZ4kCAEQbE3WY2lSrH37t2vqXOkFyAJdp24ufBX7wfiOeqpSRQNNYSSFyVBt0KklKF/41jVMzXqYatZLQSQUJvta9wQJx9EX0w9nfr+lHVWqPd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nq8g2wKp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fkOg6zQ/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0311F00A3A;
-	Fri,  3 Jul 2026 13:23:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nq8g2wKp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A175C1F000E9;
+	Fri,  3 Jul 2026 13:23:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783085020;
-	bh=7jPBbgit3jIHQLRh11TwU1p1v1IdI+1+fVlqB5oyykQ=;
+	s=k20260515; t=1783085025;
+	bh=mUuKXjYPypSHdEoskt18s4yOKAj9aZtDFZeDC3GevYg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fkOg6zQ/aSF2CtwRXVeXmsnaAdPE+noKLvtn1aLWDtNs9TWBUcaVkhB/HUzz6L1kX
-	 plIF1C5Dk2dbwgC4FrfGjE+8+17Oh35iPHIlhTq5LwWcH0UX8EmRWnPfc4XFUl/8FZ
-	 JVhWOWkA11BnEZmKsNnlazr3fgltrd70gqnUilgmeMVTo1yNqy+yUbExT9QcxQMZf6
-	 4JwT7RiRAFkklC9fzT0By6zRw03aUjSLMM81nGtnqd/5hu0gLZJufCHjyBUby1WPHH
-	 KjJk1fwrKvUMAOccWJR9gbLDjeLkYVY/ymDNOvNcntTqObMCu1h2NwqUwQABptoTnO
-	 tIx6aln+/rwSg==
+	b=Nq8g2wKpcnvVVvCCGlmVzgN6H/j++YHVEbY6zbqXyXuenE4onm0Cm2UvTNcyjQcs/
+	 MPrcWwQ7oCAd4goXV1CaLIbjRys9jXkVdtOHgtp4H9xbKWTiCU2mTaQzaqzHWa/IV+
+	 /rwygnn7kvYkIPNQtxMf2o+ecZmA7jprwhBTzp51jmLP3cF/GM28uE41g9JBBooz2c
+	 0xvQDbrQa8mc7Ez9k//yIasg1sBgUP0bFdYYaU/RxGBt4lQPXx2T2sq/Crvsh3agB+
+	 QnVn1kktdDT+IdELWs/SAv5y7sG49OM6LyfSZvNFSnhObqhkYDQ09iC0/xmUWbz3Hs
+	 aJKW1h/eMZEpw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sunmin Jeong <s_min.jeong@samsung.com>,
-	Yunji Kang <yunji0.kang@samsung.com>,
-	Yeongjin Gil <youngjin.gil@samsung.com>,
-	Sungjong Seo <sj1557.seo@samsung.com>,
-	Chao Yu <chao@kernel.org>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Daeho Jeong <daehojeong@google.com>,
+	Sunmin Jeong <s_min.jeong@samsung.com>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] f2fs: fix to round down start offset of fallocate for pin file
-Date: Fri,  3 Jul 2026 09:23:34 -0400
-Message-ID: <20260703132334.4098206-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] f2fs: atomic: fix UAF issue on f2fs_inode_info.atomic_inode
+Date: Fri,  3 Jul 2026 09:23:42 -0400
+Message-ID: <20260703132342.4101156-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260703132334.4098206-1-sashal@kernel.org>
-References: <2026070255-livable-cheese-d39c@gregkh>
- <20260703132334.4098206-1-sashal@kernel.org>
+In-Reply-To: <2026070242-sardine-wiring-9d91@gregkh>
+References: <2026070242-sardine-wiring-9d91@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,74 +48,169 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sunmin Jeong <s_min.jeong@samsung.com>
+From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit 4275b59673eb60b02eec3997816c83f1f4b909c4 ]
+[ Upstream commit e0288584baa5dc41df4a829a023c4c1b33fe53d7 ]
 
-Currently, the length of fallocate for pin file is section-aligned to
-keep allocated sections from being selected as victims of GC. However,
-for the case that the start offset of fallocate is not aligned in
-section, the allocated sections can't be fully utilized. It's because a
-new section is allocated by f2fs_allocate_pinning_section() after using
-blks_per_sec blocks regardless of the start offset. As a result, several
-unexpected dirty segments may be created, including blocks assigned to
-the pinned file.
+- ioctl(F2FS_IOC_GARBAGE_COLLECT_RANGE)		- shrink
+ - f2fs_gc
+  - gc_data_segment
+   - ra_data_block(cow_inode)
+    - mapping = F2FS_I(inode)->atomic_inode->i_mapping
+    : f2fs_is_cow_file(cow_inode) is true
+						 - f2fs_evict_inode(atomic_inode)
+						  - clear_inode_flag(fi->cow_inode, FI_COW_FILE)
+						  - F2FS_I(fi->cow_inode)->atomic_inode = NULL
+						  ...
+						  - truncate_inode_pages_final(atomic_inode)
+    - f2fs_grab_cache_folio(mapping)
+    : create folio in atomic_inode->mapping
+						  - clear_inode(atomic_inode)
+						   - BUG_ON(atomic_inode->i_data.nrpages)
 
-To address this issue, let's round down the start offset of fallocate
-to the length of section.
+We need to add a reference on fi->atomic_inode before using its mapping
+field during garbage collection, otherwise, it will cause UAF issue.
 
-The reproducing scenario is as below
-
-chunk=$(((2<<20)+4096)) # 2MB + 4KB
-touch test
-f2fs_io pinfile set test
-f2fs_io fallocate 0 0 $chunk test
-f2fs_io fallocate 0 $chunk $chunk test
-f2fs_io fallocate 0 $((chunk*2)) $chunk test
-f2fs_io fiemap 0 $((chunk*3)) test
-
-Fiemap: offset = 0 len = 12288
-    logical addr.    physical addr.   length           flags
-0   0000000000000000 000000068c600000 0000000000400000 00001088
-1   0000000000400000 000000003d400000 0000000000001000 00001088
-2   0000000000401000 00000003eb200000 0000000000200000 00001088
-3   0000000000601000 00000005e4200000 0000000000001000 00001088
-4   0000000000602000 0000000605400000 0000000000200000 00001089
-
-Cc: stable@vger.kernel.org
-Fixes: f5a53edcf01e ("f2fs: support aligned pinned file")
-Reviewed-by: Yunji Kang <yunji0.kang@samsung.com>
-Reviewed-by: Yeongjin Gil <youngjin.gil@samsung.com>
-Reviewed-by: Sungjong Seo <sj1557.seo@samsung.com>
-Signed-off-by: Sunmin Jeong <s_min.jeong@samsung.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
+Cc: stable@kernel.org
+Cc: Daeho Jeong <daehojeong@google.com>
+Cc: Sunmin Jeong <s_min.jeong@samsung.com>
+Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
+Fixes: f18d00769336 ("f2fs: use meta inode for GC of COW file")
+Signed-off-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/file.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ fs/f2fs/gc.c    | 50 +++++++++++++++++++++++++++++++++++++++++--------
+ fs/f2fs/inode.c | 11 ++++++++---
+ 2 files changed, 50 insertions(+), 11 deletions(-)
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index d4d485032e6ea6..3894c5889df8fe 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -1695,8 +1695,15 @@ static int expand_inode_data(struct inode *inode, loff_t offset,
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index 6e09b80c0c3779..b8a9412ca1dc83 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -1213,8 +1213,8 @@ static bool is_alive(struct f2fs_sb_info *sbi, struct f2fs_summary *sum,
+ static int ra_data_block(struct inode *inode, pgoff_t index)
+ {
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+-	struct address_space *mapping = f2fs_is_cow_file(inode) ?
+-				F2FS_I(inode)->atomic_inode->i_mapping : inode->i_mapping;
++	struct address_space *mapping = inode->i_mapping;
++	struct inode *atomic_inode = NULL;
+ 	struct dnode_of_data dn;
+ 	struct page *page;
+ 	struct f2fs_io_info fio = {
+@@ -1229,9 +1229,22 @@ static int ra_data_block(struct inode *inode, pgoff_t index)
+ 	};
+ 	int err;
  
- 	if (f2fs_is_pinned_file(inode)) {
- 		block_t sec_blks = CAP_BLKS_PER_SEC(sbi);
--		block_t sec_len = roundup(map.m_len, sec_blks);
-+		block_t sec_len;
- 
-+		if (map.m_lblk % sec_blks) {
-+			map.m_lblk = rounddown(map.m_lblk, sec_blks);
-+			map.m_len = pg_end - map.m_lblk;
-+			if (off_end)
-+				map.m_len++;
++	f2fs_down_read(&F2FS_I(inode)->i_sem);
++	if (f2fs_is_cow_file(inode)) {
++		atomic_inode = igrab(F2FS_I(inode)->atomic_inode);
++		if (!atomic_inode) {
++			f2fs_up_read(&F2FS_I(inode)->i_sem);
++			return -EBUSY;
 +		}
-+		sec_len = roundup(map.m_len, sec_blks);
- 		map.m_len = sec_blks;
- next_alloc:
- 		if (has_not_enough_free_secs(sbi, 0,
++		mapping = atomic_inode->i_mapping;
++	}
++	f2fs_up_read(&F2FS_I(inode)->i_sem);
++
+ 	page = f2fs_grab_cache_page(mapping, index, true);
+-	if (!page)
+-		return -ENOMEM;
++	if (!page) {
++		err = -ENOMEM;
++		goto out_iput;
++	}
+ 
+ 	if (f2fs_lookup_read_extent_cache_block(inode, index,
+ 						&dn.data_blkaddr)) {
+@@ -1288,11 +1301,16 @@ static int ra_data_block(struct inode *inode, pgoff_t index)
+ 	f2fs_update_iostat(sbi, inode, FS_DATA_READ_IO, F2FS_BLKSIZE);
+ 	f2fs_update_iostat(sbi, NULL, FS_GDATA_READ_IO, F2FS_BLKSIZE);
+ 
++	if (atomic_inode)
++		iput(atomic_inode);
+ 	return 0;
+ put_encrypted_page:
+ 	f2fs_put_page(fio.encrypted_page, 1);
+ put_page:
+ 	f2fs_put_page(page, 1);
++out_iput:
++	if (atomic_inode)
++		iput(atomic_inode);
+ 	return err;
+ }
+ 
+@@ -1303,8 +1321,8 @@ static int ra_data_block(struct inode *inode, pgoff_t index)
+ static int move_data_block(struct inode *inode, block_t bidx,
+ 				int gc_type, unsigned int segno, int off)
+ {
+-	struct address_space *mapping = f2fs_is_cow_file(inode) ?
+-				F2FS_I(inode)->atomic_inode->i_mapping : inode->i_mapping;
++	struct address_space *mapping = inode->i_mapping;
++	struct inode *atomic_inode = NULL;
+ 	struct f2fs_io_info fio = {
+ 		.sbi = F2FS_I_SB(inode),
+ 		.ino = inode->i_ino,
+@@ -1326,10 +1344,23 @@ static int move_data_block(struct inode *inode, block_t bidx,
+ 				(fio.sbi->gc_mode != GC_URGENT_HIGH) ?
+ 				CURSEG_ALL_DATA_ATGC : CURSEG_COLD_DATA;
+ 
++	f2fs_down_read(&F2FS_I(inode)->i_sem);
++	if (f2fs_is_cow_file(inode)) {
++		atomic_inode = igrab(F2FS_I(inode)->atomic_inode);
++		if (!atomic_inode) {
++			f2fs_up_read(&F2FS_I(inode)->i_sem);
++			return -EBUSY;
++		}
++		mapping = atomic_inode->i_mapping;
++	}
++	f2fs_up_read(&F2FS_I(inode)->i_sem);
++
+ 	/* do not read out */
+ 	page = f2fs_grab_cache_page(mapping, bidx, false);
+-	if (!page)
+-		return -ENOMEM;
++	if (!page) {
++		err = -ENOMEM;
++		goto out_iput;
++	}
+ 
+ 	if (!check_valid_map(F2FS_I_SB(inode), segno, off)) {
+ 		err = -ENOENT;
+@@ -1456,6 +1487,9 @@ static int move_data_block(struct inode *inode, block_t bidx,
+ 	f2fs_put_dnode(&dn);
+ out:
+ 	f2fs_put_page(page, 1);
++out_iput:
++	if (atomic_inode)
++		iput(atomic_inode);
+ 	return err;
+ }
+ 
+diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
+index 9180693b933f83..4aac423f2eae01 100644
+--- a/fs/f2fs/inode.c
++++ b/fs/f2fs/inode.c
+@@ -834,10 +834,15 @@ void f2fs_evict_inode(struct inode *inode)
+ 	f2fs_abort_atomic_write(inode, true);
+ 
+ 	if (fi->cow_inode && f2fs_is_cow_file(fi->cow_inode)) {
+-		clear_inode_flag(fi->cow_inode, FI_COW_FILE);
+-		F2FS_I(fi->cow_inode)->atomic_inode = NULL;
+-		iput(fi->cow_inode);
++		struct inode *cow_inode = fi->cow_inode;
++
++		f2fs_down_write(&F2FS_I(cow_inode)->i_sem);
++		clear_inode_flag(cow_inode, FI_COW_FILE);
++		F2FS_I(cow_inode)->atomic_inode = NULL;
+ 		fi->cow_inode = NULL;
++		f2fs_up_write(&F2FS_I(cow_inode)->i_sem);
++
++		iput(cow_inode);
+ 	}
+ 
+ 	trace_f2fs_evict_inode(inode);
 -- 
 2.53.0
 
