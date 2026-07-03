@@ -1,159 +1,171 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87223290C7
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 20:52:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF09358387
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 20:59:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783111965; cv=none; b=mNqIUF/8zwV8wYegqjrAu8WHbYeAVzwNKt6/XyAf3eso3rVtcbtBG99YE6kONa0VyIgW8DTpcZTY9287A8oA7swI38A6/Rgqzh7U0NaJPQ/5mv+/3uJRKWq6WGIMf/ibvCd+jZTa4m5i4T8tmPeYUhWROJTgx1DRcyMya+yOanA=
+	t=1783112388; cv=none; b=pYVm2MHUGzx5aHdLilDTb/LEC2xc7dkWXPw96x50uUp+4h0RcimtgkaJFie6NllVkasXRfNORdNJO4anbL+s9NVi1Ex3B5FgzlMA9KYWpHQs0Nis4KgjWzybPf1X+e+kAc6s2W0eAc+g/SWWXUVKzAKpPnZV3Zj0eDzw8TiSkDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783111965; c=relaxed/simple;
-	bh=mR6YDrtsNaRCApMFx3+4ev6RinDuN92aAnva8x1L73U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q1wSXFhvKxMQ5oBEEYaWu/7aUTiIZYO5E5BoV50CnE1eKzHvXbLJswRoe0rSRFPA+M8cKCXCkAOEMAWOPuoysbpuPm/8Lg98eZhwV2PWjfAhv9DItBVVTcEVhKAXmrezzAAPJBm/NsChyvKxYQoHwQjFKSZmO+FRU9AVCVp08O8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=usp.br; spf=pass smtp.mailfrom=usp.br; dkim=pass (2048-bit key) header.d=usp.br header.i=@usp.br header.b=hdm7HdnQ; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=usp.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=usp.br
+	s=arc-20240116; t=1783112388; c=relaxed/simple;
+	bh=A71QVY+Cp7VPv9rgoww0UCOYY2oiORrWhqzvLtbx/QA=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ji/YivWSD97JwQfHO8X/+kmLc2MLyW8kV/ZQeU1f/PlfEMGzAHR2RdU/N3BmZXak/RGK/+v+EHrRE7RM9u6ZXHloyhldX6uBV0eDQI0ASjQ0GafSSKtQpRqRKx/gJVyM3R5D8dWO309KtLUzHgK0NsDU8/QByKyVDNoLdfb3DnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LZT3RHFk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=usp.br header.i=@usp.br header.b="hdm7HdnQ"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-381065a7a03so727219a91.0
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 13:52:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=usp.br; s=usp-google; t=1783111961; x=1783716761; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=eSI4XWKv0pUmnj+beMYCn/ElRECteG3wg51iRAfobiE=;
-        b=hdm7HdnQI2sdWyD5qz0Xgo9r9oIQu7MhJf4p9UspuJvuCczuf8wntpC3Rfsedqvcje
-         i/6ygWLzbisNzHeeTm/7OEnEl48Ewb0V4Sr1tlzcIgPRNTIYPrOiW6umF4pIuUgvxt7t
-         WTUxy9NBX1f8mQWCegmH6p0cV5kQv1tNy8yr1PYGW44zNzBYWp3XxEy7yJ72xwZ6MeAi
-         pqsBJyA/enGYvxBnzaaq4GpbOi0hs1t5GbAjTwmt3kYFixUsNHTGCeagruxUV/stBZCF
-         KWXxAIdHsbA/CXqh6LXN98z64NY96jxXhyPxcka1DumOQX+R53I3VkMIdNjuBN9XqWdy
-         KN9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783111961; x=1783716761;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eSI4XWKv0pUmnj+beMYCn/ElRECteG3wg51iRAfobiE=;
-        b=k677IqDgli35wheC605VbQ1Wa1ro5TkWUHTV0qY4W0BeKP7FefzZ9UvclC3eVOMqCL
-         lI2VX/0dUpW9L0XAgFqrBDCNo00gvD0ztMCs0VCnXowCJugHvwUDMMFB4SBl6sOmSs8K
-         P4Hkov1qTelMJ9M6oje+hyypeOh3qJvXRVa58Kia57PP3DZXQqr1D8qOjwA6AiyfAAdP
-         Kr6NW+Pyg62jXYWJEAnMJznkmjjqGRuA50lyglsiVSPX0BE0DbJLJ+BFr7Cl1OFXO3Dz
-         IZVZLwNWc3AzwEEvWcctrSHUVWTIlmyhOrNbM1vsOH/hDcTEntSdM897UcFY8a7oy99F
-         AwtQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrGN4gji8mal/8KPWEpwDWO1HKTg7isw7pJxkS+UsKLK19BNwZsdeMj2Vgr2bJolHSN2TUDNdo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxmqyZ5VANN5ANOnPtFNr9Agj1ojcWj3kKjYiL1253tqxYUSegE
-	89zJ/ZJ4F3gLZipnCkcl3XMvV09BtntLTvm41ztX2Nd9SJ1JJ5gn61cV5brWLkYbSYo=
-X-Gm-Gg: AfdE7cll6jrQSdfQooydqkiP/toXy6WoH/oDt/lvw0mnF4JbgSnLIs1xWpkg22nUZeg
-	Nkyj2gMqpFAIIKnconTr9YWXTThVF9UkIYdkGr8f4Yrf0ngZdSU+7//c2uA0KrYbSG4tqSySlzo
-	Kz2ZI2rgsbS9ojFJa+4qiAbJrBtaHNH9y4xmuDOESu+LiF6WRgfL302R5GZQK5GUKx/O8ep+BEB
-	TInYyIA5A3qFDWgPakmRsmBArC4b07f3LwNWgEhJplCLGlyxVFC8j4V92a782SRhXGhEhhEv4Sm
-	fUFsGR4FG8vLFYn1Jktq6HWl/PnquTmeBhLBz2LJXM5fRaql+szVbVB/iZHTuHykqfKG2mjluab
-	bDb/mYv25+CZj9hU60izRvJ3EeQ8VIJe4LuLRhEwtwW83fBT5bsnjnTaJn4q5UMjnGmzqqy2p5k
-	uCXF4spOqeHmG4dKdnH2so6Ds/Uw==
-X-Received: by 2002:a17:90b:2ec3:b0:372:b4a1:21d8 with SMTP id 98e67ed59e1d1-38280c96dfamr909042a91.13.1783111960975;
-        Fri, 03 Jul 2026 13:52:40 -0700 (PDT)
-Received: from localhost ([2804:1b3:aa80:ec21:60b4:fa78:36e8:4b3])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-30f0b813c4dsm22484803eec.7.2026.07.03.13.52.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 13:52:40 -0700 (PDT)
-From: Erick Henrique <erick.henrique.rodrigues@usp.br>
-To: jic23@kernel.org
-Cc: andriy.shevchenko@intel.com,
-	andy@kernel.org,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	joshua.crofts1@gmail.com,
-	sashiko-bot@kernel.org,
-	linux-iio@vger.kernel.org,
-	Erick Henrique <erick.henrique.rodrigues@usp.br>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] iio: dac: m62332: Fix regulator reference count imbalance
-Date: Fri,  3 Jul 2026 17:52:36 -0300
-Message-ID: <20260703205236.201834-1-erick.henrique.rodrigues@usp.br>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LZT3RHFk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D235D1F00A3D;
+	Fri,  3 Jul 2026 20:59:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783112387;
+	bh=BfuXr9H6YzXwCCCoYsHNuPnXbN+h+qaE0JpFIz1KEWY=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=LZT3RHFkLAoICb90fWe4fd5+DpwaDwBeu3oubLyFoeYA/tjBqKAvU0Vn+/HMVK9FC
+	 PvTPVl4vJaQ/z4hlmEwn0HGI3ha4RFqV/4eJqPepn9HdSS9OHNHJBEK0MSxHeBVFFL
+	 GsjlsW1hPVw2f5PhghhCt4E174Jummhax93rC52X8TExjCft9zIpedJZyhGeIDHUcb
+	 FvbUe1O8RXnvhXcbLvZDPkLtlVJSjPRKQ/JajZUtasGCXqsfqkmW8uVhBXXsUX8nzX
+	 0SbQxsd+BxSxA1LLXLnIhlJ1q8Kieh1fqtL3mg8RTw68TBxPnElfTdWJIRgfl9CD02
+	 gVEjY5f+C2+xw==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id B6F98F40068;
+	Fri,  3 Jul 2026 16:59:45 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Fri, 03 Jul 2026 16:59:45 -0400
+X-ME-Sender: <xms:wSJIaqNV3AAnjczM_nK2csD2znW6ZTXyfl_lKrX-Q6PSI27lE3mPwg>
+    <xme:wSJIajy8k3qsxoFc1ZfNQcMcUHpGWI5M8hcDILBG1vTorRMKYWzDxXwQ72ku2a4xs
+    qRvZW5RCrpDTfagHL5LsTLokGQbKsq2iLrrQ6p3lpD3eGi3IBApBB0>
+X-ME-Proxy-Cause: dmFkZTGviJ5Hbr3mAoTh2jR51lHjouG5uW9woJzqrDUAqwMdE6q4pJyv591OBkQ2Il1u/f
+    0SQunAdJI9bo1ZdYvLao9lfugXE0Vlyy2RoKurBBLsIrGT6IsT2ir3i2aYV37ua+bkS8z+
+    rY+ndqjQBgi7dUl/pzILUeXPolqGOIFx7rYyx/SJLKaxs9vo/ZA0JD7nZE0qWutxBRaHzr
+    PNBJ9+0+m4IT1cXkbylifxKxkVkJGJwKeZmW4+78qMUQBnVX3vbGWEQQG278Ajo2VEn2Pu
+    ienTT+4Wl2SE8LkQG82cQfDE/9AmuodCJKok57JAI3b5rGdEunKCE0umlvTp9pTX852fdq
+    Gp7pMc40/W4ofPEvHzpTFJ5ZYk0ZpLMN9LU7B09E9oP9Z3HUXZJIhueO/zcU8q1LddFJEp
+    HAxw8x3o6diABNY1oUettvTymQUa9uUhViybPsWqIVrF6uJ4EC2ebR4gerqJZ5FiX6qdH5
+    UG9x7RZIfkDH4nam0Qx5FLg5vV+AqYAbprsNu0zE6VX8b6uydmp4eeLD5hGbFH5wJOcXrV
+    3zbotKw+aKs6y2/70bA3pejLVqDqJ7v6aNbk3BpwxaGinv0cm5r2W6ngltSNrUZZ9Z7SSq
+    XA79gsxx0TX7xFStTV3sWx69b+D1k4g2f9ql8i8OJi5MdJLL/Ol5IZE39VVQ
+X-ME-Proxy: <xmx:wSJIau9Dn1MrBwGpnmA2wFHlTKjtHJj9Wtq8BirWAdfxYr-xn-Ohvg>
+    <xmx:wSJIahSH4MYlAWQBWN9Ln5Sa1vpWEladoqAEtcQRKxfrkjleuM9fAA>
+    <xmx:wSJIanpQg8wlwyguSxDiL5b4_txplRLqtMt9fIMjUD2xYPDTCzdEIQ>
+    <xmx:wSJIammVOxj_9ABQ8ah934yIYY6XkiW48YP7IznlR9M40moaDaaMzQ>
+    <xmx:wSJIaocj5yVPMtwKPoM-K75jFvhc7DZ2tXOYGma7FHdND53VzORUFhbf>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 874CD780AB5; Fri,  3 Jul 2026 16:59:45 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AVhOwI0RYJaZ
+Date: Fri, 03 Jul 2026 16:59:25 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: "Wolfgang Walter" <linux@stwm.de>
+Cc: stable@vger.kernel.org, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ patches@lists.linux.dev, "Jeff Layton" <jlayton@kernel.org>,
+ "Alexandr Alexandrov" <alexandr.alexandrov@oracle.com>,
+ yangerkun <yangerkun@huawei.com>, linux-nfs@vger.kernel.org
+Message-Id: <ad301582-cb44-42cd-ab3f-c90f7c3dc11a@app.fastmail.com>
+In-Reply-To: <3d80d1812ab903dbc831fef122d3cc75@stwm.de>
+References: <20260703160306.1651327-1-cel@kernel.org>
+ <3d80d1812ab903dbc831fef122d3cc75@stwm.de>
+Subject: Re: 6.18.37 has problems with nfs4 (server), 6.18.36 works
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-m62332_set_value() enables the Vcc regulator on every write of a
-non-zero value and disables it on every write of zero, without tracking
-the channel's current state. Because the regulator is reference counted,
-changing a channel directly from one non-zero value to another enables
-it more than once, while a later write of zero disables it only once.
-The reference count never returns to zero and the regulator is left
-enabled indefinitely.
 
-Only enable the regulator on the transition from zero to non-zero, and
-only disable it on the transition from non-zero to zero, using the
-previously stored channel value to detect the edge. Balance the
-regulator on the I2C error path so the reference count stays consistent
-if the write fails.
 
-Fixes: b87b0c0f81e8 ("iio: add m62332 DAC driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260418130322.106769-1-erick.henrique.rodrigues%40usp.br
-Cc: stable@vger.kernel.org
-Signed-off-by: Erick Henrique <erick.henrique.rodrigues@usp.br>
----
-v2:
-- Use local enabling/disabling booleans for the edge conditions (Jonathan)
-- Credit Sashiko directly in Reported-by with a Closes: link to its
-  report entry, per Jonathan
-v1: https://lore.kernel.org/r/20260630021309.36636-1-erick.henrique.rodrigues@usp.br
+On Fri, Jul 3, 2026, at 2:30 PM, Wolfgang Walter wrote:
+> Hello Chuck,
+>
+> Am 2026-07-03 18:03, schrieb Chuck Lever:
+>> Hi Wolfgang, and stable@ --
+>> 
+>> Short version for stable@: 6.18.37 does not need a revert of
+>> 95f9eb19d5e6 ("Revert 'NFSD: Defer sub-object cleanup in export
+>> put callbacks'").  That commit is correct for 6.18, and it is
+>> not the cause of Wolfgang's crash.  Please leave it in place.
+>
+> Ok. I run v6.18.37 with the patch reverted since about a day (just for 
+> the record). But according to your analysis, that's just a coincidence.
+>
+>> 
+>> The reasoning: 95f9eb19d5e6 touches only fs/nfsd/export.c,
+>> export.h, and nfsctl.c.  Wolfgang's oops is in
+>> remove_blocked_locks() -> __destroy_client() ->
+>> nfsd4_destroy_clientid(), entirely within fs/nfsd/nfs4state.c,
+>> which the revert does not modify.  That path is byte-for-byte
+>> identical across 6.18.36, 6.18.37, and current mainline, so the
+>> revert cannot have introduced the bug and no missing backport
+>> repairs it.  The 6.18.36-good / 6.18.37-bad split is a timing
+>> coincidence; I believe the same latent bug is present in both.
+>> 
+>> Because the defect is present upstream as well, the fix belongs
+>> in mainline first and is then backported to 6.18.y and the other
+>> affected trees.
+>> 
+>> Wolfgang - to confirm this and capture the allocation and free
+>> stacks, a KASAN-enabled kernel would settle it.  On a v6.18.37
+>> tree:
+>> 
+>>   1. Add to your .config (keep your usual CONFIG_DEBUG_INFO so
+>>      symbols resolve):
+>> 
+>>        CONFIG_KASAN=y
+>>        CONFIG_KASAN_GENERIC=y
+>>        CONFIG_KASAN_INLINE=y
+>>        CONFIG_STACKTRACE=y
+>> 
+>>   2. Build and boot that kernel.  Stay on 6.18.37 -- you do not
+>>      need the revert-the-revert build I suggested earlier; that
+>>      experiment no longer tells us anything.
+>> 
+>>   3. When it trips, KASAN prints a "BUG: KASAN: use-after-free"
+>>      report with "Allocated by" and "Freed by" call stacks.
+>>      That report, in full, is what I need -- it should land in
+>>      /var/log/messages just as the last oops did.
+>> 
+>> One caveat: KASAN roughly doubles memory use and adds CPU cost,
+>> so weigh that before running it on the production server.  If
+>> that is not practical, a full log from the first stall line
+>> onward, with all CPU backtraces, captured over netconsole or
+>> serial, is a useful second best.
+>> 
+>> I will draft a candidate upstream fix from the analysis so far
+>> and send it separately.  If KASAN on the production box is not
+>> an option, testing that patch may be the least disruptive way
+>> to confirm.
+>> 
+>
+> I think the memory usage should not be a problem, higher cpu usage 
+> neither.
+>
+> But as it is a coincidence the probability to catch that error is 
+> probably very low. We use v6.18 kernels since v6.18.1 on that fileserver 
+> and this error never occured before.
+>
+> Or do you think it happens more often, but without symptoms, and KASAN 
+> would detect it?
+>
+> So I will try running a v3.18.37 + your patch applied. This of course 
+> can not prove that it fixes the problem because it almost never happens, 
+> but probably this would detect if if the patch had side effects.
 
- drivers/iio/dac/m62332.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+Correct: your reproduction of the crash does not appear to
+be strongly correlated with any particular kernel release. I
+based my analysis strictly on the additional stack trace data
+you sent earlier today.
 
-diff --git a/drivers/iio/dac/m62332.c b/drivers/iio/dac/m62332.c
-index 3497513854d7..2c13feee8d61 100644
---- a/drivers/iio/dac/m62332.c
-+++ b/drivers/iio/dac/m62332.c
-@@ -32,6 +32,7 @@ static int m62332_set_value(struct iio_dev *indio_dev, u8 val, int channel)
- {
- 	struct m62332_data *data = iio_priv(indio_dev);
- 	struct i2c_client *client = data->client;
-+	bool enabling, disabling;
- 	u8 outbuf[2];
- 	int res;
- 
-@@ -43,7 +44,10 @@ static int m62332_set_value(struct iio_dev *indio_dev, u8 val, int channel)
- 
- 	mutex_lock(&data->mutex);
- 
--	if (val) {
-+	enabling = val && !data->raw[channel];
-+	disabling = !val && data->raw[channel];
-+
-+	if (enabling) {
- 		res = regulator_enable(data->vcc);
- 		if (res)
- 			goto out;
-@@ -52,14 +56,17 @@ static int m62332_set_value(struct iio_dev *indio_dev, u8 val, int channel)
- 	res = i2c_master_send(client, outbuf, ARRAY_SIZE(outbuf));
- 	if (res >= 0 && res != ARRAY_SIZE(outbuf))
- 		res = -EIO;
--	if (res < 0)
-+	if (res < 0) {
-+		if (enabling)
-+			regulator_disable(data->vcc);
- 		goto out;
-+	}
- 
--	data->raw[channel] = val;
--
--	if (!val)
-+	if (disabling)
- 		regulator_disable(data->vcc);
- 
-+	data->raw[channel] = val;
-+
- 	mutex_unlock(&data->mutex);
- 
- 	return 0;
+I think it's more likely that your 50 client workload hit a
+particular race that exposed a pre-existing UAF. KASAN will
+change execution timing, certainly, but I can't predict
+whether it will make the race window bigger.
+
+So you can only test whether my patch causes new regressions,
+not whether it prevents your crasher. :-(
+
+
 -- 
-2.51.0
-
+Chuck Lever
