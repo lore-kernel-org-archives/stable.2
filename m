@@ -1,251 +1,146 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770963DD852
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 10:32:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEDD3CEBBB
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 10:36:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783074767; cv=none; b=Cfz3ECNUU2ORvhRiYviT/jOdUnkpbezVb9nLhmBiALzY/Vqx2XfelEG5ODpGSOL0Lch40VOHsHimUXO6rKWBtwNa/Dbbt4fjObRmG5bH3pU50Hph9V8Yax+eEMPSxQxBcitg89qudHq3FiUnXQVych2fu5oL5QNjomc+nPho3ho=
+	t=1783074987; cv=none; b=gGGe7kW50i4Knq4y5AENAWrya93dqitGCTtesCoFFzTNUpVz8+FSmCCmOhzxe6Bs/laDaKEZhaXeiAdp9Ez/KL3VLk0QZeXJjSVIUYSKJSnYenOjtwi7ZMDOX1dLawExyxURsoxTyS6Jx4xF759K9Xf8zKvY0IzsexNob76gVjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783074767; c=relaxed/simple;
-	bh=Tm8VgvFWvXiTmoyvRnjPUK67MVmbbmRSs7WoNfnh3iQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ce/IV3Gv/Bi0PpathCtEpd2J/OP2jh7YrwzPPYZ4AM5OnqZdB3vzZZvrjXP6RyJl0SmI+Hbxupe1QfYq8sGUM4SmCfFw0vewG8WPTL6riUjkJ13Wf3pPQV2UqRdQV7qiTL8RXZm0HvnTnfXXcqv5M7tGU3XrhaZi3dlXG+z3R/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=drBd1qvB; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1783074987; c=relaxed/simple;
+	bh=92i8UPrYFM9G2v+lQeSO5oIi2vXqIG/djDXA+JTb+y8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WO5MRyLHqS1eSiaVQZCaQsIEJIDgL9mkSpDjs4PH0/Op0hxPggbJ5rimrUAhM1TFUW+ptNQytVSw9DuB1pbk3cQUM/Wa5nQzGTVUDmvXnw1yj6YvjmBhA1qam5GAdPh2/pe/92usy+YCJHuHRWWjuCDhQ/xijjOLUEeZfnalkm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EpJdPjDS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=falUHtrx; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="drBd1qvB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783074764;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NaKQdFI56yqpqD9iJJ20XQp95MNPvmZUW2GKpcwiGUk=;
-	b=drBd1qvB/i1TRI01l/IxkFXK28XiKIC3tm5LDoer2RvPqBqqi6CLZcCMeaocH22YmQO6A1
-	BrAxw+YlU3mT76O0VYnPTq7OeeQcM+56vhy2CQW8vODv8D8Ib4aMDNMt4Jhg8FY+xR2Wvl
-	FLlnV554x892wVq5miWOFLVv89fo0Fw=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-563-w5v3z22nPDGybJn8X80hkQ-1; Fri,
- 03 Jul 2026 06:32:41 -0400
-X-MC-Unique: w5v3z22nPDGybJn8X80hkQ-1
-X-Mimecast-MFC-AGG-ID: w5v3z22nPDGybJn8X80hkQ_1783074759
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DEACB1944AB4;
-	Fri,  3 Jul 2026 10:32:38 +0000 (UTC)
-Received: from vmalik-fedora.redhat.com (unknown [10.44.34.72])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 857BE1971E7D;
-	Fri,  3 Jul 2026 10:32:32 +0000 (UTC)
-From: Viktor Malik <vmalik@redhat.com>
-To: linux-perf-users@vger.kernel.org
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Viktor Malik <vmalik@redhat.com>,
-	Howard Chu <howardchu95@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Michael Petlan <mpetlan@redhat.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] perf trace: Refactor augmented_raw_syscalls using bpf_for
-Date: Fri,  3 Jul 2026 12:32:15 +0200
-Message-ID: <8ceb8f3323d0742163c42c343eb9d26843fe9e9b.1783070132.git.vmalik@redhat.com>
-In-Reply-To: <cover.1783070132.git.vmalik@redhat.com>
-References: <cover.1783070132.git.vmalik@redhat.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EpJdPjDS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="falUHtrx"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6635rbKl3136127
+	for <stable@vger.kernel.org>; Fri, 3 Jul 2026 10:36:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	y7nX2t7d/sMmYWGo3rIr0X5bV0IZTvF333uqoqdP2u0=; b=EpJdPjDS1nK7FVuc
+	MpWYxPN1aKqTdHLS0tw5yQCXtxcMTIby4BTOJ6bwQUxcn15qaE/22tHgCbu+ZN/5
+	uZdmwzjZpBnebH9i0TtMmZozqbP7VIcdjvjMtpYJqKJj7g0yr4ro6chrub1oo7k3
+	od8kKowptdwNXwTW/qgPgjzzgWpeQp95Gf6GhhVI5SccldkjHR9NpmlY3ImaaMlC
+	APNYEWe8YYQbApC46CZfupqD2RXJF8mAxFKYnwKXMeDpq9hbZNsV3jl0hhuuGTgZ
+	7TrBHGMjC7cRFUH0BjOxgEON+AthjlkeQ5ilaq3Td+El0FiDxdFfAZQRYMox/YW2
+	rEVHig==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f64b59v93-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 03 Jul 2026 10:36:23 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2c9d85160caso5534165ad.1
+        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 03:36:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783074983; x=1783679783; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=y7nX2t7d/sMmYWGo3rIr0X5bV0IZTvF333uqoqdP2u0=;
+        b=falUHtrxMtYvThnG3YsGO53F2+emillcNsmKzKA5XMRj3qvxUCL6c+3m5epKib28wq
+         Ys/OAoELVPxuE91Fw6WJykXUCG9hUpbmw78B6cnytCJQBARWTcj8JNoyEdoQIIMr66ng
+         TiuBq+U9hSQfgRdb6kEGupLkK6WQOBBrKA3XWVWsPPWF2sXtpDng7hctHTsYR2ww2DJP
+         LuidvbBRd7h5Ht8gNUV/zivTx0QyLNWuNr88qa/BfvPM/gzT1HM1FZpxS0VuWV8eaEIG
+         ws4re8kniSEI2+j0YdkeIdPVDm/ISIetP2NMr5kziXdpiVQ+cqpDyfQm/AGo3avB7Ix3
+         wFCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783074983; x=1783679783;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=y7nX2t7d/sMmYWGo3rIr0X5bV0IZTvF333uqoqdP2u0=;
+        b=LKXDiXwUdLohB/FQ0ckJTKe420cM2CtkwiMd56Z6T8/s+ShUlIVXYgL/X6mUCuJSHv
+         zjEvmix1hy/ejqtIwjaAGaPP2oU3kmUc/cBwQ1gPKEvXCoNZOqB6EB8/azhmWMtSoTff
+         gbva1xdQn7sRHoH3oGkFe8jZ2rUNPdmPUF3wiCLkrC+w7Q0q0eRf7ujOS3UJVQE7+9Gu
+         /VbAY75TGox5QARD6KN2jsMWbb1SE73PWm9fTJeEeFmR6bjCrbsSPiK5NrWMBuD835/M
+         /PWz/1//+ihYks+X5FdQdOrknKPhMVPiibaWPgmYT8YZ3cGKWhgxbfvNk/QZhTg2fGqf
+         JXwA==
+X-Forwarded-Encrypted: i=1; AFNElJ9StDr1yHZqc/jk4TGUP9IcVreQMNz6f6aEDw/XFuhrG0Ovg7VuC9ERCKYkXj/EJiqoMbuKglY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeTRIyRkarq7/p5cBFoRHA3DOQxVLJVnaT994tjpoWgJip9xOR
+	lEsHKMyY3twugRTNe2RDY2uf6dpj0DyUutbDkkmBEF5vMDA4h9ZJqQHXApGhYPzMKhhiqnHr5ZK
+	wC3C/chfljCwrsTTZnaydNREzTN7U6qPmAGhBVBvCDobkSqyDtHN6MpMf/2k=
+X-Gm-Gg: AfdE7cn+tDpveW2SyMD32ZioRV15cet3hPeJElbzFppL++10zK/K53IWCilRqkjv9+g
+	QfUX48n6HPjGM+HmwrpaBboJM7IGTnb+T+5FuvrGYl5TpPhNkd1IQ2jn4VRYNSLCUTRM3SZZuFa
+	7MebwVRcHSLqiTanWD6saKCOCQuRPE+FZLB+cm7Fc9D0mE8o9vYQz1PfYWH5Zs9deaZYPMtjHp2
+	J1loZmz23BRT5JQl4f2+Ro64QupgvPIs9Ps+5blr4M6Ua/BYP7b2pj7/lwigcvbMmT9dhXoPZaC
+	vAAFSsd0r1rmRhXPGdB0Omy5WrLzaDTCgrDkUqyXWwKPT9cif+cz5IkrcExSm6XPLA+7L7eX1sC
+	oeP2zNonIpcDQJveeq4VwAb88tuzcqlrkJcQDc7UJGhjKTo/PiHk=
+X-Received: by 2002:a17:903:3c6b:b0:2c9:d56d:afa3 with SMTP id d9443c01a7336-2cacb070082mr42780315ad.15.1783074982843;
+        Fri, 03 Jul 2026 03:36:22 -0700 (PDT)
+X-Received: by 2002:a17:903:3c6b:b0:2c9:d56d:afa3 with SMTP id d9443c01a7336-2cacb070082mr42779985ad.15.1783074982316;
+        Fri, 03 Jul 2026 03:36:22 -0700 (PDT)
+Received: from [10.152.199.23] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b446a766asm13555217c88.7.2026.07.03.03.36.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 03 Jul 2026 03:36:21 -0700 (PDT)
+Message-ID: <20d52df0-a33c-48da-8f62-9adb7c77eea0@oss.qualcomm.com>
+Date: Fri, 3 Jul 2026 16:06:17 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] wifi: ath11k: fix potential buffer underflow in
+ ath11k_hal_rx_msdu_list_get()
+To: Dmitry Morgun <d.morgun@ispras.ru>, Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+        linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
+        stable@vger.kernel.org
+References: <20260530114252.42615-1-d.morgun@ispras.ru>
+From: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260530114252.42615-1-d.morgun@ispras.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDEwMiBTYWx0ZWRfX2BzGyEnSBCGL
+ wiIHwky871ITNp4eVNM14X1ENWV8dMtIrgvcc73Z2PMCVPrGCiXYsI7gYvtBI4/ab5i5Oo0iV+Z
+ w8/SSHG4A5VM5pGGh/PzYyz46JB6hO4=
+X-Authority-Analysis: v=2.4 cv=FOQrAeos c=1 sm=1 tr=0 ts=6a4790a7 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=HH5vDtPzAAAA:8 a=xjQjg--fAAAA:8 a=EUspDBNiAAAA:8 a=YRM84PAP6wGYPlwToDIA:9
+ a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10 a=GvdueXVYPmCkWapjIL-Q:22
+ a=QM_-zKB-Ew0MsOlNKMB5:22 a=L4vkcYpMSA5nFlNZ2tk3:22
+X-Proofpoint-ORIG-GUID: KeNB5v_HafZhno-98tMptoodGdGahRrR
+X-Proofpoint-GUID: KeNB5v_HafZhno-98tMptoodGdGahRrR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDEwMiBTYWx0ZWRfX3Ply/TiYvzUB
+ QfZoib3TmrV8RzszLZ54FtGjmYIjAiGXU4LXujDF3/m6jiYHSPTvkyhijPmOpXwQzuSQqbbWc4N
+ Y4FXvNSuWrg4sgbXlmAN2a79ck6V+VGqBPeNbGoO5LNzZVN6gjaL5vGG8l6LvYEDIY+gzeQYPZn
+ UQsxit0RG7BbVc9ww626DFcg/G9dgQfRA9CcIpqcZMRSm2iX2CK5Nh5CqqWYPDImF7G5wGYqTeq
+ fkH7axtkLvhc07MfR98053PgN+QjBQWFQPfBT+BIJbRT5P0LB87avSOm3fpEcktdlvQQR707xrg
+ 0VseAcsVTUdSOsEWr6mT2uuLvX5uhUbpKTYrFXY8Ouf6Hd9TwBpIhXjnwFVovGG02tj24n+wuhe
+ L5lPvW4GZnm/2qKZjf6K0GRTukt3Ly/j3YzppnCkhdCrzvA/1MGh6GOzB6LwbVVOfZJFj3CDT1n
+ qdEwJ7+lzwnqzq/mMww==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
+ bulkscore=0 adultscore=0 clxscore=1015 malwarescore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607030102
 
-The loop for processing syscall args in augment_raw_syscalls has a
-history of breaking with Clang updates, see e.g. commit 013eb043f37b
-("perf trace: Fix BPF loading failure (-E2BIG)") from Clang 15 to 16.
-
-Now, a similar thing happened between Clang 21 and 22. While the issue
-is mitigated on the main line by a recent verifier update, it remains
-broken on the 6.12 and 6.18 stable branches:
-
-    [linux-6.18.y]# sudo perf trace true
-    libbpf: prog 'sys_enter': BPF program load failed: -E2BIG
-    libbpf: prog 'sys_enter': -- BEGIN PROG LOAD LOG --
-    [...]
-    BPF program is too large. Processed 1000001 insn
-    processed 1000001 insns (limit 1000000) max_states_per_insn 40 total_states 37941 peak_states 232 mark_read 0
-    -- END PROG LOAD LOG --
-    libbpf: prog 'sys_enter': failed to load: -E2BIG
-    libbpf: failed to load object 'augmented_raw_syscalls_bpf'
-    libbpf: failed to load BPF skeleton 'augmented_raw_syscalls_bpf': -E2BIG
-    Error: failed to get syscall or beauty map fd
-    [...]
-
-The reason is that the loop is quite complex and the BPF verifier often
-struggles to prove that it terminates.
-
-Fix the issue by replacing the standard for loop by the bpf_for macro,
-which uses numeric BPF iterator. This should prevent future breakages of
-this kind since the verifier has much easier job proving that the loop
-terminates.
-
-Small adjustments were necessary for the loop to make it work.  The main
-problem is that the verifier has sometimes problems with bpf_for loops
-that use a carry-over state, such as the `payload_offset` and `output`
-vars here, since the verifier tries to track their values too precisely
-and cannot prove loop convergence. To resolve the issue, we (1)
-explicitly recompute `payload_offset` in every iteration and (2) use a
-trick with adding a global zero to `output` to help verifier forget its
-precise state and use a range instead.
-
-In exchange, this also allows to drop a few artificial checks to help
-the verifier, including the changes introduced by 013eb043f37b.
-
-Finally, to keep backwards compatibility with older kernel versions
-which do not have bpf_for (i.e. numeric iterators), fall back to
-standard for loop in such a case.
-
-Signed-off-by: Viktor Malik <vmalik@redhat.com>
-Suggested-by: Andrii Nakryiko <andrii@kernel.org>
-Fixes: a68fd6a6cdd3 ("perf trace: Collect augmented data using BPF")
-Fixes: 013eb043f37b ("perf trace: Fix BPF loading failure (-E2BIG)")
-Cc: stable@vger.kernel.org
----
- .../bpf_skel/augmented_raw_syscalls.bpf.c     | 54 +++++++++++++------
- 1 file changed, 39 insertions(+), 15 deletions(-)
-
-diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-index cbdd5ce19a2f..60babc06f381 100644
---- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-+++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-@@ -429,6 +429,8 @@ static bool pid_filter__has(struct pids_filtered *pids, pid_t pid)
- 	return bpf_map_lookup_elem(pids, &pid) != NULL;
- }
- 
-+u64 ZERO = 0;
-+
- /*
-  * Determine what type of argument and how many bytes to read from user space, using the
-  * value in the beauty_map. This is the relation of parameter type and its corresponding
-@@ -439,12 +441,13 @@ static bool pid_filter__has(struct pids_filtered *pids, pid_t pid)
-  * buffer: -1 * (index of paired len) -> value of paired len (maximum: TRACE_AUG_MAX_BUF)
-  */
- static inline int augment_arg(struct syscall_enter_args *args, int i,
--			      unsigned int *beauty_map, void *payload_offset)
-+			      unsigned int *beauty_map,
-+			      struct beauty_payload_enter *payload, u64 offset)
- {
- 	int index, value_size = sizeof(struct augmented_arg) - offsetof(struct augmented_arg, value);
- 	s64 aug_size, size;
- 	bool augmented;
--	void *arg;
-+	void *arg, *payload_offset;
- 
- 	arg = (void *)args->args[i];
- 	augmented = false;
-@@ -454,6 +457,12 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
- 	if (size == 0 || arg == NULL)
- 		return 0;
- 
-+	/* bounds check for the verifier */
-+	if (offset > sizeof(payload->aug_args) - sizeof(payload->aug_args[0]))
-+		return -1;
-+	barrier_var(offset);
-+	payload_offset = (void *)&payload->aug_args + offset;
-+
- 	if (size == 1) { /* string */
- 		aug_size = bpf_probe_read_user_str(((struct augmented_arg *)payload_offset)->value, value_size, arg);
- 		/* minimum of 0 to pass the verifier */
-@@ -464,11 +473,13 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
- 	} else if (size > 0 && size <= value_size) { /* struct */
- 		if (!bpf_probe_read_user(((struct augmented_arg *)payload_offset)->value, size, arg))
- 			augmented = true;
--	} else if ((int)size < 0 && size >= -6) { /* buffer */
-+	} else if (size < 0 && size >= -6) { /* buffer */
- 		index = -(size + 1);
- 		barrier_var(index); // Prevent clang (noticed with v18) from removing the &= 7 trick.
- 		index &= 7;	    // Satisfy the bounds checking with the verifier in some kernels.
--		aug_size = args->args[index] > TRACE_AUG_MAX_BUF ? TRACE_AUG_MAX_BUF : args->args[index];
-+		aug_size = args->args[index];
-+		if (aug_size > TRACE_AUG_MAX_BUF)
-+			aug_size = TRACE_AUG_MAX_BUF;
- 
- 		if (aug_size > 0) {
- 			if (!bpf_probe_read_user(((struct augmented_arg *)payload_offset)->value, aug_size, arg))
-@@ -497,11 +508,10 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
- static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
- {
- 	bool do_output = false;
--	int zero = 0, written;
-+	int i, zero = 0, written;
- 	u64 output = 0; /* has to be u64, otherwise it won't pass the verifier */
- 	unsigned int nr, *beauty_map;
- 	struct beauty_payload_enter *payload;
--	void *payload_offset;
- 
- 	/* fall back to do predefined tail call */
- 	if (args == NULL)
-@@ -513,7 +523,6 @@ static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
- 
- 	/* set up payload for output */
- 	payload        = bpf_map_lookup_elem(&beauty_payload_enter_map, &zero);
--	payload_offset = (void *)&payload->aug_args;
- 
- 	if (beauty_map == NULL || payload == NULL)
- 		return 1;
-@@ -521,14 +530,29 @@ static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
- 	/* copy the sys_enter header, which has the syscall_nr */
- 	__builtin_memcpy(&payload->args, args, sizeof(struct syscall_enter_args));
- 
--	for (int i = 0; i < 6; i++) {
--		written = augment_arg(args, i, beauty_map, payload_offset);
--		if (written < 0)
--			return 1;
--		if (written > 0) {
--			output += written;
--			payload_offset += written;
--			do_output = true;
-+	if (bpf_ksym_exists(bpf_iter_num_new)) {
-+		bpf_for(i, 0, 6) {
-+			written = augment_arg(args, i, beauty_map, payload, output);
-+			if (written < 0)
-+				return 1;
-+			if (written > 0) {
-+				output += written;
-+				/* guide the verifier to forget range of `output`, which
-+				 * helps to prove convergence of the loop
-+				 */
-+				output += ZERO;
-+				do_output = true;
-+			}
-+		}
-+	} else {
-+		for (i = 0; i < 6; i++) {
-+			written = augment_arg(args, i, beauty_map, payload, output);
-+			if (written < 0)
-+				return 1;
-+			if (written > 0) {
-+				output += written;
-+				do_output = true;
-+			}
- 		}
- 	}
- 
--- 
-2.54.0
-
+On 5/30/2026 5:12 PM, Dmitry Morgun wrote:
+> When the first entry in msdu_details has a zero buffer address,
+> the code accesses msdu_details[i - 1] with i == 0, causing a
+> buffer underflow.
+> 
+> Fix similarly to ath12k_wifi7_hal_rx_msdu_list_get() by adding
+> a separate check for i == 0 before the main condition to prevent
+> the out-of-bounds access.
+> 
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> 
+> Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
+> Signed-off-by: Dmitry Morgun <d.morgun@ispras.ru>
+Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
