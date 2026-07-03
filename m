@@ -1,80 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B75386440
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 11:47:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574653C3C00;
+	Fri,  3 Jul 2026 11:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783079248; cv=none; b=O1mVs3xW51L7QzD/iLilSdJN5IegEQIYAQABpTiVwpq5Y8NI9RC/EOjmly/d2yb33qcf0bl0Vzl1k3w+6ZQZqTQpioLUVLGrR0sv0xfxvJLqNwAISWpxMd8eFoQyWCyl5VMCXmcmjYMdBQUWAnRcF+FoVbKYuu5ZV4y9a2wj1Ik=
+	t=1783079322; cv=none; b=F/fX21m+dbC4zeXkgXs3JMILC7gplx5hQF0LjFFMirAmGHQIXP9IKfMw/W2C2bUJC8xoNlSAtnVf+H7DrxS0GWUV1dYTTsqpoBB436LAxn+nlWawPN6ZNRvPAZwGt+s4Wsj3/01OlRTLPYCluwEYFuSpScj8aREdBEpOwaVsNRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783079248; c=relaxed/simple;
-	bh=PAqfQAOpMlMDCw8VgFjXaKgS8Em1IBXIvmErmx2w6HY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aPl/w/BYB4wFJAzEHMFDBR4cWka9drCh5WuBxHKkitMN43B1AP0hQNDZLpq4W2fCyVLgWc/EQ8EuhQEUx22f7aNxD4zxT6OSj57uIN6mNTVv/F/f5QvDeJE8TfmC12mtY8jwUJDkfwi7IwEj8ssT/eB28IddsKxBGOoIG9i62Bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PiaJW733; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783079322; c=relaxed/simple;
+	bh=2qmujaOaVVRwvameAxp1+bgrW1ZkyLD3rS3mOuVolrk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ckQXWWFCmNzFz/mPwPDo0PtFDO0Cfx1f0Xlh2GJeVywQmJAgxlP7YMBOs/tXTWXNhQfctpzED4sIfu/qUq8A1PeTaJpC96ssZsCFHOVR8n0i27BkRZ5HCNPABwrumQqDux+83UqBj8EFtkQFDqsY9SMUFsVJCR+/arfYshtw3CI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=JiT1ywmg; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PiaJW733"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A4971F00ADB
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 11:47:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783079247;
-	bh=PAqfQAOpMlMDCw8VgFjXaKgS8Em1IBXIvmErmx2w6HY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PiaJW733uwYb8erG29p49uhNQfoo3dgX4tI31n/7Cka2uYkC899P/0dvWym1mu/Iu
-	 poc2i6mHcgT7zFGmBankKzqZLWdahpops2eopauVNQytOApiTcklTmxJl4+3up/Tu3
-	 qLXVOycUKC9th+4dZhwvg3K0nHqS62HCX4epWVvvPGiKGZlDEGo1Lfxt2pciRgofYx
-	 p4UkSpW92aQMmkkFzVQBy76H6y1NlsIMjle9SYRX9k4cKvLmCGWLI6LnIv7jOel0wp
-	 XDF/ys6Df4nPSbTX5QGVZB6CdkMdPow4vItDPpAxtKylZ+zRcXJo3XBc76lLlYhqmK
-	 OUyAeGOB6lk5A==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aebc8cb5bcso356903e87.2
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 04:47:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RppcCp4zjlK0i37ORTw+A67pL/oWyycukKj9axJa0HfHdGIc0fJ4TrjJiYSEjvwkucRnLtxXls=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2bPE9mKPvsJnHfv3dRtY/zS9w+aid56GxzW+Jf839ZlB6/4J4
-	z2RpDw+QbKlsiB1LkifBtcA0lHEpQaJTyybOAPEf60YhKqa9PYBGZGoHXI3bxeOobkpVunVtaTZ
-	uPoG4m9+wSPqaELi9/jq766VbyMFQJG4=
-X-Received: by 2002:a05:6512:a354:b0:5ae:ba3e:a6f6 with SMTP id
- 2adb3069b0e04-5aec67a2b83mr1899880e87.4.1783079246183; Fri, 03 Jul 2026
- 04:47:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="JiT1ywmg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1783079309;
+	bh=2qmujaOaVVRwvameAxp1+bgrW1ZkyLD3rS3mOuVolrk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=JiT1ywmg4xkCZ/qEqDH7jsOSe38F8V6HakA4KDCgZOF8KpT52TvHoY2G8gKqN0luL
+	 5NS83mzzLyaEcDjrLiCXE+ZbXhW9C26QzbZh3T29iwdSyklFHYIbj/CAft9bTh0lL7
+	 dQJGcjYfV08lgGkg7zv9Untuo7UZa2o2obFadG6T77auQF1HDYJkhBO54yuUH5p/+t
+	 WrQkYc8NtpwT/6lNLj0A5+T4p4FMLQh87f7gBTQx8VpZ3vZAXIeG9FqBCofRPHXjOa
+	 K1pHGzlU/kQOTEm0BNAOTV0GHZSLQJddem/S4UBcZ4a+vcNdygMsRS1gWpvJm5QxJU
+	 SnLsZKG4Cs7Hg==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 4B47B26546;
+	Fri,  3 Jul 2026 14:48:29 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Fri,  3 Jul 2026 14:48:28 +0300 (MSK)
+Received: from rbta-msk-lt-169874.astralinux.ru (unknown [10.198.57.102])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4gsBph0FnjzhvC;
+	Fri, 03 Jul 2026 14:48:28 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Kent Overstreet <kent.overstreet@linux.dev>,
+	linux-bcachefs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 6.12] bcachefs: avoid truncating fiemap extent length
+Date: Fri,  3 Jul 2026 14:48:13 +0300
+Message-Id: <20260703114813.113406-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.39.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260701-arm32-cfi-bug-v2-1-9bf922593e00@kernel.org> <akd5_G5oA2dxdg89@J2N7QTR9R3>
-In-Reply-To: <akd5_G5oA2dxdg89@J2N7QTR9R3>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 3 Jul 2026 13:47:14 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmnUX0EHpjqGc6Pk3bXr0XTp9r4+rPSNUYVwk+e0JMgTw@mail.gmail.com>
-X-Gm-Features: AVVi8CfUHAbqySS7cIAW-rrONys-5i7T9Hv7PNMZ8MoGQJy-d4zcjDrgoR6pU04
-Message-ID: <CAD++jLmnUX0EHpjqGc6Pk3bXr0XTp9r4+rPSNUYVwk+e0JMgTw@mail.gmail.com>
-Subject: Re: [PATCH v2] RFC: ARM: breakpoint: CFI breakpoints only on demand
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: Russell King <linux@armlinux.org.uk>, Nathan Chancellor <nathan@kernel.org>, 
-	Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, 
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	slipher <slipher@protonmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/07/03 07:33:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 112 0.3.112 7c8d497b0e572fbfa504a2ee62037c045a8cb4ec, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_internal2}, {Tracking_from_domain_doesnt_match_to}, d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;astralinux.ru:7.1.1;evilpiepirate.org:7.1.1;new-mail.astralinux.ru:7.1.1;lore.kernel.org:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 204225 [Jul 03 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.22
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/07/03 10:45:00 #28371015
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/07/03 07:33:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-On Fri, Jul 3, 2026 at 10:59=E2=80=AFAM Mark Rutland <mark.rutland@arm.com>=
- wrote:
+No upstream commit exists for this patch.
 
-> AFAICT, hw_breakpoint_cfi_handler() is only intended to handle
-> BKPT instructions executed in kernel mode, and even when the kernel is
-> build with CF support, it doesn't make sense to call that for BKPT
-> instructions executed in user mode.
->
-> On arm64, we have separate paths for BRK exceptions from user mode
-> (do_el0_brk64()) and kernel mode (do_el1_brk64()).
->
-> Surely you can check kernel_mode(regs) or user_mode(regs) to distinguish
-> the two cases, and only call hw_breakpoint_cfi_handler() when the
-> exception was taken from kernel mode?
+bkey sizes are stored in sectors as u32, while fiemap reports byte
+lengths as u64. Shifting k.k->size before widening performs the
+conversion in 32 bits, so an extent of 4 GiB or larger can wrap before
+it is passed to fiemap_fill_next_extent().
 
-You're right of course... I'll add a check like that and see if this
-solves the problem for the reporter.
+Compute the byte length after casting the sector count to u64 and reuse
+it for all bch2_fill_extent() cases.
 
-Yours,
-Linus Walleij
+The same issue was fixed in bcachefs-tools, but there is no Linux
+upstream commit to backport to 6.12. The affected 6.12 implementation lives
+in fs/bcachefs/fs.c, while the bcachefs-tools fix touches
+fs/bcachefs/vfs/fiemap.c.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Link: https://lore.kernel.org/linux-bcachefs/20260610105547.129545-1-mdmitrichenko@astralinux.ru/
+Link: https://evilpiepirate.org/git/bcachefs-tools.git/commit/?id=6d9a895ed00d4b3868312df93253d2a817b0c6a3
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+ fs/bcachefs/fs.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/fs/bcachefs/fs.c b/fs/bcachefs/fs.c
+index a41d0d8a2f7b..0dc2466de3f9 100644
+--- a/fs/bcachefs/fs.c
++++ b/fs/bcachefs/fs.c
+@@ -1184,6 +1184,8 @@ static int bch2_fill_extent(struct bch_fs *c,
+ 			    struct fiemap_extent_info *info,
+ 			    struct bkey_s_c k, unsigned flags)
+ {
++	u64 len = (u64)k.k->size << 9;
++
+ 	if (bkey_extent_is_direct_data(k.k)) {
+ 		struct bkey_ptrs_c ptrs = bch2_bkey_ptrs_c(k);
+ 		const union bch_extent_entry *entry;
+@@ -1212,7 +1214,7 @@ static int bch2_fill_extent(struct bch_fs *c,
+ 			ret = fiemap_fill_next_extent(info,
+ 						bkey_start_offset(k.k) << 9,
+ 						offset << 9,
+-						k.k->size << 9, flags|flags2);
++						len, flags | flags2);
+ 			if (ret)
+ 				return ret;
+ 		}
+@@ -1221,13 +1223,13 @@ static int bch2_fill_extent(struct bch_fs *c,
+ 	} else if (bkey_extent_is_inline_data(k.k)) {
+ 		return fiemap_fill_next_extent(info,
+ 					       bkey_start_offset(k.k) << 9,
+-					       0, k.k->size << 9,
++					       0, len,
+ 					       flags|
+ 					       FIEMAP_EXTENT_DATA_INLINE);
+ 	} else if (k.k->type == KEY_TYPE_reservation) {
+ 		return fiemap_fill_next_extent(info,
+ 					       bkey_start_offset(k.k) << 9,
+-					       0, k.k->size << 9,
++					       0, len,
+ 					       flags|
+ 					       FIEMAP_EXTENT_DELALLOC|
+ 					       FIEMAP_EXTENT_UNWRITTEN);
+-- 
+2.43.0
