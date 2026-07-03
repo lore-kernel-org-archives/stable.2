@@ -1,215 +1,110 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.sms-medipool.de (mail.sms-medipool.de [178.63.14.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7049E30ACFB
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 21:16:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B712EEE97;
+	Fri,  3 Jul 2026 23:30:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.63.14.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783113417; cv=none; b=Zfypn8AtaGWctuNsAacjazMOs0bLP9UmGlIS+5ZCkGgRM41hZmTw1H7+j5q3hr3OphwoJfeURbrMSAGMFX9FIgmykCFnrTn+8lXOxLfESKVdyiUXnWAZew6+qZSU4cpN9Ug0yMcRyTQXSFiR1xmNI9yvrEA6ikh/fOyRvAHRt6A=
+	t=1783121419; cv=none; b=Yja5dryXgRKJuMNX+1cXWw99e8HDinqIhSdCB20NkopsL7QsFjAmq+J8oA79S6yv/kRuv+88gJQ+ao9v8nFl5X306dHwyGVGhYJeYFrEOVVQBcxRe84OdVvvesGSIokF6/soUcyYi2L6W+MnShiJDFH0kmZPJLwDDSCzdrhdsMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783113417; c=relaxed/simple;
-	bh=cCkQjCePSHb28HQ2XyzUAFDSIIkdoakr3w3MVImbm6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ODEgNwe7ThxSEoA2YP7HIz3D8QvzicrjeQ4q+4UG6dVk4yTh1S1+zlm0yNbl9mILGFkyV2ZKmzy50cp+qrPis3qHahNlFoKTJz4gw7q/LYfzh9MlhoOGX2NhOcCsy7VVS/324KplFLYlRGPxcC1M1X//Sp9NBW91gD/k9IbBY9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i8LjiFqh; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783121419; c=relaxed/simple;
+	bh=SzB9tZyiwbNsckTsGonX6QEORzbCNDmomg4Mtmkw7Kk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=s9eAhYXNby1Dq43ofBW9gBkIhr2ldrO0oinLf5hqS9rsfONXcW0R5CqBvXRAYPiIH1iXD62ipCUhM5YRH0w6bG4lzdeFRWsh8gQ7AS8i3O+yyN010/E/YcvVWNllNIMYtoOgrd7wiPavSG815H5/yeJI+RfAan5GBWQQVZerKMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sms-medipool.de; spf=pass smtp.mailfrom=sms-medipool.de; dkim=pass (2048-bit key) header.d=sms-medipool.de header.i=@sms-medipool.de header.b=KMS73Smv; arc=none smtp.client-ip=178.63.14.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sms-medipool.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sms-medipool.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i8LjiFqh"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-493bc8fda98so10231075e9.0
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 14:16:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783113414; x=1783718214; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C4eCszeuptfMVD03Bd+mf3Rmau3oAhlB5q7FtJvbpYM=;
-        b=i8LjiFqh5EoZSxBpxrDqKOAkMrdQ0gNVu+qanDBXhMGCg01oHwb+vlCzvyptN/LuOF
-         tmPwvalqmdDZkCnKTlpZGeueW42uxpOKho2EwKztdf8N3Fboj4Hz8kaQ6e4Urll/FuXu
-         tKLrrJN9wLtC5Ko1KfteBrY5ftuHbrYNPBYt3XpZzZA2J79IcBYlfg4/C7aQdaPZeHTQ
-         lTQHkydxOuHsrhMn3lDYMFaf6Xdze1MBRhY5ahjLH+qHK6Yevl0wglMobKPPFBUxBZSR
-         dtj9HrSbGUM8Z8pfjD3LrkM13v0LjUcc9OXZpdR2SvHwM1TNStNDMA8SUYTya63kntps
-         kEig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783113414; x=1783718214;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C4eCszeuptfMVD03Bd+mf3Rmau3oAhlB5q7FtJvbpYM=;
-        b=FDx5ZnH+XrdysOcvz32dMMTTXYpjlXzVTXexlkf1a8btLRK243qebd+zUC5Yahpgfi
-         66syjRWXwjKFKaoHQMGa0oXDbJ5zxVIup4aEesWdnH3KWOOFvT+9CoDdqYT2n939+cax
-         a5U0rCJvt+mDnj0z60/Q61BpoQuZGBLpwUjkzPsytvfxiQ17+uBLhS+HiVp0EWAc+uRy
-         tNCLBfxWwJRh7j0CsasTJFhw+XMJmsdEo3kkHeD6A3m74byAn/KNWQqMg2Q2ceiuarRW
-         5Ltjdm4gujDL4ziIPsrVv+WQ3eGdzjHCoKASaRkIlqch2zC+MIOqWZkZbO6OOCq/F7fv
-         Q3fw==
-X-Forwarded-Encrypted: i=1; AFNElJ8LPY59MyfgCYjo2yC0IJjEdK/NKQiUNadBADid3tv2HCWaf+OcAXjD1IDLk3QgOfvp1UJ9Kwg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxF/doeZPYldM7NcLiFtc6+VbWqV75Wuhub+rzYnJXeGLtBqS7M
-	9x3FBy8p9r6cL+AsMMTwNiBiFs5FNDESK847BlrEfnG6bWjh2+MT3W9Z
-X-Gm-Gg: AfdE7cnjbSXiE4wGd3MJwG+0cU7h4QkqNkGw0F8/JS+GHoGk7erXi+HgLMgTkrLMt5p
-	F8DBr5fJdy0vFbMQXRS3Mo+OZdFxkiyQKa3Y1880aICRC6lipdr2/5R7W+vOrYRxDme2GXApcH2
-	lu3BIAqIVjAWL1vuV0svvRxiPqvoKlwRoIP310wUiJNDhPv+AxwVeUB3OaRfs3Aer2a35hK0MyD
-	A/+cm8vwhsMtcv3WBXD+ui5sbMbGJ0Vp/RtvYAMv3EaG3isTDMmABze0SNg+mlbFWHeN0K6VYWl
-	7R3Cag/2zv0Zx6bwfX36qnWP+LUiltTblSrMG6sOLajPQgj1C+vRl7J0tv0Jz4hqPIr/uktMpO1
-	gMQAMRd0Vp4BYQ6RLoGX5q0VE9+MKxSLw8sjgyMNHFSMaiHAM2hQjYu0j05OG3InS5pdG2wqDe2
-	1b+RK6YfiVIv7Xo+Y50N/As7zn2nVGVYH3yTfey9T0OTCHtSfJMy+vkeCP
-X-Received: by 2002:a05:600c:c1c8:10b0:492:1e36:1fe9 with SMTP id 5b1f17b1804b1-493d11fafa3mr6498625e9.37.1783113413568;
-        Fri, 03 Jul 2026 14:16:53 -0700 (PDT)
-Received: from pumpkin (host-92-21-50-228.as13285.net. [92.21.50.228])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c63ba971sm247973145e9.13.2026.07.03.14.16.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 14:16:53 -0700 (PDT)
-Date: Fri, 3 Jul 2026 22:16:51 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: David Carlier <devnexen@gmail.com>, dan.scally@ideasonboard.com,
- mchehab@kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: mali-c55: Fix unaligned access of AEC histogram
- zone weights
-Message-ID: <20260703221651.41669d55@pumpkin>
-In-Reply-To: <akd8E5jr722oTm49@zed>
-References: <20260702103453.348056-1-devnexen@gmail.com>
-	<akd8E5jr722oTm49@zed>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=sms-medipool.de header.i=@sms-medipool.de header.b="KMS73Smv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sms-medipool.de;
+	s=mail; t=1783121094;
+	bh=SzB9tZyiwbNsckTsGonX6QEORzbCNDmomg4Mtmkw7Kk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=KMS73SmvuZ8fc/oEl+SSPz44MR4d/gM0pOSe3hvQ9X//VbMDgNZSc0x0+Ce2RKVpo
+	 IL2jtZCetHc0D2QlJ25TikwgQ4vysW3ZYeFv8URUc/GKfURldhWTKwv1Lc8YZkXCpv
+	 1UkXhacLC2BxusvWfdU7sP4nn2yx++cEj4hH+Ubc6KeYGk9OnbRuFcu5fNigGQjkxD
+	 CfqRp0ZA3M1HWgs2orJ7TYTS/DS9bi1jVvbc5AUynufZ9Ou/jx2TEh62Ckj0PyQ1J4
+	 OSuRoaeTk5wJ4MtZx5Jwtiy+4MgEmsn99nvckV5vVKyrQvSZO3EzT/d9BrnGqsKSwj
+	 3T1LZv8ld38HQ==
+Received: from mail.stoss-medica.de (mail.stoss-medica.de [213.147.17.40])
+	by mail.sms-medipool.de (Postfix) with ESMTPS id 437EF18787;
+	Sat,  4 Jul 2026 01:24:54 +0200 (CEST)
+Received: from NUC16-Linux.sb.golima.de ([95.88.98.111])
+	by mail.stoss-medica.de (Kerio Connect 10.0.8 patch 2) with ESMTP;
+	Sat, 4 Jul 2026 01:24:52 +0200
+From: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@intel.com>,
+	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	stable@vger.kernel.org,
+	Uma Shankar <uma.shankar@intel.com>,
+	alexander.kaplan@sms-medipool.de
+Subject: Re: [PATCH] ALSA: hda/hdmi: disable KAE for Intel Panther Lake
+Date: Sat,  4 Jul 2026 01:24:51 +0200
+Message-ID: <20260703232451.4315-1-alexander.kaplan@sms-medipool.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <765b713e-d2a0-6859-2923-53f8e60cb00e@linux.intel.com>
+References: <765b713e-d2a0-6859-2923-53f8e60cb00e@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 3 Jul 2026 11:44:31 +0200
-Jacopo Mondi <jacopo.mondi@ideasonboard.com> wrote:
+On 01/07/2026 01:45, Kai Vehmanen wrote:
+> some progress with this. I attached a work-in-progress patch that fixes
+> the issue with at least one setup using Club3D CAC-2505 DP-alt HDMI
+> converter to the bug at:
+> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8412#note_3543741
+>
+> Needs more work still, but if this approach works, I'll send a proper
+> patch later to the list.
 
-> Hi David,
->    thanks for sending a patch to address this issue
-> 
-> On Thu, Jul 02, 2026 at 11:34:53AM +0100, David Carlier wrote:
-> > mali_c55_params_aexp_hist_weights() packs the 225 per-zone u8 weights
-> > into the ISP registers four at a time by casting the zone_weights array
-> > to u32 and dereferencing it. The array sits at offset 10 within the
-> > parameter block, so it is only 2-byte aligned: the u32 access is
-> > unaligned, which is undefined behaviour and can fault on strict-align
-> > configurations or once the loop is auto-vectorised.  
-> 
-> well, I don't there is a risk of undefined behaviour on ARMv8, it's
-> just less efficient
-> 
-> >
-> > The cast also reads the four weights in host byte order before they are
-> > written to the little-endian register, so on big-endian hosts the four
-> > weights packed into each register end up in the wrong byte lanes.  
-> 
-> Also we don't have any endianess issue as the IP is only found on
-> little endian systems
-> 
-> >
-> > Read the weights with get_unaligned_le32() instead, which is both
-> > alignment-safe and fixes the byte order regardless of host endianness.
-> >  
-> 
-> mmm, I read in Documentation/core-api/unaligned-memory-access.rst
-> that:
-> 
-> ------------------------------------------------------------------------------
-> 	u32 value = get_unaligned((u32 *) data);
-> 
-> These macros work for memory accesses of any length (not just 32 bits as
-> in the examples above). Be aware that when compared to standard access of
-> aligned memory, using these macros to access unaligned memory can be costly in
-> terms of performance.
-> 
-> If use of such macros is not convenient, another option is to use memcpy(),
-> where the source or destination (or both) are of type u8* or unsigned char*.
-> Due to the byte-wise nature of this operation, unaligned accesses are avoided.
-> ------------------------------------------------------------------------------
-> 
-> Which seems to suggest, if the issue here is performances, we should
-> aim for something different ? (honest question here, any kind of
-> guidance is appreciated)
-> 
-> > Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> > Cc: stable@vger.kernel.org  
-> 
-> If it's only about performances, does this qualifies as a fix ?
-> 
-> > Signed-off-by: David Carlier <devnexen@gmail.com>
-> > ---
-> >  drivers/media/platform/arm/mali-c55/mali-c55-params.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-> > index de0e9d898..1aaf64dde 100644
-> > --- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-> > +++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-> > @@ -6,6 +6,7 @@
-> >   */
-> >  #include <linux/media/arm/mali-c55-config.h>
-> >  #include <linux/pm_runtime.h>
-> > +#include <linux/unaligned.h>
-> >
-> >  #include <media/media-entity.h>
-> >  #include <media/v4l2-dev.h>
-> > @@ -203,7 +204,7 @@ mali_c55_params_aexp_hist_weights(struct mali_c55 *mali_c55,
-> >  	 * of overwriting other registers.
-> >  	 */
-> >  	for (unsigned int i = 0; i < 56; i++) {
-> > -		val = ((u32 *)params->zone_weights)[i]
-> > +		val = get_unaligned_le32(&params->zone_weights[i * 4])
-> >  			    & MALI_C55_AEXP_HIST_ZONE_WEIGHT_MASK;  
+Hi Kai,
 
-On LE with HAVE_EFFICIENT_UNALIGNED_ACCESS the latter generates what you
-expect the former to generate.
-But gcc can unroll loops and use (IIRC) 'rdp' to read two registers at once.
-That will crash and burn.
+sorry for the late reply, a busy stretch at work kept me away from
+this.
 
-The best thing would be to have a union of the two arrays with the
-member marked __packed to remove the padding before it.
+I tested the second, more generic patch from the work item (disable
+keep-alive before audio format change) on the Panther Lake NUC.
+Base was 7.1.2 with my KAE disable patch removed, so the KAE path is
+active again (PTL on MODEL_ADLP), and your patch on top.
 
-> 
-> 
-> We could do:
-> 
->         memcpy(&val, &params->zone_weights[4 * i], 4);
+Results with two Synaptics VMM7100 based converters:
 
-Some of the KASAN (etc) builds might make a mess of that.
-Without compiler optimisations of memcpy() it is horrid.
+- Club3D CAC-2505 (SYNAq 7.1 firmware)
+- Cable Matters USB-C to HDMI (7.02.123 firmware)
 
->         addr = base + MALI_C55_AEXP_HIST_ZONE_WEIGHTS_OFFSET + (4 * i);
-> 
->         mali_c55_ctx_write(mali_c55, addr,
->                            val & MALI_C55_AEXP_HIST_ZONE_WEIGHT_MASK);
-> 
-> Or this could be an alternative:
-> 
->         const u8 *w = &params->zone_weights[4 * i];
-> 
->         val = w[0] | w[1] << 8 | w[2] << 16 | w[3] << 24;
+Test sequence on each, from a fresh boot:
 
-That is a possible implementation of get_unaligned_le32() no point
-doing it explicitly.
+- 2ch baseline, 6ch speaker-test, back to 2ch
+- 5 rapid 6ch/2ch cycles
+- PipeWire card profile switching between stereo, 5.1 and 7.1
 
-A late enough gcc will convert that to a 32bit memory read (with any
-byteswap in the read or after) if unaligned accesses are supported.
-Otherwise you get byte loads, shifts and ors.
+Audio stayed audible through every step on both converters.
+The register fingerprint I used during the original debugging
+(AUD_DP_2DOT0_CTRL low bits sticking at 0x4a1 after the first
+multichannel stream) now stays at the healthy 0x482 value
+throughout.
 
-	David
+So the reordering fixes the issue on my setups as well, and with that
+my KAE disable patch can be dropped in favor of your fix.
+Feel free to add, once you post the proper patch:
 
->         addr = base + MALI_C55_AEXP_HIST_ZONE_WEIGHTS_OFFSET + (4 * i);
-> 
->         mali_c55_ctx_write(mali_c55, addr,
->                            val & MALI_C55_AEXP_HIST_ZONE_WEIGHT_MASK);
-> 
-> What do you think ?
-> 
-> >  		addr = base + MALI_C55_AEXP_HIST_ZONE_WEIGHTS_OFFSET + (4 * i);
-> >
-> > --
-> > 2.53.0
-> >
-> >  
-> 
+Tested-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+
+One note, unrelated to your patch: the roughly 200 ms display
+blanking on an audio channel count down transition (6ch to 2ch) is
+still there.
+That one sits downstream of the host (converter firmware or TV
+resync) and behaves the same before and after the patch.
+
+Thanks,
+Alex
 
