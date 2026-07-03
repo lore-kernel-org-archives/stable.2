@@ -1,125 +1,149 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D95CC37EFEF;
-	Fri,  3 Jul 2026 11:43:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD46C356754;
+	Fri,  3 Jul 2026 11:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783078996; cv=none; b=KFhutIRlX9/CD9IdrPlnVITO8gchcYR1Zil67XCa7DcjoEoXR9gBSznXqdj2ofjF3E4XZX3IRFnTToa2QOt8AFWfjy8CaRGFtjBCzjBYn54DTkUMd2pe6hjJ+WkaA1iDW5kVYu+d5MhYC5rqiW4VTiiEpveuBE3wFbiNYsYmYfg=
+	t=1783079194; cv=none; b=EIGTihfsnUMk2py2YUcqynhabKu+gGU7aKBN9tdlE5LbcsBw2Dv3r/UQXGuTM1L4BfSg5+qM1By1suqtzU2ZQDSiovfTiAcdYk1JjubDGpwugjEeNY3Qo2lafH8tm0U4e7hEWK40l3LNXBs8w+TDpR2BuZw9TStazu023z35XO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783078996; c=relaxed/simple;
-	bh=wiwVsHpgxADZ6sgHPhYudBvvewn5Ey8PcYOiNNo5dWA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MpP87MXItLuBaaPfNLs9dOCCfp6hmoIPeVgrNLr+IJoHtKyXMter4FMT/lI1nXKMYrzlW9rXBvcf7IMCYEMLxnEM+LiJ7wHHjq0WE3Z3lRWUwHzRdR7eUBgjegpznas6wJ46VhLCWFv9Hzdj6zvBug8sJRtag/M2TlD3o20tZ/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=frv6OjcR; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1783079194; c=relaxed/simple;
+	bh=sGrf/1wcBYwf2qq0py12iLKgY8IWKaYthWYb/NqEouc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=hUT8SHKeYdzUSXErmgCAfulTG5S0LPyY4JxvdFE8Zt3qO+OQ++cn3pwovA23IwYvo01CXc7WgsH+AYTl9g6VqE5nFEW2dUIj6cWv5wOPHsJZ56tRoJ/b9Z736BVqk0lBjaPK8U6ub7uF4pP+Q1liv6McFuJ2Z05XXNwDywnCS8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mssola.com; spf=fail smtp.mailfrom=mssola.com; dkim=pass (2048-bit key) header.d=mssola.com header.i=@mssola.com header.b=0HEPMvON; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mssola.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=mssola.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="frv6OjcR"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CD0364633;
-	Fri,  3 Jul 2026 04:43:09 -0700 (PDT)
-Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.31])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id AECA53F673;
-	Fri,  3 Jul 2026 04:43:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1783078994; bh=wiwVsHpgxADZ6sgHPhYudBvvewn5Ey8PcYOiNNo5dWA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=frv6OjcRCp9RNieuUFr+tvxMitLV6jdeMCkuHQGfqfM/+/tgqPv3jYVVISUQMA8qP
-	 QWTWm1P2tqS2zsuDuWVg1Cv+sh3g6s/501G07N5KGlOjHdJ2ghk5+91Ajplm2wsmzx
-	 Kbug0ZTaeOhhx3auUe59py5N0eRGzI2PqokQI+RQ=
-From: Dev Jain <dev.jain@arm.com>
-To: muchun.song@linux.dev,
-	osalvador@suse.de,
-	akpm@linux-foundation.org,
-	ljs@kernel.org,
-	david@kernel.org,
-	liam@infradead.org
-Cc: Dev Jain <dev.jain@arm.com>,
-	riel@surriel.com,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	lance.yang@linux.dev,
-	kas@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	apopple@nvidia.com,
-	rcampbell@nvidia.com,
-	ziy@nvidia.com,
-	matthew.brost@intel.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	byungchul@sk.com,
-	gourry@gourry.net,
-	ying.huang@linux.alibaba.com,
-	ak@linux.intel.com,
-	nao.horiguchi@gmail.com,
-	mel@csn.ul.ie,
-	j-nomura@ce.jp.nec.com,
-	pfalcato@suse.de,
-	tglx@kernel.org,
-	dave.hansen@intel.com,
-	jpoimboe@kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	ryan.roberts@arm.com,
-	anshuman.khandual@arm.com,
-	stable@vger.kernel.org
-Subject: [PATCH v3 5/6] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
-Date: Fri,  3 Jul 2026 11:41:58 +0000
-Message-ID: <20260703114202.365553-6-dev.jain@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260703114202.365553-1-dev.jain@arm.com>
-References: <20260703114202.365553-1-dev.jain@arm.com>
+	dkim=pass (2048-bit key) header.d=mssola.com header.i=@mssola.com header.b="0HEPMvON"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gsBmK3N4nz8tys;
+	Fri, 03 Jul 2026 13:46:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mssola.com; s=MBO0001;
+	t=1783079185;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Xkbjq85tWAeo3PRPsB3s6iEDUUdxOC/4B213PD2McXg=;
+	b=0HEPMvON1FsPisZPkQuIvRgL3qKuSJd1nf9FZJqSrlWVvUVD99WpuWNMalmJF29qgj++PC
+	5YbdxNQHeR+QDDLcf6B6eF8IcClNqv4/7Nq+Lyk33Dohid/WrThz+sjpYPOxu0aJLqXqAm
+	C+ksn5L8TsMHhNZgDtNkVPwjrG5o5KfxEKPWjyaROBhh65KwE3G0eEtFYOkIs6UvCVMsrk
+	7OTQ7I0rynymSLrOd3bwxKJOtBhn+E9V1dwne0EBTm8HtgsclGR8oSe/P2j5+7/WXqUCxJ
+	9FipVbaytqZ2Sjf7rz+XOV9RXd79BLnIJgl9BrG/VDgF5+TC1CDHBgF4i820QQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=softfail (outgoing_mbo_mout: 2001:67c:2050:b231:465::1 is neither permitted nor denied by domain of mssola@mssola.com) smtp.mailfrom=mssola@mssola.com
+From: =?utf-8?Q?Miquel_Sabat=C3=A9_Sol=C3=A0?= <mssola@mssola.com>
+To: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Cc: linux-btrfs@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH] btrfs: zoned: reset active_meta_bg on zone finish
+In-Reply-To: <9c8421f2-7f17-430a-9f87-26fab7b1d73d@wdc.com> (Johannes
+	Thumshirn's message of "Fri, 3 Jul 2026 12:01:22 +0200")
+References: <20260703084559.136605-1-johannes.thumshirn@wdc.com>
+	<9c8421f2-7f17-430a-9f87-26fab7b1d73d@wdc.com>
+Date: Fri, 03 Jul 2026 13:46:22 +0200
+Message-ID: <87jyrc70tt.fsf@>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
+X-Rspamd-Queue-Id: 4gsBmK3N4nz8tys
 
-check_pte() is the final validation step in page_vma_mapped_walk().
-It reads pvmw->pte with ptep_get() to decide whether the entry maps
-the PFN range being walked. For hugetlb VMAs, that pointer refers
-to a hugetlb entry.
+--=-=-=
+Content-Type: text/plain
 
-On arches which provide their own huge_ptep_get() to dereference a huge
-pte pointer, accessing via ptep_get() would cause pte_pfn(),
-pte_present() etc to misbehave.
+Johannes Thumshirn @ 2026-07-03 12:01 +02:
 
-It is not clear whether this has a trivially visible effect to userspace.
+> On 7/3/26 10:45 AM, Johannes Thumshirn wrote:
+>> do_zone_finish() clears BLOCK_GROUP_FLAG_ZONE_IS_ACTIVE and removes the
+>> block group from zone_active_bgs, but only the path in
+>> check_bg_is_active() resets fs_info->active_meta_bg / active_system_bg.
+>> Any other finish path leaves active_meta_bg / active_system_bg pointing
+>> at an inactive, fully written block group.
+>>
+>> Reset the corresponding active_{meta,system}_bg pointer in do_zone_finish()
+>> so it can never go stale.
+>>
+>> Fixes: 13bb483d32ab ("btrfs: zoned: activate metadata block group on write time")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+>> ---
+>>   fs/btrfs/zoned.c | 15 +++++++++++++++
+>>   1 file changed, 15 insertions(+)
+>>
+>> diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
+>> index 44a13ed6b8b2..c8c850de1702 100644
+>> --- a/fs/btrfs/zoned.c
+>> +++ b/fs/btrfs/zoned.c
+>> @@ -2539,6 +2539,7 @@ static int do_zone_finish(struct btrfs_block_group *block_group, bool fully_writ
+>>   	const bool is_metadata = (block_group->flags &
+>>   			(BTRFS_BLOCK_GROUP_METADATA | BTRFS_BLOCK_GROUP_SYSTEM));
+>>   	struct btrfs_dev_replace *dev_replace = &fs_info->dev_replace;
+>> +	struct btrfs_block_group **active_bg = NULL;
+>>   	int ret = 0;
+>>   	int i;
+>>   @@ -2636,6 +2637,20 @@ static int do_zone_finish(struct btrfs_block_group
+>> *block_group, bool fully_writ
+>>   	/* For active_bg_list */
+>>   	btrfs_put_block_group(block_group);
+>>   +	if (block_group->flags & BTRFS_BLOCK_GROUP_SYSTEM)
+>> +		active_bg = &fs_info->active_system_bg;
+>> +	else if (block_group->flags & BTRFS_BLOCK_GROUP_METADATA)
+>> +		active_bg = &fs_info->active_meta_bg;
+>> +
+>> +	if (active_bg) {
+>> +		btrfs_zoned_meta_io_lock(fs_info);
+>> +		if (*active_bg == block_group) {
+>> +			btrfs_put_block_group(block_group);
+>> +			*active_bg = NULL;
+>> +		}
+>> +		btrfs_zoned_meta_io_unlock(fs_info);
+>> +	}
+>> +
+>>   	clear_and_wake_up_bit(BTRFS_FS_NEED_ZONE_FINISH, &fs_info->flags);
+>>     	return 0;
+>
+> I think Sashiko has a point here:
+>
+> https://sashiko.dev/#/patchset/20260703084559.136605-1-johannes.thumshirn%40wdc.com
+>
+> check_bg_is_active() should take a reference before calling into
+> do_zone_finish() or actually clearing fs_info->active_{meta,system}_bg can even
+> be done in check_bg_is_active() after calling do_zone_finish().
+>
+> That'll then also eliminate Miquel's concerns.
 
-Use huge_ptep_get() to dereference a huge pte pointer.
+I'd maybe take the latter to avoid adding more complexity to an already
+complex do_zone_finish(). Besides, I see that do_zone_finish() is
+already called in many other places throughout btrfs/zoned.c, so I
+wonder if having the changes in do_zone_finish() would also "spill" over
+there.
 
-Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
-Cc: stable@vger.kernel.org
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Signed-off-by: Dev Jain <dev.jain@arm.com>
----
- mm/page_vma_mapped.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
-index 2ccbabfb2cc17..18e1d341f463c 100644
---- a/mm/page_vma_mapped.c
-+++ b/mm/page_vma_mapped.c
-@@ -107,7 +107,13 @@ static bool map_pte(struct page_vma_mapped_walk *pvmw, pmd_t *pmdvalp,
- static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
- {
- 	unsigned long pfn;
--	pte_t ptent = ptep_get(pvmw->pte);
-+	pte_t ptent;
-+
-+	if (is_vm_hugetlb_page(pvmw->vma))
-+		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
-+				      pvmw->pte);
-+	else
-+		ptent = ptep_get(pvmw->pte);
- 
- 	if (pvmw->flags & PVMW_MIGRATION) {
- 		const softleaf_t entry = softleaf_from_pte(ptent);
--- 
-2.43.0
+-----BEGIN PGP SIGNATURE-----
 
+iQJiBAEBCgBMFiEEG6U8esk9yirP39qXlr6Mb9idZWUFAmpHoQ4bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyEhxtc3NvbGFAbXNzb2xhLmNvbQAKCRCWvoxv2J1l
+Za2AD/4q8vKER+44H86pKGnSr+12cK98Uo510nLSg0xOZaTTw9DbPDDg1Shb/Bcg
+qolF0/i5zsdXXE5CuKUduPECDgUXpMeB0DvS251BqSbOv1PMX69zXfT0bQFEQipu
+w7fJIPfd08gwoyAIyHN2BPdnnyoe7f8w8oNtHPGDEg5nIp0z+iyEOdhCFkv6ta3P
+xaynLdiDTCDLN43+8dtTQQoErf4r24l4TaO3ndo5gyZ294iMNvzQA9tdrmiGPA5J
+vdwVNDvNOsMij3Rk5x/b2w4SJRXFYnbbP5HZk4m/dFxdBF8HgZ+vf5BC06J2TL1Y
+KiNty8mKoB9zJux30/IctEs53l1ioCKjMmamClORJ0vs97Mm/sdkkt7Y8WQsCktV
+2kO0vbhkr7MNOBbp6VbdLQ7gS1rwLOgj5iXDo6z5yIrcHhWzFcHnWjKcZo/r10Wx
+M9mmW3pn7I52dubPHjZy8MdsK1C5dTTQXnjNf4gN0LkUAObm0a15GKytxZnRhHPT
+ppNe2ah37GFFBCwkDOu3fF/9mparqD9D1ai8qDktKEkBa2ZQa/OmfOUkl9p/0eGR
+IUn9GrVishpIdmwqEboiR7Vvd0WA9cq+6n9Wu9gEGreyswqTePY40lE3IUUkM+Jw
+HtPd7q0XGWIc4C4whInzPBtuqq/YHatHqRn6qO8vAXzCMACosA==
+=bcxr
+-----END PGP SIGNATURE-----
+--=-=-=--
