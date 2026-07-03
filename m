@@ -1,81 +1,43 @@
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4E834D382;
-	Fri,  3 Jul 2026 14:21:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8603C98BE
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 14:26:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783088507; cv=none; b=ZWDVp2FwmFFk0oqj+pRWOpsMX9yrhXDvU1rtuyDtVbzu6/zxugJVjN6J6MTfNUgSgF5FP/wIPfmLARTG9k65SJqomkAhjqsiELRJDuKuWurc1aMluGCPmncDr34pG00EShAgmSNSWxOChYUblWOQrrZplwc9gkZEOWEWp4s+gNU=
+	t=1783088794; cv=none; b=luQ+mGwd/7Y2OmmCxIHFjF9S8NEXQOEzlLo/IooCA7Gqe3Y4VuPejfSoTdD089e44TvjVsjuuwfjUuBA6TTJ/A7mJ5amzia9IGsfLZUJ8GTO4xiDOJwuITxWfCr+GO6sYsri/BRfeXY7fJPNk1cLWf2XEkXZaMN50y5QFynjHZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783088507; c=relaxed/simple;
-	bh=ZmUcwKm+KZlq7WK01NO6SHAJ0Ds1ZzGQwUBqhcTvqLE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LlSRiNo/05gZS2xJG794Z4R5uNhpFWjEgG1SMsX5vEGES0pWDefF6yaCAg9QKolTuqrBRfmdZikfCCAu7GSlS8AyG3bmboh7/03wruo9WjxA9KBsdeU5xytjd6ZTMc8671znlRY/m0gRUgWnEmhmF+XjbnQVNhrt605mH6DjNEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=Uk1UU94Q; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ixfGLEG7; arc=none smtp.client-ip=103.168.172.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	s=arc-20240116; t=1783088794; c=relaxed/simple;
+	bh=UTute5WtAd7X5kta9LwWgzDKWnSJhOid+2WFHk8soIU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=soHo73E5DIhth8TZjcKakurT1bxXJ7BbaBKS1RP0DGY+QJKrnvSr+ZMiyRiB1w45PCew25PHOmgEmqHA9Vp7LuRB9V3gJHPTlTLbfNVfQrWGGFbSriLOxiYgdocV/0BIgrUqZqzgmaJUk6XBN6f/hup28Oc5Jt5v1vGomsQXUN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bdDB8lX/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="Uk1UU94Q";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ixfGLEG7"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id 31015EC0101;
-	Fri,  3 Jul 2026 10:21:43 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Fri, 03 Jul 2026 10:21:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm3; t=1783088503; x=1783174903; bh=ezhtSL7HtG
-	xakgLsRNQdK22QsTbck77uvJplT2Hy5Ig=; b=Uk1UU94Qv+hlVzhtf+/wInMJyC
-	sYbVCezliz75pUwMKdT77oNF/tQ7Qotp69eI16R0WzlROVtFUlOTPgf43PHCJTdO
-	6tHAFExY6b87CsGlwJA5JoFrRtCMWPvSEy/Bq7RxAUHQEul0RTXR53kvIL4ElA5I
-	mTdgZhJqSdmjP7KzRW2rZmFLip2C0ymEifSS1mGe91zeJwrGZG74Qgg2/SmTtO3d
-	vON6yTHxj+1+5vl7RN1TuoYw8xJT0jnToSS6BOLeOCN5pRSkmcgDva6cT+dD5z94
-	FKhkRdKh5hIlRQiEWymifHQOZG6gPHXNYit3Lx63b/ytFsQ7HhynGyM88spQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1783088503; x=1783174903; bh=ezhtSL7HtGxakgLsRNQdK22QsTbck77uvJp
-	lT2Hy5Ig=; b=ixfGLEG7DIzH9I7dGoS+UsNa2EfRgPOcx+zJbwne3O4k0eWl1PA
-	ofPPJZMNIDQhp7XMTzFQUdI9ncJnl5+K92KuG6ERdGAV3iF/M6l48x+Pp5ZppbpN
-	anBjKRe+GKr3qWc0V84R6bzqR5fA22Syq2ZmkFYIj4hUjr5ng25SJM/0Z7lw36DD
-	ogtFYyaKyOuLDDLxfc4eB92lG7CQPS8iT0q2lN4xuxCJy0LVUdUI1l9vwoQJNbJo
-	BZTABBAam2WT3nXqb+55KiIGEeBUvdW712LAnU92hBySDLrhDL4XUz879afinqa9
-	ovUiGN1KYr1dA4HuGZBtSYQmNcjjWB2nxsQ==
-X-ME-Sender: <xms:dcVHaobJL9paqhZCPoD5yM7ME6ALw2J4IKQmYf8f1vwNhEomd71D4Q>
-    <xme:dcVHalo2vc9hz1t8Jou9h2HcWVTdPEY-z8hKhSKECDnr0fr3fLeInsCP2rdEuZhan
-    r8FD-_yCad8ntuMvqF-03QvNJ8hCyzrspk7KEAvWZ2B-2tSvSMV7Q>
-X-ME-Received: <xmr:dcVHalPcoIRfwhibxrGH5PH8JzwvegrM7Z8XRFhrS9jB_LpRdSUhJC1oN2M>
-X-ME-Proxy-Cause: dmFkZTE55wu+goJ+54ULjU+dqcMmSK9JX7q3Vn7pvd4IIGhTmEmsQSvaa60mz4vZKDJO/p
-    u2rhjkZfH7OGrOfkEAAEjvTcBQyihQZOWlEf9DlP1guTg6EXI5GB97bwjXsKR0rTXax4/R
-    FQCUxSqJqgJjcjkoZKImUUU22pVg5PiViqMG8lrDH8PFaTwHAV/D5dWkOjOu7LOQuH+Iy0
-    AQVgrkhgBztJrjKWmGhRPihmQN1wQXHclY6s0ApvFkNa3vbWK1Cn9LcMns1Gu9IoTbV33t
-    2QDtWATBLOjJMLJzGocWeBU65FA9NxZcXyqU4h4nhUY2qhQcxJ+qYSORTDWkswCxfX5ZZr
-    nKiicGCDjWrYRNidpJ7XRSYohQMSZtR06Oz8BYNWQYxBC001WtPCQG0IoOyo3Nu4H7cPPa
-    wx3ps7ZMwtJLBLPrjPT89jHgVfI5mTKhECmUqUOA+mDlRNi1KwSJpCP713HhPhK+N2xJdL
-    dRKxeShCvLjwRVT6FC2memB4PKPEBBclC/zjkdnEMhoJ0TaiWYaiIbQaabGieglqdpVRr1
-    HnMQdVgO7VXowi4nN2QALGH4RrlX5DMCE4Y+o6K362esWnu8+lA0dJNNntRLJZ5Z0pPxuH
-    xMWNjGm36SX4+JRXoXTYMK8EtBrzkNBCwz7kz+Aq4p/Am7tGK/ATVVFkq/Zw
-X-ME-Proxy: <xmx:dcVHaorPo6NljBu8OlvSi5eacJWZy3SOdMYQ3LwsUGl6ZJbpjWMR5w>
-    <xmx:dcVHaicuIiD2zPByMWOeZWO0aCCLFh-rq1cEXsKcmZoyhdyjchTQeQ>
-    <xmx:dcVHamQQRhTxQpqAHgNFRstRLeUQKR2kzMFlKkTBzSJJTQ_jujlHew>
-    <xmx:dcVHajYumdzVXcRkqKq81UPmlm3SIUua52sz151C1wZB5XhedQximQ>
-    <xmx:d8VHaivjeW9_3TgzYYnoxYyqBDcUL5x_L5NqT579nbJv7TqxCrHhkQAb>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 3 Jul 2026 10:21:41 -0400 (EDT)
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: netdev@vger.kernel.org
-Cc: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	stable@vger.kernel.org,
-	zdi-disclosures@trendmicro.com
-Subject: [PATCH ipsec] xfrm: espintcp: fix UAF during close
-Date: Fri,  3 Jul 2026 16:21:12 +0200
-Message-ID: <50e2ab4348eb8177581058f0152394cfae6a8d27.1783071494.git.sd@queasysnail.net>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bdDB8lX/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFEEE1F000E9;
+	Fri,  3 Jul 2026 14:26:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783088792;
+	bh=bAdodvFRLhC+2oQtX6FFcDmvDH6BXr17MYUPhZFj0F4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bdDB8lX/UJCGhOpywyg5O1L2Sq3OKPdsOoI6nXDQDtr7x4HwXfxfoNgAKxCXogFqm
+	 NVzlU3Pn4UycdroP3VVcPCicnvwyfSB54ZKKbF/SwSSdQWGzy5cxmjINklnIKkZWq1
+	 odiTHGQYfDj4cdgbIuZ2tsXskFRB32S2PZryRetIKsbhti+A7Pi2JVS1Oh07x+MEZY
+	 f3FwxNS39wp5+yeNbFQrWPlS6tEwCcgPK2lRMy8VBkSnqA9EbUOVe7EWAna56KOjlw
+	 lJeDhND5JeHJgv5gbV3oJv6fA7cKTfkL5L3RAKqre2Bj9Po6fxdOA4GIKKtpjL9DHN
+	 gYSPDDixFu8MA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ruipeng Qi <ruipengqi3@gmail.com>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/2] f2fs: fix potential deadlock in f2fs_balance_fs()
+Date: Fri,  3 Jul 2026 10:26:29 -0400
+Message-ID: <20260703142630.55436-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026070240-portal-down-4efd@gregkh>
+References: <2026070240-portal-down-4efd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,42 +46,256 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ZDI reported and analyzed a race condition during close for espintcp
-sockets:
+From: Ruipeng Qi <ruipengqi3@gmail.com>
 
-    espintcp_close() frees emsg->skb via kfree_skb() without holding
-    any socket lock. Concurrently, the xfrm_trans_reinject work queue
-    invokes esp_output_tcp_finish() -> espintcp_push_skb() ->
-    espintcp_push_msgs() -> skb_send_sock_locked(), which reads the
-    same skb as a data source.
+[ Upstream commit dd3114870771562036fdcf5abe813956f36d224d ]
 
-Fix this by adding a synchronize_rcu() call after resetting sk_prot,
-since esp_output_tcp_finish() runs under RCU and won't use a socket
-with sk_prot == &tcp_prot.  Simply taking the socket lock in
-espintcp_close() could lead to leaks, if esp_output_tcp_finish()
-re-adds an skb in the slot we just freed.
+When the f2fs filesystem space is nearly exhausted, we encounter deadlock
+issues as below:
 
-Cc: stable@vger.kernel.org
-Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
-Reported-by: zdi-disclosures@trendmicro.com
-Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
+INFO: task A:1890 blocked for more than 120 seconds.
+      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:A    state:D stack:0     pid:1890  tgid:1626  ppid:1153   flags:0x00000204
+Call trace:
+ __switch_to+0xf4/0x158
+ __schedule+0x27c/0x908
+ schedule+0x3c/0x118
+ io_schedule+0x44/0x68
+ folio_wait_bit_common+0x174/0x370
+ folio_wait_bit+0x20/0x38
+ folio_wait_writeback+0x54/0xc8
+ truncate_inode_partial_folio+0x70/0x1e0
+ truncate_inode_pages_range+0x1b0/0x450
+ truncate_pagecache+0x54/0x88
+ f2fs_file_write_iter+0x3e8/0xb80
+ do_iter_readv_writev+0xf0/0x1e0
+ vfs_writev+0x138/0x2c8
+ do_writev+0x88/0x130
+ __arm64_sys_writev+0x28/0x40
+ invoke_syscall+0x50/0x120
+ el0_svc_common.constprop.0+0xc8/0xf0
+ do_el0_svc+0x24/0x38
+ el0_svc+0x30/0xf8
+ el0t_64_sync_handler+0x120/0x130
+ el0t_64_sync+0x190/0x198
+
+INFO: task kworker/u8:11:2680853 blocked for more than 120 seconds.
+      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/u8:11   state:D stack:0     pid:2680853 tgid:2680853 ppid:2      flags:0x00000208
+Workqueue: writeback wb_workfn (flush-254:0)
+Call trace:
+ __switch_to+0xf4/0x158
+ __schedule+0x27c/0x908
+ schedule+0x3c/0x118
+ io_schedule+0x44/0x68
+ folio_wait_bit_common+0x174/0x370
+ __filemap_get_folio+0x214/0x348
+ pagecache_get_page+0x20/0x70
+ f2fs_get_read_data_page+0x150/0x3e8
+ f2fs_get_lock_data_page+0x2c/0x160
+ move_data_page+0x50/0x478
+ do_garbage_collect+0xd38/0x1528
+ f2fs_gc+0x240/0x7e0
+ f2fs_balance_fs+0x1a0/0x208
+ f2fs_write_single_data_page+0x6e4/0x730
+ f2fs_write_cache_pages+0x378/0x9b0
+ f2fs_write_data_pages+0x2e4/0x388
+ do_writepages+0x8c/0x2c8
+ __writeback_single_inode+0x4c/0x498
+ writeback_sb_inodes+0x234/0x4a8
+ __writeback_inodes_wb+0x58/0x118
+ wb_writeback+0x2f8/0x3c0
+ wb_workfn+0x2c4/0x508
+ process_one_work+0x180/0x408
+ worker_thread+0x258/0x368
+ kthread+0x118/0x128
+ ret_from_fork+0x10/0x200
+
+INFO: task kworker/u8:8:2641297 blocked for more than 120 seconds.
+      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/u8:8    state:D stack:0     pid:2641297 tgid:2641297 ppid:2      flags:0x00000208
+Workqueue: writeback wb_workfn (flush-254:0)
+Call trace:
+ __switch_to+0xf4/0x158
+ __schedule+0x27c/0x908
+ rt_mutex_schedule+0x30/0x60
+ __rt_mutex_slowlock_locked.constprop.0+0x460/0x8a8
+ rwbase_write_lock+0x24c/0x378
+ down_write+0x1c/0x30
+ f2fs_balance_fs+0x184/0x208
+ f2fs_write_inode+0xf4/0x328
+ __writeback_single_inode+0x370/0x498
+ writeback_sb_inodes+0x234/0x4a8
+ __writeback_inodes_wb+0x58/0x118
+ wb_writeback+0x2f8/0x3c0
+ wb_workfn+0x2c4/0x508
+ process_one_work+0x180/0x408
+ worker_thread+0x258/0x368
+ kthread+0x118/0x128
+ ret_from_fork+0x10/0x20
+
+INFO: task B:1902 blocked for more than 120 seconds.
+      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:B     state:D stack:0     pid:1902  tgid:1626  ppid:1153   flags:0x0000020c
+Call trace:
+ __switch_to+0xf4/0x158
+ __schedule+0x27c/0x908
+ rt_mutex_schedule+0x30/0x60
+ __rt_mutex_slowlock_locked.constprop.0+0x460/0x8a8
+ rwbase_write_lock+0x24c/0x378
+ down_write+0x1c/0x30
+ f2fs_balance_fs+0x184/0x208
+ f2fs_map_blocks+0x94c/0x1110
+ f2fs_file_write_iter+0x228/0xb80
+ do_iter_readv_writev+0xf0/0x1e0
+ vfs_writev+0x138/0x2c8
+ do_writev+0x88/0x130
+ __arm64_sys_writev+0x28/0x40
+ invoke_syscall+0x50/0x120
+ el0_svc_common.constprop.0+0xc8/0xf0
+ do_el0_svc+0x24/0x38
+ el0_svc+0x30/0xf8
+ el0t_64_sync_handler+0x120/0x130
+ el0t_64_sync+0x190/0x198
+
+INFO: task sync:2769849 blocked for more than 120 seconds.
+      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:sync            state:D stack:0     pid:2769849 tgid:2769849 ppid:736    flags:0x0000020c
+Call trace:
+ __switch_to+0xf4/0x158
+ __schedule+0x27c/0x908
+ schedule+0x3c/0x118
+ wb_wait_for_completion+0xb0/0xe8
+ sync_inodes_sb+0xc8/0x2b0
+ sync_inodes_one_sb+0x24/0x38
+ iterate_supers+0xa8/0x138
+ ksys_sync+0x54/0xc8
+ __arm64_sys_sync+0x18/0x30
+ invoke_syscall+0x50/0x120
+ el0_svc_common.constprop.0+0xc8/0xf0
+ do_el0_svc+0x24/0x38
+ el0_svc+0x30/0xf8
+ el0t_64_sync_handler+0x120/0x130
+ el0t_64_sync+0x190/0x198
+
+The root cause is a potential deadlock between the following tasks:
+
+kworker/u8:11				Thread A
+- f2fs_write_single_data_page
+ - f2fs_do_write_data_page
+  - folio_start_writeback(X)
+  - f2fs_outplace_write_data
+   - bio_add_folio(X)
+ - folio_unlock(X)
+					- truncate_inode_pages_range
+					 - __filemap_get_folio(X, FGP_LOCK)
+					 - truncate_inode_partial_folio(X)
+					  - folio_wait_writeback(X)
+ - f2fs_balance_fs
+  - f2fs_gc
+   - do_garbage_collect
+    - move_data_page
+     - f2fs_get_lock_data_page
+      - __filemap_get_folio(X, FGP_LOCK)
+
+Both threads try to access folio X. Thread A holds the lock but waits
+for writeback, while kworker waits for the lock. This causes a deadlock.
+
+Other threads also enter D state, waiting for locks such as gc_lock and
+writepages.
+
+OPU/IPU DATA folio are all affected by this issue. To avoid such
+potential deadlocks, always commit these cached folios before
+triggering f2fs_gc() in f2fs_balance_fs().
+
+Suggested-by: Chao Yu <chao@kernel.org>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Ruipeng Qi <ruipengqi3@gmail.com>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Stable-dep-of: 8b4468ec023d ("f2fs: fix potential deadlock in gc_merge path of f2fs_balance_fs()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/espintcp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/f2fs/data.c    | 29 +++++++++++++++++++++++++++++
+ fs/f2fs/f2fs.h    |  1 +
+ fs/f2fs/segment.c |  8 ++++++++
+ 3 files changed, 38 insertions(+)
 
-diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
-index 374e1b964438..f09b5dd85db8 100644
---- a/net/xfrm/espintcp.c
-+++ b/net/xfrm/espintcp.c
-@@ -517,6 +517,8 @@ static void espintcp_close(struct sock *sk, long timeout)
- 	sk->sk_prot = &tcp_prot;
- 	barrier();
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 8d4f1e75dee3eb..3f9572618f5477 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -943,6 +943,35 @@ void f2fs_submit_merged_ipu_write(struct f2fs_sb_info *sbi,
+ 	}
+ }
  
-+	synchronize_rcu();
++void f2fs_submit_all_merged_ipu_writes(struct f2fs_sb_info *sbi)
++{
++	struct bio_entry *be, *tmp;
++	struct f2fs_bio_info *io;
++	enum temp_type temp;
 +
- 	disable_work_sync(&ctx->work);
- 	strp_done(&ctx->strp);
- 
++	for (temp = HOT; temp < NR_TEMP_TYPE; temp++) {
++		LIST_HEAD(list);
++
++		io = sbi->write_io[DATA] + temp;
++
++		/* A lockless list_empty() check is safe here: any bios from
++		 * other kworkers that we miss will be submitted by those
++		 * kworkers accordingly.
++		 */
++		if (list_empty(&io->bio_list))
++			continue;
++
++		f2fs_down_write(&io->bio_list_lock);
++		list_splice_init(&io->bio_list, &list);
++		f2fs_up_write(&io->bio_list_lock);
++
++		list_for_each_entry_safe(be, tmp, &list, list) {
++			f2fs_submit_write_bio(sbi, be->bio, DATA);
++			del_bio_entry(be);
++		}
++	}
++}
++
+ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+ {
+ 	struct bio *bio = *fio->bio;
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 91f506e7c9cfb5..b35bcd61028617 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -4153,6 +4153,7 @@ void f2fs_submit_merged_write_folio(struct f2fs_sb_info *sbi,
+ 				struct folio *folio, enum page_type type);
+ void f2fs_submit_merged_ipu_write(struct f2fs_sb_info *sbi,
+ 					struct bio **bio, struct folio *folio);
++void f2fs_submit_all_merged_ipu_writes(struct f2fs_sb_info *sbi);
+ void f2fs_flush_merged_writes(struct f2fs_sb_info *sbi);
+ int f2fs_submit_page_bio(struct f2fs_io_info *fio);
+ int f2fs_merge_page_bio(struct f2fs_io_info *fio);
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 788f8b05024927..22a9a7c85ee9a5 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -462,6 +462,14 @@ void f2fs_balance_fs(struct f2fs_sb_info *sbi, bool need)
+ 			.should_migrate_blocks = false,
+ 			.err_gc_skipped = false,
+ 			.nr_free_secs = 1 };
++
++		/*
++		 * Submit all cached OPU/IPU DATA bios before triggering
++		 * foreground GC to avoid potential deadlocks.
++		 */
++		f2fs_submit_merged_write(sbi, DATA);
++		f2fs_submit_all_merged_ipu_writes(sbi);
++
+ 		f2fs_down_write_trace(&sbi->gc_lock, &gc_control.lc);
+ 		stat_inc_gc_call_count(sbi, FOREGROUND);
+ 		f2fs_gc(sbi, &gc_control);
 -- 
-2.54.0
+2.53.0
 
