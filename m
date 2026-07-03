@@ -1,110 +1,182 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5E33C5552
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 14:03:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5203D7D7F
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 14:09:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783087425; cv=none; b=ehMgWxNm2BTSRa9TPadk7WNXClAfS577k8uVfAsVDuG4ikyv5c/IEeFHMQqzzVxjUWqwILlPNZXjLkKri2PqlO9eiM3YV5qlJQma9BRnwVFzlDVeTwpSg/Y5NQsw0zJdxfBdHVS1f3HxBzBoxrJoXSLSOwL8PUsEkpaiQ9RBZwc=
+	t=1783087755; cv=none; b=mlRTx/1flU6749y0T081C7QcZBBckZTycyKviaYc96GeafkLDMHmCI/cFH2kRyM+ll71hv6osKBPSMFHizUiorSvGfvQDywuDGRIi3qBQwiyLPrhusc9VOaOXcMMg4owbpYSWaIdpOanT9J+4av+ooM1yOfJ46F83iClBuSnuM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783087425; c=relaxed/simple;
-	bh=xnzH+vuckVgYEMUW/aaupycIFd7DntCShzqjz5PWgvs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iq2rGVqnOgE2jn6mlcQEm8KuAKAtQhRCrU9KVYCIafpDDcVfKjZkObU4Hv9UKcb2SjvrL5pIwYBYamvnIJqit/fqcYMKcxlABraQeoocdhI8bzdAgrWpidWCPiaCTV95wL980uIq+mgs2cesLieagGvZ7lJChIfJOMlRqQXDDy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=pZTcmage; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1783087755; c=relaxed/simple;
+	bh=oG9IchSUavvlz6eo3z5L2oHEVExiuGwCINZDbakCgw0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=C9kZzhA7Ba0CiChRxftJA1vh8iuyV7HiWKhyvi42XYCWKpyM7toPIpLM4q1L+vTCTtAHNAEQO55KW5S6SKHWV+mf+ONAWjnDJ8ahKRyAapKBLmV64r+StCSAAE8CXuXaouSc6OjrahBjYi2JI8Fg6T8NJkso1uNqw/57zJgH62U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FZlsFDbC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="pZTcmage"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-461edb387ddso692852f8f.3
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 07:03:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1783087422; x=1783692222; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bCpo2PK0VLzQh0dhhWPe7XdS+pSwNhWFcM7edGtLuS8=;
-        b=pZTcmage/tjD2xoAW201R2frlF6zxFnatM5U4zruMwbaofW6QfKvlLqfJWs2YKp4Ji
-         UvLvTzGekNBa3LGlaIGAP8G3umR5Kli/5ij7Psv6gjpkqC6gtpooFzgFXIBG+GD3txtk
-         R+gRESH/g1ZoJ/x7Db6bfcDATB7813EEGLlEbA6w/6/hwjO9Oz1JjEpZqIG/FH+glSz/
-         V90dMsmjDXYcvWzwH35gQd+kTZXrlmZ6Kfe9eQX9WXUJqexQKoQUcPo7ng1nahoY7w0R
-         UPq5hQrcj/nQ3Qaaa9wOeY84L7glCwNuB6vOKb4yfs4UwBKYY8etO3DO+6eVfp7XxA6k
-         kxNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783087422; x=1783692222;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bCpo2PK0VLzQh0dhhWPe7XdS+pSwNhWFcM7edGtLuS8=;
-        b=nIrARzE9i7SXgPe/0I2Kb+xqDesiIXUcJFo9PwfhOj5+TdEycAH9oq3Gjtes2RQWDT
-         YG5pzLQ4Y0RdwkA1dxfYXOE7HQBAkycKpimpqSho/UD9Nlh5XR1VciGjw8NSX1qwY8uV
-         Yo8qeGGzk/wCDgFnoUPNQquv1MQ+EbG128Y3dVdBonp1XalKI4zYRQpTmr3owshWd8C+
-         WB8xntuDJZzYmqyyZmEExfDtwX/V3sJpZHTeQcA+GwDu8ujURmjfu75odotnFsqGg3by
-         8zIZZlHG2c2hr97X3WmA0+wZ83UowJ+w58UK4xDAhZFtbboCHYn2ebF0tnfFhDDdPhZB
-         bKmA==
-X-Forwarded-Encrypted: i=1; AHgh+RpELoZvAIuoXFdaOV/Og3hYhQROEs7Z2cj6qtDAeZa1FgCLrNWfk4YQtE9CEK4aMZtvz1X5dVA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwM3VzP33BHgUinnjuOJnIt9QLMPWf4N3c+7M5yV1xr4j5M6+7V
-	g0N50um9c3ErUbw2KxHryEsylkHYsJOzvEWQmU5fUXmQk1cP+A9aIao=
-X-Gm-Gg: AfdE7cnnwCXBWfIsj3WcyrGPPs1Es1Ao32TZ+kDyDTcj16OImc3DW6CwIAlEqeez+Rs
-	ryg199PDaJpOxPnJ9auVP+35tTxenZ7c3mtV1ifk3o7WBrLxmdquHsNwjD1K7txD/KxE5mWYeIX
-	i6leolLKtIu2j3oTONu3rIb8BB5hDzKSIq2ngn36CBcGSXjLQ7hOx6sqtVvetjFwiesyYux+P9P
-	gLQh6CMs9IFwaKguEWzUXWDlXtelsM2WwWLuAJ2opS3P9470gSeHEV/zUhwAd0fTHNCYnY1D4yp
-	q2QCFey803PeNDo8/YB08dj1WR+Sy0Z4fpeyACUGLDoaM/uVnJOR6by3UZbmaUoqRyTOjMxk2wV
-	ytL8u8hyvQaEnHx+FdcpXzKbrcwNtdT5SJ+7rZfQyZemkTWlAd9Mj6tsFDQGGT4mVzv7Lf/DkNx
-	cAijtBflDfE4iTmS+b+Usot1nHW1LTGRXKtWp/HDzQI0WPAaOmxSqqA9Gh7N7DXV8=
-X-Received: by 2002:a5d:448e:0:b0:473:f4c3:4d51 with SMTP id ffacd0b85a97d-477b16c934cmr11380382f8f.43.1783087422162;
-        Fri, 03 Jul 2026 07:03:42 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2b474a.dip0.t-ipconnect.de. [91.43.71.74])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db8a4a15sm18054654f8f.14.2026.07.03.07.03.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Jul 2026 07:03:41 -0700 (PDT)
-Message-ID: <fb64edaa-bd6d-42ea-83c0-61e0de7e90b4@googlemail.com>
-Date: Fri, 3 Jul 2026 16:03:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FZlsFDbC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568061F000E9;
+	Fri,  3 Jul 2026 14:09:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783087754;
+	bh=ddlNMlX2UPDC8A0nNdDdpqbl4ff+62gLmVr0DVAr/JM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FZlsFDbCwjDjno95rlwmSMnifl1b6mguisuG75p0YEKZ8zUVH3iTuLfN8o9ACwsxr
+	 bfb99/JWGj1GMgXJeCx3n+X0gz3D8TCKSN0gjSCmehrlIH3yFMI4oFFr9UYyy0sVZG
+	 6tbhmorPiu4bS9iRzn4DeFz8NLTkabyTicizclelzZLLFkgzYGxDcRRh2fiBWn3qCE
+	 cpMB1MbPh2WfTrM1ATRFz132XYP202IHNZC0+noMwM0pJgHS/4Do0tyyT3bffV184D
+	 +NPdRpXDJpN9Vjp044hPn6KB9YGaqjqWSdQkDa7hK0L/w8MEk0zQw3vFrguQrdniAh
+	 AlutgOItwx/0A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Mikhail Lobanov <m.lobanov@rosa.ru>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] f2fs: read COW data with the original inode during atomic write
+Date: Fri,  3 Jul 2026 10:09:11 -0400
+Message-ID: <20260703140911.17045-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026070220-thirstily-deniable-6715@gregkh>
+References: <2026070220-thirstily-deniable-6715@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 7.1 000/121] 7.1.3-rc2 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260703072822.817328079@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260703072822.817328079@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 03.07.2026 um 09:35 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 7.1.3 release.
-> There are 121 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+From: Mikhail Lobanov <m.lobanov@rosa.ru>
 
-Just like rc1, rc2 builds, boots and works fine on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or 
-regressions found.
+[ Upstream commit a41075acde0124d2f8a5f563068a5d63e8ffd57b ]
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+When updating an atomic-write file, f2fs_write_begin() may read the
+previously written data back from the COW inode:
+prepare_atomic_write_begin() locates the block in the COW inode and sets
+use_cow, and the read bio is then built with the COW inode:
 
+	f2fs_submit_page_read(use_cow ? F2FS_I(inode)->cow_inode : inode,
+			      ...);
 
-Beste Grüße,
-Peter Schneider
+and f2fs_grab_read_bio() decides whether to schedule fs-layer decryption
+(STEP_DECRYPT) for the bio based on that inode via
+fscrypt_inode_uses_fs_layer_crypto().
 
+However, the folio being filled belongs to the original inode
+(folio->mapping->host == inode), and the data stored in the COW block was
+encrypted (or left as plaintext) using the original inode's context, not
+the COW inode's -- see f2fs_encrypt_one_page(), which keys off
+fio->page->mapping->host.  fscrypt_decrypt_pagecache_blocks() likewise
+operates on folio->mapping->host.
+
+The COW inode is created as a tmpfile in the parent directory and inherits
+its encryption policy from there.  With test_dummy_encryption the newly
+created COW inode gets the dummy policy and becomes encrypted, while a
+pre-existing regular file -- created before the policy applied, e.g.
+already present in the on-disk image -- stays unencrypted.  The read
+path then sets STEP_DECRYPT based on the encrypted COW inode and calls
+fscrypt_decrypt_pagecache_blocks() on a folio whose host (the unencrypted
+original inode) has a NULL ->i_crypt_info, dereferencing it:
+
+  Oops: general protection fault, probably for non-canonical address ...
+  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  RIP: 0010:fscrypt_decrypt_pagecache_blocks+0xa0/0x310
+  Workqueue: f2fs_post_read_wq f2fs_post_read_work
+  Call Trace:
+   fscrypt_decrypt_bio+0x1eb/0x340
+   f2fs_post_read_work+0xba/0x140
+   process_one_work+0x91c/0x1a40
+   worker_thread+0x677/0xe90
+   kthread+0x2bc/0x3a0
+
+The COW inode is only needed to locate the on-disk block, and that block
+address is already resolved into @blkaddr by prepare_atomic_write_begin()
+via __find_data_block(cow_inode, ...); f2fs_submit_page_read() then reads
+from that physical @blkaddr directly, so the inode argument only selects
+the post-read crypto context, not which block is fetched.  Reading with
+@inode therefore returns the same (latest, not-yet-committed) COW data,
+while making both the fs-layer decryption decision and the inline crypto
+path use the correct (original inode's) key.
+
+With the COW inode no longer used at the read site, the use_cow flag has no
+remaining consumer; drop it from f2fs_write_begin() and
+prepare_atomic_write_begin().
+
+Fixes: 591fc34e1f98 ("f2fs: use cow inode data when updating atomic write")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Lobanov <m.lobanov@rosa.ru>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/f2fs/data.c | 24 ++++++++++++++----------
+ 1 file changed, 14 insertions(+), 10 deletions(-)
+
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index f468cba89f303b..b49e020181a6a4 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -3530,7 +3530,7 @@ static int __reserve_data_block(struct inode *inode, pgoff_t index,
+ 
+ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
+ 			struct folio *folio, loff_t pos, unsigned int len,
+-			block_t *blk_addr, bool *node_changed, bool *use_cow)
++			block_t *blk_addr, bool *node_changed)
+ {
+ 	struct inode *inode = folio->mapping->host;
+ 	struct inode *cow_inode = F2FS_I(inode)->cow_inode;
+@@ -3544,12 +3544,11 @@ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
+ 
+ 	/* Look for the block in COW inode first */
+ 	err = __find_data_block(cow_inode, index, blk_addr);
+-	if (err) {
++	if (err)
+ 		return err;
+-	} else if (*blk_addr != NULL_ADDR) {
+-		*use_cow = true;
++
++	if (*blk_addr != NULL_ADDR)
+ 		return 0;
+-	}
+ 
+ 	if (is_inode_flag_set(inode, FI_ATOMIC_REPLACE))
+ 		goto reserve_block;
+@@ -3581,7 +3580,6 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+ 	struct folio *folio;
+ 	pgoff_t index = pos >> PAGE_SHIFT;
+ 	bool need_balance = false;
+-	bool use_cow = false;
+ 	block_t blkaddr = NULL_ADDR;
+ 	int err = 0;
+ 
+@@ -3643,7 +3641,7 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+ 
+ 	if (f2fs_is_atomic_file(inode))
+ 		err = prepare_atomic_write_begin(sbi, folio, pos, len,
+-					&blkaddr, &need_balance, &use_cow);
++					&blkaddr, &need_balance);
+ 	else
+ 		err = prepare_write_begin(sbi, folio, pos, len,
+ 					&blkaddr, &need_balance);
+@@ -3683,9 +3681,15 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+ 			err = -EFSCORRUPTED;
+ 			goto put_folio;
+ 		}
+-		f2fs_submit_page_read(use_cow ?
+-				F2FS_I(inode)->cow_inode : inode,
+-				folio, blkaddr, 0, true);
++		/*
++		 * Although the block may be stored in the COW inode, the folio
++		 * belongs to @inode and its data was encrypted (or not) using
++		 * @inode's context (see f2fs_encrypt_one_page()).  Read with
++		 * @inode so the post-read decryption decision matches the
++		 * folio's owner; otherwise an unencrypted @inode whose COW inode
++		 * is encrypted hits a NULL ->i_crypt_info on decryption.
++		 */
++		f2fs_submit_page_read(inode, folio, blkaddr, 0, true);
+ 
+ 		folio_lock(folio);
+ 		if (unlikely(folio->mapping != mapping)) {
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.53.0
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
