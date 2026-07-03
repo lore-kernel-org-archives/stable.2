@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5DDB2F1FEC
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 18:39:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFCC1F30A9
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 18:50:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783103984; cv=none; b=u/l7scMhwaU1pv/KhPFgTGDiaxzEVCRP1e65LFSzPoV2SpG3VGq+QJMdVEAH4Mn4t1d74s+gKR47edB8nMCc/m667JBL0Y6EVL9ZK6UrYBp2G57rTOeIhfMeRxnSKV3k5DVrHYx3Lkq3PZN8wU0i90cuBEse/edBSSwoDt9yjhU=
+	t=1783104618; cv=none; b=soIKsZMiq4mB2+RfJYUe/N6ovUqaxaxuoPHwltwWlOkpvhYdwXy11sbHB08LyQmCZtY2v2AVIWVykGkYnkpvPqh51H5ItHFcTZ+apHSX96kbzbxtdE3ftg98evkLObE9S7ZeC4Df0i5a9iXnbnMK9CvgxIL5L9s8ElUoDTyBhkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783103984; c=relaxed/simple;
-	bh=6YFg5oGEIS1RV4JMsdsdpc8ekqde02V2+0UrmqeeFMc=;
+	s=arc-20240116; t=1783104618; c=relaxed/simple;
+	bh=z0hnzX30G4X+RZ8iSAyuCIhBW0F050jK0jf8VOmji4w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oDlyDxsy5kmyOjL4IbztjOBOnxm4ZBbzk/SaBn6gzdqgd7Ia49bRw7RbqFIKy+KH+28HYsmT6q3kPdl1fbuATgg+uezv1pgIme9Jsg9ypKHmSru8kn5i2oC280qhOrHsxC41zO3R/msI0wnnvGSGYFg4hKybw5t+nhE0pZxkG8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oky1VcFU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RymV1ANyUXp06FK48u3U1oyOL5zKg79PECVrL217caE1Stnj64PfY/t5bRoHB38/9WHnymRZPnWm3luoc4v48ogYJqnDPP12klegi1oxYwXxGsiM69rSc+ACPY5NKgitBQCsvkrCN2xj66no04L0fGs2ChQUfZuSzsWjKu3sG40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QJUKDdgr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oky1VcFU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D45481F000E9;
-	Fri,  3 Jul 2026 18:39:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QJUKDdgr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E4B1F000E9;
+	Fri,  3 Jul 2026 18:50:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783103983;
-	bh=J5TBfNRvbWqnfgZGFBHMQ75BOVN/mdbXIhVJRU3hlIA=;
+	s=k20260515; t=1783104617;
+	bh=4OGAHsZz/B5AMHiTwpSetPxmIekAOQvHkTXLo/QsLnI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oky1VcFU/MSO2gHXAUuGMro/XJ/zPLsFz3qP0lxHRXFgDlwjx6iCENV+IAiGXx8FL
-	 jWSoGZ463xAL0HH+ceMqq4sTxBUAh+B/B7gpCdQVJ5Kv1nZlm8U0Oaxul8RKpJMqyc
-	 BG+ZhTBDKqZ8P19SMGm85zwn3/VN0es8mNHaZ7FlhPBaMBU2NvYNk85I3SJFWGkhRQ
-	 Mfvm1Ubn/kVkeu/rnaTwNsIGRc1idJ1WXLPpCAYg1T+FlfEuwgD9ti8FXX31kibGTO
-	 bzmgD0aaJrlTT/XfvkST9CbtaM2tT99nA+BFDiTJfrW8Up+MKWURxrD+VlXM48fyL2
-	 qZkXyT1qbxM6g==
+	b=QJUKDdgrPHc3GF88cUKzhv2ytWSYDmnkK4rzC74wDWW6sQ+vGYShsF0RDW2SG97Ec
+	 MjNjJc2yw9oZUhtTXzl70VpQvshTOjbwVkJ/HgNdhLqtNZAvyJ9HmDQGouuP7ufaFu
+	 6rHIHEP1uEsXyMWtckGRGpxjs6l04d/6ad0boitItGT489rzsvQFsEOtZeHRBCRaHP
+	 1kxddtXUP78jNkAn5x5HcusXFTpgApqfSL6bSHvCBklvyudOzeB4EIqLeTDMqvZJIn
+	 REe/9001v9ZFbqPB4x4A76A6wj4pY12CSvjzRRBuVrZ/QsKU3Dfhy5Hgx6VBEuEikG
+	 IUAhsHin6nw4w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Keshav Verma <iganschel@gmail.com>,
@@ -33,12 +33,12 @@ Cc: Keshav Verma <iganschel@gmail.com>,
 	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] f2fs: fix listxattr handling of corrupted xattr entries
-Date: Fri,  3 Jul 2026 14:39:41 -0400
-Message-ID: <20260703183941.265158-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] f2fs: fix listxattr handling of corrupted xattr entries
+Date: Fri,  3 Jul 2026 14:50:15 -0400
+Message-ID: <20260703185015.285028-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070201-elevate-aide-0fef@gregkh>
-References: <2026070201-elevate-aide-0fef@gregkh>
+In-Reply-To: <2026070201-oven-junior-8a26@gregkh>
+References: <2026070201-oven-junior-8a26@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,7 +66,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/fs/f2fs/xattr.c b/fs/f2fs/xattr.c
-index b4e5c406632f81..8cb0de2a5bcf9f 100644
+index 7e9f24e5215116..eac4c0d934f71f 100644
 --- a/fs/f2fs/xattr.c
 +++ b/fs/f2fs/xattr.c
 @@ -581,8 +581,6 @@ ssize_t f2fs_listxattr(struct dentry *dentry, char *buffer, size_t buffer_size)
