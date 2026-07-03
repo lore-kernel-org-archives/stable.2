@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF6F2E22B5
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 18:03:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C74FF30BF70
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 18:14:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783101835; cv=none; b=VTmU5dEGCLyNjZOSZxwEPeIVJWvk2Prg2oAzK8VRCJ/Qb20zF2Xxly8f1ByBUya+pUvt1i+gmG3tFdoj2/dHTcRaSd4y11EdUe0AVbRvmr9PfQRyEK53HvY3wEu5gk3m4I3wmMO5b8tj0gRsKL7EaS3t/1tZsaP0NLyoAcl7Gtw=
+	t=1783102465; cv=none; b=UOfnX2zSoEcSOhSJKH6i0ZKN6gdg76AEURBYk48yynyIG5FQEq9biMQH/MvWtEYsXosdLZxdFGCbzHx44czAWPfIvJnj9Wsy1QapZ2L79niZdKE6mQyzX2EtZQEWKHBJfCV+NFeIIVWhuGvS9uQlWpuLeXrR0aDQDlyllcKhB0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783101835; c=relaxed/simple;
-	bh=H05PUEhrE+U+7GkMexx5D8KstZrpBoGeraowmXRk4C0=;
+	s=arc-20240116; t=1783102465; c=relaxed/simple;
+	bh=+LeD1bHs5m0adZ0ovwYJXG0GM7JdR9nMFtTeTJ/1PBg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=myrwq+IpjtwdVoewjqfwAlfD7jrASxE1x1NxWwNmk1mfCDkNJsXJnE8r1AjSej3JTXLezNqx9MlMtiH+7DitgLTkGk4N7UM6xFgwBhoePKwxSdAKSb12bcNhScyMIKxCIYNIxRGlS9gK/YLz5TSmP9J4eRe4yvzHnq/NOUxukhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKqwS7F7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uPJP7sS4OOQGmtzHzLiL5l/8LYCt7zbJm7oLiUyqZlF9ABquuIArf+nqE1TWHMyJwnT6p4eI1IecVG1Qc/+j+ZxQ4G63WRVST5olPoMIcySSnThUTIR2xL5O7/J3+x70teNA3cTK6oMnWKQgSCHy4anCegKDMlu5DvQ0w+/BkJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FPhT3x9r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKqwS7F7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 850DF1F00A3D;
-	Fri,  3 Jul 2026 18:03:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FPhT3x9r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9702A1F00A3D;
+	Fri,  3 Jul 2026 18:14:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783101834;
-	bh=7WefwkkxIeSI6mJQMUvnT8k9p+gWl6Xn3lZ7/c8j4pg=;
+	s=k20260515; t=1783102463;
+	bh=RoZQzv5ALuh2G/oWalXqzoFzVjKwIx8uOSZdnCzzQT8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZKqwS7F7seRTeCkyIclBqxS8MXGCMm6AShzzfFWlQSv7IUGSfn9ExTu0hIL18vs+t
-	 uYDxwap0pvEA45MubN0giDXMuFYe7TdmRZHMm8Yk84uW71ney5u9nb5UKNPGeztMej
-	 hL9R0RFspE5quz5xFjGBz8bYsqaEXYYbiwU+bn0LU+szWpU+gAQhRbPk/+iAefQ22d
-	 T5c4tn0oSFye6/zp0xEKhC5SQAbGBp9SRO2Nb/qAoazm/M1XeXYZl51qKq3Lx+j61O
-	 Cb/dDvcLFSnE+j1nG2cni3HrI6wLW7VQ+1jEXay2ZUUbTaewUvyLfbt9g76aurHGOR
-	 8rUCcTqDu3FeA==
+	b=FPhT3x9re5l6kBg/b0hUNkrfzDmtjhIwUASRTKaWR6zLJxqNtFtuADzOMoRd2A85L
+	 Lh5iq32EOv9b/481Tt8mMd1gwWP1uwkh6pOSBvY84KIRPQ6Oy/ZmQbpO9CYbSDJt+t
+	 y7DI65BmrNHEapn3L5btTZGcImtmJKjfLwAHPd2jMmxYFmUn+QIiQoRzABObRoUM6e
+	 h8IX44NuB99p8tQRHtYWJ1dSETTAmw3M5hZVBSFeFF6IgqgaYvj+GYUDwn2eNLzwKY
+	 213HPLE468yrFZ1GEOm+wiil/DHnE5qqjuLFnVzzmEvxK6/aLG4qIFdD8J7dzYENMW
+	 Nv7n0o0paX0Cw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Wenjie Qi <qwjhust@gmail.com>,
@@ -34,12 +34,12 @@ Cc: Wenjie Qi <qwjhust@gmail.com>,
 	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] f2fs: validate orphan inode entry count
-Date: Fri,  3 Jul 2026 14:03:52 -0400
-Message-ID: <20260703180352.199841-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] f2fs: validate orphan inode entry count
+Date: Fri,  3 Jul 2026 14:14:20 -0400
+Message-ID: <20260703181420.250032-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070202-mandarin-hangup-b590@gregkh>
-References: <2026070202-mandarin-hangup-b590@gregkh>
+In-Reply-To: <2026070202-purple-travel-b718@gregkh>
+References: <2026070202-purple-travel-b718@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,10 +79,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index 71a3714419f850..29c372e421d02f 100644
+index f4ab9b313e4f55..2e6b861cf87657 100644
 --- a/fs/f2fs/checkpoint.c
 +++ b/fs/f2fs/checkpoint.c
-@@ -738,6 +738,7 @@ int f2fs_recover_orphan_inodes(struct f2fs_sb_info *sbi)
+@@ -723,6 +723,7 @@ int f2fs_recover_orphan_inodes(struct f2fs_sb_info *sbi)
  	for (i = 0; i < orphan_blocks; i++) {
  		struct page *page;
  		struct f2fs_orphan_block *orphan_blk;
@@ -90,7 +90,7 @@ index 71a3714419f850..29c372e421d02f 100644
  
  		page = f2fs_get_meta_page(sbi, start_blk + i);
  		if (IS_ERR(page)) {
-@@ -746,7 +747,17 @@ int f2fs_recover_orphan_inodes(struct f2fs_sb_info *sbi)
+@@ -731,7 +732,17 @@ int f2fs_recover_orphan_inodes(struct f2fs_sb_info *sbi)
  		}
  
  		orphan_blk = (struct f2fs_orphan_block *)page_address(page);
@@ -107,8 +107,8 @@ index 71a3714419f850..29c372e421d02f 100644
 +
 +		for (j = 0; j < entry_count; j++) {
  			nid_t ino = le32_to_cpu(orphan_blk->ino[j]);
- 
  			err = recover_orphan_inode(sbi, ino);
+ 			if (err) {
 -- 
 2.53.0
 
