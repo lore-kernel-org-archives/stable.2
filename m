@@ -1,208 +1,125 @@
-Received: from devianza.investici.org (devianza.investici.org [198.167.222.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855F2417340;
-	Fri,  3 Jul 2026 15:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.167.222.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B8041735C
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 15:27:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783092352; cv=none; b=Mh5JHFWS9TN5/FL3pah/YolHbHzhf+lGv7fgX29JdZbSjF64Aje237dSmJRnSq6VfTP/7z6vvOKydjcbNSN+e9cGkXPsSpadSEIfk5mHHQ3b3XUfINKj3P/wII/xSoABG0h9Ztd0AfyRNMk+o2ZngzIer+Xy/6WdvwVQ9eQGEt8=
+	t=1783092436; cv=none; b=Wn3sP67iNBS98xrHHJiFrQF4D5FibZwvqZhACKpSRqvnEVHdNd+q7phzMkrQrIdE0ZR9Ss6wGjeMXH/PCvhSSAd81FAG0UPpbg9hqG2tZtiIYxaYU+/6DfUD7FsTs5UI2BvwaQdBRq4JQidDRD9Dx2HoJsxPydtd2zSFqdL1Dew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783092352; c=relaxed/simple;
-	bh=DQq8RReMEcABMHHCXpb+73LtwviVsW/UuYug12fcTZo=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=Kb25ziFbtpnCgofiP4dvvN9p59IV0JsMpQ2RaLxm/CN1wrlJZY4Ssx87k+sBk1ShcZt8ZaHsFNaY6pRZXgs7EqRIm8lorlaToTuICb5ovdH7TOv4dThEeQDXCwdHwVtlV6Yr3c+lsWAjUAhUtmjob0U9pXWygEdWkjB7k04i2i4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=QFgIRCgK; arc=none smtp.client-ip=198.167.222.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
+	s=arc-20240116; t=1783092436; c=relaxed/simple;
+	bh=TukiYcyaL6HvstWzY9oV1D0LPs+P1LWTmZhuuNPqXrI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=taVEe5fl1BepVDy+73f7tkf/UrvJOieRGFr+X1V2iI7mOLw6/hUMHCylQihAKiSN5sU36++stSO0tRwzqdvIE5lrjYQb03ougO99N1SjI+xlulWXihEJtoaSHI7Bvmef+Po0rpNZcEeLhXB/HhtoEobBmPvv71uII2za2v3NCi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Kxwh/pP1; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="QFgIRCgK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1783092346;
-	bh=6zVOs+5+z8ghlJRrlHLjm6Akcr94kbV2GxVtfp+rFPM=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=QFgIRCgKYSHnvxlsr4Bm9+jXovNMh8oXObttTbeNqQokcTp/XMkm+YxErusX+H5r+
-	 y+OzE4nhGEDKewf0pcu8ORwOZ8vA0DbeRvpx8+45fHA+pBZFWTTV9Iwa9vu3eqEIvS
-	 cSYl1iU+YoXHtVipUjSFmRm65iZxYE9DljW61NsM=
-Received: from mx2.investici.org (unknown [127.0.0.1])
-	by devianza.investici.org (Postfix) with ESMTP id 4gsHdQ3RsPz6vZY;
-	Fri, 03 Jul 2026 15:25:46 +0000 (UTC)
-Received: by mx2.investici.org (Postfix) id 4gsHdP6g07z4y2q;
-	Fri, 03 Jul 2026 15:25:45 +0000 (UTC)
-Date: Fri, 03 Jul 2026 16:25:45 +0100
-From: Bradley Morgan <include@grrlz.net>
-To: Petr Mladek <pmladek@suse.com>
-CC: Feng Tang <feng.tang@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_4/4=5D_panic=3A_use_sys=5Finfo=5Fwi?=
- =?US-ASCII?Q?th=5Ffilter=28=29_to_avoid_duplicate_backtraces?=
-In-Reply-To: <akevFNCaXnt0kRVC@pathway.suse.cz>
-References: <20260625152558.7450-1-include@grrlz.net> <20260625152558.7450-5-include@grrlz.net> <aj5TNB8cRtMNTtIT@pathway.suse.cz> <aj5tFiwhRqPkAkqU@pathway.suse.cz> <akJZxCTlLcwubqi2@U-2FWC9VHC-2323.local> <E482A23D-4E1C-42C0-9D07-83C6CDFD1546@grrlz.net> <akYq1YaCpZ0b4SBS@pathway.suse.cz> <EC1E5A79-524A-45C2-9FE8-964EB0E18D76@grrlz.net> <akevFNCaXnt0kRVC@pathway.suse.cz>
-Message-ID: <070E6C0C-5AEF-4BD9-84C9-72B2D5E62177@grrlz.net>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Kxwh/pP1"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493be0fbcc5so184635e9.0
+        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 08:27:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1783092434; x=1783697234; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7jpWuBmgCfnac9kWe4AodWLj+AdSLC8VyDipYsDjci0=;
+        b=Kxwh/pP1e3GlSdUkvwxexCLYyk2B6pOPZfxTrOplLomg/qHxRy4ReW5Vn2GdNG+55O
+         vrMeVpt1Vt6OFKofBjJU6wS194EG1PjS5cd7F75gV8cLOUCuy3g25/E/jMLfFtrjdl4n
+         VIdTO41eWQ+T7FvuBWUY3LqaJMpsJSrHgawSlc+o6hHm02/xr9r3L5fhfMforWPGK+sQ
+         ioJZvq0kQK2JNOVCTbTsrGDP6GDkQTz/eW6Uev/5qWkX/47Y1YsmpJpXFnLRFgzCMNiG
+         Kj8ManE6UThUlEaW/BKnpuXiP0CA8BuliYFA4IzsaOwfuYXK66Nkgo3eLX1jaB1JqkD8
+         yMIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783092434; x=1783697234;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=7jpWuBmgCfnac9kWe4AodWLj+AdSLC8VyDipYsDjci0=;
+        b=D7s0v6c4CWKleKNNkKq2yauh30IBQU6VV1t6pvjYzz7gAeLV8ZqqykjgMNhYhsl7cO
+         zLGmfNa7drE5IiDOBprHSvpc36mMkg7g7ULpiITKfWKBgGNIXdDBW/ywI6S8Q7cm9GrY
+         lp+2cl7E0OvoFmdLD37uLzfXrZdSgf9gbRkUXjvScIN/+14PYJqPdXcnTsvZ4jR84tPU
+         OeTXFaBXCF1Dql/v0gQdPNse246lz2wXjVqrQ4cSXjQ7dxonpkiLgj78y5edEhNFFXVn
+         w1pB5rx4DNQcEt9CuLyNekraJAcmY3cjxMFKJgy21jhiaOZyBvYnxcB3hjpeIGrbZe24
+         ibEQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/bkcJvRPzwQ9Y8zyc638ZbDjNJbgw2t66gXZKms03zv4SHn4hfB+P/hCYY7hJuHEB+ROFCoNQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzpjeALoMQakJleFnQ1a1JHx29yutYpoQPnqqNPZjBNMUebl0cD
+	8GvsBQ+e+VBfadr+Ckmip/nYbBdJ+ID0iKrVb/y25eQp/qOatqQ0HVj9LNU4rdjgCvc7HxPIgYm
+	bvtr9llu8
+X-Gm-Gg: AfdE7ckMuH0P2c93TN+/MEukhLxPKXqMRxQSDt/ryyDAtuDjZLM6WPGgG7F0xyq2pPO
+	zA0fEEIw9CfY/sNgHXeCB/t3Y5+tzYI4eyE3SjYz5YLAZFaB6MNgsEZ+dxMZAXUlQ/eWdlneYC0
+	ujNA/ga7Yn/2fRYSryUm5mcd8Q2itUUXKoPkp3gEwRTiVH9K8th6nVjBRcoVmvwp+AIQdpw+YcX
+	paQQ1SPLjrf4Bko2jKfZBbnBBDujdOXBNkF/hTQ1+NcEScGNlJ3oJzqLqAZp5Yzzn8wJBAArI4X
+	UP/itvFw/O9iVTROI9HabXR/fOh7840L9bKKMrUMX3l7T9rTVdG/Ec+B+6RU91mC8w4EM3PvFip
+	1wssZ+hloe04STcQAuMu75sek35bfRdP7359ictU4mAKJVKOEjLIECLsVwqYGikLjsAn7iXOV4Z
+	Hiw4k4Vj/d8IgyG2cYtNjAQoHGJwCdEnrFqhal8TWROuwzr3PMXKBuzLeRTgInTbmKwrX8uQ8=
+X-Received: by 2002:a05:600c:b4e:b0:493:c1a0:7fdc with SMTP id 5b1f17b1804b1-493d0fe58a3mr39155e9.0.1783092433298;
+        Fri, 03 Jul 2026 08:27:13 -0700 (PDT)
+Received: from localhost ([2a00:79e0:288a:8:c0d:89b8:4c51:d7de])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d6e4csm128009f8f.10.2026.07.03.08.27.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 08:27:12 -0700 (PDT)
+From: Jann Horn <jannh@google.com>
+Date: Fri, 03 Jul 2026 17:27:06 +0200
+Subject: [PATCH] HID: asus: fix UAF of ->kbd_backlight on !CONFIG_ASUS_WMI
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260703-hid-asus-uaf-v1-1-1a2af2534eb0@google.com>
+X-B4-Tracking: v=1; b=H4sIAMnUR2oC/yXMTQqEMAxA4atI1hOIFX/wKjKLWlONC5VmKoJ4d
+ +u4/BbvnaAchBXa7ITAu6isS0L+ycBNdhkZZUgGQ6aimgqcZECrUTFaj9Q3nBem9I4IUrIF9nL
+ 8d933tcZ+Zvd7HnBdN+42d09wAAAA
+X-Change-ID: 20260703-hid-asus-uaf-0b8e1325fc00
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: Carlo Caione <carlo@endlessm.com>, linux-input@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Jann Horn <jannh@google.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783092432; l=1129;
+ i=jannh@google.com; s=20240730; h=from:subject:message-id;
+ bh=TukiYcyaL6HvstWzY9oV1D0LPs+P1LWTmZhuuNPqXrI=;
+ b=XC0Y/aLHtVUdK7FUQMa2p9np9WV2IGgb8xx+nXYLcWs2l9I+0i+dkh4YaSSE+qi0S3EGr9E0+
+ eEOGREV+LiQAxNk8xsse4T12xmiEnjNbM7o2w3o/NhX7dJYqDHzWTEU
+X-Developer-Key: i=jannh@google.com; a=ed25519;
+ pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
 
-On July 3, 2026 1:46:12 PM GMT+01:00, Petr Mladek <pmladek@suse.com> wrote:
->On Thu 2026-07-02 19:13:26, Bradley Morgan wrote:
->> On July 2, 2026 10:09:41 AM GMT+01:00, Petr Mladek <pmladek@suse.com>
->> wrote:
->> >On Mon 2026-06-29 13:54:18, Bradley Morgan wrote:
->> >> On 29 June 2026 12:40:52 BST, Feng Tang <feng.tang@linux.alibaba.com>
->> >> wrote:
->> >> >On Fri, Jun 26, 2026 at 02:14:14PM +0200, Petr Mladek wrote:
->> >> >> On Fri 2026-06-26 12:23:50, Petr Mladek wrote:
->> >> >> > On Thu 2026-06-25 15:25:58, Bradley Morgan wrote:
->> >> >> In watchdog, panic, and hung task detection scenarios, sys_info()
->can
->> >> >> be called multiple times or alongside direct backtrace triggers
->like
->> >> >> trigger_allbutcpu_cpu_backtrace(). This results in identical
->> >backtraces
->> >> >> being dumped repeatedly from all CPUs, cluttering the kernel log
->and
->> >> >> delaying or obscuring critical debug details.
->> >> 
->> >> im feeling a new file to do all the force panic jazz, but putting
->tape
->> >> on sys_info.c isn't bd either.
->> >
->> >I wonder how to move forward with this.
->> >
->> >Honestly, I am not sure what exactly you mean by creating another
->> >API for tracking the reports so I could not judge it. Feel free
->> >to sent some POC.
->> 
->> sup petr, here's my poc
->> 
->> This should make my entire thing make sense
->> 
->> >From eb587ed749ff5993c517f29799b369185c5ee7d8 Mon Sep 17 00:00:00 2001
->> From: Bradley Morgan <include@grrlz.net>
->> Date: Thu, 2 Jul 2026 18:09:23 +0000
->> Subject: [POC] sys_info: Introduce incident state-tracking to prevent
->>  duplicate diagnostics
->> 
->> In watchdog, panic, and hung task detection scenarios, sys_info()
->> can be called multiple times or alongside direct debug output
->> functions (like trigger_allbutcpu_cpu_backtrace(), print_modules(),
->> print_irqtrace_events(), and dump_stack()). This leads to identical
->> diagnostics and stack traces being dumped repeatedly, cluttering the
->> kernel log and delaying critical panics.
->> 
->> Introduce a state tracking bitmask and helpers in a new file,
->> lib/sys_info_filter.c:
->
->New file suggests that it would implement an API using
->sys_info_filter() prefix.
->
->> - sys_info_filter_and_set(mask): Atomically tests which bits in a mask
->>   have not yet been printed during the current incident, marks them as
->>   printed, and returns that subset.
->
->The name of the funtion is a kind of puzzle. I think that we
->could do a better job.
->
->> - sys_info_reset(): Clears the printed mask state.
->
->This function has sys_info* prefix. It would expect it in sys_info.c
->
->> Add SYS_INFO_MODULES, SYS_INFO_IRQTRACE, and SYS_INFO_STACK flags to
->> include/linux/sys_info.h, and handle them inside sys_info's diagnostic
->> dispatch.
->
->I though about adding an information that we printed backtrace for this
->CPU as well. But it not trivial. Different API shows different extra
->info, like modules, IRQ backtrace, registers, code. I would leave
->this complexity aside for now.
->
->> Update the watchdogs, hung task detector, and panic core to call
->> sys_info_filter_and_set() to deduplicate their diagnostic printouts, and
->> sys_info_reset() when a warning incident concludes (e.g., when a stuck
->> CPU recovers, or a new hung task check round begins).
->> 
->> This ensures each piece of system diagnostic is printed at most once per
->> lockup/panic event, preventing console log spam.
->> 
->> Assisted-by: Gemini:gemini-3.5-flash
->> Signed-off-by: Bradley Morgan <include@grrlz.net>
->
->> --- /dev/null
->> +++ b/lib/sys_info_filter.c
->> @@ -0,0 +1,120 @@
->> +static unsigned long sys_info_printed;
->> +
->> +unsigned long sys_info_filter_and_set(unsigned long si_mask)
->> +{
->> +	unsigned long old, new;
->> +
->> +	if (!si_mask)
->> +		return 0;
->> +
->> +	do {
->> +		old = READ_ONCE(sys_info_printed);
->> +		if (!(si_mask & ~old))
->> +			return 0;
->> +		new = old | si_mask;
->> +	} while (cmpxchg(&sys_info_printed, old, new) != old);
->
->It is a good question whether to update the info using atomic
->operations. One problem is that the mask is "unsigned long".
->I am not sure if it natively atomic on all architectures.
->32-bit architecures use extra locking when implementing
->atomic operations with 64-bit values. And we should rather
->avoid any locking in this code.
->
->Well, long seems to be 32-bit on 32-bit x86 so it might be
->safe after all.
->
->> +void sys_info_reset(void)
->> +static void __sys_info(unsigned long si_mask)
->> +void sys_info(unsigned long si_mask)
->
->I wonder why this sys_info*() API implementation has been moved
->from sys_info.c to sys_info_filter.c.
->
->I am sorry but I do not see any advantage in adding the new file
->sys_info_filter.c
->
->> NOTE!!: This is AI generated!! This **MAY** not be the finished product,
->> this is ONLY the model!
->
->IMHO, Gemini did pretty bad job in this case. Please, try to review
->the AI generated before you send it. And send it only when you think
->that it is reasonable enough. :-)
->
->It is even fine to send "crap" but you should start the mail
->with a warning that you send it just give us an idea what you
->had it mind. And you should explain why you actually do not like.
->
->Best Regards,
->Petr
->
+On kernels without !CONFIG_ASUS_WMI, asus_hid_register_listener() will
+fail. asus_kbd_register_leds() reacts to this by freeing
+drvdata->kbd_backlight, but doesn't NULL out the pointer, causing UAF when
+asus_remove() follows this pointer.
 
+I have tested that this bug causes an ASAN splat, and that this change
+fixes the issue.
 
-for now, I'll go with your approach, I'll split up and submit your
-patch(es) in the coming days.
+Cc: stable@vger.kernel.org
+Fixes: af22a610bc38 ("HID: asus: support backlight on USB keyboards")
+Signed-off-by: Jann Horn <jannh@google.com>
+---
+ drivers/hid/hid-asus.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index 3f5e96900b67..c2a5edebbd7a 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -777,6 +777,7 @@ static int asus_kbd_register_leds(struct hid_device *hdev)
+ 	if (ret < 0) {
+ 		/* No need to have this still around */
+ 		devm_kfree(&hdev->dev, drvdata->kbd_backlight);
++		drvdata->kbd_backlight = NULL;
+ 	}
+ 
+ 	return ret;
 
-Because the whole new file idea is super complicated and requires a
-load of discussion before a model could be completed.
+---
+base-commit: 51512e22efe813d8223de27f6fd02a8a48ea2323
+change-id: 20260703-hid-asus-uaf-0b8e1325fc00
 
-One of my ideas is to just kill sys_info. and/or make it better.
+Best regards,
+--  
+Jann Horn <jannh@google.com>
 
-Other ideas I need to think.
-
-Thanks a lot for reviewing my model though.
-
-Thanks!
