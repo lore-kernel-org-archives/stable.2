@@ -1,124 +1,117 @@
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA57330301
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 05:41:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EFF25F98B;
+	Fri,  3 Jul 2026 05:46:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783057311; cv=none; b=OQB0jX8VD3ycqwn6Zpnr8mmE6VFmGVbBHDHl1RRjEZJJ9eIOIcB6vyo7H+FhYdlYuD1Q40ejT4TTYQqOjy/UzERHtejBjj4IKFPbpoXp1omU8NQFZ+ezrJeqOiEZi1F/9T0NybabatSMErAL3Mbt6udekAIW/uW2Di9v0o7vitk=
+	t=1783057595; cv=none; b=rfzcR8A45kGFkvXB6F0k2qmHM6djIl6iqu8liA6uFzuL2rltwTtrp97iqcBLasz4lKc2Y3CtNxN4yEihvo7LVZLYBjdneDmV5efx756+rVjhJwCkQBIhCQVOAjM8lebe0P/EgsfpaJrPLjFxhzYjUCridfFNKy5VGpGqBk7aAR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783057311; c=relaxed/simple;
-	bh=1pJH6MM/YI04BFzDJJll5C6T+U7N6I/hlXQqgKp7w+U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cnHBzMUuSCX8XPGtFcuKz4xvqFqmi5z5p/D0NZd8KqSyw231Cnq79YPxvByAdj/fGlAsMgbXd3gxmaPqO/xHnIl3I737DwDHaR55oM7aYGot5SI6x3CsQW9hD5864syIxXBpr4rJMk/nhYuVx+UyYCVk4kYcg2//bC1E0Zv2V+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=Co/OpGna; arc=none smtp.client-ip=35.89.44.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1783057595; c=relaxed/simple;
+	bh=sh/5zGlA0WUuN495BdKCGL/BODmybOL2yKAHhGA20Xk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DoWbnh/e92alnRnGEJSb98PVVYHmyMPNyA+OZjK+jK1tHOmkLyZBfEzyZ8kKtcRTvZnYIMutmQ1JeIXqBHKFLHdt61RcjMyKvbyCBdEk17x8iXQFnNc82AtNUAXUwzlq8qYW0oYzJb5jAcNey+xOIjjvPwCpQkK7Njp07D+6Wf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=k/drh9h6; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="Co/OpGna"
-Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
-	by cmsmtp with ESMTPS
-	id fOw3w5Zu0lPo5fWemwL9nd; Fri, 03 Jul 2026 05:41:44 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id fWelwWI2Vxg8YfWelw4WGd; Fri, 03 Jul 2026 05:41:44 +0000
-X-Authority-Analysis: v=2.4 cv=R44DGcRX c=1 sm=1 tr=0 ts=6a474b98
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=smfpkZXRov3BA9rGheEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=IpbFOvjkuLZ5F6PCLXLKuWI6WEUni97OdegGtjGwNOM=; b=Co/OpGnazX9lDGKS2yLxq8Vwhw
-	RhYGKo5JR5ZN+IEihE9JbuF+/Jp3phjzlM4oU0MMyNk5qHHQKs8BuYECbJ548Xaem3+n2fhymgvAQ
-	j21G2sUD0B/D7Td4H24ix3/Wwe/d3leIcS2KzZBEG4xGPYCetrcEe5+TFar3B0qPUk4IG64B32VSq
-	csASdgTfkABWlOGd36ugP2FrEKxWfVcuWg8Tz2Qfu5Lff3jbFupTaSC1EYcOdBDGskBNYwSDBONat
-	vyUE9nVGbOr1GldUJG/iUOuNbVQhonHlyVKPfvWa2SkKcSewqJCYnh6nru52+Emez4vNmhfnGGUbP
-	EZErYHHg==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:57166 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.2)
-	(envelope-from <re@w6rz.net>)
-	id 1wfWel-00000000a2U-0l6Y;
-	Thu, 02 Jul 2026 23:41:43 -0600
-Message-ID: <45619dda-652a-450a-bc91-6bcdc3e6edeb@w6rz.net>
-Date: Thu, 2 Jul 2026 22:41:41 -0700
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="k/drh9h6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1783057558;
+	bh=zV8c5o7N6sk+alFXIO5QGl/mhvkJ/DUwwXa8p6aGS8I=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=k/drh9h6W2n4zly2HaTYCknONfAKo37JWIjTiF7giTATbTYaRWoM9O15dz+qzs0Oi
+	 aAHDwc0878LN0DiBy7CKB9/z/lK0mQH7wyAcWztT3B/vMEx2ApLzPCKVzp3xhByJLj
+	 Qy3SzWgroyJQtL3eqkT5HG3qNUuDs7DwxFmWB5bs=
+X-QQ-mid: esmtpgz15t1783057553t98765132
+X-QQ-Originating-IP: 1PWfI3hS0W7mTEdiiBJ8js4PKfbceMoLQg7PlUrbeR0=
+Received: from hepeiyang-vm.wu.lxd ( [218.94.142.72])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 03 Jul 2026 13:45:51 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 2075363408098552017
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Hyunchul Lee <hyc.lee@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ntfs: fail attrlist updates when the superblock is inactive
+Date: Fri,  3 Jul 2026 13:45:28 +0800
+Message-ID: <0B853B9F28048C99+20260703054528.2798189-1-peiyang_he@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 000/120] 7.1.3-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260702155112.964534952@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260702155112.964534952@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wfWel-00000000a2U-0l6Y
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:57166
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 19
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfLceW62j0vWG6xAl7honVLbWgYN9wXGBx/ERsMtFlcsrHZDcPOO6fYbUijnG/7I/MC8YnUs59+KY2LmFX2FzFinuKtozMqMy709A/qOQpSKC5Zx2/FMO
- jM3WlWBZyPPnGN2iZwNtsTP4Oa0xmjxiiw+SPaiAdi1cpp2/ZELPD1+oHAAhF1LCmHgL63HS/+yhzw==
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: MzpxdqdVeN4RfsEjPdAwmN6ZEIEUE5bUrr7rygLNs1eAo3EWoqWM3QF2
+	9yO43GFFzgQQ8O0+Hf1t04ia4oixFHZ8QSEQfKHJ6MEiZzEzXiH2nrskAbOPymSAQYpiEDb
+	Y9y+k7J65vz45di3MPTS6Aea1DGBS0pNClvzqrfxAZ8zm9H6DdJqllJaJm2+WG5sbOe6ZvZ
+	EoVV8zTk5fAOK+75tGzGSuLado+MGqabGVYgCYX5JY7XPlrXlJLkI28M77eyVb/NSd0L0p7
+	Rj6d2J7GQeQtqRzGlcDDdtGlhQCPBvBg+3OF0vroVs4jGQAYPD7odNX88gS1R6K/goJTswP
+	0aHT4w39MlHqbdsT9cNyBVTiwG0qrBLATITJtjBOjly7fIspGhVVbhbMe1wObElFi7M7pj2
+	8N9CUr5mwUgcqc7pCuPmoNbzm3BYh69k0XWmY9flKVplqWSIqXlNBdD9pYvgoUsTzi2tTem
+	xSk2C8L3ooiQfOtt9nqkkqJTQg7Kz5FnCLns7vgSGnO88xqRA+lRe8ktxbWdVo35KgLHkQs
+	ITGhMbhRdzjDZBtdYkTcLCEIZupMUSSlAV5ZCMlBT9mL8vtIBaGy4wz5iAwnK0pFsR1rLX8
+	ZPM7esVk6NN1d4GJed0OhKU+zRXXbuPaVG2AUOPW4vt2YtKMM/N1msv7m2wckcyoIVDdEvB
+	p+UBO8Vg+tJQkMGflKmUV8BScDfvYtYNpka2bgs+D8G7yf7wPoLjfYqKusQf1NFQ140jZu1
+	34tpgrl+WnWyo7nMDnkq+drrbuNtvmRJq8z/rR4Mtwk+NedXADPQ/WNYtcFGUbZ+rqBNDki
+	z0oYxrtNXC1FatpBqxw57Of0tfvI0KC41IJNZHMgqrzquwxlAfF3/IyMCdjQph0d2dGLLxj
+	RzXiq5/EQPG/GcHKahTQdOM0MWgsnDDFCZ2DHrdb+5R5Dw10d4fUzDQtigngENa2p2HHfKB
+	WN7ZZa8x+1+FgqPfUHnoOSSQt9JV+U9tf1RXaKLucxQgI4Wu4PaAP2OUl35CT/9cwrlsEbd
+	dxZiotrD7AoTrXBqYf3n2y9DtBKK0MdmNOVEtbVFeeaMiA1aUT+VFjDu20HMYdmuBhiv/4t
+	0jnpzQUTTEv
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-On 7/2/26 09:19, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.3 release.
-> There are 120 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sat, 04 Jul 2026 15:50:58 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.3-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
->
-The build is broken on RISC-V with:
+generic_shutdown_super() clears SB_ACTIVE before evicting cached inodes.
+If eviction selects the fake inode for a base inode's unnamed
+$ATTRIBUTE_LIST attribute, ntfs_evict_big_inode() drops the fake inode's
+reference on the base inode while the fake inode is still hashed and marked
+I_FREEING.
 
-In file included from mm/kfence/core.c:36:
-./arch/riscv/include/asm/kfence.h: In function 'kfence_protect_page':
-./arch/riscv/include/asm/kfence.h:25:17: error: implicit declaration of function 'mark_new_valid_map' [-Wimplicit-function-declaration]
-    25 |                 mark_new_valid_map();
-       |                 ^~~~~~~~~~~~~~~~~~
+That iput can synchronously write back the base inode. The writeback path
+may update mapping pairs and call ntfs_attrlist_update(), which
+unconditionally calls ntfs_attr_iget() for the same $ATTRIBUTE_LIST fake
+inode. VFS then finds the I_FREEING inode and waits for eviction to finish,
+but the current task is still inside that eviction path, causing a
+self-deadlock in find_inode().
 
-This is caused by commit "riscv: kfence: Call mark_new_valid_map() for kfence_unprotect()" 66fcdb7f71b9d3d32828130cf5895adea059016d
+Fix this by mirroring the teardown guard used by __ntfs_write_inode():
+once SB_ACTIVE has been cleared, do not try to iget the attribute-list fake inode. 
+Return -EIO so teardown aborts the update instead of waiting on the inode it is evicting.
 
-As already reported by https://lore.kernel.org/stable/6c5c0723-66c6-4f9f-8021-2562efc95c6e@iscas.ac.cn/, upstream commit "riscv: mm: 
-Extract helper mark_new_valid_map()" 9ee25d0a70ff4494b4e1d266b962d0a574ef318a solves the issue. This commit cherry picks successfully.
+Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Closes: https://lore.kernel.org/all/AB8D5E603E6EA856+ae5f622a-dd3a-4e38-bdd2-42276ae0e1a8@smail.nju.edu.cn/
+Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Assisted-by: Codex:gpt-5.5
+---
+ fs/ntfs/attrlist.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/fs/ntfs/attrlist.c b/fs/ntfs/attrlist.c
+index afb13038ba42..1658cbe1fa59 100644
+--- a/fs/ntfs/attrlist.c
++++ b/fs/ntfs/attrlist.c
+@@ -57,6 +57,9 @@ int ntfs_attrlist_update(struct ntfs_inode *base_ni)
+ 	struct ntfs_inode *attr_ni;
+ 	int err;
+ 
++	if (!(VFS_I(base_ni)->i_sb->s_flags & SB_ACTIVE))
++		return -EIO;
++
+ 	attr_vi = ntfs_attr_iget(VFS_I(base_ni), AT_ATTRIBUTE_LIST, AT_UNNAMED, 0);
+ 	if (IS_ERR(attr_vi)) {
+ 		err = PTR_ERR(attr_vi);
+
+base-commit: 1a3746ccbb0a97bed3c06ccde6b880013b1dddc1
+-- 
+2.43.0
 
