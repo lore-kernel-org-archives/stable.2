@@ -1,120 +1,88 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C900F33F5A8
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 08:38:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D636377EB8;
+	Fri,  3 Jul 2026 08:44:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783067940; cv=none; b=U/PDKizicxG3wm8n8nMWKAvkY25U0IjWKHq1x9YrYDpYpHRLnodb+M82eW65KyQOMyzBTi+ct0x8XzSG33l9IrExfKD/i4BDkUMA7Jq9rfxvMsfew9AnmZ9YxdmuAf3ANLHbOentS5w0ehZkwGKqP3xePuq+XKhPZbmcuqRl3xU=
+	t=1783068279; cv=none; b=h+nqQ5d0ZpUPnXAnHMj4zCRXcUQwBpxixRf8LlubXmV4GFQuop+1WzfysrNxNMp2k4m19/pAErahPnC45v2yl+q3npoA/wUlzXIjC/qUEcfs1/zEqNNmvZaCK11r/flHuXaQwUtyF403dEwUOcq5u4B4biBiep5XvxvtTYc/mBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783067940; c=relaxed/simple;
-	bh=2Mw4C8cP0ikdSYP87ULxE42c8XBOd2yv7kzUvLAoAOs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KjUL3sCMgJ64gNNKmdeg+1xuDni0KUtDP5Gz4fkewKZxywl1ZdNVrE5W2ZcaVC5tupx1RCGRGdZLAUEcasHlfvZOmubj9DVj1kFUjgadEQFz2Lq63hpfFhVmsX+t1S08e9rVtbVfGUkZOt+5/fz6VbPkDVXGKPNoBJPN8SgY3d8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Di6ZMyIH; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783068279; c=relaxed/simple;
+	bh=5f5VORH3zawg/gO3b17vYMgZ7k1ax6oaoAxOZ6GP99g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CQV/1vGPeot0qAiC4WtIRVEYBwTJRVgqi+wU3Ys9KeqACcOfXYIkLJm4kN6SMwIbxTFQt8nmsc0ahxcjSb+9Fn00+7NwUHG8iJ/WQ2O9xXrawB4tSacvwZet8OiyVkrJhCXZE29MyIZmR8+HoNqz7EAk698Ts48mCCAZYY2EhGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=XH1OtT0m; arc=none smtp.client-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Di6ZMyIH"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2ca64989e64so2985485ad.2
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 01:38:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783067938; x=1783672738; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=S9S390maFuLWYl6z3JcBWyDaB6H00jCR0tOf9HccGvs=;
-        b=Di6ZMyIH8ltZYvdBkB8JanOcWS5t64BqqK1pGO7MhaI30a7OkWCZbuwU9H0EM8wUXq
-         zX7Hsg3p1l+RYBkuOf91Q13Z3I7q2Z6hbyov7Yw66YELd05K6gFH2KJLr2e9cjZYPa0/
-         AkNTpGRSbpRftEa2ixMQCaagKvcXTmvj35M/iW9YZyjxHsMXeRNLjI5LoqwAuNyGbQmC
-         gkpPGbiRYDlKZMx0TEHRBdwsudeGzXp3JFAiVQw2BBCVrf+SWFdc7w/u9QVBlRgKehrA
-         16b56Ec/PX1ty+VM3NFT34HSGBPoBQrhd6c9gqGcpXv6GlV3nIdvtkxwKda6nc/AYdOm
-         WS8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783067938; x=1783672738;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=S9S390maFuLWYl6z3JcBWyDaB6H00jCR0tOf9HccGvs=;
-        b=VonpBWuqtxsS9j9V5QRNFDek4S9dbMQ1hmr9pVrF7LbY+RWdDgqzZwNzqsfSB9iWVj
-         FxKlopDYLFepNwYwQrnmUVHU0xl/p2Ro5ayJTbuA03xciUxfubxCjX93PgcQTx7UGM7A
-         TDQ2Vcars0wy3XjEMaJB4NZbquFfaslkh4kA8XxyQJCfe2qO8ODXD/5YYUrxxHC7M+1/
-         z8X+8a/qsDRHs+iBSMo29RCUXGC4gEuf2QoQ0TCocmfshISylAElkfhKHF+epFy3yDdh
-         wZH2DFRT2zG7Uk6fJlydttPOdc38NDVCQljp7p2PTnT3WlJioduCdPr9GcxL17v/dRUD
-         vr2g==
-X-Forwarded-Encrypted: i=1; AHgh+RqO6g4ITdn22r3EHmJwYEZgd44j9icu2jVYklh3Haa/CL+hFzheehzq9DUUT3xQnZ55UZfxaJw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrDaLSrxNjobW10bkCJjn8s3c8sCn6jInUWMLPChrmfJJzjMzi
-	cCn4xJPJqtNWzbKlPq3CDjHHzbvdcIfClNxQ14flBvawnUX7CBWEWI2A
-X-Gm-Gg: AfdE7ckElKCGKW9dhaHC9TB1zhLDdIDtqqwJ7H1iqQtI3IsgHnozInYU/nK1OK6ISEk
-	VuTUkmZFdmCt6s0TvGDMSJx4m523Wv8mcMfJ03zQTJw5N3jNDI8wQ47nOgakZFiM/T5n6EgB8QU
-	vm3VKE+o5PbhBlhAs2Ck4H5etnInRNsQ1HjFZYyUpftyF1WblFvL9eMZUx5vE1PWT12KLTJMYjd
-	OqATp7lInuHv5EH3RE6wR85LgK/QI9zD+VTBDFGSyPwtGQ8FtzZ5T9YVa77+5xm0DrZWm8RZeAq
-	pyDcj+yqtCwGK/6Texd3NrZpzprEQTMYhOTycR7Aop/LwCmiF3j26kGoF2K40HzEAt0EJNu9Go/
-	EyRaewC9r+Q3Ow3xsq4WuMXWNH373aO/ZFd6ICwH+cOsMy0ln9pFA9lmb1Bs6hJSde7woTINP4Y
-	KKhfHN2dt/LLvDECd40UwgHqAQ
-X-Received: by 2002:a17:902:ef07:b0:2c9:b1ed:eb5d with SMTP id d9443c01a7336-2ca7e8ebde3mr113691185ad.47.1783067937746;
-        Fri, 03 Jul 2026 01:38:57 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad6f23061sm5954145ad.5.2026.07.03.01.38.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 01:38:57 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Sabrina Dubroca <sd@queasysnail.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Daehyeon Ko <4ncienth@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] macsec: don't read an unset MAC header in macsec_encrypt()
-Date: Fri,  3 Jul 2026 17:36:33 +0900
-Message-ID: <20260703083634.2035145-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="XH1OtT0m"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1783068273; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=heLiIQaQ67iQ8EJ+Osbvfe//KC72f/O5+l/x4rW5RyQ=;
+	b=XH1OtT0mQh7l17sKw2Jg9NkVC8PS3Ae95e072pvjRn6ZOSiKoDflw/eDFc3TO9IkQHWDT+w1/xTxTd7QygYFPFofc5Fi7Jdm7WeWbATmRiyENMO+qT2yoFpN+fJCCJKzx57iTSnkbB5Ke+A5kuFf5E7ojQ1R6Ljee4Kex2Pi+EM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R761e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0X6IjTR5_1783068272;
+Received: from 30.221.129.235(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0X6IjTR5_1783068272 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 03 Jul 2026 16:44:33 +0800
+Message-ID: <2904d1db-11fa-450a-89ea-20fe133fa268@linux.alibaba.com>
+Date: Fri, 3 Jul 2026 16:44:32 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ext4: get rid of ppath in get_ext_path()
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>, Wang Jun <1742789905@qq.com>,
+ tytso@mit.edu, adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 25125332@bjtu.edu.cn,
+ Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>
+References: <tencent_C982B0201FE8F041BD5B4FC1ED7D646A740A@qq.com>
+ <2026062643-tamer-limes-a320@gregkh>
+ <rrsgndgpxyrmu6okb43u6wkdaibbidlbyqgugeeijd2b44sf4y@6lzmm4v4xvdp>
+ <2026070210-catty-grape-2568@gregkh>
+ <b93095c6-0717-4616-9702-570b2927429b@linux.alibaba.com>
+ <2026070315-crescent-factoid-616d@gregkh>
+From: Baokun Li <libaokun@linux.alibaba.com>
+In-Reply-To: <2026070315-crescent-factoid-616d@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-macsec_encrypt() reads the Ethernet header via eth_hdr(skb)
-(skb->head + skb->mac_header) to memmove() the 12 source/destination MAC
-bytes forward and make room for the SecTAG.
+On 2026/7/3 16:20, Greg KH wrote:
+> On Fri, Jul 03, 2026 at 03:57:09PM +0800, Baokun Li wrote:
+>> On 2026/7/2 13:47, Greg KH wrote:
+>>> On Thu, Jul 02, 2026 at 09:48:33AM +0800, Jiayuan Chen wrote:
+>>>> Hi Greg,
+>>>>
+>>>> Any update here ?
+>>> What is "here"?  There is no context in this email :(
+>>>
+>>>> We rebased the 6.6 stable one week ago and also found the same regression.
+>>> What regression?  Again, no context :(
+>>>
+>>> confused,
+>>>
+>>> greg k-h
+>> For some reason, LTS only merged a subset of my patchset, causing
+>> some commits to lack their prerequisite patches. This leads to error
+>> numbers being interpreted as valid pointers.
+>>
+>> For details, see the fix patchset that Erkun submitted to 6.6.y
+>> (it fell through the cracks for some reason):
+>>
+>> https://lore.kernel.org/all/20260421113416.4040274-1-yangerkun@huawei.com/
+>>
+>> Either applying this fix patchset or reverting the incorrectly merged
+>> commit should resolve the issue.
+> How about submitting a revert so that we can start fresh and work from
+> there?
 
-On the AF_PACKET SOCK_RAW + PACKET_QDISC_BYPASS transmit path the skb
-reaches the macsec ndo_start_xmit() with the MAC header unset, so
-eth_hdr(skb) resolves to skb->head + (u16)~0 and the read is out of
-bounds: a 12-byte heap over-read that is also emitted on the wire as the
-frame's outer source/destination MAC. KASAN reports a slab-out-of-bounds
-read in macsec_start_xmit() on 6.0; on current mainline a CONFIG_DEBUG_NET
-build flags it as an unset mac header in skb_mac_header().
+Alright, I can help review the patches.
 
-On the TX path the L2 header is at skb->data, so use skb_eth_hdr(), added
-by commit 96cc4b69581d ("macvlan: do not assume mac_header is set in
-macvlan_broadcast()") for exactly this purpose.
 
-Fixes: c09440f7dcb3 ("macsec: introduce IEEE 802.1AE driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
- drivers/net/macsec.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-index fb009120a924..dd89282f0179 100644
---- a/drivers/net/macsec.c
-+++ b/drivers/net/macsec.c
-@@ -646,7 +646,7 @@ static struct sk_buff *macsec_encrypt(struct sk_buff *skb,
- 	}
- 
- 	unprotected_len = skb->len;
--	eth = eth_hdr(skb);
-+	eth = skb_eth_hdr(skb);
- 	sci_present = macsec_send_sci(secy);
- 	hh = skb_push(skb, macsec_extra_len(sci_present));
- 	memmove(hh, eth, 2 * ETH_ALEN);
--- 
-2.54.0
+Thanks,
+Baokun
 
