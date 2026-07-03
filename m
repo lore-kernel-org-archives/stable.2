@@ -1,140 +1,107 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A5D7286D56
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 15:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1E3265CD9;
+	Fri,  3 Jul 2026 16:03:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783093566; cv=none; b=KP+3U5JbJxiMjvVgPbuNd+z3kL4XLbp/OPqJXfeArllh0L8KJq7sO9+2ostWTWhqjRQZ0Hc4wch8X1EwsyLVVNoInL91UsWP2fHQs2Fx5HFIbd9NwiYfQlzmQ/txMbzhN5qpnZx1tDLpxamKmNxrFolhRv9hmglUNMWceq9iAgI=
+	t=1783094591; cv=none; b=sezVmjZUNYZUjxuUkOBCW3Wb4AgDbMrCYd9rvCRhC7dBC9naQEAg+N5nxf63yNZdeS+TObWvDEBKtEsmAry/Ea+Bixq3uEA0HZFFKKvaTeovsStDjYT30fcz5v0SbEUa6nZqmY5PrkvBeJfOmF3Hm4zpfq9jh6ga981xjmwx/Rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783093566; c=relaxed/simple;
-	bh=bpDBJApg2sIRD1xZQoJc5hMZ+M4aXNheD81m5KPvtWc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=B0G4S7Q+c79M5ceJ8l9EpkaFSadfJpXBEJ9tp4eUCIyFshrpqndXmn+mcAehZw4nHwgwXytBdRnNed5omPmAsqZPVM9Ho05d6jozaziNF6HZptiJGOXKZd1QyfgNbvT2Yy09RvLfk2nk6JNbiNj/6c9qmi9700VlVJo+reFZNo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=B4UN6O0E; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1783094591; c=relaxed/simple;
+	bh=bXcKhhfsL6UgsrMldjAdCtahG3ljcsAHiMdc+1+DceU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KRcI1A0WupjdXdUj3pM9kY7hWwzhPmez/q6PbXQq7accdol+/oCsvbk2qaxJ/rY6ubiMK9O833HLEir7c0fLzfi1cRIsNayJiOE3PUPG/a8mR8K3e0VM6CPECeZSl41n05Ir2mOcr1rAfwr2r1XOZCuL5Mo8FqON5JIiI66Ogb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhefmiM0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="B4UN6O0E"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-493b8d99342so187945e9.1
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 08:46:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783093561; x=1783698361; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r/Xcb20eXe3Fb4hacmH4fR1R2kfzGBmc8DhY2l8UD4M=;
-        b=B4UN6O0E/FMADkq9B6YzaJC7/yIa/yZ44RnPFci5x7w4Lr/Y47ztYGA2Fxn+XcckXG
-         2vBPMYthk9jLmot39FUQM/msHgwPBkI8eCvDpSlEN4EvIqSdGUiZUmYPWxBrlY5GA1iR
-         f+5oYC80l5GZ4lbklvoXLz1b+sumLKi73F9G8fakLBmw04xjoT9uaZi7Z9pmxCM07c3Q
-         gC5lsQ1a51uP2V/9UtEUwGbfOn9SalJol1iKqsXgNKljqUIF1GPdj2D0MdmSClY3H8qC
-         Ko3dGRli2FCxxpnlzEMFHpKNIRa8CdPrMG6OaS0uOumzvb5ZzEY27/1sZIBI2y1q3fbl
-         oinA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783093561; x=1783698361;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r/Xcb20eXe3Fb4hacmH4fR1R2kfzGBmc8DhY2l8UD4M=;
-        b=c3xiPGPCaOioW26BqNWpl2mRdLRsdvYlYBeRGG0Yn+zaH31kuGUqDY6eoM+s0t8JzM
-         F3VHOvD1ufUwB7HXb1DKXQCqxIWquRVV1jxXk2DMsbUdr95DVZjR33mjrqyuXvu/j0Kg
-         HJqzqcv899uJDISLaJnlhJs3KCzN5ZDvLsFGM4Vlw9tGVKOBuOu6oe00mFGtSkD1Uplo
-         svpBiyTStVerpWJH0vP6BrqmKCOIkYiTRuZ3ppa4X1x35BQNDV87RAwwHik/ZCF2bh+M
-         +1IBTl+mOS3l0IWA7CN7GmC3dOt7vIaHGGC0blzOzq7vBHcS8cDh3uHumv1wkyn+8z4B
-         8ycg==
-X-Forwarded-Encrypted: i=1; AFNElJ/+70nP6EIQvsO4/GNMNhauUdUUwXlx5gl3iQxLEe1vZtEPT0SNxIVAhreyCHT9YhgLhSbT9t4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwxyKJjDRhgHj7EyUHYIHg8o4YowsUBksgZ5F2tVi8XxKpCD6QL
-	yKvoi/ZhmLMV62zdFhhcVCmKSC2Q0X0dssUX4pOBH95G386w1JLl08du4HuzAxBcBg==
-X-Gm-Gg: AfdE7cm/99ZwvDJrTZOb+me2QLHLi9KtSoYkZrHZ/ySkOaMTTZb3nVOKvAwDRTnVV+o
-	2xDHWyYzAq0g/CoaxO9PBydC5G0kTMBvYOCdrGbJJGu3/xeBGrGyGx+PZVmDCR1TZ4uOb/Qw5FY
-	P40D34h2mzzrjrw8kcgfjzIkXo4pnEjO2umhkVNvhBU30SBIBuBmZzQR3TTmlbsHESWbQJg1+gn
-	uEb5Y3bV5QQb0fFkr6abdUh5VFta4uc/zMk3V5UymP05qVjfHOh2I5OFwRtBMFOHBv8AMXPJsnq
-	gRTw+Wg+u4lIjlBNGoaiVw3x5rP4pVS48Yu3KyGfjW7pdZY0JIAlmC1nIkB6SXdI483M6FBjjEL
-	Zxd8plhUOuJVMaMTtc2TZt9wGiFULKDtAYvl4et4jjkaYJ1ZM6ET6Qez5yEAmt5FGMQ1r1Z4PMo
-	sqneKWnqQ2zRKm8C31vsNkAdyrTooY4WDzZM+RKRUKChssnYLAJFBwqvoPdVm5cSu4iDcrVKg8z
-	K2MhbeV2A==
-X-Received: by 2002:a05:600c:1795:b0:493:caa7:4fd2 with SMTP id 5b1f17b1804b1-493d10409a5mr19435e9.6.1783093560547;
-        Fri, 03 Jul 2026 08:46:00 -0700 (PDT)
-Received: from localhost ([2a00:79e0:288a:8:c0d:89b8:4c51:d7de])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e3e2702sm245351f8f.9.2026.07.03.08.45.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 08:45:59 -0700 (PDT)
-From: Jann Horn <jannh@google.com>
-Date: Fri, 03 Jul 2026 17:45:54 +0200
-Subject: [PATCH v2 3/3] HID: rapoo: fix missing hid_is_usb() check
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhefmiM0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B9E1F000E9;
+	Fri,  3 Jul 2026 16:03:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783094589;
+	bh=m3SMrN8TM9wj4tMHjI+jT3uwvFujpNyluzX7JN24lg4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mhefmiM0/Smw0hFxf9rUBN6+rAeIOHHBuj99G+oRbsehzJWU4kSVrnKt9NOf0VLZy
+	 tsrXZeOyvQp34GpSj2yvvsWxTk09sX0h1dWUKqAjDUcCnKJtidTo67othhBURwpIkO
+	 /OmOUfsG2P6ZMC3WYOmmpjuQzzUQd/QPsDITxe2MvdirH0ZbZbl2BJSeR1hbHUqrWb
+	 VD3bYTfMEMDMk9Etq7ldWzRnRpnGYIWjUF2uW3a7CrDPPjhjzjLd8j80PrPJbY0x/f
+	 J9Pri+ZvbQ1wm8Z6Zm5a/B5jGBPgaOKxWhHyng9yUKmrA9SpzIkfgLhk/jpG8BtdHc
+	 a3CCZzbEK1+AQ==
+From: Chuck Lever <cel@kernel.org>
+To: Wolfgang Walter <linux@stwm.de>
+Cc: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jeff Layton <jlayton@kernel.org>,
+	Alexandr Alexandrov <alexandr.alexandrov@oracle.com>,
+	Yang Erkun <yangerkun@huawei.com>,
+	linux-nfs@vger.kernel.org
+Subject: Re: 6.18.37 has problems with nfs4 (server), 6.18.36 works
+Date: Fri,  3 Jul 2026 12:03:05 -0400
+Message-ID: <20260703160306.1651327-1-cel@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <114a396bac4fc5e1aa730ea58d59a78f@stwm.de>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260703-hid-usbcheck-v2-3-c5ed7bc94772@google.com>
-References: <20260703-hid-usbcheck-v2-0-c5ed7bc94772@google.com>
-In-Reply-To: <20260703-hid-usbcheck-v2-0-c5ed7bc94772@google.com>
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, 
- "Luke D. Jones" <luke@ljones.dev>, Miao Li <limiao@kylinos.cn>, 
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jann Horn <jannh@google.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783093554; l=1735;
- i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=bpDBJApg2sIRD1xZQoJc5hMZ+M4aXNheD81m5KPvtWc=;
- b=B0s19zRLEsgsGYSktBtXzkHWMswlMWePnN15OorJ1offp7HG3eYwikDX1/ThZNnRAe5X4QV3Y
- wuAeaAHgsW/DMS/E0g086z4y23Xxu4LX37hk9U1Nc8ProQ7j1KHTpQ6
-X-Developer-Key: i=jannh@google.com; a=ed25519;
- pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
+Content-Transfer-Encoding: quoted-printable
 
-to_usb_interface() can only be used on a hid_device whose parent is really
-USB; uhid can create devices that identify as being on BUS_USB, but don't
-actually have a USB parent.
-Fix the use of to_usb_interface() without a hid_is_usb() check.
-
-Add a dependency on USB_HID for hid_is_usb(), as other HID drivers do; the
-alternative would be to provide a simple stub implementation on !USB_HID
-builds.
-
-I have verified that it is currently possible to trigger a kernel splat due
-to this bug in an ASAN build, and that this commit fixes the issue.
-
-Fixes: b3b1c68fb726 ("HID: rapoo: Add support for side buttons on RAPOO 0x2015 mouse")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jann Horn <jannh@google.com>
----
- drivers/hid/Kconfig     | 1 +
- drivers/hid/hid-rapoo.c | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index f9bcaeb66385..48934c4f3c45 100644
---- a/drivers/hid/Kconfig
-+++ b/drivers/hid/Kconfig
-@@ -1048,6 +1048,7 @@ config HID_PXRC
- 
- config HID_RAPOO
- 	tristate "Rapoo non-fully HID-compliant devices"
-+	depends on USB_HID
- 	help
- 	Support for Rapoo devices that are not fully compliant with the
- 	HID standard.
-diff --git a/drivers/hid/hid-rapoo.c b/drivers/hid/hid-rapoo.c
-index 4c81f3086de4..5c9c396fabf7 100644
---- a/drivers/hid/hid-rapoo.c
-+++ b/drivers/hid/hid-rapoo.c
-@@ -36,7 +36,7 @@ static int rapoo_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		return ret;
- 	}
- 
--	if (hdev->bus == BUS_USB) {
-+	if (hid_is_usb(hdev)) {
- 		struct usb_interface *intf = to_usb_interface(hdev->dev.parent);
- 
- 		if (intf->cur_altsetting->desc.bInterfaceNumber != 1)
-
--- 
-2.55.0.rc0.799.gd6f94ed593-goog
-
+Hi Wolfgang, and stable@ --=0D
+=0D
+Short version for stable@: 6.18.37 does not need a revert of=0D
+95f9eb19d5e6 ("Revert 'NFSD: Defer sub-object cleanup in export=0D
+put callbacks'").  That commit is correct for 6.18, and it is=0D
+not the cause of Wolfgang's crash.  Please leave it in place.=0D
+=0D
+The reasoning: 95f9eb19d5e6 touches only fs/nfsd/export.c,=0D
+export.h, and nfsctl.c.  Wolfgang's oops is in=0D
+remove_blocked_locks() -> __destroy_client() ->=0D
+nfsd4_destroy_clientid(), entirely within fs/nfsd/nfs4state.c,=0D
+which the revert does not modify.  That path is byte-for-byte=0D
+identical across 6.18.36, 6.18.37, and current mainline, so the=0D
+revert cannot have introduced the bug and no missing backport=0D
+repairs it.  The 6.18.36-good / 6.18.37-bad split is a timing=0D
+coincidence; I believe the same latent bug is present in both.=0D
+=0D
+Because the defect is present upstream as well, the fix belongs=0D
+in mainline first and is then backported to 6.18.y and the other=0D
+affected trees.=0D
+=0D
+Wolfgang - to confirm this and capture the allocation and free=0D
+stacks, a KASAN-enabled kernel would settle it.  On a v6.18.37=0D
+tree:=0D
+=0D
+  1. Add to your .config (keep your usual CONFIG_DEBUG_INFO so=0D
+     symbols resolve):=0D
+=0D
+       CONFIG_KASAN=3Dy=0D
+       CONFIG_KASAN_GENERIC=3Dy=0D
+       CONFIG_KASAN_INLINE=3Dy=0D
+       CONFIG_STACKTRACE=3Dy=0D
+=0D
+  2. Build and boot that kernel.  Stay on 6.18.37 -- you do not=0D
+     need the revert-the-revert build I suggested earlier; that=0D
+     experiment no longer tells us anything.=0D
+=0D
+  3. When it trips, KASAN prints a "BUG: KASAN: use-after-free"=0D
+     report with "Allocated by" and "Freed by" call stacks.=0D
+     That report, in full, is what I need -- it should land in=0D
+     /var/log/messages just as the last oops did.=0D
+=0D
+One caveat: KASAN roughly doubles memory use and adds CPU cost,=0D
+so weigh that before running it on the production server.  If=0D
+that is not practical, a full log from the first stall line=0D
+onward, with all CPU backtraces, captured over netconsole or=0D
+serial, is a useful second best.=0D
+=0D
+I will draft a candidate upstream fix from the analysis so far=0D
+and send it separately.  If KASAN on the production box is not=0D
+an option, testing that patch may be the least disruptive way=0D
+to confirm.=0D
+=0D
+Thanks for the careful report and the bisect.=0D
+=0D
+Chuck=0D
