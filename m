@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5203D7D7F
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 14:09:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E05ED34F270
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 14:09:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783087755; cv=none; b=mlRTx/1flU6749y0T081C7QcZBBckZTycyKviaYc96GeafkLDMHmCI/cFH2kRyM+ll71hv6osKBPSMFHizUiorSvGfvQDywuDGRIi3qBQwiyLPrhusc9VOaOXcMMg4owbpYSWaIdpOanT9J+4av+ooM1yOfJ46F83iClBuSnuM8=
+	t=1783087779; cv=none; b=KLTp1Tus5km+RQNZqMQJqTQVYUi51k+dg//+XWWtfyaYzPwaJL8PjRRd9IB5hwZ9m6uetyYv2Sqzn2ctoz0S2+MG+8/9uJzbmly6kZjNq884iRwLQNrVCsleq6Qy+Dx7UMw2t0d0zMdctICnFbyuXePBAIbpasyg1pQ+ut4XBik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783087755; c=relaxed/simple;
-	bh=oG9IchSUavvlz6eo3z5L2oHEVExiuGwCINZDbakCgw0=;
+	s=arc-20240116; t=1783087779; c=relaxed/simple;
+	bh=JIjw4BcPDDEBdk7dnObLb6u3MuShdNJLj1HvXx9GqJc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C9kZzhA7Ba0CiChRxftJA1vh8iuyV7HiWKhyvi42XYCWKpyM7toPIpLM4q1L+vTCTtAHNAEQO55KW5S6SKHWV+mf+ONAWjnDJ8ahKRyAapKBLmV64r+StCSAAE8CXuXaouSc6OjrahBjYi2JI8Fg6T8NJkso1uNqw/57zJgH62U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FZlsFDbC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qSmCG4ayZjnxlBxxUlJ0ZGFU6Z8EGV1HpVEQl8EzuKK6Dy9OYN9yHs3Qnxv+No1BuIPT3DLJ328+KUqNEYEE2yxyF0xW4pluaMzvPfL1AGv+j5Q7+KW/UITojqIpb3rkZhUfjGUu/1E9k2zXvv/BzJnhWS3NHO0Jpgjei39/si0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IZy76w8X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FZlsFDbC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568061F000E9;
-	Fri,  3 Jul 2026 14:09:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IZy76w8X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F25B81F000E9;
+	Fri,  3 Jul 2026 14:09:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783087754;
-	bh=ddlNMlX2UPDC8A0nNdDdpqbl4ff+62gLmVr0DVAr/JM=;
+	s=k20260515; t=1783087777;
+	bh=V6S2cQ8cQs03vQyemoqkIaF+YbM1OZ904N49hXuGajQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FZlsFDbCwjDjno95rlwmSMnifl1b6mguisuG75p0YEKZ8zUVH3iTuLfN8o9ACwsxr
-	 bfb99/JWGj1GMgXJeCx3n+X0gz3D8TCKSN0gjSCmehrlIH3yFMI4oFFr9UYyy0sVZG
-	 6tbhmorPiu4bS9iRzn4DeFz8NLTkabyTicizclelzZLLFkgzYGxDcRRh2fiBWn3qCE
-	 cpMB1MbPh2WfTrM1ATRFz132XYP202IHNZC0+noMwM0pJgHS/4Do0tyyT3bffV184D
-	 +NPdRpXDJpN9Vjp044hPn6KB9YGaqjqWSdQkDa7hK0L/w8MEk0zQw3vFrguQrdniAh
-	 AlutgOItwx/0A==
+	b=IZy76w8XHj+4Rza+9MRcF26Di3akDa8yRpCniAjAPlEbz4Yow+V8YfkC5QCK/fWNe
+	 vYRkHgNQiY4qfNEKbqbVQdo3QB3RJqCLkPO+BpW4f5264cNWs6kiC/TsIYpRfqHqbW
+	 pDXotIzqdSs6ncFsUqIT8ExSNr2B2htIbJploCbiAxJxNSnaK3J5KpnGaUpjkwjc3q
+	 3jAcjFFYc01w+eGfoQL+PY54a6SpCjDevVTyaDS915budC4gbg+FaYR9u9lHoue1HY
+	 kr0yuZ+jK9qyHMdnvA2vVGJvhak/e+pAjkzbXWnAAewrnF0EPaJvPZYenEf1Zm/JUl
+	 Q0wbFoxaBpqAA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mikhail Lobanov <m.lobanov@rosa.ru>,
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
 	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] f2fs: read COW data with the original inode during atomic write
-Date: Fri,  3 Jul 2026 10:09:11 -0400
-Message-ID: <20260703140911.17045-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] f2fs: bound i_inline_xattr_size for non-inline-xattr inodes
+Date: Fri,  3 Jul 2026 10:09:34 -0400
+Message-ID: <20260703140934.18093-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070220-thirstily-deniable-6715@gregkh>
-References: <2026070220-thirstily-deniable-6715@gregkh>
+In-Reply-To: <2026070205-tattoo-circling-7d61@gregkh>
+References: <2026070205-tattoo-circling-7d61@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,137 +46,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mikhail Lobanov <m.lobanov@rosa.ru>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit a41075acde0124d2f8a5f563068a5d63e8ffd57b ]
+[ Upstream commit 378acf3cf19b6af6cba55e8dd1154c4e1504bae8 ]
 
-When updating an atomic-write file, f2fs_write_begin() may read the
-previously written data back from the COW inode:
-prepare_atomic_write_begin() locates the block in the COW inode and sets
-use_cow, and the read bio is then built with the COW inode:
+When the flexible_inline_xattr feature is enabled, do_read_inode() loads
+the on-disk i_inline_xattr_size unconditionally:
 
-	f2fs_submit_page_read(use_cow ? F2FS_I(inode)->cow_inode : inode,
-			      ...);
+	if (f2fs_sb_has_flexible_inline_xattr(sbi))
+		fi->i_inline_xattr_size = le16_to_cpu(ri->i_inline_xattr_size);
 
-and f2fs_grab_read_bio() decides whether to schedule fs-layer decryption
-(STEP_DECRYPT) for the bio based on that inode via
-fscrypt_inode_uses_fs_layer_crypto().
+but sanity_check_inode() only range-checks it when the inode also has the
+FI_INLINE_XATTR flag set.  An inode that carries an inline dentry or inline
+data but not FI_INLINE_XATTR -- the normal layout for an inline
+directory -- therefore keeps a fully attacker-controlled
+i_inline_xattr_size from a crafted image.
 
-However, the folio being filled belongs to the original inode
-(folio->mapping->host == inode), and the data stored in the COW block was
-encrypted (or left as plaintext) using the original inode's context, not
-the COW inode's -- see f2fs_encrypt_one_page(), which keys off
-fio->page->mapping->host.  fscrypt_decrypt_pagecache_blocks() likewise
-operates on folio->mapping->host.
+get_inline_xattr_addrs() returns that value with no flag gating, so it
+feeds the inode geometry:
 
-The COW inode is created as a tmpfile in the parent directory and inherits
-its encryption policy from there.  With test_dummy_encryption the newly
-created COW inode gets the dummy policy and becomes encrypted, while a
-pre-existing regular file -- created before the policy applied, e.g.
-already present in the on-disk image -- stays unencrypted.  The read
-path then sets STEP_DECRYPT based on the encrypted COW inode and calls
-fscrypt_decrypt_pagecache_blocks() on a folio whose host (the unencrypted
-original inode) has a NULL ->i_crypt_info, dereferencing it:
+	MAX_INLINE_DATA()  = 4 * (CUR_ADDRS_PER_INODE - i_inline_xattr_size - 1)
+	NR_INLINE_DENTRY() = MAX_INLINE_DATA() * BITS_PER_BYTE / (...)
+	addrs_per_page()   = CUR_ADDRS_PER_INODE - i_inline_xattr_size
 
-  Oops: general protection fault, probably for non-canonical address ...
-  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-  RIP: 0010:fscrypt_decrypt_pagecache_blocks+0xa0/0x310
-  Workqueue: f2fs_post_read_wq f2fs_post_read_work
-  Call Trace:
-   fscrypt_decrypt_bio+0x1eb/0x340
-   f2fs_post_read_work+0xba/0x140
-   process_one_work+0x91c/0x1a40
-   worker_thread+0x677/0xe90
-   kthread+0x2bc/0x3a0
+A large i_inline_xattr_size drives MAX_INLINE_DATA() and NR_INLINE_DENTRY()
+negative, so make_dentry_ptr_inline() sets d->max (int) to a negative
+value.  The inline directory walk then compares an unsigned long bit_pos
+against that negative d->max, which is promoted to a huge unsigned bound,
+and reads far past the inline area:
 
-The COW inode is only needed to locate the on-disk block, and that block
-address is already resolved into @blkaddr by prepare_atomic_write_begin()
-via __find_data_block(cow_inode, ...); f2fs_submit_page_read() then reads
-from that physical @blkaddr directly, so the inode argument only selects
-the post-read crypto context, not which block is fetched.  Reading with
-@inode therefore returns the same (latest, not-yet-committed) COW data,
-while making both the fs-layer decryption decision and the inline crypto
-path use the correct (original inode's) key.
+	while (bit_pos < d->max)		/* fs/f2fs/dir.c */
+		... test_bit_le(bit_pos, d->bitmap) / d->dentry[bit_pos] ...
 
-With the COW inode no longer used at the read site, the use_cow flag has no
-remaining consumer; drop it from f2fs_write_begin() and
-prepare_atomic_write_begin().
+Mounting a crafted image and reading such a directory triggers an
+out-of-bounds read in f2fs_fill_dentries(); the same underflow also
+corrupts ADDRS_PER_INODE for regular files.
 
-Fixes: 591fc34e1f98 ("f2fs: use cow inode data when updating atomic write")
+Validate i_inline_xattr_size against MAX_INLINE_XATTR_SIZE whenever the
+flexible_inline_xattr feature is enabled -- i.e. whenever the value is
+loaded from disk and consumed -- and keep the lower MIN_INLINE_XATTR_SIZE
+bound gated on inodes that actually carry an inline xattr, so legitimate
+inodes with i_inline_xattr_size == 0 are still accepted.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Mikhail Lobanov <m.lobanov@rosa.ru>
+Fixes: 6afc662e68b5 ("f2fs: support flexible inline xattr size")
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/data.c | 24 ++++++++++++++----------
- 1 file changed, 14 insertions(+), 10 deletions(-)
+ fs/f2fs/inode.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index f468cba89f303b..b49e020181a6a4 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -3530,7 +3530,7 @@ static int __reserve_data_block(struct inode *inode, pgoff_t index,
+diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
+index 49470f4c9362a0..1caa84c15c9969 100644
+--- a/fs/f2fs/inode.c
++++ b/fs/f2fs/inode.c
+@@ -318,9 +318,9 @@ static bool sanity_check_inode(struct inode *inode, struct folio *node_folio)
+ 	}
  
- static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
- 			struct folio *folio, loff_t pos, unsigned int len,
--			block_t *blk_addr, bool *node_changed, bool *use_cow)
-+			block_t *blk_addr, bool *node_changed)
- {
- 	struct inode *inode = folio->mapping->host;
- 	struct inode *cow_inode = F2FS_I(inode)->cow_inode;
-@@ -3544,12 +3544,11 @@ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
- 
- 	/* Look for the block in COW inode first */
- 	err = __find_data_block(cow_inode, index, blk_addr);
--	if (err) {
-+	if (err)
- 		return err;
--	} else if (*blk_addr != NULL_ADDR) {
--		*use_cow = true;
-+
-+	if (*blk_addr != NULL_ADDR)
- 		return 0;
--	}
- 
- 	if (is_inode_flag_set(inode, FI_ATOMIC_REPLACE))
- 		goto reserve_block;
-@@ -3581,7 +3580,6 @@ static int f2fs_write_begin(const struct kiocb *iocb,
- 	struct folio *folio;
- 	pgoff_t index = pos >> PAGE_SHIFT;
- 	bool need_balance = false;
--	bool use_cow = false;
- 	block_t blkaddr = NULL_ADDR;
- 	int err = 0;
- 
-@@ -3643,7 +3641,7 @@ static int f2fs_write_begin(const struct kiocb *iocb,
- 
- 	if (f2fs_is_atomic_file(inode))
- 		err = prepare_atomic_write_begin(sbi, folio, pos, len,
--					&blkaddr, &need_balance, &use_cow);
-+					&blkaddr, &need_balance);
- 	else
- 		err = prepare_write_begin(sbi, folio, pos, len,
- 					&blkaddr, &need_balance);
-@@ -3683,9 +3681,15 @@ static int f2fs_write_begin(const struct kiocb *iocb,
- 			err = -EFSCORRUPTED;
- 			goto put_folio;
- 		}
--		f2fs_submit_page_read(use_cow ?
--				F2FS_I(inode)->cow_inode : inode,
--				folio, blkaddr, 0, true);
-+		/*
-+		 * Although the block may be stored in the COW inode, the folio
-+		 * belongs to @inode and its data was encrypted (or not) using
-+		 * @inode's context (see f2fs_encrypt_one_page()).  Read with
-+		 * @inode so the post-read decryption decision matches the
-+		 * folio's owner; otherwise an unencrypted @inode whose COW inode
-+		 * is encrypted hits a NULL ->i_crypt_info on decryption.
-+		 */
-+		f2fs_submit_page_read(inode, folio, blkaddr, 0, true);
- 
- 		folio_lock(folio);
- 		if (unlikely(folio->mapping != mapping)) {
+ 	if (f2fs_sb_has_flexible_inline_xattr(sbi) &&
+-		f2fs_has_inline_xattr(inode) &&
+-		(fi->i_inline_xattr_size < MIN_INLINE_XATTR_SIZE ||
+-		fi->i_inline_xattr_size > MAX_INLINE_XATTR_SIZE)) {
++		(fi->i_inline_xattr_size > MAX_INLINE_XATTR_SIZE ||
++		(f2fs_has_inline_xattr(inode) &&
++		fi->i_inline_xattr_size < MIN_INLINE_XATTR_SIZE))) {
+ 		f2fs_warn(sbi, "%s: inode (ino=%lx) has corrupted i_inline_xattr_size: %d, min: %zu, max: %lu",
+ 			  __func__, inode->i_ino, fi->i_inline_xattr_size,
+ 			  MIN_INLINE_XATTR_SIZE, MAX_INLINE_XATTR_SIZE);
 -- 
 2.53.0
 
