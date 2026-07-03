@@ -1,43 +1,45 @@
-Received: from out-171.mta0.migadu.com (out-171.mta0.migadu.com [91.218.175.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720A33DD536
-	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 12:32:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E4E3B47F9
+	for <stable@vger.kernel.org>; Fri,  3 Jul 2026 12:33:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783081979; cv=none; b=od3J9swsFc4wEgOs4iLnlavY9JA/OU4ENg3mVU0xT3tcahknkln/ljsjSylDS1uQlD3HCqdw/P2ed89S+xVO7eS1OjglU6VvlB1pu59DDuE/jOnHoBOL/z4C5iqmQY45gRsLF5QAo08sMy+u3GgrsEoy1JDi5ryEN7XtZJOeIoo=
+	t=1783082008; cv=none; b=TlBCjJk76dL+rEuP1V0+x/Cvo2Hs301f3QRYkWo896HvZWenW4OBZJu+6rhHnPecYMk3QnUZFh8AC6dQI1VfEgPfNKiP/wQEdl6TYkpjHjQMiX/vhAmTwbKQIRPGDfILVisRw/HJQlExktEcKK/zyjPeob84Hbwybv95InwILg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783081979; c=relaxed/simple;
-	bh=nmZA6+uB3urD2hKCpKw8hiD4oFjQ9dwF7f3r4Tfky8g=;
+	s=arc-20240116; t=1783082008; c=relaxed/simple;
+	bh=R4H6mA5gWgQK/r/Y5vAxwtR8xNPHZPMqcOCUm0SRkBM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hIt+6vncFDo4BSDrO7SBgxxVHNu52mcfAZGxhfIb/5TxO+a64rZxcCqQuacVnnZ8m7gU+wAyIfJP2CiKke8AYCsXPhoakb6ZUD19tPJHdVC7UHwJo+Q53Cx0GG2LL+Cx7VIJ8U/zoqhtkgx+D7OJiMSQ67G65+CabOYAd7+v7V8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lGEn1QW0; arc=none smtp.client-ip=91.218.175.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 MIME-Version; b=lVR6PZcJyaXKrOWzPmCOk4vstXHQSZhArM6aDiTBGLvTUfQ6oMiVtU8fCxtbruLgbeNXkhf+QPGaC32WBGMRJZ5c2s0c90gbVEF0vwrsPK636LdiuGx9PdyccTw42vDwp+ajBvpEjjjil9W/GFKCEm9akFsn1Li4coDtByHs8a0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hF4sT9EO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lGEn1QW0"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1783081964;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KPobOMpzLXIZ6h+MVV8WTmoa13pxNOpbezeoUAZoB28=;
-	b=lGEn1QW0L8yjWbmvygdeC/+JFPmdBuDOtLNHL0GwaV3OabcFTtTB7N57JCebnvsxY5f11U
-	JxPftL4Si3/LLOk4OVjNnBewAIQz2oL3dsHYRBTXUfkxsTC1OhC05Y7sLk10yR3fUokWTH
-	pa9kLdLXv25oUUqe2O91ufSHmFeBjV8=
-From: Usama Arif <usama.arif@linux.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 6.18 044/108] block: invalidate cached plug timestamp after task switch
-Date: Fri,  3 Jul 2026 05:32:35 -0700
-Message-ID: <20260703123236.3139759-1-usama.arif@linux.dev>
-In-Reply-To: <20260702155113.020016705@linuxfoundation.org>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hF4sT9EO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B19D1F000E9;
+	Fri,  3 Jul 2026 12:33:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783082005;
+	bh=nTjSNYtdXhy+Eam8oW0BIKRqEAk0k0uZjWWAKwtBxH8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hF4sT9EOhGoW/hBesVyTtw0+t29jIOzb8co5iSAayDTkRLjv73r1gYh3FxAXKwcQ1
+	 dd5NdXv+mT/jySQVlZCpg18JT8Hu0ZhYWwkgoUPGm3b+cXVF572/N5RTiSBdrfP4tb
+	 XCrRuYFici2hYxBJe25asjqKim6tM4PbcPsmt2GyA8ubI/hBgcNbRscKDmeWq+2dcH
+	 J2o0lnIbjbGHThygF/Y9ePVyWmp9Bg0ConSnRV0hmeNR+L9nOn+6bl9FKWlT4zUmJN
+	 h5W+pJ2wkt77jToCXQ99XV942HhluI1swQw3nqBIccm8aQrzWeuMtbMr86649Tgp0m
+	 rddNVD03gjkYg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] device property: initialize the remaining fields of fwnode_handle in fwnode_init()
+Date: Fri,  3 Jul 2026 08:33:23 -0400
+Message-ID: <20260703123323.3944624-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026070220-unloaded-brunch-aac7@gregkh>
+References: <2026070220-unloaded-brunch-aac7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,34 +47,49 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
-On Thu,  2 Jul 2026 18:20:41 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-> 6.18-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Usama Arif <usama.arif@linux.dev>
-> 
-> commit fad156c2af227f42ca796cbb20ddc354a6dd9932 upstream.
-> 
-> blk_time_get_ns() caches ktime_get_ns() in current->plug->cur_ktime
-> and marks the task with PF_BLOCK_TS. That cache is only valid while the
-> task keeps running; if the task is switched out, wall-clock time
-> advances and the cached value must not be reused when the task runs again.
-> 
+[ Upstream commit 7eba000621fff223dd7bab484d48918c7c77a307 ]
 
+If a firmware node is allocated on the stack (for instance: temporary
+software node whose life-time we control) or on the heap - but using a
+non-zeroing allocation function - and initialized using fwnode_init(),
+its secondary pointer will contain uninitialized memory which likely
+will be neither NULL nor IS_ERR() and so may end up being dereferenced
+(for example: in dev_to_swnode()). Set fwnode->secondary to NULL on
+initialization. While at it: initialize the remaining fields of struct
+fwnode_handle too just to be sure.
 
-Hi Greg,
+Cc: stable@vger.kernel.org
+Fixes: 01bb86b380a3 ("driver core: Add fwnode_init()")
+Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260511074927.9473-1-bartosz.golaszewski@oss.qualcomm.com
+[ Fix typo in commit message. - Danilo ]
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/linux/fwnode.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-It looks like this patch was backported, but the preceding patch [1]
-in the series was not bacported to the stable branches. Both this and its
-prerequisite have the same Fixes tag.
+diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
+index 735f6f334a98ff..4b6bf73f272395 100644
+--- a/include/linux/fwnode.h
++++ b/include/linux/fwnode.h
+@@ -195,8 +195,10 @@ static inline void fwnode_init(struct fwnode_handle *fwnode,
+ {
+ 	fwnode->secondary = NULL;
+ 	fwnode->ops = ops;
++	fwnode->dev = NULL;
+ 	INIT_LIST_HEAD(&fwnode->consumers);
+ 	INIT_LIST_HEAD(&fwnode->suppliers);
++	fwnode->flags = 0;
+ }
+ 
+ static inline void fwnode_set_flag(struct fwnode_handle *fwnode,
+-- 
+2.53.0
 
-Not having the prerequisite will result in a NULL derefernce.
-Could we please add [1] to the stable branches?
-
-Thanks!
-
-[1] https://lore.kernel.org/all/20260616141604.328820-2-usama.arif@linux.dev/ 
