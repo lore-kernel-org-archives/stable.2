@@ -1,85 +1,152 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF06C37DE98;
-	Fri,  3 Jul 2026 09:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC578340A47;
+	Fri,  3 Jul 2026 09:44:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783071855; cv=none; b=hb7frjcHjqbKmmSLCK1l+e5gjMkNkjkcWANvHWeY+yWfOOSHanT3yythqVKCXdKXE7mD9uR+8L2IPZCTiwPOsOEF0JanejALBg/lYYKJSY2AFqkMnVDMOhjAcqB7yPyuWRx7xg0Ue6G1OjEljRo/TYsoTQ++3PUDADLMFa9bjs4=
+	t=1783071878; cv=none; b=sZ5Wd/XQ2HVs6VR1TmHIdiF57E12gWIdd3WBrSq5KfVNFsAnXZa1kAlhSI2fPumxlerVz28mIXUWHFu3ZSKgYwOLE17um6a1Jx7PbVZvF6HSwzde/Xz993DOfnzrhipfYf/w7cplHEBnAn0SsNwindBMLRF5UM5qv1nUkecw/Uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783071855; c=relaxed/simple;
-	bh=rOz5FfBkUlwVLXQc1tsSJWc18jSOX2CS59MEDYIiUE0=;
+	s=arc-20240116; t=1783071878; c=relaxed/simple;
+	bh=ZjhvadNvTSW12MtYoIuRX/fCNEhpw2nPRE+0E6R3oEQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WlvtJGOkb5olYRrVg5ojBd/GuECOg8He4TPweGiUdUl+X/wXxQwDXEwi2HS8TszgDZFiJ7nPC+99VpapEl4t1f9wk6cjCe0ZRdD8zCcv41P7eQZQ4P6yTfTaSwnVLGTdBWUFvbrsHP5w0GTd4q+GtnbXX18W6nrcwYeQpRh5M9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=LdAYXZHG; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=NyiR8EjFmRscXXOJk4hyiY26WgY0z6fOeaTWb3d7eIvbkXnHAMt7Kn9lW9jhW+GFnuSnnMuaZOJrL0QGohrIln5r4qPf0t/7QDbMRUDnmK4jOMxd8ze6rJpACe5HZzFWsS5otrZG80YYpUAeljJcOsJWegJzLV/vtz8diaAMlAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=DivOXUSE; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="LdAYXZHG"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3F6FA1129B7;
-	Fri,  3 Jul 2026 11:44:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1783071851;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=Phvv03RvcAwn2d8uwtgJwEfb7Saefm7a9LdlhWcNrmQ=;
-	b=LdAYXZHG8/yu+84tM7ncLjJiMirxOMgpzyNFBZ/obOnKX8Evt6RcREzIdgOyHg4zbtMa5z
-	NOMM+nhGVI0kbl6SSjcnLnIYmu88zQ6Fz1LxYH48LC99MVAapV7B023NP9fdHu+g3B/45l
-	A9rIif8dbOanyTHUjU1GSGxTnOOBKsOGYTBXtm+ah8Lf1Cc9DFB5PcuxnDeZy1KCdCT7Jc
-	+EFQGjvrT8xDWzhX8rbZM2KZEX7NXOYj1gsWyCErFETih/sohGW6dERGWbZuaOu1WsbHA7
-	XTMFPicrrdkxBOqWDWhN//v8y8cSPQvV8l4TNEv0MzlbgIKgeY9icuMF46viiQ==
-Date: Fri, 3 Jul 2026 11:44:08 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 5.15 00/95] 5.15.211-rc1 review
-Message-ID: <akeEaHImC2K5r5KX@duo.ucw.cz>
-References: <20260702155109.196223802@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DivOXUSE"
+Received: from ideasonboard.com (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 109D41121;
+	Fri,  3 Jul 2026 11:43:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1783071829;
+	bh=ZjhvadNvTSW12MtYoIuRX/fCNEhpw2nPRE+0E6R3oEQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DivOXUSEik0OMEFq7ANI8JJDiVk3rRZC886RYB5cOl9/7zALSbSEyKhEBrDUHv2cB
+	 VDCYf5+Apb2nb/+qVyn+AxDOUHtLNMFljq7U4vn08d2cIaZ8fv42JZmIinbAErMmp8
+	 0pEq2se7BHO5L5Ubu2dCwbVGwycSlHBvQC5+zz78=
+Date: Fri, 3 Jul 2026 11:44:31 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: dan.scally@ideasonboard.com, jacopo.mondi@ideasonboard.com, 
+	mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: mali-c55: Fix unaligned access of AEC histogram
+ zone weights
+Message-ID: <akd8E5jr722oTm49@zed>
+References: <20260702103453.348056-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="urSuZ4ToW2vFXJFq"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260702155109.196223802@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <20260702103453.348056-1-devnexen@gmail.com>
+
+Hi David,
+   thanks for sending a patch to address this issue
+
+On Thu, Jul 02, 2026 at 11:34:53AM +0100, David Carlier wrote:
+> mali_c55_params_aexp_hist_weights() packs the 225 per-zone u8 weights
+> into the ISP registers four at a time by casting the zone_weights array
+> to u32 and dereferencing it. The array sits at offset 10 within the
+> parameter block, so it is only 2-byte aligned: the u32 access is
+> unaligned, which is undefined behaviour and can fault on strict-align
+> configurations or once the loop is auto-vectorised.
+
+well, I don't there is a risk of undefined behaviour on ARMv8, it's
+just less efficient
+
+>
+> The cast also reads the four weights in host byte order before they are
+> written to the little-endian register, so on big-endian hosts the four
+> weights packed into each register end up in the wrong byte lanes.
+
+Also we don't have any endianess issue as the IP is only found on
+little endian systems
+
+>
+> Read the weights with get_unaligned_le32() instead, which is both
+> alignment-safe and fixes the byte order regardless of host endianness.
+>
+
+mmm, I read in Documentation/core-api/unaligned-memory-access.rst
+that:
+
+------------------------------------------------------------------------------
+	u32 value = get_unaligned((u32 *) data);
+
+These macros work for memory accesses of any length (not just 32 bits as
+in the examples above). Be aware that when compared to standard access of
+aligned memory, using these macros to access unaligned memory can be costly in
+terms of performance.
+
+If use of such macros is not convenient, another option is to use memcpy(),
+where the source or destination (or both) are of type u8* or unsigned char*.
+Due to the byte-wise nature of this operation, unaligned accesses are avoided.
+------------------------------------------------------------------------------
+
+Which seems to suggest, if the issue here is performances, we should
+aim for something different ? (honest question here, any kind of
+guidance is appreciated)
+
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Cc: stable@vger.kernel.org
+
+If it's only about performances, does this qualifies as a fix ?
+
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+>  drivers/media/platform/arm/mali-c55/mali-c55-params.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+> index de0e9d898..1aaf64dde 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+> @@ -6,6 +6,7 @@
+>   */
+>  #include <linux/media/arm/mali-c55-config.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/unaligned.h>
+>
+>  #include <media/media-entity.h>
+>  #include <media/v4l2-dev.h>
+> @@ -203,7 +204,7 @@ mali_c55_params_aexp_hist_weights(struct mali_c55 *mali_c55,
+>  	 * of overwriting other registers.
+>  	 */
+>  	for (unsigned int i = 0; i < 56; i++) {
+> -		val = ((u32 *)params->zone_weights)[i]
+> +		val = get_unaligned_le32(&params->zone_weights[i * 4])
+>  			    & MALI_C55_AEXP_HIST_ZONE_WEIGHT_MASK;
 
 
---urSuZ4ToW2vFXJFq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+We could do:
 
-Hi!
+        memcpy(&val, &params->zone_weights[4 * i], 4);
+        addr = base + MALI_C55_AEXP_HIST_ZONE_WEIGHTS_OFFSET + (4 * i);
 
-> This is the start of the stable review cycle for the 5.15.211 release.
-> There are 95 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+        mali_c55_ctx_write(mali_c55, addr,
+                           val & MALI_C55_AEXP_HIST_ZONE_WEIGHT_MASK);
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-5.15.y
+Or this could be an alternative:
 
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+        const u8 *w = &params->zone_weights[4 * i];
 
-Best regards,
-                                                                Pavel
+        val = w[0] | w[1] << 8 | w[2] << 16 | w[3] << 24;
+        addr = base + MALI_C55_AEXP_HIST_ZONE_WEIGHTS_OFFSET + (4 * i);
 
---urSuZ4ToW2vFXJFq
-Content-Type: application/pgp-signature; name="signature.asc"
+        mali_c55_ctx_write(mali_c55, addr,
+                           val & MALI_C55_AEXP_HIST_ZONE_WEIGHT_MASK);
 
------BEGIN PGP SIGNATURE-----
+What do you think ?
 
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCakeEaAAKCRAw5/Bqldv6
-8kHHAJ994cKfrCJUmujTe9qNVL1Tpqfq0gCdE9tiDAheTapYCzaS4dV+nckq5pA=
-=jGU5
------END PGP SIGNATURE-----
-
---urSuZ4ToW2vFXJFq--
+>  		addr = base + MALI_C55_AEXP_HIST_ZONE_WEIGHTS_OFFSET + (4 * i);
+>
+> --
+> 2.53.0
+>
+>
