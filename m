@@ -1,125 +1,121 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF04831327A
-	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 06:58:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B95E2F693B;
+	Sat,  4 Jul 2026 07:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783148308; cv=none; b=cf1H2+eDNxx+kc7Wfn9Ks3zge9hmZkNnxULHPnBKzT3nYoxdM8KmPaz0dLGQbyFbyjFiAFNnYUV7nz1g704C2vkUL9yOzrKLAOgkED/NYmV5fu2biN2dc0V5ZFiiGHAtoSGSdLWmBA19v8gVNYLDi4AlMmE1hUFfEJhXjh16vG0=
+	t=1783148469; cv=none; b=sZFyCGUyGM/GHrUJzQieifyXN7xU7S96UNYBPU6dqFP1J1xSHk7MES67eMy9yDGNPmeEfe30V+n+et0QxsdbO31CBlIafERir9/PGA2y61nskU8TuyALOHo2ZiFrLxw2i+Bl/EoliukiN7fC3l/ApQFJqXF+HH4EipzkzKv4KEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783148308; c=relaxed/simple;
-	bh=0Ql7R0chKKnSTLTalEhgSVivzAge5FzmNSZ6cbj00i8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QSMcLtXygmuysG4c6LF5Tcjc0vOGCzvxh0x69l+5YAKffjR8hNChikmbguI6k22OKLlCiDspAMomkpXou7T4Vgdr8ab7mQyq7LFUGNVz92J13JPrrWMFwhhfoIS4uvXpSalPo0hn/DVaLCoV1zX1chUxYp39lfcTT2Q1DjdVMHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bToDJkzm; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783148469; c=relaxed/simple;
+	bh=pa2XnLmEnSof3NnJJZTkXkFMXoDDb635dvs/wd7hiY4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FIBAMb10lQiz32P/eY5m1zJNeI8omJA/3Xec4v79IqXQcmtBlHKl0UpINvPPWWQVNeA5T3djqYA7LdETlPojHWQuWx58oLiq+thkP0r/dnqzqF3YO6XJjyi5RIHCV0Wda9S5vuR0HB8xGI34+USVxptPK3x4arS35jZ5F5iP52w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=Ed1GqLr2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Qtt21QD/; arc=none smtp.client-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bToDJkzm"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cad4170e8eso13955065ad.3
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 23:58:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783148306; x=1783753106; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pk1gsSzNyvLyGL3wQhMLxqEWyeTVD6LK9bSQUeXZaTk=;
-        b=bToDJkzm1rkmGGIrN413snhCtC09ATYl8Dwq1GD1sCQDeKU19xvRdQnCPIkGCwPLhA
-         c5oW7NfKk7cx7IGMKP0yZDRWR4UC/CYVwld4hIM23PnmPI74oFMW3snXNQyV/URBPIxF
-         h6sTR2yhNnzRE4VHogHBpeHZ/Wodggat5OKGqxdwqDLvG3prmaCMHCzkM0U7jvoOL5IK
-         p6PD3occxP8Nc6eS8pk/mQGB4qrs9xmyPgsKa8LUq6oBK0q9EAmwyacl6JbURSSSH0ib
-         FjQvPfAUx/lkqYpyQPHLcaWytIUSSIMf6XWTf1WchCtWR+aD5Gao1qSpGVQr3RtZcdnq
-         O43Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783148306; x=1783753106;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=pk1gsSzNyvLyGL3wQhMLxqEWyeTVD6LK9bSQUeXZaTk=;
-        b=LWlzeVNRn5KkioWHJf0Leudb4GiKUCFY0LQeAM/QlziO87818MziTdHLLAONVMChhg
-         1sYJVvQl9gy7/m+QmPFFxvEFEGare4vpSDcAOyhoLhEuxjKTtOim+DxYWhsUaXI8hTd4
-         qgz6iEVVfvqSQiGuO1lGvPIUyiO7gsbh+l+4DdBWvAxQtCVDs3HI/8/UT+VvQbBuY64/
-         7fIKvtBaIicDoLEeVLnPaWPFhDQRFGV0YJ04b1w0JOBizB1xLW5pAE+emG9pqw3yc75k
-         U/DQuwzFHcpz5NRdRoPeSdnZi/D/xq+UeyZgcj1DDATcSw8lGI4gZqy9LSjvsJHfJ9sN
-         ht7Q==
-X-Forwarded-Encrypted: i=1; AHgh+RotqRBZoMmQgMUWL40gEfYvoEYuRiYcniAocEJJOrEA3eTQ+OqDTkl+7oHmCdHo5LgoCAQsoNE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YybX1jkmPr6rG6Cw+azJ8ZX56UimkGV6RfiHM2OUn8VeZNKr/GN
-	SmDLUgkyBPZAjD1fOlEzoutpzP8e/e1wtxS4Wm+Oq0ikNXg/EgU9+yF6
-X-Gm-Gg: AfdE7ckwqP7UWD0lGNP08WjAxA5+4yrAhUulXV5Q4BoBngaxagfMSeRyHte+/rW+UtP
-	L+MiNs9Z+0Ycdufxn1qs6RufpvlErrJmPAmdWQEW7S5HYIJXSlXmVU5ACjDgLVJ/qTi9KIOozcm
-	RTLZwbahq6K1Hjqqj52qB10kQCFBc5JQbGGZG3/Qdd4u7RKtSCfknBFZ6xUm5I5tIDVFHBmFRJp
-	+ewNU2g2z8F8bejEFuTEf+yrYJx0D04GYlHQGUWp/u3bt6aznMdbbCIsRlvkh9pl1BtgmYuuzdc
-	VhZkZPIPTRA6+fE2NzKWHt3cGTGZaikcpEUFrkLgYfvn3DwihY1/yR8uM1FWW8Q0GzJ8cLU7q8z
-	Jr+unXTfy56Oxl+P2MYlbn1sMrkSksbtl1zbSyW2THF6AO8RBkJdnEP0D4dQwD2Z6v9fOwZFs/y
-	V26qwTNXKeDH7XfSaJFNDKlV30xY2ss4xeFg==
-X-Received: by 2002:a17:902:ffd0:b0:2ca:feb:303b with SMTP id d9443c01a7336-2cbb9ee4ecdmr21754205ad.25.1783148305926;
-        Fri, 03 Jul 2026 23:58:25 -0700 (PDT)
-Received: from Alvin.tail8ccd9a.ts.net ([101.12.233.227])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad712ca17sm19526275ad.28.2026.07.03.23.58.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 23:58:25 -0700 (PDT)
-From: Hao-Qun Huang <alvinhuang0603@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Johan Hovold <johan@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Nadzeya Hutsko <nadzya.info@gmail.com>,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Hao-Qun Huang <alvinhuang0603@gmail.com>,
-	stable@vger.kernel.org,
-	Martyn Welch <martyn@welchs.me.uk>
-Subject: [PATCH 2/2] staging: vme_user: fix location monitor leak in tsi148 bridge
-Date: Sat,  4 Jul 2026 14:58:16 +0800
-Message-ID: <20260704065817.403111-2-alvinhuang0603@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260704065817.403111-1-alvinhuang0603@gmail.com>
-References: <20260704065817.403111-1-alvinhuang0603@gmail.com>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="Ed1GqLr2";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Qtt21QD/"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.phl.internal (Postfix) with ESMTP id 3E2E0EC0013;
+	Sat,  4 Jul 2026 03:01:07 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-06.internal (MEProxy); Sat, 04 Jul 2026 03:01:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1783148467;
+	 x=1783234867; bh=9EOjRLEuXB+a4hPiemdXkRVHrXxozs0Cbz3kPa9tKqA=; b=
+	Ed1GqLr2FDb/Ah7ORLdmjgfferEUoc6CAFZ9bqbgy1+ubmUerhJxUXMKfA2ty0A7
+	EjsqtvjhLIHG8kSHiBpM2PPHBC2NgXlDWrOvGG/u/MfWNiZBvn3AUwo3bULYvNAZ
+	eQfnQmB8wZOk5zJJ8chu3Swj04j5WDpfbOfmO5okjlJmpjWwP/7J0kT37UPcJuDr
+	mj0d+c6gn5uksZD6QsKUvmeE8w6Jm6C0HtK5OCRphcW6PfkRc0Cc3qJqVvYOn1LB
+	aAcwqrqdoseQZgOsiHlegr5HYndSeKGnSAHNtj1FPQwL3AxHANTaV03ra3ZSxtjv
+	S52HBDbDSBBqRE5O2hnrKQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1783148467; x=
+	1783234867; bh=9EOjRLEuXB+a4hPiemdXkRVHrXxozs0Cbz3kPa9tKqA=; b=Q
+	tt21QD/aERYh2me4h09QU3B5FW3X8x7XkVXG70WTux4dMu1h5kqV/7VduVTxpIwz
+	z12jGaTJ0uzIK7Nwt74PUlP1Yme8o99NNKZc3Yhk9LMeaoBgDBOYIhuj0lzlJ+DQ
+	F2ynqv5b98jTcJ0fXW9vi2fHxbG5OUz7GsZKghkzJLrUo35UlTIYMjn3QPkNG4Ei
+	tWfQnkGNhTbXKiCx09QbkFciPTkNuIqzoGAA4CqaX+EYf1mc968nL9V/t7Qp8e3P
+	A0Y2ggf/kBcjDfejkihO6LGdydrZKVfGxzISWki1vMofmjJdz7SIWXIw1N0i0bBZ
+	AtxmB5YkCygriwLQ2xOCQ==
+X-ME-Sender: <xms:sa9IatXA1rxsoOR14dXwZ3z9AxyV0uGQZs6T4z9OFyj88BZ2ZvCsPg>
+    <xme:sa9IapfHDq9CXlv4RDeZpjlT0BY35k6-482dE9nmBiDzWfzTOKCAXPtdyweEwxkO-
+    ZVY5WPqlweMeTSDK9x0HaybkoeoY_5Sxnzo7MLM4qwwD_vlm5NHxrw>
+X-ME-Received: <xmr:sa9Iak6M5MpKbnEavrT3lkm1TCNRyyvQdPYpUVnSKTGoazuzubPCqa6xLLRIQmHf0pcbpWRt5mMsTkXMrrtKvXuxiSsSAZBP>
+X-ME-Proxy-Cause: dmFkZTFxHw6jcHRCtK2k92Ffh+A4E7u/DM8vkB0pS1S+nJ4J2UD1YdfBAnxln3I4qnM3+G
+    6WwWCpSRifZBZDUi806MCa5KM/8L54F+OzcUx4pfRp6cMOHF900aX9ZdBzM1ycha1Y9cK/
+    EsMxhJmmH2uAPCEbl0M/vIfjnafvDOe13Isnp29WPiCesbtQgen6d9eAZa/RlZnDYeyhWX
+    UriMP72oxHvwPjO9D/eRLB2YSIaG2YjFJ288Q+lQ/ildpienBEyV/i/eJW3J9PsYs8UTHB
+    s4rOgOC1d4HM54kuJKeUpInMQ6S8ay15/GgZCv4hA49lRHdaa7VNW520Pq9Ap5iyLnRoRU
+    lOt9Q9cJAOLuiEFos/jFp6hgZlLmnIrCApwx9iEkk0J3IqoJOrb34ZzChnJA9jSa+jnzwo
+    USLAOwlq1UAqx6EH/UQK4o59vA0QbTu5jbjtWpd9CcmzM0O78NLn/jvMlzjqaWmXOLJnO0
+    4V41yCmaj8u6+d46yQ28qkeUbc//VXas9HF/lC8lfN+9fQQaNx43HLXM4px7s7MUFaxeSC
+    +CLO2pwiN/+2zoyUz/QRWwqu8CrAhl0qhgO4H5zhDMnMxER68eqLxKBVDszSnFvxe48s8J
+    5gKYMzZXRR9A6L1xwkH3BmzM56YnuIVUCpp6wX0JSWt+QyuS+TWif38W3lEA
+X-ME-Proxy: <xmx:sa9IakS7uAhceGYvsI-Ek_UpZRfqOdxnocedIhhPjhkpmH8UQCy3UQ>
+    <xmx:sa9IaveMAsX5oS1_0NKkI3MZKKEa9GoSIw6eB68nNHsKmcYjwQwp_Q>
+    <xmx:sa9IasSFyxLnSlveB7yApl5RZaGBzI9u_-hYDlGs76e7rQa67trspA>
+    <xmx:sa9IagMuUC15IUhfkvlhDRqV6nw_RkJlFJMvffbdNSWNJTRMw2qkPA>
+    <xmx:s69Iahqjccp0IFEFEchPz2-Xle-8RZURBTAMGDr9oPUjFsP2JL45vieL>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 4 Jul 2026 03:01:03 -0400 (EDT)
+Message-ID: <0a78d284-b05f-4468-8248-0a6bf5bd1ab4@pobox.com>
+Date: Sat, 4 Jul 2026 00:01:02 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 7.1 000/121] 7.1.3-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260703072822.817328079@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260703072822.817328079@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-tsi148_probe() allocates a location monitor resource and links it into
-tsi148_bridge->lm_resources. The probe error path frees this list, but
-tsi148_remove() only frees the dma, slave and master resource lists, so
-the location monitor resource is leaked on device unbind or module
-unload.
+On 7/3/26 12:35 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.3 release.
+> There are 121 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 05 Jul 2026 07:28:08 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.3-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Free the lm_resources list in tsi148_remove() as well, before
-tsi148_bridge is freed.
+Tested on 3 amd64 systems and an arm64 virtual machine. Working well,
+no regressions observed.
 
-Fixes: d22b8ed9a3b0 ("Staging: vme: add Tundra TSI148 VME-PCI Bridge driver")
-Cc: stable@vger.kernel.org
-Cc: Martyn Welch <martyn@welchs.me.uk>
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Hao-Qun Huang <alvinhuang0603@gmail.com>
----
-diff --git a/drivers/staging/vme_user/vme_tsi148.c b/drivers/staging/vme_user/vme_tsi148.c
-index 4cf3486646ce..c695ad9b4ca2 100644
---- a/drivers/staging/vme_user/vme_tsi148.c
-+++ b/drivers/staging/vme_user/vme_tsi148.c
-@@ -2534,6 +2534,7 @@ static void tsi148_remove(struct pci_dev *pdev)
- {
- 	struct list_head *pos = NULL;
- 	struct list_head *tmplist;
-+	struct vme_lm_resource *lm;
- 	struct vme_master_resource *master_image;
- 	struct vme_slave_resource *slave_image;
- 	struct vme_dma_resource *dma_ctrlr;
-@@ -2590,6 +2591,13 @@ static void tsi148_remove(struct pci_dev *pdev)
- 
- 	tsi148_crcsr_exit(tsi148_bridge, pdev);
- 
-+	/* resources are stored in link list */
-+	list_for_each_safe(pos, tmplist, &tsi148_bridge->lm_resources) {
-+		lm = list_entry(pos, struct vme_lm_resource, list);
-+		list_del(pos);
-+		kfree(lm);
-+	}
-+
- 	/* resources are stored in link list */
- 	list_for_each_safe(pos, tmplist, &tsi148_bridge->dma_resources) {
- 		dma_ctrlr = list_entry(pos, struct vme_dma_resource, list);
+Tested-by: Barry K. Nathan <barryn@pobox.com>
+
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
