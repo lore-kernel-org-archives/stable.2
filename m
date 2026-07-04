@@ -1,199 +1,291 @@
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B4C3749EE
-	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 16:56:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783184209; cv=pass; b=L/yw+48ryaR3XKcoECvW15xmeI6kItFoPVEWOJk/UVKUvMlu75mXT/DpPbEW1saWrR6i58FSXCIE6HZAieomHinHPqWgNU1yftqs/UixjC40TxxtS6ESs1k4Pvyvpa5eaEqbhjrqcglGvVmZmhehlCGxp6azD2VGdQbk9a/Jjag=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783184209; c=relaxed/simple;
-	bh=w1NQ2pKqz3g9ab7jmMMtW75lol/MffqP9prmhNIFkew=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P0kLVxPmWkugVrBWRAyIoxGJNikd/mgWpQVm/DBBMlgDgx1Hu6kYnsQe8xiwXuJYNrtlJXdS+cmG95I3+gtAWRctnrS9Js7Olw+lZ1B8g9dNe89ZjqQxK7+dRf2vLi1TJQ+WJnxveJdZ+KkquVvKM6DM0oScPUzqriwqgp4IDl0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JNd2e5x0; arc=pass smtp.client-ip=209.85.208.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF96A1E9919;
+	Sat,  4 Jul 2026 17:08:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783184887; cv=none; b=sidkkXSaCHhdSYBsN9nFJl1rx/PBO2jPRv55PAbnOXJrLfUakNvoZusKKoz8ZllAzDyN8BTqUatckhk+xDlN7UM29Wo6Fj5Sy81Z56K0cvme2YkHiX6g514qbvLnO6BjEEdc0jp4pwWiQIOV9Yoe27hFwH/yT4aNFVBiJ107UzA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783184887; c=relaxed/simple;
+	bh=EWBT4hU7//0X1hV9mMHMOqeX+4OOwYshnIb4gV6S+nw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rPE6S/pO0U1ScBU8nV9ocorhIJtzddKl33tFep8lLqF3OooLRLKw7rHAwMSer0kgGruVIRiVBJnFl01ww6M+yuzZ2ZtreKmAsMPE87QU0uw1H2w0qNsJx6LEusxBWOzPWc/Q3OXm/GFsQI6bFtBQKi+nauysjYHQnWn3MTYlQ+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TQGfGMqa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JNd2e5x0"
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-39b293079d1so13447561fa.3
-        for <stable@vger.kernel.org>; Sat, 04 Jul 2026 09:56:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783184204; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HUAQ1mwI954Ubz8bLejtiPccbgzvPa61MyE8kdc94nQXGe2rzmyVLmb2p0pV/Sal0J
-         2kmgYPpSXuL/51Zfo/hM+9oKURRiYG1XNmfY+myOqCjdcLgKAXYTlW1ny0M1HbJBoBUT
-         h3UVoOvwnIJyGthHE1TPZYH39ouaL8Dz00BDuXd5y8lpeH7c4fARmVNrBGcZGni8PFOb
-         sWOSZO7Yr+fmr9vhpgoSe86veX+UQ+vVH3wr64iuLE+jrsvXXPsN4EV/feyQzPAgNvXy
-         aG+Yw8R/DzxKiybKGCL2wB7S4EGqQwIw/ULJQ/ZMQDYPZhRRPaMn6N/FJsM5wl2OjU5p
-         YKHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=i1T1olNimwkjRU+Vde+WeenpJhKN6hTkj0enHPynd8c=;
-        fh=37848fCeDFSXAD0Qg0QAu3MSkm1J7WbxT2I2Ls2w1Bo=;
-        b=FstKVhMUOJ/75bZxfREW6LSw38eochgYw5oZ8AVqXiwq4jO6MzrjYGFbaXlSZ8xr+x
-         dqSi2EpsYVGqZXMQMNoGFoqtAktFQAMU9AQVNKQ6+mSOlUifgohQqHtDh8vvOl1zFaah
-         7xp7dOkLekdjBAzAUAPrySQEXGZr+WNoR4wes/uitBf6kg7vJykzWw9H4fVsNeqvaJE0
-         EkdrWqZhDC2z9kr2LUNSsbEwhWmxbWWc5RrMHD4Fvlcu9kJiPJwJeZV+iD1MzYfav1ye
-         sQUJD/qf5mMxXrQGsgXaRGR2m/8gTBX5kk4cwUVTyp8cztd+hjBh8+pJTeao5b8iq0tn
-         yO4A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783184204; x=1783789004; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=i1T1olNimwkjRU+Vde+WeenpJhKN6hTkj0enHPynd8c=;
-        b=JNd2e5x0OMrhFvp8OC1zRIJjUUjQnryvBclhy+VGQT2NRbY4crZf3+VXvvfL4K17vk
-         tmtPX4oTAEp8Z+hJ+aL0MrexcIVGO5TOfuE+ppQZiwhxtN1AK9NFVyRri4J1LXVPyBK0
-         dCkrsKB7By10TbMUJn+A+LEAumopm+VIxZcJcAR7ftgeD4/77tF0nwpB/mwkRrQiAsCv
-         xofCDTrrkzhQvEoTp1KTtxx+yOEeXupFCSe35n2Dw4ZPO8AaggwMOOSXWf1LbbIYZG33
-         dmU7gVFNxw+zB55vi6xMYc15snOqHeQgNuhpcUyPwPgUDDgsm0zeNavfxjvp62ouQTd+
-         cHPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783184204; x=1783789004;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=i1T1olNimwkjRU+Vde+WeenpJhKN6hTkj0enHPynd8c=;
-        b=IlS5UKByRFqriXHgiyTLfoOxULmFeAnWftB6I0BFKqFiY3IhOUcpuMyQTs4lFw177v
-         nLuI/uhfP8k7HZIAKVMiotnBg+eCaxOOki9KR+8ipZWsr0HRgj3JWgE46h9hYNBK+Fpl
-         4EjvgII9b+sM/2jud9XyQCkwcRJUlVpmscFZa+Se3VrtoBTkKZLtmN2ldxWFV+Aken6R
-         wtLQ+y2zIruVAHdRuL4QCdu9CpXBGDYmMxEn7y9ZXD83jtxvCS+Sq6hEBwFvnpcHqvaL
-         QexZECenqp839j9rWw5MZNqoLQo0C7EzrDfjvaefQLGKX9V7n4GQolamYusj+ckOzEj9
-         HavQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp4QsGDcDSgE5LXIdFTokm9S6QjMixIno3BZVAg2U0q68U8uaVAuOGhAUSBChIdFks9M3ngi3U=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yya/fDtsTPmSu+N0NddwT11+k/uOlZrq+rUc2AurwjWjaqQxm3w
-	BjtcYLSpdnco1io86JdV0DzyChxNtJ9MHEv/jYrkz/Jq/dYwFvznJ9d0BPM9OPSjczYJ3ufzsgH
-	df/VqqiLMYekB8qB/EMKlt5MLnfSExZA=
-X-Gm-Gg: AfdE7ckQpbhcdemz628z9GXfyMvlj08tPTwWDiVLJyiZfnLIpvMXYPvwAcUs5mLl5Jo
-	GvI6MsQv9KM052pQ1hRigoKpc6Vf+WVpnuDaxHbypbksxhZXBF7bleh1F4xpmtwKuOc3IS20KXY
-	Fu/YQedk2Yi61JJZgvud1oQZ7LsE5WfyEdaoiKxzlQee5OoF/DUtFhBIBiK91s/QXS0xUFwjS9E
-	ykblYhNyBKwoeJWXyafqSfZOlhK90MyklT/QNlGMn1/He7hNXW7x9h/3O8C272LBPENeHlj66dX
-	kdyKvdNGsTaVR1cmR7iGzMHrw+4XCrbNWrUypaNZFXv5qnbHOIW9XZFR
-X-Received: by 2002:a05:651c:1548:b0:39a:f7b4:d828 with SMTP id
- 38308e7fff4ca-39b53dd40bfmr7309521fa.32.1783184203484; Sat, 04 Jul 2026
- 09:56:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TQGfGMqa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0081D1F000E9;
+	Sat,  4 Jul 2026 17:08:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783184885;
+	bh=qLWiwUkt1+vBYTVchITj+exqqY8WMBRAS+J1Qrcsag4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TQGfGMqavgUFnz58dPUoOKtbcVr3nolQXn8xl5cLR3DfRXVGHGgejYDl+vCdSXVGj
+	 b5/AL3p5ALf0tKevcukQcrE2Zf660/P488mpT9d52je/jYchmlScptcDmULnYt3UH4
+	 9C4YrbT1GAmZxqtklNJ/2D9U3tJZlpHA2hq6jRBhFa+ZLLKqDIw+E87Zr3MIG7mtVZ
+	 Bf3U44bEINKmPKGV4ctM6Z/lzYjb55nnrDzYSdjIjlXYLKmirS0ReKvaMrcAQXEylb
+	 VObD6nDGR5r3+xpDiLeRGGUaYEmBtiYHROQtjIEw4XzwK8zs1xj+zdf6464a0JZuQK
+	 PrYseeXTFYwwg==
+Date: Sat, 4 Jul 2026 10:08:03 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Dmitry Ilvokhin <d@ilvokhin.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Nick Terrell <terrelln@fb.com>, David Sterba <dsterba@suse.com>,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	kernel-team@meta.com, Farid Zakaria <fmzakari@meta.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] perf record: Fix multiple PERF_RECORD_COMPRESSED2
+ records per push
+Message-ID: <akk98zIfF08BoADo@google.com>
+References: <cover.1782743187.git.d@ilvokhin.com>
+ <079503c01a3e28d3775947f3449cadacfa1f4117.1782743187.git.d@ilvokhin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260626204945.18868-1-meatuni001@gmail.com> <82c8271a-4747-4930-bc31-bc0786178c6a@gmx.de>
-In-Reply-To: <82c8271a-4747-4930-bc31-bc0786178c6a@gmx.de>
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Sat, 4 Jul 2026 21:56:32 +0500
-X-Gm-Features: AVVi8CfO4YYzd26w1Cc_sDfnje81ZYCsgDbD7cNq0XO6gwW15qcnaNpNFx-rC8g
-Message-ID: <CADqcGB=HuQHq9gcmB2N8AgwJbbqfoUwaF-01D0unMA30dLg-bg@mail.gmail.com>
-Subject: Re: [PATCH 0/2] platform/x86: hp-bioscfg: fix attribute enumeration
- on older HP BIOS
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <079503c01a3e28d3775947f3449cadacfa1f4117.1782743187.git.d@ilvokhin.com>
 
-Hi Armin,
+Hello,
 
-I've posted v2 of the series, which includes an additional preparatory
-patch to ensure parser iteration remains bounded before relaxing the
-package-length check.
+On Tue, Jun 30, 2026 at 07:17:00AM +0000, Dmitry Ilvokhin wrote:
+> With Zstd compression enabled ('perf record -z'), a single mmap push
+> whose compressed output exceeds the maximum record size makes
+> zstd_compress_stream_to_records() emit several PERF_RECORD_COMPRESSED2
+> records back to back. record__pushfn() however rewrote only the first
+> record's header to describe the whole blob as one record:
+> 
+>   event->data_size   = compressed - sizeof(struct perf_record_compressed2);
+>   event->header.size = PERF_ALIGN(compressed, sizeof(u64));
+>   padding            = event->header.size - compressed;
+>   ...
+>   record__write(rec, map, &pad, padding);
+> 
+> perf_event_header::size is a __u16, so once the compressed blob no
+> longer fits in it the header.size assignment truncates and 'padding'
+> (size_t) underflows. write() is then handed that bogus length and fails
+> with EFAULT, aborting the recording:
+> 
+>   failed to write perf data, error: Bad address
+> 
+> The bytes that did reach the file are mis-framed, so reading it back
+> cannot be decompressed.
+> 
+> This is easy to hit with a high event rate and a large buffer, e.g.:
+> 
+>   perf record -z -F max -m 32M --per-thread -- perf test -w thloop 5 1
+> 
+> The single-record fixup is wrong by construction: because header.size is
+> 16 bits a compressed record cannot exceed 64KB, so the compressor must
+> split a push into a chain of records, and the session reader already
+> consumes them as such.
+> 
+> Frame each record where it is produced instead: make
+> process_comp_header() set the per-record data_size, 8-byte-align
+> header.size and zero the trailing padding, and let record__pushfn()
+> write the resulting blob, as the AIO path already does. Reduce
+> max_record_size by sizeof(u64) so the per-record alignment padding
+> cannot push header.size past its u16 field.
+> 
+> There is no on-disk format change; a perf.data written by the fixed tool
+> is still read by existing perf.
 
-https://lore.kernel.org/all/20260704160759.236249-1-meatuni001@gmail.com/
+Thanks for working on this!
 
-Thanks for your review.
+> 
+> Fixes: 208c0e168344 ("perf record: Add 8-byte aligned event type PERF_RECORD_COMPRESSED2")
+> Reported-by: Farid Zakaria <fmzakari@meta.com>
+> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  tools/perf/builtin-record.c                   | 41 ++++++------
+>  .../record+zstd_comp_decomp_multi_record.sh   | 64 +++++++++++++++++++
+>  tools/perf/util/zstd.c                        |  2 +-
+>  3 files changed, 87 insertions(+), 20 deletions(-)
+>  create mode 100755 tools/perf/tests/shell/record+zstd_comp_decomp_multi_record.sh
+> 
+> diff --git a/tools/perf/builtin-record.c b/tools/perf/builtin-record.c
+> index 4a5eba498c02..2562c3177eae 100644
+> --- a/tools/perf/builtin-record.c
+> +++ b/tools/perf/builtin-record.c
+> @@ -652,27 +652,14 @@ static int record__pushfn(struct mmap *map, void *to, void *bf, size_t size)
+>  	struct record *rec = to;
+>  
+>  	if (record__comp_enabled(rec)) {
+> -		struct perf_record_compressed2 *event = map->data;
+> -		size_t padding = 0;
+> -		u8 pad[8] = {0};
+>  		ssize_t compressed = zstd_compress(rec->session, map, map->data,
+>  						   mmap__mmap_len(map), bf, size);
+>  
+>  		if (compressed < 0)
+>  			return (int)compressed;
+>  
+> -		bf = event;
+>  		thread->samples++;
+> -
+> -		/*
+> -		 * The record from `zstd_compress` is not 8 bytes aligned, which would cause asan
+> -		 * error. We make it aligned here.
+> -		 */
+> -		event->data_size = compressed - sizeof(struct perf_record_compressed2);
+> -		event->header.size = PERF_ALIGN(compressed, sizeof(u64));
+> -		padding = event->header.size - compressed;
+> -		return record__write(rec, map, bf, compressed) ||
+> -		       record__write(rec, map, &pad, padding);
+> +		return record__write(rec, map, map->data, compressed);
+>  	}
+>  
+>  	thread->samples++;
+> @@ -1590,18 +1577,29 @@ static void record__adjust_affinity(struct record *rec, struct mmap *map)
+>  	}
+>  }
+>  
+> -static size_t process_comp_header(void *record, size_t increment)
+> +/*
+> + * Called once with data_size == 0 to start a record, then once with
+> + * data_size == compressed payload size to finalize and 8-byte-pad it
+> + * (unaligned records trip ASan in the reader).
+> + */
+> +static size_t process_comp_header(void *record, size_t data_size)
+>  {
+>  	struct perf_record_compressed2 *event = record;
+>  	size_t size = sizeof(*event);
+>  
+> -	if (increment) {
+> -		event->header.size += increment;
+> -		return increment;
+> +	if (data_size) {
+> +		size_t padding;
+> +
+> +		event->data_size = data_size;
+> +		event->header.size = PERF_ALIGN(size + data_size, sizeof(u64));
+> +		padding = event->header.size - size - data_size;
+> +		memset(record + size + data_size, 0, padding);
+> +		return data_size + padding;
+>  	}
+>  
+>  	event->header.type = PERF_RECORD_COMPRESSED2;
+>  	event->header.size = size;
+> +	event->data_size = 0;
+>  
+>  	return size;
+>  }
+> @@ -1610,7 +1608,12 @@ static ssize_t zstd_compress(struct perf_session *session, struct mmap *map,
+>  			    void *dst, size_t dst_size, void *src, size_t src_size)
+>  {
+>  	ssize_t compressed;
+> -	size_t max_record_size = PERF_SAMPLE_MAX_SIZE - sizeof(struct perf_record_compressed2) - 1;
+> +	/*
+> +	 * Reserve space so per-record PERF_ALIGN() padding keeps header.size
+> +	 * within u16.
+> +	 */
+> +	size_t max_record_size = PERF_SAMPLE_MAX_SIZE
+> +		- sizeof(struct perf_record_compressed2) - sizeof(u64);
+>  	struct zstd_data *zstd_data = &session->zstd_data;
+>  
+>  	if (map && map->file)
+> diff --git a/tools/perf/tests/shell/record+zstd_comp_decomp_multi_record.sh b/tools/perf/tests/shell/record+zstd_comp_decomp_multi_record.sh
+> new file mode 100755
+> index 000000000000..42efe7260def
+> --- /dev/null
+> +++ b/tools/perf/tests/shell/record+zstd_comp_decomp_multi_record.sh
+> @@ -0,0 +1,64 @@
+> +#!/bin/bash
+> +# Zstd perf.data compression/decompression of multi-record data
+> +
+> +# SPDX-License-Identifier: GPL-2.0
 
-On Wed, Jul 1, 2026 at 1:29=E2=80=AFAM Armin Wolf <W_Armin@gmx.de> wrote:
->
-> Am 26.06.26 um 22:49 schrieb Muhammad Bilal:
->
-> > The hp_bioscfg driver silently fails to enumerate BIOS attributes on
-> > HP EliteBook 840 G2 (and potentially other older HP models) because:
-> >
-> >    1. hp_init_bios_package_attribute() hard-fails when a WMI ACPI packa=
-ge
-> >       contains fewer elements than the per-type expected count (11 < 13=
-),
-> >       even though only the first 10 common elements are required to
-> >       register an attribute.
-> >
-> >    2. hp_populate_enumeration_elements_from_package() returns -EIO and
-> >       discards the entire attribute when any single element has an
-> >       unexpected ACPI object type =E2=80=94 typically after a BIOS AML =
-error
-> >       returns malformed data.
->
-> Hi,
->
-> it could be that the ACPI firmware still transmits all the necessary data=
-, its just
-> that some package elements are combined into a single buffer element
-> (see https://docs.kernel.org/wmi/acpi-interface.html section "Conversion =
-rules for ACPI data types"
-> for details).
->
-> The correct solution would be to migrate the driver to the new buffer-bas=
-ed WMI API,
-> because said API ensures that ACPI objects are properly marshaled into th=
-e common
-> WMI data format. However this might require a lot of work :/.
->
-> Regarding the BIOS error: this usually happens because creating a ByteFie=
-ld with and
-> invalid length does not cause an error under Windows. Passing a larger bu=
-ffer usually
-> fixes this problem.
->
-> Thanks,
-> Armin Wolf
->
-> >
-> > Hardware affected:
-> >    HP EliteBook 840 G2 (DMI: Hewlett-Packard HP EliteBook 840 G2/2216)
-> >    BIOS: M71 Ver. 01.31 (02/24/2020)
-> >
-> > How to reproduce:
-> >    1. Boot a kernel with CONFIG_HP_BIOSCFG=3Dm on an HP EliteBook 840 G=
-2
-> >    2. modprobe hp_bioscfg
-> >    3. Observe dmesg:
-> >         hp_bioscfg: ACPI-package does not have enough elements: 11 < 13
-> >         Error expected type 2 for elem 13, but got type 1 instead
-> >
-> > Testing notes:
-> >    Tested on HP EliteBook 840 G2 running Arch Linux kernel 7.0.13-arch1=
--1.
-> >    After patches, hp_bioscfg loads successfully and enumerates availabl=
-e
-> >    BIOS attributes. Attributes with shortened packages are partially
-> >    populated and accessible via sysfs. No regressions on systems that
-> >    return full 13-element packages (checked via code inspection =E2=80=
-=94
-> >    pr_warn path is only reached when count < min_elements).
-> >
-> > Relevant dmesg (before fix):
-> >    [   11.xxx] hp_bioscfg: ACPI-package does not have enough elements:
-> >                11 < 13
-> >    [   11.xxx] ACPI BIOS Error (bug): AE_AML_BUFFER_LIMIT,
-> >                Index (0x000000032) is beyond end of object (length 0x32=
-)
-> >    [   11.xxx] ACPI Error: Aborting method \_SB.WMID.WQBE
-> >    [   11.xxx] Error expected type 2 for elem 13, got type 1
-> >    [   11.xxx] hp_bioscfg: Returned error 0x3
-> >
-> > Muhammad Bilal (2):
-> >    platform/x86: hp-bioscfg: accept reduced ACPI packages from older HP
-> >      BIOS
-> >    platform/x86: hp-bioscfg: warn on element type mismatch instead of
-> >      failing
-> >
-> >   drivers/platform/x86/hp/hp-bioscfg/bioscfg.c         | 11 ++++++++---
-> >   drivers/platform/x86/hp/hp-bioscfg/bioscfg.h         |  3 +++
-> >   drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c |  7 ++++---
-> >   3 files changed, 15 insertions(+), 6 deletions(-)
-> >
+Can you please remove the blank line here?
+
+Also, this series cannot apply anymore.  Please rebase onto the latest
+perf-tools-next.
+
+Thanks,
+Namhyung
+
+> +
+> +perfdata=$(mktemp /tmp/__perf_test.perf.data.XXXXX)
+> +recout=$(mktemp /tmp/__perf_test.zstd.rec.XXXXX)
+> +injout=$(mktemp /tmp/__perf_test.zstd.inj.XXXXX)
+> +perf_tool=perf
+> +
+> +cleanup() {
+> +	rm -f "${perfdata}" "${perfdata}".old "${perfdata}".decomp "${recout}" "${injout}"
+> +}
+> +trap cleanup EXIT TERM INT
+> +
+> +skip_if_no_z_record() {
+> +	$perf_tool record -h 2>&1 | grep -q -- '-z, --compression-level'
+> +}
+> +
+> +collect_z_record() {
+> +	echo "Collecting compressed record file:"
+> +	[ "$(uname -m)" != s390x ] && gflag='-g'
+> +	$perf_tool record -o "${perfdata}" $gflag -z -F max -m 32M --per-thread -- \
+> +		$perf_tool test -w thloop 5 1 \
+> +		>/dev/null 2>"${recout}"
+> +}
+> +
+> +check_record() {
+> +	echo "Checking record did not fail to write data:"
+> +	if grep -q "failed to write perf data" "${recout}"; then
+> +		cat "${recout}"
+> +		return 1
+> +	fi
+> +}
+> +
+> +check_decompress() {
+> +	echo "Checking compressed file decompresses cleanly:"
+> +	if ! $perf_tool inject -i "${perfdata}" -o "${perfdata}".decomp 2>"${injout}"; then
+> +		cat "${injout}"
+> +		return 1
+> +	fi
+> +	if grep -Eqi "decompress|corrupt|failed to process type" "${injout}"; then
+> +		cat "${injout}"
+> +		return 1
+> +	fi
+> +}
+> +
+> +skip_if_no_z_record || exit 2
+> +collect_z_record
+> +check_record || exit 1
+> +
+> +# Need >1 record, else the multi-record path wasn't exercised.
+> +# Skip rather than pass/fail spuriously.
+> +nr=$($perf_tool report -i "${perfdata}" --stats 2>/dev/null |
+> +	awk '/COMPRESSED2 events:/ { print $3 }')
+> +if [ -z "${nr}" ] || [ "${nr}" -lt 2 ]; then
+> +	echo "less than two compressed records (${nr:-0}), skipping"
+> +	exit 2
+> +fi
+> +echo "Produced ${nr} compressed records"
+> +
+> +check_decompress
+> +err=$?
+> +exit $err
+> diff --git a/tools/perf/util/zstd.c b/tools/perf/util/zstd.c
+> index 57027e0ac7b6..1955fa2431d1 100644
+> --- a/tools/perf/util/zstd.c
+> +++ b/tools/perf/util/zstd.c
+> @@ -30,7 +30,7 @@ int zstd_fini(struct zstd_data *data)
+>  
+>  ssize_t zstd_compress_stream_to_records(struct zstd_data *data, void *dst, size_t dst_size,
+>  				       void *src, size_t src_size, size_t max_record_size,
+> -				       size_t process_header(void *record, size_t increment))
+> +				       size_t process_header(void *record, size_t data_size))
+>  {
+>  	size_t ret, size, compressed = 0;
+>  	ZSTD_inBuffer input = { src, src_size, 0 };
+> -- 
+> 2.53.0-Meta
+> 
