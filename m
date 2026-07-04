@@ -1,83 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5F723504B
-	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 02:26:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0C1481F3B8A;
+	Sat,  4 Jul 2026 02:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783131990; cv=none; b=qMUvbAXo9jRwMU8CHjMS3+/wxg7vHJZ8rXXzi1Y8eWVM1u3WJBmwUkbYMJ8umBCZitoBPKne64rDZTDiw2tiqsWUI5HGVtLNnCrOd8DGwtNKzLYKFXsd3iEjwLbvW8kSbSiSADEpbjOSUehARInp8PdfhyhJHToEkVTi9jFLevI=
+	t=1783132204; cv=none; b=P1Tvylm1K1kbn5N5IfnOjdxidYL9b6/Ulc8HuiI69JUFAXA/oepEQpVxUsYEAdzOzptkDUKxIL3muqBvsyDE0F2BU3Ptb1izx+i7MbkfGTjE/zuISQCmGji1gPrBmss6/WKddqU+m1wfsYzz4wam2DuBPsLFJSP4S1AgQo4WKuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783131990; c=relaxed/simple;
-	bh=K5UH7jbJ633f87UxlYmlQo32WZzzUI6x1+evumY/cP4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tZGaKR81YqDMSW3uNVhUEhZ5hbLUDb6Srugce/dFBW30Bnc+WM1xInG1HQM1d5XNkMRSALLcJjGB8ujAjWEIxFlUO2hWcxylHOlAuDYAoEVZ5iGd8xXr2uFzjb8Xm7xxwY0YtYTwwvEOGcrNF1kTViUcUjfW/lgcFwiU932McqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bq/qzl46; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bq/qzl46"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 792FA1F00A3E
-	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 02:26:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783131989;
-	bh=K5UH7jbJ633f87UxlYmlQo32WZzzUI6x1+evumY/cP4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Bq/qzl46mWAzRnjGbuhNxzHy12BYhSuqCIft5zwVv4CK31glb3oa55YaiR1UuWop6
-	 TODWzfVIeLck9X1Y7Od83o564bwID9LDkxv1N0Uw3DGU1erbC+NWFBp81frezp9gf6
-	 II+e3/sBoi9UCrNE3XKJg2m3J/8qmDjV/6LBki/GM5AOQklMUPrzFco6vL8cKWvku1
-	 4HgeN55PJgXy3pVaj6OtjTyaB7Y9hWlLuev8dUv4tLPt4rWrtXPj52TqAPpWSiPKly
-	 YD1LdpuSmQJJdkS346tSRVKvEVaPM3ImxZOUXYwmgdmP1FPK0jXeS8ClXi8f2+Fr2R
-	 03oO4iiRcm98Q==
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c12a1a3cdb9so105968266b.0
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 19:26:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/8O6vdOV8r/KgVSyoWxUldID2Q0ErJM5ZsCDbRdgsqBDwBg2ZGVf2XZ1mRw9BPaPC6vDH/Kq8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyXRgHmlFmFc3flKNq8br/nNatZ0D54Gn5pd70piBUZxC4i+lLx
-	wSSIPKd658R/orlzYBo8IA3aReWcdXhE9t/5ajW+jpEVmZWiNj2EsNXzDpiIa7gBfs+6qpYWTv0
-	ZwxSgH+DYUHx5tVNquQvonQyc59Sbd9A=
-X-Received: by 2002:a17:907:6d18:b0:c12:6f4a:1b5d with SMTP id
- a640c23a62f3a-c12e6c34fbbmr45093966b.39.1783131988129; Fri, 03 Jul 2026
- 19:26:28 -0700 (PDT)
+	s=arc-20240116; t=1783132204; c=relaxed/simple;
+	bh=qti6PGvn/wy1dr21uESZyhdMlWbkdlbebF97yMDrjW8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HLbMT2w153KM4UvVYAsr2oaVWefiSqEqqojgWORRgLukukuQvG7xb75iTw7lM4k3g++TqYYjBfIh3pKli1IfqJHPbOmaq2iu9BOVDwcrNivP7kmd979MBFrzn/mVqKJtQEEnP6SKAjLStuid6Vi1W5bZ6Pn7Sq9BdV0jtjGIFJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDnRGUccEhqcfwAAA--.2374S3;
+	Sat, 04 Jul 2026 10:29:49 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgBHX3EccEhqsXnSAg--.57888S2;
+	Sat, 04 Jul 2026 10:29:48 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: jacob-chen@iotwrt.com,
+	ezequiel@vanguardiasur.com.ar
+Cc: mchehab@kernel.org,
+	heiko@sntech.de,
+	linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] media: rockchip: rga: quiesce IRQ before releasing m2m state
+Date: Sat,  4 Jul 2026 02:28:53 +0000
+Message-Id: <20260704022853.77291-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260703192641.46121-1-james_montgomery@disroot.org>
-In-Reply-To: <20260703192641.46121-1-james_montgomery@disroot.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sat, 4 Jul 2026 11:26:16 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8U_wCr91GcKaeknkqWehhE191WGX3CUX1iFqmduPNVYA@mail.gmail.com>
-X-Gm-Features: AVVi8CfO2rzm4htz4KS82u-6YZNAHnz7UxM31fStpYuVHcl6LbXEprlAmKmaVY4
-Message-ID: <CAKYAXd8U_wCr91GcKaeknkqWehhE191WGX3CUX1iFqmduPNVYA@mail.gmail.com>
-Subject: Re: [PATCH v2] ksmbd: defer destroy_previous_session() until after
- NTLM authentication
-To: James Montgomery <james_montgomery@disroot.org>
-Cc: linux-cifs@vger.kernel.org, smfrench@gmail.com, senozhatsky@chromium.org, 
-	tom@talpey.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgBHX3EccEhqsXnSAg--.57888S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?1fenegXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WMW8oo9eGBl9HV1ffwa75uvyjPqD135tOeKyPoHGu9vCRko
+	yEpxb8kBGLspYd32l0yp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxCF1fKr47uw1rAF4DAr4xGrX_yoW5Xw4rpa
+	n8AayIkFWUGF4UWw1DJa1DuFZ5twnayay5GF4fG34xCF9akryqq348AFyFvr9xXr97AFW2
+	vw45t3yrXF4jqFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AK
+	xVWxJr0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjx
+	CEc2xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAF
+	wI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0x
+	vY0x0EwIxGrwACjcxG0xvY0x0EwIxGrVCF72vEw4AK0wCF04k20xvY0x0EwIxGrwCFx2Iq
+	xVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r
+	106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AK
+	xVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7
+	xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_
+	Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jbo7NUUUUU=
 
-On Sat, Jul 4, 2026 at 4:26=E2=80=AFAM James Montgomery
-<james_montgomery@disroot.org> wrote:
->
-> In ntlm_authenticate(), destroy_previous_session() is called using a
-> user pointer resolved from the client-supplied NTLM blob username field
-> before the NTLMv2 response is validated. An authenticated attacker can
-> set the NTLM blob username to match a victim account and set
-> PreviousSessionId to the victim's session ID; destroy_previous_session()
-> destroys the victim's session while ksmbd_decode_ntlmssp_auth_blob()
-> subsequently rejects the request with -EPERM.
->
-> Move destroy_previous_session() and the prev_id assignment to after
-> ksmbd_decode_ntlmssp_auth_blob() returns success and use sess->user
-> rather than the pre-authentication lookup result. This matches the
-> ordering already used by krb5_authenticate(), where
-> destroy_previous_session() is called only after
-> ksmbd_krb5_authenticate() returns success.
->
-> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/linux-cifs/20260702155449.3639773-1-james_m=
-ontgomery@disroot.org/
-> Signed-off-by: James Montgomery <james_montgomery@disroot.org>
-Applied it to #ksmbd-for-next-next.
-Thanks!
+rga_probe() requests the interrupt with devm_request_irq(), so devres
+does not release the IRQ until after rga_remove() returns. rga_remove()
+currently releases rga->m2m_dev before that point.
+
+rga_isr() uses rga->m2m_dev through v4l2_m2m_job_finish(),
+leaving a window where an interrupt can run after the m2m device has been
+released.
+
+Unregister the video device first to stop new userspace submissions, then
+free the devm-managed IRQ explicitly before releasing the m2m device. Move
+the command buffer release after the IRQ teardown as well, so it is not
+released while a completion interrupt can still arrive.
+
+Store the IRQ number in struct rockchip_rga so rga_remove() can free the
+IRQ without looking it up again.
+
+Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+
+---
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index 43f6a8d..118887a 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -828,6 +828,8 @@ static int rga_probe(struct platform_device *pdev)
+ 		goto err_put_clk;
+ 	}
+ 
++	rga->irq = irq;
++
+ 	ret = devm_request_irq(rga->dev, irq, rga_isr, 0,
+ 			       dev_name(rga->dev), rga);
+ 	if (ret < 0) {
+@@ -919,13 +921,21 @@ static void rga_remove(struct platform_device *pdev)
+ {
+ 	struct rockchip_rga *rga = platform_get_drvdata(pdev);
+ 
+-	dma_free_attrs(rga->dev, RGA_CMDBUF_SIZE, rga->cmdbuf_virt,
+-		       rga->cmdbuf_phy, DMA_ATTR_WRITE_COMBINE);
+-
+ 	v4l2_info(&rga->v4l2_dev, "Removing\n");
+ 
+-	v4l2_m2m_release(rga->m2m_dev);
+ 	video_unregister_device(rga->vfd);
++
++	/*
++	 * The IRQ was requested with devm_request_irq() and is freed by devm
++	 * only after this function returns. Free it explicitly here, after the
++	 * video device is unregistered, but before v4l2_m2m_release() frees
++	 * rga->m2m_dev, which rga_isr() dereferences via v4l2_m2m_job_finish().
++	 */
++	devm_free_irq(rga->dev, rga->irq, rga);
++
++	dma_free_attrs(rga->dev, RGA_CMDBUF_SIZE, rga->cmdbuf_virt,
++		       rga->cmdbuf_phy, DMA_ATTR_WRITE_COMBINE);
++	v4l2_m2m_release(rga->m2m_dev);
+ 	v4l2_device_unregister(&rga->v4l2_dev);
+ 
+ 	pm_runtime_disable(rga->dev);
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index 72a28b1..f76c45b 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -81,6 +81,7 @@ struct rockchip_rga {
+ 	struct device *dev;
+ 	struct regmap *grf;
+ 	void __iomem *regs;
++	int irq;
+ 	struct clk *sclk;
+ 	struct clk *aclk;
+ 	struct clk *hclk;
+
