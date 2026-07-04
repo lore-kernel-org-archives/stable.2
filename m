@@ -1,110 +1,128 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B282388873
-	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 08:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0A439E18E;
+	Sat,  4 Jul 2026 08:41:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783152988; cv=none; b=HFn4KGR1yuXQX88mkI0x40vzoBUdWQAc2wx79zPEnC+yhpD/crqMP89RUnDEu5MqZHQVafK280ZotITP/rUPrOZfS+9EclWeN3avwYlzWQ6FLnkPD1Sdtw1LPWP01fTiQRqAZS8NiMaTE5q9rSNEoc7TRapR/HbQZfMhvEr4UNk=
+	t=1783154479; cv=none; b=YgeUCnmOXQ8o59aRp3I12tPgQ1vjgEJeVN0/rDoE0DeZb+6cPzRmYANaAAansqfZ8AaM7QX33R3jKK4EsNyeJwiQEx+HFhZHNPPkEdTZd0AG31vvArF7Sv/L2hy9FviiVzV4NmAoJLZVbUF0nQo+95aEyXq1URceLxJ8damQvPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783152988; c=relaxed/simple;
-	bh=ICYE2DkCV1p/9tLiNI3rxxRdRQI4UCN+8Zh+UvVQYCs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qDlOnZ+253gz2hdcdcTHzouFBsfZuPWanWvu3mZj9Hip3iHfDtae2XWDfAGGLxf71k6qmmPNPuZHCM2AsQ39alH+vwgOmAp+oJmMPoR1B335JVacBb51jC0+E9oQuO9lAA4VYW6cBHLXG2cptqJP7YbH4t0B0DFMmlKmbFSFkhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PUkT61TC; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783154479; c=relaxed/simple;
+	bh=LoAQGQx1nOKBdu36DWA9epVCvUN1aDJ6wWrFVe89Z40=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Y8V1+sNoFWgOWox3Q7EdetCvA1xvxM7HkT39khQd1elYPToG5f53/4LeWZ0EtDAOXqH7/55/M0dnz9ENtVLshF1Kj83Eozmszd8f7M9+y1E3vUGG78XdIHWul+VV9rxYjhKmOW4u4fh5kUK+k/sW/UXCL6Qqsdo/c3vc0A+IaFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=ERr1QZNC; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PUkT61TC"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-382a3fe0d28so586105a91.0
-        for <stable@vger.kernel.org>; Sat, 04 Jul 2026 01:16:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783152979; x=1783757779; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TH3+2uge2X7v89K7Klwz73DAfKLAbdik2q1vKZDeHZI=;
-        b=PUkT61TCOQ5SSgJOz8pkgCYMaNaQyDptKuIgNo3P5feZ0QGSc6fZg9EyusE5kQvj1f
-         4SQFm7h+DiPwsDVG2Y4jj2ZUKBbK2vw9mwj9KuTb4jQjahlJ3SxZuIJMEwlV+aWFZkN7
-         ltmK1KlPVxeouze3AiV9vJTZWut6pefkABQU11ENoxUh0wm3jApn3Kt9a3MQNnB6uAqc
-         u8SVuE/avhs1SZFMQhDlVJlu1i/o5dWAw1d3uKNs3Hy6t8Ln0BNLvS4WsjSl4TkToewt
-         A4I7f+5H02t9apI9fMretCCnVaY6YEEyS+HHrJkSddc/0F9/e8xSUaNOhsbqYDp6cj/n
-         GoiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783152979; x=1783757779;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TH3+2uge2X7v89K7Klwz73DAfKLAbdik2q1vKZDeHZI=;
-        b=ni6GsGvUEZcBaMLeGLTcFBv+Kxck46VVQ3NDBXw1dOE8Uf2FD2hGkmpXTFsRCtfXmE
-         RsgZ/+ZTE4nTi7civvoDOnD9z5Se8gTEm0VgnJsu/2I4g6ZNeKE8gy6BELlQdbbbX+jB
-         TVYsiyhYFRthjk849UeOWRkeayg49vAH7Z1a8xzB3Q/J8oC0kThRbOpdK6dl8IfjDy6I
-         GsnG+D3BOkvuLiBsyxUMyH9770sqjQTxUGRVD3WiUMS5PAYRaWGnknKvNQmGjCBA3FO0
-         fgz7oNkb4QObPP0qzhqD6XdhTYqlITSEmt3rLukRTrau4oLxpskHCjMQwfh6hJMOkcvY
-         GrnA==
-X-Forwarded-Encrypted: i=1; AHgh+RoP4Ct9wvOkz2gO5fXLexyS1czxMgDchNjvhSF/KdWIPGHBr1/jbsVGHZDpH1iv69aOlQPvOhE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy5rCdtEVLZvBOhGIyLhBYCr8XfDmy+48+yonbkc2K9vA2KteMj
-	aaXs5oeU7T3yRzI8vpf3Mmz7T0TKHMoCc+phh4BvQuu2/B6OiR5OWIfI
-X-Gm-Gg: AfdE7cl9AbXh5oA5zAF8+1GHTlUie+hd7d1VgA1mRS2zr+/clVQm294/cG2DDsmetRs
-	BcM57uweQOl7Jcr8+ScaNw7pbMS4ZOJCf/HZue5LPyyuAbXLPbl7308vguE5ZmvCTndBmlGuRzF
-	LyjVap3OXgFjwGmvb1R7OsnsJGsrbaK2561X46zMJiUikbC/qqxxCVw1bblmQWH3EwZuIKa6+xU
-	VZcyKJnt9MIR2RiYXhlu+uMHUHN0yYB1ZVjwtJSMLNgAUTKgPYVt8cpiYGcVvw4ZH0KMYbeag/d
-	Bob6+bhhw+eeiaY2urWpxAdaBuc4DNRx23zGsn7IV0luIRvSm1Lxos8TxHWTWxJq641uKytLo/h
-	18V0iSD1oe0SBtLUiwdvRj/quSdnIgAjY+WJdv9q6EIk7ZydlGrIDx/cbn80y+cuYPS0r+j0G+j
-	3iCoXM7XnmRGRdltdvDcoZ8L9IvItHkalw2Q==
-X-Received: by 2002:a17:90b:5890:b0:37f:9ce1:7364 with SMTP id 98e67ed59e1d1-3829f4f0600mr2732468a91.26.1783152978511;
-        Sat, 04 Jul 2026 01:16:18 -0700 (PDT)
-Received: from Alvin.tail8ccd9a.ts.net ([101.12.233.227])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38127ca8046sm2112322a91.13.2026.07.04.01.16.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Jul 2026 01:16:18 -0700 (PDT)
-From: Hao-Qun Huang <alvinhuang0603@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Viresh Kumar <vireshk@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Hao-Qun Huang <alvinhuang0603@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] staging: greybus: hid: fix SET_REPORT return value
-Date: Sat,  4 Jul 2026 16:16:13 +0800
-Message-ID: <20260704081613.434445-1-alvinhuang0603@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="ERr1QZNC"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=Cc:To:Subject:From:Reply-To:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=V41pSvo0YeLVFGkk+99Snc9WzkqH5EUfSjSfk1PM8ck=; t=1783154478; x=1784364078; 
+	b=ERr1QZNCPDBl5LLEBOlvqhjyXXW8WxBPchGoGsp3n1vX13IARP4fXGfYGwelpxlu8v6xwefCnHg
+	akaUcJKQ7KD8WYOCFpLjVcZ39WnIhDKuZuyWRD+/P9CBrQpV3xCmwRPaXd5eRMSglgBBdjxXbFfLp
+	ZCrf0Kgn4lcM6oowKChg8zeQDx8bhifXwqRf4nAxyh+pTaaUj7dYiAnFr3jCC4RyuG5QVF/PLI4iP
+	Y9u50SvSHCVTubzmNY2ayLmVgiS/cPCvFdKIYTzfHJLIM1WFLZmTDNBUobeN0yv6zkHrhN6eLfkFw
+	g13ryenJ5UK/tG+QW7NokoHp4AtIDdTFKQkw==;
+From: Andreas Kemnade <andreas@kemnade.info>
+Date: Sat, 04 Jul 2026 10:40:54 +0200
+Subject: [PATCH v2] gpios: palmas: add get_direction op
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260704-palmas-getdirection-v2-1-2fd85fee3832@kemnade.info>
+X-B4-Tracking: v=1; b=H4sIABXHSGoC/32Nyw6CMBBFf4XM2popL4Mr/sOwKO0Ao9KSFomG8
+ O8W3Ls8ybnnrhDIMwW4Jit4WjiwsxHSUwJ6ULYnwSYypJiWeMFMTOo5qiB6mg170nP0RSVzMqb
+ LsEWEuJw8dfw+qrfmx+HV3qO9p3Zj4DA7/zluF7l7/x8WKaTAvNSyKKpS6rx+0GiVoTPbzkGzb
+ dsX7/DPIcsAAAA=
+X-Change-ID: 20260703-palmas-getdirection-914eddf30b00
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-omap@vger.kernel.org, stable@vger.kernel.org, 
+ Andreas Kemnade <andreas@kemnade.info>, 
+ Laxman Dewangan <ldewangan@nvidia.com>, 
+ Samuel Ortiz <sameo@linux.intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2393; i=andreas@kemnade.info;
+ h=from:subject:message-id; bh=LoAQGQx1nOKBdu36DWA9epVCvUN1aDJ6wWrFVe89Z40=;
+ b=kA0DAAoWF+d09HUlhtwByyZiAGpIxx2jaSNojyj7duhY4ModwW4gye8ZO8dOH9gSIPtXs/34z
+ Ih1BAAWCgAdFiEE+jsgRvIk5m1TlVg/F+d09HUlhtwFAmpIxx0ACgkQF+d09HUlhty5jQD9E73p
+ siyiPfdBmRrKwm8EBlfk1dJCb1S0qyPb3r3CxGoBAPz4mi33F44uyKmTZ92oGbGRSB0Fj8R3Ujt
+ uKYG99/UP
+X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
+ fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 
-__gb_hid_output_raw_report() stores the result of gb_hid_set_report()
-in ret and even adjusts it to account for the report ID byte, but then
-always returns 0.
+Accessing debug/gpio is quite noisy without a get_direction()
+implementation.  To calm that down add an implementation.
 
-This hides Greybus transport errors from HID_REQ_SET_REPORT callers,
-and makes hidraw report zero bytes written to user space on success,
-although hid_hw_raw_request() is expected to return the number of
-bytes transferred or a negative errno. The sibling GET_REPORT path,
-__gb_hid_get_raw_report(), already follows this convention.
-
-Return ret like the other HID transport drivers do.
-
-Fixes: 96eab779e198 ("greybus: hid: add HID class driver")
+Fixes: 3d50a2785271 ("gpio: palmas: Add support for Palmas GPIO")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Hao-Qun Huang <alvinhuang0603@gmail.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
 ---
-diff --git a/drivers/staging/greybus/hid.c b/drivers/staging/greybus/hid.c
-index f1f9f6fbc00e..1d7186eecd23 100644
---- a/drivers/staging/greybus/hid.c
-+++ b/drivers/staging/greybus/hid.c
-@@ -256,7 +256,7 @@ static int __gb_hid_output_raw_report(struct hid_device *hid, __u8 *buf,
- 	if (report_id && ret >= 0)
- 		ret++; /* add report_id to the number of transferred bytes */
- 
--	return 0;
-+	return ret;
+Changes in v2:
+- add a proper fixes tag
+- Link to v1: https://patch.msgid.link/20260703-palmas-getdirection-v1-1-046c155961c4@kemnade.info
+
+To: Linus Walleij <linusw@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+To: Laxman Dewangan <ldewangan@nvidia.com>
+To: Samuel Ortiz <sameo@linux.intel.com>
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/gpio/gpio-palmas.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/gpio/gpio-palmas.c b/drivers/gpio/gpio-palmas.c
+index e377f6dd4ccf..e64ee0487718 100644
+--- a/drivers/gpio/gpio-palmas.c
++++ b/drivers/gpio/gpio-palmas.c
+@@ -116,6 +116,24 @@ static int palmas_gpio_input(struct gpio_chip *gc, unsigned offset)
+ 	return ret;
  }
  
- static int gb_hid_raw_request(struct hid_device *hid, unsigned char reportnum,
++static int palmas_gpio_get_direction(struct gpio_chip *gc, unsigned int offset)
++{
++	struct palmas_gpio *pg = gpiochip_get_data(gc);
++	struct palmas *palmas = pg->palmas;
++	unsigned int val;
++	unsigned int reg;
++	int ret;
++	int gpio16 = (offset/8);
++
++	offset %= 8;
++	reg = (gpio16) ? PALMAS_GPIO_DATA_DIR2 : PALMAS_GPIO_DATA_DIR;
++	ret = palmas_read(palmas, PALMAS_GPIO_BASE, reg, &val);
++	if (ret)
++		return ret;
++
++	return (val & BIT(offset)) ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
++}
++
+ static int palmas_gpio_to_irq(struct gpio_chip *gc, unsigned offset)
+ {
+ 	struct palmas_gpio *pg = gpiochip_get_data(gc);
+@@ -165,6 +183,7 @@ static int palmas_gpio_probe(struct platform_device *pdev)
+ 	palmas_gpio->gpio_chip.can_sleep = true;
+ 	palmas_gpio->gpio_chip.direction_input = palmas_gpio_input;
+ 	palmas_gpio->gpio_chip.direction_output = palmas_gpio_output;
++	palmas_gpio->gpio_chip.get_direction = palmas_gpio_get_direction;
+ 	palmas_gpio->gpio_chip.to_irq = palmas_gpio_to_irq;
+ 	palmas_gpio->gpio_chip.set	= palmas_gpio_set;
+ 	palmas_gpio->gpio_chip.get	= palmas_gpio_get;
+
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260703-palmas-getdirection-914eddf30b00
+
+Best regards,
+--  
+Andreas Kemnade <andreas@kemnade.info>
+
