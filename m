@@ -1,239 +1,300 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0091A2010EE;
-	Fri,  3 Jul 2026 23:50:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC3313E41A
+	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 00:47:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783122638; cv=none; b=h0RY4ccHgvGUCWazhYTN/R5mw9n9ZeWVWdJ4krdFRAbV7oI/GT++ZsBSteQzgEs/t4N7iaReaYvg353bXfP3rTkH7dRGWAMmqI3dYMj/LO++XCuI2gNPprsPAqw4aHo7824qxgOmlpDAa6gyKdPVZfheYoVB8Jo3bGuvf1ZFHXk=
+	t=1783126022; cv=none; b=NuQO/RKr9EGbCEbgLI5Ym2EGg0jyoT+hcATVmNZhkSThN+FhOWUm8bov/B37jdVqHb+ji547fNfuvVqvhAjhK+9h8o4U55z5V5l5WFiW7WnzGQfVEn3RJlIc5z8fFUV4kAuJqKVBd2mClKrgDEE0laalqkZ8tYepvCPKC+zY1cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783122638; c=relaxed/simple;
-	bh=TkrybskFUGZtsmgALZurdtMV3PqjIfExbobqQcjITl0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aKa4wXVBTcug/XfmDvLDUA1NQn73dTnOKhkQADva7iHlaUfT0ygjolJBZjZdf3+SjC1Zf20ixKs8HZPUbJ5ZRtU2XMW3GFQLRVMwbiD4ZIvN/T88zrSrhV0COAT32C/nhQLB1R1iohU5ZfWBVoGgWg4BFWeevQO+xEmNP7z6PQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UvJbNs0G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783126022; c=relaxed/simple;
+	bh=WTd2PAQfROaxboAh6YSrsJDeJfVESXOIlzwDUXQmsxY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fbmAC6pKaY2wZke9bxyGNjrUljKvucBWRukNP7CnC6NMBlY0vuuJEvbhT3C4b8yhkmYn0vrsfGermnxzAy7qcL5U88RnGqiKdTjs7RVRq85ZZVf8EdCpDLlE6tx4EcoRC8aYEKhkb94LgsAPCmPZj+LjJ2sa/9hf1xssw/sIPRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kIHAviPC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UvJbNs0G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04CC11F000E9;
-	Fri,  3 Jul 2026 23:50:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kIHAviPC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8BD61F000E9;
+	Sat,  4 Jul 2026 00:46:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783122636;
-	bh=uDBBLHYlQ9eH7ydUzqsOntLmjeZd3Y1X/yPy0uGQUF0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UvJbNs0Gulm9BiLJ7LyKPuP1gTWzPJWzXdypK74e9Sn/k8ItkNVd3ijUWaat73wGG
-	 ASWWMFzcWomZAp9l6lS49gXa/ap79YgY8u14v6PbP2uvHqZS7Xaz1D2FlvkUoLYzOD
-	 zvUNhhsJ4shL1wWpIipW/kba93iaDbX+/rIVYogSf3s0WryYN1PYp1QZs7D7QCXKv3
-	 nSmynATyynyPdKyKhinmJuyDvl2iYT8IW16dNyruikQjISHWmZKMDm3LFYRJOCVeG0
-	 VkIwdqzdq0aIyGfDnPMXO3etzkg71Ki3vmixF/vsb8ocrlma44TxgYMCLTqxVYLfw/
-	 SLNruwP+MjyJw==
-Date: Fri, 3 Jul 2026 16:50:34 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Viktor Malik <vmalik@redhat.com>
-Cc: linux-perf-users@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Howard Chu <howardchu95@gmail.com>, linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org, Michael Petlan <mpetlan@redhat.com>,
-	Andrii Nakryiko <andrii@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] perf trace: Refactor augmented_raw_syscalls using
- bpf_for
-Message-ID: <akhKyjlsSg82XN2Z@google.com>
-References: <cover.1783070132.git.vmalik@redhat.com>
- <8ceb8f3323d0742163c42c343eb9d26843fe9e9b.1783070132.git.vmalik@redhat.com>
+	s=k20260515; t=1783126020;
+	bh=AF1t9+d0OtAAmtc2UF3o2k16b7gcdLGc/6CqDqTGvas=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kIHAviPCNINEYRC1327Zhvsei9dnuquozSEQ+W3r8F7J7VUQHVx8bULYDZo1pIOtR
+	 AbLpYET++B53u6rhpoKb7qALCDregDGOpeFJ2srBtB6NeNmrQqnjSrfAJqhAhdt9es
+	 112ZTbdQOYgKw/dmGrHlmIFc2Tkc64I3bVK7ltrZHX4942KYe8Z+/kUb8VL7jq93LW
+	 OCN3HeJTVyElR05aLt/+9XN+6cMANhn/TZD+q6dVC0ZEkIVBZrCToAolRbH2NBgM6p
+	 fsdN/6qvlaG24JBVxOMpoIaAV5DA9xT84xLUn5yJeAN99B/Duw/Iv0QphmknAezX0q
+	 gRNppzd3dy4pw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ruipeng Qi <ruipengqi3@gmail.com>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] f2fs: fix potential deadlock in f2fs_balance_fs()
+Date: Fri,  3 Jul 2026 20:46:56 -0400
+Message-ID: <20260704004657.433173-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026070242-embassy-abdominal-7557@gregkh>
+References: <2026070242-embassy-abdominal-7557@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <8ceb8f3323d0742163c42c343eb9d26843fe9e9b.1783070132.git.vmalik@redhat.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 03, 2026 at 12:32:15PM +0200, Viktor Malik wrote:
-> The loop for processing syscall args in augment_raw_syscalls has a
-> history of breaking with Clang updates, see e.g. commit 013eb043f37b
-> ("perf trace: Fix BPF loading failure (-E2BIG)") from Clang 15 to 16.
-> 
-> Now, a similar thing happened between Clang 21 and 22. While the issue
-> is mitigated on the main line by a recent verifier update, it remains
-> broken on the 6.12 and 6.18 stable branches:
-> 
->     [linux-6.18.y]# sudo perf trace true
->     libbpf: prog 'sys_enter': BPF program load failed: -E2BIG
->     libbpf: prog 'sys_enter': -- BEGIN PROG LOAD LOG --
->     [...]
->     BPF program is too large. Processed 1000001 insn
->     processed 1000001 insns (limit 1000000) max_states_per_insn 40 total_states 37941 peak_states 232 mark_read 0
->     -- END PROG LOAD LOG --
->     libbpf: prog 'sys_enter': failed to load: -E2BIG
->     libbpf: failed to load object 'augmented_raw_syscalls_bpf'
->     libbpf: failed to load BPF skeleton 'augmented_raw_syscalls_bpf': -E2BIG
->     Error: failed to get syscall or beauty map fd
->     [...]
-> 
-> The reason is that the loop is quite complex and the BPF verifier often
-> struggles to prove that it terminates.
-> 
-> Fix the issue by replacing the standard for loop by the bpf_for macro,
-> which uses numeric BPF iterator. This should prevent future breakages of
-> this kind since the verifier has much easier job proving that the loop
-> terminates.
-> 
-> Small adjustments were necessary for the loop to make it work.  The main
-> problem is that the verifier has sometimes problems with bpf_for loops
-> that use a carry-over state, such as the `payload_offset` and `output`
-> vars here, since the verifier tries to track their values too precisely
-> and cannot prove loop convergence. To resolve the issue, we (1)
-> explicitly recompute `payload_offset` in every iteration and (2) use a
-> trick with adding a global zero to `output` to help verifier forget its
-> precise state and use a range instead.
-> 
-> In exchange, this also allows to drop a few artificial checks to help
-> the verifier, including the changes introduced by 013eb043f37b.
-> 
-> Finally, to keep backwards compatibility with older kernel versions
-> which do not have bpf_for (i.e. numeric iterators), fall back to
-> standard for loop in such a case.
-> 
-> Signed-off-by: Viktor Malik <vmalik@redhat.com>
-> Suggested-by: Andrii Nakryiko <andrii@kernel.org>
-> Fixes: a68fd6a6cdd3 ("perf trace: Collect augmented data using BPF")
-> Fixes: 013eb043f37b ("perf trace: Fix BPF loading failure (-E2BIG)")
-> Cc: stable@vger.kernel.org
-> ---
->  .../bpf_skel/augmented_raw_syscalls.bpf.c     | 54 +++++++++++++------
->  1 file changed, 39 insertions(+), 15 deletions(-)
-> 
-> diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> index cbdd5ce19a2f..60babc06f381 100644
-> --- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> +++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> @@ -429,6 +429,8 @@ static bool pid_filter__has(struct pids_filtered *pids, pid_t pid)
->  	return bpf_map_lookup_elem(pids, &pid) != NULL;
->  }
->  
-> +u64 ZERO = 0;
-> +
->  /*
->   * Determine what type of argument and how many bytes to read from user space, using the
->   * value in the beauty_map. This is the relation of parameter type and its corresponding
-> @@ -439,12 +441,13 @@ static bool pid_filter__has(struct pids_filtered *pids, pid_t pid)
->   * buffer: -1 * (index of paired len) -> value of paired len (maximum: TRACE_AUG_MAX_BUF)
->   */
->  static inline int augment_arg(struct syscall_enter_args *args, int i,
-> -			      unsigned int *beauty_map, void *payload_offset)
-> +			      unsigned int *beauty_map,
-> +			      struct beauty_payload_enter *payload, u64 offset)
->  {
->  	int index, value_size = sizeof(struct augmented_arg) - offsetof(struct augmented_arg, value);
->  	s64 aug_size, size;
->  	bool augmented;
-> -	void *arg;
-> +	void *arg, *payload_offset;
->  
->  	arg = (void *)args->args[i];
->  	augmented = false;
-> @@ -454,6 +457,12 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
->  	if (size == 0 || arg == NULL)
->  		return 0;
->  
-> +	/* bounds check for the verifier */
-> +	if (offset > sizeof(payload->aug_args) - sizeof(payload->aug_args[0]))
-> +		return -1;
-> +	barrier_var(offset);
-> +	payload_offset = (void *)&payload->aug_args + offset;
-> +
->  	if (size == 1) { /* string */
->  		aug_size = bpf_probe_read_user_str(((struct augmented_arg *)payload_offset)->value, value_size, arg);
->  		/* minimum of 0 to pass the verifier */
-> @@ -464,11 +473,13 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
->  	} else if (size > 0 && size <= value_size) { /* struct */
->  		if (!bpf_probe_read_user(((struct augmented_arg *)payload_offset)->value, size, arg))
->  			augmented = true;
-> -	} else if ((int)size < 0 && size >= -6) { /* buffer */
-> +	} else if (size < 0 && size >= -6) { /* buffer */
->  		index = -(size + 1);
->  		barrier_var(index); // Prevent clang (noticed with v18) from removing the &= 7 trick.
->  		index &= 7;	    // Satisfy the bounds checking with the verifier in some kernels.
-> -		aug_size = args->args[index] > TRACE_AUG_MAX_BUF ? TRACE_AUG_MAX_BUF : args->args[index];
-> +		aug_size = args->args[index];
-> +		if (aug_size > TRACE_AUG_MAX_BUF)
-> +			aug_size = TRACE_AUG_MAX_BUF;
->  
->  		if (aug_size > 0) {
->  			if (!bpf_probe_read_user(((struct augmented_arg *)payload_offset)->value, aug_size, arg))
-> @@ -497,11 +508,10 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
->  static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
->  {
->  	bool do_output = false;
-> -	int zero = 0, written;
-> +	int i, zero = 0, written;
->  	u64 output = 0; /* has to be u64, otherwise it won't pass the verifier */
->  	unsigned int nr, *beauty_map;
->  	struct beauty_payload_enter *payload;
-> -	void *payload_offset;
->  
->  	/* fall back to do predefined tail call */
->  	if (args == NULL)
-> @@ -513,7 +523,6 @@ static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
->  
->  	/* set up payload for output */
->  	payload        = bpf_map_lookup_elem(&beauty_payload_enter_map, &zero);
-> -	payload_offset = (void *)&payload->aug_args;
->  
->  	if (beauty_map == NULL || payload == NULL)
->  		return 1;
-> @@ -521,14 +530,29 @@ static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
->  	/* copy the sys_enter header, which has the syscall_nr */
->  	__builtin_memcpy(&payload->args, args, sizeof(struct syscall_enter_args));
->  
-> -	for (int i = 0; i < 6; i++) {
-> -		written = augment_arg(args, i, beauty_map, payload_offset);
-> -		if (written < 0)
-> -			return 1;
-> -		if (written > 0) {
-> -			output += written;
-> -			payload_offset += written;
-> -			do_output = true;
-> +	if (bpf_ksym_exists(bpf_iter_num_new)) {
-> +		bpf_for(i, 0, 6) {
-> +			written = augment_arg(args, i, beauty_map, payload, output);
-> +			if (written < 0)
-> +				return 1;
-> +			if (written > 0) {
-> +				output += written;
-> +				/* guide the verifier to forget range of `output`, which
-> +				 * helps to prove convergence of the loop
-> +				 */
-> +				output += ZERO;
-> +				do_output = true;
-> +			}
-> +		}
-> +	} else {
-> +		for (i = 0; i < 6; i++) {
-> +			written = augment_arg(args, i, beauty_map, payload, output);
-> +			if (written < 0)
-> +				return 1;
-> +			if (written > 0) {
-> +				output += written;
+From: Ruipeng Qi <ruipengqi3@gmail.com>
 
-Woundn't it also need '+= ZERO' here?
+[ Upstream commit dd3114870771562036fdcf5abe813956f36d224d ]
 
-Thanks,
-Namhyung
+When the f2fs filesystem space is nearly exhausted, we encounter deadlock
+issues as below:
 
+INFO: task A:1890 blocked for more than 120 seconds.
+      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:A    state:D stack:0     pid:1890  tgid:1626  ppid:1153   flags:0x00000204
+Call trace:
+ __switch_to+0xf4/0x158
+ __schedule+0x27c/0x908
+ schedule+0x3c/0x118
+ io_schedule+0x44/0x68
+ folio_wait_bit_common+0x174/0x370
+ folio_wait_bit+0x20/0x38
+ folio_wait_writeback+0x54/0xc8
+ truncate_inode_partial_folio+0x70/0x1e0
+ truncate_inode_pages_range+0x1b0/0x450
+ truncate_pagecache+0x54/0x88
+ f2fs_file_write_iter+0x3e8/0xb80
+ do_iter_readv_writev+0xf0/0x1e0
+ vfs_writev+0x138/0x2c8
+ do_writev+0x88/0x130
+ __arm64_sys_writev+0x28/0x40
+ invoke_syscall+0x50/0x120
+ el0_svc_common.constprop.0+0xc8/0xf0
+ do_el0_svc+0x24/0x38
+ el0_svc+0x30/0xf8
+ el0t_64_sync_handler+0x120/0x130
+ el0t_64_sync+0x190/0x198
 
-> +				do_output = true;
-> +			}
->  		}
->  	}
->  
-> -- 
-> 2.54.0
-> 
+INFO: task kworker/u8:11:2680853 blocked for more than 120 seconds.
+      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/u8:11   state:D stack:0     pid:2680853 tgid:2680853 ppid:2      flags:0x00000208
+Workqueue: writeback wb_workfn (flush-254:0)
+Call trace:
+ __switch_to+0xf4/0x158
+ __schedule+0x27c/0x908
+ schedule+0x3c/0x118
+ io_schedule+0x44/0x68
+ folio_wait_bit_common+0x174/0x370
+ __filemap_get_folio+0x214/0x348
+ pagecache_get_page+0x20/0x70
+ f2fs_get_read_data_page+0x150/0x3e8
+ f2fs_get_lock_data_page+0x2c/0x160
+ move_data_page+0x50/0x478
+ do_garbage_collect+0xd38/0x1528
+ f2fs_gc+0x240/0x7e0
+ f2fs_balance_fs+0x1a0/0x208
+ f2fs_write_single_data_page+0x6e4/0x730
+ f2fs_write_cache_pages+0x378/0x9b0
+ f2fs_write_data_pages+0x2e4/0x388
+ do_writepages+0x8c/0x2c8
+ __writeback_single_inode+0x4c/0x498
+ writeback_sb_inodes+0x234/0x4a8
+ __writeback_inodes_wb+0x58/0x118
+ wb_writeback+0x2f8/0x3c0
+ wb_workfn+0x2c4/0x508
+ process_one_work+0x180/0x408
+ worker_thread+0x258/0x368
+ kthread+0x118/0x128
+ ret_from_fork+0x10/0x200
+
+INFO: task kworker/u8:8:2641297 blocked for more than 120 seconds.
+      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/u8:8    state:D stack:0     pid:2641297 tgid:2641297 ppid:2      flags:0x00000208
+Workqueue: writeback wb_workfn (flush-254:0)
+Call trace:
+ __switch_to+0xf4/0x158
+ __schedule+0x27c/0x908
+ rt_mutex_schedule+0x30/0x60
+ __rt_mutex_slowlock_locked.constprop.0+0x460/0x8a8
+ rwbase_write_lock+0x24c/0x378
+ down_write+0x1c/0x30
+ f2fs_balance_fs+0x184/0x208
+ f2fs_write_inode+0xf4/0x328
+ __writeback_single_inode+0x370/0x498
+ writeback_sb_inodes+0x234/0x4a8
+ __writeback_inodes_wb+0x58/0x118
+ wb_writeback+0x2f8/0x3c0
+ wb_workfn+0x2c4/0x508
+ process_one_work+0x180/0x408
+ worker_thread+0x258/0x368
+ kthread+0x118/0x128
+ ret_from_fork+0x10/0x20
+
+INFO: task B:1902 blocked for more than 120 seconds.
+      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:B     state:D stack:0     pid:1902  tgid:1626  ppid:1153   flags:0x0000020c
+Call trace:
+ __switch_to+0xf4/0x158
+ __schedule+0x27c/0x908
+ rt_mutex_schedule+0x30/0x60
+ __rt_mutex_slowlock_locked.constprop.0+0x460/0x8a8
+ rwbase_write_lock+0x24c/0x378
+ down_write+0x1c/0x30
+ f2fs_balance_fs+0x184/0x208
+ f2fs_map_blocks+0x94c/0x1110
+ f2fs_file_write_iter+0x228/0xb80
+ do_iter_readv_writev+0xf0/0x1e0
+ vfs_writev+0x138/0x2c8
+ do_writev+0x88/0x130
+ __arm64_sys_writev+0x28/0x40
+ invoke_syscall+0x50/0x120
+ el0_svc_common.constprop.0+0xc8/0xf0
+ do_el0_svc+0x24/0x38
+ el0_svc+0x30/0xf8
+ el0t_64_sync_handler+0x120/0x130
+ el0t_64_sync+0x190/0x198
+
+INFO: task sync:2769849 blocked for more than 120 seconds.
+      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:sync            state:D stack:0     pid:2769849 tgid:2769849 ppid:736    flags:0x0000020c
+Call trace:
+ __switch_to+0xf4/0x158
+ __schedule+0x27c/0x908
+ schedule+0x3c/0x118
+ wb_wait_for_completion+0xb0/0xe8
+ sync_inodes_sb+0xc8/0x2b0
+ sync_inodes_one_sb+0x24/0x38
+ iterate_supers+0xa8/0x138
+ ksys_sync+0x54/0xc8
+ __arm64_sys_sync+0x18/0x30
+ invoke_syscall+0x50/0x120
+ el0_svc_common.constprop.0+0xc8/0xf0
+ do_el0_svc+0x24/0x38
+ el0_svc+0x30/0xf8
+ el0t_64_sync_handler+0x120/0x130
+ el0t_64_sync+0x190/0x198
+
+The root cause is a potential deadlock between the following tasks:
+
+kworker/u8:11				Thread A
+- f2fs_write_single_data_page
+ - f2fs_do_write_data_page
+  - folio_start_writeback(X)
+  - f2fs_outplace_write_data
+   - bio_add_folio(X)
+ - folio_unlock(X)
+					- truncate_inode_pages_range
+					 - __filemap_get_folio(X, FGP_LOCK)
+					 - truncate_inode_partial_folio(X)
+					  - folio_wait_writeback(X)
+ - f2fs_balance_fs
+  - f2fs_gc
+   - do_garbage_collect
+    - move_data_page
+     - f2fs_get_lock_data_page
+      - __filemap_get_folio(X, FGP_LOCK)
+
+Both threads try to access folio X. Thread A holds the lock but waits
+for writeback, while kworker waits for the lock. This causes a deadlock.
+
+Other threads also enter D state, waiting for locks such as gc_lock and
+writepages.
+
+OPU/IPU DATA folio are all affected by this issue. To avoid such
+potential deadlocks, always commit these cached folios before
+triggering f2fs_gc() in f2fs_balance_fs().
+
+Suggested-by: Chao Yu <chao@kernel.org>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Ruipeng Qi <ruipengqi3@gmail.com>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Stable-dep-of: 8b4468ec023d ("f2fs: fix potential deadlock in gc_merge path of f2fs_balance_fs()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/f2fs/data.c    | 29 +++++++++++++++++++++++++++++
+ fs/f2fs/f2fs.h    |  1 +
+ fs/f2fs/segment.c |  7 +++++++
+ 3 files changed, 37 insertions(+)
+
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 9d1d0c9d924c0c..c74b27eba94b1e 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -865,6 +865,35 @@ void f2fs_submit_merged_ipu_write(struct f2fs_sb_info *sbi,
+ 	}
+ }
+ 
++void f2fs_submit_all_merged_ipu_writes(struct f2fs_sb_info *sbi)
++{
++	struct bio_entry *be, *tmp;
++	struct f2fs_bio_info *io;
++	enum temp_type temp;
++
++	for (temp = HOT; temp < NR_TEMP_TYPE; temp++) {
++		LIST_HEAD(list);
++
++		io = sbi->write_io[DATA] + temp;
++
++		/* A lockless list_empty() check is safe here: any bios from
++		 * other kworkers that we miss will be submitted by those
++		 * kworkers accordingly.
++		 */
++		if (list_empty(&io->bio_list))
++			continue;
++
++		down_write(&io->bio_list_lock);
++		list_splice_init(&io->bio_list, &list);
++		up_write(&io->bio_list_lock);
++
++		list_for_each_entry_safe(be, tmp, &list, list) {
++			__submit_bio(sbi, be->bio, DATA);
++			del_bio_entry(be);
++		}
++	}
++}
++
+ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+ {
+ 	struct bio *bio = *fio->bio;
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 439b80be611ded..fe17f102573711 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -3599,6 +3599,7 @@ void f2fs_submit_merged_write_cond(struct f2fs_sb_info *sbi,
+ 				nid_t ino, enum page_type type);
+ void f2fs_submit_merged_ipu_write(struct f2fs_sb_info *sbi,
+ 					struct bio **bio, struct page *page);
++void f2fs_submit_all_merged_ipu_writes(struct f2fs_sb_info *sbi);
+ void f2fs_flush_merged_writes(struct f2fs_sb_info *sbi);
+ int f2fs_submit_page_bio(struct f2fs_io_info *fio);
+ int f2fs_merge_page_bio(struct f2fs_io_info *fio);
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 52d5915cee9674..2e05e899097a91 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -525,6 +525,13 @@ void f2fs_balance_fs(struct f2fs_sb_info *sbi, bool need)
+ 			io_schedule();
+ 			finish_wait(&sbi->gc_thread->fggc_wq, &wait);
+ 		} else {
++			/*
++			 * Submit all cached OPU/IPU DATA bios before triggering
++			 * foreground GC to avoid potential deadlocks.
++			 */
++			f2fs_submit_merged_write(sbi, DATA);
++			f2fs_submit_all_merged_ipu_writes(sbi);
++
+ 			down_write(&sbi->gc_lock);
+ 			f2fs_gc(sbi, false, false, false, NULL_SEGNO);
+ 		}
+-- 
+2.53.0
+
