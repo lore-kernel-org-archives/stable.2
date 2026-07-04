@@ -1,104 +1,164 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DA62DECCC;
-	Sat,  4 Jul 2026 11:48:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5852F290A
+	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 11:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783165737; cv=none; b=hbaSCIFrhtmzIgp3BgE93Gd12Pj7jfmRbUWUKptPbp8z0CTmhY8DldbxVu+sQFdbZ2ng87DRPuD1z2SR6jZdLYmK77c1YdSNODQZ55DS9XJbV7zLh8gFjuTFRyjDT3G04FcP5fbPOAizk30jyrd59XcWiwCbAjh73N+/jISFac4=
+	t=1783165749; cv=none; b=RcOSGPd7RzoiMrk1EH7WAtnwT/Ww50Ad+Z719SnLvWQIgQowqUJ/xVlknpJ7L8E+8SlZydffXi0Ja6x1dvfLzMIC7I3Hk3XQMVOnvkX9uI178kweNbbzi9GwOTFpq25SYwnqBdShjH1JmoM9rg2pZa3hlGbWtLB81c6ZFl2MGyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783165737; c=relaxed/simple;
-	bh=btzbKisjFex9bTSgjIWLUm3D21TzJ8wWCH0apwsH90c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O9QrZPCJrdZpfWAm0dV3RtTHv3BFOvWs8hma6hIx1O++SNy9fh97/V9q2qqjxC5Qf59JZr//QdigABZOvyjwT+TyK2e/AnaINJsWP9lRa8Edp9EPu+65RtGNW6otJXj1XXqoXO5CroAe49p7gK8g6Hqh2ueLCElnuWH/sWWU1tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a+3v2TQX; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783165749; c=relaxed/simple;
+	bh=Ibqir2dC4LT3Mt4BD34mVxXHODrN7mK3CiTzUWdFVj8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IOh0F5RBNKKIZ2Bjbx/tHzLQ/RpwNwmI/YsSM1QcniCTy7yxG43Ja61kad24MxgxYnQ7GUSFoTl+z7aXpKxTAax+ptYmpX3TXeWaxDKwXIUt63lJVjE53dFoMj3cfLU1q0fDTDUnLcDGdlB2u7OkY+nb6ArvqLnFAVPfPlR0riE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CWN3N/Rn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a+3v2TQX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783165736; x=1814701736;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=btzbKisjFex9bTSgjIWLUm3D21TzJ8wWCH0apwsH90c=;
-  b=a+3v2TQXd05pZpGylRS7YE3XVIwHyr8q4sESjMaUL/6jvtReVO+tWduH
-   rItoCDFG+VDyRRVQZkl5xzmYFL4T3JYSl0VGhS6hYSvnCXD4FOEoVW+YM
-   rNRV4qil4HDPbUfoOwcBzxVf3RF7iqKb7djjMjaN8/rbEC5lVgVwNM13t
-   Ro/b8sK9SuWwW0ap96/qIzwfv8j1z58GX/cy1KqhNnT9bTQ7UZRkAPrKk
-   gmbytNsS8aFRBzaWg9ZP9ghO3gYQnQ5eTWagxW2aMR/kuco5TBBjwu1wj
-   pfLGT6n4epp3SMtBipzpGHmyPQ8VEDwFClB7iJ5QthzaR4oDnSYjgAVwB
-   w==;
-X-CSE-ConnectionGUID: 35TOiuYdSAmPPyManoQO+Q==
-X-CSE-MsgGUID: ElcFGD5XRuGrBszXMs+W9A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11836"; a="106674779"
-X-IronPort-AV: E=Sophos;i="6.25,147,1779174000"; 
-   d="scan'208";a="106674779"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jul 2026 04:48:55 -0700
-X-CSE-ConnectionGUID: NCBY9eCTSPGK7Z3Va7eIGg==
-X-CSE-MsgGUID: qd1/4NiySvm/0hmN/fcIMA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,147,1779174000"; 
-   d="scan'208";a="248844828"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.218])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jul 2026 04:48:52 -0700
-Date: Sat, 4 Jul 2026 14:48:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>,
-	jean-baptiste.maneyrol@tdk.com,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: imu: inv_icm42600: fix timestamping by limiting
- FIFO reading
-Message-ID: <akjzIfY5xnA6ahM0@ashevche-desk.local>
-References: <20260629-inv-icm42600-fix-watermark-fifo-reading-v2-1-967e375db7b3@tdk.com>
- <20260703200455.5fa70e5b@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CWN3N/Rn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B06B51F000E9;
+	Sat,  4 Jul 2026 11:49:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783165748;
+	bh=0OFQedu/uhLSomZq0T0B5osisqO+SfdI0b/0JN+KE8A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CWN3N/Rnpm3SBZlrHBARIVRnbP+drkift3+KqKhDdchvIZOB8ZK2KNhBjhOTPQ85r
+	 o55BctpSEjHH0C+LNuAKjzQFTgW/wos0JC/aWsi7O3W8/SZHFboIZCA6zlt+pZ/DnE
+	 +/9Uwua2FfCg+08hMFckWnkVsSJsDOcry8B30TY7vF7267QXEgvbW5myo438iYNnIB
+	 Gl7/dzFP1x26HQ8CwEtKg7Kj1xoI2BStag3jhgUId9hCqkArEY0kcEnXiC5Y/upzQN
+	 D/EStnoRAfdcNCmhnDj+raid4f24DplyrP/jhsEYzCpP0cU4It1ZylFdQrvoEWlwGJ
+	 Q4pwp0BdCWGDQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] KVM: Replace guest-triggerable BUG_ON() in ioeventfd datamatch with get_unaligned()
+Date: Sat,  4 Jul 2026 07:49:06 -0400
+Message-ID: <20260704114906.619565-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026070241-manager-petted-4ccd@gregkh>
+References: <2026070241-manager-petted-4ccd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260703200455.5fa70e5b@jic23-huawei>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 03, 2026 at 08:04:55PM +0100, Jonathan Cameron wrote:
-> On Mon, 29 Jun 2026 21:51:55 +0200
-> Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org> wrote:
-> 
-> > From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-> > 
-> > Timestamps are made by measuring the chip clock using the watermark
-> > interrupts. If we read more than watermark samples as done today, we
-> > are reducing the period between interrupts and distort the time
-> > measurement. Fix that by reading only watermark samples in the
-> > interrupt case.
-> > 
-> > Fixes: 7f85e42a6c54 ("iio: imu: inv_icm42600: add buffer support in iio devices")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>
-> > ---
-> > Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-> 
-> That's not confusing at all :)
-> 
-> I've applied with the invensense one only - shout if you want something else.
+From: Sean Christopherson <seanjc@google.com>
 
-But the From should be equal to SoB, that's the requirement. So if you also
-changed the authorship to follow it's fine, otherwise you need to use @tdk one
-in SoB (and that's what I think was the initial intention).
+[ Upstream commit f1edbed787ba67988ed34e0132ca128b052b6ce8 ]
 
+Drop a BUG_ON() that has been reachable since it was first added, way back
+in 2009, and instead use get_unaligned() to perform potentially-unaligned
+accesses.
+
+For a given store, KVM x86's emulator tracks the entire value in the
+destination operand, x86_emulate_ctxt.dst.  If the destination is memory,
+and the target splits multiple pages and/or is emulated MMIO, then KVM
+handles each fragment independently.  E.g. on a page split starting at page
+offset 0xffc, KVM writes 4 bytes to the first page, then the remaining
+bytes to the second page, using ctxt->dst as the source for both (with
+appropriate offsets).
+
+If the destination splits a page *and* hits emulated MMIO on the second
+page, then KVM will complete the write to the first page, then emulate the
+MMIO access to the second page.  If there is a datamatch-enabled ioeventfd
+at offset 0 of the second page, then KVM will process the remainder of the
+store as a potential ioeventfd signal.
+
+Putting it all together, if the guest emits a store that splits a page
+starting at page offset N, and the second page has a datamatch-enabled
+ioeventfd at offset 0, then KVM will check for datamatch using
+&dst.valptr[N] as the source.  Due to dst (and thus dst.valptr) being
+32-byte aligned, if N is not aligned to @len, the BUG_ON() fires.
+
+E.g. with a 16-byte store at page offset 0xffc, to an ioeventfd of len 8,
+all initial checks in ioeventfd_in_range() will succeed, and the BUG_ON()
+fires due to @val being 4-byte aligned, but not 8-byte aligned.
+
+  ------------[ cut here ]------------
+  kernel BUG at arch/x86/kvm/../../../virt/kvm/eventfd.c:783!
+  Oops: invalid opcode: 0000 [#1] SMP
+  CPU: 0 UID: 1000 PID: 615 Comm: repro Not tainted 7.1.0-rc2-ff238429d1ea #365 PREEMPT
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 0.0.0 02/06/2015
+  RIP: 0010:ioeventfd_write+0x6c/0x70 [kvm]
+  Call Trace:
+   <TASK>
+   __kvm_io_bus_write+0x85/0xb0 [kvm]
+   kvm_io_bus_write+0x53/0x80 [kvm]
+   vcpu_mmio_write+0x66/0xf0 [kvm]
+   emulator_read_write_onepage+0x12a/0x540 [kvm]
+   emulator_read_write+0x109/0x2b0 [kvm]
+   x86_emulate_insn+0x4f8/0xfb0 [kvm]
+   x86_emulate_instruction+0x181/0x790 [kvm]
+   kvm_mmu_page_fault+0x313/0x630 [kvm]
+   vmx_handle_exit+0x18a/0x590 [kvm_intel]
+   kvm_arch_vcpu_ioctl_run+0xc81/0x1c90 [kvm]
+   kvm_vcpu_ioctl+0x2d5/0x970 [kvm]
+   __x64_sys_ioctl+0x8a/0xd0
+   do_syscall_64+0xb7/0x890
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+  RIP: 0033:0x7f19c931a9bf
+   </TASK>
+  Modules linked in: kvm_intel kvm irqbypass
+  ---[ end trace 0000000000000000 ]---
+
+In a perfect world, the fix would be to simply delete the BUG_ON(), as KVM
+x86 doesn't perform alignment checks on "normal" memory accesses at CPL0.
+Sadly, C99 ruins all the fun; while the x86 architecture plays nice,
+dereferencing an unaligned pointer directly is undefined behavior in C,
+e.g. triggers splats when running with CONFIG_UBSAN_ALIGNMENT=y.
+
+Fixes: d34e6b175e61 ("KVM: add ioeventfd support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20260612225241.678509-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ Adjusted context to use `#include <asm/unaligned.h>` since `linux/unaligned.h` doesn't exist in 6.6. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ virt/kvm/eventfd.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/virt/kvm/eventfd.c b/virt/kvm/eventfd.c
+index c3340bdc754af4..cff637cfaed1e7 100644
+--- a/virt/kvm/eventfd.c
++++ b/virt/kvm/eventfd.c
+@@ -24,6 +24,7 @@
+ #include <linux/slab.h>
+ #include <linux/seqlock.h>
+ #include <linux/irqbypass.h>
++#include <asm/unaligned.h>
+ #include <trace/events/kvm.h>
+ 
+ #include <kvm/iodev.h>
+@@ -724,21 +725,18 @@ ioeventfd_in_range(struct _ioeventfd *p, gpa_t addr, int len, const void *val)
+ 		return true;
+ 
+ 	/* otherwise, we have to actually compare the data */
+-
+-	BUG_ON(!IS_ALIGNED((unsigned long)val, len));
+-
+ 	switch (len) {
+ 	case 1:
+-		_val = *(u8 *)val;
++		_val = get_unaligned((u8 *)val);
+ 		break;
+ 	case 2:
+-		_val = *(u16 *)val;
++		_val = get_unaligned((u16 *)val);
+ 		break;
+ 	case 4:
+-		_val = *(u32 *)val;
++		_val = get_unaligned((u32 *)val);
+ 		break;
+ 	case 8:
+-		_val = *(u64 *)val;
++		_val = get_unaligned((u64 *)val);
+ 		break;
+ 	default:
+ 		return false;
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
