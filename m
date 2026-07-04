@@ -1,60 +1,63 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F8832B9B5
-	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 16:08:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6293CB8E6
+	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 16:08:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783181312; cv=none; b=mzE5/c71buI6CM/oUvGnG0szYD/Zwo8SGqUUmwsgYFBbArbX4iVU63c7+SA2J4CSfdxTiv7W+YboGEJB1B9RvFDIbuHn6Ne9MyFAAdkzJtsyg50V9ZavIPl+ngOyR/pxMS4ryEnZBefKRRyBbNqCeGMfi8Wt/8mKVOxNvBZj5uc=
+	t=1783181316; cv=none; b=XpETUpI56c5r81qf0fWEB0O9Y7pnsnTCKQWpA/hiA3aiyBf03VnjNQiSwIwflmAMMX8zBBtQfMC3VtN1FdzhDbapHPCoRK/PDxUrN6vJATAtbhpgkjs8xuNEmC1FgrfqyZJAT8crkMY8lSwD8WUSKPgUeGBCMi6BK4IdCrPmVZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783181312; c=relaxed/simple;
-	bh=XufG0eQZ8fmWPRjC8fo6ZVGZ05g2/hQ5aQ3eg6xYeK4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QYMbnVVw0yxwmCmuaDtCFuKX1ECWwrXHkV//SVn6vv2bZxgLH7pWD6ah6xk1UJqaXkj58bSg5pqbpc1hhebdpThA1htn6GDqU6+YBgTv6ZqYqXLxB7GZzkA3ZH5C4kzskfJUmpFwhg864RDAOffXo23aGdnRC7vcLMxqqdyK2QY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WGG3+Nm5; arc=none smtp.client-ip=209.85.208.50
+	s=arc-20240116; t=1783181316; c=relaxed/simple;
+	bh=e6b8ChuhFBskKb8L1PG143Qfh8QmDgMqw8uM3DLv0Hg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ikE340G0yYPJfvtS9vxQ2I5eO9yiHlmorBv16Zh2PD4Ao7lS++Q7qQuO5M9s8wih61f5XqHev8MDGfS3ePyhM0ERK+MfHIHzL1gDF8b+6UJYhuYSvrA3RUrU521gvtmrjzA232nvgIFk20KDZgbuMVSOTHlG9HNQ74iDgkxTwMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DEmXwiXL; arc=none smtp.client-ip=209.85.218.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WGG3+Nm5"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6983d3dae7aso4004981a12.0
-        for <stable@vger.kernel.org>; Sat, 04 Jul 2026 09:08:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DEmXwiXL"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c08acccf4a4so178356566b.3
+        for <stable@vger.kernel.org>; Sat, 04 Jul 2026 09:08:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783181310; x=1783786110; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=5Qrg4okzbbX4Q+s6vcJ64+r7iRqbYqBLV4VypMj2S+k=;
-        b=WGG3+Nm5FqLYAlHuC/azIEw2ULaf2Ao7nnSHTcCdwhsJ5gDw1QETjA0P3oHbkVevwe
-         LIvBx4oxPxaghPMYVC5IXtsJ7t+s5338YZ2LDeiKU3g+snEl1xE/E0ZbsQy0zlaaPjVN
-         mLeW6i8z9dDYSPbEcWr/uuB4DxhjaIFutqzV8KDcyBtnOM9syTwfNZMWuXbTGFIgTSHx
-         xfb7/LJ+Nn4HFxw3mVyPCSNMr7tvso8IQcgeCfLxGb0uBiEawDO5qdVsdGDcA9YiC/l/
-         9U7V3y2g98ki+VqqOfZvBJaT77RsklnJbjmo7iBhh81LaA2rOQCzaQy3GouUFSLaDF5q
-         y//g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783181310; x=1783786110;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1783181313; x=1783786113; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5Qrg4okzbbX4Q+s6vcJ64+r7iRqbYqBLV4VypMj2S+k=;
-        b=HyLaV+2qQR8dxE68xA9n5fycK+zaSMvMhTJO/hD66P1iJao00zgB/m3z99h8yeGf+W
-         iJdaT8jHEXVsh38uOqimhtHUUamb5srXFqj73Jg43ri59uiTT+Omdka0XUEYLeJHB/q8
-         +QgffkiYyC2oHtDm4QsrXnhdo/roaQWBLJXopXNkwmWvt0YH/Qz9CDLu0H7c2SpZ5SKZ
-         RKCUxk/oVKNZg1f43TXMItCuDETtr2FFN12l4UDkOWR8A9RbmwHUjTXLdOsVR+v2+zCG
-         oe90OPtLKzhYydcbJWrn+B0gfs0eH4ilaiRa2A6R2AxF81Pj6xcHGxbRQfFaxmMtUIZz
-         L/1A==
-X-Gm-Message-State: AOJu0Yych1UUfFdnq5JaOCEXRUXSk8OmESYipbwk53/VL9kCl2CLzQ9a
-	jliCdILccMqdvL0ZxGoNBxKfiVYsZrJa0LiDQrESWti82pEf7XDaOgKw
-X-Gm-Gg: AfdE7ckXrCwmuOqAh/sWUqqSkdMzHGDYv0koshBnOt8O5F+LF833Np49d02P+wH+7rh
-	o0Ox1ndVjt598EOKUZuvKVHhDSW1eI+5KTJygkz47uCvgcb7y6n3qAxKoOQ1OcSKfTpW56jNysU
-	rYAZYOBh1vvE0cyk49DqPH7zMGhe9+ChywPQtEHgRvziyHlJ67Awd4SknRKSIPPTPuzlTwzGZU+
-	owqe7/curDpkk2pERTXQOhDkwzIqkPfUMO4rQNQJicZ7LUjC0OqI176wu4XDdnn1qB48z2vXpr2
-	sXgJd0h/6dM97U6uYnQhj5gXkMfvPCOwJaINPhZGWIedV0TnEKkpUmjr+V7rbR2tbdHK7tYJ6TK
-	fsqNnlp9S4q9XTe5/PuwzTHkbwViNjqPiNlG2SWT+tgepsvnuoU6kcQeANJtVsFnkf9PmDhKn2u
-	QEdTIhiSm2CVK3/rOU2eWbmjB00lK3R7heYgz3NfxLummAw7dIfO110uOj0/MMI+o=
-X-Received: by 2002:a17:907:c518:b0:c12:b0b7:def with SMTP id a640c23a62f3a-c12c9d6bae4mr379868066b.14.1783181309628;
-        Sat, 04 Jul 2026 09:08:29 -0700 (PDT)
+        bh=GfzFaR0Y5iazGcey5nVjMT/xy6XgcHF6j7w9Vftwlc0=;
+        b=DEmXwiXLcoOJGpUIhTjKMHJyGmAUyhrLF03HhrWzgsRq0A1ot4xKJVp7ztLhceHacK
+         h/e6ATZSCxxpeOLAyLbgoIsAn2wwNraqNXWaae0ffAYSjT7AvNyFhSRtGdINCcxD/08u
+         NdWfvFY5UmqbVBMAL4NMaZoQWB7eLpRK8GaPwKp/hZEDriNiKiTpEKdtbI0sbWDnfjcd
+         92LHBuK0WAO4fU3bn31DP8vG/C6IUM6l7DOrGwv/iOUqMIqCSXU5+EuSFW1A/WGDSfat
+         hWRHft1O6nukTn8/Xb7f7Xfvx6iXPGueEjZLd1eosV88tulCafrQx6VGdESWo99nBcEM
+         BwQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783181313; x=1783786113;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=GfzFaR0Y5iazGcey5nVjMT/xy6XgcHF6j7w9Vftwlc0=;
+        b=K784AWhQd1WuzsqiHvroDpyLljhSa7j2/iCdHa+vbPYIfj0JRNFaC2J2CQUzL78VwH
+         E+rERmSF/ZmvGOvTNFk4mKFGYW/LMAT/JZPYOb5jxV5FnNwItIMAsQuSHm0A9WinuHn6
+         iAAj1noTGiV7UuL1aqMtQyEfs3WvNV4G1YUCGUYYAFno9ToXxMYXECrUDXOChIWg46mK
+         Wdztr634x6Yc/nT/vi1Q2qkxfpNKQVPbe3rm1eO7wb3nyl2AdsKVtN/0AlckSYMp/j18
+         /xHTOg1PJKd3XV7II2TdbLaAHBuPMI9qufXlq2yZKFguuESIp40XVeGvWGswYE36yt09
+         ueAg==
+X-Gm-Message-State: AOJu0Yxd3fnMeBUhXinv1d5lqwZOsqqu9Mdjy1jcu5vLFHSXS+dasaA9
+	R3TfL7AMzS9p7Zg0nJ0TrfrqMuQHZjFp/ZSyCvLtRz5oEUl+mRqhveNn
+X-Gm-Gg: AfdE7ckvzISjOZfMJW3o+lM9FrQQo8YAJXcT6EZ9snFBtoqOAVUqtjqov2s6RxZQv3E
+	hdOmKD0XpSSfccOcBLSCZeiTr3Xgb/dqrpKsjQ72Q09wY3EU9fUSIN6nh0zJ0FT/qX/3gvPk5Qy
+	MRF6rCAWGwFZpyWhogIrpvoCVXOVYNrAlmGfoxN7j5cRaqnpsTZqbMBXYoWumSVgwexAcqHeS3S
+	plj+Ncr+MVQcjPZWyRd0Pv2i/zvkTUsrNZK7gU//LvKTKivx7W1ffCQxX2QacteY0aRYblUD1tE
+	Bzxv76+3xli1krGjWdEQUpoMPVITMWUjeO4BXnEwAh7bU5g9XxqAxTHvExaI0iBvdf87vTjIK9M
+	/r/Y/Zm0Lp/zajUQ2TYs3bIBeA6vOZv4SddcT3KOkjxeKcnFqOXhLtvZkDoKrefJSYpZFtsf4VD
+	Z9jd/Sdx/bC3UkY+T32PcNJOWzwN39ScSI1us+yy8hUoM+zyXaLmL9TKwpC/W4jD1G/Kl3RowIx
+	A==
+X-Received: by 2002:a17:907:7b85:b0:c12:34ed:da14 with SMTP id a640c23a62f3a-c12e6c2300bmr113055366b.64.1783181312699;
+        Sat, 04 Jul 2026 09:08:32 -0700 (PDT)
 Received: from node ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12b60575c4sm438586266b.9.2026.07.04.09.08.26
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12b60575c4sm438586266b.9.2026.07.04.09.08.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Jul 2026 09:08:29 -0700 (PDT)
+        Sat, 04 Jul 2026 09:08:32 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
 To: hdegoede@redhat.com,
 	ilpo.jarvinen@linux.intel.com,
@@ -66,10 +69,12 @@ Cc: stable@vger.kernel.org,
 	Mario Limonciello <superm1@kernel.org>,
 	Armin Wolf <W_Armin@gmx.de>,
 	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH v2 0/3] hp-bioscfg: fix attribute enumeration on older HP BIOS
-Date: Sat,  4 Jul 2026 21:07:56 +0500
-Message-ID: <20260704160759.236249-1-meatuni001@gmail.com>
+Subject: [PATCH v2 1/3] platform/x86: hp-bioscfg: pass validated element count to package parsers
+Date: Sat,  4 Jul 2026 21:07:57 +0500
+Message-ID: <20260704160759.236249-2-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260704160759.236249-1-meatuni001@gmail.com>
+References: <20260704160759.236249-1-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,96 +83,265 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The hp_bioscfg driver fails to enumerate BIOS attributes on
-HP EliteBook 840 G2 (and potentially other older HP models) because:
+hp_init_bios_package_attribute() validates obj->package.count against
+min_elements and then hands off elements = obj->package.elements to
+one of the five per-type hp_populate_*_package_data() wrappers
+(string, integer, enumeration, ordered list, password). None of these
+wrappers receive that validated count. Instead each one re-derives it
+locally:
 
-  1. hp_init_bios_package_attribute() hard-fails when a WMI ACPI package
-     contains fewer elements than the per-type expected count (11 < 13),
-     even though only the first 10 common elements are required to
-     register an attribute.
+  hp_populate_integer_elements_from_package(integer_obj,
+                                            integer_obj->package.count,
+                                            instance_id);
 
-  2. hp_populate_enumeration_elements_from_package() returns -EIO and
-     discards the entire attribute when any single element has an
-     unexpected ACPI object type - typically after a BIOS AML error
-     returns malformed data.
+integer_obj here is elements, i.e. a pointer to elements[0] (the NAME
+field, always ACPI_TYPE_STRING). Reading ->package.count off a string
+object aliases ->string.length in the underlying union acpi_object, so
+the "count" passed down is not the real package size at all.
 
-Hardware affected:
-  HP EliteBook 840 G2 (DMI: Hewlett-Packard HP EliteBook 840 G2/2216)
-  BIOS: M71 Ver. 01.31 (02/24/2020)
+For string, integer, enumeration and password attributes,
+hp_populate_*_elements_from_package() bounds its iteration using the
+corresponding per-type ELEM_CNT constant (STR_ELEM_CNT,
+INT_ELEM_CNT, ENUM_ELEM_CNT and PSWD_ELEM_CNT). This relies on
+hp_init_bios_package_attribute() rejecting packages with fewer than
+ELEM_CNT elements before invoking the parsers.
 
-How to reproduce:
-  1. Boot a kernel with CONFIG_HP_BIOSCFG=m on an HP EliteBook 840 G2
-  2. modprobe hp_bioscfg
-  3. Observe dmesg:
-       hp_bioscfg: ACPI-package does not have enough elements: 11 < 13
-       Error expected type 2 for elem 13, but got type 1 instead
+Relaxing that check would allow shorter packages to reach these
+functions, making the fixed loop bounds unsafe.
 
-Changes since v1:
-  Patch 1/3 is new. Relaxing the element-count gate in patch 2/3 (v1's
-  patch 1/2) lets packages shorter than the per-type ELEM_CNT constant
-  reach hp_populate_*_elements_from_package(). Those loops don't bound
-  themselves against the real package size - each one re-derives a
-  "count" by reading ->package.count off elements[0], which is always
-  a string (NAME) object, so it's actually reading ->string.length
-  through the union. That was harmless while the old hard min_elements
-  gate guaranteed a full ELEM_CNT-sized package on every call, but once
-  patch 2/3 allows a shorter package through, the fixed ELEM_CNT loop
-  bound walks past the end of the real elements[] array - a heap
-  out-of-bounds read, on the exact EliteBook 840 G2 hardware this
-  series targets.
+hp_populate_ordered_list_elements_from_package() doesn't even use the
+count for its main loop bound - it iterates unconditionally up to
+ORD_ELEM_CNT:
 
-  Patch 1/3 fixes this by threading the real, already-validated
-  obj->package.count down into every hp_populate_*_package_data()
-  wrapper instead of letting each one guess at it, and bounds
-  hp_populate_ordered_list_elements_from_package()'s main loop (which
-  previously ignored the count entirely) the same way. It's a no-op
-  for any package that already meets today's ELEM_CNT minimums, and
-  patch 2/3 is only safe to apply on top of it.
+  for (elem = 1, eloc = 1; eloc < ORD_ELEM_CNT; elem++, eloc++)
 
-  Patches 2/3 and 3/3 are otherwise unchanged from v1.
+which relies entirely on the same coincidence.
 
-  Thanks to Mario for the v1 Reviewed-by, carried forward on 2/3 and
-  3/3 since those are unmodified. Armin's point about migrating to the
-  buffer-based WMI API for correct marshaling is well taken as the
-  longer-term fix; this series is meant as a minimal, backportable fix
-  for the immediate enumeration failure and the OOB read it would
-  otherwise reintroduce, not a replacement for that migration.
+This is only safe as long as every caller is guaranteed to hand these
+functions a package with at least ELEM_CNT real elements. A following
+change relaxes that guarantee to allow shorter packages through, which
+would turn this into a real out-of-bounds heap read of the
+elements[] array once the real count drops below the fixed ELEM_CNT
+loop bound.
 
-Testing notes:
-  Tested on HP EliteBook 840 G2 running Arch Linux kernel 7.0.13-arch1-1.
-  After patches, hp_bioscfg loads successfully and enumerates available
-  BIOS attributes. Attributes with shortened packages are partially
-  populated and accessible via sysfs. No regressions on systems that
-  return full ELEM_CNT-element packages (patch 1/3 only changes
-  behavior once patch 2/3's relaxed gate can hand it a shorter one).
+Fix this at the source: thread the real, already-validated
+obj->package.count down through each *_package_data() wrapper instead
+of letting the per-type code guess at it, and use it to also bound
+hp_populate_ordered_list_elements_from_package()'s main loop. This is a
+no-op for any package that already meets the existing ELEM_CNT
+minimums, and is a prerequisite for safely accepting shorter packages.
 
-Relevant dmesg (before fix):
-  [   11.xxx] hp_bioscfg: ACPI-package does not have enough elements:
-              11 < 13
-  [   11.xxx] ACPI BIOS Error (bug): AE_AML_BUFFER_LIMIT,
-              Index (0x000000032) is beyond end of object (length 0x32)
-  [   11.xxx] ACPI Error: Aborting method \_SB.WMID.WQBE
-  [   11.xxx] Error expected type 2 for elem 13, got type 1
-  [   11.xxx] hp_bioscfg: Returned error 0x3
+Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c               | 5 +++++
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.h               | 5 +++++
+ drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c       | 3 ++-
+ drivers/platform/x86/hp/hp-bioscfg/int-attributes.c        | 3 ++-
+ drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c | 7 ++++---
+ drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c  | 5 +++--
+ drivers/platform/x86/hp/hp-bioscfg/string-attributes.c     | 3 ++-
+ 7 files changed, 23 insertions(+), 8 deletions(-)
 
-
-Muhammad Bilal (3):
-  platform/x86: hp-bioscfg: pass validated element count to package
-    parsers
-  platform/x86: hp-bioscfg: accept reduced ACPI packages from older HP
-    BIOS
-  platform/x86: hp-bioscfg: warn on element type mismatch instead of
-    failing
-
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.c     | 16 +++++++++++++---
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.h     |  8 ++++++++
- .../platform/x86/hp/hp-bioscfg/enum-attributes.c | 10 ++++++----
- .../platform/x86/hp/hp-bioscfg/int-attributes.c  |  3 ++-
- .../x86/hp/hp-bioscfg/order-list-attributes.c    |  7 ++++---
- .../x86/hp/hp-bioscfg/passwdobj-attributes.c     |  5 +++--
- .../x86/hp/hp-bioscfg/string-attributes.c        |  3 ++-
- 7 files changed, 38 insertions(+), 14 deletions(-)
-
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+index 27fd6cd215290..768330d291da8 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+@@ -731,26 +731,31 @@ static int hp_init_bios_package_attribute(enum hp_wmi_data_type attr_type,
+ 	switch (attr_type) {
+ 	case HPWMI_STRING_TYPE:
+ 		ret = hp_populate_string_package_data(elements,
++						      obj->package.count,
+ 						      instance_id,
+ 						      attr_name_kobj);
+ 		break;
+ 	case HPWMI_INTEGER_TYPE:
+ 		ret = hp_populate_integer_package_data(elements,
++						       obj->package.count,
+ 						       instance_id,
+ 						       attr_name_kobj);
+ 		break;
+ 	case HPWMI_ENUMERATION_TYPE:
+ 		ret = hp_populate_enumeration_package_data(elements,
++							   obj->package.count,
+ 							   instance_id,
+ 							   attr_name_kobj);
+ 		break;
+ 	case HPWMI_ORDERED_LIST_TYPE:
+ 		ret = hp_populate_ordered_list_package_data(elements,
++							    obj->package.count,
+ 							    instance_id,
+ 							    attr_name_kobj);
+ 		break;
+ 	case HPWMI_PASSWORD_TYPE:
+ 		ret = hp_populate_password_package_data(elements,
++							obj->package.count,
+ 							instance_id,
+ 							attr_name_kobj);
+ 		break;
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.h b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.h
+index f1eec0e4ba075..416d7e7aaaae3 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.h
++++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.h
+@@ -401,6 +401,7 @@ int hp_populate_string_buffer_data(u8 *buffer_ptr, u32 *buffer_size,
+ int hp_alloc_string_data(void);
+ void hp_exit_string_attributes(void);
+ int hp_populate_string_package_data(union acpi_object *str_obj,
++				    int str_obj_count,
+ 				    int instance_id,
+ 				    struct kobject *attr_name_kobj);
+ 
+@@ -411,6 +412,7 @@ int hp_populate_integer_buffer_data(u8 *buffer_ptr, u32 *buffer_size,
+ int hp_alloc_integer_data(void);
+ void hp_exit_integer_attributes(void);
+ int hp_populate_integer_package_data(union acpi_object *integer_obj,
++				     int integer_obj_count,
+ 				     int instance_id,
+ 				     struct kobject *attr_name_kobj);
+ 
+@@ -421,6 +423,7 @@ int hp_populate_enumeration_buffer_data(u8 *buffer_ptr, u32 *buffer_size,
+ int hp_alloc_enumeration_data(void);
+ void hp_exit_enumeration_attributes(void);
+ int hp_populate_enumeration_package_data(union acpi_object *enum_obj,
++					 int enum_obj_count,
+ 					 int instance_id,
+ 					 struct kobject *attr_name_kobj);
+ 
+@@ -432,6 +435,7 @@ int hp_populate_ordered_list_buffer_data(u8 *buffer_ptr,
+ int hp_alloc_ordered_list_data(void);
+ void hp_exit_ordered_list_attributes(void);
+ int hp_populate_ordered_list_package_data(union acpi_object *order_obj,
++					  int order_obj_count,
+ 					  int instance_id,
+ 					  struct kobject *attr_name_kobj);
+ 
+@@ -440,6 +444,7 @@ int hp_populate_password_buffer_data(u8 *buffer_ptr, u32 *buffer_size,
+ 				     int instance_id,
+ 				     struct kobject *attr_name_kobj);
+ int hp_populate_password_package_data(union acpi_object *password_obj,
++				      int password_obj_count,
+ 				      int instance_id,
+ 				      struct kobject *attr_name_kobj);
+ int hp_alloc_password_data(void);
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c
+index af4d1920d4880..3aa2c440e0528 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c
+@@ -304,6 +304,7 @@ static int hp_populate_enumeration_elements_from_package(union acpi_object *enum
+  * @attr_name_kobj: The parent kernel object
+  */
+ int hp_populate_enumeration_package_data(union acpi_object *enum_obj,
++					 int enum_obj_count,
+ 					 int instance_id,
+ 					 struct kobject *attr_name_kobj)
+ {
+@@ -312,7 +313,7 @@ int hp_populate_enumeration_package_data(union acpi_object *enum_obj,
+ 	enum_data->attr_name_kobj = attr_name_kobj;
+ 
+ 	hp_populate_enumeration_elements_from_package(enum_obj,
+-						      enum_obj->package.count,
++						      enum_obj_count,
+ 						      instance_id);
+ 	hp_update_attribute_permissions(enum_data->common.is_readonly,
+ 					&enumeration_current_val);
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
+index d96e160953e39..107e4cf1efb8a 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
+@@ -279,6 +279,7 @@ static int hp_populate_integer_elements_from_package(union acpi_object *integer_
+  * @attr_name_kobj: The parent kernel object
+  */
+ int hp_populate_integer_package_data(union acpi_object *integer_obj,
++				     int integer_obj_count,
+ 				     int instance_id,
+ 				     struct kobject *attr_name_kobj)
+ {
+@@ -286,7 +287,7 @@ int hp_populate_integer_package_data(union acpi_object *integer_obj,
+ 
+ 	integer_data->attr_name_kobj = attr_name_kobj;
+ 	hp_populate_integer_elements_from_package(integer_obj,
+-						  integer_obj->package.count,
++						  integer_obj_count,
+ 						  instance_id);
+ 	hp_update_attribute_permissions(integer_data->common.is_readonly,
+ 					&integer_current_val);
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
+index f09489a085c86..a50d074125268 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
+@@ -145,7 +145,7 @@ static int hp_populate_ordered_list_elements_from_package(union acpi_object *ord
+ 	if (!order_obj)
+ 		return -EINVAL;
+ 
+-	for (elem = 1, eloc = 1; eloc < ORD_ELEM_CNT; elem++, eloc++) {
++	for (elem = 1, eloc = 1; eloc < ORD_ELEM_CNT && elem < order_obj_count; elem++, eloc++) {
+ 
+ 		switch (order_obj[elem].type) {
+ 		case ACPI_TYPE_STRING:
+@@ -301,7 +301,8 @@ static int hp_populate_ordered_list_elements_from_package(union acpi_object *ord
+  * @instance_id: The instance to enumerate
+  * @attr_name_kobj: The parent kernel object
+  */
+-int hp_populate_ordered_list_package_data(union acpi_object *order_obj, int instance_id,
++int hp_populate_ordered_list_package_data(union acpi_object *order_obj, int order_obj_count,
++					  int instance_id,
+ 					  struct kobject *attr_name_kobj)
+ {
+ 	struct ordered_list_data *ordered_list_data = &bioscfg_drv.ordered_list_data[instance_id];
+@@ -309,7 +310,7 @@ int hp_populate_ordered_list_package_data(union acpi_object *order_obj, int inst
+ 	ordered_list_data->attr_name_kobj = attr_name_kobj;
+ 
+ 	hp_populate_ordered_list_elements_from_package(order_obj,
+-						       order_obj->package.count,
++						       order_obj_count,
+ 						       instance_id);
+ 	hp_update_attribute_permissions(ordered_list_data->common.is_readonly,
+ 					&ordered_list_current_val);
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
+index 4d79eb8056a5d..89316d90454d2 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
+@@ -388,7 +388,8 @@ static int hp_populate_password_elements_from_package(union acpi_object *passwor
+  * @instance_id: The instance to enumerate
+  * @attr_name_kobj: The parent kernel object
+  */
+-int hp_populate_password_package_data(union acpi_object *password_obj, int instance_id,
++int hp_populate_password_package_data(union acpi_object *password_obj, int password_obj_count,
++				      int instance_id,
+ 				      struct kobject *attr_name_kobj)
+ {
+ 	struct password_data *password_data = &bioscfg_drv.password_data[instance_id];
+@@ -396,7 +397,7 @@ int hp_populate_password_package_data(union acpi_object *password_obj, int insta
+ 	password_data->attr_name_kobj = attr_name_kobj;
+ 
+ 	hp_populate_password_elements_from_package(password_obj,
+-						   password_obj->package.count,
++						   password_obj_count,
+ 						   instance_id);
+ 
+ 	hp_friendly_user_name_update(password_data->common.path,
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c
+index fe5a9a3a4ef17..da5e81f1d188f 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c
+@@ -267,6 +267,7 @@ static int hp_populate_string_elements_from_package(union acpi_object *string_ob
+  * @attr_name_kobj: The parent kernel object
+  */
+ int hp_populate_string_package_data(union acpi_object *string_obj,
++				    int string_obj_count,
+ 				    int instance_id,
+ 				    struct kobject *attr_name_kobj)
+ {
+@@ -275,7 +276,7 @@ int hp_populate_string_package_data(union acpi_object *string_obj,
+ 	string_data->attr_name_kobj = attr_name_kobj;
+ 
+ 	hp_populate_string_elements_from_package(string_obj,
+-						 string_obj->package.count,
++						 string_obj_count,
+ 						 instance_id);
+ 
+ 	hp_update_attribute_permissions(string_data->common.is_readonly,
 -- 
 2.55.0
 
