@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56B82DECCC
-	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 11:49:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7BF2DECCC
+	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 11:53:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783165759; cv=none; b=Xwo3asI+alPC+HaI6HUClH9LHgitNG6MyE9j9VsC9ZU1vvE/zfVpKB3MMtDTF0omFzQxTP+d461MXgawi1JuaqTifN2FYO++52yOTLq7+oq9lL9IomFTFQ5xq2DYuygfB2gbSuVLGEQjzoTchOoNkZy5JudsgjpmmHSJGf06WZQ=
+	t=1783165998; cv=none; b=HEucOHeahfPmKQI9qK2kl4oRRBHoLIf+oNjhBDJborozhszSyvbrHw9Vv1UuNo2oDRTFgVjupmxDtQeF0rySBwIkKbtkpc7RjeH+jGr2GBX2j+I2pn7FGKRz6CGYqOsGa8TuL0C+ySyMdUKJ1GXiRwhpr9ohM8AarivBzfKEryk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783165759; c=relaxed/simple;
-	bh=cISefmFxTR1lV+3q8Y5z2gIpFWBiikzHbVaDeUfQQ4A=;
+	s=arc-20240116; t=1783165998; c=relaxed/simple;
+	bh=UHpdst81drzBrUJYLZIAJOa+fSemMbb+ST224Ick8hA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jd8WzrT2GsiBlSRc3y77/knaYHr7WGtzegYsXCYiDnjcDEsrh0pfk5yYmjjurDMaHGGN7M6PHwsIdxcUX5/KYkp3ZMT3onBPVVIC8GxnfmlhdzzFBbUUg/UNKeSCQXDGNi1vuWT4KbDcG5XzXfcyhYWwTU6pUaBYw4e3xHY4lKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AVjWnswN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=X4YJh8HHxblNbd/viYxDQeVJmwbKXKcU6r1kZBwhs2XIqOoSZlaqm/rnqO28tl7pC3HxDjnnXFr+qR3O6Pe0/FZ6+v8q5rocvDhMcclXA/yPxv6ETJv2l4C7PMC2RhEa+nmf51SzLdHEzX9VaCC6SF/2b3DZFXpyIM2P4BJ8XrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hsby02yq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AVjWnswN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D31F51F000E9;
-	Sat,  4 Jul 2026 11:49:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hsby02yq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42D481F000E9;
+	Sat,  4 Jul 2026 11:53:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783165757;
-	bh=gir6vhll/RNsHB7yjk2QZn9PAtof7pJKGvo3/Ns2m74=;
+	s=k20260515; t=1783165996;
+	bh=uYUbFh7bmAVj9f1FB4pge5TrqFEW/lcS41GOUDMc07E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AVjWnswNEdNZLn9x5kYIqrVUnk225gD+0CUuCY1vWY4ob4Br15WTOU88L3hw8cGkz
-	 VXEvBx3nJ6idheg31rhgKuvmKtLOCw7OMemySwPbBOAuXVh5rO8rJ/+mgWyJmuDArN
-	 XqhEh8mx/ohq2mRxEyUute/UewAJGwfW7aUbI7Gqxwd9vRbTUoKHlIw/9n3Xd+TndW
-	 WKfg0OLk9CWJsaBsfD2NX1HNJu64QOm9nPM0RHFHK2iKm+/NOibNhTqDhRoR8+QcqE
-	 6s02ySbOQiJQroGhlIvp1chkFSmT8RhJNZ4iBHIjzpKqudMc974IrL9qgH4dEJIF9N
-	 M4Yhtw5x0r/rg==
+	b=Hsby02yqhLi93mgaOu6Ad+r6PQokEcx+6Snix49Y3ApSlaKMYe8UnKTqZslm0T73/
+	 wJ0HXj4g1uG271N5Pul+7tNd/G0DWceNZTkzwV2Q2v/Im3uRQT0H0F4buVWTcBRrCP
+	 7pALLKpJGLtwvhwrbD5qeUCQlxF2Jnc51qSyjq3LAjgBDXU98MP5edmxwp3t5v+FiQ
+	 lX5cAraU2MQMJi5KwdpLOy3heguoqyNiTC5xfgI5cNMeTfy/PQ0/4bWtjRCUcGAdZf
+	 i8JQnfZjoZZzTvf8tHnDkpHqw4hDFo4Tp1Kf+qWp0+d+ABMRq50o5iVbc2FQ2JqWx9
+	 QwY2aQrKdoHQA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ruipeng Qi <ruipengqi3@gmail.com>,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Denis Arefev <arefev@swemel.ru>,
+	Christoph Hellwig <hch@lst.de>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] f2fs: fix potential deadlock in f2fs_balance_fs()
-Date: Sat,  4 Jul 2026 07:49:15 -0400
-Message-ID: <20260704114915.620065-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] block: Avoid mounting the bdev pseudo-filesystem in userspace
+Date: Sat,  4 Jul 2026 07:53:14 -0400
+Message-ID: <20260704115314.624530-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070243-elephant-debtless-5fa6@gregkh>
-References: <2026070243-elephant-debtless-5fa6@gregkh>
+In-Reply-To: <2026070221-delegate-colonize-15f6@gregkh>
+References: <2026070221-delegate-colonize-15f6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,255 +46,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ruipeng Qi <ruipengqi3@gmail.com>
+From: Denis Arefev <arefev@swemel.ru>
 
-[ Upstream commit dd3114870771562036fdcf5abe813956f36d224d ]
+[ Upstream commit f73aa66dffcb8e61e78f01b56163ec16a15d06d2 ]
 
-When the f2fs filesystem space is nearly exhausted, we encounter deadlock
-issues as below:
+The bdev pseudo-filesystem is an internal kernel filesystem with which
+userspace should not interfere. Unregister it so that userspace cannot
+even attempt to mount it.
 
-INFO: task A:1890 blocked for more than 120 seconds.
-      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:A    state:D stack:0     pid:1890  tgid:1626  ppid:1153   flags:0x00000204
-Call trace:
- __switch_to+0xf4/0x158
- __schedule+0x27c/0x908
- schedule+0x3c/0x118
- io_schedule+0x44/0x68
- folio_wait_bit_common+0x174/0x370
- folio_wait_bit+0x20/0x38
- folio_wait_writeback+0x54/0xc8
- truncate_inode_partial_folio+0x70/0x1e0
- truncate_inode_pages_range+0x1b0/0x450
- truncate_pagecache+0x54/0x88
- f2fs_file_write_iter+0x3e8/0xb80
- do_iter_readv_writev+0xf0/0x1e0
- vfs_writev+0x138/0x2c8
- do_writev+0x88/0x130
- __arm64_sys_writev+0x28/0x40
- invoke_syscall+0x50/0x120
- el0_svc_common.constprop.0+0xc8/0xf0
- do_el0_svc+0x24/0x38
- el0_svc+0x30/0xf8
- el0t_64_sync_handler+0x120/0x130
- el0t_64_sync+0x190/0x198
+This fixes a bug [1] that occurs when attempting to access files,
+because the system call move_mount() uses pointers declared in the
+inode_operations structure, which for the bdev pseudo-filesystem
+are always equal to 0. `inode->i_op = &empty_iops;`
 
-INFO: task kworker/u8:11:2680853 blocked for more than 120 seconds.
-      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:kworker/u8:11   state:D stack:0     pid:2680853 tgid:2680853 ppid:2      flags:0x00000208
-Workqueue: writeback wb_workfn (flush-254:0)
-Call trace:
- __switch_to+0xf4/0x158
- __schedule+0x27c/0x908
- schedule+0x3c/0x118
- io_schedule+0x44/0x68
- folio_wait_bit_common+0x174/0x370
- __filemap_get_folio+0x214/0x348
- pagecache_get_page+0x20/0x70
- f2fs_get_read_data_page+0x150/0x3e8
- f2fs_get_lock_data_page+0x2c/0x160
- move_data_page+0x50/0x478
- do_garbage_collect+0xd38/0x1528
- f2fs_gc+0x240/0x7e0
- f2fs_balance_fs+0x1a0/0x208
- f2fs_write_single_data_page+0x6e4/0x730
- f2fs_write_cache_pages+0x378/0x9b0
- f2fs_write_data_pages+0x2e4/0x388
- do_writepages+0x8c/0x2c8
- __writeback_single_inode+0x4c/0x498
- writeback_sb_inodes+0x234/0x4a8
- __writeback_inodes_wb+0x58/0x118
- wb_writeback+0x2f8/0x3c0
- wb_workfn+0x2c4/0x508
- process_one_work+0x180/0x408
- worker_thread+0x258/0x368
- kthread+0x118/0x128
- ret_from_fork+0x10/0x200
+[1]
 
-INFO: task kworker/u8:8:2641297 blocked for more than 120 seconds.
-      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:kworker/u8:8    state:D stack:0     pid:2641297 tgid:2641297 ppid:2      flags:0x00000208
-Workqueue: writeback wb_workfn (flush-254:0)
-Call trace:
- __switch_to+0xf4/0x158
- __schedule+0x27c/0x908
- rt_mutex_schedule+0x30/0x60
- __rt_mutex_slowlock_locked.constprop.0+0x460/0x8a8
- rwbase_write_lock+0x24c/0x378
- down_write+0x1c/0x30
- f2fs_balance_fs+0x184/0x208
- f2fs_write_inode+0xf4/0x328
- __writeback_single_inode+0x370/0x498
- writeback_sb_inodes+0x234/0x4a8
- __writeback_inodes_wb+0x58/0x118
- wb_writeback+0x2f8/0x3c0
- wb_workfn+0x2c4/0x508
- process_one_work+0x180/0x408
- worker_thread+0x258/0x368
- kthread+0x118/0x128
- ret_from_fork+0x10/0x20
+ BUG: kernel NULL pointer dereference, address: 0000000000000000
+ #PF: supervisor instruction fetch in kernel mode
+ #PF: error_code(0x0010) - not-present page
+ PGD 23380067 P4D 23380067 PUD 23381067 PMD 0
+ Oops: 0010 [#1] PREEMPT SMP KASAN NOPTI
+ CPU: 2 PID: 17125 Comm: syz-executor.0 Not tainted 6.1.155-syzkaller-00350-g84221fde2681 #0
+ Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.12.0-1 04/01/2014
+ RIP: 0010:0x0
 
-INFO: task B:1902 blocked for more than 120 seconds.
-      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:B     state:D stack:0     pid:1902  tgid:1626  ppid:1153   flags:0x0000020c
-Call trace:
- __switch_to+0xf4/0x158
- __schedule+0x27c/0x908
- rt_mutex_schedule+0x30/0x60
- __rt_mutex_slowlock_locked.constprop.0+0x460/0x8a8
- rwbase_write_lock+0x24c/0x378
- down_write+0x1c/0x30
- f2fs_balance_fs+0x184/0x208
- f2fs_map_blocks+0x94c/0x1110
- f2fs_file_write_iter+0x228/0xb80
- do_iter_readv_writev+0xf0/0x1e0
- vfs_writev+0x138/0x2c8
- do_writev+0x88/0x130
- __arm64_sys_writev+0x28/0x40
- invoke_syscall+0x50/0x120
- el0_svc_common.constprop.0+0xc8/0xf0
- do_el0_svc+0x24/0x38
- el0_svc+0x30/0xf8
- el0t_64_sync_handler+0x120/0x130
- el0t_64_sync+0x190/0x198
+ Call Trace:
+ <TASK>
+ lookup_open.isra.0+0x700/0x1180 fs/namei.c:3460
+ open_last_lookups fs/namei.c:3550 [inline]
+ path_openat+0x953/0x2700 fs/namei.c:3780
+ do_filp_open+0x1c5/0x410 fs/namei.c:3810
+ do_sys_openat2+0x171/0x4d0 fs/open.c:1318
+ do_sys_open fs/open.c:1334 [inline]
+ __do_sys_openat fs/open.c:1350 [inline]
+ __se_sys_openat fs/open.c:1345 [inline]
+ __x64_sys_openat+0x13c/0x1f0 fs/open.c:1345
+ do_syscall_x64 arch/x86/entry/common.c:51 [inline]
+ do_syscall_64+0x35/0x80 arch/x86/entry/common.c:81
+ entry_SYSCALL_64_after_hwframe+0x6e/0xd8
 
-INFO: task sync:2769849 blocked for more than 120 seconds.
-      Tainted: G           O       6.12.41-g3fe07ddf05ab #1
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:sync            state:D stack:0     pid:2769849 tgid:2769849 ppid:736    flags:0x0000020c
-Call trace:
- __switch_to+0xf4/0x158
- __schedule+0x27c/0x908
- schedule+0x3c/0x118
- wb_wait_for_completion+0xb0/0xe8
- sync_inodes_sb+0xc8/0x2b0
- sync_inodes_one_sb+0x24/0x38
- iterate_supers+0xa8/0x138
- ksys_sync+0x54/0xc8
- __arm64_sys_sync+0x18/0x30
- invoke_syscall+0x50/0x120
- el0_svc_common.constprop.0+0xc8/0xf0
- do_el0_svc+0x24/0x38
- el0_svc+0x30/0xf8
- el0t_64_sync_handler+0x120/0x130
- el0t_64_sync+0x190/0x198
+Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
 
-The root cause is a potential deadlock between the following tasks:
-
-kworker/u8:11				Thread A
-- f2fs_write_single_data_page
- - f2fs_do_write_data_page
-  - folio_start_writeback(X)
-  - f2fs_outplace_write_data
-   - bio_add_folio(X)
- - folio_unlock(X)
-					- truncate_inode_pages_range
-					 - __filemap_get_folio(X, FGP_LOCK)
-					 - truncate_inode_partial_folio(X)
-					  - folio_wait_writeback(X)
- - f2fs_balance_fs
-  - f2fs_gc
-   - do_garbage_collect
-    - move_data_page
-     - f2fs_get_lock_data_page
-      - __filemap_get_folio(X, FGP_LOCK)
-
-Both threads try to access folio X. Thread A holds the lock but waits
-for writeback, while kworker waits for the lock. This causes a deadlock.
-
-Other threads also enter D state, waiting for locks such as gc_lock and
-writepages.
-
-OPU/IPU DATA folio are all affected by this issue. To avoid such
-potential deadlocks, always commit these cached folios before
-triggering f2fs_gc() in f2fs_balance_fs().
-
-Suggested-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Ruipeng Qi <ruipengqi3@gmail.com>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Stable-dep-of: 8b4468ec023d ("f2fs: fix potential deadlock in gc_merge path of f2fs_balance_fs()")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Link: https://lore.kernel.org/all/20131010004732.GJ13318@ZenIV.linux.org.uk/T/#
+Cc: stable@vger.kernel.org
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20260521072857.5078-1-arefev@swemel.ru
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/data.c    | 29 +++++++++++++++++++++++++++++
- fs/f2fs/f2fs.h    |  1 +
- fs/f2fs/segment.c |  7 +++++++
- 3 files changed, 37 insertions(+)
+ block/bdev.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 52b20b9165b681..945cb6145dbb09 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -906,6 +906,35 @@ void f2fs_submit_merged_ipu_write(struct f2fs_sb_info *sbi,
- 	}
- }
+diff --git a/block/bdev.c b/block/bdev.c
+index a8357b72a27b86..598f94827b941f 100644
+--- a/block/bdev.c
++++ b/block/bdev.c
+@@ -383,16 +383,12 @@ EXPORT_SYMBOL_GPL(blockdev_superblock);
  
-+void f2fs_submit_all_merged_ipu_writes(struct f2fs_sb_info *sbi)
-+{
-+	struct bio_entry *be, *tmp;
-+	struct f2fs_bio_info *io;
-+	enum temp_type temp;
-+
-+	for (temp = HOT; temp < NR_TEMP_TYPE; temp++) {
-+		LIST_HEAD(list);
-+
-+		io = sbi->write_io[DATA] + temp;
-+
-+		/* A lockless list_empty() check is safe here: any bios from
-+		 * other kworkers that we miss will be submitted by those
-+		 * kworkers accordingly.
-+		 */
-+		if (list_empty(&io->bio_list))
-+			continue;
-+
-+		down_write(&io->bio_list_lock);
-+		list_splice_init(&io->bio_list, &list);
-+		up_write(&io->bio_list_lock);
-+
-+		list_for_each_entry_safe(be, tmp, &list, list) {
-+			__submit_bio(sbi, be->bio, DATA);
-+			del_bio_entry(be);
-+		}
-+	}
-+}
-+
- int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+ void __init bdev_cache_init(void)
  {
- 	struct bio *bio = *fio->bio;
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 043c8ec8494101..948e3512f60ffd 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -3475,6 +3475,7 @@ void f2fs_submit_merged_write_cond(struct f2fs_sb_info *sbi,
- 				nid_t ino, enum page_type type);
- void f2fs_submit_merged_ipu_write(struct f2fs_sb_info *sbi,
- 					struct bio **bio, struct page *page);
-+void f2fs_submit_all_merged_ipu_writes(struct f2fs_sb_info *sbi);
- void f2fs_flush_merged_writes(struct f2fs_sb_info *sbi);
- int f2fs_submit_page_bio(struct f2fs_io_info *fio);
- int f2fs_merge_page_bio(struct f2fs_io_info *fio);
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index a6d05264f13659..106acc5bb35d69 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -513,6 +513,13 @@ void f2fs_balance_fs(struct f2fs_sb_info *sbi, bool need)
- 	 * dir/node pages without enough free segments.
- 	 */
- 	if (has_not_enough_free_secs(sbi, 0, 0)) {
-+		/*
-+		 * Submit all cached OPU/IPU DATA bios before triggering
-+		 * foreground GC to avoid potential deadlocks.
-+		 */
-+		f2fs_submit_merged_write(sbi, DATA);
-+		f2fs_submit_all_merged_ipu_writes(sbi);
-+
- 		down_write(&sbi->gc_lock);
- 		f2fs_gc(sbi, false, false, false, NULL_SEGNO);
- 	}
+-	int err;
+ 	static struct vfsmount *bd_mnt;
+ 
+ 	bdev_cachep = kmem_cache_create("bdev_cache", sizeof(struct bdev_inode),
+ 			0, (SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
+ 				SLAB_MEM_SPREAD|SLAB_ACCOUNT|SLAB_PANIC),
+ 			init_once);
+-	err = register_filesystem(&bd_type);
+-	if (err)
+-		panic("Cannot register bdev pseudo-fs");
+ 	bd_mnt = kern_mount(&bd_type);
+ 	if (IS_ERR(bd_mnt))
+ 		panic("Cannot create bdev pseudo-fs");
 -- 
 2.53.0
 
