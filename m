@@ -1,42 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.srv.csmantle.top (mail.srv.csmantle.top [77.93.157.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD5EB672
-	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 13:40:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D8D19CD0A;
+	Sat,  4 Jul 2026 14:17:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.93.157.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783172430; cv=none; b=clVt6fmgbPqY5IGLapbnUQ0qTKGK3bBEl/Jd6Q5OgCz1qdpVpBUKE5GeIuOSiYpWCQloXcq73r9BBemebV3ymDVdc+IpbqQ+qsTzIb0QUskOOp/IgBszzYeUS7xrC7sq8m4dfo6ql7ZmZLJAM7w9RxPP7wibaJ0CiIuIMwZmslo=
+	t=1783174649; cv=none; b=H/fEfxFj7NHHa3vLCwlcrKW7rFyHZLDwuhRXGcl7nPCSJyMSCkeWGpKefELJmr1BMbLW+iEeycVElvnp7CnDlJU597uEp3obLMMhf+8Yhw8HtbRbbFwndVFBFIyn5c/0+DpgHgQ3ytVTbrKjDZWOJ4vPdzAtu2grcEFT5CfnjK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783172430; c=relaxed/simple;
-	bh=P02l9AAAEEiCXKWVi5Lu/l2RJdL0EBprJN0MRhDwhts=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b7niY1wiBX97JRWkkDYgVR3MFo05W1POTUVb9yxW5mx5Uazp/I/EJBkUJoU/p54FsFxNsltNAc1JdXWopBB7XcTzwUi49n44UsYZ5aoblkB7v+N3xdKHtzZdIkChfw9SFDHnLw/IUsmUke07lS+3Cb4XbwcIlWaZY/3FLheRlxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ma5uFNhb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783174649; c=relaxed/simple;
+	bh=DYP/fAuTfWaqhSK56kenBZaNNFwDCi7MO9GMC1TyvwM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ujqdPl81g4/FcVzzPzSNlq0zE6esW/Wf3+Ep/iLXD681D6KbWgIN9qB5M9ljCvd+CLKT8/E/hWauai06t5s04TUUvFeKZE49z5V3g8osK7GvDMUK9zEHzruoR4xd5DCmO3pBsQ6YloyM0cizR3GCvMuYf+rY5fJd69JsO3h/CuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=csmantle.top; spf=pass smtp.mailfrom=csmantle.top; dkim=permerror (0-bit key) header.d=csmantle.top header.i=@csmantle.top header.b=oNWTO6pW; dkim=pass (3072-bit key) header.d=csmantle.top header.i=@csmantle.top header.b=FRE6nmWT; arc=none smtp.client-ip=77.93.157.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=csmantle.top
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csmantle.top
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ma5uFNhb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F151F000E9;
-	Sat,  4 Jul 2026 13:40:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783172428;
-	bh=cUmZd+n4y5pa15wGBG4MHjUP0l56vLGTkj4GCqvPyKA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ma5uFNhb4FXejNBUp+VYQDjSNx9JvtUNodjXTGZXE+Vwr7D/Y0BPVICfTFEhWbBXn
-	 Onwz3FYHY2+7gWRihbXKv2eujNhw+3sgVXmUM64bqtPceGOzvpI33c/GhS01781glQ
-	 v+YAt1+rjRN6CsUk7SMt18VnOVvuZFVzP+vHg7WlUQYILSknzXzlab36pSzxPPdsQC
-	 uU1wbUu7q+8T1qMQf8wPVvlgKb8nPmmUCgjCksK9iNJOETgpI6RNRdDkx0NYBp9SYq
-	 YM7C0xTl2/wYa/BERUOyxsqLAPg5nzDSauPnn5rZTE5snKUy8nkHlWKHpvdonwXMOM
-	 8KqIwjaG3+7PQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yuho Choi <dbgh9129@gmail.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] rpmsg: char: Fix use-after-free on probe error path
-Date: Sat,  4 Jul 2026 09:40:26 -0400
-Message-ID: <20260704134026.903689-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070228-dwelled-nurture-5733@gregkh>
-References: <2026070228-dwelled-nurture-5733@gregkh>
+	dkim=permerror (0-bit key) header.d=csmantle.top header.i=@csmantle.top header.b="oNWTO6pW";
+	dkim=pass (3072-bit key) header.d=csmantle.top header.i=@csmantle.top header.b="FRE6nmWT"
+DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=csmantle.top; s=self-ed25519; h=BIMI-Selector:Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:In-Reply-To:References:BIMI-Selector;
+	bh=SceegF9V2UMZyJU5wVXKWyTzveddd4TbiOOhUTBe0qI=; t=1783174648; x=1783779448; 
+	b=oNWTO6pWSvvK/zKvz0vQrF8g9ANPoal8UxzKxD18u4hHZ+VwnBXScf7FLssiahLBFIFYAY0wqTi
+	Y/6FVfjblDw==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=csmantle.top; s=self-rsa3072; h=BIMI-Selector:Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:In-Reply-To:References:BIMI-Selector;
+	bh=SceegF9V2UMZyJU5wVXKWyTzveddd4TbiOOhUTBe0qI=; t=1783174648; x=1783779448; 
+	b=FRE6nmWTYhjjKSRxCdqH3XWeQh9uAvwDWhc+hUmrQpKVVLBQPO0x4p74HyyWsbiaSvVvYqxVJCw
+	I++3IhAfgNwTA4WyxTI871X9RuSnQ7HD9VKBuUroKZKuboY8JG4vK8M/sdUUCsoOktQYY4ykDgsSB
+	I0SzPczuSkrqCFkNFjHdrAFLwtVQwzSCQCvMDNupAJat/H6q6aznqc+ac9YQZ0DKIiPBdLugsWnvS
+	UTzCQ5NKy8keCBvXTI6/rWuemWeN0+Ej0JUwEmMYElkA8pz15p1T8TTqBXv3j581K+3GkHmmXawSd
+	0GEcQaaOjO/fkwyrTTskVcCmYQtEyXCugo5j16ZChH4zukwC3wmanIMNBs6GWVe/3YgaER+87To1G
+	cRix1zZueLFJIEUq47vJDri7DkweJmNrEZBfeS2u0su4LB7x7RwhvUtO4Uez9c3N872iRfWa5Qj0f
+	abJk9jKBAtnVKXyXHrL4G2Qir6/cH+atbPovs5IN45Slrh1iOib0;
+Received: from [103.167.64.98] (helo=loongcatbox)
+	by mail.srv.csmantle.top with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <rong.bao@csmantle.top>)
+	id 1wg0vG-00000000N64-0KOj;
+	Sat, 04 Jul 2026 22:00:46 +0800
+From: Rong Bao <rong.bao@csmantle.top>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Xi Ruoyao <xry111@xry111.site>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Chengwen Feng <fengchengwen@huawei.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Rong Bao <rong.bao@csmantle.top>,
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Guo Ren <guoren@kernel.org>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>,
+	Thierry Reding <treding@nvidia.com>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Kexy Biscuit <kexybiscuit@aosc.io>,
+	Mingcong Bai <jeffbai@aosc.io>,
+	stable@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] loongarch: retrieve CPU package ID from PPTT when available
+Date: Sat,  4 Jul 2026 21:59:22 +0800
+Message-ID: <20260704135932.4072912-1-rong.bao@csmantle.top>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,75 +70,136 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rcpt-Check: Accepted by authentication
+X-42: Don't panic! 
+BIMI-Selector: v=BIMI1; s=me
 
-From: Yuho Choi <dbgh9129@gmail.com>
+Currently, the LoongArch CPU topology initialization code calculates
+each core's package ID by dividing its physical ID by
+loongson_sysconf.cores_per_package. This relies on the assumption that
+cores_per_package counts in the same domain as physical IDs.
 
-[ Upstream commit 1ff3f528e67d20e2b1483dcaba899dc7832b2e6b ]
+On Loongson 3B6000 (XB612B0V_1.2), cores_per_package matches the visible
+core count -- 24 in this case. However, the physical IDs range from 0 to
+31 in a noncontinuous fashion:
 
-rpmsg_chrdev_probe() stores the newly allocated eptdev in the default
-endpoint's priv pointer before calling rpmsg_chrdev_eptdev_add(). If
-rpmsg_chrdev_eptdev_add() then fails, its error path frees eptdev while
-the default endpoint may still dispatch callbacks with the stale priv
-pointer.
+        $ cat /proc/cpuinfo | grep -i -F 'global_id'
+        global_id               : 0
+        global_id               : 1
+        global_id               : 4
+        global_id               : 5
+        global_id               : 6
+        global_id               : 7
+        global_id               : 8
+        global_id               : 9
+        global_id               : 10
+        global_id               : 11
+        global_id               : 14
+        global_id               : 15
+        global_id               : 16
+        global_id               : 17
+        global_id               : 20
+        global_id               : 21
+        global_id               : 22
+        global_id               : 23
+        global_id               : 26
+        global_id               : 27
+        global_id               : 28
+        global_id               : 29
+        global_id               : 30
+        global_id               : 31
 
-Avoid publishing eptdev through the default endpoint until
-rpmsg_chrdev_eptdev_add() succeeds. Messages received before the priv
-pointer is published should be ignored by rpmsg_ept_cb(). Flow-control
-updates can hit rpmsg_ept_flow_cb() in the same window, so make both
-callbacks return success when priv is NULL.
+Retrieve the exact package ID from ACPI PPTT when available, in the same
+style as retrieving the core ID and thread ID in parse_acpi_topology().
+Use this information in loongson_init_secondary() when PPTT readout is
+successful. The original division logic is kept as a fallback.
 
-Fixes: bc69d1066569 ("rpmsg: char: Introduce the "rpmsg-raw" channel")
-Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
+Meanwhile, since some code paths like loongson3_cpufreq expect a
+continuous integer sequence of package IDs in [0, MAX_PACKAGES) when
+retrieving from cpu_data[], we also canonicalize the package ID to be
+filled in parse_acpi_topology() to meet such an expectation.
+
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20260601183247.1962010-1-dbgh9129@gmail.com
-Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Co-developed-by: Xi Ruoyao <xry111@xry111.site>
+Signed-off-by: Xi Ruoyao <xry111@xry111.site>
+Signed-off-by: Rong Bao <rong.bao@csmantle.top>
 ---
- drivers/rpmsg/rpmsg_char.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-index a271fceb16f421..c02949adf563d5 100644
---- a/drivers/rpmsg/rpmsg_char.c
-+++ b/drivers/rpmsg/rpmsg_char.c
-@@ -100,6 +100,9 @@ static int rpmsg_ept_cb(struct rpmsg_device *rpdev, void *buf, int len,
- 	struct rpmsg_eptdev *eptdev = priv;
- 	struct sk_buff *skb;
+v1 -> v2:
+- Addressed and incorporated package ID canonicalization code suggested
+  by Ruoyao
+- Rebased onto present master
+
+v1: https://lore.kernel.org/loongarch/e18efdbb.AXMAAIuqLC8AAAAAAAAAA-ma1qEAAYKJPtkAAAAAADNVAQBpc5ot@mailjet.com/
+
+---
+ arch/loongarch/kernel/acpi.c | 28 +++++++++++++++++++++++++++-
+ arch/loongarch/kernel/smp.c  |  2 +-
+ 2 files changed, 28 insertions(+), 2 deletions(-)
+
+diff --git a/arch/loongarch/kernel/acpi.c b/arch/loongarch/kernel/acpi.c
+index 8f650c9ffecdecdac6bcb324123e222bd04dbcf2..9ad25c642dbc50485ad54a02ed818a34e639f219 100644
+--- a/arch/loongarch/kernel/acpi.c
++++ b/arch/loongarch/kernel/acpi.c
+@@ -202,9 +202,12 @@ static void __init acpi_process_madt(void)
  
-+	if (!eptdev)
-+		return 0;
+ int pptt_enabled;
+ 
++static int acpi_package_ids[MAX_PACKAGES];
++static int acpi_nr_packages;
 +
- 	skb = alloc_skb(len, GFP_ATOMIC);
- 	if (!skb)
- 		return -ENOMEM;
-@@ -448,6 +451,7 @@ static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
- 	struct rpmsg_channel_info chinfo;
- 	struct rpmsg_eptdev *eptdev;
- 	struct device *dev = &rpdev->dev;
-+	int ret;
+ int __init parse_acpi_topology(void)
+ {
+-	int cpu, topology_id;
++	int cpu, topology_id, i;
  
- 	memcpy(chinfo.name, rpdev->id.name, RPMSG_NAME_SIZE);
- 	chinfo.src = rpdev->src;
-@@ -460,13 +464,17 @@ static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
- 	/* Set the default_ept to the rpmsg device endpoint */
- 	eptdev->default_ept = rpdev->ept;
+ 	for_each_possible_cpu(cpu) {
+ 		topology_id = find_acpi_cpu_topology(cpu, 0);
+@@ -222,6 +225,29 @@ int __init parse_acpi_topology(void)
  
-+	ret = rpmsg_chrdev_eptdev_add(eptdev, chinfo);
+ 			cpu_data[cpu].core = topology_id;
+ 		}
 +
-+	if (ret)
-+		return ret;
- 	/*
- 	 * The rpmsg_ept_cb uses *priv parameter to get its rpmsg_eptdev context.
--	 * Storedit in default_ept *priv field.
-+	 * Stored it in default_ept *priv field.
- 	 */
- 	eptdev->default_ept->priv = eptdev;
++		topology_id = find_acpi_cpu_topology_package(cpu);
++		if (topology_id < 0) {
++			pr_warn("Invalid BIOS PPTT\n");
++			return -ENOENT;
++		}
++
++		for (i = 0; i < acpi_nr_packages; i++)
++			if (acpi_package_ids[i] == topology_id)
++				break;
++
++		if (i == acpi_nr_packages)
++			acpi_package_ids[acpi_nr_packages++] = topology_id;
++
++		cpu_data[cpu].package = topology_id;
++	}
++
++	for_each_possible_cpu(cpu) {
++		for (int i = 0; i < acpi_nr_packages; i++)
++			if (cpu_data[cpu].package == acpi_package_ids[i]) {
++				cpu_data[cpu].package = i;
++				break;
++			}
+ 	}
  
--	return rpmsg_chrdev_eptdev_add(eptdev, chinfo);
-+	return 0;
- }
- 
- static void rpmsg_chrdev_remove(struct rpmsg_device *rpdev)
+ 	pptt_enabled = 1;
+diff --git a/arch/loongarch/kernel/smp.c b/arch/loongarch/kernel/smp.c
+index 5d792256bbb99a41d0032add6b5ffacffb20b684..9d148b6e41b488daca71a970e1b75cc18638d564 100644
+--- a/arch/loongarch/kernel/smp.c
++++ b/arch/loongarch/kernel/smp.c
+@@ -426,7 +426,7 @@ void loongson_init_secondary(void)
+ 	numa_add_cpu(cpu);
+ #endif
+ 	per_cpu(cpu_state, cpu) = CPU_ONLINE;
+-	cpu_data[cpu].package =
++	cpu_data[cpu].package = pptt_enabled ? cpu_data[cpu].package :
+ 		     cpu_logical_map(cpu) / loongson_sysconf.cores_per_package;
+ 	cpu_data[cpu].core = pptt_enabled ? cpu_data[cpu].core :
+ 		     cpu_logical_map(cpu) % loongson_sysconf.cores_per_package;
+
+base-commit: 87320be9f0d24fce67631b7eef919f0b79c3e45c
 -- 
-2.53.0
+2.54.0
 
