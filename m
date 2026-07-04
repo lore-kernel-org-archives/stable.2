@@ -1,77 +1,73 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD05288C30
-	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 03:35:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A847F38D3F7
+	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 06:01:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783136161; cv=none; b=ijd5N4ufdElcZQaqvLXhSVSrd082Ir95mJtrIq/Ix5FYBQlJygEzNxUNVXu0dl9tiFCg8+zteaI1UGRWo/xoW4jnh9AGzbkD2yO7ys2cnmegg6P8nFsDd6K7uXeVn5pB8Mcur9cnn0WeEp4a4GsLkVdHbSQloyyexFg/qIBA6DI=
+	t=1783144882; cv=none; b=fvBoGv2fmDeX+E9Z8AivRD4/YGojjyb5jJ+ewxp+RhbuEphpnocv6nl5GJ3/jF/ovmJpPhZnr675uoqgIdpm5ChBK2vehd/2Wld/EDLjn+ibLatu8a4DzPvoF425mIghjExGHxG5/cSoR/frvtH4tQJjVglTKdSAdXEhPJomjKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783136161; c=relaxed/simple;
-	bh=ThuPvzUSoYy43zilZk9Przuhu7j/1v83Yf48qsTni30=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U0qRpMG8Zr7Qjtv5KQI+kWcqxlfAIp4oz9ZNNvHpIZTyi+0cKHJPel99foc0NCWobkyLqwcwhBjYkKS4LNVr32MQiPbidfs380vDqDF48Nrzh45ATA5ZUd/hqACvIRSAhpuINR7E+SyyvzypGd4+PdzvM9w7C4MBs6cHfx3n9cQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=THW046e/; arc=none smtp.client-ip=209.85.210.175
+	s=arc-20240116; t=1783144882; c=relaxed/simple;
+	bh=U7meGQ/yqO5nue3fmIDavhUgJX4jlw+ACCtfxt6efyU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UVJBx7IQvK/jBxCoBmp07eEAltFsSy2/geLS3PiXhkQVfkuWLbyol//kVUZ8ZzzEv5NsdSxzpROe4BTN5vy00lM3+nry7RISp9ZvK+tdLpaLONyuy6J1W2NJDFlxuPnYFtblYgl9gdKU5mdJtiM7rAmOiBy/q3L3Tnu8xgPMd5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dBoBvSia; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="THW046e/"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84794e800f4so574078b3a.0
-        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 20:35:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dBoBvSia"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-37d55e8d3e3so855548a91.0
+        for <stable@vger.kernel.org>; Fri, 03 Jul 2026 23:01:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783136159; x=1783740959; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783144881; x=1783749681; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=troEzZKmFC4zyspQLdq3bYm3HWpLnTsTSmm94slF8L0=;
-        b=THW046e/WRq56mbmEGdJWLfhVVqPPBVG4C8nsaSrpSgPLeXWyv4mexUyYGMjOnDs4U
-         QQQW0YCX5Maiq9TCoKzETlAUjwEig1ZkvYjsAuBgyjigaLLa5CwIpB7OxLTQ6nLU7449
-         pxCZzsI30B+5BFm+aHlTEHA7X3KBBHgr2P3n1XZW5PE4QdXSbQEN8vY/0Khk2Paz2M9H
-         7CwmNpVT+JhqxZneq7R30nBTwUu5ZOySquhRLthVAwKFB1Bq08zWPI5NpXZH45cjjAUB
-         ycOIeOs4Lu3doNysvUzKpxCQzjhKKRCFhFGoErzF1bWmzLfP/3L5pbA2HelD+lbd/5Jo
-         97jw==
+        bh=qgeg1hy/5eCNX45AyPB+pHlq+bl3Mkeu4yKxcFxgJUE=;
+        b=dBoBvSiazvtcI9BjWQD2C4QFZOyw4pnWYoCX4Ba28rN/pBcIospsB7FZCGKb6SjppR
+         Hr2tWvF7L1JVElFYmWIfEkIx+V4l5Wm0IrYAsTO70wRa0GrK3Spdd1l1FT5udno2pv2p
+         H9fNPtkEitDnFedAAUnVXzS3hR5mxImmMR7AITNW+fnZdfscVWkPha7OWz8wSLFBXzfG
+         x81uhEvEm8K2k3VLltddq4s/2n2tKmIJVukrsSRl7BGzUaOAbT6baUkJziwwU9K9PsFT
+         LIZAVtq8TBD4hL5LhqHPM80c52eHeEdvirtCd692moqsQkUwLLQLQL1Vb6SjIEQ4K9GK
+         ChTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783136159; x=1783740959;
+        d=1e100.net; s=20251104; t=1783144881; x=1783749681;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=troEzZKmFC4zyspQLdq3bYm3HWpLnTsTSmm94slF8L0=;
-        b=KjCCrrQWr5Cyzhbl5lpBU7gdqdCjgGHqRwCg3sPa8C+GWz8yFkAc/U9k5HUmeVKYHp
-         cQHtYcLV+5uQ5TPE9DrWR7cpQEvMEndnyalnncqKxT6Puw2tE0jzwshPtuyPRIj3FAGq
-         ZTvYneH8zDezQHywAjeejPUEySDnUVvgA++i0bmvSWumKwmUIJwcQ0+W0Z1mGnJkYzhp
-         xZ7IS6diQde+cpnliw6D/ZywG+DHQCVkM5rt2ufC8gSFzQWpB8DTGtZzpWrsX5oBdgbR
-         fC6QStYQ1Fd8G8vNqdJf6cKIEYE/JLuhTDYJ0PO0mCmrJGMHUYWGWUHNEWpyRoch2X/5
-         LQWw==
-X-Forwarded-Encrypted: i=1; AFNElJ9xlZzdyirmQ8SRp2k57jKaV4o/+EUcLZOw/e/Y1TX9/kLjeSfUgXFNeE8pkgAoXCj/SJ0LDiQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywx+d9/dWa0pbNuzOKb/eIFJy3xjxBW8OwIVxBEK7prUkgTU9Cw
-	QXq8WOcCEm0NK9+aVtuRDa9FBnL8F3VivlnJhnYaHd278W0z41JqBxti
-X-Gm-Gg: AfdE7cnBfkSeRAIrnlPXpVsjSJXbMceveO1ffQjCuOUavY4XeWI8r9Z9d4EmCQkiEi2
-	9lN7+DvLYG53eGTgs67POJaRLgmPiHcBCfUTIIjSM0gjui6zWiF4pcH7tL6ASHQ4T52PJMIvp6p
-	DqS8ZUpJGoqMTAtbWkOZ/qZJaYDth5Ud/VpDwf/Ev/IJvz/YX3WD55WTTDjrIZc/NCoCYP0dwmr
-	q3Jf/Ue9zjIMsH7LQxnRLeZ1SZEuBAArbcksTNINwyY5Y9Q4iVYDMVPtfhJTPQdMPsnd5Y9WS/o
-	JqicwZnkwPy6rVB/dkE6D8ffpeSEn7yx/nGa03eLUjVyCXXfAQXRpYFO6dBa2QbqWk1ns6um0nX
-	POCZIdGhdhK1gz5UYrkiWUqYy2XYGGFW3AHGBUNCc8DNfSn1yWbHEp9mvtGiJazpYxRXPlPPbar
-	UdxoL3nJjwG6bXuxLgpjpmWzze5XSZib9SBBiCXRt0T9Mnmr32RFh+UTOCig==
-X-Received: by 2002:a05:6a21:1507:b0:3bf:9fe1:c24 with SMTP id adf61e73a8af0-3c03e1eeaa7mr2184488637.2.1783136159260;
-        Fri, 03 Jul 2026 20:35:59 -0700 (PDT)
-Received: from fx.tailc0aff1.ts.net ([206.206.192.132])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f1595e912sm26868465eec.31.2026.07.03.20.35.58
+        bh=qgeg1hy/5eCNX45AyPB+pHlq+bl3Mkeu4yKxcFxgJUE=;
+        b=UUx/qowDIJ/cvWUvrEmO3W0osoD8ahsxzR7UHanj95zoW3PkSBq14iRPmrLkM12EtG
+         Sp6RIMuHm7W3HZdzK7J6ZmPQSjWJgdkuuZmikRxVEgIs1tq09AThy9JN24LhHI6ORup/
+         ZzUts6sA9AyM2jU87C9ArOSHwc2LQxpjrxpDBRkcMj/fznFS4/SFH94alnEpCf4CJx4c
+         QC7GMqHQvvedTMHktNb52TaNFu0lwxyLsAZxA5fx5bLL016dPD4EJvcfPqf0e+6LbMB6
+         fiIPQ9HZCmlpEJQOvjk4mJvWUBl8XrFk+MAQmX1F8tmKiXXQoTatBwAauhgG2VDsUC20
+         /aIw==
+X-Forwarded-Encrypted: i=1; AHgh+RrPH8aPcGiWMHoYo+MWXNfWoNZUYRCkKuAhHipjyYeWK83xYhnKEof8IKMBYLry+IxwpB8x/YM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBN4g9cwq9o93eTd25k8HNAdYVU6wSzWxYPCKDF2Rxk0RGLlpr
+	2FmMkCF+fxx7kpQqbZAftp/DI8WteZpj7VVq7SvxnUaKesMDGdV1MdM3
+X-Gm-Gg: AfdE7cnVLPklXWFJDmEMQIkRqAglU+ENW7aO4Btbb4roiFV78RR/O25pW9sRIYtYk23
+	LSLWniCHSZiN+9RMV/CvsNOw5PCN8PBxxjVgsYGSG4Xwlh3bdaZ038sRj40nQZiPo5MYAru8qsp
+	qwdaQcqmBDGNe+gf4bDtRN3cb00xDC6XmF/6jf8E1YI4XlbmxvDtrGGtwpkRYvKb9M2LxRyt5V/
+	0iSfzSYg7dRa3+cwmuwWDec3EaErqx4lV/tmyX5XzvcP09Q6uo8GKlTV6YZNtj3LE0TS4mp8/N/
+	2bJAsCxnlmv35yhUsooTeXugb75YuAMQc1b2U1mqeD43ijJ+ieiJCwk6JbT520DMzb5NtZPLEt3
+	RlD7lem7YxU4/ocULJJQ7b4LL9NC+6BF1r7rnCVcoCMHuvActaHUACvU5jcDq5sjASLZvguD85r
+	L18tx6+WbLng1Vz2r7gAOuXXcRHk2wBS2DS1TAfUU/Av6BZqDi+nX93MqR3vuCV/TrW+2jUUW3T
+	t8=
+X-Received: by 2002:a17:90b:5251:b0:380:8bb9:aba9 with SMTP id 98e67ed59e1d1-38112063c22mr7862238a91.3.1783144880763;
+        Fri, 03 Jul 2026 23:01:20 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:880:86f9:3b00:6746])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f116065c5sm25081378eec.11.2026.07.03.23.01.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 20:35:58 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: linux-sctp@vger.kernel.org
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] sctp: validate STALE_COOKIE cause length before reading staleness
-Date: Fri,  3 Jul 2026 20:35:46 -0700
-Message-ID: <20260704033545.2438373-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 03 Jul 2026 23:01:19 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: linux-input@vger.kernel.org
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	Linus Walleij <linusw@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: [PATCH 1/3] Input: mms114 - fix multi-touch slot corruption
+Date: Fri,  3 Jul 2026 23:01:12 -0700
+Message-ID: <20260704060115.353049-1-dmitry.torokhov@gmail.com>
+X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,98 +76,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an ERROR chunk with a STALE_COOKIE cause is received in the
-COOKIE_ECHOED state, sctp_sf_do_5_2_6_stale() reads the 4-byte Measure
-of Staleness that follows the cause header:
+If the touchscreen controller reports a touch ID of 0, the driver
+calculates the slot ID as touch->id - 1, which underflows to UINT_MAX.
+This is passed to input_mt_slot() as -1.
 
-	err   = (struct sctp_errhdr *)(chunk->skb->data);
-	stale = ntohl(*(__be32 *)((u8 *)err + sizeof(*err)));
+Since the input core ignores negative slot values, the active slot remains
+unchanged. The driver then reports the touch coordinates for the previously
+active slot, corrupting its state.
 
-err is the first cause in the chunk, not the STALE_COOKIE cause that
-caused the dispatch, and nothing guarantees the staleness field is
-present. sctp_walk_errors() only requires a cause to be as long as the
-4-byte header, so for a STALE_COOKIE cause of length 4 the read runs
-past the cause, and for a minimal ERROR chunk past skb->tail. The value
-is echoed to the peer in the Cookie Preservative of the reply INIT,
-leaking uninitialized memory.
+Fix this by rejecting touch reports with ID 0.
 
-sctp_sf_cookie_echoed_err() already walks to the STALE_COOKIE cause, so
-check its length there and pass it to sctp_sf_do_5_2_6_stale(), which
-reads that cause instead of the first one. A STALE_COOKIE cause too
-short to hold the staleness field is discarded.
-
-The read is reachable by any peer that can drive an association into
-COOKIE_ECHOED, including an unprivileged process using a raw SCTP socket
-in a user and network namespace.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Xiang Mei <xmei5@asu.edu>
-Assisted-by: Claude:claude-opus-4-8
+Fixes: 07b8481d4aff ("Input: add MELFAS mms114 touchscreen driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Reported-by: sashiko-bot@kernel.org
+Assisted-by: Antigravity:gemini-3.5-flash
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- net/sctp/sm_statefuns.c | 23 ++++++++++++++---------
- 1 file changed, 14 insertions(+), 9 deletions(-)
+ drivers/input/touchscreen/mms114.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/sctp/sm_statefuns.c b/net/sctp/sm_statefuns.c
-index d23d935e128e..3893b44448b3 100644
---- a/net/sctp/sm_statefuns.c
-+++ b/net/sctp/sm_statefuns.c
-@@ -74,7 +74,8 @@ static enum sctp_disposition sctp_sf_do_5_2_6_stale(
- 					const struct sctp_association *asoc,
- 					const union sctp_subtype type,
- 					void *arg,
--					struct sctp_cmd_seq *commands);
-+					struct sctp_cmd_seq *commands,
-+					struct sctp_errhdr *err);
- static enum sctp_disposition sctp_sf_shut_8_4_5(
- 					struct net *net,
- 					const struct sctp_endpoint *ep,
-@@ -2529,9 +2530,15 @@ enum sctp_disposition sctp_sf_cookie_echoed_err(
- 	 * errors.
- 	 */
- 	sctp_walk_errors(err, chunk->chunk_hdr) {
--		if (SCTP_ERROR_STALE_COOKIE == err->cause)
--			return sctp_sf_do_5_2_6_stale(net, ep, asoc, type,
--							arg, commands);
-+		if (err->cause != SCTP_ERROR_STALE_COOKIE)
-+			continue;
-+		/* The staleness is only meaningful if the cause is long
-+		 * enough to hold it; a shorter one is malformed.
-+		 */
-+		if (ntohs(err->length) < sizeof(*err) + sizeof(__be32))
-+			break;
-+		return sctp_sf_do_5_2_6_stale(net, ep, asoc, type,
-+					      arg, commands, err);
+diff --git a/drivers/input/touchscreen/mms114.c b/drivers/input/touchscreen/mms114.c
+index 006dded17eb8..23e0283bc6b8 100644
+--- a/drivers/input/touchscreen/mms114.c
++++ b/drivers/input/touchscreen/mms114.c
+@@ -248,7 +248,7 @@ static void mms114_process_mt(struct mms114_data *data, struct mms114_touch *tou
+ 	unsigned int x;
+ 	unsigned int y;
+ 
+-	if (touch->id > MMS114_MAX_TOUCH) {
++	if (touch->id == 0 || touch->id > MMS114_MAX_TOUCH) {
+ 		dev_err(&client->dev, "Wrong touch id (%d)\n", touch->id);
+ 		return;
  	}
- 
- 	/* It is possible to have malformed error causes, and that
-@@ -2573,13 +2580,13 @@ static enum sctp_disposition sctp_sf_do_5_2_6_stale(
- 					const struct sctp_association *asoc,
- 					const union sctp_subtype type,
- 					void *arg,
--					struct sctp_cmd_seq *commands)
-+					struct sctp_cmd_seq *commands,
-+					struct sctp_errhdr *err)
- {
- 	int attempts = asoc->init_err_counter + 1;
--	struct sctp_chunk *chunk = arg, *reply;
- 	struct sctp_cookie_preserve_param bht;
- 	struct sctp_bind_addr *bp;
--	struct sctp_errhdr *err;
-+	struct sctp_chunk *reply;
- 	u32 stale;
- 
- 	if (attempts > asoc->max_init_attempts) {
-@@ -2590,8 +2597,6 @@ static enum sctp_disposition sctp_sf_do_5_2_6_stale(
- 		return SCTP_DISPOSITION_DELETE_TCB;
- 	}
- 
--	err = (struct sctp_errhdr *)(chunk->skb->data);
--
- 	/* When calculating the time extension, an implementation
- 	 * SHOULD use the RTT information measured based on the
- 	 * previous COOKIE ECHO / ERROR exchange, and should add no
 -- 
-2.43.0
+2.55.0.rc0.799.gd6f94ed593-goog
 
