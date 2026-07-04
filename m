@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0530F3AA1A9
-	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 13:01:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD5EB672
+	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 13:40:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783170077; cv=none; b=ZHwMeVgme7fJc2YcGB//97Q0WlE0QTZzICVKwz6Lq95vXKJwE3aB6pEa2ytl2FmqTXFdA8Ec0a6wnC7lmu55z1imVtzyhMYGHWSURT7NtalnAL0zwInx4FFq36sZd7wFxejG6TGMRfCTH9EVNZeC+UBYfvrIAMpnRb+Q7Yqljvg=
+	t=1783172430; cv=none; b=clVt6fmgbPqY5IGLapbnUQ0qTKGK3bBEl/Jd6Q5OgCz1qdpVpBUKE5GeIuOSiYpWCQloXcq73r9BBemebV3ymDVdc+IpbqQ+qsTzIb0QUskOOp/IgBszzYeUS7xrC7sq8m4dfo6ql7ZmZLJAM7w9RxPP7wibaJ0CiIuIMwZmslo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783170077; c=relaxed/simple;
-	bh=watRZl/hkO4QQvBiV4e/bLbVovvNqMKu6lcW/a3bQqc=;
+	s=arc-20240116; t=1783172430; c=relaxed/simple;
+	bh=P02l9AAAEEiCXKWVi5Lu/l2RJdL0EBprJN0MRhDwhts=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cEBKm1eM7vewpuZ+oR9vv7iDuKTYCDPXWBoHdvvGp6+GptgwqxHYyIqptOCelgDgTM29Uh1geEnF+VkHBKa1rFG0Cv00aHY2RR+14lctyyHNmlsyDF2tz7uVYGmrsZxWuAy0uFk6IjpqJcwAuV0P1yzVFvybo4soWrhrnAXlBZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TzD+MM26; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=b7niY1wiBX97JRWkkDYgVR3MFo05W1POTUVb9yxW5mx5Uazp/I/EJBkUJoU/p54FsFxNsltNAc1JdXWopBB7XcTzwUi49n44UsYZ5aoblkB7v+N3xdKHtzZdIkChfw9SFDHnLw/IUsmUke07lS+3Cb4XbwcIlWaZY/3FLheRlxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ma5uFNhb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TzD+MM26"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 149C41F00A3F;
-	Sat,  4 Jul 2026 13:01:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ma5uFNhb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F151F000E9;
+	Sat,  4 Jul 2026 13:40:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783170071;
-	bh=fO34cxJTQ9iQih5/8poOVxu/1SEfyUKEUWs+RCthiNk=;
+	s=k20260515; t=1783172428;
+	bh=cUmZd+n4y5pa15wGBG4MHjUP0l56vLGTkj4GCqvPyKA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TzD+MM26m5LK9CwG/5V+96I3TWQuDZe0lQqyCmMZXqM8mTIq1L0037XMvQZIxEX9B
-	 FB3+joXDTBfv/a5J+AKjZyahKElCkMyYyrZhlfe4r2S08exKJBKnqRhzRg++9nEIJa
-	 x2CX5Z4oOJqnSGTxYa7wb0tbfZq9V/ZlCrsLAcY5UKJlGtOPGzH4kG/ts80CaPBRxV
-	 FWGjfxj7DwLlsVUHCUucG15kC2D7N/EMdJI1VKiFcMcOawJJy6NQCgxZorlnyzSbMn
-	 ORAoMc1mAoGFhdYBXc+Y+PZgnKC44Zi0T29rDC/yHGrBERiP+KioH3xQ6KXniXFYNM
-	 Xms0vjEllLrSQ==
+	b=ma5uFNhb4FXejNBUp+VYQDjSNx9JvtUNodjXTGZXE+Vwr7D/Y0BPVICfTFEhWbBXn
+	 Onwz3FYHY2+7gWRihbXKv2eujNhw+3sgVXmUM64bqtPceGOzvpI33c/GhS01781glQ
+	 v+YAt1+rjRN6CsUk7SMt18VnOVvuZFVzP+vHg7WlUQYILSknzXzlab36pSzxPPdsQC
+	 uU1wbUu7q+8T1qMQf8wPVvlgKb8nPmmUCgjCksK9iNJOETgpI6RNRdDkx0NYBp9SYq
+	 YM7C0xTl2/wYa/BERUOyxsqLAPg5nzDSauPnn5rZTE5snKUy8nkHlWKHpvdonwXMOM
+	 8KqIwjaG3+7PQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	syzbot+2488d8d751b27f7ce268@syzkaller.appspotmail.com,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Yuho Choi <dbgh9129@gmail.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 5/5] f2fs: fix to do sanity check on f2fs_get_node_folio_ra()
-Date: Sat,  4 Jul 2026 09:01:06 -0400
-Message-ID: <20260704130106.828918-5-sashal@kernel.org>
+Subject: [PATCH 6.1.y] rpmsg: char: Fix use-after-free on probe error path
+Date: Sat,  4 Jul 2026 09:40:26 -0400
+Message-ID: <20260704134026.903689-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260704130106.828918-1-sashal@kernel.org>
-References: <2026070234-outdated-refutable-f834@gregkh>
- <20260704130106.828918-1-sashal@kernel.org>
+In-Reply-To: <2026070228-dwelled-nurture-5733@gregkh>
+References: <2026070228-dwelled-nurture-5733@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,116 +45,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+From: Yuho Choi <dbgh9129@gmail.com>
 
-[ Upstream commit 8712353ed80f87271d732297567dcdbe4b84e8c7 ]
+[ Upstream commit 1ff3f528e67d20e2b1483dcaba899dc7832b2e6b ]
 
-kernel BUG at fs/f2fs/file.c:845!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 0 UID: 0 PID: 5336 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full)
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:f2fs_do_truncate_blocks+0x1115/0x1140 fs/f2fs/file.c:845
-Code: fc fc 90 0f 0b e8 8b 9d 9a fd 90 0f 0b e8 83 9d 9a fd 48 89 df 48 c7 c6 60 d1 1a 8c e8 54 f1 fc fc 90 0f 0b e8 6c 9d 9a fd 90 <0f> 0b e8 64 9d 9a fd 90 0f 0b 90 e9 93 fd ff ff e8 56 9d 9a fd 90
-RSP: 0018:ffffc9000e4474c0 EFLAGS: 00010283
-RAX: ffffffff842b1d34 RBX: 0000000000000003 RCX: 0000000000100000
-RDX: ffffc9000f03a000 RSI: 0000000000035503 RDI: 0000000000035504
-RBP: ffffc9000e447608 R08: ffff8880123b0000 R09: 0000000000000002
-R10: 00000000fffffffe R11: 0000000000000002 R12: 0000000000000001
-R13: 0000000000000000 R14: 1ffff92001c88ea0 R15: 00000000ffff039c
-FS:  00007f7e02ee36c0(0000) GS:ffff88808c887000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ff0305c4000 CR3: 0000000012d4c000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- f2fs_truncate_blocks+0x10a/0x300 fs/f2fs/file.c:882
- f2fs_truncate+0x471/0x7c0 fs/f2fs/file.c:940
- f2fs_evict_inode+0xa3f/0x1ac0 fs/f2fs/inode.c:907
- evict+0x61e/0xb10 fs/inode.c:841
- f2fs_fill_super+0x5f43/0x78f0 fs/f2fs/super.c:5224
- get_tree_bdev_flags+0x431/0x4f0 fs/super.c:1694
- vfs_get_tree+0x92/0x2a0 fs/super.c:1754
- fc_mount fs/namespace.c:1193 [inline]
- do_new_mount_fc fs/namespace.c:3758 [inline]
- do_new_mount+0x341/0xd30 fs/namespace.c:3834
- do_mount fs/namespace.c:4167 [inline]
- __do_sys_mount fs/namespace.c:4383 [inline]
- __se_sys_mount+0x31d/0x420 fs/namespace.c:4360
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x15f/0xf80 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+rpmsg_chrdev_probe() stores the newly allocated eptdev in the default
+endpoint's priv pointer before calling rpmsg_chrdev_eptdev_add(). If
+rpmsg_chrdev_eptdev_add() then fails, its error path frees eptdev while
+the default endpoint may still dispatch callbacks with the stale priv
+pointer.
 
-	count = ADDRS_PER_PAGE(dn.node_folio, inode);
+Avoid publishing eptdev through the default endpoint until
+rpmsg_chrdev_eptdev_add() succeeds. Messages received before the priv
+pointer is published should be ignored by rpmsg_ept_cb(). Flow-control
+updates can hit rpmsg_ept_flow_cb() in the same window, so make both
+callbacks return success when priv is NULL.
 
-	count -= dn.ofs_in_node;
-	f2fs_bug_on(sbi, count < 0);
-
-The fuzz test will trigger above bug_on in f2fs.
-
-The root cause should be: in the corrupted inode, there is a direct node
-which has the same ino and nid in its footer, so in f2fs_do_truncate_blocks(),
-after f2fs_get_dnode_of_data() finds such dnode:
-1) ADDRS_PER_PAGE(dn.node_folio, inode) will return 923
-2) once dn.ofs_in_node points to addr[923, 1017]
-Then it will trigger the system panic.
-
-Let's introduce NODE_TYPE_NON_IXNODE to indicate current node should
-not be an inode or xattr node, and then use it in below path to detect
-inconsistent node chain in inode mapping table:
-
-- f2fs_do_truncate_blocks
- - f2fs_get_dnode_of_data
-  - f2fs_get_node_folio_ra
-   -  __get_node_folio
-    - f2fs_sanity_check_node_footer
-     - case NODE_TYPE_NON_IXNODE -> check whether it is inode|xnode
-
-Cc: stable@kernel.org
-Reported-by: syzbot+2488d8d751b27f7ce268@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/69fa3697.170a0220.59368.0018.GAE@google.com
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Fixes: bc69d1066569 ("rpmsg: char: Introduce the "rpmsg-raw" channel")
+Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/r/20260601183247.1962010-1-dbgh9129@gmail.com
+Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/f2fs.h | 1 +
- fs/f2fs/node.c | 6 +++++-
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ drivers/rpmsg/rpmsg_char.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 31252fb1b06bd1..4cdef8c27ce059 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -1533,6 +1533,7 @@ enum node_type {
- 	NODE_TYPE_INODE,
- 	NODE_TYPE_XATTR,
- 	NODE_TYPE_NON_INODE,
-+	NODE_TYPE_NON_IXNODE,	/* non inode and xnode */
- };
+diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+index a271fceb16f421..c02949adf563d5 100644
+--- a/drivers/rpmsg/rpmsg_char.c
++++ b/drivers/rpmsg/rpmsg_char.c
+@@ -100,6 +100,9 @@ static int rpmsg_ept_cb(struct rpmsg_device *rpdev, void *buf, int len,
+ 	struct rpmsg_eptdev *eptdev = priv;
+ 	struct sk_buff *skb;
  
++	if (!eptdev)
++		return 0;
++
+ 	skb = alloc_skb(len, GFP_ATOMIC);
+ 	if (!skb)
+ 		return -ENOMEM;
+@@ -448,6 +451,7 @@ static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
+ 	struct rpmsg_channel_info chinfo;
+ 	struct rpmsg_eptdev *eptdev;
+ 	struct device *dev = &rpdev->dev;
++	int ret;
  
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index bf06c9582ae49b..16388c2941bab5 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -1529,6 +1529,10 @@ int f2fs_sanity_check_node_footer(struct f2fs_sb_info *sbi,
- 		if (is_inode)
- 			goto out_err;
- 		break;
-+	case NODE_TYPE_NON_IXNODE:
-+		if (is_inode || is_xnode)
-+			goto out_err;
-+		break;
- 	default:
- 		break;
- 	}
-@@ -1622,7 +1626,7 @@ static struct folio *f2fs_get_node_folio_ra(struct folio *parent, int start)
- 	struct f2fs_sb_info *sbi = F2FS_F_SB(parent);
- 	nid_t nid = get_nid(parent, start, false);
+ 	memcpy(chinfo.name, rpdev->id.name, RPMSG_NAME_SIZE);
+ 	chinfo.src = rpdev->src;
+@@ -460,13 +464,17 @@ static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
+ 	/* Set the default_ept to the rpmsg device endpoint */
+ 	eptdev->default_ept = rpdev->ept;
  
--	return __get_node_folio(sbi, nid, parent, start, NODE_TYPE_REGULAR);
-+	return __get_node_folio(sbi, nid, parent, start, NODE_TYPE_NON_IXNODE);
++	ret = rpmsg_chrdev_eptdev_add(eptdev, chinfo);
++
++	if (ret)
++		return ret;
+ 	/*
+ 	 * The rpmsg_ept_cb uses *priv parameter to get its rpmsg_eptdev context.
+-	 * Storedit in default_ept *priv field.
++	 * Stored it in default_ept *priv field.
+ 	 */
+ 	eptdev->default_ept->priv = eptdev;
+ 
+-	return rpmsg_chrdev_eptdev_add(eptdev, chinfo);
++	return 0;
  }
  
- static void flush_inline_data(struct f2fs_sb_info *sbi, nid_t ino)
+ static void rpmsg_chrdev_remove(struct rpmsg_device *rpdev)
 -- 
 2.53.0
 
