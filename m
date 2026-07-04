@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8726E3C1090
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0530F3AA1A9
 	for <stable@vger.kernel.org>; Sat,  4 Jul 2026 13:01:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783170072; cv=none; b=cHk39frMtJnw6w7fYQ8aNWfg6p1sfO2GIhiOpwA4RIwWaax4p9M8HA3zPFRnK6Yej1AwoqXmF1owU1tpZUtqSqk5+aQsIZyeikepJTLjc62Gq6R7Ubye2/ry5uOYLdKbzpADi7guEqxIkSyekvd3Fqi+p3rGgE9tvH4P6kxIXWE=
+	t=1783170077; cv=none; b=ZHwMeVgme7fJc2YcGB//97Q0WlE0QTZzICVKwz6Lq95vXKJwE3aB6pEa2ytl2FmqTXFdA8Ec0a6wnC7lmu55z1imVtzyhMYGHWSURT7NtalnAL0zwInx4FFq36sZd7wFxejG6TGMRfCTH9EVNZeC+UBYfvrIAMpnRb+Q7Yqljvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783170072; c=relaxed/simple;
-	bh=a9V/JPcvBqvePkdaMvSsBuYQjRAbIFXJgwrFmfF3aso=;
+	s=arc-20240116; t=1783170077; c=relaxed/simple;
+	bh=watRZl/hkO4QQvBiV4e/bLbVovvNqMKu6lcW/a3bQqc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=poZvLNOwstq/qP0qAbjkLi49S4M9OddwMCfI8DnX9aP51hQQD+6iXLI4mONGyjEgnqXfQVhhBA/Fp6uZzoLWqgcbVfM4CDipkpUjIFHVorc7NapTje2Yp+jyaBWrSZerWtzzI0AXu4NQjGQDi2seljkrgoWauqoWAIEF7P6b5vU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YzfpZVxe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cEBKm1eM7vewpuZ+oR9vv7iDuKTYCDPXWBoHdvvGp6+GptgwqxHYyIqptOCelgDgTM29Uh1geEnF+VkHBKa1rFG0Cv00aHY2RR+14lctyyHNmlsyDF2tz7uVYGmrsZxWuAy0uFk6IjpqJcwAuV0P1yzVFvybo4soWrhrnAXlBZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TzD+MM26; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YzfpZVxe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F501F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TzD+MM26"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 149C41F00A3F;
 	Sat,  4 Jul 2026 13:01:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1783170071;
-	bh=k5b8x32VmGjMOkLod0KV6qaPrD91tGyRAF8OyNJOapg=;
+	bh=fO34cxJTQ9iQih5/8poOVxu/1SEfyUKEUWs+RCthiNk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YzfpZVxe8uxg0Glzhie+rCoC+tCRDhlBPZLUafrBBGs5VNokFu7S/kIZ2YTXOiEMw
-	 VpUdoN0tpW0kouY8IDNnGtaIjBlTvWiaja61vBo0t7Cdzq26ByY+NIEL94Z5/3FMEb
-	 3ZAwuA64kTKdfSRTT6UITM+BpLcvzNiOZD0dE+BdSPjH2LbO7gO+H+X7tAislcuJ7F
-	 InVd+6sl6IQQ9PqnJitwWIQmpvbwPvmX+qEq2Jfw9Hy1UMMJFKWMJMfj0RI+pkKwlh
-	 ML6fzn8ABjVhrPw5aTicP0e60M0rwqwGBp+PtPvpll7EBWkyNS6wTOWNUe3KFXAovk
-	 WMkW3BuYFPIsw==
+	b=TzD+MM26m5LK9CwG/5V+96I3TWQuDZe0lQqyCmMZXqM8mTIq1L0037XMvQZIxEX9B
+	 FB3+joXDTBfv/a5J+AKjZyahKElCkMyYyrZhlfe4r2S08exKJBKnqRhzRg++9nEIJa
+	 x2CX5Z4oOJqnSGTxYa7wb0tbfZq9V/ZlCrsLAcY5UKJlGtOPGzH4kG/ts80CaPBRxV
+	 FWGjfxj7DwLlsVUHCUucG15kC2D7N/EMdJI1VKiFcMcOawJJy6NQCgxZorlnyzSbMn
+	 ORAoMc1mAoGFhdYBXc+Y+PZgnKC44Zi0T29rDC/yHGrBERiP+KioH3xQ6KXniXFYNM
+	 Xms0vjEllLrSQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Denis Arefev <arefev@swemel.ru>,
-	Christoph Hellwig <hch@lst.de>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	syzbot+2488d8d751b27f7ce268@syzkaller.appspotmail.com,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] block: Avoid mounting the bdev pseudo-filesystem in userspace
-Date: Sat,  4 Jul 2026 09:01:09 -0400
-Message-ID: <20260704130109.829039-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 5/5] f2fs: fix to do sanity check on f2fs_get_node_folio_ra()
+Date: Sat,  4 Jul 2026 09:01:06 -0400
+Message-ID: <20260704130106.828918-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070222-ducking-flanked-b10f@gregkh>
-References: <2026070222-ducking-flanked-b10f@gregkh>
+In-Reply-To: <20260704130106.828918-1-sashal@kernel.org>
+References: <2026070234-outdated-refutable-f834@gregkh>
+ <20260704130106.828918-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,80 +48,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Denis Arefev <arefev@swemel.ru>
+From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit f73aa66dffcb8e61e78f01b56163ec16a15d06d2 ]
+[ Upstream commit 8712353ed80f87271d732297567dcdbe4b84e8c7 ]
 
-The bdev pseudo-filesystem is an internal kernel filesystem with which
-userspace should not interfere. Unregister it so that userspace cannot
-even attempt to mount it.
-
-This fixes a bug [1] that occurs when attempting to access files,
-because the system call move_mount() uses pointers declared in the
-inode_operations structure, which for the bdev pseudo-filesystem
-are always equal to 0. `inode->i_op = &empty_iops;`
-
-[1]
-
- BUG: kernel NULL pointer dereference, address: 0000000000000000
- #PF: supervisor instruction fetch in kernel mode
- #PF: error_code(0x0010) - not-present page
- PGD 23380067 P4D 23380067 PUD 23381067 PMD 0
- Oops: 0010 [#1] PREEMPT SMP KASAN NOPTI
- CPU: 2 PID: 17125 Comm: syz-executor.0 Not tainted 6.1.155-syzkaller-00350-g84221fde2681 #0
- Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.12.0-1 04/01/2014
- RIP: 0010:0x0
-
- Call Trace:
+kernel BUG at fs/f2fs/file.c:845!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+CPU: 0 UID: 0 PID: 5336 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full)
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:f2fs_do_truncate_blocks+0x1115/0x1140 fs/f2fs/file.c:845
+Code: fc fc 90 0f 0b e8 8b 9d 9a fd 90 0f 0b e8 83 9d 9a fd 48 89 df 48 c7 c6 60 d1 1a 8c e8 54 f1 fc fc 90 0f 0b e8 6c 9d 9a fd 90 <0f> 0b e8 64 9d 9a fd 90 0f 0b 90 e9 93 fd ff ff e8 56 9d 9a fd 90
+RSP: 0018:ffffc9000e4474c0 EFLAGS: 00010283
+RAX: ffffffff842b1d34 RBX: 0000000000000003 RCX: 0000000000100000
+RDX: ffffc9000f03a000 RSI: 0000000000035503 RDI: 0000000000035504
+RBP: ffffc9000e447608 R08: ffff8880123b0000 R09: 0000000000000002
+R10: 00000000fffffffe R11: 0000000000000002 R12: 0000000000000001
+R13: 0000000000000000 R14: 1ffff92001c88ea0 R15: 00000000ffff039c
+FS:  00007f7e02ee36c0(0000) GS:ffff88808c887000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ff0305c4000 CR3: 0000000012d4c000 CR4: 0000000000352ef0
+Call Trace:
  <TASK>
- lookup_open.isra.0+0x700/0x1180 fs/namei.c:3460
- open_last_lookups fs/namei.c:3550 [inline]
- path_openat+0x953/0x2700 fs/namei.c:3780
- do_filp_open+0x1c5/0x410 fs/namei.c:3810
- do_sys_openat2+0x171/0x4d0 fs/open.c:1318
- do_sys_open fs/open.c:1334 [inline]
- __do_sys_openat fs/open.c:1350 [inline]
- __se_sys_openat fs/open.c:1345 [inline]
- __x64_sys_openat+0x13c/0x1f0 fs/open.c:1345
- do_syscall_x64 arch/x86/entry/common.c:51 [inline]
- do_syscall_64+0x35/0x80 arch/x86/entry/common.c:81
- entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+ f2fs_truncate_blocks+0x10a/0x300 fs/f2fs/file.c:882
+ f2fs_truncate+0x471/0x7c0 fs/f2fs/file.c:940
+ f2fs_evict_inode+0xa3f/0x1ac0 fs/f2fs/inode.c:907
+ evict+0x61e/0xb10 fs/inode.c:841
+ f2fs_fill_super+0x5f43/0x78f0 fs/f2fs/super.c:5224
+ get_tree_bdev_flags+0x431/0x4f0 fs/super.c:1694
+ vfs_get_tree+0x92/0x2a0 fs/super.c:1754
+ fc_mount fs/namespace.c:1193 [inline]
+ do_new_mount_fc fs/namespace.c:3758 [inline]
+ do_new_mount+0x341/0xd30 fs/namespace.c:3834
+ do_mount fs/namespace.c:4167 [inline]
+ __do_sys_mount fs/namespace.c:4383 [inline]
+ __se_sys_mount+0x31d/0x420 fs/namespace.c:4360
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x15f/0xf80 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
+	count = ADDRS_PER_PAGE(dn.node_folio, inode);
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Link: https://lore.kernel.org/all/20131010004732.GJ13318@ZenIV.linux.org.uk/T/#
-Cc: stable@vger.kernel.org
-Signed-off-by: Denis Arefev <arefev@swemel.ru>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20260521072857.5078-1-arefev@swemel.ru
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+	count -= dn.ofs_in_node;
+	f2fs_bug_on(sbi, count < 0);
+
+The fuzz test will trigger above bug_on in f2fs.
+
+The root cause should be: in the corrupted inode, there is a direct node
+which has the same ino and nid in its footer, so in f2fs_do_truncate_blocks(),
+after f2fs_get_dnode_of_data() finds such dnode:
+1) ADDRS_PER_PAGE(dn.node_folio, inode) will return 923
+2) once dn.ofs_in_node points to addr[923, 1017]
+Then it will trigger the system panic.
+
+Let's introduce NODE_TYPE_NON_IXNODE to indicate current node should
+not be an inode or xattr node, and then use it in below path to detect
+inconsistent node chain in inode mapping table:
+
+- f2fs_do_truncate_blocks
+ - f2fs_get_dnode_of_data
+  - f2fs_get_node_folio_ra
+   -  __get_node_folio
+    - f2fs_sanity_check_node_footer
+     - case NODE_TYPE_NON_IXNODE -> check whether it is inode|xnode
+
+Cc: stable@kernel.org
+Reported-by: syzbot+2488d8d751b27f7ce268@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/69fa3697.170a0220.59368.0018.GAE@google.com
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- block/bdev.c | 4 ----
- 1 file changed, 4 deletions(-)
+ fs/f2fs/f2fs.h | 1 +
+ fs/f2fs/node.c | 6 +++++-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/block/bdev.c b/block/bdev.c
-index ce7c20c2661793..e015fea1521e2b 100644
---- a/block/bdev.c
-+++ b/block/bdev.c
-@@ -459,16 +459,12 @@ EXPORT_SYMBOL_GPL(blockdev_superblock);
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 31252fb1b06bd1..4cdef8c27ce059 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -1533,6 +1533,7 @@ enum node_type {
+ 	NODE_TYPE_INODE,
+ 	NODE_TYPE_XATTR,
+ 	NODE_TYPE_NON_INODE,
++	NODE_TYPE_NON_IXNODE,	/* non inode and xnode */
+ };
  
- void __init bdev_cache_init(void)
- {
--	int err;
- 	static struct vfsmount *bd_mnt;
  
- 	bdev_cachep = kmem_cache_create("bdev_cache", sizeof(struct bdev_inode),
- 			0, (SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
- 				SLAB_MEM_SPREAD|SLAB_ACCOUNT|SLAB_PANIC),
- 			init_once);
--	err = register_filesystem(&bd_type);
--	if (err)
--		panic("Cannot register bdev pseudo-fs");
- 	bd_mnt = kern_mount(&bd_type);
- 	if (IS_ERR(bd_mnt))
- 		panic("Cannot create bdev pseudo-fs");
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index bf06c9582ae49b..16388c2941bab5 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -1529,6 +1529,10 @@ int f2fs_sanity_check_node_footer(struct f2fs_sb_info *sbi,
+ 		if (is_inode)
+ 			goto out_err;
+ 		break;
++	case NODE_TYPE_NON_IXNODE:
++		if (is_inode || is_xnode)
++			goto out_err;
++		break;
+ 	default:
+ 		break;
+ 	}
+@@ -1622,7 +1626,7 @@ static struct folio *f2fs_get_node_folio_ra(struct folio *parent, int start)
+ 	struct f2fs_sb_info *sbi = F2FS_F_SB(parent);
+ 	nid_t nid = get_nid(parent, start, false);
+ 
+-	return __get_node_folio(sbi, nid, parent, start, NODE_TYPE_REGULAR);
++	return __get_node_folio(sbi, nid, parent, start, NODE_TYPE_NON_IXNODE);
+ }
+ 
+ static void flush_inline_data(struct f2fs_sb_info *sbi, nid_t ino)
 -- 
 2.53.0
 
