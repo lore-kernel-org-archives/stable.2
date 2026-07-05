@@ -1,54 +1,43 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4BE5C33F8D9;
-	Sun,  5 Jul 2026 12:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9250B433E7A
+	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 13:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783256274; cv=none; b=rxQoz1qaruwIwGfUTqFcTQo7Os3W+Q1dWk7mQrDSpY3ziTL3KIFd6jkHaVnYYGEhVbCNZ95Zr91Ko8B9DDuzJG/GQHSsyigAl6ryg6zuE/PA3xWs7Q66jYBEEx07T5LYOAY8HkKJe61JuW5GK8IsUaP7VAcdmIGCYOAaH53Vo7s=
+	t=1783259279; cv=none; b=qptBk/XBU3tyG4dNgayK2jYNioOFE2sinAZPboxH08cT2idjGRk+uGROtQaTkev6oli9xip/qp0LOfMFKuq7fnPWfkdpk0o0i1l415Dd7OAO9WvB9bRuA2DnwDk5S0Pgkcbo3STyBMCyYpFu69rezGHs6fOi9HrXP+Uogib74eI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783256274; c=relaxed/simple;
-	bh=JfeaWhTgfk1VVJFOa8gpsqn7yxCKwJiVtG1OOViNics=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GTfnvfY6vj48mYni5FVhX44cS4Dv9MZvmxDOlWcT/K0OVq3Ofs8Ck6nuJDkqLYJr4ZlPGFiyfVX9JPLEbc5rYMGSIZ70HAtt3Ycux2rRgHq0A5EPzdQWtCxie+kgtTUwKAIXuvtfHCWwbsU7+QvHfUxpS14wUHHCgSCkMZdvnCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=GnA8Mpap; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1783259279; c=relaxed/simple;
+	bh=4IMkEekQoZCqKhhohcnwnuB7xHe9RNHcuenDgh7l6JU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HE4f94CorPzvyKVSfW1FpRL4R5p3ChLr6hsx0EykI5do6OtVbmSLEkd8JOftehX9JRzpfIHuJfNZ+e5poSX97gkHuZcqxa3ZuFn/zv7+JmkLjsKzQbti3F8Z6dH5dcQm21e+v32NaNx4cJij0TQSB56cGiIIt4HcVxqe9jf02MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fv1b+wDi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="GnA8Mpap"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=g26Y8
-	qEXSEdFe8XAykfZFO9hTc4mjOTVDG3P2EL4Q/U=; b=GnA8MpapEihW+GNu3TKo+
-	vv9RiYOQAfRw7e/EFYGUoEoOhNpSYrGZS8EBzPxg2dvI66t68tPrYZAoKwQzkK/L
-	TK/QP0uNoCRAyOU+CvmB0257gELyfRz/dV3vO/Y32+NOzJJEvjrY3lBsgNHAMf7b
-	Lxrk2kB8LNdRoPPvoTY2Yg=
-Received: from localhost.localdomain (unknown [101.5.13.242])
-	by web4 (Coremail) with SMTP id ywQGZQBXa6CrVEpq2NvBAg--.23888S2;
-	Sun, 05 Jul 2026 20:57:15 +0800 (CST)
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-To: netdev@vger.kernel.org
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Simon Horman <horms@verge.net.au>,
-	Julian Anastasov <ja@ssi.bg>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	lvs-devel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH nf] ipvs: skip IPv6 extension headers in TCP state lookup
-Date: Sun,  5 Jul 2026 20:56:57 +0800
-Message-ID: <20260705125659.37744-1-zhaoyz24@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.46.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fv1b+wDi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 991FA1F000E9;
+	Sun,  5 Jul 2026 13:47:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783259278;
+	bh=ZWOeNq9rB/UKPWo/FaJF0I/X6m5XJYPCRrh/6VZCF1Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fv1b+wDisE558nUGOhUiUcuNEkyl70HUzvOjRZMUYrkDzmInQjWOfhmigNQIDx9/Z
+	 skGnZcpEMMRDg0Ad+sizqcr9mxANHkUOqNYnFzx1BK4469nxpVpzq16mybjwGMqZw6
+	 lV5D9vRwJm+waM5R4E5MMS/utDGVpEQ+ke/slTEvCstpF6AuiueN8oigMaYA2hPc24
+	 UKE9tTsoY9RIdp5AhBhqgJdXU5dorvQn4PpjK+wURCoIQr54ei4qeQ9h+Yqfm8ISI8
+	 cMQqv+8BPOpk9w25yiw9g6dLgDHBdcz+YKe6fcMnMGmmplZQ7ugzZORHpHa2Q8uH2A
+	 zgYlKyEsstlqQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chris Mason <clm@meta.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] nfsd: release layout stid on setlease failure
+Date: Sun,  5 Jul 2026 09:47:56 -0400
+Message-ID: <20260705134756.1722756-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026070226-viral-uncouth-aba2@gregkh>
+References: <2026070226-viral-uncouth-aba2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,85 +45,73 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:ywQGZQBXa6CrVEpq2NvBAg--.23888S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJw4xJFW3Xr4kXr1rZw18Xwb_yoW5Xw17pa
-	sak3yagryDJr90yws7Jr1xC3y5Grs3CayxWryDta45X3Z8Wrn5tF95K39F9FsYkrWvgw17
-	Xr90q345Zr4kA37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9m1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
-	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4
-	x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l
-	84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcx
-	kEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6x8ErcxFaVAv8VW8
-	Ww4UJr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6I
-	AqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xS
-	Y4AK67AK6ryUMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GrWkJr1UJwCFx2
-	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
-	6r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
-	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
-	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
-	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUG_M-UUUUU=
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgETAWpKHF5PtgAAsK
 
-tcp_state_transition() reads the TCP header again in order to drive the
-IPVS TCP state table.  For IPv6 it computes the offset with
-sizeof(struct ipv6hdr), while the surrounding IPVS code uses iph->len from
-ip_vs_fill_iph_skb(), where ipv6_find_hdr() has already skipped extension
-headers and found the real transport header.
+From: Chris Mason <clm@meta.com>
 
-This makes the state machine read from the wrong offset for IPv6 TCP
-packets that carry extension headers.  For example, a SYN packet with an
-8-byte destination options header can be scheduled correctly by
-tcp_conn_schedule(), but tcp_state_transition() reads a byte from the real
-TCP sequence number as the TCP flags.  An attacker can therefore make an
-uncompleted SYN move from NONE to ESTABLISHED or CLOSE, changing the
-connection timeout and active/inactive destination counters.  In the
-ESTABLISHED case, the half-open connection gets the 15 minute established
-timeout instead of the shorter SYN_RECV timeout, which can be used for a
-remote denial of service against an IPv6 IPVS TCP service.
+[ Upstream commit 30d55c8aabb261bc3f427d6b9aae7ef6206063f9 ]
 
-Use ip_vs_fill_iph_skb() in tcp_state_transition() and read the TCP header
-from iph.len, matching tcp_conn_schedule() and the TCP NAT handlers.  For
-IPv4 and IPv6 packets without extension headers this preserves the existing
-offset.
+nfs4_alloc_stid() publishes the new stid into cl->cl_stateids via
+idr_alloc_cyclic() under cl_lock before returning to
+nfsd4_alloc_layout_stateid(). When nfsd4_layout_setlease() then
+fails, the error path frees the layout stateid directly with
+kmem_cache_free() without ever calling idr_remove(), leaving the
+IDR slot pointing at freed slab memory. Any subsequent IDR walker
+(states_show, client teardown) dereferences the dangling pointer.
 
-Fixes: 0bbdd42b7efa ("IPVS: Extend protocol DNAT/SNAT and state handlers")
+The correct teardown for an IDR-published stid is nfs4_put_stid(),
+which removes the IDR slot under cl_lock, dispatches sc_free
+(nfsd4_free_layout_stateid) to release ls->ls_file via
+nfsd4_close_layout(), and drops the nfs4_file reference in its
+tail.
+
+A second issue blocks that switch: nfsd4_free_layout_stateid()
+unconditionally inspects ls->ls_fence_work via
+delayed_work_pending() under ls_lock, but
+INIT_DELAYED_WORK(&ls->ls_fence_work, ...) currently runs only
+after the setlease call. On the setlease-failure path the
+destructor would touch an uninitialized delayed_work.
+
+    nfsd4_alloc_layout_stateid()
+      nfs4_alloc_stid()           /* idr_alloc_cyclic under cl_lock */
+      nfsd4_layout_setlease()     /* fails */
+        nfs4_put_stid()
+          nfsd4_free_layout_stateid()
+            delayed_work_pending(&ls->ls_fence_work)  /* needs INIT */
+            nfsd4_close_layout()  /* nfsd_file_put(ls->ls_file) */
+          put_nfs4_file()
+
+Fix by hoisting the ls_fenced / ls_fence_delay / INIT_DELAYED_WORK
+initialization above the nfsd4_layout_setlease() call, and replace
+the manual nfsd_file_put + put_nfs4_file + kmem_cache_free cleanup
+with a single nfs4_put_stid(stp).
+
+Fixes: c5c707f96fc9 ("nfsd: implement pNFS layout recalls")
 Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Assisted-by: Claude-Code:GLM-5.2
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Assisted-by: kres (claude-opus-4-7)
+Signed-off-by: Chris Mason <clm@meta.com>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+[ Context ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/ipvs/ip_vs_proto_tcp.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ fs/nfsd/nfs4layouts.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/net/netfilter/ipvs/ip_vs_proto_tcp.c b/net/netfilter/ipvs/ip_vs_proto_tcp.c
-index 8cc0a8ce6241..6fde2165a8d6 100644
---- a/net/netfilter/ipvs/ip_vs_proto_tcp.c
-+++ b/net/netfilter/ipvs/ip_vs_proto_tcp.c
-@@ -581,15 +581,13 @@ tcp_state_transition(struct ip_vs_conn *cp, int direction,
- 		     const struct sk_buff *skb,
- 		     struct ip_vs_proto_data *pd)
- {
- 	struct tcphdr _tcph, *th;
-+	struct ip_vs_iphdr iph;
+diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
+index fc5e82eddaa1af..c08bc2d0d37796 100644
+--- a/fs/nfsd/nfs4layouts.c
++++ b/fs/nfsd/nfs4layouts.c
+@@ -256,9 +256,7 @@ nfsd4_alloc_layout_stateid(struct nfsd4_compound_state *cstate,
+ 	BUG_ON(!ls->ls_file);
  
--#ifdef CONFIG_IP_VS_IPV6
--	int ihl = cp->af == AF_INET ? ip_hdrlen(skb) : sizeof(struct ipv6hdr);
--#else
--	int ihl = ip_hdrlen(skb);
--#endif
-+	if (!ip_vs_fill_iph_skb(cp->af, skb, false, &iph))
-+		return;
- 
--	th = skb_header_pointer(skb, ihl, sizeof(_tcph), &_tcph);
-+	th = skb_header_pointer(skb, iph.len, sizeof(_tcph), &_tcph);
- 	if (th == NULL)
- 		return;
+ 	if (nfsd4_layout_setlease(ls)) {
+-		nfsd_file_put(ls->ls_file);
+-		put_nfs4_file(fp);
+-		kmem_cache_free(nfs4_layout_stateid_cache, ls);
++		nfs4_put_stid(stp);
+ 		return NULL;
+ 	}
  
 -- 
-2.47.3
+2.53.0
 
