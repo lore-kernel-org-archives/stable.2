@@ -1,37 +1,74 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.175.55.52])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D33F26D4DD;
-	Sun,  5 Jul 2026 03:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.175.55.52
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92AA25A2DD
+	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 04:27:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783222001; cv=none; b=OxkvI9dfpcTV9j1LTcWDYvr8nsaX+eUZx31pJLu4K3J6/LRVnwbPmrI8o7a7AuW34NVbAvGRFwjiZ7UsWYWgXDyIwqlZImh75nXxgB66fcB42pg97Ngr44buMTj51agGL099DdYdZA70zJmoUuKGbkyQS+0AFvPF6qKYtZZOT8Y=
+	t=1783225658; cv=none; b=mGgvFeYsIzSXqcQCQz8R/ZhgfNsIEUkkieRTacQ336Bkwdds1qiDb7vxbaVRBIqwg6P1ViMlGN9jtSH1xUZAU9/8I98t4itOXSt8sQN37mM6hh/AjFLorfD4pCd2WuSmfrrwysEeDbuQB1j0NtTHF/GUbRhw853b2KZSInNIatI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783222001; c=relaxed/simple;
-	bh=dkreYVcX1uYyR6dZ+wOjFG/ekHUBS5MgFEMPxWHM/vU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TX1/+78BrBw5/47pprkxLeC5kyTROKY+ajD+DDrnCJzUjB307vBn7tzUwi6JQONaRKf4Q7ag/ep/0KIN3jD/YexCh6h4xYKl9xcMReXkThR+rgiLxOVtstfOE1zaNomtFikAvES0Xp80R0m55x6HMQU8UqflKxppiReYgEW6ZNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.175.55.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wA3Eabhzklq4ysHAA--.13475S3;
-	Sun, 05 Jul 2026 11:26:26 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgAXiKHgzklqOMSSAg--.50065S2;
-	Sun, 05 Jul 2026 11:26:24 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: vikash.garodia@oss.qualcomm.com,
-	dikshita.agarwal@oss.qualcomm.com
-Cc: abhinav.kumar@linux.dev,
-	bod@kernel.org,
-	mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] media: iris: prevent sys_error_handler from restarting core during remove
-Date: Sun,  5 Jul 2026 03:25:29 +0000
-Message-Id: <20260705032529.2439425-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1783225658; c=relaxed/simple;
+	bh=xXbqEGBTHdI4gCh+pi+4bWPkKiEcKqIDR6p0WzuoYAo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=p4ZUbvoz10kYtoowMi7D/S7jY6oWBwDhCBncn7zSMCTCCqjN7yiAWY/E2Kdhev2BSgNrP/BJYnC1+gWM0JsFPpnfQqxMqIoe7c935YLNT+uXoArm8XbwDbQzb0RGPKC4me7gG/ShkO3nwReu81xzEhvQ54imkNKh9MMbHI7kKoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VOzP8qP6; arc=none smtp.client-ip=209.85.167.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VOzP8qP6"
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aebae2f310so1591399e87.3
+        for <stable@vger.kernel.org>; Sat, 04 Jul 2026 21:27:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783225655; x=1783830455; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vJJ24iBX9cnCE8ZMUdPAOVzOCaT5jrfPS+x2jz5hwlw=;
+        b=VOzP8qP6IVGH+UxEU0T1NumTvz2E71zhVGFur1hjxOA6zhk1Yjy0MQtOEbJKRUy2ch
+         guIMOc2g6lOhjFXwyNoPYxBwxwnIsdKnDxJH38UHN48ogoDURjyJZ/FvL+LAaytdOt07
+         7H3wWD79gPmMUtJzrXhps+gllr6pf+xtMdviDM3uhQtgRvHJCHCtYa6GQGlrGuGvp5IS
+         u48F03esV8r5BfueU53p68pKjqS05x/fDqruWsE8mO0BQJXNveH/7VJumeSVZNTjthn9
+         lAtHR4G61jXCvOXn1+wUesdMvzMGkV4oA/yop2AVCpVF1fXPtvHM2gXewYdbcfVjVSnG
+         VyNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783225655; x=1783830455;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vJJ24iBX9cnCE8ZMUdPAOVzOCaT5jrfPS+x2jz5hwlw=;
+        b=Hli/PwB7Fn1KXsBZKVpmTuOyXaf5BQBvQdipu5dAflTVo9hmZ8ZB64l938NGVT+sZX
+         GrEL003SuxrzXlyOxeyyIXOQUvRHgUQnqaW+0e4on2qpRsYxuYPX5N+uuqgZ+THYZ77m
+         AHZTV/1D+i3dy8HL+8XLTMO3b/tBqmGuCA4SPGsbfU6JXl2HKeh6p3go22HVM46uy2gZ
+         wATOHL2/VgHTit9rLosg+INglQa1jtwEw2PxV/b78PyegdczphU1DUj/a8ltmyP78b9K
+         hRZlRh6DLNV6CUtAhoD3H8yoY88TuTZjorjMVshW/2ME+uXOxlCzwykZK180eQEcwRQ5
+         ZwBw==
+X-Forwarded-Encrypted: i=1; AHgh+RoZCCvI2wSVdXrpJRmJEKfAB0rKsrFkFhaYwUAji9980NHj6Ep0A9019s2+ezu57I3jeDr/IWk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyfZxoFJxRYZgb46520WjvhYTWh7foXnzlHCYRw9UK/2KtgfqQS
+	TMJ+Qkwlogq45fDU5FV6WNK/bs/bnzlQ0GyhkXHhPqZbf19x06hAg9MDb0pyfIPE
+X-Gm-Gg: AfdE7cnqx/8Fo8fn4biTiLJW7N1kHhqRs/cVTis/soiQC/BjW+cGc2ZwBZgjyRuCDSO
+	cPZJHPADY9J7xMQv2dwEyuJcRaoy3GGMIlMShzxvMnBAecDKUiu6S66+ymgFdTWbqhTrJim/rZr
+	n7gm7scMoD7X5tWU3aw8L8fyP5uNaequbgWFlfjrbUkTjiOZGG9atdgS1M+89EtHSOHgbiX34Dk
+	pnS0KdQbdzAu8DczNCb/+Yg8l0eaaehUrG3cuW5kpHUQsZTKSF4PoMYyh/pSlonstC7UO8x0LpF
+	bWOZJuCCLCP1L4JF+C+NwoVvfzAE9VizgPqn+OdlUPYtnSoggWZi0/zpaeNkC8bkhNxTMOtS8aW
+	7Xj4l+mqT61IULkLPtKayx4VXBkaPD5LofuMjMkWJWpuQwY0J8+WhH6iZQb3bzfykbEaGVHHmOE
+	OVSBtuiqllv0nM+ywglFUbVDzPjLuaGLIAGXC3xFRisA==
+X-Received: by 2002:a05:6512:3d87:b0:5ae:b7d4:7dda with SMTP id 2adb3069b0e04-5aed50b668bmr889740e87.32.1783225654553;
+        Sat, 04 Jul 2026 21:27:34 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:4f9:2a:1c13::2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed1377068sm1798289e87.27.2026.07.04.21.27.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 04 Jul 2026 21:27:32 -0700 (PDT)
+From: Melbin K Mathew <mlbnkm1@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Melbin K Mathew <mlbnkm1@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: accel: bmc150: free irq before teardown
+Date: Sun,  5 Jul 2026 06:27:31 +0200
+Message-Id: <20260705042731.388592-1-mlbnkm1@gmail.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,149 +76,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgAXiKHgzklqOMSSAg--.50065S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?joUb2AXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBFPrdXRH3UZVhak3gHVbiGEBh9VZZxX0tgRfxAjX6EEgSVV
-	fHE+BDvbNLEvXezgMYmp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW3Gr15ZFykAFy3tw4DKF45urX_yoW7ZF47pF
-	n0k34akrW8WF40vw1UXa1j9F90yw1FgFWUWF93u34xAr15ur4Y9r10ka4rWFyDAFsFva43
-	AF4YqrZ8uFZ0qrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-iris_remove() does not cancel the sys_error_handler delayed work, which is
-armed from the HFI response path on system errors. The handler calls
-iris_core_deinit() followed by iris_core_init(), so a pending handler can
-restart the core after iris_remove() has started tearing it down.
+bmc150_accel_core_probe() requests the interrupt with
+devm_request_threaded_irq().  The managed IRQ is released only after the
+driver remove callback has returned unless it is freed explicitly.
 
-Set an unregistering flag under the core mutex and make
-iris_core_init() refuse to re-initialize the core once removal has begun.
-Check the same flag while holding the core mutex in the HFI response
-handlers before arming the delayed work, so a system-error interrupt
-cannot queue new work after removal starts.
+bmc150_accel_core_remove() currently unregisters the IIO device and
+triggers, cleans up the triggered buffer, suspends the chip and disables
+the regulators while the IRQ action is still registered.  A late
+interrupt can therefore run the hard or threaded handler while the IIO
+trigger state is being torn down or after the device has been put into
+deep suspend.
 
-Cancel any delayed work that was queued before the flag was set before
-destroying the core mutex.
+Free the IRQ at the start of remove so that no handler is running while
+the rest of the driver state and hardware resources are dismantled.
 
-Fixes: fb583a214337 ("media: iris: introduce host firmware interface with necessary hooks")
+Fixes: 55637c38377a ("iio: bmc150: Split the driver into core and i2c")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Melbin K Mathew <mlbnkm1@gmail.com>
 ---
- drivers/media/platform/qcom/iris/iris_core.c           |  5 +++++
- drivers/media/platform/qcom/iris/iris_core.h           |  4 ++++
- .../media/platform/qcom/iris/iris_hfi_gen1_response.c  |  5 +++--
- .../media/platform/qcom/iris/iris_hfi_gen2_response.c  |  5 +++--
- drivers/media/platform/qcom/iris/iris_probe.c          | 10 ++++++++++
- 5 files changed, 25 insertions(+), 4 deletions(-)
+ drivers/iio/accel/bmc150-accel-core.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
-index 52bf56e517f9..b843ab0d484c 100644
---- a/drivers/media/platform/qcom/iris/iris_core.c
-+++ b/drivers/media/platform/qcom/iris/iris_core.c
-@@ -48,6 +48,11 @@ int iris_core_init(struct iris_core *core)
- 	int ret;
+diff --git a/drivers/iio/accel/bmc150-accel-core.c b/drivers/iio/accel/bmc150-accel-core.c
+index 2398eb7e12cd..2adddc965650 100644
+--- a/drivers/iio/accel/bmc150-accel-core.c
++++ b/drivers/iio/accel/bmc150-accel-core.c
+@@ -1766,6 +1766,9 @@ void bmc150_accel_core_remove(struct device *dev)
+ 	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+ 	struct bmc150_accel_data *data = iio_priv(indio_dev);
  
- 	mutex_lock(&core->lock);
-+	if (core->unregistering) {
-+		ret = -EINVAL;
-+		goto exit;
-+	}
++	if (data->irq > 0)
++		devm_free_irq(dev, data->irq, indio_dev);
 +
- 	if (core->state == IRIS_CORE_INIT) {
- 		ret = 0;
- 		goto exit;
-diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
-index 24da60448cf2..a52d2a1f07c4 100644
---- a/drivers/media/platform/qcom/iris/iris_core.h
-+++ b/drivers/media/platform/qcom/iris/iris_core.h
-@@ -74,6 +74,9 @@ struct qcom_ubwc_cfg_data;
-  * @core_init_done: structure of signal completion for system response
-  * @intr_status: interrupt status
-  * @sys_error_handler: a delayed work for handling system fatal error
-+ * @unregistering: set under @lock in iris_remove() to block core re-init
-+ *	and sys_error re-arming; checked under @lock in iris_core_init() and
-+ *	the HFI system-error handlers
-  * @instances: a list_head of all instances
-  * @inst_fw_caps_dec: an array of supported instance capabilities by decoder
-  * @inst_fw_caps_enc: an array of supported instance capabilities by encoder
-@@ -119,6 +122,7 @@ struct iris_core {
- 	struct completion			core_init_done;
- 	u32					intr_status;
- 	struct delayed_work			sys_error_handler;
-+	bool					unregistering;
- 	struct list_head			instances;
- 	/* encoder and decoder have overlapping caps, so two different arrays are required */
- 	struct platform_inst_fw_cap		inst_fw_caps_dec[INST_FW_CAP_MAX];
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-index bfd7495bf44f..c9100112d07b 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-@@ -230,9 +230,10 @@ iris_hfi_gen1_sys_event_notify(struct iris_core *core, void *packet)
- 	mutex_lock(&core->lock);
- 	list_for_each_entry(instance, &core->instances, list)
- 		iris_inst_change_state(instance, IRIS_INST_ERROR);
-+	if (!core->unregistering)
-+		schedule_delayed_work(&core->sys_error_handler,
-+				      msecs_to_jiffies(10));
- 	mutex_unlock(&core->lock);
--
--	schedule_delayed_work(&core->sys_error_handler, msecs_to_jiffies(10));
- }
+ 	iio_device_unregister(indio_dev);
  
- static void
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-index 25162ae71357..7f0c121866f2 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-@@ -285,10 +285,11 @@ static int iris_hfi_gen2_handle_system_error(struct iris_core *core,
- 	mutex_lock(&core->lock);
- 	list_for_each_entry(instance, &core->instances, list)
- 		iris_inst_change_state(instance, IRIS_INST_ERROR);
-+	if (!core->unregistering)
-+		schedule_delayed_work(&core->sys_error_handler,
-+				      msecs_to_jiffies(10));
- 	mutex_unlock(&core->lock);
- 
--	schedule_delayed_work(&core->sys_error_handler, msecs_to_jiffies(10));
--
- 	return 0;
- }
- 
-diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-index c2dcb50a2782..c8553bc7619f 100644
---- a/drivers/media/platform/qcom/iris/iris_probe.c
-+++ b/drivers/media/platform/qcom/iris/iris_probe.c
-@@ -200,7 +200,17 @@ static void iris_remove(struct platform_device *pdev)
- 	if (!core)
- 		return;
- 
-+	/*
-+	 * Prevent the system-error work from re-initializing the core once
-+	 * teardown begins.  Then drain any work that was queued before the
-+	 * flag was set, before destroying the mutex used by the work function.
-+	 */
-+	mutex_lock(&core->lock);
-+	core->unregistering = true;
-+	mutex_unlock(&core->lock);
-+
- 	iris_core_deinit(core);
-+	cancel_delayed_work_sync(&core->sys_error_handler);
- 
- 	video_unregister_device(core->vdev_dec);
- 	video_unregister_device(core->vdev_enc);
+ 	pm_runtime_disable(dev);
 -- 
-2.34.1
+2.39.5
 
