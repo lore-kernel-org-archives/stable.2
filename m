@@ -1,143 +1,178 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24109212550
-	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 05:46:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F2735957
+	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 05:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783230409; cv=none; b=K1SneTG2MZ6ruFUVh81EYHXhch0nxmqUUQOmGYxj7NP5mixruCq0n84XZRumL0qIxxeRQdsDig9yodMK3kTsFMbV3k2o0EUTH/9BEQ0NleV45tk6ap4sJh+eDZ5HyFd5cCCtlPEsbXmkCqeSoQwQs/9iwOPv4/TGTVjKsP6qs28=
+	t=1783231087; cv=none; b=KjL0WTQ38CqSg8MrIp6RKEmw5Q9htQlAYwxKKlLjZU2iDPm0DJhv2uRl/+TAymTH5rHaogdm09WrNIBITlbdct52ct1inVPTtsxOy3omeINcS78f7U3jQN2vqkoGc2Eroq/by1PsxFr1Snn2In8cMz3imGwD+Q3FkpBOThoOoMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783230409; c=relaxed/simple;
-	bh=LdQzW9q6mYF9eTtMq3lwa3ru+V+0PbtPFXH2DUppvUE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JwcPyrbNfericgNPLC7wbQZ2fFIvVqMeYQyQnAT1My9Q9gGax7VA/cWbc2C3phQOCgIytlzxkC90WKAgFLqw3yFx5Cbzq/BRmEaQd4RNEa3f8id00LiVpC8vOrB7VJ9Dra/zTPwp1VHgdiOoju8faBptF2GV6MWaLJ4A4RGBma0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O1q1Ksgq; arc=none smtp.client-ip=209.85.222.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783231087; c=relaxed/simple;
+	bh=4z57w4guPA8HENc//begRYGGjs1tsGJtsiDpAgU2AJg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=o1RzwFxUq+YdnPhlQgmIImQecjcHKt8nYZErvAuqpTU5DeKloZyuZ9i+ygXhiA+X4JRBCXc5JSdgaJ+O9/HlPPYFphkwlZLeJilcgrljHHufkAKgrTLelLlGE6w6aGg5JZrUqzYzggoaM5vfrPAf3EfONyLBG/fDmVaDRKonXQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=EiWI0ye4; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O1q1Ksgq"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92e533aacf2so82828285a.2
-        for <stable@vger.kernel.org>; Sat, 04 Jul 2026 22:46:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="EiWI0ye4"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493b77b150aso17178415e9.2
+        for <stable@vger.kernel.org>; Sat, 04 Jul 2026 22:58:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783230407; x=1783835207; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ne+Bd1M34ZDKXIA9MnfvNkgBhE8gWUH0Qf5ovBjn7nc=;
-        b=O1q1Ksgq4QrbpHWLlt0Z93Yt4Y0/5qn+LzVpDKfIEBjtXkX5yTGUxI4AUNBJzHN1+Y
-         xMLMZwrDGTbIrqhLOnUB71cBb2go6nKQhEjvsxVlFMsy1T7OeOiFhs5mHuY92U3fbfww
-         ZnOnJyjWDBM4ykA5ZpwG81t6Vjv+vXYGgZnINtzg1xDJpVJuWVGnEpin/SSLIH5OCEec
-         iZQfpqzUEE92CBBU+AdvYAlOWYZxsufw4r7q4P9NkjtxrmjGNxrMTSkLbB3g69yZjjbp
-         6CIAgetDlrXL9E/9/ApTZmIdxyyV11nWYNXxpTo1NbrwNlTgm/tJEd+VM+1euLsQF9f5
-         PAPg==
+        d=suse.com; s=google; t=1783231084; x=1783835884; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gzcZsQB384JqNcf+JApIOFZ6eRs6bXFhNVWCwtsRQfI=;
+        b=EiWI0ye4KesGusKs/W1fuYVYEoMayPSNQhdjR945P8f6PIoNAXEUGw/Dp7+HwycBb7
+         URt6JzEIYWcj+ylV9xEFVaNoQ43prMXm2BsgOUZXy+/PbooI6Pu/b4xfBlY0B9RxnV8f
+         lnRKJxxVEwt3bT+fuu+JNTbldUWJ8rj3mLB7KbLLe9pE78qFrCsN4mur30UH12JoE3Oo
+         sbh4bu4+l4OWbN49yHDQtd+nMkBIBcHk8GAtFMzUC4ibAhH+UujOxzUClHxQA0wu8kjp
+         VOoBUiYVgT9cAW7piS5pLEt2Dmzq/5nJoqohovXYu++umIDjIAaxmcs4eCqLqfmkjtlD
+         rNvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783230407; x=1783835207;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ne+Bd1M34ZDKXIA9MnfvNkgBhE8gWUH0Qf5ovBjn7nc=;
-        b=mUQyr8RrR/2WfYwk9vhgAehB8XGHV9HfaATDbwydXFf1zCDtAfuilSAwglmanyTYkC
-         AkwvbUsXRsWzZZ5LcW69I229YRyyTD7UYjemzapBrVOBy7cToQ0Tm6+nF6NAKhd+ztaj
-         ClEDR/wn7dk9QA9bOxbysV1DbewcOVh7yDt/ZM/McV5/pXyXFhTZ7Q1rshFV+GGE7ox2
-         1m5+5AaSDICq6gbOdbEFUfX5iCE6SKE3pyuok1K4E/LK3zVTwUcJwmLy0o43ptV8Mbfd
-         jNuw0n7tHj5ZbcTiBqBy5AAAI+B6aTWovpUww9nhRoNeWPtTPyJmyUVwOKwUSeC4oi1N
-         vfjQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/ZRVUexD+TpWctdlT1W/8Z2aQgvYEpxbAKEFDFDc2010lEvlunvKZ2mnNSh8WZpyt1X3vC/94=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy5rI3Q5JRKOtun/v+IkQojSjiDQ8hq7F0aW/jEjRFnQ6OPTSQk
-	k9YBNs69PlRFyixdQrd/hoW5el17VqTTLvWR5vzpbIA9a++78Zlvyx2L
-X-Gm-Gg: AfdE7cmdlVGlKJJ60Wfk5smzFgA3lLUfFVL051Jijt0XFejq2rtd1Qm7+/49LGItq08
-	L1Ybpu1xucCb5a5kOdIiXynB0vGTXDIw01VCXAqmWSCQOw4BSrz9tyVETWfRT7vj5lAAmadKTRS
-	/ItKWeme0t6xsu86DsYdDRGwTYdu42VaPwTRDp49Zzs0nF3vHlH7j1wlAYpDQdULx2IFLswcQhO
-	Muq3RJnZlp/dV2lfu2vvFgNzEgxBtRvrANyuWQceF387UJngN9MnsUx7Ufpd3qkKKbv2VWRNTI6
-	dWniFD3Zx/wmVeBKjilV209sN6cW+FL8jKgWRVzQ+uq6uvsdDIiT7SNDfFOFPGkKtgjjWbNEFUF
-	o98EIz4C9U+fugflyzcHPf3YC+cbqJey8trAIDA4VxcN38TXLlYk67rPrVKF0h6JxSOJBRcqEfm
-	cjWND08X50uPQxYnUktVn9B1oJBR6+OgRiLc/6sEfhWA==
-X-Received: by 2002:a05:620a:458c:b0:926:e8e6:36b2 with SMTP id af79cd13be357-92e9a3cdf2amr726767585a.32.1783230407025;
-        Sat, 04 Jul 2026 22:46:47 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92e90b9db95sm580898185a.14.2026.07.04.22.46.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Jul 2026 22:46:46 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: linux-btrfs@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	clm@fb.com,
-	dsterba@suse.com,
-	fdmanana@suse.com,
-	jbacik@fb.com,
-	wqu@suse.com,
-	stable@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Subject: [PATCH v2] btrfs: fix extent map leak in NOCOW direct I/O write
-Date: Sun,  5 Jul 2026 01:46:35 -0400
-Message-ID: <20260705054637.80584-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1783231084; x=1783835884;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gzcZsQB384JqNcf+JApIOFZ6eRs6bXFhNVWCwtsRQfI=;
+        b=HR1fLMWKVQrTLyrbxcqgIoqA0oH1CIRghR3I9ctZOWmnpe/4hGvQtZq0fCWg2vgwVV
+         HQ6yX8WXMlHmTEcAhnwQ/t2Q12Sdv7+b5jDwI1gQmlK8QK10KjZIDHpfEC/6gKs1IW8R
+         H8RFc6Xlmrrwpokb9taaG6GeEylvPIaCdXdbJnZC0FNm8Tzcug+0thps2fWyDs3Y/Pu8
+         WYfmn0vxeh/rTs+Yq3ZXPKNUMDlkFMzfPcM8ONxx22XfZgQtn1xpR+j2ccdhJRxH8XbM
+         8DBtclnK5tM/BHmARrGMIMN4nUPL5gMnMzOVxB5D6A/TDMFC2NOAJRNn/ukamm05quES
+         d/1w==
+X-Forwarded-Encrypted: i=1; AFNElJ/TLjXZIsASxHbMVSQi3Yo3cBgFVb9XydlGI5rDDi5x1pqCUqsmtkK3lexWbQPf7EXLP+xp2G0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZD2n2vSOc/BwK4+eMmT3/w1BCmyTM4vfuDfs4KM4Tfm1d5BDn
+	tHFwcg6Qo16C2SOCh5cU/zcLUCFJfCACGFUn4VwXTWq6zbSJU+s6ae0qe3u3MGEKtEfwHclVrX6
+	t9RGvgQA3+w==
+X-Gm-Gg: AfdE7cm6jKXOijl3rP7wIFGsm1YMVwQm/7uk9vuH6veOPGFvC61i7g6dsfuTpNSPkov
+	Cd8i4PE51rSJD3Jzx4k4QR8DPgCoxYaLigfJAE8xwiFZYFOHcXbvI974xt/1msaOjgq9+abUcXA
+	hzFjpyG58jGIc0g2H0AeHCX5ytuctUx0ZmBKwylCuhMQVixuAuBxlbmD4L7nmMJVJDEPVMJStDg
+	QNIK6LUSWsqJFNJ/wPQy7TKjsWnCeqE/rYCEEBd9WMr2i8Et1knfT5TnCkXv0v1yiI1fTbdN7a0
+	W061kdOe7bW+HSCDqxkALiL83XQvgTmOqXhj5twp4BUtV4svs/o04a8CtPYdsteML+y1j6tWskX
+	/FyTpywP7snS4RAqqdUgv/0L+axi7QYbcTrNVymHMZgjYUYXiRgUoWtDeilaOJ/upmctGp1GgVU
+	YUNbm0srzht3f7k6AqxrYjHwZtTLkOIHspUSw9i+Jt
+X-Received: by 2002:a05:600c:1912:b0:493:b720:ce11 with SMTP id 5b1f17b1804b1-493d11faad4mr60589345e9.31.1783231083680;
+        Sat, 04 Jul 2026 22:58:03 -0700 (PDT)
+Received: from ?IPV6:2403:580d:fda1::299? (2403-580d-fda1--299.ip6.aussiebb.net. [2403:580d:fda1::299])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f0bbd2362sm42503849eec.20.2026.07.04.22.57.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 04 Jul 2026 22:58:02 -0700 (PDT)
+Message-ID: <7fd6b604-ca23-4881-8727-43a98aa0521a@suse.com>
+Date: Sun, 5 Jul 2026 15:27:57 +0930
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] btrfs: fix extent map leak in NOCOW direct I/O write
+To: Shuangpeng Bai <shuangpeng.kernel@gmail.com>, linux-btrfs@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, clm@fb.com, dsterba@suse.com,
+ fdmanana@suse.com, jbacik@fb.com, stable@vger.kernel.org
+References: <20260705054637.80584-1-shuangpeng.kernel@gmail.com>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
+ Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
+ fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
+ 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
+ V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
+ rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <20260705054637.80584-1-shuangpeng.kernel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-btrfs_dio_iomap_begin() calls btrfs_get_extent(), which returns an
-extent map reference that must be dropped on all exit paths.
 
-For direct writes into a NOCOW range, btrfs_get_blocks_direct_write()
-keeps using that extent map and asks btrfs_create_dio_extent() to
-allocate the ordered extent. If that fails, for example because
-btrfs_alloc_ordered_extent() fails, the function returns the error
-without dropping the input extent map. The PREALLOC path avoided this by
-dropping the input extent map before replacing it with the newly
-created one.
 
-Check the error from btrfs_create_dio_extent() before replacing the
-map and drop the input extent map on failure.
+在 2026/7/5 15:16, Shuangpeng Bai 写道:
+> btrfs_dio_iomap_begin() calls btrfs_get_extent(), which returns an
+> extent map reference that must be dropped on all exit paths.
+> 
+> For direct writes into a NOCOW range, btrfs_get_blocks_direct_write()
+> keeps using that extent map and asks btrfs_create_dio_extent() to
+> allocate the ordered extent. If that fails, for example because
+> btrfs_alloc_ordered_extent() fails, the function returns the error
+> without dropping the input extent map. The PREALLOC path avoided this by
+> dropping the input extent map before replacing it with the newly
+> created one.
+> 
+> Check the error from btrfs_create_dio_extent() before replacing the
+> map and drop the input extent map on failure.
+> 
+> Fixes: 5f9a8a51d8b9 ("Btrfs: add semaphore to synchronize direct IO writes with fsync")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 
-Fixes: 5f9a8a51d8b9 ("Btrfs: add semaphore to synchronize direct IO writes with fsync")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
-Changes since v1:
-- Add a comment explaining the returned @em2 pointer.
-- Use @em2 to decide whether to replace the old extent map and assert
-  that this only happens for PREALLOC writes.
+Reviewed-by: Qu Wenruo <wqu@suse.com>
 
- fs/btrfs/direct-io.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+Thanks,
+Qu
 
-diff --git a/fs/btrfs/direct-io.c b/fs/btrfs/direct-io.c
-index 460326d34143..19a1259b3b2f 100644
---- a/fs/btrfs/direct-io.c
-+++ b/fs/btrfs/direct-io.c
-@@ -281,17 +281,24 @@ static int btrfs_get_blocks_direct_write(struct extent_map **map,
- 		em2 = btrfs_create_dio_extent(BTRFS_I(inode), dio_data, start,
- 					      &file_extent, type);
- 		btrfs_dec_nocow_writers(bg);
--		if (type == BTRFS_ORDERED_PREALLOC) {
--			btrfs_free_extent_map(em);
--			*map = em2;
--			em = em2;
--		}
--
- 		if (IS_ERR(em2)) {
- 			ret = PTR_ERR(em2);
-+			btrfs_free_extent_map(em);
-+			*map = NULL;
- 			goto out;
- 		}
- 
-+		/*
-+		 * True NOCOW writes don't need to create a new extent map,
-+		 * while PREALLOC writes must replace the existing one.
-+		 */
-+		if (em2) {
-+			ASSERT(type == BTRFS_ORDERED_PREALLOC);
-+			btrfs_free_extent_map(em);
-+			*map = em2;
-+			em = em2;
-+		}
-+
- 		dio_data->nocow_done = true;
- 	} else {
- 		/* Our caller expects us to free the input extent map. */
--- 
-2.43.0
+> ---
+> Changes since v1:
+> - Add a comment explaining the returned @em2 pointer.
+> - Use @em2 to decide whether to replace the old extent map and assert
+>    that this only happens for PREALLOC writes.
+> 
+>   fs/btrfs/direct-io.c | 19 +++++++++++++------
+>   1 file changed, 13 insertions(+), 6 deletions(-)
+> 
+> diff --git a/fs/btrfs/direct-io.c b/fs/btrfs/direct-io.c
+> index 460326d34143..19a1259b3b2f 100644
+> --- a/fs/btrfs/direct-io.c
+> +++ b/fs/btrfs/direct-io.c
+> @@ -281,17 +281,24 @@ static int btrfs_get_blocks_direct_write(struct extent_map **map,
+>   		em2 = btrfs_create_dio_extent(BTRFS_I(inode), dio_data, start,
+>   					      &file_extent, type);
+>   		btrfs_dec_nocow_writers(bg);
+> -		if (type == BTRFS_ORDERED_PREALLOC) {
+> -			btrfs_free_extent_map(em);
+> -			*map = em2;
+> -			em = em2;
+> -		}
+> -
+>   		if (IS_ERR(em2)) {
+>   			ret = PTR_ERR(em2);
+> +			btrfs_free_extent_map(em);
+> +			*map = NULL;
+>   			goto out;
+>   		}
+>   
+> +		/*
+> +		 * True NOCOW writes don't need to create a new extent map,
+> +		 * while PREALLOC writes must replace the existing one.
+> +		 */
+> +		if (em2) {
+> +			ASSERT(type == BTRFS_ORDERED_PREALLOC);
+> +			btrfs_free_extent_map(em);
+> +			*map = em2;
+> +			em = em2;
+> +		}
+> +
+>   		dio_data->nocow_done = true;
+>   	} else {
+>   		/* Our caller expects us to free the input extent map. */
+
