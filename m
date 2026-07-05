@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 198D73815D1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A9137FF71
 	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 14:00:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783260059; cv=none; b=KBQ86f2GTDrl/xm7zTUFc8BTpdl+8pLf/zmrIllyLhEdhdD9g3JUfXvJQm4zUHMZTrf7oq4MSgGQQnv61fd05tGSBRHBNhfBvukMNUvwwcpe9OgbZVz6RoYSzDHF6iXFUKOuwAzswFtdu3vLawWKF/OUp2T7nkbo29Wcfzqcxto=
+	t=1783260059; cv=none; b=hZ8w8mAtpob5QWLPhe0p3xu7hFijlgmQ/jmKjFclYsB7HfYl3ZbK644dBuPpYIewnRxE7MetZYggrpM/DZL02T1qLoCn0BD1IbifwBDbf1B/06aHjl3k5gv6eNuqllZAxGfaFsA/LEmATWy+PzhvLhnFudsUc4/b84EVhtXiADY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783260059; c=relaxed/simple;
-	bh=Q3qdCDfHksLjPYSmnSzjCkR2PyRliflcOry72n4/zlA=;
+	bh=A/zMK3GIRqtmjqhN1YBDJKFNTO1FCWMfWMMiwSE0pH4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lVvdbAYOykiO4BJWGweHCMgyOfTr1oWNeSJ+zzRw5NXllWqjidFMApXXtz9+eR9AGTc+bH3HS7mB7bYoLxrpgzX581GiEWstQf6Uvo1kg5IPwO2F09NeNrI4GtCUN1WM6XBCe0FyHRypDCOD+bsfdoi5PABa83FkVLFnpOwMgT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IjQs+GQ1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=e3YojrUo5jkmyfpCFXpBUrEwGT2DC17nCHBR9EnogcYGRd9KXgWMmSfIbFh912bo5xtvDx5AHc6DAeN6jPX0iLx8ZuYZ1sWdFQf2vNgQ0iZTpYv34Cllh1NMkaWWWjw48opB+0iSRl2Z2sPJBx+BafcpwQjO+OXBiQ8/59iQQEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1kNjJBa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IjQs+GQ1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74FA91F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1kNjJBa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DB371F00A3D;
 	Sun,  5 Jul 2026 14:00:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1783260057;
-	bh=g1FCsEphG/2lF02uumcf1811HluiEU5cesHGoVNwdu8=;
+	bh=AF71D8Quu048x3csOv74CmMGr4qcAK5RE/A/gtxqOJs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IjQs+GQ17IG5CLNmtY0Sl4YK5CqjxoJRXUlADsZQZYfUdsGyPyQOilEyABT1Ckvdm
-	 RWUc7z3YXEGYgM2uAerLsgJu0E+0BMETX1QpWCuAzV3LSqaAGZ+hQdOvagBBw4O2pp
-	 cGiHGHi/VZmJfzUR4PNNufViG+2Bcg2izjnLEUMtzeOCr0Jg8IVXht49ImazIYkER8
-	 SlXKREgQx1GMF5pWoyk4DFwrSEH3mzvL4wUF96dJr3jkyZ7OxPkwoRDhVR5ptYiHI+
-	 ufge84xUzWT6ACcnZULqWZSYIzdOBlqOtXBNPydEQFMMOYPGIzsDfVv6FR4ZqkEgX/
-	 z4UYLaVKj4CYg==
+	b=U1kNjJBaYeM9aNVnLPYSy457MQG2uW3w6tZq19iNDVOB2SRHn/poAsMbCJzg5rNP7
+	 Dx1TqV6fzeO2hPJA1TYJ3ZPwQJOoaaZwqmrMRHzwUQ4tuXK3FkE2BxH40nkH9avQBA
+	 v6FwzqR577yNQ4H/QJWaQ2g07qkxPbaBHb6zOMJU49nD6KJKeGAiTgKRCrmIDYmbI6
+	 UmiCFeZpr8lPdE3WMSzWaj9+afqq62ChqvIc2HqDgYnabJRYsDL2gI9CFaG5p5NHi1
+	 1zGPvKwpbvfNX29aUyQ7OWtpZXU5ngzIeYoUyfjlFtG4/li8e+0J4qiS8hE65wPyGs
+	 ZZHCXLjD/GZqw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+Cc: Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/5] i2c: core: fix adapter debugfs creation
-Date: Sun,  5 Jul 2026 10:00:52 -0400
-Message-ID: <20260705140053.1744489-4-sashal@kernel.org>
+Subject: [PATCH 6.1.y] fbdev: fbcon: fix out-of-bounds read in err_out of fbcon_do_set_font()
+Date: Sun,  5 Jul 2026 10:00:55 -0400
+Message-ID: <20260705140055.1744629-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260705140053.1744489-1-sashal@kernel.org>
-References: <2026070232-opal-musky-5819@gregkh>
- <20260705140053.1744489-1-sashal@kernel.org>
+In-Reply-To: <2026070230-shaping-renewably-c158@gregkh>
+References: <2026070230-shaping-renewably-c158@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,82 +46,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-[ Upstream commit 07d5fb537928aad4369aaff0cbae73ba38a719af ]
+[ Upstream commit 8fdc8c2057eea08d40ce2c8eed41ff9e451c65c2 ]
 
-Clients can be registered from bus notifier callbacks so the debugfs
-directory needs to be created before registering the adapter as clients
-use that directory as their debugfs parent.
+When fbcon_do_set_font() fails (e.g., due to a memory allocation failure
+inside vc_resize() under heavy memory pressure), it jumps to the `err_out`
+label to roll back the console state. However, the current rollback logic
+forgets to restore the `hi_font` state, leading to a severe state machine
+corruption.
 
-Move debugfs creation before adapter registration to avoid having
-clients create their debugfs directories in the debugfs root (which is
-also more likely to fail due to name collisions).
+Earlier in the function, `set_vc_hi_font()` might be called to change
+`vc->vc_hi_font_mask` and mutate the screen buffer. If `vc_resize()`
+subsequently fails, the `err_out` path restores `vc_font.charcount`
+but entirely skips rolling back the `vc_hi_font_mask` and the screen
+buffer.
 
-Note that failure to allocate the adapter name must now be handled
-explicitly as debugfs_create_dir() cannot handle a NULL name (unlike
-device_add() which returns an error).
+This mismatch leaves the terminal in a desynchronized state. Because
+`vc_hi_font_mask` remains set, the VT subsystem will still accept
+character indices greater than 255 from userspace and write them to the
+screen buffer. Subsequent rendering calls (e.g., `fbcon_putcs()`) will
+then use these inflated indices to access the reverted, 256-character
+font array, leading to a deterministic out-of-bounds read and potential
+kernel memory disclosure.
 
-Fixes: 73febd775bdb ("i2c: create debugfs entry per adapter")
-Cc: stable@vger.kernel.org	# 6.8
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Stable-dep-of: ba14d7cf2fe7 ("i2c: core: fix adapter registration race")
+Fix this by adding the missing rollback logic for the `hi_font` mask
+and screen buffer in the error path.
+
+Fixes: a5a923038d70 ("fbdev: fbcon: Properly revert changes when vc_resize() failed")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ Adjust context ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/i2c-core-base.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ drivers/video/fbdev/core/fbcon.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index 899c7310c77423..37a75d57175b25 100644
---- a/drivers/i2c/i2c-core-base.c
-+++ b/drivers/i2c/i2c-core-base.c
-@@ -1549,17 +1549,22 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 		goto out_list;
- 	}
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 015baff0192908..00c2841c23068f 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -2415,6 +2415,7 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	struct fbcon_display *p = &fb_display[vc->vc_num];
+ 	int resize, ret, old_userfont, old_width, old_height, old_charcount;
+ 	u8 *old_data = vc->vc_font.data;
++	unsigned short old_hi_font_mask = vc->vc_hi_font_mask;
  
--	dev_set_name(&adap->dev, "i2c-%d", adap->nr);
-+	res = dev_set_name(&adap->dev, "i2c-%d", adap->nr);
-+	if (res)
-+		goto err_remove_irq_domain;
-+
- 	adap->dev.bus = &i2c_bus_type;
- 	adap->dev.type = &i2c_adapter_type;
--	res = device_register(&adap->dev);
-+	device_initialize(&adap->dev);
-+
-+	adap->debugfs = debugfs_create_dir(dev_name(&adap->dev), i2c_debugfs_root);
-+
-+	res = device_add(&adap->dev);
- 	if (res) {
- 		pr_err("adapter '%s': can't register device (%d)\n", adap->name, res);
--		goto err_put_adap;
-+		goto err_remove_debugfs;
- 	}
+ 	resize = (w != vc->vc_font.width) || (h != vc->vc_font.height);
+ 	vc->vc_font.data = (void *)(p->fontdata = data);
+@@ -2468,6 +2469,12 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	vc->vc_font.height = old_height;
+ 	vc->vc_font.charcount = old_charcount;
  
--	adap->debugfs = debugfs_create_dir(dev_name(&adap->dev), i2c_debugfs_root);
--
- 	res = i2c_setup_smbus_alert(adap);
- 	if (res)
- 		goto out_reg;
-@@ -1599,13 +1604,13 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
++	/* Restore the hi_font state and screen buffer */
++	if (old_hi_font_mask && !vc->vc_hi_font_mask)
++		set_vc_hi_font(vc, true);
++	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
++		set_vc_hi_font(vc, false);
++
+ 	return ret;
+ }
  
- out_reg:
- 	i2c_deregister_clients(adap);
--	debugfs_remove_recursive(adap->debugfs);
- 	device_del(&adap->dev);
--err_put_adap:
-+err_remove_debugfs:
-+	debugfs_remove_recursive(adap->debugfs);
- 	init_completion(&adap->dev_released);
- 	put_device(&adap->dev);
- 	wait_for_completion(&adap->dev_released);
--
-+err_remove_irq_domain:
- 	i2c_host_notify_irq_teardown(adap);
- out_list:
- 	mutex_lock(&core_lock);
 -- 
 2.53.0
 
