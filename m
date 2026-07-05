@@ -1,163 +1,162 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9E335BDAA
-	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 23:33:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783294414; cv=none; b=di1isgAAOzIayw+PN7YLYScV2xnblxrfFfkGIPTdEt0FNNdUwMIqUz9zhMChU5Aikd0ETqTHQnN4Fk4SB8JyS/ZnDd2TcfGHwcl9XpAqvpw5JJpCvIeSOTEOXf4DnHN0I7Nka7LnVRC7cgoHhvrllOdx5PV0p1qv0IGx6xbLQuM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783294414; c=relaxed/simple;
-	bh=KKBCh644BzCDLwoBLFIkcmm2m/854E+YvviVeczjB8k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XRK5R+XjTKdJYVaPm13KJhjYakm0c6ekLgGJ+d63oT/hsnv2IPCA0u8/cLOK/sTpUGiBqr2XME9iLfDJXe7Xz+CF5hWdaAsk9om/a7mOaBhyreWo/ECeYSaIGppKW/7JaXJ27iohrCsnPAJ6lpn9CrlIcv/N+IjzzErAnHmQ7Gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c5FfFcN/; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=FpnqmFNE; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8235B36F8FF
+	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 23:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783295618; cv=pass; b=lMdmxXGVfl9vXGiJDxLPsbnl6Wk9mS/YxH2ZyQYcPFxm+PBXk17KLghza4gUfc3xuxdQQPU3Bo829PfdDhNXXP7HlXFXCis9WC0Y9iPO1lktH/BzjCH8jo6Hhw7CeayvXf815bd3xUL1DfeyaTB1rJb0vNAsjQ4YDbxg1QC272g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783295618; c=relaxed/simple;
+	bh=8zqCoHKFeC9uoz6U6aQKSJAwAQgmF7mbenzFeRzat10=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JB/EAcG4zGi7oRPrkOl4M3IccGTeqQjPcOVzPFRLrid5qBJDcMksZXjnTVnNgBwk7taHOgxb+3Pbg2OGRDSOLul6UCsvZh0OWiMI66oXvF5hSPMF5JYjbZSp3J4VcF0NQli7QCAfeFPsylB3/g75g3KEHQeBYbtcrARK9ZAIM7M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DVCwGSMT; arc=pass smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c5FfFcN/";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="FpnqmFNE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783294412;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=qWgX8hRK0wDWBZMkA2UqYafCnMgGjGfI+mUA5gi2rBg=;
-	b=c5FfFcN/V7Z9iBa2jcmjyQ86JdDW/lORRjGQKy1wLy0DMFGBh8raat1IrBkitDONKF93IK
-	St730rJW5joqjhdsK77v33vOVr0Hmjl0p0wZIgdkJtlhV/28XvYAMpQEjJ2swKYxX681p5
-	4E2XDoohxuqaLrNuY7rs3hkOJASRrXU=
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-544-VAxTtqRDNDmW4b1tmX2xqQ-1; Sun, 05 Jul 2026 19:33:30 -0400
-X-MC-Unique: VAxTtqRDNDmW4b1tmX2xqQ-1
-X-Mimecast-MFC-AGG-ID: VAxTtqRDNDmW4b1tmX2xqQ_1783294410
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2c8018f11fbso25226885ad.3
-        for <stable@vger.kernel.org>; Sun, 05 Jul 2026 16:33:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DVCwGSMT"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aebbeba529so1992165e87.0
+        for <stable@vger.kernel.org>; Sun, 05 Jul 2026 16:53:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783295615; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j1zWMz4g4xPVT+xCMq9+0RWJCUf21TlXHD63FjVP+p/GcSFldwKxrD6P7qZBM1gPk3
+         W9I/Vxjhh10ot1nw1LGh+qGXWf1yhWEjjT+J34RiAkdYzxI6wRLAf2WN4MqPobkPLyRe
+         nSAnd2dnk2cIftbLMlNOxBbCd27C9qetQkcs4y76440pZUlrgMlvhVoeeHlKlSSysDAj
+         RzQQb4huPd3j9EunzWX6uFQeG3JxqZ4HoDru2uQZ0w5YxfoP1z2WP8Kba3C3mtFlkNU6
+         NegRU9I+4demNws8IvsjiT9K7Ti/xkmyoaoPa473qoTmQW7Aw2UL92iQ/C1IUkDSDqx5
+         Oc/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TTWw1o0EuThgWnzsFpwy1aimUMVGloN7lcc8yYZAv7Y=;
+        fh=e/W5LfIBWUu5j1qaICFRgN62FrqmUfQlSW2fqfToUhU=;
+        b=nxEIt8jIxENfK7ymRpxuy8ZjW582ydz9MqRLEh8nuy+yUQlk182C1G+pSfd5msUMVC
+         1djqM7tVeaHW1Dazvpccepokbv0MgXIlpJesf6GY5b0aMIYmtL3xnE5POivWYRNjl/DK
+         xtWzU0NY+z5Tl4EULeVkQOBUWpyhfzkEj/QbFva2sPPMWJX29f9IV6eeC+1fBPVlc9xo
+         hq/1m1clBSEjG1YC2JZEMbBogJHkofk6/kbOh2xu7nCss05lt8vp9QCKf/pb3n4PVOqc
+         D8GB066O4eUFA8HqnvqDC4pk3UqjXoYEePf2lA5Q9MaqNQspQ+Owbs6nXFe96ZHHPLMR
+         +STw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1783294409; x=1783899209; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=qWgX8hRK0wDWBZMkA2UqYafCnMgGjGfI+mUA5gi2rBg=;
-        b=FpnqmFNEuJ6nXLI34u38m7AWzOSKckRcd4Oil3p0vNBFyl4ZXQnLEtJZuZy4Zars2I
-         rprGplV7Qd1TawcxJkLBRoyFeKTXMJSSVDtO5i9M7F4KFT7TUqU5/yNBUIV7btLL5Bnb
-         B62Fq8rFrEh8k6KY0KVcTfaaAScnwlNZ4GvLRjdPEjVzhBJUmszrlGk1GFZXJKylVrc1
-         8beS0JG052NRUSutnDhE7yte0M0eaOv/qyFZy3wTeHWyATJeGtJX+LxhR4q9GDgwj0RI
-         hl24/Ocyw2LLKP/b0oUdOMqYhhH+8/9SfMM4ln3Moh9R4jcCuXBf7CamJVvZsWw09eb4
-         VsIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783294409; x=1783899209;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1783295615; x=1783900415; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qWgX8hRK0wDWBZMkA2UqYafCnMgGjGfI+mUA5gi2rBg=;
-        b=Y1XXowjHoI5IcnBkX9Z50KIMPirLa+10Gu68YFu9XUSGFLJwSHcnTwuOcBJrJeCgaZ
-         7zrQXwGDjWlLAXToaHI+kjBXB5Pf+7bKbYh0L+YLLE2TXOKFQxcufRuMvB1BwzvxEk+j
-         VCGi10y/wqwgw/jhja3aO3moGED5ciRHdJqnDORi+ySWwFNB8JBk7AFFVotjrwoFKqqp
-         iBM7+o+cn8y/lT+Vm1EvKnb7T1H2tfnh01nNI9gACjntmfoNaCTcta4MeMLaX1IBJDQc
-         R9ci2cnpTLN/n4EP6CMzU250kI9ybpO/4lkFga6xtp+qXLoO6d72/6+qlItPDgfATUKL
-         xntw==
-X-Forwarded-Encrypted: i=1; AHgh+RqGO4alqSnpWYBdS1s10Z1vlxqxmfA1zO3Hwe4f+WUgl2WMjJag3b42rPGfKanSTZ5/ZkdmGng=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxRlM7bQbXuCjIoINLSSwHaCYK3Hqa96s6YM9foLJL8RsLDU8cY
-	yXvTY8DrLghlXSqGcpx7J+nW4FTa+8eL0JQv9rcH8X3Z+Yx82H2R19cj9s/cTtW03h6NRUG1bs4
-	2KOaxSQJTtx/wV74Fer3bJmUOsERx6nrbB2lhBWlDsEsoqfsHCKy+CAOTEg==
-X-Gm-Gg: AfdE7cnzkbBPDyf3Iw8QrH7a3RAyMIpPrjbH5GfxXOWRcGBOVqVhW0C+UdGt7bGEd31
-	YDG0asjQXRFuEvF2/nGm0VGFLWJJ/P3IyE9+KDkB9E8oQRgzIHUBhELkmzo41/A2M+6TqVp//3N
-	Y2QdFc4Eq5fUNTd6vAhSYyNOsPlozO2CsftuXr5rd8+cUJcFzW5ygi2LV/9szRWUicP4PaN8W1N
-	WT6ZUbGNgua4OjKTGM3F4phTxEOUyrpyNYGlcW2OtKFDgxjXVQTqHQCNrnaLUu9MJXAZ59pyZMW
-	a+AtqmaLtszmkrDcCybQD5MnzcfAMY3dh1+c22v5vMDYU65lyrsxMsi2d8guyhRBjNCD4lrNaaN
-	gpaqpZetWzgn3IVXApGQFKXlNeuPQXrsSSmOWiYni+dORblBODiU6tHOBqw==
-X-Received: by 2002:a17:902:fa84:b0:2ca:52ce:6f91 with SMTP id d9443c01a7336-2cbb9eb434bmr53329275ad.27.1783294409590;
-        Sun, 05 Jul 2026 16:33:29 -0700 (PDT)
-X-Received: by 2002:a17:902:fa84:b0:2ca:52ce:6f91 with SMTP id d9443c01a7336-2cbb9eb434bmr53328835ad.27.1783294409024;
-        Sun, 05 Jul 2026 16:33:29 -0700 (PDT)
-Received: from localhost.localdomain.com (122-63-66-137.mobile.spark.co.nz. [122.63.66.137])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad789237bsm38168945ad.71.2026.07.05.16.33.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 05 Jul 2026 16:33:28 -0700 (PDT)
-From: Tao Liu <ltao@redhat.com>
-To: pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr
-Cc: linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	bhe@redhat.com,
-	zohar@linux.ibm.com,
-	roberto.sassu@huawei.com,
-	dmitry.kasatkin@gmail.com,
-	eric.snowberg@oracle.com,
-	linux-integrity@vger.kernel.org,
-	pratyush@kernel.org,
-	Markus.Elfring@web.de,
-	kernel-janitors@vger.kernel.org,
-	jarkko@kernel.org,
-	Tao Liu <ltao@redhat.com>,
-	stable@vger.kernel.org,
-	Nutty Liu <nutty.liu@hotmail.com>
-Subject: [PATCH v5] riscv: Prevent NULL pointer dereference in machine_kexec_prepare()
-Date: Mon,  6 Jul 2026 11:27:07 +1200
-Message-ID: <20260705232706.30265-2-ltao@redhat.com>
-X-Mailer: git-send-email 2.54.0
+        bh=TTWw1o0EuThgWnzsFpwy1aimUMVGloN7lcc8yYZAv7Y=;
+        b=DVCwGSMT/2TeiSgXl2WpnZdhtYIyGKX5lHdylJOWp+bXjdlo0UdMRMn5hKoU3CxGRV
+         sSr3yZDdDH4DuwT42oD5NcYuiYr4DxwZrHcTvQJqTw4Q0qL//yhR6bypUhnhIgqi6VMO
+         VPrmdZyTmurZGwBIV+jfhUVqwSCnFQVpiUKlRrga8FhZoms+Xgj/fSy8xrXZHfXl69m3
+         qnslDeKLE18Kk/su1RLwzNw3pdEl5zmf9WsSleasQUbj4uYCkfpbOaG6JY6J8L6Ufqew
+         9oirABhoXjZZNzlnwSL+okPmCSWHYybdYZm048R3VROci0y8F8I6/aRJuXAROgoM/pve
+         dzlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783295615; x=1783900415;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=TTWw1o0EuThgWnzsFpwy1aimUMVGloN7lcc8yYZAv7Y=;
+        b=DjIIRs0cocGZ0ZnlLvdKqWNMMY2NLYEPj29hm9KCT9EfwwHTY3eRl5GkgsQK4o8y8B
+         MQheX/sPWkEap2Dax0AMv+dhop78x9OgVMjRkLtNu+iOk9vwOqj2kkMfY+h0sH+W8J7A
+         lt9bmWvbmU7GRQEHl97p+uv1hE6q2cg/Tom5HxOd4xDrnfZhLNAc0+Rmb0IzyFw3nW0Q
+         uygl38xlsXqPL3rP+1Y0qT+Rffo/EnDl2wxh+Ro95op3r50zxOdYMhIi/OfDQAV9PDP+
+         keoip6p5izCS/WKsZBH+GRcxI5te4ickNhHeHOo9oKCtKp9ABFc1GrNytiANft0b16H5
+         f56g==
+X-Forwarded-Encrypted: i=1; AHgh+RqKmxMcrjLPxlynXD88il5CrQo0qhVVtyqB/gRrjZrurMC4o703XmjW+d2LDPtLYLNCvG2jsUg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyO0br75Kv76iZLW4h/VwsApjELYRgSXhKc3rcTaUxpoSwCJ5uE
+	qRh6LCC1lmSgx/J7uqjnLPQq2nnIIVX0e30U62WaGGXoUsSGDQayHdnC2B0VVga0Wv4/5ivPqWW
+	syxN5RKnNOjktOEpQ4mNZ/G8wvTbSCwQ=
+X-Gm-Gg: AfdE7cmqtQakgTG8HxNjS6GV4Cr2wweO2O659ptVsN63ob79rPKcqO/D5K4oByKPq8a
+	KPHAQwVcLeePYIxokBSzEJu42zckVwwJUopFDdKHJ2laMJfyMiKdX+amq6k0+jxPp8Azoumgm3Y
+	3U1eMUcObWwnwjjis9LGTH3XDnvhR7cqvUoTQsSHXn2Ng1uqBo2L+1vSyXVFatvdzLMJrnNEnLQ
+	MtnxLSIDh0IU9YkXfmnmoGTMgG5VQsd60pxOi65vDTD6JF3zjrNg4Vy5507WvAGS1YYVwaH
+X-Received: by 2002:a05:6512:b84:b0:5ae:a9eb:c5c3 with SMTP id
+ 2adb3069b0e04-5aed50a6a58mr1605009e87.61.1783295614623; Sun, 05 Jul 2026
+ 16:53:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <0B853B9F28048C99+20260703054528.2798189-1-peiyang_he@smail.nju.edu.cn>
+In-Reply-To: <0B853B9F28048C99+20260703054528.2798189-1-peiyang_he@smail.nju.edu.cn>
+From: Hyunchul Lee <hyc.lee@gmail.com>
+Date: Mon, 6 Jul 2026 08:53:23 +0900
+X-Gm-Features: AVVi8CdhdpUar1OlK7-HXFR-uDvQpqXaVafcsI4eb6LynpHfQxh21iiOmWvg1ao
+Message-ID: <CANFS6bbjC2=BrmsAdm4h-KW8DD3ou4+sfS9JmWjx31=56YXq5g@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: fail attrlist updates when the superblock is inactive
+To: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Cc: Namjae Jeon <linkinjeon@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A NULL pointer dereference issue is noticed in riscv's machine_kexec_prepare(),
-where image->segment[i].buf might be NULL and copied unchecked.
+2026=EB=85=84 7=EC=9B=94 3=EC=9D=BC (=EA=B8=88) =EC=98=A4=ED=9B=84 2:46, Pe=
+iyang He <peiyang_he@smail.nju.edu.cn>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
+:
+>
+> generic_shutdown_super() clears SB_ACTIVE before evicting cached inodes.
+> If eviction selects the fake inode for a base inode's unnamed
+> $ATTRIBUTE_LIST attribute, ntfs_evict_big_inode() drops the fake inode's
+> reference on the base inode while the fake inode is still hashed and mark=
+ed
+> I_FREEING.
+>
+> That iput can synchronously write back the base inode. The writeback path
+> may update mapping pairs and call ntfs_attrlist_update(), which
+> unconditionally calls ntfs_attr_iget() for the same $ATTRIBUTE_LIST fake
+> inode. VFS then finds the I_FREEING inode and waits for eviction to finis=
+h,
+> but the current task is still inside that eviction path, causing a
+> self-deadlock in find_inode().
+>
+> Fix this by mirroring the teardown guard used by __ntfs_write_inode():
+> once SB_ACTIVE has been cleared, do not try to iget the attribute-list fa=
+ke inode.
+> Return -EIO so teardown aborts the update instead of waiting on the inode=
+ it is evicting.
+>
+> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+> Closes: https://lore.kernel.org/all/AB8D5E603E6EA856+ae5f622a-dd3a-4e38-b=
+dd2-42276ae0e1a8@smail.nju.edu.cn/
+> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
 
-The NULL buf comes from ima_add_kexec_buffer(), where kbuf is added by
-kexec_add_buffer(), but kbuf.buffer is NULL, then it is copied without
-a check in machine_kexec_prepare():
+Could you add some comments?
+Other than that, it looks good to me.
 
-  kexec_file_load
-    -> kimage_file_alloc_init()
-       -> kimage_file_prepare_segments()
-          -> ima_add_kexec_buffer()
-             -> kexec_add_buffer()
-    -> machine_kexec_prepare()
-       -> memcpy()
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 
-Address this by adding a check before the data copy attempt.
+> Assisted-by: Codex:gpt-5.5
+> ---
+>  fs/ntfs/attrlist.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/fs/ntfs/attrlist.c b/fs/ntfs/attrlist.c
+> index afb13038ba42..1658cbe1fa59 100644
+> --- a/fs/ntfs/attrlist.c
+> +++ b/fs/ntfs/attrlist.c
+> @@ -57,6 +57,9 @@ int ntfs_attrlist_update(struct ntfs_inode *base_ni)
+>         struct ntfs_inode *attr_ni;
+>         int err;
+>
+> +       if (!(VFS_I(base_ni)->i_sb->s_flags & SB_ACTIVE))
+> +               return -EIO;
+> +
+>         attr_vi =3D ntfs_attr_iget(VFS_I(base_ni), AT_ATTRIBUTE_LIST, AT_=
+UNNAMED, 0);
+>         if (IS_ERR(attr_vi)) {
+>                 err =3D PTR_ERR(attr_vi);
+>
+> base-commit: 1a3746ccbb0a97bed3c06ccde6b880013b1dddc1
+> --
+> 2.43.0
+>
 
-Fixes: b7fb4d78a6ad ("RISC-V: use memcpy for kexec_file mode")
-Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/kexec/CAO7dBbVftLUhd2qrh7hmijTB3PEPfZAhykCGqEfrPoOcSrrj-w@mail.gmail.com/
-Acked-by: Baoquan He <bhe@redhat.com>
-Acked-by: Pratyush Yadav <pratyush@kernel.org>
-Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
-Signed-off-by: Tao Liu <ltao@redhat.com>
----
 
-v5 -> v4: 1) Add parentheses to function name in patch subject
-
-link to v1: https://lore.kernel.org/linux-riscv/20260529032739.13264-2-ltao@redhat.com/
-link to v2: https://lore.kernel.org/linux-riscv/20260627222602.23594-2-ltao@redhat.com/
-link to v3: https://lore.kernel.org/linux-riscv/20260701025732.66330-2-ltao@redhat.com/
-link to v4: https://lore.kernel.org/linux-riscv/20260703111530.91285-2-ltao@redhat.com/
-
----
- arch/riscv/kernel/machine_kexec.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/riscv/kernel/machine_kexec.c b/arch/riscv/kernel/machine_kexec.c
-index 2306ce3e5f22..738df176ff6f 100644
---- a/arch/riscv/kernel/machine_kexec.c
-+++ b/arch/riscv/kernel/machine_kexec.c
-@@ -41,6 +41,9 @@ machine_kexec_prepare(struct kimage *image)
- 		if (image->segment[i].memsz <= sizeof(fdt))
- 			continue;
- 
-+		if (!image->segment[i].buf)
-+			continue;
-+
- 		if (image->file_mode)
- 			memcpy(&fdt, image->segment[i].buf, sizeof(fdt));
- 		else if (copy_from_user(&fdt, image->segment[i].buf, sizeof(fdt)))
--- 
-2.54.0
-
+--=20
+Thanks,
+Hyunchul
