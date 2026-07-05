@@ -1,167 +1,85 @@
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33451A5B90;
-	Sun,  5 Jul 2026 08:24:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCCA364EA4;
+	Sun,  5 Jul 2026 08:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783239859; cv=none; b=hPcO0/n+WuSe0x9hkZ3/GUMMM21doIDBo6um53x8PkrN3Jynu6RUNC314YIYfbk/NfYUQHanADVDwMut7qMbSi4raRprnGBw84mwWpnOfAXQHro/0zJErUyZTsA9LVGEBV6Ifayq9e6LWq4rJ34QH1wLoD5XfGC/y0GcP6TeXxI=
+	t=1783240145; cv=none; b=NrLKxL2qcv9G0MFOCNcICU5oNT8J+r7GFCTqNHU69ptc5Y3uHaRapfVKysXofIv66pYwwk/OAc9EQTRof4lOjGypCNpsUrvHwwikEFgwjy1KVC5HzpmrqdW0eANeya0B8DkmJ1YTXHW38ZJnjh8SNX+DyOJjUefNBmcDbhq94k8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783239859; c=relaxed/simple;
-	bh=dJXc85mPbri0BpJs+6pV9WAwIcyRBD2c2BH3wJtGCIc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jAEU1yAh5kK71mKWxKNSBDiUsuRNjj+IMMDf2eCNXr+eCwtZh5Z9BoBG0mMuXEtKzHNKSuLaPYqX8J5LFN/M4x2F1WaCs0KLCY/7SoyA97lTswBhVa3qq0bapoJovu37x9LBAFgQQogbAyEmSh0SGylCve22PdecRnhtDXBxLrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; arc=none smtp.client-ip=141.14.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
-Received: from [192.168.2.221] (p5dc55dc6.dip0.t-ipconnect.de [93.197.93.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 5235E4C1F29982;
-	Sun, 05 Jul 2026 10:23:59 +0200 (CEST)
-Message-ID: <18399a54-f1b9-4831-ad43-b9bf43abf33e@molgen.mpg.de>
-Date: Sun, 5 Jul 2026 10:23:56 +0200
+	s=arc-20240116; t=1783240145; c=relaxed/simple;
+	bh=XriLQPx9jJwy388XOpkJtVlwjiplGlTEB33S1FoV+VE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fRzp0QRhwKxn+5hxhIEJFUvaJTGh07YFs/vMFH5d6Mgz2wPins5I4mUT5vAFgYzmyd/8CqeROq87OO52tr+cJGZpa0L/D5zdGtEhDP/jeGkUcNpUAVrKAfcIrmnM+UNorf1O291ifWyWDPGS8X2F2n9J1x+Zi0FfvN+iWujliUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=aC3S1SPF; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="aC3S1SPF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=a26LDP23I0jAoaKTwCFAOnHcyE8CbjAuBb0B0Ovkal8=; 
+	b=aC3S1SPFzzKDTfa/zPCawY64qY7G05Vgi64Zsz1BgZy8dpTThAH0oWSztCRFqm/dW2GNDea08PT
+	DvYTyNyMH/uxsr6pcLV44JyUfDTEfxXgdrOmOI9xtApnj7xtrlCbMyFIP2N7ZIOsfKmw7e0orK1Xl
+	V9RYLGlRXRTa+qQBq3z00zeX6+F7poQxEFoyzB04XUoe/j8r8Xq3pfnL0Mlx8GaiVXVhQXwyCnJnr
+	RnlO4iwEJUgK84jhUDs/QNJdEjtTsTZMv9ifl32Sh/aXam1c5XbN2EQLu5lcbSwZUEWoxRn59lCmo
+	YwcoTwgtlLlJwuLgVC3VQau4CKBlfX5XVHFw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1wgIDe-0000000AkwR-3oy5;
+	Sun, 05 Jul 2026 16:28:55 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Sun, 05 Jul 2026 16:28:54 +0800
+Date: Sun, 5 Jul 2026 16:28:54 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Thorsten Blum <thorsten.blum@linux.dev>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Nicolas Royer <nicolas@eukrea.com>,
+	Eric =?iso-8859-1?Q?B=E9nard?= <eric@eukrea.com>,
+	stable@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] crypto: atmel-tdes - use scatterlist length before
+ DMA mapping
+Message-ID: <akoVxtnZkHP-Le_0@gondor.apana.org.au>
+References: <20260611103633.458381-3-thorsten.blum@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Bluetooth: btusb: Add ASUS USB-BT540 and USB-BT600 for
- Realtek 8761CU
-To: cito@online.de
-Cc: linux-bluetooth@vger.kernel.org, marcel@holtmann.org,
- luiz.dentz@gmail.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260704231312.340274-1-cito@online.de>
-Content-Language: en-US
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20260704231312.340274-1-cito@online.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260611103633.458381-3-thorsten.blum@linux.dev>
 
-Dear Christoph,
-
-
-Thank you for the patch.
-
-Am 05.07.26 um 01:13 schrieb cito@online.de:
-> From: Christoph Zwerschke <cito@online.de>
+On Thu, Jun 11, 2026 at 12:36:35PM +0200, Thorsten Blum wrote:
+> Using sg_dma_len() is only valid after mapping the scatterlist with
+> dma_map_sg(). However, atmel_tdes_crypt_start() uses it before mapping
+> to compare input/output lengths and to compute the transfer count.
 > 
-> Add the vendor/product IDs (0x0b05, 0x1bef) and (0x0b05, 0x1d70) to the
-> usb_device_id table for the Realtek RTL8761CU-based ASUS USB-BT540 and
-> USB-BT600 adapters. Both bind via the generic Bluetooth class today, so
-> BTUSB_REALTEK is never set and the rtl8761cu firmware is not loaded,
-> leaving the controller non-functional. With the entries the driver loads
-> rtl_bt/rtl8761cu_fw.bin (already shipped by linux-firmware) and the
-> adapters work (tested: A2DP and ASHA).
-
-I recommend to make it two patches. (The summary/title would also be 
-shorter then.)
-
-> Similar to commit bc597f0cc44f
-> ("Bluetooth: btusb: Add TP-Link UB600 for Realtek 8761BUV").
+> Use the original scatterlist lengths before DMA mapping to avoid reading
+> stale or uninitialized DMA lengths when CONFIG_NEED_SG_DMA_LENGTH=y.
 > 
-> Both adapters share the same descriptor layout and differ only in
-> idProduct, hence a single patch adding both entries.
+> Drop the output scatterlist length in the fast path since it is equal to
+> ->in_sg->length and does not change the transfer count.
 > 
-> Device info from /sys/kernel/debug/usb/devices:
-> 
-> T:  Bus=01 Lev=01 Prnt=01 Port=01 Cnt=01 Dev#= 22 Spd=12   MxCh= 0
-> D:  Ver= 1.10 Cls=e0(wlcon) Sub=01 Prot=01 MxPS=64 #Cfgs=  1
-> P:  Vendor=0b05 ProdID=1bef Rev= 2.00
-> S:  Manufacturer=Realtek
-> S:  Product=Bluetooth Controller
-> C:* #Ifs= 2 Cfg#= 1 Atr=e0 MxPwr=100mA
-> I:* If#= 0 Alt= 0 #EPs= 3 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=81(I) Atr=03(Int.) MxPS=  64 Ivl=1ms
-> E:  Ad=02(O) Atr=02(Bulk) MxPS=  64 Ivl=0ms
-> E:  Ad=82(I) Atr=02(Bulk) MxPS=  64 Ivl=0ms
-> I:* If#= 1 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=   0 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=   0 Ivl=1ms
-> I:  If#= 1 Alt= 1 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=   9 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=   9 Ivl=1ms
-> I:  If#= 1 Alt= 2 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=  17 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=  17 Ivl=1ms
-> I:  If#= 1 Alt= 3 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=  25 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=  25 Ivl=1ms
-> I:  If#= 1 Alt= 4 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=  33 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=  33 Ivl=1ms
-> I:  If#= 1 Alt= 5 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=  49 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=  49 Ivl=1ms
-> I:  If#= 1 Alt= 6 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=  63 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=  63 Ivl=1ms
-> 
-> T:  Bus=01 Lev=01 Prnt=01 Port=01 Cnt=01 Dev#= 23 Spd=12   MxCh= 0
-> D:  Ver= 1.10 Cls=e0(wlcon) Sub=01 Prot=01 MxPS=64 #Cfgs=  1
-> P:  Vendor=0b05 ProdID=1d70 Rev= 2.00
-> S:  Manufacturer=Realtek
-> S:  Product=Bluetooth Controller
-> C:* #Ifs= 2 Cfg#= 1 Atr=e0 MxPwr=100mA
-> I:* If#= 0 Alt= 0 #EPs= 3 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=81(I) Atr=03(Int.) MxPS=  64 Ivl=1ms
-> E:  Ad=02(O) Atr=02(Bulk) MxPS=  64 Ivl=0ms
-> E:  Ad=82(I) Atr=02(Bulk) MxPS=  64 Ivl=0ms
-> I:* If#= 1 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=   0 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=   0 Ivl=1ms
-> I:  If#= 1 Alt= 1 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=   9 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=   9 Ivl=1ms
-> I:  If#= 1 Alt= 2 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=  17 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=  17 Ivl=1ms
-> I:  If#= 1 Alt= 3 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=  25 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=  25 Ivl=1ms
-> I:  If#= 1 Alt= 4 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=  33 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=  33 Ivl=1ms
-> I:  If#= 1 Alt= 5 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=  49 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=  49 Ivl=1ms
-> I:  If#= 1 Alt= 6 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-> E:  Ad=83(I) Atr=01(Isoc) MxPS=  63 Ivl=1ms
-> E:  Ad=03(O) Atr=01(Isoc) MxPS=  63 Ivl=1ms
-> 
+> Fixes: 13802005d8f2 ("crypto: atmel - add Atmel DES/TDES driver")
+> Fixes: 1f858040c2f7 ("crypto: atmel-tdes - add support for latest release of the IP (0x700)")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Christoph Zwerschke <cito@online.de>
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 > ---
->   drivers/bluetooth/btusb.c | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-> index e9b0b1dcc1d1..9726a007d25a 100644
-> --- a/drivers/bluetooth/btusb.c
-> +++ b/drivers/bluetooth/btusb.c
-> @@ -856,6 +856,12 @@ static const struct usb_device_id quirks_table[] = {
->   	{ USB_DEVICE(0x37ad, 0x0600), .driver_info = BTUSB_REALTEK |
->   						     BTUSB_WIDEBAND_SPEECH },
->   
-> +	/* Additional Realtek 8761CU Bluetooth devices */
-> +	{ USB_DEVICE(0x0b05, 0x1bef), .driver_info = BTUSB_REALTEK |
-> +						     BTUSB_WIDEBAND_SPEECH },
-> +	{ USB_DEVICE(0x0b05, 0x1d70), .driver_info = BTUSB_REALTEK |
-> +						     BTUSB_WIDEBAND_SPEECH },
-> +
->   	/* Additional Realtek 8821AE Bluetooth devices */
->   	{ USB_DEVICE(0x0b05, 0x17dc), .driver_info = BTUSB_REALTEK },
->   	{ USB_DEVICE(0x13d3, 0x3414), .driver_info = BTUSB_REALTEK },
+> Changes in v2:
+> - Drop ->out_sg->length in the fast path (Herbert)
+> - v1: https://lore.kernel.org/lkml/20260531204115.689052-3-thorsten.blum@linux.dev/
+> ---
+>  drivers/crypto/atmel-tdes.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
 
-Either way, this looks good.
-
-Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
-
-
-Kind regards,
-
-Paul
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
