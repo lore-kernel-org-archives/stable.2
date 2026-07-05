@@ -1,82 +1,88 @@
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BDF25B085;
-	Sun,  5 Jul 2026 07:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB9A364EA4;
+	Sun,  5 Jul 2026 07:51:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783237885; cv=none; b=B2vcEqviP0iAsJR8sR7fVU0aFMiqM3oPDDet+OluJKK28e7/KmJij0HEtQneR7ANtEhEcAp12AruyLyFzn8gFy4yzYdk0YZmFHkJvDRfrc88zmoVWRZueeNqmqzJjP5Da60mognrKFJA5C/mI2YHftvGJc7no2qOBpzpRlTG38E=
+	t=1783237887; cv=none; b=UGlR+ISjxuOQovNCm+74bUss84OeMENhrEpVVMpA4kkKXX3jNgQTnPpQzdwBOLSvFOr3PVdq/b+txClvWBPj5uW0eKXlJM/wqFEc5rhUnsi2sTQvd7eWpti/z9M5mpaSif+t4eo/ro3FLUjFmrrB9cAv64Mh+G4NH5Nr4QrZjgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783237885; c=relaxed/simple;
-	bh=3Bwt3M2wgCD6OzbUoQOBKFvxA1RF5WcWe7RcrhPcR6U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b6XmMrL7A6+yoJF1vWwHdMhzKCR4324voLtOF8EeReLwoewzlyx90RRM+v3UEEMpgRN1LHbSRNX0hLCi3IR0j0dMmRQrYhPwTCthvskGAw9zpacyvm92MR7uEK9EB59rz5x60xc/zbCOidSZn+WwxAMCNQWqDhJ56NJB+NySFX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ssjovp9a; arc=none smtp.client-ip=115.124.30.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1783237887; c=relaxed/simple;
+	bh=QzgwtEMrdOwbHwOqBYwXkfIPstfanTnnQ52weLckbbs=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=ImyM0UOJs7bHKPNMHQYnDt4rJ/+SaDFP/UVy8+Q6XBN1AL8ij35F9yrU67YVHx1GSUusDqqmjonEaEz+XZwxfACMd9OZSWctzuhlHt56uJvyHEmq+nwUR1AdbY5h0OwyvMmzseoEwhYTCzMKxC2DXA6LTSSl3gDHus0nHUf6SqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1r3H7rex; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ssjovp9a"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1783237872; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=3Bwt3M2wgCD6OzbUoQOBKFvxA1RF5WcWe7RcrhPcR6U=;
-	b=ssjovp9aOS8hCMvUKxOfuNBz7S1ll5edj1evaCRL9847Ky+12i3artmKT0ewnHwiG7XLwqU0iVR0834v2ExuoNjlwsiTiaAmyYaODHq0un5Jt4V17kasKr6JgBSpPglBuZiNX6eNM+PvgRKLRa5jyTLRrEwFi8PJYPNektq8P8Q=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0X6NSY3p_1783237870;
-Received: from 30.170.105.22(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0X6NSY3p_1783237870 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sun, 05 Jul 2026 15:51:10 +0800
-Message-ID: <93838bc1-01d5-4def-87a2-729d9f2115d7@linux.alibaba.com>
-Date: Sun, 5 Jul 2026 15:51:09 +0800
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1r3H7rex"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C02A1F000E9;
+	Sun,  5 Jul 2026 07:51:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1783237885;
+	bh=JmDzrGAApB3p232sFjl+IuA3F1DiyD0h9KZAveodTsk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=1r3H7rexoiQDRjGFt+Qjs33P1gVqh+LD73TOTn/BTY0t13tL4G1XibQWtwbBNLJiy
+	 /AbaYonfCEjLrKKi9OkCqN7wL49L3MbO1BuGftrDMhCvBcwuagImS8gD8y1Sf6ehPP
+	 UGSpFne62asm/Cvv+3d9/HGQrxu5PpvI24+a2L/o=
+Date: Sun, 5 Jul 2026 00:51:24 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>, "David Hildenbrand (Arm)"
+ <david@kernel.org>, Linus Torvalds <torvalds@linuxfoundation.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner
+ <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Oleg Nesterov
+ <oleg@redhat.com>, Peter Xu <peterx@redhat.com>, vova tokarev
+ <vladimirelitokarev@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, stable@vger.kernel.org
+Subject: Re: [PATCH] userfaultfd: prevent registration of special VMAs
+Message-Id: <20260705005124.307e2379ab03109e5f77bd1c@linux-foundation.org>
+In-Reply-To: <ake7PLwdHUHu4idi@lucifer>
+References: <5a993689-f730-406d-8515-8bb6025cc851@kernel.org>
+	<ajOtfdGgFQYL-T6f@kernel.org>
+	<ajOvwGs5xhnfBu-k@kernel.org>
+	<41ef0dce-e973-4947-b5e3-150fdb07f1a6@kernel.org>
+	<ajO4sLq2UBciSgOn@kernel.org>
+	<dd2ae577-9b7d-4e40-81d0-fa9fcd7e0767@kernel.org>
+	<ajO7yI541hphWRb8@kernel.org>
+	<11bae87d-73e6-4946-a41f-c5542fb40b75@kernel.org>
+	<akeJdxdZXAFb8XCr@lucifer>
+	<ake3JZJPYHP-0N7n@kernel.org>
+	<ake7PLwdHUHu4idi@lucifer>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ext4: get rid of ppath in get_ext_path()
-To: Sasha Levin <sashal@kernel.org>
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>, Wang Jun <1742789905@qq.com>,
- tytso@mit.edu, adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, libaokun1@huawei.com,
- 25125332@bjtu.edu.cn, Jan Kara <jack@suse.cz>,
- Ojaswin Mujoo <ojaswin@linux.ibm.com>, Greg KH <gregkh@linuxfoundation.org>
-References: <2026070315-crescent-factoid-616d@gregkh>
- <2026070315-stable-reply-0002@kernel.org>
-From: Baokun Li <libaokun@linux.alibaba.com>
-In-Reply-To: <2026070315-stable-reply-0002@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 2026/7/4 10:04, Sasha Levin wrote:
-> On Fri, Jul 03, 2026 at 10:20:35AM +0200, Greg KH wrote:
->> On Fri, Jul 03, 2026 at 03:57:09PM +0800, Baokun Li wrote:
->>> Either applying this fix patchset or reverting the incorrectly merged
->>> commit should resolve the issue.
->> How about submitting a revert so that we can start fresh and work from
->> there?
-> I've queued upstream 6b854d552711 ("ext4: get rid of ppath in get_ext_path()")
-> for 6.6.y. It completes the partial series that went into 6.6.130 (which
-> stopped one patch short of it) and adds the IS_ERR_OR_NULL() checks to
-> ext4_free_ext_path() / ext4_ext_drop_refs(), resolving the reported oops. Yoann
-> Congal also posted a backport of the same commit yesterday.
->
-> Given that 6.6.y is nine patches into this series, completing it looked
-> less risky than unwinding all of them plus redoing the fixes on top.
->
-> Baokun, if the other two patches from yangerkun's April set
-> (ext4_force_split_extent_at() / convert_initialized_extent()) are still
-> needed on 6.6.y, I'm happy to take those as well.
->
+On Fri, 3 Jul 2026 14:38:56 +0100 Lorenzo Stoakes <ljs@kernel.org> wrote:
 
-Thanks for your work! Backporting just the first patch is sufficient
-to address the reported issue.
+> On Fri, Jul 03, 2026 at 04:20:37PM +0300, Mike Rapoport wrote:
+> > On Fri, Jul 03, 2026 at 11:11:14AM +0100, Lorenzo Stoakes wrote:
+> > > On Thu, Jun 18, 2026 at 11:37:10AM +0200, David Hildenbrand (Arm) wrote:
+> > > > > In a way that's an extra check for hugetlb, but it will work.
+> > > >
+> > > > My point would be that we exclude all special VMAs, except hugetlb (which is
+> > > > special but supported ... in its special way).
+> > >
+> > > Mike - you said you were respinning, it'd help my series if you respan the above
+> > > quickly so I could base my change on that :).
+> >
+> > I sent it already:
+> >
+> > https://lore.kernel.org/all/20260618095017.2553004-1-rppt@kernel.org
+> >
+> > and Andrew apparently ook it:
+> >
+> > https://lore.kernel.org/all/20260618183442.BBCD71F000E9@smtp.kernel.org
+> 
+> It's not anywhere :)
+> 
+> Andrew - did you take that thread as signal this should not go in?
+> 
+> It should definitely go in. I will clean up the mess discussed there separately.
 
-The other two are there to keep the interface consistent and to avoid
-potential issues with future adaptations, but it's fine to leave them
-out for now.
-
-
-Cheers,
-Baokun
-
+Thanks, yes, I added it then hid it when Linus objected.  I'll unhide
+it now.
