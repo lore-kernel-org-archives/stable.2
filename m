@@ -1,106 +1,167 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE321A5B90;
-	Sun,  5 Jul 2026 08:21:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33451A5B90;
+	Sun,  5 Jul 2026 08:24:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783239681; cv=none; b=Z3dSL5Revxa9oCbQlgAbZUDJL56IEI/So5lVFIZaJi25pIis3hiP/yKB2F/8B63NpLxUoXUeYDfpINV0CwobHBJrEasWdy0g8dA1svLIXuXFiVzd/YzNXlThQlORrRxAWgRHqleKvL6+bbV2qPN15kmYoYtR7aZKseNHuWtkNPc=
+	t=1783239859; cv=none; b=hPcO0/n+WuSe0x9hkZ3/GUMMM21doIDBo6um53x8PkrN3Jynu6RUNC314YIYfbk/NfYUQHanADVDwMut7qMbSi4raRprnGBw84mwWpnOfAXQHro/0zJErUyZTsA9LVGEBV6Ifayq9e6LWq4rJ34QH1wLoD5XfGC/y0GcP6TeXxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783239681; c=relaxed/simple;
-	bh=YbdgeRuX3ynm03Agwub6U+huy0SG0DYvhedvkV8qgHw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WQdy/WOtxM4pl0r2n5wPRr9CUUI3ilYTdiEkErZJr2YQ7sJ3zzZBA0/rc326DcKu9yB5VT8uV0YwvK1srB0Kfm7/GEaQQlXpIsPYl9TJIbi58NuPbUKkTBOWSyhzOYLfLvcR3XHIHzG+7Bi2TcCYYgDgXJj8+itFapoZa2ptteo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 7a7b9f32784a11f1aa26b74ffac11d73-20260705
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:a6398748-fa9e-407b-8b50-4517535e9794,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
-	ION:release,TS:-50
-X-CID-META: VersionHash:e7bac3a,CLOUDID:58474abc3c0e55c9a55465de6d67677f,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
-	DM:2,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
-	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 7a7b9f32784a11f1aa26b74ffac11d73-20260705
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1580939437; Sun, 05 Jul 2026 16:21:10 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: vkoul@kernel.org,
-	Frank.Li@kernel.org,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	samuel@sholland.org
-Cc: dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] dmaengine: sun6i: Fix potential deadlock in dma_terminate_all and pause
-Date: Sun,  5 Jul 2026 16:21:05 +0800
-Message-Id: <20260705082105.13325-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1783239859; c=relaxed/simple;
+	bh=dJXc85mPbri0BpJs+6pV9WAwIcyRBD2c2BH3wJtGCIc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jAEU1yAh5kK71mKWxKNSBDiUsuRNjj+IMMDf2eCNXr+eCwtZh5Z9BoBG0mMuXEtKzHNKSuLaPYqX8J5LFN/M4x2F1WaCs0KLCY/7SoyA97lTswBhVa3qq0bapoJovu37x9LBAFgQQogbAyEmSh0SGylCve22PdecRnhtDXBxLrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; arc=none smtp.client-ip=141.14.17.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
+Received: from [192.168.2.221] (p5dc55dc6.dip0.t-ipconnect.de [93.197.93.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pmenzel)
+	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 5235E4C1F29982;
+	Sun, 05 Jul 2026 10:23:59 +0200 (CEST)
+Message-ID: <18399a54-f1b9-4831-ad43-b9bf43abf33e@molgen.mpg.de>
+Date: Sun, 5 Jul 2026 10:23:56 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Bluetooth: btusb: Add ASUS USB-BT540 and USB-BT600 for
+ Realtek 8761CU
+To: cito@online.de
+Cc: linux-bluetooth@vger.kernel.org, marcel@holtmann.org,
+ luiz.dentz@gmail.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260704231312.340274-1-cito@online.de>
+Content-Language: en-US
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20260704231312.340274-1-cito@online.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-sun6i_dma_terminate_all() and sun6i_dma_pause() acquire sdev->lock
-with plain spin_lock() from process context. If a DMA interrupt fires
-on the same CPU while the lock is held, the interrupt handler schedules
-sun6i_dma_tasklet(), which runs in softirq context and attempts to
-acquire the same lock with spin_lock_irq(), causing a deadlock.
+Dear Christoph,
 
-Fix by using spin_lock_irq() to disable interrupts while holding
-sdev->lock, consistent with other call sites.
 
-Fixes: ba489fd46ab6 ("dmaengine: sun6i: Add support for Allwinner A31 DMA controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
- drivers/dma/sun6i-dma.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Thank you for the patch.
 
-diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-index a9a254dbf8cb..37b143a8f75e 100644
---- a/drivers/dma/sun6i-dma.c
-+++ b/drivers/dma/sun6i-dma.c
-@@ -898,9 +898,9 @@ static int sun6i_dma_pause(struct dma_chan *chan)
- 		writel(DMA_CHAN_PAUSE_PAUSE,
- 		       pchan->base + DMA_CHAN_PAUSE);
- 	} else {
--		spin_lock(&sdev->lock);
-+		spin_lock_irq(&sdev->lock);
- 		list_del_init(&vchan->node);
--		spin_unlock(&sdev->lock);
-+		spin_unlock_irq(&sdev->lock);
- 	}
- 
- 	return 0;
-@@ -939,9 +939,9 @@ static int sun6i_dma_terminate_all(struct dma_chan *chan)
- 	unsigned long flags;
- 	LIST_HEAD(head);
- 
--	spin_lock(&sdev->lock);
-+	spin_lock_irq(&sdev->lock);
- 	list_del_init(&vchan->node);
--	spin_unlock(&sdev->lock);
-+	spin_unlock_irq(&sdev->lock);
- 
- 	spin_lock_irqsave(&vchan->vc.lock, flags);
- 
--- 
-2.25.1
+Am 05.07.26 um 01:13 schrieb cito@online.de:
+> From: Christoph Zwerschke <cito@online.de>
+> 
+> Add the vendor/product IDs (0x0b05, 0x1bef) and (0x0b05, 0x1d70) to the
+> usb_device_id table for the Realtek RTL8761CU-based ASUS USB-BT540 and
+> USB-BT600 adapters. Both bind via the generic Bluetooth class today, so
+> BTUSB_REALTEK is never set and the rtl8761cu firmware is not loaded,
+> leaving the controller non-functional. With the entries the driver loads
+> rtl_bt/rtl8761cu_fw.bin (already shipped by linux-firmware) and the
+> adapters work (tested: A2DP and ASHA).
 
+I recommend to make it two patches. (The summary/title would also be 
+shorter then.)
+
+> Similar to commit bc597f0cc44f
+> ("Bluetooth: btusb: Add TP-Link UB600 for Realtek 8761BUV").
+> 
+> Both adapters share the same descriptor layout and differ only in
+> idProduct, hence a single patch adding both entries.
+> 
+> Device info from /sys/kernel/debug/usb/devices:
+> 
+> T:  Bus=01 Lev=01 Prnt=01 Port=01 Cnt=01 Dev#= 22 Spd=12   MxCh= 0
+> D:  Ver= 1.10 Cls=e0(wlcon) Sub=01 Prot=01 MxPS=64 #Cfgs=  1
+> P:  Vendor=0b05 ProdID=1bef Rev= 2.00
+> S:  Manufacturer=Realtek
+> S:  Product=Bluetooth Controller
+> C:* #Ifs= 2 Cfg#= 1 Atr=e0 MxPwr=100mA
+> I:* If#= 0 Alt= 0 #EPs= 3 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=81(I) Atr=03(Int.) MxPS=  64 Ivl=1ms
+> E:  Ad=02(O) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+> E:  Ad=82(I) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+> I:* If#= 1 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+> I:  If#= 1 Alt= 1 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=   9 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=   9 Ivl=1ms
+> I:  If#= 1 Alt= 2 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=  17 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=  17 Ivl=1ms
+> I:  If#= 1 Alt= 3 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=  25 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=  25 Ivl=1ms
+> I:  If#= 1 Alt= 4 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=  33 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=  33 Ivl=1ms
+> I:  If#= 1 Alt= 5 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=  49 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=  49 Ivl=1ms
+> I:  If#= 1 Alt= 6 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=  63 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=  63 Ivl=1ms
+> 
+> T:  Bus=01 Lev=01 Prnt=01 Port=01 Cnt=01 Dev#= 23 Spd=12   MxCh= 0
+> D:  Ver= 1.10 Cls=e0(wlcon) Sub=01 Prot=01 MxPS=64 #Cfgs=  1
+> P:  Vendor=0b05 ProdID=1d70 Rev= 2.00
+> S:  Manufacturer=Realtek
+> S:  Product=Bluetooth Controller
+> C:* #Ifs= 2 Cfg#= 1 Atr=e0 MxPwr=100mA
+> I:* If#= 0 Alt= 0 #EPs= 3 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=81(I) Atr=03(Int.) MxPS=  64 Ivl=1ms
+> E:  Ad=02(O) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+> E:  Ad=82(I) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+> I:* If#= 1 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+> I:  If#= 1 Alt= 1 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=   9 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=   9 Ivl=1ms
+> I:  If#= 1 Alt= 2 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=  17 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=  17 Ivl=1ms
+> I:  If#= 1 Alt= 3 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=  25 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=  25 Ivl=1ms
+> I:  If#= 1 Alt= 4 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=  33 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=  33 Ivl=1ms
+> I:  If#= 1 Alt= 5 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=  49 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=  49 Ivl=1ms
+> I:  If#= 1 Alt= 6 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+> E:  Ad=83(I) Atr=01(Isoc) MxPS=  63 Ivl=1ms
+> E:  Ad=03(O) Atr=01(Isoc) MxPS=  63 Ivl=1ms
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christoph Zwerschke <cito@online.de>
+> ---
+>   drivers/bluetooth/btusb.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+> index e9b0b1dcc1d1..9726a007d25a 100644
+> --- a/drivers/bluetooth/btusb.c
+> +++ b/drivers/bluetooth/btusb.c
+> @@ -856,6 +856,12 @@ static const struct usb_device_id quirks_table[] = {
+>   	{ USB_DEVICE(0x37ad, 0x0600), .driver_info = BTUSB_REALTEK |
+>   						     BTUSB_WIDEBAND_SPEECH },
+>   
+> +	/* Additional Realtek 8761CU Bluetooth devices */
+> +	{ USB_DEVICE(0x0b05, 0x1bef), .driver_info = BTUSB_REALTEK |
+> +						     BTUSB_WIDEBAND_SPEECH },
+> +	{ USB_DEVICE(0x0b05, 0x1d70), .driver_info = BTUSB_REALTEK |
+> +						     BTUSB_WIDEBAND_SPEECH },
+> +
+>   	/* Additional Realtek 8821AE Bluetooth devices */
+>   	{ USB_DEVICE(0x0b05, 0x17dc), .driver_info = BTUSB_REALTEK },
+>   	{ USB_DEVICE(0x13d3, 0x3414), .driver_info = BTUSB_REALTEK },
+
+Either way, this looks good.
+
+Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+
+
+Kind regards,
+
+Paul
