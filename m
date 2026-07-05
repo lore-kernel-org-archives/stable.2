@@ -1,205 +1,168 @@
-Received: from mail.srv.csmantle.top (mail.srv.csmantle.top [77.93.157.103])
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C7231E824;
-	Sun,  5 Jul 2026 09:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.93.157.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D7F41E98E3;
+	Sun,  5 Jul 2026 09:42:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.126.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783244216; cv=none; b=C9i7mDD0yauIB6Y1ro0cCUV/49rqNn5lF37vTlKDUM9JJimDpS44r9BNUTN36nWVkOiITZHmgKqPtD/KsDzEC0tPrb3LS0virkfknEPmTTqolH568sbHnvQfiC/S6pvMT1PwOglrUVckaigf2NnGYoRsuYxJtc4RLgGcSHv1xXg=
+	t=1783244536; cv=none; b=ewJ0+a4HV8vbATBkyJcuOd4e4mU3imPoZfoZXvZuhivZf2smP0cSIhEZja0XmQn8Lf4hOnTAMWZlM7c2j24JGitOdtbcX+FFOZa6g4bRj8FafWRKoqfNwQgrZYvvy6qFZDf+9r/Tjv/5yAwMlk5L114rl0Ga/CsrTsekDOhtLx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783244216; c=relaxed/simple;
-	bh=DYP/fAuTfWaqhSK56kenBZaNNFwDCi7MO9GMC1TyvwM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p834Rz3N+16o4vpUahvVc7YXdF1tt0vpvX0a3fy73LVw6qPuJ5nena6Knhz98PIyYPiueFguj4b2dKhalolADZDdiE9JUddRI/D+c7l8wwUj7BsTlwnUtfppKdaDhe65vXQ1vdBhdO26LHr/k40Lw21jbd31lZ3giWhLwrZO0QU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=csmantle.top; spf=pass smtp.mailfrom=csmantle.top; dkim=permerror (0-bit key) header.d=csmantle.top header.i=@csmantle.top header.b=bHC7lTc6; dkim=pass (3072-bit key) header.d=csmantle.top header.i=@csmantle.top header.b=Z6A4CxMk; arc=none smtp.client-ip=77.93.157.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=csmantle.top
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csmantle.top
+	s=arc-20240116; t=1783244536; c=relaxed/simple;
+	bh=ZBGK1DUZy1JnnsW4LV/3u7jU7jxCqAietPgRiP77l8g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bGzXn765x5kmjdw87ECqq5739uMrg+0V0RGswVq889StQReEnT0ZdrD9F4KFotS9RFDqfVm4g4AwpY5mhzHKbpuCgkrbdEayAPhmoOMHAhtb0SJA3p6AVIHHR9Zjr/QF90Rir4VBZptJ9zpQ5GuSFvQAB18iggpBT47xqrUP11k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=online.de; spf=pass smtp.mailfrom=online.de; dkim=pass (2048-bit key) header.d=online.de header.i=cito@online.de header.b=XBC9oJKx; arc=none smtp.client-ip=212.227.126.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=online.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=online.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=csmantle.top header.i=@csmantle.top header.b="bHC7lTc6";
-	dkim=pass (3072-bit key) header.d=csmantle.top header.i=@csmantle.top header.b="Z6A4CxMk"
-DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=csmantle.top; s=self-ed25519; h=BIMI-Selector:Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:In-Reply-To:References:BIMI-Selector;
-	bh=SceegF9V2UMZyJU5wVXKWyTzveddd4TbiOOhUTBe0qI=; t=1783244215; x=1783849015; 
-	b=bHC7lTc616rU//1j/gP5adwKdzZ6gAcAIBdyd40lU46KRbRosWhBVV52szCX53KGUZRizQtGT0e
-	thZnuSafmBg==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=csmantle.top; s=self-rsa3072; h=BIMI-Selector:Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:In-Reply-To:References:BIMI-Selector;
-	bh=SceegF9V2UMZyJU5wVXKWyTzveddd4TbiOOhUTBe0qI=; t=1783244215; x=1783849015; 
-	b=Z6A4CxMkmIh/FsEnT6Br2cnfWRe0grcbNmr3rb/unNVyK/D8CyTfC03K7iNlAIpIOhotmkJaoyE
-	Y4vyKupa0IZVqgADk3Fk2DRgv0meV0JR0sAedY923vcrs0c14PXXTapBjeS5D+RVYQWUJbLyJvL6q
-	tjoZqqouiu245boKfPQ9KnKEhtG+fU53QA+udgBrLaPDcYvDFI1Uh/gJbw2Gp/kFCn1IcziKVQKM8
-	ft7LpYwuM0n3NIh9yu2SItQyDDdm+WfLhMIlrvFu3mIi6UuBgP13A3+BZeU+oUE81MGfFCrya+P7c
-	AEApvdx0BnIClpZb1KrVvYc6sh7/FSpgKTD9wtfhJ3sSoD9RxspIaPYS2RPV16cmPxckfuhpRhDiE
-	Zr4Lz7yFZRKRsku8iK03s45WGBIW0DNzQRoyE5jEd87VPqNPtwnyHiIEjO6mkCkSZRVmhpsEnikUf
-	fgl+hzx2m7i0LLghuP0TxoZDcscRQVbytWcXoRiqjiT7A1U+J0y6;
-Received: from [103.167.64.98] (helo=loongcatbox)
-	by mail.srv.csmantle.top with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <rong.bao@csmantle.top>)
-	id 1wgJHG-00000000O6x-2we4;
-	Sun, 05 Jul 2026 17:36:42 +0800
-From: Rong Bao <rong.bao@csmantle.top>
-To: Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Chengwen Feng <fengchengwen@huawei.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Xi Ruoyao <xry111@xry111.site>,
-	Rong Bao <rong.bao@csmantle.top>,
-	Guo Ren <guoren@kernel.org>,
-	Thierry Reding <treding@nvidia.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Kexy Biscuit <kexybiscuit@aosc.io>,
-	Mingcong Bai <jeffbai@aosc.io>,
-	stable@vger.kernel.org,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 RESEND] loongarch: retrieve CPU package ID from PPTT when available
-Date: Sun,  5 Jul 2026 17:36:14 +0800
-Message-ID: <20260705093624.1079988-1-rong.bao@csmantle.top>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=online.de header.i=cito@online.de header.b="XBC9oJKx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=online.de;
+	s=s42582890; t=1783244532; x=1783849332; i=cito@online.de;
+	bh=YBT/Bgk6g7JRsFKZZBwuRTOgJDih51Z6UFhSee9f0vg=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=XBC9oJKxX+gmSnfr6drlEO9nv4Kp2UxdmBC+mYIfscL9mlmddge1vFUeNlVTniaK
+	 5WdOJdztVCtyvx+irEpwj4tP8hLEJw2LoTEdh0zu7RzRblqW7AdVFpCrGBCj76i+0
+	 aNbnU6cvc36NEKawQjXgyHvYjPPmZnAtpfJvOrlU6tKDkiUWy+vBtVR/sON6odAW1
+	 quVNNWf73kJhPItC7tthfdyLeWq7wQp4dFxCEk/P/2qZivomhuGEIhX9dUF6rx4mj
+	 kV3PrsCc3YL+cYUecInHe6SC0nAjA15eRxNxy9CPOm+JbcxehjrJAKKJzGXmgPqAQ
+	 ZUG4M2VvHBdpwMVpAA==
+X-UI-Sender-Class: 6003b46c-3fee-4677-9b8b-2b628d989298
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue009
+ [212.227.15.167]) with ESMTPSA (Nemesis) id 1Mzz6s-1x356q47SI-00tkFp; Sun, 05
+ Jul 2026 11:29:07 +0200
+From: cito@online.de
+To: linux-bluetooth@vger.kernel.org
+Cc: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Christoph Zwerschke <cito@online.de>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/2] Bluetooth: btusb: Add ASUS USB-BT600 for Realtek 8761CU
+Date: Sun,  5 Jul 2026 11:28:57 +0200
+Message-ID: <20260705092857.27050-3-cito@online.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260704231312.340274-1-cito@online.de>
+References: <20260704231312.340274-1-cito@online.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rcpt-Check: Accepted by authentication
-X-42: Don't panic! 
-BIMI-Selector: v=BIMI1; s=me
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:JKClyuqNH2xEAz6rPmFdUZP4w4kAT3brWbo5jy02GsfuU/3byK5
+ O0AYnwBxvAk+UDToHKhVBx+rj15TLk1oRow8nKwktYL2PSSDqZ/BipH728C9ZQW4363iBi8
+ WlH0crH/n7k0V8fkG8o5CfPpKjt93kLzh6OI+ETJ4+ykiu/03z63+qP8vAzXzjfCugtFLN0
+ 6eWNAHAGtSxiY8ibwOp+w==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:nU9UYqDc4gI=;5o2csYQn4vn/wSJBGAg/FYI0IH9
+ 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
+ pLIFhNww==
 
-Currently, the LoongArch CPU topology initialization code calculates
-each core's package ID by dividing its physical ID by
-loongson_sysconf.cores_per_package. This relies on the assumption that
-cores_per_package counts in the same domain as physical IDs.
+From: Christoph Zwerschke <cito@online.de>
 
-On Loongson 3B6000 (XB612B0V_1.2), cores_per_package matches the visible
-core count -- 24 in this case. However, the physical IDs range from 0 to
-31 in a noncontinuous fashion:
+Add the vendor/product ID (0x0b05, 0x1d70) to the usb_device_id table for
+the Realtek RTL8761CU-based ASUS USB-BT600 adapter. It binds via the
+generic Bluetooth class today, so BTUSB_REALTEK is never set and the
+rtl8761cu firmware is not loaded, leaving the controller non-functional.
+With the entry the driver loads rtl_bt/rtl8761cu_fw.bin (already shipped b=
+y
+linux-firmware) and the adapter works (tested: A2DP and ASHA).
 
-        $ cat /proc/cpuinfo | grep -i -F 'global_id'
-        global_id               : 0
-        global_id               : 1
-        global_id               : 4
-        global_id               : 5
-        global_id               : 6
-        global_id               : 7
-        global_id               : 8
-        global_id               : 9
-        global_id               : 10
-        global_id               : 11
-        global_id               : 14
-        global_id               : 15
-        global_id               : 16
-        global_id               : 17
-        global_id               : 20
-        global_id               : 21
-        global_id               : 22
-        global_id               : 23
-        global_id               : 26
-        global_id               : 27
-        global_id               : 28
-        global_id               : 29
-        global_id               : 30
-        global_id               : 31
+Similar to commit bc597f0cc44f
+("Bluetooth: btusb: Add TP-Link UB600 for Realtek 8761BUV").
 
-Retrieve the exact package ID from ACPI PPTT when available, in the same
-style as retrieving the core ID and thread ID in parse_acpi_topology().
-Use this information in loongson_init_secondary() when PPTT readout is
-successful. The original division logic is kept as a fallback.
+Device info from /sys/kernel/debug/usb/devices:
 
-Meanwhile, since some code paths like loongson3_cpufreq expect a
-continuous integer sequence of package IDs in [0, MAX_PACKAGES) when
-retrieving from cpu_data[], we also canonicalize the package ID to be
-filled in parse_acpi_topology() to meet such an expectation.
+T:  Bus=3D01 Lev=3D01 Prnt=3D01 Port=3D01 Cnt=3D01 Dev#=3D 23 Spd=3D12   M=
+xCh=3D 0
+D:  Ver=3D 1.10 Cls=3De0(wlcon) Sub=3D01 Prot=3D01 MxPS=3D64 #Cfgs=3D  1
+P:  Vendor=3D0b05 ProdID=3D1d70 Rev=3D 2.00
+S:  Manufacturer=3DRealtek
+S:  Product=3DBluetooth Controller
+C:* #Ifs=3D 2 Cfg#=3D 1 Atr=3De0 MxPwr=3D100mA
+I:* If#=3D 0 Alt=3D 0 #EPs=3D 3 Cls=3De0(wlcon) Sub=3D01 Prot=3D01 Driver=
+=3Dbtusb
+E:  Ad=3D81(I) Atr=3D03(Int.) MxPS=3D  64 Ivl=3D1ms
+E:  Ad=3D02(O) Atr=3D02(Bulk) MxPS=3D  64 Ivl=3D0ms
+E:  Ad=3D82(I) Atr=3D02(Bulk) MxPS=3D  64 Ivl=3D0ms
+I:* If#=3D 1 Alt=3D 0 #EPs=3D 2 Cls=3De0(wlcon) Sub=3D01 Prot=3D01 Driver=
+=3Dbtusb
+E:  Ad=3D83(I) Atr=3D01(Isoc) MxPS=3D   0 Ivl=3D1ms
+E:  Ad=3D03(O) Atr=3D01(Isoc) MxPS=3D   0 Ivl=3D1ms
+I:  If#=3D 1 Alt=3D 1 #EPs=3D 2 Cls=3De0(wlcon) Sub=3D01 Prot=3D01 Driver=
+=3Dbtusb
+E:  Ad=3D83(I) Atr=3D01(Isoc) MxPS=3D   9 Ivl=3D1ms
+E:  Ad=3D03(O) Atr=3D01(Isoc) MxPS=3D   9 Ivl=3D1ms
+I:  If#=3D 1 Alt=3D 2 #EPs=3D 2 Cls=3De0(wlcon) Sub=3D01 Prot=3D01 Driver=
+=3Dbtusb
+E:  Ad=3D83(I) Atr=3D01(Isoc) MxPS=3D  17 Ivl=3D1ms
+E:  Ad=3D03(O) Atr=3D01(Isoc) MxPS=3D  17 Ivl=3D1ms
+I:  If#=3D 1 Alt=3D 3 #EPs=3D 2 Cls=3De0(wlcon) Sub=3D01 Prot=3D01 Driver=
+=3Dbtusb
+E:  Ad=3D83(I) Atr=3D01(Isoc) MxPS=3D  25 Ivl=3D1ms
+E:  Ad=3D03(O) Atr=3D01(Isoc) MxPS=3D  25 Ivl=3D1ms
+I:  If#=3D 1 Alt=3D 4 #EPs=3D 2 Cls=3De0(wlcon) Sub=3D01 Prot=3D01 Driver=
+=3Dbtusb
+E:  Ad=3D83(I) Atr=3D01(Isoc) MxPS=3D  33 Ivl=3D1ms
+E:  Ad=3D03(O) Atr=3D01(Isoc) MxPS=3D  33 Ivl=3D1ms
+I:  If#=3D 1 Alt=3D 5 #EPs=3D 2 Cls=3De0(wlcon) Sub=3D01 Prot=3D01 Driver=
+=3Dbtusb
+E:  Ad=3D83(I) Atr=3D01(Isoc) MxPS=3D  49 Ivl=3D1ms
+E:  Ad=3D03(O) Atr=3D01(Isoc) MxPS=3D  49 Ivl=3D1ms
+I:  If#=3D 1 Alt=3D 6 #EPs=3D 2 Cls=3De0(wlcon) Sub=3D01 Prot=3D01 Driver=
+=3Dbtusb
+E:  Ad=3D83(I) Atr=3D01(Isoc) MxPS=3D  63 Ivl=3D1ms
+E:  Ad=3D03(O) Atr=3D01(Isoc) MxPS=3D  63 Ivl=3D1ms
 
 Cc: stable@vger.kernel.org
-Co-developed-by: Xi Ruoyao <xry111@xry111.site>
-Signed-off-by: Xi Ruoyao <xry111@xry111.site>
-Signed-off-by: Rong Bao <rong.bao@csmantle.top>
----
+Signed-off-by: Christoph Zwerschke <cito@online.de>
+=2D--
+ drivers/bluetooth/btusb.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-v1 -> v2:
-- Addressed and incorporated package ID canonicalization code suggested
-  by Ruoyao
-- Rebased onto present master
-
-v1: https://lore.kernel.org/loongarch/e18efdbb.AXMAAIuqLC8AAAAAAAAAA-ma1qEAAYKJPtkAAAAAADNVAQBpc5ot@mailjet.com/
-
----
- arch/loongarch/kernel/acpi.c | 28 +++++++++++++++++++++++++++-
- arch/loongarch/kernel/smp.c  |  2 +-
- 2 files changed, 28 insertions(+), 2 deletions(-)
-
-diff --git a/arch/loongarch/kernel/acpi.c b/arch/loongarch/kernel/acpi.c
-index 8f650c9ffecdecdac6bcb324123e222bd04dbcf2..9ad25c642dbc50485ad54a02ed818a34e639f219 100644
---- a/arch/loongarch/kernel/acpi.c
-+++ b/arch/loongarch/kernel/acpi.c
-@@ -202,9 +202,12 @@ static void __init acpi_process_madt(void)
- 
- int pptt_enabled;
- 
-+static int acpi_package_ids[MAX_PACKAGES];
-+static int acpi_nr_packages;
-+
- int __init parse_acpi_topology(void)
- {
--	int cpu, topology_id;
-+	int cpu, topology_id, i;
- 
- 	for_each_possible_cpu(cpu) {
- 		topology_id = find_acpi_cpu_topology(cpu, 0);
-@@ -222,6 +225,29 @@ int __init parse_acpi_topology(void)
- 
- 			cpu_data[cpu].core = topology_id;
- 		}
-+
-+		topology_id = find_acpi_cpu_topology_package(cpu);
-+		if (topology_id < 0) {
-+			pr_warn("Invalid BIOS PPTT\n");
-+			return -ENOENT;
-+		}
-+
-+		for (i = 0; i < acpi_nr_packages; i++)
-+			if (acpi_package_ids[i] == topology_id)
-+				break;
-+
-+		if (i == acpi_nr_packages)
-+			acpi_package_ids[acpi_nr_packages++] = topology_id;
-+
-+		cpu_data[cpu].package = topology_id;
-+	}
-+
-+	for_each_possible_cpu(cpu) {
-+		for (int i = 0; i < acpi_nr_packages; i++)
-+			if (cpu_data[cpu].package == acpi_package_ids[i]) {
-+				cpu_data[cpu].package = i;
-+				break;
-+			}
- 	}
- 
- 	pptt_enabled = 1;
-diff --git a/arch/loongarch/kernel/smp.c b/arch/loongarch/kernel/smp.c
-index 5d792256bbb99a41d0032add6b5ffacffb20b684..9d148b6e41b488daca71a970e1b75cc18638d564 100644
---- a/arch/loongarch/kernel/smp.c
-+++ b/arch/loongarch/kernel/smp.c
-@@ -426,7 +426,7 @@ void loongson_init_secondary(void)
- 	numa_add_cpu(cpu);
- #endif
- 	per_cpu(cpu_state, cpu) = CPU_ONLINE;
--	cpu_data[cpu].package =
-+	cpu_data[cpu].package = pptt_enabled ? cpu_data[cpu].package :
- 		     cpu_logical_map(cpu) / loongson_sysconf.cores_per_package;
- 	cpu_data[cpu].core = pptt_enabled ? cpu_data[cpu].core :
- 		     cpu_logical_map(cpu) % loongson_sysconf.cores_per_package;
-
-base-commit: 87320be9f0d24fce67631b7eef919f0b79c3e45c
--- 
-2.54.0
+diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+index c15c7ab5bd2e..9726a007d25a 100644
+=2D-- a/drivers/bluetooth/btusb.c
++++ b/drivers/bluetooth/btusb.c
+@@ -859,6 +859,8 @@ static const struct usb_device_id quirks_table[] =3D {
+ 	/* Additional Realtek 8761CU Bluetooth devices */
+ 	{ USB_DEVICE(0x0b05, 0x1bef), .driver_info =3D BTUSB_REALTEK |
+ 						     BTUSB_WIDEBAND_SPEECH },
++	{ USB_DEVICE(0x0b05, 0x1d70), .driver_info =3D BTUSB_REALTEK |
++						     BTUSB_WIDEBAND_SPEECH },
+=20
+ 	/* Additional Realtek 8821AE Bluetooth devices */
+ 	{ USB_DEVICE(0x0b05, 0x17dc), .driver_info =3D BTUSB_REALTEK },
+=2D-=20
+2.55.0
 
