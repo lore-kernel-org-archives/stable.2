@@ -1,93 +1,106 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5A34A433E89;
-	Sun,  5 Jul 2026 08:08:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE321A5B90;
+	Sun,  5 Jul 2026 08:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783238938; cv=none; b=Ob4oqKrPiXmaL+bO5PTvpDFwQkXIjOAAQkzGv7MHoDvJjfYqvfQ0lEQMuc+r4Cqi/nOj4FV9bfjakOfVBy1sR5yYkWjARiBY5+BFXld52K0ozSyzmcgFx6hvw8WOmR20iPerYC+/9hqmDSO8mlI1zxnIMS21KzSOIXMR7mijcvg=
+	t=1783239681; cv=none; b=Z3dSL5Revxa9oCbQlgAbZUDJL56IEI/So5lVFIZaJi25pIis3hiP/yKB2F/8B63NpLxUoXUeYDfpINV0CwobHBJrEasWdy0g8dA1svLIXuXFiVzd/YzNXlThQlORrRxAWgRHqleKvL6+bbV2qPN15kmYoYtR7aZKseNHuWtkNPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783238938; c=relaxed/simple;
-	bh=cIrRmXjneRyxZCYVtjOisOC7Q6AqKSJ27U6Pgn9w7QE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MiKitv8sqLbLZ+GFa1L11vvkqBETmI7uBFNq9I8yZG3WHzFLzpG12iKBJITcGRNBeirYolfgaRhlhbaaa0DaYMNpap+utRDWdx5xpnpm2LCjDQoAKNqoW8AC1gzunSak5PTl73qbWBO0g+u4l0EsXYrjDeM0nzJ9LJaG/WSka1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FqQCx48U; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FqQCx48U"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DA63B1D70;
-	Sun,  5 Jul 2026 01:08:50 -0700 (PDT)
-Received: from [10.57.73.18] (unknown [10.57.73.18])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BC3F53F905;
-	Sun,  5 Jul 2026 01:08:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1783238935; bh=cIrRmXjneRyxZCYVtjOisOC7Q6AqKSJ27U6Pgn9w7QE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FqQCx48UJNUfeHogU9/y9HwEqlbbhAQ6HAGisLpAoZ06/5JM87N/K8zIXSOkQS9Lo
-	 tzFVemZDjh6FMqDs/3oBIzs/gxTzjo2BY91OzyLW22GOwYSGCjWr8ywmF0OCMoI9D1
-	 02im7RrlbLfHvqkoRtrjjP2YXspf26q5PHLafXU8=
-Message-ID: <8fdbe0d6-87fd-441c-b6d2-baac380f6fb3@arm.com>
-Date: Sun, 5 Jul 2026 13:38:41 +0530
+	s=arc-20240116; t=1783239681; c=relaxed/simple;
+	bh=YbdgeRuX3ynm03Agwub6U+huy0SG0DYvhedvkV8qgHw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WQdy/WOtxM4pl0r2n5wPRr9CUUI3ilYTdiEkErZJr2YQ7sJ3zzZBA0/rc326DcKu9yB5VT8uV0YwvK1srB0Kfm7/GEaQQlXpIsPYl9TJIbi58NuPbUKkTBOWSyhzOYLfLvcR3XHIHzG+7Bi2TcCYYgDgXJj8+itFapoZa2ptteo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 7a7b9f32784a11f1aa26b74ffac11d73-20260705
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:a6398748-fa9e-407b-8b50-4517535e9794,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
+	ION:release,TS:-50
+X-CID-META: VersionHash:e7bac3a,CLOUDID:58474abc3c0e55c9a55465de6d67677f,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
+	DM:2,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7a7b9f32784a11f1aa26b74ffac11d73-20260705
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1580939437; Sun, 05 Jul 2026 16:21:10 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: vkoul@kernel.org,
+	Frank.Li@kernel.org,
+	wens@kernel.org,
+	jernej.skrabec@gmail.com,
+	samuel@sholland.org
+Cc: dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] dmaengine: sun6i: Fix potential deadlock in dma_terminate_all and pause
+Date: Sun,  5 Jul 2026 16:21:05 +0800
+Message-Id: <20260705082105.13325-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/6] arm64: make huge_ptep_get handled unaligned
- addresses
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: muchun.song@linux.dev, osalvador@suse.de, ljs@kernel.org,
- david@kernel.org, liam@infradead.org, riel@surriel.com, vbabka@kernel.org,
- harry@kernel.org, jannh@google.com, lance.yang@linux.dev, kas@kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, apopple@nvidia.com,
- rcampbell@nvidia.com, ziy@nvidia.com, matthew.brost@intel.com,
- joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com,
- gourry@gourry.net, ying.huang@linux.alibaba.com, ak@linux.intel.com,
- nao.horiguchi@gmail.com, mel@csn.ul.ie, j-nomura@ce.jp.nec.com,
- pfalcato@suse.de, tglx@kernel.org, dave.hansen@intel.com,
- jpoimboe@kernel.org, catalin.marinas@arm.com, will@kernel.org,
- linux-arm-kernel@lists.infradead.org, ryan.roberts@arm.com,
- anshuman.khandual@arm.com, stable@vger.kernel.org
-References: <20260703114202.365553-1-dev.jain@arm.com>
- <20260703114202.365553-2-dev.jain@arm.com>
- <20260705003559.8b124d2b94b685cc2e4e77ae@linux-foundation.org>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20260705003559.8b124d2b94b685cc2e4e77ae@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+sun6i_dma_terminate_all() and sun6i_dma_pause() acquire sdev->lock
+with plain spin_lock() from process context. If a DMA interrupt fires
+on the same CPU while the lock is held, the interrupt handler schedules
+sun6i_dma_tasklet(), which runs in softirq context and attempts to
+acquire the same lock with spin_lock_irq(), causing a deadlock.
 
+Fix by using spin_lock_irq() to disable interrupts while holding
+sdev->lock, consistent with other call sites.
 
-On 05/07/26 1:05 pm, Andrew Morton wrote:
-> On Fri,  3 Jul 2026 11:41:54 +0000 Dev Jain <dev.jain@arm.com> wrote:
-> 
->> huge_ptep_get() can be handed a virtual address pointing to the middle of
->> a contpmd/contpte mapped hugetlb folio (examples of callers are
->> pagemap_hugetlb_range, page_mapped_in_vma).
->>
->> The arm64 helper rewalks the pgtables in find_num_contig to answer whether
->> the huge pte we have maps a contpmd or a contpte hugetlb folio, and
->> returns CONT_PMDS or CONT_PTES, so that it can collect a/d bits over the
->> contiguous ptes. We can falsely return CONT_PTES instead of CONT_PMDS
->> if the addr is not aligned.
->>
->> Fix this by aligning the pmdp pointer down to a contpmd base before
->> checking equality with the passed huge pte pointer, to correctly answer
->> whether the huge pte is the base of a contpmd block.
->>
->> Fixes: 29cb80519689 ("arm64: hugetlb: Cleanup huge_pte size discovery mechanisms")
->> Cc: stable@vger.kernel.org
-> 
-> Please describe the userspace-visible effects of bugs when fixing them.
-> Particularly when cc:stable is proposed.  Thanks.
+Fixes: ba489fd46ab6 ("dmaengine: sun6i: Add support for Allwinner A31 DMA controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ drivers/dma/sun6i-dma.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Forgot for this one. It should be, on systems where CONT_PTES != CONT_PMDS
-(meaning page size is 16K) we could collect excess a/d bit state, meaning
-extra work for the kernel.
-
-
-> 
+diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
+index a9a254dbf8cb..37b143a8f75e 100644
+--- a/drivers/dma/sun6i-dma.c
++++ b/drivers/dma/sun6i-dma.c
+@@ -898,9 +898,9 @@ static int sun6i_dma_pause(struct dma_chan *chan)
+ 		writel(DMA_CHAN_PAUSE_PAUSE,
+ 		       pchan->base + DMA_CHAN_PAUSE);
+ 	} else {
+-		spin_lock(&sdev->lock);
++		spin_lock_irq(&sdev->lock);
+ 		list_del_init(&vchan->node);
+-		spin_unlock(&sdev->lock);
++		spin_unlock_irq(&sdev->lock);
+ 	}
+ 
+ 	return 0;
+@@ -939,9 +939,9 @@ static int sun6i_dma_terminate_all(struct dma_chan *chan)
+ 	unsigned long flags;
+ 	LIST_HEAD(head);
+ 
+-	spin_lock(&sdev->lock);
++	spin_lock_irq(&sdev->lock);
+ 	list_del_init(&vchan->node);
+-	spin_unlock(&sdev->lock);
++	spin_unlock_irq(&sdev->lock);
+ 
+ 	spin_lock_irqsave(&vchan->vc.lock, flags);
+ 
+-- 
+2.25.1
 
