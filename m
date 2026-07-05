@@ -1,134 +1,193 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91413570AD
-	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 19:12:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783278744; cv=pass; b=Mof3tfyOVCBZ8rerYsPEYL1lU/Z0jcpY3XYQzCo2AZ+2DWJM5VV/423+sF9CyAS0bh1mmYmv3OP+2IzSW4rFMRs+n6TENosYWTDdMW87OfecKm6SO5gjaZd3ZsHjfUQN7gi3BX28V/MYE8TNXm7LR/s6pMl/2KaR2LStCOuqIvA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783278744; c=relaxed/simple;
-	bh=kzBIwScZkxmJaAbRIZn89+TPiZbPYudZb4JFa930OGg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sM6QsdKUoflmFRm4QB45kdSIdyVTwnGhSgrnntF6MtcQ7i4ssutQ94zABdYzk4J1xTp9SWfTrzieDPGAm4wc3u/e0d9IzHnzfygGMFL415RcbhQ6QJE+AR8YsHFGOvPMoYHjqTsQ+BheTmm4spQjyTanP8hdeGlBaEUHgQ+C3vw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lKNqQ7lj; arc=pass smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB153A1CEA
+	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 19:15:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783278913; cv=none; b=fhNqp5GdtIQINIiuHXzuJ4Hf/qTi4dexBUXH1Vu+cLru3SarN1+9Xe6L8jELfgcQK9GBfjCXYuuv4kcw+ZVNIwrpsh1hyECDiKQLS8k6Mu63a9hvE8Rgc5Ly3K8KPwQfD9BDpe+EmxKpTlb1Xfhqmw3XCI8422uvvZuHAGG1b/k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783278913; c=relaxed/simple;
+	bh=44lM3DRPYiy11Cw67gCIsslslOmao7q+J1d0JTufAW8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rcFkh4VUt6AoGZj2eHKmkdyntSkTsak6ksqzwICoeC7XcSIC3N6Rb+mX1XTs/jLXkDtmIiOj8JTfSd3TMfj+ARQv+DPL12HXGrOYZ7Lf3MLSptjmVc3OOFJLO14EjPyWVov4Y06BJTRvzW/1qKljRiYgrMd0PQYWjxgNQiV3804=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RYYoPstc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KLMxYOTS; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lKNqQ7lj"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-845e363246aso2490302b3a.1
-        for <stable@vger.kernel.org>; Sun, 05 Jul 2026 12:12:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783278742; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Oue6jgNc8ibOUh96kzH81WEfu/gaQBQ305N+QN2VEeg9TYQGlG4KKR65bpt8rk7X35
-         +2Td9IpJRgrKoAJc6Jcv4kIK7rSRP5eH3NN3M8NGVh6yW5OgqJ68bXJhRW3zvskVn9wF
-         gMmU2Muaprsw+hDJUlIB1rL5W0MsQ93orsAbc7Ky2KtpxJxleEqEBifWJdtdg1q4Cb9O
-         MYjaRYIZiuzIztPeIwdwEVaeCeGedgxmFFia4U8Fj0bunlwOSSWj/o1+OaXjB736L0MN
-         WaGsXmiMRCYDZc2L+NM58iYXSNa7yRoQHYTYb6nGFHXh1OgeUxsQ2KpwlfXBGtlUCYFO
-         znQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HYplnZoZM9QLJ4q2m4G26mYUAV9oJQFImSbHJW3ZRgs=;
-        fh=ucTTNU+yRopHeTc7ChXp3P13KOuQ9WRg8of4xhBKIP4=;
-        b=ULzru7O/8BXDj/qNjhfx8H9pDQMecCOujVo/srhDc78hK7KAV0WB1SFMZWxonc3QKr
-         CBZiLxfkuLWRORXmRmmixf2rLB6gNaPvF8aYjsyKJspX7yphMlHBxGw5sFhweqVsgcBc
-         1RvtPWuSf+8ngb00CIt9ECbzBSLpP+3DwdFSf0310eTbcAs4vZ8n5cjNcE3sDLC2TUeT
-         9nIiLPsdHyrlpmOHZ0SN8JS+5peRr/73E7e+u+P5k77g+T8p067duDh2eBoM9UPPttvC
-         FuWm3c1h9XwV8tvEaMbxZ9k2iqu3fn0mS3uHvv+tX+oEiRhK1gmyAJxf9DocY4XioKDk
-         zckg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RYYoPstc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KLMxYOTS"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 665HhZXk2351646
+	for <stable@vger.kernel.org>; Sun, 5 Jul 2026 19:15:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	JzHURdlTBy4HGtMk9pPhO21TM4DbHArmKo3PXiJCc4k=; b=RYYoPstc/ElDH0lQ
+	+9fg1uQrsS0yv/soaDeKupGZTFCQ4bqXSRUZbtYo1LjUlL/9osR7Y08YMWl8BYyF
+	4GZCWEd/IeHOKcrAfTOHWuiP6SQn3l4LcVpsS8T2yT5mCAmHn9tVP4azsSQAhFV6
+	Tu0AgiRGkle6VATOVPsBbNUInpeUP8Zg1P9QHRt+plhYFTAQLVHZENXC4Yc7QKhB
+	Oot0k/6BeP7Opqy9XxUjQnkLDK9rnlZhXlWrOG0XFRnJz5hmma14wKXFWSstn/jl
+	kgBkKXAOMVT7RLlymwWiZ1dviuUQbl3coHy5nZUp6fjVLC1UPB274OnQHGQQLQ36
+	9tOkkg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6s4sucpj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Sun, 05 Jul 2026 19:15:11 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2c81db324caso51279005ad.0
+        for <stable@vger.kernel.org>; Sun, 05 Jul 2026 12:15:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783278742; x=1783883542; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HYplnZoZM9QLJ4q2m4G26mYUAV9oJQFImSbHJW3ZRgs=;
-        b=lKNqQ7ljm0Q2s+uh5ZBmKjNi6BfodIrdl24723FeBhzQvFumO+GY0kVFGYH8mMU1ra
-         Y4rR0pmxeLK7qjOinA+wYWkM9Z9u5d+1eEfve5Vnvc3qLc5doWdrqLCeUJxhO/9uwHbB
-         puNO3wiY6Nf+IXn+0jYXlRoCaqL/zeNI8dv9mPelgESkhGkuH58N0mXDjRSIb8p2jaOB
-         XMusjDqZnGCHeMbkWdLjm8lVVQKFYW0lFTvvrOYoDrxIkXkEHd+kYpT+WoEuFEm8+9NZ
-         2xcjdGDNHa+RpUjrm2WYGdvahUBdCI8k6gNSBahham6UsAE7uHtEbS0ot4k9clpeK6X5
-         KQyg==
+        d=oss.qualcomm.com; s=google; t=1783278911; x=1783883711; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=JzHURdlTBy4HGtMk9pPhO21TM4DbHArmKo3PXiJCc4k=;
+        b=KLMxYOTSFh44OyRyzZo7IJvu45c/gNgXjKSHDJAOGM6h0EQzdgonygcOHBa3p+fpKI
+         4w7CMCIbR0CxXJiYtwEAyiVddi2fMoGyOvU/dNc/3m0ctB2Hip8HYMSQz3iSw0qO22sk
+         h8F9jHKUB4qVYA90iHtKlvQ5L3swcNGW5XcPc4OwduOrFrbwNhOhlDMa9Ytr2acC6x65
+         PmsdAPX5cSg4o4bnnOaV1cLr4CZ3KvOVUQVGroIhvteuPpA0Mc9BvKPTnowfaeCfv2Ze
+         bj57iBIO5/D6doJIgH5EtgxWMfItWArTeoP0lP5krb4mkLqoeyGnCgYJpx/AZpu/yRcd
+         Y8aA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783278742; x=1783883542;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HYplnZoZM9QLJ4q2m4G26mYUAV9oJQFImSbHJW3ZRgs=;
-        b=e/z6tPmhFBRPAFgwO1R9wkz8GvUbyFAk6hEudmw2i3RJtroEBVL+35aeKOU94L7BPr
-         2Hfad1nFW7+Cg8yU+M3cxf8QYPGNIGolHoLsQp8b/VP7cnXz5Sgwbf5+h9iOaNgLjEnI
-         wGWXKOZw7MQUO8zrIMyVwCTJAGqkFm3D5L/4wcChmOiPqwxLomEyYZGByJMWhZbYfDf7
-         2w0swbpkR8ngQZf/5Zz6AcVsACXuhsF5CHGw2otDm1bbh69p5U5bFn8VCKRfHqiRc1jy
-         e1pKm1s9YC8Kxr78yEo2K2dqm+DTax/FimnAyyIyV8bU9of/taEgRJ8qcAAeVbWjzEXL
-         iNWQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoVrLfZgEqPj1wOfFAKasc/sV4T694P8VhiP3QJ1MP/T97hC7IA+ti0dkGMIjxqdcxSIi0gtGM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxLVOlz6hZj1w1k+ynx3YVNpi9zIph5pyXojwJBNh8l/w2Xy8UL
-	qQwanITnNKKY74i/G6d3xqA/ckutta8QIJg6/BVgWOWvCzy0Lez2KWx7JOd8jaqViUNRM324CG+
-	EstPXbrRLZyPk5K1iYoN2BZPpGhZ5HzI=
-X-Gm-Gg: AfdE7cla65MKNKAAQhmWSIe3UURxfGZj4KfYXnWB/My6i5Qg10eXbsY8nSJSja+HC6p
-	gNjUkpQF0ZixwIf992pbrF+x/GOtCgJ3/aJ7piQw3RJqzYXvKae5ANDplSwKOsKKKvbJhksLFYZ
-	2Wr2kI1Fy1KWdI50OFCFUKrSZjT1yWGdOkhDBu3VFhA/zSu+lY86YsoZjFt0o6vFUOChi6IeGhZ
-	7xA3ORamuyvNuC0RzCoT0kJRCP/PuA2sqaio5Myrxhd3hqbwNMuW3k+/7F/hrBuxlfXGK/E/8wP
-	riqM4XBB8dQe/1DscMuuZH4Kx5wzTtwhro4bZ7SvAuIxZk2Wxg9DubA58pF/6K4AYnGBgcTEOw=
-	=
-X-Received: by 2002:a05:6a00:4b4b:b0:847:77e7:6f6b with SMTP id
- d2e1a72fcca58-847f6f96baemr6642867b3a.59.1783278741837; Sun, 05 Jul 2026
- 12:12:21 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783278911; x=1783883711;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=JzHURdlTBy4HGtMk9pPhO21TM4DbHArmKo3PXiJCc4k=;
+        b=XuriV95jEdunojbRVfzYtWRvmg+ukB4iVHPOqjj6AtAvDmdcAu+d0M6N2WU6pRGCQz
+         WV+CMu0QTZs31yRhRjx4NX5Mxbq+Cs820x7ZGt4LyX+e3k1RK/OesZ106s3m20bIfNrr
+         rnmhsFukv+W+o5knKrqTh5hY2xfpjdMg86YMawvIeeLnsXdQwmseC16YnRLw/C58hgCM
+         dcXwfU96jH/yxnBmqqEoLCwuoXf1Bg/eTPXvfVcSo3cpBw6SHe9M+OZ+Sa+OUeWNGiox
+         ofci73bZzSUGQKoKGwYxSMGQOxJ+7sGKukSJ32du+0yY9UcIOy8J5VVZIFU9fG3uvD47
+         WRLw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqr+LTs5JnvKwonc3Nu8gMj+3d2Q9R/8yRFkMi4BpmrsZS8rO1TSE7SK+xKW/NtDalZ0WoHeGs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyMRELhs34n6aPSZuWz8Eut4xswWLQtGn9/e3zaPwSLHGDFeP1K
+	uHfynmOQkrRBmR1LwHweOgAiY+OHY9/UBuclDYEmD/CFFZUEOmalpvrQXLOnpMyOqYIWcAg+50s
+	J83/q37JOS6Fq/ZIbgnM72f8LYQiaNxbtEE8zcubTEEvs/QHnRgtZsYf1TL0=
+X-Gm-Gg: AfdE7ckhQvvB+7B29NUTJdguPZ+k2vfj/AxfeuY59ELCRcbpvY0dxgueG0qVNqO0xvF
+	B/Yt4u84QsIbg4zGCkwJu4ttSqA4d/U7V5F1xsJP7ArtEYhfuzQEX4rWjESOchFmVoz+hsRnGKm
+	Lyg9nJdfYkSOjWqkVZ9Mw+Sjt66YpINniQNMNksuERK1cTvX9v2EqJZfCsQ6jNyoRJyA+9kE+ZH
+	j7iaIpEjJtG1zs/lrX/Hq97QBDJ6jPHGFy06NuxyQXD66HWOFCqn45/gXpRB6yDq60LscJKadyk
+	ObLEyqcHw6Cv7xFO/3A9+VyejcpPi/fFGXhiZ6eVSPTu3WDAu5aHiV15wCvI0Jj4gMvbwqhLHKs
+	53nfBUL1puH4+/H7TsAsCjdizWAEWsknkDBWrUgx1O3KMcFmeLPxkrXT3dtl5IzHTUwxi
+X-Received: by 2002:a17:903:3202:b0:2ca:d151:382d with SMTP id d9443c01a7336-2cbb9e38d1cmr78130905ad.14.1783278910469;
+        Sun, 05 Jul 2026 12:15:10 -0700 (PDT)
+X-Received: by 2002:a17:903:3202:b0:2ca:d151:382d with SMTP id d9443c01a7336-2cbb9e38d1cmr78130605ad.14.1783278909958;
+        Sun, 05 Jul 2026 12:15:09 -0700 (PDT)
+Received: from [192.168.1.11] (222.sub-97-215-84.myvzw.com. [97.215.84.222])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b492a088fsm31335582c88.15.2026.07.05.12.15.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 05 Jul 2026 12:15:09 -0700 (PDT)
+Message-ID: <c0b69719-980b-4a43-b918-007751e7e925@oss.qualcomm.com>
+Date: Sun, 5 Jul 2026 12:15:07 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260704033545.2438373-2-bestswngs@gmail.com>
-In-Reply-To: <20260704033545.2438373-2-bestswngs@gmail.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Sun, 5 Jul 2026 15:12:10 -0400
-X-Gm-Features: AVVi8CfHA-j0EDc3OlrYh1r7n_r_L9jvhfkZenL3RS3ltcoq4Bgp2Uu1c7Bg_Sw
-Message-ID: <CADvbK_eJ+qePAuDF0u=rmQ2brixwmxhJRrUHi=jnbWoh169OfQ@mail.gmail.com>
-Subject: Re: [PATCH net] sctp: validate STALE_COOKIE cause length before
- reading staleness
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: linux-sctp@vger.kernel.org, 
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	netdev@vger.kernel.org, Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ath12k: fix NULL pointer dereference in rhash table
+ destroy
+To: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+        Jose Ignacio Tornos Martinez <jtornosm@redhat.com>,
+        jjohnson@kernel.org
+Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260615112103.601982-1-jtornosm@redhat.com>
+ <d0fd509f-760f-4632-b116-0b6494466f22@oss.qualcomm.com>
+ <b25be5a2-bef6-4fda-b166-becca3d1d650@oss.qualcomm.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <b25be5a2-bef6-4fda-b166-becca3d1d650@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA1MDIwOCBTYWx0ZWRfX1SfFJdGUVa0J
+ g4+YBUTmlQQlRwV5VCxFxRwEMB6+ptrcNz65omWrvYKknDAbpCQkO60nMYeoeZ5u1bX1FgAy4gw
+ QP7XcM15ZnEAFJgzixRzg/+yn1xYqro=
+X-Proofpoint-ORIG-GUID: HFQ_T2jFvbjSFVD68ioFGWxGHsEAQKog
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA1MDIwOCBTYWx0ZWRfX3ZJhb9q3+V6D
+ vRSQAR6evf4LJXeXoM9Hv9sLA697hIapSqbFJfMf2o4iGkdPKFTrN+FwZP69E25sRevFdtxvaKM
+ 9ibP7Q0dlyaweDFdJ+wYcuPbkHiW2F0PvWJYdoK8Sy3ptSsbBk4m9rVaQs4KhKF5cyugBECA9UJ
+ J6IRMjvC9U6iYK31wmg9FEDGtagaDlY+RlDqxFbPnXbIw2mTiNwtFn0ugTZstlwBhwMPkZV7hh0
+ lWygqRVNYwnJ1WlJpjpkYrLHE7qr7kSMm9yveoxeY+zj8a1OglhH0T8PFbHSKxaGWQGU3VtrxYw
+ Ipzf4g142vBXCRdg1U0GIu36gMIWXFBy3uDvt1f9f+ioY3Zv/UgfTJPo46hTlJ+vKyvAJ9jraCG
+ swMa5SK0nzEcKW4Be5N3QVoGDGmRxs2MCLxA41fdzNTJTheb2BnQnltsVcHB8uNMkCqQqNWfXFI
+ /032alo7K2+LI1VR5Lw==
+X-Proofpoint-GUID: HFQ_T2jFvbjSFVD68ioFGWxGHsEAQKog
+X-Authority-Analysis: v=2.4 cv=ZfQt8MVA c=1 sm=1 tr=0 ts=6a4aad3f cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=i4k25I72rCCN9bAAQd7+Jg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8 a=EUspDBNiAAAA:8 a=TRTaysboXGgomUBcWKUA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-05_01,2026-07-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 clxscore=1015 suspectscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607050208
 
-On Fri, Jul 3, 2026 at 11:35=E2=80=AFPM Weiming Shi <bestswngs@gmail.com> w=
-rote:
->
-> When an ERROR chunk with a STALE_COOKIE cause is received in the
-> COOKIE_ECHOED state, sctp_sf_do_5_2_6_stale() reads the 4-byte Measure
-> of Staleness that follows the cause header:
->
->         err   =3D (struct sctp_errhdr *)(chunk->skb->data);
->         stale =3D ntohl(*(__be32 *)((u8 *)err + sizeof(*err)));
->
-> err is the first cause in the chunk, not the STALE_COOKIE cause that
-> caused the dispatch, and nothing guarantees the staleness field is
-> present. sctp_walk_errors() only requires a cause to be as long as the
-> 4-byte header, so for a STALE_COOKIE cause of length 4 the read runs
-> past the cause, and for a minimal ERROR chunk past skb->tail. The value
-> is echoed to the peer in the Cookie Preservative of the reply INIT,
-> leaking uninitialized memory.
->
-> sctp_sf_cookie_echoed_err() already walks to the STALE_COOKIE cause, so
-> check its length there and pass it to sctp_sf_do_5_2_6_stale(), which
-> reads that cause instead of the first one. A STALE_COOKIE cause too
-> short to hold the staleness field is discarded.
->
-> The read is reachable by any peer that can drive an association into
-> COOKIE_ECHOED, including an unprivileged process using a raw SCTP socket
-> in a user and network namespace.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reported-by: Xiang Mei <xmei5@asu.edu>
-> Assisted-by: Claude:claude-opus-4-8
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+On 7/5/2026 10:27 AM, Vasanthakumar Thiagarajan wrote:
+> 
+> 
+> On 7/5/2026 10:53 PM, Vasanthakumar Thiagarajan wrote:
+>>
+>>
+>> On 6/15/2026 4:51 PM, Jose Ignacio Tornos Martinez wrote:
+>>> When unbinding the ath12k driver, kernel NULL pointer dereferences
+>>> occur in irq_work_sync() called from rhashtable_destroy().
+>>>
+>>> Two hash tables are affected:
+>>> 1. ath12k_link_sta hash table in ath12k_base
+>>> 2. ath12k_dp_link_peer hash table in ath12k_dp
+>>>
+>>> The issue happens because the destroy functions are called unconditionally
+>>> in cleanup paths, but the hash tables are only initialized late in their
+>>> respective init functions. If the device was never fully started or if the
+>>> init functions failed before initializing the hash tables, the pointers
+>>> will be NULL. The issues are always reproducible from a VM because the MSI
+>>> addressing initialization is failing.
+>>>
+>>> Call trace for ath12k_link_sta_rhash_tbl_destroy:
+>>>   RIP: irq_work_sync+0x1e/0x70
+>>>   rhashtable_destroy+0x12/0x60
+>>>   ath12k_link_sta_rhash_tbl_destroy+0x19/0x40 [ath12k]
+>>>   ath12k_core_stop+0xe/0x80 [ath12k]
+>>>   ath12k_core_hw_group_cleanup+0x6b/0xb0 [ath12k]
+>>>   ath12k_pci_remove+0x60/0x110 [ath12k]
+>>>
+>>> Call trace for ath12k_dp_link_peer_rhash_tbl_destroy:
+>>>   RIP: irq_work_sync+0x1e/0x70
+>>>   rhashtable_destroy+0x12/0x60
+>>>   ath12k_dp_link_peer_rhash_tbl_destroy+0x29/0x50 [ath12k]
+>>>   ath12k_dp_cmn_device_deinit+0x21/0x140 [ath12k]
+>>>   ath12k_core_hw_group_cleanup+0x6b/0xb0 [ath12k]
+>>>   ath12k_pci_remove+0x60/0x110 [ath12k]
+>>>
+>>> Fix this by adding NULL checks before calling rhashtable_destroy() in
+>>> both destroy functions.
+>>>
+>>> The NULL check approach was chosen because the rhashtable pointer
+>>> serves as the initialization state indicator. The init can fail at
+>>> various points, leaving some components uninitialized. Checking the
+>>> pointer directly is simpler than adding separate state flags that
+>>> would need synchronization.
+>>>
+>>> Fixes: 57ccca410237 ("wifi: ath12k: Add hash table for ath12k_link_sta in ath12k_base")
+>>> Fixes: a88cf5f71adf ("wifi: ath12k: Add hash table for ath12k_dp_link_peer")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+>>
+>> Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
+> 
+> Missed to mention that pls add wifi prefix to the patch title.
 
-Acked-by: Xin Long <lucien.xin@gmail.com>
+I'll fix this in my pending branch.
+
+/jeff
+
+
