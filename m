@@ -1,124 +1,144 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4DE360ECD;
-	Sun,  5 Jul 2026 22:15:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CA43750DC;
+	Sun,  5 Jul 2026 23:02:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783289723; cv=none; b=V1DfxF+KLzm/u6T8AX+0veTFjlObtN6y5YgJe97KC7mdhTqP9iz5RkMMrko+bslsHq2wnVtJfZEsPBsmDMFl74AldE8Rfz9nAjD/sVUuD3hVf5GkuySQSrvIysQVdr0gnh11REjvBBg22Gpy96UJCWlr1Pk98J9E0/v9t0snONQ=
+	t=1783292564; cv=none; b=ah8g3bKrtVpAa69lj2u79SChJtaxS8hQYHU33kUTnVKd1cht3fzl0VpIaG8o2Sh3kjwYSxrKy5QmXahd0whyeufCfbgwOE5ppg4rTO9FwARAwReKVlgnvrmyYP2s9tKl2LsxSNvHGd+v6HBE+mxZ7avxn0DTnI3HR7jWN7DVWtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783289723; c=relaxed/simple;
-	bh=VuPMWeB+jZ7arTqsKq82MmjrOhBoG65Evy0rJ6C2ySQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Qmxxo71k5eHo9Qa/lRBpJVVjkpYUR/XhQVLPanU6TZZ4ZfIAF1kCt+durBvE4RWNqFHJLkCCzKBYGZE/VZJZKfcmY5GvUngb9JRzdacSNpB0zGFyr4St701HfwPjr5cHlf9iXfz3jcEPlkuf700U56OaDTxqDj1f8f+NoUR+hXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wgV7P-000ECY-0u;
-	Sun, 05 Jul 2026 22:15:19 +0000
-Received: from ben by deadeye with local (Exim 4.99.3)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wgV7N-0000000CXdF-274y;
-	Mon, 06 Jul 2026 00:15:17 +0200
-Message-ID: <ed0c9af450494df5f7bfd72670754c8e48e1f36d.camel@decadent.org.uk>
-Subject: Re: [PATCH 5.10 94/96] mmc: renesas_sdhi: Add OF entry for RZ/G2H
- SoC
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Lad Prabhakar	
- <prabhakar.mahadev-lad.rj@bp.renesas.com>, Wolfram Sang	
- <wsa+renesas@sang-engineering.com>, Geert Uytterhoeven
- <geert+renesas@glider.be>,  Ulf Hansson <ulfh@kernel.org>, Sasha Levin
- <sashal@kernel.org>
-Date: Mon, 06 Jul 2026 00:15:08 +0200
-In-Reply-To: <20260702155110.958322610@linuxfoundation.org>
-References: <20260702155108.949633242@linuxfoundation.org>
-	 <20260702155110.958322610@linuxfoundation.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-jzIq+SNiHvdsHc6vmhQ8"
-User-Agent: Evolution 3.56.2-9 
+	s=arc-20240116; t=1783292564; c=relaxed/simple;
+	bh=C8YbSHHOoCZssgu2pYNqHCgNW/kYdS4EyZx4x5gXAyM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=C/MqOOQwzKIkGQV1emPwvBh90UhBKEwvSXL45PxoV8yG2efSX0KFr+pcOaPPnzjPPdSZWNETqquCirmTO2t8Q77fcuMiTQenVsLWtv2oHpn/2uzm0Cr2Enw6AVhySw5Ob+87iDDw2NVaRPfyJcl5yWFbq1psD/S0snrCD6GWthE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ARTmV7FI; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ARTmV7FI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0A971F000E9;
+	Sun,  5 Jul 2026 23:02:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783292558;
+	bh=bQpjCok8Mdg6npO2C0lYe5rB1L+nY9w4oK2c4uUJbtM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ARTmV7FIyI2MBMJzcJN/1zYb+9ByC87fAMEzMO83xJlo1pVY6qlFHYFnTIAB/tLtN
+	 rS3lAbhfFWp1LwV9miLPTH8i0hA1RcNkJcG372Kczs73eBNQ1mQDnkZmqSZ4o15nrk
+	 clkGpQFJkXdmtOnIHgQMOkCVbZiaXyGoN2wnUU7iDfsV2HeMDPdD31wLbltrk2cB1M
+	 /hi0FbXBFjvw0R9HytjZ7qrFej3n4YI/Z0I3ZrJJ05pfdos5v7avQPuN3P5FG6Ebaw
+	 Cx6Ru3RICnbEzRqfF6z0uuczv1NjwDuL5UvcsR5xqhBRRcX/VEJ1GABuwDARK7DGUO
+	 nmAr1Zh9mRP6A==
+Date: Mon, 6 Jul 2026 00:02:33 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Melbin K Mathew <mlbnkm1@gmail.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: accel: bmc150: free irq before teardown
+Message-ID: <20260706000233.3104e0d3@jic23-huawei>
+In-Reply-To: <20260705042731.388592-1-mlbnkm1@gmail.com>
+References: <20260705042731.388592-1-mlbnkm1@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Sun,  5 Jul 2026 06:27:31 +0200
+Melbin K Mathew <mlbnkm1@gmail.com> wrote:
 
---=-jzIq+SNiHvdsHc6vmhQ8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Melbin,
 
-On Thu, 2026-07-02 at 18:20 +0200, Greg Kroah-Hartman wrote:
-> 5.10-stable review patch.  If anyone has any objections, please let me kn=
-ow.
->=20
-> ------------------
->=20
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->=20
-> [ Upstream commit f48ee49726ee4ab545fd2dc644f169c0809b19b3 ]
->=20
-> The RZ/G2H (R8A774E1) SoC was previously handled via the generic
-> "renesas,rcar-gen3-sdhi" fallback compatible string. However, because
-> the SDHI IP on RZ/G2H is identical with the R-Car H3-N (R8A77951), it
-> requires the specific quirks and configuration defined in
-> `of_r8a7795_compatible` rather than the generic Gen3 data.
+Thanks for the patch,
 
-But this backport maps it to the generic Gen3 data, so I'm wondering
-what the point of it is?
+> bmc150_accel_core_probe() requests the interrupt with
+> devm_request_threaded_irq().  The managed IRQ is released only after the
+> driver remove callback has returned unless it is freed explicitly.
+> 
+> bmc150_accel_core_remove() currently unregisters the IIO device and
+> triggers, cleans up the triggered buffer, suspends the chip and disables
+> the regulators while the IRQ action is still registered.  A late
+> interrupt can therefore run the hard or threaded handler while the IIO
+> trigger state is being torn down or after the device has been put into
+> deep suspend.
 
-Ben.
+For me this raises a load of questions.  In particular having the interrupt
+torn down before we remove userspace interfaces (as occurs after this change)
+is itself a big source of race conditions as we have to cope with userspace
+being able to poke every interface with the interrupts missing.  So it is
+a design pattern I'm very resistant to!
 
-[...]
-> --- a/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-> +++ b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-> @@ -119,6 +119,7 @@ static const struct renesas_sdhi_of_data
->  static const struct of_device_id renesas_sdhi_internal_dmac_of_match[] =
-=3D {
->  	{ .compatible =3D "renesas,sdhi-r7s9210", .data =3D &of_rza2_compatible=
-, },
->  	{ .compatible =3D "renesas,sdhi-mmc-r8a77470", .data =3D &of_rcar_gen3_=
-compatible, },
-> +	{ .compatible =3D "renesas,sdhi-r8a774e1", .data =3D &of_rcar_gen3_comp=
-atible, },
->  	{ .compatible =3D "renesas,sdhi-r8a7795", .data =3D &of_rcar_gen3_compa=
-tible, },
->  	{ .compatible =3D "renesas,sdhi-r8a7796", .data =3D &of_rcar_gen3_compa=
-tible, },
->  	{ .compatible =3D "renesas,rcar-gen3-sdhi", .data =3D &of_rcar_gen3_com=
-patible, },
+Anyhow, is this theoretical or have you seen it in practice? i.e. can we test
+fixes? Are we talking spurious or shared interrupts, or is there a path in
+which a race generates a real interrupt? My guess would be the thread
+running a while after the interrupt but please confirm.  What is the effect
+of talking to the device when powered down? Bus errors, stalls?  A quick
+glance at the datasheet suggests some registers are fine, so this description
+would need to say which ones that are accessed are not.  I think it's only
+the fifo_data but I haven't checked the code or datasheet closely.  What
+actually happens if we access that register? An error or garbage data?
 
---=20
-Ben Hutchings
-Every program is either trivial or else contains at least one bug
+Maybe we just turn the power on again in the thread handler? Vast majority of the
+time that will just be a ref count increment and decrement, but in the race
+here it will turn the power on again so no problem accessing the device.  
+Or a local flag to say if accessing that fifo register is fine - if it's
+not just erroring out on trying.
 
---=-jzIq+SNiHvdsHc6vmhQ8
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+We do have internal infrastructure to close down races around
+teardown (see the exist_lock and how iio_dev->info is set to NULL
+which acts as a marker of a device going away - maybe we need to make
+that available to drivers (though I'd rather not as it's easy to use
+wrong!) I'm not aware of any core interfaces such as accessing the
+buffers or open chardevs etc that are not appropriately guarded so
+hopefully the races you are seeing are just at the driver
+level. The usual route to handling this stuff is to make the interrupt
+handling safe to the transitions that occur on tear down, not reorder
+things to stop the handler running.  Note that making it safe
+can absolutely include simply returning errors from accesses that don't
+work due to power conditions.
 
------BEGIN PGP SIGNATURE-----
+> 
+> Free the IRQ at the start of remove so that no handler is running while
+> the rest of the driver state and hardware resources are dismantled.
+> 
+> Fixes: 55637c38377a ("iio: bmc150: Split the driver into core and i2c")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Melbin K Mathew <mlbnkm1@gmail.com>
+> ---
+>  drivers/iio/accel/bmc150-accel-core.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/iio/accel/bmc150-accel-core.c b/drivers/iio/accel/bmc150-accel-core.c
+> index 2398eb7e12cd..2adddc965650 100644
+> --- a/drivers/iio/accel/bmc150-accel-core.c
+> +++ b/drivers/iio/accel/bmc150-accel-core.c
+> @@ -1766,6 +1766,9 @@ void bmc150_accel_core_remove(struct device *dev)
+>  	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+>  	struct bmc150_accel_data *data = iio_priv(indio_dev);
+>  
+> +	if (data->irq > 0)
+> +		devm_free_irq(dev, data->irq, indio_dev);
 
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmpK120ACgkQ57/I7JWG
-EQmG9BAAneHQr/7TsyirIIirMiXIpu587B1303jkBDQaXb+kUhgiTciN2heweZw3
-32x7NeMC9aUeBnHENwL9ld9z5QSYbBoFQ3sHzJpgOwipAoWV+kiPD4lqAca8lbtQ
-pkanACJ7rIikW8IUZAkxgMxHE/8T779QCtfwzpKOHKmzKUhmi3vNIWpGaF+7uPN6
-DbFLP2ObBpmQr+zh6QNazEi53Abva5Bd3admK/XfCLrq186pXy2h/q4L2zjbL5u1
-VoRoqkGN5+VIXlU7QakTraJd2tOa1DbJfB5p2HpXGG+nml1oiq3GaK6E5rKqsBup
-IAM874yWZgtxFpBjM7TavttrZxrF115+npxUggIq4SEjfOfStfC81W/4B9Dm/KAm
-xi80kG8hIdS+YnNZNEcvQAAs9zIhkuqi7inKj70NNDqj8P5LlspfsEavBihHaUF2
-GgjxBQ0Y5bzSIXKLl97m/2Va7KossqT/TzNePm5a5LXT5DnG0yTzQ2RXRFn6t+6N
-MEUhzcl7T2ezEX9EZCvnDWgmgGqsgotpuyB87KsoMtNGyzEHj9iFmqFKIaMmLsD8
-9Ats3hkr9TmblMbgVoCMSMDRZOxoSU1rZuA/PGTCyvK3ptCgNPjhjzOUUQUw4zrz
-4AzTorxQeTM4+YGA9QG3x4ZDqDB83YbsAq5dzBAC9z/qelUzw2M=
-=ihNG
------END PGP SIGNATURE-----
+If (and it is a very big if) this is the right thing to do then it must
+be accompanied by documentation of why we need the remove to not be in
+the reverse order of probe.  Also, rip out devm registration and
+move to none devm for everything after the request of the irq.
 
---=-jzIq+SNiHvdsHc6vmhQ8--
+Note that because userspace interfaces are still up at this point
+we may well get normal operations generating unhandled interrupts, potentially
+resulting in the interrupt core taking that interrupt offline.
+
+It is for this reason that we generally disable userspace interfaces
+first and then remove the interrupts.
+
+Thanks,
+
+Jonathan
+
+> +
+>  	iio_device_unregister(indio_dev);
+>  
+>  	pm_runtime_disable(dev);
+
