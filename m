@@ -1,122 +1,182 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A5F3806B8;
-	Sun,  5 Jul 2026 15:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0ED1F4C96;
+	Sun,  5 Jul 2026 17:11:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783265770; cv=none; b=lgNyxflwoHui224QGK2kSnjIZOGu6Gz+rnlW/ES7xSJi09KAOmP0890qPmJdOgra3xapQrg3qsOD3/7wB6Ho5yGugLNQDtJdANT02b9S7r6QwgsPGbMbnUg0sXbvaNb2/3rddGMJeALhWvxZldfdgjO2QYhWhL3botfZZW85gKo=
+	t=1783271508; cv=none; b=cno2NhfSW7FZGqi0UORqPnM1ATFAxpmXPaLnztggCWu+1H4DWvzCcRpYip6uRl2e/ghQPGn8BkRt+UD0VN1B4a3+NkPhtgKp8ShicVpI4yCU+BSmpjkKEk5ekKWkh+Gi/XKNZdgxdZu8v+tATopLLVgH0g20cYZ76eAU3lIGwIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783265770; c=relaxed/simple;
-	bh=FIBQTRjSsQkq8zw8MXkPQDQWSaRbf84TlRswMQcNhw4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lh3EmmhMmHPGc7Y+RfziPu3OspbQyjiKHynwFLfa52xwSscppRTnVgu6Nh+Tz0+CcWYzo2LzBo+bhDy9UHP/rzTt3ytyuCM0WZZHS7tjT4E7Rhp+WvUBKnhU/GH6Uu7OzRsTGLRSiGqkY5pmPsLLhY9XXrAhD3RDNaBiO4ijY2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fGZClY8r; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783271508; c=relaxed/simple;
+	bh=T2lhnNdkV4SpN9Uczb+KgNsko4p+UMaKpgAbeG7OU8g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=L7KkuUu+u66x0YWlVuMoq1DsHnkEfgk9itaWxZbKAgO9DnGv6K6Co8lBOi2ZEhf68Y9LJ+azXoUhkVtravRS762dJiQtToMY5L2PdT4trLWqz2w06YinmIxoilWbvR7r0K68nRkoe0aEHVDU9iAwbswvr/7rFpF8z8Pr/0vPIx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KFPFwn2P; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fGZClY8r"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783265768; x=1814801768;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=FIBQTRjSsQkq8zw8MXkPQDQWSaRbf84TlRswMQcNhw4=;
-  b=fGZClY8rhaJr4pZOFdOtx7CqVvcUhk21S+sbrViyZPSTx1xbd5clvlMa
-   9tMjK0vSG9pUVjjfaTMw1n2UGEtbnIw1PCla7WWH/AiQTCCgE95WCGTny
-   CdpxVyHeEVQc8yepuS0jJBRzaKUHsq5XIynVoy2vFPJR3pr3jXsQ5OSTg
-   b6ZLhgNj8XGHWk/f01Id4Ks383E4gE5Ks+VEpICl8dSwlj44jYdhIwb7R
-   AROr27F0VHoQn3bA5x//t372S0M/ewXxunXASp9peYWoB4wGMtayVDfm/
-   dGLvwOBXZ48GjtY/b9Dr1jXV/FxNwPx+GbqQAQgkLrNuIiFWEeXleCkZs
-   A==;
-X-CSE-ConnectionGUID: UOWRKppHTby9KEuIMrozBw==
-X-CSE-MsgGUID: cm6qBd8RSgm6xTxmT/X/IA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="95420725"
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; 
-   d="scan'208";a="95420725"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jul 2026 08:36:07 -0700
-X-CSE-ConnectionGUID: RajXxjX/Qy+y66vBiMxlOw==
-X-CSE-MsgGUID: bL9jTMeCQJCWuV3HA4loLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; 
-   d="scan'208";a="249519729"
-Received: from sannilnx-dsk.jer.intel.com ([10.12.231.107])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jul 2026 08:36:05 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Menachem Adin <menachem.adin@intel.com>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [char-misc] mei: bus: access mei_device under device_lock on cleanup
-Date: Sun,  5 Jul 2026 18:12:59 +0300
-Message-ID: <20260705151259.3054795-1-alexander.usyskin@intel.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KFPFwn2P"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1DE66C2BCB8;
+	Sun,  5 Jul 2026 17:11:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783271508;
+	bh=T2lhnNdkV4SpN9Uczb+KgNsko4p+UMaKpgAbeG7OU8g=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=KFPFwn2PXRi/EBw7e8pZ15X03rIbemVRROt0qP4aSCEGuwJh8AQS4xn5gGpAFMpnU
+	 z5VUWbOyu9273e2pO4SpAedbDVKMeGCxBWlFiCbcIQALy8JS1Gixj/U9CC9uXhJyOh
+	 vDzUFU5gQDB2cG/LwlhwXkHn51KpRW+7t/oYHJww3Hu5QJEyb7M4DUeR4NV9X0huaV
+	 9BR3xhWUmgUNYsB83dyWALAxa9XppsyfariMnFi3HeRnNJMWXobCECFXlovJpX7dvQ
+	 iXV7OuDWvo67iTq82y+BLSS6dflZzOl5Ib16YpVdCt/4bvLuPGney6bbz9JKoI24Vd
+	 vqbpelPK0tivA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 09B65C43458;
+	Sun,  5 Jul 2026 17:11:48 +0000 (UTC)
+From: Liz Fong-Jones via B4 Relay <devnull+lizf.honeycomb.io@kernel.org>
+Date: Sun, 05 Jul 2026 10:11:43 -0700
+Subject: [PATCH] PCI: Fix BAR resize for devices on a root bus
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260705-pci-rebar-root-bus-v1-1-55df70cbdd88@honeycomb.io>
+X-B4-Tracking: v=1; b=H4sIAE6QSmoC/yXMQQqEMAxA0atI1gbaOih4FXFha6pxYSXRYUC8u
+ 3VcvsX/JygJk0JbnCD0ZeW0ZtiygDAP60TIYzY442rTmA9ugVHID4KS0o7+UIyVdVUka2JoIIe
+ bUOTff9r1r/XwC4X9OcF13R/1e3F2AAAA
+X-Change-ID: 20260704-pci-rebar-root-bus-f3123fe10fc7
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, 
+ Jon Nettleton <jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, 
+ stable@vger.kernel.org, Liz Fong-Jones <lizf@honeycomb.io>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4287; i=lizf@honeycomb.io;
+ s=gpg; h=from:subject:message-id;
+ bh=WjhPR946S5kQ2MM+7TqB/nQbZuHdNxuSaUo3YEdJ1dU=;
+ b=owEBbQGS/pANAwAKAaXO1OOXra/CAcsmYgBqSpBT2VQkT7xS0DBT4bFs/PNduIzCpXSUdbhlx
+ +BUdSUWfm+JATMEAAEKAB0WIQSfW1LPQ0gyJmoTHwelztTjl62vwgUCakqQUwAKCRClztTjl62v
+ wuU9B/43wnUMX1r7OFzOUOLhs7jAFwO76sMfFglIIx4+jiZsAeECwbTO6vJ/B7uxJqWNBjoDBU5
+ +qBnydr+Zy8aNRAgrClef7W2QitCPB9JyGuOSMQn6nlhA/9LSJvt2shilGGo28Ekw8JbeRehZE3
+ YfEAbYPDNj6y66wpKdNAANSXa+Saj4YnmX5piKeTE2qv+qJwpMy7HZ69ov+iOg2lzmwHkjhTj9l
+ TRcjq86rbWran3ghttXJsjZ77jyY2Iw22zBQfFrlX6QV/4purUnKtLqcQ0Wih9PW7OZ5veO0vYG
+ QM53tH07CgWLmOwRFMHiVToYw4a/ZvH3h0+/9gm3H3ssJXYV
+X-Developer-Key: i=lizf@honeycomb.io; a=openpgp;
+ fpr=1F7714D7EC3441D2CECC24606A3F8B00FBDDD2A4
+X-Endpoint-Received: by B4 Relay for lizf@honeycomb.io/gpg with auth_id=854
+X-Original-From: Liz Fong-Jones <lizf@honeycomb.io>
+Reply-To: lizf@honeycomb.io
 
-Fix couple of problems in mei_cl_bus_dev_release():
+From: Liz Fong-Jones <lizf@honeycomb.io>
 
-mei_cl_flush_queues() is running without lock.
-bus->file_list access after mei_dev_bus_put(bus) can become a
-use-after-free if this was the last reference to bus.
+pci_do_resource_release_and_resize() releases the device BARs that
+share a bridge window with the BAR being resized, but when the device
+sits directly on a root bus (pdev->bus->self == NULL) it then skips
+resource assignment entirely and returns success, leaving the BARs it
+just released unassigned (IORESOURCE_UNSET).
 
-Protect queues cleanup and WARN traversal by device lock there
-to avoid the concurrent access problems.
-Move WARN traversal before mei_dev_bus_put(bus).
+Skipping pbus_reassign_bridge_resources() is correct in that case --
+there is no bridge window to adjust -- but the device BARs still have
+to be reassigned. Before the BAR release was consolidated into the PCI
+core, this case worked for amdgpu because the driver released the BARs
+itself and then called pci_assign_unassigned_bus_resources()
+unconditionally after the resize, which assigns unassigned device BARs
+also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+side BAR release before resize") removed that call, so nothing assigns
+the released BARs anymore.
 
-This file uses bus variable name for mei_device, adjust
-code of mei_cl_bus_dev_release() to use bus variable too.
+This breaks amdgpu completely on the SolidRun HoneyComb LX2 (NXP
+LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+on the root bus of its segment (there is no root port device, so
+pdev->bus->self is NULL):
 
-Cc: stable@vger.kernel.org
-Fixes: 35e8a426b16a ("mei: bus: Check for still connected devices in mei_cl_bus_dev_release()")
-Reviewed-by: Menachem Adin <menachem.adin@intel.com>
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+  amdgpu 0004:01:00.0: Fatal error during GPU init
+
+No error is logged because the resize path reports success; amdgpu
+then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
+
+Assign the released BARs directly from the root bus windows when there
+is no upstream bridge. On failure, roll back through the existing
+restore path exactly as in the bridged case.
+
+The root bus path also had a locking bug that any fix here necessarily
+touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+matching down_read() (as does the "goto restore" taken when
+pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+before the BAR release loop so every path through the function holds
+it exactly once.
+
+Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
+Cc: stable@vger.kernel.org # v6.19+
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
 ---
- drivers/misc/mei/bus.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+#regzbot introduced: 337b1b566db0
 
-diff --git a/drivers/misc/mei/bus.c b/drivers/misc/mei/bus.c
-index fcde082eb5e3..cfb87ab8667f 100644
---- a/drivers/misc/mei/bus.c
-+++ b/drivers/misc/mei/bus.c
-@@ -4,6 +4,7 @@
-  * Intel Management Engine Interface (Intel MEI) Linux driver
-  */
+Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
+linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
+carries this code unmodified, and the affected function is identical
+to current mainline. By source inspection the regression window is
+v6.18 (old code paths) to v6.19 (consolidation). Workaround for
+affected users: amdgpu.rebar=0.
+---
+ drivers/pci/setup-bus.c | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index c0a949f2c995..9db1951f6e5c 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2397,6 +2397,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	if (ret)
+ 		return ret;
  
-+#include <linux/cleanup.h>
- #include <linux/module.h>
- #include <linux/device.h>
- #include <linux/kernel.h>
-@@ -1330,15 +1331,16 @@ static void mei_dev_bus_put(struct mei_device *bus)
- static void mei_cl_bus_dev_release(struct device *dev)
- {
- 	struct mei_cl_device *cldev = to_mei_cl_device(dev);
--	struct mei_device *mdev = cldev->cl->dev;
-+	struct mei_device *bus = cldev->bus;
- 	struct mei_cl *cl;
++	down_read(&pci_bus_sem);
++
+ 	pci_dev_for_each_resource(pdev, r, i) {
+ 		if (i >= PCI_BRIDGE_RESOURCES)
+ 			break;
+@@ -2415,13 +2417,24 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
  
--	mei_cl_flush_queues(cldev->cl, NULL);
--	mei_me_cl_put(cldev->me_cl);
--	mei_dev_bus_put(cldev->bus);
--
--	list_for_each_entry(cl, &mdev->file_list, link)
--		WARN_ON(cl == cldev->cl);
-+	scoped_guard(mutex, &bus->device_lock) {
-+		mei_cl_flush_queues(cldev->cl, NULL);
-+		mei_me_cl_put(cldev->me_cl);
-+		list_for_each_entry(cl, &bus->file_list, link)
-+			WARN_ON(cl == cldev->cl);
+ 	pci_resize_resource_set_size(pdev, resno, size);
+ 
+-	if (!bus->self)
+-		goto out;
++	if (bus->self) {
++		ret = pbus_reassign_bridge_resources(bus, res, &saved);
++		if (ret)
++			goto restore;
++	} else {
++		/*
++		 * A device on a root bus has no bridge windows to adjust.
++		 * Assign the BARs released above directly from the root bus
++		 * windows.
++		 */
++		list_for_each_entry(dev_res, &saved, list) {
++			i = pci_resource_num(pdev, dev_res->res);
+ 
+-	down_read(&pci_bus_sem);
+-	ret = pbus_reassign_bridge_resources(bus, res, &saved);
+-	if (ret)
+-		goto restore;
++			ret = pci_assign_resource(pdev, i);
++			if (ret)
++				goto restore;
++		}
 +	}
-+	mei_dev_bus_put(bus);
  
- 	kfree(cldev->cl);
- 	kfree(cldev);
--- 
-2.53.0
+ out:
+ 	up_read(&pci_bus_sem);
+
+---
+base-commit: 7404ce51637231382873d0b55edabc2f3b841a9d
+change-id: 20260704-pci-rebar-root-bus-f3123fe10fc7
+
+Best regards,
+--  
+Liz Fong-Jones <lizf@honeycomb.io>
+
 
