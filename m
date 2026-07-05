@@ -1,184 +1,163 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EA92F8E99
-	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 23:05:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9E335BDAA
+	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 23:33:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783292744; cv=none; b=G6dVzjvkxKMYiIm2kLUo/dsEgG6eIzzMbsIU9IteCu1FdLrmR9UR2XVzV1RhBFI8xrjgGuQPvtLS106rtricmVoj6tOfA4EMX+ZVQkVy2eyfWY4UfwK3sGL3CV6IQyYU6QZMQew6kRlF/UMC70uifLCoOdGdvBTayDgMlu6OYHg=
+	t=1783294414; cv=none; b=di1isgAAOzIayw+PN7YLYScV2xnblxrfFfkGIPTdEt0FNNdUwMIqUz9zhMChU5Aikd0ETqTHQnN4Fk4SB8JyS/ZnDd2TcfGHwcl9XpAqvpw5JJpCvIeSOTEOXf4DnHN0I7Nka7LnVRC7cgoHhvrllOdx5PV0p1qv0IGx6xbLQuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783292744; c=relaxed/simple;
-	bh=0puW1GlkLrKjuAN52AnZ5Av6soFnbeaQxVhz4+sbgPo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uMeIu4rPOQ+svLpiI8+1EFJEJHOrWiQ9O2+7ulafoWwibACXY6rB4aBZ7SxcD0e3pI3/VzFrFkD60eYH6Mti+EJApFD8KSms/a3GVRkyW30xTGf2O0eYo820yiVqJZ7ScYstpnRoJSGb/jm/u2zlrk0jD/vVkryDrRd6QlSytWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=N+zxJl6I; arc=none smtp.client-ip=209.85.210.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1783294414; c=relaxed/simple;
+	bh=KKBCh644BzCDLwoBLFIkcmm2m/854E+YvviVeczjB8k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XRK5R+XjTKdJYVaPm13KJhjYakm0c6ekLgGJ+d63oT/hsnv2IPCA0u8/cLOK/sTpUGiBqr2XME9iLfDJXe7Xz+CF5hWdaAsk9om/a7mOaBhyreWo/ECeYSaIGppKW/7JaXJ27iohrCsnPAJ6lpn9CrlIcv/N+IjzzErAnHmQ7Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c5FfFcN/; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=FpnqmFNE; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="N+zxJl6I"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7e6128bd9b3so1045665a34.1
-        for <stable@vger.kernel.org>; Sun, 05 Jul 2026 16:05:42 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c5FfFcN/";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="FpnqmFNE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783294412;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=qWgX8hRK0wDWBZMkA2UqYafCnMgGjGfI+mUA5gi2rBg=;
+	b=c5FfFcN/V7Z9iBa2jcmjyQ86JdDW/lORRjGQKy1wLy0DMFGBh8raat1IrBkitDONKF93IK
+	St730rJW5joqjhdsK77v33vOVr0Hmjl0p0wZIgdkJtlhV/28XvYAMpQEjJ2swKYxX681p5
+	4E2XDoohxuqaLrNuY7rs3hkOJASRrXU=
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-544-VAxTtqRDNDmW4b1tmX2xqQ-1; Sun, 05 Jul 2026 19:33:30 -0400
+X-MC-Unique: VAxTtqRDNDmW4b1tmX2xqQ-1
+X-Mimecast-MFC-AGG-ID: VAxTtqRDNDmW4b1tmX2xqQ_1783294410
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2c8018f11fbso25226885ad.3
+        for <stable@vger.kernel.org>; Sun, 05 Jul 2026 16:33:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1783292741; x=1783897541; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pvAz5x8LchaZtxQrMlKYhRGP/HbrS7tesS0/zUspz2Y=;
-        b=N+zxJl6I7pDyzEjkLCWcgkYzHOvUs/4CWB8bzssu1UqAR3mT+f3jPOd6H9GtcERceS
-         aR4/s9BZ2U5A09qjLeC+4KsE1voThS0rJVJkqwdsAjTpTDChBOySCTe6g/Xam5pTkdso
-         74GkmwXZLoDMgm9zcT4khow1Y9j/nH+L0w3ip3eNuWqjp54PlyPtWXjwtXlcjvZCOHmL
-         edoU+tY3diro1wmP3nhH0OhMDUrAXSRgi89Qi7JdV90yeNT5YlmI4B6zoJdb0nGyk+si
-         TGWIwYrP21NMDjjHPWXKEzF5VdtlWW4mCjS1q5uIBXUxpxCYhO/0KyOZxPjA7vCFs3r2
-         pvlQ==
+        d=redhat.com; s=google; t=1783294409; x=1783899209; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qWgX8hRK0wDWBZMkA2UqYafCnMgGjGfI+mUA5gi2rBg=;
+        b=FpnqmFNEuJ6nXLI34u38m7AWzOSKckRcd4Oil3p0vNBFyl4ZXQnLEtJZuZy4Zars2I
+         rprGplV7Qd1TawcxJkLBRoyFeKTXMJSSVDtO5i9M7F4KFT7TUqU5/yNBUIV7btLL5Bnb
+         B62Fq8rFrEh8k6KY0KVcTfaaAScnwlNZ4GvLRjdPEjVzhBJUmszrlGk1GFZXJKylVrc1
+         8beS0JG052NRUSutnDhE7yte0M0eaOv/qyFZy3wTeHWyATJeGtJX+LxhR4q9GDgwj0RI
+         hl24/Ocyw2LLKP/b0oUdOMqYhhH+8/9SfMM4ln3Moh9R4jcCuXBf7CamJVvZsWw09eb4
+         VsIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783292741; x=1783897541;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pvAz5x8LchaZtxQrMlKYhRGP/HbrS7tesS0/zUspz2Y=;
-        b=du2uy0fi1UVVqkvcclrA9W027sQf3/RRPyquNEysrDcyRK5MEHHuQlCBPMYAUIAl3Z
-         SOCTNJwLg7Jcz4oKDGFCe+ZuKL7tOkLn+QPGhQjvBpYK/pGl6bYzMkUPIOEya2rgY9CO
-         Uz9GuiXs6zhHb+8B9ocBdk4kMGPj22jI1nRgAmN0jKa2kOjYQb8eKKE6jx2eqsHPAFCY
-         UMuSB6Las/IPyb7OwjkPbpB9MOjYf806tfF9HpSOHHXxykJcUeclRIrAJzo6cWiaJYI4
-         wqH/0h5JfcVIMoJG1VBskYuvWgNivTR0YgkdE7rIwG1P7oTSiZS9+FlwjvdixELvKOoc
-         Y/oQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+nmBmE31VpaNDQ/1oDIdAjLtJy9wBzEzmtGYMxdrDKOn48IFByKrPeoWxIcjB8qUQCcG5ZF+s=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQgfHA/mF+KaBBwwGNMVhc9cvlv1sKG3NFWAVEu4GG2D9rvVVA
-	YPdXurQYlxt1VGYRJzECyYpK2YCvyePQqhRGOHLRvrti6oqHyJgMxfV8O0InX5XykjM=
-X-Gm-Gg: AfdE7clwtORJ/Yo/WGIunoBeM/RP5PPVirtDi2RBxwAoiSDpFhh0VUpXpo5T/lbMCmS
-	8o7OLdtM7UtBV3CGAUBmOLtqm4tXWLzavtFm5jKUDGixbrmtKmiFVDNEHKadIx364CG2W6XwuqY
-	4mt/8PrY4yA8RlyBDaC61QzCioQeMi0d8jl06d+xupPNpALsZ0+2i4PbHPDwlow1GTV1F0hZzRl
-	37l5APE3VsTPNU1gaoU7sI4LQv2tmkizGCH+t8ZUA9UWktF26knnSjGl0gs9ISoWXSWD+XuU07G
-	LU2hNz3UnzRGuTFZ4LfzJu7MnUVD0okh+wQDZRGjLvU7ELx+UjQJx0l+6ccvJBFoIqDvWkJGzQY
-	3G00JXkT6k4tmMAl6KPCWV74eab1nG1BkCb6IW83Dxh4w8UWn+do0d/V42KEALSrqrzjCWvI6CA
-	v3cf7v5VsIv41rYYcVwbyDCRtXTCw44nZ10rg3zkJtRu8zZD2P90AnB9MaMkmt8omRo/iwssA=
-X-Received: by 2002:a05:6820:1352:b0:6a1:80a7:2c9f with SMTP id 006d021491bc7-6a32f67f473mr4299633eaf.58.1783292741274;
-        Sun, 05 Jul 2026 16:05:41 -0700 (PDT)
-Received: from [192.168.1.150] ([198.8.77.157])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a3103e064esm7735907eaf.14.2026.07.05.16.05.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 05 Jul 2026 16:05:40 -0700 (PDT)
-Message-ID: <6504fee2-a8e2-4cc6-ac60-524160710842@kernel.dk>
-Date: Sun, 5 Jul 2026 17:05:38 -0600
+        d=1e100.net; s=20251104; t=1783294409; x=1783899209;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qWgX8hRK0wDWBZMkA2UqYafCnMgGjGfI+mUA5gi2rBg=;
+        b=Y1XXowjHoI5IcnBkX9Z50KIMPirLa+10Gu68YFu9XUSGFLJwSHcnTwuOcBJrJeCgaZ
+         7zrQXwGDjWlLAXToaHI+kjBXB5Pf+7bKbYh0L+YLLE2TXOKFQxcufRuMvB1BwzvxEk+j
+         VCGi10y/wqwgw/jhja3aO3moGED5ciRHdJqnDORi+ySWwFNB8JBk7AFFVotjrwoFKqqp
+         iBM7+o+cn8y/lT+Vm1EvKnb7T1H2tfnh01nNI9gACjntmfoNaCTcta4MeMLaX1IBJDQc
+         R9ci2cnpTLN/n4EP6CMzU250kI9ybpO/4lkFga6xtp+qXLoO6d72/6+qlItPDgfATUKL
+         xntw==
+X-Forwarded-Encrypted: i=1; AHgh+RqGO4alqSnpWYBdS1s10Z1vlxqxmfA1zO3Hwe4f+WUgl2WMjJag3b42rPGfKanSTZ5/ZkdmGng=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRlM7bQbXuCjIoINLSSwHaCYK3Hqa96s6YM9foLJL8RsLDU8cY
+	yXvTY8DrLghlXSqGcpx7J+nW4FTa+8eL0JQv9rcH8X3Z+Yx82H2R19cj9s/cTtW03h6NRUG1bs4
+	2KOaxSQJTtx/wV74Fer3bJmUOsERx6nrbB2lhBWlDsEsoqfsHCKy+CAOTEg==
+X-Gm-Gg: AfdE7cnzkbBPDyf3Iw8QrH7a3RAyMIpPrjbH5GfxXOWRcGBOVqVhW0C+UdGt7bGEd31
+	YDG0asjQXRFuEvF2/nGm0VGFLWJJ/P3IyE9+KDkB9E8oQRgzIHUBhELkmzo41/A2M+6TqVp//3N
+	Y2QdFc4Eq5fUNTd6vAhSYyNOsPlozO2CsftuXr5rd8+cUJcFzW5ygi2LV/9szRWUicP4PaN8W1N
+	WT6ZUbGNgua4OjKTGM3F4phTxEOUyrpyNYGlcW2OtKFDgxjXVQTqHQCNrnaLUu9MJXAZ59pyZMW
+	a+AtqmaLtszmkrDcCybQD5MnzcfAMY3dh1+c22v5vMDYU65lyrsxMsi2d8guyhRBjNCD4lrNaaN
+	gpaqpZetWzgn3IVXApGQFKXlNeuPQXrsSSmOWiYni+dORblBODiU6tHOBqw==
+X-Received: by 2002:a17:902:fa84:b0:2ca:52ce:6f91 with SMTP id d9443c01a7336-2cbb9eb434bmr53329275ad.27.1783294409590;
+        Sun, 05 Jul 2026 16:33:29 -0700 (PDT)
+X-Received: by 2002:a17:902:fa84:b0:2ca:52ce:6f91 with SMTP id d9443c01a7336-2cbb9eb434bmr53328835ad.27.1783294409024;
+        Sun, 05 Jul 2026 16:33:29 -0700 (PDT)
+Received: from localhost.localdomain.com (122-63-66-137.mobile.spark.co.nz. [122.63.66.137])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad789237bsm38168945ad.71.2026.07.05.16.33.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 05 Jul 2026 16:33:28 -0700 (PDT)
+From: Tao Liu <ltao@redhat.com>
+To: pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr
+Cc: linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	bhe@redhat.com,
+	zohar@linux.ibm.com,
+	roberto.sassu@huawei.com,
+	dmitry.kasatkin@gmail.com,
+	eric.snowberg@oracle.com,
+	linux-integrity@vger.kernel.org,
+	pratyush@kernel.org,
+	Markus.Elfring@web.de,
+	kernel-janitors@vger.kernel.org,
+	jarkko@kernel.org,
+	Tao Liu <ltao@redhat.com>,
+	stable@vger.kernel.org,
+	Nutty Liu <nutty.liu@hotmail.com>
+Subject: [PATCH v5] riscv: Prevent NULL pointer dereference in machine_kexec_prepare()
+Date: Mon,  6 Jul 2026 11:27:07 +1200
+Message-ID: <20260705232706.30265-2-ltao@redhat.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 044/108] block: invalidate cached plug timestamp
- after task switch
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>, Usama Arif <usama.arif@linux.dev>,
- stable@vger.kernel.org, patches@lists.linux.dev
-References: <20260703123236.3139759-1-usama.arif@linux.dev>
- <2026070315-stable-reply-0015@kernel.org>
- <eeec321a-fd07-408b-9d64-c4d65ec92935@kernel.dk>
- <2026070416-bannister-charred-76c4@gregkh>
- <4a05f7e4-d831-4696-8d34-7e976839b4b2@kernel.dk>
- <2026070536-showroom-unlit-4f84@gregkh>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <2026070536-showroom-unlit-4f84@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/5/26 3:03 AM, Greg Kroah-Hartman wrote:
-> On Sat, Jul 04, 2026 at 06:41:07AM -0600, Jens Axboe wrote:
->> On 7/4/26 12:45 AM, Greg Kroah-Hartman wrote:
->>> On Fri, Jul 03, 2026 at 08:35:46PM -0600, Jens Axboe wrote:
->>>> On 7/3/26 8:05 PM, Sasha Levin wrote:
->>>>> On Thu, Jul 03, 2026 at 05:32:35AM -0700, Usama Arif wrote:
->>>>>> It looks like this patch was backported, but the preceding patch [1]
->>>>>> in the series was not bacported to the stable branches. Both this and its
->>>>>> prerequisite have the same Fixes tag.
->>>>>> Not having the prerequisite will result in a NULL derefernce.
->>>>>> Could we please add [1] to the stable branches?
->>>>>
->>>>> Now queued the prerequisite fd38b75c4b43 ("kernel/fork: clear PF_BLOCK_TS
->>>>> in copy_process()") for 7.1.y, 6.18.y, and 6.12.y, thanks!
->>>>
->>>> This is a problem. Can some light be shed on why only 1 patch of the 2
->>>> got applied? This could lead to big problems, which seems to be the
->>>> case for this one in fact.
->>>
->>> This is on me, I only took a "subset" of the patches tagged for stable
->>> for this round of releases as I was facing a huge backlog of stuff
->>> (everyone loves to wait for -rc1 for cc: stable fixes), combined with me
->>> having travelled for 6 weeks straight for conferences which didn't allow
->>> me a ton of time to do stable kernel work to keep on top of the pile.
->>>
->>> The patch wasn't lost, and is still in my queue to process (along with
->>> 748 other patches) it just wasn't obvious that there was a dependancy
->>> and that I had to take them both in order, that's on me, sorry.  This is
->>
->> At least this one would've been avoided if patches marked as fixing the
->> same upstream commit would never get split. Which does seem like a
->> (very) sane default! Particularly when they are part of the same
->> posting, it's not like they landed at separate times.
-> 
-> I have never considered searching to show which patches say they fix the
-> same commit.  Next time I do a "not all of the patches at once" I will
-> do that.  As this hasn't come up in the past before, because normally I
-> can keep on top of the flood, it shouldn't be something we have to
-> institute very often.
+A NULL pointer dereference issue is noticed in riscv's machine_kexec_prepare(),
+where image->segment[i].buf might be NULL and copied unchecked.
 
-I think the relationships are probably a bit loser than "fixes the same
-commit", could also be things like "these two patches fix commits in the
-same original series". Actually something that would be ideal to just
-have an LLM vet, with some basic rules, honed down the line? Stable is
-important to me, but it does feel a bit fast and lose sometimes, some
-more process (and particularly automated process) might not be a bad
-idea?
+The NULL buf comes from ima_add_kexec_buffer(), where kbuf is added by
+kexec_add_buffer(), but kbuf.buffer is NULL, then it is copied without
+a check in machine_kexec_prepare():
 
->>> also why we have review, to catch things when I do something stupid like
->>> this :)
->>
->> Agree, but at the same time, requiring review to catch these is fraught
->> with error. Not only do maintainers and developers get a lot of emails
->> from stable, we need to carefully sift through them. And rely on the
->> original patch author to do the same. Which in this case thankfully did
->> happen, but... People also don't necessarily pay full attention all the
->> time, there's work and vacation and a bunch of other things that get in
->> the way.
->>
->> This is different than normal review, where inclusion is gated on the
->> review. If nobody says anything, it'll go in.
-> 
-> That's because these patches have already been accepted into our tree
-> and gone through our review process.  Backporting them usually should be
-> trivial, it's only the minority that are in series and dependant on
-> others in that series, so this doesn't come up often.
+  kexec_file_load
+    -> kimage_file_alloc_init()
+       -> kimage_file_prepare_segments()
+          -> ima_add_kexec_buffer()
+             -> kexec_add_buffer()
+    -> machine_kexec_prepare()
+       -> memcpy()
 
-Right, but they were sent in for a specific tree, and all dependencies
-were either in that tree already, or part of the series. That's
-different than the stable side.
+Address this by adding a check before the data copy attempt.
 
->>>> A Depends-on could be used here, but it's pretty hard for a submitter
->>>> to do that, as the sha isn't known before it goes into the maintainers
->>>> tree.
->>>
->>> Agreed, that wouldn't really work, and isn't normally needed.
->>>
->>> But again, maybe trying to get patches that are cc: stable into Linus
->>> _before_ -rc1 is better?  Hey, I can dream...
->>
->> I send out fixes _every week_, -rc1 or -rcX changes nothing in my
->> workflow.
-> 
-> Based on the huge number of patches for stable that show up in -rc1, you
-> are in the minority :)
+Fixes: b7fb4d78a6ad ("RISC-V: use memcpy for kexec_file mode")
+Cc: stable@vger.kernel.org
+Closes: https://lore.kernel.org/kexec/CAO7dBbVftLUhd2qrh7hmijTB3PEPfZAhykCGqEfrPoOcSrrj-w@mail.gmail.com/
+Acked-by: Baoquan He <bhe@redhat.com>
+Acked-by: Pratyush Yadav <pratyush@kernel.org>
+Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
+Signed-off-by: Tao Liu <ltao@redhat.com>
+---
 
-While that is probably true, I also think it's unavoidable to have more
-stable going patches post -rc1, as lots of late fixes for eg 7.1 and
-earlier end up being staged for 7.2 and hence end up as part of the
-bigger pile from maintainers. Early in the -rc series I'm more liberal
-in what I apply for the current version, later in the -rc series there's
-a higher likelihood that fixes that should go to stable does end up in
-my next branch and go in over the merge window. I bet this is pretty
-common, as we expect upstream to calm down as we get near final.
+v5 -> v4: 1) Add parentheses to function name in patch subject
 
+link to v1: https://lore.kernel.org/linux-riscv/20260529032739.13264-2-ltao@redhat.com/
+link to v2: https://lore.kernel.org/linux-riscv/20260627222602.23594-2-ltao@redhat.com/
+link to v3: https://lore.kernel.org/linux-riscv/20260701025732.66330-2-ltao@redhat.com/
+link to v4: https://lore.kernel.org/linux-riscv/20260703111530.91285-2-ltao@redhat.com/
+
+---
+ arch/riscv/kernel/machine_kexec.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/riscv/kernel/machine_kexec.c b/arch/riscv/kernel/machine_kexec.c
+index 2306ce3e5f22..738df176ff6f 100644
+--- a/arch/riscv/kernel/machine_kexec.c
++++ b/arch/riscv/kernel/machine_kexec.c
+@@ -41,6 +41,9 @@ machine_kexec_prepare(struct kimage *image)
+ 		if (image->segment[i].memsz <= sizeof(fdt))
+ 			continue;
+ 
++		if (!image->segment[i].buf)
++			continue;
++
+ 		if (image->file_mode)
+ 			memcpy(&fdt, image->segment[i].buf, sizeof(fdt));
+ 		else if (copy_from_user(&fdt, image->segment[i].buf, sizeof(fdt)))
 -- 
-Jens Axboe
+2.54.0
+
