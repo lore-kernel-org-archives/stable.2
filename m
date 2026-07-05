@@ -1,42 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from b232-12.smtp-out.ap-southeast-2.amazonses.com (b232-12.smtp-out.ap-southeast-2.amazonses.com [69.169.232.12])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C263815CC
-	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 14:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80F037A48D
+	for <stable@vger.kernel.org>; Sun,  5 Jul 2026 14:17:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=69.169.232.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783260838; cv=none; b=a88Rk+735cTIJdyZn4HnF6moSu5j6b+yCPRD11WuWsMBaO7jSqhYewhKfptYB+o0d9utbiRmNf3rG23WvP0KiZZycXlLUIsttxry/VmkggcMqk/ZM8F0xx8dQtrn8olNlWqmCHRgtMqrVl7nJG32urenfNSByLvp8gYngYSms5Q=
+	t=1783261024; cv=none; b=f8knwflhijv1dm6OnUPVyk5oMbWsLRwDVqBHBNKsySCyJBaSBrBxqgb66Jy0kByZ6qReovNaHxnvc36hDOmO7k3IVSK2D1WJVqNsmIDayHRdNsBy3nAXcYJw4rkXZ8liKSVmpJSbfLrvwzAdrW8weEpe1ur8zCawDOmHBnBpBQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783260838; c=relaxed/simple;
-	bh=WGKpf2cy+VUICVIGNqCr2JHMS7JYyM0p3lZUY/UUtNM=;
+	s=arc-20240116; t=1783261024; c=relaxed/simple;
+	bh=DD7/7mBFojVAb1s4AG49ZXVXz2Ddgt86NIiBgUi2IJE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PW55AxzJt/AcmLTgZvg58KlyYpbxkFhIStLUZegG1COCW4YsJZK0hNgT1/MneNvJHR8JW22fsfsJ/Yybv+khPKQL4TsUtnPqc18o+XoAhnLgOOllEEQ/mms+BzjNaHlcThZQwBF5odeCHcK+YmkQJQ6g4MpkcfVFNiqnzR6oSzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QigWzLbX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qdnKa0YAHwuw/+Xf92Wm3d3VB4kRlsyn/bntMDWLBDPPRniAhqTqqeCLZfaosUo+kbYCHq7yZMsKR+VjFXNal+HiJBT3OnjXxWdVJnHUI+/2a/AMBMBtv9PyOMrRGyUDUjq5+QULPT+Y8cZTkq9/rMVBa7gPiteIG2PKLMm5yN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=callumwong.com; spf=pass smtp.mailfrom=bounce.callumwong.com; dkim=pass (2048-bit key) header.d=callumwong.com header.i=@callumwong.com header.b=ghake0G3; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=LJDnW+ZE; arc=none smtp.client-ip=69.169.232.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=callumwong.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.callumwong.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QigWzLbX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A9981F000E9;
-	Sun,  5 Jul 2026 14:13:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783260837;
-	bh=5I5lei73yaGFMazl+M0cpvM+xK2GWYXQu1ze92QM1U0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QigWzLbXa4JFlyWYoWMBMZKRISjQ2NZvyfyHfxnzj5t8QrZUJPmHClH1iNCM+yHOP
-	 Sax+7PCIrgGVbR6UWsZeSDt7qYSuEmT+maoUe5/kADAuj6cLU5uzgNnwxCs/u5ICvB
-	 ORDlLjP/6a7WaYfs5YUsobGPNIKivDbdLdzjDKckF4JqWIqFEF/Jh65c00RsZacyxC
-	 6s+gwhN/cv+/onoLizwjWryVhBx7TNE9RqbPO1uCvjYy3SWXrOegQg+gUnRvY03lEj
-	 TLzlyCg5kPReX4706XoNG+Y4e5nUiSTDSL62tE3cvFSNI8LiD0zqWgkBMsRPQymKPG
-	 c6aRjfBbuR2TA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Michael Bommarito <michael.bommarito@gmail.com>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] NFSv4/flexfiles: reject zero filehandle version count
-Date: Sun,  5 Jul 2026 10:13:55 -0400
-Message-ID: <20260705141355.1783874-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070244-vehicular-daintily-d589@gregkh>
-References: <2026070244-vehicular-daintily-d589@gregkh>
+	dkim=pass (2048-bit key) header.d=callumwong.com header.i=@callumwong.com header.b="ghake0G3";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="LJDnW+ZE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=tm32yydslvviquw2x2q4ycbntmmm3paz; d=callumwong.com; t=1783261021;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=DD7/7mBFojVAb1s4AG49ZXVXz2Ddgt86NIiBgUi2IJE=;
+	b=ghake0G3Ivo5nPV9pISjRWFy8FUnbaiAE1icAucuAbThpyjn0/FVVLVgG+wDRuWU
+	3i/qX5OaY/e0kgrm7S59y60bWn/RO3XERWDNp1pK9Moxluih1Ld07s/qEy5zkKMGnci
+	0lj6jZ0kl963Zvfm5S5RCY1Iq01oP36UoaGXHcrJlyQytwn+4Z87ITzVm3LhBj9hR+T
+	FYbMIprwmkoQbg7R0BbhWvIYLgnfH1Sks5qqBdSZP7+794U41JJjs03R8Q8vn8tL6Me
+	7wSB0SzNRkVOp8rFKW78RbKcVL3qpixYWs05FTcvW199XT2fjXzQ684YzC7xDu01osZ
+	/rQP3A99ew==
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=ulrbq2zjesb42hdt6rpnifgor3epinsy; d=amazonses.com; t=1783261021;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Feedback-ID;
+	bh=DD7/7mBFojVAb1s4AG49ZXVXz2Ddgt86NIiBgUi2IJE=;
+	b=LJDnW+ZEf7fUy3e7vaCBXCnU1Bgp0fFpSduZPRxdvDQoBIeoZNQ1hC0XNVt4UnfG
+	8XAvOd34aYf5C5MrMNYqKaAH0wpP74V9CMAC6DQD9avvL5tHChcEDEcDQVhBlpvGWMw
+	hVIW3yzS6i7kC4aSQ9Ar3ZDGe02dujX41V0d6XOU=
+From: Callum Wong <mail@callumwong.com>
+To: mail@callumwong.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH 2/2] ALSA: hda/realtek: Enable mute LEDs on HP OmniBook 7 Laptop 14-fr0xxx
+Date: Sun, 5 Jul 2026 14:17:01 +0000
+Message-ID: <0108019f32a3c3a7-f13735f0-d96e-4194-8ed0-11c3d57faab7-000000@ap-southeast-2.amazonses.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260705141657.180320-1-mail@callumwong.com>
+References: <20260705141657.180320-1-mail@callumwong.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,58 +50,61 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Feedback-ID: ::1.ap-southeast-2.Bo07if0thBjjxfhnG0PllidpkDb4AFgWjQ4XZlpgJDk=:AmazonSES
+X-SES-Outgoing: 2026.07.05-69.169.232.12
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+The HP OmniBook 7 Laptop 14-fr0xxx (SSID 103c:8e3b) is already handled by
+ALC287_FIXUP_CS35L41_I2C_2, which binds its two CS35L41 amplifiers but
+does not enable the keyboard mute LEDs. On this machine the F6
+speaker-mute LED is driven via the ALC245 COEF register and the F9
+mic-mute LED via a codec GPIO, the same as
+ALC245_FIXUP_HP_X360_MUTE_LEDS.
 
-[ Upstream commit 2c6bb3c40bc24f6aa8dfbe6fe98c3ad6389203f2 ]
+Add a fixup that binds the amplifiers and chains that mute-LED path, and
+point the 8e3b quirk at it, so both LEDs work in addition to the
+speakers.
 
-ff_layout_alloc_lseg() decodes the filehandle-version array count
-from the flexfiles layout body. The value is used as the count for
-kzalloc_objs(), and the current code only rejects NULL.
-
-A zero count yields ZERO_SIZE_PTR, which can be stored in
-dss_info->fh_versions even though later flexfiles paths assume that at
-least one filehandle version exists.
-
-Reject fh_count == 0 before the allocation, matching the existing zero
-version_count validation in the flexfiles GETDEVICEINFO parser.
-
-A QEMU/KASAN run with a malformed flexfiles layout hit:
-
-  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-  RIP: 0010:ff_layout_encode_ff_layoutupdate.isra.0+0x15f/0x750
-  ff_layout_encode_layoutreturn+0x683/0x970
-  nfs4_xdr_enc_layoutreturn+0x278/0x3a0
-  Kernel panic - not syncing: Fatal exception
-
-The patched kernel rejects the malformed layout without KASAN/oops/panic,
-and a valid fh_count=1 regression still opens, reads, and unmounts cleanly.
-
+Fixes: 7150d57c370f ("ALSA: hda/realtek: Add support for HP Agusta using CS35L41 HDA")
 Cc: stable@vger.kernel.org
-Fixes: d67ae825a59d ("pnfs/flexfiles: Add the FlexFile Layout Driver")
-Assisted-by: Claude:claude-opus-4-7
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Callum Wong <mail@callumwong.com>
 ---
- fs/nfs/flexfilelayout/flexfilelayout.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/hda/codecs/realtek/alc269.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
-index 24d97d7ba12d56..8fb5e05c4b266c 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -454,6 +454,10 @@ ff_layout_alloc_lseg(struct pnfs_layout_hdr *lh,
- 		if (!p)
- 			goto out_err_free;
- 		fh_count = be32_to_cpup(p);
-+		if (fh_count == 0) {
-+			rc = -EINVAL;
-+			goto out_err_free;
-+		}
- 
- 		fls->mirror_array[i]->fh_versions =
- 			kcalloc(fh_count, sizeof(struct nfs_fh),
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 9ce143598b66..ec82e665a3a5 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -4170,6 +4170,7 @@ enum {
+ 	ALC245_FIXUP_BASS_HP_DAC,
+ 	ALC245_FIXUP_ACER_MICMUTE_LED,
+ 	ALC245_FIXUP_CS35L41_I2C_2_MUTE_LED,
++	ALC245_FIXUP_HP_OMNIBOOK_7_14_FR0XXX,
+ 	ALC236_FIXUP_HP_DMIC,
+ 	ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO,
+ 	ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX,
+@@ -6745,6 +6746,12 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC287_FIXUP_CS35L41_I2C_2,
+ 	},
++	[ALC245_FIXUP_HP_OMNIBOOK_7_14_FR0XXX] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = cs35l41_fixup_i2c_two,
++		.chained = true,
++		.chain_id = ALC245_FIXUP_HP_X360_MUTE_LEDS,
++	},
+ 	[ALC236_FIXUP_HP_DMIC] = {
+ 		.type = HDA_FIXUP_PINS,
+ 		.v.pins = (const struct hda_pintbl[]) {
+@@ -7318,7 +7325,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8e36, "HP 14 Enstrom OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8e37, "HP 16 Piston OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8e3a, "HP Agusta", ALC287_FIXUP_CS35L41_I2C_2),
+-	SND_PCI_QUIRK(0x103c, 0x8e3b, "HP Agusta", ALC287_FIXUP_CS35L41_I2C_2),
++	SND_PCI_QUIRK(0x103c, 0x8e3b, "HP OmniBook 7 Laptop 14-fr0xxx", ALC245_FIXUP_HP_OMNIBOOK_7_14_FR0XXX),
+ 	SND_PCI_QUIRK(0x103c, 0x8e60, "HP OmniBook 7 Laptop 16-bh0xxx", ALC245_FIXUP_CS35L41_I2C_2_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8e61, "HP Trekker ", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8e62, "HP Trekker ", ALC287_FIXUP_CS35L41_I2C_2),
 -- 
-2.53.0
+2.54.0
 
