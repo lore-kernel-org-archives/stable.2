@@ -1,95 +1,85 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF254218A0;
-	Mon,  6 Jul 2026 08:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA6442E011
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 08:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783328032; cv=none; b=qaIJrST3MuhTi5+9+/sP6NmxwHxYeJ/7kW7rRSEUnbhJdXsyzBTkjCWbN3wJNMrmmFi6WAo0THMabzlbxbRLDVbQUQf0Pq0kiGM8v3C3MXGgc9y9ijfCTHXvBjtxOPlrUI3BrHlC0/f5JAjVrx0EDRFvC36pP/7Ws7hls0+pkx8=
+	t=1783328398; cv=none; b=MFXl9kawrKGM8KPgoHfOeFrFujlqlNbTsfYN8Y1JlD5YVG+XTtbfcd0tVG4Uvua830m6+VU8eV5PC2CmVPfnZCJ+IIgCKQa2vMYbM7VD/tOWeUmkI203aBD6uKcEDj0svseNCErCRl/G5QYL5o7HBQVQLHMzWAvWYR7SOB7N6Sc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783328032; c=relaxed/simple;
-	bh=/TvKec/XC0JTbdAOQu/yIL/e78/xfDt000sU/A6eGUI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QV6RTO9vWW4r+CPQB13jY/kKo3Ba/fQ4dmkPVwejLK92yHR4Sbvc1DvIlio4EKfalHhhSJw3bKuM3t3F2AG0AueM1egYYyuoB1RXLT4xqhyRWYokmcR9eaKHaHcHT6PhUWX3EnGvM79M+GinIPyuZIBRH0rYmRD2p/lpB6v6Qas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=none smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=Q9Pnm0mP; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1783328398; c=relaxed/simple;
+	bh=RYkBCQDMTYKWKsolGeookIevCeyL7ZbSoRHQrqoBd5A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NsBh8y32+uLovwtYy6qfljVtC4qRktll4Qjk6W4wtcCUOZAR6Yr0LGmoJ422UMy8BNhc7Sxxx18THFlhGHhSf/c+eJTRErQlQpDwrVLrsn9msOwGrXUT1181I/jumMz+k3t8eDJECYvwieHTkTzZv04IwJc756nVc+1lp9CwF3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=qOBZSYE5; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=x6MJmd2Y; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="Q9Pnm0mP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=HOYq0y24CEIaSGuKk/5JaHh7YaHxGnPSgB515RKcgqg=;
-	t=1783328021; x=1784537621; b=Q9Pnm0mPqrCkbHXOVNM/VoewIEYXqdYKG7M48uIPmWeQPdl
-	MGE15PdsF6k3MP/BzJIlBqTqPikPWU15UuK2BROrCwddRnqwG0abOnuBO/DRLUAed5W9UeUwop2LK
-	+88ZXtXHKUT2t6QAXgDo8J0V5RdCvSrCeB7TFkSc+8A5jeXMUd9a9mFXLPTUZq0BWyWVIW9ewuWTM
-	SZu6IOHM0vpRx0YPHKlLkKJDZ+Ty0r/VdlyUJKE0fRv5XjS6bwyYKT/HingLCnhJodPuAUql4XNGh
-	hGvO0bXHXM2eZa2dSM7qE49dMYgSK3toFDNenaaRyQSZ5M+AtpH8jxlMZzo7Mf2Q==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1wgf53-0000000CgRq-438V;
-	Mon, 06 Jul 2026 10:53:34 +0200
-Message-ID: <b7dab24792025a5a95b719ef7d508fb109859ec1.camel@sipsolutions.net>
-Subject: Re: [PATCH] wifi: mac80211: only accept IBSS channel switch from
- our own BSSID
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Nathan Howard <kernel@nhoward.dev>
-Cc: Yingjie Cao <yingjcao@sigvoid.com>, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 06 Jul 2026 10:53:33 +0200
-In-Reply-To: <ajrfKAmdZnPPkGKE@gpu1>
-References: <20260623090437.13198-1-yingjcao@sigvoid.com>
-	 <c3fd8617849368e579a56c4397b7ee8624ef27ad.camel@sipsolutions.net>
-	 <9201d828365fa2b11fb6a83d1ff66365435a9072.camel@sipsolutions.net>
-	 <ajrfKAmdZnPPkGKE@gpu1>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="qOBZSYE5";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="x6MJmd2Y"
+Date: Mon, 6 Jul 2026 10:59:40 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1783328381;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vJ73e2TvQ0rFtNoXD0QH2VGUWkqzGqzS10/2H4h+n4k=;
+	b=qOBZSYE5vYKliEumGbZA3XnKKHeSIiWNf8I88I9kD6w5+2AviplZNIGoQhu8a3gJa583KH
+	GQY6S2XVqEjvzx+8xE7VSTZCPmMTCJLqVRGpkQ2BCO1DAweE292i8DHZlxawzMlPbLUpWK
+	FYCoaFn/0b/9pBlxhMlNsQd3b981siY6E6geIdp2FdfhNvYBoRxJRXUcNeSCe88bTPJzJJ
+	w9zXi1/hTlsFmSf0it5MKKDytLiCQyWlmJIK/WvuKUUasTJNe7/t90DcI1i2Q8BMW1mFZT
+	ezSS76Cw+wHkoRLu4TFfQ+BSQg/iOsy26Cpph+lVWnnatd+rKauBc5Zl69TqiA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1783328381;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vJ73e2TvQ0rFtNoXD0QH2VGUWkqzGqzS10/2H4h+n4k=;
+	b=x6MJmd2YGv03GD5CX6DtDGj8zK+Vfkf57pT5hdVfrrWUAjpukk4xI0WZhgOl9fXUGPfLWp
+	u4gRUHJ0VFzFBABg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, Jan Kiszka <jan.kiszka@siemens.com>,
+	Jon Humphreys <j-humphreys@ti.com>,
+	Russell King <rmk+kernel@armlinux.org.uk>
+Subject: Re: [PATCH v6.18 0/3] ARM: PREEMPT_RT backports
+Message-ID: <20260706085940.3lUHUu8z@linutronix.de>
+References: <20260629144131.788576-1-bigeasy@linutronix.de>
+ <2026070229-rendering-plus-be9d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <2026070229-rendering-plus-be9d@gregkh>
 
-On Tue, 2026-06-23 at 15:31 -0400, Nathan Howard wrote:
->=20
-> So, what's the litmus test?
+On 2026-07-02 16:06:48 [+0200], Greg KH wrote:
+> On Mon, Jun 29, 2026 at 04:41:28PM +0200, Sebastian Andrzej Siewior wrote:
+> > Hi,
+> > 
+> > ARM missed the PREEMPT_RT window for v6.18. The following three patches
+> > have been merged as of v7.1-rc1 and are the missing pieces.
+> > 
+> > I've been asked by people if it would be possible to include them in the
+> > stable tree as it would make their life easier.
+> 
+> Why can't the -rt patchset just include these?  Why put the burden on
+> us?
 
-I don't know, tbh.
+It is part of the -rt patchset. I've been asked if it would be possible
+to include it (ARM support) as part of -stable tree. I've been looking
+at what is missing and it included two Kconfig changes and one code
+change. This looked small so I thought maybe, why not let's ask. I'm
+sorry if it looked other than asking.
 
-> I've been watching this list for some time
-> now.  I've seen (what appears) to be an ushering of distrust brought
-> on by llm's.  This also seems to have come into prominence within the las=
-t 6 or
-> so months.  I understand the cautious approach, but what if one's been
-> working diligently (and quietly), and has spent many hours studying and
-> preparing a driver series (for oneself and submission to the kernel)?
-> I've always done well by doing my homework the hard way.  But now,
-> submissions are met with skepticism... that the work must have been
-> assisted-by if the person doesn't have a track record.  How should one de=
-fend
-> his work (I'd rather not share credit with a machine when my work is my o=
-wn)?
-> To be clear, my question is sourcing from what I've seen to be trending
-> more recently whereby several submissions have been ?softly? tagged as as=
-sisted-by.
-> Maybe they were, but my point still stands.  Kindly provide guidance.
+If this puts burden on you and it does not qualify for a stable change
+then it can't be included.
 
-I'm convinced that if you've actually done the legwork you could defend
-the work you've done. If you're willing to go on the record saying you
-_didn't_ use an LLM I'm even going to believe it.
+> thanks,
+> 
+> greg k-h
 
-But if someone's sending "critical security fix that needs security@
-involvement" across a wide spectrum of places then yes, I'm going to be
-highly sceptical they actually know what they're doing on any individual
-one of the issues.
-
-Like here. OK, this one didn't go to security@, and it's not even a
-wrong fix, but doing "Cc stable", Cc'ing half the world and not
-following up *at all* are all bad signs.
-
-johannes
+Sebastian
