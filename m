@@ -1,196 +1,139 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA263AEF36;
-	Mon,  6 Jul 2026 05:39:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783316348; cv=none; b=BqOdK82evYud5i6/tWzkofE1VNODiAjN1cmFT+Dm21K4L5L9zRtSgQUekeCI2YUfDV5UKcqxLf/DQGJCBX0iAWKgfiKT4G/FqkiRhRlLVbTZRAx+AHT7QLKqJ0Q4L/D6XTiGWkKgx0WRRqY0jLgreMrdTidfTln73SY4odtutL0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783316348; c=relaxed/simple;
-	bh=QoBk2MJt5q5R2u0f27bQBWEiEBvkGW/NVJ/zWtTl7uM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lPnLyWIfPiW0LAyjbwtIw8+YdrRMttMuajt1bL1SeWitFojAcSHBJw06nVlKae7TpSvZcK2IkU4pYPqv6ukxMLKwsZIBZ6FEvzEMLXx4KyMuix7bn+Nxo4P5EGy+ipFxZyMztMCJuyCJivjTRq7V0HQt9M1pxHKvmqS0jE2oB38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=DZIofuqG; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86EE7213254
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 05:48:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783316897; cv=pass; b=Arw6JUaDQTIgtR4QS9GPbWdX9cu2Bbyyaa45XZ2SpMoMwuzZDDPqmfcrrD5MN2og/fvXHIcn0+phR0yiT8zeIWRZbeFLrIzbpDh/72yi4SEQKngWGwSjH7U356lAuJ2buQB5MpJ1F1kE+gzTL401RDrf6VhnSJwtod2VK6z9ERs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783316897; c=relaxed/simple;
+	bh=Aj0bcYgVyA+h7Yjt5/sByvrq4ZKbO93MgNXOi0Vl2aU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZNFnYUPFCEpeUH+hQH3dRxOIAQbZtVoIfLv50IUQndU6ffFY8A3qOsVD5knKMtVXYZsKTGqqy03CasLGSOkZ6WQJdM1ZlAblwyZ6ttcM9OH+fgjT3aI37OF3iLlEe2YKW+3cV+0dXviO+AYVJqe2bIx2S3lS24HHz+ca/2Cbh7k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l/6ht4zM; arc=pass smtp.client-ip=209.85.222.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DZIofuqG"
-Received: from ideasonboard.com (mob-109-113-60-81.net.vodafone.it [109.113.60.81])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DB062524;
-	Mon,  6 Jul 2026 07:38:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1783316296;
-	bh=QoBk2MJt5q5R2u0f27bQBWEiEBvkGW/NVJ/zWtTl7uM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DZIofuqGTgmVRCs2r0RqpDUtxpc3QUJZv600xzY9pXgX6HZ0FrlUYHY3KxCWahlJi
-	 15+L/fQLkplnsC6Dwoch4b5vWzBO2ldrna68RmL+k+P1lD2LEj0F2vwrYKCdyPydJn
-	 mZ9lMXlgA0ZuHs3J1A7DZzDu2pUftp1dxY/9QvOU=
-Date: Mon, 6 Jul 2026 07:38:58 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	David Carlier <devnexen@gmail.com>, dan.scally@ideasonboard.com, mchehab@kernel.org, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: mali-c55: Fix unaligned access of AEC histogram
- zone weights
-Message-ID: <aks7usxfDajS-W_5@zed>
-References: <20260702103453.348056-1-devnexen@gmail.com>
- <akd8E5jr722oTm49@zed>
- <20260703221651.41669d55@pumpkin>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l/6ht4zM"
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-92e5c92c389so118623085a.3
+        for <stable@vger.kernel.org>; Sun, 05 Jul 2026 22:48:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783316895; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aN9ByDF7/xOsdsyEF3vFZ9UAumKSakzRiMER9p8Z1BYeYMbJ3UMHKrbhS+z0UVtmoJ
+         nkzsot3xZCEGGkDHcOzvnSuFMhOJZ67mXzR6cYYNA7OwGqHIn8QWNY0DDTAO8zUf42NR
+         M/RPQbwSRIgkxf+wswQ5+w78Xm+k9W+uBpAECFcusNlcN+MceszUnbIaiBkICpWHZCRK
+         vswvu5HhortufHU5Pkv9OklAKsvTJvH/xbpyosNwVblakeps2rx4YPv+tnA+lUL0iyqQ
+         poYKdeSi+anM1EW9rvu+wviTepwZ2P09K9bwuPYPvK1FCisRuI1TBYpTbk9IwMEXZ+PL
+         Gdzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Aj0bcYgVyA+h7Yjt5/sByvrq4ZKbO93MgNXOi0Vl2aU=;
+        fh=pqJBECeoU0zSTn074k10lYMxp+FCxIQNK1vhTeIEKIM=;
+        b=WWcida6EC7y9PfBmHs2gz4X3Aow7Fe/l4WMN7K2MdqmMmcobLlKz+xZMGKwBsGFNXE
+         yYlFEYzftjtYGdzcDTq1hKAGwWG8a2aRNmrE2T4fHGjN30KDSxfx0rFF+VJGGI5BdOAv
+         YF4GlqK4h9/xlPYs1r2VR/nvnGqQu4maE9i1CPxG0DAvYlB935rfhVxHVj0Z3rhaaeFC
+         0+MIaJx77P2Cmn7/UjOvj6BUVZ8aOLTIYMWRPtxFqb9SGTiJNzl26n766yny+v8bgE4f
+         lDmj1B5nY9LJIUS55eG+tf5pQC/JP9Et34Sa0oaKeYBc/EUwi/YqWaRph6TeMCGsXybN
+         y5oQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783316895; x=1783921695; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Aj0bcYgVyA+h7Yjt5/sByvrq4ZKbO93MgNXOi0Vl2aU=;
+        b=l/6ht4zMZh8VfzWlOEgUEd9NiRtJf66D6Fao5CtGTP1+9cKrk7Y5f8JW+oY33mptkB
+         1CU2ILPMZYZM6gsB//AMM15noY3Z6bpIAKazzXOJo24FHD4NZ7z2JctOeGEe0OHDsMIz
+         m8PMK6Bm4Jsc9xT2+r5K9pocQwuU4Nk6RhMm9pr+Dsv63zbRoaQdTbJ2UAKf9AcbMCE6
+         M57kKSjLMKaEw5XdEUiMM1Q4hLTKRFaami1cCpJ5WfZHDRPIG5kSt0qAluomWp62JMrX
+         oMUR3qvrCubOWTVK/DF7W9cWpV/5kcuHfkKK3fQNKM9FmDunqK0Had1mlSmxxEs7zvGa
+         C4Eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783316895; x=1783921695;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Aj0bcYgVyA+h7Yjt5/sByvrq4ZKbO93MgNXOi0Vl2aU=;
+        b=kQ9Cy+Yz/z5nS9yOzhChsUdZC37Kf036kNf1gYasdTlqi07VNDEQetbvOzopDKJOA2
+         +93ytygnv9ER/r1X+0YpM1glN36Rk9Xs+zXr469ZcxyJS8YxZ55mvy0yDB/LjK5TvB0L
+         s2E6d/R5sPTPtvzXXvS1VGbGgL8UsoSAdoDaDzRVbBiz6KcLWz5Ofk3vND0N9U//yLKd
+         SXhGv4oK3dq1/uv+0kd+DyiMei7zna8mfOH1QFnun9ykeacUp213A+6owgITxwK+fhB5
+         HgcBWurxpd/krsiv64DpcQn8ePVnezkLO8y7IGIA0KqP5YeItgfPUicMQHW//oZRlXS1
+         IZvQ==
+X-Gm-Message-State: AOJu0YxKv3fkTa2JG3P4au4tKJyn3xba52r/RMJfk84kefPXh+pHtnaK
+	YM28UTex0mo9ZYVzSRT7jW2wlAJdiP9/Qo7HxWSnIqiZg1b1Hq+ULb4nMQYaHQH5fdKOAsi6CvJ
+	wefE3pHP7zVg/6ND3/GGzFB7J/wsE/6ffgvmIMYDJrzA2
+X-Gm-Gg: AfdE7ckEuR4QK/GlXboCGP5ucgDhaG4tZ2PFvKs4LeKISW/QaikP9yeDcOCfQ4v1WMu
+	kCfPV3cAgyb2CXCSvazHHkd7ztbClETqeMfLJFHbdV5oGKBjcxYyZ9hxyjAr36SXrOCIIKuzBiH
+	12E8JZeSCkPPLqJCK9CjSpSHOofDH5WGUDt/5XOwppIfGv19f6prwkTeRrQFWgBMZVPU5TR3tNK
+	c2sJv6+DGFbb4uWvn4HhqEUpX0glesASYhRYtikp+bwIzlUzjALyoPnaSTAToR81O5v4A==
+X-Received: by 2002:a05:620a:198b:b0:92e:7467:fea0 with SMTP id
+ af79cd13be357-92e9a4a487bmr1138752185a.34.1783316895422; Sun, 05 Jul 2026
+ 22:48:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260703221651.41669d55@pumpkin>
+References: <20260703105059.3821189-1-pulpannie@gmail.com> <2026070315-stable-reply-0030@kernel.org>
+In-Reply-To: <2026070315-stable-reply-0030@kernel.org>
+From: Annie Kim <pulpannie@gmail.com>
+Date: Mon, 6 Jul 2026 14:48:04 +0900
+X-Gm-Features: AVVi8Ce2bpFZQ0LqTjQlhtqmIJXrDOstcTRaQAV3amwkajRdQ0fBD1k8sRVG7fA
+Message-ID: <CAGJdW3G3+Wjm7rGyV1Z2EYtbXQ=j9Dx7yd3QCvy6tsk=U+L6Cg@mail.gmail.com>
+Subject: Re: [PATCH 6.6.y] virtio_net: clamp rss_indir_table_size to VIRTIO_NET_RSS_MAX_TABLE_LEN
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>, "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi David
+> Thanks for working on this, and for the KASAN/UBSAN testing. However, rat=
+her
+> than a stable-only clamp that deviates from what upstream did, I'd prefer=
+ a
+> proper backport of 86a48a00efdf
 
-On Fri, Jul 03, 2026 at 10:16:51PM +0100, David Laight wrote:
-> On Fri, 3 Jul 2026 11:44:31 +0200
-> Jacopo Mondi <jacopo.mondi@ideasonboard.com> wrote:
->
-> > Hi David,
-> >    thanks for sending a patch to address this issue
-> >
-> > On Thu, Jul 02, 2026 at 11:34:53AM +0100, David Carlier wrote:
-> > > mali_c55_params_aexp_hist_weights() packs the 225 per-zone u8 weights
-> > > into the ISP registers four at a time by casting the zone_weights array
-> > > to u32 and dereferencing it. The array sits at offset 10 within the
-> > > parameter block, so it is only 2-byte aligned: the u32 access is
-> > > unaligned, which is undefined behaviour and can fault on strict-align
-> > > configurations or once the loop is auto-vectorised.
-> >
-> > well, I don't there is a risk of undefined behaviour on ARMv8, it's
-> > just less efficient
-> >
-> > >
-> > > The cast also reads the four weights in host byte order before they are
-> > > written to the little-endian register, so on big-endian hosts the four
-> > > weights packed into each register end up in the wrong byte lanes.
-> >
-> > Also we don't have any endianess issue as the IP is only found on
-> > little endian systems
-> >
-> > >
-> > > Read the weights with get_unaligned_le32() instead, which is both
-> > > alignment-safe and fixes the byte order regardless of host endianness.
-> > >
-> >
-> > mmm, I read in Documentation/core-api/unaligned-memory-access.rst
-> > that:
-> >
-> > ------------------------------------------------------------------------------
-> > 	u32 value = get_unaligned((u32 *) data);
-> >
-> > These macros work for memory accesses of any length (not just 32 bits as
-> > in the examples above). Be aware that when compared to standard access of
-> > aligned memory, using these macros to access unaligned memory can be costly in
-> > terms of performance.
-> >
-> > If use of such macros is not convenient, another option is to use memcpy(),
-> > where the source or destination (or both) are of type u8* or unsigned char*.
-> > Due to the byte-wise nature of this operation, unaligned accesses are avoided.
-> > ------------------------------------------------------------------------------
-> >
-> > Which seems to suggest, if the issue here is performances, we should
-> > aim for something different ? (honest question here, any kind of
-> > guidance is appreciated)
-> >
-> > > Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> > > Cc: stable@vger.kernel.org
-> >
-> > If it's only about performances, does this qualifies as a fix ?
-> >
-> > > Signed-off-by: David Carlier <devnexen@gmail.com>
-> > > ---
-> > >  drivers/media/platform/arm/mali-c55/mali-c55-params.c | 3 ++-
-> > >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-> > > index de0e9d898..1aaf64dde 100644
-> > > --- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-> > > +++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-> > > @@ -6,6 +6,7 @@
-> > >   */
-> > >  #include <linux/media/arm/mali-c55-config.h>
-> > >  #include <linux/pm_runtime.h>
-> > > +#include <linux/unaligned.h>
-> > >
-> > >  #include <media/media-entity.h>
-> > >  #include <media/v4l2-dev.h>
-> > > @@ -203,7 +204,7 @@ mali_c55_params_aexp_hist_weights(struct mali_c55 *mali_c55,
-> > >  	 * of overwriting other registers.
-> > >  	 */
-> > >  	for (unsigned int i = 0; i < 56; i++) {
-> > > -		val = ((u32 *)params->zone_weights)[i]
-> > > +		val = get_unaligned_le32(&params->zone_weights[i * 4])
-> > >  			    & MALI_C55_AEXP_HIST_ZONE_WEIGHT_MASK;
->
-> On LE with HAVE_EFFICIENT_UNALIGNED_ACCESS the latter generates what you
-> expect the former to generate.
-> But gcc can unroll loops and use (IIRC) 'rdp' to read two registers at once.
-> That will crash and burn.
->
-> The best thing would be to have a union of the two arrays with the
-> member marked __packed to remove the padding before it.
->
+Hi Sasha,
 
-I'm not sure I got what are the "two arrays" you mentioned here.
+Thanks for your reply.
 
-params->zone_weights[] is uABI, it's hard to change its definition
-without really good motivations.
+Sorry, this is my first time submitting a patch,
+so I was unsure whether it would be better to ask for your preference first=
+ -
+between a clamp and a backport.
 
-> >
-> >
-> > We could do:
-> >
-> >         memcpy(&val, &params->zone_weights[4 * i], 4);
->
-> Some of the KASAN (etc) builds might make a mess of that.
-> Without compiler optimisations of memcpy() it is horrid.
->
-> >         addr = base + MALI_C55_AEXP_HIST_ZONE_WEIGHTS_OFFSET + (4 * i);
-> >
-> >         mali_c55_ctx_write(mali_c55, addr,
-> >                            val & MALI_C55_AEXP_HIST_ZONE_WEIGHT_MASK);
-> >
-> > Or this could be an alternative:
-> >
-> >         const u8 *w = &params->zone_weights[4 * i];
-> >
-> >         val = w[0] | w[1] << 8 | w[2] << 16 | w[3] << 24;
->
-> That is a possible implementation of get_unaligned_le32() no point
-> doing it explicitly.
->
-> A late enough gcc will convert that to a 32bit memory read (with any
-> byteswap in the read or after) if unaligned accesses are supported.
-> Otherwise you get byte loads, shifts and ors.
->
+I understand now that the preferred approach is to prepare the backport.
+I=E2=80=99ll send a tested backport once it is ready.
 
-To sum it up: since we can't change uABI easily, the best thing here
-is not change anything and drop this patch ?
+Thanks!
+Annie Kim
 
-
-> 	David
+On Sat, Jul 4, 2026 at 11:06=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
+te:
 >
-> >         addr = base + MALI_C55_AEXP_HIST_ZONE_WEIGHTS_OFFSET + (4 * i);
-> >
-> >         mali_c55_ctx_write(mali_c55, addr,
-> >                            val & MALI_C55_AEXP_HIST_ZONE_WEIGHT_MASK);
-> >
-> > What do you think ?
-> >
-> > >  		addr = base + MALI_C55_AEXP_HIST_ZONE_WEIGHTS_OFFSET + (4 * i);
-> > >
-> > > --
-> > > 2.53.0
-> > >
-> > >
-> >
+> On Thu, Jul 03, 2026 at 07:50:59PM +0900, Hyokyung Kim wrote:
+> > This was fixed upstream by commit 86a48a00efdf ("virtio_net: Support
+> > dynamic rss indirection table size"), which reworks the driver to
+> > allocate the indirection table dynamically. However that change is too
+> > large to backport to stable. Instead, clamp the device-advertised lengt=
+h
 >
+> Thanks for working on this, and for the KASAN/UBSAN testing. However, rat=
+her
+> than a stable-only clamp that deviates from what upstream did, I'd prefer=
+ a
+> proper backport of 86a48a00efdf ("virtio_net: Support dynamic rss indirec=
+tion
+> table size") with the conflicts resolved for 6.6.y and 6.1.y. Staying ali=
+gned
+> with upstream keeps future backports to these trees from getting harder, =
+and
+> avoids carrying behavior that was never reviewed upstream.
+>
+> --
+> Thanks,
+> Sasha
