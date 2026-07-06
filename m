@@ -1,110 +1,81 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC26E377555
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 16:37:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52E335AC24;
+	Mon,  6 Jul 2026 16:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.254.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783355857; cv=none; b=lIohCwnPIkKlot+dhE+jpPFQNbLPffY524CDmLKXqLvOOdfE3lKVxKE+tUSgOqzUbbm59RV3CT8iBFWos0pMPWv9qdJy1Kbsb2cGXHAUGOHzExzS57gBQ2dNwDqn5JySPjCc3MFTALKfbZLcJwJpaZeg24tZsWN8UMfD8CEr2vQ=
+	t=1783356162; cv=none; b=ZWsSeVaf5pHiUiaxSlsORATi/EOLKW+ijWU+YaTWKaxxDeotndzNTej3XNkAjcrb85DycLDD8MoVhvRLn9z1tHOcboBOeusOxW91juFiZL1DptSoHR4Wnfm8q1i+YpZaebFGJg/bp/Vdm5nWOVrquZdCsHWcWHPASp10hFTkcPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783355857; c=relaxed/simple;
-	bh=XmJ6wnMPGgS7yPpX3MWDtjcz3HokPoz7NMQ+UHEt2sM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M1b24/g4yfta6UHY8eeDiRr1G53xLLdotwK4B70oX5+I9tqu1/MH+1A5662WrzpzD/HRcfV5S0Hr+zTrUn1SKhB2G3zV3EpHQnPwbLeRUELIluHQyN0hVQ9Z5k7x5kGGfPdLop9KXWHMZeS5xO//eGIolAM6VWp/9NimKn7Lgd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=kNiQejzd; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1783356162; c=relaxed/simple;
+	bh=bVtZtEZQnukQ8K+sG26vI4ygd12KkZjhfOKN+ZLwyus=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BLI7smrqXgSrE0CkiH7vKhsGOYI3Pmm2zlhEWSJTJ1DTs+duSf7jteYlje8fjFPXbvvZER6dzf1wYVMbqywtr4ZobdZgiAfiEkqjh1wmRhJwUAPGAeGF8v8XaRJyqi4w8amMU9IE93BsDbeim9kPim+4rPViLYWnP9LmnR8Pl8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com; spf=pass smtp.mailfrom=ilvokhin.com; dkim=pass (1024-bit key) header.d=ilvokhin.com header.i=@ilvokhin.com header.b=n05q+EyZ; arc=none smtp.client-ip=178.62.254.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ilvokhin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="kNiQejzd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=hzWv+OFVZlg+W/U9J5leRdp6cK6eTOT9BafxwaHxbds=; b=kNiQejzdOlsFR4x5rzttxqk8n7
-	HuQm/idJPtQaXCaHR73xBt6F9UQJ8mBxzeviuedqxqwOmSxm2kLd+deHyT2ycVL5TIPI56N7QN3c+
-	daDsbEXdiBZ7Jfj+r574b5hvIWspym5hzZpaQahVN4J23bKskRnO/R/xWu7erb5FABpflCNLMlRui
-	0fB5HlB1YoSm7uKNe5g77Y73CtZwMio+kKThncmVjZTcRwax7bU9l6JdnjeuVd/2uknwPbZ81WXIc
-	F+kR1tjVSBOWYkTAdNUckhz3i05TSdlDsYPwBQAbUk3ZTvmQfXxGPBN2ej+jRKS1T1rJl99TjmhLq
-	nyF3INkw==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>
-Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, chenyichong <chenyichong@uniontech.com>,
- Andrew Morton <akpm@linux-foundation.org>, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 6.12.y] mm/vmalloc: take vmap_purge_lock in shrinker
-Date: Mon, 06 Jul 2026 18:37:30 +0200
-Message-ID: <10194326.ag9G3TJQzC@diego>
-In-Reply-To: <20260508191051.1831166-1-sashal@kernel.org>
-References:
- <2026050349-operation-curled-2359@gregkh>
- <20260508191051.1831166-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=ilvokhin.com header.i=@ilvokhin.com header.b="n05q+EyZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
+	s=mail; t=1783356152;
+	bh=EkJihMH0cOwClfnoZCmPH0Z78iMJRlERl2mGpDOQTd4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=n05q+EyZnOtRvl5j3UKfHbhCsQopprWV470/XS0KoR/SxSfzMHB5s/CeS1VuHDLhf
+	 KDPx/e/7vXRhplEirRubzqwKVNsOogj6u44u0ndiPqWWyzd/HCBgDiQemd+REE4hQ5
+	 rgQrLhZt6uBKqa4SXBtEJZtWOKguM8KhCxpF+cn4=
+Received: from shell.ilvokhin.com (shell.ilvokhin.com [138.68.190.75])
+	(Authenticated sender: d@ilvokhin.com)
+	by mail.ilvokhin.com (Postfix) with ESMTPSA id 70168DB4EB;
+	Mon, 06 Jul 2026 16:42:32 +0000 (UTC)
+Date: Mon, 6 Jul 2026 16:42:29 +0000
+From: Dmitry Ilvokhin <d@ilvokhin.com>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Nick Terrell <terrelln@fb.com>, David Sterba <dsterba@suse.com>,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	kernel-team@meta.com, Farid Zakaria <fmzakari@meta.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] perf record: Fix multiple PERF_RECORD_COMPRESSED2
+ records per push
+Message-ID: <akva9VhWFUtGzRMP@shell.ilvokhin.com>
+References: <cover.1782743187.git.d@ilvokhin.com>
+ <079503c01a3e28d3775947f3449cadacfa1f4117.1782743187.git.d@ilvokhin.com>
+ <akk98zIfF08BoADo@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akk98zIfF08BoADo@google.com>
 
-Hi,
+On Sat, Jul 04, 2026 at 10:08:03AM -0700, Namhyung Kim wrote:
+> > diff --git a/tools/perf/tests/shell/record+zstd_comp_decomp_multi_record.sh b/tools/perf/tests/shell/record+zstd_comp_decomp_multi_record.sh
+> > new file mode 100755
+> > index 000000000000..42efe7260def
+> > --- /dev/null
+> > +++ b/tools/perf/tests/shell/record+zstd_comp_decomp_multi_record.sh
+> > @@ -0,0 +1,64 @@
+> > +#!/bin/bash
+> > +# Zstd perf.data compression/decompression of multi-record data
+> > +
+> > +# SPDX-License-Identifier: GPL-2.0
+> 
+> Can you please remove the blank line here?
+> 
+> Also, this series cannot apply anymore.  Please rebase onto the latest
+> perf-tools-next.
+> 
 
-Am Freitag, 8. Mai 2026, 21:10:50 Mitteleurop=C3=A4ische Sommerzeit schrieb=
- Sasha Levin:
-> From: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
->=20
-> [ Upstream commit ec05f51f1e65bce95528543eb73fda56fd201d94 ]
->=20
-> decay_va_pool_node() can be invoked concurrently from two paths:
-> __purge_vmap_area_lazy() when pools are being purged, and the shrinker via
-> vmap_node_shrink_scan().
->=20
-> However, decay_va_pool_node() is not safe to run concurrently, and the
-> shrinker path currently lacks serialization, leading to races and possible
-> leaks.
->=20
-> Protect decay_va_pool_node() by taking vmap_purge_lock in the shrinker
-> path to ensure serialization with purge users.
->=20
-> Link: https://lore.kernel.org/20260413192646.14683-1-urezki@gmail.com
-> Fixes: 7679ba6b36db ("mm: vmalloc: add a shrinker to drain vmap pools")
-> Signed-off-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
-> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
-> Cc: chenyichong <chenyichong@uniontech.com>
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> [ kept index-based loop instead of for_each_vmap_node() helper ]
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+Thanks for taking a look, Namhyung.
 
-it seems this fell through the cracks?
-
-Because I don't see an applied message and couldn't find it in a 6.12
-release up to now as well.
-
-Would be nice to have in 6.12 though :-)
-
-
-Thanks
-Heiko
-
-> ---
->  mm/vmalloc.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index 1d2262fb54185..d4a42980b4d02 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -5204,6 +5204,7 @@ vmap_node_shrink_scan(struct shrinker *shrink, stru=
-ct shrink_control *sc)
->  {
->  	int i;
-> =20
-> +	guard(mutex)(&vmap_purge_lock);
->  	for (i =3D 0; i < nr_vmap_nodes; i++)
->  		decay_va_pool_node(&vmap_nodes[i], true);
-> =20
->=20
-
-
-
-
+Absolutely. I'll fix it up, rebase on latest perf-tools-next and respin
+the series.
