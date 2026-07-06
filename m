@@ -1,245 +1,302 @@
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E464936F42B;
-	Mon,  6 Jul 2026 10:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2669C4C81
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 10:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783334594; cv=none; b=CBdJ+ZunW4ZfjCrqutn/EbnjT5QsJoPeNhaoxeC4R7TEt307/xlqaCpF51dEpkVPn73mZ7yn8PPyHLb1QC+VV0OP4QqLy877bAcSnjIc2AVaGmYZBdqVESvRcBmY04uyjaENEo6NIlYKN5EwylZGh6fwuY9f/tHP+QNtmcPXJP0=
+	t=1783334804; cv=none; b=euXdZZKMZMcBLj4VwmJhXTpFwj9IJe+TYtMU4PK1PONgMI5ZFdf58fgoT2GBLTnq9uL/Dq+59EpaO+Ogm3ese0qfjw8io7zQmjWmetBDLwuHTexvtXSm6jDoS/VwGLLlrTDBdPZQGZzkpWWVtJLCQVqofazCL8rwol7IA5IKdoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783334594; c=relaxed/simple;
-	bh=5GQvjyKk3pmOp61K3CWBv3LYpE/yv0RBbg0QcueUGsk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LhL4b4qXcppWatF5bqDfzojy1p1F/PKEMTYPXWLFjvD17xzpGSFwWYNs4zxfuF+guwl6vllyXRxeV26QRmYouR6oKbEO89cJ0AdDOnUmxjL8To6D3JkHi5hAgJ0HMuhF4NH0oK1V7gKGHjEOWfSGbazAbPlK25zLTN5yG7Co8co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=11ruPhqW; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=kpzctZV/; arc=none smtp.client-ip=202.12.124.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1783334804; c=relaxed/simple;
+	bh=yuzFjppwp9KNN3wCQo7F2CNPrgflTNWPoxGurw2XavY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P34dQXkm4M3D/6oxEHqss6I2KgUJhpFm1ODLLw3VKJSCiWUi1Fpe1cRx9/thnPSQh+St/OMx6zu7unV5Kc1r2PNVkUz4E+IaN//nP9SU+kvfsDuuXngg6fcA1yi6JMddwhnGairUy5NlpYeuPyXzaz2BmkkRzKXTwZVBFZbqFrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SBLhIONg; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=DY0NMZzc; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="11ruPhqW";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="kpzctZV/"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.stl.internal (Postfix) with ESMTP id A24171D000F7;
-	Mon,  6 Jul 2026 06:43:10 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Mon, 06 Jul 2026 06:43:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm3; t=1783334590; x=1783420990; bh=eV/9alPWS8
-	ElGqEhPLcVMrChiDA40ZmyFXIEDHgejGQ=; b=11ruPhqWi+gRLBt/DOpMRs+VB9
-	c88OCV08j/eTOF+kQWpqSrR4UFoQO6x9iuIxHlcjN+4UaB0uMoYpWP1S7cvWfkfm
-	TySuq1LjXaEtuOTbCnDoVd/7lJGCg3Vjof4twe77qJB84BpLKbR1lJPSiCXn1W57
-	9Z0DzJ2vW1+pmG37cpoQeJmEZa+Vych4seJsibFGa/1dqdVbHzUQPAd+8qPJIIYc
-	N1VdIvXYadS0Ky0XU6McP5NYa2rr0KPwMA4LLLUC+Ht3sk/B19XDA8shGgGk0Usd
-	ig9FW3ky56aIYT4sSHVO2Nur1CmAtiCs/1ptUcOzI2p0skvKwvaiB7EOSFYA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1783334590; x=1783420990; bh=eV/9alPWS8ElGqEhPLcVMrChiDA40ZmyFXI
-	EDHgejGQ=; b=kpzctZV/IWAhQ71XrUSRAbj3a9CwzIk1s48NpSIe+Mb6hL9Qm95
-	cvhZEF4ifOcQvFulwMKQ+V9nBNwI1BwA5j4jAka8N2Kt6z0DRcif8Id4RXU7vJu5
-	xn+3pQqPCy69OtJabyGRhBmw8AEm3dSuMcCFf4kc4OZx6eDy5T5FpPp3ChB2edgp
-	xqez8ppcvPH/Z4DLdzva40TokvP2MOGRbEOuSba/ELeftfJBV67T3pyzxsz97oPq
-	gIYZh8/couKP0QcDV1ETRRpDcTYvlZIcnJZGdEjuy0QJbubQdSCpxzsL082cVYAY
-	EEX45bSp+kU/YjrbHrPLEKqKbRT+4bP5VDA==
-X-ME-Sender: <xms:vYZLalawRMGJGRfL0jCDBViPEJdOzZAXKHFZgScdU5COTXleVsYynA>
-    <xme:vYZLat2q49XorsjGXtWTvyByiUJP6ThFu6mLF-3cOUELnwKltuUJpGhFbenI5Av7k
-    jeNdZczhirHwivdly-c0eABeHhNRIodjSmObV2Fr2P0BmDs_8S-mro>
-X-ME-Received: <xmr:vYZLajWG5OullFblYLdL1sH6QsMr-9xi15akicSUL5fKpEZtXEeLJ5nOPLs1Kg>
-X-ME-Proxy-Cause: dmFkZTE59eE0a8v92zvMt2CZRWlI+3piJHg5kS4n5Ij9aa8GawoG4+qulLS96Kun/O16B7
-    wkCscgn2uFgvPJ0vvjLjF/OvSijQNoCmJKrMH0kJdxorhmid7e2jGKg0oTanAelyO1yN/u
-    NBe5aO3gZ3S3h5sR9c7l3epWPYbDBI1kUi/L9wjXUTJIrC03wKamtizkalYNeG3n3VsnNs
-    xeGgUqYSzV60mrCS2pP3viLogAEVHgNs1vgFISbbuNc6iQyV0uJXE/wTKcpo+N2hc4F/uY
-    Y9m3N9+FGt9DhIuVe4lHp9Shw4xR21m3aAHGM2Cheqzgf62jSy9xB9iW6y/t0CslHR0Ccu
-    yyGZymsqnYP//sL4RVCkbCMT0cDaEmE5HBUEBS76/CkerFzEb0Ck45pR+5Heg5Dpeyt7Ly
-    F4V3Ykx64gMeGQ3Pb56r/E2uV12kMggljpR2HmJX7T3acHGIzYoU+dksbKkxoTrD4Ynsfl
-    +X+WrGX/5eSChHv32oUfX0JEK0tTPb71l4CKgu7H0wgBDLS3nPnFrSgkkZWQIZs9952YrM
-    N46dsJcoqW/lspps/qk56P8nbkv088ChChz23Z1ehBpzzV9au9+aWAZoMP2ANNaA6etRpb
-    3Qkew/Q3KXsHEDDaya20rgPaYLJtgsYdukxUtPHsj1amVrZcM0Ta0eVGeFxA
-X-ME-Proxy: <xmx:vYZLagu3G4p79s9FvMZ-hZFwFzJkeiXf5IRll00PpnRGhh70vvKWbw>
-    <xmx:vYZLaiWpNnktHknJFUg-y7vfZhoGnGSByfe0GrR9fv18S6JqGFK4YQ>
-    <xmx:vYZLakWLpe9_QX-y3hvmkZND8t7u1UYxKkptHR6B25H8cuZUGvg_bA>
-    <xmx:vYZLakeZO9rGDkK5lH3vZm4-8uEOMJU_Y_r-JzcebEUhR58GDtTMEQ>
-    <xmx:voZLauCuA_ivlEqjXGxH7r_0HbUontP3qVcVL9GGNvtiY_nnkUdzko8L>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 6 Jul 2026 06:43:09 -0400 (EDT)
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: akpm@linux-foundation.org
-Cc: usama.anjum@collabora.com,
-	peterx@redhat.com,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	david@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	stable@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH] fs/proc/task_mmu: fix PAGEMAP_SCAN written state for unpopulated ptes
-Date: Mon,  6 Jul 2026 11:43:08 +0100
-Message-ID: <20260706104308.34741-1-kirill@shutemov.name>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SBLhIONg";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="DY0NMZzc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783334802;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7sFi86kewc62Xc/M6TiWgR/UEUFUb7kK5SqGbMztc0I=;
+	b=SBLhIONgKugfEULj+onbIMAFuk8gfmSPSVuHBfV+jgHFTiUOdMvQxplggCQUG6v4AP0W1I
+	HyoV8q1TItm9G1m83kXl+yOuUeKaTW4ai6l9HJWDqZpMKk4TBVaEqUcpI1LdgOZ5F+1u5l
+	MXW7Id6+LWn6xeLSnQg/8MB22N4s+S8=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-138-Gn-C5yA7O7u1IEBs3iow6w-1; Mon, 06 Jul 2026 06:46:41 -0400
+X-MC-Unique: Gn-C5yA7O7u1IEBs3iow6w-1
+X-Mimecast-MFC-AGG-ID: Gn-C5yA7O7u1IEBs3iow6w_1783334800
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-493bb6a4336so24297535e9.3
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 03:46:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1783334800; x=1783939600; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=7sFi86kewc62Xc/M6TiWgR/UEUFUb7kK5SqGbMztc0I=;
+        b=DY0NMZzcX2myvq5B8vo7HM59hIJf8T+3WC03PNB//3HZBiK5CBsZZwDbTuBM8v5JO7
+         PTPsApdR64TnNQawYYnVK1hc0ua82lwi8qpxnoaF4U/XxKXSoHz++Pxwixe/sG6FWsJb
+         JsNPmwEkRGhQzLQ8F8+nb8amnwAtfF9VRE8tHu4g4gfWK9GOI3twMvKMc2CgC1YdMoC7
+         0pUPdPOGP9FGCUcXTIqdAa69o6iPvAU7u8kmryPY7wNtuYHDjEtxZcZzhkGpEFoiEU9m
+         i1nkvs2XHwbnubCg+WAPuoI4o7sxCMK3Abat1GRF7LE5HjejOaMbD0ICaw1F53PmER/5
+         Fqfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783334800; x=1783939600;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7sFi86kewc62Xc/M6TiWgR/UEUFUb7kK5SqGbMztc0I=;
+        b=N0kgV5IyHr9oAXkopCHXqr7IrYakxjRScMGTPxVjpGSDLuKS7zC9KfiTMtKNd3yzAI
+         JgTXi3j3EFON6/T7XPLBmyiVQN/Yy2wBx6YtiZ2DGaaxUngFwnd3GWP1kI3wn2YQaAis
+         H5G9SxcJns4Re7PfES3NjxOARIqsRdxE3rhP0B6Tyy7m1R3xwfggTDOqG1QIy07Wh1IZ
+         NK/IIxQFN9n0n1AIAL4KI/KKkmcwf/p0kW/A3lfAJFqFqmroMfmiM1++ttPYvbRnMmYt
+         MyOHPxLv9hvQmOZ6bW1FroX/sSwozX5gNfpQ89gjMge1+fzJhdiO6wlqns+25YB52L+M
+         NhlA==
+X-Forwarded-Encrypted: i=1; AHgh+RouAFbVJNu0kl/c+4+h7DoI/pLnvwH83OFb68M1sgD2LAb9G8peok4BiMfpgiEqPFG9pbK5GWg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHL2umoFysAsvTkU3cvy15XQuQ7Z1IAle0LdeoB7W6Doq1+5YE
+	R2lh/uANSVt9XkfQ9zy90BBrtdYK7rYEa9lp2Eg2vGmVj8sW/hhkmvEUhpwzDSkm3kYB2aU0cDH
+	NCVzK5oLDt4bEnLM21lnfmaDrQy4l4mh9TfN9BD72I7YMCcT+G3kU0T9v
+X-Gm-Gg: AfdE7ck6vVee8LaWDbRCptaj7rcThv//18YjcHtVqWvldm15IlFKP9VSHTdG1PKvwcJ
+	6NlwSuucIRehWYG96TRhf0BNNr7TVjQ1ZlHf+Q+HDcaSDgbS3oc4+z9Oo9e9uxpq8GRWqNIRsUF
+	4XHefTtQrGhGr80UXWE0HUdggi2oRhKfUYMi/vkDn7Uccwczhze6uhQ/zYECK0ofwbq0JKrMTna
+	hqx3IJ/W2BD7+M0tK5iVuyeX+yVTNJrY69NByWynjGoaFrTwbqrD2iIrOYeRLv/MdNG8KTbff8h
+	QOL/FTTFz27uFcKtN4DaHzmx49uIXeMYvbblS9ppFgy8rHx2WQOiHI9fc3mucA33QMq/uSdp+QG
+	nZFoH6d6nuPu9o2GEt7i2O6AWtsOQXM7kmr8b76S/vYX9HA==
+X-Received: by 2002:a05:6000:1885:b0:462:fdf2:3a50 with SMTP id ffacd0b85a97d-47aae2c5e48mr12673053f8f.32.1783334799397;
+        Mon, 06 Jul 2026 03:46:39 -0700 (PDT)
+X-Received: by 2002:a05:6000:1885:b0:462:fdf2:3a50 with SMTP id ffacd0b85a97d-47aae2c5e48mr12672991f8f.32.1783334798903;
+        Mon, 06 Jul 2026 03:46:38 -0700 (PDT)
+Received: from [192.168.0.135] (185-219-167-205-static.vivo.cz. [185.219.167.205])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ad69519c2sm24722915f8f.37.2026.07.06.03.46.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Jul 2026 03:46:37 -0700 (PDT)
+Message-ID: <9aedb40b-6c09-43bb-becd-57fbdb4d73b0@redhat.com>
+Date: Mon, 6 Jul 2026 12:46:36 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] perf trace: Refactor augmented_raw_syscalls using
+ bpf_for
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: linux-perf-users@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Howard Chu <howardchu95@gmail.com>,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ Michael Petlan <mpetlan@redhat.com>, Andrii Nakryiko <andrii@kernel.org>,
+ stable@vger.kernel.org
+References: <cover.1783070132.git.vmalik@redhat.com>
+ <8ceb8f3323d0742163c42c343eb9d26843fe9e9b.1783070132.git.vmalik@redhat.com>
+ <akhKyjlsSg82XN2Z@google.com>
+From: Viktor Malik <vmalik@redhat.com>
+Content-Language: en-US
+In-Reply-To: <akhKyjlsSg82XN2Z@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+On 7/4/26 01:50, Namhyung Kim wrote:
+> On Fri, Jul 03, 2026 at 12:32:15PM +0200, Viktor Malik wrote:
+>> The loop for processing syscall args in augment_raw_syscalls has a
+>> history of breaking with Clang updates, see e.g. commit 013eb043f37b
+>> ("perf trace: Fix BPF loading failure (-E2BIG)") from Clang 15 to 16.
+>>
+>> Now, a similar thing happened between Clang 21 and 22. While the issue
+>> is mitigated on the main line by a recent verifier update, it remains
+>> broken on the 6.12 and 6.18 stable branches:
+>>
+>>     [linux-6.18.y]# sudo perf trace true
+>>     libbpf: prog 'sys_enter': BPF program load failed: -E2BIG
+>>     libbpf: prog 'sys_enter': -- BEGIN PROG LOAD LOG --
+>>     [...]
+>>     BPF program is too large. Processed 1000001 insn
+>>     processed 1000001 insns (limit 1000000) max_states_per_insn 40 total_states 37941 peak_states 232 mark_read 0
+>>     -- END PROG LOAD LOG --
+>>     libbpf: prog 'sys_enter': failed to load: -E2BIG
+>>     libbpf: failed to load object 'augmented_raw_syscalls_bpf'
+>>     libbpf: failed to load BPF skeleton 'augmented_raw_syscalls_bpf': -E2BIG
+>>     Error: failed to get syscall or beauty map fd
+>>     [...]
+>>
+>> The reason is that the loop is quite complex and the BPF verifier often
+>> struggles to prove that it terminates.
+>>
+>> Fix the issue by replacing the standard for loop by the bpf_for macro,
+>> which uses numeric BPF iterator. This should prevent future breakages of
+>> this kind since the verifier has much easier job proving that the loop
+>> terminates.
+>>
+>> Small adjustments were necessary for the loop to make it work.  The main
+>> problem is that the verifier has sometimes problems with bpf_for loops
+>> that use a carry-over state, such as the `payload_offset` and `output`
+>> vars here, since the verifier tries to track their values too precisely
+>> and cannot prove loop convergence. To resolve the issue, we (1)
+>> explicitly recompute `payload_offset` in every iteration and (2) use a
+>> trick with adding a global zero to `output` to help verifier forget its
+>> precise state and use a range instead.
+>>
+>> In exchange, this also allows to drop a few artificial checks to help
+>> the verifier, including the changes introduced by 013eb043f37b.
+>>
+>> Finally, to keep backwards compatibility with older kernel versions
+>> which do not have bpf_for (i.e. numeric iterators), fall back to
+>> standard for loop in such a case.
+>>
+>> Signed-off-by: Viktor Malik <vmalik@redhat.com>
+>> Suggested-by: Andrii Nakryiko <andrii@kernel.org>
+>> Fixes: a68fd6a6cdd3 ("perf trace: Collect augmented data using BPF")
+>> Fixes: 013eb043f37b ("perf trace: Fix BPF loading failure (-E2BIG)")
+>> Cc: stable@vger.kernel.org
+>> ---
+>>  .../bpf_skel/augmented_raw_syscalls.bpf.c     | 54 +++++++++++++------
+>>  1 file changed, 39 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+>> index cbdd5ce19a2f..60babc06f381 100644
+>> --- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+>> +++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+>> @@ -429,6 +429,8 @@ static bool pid_filter__has(struct pids_filtered *pids, pid_t pid)
+>>  	return bpf_map_lookup_elem(pids, &pid) != NULL;
+>>  }
+>>  
+>> +u64 ZERO = 0;
+>> +
+>>  /*
+>>   * Determine what type of argument and how many bytes to read from user space, using the
+>>   * value in the beauty_map. This is the relation of parameter type and its corresponding
+>> @@ -439,12 +441,13 @@ static bool pid_filter__has(struct pids_filtered *pids, pid_t pid)
+>>   * buffer: -1 * (index of paired len) -> value of paired len (maximum: TRACE_AUG_MAX_BUF)
+>>   */
+>>  static inline int augment_arg(struct syscall_enter_args *args, int i,
+>> -			      unsigned int *beauty_map, void *payload_offset)
+>> +			      unsigned int *beauty_map,
+>> +			      struct beauty_payload_enter *payload, u64 offset)
+>>  {
+>>  	int index, value_size = sizeof(struct augmented_arg) - offsetof(struct augmented_arg, value);
+>>  	s64 aug_size, size;
+>>  	bool augmented;
+>> -	void *arg;
+>> +	void *arg, *payload_offset;
+>>  
+>>  	arg = (void *)args->args[i];
+>>  	augmented = false;
+>> @@ -454,6 +457,12 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
+>>  	if (size == 0 || arg == NULL)
+>>  		return 0;
+>>  
+>> +	/* bounds check for the verifier */
+>> +	if (offset > sizeof(payload->aug_args) - sizeof(payload->aug_args[0]))
+>> +		return -1;
+>> +	barrier_var(offset);
+>> +	payload_offset = (void *)&payload->aug_args + offset;
+>> +
+>>  	if (size == 1) { /* string */
+>>  		aug_size = bpf_probe_read_user_str(((struct augmented_arg *)payload_offset)->value, value_size, arg);
+>>  		/* minimum of 0 to pass the verifier */
+>> @@ -464,11 +473,13 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
+>>  	} else if (size > 0 && size <= value_size) { /* struct */
+>>  		if (!bpf_probe_read_user(((struct augmented_arg *)payload_offset)->value, size, arg))
+>>  			augmented = true;
+>> -	} else if ((int)size < 0 && size >= -6) { /* buffer */
+>> +	} else if (size < 0 && size >= -6) { /* buffer */
+>>  		index = -(size + 1);
+>>  		barrier_var(index); // Prevent clang (noticed with v18) from removing the &= 7 trick.
+>>  		index &= 7;	    // Satisfy the bounds checking with the verifier in some kernels.
+>> -		aug_size = args->args[index] > TRACE_AUG_MAX_BUF ? TRACE_AUG_MAX_BUF : args->args[index];
+>> +		aug_size = args->args[index];
+>> +		if (aug_size > TRACE_AUG_MAX_BUF)
+>> +			aug_size = TRACE_AUG_MAX_BUF;
+>>  
+>>  		if (aug_size > 0) {
+>>  			if (!bpf_probe_read_user(((struct augmented_arg *)payload_offset)->value, aug_size, arg))
+>> @@ -497,11 +508,10 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
+>>  static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
+>>  {
+>>  	bool do_output = false;
+>> -	int zero = 0, written;
+>> +	int i, zero = 0, written;
+>>  	u64 output = 0; /* has to be u64, otherwise it won't pass the verifier */
+>>  	unsigned int nr, *beauty_map;
+>>  	struct beauty_payload_enter *payload;
+>> -	void *payload_offset;
+>>  
+>>  	/* fall back to do predefined tail call */
+>>  	if (args == NULL)
+>> @@ -513,7 +523,6 @@ static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
+>>  
+>>  	/* set up payload for output */
+>>  	payload        = bpf_map_lookup_elem(&beauty_payload_enter_map, &zero);
+>> -	payload_offset = (void *)&payload->aug_args;
+>>  
+>>  	if (beauty_map == NULL || payload == NULL)
+>>  		return 1;
+>> @@ -521,14 +530,29 @@ static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
+>>  	/* copy the sys_enter header, which has the syscall_nr */
+>>  	__builtin_memcpy(&payload->args, args, sizeof(struct syscall_enter_args));
+>>  
+>> -	for (int i = 0; i < 6; i++) {
+>> -		written = augment_arg(args, i, beauty_map, payload_offset);
+>> -		if (written < 0)
+>> -			return 1;
+>> -		if (written > 0) {
+>> -			output += written;
+>> -			payload_offset += written;
+>> -			do_output = true;
+>> +	if (bpf_ksym_exists(bpf_iter_num_new)) {
+>> +		bpf_for(i, 0, 6) {
+>> +			written = augment_arg(args, i, beauty_map, payload, output);
+>> +			if (written < 0)
+>> +				return 1;
+>> +			if (written > 0) {
+>> +				output += written;
+>> +				/* guide the verifier to forget range of `output`, which
+>> +				 * helps to prove convergence of the loop
+>> +				 */
+>> +				output += ZERO;
+>> +				do_output = true;
+>> +			}
+>> +		}
+>> +	} else {
+>> +		for (i = 0; i < 6; i++) {
+>> +			written = augment_arg(args, i, beauty_map, payload, output);
+>> +			if (written < 0)
+>> +				return 1;
+>> +			if (written > 0) {
+>> +				output += written;
+> 
+> Woundn't it also need '+= ZERO' here?
 
-PAGEMAP_SCAN reports an unpopulated pte on a uffd-wp VMA differently
-depending on which path serves the request. The PAGE_IS_WRITTEN fast
-path in pagemap_scan_pmd_entry() treats a pte_none (no uffd-wp marker)
-as written and, under PM_SCAN_WP_MATCHING, arms a marker. The generic
-path does not: pagemap_page_category() returns 0 for pte_none, so a
-request that cannot use the fast path (extra category bit,
-category_anyof_mask or category_inverted) reports the same pte as clean
-and skips arming it.
+IMHO no, the verification of standard loops doesn't suffer from the same
+problem as the verification of bpf_for.
 
-So a range that was populated and then MADV_DONTNEED'd reads as written
-via one mask and clean via another, and in the latter case is not
-re-armed for the next round -- an incremental-dump consumer (e.g. CRIU)
-using a richer mask drops the zapped range and stops tracking writes to
-it.
+Viktor
 
-Return PAGE_IS_WRITTEN for a pte_none on a uffd-wp VMA, mirroring the
-present and swap branches just below which already report it whenever the
-entry is not write-protected.
-
-Add a pagemap_ioctl selftest that asserts the two paths agree over a
-MADV_DONTNEED'd range.
-
-Fixes: 12f6b01a0bcb ("fs/proc/task_mmu: add fast paths to get/clear PAGE_IS_WRITTEN flag")
-Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-Assisted-by: Claude:claude-fable-5
----
- fs/proc/task_mmu.c                         | 14 +++++-
- tools/testing/selftests/mm/pagemap_ioctl.c | 55 +++++++++++++++++++++-
- 2 files changed, 67 insertions(+), 2 deletions(-)
-
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index d32408f7cd5e..a5f5d2e04257 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -2432,8 +2432,20 @@ static unsigned long pagemap_page_category(struct pagemap_scan_private *p,
- {
- 	unsigned long categories;
- 
--	if (pte_none(pte))
-+	if (pte_none(pte)) {
-+		/*
-+		 * An unpopulated pte carries no uffd-wp marker, so like any
-+		 * other entry that is not write-protected it reads as written
-+		 * on a uffd-wp VMA. This matches the PAGE_IS_WRITTEN fast path
-+		 * in pagemap_scan_pmd_entry(); without it a scan forced onto
-+		 * this generic path (extra category bits, anyof or inverted
-+		 * masks) would report the same pte differently and, under
-+		 * PM_SCAN_WP_MATCHING, skip arming its marker.
-+		 */
-+		if (userfaultfd_wp(vma))
-+			return PAGE_IS_WRITTEN;
- 		return 0;
-+	}
- 
- 	if (pte_present(pte)) {
- 		struct page *page;
-diff --git a/tools/testing/selftests/mm/pagemap_ioctl.c b/tools/testing/selftests/mm/pagemap_ioctl.c
-index 762306177ad8..78fa2d1e3719 100644
---- a/tools/testing/selftests/mm/pagemap_ioctl.c
-+++ b/tools/testing/selftests/mm/pagemap_ioctl.c
-@@ -1051,6 +1051,56 @@ static void test_simple(void)
- 	ksft_test_result(i == TEST_ITERATIONS, "Test %s\n", __func__);
- }
- 
-+/*
-+ * A range that was populated and then MADV_DONTNEED'd is genuine pte_none
-+ * with no uffd-wp marker. Such a pte must read the same regardless of which
-+ * PAGEMAP_SCAN path serves the request: the PAGE_IS_WRITTEN fast path and the
-+ * generic path (reached e.g. via category_anyof_mask) must agree.
-+ */
-+static void unpopulated_scan_test(void)
-+{
-+	int npages = 16, i;
-+	long mem_size = npages * page_size;
-+	struct page_region regions[16];
-+	long fast = 0, slow = 0, ret;
-+	char *mem;
-+
-+	mem = mmap(NULL, mem_size, PROT_READ | PROT_WRITE,
-+		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (mem == MAP_FAILED)
-+		ksft_exit_fail_msg("%s mmap failed\n", __func__);
-+
-+	wp_init(mem, mem_size);
-+
-+	/* Populate, then drop: the ptes become pte_none without a marker. */
-+	memset(mem, 1, mem_size);
-+	if (madvise(mem, mem_size, MADV_DONTNEED))
-+		ksft_exit_fail_msg("%s MADV_DONTNEED failed\n", __func__);
-+
-+	/* Fast path: category_mask == return_mask == PAGE_IS_WRITTEN. */
-+	ret = pagemap_ioctl(mem, mem_size, regions, npages, 0, 0,
-+			    PAGE_IS_WRITTEN, 0, 0, PAGE_IS_WRITTEN);
-+	if (ret < 0)
-+		ksft_exit_fail_msg("%s fast scan failed\n", __func__);
-+	for (i = 0; i < ret; i++)
-+		fast += LEN(regions[i]);
-+
-+	/* Generic path: same query expressed via category_anyof_mask. */
-+	ret = pagemap_ioctl(mem, mem_size, regions, npages, 0, 0,
-+			    0, PAGE_IS_WRITTEN, 0, PAGE_IS_WRITTEN);
-+	if (ret < 0)
-+		ksft_exit_fail_msg("%s generic scan failed\n", __func__);
-+	for (i = 0; i < ret; i++)
-+		slow += LEN(regions[i]);
-+
-+	ksft_test_result(fast == slow,
-+			 "%s unpopulated ptes agree across scan paths (%ld vs %ld)\n",
-+			 __func__, fast, slow);
-+
-+	wp_free(mem, mem_size);
-+	munmap(mem, mem_size);
-+}
-+
- int sanity_tests(void)
- {
- 	unsigned long long mem_size, vec_size;
-@@ -1559,7 +1609,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
- 	if (!hugetlb_setup_default(4))
- 		ksft_print_msg("HugeTLB test will be skipped\n");
- 
--	ksft_set_plan(117);
-+	ksft_set_plan(118);
- 
- 	page_size = getpagesize();
- 	hpage_size = read_pmd_pagesize();
-@@ -1737,6 +1787,9 @@ int main(int __attribute__((unused)) argc, char *argv[])
- 	/* 17. ZEROPFN tests */
- 	zeropfn_tests();
- 
-+	/* 18. Unpopulated pte scan-path consistency */
-+	unpopulated_scan_test();
-+
- 	close(pagemap_fd);
- 	ksft_finished();
- }
-
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
--- 
-2.54.0
+> 
+> Thanks,
+> Namhyung
+> 
+> 
+>> +				do_output = true;
+>> +			}
+>>  		}
+>>  	}
+>>  
+>> -- 
+>> 2.54.0
+>>
+> 
 
