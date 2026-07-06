@@ -1,80 +1,43 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2279D3A1C9
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 01:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E981637BE7E;
+	Mon,  6 Jul 2026 02:19:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783302952; cv=none; b=UI97wnhMx3tBo7H51tWSrGnrxgEob6z2Np+0oKVGZHYP3MY29imYA36qUYyNcIsuOE99Cwda4iDLfc/h/3ohO3UTUDgs9X+xPek7Uyhh2NK00vuIObOBKXVoC0tdKa0eXq6UFhGuaLEfjuy8zc8Ao/cPrn/8sFmwelUUgzzRVGg=
+	t=1783304380; cv=none; b=bODIVFVgrbr5QKlaYnjDSTOEnkurNuP0vfRgkHoHpo8WMycFTzqIAjjyygebZCSkWaG6/bDbacjlZOJi2JKTVbvSade4HzxvKJlfzxq0xnzHtjos1/neGZ24IGASt8NECMXa5vM87fc0+8e14OaOF279Q4vAf/5qNmdfV3lFGYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783302952; c=relaxed/simple;
-	bh=fke5d2bOur5p1Gx0fsd1ETls+k12o1A0rrGDjqUrOp4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wv173vxxxPMDv9LgF5QHFMnMygNveUNUeUo/wodHOn73YKJjayv/Cv7TSW8/1I73aEDYni9ZAGKaOPob3iUFDj4oeV2tqXBzCcPwxddJgPxVgrUps5b2iZvUR9xp5LOlHYo74r2yJNIsQlzZWRhArK0SM5ms389Z9hzVzsJPeNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p5mLEo0c; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p5mLEo0c"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8471013fac2so2699274b3a.1
-        for <stable@vger.kernel.org>; Sun, 05 Jul 2026 18:55:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783302950; x=1783907750; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hc+/IIfPHTQ5W3C46gmAKHbZoREmTGGCL3gylifCnJk=;
-        b=p5mLEo0cCf0pk0O0GQmc17Po/IG2mp270CchGafORTRjaKHAaE9a3Os40zxEpUeKZ7
-         QbsNN5Ww3hYjhjMvJ+K3DUPEmIst/MGvqSJpfbrn8KBIb3m80SEB2E7zznewZ1UEB1Uy
-         LY0PJO6wzhgwJGX4ME4plh1YFQc9wQTyv83BBpyaco6vXUsDOqQMMHMoTc4GSqsUKGMY
-         bEtKoSByGPgOMaKyW5mmP/+lbyjKezv7FOeXxfAj+UF9RrWPqzGXxCl+WGlG0wZsY8Pg
-         dOIbtrjnx0mzjnnC55iXu0snTvgMUql2fnXmLzN7lUAqhEgpqMEbIRxRqK2E5Iolq+iW
-         g/qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783302950; x=1783907750;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hc+/IIfPHTQ5W3C46gmAKHbZoREmTGGCL3gylifCnJk=;
-        b=REuww3j0P10HIS5PoJkytqxg2nJaDQC4TmCPmogT9B/ys2iX1T5i17fjQm+cxcBDeE
-         vSXzAuT/8J1fF2Ar9RkjP4ixipiNQ59wpbNzZpJth5naIl3/rMOYDsdENSHm1qdEfp7K
-         Mhd7U2Tbu8HaQRACaM0+BJjpBeLej7dPC5xE6pIeSo9I0SMFtbYDaTtO5faSU/ApRSrO
-         ae1NQBWEnLxyXK06wr+K52i48MBVM4pSppbJRbffV4jaH6p9Loxuk9Q1ZlSRyxcyEb51
-         0nOVfrWQHOpUMgCc9GxQ4l1Z2smS5jVm6vRe5NjWOmt49t9s4ZN4TnDIzqzk/apQNO7N
-         3bBQ==
-X-Forwarded-Encrypted: i=1; AHgh+RohJDPC9DhaB1wak6KmGkrCrt+naD4K9B2TmBl6C5UfnCmxsEDVFt/hVGVBw1l7hGuB5N7KIEc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwrLtc9EpXs9YhHOelvNM7e7bcwSneXlcWftHInwaWZRFZzR6/O
-	SNOcWSIRZyBUjdRQL+Wj9PxJ0BZFxSxi5Lul26wfyYFpGA4toqD/mkE1
-X-Gm-Gg: AfdE7clid+tGQJ43vvXQAJBve7iS/COu+oG+tEqhJJfGXHOErIx0fGYdWIzV77Tvgyd
-	9jf9TfKdFMZxT/w+iS7TTlWkDRKe1R+jmxNG6l2fMWaMUn892rJoCwwiS4QsbNML99q2CFpkOgr
-	RZebqGJTPiJDRbl3/Z5gCjRejJJZhksIk3o07KPgrlC6T5fHsLhSh+e003hy/X0MDAeYtJxac7t
-	eNX+dUdS1nHSe/Eqh1Ajtc/O/i53PND4Vd50y37MxtVxOYJXeDQ1zZ0xZv5B1kbJ0w+3WvAlz/U
-	Ie/8Wxs6nF3ixLMkuyGiz+fhdli30apvKZX7mvJMwo3Sm1IPKkAAUq7FVzjzYsRWYiQwAJLiXwr
-	nkyIb/ap4fQHgLziFlAv7vZ9OD+lbw9PeyvVu4xm8WLcqaWHmkzDLoVvo4/UiE2lS2gWoh1V/0Z
-	W7MpA=
-X-Received: by 2002:a05:6a00:2d23:b0:845:bcf0:118 with SMTP id d2e1a72fcca58-847f6f55a19mr7186973b3a.41.1783302950430;
-        Sun, 05 Jul 2026 18:55:50 -0700 (PDT)
-Received: from lgs.. ([101.36.107.181])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6b96c04sm2832348b3a.22.2026.07.05.18.55.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 05 Jul 2026 18:55:49 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	CK Hu <ck.hu@mediatek.com>,
-	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org,
+	s=arc-20240116; t=1783304380; c=relaxed/simple;
+	bh=IobvKxkbFJ5qT7MyauMU1AGgh84gAbCRuxoVLRGQ5cU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YYTqrGwo+eVt2oVREr+YJUFkC/jjg+JZ8NSmR02G8ix4svexJc6gHZSS+fMt9KmZkVVpMEO/uwK2mEOQvw6lszBT2Tl0KLkvM7H8M3Bw8apejgbphrZ2jekrcjkLqtFeHPdGMfLqg4PR+hHGwDkW1YF5WGTd37glCLzFietxnuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.155])
+	by gateway (Coremail) with SMTP id _____8Cx5+q0EEtqPD8AAA--.1205S3;
+	Mon, 06 Jul 2026 10:19:32 +0800 (CST)
+Received: from kernelserver (unknown [223.64.68.155])
+	by front1 (Coremail) with SMTP id qMiowJCxIuSlEEtqqqYBAA--.10129S2;
+	Mon, 06 Jul 2026 10:19:18 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Lee Jones <lee@kernel.org>,
+	Corey Minyard <minyard@acm.org>,
+	Chong Qiao <qiaochong@loongson.cn>
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm/mediatek: mtk_hdmi: Fix DDC adapter double put in v2
-Date: Mon,  6 Jul 2026 09:55:07 +0800
-Message-ID: <20260706015507.453222-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	openipmi-developer@lists.sourceforge.net,
+	jeffbai@aosc.io,
+	zhuyunfei@loongson.cn,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	stable@vger.kernel.org,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH v3] mfd: ls2kbmc: mfd: ls2kbmc: Fix iomem pointer handling in video mode parsing
+Date: Mon,  6 Jul 2026 10:19:09 +0800
+Message-ID: <20260706021909.2346535-1-zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,60 +45,120 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxIuSlEEtqqqYBAA--.10129S2
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEACGpJ200Q5wAAsK
+X-Coremail-Antispam: 1Uk129KBj93XoWxZFy5Aw13Wr1UXryfAFy7urX_yoW5ur4kpa
+	yrZ34Y9ry5tFWxXa9ayr4fuF9Yyw1FqrWUGF4fAwn8Zwn8uayjyw1Skan8XF90gFykKFy5
+	trs5JF1I9a45ZFcCm3ZEXasCq-sJn29KB7ZKAUJUUUU3529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUB0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
+	twAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
+	8JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
+	6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+	0xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4
+	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AK
+	xVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUcbAwUUUUU
 
-mtk_hdmi_common_probe() gets the DDC adapter with
-of_find_i2c_adapter_by_node() and registers a devm action to release the
-adapter device reference with put_device().
+Use pointers annotated with the __iomem marker for all iomem map calls,
+and creates a local copy of the mapped IO memory for future access in
+the code. memcpy_fromio() and memcpy_toio() are used to read/write data
+from/to mapped IO memory
 
-The HDMI v2 remove callback also calls i2c_put_adapter() on the same DDC
-adapter. This is not paired with of_find_i2c_adapter_by_node(): it drops
-the adapter device reference before the devm action drops it again, and
-it also puts a module reference that was never taken.
-
-Remove the extra i2c_put_adapter() call and drop the now-empty HDMI v2
-remove callback. The common devm action releases the adapter device
-reference.
-
-Fixes: 8d0f79886273 ("drm/mediatek: Introduce HDMI/DDC v2 for MT8195/MT8188")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: stable@vger.kernel.org # v6.18+
+Fixes: 0d64f6d1ffe9 ("mfd: ls2kbmc: Introduce Loongson-2K BMC core driver")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202603021730.Yy3QXYTw-lkp@intel.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202606120639.WG6eb8VU-lkp@intel.com/
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
 ---
-v2:
-  - Drop the empty remove callback, as suggested by Johan Hovold.
-  - Mention that i2c_put_adapter() also drops a module reference that was
-    never taken.
-  - Fix the Fixes tag.
-  - Add Cc stable.
+V3:
+ - Reduce the range of `ioremap` from `SZ_16M` to `SZ_64`;
+ - Define a new variable `pos` to iterate through the string;
+ - Add failure handling for `strncmp()`.
 
- drivers/gpu/drm/mediatek/mtk_hdmi_v2.c | 8 --------
- 1 file changed, 8 deletions(-)
+Link to V2:
+https://lore.kernel.org/all/20260624085550.1508771-1-zhoubinbin@loongson.cn/
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
-index 7bbf463056c9..ffe456238a2b 100644
---- a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
-+++ b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
-@@ -1499,13 +1499,6 @@ static int mtk_hdmi_v2_probe(struct platform_device *pdev)
- 	return 0;
- }
+V2:
+ - Add the missing memcpy_fromio();
+ - Drop the unnecessary `buf` variable.
+
+Link to V1:
+https://lore.kernel.org/all/20260616115530.4012675-1-zhoubinbin@loongson.cn/
+
+ drivers/mfd/ls2k-bmc-core.c | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/mfd/ls2k-bmc-core.c b/drivers/mfd/ls2k-bmc-core.c
+index 408056bfb2fe..a2aee2131529 100644
+--- a/drivers/mfd/ls2k-bmc-core.c
++++ b/drivers/mfd/ls2k-bmc-core.c
+@@ -66,6 +66,9 @@
+ /* Maximum time to wait for U-Boot and DDR to be ready with ms. */
+ #define LS2K_BMC_RESET_WAIT_TIME	10000
  
--static void mtk_hdmi_v2_remove(struct platform_device *pdev)
--{
--	struct mtk_hdmi *hdmi = platform_get_drvdata(pdev);
--
--	i2c_put_adapter(hdmi->ddc_adpt);
--}
--
- static const struct of_device_id mtk_drm_hdmi_v2_of_ids[] = {
- 	{ .compatible = "mediatek,mt8188-hdmi-tx", .data = &mtk_hdmi_conf_mt8188 },
- 	{ .compatible = "mediatek,mt8195-hdmi-tx", .data = &mtk_hdmi_conf_mt8195 },
-@@ -1515,7 +1508,6 @@ MODULE_DEVICE_TABLE(of, mtk_drm_hdmi_v2_of_ids);
++/* The length of the LS2K BMC display resolution string stored in PCI BAR0 */
++#define LS2K_RESOLUTION_STR_LEN		SZ_64
++
+ /* It's an experience value */
+ #define LS7A_BAR0_CHECK_MAX_TIMES	2000
  
- static struct platform_driver mtk_hdmi_v2_driver = {
- 	.probe = mtk_hdmi_v2_probe,
--	.remove = mtk_hdmi_v2_remove,
- 	.driver = {
- 		.name = "mediatek-drm-hdmi-v2",
- 		.of_match_table = mtk_drm_hdmi_v2_of_ids,
+@@ -427,27 +430,39 @@ static int ls2k_bmc_init(struct ls2k_bmc_ddata *ddata)
+  */
+ static int ls2k_bmc_parse_mode(struct pci_dev *pdev, struct simplefb_platform_data *pd)
+ {
+-	char *mode;
++	char *mode __free(kfree) = NULL;
++	void __iomem *base;
++	char *pos = NULL;
+ 	int depth, ret;
+ 
+ 	/* The last 16M of PCI BAR0 is used to store the resolution string. */
+-	mode = devm_ioremap(&pdev->dev, pci_resource_start(pdev, 0) + SZ_16M, SZ_16M);
++	base = devm_ioremap(&pdev->dev, pci_resource_start(pdev, 0) + SZ_16M,
++			    LS2K_RESOLUTION_STR_LEN);
++	if (!base)
++		return -ENOMEM;
++
++	mode = kmalloc(LS2K_RESOLUTION_STR_LEN, GFP_KERNEL);
+ 	if (!mode)
+ 		return -ENOMEM;
+ 
++	memcpy_fromio(mode, base, LS2K_RESOLUTION_STR_LEN);
++
+ 	/* The resolution field starts with the flag "video=". */
+-	if (!strncmp(mode, "video=", 6))
+-		mode = mode + 6;
++	if (strncmp(mode, "video=", 6)) {
++		dev_err(&pdev->dev, "Simpledrm resolution missing or corrupt!\n");
++		return -EINVAL;
++	}
+ 
+-	ret = kstrtoint(strsep(&mode, "x"), 10, &pd->width);
++	pos = mode + 6;
++	ret = kstrtoint(strsep(&pos, "x"), 10, &pd->width);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = kstrtoint(strsep(&mode, "-"), 10, &pd->height);
++	ret = kstrtoint(strsep(&pos, "-"), 10, &pd->height);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = kstrtoint(strsep(&mode, "@"), 10, &depth);
++	ret = kstrtoint(strsep(&pos, "@"), 10, &depth);
+ 	if (ret)
+ 		return ret;
+ 
+
+base-commit: d5d2d7a8d8be18681a0864f58e3875f1c639e11c
 -- 
-2.43.0
+2.52.0
 
