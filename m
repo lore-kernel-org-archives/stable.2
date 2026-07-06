@@ -1,125 +1,115 @@
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC06C27EFE9
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 10:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5378938AC72
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 10:29:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783333519; cv=none; b=K6/hmFHytR7eD/NdDjQD5hdowNMSGQOpRgwJjQo4C7riCWdRJ2bKbdhOyF6/5+PQB+BAJOMiH8BLdJ5lkiCiGFLwwtNkJC0eiSnBkHCyjTLVK1GzZeWt+tj6sPfEBhPULXrwwTFh9Y/VD+fl25g63QkIflXGlM5FaiSHBkKbqdk=
+	t=1783333777; cv=none; b=s03L1fP35KzTT/hGZJPsbLcBBOkFHNRlf4KnCTibTDPkRa7OWNpi6rgQoL39B3MAUlQ+dqsBmMH6pKLye7igPzyTcfCFI9o64/N3hOMuvqKcmil/otFcpvlunow1O7oOkQnxVBLOhjBQsnWUdh61JWX3xNVrjQ0jjhNqxg6JCs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783333519; c=relaxed/simple;
-	bh=DEDRVzDaeKVLrZDEM4Tvl5Zi+XQvdZFjkOH2bi8Q7O0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nkkUn5j9NDhwdlGnX1ANvGz/vdgyt0ElMKQjvKCSEMdTSX8tALqg4HTVb+7jo/zipOs3KsoqP63cPvu+0d5K5wdYVyRlAt3IVr0oR/zjomVd4QBpHYqI7T2IDxlk97gZRdpkmvc2tbxeW/vSxfP0RlnNKvdh72B6t4McOZBcVC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=iMFR0wgo; arc=none smtp.client-ip=209.85.216.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1783333777; c=relaxed/simple;
+	bh=hQGFqx4IJ46LMfGQptkfnFSJjPUglR76Hzn2hDUlyrM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pgWRmwbOp0xbKY/43c7q2u1gYglQiK23yvIGUYubF2jsHW0ENxnSLiJ7eTW7ei6U+xmo4d+16fA8E7Fl8/GDztGZj3fTDxdGdJdD7sWfPiT74H1duIFhxgWOh2l+bROgvnKsmvXE9SZpW5MtY3hccNynO8H9B7IcWFtkNeTSx7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iyb1G52l; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="iMFR0wgo"
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-385ea3ce80dso886134a91.2
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 03:25:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783333517; x=1783938317;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JCyn3khAPieI4DeaZVrUFyliHAMCDDeM6OYmHqd4vok=;
-        b=gwBGXA20cq0NCBf626utY/JWDyA40rVcQK/XYEGRN0kfehiOBL2M2OQU1SPTWrzD/d
-         Cc7PeCsyLvQf+RXS8iweukn257LwMDLR5MtQM+zzdrhiNZD6RwZpKHhwoOWcckuY+xkL
-         9EtiOmignyfzps9oGCOPHModBA1ajfMFAuZHNTUo3oxbe0qCU1RzsJPwpV0P+pkfPp3B
-         SGfwvEsW87eTt6MpsHHm9+J5sPPtxpbof4WOCW9pvqnNGjohKUF/ySorN0wFMhzT26M/
-         j4L8w0qu9aQO8YUQORFEzggihYdU3v6e+V0TJlkVsHtXjETVVEezX8q5JLhaD0RRrAlr
-         3/cg==
-X-Gm-Message-State: AOJu0Yz/e5rFi65KKw1c32SQ4iOFa96ohUBYi41DxK/ElW+mzgTMNuir
-	8UwhkrxZhvE1v/eUzH4vE74J4HcGL2R2LSwg3ICE2tSxcpip/6rwW+Dorn5/z0JOANFFcyDBllz
-	FsxDw9ZrLiJulOK8phtbwReQYYqJP8u7qby396htzRarHyHLdWhE80ZejJ7nNhZ+fAsAGQ3aFZM
-	NKmBpmR1/tkYP/GwRhHkk0p4LKOA2V/pyQfhHlB2gDgY9TeJ0jj7R66MNwf2ALz9pL9SrVc/0Db
-	RBDCggPpnn8ptbj3g==
-X-Gm-Gg: AfdE7ckcgnZRnSmVtX0vB9djVRxJmlHdii2gAJzV8uZZYmt3E53iwaWD3osYA7uBfTa
-	15Kwg3N0f7Q8qi8/gj1gRNSYtygfaaSKsWoj6Y+o6rgpvclwSNDopqw70Ok8KMm5Gc4waaqBxtD
-	CzXsaBaoOuV2N4GQVFCdmdyiJ1JJLFuMhdmPq9ynG1UN2z/su1rC5HOxRUEBDO9WEKW99VBvpi2
-	xxFggsZF61E5PVDRfo79T8F1eEZ4bmgKYDmqjAfE+uWVHYSkTPvHr4eX02ODxyTR42bHOtFVqay
-	RduYmVjdijEmiohXLAdcE55ONcxrcqSMNQ7K2s4HHy1ht33/h0v7xb6G1mnCFqqGEwbCeiRNX8L
-	WPeCbjA++sgfivOd0aq6eRdrHyWliYjLGZHzkrAy/OHj8B0vV1z7buc0KZDsHzox0qM0bAIspFu
-	AM/zuBZdy4ZgSFHxhbdmkniEyI1OuETig7GSk47vIppY00G1gUgQ==
-X-Received: by 2002:a17:90b:3c50:b0:380:fdb9:d2ea with SMTP id 98e67ed59e1d1-3829f0072c4mr10419224a91.17.1783333517143;
-        Mon, 06 Jul 2026 03:25:17 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-11.dlp.protect.broadcom.com. [144.49.247.11])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-38127ae2eb9sm817762a91.1.2026.07.06.03.25.16
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 06 Jul 2026 03:25:17 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e55721a8cso270900485a.1
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 03:25:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iyb1G52l"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-45fd464d51fso1430464f8f.3
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 03:29:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1783333516; x=1783938316; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JCyn3khAPieI4DeaZVrUFyliHAMCDDeM6OYmHqd4vok=;
-        b=iMFR0wgo/l9eKgO++QclujbRbIQ0llwJAf07oEC3GEtInz/WWlMY6WZAy1y4cVGdlm
-         6l1APWX9sUKNNtY7iXAoC5HXmYHmfYWN3PD+SPned10ZcZACCvP+Uv+zm+Uc07gSNUSs
-         u6BnKHoM6dkGfGiMlZGtDUXPVzR49ONbv0yLw=
-X-Received: by 2002:a05:620a:4442:b0:92e:5856:bdcd with SMTP id af79cd13be357-92e9a49ed00mr1318061485a.53.1783333515894;
-        Mon, 06 Jul 2026 03:25:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:4442:b0:92e:5856:bdcd with SMTP id af79cd13be357-92e9a49ed00mr1318058285a.53.1783333515309;
-        Mon, 06 Jul 2026 03:25:15 -0700 (PDT)
-Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92e90b804ccsm900041985a.10.2026.07.06.03.25.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 03:25:14 -0700 (PDT)
-From: Arend van Spriel <arend.vanspriel@broadcom.com>
-To: Robert Garcia <rob_garcia@163.com>
-Cc: stable@vger.kernel.org,
-	Duoming Zhou <duoming@zju.edu.cn>,
-	Johannes Berg <johannes.berg@intel.com>,
-	linux-wireless@vger.kernel.org
-Subject: Re: [PATCH 5.15.y] wifi: brcmfmac: fix use-after-free when rescheduling brcmf_btcoex_info work
-Date: Mon,  6 Jul 2026 12:25:12 +0200
-Message-ID: <20260706102512.1429947-1-arend.vanspriel@broadcom.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260528055431.4124445-1-rob_garcia@163.com>
-References: <20260528055431.4124445-1-rob_garcia@163.com>
+        d=gmail.com; s=20251104; t=1783333775; x=1783938575; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DgZGkATc9v6IJyoP0jVfXRsi6k/bycnl80rgTX/hwpQ=;
+        b=iyb1G52lQbBs6fBRC3uKy2e0WR/4BbRhHfPZ4m0FYsoFMfXM6+nKgHBP6lLNHDRVw5
+         3yYP2/1qWv1BoBgE+ctsLCPPc/y/Kuif0N9Ll83lTlvRh8hw2IcUqI56QytmuV9vzhI3
+         JHwW/rwZa9AKvNgXUm/5AKPQ9MHoCWLwm4q9/tCQkaWXzX8n78ZI/dWKxTfy9iXXy/Do
+         Kdhnw4AlPCeciQDhzWCxaMdThcPAukPOWNdd/50TAHWMa3tgVSsRSBJ5GGh3G0dEWax1
+         4biC8CWJo3ebb6E8Px7ANezHVL7Jt5jhuZmuIFXW/74tD0l9v9cJ/evzAQHXh72Z/oZD
+         QYEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783333775; x=1783938575;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DgZGkATc9v6IJyoP0jVfXRsi6k/bycnl80rgTX/hwpQ=;
+        b=cNz25Glcy2I+f0KRPTt2tiJ1vRMEHMU/wpILUmylxE8ykGia4fl0nEVfk7sXU8e92s
+         slqY57pvsIboKbegraiBHVNDBmRNUFT1iWxrlinFmTyzgBBLaLXYhEkovuaZ4Jg+pGcj
+         sHbmMq61UL1NOv7Hu6mXi2vAFi9Uijm0sb3NQVOs5prpvn8BXBhqFmuBkcpLkgJ0TZaj
+         8NmD/x46HcarSpTSomH5s+zhbTDxkPJkkvXdvtW/BXzNBktLXFD28P68pb0MidEqgmdh
+         4WE5bYnCUzgRX7C64zUiH0/2ov6VBbjjK63jNhjSeCYf56FEu5F1/wNTk7pme4x1NUqX
+         cJjQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqQdIyeJm3VHzVCizPHFTgXyLJuPP84Dedq6SQqkXSZHeNDUyClVyU70599sCnqpbztTfJluKE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxzt7tnJ7ZuE5nDWtKTWyil8uHY4ASQg4thggTRiw38bNZcFbEL
+	FyuD4jLT+orytrr8GG5J2k0lMYPA4vdWcxrIJS2L7n8Sj4Tx/kkIpTRm
+X-Gm-Gg: AfdE7cmIB7712ZBs72nT152BYvW9KpLadshzTd7Kj+F1t/paH4fvQsf+na2Q8WIAj/C
+	NpZUd54KQHZVClAIpkNDxtKTe5j7IWdgw1UWlaC+s6O3k2yaTn95WEYLqVAJPOv7YrX2MZNHdJU
+	JqfaVgA1gcI2WnGBMAR5Ho2Qtd/z/IMYnmWBVnFSpiWP91PdFUBmHeP2pjHzIfOPO5hsVUF7oyR
+	VXmcXWtcKTb5BdU7986c8w0hL58KIMH4+4KbUzstWC538LmoLGv73l43IuX4FdGnoDmfSaDLOt6
+	dp4zespwzSWlD/CokSj+OUjtUZa6ecDqOpbcAIz/9MNDSggDT2iqTDMMap8vq4Ly0kLrSxtQTls
+	JbFnjzG3EuASNawEC8FvUCj9NdOMASU6ZpVzO+jwTaMUDuioQ1ql63whosfbDMrR9qD1UkCw0zs
+	rzZPIE1t0BnsjaLEdiMlTqRIfWVqUx7w==
+X-Received: by 2002:adf:f288:0:b0:475:f100:360d with SMTP id ffacd0b85a97d-47aac5e3774mr9178054f8f.60.1783333774411;
+        Mon, 06 Jul 2026 03:29:34 -0700 (PDT)
+Received: from [192.168.1.23] ([92.183.46.167])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9b4d850dsm24605054f8f.0.2026.07.06.03.29.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Jul 2026 03:29:33 -0700 (PDT)
+Message-ID: <2728e1ae-dac5-4b6d-9e6b-8948b558a341@gmail.com>
+Date: Mon, 6 Jul 2026 12:29:33 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.10 00/96] 5.10.260-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260702155108.949633242@linuxfoundation.org>
+Content-Language: en-US
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260702155108.949633242@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 28 May 2026 13:54:31 +0800, Robert Garcia wrote:
-> From: Duoming Zhou <duoming@zju.edu.cn>
->
-> [ Upstream commit 9cb83d4be0b9b697eae93d321e0da999f9cdfcfc ]
 
-[...]
 
-> +	del_timer_sync(&cfg->btcoex->timer);
-> +	cfg->btcoex->timer_on = false;
->
->  	cancel_work_sync(&cfg->btcoex->work);
+On 7/2/2026 6:18 PM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.10.260 release.
+> There are 96 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sat, 04 Jul 2026 15:50:58 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.260-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-The upstream fix uses timer_shutdown_sync() which prevents the timer from
-being re-armed after it returns. del_timer_sync() does not have this
-guarantee.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-brcmf_btcoex_handler() has three mod_timer() calls - two in
-BRCMF_BT_DHCP_START and one in BRCMF_BT_DHCP_OPPR_WIN - none of which are
-guarded by timer_on. A work item running between del_timer_sync() and
-cancel_work_sync() can re-arm the timer, leaving it pending when kfree() is
-called.
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
 
-If the mod_timer() calls were made conditional on timer_on, setting
-timer_on = false before del_timer_sync() would be sufficient. That would be
-my preferred fix. Alternatively a second del_timer_sync() after
-cancel_work_sync() would also work.
-
-Also the commit message still mentions timer_shutdown_sync() rather than
-del_timer_sync().
-
-Regards,
-Arend
