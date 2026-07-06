@@ -1,151 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B1F3148D2
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 13:04:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783343060; cv=none; b=OQhPq4Cd7o8NSLPkbzf/uhadNcoHLwcMHSnvYQtXB1Q5ZJACbeZJYTGv/bbRt3ExcSJUqYdANr78mnSAkByd6ZkMFNEtxfZT416QS1D8C41yyt8bef4tAHGfD5MfRt1CMuD6GGlvVXelceFle+P+tKVh+8Y5zHCMDUTNyMNI4Ds=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783343060; c=relaxed/simple;
-	bh=wtAL55Vy1IAVfMt9lDQ6e1FXFicQRPy2EBLWfWBUGcM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EG6nuLuwnNjCAvu6piHuL11IpT0kNB19HknpqkIi1e8PdCcDikim0kwFVcSAAGUMpwGWwXaEQHyqHnbkfiauCyxh/Epr0kQm3Nhs8s6EBw1BcMQX4ZaCpdqvt4P1RLAZLQ3jiVu60X5zmS5EgmwqiFi8IAA3mFBkMuIDlV2bQhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P+YjQi8x; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90F33F44F7
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 13:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783343621; cv=pass; b=D0Ky8IMY/Z+CBkFIjO20TTNQGoK+ZONMk6OCuz3yBV6sG++y706iB+c0wceTFKYh5unGbV745HPnL0Zvpis2whkdjaa6XKlxnQTxQkGRnhLY2G+/wIKTL3xEKCTZowcCz6GIjgP+EVEjSvjDlh9GF0EHW8fclLMzmW7gojDzd3s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783343621; c=relaxed/simple;
+	bh=W06a+FQhE9CYhRDkSX3d1qnVPXMf+V5F//o8j4fuNbQ=;
+	h=In-Reply-To:References:MIME-Version:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JKo285xgEH6iJiz36KfpQKW9c774sjLeHAyLbHwRZ7OmIVePO407bQgq3cEqyTEPgr9LvUY/DMmlWVCrQEkuyrm81GgnYZYgj3lRwNtG90KrW5ccLoU3YubjjHQOkNk/D2E4WckmAm5Nd9JiMKMNHy5D2tMnpoVQtoUDHIuLUeE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pmPTIXRm; arc=pass smtp.client-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P+YjQi8x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3A891F00A3A
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 13:04:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783343058;
-	bh=03m1i1njTYKshtMRdqLIQtrRPKyxLQ0WpIMYuekAZ+I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=P+YjQi8xJY0C73JtdBM+t3wwj2gtxC/v2J+ZVFysO1xMnkuaHKIvmPBB8lcUlCYJE
-	 WQjGlWpvYiy5ZoM+m1lTadl5bawgUYCKd0/K1upoXLkBo4TPMzeZ0XxVQGFu4TsS1u
-	 kMlhT055hUimiQgT620sxyhCYexwFW3AUdY+z+EIeI1GZ77Jdd3sVTZPSudKKWUuiJ
-	 knxVGsTBuxIyVjbqFwznKbKoHroI0y+CiEz+gkU3FMiSv56jhptovh2FweygIW5/Ig
-	 iB0qr49Z4haX9b35TrmzblmNyv6XBCj/GW7geIkj31jUZGSSUVeYKyWvF2L2kAnPHT
-	 AQpXnoHen1WQQ==
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-92e6391b114so213630285a.3
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 06:04:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rrjt7X3U3a7rrv9FQKzxg9HK6objDCwTBW7a9OBXAX1hvgtlluXL8QVpk+E1jT3dEPvl0V+mH8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxbKfk3hFoH9K7p0D/0xUSvNZy0FF/lGZ0iKRoCR1KczxvQaA5E
-	kd2jcG/f5vIBPj1nNqWqCNyQRyIzgeINwM9kZsCE3jH+1rhAXQh5zuruEcBQjkLcBQb+HTi1GO6
-	cm+Y4Qc9tgHYu6prpOqogfPaoqtbKTmg=
-X-Received: by 2002:a05:620a:19a4:b0:916:1806:302d with SMTP id
- af79cd13be357-92ebb60cc71mr55371685a.58.1783343058102; Mon, 06 Jul 2026
- 06:04:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pmPTIXRm"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66780d9d901so135864d50.0
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 06:13:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783343619; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hU04N2KxoF9U0+3BFHQOseQBVlOrWrw1Ui1dHucjjVFigi0pWfKVij75On/banqIy4
+         WSaTEPzWWxudu6L1e4O5BYGIWwsTqVQtOM3g0i4+xSxFAX/3xx7Yec6X0XwVENzlTIBH
+         k3d4wv4oFkK/mOvXpYV9sW1jqpg/eUOgxSiHfjvBHTzVI3UNcM9rvLpw1+ESan0Ms97u
+         vt5inZC4Dz6Y4Y9Sm7i1PS1RbsbvQdpm4vbzt9o1RQ2QoqKNhB9eKcBcap+leYnC1QG4
+         YqdXDMiwYcunxdJYexpBY2VMnEKWr62B96BxgWHE3jWbT/jtC4JklAq3G4+PEwe54FC3
+         pGUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:references
+         :in-reply-to:dkim-signature;
+        bh=W06a+FQhE9CYhRDkSX3d1qnVPXMf+V5F//o8j4fuNbQ=;
+        fh=D/Ah8jlOVepvHsQwKWVs9IzTzvTmJJdOzmwQ9JdtxHU=;
+        b=iK7DvNfE20WtnAUCVATJ0Dilcnd5dbQAPAmswI44mBAtAgMxyXhrY0kFEL+gMaCLOK
+         GMePyog+yKC3f60uNoiHVT3CkrIQuv8EFmwQyHwKnS+xywYRWbnMEJtfU9lTZPKuA48p
+         Gc1F0+IZfyWHiCnsy+Nhrab/geLbDCadbfTuez2yW67awmQIjRIytCEe/etJ8Coz3xDz
+         IyZEgy3xgfwr+G7nNRNN1CYIzIKYo1PXWNOTa+EFkFdFxxekBLtTj7N49NwpsaT67/2I
+         6L08EYNa8ZaEkooD+Yss62Zy1soDphRWwZSeVUIzESo//aYtF1g0yt5FSGFUd2xSaoc1
+         l77w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783343619; x=1783948419; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:mime-version:references
+         :in-reply-to:from:to:cc:subject:date:message-id:reply-to;
+        bh=W06a+FQhE9CYhRDkSX3d1qnVPXMf+V5F//o8j4fuNbQ=;
+        b=pmPTIXRmO7vK65MG9ApD5SjHL9fhCFKp0fke0dtwtu3aQgc1lJk/CKTwMDi1EqMP9v
+         7F+aON0sSf+W8t8PsLgtGv7hPPaqKgofgs4K3Qe+wPGllK5AeQtrOxPNVAs5q/iQJNa5
+         ACK+bhGfyLsI5Q8ju6YTiFUYSy2WcCjDsD4ww3C5iqUTEmRch0VGiIKcXDhg4WU7qFfk
+         HOZQ2GV06DieUp5OmueLfAvSePkgY0SwL3KdU27IqUoQBCI1+9L9tAd7RXbMlVYzZEI7
+         XKhslW78rzHFHbdup4+id3SOEtef00yhvMSOXaxV8usxtlHaoHu9xpUD2yGqjilGweAW
+         uYyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783343619; x=1783948419;
+        h=cc:to:subject:message-id:date:from:mime-version:references
+         :in-reply-to:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W06a+FQhE9CYhRDkSX3d1qnVPXMf+V5F//o8j4fuNbQ=;
+        b=E4OPpj7Kq3vfcttLAs8xyTXZOdmUVZzKVaCmum488VfRhkTM5aKEGNjziFdtSesQVj
+         fm4m6pl30ddO80YIvoXc6wictOhmBpYu7SLPMwBftbMIFNgCNCVWLsnz2J6mUwPc4L8z
+         meiWVsIFT5OzObZs8byzEmZUsXdJl3UwYdNO+Q6zoBH780+W3wwrVRzudVVTgXHKjcBb
+         gF2bwWh+WXOMllWSj3MD164HazHys3DC6BSjTwFn4w/Y73F/ykIUuNGEaRdwhPgROWwB
+         WTxAsoZu3VolzRepbCC3GVWJVXctdQdG/sm58SH8AeBeatMoFLsAHQ5kQ3i8c21eJoiK
+         ZHIw==
+X-Forwarded-Encrypted: i=1; AHgh+RpQoZLj7DYYS7KEoJfvKs9guQKD9A/oe31ndkwih6FK/vi4rVg4eAb6aoJ9lxNtBWjABRNMlec=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxdod9YuqhlhSGimFoxSAZpN9uvsa3yqH3RAs9kcpsIhQPM8/1w
+	vjst3EKLsTaO/ARwzYqCtH091lQlbqdFu7uAA3YNeRoN72wxPqix0K27ps+5KZo+fIMbq8cA4qg
+	FwA5kIKXB2KBy2FvBCvABpUYOU26GtIo=
+X-Gm-Gg: AfdE7cnok+ws4oRvNuUxX4ketM0xKiVUFgEhcaVZ5TseJWQ0olKJoFvSHJZN13ftg03
+	4xcOR5pMQ8+8qzwdyC2p5xLYdW5TKR9ffFvKPK/4zDrwq4S131DMpU68WI+UjM2N7hWg0crJtB2
+	FO8+cDb4cENZzjnZ3AVjnmP32+/eQVibt+/Hp0Wicas6DJE77RauTSqGZACb4y/HqscponWqpE4
+	S3RULvZ5K22enGMwd6+F95l8zhCuTKT5fMjJ7Ft9u1MCUr6imhajb+tc85hnzdCyjaevXi9
+X-Received: by 2002:a05:690c:ecd:b0:7d0:79f:339f with SMTP id
+ 00721157ae682-81be26663bfmr1394177b3.34.1783343618557; Mon, 06 Jul 2026
+ 06:13:38 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 6 Jul 2026 06:13:37 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 6 Jul 2026 06:13:37 -0700
+In-Reply-To: <741085b4-3892-487d-a39e-75c62a7b6d0f@gmail.com>
+References: <20260628092814.40583-1-alhouseenyousef@gmail.com> <741085b4-3892-487d-a39e-75c62a7b6d0f@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <173f3fd983d735155d47e9e39d27f0c2d62a7c31.1783307463.git.baolin.wang@linux.alibaba.com>
- <CAMgjq7AQcyypJ-VhJ_CxY6fdEph64fxjOzzYU-=EkMrHemkpzA@mail.gmail.com> <8ef0b72e-a0e8-4913-8d30-519335305260@linux.alibaba.com>
-In-Reply-To: <8ef0b72e-a0e8-4913-8d30-519335305260@linux.alibaba.com>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 6 Jul 2026 21:04:06 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4z5N6FSfWt5WUZ5YmqhCzLcd3Cj1sc9B79WYX9ZbDH8Gw@mail.gmail.com>
-X-Gm-Features: AVVi8Cc4-cCPMWvrStzPGpTwA44_ETQ7K94w2ZYd1ngI74f-KWgZnyW5L8IF4f8
-Message-ID: <CAGsJ_4z5N6FSfWt5WUZ5YmqhCzLcd3Cj1sc9B79WYX9ZbDH8Gw@mail.gmail.com>
-Subject: Re: [PATCH 6.18.y] mm: shmem: fix potential livelock issue for shmem
- direct swapin
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Kairui Song <ryncsn@gmail.com>, akpm@linux-foundation.org, hughd@google.com, 
-	stable@vger.kernel.org, machao26@xiaomi.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Date: Mon, 6 Jul 2026 06:13:37 -0700
+X-Gm-Features: AVVi8Cdxlr6gMWVrPELRICnA8WPxAFKLDWDEkWzm1kURK7XCvcwCoYib2Y0iWP8
+Message-ID: <CAMuQ4bX_z+j7deGvKWGhqCApjwbWNaNB8RT9vpfPhuZ7Mzt-+w@mail.gmail.com>
+Subject: Re: [PATCH] wifi: carl9170: reject mismatched command response lengths
+To: chunkeey@gmail.com, chunkeey@googlemail.com
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, syzbot+5c1ca6ccaa1215781cac@syzkaller.appspotmail.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 6, 2026 at 8:08=E2=80=AFPM Baolin Wang
-<baolin.wang@linux.alibaba.com> wrote:
+Hi Christian,
+
+Thanks for pointing out Tristan's earlier patch and the prior security
+discussion. I had not found that submission before sending mine.
+
+I agree that returning after carl9170_restart() is not the right fix
+if the restart can unbind the device, and that the copy itself should
+be bounded instead. Please drop my patch; I will defer to the existing
+discussion and will not send a v2.
+
+Thanks,
+Yousef
+
+On Sat, 4 Jul 2026 21:56:30 +0200, Christian Lamparter
+<chunkeey@gmail.com> wrote:
+> Hi,
 >
->
->
-> On 7/6/26 1:59 PM, Kairui Song wrote:
-> > On Mon, Jul 6, 2026 at 11:25=E2=80=AFAM Baolin Wang
-> > <baolin.wang@linux.alibaba.com> wrote:
-> >>
-> >> When skipping swapcache for synchronous IO swap devices, swapcache_pre=
-pare()
-> >> is used to prevent parallel swapin from proceeding with the swap cache=
- flag.
-> >> However, on PREEMPT kernels this can lead to a livelock, as reported b=
-y Chao[1]:
-> >>
-> >> Thread A starts direct swapin of a shmem folio and calls swapcache_pre=
-pare()
-> >> to set SWAP_HAS_CACHE. It may then be preempted inside workingset_refa=
-ult().
-> >> Meanwhile, a higher priority thread B also attempts direct swapin of t=
-he same
-> >> shmem swap entry. Since swapcache_prepare() already marks the entry, t=
-hread B
-> >> repeatedly gets -EEXIST and busy-loops waiting for thread A to finish.=
- But as
-> >> thread B runs at higher priority, thread A cannot preempt it, resultin=
-g in
-> >> starvation and a livelock.
-> >>
-> >> Fix it by yielding the CPU with schedule_timeout_uninterruptible(1) wh=
-en
-> >> swapcache_prepare() fails, following the same approach used in commits
-> >> 029c4628b2eb ("mm: swap: get rid of livelock in swapin readahead") and
-> >> 13ddaf26be32 ("mm/swap: fix race when skipping swapcache").
-> >>
-> >> Note that mainline does not have this potential issue, which has alrea=
-dy been
-> >> resolved by Kairui's swap refactoring work[2].
-> >>
-> >> [1] https://lore.kernel.org/all/700a2cbf90a2484f979aac858f08f5d4@xiaom=
-i.com/
-> >> [2] https://lore.kernel.org/all/20260517-swap-table-p4-v5-0-88ae43e064=
-c7@tencent.com/
-> >> Fixes: 1dd44c0af4fa ("mm: shmem: skip swapcache for swapin of synchron=
-ous swap device")
-> >> Reported-by: Ma Chao <machao26@xiaomi.com>
-> >> Closes: https://lore.kernel.org/all/700a2cbf90a2484f979aac858f08f5d4@x=
-iaomi.com/
-> >> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> >> ---
-> >> Hi Chao, could you try this patch to check if it fixes your issue? Tha=
-nks.
-> >> ---
-> >>   mm/shmem.c | 2 ++
-> >>   1 file changed, 2 insertions(+)
-> >>
-> >> diff --git a/mm/shmem.c b/mm/shmem.c
-> >> index 94c5b0d78ac3..d4cb57b3b0ef 100644
-> >> --- a/mm/shmem.c
-> >> +++ b/mm/shmem.c
-> >> @@ -2066,6 +2066,8 @@ static struct folio *shmem_swap_alloc_folio(stru=
-ct inode *inode,
-> >>          if (swapcache_prepare(entry, nr_pages)) {
-> >>                  folio_put(new);
-> >>                  new =3D ERR_PTR(-EEXIST);
-> >> +               /* Relax a bit to prevent rapid repeated page faults *=
-/
-> >> +               schedule_timeout_uninterruptible(1);
-> >>                  /* Try smaller folio to avoid cache conflict */
-> >>                  goto fallback;
-> >>          }
-> >> --
-> >> 2.47.3
-> >>
+> On 6/28/26 11:28 AM, Yousef Alhouseen wrote:
+> > The firmware response length is controlled by the USB device. Although
+> > carl9170_cmd_callback() detects when it differs from the output buffer
+> > length, the function falls through and copies the entire response into
+> > that buffer. Callers commonly provide stack objects, so a malformed
+> > response can overwrite the kernel stack.
 > >
-> > Thanks! That's much more simpler than I expected. Do we need a wakeup
-> > queue like the one in commit 01626a1823024? Perhaps the reporter can
-> > help confirm and test? I personally prefer to keep it simple if shmem
-> > users aren't as sensitive as anon users.
+> > Return after scheduling device recovery. This also preserves the stated
+> > behavior of leaving the command incomplete so that its waiter times out
+> > and clears the pending output buffer.
+> >
+> > Fixes: a84fab3cbfdc ("carl9170: 802.11 rx/tx processing and usb backend")
+> > Reported-by: syzbot+5c1ca6ccaa1215781cac@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=5c1ca6ccaa1215781cac
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 >
-> I agree. I'd like to keep the bugfix as simple as possible, if the
-> reporter's scenario isn't latency-sensitive.
-
-On Android, we don't see much shmem; it's much less common
-than anon. So the chance of this concurrency happening should
-be lower than for anon. However, shmem can be shared by
-multiple processes, so could this still happen if process A is
-blocked by process B?
-
-I'm not really sure. Only large-scale data can tell. :-)
+> This was posted earlier too:
+> https://lore.kernel.org/linux-wireless/20260421134929.325662-1-tristmd@gmail.com/
+>
+> In fact, there was even a mail before that that was sent to security@vger.kernel.org.
+> I told Tristan that I would much rather not return and instead fix the memcpy.
+> carl9170_restart can completely unbind the device, so it's unlikely that one would
+> see a timeout.
+>
+> Cheers,
+> Christian
+>
+> > ---
+> > drivers/net/wireless/ath/carl9170/rx.c | 1 +
+> > 1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/net/wireless/ath/carl9170/rx.c b/drivers/net/wireless/ath/carl9170/rx.c
+> > index 6833430130f4..ea3f435fb64c 100644
+> > --- a/drivers/net/wireless/ath/carl9170/rx.c
+> > +++ b/drivers/net/wireless/ath/carl9170/rx.c
+> > @@ -145,6 +145,7 @@ static void carl9170_cmd_callback(struct ar9170 *ar, u32 len, void *buffer)
+> > * and we get a stack trace from there.
+> > */
+> > carl9170_restart(ar, CARL9170_RR_INVALID_RSP);
+> > + return;
+> > }
+> >
+> > spin_lock(&ar->cmd_lock);
