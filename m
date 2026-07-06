@@ -1,196 +1,313 @@
-Received: from mail-pl1-f201.google.com (mail-pl1-f201.google.com [209.85.214.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91AC436BF0
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 18:20:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08D9437848
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 18:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783362033; cv=none; b=mSD1LGO4EnW8PsRL+VlDwpxwfq67rrtJ7AmRBBtstZkU47aApWkZZD9wv8FMTIGrTHJ5DQGLuDvuDGhYfeeqC3CGNDTa+Q4XeTrjnrIui8/7MAjufnj/edLh1BJcHfDn8A4JAlGaynHiPnct4IeBtG06xCyieDhIzGX7s3mqris=
+	t=1783362156; cv=none; b=Dsds/TK2g8/F2+oChvQ31bd8f0mIDMpcElmSMDuNJ1mXALx0dTdIWoHeIqKTIUuEbEKnpRiD4tSxggQhvFWvmlY8HCdg628+4mUXnWoBUp6G40ypkT4lqWlCmNP/hdkS1wnL5JYUAtyr6J8T82Usaq/RSjnO03yvRVzfC9E84zU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783362033; c=relaxed/simple;
-	bh=LGXDADF7y6zslXEPxca2Lf7fKSs6PY32Wx9Q8YozdlQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=EC85B7JjHHtYXHcb4Hk/01QYIN5RuGgLTZubN+tt3leyNM08wkJ4U9InbZREs/CmDWVFA0kH7FRitKPxbB+Pv9szGqnwaBoYNCdE5F0SY109RQfwEkUtnHMfJxX5YM9I52tkVkaaDcePBpY4uYFKxI5y2ZGde5mxStmzSA8BH80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YKPXrPXm; arc=none smtp.client-ip=209.85.214.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1783362156; c=relaxed/simple;
+	bh=nJ4jnnw5mLr6Y0rU6AJZQxgQ/mnd2Cuiypzgxv2w37g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IxEJiq8C0OC+5pTjBXWfDB+eAJwbIuEje4WdV76tXpqkvqx+PencZwPQ7ODLY6Eaxz4nZYjmrJbkOD5IbZKd7BDv+cnALYAOHOhEKhZJOoDUDmDn3ovK7nRM5v+blmmI3aZNxXoEUQvGg69M56oKQH1SU82BrDFIZujhTL8u/Ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h0uLj7rx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YKPXrPXm"
-Received: by mail-pl1-f201.google.com with SMTP id d9443c01a7336-2cc86a9ef97so34755565ad.3
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 11:20:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783362031; x=1783966831; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=a1qb4BtBFUoB+ObdTPArO14r4lRkCdK+WNM4PNncVOs=;
-        b=YKPXrPXm0td/m7TzAEarhHq3b+eWukZcCKP1Sjoy7OjsokNmdXqZAsf8S4+7kZ2AOt
-         gSDTgcjtwcE1kpRJ1yqeDgRoRmh0Fa68ABLkZJ6NZc1TWiQva7t8Htv90cZ/SdWulJdK
-         hHpGE9inV+5/bJBKuyImGrSNkb+Iize3E2z3iYl9PO4xxOSpkrLqeLA9afE5kVoMyHbb
-         3kecsJt1Tpe3r9R33mixJW5o6bw/1/TP70VJlhTmfOZxmN42KMHYHjk9IgzN1xKhYxPo
-         0LUaZCRxnV39TkmMQklzOiNXfEhlzzXwhD7GwpfqjtqTuBF8bHrmi8gQXepUdiLWpUdo
-         DF0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783362031; x=1783966831;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=a1qb4BtBFUoB+ObdTPArO14r4lRkCdK+WNM4PNncVOs=;
-        b=DdSYSCVXgAWnO5WA39UsoxAzrjWIE2X0sDQmFCgAnShuvBJAUqty0wbpq1pxSMVcba
-         Kevt+3KfN2hiIwHkeTGtdRUaicciflAEPLt3tqG5VqWSh7RmHKvO9xg3Z7ps6H0jo2ws
-         LJA3fcPmFqP/p2OVB+bbHGHz4orM1GexC6ARnF70kw3UBDbJKIe2nBZvG0id1WG4xeto
-         US7L5VeysDtJd7LNP/BmpoEVKFbhs7u/72t6phD42k942b0FMYcoA//Bx58YAferkWtr
-         F1HIA+pN2Tbe1vWIlyaJLq5nsUe68A9a66AJlpU9Th4uvjXj0oVxF/wZ0Go4JouF7A+n
-         6i8A==
-X-Forwarded-Encrypted: i=1; AHgh+RoSOo/94xJusQy4I4FEtvPTRcBJKdZC3OL2XND6LL+//eQ2yxAd6DnSJ7fEUIbAI/LJ6awqhmY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxyVn4UzY/rNdktYQVeNE7eyNjk9TBDVViFMv27qfpOPqhHDday
-	tjlkaTG7aKeIHAQ+DVv/QG680oZZuYfVZxSIVJ+NBP32ixuKNlfx39FqVLtt4oK/kbCda++bSip
-	oDNc3YQ==
-X-Received: from plge13.prod.google.com ([2002:a17:902:cf4d:b0:2ca:ed29:ea82])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2b06:b0:2c6:d710:3e58
- with SMTP id d9443c01a7336-2ccbf192b3cmr15890835ad.36.1783362031022; Mon, 06
- Jul 2026 11:20:31 -0700 (PDT)
-Date: Mon, 6 Jul 2026 11:20:30 -0700
-In-Reply-To: <20260706180025.2735341-3-bestswngs@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h0uLj7rx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940951F000E9
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 18:22:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783362154;
+	bh=YjyKAGUBLZ01acBy8iDZWODq0VizLC5yJO1dkRkXO2E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=h0uLj7rxSZAGfN4dPyDWj2MFxQel7zfmtWZQ02TomXgfFHItQFqEWHeSbKkmfwFSi
+	 fAEI+rWFtFM8FQ5QCpcQzyY3QAJ5W5WYRN/NDVb8IrBKfal95FUE7YetNV0+52MrTP
+	 dECZ6ZGdEUUx3CiFKG91e5JQREOFTrORKF+BfALdmxSdt3uh8cyI2/OEHsMOcuMw6c
+	 tqdoPpaEhIJKK8djRnlFX8UeZz5dCiWEYdXu6AUA10AMa5fItya5fCQr9FoxdP886e
+	 YSfLoaqWIukzL9D5VkLylM+0cvAMEGMy/7LHJ030ahexfJ5bfqcyzhZqWhumppCepI
+	 KZaMCp/eC8lpw==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5aeb91c003eso3655643e87.3
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 11:22:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrypH4yGCicWa2CJnguuhg50Apg+ZNUKKuW01rFDVtYn4L5PfWIqeV8tvxwzZDi27u1Q9SCtmM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxE0k/vvPYCteiW0VyuLzWaXmp3Y8uWsdBiPlb74GwSUrudKKh0
+	EFW1ffCIEsf6CJ8UYfPVFXGUo7TVJkeEny20rZaDfyVtOIuO1KxWuoNvWk1YfnfOMlpX9PWpVJH
+	pWtwzOkDYFn0vnA+4bqOz6xs+yX8Ytr4=
+X-Received: by 2002:a05:6512:66cc:20b0:5ae:bb19:1864 with SMTP id
+ 2adb3069b0e04-5b007b7681cmr272441e87.21.1783362152967; Mon, 06 Jul 2026
+ 11:22:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260705045450.1325048-2-bestswngs@gmail.com> <20260706180025.2735341-3-bestswngs@gmail.com>
-Message-ID: <akvx7que1BE5DY-O@google.com>
-Subject: Re: [PATCH v2] KVM: x86: Destroy the PIC and IOAPIC before destroying vCPUs
-From: Sean Christopherson <seanjc@google.com>
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Kai Huang <kai.huang@intel.com>, kvm@vger.kernel.org, 
-	stable@vger.kernel.org, Zhang Haoyu <zhanghy@sangfor.com>, 
-	Jason Wang <jasowang@redhat.com>, Zhong Wang <wangzhong.c0ss4ck@bytedance.com>, 
-	Xuanqing Shi <shixuanqing.11@bytedance.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20260611-b4-acpi-battery-notification-v3-0-f9390382c5a4@rong.moe> <20260611-b4-acpi-battery-notification-v3-1-f9390382c5a4@rong.moe>
+In-Reply-To: <20260611-b4-acpi-battery-notification-v3-1-f9390382c5a4@rong.moe>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 6 Jul 2026 20:22:19 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0iVkVWfCNMuuE=9egBZvRF31camh_okxe1pWs9TTViPSQ@mail.gmail.com>
+X-Gm-Features: AVVi8CfoSn8Sq87ovA72xV7U2OXUD0ML22p-eWkF37ea9Yp7LCRRGj0h98yvddY
+Message-ID: <CAJZ5v0iVkVWfCNMuuE=9egBZvRF31camh_okxe1pWs9TTViPSQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] ACPI: battery: Merge consecutive battery notifications
+To: Rong Zhang <i@rong.moe>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, =?UTF-8?Q?Jeffrey_W=C3=A4lti?= <jeffrey@waelti.dev>, 
+	Rick <rickk1166@gmail.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 07, 2026, Weiming Shi wrote:
-> kvm_ioapic_eoi_inject_work() re-delivers a throttled level-triggered
-> interrupt via kvm_irq_delivery_to_apic(), which walks kvm->arch.apic_map
-> and dereferences the destination vCPU's APIC.  The work is cancelled only
-> in kvm_ioapic_destroy(), which runs after kvm_destroy_vcpus() has freed
-> the vCPUs and their APICs.  kvm_free_lapic() does not rebuild apic_map, so
-> the map is left with dangling pointers, and a work item that fires during
-> that window reads freed memory:
-> 
->  BUG: KASAN: slab-use-after-free in __kvm_irq_delivery_to_apic_fast (arch/x86/kvm/lapic.c:1248)
->  Read of size 8 by task kworker/3:1
->  Workqueue: events kvm_ioapic_eoi_inject_work
->   __kvm_irq_delivery_to_apic_fast (arch/x86/kvm/lapic.c:1248)
->   __kvm_irq_delivery_to_apic (arch/x86/kvm/lapic.c:1343)
->   ioapic_service (arch/x86/kvm/ioapic.c:492)
->   kvm_ioapic_eoi_inject_work (arch/x86/kvm/ioapic.c:525)
->   process_one_work
-> 
->  Freed by task 153:
->   kvm_arch_vcpu_destroy (arch/x86/kvm/x86.c:12871)
->   kvm_destroy_vcpus (virt/kvm/kvm_main.c:489)
->   kvm_arch_destroy_vm (arch/x86/kvm/x86.c:13402)
->   kvm_destroy_vm (virt/kvm/kvm_main.c:1302)
->   kvm_vm_release (virt/kvm/kvm_main.c:1363)
-> 
-> A guest arms the work by EOIing a level-triggered pin 10000 times in a
-> row, so the window is reachable from guest ring 0 whenever its VM is torn
-> down soon after.
-> 
-> Destroy the in-kernel PIC and IOAPIC in kvm_arch_pre_destroy_vm(),
-> before vCPUs are freed, so the eoi_inject work is cancelled while the
-> target APICs are still valid.  This also unregisters the PIC/IOAPIC
-> MMIO devices while the KVM buses still exist; kvm_destroy_vm() tears
-> the buses down right after kvm_free_irq_routing() and before
-> kvm_arch_destroy_vm(), so the previous kvm_io_bus_unregister_dev() in
-> kvm_ioapic_destroy() was a no-op.
-> 
-> Fixes: 184564efae4d ("kvm: ioapic: conditionally delay irq delivery duringeoi broadcast")
-> Link: https://lore.kernel.org/all/88ba60ad32ba851426a3f6590b0e402210991b4a.e33b58ce.0008.4e1c.aa62.c1024b242cbf@bytedance.com/
-> Suggested-by: Kai Huang <kai.huang@intel.com>
-> Reported-by: Zhong Wang <wangzhong.c0ss4ck@bytedance.com>
-> Reported-by: Xuanqing Shi <shixuanqing.11@bytedance.com>
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+On Wed, Jun 10, 2026 at 10:11=E2=80=AFPM Rong Zhang <i@rong.moe> wrote:
+>
+> It's a very common pattern to emit consecutive battery notifications,
+> for example:
+>
+>     Method (_Qxx, 0, NotSerialized)
+>     {
+>         Notify (BAT0, 0x80) // Status Change
+>         Notify (BAT0, 0x81) // Information Change
+>     }
+>
+> In this case, the current code path will update battery state twice
+> within a short period, which is not optimal, as the same data are
+> fetched twice. Moreover, both notifications are likely to call
+> power_supply_changed(), causing power_supply_uevent() to read all
+> battery properties in order to assemble uevents. Even worse, after the
+> first uevent reaches userspace, some userspace processes start to read
+> all battery properties in order to refresh their internal states, which
+> competes with the second notification's handling and uevent assembling.
+>
+> This generates significant pressure on _STA, _BST and _BIX/_BIF methods.
+> Not only that, power_supply_ext properties may also rely on some other
+> ACPI methods, so both uevent assembling and userspace processes call
+> them. It becomes a nightmare when all these methods share the same ACPI
+> mutex protecting EC accesses and hence vulnerable to lock starvation.
+> This is exactly the case of some Lenovo devices, where the mentioned EC
+> query pattern eventually leads to a catastrophic situation that a bunch
+> of ACPI methods (including but not limited to the mentioned ones) fail
+> to acquire the same mutex due to timeout. These devices don't handle
+> mutex acquisition failure gracefully and return garbage data, causing
+> even more chaos.
+>
+> Improve battery notification handling by merging consecutive battery
+> notifications within 10ms using a delayed work, so that they only
+> refresh and/or update battery state once. ACPI netlink event and
+> notifier call chain are still triggered multiple times in order not to
+> break other components. Finally, call power_supply_changed() once and
+> lead to a single uevent instead of a bunch, preventing userspace
+> programs from causing too much pressure on power supply properties and
+> underlying ACPI methods.
+>
+> Tested-by: Jeffrey W=C3=A4lti <jeffrey@waelti.dev>
+> Cc: stable@vger.kernel.org
+> Reported-by: Rick <rickk1166@gmail.com>
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D221065
+> Signed-off-by: Rong Zhang <i@rong.moe>
 > ---
-> v1: https://lore.kernel.org/all/20260705045450.1325048-2-bestswngs@gmail.com/
-> 
-> v2:
->  - Per Kai's suggestion, instead of adding a kvm_ioapic_pre_destroy()
->    helper that only cancels the eoi_inject work, move
->    kvm_pic_destroy()/kvm_ioapic_destroy() as a whole into
->    kvm_arch_pre_destroy_vm().  This also fixes the stale
->    kvm_io_bus_unregister_dev() Kai pointed out.
+> Changes in v2:
+> - Address Sashiko's concerns:
+>   - Return from acpi_battery_notification_worker() early when the fifo
+>     is empty
+>   - Use pr_err_ratelimited() for potential event storms
+>   - Add missing `\n' in a printk message
+>   - https://sashiko.dev/#/patchset/20260527-b4-acpi-battery-notification-=
+v1-0-2303bed8ec0b%40rong.moe
+> - Minimalize the critical section of acpi_battery_notify()
+> ---
+>  drivers/acpi/battery.c | 80 +++++++++++++++++++++++++++++++++++++++++++-=
+------
+>  1 file changed, 70 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
+> index b82dd67d98c9..5f476c074c68 100644
+> --- a/drivers/acpi/battery.c
+> +++ b/drivers/acpi/battery.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/dmi.h>
+>  #include <linux/jiffies.h>
+>  #include <linux/kernel.h>
+> +#include <linux/kfifo.h>
+>  #include <linux/list.h>
+>  #include <linux/module.h>
+>  #include <linux/mutex.h>
+> @@ -21,6 +22,7 @@
+>  #include <linux/slab.h>
+>  #include <linux/suspend.h>
+>  #include <linux/types.h>
+> +#include <linux/workqueue.h>
+>
+>  #include <linux/unaligned.h>
+>
+> @@ -43,6 +45,9 @@
+>
+>  #define MAX_STRING_LENGTH      64
+>
+> +#define MAX_QUEUED_EVENTS      16
+> +#define NOTIF_MERGING_MS       10
+> +
+>  MODULE_AUTHOR("Paul Diefenbaugh");
+>  MODULE_AUTHOR("Alexey Starikovskiy <astarikovskiy@suse.de>");
+>  MODULE_DESCRIPTION("ACPI Battery Driver");
+> @@ -95,6 +100,8 @@ struct acpi_battery {
+>         struct power_supply_desc bat_desc;
+>         struct acpi_device *device;
+>         struct device *phys_dev;
+> +       struct kfifo acpi_notif_fifo;
+> +       struct delayed_work acpi_notif_dwork;
+>         struct notifier_block pm_nb;
+>         struct list_head list;
+>         unsigned long update_time;
+> @@ -1059,14 +1066,24 @@ static void acpi_battery_refresh(struct acpi_batt=
+ery *battery)
+>  }
+>
+>  /* Driver Interface */
+> -static void acpi_battery_notify(acpi_handle handle, u32 event, void *dat=
+a)
+> +static void acpi_battery_notification_worker(struct work_struct *work)
+>  {
+> -       struct acpi_battery *battery =3D data;
+> +       struct acpi_battery *battery =3D container_of(work, struct acpi_b=
+attery,
+> +                                                   acpi_notif_dwork.work=
+);
+>         struct acpi_device *device =3D battery->device;
+> +       u32 events[MAX_QUEUED_EVENTS];
+>         struct power_supply *old;
+> +       unsigned int count, i;
+>
+>         guard(mutex)(&battery->update_lock);
+>
+> +       count =3D kfifo_out(&battery->acpi_notif_fifo, events, sizeof(eve=
+nts));
+> +       count /=3D sizeof(events[0]);
+> +       if (!count)
+> +               return;
+> +
+> +       pr_debug("merged %u battery notifications within %dms\n", count, =
+NOTIF_MERGING_MS);
+> +
+>         old =3D battery->bat;
+>         /*
+>          * On Acer Aspire V5-573G notifications are sometimes triggered t=
+oo
+> @@ -1076,19 +1093,50 @@ static void acpi_battery_notify(acpi_handle handl=
+e, u32 event, void *data)
+>          */
+>         if (battery_notification_delay_ms > 0)
+>                 msleep(battery_notification_delay_ms);
+> -       if (event =3D=3D ACPI_BATTERY_NOTIFY_INFO)
+> -               acpi_battery_refresh(battery);
+> +
+> +       for (i =3D 0; i < count; i++) {
+> +               if (events[i] =3D=3D ACPI_BATTERY_NOTIFY_INFO) {
+> +                       acpi_battery_refresh(battery);
+> +                       break;
+> +               }
+> +       }
+> +
+>         acpi_battery_update(battery, false);
+> -       acpi_bus_generate_netlink_event(ACPI_BATTERY_CLASS,
+> -                                       dev_name(&device->dev), event,
+> -                                       acpi_battery_present(battery));
+> -       acpi_notifier_call_chain(ACPI_BATTERY_CLASS, acpi_device_bid(devi=
+ce),
+> -                                event, acpi_battery_present(battery));
+> +
+> +       for (i =3D 0; i < count; i++) {
+> +               acpi_bus_generate_netlink_event(ACPI_BATTERY_CLASS,
+> +                                               dev_name(&device->dev), e=
+vents[i],
+> +                                               acpi_battery_present(batt=
+ery));
+> +               acpi_notifier_call_chain(ACPI_BATTERY_CLASS, acpi_device_=
+bid(device),
+> +                                        events[i], acpi_battery_present(=
+battery));
+> +       }
+> +
+>         /* acpi_battery_update could remove power_supply object */
+>         if (old && battery->bat)
+>                 power_supply_changed(battery->bat);
+>  }
+>
+> +static void acpi_battery_notify(acpi_handle handle, u32 event, void *dat=
+a)
+> +{
+> +       struct acpi_battery *battery =3D data;
+> +       bool queued =3D false;
+> +
+> +       scoped_guard(mutex, &battery->update_lock) {
+> +               if (kfifo_avail(&battery->acpi_notif_fifo) >=3D sizeof(ev=
+ent)) {
+> +                       kfifo_in(&battery->acpi_notif_fifo, &event, sizeo=
+f(event));
+> +                       queued =3D true;
+> +               }
+> +       }
+> +
+> +       if (queued) {
+> +               schedule_delayed_work(&battery->acpi_notif_dwork,
+> +                                     msecs_to_jiffies(NOTIF_MERGING_MS))=
+;
 
-Sadly, it creates an even easier-to-exploit NULL pointer deref.  Your v1 is what
-I came up with idependently (the bug got reported off-list), though I eschewed a
-helper.
+Why can't this be done under update_lock?
 
-Author:     Sean Christopherson <seanjc@google.com>
-AuthorDate: Tue Jun 30 08:13:42 2026 -0700
-Commit:     Sean Christopherson <seanjc@google.com>
-CommitDate: Tue Jun 30 08:28:19 2026 -0700
+It looks like the lock could be held across the entire function and
+the "queued" variable could be dropped.
 
-    KVM: x86: Cancel delayed I/O APIC EOI handling before destroying vCPUs
-    
-    Cancel (and flush) the I/O APIC's delayed EOI handling work during the
-    "pre VM destroy" phase, before vCPUs are destroyed, as processing the EOI
-    broadcast will inject another IRQ if the line is asserted, i.e. will try
-    to deliver an IRQ to the target vCPU(s).  Canceling the work after vCPUs
-    are destroyed leads to UAF if the delayed work is processed after vCPUs are
-    destroyed.
-    
-      BUG: KASAN: slab-use-after-free in __kvm_irq_delivery_to_apic_fast+0x9bf/0xa20 arch/x86/kvm/lapic.c:1250
-      Read of size 8 at addr ffff8880499abea0 by task kworker/1:2/1218
-    
-      CPU: 1 UID: 0 PID: 1218 Comm: kworker/1:2 Not tainted 7.1.0-rc7 #5 PREEMPT(lazy)
-      Hardware name: QEMU Ubuntu 25.10 PC v2 (i440FX + PIIX, + 10.1 machine, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-      Workqueue: events kvm_ioapic_eoi_inject_work
-      Call Trace:
-       <TASK>
-       __dump_stack /root/linux/lib/dump_stack.c:94
-       dump_stack_lvl+0x100/0x190 /root/linux/lib/dump_stack.c:120
-       print_address_description /root/linux/mm/kasan/report.c:378
-       print_report+0x139/0x4ad /root/linux/mm/kasan/report.c:482
-       kasan_report+0xe4/0x1d0 /root/linux/mm/kasan/report.c:595
-       __kvm_irq_delivery_to_apic_fast+0x9bf/0xa20 /root/linux/arch/x86/kvm/lapic.c:1250
-       __kvm_irq_delivery_to_apic+0xd8/0xbf0 /root/linux/arch/x86/kvm/lapic.c:1345
-       kvm_irq_delivery_to_apic /root/linux/arch/x86/kvm/lapic.h:129
-       ioapic_service+0x308/0x590 /root/linux/arch/x86/kvm/ioapic.c:492
-       kvm_ioapic_eoi_inject_work+0x13c/0x190 /root/linux/arch/x86/kvm/ioapic.c:532
-       process_one_work+0xa59/0x19a0 /root/linux/kernel/workqueue.c:3314
-       process_scheduled_works /root/linux/kernel/workqueue.c:3397
-       worker_thread+0x5eb/0xe50 /root/linux/kernel/workqueue.c:3478
-       kthread+0x370/0x450 /root/linux/kernel/kthread.c:436
-       ret_from_fork+0x72b/0xd30 /root/linux/arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 /root/linux/arch/x86/entry/entry_64.S:245
-       </TASK>
-    
-    Note, the VM is unreachable once kvm_destroy_vm() starts, and scheduling
-    new work via kvm_ioapic_send_eoi() can only be done via KVM_RUN, i.e.
-    requires a live vCPU.
-    
-    Alternatively, KVM could simply destroy the I/O APIC during the "pre" phase
-    of VM destruction, but that gets more than a bit sketchy as KVM expects the
-    I/O APIC to exist if ioapic_in_kernel() is true, and nested virtualization
-    in particular has a bad habit of touching VM-scope state during vCPU
-    destruction.  E.g. attempting to free the PIC during the pre phase would
-    lead to a NULL pointer dereference in kvm_cpu_has_extint(), and it's not
-    hard to imagine the I/O APIC having a similar flaw.
-    
-    Fixes: 17bcd7144263 ("KVM: x86: Free vCPUs before freeing VM state")
-    Reported-by: <zdi-disclosures@trendmicro.com>
-    Cc: stable@vger.kernel.org
-    Signed-off-by: Sean Christopherson <seanjc@google.com>
-
-diff --git arch/x86/kvm/x86.c arch/x86/kvm/x86.c
-index 0626e835e9eb..a0cc74c8ded1 100644
---- arch/x86/kvm/x86.c
-+++ arch/x86/kvm/x86.c
-@@ -9942,6 +9942,8 @@ void kvm_arch_pre_destroy_vm(struct kvm *kvm)
-         */
- #ifdef CONFIG_KVM_IOAPIC
-        kvm_free_pit(kvm);
-+       if (kvm->arch.vioapic)
-+               cancel_delayed_work_sync(&kvm->arch.vioapic->eoi_inject);
- #endif
- 
-        kvm_mmu_pre_destroy_vm(kvm);
+> +       } else {
+> +               pr_err_ratelimited("too many battery notifications within=
+ %dms\n",
+> +                                  NOTIF_MERGING_MS);
+> +       }
+> +}
+> +
+>  static int battery_notify(struct notifier_block *nb,
+>                           unsigned long mode, void *_unused)
+>  {
+> @@ -1256,13 +1304,22 @@ static int acpi_battery_probe(struct platform_dev=
+ice *pdev)
+>
+>         device_init_wakeup(&pdev->dev, true);
+>
+> +       result =3D kfifo_alloc(&battery->acpi_notif_fifo,
+> +                            MAX_QUEUED_EVENTS * sizeof(u32), GFP_KERNEL)=
+;
+> +       if (result)
+> +               goto fail_pm;
+> +
+> +       INIT_DELAYED_WORK(&battery->acpi_notif_dwork, acpi_battery_notifi=
+cation_worker);
+> +
+>         result =3D acpi_dev_install_notify_handler(device, ACPI_ALL_NOTIF=
+Y,
+>                                                  acpi_battery_notify, bat=
+tery);
+>         if (result)
+> -               goto fail_pm;
+> +               goto fail_kfifo;
+>
+>         return 0;
+>
+> +fail_kfifo:
+> +       kfifo_free(&battery->acpi_notif_fifo);
+>  fail_pm:
+>         device_init_wakeup(&pdev->dev, false);
+>         unregister_pm_notifier(&battery->pm_nb);
+> @@ -1279,6 +1336,9 @@ static void acpi_battery_remove(struct platform_dev=
+ice *pdev)
+>         acpi_dev_remove_notify_handler(battery->device, ACPI_ALL_NOTIFY,
+>                                        acpi_battery_notify);
+>
+> +       cancel_delayed_work_sync(&battery->acpi_notif_dwork);
+> +       kfifo_free(&battery->acpi_notif_fifo);
+> +
+>         device_init_wakeup(&pdev->dev, false);
+>         unregister_pm_notifier(&battery->pm_nb);
+>
+>
+> --
+> 2.53.0
+>
