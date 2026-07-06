@@ -1,115 +1,116 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5378938AC72
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 10:29:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746B33ACA71;
+	Mon,  6 Jul 2026 10:29:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783333777; cv=none; b=s03L1fP35KzTT/hGZJPsbLcBBOkFHNRlf4KnCTibTDPkRa7OWNpi6rgQoL39B3MAUlQ+dqsBmMH6pKLye7igPzyTcfCFI9o64/N3hOMuvqKcmil/otFcpvlunow1O7oOkQnxVBLOhjBQsnWUdh61JWX3xNVrjQ0jjhNqxg6JCs8=
+	t=1783333791; cv=none; b=SmkJXNHraa4SKztlpFO/FNrNc12d6ZsPPYQZVqVp1BG6YBs8G7fiibHWqjwQf/aF9voc0zFVqdiADTFB4FpGbHbS/0YL6pRX1XZaa/pV5E3RikMKvpYnfa3EkbZyLbDBhH8EaU6UQbMO1wvxcSxSQYXuTUKAIkYqCHjxWo1EVCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783333777; c=relaxed/simple;
-	bh=hQGFqx4IJ46LMfGQptkfnFSJjPUglR76Hzn2hDUlyrM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pgWRmwbOp0xbKY/43c7q2u1gYglQiK23yvIGUYubF2jsHW0ENxnSLiJ7eTW7ei6U+xmo4d+16fA8E7Fl8/GDztGZj3fTDxdGdJdD7sWfPiT74H1duIFhxgWOh2l+bROgvnKsmvXE9SZpW5MtY3hccNynO8H9B7IcWFtkNeTSx7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iyb1G52l; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783333791; c=relaxed/simple;
+	bh=HP+bijMJa9X7wYxSCkOyzfRBILRidWOlKxrUNln+31Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D5Gvvel4+JhD0YYijf7b5NbyYwN0xcZ4u5yE1GMSzRnyuNlP0zFaO/P4sqeS6fzOQ1rZabMk+3rSAZGtuzEKVA6mJP1ESCzzBkCEEHsaDFcZDMBuMuNG2as9B1wycEjRfE+ZVjK84Z6luMoaWgMV5UfkLsushlK35wUGaV9j7x8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=deZw+PHZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iyb1G52l"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-45fd464d51fso1430464f8f.3
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 03:29:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783333775; x=1783938575; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DgZGkATc9v6IJyoP0jVfXRsi6k/bycnl80rgTX/hwpQ=;
-        b=iyb1G52lQbBs6fBRC3uKy2e0WR/4BbRhHfPZ4m0FYsoFMfXM6+nKgHBP6lLNHDRVw5
-         3yYP2/1qWv1BoBgE+ctsLCPPc/y/Kuif0N9Ll83lTlvRh8hw2IcUqI56QytmuV9vzhI3
-         JHwW/rwZa9AKvNgXUm/5AKPQ9MHoCWLwm4q9/tCQkaWXzX8n78ZI/dWKxTfy9iXXy/Do
-         Kdhnw4AlPCeciQDhzWCxaMdThcPAukPOWNdd/50TAHWMa3tgVSsRSBJ5GGh3G0dEWax1
-         4biC8CWJo3ebb6E8Px7ANezHVL7Jt5jhuZmuIFXW/74tD0l9v9cJ/evzAQHXh72Z/oZD
-         QYEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783333775; x=1783938575;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DgZGkATc9v6IJyoP0jVfXRsi6k/bycnl80rgTX/hwpQ=;
-        b=cNz25Glcy2I+f0KRPTt2tiJ1vRMEHMU/wpILUmylxE8ykGia4fl0nEVfk7sXU8e92s
-         slqY57pvsIboKbegraiBHVNDBmRNUFT1iWxrlinFmTyzgBBLaLXYhEkovuaZ4Jg+pGcj
-         sHbmMq61UL1NOv7Hu6mXi2vAFi9Uijm0sb3NQVOs5prpvn8BXBhqFmuBkcpLkgJ0TZaj
-         8NmD/x46HcarSpTSomH5s+zhbTDxkPJkkvXdvtW/BXzNBktLXFD28P68pb0MidEqgmdh
-         4WE5bYnCUzgRX7C64zUiH0/2ov6VBbjjK63jNhjSeCYf56FEu5F1/wNTk7pme4x1NUqX
-         cJjQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqQdIyeJm3VHzVCizPHFTgXyLJuPP84Dedq6SQqkXSZHeNDUyClVyU70599sCnqpbztTfJluKE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxzt7tnJ7ZuE5nDWtKTWyil8uHY4ASQg4thggTRiw38bNZcFbEL
-	FyuD4jLT+orytrr8GG5J2k0lMYPA4vdWcxrIJS2L7n8Sj4Tx/kkIpTRm
-X-Gm-Gg: AfdE7cmIB7712ZBs72nT152BYvW9KpLadshzTd7Kj+F1t/paH4fvQsf+na2Q8WIAj/C
-	NpZUd54KQHZVClAIpkNDxtKTe5j7IWdgw1UWlaC+s6O3k2yaTn95WEYLqVAJPOv7YrX2MZNHdJU
-	JqfaVgA1gcI2WnGBMAR5Ho2Qtd/z/IMYnmWBVnFSpiWP91PdFUBmHeP2pjHzIfOPO5hsVUF7oyR
-	VXmcXWtcKTb5BdU7986c8w0hL58KIMH4+4KbUzstWC538LmoLGv73l43IuX4FdGnoDmfSaDLOt6
-	dp4zespwzSWlD/CokSj+OUjtUZa6ecDqOpbcAIz/9MNDSggDT2iqTDMMap8vq4Ly0kLrSxtQTls
-	JbFnjzG3EuASNawEC8FvUCj9NdOMASU6ZpVzO+jwTaMUDuioQ1ql63whosfbDMrR9qD1UkCw0zs
-	rzZPIE1t0BnsjaLEdiMlTqRIfWVqUx7w==
-X-Received: by 2002:adf:f288:0:b0:475:f100:360d with SMTP id ffacd0b85a97d-47aac5e3774mr9178054f8f.60.1783333774411;
-        Mon, 06 Jul 2026 03:29:34 -0700 (PDT)
-Received: from [192.168.1.23] ([92.183.46.167])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9b4d850dsm24605054f8f.0.2026.07.06.03.29.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2026 03:29:33 -0700 (PDT)
-Message-ID: <2728e1ae-dac5-4b6d-9e6b-8948b558a341@gmail.com>
-Date: Mon, 6 Jul 2026 12:29:33 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="deZw+PHZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366911F000E9;
+	Mon,  6 Jul 2026 10:29:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783333788;
+	bh=YaiT2z3qpXhTNE58QdMIFf3NiMwIsaqv9pHhX1hnvXY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=deZw+PHZpD4PiC0sDZ+djpQLp9rq1RHiV3XJ4vz8ya27J+ITC8sQrrFsxsgM2rbWh
+	 QuSF3XOxqXtS59J7ZItsOgAlnu8M2dhW2VLiuzRfi1OnHZe4bXe6JoL+JMdZDMVL7u
+	 cbW/kExxihnu45MyBitLObmt8fn15wK+TewA4KedSUbFbJ+PU2eAdTumd7y9ggk92o
+	 aGjvtMcgUi/3cVFZXh3NKYfH6BJtKa5cl5Cben3FaoC11KQD2j/b1wMO0aXBnZuL/d
+	 ekH98V2cPLpFUPgye9mTySNgTjrat1iOCiF7PT/7uH0Eu7S8MW/lJD3wKNwAIVjBM8
+	 PLDBE0qSS+ydw==
+Date: Mon, 6 Jul 2026 12:29:35 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Soeren Moch <smoch@web.de>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Richard Zhu <hongxing.zhu@nxp.com>, stable@vger.kernel.org, 
+	Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
+	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI: imx6: Keep Root Port MSI capability also for i.MX6Q
+Message-ID: <2cbqhvfjszzuanp4i3rohntkxpfgftfjvzt66te3wkohsvw26g@yv4txuy74tvu>
+References: <20260427115804.134231-1-smoch@web.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10 00/96] 5.10.260-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260702155108.949633242@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260702155108.949633242@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260427115804.134231-1-smoch@web.de>
 
-
-
-On 7/2/2026 6:18 PM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.10.260 release.
-> There are 96 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Mon, Apr 27, 2026 at 01:58:04PM +0200, Soeren Moch wrote:
+> Also on the NXP i.MX6Q chipset MSIs from the endpoints won't be received by
+> the iMSI-RX MSI controller if the Root Port MSI capability is disabled.
 > 
-> Responses should be made by Sat, 04 Jul 2026 15:50:58 +0000.
-> Anything received after that time might be too late.
+> Even though the Root Port MSIs won't be received by the iMSI-RX controller
+> due to design, this chipset has some weird hardware bug that prevents
+> the endpoint MSIs from reaching when the Root Port MSI capability is
+> disabled.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.260-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
-> and the diffstat can be found below.
+> Hence, always keep the Root Port MSI capability for this chipset.
 > 
-> thanks,
+> Note that by keeping Root Port MSI capability, Root Port MSIs such as AER,
+> PME and others won't be received by default. So users need to use
+> workarounds such as passing 'pcie_pme=nomsi' cmdline param.
 > 
-> greg k-h
+> Fixes: 3a4e8302e72f ("PCI: imx6: Keep Root Port MSI capability with iMSI-RX to work around hardware bug")
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+This is not the correct fixes tag. Correct one is:
+f5cd8a929c825 ("PCI: dwc: Remove MSI/MSIX capability for Root Port if iMSI-RX is used as MSI controller")
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> Cc: <stable@vger.kernel.org> # 7.0.x
+> Signed-off-by: Soeren Moch <smoch@web.de>
+
+Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+
+@Bjorn: Can you merge this patch for 7.2-rcS with correct fixes tag?
+
+- Mani
+
+> ---
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Richard Zhu <hongxing.zhu@nxp.com>
+> Cc: Lucas Stach <l.stach@pengutronix.de>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Frank Li <Frank.Li@nxp.com>
+> Cc: Fabio Estevam <festevam@gmail.com>
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: imx@lists.linux.dev
+> Cc: linux-kernel@vger.kernel.org
+> 
+> Tested on a tbs2910 board [1]
+> [1] arch/arm/boot/dts/nxp/imx/imx6q-tbs2910.dts
+> ---
+>  drivers/pci/controller/dwc/pci-imx6.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+> index 6d6a1688e7eb..3d461bdef967 100644
+> --- a/drivers/pci/controller/dwc/pci-imx6.c
+> +++ b/drivers/pci/controller/dwc/pci-imx6.c
+> @@ -1865,7 +1865,8 @@ static const struct imx_pcie_drvdata drvdata[] = {
+>  		.flags = IMX_PCIE_FLAG_IMX_PHY |
+>  			 IMX_PCIE_FLAG_SPEED_CHANGE_WORKAROUND |
+>  			 IMX_PCIE_FLAG_BROKEN_SUSPEND |
+> -			 IMX_PCIE_FLAG_SUPPORTS_SUSPEND,
+> +			 IMX_PCIE_FLAG_SUPPORTS_SUSPEND |
+> +			 IMX_PCIE_FLAG_KEEP_MSI_CAP,
+>  		.dbi_length = 0x200,
+>  		.gpr = "fsl,imx6q-iomuxc-gpr",
+>  		.ltssm_off = IOMUXC_GPR12,
+> -- 
+> 2.43.0
+> 
+
 -- 
-Florian
-
+மணிவண்ணன் சதாசிவம்
