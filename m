@@ -1,35 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037103E7BA4;
-	Mon,  6 Jul 2026 11:00:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868AF3F1AD9
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 11:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783335631; cv=none; b=HiqIE1rzijknNNs6Z38lsRWu2+AeZNy23EYQrJwTwZCPFe5oMspAj2nKo9tsDiY7Dlz4Y6OVVlsodUeG+3GHLoZg4rvS7utdnUq9afPvsY+KW2xjcmx1PjqSVDx0aDh4CrfMwivcYGahHcH4f6c/oJsIJfnL4ozPQ5cmyfj3row=
+	t=1783335638; cv=none; b=d24mWQpawdKHXSTd/BDDpLHjYzfxZXhVKm0f49YO1ciKH6b6UzJsCoe8NgKjDy7LB/zbS3oRg+F8WkIhCcOjvRfHiIYGoQF5NoCTIbDYw7Iw9dYdMCOI3rwClD/Mhf5GIBKhgAg96aySdjD93jtLreVl16m9It25/fdzhIkG1qU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783335631; c=relaxed/simple;
-	bh=oSJcizVEB2AE5qWYIy6hS6yMTz9ZS1gwNvy3ZT70Md8=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=mfAMdATSB3KHRz5bvAmWC7HJ/72e7Wzgmq/FJkBg/ho7msaBxL/H7+RP4h+t3J4PZZWyL5Z0hTU+ktIpoUKEcUhP3pQ/tGeZ1lolVjMsntlaYh5On8xquERrpXzT6MLs2Y5GSmvBO9mW2dy/IMIcSFEss9Sauv0RF7wmjVV1iK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8OC2G1b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783335638; c=relaxed/simple;
+	bh=r59EUgtIsaoxZtEmDgwSAtgrbkt8LgaNF7WBBajdhfk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RD5BmQ9ARdYYI2ydwBVu2hmZgsac8OmkgTfBCqX8a4d1UqmShcD6roIbcBUHmnJ4vwE9cDEwFGDewdX818/zrLmGuMd/NLBhJHKFsGQcHPhn4TRuiDXoWqoyb4HOfJabAxmwhODekDn6mhvP5EHp9E1zI/ww/QXylDf3jfRzhHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ue1umZFD; arc=none smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8OC2G1b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 837941F00A3D;
-	Mon,  6 Jul 2026 11:00:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783335628;
-	bh=z1Exyblzz3CqiQ4kTkKOEQNGqw6O5u89Bc9MEMUXO+I=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=L8OC2G1b5iLLPIYIr8g8nqarIYxcSjwRjciXCm5VurS4B5liWxKsMGqGB6yxLroS6
-	 CCGA4MXhX+V97Vf95ttygRNhHW415CbYActu8/fhvzO9d+J5+onq2vkQZutiZGwbSN
-	 JDH054i6/pc6ZnljlI9uhK51KTvVooIO7eBTFudGcHLxHAVO7C+STh/C1VvrZu0zTl
-	 Z6hNFtzz6r2zQXnInmmuO4m2jKSzPAoKyk5tvXCTbddQk4fS/vcuAFYPj+JMyiT5l0
-	 qZPYWsVGGgxw8HRrlprQsiII/OPxUnQUArqxeEbd4Fh8rYNXQOCjn74iliVKqJ2KAD
-	 5BxHEtdgqJNMQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5697B3ABD2A5;
-	Mon,  6 Jul 2026 11:00:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ue1umZFD"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84794e800f4so1551299b3a.0
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 04:00:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783335637; x=1783940437; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n0i9VdK/Ma3gHZKckXQb+1T7ww2+Cb/2KCUzwQQKXZo=;
+        b=Ue1umZFDf6Ej1/uf2F/JGCGxBbNkkVdGUpw3KZLToNJwu7NRsoI4gypqJemzD1MGwi
+         vU339z+BYdtjylLU0QmMZJbQQnENeanwQCmQ7/nSPFFpYQJV1UpllkMpgyxPFYi6ZN2X
+         qr83Y8ZxxH1Wj6WbR4xN94YrEzS/M047vCySbj+JiN9+tT0/vcoFeFjhvlQhPqrQQOeH
+         v7s+4Fn6uOD/FuGZPuhOcROFiBm0go40GloEaOMQnUGkf+DqycE/417X0RM7ZpZcCLdN
+         TX1g8otxy7FDZkeJiba01BaXMRxLH0aHstkWuZP5/s5kIL5G/xYdIfcIID8RAXkf15M+
+         NGlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783335637; x=1783940437;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n0i9VdK/Ma3gHZKckXQb+1T7ww2+Cb/2KCUzwQQKXZo=;
+        b=ECrVe2rJiPHWFErF3Di6tjIxaBrIQ+rwK+thBigZwxOQpoky/9DNfPaEumV2nH6UKb
+         F/iwAg6zQctMJnobVCYXcAnOWruHrqHExOn/33oEcSCtyj0BffzMDN6RB1OWXUn2etGL
+         Mz6rEmexKxq96jqjNCe0HLQ1lF/Obigmw8LPFLIYavJicRP4N0aalAE7oXjyC8O5XqJV
+         p0FKNaB55Nyon23m0B4pEndLSybSGcntrgn3/j+ecRi6xa5gbKqsBc3y2KsSy/aP75Oc
+         TYOYVDMaxSqKR80iKtb40V1Z/bL9jTyOTDXEb1JA1ao42/Qgn4Rm6cfOgktCHDq59OfR
+         ysAQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpsnOOayOwRcW8KPLaFnX2BTvmC5Zqe91HvZHFDFkbeh/tHiiZNx5S8ZOdkWo4Vx8W5FCc1fjE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPomJc1rTeDz5zuwX8ynqP7LXyxa4ECLv+DsjS2Ha81Bfn8Gfv
+	sMn8pclPah+TqRuVmwmmgCgvad40dajpKttl6jh+tbSX9ajDdkNBVzy+
+X-Gm-Gg: AfdE7clvjTorh0hBsxANc1GtXDv5FBD7I7uk/lbYMHejqA0HDUjZfixqvj5ubhbMlG9
+	W+lydD1F569/kEzPxeTu6fh3dXu5L7yrD6IRKVLg/1fKlKFd6WrqnKgjiZMXgdO2+Md0E6z1gL4
+	q12RtUnfmMs9kzdq0cMGbEVz0cis5XGsUYCrrd+ZSdmSpKKAAzdnF/+e/ir5LeAavzQhNotkrqY
+	U65MZq+TlwLacVTQeUrscsx53DF0pq6y/ZeRZuDcwbyxLF8KDH6xPuLoxB/rGunN6Stx0fsFxa0
+	HbWbSNig68St9h63rz6HhlI9mq/wQCjzqmYjBi9Muw50rHfr5CtY7lBa6LGSdEyOovQF6D2xIMX
+	4Zsqe9HH/tJ/VBVdk8D6QzCOIofD/jSJ2ViFajTaMvq7cJ5RHv2RuD1mPcqLnpD1/9oQ4Jd2u/r
+	BnZOrE+jGM7I/1+WtMRjzHvBrVWV8+YD10ehveNMi5fZUfkHyaHLYEhovZFO9ujo1H3OVZeUX0b
+	972/mP5
+X-Received: by 2002:a05:6a21:2d46:b0:3b3:1b38:d9d6 with SMTP id adf61e73a8af0-3c08ee3658cmr63419637.39.1783335636463;
+        Mon, 06 Jul 2026 04:00:36 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b3c7ef728sm47797381c88.3.2026.07.06.04.00.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 04:00:36 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	luca.ceresoli@bootlin.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	tomi.valkeinen@ideasonboard.com,
+	francesco@dolcini.it,
+	leonardo.costa@toradex.com,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/bridge: tc358768: Enforce input bus flags via atomic_check
+Date: Mon,  6 Jul 2026 07:57:45 -0300
+Message-ID: <20260706105840.1582166-1-leoreis.costa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20251106141227.899054-6-s-jain1@ti.com>
+References: <20251106141227.899054-6-s-jain1@ti.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,49 +91,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net 1/1] net/sched: act_pedit: fix TOCTOU heap OOB write
- in tc
- offload
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178333560889.503923.6757355467613392279.git-patchwork-notify@kernel.org>
-Date: Mon, 06 Jul 2026 11:00:08 +0000
-References: <20260701161912.125355-1-jhs@mojatatu.com>
-In-Reply-To: <20260701161912.125355-1-jhs@mojatatu.com>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, jiri@resnulli.us,
- victor@mojatatu.com, security@kernel.org, zdi-disclosures@trendmicro.com,
- stable@vger.kernel.org
 
-Hello:
+From: Leonardo Costa <leonardo.costa@toradex.com>
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+The tc358768 declares static bridge timings requiring pixel data to be
+sampled on the positive clock edge.
 
-On Wed,  1 Jul 2026 12:19:12 -0400 you wrote:
-> There is a TOCTOU race condition in flower lockless approach between sizing
-> a flow_rule buffer and filling it.
-> zdi-disclosures@trendmicro.com reports:
-> The cls_flower classifier operates with TCF_PROTO_OPS_DOIT_UNLOCKED
-> (fl_change runs without RTNL), while RTM_NEWACTION holds RTNL, so the
-> independent locking domains make the race reachable in practice.  KASAN
-> confirms:
->   BUG: KASAN: slab-out-of-bounds in tcf_pedit_offload_act_setup+0x81b/0x930
->   Write of size 4 at addr ffff888001f27520 by task poc-toctou/312
->   The buggy address is located 0 bytes to the right of
->    allocated 288-byte region [ffff888001f27400, ffff888001f27520)
->    (cache kmalloc-512)
-> 
-> [...]
+However, the DRM core default propagation simply copies the output-side
+bus flags, coming from the next bridge, connector or panel, to the
+input side. If the propagated flags are incompatible with the bridge
+ones, the data is wrongly sampled, typically resulting in visual
+artifacts on the panel.
 
-Here is the summary with links:
-  - [net,1/1] net/sched: act_pedit: fix TOCTOU heap OOB write in tc offload
-    https://git.kernel.org/netdev/net/c/8b519cbcabe8
+Implement the atomic_check hook, replacing the mutually exclusive
+mode_fixup, and set the bridge state input bus flags to the ones
+required by the tc358768. The sync polarity defaulting previously done
+in mode_fixup is carried over into atomic_check unchanged.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Fixes: ff1ca6397b1d ("drm/bridge: Add tc358768 driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+---
+ drivers/gpu/drm/bridge/tc358768.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-
+diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge/tc358768.c
+index 0d85120fcc7a3..0516a331e71ba 100644
+--- a/drivers/gpu/drm/bridge/tc358768.c
++++ b/drivers/gpu/drm/bridge/tc358768.c
+@@ -1262,10 +1262,13 @@ tc358768_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
+ 	return input_fmts;
+ }
+ 
+-static bool tc358768_mode_fixup(struct drm_bridge *bridge,
+-				const struct drm_display_mode *mode,
+-				struct drm_display_mode *adjusted_mode)
++static int tc358768_bridge_atomic_check(struct drm_bridge *bridge,
++					struct drm_bridge_state *bridge_state,
++					struct drm_crtc_state *crtc_state,
++					struct drm_connector_state *conn_state)
+ {
++	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++
+ 	/* Default to positive sync */
+ 
+ 	if (!(adjusted_mode->flags &
+@@ -1276,13 +1279,15 @@ static bool tc358768_mode_fixup(struct drm_bridge *bridge,
+ 	      (DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC)))
+ 		adjusted_mode->flags |= DRM_MODE_FLAG_PVSYNC;
+ 
+-	return true;
++	bridge_state->input_bus_cfg.flags = bridge->timings->input_bus_flags;
++
++	return 0;
+ }
+ 
+ static const struct drm_bridge_funcs tc358768_bridge_funcs = {
+ 	.attach = tc358768_bridge_attach,
+ 	.mode_valid = tc358768_bridge_mode_valid,
+-	.mode_fixup = tc358768_mode_fixup,
++	.atomic_check = tc358768_bridge_atomic_check,
+ 	.atomic_pre_enable = tc358768_bridge_atomic_pre_enable,
+ 	.atomic_enable = tc358768_bridge_atomic_enable,
+ 	.atomic_disable = tc358768_bridge_atomic_disable,
