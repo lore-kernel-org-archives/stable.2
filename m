@@ -1,48 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19366378D76;
-	Mon,  6 Jul 2026 14:08:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E442BEC5F;
+	Mon,  6 Jul 2026 14:08:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783346912; cv=none; b=bo7S5qY+sKZ7ltDRAnql+HwoRRDluNh2sMR+V4vlduP88Zo97i1AAOfX0LqiUsVyUPWk4WXVmxfjPMO+f7hg4SbA2rurPkJD4si1lyBqn93no2lk6O8aR/pKcrTZirb+EX6LnBere3Q/N/FkRDXRnuzCXRJ1JQEQKkA4gNJTqww=
+	t=1783346913; cv=none; b=Yir4cy1M+h3zRKbPqwCFCaoczy6NfkIYi/8phn73jtvTVH/MgIL6uTXA4qjiKDUkXMu9kE4W02HuTkJNG4VL1T9R6jgw14gsB4Rf/wrVie/k/lkifCJMmRFe0KWpZWfSZVjBTmNY/zIktefsZglFTOGcSipiID9fl86IMz1urA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783346912; c=relaxed/simple;
-	bh=HvQhDRGEbXASDitLcYtvHLvgKjj1+r2Z4Z4E7Eatp1Y=;
+	s=arc-20240116; t=1783346913; c=relaxed/simple;
+	bh=omFLfqHUMtKGYUCSITPWHFqJ+Ge4dFOsW3TBIjU3gVM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MppFb77cPMzo56wwSyl2XmGxAdgTJB7dyPF2COsgsb1ANXuXvDEpPrXB/yjJ8yJwtwbjTLs0eoQjFb02J/4rpIj3h6xrKb0TjRJVnrLT6d0YmVyrSXikJoZwVdhKyITdi6ErtiuLve54cVYPJrxSCSNOiJ7KY/Jv0ovJraJHN7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkSXdDUg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PyPY5TcLtlr3LtMIeFW0mvXOfsJCUrP6wsFgDYoeUb1VpAYKmvDEd/yfxZ4xZszKB+ZbdRNQ2dMj6PL6dneOGkNAZYmzuJ/UwalIP+GUEA0U+XQwGG8R9nBjRR1Zr8LuBUFEFVQKt1RVueigmJBlprIJvIICwe1zt0RbMx419Os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IHOQOImP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkSXdDUg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999741F000E9;
-	Mon,  6 Jul 2026 14:08:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IHOQOImP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E831B1F00A3D;
+	Mon,  6 Jul 2026 14:08:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783346910;
-	bh=8M5fBpMa4WYLrMLZ7/qkHUo1NNQJNLS8VFNofstRWEs=;
+	s=k20260515; t=1783346911;
+	bh=q8+MGqf6q/NjxeYoH9XtM00SPb6CU+uTf/7HC064t/c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EkSXdDUguhUKIIAyXzty43yBeDvyKVFolhLybpKDmaG0XcSvdeoo20SXD6nTVAgWx
-	 +XXxBnSxaaiHMPdcDsL1if48DOZWWNJBb1YsB5wsrl/6DlqaqZEiWCPG5p6Tq+TEzh
-	 FF8JKG2eo/x52JipX493dgHR8cc1qHlOOnGigKqB5SPEQBLX/B8PfBxU70dRu0zk9d
-	 ABGjUUJaVHnCL5ZMaDNQv5ZC1woqQk7ynHtdhDOj8tHclOdGUNt2oMzVcf7cm6VCZL
-	 fzRJcFbpibM1DYjiYmLjR76P/UlQYzS7s3KnTd0u4R01EzzWjqfcuZjy/WRLL3i3Mp
-	 NWHdg43dj2tqA==
+	b=IHOQOImPKLRO/2IJTruEda7JV+JW5MVwANnHnnu3CJwAat6r//4ICi+MHJ/iCOM7h
+	 R3uw70Y6fVOpmJG6bS3J0yJiped6pg+2BMmi4wruVsWZT0/KczzabLwn1wonJ9bF3c
+	 rx355/27cmiFEV1e4YXsp1CwaGNFGWjKyYO/gG3EJym4E92BxadFQ+ozNyNbdi/EDd
+	 G2XhWs5c2FnyRN1gWSzpuh/iDmoIWfzuTW42o8zBtNQTWxWbGZmChhRUhvpwdJ7m2b
+	 i2ECLse1VPUCTDAkamN/6LKKwQxgL3/MMccPKplzDjrlfoLnl2CltVvKcfAH66wpT8
+	 +s5eISYqi0TiQ==
 From: Sasha Levin <sashal@kernel.org>
-To: geert <geert@linux-m68k.org>,
-	Ben Hutchings <ben@decadent.org.uk>
+To: Robert Garcia <rob_garcia@163.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"patches@lists.linux.dev" <patches@lists.linux.dev>,
-	wsa+renesas <wsa+renesas@sang-engineering.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 5.10 94/96] mmc: renesas_sdhi: Add OF entry for RZ/G2H SoC
-Date: Mon,  6 Jul 2026 10:08:21 -0400
-Message-ID: <20260706135124.draft-0005@kernel.org>
+	stable@vger.kernel.org,
+	Duoming Zhou <duoming@zju.edu.cn>,
+	Johannes Berg <johannes.berg@intel.com>,
+	linux-wireless@vger.kernel.org,
+	Arend van Spriel <arend.vanspriel@broadcom.com>
+Subject: Re: [PATCH 5.15.y] wifi: brcmfmac: fix use-after-free when rescheduling brcmf_btcoex_info work
+Date: Mon,  6 Jul 2026 10:08:22 -0400
+Message-ID: <20260706135124.draft-0006@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <OSCPR01MB14315350989F1BD556CA5B1E9AAF12@OSCPR01MB14315.jpnprd01.prod.outlook.com>
-References: <OSCPR01MB14315350989F1BD556CA5B1E9AAF12@OSCPR01MB14315.jpnprd01.prod.outlook.com>
+In-Reply-To: <20260706102512.1429947-1-arend.vanspriel@broadcom.com>
+References: <20260706102512.1429947-1-arend.vanspriel@broadcom.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,17 +48,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Thanks for pointing that out. We could drop this patch from stable 5.10
-> and I can backport this patch and commit 71b7597c63d2ddf6 to CIP
-> kernels <= 5.10.
+> The upstream fix uses timer_shutdown_sync() which prevents the timer from
+> being re-armed after it returns. del_timer_sync() does not have this
+> guarantee.
+>
+> brcmf_btcoex_handler() has three mod_timer() calls - two in
+> BRCMF_BT_DHCP_START and one in BRCMF_BT_DHCP_OPPR_WIN - none of which are
+> guarded by timer_on. A work item running between del_timer_sync() and
+> cancel_work_sync() can re-arm the timer, leaving it pending when kfree() is
+> called.
 
-The patch already shipped in v5.10.260. Since it's behaviorally a
-no-op there, I don't plan to queue a bare revert.
+Agreed on the analysis. One thing to note: this backport already
+shipped in v5.15.210, and 6.1.y shipped the same weakened
+del_timer_sync() variant in v6.1.167, so this needs follow-up patches
+rather than a v2 of the original.
 
-Prabhakar, could you send a proper 5.10.y patch adding the
-sdhi_quirks_match[] entry Geert sketched (.soc_id = "r8a774e1" - note
-the missing '4' in his line), so RZ/G2H actually gets the ES3.* tap
-quirks on 5.10? I'd be glad to queue that.
+> If the mod_timer() calls were made conditional on timer_on, setting
+> timer_on = false before del_timer_sync() would be sufficient. That would be
+> my preferred fix. Alternatively a second del_timer_sync() after
+> cancel_work_sync() would also work.
+>
+> Also the commit message still mentions timer_shutdown_sync() rather than
+> del_timer_sync().
+
+There's a simpler option: timer_shutdown_sync() is actually available
+in both 5.15.y and 6.1.y, so the del_timer_sync() substitution was
+never necessary in the first place. A one-line follow-up converting
+del_timer_sync() to timer_shutdown_sync() makes brcmf_btcoex_detach()
+match the upstream post-image exactly, closes the re-arm window you
+describe, and avoids a stable-only divergence guarding the mod_timer()
+calls.
+
+Robert, could you send follow-up patches for 5.15.y and 6.1.y doing
+that conversion?
 
 -- 
 Thanks,
