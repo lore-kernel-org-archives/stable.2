@@ -1,96 +1,131 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A8137E30C
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 15:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C800D37F744
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 15:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783350645; cv=none; b=W2eZtiZJpDOtQS/h7D6oiOdGaVZp7UAq3xCp3I+iejhPLK5dTP5a8jKUUgVEL/gmDpE5zZgr5Q9quYvgnPA5f15pOUxvFwEfATXz5J/yNDUOgQLJU/L5mZOUYwJMvVuaRCbV7eFBM8hLpbKHTUtnzOvdVoieXgqdHF5Q7mKsyME=
+	t=1783350670; cv=none; b=GDvTdrNI/xtvz1qJ9gM+hXjTm6b4roN2R4OQHnYrcKW5SsHvykfJPTGUZ8YGl1JIr7seArhP6+i0lnojrqZEJTg9yESYsltwL9jItTHubrPNGgIvHVlD4MmlE96FtYC6IPec3jB2njwb8+In7+Loh7VFT8Ke8HIJaggIOWV1n3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783350645; c=relaxed/simple;
-	bh=y/pmSHkz/8gPGdm8kOcY1nN3wygy+A4pLcM3wr23QwU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Rom6LGnDqkqrI0Oz5u/4X0vTw0AdYmHnRTbdRADqRX/Cnne2pILAXqwtdkC230+T7DmbnAdS/dQYnul+Yge2IpZDwAbmBoS+1KlLycyBqQ5CclUOMQL9Kljc89PkHOWA95e3tBbnXAzNTksaEVlw0lhj1HmiVjcCoyKYspYVcaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Uy4pWw45; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1783350670; c=relaxed/simple;
+	bh=DC8hbtn49OkRdhMEpTeVtkgA5St46LFuImCP51O/Z7c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FPfsIQ4KNhYA26dDwdZ0Gt1L2vL/AGJxMry6ByeaBd0sbzNJeOpzQd3ar6OROKHbPd+NiCdpGOkYNYofP03c50z09g5vlbgJT0Eva/R6MauSuFtOQIWN74dstVQb+/uY7xZ88r54hFRrwqTySvFJuP1kO7+WmINcTfSjH4toemw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=byTTlJHJ; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Uy4pWw45"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id C783AC8EC7B;
-	Mon,  6 Jul 2026 15:10:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8386A601A2;
-	Mon,  6 Jul 2026 15:10:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6C99F11BBA440;
-	Mon,  6 Jul 2026 17:10:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783350640; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=y/pmSHkz/8gPGdm8kOcY1nN3wygy+A4pLcM3wr23QwU=;
-	b=Uy4pWw45EUQjRJgl/8CxRktl8n2Fq7GPge/m+5TF+ZrVnn5NDsWTL/aDU8WFb7ho/Y3plr
-	RO0EP44ADZBNbTw31eoRs4qtYuW/AGw1Nc61H4InZHTIOXF3eJPvLn3vazMlHG3qTaFa6s
-	DMTSYTBW52I3BrkYFuysvY+7tdKdauJoP3xABhMFx5vem/VVhbMGlj8PjiQqF6B4O4nRKY
-	UDGdAgyT+nDZj4y9u2kWhhUqvfjC3T8C5Yh8yMQj8l/mFTv0aS4DwutVi8Ja6Sx2+JHnav
-	nz6urEVKU6b9LESssE+z5/MKXkiIUqz6cjAlMYtySreIBQ0ABpvgbJw/VgNAvA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Cc: alex.aring@gmail.com,  stefan@datenfreihafen.org,
-  andrew+netdev@lunn.ch,  davem@davemloft.net,  edumazet@google.com,
-  kuba@kernel.org,  pabeni@redhat.com,  linux-wpan@vger.kernel.org,
-  netdev@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  stable@vger.kernel.org,
-  syzbot+4707bb8a43a42fca2b97@syzkaller.appspotmail.com
-Subject: Re: [PATCH net] ieee802154: hwsim: free PIB after unregistering
- hardware
-In-Reply-To: <CAMuQ4bWf+o_ZDMXn1tTw30veo-30Mt9XZehT8BPErJ30Kx_95A@mail.gmail.com>
-	(Yousef Alhouseen's message of "Fri, 3 Jul 2026 04:19:42 -0700")
-References: <20260627235805.17310-1-alhouseenyousef@gmail.com>
-	<877bncnx25.fsf@bootlin.com>
-	<CAMuQ4bWf+o_ZDMXn1tTw30veo-30Mt9XZehT8BPErJ30Kx_95A@mail.gmail.com>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Mon, 06 Jul 2026 17:10:35 +0200
-Message-ID: <87jyr8jgr8.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="byTTlJHJ"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cc84e77e78so12329415ad.2
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 08:11:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783350668; x=1783955468; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YvJnbKtZ9JQUQxlIoTBWahfF5cHSq4G8K3OUqqfWB8Q=;
+        b=byTTlJHJRNARRkFIETilzDPcAeEQBQdYdEGbm1zWeCz246q6JVUmemJSmgUxHJ1HYV
+         L/DJWoQ+4BmB8YBclr6iQ6hA7IcfGSCKs0YKbOi4Yh8k5lFDeFAWBjIhSxMFWGaSxQEb
+         juPtqICSIHXkyY6wdB4rrR51y6jIdMPHBwaT8v+YE/Leo7SEWm8xC+NC5T4bOvG1Eha5
+         0zdjUg1JAQXbVVtYDgYyIhtmDGJZj0cPtNZssSZEYs+HjHFZ7CVoukcq6SodL8AXw6cw
+         +irZhR7m4Prv+8sQzl2vTiAtzRiImqaI4TY4uap+4shgjJFPX/bZR4MTZfmDM3kOJKhQ
+         rgUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783350668; x=1783955468;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YvJnbKtZ9JQUQxlIoTBWahfF5cHSq4G8K3OUqqfWB8Q=;
+        b=aLJLhpeVxBDKy5xyaeFFHkPZ5VNAOgzYXIf+GeNCLq0QWWfEL6pjh8tWASwC0ZbqQ6
+         S2mFDCvLHG+D1UWMJNP55LPvSbAflabIYsQ/UZ9kBACX71D5i/DY0nGHzi/uEiD1OLUb
+         M7EQ+aiPYF5E3jdIhWERjnl/OQPLuUAdGQwZGvASyy3MT3QO+rPyO99bsGl9LjndC6bs
+         69IUCez0QmNWN9D0LBYmX3el3y6aNoFf3h+IRlMv5DJj3pfEFcouYNbRREwyBjNK9fRV
+         81W5mjrun4mGxdBLuVY0HVFzQiDsdC6NKGnzkiLED2g8D59yaCSjxE98ZRDHxjPAbn5O
+         HSew==
+X-Forwarded-Encrypted: i=1; AHgh+Rq+vcH7FHq5cGEZtwuxgTObKdoTkOqu6TzHy3QiLqxTxVtGs+1vIvfdjRH21E0U5gRT6ob9JI0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YypLrVPXQerC4vMm2hSONInCkxL9hZEaMe62N6DUV+CZkzU3lCq
+	7p1u4OjPEJ1C6SSpAbStKqNY/8xI5hrapUCgo8gKUNocEWFzPKnoQiE=
+X-Gm-Gg: AfdE7ckkMPZQawtfdbex1qmlSNDFBxWZV1Jvl69zwV68UjdYYxPZ7B5g4Eza1qzGY5t
+	GV38iw+QCP3cOVm1xD2j+fXb0aMfQiPVEfPDU1ZBdbRb1sgGB42E+xthcHkAlnsohx8dRxWqPg9
+	u94lv44kOBCPDxGD0la5VhZxFeRCIpVELJwx8aL7+Cf/xPFTAs1Vfq10kVMw4Iaa7m+dbSf7R82
+	oW+pr8WLhhZkqBWqnF0OL/0eY0bWDiNYgh550FyfWTJFEQ/mbBWUuHNcHu4IYAwmWyzr7bW9fNy
+	D4jT33YzprZo4hjQW1clQKMoxgGhtIJoU89MkXoF2bNLDBBpz3ZhA0wHykQYgK0Juvdk9LQjW/n
+	PbUTTWl55IuN9hv3cqN4o+ZbD5HFOrGwTx80W+OkwKneDAg4lzulFJ5fGPgVmPAbvOy7VZxwtq7
+	WEb3a3DrQfbZzDJ6Kk5HhOgl/xbIGHZ81EH0bBbsheG3nifBP9x1s3zCCayKFYsoEeIyACHWpes
+	A/wKdKK/FwfmYDDI6LUg4v17RIju4qsObGVq1+KZnRLRb2wZA==
+X-Received: by 2002:a17:902:d4c1:b0:2c9:97a8:8c1b with SMTP id d9443c01a7336-2ccbf183a00mr9819105ad.46.1783350668084;
+        Mon, 06 Jul 2026 08:11:08 -0700 (PDT)
+Received: from localhost.localdomain ([14.5.152.27])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad78a9f83sm52218885ad.83.2026.07.06.08.11.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 06 Jul 2026 08:11:07 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Oliver Neukum <oneukum@suse.com>,
+	Alex Henrie <alexhenrie24@gmail.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH v2] USB: misc: uss720: unregister parport on probe failure
+Date: Tue,  7 Jul 2026 00:10:49 +0900
+Message-Id: <20260706151049.63470-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hello Yousef,
+uss720_probe() registers a parport before reading the 1284 register used
+to detect unsupported Belkin F5U002 adapters. If get_1284_register()
+fails, the error path drops the driver private data and the USB device
+reference, but leaves the parport device registered.
 
-On 03/07/2026 at 04:19:42 -07, Yousef Alhouseen <alhouseenyousef@gmail.com>=
- wrote:
+Leaving the port registered is more than a private allocation leak:
+parport_register_port() has already reserved a parport number and
+registered the parport bus device, while pp->private_data still points at
+the private data that the common error path is about to release.
 
-> Hello Miquel,
->
-> After ieee802154_unregister_hw() returns, the driver callbacks that
-> can replace phy->pib have been quiesced, and hwsim_del() has exclusive
-> ownership of the final teardown. The pointer is no longer being
-> fetched inside an RCU read-side critical section, so rcu_dereference()
-> is not appropriate there.
+Undo the pre-announce registration in the get_1284_register() failure
+branch before jumping to the common private-data cleanup path. Clear
+priv->pp first, matching the disconnect path and avoiding a stale pointer
+in the private data.
 
-That's right.
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
-> rcu_dereference_protected(phy->pib, 1) expresses that there can no
-> longer be a concurrent updater at that point; the protection condition
-> is the completed unregister rather than a locally held lock. The value
-> is only fetched so the final object can be passed to kfree_rcu().
+Fixes: 3295f1b866bf ("usb: misc: uss720: check for incompatible versions of the Belkin F5U002")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Changes in v2:
+- Move the parport cleanup to the get_1284_register() failure branch,
+  as suggested by Alex.
+- Clarify the visible stale registered-port effect.
 
-While I believe this is indeed true, it actually feels slightly overkill
-since there is no updater anymore and, as far as I understand, the only
-thing that we need here is to get the pointer value for freeing, right?
+ drivers/usb/misc/uss720.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-> rcu_access_pointer() would also be sufficient for that limited use if
-> you prefer it, and I can use that spelling in a v2.
-
-If you don't mind, I feel like rcu_access_pointer() is exactly what we
-need here. It is also more understandable, even though I agree in
-practice there are no differences in this case.
-
-Thanks,
-Miqu=C3=A8l
+diff --git a/drivers/usb/misc/uss720.c b/drivers/usb/misc/uss720.c
+index a8af7615b1..bd099cd8c5 100644
+--- a/drivers/usb/misc/uss720.c
++++ b/drivers/usb/misc/uss720.c
+@@ -735,8 +735,11 @@ static int uss720_probe(struct usb_interface *intf,
+ 	 * here. */
+ 	ret = get_1284_register(pp, 0, &reg, GFP_KERNEL);
+ 	dev_dbg(&intf->dev, "reg: %7ph\n", priv->reg);
+-	if (ret < 0)
++	if (ret < 0) {
++		priv->pp = NULL;
++		parport_del_port(pp);
+ 		goto probe_abort;
++	}
+ 
+ 	ret = usb_find_last_int_in_endpoint(interface, &epd);
+ 	if (!ret) {
+-- 
+2.47.1
