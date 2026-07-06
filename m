@@ -1,50 +1,51 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE8B43D88FA;
-	Mon,  6 Jul 2026 06:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFCE3D6CD9;
+	Mon,  6 Jul 2026 06:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783319077; cv=none; b=Mqte0b2IoA71AeRNi+Y66J4j/i1zPbl+7B2X1BcynWtLibK3uRvV3asEFHhcOMIdv71T5gZAevyBE5p2T1Eh9Q54Zou5HvDnfgOg18JQX7NdbDlZS6nv9LKeYTjmCgTyPhxiJyuKs9eBJfOZI6TNjBoixcGuq1WJHe+lftXre2c=
+	t=1783319076; cv=none; b=dTUnEZzODKNfvKUZkhtiAoU3ZdcCfQ1B88y9IaWB7hYSuoSpEkEkmYuMpjk6wZQusJPKDuBOSYN55dEU8yzP71c3xRnQyPhUZWPHshWBuH7BAhBOf9JfBF5HQAjFKbYQQNaDAnRf9sHMb4x8lBuV9KqFZHuZgPkrSwMkdeclwak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783319077; c=relaxed/simple;
-	bh=t8PK/i5kExzoyadMP4zeq/CxF6DiBBH3PN72t37cGdE=;
+	s=arc-20240116; t=1783319076; c=relaxed/simple;
+	bh=atxWDtVQzFIpho9Y+zDTHO7Vl+ideWOyNCr0THvvzHM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=dMLfEg11R/P+OFW8nIUv/xh2z1Pf1aKxAeTJaCu0U49JzcmfjhxADM7POehPB3Rtxc/9hRFeLJyOu89xlHjw5D4oqXHHYwjiopru8mmelHeVfi4Q8ZB0HQU782Q8vapeRyc8+Q05yu32HpYNgEXbRxYHyESHUGYI81az8FDZPlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=V0mw8dsr; arc=none smtp.client-ip=185.246.84.56
+	 MIME-Version:Content-Type; b=aRY2qX2xD8wCoW/bAKt+Ms/K0G4r0zpU3x09+I/f+I9XCm5SGYsCWRQDRGJ7Y9A/IXHQ/Cv7VbJHfWkV3z+u9ft+HMORJm4VcFylopB6zHtba7okSOmimBaXWiFcz35XapdIdkOeHHwR0AlDqz4jHqPWQ9yXIYjLQnZuD07Lvn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=R/6JwtiE; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="V0mw8dsr"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="R/6JwtiE"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 64C941A0E80;
-	Mon,  6 Jul 2026 06:24:29 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id F30B04E40CA2;
+	Mon,  6 Jul 2026 06:24:24 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 38FA7601A2;
-	Mon,  6 Jul 2026 06:24:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6538E11BB98DA;
-	Mon,  6 Jul 2026 08:24:27 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C6C7E601A2;
+	Mon,  6 Jul 2026 06:24:24 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8F06411BB98B6;
+	Mon,  6 Jul 2026 08:24:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783319068; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1783319064; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=oWy73pQkQkykoXtmTREjFgcQDsCw6POAoGsrElatGjo=;
-	b=V0mw8dsrSBSByAJAKvS8O3OxgpTuNmyWSRvuUtyWFhVX5iCHK3DHymMXLzJ8rBCzVz6lPJ
-	bBOdDprjSupXr8P9uXIeg0ZsAA8eHRMKfz5ypqIF4vZGvXO5zfhbHnKB7VcuvwcrmYMtdD
-	4IO3OUYL7bpMwhNwYa8CD2ZVJZrrpEIyH/1kFwCd4vHL+6TSyLns45G88HpdF+mGIFE7aI
-	0c9w2f9BE2sO94wAZ3vYGwOUucyDKACtrwxghroXxwgCV5zlyzynZ6/+SuUlnyfnI7vKFL
-	tU09jA7BSVkjdnyN6SlTJ4H2GkpIXlMIKaCFGXyps+zdmo4XxTLsYt/gODqshQ==
+	bh=HQei6Rt5rAEMgiyIOtihLA9S2prQeFUyFlrKQtRHLZg=;
+	b=R/6JwtiE4Jj7hU39SNi7mGJGuIuBacFdPrO2BUFGV8homnrNckLDsYwNZZVT8QhKa9yMlf
+	2XnrMc8Swt3bbv8aqp7NUXNhDVO2GApBVyrxwXCXD5E+oR3NufMihm86LjY7Je+1Gw8bJy
+	ZeaL322QaedI+2S7SgMx5KALqGn3StOxCbw8syjye8AE468jTHUOm9h7YSVzpw8Kj07YIA
+	qPeWXCu+m6mv7l4mKd41rEaWN5wKrXrZUEqhidDdIFzaG/Fw0F3EWS4MU5ChEUcJwnpgEe
+	xk5cRyjba/JdFtea8rKid2RBTE7C3oVu/jTeRHdc2osmE3fWFWwgp6BWgNKtOw==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 To: Pengpeng Hou <pengpeng@iscas.ac.cn>
 Cc: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Frank Li <Frank.Li@nxp.com>, 
- Kees Cook <kees@kernel.org>, linux-mtd@lists.infradead.org, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Vladimir Zapolskiy <vz@kernel.org>, 
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>, 
+ linux-mtd@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260703074233.59967-1-pengpeng@iscas.ac.cn>
-References: <20260703074233.59967-1-pengpeng@iscas.ac.cn>
-Subject: Re: [PATCH v2] mtd: rawnand: fsl_ifc: return errors for failed
- page reads
-Message-Id: <178331906728.868671.5254954365609125128.b4-ty@bootlin.com>
-Date: Mon, 06 Jul 2026 08:24:27 +0200
+In-Reply-To: <20260703073759.31388-1-pengpeng@iscas.ac.cn>
+References: <20260703073759.31388-1-pengpeng@iscas.ac.cn>
+Subject: Re: [PATCH v2] mtd: rawnand: lpc32xx_mlc: fail DMA transfers on
+ timeout
+Message-Id: <178331906145.868671.2640165529145419553.b4-ty@bootlin.com>
+Date: Mon, 06 Jul 2026 08:24:21 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,22 +57,21 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 03 Jul 2026 15:42:33 +0800, Pengpeng Hou wrote:
-> fsl_ifc_run_command() logs controller timeout and other non-OPC
-> completion states in ctrl->nand_stat. fsl_ifc_read_page() then only
-> increments the ECC failure counter for non-OPC status and still returns
-> max_bitflips, which can be zero.
+On Fri, 03 Jul 2026 15:37:59 +0800, Pengpeng Hou wrote:
+> lpc32xx_xmit_dma() starts a DMA transfer and waits up to one second
+> for its completion, but it ignores the wait result and returns success
+> after unmapping the buffer.
 > 
-> Return -ETIMEDOUT when the command did not complete at all and -EIO for
-> other non-OPC read completions so the NAND core does not treat a failed
-> page read as a clean page.
+> A timed out read can therefore return success with incomplete data, and
+> a timed out write can continue the NAND operation without proof that the
+> DMA payload reached the controller.
 > 
 > [...]
 
 Applied to mtd/fixes, thanks!
 
-[1/1] mtd: rawnand: fsl_ifc: return errors for failed page reads
-      commit: f9a13e05a327080c3a1c8165adf9e678fb68fef2
+[1/1] mtd: rawnand: lpc32xx_mlc: fail DMA transfers on timeout
+      commit: dbf590b662695b16fbf5917ef129697be4410ea9
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
