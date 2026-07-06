@@ -1,35 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FF144212C;
-	Mon,  6 Jul 2026 10:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC06C27EFE9
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 10:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783333227; cv=none; b=L8yDuIebbq4xTGsTykgym8OBRzttgpzUoWKK4fY99Da6YgmO21tGIoyal8GYucG8EvEcR82cm4ytOMZV7Axnmv8jVK4W6x4Ymsvh+6E2FbHcEfH6L1e7r2C2/lEsFD6vzAPYN007evjRdyVm5CPy2jQcF5FG+OkzrJknJfFjlJM=
+	t=1783333519; cv=none; b=K6/hmFHytR7eD/NdDjQD5hdowNMSGQOpRgwJjQo4C7riCWdRJ2bKbdhOyF6/5+PQB+BAJOMiH8BLdJ5lkiCiGFLwwtNkJC0eiSnBkHCyjTLVK1GzZeWt+tj6sPfEBhPULXrwwTFh9Y/VD+fl25g63QkIflXGlM5FaiSHBkKbqdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783333227; c=relaxed/simple;
-	bh=TbS4whPA7BqetYpEMyEfBenVEo1dobd9dMMAgwfY94Y=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=tgrgELM0DyyUtN89EcqncC3crXPWmOc9oMMP3pOqCOyzdZQKdnhpTXk23pkgYvybSHt12JxgkQy0V+GmiM8SR5lcHPbucNiD2+SX7Wppo4qJo8FUc7gTiBXSiRbJSVChcGWPioIVfWTC8uASYR5SyaaRwG/EM4WsATIpg9i7rHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BQl8/0sF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783333519; c=relaxed/simple;
+	bh=DEDRVzDaeKVLrZDEM4Tvl5Zi+XQvdZFjkOH2bi8Q7O0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nkkUn5j9NDhwdlGnX1ANvGz/vdgyt0ElMKQjvKCSEMdTSX8tALqg4HTVb+7jo/zipOs3KsoqP63cPvu+0d5K5wdYVyRlAt3IVr0oR/zjomVd4QBpHYqI7T2IDxlk97gZRdpkmvc2tbxeW/vSxfP0RlnNKvdh72B6t4McOZBcVC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=iMFR0wgo; arc=none smtp.client-ip=209.85.216.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BQl8/0sF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3241F00A3D;
-	Mon,  6 Jul 2026 10:20:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783333225;
-	bh=pYbEhN7G2VytXVvQ6vuXrI5sYUDrK5WlwR9Yr1E3c9M=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=BQl8/0sFFHS5FeLF+kQs0gAZwN62CM8E9VYzKAOxtiYEDYI9fAzlWVq/9SB1UXYx9
-	 UiezOOqMBpU/NeykE9PQynnc28TfinrN0aIt2IDPJ9T4gEupoj4txSU7gdPtV0QLAX
-	 Fz0BZO8lDmh/O0BRBKMVm/tFBmJwmJEmkuaQEZlwMiY3jS80wv/PIek89ODuXxUgJC
-	 CzwcTQpWnBHymD6JfqeMTO+5GkaLzixjq85FpA3sOm/D6E0stBJae8XYDPgTLWYaIL
-	 NZiOyaExseO4zo+1W/rTmK3X7NgyovPY9ZA/3ctOYbw4TWyoBzobn7bIyFHGiJkQIs
-	 kLC14LzCudTzw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 939C83AB1394;
-	Mon,  6 Jul 2026 10:20:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="iMFR0wgo"
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-385ea3ce80dso886134a91.2
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 03:25:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783333517; x=1783938317;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=JCyn3khAPieI4DeaZVrUFyliHAMCDDeM6OYmHqd4vok=;
+        b=gwBGXA20cq0NCBf626utY/JWDyA40rVcQK/XYEGRN0kfehiOBL2M2OQU1SPTWrzD/d
+         Cc7PeCsyLvQf+RXS8iweukn257LwMDLR5MtQM+zzdrhiNZD6RwZpKHhwoOWcckuY+xkL
+         9EtiOmignyfzps9oGCOPHModBA1ajfMFAuZHNTUo3oxbe0qCU1RzsJPwpV0P+pkfPp3B
+         SGfwvEsW87eTt6MpsHHm9+J5sPPtxpbof4WOCW9pvqnNGjohKUF/ySorN0wFMhzT26M/
+         j4L8w0qu9aQO8YUQORFEzggihYdU3v6e+V0TJlkVsHtXjETVVEezX8q5JLhaD0RRrAlr
+         3/cg==
+X-Gm-Message-State: AOJu0Yz/e5rFi65KKw1c32SQ4iOFa96ohUBYi41DxK/ElW+mzgTMNuir
+	8UwhkrxZhvE1v/eUzH4vE74J4HcGL2R2LSwg3ICE2tSxcpip/6rwW+Dorn5/z0JOANFFcyDBllz
+	FsxDw9ZrLiJulOK8phtbwReQYYqJP8u7qby396htzRarHyHLdWhE80ZejJ7nNhZ+fAsAGQ3aFZM
+	NKmBpmR1/tkYP/GwRhHkk0p4LKOA2V/pyQfhHlB2gDgY9TeJ0jj7R66MNwf2ALz9pL9SrVc/0Db
+	RBDCggPpnn8ptbj3g==
+X-Gm-Gg: AfdE7ckcgnZRnSmVtX0vB9djVRxJmlHdii2gAJzV8uZZYmt3E53iwaWD3osYA7uBfTa
+	15Kwg3N0f7Q8qi8/gj1gRNSYtygfaaSKsWoj6Y+o6rgpvclwSNDopqw70Ok8KMm5Gc4waaqBxtD
+	CzXsaBaoOuV2N4GQVFCdmdyiJ1JJLFuMhdmPq9ynG1UN2z/su1rC5HOxRUEBDO9WEKW99VBvpi2
+	xxFggsZF61E5PVDRfo79T8F1eEZ4bmgKYDmqjAfE+uWVHYSkTPvHr4eX02ODxyTR42bHOtFVqay
+	RduYmVjdijEmiohXLAdcE55ONcxrcqSMNQ7K2s4HHy1ht33/h0v7xb6G1mnCFqqGEwbCeiRNX8L
+	WPeCbjA++sgfivOd0aq6eRdrHyWliYjLGZHzkrAy/OHj8B0vV1z7buc0KZDsHzox0qM0bAIspFu
+	AM/zuBZdy4ZgSFHxhbdmkniEyI1OuETig7GSk47vIppY00G1gUgQ==
+X-Received: by 2002:a17:90b:3c50:b0:380:fdb9:d2ea with SMTP id 98e67ed59e1d1-3829f0072c4mr10419224a91.17.1783333517143;
+        Mon, 06 Jul 2026 03:25:17 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-11.dlp.protect.broadcom.com. [144.49.247.11])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-38127ae2eb9sm817762a91.1.2026.07.06.03.25.16
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 06 Jul 2026 03:25:17 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e55721a8cso270900485a.1
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 03:25:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1783333516; x=1783938316; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JCyn3khAPieI4DeaZVrUFyliHAMCDDeM6OYmHqd4vok=;
+        b=iMFR0wgo/l9eKgO++QclujbRbIQ0llwJAf07oEC3GEtInz/WWlMY6WZAy1y4cVGdlm
+         6l1APWX9sUKNNtY7iXAoC5HXmYHmfYWN3PD+SPned10ZcZACCvP+Uv+zm+Uc07gSNUSs
+         u6BnKHoM6dkGfGiMlZGtDUXPVzR49ONbv0yLw=
+X-Received: by 2002:a05:620a:4442:b0:92e:5856:bdcd with SMTP id af79cd13be357-92e9a49ed00mr1318061485a.53.1783333515894;
+        Mon, 06 Jul 2026 03:25:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:4442:b0:92e:5856:bdcd with SMTP id af79cd13be357-92e9a49ed00mr1318058285a.53.1783333515309;
+        Mon, 06 Jul 2026 03:25:15 -0700 (PDT)
+Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92e90b804ccsm900041985a.10.2026.07.06.03.25.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 03:25:14 -0700 (PDT)
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+To: Robert Garcia <rob_garcia@163.com>
+Cc: stable@vger.kernel.org,
+	Duoming Zhou <duoming@zju.edu.cn>,
+	Johannes Berg <johannes.berg@intel.com>,
+	linux-wireless@vger.kernel.org
+Subject: Re: [PATCH 5.15.y] wifi: brcmfmac: fix use-after-free when rescheduling brcmf_btcoex_info work
+Date: Mon,  6 Jul 2026 12:25:12 +0200
+Message-ID: <20260706102512.1429947-1-arend.vanspriel@broadcom.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260528055431.4124445-1-rob_garcia@163.com>
+References: <20260528055431.4124445-1-rob_garcia@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,45 +89,37 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] selftests: net: make busywait timeout clock
- portable
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178333320639.484760.17349135118133429852.git-patchwork-notify@kernel.org>
-Date: Mon, 06 Jul 2026 10:20:06 +0000
-References: <20260630165157.3814871-1-nirmoyd@nvidia.com>
-In-Reply-To: <20260630165157.3814871-1-nirmoyd@nvidia.com>
-To: Nirmoy Das <nirmoyd@nvidia.com>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, shuah@kernel.org, netdev@vger.kernel.org,
- linux-kselftest@vger.kernel.org, stable@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hello:
+On Thu, 28 May 2026 13:54:31 +0800, Robert Garcia wrote:
+> From: Duoming Zhou <duoming@zju.edu.cn>
+>
+> [ Upstream commit 9cb83d4be0b9b697eae93d321e0da999f9cdfcfc ]
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+[...]
 
-On Tue, 30 Jun 2026 09:51:57 -0700 you wrote:
-> loopy_wait() expects millisecond timestamps. However, Ubuntu Resolute
-> can use uutils date, where `date -u +%s%3N` returns seconds plus full
-> nanoseconds instead of a 3-digit millisecond field. This makes
-> busywait expire too early and can make vlan_bridge_binding.sh read a
-> stale operstate.
-> 
-> Fixes: 25ae948b4478 ("selftests/net: add lib.sh")
-> Cc: stable@vger.kernel.org # 6.8+
-> Link: https://github.com/uutils/coreutils/issues/11658
-> Signed-off-by: Nirmoy Das <nirmoyd@nvidia.com>
-> 
-> [...]
+> +	del_timer_sync(&cfg->btcoex->timer);
+> +	cfg->btcoex->timer_on = false;
+>
+>  	cancel_work_sync(&cfg->btcoex->work);
 
-Here is the summary with links:
-  - [net,v2] selftests: net: make busywait timeout clock portable
-    https://git.kernel.org/netdev/net/c/dd6a23bac306
+The upstream fix uses timer_shutdown_sync() which prevents the timer from
+being re-armed after it returns. del_timer_sync() does not have this
+guarantee.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+brcmf_btcoex_handler() has three mod_timer() calls - two in
+BRCMF_BT_DHCP_START and one in BRCMF_BT_DHCP_OPPR_WIN - none of which are
+guarded by timer_on. A work item running between del_timer_sync() and
+cancel_work_sync() can re-arm the timer, leaving it pending when kfree() is
+called.
 
+If the mod_timer() calls were made conditional on timer_on, setting
+timer_on = false before del_timer_sync() would be sufficient. That would be
+my preferred fix. Alternatively a second del_timer_sync() after
+cancel_work_sync() would also work.
 
+Also the commit message still mentions timer_shutdown_sync() rather than
+del_timer_sync().
+
+Regards,
+Arend
