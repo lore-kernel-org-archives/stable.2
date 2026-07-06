@@ -1,78 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5990029D268
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 13:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40349317177
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 13:37:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783344850; cv=none; b=f1anacHzBBjWXohYB02Tsawi1suiWtXCmlmpSWAJCGUSMEj0Zs46VoU1gNyzcZkJTb+eQFS0kzrRXhpDCUkFANd6xmUPswTQFIsAKI5GUvTFs1RzkayyLLmZTeHOtWp4yZivy9H6T1dfIP8jx9Nas4JSaXyQXHjUW2u5SVpJW/A=
+	t=1783345037; cv=none; b=U3PxrsZB9EAFDXq1ZTWzLwBValBwWZExMOUlRYSwOkKFBxRl0bZ6w5YqohkOL2CR+Vj7O5iO8Q9hU1evG5LVpodRoAbKqU0tqpKZLTLHgZ8eqw4JrttBGloHy11QAra21iTGrmMtOZrYN/Y5kl3ZDCYEUe4X4yskGLuYAYZMiXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783344850; c=relaxed/simple;
-	bh=G6F7J8gmpgK6KEC2oVwHQE8kdfXvIeMMN3hdNFlP7NE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CZW3VeONVGULOg1TwaAOQSw3fAPY+CliAUXLvvDtKausZ6Tn9NncIlhwcD0+Ab+WhRlfXOJsHazzew1Ni+KZBwBO73OHfKSs+lxU9wfyNeq0CdwbOGN2H13DQFSPb6MPr4EvuhG+NfO7O3ve1PkRvy2XrnlB72c7CDo2kH1ESC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QJB5p27d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783345037; c=relaxed/simple;
+	bh=nYc4/CNmu/Hpz2BKrNBXe2Sm/VGLPPqJIS4LBxS09v0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=gaS9oVmn2hgOfrn9UXJS3RuBpdPoduTeEkEgN7C9y0SGNXNjin8a5Z54ZRQaqi3pn4Qakeom5EVuxaSLD5s5byLGnVqj7fuNas12QEbH93+TZjxPtQ+uWrV0T/ZuGckofP5PPxx5oAvXEVXHJB//Jg50J4jn0hRoEYGxpnroYTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wegslaAl; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QJB5p27d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D50941F000E9;
-	Mon,  6 Jul 2026 13:34:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783344849;
-	bh=y6c/NHkjbM2PWPiw1dt6sCq+Fd18gY+nhoyhIx/Tfjs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QJB5p27dIrePqUqEdjB9ZC3Tcnzsc92AretKwVPELOLcyfhvgs6OUwn431zcbvo5+
-	 kJqgye+Y/lVO6Eo2NlDD4PV59r9DjHw4rB0v+w0oUs6QPBIHAmCM8aeC5cWvg/XBnr
-	 e0it/efLABMBdYcmng3gEx3jzkLii8B0VZMwWFTBdamDSWq5T/vUqBWexUnfKV7+MP
-	 gaLBAGxJ/ao2YJhkYIOpW60L1qVb9j5WeMWYJBHmeFMmpBaI+JXpAK5ZD7NF7X0vr4
-	 MXE8Hz77tHdnUStmv2z7epUII+dWDBvteUcBw/xoC/b83gu3MxtbfVfQfHuy1m7f0h
-	 65UvJ8uEGEe1g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: John Johansen <john.johansen@canonical.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] apparmor: advertise the tcp fast open fix is applied
-Date: Mon,  6 Jul 2026 09:34:07 -0400
-Message-ID: <20260706133407.2334924-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070217-plentiful-create-ce90@gregkh>
-References: <2026070217-plentiful-create-ce90@gregkh>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wegslaAl"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CFF931A0E91;
+	Mon,  6 Jul 2026 13:37:13 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9FDD8601A2;
+	Mon,  6 Jul 2026 13:37:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0AE7B11BBA1FA;
+	Mon,  6 Jul 2026 15:37:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783345033; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=nYc4/CNmu/Hpz2BKrNBXe2Sm/VGLPPqJIS4LBxS09v0=;
+	b=wegslaAlf/E5SyUEcIoDiMbBET9wPd31EhjJaORyDUHeGfSD2rlw4+T4IuFQr4MtIzhotd
+	pNj3N3xwlYIr797dpayIGaEYscOgoVNAaw3LA5tkZ3QwnI6DHroyUHOiyQdR9nwmc/rNbA
+	b2lO79LVvj6LOPs02iZW1cQVGdrdMFnxfXGkAk5kHeo3d6PaM9++X2J8YKc8/oB8D8CHV7
+	XnUtwSVHDBpwqhOhUeRpjQ4Sz0H5iohEm/SJE+Dw0QFv9RncEhKt4KSxL9rP+GBOBDk6O8
+	PzC9y5NcPl3chwPjfZhLNjFbVSRVBHo63hsd7lo4PHfVUim8p8vcQw9pWRltqA==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 06 Jul 2026 15:37:11 +0200
+Message-Id: <DJRJ1XHDEB9M.W9JU7GHZX0NJ@bootlin.com>
+Subject: Re: [PATCH v3 0/2] nvmem: layouts: Add fixed-layout driver
+Cc: "Miquel Raynal" <miquel.raynal@bootlin.com>,
+ =?utf-8?q?Gr=C3=A9gory_Clement?= <gregory.clement@bootlin.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>, "Mathieu Dubois-Briand"
+ <mathieu.dubois-briand@bootlin.com>
+From: "Mathieu Dubois-Briand" <mathieu.dubois-briand@bootlin.com>
+To: "Srinivas Kandagatla" <srini@kernel.org>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260608-mathieu-nvmem-fixed-layout-v3-0-12ddc69f4c51@bootlin.com>
+In-Reply-To: <20260608-mathieu-nvmem-fixed-layout-v3-0-12ddc69f4c51@bootlin.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: John Johansen <john.johansen@canonical.com>
+On Mon Jun 8, 2026 at 3:42 PM CEST, Mathieu Dubois-Briand wrote:
+> Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+> ---
+> Changes in v3:
+> - Fix device node pointer leakage
+> - Move nvmem_add_cells_from_dt() prototype to internals.h
+> - Enable fixed-layout as built-in by default
+> - Rebased on v7.1-rc7
+> - Link to v2: https://lore.kernel.org/r/20260515-mathieu-nvmem-fixed-layo=
+ut-v2-0-8ac215dd4016@bootlin.com
+>
+> Changes in v2:
+> - Fixed dependency on core layout code with CONFIG_NVMEM_LAYOUTS
+> - Make fixed layout optional
+> - Link to v1: https://lore.kernel.org/r/20260505-mathieu-nvmem-fixed-layo=
+ut-v1-1-7f6ecbce108d@bootlin.com
+>
+> ---
 
-[ Upstream commit 2f6701a5ce6257ae7a64ddc6d89d0a08d2a034f8 ]
+Hi Srinivas,
 
-The fix for tcp-fast-open ensures that the connect permission is being
-mediated correctly but it didn't add an artifact to the feature set to
-advertise the fix is available. Add an artifact so that the test suite
-can identify if the fix has not been properly applied or a new
-unexpected regression has occurred.
+Do you have any comment about this updated series?
 
-Fixes: 4d587cd8a7215 ("apparmor: mediate the implicit connect of TCP fast open sendmsg")
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- security/apparmor/net.c | 1 +
- 1 file changed, 1 insertion(+)
+Thanks,
+Mathieu
 
-diff --git a/security/apparmor/net.c b/security/apparmor/net.c
-index 3e632700d06fb3..bcba4d2a7aa4d1 100644
---- a/security/apparmor/net.c
-+++ b/security/apparmor/net.c
-@@ -21,6 +21,7 @@
- 
- struct aa_sfs_entry aa_sfs_entry_network[] = {
- 	AA_SFS_FILE_STRING("af_mask",	AA_SFS_AF_MASK),
-+	AA_SFS_FILE_BOOLEAN("tcp-fast-open",		1),
- 	{ }
- };
- 
--- 
-2.53.0
+--=20
+Mathieu Dubois-Briand, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
