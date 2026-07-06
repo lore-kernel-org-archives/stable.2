@@ -1,102 +1,78 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0129442641D
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 12:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BE241D4E9;
+	Mon,  6 Jul 2026 12:39:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783341385; cv=none; b=dCvRAaTsufOb698bF169YG4Q+zkl0ImorFGQAN7xjTe/dEphMpBwLkaPByH65fugHc7lsNxNO3vHAy1IaCWtuPQUwc/PW3koWmc8e/yzvfN973QeKXtWcc1UQqE/uMxvKF4HQTfmFUEwj+mPhC5aPwHXcXzbjeuN7AogbcU1+kU=
+	t=1783341585; cv=none; b=R8gmZ0lu6j3QPnwYcOlXzEyInsz9MYIt7HBidkwBNQMkjxFH2ueHi2eL1DnQKWQJNaKLowepuC5DbAx/VLk2IFKnl0Oa3kUNjwZAYXkmsZXtBBYYueYJWbjIOoxr0Rsq9SuJY+8IkglYFNaDKSiYpgM7pT/C4k5zyRpiYy3ZBco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783341385; c=relaxed/simple;
-	bh=jUPc+5WtBurcnphhewtfgmYQy6E/CJXBKo96AnCyWR8=;
-	h=Content-Type:Cc:From:Message-Id:Date:Mime-Version:To:Subject; b=TEQQ3qSxCweDCgHigGPYcenVQX+2Sf7mnZPfY4SzJ+zz1dAbZBnfdIcHT6bDrDkJt7RYUWKUlAznvor9kYh6Ic+Ekl/7yUIbTeKn0HYPxfUZBJF6/hrd7sOSD3MNW5aBer/ulSYGBT2BTt2nNDwMcE9CaxzBOUBNVMFLe9eRse0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=lx1IfXdI; arc=none smtp.client-ip=209.127.230.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1783341585; c=relaxed/simple;
+	bh=PZ2Y91omm59iIwuXmCNl/BrSoeCVOyWnKu2Bo31DPSo=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=sA71hPsaCF8T/HM/jrKRDzbSQt9P/V8LowUn4JMahH2jz2MtqO4pz3j1wPEg8Mux1pQ38qeKXJX45aBBg4BMnLbDlmpxmJ1R4Zlu7lmZa0Oy6jJskgLY2ur6UekhZGfowOuz7F6eujcvAq7nzYRfUCW6kTSn6qnemteRaogG3lY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aEU4nSEY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="lx1IfXdI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1783341370; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=BQ/HUFk88w9Hw/0H2O7JanH4HOFyPcr4jmVMK/jTRIo=;
- b=lx1IfXdIa+GjabASoRaQ5UOQzhq2z/7McrY3Q3zBmPY2YqjVtF6r1SZlLxBQLkcCGMulyU
- izmF1628wy39cO/XO1XOKds4LvaCGJpYNeGauIm14Ufzz3jTNPuaQk8vD6Wsf7s0qDHl4m
- 0KCzTspPl2RPJZsij6lgsDDLdQCG4AzYYBKutbwT6symIuRq30TMOKgZtqHHd9V8M76UER
- HeEvaSTRenoXJVCUfCC0aZfdsMZMFqrPPWW5NTM24XPaZJjwNttex8rviLCz6OXjc/ad7R
- rESr5Ea6v5+xCxgvwMrR5Icg7wWqkIr/yVh2L/+C5+BOz8MV1gcGi57bXiE18w==
-X-Mailer: git-send-email 2.20.1
-X-Original-From: Rui Qi <qirui.001@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: "Rui Qi" <qirui.001@bytedance.com>, <stable@vger.kernel.org>, 
-	"Alexandre Ghiti" <alex@ghiti.fr>, "Andy Chiu" <andybnac@gmail.com>, 
-	"Puranjay Mohan" <puranjay@kernel.org>, 
-	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>, 
-	"open list" <linux-kernel@vger.kernel.org>
-Content-Transfer-Encoding: 7bit
-From: "Rui Qi" <qirui.001@bytedance.com>
-Message-Id: <20260706123554.455065-1-qirui.001@bytedance.com>
-Date: Mon,  6 Jul 2026 20:35:54 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aEU4nSEY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 738B71F000E9;
+	Mon,  6 Jul 2026 12:39:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783341583;
+	bh=Skb+7SE0R6vqpUmC2bWNshEw7taDkLAxusq4vbh+rx8=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=aEU4nSEYvUFSI7PohxhfWGsKb0AsG+yxFgnAAvQpHCeAO07NO+koCxtFiZYyhbfST
+	 ySjHEGFSRrxLjd7BUFTPO+dyGsz6L7XsPuTElqdnGG3Q4y945sj/UpdnYzpmtw6nTg
+	 pxeJX/K3ow0rUNfosgzc10Jl3k+LZ4/t4U2vIWPs1N4jQQ3n7p40dsc7l2CkF1obic
+	 vF02svsfonseh9/IMGoRGnVFNeDfQVpLzGen45UYeZL0UKCXCGaZghvvEfOV7BC/j7
+	 kefR7ggsSzKS6vhY28r5fOk2RVagWAjd+PTl9BD0jO5JKauc1KYB34KhDt/ApUP1wn
+	 kIiDeA6D6HGmw==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26a4ba139+2b8ec2+vger.kernel.org+qirui.001@bytedance.com>
-To: <palmer@dabbelt.com>, <pjw@kernel.org>, <aou@eecs.berkeley.edu>
-Subject: [PATCH] riscv: ftrace: only use pre-function NOPs with call ops
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 1/2] signal: avoid shared siginfo namespace rewrites
+From: Christian Brauner <brauner@kernel.org>
+To: Bradley Morgan <include@grrlz.net>
+Cc: Oleg Nesterov <oleg@redhat.com>, Christian Brauner <brauner@kernel.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Marco Elver <elver@google.com>, 
+ Aleksandr Nogikh <nogikh@google.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Adrian Huang <adrianhuang0701@gmail.com>, 
+ Kexin Sun <kexinsun@smail.nju.edu.cn>, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <86a8857d58d43ee26a8b365b837fd24830343494.1782159692.git.include@grrlz.net>
+References: <20260622164029.11474-1-include@grrlz.net>
+ <86a8857d58d43ee26a8b365b837fd24830343494.1782159692.git.include@grrlz.net>
+Date: Mon, 06 Jul 2026 14:39:35 +0200
+Message-Id: <20260706-rechen-kreuz-katapultieren-c37fe3b9e607@brauner>
+X-Mailer: b4 0.16-dev-4217c
+X-Developer-Signature: v=1; a=openpgp-sha256; l=728; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=PZ2Y91omm59iIwuXmCNl/BrSoeCVOyWnKu2Bo31DPSo=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWR5L+L+x5NdEVHy+/KSpae91h/iYV69dJfnDvPKD1dKF
+ UJ6HbLlO0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACbS5MzIMPP4nEAOznNtlpMS
+ rj4xuGwil53KYfdKyrzXsenPHHefPIZ/5hvLDa+umDrv2dXZkVryt7Z8P1F6aPLa01YHloQf48+
+ 34AIA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Commit c217157bcd1d ("riscv: Implement
-HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS") changed CC_FLAGS_FTRACE to use
--fpatchable-function-entry=8,4 or -fpatchable-function-entry=4,2
-for all dynamic ftrace builds. That layout makes the compiler place an
-8-byte area before the function entry, which is used as the per-callsite
-ftrace_ops literal when CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS is enabled.
+> send_signal_locked() rewrites sender ids for the target namespace.
+> Group sends reuse the same siginfo, so one recipient can affect the
+> next.
+> 
+> Copy the siginfo before changing it.
+> 
+> Fixes: 7a0cf094944e ("signal: Correct namespace fixups of si_pid and si_uid")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bradley Morgan <include@grrlz.net>
 
-RISC-V can still build with CONFIG_DYNAMIC_FTRACE=y and
-CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS=n, for example when
-CONFIG_CFI_CLANG is enabled because HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS
-is selected only when !CFI_CLANG. In that configuration
-ftrace_call_adjust() does not skip the pre-function literal area and
-only returns addr + MCOUNT_AUIPC_SIZE. With the pre-function layout,
-that points into the pre-entry padding instead of the callsite jalr, so
-dynamic ftrace records the wrong patch address.
+Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>                                                                                                                                                                                               Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Use the pre-function literal layout only when call ops are enabled.
-Otherwise keep the previous patchable-function-entry counts so the
-recorded address matches ftrace_call_adjust() non-call-ops path.
-
-Fixes: c217157bcd1d ("riscv: Implement HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rui Qi <qirui.001@bytedance.com>
----
- arch/riscv/Makefile | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/riscv/Makefile b/arch/riscv/Makefile
-index 3070c3874305..235730a243aa 100644
---- a/arch/riscv/Makefile
-+++ b/arch/riscv/Makefile
-@@ -14,11 +14,19 @@ endif
- ifeq ($(CONFIG_DYNAMIC_FTRACE),y)
- 	LDFLAGS_vmlinux += --no-relax
- 	KBUILD_CPPFLAGS += -DCC_USING_PATCHABLE_FUNCTION_ENTRY
-+ifeq ($(CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS),y)
- ifeq ($(CONFIG_RISCV_ISA_C),y)
- 	CC_FLAGS_FTRACE := -fpatchable-function-entry=8,4
- else
- 	CC_FLAGS_FTRACE := -fpatchable-function-entry=4,2
- endif
-+else
-+ifeq ($(CONFIG_RISCV_ISA_C),y)
-+	CC_FLAGS_FTRACE := -fpatchable-function-entry=4
-+else
-+	CC_FLAGS_FTRACE := -fpatchable-function-entry=2
-+endif
-+endif
- endif
- 
- ifeq ($(CONFIG_CMODEL_MEDLOW),y)
 -- 
-2.20.1
+Christian Brauner <brauner@kernel.org>
