@@ -1,143 +1,76 @@
-Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D853E556C;
-	Mon,  6 Jul 2026 06:21:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.71.154.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314AE3CBE69;
+	Mon,  6 Jul 2026 06:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783318886; cv=none; b=LY8pO1OjAmipK1G7Sc+AH85DkJyB5wu2N524bmjRDgP4Dl3keTj9BptWhsI84IGC9TiRhwaLnSCM5WFZcsgkG48rMlNetZJCQkBus3b+EinnNtg9kC3UCVW8F/ux51IKek6AdYUDuKzd667Q8nQhtLJDWdOPInLc9MILQazrzWU=
+	t=1783319071; cv=none; b=O4NvwJnnnda/jUyXSWrKSX6aQmuj+eDC5V+jLM+mMEQ/tr2g5ZCBE82DYFFMn9BIqUAzwJF6OFU/teG7n33sWoSuGD1RiTdCFQATicdKrcAyxWlt9JkcNVjkhq6yPMxCmYrVUb3BoENhFP4F0eaivnP9h0iMHaCqmP2n0RjoDVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783318886; c=relaxed/simple;
-	bh=ikUhVQnTMJSopKB+F0E3cbUbMEJH4HzD7xnb+RxScpE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jHyVb8p+6f3xb79afA2PJatoswlFuEef9anwnsWGLf0K3yy/pLRTznWW9FX1koM1haUU3Znw4PtacC65JwYH2CV5zseNYyfMSb3TKEAQDmfjS3iDiRJPCYT1wX9w7tJBTsFcBU7OIV3VdwvX6OYUjkB9aqXNklvRs3oxZ8KMv9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wdc.com; spf=pass smtp.mailfrom=wdc.com; dkim=pass (2048-bit key) header.d=wdc.com header.i=@wdc.com header.b=i/oAUghc; arc=none smtp.client-ip=216.71.154.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wdc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wdc.com
+	s=arc-20240116; t=1783319071; c=relaxed/simple;
+	bh=FHTwWWdpbmraH3fKYY0ka1jQ+eV9iOVLeNq9bpYd6lA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=AWpMLSdhRVZWmG1zh8Igf/aiZy3SQ2vBeY8iAW0WHCtklg1f1bdE857P+kZcj12GKekZWohClR1ZS6mYI2sQe5QETH5j6sNguNUVmHYu+LragwTdE1yGhjlzZJmxqLAwMEjTya31oN7pjbNUNxOAe6wik9OB7GT7EPUZyCXVJbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wC3Qc1A6; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wdc.com header.i=@wdc.com header.b="i/oAUghc"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-  t=1783318871; x=1814854871;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ikUhVQnTMJSopKB+F0E3cbUbMEJH4HzD7xnb+RxScpE=;
-  b=i/oAUghcqdjykt1t2OWEBanJWBOKToGLwugrkTi54iW2J+z0E6dagRE9
-   YFyIu9RL4wA+2PsTHqhhEAqtoIi36+e+e/gz0P4n4qFjsdrFONKv+n1iy
-   3tMMDjT2KB/+hGtAWuegckGgb7SEP3RCht9Tg8L1vbTfxvoDQSdZbXR33
-   v78QqG+KebeGs6lcpWZFzHh4u27UubegmWZUZQwXVpZbEkTjqnAGHFcEy
-   fH/XmIofBwU7i7Qu1Hzs+tYKAX/L2K7Y6rjJTR0Hqi97QDJygHRIVT95Y
-   34CGn5gS32sfAbnWWQSwnQWGvy5JXqk/OW0sQt+GRYUjyidAskePLwrxf
-   A==;
-X-CSE-ConnectionGUID: zOATdDcsQb+OPt9wTcTGUQ==
-X-CSE-MsgGUID: ua2e7c58S2+c8ddnImppzA==
-X-IronPort-AV: E=Sophos;i="6.25,149,1779120000"; 
-   d="scan'208";a="148918923"
-Received: from unknown (HELO uls-op-esad1-o.wdc.com) ([199.255.45.14])
-  by ob1.hgst.iphmx.com with ESMTP; 06 Jul 2026 14:21:05 +0800
-X-CSE-ConnectionGUID: gkhxHh3ARwWjFSe3gf9feA==
-X-CSE-MsgGUID: 5jCYt0xoSc+PhWgwIhtQDw==
-IronPort-SDR: 6a4b4933_TWkLuEmIzLY8WyPwP800PJHJ73S6iZlMD02UpEPBPXol2BJ
- XpnxCfBFIC6go1Jd386txhvvdfkvSyAPRv7UGAA==
-Received: from uls-op-esai2-o.wdc.com ([10.248.3.38])
-  by uls-op-esad1-o.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 05 Jul 2026 23:20:34 -0700
-X-CSE-ConnectionGUID: 8fsGMs3+S9ez9gjdUWAwVw==
-X-CSE-MsgGUID: sgOBpTsaRr2je19UD2pMAw==
-WDCIronportException: Internal
-Received: from wdap-aswpwbowkq.ad.shared (HELO neo.wdc.com) ([10.224.26.2])
-  by uls-op-esai2-o.wdc.com with ESMTP; 05 Jul 2026 23:20:34 -0700
-From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-To: linux-btrfs@vger.kernel.org
-Cc: Naohiro Aota <naohiro.aota@wdc.com>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] btrfs: zoned: reset active_meta_bg on zone finish
-Date: Mon,  6 Jul 2026 08:20:31 +0200
-Message-ID: <20260706062031.185284-1-johannes.thumshirn@wdc.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wC3Qc1A6"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 26C281A0E7F;
+	Mon,  6 Jul 2026 06:24:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E7A91601A2;
+	Mon,  6 Jul 2026 06:24:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7E4BE11BB9890;
+	Mon,  6 Jul 2026 08:24:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783319054; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=3IbFos0UeA5hamgUTU74OZqNtIk1cvZ107rKx8smnWk=;
+	b=wC3Qc1A6ke/5jyvpXClPdyJj6j+KsAzGM8khmdwAPlCrl7WWxNRvQOQltzSN3YNsQPz0QG
+	/Jz4zseEy/9KVscxDWYrFTzh3M6rvhrjROkZ4Aw26YextQKVVqqXA4CKKBUQY4dwwYo4ap
+	gsbkK7N03c7JYWdfL0vQ23jTIXb6SsGcYdaDGX0Kd67KIIYJqbaLebfQ+MjjpYarv/4AnN
+	SMYOPgyo6yu/2eX5DzDB+9wpl3D9EnhUpVI/uZuzfWAX1JZcMarCkCvozdSe3jvprscHXw
+	fugmy/DlsW8mqzhs6p8z/cNmhOcHJVsWnjK15bDeLOvGeUbCNtfbRxicRC6FBA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: raoxu <raoxu@uniontech.com>
+Cc: richard@nod.at, vigneshr@ti.com, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <A9EF5AD55FADC312+20260626021338.3744161-1-raoxu@uniontech.com>
+References: <A9EF5AD55FADC312+20260626021338.3744161-1-raoxu@uniontech.com>
+Subject: Re: [PATCH v2] mtd: virt-concat: free duplicate generated name
+Message-Id: <178331905244.868671.13228037841179082405.b4-ty@bootlin.com>
+Date: Mon, 06 Jul 2026 08:24:12 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-do_zone_finish() clears BLOCK_GROUP_FLAG_ZONE_IS_ACTIVE and removes the
-block group from zone_active_bgs, but only the pivot path in
-check_bg_is_active() resets fs_info->active_meta_bg / active_system_bg.
-Any other finish path (the async zone-finish endio work,
-btrfs_zone_finish(), reclaim) then leaves active_meta_bg / active_system_bg
-pointing at an inactive, fully written block group.
+On Fri, 26 Jun 2026 10:13:38 +0800, raoxu wrote:
+> Every MTD registration runs mtd_virt_concat_create_join().  Once a
+> virtual concat has already been registered, the function builds the same
+> name again and takes the equal-name branch.  That branch skips to the
+> next item without freeing the newly allocated string.
+> 
+> Free the temporary name before continuing.
+> 
+> [...]
 
-Reset the corresponding active_{meta,system}_bg pointer in do_zone_finish()
-so it can never go stale.
+Applied to mtd/fixes, thanks!
 
-Fixes: 13bb483d32ab ("btrfs: zoned: activate metadata block group on write time")
-Cc: stable@vger.kernel.org
-Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
----
-Changes to v1:
-- Get reference to block-group before calling check_bg_is_active() to
-  avoid possible UAF (sashiko).
+[1/1] mtd: virt-concat: free duplicate generated name
+      commit: caa0ecbeff4f7fbf70f22bd8ca598918bffb1b78
 
- fs/btrfs/zoned.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+Patche(s) should be available on mtd/linux.git and will be
+part of the next PR (provided that no robot complains by then).
 
-diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
-index 97f06dd01693..70997470fa84 100644
---- a/fs/btrfs/zoned.c
-+++ b/fs/btrfs/zoned.c
-@@ -2270,6 +2270,7 @@ int btrfs_check_meta_write_pointer(struct btrfs_fs_info *fs_info,
- 
- 	if (block_group->meta_write_pointer == eb->start) {
- 		struct btrfs_block_group **tgt;
-+		bool active;
- 
- 		if (!test_bit(BTRFS_FS_ACTIVE_ZONE_TRACKING, &fs_info->flags))
- 			return 0;
-@@ -2278,7 +2279,12 @@ int btrfs_check_meta_write_pointer(struct btrfs_fs_info *fs_info,
- 			tgt = &fs_info->active_system_bg;
- 		else
- 			tgt = &fs_info->active_meta_bg;
--		if (check_bg_is_active(ctx, tgt))
-+
-+		btrfs_get_block_group(*tgt);
-+		active = check_bg_is_active(ctx, tgt);
-+		btrfs_put_block_group(*tgt);
-+
-+		if (active)
- 			return 0;
- 	}
- 
-@@ -2535,6 +2541,7 @@ static int do_zone_finish(struct btrfs_block_group *block_group, bool fully_writ
- 	const bool is_metadata = (block_group->flags &
- 			(BTRFS_BLOCK_GROUP_METADATA | BTRFS_BLOCK_GROUP_SYSTEM));
- 	struct btrfs_dev_replace *dev_replace = &fs_info->dev_replace;
-+	struct btrfs_block_group **active_bg = NULL;
- 	int ret = 0;
- 	int i;
- 
-@@ -2632,6 +2639,20 @@ static int do_zone_finish(struct btrfs_block_group *block_group, bool fully_writ
- 	/* For active_bg_list */
- 	btrfs_put_block_group(block_group);
- 
-+	if (block_group->flags & BTRFS_BLOCK_GROUP_SYSTEM)
-+		active_bg = &fs_info->active_system_bg;
-+	else if (block_group->flags & BTRFS_BLOCK_GROUP_METADATA)
-+		active_bg = &fs_info->active_meta_bg;
-+
-+	if (active_bg) {
-+		btrfs_zoned_meta_io_lock(fs_info);
-+		if (*active_bg == block_group) {
-+			btrfs_put_block_group(block_group);
-+			*active_bg = NULL;
-+		}
-+		btrfs_zoned_meta_io_unlock(fs_info);
-+	}
-+
- 	clear_and_wake_up_bit(BTRFS_FS_NEED_ZONE_FINISH, &fs_info->flags);
- 
- 	return 0;
--- 
-2.54.0
+Kind regards,
+Miquèl
 
