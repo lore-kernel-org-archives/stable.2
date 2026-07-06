@@ -1,128 +1,152 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553FC296BC8;
-	Mon,  6 Jul 2026 13:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E56D385D9B
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 13:27:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783344306; cv=none; b=H9e+XnFVqmU01AnxCoLxw4iki4mAw6MNLzVcAUnPU68E6P0G2yztnDPB6I1TpYIJyAIZ1wW37p6IvBghams5HimozcgSHUuv5e0veI/R6ZsVM6bOfYGJD1RnINDBRLtR5t4uphVbuG3AcIqccZkl/wSXZPiieI0cMB85M7t9lZI=
+	t=1783344428; cv=none; b=tsUKNn46ypHHvJv76J20yJ/oUN/IBlfbYZNRgH4ck/dcFEZXXDG1Iq14Bum8/+Uw3SKpXR7v72IYjzLlRhV0nC6B4jxYq99qX+e7Sjx+Fc0ksnHvc67zMhteuMD5OVRSWBSua9OJHjnKvJALYQzA1Yc7h70XACsww5VVk0QrTp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783344306; c=relaxed/simple;
-	bh=OTokZRt5phSX/EHX4ehUkaFnY3khII19gH5YByBQvnc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=t/njjvNueMpZ0WQuPcG+hX2x/HJROv2mDn/4keEI5J217NZQLnMvFPOvl+KP3dkHz8jNwGrzjz+s3ViSAPtmajHmew2eUAwYi0m44gfWaiusIMWsECdCGVH0EC4QvFwuePQW45Zn9pF8InrRoxm3rWMyWmw+CYLte0gHiGBzWIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Fk9g4a+X; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783344428; c=relaxed/simple;
+	bh=r59EUgtIsaoxZtEmDgwSAtgrbkt8LgaNF7WBBajdhfk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hQdrn3q8sNr6HH54+vfKTrjY/iya63EURdEyNyweMICMSCpSqiN8n8teJ2qKN40VJyT9rr0zPaVqGbKZ/aWE+BCC5aiMpyEJI5qEXGAg+gwKescdMC6qiBQ9/5yq0CziUX/wUFLWAsXcIfusAHNfSffRDHPvTZaAVREMlRSG2yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QOG4Jff6; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Fk9g4a+X"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783344305; x=1814880305;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=OTokZRt5phSX/EHX4ehUkaFnY3khII19gH5YByBQvnc=;
-  b=Fk9g4a+XRFD+LfryCoxHaDrjhyrY2E9sYtrY/lANctZMA7egQjR0ZoKE
-   8H5PLI5/MtiZJexlOsFsgyx97rJwC8tpLGP5vn2svfVBtLOv6pWvnFj8O
-   6Tvm4OM3t6+JiFHOEBgswKUrmQz84SfvXvYdn+KdYe32HUUAO2J8E72Bm
-   8QGe3q5s1ZEouA11RZBCSHgLHgS4/KmKXmmXZufD6papjq7tf4dpUqM+/
-   cpbaYZ3VjcbVA8bia5bQlfwHVN63K0kgLv8BOwGkxprCmYJEmdGB9F0Wj
-   gZTjTJ1jW22Dx7hZguuJiXtZuQCSz9xCD8VQhoUIbGQg2FMQn+CaNyZ0W
-   w==;
-X-CSE-ConnectionGUID: jIvuEFFfTVW3YAyl4yl0Kg==
-X-CSE-MsgGUID: zdiLlb87QVaR25sIWTZlTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="87797699"
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; 
-   d="scan'208";a="87797699"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Jul 2026 06:25:05 -0700
-X-CSE-ConnectionGUID: 8j+OlK40TZ2G7zg7kLJhvQ==
-X-CSE-MsgGUID: Vh8tCdpyR6q1M9JHPhs+ig==
-X-ExtLoop1: 1
-Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Jul 2026 06:25:02 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Mon, 06 Jul 2026 16:01:30 +0300
-Subject: [PATCH char-misc v2] mei: lb: fix incorrect type in assignment
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QOG4Jff6"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c9fe3c9bd5fso1637551a12.0
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 06:27:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783344425; x=1783949225; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=n0i9VdK/Ma3gHZKckXQb+1T7ww2+Cb/2KCUzwQQKXZo=;
+        b=QOG4Jff6djVIViTWz1Q3hLEV4bLPsWHn9vBIfA1dMtVRTFsyHRdIjXX0LSf1BKh0Yp
+         GglmX0vDvykiIoXcd8kCdTLoQ39DUryaIS83GFy5DdzISUUWCKJJLgcmGLKzWBlvbcKV
+         U8HSoE3DssPRm7FcobPdvksh6roMquR5E+RPAsFWxoKPKjm51jbPdTbdk62C2h7yIwUC
+         EdjsQlS71L9/p+1bueRRrqdXApRfgoBZSdZPJG8mlhXX7s16RQeMCj5ybSa3k14N4oRo
+         15uR97NtG3Cy7O2qseVn/+D9Q4vLfEz2EquJlowRha+HXatMQq2SCcgiVe/S+pMGD5cI
+         UASA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783344425; x=1783949225;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=n0i9VdK/Ma3gHZKckXQb+1T7ww2+Cb/2KCUzwQQKXZo=;
+        b=j6u8RBNigk5pEQL40Kv/wloRreQIqfTszlSZL0Vfmy1/q3jq5JMqUcpcXHiJnzaMik
+         mY9nmq2YaFuRL9zCRRicVPvbbe5xn9VhWUm1orEOPthCJWML02YdpEpyR7/L2dFRjLSc
+         ml/j2vkRJnz9nyAJvnRLKlnGN48Fd47DPKO+GKxuitrQEXAcHazyNT99jmCu1L+Pshn/
+         7ZRUAVbv7j4Xgh0IsBrFBgKAuU/VzWFkFnrQQFzcTObqBV3kpNkg048ux7esvhypz3os
+         4nrhE74FCYdfJzWnNLqL7BOSrgXhvo6+ukUuYihLVp7In0lrFnCJj8GWfyssM9rk7Dx3
+         s3OA==
+X-Forwarded-Encrypted: i=1; AHgh+RrrbKiGG0er1RWcQWSFofDIqsgGBSYl66C8YWN4XdeYllZTZV0CeR9p+yt7wTeC1dI9h0XRYnM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZi4ngknhijKnet2lu9v84Wsbgh4Jfh5IY5Wggt366aOLO+A6V
+	ZdZROwDmrHk6assvzYovBNLMMT3eWZS1BwsoXjjM/vBNQvKlnh9V0lIH
+X-Gm-Gg: AfdE7ckgt6z4RJCyrO0ec2tyjdiXBRSOpiY5k9Bzk8YVj5qXdww2XVsqcnu5V+aqLa0
+	zFUIqYCfficfkAk4SmcBBxS2r2WWX3uCHXCwufdsA3DfJYBSubys2jVQpfs9My+ccCwjE9EmV8/
+	k7fIm0Q4zr4c0CZkIO7qPA5kJsR0cNj3jqD7VtEOGRaBhAps2maMmP/m8YQECe0SvadR8lexeh+
+	Gg3olLw2qQ68XDJdZFz365IiRcGVYZCnz8RQFH21KBiDD7FdZ637FG5AmiJ2oNcnKIwBfFufJ/J
+	VrLH8edQtMUPTdb8kQNzvCIDlgk8l7rv0kdEytsTVbqYHMhslwrjZpRfyWKFE3tyNyslrAeEeCH
+	7zjl+bXsOq9v5exj/5RVsVTl2nW91ehcOsJ01+OiHDD4rwJfPCHbekaOm8ujWeRSqWE//PlujLj
+	GliLgj8UnxyZLoTgxeTD3zPoRcMWj+3qlQuAF6ICyuFgwbSPExXyY9mdMqVMra3JwFMJWc25x+O
+	j591nnb
+X-Received: by 2002:a05:6a21:4c11:b0:3b2:8674:9830 with SMTP id adf61e73a8af0-3c01c65ff4fmr14772604637.14.1783344424235;
+        Mon, 06 Jul 2026 06:27:04 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3114fe08b1bsm17734598eec.26.2026.07.06.06.26.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 06:27:03 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	luca.ceresoli@bootlin.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	tomi.valkeinen@ideasonboard.com,
+	francesco@dolcini.it,
+	leonardo.costa@toradex.com,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND] drm/bridge: tc358768: Enforce input bus flags via atomic_check
+Date: Mon,  6 Jul 2026 10:24:17 -0300
+Message-ID: <20260706132440.1594239-1-leoreis.costa@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-fix_type_le-v2-1-586826351454@intel.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNzQ7CIBCEX6XZsxigP7aefA/TNJaudpMWGiDEp
- uHdRTyZOU1m5psDHFpCB9fiAIuBHBmdjDwVoOaHfiGjKXmQXDa84SV70nvw+4bDgoyLtlIXnGT
- ZdZAWm8UUZ9r9O7dsJaegT9FMzhu7558gcuGHFPwPGQRLqpUceTs2VS1upD0uZ2VW6GOMHwqns
- ymxAAAA
-X-Change-ID: 20260603-fix_type_le-0184c7ed2399
-To: Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Badal Nilawar <badal.nilawar@intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, Menachem Adin <menachem.adin@intel.com>, 
- Alexander Usyskin <alexander.usyskin@intel.com>, stable@vger.kernel.org, 
- kernel test robot <lkp@intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783342932; l=2290;
- i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=OTokZRt5phSX/EHX4ehUkaFnY3khII19gH5YByBQvnc=;
- b=ljUjmX10BeqMCTSjpzlaCOo2fBRW8uLxnjp0hC3OdX50TfZIkHdPjA1ps+boRtQkA9mfWj2Tn
- mSYgntcMho8DgPaQj9zmEALwe7dlNmfwUWYyEPPo76VC7u12Br7YYku
-X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
- pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
+Content-Transfer-Encoding: 8bit
 
-Fix the mix between __le32 and integer by casting
-the MEI_LB2_CMD constant as __le32 while using it.
+From: Leonardo Costa <leonardo.costa@toradex.com>
 
-Fixes sparse waring:
-drivers/misc/mei/mei_lb.c:284:32: sparse: sparse: restricted __le32 degrades to integer
-drivers/misc/mei/mei_lb.c:330:40: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted __le32 [usertype] command_id @@     got int @@
-drivers/misc/mei/mei_lb.c:330:40: sparse:     expected restricted __le32 [usertype] command_id
-drivers/misc/mei/mei_lb.c:330:40: sparse:     got int
+The tc358768 declares static bridge timings requiring pixel data to be
+sampled on the positive clock edge.
 
+However, the DRM core default propagation simply copies the output-side
+bus flags, coming from the next bridge, connector or panel, to the
+input side. If the propagated flags are incompatible with the bridge
+ones, the data is wrongly sampled, typically resulting in visual
+artifacts on the panel.
+
+Implement the atomic_check hook, replacing the mutually exclusive
+mode_fixup, and set the bridge state input bus flags to the ones
+required by the tc358768. The sync polarity defaulting previously done
+in mode_fixup is carried over into atomic_check unchanged.
+
+Fixes: ff1ca6397b1d ("drm/bridge: Add tc358768 driver")
 Cc: stable@vger.kernel.org
-Fixes: 773a43b8627f ("mei: lb: add late binding version 2")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202605091533.79Zcv3CX-lkp@intel.com/
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
 ---
-Changes in v2:
-- Move cast to where macro is actually compared and assigned (GregKH)
-- Link to v1: https://lore.kernel.org/r/20260610-fix_type_le-v1-1-15c2b08b6451@intel.com
----
- drivers/misc/mei/mei_lb.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/tc358768.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/misc/mei/mei_lb.c b/drivers/misc/mei/mei_lb.c
-index f6a258c2b838..9fa69acf28d5 100644
---- a/drivers/misc/mei/mei_lb.c
-+++ b/drivers/misc/mei/mei_lb.c
-@@ -281,7 +281,7 @@ static int mei_lb_check_response_v2(const struct device *dev, ssize_t bytes,
- 			bytes, sizeof(rsp->rheader));
- 		return -ENOMSG;
- 	}
--	if (rsp->rheader.header.command_id != MEI_LB2_CMD) {
-+	if (rsp->rheader.header.command_id != cpu_to_le32(MEI_LB2_CMD)) {
- 		dev_err(dev, "Mismatch command: 0x%x instead of 0x%x\n",
- 			rsp->rheader.header.command_id, MEI_LB2_CMD);
- 		return -EPROTO;
-@@ -327,7 +327,7 @@ static int mei_lb_push_payload_v2(struct device *dev, struct mei_cl_device *clde
- 		if (sent_data + chunk_size == payload_size)
- 			last_chunk = MEI_LB2_FLAG_LST_CHUNK;
+diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge/tc358768.c
+index 0d85120fcc7a3..0516a331e71ba 100644
+--- a/drivers/gpu/drm/bridge/tc358768.c
++++ b/drivers/gpu/drm/bridge/tc358768.c
+@@ -1262,10 +1262,13 @@ tc358768_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
+ 	return input_fmts;
+ }
  
--		req->header.command_id = MEI_LB2_CMD;
-+		req->header.command_id = cpu_to_le32(MEI_LB2_CMD);
- 		req->type = cpu_to_le32(type);
- 		req->flags = cpu_to_le32(flags | first_chunk | last_chunk);
- 		req->reserved = 0;
-
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260603-fix_type_le-0184c7ed2399
-
-Best regards,
--- 
-Alexander Usyskin <alexander.usyskin@intel.com>
-
+-static bool tc358768_mode_fixup(struct drm_bridge *bridge,
+-				const struct drm_display_mode *mode,
+-				struct drm_display_mode *adjusted_mode)
++static int tc358768_bridge_atomic_check(struct drm_bridge *bridge,
++					struct drm_bridge_state *bridge_state,
++					struct drm_crtc_state *crtc_state,
++					struct drm_connector_state *conn_state)
+ {
++	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++
+ 	/* Default to positive sync */
+ 
+ 	if (!(adjusted_mode->flags &
+@@ -1276,13 +1279,15 @@ static bool tc358768_mode_fixup(struct drm_bridge *bridge,
+ 	      (DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC)))
+ 		adjusted_mode->flags |= DRM_MODE_FLAG_PVSYNC;
+ 
+-	return true;
++	bridge_state->input_bus_cfg.flags = bridge->timings->input_bus_flags;
++
++	return 0;
+ }
+ 
+ static const struct drm_bridge_funcs tc358768_bridge_funcs = {
+ 	.attach = tc358768_bridge_attach,
+ 	.mode_valid = tc358768_bridge_mode_valid,
+-	.mode_fixup = tc358768_mode_fixup,
++	.atomic_check = tc358768_bridge_atomic_check,
+ 	.atomic_pre_enable = tc358768_bridge_atomic_pre_enable,
+ 	.atomic_enable = tc358768_bridge_atomic_enable,
+ 	.atomic_disable = tc358768_bridge_atomic_disable,
