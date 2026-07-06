@@ -1,151 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AA241F7E2
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 12:50:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B1F3148D2
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 13:04:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783342209; cv=none; b=Xud/v7+FRquTxPfptCkS5qbMc5MD3bobaSxaPS9HQMH7+/SflEnBYq4oLVkPyvt06dKyqxPJolp4kRq3OEZq3kL5yn0A1Vt62kUHwjiG6S6ujMPcb0PjvJIwKdRPr9oRFpxyvpiaL4FDghIKwzAMmhsM5+04rb/dL7gxlxpJ5o0=
+	t=1783343060; cv=none; b=OQhPq4Cd7o8NSLPkbzf/uhadNcoHLwcMHSnvYQtXB1Q5ZJACbeZJYTGv/bbRt3ExcSJUqYdANr78mnSAkByd6ZkMFNEtxfZT416QS1D8C41yyt8bef4tAHGfD5MfRt1CMuD6GGlvVXelceFle+P+tKVh+8Y5zHCMDUTNyMNI4Ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783342209; c=relaxed/simple;
-	bh=p5D2LcO4arCccyQpbLbBnDCwD0kBC19OhvkXdrSum4I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d8IyBwsWv+wH0eWQDVmBb1sdsEF0JQLmvRfRqWXs8+CjWvsulzXYJlw9zuwG0PzX1OGgvx+G3uBkxZrEfRsBEHqleOU0IScNtHAHRDWYf/oeGynTJUa4DmXGZi3VdZMLnkK+FemQ7dvpypwdSz2xyXYLMpawkbotW8WzMFElUtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HsRk9sp3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783343060; c=relaxed/simple;
+	bh=wtAL55Vy1IAVfMt9lDQ6e1FXFicQRPy2EBLWfWBUGcM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EG6nuLuwnNjCAvu6piHuL11IpT0kNB19HknpqkIi1e8PdCcDikim0kwFVcSAAGUMpwGWwXaEQHyqHnbkfiauCyxh/Epr0kQm3Nhs8s6EBw1BcMQX4ZaCpdqvt4P1RLAZLQ3jiVu60X5zmS5EgmwqiFi8IAA3mFBkMuIDlV2bQhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P+YjQi8x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HsRk9sp3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DED91F000E9;
-	Mon,  6 Jul 2026 12:50:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P+YjQi8x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3A891F00A3A
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 13:04:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783342207;
-	bh=fUop6louVd7v86Eg0NdQ+SiNXl4dTQvETob+vmyIAKE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HsRk9sp3mJu9THTtSxGdZTX+YMTfFUAbfj/Q36W6IgzQsKJ3Z+xzEu3WT9lQVsSUV
-	 PzoDsAtQY5263Cyg10+li+cif8TC8X1ow+aPAUx0z5NHlc1qiQXXLRdS3Ta7Rcv/XS
-	 RlT69bvfpuVuog7UCMLjbeQJLk8dbwGBQfNaqvuPHBxGBIk64CDeRm6SPsFMOe2iB1
-	 WRw/7u013JZ5+xJRjSKLDFiQXA2ltvezevdgKSt0KTLSdUiy3fxd+KMWpOzPUh02c0
-	 J7okxlRRKj2k2dJU3gy/QhwB2WVPrJzRjZESeqi/h+Hcf60i8IGnRP2tlgvDGxOGai
-	 DxrJLW+cRiVUA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: John Stultz <jstultz@google.com>,
-	Bert Karwatzki <spasswolf@web.de>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] locking/rtmutex: Make sure we wake anything on the wake_q when we release the lock->wait_lock
-Date: Mon,  6 Jul 2026 08:50:05 -0400
-Message-ID: <20260706125005.2225064-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070211-activist-immorally-4371@gregkh>
-References: <2026070211-activist-immorally-4371@gregkh>
+	s=k20260515; t=1783343058;
+	bh=03m1i1njTYKshtMRdqLIQtrRPKyxLQ0WpIMYuekAZ+I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=P+YjQi8xJY0C73JtdBM+t3wwj2gtxC/v2J+ZVFysO1xMnkuaHKIvmPBB8lcUlCYJE
+	 WQjGlWpvYiy5ZoM+m1lTadl5bawgUYCKd0/K1upoXLkBo4TPMzeZ0XxVQGFu4TsS1u
+	 kMlhT055hUimiQgT620sxyhCYexwFW3AUdY+z+EIeI1GZ77Jdd3sVTZPSudKKWUuiJ
+	 knxVGsTBuxIyVjbqFwznKbKoHroI0y+CiEz+gkU3FMiSv56jhptovh2FweygIW5/Ig
+	 iB0qr49Z4haX9b35TrmzblmNyv6XBCj/GW7geIkj31jUZGSSUVeYKyWvF2L2kAnPHT
+	 AQpXnoHen1WQQ==
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-92e6391b114so213630285a.3
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 06:04:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rrjt7X3U3a7rrv9FQKzxg9HK6objDCwTBW7a9OBXAX1hvgtlluXL8QVpk+E1jT3dEPvl0V+mH8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxbKfk3hFoH9K7p0D/0xUSvNZy0FF/lGZ0iKRoCR1KczxvQaA5E
+	kd2jcG/f5vIBPj1nNqWqCNyQRyIzgeINwM9kZsCE3jH+1rhAXQh5zuruEcBQjkLcBQb+HTi1GO6
+	cm+Y4Qc9tgHYu6prpOqogfPaoqtbKTmg=
+X-Received: by 2002:a05:620a:19a4:b0:916:1806:302d with SMTP id
+ af79cd13be357-92ebb60cc71mr55371685a.58.1783343058102; Mon, 06 Jul 2026
+ 06:04:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <173f3fd983d735155d47e9e39d27f0c2d62a7c31.1783307463.git.baolin.wang@linux.alibaba.com>
+ <CAMgjq7AQcyypJ-VhJ_CxY6fdEph64fxjOzzYU-=EkMrHemkpzA@mail.gmail.com> <8ef0b72e-a0e8-4913-8d30-519335305260@linux.alibaba.com>
+In-Reply-To: <8ef0b72e-a0e8-4913-8d30-519335305260@linux.alibaba.com>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 6 Jul 2026 21:04:06 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4z5N6FSfWt5WUZ5YmqhCzLcd3Cj1sc9B79WYX9ZbDH8Gw@mail.gmail.com>
+X-Gm-Features: AVVi8Cc4-cCPMWvrStzPGpTwA44_ETQ7K94w2ZYd1ngI74f-KWgZnyW5L8IF4f8
+Message-ID: <CAGsJ_4z5N6FSfWt5WUZ5YmqhCzLcd3Cj1sc9B79WYX9ZbDH8Gw@mail.gmail.com>
+Subject: Re: [PATCH 6.18.y] mm: shmem: fix potential livelock issue for shmem
+ direct swapin
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Kairui Song <ryncsn@gmail.com>, akpm@linux-foundation.org, hughd@google.com, 
+	stable@vger.kernel.org, machao26@xiaomi.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: John Stultz <jstultz@google.com>
+On Mon, Jul 6, 2026 at 8:08=E2=80=AFPM Baolin Wang
+<baolin.wang@linux.alibaba.com> wrote:
+>
+>
+>
+> On 7/6/26 1:59 PM, Kairui Song wrote:
+> > On Mon, Jul 6, 2026 at 11:25=E2=80=AFAM Baolin Wang
+> > <baolin.wang@linux.alibaba.com> wrote:
+> >>
+> >> When skipping swapcache for synchronous IO swap devices, swapcache_pre=
+pare()
+> >> is used to prevent parallel swapin from proceeding with the swap cache=
+ flag.
+> >> However, on PREEMPT kernels this can lead to a livelock, as reported b=
+y Chao[1]:
+> >>
+> >> Thread A starts direct swapin of a shmem folio and calls swapcache_pre=
+pare()
+> >> to set SWAP_HAS_CACHE. It may then be preempted inside workingset_refa=
+ult().
+> >> Meanwhile, a higher priority thread B also attempts direct swapin of t=
+he same
+> >> shmem swap entry. Since swapcache_prepare() already marks the entry, t=
+hread B
+> >> repeatedly gets -EEXIST and busy-loops waiting for thread A to finish.=
+ But as
+> >> thread B runs at higher priority, thread A cannot preempt it, resultin=
+g in
+> >> starvation and a livelock.
+> >>
+> >> Fix it by yielding the CPU with schedule_timeout_uninterruptible(1) wh=
+en
+> >> swapcache_prepare() fails, following the same approach used in commits
+> >> 029c4628b2eb ("mm: swap: get rid of livelock in swapin readahead") and
+> >> 13ddaf26be32 ("mm/swap: fix race when skipping swapcache").
+> >>
+> >> Note that mainline does not have this potential issue, which has alrea=
+dy been
+> >> resolved by Kairui's swap refactoring work[2].
+> >>
+> >> [1] https://lore.kernel.org/all/700a2cbf90a2484f979aac858f08f5d4@xiaom=
+i.com/
+> >> [2] https://lore.kernel.org/all/20260517-swap-table-p4-v5-0-88ae43e064=
+c7@tencent.com/
+> >> Fixes: 1dd44c0af4fa ("mm: shmem: skip swapcache for swapin of synchron=
+ous swap device")
+> >> Reported-by: Ma Chao <machao26@xiaomi.com>
+> >> Closes: https://lore.kernel.org/all/700a2cbf90a2484f979aac858f08f5d4@x=
+iaomi.com/
+> >> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> >> ---
+> >> Hi Chao, could you try this patch to check if it fixes your issue? Tha=
+nks.
+> >> ---
+> >>   mm/shmem.c | 2 ++
+> >>   1 file changed, 2 insertions(+)
+> >>
+> >> diff --git a/mm/shmem.c b/mm/shmem.c
+> >> index 94c5b0d78ac3..d4cb57b3b0ef 100644
+> >> --- a/mm/shmem.c
+> >> +++ b/mm/shmem.c
+> >> @@ -2066,6 +2066,8 @@ static struct folio *shmem_swap_alloc_folio(stru=
+ct inode *inode,
+> >>          if (swapcache_prepare(entry, nr_pages)) {
+> >>                  folio_put(new);
+> >>                  new =3D ERR_PTR(-EEXIST);
+> >> +               /* Relax a bit to prevent rapid repeated page faults *=
+/
+> >> +               schedule_timeout_uninterruptible(1);
+> >>                  /* Try smaller folio to avoid cache conflict */
+> >>                  goto fallback;
+> >>          }
+> >> --
+> >> 2.47.3
+> >>
+> >
+> > Thanks! That's much more simpler than I expected. Do we need a wakeup
+> > queue like the one in commit 01626a1823024? Perhaps the reporter can
+> > help confirm and test? I personally prefer to keep it simple if shmem
+> > users aren't as sensitive as anon users.
+>
+> I agree. I'd like to keep the bugfix as simple as possible, if the
+> reporter's scenario isn't latency-sensitive.
 
-[ Upstream commit 4a077914578183ec397ad09f7156a357e00e5d72 ]
+On Android, we don't see much shmem; it's much less common
+than anon. So the chance of this concurrency happening should
+be lower than for anon. However, shmem can be shared by
+multiple processes, so could this still happen if process A is
+blocked by process B?
 
-Bert reported seeing occasional boot hangs when running with
-PREEPT_RT and bisected it down to commit 894d1b3db41c
-("locking/mutex: Remove wakeups from under mutex::wait_lock").
-
-It looks like I missed a few spots where we drop the wait_lock and
-potentially call into schedule without waking up the tasks on the
-wake_q structure. Since the tasks being woken are ww_mutex tasks
-they need to be able to run to release the mutex and unblock the
-task that currently is planning to wake them. Thus we can deadlock.
-
-So make sure we wake the wake_q tasks when we unlock the wait_lock.
-
-Closes: https://lore.kernel.org/lkml/20241211182502.2915-1-spasswolf@web.de
-Fixes: 894d1b3db41c ("locking/mutex: Remove wakeups from under mutex::wait_lock")
-Reported-by: Bert Karwatzki <spasswolf@web.de>
-Signed-off-by: John Stultz <jstultz@google.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://lkml.kernel.org/r/20241212222138.2400498-1-jstultz@google.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/locking/rtmutex.c     | 18 ++++++++++++++++--
- kernel/locking/rtmutex_api.c |  2 +-
- 2 files changed, 17 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
-index 9b4bd06dd9acd8..9e99b9548e0a68 100644
---- a/kernel/locking/rtmutex.c
-+++ b/kernel/locking/rtmutex.c
-@@ -1292,7 +1292,13 @@ static int __sched task_blocks_on_rt_mutex(struct rt_mutex_base *lock,
- 	 */
- 	get_task_struct(owner);
- 
-+	preempt_disable();
- 	raw_spin_unlock_irq(&lock->wait_lock);
-+	/* wake up any tasks on the wake_q before calling rt_mutex_adjust_prio_chain */
-+	wake_up_q(wake_q);
-+	wake_q_init(wake_q);
-+	preempt_enable();
-+
- 
- 	res = rt_mutex_adjust_prio_chain(owner, chwalk, lock,
- 					 next_lock, waiter, task);
-@@ -1602,6 +1608,7 @@ static void __sched remove_waiter(struct rt_mutex_base *lock,
-  *			 or TASK_UNINTERRUPTIBLE)
-  * @timeout:		 the pre-initialized and started timer, or NULL for none
-  * @waiter:		 the pre-initialized rt_mutex_waiter
-+ * @wake_q:		 wake_q of tasks to wake when we drop the lock->wait_lock
-  *
-  * Must be called with lock->wait_lock held and interrupts disabled
-  */
-@@ -1609,7 +1616,8 @@ static int __sched rt_mutex_slowlock_block(struct rt_mutex_base *lock,
- 					   struct ww_acquire_ctx *ww_ctx,
- 					   unsigned int state,
- 					   struct hrtimer_sleeper *timeout,
--					   struct rt_mutex_waiter *waiter)
-+					   struct rt_mutex_waiter *waiter,
-+					   struct wake_q_head *wake_q)
- {
- 	struct rt_mutex *rtm = container_of(lock, struct rt_mutex, rtmutex);
- 	struct task_struct *owner;
-@@ -1639,7 +1647,13 @@ static int __sched rt_mutex_slowlock_block(struct rt_mutex_base *lock,
- 			owner = rt_mutex_owner(lock);
- 		else
- 			owner = NULL;
-+		preempt_disable();
- 		raw_spin_unlock_irq(&lock->wait_lock);
-+		if (wake_q) {
-+			wake_up_q(wake_q);
-+			wake_q_init(wake_q);
-+		}
-+		preempt_enable();
- 
- 		if (!owner || !rtmutex_spin_on_owner(lock, waiter, owner))
- 			rt_mutex_schedule();
-@@ -1713,7 +1727,7 @@ static int __sched __rt_mutex_slowlock(struct rt_mutex_base *lock,
- 
- 	ret = task_blocks_on_rt_mutex(lock, waiter, current, ww_ctx, chwalk, wake_q);
- 	if (likely(!ret))
--		ret = rt_mutex_slowlock_block(lock, ww_ctx, state, NULL, waiter);
-+		ret = rt_mutex_slowlock_block(lock, ww_ctx, state, NULL, waiter, wake_q);
- 
- 	if (likely(!ret)) {
- 		/* acquired the lock */
-diff --git a/kernel/locking/rtmutex_api.c b/kernel/locking/rtmutex_api.c
-index 091b109acdc5ee..5b438aa71f8729 100644
---- a/kernel/locking/rtmutex_api.c
-+++ b/kernel/locking/rtmutex_api.c
-@@ -383,7 +383,7 @@ int __sched rt_mutex_wait_proxy_lock(struct rt_mutex_base *lock,
- 	raw_spin_lock_irq(&lock->wait_lock);
- 	/* sleep on the mutex */
- 	set_current_state(TASK_INTERRUPTIBLE);
--	ret = rt_mutex_slowlock_block(lock, NULL, TASK_INTERRUPTIBLE, to, waiter);
-+	ret = rt_mutex_slowlock_block(lock, NULL, TASK_INTERRUPTIBLE, to, waiter, NULL);
- 	/*
- 	 * try_to_take_rt_mutex() sets the waiter bit unconditionally. We might
- 	 * have to fix that up.
--- 
-2.53.0
-
+I'm not really sure. Only large-scale data can tell. :-)
