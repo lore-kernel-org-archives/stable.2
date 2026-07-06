@@ -1,33 +1,51 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 750AA3914F8;
-	Mon,  6 Jul 2026 10:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.61.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8B83A6F1A;
+	Mon,  6 Jul 2026 10:58:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.61.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783335309; cv=none; b=eGw+pa9rd98hv1aRLr1IpVqMEImHOnishTGMAtC22Mm6FIMPgdBUlB5ZLHC679BmgM7eMOQ3FnUv2HrrWNPRgnHU5Km+iPdDIhZgtN00/ZXnPizhnuWpBnIKLvV8Sv/t6XSq2sQcc5BcYg8BH/LZIb7B9VF7ZBuI51jnnmdu2+o=
+	t=1783335525; cv=none; b=cyUKX2hQA5E1Sc7FkYEniCF1JspuCvev1Q8zV9OZH4O0d1+ShT3EyVzRJ8vewz2SWvmiBmrbKtBl77jc8lfVR7Xarmr7Qu6pJ8p03w4OwrfzFTTwxHXQNzdSfXt52q9ZSZ+ZvbtQs7svEUk5JJ1+82QFkBPqJ+SEn4Tu7xiLIWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783335309; c=relaxed/simple;
-	bh=kUg3SSlZYOMQVG94aHXp/3YGAOJyzCEBoYwrgN+THCA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=eWXoZ7RlE/QOuAz0Qz8K3X01IWjNfStwqLjtWMs55wDW/p8Ssn/+nO0Hsxy0JLo1ZA7BC9et8VNjDnOVirWIBf1xXBex3EJXfXapCBL7HgRs+DgfudOY4x1WqeAst+f5ZuWJVy2eJjzS1RfnebV/NzLZAHkbl5dc24ceXG8lHI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=shX+3OKH; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1783335525; c=relaxed/simple;
+	bh=8JOUaJa/hcgHmhbsk1hR7PAGojXlkFe6TWE2qXkJcps=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UJd5cmpnxkeuFK4YNLfSaNIG7yCIYE41d75ZO1GnntYG6D+dOWcXYNIXLfQzX48wHXOYKTdE/gUlAyuM16b1l/Ah+NmSEpGWTTS1kB5l+XF1mqBSpNNc3wSA26TXKGj4e3oBXF6HCJD05ol0VJT4+Jx/7S1tmgigYU65VWQ/334=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=lpi98BTI; arc=none smtp.client-ip=188.68.61.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="shX+3OKH"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4572C3297;
-	Mon,  6 Jul 2026 03:55:02 -0700 (PDT)
-Received: from [10.164.148.41] (MacBook-Pro.blr.arm.com [10.164.148.41])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 302593F85F;
-	Mon,  6 Jul 2026 03:54:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1783335306; bh=kUg3SSlZYOMQVG94aHXp/3YGAOJyzCEBoYwrgN+THCA=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=shX+3OKH0GDEBl7HPAkKvHndWQPXZWFDYKZCnRDHc9zSOZOlyrOtxtPdT7WkUnZn6
-	 drCorekkLPZ520O6dDK+omcH6IgAdV1z6HYRZqrAw98nqbl8DNSHUS0Yu7Cfzw9nSQ
-	 K3tyrSAYUqGV2vp3jALusUBwt8fqAi6J+2p6EhJA=
-Message-ID: <7ac558fd-1081-456b-b997-c7321241cf8c@arm.com>
-Date: Mon, 6 Jul 2026 16:24:53 +0530
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="lpi98BTI"
+Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4gv1YJ02Jxz8F36;
+	Mon,  6 Jul 2026 12:58:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1783335492;
+	bh=8JOUaJa/hcgHmhbsk1hR7PAGojXlkFe6TWE2qXkJcps=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=lpi98BTIeNCtddRtIKqYslBPst5+0PHkYA+ujiRLSn+crDuoeaFyV3zNotNUofpy2
+	 2dYnPJqBkRTYWivU16jwQU3C0uy8IhFBJz/DxtvWTZ0zdmbxe3i4ZbdO09dBKcMkRO
+	 AcJtOwPoqp5T11s3Icxq/hCgsf5kNGLKNAWyLDZ/LEuT882pfbNku0xLb2thLw+Kn0
+	 bPMw9P3cXGVojjZjmr4ZfHSj7szX+bbyfASsrD0V8/rceUNq7D4cSImmvFNlJdjJyG
+	 7dDKlMeHzABWHaVmlYbAj4uOrwv8/0sDUTU7hXTQrweC8ggZFGtlBy8F0X5vaGGEJi
+	 /QTGIemoNpSWw==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4gv1YH6Qjyz8F2p;
+	Mon,  6 Jul 2026 12:58:11 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4gv1YH1hT1z8svC;
+	Mon,  6 Jul 2026 12:58:10 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 0EDDD5F96B;
+	Mon,  6 Jul 2026 12:58:10 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <edadb400-b2b0-469c-9aeb-9ae82dee13fd@leemhuis.info>
+Date: Mon, 6 Jul 2026 12:58:09 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,96 +53,178 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/6] arm64: make huge_ptep_get handled unaligned
- addresses
-From: Dev Jain <dev.jain@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: muchun.song@linux.dev, osalvador@suse.de, ljs@kernel.org,
- liam@infradead.org, riel@surriel.com, vbabka@kernel.org, harry@kernel.org,
- jannh@google.com, lance.yang@linux.dev, kas@kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, apopple@nvidia.com, rcampbell@nvidia.com,
- ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
- rakie.kim@sk.com, byungchul@sk.com, gourry@gourry.net,
- ying.huang@linux.alibaba.com, ak@linux.intel.com, nao.horiguchi@gmail.com,
- mel@csn.ul.ie, j-nomura@ce.jp.nec.com, pfalcato@suse.de, tglx@kernel.org,
- dave.hansen@intel.com, jpoimboe@kernel.org, catalin.marinas@arm.com,
- will@kernel.org, linux-arm-kernel@lists.infradead.org, ryan.roberts@arm.com,
- anshuman.khandual@arm.com, stable@vger.kernel.org
-References: <20260703114202.365553-1-dev.jain@arm.com>
- <20260703114202.365553-2-dev.jain@arm.com>
- <20260705003559.8b124d2b94b685cc2e4e77ae@linux-foundation.org>
- <8fdbe0d6-87fd-441c-b6d2-baac380f6fb3@arm.com>
- <4b4e8007-3747-457a-85cc-d1003e1c8fe2@kernel.org>
- <39a13445-dc6f-4a75-92b8-f4a122c63b89@arm.com>
-Content-Language: en-US
-In-Reply-To: <39a13445-dc6f-4a75-92b8-f4a122c63b89@arm.com>
+Subject: Re: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231e)
+ -- 6.12.73 to 6.12.85
+To: Takashi Iwai <tiwai@suse.de>, Kailang <kailang@realtek.com>
+Cc: Mike Karcic <mikekarcic@protonmail.com>,
+ Sean Rhodes <sean@starlabs.systems>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: 
+ <O6pYAi7yf23du9ivLsL0QqrnTmodj2lDTL7Wviv7I_nhjVtvllO7Y5Ban0TeTqrastb1RWhJtlkqrM3quLMWSriai-YjjGy312MTcEhxyWs=@protonmail.com>
+ <CABtds-3GOyBr1H=c5aFV1uzfkhO3d1NHMPuon_cWDq0V=pFwUA@mail.gmail.com>
+ <wZmYozyav1sNx53nFr4ShKmcdLFVJp5bdUOJgUq1I57MX6kgyq7n8XvH-MWG9Fi4q2x4CQqjEQ3Q8ok5MClut8hNixnhVmVtXkhcOzH1sw8=@protonmail.com>
+ <87eciwukvy.wl-tiwai@suse.de>
+ <RfzfjlzeaeMgNNWNST_Zzx1v49rYjM63MvAV6O5_fFIoZJ73GcN69FDLJcwhJ3s6fl9TVD2l45YBh2n3hy95LM7rhLhoVt8dU9stMkuVJvE=@protonmail.com>
+ <87mrxjsk52.wl-tiwai@suse.de>
+ <bibLdgyll9YOEDANdCBy8WOqeOeJry1SnahLR-EhoGkttJ6BE2srDZ9jv0gjkt0bA19aKivruQs3nkMQWbdEXPaOrLT80xjzF4KJvDcB-IU=@protonmail.com>
+ <87cxyfs2vm.wl-tiwai@suse.de> <833d600fdebd4aaeab6706185ce854e6@realtek.com>
+ <87wlwgygyf.wl-tiwai@suse.de> <330931ee49624f2486f66e510271d80a@realtek.com>
+ <87jysdv4qg.wl-tiwai@suse.de>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <87jysdv4qg.wl-tiwai@suse.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178333549067.691035.17694904032926316770@mxe9fb.netcup.net>
+X-NC-CID: cQj7Pm0GrDXa6gdRfors0hb5IfwYsCQ48gm4enipgAJEAZl7t1k=
 
+On 6/5/26 09:14, Takashi Iwai wrote:
+> On Fri, 05 Jun 2026 09:02:29 +0200,
+> Kailang wrote:
+>> Yes, it's the same codec and SSID. It's the same model of machine.
+> Hrm, and still they show different behavior?  That's tough.
 
+TWIMC: I have this on the list of regressions I track, but seems things
+stalled -- and at the same time it's a tricky situation where fixing
+this regressions would cause another regression. Which is why I'll stop
+tracking this, unless this reminder bringt this thread back to life somehow.
 
-On 06/07/26 4:22 pm, Dev Jain wrote:
-> 
-> 
-> On 06/07/26 2:15 pm, David Hildenbrand (Arm) wrote:
->> On 7/5/26 10:08, Dev Jain wrote:
->>>
->>>
->>> On 05/07/26 1:05 pm, Andrew Morton wrote:
->>>> On Fri,  3 Jul 2026 11:41:54 +0000 Dev Jain <dev.jain@arm.com> wrote:
->>>>
->>>>> huge_ptep_get() can be handed a virtual address pointing to the middle of
->>>>> a contpmd/contpte mapped hugetlb folio (examples of callers are
->>>>> pagemap_hugetlb_range, page_mapped_in_vma).
->>>>>
->>>>> The arm64 helper rewalks the pgtables in find_num_contig to answer whether
->>>>> the huge pte we have maps a contpmd or a contpte hugetlb folio, and
->>>>> returns CONT_PMDS or CONT_PTES, so that it can collect a/d bits over the
->>>>> contiguous ptes. We can falsely return CONT_PTES instead of CONT_PMDS
->>>>> if the addr is not aligned.
->>>>>
->>>>> Fix this by aligning the pmdp pointer down to a contpmd base before
->>>>> checking equality with the passed huge pte pointer, to correctly answer
->>>>> whether the huge pte is the base of a contpmd block.
->>>>>
->>>>> Fixes: 29cb80519689 ("arm64: hugetlb: Cleanup huge_pte size discovery mechanisms")
->>>>> Cc: stable@vger.kernel.org
->>>>
->>>> Please describe the userspace-visible effects of bugs when fixing them.
->>>> Particularly when cc:stable is proposed.  Thanks.
->>>
->>> Forgot for this one. It should be, on systems where CONT_PTES != CONT_PMDS
->>> (meaning page size is 16K) we could collect excess a/d bit state, meaning
->>> extra work for the kernel.
+Ciao, Thorsten
+
+>> -----Original Message-----
+>> From: Takashi Iwai <tiwai@suse.de> 
+>> Sent: Wednesday, June 3, 2026 1:45 AM
+>> To: Kailang <kailang@realtek.com>
+>> Cc: Takashi Iwai <tiwai@suse.de>; Mike Karcic <mikekarcic@protonmail.com>; Sean Rhodes <sean@starlabs.systems>; stable@vger.kernel.org; regressions@lists.linux.dev; linux-sound@vger.kernel.org; linux-kernel@vger.kernel.org
+>> Subject: Re: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231e) -- 6.12.73 to 6.12.85
 >>
->> Even worse, right? We could walk 128 entries, when we really should just walk 16
->> (IIRC) entries, possibly reading garbage or even worse, into a memory hole at
->> the end of memory?
-> 
-> Hmm I was thinking that the checks pte_dirty() and pte_young() wouldn't care whether
-> the pte is garbage. But, we could actually dereference a ptep pointer not having
-> backing memory at all.
-> 
-> Does the following sound good?
-> 
-> "On systems where CONT_PTES != CONT_PMDS (meaning page size is 16K), we could collect
-> excess a/d bit state, meaning extra work for the kernel. Even worse, we may iterate
-> beyond the PTE table and dereference a garbage ptep pointer to access physical
-> memory we don't own. Since the ptep pointer is a linear map address, we may run off
-> the end of the linear map, dereference a VA not mapped into the kernel pgtables and
-> cause kernel panic."
-> 
-> Although I checked on arm64, there is no case in which there is a hole after the
-> linear map, but still that assumption shouldn't be made.
-
-Oh but we could access a linear map address which corresponds to a DRAM hole, meaning
-there is no entry in the kernel pgtable.
-
-
-> 
-> 
 >>
-> 
+>> External mail : This email originated from outside the organization. Do not reply, click links, or open attachments unless you recognize the sender and know the content is safe.
+>>
+>>
+>>
+>> On Tue, 02 Jun 2026 08:14:14 +0200,
+>> Kailang wrote:
+>>>
+>>>
+>>> There were the same SSID for two different symptoms.
+>>> But this project was from 2025. This machine maybe didn't in our site.
+>>
+>> Aha, that can explain the difference of the behavior, then.
+>> Do both of them have the same codec ID and SSID, too?
+>>
+>>
+>> Takashi
+>>
+>>>
+>>> -----Original Message-----
+>>> From: Takashi Iwai <tiwai@suse.de>
+>>> Sent: Friday, May 29, 2026 4:20 AM
+>>> To: Mike Karcic <mikekarcic@protonmail.com>
+>>> Cc: Kailang <kailang@realtek.com>; Takashi Iwai <tiwai@suse.de>; Sean 
+>>> Rhodes <sean@starlabs.systems>; stable@vger.kernel.org; 
+>>> regressions@lists.linux.dev; linux-sound@vger.kernel.org; 
+>>> linux-kernel@vger.kernel.org
+>>> Subject: Re: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 
+>>> (17aa:231e) -- 6.12.73 to 6.12.85
+>>>
+>>>
+>>> External mail : This email originated from outside the organization. Do not reply, click links, or open attachments unless you recognize the sender and know the content is safe.
+>>>
+>>>
+>>>
+>>> On Thu, 28 May 2026 20:27:30 +0200,
+>>> Mike Karcic wrote:
+>>>>
+>>>> Yes, I can confirm the patched kernel is running, and commenting out that line fixes the problem completely.
+>>>>
+>>>> Below is output with the added debug lines as requested:
+>>>>
+>>>> $ uname -r
+>>>> 6.12.90-debug-no-discoefs
+>>>>
+>>>> $ sudo dmesg | grep -i "alc287_alc1318"
+>>>> [  453.823528] snd_hda_codec_realtek ehdaudio0D0:
+>>>> alc287_alc1318_playback_pcm_hook called action=0 [  453.871577] 
+>>>> snd_hda_codec_realtek ehdaudio0D0: alc287_alc1318_playback_pcm_hook 
+>>>> called action=1 [  459.605379] snd_hda_codec_realtek ehdaudio0D0:
+>>>> alc287_alc1318_playback_pcm_hook called action=2 [  459.605497] 
+>>>> snd_hda_codec_realtek ehdaudio0D0: alc287_alc1318_playback_pcm_hook 
+>>>> called action=3
+>>>>
+>>>> $ grep -n -A5 -B2 "alc_process_coef_fw.*dis_coefs" sound/pci/hda/patch_realtek.c
+>>>> 7918-           return;
+>>>> 7919-   alc_update_coef_idx(codec, 0x10, 1<<11, 1<<11);
+>>>> 7920:   /* alc_process_coef_fw(codec, dis_coefs); */ /* commented out for testing */
+>>>> 7921-   alc_process_coef_fw(codec, coefs);
+>>>> 7922-   spec->power_hook = alc287_s4_power_gpio3_default;
+>>>> 7923-   spec->gen.pcm_playback_hook = alc287_alc1318_playback_pcm_hook;
+>>>> 7924-}
+>>>
+>>> Hm, then the previous fix doesn't seem working, obviously.
+>>> Kailang, could you check this in your side?
+>>>
+>>> Maybe we should apply the AMP-silence-detection disablement conditionally to certain models?
+>>>
+>>>
+>>> thanks,
+>>>
+>>> Takashi
+>>>
+>>>>
+>>>>
+>>>>
+>>>> Sent with Proton Mail secure email.
+>>>>
+>>>> On Thursday, May 28th, 2026 at 10:07 AM, Takashi Iwai <tiwai@suse.de> wrote:
+>>>>
+>>>>> On Thu, 28 May 2026 15:38:54 +0200, Mike Karcic wrote:
+>>>>>>
+>>>>>> I did test 46c862f5419e on 6.12.90. Chirp still present.
+>>>>>>
+>>>>>> I'm also on a ThinkPad X1 Carbon Gen 12 with ALC287 (17aa:231e), 
+>>>>>> same as the original reporter. The fix resolved it for them but 
+>>>>>> not for me.
+>>>>>>
+>>>>>> Only a full revert of 630fbc6e870e resolves the issue.
+>>>>>>
+>>>>>> Verification on the running kernel:
+>>>>>>
+>>>>>>   $ grep -c "dis_coefs" sound/pci/hda/patch_realtek.c
+>>>>>>   2
+>>>>>>
+>>>>>>   $ grep -c "en_coefs" sound/pci/hda/patch_realtek.c
+>>>>>>   0
+>>>>>>
+>>>>>>   $ sed -n '/alc287_alc1318_playback_pcm_hook/,/^}/p' sound/pci/hda/patch_realtek.c
+>>>>>>   static void alc287_alc1318_playback_pcm_hook(struct hda_pcm_stream *hinfo,
+>>>>>>                                      struct hda_codec *codec,
+>>>>>>                                      struct snd_pcm_substream *substream,
+>>>>>>                                      int action)
+>>>>>>   {
+>>>>>>           switch (action) {
+>>>>>>           case HDA_GEN_PCM_ACT_OPEN:
+>>>>>>                   alc_write_coefex_idx(codec, 0x5a, 0x00, 0x954f);
+>>>>>>                   break;
+>>>>>>           case HDA_GEN_PCM_ACT_CLOSE:
+>>>>>>                   alc_write_coefex_idx(codec, 0x5a, 0x00, 0x554f);
+>>>>>>                   break;
+>>>>>>           }
+>>>>>>   }
+>>>>>>
+>>>>>> Happy to test further patches.
+>>>>>
+>>>>> Just to be sure, could you verify that you've tested really the 
+>>>>> patched kernel, e.g. by adding a debug print, etc?
+>>>>> If yes and the problem is seen even with the patch, try to comment out
+>>>>>   alc_process_coef_fw(codec, dis_coefs); and confirm that this 
+>>>>> fixes the problem.
+>>>>>
+>>>>>
+>>>>> Takashi
+>>>>>
 > 
 
