@@ -1,30 +1,30 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D2B3A7595
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841783ACA70
 	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 16:17:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783354653; cv=none; b=W9Ao+kHuml67xXfxRj0p97YKHJ9egc/OHW9CA+Vhhm+cf6J8x8jmf0yTUgb5L8nBtz1vhqiXJA7dRqhmW8L19o+BeXzhfk70PCkGIoFESoCyQTJzQfmZNuXEY23CAmdOf1mzw9dAPoCTwHJynMK98GVv5ihtKspUBZ6d4dj8oeY=
+	t=1783354654; cv=none; b=oiXri0/ZAsE7a45w24dGBV6MLh3y2WruQh5ry+7RvcwxNJOHPbF1VFaU2a3oUq73QxUDVtUYBd1zfZxJHSZMsgAR3yv818H/FxvsSSExoTEReuTYxiUgRprUYHfEKzEr62v+GDwX59o/QqS3YYD7J2VL9zsNGc5Y0i9G06IIvbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783354653; c=relaxed/simple;
-	bh=ww6lIWGqon9ltCE6mo0ciN1wMO1MrO3FXa9+7rxtG9o=;
+	s=arc-20240116; t=1783354654; c=relaxed/simple;
+	bh=qgrGxiTiPp77FSz3b2g3R4AtQSs1trKaa4ZkalIZ9N4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ta9DJgBJiz5H2T3ieOW4OW5msr/alzwGA9vU3Q/M4OrieLYwWse+elropfDn3b1lDqf1ZOsdivQUEzISZ+M5cG5VhMMg3tCeZSwfDKx6lzWQ7BLIWqLEQn74IEgLgWtvG7GDDyFidAsGPpDCXGXt2YXRMwC8AMzd3fRN5RxYI/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=MCvV9lBc; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version; b=A6QQi5Cbwp+hG6gx/QQcruyu4leUR6VqxR4PzG4VaECnA8SV6ocMhdT5sGGCcZN7ZEGModnWOg/GFG0+bcViVWXX/LNOp/HMQG0b2QC6YII7RKtEgAri2ZZt3hl/ZJY5kQxSEA2JwE/q49a3QC2+NRuWvXuEckZCcVArXOJWkuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=cWuBWTK6; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="MCvV9lBc"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="cWuBWTK6"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type;
-	bh=DnUQ7xqngB7ltpwKd6wuyVZHXfqWSlaOeWxQxVJmfC8=; b=MCvV9lBctrSSNVNyHP944gtXZH
-	g+PRC5gxo503aFbKeXb/jUMLS9DDlH7MxwmUgSxjzsQsB4w1yma+PpbxM4hHAmV9//mL1p62VWTKb
-	u4ibbm+CpNWEQG2pWX9zwBOkQ7hFz0klEr32/fO99M5iGZAJnYwYwV0ZHuRpq0rcIGdTqZHsMJwBh
-	Vgc8F9f0dQNANBIG4DDNxTSFDgDslIxDKNsG12XKwH9NPZ/pdH/iWRaZuTOj3OvzolpfzQYVMhbEe
-	cASFuv5nNmd1oA/m8rdl4DTmZSgPP/J8/H2W3wkoevV8DnWwmHJEkK2PR7M7LXNkvahn1WcUkbpCG
-	lWrsiddQ==;
+	bh=uqQlAkyUrdzL/P0yTX9G71yGvY+5QSdTjHzrWm+aQ4g=; b=cWuBWTK6ZoeFYrY8Eb9X+VL/8B
+	ETTDVccQqJfIZsyDp7ChIB+N9HtO0p1jkyvyYlMYMqQRVP7ev+4AxvVTfU7849RJ7VUc6Vpr79Ujx
+	dczdSNjVbfsv0MwpuoTqxKLzmqalA9goW+zgusfWv5TAwuwvSG/Hw+l36m3ohn5LklVNPUNDqkFlo
+	PL0KO+VTAuqcHh7qGmSRmV65IVCr/iG1Y7BrAxD4WJ5fEcHVOCr46aXAMg5qvGMSQeRofBaIV8jRb
+	a2Knbw4eopcDWLZC18U5GhGmYFwFWJF6WC6Tgb6rdB5GSDvMro1TX1r9grRGew2DWDw+l2hoMhftI
+	2o86nXcw==;
 From: Heiko Stuebner <heiko@sntech.de>
 To: stable@vger.kernel.org
 Cc: heiko@sntech.de,
@@ -32,9 +32,9 @@ Cc: heiko@sntech.de,
 	Marco Scardovi <scardracs@disroot.org>,
 	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Heiko Stuebner <heiko.stuebner@cherry.de>
-Subject: [PATCH 6.12.y 3/3] gpio: rockchip: fix generic IRQ chip leak on remove
-Date: Mon,  6 Jul 2026 18:17:13 +0200
-Message-ID: <20260706161713.2676365-4-heiko@sntech.de>
+Subject: [PATCH 6.12.y 2/3] gpio: rockchip: teardown bugs and resource leaks
+Date: Mon,  6 Jul 2026 18:17:12 +0200
+Message-ID: <20260706161713.2676365-3-heiko@sntech.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260706161713.2676365-1-heiko@sntech.de>
 References: <20260706161713.2676365-1-heiko@sntech.de>
@@ -48,47 +48,81 @@ Content-Transfer-Encoding: 8bit
 
 From: Marco Scardovi <scardracs@disroot.org>
 
-[ Upstream commit 1c1e0fc88d6ef65bf15d517853251f75ab9d18c3 ]
+[ Upstream commit 9500077678230e36d22bf16d2b9539c13e59a801 ]
 
-The driver allocates domain generic chips using
-irq_alloc_domain_generic_chips() during probe. However, on driver
-remove/teardown, the generic chips are not automatically freed when the
-IRQ domain is removed because the domain flags do not include
-IRQ_DOMAIN_FLAG_DESTROY_GC.
+Address several teardown issues and resource leaks in the driver's remove
+path and error handling:
 
-This causes both the domain generic chips structure and the associated
-generic chips to be leaked. Additionally, the generic chips remain on
-the global gc_list and may later be visited by generic IRQ chip suspend,
-resume, or shutdown callbacks after the GPIO bank has been removed,
-potentially resulting in a use-after-free and kernel crash.
+1. Debounce clock reference leak: The debounce clock (bank->db_clk) is
+   obtained using of_clk_get() which increments the clock's reference
+   count, but clk_put() is never called. Register a devm action to
+   cleanly release it on unbind. Note that of_clk_get(..., 1) remains
+   necessary over devm_clk_get() because the DT binding does not define
+   clock-names, precluding name-based lookup.
+OA
+2. Unregistered chained IRQ handler: The chained IRQ handler is not
+   disconnected in remove(). If a stray interrupt fires after the driver
+   is removed, the kernel attempts to execute a stale handler, leading
+   to a panic. Fix this by clearing the handler in remove().
 
-Fix the resource leak by explicitly calling
-irq_domain_remove_generic_chips() before removing the IRQ domain in
-rockchip_gpio_remove().
+3. IRQ domain leak: The linear IRQ domain and its generic chips are
+   allocated manually during probe but never removed. Remove the IRQ
+   domain during driver teardown to free the associated generic chips
+   and mappings.
 
 Fixes: 936ee2675eee ("gpio/rockchip: add driver for rockchip gpio")
 Assisted-by: Antigravity:gemini-3.5-flash
 Signed-off-by: Marco Scardovi <scardracs@disroot.org>
-Link: https://patch.msgid.link/20260607230504.35392-2-scardracs@disroot.org
+Link: https://patch.msgid.link/20260526171050.12785-3-scardracs@disroot.org
+[Bartosz: don't emit an error message on devres allocation failure]
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
 ---
- drivers/gpio/gpio-rockchip.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpio/gpio-rockchip.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
-index 0a93c74933f0..9c419625c753 100644
+index 16c1ec3a5d0e..0a93c74933f0 100644
 --- a/drivers/gpio/gpio-rockchip.c
 +++ b/drivers/gpio/gpio-rockchip.c
-@@ -792,8 +792,10 @@ static void rockchip_gpio_remove(struct platform_device *pdev)
+@@ -629,10 +629,17 @@ static int rockchip_gpiolib_register(struct rockchip_pin_bank *bank)
+ 	return ret;
+ }
+ 
++static void rockchip_clk_put(void *data)
++{
++	struct clk *clk = data;
++
++	clk_put(clk);
++}
++
+ static int rockchip_get_bank_data(struct rockchip_pin_bank *bank)
+ {
+ 	struct resource res;
+-	int id = 0;
++	int id = 0, ret;
+ 
+ 	if (of_address_to_resource(bank->of_node, 0, &res)) {
+ 		dev_err(bank->dev, "cannot find IO resource for bank\n");
+@@ -663,6 +670,11 @@ static int rockchip_get_bank_data(struct rockchip_pin_bank *bank)
+ 			dev_err(bank->dev, "cannot find debounce clk\n");
+ 			return -EINVAL;
+ 		}
++
++		ret = devm_add_action_or_reset(bank->dev, rockchip_clk_put,
++					       bank->db_clk);
++		if (ret)
++			return ret;
+ 		break;
+ 	case GPIO_TYPE_V1:
+ 		bank->gpio_regs = &gpio_regs_v1;
+@@ -779,6 +791,9 @@ static void rockchip_gpio_remove(struct platform_device *pdev)
+ {
  	struct rockchip_pin_bank *bank = platform_get_drvdata(pdev);
  
- 	irq_set_chained_handler_and_data(bank->irq, NULL, NULL);
--	if (bank->domain)
-+	if (bank->domain) {
-+		irq_domain_remove_generic_chips(bank->domain);
- 		irq_domain_remove(bank->domain);
-+	}
++	irq_set_chained_handler_and_data(bank->irq, NULL, NULL);
++	if (bank->domain)
++		irq_domain_remove(bank->domain);
  	gpiochip_remove(&bank->gpio_chip);
  }
  
