@@ -1,162 +1,139 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011048.outbound.protection.outlook.com [40.107.74.48])
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C83C3ADBA5
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 14:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783347354; cv=fail; b=N2d76KWqRVeWTr+5h7zGKn2exPkkET3PBvvszAlIjPSp7cCEFE0VtGJkhuyPTSCbiubT5Fq9XxIi3ISpq2NhPcYUM9S9twj5d+J4GLLoHG8Ff90n7wIvAMEToTjmqhRamgFtjAiml7PialxZBWCitohdtz8dZfMtktvwN0/cvGw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783347354; c=relaxed/simple;
-	bh=ULzDlA5baC/WbW3IqAJ6HeemTxXnY2U624B9fUThIY8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=kVAHVPxd1WtB4oBjwq0MoK1qFtIePlXzRNGrspT+ouBoXfNPRVLm10TsWplyneAC6r9ikO/y0ET2d8smS5Aj4UbbIUlNGPTYfkP1Q/dMjGyUZWYbbGyKpy/rI2nyGeCqJiah1vF5wrqXL/ao7Lk6sM+cBuledw1D7ju6vUrhCrE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=By4Gj9vT; arc=fail smtp.client-ip=40.107.74.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B49C3A963D;
+	Mon,  6 Jul 2026 14:17:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783347478; cv=none; b=BpQrRjwQw2pd5y4JHUE9KXpDucYcRwSNXpfOGLvaTcu4fAyXTU3PFAOF3N2nTO4FQF26EPkPQIb0pRl2odrgTJUboNM3JHdg2SaSAN2uRenQL/SpT5DXcacLshkCOTwndBsTHZp/xEDlNJUcFYbZI+dsvQS1RlymLIi5r5YQAX8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783347478; c=relaxed/simple;
+	bh=5rB+tcWjPVVWfW6ycYrFHi0qPClI3epYHo2xDUT70Ww=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=oiDPmRM/zz5xuAprp4S5ZAC4c9ReUhNRvNmNB+VLi02mwp3BiolsAHTzZq6V8eNLENBD+pTX/4N+bvsoqKW6T9H8jgp94vNnMF1r0gh7LNygd8ykYaxjAdMxC3YN+xWRczJFkF3UH3U58xsYfxhxJQFYWrohEwlJlOd+nqZvKPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=sdwh+UwC; arc=none smtp.client-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="By4Gj9vT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ipfn7sWnZKU2iOkRiirs3tn7Q9ZQuzQskAPNXrQ0ia3rRuSDlbwpJcN2JIa4TtzR+KG3vMj698XzXScS4mNW4xvwyG9JdCnvgHP6+rRw+kTausNWG2F8oLjleu6gs8kAN5lsrQJ2hCqs1N82egIZZejzqpjldXIBXXBvCM/Lf9O7ilGkU6WZDWT/iMxLKfXKF7KG7rquybf8apR4xx0bMPf3isXIrzY32XJsLAhNXfTzKayDq2UGCiraJU+AoSEDT1D5Ja25gn1XhqPfBK+FuT3UPiWDdG2ionuUwKNrEFTrxdANLG+1dvWICEblS7Vu8zEVthyev1J1/jJ1Y7FzHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ULzDlA5baC/WbW3IqAJ6HeemTxXnY2U624B9fUThIY8=;
- b=Kpj2rBajmRHbgJcNzia0x/cpqHXa0HYhJAZZsklXudWxLLyQF3Q9G9qtroFzRHlTC3kTiFGNanWCvDRaCEQPcYdfAzTjIESKIOEA0v0nl2oYv7wTpnQuKENEziSbV+57kvmlT5Bp1NEkovetdvNfdUayjPUP/2CYcWm3NG6aGDLOWRc2FdX/5tH/6umOCbpi59JI7ZTywYiLSXQP0yYaLwDl89pGifwYhu6d3/lGhuVcVWaKCMuB++yvjVkwlVOck70S5+Kt4Csw+UHNqjPvRgrAwBViIZQeAIBLTi6/Jd4LK1qM3HjSraUDzv6lfHg5+9PUmMf0Tr46ezBC0CNrIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ULzDlA5baC/WbW3IqAJ6HeemTxXnY2U624B9fUThIY8=;
- b=By4Gj9vTjRODT9Sw1M2bzsqTPs55iGwp5Rj/mpygvn4P1PH/gvrGuCW+K2GW3/TvDrWYOBZmFTgp589foCGQsne8BawXuuU5pRCmirvxFA4sYnQGbSJz1vx6HIcnB8x3gSROaa+R3i+32IgIE67I8EK/OZRHOWiBPfryXtlQcK4=
-Received: from OSCPR01MB14315.jpnprd01.prod.outlook.com (2603:1096:604:39f::5)
- by OS3PR01MB10297.jpnprd01.prod.outlook.com (2603:1096:604:1df::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
- 2026 14:15:48 +0000
-Received: from OSCPR01MB14315.jpnprd01.prod.outlook.com
- ([fe80::66f:fac9:2ef6:9796]) by OSCPR01MB14315.jpnprd01.prod.outlook.com
- ([fe80::66f:fac9:2ef6:9796%6]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 14:15:48 +0000
-From: Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Sasha Levin <sashal@kernel.org>, geert <geert@linux-m68k.org>, Ben
- Hutchings <ben@decadent.org.uk>
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, "patches@lists.linux.dev"
-	<patches@lists.linux.dev>, wsa+renesas <wsa+renesas@sang-engineering.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>, Ulf Hansson <ulfh@kernel.org>
-Subject: RE: [PATCH 5.10 94/96] mmc: renesas_sdhi: Add OF entry for RZ/G2H SoC
-Thread-Topic: [PATCH 5.10 94/96] mmc: renesas_sdhi: Add OF entry for RZ/G2H
- SoC
-Thread-Index: AQHdCj+FKf8oM+BZj0GrJ6s5iCm/JrZfgvoAgAChXwCAADznsIAALA6AgAAByRA=
-Date: Mon, 6 Jul 2026 14:15:48 +0000
-Message-ID:
- <OSCPR01MB14315F1985B25A9D1BA98ECF9AAF12@OSCPR01MB14315.jpnprd01.prod.outlook.com>
-References:
- <OSCPR01MB14315350989F1BD556CA5B1E9AAF12@OSCPR01MB14315.jpnprd01.prod.outlook.com>
- <20260706135124.draft-0005@kernel.org>
-In-Reply-To: <20260706135124.draft-0005@kernel.org>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OSCPR01MB14315:EE_|OS3PR01MB10297:EE_
-x-ms-office365-filtering-correlation-id: 49396870-c031-4403-f47e-08dedb6913c1
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|11063799006|4143699003|38070700021|22082099003|18002099003|56012099006;
-x-microsoft-antispam-message-info:
- gZt5go+B4OrIyimKda0EdwP/qLRKmdrT0YHlHXjwM0asfTmOaYL+fMYZjbOPpPOFHW+Hlt9M87NO0kdziW1ps8ZAPlafbssStm6GhS9X6BNhQDTn98TLNi6wLF9Xs9bHUkKJ985MbcSPAnIiyJXYxHVqLdpJW7Psx9SSf5AT3AxftrCFZeQngPcGy7V8FNccaSU95ZKBXPhcAxbj1eFLyfe6CiVQrVD+y+qvsrED2I/jGLTjSxoWLP6tCc6Ji9s2PHy07txKxiF0itwAsndr12UbSLjhDO6faA7GoX+MwmqZNCU1zCVyC+DK0lZ28hgfh4fIJ/Ztz+StOmugx1a/EkBs2tVQPOIzbKATLzmELnRkn+x5ItekCg+DG5oC/T3COlGNZuKvxy1siCqNx9JlW1iDWFo6c9GB0KGgpEaX63oQi3myDKogO4zpNnvSjg8ZcuhpU2NXjLxvCQ8xAR2bNbsoexdMwfI+hJcbQnOHB3ZZP1wwcNaq837qjqM2ORefLnufPJM7Z4I9pmp4JoAysNTh84vA9+s3khb3Uq2GTL6LCaSgPRsxZeGcnud4MHiRCix4GkxpE7DPsUOvWAyjpJkovAwOrR0492whOPrsav1RJ8zEW6KHINcjquU1+DoPN9k3rQZG1+3hFP+BqkL2QniXevPTn+3UoJMFdFfazpH9dMP8NcE1HrdhqFsxUHvAFVVHgfEHtnw7zwKMN8DuFa06UnmhjHeiLHPyl4szGR0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSCPR01MB14315.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(11063799006)(4143699003)(38070700021)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?ZxQicTCQVrMKEGb6GSOv/QeTHOhUHLcLp8H/lPO9GJUcoJ0I7wBBRcJ8BRki?=
- =?us-ascii?Q?Mt44R3+grbURXHUewbU1RSesj0n9jxWNXVJ9CSOuIsyUVzqGP7DbFp1bnjnG?=
- =?us-ascii?Q?VpbWM8fKv9FU5VrFnDP+BVnnxqlXShqjqKY+ZHRHahoV1MxuJnPVkdsKyRZo?=
- =?us-ascii?Q?FlPkKakZjeFPfDmKOCyTHJRCZzdkLWD+Bj4517R4IhuynoC8kX8Ag9nb1CRM?=
- =?us-ascii?Q?TVryGHfM2xcLk6aGTXB39XIMFm4toc3STrn4SM+bxvFfGq2CW2VaeKuLC2AV?=
- =?us-ascii?Q?ox828G8yHaRruenEwxw0cfJ1a9dT2v7ve/+N8fNM32YWmP9fZFZVqjrim9jP?=
- =?us-ascii?Q?tMKPnCFZQdt3qovuUVXUndyPh3+i7r89wlEPgcZQBQwIl0tFGLicNxl4tyh0?=
- =?us-ascii?Q?2ydNhk8MCfRZN4O1Yu+2LGE6EQmQfHOWh588/K+6PWqlGtQdApKbGStqKSuS?=
- =?us-ascii?Q?y0HPkJPVpSeUndUouMYHcNtoHxGJyw61+/btxV3JURBxfWJYmDXhs7GFE+6z?=
- =?us-ascii?Q?n5ycX2KvnGXZR0Fk1DM64p4PbLGT/tAe82Xjs0gFKn31/w/PVw9EvuYArjCc?=
- =?us-ascii?Q?x6ntZMQEWkV66L/yGxGWQZFUlxX6XYqgjVkdOkZZdsGyj717+wlRYcJY74NQ?=
- =?us-ascii?Q?C+DUheHyDJNqHI1BYt7y1tvVcar+h3CM+6lQHhd2YRaP5SEMg0S0QnJsbkGj?=
- =?us-ascii?Q?/Uqtpj0FkaZHNVyiIx+Yx/l15dnIehJ2HVvF08vdG3rVtcOdjv+7IZtmB/Uh?=
- =?us-ascii?Q?bCWvYIDt8WPIrgkRaN6689gftOBxSIQwhWVDcZG/S3DbjUCqvYUUZyEAXNYu?=
- =?us-ascii?Q?OS+EHKSVeSRAZm7KzavwCAdeq9N8UkHCHDYaXvPsuPZZ+CMi2b+YQ2DKUl6f?=
- =?us-ascii?Q?B1flire7ZTM+QuhZ5u4VaKJNdlwEfqUO/eTLmo6IT6kHuq6l08n8Nv1//Bm1?=
- =?us-ascii?Q?Zboiz2jLk0LZTfJyHddtCQafOlnM0lIJNeKyBTkXxLt31wadmBIIqpqSk//p?=
- =?us-ascii?Q?uY0x1XpSIqV1O89Dl7R2R8xuC7GysguMpko40ycKaG7y0luUzPi646irrOX8?=
- =?us-ascii?Q?GXneiGwqOeXBUCOU3EaVc0XG806NLEjSR7cuj0iMRy0NsED/omKi6ys8vvOi?=
- =?us-ascii?Q?SgyL00lHgZFsrvBWjAzSDme+imcPKR3O4U4qELliHKhRSERGYGFb/YvNmk1h?=
- =?us-ascii?Q?NO1W65ROfZTBUFykyHF3Zi9NXmJzo+T0BT8+dzg8GGSK53rY2JNd7gYorEfw?=
- =?us-ascii?Q?MXQXZhk0zE7vgZsXiHYwBYDrmDQn/zCs9rVXvsCnlcd8u3/FQxOgS2pkjpmy?=
- =?us-ascii?Q?iXMmIqBdca3jFRRc5kwt0i6bvq01elPLlUCnFVimmzVSUwC7Oa/gj0YqQPgW?=
- =?us-ascii?Q?4aRKWlpyJvLIDJT+orhvJb+3h76c0pugGxGZ/ZokFfnEtzS5R0MG2nc3KbDX?=
- =?us-ascii?Q?E71x2Td4hFMkICFD3++e19rOA+jCjBX244P4j67GfKxIY5shylSzgQcZSH1o?=
- =?us-ascii?Q?F48Y3PuP9usVfutaixQXnl/zyNXGp3sjSU4oOpFE6PAsvuTX4K+KNQlDvIDG?=
- =?us-ascii?Q?HzgmBkkDxaUqhIQuFEdgzfHz44ks8vmepkNVUtDyR10TVkFOvlZ60oWTJ9tS?=
- =?us-ascii?Q?uvaq7DRwyuTQs1QD3/8OGib05iQMP3jjcfHWbEHc7ggCPc+n+aDPInkybSC+?=
- =?us-ascii?Q?LyXmHYuJmiMTsCBCw47A3tLJlsUESFd6pQL8zyT0brKIInwG7iU90RSGOvNI?=
- =?us-ascii?Q?SQ8ZikklTu9lFzqJB2Oc/LTy3ESWCMO0ZYIU0t/OI0WMrmjzfInO?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="sdwh+UwC"
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id 365422121F;
+	Mon, 06 Jul 2026 17:17:50 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=H2kYV2YNGwRbDpvUxivqC0uqB2DTUR1fxY9v63DflU8=; b=sdwh+UwCJLvB
+	Clp4C2RDPFw1foh+ob0EyuIg32UOTuyouSy5whBrJgCVAHX6VnvomZXf4QummmGz
+	UWrF26Kj1Hh/ZNuoJZELwCEEqL0s18YE9QClgJd5mRQ80PpObxFNH2nS1gXtlaew
+	ZnLh9B2pFPr9+mlM+SBPnDvxmJKxvsq3UbJ/9yNbrWJ+AeSMv/W2wRoZFzs5Nu1g
+	Ppzj/JnnZDv8Xusj5QrLn6pFQLwiOlZskXZ0ezsFrK3uZvDVjKks7t3Dq+E7xOhL
+	e8s6/Noij2vSsYTCQhaaP1XhJhtmyRG9e4smr48qz+OndzgtwU6bHH5eBMkLXCNp
+	phhgS7EOY9yokgW3jzsGgrDCTq2tR1orxRZkcQuEfZXa9ZUAlWu5kPn/aBpxDhVW
+	rQHm4IR+QKRM8NgARnBtz3RxL8awZtp3Aakd7tl9RK5Wz5sCcraHALMsOGDyg5tw
+	RKhSn6waYfgtOVE+UAfy0rbMj7eDHejkbSimebQYqRYud+b3LU0j+JCjcfQ5zZWP
+	UKDpD7HkCTHjkkbsXYNtPZSlmJGLXCpxsXachJshmki1vsAPErMMibziv7r1NF6n
+	BRN1WQ83SUMRAgfJ6/5WLplaLuCSCeVTAEutrf5m90DDaK4sDKUqq9ZjANSPChYK
+	7jy7WZiSm+j0rMrVawIGK4YSRAUGBz8=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Mon, 06 Jul 2026 17:17:50 +0300 (EEST)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id 4597E60B74;
+	Mon,  6 Jul 2026 17:17:46 +0300 (EEST)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 666EHc2t054134;
+	Mon, 6 Jul 2026 17:17:39 +0300
+Date: Mon, 6 Jul 2026 17:17:38 +0300 (EEST)
+From: Julian Anastasov <ja@ssi.bg>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+cc: netdev@vger.kernel.org, Simon Horman <horms@verge.net.au>,
+        Pablo Neira Ayuso <pablo@netfilter.org>,
+        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, lvs-devel@vger.kernel.org,
+        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+        linux-kernel@vger.kernel.org,
+        Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+        Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
+        Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
+        stable@vger.kernel.org
+Subject: Re: [PATCH nf] ipvs: skip IPv6 extension headers in SCTP state
+ lookup
+In-Reply-To: <87E04893-B2B2-485F-B242-9CACF2F176D6@mails.tsinghua.edu.cn>
+Message-ID: <bcd7f0e6-b2fc-4e54-f9ac-e1c8b1b0c497@ssi.bg>
+References: <20260705123040.35755-1-zhaoyz24@mails.tsinghua.edu.cn> <92783c87-7e6a-e90a-b2fc-e5d1332139e0@ssi.bg> <87E04893-B2B2-485F-B242-9CACF2F176D6@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OSCPR01MB14315.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49396870-c031-4403-f47e-08dedb6913c1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Jul 2026 14:15:48.2236
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eDZKPSY9V4OSjFcN5iYrvDiCh1U3M7B/cE3XjyGOJWYGFpAW1fpIFKLtQeg5z2lQN0jI/1LaR43nDr1MA8AxCGQ3CQhhy/dolgU037FsOBe3eB/X2eSTsrhhJiP5F16x
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB10297
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Sasha,
 
-> From: Sasha Levin <sashal@kernel.org>
-> Sent: 06 July 2026 15:08
-> To: geert <geert@linux-m68k.org>; Ben Hutchings <ben@decadent.org.uk>
-> Cc: Sasha Levin <sashal@kernel.org>; Greg Kroah-Hartman
-> <gregkh@linuxfoundation.org>; stable@vger.kernel.org;
-> patches@lists.linux.dev; wsa+renesas <wsa+renesas@sang-engineering.com>;
-> Geert Uytterhoeven <geert+renesas@glider.be>; Ulf Hansson
-> <ulfh@kernel.org>; Prabhakar Mahadev Lad <prabhakar.mahadev-
-> lad.rj@bp.renesas.com>
-> Subject: Re: [PATCH 5.10 94/96] mmc: renesas_sdhi: Add OF entry for RZ/G2=
-H
-> SoC
->=20
-> > Thanks for pointing that out. We could drop this patch from stable
-> > 5.10 and I can backport this patch and commit 71b7597c63d2ddf6 to CIP
-> > kernels <=3D 5.10.
->=20
-> The patch already shipped in v5.10.260. Since it's behaviorally a no-op
-> there, I don't plan to queue a bare revert.
->=20
-> Prabhakar, could you send a proper 5.10.y patch adding the
-> sdhi_quirks_match[] entry Geert sketched (.soc_id =3D "r8a774e1" - note t=
-he
-> missing '4' in his line), so RZ/G2H actually gets the ES3.* tap quirks on
-> 5.10? I'd be glad to queue that.
->
-Sure, I will do that.
+	Hello,
 
-Cheers,
-Prabhakar
+On Mon, 6 Jul 2026, Yizhou Zhao wrote:
+
+> > On Jul 6, 2026, at 01:35, Julian Anastasov <ja@ssi.bg> wrote:
+> > 
+> > May be it is better starting from ip_vs_set_state()
+> > to provide new arg 'int iph_len/offset' (set to iph.len), down to
+> > state_transition(), sctp_state_transition() and set_sctp_state().
+> > Same for all protos. It should cost less stack and ipv6_find_hdr()
+> > calls and what matters most, correct iph context in case we
+> > have IP+ICMP+TCP (with just two ports or even with TCP flags)
+> > and are scheduling ICMP, i.e. not IP+TCP as usually.
+> 
+> I agree that the already parsed transport-header offset should be 
+> passed from ip_vs_set_state() down to the protocol state_transition() 
+> callbacks, instead of reparsing the skb in set_sctp_state(). We will 
+> send a v2 that does this for SCTP, TCP and the other IPVS protocols 
+> in one combined fix.
+> 
+> > But what I see is that ip_vs_in_icmp*() are missing
+> > the ip_vs_set_state(cp, IP_VS_DIR_INPUT, skb, pd) call just
+> > after ip_vs_in_stats() and before ip_vs_icmp_xmit() where
+> > we should provide ciph.len. That is why we don't reach the
+> > set_tcp_state() calls to set correct cp->state and timeout
+> > when scheduling related ICMP. So, this should be fixed too.
+> 
+> For the ICMP path, I agree that the missing ip_vs_set_state() call is
+> worth looking at, but using ICMP errors to drive the upper L4 state 
+> needs some care, because spoofed ICMP packets can match an 
+> existing embedded tuple before the endpoint TCP/SCTP stack 
+> performs its own validation. Maybe this change needs further
+> discussion?
+
+	May be only for the schedule_icmp case while the other
+ICMP replies should not change it:
+
+diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
+index 7f93239898ff..05fdcf4ce2c0 100644
+--- a/net/netfilter/ipvs/ip_vs_core.c
++++ b/net/netfilter/ipvs/ip_vs_core.c
+@@ -1971,6 +1971,8 @@ ip_vs_in_icmp(struct netns_ipvs *ipvs, struct sk_buff *skb, int *related,
+ 
+ 	/* do the statistics and put it back */
+ 	ip_vs_in_stats(cp, skb);
++	if (new_cp)
++		ip_vs_set_state(cp, IP_VS_DIR_INPUT, skb, pd, offset);
+ 	if (IPPROTO_TCP == cih->protocol || IPPROTO_UDP == cih->protocol ||
+ 	    IPPROTO_SCTP == cih->protocol)
+ 		offset += 2 * sizeof(__u16);
+
+	Here is why schedule_icmp was added:
+
+https://archive.linuxvirtualserver.org/html/lvs-devel/2015-08/msg00015.html
+
+	But the inner TCP header should be generated by the
+real server, not from the client, so things can go wrong. We can
+leave it as it is now - we will forward the ICMP to the right real 
+server by using short conn timeout...
+
+Regards
+
+--
+Julian Anastasov <ja@ssi.bg>
+
