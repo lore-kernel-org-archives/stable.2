@@ -1,211 +1,152 @@
-Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD8D1388E49;
-	Mon,  6 Jul 2026 15:27:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.97.182.222
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4DED43149F
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 15:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783351653; cv=none; b=THV2kyWjraQY1dovqwR05TX7fWkqEOEsqh5nWC1T2qBxlkZmKtXSN3QQWq/BdF3CGsawNBZJxMSkkcfCFLBZBMz2/JMmRSe9Jwcl4jx3kPGCcgCQhXh7vGZK7M7ubOq4Kv4Mc1b14WTnVWPppNr6TsqvuEwdkCQwuOOHZ8uoYXo=
+	t=1783352265; cv=none; b=tV+pZqA9SGomVszswBmPxeWYsYHksvsVyCduPW9NeOovazMUJurPoKCRScb+YFTFYT9LCfotDJPinC9FpExnmMOfbSxvhu1P1YssrpJwWqKLHc60vAG9Z22msTIaYNrR55vnVA/rGnPqI5o1HxKUgWt+17Re6H5MDMx9F9Iq1co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783351653; c=relaxed/simple;
-	bh=LDtp2z5MiWEa4BKY6KKgwzIloQ2yTQa1a5dWiOfC2C8=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=ivBkkgp4Os7Oejib+i/9/6jqjh6bD9wUDNwXMuNrAOs6wQDstmf2/Z3zo54XOrTG7wefED1bXhb1IrcJFVVnrxcica52RhCmQwf549OHYNFDaoiruIRjyspmZj3z0RbhJKdopef/xgrZR0JkJ8REapT7GXD4B/uTQtCDLjnF+bk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=209.97.182.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.97.40.56])
-	by mtasvr (Coremail) with SMTP id _____wDHoV5WyUtqX1wSAA--.41010S3;
-	Mon, 06 Jul 2026 23:27:19 +0800 (CST)
-Received: from smtpclient.apple (unknown [10.97.40.56])
-	by mail-app4 (Coremail) with SMTP id zi_KCgBXOzRVyUtqzJgdAg--.37327S2;
-	Mon, 06 Jul 2026 23:27:17 +0800 (CST)
-Content-Type: text/plain;
-	charset=utf-8
+	s=arc-20240116; t=1783352265; c=relaxed/simple;
+	bh=o9JniCOQwoZ997J2sLZ/aXDXCK5YccIpFD2pRIXPnz0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uiYCohjJvAlsrhrhI8QcAbZrmOpELjWbdaRBWzeSaE0liI4S2bMGXY3aV+f4St71weRgre4Dkyx5vqw+B02w5SogfuLjpMBNCUAGjPPC1EPK6/2apfzk3Zm93aK/BYR/Mk4QOAkZ6zTHae1Y7H6DIYwNsTgm9DCO7IwWmT/bEao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O62LOiTI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GTq9OV5Q; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O62LOiTI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GTq9OV5Q"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666FF3wl981455
+	for <stable@vger.kernel.org>; Mon, 6 Jul 2026 15:37:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	1hUvU7+YPjYZoemxWGudb5HAwYsBJ2lip94he8TAung=; b=O62LOiTIr+OGbYsa
+	2foSvydPvNkHVmJAENUjbCvuLzrUhR87vjk2oDpW4PEYBQf/KtjJgOJt7ak0Go9W
+	xzoAAu7+KaJgvYQ6TXnLdeC10aDkmcJzLNxolwNfueGhbm//zDOOiweTTPwz99yw
+	iXHcAT5At5jCQMFwdAKC6prWW3vEXA70Sk0cuRpV29yFWOBF2AIiJG9wwQS5pr6O
+	wwyAHNkZTHei7IYUMR4VTvtxsGaEEunvyasH/fkR5D8HTD5gSiFkFjCLP1ho4RLi
+	uRzIS92Sq4SB09zp9mAeAkOOaGdBBPpFRelJTdF0X034L0eh9iW+GbdzkTKPF01Z
+	4oDUqA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f89kgsp8s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 06 Jul 2026 15:37:42 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51bfe75b7dbso10324631cf.3
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 08:37:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783352262; x=1783957062; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1hUvU7+YPjYZoemxWGudb5HAwYsBJ2lip94he8TAung=;
+        b=GTq9OV5QBjppqcLvle3/AmeRg9NxKHjqqSmyO2v5tXQ5tHSJoTrRTrk2HPiVcyV6tu
+         JBMNoS0oOA9lWX5iWwiLOJ3JgTsKUyFYqzhtTm/6zLw6efgz5U2/W8R9cO7vlnR5G5TM
+         ozzsURlpnwQ2LWcmLjdPsqkJVUMLFSrlbxlgHmfozKyHCHytb0pUXLnzi8C/ryUc1AVh
+         O46asJFmILDiWLQ7InDFaeYvZWVItWTQC3pYh9Ke/w9S+VKk++OMy8sjWlk/8AEZ2u0d
+         HHoZX40GsbWPTTN6ZjWdwKqpRqIPXJi/3GVusLeE1sb5f4aMVUqRBBwFGp1GLyVTu4wc
+         VbkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783352262; x=1783957062;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1hUvU7+YPjYZoemxWGudb5HAwYsBJ2lip94he8TAung=;
+        b=F16ncEgomTlxbu9QRFNnXf50n1BMTPfNSSq9BjQeAr4pdYD+tYAZmpKvy050pfQ5S/
+         k8Ky0L1PxWZTRenDXozq+yqhR3IMAiEQ8naDQVmqUywMABK2qakqZ+ORg9rR0IakmfB+
+         u59Tfb2eU2OvOHptSs+zn9fxZNW0hDEZQHhUC6CMKiTc3e9qAbnWAzoVRPup6ry3LJA/
+         Kk0vqfECKl8NvWDHEP+9n0Q3MhoodhkIKWdvPOV8+93+GUvPkZWS+BvC2kB5ykLVizuQ
+         cV0jhDvuitM7czxEdvfxAQoxulYsIArh865I135PNCu2Vi61KqkMdpStLlBEB5BrZAxk
+         485A==
+X-Forwarded-Encrypted: i=1; AHgh+RrAYAihOi+MzIq8Df4bqupeRAB5xVaFc7PdO6iK+qKSIUnCgA39JaMJEssgh0VyA/nBwXWYdxo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzQQFAbsOnwp2wWRHj9LklYTEFmANUC22qDJR8pHGq/AZuXSRkN
+	GBbCkCFq0+rc1nx1uaL97Do9pPEg4uW7HcVLGsgbOUCmwAWL2ioQAmXsqbu6lGassjXjLP5oEjG
+	kFuymMywJvi9eqgyrLsBRrqb8BGsw+NgrE8e/3ori3AS4GxT/51cZ/qxcaXE=
+X-Gm-Gg: AfdE7clzMI+aiMpvyg93KwnV9G/vW+HoeQX1CRep/wwxsgG1Rk2qWxi0x7KCOL3pzFZ
+	HeASNyxhlMvNTnx1svV88ygaeYWESJ8H21E8PokrXZS4Ka/aLaDmqn0yPH2VT+HQ4rp5rMX1bk7
+	XP66dww0VqyjyLg0oJ+RkIl3heEnbReVGdc/WaJN4qwjCCG8JreT+ZxEcqTXD0PkDK2P+tAxWnl
+	0jyWtnKm1SmqmEE8S0C/miqhp9c3RMyC7Zpm1gbY2eOMraSHrQoC0N0Zh65CMoVqmVGi93mEBGj
+	zvLh/xVRUgHujY0tJBfuPhKjU7B6aNAK2JqA9BPylmDa/GSZ/poLAScghnju4evxLGkmSlgHRSS
+	iYISVaUuvi0MJCmBDs9vpD3115OTRhgur8D0=
+X-Received: by 2002:a05:622a:144e:b0:51c:215:3e81 with SMTP id d75a77b69052e-51c4bddbc26mr100069661cf.4.1783352261799;
+        Mon, 06 Jul 2026 08:37:41 -0700 (PDT)
+X-Received: by 2002:a05:622a:144e:b0:51c:215:3e81 with SMTP id d75a77b69052e-51c4bddbc26mr100068971cf.4.1783352261047;
+        Mon, 06 Jul 2026 08:37:41 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69a19cd8904sm4294955a12.2.2026.07.06.08.37.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Jul 2026 08:37:40 -0700 (PDT)
+Message-ID: <decdd6fe-7460-42fe-9e53-0352f291d538@oss.qualcomm.com>
+Date: Mon, 6 Jul 2026 17:37:37 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH] media: rockchip: rga: quiesce IRQ before releasing m2m
- state
-From: Fan Wu <12321260@zju.edu.cn>
-In-Reply-To: <ba54b43f90b46960ce4e57f99ead11e4200d283d.camel@ndufresne.ca>
-Date: Mon, 6 Jul 2026 23:27:07 +0800
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
- jacob-chen@iotwrt.com,
- ezequiel@vanguardiasur.com.ar,
- mchehab@kernel.org,
- heiko@sntech.de,
- linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <CB4C9604-8CCF-4A2E-B8B0-FC49AAFEA514@zju.edu.cn>
-References: <20260704022853.77291-1-fanwu01@zju.edu.cn>
- <ba54b43f90b46960ce4e57f99ead11e4200d283d.camel@ndufresne.ca>
-To: Nicolas Dufresne <nicolas@ndufresne.ca>
-X-Mailer: Apple Mail (2.3774.600.62)
-X-CM-TRANSID:zi_KCgBXOzRVyUtqzJgdAg--.37327S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?dqOMzwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZyj5fn2rqIkMhUMM0kYWus3lLILucikqw2VGVgn3TCMm059
-	TPTTfv6HCtFDRH6LZYmp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxGw4kCr18tw15Xw4rKry5WrX_yoWrtry7pa
-	y5tayjkrWUGF4jqrnrXw47uFZ5Arnaya45Gr4Sg347Ar98Kr1kXryUCFy5ZFy3Zr97Aay2
-	vr4Yqas3ZF4YqFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
-	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] phy: qcom-qusb2: enable autoresume on Talos
+ platforms
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Kathiravan T <quic_kathirav@quicinc.com>,
+        Baruch Siach <baruch@tkos.co.il>, Dmitry Baryshkov <lumag@kernel.org>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Manu Gautam <mgautam@codeaurora.org>,
+        Kishon Vijay Abraham I <kishon@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260706-fix-qusb2-v2-0-8d9cd73b1db7@oss.qualcomm.com>
+ <20260706-fix-qusb2-v2-1-8d9cd73b1db7@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260706-fix-qusb2-v2-1-8d9cd73b1db7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: AvA56M6KJaSQBzv3SPzBC1VcEARHgIMk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE1OSBTYWx0ZWRfXyUJ9uwTR1Nnt
+ LIXbllKb9sCYvojckPUXAYA9xxPQcpH5EAFmq2P08g/YGRJuna76Yupq3b5/E1BdmSEw0ogshLg
+ TtLDc+MYTuQuYoSP0vcRIW5jY2vRwdcblAFC8FQETQL0lX4f9MRyO8U8GXiopaWadyXnjoGEeky
+ kPKcU0qDDhasZU/MGE19Cr920kSM86vtILbKnv3QBy60W21BqU5ykV+kvvhc/1eVt+acUdqvrVG
+ dvR73LCdnDqLUegLuJZtoYzWBlN8kn/heYfUXY//FZ18rGn6U4odwO2rHTY26VckRuAC7mhYLQ7
+ viQrStEdtI57oxdayp3D935f5tlhCn1zYdo6WT/60PCryaGAbLRrDGth9FmT0is9kaUwPR93jJE
+ LTTJXhnEplF9YZSVDwI5YQf1s1vsruaHeWYGmiqwIG6RLGfgxKBS7CxTDug+J7ek+vlLtA6iykV
+ R51iG5iRyCsXJwitJ9Q==
+X-Proofpoint-ORIG-GUID: AvA56M6KJaSQBzv3SPzBC1VcEARHgIMk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE1OSBTYWx0ZWRfX3tAIlW5JOAtm
+ VFInCKuaSSTVgZ3u0xVvWTbzReuIn/hbWaHfZXUISh6VUi/Wb92FwtZByRo7x76nDH/qhmd8Yo8
+ sTbzGCVpf2Ag0Qo6/oBFMOhafTr2wI0=
+X-Authority-Analysis: v=2.4 cv=c6Sbhx9l c=1 sm=1 tr=0 ts=6a4bcbc6 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=w1RBZjOZuwMwct0x8h4A:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-06_02,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ adultscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607060159
 
-Hi Nicolas,
+On 7/6/26 3:53 PM, Dmitry Baryshkov wrote:
+> According to Krishna, having autoresume disabled on Talos is a c&p
+> error and it should be enabled.
+> 
+> Suggested-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> Fixes: 8adbf20e0502 ("phy: qcom-qusb2: Add support for QCS615")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-Thanks, that is a fair point that RGA is not a free-running IRQ source;
-the interrupt should only be raised for job completion.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-I looked again for the abort/drain path, though, and I could not find =
-one
-in the RGA teardown path. `v4l2_m2m_release()` only frees the m2m =
-device.
-RGA does not provide a `.job_abort` callback, and `rga_remove()` does =
-not
-reset the engine or disable the IRQ before releasing the m2m state. The
-driver also leaves the devm-managed IRQ installed until devres cleanup
-after remove returns.
-
-So unless I am missing another path, teardown does not actively abort an
-in-flight RGA job; it relies on there being no in-flight job by the time
-remove gets there. In the normal case that is probably true, since the
-hardware is not free-running and the submitted job has normally =
-completed
-already. The case I was trying to cover is the narrower one where
-unbind/remove races with a still-running job.
-
-That said, I agree the explicit irq field, `devm_free_irq()` and the =
-long
-comment may be too much for a defensive corner-case fix without a
-reproducer. I can drop this patch, or respin it as a smaller ordering
-cleanup if you think that is useful.
-
-Thanks,
-Fan
-
-> On Jul 6, 2026, at 22:22, Nicolas Dufresne <nicolas@ndufresne.ca> =
-wrote:
->=20
-> Hi,
->=20
-> Le samedi 04 juillet 2026 =C3=A0 02:28 +0000, Fan Wu a =C3=A9crit :
->> rga_probe() requests the interrupt with devm_request_irq(), so devres
->> does not release the IRQ until after rga_remove() returns. =
-rga_remove()
->> currently releases rga->m2m_dev before that point.
->>=20
->> rga_isr() uses rga->m2m_dev through v4l2_m2m_job_finish(),
->> leaving a window where an interrupt can run after the m2m device has =
-been
->> released.
->=20
-> I have a doubt that this can really happen for this type of hardware. =
-Its not a
-> free-running HW that emits IRQ randomly, plus we have the abort =
-sequence that
-> ensure all jobs are completed before we pull it down.
->=20
->>=20
->> Unregister the video device first to stop new userspace submissions, =
-then
->> free the devm-managed IRQ explicitly before releasing the m2m device. =
-Move
->> the command buffer release after the IRQ teardown as well, so it is =
-not
->> released while a completion interrupt can still arrive.
->>=20
->> Store the IRQ number in struct rockchip_rga so rga_remove() can free =
-the
->> IRQ without looking it up again.
->>=20
->> Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
->>=20
->> ---
->> diff --git a/drivers/media/platform/rockchip/rga/rga.c =
-b/drivers/media/platform/rockchip/rga/rga.c
->> index 43f6a8d..118887a 100644
->> --- a/drivers/media/platform/rockchip/rga/rga.c
->> +++ b/drivers/media/platform/rockchip/rga/rga.c
->> @@ -828,6 +828,8 @@ static int rga_probe(struct platform_device =
-*pdev)
->>   goto err_put_clk;
->>   }
->> =20
->> + rga->irq =3D irq;
->> +
->>   ret =3D devm_request_irq(rga->dev, irq, rga_isr, 0,
->>          dev_name(rga->dev), rga);
->>   if (ret < 0) {
->> @@ -919,13 +921,21 @@ static void rga_remove(struct platform_device =
-*pdev)
->>  {
->>   struct rockchip_rga *rga =3D platform_get_drvdata(pdev);
->> =20
->> - dma_free_attrs(rga->dev, RGA_CMDBUF_SIZE, rga->cmdbuf_virt,
->> -        rga->cmdbuf_phy, DMA_ATTR_WRITE_COMBINE);
->> -
->>   v4l2_info(&rga->v4l2_dev, "Removing\n");
->> =20
->> - v4l2_m2m_release(rga->m2m_dev);
->>   video_unregister_device(rga->vfd);
->> +
->> + /*
->> + * The IRQ was requested with devm_request_irq() and is freed by =
-devm
->> + * only after this function returns. Free it explicitly here, after =
-the
->> + * video device is unregistered, but before v4l2_m2m_release() frees
->> + * rga->m2m_dev, which rga_isr() dereferences via =
-v4l2_m2m_job_finish().
->> + */
->> + devm_free_irq(rga->dev, rga->irq, rga);
->=20
-> I'm not saying we cannot do that, but its quite verbose for something =
-that
-> probably can't happen in practice.
->=20
-> Nicolas
->=20
->> +
->> + dma_free_attrs(rga->dev, RGA_CMDBUF_SIZE, rga->cmdbuf_virt,
->> +        rga->cmdbuf_phy, DMA_ATTR_WRITE_COMBINE);
->> + v4l2_m2m_release(rga->m2m_dev);
->>   v4l2_device_unregister(&rga->v4l2_dev);
->> =20
->>   pm_runtime_disable(rga->dev);
->> diff --git a/drivers/media/platform/rockchip/rga/rga.h =
-b/drivers/media/platform/rockchip/rga/rga.h
->> index 72a28b1..f76c45b 100644
->> --- a/drivers/media/platform/rockchip/rga/rga.h
->> +++ b/drivers/media/platform/rockchip/rga/rga.h
->> @@ -81,6 +81,7 @@ struct rockchip_rga {
->>   struct device *dev;
->>   struct regmap *grf;
->>   void __iomem *regs;
->> + int irq;
->>   struct clk *sclk;
->>   struct clk *aclk;
->>   struct clk *hclk;
->>=20
-
+Konrad
