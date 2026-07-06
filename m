@@ -1,139 +1,148 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023106.outbound.protection.outlook.com [40.107.44.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD563FAE1B
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 08:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783327729; cv=none; b=CGmFvwc3Ptchq8btOUPMcvvo25Q8K48dY5w0Meb/m8vIuY72vgeN5IH1UpDrENjwmAJXGV4GHM0vAObj70YYRdL+Ll3g4uRAskca4Hykkk9dLm4sd95ouInKh5IFO+PPMaCT+dsg+Yogw04Pil5mjcE1QuTKzxpSG9TriiiIngY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783327729; c=relaxed/simple;
-	bh=xM6/okhYflECMEneIeZKarjv5qK3xZGFBLjla8eF+bU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VjBaka5K/8nFRlZ5DWboIuW9ZsJ0yW4UxTXKs5tzs7XCjgfOW4QU+kZR3XTMI08iMDuDtFwaiAJzP28FSfWkldvDzyLYDlnvKkWMZSp/hpHmuXUIQz394+Aj7tbIAqnnrPiodj8SBBvrQ0XYxnVs6YAaxrO8FJ2H0CsqHBot29E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JlFqREC4; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742683BBA09
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 08:52:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.106
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783327945; cv=fail; b=OTP6jh5S89HadYbyye7aNXjEpe8O07DHg8zYNBNJLQAnirD4nmyMv3t6OdHt5+bEM4HXpFN0lYZfUj7F9XstkLnmwF/RiukgZ1g6uOaEO3JZylOalY3BfIOqUY8XL9tJ2MNxr9ksu9WR2kY2TTipBXm1fsFRWfb7P7P4YN8g7Vc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783327945; c=relaxed/simple;
+	bh=jS9oa363OhdyCrFKsrSDsS39B5oGOhaj3582+a71OK0=;
+	h=Message-ID:Date:To:From:Subject:Content-Type:MIME-Version; b=POyHD6PQhp43pFml3miAnSEEcoCRXwV8saKz4NR39kZIKAi8Jctk1X2ahjCTyeJSN81KLdtJooxCiuSNRAKG3NBtlTU8j2O/V03YmFv6+AlvKAq/tDtee8kWZzkeXTnlRf8MMySsuujpj+iPACnxdr1WU5ds9Qz5CUxasTem84k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=bPRCiqeG; arc=fail smtp.client-ip=40.107.44.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JlFqREC4"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 665MILNI2304038
-	for <stable@vger.kernel.org>; Mon, 6 Jul 2026 08:48:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=lW8G+tDv6Wk1GGW/kMZTMSbppMn/cD4jk7qeV45xa
-	So=; b=JlFqREC4IPcAbyosDS9gEDfEzhlKc7fnEOH+/VWYYMult+brqrh+dJiEW
-	vNAXSOE7xIHkB+fnHLQzYa0rFwQpaxMGgu+kKB5Xc+4BvIlAdKlsCwGoNb+UMvRX
-	f+fjw05ghwSnMqOnK6O3IsnYq6G0B6IF12kgCN4qI5RjJnDl6UxAmM6C/6qwOce2
-	2tfqvC/MkV+rilJXBddjDjoztNAiS3S+q3DINFPSnQk7WO8t2c8kRGmKNjcb7IB8
-	VbDJUecbv+BjW94p43GylbHT4i/WCHberaO/mxFa0UnsF3PwbRzyj/J+0od0SpPB
-	e7whfAMFE0/9Oel4+eAoJy6W5qlLA==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4f6sp3gjn5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 06 Jul 2026 08:48:35 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6668Yel0007899
-	for <stable@vger.kernel.org>; Mon, 6 Jul 2026 08:48:34 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4f7cvvvy3v-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 06 Jul 2026 08:48:34 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6668mTBd26411354
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 6 Jul 2026 08:48:29 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EA0FE20040;
-	Mon,  6 Jul 2026 08:48:28 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B46532004B;
-	Mon,  6 Jul 2026 08:48:28 +0000 (GMT)
-Received: from t83lp68.lnxne.boe (unknown [9.87.84.240])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  6 Jul 2026 08:48:28 +0000 (GMT)
-From: Hidayath Khan <hidayath@linux.ibm.com>
-To: aswin@linux.ibm.com, wintera@linux.ibm.com, pasic@linux.ibm.com,
-        nagamani@linux.ibm.com
-Cc: wenjia@linux.ibm.com, gbayer@linux.ibm.com,
-        linux390-list@tuxmaker.boeblingen.de.ibm.com, mjambigi@linux.ibm.com,
-        sidraya@linux.ibm.com, hidayath@linux.ibm.com, stable@vger.kernel.org
-Subject: [PATCH net] net/af_iucv: fix use-after-free of listen sock in iucv_callback_connreq()
-Date: Mon,  6 Jul 2026 10:48:25 +0200
-Message-ID: <20260706084825.6231-1-hidayath@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="bPRCiqeG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Je8njXNQn4k+CpFcQ4D3Ra8Ar2uItB969lJaOLCGAgtIw1EHfH2nRLh4i2xqlF1Kz0XToxAeeZAqW3zfuWOMoQPfsQK1jEKkSyjiNboiFTNlwS2squp7pM3IPWBidpc5eUaQJYGn3JrmdKP7+kcf1fG6ErHYdi8xQtrAk5aN5qod3f4aog0OTyroMqqzgVrxWqQ2x1058pwCfpw/9i8S1KlVGEc3buDPUhtpV0t8FrGs1yjzam1WvZsKRQrTfCSCe2b83J5w3R5kqBYFC5APMeQl4iZecwNtn7orrqqkbWs80YaNTOtjmN4sHYOsXC5OF3WNhBt3xk85oYbqU2TrKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2v32qR5IbOodZB5VEQCIga7d/ZkYOx1oH3M2xhIBaKw=;
+ b=jf19dZgCkBlr4DdwKjNdY8bCOAxotxYdVa4nlgJUTBehVcMHJDCkf+sZS3t1K5WczU2EcJSFPdSrycPAYhSp2GDj0hzc6btlQ57FzDZtwgKhIuP2PQbTCD5Y1ryOBvxNAsp+tNqizw7VGWtWBgkLWaW6Rn2dTRI3Nng1XYRUeEWMMZYlPgqVa8f96rZGU6sCKT4Cd936HRbKwOOyuJ9dIFL5qUi/XfIR6zUmXoaQSe7lhdE0khIPhUe5yVVWaDIqm2d4PE9X4LhutGFrDsJJJ1Im3Z+z7lLMljBL24DKqsUcppJnueB3cp7QVrzeRi/oj1CI45POmLf7ZNK/jzIY+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2v32qR5IbOodZB5VEQCIga7d/ZkYOx1oH3M2xhIBaKw=;
+ b=bPRCiqeGaMlqOM9vHvfVO8eejVSPDta1QBLpWJmf2UuMDLQH5CcyGBB1IgFtr+3aomgNtKLyI3n8u0Urt5MjnVHRPr0boaY8Y2qH7nqdr5SMUuoV8rP2PI70oPPmYoV2tOaFP02svay4MA3UOlIQxk4b+7ck5QRnZT1lZF7XI77a6c6TxilP7/QVX/9T1umjUyYSL+yl2v+A/W4fZFAFAy8Yn2+giCWcxPdWco0qx9oi4z0LKr0E+ApR+oAVj/cvQ3gDTqqoHoabqoz0qEcDvi2c5YKzIg7K6/LdtlMF3PWusEtph537M6DQVc1l27RRRCiG4Xdg6i+1ud9petkdyg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from TYUPR03MB7232.apcprd03.prod.outlook.com (2603:1096:400:354::5)
+ by TYNPR03MB9822.apcprd03.prod.outlook.com (2603:1096:405:3b2::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Mon, 6 Jul 2026
+ 08:52:15 +0000
+Received: from TYUPR03MB7232.apcprd03.prod.outlook.com
+ ([fe80::525d:fa76:296a:a64f]) by TYUPR03MB7232.apcprd03.prod.outlook.com
+ ([fe80::525d:fa76:296a:a64f%3]) with mapi id 15.21.0181.010; Mon, 6 Jul 2026
+ 08:52:15 +0000
+Message-ID: <e6003504-96f1-4dc8-9e6b-e17c8f809d75@amlogic.com>
+Date: Mon, 6 Jul 2026 16:52:12 +0800
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: stable@vger.kernel.org
+From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Subject: f2fs: fix UAF issue in f2fs_merge_page_bio()
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TPYP295CA0014.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:9::20) To TYUPR03MB7232.apcprd03.prod.outlook.com
+ (2603:1096:400:354::5)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=KsJ9H2WN c=1 sm=1 tr=0 ts=6a4b6be3 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=UbVHRO3OadWMqvE3euwA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDA4OCBTYWx0ZWRfX4bdrdkisOGdo
- 1Gen7uibeheNiahPn6A4vSRnD7ldfvd5sPe3IcCRVXH+fk4cljZm0TPkABdPZ9iMlvX+CG+eH7G
- TqlgMKz3BjZ6xKZ34UFbEivPEUZeeXI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDA4OCBTYWx0ZWRfX5HahXdZl3cXN
- X4ZIvS46ExNNDF15b+u3IAGCA6z+PlHxVvBH7U2lljV1wRO/ReX8P2QCw265wLfAQ3SO9I8JFRf
- 7kTz+BiKWF43Jv7M8/pR7W2jMJWq8e1XW+HHRO8xg2FJEjx8ZdoFhfDwT0pl2/d5dXKs7ut4dIG
- j8heX6pShkWxYNVVbHM5Qk6y+02zRyo1LeI6tFYR9ybae51am7aHPT+IixxONwM/M60dXLvVZvp
- TVWtCUocTgmmSXNTScDGtYRhGLIGGQJzLcCgqxlEDIh/1bSArJLmIMldRCCbW8umo77a79Plqlb
- eN4OGGC7HwS12HNtyqnmEWrJjfB2b9Iwov0eVACGaQzVTfKtgpDoCBpS89Imn7w6VmDHVCcnIt7
- NJJ8wlOzX2qClxGtJykRke1qwYe0h0+lzLt6wQBUakNzEssRyue8m9VGpKyRuyy26hYA7WmT0ps
- 13tIv3WkfzsUsfa3U1A==
-X-Proofpoint-ORIG-GUID: e8-s_10ObFqK7p1Q_V9ywGrjnVbf_-iw
-X-Proofpoint-GUID: e8-s_10ObFqK7p1Q_V9ywGrjnVbf_-iw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-05_02,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 spamscore=0 adultscore=0 clxscore=1011
- suspectscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060088
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYUPR03MB7232:EE_|TYNPR03MB9822:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88f33044-7d27-4a37-c839-08dedb3be062
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	wjespU8odccaRDm/4rnOn3bEM3494D+BB4j+Q6JI9mFrfcAHH1RF2OlgYZHl5yJIbLl7SIvRt8vR4RxhJDSR12Ml262HqcY+XDrSZqOJcd1J9Cd2UK3mg7gmWSutodR9s4i1/SEOD0IQ05rKj4p8wNKKXlefQltegdxwv70NHcYYydTYGMct5I5EO5/uVgGRY/nl+svNE3lyLIzYRtZprZCu+cRePyvovJnwDemdw8+n9wysDTJuUXlG4jD0yLawK+O0lLs6PNEYAfxL6qM+tnandlktxTml1l30hjMxpvTWAlTqYt/5cqA4+Z7EwkYB9E35SVDqmextFlo+buqq021/rsqqI9MF1teeX0efuICrQCqhhEoC4ggsbVS9cWiVgntPYNviyLCYNM2uH2U1a/z9/R5YLDC5VLLOvi/LAoo5J+E/JKj+ewnxHATuy0IROofGkyXeTo3KwXgKe8jNkEQE69vEXjVADZTAWH1XD0E98Y9nf7FWafr3DEOSsU4nSrP+w1BzF972NF3HNG6WWKHXs38dRf6drJQycmLdao0OvK2/ODafWIdZa55EF/iL/oIollqPCFjG9+lGccrRC63TLzy7YSwHibH65OTb1VvhRqHqlULHE1QN1jAL/6ZIkQt8o+9W4Q/2kw9Z4jwljmCNqgjki64684LWOFjys/8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYUPR03MB7232.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NXZwNHJrRmYvazBGSm1wcmFpVFMxRTJUZkpHblJ0cUlscSt5RjNMek9mV09h?=
+ =?utf-8?B?dENxTmh2NnB1aEVZMzNkUmtIckUrTGsycEtLRFdOMVpHK1IvL0VodkxFOUZu?=
+ =?utf-8?B?OFQ4UUtTamFDMTRCRVlTV2VEdHdXV3Nhb1pFTUtZejl0TDY4UjdnZldJY1ZU?=
+ =?utf-8?B?R2c4SmhhM2pjUXlLTEJJWlB2LzBYK0dhVko0U2kxU1p3S01qTVMwam5GQVdo?=
+ =?utf-8?B?R25neVBUcENhVDR4L1pvMGR1NDIwUkI3MUR4ODdtMlpndWt2aDBQdUtwZUtx?=
+ =?utf-8?B?dkdBTllkVHVSU0EyY0FrTkVrd1JYZUt5SWQ2STNqMkU5WU40aDNBWGZ6cEt6?=
+ =?utf-8?B?eTdFeDFqcXZlWWxIb1RyZjNWL2lDeTQwVkVQM25nTHBIVmJBTGUzQlNNQTJ4?=
+ =?utf-8?B?dnNwZFA0Ry9PYjhENEI2aVM4RWVhTDFxUk5rbFE3dFpGczlNNzB3NGQ0OElV?=
+ =?utf-8?B?dTh0RWlLYUJEQ2RJYlhCNXdIUFl0Tk9JNGZlYXRCV0ZTLzNFSzl5N0pzVE0z?=
+ =?utf-8?B?d0hqbnpDMmNoVHhRSURmYkxkK3pBQjhINnkxdS94Y2VSYjdIOGVWY21lQ0Nu?=
+ =?utf-8?B?YndUQUJmOEI5cjJZdjhURnRNRkVONTQxdFRweHYxZHF1V0FUTlNxNU9WUjdK?=
+ =?utf-8?B?dGxHdlA1OGZSTlZsZXAwY2M2QVVKWm4rZzFCWnd3WXoxU2FVelNJYWV4ZzJV?=
+ =?utf-8?B?SERxMExCQjQ1QzZWdG1GTm9zdksxeGlEdittZ1F0akd2WEplQkFIZlFpOGw4?=
+ =?utf-8?B?TUxVb2t0TnJnVCtwbW81dHJjcG40L2hNRTlBZkVPWVNMQ0xOS3drbTJSQVNj?=
+ =?utf-8?B?aEdNN3VuUmZmYysvVTMxZ1lVZ1dMNVNrQWVaQTIwWFRvWE9VN3ZhbzVnMUI2?=
+ =?utf-8?B?VjVXbTRWZ2hjODVSTWVNYzhPVnBsLytwU2tVV3NSajRIdTFxamUybHg1eE1J?=
+ =?utf-8?B?MVViWFRBRVpYYk8xMWxJdmxjTGNZVjlnZjRqbTRpbmNjZWhETnl5TlV6elB3?=
+ =?utf-8?B?UVJYcXdiSlVhVngzd09NazZUWjJYYjcxSC9iWUppVitjL0hQcERybmdkSE0v?=
+ =?utf-8?B?alN1aVBEcTd3WXg1MG93VzYxZ3lLRURQZjA4ZitMdkdxWEgvcHBCb09SS2Fk?=
+ =?utf-8?B?ZVNkMmxGSTNMQXU5VlJKUnZrUFFDZndramt1d0gvTVRQVm9LTFJEVTJYSUpJ?=
+ =?utf-8?B?eTh5MkpDMEVBTWNwSmw0anJZdlYyUlFYUWtMdEdtRFJ1TldFaWpoSE1ZM2tr?=
+ =?utf-8?B?RTNPWUhEWWxxMjVwdXRoK1JHaDZQdnFLVU9RUVUxb2NBVlowd0wzZlhKZUJr?=
+ =?utf-8?B?RmF0TnF6VmZ6YWtSK29YRlphU2QyWlFsWGdaUEs0dXp1bjFNWllIZnhxR0Z0?=
+ =?utf-8?B?SzRHQlhaSWxzVnBkdmhvYjZSVDBjTEpzM3I2VVQvZDZPN0NJOXIyYW5adklI?=
+ =?utf-8?B?MERBd1JMSGxxZWVpVDJPK0p1VzFvR0haR3NNV2JTNHBMTTdEYkFTKzl3UTls?=
+ =?utf-8?B?TFFIQjlNVmZuVThMQStrTnVjSm4zZGFaaE5Wd2ltRVZYOVNXZ1B6eDBnRTlz?=
+ =?utf-8?B?dEQ1bXg1S3pPUXlId3JzOVBUSHlrL01PWmttL05nWEZsMVY2bDBRemlXRFBG?=
+ =?utf-8?B?b213RUg5UmVjdUhBSlp4cDJOai9rNkZKS2hxRGNBb0tSQS9PSXhBNDZicjhP?=
+ =?utf-8?B?R25lMkJvUXB5STJyZlpqNEkxVnlRY3Nvek9XYTRDZCsxSHk3ZkNEQUZvQys2?=
+ =?utf-8?B?RWJ1TWJMUk16c0w1NTI5SjhuaWF4aFE5ak8yeXJGMG54TFBhS25wcW9oWDdZ?=
+ =?utf-8?B?SXc0ZUxqc3dUSDZzRkk4TGpHSmFlS1RhVVVvTXRHWWVzYzNteE5HaE5Ebndn?=
+ =?utf-8?B?SE1CUnloU2M4T2ppVmJNa2tBZFJzM2FhRzRreGpMQ05QT2FTUHZWV21tWVpq?=
+ =?utf-8?B?ZTdYVmV0eHZCc3lWN1dFU2krUHZqc1k1clBsdUJOTk1MTTVLQXFyQkJSaXNh?=
+ =?utf-8?B?aHl2ZHMzOXp1MEdGQWluaXNGaHlVMis2MHFOeDdKLzdhUFJOajBMZzlJcE5C?=
+ =?utf-8?B?bzhmWjRkTG1GTFdjWWlYVlc4anovTVNwU0J5a2FMTVRFaWV5UUJCYkVXOTFv?=
+ =?utf-8?B?THJUTis4YkZmKzl6c1gzM25XTUw3SUUrbzdHdFpPa3kxd01MdUwxczBpRm1Z?=
+ =?utf-8?B?R1dHMnBqRmdEOW1ockQ4UTM2eUFMQWgycG83eDNjS1dCRDdZL0plMlpqLzU4?=
+ =?utf-8?B?NFZFNG1sUlE5SlJNUE5UbXl5QXEvTmROWFFpU05lV3dySDNWb0hOQ3ExdTd1?=
+ =?utf-8?B?bVFZZys3SDJ0RVRMM3VUVXdqT0ZLQ0dzaW1acEpIcHFOUzBuaElHQT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88f33044-7d27-4a37-c839-08dedb3be062
+X-MS-Exchange-CrossTenant-AuthSource: TYUPR03MB7232.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 08:52:15.0196
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DgpLM3yA9ifTPP7DzJeZjIp4+h813sNPASMPA+hAXqlg19GQZ2JtzItceJTY0crJNxeI/jwrCByVhPls+/HCuQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR03MB9822
 
-iucv_callback_connreq() looks up the listening socket in iucv_sk_list
-under read_lock(&iucv_sk_list.lock), drops the lock, and only then
-uses the socket (bh_lock_sock() and the following connection setup).
-No reference is taken on the socket before the lock is released.
+Dear maintainers,
 
-The callback runs from the iucv tasklet. A concurrent close of the
-listening socket does not synchronize with it.
-Between read_unlock() and bh_lock_sock() a concurrent close on another
-CPU can free the socket.
+A f2fs patch should be backported from upstream mainline to the stable
+5.15.y branches. The patch's information is shown as below:
 
-Fixes: eac3731bd04c ("[S390]: Add AF_IUCV socket support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
----
- net/iucv/af_iucv.c | 3 +++
- 1 file changed, 3 insertions(+)
+[Subject]
+f2fs: fix UAF issue in f2fs_merge_page_bio()
 
-diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
-index fed240b453bd..890d9df5ae36 100644
---- a/net/iucv/af_iucv.c
-+++ b/net/iucv/af_iucv.c
-@@ -1616,6 +1616,8 @@ static int iucv_callback_connreq(struct iucv_path *path,
- 			iucv = iucv_sk(sk);
- 			break;
- 		}
-+	if (iucv)
-+		sock_hold(sk);
- 	read_unlock(&iucv_sk_list.lock);
- 	if (!iucv)
- 		/* No socket found, not one of our paths. */
-@@ -1684,6 +1686,7 @@ static int iucv_callback_connreq(struct iucv_path *path,
- 	err = 0;
- fail:
- 	bh_unlock_sock(sk);
-+	sock_put(sk);
- 	return 0;
- }
- 
--- 
-2.52.0
+[Upstream commit ID]
+edf7e9040fc52c922db947f9c6c36f07377c52ea
 
+[Kernel version]
+5.15.y
+
+[Why]
+We encountered the same issue on the 5.15 kernel version. After 
+referring to the modifications in the upstream, the issue was solved.
+
+
+
+
+Thanks,
+Jiucheng
