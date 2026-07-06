@@ -1,150 +1,73 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B572EEE7C
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 17:07:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178D31A316E;
+	Mon,  6 Jul 2026 17:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783357660; cv=none; b=s84hgKQrRB/kxfSgFLje+rzVfKZuAtecFDAPiVBjGWvfkC1EjQkrDiY6GctpiXYDcqfETO/6MHqFcgHXCWFIsXO/sJzdS8dIdavQyUMxHrAN0DzOj9O70L2FKU9FP4QaqzJOJfEzKA+tCuox4QrPzp45ODq8Arsnild5hkQipF4=
+	t=1783359022; cv=none; b=s0sDXIMCKCuQGzaOlDwwv3UVBFaSrDRHtOEh2ZApT9VPYHS+pxY8cQtHCc3C9eJsYz8kKXDUoNMijjz1SAg2c5lG4nXm3iFUEGDmi3zjg3z5TAxaDzyCXk2GU9+OcRT/8o/8Np5ySNNCVE+d/2AzzJG9e4NNnOXQgrjazwNqZBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783357660; c=relaxed/simple;
-	bh=La52E/eiMRqbkoa9U+7aHtBFszAa88Y67rC6/ILJHpg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GQuEbKp5vDrHCmszAXzm1mqYsqWPRhgi2ubiDnSYNQtDaWqIzWIuQvKkqJqM/aBI2dasB08HSyAFZXVo76FXIywpp5tFuDiYwjCIuoHn3dkdhWV0AFKndjMoVLdFDkM3drvevVoQPDEfcIN/EAHuLUkUYQ5eKRrXyKK9+sHIgM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KXP9DNGK; arc=none smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783359022; c=relaxed/simple;
+	bh=n8CrQ2oFg6l9PiCKJKi7eQ0l04aMQnpEaSMal4Wsqcw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=rLcXJ7LjW1LK8SwvUIm958Q87ZYa3+ZRuDxsUjI60AMt1cOnpCwpe5VIEfru5l/695wfnB5O81ZmNJ4a0NEYE/qyrdbtiUglGnmhfRzOPMyqhK7ihvTpKaairgZk4uTH7jvjFdokNNT1AUpij/LKwp6jWjOFs/867vDNELDKEz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wd6dZxqf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KXP9DNGK"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aeb6d00883so2705597e87.1
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 10:07:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783357657; x=1783962457; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bTKln45GM0fk011qbQeayCXILczaZaZoSzdEKWSP20w=;
-        b=KXP9DNGKEjHVvZLJ5rIwZMPGFAnltlbmFPUAFbH7UMXwf44WaT0DV5hu2MweMeJ54c
-         hsaWHGTFtSaGwhrS6fTcQgHmBkXXoWk0BiUrPVrdsDEyU29cxViPaVYlG04V73rmP6bX
-         S34U9xPiPoguE5uqAOKFCn5F7csp8QJ83khHAKsMNod37F5WwN7kyxMHRrLnrpnVHQcx
-         Pt6k8p4QfCGqXBy7NOpraSi7ztJK9HomnLkOv6oAwKX2W/5AjKEDSTvyAZkNDweBeueR
-         Yvq8oDr0PLnrH2HWlspqHGBQzUnbGrjZ4/dqRohl77NEvEP22vwLR7NRIjARdos9c9tK
-         jhzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783357657; x=1783962457;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bTKln45GM0fk011qbQeayCXILczaZaZoSzdEKWSP20w=;
-        b=mg7uyZ4Q8UD6W9ebH03eLMcVFXW2razSUUpEXQNOrrY/bLg2YkGyI5NlBQi2LjvCnr
-         NOG/MN/OFEUXSXZYBndIdfUd3j6yzdg/5s/l9mYbvne4iUCiDst2CWebK9SI8hceXG2+
-         aRyOalDgHQ4d6SdEHMETFpwpuJFGUllhMYFSYkDclixpnUFg5RsvrqQWf94ugRgutqi8
-         dO5ZypCPlEfGnN8lrRHh6YBev/k20DhJSUwkyhPbCJqCSK4DHfclMfT+UekLIOT5CjIF
-         ta0AgB4SnPQEyB+jKmMg+PCpaekJod1TdIvEB+mH9WbJvPn4ffs9/h5Ecap2bp0nYJ4f
-         HrfQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro1BRDqsdHaa4MPpf2bSAgqXKLXdNR8ZXzngn9Wk392GqnaG1aC5UI+UY3opFq2pelR1xc1BCE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YylIkg9OQ13efamEd8u0tUycHG1g+w4a08bzyHEFLmVfQ0kWUoQ
-	HkhPquhH1RE0Rzs9xgCTqSjUONd5xVRCkr2bEwqUP4NcPLdPZMzyBik61masA1EJ
-X-Gm-Gg: AfdE7clAxQD4ZBAbHxIsi2puU9JZnBUncZ3M/TmjqeOIvCg08+7VRx16km/o0iLM2qA
-	xFH6qK6FCwC1rqoA8XhibFp/LVdyib0ZLpRq4fR0TEn2/t5e+r6Wrry6WdkSpHS7oWWXo/Y+yw0
-	2+IaJYQiaB4jtoGLGtdlDQgwMV9SRi9Ul9i/h0AcM+mP0WHws6LQbui8bT9aeb/RqSHmSw5+MqN
-	maSbM1Su8aDliGMnrWAZe89rptNuZJaYZlj2sgIhZMMpqN5t7opBDPTryPBMpxpi+1nQnTDsEuH
-	QrusIU4mZyEMi1lrMkjetivAcGhzmIC+sEz1zBPixMHY9EG3MZHZkNI47krPeYw5VcP7D+FO8rv
-	xK6kXU8lgwVBAndyhwUTv2/VsfpEcAG+X2kyGVvxrXpenQEAQqNSVf0CQzRB+xVEKQ8oXXLJZnQ
-	Jcxt/vYNJ2yPFkcxcQKCvNaR0HTGvfvAx4Yo26q1IYiSAORBB6QKBgiiz7nYJ7X6y7hrY7mLvHG
-	a2cuJn5TYdG7H+zW/03RreKiaI=
-X-Received: by 2002:a05:6512:48cb:b0:5ae:ba8f:f9fa with SMTP id 2adb3069b0e04-5b007c0b9d4mr246661e87.18.1783357657394;
-        Mon, 06 Jul 2026 10:07:37 -0700 (PDT)
-Received: from buildhost.darklands.se (h-158-174-102-211.A469.priv.bahnhof.se. [158.174.102.211])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed13bb774sm3031918e87.48.2026.07.06.10.07.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 10:07:36 -0700 (PDT)
-From: Magnus Lindholm <linmag7@gmail.com>
-To: jannh@google.com
-Cc: arjan@linux.intel.com,
-	brauner@kernel.org,
-	ebiederm@xmission.com,
-	jack@suse.cz,
-	jake@lwn.net,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org,
-	viro@zeniv.linux.org.uk
-Subject: Re: [PATCH] proc: protect ptrace_may_access() with exec_update_lock (part 1)
-Date: Mon,  6 Jul 2026 19:07:35 +0200
-Message-ID: <20260706170735.2941493-1-linmag7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260518-procfs-lockfix-part1-v1-1-5c3d20e0ac33@google.com>
-References: <20260518-procfs-lockfix-part1-v1-1-5c3d20e0ac33@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wd6dZxqf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A3FE1F000E9;
+	Mon,  6 Jul 2026 17:30:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783359020;
+	bh=Odrk/M0uzEm06cV07YV8KYxA41sO4LNg6nGCO1QYWbA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Wd6dZxqfLTij3E3ieK9/A/CoDuen7mpydkFdkhqPhOg0DaeBl60WQuThd6GsVfabH
+	 IOaX4v5EHfYicBSXFw40C0eLYNv0OIl/Fr0GxAqLfg9R7uMk3YATC7VxRyoZNSUnyx
+	 LMaGMJgC5cRSjkR6USf/b31dzx1lvebBQ+ejbtf3icth/WsE97fPukMT/F1o/+jrVw
+	 iX0yhdUXUzHEjHJISW+32BRRxMjke6TBaCSckth2NXTu6EUzXgDsIyoidO8NqLhpou
+	 XiFPb2Tyihcxn86x4DlE3lCGN/j+O4EAvTyjE4wOm1zqNn1gGcqxTtUVJpMOjOQI+i
+	 xqNbsUC+zHPyA==
+From: Chen-Yu Tsai <wens@kernel.org>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ jernej.skrabec@gmail.com, samuel@sholland.org, 
+ Wentao Liang <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260607030950.83636-1-vulab@iscas.ac.cn>
+References: <20260607030950.83636-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] drm/sun4i: fix refcount leak in
+ sun4i_backend_init_sat()
+Message-Id: <178335901812.4027169.1529206377701282403.b4-ty@kernel.org>
+Date: Tue, 07 Jul 2026 01:30:18 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.2
 
-Hi,
+On Sun, 07 Jun 2026 03:09:50 +0000, Wentao Liang wrote:
+> When sun4i_backend_init_sat() calls reset_control_deassert() it
+> increments the deassert_count of the reset controller, and must
+> pair that with a reset_control_assert() call to decrement it.
+> In the error path where clk_prepare_enable() fails, the function
+> returns immediately without calling reset_control_assert(), leaking
+> the reference count.  Other error paths, like the devm_clk_get()
+> failure, correctly jump to the err_assert_reset label which performs
+> the missing assert.
+> 
+> [...]
 
-while testing my Alpha generic-entry series on top of v7.2-rc1, I noticed
-that several strace --pidns-translation tests started failing. The same
-generic-entry series on top of v7.1-rc1 passes these tests.
+Applied to drm-misc-next in drm-misc, thanks!
 
-I bisected the regression between v7.1-rc1 and v7.2-rc1, always applying
-the same generic-entry series before testing, and the first bad commit is:
+[1/1] drm/sun4i: fix refcount leak in sun4i_backend_init_sat()
+      commit: f7a56ff6240e6fd0cb36a3c0a911a1cd54789ce2
 
-  6650527444dadc63d84aa939d14ecba4fadb2f69
-  proc: protect ptrace_may_access() with exec_update_lock (part 1)
+Best regards,
+-- 
+Chen-Yu Tsai <wens@kernel.org>
 
-Examples of failing strace tests include:
-
-  signal_receive--pidns-translation.gen.test
-  so_peercred--pidns-translation.gen.test
-  tgkill--pidns-translation.gen.test
-  tkill--pidns-translation.gen.test
-  fcntl--pidns-translation.gen.test
-  xet_robust_list--pidns-translation.gen.test
-  xetpgid--pidns-translation.gen.test
-  xetpriority--pidns-translation.gen.test
-
-One simple reproducer is:
-
-  cd strace/tests
-  ./xetpgid--pidns-translation.gen.test
-
-The failure looks like this:
-
-  ../../src/strace: NS_* ioctl commands are not supported by the kernel
-
-and the decoded output lacks the expected pidns translation comments, e.g.:
-
-  - getpgid(2 /* 6 in strace's PID NS */) = 0
-  + getpgid(2) = 0
-
-Looking at the patch, the relevant part seems to be the change in
-fs/proc/namespaces.c: proc_ns_get_link() and proc_ns_readlink() now take
-task->signal->exec_update_lock around the ptrace_may_access() check and
-namespace link/readlink handling. strace's --decode-pids=pidns code appears
-to rely on accessing /proc/<pid>/ns/pid for short-lived tracees in a nested
-PID namespace, so this looks like a plausible connection to the failure.
-
-The kernel has the relevant namespace options enabled:
-
-  CONFIG_NAMESPACES=y
-  CONFIG_USER_NS=y
-  CONFIG_PID_NS=y
-  CONFIG_CHECKPOINT_RESTORE=y
-  CONFIG_PROC_FS=y
-
-I also tested the basic nsfs ioctls with a small standalone program, both
-outside and inside "unshare -Urpf", and NS_GET_NSTYPE,
-NS_GET_PID_IN_PIDNS and NS_GET_PID_FROM_PIDNS all work there. So the failure
-does not look like missing namespace support or a simple ioctl-number issue;
-it seems specific to the proc/ns access pattern used by strace's pidns
-translation code.
-
-#regzbot introduced: 6650527444dadc63d84aa939d14ecba4fadb2f69
-
-Thanks,
-Magnus
