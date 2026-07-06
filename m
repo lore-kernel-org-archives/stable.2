@@ -1,139 +1,209 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B49C3A963D;
-	Mon,  6 Jul 2026 14:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3A33A75A3
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 14:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783347478; cv=none; b=BpQrRjwQw2pd5y4JHUE9KXpDucYcRwSNXpfOGLvaTcu4fAyXTU3PFAOF3N2nTO4FQF26EPkPQIb0pRl2odrgTJUboNM3JHdg2SaSAN2uRenQL/SpT5DXcacLshkCOTwndBsTHZp/xEDlNJUcFYbZI+dsvQS1RlymLIi5r5YQAX8=
+	t=1783347761; cv=none; b=VK7lxLsHAF6VO5+gmvd9mP7zMksd/ETnOM6fLUEwEKYkDZhNkH7rE9vIcNy9rN3tookS2X5GD5nFLIUInTmIRzZirP2xcCR+3x73yEjR+hxLlSfaDJNCDNEwcuf56gsC05FjHmlWbKcXE0YpE4KlhdlCgWv9N6xWPHOYbQzI0ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783347478; c=relaxed/simple;
-	bh=5rB+tcWjPVVWfW6ycYrFHi0qPClI3epYHo2xDUT70Ww=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=oiDPmRM/zz5xuAprp4S5ZAC4c9ReUhNRvNmNB+VLi02mwp3BiolsAHTzZq6V8eNLENBD+pTX/4N+bvsoqKW6T9H8jgp94vNnMF1r0gh7LNygd8ykYaxjAdMxC3YN+xWRczJFkF3UH3U58xsYfxhxJQFYWrohEwlJlOd+nqZvKPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=sdwh+UwC; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	s=arc-20240116; t=1783347761; c=relaxed/simple;
+	bh=EFJbdj8G9/8FT2Pz03JTkkjxpF2xPVkRSKJF4qj/JaY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Jy5uhFVuIecLUd/dKCfbRHDkZAErtrQetf4yW5nOfGohLfB1IfqciSm0mWwYf4cPpSht33LQzn/s4SBqWl3ujucHQIHQ/TBTRecijiv5JUu9PHJgNPvscdHm99tw2CDL4nZKsfaFoiSmVDc4Uhpjnkz11fzDfvclpblmqhX42vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=uvpSVavQ; arc=none smtp.client-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="sdwh+UwC"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 365422121F;
-	Mon, 06 Jul 2026 17:17:50 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=H2kYV2YNGwRbDpvUxivqC0uqB2DTUR1fxY9v63DflU8=; b=sdwh+UwCJLvB
-	Clp4C2RDPFw1foh+ob0EyuIg32UOTuyouSy5whBrJgCVAHX6VnvomZXf4QummmGz
-	UWrF26Kj1Hh/ZNuoJZELwCEEqL0s18YE9QClgJd5mRQ80PpObxFNH2nS1gXtlaew
-	ZnLh9B2pFPr9+mlM+SBPnDvxmJKxvsq3UbJ/9yNbrWJ+AeSMv/W2wRoZFzs5Nu1g
-	Ppzj/JnnZDv8Xusj5QrLn6pFQLwiOlZskXZ0ezsFrK3uZvDVjKks7t3Dq+E7xOhL
-	e8s6/Noij2vSsYTCQhaaP1XhJhtmyRG9e4smr48qz+OndzgtwU6bHH5eBMkLXCNp
-	phhgS7EOY9yokgW3jzsGgrDCTq2tR1orxRZkcQuEfZXa9ZUAlWu5kPn/aBpxDhVW
-	rQHm4IR+QKRM8NgARnBtz3RxL8awZtp3Aakd7tl9RK5Wz5sCcraHALMsOGDyg5tw
-	RKhSn6waYfgtOVE+UAfy0rbMj7eDHejkbSimebQYqRYud+b3LU0j+JCjcfQ5zZWP
-	UKDpD7HkCTHjkkbsXYNtPZSlmJGLXCpxsXachJshmki1vsAPErMMibziv7r1NF6n
-	BRN1WQ83SUMRAgfJ6/5WLplaLuCSCeVTAEutrf5m90DDaK4sDKUqq9ZjANSPChYK
-	7jy7WZiSm+j0rMrVawIGK4YSRAUGBz8=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Mon, 06 Jul 2026 17:17:50 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 4597E60B74;
-	Mon,  6 Jul 2026 17:17:46 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 666EHc2t054134;
-	Mon, 6 Jul 2026 17:17:39 +0300
-Date: Mon, 6 Jul 2026 17:17:38 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-cc: netdev@vger.kernel.org, Simon Horman <horms@verge.net.au>,
-        Pablo Neira Ayuso <pablo@netfilter.org>,
-        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, lvs-devel@vger.kernel.org,
-        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-        linux-kernel@vger.kernel.org,
-        Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-        Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-        Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
-        stable@vger.kernel.org
-Subject: Re: [PATCH nf] ipvs: skip IPv6 extension headers in SCTP state
- lookup
-In-Reply-To: <87E04893-B2B2-485F-B242-9CACF2F176D6@mails.tsinghua.edu.cn>
-Message-ID: <bcd7f0e6-b2fc-4e54-f9ac-e1c8b1b0c497@ssi.bg>
-References: <20260705123040.35755-1-zhaoyz24@mails.tsinghua.edu.cn> <92783c87-7e6a-e90a-b2fc-e5d1332139e0@ssi.bg> <87E04893-B2B2-485F-B242-9CACF2F176D6@mails.tsinghua.edu.cn>
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="uvpSVavQ"
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5bdd0779366so801783e0c.1
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 07:22:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1783347757; x=1783952557; darn=vger.kernel.org;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=MVNfxXIhfRbzejobq0Bw+fm1oMgBFxUSiDv+/DvkLmA=;
+        b=uvpSVavQ0DUptzEzxZVLvWYqDfnXhqWB2yuHAOjYlVaN1qvREyHHeh4JjCceZe8bNf
+         YHjRwNf5k2yHTiohrHakUsK2wpf3mjWxcQU/qIvIchvenJDWT0tdpGVPdq6yW9NIgkvU
+         3ywxb6o1dQJ19PpO0UDkiG2+pYc0r/iM7Mgs4+R6q8biiotHe03NB9kubcjuzpTLrRlP
+         zGzPkSzb+JsL+6RnnWuqAGQQqzMgThtVI7+vpEl/WgBXt3tCfZuwxG9iEXtrerGj3Gdr
+         w5p/ncsoQzaQl3X5U7e6xqa6HJuSNq/A0SqeMKTdXG0RekRDwz+9LW38qQIWpBF+phDN
+         eAvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783347757; x=1783952557;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=MVNfxXIhfRbzejobq0Bw+fm1oMgBFxUSiDv+/DvkLmA=;
+        b=JFzf/ZfQP8DMypBnKx/N0GRilRtC4KeMe4rgGZuu99J151dyISu5oF2Z2ywFb61r0r
+         CgfEfshX1YNt26MQb29v5JonzjEIicVHMlcnOtrfhErEONi6cPs0N3yNr8p1uBF+h/XU
+         jmR0BM2pfX8BVsdgVNgjy2gsyUoCJPbKwV5irNYo8ldxhk0PQMWpFtd7hhbvLLigPyRd
+         Uje/7RhHZvYc4N1MbvMXXnPRXeMLbyli2IwXSR5sFyscMb7VzLoqCULMk7C0TWemhpmV
+         KGBrZnEqBcdKVuiptsodSTCEuk0sS1nTaKekFv/AxoSKQ4okAWToZDP0SiUdO/6mO6Ad
+         +KXA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp33qJepmzNb5K76MOkHB9vnzOTPH2mehq4br3UDMgRUUW+WRciOfwHh1WG+b0yvzBLnfvPNbI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxNqSqqaOoihsaACPnyPB/1E9chUQbFkgKBi7zH+8e1E26ancwp
+	j47rMJaTIRZc8zF8yrMGzG+C+zYBLJSYJQ2U3uAD3WQWFWjtfF0bG5KIGisjdPln5TE=
+X-Gm-Gg: AfdE7cndmP9QrN+rL9nUnk+HcgW7EerhTEhnXBKo1Pm91JWNlDmHFEREYdOOdU4O+i/
+	jc8G9ePmR3JL8BI/Nv0XNkBrWanuEj2JSCQhu+fAKEGGdq0rlwrCdyjBmDvI37aQe+JHlGqh6aA
+	zRrbdV3yqOS5qdo2ndrH7U16tKn1CM/hu5SId7tpnM+VY1LOolhoWj5v9xvzeGFicqKtUUg+7XF
+	FeLoI6396Dv5JqXfa1yP/cf0m7MzqatJBneWMZdKmZoZ+UMz04ch0xexpcD8C2YWY1iap0r/TMX
+	C9GwFbdbr9y+G/9wVEJDN2LOTmiXjimfljs/XQIKr2wuZzRNbQ+WHmGz5TanW+hfO5vO0OcTpgo
+	lRS3N8jTul7IzyIiXeJnvuhK3g8nHZWqeKl0mI78LfOrH7ul3D00Z+KjmU7Km4FFFCL4zcdD4j9
+	9KgJcFg3K730GYp5lonQ==
+X-Received: by 2002:a05:6122:3386:b0:5bd:a214:c933 with SMTP id 71dfb90a1353d-5be909062cfmr455408e0c.14.1783347757252;
+        Mon, 06 Jul 2026 07:22:37 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e06b::c41? ([2606:6d00:15:e06b::c41])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-969838c1449sm5287075241.5.2026.07.06.07.22.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 07:22:36 -0700 (PDT)
+Message-ID: <ba54b43f90b46960ce4e57f99ead11e4200d283d.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: rockchip: rga: quiesce IRQ before releasing m2m
+ state
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Fan Wu <fanwu01@zju.edu.cn>, jacob-chen@iotwrt.com, 
+	ezequiel@vanguardiasur.com.ar
+Cc: mchehab@kernel.org, heiko@sntech.de, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 06 Jul 2026 10:22:34 -0400
+In-Reply-To: <20260704022853.77291-1-fanwu01@zju.edu.cn>
+References: <20260704022853.77291-1-fanwu01@zju.edu.cn>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-IuzSpdkevxjAGzKTKZh1"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
 
 
-	Hello,
+--=-IuzSpdkevxjAGzKTKZh1
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 6 Jul 2026, Yizhou Zhao wrote:
+Hi,
 
-> > On Jul 6, 2026, at 01:35, Julian Anastasov <ja@ssi.bg> wrote:
-> > 
-> > May be it is better starting from ip_vs_set_state()
-> > to provide new arg 'int iph_len/offset' (set to iph.len), down to
-> > state_transition(), sctp_state_transition() and set_sctp_state().
-> > Same for all protos. It should cost less stack and ipv6_find_hdr()
-> > calls and what matters most, correct iph context in case we
-> > have IP+ICMP+TCP (with just two ports or even with TCP flags)
-> > and are scheduling ICMP, i.e. not IP+TCP as usually.
-> 
-> I agree that the already parsed transport-header offset should be 
-> passed from ip_vs_set_state() down to the protocol state_transition() 
-> callbacks, instead of reparsing the skb in set_sctp_state(). We will 
-> send a v2 that does this for SCTP, TCP and the other IPVS protocols 
-> in one combined fix.
-> 
-> > But what I see is that ip_vs_in_icmp*() are missing
-> > the ip_vs_set_state(cp, IP_VS_DIR_INPUT, skb, pd) call just
-> > after ip_vs_in_stats() and before ip_vs_icmp_xmit() where
-> > we should provide ciph.len. That is why we don't reach the
-> > set_tcp_state() calls to set correct cp->state and timeout
-> > when scheduling related ICMP. So, this should be fixed too.
-> 
-> For the ICMP path, I agree that the missing ip_vs_set_state() call is
-> worth looking at, but using ICMP errors to drive the upper L4 state 
-> needs some care, because spoofed ICMP packets can match an 
-> existing embedded tuple before the endpoint TCP/SCTP stack 
-> performs its own validation. Maybe this change needs further
-> discussion?
+Le samedi 04 juillet 2026 =C3=A0 02:28 +0000, Fan Wu a =C3=A9crit=C2=A0:
+> rga_probe() requests the interrupt with devm_request_irq(), so devres
+> does not release the IRQ until after rga_remove() returns. rga_remove()
+> currently releases rga->m2m_dev before that point.
+>=20
+> rga_isr() uses rga->m2m_dev through v4l2_m2m_job_finish(),
+> leaving a window where an interrupt can run after the m2m device has been
+> released.
 
-	May be only for the schedule_icmp case while the other
-ICMP replies should not change it:
+I have a doubt that this can really happen for this type of hardware. Its n=
+ot a
+free-running HW that emits IRQ randomly, plus we have the abort sequence th=
+at
+ensure all jobs are completed before we pull it down.
 
-diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
-index 7f93239898ff..05fdcf4ce2c0 100644
---- a/net/netfilter/ipvs/ip_vs_core.c
-+++ b/net/netfilter/ipvs/ip_vs_core.c
-@@ -1971,6 +1971,8 @@ ip_vs_in_icmp(struct netns_ipvs *ipvs, struct sk_buff *skb, int *related,
- 
- 	/* do the statistics and put it back */
- 	ip_vs_in_stats(cp, skb);
-+	if (new_cp)
-+		ip_vs_set_state(cp, IP_VS_DIR_INPUT, skb, pd, offset);
- 	if (IPPROTO_TCP == cih->protocol || IPPROTO_UDP == cih->protocol ||
- 	    IPPROTO_SCTP == cih->protocol)
- 		offset += 2 * sizeof(__u16);
+>=20
+> Unregister the video device first to stop new userspace submissions, then
+> free the devm-managed IRQ explicitly before releasing the m2m device. Mov=
+e
+> the command buffer release after the IRQ teardown as well, so it is not
+> released while a completion interrupt can still arrive.
+>=20
+> Store the IRQ number in struct rockchip_rga so rga_remove() can free the
+> IRQ without looking it up again.
+>=20
+> Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+>=20
+> ---
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index 43f6a8d..118887a 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -828,6 +828,8 @@ static int rga_probe(struct platform_device *pdev)
+> =C2=A0		goto err_put_clk;
+> =C2=A0	}
+> =C2=A0
+> +	rga->irq =3D irq;
+> +
+> =C2=A0	ret =3D devm_request_irq(rga->dev, irq, rga_isr, 0,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_name(rga->dev), rga);
+> =C2=A0	if (ret < 0) {
+> @@ -919,13 +921,21 @@ static void rga_remove(struct platform_device *pdev=
+)
+> =C2=A0{
+> =C2=A0	struct rockchip_rga *rga =3D platform_get_drvdata(pdev);
+> =C2=A0
+> -	dma_free_attrs(rga->dev, RGA_CMDBUF_SIZE, rga->cmdbuf_virt,
+> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rga->cmdbuf_phy, DMA_ATTR_WRITE_C=
+OMBINE);
+> -
+> =C2=A0	v4l2_info(&rga->v4l2_dev, "Removing\n");
+> =C2=A0
+> -	v4l2_m2m_release(rga->m2m_dev);
+> =C2=A0	video_unregister_device(rga->vfd);
+> +
+> +	/*
+> +	 * The IRQ was requested with devm_request_irq() and is freed by devm
+> +	 * only after this function returns. Free it explicitly here, after the
+> +	 * video device is unregistered, but before v4l2_m2m_release() frees
+> +	 * rga->m2m_dev, which rga_isr() dereferences via v4l2_m2m_job_finish()=
+.
+> +	 */
+> +	devm_free_irq(rga->dev, rga->irq, rga);
 
-	Here is why schedule_icmp was added:
+I'm not saying we cannot do that, but its quite verbose for something that
+probably can't happen in practice.
 
-https://archive.linuxvirtualserver.org/html/lvs-devel/2015-08/msg00015.html
+Nicolas
 
-	But the inner TCP header should be generated by the
-real server, not from the client, so things can go wrong. We can
-leave it as it is now - we will forward the ICMP to the right real 
-server by using short conn timeout...
+> +
+> +	dma_free_attrs(rga->dev, RGA_CMDBUF_SIZE, rga->cmdbuf_virt,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rga->cmdbuf_phy, DMA_ATTR_WRITE_C=
+OMBINE);
+> +	v4l2_m2m_release(rga->m2m_dev);
+> =C2=A0	v4l2_device_unregister(&rga->v4l2_dev);
+> =C2=A0
+> =C2=A0	pm_runtime_disable(rga->dev);
+> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/pl=
+atform/rockchip/rga/rga.h
+> index 72a28b1..f76c45b 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.h
+> +++ b/drivers/media/platform/rockchip/rga/rga.h
+> @@ -81,6 +81,7 @@ struct rockchip_rga {
+> =C2=A0	struct device *dev;
+> =C2=A0	struct regmap *grf;
+> =C2=A0	void __iomem *regs;
+> +	int irq;
+> =C2=A0	struct clk *sclk;
+> =C2=A0	struct clk *aclk;
+> =C2=A0	struct clk *hclk;
+>=20
 
-Regards
+--=-IuzSpdkevxjAGzKTKZh1
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
---
-Julian Anastasov <ja@ssi.bg>
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaku6KgAKCRDZQZRRKWBy
+9JZSAQC1dbw91+G7+3PPOBNBtgKbdRlVtvIxd5JJz6bxqWFUcAD8D8YnicY3DZw9
+ETebtopePbd1jSVCQw+7hxWTjoNzVw8=
+=N0fp
+-----END PGP SIGNATURE-----
+
+--=-IuzSpdkevxjAGzKTKZh1--
