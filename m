@@ -1,244 +1,173 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010044.outbound.protection.outlook.com [40.93.198.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335C942376C
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 12:02:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783339379; cv=none; b=RntMp6iMdCWmSuFLEn7cSetEOPSipcog4ozo2T4G6juHdidgq0ri1InVsAwW0cNvfG/CVHyaIdEgFO9Antof/+dGUaiF4kDEbw/A/mfkKwG4G6Qh+wcJYSHyDEoSEiKS3Uvyd7W7dd44SlY2a1VN8z658ihRem89XWniT+oGQUQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783339379; c=relaxed/simple;
-	bh=VVvMyOyVCv/TjkbiWH4KLw5Eo6wB5wmz1us3dSajdqM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UOLlAOo6u+A2s7MriM7ydST6XHv2qTaG3gKEy4dZTJtt9j5S8sXOb5KT/+rDVZwCPLUy9KZMUE3OoXO+YfUq7Gi38UVVdmE4SEdIdUzrazlAoLnWatg7wBo3K01gdYxv0e3kIuUiuGZmtsCcDlliZiJo/mr/dIljRDljUurc/aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Zg3kEj9O; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A52423769;
+	Mon,  6 Jul 2026 12:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783339430; cv=fail; b=bKIhFFYHa+uUuJEEeDQZYa5KE242Z6raLBMRUkHD9Gp2xtOI6YNIZuS+9OWJCmgudRmO6jaiA6txI/15SK6nEnun6rdYgevPD93bYkpkdcJT7dk1D1tE7p8hgE82SERRAAJDyqWrvQy9WrDXDCPeLVmdGVvPTP9QezHBu7HKQrg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783339430; c=relaxed/simple;
+	bh=/mx9khyzxoBqS14UKfOvwePIQKur1ZK1o4WeAiIFm3Y=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=tXHGzwpURiAeB/wwAIJeHPJfyRUwo8AIqjxzF4XVzsXOPuwH7Kraiee9Ugt+XMlxFOHEBMStx7DRJAiCJ6DEg5MxALzuARvpGyzNvf85lDI9sXz5yezF2MVGdjNXmDxKtLHqHaGKViNsPFG2sqjcBUHCNZv3beyFS+yUolrsckk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=XcfzaEEe; arc=fail smtp.client-ip=40.93.198.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Zg3kEj9O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783339377;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Cl1p+DOYj3pyUqaUpZHs5lvsVlrSqKQa/etGyfilPnc=;
-	b=Zg3kEj9OzP8BaOpjXw+IZb1GGe6V1QvWmqFWeEEvJrtM30xuz1E9kQLB31jMTuViOYEXD2
-	gOfIm95rzB7sCOhZNJq8FSaUFfU8bwJDma15O1wmM58ryt+40HKKPFxKxj02VZPZikF8k7
-	WUQi7WxlrvutEYlNXatymNEMx6IEfgc=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-284-Us9UAKRKM1SadLDUBqI4EQ-1; Mon,
- 06 Jul 2026 08:02:53 -0400
-X-MC-Unique: Us9UAKRKM1SadLDUBqI4EQ-1
-X-Mimecast-MFC-AGG-ID: Us9UAKRKM1SadLDUBqI4EQ_1783339371
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EECF41955F28;
-	Mon,  6 Jul 2026 12:02:50 +0000 (UTC)
-Received: from vmalik-fedora.redhat.com (unknown [10.44.49.128])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 50FDA1956088;
-	Mon,  6 Jul 2026 12:02:45 +0000 (UTC)
-From: Viktor Malik <vmalik@redhat.com>
-To: linux-perf-users@vger.kernel.org
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Viktor Malik <vmalik@redhat.com>,
-	Howard Chu <howardchu95@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Michael Petlan <mpetlan@redhat.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] perf trace: Refactor augmented_raw_syscalls using bpf_for
-Date: Mon,  6 Jul 2026 14:02:28 +0200
-Message-ID: <fdf56026e442e44b2374119c21babde4910f3b6e.1783339165.git.vmalik@redhat.com>
-In-Reply-To: <cover.1783339165.git.vmalik@redhat.com>
-References: <cover.1783339165.git.vmalik@redhat.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="XcfzaEEe"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oV7lsAjpgHG7+qvJzjyrdog64MrUEibt99pTsbZZSTeRzCYUeNjoArxMI2cnONb/9XKSfanZPESJUbMYn8DLjR6y2IjqBhy0LS+bmMgqaoOSXwnEKTHZ+46i4Sy3ZXM8x/NVs9bDka/su7QIpsdsqYozl4cm5x2beiu+ENX+h9yNR8WLTrHs90UG7l4aBwtZnOv/R2ZZZcBeCVtx8gZsmeUZonAoEpHcCZ83wRTY1r8IqXiP/HWvW8rzIb/URzUnx2ORPMrrOC2DM9IaITklpFgMRMO0Xq51Zz3RQnFHiMw3yi9dHSUQFeOKtVhBo819NZlcglYTZqPuUlnMz31Bqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HEB34T79Y1zcJ8Y3QBGh5Lp6wjRNpnPcRHqojgV7cjY=;
+ b=oV6lCQpuVRbamccJWMPYzNxtJF09wxl6KetgbnkwCf1tYp/43I15D+EIPUbeDWGh6wZYkKQm6gFTR1rSi/kkm3NWNExrZBeyNE77iR8MyHNPXytPTCCAkK3B8OqjBq5q80+OfY1YeCs4FfS5fyUg/Pq+Dc8ltWY4SJafiOasREj0bAtZ2COziaE+Q/aB3nRvQTDjdo7JEfIUrQa4LGcnZyfSB98lojHt9Ock8qfKIbBVSOUUTWxZ0zRNzlmYB/M9aIjKpF/JuKTj2ln68v+IUD+YG9wDJVwnU+35HYtg1bOkaPQqB3Z+RyVmS6tgzSzd5GrfYuegAVsTs+oyRuB22g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HEB34T79Y1zcJ8Y3QBGh5Lp6wjRNpnPcRHqojgV7cjY=;
+ b=XcfzaEEeUPP0yRk+cQj7sh2AUx0EttZAl7mrbcQoThZNWAJOIxQG48yhNjFg4ayV5YLRSHdMshgFKQ+mq3rGyXQs9ghbSGmEaECHirbTAja98OitbaSJvEgPsPq42fFKvtdORqr2gpr3ssQOlbuoVk47Cq5ZBSFS8zfdDNr9F7M=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7433.namprd12.prod.outlook.com (2603:10b6:930:53::22)
+ by MN2PR12MB4222.namprd12.prod.outlook.com (2603:10b6:208:19a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.12; Mon, 6 Jul
+ 2026 12:03:46 +0000
+Received: from CY8PR12MB7433.namprd12.prod.outlook.com
+ ([fe80::faae:d638:bdc9:4bf6]) by CY8PR12MB7433.namprd12.prod.outlook.com
+ ([fe80::faae:d638:bdc9:4bf6%4]) with mapi id 15.21.0159.018; Mon, 6 Jul 2026
+ 12:03:46 +0000
+Message-ID: <db303a0c-98e3-4967-9b61-ccb711b776c8@amd.com>
+Date: Mon, 6 Jul 2026 14:03:38 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region
+ registration
+To: "David Hildenbrand (Arm)" <david@kernel.org>, seanjc@google.com,
+ pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com,
+ dave.hansen@linux.intel.com
+Cc: bp@alien8.de, x86@kernel.org, thomas.lendacky@amd.com, hpa@zytor.com,
+ yangge1116@126.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260701144543.39582-1-pankaj.gupta@amd.com>
+ <1cc159b9-5f94-4524-8e03-efe91601ccfc@kernel.org>
+Content-Language: en-US
+From: "Gupta, Pankaj" <pankaj.gupta@amd.com>
+In-Reply-To: <1cc159b9-5f94-4524-8e03-efe91601ccfc@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PR3P251CA0020.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:102:b5::32) To CY8PR12MB7433.namprd12.prod.outlook.com
+ (2603:10b6:930:53::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7433:EE_|MN2PR12MB4222:EE_
+X-MS-Office365-Filtering-Correlation-Id: 255e78b5-86e3-4cd4-03d8-08dedb56a182
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|22082099003|18002099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	iA6u4JkYjBdC2pt/ff3myjy2uuP67mt1ENNokGaENLCR3fcyNZPa26xeZ14vLQaSZ6+C/e9aP/fqRcETRfos9g2jkB9XvBg0OLWHv5BcChJo4WNDBuJpATZQBOwik1kkRegbp//AO+LgAg5PihXMmmCupMBx5dTYDx6RP3HoFA1znMX0tvSgrNv7eOTZtgcWkvuR3gCa+HSADx1eUcRTIMnEaw8RYuhsw6oG+Gou66i5oedHB6uxSMSsqFlR9V/zi1ewILYGIGcF/r6r4yZVkQd+HkeHwO3z2Jc4Ru8DGM/QAYYPzP5ix/mclX4xD/Okj8MuqAyFHOSUeeyZCZLdQizJ4lWLj7B3oEw6EjGYcp32uzFfs6fufFVgMHb6eyrAxeU+L8rJXtT2Gfk4dL8A6pR87pNdO9tM2AiUNB3PXn+1VwkPdxZ9mwaLwcpO+i8Dkdd0vmjVXeFT45ex8LQGnOcwwkcffeLP59C0iZzz0pLpHZxUoaH8G5Js7ulWaKGoIwgVU7qoTig9jOL+LM81k2EM7LPnmeDv6DWNbymaFCQOLaZzCoCKFKEuZeAemdUigSLm/oLY+5jHUX3Mm4TTj5ds0w1HdagVh+UYTPaZTfJXv/0hqAKuJ9DvcAR/F8CsPSAWr6mPdw+2RcP50UXhe3d/Qm+dzHxA3u48CtU2q0o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7433.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QS9vbFdqRnVZMWtSRGJVMmpGS3lVaklsR0I3U2EwM0VoRkkzWGhqQTZZeFdn?=
+ =?utf-8?B?NVAwZXJIUVJQekRMSmpDcmhsWW9JMUVHTXJ5MUpUT091YldiUGhwcE9Ka2NI?=
+ =?utf-8?B?T2xDSExkZUl4MFcvVGRSSWFkSEptRmRDWk9BS2pOL2VndFpJbEEzSUovcmpn?=
+ =?utf-8?B?L0NYM2Vjc04rY3d5WnV5M0ZvY3o1UGwyTFZjNFRsSnl3eC9SUGVleS9YRGF4?=
+ =?utf-8?B?VHVXNEJqZlNtWW9wNWRxNTFzNHMwaW1OeUFmejZIV0s3WnExSmNtZWpuaGt0?=
+ =?utf-8?B?aktQUm01M0EwVzFEWGtvWUtzaHRLS2UvZ1RmT0JjODhpQkZwak1ZakhGWHN5?=
+ =?utf-8?B?T2tVclpNNjdYQ3lrcWlGWndzZE9QdCtCZTdyb08yNllEb3VzM043K0YreVFp?=
+ =?utf-8?B?SlZRT0pEWGdrMGJwSlA1bHNlczRXTUNXVUFPRXVhUGJMR0hDNCt6RDVGVmFH?=
+ =?utf-8?B?ZXljUEw5MHJuNUJibzRTTWRGck5iSkNwaDZtRGVqaitiYmlqNGxtdWZYQVFI?=
+ =?utf-8?B?YjdRdm9sd2QvN1k5bDZ5MTFOUUtoOFpBQi9Ta2ZFOTJ1TGdhcjM5OXRKaTFl?=
+ =?utf-8?B?TWtaMERSUVZHaU1MRnBZR0NPSG1rQ3Z4Si9PUGxaMVA3amt3anEzTDhCR3RX?=
+ =?utf-8?B?VVgwOHNJd2FqeklTYVdUQzVjZ1FRWitmTGNLRW1VS0tyME0yaHJMLzZDM1Fp?=
+ =?utf-8?B?ZmhNTGpYWndlNmo0MnNXSC9INzdTUmx2aHFFU3lXdVlWeEJwWHZoKzI3a0dI?=
+ =?utf-8?B?QTQxbjZhRy9oUXR0cStjWWRHcy9Ibmh4K2FnWEZlM3BQdlJObGQ2b0xvVXk5?=
+ =?utf-8?B?SGJPWUhPSkFhbXFaU1FRZnlaS1RmRjJvNUZZMlZhV3ZzVDFPQm9KRGRlcFNH?=
+ =?utf-8?B?Z0YreTBSelNwU1ZEWGJ0L3lsWU03UElYUVR5em8wOFBSU2NBV0RER1JtTzJn?=
+ =?utf-8?B?NzNmUXpaYWxqV2ZQWHhnRHBXRUtvT2pReS91OFh0NHVicUdHM2lDenlWbGFR?=
+ =?utf-8?B?YXdlN0cvY29BRmZlakx1eEo5U0VVemZCODc5M3d4Z292NHJIeE9SVFRGTDZn?=
+ =?utf-8?B?UFNUcVNGMzc4K3BBUVB4WE5nb01MNXBaYTRDQ0ZwRkUvd0lWdU5hN1drbEdW?=
+ =?utf-8?B?RkJ4N09TWW1UN2U4VWJKOUcyV3FPQkdlclFpSjRxbVZVb0o3SWE1STFLd3VW?=
+ =?utf-8?B?ckdsbTZHd2hOaWRLMG1Fd2IzLzZvTGpNMzV1djFzN205b3hyemFUMnZHUHlo?=
+ =?utf-8?B?MERxaWF4ZkRWdjc2QlFnR2pDb0EzSFZBNStSTWFXbDlod2JIcFNUWE1EanEy?=
+ =?utf-8?B?NU01Q0J5dVA0T25zRGRHMmVvUFdBbDV4b1Y0Ukk4WVZVRVRHRW4wSTN1bFdh?=
+ =?utf-8?B?Yi9PZHc2cHlqMGZqdmIvV2NnVmpydk9WeExBOUVOcDA3WGZKSUREUWN4UXVZ?=
+ =?utf-8?B?ZmZHeUlrMlgrMVlvZWNhMWVacVM2N28yaVBhSWprWlRDT2tBdzl2YWFwd1pn?=
+ =?utf-8?B?by95eXFHaENkVnhvR3NOS2xaS1A2T1RjTHVLY0M1TnhZRXVDT3IxVmxHd2dH?=
+ =?utf-8?B?c3BIcWJKZmdYMXB5TkpvUytiajYwbS93YTNML01XSFlvbWNYdFJmRGxhRnY0?=
+ =?utf-8?B?YWRPeSsvZGFiNnlIVnRVcEtzQkZyQjhJOUhIdTBaYm1jNHpMK3BBQU05ZXU1?=
+ =?utf-8?B?YVh1c0pGTzh3c2lRcmdpOFlOaFl1Q2FaZ2VzVHY0d3FTekM4YzEyVkcrUUJl?=
+ =?utf-8?B?NzYrL0FaMmhDczlxcFpUV2VzamZBVVZBMTVYazFZWEYydmozekN4ekc1enc2?=
+ =?utf-8?B?T202ekpNYlQvMnRWRzJtSXR5UG4wNlh0K1RtRy93QWo2TzdidGNZa1pqZHdx?=
+ =?utf-8?B?ME0vSjVxbUNad1BpSnVCWmEwZUJJdll5YkpxVWNidFYycHpKWWNjbU1TTzBE?=
+ =?utf-8?B?NXJ5OVExL3RhNUZOQlhaTHNNZmRvdS9xeVpBTE9LcmhrVW02NTdxQSttN3Bm?=
+ =?utf-8?B?VWRRK3U0N3lFVThDWHQ4RXhsL1hzcUNoZ3lRZHU1OS9xR3FRRWdMUDU4dUcx?=
+ =?utf-8?B?VUp4MjRCNHRTZnNscFhqR3Z0d040U0NVZVI2eVBwZnBRRkJQV2s4UHFpaDg4?=
+ =?utf-8?B?aG01S1pIUTVybXpNOWNLWlNjSWNkMWU2eWZadFNwR2lTNXlES1dSdFptTHUy?=
+ =?utf-8?B?azNWODlwU2VHeXFGZkRBdXd6OGdFNS9hbDRMQjFEbjd4NVpBU0JYeGZLS09Z?=
+ =?utf-8?B?eWxFSTRVQnBZbW5iQjVyMzArbUVKKy9tZWR3cjM2djlyVEtGTWk2MFJRRnN0?=
+ =?utf-8?B?eXBMbnUzZDFmZXdoeTRhS1hSOExET0JldGE5c1EzWGI0Z0U1YURvQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 255e78b5-86e3-4cd4-03d8-08dedb56a182
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7433.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 12:03:45.9330
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vWkYll2PDJernhT2UWQlMDc13VaHOS8A+mlgVguo413DHuAglGeAWtM2O7AuVHDRi5mKyleHrX0ibUBJC+RS0g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4222
 
-The loop for processing syscall args in augment_raw_syscalls has a
-history of breaking with Clang updates, see e.g. commit 013eb043f37b
-("perf trace: Fix BPF loading failure (-E2BIG)") from Clang 15 to 16.
+Hi David,
 
-Now, a similar thing happened between Clang 21 and 22. While the issue
-is mitigated on the main line by a recent verifier update, it remains
-broken on the 6.12 and 6.18 stable branches:
+>> commit 7e066cb9b71a ("KVM: SEV: Use long-term pin when registering encrypted memory regions")
+>> added FOLL_LONGTERM to sev_mem_enc_register_region() so anonymous guest RAM is
+>> migrated out of MIGRATE_CMA/ZONE_MOVABLE before a long term pin. This breaks
+>> virtio-pmem which has file backed (MAP_SHARED) host mapping where GUP rejects
+>> FOLL_WRITE | FOLL_LONGTERM since:
+>>
+>> commit 8ac268436e6d ("mm/gup: disallow FOLL_LONGTERM GUP-nonfast writing to file-backed mappings")
+>> commit a6e79df92e4a ("mm/gup: disallow FOLL_LONGTERM GUP-fast writing to file-backed mappings").
+>>
+>> Drop FOLL_LONGTERM when registering encrypted memory regions and restore
+>> the previous behavior.
+> But that breaks the original issue of breaking ZONE_MOVABLE/CMA?
+>
+> If it is a longterm pin, it must use FOLL_LONGTERM. :/
+>
+> I assume we fail in check_vma_flags()
+>
+> 	if ((gup_flags & FOLL_LONGTERM) && vma_is_fsdax(vma))
+> 		return -EOPNOTSUPP;
 
-    [linux-6.18.y]# sudo perf trace true
-    libbpf: prog 'sys_enter': BPF program load failed: -E2BIG
-    libbpf: prog 'sys_enter': -- BEGIN PROG LOAD LOG --
-    [...]
-    BPF program is too large. Processed 1000001 insn
-    processed 1000001 insns (limit 1000000) max_states_per_insn 40 total_states 37941 peak_states 232 mark_read 0
-    -- END PROG LOAD LOG --
-    libbpf: prog 'sys_enter': failed to load: -E2BIG
-    libbpf: failed to load object 'augmented_raw_syscalls_bpf'
-    libbpf: failed to load BPF skeleton 'augmented_raw_syscalls_bpf': -E2BIG
-    Error: failed to get syscall or beauty map fd
-    [...]
+Yes, it fails in this path but for file backed mapping, vma_is_fsdax() 
+returns false because
 
-The reason is that the loop is quite complex and the BPF verifier often
-struggles to prove that it terminates.
+vma_is_dax() returns false:
 
-Fix the issue by replacing the standard for loop by the bpf_for macro,
-which uses numeric BPF iterator. This should prevent future breakages of
-this kind since the verifier has much easier job proving that the loop
-terminates.
+>
+> IIRC, fsdax cannot tolerate unbounded pins. Is that the case we are running into?
 
-Small adjustments were necessary for the loop to make it work.  The main
-problem is that the verifier has sometimes problems with bpf_for loops
-that use a carry-over state, such as the `payload_offset` and `output`
-vars here, since the verifier tries to track their values too precisely
-and cannot prove loop convergence. To resolve the issue, we (1)
-explicitly recompute `payload_offset` in every iteration and (2) use a
-trick with adding a global zero to `output` to help verifier forget its
-precise state and use a range instead.
+Host side backend is regular file backed memory (no fsdax).
 
-In exchange, this also allows to drop a few artificial checks to help
-the verifier, including the changes introduced by 013eb043f37b.
+Thanks,
 
-Finally, to keep backwards compatibility with older kernel versions
-which do not have bpf_for (i.e. numeric iterators), fall back to
-standard for loop in such a case.
+Pankaj
 
-Signed-off-by: Viktor Malik <vmalik@redhat.com>
-Suggested-by: Andrii Nakryiko <andrii@kernel.org>
-Fixes: a68fd6a6cdd3 ("perf trace: Collect augmented data using BPF")
-Fixes: 013eb043f37b ("perf trace: Fix BPF loading failure (-E2BIG)")
-Cc: stable@vger.kernel.org
----
- .../bpf_skel/augmented_raw_syscalls.bpf.c     | 53 +++++++++++++------
- 1 file changed, 38 insertions(+), 15 deletions(-)
-
-diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-index bc036a348079..215516df5d2a 100644
---- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-+++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-@@ -429,6 +429,8 @@ static bool pid_filter__has(struct pids_filtered *pids, pid_t pid)
- 	return bpf_map_lookup_elem(pids, &pid) != NULL;
- }
- 
-+u64 ZERO = 0;
-+
- /*
-  * Determine what type of argument and how many bytes to read from user space, using the
-  * value in the beauty_map. This is the relation of parameter type and its corresponding
-@@ -440,10 +442,11 @@ static bool pid_filter__has(struct pids_filtered *pids, pid_t pid)
-  */
- static inline int augment_arg(struct syscall_enter_args *args, int i,
- 			      unsigned int *beauty_map,
--			      struct augmented_arg *payload_offset)
-+			      struct beauty_payload_enter *payload, u64 offset)
- {
--	int index, value_size = sizeof(struct augmented_arg) - offsetof(struct augmented_arg, value);
--	s64 aug_size, size;
-+	int index, size, value_size = sizeof(struct augmented_arg) - offsetof(struct augmented_arg, value);
-+	struct augmented_arg *payload_offset;
-+	s64 aug_size;
- 	bool augmented;
- 	void *arg;
- 
-@@ -455,6 +458,12 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
- 	if (size == 0 || arg == NULL)
- 		return 0;
- 
-+	/* bounds check for the verifier */
-+	if (offset > sizeof(payload->aug_args) - sizeof(payload->aug_args[0]))
-+		return -1;
-+	barrier_var(offset);
-+	payload_offset = (struct augmented_arg *)((void *)&payload->aug_args + offset);
-+
- 	if (size == 1) { /* string */
- 		aug_size = bpf_probe_read_user_str(payload_offset->value, value_size, arg);
- 		/* minimum of 0 to pass the verifier */
-@@ -465,7 +474,7 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
- 	} else if (size > 0 && size <= value_size) { /* struct */
- 		if (!bpf_probe_read_user(payload_offset->value, size, arg))
- 			augmented = true;
--	} else if ((int)size < 0 && size >= -6) { /* buffer */
-+	} else if (size < 0 && size >= -6) { /* buffer */
- 		index = -(size + 1);
- 		barrier_var(index); // Prevent clang (noticed with v18) from removing the &= 7 trick.
- 		index &= 7;	    // Satisfy the bounds checking with the verifier in some kernels.
-@@ -498,11 +507,10 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
- static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
- {
- 	bool do_output = false;
--	int zero = 0, written;
-+	int i, zero = 0, written;
- 	u64 output = 0; /* has to be u64, otherwise it won't pass the verifier */
- 	unsigned int nr, *beauty_map;
- 	struct beauty_payload_enter *payload;
--	void *payload_offset;
- 
- 	/* fall back to do predefined tail call */
- 	if (args == NULL)
-@@ -514,7 +522,6 @@ static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
- 
- 	/* set up payload for output */
- 	payload        = bpf_map_lookup_elem(&beauty_payload_enter_map, &zero);
--	payload_offset = (void *)&payload->aug_args;
- 
- 	if (beauty_map == NULL || payload == NULL)
- 		return 1;
-@@ -522,14 +529,30 @@ static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
- 	/* copy the sys_enter header, which has the syscall_nr */
- 	__builtin_memcpy(&payload->args, args, sizeof(struct syscall_enter_args));
- 
--	for (int i = 0; i < 6; i++) {
--		written = augment_arg(args, i, beauty_map, (struct augmented_arg *)payload_offset);
--		if (written < 0)
--			return 1;
--		if (written > 0) {
--			output += written;
--			payload_offset += written;
--			do_output = true;
-+	if (bpf_ksym_exists(bpf_iter_num_new)) {
-+		bpf_for(i, 0, 6) {
-+			written = augment_arg(args, i, beauty_map, payload, output);
-+			if (written < 0)
-+				return 1;
-+			if (written > 0) {
-+				output += written;
-+				/*
-+				 * guide the verifier to forget range of `output`, which
-+				 * helps to prove convergence of the loop
-+				 */
-+				output += ZERO;
-+				do_output = true;
-+			}
-+		}
-+	} else {
-+		for (i = 0; i < 6; i++) {
-+			written = augment_arg(args, i, beauty_map, payload, output);
-+			if (written < 0)
-+				return 1;
-+			if (written > 0) {
-+				output += written;
-+				do_output = true;
-+			}
- 		}
- 	}
- 
--- 
-2.54.0
-
+>
+> How does vfio deal with that? (does it?)
+>
