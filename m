@@ -1,131 +1,90 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841783ACA70
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 16:17:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C42430CC6;
+	Mon,  6 Jul 2026 16:19:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783354654; cv=none; b=oiXri0/ZAsE7a45w24dGBV6MLh3y2WruQh5ry+7RvcwxNJOHPbF1VFaU2a3oUq73QxUDVtUYBd1zfZxJHSZMsgAR3yv818H/FxvsSSExoTEReuTYxiUgRprUYHfEKzEr62v+GDwX59o/QqS3YYD7J2VL9zsNGc5Y0i9G06IIvbg=
+	t=1783354796; cv=none; b=kXCyiGZqWH3ZaF7a2gpiQyvJ07Ga8XOS+p9XW6ZRQTytDhTGyXi2lDuOTyc7l07DN/L9CWVJsx93GCpcKPE9tOclgFcPXbhOhcKKQVRhYbchgvHBAWq77KZBJErEbQfQRLhz4vDXgFXmaZKf3CKHLZkhsxnfAuCs7mUS7A2bQak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783354654; c=relaxed/simple;
-	bh=qgrGxiTiPp77FSz3b2g3R4AtQSs1trKaa4ZkalIZ9N4=;
+	s=arc-20240116; t=1783354796; c=relaxed/simple;
+	bh=78fhhankv14oGSqYHnz2NT+Tk9f3xYa5kAjCmEehPn4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A6QQi5Cbwp+hG6gx/QQcruyu4leUR6VqxR4PzG4VaECnA8SV6ocMhdT5sGGCcZN7ZEGModnWOg/GFG0+bcViVWXX/LNOp/HMQG0b2QC6YII7RKtEgAri2ZZt3hl/ZJY5kQxSEA2JwE/q49a3QC2+NRuWvXuEckZCcVArXOJWkuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=cWuBWTK6; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	 MIME-Version:Content-Type; b=mJgmfzeb4BHW2F6OCnRqNQj6NNx+5DhU7eIXXwUGzK++yI2Z+cSeglyjlfsrGa6Tuxall6yPh4fDZtmhn2gKwHTU4py0rg1OHzEypw7NLQVzVq4N32S9caIcCTD1EZQOCJmCulr9YhpY0Gl7YlIGgG+11vsJhePPklidKKgUV1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EZDwuy93; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="cWuBWTK6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type;
-	bh=uqQlAkyUrdzL/P0yTX9G71yGvY+5QSdTjHzrWm+aQ4g=; b=cWuBWTK6ZoeFYrY8Eb9X+VL/8B
-	ETTDVccQqJfIZsyDp7ChIB+N9HtO0p1jkyvyYlMYMqQRVP7ev+4AxvVTfU7849RJ7VUc6Vpr79Ujx
-	dczdSNjVbfsv0MwpuoTqxKLzmqalA9goW+zgusfWv5TAwuwvSG/Hw+l36m3ohn5LklVNPUNDqkFlo
-	PL0KO+VTAuqcHh7qGmSRmV65IVCr/iG1Y7BrAxD4WJ5fEcHVOCr46aXAMg5qvGMSQeRofBaIV8jRb
-	a2Knbw4eopcDWLZC18U5GhGmYFwFWJF6WC6Tgb6rdB5GSDvMro1TX1r9grRGew2DWDw+l2hoMhftI
-	2o86nXcw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: stable@vger.kernel.org
-Cc: heiko@sntech.de,
-	quentin.schulz@cherry.de,
-	Marco Scardovi <scardracs@disroot.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Heiko Stuebner <heiko.stuebner@cherry.de>
-Subject: [PATCH 6.12.y 2/3] gpio: rockchip: teardown bugs and resource leaks
-Date: Mon,  6 Jul 2026 18:17:12 +0200
-Message-ID: <20260706161713.2676365-3-heiko@sntech.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260706161713.2676365-1-heiko@sntech.de>
-References: <20260706161713.2676365-1-heiko@sntech.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EZDwuy93"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98E261F00A3D;
+	Mon,  6 Jul 2026 16:19:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783354795;
+	bh=qkeQCDXCe8FgrurW8DLDVZj+1YSS1GZoll7hPEXalKU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EZDwuy93qzpSMRj4Ucu3W+Ex/p2JCeSFM5Zga7VwZh0v9DxSVnUAR1rF++JY7yGlA
+	 x+7Yn6UTjNbWEBFVMGqI9KbUYWsoikGx88ZrwdzwK74Zej141pLbb31dVGEbxYUQvh
+	 tqzHDz1CaKRdzRs0vJ+8Zy4dqvcXE7e5JgrKyze+EeNH0eOcoCSmwYHoL8zurEGNz3
+	 0hjCjY+eiDn3ddu3oLxOXb4QfkwtjN2UidanIOX0cgVcH9uwLMe+/CtLUglX/42Kxe
+	 d52PpUw2z7gpPpB/9iBq6G+XGTwcY2Rv9FRR+R4CR/pNMm/9I6YhoD5afnv506z8rf
+	 lXiM6D5EEz1Gg==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wgm2y-00000002244-2k4P;
+	Mon, 06 Jul 2026 16:19:52 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	Marc Zyngier <maz@kernel.org>
+Cc: Steffen Eiden <seiden@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] KVM: Move kvm_io_bus_get_dev() locking responsibilities to callers
+Date: Mon,  6 Jul 2026 17:19:49 +0100
+Message-ID: <178335476041.1423186.3105343217982386007.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260627105105.1005990-1-maz@kernel.org>
+References: <20260627105105.1005990-1-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, pbonzini@redhat.com, will@kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-From: Marco Scardovi <scardracs@disroot.org>
+On Sat, 27 Jun 2026 11:51:05 +0100, Marc Zyngier wrote:
+> kvm_io_bus_get_dev() returns a device that is only matched by the
+> address, and nothing else. This can cause a lifetime issue if
+> the matched device is not the expected type, as by the time
+> the caller can introspect the object, it might be gone (the srcu
+> lock having been dropped).
+> 
+> Given that there is only a single user of this helper, the simplest
+> option is to move the locking responsibility to the caller, which
+> can keep the srcu lock held for as long as it wants.
+> 
+> [...]
 
-[ Upstream commit 9500077678230e36d22bf16d2b9539c13e59a801 ]
+Applied to fixes, thanks!
 
-Address several teardown issues and resource leaks in the driver's remove
-path and error handling:
+[1/1] KVM: Move kvm_io_bus_get_dev() locking responsibilities to callers
+      commit: 3a07249981629ace483ebbef81ef6b34c2d2afec
 
-1. Debounce clock reference leak: The debounce clock (bank->db_clk) is
-   obtained using of_clk_get() which increments the clock's reference
-   count, but clk_put() is never called. Register a devm action to
-   cleanly release it on unbind. Note that of_clk_get(..., 1) remains
-   necessary over devm_clk_get() because the DT binding does not define
-   clock-names, precluding name-based lookup.
-OA
-2. Unregistered chained IRQ handler: The chained IRQ handler is not
-   disconnected in remove(). If a stray interrupt fires after the driver
-   is removed, the kernel attempts to execute a stale handler, leading
-   to a panic. Fix this by clearing the handler in remove().
+Cheers,
 
-3. IRQ domain leak: The linear IRQ domain and its generic chips are
-   allocated manually during probe but never removed. Remove the IRQ
-   domain during driver teardown to free the associated generic chips
-   and mappings.
-
-Fixes: 936ee2675eee ("gpio/rockchip: add driver for rockchip gpio")
-Assisted-by: Antigravity:gemini-3.5-flash
-Signed-off-by: Marco Scardovi <scardracs@disroot.org>
-Link: https://patch.msgid.link/20260526171050.12785-3-scardracs@disroot.org
-[Bartosz: don't emit an error message on devres allocation failure]
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
----
- drivers/gpio/gpio-rockchip.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
-index 16c1ec3a5d0e..0a93c74933f0 100644
---- a/drivers/gpio/gpio-rockchip.c
-+++ b/drivers/gpio/gpio-rockchip.c
-@@ -629,10 +629,17 @@ static int rockchip_gpiolib_register(struct rockchip_pin_bank *bank)
- 	return ret;
- }
- 
-+static void rockchip_clk_put(void *data)
-+{
-+	struct clk *clk = data;
-+
-+	clk_put(clk);
-+}
-+
- static int rockchip_get_bank_data(struct rockchip_pin_bank *bank)
- {
- 	struct resource res;
--	int id = 0;
-+	int id = 0, ret;
- 
- 	if (of_address_to_resource(bank->of_node, 0, &res)) {
- 		dev_err(bank->dev, "cannot find IO resource for bank\n");
-@@ -663,6 +670,11 @@ static int rockchip_get_bank_data(struct rockchip_pin_bank *bank)
- 			dev_err(bank->dev, "cannot find debounce clk\n");
- 			return -EINVAL;
- 		}
-+
-+		ret = devm_add_action_or_reset(bank->dev, rockchip_clk_put,
-+					       bank->db_clk);
-+		if (ret)
-+			return ret;
- 		break;
- 	case GPIO_TYPE_V1:
- 		bank->gpio_regs = &gpio_regs_v1;
-@@ -779,6 +791,9 @@ static void rockchip_gpio_remove(struct platform_device *pdev)
- {
- 	struct rockchip_pin_bank *bank = platform_get_drvdata(pdev);
- 
-+	irq_set_chained_handler_and_data(bank->irq, NULL, NULL);
-+	if (bank->domain)
-+		irq_domain_remove(bank->domain);
- 	gpiochip_remove(&bank->gpio_chip);
- }
- 
+	M.
 -- 
-2.53.0
+Without deviation from the norm, progress is not possible.
+
 
