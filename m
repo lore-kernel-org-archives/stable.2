@@ -1,131 +1,162 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 96B46379979
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 14:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783347188; cv=none; b=bNbUOXi2i4HEMsMAqg7eN06DslrDODj4nl5/9LlxFnKUO3pcRm0zsPKcSVJYhVY8Eycu9FTXIVB8Jow3JxS0Opw2B8hgRU4ItMs+zDIyuHytAeWA9nLj3+8Q7hnXKAajQjqLG2lY9gxfp2rmtILY1Ocd0MgoumZQxPSWDgKaYzs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783347188; c=relaxed/simple;
-	bh=ybqksaPU55sJFW3qtBXVCD28yakikrTrcL71vkCHABg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PQCqcT0vfadn8UX5AQOHYlWA8v7MmZW+PVmP9L8bjBV1hqRdml2J7QkHW5adZQz5ywP6J2hrg2X8pgSLyDCXd2zaL6uii0JyKBneajPJ4lJm2JOkF58w0mn7XYhUa2EaJlw/fpz2g/Fz+2L91ReOnDr7s3R2zOj9/27/kUw5YRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WnG2ln2T; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011048.outbound.protection.outlook.com [40.107.74.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C83C3ADBA5
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 14:15:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783347354; cv=fail; b=N2d76KWqRVeWTr+5h7zGKn2exPkkET3PBvvszAlIjPSp7cCEFE0VtGJkhuyPTSCbiubT5Fq9XxIi3ISpq2NhPcYUM9S9twj5d+J4GLLoHG8Ff90n7wIvAMEToTjmqhRamgFtjAiml7PialxZBWCitohdtz8dZfMtktvwN0/cvGw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783347354; c=relaxed/simple;
+	bh=ULzDlA5baC/WbW3IqAJ6HeemTxXnY2U624B9fUThIY8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=kVAHVPxd1WtB4oBjwq0MoK1qFtIePlXzRNGrspT+ouBoXfNPRVLm10TsWplyneAC6r9ikO/y0ET2d8smS5Aj4UbbIUlNGPTYfkP1Q/dMjGyUZWYbbGyKpy/rI2nyGeCqJiah1vF5wrqXL/ao7Lk6sM+cBuledw1D7ju6vUrhCrE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=By4Gj9vT; arc=fail smtp.client-ip=40.107.74.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WnG2ln2T"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 918AF2BCB;
-	Mon,  6 Jul 2026 07:13:01 -0700 (PDT)
-Received: from [10.57.82.104] (unknown [10.57.82.104])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F14473F85F;
-	Mon,  6 Jul 2026 07:13:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1783347185; bh=ybqksaPU55sJFW3qtBXVCD28yakikrTrcL71vkCHABg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=WnG2ln2TCLbJEPhs6x3Tu3RJp4t6P7dlYO1Br22WERGMD8ZTHXWog0AN0oLd34Y/f
-	 Lqs6a+whjgBQIsnegAb8PydQsN0nM8M67NkZdoDK4+VsFce6PLUMAaMFKSKjZiJ9+Y
-	 lbNrijAQVBH2qjGEL/5yzDH2nY9yHIJ6tqktj4dk=
-Message-ID: <f13b30cf-e885-44c6-8e61-7924937eb8ac@arm.com>
-Date: Mon, 6 Jul 2026 15:13:01 +0100
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="By4Gj9vT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ipfn7sWnZKU2iOkRiirs3tn7Q9ZQuzQskAPNXrQ0ia3rRuSDlbwpJcN2JIa4TtzR+KG3vMj698XzXScS4mNW4xvwyG9JdCnvgHP6+rRw+kTausNWG2F8oLjleu6gs8kAN5lsrQJ2hCqs1N82egIZZejzqpjldXIBXXBvCM/Lf9O7ilGkU6WZDWT/iMxLKfXKF7KG7rquybf8apR4xx0bMPf3isXIrzY32XJsLAhNXfTzKayDq2UGCiraJU+AoSEDT1D5Ja25gn1XhqPfBK+FuT3UPiWDdG2ionuUwKNrEFTrxdANLG+1dvWICEblS7Vu8zEVthyev1J1/jJ1Y7FzHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ULzDlA5baC/WbW3IqAJ6HeemTxXnY2U624B9fUThIY8=;
+ b=Kpj2rBajmRHbgJcNzia0x/cpqHXa0HYhJAZZsklXudWxLLyQF3Q9G9qtroFzRHlTC3kTiFGNanWCvDRaCEQPcYdfAzTjIESKIOEA0v0nl2oYv7wTpnQuKENEziSbV+57kvmlT5Bp1NEkovetdvNfdUayjPUP/2CYcWm3NG6aGDLOWRc2FdX/5tH/6umOCbpi59JI7ZTywYiLSXQP0yYaLwDl89pGifwYhu6d3/lGhuVcVWaKCMuB++yvjVkwlVOck70S5+Kt4Csw+UHNqjPvRgrAwBViIZQeAIBLTi6/Jd4LK1qM3HjSraUDzv6lfHg5+9PUmMf0Tr46ezBC0CNrIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ULzDlA5baC/WbW3IqAJ6HeemTxXnY2U624B9fUThIY8=;
+ b=By4Gj9vTjRODT9Sw1M2bzsqTPs55iGwp5Rj/mpygvn4P1PH/gvrGuCW+K2GW3/TvDrWYOBZmFTgp589foCGQsne8BawXuuU5pRCmirvxFA4sYnQGbSJz1vx6HIcnB8x3gSROaa+R3i+32IgIE67I8EK/OZRHOWiBPfryXtlQcK4=
+Received: from OSCPR01MB14315.jpnprd01.prod.outlook.com (2603:1096:604:39f::5)
+ by OS3PR01MB10297.jpnprd01.prod.outlook.com (2603:1096:604:1df::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
+ 2026 14:15:48 +0000
+Received: from OSCPR01MB14315.jpnprd01.prod.outlook.com
+ ([fe80::66f:fac9:2ef6:9796]) by OSCPR01MB14315.jpnprd01.prod.outlook.com
+ ([fe80::66f:fac9:2ef6:9796%6]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
+ 14:15:48 +0000
+From: Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Sasha Levin <sashal@kernel.org>, geert <geert@linux-m68k.org>, Ben
+ Hutchings <ben@decadent.org.uk>
+CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, "patches@lists.linux.dev"
+	<patches@lists.linux.dev>, wsa+renesas <wsa+renesas@sang-engineering.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>, Ulf Hansson <ulfh@kernel.org>
+Subject: RE: [PATCH 5.10 94/96] mmc: renesas_sdhi: Add OF entry for RZ/G2H SoC
+Thread-Topic: [PATCH 5.10 94/96] mmc: renesas_sdhi: Add OF entry for RZ/G2H
+ SoC
+Thread-Index: AQHdCj+FKf8oM+BZj0GrJ6s5iCm/JrZfgvoAgAChXwCAADznsIAALA6AgAAByRA=
+Date: Mon, 6 Jul 2026 14:15:48 +0000
+Message-ID:
+ <OSCPR01MB14315F1985B25A9D1BA98ECF9AAF12@OSCPR01MB14315.jpnprd01.prod.outlook.com>
+References:
+ <OSCPR01MB14315350989F1BD556CA5B1E9AAF12@OSCPR01MB14315.jpnprd01.prod.outlook.com>
+ <20260706135124.draft-0005@kernel.org>
+In-Reply-To: <20260706135124.draft-0005@kernel.org>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: OSCPR01MB14315:EE_|OS3PR01MB10297:EE_
+x-ms-office365-filtering-correlation-id: 49396870-c031-4403-f47e-08dedb6913c1
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|11063799006|4143699003|38070700021|22082099003|18002099003|56012099006;
+x-microsoft-antispam-message-info:
+ gZt5go+B4OrIyimKda0EdwP/qLRKmdrT0YHlHXjwM0asfTmOaYL+fMYZjbOPpPOFHW+Hlt9M87NO0kdziW1ps8ZAPlafbssStm6GhS9X6BNhQDTn98TLNi6wLF9Xs9bHUkKJ985MbcSPAnIiyJXYxHVqLdpJW7Psx9SSf5AT3AxftrCFZeQngPcGy7V8FNccaSU95ZKBXPhcAxbj1eFLyfe6CiVQrVD+y+qvsrED2I/jGLTjSxoWLP6tCc6Ji9s2PHy07txKxiF0itwAsndr12UbSLjhDO6faA7GoX+MwmqZNCU1zCVyC+DK0lZ28hgfh4fIJ/Ztz+StOmugx1a/EkBs2tVQPOIzbKATLzmELnRkn+x5ItekCg+DG5oC/T3COlGNZuKvxy1siCqNx9JlW1iDWFo6c9GB0KGgpEaX63oQi3myDKogO4zpNnvSjg8ZcuhpU2NXjLxvCQ8xAR2bNbsoexdMwfI+hJcbQnOHB3ZZP1wwcNaq837qjqM2ORefLnufPJM7Z4I9pmp4JoAysNTh84vA9+s3khb3Uq2GTL6LCaSgPRsxZeGcnud4MHiRCix4GkxpE7DPsUOvWAyjpJkovAwOrR0492whOPrsav1RJ8zEW6KHINcjquU1+DoPN9k3rQZG1+3hFP+BqkL2QniXevPTn+3UoJMFdFfazpH9dMP8NcE1HrdhqFsxUHvAFVVHgfEHtnw7zwKMN8DuFa06UnmhjHeiLHPyl4szGR0=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSCPR01MB14315.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(11063799006)(4143699003)(38070700021)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?ZxQicTCQVrMKEGb6GSOv/QeTHOhUHLcLp8H/lPO9GJUcoJ0I7wBBRcJ8BRki?=
+ =?us-ascii?Q?Mt44R3+grbURXHUewbU1RSesj0n9jxWNXVJ9CSOuIsyUVzqGP7DbFp1bnjnG?=
+ =?us-ascii?Q?VpbWM8fKv9FU5VrFnDP+BVnnxqlXShqjqKY+ZHRHahoV1MxuJnPVkdsKyRZo?=
+ =?us-ascii?Q?FlPkKakZjeFPfDmKOCyTHJRCZzdkLWD+Bj4517R4IhuynoC8kX8Ag9nb1CRM?=
+ =?us-ascii?Q?TVryGHfM2xcLk6aGTXB39XIMFm4toc3STrn4SM+bxvFfGq2CW2VaeKuLC2AV?=
+ =?us-ascii?Q?ox828G8yHaRruenEwxw0cfJ1a9dT2v7ve/+N8fNM32YWmP9fZFZVqjrim9jP?=
+ =?us-ascii?Q?tMKPnCFZQdt3qovuUVXUndyPh3+i7r89wlEPgcZQBQwIl0tFGLicNxl4tyh0?=
+ =?us-ascii?Q?2ydNhk8MCfRZN4O1Yu+2LGE6EQmQfHOWh588/K+6PWqlGtQdApKbGStqKSuS?=
+ =?us-ascii?Q?y0HPkJPVpSeUndUouMYHcNtoHxGJyw61+/btxV3JURBxfWJYmDXhs7GFE+6z?=
+ =?us-ascii?Q?n5ycX2KvnGXZR0Fk1DM64p4PbLGT/tAe82Xjs0gFKn31/w/PVw9EvuYArjCc?=
+ =?us-ascii?Q?x6ntZMQEWkV66L/yGxGWQZFUlxX6XYqgjVkdOkZZdsGyj717+wlRYcJY74NQ?=
+ =?us-ascii?Q?C+DUheHyDJNqHI1BYt7y1tvVcar+h3CM+6lQHhd2YRaP5SEMg0S0QnJsbkGj?=
+ =?us-ascii?Q?/Uqtpj0FkaZHNVyiIx+Yx/l15dnIehJ2HVvF08vdG3rVtcOdjv+7IZtmB/Uh?=
+ =?us-ascii?Q?bCWvYIDt8WPIrgkRaN6689gftOBxSIQwhWVDcZG/S3DbjUCqvYUUZyEAXNYu?=
+ =?us-ascii?Q?OS+EHKSVeSRAZm7KzavwCAdeq9N8UkHCHDYaXvPsuPZZ+CMi2b+YQ2DKUl6f?=
+ =?us-ascii?Q?B1flire7ZTM+QuhZ5u4VaKJNdlwEfqUO/eTLmo6IT6kHuq6l08n8Nv1//Bm1?=
+ =?us-ascii?Q?Zboiz2jLk0LZTfJyHddtCQafOlnM0lIJNeKyBTkXxLt31wadmBIIqpqSk//p?=
+ =?us-ascii?Q?uY0x1XpSIqV1O89Dl7R2R8xuC7GysguMpko40ycKaG7y0luUzPi646irrOX8?=
+ =?us-ascii?Q?GXneiGwqOeXBUCOU3EaVc0XG806NLEjSR7cuj0iMRy0NsED/omKi6ys8vvOi?=
+ =?us-ascii?Q?SgyL00lHgZFsrvBWjAzSDme+imcPKR3O4U4qELliHKhRSERGYGFb/YvNmk1h?=
+ =?us-ascii?Q?NO1W65ROfZTBUFykyHF3Zi9NXmJzo+T0BT8+dzg8GGSK53rY2JNd7gYorEfw?=
+ =?us-ascii?Q?MXQXZhk0zE7vgZsXiHYwBYDrmDQn/zCs9rVXvsCnlcd8u3/FQxOgS2pkjpmy?=
+ =?us-ascii?Q?iXMmIqBdca3jFRRc5kwt0i6bvq01elPLlUCnFVimmzVSUwC7Oa/gj0YqQPgW?=
+ =?us-ascii?Q?4aRKWlpyJvLIDJT+orhvJb+3h76c0pugGxGZ/ZokFfnEtzS5R0MG2nc3KbDX?=
+ =?us-ascii?Q?E71x2Td4hFMkICFD3++e19rOA+jCjBX244P4j67GfKxIY5shylSzgQcZSH1o?=
+ =?us-ascii?Q?F48Y3PuP9usVfutaixQXnl/zyNXGp3sjSU4oOpFE6PAsvuTX4K+KNQlDvIDG?=
+ =?us-ascii?Q?HzgmBkkDxaUqhIQuFEdgzfHz44ks8vmepkNVUtDyR10TVkFOvlZ60oWTJ9tS?=
+ =?us-ascii?Q?uvaq7DRwyuTQs1QD3/8OGib05iQMP3jjcfHWbEHc7ggCPc+n+aDPInkybSC+?=
+ =?us-ascii?Q?LyXmHYuJmiMTsCBCw47A3tLJlsUESFd6pQL8zyT0brKIInwG7iU90RSGOvNI?=
+ =?us-ascii?Q?SQ8ZikklTu9lFzqJB2Oc/LTy3ESWCMO0ZYIU0t/OI0WMrmjzfInO?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iommu/arm-smmu-v3: Add HAFT support for SVA
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: will@kernel.org, joro@8bytes.org, jpb@kernel.org,
- catalin.marinas@arm.com, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, stable@vger.kernel.org
-References: <878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com>
- <20260703164914.GY7525@ziepe.ca>
- <6465c885-3a9d-4c0b-ab74-7665e274ae72@arm.com>
- <20260703192459.GB1978949@ziepe.ca>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260703192459.GB1978949@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OSCPR01MB14315.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49396870-c031-4403-f47e-08dedb6913c1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Jul 2026 14:15:48.2236
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: eDZKPSY9V4OSjFcN5iYrvDiCh1U3M7B/cE3XjyGOJWYGFpAW1fpIFKLtQeg5z2lQN0jI/1LaR43nDr1MA8AxCGQ3CQhhy/dolgU037FsOBe3eB/X2eSTsrhhJiP5F16x
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB10297
 
-On 2026-07-03 8:24 pm, Jason Gunthorpe wrote:
-> On Fri, Jul 03, 2026 at 07:57:04PM +0100, Robin Murphy wrote:
->> On 03/07/2026 5:49 pm, Jason Gunthorpe wrote:
->>> On Wed, Jul 01, 2026 at 06:45:17PM +0100, Robin Murphy wrote:
->>>
->>>> @@ -211,6 +213,9 @@ bool arm_smmu_sva_supported(struct arm_smmu_device *smmu)
->>>>    	if (system_supports_bbml2_noabort())
->>>>    		feat_mask |= ARM_SMMU_FEAT_BBML2;
->>>> +	if (system_supports_haft())
->>>> +		feat_mask |= ARM_SMMU_FEAT_HAFT;
->>>
->>> I fear this is going to make SVA stop working on systems it currently
->>> does work on, so it might be a major regression.
->>>
->>> SMMU HTTU is not a commonly implemented feature.. I think of all the
->>> NVIDIA ARM chips only one supports it. Given that a quick internal
->>> check is raising concerns this will be breaking for us. We need to
->>> check in more detail which cores have HAFT.
->>>
->>> Breaking already deployed SVA would be a major functional regression.
->>>
->>> I think this should start by just enabling SMMU HAFT when CPU HAFT is
->>> on, when possible. Maybe print a warning on the mismatch instead of
->>> failing.
->>>
->>> Since we can't break already deployed SVA a full solution would either
->>> have to somehow turn off CPU HAFT or we ignore the gap in the AF
->>> updates..
->>
->> TBH I do not know how bad the implications of
->> pmd_young()/pmdp_test_and_clear_young() returning a false-negative are, but
->> if we aren't considering mismatched CPUs harmless then surely the same must
->> apply for SVA. In the POE/GCS cases all that can really be broken is users'
->> expectations, if they've opted in to additional security features, but also
->> opted in to SVA wherein those features can't protect against DMA. Here,
->> though, it's the kernel mm layer itself that's impacted, and I'm not
->> confident to say that that isn't more serious.
-> 
-> This has come up a few times now where the SMMU and CPU
-> incompatibilities in ARM's IP are causing real headaches.
-> 
-> Let's give it some time and I can say for certain if we have impacted
-> chips or not. I was able to confirm the server chips are OK, but there
-> is still some concern about the embedded chips..
-> 
-> I also don't know how harmless it is to ignore the aging. I thought
-> the PTE was designed to be backwards compatible, but I never looked at
-> how AF works..
+Hi Sasha,
 
-HA and HD are effectively just a performance feature, since the software 
-fault handler only ends up setting the PTE bits such that the outcome is 
-the same either way, it's just hideously inefficient to have to take the 
-whole round-trip through the SMMU event queue. HAFT is different because 
-it's already a strict superset of HA so there is no software-handlable 
-fault; table AFs will *only* be set by agents with HAFT enabled, and 
-thus a mismatch leads to actual loss of correctness if a HAFT-aware 
-pmd_young() assumes that AF=0 in a table entry means there must be no 
-leaf PTEs with AF=1 below it.
->> Making HAFT depend on !SVA could only easily be done at the config
->> level, which seems arguably even more over-reaching
-> 
-> Yeah, but if you could build a custom embedded kernel with HAFT
-> disabled in kconfig maybe that is enough for some people.
+> From: Sasha Levin <sashal@kernel.org>
+> Sent: 06 July 2026 15:08
+> To: geert <geert@linux-m68k.org>; Ben Hutchings <ben@decadent.org.uk>
+> Cc: Sasha Levin <sashal@kernel.org>; Greg Kroah-Hartman
+> <gregkh@linuxfoundation.org>; stable@vger.kernel.org;
+> patches@lists.linux.dev; wsa+renesas <wsa+renesas@sang-engineering.com>;
+> Geert Uytterhoeven <geert+renesas@glider.be>; Ulf Hansson
+> <ulfh@kernel.org>; Prabhakar Mahadev Lad <prabhakar.mahadev-
+> lad.rj@bp.renesas.com>
+> Subject: Re: [PATCH 5.10 94/96] mmc: renesas_sdhi: Add OF entry for RZ/G2=
+H
+> SoC
+>=20
+> > Thanks for pointing that out. We could drop this patch from stable
+> > 5.10 and I can backport this patch and commit 71b7597c63d2ddf6 to CIP
+> > kernels <=3D 5.10.
+>=20
+> The patch already shipped in v5.10.260. Since it's behaviorally a no-op
+> there, I don't plan to queue a bare revert.
+>=20
+> Prabhakar, could you send a proper 5.10.y patch adding the
+> sdhi_quirks_match[] entry Geert sketched (.soc_id =3D "r8a774e1" - note t=
+he
+> missing '4' in his line), so RZ/G2H actually gets the ES3.* tap quirks on
+> 5.10? I'd be glad to queue that.
+>
+Sure, I will do that.
 
-Indeed if anyone does want to use SVA on such mismatched hardware and 
-are happy to use a custom kernel with CONFIG_ARM64_HAFT disabled then 
-they can and will continue to be able to do so. However I don't feel 
-it's right to make general distros do that if they want to ship SVA 
-support, as then it means future systems that don't use SVA, or do have 
-system-wide HAFT, lose out on an additional performance feature 
-unnecessarily (I guess if HiSilicon added it to their CPU they might 
-have added it to their SMMU as well and just overlooked enabling it?)
-
-Furthermore, as I alluded to, with the idreg-override stuff it should be 
-easy enough to add the further option of suppressing HAFT from the 
-command line if anyone wants that.
-
-Thanks,
-Robin
+Cheers,
+Prabhakar
