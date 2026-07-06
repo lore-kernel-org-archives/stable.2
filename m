@@ -1,153 +1,119 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C1A3BED55
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 18:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783360813; cv=none; b=JPvgDUUhRM2y75LoexNOBRRMxLL4f4P1bszyfjFYBuGTnI46e2Xxe/w6E/97nJAgcCBJ1Qazxb6399XLlUKvL0Yhb5rjl+3ymW56NANcxc8ZgOuo/ZCEL/ZsmM5cLWaLXazUxQot29LyVgr+uDs5k+91NDWQE15ag0XdUOmB4dQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783360813; c=relaxed/simple;
-	bh=bsnh9gOaL7Rt2V+xeyeNRAfwOn3S2p6enNw0gjImK+Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NvQB7DDPp4BBvv62PKQC173ITjdZp84vK/9Q7srwnOM1JEWdDaC6qn35zGhlkRD8rvbo43/ZdrJ0dCsPtvgHQ2TD+LR9yyleV4KKEISBPXM9oYeccAFw8hV8+7ds5/WYAUgRPHmzg8m1KI8o44vs5Iqx28kL/yGMybaVkAWdaZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M5y846/D; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453274189AD
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 18:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783360838; cv=pass; b=UhyLvNoGsZiCnMrMQ5bOtvafm4bMTlWe9uMwDzbGaIES6orY+PSc5q9mHqC5Jin/pZ8a7eqTGPPrWnYSBYRgtmkRpdYXQG0C5k1No5zv/fcxp/x3EEudBF0ZolsbvExFYQjpJiO+38F7M9+pBauiibrbK4zJ9Us+U0h0X/Vxmiw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783360838; c=relaxed/simple;
+	bh=dr60ISvk84gw7E2mdn+ZAgXT0Fcp3MJN+kcAT8jJdSE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jwW8LiOeYHtUw7oD5LpUsFk9saT+0Pfg96943gLuQKJhe4vzbBQl81EB30ozIc5FAd8rl8XrVxkSfk2lVrfdHDu/hEl6VvEsmpqvJY35nkQwekqDhHVgxuxczLB5a3vxOJS46wQNGuA5zTcPvMTikcvTu5KiNnTjE9rg6fZ9YQw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n4Y2zJF4; arc=pass smtp.client-ip=209.85.208.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M5y846/D"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cacb8416a1so27286275ad.1
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 11:00:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n4Y2zJF4"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6976b0c5adbso6146730a12.2
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 11:00:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783360836; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JfmqPrOVd6FTnkGYbdPW25RoxMTZ4SfSVpTtmuwg87IdSPIUbIOlTUYja7XgbcrnyH
+         /XM4ZajgPdxba9bFwqzDU7lxV3gzOMfbcz1L8mvH4J3EfIar4ny2FYgt0mDjEV+rNLDP
+         eZ1rZjV86A5Z2zKW4sW9HS13ezdjY4Arog5qzKue0B6o9ZKsn5FL47ZyCXntmxaf3cCL
+         LqV3+EQkwf+RA/yR3JpGsMMbwPC6NE/CvqmZVZ/wU4p+3x43ZikhiPTteWbRylvx8WbO
+         UfRNl4L1hD7Eoyze/pCkMRDDWDa0Tn/yvYfepGX9MNlVGqPJR7i752EUC2GoVPLw5B6I
+         tg3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=dr60ISvk84gw7E2mdn+ZAgXT0Fcp3MJN+kcAT8jJdSE=;
+        fh=5A0PIiE2Is20dfys+Ke7QGHP8hrHnrbdrN4io2zzzLM=;
+        b=AafbHNnsAZfywb+ucSC+JbDLyrvFY645zt5365NaiEu084811vaQxHB2MYrv5K+QpU
+         PW6Q0kS8GlloGHG+g6m7u1ivCrlcfyeSj9vqnQZ41CTQKYQjNSpfRaAzd6spRutg8zH+
+         +INtBP6iTNeTNO5jjBtr/CuQUDoM62aBVSP9JV4B1+OnSSiQG3BakwtLlYG5vf/dA6gR
+         iZVIcGgCYXIa643t5BvaO2atlKx3lRIyIxuuPIUdMvAKfeyo4g+TOw6+7NYeiCixYIYh
+         8CALzpkQZt/tDoiqTLSOD1bcevewmpGRaS6Mww6NdWmNCs/qLBbUesfCQlw7mZFDukkE
+         5O/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783360811; x=1783965611; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1i9opHM4bOHdKev3pbWNXUYFj+izXMcvOiuJ5Sb6Isg=;
-        b=M5y846/DuX4UOzda7uWIICWGFGodw/V1ifn2QtF6j19meuUUn5GEf1LCo8S2AgBiyv
-         NRGKuJqqZFADBBNW541GflpI3yq9Vw4mAHKLgQYeqvgwbM/qfrEdhTsssHmmHd5SNmF6
-         nItcviU66RhAFFbpAdDOYFbQwAM7Vr+9DcHSS4SI/yzrFdOicPL4h70KOvdoi+7jZJno
-         7jqekoG4mPzejT43gwju9lNRQfOVwgzgGqXWv7JOzMjcNR1VNBf0f/Z/bI79gjJe4ls7
-         94BsTtbj+rO9PmQK2gsT1vmC+zfea743StaK3zNAGCyKXG9enkwtZjgxifM/F8nr0SFm
-         mFHA==
+        d=gmail.com; s=20251104; t=1783360836; x=1783965636; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=dr60ISvk84gw7E2mdn+ZAgXT0Fcp3MJN+kcAT8jJdSE=;
+        b=n4Y2zJF4yy1vvJ78/rR6r2s35rcoM8E1TXUvZuK+NFOYMarPRx+FoySpZxA75Akd6l
+         j4ZZwEHQ4Lawu4fvxT9pGvpXhNPWuXErgjvHIba+WVlcAcX5dQDVYz3us9Mrth6fvT4W
+         bxs/Xxzon83AvN1gpSo7DZdN4o6dEKaxNDsK0dtUGPkNDb4LIbTxu8LJQNjfmOvJ9OXn
+         ZumiE/8ASyutgnqlEhR3KKe8XeFMNyC+bwTgdmb35vLRwaHv9ySVGVPqbGjRIctOaD8D
+         Zr1Zc3lHeMaodIxzqITWTL3/y1iLBsC8KtsKQCnIGbNdyNZ/9p5bBtBOpd2vDbP3cH6y
+         gcyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783360811; x=1783965611;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1i9opHM4bOHdKev3pbWNXUYFj+izXMcvOiuJ5Sb6Isg=;
-        b=f78q+fx5Nhy3x7iY8fQkoL9PoEK+vDptuyM0xIU7oPH8twwwc0DW7dKZYgEwx+Ioe5
-         ys3mArnzZ39qvTFihBL23RynG39VdC3zuMCL5DJ3ri7sGnf7Ck6UPF/q3ErEZij1Cco0
-         tOS+sKZJyWo8KWHyrP2bV5D9fa8i/Bxzljjacz3Omgl1gfjZAfBRDY+3A5AhNkKUlA/n
-         +h6cyDul3NGl5u8xj9G0o9up+akyKwMh9BD/uJWAlQD9qe2VzZFDav/+4O43v+mumS5p
-         iqwzzgbKpt+fDlTuT+E2jBkFfVQywtRL6Agf9E4ImroIj8ujXKTaak/E2ykTOZnoMBh8
-         8fZw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr/OdlTivudAGr54B8iIuwsLoT+/y/zMGNoRoqpHeies2ZepbdGSL3jFyJpsHtPrOodhE0hZs8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoPs0uaxMyuupSmafAYSFsa4396ozS3G4B8bxudnGuPl+1QQQ8
-	5gm1IoCHehekmly5Fg5OcsKY7l2+eRZqXE12nSbwmt6LyPeS7laoo+eh
-X-Gm-Gg: AfdE7cnoYSZ42f6XcActlAq6eHIE3JetFyQN/JO7irL6VQxxdXhYfmv1amcdriVuCzf
-	BVc+YDyLtECCGy1DvtwY7xu72dT+8ZbBF7zzqwMrB0axn2x5D1vHJMg0HvdKOgL/48jUOsbfhm/
-	ZqgrCNRNioxCxf02IIfLcMo5qhUR8Qz5SU01LkJMbEylDAAB6bgSaRe5jdQT0Od/XXBpQKFZIO1
-	AKriLglDg5SLeguAwJviJ90obJVIrekvkvobnOv8WIB+z8L4RI1XIZgx1V8TqQcieBt1785RwhA
-	O1p1cySNbHekrXH6TuzZfReuQB0RXJl7Voj1NJ5ZbUvl/j/RukwRYwGwri7JcTDo0NNv8r+kgh1
-	p2TmAjoSlzRhz7IpngsZt1QzbXBCnSoOronXeXzeFP1gmjLqbyLC9QX8+NwpJlambeOtyhoxZEk
-	ucDLkSCgrZ9gPGs4X0bb+6Zzc=
-X-Received: by 2002:a17:902:ced0:b0:2ca:1b97:70c5 with SMTP id d9443c01a7336-2ccbe617d59mr15890325ad.4.1783360810922;
-        Mon, 06 Jul 2026 11:00:10 -0700 (PDT)
-Received: from ustb520lab-MS-7E07.. ([115.25.44.221])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad7893dadsm54829455ad.74.2026.07.06.11.00.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 11:00:10 -0700 (PDT)
-From: Jiaming Zhang <r772577952@gmail.com>
-To: anprice@redhat.com
-Cc: agruenba@redhat.com,
-	gfs2@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	r772577952@gmail.com,
-	stable@vger.kernel.org,
-	syzkaller@googlegroups.com
-Subject: [PATCH v2] gfs2: reject oversized dinode sizes before i_size_write
-Date: Tue,  7 Jul 2026 02:00:03 +0800
-Message-ID: <20260706180003.2124317-1-r772577952@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <74871a78-5243-4898-8e63-92e918912980@redhat.com>
-References: <74871a78-5243-4898-8e63-92e918912980@redhat.com>
+        d=1e100.net; s=20251104; t=1783360836; x=1783965636;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dr60ISvk84gw7E2mdn+ZAgXT0Fcp3MJN+kcAT8jJdSE=;
+        b=bCFOlPxGhMn3xcXCbm6X37uGaHgywksog6ItyVMQtReTkTRK1yWIZFZwp+OS3N1dCe
+         8i0ihOJouKi1lJykrQ3RqoedG0FQhxIt/0y9b1Xv1HAokqNT7ODA+/GxCyNzh80ujzwQ
+         jmpMdaeWNEMlbpM8cRxznef+WkcntnAw+qJI47clIKuXj23N6rmLcWfbvr4WJwaYCrKu
+         QDgT2qVdRjp3kgt6Gd4eaU/1PeU3y/VEUplnyLgvScphVEgOWpUKYMuMrAN5gPv+FlDU
+         IK96YzlPrnwc64aboNntf1yR4e10IFJgNkSZJ8nDTjPOTJB+41jxUXze/jOHj4RB0bf0
+         t1yg==
+X-Forwarded-Encrypted: i=1; AHgh+Royt+jilqP/1+x5TxhyWZGewxTBRObR2hgO/NskuAPXY+Q9+8RICC2kQsNfNAlG9NOnri4F3go=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqeDbT7bTEc9du955S8RgKPcOClfIt5OhDJcX5iHkKgeYaNMME
+	2dhofOcD6El5jY9zy7YIMP+aHg9jiG57qi0RhjNfGkYkHuEk4FJ6DXU/gMFe7lJDu8sRtOHVyEV
+	XXe7jAVtCycEWw5unWyVZdnrm+bFYls4=
+X-Gm-Gg: AfdE7cks6vVopGAECadl15XV07dO42GQxWx5zufXrKweJvpVym2d6Sm/YXW+hZDWE2W
+	bku9S0X1h3lJ80QP4lJ4syUrF2xlHyYE/V5IV9k+AonTnyXXO8QceYnC3Dc+DR3ZySi1q1Tjjfj
+	Kt+SW81sVQzIjaPuikSnIuOzvH/HU8ESIPLUVHGuIA21GGRdNHkDXg+nZXyqocSwS8qXcHO6fik
+	lGYM1Hh7hFdkvBHK3ODJ3qtFNCYPJI+hpe2ftb1xhZa5PUbXCQIw85D7Wrxh2RiW1lrOrHy1BvU
+	Z7klWZT2XlQ9qbHPSpWuaM/1/AC09aQ=
+X-Received: by 2002:a05:6402:321e:b0:698:1504:e3d9 with SMTP id
+ 4fb4d7f45d1cf-69a85bd8accmr1044410a12.29.1783360835438; Mon, 06 Jul 2026
+ 11:00:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260518-procfs-lockfix-part1-v1-1-5c3d20e0ac33@google.com>
+ <20260706170735.2941493-1-linmag7@gmail.com> <CAG48ez0ebrMy8QGKLuz0Qwao_Eiav6e5pAJ5f6GrUPJLRkwNnw@mail.gmail.com>
+In-Reply-To: <CAG48ez0ebrMy8QGKLuz0Qwao_Eiav6e5pAJ5f6GrUPJLRkwNnw@mail.gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Mon, 6 Jul 2026 20:00:23 +0200
+X-Gm-Features: AVVi8CcS3SKBXiRqnUEVp14psIAYY_ciJjhgFTNlSKDvmnRbNTK-HfNc6gtZ-qI
+Message-ID: <CA+=Fv5R=mUW_p_AFFr-588F_b1hB=7RhMbtODya-gby=_fjBgg@mail.gmail.com>
+Subject: Re: [PATCH] proc: protect ptrace_may_access() with exec_update_lock
+ (part 1)
+To: Jann Horn <jannh@google.com>
+Cc: arjan@linux.intel.com, brauner@kernel.org, ebiederm@xmission.com, 
+	jack@suse.cz, jake@lwn.net, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev, 
+	stable@vger.kernel.org, viro@zeniv.linux.org.uk
+Content-Type: text/plain; charset="UTF-8"
 
-A corrupted GFS2 image can store a dinode size that is larger than what VFS
-i_size can represent. gfs2_dinode_in() reads the on-disk di_size as a u64 and
-writes it directly into inode->i_size. If the value is larger than S64_MAX, the
-incore i_size becomes negative. That negative value can bypass the existing
-stuffed inode size check:
+Hi Jann,
 
-inode->i_size > gfs2_max_stuffed_size(ip)
+>
+> and that is wrong because previously, the ptrace_may_access() check
+> relied on "error" still being "error = -EACCES" from the
+> initialization at the top of the function, but now it is 0 from
+> down_read_killable(), so now a ptrace permission check failure causes
+> us to return with 0 without actually having called nd_jump_link(),
+> which I think means we end up staying in /proc/$pid/ns?
+>
+> Sigh, I will send a fix.
 
-Later, gfs2_quotad may try to sync the quota file and unstuff the quota inode.
-gfs2_unstuffer_folio() reads the negative i_size into an unsigned length and
-passes it to memcpy(), turning it into a huge copy size and triggering a
-out-of-bound issue.
 
-Reject dinodes whose size exceeds sb->s_maxbytes before storing the value in
-inode->i_size. Also make the stuffed inode check use the raw on-disk size while
-it is still unsigned.
+Thanks for looking into this. That explanation makes sense, and it matches
+what I was seeing from strace: /proc/<pid>/ns/pid could be opened, but the
+NS_* ioctls then failed with ENOTTY and strace disabled pidns translation.
 
-Fixes: 70376c7ff312 ("gfs2: Always check inode size of inline inodes")
-Closes: https://lore.kernel.org/lkml/CANypQFaF6bvORKKbRALvEL0k_epFaneFiOQqco4gjdmKVbdURg@mail.gmail.com/
-Assisted-by: Codex:gpt-5.5-xhigh
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
----
-Changes in v2:
-- Drop the defensive unstuffing changes in bmap.c.
+I'll retest the strace pidns-translation tests once your fix is available.
 
- fs/gfs2/glops.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index 28f32424ee64..8c5d257451d5 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -393,11 +393,16 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	umode_t mode = be32_to_cpu(str->di_mode);
- 	struct inode *inode = &ip->i_inode;
- 	bool is_new = inode_state_read_once(inode) & I_NEW;
-+	u64 size = be64_to_cpu(str->di_size);
- 
- 	if (unlikely(ip->i_no_addr != be64_to_cpu(str->di_num.no_addr))) {
- 		gfs2_consist_inode(ip);
- 		return -EIO;
- 	}
-+	if (unlikely(size > (u64)inode->i_sb->s_maxbytes)) {
-+		gfs2_consist_inode(ip);
-+		return -EIO;
-+	}
- 	if (unlikely(!is_new && inode_wrong_type(inode, mode))) {
- 		gfs2_consist_inode(ip);
- 		return -EIO;
-@@ -418,7 +423,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	i_uid_write(inode, be32_to_cpu(str->di_uid));
- 	i_gid_write(inode, be32_to_cpu(str->di_gid));
- 	set_nlink(inode, be32_to_cpu(str->di_nlink));
--	i_size_write(inode, be64_to_cpu(str->di_size));
-+	i_size_write(inode, size);
- 	gfs2_set_inode_blocks(inode, be64_to_cpu(str->di_blocks));
- 	atime.tv_sec = be64_to_cpu(str->di_atime);
- 	atime.tv_nsec = be32_to_cpu(str->di_atime_nsec);
-@@ -462,7 +467,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 		return -EIO;
- 	}
- 
--	if (gfs2_is_stuffed(ip) && inode->i_size > gfs2_max_stuffed_size(ip)) {
-+	if (gfs2_is_stuffed(ip) && size > gfs2_max_stuffed_size(ip)) {
- 		gfs2_consist_inode(ip);
- 		return -EIO;
- 	}
--- 
-2.43.0
-
+Thanks,
+Magnus
