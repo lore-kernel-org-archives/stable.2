@@ -1,116 +1,100 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BF241F7C4
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 21:00:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783371606; cv=pass; b=XQReUlcVjkOFgMJ9XTn8c/u2npOIp1IMPazsDRHk6Yipf6xZ/kEqnwV8rtV5piwaqGL14/ZpZtSivLsDjmu1VRETwZwpjOZZCgHRPmWXoLmGg8tMvsoE0YMuheUNHc0I6s3JedMsEKP6B4ISw41Gv/+Q0LYGxYD/saGaR1i+st4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783371606; c=relaxed/simple;
-	bh=XjLzI90BUr/vpbSzybl4eyfCI8tSGjIAmOs8CnRc3QI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HCEvxSJ6+s0Dsbf1FNOAPc+xeHYxwJ+R9OIVoVS5MqfxJoFwjI556rvHdxDEUHweliHsN7Z/RqPrmr43DnMVy/Jrc1tHifIVXP3PLz4BaThnVE09vthakB9e6w0/TsPKvUOaD1gK1EHqe7cK+7UUWPHkhwbk7AHSBLjoqMC2a5c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=anZpke75; arc=pass smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760CD436BDA;
+	Mon,  6 Jul 2026 21:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783371727; cv=none; b=cfFYaYMQGVK57AlFUfJVX7BvMXPYnWsYcVacANEp5SjDiaquwFmG5XpTVuStG9Dbs0XLW34hmrwPIZJXyxoRx5YGHN/WWyDbYAunx/OtYAl8cyZqzJVj/fmVIASZ9fh45XG+Z9idP2ZkA7pJeIHTho9Z12lwNGgiKi09Fxcb39I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783371727; c=relaxed/simple;
+	bh=zk7mFt6QqW9hGPmSzBqV0ibKlPwQhw4uSyD+gkUD65Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IXDlkPJlbNvntU5WC+0PoHkRGlj5UzQYS9FcNSGv57dkDNUfH4oCGgOuXTWX5baEj4uliXjwtoPLXAl5UYvG6a9MyuW1IBvZrfCJATzpjEa0MTYztSSf7Q3I0B1YAH/oJMDWMEjASjGsbr4iV/sBBNuw0kK/LE/5fzeu0oVQ5MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KlhEw/ct; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="anZpke75"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-698b78c05b0so289a12.1
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 14:00:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783371602; cv=none;
-        d=google.com; s=arc-20260327;
-        b=C0/3m4TCZXM3AIK/W34zKszC5YbPx7apVNM6o+9qHBVAinp4scWcnmXzhmnqFB7hjw
-         K+xTm2yhcTNUMQ3nNCZwN2HpQzjefUSMfnE4u8aJK4+CbzXmi543RCjHpmLc5lCrGwlS
-         /X3PYhlH1GUHbJr/hMMzgyn0utjfCUG5NupY38FWqbs5NOtuFXAo7FfQG4AbBa1gZNgZ
-         SHW3Lh23zxXk7MS6y8WKahqZosyFE2NZbQvzVCIvd3cI9jfGyAzrcaFaSkWKTTlcHVPY
-         eT23cYH1YNExP3iT0VWqlNd7au8ggQ0zpBROT4HQhULwMQuve4ZwbtL5INcK/Voa2/2f
-         l88g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XjLzI90BUr/vpbSzybl4eyfCI8tSGjIAmOs8CnRc3QI=;
-        fh=Zihasp7YU1NV27TirspgSju3G/a0GxNQVlrKSKdy4V8=;
-        b=J8Fe34o/nEZIhsJYqbRYXaRIIndiHTFi0zjEayPJf7ptb8QgQ8PCgT0QP9asg413su
-         xfZ4MPE7uCfAeXk4MZGM+p/zXrzYakewUOFIYWn3fN63Eay6lj17/0pUhYIet2ZAWxzU
-         NwoJOtty3b/88DgIaZmjOMuQhVXL6ToiBFxgTuAUlQw7aRxm2jmJHq4LDQcNeH49phHT
-         0jp0US9sJPu9bN/dkUNhPrB0Y+OWTyzSA5ih5H7aByCIH+uJkTRo4PNzEUdV6nrmbr79
-         b7rcUCGzoXQQHO0Lkp+zeN3gDa020VeTIy1053duEXlYZLWRz3bPO3aG0R9/Gnismb1H
-         UdmQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783371602; x=1783976402; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XjLzI90BUr/vpbSzybl4eyfCI8tSGjIAmOs8CnRc3QI=;
-        b=anZpke75kv9BWt1YU8O7S8ovnSnXmBjclhVmAcLDn3pkRVT67BpK8azd+F7i9+Zde1
-         4fcW7U1/+veKA2j14mfugmmU9V7KKYHsWZc2BqDhgeggNTyWN+N+/ITzaZ8o85LmkwOR
-         F6piN7L3XWuJBgt0NCwEx9xi7jr88Q8w5vwJR/LGd66RAXCZnXH5Z9rqTJWbcEK01lti
-         b0RuOdAWRDgqxmLN+7jPsGBpwdapG59FavlDTNJjUsT65UfOpxPVYlh6qZxnoDC4QF+n
-         iC8EgWfNo/zw7QWRaNQ92W2t9X2W6M4nqY9SZf/xVekqDSyAR5EyRiFR0cm1dPcNGa8u
-         xIsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783371602; x=1783976402;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XjLzI90BUr/vpbSzybl4eyfCI8tSGjIAmOs8CnRc3QI=;
-        b=CHaIBHlo5HbDn+2UmdfzdGpPTLUW6pkBZMVCVjaaknG5sL8rYQMExv2Zq4hbjXOOdE
-         4kjHl/cl+0qEJA95I5pFJ0nx2G+RAgxuCE/V2pXLKYVd0CPuIzW12XLpIB4pBu5Cl8B8
-         +bBCiPkkGIah4xWJcHiapBSYUm3U2MH0F+yVzBEQJ/7Q8oBtpy3lqziMdT5JSYE9pGUK
-         kBynpIr1vdAK30UUO9Z4QLTYWxT91mZYUQWz+8L88htMzbRvC+C3MFv6gBetpv7RsrFC
-         PcscJAbEml0dcjGB6HP4JsUb8edPPplSg6D97MboAIWqQBmozKThZAQqOmuYiKhdiqCS
-         +nWA==
-X-Forwarded-Encrypted: i=1; AHgh+RrRhAxQXnFPCS/bxAHlylXbLC+PBljVIryi9ihojeb04WKkJaGsZnuK+JQk+HDkfw9oeW7Rffc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzzKFuokuGbIRTZxSjwFLs0kTGbcREwIFbmhxPFsLwSjIE6NmOu
-	Z1j6HxMkwN4EAR0ij1crCWTkJxVA13TY+zn6VtPQ94Oy4pUpCf4vpo1Yy0lK7TLiK6nF64/ss4l
-	7dDDhGSD5OmVU6Hyp/VcwxKMXeWozz4PxPmFQjsej
-X-Gm-Gg: AfdE7cm2NSGZpqOZxGCaPjm25RPCZuwfX9dxjjBDaDg/AYlpgHXDratwpbKOPEq9noM
-	J62vtL9WbfKqB7lQU9ia0myfB5u+0OZH3aShMxW7k9FD8wOmJW8hQJGSQTnQUy0qOYRoWou2w9b
-	A8oBp7+9ZGu+VlYtpe4WpWfNNJLJxDtLzmYgtu4ftHjJIT+48EUaseqHQwpOU5OqPOxV0XveyVp
-	O3X51x8O/qd6vLN42cF4p7eYfLFMMNBqi9FyYiySfa+mdpJoVxOrVRfw5GrI2VKp3JSMmCofq1c
-	AwX6aWBqLqmKvjKGc/4zdadGFD1y/3HUB39Bt57PCf0EC3uT40nWo6GVTQ==
-X-Received: by 2002:a05:6402:a581:10b0:695:4751:c044 with SMTP id
- 4fb4d7f45d1cf-69a90c6186cmr3802a12.8.1783371601820; Mon, 06 Jul 2026 14:00:01
- -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KlhEw/ct"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6FDC1F000E9;
+	Mon,  6 Jul 2026 21:02:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783371723;
+	bh=YH94RBJ5oQWvPJxqF2lGknMcip56J1cYwGtMmIQc6zo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KlhEw/ctTtp3dv24zUaovOm+XpVqLihb5HsRRIpxaYCPrPgxi/MeJcHlUOLnQe3CP
+	 kH36SRATV/zWbKeZn/q0YDpQHTeMsmxbBAFnwNXhiI3ijOydR/4tttbtasf+P+zM+B
+	 re6lokUPzapg9CeGQ064v2EU9YCLMPu3XEb5MQserHK6avQki7PRuLY3qsT1/zK+O6
+	 ZMvi6i1HNLPIPmkMdQjTQPhSZBrvSdreOGuukGqHGwrmDtxvetav8Il5D7BZ1buXbg
+	 3Zfr5LyjXsLDC7GLcB5XnH7s9JSarGEuErPA11b4FEWcy51V1fyCfmYDOANVmd7ZhQ
+	 24gdMzeeMFU1w==
+Date: Mon, 6 Jul 2026 14:01:58 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Wende Tan <twd2.me@gmail.com>, Palmer Dabbelt <palmer@rivosinc.com>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Nam Cao <namcao@linutronix.de>, kernel test robot <lkp@intel.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] riscv: vdso: Do not use LTO for the vDSO
+Message-ID: <20260706210158.GA73349@ax162>
+References: <20260701-riscv-vdso-lto-v1-0-89db0cd82077@linutronix.de>
+ <20260701-riscv-vdso-lto-v1-1-89db0cd82077@linutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260706-procfs-ns-eacces-fix-v1-1-a69ab14c02e6@google.com> <ua3v3vjbbyzae5twf2oywqysfwnojqy4fmhzfucqwahy75pgb7@bwq7sdgwyft5>
-In-Reply-To: <ua3v3vjbbyzae5twf2oywqysfwnojqy4fmhzfucqwahy75pgb7@bwq7sdgwyft5>
-From: Jann Horn <jannh@google.com>
-Date: Mon, 6 Jul 2026 22:59:24 +0200
-X-Gm-Features: AVVi8Ce7wKbDwrqIn-Ojy2Nx2LKJoP2IqoCHaxHLVTCiHU_aETZ8yxpu-NaWsuI
-Message-ID: <CAG48ez1+unKRQQB1r_xwDpq6V62+0V+GZqbUTAUhcY0Nw+06Xw@mail.gmail.com>
-Subject: Re: [PATCH] proc: Fix broken error paths for namespace links
-To: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	"Christian Brauner (Amutable)" <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Magnus Lindholm <linmag7@gmail.com>, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260701-riscv-vdso-lto-v1-1-89db0cd82077@linutronix.de>
 
-On Mon, Jul 6, 2026 at 10:56=E2=80=AFPM Mateusz Guzik <mjguzik@gmail.com> w=
-rote:
-> On Mon, Jul 06, 2026 at 08:22:42PM +0200, Jann Horn wrote:
-> > Don't return the return value of down_read_killable() (0) when a ptrace
-> > access check fails, return -EACCES as intended.
-> >
->
-> This is the kind of a bug LLMs can find very reliably.
->
-> In fact Sashiko did report it, along with something extra to take a look
-> at:
->
-> https://sashiko.dev/#/patchset/20260518-procfs-lockfix-part1-v1-0-5c3d20e=
-0ac33%40google.com
+On Wed, Jul 01, 2026 at 11:21:22AM +0200, Thomas Weiﬂschuh wrote:
+> With LTO enabled the compiler assumes that the vDSO functions are not
+> used and optimizes them away completely. Currently this happens to
+> __vdso_clock_getres(), __vdso_clock_gettime(), __vdso_getrandom(),
+> __vdso_gettimeofday() and __vdso_riscv_hwprobe().
+> 
+> Disable LTO for the vDSO, as these functions are hand-optimized anyways.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202606301855.WvkSC4kD-lkp@intel.com/
 
-(that is an older version of the series, there was already a fixup
-https://lore.kernel.org/all/20260604155806.1402880-1-jannh@google.com/)
+While this change seems correct, is this really the fix for that report?
+It seems like that error happens in clang but I would expect this sort
+of issue to only appear once LTO has run through ld.lld?
+
+> Fixes: 021d23428bdb ("RISC-V: build: Allow LTO to be selected")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
+> ---
+>  arch/riscv/kernel/vdso/Makefile | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/riscv/kernel/vdso/Makefile b/arch/riscv/kernel/vdso/Makefile
+> index a842dc034571..43ee881f6c6f 100644
+> --- a/arch/riscv/kernel/vdso/Makefile
+> +++ b/arch/riscv/kernel/vdso/Makefile
+> @@ -69,9 +69,9 @@ CPPFLAGS_$(vdso_lds) += -DHAS_VGETTIMEOFDAY
+>  endif
+>  
+>  # Disable -pg to prevent insert call site
+> -CFLAGS_REMOVE_vgettimeofday.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS)
+> -CFLAGS_REMOVE_getrandom.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS)
+> -CFLAGS_REMOVE_hwprobe.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS)
+> +CFLAGS_REMOVE_vgettimeofday.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS) $(CC_FLAGS_LTO)
+> +CFLAGS_REMOVE_getrandom.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS) $(CC_FLAGS_LTO)
+> +CFLAGS_REMOVE_hwprobe.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS) $(CC_FLAGS_LTO)
+>  
+>  # Force dependency
+>  $(obj)/$(vdso_o): $(obj)/$(vdso_so)
+> 
+> -- 
+> 2.55.0
+> 
+
+-- 
+Cheers,
+Nathan
