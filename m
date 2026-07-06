@@ -1,64 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4C23803D9;
-	Mon,  6 Jul 2026 14:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90CE03BB11C;
+	Mon,  6 Jul 2026 14:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783348351; cv=none; b=Izr/o6U9utd2RYw14OQjPqSkvXlV1y2yzRdi7Lggzr3YDin0DYfOh+e6FfQwwb7TfTe3+HxVdBZr8adXupsEte6XDIpglNl6SMg/lwtzdfWqjT+QcZJpWZ/5Lhj6AsxVD6UonAJHOrEPuIqzbVeC5TQzlI6TBFHnr+sZ80ISgzM=
+	t=1783348471; cv=none; b=SRiDEf8A3a2V0VKUA6Gccno3OvkvnjBiWFG7gCZb6cVT5yHA0zX6+8XuEfa7347FGavOGkrXS7ZujIefj3e51Z5fUgHvJ9aI3QPfREpU4ADJ4l/syYIKNM9p15hINqEnPKJfVaQ8c/ehTTymUxH+yfB3v4TByQGYnA+P/EmpB+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783348351; c=relaxed/simple;
-	bh=ZvHFaeKoA4urRR/RrbPxmUCKy0/k0ho3/pMY9NQrV1M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tP+NKPDy6uHdMbU128lvKmO2z9oeiLkFYJbgQVyf9w5SkKVeQ8icXI58naAUUbmYwzME59SLtgumOFaRwxVHqS7QNovYVaM34EVCTHBnZ4ENRp2rJ7B/dAJP67uvSA9tzXCht9F1e4HDNmP0CYLGqqsd1V/rj4eibbs0Vxmvc9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Mx4/Vjxq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783348471; c=relaxed/simple;
+	bh=PARIJmV8ijOMxuRwVMoi0CgMANuXn+H2UM8NorXvEso=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=WVJWrT136PgKCOMrxB7bg5aHkSKampRK/BL7rKwPscLucXt7HY/oHghLqfdwdRgjKyJJ70w1UF9t9xSruDQvxiRd2rOMTX2Jx2HBD8l6PuqHvtNk4o2hjr5T3zAVBPoNAclTvtt42Fkh+i8C14Rty2j+0nDzqG3W+X8hObdW640=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=JbhizcJQ; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Mx4/Vjxq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ADF61F00A3A;
-	Mon,  6 Jul 2026 14:32:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783348349;
-	bh=qqtQclWVRJeGbyZnEKIXA2FoQaHc57BHwkaaAOGJLw4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mx4/Vjxqicocsc5k3T84Guz67QN0zZxLht3ojcljR2SZ+zAq/aPRSdILCDgzOANRM
-	 RaBNs2lN9+r0r3bgm7IFQVgkFyaViW6be8ZvIxO9ZlVSrfC1tZh2bHk/nuKV8cGqvK
-	 DZqLPM0+iJWrDw/O5vX04OTDdWsZElA+irAo4HGQ=
-Date: Mon, 6 Jul 2026 16:32:43 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Alexander Usyskin <alexander.usyskin@intel.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Badal Nilawar <badal.nilawar@intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="JbhizcJQ"
+Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4517f1877;
+	Mon, 6 Jul 2026 22:34:24 +0800 (GMT+08:00)
+From: Dawei Feng <dawei.feng@seu.edu.cn>
+To: leon@kernel.org
+Cc: dawei.feng@seu.edu.cn,
+	dennis.dalessandro@cornelisnetworks.com,
+	jgg@ziepe.ca,
+	jianhao.xu@seu.edu.cn,
 	linux-kernel@vger.kernel.org,
-	Menachem Adin <menachem.adin@intel.com>, stable@vger.kernel.org,
-	kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH char-misc v2] mei: lb: fix incorrect type in assignment
-Message-ID: <2026070608-reformat-pungent-aeb4@gregkh>
-References: <20260706-fix_type_le-v2-1-586826351454@intel.com>
+	linux-rdma@vger.kernel.org,
+	stable@vger.kernel.org,
+	zilin@seu.edu.cn
+Subject: Re: [PATCH] RDMA/hfi1: fix init_one() probe failure cleanup
+Date: Mon,  6 Jul 2026 22:34:24 +0800
+Message-Id: <20260706143424.145935-1-dawei.feng@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260705122328.GD15188@unreal>
+References: <20260705122328.GD15188@unreal>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260706-fix_type_le-v2-1-586826351454@intel.com>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9f37da096503a2kunmf117e0f79c98
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSE0dVkhNSBoZHR1PSkwfSFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=JbhizcJQQ97IxUpZV+CUmB/5P73UVPHxI64tMSlPosi05xU7jUOKAn85wHQCno3QybPLlBn9NtVdLyefhX2n+cYc43BXqU9wj9n8g9FoEHJOhV8qeE4i7VApGp3Pg/C2DMKfrWrOHrgvYyJ9WdIHWKTNmtrJXjt3L6o3Fqadnfs=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=D5TNjTRX++MimZT9LBgkaPSFb0EnNbvfHgwpNW8oZHU=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mon, Jul 06, 2026 at 04:01:30PM +0300, Alexander Usyskin wrote:
-> Fix the mix between __le32 and integer by casting
-> the MEI_LB2_CMD constant as __le32 while using it.
-> 
-> Fixes sparse waring:
-> drivers/misc/mei/mei_lb.c:284:32: sparse: sparse: restricted __le32 degrades to integer
-> drivers/misc/mei/mei_lb.c:330:40: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted __le32 [usertype] command_id @@     got int @@
-> drivers/misc/mei/mei_lb.c:330:40: sparse:     expected restricted __le32 [usertype] command_id
-> drivers/misc/mei/mei_lb.c:330:40: sparse:     got int
-> 
-> Cc: stable@vger.kernel.org
+On Sun, 5 Jul 2026 15:23:28 +0300, Leon Romanovsky wrote:
+>Just move hfi1_validate_rcvhdrcnt() to be before hfi1_alloc_devdata()
+>and remove error prints.
 
-Why cc: stable?  It doesn't actually cause any functional change to the
-code at all, right?  This isn't running on s390, or am I mistaken?
+Hi, Leon,
 
-thanks,
+I agree that this approach is suitable for the hfi1_validate_rcvhdrcnt()
+failure path. However, it is not generally applicable to the other failure
+paths. The later failures still occur after hfi1_alloc_devdata(), so they
+still need proper cleanup handling to avoid leaking the allocated devdata.
+Therefore, I think the current approach may be more appropriate for this
+fix.
 
-greg k-h
+By the way, I also noticed that the error handling can be optimized by
+returning ret directly from cleanup labels, avoiding chained gotos. Would
+you like me to make this change in the next version? The change would look
+like this:
+
++postinit_bail:
++	hfi1_free_rx(dd);
++	postinit_cleanup(dd);
++	return ret;
++
+ clean_bail:
+ 	hfi1_pcie_cleanup(pdev);
++	return ret;
++
++free_dd:
++	hfi1_free_devdata(dd);
++	return ret;
+ bail:
+ 	return ret;
+}
+
+Best regards,
+Dawei
