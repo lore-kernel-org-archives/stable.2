@@ -1,152 +1,83 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E56D385D9B
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 13:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A652925C80E
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 13:30:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783344428; cv=none; b=tsUKNn46ypHHvJv76J20yJ/oUN/IBlfbYZNRgH4ck/dcFEZXXDG1Iq14Bum8/+Uw3SKpXR7v72IYjzLlRhV0nC6B4jxYq99qX+e7Sjx+Fc0ksnHvc67zMhteuMD5OVRSWBSua9OJHjnKvJALYQzA1Yc7h70XACsww5VVk0QrTp4=
+	t=1783344610; cv=none; b=XssvGhxmM+1Ou17kPFkRcQqiiw361a3e8ioVqVqCw7Euz3anoFxQrbN8TDPdWciZViQZgup4IMkwswdtASPIc3yqoLD0Z6YLblEOwFOPVMWxtnVJZOVtvnf/desvgY5iip1XLoubTLvQlgKg0F55Vtelsa+oMnDVUYcAafGZxjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783344428; c=relaxed/simple;
-	bh=r59EUgtIsaoxZtEmDgwSAtgrbkt8LgaNF7WBBajdhfk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hQdrn3q8sNr6HH54+vfKTrjY/iya63EURdEyNyweMICMSCpSqiN8n8teJ2qKN40VJyT9rr0zPaVqGbKZ/aWE+BCC5aiMpyEJI5qEXGAg+gwKescdMC6qiBQ9/5yq0CziUX/wUFLWAsXcIfusAHNfSffRDHPvTZaAVREMlRSG2yY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QOG4Jff6; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783344610; c=relaxed/simple;
+	bh=vxlV2M6NKGbXDRvXckTB0aekRXZDoJYInvLokjRB/Zo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NoW964PZWw3DcgeY8xvQUJXB3rbmTJjji2TR/ZnUxbemrxLllXtG8uKvz6cJlZ2UjE4D1RkmgajAQfyqsuUHD/k3Z38P60/jCt/ollBP5VDJqUTcwUZWa6UC0eg0abCPjjys7yvt6mGuZEj+6t9UnU5ec+SJMRae/yrWsaPQoZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ikfzRNf8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QOG4Jff6"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c9fe3c9bd5fso1637551a12.0
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 06:27:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783344425; x=1783949225; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=n0i9VdK/Ma3gHZKckXQb+1T7ww2+Cb/2KCUzwQQKXZo=;
-        b=QOG4Jff6djVIViTWz1Q3hLEV4bLPsWHn9vBIfA1dMtVRTFsyHRdIjXX0LSf1BKh0Yp
-         GglmX0vDvykiIoXcd8kCdTLoQ39DUryaIS83GFy5DdzISUUWCKJJLgcmGLKzWBlvbcKV
-         U8HSoE3DssPRm7FcobPdvksh6roMquR5E+RPAsFWxoKPKjm51jbPdTbdk62C2h7yIwUC
-         EdjsQlS71L9/p+1bueRRrqdXApRfgoBZSdZPJG8mlhXX7s16RQeMCj5ybSa3k14N4oRo
-         15uR97NtG3Cy7O2qseVn/+D9Q4vLfEz2EquJlowRha+HXatMQq2SCcgiVe/S+pMGD5cI
-         UASA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783344425; x=1783949225;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=n0i9VdK/Ma3gHZKckXQb+1T7ww2+Cb/2KCUzwQQKXZo=;
-        b=j6u8RBNigk5pEQL40Kv/wloRreQIqfTszlSZL0Vfmy1/q3jq5JMqUcpcXHiJnzaMik
-         mY9nmq2YaFuRL9zCRRicVPvbbe5xn9VhWUm1orEOPthCJWML02YdpEpyR7/L2dFRjLSc
-         ml/j2vkRJnz9nyAJvnRLKlnGN48Fd47DPKO+GKxuitrQEXAcHazyNT99jmCu1L+Pshn/
-         7ZRUAVbv7j4Xgh0IsBrFBgKAuU/VzWFkFnrQQFzcTObqBV3kpNkg048ux7esvhypz3os
-         4nrhE74FCYdfJzWnNLqL7BOSrgXhvo6+ukUuYihLVp7In0lrFnCJj8GWfyssM9rk7Dx3
-         s3OA==
-X-Forwarded-Encrypted: i=1; AHgh+RrrbKiGG0er1RWcQWSFofDIqsgGBSYl66C8YWN4XdeYllZTZV0CeR9p+yt7wTeC1dI9h0XRYnM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZi4ngknhijKnet2lu9v84Wsbgh4Jfh5IY5Wggt366aOLO+A6V
-	ZdZROwDmrHk6assvzYovBNLMMT3eWZS1BwsoXjjM/vBNQvKlnh9V0lIH
-X-Gm-Gg: AfdE7ckgt6z4RJCyrO0ec2tyjdiXBRSOpiY5k9Bzk8YVj5qXdww2XVsqcnu5V+aqLa0
-	zFUIqYCfficfkAk4SmcBBxS2r2WWX3uCHXCwufdsA3DfJYBSubys2jVQpfs9My+ccCwjE9EmV8/
-	k7fIm0Q4zr4c0CZkIO7qPA5kJsR0cNj3jqD7VtEOGRaBhAps2maMmP/m8YQECe0SvadR8lexeh+
-	Gg3olLw2qQ68XDJdZFz365IiRcGVYZCnz8RQFH21KBiDD7FdZ637FG5AmiJ2oNcnKIwBfFufJ/J
-	VrLH8edQtMUPTdb8kQNzvCIDlgk8l7rv0kdEytsTVbqYHMhslwrjZpRfyWKFE3tyNyslrAeEeCH
-	7zjl+bXsOq9v5exj/5RVsVTl2nW91ehcOsJ01+OiHDD4rwJfPCHbekaOm8ujWeRSqWE//PlujLj
-	GliLgj8UnxyZLoTgxeTD3zPoRcMWj+3qlQuAF6ICyuFgwbSPExXyY9mdMqVMra3JwFMJWc25x+O
-	j591nnb
-X-Received: by 2002:a05:6a21:4c11:b0:3b2:8674:9830 with SMTP id adf61e73a8af0-3c01c65ff4fmr14772604637.14.1783344424235;
-        Mon, 06 Jul 2026 06:27:04 -0700 (PDT)
-Received: from leonardoc-nb ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3114fe08b1bsm17734598eec.26.2026.07.06.06.26.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 06:27:03 -0700 (PDT)
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org,
-	Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	luca.ceresoli@bootlin.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	tomi.valkeinen@ideasonboard.com,
-	francesco@dolcini.it,
-	leonardo.costa@toradex.com,
-	stable@vger.kernel.org
-Subject: [PATCH RESEND] drm/bridge: tc358768: Enforce input bus flags via atomic_check
-Date: Mon,  6 Jul 2026 10:24:17 -0300
-Message-ID: <20260706132440.1594239-1-leoreis.costa@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ikfzRNf8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40C661F000E9;
+	Mon,  6 Jul 2026 13:30:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783344607;
+	bh=B0j9ufw0cSwaxqElH9cC546YjUcPCSnSm3E/R9j+tR8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ikfzRNf8W4JKEuJoHkWDQV936R0S2iBLmz4/g7S7CzkfKgePguC5xpMI/rodFVZJb
+	 Cy1s1k+zfhakI8prjiVc01L+BXWhlyHbOE9ROzI+lwGLdz48BnudRfSrrw/pq1Pwum
+	 NtB7tyBglIkRD5T+BSb/zSB2coNVL2wheogmTrGxhOEFe28MmMfwoaaMOAOjQaLlOK
+	 qzj3C+kWcMpwcGGJCZ9BGYbaqwYG5HKIoZakH0FlJqvi7P7uY1S/NP/bOlZDgqK3VF
+	 lZ1oFQbgHc2f4a5V+xaAd91Dizqsd6lHc3G5UIQ54hLu8pccpTVYZHCNvG6ptA1K/L
+	 zgSgpqBrSRPAw==
+Date: Mon, 6 Jul 2026 09:30:06 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: maher azz <maherazz04@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 7.0 345/461] vsock/virtio: fix zerocopy completion for
+ multi-skb sends
+Message-ID: <akut3otLG2zG5oNS@laps>
+References: <CAFQ-Uc9p7PhXp-FC4N3iYAtyeKgN6z4A_+L8YwKDAkXxZAvksg@mail.gmail.com>
+ <2026070446-blank-duckbill-13ec@gregkh>
+ <CAFQ-Uc8AAEGw90BPximQm3cLzB+KiH_PXr-UZEPK9nvueMGtSg@mail.gmail.com>
+ <2026070406-squander-geography-213a@gregkh>
+ <CAFQ-Uc8CDnGUH3xhjaVBd+Dr=+b7Lfu1SUrGGh2gQ17WW+gqxQ@mail.gmail.com>
+ <2026070421-overflow-voyage-73b8@gregkh>
+ <CAFQ-Uc9JvsHVCgj6ydVrg++hA4CCxw+FuQYfKzBC65HyuJNMoQ@mail.gmail.com>
+ <2026070400-broadways-designer-ea0b@gregkh>
+ <CAFQ-Uc_+TQutABrGb5+JvrBLUyq30KcfLURQHoJdCw_Uu9-MPg@mail.gmail.com>
+ <2026070613-shirt-festival-f84f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <2026070613-shirt-festival-f84f@gregkh>
 
-From: Leonardo Costa <leonardo.costa@toradex.com>
+On Mon, Jul 06, 2026 at 08:44:46AM +0200, Greg Kroah-Hartman wrote:
+>A: http://en.wikipedia.org/wiki/Top_post
+>Q: Were do I find info about this thing called top-posting?
+>A: Because it messes up the order in which people normally read text.
+>Q: Why is top-posting such a bad thing?
+>A: Top-posting.
+>Q: What is the most annoying thing in e-mail?
+>
+>A: No.
+>Q: Should I include quotations after my reply?
+>
+>http://daringfireball.net/2007/07/on_top
+>
+>On Sun, Jul 05, 2026 at 04:19:07PM +0100, maher azz wrote:
+>> Yes i am sending to cve@kernel.org, i sent using another email just a
+>> few seconds ago, please re-check?
+>
+>Taking everyone else except stable and Sasha off the cc: list as they
+>don't care about this...
+>
+>No, I do not see anything from you sent to that address at all, sorry.
+>Sasha, are you seeing anything from your end?
 
-The tc358768 declares static bridge timings requiring pixel data to be
-sampled on the positive clock edge.
+Nope, I don't see anything here either.
 
-However, the DRM core default propagation simply copies the output-side
-bus flags, coming from the next bridge, connector or panel, to the
-input side. If the propagated flags are incompatible with the bridge
-ones, the data is wrongly sampled, typically resulting in visual
-artifacts on the panel.
-
-Implement the atomic_check hook, replacing the mutually exclusive
-mode_fixup, and set the bridge state input bus flags to the ones
-required by the tc358768. The sync polarity defaulting previously done
-in mode_fixup is carried over into atomic_check unchanged.
-
-Fixes: ff1ca6397b1d ("drm/bridge: Add tc358768 driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
----
- drivers/gpu/drm/bridge/tc358768.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge/tc358768.c
-index 0d85120fcc7a3..0516a331e71ba 100644
---- a/drivers/gpu/drm/bridge/tc358768.c
-+++ b/drivers/gpu/drm/bridge/tc358768.c
-@@ -1262,10 +1262,13 @@ tc358768_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
- 	return input_fmts;
- }
- 
--static bool tc358768_mode_fixup(struct drm_bridge *bridge,
--				const struct drm_display_mode *mode,
--				struct drm_display_mode *adjusted_mode)
-+static int tc358768_bridge_atomic_check(struct drm_bridge *bridge,
-+					struct drm_bridge_state *bridge_state,
-+					struct drm_crtc_state *crtc_state,
-+					struct drm_connector_state *conn_state)
- {
-+	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
-+
- 	/* Default to positive sync */
- 
- 	if (!(adjusted_mode->flags &
-@@ -1276,13 +1279,15 @@ static bool tc358768_mode_fixup(struct drm_bridge *bridge,
- 	      (DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC)))
- 		adjusted_mode->flags |= DRM_MODE_FLAG_PVSYNC;
- 
--	return true;
-+	bridge_state->input_bus_cfg.flags = bridge->timings->input_bus_flags;
-+
-+	return 0;
- }
- 
- static const struct drm_bridge_funcs tc358768_bridge_funcs = {
- 	.attach = tc358768_bridge_attach,
- 	.mode_valid = tc358768_bridge_mode_valid,
--	.mode_fixup = tc358768_mode_fixup,
-+	.atomic_check = tc358768_bridge_atomic_check,
- 	.atomic_pre_enable = tc358768_bridge_atomic_pre_enable,
- 	.atomic_enable = tc358768_bridge_atomic_enable,
- 	.atomic_disable = tc358768_bridge_atomic_disable,
+-- 
+Thanks,
+Sasha
