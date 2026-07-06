@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D813451AF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95743C6A43;
 	Mon,  6 Jul 2026 19:54:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783367684; cv=none; b=Stk3f9A/oVaxMKFBzYCWRXeFWvQA8ftEOmLOQ6gqm1RFLMX4dsPBekckcZrvsbS4eBQdsbD5u2g3ep/6l6lsGnP/2OTInQRLf6gUe0dHdATfD4MVLXYvlrdfUK/5MT3RA2E2p+vh5WjV4qzBtBztIyxXmgZBGVSgUWiQpaDecMg=
+	t=1783367684; cv=none; b=WmUAL/C3XZxMWYATbDVzVJ+t+DiAS2FbhCTBprsYKVkAPlXB0a6thb79YE5AQMEtwPmuR5znEvSCL3Yy2G+2DiXnUdTyrvlRhkQLNYeEmYGWEb0jjm+d3dcXXmh+xm5FztkxF41FnCWrJPTtNH5357+lbpjuvRlfbHFooRT+2pY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783367684; c=relaxed/simple;
-	bh=EibFJymI5i+N0TMtB5Ey76+W/my6U+5K3oLyKZ5nXPM=;
+	bh=CXuN/SKa1PPqCyuMUimFuRCk8zlVeXxVv5QjWF4EVOY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FRbeznxfbtX8T9CZAwNMv/ZpVJF+dfOtX+CJ2rO0S1eT0Yt8V8IHOrACEVuFX8yONRFvQD+R3BAmuXceMuRavqkaf8AMKczzb06WnPlkFLdEG3yvB8cWOyKTKqXCPVoZJkTQsJqKhp+F4OSmynJMPLg3JF+g2ca+ABLuHGkcPD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RUvIYEbz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OC+5J3Q2KIDOLgSD0kDqbAyfpOBTE1s+8MatZsQdqVEEhdAp0aB34+e2OfjILeLHsx2T5ufHgSak00Iu77jB4I9kMKSdsLErA5OVwPYq5BfYSJ2ZkVpjsTrxRDPJFrGDJdPaaef5veYDKiqI5Hqx3dDGWvllFQ7ajUoQF7ZjhZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+94d6Id; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RUvIYEbz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D44181F00A3A;
-	Mon,  6 Jul 2026 19:54:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+94d6Id"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4191F00A3D;
+	Mon,  6 Jul 2026 19:54:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1783367683;
-	bh=Us8TXdPXQ0ytIFuM/KFtbh9r7ZPnSbHV2w5zgfe4ubs=;
+	bh=I5xj/qWEmAskgEVgftFii5/CUCVUTTeCRaGrmv9HR6E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RUvIYEbz8hm+oqptcOXetOeZMd6NQ3GMpPusQyfGyrM4GkKSKKvKk54nUegT1LWWr
-	 XHSHFwuzBzfYPgfaUUv8Wp+hGZSCbBCo4W+ttqUiJWZkG9Wc5zrveZ6QyxXC9UjUJ8
-	 jmOgGq6nq5MFB2uyZeturpPdT5ak50s0Z557bt2uC5ecM6YgEq8SxFwZlGA7Pki5tB
-	 6XKguu1T76vTYjwmTwihXLclzWB83sEC1li0TQQvt6jSscG0vFNu9G31fuuyUn7v81
-	 ASSeAPDUu4XfBbLjwLmNedMNEI6qgx3yaJ6ovVcz2dWfpr0qPfHhf/UwFMEDHI+/hB
-	 MSK+8HcHE/XrQ==
+	b=C+94d6IdItHrDM9oEW8bwAA0X78ogpNMHO8kZLJnocIygc4eBO0HASFs7wr5TNKV7
+	 6/HJ/bX91sjFHmJmE1oFXO43wjZnb3LgcpG7GqcMHQWDHQfv6PsIzE2RMNJqkPEtk/
+	 5fBDRjQoW8Ff1zfe/9DMBXuPs1MUO42DLK/HO2Lutsw5MkNbMchEENaHc6gr4hdOIj
+	 EJmHtXNFPWv5IkBzrZ/mSYehrSKLSfNXEyaVsSyVeNzfPu5IXS7FXIe4cQXSwY8P+S
+	 Q8xeo+ARKOrAj0gg1YrhIAMEVEK+9g4cJXnNFgBhzb+8o2GVenTcCmrUyQbEFg4Yme
+	 kpYFOO3MMqufQ==
 From: Yosry Ahmed <yosry@kernel.org>
 To: Sean Christopherson <seanjc@google.com>
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -33,9 +33,9 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	Yosry Ahmed <yosry@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/7] KVM: x86: Check EFER validity on KVM_SET_SREGS*
-Date: Mon,  6 Jul 2026 19:54:07 +0000
-Message-ID: <20260706195413.1966458-2-yosry@kernel.org>
+Subject: [PATCH v2 2/7] KVM: SVM: Disallow EFER.SVME and EFER.LSMLE if nested is disabled
+Date: Mon,  6 Jul 2026 19:54:08 +0000
+Message-ID: <20260706195413.1966458-3-yosry@kernel.org>
 X-Mailer: git-send-email 2.55.0.rc2.803.g1fd1e6609c-goog
 In-Reply-To: <20260706195413.1966458-1-yosry@kernel.org>
 References: <20260706195413.1966458-1-yosry@kernel.org>
@@ -47,41 +47,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When handling userspace SREGS writes, check the validity of EFER (i.e.
-allowed bits) before writing the new value of EFER through the
-per-vendor set_efer callbacks. This prevents userspace from writing
-bogus values (e.g. EFER.SVME=1 with nested=0).
+Explicitly disallow setting EFER.SVME and EFER.LSMLE if nested
+virtualization is disabled on SVM, to prevent the bits remaining allowed
+if kvm_amd is loaded with nested=1 and then reloaded with nested=0.
 
-Note: on KVM_SET_MSRS, KVM only checks EFER validity in terms of KVM
-caps, not guest caps, so it is possible to set EFER bits that are
-supported by KVM but not by the guest CPUID. Potentially allowing
-userspace to set msrs before CPUID.
-
-However, for KVM_SET_SREGS*, check the validity of the set bits against
-both KVM and guest caps. This is consistent with other validity checks
-(e.g. for CR4) that check validity against guest caps, which already
-imposes the need to set CPUID before SREGS.
+This is a minimal fix for the benefit of stable backports, which will be
+followed by a more systematic fix (moving efer_reserved_bits to
+kvm_caps).
 
 Cc: stable@vger.kernel.org
 Signed-off-by: Yosry Ahmed <yosry@kernel.org>
 ---
- arch/x86/kvm/regs.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/x86/kvm/msrs.c    | 8 +++++++-
+ arch/x86/kvm/msrs.h    | 1 +
+ arch/x86/kvm/svm/svm.c | 3 +++
+ 3 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
-index d2caf5a67dba4..94c4e4e41868f 100644
---- a/arch/x86/kvm/regs.c
-+++ b/arch/x86/kvm/regs.c
-@@ -563,7 +563,8 @@ static bool kvm_is_valid_sregs(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs)
+diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
+index c230b18d87e38..45170df0ce40b 100644
+--- a/arch/x86/kvm/msrs.c
++++ b/arch/x86/kvm/msrs.c
+@@ -660,10 +660,16 @@ static int set_efer(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+ 
+ void kvm_enable_efer_bits(u64 mask)
+ {
+-       efer_reserved_bits &= ~mask;
++	efer_reserved_bits &= ~mask;
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_enable_efer_bits);
+ 
++void kvm_disable_efer_bits(u64 mask)
++{
++	efer_reserved_bits |= mask;
++}
++EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_disable_efer_bits);
++
+ bool kvm_msr_allowed(struct kvm_vcpu *vcpu, u32 index, u32 type)
+ {
+ 	struct kvm_x86_msr_filter *msr_filter;
+diff --git a/arch/x86/kvm/msrs.h b/arch/x86/kvm/msrs.h
+index b698983e37fb6..89f10447cdddf 100644
+--- a/arch/x86/kvm/msrs.h
++++ b/arch/x86/kvm/msrs.h
+@@ -59,6 +59,7 @@ int kvm_get_reg_list(struct kvm_vcpu *vcpu,
+ 		     struct kvm_reg_list __user *user_list);
+ 
+ void kvm_enable_efer_bits(u64);
++void kvm_disable_efer_bits(u64);
+ bool kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer);
+ int kvm_emulate_msr_read(struct kvm_vcpu *vcpu, u32 index, u64 *data);
+ int kvm_emulate_msr_write(struct kvm_vcpu *vcpu, u32 index, u64 data);
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index ef69a51ab27f9..1d51500238462 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -5645,6 +5645,9 @@ static __init int svm_hardware_setup(void)
+ 		r = nested_svm_init_msrpm_merge_offsets();
+ 		if (r)
+ 			return r;
++	} else {
++		kvm_disable_efer_bits(EFER_SVME);
++		kvm_disable_efer_bits(EFER_LMSLE);
  	}
  
- 	return kvm_is_valid_cr4(vcpu, sregs->cr4) &&
--	       kvm_is_valid_cr0(vcpu, sregs->cr0);
-+	       kvm_is_valid_cr0(vcpu, sregs->cr0) &&
-+	       kvm_valid_efer(vcpu, sregs->efer);
- }
- 
- static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
+ 	/*
 -- 
 2.55.0.rc2.803.g1fd1e6609c-goog
 
