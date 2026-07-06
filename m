@@ -1,72 +1,167 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8163FD14D;
-	Mon,  6 Jul 2026 11:47:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87CFA41D4E5
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 11:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783338448; cv=none; b=oHmO7gFUS069vXaWMwgSxN6CUDFv/KVx0cEkw4x9YVrFeFNkB3L6dR/xfMEhxg+E4Ryu2Q1nfjFPt/warc3PSBeTH/jwrBy4To9UKJB5yeCJC0IDCh+BdZbtXSkT4wLxK09o9wxl+svcI65wueUW12egMo06x5yK2x5FI9pVC0c=
+	t=1783338516; cv=none; b=F7bYLB0Q6e4kjof/IfvXGlXiV2OROT66/gjbCnkycUn441+K+vDhjPi/Oju5JvEcezdNOnP2PrMBMlEHCCDhZhBlJEiR4ZZ4wXebK66xAoBOVGh3wnLuEKarMnDRlcGEdhg82FwK4CZh7cIJnZwITOjJtu1CXR4SlH5oH4azF+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783338448; c=relaxed/simple;
-	bh=w/+dOqGuQIuH0grBXnx/cqJx/6F3mIWhizKWONFKFLk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=u23RtAaQZ6w/f+jPl71ygXD4HRbRU5/4DrlifTw3XFOpgSrXUct/S/6l4lmILapPyqr5pIvpKbrcXhBL7dyxqDBhBEJ+5Hr9ASt/cn0BnwJ0YgMKQgsDZn++tWzNKSfwIvXZq8ega8Qs1qiX2pmK/5K0N1YzdtfA2BgCC6A2jTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=none smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=J9E2wZkW; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1783338516; c=relaxed/simple;
+	bh=Vbjk1r1UF7aP9dlEuCuiRg7mgnpt1lUL6ZtGktNqaVE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HH8E8m0Cui8RY5oOFbWPD1KO+VQypt65ksvmRxf14kFOd6R8VA6myvWrmFNdvm2OQGvV9i0FGogNPqWPv6TwNNZfayPgquyrSccMIaIVqeE1pJHdO6DSHUmOCO+s0lyMAIeEvI+8Be9E7mUunfPmlSxIFjxL5jTaWzmY4hDqH2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QySWGiAR; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="J9E2wZkW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=w/+dOqGuQIuH0grBXnx/cqJx/6F3mIWhizKWONFKFLk=;
-	t=1783338446; x=1784548046; b=J9E2wZkWOGarCKXCAlfFvQEi+z06jNg/avWr7glReGXQN+f
-	KQPfyE6UWUdcTWsH0i8/ufG1Ed+do5OXuVEwlBf6VKy+vlEnCVANxtBW3MmeGcvY7K939AWVDhuMU
-	4VfdMm7uVzMK754JX2pNa/frTy1qi0fZe3jg3Gi7/UbB6r4nvSjRthiLjcZi8nO0eeaVQuxgNJ7IT
-	00Ud9ACWk3UveFLmxhyzMLJnkYMSyNah3KfHLIrafIBUaIlvQUfgYyQ/8269b0dWu7v8cyj4BFPjx
-	WKhGNz2/vetbkeq8gL2S3/eT5PbngKSrRkI39XZIb8CFFJbB7MlkBST0hXCxp7Lg==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1wghnH-0000000DNfF-2SFk;
-	Mon, 06 Jul 2026 13:47:23 +0200
-Message-ID: <986fff6416ba2acd8d7a4e5fb2f6a89eb40e10d1.camel@sipsolutions.net>
-Subject: Re: [PATCH net] wifi: mac80211: fix memory leak in
- ieee80211_register_hw()
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Dawei Feng <dawei.feng@seu.edu.cn>, jeff.johnson@oss.qualcomm.com
-Cc: jianhao.xu@seu.edu.cn, linux-kernel@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, stable@vger.kernel.org, zilin@seu.edu.cn
-Date: Mon, 06 Jul 2026 13:47:22 +0200
-In-Reply-To: <20260609074044.3745473-1-dawei.feng@seu.edu.cn>
-References: <dffefec6-14e0-4a87-85dd-97d328fedb50@oss.qualcomm.com>
-	 <20260609074044.3745473-1-dawei.feng@seu.edu.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QySWGiAR"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-493b27c7451so35490945e9.0
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 04:48:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1783338512; x=1783943312; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YiNWA4XhuvaUhqi6Oa/oDG6LqIOrOq6gKP3C+ylBpDs=;
+        b=QySWGiARAVUEuXhbuoM2qW/nuf+sLVQcemmkOpCzme/1BFM9pIA7rNyLyiywYCMZ0d
+         99ZQdRhR7uGIK5dSs0jcxvQSg9MtZikR7ESEt3lTeHTI2+ZRhK65gfGMQx/7aqikDnqt
+         sIgi45Ams2vv+LdtOLXxhQP4Z9L5dbGV8jeQsRgsX4iIqBqldv/Jr+JufOO+GZnURmxd
+         euKYGrVI0tTb9z4ho3LPQs64JH5h2UBnOJ9pKSbcF7WEIxC0+AlZQdQ00SN+Cy3S2La9
+         XLkiW1u7fHRYlZn08gdjRLZgV+zZAt8Xm0FL+N++hFTh2AglQmDsEhStGg8XIp+PVz+e
+         dXwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783338512; x=1783943312;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YiNWA4XhuvaUhqi6Oa/oDG6LqIOrOq6gKP3C+ylBpDs=;
+        b=QVYEYNJIqXGNy8u9wTF14xyJeETGCVgZ3tgp9zo2Jby3GUeswg1eDivpKBw9MrTpl1
+         W5AW66iNSSQGPzCw3pmNfFJNvr9+TWRxNiSPB04PCK6pGncuA0YTzHwcpTLz08o3+9Mz
+         T7TWUM4LKvkoZ/RL5iHcQ3+y/BxS7H6ApPPPQPD4GUf3WCdAmV3o7oRI/siuUolJI4rZ
+         fmhP2OEDjRkDA2bFl+0Blk4HOsSRXJ9bc8+qLQs00YWVT6H/n7/G3YzgI1Jj1cg4+8GF
+         Ii5B60xEQ5Q6nQxgxQbEkMvxxXiQF1u1fJIEOApiJlRlPTDf8Ml0Wx1fKRuMOt4JcWmF
+         VFFw==
+X-Forwarded-Encrypted: i=1; AHgh+Rpn1+g+uTWkTtpFs+HwukjBWdY7p7Z8SE83YpiuaIJ0lRmq262ePc/xX9yd5qZNlf2k9zEvA74=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNc8+GSi8S/8nvQbEDoTr6MN5sh7MKHqaLatM7Ij9SIo+QIgYG
+	jK9XzPJY8vxPwzIDOB9vkUL1/JlhTDDkdOxKmgrdGelXde31RC8xHd347/UW/+xs2Gc=
+X-Gm-Gg: AfdE7cl5mPMgDySJdrvocdYfnGScI6uwGghB/fCasoGiuSCUfZObJYhP7de3r8UPtcf
+	MeHImdk0pKTmvwBb4bmGCY9i7uM3iy5o7oYKjtXHgLyj80rSwNy+a2TKZa+shf6nCR7RnPUGoJ4
+	nUD0fxe57BcXSlUH/SN806D4nUvcrc/OoAqIT5Oxw74QReb/pWG/xMiT/jiWCflu43yD6ovCHpo
+	x+piauzFBiWU6eOAK+raP4UhQVB5ScjM9ez5A5eQ1CYgYdNL2SfYUE0bK6dAmE7EaW246dvOu0O
+	fJfHpfDAb5ScCvSv2DhyUm+JyFgdBakCZHzP/15gpkhI9MI0zLZvYaYC6TsVWot/R1fwgrGqho5
+	DR0Fayd7+flHfBGvaqMTFBseTb4Wnfy1TUCimj0BLTfsDSj5DzoPWqehEqbwCjpzrTD6arKEzDt
+	V+0tfIsRfJ9tt26DDj5upjPh3ZbThoeie0mIORejVA1i20HTE+VtCx7HJa
+X-Received: by 2002:a05:600c:4584:b0:492:3fb5:3a17 with SMTP id 5b1f17b1804b1-493decb3dc8mr4634135e9.2.1783338511859;
+        Mon, 06 Jul 2026 04:48:31 -0700 (PDT)
+Received: from macbook.homenet.telecomitalia.it ([95.236.170.123])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c63172fesm623599205e9.0.2026.07.06.04.48.30
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 06 Jul 2026 04:48:31 -0700 (PDT)
+From: Carlo Caione <ccaione@baylibre.com>
+To: robh@kernel.org,
+	saravanak@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Carlo Caione <ccaione@baylibre.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] of/address: Fix NULL bus dereference in of_pci_range_parser_one()
+Date: Mon,  6 Jul 2026 13:47:17 +0200
+Message-ID: <20260706114731.57353-1-ccaione@baylibre.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-06-09 at 15:40 +0800, Dawei Feng wrote:
->=20
-> Zilin is the discoverer of this bug. We are in the same research group,
-> and he actively participated in reviewing this patch.=20
+The bus matching rework made of_match_bus() return NULL for nodes
+with ranges/dma-ranges but no local #address-cells. parser_init()
+stored that NULL bus, and the range iterator later dereferenced it.
 
-Reported-by? Reviewed-by?
+Reject such nodes in parser_init(), leaving an explicit empty iterator
+for callers that ignore the init return. Keep the DMA limit walk guarded
+by a non-empty dma-ranges property, and only clamp the limit when at
+least one complete range was parsed.
 
-> To better align with the kernel submission guidelines, I will add a
-> "Co-developed-by:" tag in the v2 patch for Zilin to properly reflect his
-> contributions. Would this be acceptable?
+Fixes: 64ee3cf096ac ("of/address: Rework bus matching to avoid warnings")
+Cc: stable@vger.kernel.org
+Signed-off-by: Carlo Caione <ccaione@baylibre.com>
 
-If he did development, I guess?
+---
+Changes in v2:
+- Validate na/pna/ns in parser_init() with OF_CHECK_COUNTS() /
+  OF_CHECK_ADDR_COUNT()
+- Link to v1: https://lore.kernel.org/r/20260706095651.48839-1-ccaione@baylibre.com
+---
+ drivers/of/address.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
 
-Anyway you didn't do that for v2, so please resend after you figure out
-what you want :-)
+diff --git a/drivers/of/address.c b/drivers/of/address.c
+index cf4aab11e9b1..fd2468b89579 100644
+--- a/drivers/of/address.c
++++ b/drivers/of/address.c
+@@ -753,6 +753,7 @@ EXPORT_SYMBOL(of_property_read_reg);
+ static int parser_init(struct of_pci_range_parser *parser,
+ 			struct device_node *node, const char *name)
+ {
++	const __be32 *range;
+ 	int rlen;
+ 
+ 	parser->node = node;
+@@ -761,12 +762,20 @@ static int parser_init(struct of_pci_range_parser *parser,
+ 	parser->ns = of_bus_n_size_cells(node);
+ 	parser->dma = !strcmp(name, "dma-ranges");
+ 	parser->bus = of_match_bus(node);
++	parser->range = NULL;
++	parser->end = NULL;
+ 
+-	parser->range = of_get_property(node, name, &rlen);
+-	if (parser->range == NULL)
++	range = of_get_property(node, name, &rlen);
++	if (!range)
+ 		return -ENOENT;
+ 
+-	parser->end = parser->range + rlen / sizeof(__be32);
++	if (!parser->bus ||
++	    !OF_CHECK_COUNTS(parser->na, parser->ns) ||
++	    !OF_CHECK_ADDR_COUNT(parser->pna))
++		return -EINVAL;
++
++	parser->range = range;
++	parser->end = range + rlen / sizeof(__be32);
+ 
+ 	return 0;
+ }
+@@ -792,7 +801,7 @@ struct of_pci_range *of_pci_range_parser_one(struct of_pci_range_parser *parser,
+ 	int na = parser->na;
+ 	int ns = parser->ns;
+ 	int np = parser->pna + na + ns;
+-	int busflag_na = parser->bus->flag_cells;
++	int busflag_na;
+ 
+ 	if (!range)
+ 		return NULL;
+@@ -800,6 +809,8 @@ struct of_pci_range *of_pci_range_parser_one(struct of_pci_range_parser *parser,
+ 	if (!parser->range || parser->range + np > parser->end)
+ 		return NULL;
+ 
++	busflag_na = parser->bus->flag_cells;
++
+ 	range->flags = parser->bus->get_flags(parser->range);
+ 
+ 	range->bus_addr = of_read_number(parser->range + busflag_na, na - busflag_na);
+@@ -976,8 +987,8 @@ phys_addr_t __init of_dma_get_max_cpu_address(struct device_node *np)
+ 		np = of_root;
+ 
+ 	ranges = of_get_property(np, "dma-ranges", &len);
+-	if (ranges && len) {
+-		of_dma_range_parser_init(&parser, np);
++	if (ranges && len && !of_dma_range_parser_init(&parser, np) &&
++	    of_range_count(&parser)) {
+ 		for_each_of_range(&parser, &range)
+ 			if (range.cpu_addr + range.size > cpu_end)
+ 				cpu_end = range.cpu_addr + range.size - 1;
+-- 
+2.55.0
 
-johannes
