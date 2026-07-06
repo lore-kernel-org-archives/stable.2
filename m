@@ -1,40 +1,35 @@
 Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90CE03BB11C;
-	Mon,  6 Jul 2026 14:34:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D679396B96;
+	Mon,  6 Jul 2026 14:35:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783348471; cv=none; b=SRiDEf8A3a2V0VKUA6Gccno3OvkvnjBiWFG7gCZb6cVT5yHA0zX6+8XuEfa7347FGavOGkrXS7ZujIefj3e51Z5fUgHvJ9aI3QPfREpU4ADJ4l/syYIKNM9p15hINqEnPKJfVaQ8c/ehTTymUxH+yfB3v4TByQGYnA+P/EmpB+E=
+	t=1783348517; cv=none; b=iHBOLR1KAaHtIBSo8gElu+MjZN+wDYOBhj27r4QVRc35Mg+M96UHSfkcD334KfJ8wWRDpJ3S/a5Pb/6ytuqSR2xlxJIjjF0Tq1Xz+KWh2tpEILucUZcraNIKVQf0FRUbC4aJ6kPeOinjhBISUpx2fh7dNBQqKH+akFYQSj8vjUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783348471; c=relaxed/simple;
-	bh=PARIJmV8ijOMxuRwVMoi0CgMANuXn+H2UM8NorXvEso=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=WVJWrT136PgKCOMrxB7bg5aHkSKampRK/BL7rKwPscLucXt7HY/oHghLqfdwdRgjKyJJ70w1UF9t9xSruDQvxiRd2rOMTX2Jx2HBD8l6PuqHvtNk4o2hjr5T3zAVBPoNAclTvtt42Fkh+i8C14Rty2j+0nDzqG3W+X8hObdW640=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=JbhizcJQ; arc=none smtp.client-ip=101.71.155.101
+	s=arc-20240116; t=1783348517; c=relaxed/simple;
+	bh=4F0t9tMEaIPGqcVTtmvenupHShLJJbuFGi7mGhK0ASA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VCP44k7w7owtRg/m/B8X9G5KnLMFB6zEBJRBEMeGIuKCwftu6wSStA0YZobxLDsaX9X23X2h8jYiPvlcNJRIQZ4dWhZ1TKKk3wqDd+dFjxRn7uSe3bd26gdUYjThm+n4i6Ef3yzK+PWJUDwEPZZHHZbzhRPS3R/qNcpMn1A4cm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=e9XCf2T/; arc=none smtp.client-ip=101.71.155.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="JbhizcJQ"
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="e9XCf2T/"
 Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4517f1877;
-	Mon, 6 Jul 2026 22:34:24 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4517f187e;
+	Mon, 6 Jul 2026 22:35:11 +0800 (GMT+08:00)
 From: Dawei Feng <dawei.feng@seu.edu.cn>
-To: leon@kernel.org
-Cc: dawei.feng@seu.edu.cn,
-	dennis.dalessandro@cornelisnetworks.com,
-	jgg@ziepe.ca,
-	jianhao.xu@seu.edu.cn,
+To: johannes@sipsolutions.net
+Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	stable@vger.kernel.org,
-	zilin@seu.edu.cn
-Subject: Re: [PATCH] RDMA/hfi1: fix init_one() probe failure cleanup
-Date: Mon,  6 Jul 2026 22:34:24 +0800
-Message-Id: <20260706143424.145935-1-dawei.feng@seu.edu.cn>
+	zilin@seu.edu.cn,
+	jianhao.xu@seu.edu.cn,
+	Dawei Feng <dawei.feng@seu.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH net v3] wifi: mac80211: fix memory leak in ieee80211_register_hw()
+Date: Mon,  6 Jul 2026 22:35:07 +0800
+Message-Id: <20260706143507.146131-1-dawei.feng@seu.edu.cn>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260705122328.GD15188@unreal>
-References: <20260705122328.GD15188@unreal>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,50 +37,70 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f37da096503a2kunmf117e0f79c98
+X-HM-Tid: 0a9f37dac42b03a2kunmbf09ac2e9d08
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSE0dVkhNSBoZHR1PSkwfSFYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaT01CVkxMHR9JTUoeGhkaH1YeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
 	xVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=JbhizcJQQ97IxUpZV+CUmB/5P73UVPHxI64tMSlPosi05xU7jUOKAn85wHQCno3QybPLlBn9NtVdLyefhX2n+cYc43BXqU9wj9n8g9FoEHJOhV8qeE4i7VApGp3Pg/C2DMKfrWrOHrgvYyJ9WdIHWKTNmtrJXjt3L6o3Fqadnfs=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=D5TNjTRX++MimZT9LBgkaPSFb0EnNbvfHgwpNW8oZHU=;
+	b=e9XCf2T/gFtnBaQdPOqw8jqNH66857WHPYq+iKYRmWwxgyG9Ylr5Excsw4s7lq99L6NGCiglbjYinqabIbCcMA+sGYjmtuKdzWRUxZWAEPHq0TRBKdrLqJGpWMggJK3IycpP/zTxmAuWjZIElrwiwpc78Xn3X3Zgh1Vi0WHDIj4=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=WdDOioI8rPhiWLQkwtaCHSf6DCVQkz/dGDGkJ/THM1w=;
 	h=date:mime-version:subject:message-id:from;
 
-On Sun, 5 Jul 2026 15:23:28 +0300, Leon Romanovsky wrote:
->Just move hfi1_validate_rcvhdrcnt() to be before hfi1_alloc_devdata()
->and remove error prints.
+If kmemdup() fails while copying supported band structures, the error
+path jumps to fail_rate. This skips rate_control_deinitialize() and
+leaks the initialized local->rate_ctrl.
 
-Hi, Leon,
+Fix this by adding a fail_band label that shares the rate-control cleanup
+path before falling through to the remaining teardown.
 
-I agree that this approach is suitable for the hfi1_validate_rcvhdrcnt()
-failure path. However, it is not generally applicable to the other failure
-paths. The later failures still occur after hfi1_alloc_devdata(), so they
-still need proper cleanup handling to avoid leaking the allocated devdata.
-Therefore, I think the current approach may be more appropriate for this
-fix.
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still present in
+v7.1-rc7.
 
-By the way, I also noticed that the error handling can be optimized by
-returning ret directly from cleanup labels, avoiding chained gotos. Would
-you like me to make this change in the next version? The change would look
-like this:
+An x86_64 allyesconfig build showed no new warnings. As we do not have a
+suitable mac80211 device/driver combination to test with, no runtime
+testing was able to be performed.
 
-+postinit_bail:
-+	hfi1_free_rx(dd);
-+	postinit_cleanup(dd);
-+	return ret;
-+
- clean_bail:
- 	hfi1_pcie_cleanup(pdev);
-+	return ret;
-+
-+free_dd:
-+	hfi1_free_devdata(dd);
-+	return ret;
- bail:
- 	return ret;
-}
+Fixes: 09b4a4faf9d0 ("mac80211: introduce capability flags for VHT EXT NSS support")
+Cc: stable@vger.kernel.org
+Reviewed-by: Zilin Guan <zilin@seu.edu.cn>
+Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+---
+Changes in v3:
+- Replace Zilin Guan's Signed-off-by with Reviewed-by.
 
-Best regards,
-Dawei
+Changes in v2:
+- Add a fail_band label for the band-copy failure path instead of jumping
+  directly to fail_wiphy_register.
+
+ net/mac80211/main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/mac80211/main.c b/net/mac80211/main.c
+index f47dd58770ad..dba66dd964af 100644
+--- a/net/mac80211/main.c
++++ b/net/mac80211/main.c
+@@ -1599,7 +1599,7 @@ int ieee80211_register_hw(struct ieee80211_hw *hw)
+ 		sband = kmemdup(sband, sizeof(*sband), GFP_KERNEL);
+ 		if (!sband) {
+ 			result = -ENOMEM;
+-			goto fail_rate;
++			goto fail_band;
+ 		}
+ 
+ 		wiphy_dbg(hw->wiphy, "copying sband (band %d) due to VHT EXT NSS BW flag\n",
+@@ -1675,6 +1675,7 @@ int ieee80211_register_hw(struct ieee80211_hw *hw)
+ #endif
+ 	wiphy_unregister(local->hw.wiphy);
+  fail_wiphy_register:
++ fail_band:
+ 	rtnl_lock();
+ 	rate_control_deinitialize(local);
+ 	ieee80211_remove_interfaces(local);
+-- 
+2.34.1
+
