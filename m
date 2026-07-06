@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4654435AAC;
-	Mon,  6 Jul 2026 22:35:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C6A3A75BD;
+	Mon,  6 Jul 2026 23:16:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783377321; cv=none; b=W/e5Qc1LWDbIfV383S1b7/qcXRHRHmZc/aZkuunPYt65w6Mq0bDOqWCa8c+EP5fA5zpZrk1cup8xATySCnaERjHX4IQaowMi9dUm9FUbHEqKh8itKtP/k7mSHzkHpTNXoQRzesUvXb2AkvyVEAtJcnhv5e3kNNsimWoYW49r7x8=
+	t=1783379810; cv=none; b=GpvxrTvHjnsocNlFig97Yt0uZrb57R9H5Ep7IUFFv+RF74ss3HUeIK2+TdEnaeQCYGxz+Bo547hWsUjsuz5vti7c/V7qIn+DDripAfNY/JmvnYtEDorrPF3bb+vrrbuI8FfYGkfkEwUAfnxqATAPXQdUQ5ex8ICv0QZrs8lS0Po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783377321; c=relaxed/simple;
-	bh=6Nl2iQ6tZq+bO9CkJVUSPDv3GsulWOnR0YIBzQO4yo0=;
-	h=Date:To:From:Subject:Message-Id; b=EVRs+6g09vcNTtqnA/LFET06zzq4Aj1dPznKEAmHUtcGPrV3WE6nZWH/rWGQOIZnQ14eAf9u/Jc6x168NozUT71OI3wRYW9hfL7JzueGQMgBinDehsu3hDJfMwJgfE/e+CoDfTPMtbZuV7QzsSXQ8TRSW66FKQ2DFtnadPILZFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=qfnb+9l5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783379810; c=relaxed/simple;
+	bh=lMK5IY/GLwCKqSc0EPzjsvQTP1hko0NMVzIVzDZxOpg=;
+	h=Date:To:From:Subject:Message-Id; b=e41MqYvFbl7TGTkiKCpPa9qcsC1TYSzKPO6jGg3d2eGpQO1M+EzBqobnXsy5bPx5sF8xZd56MkIevecAz79KkIxm7QcetkHPfvkAhwqvlHMMO5rKuVyl61N9ViPIAuorRUXVKgLIMVoryAgn7c/N5WIiC723WJkp/Divw6fm9Pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Ya+tqX8f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="qfnb+9l5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6A71F000E9;
-	Mon,  6 Jul 2026 22:35:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Ya+tqX8f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86A221F000E9;
+	Mon,  6 Jul 2026 23:16:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1783377319;
-	bh=hGTsLnzqyox/bUn+Vll9LL7sKRpbkVRK/Zhsm92XuB8=;
+	d=linux-foundation.org; s=korg; t=1783379808;
+	bh=8SOhLGoqJbJihhgr4HsVj9xf2+MXkkekLW95+/gxOJA=;
 	h=Date:To:From:Subject;
-	b=qfnb+9l5AKoLXg3Ep9dzMjM/kUcV6yEGZE0KxDZzGrqFZPI2b5O5N9f//z3dCBkVE
-	 S3LzFMQtlGjsRy8Gcbf6HjztjQ2Y294Y1C38tAORFJgZq41G7XnqIS3PBG+Mflh1TL
-	 AH3opeh3sxzlVtjT3AJgeGOISYzfzJzGd86BjQJg=
-Date: Mon, 06 Jul 2026 15:35:19 -0700
+	b=Ya+tqX8fYAeakqOH5QjLkswE++rE295yDaiiv/vDnCIyWtDGwFYgnT1vg4rfpRgxO
+	 pA6jYSNH2+hAqEvck7jcpHOPpG1tsPWr4QRK/KiCNNP7MXFDHrqbIuuXDOkkz2PSA6
+	 CmN7Za9xlSLlIS0kPTEDxdmE8f/j8n/QxUuniRcM=
+Date: Mon, 06 Jul 2026 16:16:48 -0700
 To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,tj@kernel.org,stable@vger.kernel.org,ridong.chen@linux.dev,rakie.kim@sk.com,mkoutny@suse.com,matthew.brost@intel.com,longman@redhat.com,linux@rasmusvillemoes.dk,joshua.hahnjy@gmail.com,hannes@cmpxchg.org,gourry@gourry.net,david@kernel.org,byungchul@sk.com,apopple@nvidia.com,farhad.alemi@berkeley.edu,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + cgroup-cpuset-rebind-mm-mempolicy-to-effective_mems-not-mems_allowed.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260706223519.BD6A71F000E9@smtp.kernel.org>
+Subject: [merged] cgroup-cpuset-rebind-mm-mempolicy-to-effective_mems-not-mems_allowed.patch removed from -mm tree
+Message-Id: <20260706231648.86A221F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -34,28 +34,12 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
-The patch titled
+The quilt patch titled
      Subject: cgroup/cpuset: rebind mm mempolicy to effective_mems, not mems_allowed
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+has been removed from the -mm tree.  Its filename was
      cgroup-cpuset-rebind-mm-mempolicy-to-effective_mems-not-mems_allowed.patch
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/cgroup-cpuset-rebind-mm-mempolicy-to-effective_mems-not-mems_allowed.patch
-
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+This patch was dropped because it was merged into mainline or a subsystem tree
 
 ------------------------------------------------------
 From: Farhad Alemi <farhad.alemi@berkeley.edu>
@@ -130,5 +114,4 @@ _
 
 Patches currently in -mm which might be from farhad.alemi@berkeley.edu are
 
-cgroup-cpuset-rebind-mm-mempolicy-to-effective_mems-not-mems_allowed.patch
 
