@@ -1,90 +1,118 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40349317177
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 13:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1460E2D94B5;
+	Mon,  6 Jul 2026 13:52:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783345037; cv=none; b=U3PxrsZB9EAFDXq1ZTWzLwBValBwWZExMOUlRYSwOkKFBxRl0bZ6w5YqohkOL2CR+Vj7O5iO8Q9hU1evG5LVpodRoAbKqU0tqpKZLTLHgZ8eqw4JrttBGloHy11QAra21iTGrmMtOZrYN/Y5kl3ZDCYEUe4X4yskGLuYAYZMiXk=
+	t=1783345981; cv=none; b=S04Oxz0/hB6uUDdcnu2nV2kiMoiefbVDLNZfZvLL7coUubZQS9rMPgCHfP1RhDPGMUUJYtit0pRmZ3+PulbVJuAbW/FDrvEs4O4Vv/1E4oQlFJ+5VJKIO1Z72/Yit8Z9F8qebW3FCjxwZrxh+1ImuhwXLaNgXfMCrtWz6KQkWm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783345037; c=relaxed/simple;
-	bh=nYc4/CNmu/Hpz2BKrNBXe2Sm/VGLPPqJIS4LBxS09v0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=gaS9oVmn2hgOfrn9UXJS3RuBpdPoduTeEkEgN7C9y0SGNXNjin8a5Z54ZRQaqi3pn4Qakeom5EVuxaSLD5s5byLGnVqj7fuNas12QEbH93+TZjxPtQ+uWrV0T/ZuGckofP5PPxx5oAvXEVXHJB//Jg50J4jn0hRoEYGxpnroYTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wegslaAl; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1783345981; c=relaxed/simple;
+	bh=X9u2Yb++bPGtSX8B8ceMfGalDUd/9dCI2PW/K2HBQ5U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pWuqnL5v6AnOIW/wfDHeiGSFRI9mXy67MQ9kJ9CkmHSkuZqUtYKKSeh+qHIOzgmhW8hZl1FyZ++9oKMc6NbOBLlCaPRdelx3ow3F7z/Yh9D+LeE+jF/EH3MCQlEcBV1KDWBLQ/PinnGgQuv7jw+Xt39D8ai3zcEiAnjUyKFZ6Iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=HfcBssDi; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BU+yYIMj; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wegslaAl"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id CFF931A0E91;
-	Mon,  6 Jul 2026 13:37:13 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9FDD8601A2;
-	Mon,  6 Jul 2026 13:37:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0AE7B11BBA1FA;
-	Mon,  6 Jul 2026 15:37:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783345033; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=nYc4/CNmu/Hpz2BKrNBXe2Sm/VGLPPqJIS4LBxS09v0=;
-	b=wegslaAlf/E5SyUEcIoDiMbBET9wPd31EhjJaORyDUHeGfSD2rlw4+T4IuFQr4MtIzhotd
-	pNj3N3xwlYIr797dpayIGaEYscOgoVNAaw3LA5tkZ3QwnI6DHroyUHOiyQdR9nwmc/rNbA
-	b2lO79LVvj6LOPs02iZW1cQVGdrdMFnxfXGkAk5kHeo3d6PaM9++X2J8YKc8/oB8D8CHV7
-	XnUtwSVHDBpwqhOhUeRpjQ4Sz0H5iohEm/SJE+Dw0QFv9RncEhKt4KSxL9rP+GBOBDk6O8
-	PzC9y5NcPl3chwPjfZhLNjFbVSRVBHo63hsd7lo4PHfVUim8p8vcQw9pWRltqA==
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="HfcBssDi";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BU+yYIMj"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 23EEB1D00131;
+	Mon,  6 Jul 2026 09:52:58 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Mon, 06 Jul 2026 09:52:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1783345977; x=
+	1783432377; bh=ri7UpKBxtxOWBJ5q0RP7VJp2qNGzQPVzz7f6EvwhtRM=; b=H
+	fcBssDiLO9kMJ0PsCumgPMzDr9w/vRnZVf8SBnRA1BUMSBFRr+skIJtBhpE9d4Qj
+	r90s8dnYUlWHrBAFgKBu3tjjEGcnaMBgXw1sXQRfErNiUExe4b2/R1ZF4m4Jdh10
+	8s9tf1slzgnrOx9W17f7uaWEMMprUeE3QC71VlxmAGi6eADqy5WSIEUhaup/kNnJ
+	NbaIY4J6r2MWpmRHiQYvOGSwNi1iU66rUYXXRJH8tZH59i/pzSY/7yppFGgk7IyY
+	xkS3jJWVe/AIZGITOVkmirhhnIgOWctYtcbrO1+r6ycdZNOvSkH7OfFVCx8Ra2BF
+	JmUjV9K+HGZUfXgV3sXWQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1783345977; x=1783432377; bh=ri7UpKBxtxOWBJ5q0RP7VJp2qNGzQPVzz7f
+	6EvwhtRM=; b=BU+yYIMjEnVPhMPVw1WHDvrVPOc9UIxfpkjmTFbT3lS/ZpyvQ3U
+	MiPuxyJDS0bBDd/1Xv1fnPPWtgMWBuK7j/Hep6Bvhs4CzC1CAxATVr/UKnvVLIVu
+	FT6h87rb+pqEpDmC41h6rlMEQ6+IFg+gQ18543kwqDJyuaqBaD4uZsUn2FhPMqZo
+	pWN4cm3MQm9V9iSET0VHLQYCBSdF+n+BarKgdg9l5bBlctBRuZZuIb+zJOxqELZ+
+	2ObDC3aURdsXGuYPEOStRl8CHvpjBdWmJrAws/Ok2NvxYdr+XWcgeVXzCzobD0qn
+	Tqi+URVb2eILPEm1sjYraw9WhagEYhu732Q==
+X-ME-Sender: <xms:OLNLaq8tbEqgbBz9iaPlYzj-JCM6qchgi8rKhUp_7ZmqPIhfkJvhXg>
+    <xme:OLNLas-xPL8hs5SkZwAwmf05SY9fpaNxqjRc5PklXBNvyCIudAzoqlD_id2dH5pJg
+    gSL2T-n9Ft-Wlun0fWWAkLyi2jCe736h5DVNiLmZU3huevJjU2Oins>
+X-ME-Received: <xmr:OLNLaiSLr0ziU1DYfWIszelmRgDoY4SfaGteOWCgPwGj-VmLpBpJ0EAowLk>
+X-ME-Proxy-Cause: dmFkZTGjbR1FjwQurhhE+qJKgDg+cwJc/ciwGMB482qq+sWBS4ugETC1jqfQwy6dShhfRF
+    m+pOfGxPIri0E6YtbhLutPfjLPxQnbSxv7ZFRvpE8iqx2tkhxUzEQFl48+qoIvznz2lV07
+    6YDFzQu1iKWTtC7QfZDNpreij/q6BtaMOrg9T3AxNtFREEuOi6GPUyMWZm/OkqyAgVCo8v
+    fSfu8XQCouBZ8+DOQksyqWhmMulco3RPLVqYFA2TdXN/28n8/7fGi3esqYMOugts+biltt
+    7sf6/XaNpo5tjGIdnvLsZry8aauADQ4JLlLsydKPssBIQySAtua/pKZFh4iBEGbTBGHkgs
+    jHjPS/jETresIncZLvtuK0G4vewb4AFMJlmSoX6y/eSFAQZwsp8Gc/V8m5+CWgi5uwblp5
+    i+p0mmq3Ybf5S8Jv4CY47qL9OQ3H60yDhDoDXSZBynwhhMI8T4/NuFDYTY+I1XIwNnM3Z1
+    PVG7Mvejr/0xHJNfIEW0e8apxIcLZynQuvdZ8H2TaV/PW9zL1uhlY6dnvfs/JgLyoyntsJ
+    Rq5fNPVqQlOyTn0gcwPJSuOgkouJNHIC9cx14jT2LjmWGdWAIrwKxT5icJbbJrsAfcolyM
+    tjkJ8J4m5vPNLmmmC9taKQ0D3BLheTB8YGaAo0Q1VNJBg/n9Qf64fktv/Gwg
+X-ME-Proxy: <xmx:OLNLaocEoGmynKA4GAw-SABN_nCcYxcoaKH8mRrkvDyS04zpvB3xiQ>
+    <xmx:OLNLauALXEPI-ItpcbUUezjRVyZZQ_yM0qKzi-Is44PdLdJfXdfcjg>
+    <xmx:OLNLaimuqeU4xAEXLmUCdqzLEMgnvufaamDqa8Zn7fzuecgMrHIKeQ>
+    <xmx:OLNLahdZXstHwcYGa0sqDNq-uHqMcS7AqrslfoRznMcih1-sxw_2Cg>
+    <xmx:ObNLahCnjG2hY9Wt8gxc07Jhb34-8HpuaBDOaeKnV1jd2PZwidWLCNAe>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 6 Jul 2026 09:52:56 -0400 (EDT)
+Date: Mon, 6 Jul 2026 15:52:54 +0200
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: Breno Leitao <leitao@debian.org>
+Cc: netdev@vger.kernel.org, Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>, stable@vger.kernel.org,
+	zdi-disclosures@trendmicro.com
+Subject: Re: [PATCH ipsec] xfrm: espintcp: fix UAF during close
+Message-ID: <akuzNohOorXU3RyA@krikkit>
+References: <50e2ab4348eb8177581058f0152394cfae6a8d27.1783071494.git.sd@queasysnail.net>
+ <akfkd_1yI_G4cVoc@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 06 Jul 2026 15:37:11 +0200
-Message-Id: <DJRJ1XHDEB9M.W9JU7GHZX0NJ@bootlin.com>
-Subject: Re: [PATCH v3 0/2] nvmem: layouts: Add fixed-layout driver
-Cc: "Miquel Raynal" <miquel.raynal@bootlin.com>,
- =?utf-8?q?Gr=C3=A9gory_Clement?= <gregory.clement@bootlin.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>, "Mathieu Dubois-Briand"
- <mathieu.dubois-briand@bootlin.com>
-From: "Mathieu Dubois-Briand" <mathieu.dubois-briand@bootlin.com>
-To: "Srinivas Kandagatla" <srini@kernel.org>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260608-mathieu-nvmem-fixed-layout-v3-0-12ddc69f4c51@bootlin.com>
-In-Reply-To: <20260608-mathieu-nvmem-fixed-layout-v3-0-12ddc69f4c51@bootlin.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <akfkd_1yI_G4cVoc@gmail.com>
 
-On Mon Jun 8, 2026 at 3:42 PM CEST, Mathieu Dubois-Briand wrote:
-> Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-> ---
-> Changes in v3:
-> - Fix device node pointer leakage
-> - Move nvmem_add_cells_from_dt() prototype to internals.h
-> - Enable fixed-layout as built-in by default
-> - Rebased on v7.1-rc7
-> - Link to v2: https://lore.kernel.org/r/20260515-mathieu-nvmem-fixed-layo=
-ut-v2-0-8ac215dd4016@bootlin.com
->
-> Changes in v2:
-> - Fixed dependency on core layout code with CONFIG_NVMEM_LAYOUTS
-> - Make fixed layout optional
-> - Link to v1: https://lore.kernel.org/r/20260505-mathieu-nvmem-fixed-layo=
-ut-v1-1-7f6ecbce108d@bootlin.com
->
-> ---
+2026-07-03, 09:36:42 -0700, Breno Leitao wrote:
+> Hello Sabrina,
+> 
+> On Fri, Jul 03, 2026 at 04:21:12PM +0200, Sabrina Dubroca wrote:
+> > diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
+> > index 374e1b964438..f09b5dd85db8 100644
+> > --- a/net/xfrm/espintcp.c
+> > +++ b/net/xfrm/espintcp.c
+> > @@ -517,6 +517,8 @@ static void espintcp_close(struct sock *sk, long timeout)
+> >  	sk->sk_prot = &tcp_prot;
+> >  	barrier();
+> >  
+> > +	synchronize_rcu();
+> 
+> I've got the impression netdev usually prefers synchronize_net() instead
+> of synchornize_rcu(). Is there any reason for synchronize_net() not
+> being used here?
 
-Hi Srinivas,
+I don't think it makes sense here. We're not holding RTNL (those are
+just basic userspace TCP sockets), and we're not on the netns exit
+path.
 
-Do you have any comment about this updated series?
+> Also, given you have a explicit synchronize_rcu() here, should the
+> barrier() above be dropped?
 
-Thanks,
-Mathieu
+Ok, I can clean that up in v2.
 
---=20
-Mathieu Dubois-Briand, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+-- 
+Sabrina
