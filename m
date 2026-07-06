@@ -1,57 +1,43 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2822A371CEC;
-	Mon,  6 Jul 2026 03:17:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AFC83AA19B;
+	Mon,  6 Jul 2026 03:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783307853; cv=none; b=WEavXGTg/6Ywbc4KKE9DmWVCUDchRK7HgxW/MpMDg93OkkFEo6SqNVweg7s/Hk0fbhes8EJLU6p9gOsPu1AJ77scUOrnLZ9NGKORIuyQQiMi+ZiaAnWMRc0LOJeshqY/mcftdZ8TnKOgza3THvYrBdmYI4n7bDVQF8tJiy6hu8Q=
+	t=1783308335; cv=none; b=K/uPPd1Xe83TwdfoRahNCoXShQw69j4Jhpk0BMqlQDdQ/UF8Uye/1TF9ig1yir20/SvEExStJHTJOplZMDp3Idcl3FauvRDP/AqVb6xREGa20K4OiUBOjMxBKt5C10P40zr1+MmfQrot3o9fnuPekdH6Wo9s41MZKfjHCFr3Uqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783307853; c=relaxed/simple;
-	bh=hJFYERrq9ysnSX4Idrn+S2/hZq8iIzdh3p+3w4JhzHA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PKU8pktnSOySlmiUc0dPFTvFQDFO4wRcroOoxKyl2cuVj1uoZ4LPIoJ2ZDAeswxz2kovqGpnRdyyk7kjLICRfmCzYgNLSAvJYvlCA22N+0EYMtts9OiV6TGDloXeW3pQrkdNVjzmjJI0R+qZq8BYlABustCuvnoPlRFEIXoN1Lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 361154e678e911f1aa26b74ffac11d73-20260706
-X-CID-CACHE: Type:Local,Time:202607061103+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:6e982504-d7ca-45e5-a725-04a7d47906b9,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:8be11dd4efe86fb9ab476a1e2276960f,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
-	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
-	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 361154e678e911f1aa26b74ffac11d73-20260706
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 424335274; Mon, 06 Jul 2026 11:17:25 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: vkoul@kernel.org,
-	Frank.Li@kernel.org,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	samuel@sholland.org,
-	mripard@kernel.org,
-	arnd@arndb.de
-Cc: dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
+	s=arc-20240116; t=1783308335; c=relaxed/simple;
+	bh=lYerO4A/a4J7kBn5242MFojwA3B5A1pKWFOd9bUDyYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Lb/of3I7r/bbfJweC80l2WPxBXG7zqGLfeMKM02gINsGe6Jf3v5bxgMgzBk5bpZ56v1PfodPa9aBzyULZssr3vRIHrK9yLdeHhklRe3jsAv+MrsMDmKLNtHwqEHoCwEFEAwvcAB/DB8v455DoAQ5zjFHmdJhQleE8rAOY6dGFQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=c7HajMXj; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="c7HajMXj"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1783308323; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=rfnZ/lC4Rb2GAMPajAZjxcZCPKg4CeTNBMYP2PQYiAY=;
+	b=c7HajMXj9wrMpz+AnAiIM1wf+gK1W9ArW7fsg94AeUKbFSOY9eBqF49ZDNLHw+xFwGKCw+W1Pl1EDelbxLB0h2lDivp9zK3FDFYM1RJlC8U52o/8nST3TuzxdHjchN2iAmFvS8ar4uMmvtuk3TNi2Q19TgohXDgZLe+ctFbFqIg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R291e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0X6PRHzq_1783308322;
+Received: from localhost(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X6PRHzq_1783308322 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 06 Jul 2026 11:25:23 +0800
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: akpm@linux-foundation.org,
+	hughd@google.com,
 	stable@vger.kernel.org
-Subject: [PATCH v2] dmaengine: sun6i: Fix potential deadlock on sdev->lock
-Date: Mon,  6 Jul 2026 11:17:21 +0800
-Message-Id: <20260706031721.24415-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Cc: kasong@tencent.com,
+	baohua@kernel.org,
+	machao26@xiaomi.com,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.18.y] mm: shmem: fix potential livelock issue for shmem direct swapin
+Date: Mon,  6 Jul 2026 11:25:13 +0800
+Message-ID: <173f3fd983d735155d47e9e39d27f0c2d62a7c31.1783307463.git.baolin.wang@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.5
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,64 +46,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sun6i_dma_terminate_all() and sun6i_dma_pause() acquire sdev->lock
-with plain spin_lock() from process context. If a DMA interrupt fires
-on the same CPU while the lock is held, the interrupt handler schedules
-sun6i_dma_tasklet(), which runs in softirq context and attempts to
-acquire the same lock with spin_lock_irq(), causing a deadlock.
+When skipping swapcache for synchronous IO swap devices, swapcache_prepare()
+is used to prevent parallel swapin from proceeding with the swap cache flag.
+However, on PREEMPT kernels this can lead to a livelock, as reported by Chao[1]:
 
-Fix by using spin_lock_irq() to disable interrupts while holding
-sdev->lock, consistent with other call sites.
+Thread A starts direct swapin of a shmem folio and calls swapcache_prepare()
+to set SWAP_HAS_CACHE. It may then be preempted inside workingset_refault().
+Meanwhile, a higher priority thread B also attempts direct swapin of the same
+shmem swap entry. Since swapcache_prepare() already marks the entry, thread B
+repeatedly gets -EEXIST and busy-loops waiting for thread A to finish. But as
+thread B runs at higher priority, thread A cannot preempt it, resulting in
+starvation and a livelock.
 
-Fixes: ba489fd46ab6 ("dmaengine: sun6i: Add support for Allwinner A31 DMA controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Fix it by yielding the CPU with schedule_timeout_uninterruptible(1) when
+swapcache_prepare() fails, following the same approach used in commits
+029c4628b2eb ("mm: swap: get rid of livelock in swapin readahead") and
+13ddaf26be32 ("mm/swap: fix race when skipping swapcache").
 
+Note that mainline does not have this potential issue, which has already been
+resolved by Kairui's swap refactoring work[2].
+
+[1] https://lore.kernel.org/all/700a2cbf90a2484f979aac858f08f5d4@xiaomi.com/
+[2] https://lore.kernel.org/all/20260517-swap-table-p4-v5-0-88ae43e064c7@tencent.com/
+Fixes: 1dd44c0af4fa ("mm: shmem: skip swapcache for swapin of synchronous swap device")
+Reported-by: Ma Chao <machao26@xiaomi.com>
+Closes: https://lore.kernel.org/all/700a2cbf90a2484f979aac858f08f5d4@xiaomi.com/
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 ---
-Change in v2:
- -Fix by using spin_lock_irqsave() and spin_unlock_irqrestore() to
-  disable interrupts while holding sdev->lock and properly save/restore
-  interrupt state.
+Hi Chao, could you try this patch to check if it fixes your issue? Thanks.
 ---
- drivers/dma/sun6i-dma.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ mm/shmem.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-index a9a254dbf8cb..a6487971ad09 100644
---- a/drivers/dma/sun6i-dma.c
-+++ b/drivers/dma/sun6i-dma.c
-@@ -891,6 +891,7 @@ static int sun6i_dma_pause(struct dma_chan *chan)
- 	struct sun6i_dma_dev *sdev = to_sun6i_dma_dev(chan->device);
- 	struct sun6i_vchan *vchan = to_sun6i_vchan(chan);
- 	struct sun6i_pchan *pchan = vchan->phy;
-+	unsigned long flags;
- 
- 	dev_dbg(chan2dev(chan), "vchan %p: pause\n", &vchan->vc);
- 
-@@ -898,9 +899,9 @@ static int sun6i_dma_pause(struct dma_chan *chan)
- 		writel(DMA_CHAN_PAUSE_PAUSE,
- 		       pchan->base + DMA_CHAN_PAUSE);
- 	} else {
--		spin_lock(&sdev->lock);
-+		spin_lock_irqsave(&sdev->lock, flags);
- 		list_del_init(&vchan->node);
--		spin_unlock(&sdev->lock);
-+		spin_unlock_irqrestore(&sdev->lock, flags);
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 94c5b0d78ac3..d4cb57b3b0ef 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -2066,6 +2066,8 @@ static struct folio *shmem_swap_alloc_folio(struct inode *inode,
+ 	if (swapcache_prepare(entry, nr_pages)) {
+ 		folio_put(new);
+ 		new = ERR_PTR(-EEXIST);
++		/* Relax a bit to prevent rapid repeated page faults */
++		schedule_timeout_uninterruptible(1);
+ 		/* Try smaller folio to avoid cache conflict */
+ 		goto fallback;
  	}
- 
- 	return 0;
-@@ -939,9 +940,9 @@ static int sun6i_dma_terminate_all(struct dma_chan *chan)
- 	unsigned long flags;
- 	LIST_HEAD(head);
- 
--	spin_lock(&sdev->lock);
-+	spin_lock_irqsave(&sdev->lock, flags);
- 	list_del_init(&vchan->node);
--	spin_unlock(&sdev->lock);
-+	spin_unlock_irqrestore(&sdev->lock, flags);
- 
- 	spin_lock_irqsave(&vchan->vc.lock, flags);
- 
 -- 
-2.25.1
+2.47.3
 
