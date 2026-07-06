@@ -1,97 +1,147 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB3E2701DC;
-	Mon,  6 Jul 2026 14:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEEC37C93C;
+	Mon,  6 Jul 2026 15:04:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783349846; cv=none; b=jTXi4CIPY8m5sTlMwLvSqpLfhWQFnkzcpSCwF8UN/bB7KcgFuf1iGrXqIK6gBQ9any5lsjfEWBBcCPOhYgcp1UaNpSjTsuVuDbRmNNpdfqMH14sLuZJF9MLXrCMHlaPwyCLMBybe46Peh7VuUvobPDRwnO4f25KWPpGMT8Dq6Og=
+	t=1783350268; cv=none; b=ItQUrnnU+Ov/aQ08zWmvINaFSRV+z05FxK2E06Fciy8WPeqsJKVHXjT4M5+MBG4LKRcZCjFCZbtrcKy6URkcb+qx4TM1eQfgzxLf7rDM4wrgkauzoDiuRx/LZVoOxQNtSEL/0X5uFH9AatRQhfmC0G+XCL0rTQbNt9NoU0Hnme8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783349846; c=relaxed/simple;
-	bh=LAA4qWVnCC/SpR6bRRHW87rLHdrNT+nhJRGAscM+NiM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=urrkreTWy276Zzb6QOZGhFB8n08EcGvhnWx3586W/4Z0oltYABXQqgBJHzez0lGmAS4Et9g+o/9yBUYU4395/6u+nkNQShlK3Xh6EZ9dxl6Yn6oosXPiKdMwpbjzCVyZecitzl/qUIw4RPqJp0bvv4ocWCpbBYvxPHZRbQODNxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id 88F92160FBA;
-	Mon,  6 Jul 2026 14:57:17 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf17.hostedemail.com (Postfix) with ESMTPA id EF6E417;
-	Mon,  6 Jul 2026 14:57:14 +0000 (UTC)
-Date: Mon, 6 Jul 2026 10:57:15 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Yuanhe Shu <xiangzao@linux.alibaba.com>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra
- <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H . Peter Anvin"
- <hpa@zytor.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] x86/stacktrace: Mark arch_stack_walk() and unwinder
- functions notrace
-Message-ID: <20260706105715.769ba488@gandalf.local.home>
-In-Reply-To: <20260706095445.1683434-1-xiangzao@linux.alibaba.com>
-References: <20260706095445.1683434-1-xiangzao@linux.alibaba.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1783350268; c=relaxed/simple;
+	bh=owEWpGSXcs6lwNMZKNUKIE+uhW1e3WdbBPjtlGXJ2bc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rVomlAPDdlg6dVmiApu9fjWyZFF5Jd6nUoIDoivegzUasAmveKpPOYNkMLn8nc771fXcgGZeSqKtk1HRuytmJf2EGBK7t1A8mAdP7OBJpikOBXHD7JZcehgOYTvru7VjVWGxfwFrYXXXXTS2UJAC6jcmoVR19gWhc/pjSlKwm9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rhrMiT2P; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pIzjfy3t; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rhrMiT2P";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pIzjfy3t"
+Date: Mon, 6 Jul 2026 17:04:22 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1783350263;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n4njRJkRCW35+KyLFk1zAgC1OeVYPM6ryxzAWbeONMc=;
+	b=rhrMiT2PmX9/0Oe9XdAkb+mhGvw5jTQ/1XIpHOFK3jzTRgbEmlHSm7FdHaiaBqTVrHNnaN
+	G5V37zDmAANuKcxH+ihraLoZrn14iNJZ+b6cDqau5mDQ9i7lnuroM0u/K59sts6gPtHOq8
+	56mTAw8ADyWE4rn2C/jyGK9OqQmy3TC6PQh7Mvv/l6MbACMhtCaufmYsOlFUkhOv+lQVOU
+	uhSDy5AleTGjRTHr5rMoL51+B2Ze271JFeEPnmGiNWiYNLgRbDcg5HiiH2hv+mNM9h9K+l
+	kV6CRMKe4tWwKQEI4GqQTmqyuBEshm8s82fs3jAdZKRNzmCF1Kc5R+6USm2mCA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1783350263;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n4njRJkRCW35+KyLFk1zAgC1OeVYPM6ryxzAWbeONMc=;
+	b=pIzjfy3twjMvHZA3jYwSADJCqrxEkARhAMmXHlMFg5VUTFk9dX1maw1076msHlHe76tkzU
+	NkUex8lhFcRbOBCA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: christian.taedcke@weidmueller.com
+Cc: christian.taedcke-oss@weidmueller.com,
+	=?utf-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Kevin Hao <haokexin@gmail.com>, Simon Horman <horms@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Robert Hancock <robert.hancock@calian.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net 1/2] net: macb: reprogram TBQP after shuffling the TX
+ ring on link-up
+Message-ID: <20260706150422.-wYiCBuE@linutronix.de>
+References: <20260706-upstreaming-macb-irq-storm-v1-0-ab3115b5a13a@weidmueller.com>
+ <20260706-upstreaming-macb-irq-storm-v1-1-ab3115b5a13a@weidmueller.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: EF6E417
-X-Stat-Signature: iitf39djh3mortxwxkq86eue6b3bpy57
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18rqGyHfpsRGsVI+iAO+GsZU/8T+xxEMog=
-X-HE-Tag: 1783349834-194698
-X-HE-Meta: U2FsdGVkX197Tep2RR2qfA4PEZs0l1tULf6JEJzzHABGv3FNxddOIVtPOtoE//LPdUhpuYpqlNq05jowOd9RE3orplMiiyPW0oJq6pvn1mLh5bEgKywBCNeVl81IqsYklCos7InQyy7k0lt84Gqv0qhWf1pQ8IfAsYfGnQlZeYmi+be0ZNcgOHUnawLuCXWZuBZA5v6g7lDHVTol5g7VS7tcgsrHR2fIGYsLnmMGf8DCiN0kO9MawfkgdES8tn1L0OjM3Wr+DNFFXoLAbl+/Z5ZGca78Hf6I6pttmZEBYBpY0nET3ST3/3wl3/EBbqRJzAGXpY37F3JXa1mT9B1zf7ZKeE7bNZJfOLVHmH6+AQLS4R3BTmngZGj0iXDy/cBYyOEXMMXw+yJwxUxIx8poXQ==
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260706-upstreaming-macb-irq-storm-v1-1-ab3115b5a13a@weidmueller.com>
 
-On Mon,  6 Jul 2026 17:54:45 +0800
-Yuanhe Shu <xiangzao@linux.alibaba.com> wrote:
-
-> When the function tracer's func_stack_trace option and the function graph
-> profiler (function_profile_enabled) are both active, a recursive ftrace
-> reentrance can occur, leading to a hard lockup. This was observed during
-> ftrace selftest (ftracetest-ktap) execution:
+On 2026-07-06 16:02:14 [+0200], Christian Taedcke via B4 Relay wrote:
+> From: Christian Taedcke <christian.taedcke@weidmueller.com>
 > 
->   watchdog: Watchdog detected hard LOCKUP on cpu 204
->   RIP: profile_graph_entry+0xa0/0x160
->   Call Trace:
->    function_graph_enter+0xc9/0x120
->    arch_ftrace_ops_list_func+0x112/0x230
->    ftrace_call+0x5/0x44
->    unwind_next_frame+0x5/0x870     <-- traced by ftrace
->    arch_stack_walk+0x88/0xf0
->    stack_trace_save+0x4b/0x70
->    __ftrace_trace_stack+0x12e/0x170
->    function_stack_trace_call+0x7c/0xa0
->    arch_ftrace_ops_list_func+0x112/0x230
->    ftrace_call+0x5/0x44
->    irqtime_account_irq+0x5/0xb0
->    __irq_exit_rcu+0x12/0xc0
->    ...
+> gem_shuffle_tx_one_ring() rotates the software TX ring so that the
+> tail sits at index 0 and resets queue->tx_tail to 0, but it never
+> reprograms the hardware transmit buffer queue pointer (TBQP). Other
+> paths that reset tx_tail to the ring base (macb_init_buffers() and
+> macb_tx_error_task()) also reprogram TBQP to queue->tx_ring_dma; this
+> path does not, leaving TBQP pointing at a stale descriptor.
 > 
-> The root cause is a recursive ftrace reentrance:
-> function_stack_trace_call() invokes __trace_stack() ->
-> arch_stack_walk() -> unwind_next_frame() to capture a backtrace.
-> Since the unwinder functions (__unwind_start(),
-> unwind_next_frame(), unwind_get_return_address(),
-> unwind_get_return_address_ptr()) are not marked notrace, the
-> function graph tracer instruments them, re-entering the ftrace
-> infrastructure from within an ftrace callback. This results in a
-> hard lockup with interrupts disabled, detected by the watchdog NMI.
+> gem_shuffle_tx_rings() runs on every link-up from
+> macb_mac_link_up(). After a few link up/down flaps that leave
+> un-completed descriptors in the ring, the stale TBQP keeps pointing at
+> a descriptor whose used bit is set. When TX is re-enabled on link-up,
+> the GEM reads that used descriptor and raises TXUBR. macb_interrupt()
+> schedules the TX NAPI, macb_tx_poll() makes no progress (work_done ==
+> 0) and macb_tx_restart() re-issues TSTART, which makes the controller
+> read the same used descriptor again and re-assert TXUBR. As the MAC
+> interrupt is level-triggered, it never deasserts and one CPU is pegged
+> at 100% in the threaded handler, eventually triggering "sched: RT
+> throttling activated" and a dead network interface.
 
-I'm fine with this change, but I'm wondering why the recursion protection
-didn't catch this. There may be a missing check somewhere. I'll ack this
-change, but I also want to add the check that would have prevented this
-lockup.
+But this should also happen with !RT at which point the interrupt runs
+at 100% CPU and the softirq has hardly an chance to make progress, no?
 
-Acked-by: Steven Rostedt <rostedt@goodmis.org>
+> Fix it by reprogramming TBQP to the ring base on every path of
+> gem_shuffle_tx_one_ring() that resets tx_tail to 0, mirroring
+> macb_tx_error_task(). The early return for an already-aligned tail is
+> left untouched as TBQP is already consistent there. This is safe
+> because the shuffle runs from macb_mac_link_up() while TE is still
+> disabled, so the transmitter is halted.
+> 
+> Fixes: 881a0263d502 ("net: macb: Shuffle the tx ring before enabling tx")
 
--- Steve
+This is v7.0-rc4. So that RT tree of yours has some backports or did you
+run into this while trying to reproduce it upstream?
 
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Christian Taedcke <christian.taedcke@weidmueller.com>
+> ---
+>  drivers/net/ethernet/cadence/macb_main.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+> index fd282a1700fb..b11cb8f068b7 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
+> @@ -820,7 +820,7 @@ static void gem_shuffle_tx_one_ring(struct macb_queue *queue)
+>  	if (!count) {
+>  		queue->tx_head = 0;
+>  		queue->tx_tail = 0;
+> -		goto unlock;
+> +		goto reset_hw_ptr;
+
+This update is even needed for count == 0 case? I kind of do understand
+that you need to updated if you shuffled the descriptors around.
+
+>  	}
+>  
+>  	shift = tail % ring_size;
+> @@ -869,6 +869,13 @@ static void gem_shuffle_tx_one_ring(struct macb_queue *queue)
+>  	/* Make descriptor updates visible to hardware */
+>  	wmb();
+>  
+> +reset_hw_ptr:
+> +	/* tx_tail was reset to the ring base, so TBQP must be reprogrammed
+> +	 * to match; otherwise it keeps pointing at a stale descriptor. Safe
+> +	 * to write directly here as TX is still disabled (called from
+> +	 * macb_mac_link_up() before TE is set).
+> +	 */
+> +	queue_writel(queue, TBQP, lower_32_bits(queue->tx_ring_dma));
+>  unlock:
+>  	spin_unlock_irqrestore(&queue->tx_ptr_lock, flags);
+>  }
+> 
+
+Sebastian
