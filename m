@@ -1,441 +1,292 @@
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82DA03890E3
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 09:44:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57976431498;
+	Mon,  6 Jul 2026 09:55:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783331066; cv=none; b=ibe8nZlPlZ4+3v/g7c/zRF0YAxyNNKL6V3ncixdC4fVs0TKS7EtUTEtEzfuEuAozj5iCm5mZcd+A43yc2cKuYZjJK45K8BoHpHfsEpSkrIqIJtxDlaJRy+Pa4DRjCOKdpvWNxTL365MV+8qv3WcSO99NJ0JNEbO2zWPfJeRYd6w=
+	t=1783331716; cv=none; b=q6ncUgz9ynKdFcUoMPIbfoPCaiQqLFFK2hkRigjKeE8J6Uh6ArvJ1twSf5goGC0DusZWWHZLad/Vv6mYXfGhm9AiqTmS1EITgoIKLfVOBjZv4xEioppeUkBgHppgRQ4NpjL517xqIl/dr8shrRaFq2DsotIx+gTcvd5z8L9GBrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783331066; c=relaxed/simple;
-	bh=LyZ7USrGTzjrwZfR+WI6R8k9aQX/v7fy5DSBrfm3HSA=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=jJNpXEeL7M2pSHlBa5xAdLWKZLaNu6sHIU/1YNscjprG0iaYRk0zCJ1oULjYLNnmQ+HG36g/toZXvF+LVqVkuKLlq2C7icjDykpwOslWWs50+Wtej57SFwrz0q2zusSwq1RFcUOg2zpeWkF5bNDhztQw6KSj5L79lPknFLrQebQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=KhZ6SypG; arc=none smtp.client-ip=109.224.244.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1783331716; c=relaxed/simple;
+	bh=Eripl9vQSxPv4KujcVDrZN3otdTYf43Zp+lcUYKnkJs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FwcUahXrPOYqnYLFqgGJc4HRntVRNXKi8+4mUtBiLI5xvv2ARtPFoPncklwE0JWZqI+2Pn3fD9bBsNcQndWL1S3L36x64vIQNxKy/LAMJWKiVV+TkyvWIJtEqpDvA//xxCKopuw5p4fJ/zpXPhi2wdJmdTkJXylt2esAUc0qfrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=dmaygNQU; arc=none smtp.client-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="KhZ6SypG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1783331058; x=1783590258;
-	bh=qOP5ugd7F6WEKBkmHSFpTwvR8Q3X0jNzSw53nWX6T5Q=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=KhZ6SypG4/5lRcmd2fS23xFMZ+Xvp6CF3ilY4rRMWNuS1xcqPIEuZiCZkaV4ExGL1
-	 AGm7NDi0ZWUytmkKHsgr/UHqAs5nL1RjnezY6EciOu/ePcghyhzqKeBd+YDGYVjxqK
-	 RyxAeawAwRsu0rsz6de9Fkwk6ENsrdBJUAPVsJo8yNkP14HseWILeaGoW9xP3Guy7I
-	 OEXuCyYrdk6hHHNhDFfCb0hf+6fKxPPIvhj3ASf40AubTXSOmPlxuwfTG2Md5v2160
-	 NCZHyazEMesixpDM691xr81rWAdS0zedaCVu26yUvnozE3/9OED6AoCV3OadM9Uwj9
-	 i8wM4aqc8LR2A==
-Date: Mon, 06 Jul 2026 09:44:10 +0000
-To: netdev@vger.kernel.org
-From: Asim Viladi Oglu Manizada <manizada@pm.me>
-Cc: dev@openvswitch.org, aconole@redhat.com, echaudro@redhat.com, i.maximets@ovn.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, Asim Viladi Oglu Manizada <manizada@pm.me>, stable@vger.kernel.org
-Subject: [PATCH net] net: openvswitch: reject oversized nested action attrs
-Message-ID: <20260706094336.38639-1-manizada@pm.me>
-Feedback-ID: 37265593:user:proton
-X-Pm-Message-ID: 1b1fac981c097f6e0f9116a6b84f87d28ca04ea0
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="dmaygNQU"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1783331700; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=xfq7F+Q8AODgLh3MJ/odHv+Zcpwf/BRIqVh6hDn9FRM=;
+	b=dmaygNQUYmfsvc2psUVm56qN+N/JgE/LNevEphYXQ4RIR8PqX46SP1COh6NWrB2pl/H5grm4HebyjEoqS1swxTRs5FNyGqbl6yPky6/awcqeKxloCy6du6j92XwSA6ATpVYEERNtG9UnJkVESwyVa87uRKjIt2iUyXP3eoXd0J0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R741e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0X6UFuet_1783331687;
+Received: from localhost.localdomain(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0X6UFuet_1783331687 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 06 Jul 2026 17:54:59 +0800
+From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+To: Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org
+Cc: "H . Peter Anvin" <hpa@zytor.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuanhe Shu <xiangzao@linux.alibaba.com>
+Subject: [PATCH] x86/stacktrace: Mark arch_stack_walk() and unwinder functions notrace
+Date: Mon,  6 Jul 2026 17:54:45 +0800
+Message-Id: <20260706095445.1683434-1-xiangzao@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Open vSwitch stores generated flow actions as nlattrs, whose nla_len
-field is u16. Commit a1e64addf3ff ("net: openvswitch: remove
-misbehaving actions length check") allowed the total sw_flow_actions
-stream to grow beyond 64 KiB, which is valid, but also removed the last
-guard preventing a generated nested action attribute from exceeding
-U16_MAX.
+When the function tracer's func_stack_trace option and the function graph
+profiler (function_profile_enabled) are both active, a recursive ftrace
+reentrance can occur, leading to a hard lockup. This was observed during
+ftrace selftest (ftracetest-ktap) execution:
 
-An oversized generated container can thus be closed with a truncated
-nla_len. A later dump or teardown then walks a structurally different
-stream than the one that was validated. In particular, an oversized
-nested CLONE/CT action may cause subsequent bytes in the generated
-stream to be interpreted as independent actions.
+  watchdog: Watchdog detected hard LOCKUP on cpu 204
+  RIP: profile_graph_entry+0xa0/0x160
+  Call Trace:
+   function_graph_enter+0xc9/0x120
+   arch_ftrace_ops_list_func+0x112/0x230
+   ftrace_call+0x5/0x44
+   unwind_next_frame+0x5/0x870     <-- traced by ftrace
+   arch_stack_walk+0x88/0xf0
+   stack_trace_save+0x4b/0x70
+   __ftrace_trace_stack+0x12e/0x170
+   function_stack_trace_call+0x7c/0xa0
+   arch_ftrace_ops_list_func+0x112/0x230
+   ftrace_call+0x5/0x44
+   irqtime_account_irq+0x5/0xb0
+   __irq_exit_rcu+0x12/0xc0
+   ...
 
-Keep the larger total-action-stream behavior, but make nested action
-close reject generated containers that do not fit in nla_len, and return
-the error through all callers. For recursive SAMPLE, CLONE, DEC_TTL, and
-CHECK_PKT_LEN builders, trim resource-owning action-list tails in reverse
-construction order before discarding failed wrappers, so resources copied
-into the rejected tails are released before the wrappers are removed.
+The root cause is a recursive ftrace reentrance:
+function_stack_trace_call() invokes __trace_stack() ->
+arch_stack_walk() -> unwind_next_frame() to capture a backtrace.
+Since the unwinder functions (__unwind_start(),
+unwind_next_frame(), unwind_get_return_address(),
+unwind_get_return_address_ptr()) are not marked notrace, the
+function graph tracer instruments them, re-entering the ftrace
+infrastructure from within an ftrace callback. This results in a
+hard lockup with interrupts disabled, detected by the watchdog NMI.
 
-Most failed outer wrappers are discarded by truncating actions_len after
-child resources have been released. CHECK_PKT_LEN also trims its parent
-after branch resources are gone. SET/TUNNEL close failures unwind their
-known tun_dst ownership directly, and SET_TO_MASKED has no external
-ownership and truncates on close failure.
+On arm64 and riscv, arch_stack_walk() has already been marked
+noinstr to prevent this class of bugs. See
+commit 0fbcd8abf337 ("arm64: Prohibit instrumentation on arch_stack_walk()")
+and commit 23b2188920a2 ("riscv: stacktrace: convert arch_stack_walk() to noinstr").
+However, x86 was not fixed because:
 
-Fixes: a1e64addf3ff ("net: openvswitch: remove misbehaving actions length c=
-heck")
+ 1) x86's return_address() uses the generic
+    __builtin_return_address() instead of arch_stack_walk(), so the
+    lockdep recursion path that triggered the arm64 fix does not
+    exist on x86.
+
+ 2) On arm64, all unwinder helpers are __always_inline within
+    arch_stack_walk(), so a single noinstr annotation suffices.
+    On riscv, the helper walk_stackframe() was already marked
+    notrace. On x86 however, the ORC unwinder implements
+    __unwind_start(), unwind_next_frame(), and
+    unwind_get_return_address() as separate non-inline exported
+    functions without any instrumentation protection, so marking
+    only arch_stack_walk() is insufficient.
+
+Fix this by marking arch_stack_walk() and the non-inline unwinder
+functions it calls (__unwind_start(), unwind_next_frame(),
+unwind_get_return_address(), unwind_get_return_address_ptr())
+as notrace, preventing ftrace from instrumenting the entire stack
+unwinding path.
+
+Fixes: 3599fe12a125 ("x86/stacktrace: Use common infrastructure")
 Cc: stable@vger.kernel.org
-Assisted-by: avom-custom-harness:gpt-5.5-qwen3.6-mod-mix
-Signed-off-by: Asim Viladi Oglu Manizada <manizada@pm.me>
+Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
 ---
- net/openvswitch/flow_netlink.c | 201 +++++++++++++++++++++++++--------
- 1 file changed, 157 insertions(+), 44 deletions(-)
+ arch/x86/include/asm/unwind.h  | 10 +++++-----
+ arch/x86/kernel/stacktrace.c   | 12 ++++++++++--
+ arch/x86/kernel/unwind_frame.c | 10 +++++-----
+ arch/x86/kernel/unwind_guess.c | 10 +++++-----
+ arch/x86/kernel/unwind_orc.c   | 10 +++++-----
+ 5 files changed, 30 insertions(+), 22 deletions(-)
 
-diff --git a/net/openvswitch/flow_netlink.c b/net/openvswitch/flow_netlink.=
-c
-index 13052408a132..d8079dee700e 100644
---- a/net/openvswitch/flow_netlink.c
-+++ b/net/openvswitch/flow_netlink.c
-@@ -2496,13 +2496,56 @@ static inline int add_nested_action_start(struct sw=
-_flow_actions **sfa,
- =09return used;
- }
-=20
--static inline void add_nested_action_end(struct sw_flow_actions *sfa,
--=09=09=09=09=09 int st_offset)
-+static inline int add_nested_action_end(struct sw_flow_actions *sfa,
-+=09=09=09=09=09int st_offset)
+diff --git a/arch/x86/include/asm/unwind.h b/arch/x86/include/asm/unwind.h
+index 7cede4dc21f0..15b699f2edc0 100644
+--- a/arch/x86/include/asm/unwind.h
++++ b/arch/x86/include/asm/unwind.h
+@@ -39,11 +39,11 @@ struct unwind_state {
+ #endif
+ };
+ 
+-void __unwind_start(struct unwind_state *state, struct task_struct *task,
+-		    struct pt_regs *regs, unsigned long *first_frame);
+-bool unwind_next_frame(struct unwind_state *state);
+-unsigned long unwind_get_return_address(struct unwind_state *state);
+-unsigned long *unwind_get_return_address_ptr(struct unwind_state *state);
++void notrace __unwind_start(struct unwind_state *state, struct task_struct *task,
++			    struct pt_regs *regs, unsigned long *first_frame);
++bool notrace unwind_next_frame(struct unwind_state *state);
++unsigned long notrace unwind_get_return_address(struct unwind_state *state);
++unsigned long *notrace unwind_get_return_address_ptr(struct unwind_state *state);
+ 
+ static inline bool unwind_done(struct unwind_state *state)
  {
--=09struct nlattr *a =3D (struct nlattr *) ((unsigned char *)sfa->actions +
--=09=09=09=09=09=09=09       st_offset);
-+=09struct nlattr *a;
-+=09u32 attr_len;
-+
-+=09if (WARN_ON_ONCE(st_offset < 0 ||
-+=09=09=09 (u32)st_offset > sfa->actions_len))
-+=09=09return -EINVAL;
-+
-+=09attr_len =3D sfa->actions_len - (u32)st_offset;
-+=09if (WARN_ON_ONCE(attr_len < NLA_HDRLEN))
-+=09=09return -EINVAL;
-=20
--=09a->nla_len =3D sfa->actions_len - st_offset;
-+=09if (attr_len > U16_MAX)
-+=09=09return -EMSGSIZE;
-+
-+=09a =3D (struct nlattr *)((u8 *)sfa->actions + st_offset);
-+=09a->nla_len =3D attr_len;
-+=09return 0;
-+}
-+
-+/* Free the generated action-list tail at @start and truncate it.
-+ * If @nested, @start points to its containing nlattr header.
+diff --git a/arch/x86/kernel/stacktrace.c b/arch/x86/kernel/stacktrace.c
+index ee117fcf46ed..1e5a06439adb 100644
+--- a/arch/x86/kernel/stacktrace.c
++++ b/arch/x86/kernel/stacktrace.c
+@@ -12,8 +12,16 @@
+ #include <asm/stacktrace.h>
+ #include <asm/unwind.h>
+ 
+-void arch_stack_walk(stack_trace_consume_fn consume_entry, void *cookie,
+-		     struct task_struct *task, struct pt_regs *regs)
++/*
++ * arch_stack_walk() and the functions it calls (__unwind_start(),
++ * unwind_next_frame(), unwind_get_return_address(),
++ * unwind_get_return_address_ptr()) must not be instrumented by ftrace,
++ * as they are invoked from within ftrace callbacks (e.g.,
++ * function_stack_trace_call). Tracing these functions would cause
++ * recursive ftrace reentrance, leading to a hard lockup.
 + */
-+static void ovs_nla_trim(struct sw_flow_actions *sfa, int start, bool nest=
-ed)
-+{
-+=09const struct nlattr *actions;
-+=09u32 len;
-+
-+=09if (start < 0)
-+=09=09return;
-+
-+=09if (WARN_ON_ONCE((u32)start > sfa->actions_len))
-+=09=09return;
-+
-+=09actions =3D (const struct nlattr *)((u8 *)sfa->actions + start);
-+=09len =3D sfa->actions_len - (u32)start;
-+
-+=09if (nested) {
-+=09=09if (len < NLA_HDRLEN)
-+=09=09=09goto out;
-+
-+=09=09actions =3D (const struct nlattr *)((u8 *)actions + NLA_HDRLEN);
-+=09=09len -=3D NLA_HDRLEN;
-+=09}
-+
-+=09ovs_nla_free_nested_actions(actions, len);
-+out:
-+=09sfa->actions_len =3D start;
- }
-=20
- static int __ovs_nla_copy_actions(struct net *net, const struct nlattr *at=
-tr,
-@@ -2522,6 +2565,7 @@ static int validate_and_copy_sample(struct net *net, =
-const struct nlattr *attr,
- =09const struct nlattr *attrs[OVS_SAMPLE_ATTR_MAX + 1];
- =09const struct nlattr *probability, *actions;
- =09const struct nlattr *a;
-+=09int actions_start;
- =09int rem, start, err;
- =09struct sample_arg arg;
-=20
-@@ -2565,18 +2609,27 @@ static int validate_and_copy_sample(struct net *net=
-, const struct nlattr *attr,
- =09err =3D ovs_nla_add_action(sfa, OVS_SAMPLE_ATTR_ARG, &arg, sizeof(arg),
- =09=09=09=09 log);
- =09if (err)
--=09=09return err;
-+=09=09goto err;
-=20
-+=09actions_start =3D (*sfa)->actions_len;
- =09err =3D __ovs_nla_copy_actions(net, actions, key, sfa,
- =09=09=09=09     eth_type, vlan_tci, mpls_label_count, log,
- =09=09=09=09     depth + 1);
-=20
- =09if (err)
--=09=09return err;
-+=09=09goto err_free;
-=20
--=09add_nested_action_end(*sfa, start);
-+=09err =3D add_nested_action_end(*sfa, start);
-+=09if (err)
-+=09=09goto err_free;
-=20
- =09return 0;
-+
-+err_free:
-+=09ovs_nla_trim(*sfa, actions_start, false);
-+err:
-+=09(*sfa)->actions_len =3D start;
-+=09return err;
- }
-=20
- static int validate_and_copy_dec_ttl(struct net *net,
-@@ -2624,18 +2677,31 @@ static int validate_and_copy_dec_ttl(struct net *ne=
-t,
- =09=09return start;
-=20
- =09action_start =3D add_nested_action_start(sfa, OVS_DEC_TTL_ATTR_ACTION, =
-log);
--=09if (action_start < 0)
--=09=09return action_start;
-+=09if (action_start < 0) {
-+=09=09err =3D action_start;
-+=09=09goto err;
-+=09}
-=20
- =09err =3D __ovs_nla_copy_actions(net, actions, key, sfa, eth_type,
- =09=09=09=09     vlan_tci, mpls_label_count, log,
- =09=09=09=09     depth + 1);
- =09if (err)
--=09=09return err;
-+=09=09goto err_free;
-+
-+=09err =3D add_nested_action_end(*sfa, action_start);
-+=09if (err)
-+=09=09goto err_free;
-=20
--=09add_nested_action_end(*sfa, action_start);
--=09add_nested_action_end(*sfa, start);
-+=09err =3D add_nested_action_end(*sfa, start);
-+=09if (err)
-+=09=09goto err_free;
- =09return 0;
-+
-+err_free:
-+=09ovs_nla_trim(*sfa, action_start, true);
-+err:
-+=09(*sfa)->actions_len =3D start;
-+=09return err;
- }
-=20
- static int validate_and_copy_clone(struct net *net,
-@@ -2646,6 +2712,7 @@ static int validate_and_copy_clone(struct net *net,
- =09=09=09=09   u32 mpls_label_count, bool log, bool last,
- =09=09=09=09   u32 depth)
++void notrace arch_stack_walk(stack_trace_consume_fn consume_entry, void *cookie,
++			     struct task_struct *task, struct pt_regs *regs)
  {
-+=09int actions_start;
- =09int start, err;
- =09u32 exec;
-=20
-@@ -2661,17 +2728,26 @@ static int validate_and_copy_clone(struct net *net,
- =09err =3D ovs_nla_add_action(sfa, OVS_CLONE_ATTR_EXEC, &exec,
- =09=09=09=09 sizeof(exec), log);
- =09if (err)
--=09=09return err;
-+=09=09goto err;
-=20
-+=09actions_start =3D (*sfa)->actions_len;
- =09err =3D __ovs_nla_copy_actions(net, attr, key, sfa,
- =09=09=09=09     eth_type, vlan_tci, mpls_label_count, log,
- =09=09=09=09     depth + 1);
- =09if (err)
--=09=09return err;
-+=09=09goto err_free;
-=20
--=09add_nested_action_end(*sfa, start);
-+=09err =3D add_nested_action_end(*sfa, start);
-+=09if (err)
-+=09=09goto err_free;
-=20
- =09return 0;
-+
-+err_free:
-+=09ovs_nla_trim(*sfa, actions_start, false);
-+err:
-+=09(*sfa)->actions_len =3D start;
-+=09return err;
+ 	struct unwind_state state;
+ 	unsigned long addr;
+diff --git a/arch/x86/kernel/unwind_frame.c b/arch/x86/kernel/unwind_frame.c
+index d8ba93778ae3..07d1b9f0208f 100644
+--- a/arch/x86/kernel/unwind_frame.c
++++ b/arch/x86/kernel/unwind_frame.c
+@@ -11,7 +11,7 @@
+ 
+ #define FRAME_HEADER_SIZE (sizeof(long) * 2)
+ 
+-unsigned long unwind_get_return_address(struct unwind_state *state)
++unsigned long notrace unwind_get_return_address(struct unwind_state *state)
+ {
+ 	if (unwind_done(state))
+ 		return 0;
+@@ -20,7 +20,7 @@ unsigned long unwind_get_return_address(struct unwind_state *state)
  }
-=20
- void ovs_match_init(struct sw_flow_match *match,
-@@ -2763,20 +2839,20 @@ static int validate_and_copy_set_tun(const struct n=
-lattr *attr,
- =09tun_dst =3D metadata_dst_alloc(key.tun_opts_len, METADATA_IP_TUNNEL,
- =09=09=09=09     GFP_KERNEL);
-=20
--=09if (!tun_dst)
--=09=09return -ENOMEM;
-+=09if (!tun_dst) {
-+=09=09err =3D -ENOMEM;
-+=09=09goto err;
-+=09}
-=20
- =09err =3D dst_cache_init(&tun_dst->u.tun_info.dst_cache, GFP_KERNEL);
--=09if (err) {
--=09=09dst_release((struct dst_entry *)tun_dst);
--=09=09return err;
--=09}
-+=09if (err)
-+=09=09goto err_free_tun_dst;
-=20
- =09a =3D __add_action(sfa, OVS_KEY_ATTR_TUNNEL_INFO, NULL,
- =09=09=09 sizeof(*ovs_tun), log);
- =09if (IS_ERR(a)) {
--=09=09dst_release((struct dst_entry *)tun_dst);
--=09=09return PTR_ERR(a);
-+=09=09err =3D PTR_ERR(a);
-+=09=09goto err_free_tun_dst;
- =09}
-=20
- =09ovs_tun =3D nla_data(a);
-@@ -2797,8 +2873,16 @@ static int validate_and_copy_set_tun(const struct nl=
-attr *attr,
- =09ip_tunnel_info_opts_set(tun_info,
- =09=09=09=09TUN_METADATA_OPTS(&key, key.tun_opts_len),
- =09=09=09=09key.tun_opts_len, dst_opt_type);
--=09add_nested_action_end(*sfa, start);
-+=09err =3D add_nested_action_end(*sfa, start);
-+=09if (WARN_ON_ONCE(err))
-+=09=09goto err_free_tun_dst;
-+
-+=09return 0;
-=20
-+err_free_tun_dst:
-+=09dst_release((struct dst_entry *)tun_dst);
-+err:
-+=09(*sfa)->actions_len =3D start;
- =09return err;
+ EXPORT_SYMBOL_GPL(unwind_get_return_address);
+ 
+-unsigned long *unwind_get_return_address_ptr(struct unwind_state *state)
++unsigned long *notrace unwind_get_return_address_ptr(struct unwind_state *state)
+ {
+ 	if (unwind_done(state))
+ 		return NULL;
+@@ -261,7 +261,7 @@ static bool update_stack_state(struct unwind_state *state,
  }
-=20
-@@ -2971,7 +3055,7 @@ static int validate_set(const struct nlattr *a,
-=20
- =09/* Convert non-masked non-tunnel set actions to masked set actions. */
- =09if (!masked && key_type !=3D OVS_KEY_ATTR_TUNNEL) {
--=09=09int start, len =3D key_len * 2;
-+=09=09int err, start, len =3D key_len * 2;
- =09=09struct nlattr *at;
-=20
- =09=09*skip_copy =3D true;
-@@ -2983,8 +3067,11 @@ static int validate_set(const struct nlattr *a,
- =09=09=09return start;
-=20
- =09=09at =3D __add_action(sfa, key_type, NULL, len, log);
--=09=09if (IS_ERR(at))
--=09=09=09return PTR_ERR(at);
-+=09=09if (IS_ERR(at)) {
-+=09=09=09err =3D PTR_ERR(at);
-+=09=09=09(*sfa)->actions_len =3D start;
-+=09=09=09return err;
-+=09=09}
-=20
- =09=09memcpy(nla_data(at), nla_data(ovs_key), key_len); /* Key. */
- =09=09memset(nla_data(at) + key_len, 0xff, key_len);    /* Mask. */
-@@ -2994,7 +3081,11 @@ static int validate_set(const struct nlattr *a,
-=20
- =09=09=09mask->ipv6_label &=3D htonl(0x000FFFFF);
- =09=09}
--=09=09add_nested_action_end(*sfa, start);
-+=09=09err =3D add_nested_action_end(*sfa, start);
-+=09=09if (WARN_ON_ONCE(err)) {
-+=09=09=09(*sfa)->actions_len =3D start;
-+=09=09=09return err;
-+=09=09}
- =09}
-=20
- =09return 0;
-@@ -3040,7 +3131,8 @@ static int validate_and_copy_check_pkt_len(struct net=
- *net,
- =09const struct nlattr *acts_if_greater, *acts_if_lesser_eq;
- =09struct nlattr *a[OVS_CHECK_PKT_LEN_ATTR_MAX + 1];
- =09struct check_pkt_len_arg arg;
--=09int nested_acts_start;
-+=09int greater_acts_start =3D -1;
-+=09int lesser_acts_start =3D -1;
- =09int start, err;
-=20
- =09err =3D nla_parse_deprecated_strict(a, OVS_CHECK_PKT_LEN_ATTR_MAX,
-@@ -3075,37 +3167,58 @@ static int validate_and_copy_check_pkt_len(struct n=
-et *net,
- =09err =3D ovs_nla_add_action(sfa, OVS_CHECK_PKT_LEN_ATTR_ARG, &arg,
- =09=09=09=09 sizeof(arg), log);
- =09if (err)
--=09=09return err;
-+=09=09goto err_free;
-=20
--=09nested_acts_start =3D add_nested_action_start(sfa,
--=09=09OVS_CHECK_PKT_LEN_ATTR_ACTIONS_IF_LESS_EQUAL, log);
--=09if (nested_acts_start < 0)
--=09=09return nested_acts_start;
-+=09lesser_acts_start =3D
-+=09=09add_nested_action_start(sfa,
-+=09=09=09=09=09OVS_CHECK_PKT_LEN_ATTR_ACTIONS_IF_LESS_EQUAL,
-+=09=09=09=09=09log);
-+=09if (lesser_acts_start < 0) {
-+=09=09err =3D lesser_acts_start;
-+=09=09goto err_free;
-+=09}
-=20
- =09err =3D __ovs_nla_copy_actions(net, acts_if_lesser_eq, key, sfa,
- =09=09=09=09     eth_type, vlan_tci, mpls_label_count, log,
- =09=09=09=09     depth + 1);
-=20
- =09if (err)
--=09=09return err;
-+=09=09goto err_free;
-=20
--=09add_nested_action_end(*sfa, nested_acts_start);
-+=09err =3D add_nested_action_end(*sfa, lesser_acts_start);
-+=09if (err)
-+=09=09goto err_free;
-=20
--=09nested_acts_start =3D add_nested_action_start(sfa,
--=09=09OVS_CHECK_PKT_LEN_ATTR_ACTIONS_IF_GREATER, log);
--=09if (nested_acts_start < 0)
--=09=09return nested_acts_start;
-+=09greater_acts_start =3D
-+=09=09add_nested_action_start(sfa,
-+=09=09=09=09=09OVS_CHECK_PKT_LEN_ATTR_ACTIONS_IF_GREATER,
-+=09=09=09=09=09log);
-+=09if (greater_acts_start < 0) {
-+=09=09err =3D greater_acts_start;
-+=09=09goto err_free;
-+=09}
-=20
- =09err =3D __ovs_nla_copy_actions(net, acts_if_greater, key, sfa,
- =09=09=09=09     eth_type, vlan_tci, mpls_label_count, log,
- =09=09=09=09     depth + 1);
-=20
- =09if (err)
--=09=09return err;
-+=09=09goto err_free;
-+
-+=09err =3D add_nested_action_end(*sfa, greater_acts_start);
-+=09if (err)
-+=09=09goto err_free;
-=20
--=09add_nested_action_end(*sfa, nested_acts_start);
--=09add_nested_action_end(*sfa, start);
-+=09err =3D add_nested_action_end(*sfa, start);
-+=09if (err)
-+=09=09goto err_free;
- =09return 0;
-+
-+err_free:
-+=09ovs_nla_trim(*sfa, greater_acts_start, true);
-+=09ovs_nla_trim(*sfa, lesser_acts_start, true);
-+=09ovs_nla_trim(*sfa, start, false);
-+=09return err;
+ 
+ __no_kmsan_checks
+-bool unwind_next_frame(struct unwind_state *state)
++bool notrace unwind_next_frame(struct unwind_state *state)
+ {
+ 	struct pt_regs *regs;
+ 	unsigned long *next_bp;
+@@ -370,8 +370,8 @@ bool unwind_next_frame(struct unwind_state *state)
  }
-=20
- static int validate_psample(const struct nlattr *attr)
---=20
-2.53.0
+ EXPORT_SYMBOL_GPL(unwind_next_frame);
+ 
+-void __unwind_start(struct unwind_state *state, struct task_struct *task,
+-		    struct pt_regs *regs, unsigned long *first_frame)
++void notrace __unwind_start(struct unwind_state *state, struct task_struct *task,
++			    struct pt_regs *regs, unsigned long *first_frame)
+ {
+ 	unsigned long *bp;
+ 
+diff --git a/arch/x86/kernel/unwind_guess.c b/arch/x86/kernel/unwind_guess.c
+index 884d68a6e714..22d12e79984b 100644
+--- a/arch/x86/kernel/unwind_guess.c
++++ b/arch/x86/kernel/unwind_guess.c
+@@ -6,7 +6,7 @@
+ #include <asm/stacktrace.h>
+ #include <asm/unwind.h>
+ 
+-unsigned long unwind_get_return_address(struct unwind_state *state)
++unsigned long notrace unwind_get_return_address(struct unwind_state *state)
+ {
+ 	unsigned long addr;
+ 
+@@ -19,12 +19,12 @@ unsigned long unwind_get_return_address(struct unwind_state *state)
+ }
+ EXPORT_SYMBOL_GPL(unwind_get_return_address);
+ 
+-unsigned long *unwind_get_return_address_ptr(struct unwind_state *state)
++unsigned long *notrace unwind_get_return_address_ptr(struct unwind_state *state)
+ {
+ 	return NULL;
+ }
+ 
+-bool unwind_next_frame(struct unwind_state *state)
++bool notrace unwind_next_frame(struct unwind_state *state)
+ {
+ 	struct stack_info *info = &state->stack_info;
+ 
+@@ -48,8 +48,8 @@ bool unwind_next_frame(struct unwind_state *state)
+ }
+ EXPORT_SYMBOL_GPL(unwind_next_frame);
+ 
+-void __unwind_start(struct unwind_state *state, struct task_struct *task,
+-		    struct pt_regs *regs, unsigned long *first_frame)
++void notrace __unwind_start(struct unwind_state *state, struct task_struct *task,
++			    struct pt_regs *regs, unsigned long *first_frame)
+ {
+ 	memset(state, 0, sizeof(*state));
+ 
+diff --git a/arch/x86/kernel/unwind_orc.c b/arch/x86/kernel/unwind_orc.c
+index 6407bc9256bf..f2a450ee66e6 100644
+--- a/arch/x86/kernel/unwind_orc.c
++++ b/arch/x86/kernel/unwind_orc.c
+@@ -377,7 +377,7 @@ void __init unwind_init(void)
+ 	orc_init = true;
+ }
+ 
+-unsigned long unwind_get_return_address(struct unwind_state *state)
++unsigned long notrace unwind_get_return_address(struct unwind_state *state)
+ {
+ 	if (unwind_done(state))
+ 		return 0;
+@@ -386,7 +386,7 @@ unsigned long unwind_get_return_address(struct unwind_state *state)
+ }
+ EXPORT_SYMBOL_GPL(unwind_get_return_address);
+ 
+-unsigned long *unwind_get_return_address_ptr(struct unwind_state *state)
++unsigned long *notrace unwind_get_return_address_ptr(struct unwind_state *state)
+ {
+ 	if (unwind_done(state))
+ 		return NULL;
+@@ -481,7 +481,7 @@ static bool get_reg(struct unwind_state *state, unsigned int reg_off,
+ 	return false;
+ }
+ 
+-bool unwind_next_frame(struct unwind_state *state)
++bool notrace unwind_next_frame(struct unwind_state *state)
+ {
+ 	unsigned long ip_p, sp, tmp, orig_ip = state->ip, prev_sp = state->sp;
+ 	enum stack_type prev_type = state->stack_info.type;
+@@ -709,8 +709,8 @@ bool unwind_next_frame(struct unwind_state *state)
+ }
+ EXPORT_SYMBOL_GPL(unwind_next_frame);
+ 
+-void __unwind_start(struct unwind_state *state, struct task_struct *task,
+-		    struct pt_regs *regs, unsigned long *first_frame)
++void notrace __unwind_start(struct unwind_state *state, struct task_struct *task,
++			    struct pt_regs *regs, unsigned long *first_frame)
+ {
+ 	memset(state, 0, sizeof(*state));
+ 	state->task = task;
+-- 
+2.39.3
 
