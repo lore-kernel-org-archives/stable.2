@@ -1,132 +1,441 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E624F41F7D9
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 09:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82DA03890E3
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 09:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783330835; cv=none; b=fEHOei9IyE4hqIw9JMxz1FNsDBD5PRchPbyTSQJ87vD1tx1NSSwgV1nX6vrH10qFDQPjN4DdVH7qmu+1shr16bRf4vDMX4iHAnCh1tbOYITCirU9NyTh/x3AY5eA988phY6Vb9aUKONooyZoWPuy70TjIaqQ3ILvNDQSt5/CWlI=
+	t=1783331066; cv=none; b=ibe8nZlPlZ4+3v/g7c/zRF0YAxyNNKL6V3ncixdC4fVs0TKS7EtUTEtEzfuEuAozj5iCm5mZcd+A43yc2cKuYZjJK45K8BoHpHfsEpSkrIqIJtxDlaJRy+Pa4DRjCOKdpvWNxTL365MV+8qv3WcSO99NJ0JNEbO2zWPfJeRYd6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783330835; c=relaxed/simple;
-	bh=bT3CXXjpBLJzDNhTOK6bD5YGi+CDKuvE6ekqMXG/ACI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U0QOc8URGg2Q4VVpwd1FHczUTQTtBmBJAO7++dUV+DO4sXkHAGwxrnZTmFzeDOaMTW7ihc7+UW5UT8J7t1uCuFxpAhYUdaTNLHgEIL8c99Msib7owDbd/Oo6BNDZIEFeqL1mnt2ftiIbglcP/g5N1MVq6+NaM7fHSE7e/ataRog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=AVMO8v0n; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1783331066; c=relaxed/simple;
+	bh=LyZ7USrGTzjrwZfR+WI6R8k9aQX/v7fy5DSBrfm3HSA=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=jJNpXEeL7M2pSHlBa5xAdLWKZLaNu6sHIU/1YNscjprG0iaYRk0zCJ1oULjYLNnmQ+HG36g/toZXvF+LVqVkuKLlq2C7icjDykpwOslWWs50+Wtej57SFwrz0q2zusSwq1RFcUOg2zpeWkF5bNDhztQw6KSj5L79lPknFLrQebQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=KhZ6SypG; arc=none smtp.client-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="AVMO8v0n"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6669ILEt3151297
-	for <stable@vger.kernel.org>; Mon, 6 Jul 2026 09:40:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=qmJem5JAZNi4ogHXTFcP4ii5SJmpfdY/czikIEk2+
-	+Q=; b=AVMO8v0npmpGdX+GUGqwCSXO7dhnoRpZzbcjTogRenFqT/WZq+YgqJs8I
-	1Tujbuk25Kjq2ydUNUW4SwGSCdXZandaGBW+cHhG9kqMEzRUbPmq4DYwzqWMoWvs
-	WxO7LM7KmfZGxgnEuWHyVZYClkUvPPwRaX+JrwtzgybQsjr/5jBg3m4RhKbjH4Cy
-	0bKqUaPSY8+/kRdL2RsGyffULfluBSDGykjya59UGK2mhbbkVyh+Tcnpse6lX4D9
-	EgdNHzM6zxRc5qNmml63Byt+HKTX3DFRAMQEkNTtYXrBE06Yh50r/mUYZWZCOwjW
-	xHOSXGb80pRQLL8/x/Tc9bb9q7h3w==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4f6rkdhcyh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 06 Jul 2026 09:40:30 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6669Ydug030257
-	for <stable@vger.kernel.org>; Mon, 6 Jul 2026 09:40:30 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4f7f6xvne5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 06 Jul 2026 09:40:29 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6669eOUN16384432
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 6 Jul 2026 09:40:24 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 93C9E20040;
-	Mon,  6 Jul 2026 09:40:24 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 63FE22004B;
-	Mon,  6 Jul 2026 09:40:24 +0000 (GMT)
-Received: from t83lp68.lnxne.boe (unknown [9.87.84.240])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  6 Jul 2026 09:40:24 +0000 (GMT)
-From: Hidayath Khan <hidayath@linux.ibm.com>
-To: aswin@linux.ibm.com, wintera@linux.ibm.com, pasic@linux.ibm.com,
-        nagamani@linux.ibm.com
-Cc: wenjia@linux.ibm.com, gbayer@linux.ibm.com,
-        linux390-list@tuxmaker.boeblingen.de.ibm.com, mjambigi@linux.ibm.com,
-        sidraya@linux.ibm.com, hidayath@linux.ibm.com, stable@vger.kernel.org
-Subject: [PATCH net] net/af_iucv: fix NULL deref in afiucv_hs_callback_syn()
-Date: Mon,  6 Jul 2026 11:40:19 +0200
-Message-ID: <20260706094019.6600-1-hidayath@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="KhZ6SypG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1783331058; x=1783590258;
+	bh=qOP5ugd7F6WEKBkmHSFpTwvR8Q3X0jNzSw53nWX6T5Q=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=KhZ6SypG4/5lRcmd2fS23xFMZ+Xvp6CF3ilY4rRMWNuS1xcqPIEuZiCZkaV4ExGL1
+	 AGm7NDi0ZWUytmkKHsgr/UHqAs5nL1RjnezY6EciOu/ePcghyhzqKeBd+YDGYVjxqK
+	 RyxAeawAwRsu0rsz6de9Fkwk6ENsrdBJUAPVsJo8yNkP14HseWILeaGoW9xP3Guy7I
+	 OEXuCyYrdk6hHHNhDFfCb0hf+6fKxPPIvhj3ASf40AubTXSOmPlxuwfTG2Md5v2160
+	 NCZHyazEMesixpDM691xr81rWAdS0zedaCVu26yUvnozE3/9OED6AoCV3OadM9Uwj9
+	 i8wM4aqc8LR2A==
+Date: Mon, 06 Jul 2026 09:44:10 +0000
+To: netdev@vger.kernel.org
+From: Asim Viladi Oglu Manizada <manizada@pm.me>
+Cc: dev@openvswitch.org, aconole@redhat.com, echaudro@redhat.com, i.maximets@ovn.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, Asim Viladi Oglu Manizada <manizada@pm.me>, stable@vger.kernel.org
+Subject: [PATCH net] net: openvswitch: reject oversized nested action attrs
+Message-ID: <20260706094336.38639-1-manizada@pm.me>
+Feedback-ID: 37265593:user:proton
+X-Pm-Message-ID: 1b1fac981c097f6e0f9116a6b84f87d28ca04ea0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=M7J97Sws c=1 sm=1 tr=0 ts=6a4b780e cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=UNGD-gTXSZoCYQNaG48A:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDA5NCBTYWx0ZWRfX1STuqcWeXiZn
- UNprMtZk8RsAq2D1i/VxVaVMMjPSRg9jqwh3AvJ9dDvIU6787swdoa9dq1gweXIx8sNhBxdelc7
- p8baSJDmTsbJdrZOIWth/k3XE41kkGNd7d2HlAEbyN+vPiMex5GCLYjs5LNcs9cg585jgj5RJyd
- 0CffBg5BC0Dy1sk7ksXmTqoRxy6ePDMmNalpYPdjhhm5e6Fk/+jb0JOF7tMyj5kQSyHsaLN24l9
- wfJntZXJqTE4TtBOopQP3T9vXfa5h962RmzbGxg8pd/eEI+2fxPJIWbTQ7Jm2dIzlZrDqN8zB14
- WTwImAHZ2RK8RjKy5JAX7IuppwNIAK4G6IDaZd38Ff79Q7aogJRXkLaGMBd6CZY2EwnUIzMQ7mm
- Hoc07YCaZQsYBtFyqVHpEBRnN8Q7hVBdCZs3Y4Xib09NyB1UHU2LSPszshT1RHe3C3PuhgPh2sP
- sSMHU9Nux7WV1heM0UQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDA5NCBTYWx0ZWRfXybB/rXMZ64iL
- IWBz3ZEqyorTeESoniMusUr6ddm06K1S2KFszhnHtxfBGNyA1pw5wQAnGhCHJu8PLNzg/HNRs45
- SJ3nA7MTrhGV2ArRfleJJOc/XUJ5c+M=
-X-Proofpoint-GUID: ZsGGz6Kc7tKUBkkOtp9TI4yIxheVNw9a
-X-Proofpoint-ORIG-GUID: ZsGGz6Kc7tKUBkkOtp9TI4yIxheVNw9a
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-06_01,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015 adultscore=0
- priorityscore=1501 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060094
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-afiucv_hs_callback_syn() allocates the child socket with GFP_ATOMIC,
-which can fail and return NULL. The connection-refused branch is
-entered when the listen state check fails, the accept backlog is
-full, or nsk is NULL - and unconditionally calls iucv_sock_kill(nsk).
-When entered due to allocation failure, iucv_sock_kill() dereferences
-the NULL pointer at the sock_flag(sk, SOCK_ZAPPED) check, causing a
-NULL pointer dereference in softirq context.
+Open vSwitch stores generated flow actions as nlattrs, whose nla_len
+field is u16. Commit a1e64addf3ff ("net: openvswitch: remove
+misbehaving actions length check") allowed the total sw_flow_actions
+stream to grow beyond 64 KiB, which is valid, but also removed the last
+guard preventing a generated nested action attribute from exceeding
+U16_MAX.
 
-Only kill the child socket if it was actually allocated.
+An oversized generated container can thus be closed with a truncated
+nla_len. A later dump or teardown then walks a structurally different
+stream than the one that was validated. In particular, an oversized
+nested CLONE/CT action may cause subsequent bytes in the generated
+stream to be interpreted as independent actions.
 
-Fixes: 3881ac441f64 ("af_iucv: add HiperSockets transport")
+Keep the larger total-action-stream behavior, but make nested action
+close reject generated containers that do not fit in nla_len, and return
+the error through all callers. For recursive SAMPLE, CLONE, DEC_TTL, and
+CHECK_PKT_LEN builders, trim resource-owning action-list tails in reverse
+construction order before discarding failed wrappers, so resources copied
+into the rejected tails are released before the wrappers are removed.
+
+Most failed outer wrappers are discarded by truncating actions_len after
+child resources have been released. CHECK_PKT_LEN also trims its parent
+after branch resources are gone. SET/TUNNEL close failures unwind their
+known tun_dst ownership directly, and SET_TO_MASKED has no external
+ownership and truncates on close failure.
+
+Fixes: a1e64addf3ff ("net: openvswitch: remove misbehaving actions length c=
+heck")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
+Assisted-by: avom-custom-harness:gpt-5.5-qwen3.6-mod-mix
+Signed-off-by: Asim Viladi Oglu Manizada <manizada@pm.me>
 ---
- net/iucv/af_iucv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ net/openvswitch/flow_netlink.c | 201 +++++++++++++++++++++++++--------
+ 1 file changed, 157 insertions(+), 44 deletions(-)
 
-diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
-index 890d9df5ae36..a471fbe178e8 100644
---- a/net/iucv/af_iucv.c
-+++ b/net/iucv/af_iucv.c
-@@ -1875,7 +1875,8 @@ static int afiucv_hs_callback_syn(struct sock *sk, struct sk_buff *skb)
- 		afiucv_swap_src_dest(skb);
- 		trans_hdr->flags = AF_IUCV_FLAG_SYN | AF_IUCV_FLAG_FIN;
- 		err = dev_queue_xmit(skb);
--		iucv_sock_kill(nsk);
-+		if (nsk)
-+			iucv_sock_kill(nsk);
- 		bh_unlock_sock(sk);
- 		goto out;
- 	}
--- 
-2.52.0
+diff --git a/net/openvswitch/flow_netlink.c b/net/openvswitch/flow_netlink.=
+c
+index 13052408a132..d8079dee700e 100644
+--- a/net/openvswitch/flow_netlink.c
++++ b/net/openvswitch/flow_netlink.c
+@@ -2496,13 +2496,56 @@ static inline int add_nested_action_start(struct sw=
+_flow_actions **sfa,
+ =09return used;
+ }
+=20
+-static inline void add_nested_action_end(struct sw_flow_actions *sfa,
+-=09=09=09=09=09 int st_offset)
++static inline int add_nested_action_end(struct sw_flow_actions *sfa,
++=09=09=09=09=09int st_offset)
+ {
+-=09struct nlattr *a =3D (struct nlattr *) ((unsigned char *)sfa->actions +
+-=09=09=09=09=09=09=09       st_offset);
++=09struct nlattr *a;
++=09u32 attr_len;
++
++=09if (WARN_ON_ONCE(st_offset < 0 ||
++=09=09=09 (u32)st_offset > sfa->actions_len))
++=09=09return -EINVAL;
++
++=09attr_len =3D sfa->actions_len - (u32)st_offset;
++=09if (WARN_ON_ONCE(attr_len < NLA_HDRLEN))
++=09=09return -EINVAL;
+=20
+-=09a->nla_len =3D sfa->actions_len - st_offset;
++=09if (attr_len > U16_MAX)
++=09=09return -EMSGSIZE;
++
++=09a =3D (struct nlattr *)((u8 *)sfa->actions + st_offset);
++=09a->nla_len =3D attr_len;
++=09return 0;
++}
++
++/* Free the generated action-list tail at @start and truncate it.
++ * If @nested, @start points to its containing nlattr header.
++ */
++static void ovs_nla_trim(struct sw_flow_actions *sfa, int start, bool nest=
+ed)
++{
++=09const struct nlattr *actions;
++=09u32 len;
++
++=09if (start < 0)
++=09=09return;
++
++=09if (WARN_ON_ONCE((u32)start > sfa->actions_len))
++=09=09return;
++
++=09actions =3D (const struct nlattr *)((u8 *)sfa->actions + start);
++=09len =3D sfa->actions_len - (u32)start;
++
++=09if (nested) {
++=09=09if (len < NLA_HDRLEN)
++=09=09=09goto out;
++
++=09=09actions =3D (const struct nlattr *)((u8 *)actions + NLA_HDRLEN);
++=09=09len -=3D NLA_HDRLEN;
++=09}
++
++=09ovs_nla_free_nested_actions(actions, len);
++out:
++=09sfa->actions_len =3D start;
+ }
+=20
+ static int __ovs_nla_copy_actions(struct net *net, const struct nlattr *at=
+tr,
+@@ -2522,6 +2565,7 @@ static int validate_and_copy_sample(struct net *net, =
+const struct nlattr *attr,
+ =09const struct nlattr *attrs[OVS_SAMPLE_ATTR_MAX + 1];
+ =09const struct nlattr *probability, *actions;
+ =09const struct nlattr *a;
++=09int actions_start;
+ =09int rem, start, err;
+ =09struct sample_arg arg;
+=20
+@@ -2565,18 +2609,27 @@ static int validate_and_copy_sample(struct net *net=
+, const struct nlattr *attr,
+ =09err =3D ovs_nla_add_action(sfa, OVS_SAMPLE_ATTR_ARG, &arg, sizeof(arg),
+ =09=09=09=09 log);
+ =09if (err)
+-=09=09return err;
++=09=09goto err;
+=20
++=09actions_start =3D (*sfa)->actions_len;
+ =09err =3D __ovs_nla_copy_actions(net, actions, key, sfa,
+ =09=09=09=09     eth_type, vlan_tci, mpls_label_count, log,
+ =09=09=09=09     depth + 1);
+=20
+ =09if (err)
+-=09=09return err;
++=09=09goto err_free;
+=20
+-=09add_nested_action_end(*sfa, start);
++=09err =3D add_nested_action_end(*sfa, start);
++=09if (err)
++=09=09goto err_free;
+=20
+ =09return 0;
++
++err_free:
++=09ovs_nla_trim(*sfa, actions_start, false);
++err:
++=09(*sfa)->actions_len =3D start;
++=09return err;
+ }
+=20
+ static int validate_and_copy_dec_ttl(struct net *net,
+@@ -2624,18 +2677,31 @@ static int validate_and_copy_dec_ttl(struct net *ne=
+t,
+ =09=09return start;
+=20
+ =09action_start =3D add_nested_action_start(sfa, OVS_DEC_TTL_ATTR_ACTION, =
+log);
+-=09if (action_start < 0)
+-=09=09return action_start;
++=09if (action_start < 0) {
++=09=09err =3D action_start;
++=09=09goto err;
++=09}
+=20
+ =09err =3D __ovs_nla_copy_actions(net, actions, key, sfa, eth_type,
+ =09=09=09=09     vlan_tci, mpls_label_count, log,
+ =09=09=09=09     depth + 1);
+ =09if (err)
+-=09=09return err;
++=09=09goto err_free;
++
++=09err =3D add_nested_action_end(*sfa, action_start);
++=09if (err)
++=09=09goto err_free;
+=20
+-=09add_nested_action_end(*sfa, action_start);
+-=09add_nested_action_end(*sfa, start);
++=09err =3D add_nested_action_end(*sfa, start);
++=09if (err)
++=09=09goto err_free;
+ =09return 0;
++
++err_free:
++=09ovs_nla_trim(*sfa, action_start, true);
++err:
++=09(*sfa)->actions_len =3D start;
++=09return err;
+ }
+=20
+ static int validate_and_copy_clone(struct net *net,
+@@ -2646,6 +2712,7 @@ static int validate_and_copy_clone(struct net *net,
+ =09=09=09=09   u32 mpls_label_count, bool log, bool last,
+ =09=09=09=09   u32 depth)
+ {
++=09int actions_start;
+ =09int start, err;
+ =09u32 exec;
+=20
+@@ -2661,17 +2728,26 @@ static int validate_and_copy_clone(struct net *net,
+ =09err =3D ovs_nla_add_action(sfa, OVS_CLONE_ATTR_EXEC, &exec,
+ =09=09=09=09 sizeof(exec), log);
+ =09if (err)
+-=09=09return err;
++=09=09goto err;
+=20
++=09actions_start =3D (*sfa)->actions_len;
+ =09err =3D __ovs_nla_copy_actions(net, attr, key, sfa,
+ =09=09=09=09     eth_type, vlan_tci, mpls_label_count, log,
+ =09=09=09=09     depth + 1);
+ =09if (err)
+-=09=09return err;
++=09=09goto err_free;
+=20
+-=09add_nested_action_end(*sfa, start);
++=09err =3D add_nested_action_end(*sfa, start);
++=09if (err)
++=09=09goto err_free;
+=20
+ =09return 0;
++
++err_free:
++=09ovs_nla_trim(*sfa, actions_start, false);
++err:
++=09(*sfa)->actions_len =3D start;
++=09return err;
+ }
+=20
+ void ovs_match_init(struct sw_flow_match *match,
+@@ -2763,20 +2839,20 @@ static int validate_and_copy_set_tun(const struct n=
+lattr *attr,
+ =09tun_dst =3D metadata_dst_alloc(key.tun_opts_len, METADATA_IP_TUNNEL,
+ =09=09=09=09     GFP_KERNEL);
+=20
+-=09if (!tun_dst)
+-=09=09return -ENOMEM;
++=09if (!tun_dst) {
++=09=09err =3D -ENOMEM;
++=09=09goto err;
++=09}
+=20
+ =09err =3D dst_cache_init(&tun_dst->u.tun_info.dst_cache, GFP_KERNEL);
+-=09if (err) {
+-=09=09dst_release((struct dst_entry *)tun_dst);
+-=09=09return err;
+-=09}
++=09if (err)
++=09=09goto err_free_tun_dst;
+=20
+ =09a =3D __add_action(sfa, OVS_KEY_ATTR_TUNNEL_INFO, NULL,
+ =09=09=09 sizeof(*ovs_tun), log);
+ =09if (IS_ERR(a)) {
+-=09=09dst_release((struct dst_entry *)tun_dst);
+-=09=09return PTR_ERR(a);
++=09=09err =3D PTR_ERR(a);
++=09=09goto err_free_tun_dst;
+ =09}
+=20
+ =09ovs_tun =3D nla_data(a);
+@@ -2797,8 +2873,16 @@ static int validate_and_copy_set_tun(const struct nl=
+attr *attr,
+ =09ip_tunnel_info_opts_set(tun_info,
+ =09=09=09=09TUN_METADATA_OPTS(&key, key.tun_opts_len),
+ =09=09=09=09key.tun_opts_len, dst_opt_type);
+-=09add_nested_action_end(*sfa, start);
++=09err =3D add_nested_action_end(*sfa, start);
++=09if (WARN_ON_ONCE(err))
++=09=09goto err_free_tun_dst;
++
++=09return 0;
+=20
++err_free_tun_dst:
++=09dst_release((struct dst_entry *)tun_dst);
++err:
++=09(*sfa)->actions_len =3D start;
+ =09return err;
+ }
+=20
+@@ -2971,7 +3055,7 @@ static int validate_set(const struct nlattr *a,
+=20
+ =09/* Convert non-masked non-tunnel set actions to masked set actions. */
+ =09if (!masked && key_type !=3D OVS_KEY_ATTR_TUNNEL) {
+-=09=09int start, len =3D key_len * 2;
++=09=09int err, start, len =3D key_len * 2;
+ =09=09struct nlattr *at;
+=20
+ =09=09*skip_copy =3D true;
+@@ -2983,8 +3067,11 @@ static int validate_set(const struct nlattr *a,
+ =09=09=09return start;
+=20
+ =09=09at =3D __add_action(sfa, key_type, NULL, len, log);
+-=09=09if (IS_ERR(at))
+-=09=09=09return PTR_ERR(at);
++=09=09if (IS_ERR(at)) {
++=09=09=09err =3D PTR_ERR(at);
++=09=09=09(*sfa)->actions_len =3D start;
++=09=09=09return err;
++=09=09}
+=20
+ =09=09memcpy(nla_data(at), nla_data(ovs_key), key_len); /* Key. */
+ =09=09memset(nla_data(at) + key_len, 0xff, key_len);    /* Mask. */
+@@ -2994,7 +3081,11 @@ static int validate_set(const struct nlattr *a,
+=20
+ =09=09=09mask->ipv6_label &=3D htonl(0x000FFFFF);
+ =09=09}
+-=09=09add_nested_action_end(*sfa, start);
++=09=09err =3D add_nested_action_end(*sfa, start);
++=09=09if (WARN_ON_ONCE(err)) {
++=09=09=09(*sfa)->actions_len =3D start;
++=09=09=09return err;
++=09=09}
+ =09}
+=20
+ =09return 0;
+@@ -3040,7 +3131,8 @@ static int validate_and_copy_check_pkt_len(struct net=
+ *net,
+ =09const struct nlattr *acts_if_greater, *acts_if_lesser_eq;
+ =09struct nlattr *a[OVS_CHECK_PKT_LEN_ATTR_MAX + 1];
+ =09struct check_pkt_len_arg arg;
+-=09int nested_acts_start;
++=09int greater_acts_start =3D -1;
++=09int lesser_acts_start =3D -1;
+ =09int start, err;
+=20
+ =09err =3D nla_parse_deprecated_strict(a, OVS_CHECK_PKT_LEN_ATTR_MAX,
+@@ -3075,37 +3167,58 @@ static int validate_and_copy_check_pkt_len(struct n=
+et *net,
+ =09err =3D ovs_nla_add_action(sfa, OVS_CHECK_PKT_LEN_ATTR_ARG, &arg,
+ =09=09=09=09 sizeof(arg), log);
+ =09if (err)
+-=09=09return err;
++=09=09goto err_free;
+=20
+-=09nested_acts_start =3D add_nested_action_start(sfa,
+-=09=09OVS_CHECK_PKT_LEN_ATTR_ACTIONS_IF_LESS_EQUAL, log);
+-=09if (nested_acts_start < 0)
+-=09=09return nested_acts_start;
++=09lesser_acts_start =3D
++=09=09add_nested_action_start(sfa,
++=09=09=09=09=09OVS_CHECK_PKT_LEN_ATTR_ACTIONS_IF_LESS_EQUAL,
++=09=09=09=09=09log);
++=09if (lesser_acts_start < 0) {
++=09=09err =3D lesser_acts_start;
++=09=09goto err_free;
++=09}
+=20
+ =09err =3D __ovs_nla_copy_actions(net, acts_if_lesser_eq, key, sfa,
+ =09=09=09=09     eth_type, vlan_tci, mpls_label_count, log,
+ =09=09=09=09     depth + 1);
+=20
+ =09if (err)
+-=09=09return err;
++=09=09goto err_free;
+=20
+-=09add_nested_action_end(*sfa, nested_acts_start);
++=09err =3D add_nested_action_end(*sfa, lesser_acts_start);
++=09if (err)
++=09=09goto err_free;
+=20
+-=09nested_acts_start =3D add_nested_action_start(sfa,
+-=09=09OVS_CHECK_PKT_LEN_ATTR_ACTIONS_IF_GREATER, log);
+-=09if (nested_acts_start < 0)
+-=09=09return nested_acts_start;
++=09greater_acts_start =3D
++=09=09add_nested_action_start(sfa,
++=09=09=09=09=09OVS_CHECK_PKT_LEN_ATTR_ACTIONS_IF_GREATER,
++=09=09=09=09=09log);
++=09if (greater_acts_start < 0) {
++=09=09err =3D greater_acts_start;
++=09=09goto err_free;
++=09}
+=20
+ =09err =3D __ovs_nla_copy_actions(net, acts_if_greater, key, sfa,
+ =09=09=09=09     eth_type, vlan_tci, mpls_label_count, log,
+ =09=09=09=09     depth + 1);
+=20
+ =09if (err)
+-=09=09return err;
++=09=09goto err_free;
++
++=09err =3D add_nested_action_end(*sfa, greater_acts_start);
++=09if (err)
++=09=09goto err_free;
+=20
+-=09add_nested_action_end(*sfa, nested_acts_start);
+-=09add_nested_action_end(*sfa, start);
++=09err =3D add_nested_action_end(*sfa, start);
++=09if (err)
++=09=09goto err_free;
+ =09return 0;
++
++err_free:
++=09ovs_nla_trim(*sfa, greater_acts_start, true);
++=09ovs_nla_trim(*sfa, lesser_acts_start, true);
++=09ovs_nla_trim(*sfa, start, false);
++=09return err;
+ }
+=20
+ static int validate_psample(const struct nlattr *attr)
+--=20
+2.53.0
 
