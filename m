@@ -1,63 +1,48 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C5D433E86;
-	Mon,  6 Jul 2026 03:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539523B1EFB;
+	Mon,  6 Jul 2026 04:01:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783309588; cv=none; b=CXoPG/rySa5IbekAfH9j8H8h7iWGv5Ps8jfIkGrd4/tl+0HD/9c+is/nwPNAlBFhwTAQqWgEtexneo3Wg/RZziFSdzYc0f4B/sytC9o1YKRQxUumynLVeUYSAAZX6PviYX6nkwFlbTZ8cIzaLPh1V7hfGqd2bia+IjE4Mv611PI=
+	t=1783310490; cv=none; b=JOhPWFNoz5FqpvvKzQatUMMZsJccSdVRiap4AQaRc/e7MDLIixAO6XJjDpejLbwk/ioOmefQsODpteM4WtA/CZjpYR2JqWq4Pa4xQsLMHJiJ649R6wFqkQeBGxYUgPRGh0ETeIE+54bIu16R2WCSfc3fPJTz0dopYZjRB8wHKDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783309588; c=relaxed/simple;
-	bh=aYGqhIlWzDNFJSeTbbRG5Ro1ftlYUG+s1yC7z4WW1nA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=vBrMgqfURCoX8KHa6KBt/UhFNfC30n4AVldapU1LCjqBbHJIWQigSoDvelhAdXdKJbmvYxl/eWOXNHJbFuEnsbbdUI9R2NfatX/iFrgCn+yYwAf1LX15oyadoaZOw70gnN3a4J/hJ6yq3JpnNCa0RWoCSCbROt1Kh6nbHiCI/6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=cXK7numw; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1783310490; c=relaxed/simple;
+	bh=ljvOM33/j2Xxv3dk5TCikWXeIvoy30/FryuIkc0sf2Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KdAOUyR4tpG4zos6cN1UJkCwFrdssd7ILxHcc0ATeoDOjXjWLzMktNC+kK/FGF6OAEolx5i8J3khH0u2gxvM3NlbguAJiUxPMNITwNKJIMgWJr5Qt8WevUOZ1Mx1noC7HZhXEtwx3AIoa0JgW8B11U4iak5lXskPvw8NjWkAeIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=2gl+vCod; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="cXK7numw"
-X-UUID: 3efd691078ed11f18dc8c9802ae25ab1-20260706
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=LqsXzutP87HE+Xx+LEl6Pc9gDk2yfOymiSOqdmfgY8U=;
-	b=cXK7numwkxRxjBUoECHpVJRwnE/kIlUG2fMCYuz0vkYlZyxUobe8OQ47btxsmL2ud3YdWiSMtSfEgnMHVwY59wl/LkYXpoo+URLuOtf3nPTJo6Zq4aQDvZvJqzToCrqGiTPuP4OYXX25eX9f5hlP+dGwV37BjcYL6witC1qSQwM=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.17,REQID:0f3d17b3-73b6-4e52-8efc-9d86c22f525e,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:d497b38,CLOUDID:633ae786-650a-40ac-85ae-e6913513c89f,B
-	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
-	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 3efd691078ed11f18dc8c9802ae25ab1-20260706
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
-	(envelope-from <shiming.cheng@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1550544001; Mon, 06 Jul 2026 11:46:18 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 6 Jul 2026 11:46:17 +0800
-Received: from mbjsdccf07.gcn.mediatek.inc (10.15.20.246) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Mon, 6 Jul 2026 11:46:15 +0800
-From: Shiming Cheng <shiming.cheng@mediatek.com>
-To: <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <horms@kernel.org>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>, <willemb@google.com>,
-	<daniel.zahka@gmail.com>, <alice@isovalent.com>, <sd@queasysnail.net>,
-	<eilaimemedsnaimel@gmail.com>, <imv4bel@gmail.com>, <nbd@nbd.name>,
-	<dsahern@kernel.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>
-CC: <stable@vger.kernel.org>, <lena.wang@mediatek.com>,
-	<shiming.cheng@mediatek.com>
-Subject: [PATCH v5] net: gro: fix double aggregation of flush-marked skbs
-Date: Mon, 6 Jul 2026 11:46:04 +0800
-Message-ID: <20260706034611.360-1-shiming.cheng@mediatek.com>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="2gl+vCod"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1783310450;
+	bh=tjrOM6PyX4kDIg0sU86ZR78XTEWudzor9AVaa1May2Q=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=2gl+vCodv8RSIDwlOILDVlFbaSjbVlAp85GKmEDO72pQN+O9E/5WNJzTB08YOjbb4
+	 TARj/HJfNZJuyeFxFo10cEocxZ3IN+1Lo372VzQr9QzsVigUZX0hZOKt58Vyuq1soB
+	 Wzn+Z3EuSYUT2pGcKM2wcNJfAa0aaz25oCJdMFqk=
+X-QQ-mid: zesmtpgz7t1783310446t2e2a16d3
+X-QQ-Originating-IP: gELqnvcASbNGn9Saat4iEXMErRuvsOV48BQ1DGOaFDM=
+Received: from hepeiyang-vm.wu.lxd ( [218.94.142.72])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 06 Jul 2026 12:00:44 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 5072464180285240553
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Hyunchul Lee <hyc.lee@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ntfs: fail attrlist updates when the superblock is inactive
+Date: Mon,  6 Jul 2026 12:00:15 +0800
+Message-ID: <A82793FCC5832BB2+20260706040015.58048-1-peiyang_he@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <0B853B9F28048C99+20260703054528.2798189-1-peiyang_he@smail.nju.edu.cn>
+References: <0B853B9F28048C99+20260703054528.2798189-1-peiyang_he@smail.nju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,84 +50,81 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NpfbsqbTlzxUvGUMliidCt9CfeS7qQ71EmSejH2/RFlws7vp2fQO1sCa
+	55WpjqJarTAcKt8RjjvS4L1IwgOvr6aelXuDHznZDsspj6GHmepHwj5Go4EGruzzYpfgptK
+	CIr4vGPqix/uY7AnkucmwRJZhszPDEVcpgUQCLZNVGfdqVL/AQoKMySOiYbWhIPI+C9RP4+
+	b0SAJMJTfTf3Owypkoxzx2ctI4olvuA6grHUF/vRO/QRpDDcNodC3kyxFhbmofKmHxD9fRE
+	Qt9WnLDZJ9PwJnJSjTVpYMw6JGdDOLbYiMjPWJ+maZweP4E+bP48fwj34fn5ieR8NcbkUbZ
+	K95OGZIB+czWQ535TvZW9j/3PnD3Tv7j3qlgbmJroCTx7e8FrsNZHwGmT4PWVA5GXJ7NYnH
+	55eKhffGBqIOprmkjeRKU2SlYQImF3VGalEKMSxL5SKdkwR4jsGr7P0+3CeC3HMXKUVoxEa
+	k3UjbJyMrV750fNKU1goHTtdAS0w0BCePuBUodPiF3LnxQnaiDdufPgBvcZt/9mnXNlzZXm
+	LvMaHTQhuGLOIc7BS/N2/08VwkTg0JO0zV8QCnGAVoUHysRwzT7v74l0RpdwdWziiH3NCWi
+	H98RUKaDX82m3v4Jek4bwKff6N3arrtQ6sLJDTLfc/f6WcL1Ri+fk4BkRya0vBbAfiOnBvh
+	V92iqD0yoUW5HR1HICkPd1fQV8oQD4HGSICmBB/X1bo/Qqz0tQErpafWpJrbTmmzUkvgPVB
+	804S6TPDUSFeXl1tnzVwP0cmJf4r7mI4G5IjZ/HB6oyxQGeWYmMeIpAIR/7e7CGTmAj69Dh
+	IaCcjuCaFzhcvWTD1sWOPNNCy67rxT8SaA3rGUPSjx9Q4ekWpadsHGV9MdAGusDOc/QXuFP
+	bpdRaUoXPgFY+Cq3QtUbkq54uVkDI2LgB8c8x24mq3MwIE9PY7vKyC1vKoLaMkNXZGBxHQr
+	oO6ZbcrKoWg+yMPZlOKiWjZAH1s3Om0FkVXkd7P41xmM9Z5UIrVN7uniBdudZeYSqY0e+/W
+	zZO8Ts2JP3uYBCbSK0MZ5FnbSyDABBpe67ppQy6ubrGT8Uu7qAR9giFQekEJ1/67hDqG6V2
+	DzkqPYDCOp4
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-The skb_gro_receive_list() function is missing a critical safety check
-that exists in the skb_gro_receive() implementation. Specifically, it
-does not validate NAPI_GRO_CB(skb)->flush before allowing packet
-aggregation
+generic_shutdown_super() clears SB_ACTIVE before evicting cached inodes.
+If eviction selects the fake inode for a base inode's unnamed
+$ATTRIBUTE_LIST attribute, ntfs_evict_big_inode() drops the fake inode's
+reference on the base inode while the fake inode is still hashed and marked
+I_FREEING.
 
-This allows already-GRO'd packets with existing frag_list to be
-re-aggregated into a new GRO session, corrupting the frag_list chain
-structure. When skb_segment() attempts to unpack these malformed packets,
-it encounters invalid state and triggers a kernel panic.
+That iput can synchronously write back the base inode. The writeback path
+may update mapping pairs and call ntfs_attrlist_update(), which
+unconditionally calls ntfs_attr_iget() for the same $ATTRIBUTE_LIST fake
+inode. VFS then finds the I_FREEING inode and waits for eviction to finish,
+but the current task is still inside that eviction path, causing a
+self-deadlock in find_inode().
 
-Scenario (Tethering/Device forwarding):
-  1. Driver: Generated aggregated packet P1 via LRO with frag_list
-  2. Dev A: Receives aggregated fraglist packet and flush flag set
-  3. Dev A: Re-enters GRO, skb_gro_receive_list() is called
-  4. Missing flush check allows re-aggregation despite flush flag
-  5. Frag_list chain becomes corrupted (loops or dangling refs)
-  6. Dev B: TX path calls skb_segment(), crashes on corrupted frag_list
+Fix this by mirroring the teardown guard used by __ntfs_write_inode():
+once SB_ACTIVE has been cleared, do not try to iget the attribute-list fake inode.
+Return -EIO so teardown aborts the update instead of waiting on the inode it is evicting.
 
-Root cause in skb_segment():
-  The check at line ~4891:
-    if (hsize <= 0 && i >= nfrags && skb_headlen(list_skb) &&
-        (skb_headlen(list_skb) == len || sg)) {
-
-  When frag_list is corrupted by double aggregation, when list_skb is
-  a NULL pointer from skb->next, skb_headlen(list_skb) dereference
-  NULL/corrupted pointers occurs.
-
-Call Trace:
- skb_headlen(NULL skb)
- skb_segment
- tcp_gso_segment
- tcp4_gso_segment
- inet_gso_segment
- skb_mac_gso_segment
- __skb_gso_segment
- skb_gso_segment
- validate_xmit_skb
- validate_xmit_skb_list
- sch_direct_xmit
- qdisc_restart
- __qdisc_run
- qdisc_run
- net_tx_action
-
-Fix: Add NAPI_GRO_CB(skb)->flush validation to the early-return check in
-skb_gro_receive_list(), matching the defensive programming pattern of
-skb_gro_receive().
-
-Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
+Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Closes: https://lore.kernel.org/all/AB8D5E603E6EA856+ae5f622a-dd3a-4e38-bdd2-42276ae0e1a8@smail.nju.edu.cn/
+Fixes: 495e90fa3348 ("ntfs: update attrib operations")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Assisted-by: Codex:gpt-5.5
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 ---
- net/core/gro.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Changes in v2:
+  - add code comments
+  - collect Reviewed-by
 
-diff --git a/net/core/gro.c b/net/core/gro.c
-index 35f2f708f010..b1573d98f3a5 100644
---- a/net/core/gro.c
-+++ b/net/core/gro.c
-@@ -229,7 +229,14 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
+ fs/ntfs/attrlist.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/fs/ntfs/attrlist.c b/fs/ntfs/attrlist.c
+index afb13038ba42..be3086d34338 100644
+--- a/fs/ntfs/attrlist.c
++++ b/fs/ntfs/attrlist.c
+@@ -57,6 +57,15 @@ int ntfs_attrlist_update(struct ntfs_inode *base_ni)
+ 	struct ntfs_inode *attr_ni;
+ 	int err;
  
- int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
- {
--	if (unlikely(p->len + skb->len >= 65536))
 +	/*
-+	 * Packets marked with NAPI_GRO_CB(skb)->flush have already gone
-+	 * through GRO/LRO processing and must not be aggregated again.
-+	 * Re-entering frag_list GRO may corrupt the frag_list chain and
-+	 * later crash during GSO segmentaiont.
++	 * generic_shutdown_super() clears SB_ACTIVE before evicting cached
++	 * inodes. Do not look up the attribute-list inode after SB_ACTIVE has
++	 * been cleared; it may already be I_FREEING, and waiting on it can
++	 * self-deadlock.
 +	 */
-+	if (unlikely(p->len + skb->len >= 65536 ||
-+		     NAPI_GRO_CB(skb)->flush))
- 		return -E2BIG;
- 
- 	if (!pskb_may_pull(skb, skb_gro_offset(skb))) {
--- 
-2.45.2
++	if (!(VFS_I(base_ni)->i_sb->s_flags & SB_ACTIVE))
++		return -EIO;
++
+ 	attr_vi = ntfs_attr_iget(VFS_I(base_ni), AT_ATTRIBUTE_LIST, AT_UNNAMED, 0);
+ 	if (IS_ERR(attr_vi)) {
+ 		err = PTR_ERR(attr_vi);
 
+base-commit: 1a3746ccbb0a97bed3c06ccde6b880013b1dddc1
+-- 
+2.43.0
