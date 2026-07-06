@@ -1,89 +1,67 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C28D3DDAEA
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 17:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2AA8384233
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 17:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783360314; cv=none; b=ZNXBQkcVTccFRw8hOCoPoJ2n5pHRu+5SdcetZwTVPTjXJj6XiNqjI6dkAaYwKTMj1Ie/NJ5C+W6DZWn9Vef/2WvTxs+0EhCJZ5CurqMy25wlZf97ky8l4+amr/vat71+d8aWBkykapKGw4kx6EQ3wVzAMU3fIBNA/XWvNLiSl3Q=
+	t=1783360398; cv=none; b=Sm7UWJHwj036TQR/HzJEiotrW7O4cldZoWynz5YRfbOwT3CLN2tgQcSBAnGepp7blmC4XPG2AUzMAG1brlH+RI1KjtFa8wrOfgm5sjx64qX18xi0B5JLogS819QhSKSkfqR+Eag3lW6TZR68L/JVwtBs5qI+0a7+4iJkv25TJt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783360314; c=relaxed/simple;
-	bh=6Sjgo2jOp18Djngxf7/ipFFmJe+Fa9xcZITBuXHAxPA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oSmQvwSLcNCPk6KG7erWiAXMvAqV3UUKmTOXZTyAOIyy2ggdobjUBxU3J1JApRODkwvGu5UfUBgZlh1JHX80LNkJ6uNqetRlnatqbx77RscgSkWRzqdEqOlpUS7dZmFOntC1f2cF+XFLkPtdVrJdcgmpqRV+1vqaYTS00hudsmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Url2/NhP; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1783360398; c=relaxed/simple;
+	bh=SA+7qoByX2i3ZbXhf/xYf8HfYh5roodIPFQZpxNv6tQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CRBcFVwxQxvpFaWno+FQ7RPmKwbLQrKaoMnVhZrIxrc+4I1zAcJxIEMKJ+RbvceBJWgU9D7CEhG5MfhhA7i847wbxdbE1hWWm9usfpTWo5A5RLz3ZoPxVjxG/iEm6LIBUaM/TDc4os+kNTd6I/A8S4ZDd0JcuAoXDxwFp3fUeC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rfsCI60G; arc=none smtp.client-ip=209.85.208.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Url2/NhP"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493d3135e9bso12797805e9.2
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 10:51:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rfsCI60G"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6983f20a8bfso5572185a12.1
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 10:53:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783360309; x=1783965109; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hh5vS2RRIIEr3rSaPu1c6fxxyM70bAInUDVodaYtikc=;
-        b=Url2/NhP68+7Kzsx2oCp8bbxPPTL8huP0am5rnW1PinIcoL9qPAaJdXD+D/COx5LPX
-         X88w85pnWB1AB8j6AmlRHZX859Dw5wzcST2gYKVhpcHJoM9ZxkdJqpffpFrVh2+z6r6F
-         lyPoVwmgRrjBONsEvcjtF6WMiRDs9dedqucBQuC/vjaX0DFM4iVhaYn56UAB3lg11CZV
-         2KbQTMNxH/ZmFAWM0H7p087aeL7FGl9JDOQvVbrTM+QzPcLTejeRxEKRkCzSLM23rHTy
-         PBQlULSIyqi2M4IAygVBYYlAnvYGJc5gM3FRzdccKaFAz45nLVi//Q+yNRqDLSpeHN9U
-         GkNA==
+        d=gmail.com; s=20251104; t=1783360395; x=1783965195; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kmSKkj5hOXJj95w1wKmp14gv5ekFNxv0d27UUCnYNkE=;
+        b=rfsCI60GVZPQsBzmv0KhH3Af+yi31YgVKx82zFTc5ktvz+tkZDBbtLKyEEj3t+82kK
+         iNVIcfSqbQP5tA332Xlxcdlpm4D09D3kOT6hCaOjljBLd+rRpzaDNgSGMiGbyVJlYF3r
+         C2rhPK8dKaEEaGXWtS0GTZ97QDiFjFgcjEgfw+Q9eOBNr+n8frYepu6mJElnzaHDcCDV
+         Fb1+AFuC8r0atAURNe3kBI1CIzF8NjK5gd7W5W3kTJ1PIDuQnuFFRUBNpXNdXlHFQo15
+         kR9AheGJIYz/7IipIlpkqto8+D9BMAxpNU0XI7RFBQoHe9uDMDO5ZsX9evZNJWvTAIZt
+         75pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783360309; x=1783965109;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hh5vS2RRIIEr3rSaPu1c6fxxyM70bAInUDVodaYtikc=;
-        b=iQlaaY7NZhW1xq+lKbXQiR1yQdYaHy4+wEd4k4n9Q279De8PqKT2HwB1CmTXs+CbSS
-         DDDtTiWcl0xk+TU+dIypIe1wajMNEuS81CP4Tpvm+RCCOY3JNh6ZnAkqLBZAtcFs7ipI
-         Npmeuo15fM4EilLvzdP/RGqWT6YUs4jgO0rvOpZGGfp+LyyIBjK3C1zrt/sg3FdPegM7
-         HGqGflHwBCeBMg0kbYt2MvxhxjCECu2oYIMwHesXAWSYRuyswE1WNSPIHn3wJU/Hbpeu
-         tpvywz+qflXVg01hjDoIiG/2vS381OjB0JfzzRQqz3voxDv3mDQ3lhUpTe0kypEmGiPw
-         uU/g==
-X-Forwarded-Encrypted: i=1; AHgh+RooT+MoPno9qfNOP0QLg21wyIXYlCz2Ob1aA+uSCT3EnpbVaRm6mGltKETiSUfPpSNXlYDbLR8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxgIWIVzH3EhpQOTigGlVtbE8c0K6gd1Tvgjm1RufjfQk5aA/78
-	AIFzBmf8krX7945yJ4FsBeSojdP7e/P92qG3KqVYTooJQIi7Syd48OccVSEBdCCCmVc=
-X-Gm-Gg: AfdE7ckIxeEVGbDSFvj94JSF4R+VMhSkCPBkr/r/VKF6tcgRYw77SYQn1sZapmu4CLL
-	cws82NUtp7vwC74AgUjWT1F7IN2hErQUP8hBZPs999xhWRjdWAJPsHq3JjZcrfkkKa6vXN9RLPW
-	Wzk1+P1lw4092gZ/FaDz3hrv8yuubOp/amE1d5j7CLilYBvahx5be+uGdvvvCBWjrM2VLHvvvDQ
-	W3bUr8RtVspHNrqAxplRW3FCZ29p19GW4/6G0HO0O2cs0pUIqdCPp6CILPRFeJnLZjIcGcgzqhA
-	cziRaIeMutvAnyv2XKUH0P6jpAhLqKsN9KXDFHjuQEcVxsGV+Het4i5ojJHezVvUq7y8EXADR46
-	MKV+vLuViQaj4bwHyS1tBDNka2llLSZFg/OYiMaEODRf9jQdnHq6sPY9m8n5iSCCItKgWJOOeWj
-	olNwlNM1smnpOYCLGRknyKI80VaoDv8QMNXksCSKnnLnT8zMz1jLTHFABUevg65LJCStbg+J7q/
-	Rc/meVZqypDB5YOEc76CmWKzNrMS4LYECS0NA==
-X-Received: by 2002:a05:600c:698d:b0:493:a613:56b2 with SMTP id 5b1f17b1804b1-493df038708mr18885645e9.8.1783360309480;
-        Mon, 06 Jul 2026 10:51:49 -0700 (PDT)
-Received: from iku.Home ([2a06:5906:61b:2d00:8e02:886d:c345:c5e2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0078d49sm1263145e9.0.2026.07.06.10.51.48
+        d=1e100.net; s=20251104; t=1783360395; x=1783965195;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kmSKkj5hOXJj95w1wKmp14gv5ekFNxv0d27UUCnYNkE=;
+        b=nlvao2TCL87go57HDmgZwVs98iWXZ2/tewZyNoVmDaP6xzMSfIw3chQC6+D7GHHjnf
+         JWFBbw465kvoMACId5B9eUEewzBeP5t8JTuWJZQelmJioYC8Kn+ZYZZL9PUawSDbk+em
+         yDxvv81FxdhZ7wfeeG/eUyi1s+UF8x9MTiBo5+06F/ek+FZcSqoB0aWKPMtGgW2ULr/m
+         qleLdlsGDIJY7HEACDd8/FEa4FRnYfZe8uRnj+JHSCVosBLSXQifEOozVKRmNNnhsnBS
+         y/A+y4hE56YH1kzNnb9FPOBBzvR+ZXeMo0fYRRUNmToNW0sPyKhVLOH9Fe7vlHu9vHFL
+         +gJQ==
+X-Gm-Message-State: AOJu0YyV+R5wljsezq7JT7nCVya6phOqSdiLBEC8yViIR48TX+8+1caw
+	BWj8RbT3Opdd59nR9BPb1ZtYynHasLRDcfdfS5WGxAdCjU+giyNTSm+Z/AU9ow==
+X-Gm-Gg: AfdE7cmd4YV10bP76wDgm8ofBUGJ0cDR3F1zutJnz9i+yXBVhcZG3GOq5idulBYbjEs
+	2EY4mDATTV4yVuZtxYysBT2UxRy9Lpl3XtehhxzOEmAuOYRFEkYUbHTSig6LCfN8twTWjvUg/B8
+	EArXSoKGJ+K98HJhpxt+c/vtUHebL0UWWehBQ/hNYWRz5SIQjLqbb9vzZXE2WxEBCwQ4Y8DH5e0
+	r8XakcmN+KxWg5ucfDeX1fzt/7BkdPU/GVw8SRHH0JEuHFcCp4nZfVwziU7WrZTk/0GExk67R9V
+	LNiuzMpo7r/Q4xXWQttrqowRLfHmCh9LjngLzVipH4J5Kzd2zVuA0a0YTN4+pF0gVFhxqoro6TI
+	0y1moFv6CsfrgfPf8kiAR0BRZmNxKAgEBmHs7iKrkz1p/sgYx2nUBn9NPxblRO3k2A/ljNX+UtO
+	AiGpKE3+9VqP2BpMYTWmIE21Q8rTw+3FCX
+X-Received: by 2002:a17:906:bced:b0:c12:34ed:da0a with SMTP id a640c23a62f3a-c15a6949174mr70032866b.54.1783360395009;
+        Mon, 06 Jul 2026 10:53:15 -0700 (PDT)
+Received: from andfed.netbird.selfhosted ([188.146.162.78])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12b60f5e1asm772190266b.27.2026.07.06.10.53.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 10:51:49 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-rtc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 03/12] rtc: rzn1: fix weekday underflow when alarm crosses month boundary
-Date: Mon,  6 Jul 2026 18:51:29 +0100
-Message-ID: <20260706175138.12587-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+        Mon, 06 Jul 2026 10:53:14 -0700 (PDT)
+From: Andrei Fed <andfed.net@gmail.com>
+To: andfed.net@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH] HID: magicmouse: fix battery reporting for Bluetooth Magic Trackpad USB-C
+Date: Mon,  6 Jul 2026 19:53:09 +0200
+Message-ID: <20260706175309.46459-1-andfed.net@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -92,62 +70,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+The Apple Magic Trackpad 2 (USB-C) reports a wildly wrong battery
+capacity over Bluetooth, for example a constant 4% for a pack that is
+actually at 74%.
 
-In rzn1_rtc_set_alarm(), the driver attempts to calculate the weekday
-for an alarm by computing the day delta between the alarm time and the
-current time:
+The device's battery input report (0x90) is laid out as
+[report-id][status][charge]. hid-input's synchronous capacity query,
+hidinput_query_battery_capacity(), assumes the common
+[report-id][capacity] layout and returns buf[1], which for this device
+is the status byte rather than the charge (buf[2]).
 
-    days_ahead = tm->tm_mday - tm_now.tm_mday;
-    wday = (tm_now.tm_wday + days_ahead) % 7;
+magicmouse_fetch_battery(), which requests the battery report through
+hid_hw_request() so the reply is decoded via the report descriptor at
+the correct field offset, is gated to the USB models and never runs
+over Bluetooth. The device does not push battery reports on its own
+either, except a single one at connect time, which is delivered while
+probe holds driver_input_lock and is silently dropped. All userspace
+reads therefore go through the misparsing query, and the device is
+stuck reporting its status byte as the capacity.
 
-However, if an alarm is scheduled for the beginning of the next month
-while the current time is at the end of the month (e.g., current day is
-31, alarm day is 1), `tm->tm_mday - tm_now.tm_mday` results in a negative
-value (-30). Since `days_ahead` is an unsigned int, this underflows to a
-large positive number, leading to an incorrect `wday` being written to
-the RZN1_RTC_ALW register. As a result, the alarm fails to fire.
+Enabling the fetch for Bluetooth is not sufficient on its own: user
+space reacts to the power_supply registration immediately, so a query
+is typically already in flight when the fetch reply is parsed.
+hidinput_get_battery_property() stores the query result and marks the
+battery as queried without rechecking whether a report arrived while
+it was waiting, clobbering the just-reported correct value with the
+misparsed one.
 
-Fix this by utilizing the already computed `alarm` time64_t timestamp.
-Convert it back into an rtc_time struct via rtc_time64_to_tm(), which
-automatically handles month boundaries and correctly populates the
-`tm_wday` field.
+Fix this by adding HID_BATTERY_QUIRK_AVOID_QUERY for the Bluetooth
+Magic Trackpad USB-C so the misparsing query path is never used, and
+by fetching the battery at the end of probe for this device. hidp has
+no asynchronous request() callback, so the fetch is serviced
+synchronously via __hid_request() while probe still holds
+driver_input_lock; call hid_device_io_start() first so the reply is
+processed instead of being discarded.
 
-Fixes: b5ad1bf00d2c4 ("rtc: rzn1: Add alarm support")
+Tested with a Magic Trackpad USB-C (004c:0324) over Bluetooth on
+6.18.37: the reported capacity now matches the device (verified against
+a raw GET_REPORT of report 0x90) and updates on reconnect.
+
+Fixes: 87a2f10395c8 ("HID: magicmouse: Apple Magic Trackpad 2 USB-C driver support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Signed-off-by: Andrei Fed <andfed.net@gmail.com>
 ---
-v2->v3:
-- New patch to fix weekday underflow when alarm crosses month boundary.
----
- drivers/rtc/rtc-rzn1.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/hid/hid-input.c      |  3 +++
+ drivers/hid/hid-magicmouse.c | 19 ++++++++++++++++++-
+ 2 files changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index aa27ad7f5941..3c83f95c18c4 100644
---- a/drivers/rtc/rtc-rzn1.c
-+++ b/drivers/rtc/rtc-rzn1.c
-@@ -260,7 +260,8 @@ static int rzn1_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 	struct rzn1_rtc *rtc = dev_get_drvdata(dev);
- 	struct rtc_time *tm = &alrm->time, tm_now;
- 	unsigned long alarm, farest;
--	unsigned int days_ahead, wday;
-+	struct rtc_time alarm_tm;
-+	unsigned int wday;
- 	int ret;
+diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
+index 3487600..f78166f 100644
+--- a/drivers/hid/hid-input.c
++++ b/drivers/hid/hid-input.c
+@@ -375,6 +375,9 @@ static const struct hid_device_id hid_battery_quirks[] = {
+ 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE,
+ 		USB_DEVICE_ID_APPLE_MAGICTRACKPAD),
+ 	  HID_BATTERY_QUIRK_IGNORE },
++	{ HID_BLUETOOTH_DEVICE(BT_VENDOR_ID_APPLE,
++		USB_DEVICE_ID_APPLE_MAGICTRACKPAD2_USBC),
++	  HID_BATTERY_QUIRK_AVOID_QUERY },
+ 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_ELECOM,
+ 		USB_DEVICE_ID_ELECOM_BM084),
+ 	  HID_BATTERY_QUIRK_IGNORE },
+diff --git a/drivers/hid/hid-magicmouse.c b/drivers/hid/hid-magicmouse.c
+index 802a347..0c4e959 100644
+--- a/drivers/hid/hid-magicmouse.c
++++ b/drivers/hid/hid-magicmouse.c
+@@ -828,6 +828,12 @@ static bool is_usb_magictrackpad2(__u32 vendor, __u32 product)
+ 	       product == USB_DEVICE_ID_APPLE_MAGICTRACKPAD2_USBC;
+ }
  
- 	ret = rzn1_rtc_read_time(dev, &tm_now);
-@@ -274,8 +275,8 @@ static int rzn1_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 		return -ERANGE;
++static bool is_bt_magictrackpad2(__u32 vendor, __u32 product)
++{
++	return vendor == BT_VENDOR_ID_APPLE &&
++	       product == USB_DEVICE_ID_APPLE_MAGICTRACKPAD2_USBC;
++}
++
+ static int magicmouse_fetch_battery(struct hid_device *hdev)
+ {
+ #ifdef CONFIG_HID_BATTERY_STRENGTH
+@@ -838,7 +844,8 @@ static int magicmouse_fetch_battery(struct hid_device *hdev)
+ 	bat = hid_get_battery(hdev);
+ 	if (!bat ||
+ 	    (!is_usb_magicmouse2(hdev->vendor, hdev->product) &&
+-	     !is_usb_magictrackpad2(hdev->vendor, hdev->product)))
++	     !is_usb_magictrackpad2(hdev->vendor, hdev->product) &&
++	     !is_bt_magictrackpad2(hdev->vendor, hdev->product)))
+ 		return -1;
  
- 	/* Convert alarm day into week day */
--	days_ahead = tm->tm_mday - tm_now.tm_mday;
--	wday = (tm_now.tm_wday + days_ahead) % 7;
-+	rtc_time64_to_tm(alarm, &alarm_tm);
-+	wday = alarm_tm.tm_wday;
+ 	report_enum = &hdev->report_enum[bat->report_type];
+@@ -971,6 +978,16 @@ static int magicmouse_probe(struct hid_device *hdev,
+ 		schedule_delayed_work(&msc->work, msecs_to_jiffies(500));
+ 	}
  
- 	writel(bin2bcd(tm->tm_min), rtc->base + RZN1_RTC_ALM);
- 	writel(bin2bcd(tm->tm_hour), rtc->base + RZN1_RTC_ALH);
++	/*
++	 * Query the Bluetooth Magic Trackpad USB-C battery as done for USB.
++	 * Start io first: probe holds driver_input_lock and the synchronous
++	 * GET_REPORT reply would otherwise be dropped.
++	 */
++	if (is_bt_magictrackpad2(id->vendor, id->product)) {
++		hid_device_io_start(hdev);
++		magicmouse_fetch_battery(hdev);
++	}
++
+ 	return 0;
+ err_stop_hw:
+ 	if (is_usb_magicmouse2(id->vendor, id->product) ||
 -- 
 2.54.0
 
