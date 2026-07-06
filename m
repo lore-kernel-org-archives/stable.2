@@ -1,158 +1,111 @@
-Received: from email.studentenwerk.mhn.de (dresden.studentenwerk.mhn.de [141.84.225.229])
+Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAF3423783;
-	Mon,  6 Jul 2026 12:04:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.84.225.229
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFD33033F5;
+	Mon,  6 Jul 2026 12:08:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783339480; cv=none; b=iOG6FU0NCBAQ8VUdPGdPxHOCWfGWgodhmuUHyLaA5aydLblzNmAippTY8HadlSnJhSdW9tNYIDr1m1AsrhMJ9y0aD1o2XKALIZS5UDads35t3UNVQ8TNQxiRm3aM+3AmQZe5VOh/yVKjjFzDEpItf1OAL6kkFteMekVbjudD5mE=
+	t=1783339724; cv=none; b=Bn2Y5r9FNtpuKlgzXBg56f9YIAdoJ9W0/V03CH05in3Q67zHg6xFJDPN5LdJgYKGsWExeMki4jsKKhP0CgbA5e54ulfN5Z8yNotSNfmJNsBSmZOphzF4QF9o/Gxtf6lin6LpFJ+2Fzt65/2TPDdKmeM098pcSBDN9rh0pjk1W/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783339480; c=relaxed/simple;
-	bh=Ga0Sz5vBoa+rxCG3V1o1nGJ79hw214+GGbTV7AwwhfA=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=qk8thizLU2RmsupLUg8ToVwPqAMd5GkYdQ2DyFz+mqhuCgcEp236c6PwmAhkZLV8q50QoX14/KjAEARzNYvZcvpeG0XXAG0Ns2VTbm02zs4w/azel9FlEsRbgOUBMIps3IWgv69iIByE17hiuW8mrwD2RvSJfZij7Uo92rw5jJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stwm.de; spf=pass smtp.mailfrom=stwm.de; dkim=pass (2048-bit key) header.d=stwm.de header.i=@stwm.de header.b=gxUdVwPW; arc=none smtp.client-ip=141.84.225.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stwm.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stwm.de
+	s=arc-20240116; t=1783339724; c=relaxed/simple;
+	bh=b8jXmnYhK3uOLfgrdJYFzlV8ZSiFyPZ71Gpw3aE3XQ0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VQHoxC/nPk/IZfFP00cTo7JdO1DLXU6yDbL3VqX8Ej89pc1JtDhWt3cwH+OehOhFkDdTlk527RmgctjrCZEtVusoq6xU18dNlylxeeq5fGePXWsHuIFC0wPcm4gWocjEG8yr4OHWctleLZ7Y6BbL+Pb2U+xvBo8CWK1IiQ6w8aM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Gdoe5j5t; arc=none smtp.client-ip=115.124.30.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stwm.de header.i=@stwm.de header.b="gxUdVwPW"
-Received: from mailhub.studentenwerk.mhn.de (mailhub.studentenwerk.mhn.de [127.0.0.1])
-	by email.studentenwerk.mhn.de (Postfix) with ESMTPS id 4gv31m69FPzRhR8;
-	Mon, 06 Jul 2026 14:04:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwm.de; s=stwm-20170627;
-	t=1783339468;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vUYqsH+fWXlnvTc2J09EhPdU6/r0Fc6iDR1wtcOKgmM=;
-	b=gxUdVwPWEkRLVlTGsNrxv6jdhh/aJgLjD5NBDE8LfVUojmfINFmwM3S7L8RN0FHjj2xtdD
-	4PdNmR2dbVH2JlOilYI/SMReSo5TvE0SWXGazuo4eOfBVV8cRA3Qnmz3dw4Ijenp+7n5uV
-	lYktacgV42niFmj2nJvNXIJuAugevnXoTj5wG5uwlO0oyE3qTSYpnkZVT5uCcV1kfLaRsC
-	F42tDtz9mZvnkXFQOAzNm3MMWCut5hc1G71RgvHiNUtkBai1rGioDMKEmzZ5T555zxRZLW
-	JceSPK4QYvyJnFeCxsETRlGvX3z41+BpME1DBVnZ92Z5GCQ2k5BydC+YABq1WA==
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Gdoe5j5t"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1783339717; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=xZddxHRGgxDKnCx0072/zTHmK6GyWnLW8ka8kUBFC/I=;
+	b=Gdoe5j5t+m8cSozIbugHPlSUQi2UagikqKdGSwcLCd/agJVE+EICm6dEUeSc4hGb1otRm4lupNNVE2UF0R5gQwhUODlGebA9G5D7pF0LDxdsf5B7lGWUDWUp2UbqSazJi2QoB2p9J4RiKaeooyydkIQ73UbIrAv1ivKaJnYNmSw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0X6VYQxf_1783339715;
+Received: from 30.246.179.165(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X6VYQxf_1783339715 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 06 Jul 2026 20:08:36 +0800
+Message-ID: <8ef0b72e-a0e8-4913-8d30-519335305260@linux.alibaba.com>
+Date: Mon, 6 Jul 2026 20:08:35 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 06 Jul 2026 14:04:28 +0200
-From: Wolfgang Walter <linux@stwm.de>
-To: Chuck Lever <cel@kernel.org>
-Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- patches@lists.linux.dev, Jeff Layton <jlayton@kernel.org>, Alexandr
- Alexandrov <alexandr.alexandrov@oracle.com>, yangerkun
- <yangerkun@huawei.com>, linux-nfs@vger.kernel.org
-Subject: Re: 6.18.37 has problems with nfs4 (server), 6.18.36 works
-In-Reply-To: <ad301582-cb44-42cd-ab3f-c90f7c3dc11a@app.fastmail.com>
-References: <20260703160306.1651327-1-cel@kernel.org>
- <3d80d1812ab903dbc831fef122d3cc75@stwm.de>
- <ad301582-cb44-42cd-ab3f-c90f7c3dc11a@app.fastmail.com>
-Message-ID: <fa5b998163ab4d58f104ce508da5675b@stwm.de>
-X-Sender: linux@stwm.de
-Organization: =?UTF-8?Q?Studierendenwerk_M=C3=BCnchen_Oberbayern?=
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18.y] mm: shmem: fix potential livelock issue for shmem
+ direct swapin
+To: Kairui Song <ryncsn@gmail.com>
+Cc: akpm@linux-foundation.org, hughd@google.com, stable@vger.kernel.org,
+ baohua@kernel.org, machao26@xiaomi.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <173f3fd983d735155d47e9e39d27f0c2d62a7c31.1783307463.git.baolin.wang@linux.alibaba.com>
+ <CAMgjq7AQcyypJ-VhJ_CxY6fdEph64fxjOzzYU-=EkMrHemkpzA@mail.gmail.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <CAMgjq7AQcyypJ-VhJ_CxY6fdEph64fxjOzzYU-=EkMrHemkpzA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 2026-07-03 22:59, schrieb Chuck Lever:
-> On Fri, Jul 3, 2026, at 2:30 PM, Wolfgang Walter wrote:
->> Hello Chuck,
->> 
->> Am 2026-07-03 18:03, schrieb Chuck Lever:
->>> Hi Wolfgang, and stable@ --
->>> 
->>> Short version for stable@: 6.18.37 does not need a revert of
->>> 95f9eb19d5e6 ("Revert 'NFSD: Defer sub-object cleanup in export
->>> put callbacks'").  That commit is correct for 6.18, and it is
->>> not the cause of Wolfgang's crash.  Please leave it in place.
->> 
->> Ok. I run v6.18.37 with the patch reverted since about a day (just for
->> the record). But according to your analysis, that's just a 
->> coincidence.
->> 
->>> 
->>> The reasoning: 95f9eb19d5e6 touches only fs/nfsd/export.c,
->>> export.h, and nfsctl.c.  Wolfgang's oops is in
->>> remove_blocked_locks() -> __destroy_client() ->
->>> nfsd4_destroy_clientid(), entirely within fs/nfsd/nfs4state.c,
->>> which the revert does not modify.  That path is byte-for-byte
->>> identical across 6.18.36, 6.18.37, and current mainline, so the
->>> revert cannot have introduced the bug and no missing backport
->>> repairs it.  The 6.18.36-good / 6.18.37-bad split is a timing
->>> coincidence; I believe the same latent bug is present in both.
->>> 
->>> Because the defect is present upstream as well, the fix belongs
->>> in mainline first and is then backported to 6.18.y and the other
->>> affected trees.
->>> 
->>> Wolfgang - to confirm this and capture the allocation and free
->>> stacks, a KASAN-enabled kernel would settle it.  On a v6.18.37
->>> tree:
->>> 
->>>   1. Add to your .config (keep your usual CONFIG_DEBUG_INFO so
->>>      symbols resolve):
->>> 
->>>        CONFIG_KASAN=y
->>>        CONFIG_KASAN_GENERIC=y
->>>        CONFIG_KASAN_INLINE=y
->>>        CONFIG_STACKTRACE=y
->>> 
->>>   2. Build and boot that kernel.  Stay on 6.18.37 -- you do not
->>>      need the revert-the-revert build I suggested earlier; that
->>>      experiment no longer tells us anything.
->>> 
->>>   3. When it trips, KASAN prints a "BUG: KASAN: use-after-free"
->>>      report with "Allocated by" and "Freed by" call stacks.
->>>      That report, in full, is what I need -- it should land in
->>>      /var/log/messages just as the last oops did.
->>> 
->>> One caveat: KASAN roughly doubles memory use and adds CPU cost,
->>> so weigh that before running it on the production server.  If
->>> that is not practical, a full log from the first stall line
->>> onward, with all CPU backtraces, captured over netconsole or
->>> serial, is a useful second best.
->>> 
->>> I will draft a candidate upstream fix from the analysis so far
->>> and send it separately.  If KASAN on the production box is not
->>> an option, testing that patch may be the least disruptive way
->>> to confirm.
->>> 
->> 
->> I think the memory usage should not be a problem, higher cpu usage
->> neither.
->> 
->> But as it is a coincidence the probability to catch that error is
->> probably very low. We use v6.18 kernels since v6.18.1 on that 
->> fileserver
->> and this error never occured before.
->> 
->> Or do you think it happens more often, but without symptoms, and KASAN
->> would detect it?
->> 
->> So I will try running a v3.18.37 + your patch applied. This of course
->> can not prove that it fixes the problem because it almost never 
->> happens,
->> but probably this would detect if if the patch had side effects.
-> 
-> Correct: your reproduction of the crash does not appear to
-> be strongly correlated with any particular kernel release. I
-> based my analysis strictly on the additional stack trace data
-> you sent earlier today.
-> 
-> I think it's more likely that your 50 client workload hit a
-> particular race that exposed a pre-existing UAF. KASAN will
-> change execution timing, certainly, but I can't predict
-> whether it will make the race window bigger.
-> 
-> So you can only test whether my patch causes new regressions,
-> not whether it prevents your crasher. :-(
 
-6.18.37 + your patch is running here since saturday with no problems.
 
-Regards,
--- 
-Wolfgang Walter
-Studierendenwerk München Oberbayern
-Anstalt des öffentlichen Rechts
+On 7/6/26 1:59 PM, Kairui Song wrote:
+> On Mon, Jul 6, 2026 at 11:25 AM Baolin Wang
+> <baolin.wang@linux.alibaba.com> wrote:
+>>
+>> When skipping swapcache for synchronous IO swap devices, swapcache_prepare()
+>> is used to prevent parallel swapin from proceeding with the swap cache flag.
+>> However, on PREEMPT kernels this can lead to a livelock, as reported by Chao[1]:
+>>
+>> Thread A starts direct swapin of a shmem folio and calls swapcache_prepare()
+>> to set SWAP_HAS_CACHE. It may then be preempted inside workingset_refault().
+>> Meanwhile, a higher priority thread B also attempts direct swapin of the same
+>> shmem swap entry. Since swapcache_prepare() already marks the entry, thread B
+>> repeatedly gets -EEXIST and busy-loops waiting for thread A to finish. But as
+>> thread B runs at higher priority, thread A cannot preempt it, resulting in
+>> starvation and a livelock.
+>>
+>> Fix it by yielding the CPU with schedule_timeout_uninterruptible(1) when
+>> swapcache_prepare() fails, following the same approach used in commits
+>> 029c4628b2eb ("mm: swap: get rid of livelock in swapin readahead") and
+>> 13ddaf26be32 ("mm/swap: fix race when skipping swapcache").
+>>
+>> Note that mainline does not have this potential issue, which has already been
+>> resolved by Kairui's swap refactoring work[2].
+>>
+>> [1] https://lore.kernel.org/all/700a2cbf90a2484f979aac858f08f5d4@xiaomi.com/
+>> [2] https://lore.kernel.org/all/20260517-swap-table-p4-v5-0-88ae43e064c7@tencent.com/
+>> Fixes: 1dd44c0af4fa ("mm: shmem: skip swapcache for swapin of synchronous swap device")
+>> Reported-by: Ma Chao <machao26@xiaomi.com>
+>> Closes: https://lore.kernel.org/all/700a2cbf90a2484f979aac858f08f5d4@xiaomi.com/
+>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+>> ---
+>> Hi Chao, could you try this patch to check if it fixes your issue? Thanks.
+>> ---
+>>   mm/shmem.c | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/mm/shmem.c b/mm/shmem.c
+>> index 94c5b0d78ac3..d4cb57b3b0ef 100644
+>> --- a/mm/shmem.c
+>> +++ b/mm/shmem.c
+>> @@ -2066,6 +2066,8 @@ static struct folio *shmem_swap_alloc_folio(struct inode *inode,
+>>          if (swapcache_prepare(entry, nr_pages)) {
+>>                  folio_put(new);
+>>                  new = ERR_PTR(-EEXIST);
+>> +               /* Relax a bit to prevent rapid repeated page faults */
+>> +               schedule_timeout_uninterruptible(1);
+>>                  /* Try smaller folio to avoid cache conflict */
+>>                  goto fallback;
+>>          }
+>> --
+>> 2.47.3
+>>
+> 
+> Thanks! That's much more simpler than I expected. Do we need a wakeup
+> queue like the one in commit 01626a1823024? Perhaps the reporter can
+> help confirm and test? I personally prefer to keep it simple if shmem
+> users aren't as sensitive as anon users.
+
+I agree. I'd like to keep the bugfix as simple as possible, if the 
+reporter's scenario isn't latency-sensitive.
