@@ -1,92 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE4C417355
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 11:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8CC541D4F8
+	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 11:38:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783337635; cv=none; b=tSYbVsvKBWi9wEYDywzH+DzeJP5YnQM5ts+EPrWPqm1liBOasbskFTJvsw1hYyCFGeLEoUQptCXYCI4SR4NqhuRz4YXItGp+tGOolewqclRVOs/qT+ukIpjgq1k9Z7uGIMSmrSDW7gurnSruqNsCKG/KTxft+tnD4z5oXEc58tk=
+	t=1783337936; cv=none; b=CxVh3euKzu3SjJEEGwN83dAVXGtu2R5iddUIMTGD3/ayf5OiVhW9fjTzw/wuXdGlmECsdTzx+acOwcRA/2ZSZKYJbQpwXg+aAWuNF2Kf0Q8D5xXb+MIatBKciHYicgR449ZAzTSgAAw7WBeh3oCrAG9hoMo4TGKBwopNu+sycZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783337635; c=relaxed/simple;
-	bh=T6ff1X1gPU9qIbDk2ANvJa5G+nOvML8L/09s0oqCN2Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GMH+nXSZdMHhDrWMRA8W0i/CO0lPMU4URISTLcea0vS87dHdyksv2IBqKk6/X5trH3mWVtH2UUDm6Xgsz9cGFw6DlI+jjTcacuxdW46AgcoUYihcYhPyT9WgN7evmECyDDmuz9Qom7EPIpfeEydQ3obrESt5K3m3mDXu0TjltC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q0hK6KJK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783337936; c=relaxed/simple;
+	bh=7sAeWkd7EwlEsoCRUeUm175QpZ9wzHwghbd3UXK25OE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BGjxA0R2rQ202pCimBWA/tqE+VzhHMVSxpa1uRppIkXSqlXVj3emJaH944hRzR7YU6P9YJRgjU4onq+kcJAsBjUexo5D3/RiNGeU2gqxFdAXacqPl1fqPMb68EuxWPHZmRmkYrcwGLRq6JTnZuLodm7G+eonRRnURTg3E8PbnyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mvK/Hbn6; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q0hK6KJK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA7C91F00A3D
-	for <stable@vger.kernel.org>; Mon,  6 Jul 2026 11:33:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783337633;
-	bh=T6ff1X1gPU9qIbDk2ANvJa5G+nOvML8L/09s0oqCN2Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Q0hK6KJKokE4qVK3fqqUG0/fMy+XEEZ219WY0O/VkHNtAPvXfGcErEO/wl28KrXgU
-	 kGbnLNjBr38jmLIGUd/OKm/9rMBh5dteTEUWTt++H3eU/COHFYRvdqOA3+DrYqk4+E
-	 87rxvKTWOqkG0pvTPMvT+u3LzdQV/v/5RdEmLVuIkWeBZ1942NqWbtFuAsudUzF3CX
-	 5I575zFMPNEC3KHpofCA7yOx88fcEc7WQQ8d7B5KDST+qUoqkQ25MxnUdxeVfGhw0P
-	 b95I6kmKFJH2mTXzLZKkTO020R0TSR+rJUNTPLLaQHRkqYoaPxL72/991qS4lue+U8
-	 0IQV8ehOMKR7A==
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c126553552dso388048666b.1
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 04:33:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RreZ7z84pthfF3hAjOVF4V2UD+W346ii4aHTRg+QkHMsWjobZt005YrzDBA+OoFsFvplafrDyM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyXQvrjzL1Qdyw0dOpnIc1wJqs1HGmPEI8yhjWgOhkhm1n+uOH4
-	7AhCuf0z73Wrc4d9CbDXTfTzMkUDgfCw4ziv2T+yfpDexacAD5jbT15UoLekFCLSyl9+xMo5tKz
-	ResBWCAnCIaD8Bn04TvvlLpD7vweYQNE=
-X-Received: by 2002:a17:906:6b1a:b0:c12:8e66:cf58 with SMTP id
- a640c23a62f3a-c15a68ea862mr4305766b.30.1783337632575; Mon, 06 Jul 2026
- 04:33:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mvK/Hbn6"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3817f800c8bso2027730a91.1
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 04:38:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783337934; x=1783942734; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XPiB1VecAR3TN1u8hRdYEbrIAIhOnDTmSxtVCqyGQ3Y=;
+        b=mvK/Hbn6C3GajLr04bOG/ecwTbmfmm6pHZZ7LY4p89pdJ3v3rdQzhDFRQW/A5HiMCw
+         9zULrIHngYM/c8fdUQWS+atr0E/rZuplm9GpBnoKhSOTJHo+JC7A8DQK2Kk0CwtDFFSS
+         ufAkvVoMr4/zc+Vd1pB9tDGd1N+eXqj0ztn8snMpBezK3nse5dDIX6JFPl8X3eW6Z44/
+         BQgytokyVcUPVp9tpbNTRP5au9Wtx3HKvcITyrySvaOQJ7EIwULzOaL0FwMdQCS+kQ/v
+         2oZGCl+3X38vUrvWkWPgj2+8WG6DBBQw6Qn4sbqcOR8hRC8HEqtJCOZDEF/wF+lW7cLT
+         Cc5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783337934; x=1783942734;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=XPiB1VecAR3TN1u8hRdYEbrIAIhOnDTmSxtVCqyGQ3Y=;
+        b=SZAVjnkOUwaW+7AW4s98XZ6iW6AX5lwVxcRE1aSWSXKHayDJJFtG2ff4amj7TlCx9+
+         StqoUbgAKuUTQotxahpMI1gNBXbAe0c3CkN2O6OAY5ycjriQrkwGCvOTCwerOBJSe/A0
+         Q9QYermqTKe8pi7I4O5WuoVixG2e77xPidzQUmBwRWw/29y5VDLHNC31bvb6JAsBrtCh
+         pPNX8OJM8/WiSbo++mSgrwUELlKJlch/iafStf0uCir7okTNlDdE3cM/TQAVq39EXsJQ
+         wj7insY2f4YH9fCwnjJ+FUbrpLWDkVPgNM5NCWhrGiaTKEjaQB9jySLM/XA19mY/rwYH
+         Dk2Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpiL89G94mcBiyY26e5mHcCzUfxi7BJzMhfqr/tHjMneWuz0/yZeuInNpz9rJvcBtYxyE1MwNY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyx/2vW0FVARFIoRFjVk4i1alUkwqXB2IH7lLojFrKJ/ZrDvFS8
+	NdgkcJogZjAj2koP8usbHcs5d0nLnLNVye3T1CzVTlkOFMDhKHIPdrpY
+X-Gm-Gg: AfdE7cl1LaQfd251n2DNuuTNpESsqqdg1YJ5bFjk0LSlPNqziOMHxasdeSy/4BfrY4r
+	j00bY5++ZKpAd9xM5QDLHtZr7QilUnTNgrHJGe7G7DQkOhtRASD8qcF5U5H+NecO5MaxzM/lzU+
+	zvT5xK8TAGC2VqCQ67GfH2OY1iZQbqUP36GRm+Zu6x6IlW/x+hVcuOHAJYVm4bNKrdXv6tG4PoU
+	4mfrXBvUwuVhCnTxlc9KQr5Ysa54aFGmO4/TDkMx0Y2HE3FkVeKlhC0l0qqC/gvuTwuQ0jsvknN
+	42VWMpPtssnPszpcg1mtOWbmhQVp5mh2vWR/YCrEG90Swm56TrYrcqethdVrd1KEcQ7Jq6Mzccv
+	pHsyCZeriPTXtnPLq0KSyP3xj222NhiSDl0S6/tCGw/6KPFmE9r1VK9mZ0Pv5pPzGFZKkwviI87
+	Acg9fZIntYzv3ouxH2rD1OehNysodgMarqPvIN02lBwFYcSYCSrKGPHI55Xtlsnj4hrSUpb96DX
+	VvXSVKJ4PgQMhOv7B8=
+X-Received: by 2002:a17:90b:51:b0:37f:9cdf:f0ab with SMTP id 98e67ed59e1d1-3829f9debb6mr8700704a91.26.1783337933770;
+        Mon, 06 Jul 2026 04:38:53 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31151fff32fsm18581752eec.21.2026.07.06.04.38.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 04:38:53 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: leoreis.costa@gmail.com
+Cc: Laurent.pinchart@ideasonboard.com,
+	airlied@gmail.com,
+	andrzej.hajda@intel.com,
+	dri-devel@lists.freedesktop.org,
+	francesco@dolcini.it,
+	jernej.skrabec@gmail.com,
+	jonas@kwiboo.se,
+	leonardo.costa@toradex.com,
+	linux-kernel@vger.kernel.org,
+	luca.ceresoli@bootlin.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	simona@ffwll.ch,
+	stable@vger.kernel.org,
+	tomi.valkeinen@ideasonboard.com,
+	tzimmermann@suse.de
+Subject: Re: [PATCH] drm/bridge: tc358768: Enforce input bus flags via atomic_check
+Date: Mon,  6 Jul 2026 08:38:36 -0300
+Message-ID: <20260706113838.1586775-1-leoreis.costa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260706105840.1582166-1-leoreis.costa@gmail.com>
+References: <20260706105840.1582166-1-leoreis.costa@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <0B853B9F28048C99+20260703054528.2798189-1-peiyang_he@smail.nju.edu.cn>
- <A82793FCC5832BB2+20260706040015.58048-1-peiyang_he@smail.nju.edu.cn>
-In-Reply-To: <A82793FCC5832BB2+20260706040015.58048-1-peiyang_he@smail.nju.edu.cn>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 6 Jul 2026 20:33:40 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-Q_DuR9LxgabRmu8yVkvP-ma_-+VdganL81o19tVs3_A@mail.gmail.com>
-X-Gm-Features: AVVi8CcFdYL_OySHhNVWhC7cySF0ibSWgpl9gQcAL90fDZjRArwRYgH2cCW-hzQ
-Message-ID: <CAKYAXd-Q_DuR9LxgabRmu8yVkvP-ma_-+VdganL81o19tVs3_A@mail.gmail.com>
-Subject: Re: [PATCH v2] ntfs: fail attrlist updates when the superblock is inactive
-To: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 6, 2026 at 1:01=E2=80=AFPM Peiyang He <peiyang_he@smail.nju.edu=
-.cn> wrote:
->
-> generic_shutdown_super() clears SB_ACTIVE before evicting cached inodes.
-> If eviction selects the fake inode for a base inode's unnamed
-> $ATTRIBUTE_LIST attribute, ntfs_evict_big_inode() drops the fake inode's
-> reference on the base inode while the fake inode is still hashed and mark=
-ed
-> I_FREEING.
->
-> That iput can synchronously write back the base inode. The writeback path
-> may update mapping pairs and call ntfs_attrlist_update(), which
-> unconditionally calls ntfs_attr_iget() for the same $ATTRIBUTE_LIST fake
-> inode. VFS then finds the I_FREEING inode and waits for eviction to finis=
-h,
-> but the current task is still inside that eviction path, causing a
-> self-deadlock in find_inode().
->
-> Fix this by mirroring the teardown guard used by __ntfs_write_inode():
-> once SB_ACTIVE has been cleared, do not try to iget the attribute-list fa=
-ke inode.
-> Return -EIO so teardown aborts the update instead of waiting on the inode=
- it is evicting.
->
-> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> Closes: https://lore.kernel.org/all/AB8D5E603E6EA856+ae5f622a-dd3a-4e38-b=
-dd2-42276ae0e1a8@smail.nju.edu.cn/
-> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+Hello,
+
+> The tc358768 declares static bridge timings requiring pixel data to be
+> sampled on the positive clock edge.
+> 
+> However, the DRM core default propagation simply copies the output-side
+> bus flags, coming from the next bridge, connector or panel, to the
+> input side. If the propagated flags are incompatible with the bridge
+> ones, the data is wrongly sampled, typically resulting in visual
+> artifacts on the panel.
+> 
+> Implement the atomic_check hook, replacing the mutually exclusive
+> mode_fixup, and set the bridge state input bus flags to the ones
+> required by the tc358768. The sync polarity defaulting previously done
+> in mode_fixup is carried over into atomic_check unchanged.
+> 
+> Fixes: ff1ca6397b1d ("drm/bridge: Add tc358768 driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> Assisted-by: Codex:gpt-5.5
-> Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Applied it to #ntfs-next.
-Thanks!
+> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> ---
+>  drivers/gpu/drm/bridge/tc358768.c | 15 ++++++++++-----
+>  1 file changed, 10 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge/tc358768.c
+> index 0d85120fcc7a3..0516a331e71ba 100644
+> --- a/drivers/gpu/drm/bridge/tc358768.c
+> +++ b/drivers/gpu/drm/bridge/tc358768.c
+> @@ -1262,10 +1262,13 @@ tc358768_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
+>  	return input_fmts;
+>  }
+>  
+> -static bool tc358768_mode_fixup(struct drm_bridge *bridge,
+> -				const struct drm_display_mode *mode,
+> -				struct drm_display_mode *adjusted_mode)
+> +static int tc358768_bridge_atomic_check(struct drm_bridge *bridge,
+> +					struct drm_bridge_state *bridge_state,
+> +					struct drm_crtc_state *crtc_state,
+> +					struct drm_connector_state *conn_state)
+>  {
+> +	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
+> +
+>  	/* Default to positive sync */
+>  
+>  	if (!(adjusted_mode->flags &
+> @@ -1276,13 +1279,15 @@ static bool tc358768_mode_fixup(struct drm_bridge *bridge,
+>  	      (DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC)))
+>  		adjusted_mode->flags |= DRM_MODE_FLAG_PVSYNC;
+>  
+> -	return true;
+> +	bridge_state->input_bus_cfg.flags = bridge->timings->input_bus_flags;
+> +
+> +	return 0;
+>  }
+>  
+>  static const struct drm_bridge_funcs tc358768_bridge_funcs = {
+>  	.attach = tc358768_bridge_attach,
+>  	.mode_valid = tc358768_bridge_mode_valid,
+> -	.mode_fixup = tc358768_mode_fixup,
+> +	.atomic_check = tc358768_bridge_atomic_check,
+>  	.atomic_pre_enable = tc358768_bridge_atomic_pre_enable,
+>  	.atomic_enable = tc358768_bridge_atomic_enable,
+>  	.atomic_disable = tc358768_bridge_atomic_disable,
+
+Please ignore this, as it was not meant to be sent in reply to the thread
+above. That was an accident.
