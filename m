@@ -1,157 +1,104 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E268042E8FF
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 14:42:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783435368; cv=none; b=fKkEVrmr64sCeVlLZEAalAusSRpqvyVGMneasGIeBwrtbXw+WFLFBMFvLy4oMDYJiVlkGrQA9uCkEsWvutvXTSsivC6X55X+bG57pEpGpBzrLBKLF5WVpIgtk1/0XQXEz9NrYZFvXaU25y7114TnlYFB/DNnzjeHPh4DwI5hfsk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783435368; c=relaxed/simple;
-	bh=qxKjtUfW8NOSvv2m10O+eJjG7XFG1vglPscpEmtMO9E=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MjcSjpx1O0YJ58t5GqvBKq+n+Tj/XQ4TbfpRv0byTDeGMYxhbWs9GVZ8NTbObT/N45fRryJxPGnQIAkP5MyDLCn3nwba104y5Js1QoSVmWuGFe+ufCB4U7ikLtXZ38e+41vWoD60WlGS3xDe+X2w6MuEqB6LEr2NvodmfmV/cwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uk9F13CF; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=YVlgUmPf; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vRPrvb+W; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=CXJCPy2P; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7025A42DFF6
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 14:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783435435; cv=pass; b=l/OG+Hv+qZDwi0kgr0YPqvW07LJYR0MU7n7bXhl9pouSrnrbb0ECrezDv9HQ9cut2GpCyNF2j+PdGWwW47Jj3murrt8tp+PWCYSZf/qBf4BDmoD7mkShENeZs7lBFs9eaXi9EjjWSqm0bKznIsOyiLm8jB3ACqwIoO2ElqRrMtg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783435435; c=relaxed/simple;
+	bh=6AYnViclv/2FGBWVdRm67Oo2J+NOKAfqV8ACaSZP77M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=P3XZzU6c7yBvFD8URj7mbKGD69mNwlPoJfXhqmZJlbozbCgoPN/jqXsAdshRSbvc5gcz5elg15B5kGYjCe/QRw11sL4eTdgF1NF9fR6NNG5jZS038I05efbPDzxnLHgE1XtPvxskEsIwTjjNVNYf5N8ER8ICPO73kFcXUMHfuHI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qU9J0C9q; arc=pass smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uk9F13CF";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YVlgUmPf";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vRPrvb+W";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CXJCPy2P"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 39C7B75C39;
-	Tue,  7 Jul 2026 14:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1783435365; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=09JmpQEzp3z04t7IKwLys5vOGRyn8tpxUWQDLTzUOqg=;
-	b=uk9F13CFiMS0INsIWY3ywOP8EFNBWEINEyycr2j4B2CFSt5Y4Zce+bnIT+WhpLgKTE794i
-	h9m0QCBLNn8MnjG39+KvxNahGGgD+KZI6BfbYqtXUHGRE2tgcczYAjPh7gdUOY6D00bp4G
-	8TKpYAZkf1H7iOrbTe8Nyl2mEvOsWt0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1783435365;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=09JmpQEzp3z04t7IKwLys5vOGRyn8tpxUWQDLTzUOqg=;
-	b=YVlgUmPftbi0BiMJWlBoEnCqW2UHiLum994Nwdx57+ngWqZqU8JTfydVnZ+8XdagKarCPw
-	Cc/eEIQU0AXrLWCA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=vRPrvb+W;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=CXJCPy2P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1783435363; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=09JmpQEzp3z04t7IKwLys5vOGRyn8tpxUWQDLTzUOqg=;
-	b=vRPrvb+W1MrFDPKLyGMGghwxLRgHDiZiLtPn4vyiI03DuxNhN5B3ND+6382dlh+AeBV+8F
-	AfyaJRLvSS4gvfTbyoPfDAWkDlAv9p+KnFlo4Z2aDWd54chjgg80iIZQ9/DUfAythMIQGa
-	8phxRtR3OckSDZOeYupxsMA523w3CfQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1783435363;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=09JmpQEzp3z04t7IKwLys5vOGRyn8tpxUWQDLTzUOqg=;
-	b=CXJCPy2PIPyxp80uyWIm4WHIUzt2Jn2Ux/Z9Ne5Gk7ZXvKZr6r/hjPcQajJ1IBLxsjqC7p
-	PcQvFAXS+hqzt8BA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 231A2779AE;
-	Tue,  7 Jul 2026 14:42:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id AzH/B2MQTWpDeAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 07 Jul 2026 14:42:43 +0000
-Date: Tue, 07 Jul 2026 16:42:42 +0200
-Message-ID: <87v7aq6eu5.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: raoxu <raoxu@uniontech.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda: Fix cached processing coefficient verbs
-In-Reply-To: <DB9023BF2920BA99+20260707132419.1731342-1-raoxu@uniontech.com>
-References: <DB9023BF2920BA99+20260707132419.1731342-1-raoxu@uniontech.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qU9J0C9q"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-845ea8924fdso4820243b3a.0
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 07:43:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783435434; cv=none;
+        d=google.com; s=arc-20260327;
+        b=e8DJhX0E4LBTUSAXv4m0Rmbpdbtdyu2XYVqrqe9ARhCZ42fi5IF2T5+N4AYJwjN6ox
+         cD94trScK/aEAh5pbt5rurj96UOJzuHzhuDOyYfrtn4hH/6Hm02ZiBooyrv13SY5kPly
+         n3ZK0gHdFaouaAg6GiGtBtBcB3p4qawgy82CCq12t50g4BXUFMbJmouzwCT2vapCNuEX
+         xhP5lc5e/9lWwr2phnEhP/HsHmS1CMXciIULdeMKJV8Wn1nI7YiJomJEKISzp8IDP/jG
+         fAzM38nNg7ObRTh+LAFXBvRpUnQrX62SQtlDXHMpvGNDGc+EDAwb4a1rUAPAGrchYGno
+         b88A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Tv8u/TrF2GWrJ2FphGLExw/G5HOJtgvR9AbpDmjQITo=;
+        fh=OxzXMbyoaFC/uhmwWemfLUqmms5x2oa/8GvYRbMwlJA=;
+        b=PV/VU8Evu21WJVFoWmLZgBNCyGyy9mG/IexGWJMnzZZhYj9zFLA9jBXUb24UeZPKj9
+         j7ZUA2N+vycAchKD9nvtBVBWMGUYUruED6FUn4uB/JEldYK/dV/DaH4AipQUdgkm55Eo
+         epTWCpwTENX+1EQ0jyBFNeooZP5/IUIYDEM6oiyOI+wI8imIYFZ3w+k7VL82MzvNV8BC
+         HnqaC+BNDxqCXL6jkgGArwAUN59PDOGb9lP9qNMYeSAx7EBPBRkurhVxpuo0X4tMCZ2K
+         S4cRx7pnqoJspz2cLv3cgon0g8u02ib5Qj5WHFLMhE4Ll+LRL/8soRAzFjtgmaFy5Zda
+         q48g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783435434; x=1784040234; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Tv8u/TrF2GWrJ2FphGLExw/G5HOJtgvR9AbpDmjQITo=;
+        b=qU9J0C9qrQlwRwAPeCF+ZsMVTwcDw5zzq56FUAyp8rqEKPJwCOSJ5eS3wnRNRf9TEG
+         y3nRYNGvm5IId+kfyaYxJ1642jGHblNNq3UwPF/U4KBOn0WplPF08HspzBelMxV4aayl
+         2/utzH7YGrNP0B6adWpW8JNu47Iz9fn6i3Tp0bz+m0jj2QyS6zlZRUualc1DHU4y5/vn
+         cjvo3aTYM9ZmlPPnGVZ+7i26lcvmD6uisDnvxldpQfbYRTWptyuG6S9JeLosAeDgEZhe
+         nHJWn3VdOvXEuL8JIs2OaacCwiCHZ+rxDsirPEJDPpp0K8dXcqd4MF7Pwxk6nH2T+74r
+         FDaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783435434; x=1784040234;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Tv8u/TrF2GWrJ2FphGLExw/G5HOJtgvR9AbpDmjQITo=;
+        b=ZCINGQpwCTTV2M3UJkgQoKZHVUa8Dun0QgLxBWssLw793uh7fewCCOsmHo4FFV0SSX
+         eUlpy/0uWPl13TY9wa4hri/r0cgegmprZpAHTU4V0cGOCCAc+uJw4q5nHRXnkmC4fKuJ
+         CXBwRi3LZydpyGlvaCxKNQVmM3AQ/9iR4e+BWL5LFVLi2cJpzw9qdv8tpErwlN28dqG3
+         aR0dgO5TfSunDoBrV5lUI27DXWF/2Shgkq69nPdFrY0vuGgh/J5RMtwLrVcd9uKGWe3z
+         BAojF5wPdgHQmFI1UxHZwGK6j6l5zNm2p8guhGorsJCrzu1+vLbr6buy1oRedpDrlmtT
+         Fbxg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp35uJcLAgf52jD+WuphtWIowELY7zWH2OKPG7xBNlpWjcQNx/be4cVfvF0fEn2PR0vOcOkEX0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKfEiguudqisOSeV7Hbpsu/KREgKY4jnl5giwtq3s40tEm2bRH
+	gDQFMkGgc057g73GszAUhEtaQgbaDSYu7q0evnWUc5Un34SsBP4O/KVKKUycpu/IWvtqrmmgb+q
+	XFNXNSy3TKs9+6pA//uefQdMjBSHtP9Y=
+X-Gm-Gg: AfdE7cngq/m+NlLPsFFd2MJP2Ujfb8lCOITiN5lFnDNgBneVGgfQ0D1kYnhSkxuAS0i
+	FC0uG9ds2fO701CzAIflHhFPW5cNHhVyK8VYISmxTTMESP5JkjOIQ7EDezu0OY6DwhGeGDb3fwV
+	Cj9XT/k+ffQIUCQPtE6/mdkKf9x0AYpeEvS7yhu1O7TtIQW6IocEN00ofzmSyqAvF6kW0A/J2W/
+	R8dJhdxUauUm811tQBt4p/w4Y7hMhx8XtRw7BZIGCx2a9eRBljX3j8INPUKw0EyqO3KWGTU4pPe
+	3KnXK6fb5me7ZewnLpF0ZyOi3Q==
+X-Received: by 2002:a05:6a00:1bc7:b0:847:980b:f299 with SMTP id
+ d2e1a72fcca58-84826bb460bmr5447444b3a.4.1783435433732; Tue, 07 Jul 2026
+ 07:43:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,uniontech.com:email,suse.de:mid,suse.de:dkim];
-	URIBL_BLOCKED(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,uniontech.com:email];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 39C7B75C39
-X-Spam-Score: -3.51
+MIME-Version: 1.0
+References: <20260618222743.538915-1-michael.bommarito@gmail.com>
+ <tencent_89647CE40DC452B891C65C94D1B271DE8E07@qq.com> <20260624200535.GA132-beaub@linux.microsoft.com>
+ <20260706160650.2791767d@gandalf.local.home> <CAJJ9bXzJpYRE-NjOjiArpuJWGnFXr+jq7ukbEEdEhK9YPCbYrQ@mail.gmail.com>
+ <20260707104205.582db193@gandalf.local.home>
+In-Reply-To: <20260707104205.582db193@gandalf.local.home>
+From: Michael Bommarito <michael.bommarito@gmail.com>
+Date: Tue, 7 Jul 2026 10:43:40 -0400
+X-Gm-Features: AVVi8CfpxD2hcyjt1UC6coacnc6d5fETrGBxov8Mb-FitbiVxyPDp9IVFaTxCOk
+Message-ID: <CAJJ9bXy78yKmOb+x-THk4EwJxY=0si04YAMtmOu-SzarVJwRBQ@mail.gmail.com>
+Subject: Re: [PATCH] tracing/user_events: fix use-after-free of enabler in user_event_mm_dup()
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Beau Belgrave <beaub@linux.microsoft.com>, XIAO WU <xiaowu.417@qq.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 07 Jul 2026 15:24:19 +0200,
-raoxu wrote:
-> 
-> From: Xu Rao <raoxu@uniontech.com>
-> 
-> Intel HD Audio defines Coefficient Index and Processing Coefficient as
-> separate audio widget controls in the Audio Widget Verb Definitions:
-> Coefficient Index selects the coefficient slot, while Processing
-> Coefficient accesses the value at the selected slot.
-> 
-> hda_reg_read_coef() selects the slot with AC_VERB_SET_COEF_INDEX, but
-> then uses AC_VERB_GET_COEF_INDEX for the value read.  That reads back the
-> selected index instead of the coefficient value.  hda_reg_write_coef()
-> has the same issue and builds the value write from AC_VERB_GET_COEF_INDEX
-> instead of AC_VERB_SET_PROC_COEF.
-> 
-> This only affects the regmap coefficient cache path used by codecs that
-> set codec->cache_coef.  Direct coefficient helpers already use the normal
-> SET_COEF_INDEX followed by GET_PROC_COEF or SET_PROC_COEF sequence, which
-> is likely why this has not been noticed widely.
-> 
-> Use AC_VERB_GET_PROC_COEF for cached coefficient reads and
-> AC_VERB_SET_PROC_COEF for cached coefficient writes.
-> 
-> Fixes: 40ba66a702b8 ("ALSA: hda - Add cache support for COEF read/write")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> Ah, you're going to send a new version. I'll drop the one I pulled then.
 
-Ouch, this is a brown-paper-bag bug.
-Applied now.  Thanks!
-
-
-Takashi
+Saw your pull for-linus and I was just about to send a separate patch
+set for the second UAF with a ktest (as 2/2).  I can do either way,
+just let me know which is easier
