@@ -1,62 +1,76 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873D9322B8F
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 08:31:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FDC13264FC;
+	Tue,  7 Jul 2026 08:37:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783413105; cv=none; b=LLsMQ4BjuDDh0JN5FkcpNbGC81kGfTT88SUtCsvjoI+Bwy8p9MG5Qckih5d+thNV7wxIGRaGnAETTNlfdxNSb1ZSDIznkDA9EPAVfIHTMlbgQOS4Zscx2KEFTI7dD6WLHBa7N/mZEW9tnT+5dZad1OsZq2w5Fm6FMpbDBveFr3s=
+	t=1783413469; cv=none; b=hc95Xtr4tGEHzoU5BwgN0dJttTokKqFc2R8pYKPNnvFdhmNcH96c79Opke/ar4CnccAnA2Nn5GuqfpygKaTYv2se0Z2cvv9XyJAXUMucrZ7H5H6xZrzu764fEg/Ka9yjwBVIwonfTOnBvYJ/yd7h+5qltXC2gJn5vb7Zg7Rw0aE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783413105; c=relaxed/simple;
-	bh=o5TlCe16qoetQL4Uc3WOc1ZnLAh2hwBZUxAUSkYXSYU=;
+	s=arc-20240116; t=1783413469; c=relaxed/simple;
+	bh=iaQLoHq0emKn/Ux2pZvoEbzv+i4CXFCtM/rTzwYOxmA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ESw8ZN0ZQcPFs5flLCIvZJ56sxMle88lAJMwjV1veGXm/+YALbcpsndv7z+iYN68Ic/+PkyGaaSDwQn8OxleLI2lKW2PnpJsUSZAaGSZIjODBs/E9f1VYHnKkU+ZEVGhGngXMuu5GvHNkI56jTsm/lKfqJEf66QGAT+jmdAYblo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aTema2QK; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version; b=DEBHu2hwUUbayhiq1QRKcN3y9rAttB1AbhdwzcVJhcsQPEqpLiWYdfX98y90U2V6/HBAqD0y8ehhk6mfUmVESG77kJXx52b32zorjw45xUCu0odJpaWef8YMDLfIEn7bcaMZkGeO2tJEt3GEwhenDjhKl8GAPZ5LwlVgkJHniSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=AsKnv6ix; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aTema2QK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783413102;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TO/CLQeGrRneCKqmDtYKMQxIBN6nL5tFljCHjkfDvkE=;
-	b=aTema2QKR4Dxso3I2OKX4erf53i0DkFMYvgiSgcvIkIdzERO31yMR8DOnQ16Bs7GtmJjRl
-	vR73ZmgWRgShxuBZRNwBDtmD+WBWKSBGdZ/8aEF7JqiZz6r7WF8NLOdfAcqy53EpbVuyNp
-	9tujCdSglFJZDQrPxLIvTFTHlhevCmU=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-400-Lu07oMRDPFKwJA2MHx-R0A-1; Tue,
- 07 Jul 2026 04:31:39 -0400
-X-MC-Unique: Lu07oMRDPFKwJA2MHx-R0A-1
-X-Mimecast-MFC-AGG-ID: Lu07oMRDPFKwJA2MHx-R0A_1783413098
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="AsKnv6ix"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783413460;
+	bh=iaQLoHq0emKn/Ux2pZvoEbzv+i4CXFCtM/rTzwYOxmA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=AsKnv6ixZLW/q5z/ejz1gYG7QBKu8tm158Hy/NjJYSr491pKy1mtvKx61es5bhqyd
+	 q5fky8VcFsYbuZ9uS1MaTtBSgAY5mj6KLks0Me8mLhdB5NupV+N6yUJ9XTZM3n7Nv6
+	 +VcWuCyfdwdq+tIc+JHaGMMH+O46RzICa6YNMnomlgDgOrqFp94fLTeEL5W07weUI9
+	 gbnqbqp2gNsFsX+AF2VG9WvQc6wlO9C8IsXlsB9ZNmjv0hhWLRoAaqc8di13H3fL/K
+	 HJlHZF+eY/tBcFVWe4yK/twJTaqOdOyXhtmJihwmSklo6xDeb/f27+e63OVD5K1AtB
+	 gzvOGCzgdta8Q==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CD2A81955DBF;
-	Tue,  7 Jul 2026 08:31:37 +0000 (UTC)
-Received: from gerbillo.redhat.com (unknown [10.44.48.253])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A87D23000C06;
-	Tue,  7 Jul 2026 08:31:34 +0000 (UTC)
-From: Paolo Abeni <pabeni@redhat.com>
-To: anthony.l.nguyen@intel.com
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	andrew+netdev@lunn.ch,
-	netdev@vger.kernel.org,
-	tactii@gmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net 3/4] idpf: handle NULL adev in idpf_idc_vdev_mtu_event
-Date: Tue,  7 Jul 2026 10:31:29 +0200
-Message-ID: <20260707083129.53988-1-pabeni@redhat.com>
-In-Reply-To: <20260630214404.930923-4-anthony.l.nguyen@intel.com>
-References: <20260630214404.930923-4-anthony.l.nguyen@intel.com>
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8E62B17E05E8;
+	Tue, 07 Jul 2026 10:37:39 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: jic23@kernel.org,
+	sboyd@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	arnd@arndb.de,
+	gregkh@linuxfoundation.org,
+	srini@kernel.org,
+	vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	sre@kernel.org,
+	angelogioacchino.delregno@collabora.com,
+	krzk@kernel.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	quic_wcheng@quicinc.com,
+	melody.olvera@oss.qualcomm.com,
+	quic_nsekar@quicinc.com,
+	ivo.ivanov.ivanov1@gmail.com,
+	abelvesa@kernel.org,
+	luca.weiss@fairphone.com,
+	konrad.dybcio@oss.qualcomm.com,
+	mitltlatltl@gmail.com,
+	krishna.kurapati@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-pm@vger.kernel.org,
+	kernel@collabora.com,
+	stable@vger.kernel.org,
+	Sashiko Bot <sashiko-bot@kernel.org>
+Subject: [PATCH v10 01/11] spmi: Fix potential use-after-free by grabbing of_node reference
+Date: Tue,  7 Jul 2026 10:37:20 +0200
+Message-ID: <20260707083730.33977-2-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260707083730.33977-1-angelogioacchino.delregno@collabora.com>
+References: <20260707083730.33977-1-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,86 +78,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-From: AI Reviewer <ai@example.com>
+As noticed by Sashiko during a review run of an unrelated patch,
+in of_spmi_register_devices(), for_each_available_child_of_node()
+is used to loop through children, and to also assign a node to a
+newly created SPMI child device.
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+Problem is that the refcount is dropped at every iteration so, in
+the specific case of DT overlays, a use-after-free may occur when
+an overlay is dynamically unloaded!
+
+To resolve this, increase the of_node refcount when assigning (in
+function of_spmi_register_devices) and release the reference in
+spmi_device_remove().
+
+Fixes: bc32bbd04011 ("spmi: Set fwnode for spmi devices")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260608100949.36309-1-angelogioacchino.delregno@collabora.com?part=2
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
-idpf: handle NULL adev in idpf_idc_vdev_mtu_event
+ drivers/spmi/spmi.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-This change caches vdev_info->adev with READ_ONCE() and returns early
-when the cached pointer is NULL, so that device_lock()/device_unlock()
-operate on the same captured auxiliary_device and do not dereference a
-NULL adev field that was cleared by the teardown path.
-
-> diff --git a/drivers/net/ethernet/intel/idpf/idpf_idc.c b/drivers/net/ethernet/intel/idpf/idpf_idc.c
-> index b7d6b08fc89e..9f764135507c 100644
-> --- a/drivers/net/ethernet/intel/idpf/idpf_idc.c
-> +++ b/drivers/net/ethernet/intel/idpf/idpf_idc.c
-> @@ -162,9 +162,12 @@ void idpf_idc_vdev_mtu_event(struct iidc_rdma_vport_dev_info *vdev_info,
->  
->  	set_bit(event_type, event.type);
->  
-> -	device_lock(&vdev_info->adev->dev);
-> -	adev = vdev_info->adev;
-> -	if (!adev || !adev->dev.driver)
-> +	adev = READ_ONCE(vdev_info->adev);
-> +	if (!adev)
-> +		return;
-> +
-> +	device_lock(&adev->dev);
-
-[High]
-Does caching the pointer with READ_ONCE() actually make this safe against
-the teardown path, or does it just narrow a NULL-deref into a
-use-after-free on the mutex embedded in adev->dev?
-
-Looking at the teardown side, idpf_idc_vport_dev_ctrl(adapter, false)
-calls idpf_idc_vport_dev_down(), which calls idpf_unplug_aux_dev() on
-vdev_info->adev:
-
-    idpf_unplug_aux_dev(adev)
-        auxiliary_device_delete(adev);
-        auxiliary_device_uninit(adev);   /* put_device -> release -> kfree */
-
-and only afterwards assigns vport->vdev_info->adev = NULL.
-
-The MTU path runs under rtnl_lock and the vport_ctrl_lock, but
-ig3rdma_core_remove() (which drives the IDC teardown via the auxiliary
-bus) does not appear to take either of those, so the two paths are not
-serialized against each other.
-
-With the new code:
-
-    adev = READ_ONCE(vdev_info->adev);
-    if (!adev)
-        return;
-    device_lock(&adev->dev);
-
-if the teardown path frees adev between the READ_ONCE() load and the
-device_lock() call (it can, because the kfree happens before vdev_info->adev
-is set to NULL, and there is no get_device()/put_device() or RCU barrier
-on this path), then device_lock() operates on a freed struct device and
-its embedded mutex.
-
-Would the correct fix here pair the load with get_device()/put_device()
-across the locked region, NULL out vdev_info->adev before the
-auxiliary_device_uninit() in the teardown path, and add a
-synchronize_rcu()-style barrier (or a shared lock) so the MTU path cannot
-observe a freed adev?
-
->  iadrv = container_of(adev->dev.driver,
->  			     struct iidc_rdma_vport_auxiliary_drv,
-> @@ -172,7 +175,7 @@ void idpf_idc_vdev_mtu_event(struct iidc_rdma_vport_dev_info *vdev_info,
->  	if (iadrv->event_handler)
->  		iadrv->event_handler(vdev_info, &event);
->  unlock:
-> -	device_unlock(&vdev_info->adev->dev);
-> +	device_unlock(&adev->dev);
->  }
+diff --git a/drivers/spmi/spmi.c b/drivers/spmi/spmi.c
+index 57b7c0cb4240..6e701aff6045 100644
+--- a/drivers/spmi/spmi.c
++++ b/drivers/spmi/spmi.c
+@@ -86,6 +86,9 @@ EXPORT_SYMBOL_GPL(spmi_device_add);
+  */
+ void spmi_device_remove(struct spmi_device *sdev)
+ {
++	if (IS_ENABLED(CONFIG_OF))
++		of_node_put(sdev->dev.of_node);
++
+ 	device_unregister(&sdev->dev);
+ }
+ EXPORT_SYMBOL_GPL(spmi_device_remove);
+@@ -517,13 +520,14 @@ static void of_spmi_register_devices(struct spmi_controller *ctrl)
+ 		if (!sdev)
+ 			continue;
+ 
+-		device_set_node(&sdev->dev, of_fwnode_handle(node));
++		device_set_node(&sdev->dev, of_fwnode_handle(of_node_get(node)));
+ 		sdev->usid = (u8)reg[0];
+ 
+ 		err = spmi_device_add(sdev);
+ 		if (err) {
+ 			dev_err(&sdev->dev,
+ 				"failure adding device. status %d\n", err);
++			of_node_put(node);
+ 			spmi_device_put(sdev);
+ 		}
+ 	}
 -- 
-This is an AI-generated review.
+2.54.0
 
