@@ -1,116 +1,77 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390C1217F27;
-	Tue,  7 Jul 2026 06:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E9D1A5B9E;
+	Tue,  7 Jul 2026 06:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783404622; cv=none; b=emSa5dNHopU4xUqiO3m40n+DKGhoKK3nqqUG3Tgs2w8A854UtH9GHNilrQBSTpBB4R2/t+n28Vg0GC3ptOFTfbmPbYZFrGE2QDh/Cp7vhKN0k+mJy4R6kPQT0uguJFgOIgUnOkCydMr54UhpuKgRo9D64OEMd9dzdVelVx9wXEw=
+	t=1783405362; cv=none; b=F2O5LGW1atI19iOFrphaFmUWLIlWoIIMfm7p/1inQMfleR1G/D8kagjahCAVZbCxh6UyHeN4u+4x/UtDa0bj8FaOwqNRZ4C6CuNn1sWn3/0HVd1ddZ5omhWW9QfoNouvoWFTxaAWo9FBhJFUrgUkV4vyPppCM4WVEMbxwCiO/zA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783404622; c=relaxed/simple;
-	bh=EqpZfHi1bCaqP6NL8EAd2N5fLRl5b9vzswnYHDcYwUo=;
+	s=arc-20240116; t=1783405362; c=relaxed/simple;
+	bh=Yzg4aBlbECE8VfBnkYY8UUb9ZY4/YQBi8Xtp2KomfiA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kg1qBm7GyApo7K7VOBmabUKRSxHX3Lh4PjMrWqbIDsb3gFAcFk1a6WmWs9rwAdDKyzIZu4GIRhASXZh+vdR95KYa+5lMfYW+tVdJrOhARK9O1P1kH+pbBBqJP7SeK74IRUz/9y8vjIkCbFexvdu/3Kv2/skCymrDFRlRyOL6r9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ZwmlMDRN; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sy2kZwDT; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=X1ppaRs5xHP7+QZ6lEcp6vwoBh+1V4EKXKeT29ZB99t5n+3sA50ORsF9Qk0L4QEf1gNoUJNzwcXSnFvfIqV7hwR1n2rOHDFpEg8ONyj2AsSd+hqGbOh4pgAmTt9xZSUZN2mT85js8mh7ceV4EsLIFbT5E+Qti1QiXdFDWQooIMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=009saE9w; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ZwmlMDRN";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sy2kZwDT"
-Date: Tue, 7 Jul 2026 08:10:19 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1783404619;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0G9aukPV8pHjfG+rgqcQ/xQgpRWVh1vDYEUguo9B9Ag=;
-	b=ZwmlMDRN9xRHfKOH5ruRR1URwK7dGw9QLIo/Qh0p5RPvQiLOMmbvkJHa+C1B/tAF1xi7OC
-	20fO60M/VWCv1vtHjBCf52h+pqyXJ/5toDs0w07W0z7YpSyhRmEM7KkA9HwCNBcHKApK4C
-	etG9k7ICTkBGR0zg3mNq6YQUUwfkDdeJNuOs4AccYHNfqIwn9AGL52TPKzdDXInSOBTIqM
-	RGQ64SNvm57vbngaxCUM6O/xCVcLxboCaXCd1W91xOKwLtpxLRdQ1si92oJOAaCUZkUBPu
-	gV6Jbb5haelguk1Q8vJfZT/rdvFonH4uvUAVlR64Uyfm8uV8lc1n/ROAtmc7qA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1783404619;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0G9aukPV8pHjfG+rgqcQ/xQgpRWVh1vDYEUguo9B9Ag=;
-	b=sy2kZwDTxAMLzqOr8h49dlNPDrKsyK/x6j4NGuclLiX5Jz+hKAwucdCw92/wYzD7GQORNZ
-	iQTynay+/hT3JeAA==
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Conor Dooley <conor.dooley@microchip.com>, Wende Tan <twd2.me@gmail.com>, 
-	Palmer Dabbelt <palmer@rivosinc.com>, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Nam Cao <namcao@linutronix.de>, kernel test robot <lkp@intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] riscv: vdso: Do not use LTO for the vDSO
-Message-ID: <20260707080753-4e88aca1-b88d-4f6c-b37a-f7f3064bda5e@linutronix.de>
-References: <20260701-riscv-vdso-lto-v1-0-89db0cd82077@linutronix.de>
- <20260701-riscv-vdso-lto-v1-1-89db0cd82077@linutronix.de>
- <20260706210158.GA73349@ax162>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="009saE9w"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Transfer-Encoding
+	:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=4fdRQ940ITSfdxaImPyI+kZnUXdvI5OwT6MhqFhki8Q=; b=009saE9wpY/exxAAfsqMTyCdxv
+	X/cb8PjP3ymCT8/GOpLOt3iy4hccFZDXgEWHnezkm8fuLKWINsqt6Vw2lEz0R4cMkjm8Dq4SkSnt3
+	qTDRjAWPeV3QLedCumtuvoWzTC4aFifS+qm61kirjk9bmw3UTkna0EcPhB9VY/DryAud2koItS3Rz
+	p0mn2R2g+L8PhYJK6FKitrL6XOWnHIun1mxMlHQsj93ROn1H47j4bNEfHLxEJTWCsti7ZtglEF5xY
+	d6LiTohoLWgBb4q6jUWFeGDYo1jqy+OYw/suvehQP20ipVpbLNR56rgKnACIivNvvqFkXpC3LVaRP
+	IKyE2zSQ==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wgzCY-0000000ECcs-0ofk;
+	Tue, 07 Jul 2026 06:22:38 +0000
+Date: Mon, 6 Jul 2026 23:22:38 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Salvatore Dipietro <dipiets@amazon.it>
+Cc: hch@infradead.org, ritesh.list@gmail.com, abuehaze@amazon.com,
+	akpm@linux-foundation.org, alisaidi@amazon.com, blakgeof@amazon.com,
+	brauner@kernel.org, david@kernel.org, dipietro.salvatore@gmail.com,
+	djwong@kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-xfs@vger.kernel.org, ljs@kernel.org, mhocko@suse.com,
+	rppt@kernel.org, stable@vger.kernel.org, vbabka@kernel.org,
+	vbabka@suse.com, willy@infradead.org
+Subject: Re: [PATCH 1/1] iomap: avoid compaction for costly folio order
+ allocation
+Message-ID: <akybLlAsw7Yv1Xmb@infradead.org>
+References: <ajvc7fSDngyx0X5j@infradead.org>
+ <20260625091039.24501-1-dipiets@amazon.it>
+ <aj0bDijqj1-Bjxq1@infradead.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260706210158.GA73349@ax162>
+In-Reply-To: <aj0bDijqj1-Bjxq1@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Mon, Jul 06, 2026 at 02:01:58PM -0700, Nathan Chancellor wrote:
-> On Wed, Jul 01, 2026 at 11:21:22AM +0200, Thomas Weiﬂschuh wrote:
-> > With LTO enabled the compiler assumes that the vDSO functions are not
-> > used and optimizes them away completely. Currently this happens to
-> > __vdso_clock_getres(), __vdso_clock_gettime(), __vdso_getrandom(),
-> > __vdso_gettimeofday() and __vdso_riscv_hwprobe().
+On Thu, Jun 25, 2026 at 05:11:58AM -0700, Christoph Hellwig wrote:
+> On Thu, Jun 25, 2026 at 09:10:37AM +0000, Salvatore Dipietro wrote:
+> > Yes ‚Äî all the patches in the result table are shared within this thread:
 > > 
-> > Disable LTO for the vDSO, as these functions are hand-optimized anyways.
-> > 
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Closes: https://lore.kernel.org/oe-kbuild-all/202606301855.WvkSC4kD-lkp@intel.com/
+> > v1 (original, iomap caller): The original PATCH 1/1 in this series
+> > Ritesh's suggestion (mm/filemap.c): Shared in Ritesh's reply on May 3rd [1]
+> > Matthew's suggestion (mm/filemap.c): Shared in Matthew's reply on April 4th [2]
+> > kcompactd background (mm/page_alloc.c): Shared in my reply on May 6th [3]
 > 
-> While this change seems correct, is this really the fix for that report?
-> It seems like that error happens in clang but I would expect this sort
-> of issue to only appear once LTO has run through ld.lld?
+> The page_alloc.c change definitively seems like the right thing to do from
+> the high-level POV.  It would also be nice to find a way to centralize
+> the logic for which flags to set in a central place as we have quite a
+> few other places that want to allocate large folios optimistically.
 
-At this point the vDSO userspace library has already run through ld.lld.
-That has optimized away the futex symbols, which means their offsets are not
-defined when building the regular vDSO *kernel* code.
+Can you submit a formal patch for this?  I.e. proper commit log,
+fixes tag, separate thread, etc.
 
-> > Fixes: 021d23428bdb ("RISC-V: build: Allow LTO to be selected")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
-> > ---
-> >  arch/riscv/kernel/vdso/Makefile | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/arch/riscv/kernel/vdso/Makefile b/arch/riscv/kernel/vdso/Makefile
-> > index a842dc034571..43ee881f6c6f 100644
-> > --- a/arch/riscv/kernel/vdso/Makefile
-> > +++ b/arch/riscv/kernel/vdso/Makefile
-> > @@ -69,9 +69,9 @@ CPPFLAGS_$(vdso_lds) += -DHAS_VGETTIMEOFDAY
-> >  endif
-> >  
-> >  # Disable -pg to prevent insert call site
-> > -CFLAGS_REMOVE_vgettimeofday.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS)
-> > -CFLAGS_REMOVE_getrandom.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS)
-> > -CFLAGS_REMOVE_hwprobe.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS)
-> > +CFLAGS_REMOVE_vgettimeofday.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS) $(CC_FLAGS_LTO)
-> > +CFLAGS_REMOVE_getrandom.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS) $(CC_FLAGS_LTO)
-> > +CFLAGS_REMOVE_hwprobe.o = $(CC_FLAGS_FTRACE) $(CC_FLAGS_SCS) $(CC_FLAGS_LTO)
-> >  
-> >  # Force dependency
-> >  $(obj)/$(vdso_o): $(obj)/$(vdso_so)
-> > 
-> > -- 
-> > 2.55.0
-> > 
-> 
-> -- 
-> Cheers,
-> Nathan
