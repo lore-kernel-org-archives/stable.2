@@ -1,262 +1,180 @@
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AEB337B02D;
-	Tue,  7 Jul 2026 15:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FFC3B19BF
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 15:17:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783437235; cv=none; b=ucF9hm0EtlKUN2f5fewpb6mI27eSdJFWi8Om+BBQyG2lq+529lz9pBWHyzW4vSeDDrNohNqf0mbJQ+qGtYQuLL/5/pal14igA3+H6Pe3MIJau6rgbhrKg9L6Y+6BJ1mNkjwoS2Nis2G5yLvpiqm41VpsgfpY48qsdIqYH+zsj7o=
+	t=1783437422; cv=none; b=In80hsBMYEVxt4p6RNkLCEXgkXUkPeCZdSxXYmyXnaQ5Ubf72R8VRvG0TEyyL4gxDLbm7fmwj5VYV5K+l1iWWN+xPDmZBluKt5pi4sg+Sjgs3Z1E06UxCpmHdatJn6tIB3sZsKDCKBIIv47AJIfA17XSo9JuaWi2g/gAgzxgagM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783437235; c=relaxed/simple;
-	bh=P5shd4uher+LOoJ0dutjD1ui0rDX8pkfvhcm56OtTKs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CX0HGJeoP5V+S8UDI/U4S1PB2oPLY73yN4CtW3nKVKD7rrRcU8ZCpEFoZmnedi+DwmyNiCRkkb/rWGKGmIzvim+V/4Adbxm62KhlFnU7ba3MFOfI5FJxPkh7mqsjv9oUIN6h5mZ7WkMBGHaRZG14/+7u2SscjSidjJ5igkxYAmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=y2D7U56W; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=A66O33Om; arc=none smtp.client-ip=103.168.172.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1783437422; c=relaxed/simple;
+	bh=6n8aPA1vZTHKTUYfm4zIRDmO2S0R8XGdy/C7T/5N6B8=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 Mime-Version:Content-Type; b=kLUvwYODSphZ0O/iPMt6sN0/iQDeBGMJvCYW8scJwSehYDNy22bdpE2E807f7kGsD8N2WWhiA6T5E0qiF8ZakuOOO4prXD7CVElTX7JX1e0xmNZ8b6xKIVETqO5fEfaaZgvkgBbI1nptXM2LS2tZmGqacPvBJ+AXGgsfM66i7eY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JT1eA52S; arc=none smtp.client-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="y2D7U56W";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="A66O33Om"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id D32ED1400060;
-	Tue,  7 Jul 2026 11:13:52 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Tue, 07 Jul 2026 11:13:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm3; t=1783437232; x=1783523632; bh=yHnAHFidDo
-	8khkFB9/mnK79nGDjqLvmK8s2Lu6YNrRs=; b=y2D7U56WVBDMlVcDzkgqSe6iKR
-	e7AQUoz61t1hrh63gYk6Yj7Sz9d18qx71ARnOEDBQjMYdLORasIoVcSX6RfdTuPp
-	GDSRPhGMh5ZE5R4bRnlKpz5Bbi9KnRcFzUyea+u0LsqGB+kd2ZwHg70iquTSB7J9
-	0iG2V5D/Mt5czH123UjK2P0X4pg9xXuEtaaLK89OPilePHyTHcfOEIXHjoSWaJaq
-	zN6wfg/3lpKuTKz3RorO2DrYzs1BIWZt3eqBv8BRUCHEa8dcTpCMM/3ABuhI70h5
-	ahH862/XE9JLV2IKinfNByyc5l0LD7wIXcgvJ59H0oXBKsNIRheExFPEbaqA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1783437232; x=1783523632; bh=yHnAHFidDo8khkFB9/mnK79nGDjqLvmK8s2
-	Lu6YNrRs=; b=A66O33OmsHTi6Doh2SSYWo+yPNwdtdfNPgS7NfQAYlSzrjbEcFO
-	Bjm/ysBPVxPycknpsCqZg6UnhTBfAn/IdH5vAQq3K3Jng3jWCv34bJvA56oYfk/n
-	NT40kmBDgTzxq7dLxHNSCObZDrFV2Jip15W29KgszzXJjOapHtooB3ekwqE/QjNh
-	sKvEYY1l31Jpcs76ad8JLQsG9zAaQk6DnAGPRWWkpjjk2HLs7r0RAVE0lfTcUTrF
-	7BqfN9JZiTyB164PjNkPwm7x3vryPZ67gTPss/m4qjn+LgZPNovzM1BYiGeI7BZS
-	IJBCc8IxV1oO7AThCwSdWTW+jzjZc8v7rvQ==
-X-ME-Sender: <xms:rxdNaqWubJlzNtUGhx1wVQ4VQZgvbwrUZANDClSPY0Xku3B1a4xLHw>
-    <xme:rxdNatj3LSPPGJ7P84BieoAQVBzc6dHLrYEj-JNsUOpsda7RIJ73hi6SLabeM-1Yx
-    8Brvhwwdp8zlMxUGQTYhzMSB2E0pzLJ97yjBqLa-NtRBF9HEBg2tyiz>
-X-ME-Received: <xmr:rxdNajfpTcRiKYdxBFqUA233bKF7SXj45KcYU8vi_xeizaOyxyOO1ujPVX4nZg>
-X-ME-Proxy-Cause: dmFkZTEiLljjhqgaKKNY5aZiI+jEvjyU81SjON7V5vxdWCBsAwiOWcMHlYKbwS5Zrkx5gR
-    gCjHbuYgokG++jJItBiQhtpm+cB6FDJvAvsG3q/4/1cmcnN6cGUCTkXyE0xgArRFzlE5El
-    kS57rEdf6c7FRigb6EVHz5I8NgITm5hE9uU5jJ7Yy0irnbojHwrL3UqHqCzYahdFhlp3Rn
-    t7tNdtwaznApTVOOTQhMcpm/4Ym1ibGsImDL4LHR+9hUOdo4v2M8+/Y81ukPPhJYW+fMNY
-    pv5tppNMfiOEsQWUahBzzxe4IAVuG3YnCsItoPUwYN+1xRunHaMkQ+CwbvNWVkKR95zlPt
-    YCT+F1FZFKCD5Tg3l0hb4zMza38/aDkkI3ZK6OPxjcDlPI0/0JKJ9UmdqBCu4jaBnupI46
-    Ztsv6YbM2s/pnJVI+tQ2H9trktCIKFhZ1JM0yX70Z2AsAYadbPwRWrshFkNMsl//LcWKw8
-    bFIY/9QtE3iqHzYDXJHUVBmv+8jE88fejHKnxY8Qtkpu3BPG3XDETKgib08Zak+XLSNQxD
-    nydTe/Gvou4YUXtei3MSI5dAhhZr7CSiu9HSAwXmthzvyvnEMaGbomJyZ7sRCzyylZeLwq
-    4PwUVXGvwBNLB8rTsbYk+4evVXYRmejH+51UsudB+RAaGK2gN+Z7tMhn7V0g
-X-ME-Proxy: <xmx:rxdNaofuHWpKuAMadg7GdAasb6KLzqSzA5nVG19B2zpJcaXo0VHerw>
-    <xmx:rxdNavXN3iO5BThnNRlkyC6GbyzxCDrntc7wXLA8A9ERf740pKgiVw>
-    <xmx:rxdNasemlUMOaGffimLQbepO2jFqLJRe1OBYd4OqfZD6wBJnuIWkkw>
-    <xmx:rxdNaj8VT7-LKy3y86yuBhs_CCUY3256GQ3-JD7lAqPoJQGXTz8OAQ>
-    <xmx:sBdNatrWZXAHxK-M-H1KwytAJTNxX4CVK9ujGU-u9tp6uVAvi2p_mHRS>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 7 Jul 2026 11:13:51 -0400 (EDT)
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: akpm@linux-foundation.org
-Cc: usama.anjum@collabora.com,
-	peterx@redhat.com,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	david@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	stable@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH v2] fs/proc/task_mmu: fix PAGEMAP_SCAN written state for unpopulated ptes
-Date: Tue,  7 Jul 2026 16:13:49 +0100
-Message-ID: <20260707151349.92143-1-kirill@shutemov.name>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JT1eA52S"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-664d78637f8so6182570d50.3
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 08:17:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783437420; x=1784042220; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=E+LREjqj7QKR0h0vN+5yo9g4950/7tRNrphjJDSrz5U=;
+        b=JT1eA52S45YPvo0hSEkMjiiqT0W+W9RP82S01f+y0gAyNgPEsBIGBvGQSC07LDdnHY
+         xMxN+J2ri82mWrDe7EBp6OBYCbhk36zR9BjgxRXGhtpYc+4fFk8eu2nLhK4c6aWKE3y3
+         bnxmm9uE+5wTqOjYtt4wT02LHEXGIxYdHDe8QMevsGVt7I0ag5CHFVfI2PtMGizAp35D
+         3qdXChcBD89gpATafbkUgBxLVVGKfVtUri+Lezn5HnSFP/0CxLAlMb72fI9AgEZ9yBoT
+         Prz1ibZjlQnt+kr+4pUIPzhtI4r21no5eEmgbdFl/RG5JqrbI9YXnf2C3EQOg9e7F+hO
+         xkIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783437420; x=1784042220;
+        h=content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:from:date:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=E+LREjqj7QKR0h0vN+5yo9g4950/7tRNrphjJDSrz5U=;
+        b=mnnC77T0R/09xlPkY8APkcBvuzEo0mXrpa1jFOs/R/wj79N0S9lXRncsvhKf+VmXqn
+         /z98ALr08Q6Pf28tIUFp7ojEJsOA36NfX6zv5v2Sz7rjWRzYhuysS2yxgypcGm++cNGI
+         4nGdk5GAkWVuDmKt0EF0JRRIgqAw2LTg8kXOqSeJtU/U9fPqClE3iyHAYYe2SMKfCHqF
+         S/VG0MuHQnGN7Iu0dmGzDxxTWFfuszFgtWw2cTG06w6xzO0PiOf1Qh/e2Eux9Bw2eyRH
+         ES6bCd0GxE22LK3TjpuRTrlXU/agCx2ygEl/DqBjCXKvR3yT2ivhPBNjN2vag4tiU8m5
+         IwFg==
+X-Gm-Message-State: AOJu0YzEQVMRrBFdQFzRDKC6GM+dXFHx4qWsdhEUUwKe4yE1S5r0iWYO
+	G0C76HIm41L5G9xNoUkXx4TQeGVR8osF9NHoXokaySrDYyGNbjRN7YNy
+X-Gm-Gg: AfdE7cmeKSS3Keirg5Itss4nXTmBTsCkjeq8g2HPv4WlEWRoYWWzM0i/XUkFV+/oLTp
+	H0pki++NuUXgKz3sBphFqHFuQMuoNq0iVtMw7JjTtgQodGkbgutl0DXdLQbVJrIBBMt/415AteN
+	6yklszncoyxxQaeOGw3Vxx+g2HTG9iYR8N4YGgtkWveHYsYFC/hi4fqY/DiGskmOYtRngrVuXib
+	6md3kATuBSo6jOxSZAnYMM1F6NJ7E70rsSr/+tgMCnC+ec9tEq79ZryiJcE4WEyt0Smh9mKWZL5
+	rjDtmKm+5imuCpU4FNSff7hNyrffWEynkvqY5tLJCHgn4nJl/mzrCEOH10DbuWAJ9QAw+qqluCp
+	m0wcU27FUTw6h9iCM/FfwFvt61fcd6bjaKlg0Mr54TCIkp1hTzG+gyKB1MzSKSpuGAbM/U0CPjL
+	7dWf7gMCLSMCHZqTAQNDu9PALLbwM1b9Ooq5PqdIrcw2ESWPBYEum4R2W+mfw+7jlNKw==
+X-Received: by 2002:a05:690e:1189:b0:667:8dc9:2321 with SMTP id 956f58d0204a3-6678dc92498mr1718562d50.29.1783437419315;
+        Tue, 07 Jul 2026 08:16:59 -0700 (PDT)
+Received: from gmail.com (172.235.85.34.bc.googleusercontent.com. [34.85.235.172])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8144b049939sm70583417b3.32.2026.07.07.08.16.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 08:16:58 -0700 (PDT)
+Date: Tue, 07 Jul 2026 11:16:57 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Shiming Cheng <shiming.cheng@mediatek.com>, 
+ davem@davemloft.net, 
+ edumazet@google.com, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ matthias.bgg@gmail.com, 
+ angelogioacchino.delregno@collabora.com, 
+ willemb@google.com, 
+ daniel.zahka@gmail.com, 
+ alice@isovalent.com, 
+ sd@queasysnail.net, 
+ eilaimemedsnaimel@gmail.com, 
+ imv4bel@gmail.com, 
+ nbd@nbd.name, 
+ dsahern@kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org, 
+ steffen.klassert@secunet.com, 
+ lena.wang@mediatek.com, 
+ shiming.cheng@mediatek.com
+Message-ID: <willemdebruijn.kernel.39a3b0237ed2@gmail.com>
+In-Reply-To: <20260707021425.483-1-shiming.cheng@mediatek.com>
+References: <20260707021425.483-1-shiming.cheng@mediatek.com>
+Subject: Re: [PATCH v6] net: gro: fix double aggregation of flush-marked skbs
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Shiming Cheng wrote:
+> The skb_gro_receive_list() function is missing a critical safety check
+> that exists in the skb_gro_receive() implementation. Specifically, it
+> does not validate NAPI_GRO_CB(skb)->flush before allowing packet
+> aggregation, as of commit 0ab03f353d36 ("net-gro: Fix GRO flush
+> when receiving a GSO packet.").
 
-PAGEMAP_SCAN reports an unpopulated pte differently depending on which
-path serves the request. The PAGE_IS_WRITTEN fast path in
-pagemap_scan_pmd_entry() reports a pte_none as written (and, under
-PM_SCAN_WP_MATCHING, arms a marker); pagemap_page_category() returns 0
-for the same pte_none. A request that cannot take the fast path (an
-extra category bit, category_anyof_mask or category_inverted) therefore
-reports the pte as clean and skips arming it.
+It does not check .. as of commit .. ?
 
-A range that was populated and then MADV_DONTNEED'd reads as written via
-one mask and clean via another, and in the latter case is not re-armed
-for the next round -- an incremental-dump consumer (e.g. CRIU) using a
-richer mask drops the zapped range and stops tracking writes to it.
-
-Report pte_none as written in pagemap_page_category() too. A pte_none
-carries no uffd-wp marker, i.e. it is not write-protected -- the same
-condition under which the present and swap cases already report
-PAGE_IS_WRITTEN. The fast path applies no VMA test, so neither does this.
-
-The hugetlb and fully-unpopulated-PMD (no page table) scans have no
-PAGE_IS_WRITTEN fast path, so they do not exhibit the per-entry
-divergence and are left unchanged.
-
-Add a pagemap_ioctl selftest that populates a range, drops it with
-MADV_DONTNEED, and checks that the fast path and the generic
-(category_anyof_mask) path both report every page written.
-
-Fixes: 12f6b01a0bcb ("fs/proc/task_mmu: add fast paths to get/clear PAGE_IS_WRITTEN flag")
-Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-Assisted-by: Claude:claude-fable-5
----
-
-Changes since v1 [1], addressing Sashiko AI review:
-  - Report pte_none unconditionally instead of only on userfaultfd_wp
-    VMAs. v1 left the fast vs generic path mismatch in place for
-    non-uffd-wp VMAs, where the fast path applies no VMA test.
-  - Strengthen the selftest to assert both paths report every page
-    written (v1 only checked the two counts were equal, which passes
-    vacuously if both are 0).
-
-The hugetlb and fully-unpopulated-PMD scans have no PAGE_IS_WRITTEN fast
-path, so they stay self-consistent and are out of scope here.
-
-[1] https://lore.kernel.org/all/20260706104308.34741-1-kirill@shutemov.name/
- fs/proc/task_mmu.c                         | 14 +++++-
- tools/testing/selftests/mm/pagemap_ioctl.c | 56 +++++++++++++++++++++-
- 2 files changed, 67 insertions(+), 3 deletions(-)
-
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index d32408f7cd5e..d45c729ab6bb 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -2432,8 +2432,18 @@ static unsigned long pagemap_page_category(struct pagemap_scan_private *p,
- {
- 	unsigned long categories;
+No, skb_gro_receive checkos NAP_GRO_CB(skb)->flush as of that commit.
  
--	if (pte_none(pte))
--		return 0;
-+	if (pte_none(pte)) {
-+		/*
-+		 * An unpopulated pte carries no uffd-wp marker, i.e. it is not
-+		 * write-protected, the same condition under which the present
-+		 * and swap cases below report PAGE_IS_WRITTEN. Report it here
-+		 * too so this generic path agrees with the PAGE_IS_WRITTEN fast
-+		 * path in pagemap_scan_pmd_entry(), which reports pte_none as
-+		 * written and, under PM_SCAN_WP_MATCHING, arms a marker. The
-+		 * fast path applies no VMA test, so neither does this.
-+		 */
-+		return PAGE_IS_WRITTEN;
-+	}
- 
- 	if (pte_present(pte)) {
- 		struct page *page;
-diff --git a/tools/testing/selftests/mm/pagemap_ioctl.c b/tools/testing/selftests/mm/pagemap_ioctl.c
-index 762306177ad8..550d1f2c059b 100644
---- a/tools/testing/selftests/mm/pagemap_ioctl.c
-+++ b/tools/testing/selftests/mm/pagemap_ioctl.c
-@@ -1051,6 +1051,57 @@ static void test_simple(void)
- 	ksft_test_result(i == TEST_ITERATIONS, "Test %s\n", __func__);
- }
- 
-+/*
-+ * A range that was populated and then MADV_DONTNEED'd is genuine pte_none
-+ * with no uffd-wp marker. Such a pte must read the same regardless of which
-+ * PAGEMAP_SCAN path serves the request: both the PAGE_IS_WRITTEN fast path and
-+ * the generic path (reached e.g. via category_anyof_mask) must report every
-+ * page written.
-+ */
-+static void unpopulated_scan_test(void)
-+{
-+	int npages = 16, i;
-+	long mem_size = npages * page_size;
-+	struct page_region regions[16];
-+	long fast = 0, slow = 0, ret;
-+	char *mem;
-+
-+	mem = mmap(NULL, mem_size, PROT_READ | PROT_WRITE,
-+		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (mem == MAP_FAILED)
-+		ksft_exit_fail_msg("%s mmap failed\n", __func__);
-+
-+	wp_init(mem, mem_size);
-+
-+	/* Populate, then drop: the ptes become pte_none without a marker. */
-+	memset(mem, 1, mem_size);
-+	if (madvise(mem, mem_size, MADV_DONTNEED))
-+		ksft_exit_fail_msg("%s MADV_DONTNEED failed\n", __func__);
-+
-+	/* Fast path: category_mask == return_mask == PAGE_IS_WRITTEN. */
-+	ret = pagemap_ioctl(mem, mem_size, regions, npages, 0, 0,
-+			    PAGE_IS_WRITTEN, 0, 0, PAGE_IS_WRITTEN);
-+	if (ret < 0)
-+		ksft_exit_fail_msg("%s fast scan failed\n", __func__);
-+	for (i = 0; i < ret; i++)
-+		fast += LEN(regions[i]);
-+
-+	/* Generic path: same query expressed via category_anyof_mask. */
-+	ret = pagemap_ioctl(mem, mem_size, regions, npages, 0, 0,
-+			    0, PAGE_IS_WRITTEN, 0, PAGE_IS_WRITTEN);
-+	if (ret < 0)
-+		ksft_exit_fail_msg("%s generic scan failed\n", __func__);
-+	for (i = 0; i < ret; i++)
-+		slow += LEN(regions[i]);
-+
-+	ksft_test_result(fast == npages && slow == npages,
-+			 "%s unpopulated ptes reported written by both paths (%ld, %ld of %d)\n",
-+			 __func__, fast, slow, npages);
-+
-+	wp_free(mem, mem_size);
-+	munmap(mem, mem_size);
-+}
-+
- int sanity_tests(void)
- {
- 	unsigned long long mem_size, vec_size;
-@@ -1559,7 +1610,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
- 	if (!hugetlb_setup_default(4))
- 		ksft_print_msg("HugeTLB test will be skipped\n");
- 
--	ksft_set_plan(117);
-+	ksft_set_plan(118);
- 
- 	page_size = getpagesize();
- 	hpage_size = read_pmd_pagesize();
-@@ -1737,6 +1788,9 @@ int main(int __attribute__((unused)) argc, char *argv[])
- 	/* 17. ZEROPFN tests */
- 	zeropfn_tests();
- 
-+	/* 18. Unpopulated pte scan-path consistency */
-+	unpopulated_scan_test();
-+
- 	close(pagemap_fd);
- 	ksft_finished();
- }
+> This allows already-GRO'd packets with existing frag_list to be
+> re-aggregated into a new GRO session, corrupting the frag_list chain
+> structure. When skb_segment() attempts to unpack these malformed packets,
+> it encounters invalid state and triggers a kernel panic.
+> 
+> Scenario (Tethering/Device forwarding):
+>   1. Driver: Generated aggregated packet P1 via LRO with frag_list
+>   2. Dev A: Receives aggregated fraglist packet and flush flag set
+>   3. Dev A: Re-enters GRO, skb_gro_receive_list() is called
+>   4. Missing flush check allows re-aggregation despite flush flag
+>   5. Frag_list chain becomes corrupted (loops or dangling refs)
+>   6. Dev B: TX path calls skb_segment(), crashes on corrupted frag_list
+> 
+> Root cause in skb_segment():
+>   The check at line ~4891:
+>     if (hsize <= 0 && i >= nfrags && skb_headlen(list_skb) &&
+>         (skb_headlen(list_skb) == len || sg)) {
+> 
+>   When frag_list is corrupted by double aggregation, when list_skb is
+>   a NULL pointer from skb->next, skb_headlen(list_skb) dereference
+>   NULL/corrupted pointers occurs.
+> 
+> Call Trace:
+>  skb_headlen(NULL skb)
+>  skb_segment
+>  tcp_gso_segment
+>  tcp4_gso_segment
+>  inet_gso_segment
+>  skb_mac_gso_segment
+>  __skb_gso_segment
+>  skb_gso_segment
+>  validate_xmit_skb
+>  validate_xmit_skb_list
+>  sch_direct_xmit
+>  qdisc_restart
+>  __qdisc_run
+>  qdisc_run
+>  net_tx_action
+> 
+> Fix: Add NAPI_GRO_CB(skb)->flush validation to the early-return check in
+> skb_gro_receive_list(), matching the defensive programming pattern of
+> skb_gro_receive().
+> 
+> Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
+> ---
+>  net/core/gro.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/core/gro.c b/net/core/gro.c
+> index 35f2f708f010..b413f4a6462b 100644
+> --- a/net/core/gro.c
+> +++ b/net/core/gro.c
+> @@ -229,7 +229,9 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
+>  
+>  int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
+>  {
+> -	if (unlikely(p->len + skb->len >= 65536))
+> +	/* make sure to check flush flag and to not merge */
+> +	if (unlikely(p->len + skb->len >= 65536 ||
+> +		     NAPI_GRO_CB(skb)->flush))
+>  		return -E2BIG;
+>  
+>  	if (!pskb_may_pull(skb, skb_gro_offset(skb))) {
+> -- 
+> 2.45.2
+> 
 
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
--- 
-2.54.0
 
