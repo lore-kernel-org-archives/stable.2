@@ -1,154 +1,128 @@
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 594373101A9;
-	Tue,  7 Jul 2026 01:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC3D317144;
+	Tue,  7 Jul 2026 01:58:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783389236; cv=none; b=hm+Otw2VZpBb4HjOtNGm5gc1fTDzkaZIYhOJMfdrTwnLkX2T5HGAuJaZ6iEvLATafkxY4XeSGDJvJWWTKoeXiA7WoSsFFTE9mGLP1FZAuw9/V6tGs4jokUWof40Z/T3CzmG8G7a6cX02pLPn1mOlznWoIXlVGmwa+vFXTBqO06A=
+	t=1783389504; cv=none; b=afiUBrOPN6JYMBH77NmO3ts2ndsVtLgySSijzd7bcV+ZE6j1/b6hODfUYIbIFu07zPhdTVubtVtJFp6EHvEa5gsWHmJe0Sspm8pf0H3vt/qsS2saKIXr7oAQL8+HezoxlWWgfGLWF5MVY8WKY+UcLacJzID0K7uj6RmKOoxueng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783389236; c=relaxed/simple;
-	bh=Co06N/H4+kM77LKr0xFPV4VHsc2xnihPmlU/wcj0Uw0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=O7qbBKOcZhq5ilk0ZJHB80Lw7KsrmQnEpB5v7LRtgKUe91qJAqyhjrXYuKpVNrqJSK90Ts+0TYSJrDYJQUZBkhsKaGThwBwOLJKz9cYCjUGJ60Rat1oXCZH7nwrkgRxErfC6RMpr7DcdkFGNi9Mp8sobexCTElNiGMVZK0taY0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.21.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCHx10qXExqDZ4VAA--.47898S3;
-	Tue, 07 Jul 2026 09:53:47 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgC3BZ4qXExqGomhAg--.62828S2;
-	Tue, 07 Jul 2026 09:53:46 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: y-abhilashchandra@ti.com
-Cc: mchehab@kernel.org,
-	hverkuil+cisco@kernel.org,
-	bparrot@ti.com,
-	dale@farnsworth.org,
-	dagriego@biglakesoftware.com,
-	sbellary@baylibre.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] media: ti: vpe: quiesce overflow recovery before freeing streams
-Date: Tue,  7 Jul 2026 01:52:51 +0000
-Message-Id: <20260707015251.877945-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1783389504; c=relaxed/simple;
+	bh=dQhOYoAS1TcvAHsBUpv2IF0x7YAujpgcs66iDr6gnnY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N4HJPxMatWPP9nzZdHuo/4TSvpCFyZgbGN6JTaUtZBl/piW+4c9u4j+Ny5G5zjNtFKSSCubx+AEGF8vmP376rfpunnj91mlvqNtLdyD0ivXR7uovVGMsSn3iJj7DxKZDV2nfZ17dBXFKS2EvsS83wRvdFoPRilnprdKmCO6g/+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ay0iOHbv; arc=none smtp.client-ip=115.124.30.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ay0iOHbv"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1783389494; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Hw5q4igm2fogQzAtaGDe/H5R57ywxMLb1WkudZyAasU=;
+	b=ay0iOHbv1ftI3oqGpZWVoIxtCXC4m74x+K+zA7L3XCR5Z/x6zeMkepjt/Tdfm1D8Q9ClYO91vJ6SjTYMzSspTCr+6xwA4GkY5hXCAKo/mgiw9bx4R0EKWVG7oLyDiQqiYz2fWwHw5y32AJmCBKcCPdl6frWi8m0pktCdlUV+9Lk=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0X6atYrA_1783389174;
+Received: from 30.246.177.139(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X6atYrA_1783389174 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 07 Jul 2026 09:52:55 +0800
+Message-ID: <d01bae40-f94d-4e8a-baac-ad6fffa18b64@linux.alibaba.com>
+Date: Tue, 7 Jul 2026 09:52:54 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18.y] mm: shmem: fix potential livelock issue for shmem
+ direct swapin
+To: Barry Song <baohua@kernel.org>
+Cc: Kairui Song <ryncsn@gmail.com>, akpm@linux-foundation.org,
+ hughd@google.com, stable@vger.kernel.org, machao26@xiaomi.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <173f3fd983d735155d47e9e39d27f0c2d62a7c31.1783307463.git.baolin.wang@linux.alibaba.com>
+ <CAMgjq7AQcyypJ-VhJ_CxY6fdEph64fxjOzzYU-=EkMrHemkpzA@mail.gmail.com>
+ <8ef0b72e-a0e8-4913-8d30-519335305260@linux.alibaba.com>
+ <CAGsJ_4z5N6FSfWt5WUZ5YmqhCzLcd3Cj1sc9B79WYX9ZbDH8Gw@mail.gmail.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <CAGsJ_4z5N6FSfWt5WUZ5YmqhCzLcd3Cj1sc9B79WYX9ZbDH8Gw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgC3BZ4qXExqGomhAg--.62828S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?FTPsNgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBEOdrwoTKE/heUMp91lDG7JJs3IuOigzybroPMUl6E8cnJy
-	7r+uZYCb4yuNbR3k7Ump9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxAr45XFy3trW8WrykKry8JFc_yoWrWF1fpr
-	WrJ34SkF97KF48tF43Cw1Y9FW5Ar1rtayjkry7u34UC3y3Gr4YvF18K3W8Zr97Ar93Zay3
-	tr45Kay8uF45WFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
-	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-The VIP overflow recovery work is armed from the hardirq handler when a
-FIFO overflow is detected, and the list-complete path looks the stream
-up through the VPDMA list private pointer. Both keep touching stream,
-port and device state; the recovery worker also resets the parser and
-VPDMA and can re-enable overflow interrupts.
 
-vip_stop_streaming() masks and clears the per-list IRQs, but it neither
-synchronizes the hardirq handler nor cancels recovery_work. If an
-overflow IRQ has already queued recovery_work, or a list-complete IRQ is
-in flight when the stream is torn down, the handler or worker can still
-dereference the stream after its resources are released.
 
-free_stream() owns the stream lifetime, so drain the IRQ handler and
-recovery work there before freeing stream-owned resources: drop the
-stream from cap_streams[], disable IRQs for its list (disable_irqs()
-masks both the parser-overflow and the list-complete IRQ), wait for any
-in-flight handler, cancel the worker, then disable and sync again
-because the worker may have re-enabled interrupts while it ran. Only
-then are the drop queue, video device and VPDMA list released and the
-stream freed.
+On 7/6/26 9:04 PM, Barry Song wrote:
+> On Mon, Jul 6, 2026 at 8:08 PM Baolin Wang
+> <baolin.wang@linux.alibaba.com> wrote:
+>>
+>>
+>>
+>> On 7/6/26 1:59 PM, Kairui Song wrote:
+>>> On Mon, Jul 6, 2026 at 11:25 AM Baolin Wang
+>>> <baolin.wang@linux.alibaba.com> wrote:
+>>>>
+>>>> When skipping swapcache for synchronous IO swap devices, swapcache_prepare()
+>>>> is used to prevent parallel swapin from proceeding with the swap cache flag.
+>>>> However, on PREEMPT kernels this can lead to a livelock, as reported by Chao[1]:
+>>>>
+>>>> Thread A starts direct swapin of a shmem folio and calls swapcache_prepare()
+>>>> to set SWAP_HAS_CACHE. It may then be preempted inside workingset_refault().
+>>>> Meanwhile, a higher priority thread B also attempts direct swapin of the same
+>>>> shmem swap entry. Since swapcache_prepare() already marks the entry, thread B
+>>>> repeatedly gets -EEXIST and busy-loops waiting for thread A to finish. But as
+>>>> thread B runs at higher priority, thread A cannot preempt it, resulting in
+>>>> starvation and a livelock.
+>>>>
+>>>> Fix it by yielding the CPU with schedule_timeout_uninterruptible(1) when
+>>>> swapcache_prepare() fails, following the same approach used in commits
+>>>> 029c4628b2eb ("mm: swap: get rid of livelock in swapin readahead") and
+>>>> 13ddaf26be32 ("mm/swap: fix race when skipping swapcache").
+>>>>
+>>>> Note that mainline does not have this potential issue, which has already been
+>>>> resolved by Kairui's swap refactoring work[2].
+>>>>
+>>>> [1] https://lore.kernel.org/all/700a2cbf90a2484f979aac858f08f5d4@xiaomi.com/
+>>>> [2] https://lore.kernel.org/all/20260517-swap-table-p4-v5-0-88ae43e064c7@tencent.com/
+>>>> Fixes: 1dd44c0af4fa ("mm: shmem: skip swapcache for swapin of synchronous swap device")
+>>>> Reported-by: Ma Chao <machao26@xiaomi.com>
+>>>> Closes: https://lore.kernel.org/all/700a2cbf90a2484f979aac858f08f5d4@xiaomi.com/
+>>>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+>>>> ---
+>>>> Hi Chao, could you try this patch to check if it fixes your issue? Thanks.
+>>>> ---
+>>>>    mm/shmem.c | 2 ++
+>>>>    1 file changed, 2 insertions(+)
+>>>>
+>>>> diff --git a/mm/shmem.c b/mm/shmem.c
+>>>> index 94c5b0d78ac3..d4cb57b3b0ef 100644
+>>>> --- a/mm/shmem.c
+>>>> +++ b/mm/shmem.c
+>>>> @@ -2066,6 +2066,8 @@ static struct folio *shmem_swap_alloc_folio(struct inode *inode,
+>>>>           if (swapcache_prepare(entry, nr_pages)) {
+>>>>                   folio_put(new);
+>>>>                   new = ERR_PTR(-EEXIST);
+>>>> +               /* Relax a bit to prevent rapid repeated page faults */
+>>>> +               schedule_timeout_uninterruptible(1);
+>>>>                   /* Try smaller folio to avoid cache conflict */
+>>>>                   goto fallback;
+>>>>           }
+>>>> --
+>>>> 2.47.3
+>>>>
+>>>
+>>> Thanks! That's much more simpler than I expected. Do we need a wakeup
+>>> queue like the one in commit 01626a1823024? Perhaps the reporter can
+>>> help confirm and test? I personally prefer to keep it simple if shmem
+>>> users aren't as sensitive as anon users.
+>>
+>> I agree. I'd like to keep the bugfix as simple as possible, if the
+>> reporter's scenario isn't latency-sensitive.
+> 
+> On Android, we don't see much shmem; it's much less common
+> than anon. So the chance of this concurrency happening should
+> be lower than for anon. However, shmem can be shared by
+> multiple processes, so could this still happen if process A is
+> blocked by process B?
 
-Additionally clear the VPDMA list private pointer in vpdma_hwlist_release
-(and return the released slot's value instead of the array base), so
-later list-complete handling cannot recover a freed stream through a
-stale private pointer.
-
-Fixes: fc2873aa4a21 ("media: ti: vpe: Add the VIP driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/media/platform/ti/vpe/vip.c   | 20 +++++++++++++++++++-
- drivers/media/platform/ti/vpe/vpdma.c |  3 ++-
- 2 files changed, 21 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/platform/ti/vpe/vip.c b/drivers/media/platform/ti/vpe/vip.c
-index cb0a5a07a3d4..9c5bf91ade1b 100644
---- a/drivers/media/platform/ti/vpe/vip.c
-+++ b/drivers/media/platform/ti/vpe/vip.c
-@@ -3139,6 +3139,25 @@ static void free_stream(struct vip_stream *stream)
- 		return;
- 
- 	dev = stream->port->dev;
-+	/*
-+	 * Quiesce the overflow IRQ and recovery work for this stream
-+	 * before releasing its resources: the handler and the worker
-+	 * both keep touching stream, port and device state. disable_irqs()
-+	 * masks both the parser-overflow and the list-complete IRQ for
-+	 * this list. Drop the stream from cap_streams[] first so a racing
-+	 * overflow handler misses the lookup, wait for any in-flight
-+	 * handler, cancel the worker, then disable and sync again because
-+	 * the worker may have re-enabled interrupts while it ran.
-+	 */
-+	stream->port->cap_streams[stream->stream_id] = NULL;
-+	disable_irqs(dev, dev->slice_id, stream->list_num);
-+	clear_irqs(dev, dev->slice_id, stream->list_num);
-+	synchronize_irq(dev->irq);
-+	cancel_work_sync(&stream->recovery_work);
-+	disable_irqs(dev, dev->slice_id, stream->list_num);
-+	clear_irqs(dev, dev->slice_id, stream->list_num);
-+	synchronize_irq(dev->irq);
-+
- 	/* Free up the Drop queue */
- 	list_for_each_safe(pos, q, &stream->dropq) {
- 		buf = list_entry(pos,
-@@ -3150,7 +3169,6 @@ static void free_stream(struct vip_stream *stream)
- 
- 	video_unregister_device(stream->vfd);
- 	vpdma_hwlist_release(dev->shared->vpdma, stream->list_num);
--	stream->port->cap_streams[stream->stream_id] = NULL;
- 	kfree(stream);
- }
- 
-diff --git a/drivers/media/platform/ti/vpe/vpdma.c b/drivers/media/platform/ti/vpe/vpdma.c
-index 573aa83f62eb..f9f5b2f1ee1a 100644
---- a/drivers/media/platform/ti/vpe/vpdma.c
-+++ b/drivers/media/platform/ti/vpe/vpdma.c
-@@ -988,7 +988,8 @@ void *vpdma_hwlist_release(struct vpdma_data *vpdma, int list_num)
- 
- 	spin_lock_irqsave(&vpdma->lock, flags);
- 	vpdma->hwlist_used[list_num] = false;
--	priv = vpdma->hwlist_priv;
-+	priv = vpdma->hwlist_priv[list_num];
-+	vpdma->hwlist_priv[list_num] = NULL;
- 	spin_unlock_irqrestore(&vpdma->lock, flags);
- 
- 	return priv;
--- 
-2.34.1
-
+Could you be more specific about how that happens? I think we should fix 
+this starvation/livelock issue if you think it could still happen.
