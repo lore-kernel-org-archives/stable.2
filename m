@@ -1,128 +1,144 @@
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC3D317144;
-	Tue,  7 Jul 2026 01:58:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0C12F7EF4;
+	Tue,  7 Jul 2026 02:14:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783389504; cv=none; b=afiUBrOPN6JYMBH77NmO3ts2ndsVtLgySSijzd7bcV+ZE6j1/b6hODfUYIbIFu07zPhdTVubtVtJFp6EHvEa5gsWHmJe0Sspm8pf0H3vt/qsS2saKIXr7oAQL8+HezoxlWWgfGLWF5MVY8WKY+UcLacJzID0K7uj6RmKOoxueng=
+	t=1783390482; cv=none; b=QXvZWHxMqipUeyxeSj9Wy58IqExSjwwm8mO2CwBxd3r/NHno+eeBfMRr2a8JzEJ89iKrTAHPc5eb9V+CKDSecP1dL211SApJvEH7aWh/FytqKxXBC08U7uw2CYkjdJDgvB4PWxkkxgpJXs7+OTjAuOyCAn4JhmzYltu0U6suJsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783389504; c=relaxed/simple;
-	bh=dQhOYoAS1TcvAHsBUpv2IF0x7YAujpgcs66iDr6gnnY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N4HJPxMatWPP9nzZdHuo/4TSvpCFyZgbGN6JTaUtZBl/piW+4c9u4j+Ny5G5zjNtFKSSCubx+AEGF8vmP376rfpunnj91mlvqNtLdyD0ivXR7uovVGMsSn3iJj7DxKZDV2nfZ17dBXFKS2EvsS83wRvdFoPRilnprdKmCO6g/+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ay0iOHbv; arc=none smtp.client-ip=115.124.30.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1783390482; c=relaxed/simple;
+	bh=Ojpt0E0mWn/3+A6rrGik2jFFjraDeMLMMerMTsJLoms=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Pqj/cHgm+gh9nPOgIOukaQ+6UTS58sr5vGTjsM50g1L3eramES6oM+MqZAf+YjOtTN/hZviMKIB5EPZINaHCpS3DP7/J/D2Ubgh55ygdRjlil7j6BK3x/ohLJ3M1YddjLbusuya+uTLSEziO9TIPtHzrIrnm65KUrkLaY430g8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=tjfZbfxT; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ay0iOHbv"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1783389494; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=Hw5q4igm2fogQzAtaGDe/H5R57ywxMLb1WkudZyAasU=;
-	b=ay0iOHbv1ftI3oqGpZWVoIxtCXC4m74x+K+zA7L3XCR5Z/x6zeMkepjt/Tdfm1D8Q9ClYO91vJ6SjTYMzSspTCr+6xwA4GkY5hXCAKo/mgiw9bx4R0EKWVG7oLyDiQqiYz2fWwHw5y32AJmCBKcCPdl6frWi8m0pktCdlUV+9Lk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0X6atYrA_1783389174;
-Received: from 30.246.177.139(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X6atYrA_1783389174 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 07 Jul 2026 09:52:55 +0800
-Message-ID: <d01bae40-f94d-4e8a-baac-ad6fffa18b64@linux.alibaba.com>
-Date: Tue, 7 Jul 2026 09:52:54 +0800
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="tjfZbfxT"
+X-UUID: 978de87279a911f1b1788b6acf885367-20260707
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=djFMeeYeW0i69bOdSCOpaUwsZe3lVC909KajVa54IlM=;
+	b=tjfZbfxTSaU+qsiMDJjB8FDdi5hQDru2lwaC/P5MzgZT+HV09/gCmw5jXM7CWPAVyB9MVMCyEpuSKeDl7nApiixtif9D1QZK/JAiVYzXhhP0/AzFgIa++SvqFvLK/3FaXReIHQ04nR6oCqHnsRhZL7v43TdLLVawX4YcNyMYHUQ=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.17,REQID:4318e11d-6a63-4210-bbf2-99771159e0d2,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:d497b38,CLOUDID:e7b5ebd6-4504-45e1-b7e4-0b9331be048a,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
+	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
+	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 978de87279a911f1b1788b6acf885367-20260707
+Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw01.mediatek.com
+	(envelope-from <shiming.cheng@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1625479944; Tue, 07 Jul 2026 10:14:32 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Tue, 7 Jul 2026 10:14:30 +0800
+Received: from mbjsdccf07.gcn.mediatek.inc (10.15.20.246) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Tue, 7 Jul 2026 10:14:29 +0800
+From: Shiming Cheng <shiming.cheng@mediatek.com>
+To: <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <horms@kernel.org>, <matthias.bgg@gmail.com>,
+	<angelogioacchino.delregno@collabora.com>, <willemb@google.com>,
+	<daniel.zahka@gmail.com>, <alice@isovalent.com>, <sd@queasysnail.net>,
+	<eilaimemedsnaimel@gmail.com>, <imv4bel@gmail.com>, <nbd@nbd.name>,
+	<dsahern@kernel.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>
+CC: <stable@vger.kernel.org>, <steffen.klassert@secunet.com>,
+	<lena.wang@mediatek.com>, <shiming.cheng@mediatek.com>
+Subject: [PATCH v6] net: gro: fix double aggregation of flush-marked skbs
+Date: Tue, 7 Jul 2026 10:14:15 +0800
+Message-ID: <20260707021425.483-1-shiming.cheng@mediatek.com>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18.y] mm: shmem: fix potential livelock issue for shmem
- direct swapin
-To: Barry Song <baohua@kernel.org>
-Cc: Kairui Song <ryncsn@gmail.com>, akpm@linux-foundation.org,
- hughd@google.com, stable@vger.kernel.org, machao26@xiaomi.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <173f3fd983d735155d47e9e39d27f0c2d62a7c31.1783307463.git.baolin.wang@linux.alibaba.com>
- <CAMgjq7AQcyypJ-VhJ_CxY6fdEph64fxjOzzYU-=EkMrHemkpzA@mail.gmail.com>
- <8ef0b72e-a0e8-4913-8d30-519335305260@linux.alibaba.com>
- <CAGsJ_4z5N6FSfWt5WUZ5YmqhCzLcd3Cj1sc9B79WYX9ZbDH8Gw@mail.gmail.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <CAGsJ_4z5N6FSfWt5WUZ5YmqhCzLcd3Cj1sc9B79WYX9ZbDH8Gw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
+The skb_gro_receive_list() function is missing a critical safety check
+that exists in the skb_gro_receive() implementation. Specifically, it
+does not validate NAPI_GRO_CB(skb)->flush before allowing packet
+aggregation, as of commit 0ab03f353d36 ("net-gro: Fix GRO flush
+when receiving a GSO packet.").
 
+This allows already-GRO'd packets with existing frag_list to be
+re-aggregated into a new GRO session, corrupting the frag_list chain
+structure. When skb_segment() attempts to unpack these malformed packets,
+it encounters invalid state and triggers a kernel panic.
 
-On 7/6/26 9:04 PM, Barry Song wrote:
-> On Mon, Jul 6, 2026 at 8:08 PM Baolin Wang
-> <baolin.wang@linux.alibaba.com> wrote:
->>
->>
->>
->> On 7/6/26 1:59 PM, Kairui Song wrote:
->>> On Mon, Jul 6, 2026 at 11:25 AM Baolin Wang
->>> <baolin.wang@linux.alibaba.com> wrote:
->>>>
->>>> When skipping swapcache for synchronous IO swap devices, swapcache_prepare()
->>>> is used to prevent parallel swapin from proceeding with the swap cache flag.
->>>> However, on PREEMPT kernels this can lead to a livelock, as reported by Chao[1]:
->>>>
->>>> Thread A starts direct swapin of a shmem folio and calls swapcache_prepare()
->>>> to set SWAP_HAS_CACHE. It may then be preempted inside workingset_refault().
->>>> Meanwhile, a higher priority thread B also attempts direct swapin of the same
->>>> shmem swap entry. Since swapcache_prepare() already marks the entry, thread B
->>>> repeatedly gets -EEXIST and busy-loops waiting for thread A to finish. But as
->>>> thread B runs at higher priority, thread A cannot preempt it, resulting in
->>>> starvation and a livelock.
->>>>
->>>> Fix it by yielding the CPU with schedule_timeout_uninterruptible(1) when
->>>> swapcache_prepare() fails, following the same approach used in commits
->>>> 029c4628b2eb ("mm: swap: get rid of livelock in swapin readahead") and
->>>> 13ddaf26be32 ("mm/swap: fix race when skipping swapcache").
->>>>
->>>> Note that mainline does not have this potential issue, which has already been
->>>> resolved by Kairui's swap refactoring work[2].
->>>>
->>>> [1] https://lore.kernel.org/all/700a2cbf90a2484f979aac858f08f5d4@xiaomi.com/
->>>> [2] https://lore.kernel.org/all/20260517-swap-table-p4-v5-0-88ae43e064c7@tencent.com/
->>>> Fixes: 1dd44c0af4fa ("mm: shmem: skip swapcache for swapin of synchronous swap device")
->>>> Reported-by: Ma Chao <machao26@xiaomi.com>
->>>> Closes: https://lore.kernel.org/all/700a2cbf90a2484f979aac858f08f5d4@xiaomi.com/
->>>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
->>>> ---
->>>> Hi Chao, could you try this patch to check if it fixes your issue? Thanks.
->>>> ---
->>>>    mm/shmem.c | 2 ++
->>>>    1 file changed, 2 insertions(+)
->>>>
->>>> diff --git a/mm/shmem.c b/mm/shmem.c
->>>> index 94c5b0d78ac3..d4cb57b3b0ef 100644
->>>> --- a/mm/shmem.c
->>>> +++ b/mm/shmem.c
->>>> @@ -2066,6 +2066,8 @@ static struct folio *shmem_swap_alloc_folio(struct inode *inode,
->>>>           if (swapcache_prepare(entry, nr_pages)) {
->>>>                   folio_put(new);
->>>>                   new = ERR_PTR(-EEXIST);
->>>> +               /* Relax a bit to prevent rapid repeated page faults */
->>>> +               schedule_timeout_uninterruptible(1);
->>>>                   /* Try smaller folio to avoid cache conflict */
->>>>                   goto fallback;
->>>>           }
->>>> --
->>>> 2.47.3
->>>>
->>>
->>> Thanks! That's much more simpler than I expected. Do we need a wakeup
->>> queue like the one in commit 01626a1823024? Perhaps the reporter can
->>> help confirm and test? I personally prefer to keep it simple if shmem
->>> users aren't as sensitive as anon users.
->>
->> I agree. I'd like to keep the bugfix as simple as possible, if the
->> reporter's scenario isn't latency-sensitive.
-> 
-> On Android, we don't see much shmem; it's much less common
-> than anon. So the chance of this concurrency happening should
-> be lower than for anon. However, shmem can be shared by
-> multiple processes, so could this still happen if process A is
-> blocked by process B?
+Scenario (Tethering/Device forwarding):
+  1. Driver: Generated aggregated packet P1 via LRO with frag_list
+  2. Dev A: Receives aggregated fraglist packet and flush flag set
+  3. Dev A: Re-enters GRO, skb_gro_receive_list() is called
+  4. Missing flush check allows re-aggregation despite flush flag
+  5. Frag_list chain becomes corrupted (loops or dangling refs)
+  6. Dev B: TX path calls skb_segment(), crashes on corrupted frag_list
 
-Could you be more specific about how that happens? I think we should fix 
-this starvation/livelock issue if you think it could still happen.
+Root cause in skb_segment():
+  The check at line ~4891:
+    if (hsize <= 0 && i >= nfrags && skb_headlen(list_skb) &&
+        (skb_headlen(list_skb) == len || sg)) {
+
+  When frag_list is corrupted by double aggregation, when list_skb is
+  a NULL pointer from skb->next, skb_headlen(list_skb) dereference
+  NULL/corrupted pointers occurs.
+
+Call Trace:
+ skb_headlen(NULL skb)
+ skb_segment
+ tcp_gso_segment
+ tcp4_gso_segment
+ inet_gso_segment
+ skb_mac_gso_segment
+ __skb_gso_segment
+ skb_gso_segment
+ validate_xmit_skb
+ validate_xmit_skb_list
+ sch_direct_xmit
+ qdisc_restart
+ __qdisc_run
+ qdisc_run
+ net_tx_action
+
+Fix: Add NAPI_GRO_CB(skb)->flush validation to the early-return check in
+skb_gro_receive_list(), matching the defensive programming pattern of
+skb_gro_receive().
+
+Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
+---
+ net/core/gro.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/net/core/gro.c b/net/core/gro.c
+index 35f2f708f010..b413f4a6462b 100644
+--- a/net/core/gro.c
++++ b/net/core/gro.c
+@@ -229,7 +229,9 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
+ 
+ int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
+ {
+-	if (unlikely(p->len + skb->len >= 65536))
++	/* make sure to check flush flag and to not merge */
++	if (unlikely(p->len + skb->len >= 65536 ||
++		     NAPI_GRO_CB(skb)->flush))
+ 		return -E2BIG;
+ 
+ 	if (!pskb_may_pull(skb, skb_gro_offset(skb))) {
+-- 
+2.45.2
+
