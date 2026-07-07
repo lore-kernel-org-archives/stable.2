@@ -1,173 +1,301 @@
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73D03AB267
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 09:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.125.188.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD443C1095
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 09:44:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783416946; cv=pass; b=teWbng9z+jdAUdq+VLyiv6vLsIPaDBH7eCGit7ne+gYVKZgWrtAq35w8zgrDKSSzgvSmEPri/M+GwKR6RikjuSQv8yvD8gd+MQf9wbg439AgKF8gdWc+l2MGxGKeVVUHHL0ctpPy2OlwEvzj0PKgv1fxmADHUMF7gjzJY+qFaRQ=
+	t=1783417445; cv=pass; b=FrMhh7ZTUekBpI2bmy7EMLGLMn7WdTr9CY86Z+kz7ALNzCtrYKaKwcMjIXl3jOjYPPTs7RcOfU3GYVaucm/OrurUcc26LYFUaa/nyb13QCQgzbB9Xcligz/UrxOCGjuEAibHyYnCz24p1ECYJjHQWVHc9ymr+AmBrmPQ5cs/Ax4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783416946; c=relaxed/simple;
-	bh=uLybiMWMjmE4TRojd9HQOPaGaWZeCtzCpL0SPNTzJx4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jwDOMJdRuKN5HVyjYBYiJ7qy77jb6icBZ4WVR6Wa22SxSQuJZvQLrlM1XPveTIKNeDNaBuJwb3bBG+XIJ+tlBqL1BC0gPLlNgdsy7XjnDDJVZq3lW1PrU2rsVesjjWsl9o6DgIB1V8JQ8m5AkVmLPMop+o8s/d8/V+5hrjqcpBo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=S7JQDAE4; arc=pass smtp.client-ip=185.125.188.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1783417445; c=relaxed/simple;
+	bh=VPXH07CDPhd5rak2km1cKyBn1SFPqQIo4+zEUb0cngU=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=UL3aaVwSlmcdd011DF0jlHQgweyKgHG2ojcCAnmRJMjkKmu4w+BuQSBqbUV4Rb6jh/roH3IKII0y2Q39lt4cg8HaYdYO99zrstSg4h2lR5MB8zSI0mk5Hm7julTqEDJJ8YclRIsDjbe5z9WFBhLFYzZa7brKimqOoQmbzN5IH6k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UzuGaWkE; arc=pass smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="S7JQDAE4"
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 658573F16D
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 09:35:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1783416936;
-	bh=bbT/31W+nDI+goBOogRFsrx2+HdUbut6Kmz6fgFzHhY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type;
-	b=S7JQDAE4E5CD/4AHpJ6qVSF1mqvol6EdkTCI/SUrz4xbNguPJFc0eOhr7wC1T4CgE
-	 p4w9azv+i5Y1JeX3UJReQ/tpOGdb1drIJu1Ca8095BN7EKshUskm9DgBq6GBfQZ6Es
-	 6XDPjt09NB10eWkOw3AU0ZjgMNE7luI7Yo0SggDj3Z+epxUMyoucCmFaztdfRqhWVr
-	 L72VJeAT0OnruEV4TY+r+rBYcFRKkRqlrXlVtUGMqIMUbq/tVcKadL1JVFkL2yruDz
-	 HXVGXzAQMm2IEAFnicg8eReQoWbpc06/B8dnSYA0NtOSuDzNAigKVTJdkpGU1FufXZ
-	 OhHN+L4sFtkJtBeDQqGgpaeiLMjbcTmqzi0PsU3Jrw4ABYSiqfDcQHmDpIrPj0Glvl
-	 km8BFcOoB82PLweejoRL8UqWwfCHYHsqUzr7tcyf3Bmwkh1/FV9+xicjeO1dVxNpo7
-	 MfTE/NnZ1PPfZQPBxWYeJCePIF+iRxuV1VxGbomaM3t1xe83sb05jubUQBHtOO7kmr
-	 Z9pV7k0w0AVnZ99M51QH0W2lRkGxNgaJFJzXZjlNBB6xwwqFRGD8EjirkoVLpBEDs/
-	 XQ3uHgDmgyA3jR+55RkJop4SnL+4wWbonjGFCO3OYjMM5HCQl/tqyML5sSDdURi1q6
-	 x/QMXU6Pj1NvQAv7qYmt+h2k=
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c96b4f58ddcso3704468a12.3
-        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 02:35:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783416935; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UzuGaWkE"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cace91f112so33854825ad.0
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 02:44:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783417444; cv=none;
         d=google.com; s=arc-20260327;
-        b=aiuOzLh66rRWUQ366BccTuLD+cDmYvvkDJj7uNZGORXK3EHYrejDM5xiRSTVbdt7BK
-         1CNnImoXofTqEjhQwWwlbEx47XGzWdRUS0cpZGMPZpYPELnYRjjOB0YGZhJiMmg9RiqT
-         cB6Vkk7t9Hhye/+4ApOGGFqhucgR2iZ3EGrdkKAP+2J+k9DAMnLKq3aPiab8WSZEv+C1
-         DlpUzgEOKL5j7xHuvDPXmOxuehp7vIBqbP7zZM5uzwpiJ9Lh4Q2vAXkiL+2QUCPex7ML
-         0/7603/nqPjPBfDOpedCSor2FHzyLeyYOOaQ0sIF8O8e9v+lGcembvozUVQ7v4xZaPC0
-         ypsA==
+        b=ObP1wj/FTO+l/XihXQNSuyuG1TeEU2fSN5BdDLl2UAHIaZLHeDLa4GYMa+aMwtgQCn
+         fKMsKh251yW2bGXhwT7DQHtO3Rl9Iiy3hjxDsSXjo2SxJKLu093IUdJB0D39sDt9Mq9L
+         gCDxoSlsP0LU/rQ0a4aHnzwuzQFH/JnTIL3eeMuRJo5Mrwp7sO+dPMOJHvZT8EOiOd2R
+         qQqYgE2MIFvTlk8BJODp7RzJAeyPYeUbIWNLBY7hppyeMjfsXPK960uEgKOoKM9r4hye
+         PsQn2mLbB3M0z2XWQ4j1A54s0dVbL532BGQqwz4crsbv/mbKCf90SyPMxuF3ixWpeeMI
+         j7zQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version;
-        bh=bbT/31W+nDI+goBOogRFsrx2+HdUbut6Kmz6fgFzHhY=;
-        fh=D9SZv+x9ntfsuWVQ5Yf/+No6sGT3zgK7/rA31A6UTW8=;
-        b=jNipB9dJ48tz5OrBYGtYYKMYFgJ/sRUqbc+lQy5V3XPQ/OjWQytO7OMKAaER19kvus
-         Wr2cvtGPTicSYM+Css/haC+CzyjgssX19T7A1eyJNmV2K07uWkaWzV1Q/qRevQtJydT2
-         4z2xgToEbRzVv4bk3Notso7WuefQHzAoD0R7WV5pG1F6Szq4Nqu8z0u3bx1fPOJ84Zmf
-         BWk5A6jTgZOmVS/4H0zSYSjJoFKSng8ovAAAksv93gOtRc0nLz5DiNB9HGashigRTNH4
-         p8QzMNcdmAhGv/Frj1dbGLVoKXxpQe66DYWkBqEtkBwPsnUvNXZE8yQs3QObK7TrTg9c
-         o2KQ==;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=6IY/mKMT+7EIk0NR66b+rv5i8rg86+n5XdCIF1mB5ps=;
+        fh=/ppJCB4O6eqjavO+qLLryY1wrh0kmJyTKQgdNSEELZs=;
+        b=PgXhwaLRE81ZYzAV3Kb0FQPTGGGmqFpmfQsE7D3sm97QccIjEVpgWi4lM8maVoacN5
+         takAi9vAFiZZrlEy7PKjQTCXBYYLnsDDRd0dphLiAkvyRwCK2TD+TX3xUisZCkEhq9nA
+         9IjHwlfM4o0dE+RgTlOLI8ZN+Y8G26sTdAxNn9r+0Vpw71miu52GnIDafTUXI2qzl67J
+         k9ibLtAvNVzBT3uYoISQ8wteS7zoTldT+eSv3L5A0Yjvtv3Y6v1TFI1W4WZurfgNwnIR
+         2XKtNfyuw5OV0doaXiMLTVtkMUllTrjcfBR0obznXKKw7d0qTUEGRE2TUaDaNAYhOcIY
+         dmPQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783417444; x=1784022244; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:mime-version:from:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=6IY/mKMT+7EIk0NR66b+rv5i8rg86+n5XdCIF1mB5ps=;
+        b=UzuGaWkEBD5VT3bqbG0UOsJPM8o7GC5vI2lXh/24Fd2GJFYSmGPYH3ZTjBt74kB7+o
+         sKGFnBGn71Boon/aBdxzMA1Cm4alX+XNEHZWObLtaYfb4Ee+QIPKwtTM3lWNJCWuYoyT
+         djjl632BD+km9CFORwvkJ0vscRKRjQI+w/YjLfYmDvh7hqoAawej0o8oQVZC/3+XmvXm
+         uJIHAiAyaKvwbtMPjq3cUTYoHyvuOwM+YoHDeHN+xdHTqVIkvnBpNarxsdCn9O8sXGRc
+         55UimNbvwvYT7K8GiSPoOhoYYnTlYADJP8bLgKiEkkIo0gRo2Muu0BMbbr//YLIawaU4
+         ecJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783416935; x=1784021735;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bbT/31W+nDI+goBOogRFsrx2+HdUbut6Kmz6fgFzHhY=;
-        b=XN8AWlJFeAVBglW1OW5p2o+Smp3fN0sksK7TOBFuMvGRB9lsNWAB7kqbDZ3tL3kG8W
-         eWCi56+Qnpp0IK0m/Gd84r1IdeOWpA704q20gLhsCQ87QrZ61+CvokJTPlQLBQiUimaf
-         MFvUCGL23UU8yZ7HaOHzcFIMQ27Et9Op0o5ApUrzfVBnNE+7EHbjE3dZ3m1IjiSrADJc
-         +RrpXukxdbYxofj7VSrWmkglhNY4IynhwJYWMAoot10SjMcXNEDfCIaDGGGWslRIGAk+
-         7gyrPniPQadi1DvS+JKSEVvOAJJmj+8/dMLwEof00bGIOUDTa/Xy61Ip1HA3A+niCnmu
-         OvKA==
-X-Forwarded-Encrypted: i=1; AHgh+Roga/u7OOHSqwlcBIhTg4hPH0pWHHV7cp4SJKUuwfuMfx/JjAidMOBZ8oc8M+oAwkc+4ZPRVks=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw9euCY8f+RJDU5XC9PkkgsymZEsuJ2x8ZpaiqA702vUYDFIvPu
-	EMhE/opuFK7geDr3hyn/upSzl4zZ50OBMmsNWQy1WBN7uOgs2odQFuLCqpQWFNjWPijAI8jHiYW
-	CsO+mbIEyKSoMjWcidHsmQueO2ZKgrA+bxzJmHICgKdZat9p8r1E068Emy3Bnu8efj3zDm+Zpp6
-	twdqHoRokal9m98GOVSfxLIszpUxux2KxUmMnqM4dbnhDjvUdr
-X-Gm-Gg: AfdE7ckjOknxRQ3wWLYbrnqEQl1/VlsZlTp7Y8rYsOKrFEsEzSoKcRWZBnkX6op8/oT
-	NpNzRMQbcJWWjUwzmE7gut673pE+w46tbiexwFg9mRh6o2au/YNCmmuacxmYCUA0xdmBPZlW9yi
-	a/axygrGgVuqKQfOLcC7w5Qg34gzPia/70QH9l+fwLAnmOcDUJhJ1EbxjM+hD3Q9E0Zf/1Te7/Y
-	C/VrxlByASWek2NYxj8hCjqgx7JMduW7cHLddEnKBFdJUw57lL+GmK4hGG1pS05jSB2g6F2PCQm
-	pY+dCV4=
-X-Received: by 2002:a05:6a20:c5aa:b0:3c0:9c1a:8948 with SMTP id adf61e73a8af0-3c09c1a9c1bmr2553468637.64.1783416934874;
-        Tue, 07 Jul 2026 02:35:34 -0700 (PDT)
-X-Received: by 2002:a05:6a20:c5aa:b0:3c0:9c1a:8948 with SMTP id
- adf61e73a8af0-3c09c1a9c1bmr2553433637.64.1783416934523; Tue, 07 Jul 2026
- 02:35:34 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783417444; x=1784022244;
+        h=cc:to:subject:message-id:date:mime-version:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6IY/mKMT+7EIk0NR66b+rv5i8rg86+n5XdCIF1mB5ps=;
+        b=bhTS7Fs3cuLrJVmtUD3jJYyINNSVZoqsKey9kWfZN6G91laLG/TTJE/CGlxFz5ZUW+
+         khODGFheJ44FZ2ZdDr3rbdgtht0o01yQQj93ueG1FivvGScIddCgmVZ5TWyeraNoxKe3
+         EqAL1eAXVmsTIZ7ASylLDlHKIMXRmEuVtX/FISIRCYSXeXQKP5WglkXJIo7sQSAip4Q1
+         LmFt4fOyIjjlOHTsoOyYOHELfulvavPQgeC/bYP0ee3ShGzXqWCTM/+b3j+rZeueR3Ly
+         7GLNFdLjiqcfTEET9SDkbIwxi760yb8F+0RODRwUHBLUKjV999tb6fHIwkYHz4zsutSe
+         7aPQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoTVGvJjwHQ+d1haewv/0ameQJ5dPdPUrdlsuRy3Zehe71SnSNNwV3rhc4xRa/ze66S+pUHWow=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdF0vONBrRi2gp0IiNkmdS7T17KhteBgf9iGF/hwt6UgcXBCnn
+	WBflX+srhNiCnKEGdMP835k1d2DHsBll7EUVxFuEwGmh74CEorUAy+7uwhll5SsqCDe4RLbJQVs
+	RPdtiXWs7JRHfBMr7YAU4VNkI4H7GBcQ=
+X-Gm-Gg: AfdE7cmedeyrlQDn8G+p7QfqFG/MpOQ9XN/NO/Gapw8JgnEqT2WVdO7qjaDrh6z3fmi
+	P/5zAsv9xZyiZahYcT6Z+S+FsBgCpvAsVfOBkVAJ5FLMaCnF9vvCciO2/xFOt63Z5whZ+QPK4yh
+	MmJ0tFU1dlgcjLercNVs5A6Ne+m19a6/0LvwEdOSi73HRnGt6wFWf9jgSujBPBWTzbZ5ZDFngwJ
+	p2rKCq1IVMXjVQOadnUrJdzOxbhW+AnqlXpBQKXyXHBcK6uqcOfdoke9xKfO+xIYp5R3wX/XTOJ
+	xH0rDHnQ
+X-Received: by 2002:a05:6a21:6b10:b0:3bf:a881:4094 with SMTP id
+ adf61e73a8af0-3c08ef1a391mr5448642637.50.1783417443603; Tue, 07 Jul 2026
+ 02:44:03 -0700 (PDT)
+Received: from 1092881822491 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 7 Jul 2026 02:44:02 -0700
+Received: from 1092881822491 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 7 Jul 2026 02:44:02 -0700
+From: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260630214404.930923-1-anthony.l.nguyen@intel.com>
- <20260630214404.930923-2-anthony.l.nguyen@intel.com> <0496c117-0731-4de4-9f5d-7fdacf34bd71@redhat.com>
-In-Reply-To: <0496c117-0731-4de4-9f5d-7fdacf34bd71@redhat.com>
-From: Aaron Ma <aaron.ma@canonical.com>
-Date: Tue, 7 Jul 2026 17:35:22 +0800
-X-Gm-Features: AVVi8CfFkGBoEQGbtTlj_qWkJDI5c9F_6NwSBaUWRPxR7DFsx1-u2mFLOdzGCoU
-Message-ID: <CAJ6xRxVwD9nLk96y6-HNSFt1AL8o=24UMUGxCYZdht2_+36Xhg@mail.gmail.com>
-Subject: Re: [PATCH net 1/4] ice: wait for reset completion in ice_resume()
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>, davem@davemloft.net, kuba@kernel.org, 
-	edumazet@google.com, andrew+netdev@lunn.ch, netdev@vger.kernel.org, 
-	jbrandeb@kernel.org, stable@vger.kernel.org, Kohei Enju <kohei@enjuk.jp>, 
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, 
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
-	Alexander Nowlin <alexander.nowlin@intel.com>
+Date: Tue, 7 Jul 2026 02:44:02 -0700
+X-Gm-Features: AVVi8CeAT_OA9I2IsuPak2sakCvGMoGjVHPoDt2Zql55ZYfd9txoChbdSuTIMJc
+Message-ID: <CADAuDAMMqYM9o0KvYon8__rjhkKWCY35f5=oOSX9HAYt_y4KOA@mail.gmail.com>
+Subject: [PATCH v2] smb: client: restrict implied bcc[0] exemption to
+ responses without data area
+To: Steve French <sfrench@samba.org>, linux-cifs@vger.kernel.org
+Cc: Paulo Alcantara <pc@manguebit.org>, Pavel Shilovsky <piastryyy@gmail.com>, 
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
+	Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 7, 2026 at 4:28=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wrot=
-e:
->
-> On 6/30/26 11:43 PM, Tony Nguyen wrote:
-> > From: Aaron Ma <aaron.ma@canonical.com>
-> >
-> > ice_resume() schedules an asynchronous PF reset and returns
-> > immediately. The reset runs later in ice_service_task(). If
-> > userspace tries to bring up the net device before the reset
-> > finishes, ice_open() fails with -EBUSY:
-> >
-> >   ice_resume()
-> >     ice_schedule_reset()          # sets ICE_PFR_REQ, returns
-> >   ...
-> >   ice_open()
-> >     ice_is_reset_in_progress()    # ICE_PFR_REQ still set, -EBUSY
-> >   ...
-> >   ice_service_task()
-> >     ice_do_reset()
-> >       ice_rebuild()               # clears ICE_PFR_REQ, too late
-> >
-> > Reproduced on E800 series NICs during suspend/resume with irdma
-> > enabled, where the aux device probe widens the race window.
-> >
-> >   ice 0000:81:00.0: can't open net device while reset is in progress
-> >
-> > Add a best-effort wait (10s timeout, matching ice_devlink_info_get())
-> > for the reset to complete before returning from ice_resume(). In
-> > practice the reset completes in ~300ms.
->
-> Would not be better to (eventually) wait in ice_open()? Why? AFAICS that
-> would be also more consistent with i.e. the current wait in
-> ice_devlink_info_get().
->
-> Otherwise why don't consolidate all the wait at resume time and remove
-> the other one in ice_devlink_info_get()?
->
+smb2_check_message() has a long-standing quirk that accepts a response
+whose calculated length is one byte larger than the bytes actually
+received ("server can return one byte more due to implied bcc[0]").
+This was introduced to accommodate servers that omit the trailing bcc[0]
+overlap byte when no data area is present.
 
-Hi Paolo,
+However, the exemption is applied unconditionally, regardless of whether
+the command actually carries a data area (has_smb2_data_area[]).  When a
+response with a data area is subject to the +1 exemption, the reported
+data can extend one byte beyond the bytes actually received, yet
+smb2_check_message() still accepts it.  The subsequent decoder then reads
+past the end of the receive buffer.  This is reachable during NEGOTIATE
+and SESSION_SETUP, before the session is established.
 
-ice_open() is where the failure is observed, but it is not what creates
-this race. ice_resume() schedules a PFR and returns success before that
-reset/rebuild has completed, so userspace can call open immediately after
-resume and hit -EBUSY.
+The resulting out-of-bounds reads are visible under KASAN when mounting
+against a non-conforming server; both the SPNEGO/negTokenInit and the
+NTLMSSP challenge decoders are affected:
 
-Waiting in ice_resume() keeps the fix scoped to the PM path and to the
-reset initiated by resume. Moving the wait into ice_open() would change
-all opens during any reset from immediate -EBUSY to sleeping, and ndo_open
-runs under RTNL.
+  BUG: KASAN: slab-out-of-bounds in asn1_ber_decoder+0x16a7/0x1b00
+  Read of size 1 at addr ffff8880084d67c0 by task mount.cifs/81
+  CPU: 1 UID: 0 PID: 81 Comm: mount.cifs Not tainted 7.1.0-rc6 #1
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x4e/0x70
+   print_report+0x157/0x4c9
+   kasan_report+0xce/0x100
+   asn1_ber_decoder+0x16a7/0x1b00
+   decode_negTokenInit+0x19/0x30
+   SMB2_negotiate+0x31d9/0x4c90
+   cifs_negotiate_protocol+0x1f2/0x3f0
+   cifs_get_smb_ses+0x93f/0x17e0
+   cifs_mount_get_session+0x7f/0x3a0
+   cifs_mount+0xb4/0xcf0
+   cifs_smb3_do_mount+0x23a/0x1500
+   smb3_get_tree+0x3b0/0x630
+   vfs_get_tree+0x82/0x2d0
+   fc_mount+0x10/0x1b0
+   path_mount+0x50d/0x1de0
+   __x64_sys_mount+0x20b/0x270
+   do_syscall_64+0xee/0x590
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+  Allocated by task 85:
+   kmem_cache_alloc_noprof+0x106/0x380
+   mempool_alloc_noprof+0x116/0x1e0
+   cifs_small_buf_get+0x31/0x80
+   allocate_buffers+0x10d/0x2b0
+   cifs_demultiplex_thread+0x1d5/0x1d50
+   kthread+0x2c6/0x390
+   ret_from_fork+0x36e/0x5a0
+   ret_from_fork_asm+0x1a/0x30
+  The buggy address is located 0 bytes to the right of
+   allocated 448-byte region [ffff8880084d6600, ffff8880084d67c0)
+   which belongs to the cache cifs_small_rq of size 448
 
-The devlink wait should stay because ice_devlink_info_get() is reached by
-DEVLINK_CMD_INFO_GET userspace requests and reads device/FW state. That
-path still needs protection from resets unrelated to PM resume.
+  BUG: KASAN: slab-out-of-bounds in kmemdup_noprof+0x36/0x50
+  Read of size 329 at addr ffff88800726c678 by task mount.cifs/89
+  CPU: 0 UID: 0 PID: 89 Comm: mount.cifs Tainted: G    B      7.1.0-rc6 #1
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x4e/0x70
+   print_report+0x157/0x4c9
+   kasan_report+0xce/0x100
+   kasan_check_range+0x10f/0x1e0
+   __asan_memcpy+0x23/0x60
+   kmemdup_noprof+0x36/0x50
+   decode_ntlmssp_challenge+0x457/0x680
+   SMB2_sess_auth_rawntlmssp_negotiate+0x6f0/0xcb0
+   SMB2_sess_setup+0x219/0x4f0
+   cifs_setup_session+0x248/0xaf0
+   cifs_get_smb_ses+0xf79/0x17e0
+   cifs_mount_get_session+0x7f/0x3a0
+   cifs_mount+0xb4/0xcf0
+   cifs_smb3_do_mount+0x23a/0x1500
+   smb3_get_tree+0x3b0/0x630
+   vfs_get_tree+0x82/0x2d0
+   fc_mount+0x10/0x1b0
+   path_mount+0x50d/0x1de0
+   __x64_sys_mount+0x20b/0x270
+   do_syscall_64+0xee/0x590
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+  Allocated by task 93:
+   kmem_cache_alloc_noprof+0x106/0x380
+   mempool_alloc_noprof+0x116/0x1e0
+   cifs_small_buf_get+0x31/0x80
+   allocate_buffers+0x10d/0x2b0
+   cifs_demultiplex_thread+0x1d5/0x1d50
+   kthread+0x2c6/0x390
+   ret_from_fork+0x36e/0x5a0
+   ret_from_fork_asm+0x1a/0x30
+  The buggy address is located 120 bytes inside of
+   allocated 448-byte region [ffff88800726c600, ffff88800726c7c0)
+   which belongs to the cache cifs_small_rq of size 448
 
-Aaron
+Restrict the +1 exemption to responses that have no data area, so that
+it still covers the bcc[0] omission it was meant for.  When a data area
+is present, the +1 discrepancy instead means the reported data length
+overruns the received buffer, so the response must be rejected.
 
-> /P
->
+Fixes: 093b2bdad322 ("CIFS: Make demultiplex_thread work with SMB2 code")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
+---
+v2: resend only; no code changes.  v1 was line-wrapped in transit by the
+    mail path, corrupting the diff's "@@" context lines so it would not
+    apply.  Resent with the body protected against re-wrapping.
+
+    v1: https://lore.kernel.org/linux-cifs/CADAuDAPSq+BUcB1SkHqkZsF364mShyE6jsaB+vk9zm=5Q+LHFw@mail.gmail.com/
+
+ fs/smb/client/smb2misc.c | 32 ++++++++++++++++++++++++++------
+ 1 file changed, 26 insertions(+), 6 deletions(-)
+
+diff --git a/fs/smb/client/smb2misc.c b/fs/smb/client/smb2misc.c
+index 2a7355ce1a07..6270b33147d2 100644
+--- a/fs/smb/client/smb2misc.c
++++ b/fs/smb/client/smb2misc.c
+@@ -19,6 +19,8 @@
+ #include "nterr.h"
+ #include "cached_dir.h"
+
++static unsigned int __smb2_calc_size(void *buf, bool *have_data);
++
+ static int
+ check_smb2_hdr(struct smb2_hdr *shdr, __u64 mid)
+ {
+@@ -145,6 +147,7 @@ smb2_check_message(char *buf, unsigned int
+pdu_len, unsigned int len,
+ 	int command;
+ 	__u32 calc_len; /* calculated length */
+ 	__u64 mid;
++	bool have_data;
+
+ 	/* If server is a channel, select the primary channel */
+ 	pserver = SERVER_IS_CHAN(server) ? server->primary_server : server;
+@@ -228,7 +231,8 @@ smb2_check_message(char *buf, unsigned int
+pdu_len, unsigned int len,
+ 		}
+ 	}
+
+-	calc_len = smb2_calc_size(buf);
++	have_data = false;
++	calc_len = __smb2_calc_size(buf, &have_data);
+
+ 	/* For SMB2_IOCTL, OutputOffset and OutputLength are optional, so might
+ 	 * be 0, and not a real miscalculation */
+@@ -247,8 +251,13 @@ smb2_check_message(char *buf, unsigned int
+pdu_len, unsigned int len,
+ 		/* Windows 7 server returns 24 bytes more */
+ 		if (calc_len + 24 == len && command == SMB2_OPLOCK_BREAK_HE)
+ 			return 0;
+-		/* server can return one byte more due to implied bcc[0] */
+-		if (calc_len == len + 1)
++		/*
++		 * Server can return one byte more due to implied bcc[0].
++		 * Allow it only when there is no data area; if data_length > 0
++		 * the +1 gap indicates an overreported data length rather than
++		 * the bcc[0] omission.
++		 */
++		if (calc_len == len + 1 && !have_data)
+ 			return 0;
+
+ 		/*
+@@ -409,14 +418,17 @@ smb2_get_data_area_len(int *off, int *len,
+struct smb2_hdr *shdr)
+ /*
+  * Calculate the size of the SMB message based on the fixed header
+  * portion, the number of word parameters and the data portion of the message.
++ * If have_data is non-NULL, it is set to true when a non-empty data area was
++ * found (data_length > 0), allowing callers to distinguish the implied bcc[0]
++ * case (no data area) from an overreported data length.
+  */
+-unsigned int
+-smb2_calc_size(void *buf)
++static unsigned int
++__smb2_calc_size(void *buf, bool *have_data)
+ {
+ 	struct smb2_pdu *pdu = buf;
+ 	struct smb2_hdr *shdr = &pdu->hdr;
+ 	int offset; /* the offset from the beginning of SMB to data area */
+-	int data_length; /* the length of the variable length data area */
++	int data_length = 0; /* the length of the variable length data area */
+ 	/* Structure Size has already been checked to make sure it is 64 */
+ 	int len = le16_to_cpu(shdr->StructureSize);
+
+@@ -449,9 +461,17 @@ smb2_calc_size(void *buf)
+ 	}
+ calc_size_exit:
+ 	cifs_dbg(FYI, "SMB2 len %d\n", len);
++	if (have_data)
++		*have_data = (data_length > 0);
+ 	return len;
+ }
+
++unsigned int
++smb2_calc_size(void *buf)
++{
++	return __smb2_calc_size(buf, NULL);
++}
++
+ /* Note: caller must free return buffer */
+ __le16 *
+ cifs_convert_path_to_utf16(const char *from, struct cifs_sb_info *cifs_sb)
+-- 
+2.52.0
