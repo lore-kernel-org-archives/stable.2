@@ -1,170 +1,197 @@
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC51F379EC8;
-	Tue,  7 Jul 2026 23:39:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA11B349CD1;
+	Tue,  7 Jul 2026 23:41:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783467569; cv=none; b=sKwVq8Lnpo2F/Z5BTf7giJCcmd7HtYQbnkTjBocpU5kb7CcqOGzovmzF6qos7dPN8jAezruB54TlR2YRZf8FlshlSQfpIA+vu2VHroYSAeYZDq5F0a0VAuPx5aYMdrwFnzxzhFJ2REjOlIyFV0lRahy0zPYg6ihceJtgnJqcXMw=
+	t=1783467687; cv=none; b=RCIGk+YmuPmZE1YT41wsSvqp4LCrdd8aezw/hkxdH7fTpW9kKz5uv/eY4pcjkfbetdW6RqxXr8R5EFnm5tWO5/kprJhH96DJjsymCA7SwoO/q2K/FTZM/rkoizpvhpb/g6bG/GzTRoYyfw6LvGsYpIJuCwZbszeBxLinpOHf0FA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783467569; c=relaxed/simple;
-	bh=XmSZYpteiO4P6aiNokFtxVG4/ZTXiL0iFv5bH0jEpiU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DaAGcQvILD6MDirOrjoEusb4x8FRrjJDLigzS/tZyZYK1PNgr5XoaKfMDs4Q35FMVQvlp0Ojq1Z5+PT16l8QCJNwgMAz3A+Fq4gACstvfSlCesbfOfb9v21vQy1YWJDkOW7o5sr8gp7R4ImKGM9D+jA4OeKxy1nLSUgY4EoyVb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=nGP2rKKN; arc=none smtp.client-ip=205.220.165.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	s=arc-20240116; t=1783467687; c=relaxed/simple;
+	bh=i7ewHuxzPkA9KoYX7/PxaB7lMMRloxdH1dHoMAPbIaM=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=PhoX7+iRppDbC4pJp326vUsoRX9mEnMKyRhGbFQ75vA9yM0cfMiBVnYq3nFy0cd/ck2gXDbtVC3Sbyj2ktjU55plnsSNyQ6uN5yD3zt3ICBCYLwQGucvDpPC8LCRzK6Sm6aZ20XPheql+iHwpKFbJXfk1KUZ4ve6nyr+Ny5YCqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FRXKYv9y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="nGP2rKKN"
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667JBcPG1376103;
-	Tue, 7 Jul 2026 23:39:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=corp-2025-04-25; bh=sxjbhGPBIqgVVqJCzfTryvOFJNy5B
-	GsBTOu6R5Gshc8=; b=nGP2rKKNQ+nUd8S7qepTdyifwIJ4z/qOUCJi7oD/ppMGP
-	z7EL+QnU3qjzoASGP1VCe1RVcWV6LrsOpuGYtIlmZHwmuElrI2d/3w0o3NyOqbuC
-	1MEnuTPbO/ere3tHXSwLzslQ9gJa4WuXchclhg+4tu3ltzb52sY2kfZ+g516tN4f
-	gjJwK61HVYf7tddNdgKHlcjnFZF7vg94uKZLVGTqFAyHRxYkcaveZiwUybkUlqLs
-	IMXKdz6cWBeYsrCzGGyPNboGZOR+zhNnBJGuJo1DlluklimYVyxOOmtWbSiW16iT
-	y7SCrB0VAeV4VqTzoVg3Zq04E/Ny26c2v9z/iGhxQ==
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4f6rs1en4q-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 07 Jul 2026 23:39:14 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 667Nch2B007571;
-	Tue, 7 Jul 2026 23:39:13 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4f84vywusa-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 07 Jul 2026 23:39:13 +0000 (GMT)
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 667NdCVU009154;
-	Tue, 7 Jul 2026 23:39:12 GMT
-Received: from mbpatil-ws.osdevelopmeniad.oraclevcn.com (mbpatil-ol10-ws.webad1iad.osdevelopmeniad.oraclevcn.com [100.100.228.95])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4f84vywus3-1;
-	Tue, 07 Jul 2026 23:39:12 +0000 (GMT)
-From: Manjunath Patil <manjunath.b.patil@oracle.com>
-To: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
-        Mark Bloch <mbloch@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
-        netdev@vger.kernel.org
-Cc: Manjunath Patil <manjunath.b.patil@oracle.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S . Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        Patrisious Haddad <phaddad@nvidia.com>, linux-rdma@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH net v2] net/mlx5e: Use sender devcom for MPV master-up
-Date: Tue,  7 Jul 2026 16:39:11 -0700
-Message-ID: <20260707233911.3651139-1-manjunath.b.patil@oracle.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FRXKYv9y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ED711F00A3A;
+	Tue,  7 Jul 2026 23:41:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783467685;
+	bh=GDdmt2xyO1Z29g9+aEQM+ouN+QmqVB/Ldi7iq44JXu8=;
+	h=Date:From:To:Cc:Subject:References;
+	b=FRXKYv9ypeo5O68Un9yvd6hK7X84fuJS2hSD5hox+67BYqAxUUC5o3kXon33PZ9Io
+	 XQM3Z83iCBZUbpD6btj4XmSUXV3xOiijEwGLc7Yr+VduLThaYISFx5I0/K+XkgaciA
+	 4bsVc+uMg47NhNvNTRdNMi8eU8jldQUgWwpCHgKsjKnZNxQBFqP6vhrW7kAE8ViBSS
+	 ISplrELDIfduOwSZ5pteKz6SDHooQcrb4VF8H4eUq1gRQz1RIAI7amVnnowlyFwlz7
+	 tFKfJR4xFfXqGMUwwZVfcDlFM2qlvam2OBEy2iq8VEEfg7MOuzZf1Boup6KHgxhnGn
+	 xJ7tWXmNGbejA==
+Received: from rostedt by gandalf with local (Exim 4.99.4)
+	(envelope-from <rostedt@kernel.org>)
+	id 1whFPt-00000000xpd-2Jo5;
+	Tue, 07 Jul 2026 19:41:29 -0400
+Message-ID: <20260707234129.394585410@kernel.org>
+User-Agent: quilt/0.69
+Date: Tue, 07 Jul 2026 19:34:22 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ stable@vger.kernel.org,
+ XIAO WU <xiaowu.417@qq.com>,
+ Beau Belgrave <beaub@linux.microsoft.com>,
+ Michael Bommarito <michael.bommarito@gmail.com>
+Subject: [for-linus][PATCH 1/2] tracing/user_events: Fix use-after-free in user_event_mm_dup()
+References: <20260707233421.684046879@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_06,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- phishscore=0 mlxscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
- spamscore=0 mlxlogscore=999 bulkscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2606160000 definitions=main-2607070232
-X-Proofpoint-ORIG-GUID: OqmvzcRV48Hhv-kIVH8wqed3rek77pyZ
-X-Proofpoint-GUID: OqmvzcRV48Hhv-kIVH8wqed3rek77pyZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDIzMiBTYWx0ZWRfX98drcER9Ra0a
- KRSs4/BxSwcf8a5X/XfzBok7kwQZbPYsAaU8mfuZCLGIcf/sCQpLzn8R8nAfdeMs9dUnW+vEA/y
- kUuqxjUYwCnDqFTuvSp3orANiVpvK9gLzykFT6xFvvLNq87tAYYyRKCTSx1OUpdjARweC8VVGx0
- g/y2sMODYfkl2xLtDlHZLpBOHFncCOdNw7Fpu8EwE5byJci6C2Du6jB1FhVPknD+quDB5IVRJOn
- uLkTP7eruzVyUhsuISiO41OBtxQVSqF5iPDdVUpx3uBq3iOt+gqbNrqYTsTNhwRBwVjU7VHiNBh
- ohJhEOLnEnX9yMYAQy69YgzzSs7Q0NiVUgWzgQhapqwHZGp/Efbv5VJdgjSYPY8IPaa4lSjLth3
- twXRp+YNrek8+53NbKRc6XzIldDngJORcSfp0jgu45Dhbf7BZmPrbIeYsJDr0mqpStDe9Fmdi+B
- oDFz7JlmmpDUj7ZVzJNp/c7d0tdvSoiuFGgN+G9w=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDIzMiBTYWx0ZWRfX46Ja22MijOuy
- Ftp2RO1ZEmMsg4DVvCABSnB/45etxYGJq9o3QZIYnQA0GRdQHX4h72HPJ3VdwkjH6sY1d8yXpZ2
- 2kud1hjb9MKbPUozxxywUuZo6tGm5Vu300DrmVy8B+NCwFaq400A
-X-Authority-Analysis: v=2.4 cv=Vu0Txe2n c=1 sm=1 tr=0 ts=6a4d8e22 b=1 cx=c_pps
- a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=RD47p0oAkeU5bO7t-o6f:22 a=yPCof4ZbAAAA:8 a=VwQbUJbxAAAA:8
- a=JXUkVfB3YJkj4ag9OGkA:9 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22
- cc=ntf awl=host:13633
+Content-Type: text/plain; charset=UTF-8
 
-After PCIe DPC recovery, mlx5 reloads the affected functions and
-replays multiport affiliation events. In the reported failure, the
-first relevant device error was:
+From: Michael Bommarito <michael.bommarito@gmail.com>
 
-  pcieport 0000:10:01.1: DPC: containment event
-  pcieport 0000:10:01.1: PCIe Bus Error: severity=Uncorrected (Fatal)
-  pcieport 0000:10:01.1:    [ 5] SDES                   (First)
+user_event_mm_dup() walks the parent mm's enabler list locklessly under
+rcu_read_lock() during fork() (from copy_process()); it does not take
+event_mutex:
 
-mlx5 recovered the PCI functions and resumed 0000:11:00.1. During
-that resume, RDMA multiport binding replayed
-MLX5_DRIVER_EVENT_AFFILIATION_DONE and mlx5e sent
-MPV_DEVCOM_MASTER_UP. The host then panicked with:
+	rcu_read_lock();
+	list_for_each_entry_rcu(enabler, &old_mm->enablers, mm_enablers_link)
+		enabler->event = user_event_get(orig->event);
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000010
-  RIP: mlx5_devcom_comp_set_ready+0x5/0x40 [mlx5_core]
-  RDI: 0000000000000000
+user_event_enabler_destroy() removes an enabler from that list with
+list_del_rcu() and then, without waiting for a grace period, drops the
+enabler's user_event reference with user_event_put() and frees the enabler
+with kfree(). A reader that loaded the enabler before the list_del_rcu()
+can still be walking it, which leads to two use-after-frees:
 
-Call trace included:
+ - kfree(enabler) frees the enabler while that reader dereferences
+   enabler->event.
 
-  mlx5_devcom_comp_set_ready
-  mlx5e_devcom_event_mpv
-  mlx5_devcom_send_event
-  mlx5_ib_bind_slave_port
-  mlx5r_mp_probe
-  mlx5_pci_resume
+ - user_event_put() may drop the last reference to the user_event, which
+   is then freed (via delayed_destroy_user_event() on a work queue), while
+   the same reader does user_event_get(orig->event) on it.
 
-MPV devcom registration publishes mlx5e private data to the component
-peer list before mlx5e_devcom_init_mpv() stores the returned component
-device in priv->devcom. A concurrent master-up event can therefore
-reach a peer whose private data is visible but whose priv->devcom
-backpointer is still NULL.
+Both are reachable by an unprivileged task that can open user_events_data:
+one multithreaded process that registers an enabler and then concurrently
+unregisters it and calls fork() triggers the race. KASAN reports a
+slab-use-after-free in user_event_mm_dup() during clone(), with a
+"refcount_t: addition on 0" warning when the user_event is freed.
 
-MPV_DEVCOM_MASTER_UP already carries the sender/master mlx5e private
-data as event_data. The ready bit is stored on the shared devcom
-component, not on an individual peer. Use the sender devcom when
-marking the MPV component ready.
+The enabler use-after-free was found first; the user_event one was reported
+by XIAO WU, and the earlier enabler-only fix did not address it.
 
-This preserves the readiness transition while avoiding a NULL
-dereference of the peer devcom pointer during affiliation replay after
-PCI error recovery.
+Defer both the user_event_put() and the kfree(enabler) to a work item
+queued with queue_rcu_work(), so they run only after an RCU grace period,
+once all readers walking the enabler list have finished. The put must run
+in process context because user_event_put() takes event_mutex on the last
+reference, so a work queue is used rather than call_rcu(). The now-unlocked
+put lets the locked argument of user_event_enabler_destroy() be removed;
+all callers are updated.
 
-Fixes: bf11485f8419 ("net/mlx5: Register mlx5e priv to devcom in MPV mode")
-Assisted-by: Codex:gpt-5
-Signed-off-by: Manjunath Patil <manjunath.b.patil@oracle.com>
-Cc: stable@vger.kernel.org # 6.7+
+Fixes: 7235759084a4 ("tracing/user_events: Use remote writes for event enablement")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260707165912.2560537-2-michael.bommarito@gmail.com
+Reported-by: XIAO WU <xiaowu.417@qq.com>
+Closes: https://lore.kernel.org/all/tencent_89647CE40DC452B891C65C94D1B271DE8E07@qq.com/
+Suggested-by: Beau Belgrave <beaub@linux.microsoft.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
-v2:
-- Drop defensive master_priv/master_priv->devcom check as suggested by Tariq.
-- Resend as an independent thread per netdev posting rules.
+ kernel/trace/trace_events_user.c | 39 ++++++++++++++++++++++++++------
+ 1 file changed, 32 insertions(+), 7 deletions(-)
 
- drivers/net/ethernet/mellanox/mlx5/core/en_main.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-index 8f2b3abe0092..9b27afeb9b12 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-@@ -211,11 +211,11 @@ static void mlx5e_disable_async_events(struct mlx5e_priv *priv)
+diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+index c4ba484f7b38..8c82ecb735f4 100644
+--- a/kernel/trace/trace_events_user.c
++++ b/kernel/trace/trace_events_user.c
+@@ -109,6 +109,9 @@ struct user_event_enabler {
  
- static int mlx5e_devcom_event_mpv(int event, void *my_data, void *event_data)
+ 	/* Track enable bit, flags, etc. Aligned for bitops. */
+ 	unsigned long		values;
++
++	/* Defer the event put and enabler free past an RCU grace period. */
++	struct rcu_work		put_rwork;
+ };
+ 
+ /* Bits 0-5 are for the bit to update upon enable/disable (0-63 allowed) */
+@@ -396,17 +399,39 @@ static struct user_event_group *user_event_group_create(void)
+ 	return NULL;
+ };
+ 
+-static void user_event_enabler_destroy(struct user_event_enabler *enabler,
+-				       bool locked)
++static void delayed_user_event_enabler_put(struct work_struct *work)
  {
--	struct mlx5e_priv *slave_priv = my_data;
-+	struct mlx5e_priv *master_priv = event_data;
+-	list_del_rcu(&enabler->mm_enablers_link);
++	struct user_event_enabler *enabler = container_of(to_rcu_work(work),
++			struct user_event_enabler, put_rwork);
  
- 	switch (event) {
- 	case MPV_DEVCOM_MASTER_UP:
--		mlx5_devcom_comp_set_ready(slave_priv->devcom, true);
-+		mlx5_devcom_comp_set_ready(master_priv->devcom, true);
- 		break;
- 	case MPV_DEVCOM_MASTER_DOWN:
- 		/* no need for comp set ready false since we unregister after
-
-base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+ 	/* No longer tracking the event via the enabler */
+-	user_event_put(enabler->event, locked);
++	user_event_put(enabler->event, false);
+ 
++	/* Run from queue_rcu_work(), the RCU grace period has elapsed */
+ 	kfree(enabler);
+ }
+ 
++static void user_event_enabler_destroy(struct user_event_enabler *enabler)
++{
++	list_del_rcu(&enabler->mm_enablers_link);
++
++	/*
++	 * The enabler is removed from an RCU-traversed list
++	 * (user_event_mm_dup() walks mm->enablers under rcu_read_lock() only),
++	 * and readers there dereference enabler->event and take a new ref on
++	 * it. Both the put of that event reference and the free of the enabler
++	 * therefore have to wait for a grace period so no reader can be looking
++	 * at the enabler or racing the last put of its event.
++	 *
++	 * The put itself must not run in RCU context: when it drops the last
++	 * reference user_event_put() takes event_mutex, which cannot be taken
++	 * from a softirq/RCU callback. Defer both to a work item scheduled
++	 * after a grace period via queue_rcu_work().
++	 */
++	INIT_RCU_WORK(&enabler->put_rwork, delayed_user_event_enabler_put);
++	queue_rcu_work(system_percpu_wq, &enabler->put_rwork);
++}
++
+ static int user_event_mm_fault_in(struct user_event_mm *mm, unsigned long uaddr,
+ 				  int attempt)
+ {
+@@ -464,7 +489,7 @@ static void user_event_enabler_fault_fixup(struct work_struct *work)
+ 
+ 	/* User asked for enabler to be removed during fault */
+ 	if (test_bit(ENABLE_VAL_FREEING_BIT, ENABLE_BITOPS(enabler))) {
+-		user_event_enabler_destroy(enabler, true);
++		user_event_enabler_destroy(enabler);
+ 		goto out;
+ 	}
+ 
+@@ -764,7 +789,7 @@ static void user_event_mm_destroy(struct user_event_mm *mm)
+ 	struct user_event_enabler *enabler, *next;
+ 
+ 	list_for_each_entry_safe(enabler, next, &mm->enablers, mm_enablers_link)
+-		user_event_enabler_destroy(enabler, false);
++		user_event_enabler_destroy(enabler);
+ 
+ 	mmdrop(mm->mm);
+ 	kfree(mm);
+@@ -2645,7 +2670,7 @@ static long user_events_ioctl_unreg(unsigned long uarg)
+ 			flags |= enabler->values & ENABLE_VAL_COMPAT_MASK;
+ 
+ 			if (!test_bit(ENABLE_VAL_FAULTING_BIT, ENABLE_BITOPS(enabler)))
+-				user_event_enabler_destroy(enabler, true);
++				user_event_enabler_destroy(enabler);
+ 
+ 			/* Removed at least one */
+ 			ret = 0;
 -- 
-2.47.3
+2.53.0
+
+
