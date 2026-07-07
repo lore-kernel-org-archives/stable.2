@@ -1,156 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BE0372049;
-	Tue,  7 Jul 2026 16:34:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECE1436BF7
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 16:59:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783442087; cv=none; b=lLGo/lOgUsSvJpRdkr7TOZSfStC8/7AdCNdn0CLqfA2jzbyx169HmX6+dnd0FTNVaF38QcbPrKDY0DhS1ixaudOOa4Bxe6V6XJrvPHDadoiV2KaSwNdcrwkvJwX2dyWUXInmyDj7Pl28yBURGy4brx3H+0mHNXdglKXihi6rrMU=
+	t=1783443569; cv=none; b=jGGiD97u3zeaxNWySkvLB4dIAfgueDmVwr6ErZpnsnRyPU9yP5R9z7JtDDQJ9Cw1QPzNLHYgLyTc5evWc6Tt2OIcYgXBmSG3W1eIi4a8AMF+L7Gi2P49O/px2BH7o4GqJLY1MdXoxNiw2seoRXs7XhEAUdQVwJlqhcfRDhro8bo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783442087; c=relaxed/simple;
-	bh=bzmmNjWNoByhDI6dgx4tUqhISKbl8qeLsThW83gif74=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OUgzOGKpqDbzBvnyOrYtMHI5CIhnufe4UExDgep1603m53XcgrQWfhWp3RbK0P0z+gXmMX/GctXixWqVRcfarlw8Ux5thOfS1slMaOKUWrWDxybU0yaC98uXy5pbcTOq+/GpZyhnqRBWyzfSeQhIHtl1Hqiy5Fiv4aUSWKIVpIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oFIqNbpB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783443569; c=relaxed/simple;
+	bh=nUUN0xPWz7q2RyvUCKORU7VqMpHCgFB281JF3872N24=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gqtmqURerrNmJp1BB69NWZ74jQFCh8qAB5TnA4P3vnc0vHFtmdEY0D5xYWGPJk4N71Er8QsLoJvaOeIwJDINuIAPT7Ur6qBEEOGRSlJDLWLttfSHTXPVl9d9c/7KwenfmVSv+ZHt+dJilI3pJPnFwz63+SZMrU+WBC41V5muYRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XuBZQp97; arc=none smtp.client-ip=209.85.222.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oFIqNbpB"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BA8901F00A3F;
-	Tue,  7 Jul 2026 16:34:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783442085;
-	bh=tZcLryMq0GfqD3hqiAhCR8GgrCu5Cgs8YAQ8kMmo71g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oFIqNbpBqKsrVsL9/BtNdClqZ8yUoL98ab5wnjGZT/Jqb/ojGrzs6r3/MqnXHiGHJ
-	 qf+INbOF4kcju9HbZ3GjgwNp4MURvfgyHjQO5d9AOQYTYZRa1QnKTq22YSa8FNGGsU
-	 eGY2JK62Pk8BGXJvN49w0J0moi5bMtpmFl9jz4juIRbEdMJCOfy4mRTZPpB/APQqGV
-	 aMY7ohl0UBTKewlvBkdJWPYFDT4hfs8ZjNeqLVgOJ6xFBruArA3wIBhZSvYb2tQKJs
-	 Z2btYtYN9mZmXSSm+brU0TQ4aMQmSXn847DLn9NGGQmOfqSeZQ8xrh1ObD5zllfK80
-	 J/3L9K632qi1w==
-Date: Tue, 7 Jul 2026 09:34:45 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
-	Brian Foster <bfoster@redhat.com>, Xiang Mei <xmei5@asu.edu>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] xfs: reject attr leaf blocks with inconsistent usedbytes
-Message-ID: <20260707163445.GA9392@frogsfrogsfrogs>
-References: <20260703151543.3335583-2-bestswngs@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XuBZQp97"
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-920f33347f5so219169185a.3
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 09:59:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783443566; x=1784048366; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yXrrKa9i86QRbnd8WzAz8n5WCs4Qj9PVK9gVjYwwX4I=;
+        b=XuBZQp97fCN21qhSYUd3Ikv/WqP/EV4C4Scjrzwt7OV48cLuevXOAtcgJBThJ4bRIZ
+         WWMdxtMXInMfkUTh2hn1Ek2H5eS28NVADBgcNxIpIUXUDGF+hHIrnGVnkJ85kcFV+M1Z
+         Mie120JmQcfY+a+0iaxBsrE8RC07ijoYKXLRw5swfoKtB4902Y3TXw/1d/PHINg1wx0I
+         dL9KFWe77GGbiwdC04Dd+ZouxbbusTJ3Q5kC3ohK+JsmowZxiU3gJzompLQQCX97Igrt
+         R1RVzy6Gtg1UmJ+ec1QB4J9LedOl9GFbDn7+XVfdpqP5Nn+T9BW7rYgzSlBOmZDfyUTt
+         1LlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783443566; x=1784048366;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yXrrKa9i86QRbnd8WzAz8n5WCs4Qj9PVK9gVjYwwX4I=;
+        b=pgD6mDol2nXBC+vIA7l8KFOmShq7DNDsSnLYRncyu8vkyOKqu1f2U3cp+0D2lUSG7k
+         g+BeWZ+7cYcVS6B9E/YIsPeU2CHNYf19Q0ANR8jM7yr3DgW6MqJyawrar4sR3YAP/x5E
+         z+WRA/TE6WDInVi95H4R/pjkoyLkHzdJbzL+F4eidH/pxsdG/73nXnkBx5Pt9ELg72pM
+         OViUto7YWJo7GxUTvytpXuGi1U+Zc7FzkIVZhUhld0AERJ09y/4wxZN4eXjoQoU8btdr
+         AzpPAOmFJJEJnqsoSknAIHI93dxi0U8lEIq6GC5EOOsPT2I6MhK6iOcoEEBBuR1opOjt
+         nafQ==
+X-Forwarded-Encrypted: i=1; AHgh+RofvG+4eVWCvvgoq4k1fFOVdfDucPT59t623QPP790HcevfvR5ysngxoBQ48gvwyD+ueBdP3rg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzSk4vtkwc+w4kg1/t9bEKlodRlphc+jG3AQjvmJoMJHsXZhkP5
+	KL2/l4lWJx9UsHZ1xzRnVrABTTxckYoyxmIueQaeMt2PcMnxKp8ptpiJ
+X-Gm-Gg: AfdE7cmQF2G3USLr6CyHqwXKcHJ8OoIFPryty4ZgZcIfiBh9nhT5+7t4QEv3Ta5Fik8
+	Z674DidDqP9fexJwgklCNLPWJwlCiRkGdG6ww9MBLmw4o8GIk6teKeksaAHQOVfazoA4ebrammi
+	b+6E8rMm6IzdvtJ2os2p6g6vDtrOtljjKjeR7/t0VSfItmFVl6VmxIfd0Lpaym7M5+g+/KMsuId
+	GFOAUOcSO5MO0Vl2ZKGJCHnyPSGrc3Iaq15z8Hr8EuyNkh0nMh6v2V953lM3qTDpjCoGRt0X+ba
+	nEpxxBeuLYQcsI3piiriZolIvONKOoYqR6lYDesMSOFUElzig0TymJM5LX/j5gY0uSHbnfkcKh5
+	6wfNrDWca6uykFhiJw2HCom3tm9RNAyGyhzRdIGYjiCyrthrdckz9uLKa88LUe2EIrnyT3ppDxP
+	IN9KAcgSBFjnSW+T6pOYTPBSensi7A06Wrw4v5rugFXYSSQojgvU6mcYaoO3+8Aw9rSDLQYjM+F
+	pkROq08kAhu9Ue+ZysYkkhQwzHNsGIw
+X-Received: by 2002:a05:620a:2711:b0:927:25f5:ee08 with SMTP id af79cd13be357-92ebb5d59e8mr731266985a.43.1783443566238;
+        Tue, 07 Jul 2026 09:59:26 -0700 (PDT)
+Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92e90bb91adsm1209145385a.20.2026.07.07.09.59.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 09:59:25 -0700 (PDT)
+From: Michael Bommarito <michael.bommarito@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Beau Belgrave <beaub@linux.microsoft.com>,
+	XIAO WU <xiaowu.417@qq.com>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 0/2] tracing/user_events: fix use-after-free in user_event_mm_dup()
+Date: Tue,  7 Jul 2026 12:59:10 -0400
+Message-ID: <20260707165912.2560537-1-michael.bommarito@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260703151543.3335583-2-bestswngs@gmail.com>
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 03, 2026 at 08:15:44AM -0700, Weiming Shi wrote:
-> xfs_attr3_leaf_verify() checks each attr leaf entry on its own, but never
-> checks that the entries' nameval regions are disjoint. A crafted leaf can
-> point several entries at overlapping offsets: every entry passes the
-> per-entry check, yet the summed entry sizes far exceed the nameval region.
-> 
-> ichdr.usedbytes is kept as the exact sum of the entries'
-> xfs_attr_leaf_entsize() (see xfs_attr3_leaf_add()), so for such a leaf the
-> real sum no longer matches usedbytes. When the leaf is later repacked,
-> xfs_attr3_leaf_compact() resets firstused to blksize and calls
-> xfs_attr3_leaf_moveents(), which subtracts each entry size from firstused;
-> the oversized sum underflows the 32-bit firstused and the following memmove
-> writes out of bounds. The same repack runs from xfs_attr3_leaf_rebalance()
-> and xfs_attr3_leaf_unbalance(). The only guard is an ASSERT, which is
-> compiled out on production kernels.
-> 
-> A single setxattr() on a file with such a leaf, after mounting a crafted
-> image, triggers the write:
-> 
->   BUG: KASAN: use-after-free in xfs_attr3_leaf_moveents (fs/xfs/libxfs/xfs_attr_leaf.c:2788)
->   Write of size 400 at addr ffff88802b187f98 by task exploit
->    xfs_attr3_leaf_moveents (fs/xfs/libxfs/xfs_attr_leaf.c:2788)
->    xfs_attr3_leaf_compact (fs/xfs/libxfs/xfs_attr_leaf.c:1790)
->    xfs_attr3_leaf_add (fs/xfs/libxfs/xfs_attr_leaf.c:1563)
->    xfs_attr_set_iter (fs/xfs/libxfs/xfs_attr.c:556)
->    xfs_attr_set (fs/xfs/libxfs/xfs_attr.c:1244)
->    xfs_xattr_set (fs/xfs/xfs_xattr.c:186)
->    __vfs_setxattr (fs/xattr.c:218)
->    vfs_setxattr (fs/xattr.c:339)
->    __x64_sys_fsetxattr (fs/xattr.c:774)
-> 
-> Sum the entry sizes while verifying and reject the leaf unless the sum
-> equals usedbytes and usedbytes fits in [firstused, blksize).  The online
-> scrubber already validates this in xchk_xattr_block(); this brings the
-> read/write verifier in line with it so the bad leaf is rejected before any
-> reshape can run.
-> 
-> Fixes: c84760659dcf ("xfs: check attribute leaf block structure")
-> Reported-by: Xiang Mei <xmei5@asu.edu>
-> Assisted-by: Claude:claude-opus-4-8
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> ---
->  fs/xfs/libxfs/xfs_attr_leaf.c | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
-> index 86c5c09a5db4..9814dcfbd7ac 100644
-> --- a/fs/xfs/libxfs/xfs_attr_leaf.c
-> +++ b/fs/xfs/libxfs/xfs_attr_leaf.c
-> @@ -300,7 +300,8 @@ xfs_attr3_leaf_verify_entry(
->  	struct xfs_attr3_icleaf_hdr		*leafhdr,
->  	struct xfs_attr_leaf_entry		*ent,
->  	int					idx,
-> -	__u32					*last_hashval)
-> +	__u32					*last_hashval,
-> +	unsigned int				*usedbytes)
->  {
->  	struct xfs_attr_leaf_name_local		*lentry;
->  	struct xfs_attr_leaf_name_remote	*rentry;
-> @@ -344,6 +345,7 @@ xfs_attr3_leaf_verify_entry(
->  	if (name_end > buf_end)
->  		return __this_address;
->  
-> +	*usedbytes += namesize;
->  	return NULL;
->  }
->  
-> @@ -376,6 +378,7 @@ xfs_attr3_leaf_verify(
->  	char				*buf_end;
->  	uint32_t			end;	/* must be 32bit - see below */
->  	__u32				last_hashval = 0;
-> +	unsigned int			usedbytes = 0;
->  	int				i;
->  	xfs_failaddr_t			fa;
->  
-> @@ -410,11 +413,21 @@ xfs_attr3_leaf_verify(
->  	buf_end = (char *)bp->b_addr + mp->m_attr_geo->blksize;
->  	for (i = 0, ent = entries; i < ichdr.count; ent++, i++) {
->  		fa = xfs_attr3_leaf_verify_entry(mp, buf_end, leaf, &ichdr,
-> -				ent, i, &last_hashval);
-> +				ent, i, &last_hashval, &usedbytes);
->  		if (fa)
->  			return fa;
->  	}
->  
-> +	/*
-> +	 * usedbytes must equal the summed entry sizes and fit in the
-> +	 * nameval region; otherwise a later repack underflows firstused
-> +	 * in xfs_attr3_leaf_moveents().
-> +	 */
-> +	if (usedbytes != ichdr.usedbytes)
-> +		return __this_address;
-> +	if (ichdr.usedbytes > mp->m_attr_geo->blksize - ichdr.firstused)
+This replaces the earlier single patch "tracing/user_events: fix
+use-after-free of enabler in user_event_mm_dup()" that is in the tracing
+for-linus branch; Steven agreed to drop that one and take this instead.
 
-Interesting ... where did this new logic come from?  xchk_xattr_block
-doesn't perform this test.
+user_event_enabler_destroy() removes an enabler from the mm enabler list
+that user_event_mm_dup() walks locklessly under rcu_read_lock() during
+fork(), then drops the enabler's event reference and frees the enabler
+without waiting for a grace period. A concurrent fork() walker can
+therefore both dereference the freed enabler and take a reference on a
+user_event that the put has already freed -- two use-after-frees, one on
+the enabler and one on the user_event. The enabler use-after-free was
+found first; XIAO WU then reported the user_event one, with a PoC and a
+KASAN slab-use-after-free (write) in user_event_mm_dup(), and the
+enabler-only fix did not address it.
 
---D
+Patch 1 holds both the enabler and its event reference until an RCU grace
+period has elapsed, by deferring the put and the free to a work item
+queued with queue_rcu_work(). The approach was suggested by Beau
+Belgrave; it supersedes the enabler-only fix.
 
-> +		return __this_address;
-> +
->  	/*
->  	 * Quickly check the freemap information.  Attribute data has to be
->  	 * aligned to 4-byte boundaries, and likewise for the free space.
-> -- 
-> 2.43.0
-> 
-> 
+Patch 2 adjusts two user_events selftests that assumed the event is torn
+down the instant an unregister returns; with the deferred put, DIAG_IOCSDEL
+can briefly return -EBUSY, so they now wait for the delete to take effect.
+
+Verified under KASAN on x86-64: the race faults on the unpatched kernel
+(and panics with kasan.fault=panic), a benign serialized control is clean,
+and the patched kernel is clean across repeated runs. The user_events
+selftests pass on both kernels with patch 2 applied.
+
+Michael Bommarito (2):
+  tracing/user_events: fix use-after-free in user_event_mm_dup()
+  selftests/user_events: wait for deferred event teardown after
+    unregister
+
+ kernel/trace/trace_events_user.c              | 39 +++++++++++++++----
+ .../testing/selftests/user_events/abi_test.c  | 24 +++++++++++-
+ .../testing/selftests/user_events/perf_test.c | 26 +++++++++++--
+ 3 files changed, 78 insertions(+), 11 deletions(-)
+
+
+base-commit: f24ca6729076623c9a0547ecc71e4fc1c4b65c3c
+-- 
+2.53.0
+
