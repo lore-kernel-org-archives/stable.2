@@ -1,62 +1,64 @@
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECE1436BF7
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 16:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF47D436BF1
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 16:59:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783443569; cv=none; b=jGGiD97u3zeaxNWySkvLB4dIAfgueDmVwr6ErZpnsnRyPU9yP5R9z7JtDDQJ9Cw1QPzNLHYgLyTc5evWc6Tt2OIcYgXBmSG3W1eIi4a8AMF+L7Gi2P49O/px2BH7o4GqJLY1MdXoxNiw2seoRXs7XhEAUdQVwJlqhcfRDhro8bo=
+	t=1783443571; cv=none; b=l0AxGxsp7f/fM/MEfHa2SFZFAYxRWKuPOOSe7s072s9cYIG5TXACh458siy+jx7PPhktn7cclosdmmIVb+hVZfZx+fzS1kVTATpPaCWTDY8vc8S2bGabQ9DTQmbTlBL2nN9gD8XR+WMqLokN6DbULi2AH8Z2C7346wJUacQEJQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783443569; c=relaxed/simple;
-	bh=nUUN0xPWz7q2RyvUCKORU7VqMpHCgFB281JF3872N24=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gqtmqURerrNmJp1BB69NWZ74jQFCh8qAB5TnA4P3vnc0vHFtmdEY0D5xYWGPJk4N71Er8QsLoJvaOeIwJDINuIAPT7Ur6qBEEOGRSlJDLWLttfSHTXPVl9d9c/7KwenfmVSv+ZHt+dJilI3pJPnFwz63+SZMrU+WBC41V5muYRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XuBZQp97; arc=none smtp.client-ip=209.85.222.171
+	s=arc-20240116; t=1783443571; c=relaxed/simple;
+	bh=IbzacERZxkdbhBnVGPfmgV70UZfjqVsoR6fFSzWDirM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A8xT5xBz/1deEz3zPIDFw6NjvB6SzPFFAklH4unjA3n2laeo9pdjAvbXy6YQycGjuYHdwxaeDmSBR5NQr+tEfE/b52PQb3qy0C4TNsnk7CVgruRMgalWQxdQV83FM9fXSf/+1MzQszCjLj+uXmJunqWjuxFL7bfiZSLHNo593No=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W+tiWQpz; arc=none smtp.client-ip=209.85.222.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XuBZQp97"
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-920f33347f5so219169185a.3
-        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 09:59:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W+tiWQpz"
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-920f33347f5so219170485a.3
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 09:59:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783443566; x=1784048366; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yXrrKa9i86QRbnd8WzAz8n5WCs4Qj9PVK9gVjYwwX4I=;
-        b=XuBZQp97fCN21qhSYUd3Ikv/WqP/EV4C4Scjrzwt7OV48cLuevXOAtcgJBThJ4bRIZ
-         WWMdxtMXInMfkUTh2hn1Ek2H5eS28NVADBgcNxIpIUXUDGF+hHIrnGVnkJ85kcFV+M1Z
-         Mie120JmQcfY+a+0iaxBsrE8RC07ijoYKXLRw5swfoKtB4902Y3TXw/1d/PHINg1wx0I
-         dL9KFWe77GGbiwdC04Dd+ZouxbbusTJ3Q5kC3ohK+JsmowZxiU3gJzompLQQCX97Igrt
-         R1RVzy6Gtg1UmJ+ec1QB4J9LedOl9GFbDn7+XVfdpqP5Nn+T9BW7rYgzSlBOmZDfyUTt
-         1LlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783443566; x=1784048366;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1783443568; x=1784048368; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yXrrKa9i86QRbnd8WzAz8n5WCs4Qj9PVK9gVjYwwX4I=;
-        b=pgD6mDol2nXBC+vIA7l8KFOmShq7DNDsSnLYRncyu8vkyOKqu1f2U3cp+0D2lUSG7k
-         g+BeWZ+7cYcVS6B9E/YIsPeU2CHNYf19Q0ANR8jM7yr3DgW6MqJyawrar4sR3YAP/x5E
-         z+WRA/TE6WDInVi95H4R/pjkoyLkHzdJbzL+F4eidH/pxsdG/73nXnkBx5Pt9ELg72pM
-         OViUto7YWJo7GxUTvytpXuGi1U+Zc7FzkIVZhUhld0AERJ09y/4wxZN4eXjoQoU8btdr
-         AzpPAOmFJJEJnqsoSknAIHI93dxi0U8lEIq6GC5EOOsPT2I6MhK6iOcoEEBBuR1opOjt
-         nafQ==
-X-Forwarded-Encrypted: i=1; AHgh+RofvG+4eVWCvvgoq4k1fFOVdfDucPT59t623QPP790HcevfvR5ysngxoBQ48gvwyD+ueBdP3rg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSk4vtkwc+w4kg1/t9bEKlodRlphc+jG3AQjvmJoMJHsXZhkP5
-	KL2/l4lWJx9UsHZ1xzRnVrABTTxckYoyxmIueQaeMt2PcMnxKp8ptpiJ
-X-Gm-Gg: AfdE7cmQF2G3USLr6CyHqwXKcHJ8OoIFPryty4ZgZcIfiBh9nhT5+7t4QEv3Ta5Fik8
-	Z674DidDqP9fexJwgklCNLPWJwlCiRkGdG6ww9MBLmw4o8GIk6teKeksaAHQOVfazoA4ebrammi
-	b+6E8rMm6IzdvtJ2os2p6g6vDtrOtljjKjeR7/t0VSfItmFVl6VmxIfd0Lpaym7M5+g+/KMsuId
-	GFOAUOcSO5MO0Vl2ZKGJCHnyPSGrc3Iaq15z8Hr8EuyNkh0nMh6v2V953lM3qTDpjCoGRt0X+ba
-	nEpxxBeuLYQcsI3piiriZolIvONKOoYqR6lYDesMSOFUElzig0TymJM5LX/j5gY0uSHbnfkcKh5
-	6wfNrDWca6uykFhiJw2HCom3tm9RNAyGyhzRdIGYjiCyrthrdckz9uLKa88LUe2EIrnyT3ppDxP
-	IN9KAcgSBFjnSW+T6pOYTPBSensi7A06Wrw4v5rugFXYSSQojgvU6mcYaoO3+8Aw9rSDLQYjM+F
-	pkROq08kAhu9Ue+ZysYkkhQwzHNsGIw
-X-Received: by 2002:a05:620a:2711:b0:927:25f5:ee08 with SMTP id af79cd13be357-92ebb5d59e8mr731266985a.43.1783443566238;
-        Tue, 07 Jul 2026 09:59:26 -0700 (PDT)
+        bh=NVxjDIBvMD/d1nBn6wsLhQImx82kCNbQVjkvw4T/T4g=;
+        b=W+tiWQpziejfrmmmk3t3KWaUni1s4w/999PZ8keGf/KUDeMrC1tvL/+7DwMRhb5bGu
+         FdEXTzqNDalG5t619idmokKb+crdXbJ50pcDlGY0Dbkq36PonLe/7pY/98TuTOOQlJ4B
+         afaZtH18PBW02g06Cr1SidQ90y+A1BAcXYtJi5mKiKQAosTItwNidzxIUTZ6SumZQKXR
+         lmz4sbw6nQAAi36taITjJccDosN6je52di8AxinwffpJEAb6FVTrKUUQ23bqXaUkaD5L
+         9ZJ63n7atGlRIBeD9bt4nXvhDZ8gm2otHAYT5PRFNd/tHngv0ywI2kQa1taYHdrNfdx2
+         FtJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783443568; x=1784048368;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NVxjDIBvMD/d1nBn6wsLhQImx82kCNbQVjkvw4T/T4g=;
+        b=JH6CXEC/TStKOqTRLHfllUMYvi9ZbiW576DJL0sU1mtSKjDpECTq3LpDymuL78le8N
+         JEDiN1RaHkBewz4YWRe1VwA1rEevIhP4HCvSJ5bPO5QrayS+OC7PLhx3XrEyVLgKSJ47
+         MC5elE0ARYj8hAYdaLZzzFwNL1Q6rZygUsyFmltPNDW+B3Z4DzTwm6wfrskD5Er7v/Cc
+         DOy7yhAtHFd7h7hd4hbvnVGUoT30Eb7K+bV1cBVv1bqxl10KAZnc7cVkCeeD64YkZ37e
+         04xIQU7PNvk5Fv5lNd5I5ev/cv5cUWqz+2gVdTTNvPQBCxgWj9llpyIK8NRPHJK68xKV
+         EZ8Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rp+JaGtZsaRuaaUHmm1uu8MoqiLntCWVAlDIC80Ip1uQtW06lW1vm85bzg6Vw7IC9Bg3Dv4920=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJzlmVgPKv9pKi2zN/ciwgFVfRND0fqd1e035T0Q5x8P8WhNex
+	PrjWpb+cmnodWYVS+kBAMBogfrHFUZ5QwYDShwAXpFYdBN8pOJPaZRHE
+X-Gm-Gg: AfdE7clGIxgFKxH+8g3KcczvC4G4I0h9F23P6NLPnlXdqvqhMsCgtIlBPjmJTInCcfB
+	vrO7kccu4I/J13IDUcOh79hkW3Qh2vgdF74f6xoBXiKN0UnywE5Hipc6eovG3fWgpP4MnRwER7L
+	ui8nhUgXU5+CM9Uuv6VlcqvsWGa6croiDQNSyrkxqkxL67Oq71/2/zuURksOrrLbU7nvy59BB9Y
+	GuEsannMQnRNy2xbCTHfrBOOHJqitzHJX7QzHjgpw7UTXjQXwDcZXMlUQXbuK5XH85tFQia9DYs
+	BwsRB6bi/44ukZJQZyXxe7c19vSvUbieI4C3n+0M++NE4j7v2vqBfQMX2edv7LCaGnuqaK7tV0K
+	p2EcAwuD8dV3REAmQQlezFw9LweMk+2x5NXjb/3qWHV42hAdcIdZkslYTg1SLri0RX8VUudj+sU
+	WAzSddnOZVLRwDAuQRF1EIXpkV744hzCrevY18bcMGt7OTa5pMpmtTuyHLrHtXVUbrkFWKh9V3S
+	ZvWjako615hXaaneorSSVNs0GL/jb//
+X-Received: by 2002:a05:620a:1982:b0:92b:6805:eae5 with SMTP id af79cd13be357-92ebb710875mr754132885a.66.1783443567666;
+        Tue, 07 Jul 2026 09:59:27 -0700 (PDT)
 Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92e90bb91adsm1209145385a.20.2026.07.07.09.59.25
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92e90bb91adsm1209145385a.20.2026.07.07.09.59.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 09:59:25 -0700 (PDT)
+        Tue, 07 Jul 2026 09:59:27 -0700 (PDT)
 From: Michael Bommarito <michael.bommarito@gmail.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
@@ -66,10 +68,12 @@ Cc: Beau Belgrave <beaub@linux.microsoft.com>,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 0/2] tracing/user_events: fix use-after-free in user_event_mm_dup()
-Date: Tue,  7 Jul 2026 12:59:10 -0400
-Message-ID: <20260707165912.2560537-1-michael.bommarito@gmail.com>
+Subject: [PATCH 1/2] tracing/user_events: fix use-after-free in user_event_mm_dup()
+Date: Tue,  7 Jul 2026 12:59:11 -0400
+Message-ID: <20260707165912.2560537-2-michael.bommarito@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260707165912.2560537-1-michael.bommarito@gmail.com>
+References: <20260707165912.2560537-1-michael.bommarito@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,47 +82,147 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-This replaces the earlier single patch "tracing/user_events: fix
-use-after-free of enabler in user_event_mm_dup()" that is in the tracing
-for-linus branch; Steven agreed to drop that one and take this instead.
+user_event_mm_dup() walks the parent mm's enabler list locklessly under
+rcu_read_lock() during fork() (from copy_process()); it does not take
+event_mutex:
 
-user_event_enabler_destroy() removes an enabler from the mm enabler list
-that user_event_mm_dup() walks locklessly under rcu_read_lock() during
-fork(), then drops the enabler's event reference and frees the enabler
-without waiting for a grace period. A concurrent fork() walker can
-therefore both dereference the freed enabler and take a reference on a
-user_event that the put has already freed -- two use-after-frees, one on
-the enabler and one on the user_event. The enabler use-after-free was
-found first; XIAO WU then reported the user_event one, with a PoC and a
-KASAN slab-use-after-free (write) in user_event_mm_dup(), and the
-enabler-only fix did not address it.
+	rcu_read_lock();
+	list_for_each_entry_rcu(enabler, &old_mm->enablers, mm_enablers_link)
+		enabler->event = user_event_get(orig->event);
 
-Patch 1 holds both the enabler and its event reference until an RCU grace
-period has elapsed, by deferring the put and the free to a work item
-queued with queue_rcu_work(). The approach was suggested by Beau
-Belgrave; it supersedes the enabler-only fix.
+user_event_enabler_destroy() removes an enabler from that list with
+list_del_rcu() and then, without waiting for a grace period, drops the
+enabler's user_event reference with user_event_put() and frees the enabler
+with kfree(). A reader that loaded the enabler before the list_del_rcu()
+can still be walking it, which leads to two use-after-frees:
 
-Patch 2 adjusts two user_events selftests that assumed the event is torn
-down the instant an unregister returns; with the deferred put, DIAG_IOCSDEL
-can briefly return -EBUSY, so they now wait for the delete to take effect.
+ - kfree(enabler) frees the enabler while that reader dereferences
+   enabler->event.
 
-Verified under KASAN on x86-64: the race faults on the unpatched kernel
-(and panics with kasan.fault=panic), a benign serialized control is clean,
-and the patched kernel is clean across repeated runs. The user_events
-selftests pass on both kernels with patch 2 applied.
+ - user_event_put() may drop the last reference to the user_event, which
+   is then freed (via delayed_destroy_user_event() on a work queue), while
+   the same reader does user_event_get(orig->event) on it.
 
-Michael Bommarito (2):
-  tracing/user_events: fix use-after-free in user_event_mm_dup()
-  selftests/user_events: wait for deferred event teardown after
-    unregister
+Both are reachable by an unprivileged task that can open user_events_data:
+one multithreaded process that registers an enabler and then concurrently
+unregisters it and calls fork() triggers the race. KASAN reports a
+slab-use-after-free in user_event_mm_dup() during clone(), with a
+"refcount_t: addition on 0" warning when the user_event is freed.
 
- kernel/trace/trace_events_user.c              | 39 +++++++++++++++----
- .../testing/selftests/user_events/abi_test.c  | 24 +++++++++++-
- .../testing/selftests/user_events/perf_test.c | 26 +++++++++++--
- 3 files changed, 78 insertions(+), 11 deletions(-)
+The enabler use-after-free was found first; the user_event one was reported
+by XIAO WU, and the earlier enabler-only fix did not address it.
 
+Defer both the user_event_put() and the kfree(enabler) to a work item
+queued with queue_rcu_work(), so they run only after an RCU grace period,
+once all readers walking the enabler list have finished. The put must run
+in process context because user_event_put() takes event_mutex on the last
+reference, so a work queue is used rather than call_rcu(). The now-unlocked
+put lets the locked argument of user_event_enabler_destroy() be removed;
+all callers are updated.
 
-base-commit: f24ca6729076623c9a0547ecc71e4fc1c4b65c3c
+Fixes: 7235759084a4 ("tracing/user_events: Use remote writes for event enablement")
+Cc: stable@vger.kernel.org
+Reported-by: XIAO WU <xiaowu.417@qq.com>
+Closes: https://lore.kernel.org/all/tencent_89647CE40DC452B891C65C94D1B271DE8E07@qq.com/
+Suggested-by: Beau Belgrave <beaub@linux.microsoft.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+---
+Since v1 (the enabler-only fix "tracing/user_events: fix use-after-free
+of enabler in user_event_mm_dup()", being dropped from for-linus):
+ - also fix the user_event-object UAF reported by XIAO WU; defer both the
+   put and the free with queue_rcu_work() instead of kfree_rcu().
+ - drop the locked argument now that the put runs from the work item.
+ - add patch 2 for the selftest teardown timing.
+
+ kernel/trace/trace_events_user.c | 39 ++++++++++++++++++++++++++------
+ 1 file changed, 32 insertions(+), 7 deletions(-)
+
+diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+index c4ba484f7b38b..8c82ecb735f41 100644
+--- a/kernel/trace/trace_events_user.c
++++ b/kernel/trace/trace_events_user.c
+@@ -109,6 +109,9 @@ struct user_event_enabler {
+ 
+ 	/* Track enable bit, flags, etc. Aligned for bitops. */
+ 	unsigned long		values;
++
++	/* Defer the event put and enabler free past an RCU grace period. */
++	struct rcu_work		put_rwork;
+ };
+ 
+ /* Bits 0-5 are for the bit to update upon enable/disable (0-63 allowed) */
+@@ -396,17 +399,39 @@ static struct user_event_group *user_event_group_create(void)
+ 	return NULL;
+ };
+ 
+-static void user_event_enabler_destroy(struct user_event_enabler *enabler,
+-				       bool locked)
++static void delayed_user_event_enabler_put(struct work_struct *work)
+ {
+-	list_del_rcu(&enabler->mm_enablers_link);
++	struct user_event_enabler *enabler = container_of(to_rcu_work(work),
++			struct user_event_enabler, put_rwork);
+ 
+ 	/* No longer tracking the event via the enabler */
+-	user_event_put(enabler->event, locked);
++	user_event_put(enabler->event, false);
+ 
++	/* Run from queue_rcu_work(), the RCU grace period has elapsed */
+ 	kfree(enabler);
+ }
+ 
++static void user_event_enabler_destroy(struct user_event_enabler *enabler)
++{
++	list_del_rcu(&enabler->mm_enablers_link);
++
++	/*
++	 * The enabler is removed from an RCU-traversed list
++	 * (user_event_mm_dup() walks mm->enablers under rcu_read_lock() only),
++	 * and readers there dereference enabler->event and take a new ref on
++	 * it. Both the put of that event reference and the free of the enabler
++	 * therefore have to wait for a grace period so no reader can be looking
++	 * at the enabler or racing the last put of its event.
++	 *
++	 * The put itself must not run in RCU context: when it drops the last
++	 * reference user_event_put() takes event_mutex, which cannot be taken
++	 * from a softirq/RCU callback. Defer both to a work item scheduled
++	 * after a grace period via queue_rcu_work().
++	 */
++	INIT_RCU_WORK(&enabler->put_rwork, delayed_user_event_enabler_put);
++	queue_rcu_work(system_percpu_wq, &enabler->put_rwork);
++}
++
+ static int user_event_mm_fault_in(struct user_event_mm *mm, unsigned long uaddr,
+ 				  int attempt)
+ {
+@@ -464,7 +489,7 @@ static void user_event_enabler_fault_fixup(struct work_struct *work)
+ 
+ 	/* User asked for enabler to be removed during fault */
+ 	if (test_bit(ENABLE_VAL_FREEING_BIT, ENABLE_BITOPS(enabler))) {
+-		user_event_enabler_destroy(enabler, true);
++		user_event_enabler_destroy(enabler);
+ 		goto out;
+ 	}
+ 
+@@ -764,7 +789,7 @@ static void user_event_mm_destroy(struct user_event_mm *mm)
+ 	struct user_event_enabler *enabler, *next;
+ 
+ 	list_for_each_entry_safe(enabler, next, &mm->enablers, mm_enablers_link)
+-		user_event_enabler_destroy(enabler, false);
++		user_event_enabler_destroy(enabler);
+ 
+ 	mmdrop(mm->mm);
+ 	kfree(mm);
+@@ -2645,7 +2670,7 @@ static long user_events_ioctl_unreg(unsigned long uarg)
+ 			flags |= enabler->values & ENABLE_VAL_COMPAT_MASK;
+ 
+ 			if (!test_bit(ENABLE_VAL_FAULTING_BIT, ENABLE_BITOPS(enabler)))
+-				user_event_enabler_destroy(enabler, true);
++				user_event_enabler_destroy(enabler);
+ 
+ 			/* Removed at least one */
+ 			ret = 0;
 -- 
 2.53.0
 
