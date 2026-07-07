@@ -1,181 +1,171 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3363839FCD8
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 06:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E463A7F4C
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 06:35:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783405976; cv=none; b=MudGvY7yRNUoVzuj9BvER1FfI8sI+4DnJW2Sc5kAdKDKXvqFSozdedqpAajTm7bQnIN8GLfBMPhUWWbORDBiX8K2AawXifTkx3xN7h2yKQdVMceY2NTXqqhI/yW3OVomxEi9Vx2enNR04FBRCxB+Zq/lD6TK6id+BYlbn04o8gM=
+	t=1783406146; cv=none; b=ap31Zl4rAuflXhwWXxPDBJ57wycaVsak6xtTLRtNwYwHRvglYmHrX4qMnRoT1uwkn6JAJitDZ7WU8dVqMC0U42A6tM9xkFwpqPiFbn98NNWWijQKNvYF07AeubLgGssPxLNBuZvnpe2NHPQw9dH3in6Xdhc5/cKD7ZSVEZZ9Rlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783405976; c=relaxed/simple;
-	bh=PCP9wyKT5koTLIkjIeei/P1WraBTk0KhHeG6UVa4P5c=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=FCnbXuU3ndFKgHbORdwObIeQ9HXt0UdmeCxkXxKibFgYM4zS1b/zNYEbyWV3zvASES1G0yDgMAhnbkVMnihrkGjZwWUZxuTpy9MoQjWkVCOJqQbQU2ezK7yFIwfpapR0ZACDyFHNDLelLzXG6HyEWntRPq8OclDDyolESwaTS/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-49226201eb8so2585849b6e.1
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 23:32:55 -0700 (PDT)
+	s=arc-20240116; t=1783406146; c=relaxed/simple;
+	bh=Dh2fxo97rcw/HY7O42KDHhXFkESXOFHYWiIPR09Lu9o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SZTQ8JL6cK8i4fMj3nYoiEqyzDi6uZ4fmmwYeQHNn5WBaZShA+LdvITuQ8ia+x3Tacps4L/CMLY21TV/Yw7SIkZJgnJBeS2C1OJ6RgHbUy1nlx/WDbGAUE8ydMfE9smrcIyNmEEvIzzUUspGX7U/mg1LzMSlO4p5qm7+I4ZvG7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dDKTdT1u; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MKBzzgmR; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dDKTdT1u";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MKBzzgmR"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6674950f2526325
+	for <stable@vger.kernel.org>; Tue, 7 Jul 2026 06:35:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=yZfqIHDoqfWte/kPeYZGJE
+	lmLBj5Xw+6kjVlLGAmoKg=; b=dDKTdT1uAk8DfkhMz8a2LjpGDV+JXWrWoJOCvv
+	bCUYuPkAdqdtiu3ZPhmXJLxV8MgJ+qclIVWXwwj9YTIraRNzSUhGvmEnEs8As/Gt
+	MeTQH87y1rPPwI2j8TZXYC8WOBY/yqcrwc3SZAR3OBLaphGd1H3oOP27t95isMP8
+	vOAPM1YOwM6bimTyHIHP7hN+wPHQbnimIbgyT1LmGW7pmwqVhj1AMGwuc8QWmHk/
+	ME+7eQDq7Xw+owQlIG96uLAuI3GIfdYdNOyWbJoCfB8Hul+Xw6iksZxBU95JqL4Z
+	YVA7qjbAcXCjLh3WR7CkQ9LEyRSlwE6Tgzi5uYecnPHKu1YA==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8a98mcxd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 07 Jul 2026 06:35:44 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8478423e020so6147342b3a.0
+        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 23:35:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783406144; x=1784010944; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=yZfqIHDoqfWte/kPeYZGJElmLBj5Xw+6kjVlLGAmoKg=;
+        b=MKBzzgmRPcPnWBFosxRePYMvEuqqH2kxz/1bf+KYKqpSTAyARDPWDERfl2oT7ySZ+9
+         ysVwNyRRNAgaUkX/KnGviS5T1MYdWIF6XaNHYwAznNOfShfJ2IO7qs+nVqg5Ymu2YnGe
+         2zaWLyLPSkA6CUqsUBtqmfYA0v8wHRLmcWwOwQ4I+arzSQ42M9lXgoK61UDZ4apsh4hR
+         nGPf8zmDHdkJviVpm3dLUfETH+TEKFxilzcVpHKLQMLNV5aaoJLRb9bTL8A0BB5nYzzg
+         TFrqjcPFcB4fThMUxtDYhReA2ACl1CcCE12DROyKVSa0NdnTVlb0VNaNN+vydXoP4EGY
+         VvFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783405974; x=1784010774;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=T6Li1k9zIvCaaJ+CIFvo/B8eY2h2BuLADS5o2OvokTo=;
-        b=ADYU9zmF9D5LoBx955mXgDVyXJS2Jw3lBWaVk52Yosp+4kRvBnD2CMLm1an5HGo0a4
-         2O0UOBvDzfyZDyFfQjkMGiaxUZc+z+tB/RIe00IEBgFrQnQl5geRXP8QaDFMdDcpU2AV
-         4BuRQiP59QUXHfY6EAMlc9LSbBL0SJa4lMuchH6kUMzqJqEWPwOMwLPVh1U5Ye8Tz8ci
-         /7O3JB23mAI9gpuwYUu7oqCSTasCWKHAbuuRCZTvlBA6U2EtPuZS2/Y2ecaLDBRvQSZ6
-         MDeV6oCHyud4Km06ENuGCr+w83JRjVdPkLwsktLM/J0mP3A78u85bEJKM6aPV9WvPY+U
-         wBfQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/HZgFiZkEP1HgxPF1td+rvYAI6W6kbEjMqvhQrsu+jacPPQsaaEsa8iTbxrKVXEx2uGHaSGLo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8gqrcDCA6iY+8QejZjGM1H3Unpr6oEz3XB1H2dRtgEhfsLqmq
-	vxF+xp4/ljoHPhYXHJ22SIVRGRQkLvV2pWj/oIPHMwN2g+TfTxDQajYxipujxSTLtQX5ZyfBbKg
-	WulFB7ryPcGFOCEOtO5JfjouoUuWhjaGHFZ3AHzt3R1netXDAcfaysyfTzSA=
+        d=1e100.net; s=20251104; t=1783406144; x=1784010944;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yZfqIHDoqfWte/kPeYZGJElmLBj5Xw+6kjVlLGAmoKg=;
+        b=ZB4jeT7uvrJm1uh3v3yyE5vRmBHiFzc/UtpgJru/8Xh8dYf2pXA/qwoHrTKlBKMxZT
+         WKB8hMw56hFWJ7sXBsATrgb1UYTqEscDn7icn4UbieXvhHMlOl2o9xsbRK99Ydmkf4Hx
+         u7iyEgPIYwGyvgs7mKz5YZK+lWXGBHQ5B7iupc7LiqiQg16WtzGfFsGMWnb96nkWRsH7
+         CjXJPramlBR+kaVBg149mSpUxNHKQT3OYc9uipSIaWCmytWWXdCE3cnJeQZhodlcqwuN
+         p2Lcu2kPkYr3yZVX0frjskMOKqEz5A74Mo+5Ylr0aHQwa9VxQ9P3wKtQoOTNY8vwxJlq
+         vOUA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro651/UH4HmvONerLR6qY6bUYCJ7TMkMBnU96GR9+uL024SvH9N4suiKk1xKmsgOsiMmxR8kp0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzTarTNFEF4WpCaxLOYqqqbC6zAtNmSovpS6Uv5rLnQso2r5+o6
+	cm8Ik9dteTWfOCY219hXSoo7ojvkP3LDK1xnd+ahOlCvSG4EHyWZbQSiLuN/2lzYtGlUfhjF5H8
+	RInRq4O6F0eZ25WSRai3o+OIYXkpZwpODFADuwl6d8ZgSfmTR5XHGFrKMrds=
+X-Gm-Gg: AfdE7cn4R/4gAhKps+1wf1hzxjoM+og5rFWmD2hJ43gGwxPxShMachfHbYqvank5xN5
+	yIrbBxCd09D5/RxaSh8rlJgb5qt/TOg9QTHRVA5LkgHc2TExYN6Ipzl4RockKOXvQiOmGqTT8kX
+	50mvTSqhaCZEvA/LL1uqrBvMAmUA69lS+wqNDi3LBPCiJ5EgNi86E6yxocs643qY8LBaukZKjJv
+	/jpfB88WJe/vw9e3sGO5oRhJ+7LnYEUDE2TeoFukedB+JqhPwf/XJu+ITu6F+DBHRy3GLisCyg+
+	8vGwbGOghvmus6SoMNKijlKbMcxqCaatSbThMdqxPkQTDZ/cBFvffHWMd9+YW5k3HVoF4DNfhid
+	Cn6XTlRKmlt0VWGo8VKeO5PfbaWTndnbYS5po6F6P58/H
+X-Received: by 2002:a05:6a00:3a13:b0:845:e1a3:1080 with SMTP id d2e1a72fcca58-84826d81a1amr4000303b3a.55.1783406144198;
+        Mon, 06 Jul 2026 23:35:44 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3a13:b0:845:e1a3:1080 with SMTP id d2e1a72fcca58-84826d81a1amr4000265b3a.55.1783406143691;
+        Mon, 06 Jul 2026 23:35:43 -0700 (PDT)
+Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6db29d1sm4889973b3a.53.2026.07.06.23.35.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 23:35:43 -0700 (PDT)
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: [PATCH 0/2] media: iris: fix QC10C format handling and disable
+ time-delta-based rate control
+Date: Tue, 07 Jul 2026 12:05:22 +0530
+Message-Id: <20260707-qc10c_fix_and_disable_time_delta_based_rc-v1-0-33fa130bc535@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:8c7:b0:6a1:98cd:7484 with SMTP id
- 006d021491bc7-6a3554fb157mr2880812eaf.61.1783405974169; Mon, 06 Jul 2026
- 23:32:54 -0700 (PDT)
-Date: Mon, 06 Jul 2026 23:32:54 -0700
-In-Reply-To: <20260706180025.2735341-3-bestswngs@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a4c9d96.a1ad617e.25832.0008.GAE@google.com>
-Subject: [syzbot ci] Re: KVM: x86: Destroy the PIC and IOAPIC before
- destroying vCPUs
-From: syzbot ci <syzbot+cib53d48a96bc1aea0@syzkaller.appspotmail.com>
-To: bestswngs@gmail.com, jasowang@redhat.com, kai.huang@intel.com, 
-	kvm@vger.kernel.org, pbonzini@redhat.com, seanjc@google.com, 
-	shixuanqing.11@bytedance.com, stable@vger.kernel.org, 
-	wangzhong.c0ss4ck@bytedance.com, zhanghy@sangfor.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACqeTGoC/yXNQQrCMBCF4auUWRtIqjboVUSGJDPqSI01E0Uov
+ btRl9/ivX8G5SKssO9mKPwSlXtucKsO0iXkMxuhZuhtP1hvvXkkZxOe5I0hE5JoiCNjlRsj8Vg
+ DxqBMWJLZ0OB8H9e7bXTQ/qbCbfZrHY5/6zNeOdVvAJblA85kCRuNAAAA
+X-Change-ID: 20260707-qc10c_fix_and_disable_time_delta_based_rc-4d6172b395b1
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, stable@vger.kernel.org,
+        Gourav Kumar <gouravk@qti.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783406138; l=1201;
+ i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
+ bh=Dh2fxo97rcw/HY7O42KDHhXFkESXOFHYWiIPR09Lu9o=;
+ b=rt7AYHwVCnoDZ3cTnKurcTiIxWMfKwwzTlf8uk1zbFfZHN6uVxWy7+w5Dlg8MeUYH4Y70vFQS
+ KCZGH8+r2/XDYGNKfNG9LxFyvadMtwqLoC6ia4OiShyBT4vdvxDq46q
+X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
+ pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
+X-Authority-Analysis: v=2.4 cv=SpigLvO0 c=1 sm=1 tr=0 ts=6a4c9e40 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=bHM9EGv_eIyXTYkJAFYA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDA2MSBTYWx0ZWRfX9naR0TffkbxC
+ PO2NLk0cPKpqKy68qM8QgLGMYY2pectA8tjXYqeti/WcbTBtkA48LzHUyvyM7MAMEqGI9Y1WBlR
+ /YCfElyKIqrlS9E+KcxsDZ72bMHklHdto8hksq/BAnu1+m/Os68bU3akJhVf1syJ9e28XPgTPHR
+ mQovUuMpY6AMB8nuqlFgrEm0pyNN2Q8aFGAqmB/gxEpQn3BjAIwtBwGFm67DR8Vg0soqWVj7xnR
+ EsD5D1mULxwwXzFPmRCExbGYmXHzECtJ/Mj/A4yPC+GVknpOiKKn10CRJiS2HTBvh9q4cOWAlir
+ 41Fhk0/7OMiQAXAsPxe6tI4TMZehZUjmH6EJYaLTGG5MguE2WaMiguA5qcFGUB6ynR+RSh/yiB0
+ NIXigVxUXFaNdUJlekagtZ9NjQ6EgdUsWyp48gyDRN47+tpAgz7LdePiSZInmt0ya/SxG0xNyPj
+ AK6/23hZALgsvyJthJw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDA2MSBTYWx0ZWRfXxVCzwhCSdTuk
+ 5A89kva9OZHnuD80jAEiEDj/T3MSmAtodAE+lEXPWHLFLUrAjEVB7Zh5kYkKRIX6zDYdmYChw/n
+ 6cQA1mjWthon9UTBepL+mWMFNAym3sM=
+X-Proofpoint-GUID: nB95GrYNd60agfCMzUOhkhdTn716RzEp
+X-Proofpoint-ORIG-GUID: nB95GrYNd60agfCMzUOhkhdTn716RzEp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_01,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 spamscore=0 clxscore=1011 phishscore=0
+ bulkscore=0 adultscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070061
 
-syzbot ci has tested the following series
+The first patch fixes QC10C format requests being silently replaced
+by P010, because the bit depth was checked before the firmware had
+reported it.
 
-[v2] KVM: x86: Destroy the PIC and IOAPIC before destroying vCPUs
-https://lore.kernel.org/all/20260706180025.2735341-3-bestswngs@gmail.com
-* [PATCH v2] KVM: x86: Destroy the PIC and IOAPIC before destroying vCPUs
+The second patch disables time-delta-based rate control for VBR
+encoding, so the firmware follows the configured bitrate target.
 
-and found the following issue:
-general protection fault in kvm_cpu_has_extint
-
-Full report is available here:
-https://ci.syzbot.org/series/43a61d29-79d6-47db-ac80-4e948bd10c1a
-
-***
-
-general protection fault in kvm_cpu_has_extint
-
-tree:      kvm-next
-URL:       https://kernel.googlesource.com/pub/scm/virt/kvm/kvm/
-base:      fb402386af4cdce108ff991a796386de55439735
-arch:      amd64
-compiler:  Debian clang version 22.1.6 (++20260514074242+fc4aad7b5db3-1~exp1~20260514074407.73), Debian LLD 22.1.6
-config:    https://ci.syzbot.org/builds/7f3721c2-14ce-4beb-aa97-08232f57e71a/config
-syz repro: https://ci.syzbot.org/findings/0522c527-432c-4524-9835-64ab75b899af/syz_repro
-
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000012: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000090-0x0000000000000097]
-CPU: 1 UID: 0 PID: 5786 Comm: syz.2.19 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:kvm_cpu_has_extint+0xdb/0x340 arch/x86/kvm/irq.c:83
-Code: c6 e8 0d 00 00 4c 89 f0 48 c1 e8 03 42 80 3c 38 00 74 08 4c 89 f7 e8 44 54 e0 00 bb 90 00 00 00 49 03 1e 48 89 d8 48 c1 e8 03 <42> 0f b6 04 38 84 c0 0f 85 aa 00 00 00 8b 2b eb 6d e8 df 08 76 00
-RSP: 0018:ffffc900032f7740 EFLAGS: 00010206
-RAX: 0000000000000012 RBX: 0000000000000090 RCX: ffff88816b748000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000001
-RBP: 0000000000000001 R08: ffff88816b748000 R09: 0000000000000006
-R10: 0000000000000006 R11: 0000000000000000 R12: 1ffff1102e032000
-R13: dffffc0000000000 R14: ffff88811e33cde8 R15: dffffc0000000000
-FS:  00007f57357e76c0(0000) GS:ffff8882a9714000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fae800f0378 CR3: 0000000109ffc000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- kvm_cpu_has_injectable_intr+0x1c/0x170 arch/x86/kvm/irq.c:98
- __nested_vmx_vmexit+0x1911/0x2b40 arch/x86/kvm/vmx/nested.c:5181
- nested_vmx_vmexit arch/x86/kvm/vmx/nested.h:46 [inline]
- vmx_leave_nested arch/x86/kvm/vmx/nested.c:6854 [inline]
- nested_vmx_free_vcpu+0x8e/0xd0 arch/x86/kvm/vmx/nested.c:381
- vmx_vcpu_free+0x109/0x2c0 arch/x86/kvm/vmx/vmx.c:7765
- kvm_arch_vcpu_destroy+0x154/0x380 arch/x86/kvm/x86.c:12859
- kvm_vcpu_destroy virt/kvm/kvm_main.c:469 [inline]
- kvm_destroy_vcpus+0x123/0x380 virt/kvm/kvm_main.c:489
- kvm_arch_destroy_vm+0xf9/0x2c0 arch/x86/kvm/x86.c:13405
- kvm_destroy_vm virt/kvm/kvm_main.c:1301 [inline]
- kvm_put_kvm+0x772/0xb10 virt/kvm/kvm_main.c:1338
- kvm_vcpu_release+0x54/0x60 virt/kvm/kvm_main.c:4101
- __fput+0x41f/0xa40 fs/file_table.c:469
- task_work_run+0x1d9/0x270 kernel/task_work.c:233
- get_signal+0x1181/0x12c0 kernel/signal.c:2807
- arch_do_signal_or_restart+0xbb/0x810 arch/x86/kernel/signal.c:337
- __exit_to_user_mode_loop kernel/entry/common.c:64 [inline]
- exit_to_user_mode_loop+0xa3/0x5e0 kernel/entry/common.c:98
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:226 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:256 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:325 [inline]
- do_syscall_64+0x357/0xf80 arch/x86/entry/syscall_64.c:100
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f573499ce59
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f57357e7028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: fffffffffffffffc RBX: 00007f5734c15fa0 RCX: 00007f573499ce59
-RDX: 0000000000000000 RSI: 000000000000ae80 RDI: 0000000000000006
-RBP: 00007f5734a32e6f R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f5734c16038 R14: 00007f5734c15fa0 R15: 00007fffda4d80f8
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:kvm_cpu_has_extint+0xdb/0x340 arch/x86/kvm/irq.c:83
-Code: c6 e8 0d 00 00 4c 89 f0 48 c1 e8 03 42 80 3c 38 00 74 08 4c 89 f7 e8 44 54 e0 00 bb 90 00 00 00 49 03 1e 48 89 d8 48 c1 e8 03 <42> 0f b6 04 38 84 c0 0f 85 aa 00 00 00 8b 2b eb 6d e8 df 08 76 00
-RSP: 0018:ffffc900032f7740 EFLAGS: 00010206
-RAX: 0000000000000012 RBX: 0000000000000090 RCX: ffff88816b748000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000001
-RBP: 0000000000000001 R08: ffff88816b748000 R09: 0000000000000006
-R10: 0000000000000006 R11: 0000000000000000 R12: 1ffff1102e032000
-R13: dffffc0000000000 R14: ffff88811e33cde8 R15: dffffc0000000000
-FS:  00007f57357e76c0(0000) GS:ffff8882a9714000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000056532c5e2950 CR3: 0000000109ffc000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess), 1 bytes skipped:
-   0:	e8 0d 00 00 4c       	call   0x4c000012
-   5:	89 f0                	mov    %esi,%eax
-   7:	48 c1 e8 03          	shr    $0x3,%rax
-   b:	42 80 3c 38 00       	cmpb   $0x0,(%rax,%r15,1)
-  10:	74 08                	je     0x1a
-  12:	4c 89 f7             	mov    %r14,%rdi
-  15:	e8 44 54 e0 00       	call   0xe0545e
-  1a:	bb 90 00 00 00       	mov    $0x90,%ebx
-  1f:	49 03 1e             	add    (%r14),%rbx
-  22:	48 89 d8             	mov    %rbx,%rax
-  25:	48 c1 e8 03          	shr    $0x3,%rax
-* 29:	42 0f b6 04 38       	movzbl (%rax,%r15,1),%eax <-- trapping instruction
-  2e:	84 c0                	test   %al,%al
-  30:	0f 85 aa 00 00 00    	jne    0xe0
-  36:	8b 2b                	mov    (%rbx),%ebp
-  38:	eb 6d                	jmp    0xa7
-  3a:	e8 df 08 76 00       	call   0x76091e
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
+Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 ---
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+Gourav Kumar (1):
+      media: iris: disable time-delta-based rate control for VBR
 
-To test a patch for this bug, please reply with `#syz test`
-(should be on a separate line).
+Vishnu Reddy (1):
+      media: iris: avoid bit depth validation for capture formats
 
-The patch should be attached to the email.
-Note: arguments like custom git repos and branches are not supported.
+ drivers/media/platform/qcom/iris/iris_ctrls.c         | 19 +++++++++++++++++++
+ drivers/media/platform/qcom/iris/iris_ctrls.h         |  1 +
+ drivers/media/platform/qcom/iris/iris_hfi_gen2.c      | 10 ++++++++++
+ .../media/platform/qcom/iris/iris_hfi_gen2_defines.h  |  1 +
+ .../media/platform/qcom/iris/iris_platform_common.h   |  1 +
+ drivers/media/platform/qcom/iris/iris_vdec.c          | 10 ----------
+ 6 files changed, 32 insertions(+), 10 deletions(-)
+---
+base-commit: 8e9685d3c41c35dd1b37df70d854137abcb2fbac
+change-id: 20260707-qc10c_fix_and_disable_time_delta_based_rc-4d6172b395b1
+
+Best regards,
+--  
+Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+
