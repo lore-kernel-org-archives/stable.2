@@ -1,245 +1,138 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D6C4229D8
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 14:17:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783433872; cv=none; b=VL1wmzenKuwonD9aMphDTkX/kJ2BMM+wHdsqbip6HxWXxw1J05lSoEThQ/N0h0uJOwW+yhurArWs1NGdYPpRlpQV5I7wnRdBzVEffBJyfIPdJZMAOKK1/c1qMqarOS3ZUFIQLGcVHFynyh3yJqLe46GqNnF3/1TVS9gn/th5Xts=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783433872; c=relaxed/simple;
-	bh=JNRMrbb5OEze61V+JypFOazAcSxi7/13i/xrfkhYpUI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GKGDe7PT89ey7WjiVMoPLwC0Yhk+xy48AVQ0dQO6ly53ylHryVtPu8Hcd+Q7t/pnQhkyqfEuH28squWVG8wnYCMnVAPJ/xYlo4rmLESmYRc06qm+G1jxitNHZLujymcJEOnRri9llwtAj3zpOVSzWyv+JVtwW9CgYjkacDtHtvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=MIXsec/a; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8985C3672A8
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 14:20:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783434053; cv=pass; b=ouaMCIivw0kbD6AmU/d2dLvZ3NHtvra0lB9EN93z2n0xweGwWSUMsNFlMHHJMJXPFm1vhFfrthQp8VdcRp8DPkOy3AXQ3bF87vItErwAO9OlnFjksOA4+Gfdng+9Oc4WA5pSkNtRqxZP0Rui+dbwKfUgSWzc/hsgNAx6R0zkDNY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783434053; c=relaxed/simple;
+	bh=0Pmyp4+fKGpQSRa/JRAnhA6Y6d88du6SFSR8E/Xq4Qc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FXhVq1uMkD1pXwmVtltEY3iRTsqiHnXxTM5BXtvoDnWtDNcPja2Le8UJt0S25bpbZKw3luX80qD0OOPmYzG+D2bvIoij3mOygUlda2WNMepk5hX3IBo7zmrp7I0Dn+VLgDYBPCvyKNnAA+sfADPx2i+6JhmsqegPPp2FUwq/Sws=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Up32RJgd; arc=pass smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="MIXsec/a"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c1276b8c7e2so433176466b.3
-        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 07:17:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Up32RJgd"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-698562f10e7so5740966a12.0
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 07:20:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783434050; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Zr2KP/ay8elT8mBUc5a3QJc/r2irZC7/u9uXitC4U5r9hCnisEYgZsQqaBTxvsVJ54
+         iB3S/ijg8PnRBoGr6Gllaa+RFBhFKJ5U+UlakbFg8xBouRANzRzRDYwHGy52XxwWfmqF
+         98Qcpc020Gz64SxR5NQXpqhWyrVtbbwr1drKJlAkwwrZ+riHa6vDbn5PqrvAObIN5r0G
+         Gll178GLD0GjdzukbBh84kuscQ7gXZbIorhF5anXehWmrEtntbZ0O9Oler6mL15W2f6o
+         oytK2clu6zTz6BGjBvdTlTkDwnadOTi9qd4QzkOHTaVpS61QGTMLou4zY/FqQzhqHLaf
+         4KoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iFw/uuft2ZNSb/Wju7Fc7KgMmtW46i8JZGDIIBDOgNM=;
+        fh=XMhlrdmeLcsZXS2HTUd/ZDsOOI5EHZ9wEotAnNax/tw=;
+        b=YutAcdhUHtgeEOE6U5tia3EZXd9J5Zk/u1cgq2w0+tbDfTwPTttxYAaG+4E9zvUn2T
+         eMgpiq17TFpPSK3CXo06nSth2GbldQJ2jbwQvjlC9GDuZUIAXWNZY8h6KqZktERo8D6B
+         HS2gF06pyCvckp+RLOx6mALjbR91s4RPdCOEwsV3XzheK8Su4fU/BgQmLnHOaujw6no/
+         2m+At5aJn3h9VOAhLrZS64sBCXHfXlbneGuzqiUiig9LJRW3zcEoP1Cm8ICyqgEzVG65
+         Lo4c5B5Bcadu9GYStWzAhIJWzghPJwDZiDvmc/ToZy8cUNuPWQvFc8zD7PFbci3zxbXO
+         j0Gg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1783433861; x=1784038661; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FHI2Oy1d15fEP4M9liye51QpOZL8T3aeN/VQtQoMGgQ=;
-        b=MIXsec/aVbobYu/Uf9o86l7StzmlDAOuk/H/lELvIfJjPT4xU0xZ5b3Uo4zqD2x9hr
-         qRp/p25n2EzvQRi2wxuwZRpqvBstTuZ00l4nGeBxkWnNRR/iLILxX9jmFZMaxYZZ7miV
-         qFaP3kSH//FU3hktZt+aGuYxtG0076WkUzPAQ=
+        d=gmail.com; s=20251104; t=1783434050; x=1784038850; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iFw/uuft2ZNSb/Wju7Fc7KgMmtW46i8JZGDIIBDOgNM=;
+        b=Up32RJgdYCyOYjGnt2M6zmwpKb9ifSJOlUKy6FVCREmmzGwLd0OhwipEWCdpGb9Zsv
+         GWp3fCo1Jqk5WyL3j6ChyEUcL+bAIhGrn5N/G1ULVVv/hXgOLcYaZ55wU0oQrVYyNsGM
+         7OQLgVmdUjbVkANIO3aOAawIG/0pZTrgw3xCbFAH4xbCE+NLIwYogqf/tThxfuzlshBR
+         jePdx1Tyjw5UyJAcValzYJ/hiO1/Q3Hn5JUDvcZ3U8row48WlUiB1MD2b+cgG60TcmjB
+         Q4nC46Ho8bnf1GmfzFIefvPuAtbfhfQmZOkcT0H9MFft0EKuZkUPXvl2phz04M0zMAFu
+         qwIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783433861; x=1784038661;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FHI2Oy1d15fEP4M9liye51QpOZL8T3aeN/VQtQoMGgQ=;
-        b=BOez9XKzP37sQXtepNQqmeWzldG0UGfAb+77SZatSPl0o6GixU9hfYxsFJX153eTMh
-         8bz50XzqyyEHy8LJV2tAeYO1WdnQWOHX6cesFn8RkLhsA5RLqRlJWdPDqhq+1HSmXqUy
-         D6AI72uCanQMoVOBlnEt/eZBNYs0RS9gg49/cEefliMSJR26hmsQO7ZcHP2xH/j/YL/e
-         1DVKdVEBE/lCtRYj8GjlwSR7sCLGylIGvhpnSh4UFle0aNFoO07iLXa1ZLb3FZG8SL0G
-         b40ZGbKMsaDFajgict0nPXDMThmM3K+71/yls/nzP2nvb8KUetaAPBK60Gj+CrudXLYV
-         ka2A==
-X-Forwarded-Encrypted: i=1; AHgh+RpmrMHb2aiytH6jr1WGIqGHuvqXavunQ3yI8N/GFJSHOs+2jthBbkAxKSu0vtyBwOtSxtTjufY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx7PbL4ymOT+9Pb8vlKa3J81IS3Yqc8+f5bX1mRAd7UJy8aUAl9
-	lRerluv2n+VelHpE0RtHLV/DFJVU2QTa9yJfgWxliPjRFkV6r3BOdcqqNbD8LB99Mw==
-X-Gm-Gg: AfdE7cnQ5ipy7/2FLd4VvmreEqJxLGwegyvMjUExZDE5tytTo9PqNONY8shSKvblkNs
-	ult95zRQOV2XGgoofAU9jAGfCedP+dnUVkD2u9b93Lcoke7EpuzaGZdPw0Kko8w/k9XUVA2wRLW
-	INIVGY/bRPSadf9GSKOyME4Vg8+zzmAuftjeAJBQpav0k5BVEJfuZ8NixE3vxSlHu4KVNSLPral
-	3z5MJZh8SbdLhEEV/6agl/u2RVij9sZIfKe4C5nYfQv5EsFAex/TD5PgzkFROspzYYoYEdCn6Y7
-	uuva8udqcNVPPU3oZtSSoqcWrHtwcUSljRpg/4t+72Z3nUz7clTSpn7kkxqEcqjoyU6vJoDfCBh
-	MOe76Uf/o/+wOXQ0gtq32fJb4MPLakU8c4Gl1IAeg6LbuJNWpZ/0c4EiEZ6FjdoP1SvxjZ+hemi
-	xiX3Vsb+VJQimTKKF4EOMA57X9rm5GUtMCaGEWm2Mn2vFRwuPYqmd1xp9LU0KIapQYo2j2/Jp0C
-	lblNaU4EQ==
-X-Received: by 2002:a17:907:d301:b0:c12:c936:86f6 with SMTP id a640c23a62f3a-c15a676c68amr319735666b.12.1783433861112;
-        Tue, 07 Jul 2026 07:17:41 -0700 (PDT)
-Received: from akuchynski.c.googlers.com.com (12.127.147.34.bc.googleusercontent.com. [34.147.127.12])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ad882342sm144491666b.28.2026.07.07.07.17.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 07:17:40 -0700 (PDT)
-From: Andrei Kuchynski <akuchynski@chromium.org>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Jameson Thies <jthies@google.com>,
-	Benson Leung <bleung@chromium.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	Pooja Katiyar <pooja.katiyar@intel.com>,
-	Johan Hovold <johan@kernel.org>,
-	Hsin-Te Yuan <yuanhsinte@chromium.org>,
-	Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>,
-	Linyu Yuan <quic_linyyuan@quicinc.com>,
-	Jack Pham <quic_jackp@quicinc.com>,
-	Andrei Kuchynski <akuchynski@chromium.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: typec: ucsi: Fix race condition and ordering in port unregistration
-Date: Tue,  7 Jul 2026 14:17:36 +0000
-Message-ID: <20260707141736.1635698-1-akuchynski@chromium.org>
-X-Mailer: git-send-email 2.55.0.rc2.803.g1fd1e6609c-goog
+        d=1e100.net; s=20251104; t=1783434050; x=1784038850;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=iFw/uuft2ZNSb/Wju7Fc7KgMmtW46i8JZGDIIBDOgNM=;
+        b=bwA0GA6J4BOvZGf+qdShNKOdOYOB3Djw7QcCrjmwLvdvMA2OsRiYDT+1NH5Mjtu9yD
+         ZSO48ro5DHQyFz4vvViwuX9nFxY14cLzpNfFjT62WcnSStuVvnl7CgWsYH3m22g3SlB4
+         QBDk0q8ag6tb00I7/gT/C9NZGqouzYYO9VsO9Q30cSsTRYjxpL7/HvK1eAEVHNbQwKvt
+         KcLc/SldorypGyEkfha4YsndLNdMSONNTi/DgXfxG0o0IIlHe5AAkqTc9WgR+CiJFZzb
+         9p0Vv7dxG1gn/2F59g5ldnx0aQ+YfAXcUrLPPNw5Rymp9LTs3W+ZI7diuLUtA3wE8XqQ
+         6nlQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro/EEUE6I7SbKyrWQVxxTFTiS7jOn5YdgNRN44jJteleM+Rio1uTsrrLjg8+r56citPrs5IS04=@vger.kernel.org
+X-Gm-Message-State: AOJu0YziXAAqcnjR8negGOy5jPQPzGM4HL8qu5u4aHMpCjuN7xH6nYGR
+	ul2e7dETrkpji/DL2naLsxQCfqqcgPJdWjbLTkgQxgjyfFaz879x4T8OIv9Pb+IIoAM+EITafz2
+	FZBN2y6Kzw9AWhtJT9NG08F0Xt2sJ1L4=
+X-Gm-Gg: AfdE7clVvT2YZEJOCEx7Mm8FqPbz1rQXmqK0cGV2jzOd1gyBFq2FtVJR1HNXGB0k3lG
+	D3WxRW2dqz/NI0wl6yqBmGz/ggOwepXdNZQutu9sHw9b5GBi7XGxeB56DrNrozpP6bATS6zFNtq
+	/O38ygoT0U+sOiqYxA4F8FQ9B/dCZ6iK1cBDZXvHYUNKMm8uvk0FfnnuRkHoLUq+zt5lJLOIeod
+	ZlhzGc24ikG8KomHhtL/Nom0OYYkU8UPtCykGaKFpr1SkbBAUbVYUQ5/wzeeikoCrLBcX28AYFO
+	Tmd+G+PW378eNCd67xfp9IQQC5nPDo7sheEO5EG5tTqORv8jIYf4codZAPXI
+X-Received: by 2002:a05:6402:3229:b0:698:5f47:1d4b with SMTP id
+ 4fb4d7f45d1cf-69a85c0d3d7mr2863068a12.22.1783434049767; Tue, 07 Jul 2026
+ 07:20:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260625202911.26782-1-mokshpanicker.7@gmail.com> <2026070712-gift-curtly-5f96@gregkh>
+In-Reply-To: <2026070712-gift-curtly-5f96@gregkh>
+From: Moksh Panicker <mokshpanicker.7@gmail.com>
+Date: Tue, 7 Jul 2026 14:20:37 +0000
+X-Gm-Features: AVVi8CeD3RwiVLji4-TTiExWVp2TyEKcBkmmhXz5DauvaGb9_i46Um4R2cQZkyg
+Message-ID: <CAK0z5OkkdOcXkz_sUj521e4Om+HGGesqkoBpau8kYDDjvY8S1g@mail.gmail.com>
+Subject: Re: [PATCH] staging: rtl8723bs: fix OOB reads in rtw_get_wps_ie()
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, skhan@linuxfoundation.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A synchronization issue exists during port unregistration where pending
-partner work items can race against workqueue destruction, leading to
-use-after-free conditions:
+This issue was found by code review while analyzing the OOB read
+patterns fixed by Alexandru Hossu in sibling functions
+(rtw_get_sec_ie, rtw_get_wapi_ie, rtw_get_wps_attr) in the same file.
+The same unbounded IE iteration pattern was present in
+rtw_get_wps_ie() but was not included in his series. The fix was
+compile-tested against linux-next. As this is a staging driver for a
+USB WiFi adapter that I do not have physical access to, runtime
+testing was not possible. The fix follows the same pattern as the
+accepted fixes in the sibling functions.
 
-  cros_ec_ucsi cros_ec_ucsi.3.auto: error -ETIMEDOUT: PPM init failed
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:__queue_work+0x83/0x4a0
-  Call Trace:
-    <IRQ>
-    __cfi_delayed_work_timer_fn+0x10/0x10
-    run_timer_softirq+0x3b6/0xbd0
-    sched_clock_cpu+0xc/0x110
-    irq_exit_rcu+0x18d/0x330
-    fred_sysvec_apic_timer_interrupt+0x5e/0x80
+Thanks,
+Moksh
 
-Fix this by ensuring strict ordering and proper serialization during
-teardown:
-
-1. Move ucsi_unregister_partner() to the beginning of the teardown
-sequence and protect it under the connector mutex lock.
-2. Ensure all pending partner tasks are explicitly flushed and finished
-before the workqueue is destroyed.
-3. Switch from mod_delayed_work() to a cancel_delayed_work() and
-queue_delayed_work() sequence. This guarantees that items currently marked
-as pending won't be scheduled an additional time, preventing a double
-release of resources which leads to the following crash:
-
-  Oops: general protection fault, probably for non-canonical address
-    0xdead000000000122: 0000 [#1] SMP NOPTI
-  Workqueue: cros_ec_ucsi.3.auto-con2 ucsi_poll_worker
-  RIP: 0010:ucsi_poll_worker+0x65/0x1e0
-  Call Trace:
-  <TASK>
-    process_scheduled_works+0x218/0x6d0
-    worker_thread+0x188/0x3f0
-    __cfi_worker_thread+0x10/0x10
-    kthread+0x226/0x2a0
-
-To ensure these rules are applied identically across both the normal
-teardown and the ucsi_init() error paths, consolidate the cleanup logic
-into a new helper, ucsi_unregister_port().
-
-Cc: stable@vger.kernel.org
-Fixes: b9aa02ca39a4 ("usb: typec: ucsi: Add polling mechanism for partner tasks like alt mode checking")
-Fixes: b13abcb7ddd8 ("usb: typec: ucsi: Fix NULL pointer access")
-Fixes: fac4b8633fd6 ("usb: ucsi: Ensure connector delayed work items are flushed")
-Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
----
- drivers/usb/typec/ucsi/ucsi.c | 82 +++++++++++++++++------------------
- 1 file changed, 39 insertions(+), 43 deletions(-)
-
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index 92166a3725b16..d9668ed7c80ea 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -1845,6 +1845,42 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
- 	return ret;
- }
- 
-+static void ucsi_unregister_port(struct ucsi_connector *con)
-+{
-+	struct ucsi_work *uwork;
-+
-+	if (con->wq) {
-+		mutex_lock(&con->lock);
-+		ucsi_unregister_partner(con);
-+		/*
-+		 * queue delayed items immediately so they can execute
-+		 * and free themselves before the wq is destroyed
-+		 */
-+		list_for_each_entry(uwork, &con->partner_tasks, node) {
-+			if (cancel_delayed_work(&uwork->work))
-+				queue_delayed_work(con->wq, &uwork->work, 0);
-+		}
-+		mutex_unlock(&con->lock);
-+
-+		destroy_workqueue(con->wq);
-+		con->wq = NULL;
-+	} else {
-+		ucsi_unregister_partner(con);
-+	}
-+
-+	ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
-+	ucsi_unregister_port_psy(con);
-+
-+	usb_power_delivery_unregister_capabilities(con->port_sink_caps);
-+	con->port_sink_caps = NULL;
-+	usb_power_delivery_unregister_capabilities(con->port_source_caps);
-+	con->port_source_caps = NULL;
-+	usb_power_delivery_unregister(con->pd);
-+	con->pd = NULL;
-+	typec_unregister_port(con->port);
-+	con->port = NULL;
-+}
-+
- static u64 ucsi_get_supported_notifications(struct ucsi *ucsi)
- {
- 	u16 features = ucsi->cap.features;
-@@ -1971,22 +2007,8 @@ static int ucsi_init(struct ucsi *ucsi)
- 	for (i = 0; i < ucsi->cap.num_connectors; i++)
- 		lockdep_unregister_key(&connector[i].lock_key);
- 
--	for (con = connector; con->port; con++) {
--		if (con->wq)
--			destroy_workqueue(con->wq);
--		ucsi_unregister_partner(con);
--		ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
--		ucsi_unregister_port_psy(con);
--
--		usb_power_delivery_unregister_capabilities(con->port_sink_caps);
--		con->port_sink_caps = NULL;
--		usb_power_delivery_unregister_capabilities(con->port_source_caps);
--		con->port_source_caps = NULL;
--		usb_power_delivery_unregister(con->pd);
--		con->pd = NULL;
--		typec_unregister_port(con->port);
--		con->port = NULL;
--	}
-+	for (con = connector; con->port; con++)
-+		ucsi_unregister_port(con);
- 	kfree(connector);
- err_reset:
- 	memset(&ucsi->cap, 0, sizeof(ucsi->cap));
-@@ -2194,33 +2216,7 @@ void ucsi_unregister(struct ucsi *ucsi)
- 
- 	for (i = 0; i < ucsi->cap.num_connectors; i++) {
- 		cancel_work_sync(&ucsi->connector[i].work);
--
--		if (ucsi->connector[i].wq) {
--			struct ucsi_work *uwork;
--
--			mutex_lock(&ucsi->connector[i].lock);
--			/*
--			 * queue delayed items immediately so they can execute
--			 * and free themselves before the wq is destroyed
--			 */
--			list_for_each_entry(uwork, &ucsi->connector[i].partner_tasks, node)
--				mod_delayed_work(ucsi->connector[i].wq, &uwork->work, 0);
--			mutex_unlock(&ucsi->connector[i].lock);
--			destroy_workqueue(ucsi->connector[i].wq);
--		}
--
--		ucsi_unregister_partner(&ucsi->connector[i]);
--		ucsi_unregister_altmodes(&ucsi->connector[i],
--					 UCSI_RECIPIENT_CON);
--		ucsi_unregister_port_psy(&ucsi->connector[i]);
--
--		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_sink_caps);
--		ucsi->connector[i].port_sink_caps = NULL;
--		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_source_caps);
--		ucsi->connector[i].port_source_caps = NULL;
--		usb_power_delivery_unregister(ucsi->connector[i].pd);
--		ucsi->connector[i].pd = NULL;
--		typec_unregister_port(ucsi->connector[i].port);
-+		ucsi_unregister_port(&ucsi->connector[i]);
- 		lockdep_unregister_key(&ucsi->connector[i].lock_key);
- 	}
- 
--- 
-2.55.0.rc2.803.g1fd1e6609c-goog
-
+On Tue, Jul 7, 2026 at 11:30=E2=80=AFAM Greg KH <gregkh@linuxfoundation.org=
+> wrote:
+>
+> On Thu, Jun 25, 2026 at 08:29:11PM +0000, Moksh Panicker wrote:
+> > rtw_get_wps_ie() iterates over IE data from network frames without
+> > validating that the IE header and payload fit within the remaining
+> > buffer before reading them. Specifically:
+> >
+> > - in_ie[cnt + 1] is read without checking cnt + 1 < in_len
+> > - memcmp(&in_ie[cnt + 2], ...) accesses cnt + 2 without bounds check
+> > - in_ie[cnt + 1] is used as length without verifying payload fits
+> >
+> > Add bounds checks at the top of the loop body to break early if fewer
+> > than 2 bytes remain for the IE header, or if the declared payload
+> > extends past the end of the buffer. Also require at least 4 bytes of
+> > payload before comparing the WPS OUI.
+> >
+> > Fixes: 554c0a3abf21 ("staging: rtl8723bs: add r8723bs driver")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Moksh Panicker <mokshpanicker.7@gmail.com>
+> > ---
+> >  drivers/staging/rtl8723bs/core/rtw_ieee80211.c | 9 ++++++++-
+> >  1 file changed, 8 insertions(+), 1 deletion(-)
+>
+> How was this issue found?  How was it tested?
+>
+> thanks,
+>
+> greg k-h
