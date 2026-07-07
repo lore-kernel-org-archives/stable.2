@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823A73E8688;
-	Tue,  7 Jul 2026 14:58:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B94C37AA9A;
+	Tue,  7 Jul 2026 15:05:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783436326; cv=none; b=a61cDLOuCfH508pxsiDhzQgVwovIwmdk2GPmcphCArxCFt9USSPoCZrMfEBQufJI4SMr64fU3IjYkOSMhyQWmS5VMaCzYogRyps6qq9n1nwfaANq/fBotZtHSbDIvcL2yej2BlC0shcOblIhKb6bILrQhcFdMKqWC+sJAoDRBAI=
+	t=1783436756; cv=none; b=elTxpqAbOMSrXsKYEURUaVzvl0hqoKNZCG4P2eLCzn3cI8ciV/BdSu/ksw2myTWx/AbFKjd2UwRI2cP/D5I7CdlJOp8M8XDr+Xn4O/zjt0KWEF6HFmkTcq2lA5Tgnq6R/sB3wG/kNLkSYjnb0876w53Pu9QYrLRy9aUcWe5qVSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783436326; c=relaxed/simple;
-	bh=PlMxsGARKkgfcMvVXTnKC8/T3l8zRC4VArlMr7lNFQw=;
+	s=arc-20240116; t=1783436756; c=relaxed/simple;
+	bh=5JCDH4DsiI4TdTnJhcm4s3q6sJzIPwDRLGaaZRqEKGY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OW6Hofc0i52a1wNgU0ZnUY360Jd7/XgC0MZUCS6q6+lf1ZerTdTl3STt+HOnXNzn/0snKxPjrkMz6r94w8tih/UWt3U/q4tSz3a9bYExlX5u1Spmn/5B/Q4VmIbeoAmCu7pDAnBHOjBshiSIj3qCteTBelkIWwsMOqA/BVgysbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kfDIla2s; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=ULKWhbHm1yek3QeR/KceYLG56d7sn0SkypnF48TMKbEe6ZhpISIJ1yLOPaDVPImE4z8ogcDSP9t+/xboCPgbP0KtaFBgR8ZSTWwAUMEheewEYHUHb/fP4+GXsuJfzzV06vJysz52f4BU1hLYblCRkJd1E8n9y2u8w8QDwmef9R4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dGFTG7Rw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kfDIla2s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4C71F00A3A;
-	Tue,  7 Jul 2026 14:58:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dGFTG7Rw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27FB91F00A3A;
+	Tue,  7 Jul 2026 15:05:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783436323;
-	bh=ygpMICMoTnkpL1/1oxwmS7t/GpkK91ripgRv9mbioew=;
+	s=k20260515; t=1783436753;
+	bh=U6SbfFdui2/7cITPPGTWciEVmjsDv8a6ho9k9ea7zPU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kfDIla2sbEsBl3KxEfELr0718lUqk8sYVGFqtQmOcUJdRMzBbBOAovYXorXdGZoFO
-	 g7NineCVlSviBjqaUlWQ0OfCKobp0+HEbPnZ0z9/f+d/xWFZugdwHunU4/0lIeRaY3
-	 sOyMTlWG1wwWFtHZj7kz7BhgrEHYHRYOXM0c85aMjDdD2ptPSgvD4HunFJ8k2D4L7l
-	 Yw9OIZ726jyBAATK0QzS/KoTfDfA4cJpVxXKrmb8sK2bTKtoH1wj/Q5De0WOeEWsll
-	 opt2e8PlkYvAzCPH2R1YNEpxY6qNj2GeOt5sfy+JcjJiOx4tQV0H/3+uu2lA5IkYG/
-	 +7EP7wFlVczLw==
-Message-ID: <27ebe8f0-78b6-402a-a2e7-4e807251d20a@kernel.org>
-Date: Tue, 7 Jul 2026 16:58:39 +0200
+	b=dGFTG7RwnKilQwvtW8NwFRMNYwqKv8j9M25Kg36Pzeda4MfK9gjY9uXjS4G7/mR1k
+	 Lym4airyudQ85+awNxabpr9cLx+tMmiyA/rdVi+x8tUwXzuhVWrm9ExQDK7Vzng3BW
+	 6fpGlC5jpZvhWpYfQ1+TAjjHMbO/9rHLPmF0guNxcC4xpm/IiCbHAKjm7wAxJkG1gK
+	 4HJYeEPv+frXnk1rLOu8KzqI66WYPWJDIV0x3fXkZic/HzW+OgRlaj6B8i5AZQr0V5
+	 n+7dBCmnHHwbqlKvSBDLoG1DeN7V0kc9Fq6WXeiVKawIqkJjEj0Kax7OGqJzkZE5Ft
+	 RXtz78VY4vuQQ==
+Message-ID: <678ecae4-cda7-4683-9012-ed7c5c5b879f@kernel.org>
+Date: Tue, 7 Jul 2026 17:05:49 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,19 +35,13 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region
- registration
-To: "Gupta, Pankaj" <pankaj.gupta@amd.com>, seanjc@google.com,
- pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com,
- dave.hansen@linux.intel.com
-Cc: bp@alien8.de, x86@kernel.org, thomas.lendacky@amd.com, hpa@zytor.com,
- yangge1116@126.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
-References: <20260701144543.39582-1-pankaj.gupta@amd.com>
- <1cc159b9-5f94-4524-8e03-efe91601ccfc@kernel.org>
- <db303a0c-98e3-4967-9b61-ccb711b776c8@amd.com>
- <46f19bd8-0d43-4b0e-a8ab-0ef9d3b8bd1a@kernel.org>
- <2bd89e95-9c15-4a3a-916d-0d71a92d8b02@amd.com>
+Subject: Re: [PATCH] mm/hugetlb: fix swap entry corruption when clearing
+ uffd-wp at fork()
+To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org
+Cc: muchun.song@linux.dev, osalvador@suse.de, peterx@redhat.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ kernel-team@meta.com, kas@kernel.org
+References: <20260703161833.57416-1-kirill@shutemov.name>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -94,116 +88,83 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <2bd89e95-9c15-4a3a-916d-0d71a92d8b02@amd.com>
+In-Reply-To: <20260703161833.57416-1-kirill@shutemov.name>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 7/7/26 15:45, Gupta, Pankaj wrote:
+On 7/3/26 18:18, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 > 
->>> Hi David,
->>>
->>> Yes, it fails in this path but for file backed mapping, vma_is_fsdax() returns
->>> false because
->>>
->>> vma_is_dax() returns false:
->> Ah, okay, so fsdax is not involved and we really only fail because of the
->> writable_file_mapping_allowed() check.
->>
->> I was for a second thinking in terms of nested virt :)
->>
->>> Host side backend is regular file backed memory (no fsdax).
->> Okay, so we'll end up mapping an ordinary file into VM memory, and expose that
->> to the VM as part of virtio-pmem device.
->>
->> That also means that vfio etc. won't be able to longterm-pin such device memory.
->> So this is not a problem isolated to SEV.
->>
->> Forbidding to longterm pin is actually the right thing to do if the filesystem
->> relies on writenotify, as spelled out by Lorenzo's commit:
->>
->> "
->>      Writing to file-backed mappings which require folio dirty tracking using
->>      GUP is a fundamentally broken operation, as kernel write access to GUP
->>      mappings do not adhere to the semantics expected by a file system.
->>
->>      A GUP caller uses the direct mapping to access the folio, which does not
->>      cause write notify to trigger, nor does it enforce that the caller marks
->>      the folio dirty.
->>
->>      The problem arises when, after an initial write to the folio, writeback
->>      results in the folio being cleaned and then the caller, via the GUP
->>      interface, writes to the folio again.
->> "
->>
->> Hmmm
+> copy_hugetlb_page_range() clears the uffd-wp bit of hwpoison and
+> migration entries with huge_pte_clear_uffd_wp(), which operates on the
+> present-PTE bit position. Swap entries keep the uffd-wp state elsewhere
+> -- the same branches read and set it with pte_swp_uffd_wp() and
+> pte_swp_mkuffd_wp() -- and the present-PTE position falls into the swap
+> payload. On x86-64 it lands in the inverted swap offset, where a
+> naturally-aligned hugetlb PFN always has the affected bit set, so the
+> clear advances the encoded PFN by two pages.
 > 
-> Yes. For file based mapping we don't allow long term pinning.
+> No userfaultfd needs to be involved: the clear is guarded only by the
+> child VMA not being uffd-wp registered, so a plain fork() with an
+> in-flight hugetlb migration entry (or a poisoned hugetlb page) corrupts
+> the entry copied into the child. Instrumenting the hwpoison branch and
+> forking after MADV_HWPOISON on a 2MB anon hugetlb page shows:
 > 
-> If we take into account the fragmentation concerns for MIGRATE_CMA and
-> ZONE_MOVABLE allocations
+>   offset before=120e00
+>   offset after =120e02
 > 
-> solvable with FOLL_LONGTERM, I can think of two options(tested) to allow file
-> based mappings as well:
+> The fallout is mostly latent: rmap walks match migration entries by
+> folio range and remove_migration_pte() rebuilds the PTE from the folio,
+> so a within-folio PFN skew heals once migration completes. But any path
+> that re-encodes the corrupted offset -- e.g. hugetlb_change_protection()
+> rewriting a writable migration entry via
+> make_readable_migration_entry(swp_offset(entry)) -- propagates it, and
+> an hwpoison entry misidentifies which page is poisoned.
 > 
-> 1. Fallback on FOLL_WRITE when FOLL_LONGTERM fails as suggested by Sean.
+> Use pte_swp_clear_uffd_wp(), matching copy_nonpresent_pte() and
+> move_huge_pte().
+> 
+> Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260703140011.99E601F000E9@smtp.kernel.org/
+> Fixes: bc70fbf269fd ("mm/hugetlb: handle uffd-wp during fork()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
+> Assisted-by: Claude:claude-fable-5
+> ---
+>  mm/hugetlb.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index 571212b80835..a4e6dd3a82f4 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -4918,7 +4918,7 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+>  		softleaf = softleaf_from_pte(entry);
+>  		if (unlikely(softleaf_is_hwpoison(softleaf))) {
+>  			if (!userfaultfd_wp(dst_vma))
+> -				entry = huge_pte_clear_uffd_wp(entry);
+> +				entry = pte_swp_clear_uffd_wp(entry);
 
-That is just not acceptable, as it breaks random other stuff (MIGRATE_CMA, as
-one example) besides the file-pinning problems that Lorenzo added.
+I think installing a hwpoison pte will actually drop the uffd marker.
 
-If we're going to hack something in, then that we bypass the file writeback check.
-Not that we don't use FOLL_LONGTERM.
+hugetlb_change_protection() does nothing on hwpoison entrues.
 
-I'd hate to use a GUP flag to indicate "this is a legacy hack", but it clearly isolates the
-issue (needs a better name obviously):
+So how could be possibly get a hwpoison entry with an uffd-wp bit set here?
+
+If we indeed can't, Id assume there is nothing to clear here at all.
+
+>  			set_huge_pte_at(dst, addr, dst_pte, entry, sz);
+>  		} else if (unlikely(softleaf_is_migration(softleaf))) {
+>  			bool uffd_wp = pte_swp_uffd_wp(entry);
+> @@ -4936,7 +4936,7 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+>  				set_huge_pte_at(src, addr, src_pte, entry, sz);
+>  			}
+>  			if (!userfaultfd_wp(dst_vma))
+> -				entry = huge_pte_clear_uffd_wp(entry);
+> +				entry = pte_swp_clear_uffd_wp(entry);
 
 
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index ae9bca4eda5ca..e2c531f914d44 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -1912,6 +1912,9 @@ enum {
-         */
-        FOLL_HONOR_NUMA_FAULT = 1 << 12,
- 
-+       /* TODO */
-+       FOLL_LONGTERM = 1 << 13,
-+
-        /* See also internal only FOLL flags in mm/internal.h */
- };
- 
-diff --git a/mm/gup.c b/mm/gup.c
-index 0692119b79043..1fa0aa0cdc99d 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -1186,8 +1186,8 @@ static bool writable_file_mapping_allowed(struct vm_area_struct *vma,
-         * If we aren't pinning then no problematic write can occur. A long term
-         * pin is the most egregious case so this is the case we disallow.
-         */
--       if ((gup_flags & (FOLL_PIN | FOLL_LONGTERM)) !=
--           (FOLL_PIN | FOLL_LONGTERM))
-+       if ((gup_flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK)) !=
-+           (FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK))
-                return true;
- 
-        /*
-@@ -2746,7 +2746,7 @@ static bool gup_fast_folio_allowed(struct folio *folio, unsigned int flags)
-         * If we aren't pinning then no problematic write can occur. A long term
-         * pin is the most egregious case so this is the one we disallow.
-         */
--       if ((flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE)) ==
-+       if ((flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE | FOLL_LONGTERM_HACK)) ==
-            (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE))
-                reject_file_backed = true;
- 
-@@ -3180,7 +3180,7 @@ static int gup_fast_fallback(unsigned long start, unsigned long nr_pages,
-        int locked = 0;
-        int ret;
- 
--       if (WARN_ON_ONCE(gup_flags & ~(FOLL_WRITE | FOLL_LONGTERM |
-+       if (WARN_ON_ONCE(gup_flags & ~(FOLL_WRITE | FOLL_LONGTERM | FOLL_LONGTERM_HACK |
-                                       FOLL_FORCE | FOLL_PIN | FOLL_GET |
-                                       FOLL_FAST_ONLY | FOLL_NOFAULT |
-                                       FOLL_PCI_P2PDMA | FOLL_HONOR_NUMA_FAULT)))
+That looks correct.
 
 
 -- 
