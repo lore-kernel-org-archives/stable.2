@@ -1,77 +1,126 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16173416132;
-	Tue,  7 Jul 2026 13:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C074189B8;
+	Tue,  7 Jul 2026 13:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783430489; cv=none; b=q6FMXHPbJHFE6Cp4ixfwhAUbMm5/rJVaDX1Js3Ke4ElrMd9HiVg2bUZHpqQd8sFGbyYNoeiNnVK4KCT9C7YKwKfCpt5pHk8EXSav9tHiLI+ZzD/w0VmRVpbqZHYyLB3LmvVu0BK9r3cY8p18w3a3mu0nPr7QTViUlMU55Hk/rdY=
+	t=1783430697; cv=none; b=B+RrqltqPMVzJMUy8KTW52vizMWiu9749lVNnEaXmq8LDUFSSkYyXstZWdz529aUz5HIYDzDSaWwgCfHbnCyXWoqp0qtjwFATW4xTgV1s5fRLMg2V9lsi1Zh0GQCb60nC7UhRMdTIQkMHg52qozJ8TX06mQm4Fg+nF8r+aqdgsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783430489; c=relaxed/simple;
-	bh=aTI150TJIrCiFSkMzkGJnHBZn+tFIQP7mzFfIPu4Tkg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u0VPr0kMl/M9b40n/bcnRIkr0tJpAzTrXy9PrrameTgYJ3q4zwLWxCW27dBha0qGUoDV7VX5XYYmk+Jh+qrDDYI9SNASXgaDSc0PWBX1MMOgPsABTIk7DgAKlOJ9YNM+aTvQcT/IzJHMIMap4OBwLVmjrUs4FVt9tpEx3+l/5go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=T7mYdosi; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1783430697; c=relaxed/simple;
+	bh=vtrZtH5TDoDuRwYUu+2qUXFi+UWqM85rbapuzzsKooE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aWsjOvko16H6rzO5CMF22gVF3hdtnMRdVSUQcwfsusS1T7kXa2zQAXD/yfqcA9UFm/DqN/TkqyDd3xziSBlkZ6ujkw36Jm4W5kDLGXuGH4KBWhBlOaHPoXOsRZOXZM/pnD5k5u2NpvqPJphX6jSXsc9LS/xV7mMij9lpr6l2ers=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Dk1t/251; arc=none smtp.client-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="T7mYdosi"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=My+KPg/qXh2P4MUPP32y367LOETlt/nlmXRd1cw9Rcs=; 
-	b=T7mYdosiQhUuJZLvgw/3p2c6ZEQ0BrELzjDCGitCFs2FUo7cchdr1PaaCFpe4EFhB6sOUvKz8qd
-	eF45+AkKPwhP2lyiBWAtNbS9fNoMEACEk4tVP2SYkc1vsm941UvKFFx61rqkI1q/4a7i8DGesBmA2
-	EDyQnysDCIfKNg+Doj/yp9sI1gcKg+2jjxOcKM2joDTndMEOvrrx5dFlCjMROMRfasFHtelZGkJ7F
-	Pm5/0cSLY8SfbhPOsOhfa5EIcl3BdL8K2dHXlT1Z9y7mqkaOQLqt+Zp8o4s85bqwjBs//Rc9gwgfJ
-	0ht27yljz4+pkR4bkAL4pfYSZjHBcKwT3zkA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1wh5jH-0000000BPKS-1vDg;
-	Tue, 07 Jul 2026 21:20:52 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Tue, 07 Jul 2026 21:20:51 +0800
-Date: Tue, 7 Jul 2026 21:20:51 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Atish Patra <atish.patra@linux.dev>,
-	Paolo Bonzini <pbonzini@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Peter Gonda <pgonda@google.com>,
-	Brijesh Singh <brijesh.singh@amd.com>,
-	Youngjae Lee <youngjaelee@meta.com>,
-	Ashish Kalra <ashish.kalra@amd.com>,
-	Michael Roth <michael.roth@amd.com>,
-	John Allen <john.allen@amd.com>, clm@meta.com, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
-	stable@vger.kernel.org, Atish Patra <atishp@meta.com>
-Subject: Re: [PATCH v3 3/4] crypto: ccp: Fix possible deadlock in SEV init
- failure path
-Message-ID: <akz9M0mBGwHW08aZ@gondor.apana.org.au>
-References: <20260602-sev_snp_fixes-v3-0-24bfd3ae047c@meta.com>
- <20260602-sev_snp_fixes-v3-3-24bfd3ae047c@meta.com>
- <akdUUggmSSS1a0IW@gondor.apana.org.au>
- <akvvTFUAI9tjOXRh@google.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Dk1t/251"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1783430667;
+	bh=m0aV9/Bzvgo91Wu7FQyhRfJtZRz32PhgnIpGOiDxBO0=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=Dk1t/251n0tSiOIUJavuTzYujTnzTRr+yWnv79BPG/d05muAuCdUcSkDMCYWYxWxH
+	 VnLU+pSiTPHHmKCn0IlpsnBBOwdRwwmpqNnsjDv6qR2zf5zn4vGAUsdU9h+3OZlO2o
+	 TQF3K1KDi2/y1MbD7pmRwtoR6rGsEqYKreMrkfNc=
+X-QQ-mid: zesmtpgz9t1783430662t310a248a
+X-QQ-Originating-IP: 2KdvJXoZsAUFuZXHtvFZbycg5b07oD6nW+2U2BzffGs=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 07 Jul 2026 21:24:20 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 7072674216128944020
+EX-QQ-RecipientCnt: 6
+From: raoxu <raoxu@uniontech.com>
+To: perex@perex.cz
+Cc: tiwai@suse.com,
+	raoxu@uniontech.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: hda: Fix cached processing coefficient verbs
+Date: Tue,  7 Jul 2026 21:24:19 +0800
+Message-ID: <DB9023BF2920BA99+20260707132419.1731342-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akvvTFUAI9tjOXRh@google.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NgFno1SrO4sPwunoyO9iepoo+viWXnWaQRjx5nZ7kAh+Kds9G7K6iDGB
+	D3N1mx0EWE5XbtYqcq9X8XHB9yJtbtMLYrp1GGhA0MQ93l95/ns0AiZtuCA83rW9ZeeitzJ
+	nc9pG+C4PnTRTsOELlP/xxY8H4ScHfyELGCU2YTmEJ4eBWbUxCwbOXAi834TxEvg7dB9lMh
+	AkDt3ncPmBc971kiejx5dcyjgkdKU17e0O80V+rPbAqaJcPtWivZ4fZjrGTflAUVaHj6+u9
+	S8l3OCeIDvI5IIP/wArBRud64fZ7F/1sRAzPF1Sl9Ofg+IjRia716+0jYfljgMgiZ0zxABw
+	7SoJvRomY58y22lK7aFviRabSKYkTfLZGC3MzXZsHoY1f6zWoAWEd5st0hGx40WILv/lbD7
+	W+7AIG8Te1/JBoFxsZIUbvHU+rR7icOevNRmwZTNtRfo3EY1W+jypUSyaFLuukUsPK+19tJ
+	6iX1J5oUDdSMMB5UzcG1fV15MD4QCzBiv+fqOP/RisRyNw+Gd60lL5Z+UYHJ25apyPBeqPX
+	wwlJkByQQ9tfyEIPSuifMPirNsn6AOEECr3YBSZw13m5tRRjLHV/v3DFNKYa54KOIASIt0K
+	gu2KKl8FwUosvCvkdxT3UaZVJPLs97Fzlb+rEmXsf0fP+vYaJMXbTquicmvb95Bh+eHMTMY
+	1RD7i+EMyCH22mRo2dixm5wxJsm9UlqkavDkKJlDMEMmtOeRPJ1lipza4EMHOELMl0Ggnrp
+	O+rB3z3ApJW6LDm/mhVOdaQGQDy1THTWgfdmELWWArykHf+jj5L8VH5+GIiqd9vbebhQ1Vx
+	l2w3bHiIYq8iEtnoKb6rSE3NsXcynvz+quN8J+aB4eXLUvYRSnps7lNkcbxWp0njpjLBbFs
+	rbgecl4XzVSvZtqV4FtaRyplTARf8RVeCKs3K2PMIvV2jUXqok/Z53Dwhq2Wp8Mr2XH9oPH
+	uOf2ohodo5qnYLUCDNNYGGqw+nBdB2FUPlQT/24eUbzJ5XFPQFUMd8dbqLbzJXc6dJ+BUPR
+	gG7IiUgV9fstLvczj++KFDbQ23zPU5OSBXTkyoV95pXtfhJjxdlEillYtKq5RvqyDwz1oOO
+	Q==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-On Mon, Jul 06, 2026 at 11:09:16AM -0700, Sean Christopherson wrote:
->
-> Want to take patches 3 and 4 through your tree?  I'll grab 1 and 2; there's no
-> dependency between the KVM changes and the crypto changes.
+From: Xu Rao <raoxu@uniontech.com>
 
-Alright, I'll add them to my tree.
+Intel HD Audio defines Coefficient Index and Processing Coefficient as
+separate audio widget controls in the Audio Widget Verb Definitions:
+Coefficient Index selects the coefficient slot, while Processing
+Coefficient accesses the value at the selected slot.
 
-Cheers,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+hda_reg_read_coef() selects the slot with AC_VERB_SET_COEF_INDEX, but
+then uses AC_VERB_GET_COEF_INDEX for the value read.  That reads back the
+selected index instead of the coefficient value.  hda_reg_write_coef()
+has the same issue and builds the value write from AC_VERB_GET_COEF_INDEX
+instead of AC_VERB_SET_PROC_COEF.
+
+This only affects the regmap coefficient cache path used by codecs that
+set codec->cache_coef.  Direct coefficient helpers already use the normal
+SET_COEF_INDEX followed by GET_PROC_COEF or SET_PROC_COEF sequence, which
+is likely why this has not been noticed widely.
+
+Use AC_VERB_GET_PROC_COEF for cached coefficient reads and
+AC_VERB_SET_PROC_COEF for cached coefficient writes.
+
+Fixes: 40ba66a702b8 ("ALSA: hda - Add cache support for COEF read/write")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ sound/hda/core/regmap.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/hda/core/regmap.c b/sound/hda/core/regmap.c
+index e7b866fc52c1..d6eb17aa9e08 100644
+--- a/sound/hda/core/regmap.c
++++ b/sound/hda/core/regmap.c
+@@ -214,7 +214,7 @@ static int hda_reg_read_coef(struct hdac_device *codec, unsigned int reg,
+ 	err = snd_hdac_exec_verb(codec, verb, 0, NULL);
+ 	if (err < 0)
+ 		return err;
+-	verb = (reg & ~0xfffff) | (AC_VERB_GET_COEF_INDEX << 8);
++	verb = (reg & ~0xfffff) | (AC_VERB_GET_PROC_COEF << 8);
+ 	return snd_hdac_exec_verb(codec, verb, 0, val);
+ }
+
+@@ -232,7 +232,7 @@ static int hda_reg_write_coef(struct hdac_device *codec, unsigned int reg,
+ 	err = snd_hdac_exec_verb(codec, verb, 0, NULL);
+ 	if (err < 0)
+ 		return err;
+-	verb = (reg & ~0xfffff) | (AC_VERB_GET_COEF_INDEX << 8) |
++	verb = (reg & ~0xfffff) | (AC_VERB_SET_PROC_COEF << 8) |
+ 		(val & 0xffff);
+ 	return snd_hdac_exec_verb(codec, verb, 0, NULL);
+ }
+--
+2.50.1
+
