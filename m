@@ -1,91 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A9E42087C;
-	Tue,  7 Jul 2026 07:24:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFB936A367;
+	Tue,  7 Jul 2026 07:30:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783409057; cv=none; b=DTJRDwmdsj8e67zF5AzA0v3k7q478lk2QSaLSTaPtGqyZgt3zDRjbeOFomdVHppHSBheRLJUBBkeNnvnyVjlG2hTqDxnkC5/OQ5jS3oT61EncmYn/fiI2E/Qu+BdOycn1TRWauammrXNrvRLyIKK9balmgV3sweZGpjNY9qQFTo=
+	t=1783409419; cv=none; b=hEA/jH7FZUgstBKSl6POPE89KtXngfq1Og70HUk3MVQUHYC/431kwIdK82izz/PpY3z1xl9Hq5MwWxjIrWnKl4PzV/csGagT7h9AMu9Z0RaJHkQWVdx5k10QDPNHFWbuKdjClagjRqYmo+5CFaJ0wZPKTZ25TYXr3o/Js9oWvWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783409057; c=relaxed/simple;
-	bh=8oZm9V0Eegm7U/oCUttyoG6iz90fG6p7gML4ZQdCQTw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QOICZLe9KlRZZCrSKBlUwOX/i/fAyg2D1sFEe5OKvYGXE3bPCWrum5DUdpBcl5Grgt4v4dLhpKTkcrVpWwlY6Cwe4RYzSRCnmsOpQQc7zlvtHG2rphFD5k2LKKiAVZbqKU7LeqEIsLg+PMmhRbUq3qv9rgvvOL3zWFtdeNV4bGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HPerxWTj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783409419; c=relaxed/simple;
+	bh=WEN1waAFPwp2mSBl4+8mYHP3ETntDRBQ9FPsQay92i8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hUwBBPpGEZH3eSNh/gMPc2oCxGu/dUZkudbMMqyP1tDbNRjX1qPHfK25ZfeLD9o1qPMdpkc4C5xF0yjL4LsYxmk8i2GnB9yVJloynZcVLCVAWatL5l74la19SReXTuz0mEjTSA0RxfLDKFYiVBcY/ZLkt7bxbQqDx2dY7MWghlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eZrCwftD; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HPerxWTj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F8E1F000E9;
-	Tue,  7 Jul 2026 07:24:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783409048;
-	bh=AIB+BapHUzxV/CmBubl0Ce2T16FkAn0tCi+DQMi1NGA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HPerxWTj/wR/yz9KqR7BZ/IE74mbMjRVdfVb/Na/vo3crjk7v7RkPkkYTA7oAGN7l
-	 5EKfl+gdyapyQpbNfITb611pxx3ENjIBTmAcaN26elsvf00r97h8TwXf3qZhw7+B0A
-	 4T8+W93k0iBaAhuqFPoslEDKCs3dt36Wsm1rQwFLRKBQ+y3XZ1qGbmUBuEqlhKSZFu
-	 U29dKQZ44cXhfda1viJ6wn/gnz9Gf59/RcUsVHEUCZFx0k/DwxPr3gqs4xVezR3mR8
-	 o1NMhxcG45RFk+L8j94ly1pa9t9+uDj823pW4sqQjCJF8iFir+E5lvhr0zbwbWAFtC
-	 Ca/kv4P02wFtw==
-Date: Tue, 7 Jul 2026 08:23:57 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mike Rapoport <rppt@kernel.org>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Linus Torvalds <torvalds@linuxfoundation.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Oleg Nesterov <oleg@redhat.com>, Peter Xu <peterx@redhat.com>, 
-	vova tokarev <vladimirelitokarev@gmail.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eZrCwftD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ex
+	dxo1NKrnX/FZFV3kd2y2a+C3iv81Du+6mssEFMi0k=; b=eZrCwftDOnXu8pdyUy
+	COd66qVPx01ed9RwDa0aXTXmwYXJu/+CSDLR2RLEGG25uMty5tXf1vQTh/JP6Dc9
+	O2LQ/vA7LBB0hg59ldBeoi4pl5w6gvFe/9IcVwHASayLUN4AK8adoES8ya5mQss9
+	Z7Gvm3+CwTmurRe+ZQUmjM8Jw=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgC3kyL1qkxqVckaGA--.35163S2;
+	Tue, 07 Jul 2026 15:29:58 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	mst@redhat.com,
+	error27@gmail.com,
+	yangyingliang@huawei.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haoxiang Li <haoxiang_li2024@163.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] userfaultfd: prevent registration of special VMAs
-Message-ID: <akypf9pq8NCeZlMi@lucifer>
-References: <ajOvwGs5xhnfBu-k@kernel.org>
- <41ef0dce-e973-4947-b5e3-150fdb07f1a6@kernel.org>
- <ajO4sLq2UBciSgOn@kernel.org>
- <dd2ae577-9b7d-4e40-81d0-fa9fcd7e0767@kernel.org>
- <ajO7yI541hphWRb8@kernel.org>
- <11bae87d-73e6-4946-a41f-c5542fb40b75@kernel.org>
- <akeJdxdZXAFb8XCr@lucifer>
- <ake3JZJPYHP-0N7n@kernel.org>
- <ake7PLwdHUHu4idi@lucifer>
- <20260705005124.307e2379ab03109e5f77bd1c@linux-foundation.org>
+Subject: [PATCH v3] Bluetooth: virtio: Fix HCI device unregister on probe failure
+Date: Tue,  7 Jul 2026 15:29:55 +0800
+Message-Id: <20260707072955.3093138-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260705005124.307e2379ab03109e5f77bd1c@linux-foundation.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgC3kyL1qkxqVckaGA--.35163S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGF48tw17Gw4fAFy3try8Grg_yoW5Ww1xpa
+	nxWas8AFWIgr47GFs8Xa18Ca4rGrs7CayIk34aq34YgrWYyrW8tFyjya4jqa4UArZ5ZFW8
+	tFn5J348uw4DuFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piPCzJUUUUU=
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7haVBGpMqvaWKQAA3s
 
-On Sun, Jul 05, 2026 at 12:51:24AM -0700, Andrew Morton wrote:
-> On Fri, 3 Jul 2026 14:38:56 +0100 Lorenzo Stoakes <ljs@kernel.org> wrote:
->
-> > On Fri, Jul 03, 2026 at 04:20:37PM +0300, Mike Rapoport wrote:
-> > > On Fri, Jul 03, 2026 at 11:11:14AM +0100, Lorenzo Stoakes wrote:
-> > > > On Thu, Jun 18, 2026 at 11:37:10AM +0200, David Hildenbrand (Arm) wrote:
-> > > > > > In a way that's an extra check for hugetlb, but it will work.
-> > > > >
-> > > > > My point would be that we exclude all special VMAs, except hugetlb (which is
-> > > > > special but supported ... in its special way).
-> > > >
-> > > > Mike - you said you were respinning, it'd help my series if you respan the above
-> > > > quickly so I could base my change on that :).
-> > >
-> > > I sent it already:
-> > >
-> > > https://lore.kernel.org/all/20260618095017.2553004-1-rppt@kernel.org
-> > >
-> > > and Andrew apparently ook it:
-> > >
-> > > https://lore.kernel.org/all/20260618183442.BBCD71F000E9@smtp.kernel.org
-> >
-> > It's not anywhere :)
-> >
-> > Andrew - did you take that thread as signal this should not go in?
-> >
-> > It should definitely go in. I will clean up the mess discussed there separately.
->
-> Thanks, yes, I added it then hid it when Linus objected.  I'll unhide
-> it now.
+virtbt_probe() registers the HCI device before opening the virtio
+Bluetooth device. If virtbt_open_vdev() fails, the error path frees
+the HCI device without unregistering it first.
 
-Thanks!
+The probe error paths also leak the virtio_bluetooth structure after it
+has been allocated.
+
+Rework the probe error handling into an unwind ladder so each failure
+path releases the resources acquired earlier. Also close the virtio
+device before unregistering the HCI device in virtbt_remove(), matching
+the cleanup order used by the probe failure path.
+
+Fixes: afd2daa26c7a ("Bluetooth: Add support for virtio transport driver")
+Fixes: dc65b4b0f90a ("Bluetooth: virtio_bt: fix device removal")
+Cc: stable@vger.kernel.org
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+Changes in v2:
+ - Rework virtbt_probe() error paths into an unwind ladder.
+ - Free vbt on probe failures.
+ - Reset the virtio device and unregister the HCI device before freeing it
+   when virtbt_open_vdev() fails.
+ - Close the virtio device before unregistering the HCI device in remove().
+
+   Thanks Dan for the suggestions. The blog is very helpful.
+Changes in v3:
+ - Remove virtio_reset_device() from the virtbt_open_vdev() failure path.
+---
+ drivers/bluetooth/virtio_bt.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/bluetooth/virtio_bt.c b/drivers/bluetooth/virtio_bt.c
+index 140ab55c9fc5..c063c2391c5c 100644
+--- a/drivers/bluetooth/virtio_bt.c
++++ b/drivers/bluetooth/virtio_bt.c
+@@ -311,12 +311,12 @@ static int virtbt_probe(struct virtio_device *vdev)
+ 
+ 	err = virtio_find_vqs(vdev, VIRTBT_NUM_VQS, vbt->vqs, vqs_info, NULL);
+ 	if (err)
+-		return err;
++		goto err_free_vbt;
+ 
+ 	hdev = hci_alloc_dev();
+ 	if (!hdev) {
+ 		err = -ENOMEM;
+-		goto failed;
++		goto err_del_vqs;
+ 	}
+ 
+ 	vbt->hdev = hdev;
+@@ -383,23 +383,27 @@ static int virtbt_probe(struct virtio_device *vdev)
+ 	if (virtio_has_feature(vdev, VIRTIO_BT_F_AOSP_EXT))
+ 		hci_set_aosp_capable(hdev);
+ 
+-	if (hci_register_dev(hdev) < 0) {
+-		hci_free_dev(hdev);
++	err = hci_register_dev(hdev);
++	if (err < 0) {
+ 		err = -EBUSY;
+-		goto failed;
++		goto err_free_hdev;
+ 	}
+ 
+ 	virtio_device_ready(vdev);
+ 	err = virtbt_open_vdev(vbt);
+ 	if (err)
+-		goto open_failed;
++		goto err_unregister_hdev;
+ 
+ 	return 0;
+ 
+-open_failed:
++err_unregister_hdev:
++	hci_unregister_dev(hdev);
++err_free_hdev:
+ 	hci_free_dev(hdev);
+-failed:
++err_del_vqs:
+ 	vdev->config->del_vqs(vdev);
++err_free_vbt:
++	kfree(vbt);
+ 	return err;
+ }
+ 
+@@ -408,10 +412,10 @@ static void virtbt_remove(struct virtio_device *vdev)
+ 	struct virtio_bluetooth *vbt = vdev->priv;
+ 	struct hci_dev *hdev = vbt->hdev;
+ 
+-	hci_unregister_dev(hdev);
+ 	virtio_reset_device(vdev);
+ 	virtbt_close_vdev(vbt);
+ 
++	hci_unregister_dev(hdev);
+ 	hci_free_dev(hdev);
+ 	vbt->hdev = NULL;
+ 
+-- 
+2.25.1
+
