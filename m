@@ -1,246 +1,186 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642EB225791
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 17:54:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783446885; cv=pass; b=U+L5uI0C1SCOY6PAs4s1tQ0TqByb2AptjJvM2YYX4laIPHTaL0tJfcJzuOTfwJ6NtW3I0ZLRGXuiV+F46cewKMh3RxtMoz8zt+98Z0j6otUYHCRTfY9bIJunDsNXkjQoQ3AUvO/JamsOYJYlPPsaBJUZLlvQwUmiaiOshQn5ooc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783446885; c=relaxed/simple;
-	bh=EuFL4uhXJGv3MM67VHNzQD/tFGuAWH3mcr+o90zw9Pw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IcrvbCEow2gEnwIbhTLM6k1Xgp7USMZeIPAOBcPSzQeaZS0T8qClrC6sfOTETIyXAlaeZcsroMUC4TzMu6Oi/cV8NlQsKWCzInE23Nhd8BQRmCFzZ1KNNwp7mt27VyuX+COBeka85BVWKtDGfsnSOAa4yeq95CDBaQJFECET1gY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GzjANDRQ; arc=pass smtp.client-ip=209.85.208.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687DF432BD2
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 18:02:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783447378; cv=none; b=HZMAQEqnuFXQmQ8nT59LO/kbnDiO8SV/wdeIYjfR6oHp6mA7jr0K+zDeg7CYmCD6Vy8eFYcKkz2Q9DWdFkWmZduC/BKH4EBlc92IabZneg+gyqB5AEj7+o6hw+OAbSw/d2Akzgm13jxz/1Jm4GTjGHDZ70BPK6sIWTpqPyRQSgw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783447378; c=relaxed/simple;
+	bh=ciAoel1O+HvyWV3G/BL2s+jwL5JjfElEXWANvEXcVoE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fGs+apPPU3FrDF3VanovQD7X5479aUp35PfGmRl+TFOqb6em4SfhOf+Uz0p7j17jG973dQ++hxY7cwf2c2/1SutUe7pAGcdqF8a883TFJQ2xv5UI/qgTAIDZvj9NZ4jeAPMPbe8FyIv/iOWqgnqYLG2a165IyQ2hW712W2ncH/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JWCNfA9a; arc=none smtp.client-ip=209.85.210.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GzjANDRQ"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-698c0ff45b5so1434925a12.1
-        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 10:54:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783446882; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XXfo9+vPrLbCIZKmUZCafDqnPEYtRPrZaw0YjAtL196OHLIIV85/SSw6ic4nPQXLBT
-         Uo0aY2K2rn04k87x8Lm+T/Dy+o3iOzTfVCC0g88DOi3VwBRJxlDL+9Q4oOVcHab41H46
-         sdjxmMSPPOKR1HptJWTfi1DKafLhqFEBOycpRP942BMI0cSraf6AOmeEEkLH58wLi12G
-         KJjOzLLe+PBAoUJ/MUrQOsWxHYOD+C8C/lc1GOHMq4Pj9CSH1cpaSlYp+RMXbRYRu5+e
-         gqYUqo1/gVZqVWwu/KSSWljWpxNs5cn0MPRZVc++LDJmY5UjPho4kvHu/zo7tVQkA4nn
-         bg8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xn4XMeZqP0NIt93eLbyX2J166JuV5EVbQGn1Eim9kOI=;
-        fh=Mzuih5G6T37u2EJDD5rDt0/FkqwiGlgFWl27wn3w138=;
-        b=FHzmT9MRiGvA1oNnQlH4VDRlsK5UjPAfM2q0Vqfd21nE9DnjJp5bOs/fOW5hNFGuEq
-         Elcf+gbYuHKNM0nwydqs3qt9tvCy7EQ3hV0h3BtcDyNx70At4Dvt/FgcMeWthuyU8wRA
-         aLxOP3rC9IWs4+sSEpRit4iHQ1ilu2U87bZqqPhLOJ5HIKaGa0J1YSkXspWP3xO+d8Jp
-         TznLHq+c9xNSOKB1WVsVG0ma0MVRpBSXdlznam3Q/s0+yKMJkrnTamIaOVABAvYOJXQ7
-         JR2L6B3CJ6z41V/GoaApqqVNQLRmuj/ZGHKXvkHF7TVGwqGg8BmOskjHenmi6PL/VIf7
-         kXfQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JWCNfA9a"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8481fb4324aso1642913b3a.2
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 11:02:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783446882; x=1784051682; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xn4XMeZqP0NIt93eLbyX2J166JuV5EVbQGn1Eim9kOI=;
-        b=GzjANDRQWSlc49lrwC8zjj/ffMNrL6mnEQVMXxJATDpjiX+rscPfJX1OA9ZQhpJFMW
-         i3XPxkS9LbLikq9zc0jIqD2k7YsC8PoAg4Rgw/QAFEJolLafxURiXPi5OS/rMFM+Uuht
-         VvYVWW2IC8OpTCCBoD2C5dmm6MVQ1ccMV+POOyr67luXZiQH7y9lv8OBvRLd1WVDqyw2
-         gZTBg4goU1Z8i2Wj02XyyLWldnyM1t9e8rimGpcmg2+odCJys8v0ZJly9CV7XwrgSTw8
-         Lrn6Z/jMeiAx3LHE8SXSkXWQYotJx78g8T+oj59nM9N3DHGRLNjrSv440D+ebb0mUq/f
-         +eew==
+        d=gmail.com; s=20251104; t=1783447377; x=1784052177; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xbQWo2Jw7nEFsOrQm6lAp74HBAcbYUyqspC1ko1fdco=;
+        b=JWCNfA9aC6xXHTW1/Useek21UOE8tVayhNGHFdRuUkENQ4ld6H4IaQqZwwnOzQHM/N
+         uyCNq3cgjjRI96nUD9i0KMy5zf1aOIQ+PzvYTQJ7Fk4l6WMrPkEVzumEv0YgRGblXNOX
+         5Y/548hcJMpNALKnfMR+XDen6kg1HplZqzxQz1Xga0oTlEheCiPPdGFFNg05xLc0GNru
+         mBzYRauHe83mHt4DG4cLHXb5jTl7IkP82wiUvRsDXTUGVfPeuXIOmJBxszl5swz80Rak
+         P53XJIG91h2Nh38AZAC8UvGlQXim92FMvZO8L/rV92vGd1nlTczHlKSaFtCT4MOV98ZQ
+         2u8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783446882; x=1784051682;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=xn4XMeZqP0NIt93eLbyX2J166JuV5EVbQGn1Eim9kOI=;
-        b=owLC2E4O/gyaNr3xSkyjleFeZXeSsm8JgWUkvg246ACg7Mi7NJRbhMnv0mlvh9rKk5
-         x+r8EjqMvM6URgOC9B/VhBpKUdKX0McNt5fuR/ZhIj00Odh6FbNpmy+GHHd/foODVMoa
-         F3Q0cuiOjjzdnS/4iLJ5OT9t37k7MGFOpDNhf+0O0jftbz8mjF7CqvWtYh0wcvHJuqAR
-         LFvi+fxPsFti0xaNTOtc+scH4uSoieEQzKGMKPk1sSermPXzzbIyOj4V8M+YapSBEeB5
-         2D3qWcuIyFWweKazDK5Dzbg4STCqmSi2Oyl8ULpFRiI8aUxLu06s00rLQg1a0Rw4HIar
-         /gwQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpQpd/RPxhDYrygInF4r1QkzlRnESthoJHkaoFHbbg78ovUzyyD2bSFMgTv/IyKdRWSJnLPJ8A=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxhccFJahMvR/iBAuq3EBJAAO0wrPzNYQx/42QmSBmxx7ZR9u9s
-	+Bn3/8eM4kXbidU6GD7Pw9gvAMENhzHeeTtp17rDh1b55RJFIbTqka7oMH/5V1B9O+HjCz/Z/rs
-	1DILO4B7Fv5s7XDrv+kyRBvyApmmgP+w=
-X-Gm-Gg: AfdE7cnvfaBRYR2+fY4SFMwDEflmPBMHljmBfH6M3nDJxF9wz3uaM+24PuflAh5Y5is
-	Lhcs8Zjp35cM/mPzONap7NCWaf4t5KUeAgd7CMsrBya9JBwStywQzeRH1KoZbYPWBS2Q4Rp5+bx
-	ywEPd/lmA5m5SRpB2w6BqJsOfAPaAQV6e3TpntOa0ps0OND94DcmFpG2R8C4LsbeL7WWHjv4Alg
-	ajsqpCwYpCpJYMK3hJho2kZP7EA0EMy4pzPQTYV4WPQvVSaFFuoQJqTWlXkD/ANoG2YT9sJPypj
-	+NrAjLzDH/VkTwTba6TZeGeojLkNc6QrqzKfGBY=
-X-Received: by 2002:a17:907:c817:b0:c12:a638:8644 with SMTP id
- a640c23a62f3a-c15aec028c3mr206330166b.23.1783446881658; Tue, 07 Jul 2026
- 10:54:41 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783447377; x=1784052177;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xbQWo2Jw7nEFsOrQm6lAp74HBAcbYUyqspC1ko1fdco=;
+        b=SR5bOCHtjota5QgyfNyVolWuayT8Wx3XhpbwJEQEy9K0cReLACrYooetEWKlr6WEu0
+         K+rv5MizEYRGKJtM2m89OTubc2Cg6B8ayOvEWsJ3KQQ4yG93aTm9f9W5I9SsR8VWvgr1
+         0AyH+ddq9mmHJCHyiUrbV0W9F3ahQArwxoMOKywIOYdKJO0qfhJR44Q4RoEOw/HfwB7m
+         RMJfxIN6IFy/ojrMmqozpM9+lEAGQvaoEZkvjkNKVaHUIiPCzoY0o5dFAAsNHVjSB4BL
+         TSQzp6g7+I6XYNF4/goR5/I+8arnhJDYpRY6S2AEmtoZ9wP/MBau1ZfbhYEOhdNuPU2h
+         5pjw==
+X-Forwarded-Encrypted: i=1; AHgh+RrXZsJL21hydjbhDO9PGomKSKf/Fwp+CgF/pQb0S6iOUwwG6oF+JbJf5HD8xIvsYMBb0C1SAVc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzK9zeCsy3/XA4pBqwuZVu6k2qt+Vq/3u7gU2OubhdEju5azz5P
+	R4GE/mnJpiHfr9blt69bZ70mph+dmznbHWGpQgi+og8i8Tq/JN/TK5Vs
+X-Gm-Gg: AfdE7cmwJNmkJNreCUX/xwhCren2NQp9FopN6SSaCYJvd9b19qiI5WLdlvSYgIgiW9f
+	fOMNwx5327fNC4kUrtCVmy5e585rYRdk5HVhDF747m+Pnl/uTBrqaggaW5XysZwMEwERq4ZPpRo
+	daXKHDTnHJ2ppvJCkwf3h1u6iXG9QttDXkRVJNJBM1FqvQUF588w6Xjur/SJL/PTQdge2nNMGIK
+	vIw+cucLaZhiO8tiIlFjpKpbNFaa4hI+mhAH5kAd5zazRQVIF5zzXsDbC0ObuJYX7ixuOwaRlKN
+	cLZw3yiMhpsA2ZocHuCEOGmiyfhVmaXA8Xs+qJDtTO9jZroYoqDf8FoQQf4vi29EEHDpTOSrr/b
+	wmWG5LZWDUS9BDwN91nNu2cUVTqOtbx1bOCWPERVWYRjkpEvUBlLDkkNclt98ijFToiUFdzsWcq
+	yEVarTc5Us0gYkCF2Uzi3bFdh8RIcIWnG26QxsauiBTcJuDZsPo0dRmjRpFQ==
+X-Received: by 2002:a05:6a21:6e46:b0:39b:d937:8020 with SMTP id adf61e73a8af0-3c08eed0254mr6855077637.42.1783447376468;
+        Tue, 07 Jul 2026 11:02:56 -0700 (PDT)
+Received: from fx.tailc0aff1.ts.net ([206.206.192.132])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b659d8da9sm16299294c88.14.2026.07.07.11.02.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 11:02:55 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: Carlos Maiolino <cem@kernel.org>,
+	linux-xfs@vger.kernel.org
+Cc: "Darrick J . Wong" <djwong@kernel.org>,
+	Brian Foster <bfoster@redhat.com>,
+	Xiang Mei <xmei5@asu.edu>,
+	linux-kernel@vger.kernel.org,
+	Weiming Shi <bestswngs@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] xfs: reject attr leaf blocks with inconsistent usedbytes
+Date: Tue,  7 Jul 2026 11:02:38 -0700
+Message-ID: <20260707180235.1142581-4-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260703151543.3335583-2-bestswngs@gmail.com> <20260707163445.GA9392@frogsfrogsfrogs>
-In-Reply-To: <20260707163445.GA9392@frogsfrogsfrogs>
-From: Weiming Shi <bestswngs@gmail.com>
-Date: Wed, 8 Jul 2026 01:54:04 +0800
-X-Gm-Features: AVVi8CfV1zFrCZkjA5rxB_HtbN0qBut7wD4yjhV1JylLb-_MdTdasNcu_QQc20E
-Message-ID: <CANgPUi1WyKHZ2_Cjk-Z1knL+WvZuwKXVxR5uNT_adPTpKLK_RQ@mail.gmail.com>
-Subject: Re: [PATCH] xfs: reject attr leaf blocks with inconsistent usedbytes
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
-	Brian Foster <bfoster@redhat.com>, Xiang Mei <xmei5@asu.edu>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Darrick J. Wong <djwong@kernel.org> =E4=BA=8E2026=E5=B9=B47=E6=9C=888=E6=97=
-=A5=E5=91=A8=E4=B8=89 00:34=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Fri, Jul 03, 2026 at 08:15:44AM -0700, Weiming Shi wrote:
-> > xfs_attr3_leaf_verify() checks each attr leaf entry on its own, but nev=
-er
-> > checks that the entries' nameval regions are disjoint. A crafted leaf c=
-an
-> > point several entries at overlapping offsets: every entry passes the
-> > per-entry check, yet the summed entry sizes far exceed the nameval regi=
-on.
-> >
-> > ichdr.usedbytes is kept as the exact sum of the entries'
-> > xfs_attr_leaf_entsize() (see xfs_attr3_leaf_add()), so for such a leaf =
-the
-> > real sum no longer matches usedbytes. When the leaf is later repacked,
-> > xfs_attr3_leaf_compact() resets firstused to blksize and calls
-> > xfs_attr3_leaf_moveents(), which subtracts each entry size from firstus=
-ed;
-> > the oversized sum underflows the 32-bit firstused and the following mem=
-move
-> > writes out of bounds. The same repack runs from xfs_attr3_leaf_rebalanc=
-e()
-> > and xfs_attr3_leaf_unbalance(). The only guard is an ASSERT, which is
-> > compiled out on production kernels.
-> >
-> > A single setxattr() on a file with such a leaf, after mounting a crafte=
-d
-> > image, triggers the write:
-> >
-> >   BUG: KASAN: use-after-free in xfs_attr3_leaf_moveents (fs/xfs/libxfs/=
-xfs_attr_leaf.c:2788)
-> >   Write of size 400 at addr ffff88802b187f98 by task exploit
-> >    xfs_attr3_leaf_moveents (fs/xfs/libxfs/xfs_attr_leaf.c:2788)
-> >    xfs_attr3_leaf_compact (fs/xfs/libxfs/xfs_attr_leaf.c:1790)
-> >    xfs_attr3_leaf_add (fs/xfs/libxfs/xfs_attr_leaf.c:1563)
-> >    xfs_attr_set_iter (fs/xfs/libxfs/xfs_attr.c:556)
-> >    xfs_attr_set (fs/xfs/libxfs/xfs_attr.c:1244)
-> >    xfs_xattr_set (fs/xfs/xfs_xattr.c:186)
-> >    __vfs_setxattr (fs/xattr.c:218)
-> >    vfs_setxattr (fs/xattr.c:339)
-> >    __x64_sys_fsetxattr (fs/xattr.c:774)
-> >
-> > Sum the entry sizes while verifying and reject the leaf unless the sum
-> > equals usedbytes and usedbytes fits in [firstused, blksize).  The onlin=
-e
-> > scrubber already validates this in xchk_xattr_block(); this brings the
-> > read/write verifier in line with it so the bad leaf is rejected before =
-any
-> > reshape can run.
-> >
-> > Fixes: c84760659dcf ("xfs: check attribute leaf block structure")
-> > Reported-by: Xiang Mei <xmei5@asu.edu>
-> > Assisted-by: Claude:claude-opus-4-8
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> > ---
-> >  fs/xfs/libxfs/xfs_attr_leaf.c | 17 +++++++++++++++--
-> >  1 file changed, 15 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_lea=
-f.c
-> > index 86c5c09a5db4..9814dcfbd7ac 100644
-> > --- a/fs/xfs/libxfs/xfs_attr_leaf.c
-> > +++ b/fs/xfs/libxfs/xfs_attr_leaf.c
-> > @@ -300,7 +300,8 @@ xfs_attr3_leaf_verify_entry(
-> >       struct xfs_attr3_icleaf_hdr             *leafhdr,
-> >       struct xfs_attr_leaf_entry              *ent,
-> >       int                                     idx,
-> > -     __u32                                   *last_hashval)
-> > +     __u32                                   *last_hashval,
-> > +     unsigned int                            *usedbytes)
-> >  {
-> >       struct xfs_attr_leaf_name_local         *lentry;
-> >       struct xfs_attr_leaf_name_remote        *rentry;
-> > @@ -344,6 +345,7 @@ xfs_attr3_leaf_verify_entry(
-> >       if (name_end > buf_end)
-> >               return __this_address;
-> >
-> > +     *usedbytes +=3D namesize;
-> >       return NULL;
-> >  }
-> >
-> > @@ -376,6 +378,7 @@ xfs_attr3_leaf_verify(
-> >       char                            *buf_end;
-> >       uint32_t                        end;    /* must be 32bit - see be=
-low */
-> >       __u32                           last_hashval =3D 0;
-> > +     unsigned int                    usedbytes =3D 0;
-> >       int                             i;
-> >       xfs_failaddr_t                  fa;
-> >
-> > @@ -410,11 +413,21 @@ xfs_attr3_leaf_verify(
-> >       buf_end =3D (char *)bp->b_addr + mp->m_attr_geo->blksize;
-> >       for (i =3D 0, ent =3D entries; i < ichdr.count; ent++, i++) {
-> >               fa =3D xfs_attr3_leaf_verify_entry(mp, buf_end, leaf, &ic=
-hdr,
-> > -                             ent, i, &last_hashval);
-> > +                             ent, i, &last_hashval, &usedbytes);
-> >               if (fa)
-> >                       return fa;
-> >       }
-> >
-> > +     /*
-> > +      * usedbytes must equal the summed entry sizes and fit in the
-> > +      * nameval region; otherwise a later repack underflows firstused
-> > +      * in xfs_attr3_leaf_moveents().
-> > +      */
-> > +     if (usedbytes !=3D ichdr.usedbytes)
-> > +             return __this_address;
-> > +     if (ichdr.usedbytes > mp->m_attr_geo->blksize - ichdr.firstused)
->
-> Interesting ... where did this new logic come from?  xchk_xattr_block
-> doesn't perform this test.
->
-> --D
->
-> > +             return __this_address;
-> > +
-> >       /*
-> >        * Quickly check the freemap information.  Attribute data has to =
-be
-> >        * aligned to 4-byte boundaries, and likewise for the free space.
-> > --
-> > 2.43.0
-> >
-> >
+xfs_attr3_leaf_verify() checks each attr leaf entry on its own, but never
+checks that the entries' nameval regions are disjoint. A crafted leaf can
+point several entries at overlapping offsets: every entry passes the
+per-entry check, yet the summed entry sizes far exceed the nameval region.
 
-Yeah, you're right, sorry. scrub only checks "usedbytes =3D=3D summed sizes=
-"
-  (my first check). It has nothing for the second one,
+ichdr.usedbytes is kept as the exact sum of the entries'
+xfs_attr_leaf_entsize() (see xfs_attr3_leaf_add()), so for such a leaf the
+real sum no longer matches usedbytes. When the leaf is later repacked,
+xfs_attr3_leaf_compact() resets firstused to blksize and calls
+xfs_attr3_leaf_moveents(), which subtracts each entry size from firstused;
+the oversized sum underflows the 32-bit firstused and the following memmove
+writes out of bounds. The same repack runs from xfs_attr3_leaf_rebalance()
+and xfs_attr3_leaf_unbalance(). The only guard is an ASSERT, which is
+compiled out on production kernels.
 
-        if (ichdr.usedbytes > mp->m_attr_geo->blksize - ichdr.firstused)
+A single setxattr() on a file with such a leaf, after mounting a crafted
+image, triggers the write:
 
-  The closest scrub test is "usedbytes > blksize", which bounds usedbytes
-  against the whole block, not the nameval region, so it wouldn't catch thi=
-s.
-  Saying the scrubber already validates it was just wrong.
+  BUG: KASAN: use-after-free in xfs_attr3_leaf_moveents (fs/xfs/libxfs/xfs_attr_leaf.c:2788)
+  Write of size 400 at addr ffff88802b187f98 by task exploit
+   xfs_attr3_leaf_moveents (fs/xfs/libxfs/xfs_attr_leaf.c:2788)
+   xfs_attr3_leaf_compact (fs/xfs/libxfs/xfs_attr_leaf.c:1790)
+   xfs_attr3_leaf_add (fs/xfs/libxfs/xfs_attr_leaf.c:1563)
+   xfs_attr_set_iter (fs/xfs/libxfs/xfs_attr.c:556)
+   xfs_attr_set (fs/xfs/libxfs/xfs_attr.c:1244)
+   xfs_xattr_set (fs/xfs/xfs_xattr.c:186)
+   __vfs_setxattr (fs/xattr.c:218)
+   vfs_setxattr (fs/xattr.c:339)
+   __x64_sys_fsetxattr (fs/xattr.c:774)
 
-  My reproducer's leaf (firstused=3D3616, real summed entsize=3D6000, usedb=
-ytes
-  field=3D8) is actually caught by the first check, since 6000 !=3D 8. But =
-the
-  first check alone isn't enough: an image that instead sets the usedbytes
-  field to the oversized real sum passes the equality, and then only the
-  second check (6000 > 4096-3616) rejects it before moveents underflows
-  firstused. So both are needed.
+Sum the entry sizes while verifying and reject the leaf unless the sum
+equals usedbytes (so the on-disk usedbytes can be trusted) and that
+usedbytes fits in the nameval region [firstused, blksize) (so the trusted
+value cannot drive firstused below zero).  Both checks are required: the
+first alone can be bypassed by forging usedbytes to equal the real sum, and
+the second alone by forging a small usedbytes, so only together do they
+bound the actual summed entry size against the nameval region and prevent
+the underflow.
 
-  I'll drop the scrubber reference in v2. Code's unchanged. Thanks.
+Fixes: c84760659dcf ("xfs: check attribute leaf block structure")
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Assisted-by: Claude:claude-opus-4-8
+Cc: stable@vger.kernel.org
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+v2: drop the inaccurate scrubber reference; explain why both checks are
+    needed. No code change.
+
+ fs/xfs/libxfs/xfs_attr_leaf.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
+index 86c5c09a5db4..9814dcfbd7ac 100644
+--- a/fs/xfs/libxfs/xfs_attr_leaf.c
++++ b/fs/xfs/libxfs/xfs_attr_leaf.c
+@@ -300,7 +300,8 @@ xfs_attr3_leaf_verify_entry(
+ 	struct xfs_attr3_icleaf_hdr		*leafhdr,
+ 	struct xfs_attr_leaf_entry		*ent,
+ 	int					idx,
+-	__u32					*last_hashval)
++	__u32					*last_hashval,
++	unsigned int				*usedbytes)
+ {
+ 	struct xfs_attr_leaf_name_local		*lentry;
+ 	struct xfs_attr_leaf_name_remote	*rentry;
+@@ -344,6 +345,7 @@ xfs_attr3_leaf_verify_entry(
+ 	if (name_end > buf_end)
+ 		return __this_address;
+ 
++	*usedbytes += namesize;
+ 	return NULL;
+ }
+ 
+@@ -376,6 +378,7 @@ xfs_attr3_leaf_verify(
+ 	char				*buf_end;
+ 	uint32_t			end;	/* must be 32bit - see below */
+ 	__u32				last_hashval = 0;
++	unsigned int			usedbytes = 0;
+ 	int				i;
+ 	xfs_failaddr_t			fa;
+ 
+@@ -410,11 +413,21 @@ xfs_attr3_leaf_verify(
+ 	buf_end = (char *)bp->b_addr + mp->m_attr_geo->blksize;
+ 	for (i = 0, ent = entries; i < ichdr.count; ent++, i++) {
+ 		fa = xfs_attr3_leaf_verify_entry(mp, buf_end, leaf, &ichdr,
+-				ent, i, &last_hashval);
++				ent, i, &last_hashval, &usedbytes);
+ 		if (fa)
+ 			return fa;
+ 	}
+ 
++	/*
++	 * usedbytes must equal the summed entry sizes and fit in the
++	 * nameval region; otherwise a later repack underflows firstused
++	 * in xfs_attr3_leaf_moveents().
++	 */
++	if (usedbytes != ichdr.usedbytes)
++		return __this_address;
++	if (ichdr.usedbytes > mp->m_attr_geo->blksize - ichdr.firstused)
++		return __this_address;
++
+ 	/*
+ 	 * Quickly check the freemap information.  Attribute data has to be
+ 	 * aligned to 4-byte boundaries, and likewise for the free space.
+-- 
+2.43.0
+
