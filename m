@@ -1,125 +1,118 @@
-Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com [118.143.206.90])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7250E27A462;
-	Tue,  7 Jul 2026 02:47:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=118.143.206.90
+Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB80F35F603;
+	Tue,  7 Jul 2026 03:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783392472; cv=none; b=LeW1DFy0Z64RbsyYjbpgCNEzJjID6zmEw/45KWVDbqIMe+6tLdg/8o3jlRcEbE3tHL4i2vIix27L9wij5SXtyjKS/MjceiRyZ9ayJlwsUJlfbzDIiYGlmhV2yCYWOxjWtJ5MRWzks9EEtv++7oEEAAo8cakgj8gXjICeEp/pIKI=
+	t=1783393781; cv=none; b=MfobTZrpHBTzW9THU+G/a5TUABA9BnEcRucW7CEvTxEO3v/AIEcBpYMO27iqGWZvfzTNqTq9NX+zXXUit4HdPRMWRGeZbiteoZ4Lo7P6f5FkaGU5SxPW8Pia6drgFydVEFWUv+59NJufI1W5biCyxPWj5L6BnSaGrfLIHpfw2QM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783392472; c=relaxed/simple;
-	bh=8g6hfiuUrHYj45/NWVW48yJie+FBOMKbVbGTWrRUur4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=MgSPHke2YMWKEU4/18AbTik15u+crwnR7ymmWm1/Nld9UwyHJitQQHHWBBbuNfPWDFTBlrJ0RWgwGiO/YwpVs1Ces/dZcILI5schHAhwqUhN0noeoPuhjCqOX+WSjgEBQvRGlLh8j7hYCFtxIXLfTw+4ehfBpNXVzH3Plk/71ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=xiaomi.com; arc=none smtp.client-ip=118.143.206.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaomi.com
-X-CSE-ConnectionGUID: +MvWi1A8TNKMbKjmX6TYCw==
-X-CSE-MsgGUID: mDAC0oK7RvCKK9NcTfJWbg==
-X-IronPort-AV: E=Sophos;i="6.25,151,1779120000"; 
-   d="scan'208";a="155188619"
-From: =?utf-8?B?6ams6LaF?= <machao26@xiaomi.com>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>, Kairui Song
-	<ryncsn@gmail.com>
-CC: "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
-	"hughd@google.com" <hughd@google.com>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, "baohua@kernel.org" <baohua@kernel.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, =?utf-8?B?55Sw5a2d5paM?=
-	<tianxiaobin@xiaomi.com>, =?utf-8?B?5L+e5Lic5paM?= <yudongbin@xiaomi.com>,
-	=?utf-8?B?5p2O6bmP56iL?= <xiaoyaoli@xiaomi.com>
-Subject: =?utf-8?B?5Zue5aSNOiBbRXh0ZXJuYWwgTWFpbF1SZTogW1BBVENIIDYuMTgueV0gbW06?=
- =?utf-8?B?IHNobWVtOiBmaXggcG90ZW50aWFsIGxpdmVsb2NrIGlzc3VlIGZvciBzaG1l?=
- =?utf-8?Q?m_direct_swapin?=
-Thread-Topic: [External Mail]Re: [PATCH 6.18.y] mm: shmem: fix potential
- livelock issue for shmem direct swapin
-Thread-Index: AQHdDQy4jsGVhuEAD0KP7fSRFNOkF7Zf4CGAgAFtsfA=
-Date: Tue, 7 Jul 2026 02:47:42 +0000
-Message-ID: <1ac8eb5743e244f58efa28ea46aeb4d0@xiaomi.com>
-References: <173f3fd983d735155d47e9e39d27f0c2d62a7c31.1783307463.git.baolin.wang@linux.alibaba.com>
- <CAMgjq7AQcyypJ-VhJ_CxY6fdEph64fxjOzzYU-=EkMrHemkpzA@mail.gmail.com>
- <8ef0b72e-a0e8-4913-8d30-519335305260@linux.alibaba.com>
-In-Reply-To: <8ef0b72e-a0e8-4913-8d30-519335305260@linux.alibaba.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1783393781; c=relaxed/simple;
+	bh=HhiEufE36SGUE2dY0WHlh1XdM0dvTUmOhkbW3J0Br9U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sD6gfL1tOMq82a9QdZQoyCWdWKdOeQmm8J+LuJeXd0tDITywmXlb4WUgKqG6M4XX0H6cGBpT6fka0a6KZVh89iWbZx2EL6QVUGSIqx3jGRdLUEi/ryPV7uLJWRO9BKr8Qdu9Z0IeN8Ex5yLAMlcaBBfh/cewcjwpIEdha/GbAuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=iC7cUdHA; arc=none smtp.client-ip=18.132.163.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="iC7cUdHA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1783393749;
+	bh=qkKBFpzNu/wULnmAxCjbcVhjTkkQsCGSNz5xBCjzuDo=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=iC7cUdHA61oow8HHjcg1/0AqNry8d/MR537pfVTzhCPjIiOrY3n7ZuZP218XurJGj
+	 ooOdti85zlzdkzza65DMh5LI2uBXZx8AriLW67P1pGLex36d8bp2VsCoegAOz9jwjM
+	 7PkAdHFx7x09wx/vpikXscUaNc2nsAE1nJNy9clc=
+X-QQ-mid: zesmtpsz8t1783393729t1b86c291
+X-QQ-Originating-IP: /8HG9Q4M+PD1YOTCZzpMSI6maqlWW7NuLQil0IaFttE=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 07 Jul 2026 11:08:47 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 8539510006418174834
+EX-QQ-RecipientCnt: 7
+From: raoxu <raoxu@uniontech.com>
+To: dgilbert@interlog.com
+Cc: James.Bottomley@HansenPartnership.com,
+	martin.petersen@oracle.com,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] scsi: sg: report request-table problems when any status is set
+Date: Tue,  7 Jul 2026 11:08:45 +0800
+Message-ID: <54B60C19F7DB8889+20260707030845.970018-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MIzUghsjsbalDAFyLKhRZv43YzFmqJGBwP8+QJwFLNN/+QjFNZnz/10+
+	DmRgpLLu8k2+/iEqncPvlvrWZ+QsS3fnukp4IFcdKKntyHd+jqCJ2rTZjGpxOWtbgkZqGHh
+	UoFcs3yzIuiOkbw5vWui4PAzB5pFclZDvJJQQlNuRNcHRkohtdlV0QlKQ8zWhVGwY2h4ur7
+	6VsgzCdkLCKMzUbE2esJgXZXz0JILJLn11bhfjgp6/F1gadg9uwAY9nCJ62ofFBw1aBo0pd
+	geAWjY0CU/C9gAqGGvnlxJlVwwfhdRUIOZoMm70S62Lxbk4Lx6e+Ui0mlh8nVaAPqQCC8uD
+	c7sb54ur94xE0aPmiuTunpwyFrp+TW0+/OuMqwwa9uUeSU3Y/14X9NMy/mNIfU0toRE5miS
+	6cjdHiPrmXOoS1Gh50r/DY7cEbSb8b44R+IJRTDKuOuOnV7TMIUO1jee9dwSvGnYd3KQE72
+	Wi04CJ8rKh3i2dBqRohXPMg0gNgeGquj2bgZTRSZKTOxof5Qg8+9KzadNoIImUj6Lab7WME
+	HISFeayTzlwSRWuWWJsvnHTyRXumpsWdvmz0PuYvDYUH9jBtJKUK/ogjI++t8wRGl3Wugla
+	eifprZf/nGnjMVtkJN2h1JXr26HZH+rh5a5MOQIjdyhVRMh+LjM6/5OSmGj/X1i8kzgb5h+
+	yfnKDG3SvznFjlvQGOkuV9gRXefUZOih+2Fbui7JV16GVexiKFfbWN5gt8BKEmxVaT2IctQ
+	zKT05USqce7z1hYdmXMWNRPCVBk4fEFJv6TuXAK5bZfDWJ6BDjDb+1E02OgiUY91998zW4b
+	NOKFjHGIuknQOd48WXwGCkBqDmELTby5acRSZLhjRLCqma/6gizfFPsW9cLNP5JYI5/f51C
+	EeVZPbwh8wP05/xlsP6voRE9bKqAZFsHH+yAsG4b9eqgR40ojhO42OaeHsfougNpPP9ZRtL
+	Dqqx3PbUe84p//G9JdqbWdoCF7T4nsuVmLNgfcMSTqmgvFDyYUKyfbcI488A2oRJDsIj/ye
+	UiNgDCr1qops/N8q114UW7Xqfjgrua9nMyjz+J3Q==
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-PiBPbiA3LzYvMjYgMTo1OSBQTSwgS2FpcnVpIFNvbmcgd3JvdGU6DQo+PiBPbiBNb24sIEp1bCA2
-LCAyMDI2IGF0IDExOjI14oCvQU0gQmFvbGluIFdhbmcNCj4+IDxiYW9saW4ud2FuZ0BsaW51eC5h
-bGliYWJhLmNvbT4gd3JvdGU6DQo+Pj4NCj4+PiBXaGVuIHNraXBwaW5nIHN3YXBjYWNoZSBmb3Ig
-c3luY2hyb25vdXMgSU8gc3dhcCBkZXZpY2VzLA0KPj4+IHN3YXBjYWNoZV9wcmVwYXJlKCkgaXMg
-dXNlZCB0byBwcmV2ZW50IHBhcmFsbGVsIHN3YXBpbiBmcm9tIHByb2NlZWRpbmcgd2l0aCB0aGUg
-c3dhcCBjYWNoZSBmbGFnLg0KPj4+IEhvd2V2ZXIsIG9uIFBSRUVNUFQga2VybmVscyB0aGlzIGNh
-biBsZWFkIHRvIGEgbGl2ZWxvY2ssIGFzIHJlcG9ydGVkIGJ5IENoYW9bMV06DQo+Pj4NCj4+PiBU
-aHJlYWQgQSBzdGFydHMgZGlyZWN0IHN3YXBpbiBvZiBhIHNobWVtIGZvbGlvIGFuZCBjYWxscw0K
-Pj4+IHN3YXBjYWNoZV9wcmVwYXJlKCkgdG8gc2V0IFNXQVBfSEFTX0NBQ0hFLiBJdCBtYXkgdGhl
-biBiZSBwcmVlbXB0ZWQgaW5zaWRlIHdvcmtpbmdzZXRfcmVmYXVsdCgpLg0KPj4+IE1lYW53aGls
-ZSwgYSBoaWdoZXIgcHJpb3JpdHkgdGhyZWFkIEIgYWxzbyBhdHRlbXB0cyBkaXJlY3Qgc3dhcGlu
-IG9mDQo+Pj4gdGhlIHNhbWUgc2htZW0gc3dhcCBlbnRyeS4gU2luY2Ugc3dhcGNhY2hlX3ByZXBh
-cmUoKSBhbHJlYWR5IG1hcmtzDQo+Pj4gdGhlIGVudHJ5LCB0aHJlYWQgQiByZXBlYXRlZGx5IGdl
-dHMgLUVFWElTVCBhbmQgYnVzeS1sb29wcyB3YWl0aW5nDQo+Pj4gZm9yIHRocmVhZCBBIHRvIGZp
-bmlzaC4gQnV0IGFzIHRocmVhZCBCIHJ1bnMgYXQgaGlnaGVyIHByaW9yaXR5LA0KPj4+IHRocmVh
-ZCBBIGNhbm5vdCBwcmVlbXB0IGl0LCByZXN1bHRpbmcgaW4gc3RhcnZhdGlvbiBhbmQgYSBsaXZl
-bG9jay4NCj4+Pg0KPj4+IEZpeCBpdCBieSB5aWVsZGluZyB0aGUgQ1BVIHdpdGggc2NoZWR1bGVf
-dGltZW91dF91bmludGVycnVwdGlibGUoMSkNCj4+PiB3aGVuDQo+Pj4gc3dhcGNhY2hlX3ByZXBh
-cmUoKSBmYWlscywgZm9sbG93aW5nIHRoZSBzYW1lIGFwcHJvYWNoIHVzZWQgaW4NCj4+PiBjb21t
-aXRzIDAyOWM0NjI4YjJlYiAoIm1tOiBzd2FwOiBnZXQgcmlkIG9mIGxpdmVsb2NrIGluIHN3YXBp
-bg0KPj4+IHJlYWRhaGVhZCIpIGFuZA0KPj4+IDEzZGRhZjI2YmUzMiAoIm1tL3N3YXA6IGZpeCBy
-YWNlIHdoZW4gc2tpcHBpbmcgc3dhcGNhY2hlIikuDQo+Pj4NCj4+PiBOb3RlIHRoYXQgbWFpbmxp
-bmUgZG9lcyBub3QgaGF2ZSB0aGlzIHBvdGVudGlhbCBpc3N1ZSwgd2hpY2ggaGFzDQo+Pj4gYWxy
-ZWFkeSBiZWVuIHJlc29sdmVkIGJ5IEthaXJ1aSdzIHN3YXAgcmVmYWN0b3Jpbmcgd29ya1syXS4N
-Cj4+Pg0KPj4+IFsxXQ0KPj4+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC83MDBhMmNiZjkw
-YTI0ODRmOTc5YWFjODU4ZjA4ZjVkNEB4aWFvbWkuYw0KPj4+IG9tLyBbMl0NCj4+PiBodHRwczov
-L2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjA1MTctc3dhcC10YWJsZS1wNC12NS0wLTg4YWU0M2Uw
-NjRjN0ANCj4+PiB0ZW5jZW50LmNvbS8NCj4+PiBGaXhlczogMWRkNDRjMGFmNGZhICgibW06IHNo
-bWVtOiBza2lwIHN3YXBjYWNoZSBmb3Igc3dhcGluIG9mDQo+Pj4gc3luY2hyb25vdXMgc3dhcCBk
-ZXZpY2UiKQ0KPj4+IFJlcG9ydGVkLWJ5OiBNYSBDaGFvIDxtYWNoYW8yNkB4aWFvbWkuY29tPg0K
-Pj4+IENsb3NlczoNCj4+PiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvNzAwYTJjYmY5MGEy
-NDg0Zjk3OWFhYzg1OGYwOGY1ZDRAeGlhb21pLmMNCj4+PiBvbS8NCj4+PiBTaWduZWQtb2ZmLWJ5
-OiBCYW9saW4gV2FuZyA8YmFvbGluLndhbmdAbGludXguYWxpYmFiYS5jb20+DQo+Pj4gLS0tDQo+
-Pj4gSGkgQ2hhbywgY291bGQgeW91IHRyeSB0aGlzIHBhdGNoIHRvIGNoZWNrIGlmIGl0IGZpeGVz
-IHlvdXIgaXNzdWU/IFRoYW5rcy4NCj4+PiAtLS0NCj4+PiAgIG1tL3NobWVtLmMgfCAyICsrDQo+
-Pj4gICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0
-IGEvbW0vc2htZW0uYyBiL21tL3NobWVtLmMNCj4+PiBpbmRleCA5NGM1YjBkNzhhYzMuLmQ0Y2I1
-N2IzYjBlZiAxMDA2NDQNCj4+PiAtLS0gYS9tbS9zaG1lbS5jDQo+Pj4gKysrIGIvbW0vc2htZW0u
-Yw0KPj4+IEBAIC0yMDY2LDYgKzIwNjYsOCBAQCBzdGF0aWMgc3RydWN0IGZvbGlvICpzaG1lbV9z
-d2FwX2FsbG9jX2ZvbGlvKHN0cnVjdCBpbm9kZSAqaW5vZGUsDQo+Pj4gICAgICAgICAgaWYgKHN3
-YXBjYWNoZV9wcmVwYXJlKGVudHJ5LCBucl9wYWdlcykpIHsNCj4+PiAgICAgICAgICAgICAgICAg
-IGZvbGlvX3B1dChuZXcpOw0KPj4+ICAgICAgICAgICAgICAgICAgbmV3ID0gRVJSX1BUUigtRUVY
-SVNUKTsNCj4+PiArICAgICAgICAgICAgICAgLyogUmVsYXggYSBiaXQgdG8gcHJldmVudCByYXBp
-ZCByZXBlYXRlZCBwYWdlIGZhdWx0cyAqLw0KPj4+ICsgICAgICAgICAgICAgICBzY2hlZHVsZV90
-aW1lb3V0X3VuaW50ZXJydXB0aWJsZSgxKTsNCj4+PiAgICAgICAgICAgICAgICAgIC8qIFRyeSBz
-bWFsbGVyIGZvbGlvIHRvIGF2b2lkIGNhY2hlIGNvbmZsaWN0ICovDQo+Pj4gICAgICAgICAgICAg
-ICAgICBnb3RvIGZhbGxiYWNrOw0KPj4+ICAgICAgICAgIH0NCj4+PiAtLQ0KPj4+IDIuNDcuMw0K
-Pj4+DQo+Pg0KPj4gVGhhbmtzISBUaGF0J3MgbXVjaCBtb3JlIHNpbXBsZXIgdGhhbiBJIGV4cGVj
-dGVkLiBEbyB3ZSBuZWVkIGEgd2FrZXVwDQo+PiBxdWV1ZSBsaWtlIHRoZSBvbmUgaW4gY29tbWl0
-IDAxNjI2YTE4MjMwMjQ/IFBlcmhhcHMgdGhlIHJlcG9ydGVyIGNhbg0KPj4gaGVscCBjb25maXJt
-IGFuZCB0ZXN0PyBJIHBlcnNvbmFsbHkgcHJlZmVyIHRvIGtlZXAgaXQgc2ltcGxlIGlmIHNobWVt
-DQo+PiB1c2VycyBhcmVuJ3QgYXMgc2Vuc2l0aXZlIGFzIGFub24gdXNlcnMuDQo+DQo+IEkgYWdy
-ZWUuIEknZCBsaWtlIHRvIGtlZXAgdGhlIGJ1Z2ZpeCBhcyBzaW1wbGUgYXMgcG9zc2libGUsIGlm
-IHRoZSByZXBvcnRlcidzIHNjZW5hcmlvIGlzbid0IGxhdGVuY3ktc2Vuc2l0aXZlLg0KDQpUaGFu
-a3MgZm9yIHlvdXIgYW5hbHlzaXMgYW5kIHRoZSBwcm92aWRlZCBmaXggcGF0Y2guIEkgd2lsbCB0
-ZXN0IGFuZCB2ZXJpZnkgaXQuIEJ5IHRoZSB3YXksIHdoZW4gaXMgdGhlIGZpeCBwYXRjaCBleHBl
-Y3RlZCB0byBiZSBtZXJnZWQgaW50byB0aGUga2VybmVsPw0KIy8qKioqKirmnKzpgq7ku7blj4rl
-hbbpmYTku7blkKvmnInlsI/nsbPlhazlj7jnmoTkv53lr4bkv6Hmga/vvIzku4XpmZDkuo7lj5Hp
-gIHnu5nkuIrpnaLlnLDlnYDkuK3liJflh7rnmoTkuKrkurrmiJbnvqTnu4TjgILnpoHmraLku7vk
-vZXlhbbku5bkurrku6Xku7vkvZXlvaLlvI/kvb/nlKjvvIjljIXmi6zkvYbkuI3pmZDkuo7lhajp
-g6jmiJbpg6jliIblnLDms4TpnLLjgIHlpI3liLbjgIHmiJbmlaPlj5HvvInmnKzpgq7ku7bkuK3n
-moTkv6Hmga/jgILlpoLmnpzmgqjplJnmlLbkuobmnKzpgq7ku7bvvIzor7fmgqjnq4vljbPnlLXo
-r53miJbpgq7ku7bpgJrnn6Xlj5Hku7bkurrlubbliKDpmaTmnKzpgq7ku7bvvIEgVGhpcyBlLW1h
-aWwgYW5kIGl0cyBhdHRhY2htZW50cyBjb250YWluIGNvbmZpZGVudGlhbCBpbmZvcm1hdGlvbiBm
-cm9tIFhJQU9NSSwgd2hpY2ggaXMgaW50ZW5kZWQgb25seSBmb3IgdGhlIHBlcnNvbiBvciBlbnRp
-dHkgd2hvc2UgYWRkcmVzcyBpcyBsaXN0ZWQgYWJvdmUuIEFueSB1c2Ugb2YgdGhlIGluZm9ybWF0
-aW9uIGNvbnRhaW5lZCBoZXJlaW4gaW4gYW55IHdheSAoaW5jbHVkaW5nLCBidXQgbm90IGxpbWl0
-ZWQgdG8sIHRvdGFsIG9yIHBhcnRpYWwgZGlzY2xvc3VyZSwgcmVwcm9kdWN0aW9uLCBvciBkaXNz
-ZW1pbmF0aW9uKSBieSBwZXJzb25zIG90aGVyIHRoYW4gdGhlIGludGVuZGVkIHJlY2lwaWVudChz
-KSBpcyBwcm9oaWJpdGVkLiBJZiB5b3UgcmVjZWl2ZSB0aGlzIGUtbWFpbCBpbiBlcnJvciwgcGxl
-YXNlIG5vdGlmeSB0aGUgc2VuZGVyIGJ5IHBob25lIG9yIGVtYWlsIGltbWVkaWF0ZWx5IGFuZCBk
-ZWxldGUgaXQhKioqKioqLyMNCg==
+From: Xu Rao <raoxu@uniontech.com>
+
+SG_GET_REQUEST_TABLE reports per-request diagnostic state through
+sg_req_info::problem. The field is meant to indicate whether there is
+an error to report for a completed request.
+
+sg_fill_request_table() currently combines masked_status, host_status
+and driver_status with bitwise AND. This only reports a problem when all
+three status fields are non-zero at the same time. A normal target check
+condition, for example, has masked_status set while host_status and
+driver_status may both be zero, so the request is incorrectly reported
+as clean.
+
+Use the same condition as sg_new_read(), which sets SG_INFO_CHECK when
+any of the three status fields is non-zero.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+Changes in v2:
+- Add Cc: stable@vger.kernel.org as suggested by Bart Van Assche.
+
+ drivers/scsi/sg.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
+index 74cd4e8a61c2..5408f002e6c0 100644
+--- a/drivers/scsi/sg.c
++++ b/drivers/scsi/sg.c
+@@ -863,10 +863,9 @@ sg_fill_request_table(Sg_fd *sfp, sg_req_info_t *rinfo)
+ 		if (val >= SG_MAX_QUEUE)
+ 			break;
+ 		rinfo[val].req_state = srp->done + 1;
+-		rinfo[val].problem =
+-			srp->header.masked_status &
+-			srp->header.host_status &
+-			srp->header.driver_status;
++		rinfo[val].problem = srp->header.masked_status ||
++					     srp->header.host_status ||
++					     srp->header.driver_status;
+ 		if (srp->done)
+ 			rinfo[val].duration =
+ 				srp->header.duration;
+--
+2.50.1
