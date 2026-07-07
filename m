@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2403FA5EB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1773EEAD8;
 	Tue,  7 Jul 2026 13:46:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783431985; cv=none; b=QtTzuxu9YJNDxQyn4Th2Canv6YHSP6GDrL7s/YXCJ/fXtDkJADWkw3HFOo36nw8296s3M51xJch00AR9U8+bBgs6+5QdCPwvOtOox69dvHrcKImS1cR4PD/2RyemvOm3c9h4N9M2MpW2zSY8QpqGzhafOOygLWm/enLonq9sxe0=
+	t=1783431986; cv=none; b=NipWiD+M0jXON+ov6FERC4+70pU93bP3sHSTJgug830ZjUt07Fo2kK5M2fx5/TzVfMZTHvZPrYjC6MbSFIvZvZ8QawEgHsnwpeNUGkOkGvMGnu0cmdBt+4wNjzYxZH1qvh3gzVQnLxPec9FD4yC1HBYJqMQKRmDOWQdR8zC6H3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783431985; c=relaxed/simple;
-	bh=94hcNEtcdvV7KVjsVbN/46mvskZkqtz5iAKp0+NYinY=;
+	s=arc-20240116; t=1783431986; c=relaxed/simple;
+	bh=tq84YEo3uEFicX8sVU+wKegoxHiFpBmXLpEEQASSvWk=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=i8DL7wzGQI5fSKd2szCWMQEyB5qtm934mEyCbEiHgiIZzTfPpNNlBIH/UZsvMv/O0yhRIiSQHbckabrXVSCCIHJ+jYLa5jd+B850lamPvfSLXIrMArUlF7kT7xII8Pd1aLB8u/lr/dcS5e0HTRxk+WTDPbj6Y76wnjRr7I6sjUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b/6CwTdO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=j6kcjrNq39JJ4cSa9XVwlTvHB5odXH18xM0vHRtC28n/ZnXgOwW8GbnmVuFc45CSSXhvi/TyYThYN275GskepK8tB6x2DJyS8hVTze1WR+SvpsZLB2xkEsPtrms2oIxRDQxhT+72Q7j51krNA09JeEUEf8VGHdrJbGlvCUlB5gA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jlSVuqmz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b/6CwTdO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 596211F00ADF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jlSVuqmz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF5FB1F00ACF;
 	Tue,  7 Jul 2026 13:46:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1783431981;
-	bh=+2i7auYfxH+Wpn0TT15Yp87zPBX45q0Fv34N8u17wCw=;
+	bh=1szJZljH02omY2Ww9SrDCXdxI4Kcz1WoHMgPxBUtJHI=;
 	h=Date:From:To:Cc:Subject:References;
-	b=b/6CwTdOO0w5S2Nv9w2dMlCDfCdhK4E24A2Urt7tYbPDfK6+GDym3tFYrtzP9tbXQ
-	 qqwDWMkWRuOKrhnGZ+h0flTFLnUxg7l4Jzo3KkDRerAEmcyNa99fhyCWcaMlpwXJMw
-	 aaPlr69cpuHUHRTBBLb/e3bpBOmLOER+4SlLKm5Q0Vo06OVpyrP0jyM8UIbb5BbnOT
-	 n43Ajq/rUpyOBBOAWYmf1pbljzSFVB00jKozpBuarfQIUYb7AI/8EspFJGWqWSJlRn
-	 v3FrBl+ymzMbPaO+dm2nysi2+4Buhc2oajhoarQJWQi+BIdvhHvMUFrFgyzma3US12
-	 TVS5qAEqgoGwg==
+	b=jlSVuqmzxXvqx/ru3V8L0g6PhE87Jd7soPv8W5ToC5LtocVGREyr3zM989G2XQHbE
+	 2fLbflWx5wXyAQvS49aCqv7NYnwwt7aDwEdV8mDpy893bZFpor3fUFbNyJFJ/CI/rw
+	 LzdppwfxtOtxu9Be/6rxcfg2eWNLpiiad1d1Fs+RC2SM0cJN2Dmp+c+oyI27C80WIY
+	 n5ZLvs4P1JTnJ4a+1G2ElZ+SuZ10IEaKI7/8g86/VQzE6qNMhbCMyVDzVydlgbzxe7
+	 Ij6i6z42qBTpCZfoGrXp9Nkb3iAeeJtDQKRsc83ZP1AQbZ1xLBzw3MVoMS97sI0RuQ
+	 8CD2GitIxK7Xg==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wh680-00000000h4a-2aGU;
+	id 1wh680-00000000h5a-49lj;
 	Tue, 07 Jul 2026 09:46:24 -0400
-Message-ID: <20260707134624.467637804@kernel.org>
+Message-ID: <20260707134624.833964338@kernel.org>
 User-Agent: quilt/0.69
-Date: Tue, 07 Jul 2026 09:46:12 -0400
+Date: Tue, 07 Jul 2026 09:46:14 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,10 +40,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Michael Bommarito <michael.bommarito@gmail.com>,
- Beau Belgrave <beaub@linux.microsoft.com>
-Subject: [for-linus][PATCH 08/13] tracing/user_events: Fix use-after-free of enabler in
- user_event_mm_dup()
+ Yuanhe Shu <xiangzao@linux.alibaba.com>
+Subject: [for-linus][PATCH 10/13] tracing: Fix NULL pointer dereference in func_set_flag()
 References: <20260707134604.275787924@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -53,77 +51,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+From: Yuanhe Shu <xiangzao@linux.alibaba.com>
 
-user_event_enabler_destroy() removes an enabler from the per-mm
-mm->enablers list with list_del_rcu() and then frees it immediately with
-kfree(). That list is walked locklessly by user_event_mm_dup() during
-fork(), under rcu_read_lock() only:
+func_set_flag() dereferences tr->current_trace_flags before verifying
+that the current tracer is actually the function tracer. When the active
+tracer has been switched away from "function" (e.g., to "wakeup_rt"),
+tr->current_trace_flags can be NULL, leading to a NULL pointer
+dereference and kernel crash.
 
-	rcu_read_lock();
-	list_for_each_entry_rcu(enabler, &old_mm->enablers, mm_enablers_link)
-		...
+The call chain that triggers this is:
 
-user_event_mm_dup() does not take event_mutex. The per-enabler destroy
-path user_events_ioctl_unreg() (DIAG_IOCSUNREG) takes event_mutex but
-nothing that excludes the dup walk. Threads that share an mm share one
-user_event_mm and one enabler list, so an unregister on one thread can
-free an enabler while another thread is forking and user_event_mm_dup()
-is mid-walk. The walk then dereferences the freed enabler (for example
-enabler->event in user_event_enabler_dup()).
+  trace_options_write()
+    -> __set_tracer_option()
+      -> trace->set_flag()          /* func_set_flag */
 
-This is reachable by an unprivileged task that can open user_events_data:
-a single multithreaded process that registers an enabler and then
-concurrently unregisters it and calls fork() triggers the race. KASAN
-reports a slab-use-after-free read in user_event_enabler_dup() called
-from user_event_mm_dup() and copy_process() during clone(); with
-kasan.fault=panic the kernel panics.
+In func_set_flag(), the first operation is:
 
-Free the enabler after a grace period with kfree_rcu(), matching the
-list_del_rcu() removal and the rcu_read_lock() readers in
-user_event_mm_dup(). Add an rcu_head to struct user_event_enabler for
-this. The error path in user_event_enabler_create() keeps using kfree()
-because that enabler is freed before it is published to the RCU list.
+  if (!!set == !!(tr->current_trace_flags->val & bit))
+
+This dereferences tr->current_trace_flags unconditionally. The safety
+check that guards against a non-function tracer:
+
+  if (tr->current_trace != &function_trace)
+      return 0;
+
+is placed *after* the dereference, which is too late.
+
+This was observed with the following crash dump:
+
+  BUG: unable to handle page fault at 0000000000000000
+  RIP: func_set_flag+0xd
+
+  Call Trace:
+   __set_tracer_option+0x27
+   trace_options_write+0x75
+   vfs_write+0x12a
+   ksys_write+0x66
+   do_syscall_64+0x5b
+
+  RIP: ffffffff914c973d  RSP: ff67ec88b01dfdf0  RFLAGS: 00010202
+  RAX: 0000000000000000  RBX: ff3a826e80354580  RCX: 0000000000000001
+  RDX: 0000000000000001  RSI: 0000000000000000  RDI: ffffffff93918080
+
+The disassembly confirms the fault:
+
+  func_set_flag+0:   mov 0x1f08(%rdi), %rax  ; RAX = tr->current_trace_flags = NULL
+  func_set_flag+13:  mov (%rax), %eax        ; page fault: dereference NULL
+
+At the time of the crash:
+  tr->current_trace_flags = 0x0 (NULL)
+  tr->current_trace = wakeup_rt_tracer (not function_trace)
+
+The scenario is that a process opens a function tracer option file (such
+as "func_stack_trace"), then the current tracer is switched to another
+tracer (e.g., "wakeup_rt"), which sets current_trace_flags to NULL. When
+the process subsequently writes to the option file, func_set_flag() is
+invoked and crashes on the NULL dereference.
+
+Fix this by moving the current_trace check before the
+current_trace_flags dereference, so that func_set_flag() returns early
+when the function tracer is not active.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260618222743.538915-1-michael.bommarito@gmail.com
-Fixes: 7235759084a4 ("tracing/user_events: Use remote writes for event enablement")
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Acked-by: Beau Belgrave <beaub@linux.microsoft.com>
+Link: https://patch.msgid.link/20260624061715.1445655-1-xiangzao@linux.alibaba.com
+Fixes: 76680d0d2825 ("tracing: Have function tracer define options per instance")
+Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_user.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ kernel/trace/trace_functions.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-index c4ba484f7b38..412ca1e3a40c 100644
---- a/kernel/trace/trace_events_user.c
-+++ b/kernel/trace/trace_events_user.c
-@@ -109,6 +109,9 @@ struct user_event_enabler {
+diff --git a/kernel/trace/trace_functions.c b/kernel/trace/trace_functions.c
+index f283391a4dc8..cd37f2013758 100644
+--- a/kernel/trace/trace_functions.c
++++ b/kernel/trace/trace_functions.c
+@@ -458,12 +458,12 @@ func_set_flag(struct trace_array *tr, u32 old_flags, u32 bit, int set)
+ 	ftrace_func_t func;
+ 	u32 new_flags;
  
- 	/* Track enable bit, flags, etc. Aligned for bitops. */
- 	unsigned long		values;
-+
-+	/* Defer free so RCU list readers (user_event_mm_dup) are safe. */
-+	struct rcu_head		rcu;
- };
+-	/* Do nothing if already set. */
+-	if (!!set == !!(tr->current_trace_flags->val & bit))
++	/* We can change this flag only when current tracer is function. */
++	if (tr->current_trace != &function_trace)
+ 		return 0;
  
- /* Bits 0-5 are for the bit to update upon enable/disable (0-63 allowed) */
-@@ -404,7 +407,12 @@ static void user_event_enabler_destroy(struct user_event_enabler *enabler,
- 	/* No longer tracking the event via the enabler */
- 	user_event_put(enabler->event, locked);
+-	/* We can change this flag only when not running. */
+-	if (tr->current_trace != &function_trace)
++	/* Do nothing if already set. */
++	if (!!set == !!(tr->current_trace_flags->val & bit))
+ 		return 0;
  
--	kfree(enabler);
-+	/*
-+	 * The enabler is removed from an RCU-traversed list
-+	 * (user_event_mm_dup walks mm->enablers under rcu_read_lock only),
-+	 * so the backing memory must outlive a grace period.
-+	 */
-+	kfree_rcu(enabler, rcu);
- }
- 
- static int user_event_mm_fault_in(struct user_event_mm *mm, unsigned long uaddr,
+ 	new_flags = (tr->current_trace_flags->val & ~bit) | (set ? bit : 0);
 -- 
 2.53.0
 
