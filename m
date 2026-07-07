@@ -1,304 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B1E4219F7;
-	Tue,  7 Jul 2026 13:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41EA3F4DDB;
+	Tue,  7 Jul 2026 13:51:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783431987; cv=none; b=ayOnG8c0QTU6YW6rxCOSyz8TT2DB/FFSr0JNArG/RQR1WybInWX5yWpXni1nsUDOaKRaul/nmNWEdGp3PEX816tJ8yUlwZrUfmJirFMRymDyZxkPKs1e59Ql6jUO5Uuc8cVyREBZNy4257bvRE6hN4iQ/KGFO1nmnVh889ahyf8=
+	t=1783432288; cv=none; b=OiUpJUylyNescsB/hSEFycLseRte5esbQbqIm3VaxknLjjvVu9McJ2YGcyLaoJWHJ4cjMIz+ynnMUNcHWjBeisHj1XkhRXQ2ZB5CIP2jDtINWqRyV95eIZ5A9/byFIMRW27mIhzcK2kZjDzxal6DBuMWT1ShyPEUWVSAvuCDrIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783431987; c=relaxed/simple;
-	bh=W9H2l+XTH59Ig783jGszyEzxeqejZYk96tBBTaP0jt4=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=pQ92xnbi8THATWPWdaXy4FuzetaVXONSXo8XLRzngtumVBBePimyt6lCxwgHjQXg2X8tuK/kmdzvp8efuKxg8gLBp7Jez3NSyQ7xL5c+W12M9Q6EU0rW51CiTwVObaQ4jwhOMbd/zYMmkdSlMTYT10iatih5M994uzUnRMyeQpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aq0pZmgn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783432288; c=relaxed/simple;
+	bh=vxInMY00Jzl3/lr3lH3zr+U2RqbRBBU8wA4aSfKJKHc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=IlWXGN6bPQ4J5R/jw3IwBOLtJTV85HlLkrFOf30kX6wXhA+ju4ao0/Lnh4ZKldKsyCdEYXc0XSzyUccYgsXsRjBNTMLpjf/IaWASYTG+0IEMJcwHc1dIiNMIznR+2meDWWi+wqcuzKuIhw71OOFGvVt5DTnLCRr1C0/yd+2GRVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=aRVnyjvY; arc=none smtp.client-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aq0pZmgn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCB2A1F01559;
-	Tue,  7 Jul 2026 13:46:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783431981;
-	bh=Y7Tm4/VM2bLRCHDwXtpN/zJB4V7HAUOrArAtD+vl6AA=;
-	h=Date:From:To:Cc:Subject:References;
-	b=aq0pZmgni4C6flCe7ODGZa4qt2Yc15mrD1taUd74RaIy3L2O0bMC1j6hEbA41TfA4
-	 DT9fVoeo+2CbaF1wX0NkvFw8QgGoKlYdwNJH2Y68gFdnrxO2gAmXVA85ufOS7IK0ow
-	 jEpV4nuLRh1j64IEjzRZWT/kCReMAWT/PhSWBJMlxX83zqwJBf9YAyenIotFZOY4gQ
-	 oyMQ3N9Yuz/KDLnXKNLJPihmOZlZyM5ze4APdB7/RYRHMSCfd3TPLvrknGJmoMS8OT
-	 ZhKlZq0V0MPVdt8sK4o/O7u8/sUcZyBBvtSXnA94jm0nkoCIy6BT0RQJKb9AWog1ba
-	 mcVR22XfBYnDg==
-Received: from rostedt by gandalf with local (Exim 4.99.4)
-	(envelope-from <rostedt@kernel.org>)
-	id 1wh681-00000000h64-0i7i;
-	Tue, 07 Jul 2026 09:46:25 -0400
-Message-ID: <20260707134625.010455998@kernel.org>
-User-Agent: quilt/0.69
-Date: Tue, 07 Jul 2026 09:46:15 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- Peter Wang <peter.wang@mediatek.com>,
- Bart Van Assche <bvanassche@acm.org>
-Subject: [for-linus][PATCH 11/13] ufs: core: tracing: Do not dereference pointers in TP_printk()
-References: <20260707134604.275787924@kernel.org>
+	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="aRVnyjvY"
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id 9030521302;
+	Tue, 07 Jul 2026 16:51:19 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=VI3pBgOZzhP1av4QcJZuHCeEiA9AJwOZl1ZTj3J6s6I=; b=aRVnyjvYKndf
+	Wn5j9k9AMp/tVUoNhE0mjfPQdiw1gGY3BM1wK5BvC0yQmaBuE8idfDBR7bx/nZnr
+	2R9p8a+sl2oGo/mzHg0w98fb67ZPeDH5AfebmnFodr037ReG1kcxFg6hVz2cSkzk
+	chUbHWNl8k1pxOR/6WBw0fa6tQIy5y4sHkHPu9Mtz0S7V9oZrQlzhesv2JNKGGvq
+	iEysO2/mkZME2ba/E+NqhvV+bET8WgePSQ2vk2mC4PvHBcxTkFiVRa2THE/zeaUz
+	JdKQqdUenqpZuTQY9CKRgsNcyVbHzPpQqXHsXtGBls8xZazG76cfJ2iu8sWY+b7T
+	RRfM6rk+WJ2QRX3YNNMkHmB8TjSAgeDH9Vo8sQY4TRUqvuAhKg791D6aWtiiqabj
+	ITcE4O/4p81Weip24c7GHM2KVOrtLCi8tS1GkN45Ua88Zh9+UdMZ0mioiQNlwF73
+	2+1XTwFnCZaVAeSA1ZZjSP1062X7JpFzush0FlwZCKNf7kzjrkO0uzRKifQvBNZs
+	GtVHvfxVI9rcb3TnVzwa/nWrRmYtUnn13yRMZf7tUqUAAQbGbynK9G6gZzwErmSV
+	velTwRWw9LFDK67bi+epGLUQjeCH3lxFps01ttWT+d7qUpY3OCazjdh32Khfbo6j
+	xIR5kAFkzrqZRixWdkugfSEUKgIl4dI=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Tue, 07 Jul 2026 16:51:19 +0300 (EEST)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id A9C4F60374;
+	Tue,  7 Jul 2026 16:51:15 +0300 (EEST)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 667Dp6Hk048186;
+	Tue, 7 Jul 2026 16:51:07 +0300
+Date: Tue, 7 Jul 2026 16:51:06 +0300 (EEST)
+From: Julian Anastasov <ja@ssi.bg>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+cc: netdev@vger.kernel.org, coreteam@netfilter.org, davem@davemloft.net,
+        edumazet@google.com, fengxw06@126.com, fw@strlen.de,
+        horms@verge.net.au, kuba@kernel.org, linux-kernel@vger.kernel.org,
+        lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+        pabeni@redhat.com, pablo@netfilter.org, phil@nwl.cc,
+        qli01@tsinghua.edu.cn, stable@vger.kernel.org, wangao@seu.edu.cn,
+        xuke@tsinghua.edu.cn, yangyx22@mails.tsinghua.edu.cn
+Subject: Re: [PATCH nf v2 0/3] ipvs: use parsed transport offsets in state
+ handlers
+In-Reply-To: <20260706101624.69471-1-zhaoyz24@mails.tsinghua.edu.cn>
+Message-ID: <f1ca1fbd-b8db-a012-3db1-c5aa7d579408@ssi.bg>
+References: <20260706101624.69471-1-zhaoyz24@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 
-From: Steven Rostedt <rostedt@goodmis.org>
 
-The trace events in drivers/ufs/core/ufs_trace.h were converted to take a
-pointer to the hba structure as an argument for the tracepoint and then in
-TP_printk() the printing of the dev_name from the ring buffer was
-converted to using the dev dereferenced pointer from the hba saved
-pointer.
+	Hello,
 
-This is not allowed as the TP_printk() is executed at the time the trace
-event is read from /sys/kernel/tracing/trace file. That can happen
-literally, seconds, minutes, hours, weeks, days, or even months later!
-There is no guarantee that the hba pointer will still exist by the time it
-is dereferenced when the "trace" file is read.
+On Mon, 6 Jul 2026, Yizhou Zhao wrote:
 
-Instead, save the device name from the hba pointer at the time the
-tracepoint is called and place it into the ring buffer event. Then the
-TP_printk() can read the name directly from the ring buffer and remove the
-possibility that it will read a freed pointer and crash the kernel.
+> IPVS parses packets into struct ip_vs_iphdr before scheduling and state
+> handling.  For IPv6, iph.len contains the real transport-header offset
+> after ipv6_find_hdr() has skipped any extension headers.
+> 
+> TCP and SCTP state handlers still recompute their own transport offsets.
+> They use sizeof(struct ipv6hdr) for IPv6, so packets with extension
+> headers make the state machines read the wrong bytes.
+> 
+> Pass the parsed transport offset through the common IPVS state handling
+> callback, then use it in the TCP and SCTP state lookups.
+> 
+> Changes in v2:
+> - Pass the parsed transport offset through ip_vs_set_state() and the
+>   protocol callbacks.
+> - Fix TCP state handling as well as SCTP.
+> - Avoid reparsing the skb in SCTP state handling.
+> - Split the common plumbing, TCP fix and SCTP fix into a 3-patch series.
+> 
+> Yizhou Zhao (3):
+>   ipvs: pass parsed transport offset to state handlers
+>   ipvs: use parsed transport offset in TCP state lookup
+>   ipvs: use parsed transport offset in SCTP state lookup
+> 
+>  include/net/ip_vs.h                   |  3 ++-
+>  net/netfilter/ipvs/ip_vs_core.c       | 10 +++++-----
+>  net/netfilter/ipvs/ip_vs_proto_sctp.c | 18 +++++++-----------
+>  net/netfilter/ipvs/ip_vs_proto_tcp.c  | 11 +++--------
+>  net/netfilter/ipvs/ip_vs_proto_udp.c  |  3 ++-
+>  5 files changed, 19 insertions(+), 26 deletions(-)
 
-This was detected when testing the trace event code that looks for
-TP_printk() parameters doing illegal derferences[1]
+	The patchset looks good to me, thanks!
 
-[1] https://lore.kernel.org/all/20260630184836.74d477b6@gandalf.local.home/
+Acked-by: Julian Anastasov <ja@ssi.bg>
 
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260630185412.283c26c5@gandalf.local.home
-Fixes: 583e518e71003 ("scsi: ufs: core: Add hba parameter to trace events")
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- drivers/ufs/core/ufs_trace.h | 36 +++++++++++++++++++++++++++---------
- 1 file changed, 27 insertions(+), 9 deletions(-)
+	The Sashiko comments need additional fixes:
 
-diff --git a/drivers/ufs/core/ufs_trace.h b/drivers/ufs/core/ufs_trace.h
-index 309ae51b4906..377a3c54b9f5 100644
---- a/drivers/ufs/core/ufs_trace.h
-+++ b/drivers/ufs/core/ufs_trace.h
-@@ -89,16 +89,18 @@ TRACE_EVENT(ufshcd_clk_gating,
- 
- 	TP_STRUCT__entry(
- 		__field(struct ufs_hba *, hba)
-+		__string(dev_name, dev_name(hba->dev))
- 		__field(int, state)
- 	),
- 
- 	TP_fast_assign(
-+		__assign_str(dev_name);
- 		__entry->hba = hba;
- 		__entry->state = state;
- 	),
- 
- 	TP_printk("%s: gating state changed to %s",
--		dev_name(__entry->hba->dev),
-+		__get_str(dev_name),
- 		__print_symbolic(__entry->state, UFSCHD_CLK_GATING_STATES))
- );
- 
-@@ -111,6 +113,7 @@ TRACE_EVENT(ufshcd_clk_scaling,
- 
- 	TP_STRUCT__entry(
- 		__field(struct ufs_hba *, hba)
-+		__string(dev_name, dev_name(hba->dev))
- 		__string(state, state)
- 		__string(clk, clk)
- 		__field(u32, prev_state)
-@@ -119,6 +122,7 @@ TRACE_EVENT(ufshcd_clk_scaling,
- 
- 	TP_fast_assign(
- 		__entry->hba = hba;
-+		__assign_str(dev_name);
- 		__assign_str(state);
- 		__assign_str(clk);
- 		__entry->prev_state = prev_state;
-@@ -126,7 +130,7 @@ TRACE_EVENT(ufshcd_clk_scaling,
- 	),
- 
- 	TP_printk("%s: %s %s from %u to %u Hz",
--		dev_name(__entry->hba->dev), __get_str(state), __get_str(clk),
-+		__get_str(dev_name), __get_str(state), __get_str(clk),
- 		__entry->prev_state, __entry->curr_state)
- );
- 
-@@ -138,16 +142,18 @@ TRACE_EVENT(ufshcd_auto_bkops_state,
- 
- 	TP_STRUCT__entry(
- 		__field(struct ufs_hba *, hba)
-+		__string(dev_name, dev_name(hba->dev))
- 		__string(state, state)
- 	),
- 
- 	TP_fast_assign(
- 		__entry->hba = hba;
-+		__assign_str(dev_name);
- 		__assign_str(state);
- 	),
- 
- 	TP_printk("%s: auto bkops - %s",
--		dev_name(__entry->hba->dev), __get_str(state))
-+		__get_str(dev_name), __get_str(state))
- );
- 
- DECLARE_EVENT_CLASS(ufshcd_profiling_template,
-@@ -158,6 +164,7 @@ DECLARE_EVENT_CLASS(ufshcd_profiling_template,
- 
- 	TP_STRUCT__entry(
- 		__field(struct ufs_hba *, hba)
-+		__string(dev_name, dev_name(hba->dev))
- 		__string(profile_info, profile_info)
- 		__field(s64, time_us)
- 		__field(int, err)
-@@ -165,13 +172,14 @@ DECLARE_EVENT_CLASS(ufshcd_profiling_template,
- 
- 	TP_fast_assign(
- 		__entry->hba = hba;
-+		__assign_str(dev_name);
- 		__assign_str(profile_info);
- 		__entry->time_us = time_us;
- 		__entry->err = err;
- 	),
- 
- 	TP_printk("%s: %s: took %lld usecs, err %d",
--		dev_name(__entry->hba->dev), __get_str(profile_info),
-+		__get_str(dev_name), __get_str(profile_info),
- 		__entry->time_us, __entry->err)
- );
- 
-@@ -200,6 +208,7 @@ DECLARE_EVENT_CLASS(ufshcd_template,
- 		__field(s64, usecs)
- 		__field(int, err)
- 		__field(struct ufs_hba *, hba)
-+		__string(dev_name, dev_name(hba->dev))
- 		__field(int, dev_state)
- 		__field(int, link_state)
- 	),
-@@ -208,13 +217,14 @@ DECLARE_EVENT_CLASS(ufshcd_template,
- 		__entry->usecs = usecs;
- 		__entry->err = err;
- 		__entry->hba = hba;
-+		__assign_str(dev_name);
- 		__entry->dev_state = dev_state;
- 		__entry->link_state = link_state;
- 	),
- 
- 	TP_printk(
- 		"%s: took %lld usecs, dev_state: %s, link_state: %s, err %d",
--		dev_name(__entry->hba->dev),
-+		__get_str(dev_name),
- 		__entry->usecs,
- 		__print_symbolic(__entry->dev_state, UFS_PWR_MODES),
- 		__print_symbolic(__entry->link_state, UFS_LINK_STATES),
-@@ -279,6 +289,7 @@ TRACE_EVENT(ufshcd_command,
- 	TP_STRUCT__entry(
- 		__field(struct scsi_device *, sdev)
- 		__field(struct ufs_hba *, hba)
-+		__string(dev_name, dev_name(&sdev->sdev_dev))
- 		__field(enum ufs_trace_str_t, str_t)
- 		__field(unsigned int, tag)
- 		__field(u32, doorbell)
-@@ -291,6 +302,7 @@ TRACE_EVENT(ufshcd_command,
- 	),
- 
- 	TP_fast_assign(
-+		__assign_str(dev_name);
- 		__entry->sdev = sdev;
- 		__entry->hba = hba;
- 		__entry->str_t = str_t;
-@@ -307,7 +319,7 @@ TRACE_EVENT(ufshcd_command,
- 	TP_printk(
- 		"%s: %s: tag: %u, DB: 0x%x, size: %d, IS: %u, LBA: %llu, opcode: 0x%x (%s), group_id: 0x%x, hwq_id: %d",
- 		show_ufs_cmd_trace_str(__entry->str_t),
--		dev_name(&__entry->sdev->sdev_dev), __entry->tag,
-+		__get_str(dev_name), __entry->tag,
- 		__entry->doorbell, __entry->transfer_len, __entry->intr,
- 		__entry->lba, (u32)__entry->opcode, str_opcode(__entry->opcode),
- 		(u32)__entry->group_id, __entry->hwq_id
-@@ -322,6 +334,7 @@ TRACE_EVENT(ufshcd_uic_command,
- 
- 	TP_STRUCT__entry(
- 		__field(struct ufs_hba *, hba)
-+		__string(dev_name, dev_name(hba->dev))
- 		__field(enum ufs_trace_str_t, str_t)
- 		__field(u32, cmd)
- 		__field(u32, arg1)
-@@ -331,6 +344,7 @@ TRACE_EVENT(ufshcd_uic_command,
- 
- 	TP_fast_assign(
- 		__entry->hba = hba;
-+		__assign_str(dev_name);
- 		__entry->str_t = str_t;
- 		__entry->cmd = cmd;
- 		__entry->arg1 = arg1;
-@@ -340,7 +354,7 @@ TRACE_EVENT(ufshcd_uic_command,
- 
- 	TP_printk(
- 		"%s: %s: cmd: 0x%x, arg1: 0x%x, arg2: 0x%x, arg3: 0x%x",
--		show_ufs_cmd_trace_str(__entry->str_t), dev_name(__entry->hba->dev),
-+		show_ufs_cmd_trace_str(__entry->str_t), __get_str(dev_name),
- 		__entry->cmd, __entry->arg1, __entry->arg2, __entry->arg3
- 	)
- );
-@@ -353,6 +367,7 @@ TRACE_EVENT(ufshcd_upiu,
- 
- 	TP_STRUCT__entry(
- 		__field(struct ufs_hba *, hba)
-+		__string(dev_name, dev_name(hba->dev))
- 		__field(enum ufs_trace_str_t, str_t)
- 		__array(unsigned char, hdr, 12)
- 		__array(unsigned char, tsf, 16)
-@@ -361,6 +376,7 @@ TRACE_EVENT(ufshcd_upiu,
- 
- 	TP_fast_assign(
- 		__entry->hba = hba;
-+		__assign_str(dev_name);
- 		__entry->str_t = str_t;
- 		memcpy(__entry->hdr, hdr, sizeof(__entry->hdr));
- 		memcpy(__entry->tsf, tsf, sizeof(__entry->tsf));
-@@ -369,7 +385,7 @@ TRACE_EVENT(ufshcd_upiu,
- 
- 	TP_printk(
- 		"%s: %s: HDR:%s, %s:%s",
--		show_ufs_cmd_trace_str(__entry->str_t), dev_name(__entry->hba->dev),
-+		show_ufs_cmd_trace_str(__entry->str_t), __get_str(dev_name),
- 		__print_hex(__entry->hdr, sizeof(__entry->hdr)),
- 		show_ufs_cmd_trace_tsf(__entry->tsf_t),
- 		__print_hex(__entry->tsf, sizeof(__entry->tsf))
-@@ -384,16 +400,18 @@ TRACE_EVENT(ufshcd_exception_event,
- 
- 	TP_STRUCT__entry(
- 		__field(struct ufs_hba *, hba)
-+		__string(dev_name, dev_name(hba->dev))
- 		__field(u16, status)
- 	),
- 
- 	TP_fast_assign(
- 		__entry->hba = hba;
-+		__assign_str(dev_name);
- 		__entry->status = status;
- 	),
- 
- 	TP_printk("%s: status 0x%x",
--		dev_name(__entry->hba->dev), __entry->status
-+		__get_str(dev_name), __entry->status
- 	)
- );
- 
--- 
-2.53.0
+https://sashiko.dev/#/patchset/20260706101624.69471-1-zhaoyz24%40mails.tsinghua.edu.cn
 
+Regards
+
+--
+Julian Anastasov <ja@ssi.bg>
 
