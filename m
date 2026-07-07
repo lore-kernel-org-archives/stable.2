@@ -1,155 +1,187 @@
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4EE2BEC34
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 05:27:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783402079; cv=pass; b=OO7ocvfiM+lu800W+3SEO6sabiwAgrqEQDmXIIHMUM7dRoI4GP9c8Z/bZAkyBlBrALwUWZtTDhVQxbQyL05YBhaeqat1EmUkOAJuudEgT7htppEilzczDk+qEKVTp9Sl7GkEoFUOL4+QM5kKFBzxI8Jd/xAMr6uwOeOpJb6ats4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783402079; c=relaxed/simple;
-	bh=xThja/YOLrs73p1GwKH8+OsxAlTGp4FlomletDBuHOI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ChUSrwjRmYFGiOlqifjP3dF4D6hKlB8yufmz61Js9VnBN5OB/mhuokdF413c3As0MtQ3vWKh/ctSL2XHIrkta4ykHFz18l7FvylLseNObUHe5LbH7CjVOyk0JpM34US+iMcOVjrUIqH/e8sSmGBbOzkhD1kaBaaikDIz7bqzJd4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MwkFu9ym; arc=pass smtp.client-ip=209.85.221.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E331E386429;
+	Tue,  7 Jul 2026 05:39:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783402758; cv=none; b=CZYGeEJgMOgUvbflfBPfjb5FRWzpvv5C5QQHfhFSs/VZUuZ5yLLDmizYHkvGFhllk0M1J2L9xRtNNqS9dslp4XP9CW9Xo5TNhgCZriH+HPATffZQfuPEcPhPfHRT8Xxnpxvw1CNF4NwlKp56ASrN18VY46zbBgTWoSXwqJGpObU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783402758; c=relaxed/simple;
+	bh=SY4IMC/Ddp2wMdcBI7IRusXV9eWYkEXvUrqXCdfG+fc=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=dwhGqTbEf4I6diQsQzaNu6PMZsP05Gsbp6iH+9L99GddSniaHsgziu9kgKYjW7f+HA26Zepca5xXGOS11uuH9o8hi25lCkHVZoMmna/HNlafb2FIC+Gx67de12ixzi5C15NVtJ9UFzhlb5BfnsjwnLgKfB3WuVaI7I/Af/BHKHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=q/k/j+Vd; arc=none smtp.client-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MwkFu9ym"
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5bd742e0c20so2715282e0c.3
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 22:27:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783402076; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bhAVz+1DLwI5njZXPe4xWIgtk37u2eaypHATa92eEn9giPU7TZI3pZkGGr3avsl+4R
-         1xN8DUBO4BbYSelDG/Y7qhTw3WcCuYRaPG0N7SGbOMvwpnKZ1xd3ogiVlg5rps9VpScE
-         jyQn9Y7A8hAW2sAUc9ewG2gMtuhjrIaEhrRVxEtqyYulYuGsSDES2kP3coVjw6yB1M9d
-         mH1jTqPA7xJzBoOz0d94Zleigx4aj0WYoe6uveifRs6YbxQ0jvrM6gDDBhZPWOmFXlnI
-         fGZx4rUPZR94CStI0dHGgBNJslEBJim9YPm9p0u+xEXp/8LbKTGqH78FEDhvalaT+xNI
-         BwVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ceiIrxAr70b69uYIUvEAod9HzClr5zoqxLtdkcPctn0=;
-        fh=h8pmcGECZZJgzfiF5oEdTOgA6MWRguz1XVA/ZNRLt+I=;
-        b=Op0AHk32WgSDgrbrius16CIqQWcTqXRSsQ3sMzMEGBDXCsZ0iwVNHAQBZy0M41mDZY
-         jqenA094jejlnD3HW5FaOmDlIRpmwBaQY2kLkv+Ea/73OOezMvh2LgUZDyAybSxAv84f
-         6eDThAuNAgLxyFq4vlka81mKPPbWbcjga+v9l+ZBoXGaPRAUctKwe2LalnVV+BsjIbmD
-         pFHEuDNqjYMy/GP2Kblzus1XMj5qdrHeNWV1i2+UdteS5olDUL+fcwEJreynQWSUanJO
-         9ZG0g6ZYhIce6bVdNxyXtWsDjINj3oaEIHgtDnGUW8La9PeFPn6JoMazF+NmRlwHsMzo
-         SGMw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="q/k/j+Vd"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783402076; x=1784006876; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ceiIrxAr70b69uYIUvEAod9HzClr5zoqxLtdkcPctn0=;
-        b=MwkFu9ymsowW5S6hp2y3CCadPUB9KZ9RmSbCFRapoHq90aVM47QeQs6tKrj8GSiGZp
-         Quv0UkiQo3OSiyBUjCMeBQmqKRHRwD2YjE7Rg/x7jZcDJWkhEjWZIEiKercr7DWCoKEi
-         h48O5ZCiinKFSCk0PFsWbaxWlEKtWWZVU2K5ihGQaZAWOry3D7pho20xLTPoKOrkpS0t
-         fnYZgjVdhRaO6HezRBSXE924r+CQBdJYVDoOWWO0G2RHdRUl5tBF4advSsbSG24f6PUe
-         UYh4YAlgWZr6Hvml9z7sGEiO+ycnxuX0aH6WE478G92NxEAt4tknJZCP7HU1xins59qN
-         8ofg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783402076; x=1784006876;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=ceiIrxAr70b69uYIUvEAod9HzClr5zoqxLtdkcPctn0=;
-        b=L6EEGfZySmFa8T/PtkLaSVgoRdkHJgTDEyaXt3d/9Z4Pb3gFO4USEGKkJP4WcjNBXT
-         AnXBaVMUQkov34112DF3bCjtp+sa3mpJnI7Qr6NAngcikgHamnEbaWGVyJBhTUYt8+yt
-         AvzNLh9vCegVB9HDAa7rPZ9gl5YGtfqNE4oxBhJubJUMA8YrvbJpfJeFeK2bvIQ1LAX3
-         +XME+cYHgnpc7bzCGm5qOQhq33/LlRIjz/i/fLJLKGhuuptW2gf2ehQyZIyv2x71eckG
-         oTg8hUV+WI+Hi7pdW6iAl9/IlIPOmFWJwnF31Urqpw3X9H0EQHRgQ1e9TbYwO3GXRFxz
-         WEDw==
-X-Forwarded-Encrypted: i=1; AHgh+RoqaxsrZMENToWL1gANlbyPLnbA5g3yWsrTvFhQ6dLJunkeatUFwfxT281jPS3DPnKSunN+6M8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy3+/1KT5rXeYbfaVnzMcU+F+QYBerIlbrISORQij0o6Dy8WGyY
-	vkdQkcAPOsgQFO21wmi6+06wxb/fA96WOvJk5u63ppbEybGxG7P4ERI0bfrYpED2oMnz5hBa49Y
-	LhDQfSE+UUkuxcVRWMPIOO6hSFsR7P7U6yF0G
-X-Gm-Gg: AfdE7clmJVmqM4jHNWp9tvZ3M/tL//KZfklhSFW1gFefhrDyfzxliUMDzLJ9S6XdVnK
-	jiipU5lboxi0oE+9EWEcyz0ghKYm6oasxE1IPkU0ezM4Nva3kw0WwxpmFau8y8fjKUvbaZg/J55
-	AW8HUwc7CsSxVLzJeH3OggIY42AsQeE+2/M382DjvJuwVJUbZRtoQpK1H6cilv2k8iRsFdLuvTK
-	wZrtc3J9hm5VL+oT10v5Nn8hMGkMreadYlcQKWs6sM08J2p6o0FNcvLMna39gq8Q92hxzuxsk/G
-	v3c0kHpX2YpvbrOVLU2fh2FWqdx/RwT11wY=
-X-Received: by 2002:a53:c087:0:b0:664:db84:ed31 with SMTP id
- 956f58d0204a3-6677fa39c3amr2066648d50.2.1783401614068; Mon, 06 Jul 2026
- 22:20:14 -0700 (PDT)
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:Content-Type:
+	Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	Content-Transfer-Encoding:Message-Id:References:To; bh=HKp8jKsDh
+	acYe+U+r45zxu77QLGaXMYgMAaK8XzGGzQ=; b=q/k/j+VdJCH26dQXVLdbqVw2q
+	CRlvaLbEIVhEbjKcpgOUlKSuyWKIOqtMNIaNePn0b5jdb8hqSbKeKYQUw4Y59PrM
+	meEQm3Pq/mntTBo3pUJylvUbuBI6jNQOIwwGQQLURksDZK/m1EFhgucMCAkfDnlo
+	e6ckUPbatU0N2hFAxQ=
+Received: from smtpclient.apple (unknown [101.5.13.242])
+	by web2 (Coremail) with SMTP id yQQGZQDXsprTkExqpkjKAg--.28065S2;
+	Tue, 07 Jul 2026 13:38:28 +0800 (CST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260706151049.63470-1-mhun512@gmail.com>
-In-Reply-To: <20260706151049.63470-1-mhun512@gmail.com>
-From: Alex Henrie <alexhenrie24@gmail.com>
-Date: Mon, 6 Jul 2026 23:19:00 -0600
-X-Gm-Features: AVVi8Ceo1EWUz0X_LXzRXiGMHgFBV5_Dl7Ao-MwwAd5Q8AhFO_m3J-vqHF7_ihU
-Message-ID: <CAMMLpeTdjtQQv2HuKMe+3WjaLKZZxPo5QywBA8_xd0c1Ta3KFQ@mail.gmail.com>
-Subject: Re: [PATCH v2] USB: misc: uss720: unregister parport on probe failure
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Oliver Neukum <oneukum@suse.com>, 
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH nf] ipvs: skip IPv6 extension headers in SCTP state lookup
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+In-Reply-To: <bcd7f0e6-b2fc-4e54-f9ac-e1c8b1b0c497@ssi.bg>
+Date: Tue, 7 Jul 2026 13:38:18 +0800
+Cc: netdev@vger.kernel.org,
+ Simon Horman <horms@verge.net.au>,
+ Pablo Neira Ayuso <pablo@netfilter.org>,
+ Florian Westphal <fw@strlen.de>,
+ Phil Sutter <phil@nwl.cc>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ lvs-devel@vger.kernel.org,
+ netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org,
+ linux-kernel@vger.kernel.org,
+ Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+ Ao Wang <wangao@seu.edu.cn>,
+ Xuewei Feng <fengxw06@126.com>,
+ Qi Li <qli01@tsinghua.edu.cn>,
+ Ke Xu <xuke@tsinghua.edu.cn>,
+ stable@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <52493DF7-5590-48A1-B76B-21BBC2401687@mails.tsinghua.edu.cn>
+References: <20260705123040.35755-1-zhaoyz24@mails.tsinghua.edu.cn>
+ <92783c87-7e6a-e90a-b2fc-e5d1332139e0@ssi.bg>
+ <87E04893-B2B2-485F-B242-9CACF2F176D6@mails.tsinghua.edu.cn>
+ <bcd7f0e6-b2fc-4e54-f9ac-e1c8b1b0c497@ssi.bg>
+To: Julian Anastasov <ja@ssi.bg>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
+X-CM-TRANSID:yQQGZQDXsprTkExqpkjKAg--.28065S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAryrZry8Kw48KF1UXFyfCrg_yoW5tFWUpa
+	ykKa4fXrZrJrWftwn7GryfXa48Gr1DGry7WrZ5KryfCFn8tr13KFnIk3yYkFZruryqkFy8
+	tFyYva4DZ3Wqy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9v1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
+	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4
+	x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2
+	z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4
+	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E74AGY7Cv6cx26r4r
+	Kr1UJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc
+	8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Av
+	z4vE14v_GrWl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8Ww4UJr1UMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU1veHPUUUUU==
+X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQUBAWpMKrKTLgABsG
 
-On Mon, Jul 6, 2026 at 9:11=E2=80=AFAM Myeonghun Pak <mhun512@gmail.com> wr=
-ote:
->
-> uss720_probe() registers a parport before reading the 1284 register used
-> to detect unsupported Belkin F5U002 adapters. If get_1284_register()
-> fails, the error path drops the driver private data and the USB device
-> reference, but leaves the parport device registered.
->
-> Leaving the port registered is more than a private allocation leak:
-> parport_register_port() has already reserved a parport number and
-> registered the parport bus device, while pp->private_data still points at
-> the private data that the common error path is about to release.
->
-> Undo the pre-announce registration in the get_1284_register() failure
-> branch before jumping to the common private-data cleanup path. Clear
-> priv->pp first, matching the disconnect path and avoiding a stale pointer
-> in the private data.
->
-> This issue was identified during our ongoing static-analysis research whi=
-le
-> reviewing kernel code.
->
-> Fixes: 3295f1b866bf ("usb: misc: uss720: check for incompatible versions =
-of the Belkin F5U002")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
-> Changes in v2:
-> - Move the parport cleanup to the get_1284_register() failure branch,
->   as suggested by Alex.
-> - Clarify the visible stale registered-port effect.
->
->  drivers/usb/misc/uss720.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/usb/misc/uss720.c b/drivers/usb/misc/uss720.c
-> index a8af7615b1..bd099cd8c5 100644
-> --- a/drivers/usb/misc/uss720.c
-> +++ b/drivers/usb/misc/uss720.c
-> @@ -735,8 +735,11 @@ static int uss720_probe(struct usb_interface *intf,
->          * here. */
->         ret =3D get_1284_register(pp, 0, &reg, GFP_KERNEL);
->         dev_dbg(&intf->dev, "reg: %7ph\n", priv->reg);
-> -       if (ret < 0)
-> +       if (ret < 0) {
-> +               priv->pp =3D NULL;
-> +               parport_del_port(pp);
->                 goto probe_abort;
-> +       }
->
->         ret =3D usb_find_last_int_in_endpoint(interface, &epd);
->         if (!ret) {
+Hi Julian,
+
+> On Jul 6, 2026, at 22:17, Julian Anastasov <ja@ssi.bg> wrote:
+>=20
+>=20
+> Hello,
+>=20
+> On Mon, 6 Jul 2026, Yizhou Zhao wrote:
+>=20
+>>> On Jul 6, 2026, at 01:35, Julian Anastasov <ja@ssi.bg> wrote:
+>>>=20
+>>> May be it is better starting from ip_vs_set_state()
+>>> to provide new arg 'int iph_len/offset' (set to iph.len), down to
+>>> state_transition(), sctp_state_transition() and set_sctp_state().
+>>> Same for all protos. It should cost less stack and ipv6_find_hdr()
+>>> calls and what matters most, correct iph context in case we
+>>> have IP+ICMP+TCP (with just two ports or even with TCP flags)
+>>> and are scheduling ICMP, i.e. not IP+TCP as usually.
+>>=20
+>> I agree that the already parsed transport-header offset should be=20
+>> passed from ip_vs_set_state() down to the protocol state_transition()=20=
+
+>> callbacks, instead of reparsing the skb in set_sctp_state(). We will=20=
+
+>> send a v2 that does this for SCTP, TCP and the other IPVS protocols=20=
+
+>> in one combined fix.
+>>=20
+>>> But what I see is that ip_vs_in_icmp*() are missing
+>>> the ip_vs_set_state(cp, IP_VS_DIR_INPUT, skb, pd) call just
+>>> after ip_vs_in_stats() and before ip_vs_icmp_xmit() where
+>>> we should provide ciph.len. That is why we don't reach the
+>>> set_tcp_state() calls to set correct cp->state and timeout
+>>> when scheduling related ICMP. So, this should be fixed too.
+>>=20
+>> For the ICMP path, I agree that the missing ip_vs_set_state() call is
+>> worth looking at, but using ICMP errors to drive the upper L4 state=20=
+
+>> needs some care, because spoofed ICMP packets can match an=20
+>> existing embedded tuple before the endpoint TCP/SCTP stack=20
+>> performs its own validation. Maybe this change needs further
+>> discussion?
+>=20
+> May be only for the schedule_icmp case while the other
+> ICMP replies should not change it:
+>=20
+> diff --git a/net/netfilter/ipvs/ip_vs_core.c =
+b/net/netfilter/ipvs/ip_vs_core.c
+> index 7f93239898ff..05fdcf4ce2c0 100644
+> --- a/net/netfilter/ipvs/ip_vs_core.c
+> +++ b/net/netfilter/ipvs/ip_vs_core.c
+> @@ -1971,6 +1971,8 @@ ip_vs_in_icmp(struct netns_ipvs *ipvs, struct =
+sk_buff *skb, int *related,
+>=20
+> /* do the statistics and put it back */
+> ip_vs_in_stats(cp, skb);
+> + if (new_cp)
+> + ip_vs_set_state(cp, IP_VS_DIR_INPUT, skb, pd, offset);
+> if (IPPROTO_TCP =3D=3D cih->protocol || IPPROTO_UDP =3D=3D =
+cih->protocol ||
+>    IPPROTO_SCTP =3D=3D cih->protocol)
+> offset +=3D 2 * sizeof(__u16);
+>=20
+> Here is why schedule_icmp was added:
+>=20
+> =
+https://archive.linuxvirtualserver.org/html/lvs-devel/2015-08/msg00015.htm=
+l
+>=20
+> But the inner TCP header should be generated by the
+> real server, not from the client, so things can go wrong. We can
+> leave it as it is now - we will forward the ICMP to the right real=20
+> server by using short conn timeout...
+
+I agree. The embedded TCP/SCTP header in this path may not have the same
+meaning as a normal client packet reaching the virtual service, so I do =
+not
+see a good fix for the ICMP state update part at the moment.
+
+BTW, we have kept the ICMP handling unchanged and submitted a v2 series
+for the parsed transport-offset issue only, following your earlier =
+suggestion
+to pass the already parsed offset from ip_vs_set_state() down to the =
+protocol
+state handlers. The v2 also puts the TCP and SCTP fixes in the same =
+thread:
+
+=
+https://lore.kernel.org/netdev/20260706101624.69471-1-zhaoyz24@mails.tsing=
+hua.edu.cn/
+
+Thanks for the review.
+
+>=20
+> Regards
+>=20
 > --
-> 2.47.1
+> Julian Anastasov <ja@ssi.bg>
 
-Reviewed-by: Alex Henrie <alexhenrie24@gmail.com>
+Thanks,
+Yizhou=
+
