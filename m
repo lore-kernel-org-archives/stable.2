@@ -1,136 +1,124 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.61.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC833420862;
-	Tue,  7 Jul 2026 10:18:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7D63DD530
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 10:19:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.61.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783419510; cv=none; b=IvR9ZQNpsSrpqIfWyGTHus9aqD+pxbV66WOcfvY85cCtYhmqRakmnvAWZ367e52FPki0nv0kwPrxIy9ayv1w+4exzXZxlnSjTTIrA4eTVuEdFbqMg/gQCcWEmHtl1mHrVtDhwZo+KEqPYditTS2/LS0rzQ7qp/nERQouOrPF1YI=
+	t=1783419574; cv=none; b=MYzDeb7oiTY3BULvc6cxezaCkAN7S3Mt7T3i/juXMKAxWwiq/H898KCGcN4yrqkz7IjiYgPqo1Dt8l5fivGmHfV6I5CEi9nJM8wi3kU1wMOSWXjTiJqGnImbKZc8iBxtO5ZFZWSvv6vDw2hiE3bmKVeTxF66Np5IzV/giEPftGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783419510; c=relaxed/simple;
-	bh=426IUqbQPLKj9VRYgxpNF6pGXpR8ZibYrAnRz8aXy4E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tY4UR9yKcrgClilJW/MGAXWRDnaRmcghQ+FqJdl3Lco1XlNkIIliNKyx6n+fG+vIjo7UHeNC6fnvIXeRBORoIfgzHik/g1yeKUWfYnaJK7yJAizpmko2eR3xURZIWQ+oRQGVZv+Nt5jBrUZ2NS1BVorFv/trz+bfyeUAFg59y9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=bzASyTsv; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783419574; c=relaxed/simple;
+	bh=jkCdGKHrAXlnKoBbnYNWHuWXfPuaFC6iRVd5Bb2qsEQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HJ844BlvjYEgNyOJC3+u69gQYTodXlKu9UM+Yl/kszbwm7S3tHK17N4q6HzM7n9U8CiFC2Njw7fO99MA/ysze5l19HTWJ2LycDtthSvXDDksE2ps69H+/DWbpZDaLlC0s7/3fETiOAktMlHPBSNiKvtj7pao0uQ9B6YXYr3j1Hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=DJ3sZkK8; arc=none smtp.client-ip=188.68.61.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="bzASyTsv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783419507;
-	bh=426IUqbQPLKj9VRYgxpNF6pGXpR8ZibYrAnRz8aXy4E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bzASyTsvTET0k5kCn0yXc1+guR1PIczhQhLg4dWBdgE/qWxivAoLWyQlqdlMc/Mmn
-	 n8LTC7PXM9wqVeZE+1eShE8IwEbtbSeA3KfuVhSSslnChM11VNo3J/4hozM957bxC2
-	 4J1FkY6u9fsCwP9WGsdJvF6SjdsXqDCupezaChUDH9VwoygoNkez5V8/aLci1BmYe/
-	 ZtNs7bOEqVuzc/5XTeChb+fBKFxU0/Pvq4H/et3T5wXisEY5T0IqxZb6FyvduHXaRT
-	 Nwzs1URUPJe2R3u4LDIP+PiqduoV0/JLCCEAYtBilF2e9cQWl5rOx389ZOaEUNQLfi
-	 OgbcqYYBEvf+w==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="DJ3sZkK8"
+Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4gvcf447Flz89sF;
+	Tue,  7 Jul 2026 12:19:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1783419564;
+	bh=jkCdGKHrAXlnKoBbnYNWHuWXfPuaFC6iRVd5Bb2qsEQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=DJ3sZkK8Oky7YIl9PpZ2KwXVNtleOwy7M3f4PNM9hCdkzDk07KuIulKqUPkCQaeoP
+	 HJVBo9G2t9fGhdSqOmzSirSICFLx4K3TBv6LfDUgEIe87idde//yr2NhNgdfkspuwU
+	 oLyDOVDJun314gIq8gJ97gOGK6WgDakwTZck8itlzTntknesXvgrEDYs7d/1hceGLm
+	 UkAYzrhAobtFIsSLaRwYSe9ut2t978gNJL6vVDc9xzHNPNszDpr9qdUErXXxeyDbvr
+	 r7gOxrGrCl6+Q9aXwqfsQFbdMW9Zf2J/0xb2YPId9imyYNOsr+KSr0xO1X/qHyCRr0
+	 r5ZeDTLwxfClQ==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4gvcf43PVvz835F;
+	Tue,  7 Jul 2026 12:19:24 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.898
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4915817E0C88;
-	Tue, 07 Jul 2026 12:18:26 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: jic23@kernel.org,
-	sboyd@kernel.org
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	arnd@arndb.de,
-	gregkh@linuxfoundation.org,
-	srini@kernel.org,
-	vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	sre@kernel.org,
-	angelogioacchino.delregno@collabora.com,
-	krzk@kernel.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	quic_wcheng@quicinc.com,
-	melody.olvera@oss.qualcomm.com,
-	quic_nsekar@quicinc.com,
-	ivo.ivanov.ivanov1@gmail.com,
-	abelvesa@kernel.org,
-	luca.weiss@fairphone.com,
-	konrad.dybcio@oss.qualcomm.com,
-	mitltlatltl@gmail.com,
-	krishna.kurapati@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-pm@vger.kernel.org,
-	kernel@collabora.com,
-	stable@vger.kernel.org,
-	Sashiko Bot <sashiko-bot@kernel.org>
-Subject: [PATCH v11 01/12] spmi: Fix potential use-after-free by grabbing of_node reference
-Date: Tue,  7 Jul 2026 12:18:10 +0200
-Message-ID: <20260707101821.173319-2-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260707101821.173319-1-angelogioacchino.delregno@collabora.com>
-References: <20260707101821.173319-1-angelogioacchino.delregno@collabora.com>
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4gvcf26VXyz8tZL;
+	Tue,  7 Jul 2026 12:19:22 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id D01AE60387;
+	Tue,  7 Jul 2026 12:19:21 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <d3d467d3-637c-49fe-8516-8da65cf4261b@leemhuis.info>
+Date: Tue, 7 Jul 2026 12:19:20 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: Some 7.1-post fixes that might be worth picking up rather sooner
+ than later
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Linus Torvalds <torvalds@linux-foundation.org>
+References: <91281f28-eccf-4681-8f62-faaa8a3ba529@leemhuis.info>
+ <2026061917-flinch-idealism-898f@gregkh>
+ <2026062236-ludicrous-detached-6e20@gregkh>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <2026062236-ludicrous-detached-6e20@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178341956224.4116813.1796060844406734301@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: D01AE60387
+X-NC-CID: t9z4NYfy/uCu+sY8wZzJbyURLwVE4ZPbCV0TuDrLPdGqwFYazFI=
 
-As noticed by Sashiko during a review run of an unrelated patch,
-in of_spmi_register_devices(), for_each_available_child_of_node()
-is used to loop through children, and to also assign a node to a
-newly created SPMI child device.
+[CCing a few people]
 
-Problem is that the refcount is dropped at every iteration so, in
-the specific case of DT overlays, a use-after-free may occur when
-an overlay is dynamically unloaded!
+On 6/22/26 07:32, Greg KH wrote:
+> On Fri, Jun 19, 2026 at 11:43:41AM +0200, Greg KH wrote:
+>> On Fri, Jun 19, 2026 at 08:04:35AM +0200, Thorsten Leemhuis wrote:
+>>> Hi Stable Team! From the regressions point I think it might be nice to
+>>> pick up the following changes for the next round of stable updates (e.g.
+>>> 7.1.2), as they seem to fix regressions I've seen multiple people report
+>>> with 7.1:
+>>> [...]
+>>> * 12f58a6caad3be ("drm/amd/display: Fix Color Manager (3DLUT, Shaper,
+>>> Blend)") [v7.1-post]
+> 
+> This doesn't apply to 7.1.y, and would need a working backport.
+Just a quick status update twimc:
 
-To resolve this, increase the of_node refcount when assigning (in
-function of_spmi_register_devices) and release the reference in
-spmi_device_remove().
+I pointed that out in
+https://gitlab.freedesktop.org/drm/amd/-/work_items/5396 , but nothing
+happened from the AMD side afaics. They have much on their plate, I
+fully understand that, I guess it fell through the cracks (maybe this
+mail helps). Thing is: the backport of the revert is quite big, so
+nobody else (including me) did yet dare to submit it themselves.
 
-Fixes: bc32bbd04011 ("spmi: Set fwnode for spmi devices")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260608100949.36309-1-angelogioacchino.delregno@collabora.com?part=2
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/spmi/spmi.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+So two weeks later the regression caused by e56e3cff2a1bb2
+("drm/amd/display: Sync dcn42 with DC 3.2.373") [v7.1-rc1] is still
+unfixed in 7.1.y as far as I can see it -- a regression that is known
+since more than two months now, as the revert to fix it (12f58a6caad3be,
+mentioned in the quote above) was submitted already on 2026-04-29, but
+only made it to mainline during the merge window for 7.2 (this is
+another thing that afaics fell through the cracks; sadly I only became
+aware of the regression after 7.1 was out, otherwise I would have made
+noise earlier to get it included in 7.1).
 
-diff --git a/drivers/spmi/spmi.c b/drivers/spmi/spmi.c
-index 57b7c0cb4240..293e1adddcd7 100644
---- a/drivers/spmi/spmi.c
-+++ b/drivers/spmi/spmi.c
-@@ -24,6 +24,9 @@ static void spmi_dev_release(struct device *dev)
- {
- 	struct spmi_device *sdev = to_spmi_device(dev);
- 
-+	if (IS_ENABLED(CONFIG_OF))
-+		of_node_put(dev->of_node);
-+
- 	kfree(sdev);
- }
- 
-@@ -517,13 +520,14 @@ static void of_spmi_register_devices(struct spmi_controller *ctrl)
- 		if (!sdev)
- 			continue;
- 
--		device_set_node(&sdev->dev, of_fwnode_handle(node));
-+		device_set_node(&sdev->dev, of_fwnode_handle(of_node_get(node)));
- 		sdev->usid = (u8)reg[0];
- 
- 		err = spmi_device_add(sdev);
- 		if (err) {
- 			dev_err(&sdev->dev,
- 				"failure adding device. status %d\n", err);
-+			of_node_put(node);
- 			spmi_device_put(sdev);
- 		}
- 	}
--- 
-2.54.0
+This all seems rather unfortunate.
 
+Luckily is seems the KDE Plasma developer turned off support for the
+color pipeline stuff in Kwin 6.7.1
+(https://invent.kde.org/plasma/kwin/-/commit/9079a417b821f80c0d9e3bc5014a388e0e340f82
+), which apparently avoids the problem for many users (see the
+gitlab.freedesktop ticket linked earlier).
+
+Ciao, Thorsten
