@@ -1,76 +1,79 @@
-Received: from mailhub9-fb.kaspersky-labs.com (mailhub9-fb.kaspersky-labs.com [195.122.169.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0308C41610A;
-	Tue,  7 Jul 2026 14:17:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.122.169.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D6C4229D8
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 14:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783433834; cv=none; b=Ke+1mKKElGo3iR0GIbyh/GMoqcRTZj4b/KaP2QcHJxE4f1EEvtdmxTzOKXZ0DSvCq4qrf3n55GjwGT8fEI8jD6UyWiq46Vsp0thSejiqeNQgZNd6gmKiGLyg61/lE+M6ZkTgTY28Le2mkv/feeu0qY8fxQThG9WZh0jenqKpsPU=
+	t=1783433872; cv=none; b=VL1wmzenKuwonD9aMphDTkX/kJ2BMM+wHdsqbip6HxWXxw1J05lSoEThQ/N0h0uJOwW+yhurArWs1NGdYPpRlpQV5I7wnRdBzVEffBJyfIPdJZMAOKK1/c1qMqarOS3ZUFIQLGcVHFynyh3yJqLe46GqNnF3/1TVS9gn/th5Xts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783433834; c=relaxed/simple;
-	bh=yhGQahQOCPZz7JseoaL/a2P5LTYNU3VSFzzv5E3WmmI=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=r2UaGJ4RzZJry4v1elf1k8Gb/x/sP7XVij71wPFQmfnR4mERiyDgqOEXDhdO1tIeqigymM+V9g1krHOlPZu28j7qoqsHvtLv2zlom2DUIXK0apGmX9Lh0B9CfV5r2rHXPx/2oFV/DOBeoxzSSD7gYKW8rj6tfsWsX/U3b5gTd2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kaspersky.com; spf=pass smtp.mailfrom=kaspersky.com; dkim=pass (2048-bit key) header.d=kaspersky.com header.i=@kaspersky.com header.b=vRn2Ptud; dkim=pass (2048-bit key) header.d=kaspersky.com header.i=@kaspersky.com header.b=nQqLH7JO; arc=none smtp.client-ip=195.122.169.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kaspersky.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaspersky.com
+	s=arc-20240116; t=1783433872; c=relaxed/simple;
+	bh=JNRMrbb5OEze61V+JypFOazAcSxi7/13i/xrfkhYpUI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GKGDe7PT89ey7WjiVMoPLwC0Yhk+xy48AVQ0dQO6ly53ylHryVtPu8Hcd+Q7t/pnQhkyqfEuH28squWVG8wnYCMnVAPJ/xYlo4rmLESmYRc06qm+G1jxitNHZLujymcJEOnRri9llwtAj3zpOVSzWyv+JVtwW9CgYjkacDtHtvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=MIXsec/a; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kaspersky.com header.i=@kaspersky.com header.b="vRn2Ptud";
-	dkim=pass (2048-bit key) header.d=kaspersky.com header.i=@kaspersky.com header.b="nQqLH7JO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kaspersky.com;
-	s=mail202505; t=1783433391;
-	bh=KOpTyhoe2Irsyxnw0tccmTf6A2EilUrNjrxf0YkWg60=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	b=vRn2PtudRID+y3H07nwPKldyUMS5gNf/C8gPqMoD8iByNMDm0S1Ox9Z16LEUIibKk
-	 PXhuhrMjIGbanyh2Nib8KTvfn82xuZkBBZpGs8tecmlZEcfSR6qEpVRZCw8lsjaTJD
-	 QnKsAYiKogj6uD3wAdZ11lfG4THvqhYxGPe08epaexj8c/fA+U/Jnu05F/OTAMYj5h
-	 9GgeN/kgAH/M3olN3RPlJgr/HPxYbg6j5sYklrehkOw1vSblucRuWfcnoXcXvr0AMG
-	 9xRnc2iJ2YZzRlrrb188LVZQms12BLN+kI0tnnPvXQAQrSxYdp+Cvob7vu42+A22Cz
-	 AOd4I3Mdh2dhQ==
-Received: from mailhub9-fb.kaspersky-labs.com (localhost [127.0.0.1])
-	by mailhub9-fb.kaspersky-labs.com (Postfix) with ESMTP id 79A3C900791;
-	Tue,  7 Jul 2026 17:09:51 +0300 (MSK)
-Received: from mx16.kaspersky-labs.com (mx16.kaspersky-labs.com [5.79.125.27])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256
-	 client-signature RSA-PSS (4096 bits) client-digest SHA256)
-	(Client CN "mx16.kaspersky-labs.com", Issuer "Kaspersky MailRelays CA G3" (verified OK))
-	by mailhub9-fb.kaspersky-labs.com (Postfix) with ESMTPS id 524479005B9;
-	Tue,  7 Jul 2026 17:09:51 +0300 (MSK)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kaspersky.com;
-	s=mail202505; t=1783433382;
-	bh=KOpTyhoe2Irsyxnw0tccmTf6A2EilUrNjrxf0YkWg60=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	b=nQqLH7JOL1XNYiK7NdUdzKmG4EQx/vv9vCEJeXwyrIhlqg3Icq4QrEeAbVyH8l4TO
-	 6LHhz7ySVDFZyqv/YJGiziP7L+9/YTeCw/ComxFDQr2EvIDTinKUWkdrcXDExRFigR
-	 zHYjIWd7+sIu95Qhcko4gKfhxVFkrFwnjgORNUXJHah0gh6CSi67kmz3oBtokrL+pK
-	 qLB+j7H6GA94nHs+4jtvoALxUMDq7vBhRyvoti5j4gLEYNJ61Gsv8Rvm2qMtmYTTVr
-	 g10n4oyC9FqGkloVy6bkw7+pIjNpVNK7elI1krYYKuVlL3SLx7mqHHFQf1I9Hf6qDD
-	 vw2I4XTpJQwgA==
-Received: from relay16.kaspersky-labs.com (localhost [127.0.0.1])
-	by relay16.kaspersky-labs.com (Postfix) with ESMTP id E64E9C07655;
-	Tue,  7 Jul 2026 17:09:42 +0300 (MSK)
-Received: from mail-hq2.kaspersky.com (unknown [91.103.66.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(Client CN "mail-hq2.kaspersky.com", Issuer "Kaspersky MailRelays CA G3" (verified OK))
-	by mailhub16.kaspersky-labs.com (Postfix) with ESMTPS id 6C360C07A60;
-	Tue,  7 Jul 2026 17:09:41 +0300 (MSK)
-Received: from chesnokov.avp.ru (10.16.105.7) by HQMAILSRV2.avp.ru
- (10.64.57.52) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
- 2026 17:09:40 +0300
-From: <Alexander.Chesnokov@kaspersky.com>
-To: <xuhaoyue1@hisilicon.com>
-CC: <lvc-project@linuxtesting.org>, <Oleg.Kazakov@kaspersky.com>,
-	<Pavel.Zhigulin@kaspersky.com>, <stable@vger.kernel.org>, Wenpeng Liang
-	<liangwenpeng@huawei.com>, Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky
-	<leon@kernel.org>, Xi Wang <wangxi11@huawei.com>, Weihang Li
-	<liweihang@huawei.com>, <linux-rdma@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Alexander Chesnokov
-	<Alexander.Chesnokov@kaspersky.com>
-Subject: [PATCH] RDMA/hns: Fix arithmetic overflow in hns_roce_v2_set_hem()
-Date: Tue, 7 Jul 2026 17:09:38 +0300
-Message-ID: <20260707140938.3106919-1-Alexander.Chesnokov@kaspersky.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="MIXsec/a"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c1276b8c7e2so433176466b.3
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 07:17:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1783433861; x=1784038661; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FHI2Oy1d15fEP4M9liye51QpOZL8T3aeN/VQtQoMGgQ=;
+        b=MIXsec/aVbobYu/Uf9o86l7StzmlDAOuk/H/lELvIfJjPT4xU0xZ5b3Uo4zqD2x9hr
+         qRp/p25n2EzvQRi2wxuwZRpqvBstTuZ00l4nGeBxkWnNRR/iLILxX9jmFZMaxYZZ7miV
+         qFaP3kSH//FU3hktZt+aGuYxtG0076WkUzPAQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783433861; x=1784038661;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FHI2Oy1d15fEP4M9liye51QpOZL8T3aeN/VQtQoMGgQ=;
+        b=BOez9XKzP37sQXtepNQqmeWzldG0UGfAb+77SZatSPl0o6GixU9hfYxsFJX153eTMh
+         8bz50XzqyyEHy8LJV2tAeYO1WdnQWOHX6cesFn8RkLhsA5RLqRlJWdPDqhq+1HSmXqUy
+         D6AI72uCanQMoVOBlnEt/eZBNYs0RS9gg49/cEefliMSJR26hmsQO7ZcHP2xH/j/YL/e
+         1DVKdVEBE/lCtRYj8GjlwSR7sCLGylIGvhpnSh4UFle0aNFoO07iLXa1ZLb3FZG8SL0G
+         b40ZGbKMsaDFajgict0nPXDMThmM3K+71/yls/nzP2nvb8KUetaAPBK60Gj+CrudXLYV
+         ka2A==
+X-Forwarded-Encrypted: i=1; AHgh+RpmrMHb2aiytH6jr1WGIqGHuvqXavunQ3yI8N/GFJSHOs+2jthBbkAxKSu0vtyBwOtSxtTjufY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7PbL4ymOT+9Pb8vlKa3J81IS3Yqc8+f5bX1mRAd7UJy8aUAl9
+	lRerluv2n+VelHpE0RtHLV/DFJVU2QTa9yJfgWxliPjRFkV6r3BOdcqqNbD8LB99Mw==
+X-Gm-Gg: AfdE7cnQ5ipy7/2FLd4VvmreEqJxLGwegyvMjUExZDE5tytTo9PqNONY8shSKvblkNs
+	ult95zRQOV2XGgoofAU9jAGfCedP+dnUVkD2u9b93Lcoke7EpuzaGZdPw0Kko8w/k9XUVA2wRLW
+	INIVGY/bRPSadf9GSKOyME4Vg8+zzmAuftjeAJBQpav0k5BVEJfuZ8NixE3vxSlHu4KVNSLPral
+	3z5MJZh8SbdLhEEV/6agl/u2RVij9sZIfKe4C5nYfQv5EsFAex/TD5PgzkFROspzYYoYEdCn6Y7
+	uuva8udqcNVPPU3oZtSSoqcWrHtwcUSljRpg/4t+72Z3nUz7clTSpn7kkxqEcqjoyU6vJoDfCBh
+	MOe76Uf/o/+wOXQ0gtq32fJb4MPLakU8c4Gl1IAeg6LbuJNWpZ/0c4EiEZ6FjdoP1SvxjZ+hemi
+	xiX3Vsb+VJQimTKKF4EOMA57X9rm5GUtMCaGEWm2Mn2vFRwuPYqmd1xp9LU0KIapQYo2j2/Jp0C
+	lblNaU4EQ==
+X-Received: by 2002:a17:907:d301:b0:c12:c936:86f6 with SMTP id a640c23a62f3a-c15a676c68amr319735666b.12.1783433861112;
+        Tue, 07 Jul 2026 07:17:41 -0700 (PDT)
+Received: from akuchynski.c.googlers.com.com (12.127.147.34.bc.googleusercontent.com. [34.147.127.12])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ad882342sm144491666b.28.2026.07.07.07.17.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 07:17:40 -0700 (PDT)
+From: Andrei Kuchynski <akuchynski@chromium.org>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Jameson Thies <jthies@google.com>,
+	Benson Leung <bleung@chromium.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
+	Pooja Katiyar <pooja.katiyar@intel.com>,
+	Johan Hovold <johan@kernel.org>,
+	Hsin-Te Yuan <yuanhsinte@chromium.org>,
+	Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>,
+	Linyu Yuan <quic_linyyuan@quicinc.com>,
+	Jack Pham <quic_jackp@quicinc.com>,
+	Andrei Kuchynski <akuchynski@chromium.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: typec: ucsi: Fix race condition and ordering in port unregistration
+Date: Tue,  7 Jul 2026 14:17:36 +0000
+Message-ID: <20260707141736.1635698-1-akuchynski@chromium.org>
+X-Mailer: git-send-email 2.55.0.rc2.803.g1fd1e6609c-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,91 +81,165 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: HQMAILSRV3.avp.ru (10.64.57.53) To HQMAILSRV2.avp.ru
- (10.64.57.52)
-X-KSE-ServerInfo: HQMAILSRV2.avp.ru, 9
-X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 07/07/2026 13:52:20
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 204297 [Jul 07 2026]
-X-KSE-AntiSpam-Info: Version: 6.1.1.22
-X-KSE-AntiSpam-Info: Envelope from: Alexander.Chesnokov@kaspersky.com
-X-KSE-AntiSpam-Info: LuaCore: 112 0.3.112
- 7c8d497b0e572fbfa504a2ee62037c045a8cb4ec
-X-KSE-AntiSpam-Info: {date_rfc_vio_soft_silent}
-X-KSE-AntiSpam-Info: {Tracking_ml_letters}
-X-KSE-AntiSpam-Info: {Tracking_cluster_exceptions}
-X-KSE-AntiSpam-Info: {Tracking_real_kaspersky_domains}
-X-KSE-AntiSpam-Info: {Tracking_black_eng_exceptions}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: 127.0.0.199:7.1.2;chesnokov.avp.ru:7.1.1,5.0.1;kaspersky.com:7.1.1,5.0.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
-X-KSE-AntiSpam-Info: {Tracking_white_helo}
-X-KSE-AntiSpam-Info: FromAlignment: s
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Deterministic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 07/07/2026 13:54:00
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean, bases: 7/7/2026 1:33:00 PM
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Interceptor-Info: not scanned
-X-KSMG-AntiSpam-Status: not scanned, disabled by settings
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.1.8310, bases: 2026/07/07 13:46:00 #28409727
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 52
 
-From: Alexander Chesnokov <Alexander.Chesnokov@kaspersky.com>
+A synchronization issue exists during port unregistration where pending
+partner work items can race against workqueue destruction, leading to
+use-after-free conditions:
 
-If hop_num is 2 or 1, then the expressions like
-i * chunk_ba_num + j are computed in 32-bit
-arithmetic before being assigned to a u64 index field,
-which can lead to overflow.
+  cros_ec_ucsi cros_ec_ucsi.3.auto: error -ETIMEDOUT: PPM init failed
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:__queue_work+0x83/0x4a0
+  Call Trace:
+    <IRQ>
+    __cfi_delayed_work_timer_fn+0x10/0x10
+    run_timer_softirq+0x3b6/0xbd0
+    sched_clock_cpu+0xc/0x110
+    irq_exit_rcu+0x18d/0x330
+    fred_sysvec_apic_timer_interrupt+0x5e/0x80
 
-Cast the first operand to u64 to ensure the arithmetic
-is performed in 64-bit.
+Fix this by ensuring strict ordering and proper serialization during
+teardown:
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+1. Move ucsi_unregister_partner() to the beginning of the teardown
+sequence and protect it under the connector mutex lock.
+2. Ensure all pending partner tasks are explicitly flushed and finished
+before the workqueue is destroyed.
+3. Switch from mod_delayed_work() to a cancel_delayed_work() and
+queue_delayed_work() sequence. This guarantees that items currently marked
+as pending won't be scheduled an additional time, preventing a double
+release of resources which leads to the following crash:
 
-Fixes: a81fba28136d ("RDMA/hns: Configure BT BA and BT attribute for the contexts in hip08")
+  Oops: general protection fault, probably for non-canonical address
+    0xdead000000000122: 0000 [#1] SMP NOPTI
+  Workqueue: cros_ec_ucsi.3.auto-con2 ucsi_poll_worker
+  RIP: 0010:ucsi_poll_worker+0x65/0x1e0
+  Call Trace:
+  <TASK>
+    process_scheduled_works+0x218/0x6d0
+    worker_thread+0x188/0x3f0
+    __cfi_worker_thread+0x10/0x10
+    kthread+0x226/0x2a0
+
+To ensure these rules are applied identically across both the normal
+teardown and the ucsi_init() error paths, consolidate the cleanup logic
+into a new helper, ucsi_unregister_port().
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Chesnokov <Alexander.Chesnokov@kaspersky.com>
+Fixes: b9aa02ca39a4 ("usb: typec: ucsi: Add polling mechanism for partner tasks like alt mode checking")
+Fixes: b13abcb7ddd8 ("usb: typec: ucsi: Fix NULL pointer access")
+Fixes: fac4b8633fd6 ("usb: ucsi: Ensure connector delayed work items are flushed")
+Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
 ---
- drivers/infiniband/hw/hns/hns_roce_hw_v2.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/usb/typec/ucsi/ucsi.c | 82 +++++++++++++++++------------------
+ 1 file changed, 39 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/infiniband/hw/hns/hns_roce_hw_v2.c b/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
-index 1c180a6b1c07..b62513b4db09 100644
---- a/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
-+++ b/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
-@@ -4257,11 +4257,11 @@ static int hns_roce_v2_set_hem(struct hns_roce_dev *hr_dev,
- 	chunk_ba_num = mhop.bt_chunk_size / 8;
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index 92166a3725b16..d9668ed7c80ea 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -1845,6 +1845,42 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
+ 	return ret;
+ }
  
- 	if (hop_num == 2) {
--		hem_idx = i * chunk_ba_num * chunk_ba_num + j * chunk_ba_num +
-+		hem_idx = (u64)i * chunk_ba_num * chunk_ba_num + (u64)j * chunk_ba_num +
- 			  k;
--		l1_idx = i * chunk_ba_num + j;
-+		l1_idx = (u64)i * chunk_ba_num + j;
- 	} else if (hop_num == 1) {
--		hem_idx = i * chunk_ba_num + j;
-+		hem_idx = (u64)i * chunk_ba_num + j;
- 	} else if (hop_num == HNS_ROCE_HOP_NUM_0) {
- 		hem_idx = i;
++static void ucsi_unregister_port(struct ucsi_connector *con)
++{
++	struct ucsi_work *uwork;
++
++	if (con->wq) {
++		mutex_lock(&con->lock);
++		ucsi_unregister_partner(con);
++		/*
++		 * queue delayed items immediately so they can execute
++		 * and free themselves before the wq is destroyed
++		 */
++		list_for_each_entry(uwork, &con->partner_tasks, node) {
++			if (cancel_delayed_work(&uwork->work))
++				queue_delayed_work(con->wq, &uwork->work, 0);
++		}
++		mutex_unlock(&con->lock);
++
++		destroy_workqueue(con->wq);
++		con->wq = NULL;
++	} else {
++		ucsi_unregister_partner(con);
++	}
++
++	ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
++	ucsi_unregister_port_psy(con);
++
++	usb_power_delivery_unregister_capabilities(con->port_sink_caps);
++	con->port_sink_caps = NULL;
++	usb_power_delivery_unregister_capabilities(con->port_source_caps);
++	con->port_source_caps = NULL;
++	usb_power_delivery_unregister(con->pd);
++	con->pd = NULL;
++	typec_unregister_port(con->port);
++	con->port = NULL;
++}
++
+ static u64 ucsi_get_supported_notifications(struct ucsi *ucsi)
+ {
+ 	u16 features = ucsi->cap.features;
+@@ -1971,22 +2007,8 @@ static int ucsi_init(struct ucsi *ucsi)
+ 	for (i = 0; i < ucsi->cap.num_connectors; i++)
+ 		lockdep_unregister_key(&connector[i].lock_key);
+ 
+-	for (con = connector; con->port; con++) {
+-		if (con->wq)
+-			destroy_workqueue(con->wq);
+-		ucsi_unregister_partner(con);
+-		ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
+-		ucsi_unregister_port_psy(con);
+-
+-		usb_power_delivery_unregister_capabilities(con->port_sink_caps);
+-		con->port_sink_caps = NULL;
+-		usb_power_delivery_unregister_capabilities(con->port_source_caps);
+-		con->port_source_caps = NULL;
+-		usb_power_delivery_unregister(con->pd);
+-		con->pd = NULL;
+-		typec_unregister_port(con->port);
+-		con->port = NULL;
+-	}
++	for (con = connector; con->port; con++)
++		ucsi_unregister_port(con);
+ 	kfree(connector);
+ err_reset:
+ 	memset(&ucsi->cap, 0, sizeof(ucsi->cap));
+@@ -2194,33 +2216,7 @@ void ucsi_unregister(struct ucsi *ucsi)
+ 
+ 	for (i = 0; i < ucsi->cap.num_connectors; i++) {
+ 		cancel_work_sync(&ucsi->connector[i].work);
+-
+-		if (ucsi->connector[i].wq) {
+-			struct ucsi_work *uwork;
+-
+-			mutex_lock(&ucsi->connector[i].lock);
+-			/*
+-			 * queue delayed items immediately so they can execute
+-			 * and free themselves before the wq is destroyed
+-			 */
+-			list_for_each_entry(uwork, &ucsi->connector[i].partner_tasks, node)
+-				mod_delayed_work(ucsi->connector[i].wq, &uwork->work, 0);
+-			mutex_unlock(&ucsi->connector[i].lock);
+-			destroy_workqueue(ucsi->connector[i].wq);
+-		}
+-
+-		ucsi_unregister_partner(&ucsi->connector[i]);
+-		ucsi_unregister_altmodes(&ucsi->connector[i],
+-					 UCSI_RECIPIENT_CON);
+-		ucsi_unregister_port_psy(&ucsi->connector[i]);
+-
+-		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_sink_caps);
+-		ucsi->connector[i].port_sink_caps = NULL;
+-		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_source_caps);
+-		ucsi->connector[i].port_source_caps = NULL;
+-		usb_power_delivery_unregister(ucsi->connector[i].pd);
+-		ucsi->connector[i].pd = NULL;
+-		typec_unregister_port(ucsi->connector[i].port);
++		ucsi_unregister_port(&ucsi->connector[i]);
+ 		lockdep_unregister_key(&ucsi->connector[i].lock_key);
  	}
+ 
 -- 
-2.43.0
+2.55.0.rc2.803.g1fd1e6609c-goog
 
